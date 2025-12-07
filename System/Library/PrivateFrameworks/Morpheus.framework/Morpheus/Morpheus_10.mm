@@ -1,1048 +1,8 @@
-void sub_25A303DDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
-{
-  *(v16 - 40) = v16 - 64;
-  _Unwind_Resume(a1);
-}
-
-_BYTE *std::string::__init_with_size[abi:ne200100]<std::__hash_const_iterator<std::__hash_node<char,void *> *>,std::__hash_const_iterator<std::__hash_node<char,void *> *>>(_BYTE *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
-{
-  if (a4 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v5 = result;
-  if (a4 > 0x16)
-  {
-    operator new();
-  }
-
-  result[23] = a4;
-  while (a2 != a3)
-  {
-    *v5++ = *(a2 + 16);
-    a2 = *a2;
-  }
-
-  *v5 = 0;
-  return result;
-}
-
-uint64_t **std::__introsort<std::_ClassicAlgPolicy,mlx::core::anonymous namespace::greedy_path(std::vector<mlx::core::anonymous namespace::Subscript>,mlx::core::anonymous namespace::Subscript const&,std::unordered_map<char,int>,unsigned long,unsigned long)::$_1 &,char *,false>(uint64_t **result, char *a2, void **a3, uint64_t a4, char a5)
-{
-  v7 = result;
-  while (2)
-  {
-    v8 = a2;
-    v166 = a2 - 1;
-    while (1)
-    {
-      while (1)
-      {
-        while (1)
-        {
-          v9 = v8 - v7;
-          v10 = v8 - v7 - 2;
-          if (v8 - v7 > 2)
-          {
-            switch(v9)
-            {
-              case 3:
-              case 4:
-              case 5:
-            }
-          }
-
-          else
-          {
-            if ((v8 - v7) < 2)
-            {
-              return result;
-            }
-
-            v8 = a2;
-            if (v9 == 2)
-            {
-              v82 = *v7;
-              v176 = *(a2 - 1);
-              v175 = v82;
-              v83 = *a3;
-              v177 = &v176;
-              v84 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v83, &v176) + 5);
-              v85 = *a3;
-              v177 = &v175;
-              result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v85, &v175);
-              if (v84 < *(result + 5))
-              {
-                v86 = *v7;
-                *v7 = *(a2 - 1);
-                *(a2 - 1) = v86;
-              }
-
-              return result;
-            }
-          }
-
-          v174 = v7;
-          if (v9 <= 23)
-          {
-            v87 = v7 + 1;
-            v88 = v7 == v8 || v87 == v8;
-            v89 = v88;
-            if (a5)
-            {
-              if ((v89 & 1) == 0)
-              {
-                v90 = 0;
-                v91 = v7;
-                do
-                {
-                  v92 = v91[1];
-                  v93 = *v91;
-                  v91 = v87;
-                  v176 = v92;
-                  v175 = v93;
-                  v94 = *a3;
-                  v177 = &v176;
-                  v95 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v94, &v176) + 5);
-                  v96 = *a3;
-                  v177 = &v175;
-                  result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v96, &v175);
-                  if (v95 < *(result + 5))
-                  {
-                    v97 = *v91;
-                    v98 = v90;
-                    while (1)
-                    {
-                      v7[v98 + 1] = v7[v98];
-                      if (!v98)
-                      {
-                        break;
-                      }
-
-                      v99 = v7[v98 - 1];
-                      v176 = v97;
-                      v175 = v99;
-                      v100 = *a3;
-                      v177 = &v176;
-                      v101 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v100, &v176) + 5);
-                      v102 = *a3;
-                      v177 = &v175;
-                      result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v102, &v175);
-                      --v98;
-                      v103 = v101 < *(result + 5);
-                      v7 = v174;
-                      if (!v103)
-                      {
-                        v104 = &v174[v98 + 1];
-                        goto LABEL_79;
-                      }
-                    }
-
-                    v104 = v7;
-LABEL_79:
-                    *v104 = v97;
-                  }
-
-                  v87 = v91 + 1;
-                  ++v90;
-                }
-
-                while (v91 + 1 != a2);
-              }
-            }
-
-            else if ((v89 & 1) == 0)
-            {
-              do
-              {
-                v154 = v7[1];
-                v155 = *v7;
-                v7 = v87;
-                v176 = v154;
-                v175 = v155;
-                v156 = *a3;
-                v177 = &v176;
-                v157 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v156, &v176) + 5);
-                v158 = *a3;
-                v177 = &v175;
-                result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v158, &v175);
-                if (v157 < *(result + 5))
-                {
-                  v159 = *v7;
-                  v160 = v7;
-                  do
-                  {
-                    v161 = v160;
-                    v162 = *--v160;
-                    *v161 = v162;
-                    LOBYTE(v161) = *(v161 - 2);
-                    v176 = v159;
-                    v175 = v161;
-                    v163 = *a3;
-                    v177 = &v176;
-                    v164 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v163, &v176) + 5);
-                    v165 = *a3;
-                    v177 = &v175;
-                    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v165, &v175);
-                  }
-
-                  while (v164 < *(result + 5));
-                  *v160 = v159;
-                }
-
-                v87 = v7 + 1;
-              }
-
-              while (v7 + 1 != a2);
-            }
-
-            return result;
-          }
-
-          if (!a4)
-          {
-            if (v7 != v8)
-            {
-              v105 = v10 >> 1;
-              v171 = v105;
-              do
-              {
-                v106 = v105;
-                if (v171 >= v105)
-                {
-                  v107 = (2 * v105) | 1;
-                  v108 = &v7[v107];
-                  v109 = 2 * v105 + 2;
-                  v167 = v105;
-                  if (v109 < v9)
-                  {
-                    v110 = v108[1];
-                    v176 = *v108;
-                    v175 = v110;
-                    v111 = *a3;
-                    v177 = &v176;
-                    v112 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v111, &v176) + 5);
-                    v113 = *a3;
-                    v177 = &v175;
-                    v114 = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v113, &v175);
-                    v106 = v167;
-                    if (v112 < *(v114 + 5))
-                    {
-                      ++v108;
-                      v107 = v109;
-                    }
-                  }
-
-                  v115 = &v7[v106];
-                  v116 = v7[v106];
-                  v176 = *v108;
-                  v175 = v116;
-                  v117 = *a3;
-                  v177 = &v176;
-                  v118 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v117, &v176) + 5);
-                  v119 = *a3;
-                  v177 = &v175;
-                  result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v119, &v175);
-                  v106 = v167;
-                  if (v118 >= *(result + 5))
-                  {
-                    v169 = *v115;
-                    do
-                    {
-                      v120 = v108;
-                      *v115 = *v108;
-                      if (v171 < v107)
-                      {
-                        break;
-                      }
-
-                      v121 = (2 * v107) | 1;
-                      v108 = &v174[v121];
-                      v122 = 2 * v107 + 2;
-                      if (v122 < v9)
-                      {
-                        v123 = v108[1];
-                        v176 = *v108;
-                        v175 = v123;
-                        v124 = *a3;
-                        v177 = &v176;
-                        v125 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v124, &v176) + 5);
-                        v126 = *a3;
-                        v177 = &v175;
-                        if (v125 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v126, &v175) + 5))
-                        {
-                          ++v108;
-                          v121 = v122;
-                        }
-                      }
-
-                      v176 = *v108;
-                      v175 = v169;
-                      v127 = *a3;
-                      v177 = &v176;
-                      v128 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v127, &v176) + 5);
-                      v129 = *a3;
-                      v177 = &v175;
-                      result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v129, &v175);
-                      v115 = v120;
-                      v107 = v121;
-                    }
-
-                    while (v128 >= *(result + 5));
-                    *v120 = v169;
-                    v7 = v174;
-                    v106 = v167;
-                  }
-                }
-
-                v105 = v106 - 1;
-              }
-
-              while (v106);
-              do
-              {
-                v130 = 0;
-                v172 = *v7;
-                do
-                {
-                  v131 = &v7[v130];
-                  v132 = &v7[v130 + 1];
-                  v133 = (2 * v130) | 1;
-                  v134 = 2 * v130 + 2;
-                  if (v134 >= v9)
-                  {
-                    v130 = (2 * v130) | 1;
-                  }
-
-                  else
-                  {
-                    v136 = v131[2];
-                    v135 = v131 + 2;
-                    v176 = *(v135 - 1);
-                    v175 = v136;
-                    v137 = *a3;
-                    v177 = &v176;
-                    v138 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v137, &v176) + 5);
-                    v139 = *a3;
-                    v177 = &v175;
-                    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v139, &v175);
-                    if (v138 >= *(result + 5))
-                    {
-                      v130 = v133;
-                    }
-
-                    else
-                    {
-                      v132 = v135;
-                      v130 = v134;
-                    }
-                  }
-
-                  *v7 = *v132;
-                  v7 = v132;
-                }
-
-                while (v130 <= ((v9 - 2) >> 1));
-                v140 = a2 - 1;
-                v88 = v132 == --a2;
-                if (v88)
-                {
-                  *v132 = v172;
-                }
-
-                else
-                {
-                  *v132 = *v140;
-                  *v140 = v172;
-                  v141 = v132 - v174 - 1;
-                  if (v132 - v174 + 1 >= 2)
-                  {
-                    v142 = &v174[v141 >> 1];
-                    v143 = *v132;
-                    v176 = *v142;
-                    v175 = v143;
-                    v144 = *a3;
-                    v177 = &v176;
-                    v145 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v144, &v176) + 5);
-                    v146 = *a3;
-                    v177 = &v175;
-                    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v146, &v175);
-                    if (v145 < *(result + 5))
-                    {
-                      v147 = v141 >> 1;
-                      v148 = *v132;
-                      do
-                      {
-                        v149 = v142;
-                        *v132 = *v142;
-                        if (!v147)
-                        {
-                          break;
-                        }
-
-                        v150 = v147 - 1;
-                        v147 = (v147 - 1) >> 1;
-                        v142 = &v174[v150 >> 1];
-                        v176 = *v142;
-                        v175 = v148;
-                        v151 = *a3;
-                        v177 = &v176;
-                        v152 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v151, &v176) + 5);
-                        v153 = *a3;
-                        v177 = &v175;
-                        result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v153, &v175);
-                        v132 = v149;
-                      }
-
-                      while (v152 < *(result + 5));
-                      *v149 = v148;
-                    }
-                  }
-                }
-
-                v103 = v9-- <= 2;
-                v7 = v174;
-              }
-
-              while (!v103);
-            }
-
-            return result;
-          }
-
-          v11 = &v7[v9 >> 1];
-          if (v9 < 0x81)
-          {
-          }
-
-          else
-          {
-            v12 = v9 >> 1;
-            v13 = v7 + 1;
-            v14 = a4;
-            v15 = &v7[v12];
-            v16 = &v7[v12 - 1];
-            v17 = v16;
-            v7 = v174;
-            v18 = *v174;
-            *v174 = *v15;
-            *v15 = v18;
-            a4 = v14;
-            v8 = a2;
-          }
-
-          v19 = a4 - 1;
-          if (a5)
-          {
-            break;
-          }
-
-          v20 = *v7;
-          v176 = *(v7 - 1);
-          v175 = v20;
-          v21 = *a3;
-          v177 = &v176;
-          v22 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v21, &v176) + 5);
-          v23 = *a3;
-          v177 = &v175;
-          if (v22 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v23, &v175) + 5))
-          {
-            break;
-          }
-
-          v53 = v19;
-          v54 = *v7;
-          v55 = *v166;
-          v176 = *v7;
-          v175 = v55;
-          v56 = *a3;
-          v177 = &v176;
-          v57 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v56, &v176) + 5);
-          v58 = *a3;
-          v177 = &v175;
-          result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v58, &v175);
-          if (v57 >= *(result + 5))
-          {
-            v63 = v7 + 1;
-            do
-            {
-              v7 = v63;
-              if (v63 >= v8)
-              {
-                break;
-              }
-
-              ++v63;
-              v64 = *v7;
-              v176 = v54;
-              v175 = v64;
-              v65 = *a3;
-              v177 = &v176;
-              v66 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v65, &v176) + 5);
-              v67 = *a3;
-              v177 = &v175;
-              result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v67, &v175);
-            }
-
-            while (v66 >= *(result + 5));
-          }
-
-          else
-          {
-            do
-            {
-              v59 = *++v7;
-              v176 = v54;
-              v175 = v59;
-              v60 = *a3;
-              v177 = &v176;
-              v61 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v60, &v176) + 5);
-              v62 = *a3;
-              v177 = &v175;
-              result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v62, &v175);
-            }
-
-            while (v61 >= *(result + 5));
-          }
-
-          if (v7 < v8)
-          {
-            v8 = a2;
-            do
-            {
-              v68 = *--v8;
-              v176 = v54;
-              v175 = v68;
-              v69 = *a3;
-              v177 = &v176;
-              v70 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v69, &v176) + 5);
-              v71 = *a3;
-              v177 = &v175;
-              result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v71, &v175);
-            }
-
-            while (v70 < *(result + 5));
-          }
-
-          a4 = v53;
-          while (v7 < v8)
-          {
-            v72 = *v7;
-            *v7 = *v8;
-            *v8 = v72;
-            do
-            {
-              v73 = *++v7;
-              v176 = v54;
-              v175 = v73;
-              v74 = *a3;
-              v177 = &v176;
-              v75 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v74, &v176) + 5);
-              v76 = *a3;
-              v177 = &v175;
-            }
-
-            while (v75 >= *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v76, &v175) + 5));
-            do
-            {
-              v77 = *--v8;
-              v176 = v54;
-              v175 = v77;
-              v78 = *a3;
-              v177 = &v176;
-              v79 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v78, &v176) + 5);
-              v80 = *a3;
-              v177 = &v175;
-              result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v80, &v175);
-            }
-
-            while (v79 < *(result + 5));
-          }
-
-          v81 = v7 - 1;
-          if (v7 - 1 != v174)
-          {
-            *v174 = *v81;
-          }
-
-          a5 = 0;
-          *v81 = v54;
-          v8 = a2;
-        }
-
-        v170 = v19;
-        v24 = 0;
-        v25 = *v7;
-        do
-        {
-          v176 = v7[v24 + 1];
-          v175 = v25;
-          v26 = *a3;
-          v177 = &v176;
-          v27 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v26, &v176) + 5);
-          v28 = *a3;
-          v177 = &v175;
-          ++v24;
-        }
-
-        while (v27 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v28, &v175) + 5));
-        v29 = &v7[v24];
-        v30 = v8;
-        if (v24 == 1)
-        {
-          v30 = v8;
-          do
-          {
-            if (v29 >= v30)
-            {
-              break;
-            }
-
-            v35 = *--v30;
-            v176 = v35;
-            v175 = v25;
-            v36 = *a3;
-            v177 = &v176;
-            v37 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v36, &v176) + 5);
-            v38 = *a3;
-            v177 = &v175;
-          }
-
-          while (v37 >= *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v38, &v175) + 5));
-        }
-
-        else
-        {
-          do
-          {
-            v31 = *--v30;
-            v176 = v31;
-            v175 = v25;
-            v32 = *a3;
-            v177 = &v176;
-            v33 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v32, &v176) + 5);
-            v34 = *a3;
-            v177 = &v175;
-          }
-
-          while (v33 >= *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v34, &v175) + 5));
-        }
-
-        if (v29 >= v30)
-        {
-          v50 = v29 - 1;
-        }
-
-        else
-        {
-          v39 = v29;
-          v40 = v30;
-          do
-          {
-            v41 = *v39;
-            *v39 = *v40;
-            *v40 = v41;
-            do
-            {
-              v42 = *++v39;
-              v176 = v42;
-              v175 = v25;
-              v43 = *a3;
-              v177 = &v176;
-              v44 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v43, &v176) + 5);
-              v45 = *a3;
-              v177 = &v175;
-            }
-
-            while (v44 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v45, &v175) + 5));
-            do
-            {
-              v46 = *--v40;
-              v176 = v46;
-              v175 = v25;
-              v47 = *a3;
-              v177 = &v176;
-              v48 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v47, &v176) + 5);
-              v49 = *a3;
-              v177 = &v175;
-            }
-
-            while (v48 >= *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v49, &v175) + 5));
-          }
-
-          while (v39 < v40);
-          v50 = v39 - 1;
-          v8 = a2;
-        }
-
-        if (v50 != v174)
-        {
-          *v174 = *v50;
-        }
-
-        *v50 = v25;
-        v51 = v29 >= v30;
-        a4 = v170;
-        if (v51)
-        {
-          break;
-        }
-
-LABEL_39:
-        a5 = 0;
-        v7 = v50 + 1;
-      }
-
-      v7 = v50 + 1;
-      if (result)
-      {
-        break;
-      }
-
-      if (!v52)
-      {
-        goto LABEL_39;
-      }
-    }
-
-    a2 = v50;
-    v7 = v174;
-    if (!v52)
-    {
-      continue;
-    }
-
-    return result;
-  }
-}
-
-uint64_t **std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,mlx::core::anonymous namespace::greedy_path(std::vector<mlx::core::anonymous namespace::Subscript>,mlx::core::anonymous namespace::Subscript const&,std::unordered_map<char,int>,unsigned long,unsigned long)::$_1 &,char *,0>(char *a1, char *a2, char *a3, void **a4)
-{
-  v8 = *a1;
-  v33 = *a2;
-  v32 = v8;
-  v9 = *a4;
-  v34 = &v33;
-  v10 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v9, &v33) + 5);
-  v11 = *a4;
-  v34 = &v32;
-  v12 = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v11, &v32);
-  v13 = *a3;
-  v14 = *a2;
-  if (v10 >= *(v12 + 5))
-  {
-    v33 = *a3;
-    v32 = v14;
-    v20 = *a4;
-    v34 = &v33;
-    v21 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v20, &v33) + 5);
-    v22 = *a4;
-    v34 = &v32;
-    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v22, &v32);
-    if (v21 < *(result + 5))
-    {
-      v23 = *a2;
-      *a2 = *a3;
-      *a3 = v23;
-      v24 = *a1;
-      v33 = *a2;
-      v32 = v24;
-      v25 = *a4;
-      v34 = &v33;
-      v26 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v25, &v33) + 5);
-      v27 = *a4;
-      v34 = &v32;
-      result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v27, &v32);
-      if (v26 < *(result + 5))
-      {
-        v28 = *a1;
-        *a1 = *a2;
-        *a2 = v28;
-      }
-    }
-  }
-
-  else
-  {
-    v33 = *a3;
-    v32 = v14;
-    v15 = *a4;
-    v34 = &v33;
-    v16 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v15, &v33) + 5);
-    v17 = *a4;
-    v34 = &v32;
-    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v17, &v32);
-    v19 = *a1;
-    if (v16 >= *(result + 5))
-    {
-      *a1 = *a2;
-      *a2 = v19;
-      v33 = *a3;
-      v32 = v19;
-      v29 = *a4;
-      v34 = &v33;
-      v30 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v29, &v33) + 5);
-      v31 = *a4;
-      v34 = &v32;
-      result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v31, &v32);
-      if (v30 >= *(result + 5))
-      {
-        return result;
-      }
-
-      v19 = *a2;
-      *a2 = *a3;
-    }
-
-    else
-    {
-      *a1 = *a3;
-    }
-
-    *a3 = v19;
-  }
-
-  return result;
-}
-
-uint64_t **std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,mlx::core::anonymous namespace::greedy_path(std::vector<mlx::core::anonymous namespace::Subscript>,mlx::core::anonymous namespace::Subscript const&,std::unordered_map<char,int>,unsigned long,unsigned long)::$_1 &,char *,0>(char *a1, char *a2, char *a3, char *a4, void **a5)
-{
-  v10 = *a3;
-  v27 = *a4;
-  v26 = v10;
-  v11 = *a5;
-  v28 = &v27;
-  v12 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v11, &v27) + 5);
-  v13 = *a5;
-  v28 = &v26;
-  result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v13, &v26);
-  if (v12 < *(result + 5))
-  {
-    v15 = *a3;
-    *a3 = *a4;
-    *a4 = v15;
-    v16 = *a2;
-    v27 = *a3;
-    v26 = v16;
-    v17 = *a5;
-    v28 = &v27;
-    v18 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v17, &v27) + 5);
-    v19 = *a5;
-    v28 = &v26;
-    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v19, &v26);
-    if (v18 < *(result + 5))
-    {
-      v20 = *a2;
-      *a2 = *a3;
-      *a3 = v20;
-      v21 = *a1;
-      v27 = *a2;
-      v26 = v21;
-      v22 = *a5;
-      v28 = &v27;
-      v23 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v22, &v27) + 5);
-      v24 = *a5;
-      v28 = &v26;
-      result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v24, &v26);
-      if (v23 < *(result + 5))
-      {
-        v25 = *a1;
-        *a1 = *a2;
-        *a2 = v25;
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t **std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,mlx::core::anonymous namespace::greedy_path(std::vector<mlx::core::anonymous namespace::Subscript>,mlx::core::anonymous namespace::Subscript const&,std::unordered_map<char,int>,unsigned long,unsigned long)::$_1 &,char *,0>(char *a1, char *a2, char *a3, char *a4, char *a5, void **a6)
-{
-  v12 = *a4;
-  v34 = *a5;
-  v33 = v12;
-  v13 = *a6;
-  v35 = &v34;
-  v14 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v13, &v34) + 5);
-  v15 = *a6;
-  v35 = &v33;
-  result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v15, &v33);
-  if (v14 < *(result + 5))
-  {
-    v17 = *a4;
-    *a4 = *a5;
-    *a5 = v17;
-    v18 = *a3;
-    v34 = *a4;
-    v33 = v18;
-    v19 = *a6;
-    v35 = &v34;
-    v20 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v19, &v34) + 5);
-    v21 = *a6;
-    v35 = &v33;
-    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v21, &v33);
-    if (v20 < *(result + 5))
-    {
-      v22 = *a3;
-      *a3 = *a4;
-      *a4 = v22;
-      v23 = *a2;
-      v34 = *a3;
-      v33 = v23;
-      v24 = *a6;
-      v35 = &v34;
-      v25 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v24, &v34) + 5);
-      v26 = *a6;
-      v35 = &v33;
-      result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v26, &v33);
-      if (v25 < *(result + 5))
-      {
-        v27 = *a2;
-        *a2 = *a3;
-        *a3 = v27;
-        v28 = *a1;
-        v34 = *a2;
-        v33 = v28;
-        v29 = *a6;
-        v35 = &v34;
-        v30 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v29, &v34) + 5);
-        v31 = *a6;
-        v35 = &v33;
-        result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v31, &v33);
-        if (v30 < *(result + 5))
-        {
-          v32 = *a1;
-          *a1 = *a2;
-          *a2 = v32;
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,mlx::core::anonymous namespace::greedy_path(std::vector<mlx::core::anonymous namespace::Subscript>,mlx::core::anonymous namespace::Subscript const&,std::unordered_map<char,int>,unsigned long,unsigned long)::$_1 &,char *>(char *a1, char *a2, void **a3)
-{
-  v4 = a2;
-  v6 = a2 - a1;
-  if (a2 - a1 <= 2)
-  {
-    if ((a2 - a1) >= 2)
-    {
-      if (v6 == 2)
-      {
-        v7 = *a1;
-        v32 = *(a2 - 1);
-        v31 = v7;
-        v8 = *a3;
-        v33 = &v32;
-        v9 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v8, &v32) + 5);
-        v10 = *a3;
-        v33 = &v31;
-        if (v9 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v10, &v31) + 5))
-        {
-          v11 = *a1;
-          *a1 = *(v4 - 1);
-          *(v4 - 1) = v11;
-        }
-
-        return 1;
-      }
-
-      goto LABEL_11;
-    }
-
-    return 1;
-  }
-
-  switch(v6)
-  {
-    case 3:
-      return 1;
-    case 4:
-      return 1;
-    case 5:
-      return 1;
-  }
-
-LABEL_11:
-  v12 = a1 + 2;
-  v13 = a1 + 3;
-  if (a1 + 3 == v4)
-  {
-    return 1;
-  }
-
-  v14 = 0;
-  v15 = 3;
-  v29 = v4;
-  while (1)
-  {
-    v16 = *v12;
-    v32 = *v13;
-    v31 = v16;
-    v17 = *a3;
-    v33 = &v32;
-    v18 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v17, &v32) + 5);
-    v19 = *a3;
-    v33 = &v31;
-    if (v18 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v19, &v31) + 5))
-    {
-      v30 = v14;
-      v20 = *v13;
-      v21 = v15;
-      while (1)
-      {
-        v22 = &a1[v21];
-        a1[v21] = a1[v21 - 1];
-        if (!--v21)
-        {
-          break;
-        }
-
-        v23 = *(v22 - 2);
-        v32 = v20;
-        v31 = v23;
-        v24 = *a3;
-        v33 = &v32;
-        v25 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v24, &v32) + 5);
-        v26 = *a3;
-        v33 = &v31;
-        if (v25 >= *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v26, &v31) + 5))
-        {
-          v27 = &a1[v21];
-          goto LABEL_19;
-        }
-      }
-
-      v27 = a1;
-LABEL_19:
-      *v27 = v20;
-      v14 = v30 + 1;
-      v4 = v29;
-      if (v30 == 7)
-      {
-        return v13 + 1 == v29;
-      }
-    }
-
-    v12 = v13;
-    ++v15;
-    if (++v13 == v4)
-    {
-      return 1;
-    }
-  }
-}
-
 void std::allocator_traits<std::allocator<mlx::core::anonymous namespace::PathNode>>::construct[abi:ne200100]<mlx::core::anonymous namespace::PathNode,std::vector<mlx::core::anonymous namespace::Subscript>,mlx::core::anonymous namespace::Subscript&,std::vector<int>,void,0>(uint64_t a1, __int128 *a2, uint64_t a3, __int128 *a4)
 {
   v11 = *a2;
   v12 = *(a2 + 2);
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   *(a2 + 2) = 0;
   if (*(a3 + 23) < 0)
   {
@@ -1084,11 +44,11 @@ void sub_25A305734(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<mlx::core::anonymous namespace::PathNode>::vector[abi:ne200100](void *result, void *a2)
+uint64_t *std::vector<mlx::core::anonymous namespace::PathNode>::vector[abi:ne200100](uint64_t *a1, uint64_t *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
@@ -1100,12 +60,12 @@ void *std::vector<mlx::core::anonymous namespace::PathNode>::vector[abi:ne200100
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  return result;
+  return a1;
 }
 
-void sub_25A3058A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A3058A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _Unwind_Resume(a1);
 }
 
@@ -1225,7 +185,7 @@ uint64_t std::pair<std::vector<std::string>,std::string>::~pair(uint64_t a1)
   return a1;
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
+char *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -1248,7 +208,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   }
 
   result = std::string::basic_string[abi:ne200100](a3, v6 + v5);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v8 = result;
   }
@@ -1315,68 +275,68 @@ uint64_t *std::__hash_table<char,std::hash<char>,std::equal_to<char>,std::alloca
   return result;
 }
 
-void mlx::core::anonymous namespace::batch_tensordot(mlx::core::array,mlx::core::array,std::vector<int>,std::vector<int>,std::vector<int>,std::vector<int>,std::vector<int>,std::vector<int>,std::variant<std::monostate,mlx::core::Stream,mlx::core::Device>)::$_0::operator()(mlx::core ***a1, uint64_t **a2, uint64_t *a3, char **a4, char **a5)
+void mlx::core::anonymous namespace::batch_tensordot(mlx::core::array,mlx::core::array,std::vector<int>,std::vector<int>,std::vector<int>,std::vector<int>,std::vector<int>,std::vector<int>,std::variant<std::monostate,mlx::core::Stream,mlx::core::Device>)::$_0::operator()(mlx::core ***a1, uint64_t **a2, int **a3, char **a4, char **a5)
 {
-  v10 = *a3;
-  v11 = a3[1];
+  v11 = *a3;
+  v12 = a3[1];
   __dst = 0;
-  v28 = 0;
-  v26 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(&v26, v10, v11, (v11 - v10) >> 2);
-  std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(&v26, __dst, *a4, a4[1], (a4[1] - *a4) >> 2);
-  std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(&v26, __dst, *a5, a5[1], (a5[1] - *a5) >> 2);
+  v29 = 0;
+  v27 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(&v27, v11, v12, v12 - v11);
+  std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(&v27, __dst, *a4, a4[1], (a4[1] - *a4) >> 2);
+  std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(&v27, __dst, *a5, a5[1], (a5[1] - *a5) >> 2);
+  v26 = 1;
+  v14 = *a4;
+  v13 = a4[1];
+  if (v14 != v13)
+  {
+    v15 = 1;
+    do
+    {
+      v15 *= mlx::core::array::shape(a2, *v14);
+      v26 = v15;
+      v14 += 4;
+    }
+
+    while (v14 != v13);
+  }
+
   v25 = 1;
-  v13 = *a4;
-  v12 = a4[1];
-  if (v13 != v12)
+  v17 = *a5;
+  v16 = a5[1];
+  if (v17 != v16)
   {
-    v14 = 1;
+    v18 = 1;
     do
     {
-      v14 *= mlx::core::array::shape(a2, *v13);
-      v25 = v14;
-      v13 += 4;
+      v18 *= mlx::core::array::shape(a2, *v17);
+      v25 = v18;
+      v17 += 4;
     }
 
-    while (v13 != v12);
+    while (v17 != v16);
   }
 
-  v24 = 1;
-  v16 = *a5;
-  v15 = a5[1];
-  if (v16 != v15)
+  v23[0] = 0;
+  v23[1] = 0;
+  v24 = 0;
+  v20 = *a3;
+  v19 = a3[1];
+  while (v20 != v19)
   {
-    v17 = 1;
-    do
-    {
-      v17 *= mlx::core::array::shape(a2, *v16);
-      v24 = v17;
-      v16 += 4;
-    }
-
-    while (v16 != v15);
+    v22[0] = mlx::core::array::shape(a2, *v20);
+    std::vector<int>::push_back[abi:ne200100](v23, v22);
+    ++v20;
   }
 
-  v22[0] = 0;
-  v22[1] = 0;
-  v23 = 0;
-  v19 = *a3;
-  v18 = a3[1];
-  while (v19 != v18)
-  {
-    v21[0] = mlx::core::array::shape(a2, *v19);
-    std::vector<int>::push_back[abi:ne200100](v22, v21);
-    ++v19;
-  }
-
-  std::vector<int>::push_back[abi:ne200100](v22, &v25);
-  std::vector<int>::push_back[abi:ne200100](v22, &v24);
-  memset(v20, 0, sizeof(v20));
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v20, v26, __dst, (__dst - v26) >> 2);
-  mlx::core::transpose(a2, v20, **a1, (*a1)[1]);
+  std::vector<int>::push_back[abi:ne200100](v23, &v26);
+  std::vector<int>::push_back[abi:ne200100](v23, &v25);
+  memset(v21, 0, sizeof(v21));
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v21, v27, __dst, (__dst - v27) >> 2);
+  mlx::core::transpose(a2, v21, **a1, (*a1)[1]);
 }
 
-void sub_25A305E74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23)
+void sub_25A305E74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23)
 {
   if (__p)
   {
@@ -1404,22 +364,22 @@ void sub_25A305E74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t **std::__introsort<std::_ClassicAlgPolicy,mlx::core::anonymous namespace::einsum_naive(std::vector<mlx::core::anonymous namespace::Subscript>,mlx::core::anonymous namespace::Subscript const&,std::vector<int> const&,std::vector<mlx::core::array>,std::variant<std::monostate,mlx::core::Stream,mlx::core::Device>)::$_0 &,std::pair<char,int> *,false>(uint64_t **result, char *a2, void **a3, uint64_t a4, char a5)
+unint64_t std::__introsort<std::_ClassicAlgPolicy,mlx::core::anonymous namespace::einsum_naive(std::vector<mlx::core::anonymous namespace::Subscript>,mlx::core::anonymous namespace::Subscript const&,std::vector<int> const&,std::vector<mlx::core::array>,std::variant<std::monostate,mlx::core::Stream,mlx::core::Device>)::$_0 &,std::pair<char,int> *,false>(unint64_t result, uint64_t *a2, uint64_t *a3, uint64_t a4, char a5)
 {
   v8 = result;
   while (2)
   {
-    v137 = a2 - 8;
+    v137 = (a2 - 1);
     v140 = a2;
-    v134 = (a2 - 24);
-    v135 = (a2 - 16);
+    v134 = (a2 - 3);
+    v135 = (a2 - 2);
     while (1)
     {
       while (1)
       {
         while (1)
         {
-          v9 = &a2[-v8] >> 3;
+          v9 = (a2 - v8) >> 3;
           v10 = v9 - 2;
           if (v9 > 2)
           {
@@ -1442,11 +402,11 @@ uint64_t **std::__introsort<std::_ClassicAlgPolicy,mlx::core::anonymous namespac
             {
               v62 = *a3;
               v144 = v137;
-              v63 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v62, v137) + 5);
+              v63 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v62, v137, &std::piecewise_construct, &v144) + 5);
               v64 = *a3;
               v144 = v8;
-              result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v64, v8);
-              if (v63 < *(result + 5))
+              result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v64, v8, &std::piecewise_construct, &v144);
+              if (v63 < *(result + 20))
               {
                 v65 = *v8;
                 *v8 = *(a2 - 8);
@@ -1477,11 +437,11 @@ uint64_t **std::__introsort<std::_ClassicAlgPolicy,mlx::core::anonymous namespac
                     v69 = v67;
                     v71 = *a3;
                     v144 = v67;
-                    v72 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v71, v67) + 5);
+                    v72 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v71, v67, &std::piecewise_construct, &v144) + 5);
                     v73 = *a3;
                     v144 = v70;
-                    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v73, v70);
-                    if (v72 < *(result + 5))
+                    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v73, v70, &std::piecewise_construct, &v144);
+                    if (v72 < *(result + 20))
                     {
                       v143 = *v69;
                       v74 = v68;
@@ -1498,11 +458,11 @@ uint64_t **std::__introsort<std::_ClassicAlgPolicy,mlx::core::anonymous namespac
                         v74 -= 8;
                         v76 = *a3;
                         v144 = &v143;
-                        v77 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v76, &v143) + 5);
+                        v77 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v76, &v143, &std::piecewise_construct, &v144) + 5);
                         v78 = *a3;
                         v144 = (v74 + v8);
-                        result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v78, (v74 + v8));
-                        if (v77 >= *(result + 5))
+                        result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v78, (v74 + v8), &std::piecewise_construct, &v144);
+                        if (v77 >= *(result + 20))
                         {
                           v79 = v8 + v74 + 8;
                           goto LABEL_71;
@@ -1536,11 +496,11 @@ LABEL_71:
                   v8 = v124;
                   v127 = *a3;
                   v144 = v124;
-                  v128 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v127, v124) + 5);
+                  v128 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v127, v124, &std::piecewise_construct, &v144) + 5);
                   v129 = *a3;
                   v144 = v126;
-                  result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v129, v126);
-                  if (v128 < *(result + 5))
+                  result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v129, v126, &std::piecewise_construct, &v144);
+                  if (v128 < *(result + 20))
                   {
                     v143 = *v8;
                     v130 = v125;
@@ -1550,14 +510,14 @@ LABEL_71:
                       *(v130 + 20) = *(v130 + 12);
                       v131 = *a3;
                       v144 = &v143;
-                      v132 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v131, &v143) + 5);
+                      v132 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v131, &v143, &std::piecewise_construct, &v144) + 5);
                       v133 = *a3;
                       v144 = v130;
-                      result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v133, v130);
+                      result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v133, v130, &std::piecewise_construct, &v144);
                       v130 -= 8;
                     }
 
-                    while (v132 < *(result + 5));
+                    while (v132 < *(result + 20));
                     *(v130 + 16) = v143;
                     *(v130 + 20) = HIDWORD(v143);
                   }
@@ -1593,10 +553,10 @@ LABEL_71:
                   {
                     v86 = *a3;
                     v144 = (v8 + 8 * v83);
-                    v87 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v86, v144) + 5);
+                    v87 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v86, v144, &std::piecewise_construct, &v144) + 5);
                     v88 = *a3;
                     v144 = (v84 + 8);
-                    v89 = v87 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v88, (v84 + 8)) + 5);
+                    v89 = v87 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v88, (v84 + 8), &std::piecewise_construct, &v144) + 5);
                     v82 = v138;
                     if (v89)
                     {
@@ -1608,11 +568,11 @@ LABEL_71:
                   v90 = v8 + 8 * v82;
                   v91 = *a3;
                   v144 = v84;
-                  v92 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v91, v84) + 5);
+                  v92 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v91, v84, &std::piecewise_construct, &v144) + 5);
                   v93 = *a3;
                   v144 = v90;
-                  result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v93, v90);
-                  if (v92 >= *(result + 5))
+                  result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v93, v90, &std::piecewise_construct, &v144);
+                  if (v92 >= *(result + 20))
                   {
                     v143 = *v90;
                     do
@@ -1632,10 +592,10 @@ LABEL_71:
                       {
                         v97 = *a3;
                         v144 = (v8 + 8 * v95);
-                        v98 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v97, v144) + 5);
+                        v98 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v97, v144, &std::piecewise_construct, &v144) + 5);
                         v99 = *a3;
                         v144 = (v84 + 8);
-                        if (v98 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v99, (v84 + 8)) + 5))
+                        if (v98 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v99, (v84 + 8), &std::piecewise_construct, &v144) + 5))
                         {
                           v84 += 8;
                           v95 = v96;
@@ -1644,13 +604,13 @@ LABEL_71:
 
                       v100 = *a3;
                       v144 = v84;
-                      v101 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v100, v84) + 5);
+                      v101 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v100, v84, &std::piecewise_construct, &v144) + 5);
                       v102 = *a3;
                       v144 = &v143;
-                      result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v102, &v143);
+                      result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v102, &v143, &std::piecewise_construct, &v144);
                       v90 = v94;
                       v83 = v95;
-                      v89 = v101 < *(result + 5);
+                      v89 = v101 < *(result + 20);
                       v8 = v142;
                     }
 
@@ -1682,11 +642,11 @@ LABEL_71:
                     v109 = (v105 + 16);
                     v110 = *a3;
                     v144 = (v105 + 8);
-                    v111 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v110, (v105 + 8)) + 5);
+                    v111 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v110, (v105 + 8), &std::piecewise_construct, &v144) + 5);
                     v112 = *a3;
                     v144 = v109;
-                    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v112, v109);
-                    if (v111 < *(result + 5))
+                    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v112, v109, &std::piecewise_construct, &v144);
+                    if (v111 < *(result + 20))
                     {
                       v106 = v109;
                       v107 = v108;
@@ -1700,8 +660,8 @@ LABEL_71:
                 }
 
                 while (v107 <= ((v9 - 2) >> 1));
-                v103 -= 8;
-                if (v106 == v141 - 8)
+                --v103;
+                if (v106 == (v141 - 1))
                 {
                   *v106 = v139;
                   *(v106 + 1) = HIDWORD(v139);
@@ -1724,11 +684,11 @@ LABEL_71:
                     v116 = v142 + 8 * (v114 >> 1);
                     v117 = *a3;
                     v144 = v116;
-                    v118 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v117, v116) + 5);
+                    v118 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v117, v116, &std::piecewise_construct, &v144) + 5);
                     v119 = *a3;
                     v144 = v106;
-                    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v119, v106);
-                    if (v118 < *(result + 5))
+                    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v119, v106, &std::piecewise_construct, &v144);
+                    if (v118 < *(result + 20))
                     {
                       v143 = *v106;
                       do
@@ -1745,14 +705,14 @@ LABEL_71:
                         v116 = v142 + 8 * v115;
                         v121 = *a3;
                         v144 = v116;
-                        v122 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v121, v116) + 5);
+                        v122 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v121, v116, &std::piecewise_construct, &v144) + 5);
                         v123 = *a3;
                         v144 = &v143;
-                        result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v123, &v143);
+                        result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v123, &v143, &std::piecewise_construct, &v144);
                         v106 = v120;
                       }
 
-                      while (v122 < *(result + 5));
+                      while (v122 < *(result + 20));
                       *v120 = v143;
                       *(v120 + 4) = HIDWORD(v143);
                     }
@@ -1793,10 +753,10 @@ LABEL_71:
 
           v15 = *a3;
           v144 = (v8 - 8);
-          v16 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v15, (v8 - 8)) + 5);
+          v16 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v15, (v8 - 8), &std::piecewise_construct, &v144) + 5);
           v17 = *a3;
           v144 = v8;
-          if (v16 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v17, v8) + 5))
+          if (v16 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v17, v8, &std::piecewise_construct, &v144) + 5))
           {
             break;
           }
@@ -1804,11 +764,11 @@ LABEL_71:
           v143 = *v8;
           v40 = *a3;
           v144 = &v143;
-          v41 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v40, &v143) + 5);
+          v41 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v40, &v143, &std::piecewise_construct, &v144) + 5);
           v42 = *a3;
           v144 = v137;
-          result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v42, v137);
-          if (v41 >= *(result + 5))
+          result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v42, v137, &std::piecewise_construct, &v144);
+          if (v41 >= *(result + 20))
           {
             v46 = v8 + 8;
             do
@@ -1821,14 +781,14 @@ LABEL_71:
 
               v47 = *a3;
               v144 = &v143;
-              v48 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v47, &v143) + 5);
+              v48 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v47, &v143, &std::piecewise_construct, &v144) + 5);
               v49 = *a3;
               v144 = v8;
-              result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v49, v8);
+              result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v49, v8, &std::piecewise_construct, &v144);
               v46 = v8 + 8;
             }
 
-            while (v48 >= *(result + 5));
+            while (v48 >= *(result + 20));
           }
 
           else
@@ -1838,13 +798,13 @@ LABEL_71:
               v8 += 8;
               v43 = *a3;
               v144 = &v143;
-              v44 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v43, &v143) + 5);
+              v44 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v43, &v143, &std::piecewise_construct, &v144) + 5);
               v45 = *a3;
               v144 = v8;
-              result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v45, v8);
+              result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v45, v8, &std::piecewise_construct, &v144);
             }
 
-            while (v44 >= *(result + 5));
+            while (v44 >= *(result + 20));
           }
 
           v50 = v140;
@@ -1853,16 +813,16 @@ LABEL_71:
             v50 = v140;
             do
             {
-              v50 -= 8;
+              --v50;
               v51 = *a3;
               v144 = &v143;
-              v52 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v51, &v143) + 5);
+              v52 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v51, &v143, &std::piecewise_construct, &v144) + 5);
               v53 = *a3;
               v144 = v50;
-              result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v53, v50);
+              result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v53, v50, &std::piecewise_construct, &v144);
             }
 
-            while (v52 < *(result + 5));
+            while (v52 < *(result + 20));
           }
 
           while (v8 < v50)
@@ -1878,24 +838,24 @@ LABEL_71:
               v8 += 8;
               v56 = *a3;
               v144 = &v143;
-              v57 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v56, &v143) + 5);
+              v57 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v56, &v143, &std::piecewise_construct, &v144) + 5);
               v58 = *a3;
               v144 = v8;
             }
 
-            while (v57 >= *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v58, v8) + 5));
+            while (v57 >= *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v58, v8, &std::piecewise_construct, &v144) + 5));
             do
             {
-              v50 -= 8;
+              --v50;
               v59 = *a3;
               v144 = &v143;
-              v60 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v59, &v143) + 5);
+              v60 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v59, &v143, &std::piecewise_construct, &v144) + 5);
               v61 = *a3;
               v144 = v50;
-              result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v61, v50);
+              result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v61, v50, &std::piecewise_construct, &v144);
             }
 
-            while (v60 < *(result + 5));
+            while (v60 < *(result + 20));
           }
 
           if (v8 - 8 != v142)
@@ -1916,12 +876,12 @@ LABEL_71:
           v18 += 8;
           v19 = *a3;
           v144 = (v18 + v8);
-          v20 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v19, (v18 + v8)) + 5);
+          v20 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v19, (v18 + v8), &std::piecewise_construct, &v144) + 5);
           v21 = *a3;
           v144 = &v143;
         }
 
-        while (v20 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v21, &v143) + 5));
+        while (v20 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v21, &v143, &std::piecewise_construct, &v144) + 5));
         v22 = v8 + v18;
         v23 = v140;
         if (v18 == 8)
@@ -1934,30 +894,30 @@ LABEL_71:
               break;
             }
 
-            v23 -= 8;
+            --v23;
             v27 = *a3;
             v144 = v23;
-            v28 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v27, v23) + 5);
+            v28 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v27, v23, &std::piecewise_construct, &v144) + 5);
             v29 = *a3;
             v144 = &v143;
           }
 
-          while (v28 >= *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v29, &v143) + 5));
+          while (v28 >= *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v29, &v143, &std::piecewise_construct, &v144) + 5));
         }
 
         else
         {
           do
           {
-            v23 -= 8;
+            --v23;
             v24 = *a3;
             v144 = v23;
-            v25 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v24, v23) + 5);
+            v25 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v24, v23, &std::piecewise_construct, &v144) + 5);
             v26 = *a3;
             v144 = &v143;
           }
 
-          while (v25 >= *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v26, &v143) + 5));
+          while (v25 >= *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v26, &v143, &std::piecewise_construct, &v144) + 5));
         }
 
         v8 += v18;
@@ -1977,23 +937,23 @@ LABEL_71:
               v8 += 8;
               v33 = *a3;
               v144 = v8;
-              v34 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v33, v8) + 5);
+              v34 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v33, v8, &std::piecewise_construct, &v144) + 5);
               v35 = *a3;
               v144 = &v143;
             }
 
-            while (v34 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v35, &v143) + 5));
+            while (v34 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v35, &v143, &std::piecewise_construct, &v144) + 5));
             do
             {
               v30 -= 8;
               v36 = *a3;
               v144 = v30;
-              v37 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v36, v30) + 5);
+              v37 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v36, v30, &std::piecewise_construct, &v144) + 5);
               v38 = *a3;
               v144 = &v143;
             }
 
-            while (v37 >= *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v38, &v143) + 5));
+            while (v37 >= *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v38, &v143, &std::piecewise_construct, &v144) + 5));
           }
 
           while (v8 < v30);
@@ -2038,111 +998,141 @@ LABEL_36:
   }
 }
 
-uint64_t **std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,mlx::core::anonymous namespace::einsum_naive(std::vector<mlx::core::anonymous namespace::Subscript>,mlx::core::anonymous namespace::Subscript const&,std::vector<int> const&,std::vector<mlx::core::array>,std::variant<std::monostate,mlx::core::Stream,mlx::core::Device>)::$_0 &,std::pair<char,int> *,0>(uint64_t a1, uint64_t a2, uint64_t a3, void **a4)
+uint64_t **std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,mlx::core::anonymous namespace::einsum_naive(std::vector<mlx::core::anonymous namespace::Subscript>,mlx::core::anonymous namespace::Subscript const&,std::vector<int> const&,std::vector<mlx::core::array>,std::variant<std::monostate,mlx::core::Stream,mlx::core::Device>)::$_0 &,std::pair<char,int> *,0>(char *a1, char *a2, char *a3, uint64_t *a4)
 {
-  v8 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a4, a2) + 5);
-  v9 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a4, a1) + 5);
+  v8 = *a4;
+  v35 = a2;
+  v9 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v8, a2, &std::piecewise_construct, &v35) + 5);
   v10 = *a4;
-  if (v8 < v9)
+  v35 = a1;
+  v11 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v10, a1, &std::piecewise_construct, &v35) + 5);
+  v12 = *a4;
+  if (v9 < v11)
   {
-    v11 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v10, a3) + 5);
-    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a4, a2);
-    v13 = *a1;
-    if (v11 >= *(result + 5))
+    v35 = a3;
+    v13 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v12, a3, &std::piecewise_construct, &v35) + 5);
+    v14 = *a4;
+    v35 = a2;
+    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v14, a2, &std::piecewise_construct, &v35);
+    v16 = *a1;
+    if (v13 >= *(result + 5))
     {
       *a1 = *a2;
-      v22 = *(a2 + 4);
-      *a2 = v13;
-      v23 = *(a1 + 4);
-      *(a1 + 4) = v22;
-      *(a2 + 4) = v23;
-      v24 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a4, a3) + 5);
-      result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a4, a2);
-      if (v24 >= *(result + 5))
+      v28 = *(a2 + 1);
+      *a2 = v16;
+      v29 = *(a1 + 1);
+      *(a1 + 1) = v28;
+      *(a2 + 1) = v29;
+      v30 = *a4;
+      v35 = a3;
+      v31 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v30, a3, &std::piecewise_construct, &v35) + 5);
+      v32 = *a4;
+      v35 = a2;
+      result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v32, a2, &std::piecewise_construct, &v35);
+      if (v31 >= *(result + 5))
       {
         return result;
       }
 
-      v25 = *a2;
+      v33 = *a2;
       *a2 = *a3;
-      *a3 = v25;
-      v14 = (a3 + 4);
-      v15 = (a2 + 4);
+      *a3 = v33;
+      v17 = a3 + 4;
+      v18 = a2 + 4;
     }
 
     else
     {
       *a1 = *a3;
-      *a3 = v13;
-      v14 = (a3 + 4);
-      v15 = (a1 + 4);
+      *a3 = v16;
+      v17 = a3 + 4;
+      v18 = a1 + 4;
     }
 
-    v19 = v14;
+    v23 = v17;
     goto LABEL_10;
   }
 
-  v16 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v10, a3) + 5);
-  result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a4, a2);
-  if (v16 < *(result + 5))
+  v35 = a3;
+  v19 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v12, a3, &std::piecewise_construct, &v35) + 5);
+  v20 = *a4;
+  v35 = a2;
+  result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v20, a2, &std::piecewise_construct, &v35);
+  if (v19 < *(result + 5))
   {
-    v17 = *a2;
+    v21 = *a2;
     *a2 = *a3;
-    *a3 = v17;
-    v19 = (a2 + 4);
-    v18 = *(a2 + 4);
-    *(a2 + 4) = *(a3 + 4);
-    *(a3 + 4) = v18;
-    v20 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a4, a2) + 5);
-    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a4, a1);
-    if (v20 < *(result + 5))
+    *a3 = v21;
+    v23 = a2 + 4;
+    v22 = *(a2 + 1);
+    *(a2 + 1) = *(a3 + 1);
+    *(a3 + 1) = v22;
+    v24 = *a4;
+    v35 = a2;
+    v25 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v24, a2, &std::piecewise_construct, &v35) + 5);
+    v26 = *a4;
+    v35 = a1;
+    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v26, a1, &std::piecewise_construct, &v35);
+    if (v25 < *(result + 5))
     {
-      v21 = *a1;
+      v27 = *a1;
       *a1 = *a2;
-      v15 = (a1 + 4);
-      *a2 = v21;
+      v18 = a1 + 4;
+      *a2 = v27;
 LABEL_10:
-      v26 = *v15;
-      *v15 = *v19;
-      *v19 = v26;
+      v34 = *v18;
+      *v18 = *v23;
+      *v23 = v34;
     }
   }
 
   return result;
 }
 
-uint64_t **std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,mlx::core::anonymous namespace::einsum_naive(std::vector<mlx::core::anonymous namespace::Subscript>,mlx::core::anonymous namespace::Subscript const&,std::vector<int> const&,std::vector<mlx::core::array>,std::variant<std::monostate,mlx::core::Stream,mlx::core::Device>)::$_0 &,std::pair<char,int> *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void **a5)
+uint64_t **std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,mlx::core::anonymous namespace::einsum_naive(std::vector<mlx::core::anonymous namespace::Subscript>,mlx::core::anonymous namespace::Subscript const&,std::vector<int> const&,std::vector<mlx::core::array>,std::variant<std::monostate,mlx::core::Stream,mlx::core::Device>)::$_0 &,std::pair<char,int> *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
-  v10 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a5, a4) + 5);
-  result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a5, a3);
-  if (v10 < *(result + 5))
+  v10 = *a5;
+  v26 = a4;
+  v11 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v10, a4, &std::piecewise_construct, &v26) + 5);
+  v12 = *a5;
+  v26 = a3;
+  result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v12, a3, &std::piecewise_construct, &v26);
+  if (v11 < *(result + 5))
   {
-    v12 = *a3;
+    v14 = *a3;
     *a3 = *a4;
-    *a4 = v12;
-    v13 = *(a3 + 4);
+    *a4 = v14;
+    v15 = *(a3 + 4);
     *(a3 + 4) = *(a4 + 4);
-    *(a4 + 4) = v13;
-    v14 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a5, a3) + 5);
-    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a5, a2);
-    if (v14 < *(result + 5))
+    *(a4 + 4) = v15;
+    v16 = *a5;
+    v26 = a3;
+    v17 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v16, a3, &std::piecewise_construct, &v26) + 5);
+    v18 = *a5;
+    v26 = a2;
+    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v18, a2, &std::piecewise_construct, &v26);
+    if (v17 < *(result + 5))
     {
-      v15 = *a2;
+      v19 = *a2;
       *a2 = *a3;
-      *a3 = v15;
-      v16 = *(a2 + 4);
+      *a3 = v19;
+      v20 = *(a2 + 4);
       *(a2 + 4) = *(a3 + 4);
-      *(a3 + 4) = v16;
-      v17 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a5, a2) + 5);
-      result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a5, a1);
-      if (v17 < *(result + 5))
+      *(a3 + 4) = v20;
+      v21 = *a5;
+      v26 = a2;
+      v22 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v21, a2, &std::piecewise_construct, &v26) + 5);
+      v23 = *a5;
+      v26 = a1;
+      result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v23, a1, &std::piecewise_construct, &v26);
+      if (v22 < *(result + 5))
       {
-        v18 = *a1;
+        v24 = *a1;
         *a1 = *a2;
-        *a2 = v18;
-        v19 = *(a1 + 4);
+        *a2 = v24;
+        v25 = *(a1 + 4);
         *(a1 + 4) = *(a2 + 4);
-        *(a2 + 4) = v19;
+        *(a2 + 4) = v25;
       }
     }
   }
@@ -2150,48 +1140,64 @@ uint64_t **std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,mlx::core::anonymou
   return result;
 }
 
-uint64_t **std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,mlx::core::anonymous namespace::einsum_naive(std::vector<mlx::core::anonymous namespace::Subscript>,mlx::core::anonymous namespace::Subscript const&,std::vector<int> const&,std::vector<mlx::core::array>,std::variant<std::monostate,mlx::core::Stream,mlx::core::Device>)::$_0 &,std::pair<char,int> *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void **a6)
+uint64_t **std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,mlx::core::anonymous namespace::einsum_naive(std::vector<mlx::core::anonymous namespace::Subscript>,mlx::core::anonymous namespace::Subscript const&,std::vector<int> const&,std::vector<mlx::core::array>,std::variant<std::monostate,mlx::core::Stream,mlx::core::Device>)::$_0 &,std::pair<char,int> *,0>(char *a1, char *a2, char *a3, char *a4, char *a5, uint64_t *a6)
 {
-  v12 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a6, a5) + 5);
-  result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a6, a4);
-  if (v12 < *(result + 5))
+  v12 = *a6;
+  v33 = a5;
+  v13 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v12, a5, &std::piecewise_construct, &v33) + 5);
+  v14 = *a6;
+  v33 = a4;
+  result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v14, a4, &std::piecewise_construct, &v33);
+  if (v13 < *(result + 5))
   {
-    v14 = *a4;
+    v16 = *a4;
     *a4 = *a5;
-    *a5 = v14;
-    v15 = *(a4 + 4);
-    *(a4 + 4) = *(a5 + 4);
-    *(a5 + 4) = v15;
-    v16 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a6, a4) + 5);
-    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a6, a3);
-    if (v16 < *(result + 5))
+    *a5 = v16;
+    v17 = *(a4 + 1);
+    *(a4 + 1) = *(a5 + 1);
+    *(a5 + 1) = v17;
+    v18 = *a6;
+    v33 = a4;
+    v19 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v18, a4, &std::piecewise_construct, &v33) + 5);
+    v20 = *a6;
+    v33 = a3;
+    result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v20, a3, &std::piecewise_construct, &v33);
+    if (v19 < *(result + 5))
     {
-      v17 = *a3;
+      v21 = *a3;
       *a3 = *a4;
-      *a4 = v17;
-      v18 = *(a3 + 4);
-      *(a3 + 4) = *(a4 + 4);
-      *(a4 + 4) = v18;
-      v19 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a6, a3) + 5);
-      result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a6, a2);
-      if (v19 < *(result + 5))
+      *a4 = v21;
+      v22 = *(a3 + 1);
+      *(a3 + 1) = *(a4 + 1);
+      *(a4 + 1) = v22;
+      v23 = *a6;
+      v33 = a3;
+      v24 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v23, a3, &std::piecewise_construct, &v33) + 5);
+      v25 = *a6;
+      v33 = a2;
+      result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v25, a2, &std::piecewise_construct, &v33);
+      if (v24 < *(result + 5))
       {
-        v20 = *a2;
+        v26 = *a2;
         *a2 = *a3;
-        *a3 = v20;
-        v21 = *(a2 + 4);
-        *(a2 + 4) = *(a3 + 4);
-        *(a3 + 4) = v21;
-        v22 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a6, a2) + 5);
-        result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(*a6, a1);
-        if (v22 < *(result + 5))
+        *a3 = v26;
+        v27 = *(a2 + 1);
+        *(a2 + 1) = *(a3 + 1);
+        *(a3 + 1) = v27;
+        v28 = *a6;
+        v33 = a2;
+        v29 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v28, a2, &std::piecewise_construct, &v33) + 5);
+        v30 = *a6;
+        v33 = a1;
+        result = std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v30, a1, &std::piecewise_construct, &v33);
+        if (v29 < *(result + 5))
         {
-          v23 = *a1;
+          v31 = *a1;
           *a1 = *a2;
-          *a2 = v23;
-          v24 = *(a1 + 4);
-          *(a1 + 4) = *(a2 + 4);
-          *(a2 + 4) = v24;
+          *a2 = v31;
+          v32 = *(a1 + 1);
+          *(a1 + 1) = *(a2 + 1);
+          *(a2 + 1) = v32;
         }
       }
     }
@@ -2200,7 +1206,7 @@ uint64_t **std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,mlx::core::anonymou
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,mlx::core::anonymous namespace::einsum_naive(std::vector<mlx::core::anonymous namespace::Subscript>,mlx::core::anonymous namespace::Subscript const&,std::vector<int> const&,std::vector<mlx::core::array>,std::variant<std::monostate,mlx::core::Stream,mlx::core::Device>)::$_0 &,std::pair<char,int> *>(uint64_t a1, char *a2, void **a3)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,mlx::core::anonymous namespace::einsum_naive(std::vector<mlx::core::anonymous namespace::Subscript>,mlx::core::anonymous namespace::Subscript const&,std::vector<int> const&,std::vector<mlx::core::array>,std::variant<std::monostate,mlx::core::Stream,mlx::core::Device>)::$_0 &,std::pair<char,int> *>(uint64_t a1, char *a2, uint64_t *a3)
 {
   v6 = &a2[-a1] >> 3;
   if (v6 <= 2)
@@ -2211,10 +1217,10 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,mlx::
       {
         v7 = *a3;
         v30 = a2 - 8;
-        v8 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v7, a2 - 8) + 5);
+        v8 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v7, a2 - 8, &std::piecewise_construct, &v30) + 5);
         v9 = *a3;
         v30 = a1;
-        if (v8 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v9, a1) + 5))
+        if (v8 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v9, a1, &std::piecewise_construct, &v30) + 5))
         {
           v10 = *a1;
           *a1 = *(a2 - 8);
@@ -2258,10 +1264,10 @@ LABEL_11:
   {
     v16 = *a3;
     v30 = v13;
-    v17 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v16, v13) + 5);
+    v17 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v16, v13, &std::piecewise_construct, &v30) + 5);
     v18 = *a3;
     v30 = v12;
-    if (v17 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v18, v12) + 5))
+    if (v17 < *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v18, v12, &std::piecewise_construct, &v30) + 5))
     {
       break;
     }
@@ -2292,11 +1298,11 @@ LABEL_21:
     v21 = (v20 + 8);
     v22 = *a3;
     v30 = &v29;
-    v23 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v22, &v29) + 5);
+    v23 = *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v22, &v29, &std::piecewise_construct, &v30) + 5);
     v24 = *a3;
     v30 = v21;
     v19 -= 8;
-    if (v23 >= *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v24, v21) + 5))
+    if (v23 >= *(std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(v24, v21, &std::piecewise_construct, &v30) + 5))
     {
       v25 = a1 + v19 + 24;
       goto LABEL_20;
@@ -2342,33 +1348,33 @@ void std::vector<mlx::core::anonymous namespace::Subscript>::__destroy_vector::o
   }
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(void *a1, char *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<char,int>,std::__unordered_map_hasher<char,std::__hash_value_type<char,int>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,int>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,int>>>::__emplace_unique_key_args<char,std::piecewise_construct_t const&,std::tuple<char const&>,std::tuple<>>(void *a1, char *a2, uint64_t a3, _BYTE **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -2376,44 +1382,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 16) != v2)
+  if (*(v9 + 16) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 const char *mlx::core::dtype_to_string(unsigned int a1)
@@ -2431,7 +1437,7 @@ const char *mlx::core::dtype_to_string(unsigned int a1)
   return "(unknown)";
 }
 
-void sub_25A3081B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *__p, uint64_t a47, int a48, __int16 a49, char a50, char a51, void *a52)
+void sub_25A3081B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *__p, uint64_t a47, int a48, __int16 a49, char a50, char a51, void *a52)
 {
   std::ostringstream::~ostringstream(&a13);
   if (a51 < 0)
@@ -2455,7 +1461,7 @@ __n128 std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<c
   return result;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c)
+void *std::string::basic_string[abi:ne200100](void *__b, size_t __len, int __c)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -2467,17 +1473,17 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c
     operator new();
   }
 
-  __b[23] = __len;
+  *(__b + 23) = __len;
   if (__len)
   {
     memset(__b, __c, __len);
   }
 
-  __b[__len] = 0;
+  *(__b + __len) = 0;
   return __b;
 }
 
-void mlx::core::save(std::string *__str)
+void mlx::core::save(std::string *__str, void *a2)
 {
   size = SHIBYTE(__str->__r_.__value_.__r.__words[2]);
   if ((size & 0x8000000000000000) != 0)
@@ -2494,10 +1500,10 @@ void mlx::core::save(std::string *__str)
     goto LABEL_13;
   }
 
-  std::string::basic_string(&v4, __str, size - 4, 4uLL, &v5);
-  if ((SHIBYTE(v4.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  std::string::basic_string(&v5, __str, size - 4, 4uLL, &v6);
+  if ((SHIBYTE(v5.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    if (SHIBYTE(v4.__r_.__value_.__r.__words[2]) != 4 || LODWORD(v4.__r_.__value_.__l.__data_) != 2037411374)
+    if (SHIBYTE(v5.__r_.__value_.__r.__words[2]) != 4 || LODWORD(v5.__r_.__value_.__l.__data_) != 2037411374)
     {
       goto LABEL_13;
     }
@@ -2506,11 +1512,11 @@ LABEL_14:
     std::allocate_shared[abi:ne200100]<mlx::core::io::FileWriter,std::allocator<mlx::core::io::FileWriter>,std::string,0>();
   }
 
-  if (v4.__r_.__value_.__l.__size_ == 4)
+  if (v5.__r_.__value_.__l.__size_ == 4)
   {
-    v3 = *v4.__r_.__value_.__l.__data_;
-    operator delete(v4.__r_.__value_.__l.__data_);
-    if (v3 == 2037411374)
+    v4 = *v5.__r_.__value_.__l.__data_;
+    operator delete(v5.__r_.__value_.__l.__data_);
+    if (v4 == 2037411374)
     {
       goto LABEL_14;
     }
@@ -2518,7 +1524,7 @@ LABEL_14:
 
   else
   {
-    operator delete(v4.__r_.__value_.__l.__data_);
+    operator delete(v5.__r_.__value_.__l.__data_);
   }
 
 LABEL_13:
@@ -2542,427 +1548,386 @@ void sub_25A308534(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void mlx::core::load(void *a1, uint64_t a2, uint64_t a3)
+void mlx::core::load(void *a1, mlx::core::metal *a2, uint64_t a3)
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   if (!(*(**a1 + 8))(*a1) || ((***a1)() & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     (*(**a1 + 48))(&__dst);
-    v54 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("[load] Failed to open ", &__dst, &v72);
-    MEMORY[0x25F851100](exception, &v72, v54);
+    v51 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("[load] Failed to open ", &__dst, &v69);
+    MEMORY[0x25F851100](exception, &v69, v51);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v69 = mlx::core::to_stream(a2, a3, 0);
-  v70 = v6;
-  v72.__r_.__value_.__r.__words[0] = 0;
-  if (mlx::core::operator!=(&v69 + 1, &v72))
+  v66 = mlx::core::to_stream(a2, a3, 0);
+  v67 = v7;
+  v69.__r_.__value_.__r.__words[0] = 0;
+  if (mlx::core::operator!=(&v66 + 1, &v69))
+  {
+    v52 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v52, "[load] Must run on a CPU stream.");
+    __cxa_throw(v52, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  (*(**a1 + 32))(*a1, &v70, 8);
+  if (v70 != 1297436307 || v71 != 22864)
+  {
+    v53 = __cxa_allocate_exception(0x10uLL);
+    (*(**a1 + 48))(&__dst);
+    v54 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("[load] Invalid header in ", &__dst, &v69);
+    MEMORY[0x25F851100](v53, &v69, v54);
+    __cxa_throw(v53, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v9 = v72;
+  if (v72 - 3 <= 0xFFFFFFFD)
   {
     v55 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v55, "[load] Must run on a CPU stream.");
+    (*(**a1 + 48))(&__dst);
+    v56 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("[load] Unsupported npy format version in ", &__dst, &v69);
+    MEMORY[0x25F851100](v55, &v69, v56);
     __cxa_throw(v55, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  (*(**a1 + 32))(*a1, &v73, 8);
-  if (v73 != 1297436307 || v74 != 22864)
+  if (v72 == 1)
   {
-    v56 = __cxa_allocate_exception(0x10uLL);
-    (*(**a1 + 48))(&__dst);
-    v57 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("[load] Invalid header in ", &__dst, &v72);
-    MEMORY[0x25F851100](v56, &v72, v57);
-    __cxa_throw(v56, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v8 = v75;
-  if (v75 - 3 <= 0xFFFFFFFD)
-  {
-    v58 = __cxa_allocate_exception(0x10uLL);
-    (*(**a1 + 48))(&__dst);
-    v59 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("[load] Unsupported npy format version in ", &__dst, &v72);
-    MEMORY[0x25F851100](v58, &v72, v59);
-    __cxa_throw(v58, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  if (v75 == 1)
-  {
-    LOWORD(v72.__r_.__value_.__l.__data_) = 0;
-    (*(**a1 + 32))(*a1, &v72, 2);
-    data_low = LOWORD(v72.__r_.__value_.__l.__data_);
+    LOWORD(v69.__r_.__value_.__l.__data_) = 0;
+    (*(**a1 + 32))(*a1, &v69, 2);
+    data_low = LOWORD(v69.__r_.__value_.__l.__data_);
   }
 
   else
   {
-    LODWORD(v72.__r_.__value_.__l.__data_) = 0;
-    (*(**a1 + 32))(*a1, &v72, 4);
-    data_low = LODWORD(v72.__r_.__value_.__l.__data_);
+    LODWORD(v69.__r_.__value_.__l.__data_) = 0;
+    (*(**a1 + 32))(*a1, &v69, 4);
+    data_low = LODWORD(v69.__r_.__value_.__l.__data_);
   }
 
-  std::vector<char>::vector[abi:ne200100](&v68, data_low + 1);
-  (*(**a1 + 32))(*a1, v68, data_low);
-  v68[data_low] = 0;
-  std::string::basic_string[abi:ne200100]<0>(&__str, v68);
-  std::string::basic_string(&v66, &__str, 0xBuLL, 3uLL, &v72);
-  size = HIBYTE(v66.__r_.__value_.__r.__words[2]);
-  v11 = v66.__r_.__value_.__r.__words[0];
-  if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::vector<char>::vector[abi:ne200100](&v65, data_low + 1);
+  (*(**a1 + 32))(*a1, v65, data_low);
+  v65[data_low] = 0;
+  std::string::basic_string[abi:ne200100]<0>(&__str, v65);
+  std::string::basic_string(&v63, &__str, 0xBuLL, 3uLL, &v69);
+  size = HIBYTE(v63.__r_.__value_.__r.__words[2]);
+  v12 = v63.__r_.__value_.__r.__words[0];
+  if ((v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v12 = &v66;
+    v13 = &v63;
   }
 
   else
   {
-    v12 = v66.__r_.__value_.__r.__words[0];
+    v13 = v63.__r_.__value_.__r.__words[0];
   }
 
-  if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  if ((v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v66.__r_.__value_.__l.__size_;
+    size = v63.__r_.__value_.__l.__size_;
   }
 
-  v13 = v12->__r_.__value_.__s.__data_[0];
-  v64.__r_.__value_.__r.__words[0] = v12;
-  v64.__r_.__value_.__l.__size_ = size;
+  v14 = v13->__r_.__value_.__s.__data_[0];
+  v61.__r_.__value_.__r.__words[0] = v13;
+  v61.__r_.__value_.__l.__size_ = size;
   if (size != 2)
   {
     if (size != 3)
     {
-      goto LABEL_33;
+      goto LABEL_32;
     }
 
-    if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v11 = &v66;
+      v12 = &v63;
     }
 
-    v12 = (&v11->__r_.__value_.__l.__data_ + 1);
+    v13 = (&v12->__r_.__value_.__l.__data_ + 1);
   }
 
-  if (LOWORD(v12->__r_.__value_.__l.__data_) == 12886)
+  if (LOWORD(v13->__r_.__value_.__l.__data_) == 12886)
   {
-    goto LABEL_40;
+    goto LABEL_33;
   }
 
-  v14 = v12->__r_.__value_.__s.__data_[1];
-  v15 = v12->__r_.__value_.__s.__data_[0];
+  v15 = v13->__r_.__value_.__s.__data_[0];
   if (v15 <= 101)
   {
-    if (v15 == 98)
+    if (v15 == 98 || v15 == 99)
     {
-      LOBYTE(v16) = v14 - 49;
-      if (v16 < 8u)
+LABEL_33:
+      v57 = *(__str.__r_.__value_.__r.__words[0] + 34);
+      memset(&v69, 0, sizeof(v69));
+      p_str = &__str;
+      if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v16 = v16;
-        v17 = &unk_25A9BF220;
-        goto LABEL_39;
+        v18 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
       }
 
-      goto LABEL_40;
-    }
+      else
+      {
+        v18 = __str.__r_.__value_.__l.__size_;
+        p_str = __str.__r_.__value_.__r.__words[0];
+      }
 
-    if (v15 == 99)
-    {
-      goto LABEL_40;
-    }
-  }
-
-  else
-  {
-    switch(v15)
-    {
-      case 'f':
-        goto LABEL_40;
-      case 'i':
-        LOBYTE(v16) = v14 - 49;
-        if (v16 < 8u)
+      if (v18)
+      {
+        v19 = &p_str[-1].__r_.__value_.__r.__words[2] + 7;
+        v20 = v18;
+        do
         {
-          v16 = v16;
-          v17 = &unk_25A9BF260;
-          goto LABEL_39;
+          v21 = v20;
+          if (!v20)
+          {
+            break;
+          }
+
+          v22 = v19[v20--];
         }
 
-LABEL_40:
-        v60 = *(__str.__r_.__value_.__r.__words[0] + 34);
-        memset(&v72, 0, sizeof(v72));
-        p_str = &__str;
-        if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        while (v22 != 40);
+        while (v18)
         {
-          v21 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+          v23 = v19[v18--];
+          if (v23 == 41)
+          {
+            goto LABEL_46;
+          }
+        }
+      }
+
+      else
+      {
+        v21 = 0;
+      }
+
+      v18 = -1;
+LABEL_46:
+      std::string::basic_string(&__dst, &__str, v21, v18 - v21, &v61);
+      v24 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
+      if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      {
+        v24 = __dst.__r_.__value_.__l.__size_;
+      }
+
+      if (!v24)
+      {
+LABEL_86:
+        v40 = 12;
+        if (v9 == 1)
+        {
+          v40 = 10;
+        }
+
+        v41 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+        if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        {
+          v41 = __str.__r_.__value_.__l.__size_;
+        }
+
+        __idx = v41 + v40;
+        v59 = v14 == 62;
+        v42 = v69.__r_.__value_.__r.__words[0];
+        if (v57 == 84)
+        {
+          v43 = v69.__r_.__value_.__l.__size_;
+          if (v69.__r_.__value_.__r.__words[0] != v69.__r_.__value_.__l.__size_)
+          {
+            v44 = (v69.__r_.__value_.__l.__size_ - 4);
+            if (v69.__r_.__value_.__l.__size_ - 4 > v69.__r_.__value_.__r.__words[0])
+            {
+              v45 = v69.__r_.__value_.__r.__words[0] + 4;
+              do
+              {
+                v46 = *(v45 - 4);
+                *(v45 - 4) = *v44;
+                *v44-- = v46;
+                v47 = v45 >= v44;
+                v45 += 4;
+              }
+
+              while (!v47);
+            }
+          }
         }
 
         else
         {
-          v21 = __str.__r_.__value_.__l.__size_;
-          p_str = __str.__r_.__value_.__r.__words[0];
+          v43 = v69.__r_.__value_.__l.__size_;
         }
 
-        if (v21)
-        {
-          v22 = &p_str[-1].__r_.__value_.__r.__words[2] + 7;
-          v23 = v21;
-          do
-          {
-            v24 = v23;
-            if (!v23)
-            {
-              break;
-            }
+        memset(__p, 0, sizeof(__p));
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, v42, v43, (v43 - v42) >> 2);
+        std::allocate_shared[abi:ne200100]<mlx::core::Load,std::allocator<mlx::core::Load>,mlx::core::Stream &,std::shared_ptr<mlx::core::io::Reader> &,unsigned long &,BOOL &,0>();
+      }
 
-            v25 = v22[v23--];
+      while (1)
+      {
+        __idx = 0;
+        v25 = std::stoi(&__dst, &__idx, 10);
+        v26 = v69.__r_.__value_.__l.__size_;
+        if (v69.__r_.__value_.__l.__size_ >= v69.__r_.__value_.__r.__words[2])
+        {
+          v28 = v69.__r_.__value_.__r.__words[0];
+          v29 = v69.__r_.__value_.__l.__size_ - v69.__r_.__value_.__r.__words[0];
+          v30 = (v69.__r_.__value_.__l.__size_ - v69.__r_.__value_.__r.__words[0]) >> 2;
+          v31 = v30 + 1;
+          if ((v30 + 1) >> 62)
+          {
+            std::vector<int>::__throw_length_error[abi:ne200100]();
           }
 
-          while (v25 != 40);
-          while (v21)
+          v32 = v69.__r_.__value_.__r.__words[2] - v69.__r_.__value_.__r.__words[0];
+          if ((v69.__r_.__value_.__r.__words[2] - v69.__r_.__value_.__r.__words[0]) >> 1 > v31)
           {
-            v26 = v22[v21--];
-            if (v26 == 41)
-            {
-              goto LABEL_53;
-            }
+            v31 = v32 >> 1;
+          }
+
+          if (v32 >= 0x7FFFFFFFFFFFFFFCLL)
+          {
+            v33 = 0x3FFFFFFFFFFFFFFFLL;
+          }
+
+          else
+          {
+            v33 = v31;
+          }
+
+          if (v33)
+          {
+            std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(&v69, v33);
+          }
+
+          *(4 * v30) = v25;
+          v27 = 4 * v30 + 4;
+          memcpy(0, v28, v29);
+          v34 = v69.__r_.__value_.__r.__words[0];
+          v69.__r_.__value_.__r.__words[0] = 0;
+          *&v69.__r_.__value_.__r.__words[1] = v27;
+          if (v34)
+          {
+            operator delete(v34);
           }
         }
 
         else
         {
-          v24 = 0;
+          *v69.__r_.__value_.__l.__size_ = v25;
+          v27 = v26 + 4;
         }
 
-        v21 = -1;
-LABEL_53:
-        std::string::basic_string(&__dst, &__str, v24, v21 - v24, &v64);
-        v27 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
+        v69.__r_.__value_.__l.__size_ = v27;
+        v35 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
         if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v27 = __dst.__r_.__value_.__l.__size_;
+          v35 = __dst.__r_.__value_.__l.__size_;
         }
 
-        if (!v27)
+        if (__idx + 2 <= v35)
         {
-LABEL_93:
-          v43 = 12;
-          if (v8 == 1)
-          {
-            v43 = 10;
-          }
-
-          v44 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
-          if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-          {
-            v44 = __str.__r_.__value_.__l.__size_;
-          }
-
-          __idx = v44 + v43;
-          v62 = v13 == 62;
-          v45 = v72.__r_.__value_.__r.__words[0];
-          if (v60 == 84)
-          {
-            v46 = v72.__r_.__value_.__l.__size_;
-            if (v72.__r_.__value_.__r.__words[0] != v72.__r_.__value_.__l.__size_)
-            {
-              v47 = (v72.__r_.__value_.__l.__size_ - 4);
-              if (v72.__r_.__value_.__l.__size_ - 4 > v72.__r_.__value_.__r.__words[0])
-              {
-                v48 = v72.__r_.__value_.__r.__words[0] + 4;
-                do
-                {
-                  v49 = *(v48 - 4);
-                  *(v48 - 4) = *v47;
-                  *v47-- = v49;
-                  v50 = v48 >= v47;
-                  v48 += 4;
-                }
-
-                while (!v50);
-              }
-            }
-          }
-
-          else
-          {
-            v46 = v72.__r_.__value_.__l.__size_;
-          }
-
-          memset(__p, 0, sizeof(__p));
-          std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, v45, v46, (v46 - v45) >> 2);
-          std::allocate_shared[abi:ne200100]<mlx::core::Load,std::allocator<mlx::core::Load>,mlx::core::Stream &,std::shared_ptr<mlx::core::io::Reader> &,unsigned long &,BOOL &,0>();
-        }
-
-        while (1)
-        {
-          __idx = 0;
-          v28 = std::stoi(&__dst, &__idx, 10);
-          v29 = v72.__r_.__value_.__l.__size_;
-          if (v72.__r_.__value_.__l.__size_ >= v72.__r_.__value_.__r.__words[2])
-          {
-            v31 = v72.__r_.__value_.__r.__words[0];
-            v32 = v72.__r_.__value_.__l.__size_ - v72.__r_.__value_.__r.__words[0];
-            v33 = (v72.__r_.__value_.__l.__size_ - v72.__r_.__value_.__r.__words[0]) >> 2;
-            v34 = v33 + 1;
-            if ((v33 + 1) >> 62)
-            {
-              std::vector<int>::__throw_length_error[abi:ne200100]();
-            }
-
-            v35 = v72.__r_.__value_.__r.__words[2] - v72.__r_.__value_.__r.__words[0];
-            if ((v72.__r_.__value_.__r.__words[2] - v72.__r_.__value_.__r.__words[0]) >> 1 > v34)
-            {
-              v34 = v35 >> 1;
-            }
-
-            if (v35 >= 0x7FFFFFFFFFFFFFFCLL)
-            {
-              v36 = 0x3FFFFFFFFFFFFFFFLL;
-            }
-
-            else
-            {
-              v36 = v34;
-            }
-
-            if (v36)
-            {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(&v72, v36);
-            }
-
-            *(4 * v33) = v28;
-            v30 = 4 * v33 + 4;
-            memcpy(0, v31, v32);
-            v37 = v72.__r_.__value_.__r.__words[0];
-            v72.__r_.__value_.__r.__words[0] = 0;
-            *&v72.__r_.__value_.__r.__words[1] = v30;
-            if (v37)
-            {
-              operator delete(v37);
-            }
-          }
-
-          else
-          {
-            *v72.__r_.__value_.__l.__size_ = v28;
-            v30 = v29 + 4;
-          }
-
-          v72.__r_.__value_.__l.__size_ = v30;
-          v38 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
-          if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-          {
-            v38 = __dst.__r_.__value_.__l.__size_;
-          }
-
-          if (__idx + 2 <= v38)
-          {
-            std::string::basic_string(&v64, &__dst, __idx + 2, 0xFFFFFFFFFFFFFFFFLL, &v63);
-            if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(__dst.__r_.__value_.__l.__data_);
-            }
-
-            __dst = v64;
-            goto LABEL_90;
-          }
-
-          std::string::basic_string(&v64, &__dst, __idx, 0xFFFFFFFFFFFFFFFFLL, &v63);
+          std::string::basic_string(&v61, &__dst, __idx + 2, 0xFFFFFFFFFFFFFFFFLL, &v60);
           if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__dst.__r_.__value_.__l.__data_);
           }
 
-          __dst = v64;
-          v39 = HIBYTE(v64.__r_.__value_.__r.__words[2]);
-          if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-          {
-            v39 = __dst.__r_.__value_.__l.__size_;
-          }
-
-          if (v39)
-          {
-            if ((SHIBYTE(v64.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-            {
-              if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) != 1)
-              {
-                goto LABEL_107;
-              }
-
-              v40 = __dst.__r_.__value_.__s.__data_[0];
-              if (__dst.__r_.__value_.__s.__data_[0] == 32)
-              {
-                goto LABEL_87;
-              }
-
-LABEL_85:
-              if (v40 != 44)
-              {
-LABEL_107:
-                v51 = __cxa_allocate_exception(0x10uLL);
-                (*(**a1 + 48))(&v63);
-                v52 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("[load] Unknown error while parsing header in ", &v63, &v64);
-                MEMORY[0x25F851100](v51, &v64, v52);
-                __cxa_throw(v51, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-              }
-
-              goto LABEL_86;
-            }
-
-            if (__dst.__r_.__value_.__l.__size_ != 1)
-            {
-              goto LABEL_107;
-            }
-
-            v40 = *__dst.__r_.__value_.__l.__data_;
-            if (v40 != 32)
-            {
-              goto LABEL_85;
-            }
-          }
-
-LABEL_86:
-          if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
-          {
-            __dst.__r_.__value_.__l.__size_ = 0;
-            p_dst = __dst.__r_.__value_.__r.__words[0];
-            goto LABEL_89;
-          }
-
-LABEL_87:
-          *(&__dst.__r_.__value_.__s + 23) = 0;
-          p_dst = &__dst;
-LABEL_89:
-          p_dst->__r_.__value_.__s.__data_[0] = 0;
-LABEL_90:
-          v42 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
-          if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-          {
-            v42 = __dst.__r_.__value_.__l.__size_;
-          }
-
-          if (!v42)
-          {
-            goto LABEL_93;
-          }
+          __dst = v61;
+          goto LABEL_83;
         }
 
-      case 'u':
-        LOBYTE(v16) = v14 - 49;
-        if (v16 < 8u)
+        std::string::basic_string(&v61, &__dst, __idx, 0xFFFFFFFFFFFFFFFFLL, &v60);
+        if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
         {
-          v16 = v16;
-          v17 = &unk_25A9BF2A0;
-LABEL_39:
-          v19 = v17[v16];
-          goto LABEL_40;
+          operator delete(__dst.__r_.__value_.__l.__data_);
         }
 
-        goto LABEL_40;
+        __dst = v61;
+        v36 = HIBYTE(v61.__r_.__value_.__r.__words[2]);
+        if ((v61.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        {
+          v36 = __dst.__r_.__value_.__l.__size_;
+        }
+
+        if (v36)
+        {
+          if ((SHIBYTE(v61.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+          {
+            if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) != 1)
+            {
+              goto LABEL_100;
+            }
+
+            v37 = __dst.__r_.__value_.__s.__data_[0];
+            if (__dst.__r_.__value_.__s.__data_[0] == 32)
+            {
+              goto LABEL_80;
+            }
+
+LABEL_78:
+            if (v37 != 44)
+            {
+LABEL_100:
+              v48 = __cxa_allocate_exception(0x10uLL);
+              (*(**a1 + 48))(&v60);
+              v49 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("[load] Unknown error while parsing header in ", &v60, &v61);
+              MEMORY[0x25F851100](v48, &v61, v49);
+              __cxa_throw(v48, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+            }
+
+            goto LABEL_79;
+          }
+
+          if (__dst.__r_.__value_.__l.__size_ != 1)
+          {
+            goto LABEL_100;
+          }
+
+          v37 = *__dst.__r_.__value_.__l.__data_;
+          if (v37 != 32)
+          {
+            goto LABEL_78;
+          }
+        }
+
+LABEL_79:
+        if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
+        {
+          __dst.__r_.__value_.__l.__size_ = 0;
+          p_dst = __dst.__r_.__value_.__r.__words[0];
+          goto LABEL_82;
+        }
+
+LABEL_80:
+        *(&__dst.__r_.__value_.__s + 23) = 0;
+        p_dst = &__dst;
+LABEL_82:
+        p_dst->__r_.__value_.__s.__data_[0] = 0;
+LABEL_83:
+        v39 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
+        if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        {
+          v39 = __dst.__r_.__value_.__l.__size_;
+        }
+
+        if (!v39)
+        {
+          goto LABEL_86;
+        }
+      }
     }
   }
 
-LABEL_33:
-  v18 = __cxa_allocate_exception(0x10uLL);
-  std::string::basic_string<std::string_view,0>(&__dst, &v64);
-  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("[from_str] Invalid array protocol type-string: ", &__dst, &v72);
-  std::logic_error::logic_error(v18, &v72);
-  v18->__vftable = (MEMORY[0x277D828F8] + 16);
-  __cxa_throw(v18, off_279921408, MEMORY[0x277D82610]);
+  else if (v15 == 102 || v15 == 105 || v15 == 117)
+  {
+    goto LABEL_33;
+  }
+
+LABEL_32:
+  v16 = __cxa_allocate_exception(0x10uLL);
+  std::string::basic_string<std::string_view,0>(&__dst, &v61);
+  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("[from_str] Invalid array protocol type-string: ", &__dst, &v69);
+  std::logic_error::logic_error(v16, &v69);
+  v16->__vftable = (MEMORY[0x277D828F8] + 16);
+  __cxa_throw(v16, off_279921408, MEMORY[0x277D82610]);
 }
 
 void sub_25A308FF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, void *__p, uint64_t a39, int a40, __int16 a41, char a42, char a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49)
@@ -3106,7 +2071,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void mlx::core::io::ParallelFileReader::read(mlx::core::io::ParallelFileReader *this, char *__buf, size_t __nbyte, off_t a4)
+void mlx::core::io::ParallelFileReader::read(atomic_ullong *this, char *__buf, size_t __nbyte, off_t a4)
 {
   v4 = *(this + 2);
   v13 = 0;
@@ -3153,22 +2118,22 @@ void mlx::core::io::ParallelFileReader::read(mlx::core::io::ParallelFileReader *
   std::vector<std::future<BOOL>>::__destroy_vector::operator()[abi:ne200100](&v16);
 }
 
-void sub_25A3099CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+void sub_25A3099CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t *a12)
 {
   a12 = &a9;
   std::vector<std::future<BOOL>>::__destroy_vector::operator()[abi:ne200100](&a12);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::future<BOOL>::get(atomic_ullong **a1)
+uint64_t std::future<BOOL>::get(std::__assoc_sub_state **a1)
 {
   v1 = *a1;
   *a1 = 0;
   std::__assoc_state<BOOL>::move(v1);
   v3 = v2;
-  if (v1 && !atomic_fetch_add(v1 + 1, 0xFFFFFFFFFFFFFFFFLL))
+  if (v1 && !atomic_fetch_add(&v1->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*v1 + 16))(v1);
+    (v1->__on_zero_shared)(v1);
   }
 
   return v3;
@@ -3200,17 +2165,17 @@ void mlx::core::io::ParallelFileReader::~ParallelFileReader(mlx::core::io::Paral
   }
 }
 
-void *std::vector<char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_25A309C80(_Unwind_Exception *exception_object)
@@ -3243,9 +2208,10 @@ void ThreadPool::ThreadPool(ThreadPool *this, uint64_t a2)
   *(this + 169) = 0u;
   if (a2)
   {
+    v6[0] = this;
     if (*(this + 2))
     {
-      _ZNSt3__16threadC2IZN10ThreadPool13start_threadsEmEUlvE_JELi0EEEOT_DpOT0_();
+      _ZNSt3__16threadC2IZN10ThreadPool13start_threadsEmEUlvE_JELi0EEEOT_DpOT0_(0, v6);
     }
 
     v2 = -*this >> 3;
@@ -3268,12 +2234,17 @@ void ThreadPool::ThreadPool(ThreadPool *this, uint64_t a2)
         v5 = v4;
       }
 
+      v6[6] = this;
       if (v5)
       {
         std::__allocate_at_least[abi:ne200100]<std::allocator<std::function<void ()(void)> *>>(this, v5);
       }
 
-      _ZNSt3__16threadC2IZN10ThreadPool13start_threadsEmEUlvE_JELi0EEEOT_DpOT0_();
+      v6[2] = 0;
+      v6[3] = (8 * v2);
+      v6[4] = (8 * v2);
+      v6[5] = 0;
+      _ZNSt3__16threadC2IZN10ThreadPool13start_threadsEmEUlvE_JELi0EEEOT_DpOT0_((8 * v2), v6);
     }
 
     std::vector<int>::__throw_length_error[abi:ne200100]();
@@ -3337,9 +2308,9 @@ uint64_t std::vector<std::future<BOOL>>::__emplace_back_slow_path<std::future<BO
   return v12;
 }
 
-void sub_25A309F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25A309F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::future<BOOL>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3510,8 +2481,7 @@ uint64_t std::construct_at[abi:ne200100]<mlx::core::io::FileWriter,std::string,m
 {
   v6 = *(a2 + 2);
   v5 = *a2;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   *a1 = &unk_286BE60E0;
   if (v6 >= 0)
@@ -3579,8 +2549,7 @@ uint64_t std::construct_at[abi:ne200100]<mlx::core::io::ParallelFileReader,std::
 {
   v6 = *(a2 + 2);
   v5 = *a2;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   *a1 = &unk_286BF1458;
   if (v6 >= 0)
@@ -3900,30 +2869,26 @@ void std::__assoc_state<BOOL>::set_value<BOOL>(uint64_t a1, _BYTE *a2)
   std::mutex::unlock((a1 + 24));
 }
 
-void std::__assoc_state<BOOL>::move(uint64_t a1)
+void std::__assoc_state<BOOL>::move(std::__assoc_sub_state *a1)
 {
-  __lk.__m_ = (a1 + 24);
+  __lk.__m_ = &a1->__mut_;
   __lk.__owns_ = 1;
-  std::mutex::lock((a1 + 24));
+  std::mutex::lock(&a1->__mut_);
   std::__assoc_sub_state::__sub_wait(a1, &__lk);
-  v2 = *(a1 + 16);
-  v6.__ptr_ = 0;
-  std::exception_ptr::~exception_ptr(&v6);
-  if (v2)
+  ptr = a1->__exception_.__ptr_;
+  v5.__ptr_ = 0;
+  std::exception_ptr::~exception_ptr(&v5);
+  if (ptr)
   {
-    std::exception_ptr::exception_ptr(&v5, (a1 + 16));
-    v4.__ptr_ = &v5;
-    std::rethrow_exception(v4);
+    std::exception_ptr::exception_ptr(&v4, &a1->__exception_);
+    v3.__ptr_ = &v4;
+    std::rethrow_exception(v3);
     __break(1u);
   }
 
-  else
+  else if (__lk.__owns_)
   {
-    v3 = *(a1 + 140);
-    if (__lk.__owns_)
-    {
-      std::mutex::unlock(__lk.__m_);
-    }
+    std::mutex::unlock(__lk.__m_);
   }
 }
 
@@ -3978,23 +2943,23 @@ void mlx::core::save_safetensors()
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void mlx::core::distributed::all_sum(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t **a5@<X8>)
+void mlx::core::distributed::all_sum(uint64_t *a1@<X0>, uint64_t a2@<X1>, mlx::core::metal *a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  LOBYTE(v17[0]) = 0;
-  v18 = 0;
+  v19 = *MEMORY[0x277D85DE8];
+  LOBYTE(v15[0]) = 0;
+  v16 = 0;
   v10 = *(a2 + 16);
   if (v10 == 1)
   {
     v5 = *(a2 + 8);
-    v17[0] = *a2;
-    v17[1] = v5;
+    v15[0] = *a2;
+    v15[1] = v5;
     if (v5)
     {
       atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v18 = 1;
+    v16 = 1;
   }
 
   if (v5 && v10)
@@ -4002,13 +2967,12 @@ void mlx::core::distributed::all_sum(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint6
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
-  v11 = mlx::core::distributed::Group::size(&v19);
+  v11 = mlx::core::distributed::Group::size(&v17);
   v12 = *a1;
   if (v11 != 1)
   {
     memset(__p, 0, sizeof(__p));
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, *v12, v12[1], (v12[1] - *v12) >> 2);
-    v14 = (*a1)[7];
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, *v12, *(v12 + 8), (*(v12 + 8) - *v12) >> 2);
     mlx::core::to_stream(a3, a4, 0);
     std::allocate_shared[abi:ne200100]<mlx::core::distributed::AllReduce,std::allocator<mlx::core::distributed::AllReduce>,mlx::core::Stream,mlx::core::distributed::Group &,mlx::core::distributed::AllReduce::ReduceType,0>();
   }
@@ -4018,15 +2982,13 @@ void mlx::core::distributed::all_sum(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint6
   a5[1] = v13;
   if (v13)
   {
-    atomic_fetch_add_explicit(v13 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
   }
 
-  if (v20)
+  if (v18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A30B59C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, std::__shared_weak_count *a18, void *__p, uint64_t a20)
@@ -4057,7 +3019,7 @@ void sub_25A30B59C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void mlx::core::distributed::anonymous namespace::to_group(uint64_t a1@<X0>, void *a2@<X8>)
+void mlx::core::distributed::anonymous namespace::to_group(uint64_t a1@<X0>, std::__shared_weak_count **a2@<X8>)
 {
   if (*(a1 + 16) == 1)
   {
@@ -4066,7 +3028,7 @@ void mlx::core::distributed::anonymous namespace::to_group(uint64_t a1@<X0>, voi
     a2[1] = v2;
     if (v2)
     {
-      atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v2->__shared_owners_, 1uLL, memory_order_relaxed);
     }
   }
 
@@ -4092,23 +3054,23 @@ void sub_25A30B69C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void mlx::core::distributed::all_max(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t **a5@<X8>)
+void mlx::core::distributed::all_max(uint64_t *a1@<X0>, uint64_t a2@<X1>, mlx::core::metal *a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  LOBYTE(v17[0]) = 0;
-  v18 = 0;
+  v19 = *MEMORY[0x277D85DE8];
+  LOBYTE(v15[0]) = 0;
+  v16 = 0;
   v10 = *(a2 + 16);
   if (v10 == 1)
   {
     v5 = *(a2 + 8);
-    v17[0] = *a2;
-    v17[1] = v5;
+    v15[0] = *a2;
+    v15[1] = v5;
     if (v5)
     {
       atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v18 = 1;
+    v16 = 1;
   }
 
   if (v5 && v10)
@@ -4116,13 +3078,12 @@ void mlx::core::distributed::all_max(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint6
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
-  v11 = mlx::core::distributed::Group::size(&v19);
+  v11 = mlx::core::distributed::Group::size(&v17);
   v12 = *a1;
   if (v11 != 1)
   {
     memset(__p, 0, sizeof(__p));
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, *v12, v12[1], (v12[1] - *v12) >> 2);
-    v14 = (*a1)[7];
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, *v12, *(v12 + 8), (*(v12 + 8) - *v12) >> 2);
     mlx::core::to_stream(a3, a4, 0);
     std::allocate_shared[abi:ne200100]<mlx::core::distributed::AllReduce,std::allocator<mlx::core::distributed::AllReduce>,mlx::core::Stream,mlx::core::distributed::Group &,mlx::core::distributed::AllReduce::ReduceType,0>();
   }
@@ -4132,15 +3093,13 @@ void mlx::core::distributed::all_max(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint6
   a5[1] = v13;
   if (v13)
   {
-    atomic_fetch_add_explicit(v13 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
   }
 
-  if (v20)
+  if (v18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A30B8AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, std::__shared_weak_count *a18, void *__p, uint64_t a20)
@@ -4171,23 +3130,23 @@ void sub_25A30B8AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void mlx::core::distributed::all_min(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t **a5@<X8>)
+void mlx::core::distributed::all_min(uint64_t *a1@<X0>, uint64_t a2@<X1>, mlx::core::metal *a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  LOBYTE(v17[0]) = 0;
-  v18 = 0;
+  v19 = *MEMORY[0x277D85DE8];
+  LOBYTE(v15[0]) = 0;
+  v16 = 0;
   v10 = *(a2 + 16);
   if (v10 == 1)
   {
     v5 = *(a2 + 8);
-    v17[0] = *a2;
-    v17[1] = v5;
+    v15[0] = *a2;
+    v15[1] = v5;
     if (v5)
     {
       atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v18 = 1;
+    v16 = 1;
   }
 
   if (v5 && v10)
@@ -4195,13 +3154,12 @@ void mlx::core::distributed::all_min(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint6
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
-  v11 = mlx::core::distributed::Group::size(&v19);
+  v11 = mlx::core::distributed::Group::size(&v17);
   v12 = *a1;
   if (v11 != 1)
   {
     memset(__p, 0, sizeof(__p));
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, *v12, v12[1], (v12[1] - *v12) >> 2);
-    v14 = (*a1)[7];
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, *v12, *(v12 + 8), (*(v12 + 8) - *v12) >> 2);
     mlx::core::to_stream(a3, a4, 0);
     std::allocate_shared[abi:ne200100]<mlx::core::distributed::AllReduce,std::allocator<mlx::core::distributed::AllReduce>,mlx::core::Stream,mlx::core::distributed::Group &,mlx::core::distributed::AllReduce::ReduceType,0>();
   }
@@ -4211,15 +3169,13 @@ void mlx::core::distributed::all_min(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint6
   a5[1] = v13;
   if (v13)
   {
-    atomic_fetch_add_explicit(v13 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
   }
 
-  if (v20)
+  if (v18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A30BB24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, std::__shared_weak_count *a18, void *__p, uint64_t a20)
@@ -4250,23 +3206,23 @@ void sub_25A30BB24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void mlx::core::distributed::all_gather(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t **a5@<X8>)
+void mlx::core::distributed::all_gather(uint64_t *a1@<X0>, uint64_t a2@<X1>, mlx::core::metal *a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  LOBYTE(v30[0]) = 0;
-  v31 = 0;
+  v32 = *MEMORY[0x277D85DE8];
+  LOBYTE(v28[0]) = 0;
+  v29 = 0;
   v10 = *(a2 + 16);
   if (v10 == 1)
   {
     v5 = *(a2 + 8);
-    v30[0] = *a2;
-    v30[1] = v5;
+    v28[0] = *a2;
+    v28[1] = v5;
     if (v5)
     {
       atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v31 = 1;
+    v29 = 1;
   }
 
   if (v5 && v10)
@@ -4274,30 +3230,30 @@ void mlx::core::distributed::all_gather(uint64_t **a1@<X0>, uint64_t a2@<X1>, ui
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
-  if (mlx::core::distributed::Group::size(&v32) != 1)
+  if (mlx::core::distributed::Group::size(&v30) != 1)
   {
     v12 = *a1;
-    v28 = 0;
-    v29 = 0;
+    v26 = 0;
+    v27 = 0;
     __src = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__src, *v12, v12[1], (v12[1] - *v12) >> 2);
-    if (v28 == __src)
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__src, *v12, *(v12 + 8), (*(v12 + 8) - *v12) >> 2);
+    if (v26 == __src)
     {
-      v14 = mlx::core::distributed::Group::size(&v32);
-      v15 = v28;
-      if (v28 >= v29)
+      v14 = mlx::core::distributed::Group::size(&v30);
+      v15 = v26;
+      if (v26 >= v27)
       {
         v17 = __src;
-        v18 = v28 - __src;
-        v19 = (v28 - __src) >> 2;
+        v18 = v26 - __src;
+        v19 = (v26 - __src) >> 2;
         v20 = v19 + 1;
         if ((v19 + 1) >> 62)
         {
           std::vector<int>::__throw_length_error[abi:ne200100]();
         }
 
-        v21 = v29 - __src;
-        if ((v29 - __src) >> 1 > v20)
+        v21 = v27 - __src;
+        if ((v27 - __src) >> 1 > v20)
         {
           v20 = v21 >> 1;
         }
@@ -4319,8 +3275,8 @@ void mlx::core::distributed::all_gather(uint64_t **a1@<X0>, uint64_t a2@<X1>, ui
         memcpy(0, v17, v18);
         v24 = __src;
         __src = 0;
-        v28 = v16;
-        v29 = 0;
+        v26 = v16;
+        v27 = 0;
         if (v24)
         {
           operator delete(v24);
@@ -4329,23 +3285,22 @@ void mlx::core::distributed::all_gather(uint64_t **a1@<X0>, uint64_t a2@<X1>, ui
 
       else
       {
-        *v28 = v14;
+        *v26 = v14;
         v16 = (v15 + 4);
       }
 
-      v28 = v16;
+      v26 = v16;
     }
 
     else
     {
-      v13 = mlx::core::distributed::Group::size(&v32);
+      v13 = mlx::core::distributed::Group::size(&v30);
       *__src *= v13;
     }
 
     __src = 0;
-    v28 = 0;
-    v29 = 0;
-    v25 = (*a1)[7];
+    v26 = 0;
+    v27 = 0;
     mlx::core::to_stream(a3, a4, 0);
     std::allocate_shared[abi:ne200100]<mlx::core::distributed::AllGather,std::allocator<mlx::core::distributed::AllGather>,mlx::core::Stream,mlx::core::distributed::Group &,0>();
   }
@@ -4355,15 +3310,13 @@ void mlx::core::distributed::all_gather(uint64_t **a1@<X0>, uint64_t a2@<X1>, ui
   a5[1] = v11;
   if (v11)
   {
-    atomic_fetch_add_explicit(v11 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
   }
 
-  if (v33)
+  if (v31)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v31);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A30BEAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24)
@@ -4394,39 +3347,38 @@ void sub_25A30BF3C()
   JUMPOUT(0x25A30BF34);
 }
 
-void mlx::core::distributed::send(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void mlx::core::distributed::send(uint64_t *a1, uint64_t a2, uint64_t a3, mlx::core::metal *a4, uint64_t a5)
 {
   v29 = *MEMORY[0x277D85DE8];
   v27 = a2;
   LOBYTE(v24[0]) = 0;
   v25 = 0;
-  v10 = *(a3 + 16);
-  if (v10 == 1)
+  v11 = *(a3 + 16);
+  if (v11 == 1)
   {
-    v5 = *(a3 + 8);
+    v6 = *(a3 + 8);
     v24[0] = *a3;
-    v24[1] = v5;
-    if (v5)
+    v24[1] = v6;
+    if (v6)
     {
-      atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     v25 = 1;
   }
 
-  if (v5 && v10)
+  if (v6 && v11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
   if (mlx::core::distributed::Group::size(&v26) != 1)
   {
     if ((a2 & 0x80000000) == 0 && mlx::core::distributed::Group::size(&v26) > a2)
     {
-      v11 = *a1;
+      v12 = *a1;
       memset(__p, 0, sizeof(__p));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, *v11, v11[1], (v11[1] - *v11) >> 2);
-      v12 = (*a1)[7];
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, *v12, *(v12 + 8), (*(v12 + 8) - *v12) >> 2);
       v20 = mlx::core::to_stream(a4, a5, 0);
       v21 = v13;
       std::allocate_shared[abi:ne200100]<mlx::core::distributed::Send,std::allocator<mlx::core::distributed::Send>,mlx::core::Stream,mlx::core::distributed::Group &,int &,0>();
@@ -4451,7 +3403,7 @@ void mlx::core::distributed::send(uint64_t **a1, uint64_t a2, uint64_t a3, uint6
   __cxa_throw(v19, off_279921408, MEMORY[0x277D82610]);
 }
 
-void sub_25A30C250(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, char a21, uint64_t a22)
+void sub_25A30C250(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   if (*(v24 - 73) < 0)
   {
@@ -4478,64 +3430,64 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void mlx::core::distributed::recv(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void mlx::core::distributed::recv(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, mlx::core::metal *a5, uint64_t a6)
 {
-  v26 = a3;
-  LOBYTE(v23[0]) = 0;
-  v24 = 0;
-  v11 = *(a4 + 16);
-  if (v11 == 1)
+  v27 = a3;
+  LOBYTE(v24[0]) = 0;
+  v25 = 0;
+  v12 = *(a4 + 16);
+  if (v12 == 1)
   {
-    v6 = *(a4 + 8);
-    v23[0] = *a4;
-    v23[1] = v6;
-    if (v6)
+    v7 = *(a4 + 8);
+    v24[0] = *a4;
+    v24[1] = v7;
+    if (v7)
     {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v24 = 1;
+    v25 = 1;
   }
 
-  if (v6 && v11)
+  if (v7 && v12)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
-  if (mlx::core::distributed::Group::size(&v25) != 1)
+  if (mlx::core::distributed::Group::size(&v26) != 1)
   {
-    if ((a3 & 0x80000000) == 0 && mlx::core::distributed::Group::size(&v25) > a3)
+    if ((a3 & 0x80000000) == 0 && mlx::core::distributed::Group::size(&v26) > a3)
     {
       *__p = *a1;
-      v20 = *(a1 + 16);
+      v21 = *(a1 + 16);
       *(a1 + 8) = 0;
       *(a1 + 16) = 0;
       *a1 = 0;
-      v21.__r_.__value_.__r.__words[0] = mlx::core::to_stream(a5, a6, 0);
-      LODWORD(v21.__r_.__value_.__r.__words[1]) = v12;
+      v22.__r_.__value_.__r.__words[0] = mlx::core::to_stream(a5, a6, 0);
+      LODWORD(v22.__r_.__value_.__r.__words[1]) = v13;
       std::allocate_shared[abi:ne200100]<mlx::core::distributed::Recv,std::allocator<mlx::core::distributed::Recv>,mlx::core::Stream,mlx::core::distributed::Group &,int &,0>();
     }
 
-    std::ostringstream::basic_ostringstream[abi:ne200100](v22);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "Invalid source=", 15);
-    v14 = MEMORY[0x25F851360](v13, a3);
-    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, " for a group of size ", 21);
-    v16 = mlx::core::distributed::Group::size(&v25);
-    MEMORY[0x25F851360](v15, v16);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v23);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, "Invalid source=", 15);
+    v15 = MEMORY[0x25F851360](v14, a3);
+    v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, " for a group of size ", 21);
+    v17 = mlx::core::distributed::Group::size(&v26);
+    MEMORY[0x25F851360](v16, v17);
     exception = __cxa_allocate_exception(0x10uLL);
-    std::ostringstream::str[abi:ne200100](v22, &v21);
-    std::logic_error::logic_error(exception, &v21);
+    std::ostringstream::str[abi:ne200100](v23, &v22);
+    std::logic_error::logic_error(exception, &v22);
     exception->__vftable = (MEMORY[0x277D828F8] + 16);
     __cxa_throw(exception, off_279921408, MEMORY[0x277D82610]);
   }
 
-  v18 = __cxa_allocate_exception(0x10uLL);
-  std::logic_error::logic_error(v18, "Cannot recv from a singleton group");
-  v18->__vftable = (MEMORY[0x277D828F8] + 16);
-  __cxa_throw(v18, off_279921408, MEMORY[0x277D82610]);
+  v19 = __cxa_allocate_exception(0x10uLL);
+  std::logic_error::logic_error(v19, "Cannot recv from a singleton group");
+  v19->__vftable = (MEMORY[0x277D828F8] + 16);
+  __cxa_throw(v19, off_279921408, MEMORY[0x277D82610]);
 }
 
-void sub_25A30C5C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, uint64_t a25)
+void sub_25A30C5C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25)
 {
   if (a23 < 0)
   {
@@ -4562,38 +3514,38 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void mlx::core::distributed::recv_like(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void mlx::core::distributed::recv_like(std::__shared_weak_count *a1, uint64_t a2, uint64_t a3, mlx::core::metal *a4, uint64_t a5)
 {
-  v10 = *a1;
+  v11 = a1->__vftable;
   memset(__p, 0, sizeof(__p));
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, *v10, v10[1], (v10[1] - *v10) >> 2);
-  v11 = (*a1)[7];
-  LOBYTE(v13[0]) = 0;
-  v14 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, v11->~__shared_weak_count, v11->~__shared_weak_count_0, (v11->~__shared_weak_count_0 - v11->~__shared_weak_count) >> 2);
+  on_zero_shared = a1->__vftable[1].__on_zero_shared;
+  LOBYTE(v14[0]) = 0;
+  v15 = 0;
   if (*(a3 + 16) == 1)
   {
-    v12 = *(a3 + 8);
-    v13[0] = *a3;
-    v13[1] = v12;
-    if (v12)
+    v13 = *(a3 + 8);
+    v14[0] = *a3;
+    v14[1] = v13;
+    if (v13)
     {
-      atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v14 = 1;
+    v15 = 1;
   }
 
-  mlx::core::distributed::recv(__p, v11 & 0xFFFFFFFFFFLL, a2, v13, a4, a5);
+  mlx::core::distributed::recv(__p, on_zero_shared & 0xFFFFFFFFFFLL, a2, v14, a4, a5);
 }
 
-void sub_25A30C77C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25A30C77C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if (v4)
+  va_start(va, a7);
+  if (v7)
   {
-    if (v5)
+    if (v8)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
     }
   }
 
@@ -4601,7 +3553,7 @@ void sub_25A30C77C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::__shared_ptr_emplace<mlx::core::distributed::AllReduce>::__shared_ptr_emplace[abi:ne200100]<mlx::core::Stream,mlx::core::distributed::Group &,mlx::core::distributed::AllReduce::ReduceType,std::allocator<mlx::core::distributed::AllReduce>,0>(void *a1, uint64_t a2, uint64_t *a3, int *a4)
+void *std::__shared_ptr_emplace<mlx::core::distributed::AllReduce>::__shared_ptr_emplace[abi:ne200100]<mlx::core::Stream,mlx::core::distributed::Group &,mlx::core::distributed::AllReduce::ReduceType,std::allocator<mlx::core::distributed::AllReduce>,0>(void *a1, uint64_t *a2, uint64_t *a3, unsigned int *a4)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -4618,10 +3570,10 @@ void std::__shared_ptr_emplace<mlx::core::distributed::AllReduce>::~__shared_ptr
   JUMPOUT(0x25F851760);
 }
 
-uint64_t std::construct_at[abi:ne200100]<mlx::core::distributed::AllReduce,mlx::core::Stream,mlx::core::distributed::Group &,mlx::core::distributed::AllReduce::ReduceType,mlx::core::distributed::AllReduce*>(uint64_t a1, uint64_t a2, uint64_t *a3, int *a4)
+uint64_t std::construct_at[abi:ne200100]<mlx::core::distributed::AllReduce,mlx::core::Stream,mlx::core::distributed::Group &,mlx::core::distributed::AllReduce::ReduceType,mlx::core::distributed::AllReduce*>(uint64_t a1, uint64_t *a2, uint64_t *a3, unsigned int *a4)
 {
   v7 = *a2;
-  v8 = *(a2 + 8);
+  v8 = *(a2 + 2);
   v10 = *a3;
   v9 = a3[1];
   v12 = v10;
@@ -4675,7 +3627,7 @@ uint64_t mlx::core::distributed::AllReduce::AllReduce(uint64_t a1, uint64_t a2, 
   return a1;
 }
 
-void *std::__shared_ptr_emplace<mlx::core::distributed::AllGather>::__shared_ptr_emplace[abi:ne200100]<mlx::core::Stream,mlx::core::distributed::Group &,std::allocator<mlx::core::distributed::AllGather>,0>(void *a1, uint64_t a2, uint64_t *a3)
+void *std::__shared_ptr_emplace<mlx::core::distributed::AllGather>::__shared_ptr_emplace[abi:ne200100]<mlx::core::Stream,mlx::core::distributed::Group &,std::allocator<mlx::core::distributed::AllGather>,0>(void *a1, uint64_t *a2, uint64_t *a3)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -4692,10 +3644,10 @@ void std::__shared_ptr_emplace<mlx::core::distributed::AllGather>::~__shared_ptr
   JUMPOUT(0x25F851760);
 }
 
-uint64_t std::construct_at[abi:ne200100]<mlx::core::distributed::AllGather,mlx::core::Stream,mlx::core::distributed::Group &,mlx::core::distributed::AllGather*>(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t std::construct_at[abi:ne200100]<mlx::core::distributed::AllGather,mlx::core::Stream,mlx::core::distributed::Group &,mlx::core::distributed::AllGather*>(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
   v6 = *a2;
-  v7 = *(a2 + 8);
+  v7 = *(a2 + 2);
   v9 = *a3;
   v8 = a3[1];
   v11 = v9;
@@ -4748,7 +3700,7 @@ uint64_t mlx::core::distributed::AllGather::AllGather(uint64_t a1, uint64_t a2, 
   return a1;
 }
 
-void *std::__shared_ptr_emplace<mlx::core::distributed::Send>::__shared_ptr_emplace[abi:ne200100]<mlx::core::Stream,mlx::core::distributed::Group &,int &,std::allocator<mlx::core::distributed::Send>,0>(void *a1, uint64_t a2, uint64_t *a3, int *a4)
+void *std::__shared_ptr_emplace<mlx::core::distributed::Send>::__shared_ptr_emplace[abi:ne200100]<mlx::core::Stream,mlx::core::distributed::Group &,int &,std::allocator<mlx::core::distributed::Send>,0>(void *a1, uint64_t *a2, uint64_t *a3, unsigned int *a4)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -4765,10 +3717,10 @@ void std::__shared_ptr_emplace<mlx::core::distributed::Send>::~__shared_ptr_empl
   JUMPOUT(0x25F851760);
 }
 
-uint64_t std::construct_at[abi:ne200100]<mlx::core::distributed::Send,mlx::core::Stream,mlx::core::distributed::Group &,int &,mlx::core::distributed::Send*>(uint64_t a1, uint64_t a2, uint64_t *a3, int *a4)
+uint64_t std::construct_at[abi:ne200100]<mlx::core::distributed::Send,mlx::core::Stream,mlx::core::distributed::Group &,int &,mlx::core::distributed::Send*>(uint64_t a1, uint64_t *a2, uint64_t *a3, unsigned int *a4)
 {
   v7 = *a2;
-  v8 = *(a2 + 8);
+  v8 = *(a2 + 2);
   v10 = *a3;
   v9 = a3[1];
   v12 = v10;
@@ -4822,7 +3774,7 @@ uint64_t mlx::core::distributed::Send::Send(uint64_t a1, uint64_t a2, int a3, ui
   return a1;
 }
 
-void *std::__shared_ptr_emplace<mlx::core::distributed::Recv>::__shared_ptr_emplace[abi:ne200100]<mlx::core::Stream,mlx::core::distributed::Group &,int &,std::allocator<mlx::core::distributed::Recv>,0>(void *a1, uint64_t a2, uint64_t *a3, int *a4)
+void *std::__shared_ptr_emplace<mlx::core::distributed::Recv>::__shared_ptr_emplace[abi:ne200100]<mlx::core::Stream,mlx::core::distributed::Group &,int &,std::allocator<mlx::core::distributed::Recv>,0>(void *a1, uint64_t *a2, uint64_t *a3, unsigned int *a4)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -4839,10 +3791,10 @@ void std::__shared_ptr_emplace<mlx::core::distributed::Recv>::~__shared_ptr_empl
   JUMPOUT(0x25F851760);
 }
 
-uint64_t std::construct_at[abi:ne200100]<mlx::core::distributed::Recv,mlx::core::Stream,mlx::core::distributed::Group &,int &,mlx::core::distributed::Recv*>(uint64_t a1, uint64_t a2, uint64_t *a3, int *a4)
+uint64_t std::construct_at[abi:ne200100]<mlx::core::distributed::Recv,mlx::core::Stream,mlx::core::distributed::Group &,int &,mlx::core::distributed::Recv*>(uint64_t a1, uint64_t *a2, uint64_t *a3, unsigned int *a4)
 {
   v7 = *a2;
-  v8 = *(a2 + 8);
+  v8 = *(a2 + 2);
   v10 = *a3;
   v9 = a3[1];
   v12 = v10;
@@ -4896,36 +3848,36 @@ uint64_t mlx::core::distributed::Recv::Recv(uint64_t a1, uint64_t a2, int a3, ui
   return a1;
 }
 
-void mlx::core::distributed::AllReduce::vmap(uint64_t a1@<X0>, uint64_t ***a2@<X1>, uint64_t *a3@<X2>, void *a4@<X8>)
+void mlx::core::distributed::AllReduce::vmap(uint64_t a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 40);
   switch(v6)
   {
     case 5:
       v12 = *a2;
       v13 = *(a1 + 32);
-      v19 = *(a1 + 24);
-      v20 = v13;
+      v18 = *(a1 + 24);
+      v19 = v13;
       if (v13)
       {
         atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v21 = 1;
-      mlx::core::distributed::all_max(v12, &v19, *(a1 + 8), *(a1 + 16) | 0x100000000, v29);
+      v20 = 1;
+      mlx::core::distributed::all_max(v12, &v18, *(a1 + 8), *(a1 + 16) | 0x100000000, v28);
+      v24 = 0;
       v25 = 0;
       v26 = 0;
-      v27 = 0;
-      std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(&v25, v29, &v30, 1uLL);
-      std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(a4, &v25, a3);
-      v28 = &v25;
-      std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v28);
-      mlx::core::array::~array(v29);
-      if (v21 == 1)
+      std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(&v24, v28, &v29, 1uLL);
+      std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(a4, &v24, a3);
+      v27 = &v24;
+      std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v27);
+      mlx::core::array::~array(v28);
+      if (v20 == 1)
       {
-        v9 = v20;
-        if (v20)
+        v9 = v19;
+        if (v19)
         {
           goto LABEL_18;
         }
@@ -4933,6 +3885,83 @@ void mlx::core::distributed::AllReduce::vmap(uint64_t a1@<X0>, uint64_t ***a2@<X
 
       break;
     case 4:
+      v10 = *a2;
+      v11 = *(a1 + 32);
+      v15 = *(a1 + 24);
+      v16 = v11;
+      if (v11)
+      {
+        atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      v17 = 1;
+      mlx::core::distributed::all_min(v10, &v15, *(a1 + 8), *(a1 + 16) | 0x100000000, v28);
+      v24 = 0;
+      v25 = 0;
+      v26 = 0;
+      std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(&v24, v28, &v29, 1uLL);
+      std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(a4, &v24, a3);
+      v27 = &v24;
+      std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v27);
+      mlx::core::array::~array(v28);
+      if (v17 == 1)
+      {
+        v9 = v16;
+        if (v16)
+        {
+          goto LABEL_18;
+        }
+      }
+
+      break;
+    case 2:
+      v7 = *a2;
+      v8 = *(a1 + 32);
+      v21 = *(a1 + 24);
+      v22 = v8;
+      if (v8)
+      {
+        atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      v23 = 1;
+      mlx::core::distributed::all_sum(v7, &v21, *(a1 + 8), *(a1 + 16) | 0x100000000, v28);
+      v24 = 0;
+      v25 = 0;
+      v26 = 0;
+      std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(&v24, v28, &v29, 1uLL);
+      std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(a4, &v24, a3);
+      v27 = &v24;
+      std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v27);
+      mlx::core::array::~array(v28);
+      if (v23 != 1)
+      {
+        return;
+      }
+
+      v9 = v22;
+      if (!v22)
+      {
+        return;
+      }
+
+LABEL_18:
+      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+      return;
+    default:
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Only all reduce sum, max and min are supported for now");
+      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+}
+
+void mlx::core::distributed::AllReduce::jvp(uint64_t a1@<X0>, uint64_t **a2@<X2>, uint64_t *a3@<X8>)
+{
+  v23 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 40);
+  switch(v4)
+  {
+    case 5:
       v10 = *a2;
       v11 = *(a1 + 32);
       v16 = *(a1 + 24);
@@ -4943,95 +3972,16 @@ void mlx::core::distributed::AllReduce::vmap(uint64_t a1@<X0>, uint64_t ***a2@<X
       }
 
       v18 = 1;
-      mlx::core::distributed::all_min(v10, &v16, *(a1 + 8), *(a1 + 16) | 0x100000000, v29);
-      v25 = 0;
-      v26 = 0;
-      v27 = 0;
-      std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(&v25, v29, &v30, 1uLL);
-      std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(a4, &v25, a3);
-      v28 = &v25;
-      std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v28);
-      mlx::core::array::~array(v29);
-      if (v18 == 1)
-      {
-        v9 = v17;
-        if (v17)
-        {
-          goto LABEL_18;
-        }
-      }
-
-      break;
-    case 2:
-      v7 = *a2;
-      v8 = *(a1 + 32);
-      v22 = *(a1 + 24);
-      v23 = v8;
-      if (v8)
-      {
-        atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v24 = 1;
-      mlx::core::distributed::all_sum(v7, &v22, *(a1 + 8), *(a1 + 16) | 0x100000000, v29);
-      v25 = 0;
-      v26 = 0;
-      v27 = 0;
-      std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(&v25, v29, &v30, 1uLL);
-      std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(a4, &v25, a3);
-      v28 = &v25;
-      std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v28);
-      mlx::core::array::~array(v29);
-      if (v24 != 1)
-      {
-        break;
-      }
-
-      v9 = v23;
-      if (!v23)
-      {
-        break;
-      }
-
-LABEL_18:
-      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-      break;
-    default:
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Only all reduce sum, max and min are supported for now");
-      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v14 = *MEMORY[0x277D85DE8];
-}
-
-void mlx::core::distributed::AllReduce::jvp(uint64_t a1@<X0>, uint64_t ***a2@<X2>, void *a3@<X8>)
-{
-  v24 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 40);
-  switch(v4)
-  {
-    case 5:
-      v10 = *a2;
-      v11 = *(a1 + 32);
-      v17 = *(a1 + 24);
-      v18 = v11;
-      if (v11)
-      {
-        atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v19 = 1;
-      mlx::core::distributed::all_max(v10, &v17, *(a1 + 8), *(a1 + 16) | 0x100000000, v23);
+      mlx::core::distributed::all_max(v10, &v16, *(a1 + 8), *(a1 + 16) | 0x100000000, v22);
       *a3 = 0;
       a3[1] = 0;
       a3[2] = 0;
-      std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a3, v23, &v24, 1uLL);
-      mlx::core::array::~array(v23);
-      if (v19 == 1)
+      std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a3, v22, &v23, 1uLL);
+      mlx::core::array::~array(v22);
+      if (v18 == 1)
       {
-        v7 = v18;
-        if (v18)
+        v7 = v17;
+        if (v17)
         {
           goto LABEL_18;
         }
@@ -5041,24 +3991,24 @@ void mlx::core::distributed::AllReduce::jvp(uint64_t a1@<X0>, uint64_t ***a2@<X2
     case 4:
       v8 = *a2;
       v9 = *(a1 + 32);
-      v14 = *(a1 + 24);
-      v15 = v9;
+      v13 = *(a1 + 24);
+      v14 = v9;
       if (v9)
       {
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v16 = 1;
-      mlx::core::distributed::all_min(v8, &v14, *(a1 + 8), *(a1 + 16) | 0x100000000, v23);
+      v15 = 1;
+      mlx::core::distributed::all_min(v8, &v13, *(a1 + 8), *(a1 + 16) | 0x100000000, v22);
       *a3 = 0;
       a3[1] = 0;
       a3[2] = 0;
-      std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a3, v23, &v24, 1uLL);
-      mlx::core::array::~array(v23);
-      if (v16 == 1)
+      std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a3, v22, &v23, 1uLL);
+      mlx::core::array::~array(v22);
+      if (v15 == 1)
       {
-        v7 = v15;
-        if (v15)
+        v7 = v14;
+        if (v14)
         {
           goto LABEL_18;
         }
@@ -5068,44 +4018,42 @@ void mlx::core::distributed::AllReduce::jvp(uint64_t a1@<X0>, uint64_t ***a2@<X2
     case 2:
       v5 = *a2;
       v6 = *(a1 + 32);
-      v20 = *(a1 + 24);
-      v21 = v6;
+      v19 = *(a1 + 24);
+      v20 = v6;
       if (v6)
       {
         atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v22 = 1;
-      mlx::core::distributed::all_sum(v5, &v20, *(a1 + 8), *(a1 + 16) | 0x100000000, v23);
+      v21 = 1;
+      mlx::core::distributed::all_sum(v5, &v19, *(a1 + 8), *(a1 + 16) | 0x100000000, v22);
       *a3 = 0;
       a3[1] = 0;
       a3[2] = 0;
-      std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a3, v23, &v24, 1uLL);
-      mlx::core::array::~array(v23);
-      if (v22 != 1)
+      std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a3, v22, &v23, 1uLL);
+      mlx::core::array::~array(v22);
+      if (v21 != 1)
       {
-        break;
+        return;
       }
 
-      v7 = v21;
-      if (!v21)
+      v7 = v20;
+      if (!v20)
       {
-        break;
+        return;
       }
 
 LABEL_18:
       std::__shared_weak_count::__release_shared[abi:ne200100](v7);
-      break;
+      return;
     default:
       exception = __cxa_allocate_exception(0x10uLL);
       std::runtime_error::runtime_error(exception, "Only all reduce sum, max and min are supported for now");
       __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t mlx::core::distributed::AllReduce::vjp@<X0>(uint64_t *a1@<X2>, void *a2@<X8>)
+uint64_t *mlx::core::distributed::AllReduce::vjp@<X0>(void **a1@<X2>, uint64_t *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -5113,164 +4061,164 @@ uint64_t mlx::core::distributed::AllReduce::vjp@<X0>(uint64_t *a1@<X2>, void *a2
   return std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>(a2, *a1, a1[1], (a1[1] - *a1) >> 4);
 }
 
-void mlx::core::distributed::AllGather::vmap(uint64_t a1@<X0>, uint64_t ***a2@<X1>, uint64_t *a3@<X2>, void *a4@<X8>)
+void mlx::core::distributed::AllGather::vmap(uint64_t a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v7 = *a2;
   v8 = *(a1 + 32);
-  v10 = *(a1 + 24);
-  v11 = v8;
+  v9 = *(a1 + 24);
+  v10 = v8;
   if (v8)
   {
     atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v12 = 1;
-  mlx::core::distributed::all_gather(v7, &v10, *(a1 + 8), *(a1 + 16) | 0x100000000, v15);
-  memset(v13, 0, sizeof(v13));
-  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(v13, v15, &v16, 1uLL);
-  std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(a4, v13, a3);
-  v14 = v13;
-  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v14);
-  mlx::core::array::~array(v15);
-  if (v12 == 1 && v11)
+  v11 = 1;
+  mlx::core::distributed::all_gather(v7, &v9, *(a1 + 8), *(a1 + 16) | 0x100000000, v14);
+  memset(v12, 0, sizeof(v12));
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(v12, v14, &v15, 1uLL);
+  std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(a4, v12, a3);
+  v13 = v12;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v13);
+  mlx::core::array::~array(v14);
+  if (v11 == 1)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+    if (v10)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25A30D930(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25A30D930(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::__shared_weak_count *a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void **);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void **);
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
   mlx::core::array::~array(va1);
-  if (a4 == 1)
+  if (a10 == 1)
   {
-    if (a3)
+    if (a9)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+      std::__shared_weak_count::__release_shared[abi:ne200100](a9);
     }
   }
 
   _Unwind_Resume(a1);
 }
 
-void mlx::core::distributed::AllGather::jvp(uint64_t a1@<X0>, uint64_t ***a2@<X2>, void *a3@<X8>)
+void mlx::core::distributed::AllGather::jvp(uint64_t a1@<X0>, uint64_t **a2@<X2>, uint64_t *a3@<X8>)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = *a2;
   v6 = *(a1 + 32);
-  v8 = *(a1 + 24);
-  v9 = v6;
+  v7 = *(a1 + 24);
+  v8 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v10 = 1;
-  mlx::core::distributed::all_gather(v5, &v8, *(a1 + 8), *(a1 + 16) | 0x100000000, v11);
+  v9 = 1;
+  mlx::core::distributed::all_gather(v5, &v7, *(a1 + 8), *(a1 + 16) | 0x100000000, v10);
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
-  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a3, v11, &v12, 1uLL);
-  mlx::core::array::~array(v11);
-  if (v10 == 1 && v9)
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a3, v10, &v11, 1uLL);
+  mlx::core::array::~array(v10);
+  if (v9 == 1)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    if (v8)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25A30DA4C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, char a4, ...)
+void sub_25A30DA4C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, char a4, uint64_t a5, std::__shared_weak_count *a6, char a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   mlx::core::array::~array(va);
-  if (a4 == 1)
+  if (a7 == 1)
   {
-    if (a3)
+    if (a6)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+      std::__shared_weak_count::__release_shared[abi:ne200100](a6);
     }
   }
 
   _Unwind_Resume(a1);
 }
 
-void mlx::core::distributed::AllGather::vjp(uint64_t a1@<X0>, uint64_t ***a2@<X1>, const void ****a3@<X2>, void *a4@<X8>)
+void mlx::core::distributed::AllGather::vjp(uint64_t a1@<X0>, uint64_t **a2@<X1>, char ****a3@<X2>, uint64_t *a4@<X8>)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v7 = *(a1 + 32);
-  v28 = *(a1 + 24);
-  v29 = v7;
+  v27 = *(a1 + 24);
+  v28 = v7;
   if (v7)
   {
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v8 = ((**a2)[1] - ***a2) >> 2;
-  LODWORD(v23) = 0;
-  std::vector<int>::vector[abi:ne200100](&v26, v8);
+  v8 = (*(**a2 + 8) - ***a2) >> 2;
+  LODWORD(v22) = 0;
+  std::vector<int>::vector[abi:ne200100](&v25, v8, &v22);
   v9 = **a2;
-  v24 = 0;
-  v25 = 0;
   v23 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v23, *v9, v9[1], (v9[1] - *v9) >> 2);
-  v10 = mlx::core::distributed::Group::rank(&v28);
-  v11 = v23;
-  v12 = *v23 * v10;
-  v13 = v26;
-  *v26 = v12;
+  v24 = 0;
+  v22 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v22, *v9, *(v9 + 8), (*(v9 + 8) - *v9) >> 2);
+  v10 = mlx::core::distributed::Group::rank(&v27);
+  v11 = v22;
+  v12 = *v22 * v10;
+  v13 = v25;
+  *v25 = v12;
   *v11 += v12;
   v14 = *a3;
-  v21 = 0;
-  v22 = 0;
   v20 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v20, v13, v27, (v27 - v13) >> 2);
-  __p = 0;
-  v18 = 0;
+  v21 = 0;
   v19 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v23, v24, (v24 - v23) >> 2);
-  mlx::core::slice(v14, &v20, &__p, v15, 0, v30);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v19, v13, v26, (v26 - v13) >> 2);
+  __p = 0;
+  v17 = 0;
+  v18 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v22, v23, (v23 - v22) >> 2);
+  mlx::core::slice(v14, &v19, &__p, v15, 0, v29);
   *a4 = 0;
   a4[1] = 0;
   a4[2] = 0;
-  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a4, v30, &v31, 1uLL);
-  mlx::core::array::~array(v30);
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a4, v29, &v30, 1uLL);
+  mlx::core::array::~array(v29);
   if (__p)
   {
-    v18 = __p;
+    v17 = __p;
     operator delete(__p);
   }
 
-  if (v20)
+  if (v19)
   {
-    v21 = v20;
-    operator delete(v20);
+    v20 = v19;
+    operator delete(v19);
   }
 
-  if (v23)
+  if (v22)
   {
-    v24 = v23;
-    operator delete(v23);
+    v23 = v22;
+    operator delete(v22);
   }
 
-  if (v26)
+  if (v25)
   {
-    v27 = v26;
-    operator delete(v26);
+    v26 = v25;
+    operator delete(v25);
   }
 
-  if (v29)
+  if (v28)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A30DC34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20)
@@ -5305,42 +4253,42 @@ void sub_25A30DC34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void mlx::core::distributed::Send::vmap(uint64_t a1, uint64_t ***a2)
+void mlx::core::distributed::Send::vmap(uint64_t a1, uint64_t **a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = *a2;
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 32);
-  v6[0] = *(a1 + 24);
-  v6[1] = v5;
-  if (v5)
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = *a2;
+  v6 = *(a1 + 40);
+  v7 = *(a1 + 32);
+  v8[0] = *(a1 + 24);
+  v8[1] = v7;
+  if (v7)
   {
-    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v7 = 1;
-  mlx::core::distributed::send(v3, v4, v6, *(a1 + 8), *(a1 + 16) | 0x100000000);
+  v9 = 1;
+  mlx::core::distributed::send(v5, v6, v8, *(a1 + 8), *(a1 + 16) | 0x100000000);
 }
 
-void sub_25A30DDC4(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25A30DDC4(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::__shared_weak_count *a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void **);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void **);
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
   mlx::core::array::~array(va1);
-  if (a4 == 1)
+  if (a10 == 1)
   {
-    if (a3)
+    if (a9)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+      std::__shared_weak_count::__release_shared[abi:ne200100](a9);
     }
   }
 
   _Unwind_Resume(a1);
 }
 
-void *std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(void *a1, uint64_t *a2, uint64_t *a3)
+uint64_t *std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(uint64_t *a1, void **a2, uint64_t a3)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -5349,13 +4297,13 @@ void *std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne2001
   a1[3] = 0;
   a1[4] = 0;
   a1[5] = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 3), *a3, a3[1], (a3[1] - *a3) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 3, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
   return a1;
 }
 
-void sub_25A30DE74(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A30DE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5379,9 +4327,9 @@ double mlx::core::distributed::Group::split@<D0>(mlx::core::distributed::Group *
   return result;
 }
 
-void mlx::core::distributed::init(mlx::core::distributed::mpi *a1@<X0>, unsigned __int16 *a2@<X1>, void *a3@<X8>)
+void mlx::core::distributed::init(mlx::core::distributed::mpi *a1@<X0>, unsigned __int16 *a2@<X1>, std::__shared_weak_count **a3@<X8>)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_0, memory_order_acquire) & 1) == 0)
   {
     mlx::core::distributed::init();
   }
@@ -5393,7 +4341,7 @@ void mlx::core::distributed::init(mlx::core::distributed::mpi *a1@<X0>, unsigned
     v7 = v6[6];
     if (v7)
     {
-      atomic_fetch_add_explicit(v7 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     *a3 = v8;
@@ -5599,7 +4547,7 @@ LABEL_67:
 
 LABEL_49:
   std::pair<std::string const,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>::pair[abi:ne200100]<char const(&)[4],std::shared_ptr<mlx::core::distributed::detail::GroupImpl>&,0>(__p, "any", &v44);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>>(&xmmword_27FA05DB8, __p);
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>>(&xmmword_27FA05DB8, __p, __p);
   if (v42)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v42);
@@ -5621,7 +4569,7 @@ LABEL_49:
     atomic_fetch_add_explicit(&v45->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>>(&xmmword_27FA05DB8, __p);
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>>(&xmmword_27FA05DB8, __p, __p);
   if (v42)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v42);
@@ -5652,38 +4600,38 @@ LABEL_49:
   }
 }
 
-void sub_25A30E52C(_Unwind_Exception *a1, uint64_t a2, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, char a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+void sub_25A30E52C(_Unwind_Exception *a1, uint64_t a2, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, char a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  va_start(va, a22);
-  if (a8 < 0)
+  va_start(va, a26);
+  if (SHIBYTE(a12) < 0)
   {
-    operator delete(__p);
-    if ((v23 & 1) == 0)
+    operator delete(a10);
+    if ((v27 & 1) == 0)
     {
 LABEL_6:
-      std::ostringstream::~ostringstream(&a9, MEMORY[0x277D82828]);
+      std::ostringstream::~ostringstream(&a13, MEMORY[0x277D82828]);
       MEMORY[0x25F8516C0](va);
-      if (*(v24 - 89) < 0)
+      if (*(v28 - 89) < 0)
       {
-        operator delete(*(v24 - 112));
+        operator delete(*(v28 - 112));
       }
 
-      v26 = *(v24 - 72);
-      if (v26)
+      v30 = *(v28 - 72);
+      if (v30)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v30);
       }
 
       _Unwind_Resume(a1);
     }
   }
 
-  else if (!v23)
+  else if (!v27)
   {
     goto LABEL_6;
   }
 
-  __cxa_free_exception(v22);
+  __cxa_free_exception(v26);
   goto LABEL_6;
 }
 
@@ -5703,7 +4651,7 @@ uint64_t std::pair<std::string const,std::shared_ptr<mlx::core::distributed::det
   return a1;
 }
 
-uint64_t std::pair<std::string const,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>::pair[abi:ne200100]<char const(&)[4],std::shared_ptr<mlx::core::distributed::detail::GroupImpl>&,0>(uint64_t a1, char *__s, void *a3)
+void *std::pair<std::string const,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>::pair[abi:ne200100]<char const(&)[4],std::shared_ptr<mlx::core::distributed::detail::GroupImpl>&,0>(void *a1, char *__s, void *a3)
 {
   v6 = strlen(__s);
   if (v6 >= 0x7FFFFFFFFFFFFFF8)
@@ -5725,8 +4673,8 @@ uint64_t std::pair<std::string const,std::shared_ptr<mlx::core::distributed::det
 
   *(a1 + v7) = 0;
   v8 = a3[1];
-  *(a1 + 24) = *a3;
-  *(a1 + 32) = v8;
+  a1[3] = *a3;
+  a1[4] = v8;
   if (v8)
   {
     atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
@@ -5838,35 +4786,35 @@ void mlx::core::distributed::detail::EmptyGroup::all_min()
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>>>::__construct_node_hash<std::pair<std::string const,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>>();
@@ -5874,49 +4822,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_25A30ED70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A30ED70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<mlx::core::distributed::detail::GroupImpl>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6234,14 +5182,12 @@ void sub_25A30F864(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void mlx::core::Abs::jvp(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
+void mlx::core::Abs::jvp(uint64_t a1, uint64_t a2, void **a3, void *a4)
 {
-  v5 = *MEMORY[0x277D85DE8];
   if (*(a2 + 8) - *a2 == 16)
   {
     if (a4[1] - *a4 == 4)
     {
-      v4 = *a3;
       mlx::core::sign(*a2, *(a1 + 8), *(a1 + 16) | 0x100000000);
     }
 
@@ -6251,12 +5197,12 @@ void mlx::core::Abs::jvp(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
   mlx::core::Abs::jvp();
 }
 
-void sub_25A30FAB8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A30FAB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   mlx::core::array::~array(va1);
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
@@ -6264,7 +5210,6 @@ void sub_25A30FAB8(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void mlx::core::Abs::vmap(uint64_t a1, uint64_t a2, void *a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
   if (*(a2 + 8) - *a2 == 16)
   {
     if (a3[1] - *a3 == 4)
@@ -6278,19 +5223,19 @@ void mlx::core::Abs::vmap(uint64_t a1, uint64_t a2, void *a3)
   mlx::core::Abs::vmap();
 }
 
-void sub_25A30FBD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A30FBD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void **);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void **);
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
   mlx::core::array::~array(va1);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::Add::jvp(uint64_t a1@<X0>, uint64_t a2@<X2>, void *a3@<X8>)
+void mlx::core::Add::jvp(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t *a3@<X8>)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = *a2;
   if (*(a2 + 8) - *a2 >= 0x11uLL)
   {
@@ -6298,8 +5243,8 @@ void mlx::core::Add::jvp(uint64_t a1@<X0>, uint64_t a2@<X2>, void *a3@<X8>)
   }
 
   v6 = v5[1];
-  v8[0] = *v5;
-  v8[1] = v6;
+  v7[0] = *v5;
+  v7[1] = v6;
   if (v6)
   {
     atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
@@ -6308,14 +5253,13 @@ void mlx::core::Add::jvp(uint64_t a1@<X0>, uint64_t a2@<X2>, void *a3@<X8>)
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
-  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a3, v8, &v9, 1uLL);
-  mlx::core::array::~array(v8);
-  v7 = *MEMORY[0x277D85DE8];
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a3, v7, &v8, 1uLL);
+  mlx::core::array::~array(v7);
 }
 
-void mlx::core::Add::vjp(uint64_t **a1@<X2>, void *a2@<X3>, void *a3@<X8>)
+void mlx::core::Add::vjp(char **a1@<X2>, void *a2@<X3>, uint64_t *a3@<X8>)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (a2[1] - *a2 == 4)
   {
     *a3 = 0;
@@ -6323,45 +5267,42 @@ void mlx::core::Add::vjp(uint64_t **a1@<X2>, void *a2@<X3>, void *a3@<X8>)
     a3[2] = 0;
     v3 = *a1;
     v4 = a1[1];
-    v5 = *MEMORY[0x277D85DE8];
 
     std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>(a3, v3, v4, (v4 - v3) >> 4);
   }
 
   else
   {
-    v6 = **a1;
-    v7 = (*a1)[1];
-    v11[0] = v6;
-    v11[1] = v7;
-    if (v7)
+    v5 = **a1;
+    v6 = *(*a1 + 1);
+    v9[0] = v5;
+    v9[1] = v6;
+    if (v6)
     {
-      atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
-      v8 = (*a1)[1];
-      v12 = **a1;
-      v13 = v8;
-      if (v8)
+      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      v7 = *(*a1 + 1);
+      v10 = **a1;
+      v11 = v7;
+      if (v7)
       {
-        atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
       }
     }
 
     else
     {
-      v12 = v6;
-      v13 = 0;
+      v10 = v5;
+      v11 = 0;
     }
 
     *a3 = 0;
     a3[1] = 0;
     a3[2] = 0;
-    std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a3, v11, &v14, 2uLL);
+    std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a3, v9, &v12, 2uLL);
     for (i = 2; i != -2; i -= 2)
     {
-      mlx::core::array::~array(&v11[i]);
+      mlx::core::array::~array(&v9[i]);
     }
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -6375,14 +5316,15 @@ void sub_25A30FE18(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::Add::vmap(uint64_t a1, uint64_t a2, int **a3)
+void mlx::core::Add::vmap(uint64_t a1, uint64_t a2, char **a3)
 {
-  v5[5] = *MEMORY[0x277D85DE8];
-  mlx::core::add(v4, v5, *(a1 + 8), *(a1 + 16) | 0x100000000);
+  v6[5] = *MEMORY[0x277D85DE8];
+  mlx::core::add(v5, v6, *(a1 + 8), *(a1 + 16) | 0x100000000);
 }
 
-void sub_25A30FF64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char *__p, char *a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, char a17)
+void sub_25A30FF64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char *__p, char *a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
   if (__p)
   {
     a12 = __p;
@@ -6391,40 +5333,39 @@ void sub_25A30FF64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
   __p = &a14;
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
-  mlx::core::array::~array((v18 - 56));
-  mlx::core::array::~array((v17 + 16));
-  mlx::core::array::~array(&a17);
+  mlx::core::array::~array((v17 - 56));
+  mlx::core::array::~array((v16 + 16));
+  mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::vmap_binary_op(uint64_t a1@<X0>, int **a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+void mlx::core::anonymous namespace::vmap_binary_op(uint64_t a1@<X0>, char **a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v5 = *a1;
   if (*(a1 + 8) - *a1 != 32)
   {
   }
 
-  v6 = *a2;
   if (a2[1] - *a2 != 8)
   {
   }
 
-  if (*v6 == -1 && v6[1] == -1)
+  if (**a2 == -1)
   {
-    v39 = v5[1];
+    v38 = v5[1];
     *a4 = *v5;
-    *(a4 + 8) = v39;
-    if (v39)
+    *(a4 + 8) = v38;
+    if (v38)
     {
-      atomic_fetch_add_explicit(v39 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v38 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v40 = v5[3];
+    v39 = v5[3];
     *(a4 + 16) = v5[2];
-    *(a4 + 24) = v40;
-    if (v40)
+    *(a4 + 24) = v39;
+    if (v39)
     {
-      atomic_fetch_add_explicit(v40 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v39 + 8), 1uLL, memory_order_relaxed);
     }
 
     *(a4 + 32) = -1;
@@ -6432,176 +5373,176 @@ void mlx::core::anonymous namespace::vmap_binary_op(uint64_t a1@<X0>, int **a2@<
 
   else
   {
-    v8 = *v5;
-    v9 = v5[1];
-    *&v50 = *v5;
-    *(&v50 + 1) = v9;
-    if (v9)
+    v7 = *v5;
+    v8 = v5[1];
+    *&v49 = *v5;
+    *(&v49 + 1) = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit(v9 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
       v5 = *a1;
     }
 
-    v11 = v5[2];
-    v10 = v5[3];
-    *&v49 = v11;
-    *(&v49 + 1) = v10;
-    if (v10)
+    v10 = v5[2];
+    v9 = v5[3];
+    *&v48 = v10;
+    *(&v48 + 1) = v9;
+    if (v9)
     {
-      atomic_fetch_add_explicit(v10 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v12 = (v8[1] - *v8) >> 2;
-    v14 = **a2;
-    v13 = (*a2)[1];
-    if (v14 == -1)
-    {
-      v15 = v12 + 1;
-    }
-
-    else
-    {
-      v15 = (v8[1] - *v8) >> 2;
-    }
-
-    v16 = (v11[1] - *v11) >> 2;
+    v11 = (*(v7 + 8) - *v7) >> 2;
+    v13 = **a2;
+    v12 = *(*a2 + 1);
     if (v13 == -1)
     {
-      v17 = v16 + 1;
+      v14 = v11 + 1;
     }
 
     else
+    {
+      v14 = (*(v7 + 8) - *v7) >> 2;
+    }
+
+    v15 = (v10[1] - *v10) >> 2;
+    if (v12 == -1)
+    {
+      v16 = v15 + 1;
+    }
+
+    else
+    {
+      v16 = v15;
+    }
+
+    if (v14 <= v16)
     {
       v17 = v16;
     }
 
-    if (v15 <= v17)
-    {
-      v18 = v17;
-    }
-
     else
     {
-      v18 = v15;
+      v17 = v14;
     }
 
-    v46 = *a3;
-    v47 = *(a3 + 8);
-    v48 = v18;
-    v19 = v13 + v18 - v16;
-    __x = v19;
-    v44[0] = v8;
-    v44[1] = *(&v50 + 1);
-    if (*(&v50 + 1))
-    {
-      atomic_fetch_add_explicit((*(&v50 + 1) + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v20 = *&v42.__begin_;
-    v42.__begin_ = 0;
-    v42.__end_ = 0;
-    v21 = *(&v50 + 1);
-    v50 = v20;
-    if (v21)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v21);
-    }
-
-    mlx::core::array::~array(&v42);
-    mlx::core::array::~array(v44);
-    v43 = v49;
+    v45 = *a3;
+    v46 = *(a3 + 8);
+    v47 = v17;
+    v18 = v12 + v17 - v15;
+    __x = v18;
+    v43[0] = v7;
+    v43[1] = *(&v49 + 1);
     if (*(&v49 + 1))
     {
       atomic_fetch_add_explicit((*(&v49 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
-    v22 = v14 + v18 - v12;
-    v23 = *&v42.__begin_;
-    v42.__begin_ = 0;
-    v42.__end_ = 0;
-    v24 = *(&v49 + 1);
-    v49 = v23;
-    if (v24)
+    v19 = *&v41.__begin_;
+    v41.__begin_ = 0;
+    v41.__end_ = 0;
+    v20 = *(&v49 + 1);
+    v49 = v19;
+    if (v20)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
     }
 
-    mlx::core::array::~array(&v42);
-    mlx::core::array::~array(&v43);
-    if (v19 != v22)
+    mlx::core::array::~array(&v41);
+    mlx::core::array::~array(v43);
+    v42 = v48;
+    if (*(&v48 + 1))
     {
-      std::vector<int>::vector[abi:ne200100](&v42, (*(v49 + 8) - *v49) >> 2);
-      begin = v42.__begin_;
-      end = v42.__end_;
-      if (v42.__begin_ != v42.__end_)
+      atomic_fetch_add_explicit((*(&v48 + 1) + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v21 = v13 + v17 - v11;
+    v22 = *&v41.__begin_;
+    v41.__begin_ = 0;
+    v41.__end_ = 0;
+    v23 = *(&v48 + 1);
+    v48 = v22;
+    if (v23)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+    }
+
+    mlx::core::array::~array(&v41);
+    mlx::core::array::~array(&v42);
+    if (v18 != v21)
+    {
+      std::vector<int>::vector[abi:ne200100](&v41, (*(v48 + 8) - *v48) >> 2);
+      begin = v41.__begin_;
+      end = v41.__end_;
+      if (v41.__begin_ != v41.__end_)
       {
-        v27 = 0;
-        v28 = (v42.__end_ - v42.__begin_ - 4) >> 2;
-        v29 = vdupq_n_s64(v28);
-        v30 = (v28 + 4) & 0x7FFFFFFFFFFFFFFCLL;
-        v31 = v42.__begin_ + 2;
+        v26 = 0;
+        v27 = (v41.__end_ - v41.__begin_ - 4) >> 2;
+        v28 = vdupq_n_s64(v27);
+        v29 = (v27 + 4) & 0x7FFFFFFFFFFFFFFCLL;
+        v30 = v41.__begin_ + 2;
         do
         {
-          v32 = vdupq_n_s64(v27);
-          v33 = vmovn_s64(vcgeq_u64(v29, vorrq_s8(v32, xmmword_25A99B0D0)));
-          if (vuzp1_s16(v33, *v29.i8).u8[0])
+          v31 = vdupq_n_s64(v26);
+          v32 = vmovn_s64(vcgeq_u64(v28, vorrq_s8(v31, xmmword_25A99B0D0)));
+          if (vuzp1_s16(v32, *v28.i8).u8[0])
           {
-            *(v31 - 2) = v27;
+            *(v30 - 2) = v26;
           }
 
-          if (vuzp1_s16(v33, *&v29).i8[2])
+          if (vuzp1_s16(v32, *&v28).i8[2])
           {
-            *(v31 - 1) = v27 + 1;
+            *(v30 - 1) = v26 + 1;
           }
 
-          if (vuzp1_s16(*&v29, vmovn_s64(vcgeq_u64(v29, vorrq_s8(v32, xmmword_25A99B0C0)))).i32[1])
+          if (vuzp1_s16(*&v28, vmovn_s64(vcgeq_u64(v28, vorrq_s8(v31, xmmword_25A99B0C0)))).i32[1])
           {
-            *v31 = v27 + 2;
-            v31[1] = v27 + 3;
+            *v30 = v26 + 2;
+            v30[1] = v26 + 3;
           }
 
-          v27 += 4;
-          v31 += 4;
+          v26 += 4;
+          v30 += 4;
         }
 
-        while (v30 != v27);
+        while (v29 != v26);
       }
 
-      v34 = &begin[v19];
-      v35 = (end - (v34 + 1));
-      if (end != v34 + 1)
+      v33 = &begin[v18];
+      v34 = (end - (v33 + 1));
+      if (end != v33 + 1)
       {
-        memmove(v34, v34 + 1, end - (v34 + 1));
-        begin = v42.__begin_;
+        memmove(v33, v33 + 1, end - (v33 + 1));
+        begin = v41.__begin_;
       }
 
-      v42.__end_ = &v35[v34];
-      v36.__i_ = &begin[v22];
-      std::vector<int>::insert(&v42, v36, &__x);
+      v41.__end_ = &v34[v33];
+      v35.__i_ = &begin[v21];
+      std::vector<int>::insert(&v41, v35, &__x);
       memset(__p, 0, sizeof(__p));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, v42.__begin_, v42.__end_, v42.__end_ - v42.__begin_);
-      mlx::core::transpose(&v49, __p, *a3, *(a3 + 8) | 0x100000000);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, v41.__begin_, v41.__end_, v41.__end_ - v41.__begin_);
+      mlx::core::transpose(&v48, __p, *a3, *(a3 + 8) | 0x100000000);
     }
 
-    v37 = *(&v50 + 1);
-    *a4 = v50;
-    *(a4 + 8) = v37;
+    v36 = *(&v49 + 1);
+    *a4 = v49;
+    *(a4 + 8) = v36;
+    if (v36)
+    {
+      atomic_fetch_add_explicit((v36 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v37 = *(&v48 + 1);
+    *(a4 + 16) = v48;
+    *(a4 + 24) = v37;
     if (v37)
     {
       atomic_fetch_add_explicit((v37 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v38 = *(&v49 + 1);
-    *(a4 + 16) = v49;
-    *(a4 + 24) = v38;
-    if (v38)
-    {
-      atomic_fetch_add_explicit((v38 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    *(a4 + 32) = v22;
+    *(a4 + 32) = v21;
+    mlx::core::array::~array(&v48);
     mlx::core::array::~array(&v49);
-    mlx::core::array::~array(&v50);
   }
 }
 
@@ -6622,22 +5563,22 @@ void sub_25A310378(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void mlx::core::AddMM::vjp(uint64_t a1@<X0>, uint64_t ***a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+void mlx::core::AddMM::vjp(uint64_t a1@<X0>, std::string::size_type **a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
   *a5 = 0;
   a5[1] = 0;
   a5[2] = 0;
   v9 = *a3;
-  std::vector<int>::vector[abi:ne200100](&v33, (*(**a3 + 8) - ***a3) >> 2);
-  v10 = v33;
-  v11 = v34;
-  if (v33 != v34)
+  std::vector<int>::vector[abi:ne200100](&v34, (*(**a3 + 8) - ***a3) >> 2);
+  v10 = v34;
+  v11 = v35;
+  if (v34 != v35)
   {
     v12 = 0;
-    v13 = (v34 - v33 - 4) >> 2;
+    v13 = (v35 - v34 - 4) >> 2;
     v14 = vdupq_n_s64(v13);
     v15 = (v13 + 4) & 0x7FFFFFFFFFFFFFFCLL;
-    v16 = v33 + 8;
+    v16 = v34 + 8;
     do
     {
       v17 = vdupq_n_s64(v12);
@@ -6677,78 +5618,78 @@ void mlx::core::AddMM::vjp(uint64_t a1@<X0>, uint64_t ***a2@<X1>, uint64_t a3@<X
       if (*v20 == 1)
       {
         v25 = v9[1];
-        *&v32 = *v9;
-        *(&v32 + 1) = v25;
+        *&v33 = *v9;
+        *(&v33 + 1) = v25;
         if (v25)
         {
           atomic_fetch_add_explicit((v25 + 8), 1uLL, memory_order_relaxed);
         }
 
-        if (*(a1 + 20) != 1.0)
+        v26 = *(a1 + 20);
+        if (v26 != 1.0)
         {
-          v26 = *(*v9 + 56);
-          mlx::core::array::array<float>();
+          mlx::core::array::array<float>(v32, *(*v9 + 56) & 0xFFFFFFFFFFLL, v26);
         }
 
         v27 = *a2;
         memset(__p, 0, sizeof(__p));
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, v33, v34, (v34 - v33) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, v34, v35, (v35 - v34) >> 2);
         mlx::core::transpose(v27, __p, *(a1 + 8), *(a1 + 16) | 0x100000000);
       }
 
       if (!*v20)
       {
         v22 = v9[1];
-        *&v32 = *v9;
-        *(&v32 + 1) = v22;
+        *&v33 = *v9;
+        *(&v33 + 1) = v22;
         if (v22)
         {
           atomic_fetch_add_explicit((v22 + 8), 1uLL, memory_order_relaxed);
         }
 
-        if (*(a1 + 20) != 1.0)
+        v23 = *(a1 + 20);
+        if (v23 != 1.0)
         {
-          v23 = *(*v9 + 56);
-          mlx::core::array::array<float>();
+          mlx::core::array::array<float>(v32, *(*v9 + 56) & 0xFFFFFFFFFFLL, v23);
         }
 
         v24 = *a2;
         memset(v31, 0, sizeof(v31));
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v31, v33, v34, (v34 - v33) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v31, v34, v35, (v35 - v34) >> 2);
         mlx::core::transpose(v24 + 2, v31, *(a1 + 8), *(a1 + 16) | 0x100000000);
       }
 
       v28 = v9[1];
-      *&v32 = *v9;
-      *(&v32 + 1) = v28;
+      *&v33 = *v9;
+      *(&v33 + 1) = v28;
       if (v28)
       {
         atomic_fetch_add_explicit((v28 + 8), 1uLL, memory_order_relaxed);
       }
 
-      if (*(a1 + 24) != 1.0)
+      v29 = *(a1 + 24);
+      if (v29 != 1.0)
       {
-        v29 = *(*v9 + 56);
-        mlx::core::array::array<float>();
+        mlx::core::array::array<float>(v32, *(*v9 + 56) & 0xFFFFFFFFFFLL, v29);
       }
 
-      std::vector<mlx::core::array>::emplace_back<mlx::core::array const&>(a5, &v32);
-      mlx::core::array::~array(&v32);
+      std::vector<mlx::core::array>::emplace_back<mlx::core::array const&>(a5, &v33);
+      mlx::core::array::~array(&v33);
       ++v20;
     }
 
     while (v20 != v21);
-    v10 = v33;
+    v10 = v34;
   }
 
   if (v10)
   {
-    v34 = v10;
+    v35 = v10;
     operator delete(v10);
   }
 }
 
-void *mlx::core::AddMM::jvp@<X0>(void *result@<X0>, uint64_t ***a2@<X1>, void *a3@<X2>, uint64_t *a4@<X3>, uint64_t ***a5@<X8>)
+void mlx::core::AddMM::jvp(uint64_t a1@<X0>, const void ****a2@<X1>, void *a3@<X2>, uint64_t *a4@<X3>, const void ****a5@<X8>)
 {
   *a5 = 0;
   a5[1] = 0;
@@ -6756,7 +5697,6 @@ void *mlx::core::AddMM::jvp@<X0>(void *result@<X0>, uint64_t ***a2@<X1>, void *a
   v6 = *a4;
   if (a4[1] != *a4)
   {
-    v10 = result;
     v11 = 0;
     v12 = 0;
     do
@@ -6793,10 +5733,10 @@ void *mlx::core::AddMM::jvp@<X0>(void *result@<X0>, uint64_t ***a2@<X1>, void *a
 
           v25 = 1065353216;
           v26 = 1065353216;
-          mlx::core::addmm(v24, v23, &v22, &v26, &v25, v10[1], *(v10 + 4) | 0x100000000);
+          mlx::core::addmm(v24, v23, &v22, &v26, &v25, *(a1 + 8), *(a1 + 16) | 0x100000000);
         }
 
-        mlx::core::matmul(*a2, (*a3 + v11), v10[1], *(v10 + 4) | 0x100000000);
+        mlx::core::matmul(*a2, (*a3 + v11), *(a1 + 8), *(a1 + 16) | 0x100000000);
       }
 
       if (!v13)
@@ -6828,18 +5768,18 @@ void *mlx::core::AddMM::jvp@<X0>(void *result@<X0>, uint64_t ***a2@<X1>, void *a
 
           v25 = 1065353216;
           v26 = 1065353216;
-          mlx::core::addmm(v29, &v28, v27, &v26, &v25, v10[1], *(v10 + 4) | 0x100000000);
+          mlx::core::addmm(v29, &v28, v27, &v26, &v25, *(a1 + 8), *(a1 + 16) | 0x100000000);
         }
 
-        mlx::core::matmul((*a3 + v11), *a2 + 2, v10[1], *(v10 + 4) | 0x100000000);
+        mlx::core::matmul((*a3 + v11), *a2 + 2, *(a1 + 8), *(a1 + 16) | 0x100000000);
       }
 
       if (v14 != v15)
       {
-        mlx::core::add(v14, (*a3 + v11), v10[1], *(v10 + 4) | 0x100000000);
+        mlx::core::add(v14, (*a3 + v11), *(a1 + 8), *(a1 + 16) | 0x100000000);
       }
 
-      result = std::vector<mlx::core::array>::emplace_back<mlx::core::array const&>(a5, (*a3 + v11));
+      std::vector<mlx::core::array>::emplace_back<mlx::core::array const&>(a5, (*a3 + v11));
       ++v12;
       v6 = *a4;
       v11 += 16;
@@ -6847,8 +5787,6 @@ void *mlx::core::AddMM::jvp@<X0>(void *result@<X0>, uint64_t ***a2@<X1>, void *a
 
     while (v12 < (a4[1] - *a4) >> 2);
   }
-
-  return result;
 }
 
 void sub_25A310B88(_Unwind_Exception *a1)
@@ -6859,87 +5797,87 @@ void sub_25A310B88(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::AddMM::vmap(uint64_t a1, uint64_t ***a2, unsigned int **a3)
+void mlx::core::AddMM::vmap(uint64_t a1, const void ****a2, unsigned int **a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v6 = *a2;
-  v7 = **a3;
-  if (v7 < 1)
+  v26 = *MEMORY[0x277D85DE8];
+  v7 = *a2;
+  v8 = **a3;
+  if (v8 < 1)
   {
-    v8 = v6[1];
-    v23 = *v6;
-    v24 = v8;
-    if (v8)
+    v9 = v7[1];
+    v24 = *v7;
+    v25 = v9;
+    if (v9)
     {
-      atomic_fetch_add_explicit(v8 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v9 + 1, 1uLL, memory_order_relaxed);
     }
   }
 
   else
   {
-    mlx::core::moveaxis(v6, v7, 0, *(a1 + 8), *(a1 + 16) | 0x100000000, &v23);
+    mlx::core::moveaxis(v7, *(a1 + 8), *(a1 + 16) | 0x100000000, &v24, v8, 0);
   }
 
-  v9 = *a2;
-  v10 = (*a3)[1];
-  if (v10 < 1)
+  v10 = *a2;
+  v11 = (*a3)[1];
+  if (v11 < 1)
   {
-    v11 = v9[3];
-    v21 = v9[2];
-    v22 = v11;
-    if (v11)
+    v12 = v10[3];
+    v22 = v10[2];
+    v23 = v12;
+    if (v12)
     {
-      atomic_fetch_add_explicit(v11 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v12 + 1, 1uLL, memory_order_relaxed);
     }
   }
 
   else
   {
-    mlx::core::moveaxis((v9 + 2), v10, 0, *(a1 + 8), *(a1 + 16) | 0x100000000, &v21);
+    mlx::core::moveaxis(v10 + 2, *(a1 + 8), *(a1 + 16) | 0x100000000, &v22, v11, 0);
   }
 
-  v12 = *a2;
-  v13 = (*a3)[2];
-  if (v13 < 1)
+  v13 = *a2;
+  v14 = (*a3)[2];
+  if (v14 < 1)
   {
-    v14 = v12[4];
-    v15 = v12[5];
-    v19 = v14;
+    v15 = v13[4];
+    v16 = v13[5];
     v20 = v15;
-    if (v15)
+    v21 = v16;
+    if (v16)
     {
-      atomic_fetch_add_explicit(v15 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v16 + 1, 1uLL, memory_order_relaxed);
     }
   }
 
   else
   {
-    mlx::core::moveaxis((v12 + 4), v13, 0, *(a1 + 8), *(a1 + 16) | 0x100000000, &v19);
-    v14 = v19;
+    mlx::core::moveaxis(v13 + 4, *(a1 + 8), *(a1 + 16) | 0x100000000, &v20, v14, 0);
+    v15 = v20;
   }
 
-  v18[0] = v14;
-  v18[1] = v20;
-  if (v20)
+  v19[0] = v15;
+  v19[1] = v21;
+  if (v21)
   {
-    atomic_fetch_add_explicit(v20 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v21 + 1, 1uLL, memory_order_relaxed);
   }
 
-  v17[0] = v23;
-  v17[1] = v24;
-  if (v24)
+  v18[0] = v24;
+  v18[1] = v25;
+  if (v25)
   {
-    atomic_fetch_add_explicit(v24 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v25 + 1, 1uLL, memory_order_relaxed);
   }
 
-  v16[0] = v21;
-  v16[1] = v22;
-  if (v22)
+  v17[0] = v22;
+  v17[1] = v23;
+  if (v23)
   {
-    atomic_fetch_add_explicit(v22 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v23 + 1, 1uLL, memory_order_relaxed);
   }
 
-  mlx::core::addmm(v18, v17, v16, a1 + 20, a1 + 24, *(a1 + 8), *(a1 + 16) | 0x100000000);
+  mlx::core::addmm(v19, v18, v17, (a1 + 20), (a1 + 24), *(a1 + 8), *(a1 + 16) | 0x100000000);
 }
 
 void sub_25A310E98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13, uint64_t a14, char a15, uint64_t a16, char a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, char a22)
@@ -6949,26 +5887,24 @@ void sub_25A310E98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void mlx::core::Arange::output_shapes(double *a1@<X0>, void *a2@<X8>)
+void mlx::core::Arange::output_shapes(double *a1@<X0>, uint64_t *a2@<X8>)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = vcvtpd_s64_f64((a1[4] - a1[3]) / a1[5]);
-  v5 = v3 & ~(v3 >> 31);
+  v4 = v3 & ~(v3 >> 31);
+  v6 = 0;
   v7 = 0;
-  v8 = 0;
   __p = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, &v5, &__p, 1uLL);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, &v4, &__p, 1uLL);
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a2, &__p, &v9, 1uLL);
+  std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a2, &__p, &v8, 1uLL);
   if (__p)
   {
-    v7 = __p;
+    v6 = __p;
     operator delete(__p);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A311028(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12)
@@ -6981,15 +5917,14 @@ void sub_25A311028(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void mlx::core::ArcCos::jvp(uint64_t a1, void *a2, uint64_t a3, void *a4)
+void mlx::core::ArcCos::jvp(uint64_t a1, void **a2, void **a3, void *a4)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   if (a2[1] - *a2 == 16)
   {
     if (a4[1] - *a4 == 4)
     {
-      v4 = *(**a2 + 56);
-      mlx::core::array::array<double>();
+      mlx::core::array::array<double>(v5, *(**a2 + 56) & 0xFFFFFFFFFFLL, 1.0);
     }
 
     mlx::core::ArcCos::jvp();
@@ -6998,20 +5933,20 @@ void mlx::core::ArcCos::jvp(uint64_t a1, void *a2, uint64_t a3, void *a4)
   mlx::core::ArcCos::jvp();
 }
 
-void sub_25A3111F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A3111F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   va_copy(va2, va1);
-  v6 = va_arg(va2, void);
-  v8 = va_arg(va2, void);
+  v7 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
   va_copy(va3, va2);
-  v9 = va_arg(va3, void);
-  v11 = va_arg(va3, void);
+  v10 = va_arg(va3, void);
+  v12 = va_arg(va3, void);
   mlx::core::array::~array(va3);
   mlx::core::array::~array(va);
   mlx::core::array::~array(va1);
@@ -7021,7 +5956,6 @@ void sub_25A3111F0(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void mlx::core::ArcCos::vmap(uint64_t a1, uint64_t a2, void *a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
   if (*(a2 + 8) - *a2 == 16)
   {
     if (a3[1] - *a3 == 4)
@@ -7035,25 +5969,24 @@ void mlx::core::ArcCos::vmap(uint64_t a1, uint64_t a2, void *a3)
   mlx::core::ArcCos::vmap();
 }
 
-void sub_25A311344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A311344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void **);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void **);
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
   mlx::core::array::~array(va1);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::ArcCosh::jvp(uint64_t a1, void *a2, uint64_t a3, void *a4)
+void mlx::core::ArcCosh::jvp(uint64_t a1, void **a2, void **a3, void *a4)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   if (a2[1] - *a2 == 16)
   {
     if (a4[1] - *a4 == 4)
     {
-      v4 = *(**a2 + 56);
-      mlx::core::array::array<double>();
+      mlx::core::array::array<double>(v5, *(**a2 + 56) & 0xFFFFFFFFFFLL, 1.0);
     }
 
     mlx::core::ArcCosh::jvp();
@@ -7062,20 +5995,20 @@ void mlx::core::ArcCosh::jvp(uint64_t a1, void *a2, uint64_t a3, void *a4)
   mlx::core::ArcCosh::jvp();
 }
 
-void sub_25A3114FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A3114FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   va_copy(va2, va1);
-  v6 = va_arg(va2, void);
-  v8 = va_arg(va2, void);
+  v7 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
   va_copy(va3, va2);
-  v9 = va_arg(va3, void);
-  v11 = va_arg(va3, void);
+  v10 = va_arg(va3, void);
+  v12 = va_arg(va3, void);
   mlx::core::array::~array(va3);
   mlx::core::array::~array(va);
   mlx::core::array::~array(va1);
@@ -7085,7 +6018,6 @@ void sub_25A3114FC(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void mlx::core::ArcCosh::vmap(uint64_t a1, uint64_t a2, void *a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
   if (*(a2 + 8) - *a2 == 16)
   {
     if (a3[1] - *a3 == 4)
@@ -7099,25 +6031,24 @@ void mlx::core::ArcCosh::vmap(uint64_t a1, uint64_t a2, void *a3)
   mlx::core::ArcCosh::vmap();
 }
 
-void sub_25A311644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A311644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void **);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void **);
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
   mlx::core::array::~array(va1);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::ArcSin::jvp(uint64_t a1, void *a2, uint64_t a3, void *a4)
+void mlx::core::ArcSin::jvp(uint64_t a1, void **a2, void **a3, void *a4)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   if (a2[1] - *a2 == 16)
   {
     if (a4[1] - *a4 == 4)
     {
-      v4 = *(**a2 + 56);
-      mlx::core::array::array<double>();
+      mlx::core::array::array<double>(v5, *(**a2 + 56) & 0xFFFFFFFFFFLL, 1.0);
     }
 
     mlx::core::ArcSin::jvp();
@@ -7126,20 +6057,20 @@ void mlx::core::ArcSin::jvp(uint64_t a1, void *a2, uint64_t a3, void *a4)
   mlx::core::ArcSin::jvp();
 }
 
-void sub_25A3117FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A3117FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   va_copy(va2, va1);
-  v6 = va_arg(va2, void);
-  v8 = va_arg(va2, void);
+  v7 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
   va_copy(va3, va2);
-  v9 = va_arg(va3, void);
-  v11 = va_arg(va3, void);
+  v10 = va_arg(va3, void);
+  v12 = va_arg(va3, void);
   mlx::core::array::~array(va3);
   mlx::core::array::~array(va);
   mlx::core::array::~array(va1);
@@ -7149,7 +6080,6 @@ void sub_25A3117FC(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void mlx::core::ArcSin::vmap(uint64_t a1, uint64_t a2, void *a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
   if (*(a2 + 8) - *a2 == 16)
   {
     if (a3[1] - *a3 == 4)
@@ -7163,25 +6093,24 @@ void mlx::core::ArcSin::vmap(uint64_t a1, uint64_t a2, void *a3)
   mlx::core::ArcSin::vmap();
 }
 
-void sub_25A311944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A311944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void **);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void **);
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
   mlx::core::array::~array(va1);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::ArcSinh::jvp(uint64_t a1, void *a2, uint64_t a3, void *a4)
+void mlx::core::ArcSinh::jvp(uint64_t a1, void **a2, void **a3, void *a4)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   if (a2[1] - *a2 == 16)
   {
     if (a4[1] - *a4 == 4)
     {
-      v4 = *(**a2 + 56);
-      mlx::core::array::array<double>();
+      mlx::core::array::array<double>(v5, *(**a2 + 56) & 0xFFFFFFFFFFLL, 1.0);
     }
 
     mlx::core::ArcSinh::jvp();
@@ -7190,20 +6119,20 @@ void mlx::core::ArcSinh::jvp(uint64_t a1, void *a2, uint64_t a3, void *a4)
   mlx::core::ArcSinh::jvp();
 }
 
-void sub_25A311AFC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A311AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   va_copy(va2, va1);
-  v6 = va_arg(va2, void);
-  v8 = va_arg(va2, void);
+  v7 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
   va_copy(va3, va2);
-  v9 = va_arg(va3, void);
-  v11 = va_arg(va3, void);
+  v10 = va_arg(va3, void);
+  v12 = va_arg(va3, void);
   mlx::core::array::~array(va3);
   mlx::core::array::~array(va);
   mlx::core::array::~array(va1);
@@ -7213,7 +6142,6 @@ void sub_25A311AFC(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void mlx::core::ArcSinh::vmap(uint64_t a1, uint64_t a2, void *a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
   if (*(a2 + 8) - *a2 == 16)
   {
     if (a3[1] - *a3 == 4)
@@ -7227,25 +6155,24 @@ void mlx::core::ArcSinh::vmap(uint64_t a1, uint64_t a2, void *a3)
   mlx::core::ArcSinh::vmap();
 }
 
-void sub_25A311C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A311C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void **);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void **);
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
   mlx::core::array::~array(va1);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::ArcTan::jvp(uint64_t a1, void *a2, uint64_t a3, void *a4)
+void mlx::core::ArcTan::jvp(uint64_t a1, void **a2, void **a3, void *a4)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   if (a2[1] - *a2 == 16)
   {
     if (a4[1] - *a4 == 4)
     {
-      v4 = *(**a2 + 56);
-      mlx::core::array::array<double>();
+      mlx::core::array::array<double>(v5, *(**a2 + 56) & 0xFFFFFFFFFFLL, 1.0);
     }
 
     mlx::core::ArcTan::jvp();
@@ -7254,16 +6181,16 @@ void mlx::core::ArcTan::jvp(uint64_t a1, void *a2, uint64_t a3, void *a4)
   mlx::core::ArcTan::jvp();
 }
 
-void sub_25A311DD8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A311DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   va_copy(va2, va1);
-  v6 = va_arg(va2, void);
-  v8 = va_arg(va2, void);
+  v7 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
   mlx::core::array::~array(va2);
   mlx::core::array::~array(va);
   mlx::core::array::~array(va1);
@@ -7272,7 +6199,6 @@ void sub_25A311DD8(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void mlx::core::ArcTan::vmap(uint64_t a1, uint64_t a2, void *a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
   if (*(a2 + 8) - *a2 == 16)
   {
     if (a3[1] - *a3 == 4)
@@ -7286,19 +6212,18 @@ void mlx::core::ArcTan::vmap(uint64_t a1, uint64_t a2, void *a3)
   mlx::core::ArcTan::vmap();
 }
 
-void sub_25A311F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A311F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void **);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void **);
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
   mlx::core::array::~array(va1);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::ArcTan2::jvp(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void mlx::core::ArcTan2::jvp(uint64_t a1, uint64_t a2, void **a3, void *a4)
 {
-  v4 = *MEMORY[0x277D85DE8];
   if (*(a2 + 8) - *a2 == 32)
   {
     if (a4[1] - *a4 == 8)
@@ -7312,7 +6237,7 @@ void mlx::core::ArcTan2::jvp(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   mlx::core::ArcTan2::jvp();
 }
 
-void sub_25A312108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_25A312108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   v17 = &a16;
   v18 = -32;
@@ -7331,12 +6256,12 @@ void sub_25A312108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void mlx::core::ArcTan2::vmap(uint64_t a1, void *a2, uint64_t a3)
 {
-  v5[5] = *MEMORY[0x277D85DE8];
+  v6[5] = *MEMORY[0x277D85DE8];
   if (a2[1] - *a2 == 32)
   {
     if (*(a3 + 8) - *a3 == 8)
     {
-      mlx::core::arctan2(v4, v5, *(a1 + 8), *(a1 + 16) | 0x100000000);
+      mlx::core::arctan2(v5, v6, *(a1 + 8), *(a1 + 16) | 0x100000000);
     }
 
     mlx::core::ArcTan2::vmap();
@@ -7345,8 +6270,9 @@ void mlx::core::ArcTan2::vmap(uint64_t a1, void *a2, uint64_t a3)
   mlx::core::ArcTan2::vmap();
 }
 
-void sub_25A3122E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char *__p, char *a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, char a17)
+void sub_25A3122E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char *__p, char *a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
   if (__p)
   {
     a12 = __p;
@@ -7355,21 +6281,20 @@ void sub_25A3122E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
   __p = &a14;
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
-  mlx::core::array::~array((v18 - 56));
-  mlx::core::array::~array((v17 + 16));
-  mlx::core::array::~array(&a17);
+  mlx::core::array::~array((v17 - 56));
+  mlx::core::array::~array((v16 + 16));
+  mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::ArcTanh::jvp(uint64_t a1, void *a2, uint64_t a3, void *a4)
+void mlx::core::ArcTanh::jvp(uint64_t a1, void **a2, void **a3, void *a4)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   if (a2[1] - *a2 == 16)
   {
     if (a4[1] - *a4 == 4)
     {
-      v4 = *(**a2 + 56);
-      mlx::core::array::array<double>();
+      mlx::core::array::array<double>(v5, *(**a2 + 56) & 0xFFFFFFFFFFLL, 1.0);
     }
 
     mlx::core::ArcTanh::jvp();
@@ -7378,16 +6303,16 @@ void mlx::core::ArcTanh::jvp(uint64_t a1, void *a2, uint64_t a3, void *a4)
   mlx::core::ArcTanh::jvp();
 }
 
-void sub_25A3124A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A3124A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   va_copy(va2, va1);
-  v6 = va_arg(va2, void);
-  v8 = va_arg(va2, void);
+  v7 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
   mlx::core::array::~array(va2);
   mlx::core::array::~array(va);
   mlx::core::array::~array(va1);
@@ -7396,7 +6321,6 @@ void sub_25A3124A8(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void mlx::core::ArcTanh::vmap(uint64_t a1, uint64_t a2, void *a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
   if (*(a2 + 8) - *a2 == 16)
   {
     if (a3[1] - *a3 == 4)
@@ -7410,37 +6334,37 @@ void mlx::core::ArcTanh::vmap(uint64_t a1, uint64_t a2, void *a3)
   mlx::core::ArcTanh::vmap();
 }
 
-void sub_25A3125E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A3125E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void **);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void **);
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
   mlx::core::array::~array(va1);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::ArgPartition::vmap(uint64_t a1, uint64_t *a2, uint64_t a3)
+void mlx::core::ArgPartition::vmap(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v4 = *a2;
-  if (a2[1] - *a2 == 16)
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = *a2;
+  if (*(a2 + 8) - *a2 == 16)
   {
     if (*(a3 + 8) - *a3 == 4)
     {
-      v5 = **a3;
-      v6 = *(a1 + 24);
-      if (v5 >= 0 && v5 <= v6)
+      v6 = **a3;
+      v7 = *(a1 + 24);
+      if (v6 >= 0 && v6 <= v7)
       {
-        v8 = (v6 + 1);
+        v9 = (v7 + 1);
       }
 
       else
       {
-        v8 = v6;
+        v9 = v7;
       }
 
-      mlx::core::argpartition(v4, v8, *(a1 + 8), *(a1 + 16) | 0x100000000);
+      mlx::core::argpartition(v5, v9, *(a1 + 8), *(a1 + 16) | 0x100000000);
     }
 
     mlx::core::ArgPartition::vmap();
@@ -7449,55 +6373,55 @@ void mlx::core::ArgPartition::vmap(uint64_t a1, uint64_t *a2, uint64_t a3)
   mlx::core::ArgPartition::vmap();
 }
 
-void sub_25A312714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A312714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void **);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void **);
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
   mlx::core::array::~array(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_25A3127DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A3127DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25A312890(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A312890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
 
 void mlx::core::ArgReduce::vmap(uint64_t a1, uint64_t ***a2, int **a3)
 {
-  v5 = **a3;
-  v7 = *(a1 + 20);
-  v6 = *(a1 + 24);
-  if (v5 < 0 || v6 < v5)
+  v6 = **a3;
+  v8 = *(a1 + 20);
+  v7 = *(a1 + 24);
+  if (v6 < 0 || v7 < v6)
   {
-    v9 = *(a1 + 24);
+    v10 = *(a1 + 24);
   }
 
   else
   {
-    v9 = v6 + 1;
+    v10 = v7 + 1;
   }
 
-  v10 = *a2;
-  v11 = 0;
+  v11 = *a2;
   v12 = 0;
   v13 = 0;
-  if (v7)
+  v14 = 0;
+  if (v8)
   {
-    mlx::core::argmax(v10, v9, 1, *(a1 + 8), *(a1 + 16) | 0x100000000);
+    mlx::core::argmax(v11, v10, 1, *(a1 + 8), *(a1 + 16) | 0x100000000);
   }
 
-  mlx::core::argmin(v10, v9, 1, *(a1 + 8), *(a1 + 16) | 0x100000000);
+  mlx::core::argmin(v11, v10, 1, *(a1 + 8), *(a1 + 16) | 0x100000000);
 }
 
 void sub_25A3129DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, uint64_t a11, char a12)
@@ -7508,41 +6432,41 @@ void sub_25A3129DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_25A312AAC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A312AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25A312B60(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A312B60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::ArgSort::vmap(uint64_t a1, uint64_t a2, uint64_t a3)
+void mlx::core::ArgSort::vmap(uint64_t a1, const void ****a2, uint64_t a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v4 = *a2;
-  if (*(a2 + 8) - *a2 == 16)
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = *a2;
+  if (a2[1] - *a2 == 16)
   {
     if (*(a3 + 8) - *a3 == 4)
     {
-      v5 = **a3;
-      v6 = *(a1 + 20);
-      if (v5 >= 0 && v5 <= v6)
+      v6 = **a3;
+      v7 = *(a1 + 20);
+      if (v6 >= 0 && v6 <= v7)
       {
-        v8 = (v6 + 1);
+        v9 = (v7 + 1);
       }
 
       else
       {
-        v8 = v6;
+        v9 = v7;
       }
 
-      mlx::core::argsort(v4, v8, *(a1 + 8), *(a1 + 16) | 0x100000000);
+      mlx::core::argsort(v5, v9, *(a1 + 8), *(a1 + 16) | 0x100000000);
     }
 
     mlx::core::ArgSort::vmap();
@@ -7551,46 +6475,44 @@ void mlx::core::ArgSort::vmap(uint64_t a1, uint64_t a2, uint64_t a3)
   mlx::core::ArgSort::vmap();
 }
 
-void sub_25A312C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A312C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void **);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void **);
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
   mlx::core::array::~array(va1);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::ArgReduce::output_shapes(uint64_t a1@<X0>, uint64_t ***a2@<X1>, void *a3@<X8>)
+void mlx::core::ArgReduce::output_shapes(uint64_t a1@<X0>, uint64_t **a2@<X1>, uint64_t *a3@<X8>)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = **a2;
-  v9 = 0uLL;
-  v8 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v8, *v5, v5[1], (v5[1] - *v5) >> 2);
-  v6 = v8;
-  *(v8 + *(a1 + 24)) = 1;
-  v11 = v9;
+  v8 = 0uLL;
+  v7 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v7, *v5, *(v5 + 8), (*(v5 + 8) - *v5) >> 2);
+  v6 = v7;
+  *(v7 + *(a1 + 24)) = 1;
+  v10 = v8;
   __p = v6;
-  v8 = 0;
-  v9 = 0uLL;
+  v7 = 0;
+  v8 = 0uLL;
   a3[1] = 0;
   a3[2] = 0;
   *a3 = 0;
-  std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a3, &__p, &v12, 1uLL);
+  std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a3, &__p, &v11, 1uLL);
   if (__p)
   {
-    *&v11 = __p;
+    *&v10 = __p;
     operator delete(__p);
   }
 
-  if (v8)
+  if (v7)
   {
-    *&v9 = v8;
-    operator delete(v8);
+    *&v8 = v7;
+    operator delete(v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A312D88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14)
@@ -7608,10 +6530,10 @@ void sub_25A312D88(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void mlx::core::AsType::vjp(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t ***a3@<X2>, void *a4@<X8>)
+void mlx::core::AsType::vjp(uint64_t a1@<X0>, uint64_t a2@<X1>, void **a3@<X2>, uint64_t *a4@<X8>)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 20) != *(**a3 + 14))
+  v9 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 20) != *(**a3 + 56))
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::invalid_argument::invalid_argument[abi:ne200100](exception, "[astype] Type of cotangents does not match primal output type.");
@@ -7619,138 +6541,135 @@ void mlx::core::AsType::vjp(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t ***a3@<
   }
 
   v5 = (*a3)[1];
-  v8[0] = **a3;
-  v8[1] = v5;
+  v7[0] = **a3;
+  v7[1] = v5;
   if (v5)
   {
-    atomic_fetch_add_explicit(v5 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
   }
 
-  mlx::core::astype(v8, *(**a2 + 56), *(a1 + 8), *(a1 + 16) | 0x100000000, v9);
+  mlx::core::astype(v7, *(**a2 + 56) & 0xFFFFFFFFFFLL, *(a1 + 8), *(a1 + 16) | 0x100000000, v8);
   *a4 = 0;
   a4[1] = 0;
   a4[2] = 0;
-  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a4, v9, &v10, 1uLL);
-  mlx::core::array::~array(v9);
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a4, v8, &v9, 1uLL);
   mlx::core::array::~array(v8);
-  v6 = *MEMORY[0x277D85DE8];
+  mlx::core::array::~array(v7);
 }
 
-void mlx::core::AsType::jvp(uint64_t a1@<X0>, uint64_t ***a2@<X2>, void *a3@<X8>)
+void mlx::core::AsType::jvp(uint64_t a1@<X0>, void **a2@<X2>, uint64_t *a3@<X8>)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = (*a2)[1];
-  v6[0] = **a2;
-  v6[1] = v4;
+  v5[0] = **a2;
+  v5[1] = v4;
   if (v4)
   {
-    atomic_fetch_add_explicit(v4 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
-  mlx::core::astype(v6, *(a1 + 20), *(a1 + 8), *(a1 + 16) | 0x100000000, v7);
+  mlx::core::astype(v5, *(a1 + 20), *(a1 + 8), *(a1 + 16) | 0x100000000, v6);
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
-  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a3, v7, &v8, 1uLL);
-  mlx::core::array::~array(v7);
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a3, v6, &v7, 1uLL);
   mlx::core::array::~array(v6);
-  v5 = *MEMORY[0x277D85DE8];
+  mlx::core::array::~array(v5);
 }
 
-void sub_25A312FD4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A312FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   mlx::core::array::~array(va1);
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::AsType::vmap(uint64_t a1@<X0>, uint64_t ***a2@<X1>, uint64_t *a3@<X2>, void *a4@<X8>)
+void mlx::core::AsType::vmap(uint64_t a1@<X0>, void **a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v6 = (*a2)[1];
-  v8[0] = **a2;
-  v8[1] = v6;
+  v7[0] = **a2;
+  v7[1] = v6;
   if (v6)
   {
-    atomic_fetch_add_explicit(v6 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
-  mlx::core::astype(v8, *(a1 + 20), *(a1 + 8), *(a1 + 16) | 0x100000000, v11);
-  memset(v9, 0, sizeof(v9));
-  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(v9, v11, &v12, 1uLL);
-  std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(a4, v9, a3);
-  v10 = v9;
-  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v10);
-  mlx::core::array::~array(v11);
-  mlx::core::array::~array(v8);
-  v7 = *MEMORY[0x277D85DE8];
+  mlx::core::astype(v7, *(a1 + 20), *(a1 + 8), *(a1 + 16) | 0x100000000, v10);
+  memset(v8, 0, sizeof(v8));
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(v8, v10, &v11, 1uLL);
+  std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(a4, v8, a3);
+  v9 = v8;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v9);
+  mlx::core::array::~array(v10);
+  mlx::core::array::~array(v7);
 }
 
-void sub_25A3130E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A3130E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void **);
+  v10 = va_arg(va2, void **);
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va1);
   mlx::core::array::~array(va2);
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::AsStrided::vjp(uint64_t a1, uint64_t ***a2, uint64_t a3, void *a4)
+void mlx::core::AsStrided::vjp(uint64_t a1, uint64_t **a2, const void ****a3, void *a4)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (a4[1] - *a4 == 4)
   {
-    v4 = *(**a2 + 12);
-    v5 = *(**a3 + 48);
     mlx::core::zeros_like(*a2, *(a1 + 8), *(a1 + 16) | 0x100000000);
   }
 
   mlx::core::AsStrided::vjp();
 }
 
-void sub_25A313504(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, char a27)
+void sub_25A313504(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, ...)
 {
-  mlx::core::array::~array((v27 - 96));
-  mlx::core::array::~array(&a27);
-  mlx::core::array::~array((v27 - 128));
-  mlx::core::array::~array((v27 - 112));
+  va_start(va, a26);
+  mlx::core::array::~array((v26 - 96));
+  mlx::core::array::~array(va);
+  mlx::core::array::~array((v26 - 128));
+  mlx::core::array::~array((v26 - 112));
   _Unwind_Resume(a1);
 }
 
 void mlx::core::scatter_add(uint64_t **a1, void *a2, uint64_t **a3, int a4, mlx::core *a5, uint64_t a6)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v11 = a2[1];
-  v15[0] = *a2;
-  v15[1] = v11;
-  if (v11)
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = a2[1];
+  v16[0] = *a2;
+  v16[1] = v12;
+  if (v12)
   {
-    atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
   }
 
-  memset(v14, 0, sizeof(v14));
-  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(v14, v15, &v16, 1uLL);
-  v12 = a4;
+  memset(v15, 0, sizeof(v15));
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(v15, v16, &v17, 1uLL);
+  v13 = a4;
   memset(__p, 0, sizeof(__p));
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(__p, &v12, __p, 1uLL);
-  mlx::core::scatter_add(a1, v14, a3, __p, a5, a6);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(__p, &v13, __p, 1uLL);
+  mlx::core::scatter_add(a1, v15, a3, __p, a5, a6);
 }
 
-void sub_25A313710(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char *__p, char *a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, char a16)
+void sub_25A313710(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char *__p, char *a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, ...)
 {
+  va_start(va, a15);
   if (__p)
   {
     a11 = __p;
@@ -7759,36 +6678,37 @@ void sub_25A313710(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
   __p = &a13;
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
-  mlx::core::array::~array(&a16);
+  mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
 
 void mlx::core::AsStrided::jvp(uint64_t a1, void *a2, void **a3)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   if (a2[1] - *a2 == 16)
   {
-    v4 = (*a3)[1];
-    v7[0] = **a3;
-    v7[1] = v4;
-    if (v4)
+    v5 = (*a3)[1];
+    v8[0] = **a3;
+    v8[1] = v5;
+    if (v5)
     {
-      atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
 
-    memset(v6, 0, sizeof(v6));
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v6, *(a1 + 24), *(a1 + 32), (*(a1 + 32) - *(a1 + 24)) >> 2);
+    memset(v7, 0, sizeof(v7));
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v7, *(a1 + 24), *(a1 + 32), (*(a1 + 32) - *(a1 + 24)) >> 2);
     memset(__p, 0, sizeof(__p));
     std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(__p, *(a1 + 48), *(a1 + 56), (*(a1 + 56) - *(a1 + 48)) >> 3);
-    mlx::core::as_strided(v7, v6, __p, *(a1 + 72), *(a1 + 8), *(a1 + 16) | 0x100000000);
+    mlx::core::as_strided(v8, v7, __p, *(a1 + 72), *(a1 + 8), *(a1 + 16) | 0x100000000);
   }
 
   mlx::core::AsStrided::jvp();
 }
 
-void sub_25A31388C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, char a16)
+void sub_25A31388C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, ...)
 {
-  mlx::core::array::~array((v16 - 40));
+  va_start(va, a15);
+  mlx::core::array::~array((v15 - 40));
   if (__p)
   {
     operator delete(__p);
@@ -7799,7 +6719,7 @@ void sub_25A31388C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a13);
   }
 
-  mlx::core::array::~array(&a16);
+  mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
 
@@ -7862,17 +6782,17 @@ void *mlx::core::BitwiseBinary::print(void *result, void *a2)
   return std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, v4, 9);
 }
 
-void mlx::core::BitwiseBinary::vmap(uint64_t a1, uint64_t a2, int **a3)
+void mlx::core::BitwiseBinary::vmap(uint64_t a1, uint64_t a2, char **a3)
 {
   v5[11] = *MEMORY[0x277D85DE8];
   memset(v4, 0, sizeof(v4));
   std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v4, *v5[0], *(v5[0] + 8), (*(v5[0] + 8) - *v5[0]) >> 2);
-  v3 = *(v5[0] + 56);
   operator new();
 }
 
-void sub_25A313C58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char *__p, char *a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, void *a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, char a25)
+void sub_25A313C58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char *__p, char *a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, void *a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, ...)
 {
+  va_start(va, a24);
   if (__p)
   {
     a12 = __p;
@@ -7881,12 +6801,12 @@ void sub_25A313C58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
   __p = &a22;
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
-  mlx::core::array::~array((v26 - 72));
+  mlx::core::array::~array((v25 - 72));
   __p = &a14;
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
   for (i = 16; i != -16; i -= 16)
   {
-    mlx::core::array::~array((v26 - 104 + i));
+    mlx::core::array::~array((v25 - 104 + i));
   }
 
   if (a18)
@@ -7900,14 +6820,14 @@ void sub_25A313C58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a19);
   }
 
-  mlx::core::array::~array((v25 + 16));
-  mlx::core::array::~array(&a25);
+  mlx::core::array::~array((v24 + 16));
+  mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::BitwiseBinary::jvp(uint64_t a1, void *a2, uint64_t ***a3)
+void mlx::core::BitwiseBinary::jvp(uint64_t a1, void *a2, uint64_t **a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (a2[1] - *a2 == 32)
   {
     mlx::core::zeros_like(*a3, *(a1 + 8), *(a1 + 16) | 0x100000000);
@@ -7916,28 +6836,28 @@ void mlx::core::BitwiseBinary::jvp(uint64_t a1, void *a2, uint64_t ***a3)
   mlx::core::BitwiseBinary::jvp();
 }
 
-void sub_25A313DF8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A313DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::broadcast_vjp(uint64_t a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void mlx::core::broadcast_vjp(uint64_t a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = *a1;
   v8 = ((((*a2)[1] - **a2) >> 2) - ((*(*a1 + 8) - **a1) >> 2));
-  std::vector<int>::vector[abi:ne200100](&v25, v8);
-  v9 = v25;
-  v10 = v26;
-  if (v25 != v26)
+  std::vector<int>::vector[abi:ne200100](&v24, v8);
+  v9 = v24;
+  v10 = v25;
+  if (v24 != v25)
   {
     v11 = 0;
-    v12 = (v26 - v25 - 4) >> 2;
+    v12 = (v25 - v24 - 4) >> 2;
     v13 = vdupq_n_s64(v12);
     v14 = (v12 + 4) & 0x7FFFFFFFFFFFFFFCLL;
-    v15 = v25 + 8;
+    v15 = v24 + 8;
     do
     {
       v16 = vdupq_n_s64(v11);
@@ -7966,10 +6886,10 @@ void mlx::core::broadcast_vjp(uint64_t a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@
   }
 
   __p = 0;
+  v22 = 0;
   v23 = 0;
-  v24 = 0;
   std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v9, v10, (v10 - v9) >> 2);
-  LODWORD(v27[0]) = v8;
+  LODWORD(v26[0]) = v8;
   if (v8 < ((*a2)[1] - **a2) >> 2)
   {
     LODWORD(v18) = v8;
@@ -7978,42 +6898,41 @@ void mlx::core::broadcast_vjp(uint64_t a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@
       v19 = *(*v7 + 4 * (v18 - v8));
       if (v19 != mlx::core::array::shape(a2, v18))
       {
-        std::vector<int>::push_back[abi:ne200100](&__p, v27);
+        std::vector<int>::push_back[abi:ne200100](&__p, v26);
       }
 
-      v18 = SLODWORD(v27[0]) + 1;
-      ++LODWORD(v27[0]);
+      v18 = SLODWORD(v26[0]) + 1;
+      ++LODWORD(v26[0]);
     }
 
     while (v18 < ((*a2)[1] - **a2) >> 2);
   }
 
-  mlx::core::sum(a2, &__p, 1, *a3, *(a3 + 8) | 0x100000000, v21);
-  mlx::core::squeeze(v21, &v25, *a3, *(a3 + 8) | 0x100000000, v27);
+  mlx::core::sum(a2, &__p, 1, *a3, *(a3 + 8) | 0x100000000, v20);
+  mlx::core::squeeze(v20, &v24, *a3, *(a3 + 8) | 0x100000000, v26);
   *a4 = 0;
   a4[1] = 0;
   a4[2] = 0;
-  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a4, v27, &v28, 1uLL);
-  mlx::core::array::~array(v27);
-  mlx::core::array::~array(v21);
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a4, v26, &v27, 1uLL);
+  mlx::core::array::~array(v26);
+  mlx::core::array::~array(v20);
   if (__p)
   {
-    v23 = __p;
+    v22 = __p;
     operator delete(__p);
   }
 
-  if (v25)
+  if (v24)
   {
-    v26 = v25;
-    operator delete(v25);
+    v25 = v24;
+    operator delete(v24);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25A3140A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, char a18)
+void sub_25A3140A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, ...)
 {
-  mlx::core::array::~array(&a18);
+  va_start(va, a17);
+  mlx::core::array::~array(va);
   mlx::core::array::~array(&a10);
   if (__p)
   {
@@ -8030,14 +6949,13 @@ void sub_25A3140A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void mlx::core::Broadcast::jvp(uint64_t a1, uint64_t a2, uint64_t a3)
+void mlx::core::Broadcast::jvp(uint64_t a1)
 {
   __p[6] = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 24);
-  v5 = *(a1 + 32);
+  v3 = *(a1 + 24);
+  v4 = *(a1 + 32);
   memset(__p, 0, 24);
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, v4, v5, (v5 - v4) >> 2);
-  v6 = *(**a3 + 56);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, v3, v4, (v4 - v3) >> 2);
   std::allocate_shared[abi:ne200100]<mlx::core::Broadcast,std::allocator<mlx::core::Broadcast>,mlx::core::Stream const&,std::vector<int> &,0>();
 }
 
@@ -8065,9 +6983,9 @@ void sub_25A314268(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void mlx::core::Broadcast::vmap(uint64_t a1@<X0>, uint64_t ***a2@<X1>, int **a3@<X2>, void *a4@<X8>)
+void mlx::core::Broadcast::vmap(uint64_t a1@<X0>, const void ****a2@<X1>, unsigned int **a3@<X2>, uint64_t *a4@<X8>)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = **a3;
   v7 = *a2;
   if ((v6 & 0x80000000) == 0)
@@ -8087,31 +7005,31 @@ void mlx::core::Broadcast::vmap(uint64_t a1@<X0>, uint64_t ***a2@<X1>, int **a3@
     v6 = v10;
   }
 
-  mlx::core::broadcast_to(v7, (a1 + 24), *(a1 + 8), *(a1 + 16) | 0x100000000, v21);
+  mlx::core::broadcast_to(v7, (a1 + 24), *(a1 + 8), *(a1 + 16) | 0x100000000, v20);
   *__x = 0;
+  v18 = 0;
   v19 = 0;
-  v20 = 0;
-  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(__x, v21, &v22, 1uLL);
-  v14 = v6;
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(__x, v20, &v21, 1uLL);
+  v13 = v6;
+  v15 = 0;
   v16 = 0;
-  v17 = 0;
   __p = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, &v14, &__p, 1uLL);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, &v13, &__p, 1uLL);
   std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(a4, __x, &__p);
   if (__p)
   {
-    v16 = __p;
+    v15 = __p;
     operator delete(__p);
   }
 
   __p = __x;
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
-  mlx::core::array::~array(v21);
-  v13 = *MEMORY[0x277D85DE8];
+  mlx::core::array::~array(v20);
 }
 
-void sub_25A314450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char *__p, char *a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, char a16)
+void sub_25A314450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char *__p, char *a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, ...)
 {
+  va_start(va, a15);
   if (__p)
   {
     a11 = __p;
@@ -8120,7 +7038,7 @@ void sub_25A314450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
   __p = &a13;
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
-  mlx::core::array::~array(&a16);
+  mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
 
@@ -8134,21 +7052,21 @@ BOOL mlx::core::Broadcast::is_equivalent(uint64_t a1, uint64_t a2)
   return v4 == *(v6 + 8) - v5 && memcmp(v2, v5, v4) == 0;
 }
 
-double mlx::core::Broadcast::output_shape@<D0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+double mlx::core::Broadcast::output_shape@<D0>(char **a1@<X0>, uint64_t *a2@<X8>)
 {
   v4 = **a1;
   a2[1] = 0;
   a2[2] = 0;
   *a2 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a2, *v4, v4[1], (v4[1] - *v4) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a2, *v4, *(v4 + 8), (*(v4 + 8) - *v4) >> 2);
   v6 = *a1;
-  if (*(a1 + 8) - *a1 >= 0x11uLL)
+  if ((a1[1] - *a1) >= 0x11)
   {
     v7 = 1;
-    v8 = 2;
+    v8 = 16;
     do
     {
-      mlx::core::broadcast_shapes(a2, v6[v8], &v10);
+      mlx::core::broadcast_shapes(a2, *&v6[v8], &v10);
       v9 = *a2;
       if (*a2)
       {
@@ -8161,10 +7079,10 @@ double mlx::core::Broadcast::output_shape@<D0>(uint64_t a1@<X0>, uint64_t *a2@<X
       a2[2] = v11;
       ++v7;
       v6 = *a1;
-      v8 += 2;
+      v8 += 16;
     }
 
-    while (v7 < (*(a1 + 8) - *a1) >> 4);
+    while (v7 < (a1[1] - *a1) >> 4);
   }
 
   return result;
@@ -8182,25 +7100,25 @@ void sub_25A314598(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlx::core::Broadcast::output_shapes(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void mlx::core::Broadcast::output_shapes(uint64_t a1@<X0>, char **a2@<X1>, uint64_t *a3@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if (*(a2 + 8) - *a2 > 0x10uLL)
+  v12 = *MEMORY[0x277D85DE8];
+  if ((a2[1] - *a2) > 0x10)
   {
     mlx::core::Broadcast::output_shape(a2, &__p);
     *a3 = 0;
     a3[1] = 0;
     a3[2] = 0;
-    std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a3, &__p, &v13, 1uLL);
+    std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a3, &__p, &v12, 1uLL);
     goto LABEL_10;
   }
 
   mlx::core::broadcast_shapes(**a2, (a1 + 24), &__p);
   v5 = __p;
   v6 = *(a1 + 24);
-  if (v11 - __p == *(a1 + 32) - v6)
+  if (v10 - __p == *(a1 + 32) - v6)
   {
-    v7 = memcmp(__p, v6, v11 - __p) == 0;
+    v7 = memcmp(__p, v6, v10 - __p) == 0;
     if (!v5)
     {
       goto LABEL_8;
@@ -8213,7 +7131,7 @@ void mlx::core::Broadcast::output_shapes(uint64_t a1@<X0>, uint64_t a2@<X1>, voi
   if (__p)
   {
 LABEL_7:
-    v11 = v5;
+    v10 = v5;
     operator delete(v5);
   }
 
@@ -8226,28 +7144,25 @@ LABEL_8:
   }
 
   __p = 0;
+  v10 = 0;
   v11 = 0;
-  v12 = 0;
   std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *(a1 + 24), *(a1 + 32), (*(a1 + 32) - *(a1 + 24)) >> 2);
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
-  std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a3, &__p, &v13, 1uLL);
+  std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a3, &__p, &v12, 1uLL);
 LABEL_10:
   if (__p)
   {
-    v11 = __p;
+    v10 = __p;
     operator delete(__p);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void mlx::core::BroadcastAxes::jvp(uint64_t a1, uint64_t ***a2, uint64_t a3)
+void mlx::core::BroadcastAxes::jvp(uint64_t a1, uint64_t ***x1_0)
 {
-  __p[6] = *MEMORY[0x277D85DE8];
-  mlx::core::BroadcastAxes::output_shape(a2, (a1 + 24), __p);
-  v4 = *(**a3 + 56);
+  v5 = *MEMORY[0x277D85DE8];
+  mlx::core::BroadcastAxes::output_shape(x1_0, (a1 + 24), &__p);
   std::allocate_shared[abi:ne200100]<mlx::core::BroadcastAxes,std::allocator<mlx::core::BroadcastAxes>,mlx::core::Stream const&,std::vector<int> &,0>();
 }
 
@@ -8275,17 +7190,17 @@ void sub_25A3148C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void mlx::core::BroadcastAxes::output_shape(uint64_t ***a1@<X0>, int **a2@<X1>, uint64_t *a3@<X8>)
+void mlx::core::BroadcastAxes::output_shape(uint64_t ***a1@<X0>, int **a2@<X1>, std::vector<int> *a3@<X8>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
+  a3->__begin_ = 0;
+  a3->__end_ = 0;
+  a3->__end_cap_.__value_ = 0;
   v6 = *a1;
   v7 = a1[1];
   if (*a1 == v7)
   {
     v17 = 0;
-    v18 = 0;
+    end = 0;
   }
 
   else
@@ -8321,16 +7236,16 @@ void mlx::core::BroadcastAxes::output_shape(uint64_t ***a1@<X0>, int **a2@<X1>, 
       }
 
       mlx::core::broadcast_shapes(a3, __x, &v26);
-      v15 = *a3;
-      if (*a3)
+      begin = a3->__begin_;
+      if (a3->__begin_)
       {
-        a3[1] = v15;
-        operator delete(v15);
+        a3->__end_ = begin;
+        operator delete(begin);
       }
 
-      *a3 = v26;
+      *&a3->__begin_ = v26;
       v16 = *__x;
-      a3[2] = v27;
+      a3->__end_cap_.__value_ = v27;
       if (v16)
       {
         v29 = v16;
@@ -8341,21 +7256,21 @@ void mlx::core::BroadcastAxes::output_shape(uint64_t ***a1@<X0>, int **a2@<X1>, 
     }
 
     while (v6 != v7);
-    v17 = *a3;
-    v18 = a3[1];
+    v17 = a3->__begin_;
+    end = a3->__end_;
   }
 
   v20 = *a2;
   v19 = a2[1];
   if (*a2 != v19)
   {
-    v21 = 4 * (((v18 - v17) >> 2) + ((v19 - v20) >> 2));
+    v21 = (((end - v17) >> 2) + ((v19 - v20) >> 2));
     do
     {
       v22 = *v20;
-      v23 = *a3;
+      v23 = a3->__begin_;
       v24 = mlx::core::array::shape(*a1, *v20);
-      v25.__i_ = (v21 + v23 + 4 * v22);
+      v25.__i_ = &v23[v21 + v22];
       __x[0] = v24;
       std::vector<int>::insert(a3, v25, __x);
       ++v20;
@@ -8394,21 +7309,19 @@ BOOL mlx::core::BroadcastAxes::is_equivalent(uint64_t a1, uint64_t a2)
   return v4 == *(v6 + 8) - v5 && memcmp(v2, v5, v4) == 0;
 }
 
-void mlx::core::BroadcastAxes::output_shapes(uint64_t a1@<X0>, uint64_t ***a2@<X1>, void *a3@<X8>)
+void mlx::core::BroadcastAxes::output_shapes(uint64_t a1@<X0>, uint64_t ***a2@<X1>, uint64_t *a3@<X8>)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  mlx::core::BroadcastAxes::output_shape(a2, (a1 + 24), __p);
+  v5 = *MEMORY[0x277D85DE8];
+  mlx::core::BroadcastAxes::output_shape(a2, (a1 + 24), &__p);
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
-  std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a3, __p, &v6, 1uLL);
-  if (__p[0])
+  std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a3, &__p, &v5, 1uLL);
+  if (__p.__begin_)
   {
-    __p[1] = __p[0];
-    operator delete(__p[0]);
+    __p.__end_ = __p.__begin_;
+    operator delete(__p.__begin_);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A314C2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
@@ -8421,12 +7334,11 @@ void sub_25A314C2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void mlx::core::Ceil::jvp(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void mlx::core::Ceil::jvp(uint64_t a1, uint64_t a2, void x2_0, void *a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
   if (*(a2 + 8) - *a2 == 16)
   {
-    if (a4[1] - *a4 == 4)
+    if (a3[1] - *a3 == 4)
     {
       mlx::core::zeros_like(*a2, *(a1 + 8), *(a1 + 16) | 0x100000000);
     }
@@ -8437,16 +7349,15 @@ void mlx::core::Ceil::jvp(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   mlx::core::Ceil::jvp();
 }
 
-void sub_25A314D38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A314D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
 
 void mlx::core::Ceil::vmap(uint64_t a1, uint64_t a2, void *a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
   if (*(a2 + 8) - *a2 == 16)
   {
     if (a3[1] - *a3 == 4)
@@ -8460,83 +7371,83 @@ void mlx::core::Ceil::vmap(uint64_t a1, uint64_t a2, void *a3)
   mlx::core::Ceil::vmap();
 }
 
-void sub_25A314E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A314E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void **);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void **);
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
   mlx::core::array::~array(va1);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::Cholesky::vmap(uint64_t a1, uint64_t *a2, int **a3)
+void mlx::core::Cholesky::vmap(uint64_t a1, const void ****a2, unsigned int **a3)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v4 = *a2;
+  v7[4] = *MEMORY[0x277D85DE8];
+  v5 = *a2;
   if (**a3 < 1)
   {
-    v5 = *(v4 + 8);
-    v6[0] = *v4;
-    v6[1] = v5;
-    if (v5)
+    v6 = v5[1];
+    v7[0] = *v5;
+    v7[1] = v6;
+    if (v6)
     {
-      atomic_fetch_add_explicit(v5 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v6 + 1, 1uLL, memory_order_relaxed);
     }
   }
 
   else
   {
-    mlx::core::moveaxis(v4, **a3, 0, *(a1 + 8), *(a1 + 16) | 0x100000000, v6);
+    mlx::core::moveaxis(v5, *(a1 + 8), *(a1 + 16) | 0x100000000, v7, **a3, 0);
   }
 
-  mlx::core::linalg::cholesky(v6, *(a1 + 20), *(a1 + 8), *(a1 + 16) | 0x100000000);
+  mlx::core::linalg::cholesky(v7, *(a1 + 20), *(a1 + 8), (*(a1 + 16) | 0x100000000));
 }
 
 void mlx::core::Eigh::vmap(uint64_t a1, uint64_t a2, int **a3)
 {
-  v13[11] = *MEMORY[0x277D85DE8];
-  v4 = *a2;
+  v14[11] = *MEMORY[0x277D85DE8];
+  v5 = *a2;
   if (*(a2 + 8) - *a2 == 16)
   {
     if (a3[1] - *a3 == 4)
     {
-      v5 = **a3;
-      if (((*(*v4 + 8) - **v4) >> 2) - 2 <= v5)
+      v6 = **a3;
+      if (((*(*v5 + 8) - **v5) >> 2) - 2 <= v6)
       {
-        mlx::core::moveaxis(v4, v5, 0, *(a1 + 8), *(a1 + 16) | 0x100000000, v13);
-        LODWORD(v5) = 0;
+        mlx::core::moveaxis(v5, *(a1 + 8), *(a1 + 16) | 0x100000000, v14, v6, 0);
+        LODWORD(v6) = 0;
       }
 
       else
       {
-        v6 = v4[1];
-        v13[0] = *v4;
-        v13[1] = v6;
-        if (v6)
+        v7 = v5[1];
+        v14[0] = *v5;
+        v14[1] = v7;
+        if (v7)
         {
-          atomic_fetch_add_explicit(v6 + 1, 1uLL, memory_order_relaxed);
-          LODWORD(v5) = **a3;
+          atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+          LODWORD(v6) = **a3;
         }
       }
 
-      v12 = v5;
-      v9 = 0;
+      v13 = v6;
       v10 = 0;
       v11 = 0;
+      v12 = 0;
       if (*(a1 + 48) == 1)
       {
         if (*(a1 + 47) < 0)
         {
-          std::string::__init_copy_ctor_external(&v8, *(a1 + 24), *(a1 + 32));
+          std::string::__init_copy_ctor_external(&v9, *(a1 + 24), *(a1 + 32));
         }
 
         else
         {
-          v8 = *(a1 + 24);
+          v9 = *(a1 + 24);
         }
 
-        mlx::core::linalg::eigh(v13, &v8, *(a1 + 8), *(a1 + 16) | 0x100000000);
+        mlx::core::linalg::eigh(v14, &v9, *(a1 + 8), (*(a1 + 16) | 0x100000000));
       }
 
       if (*(a1 + 47) < 0)
@@ -8549,7 +7460,7 @@ void mlx::core::Eigh::vmap(uint64_t a1, uint64_t a2, int **a3)
         __p = *(a1 + 24);
       }
 
-      mlx::core::linalg::eigvalsh(v13, &__p, *(a1 + 8), *(a1 + 16) | 0x100000000);
+      mlx::core::linalg::eigvalsh(v14, &__p, *(a1 + 8), (*(a1 + 16) | 0x100000000));
     }
 
     mlx::core::Eigh::vmap();
@@ -8566,39 +7477,39 @@ void sub_25A3152C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void mlx::core::Eigh::output_shapes(uint64_t a1@<X0>, uint64_t ***a2@<X1>, void *a3@<X8>)
+void mlx::core::Eigh::output_shapes(uint64_t a1@<X0>, uint64_t **a2@<X1>, uint64_t *a3@<X8>)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = **a2;
-  v13 = 0;
-  v14 = 0;
   v12 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v12, *v6, v6[1], (v6[1] - *v6) >> 2);
-  v7 = v13 - 4;
-  v13 -= 4;
+  v13 = 0;
+  v11 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v11, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 2);
+  v7 = v12 - 4;
+  v12 -= 4;
   if (*(a1 + 48) == 1)
   {
-    __p = v12;
-    v16 = v7;
-    v17 = v14;
-    v13 = 0;
-    v14 = 0;
+    __p = v11;
+    v15 = v7;
+    v16 = v13;
     v12 = 0;
+    v13 = 0;
+    v11 = 0;
     v8 = **a2;
-    v19[0] = 0;
-    v19[1] = 0;
-    v18 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v18, *v8, v8[1], (v8[1] - *v8) >> 2);
+    v18[0] = 0;
+    v18[1] = 0;
+    v17 = 0;
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v17, *v8, *(v8 + 8), (*(v8 + 8) - *v8) >> 2);
     *a3 = 0;
     a3[1] = 0;
     a3[2] = 0;
-    std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a3, &__p, &v20, 2uLL);
+    std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a3, &__p, &v19, 2uLL);
     for (i = 0; i != -6; i -= 3)
     {
-      v10 = v19[i - 1];
+      v10 = v18[i - 1];
       if (v10)
       {
-        v19[i] = v10;
+        v18[i] = v10;
         operator delete(v10);
       }
     }
@@ -8606,30 +7517,28 @@ void mlx::core::Eigh::output_shapes(uint64_t a1@<X0>, uint64_t ***a2@<X1>, void 
 
   else
   {
-    __p = v12;
-    v16 = v7;
-    v17 = v14;
-    v13 = 0;
-    v14 = 0;
+    __p = v11;
+    v15 = v7;
+    v16 = v13;
     v12 = 0;
+    v13 = 0;
+    v11 = 0;
     a3[1] = 0;
     a3[2] = 0;
     *a3 = 0;
-    std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a3, &__p, &v18, 1uLL);
+    std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a3, &__p, &v17, 1uLL);
     if (__p)
     {
-      v16 = __p;
+      v15 = __p;
       operator delete(__p);
     }
   }
 
-  if (v12)
+  if (v11)
   {
-    v13 = v12;
-    operator delete(v12);
+    v12 = v11;
+    operator delete(v11);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3154F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
@@ -8707,12 +7616,12 @@ BOOL mlx::core::Eigh::is_equivalent(uint64_t a1, uint64_t a2)
   return !memcmp(v8, v9, v3) && *(a1 + 48) == *(a2 + 48);
 }
 
-void mlx::core::Concatenate::vjp(uint64_t a1@<X0>, uint64_t ***a2@<X1>, const void ****a3@<X2>, int **a4@<X3>, void *a5@<X8>)
+void mlx::core::Concatenate::vjp(uint64_t a1@<X0>, uint64_t ***a2@<X1>, char ****a3@<X2>, int **a4@<X3>, void *a5@<X8>)
 {
   v9 = *a3;
   v10 = ((**a3)[1] - ***a3) >> 2;
   LODWORD(v33) = 0;
-  std::vector<int>::vector[abi:ne200100](&v36, v10);
+  std::vector<int>::vector[abi:ne200100](&v36, v10, &v33);
   v11 = *v9;
   v33 = 0;
   v34 = 0;
@@ -8831,16 +7740,16 @@ void sub_25A315804(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void mlx::core::Concatenate::jvp(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X2>, uint64_t *a4@<X3>, void *a5@<X8>)
+void mlx::core::Concatenate::jvp(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X2>, uint64_t *a4@<X3>, uint64_t *a5@<X8>)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   std::vector<int>::vector[abi:ne200100](&__p, (a4[1] - *a4) >> 2);
   v10 = __p;
-  v11 = v34;
-  if (__p != v34)
+  v11 = v33;
+  if (__p != v33)
   {
     v12 = 0;
-    v13 = (v34 - __p - 4) >> 2;
+    v13 = (v33 - __p - 4) >> 2;
     v14 = vdupq_n_s64(v13);
     v15 = (v13 + 4) & 0x7FFFFFFFFFFFFFFCLL;
     v16 = __p + 8;
@@ -8872,7 +7781,7 @@ void mlx::core::Concatenate::jvp(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<
   }
 
   v19 = 126 - 2 * __clz(v11 - v10);
-  v30 = a4;
+  v29 = a4;
   if (v11 == v10)
   {
     v20 = 0;
@@ -8883,10 +7792,10 @@ void mlx::core::Concatenate::jvp(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<
     v20 = v19;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,mlx::core::Concatenate::jvp(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&)::$_0 &,int *,false>(v10, v11, &v30, v20, 1);
+  std::__introsort<std::_ClassicAlgPolicy,mlx::core::Concatenate::jvp(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&)::$_0 &,int *,false>(v10, v11, &v29, v20, 1);
+  v29 = 0;
   v30 = 0;
   v31 = 0;
-  v32 = 0;
   v21 = *a2;
   if (a2[1] == *a2)
   {
@@ -8906,7 +7815,7 @@ void mlx::core::Concatenate::jvp(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<
         mlx::core::zeros_like((v21 + v22), *(a1 + 8), *(a1 + 16) | 0x100000000);
       }
 
-      std::vector<mlx::core::array>::emplace_back<mlx::core::array const&>(&v30, (*a3 + 16 * v25));
+      std::vector<mlx::core::array>::emplace_back<mlx::core::array const&>(&v29, (*a3 + 16 * v25));
       ++v24;
       ++v23;
       v21 = *a2;
@@ -8914,29 +7823,27 @@ void mlx::core::Concatenate::jvp(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<
     }
 
     while (v23 < (a2[1] - *a2) >> 4);
-    v26 = v30;
-    v27 = v31;
+    v26 = v29;
+    v27 = v30;
   }
 
-  memset(v29, 0, sizeof(v29));
-  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>(v29, v26, v27, (v27 - v26) >> 4);
-  mlx::core::concatenate(v29, *(a1 + 20), *(a1 + 8), *(a1 + 16) | 0x100000000, v36);
+  memset(v28, 0, sizeof(v28));
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>(v28, v26, v27, (v27 - v26) >> 4);
+  mlx::core::concatenate(v28, *(a1 + 20), *(a1 + 8), *(a1 + 16) | 0x100000000, v35);
   *a5 = 0;
   a5[1] = 0;
   a5[2] = 0;
-  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a5, v36, &v37, 1uLL);
-  mlx::core::array::~array(v36);
-  v35 = v29;
-  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v35);
-  v36[0] = &v30;
-  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](v36);
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a5, v35, &v36, 1uLL);
+  mlx::core::array::~array(v35);
+  v34 = v28;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v34);
+  v35[0] = &v29;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](v35);
   if (__p)
   {
-    v34 = __p;
+    v33 = __p;
     operator delete(__p);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A315B4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, char *a19, char *a20)
@@ -8955,9 +7862,9 @@ void sub_25A315B4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void mlx::core::Concatenate::vmap(uint64_t a1@<X0>, uint64_t *a2@<X1>, unsigned int **a3@<X2>, void *a4@<X8>)
+void mlx::core::Concatenate::vmap(uint64_t a1@<X0>, void **a2@<X1>, char **a3@<X2>, uint64_t *a4@<X8>)
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   v7 = *a3;
   v8 = a3[1] - *a3;
   if (v8)
@@ -8971,24 +7878,25 @@ void mlx::core::Concatenate::vmap(uint64_t a1@<X0>, uint64_t *a2@<X1>, unsigned 
 
     while (1)
     {
-      v13 = *v7++;
+      v13 = *v7;
+      v7 += 4;
       v12 = v13;
       if ((v13 & 0x80000000) == 0)
       {
         break;
       }
 
-      v10 += 16;
+      v10 += 2;
       if (!--v11)
       {
         goto LABEL_6;
       }
     }
 
+    v32 = 0;
     v33 = 0;
     v34 = 0;
-    v35 = 0;
-    mlx::core::array::shape((*a2 + v10), v12);
+    mlx::core::array::shape(&(*a2)[v10], v12);
     v15 = *(a1 + 20);
     if (v15 < v12)
     {
@@ -9000,11 +7908,11 @@ void mlx::core::Concatenate::vmap(uint64_t a1@<X0>, uint64_t *a2@<X1>, unsigned 
       v16 = (v15 + 1);
     }
 
-    v17 = *(*a2 + v10);
+    v17 = (*a2)[v10];
+    v29 = 0;
     v30 = 0;
-    v31 = 0;
     __p = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *v17, v17[1], (v17[1] - *v17) >> 2);
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *v17, *(v17 + 8), (*(v17 + 8) - *v17) >> 2);
     v18 = *a3;
     if (a3[1] != *a3)
     {
@@ -9012,111 +7920,111 @@ void mlx::core::Concatenate::vmap(uint64_t a1@<X0>, uint64_t *a2@<X1>, unsigned 
       v20 = 0;
       do
       {
-        v21 = v18[v20];
+        v21 = *&v18[4 * v20];
         if ((v21 & 0x80000000) != 0)
         {
-          v22 = mlx::core::array::shape((*a2 + v19), *(a1 + 20));
+          v22 = mlx::core::array::shape(&(*a2)[v19], *(a1 + 20));
           *(__p + v16) = v22;
-          mlx::core::expand_dims((*a2 + v19), v12, *(a1 + 8), *(a1 + 16) | 0x100000000);
+          mlx::core::expand_dims(&(*a2)[v19], v12, *(a1 + 8), *(a1 + 16) | 0x100000000);
         }
 
         if (v12 == v21)
         {
-          std::vector<mlx::core::array>::emplace_back<mlx::core::array const&>(&v33, (*a2 + v19));
+          std::vector<mlx::core::array>::emplace_back<mlx::core::array const&>(&v32, &(*a2)[v19]);
         }
 
         else
         {
-          mlx::core::moveaxis(*a2 + v19, v21, v12, *(a1 + 8), *(a1 + 16) | 0x100000000, v37);
-          std::vector<mlx::core::array>::push_back[abi:ne200100](&v33, v37);
-          mlx::core::array::~array(v37);
+          mlx::core::moveaxis(&(*a2)[v19], *(a1 + 8), *(a1 + 16) | 0x100000000, v36, v21, v12);
+          std::vector<mlx::core::array>::push_back[abi:ne200100](&v32, v36);
+          mlx::core::array::~array(v36);
         }
 
         ++v20;
         v18 = *a3;
-        v19 += 16;
+        v19 += 2;
       }
 
-      while (v20 < a3[1] - *a3);
+      while (v20 < (a3[1] - *a3) >> 2);
     }
 
-    memset(v28, 0, sizeof(v28));
-    std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>(v28, v33, v34, (v34 - v33) >> 4);
-    mlx::core::concatenate(v28, v16, *(a1 + 8), *(a1 + 16) | 0x100000000, v36);
+    memset(v27, 0, sizeof(v27));
+    std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>(v27, v32, v33, (v33 - v32) >> 4);
+    mlx::core::concatenate(v27, v16, *(a1 + 8), *(a1 + 16) | 0x100000000, v35);
+    v36[0] = 0;
+    v36[1] = 0;
     v37[0] = 0;
-    v37[1] = 0;
-    v38[0] = 0;
-    std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(v37, v36, v37, 1uLL);
-    v24 = v12;
-    v26 = 0;
-    v27 = 0;
+    std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(v36, v35, v36, 1uLL);
+    v23 = v12;
     v25 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v25, &v24, &v25, 1uLL);
-    std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(a4, v37, &v25);
-    if (v25)
+    v26 = 0;
+    v24 = 0;
+    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v24, &v23, &v24, 1uLL);
+    std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(a4, v36, &v24);
+    if (v24)
     {
-      v26 = v25;
-      operator delete(v25);
+      v25 = v24;
+      operator delete(v24);
     }
 
-    v25 = v37;
-    std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v25);
-    mlx::core::array::~array(v36);
-    v25 = v28;
-    std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v25);
+    v24 = v36;
+    std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v24);
+    mlx::core::array::~array(v35);
+    v24 = v27;
+    std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v24);
     if (__p)
     {
-      v30 = __p;
+      v29 = __p;
       operator delete(__p);
     }
 
-    v14 = &v33;
+    v14 = &v32;
   }
 
   else
   {
 LABEL_6:
-    memset(v32, 0, sizeof(v32));
-    std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>(v32, *a2, a2[1], (a2[1] - *a2) >> 4);
-    mlx::core::concatenate(v32, *(a1 + 20), *(a1 + 8), *(a1 + 16) | 0x100000000, v37);
+    memset(v31, 0, sizeof(v31));
+    std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>(v31, *a2, a2[1], (a2[1] - *a2) >> 4);
+    mlx::core::concatenate(v31, *(a1 + 20), *(a1 + 8), *(a1 + 16) | 0x100000000, v36);
+    v32 = 0;
     v33 = 0;
     v34 = 0;
-    v35 = 0;
-    std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(&v33, v37, v38, 1uLL);
-    LODWORD(v25) = -1;
+    std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(&v32, v36, v37, 1uLL);
+    LODWORD(v24) = -1;
+    v29 = 0;
     v30 = 0;
-    v31 = 0;
     __p = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, &v25, &v25 + 4, 1uLL);
-    std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(a4, &v33, &__p);
+    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, &v24, &v24 + 1, 1uLL);
+    std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(a4, &v32, &__p);
     if (__p)
     {
-      v30 = __p;
+      v29 = __p;
       operator delete(__p);
     }
 
-    __p = &v33;
+    __p = &v32;
     std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
-    mlx::core::array::~array(v37);
-    v14 = v32;
+    mlx::core::array::~array(v36);
+    v14 = v31;
   }
 
   __p = v14;
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25A315F50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char *__p, char *a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, char *a16, char *a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, char a25)
+void sub_25A315F50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char *__p, char *a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, char *a16, char *a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, ...)
 {
+  va_start(va, a24);
   if (__p)
   {
     a11 = __p;
     operator delete(__p);
   }
 
-  __p = (v25 - 112);
+  __p = (v24 - 112);
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
-  mlx::core::array::~array(&a25);
+  mlx::core::array::~array(va);
   __p = &a13;
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
   if (a16)
@@ -9130,57 +8038,55 @@ void sub_25A315F50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void mlx::core::Concatenate::output_shapes(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void mlx::core::Concatenate::output_shapes(uint64_t a1@<X0>, char **a2@<X1>, uint64_t *a3@<X8>)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = **a2;
-  v14 = 0uLL;
-  v13 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v13, *v6, v6[1], (v6[1] - *v6) >> 2);
+  v13 = 0uLL;
+  v12 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v12, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 2);
   v7 = *a2;
-  if (*(a2 + 8) - *a2 <= 0x10uLL)
+  if ((a2[1] - *a2) <= 0x10)
   {
-    v11 = v13;
+    v11 = v12;
   }
 
   else
   {
     v8 = 1;
-    v9 = 2;
+    v9 = 16;
     do
     {
       v10 = mlx::core::array::shape(&v7[v9], *(a1 + 20));
-      v11 = v13;
-      *(v13 + *(a1 + 20)) += v10;
+      v11 = v12;
+      *(v12 + *(a1 + 20)) += v10;
       ++v8;
       v7 = *a2;
-      v9 += 2;
+      v9 += 16;
     }
 
-    while (v8 < (*(a2 + 8) - *a2) >> 4);
+    while (v8 < (a2[1] - *a2) >> 4);
   }
 
-  v16 = v14;
+  v15 = v13;
   __p = v11;
-  v13 = 0;
-  v14 = 0uLL;
+  v12 = 0;
+  v13 = 0uLL;
   a3[1] = 0;
   a3[2] = 0;
   *a3 = 0;
-  std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a3, &__p, &v17, 1uLL);
+  std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a3, &__p, &v16, 1uLL);
   if (__p)
   {
-    *&v16 = __p;
+    *&v15 = __p;
     operator delete(__p);
   }
 
-  if (v13)
+  if (v12)
   {
-    *&v14 = v13;
-    operator delete(v13);
+    *&v13 = v12;
+    operator delete(v12);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3161B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14)
@@ -9198,9 +8104,9 @@ void sub_25A3161B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void mlx::core::Conjugate::vmap(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, void *a4@<X8>)
+void mlx::core::Conjugate::vmap(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (*(a2 + 8) - *a2 != 16)
   {
     mlx::core::Conjugate::vmap();
@@ -9211,27 +8117,26 @@ void mlx::core::Conjugate::vmap(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3
     mlx::core::Conjugate::vmap();
   }
 
-  mlx::core::conjugate(*a2, *(a1 + 8), *(a1 + 16) | 0x100000000, v9);
-  memset(v7, 0, sizeof(v7));
-  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(v7, v9, &v10, 1uLL);
-  std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(a4, v7, a3);
-  v8 = v7;
-  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v8);
-  mlx::core::array::~array(v9);
-  v6 = *MEMORY[0x277D85DE8];
+  mlx::core::conjugate(*a2, *(a1 + 8), *(a1 + 16) | 0x100000000, v8);
+  memset(v6, 0, sizeof(v6));
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(v6, v8, &v9, 1uLL);
+  std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(a4, v6, a3);
+  v7 = v6;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v7);
+  mlx::core::array::~array(v8);
 }
 
-void sub_25A3162E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A3162E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void **);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void **);
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
   mlx::core::array::~array(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t mlx::core::Contiguous::vjp@<X0>(uint64_t *a1@<X2>, void *a2@<X8>)
+uint64_t *mlx::core::Contiguous::vjp@<X0>(void **a1@<X2>, uint64_t *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -9239,7 +8144,7 @@ uint64_t mlx::core::Contiguous::vjp@<X0>(uint64_t *a1@<X2>, void *a2@<X8>)
   return std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>(a2, *a1, a1[1], (a1[1] - *a1) >> 4);
 }
 
-uint64_t mlx::core::Contiguous::jvp@<X0>(uint64_t *a1@<X2>, void *a2@<X8>)
+uint64_t *mlx::core::Contiguous::jvp@<X0>(void **a1@<X2>, uint64_t *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -9247,112 +8152,111 @@ uint64_t mlx::core::Contiguous::jvp@<X0>(uint64_t *a1@<X2>, void *a2@<X8>)
   return std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>(a2, *a1, a1[1], (a1[1] - *a1) >> 4);
 }
 
-void sub_25A316414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A316414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void **);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void **);
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
   mlx::core::array::~array(va1);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::conv_weight_backward_patches(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+void mlx::core::conv_weight_backward_patches(const void ***a1, int ***a2, const void ***a3, int **a4, int **a5)
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v7 = ((*a1)[1] - **a1) >> 2;
-  LODWORD(v40) = 0;
-  std::vector<int>::vector[abi:ne200100](&v39, v7);
-  v8 = *a1;
-  memset(v38, 0, sizeof(v38));
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v38, *v8, v8[1], (v8[1] - *v8) >> 2);
-  v9 = *a1;
-  memset(v37, 0, sizeof(v37));
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v37, *v9, v9[1], (v9[1] - *v9) >> 2);
+  v43[3] = *MEMORY[0x277D85DE8];
   v10 = ((*a1)[1] - **a1) >> 2;
-  if (v10 - 1 >= 2)
+  LODWORD(v43[0]) = 0;
+  std::vector<int>::vector[abi:ne200100](&v42, v10, v43);
+  v11 = *a1;
+  memset(v41, 0, sizeof(v41));
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v41, *v11, v11[1], (v11[1] - *v11) >> 2);
+  v12 = *a1;
+  memset(v40, 0, sizeof(v40));
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v40, *v12, v12[1], (v12[1] - *v12) >> 2);
+  v13 = ((*a1)[1] - **a1) >> 2;
+  if (v13 - 1 >= 2)
   {
-    v11 = *a5;
-    v12 = (v39 + 4);
-    v13 = (v38[0] + 4);
-    v14 = (v37[0] + 4);
-    v15 = v10 - 2;
+    v14 = *a5;
+    v15 = (v42 + 4);
+    v16 = (v41[0] + 4);
+    v17 = (v40[0] + 4);
+    v18 = v13 - 2;
     do
     {
-      *v14++ += 2 * *v11;
-      *v13++ += *v11;
-      v16 = *v11++;
-      *v12++ += v16;
-      --v15;
+      *v17++ += 2 * *v14;
+      *v16++ += *v14;
+      v19 = *v14++;
+      *v15++ += v19;
+      --v18;
     }
 
-    while (v15);
+    while (v18);
   }
 
-  v40 = 1;
-  std::vector<long long>::vector[abi:ne200100](&v36, v10);
-  v17 = (*a1)[1] - **a1;
-  v18 = (v17 >> 2) - 2;
-  if (((v17 >> 2) - 2) >= 0)
+  v43[0] = 1;
+  std::vector<long long>::vector[abi:ne200100](&v39, v13, v43);
+  v20 = (*a1)[1] - **a1;
+  v21 = (v20 >> 2) - 2;
+  if (((v20 >> 2) - 2) >= 0)
   {
-    v19 = v36;
-    v20 = *(v36 + 8 * v18 + 8);
-    v21 = v37[0] + 4;
+    v22 = v39;
+    v23 = *(v39 + 8 * v21 + 8);
+    v24 = v40[0] + 4;
     do
     {
-      v20 *= *(v21 + 4 * v18);
-      *(v19 + 8 * v18--) = v20;
+      v23 *= *(v24 + 4 * v21);
+      *(v22 + 8 * v21--) = v23;
     }
 
-    while (v18 != -1);
+    while (v21 != -1);
   }
 
-  LODWORD(v40) = 0;
-  std::vector<int>::vector[abi:ne200100](&v34, (v17 >> 2) - 2);
-  if (v34 != v35)
+  LODWORD(v43[0]) = 0;
+  std::vector<int>::vector[abi:ne200100](&v37, (v20 >> 2) - 2, v43);
+  if (v37 != v38)
   {
-    v22 = 0;
-    v23 = (v35 - v34 - 4) >> 2;
-    v24 = vdupq_n_s64(v23);
-    v25 = (v23 + 4) & 0x7FFFFFFFFFFFFFFCLL;
-    v26 = (v34 + 8);
+    v25 = 0;
+    v26 = (v38 - v37 - 4) >> 2;
+    v27 = vdupq_n_s64(v26);
+    v28 = (v26 + 4) & 0x7FFFFFFFFFFFFFFCLL;
+    v29 = (v37 + 8);
     do
     {
-      v27 = vdupq_n_s64(v22);
-      v28 = vmovn_s64(vcgeq_u64(v24, vorrq_s8(v27, xmmword_25A99B0D0)));
-      if (vuzp1_s16(v28, *v24.i8).u8[0])
+      v30 = vdupq_n_s64(v25);
+      v31 = vmovn_s64(vcgeq_u64(v27, vorrq_s8(v30, xmmword_25A99B0D0)));
+      if (vuzp1_s16(v31, *v27.i8).u8[0])
       {
-        *(v26 - 2) = v22 + 1;
+        *(v29 - 2) = v25 + 1;
       }
 
-      if (vuzp1_s16(v28, *&v24).i8[2])
+      if (vuzp1_s16(v31, *&v27).i8[2])
       {
-        *(v26 - 1) = v22 + 2;
+        *(v29 - 1) = v25 + 2;
       }
 
-      if (vuzp1_s16(*&v24, vmovn_s64(vcgeq_u64(v24, vorrq_s8(v27, xmmword_25A99B0C0)))).i32[1])
+      if (vuzp1_s16(*&v27, vmovn_s64(vcgeq_u64(v27, vorrq_s8(v30, xmmword_25A99B0C0)))).i32[1])
       {
-        *v26 = v22 + 3;
-        v26[1] = v22 + 4;
+        *v29 = v25 + 3;
+        v29[1] = v25 + 4;
       }
 
-      v22 += 4;
-      v26 += 4;
+      v25 += 4;
+      v29 += 4;
     }
 
-    while (v25 != v22);
+    while (v28 != v25);
   }
 
-  v29 = *a5;
-  v30 = a5[1];
-  v31 = (v30 - *a5) >> 2;
-  memset(v33, 0, sizeof(v33));
-  std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(v33, v29, v30, v31);
-  v32 = (*a1)[7];
-  mlx::core::array::array<int>();
+  v32 = *a5;
+  v33 = a5[1];
+  v34 = v33 - *a5;
+  memset(v36, 0, sizeof(v36));
+  std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(v36, v32, v33, v34);
+  mlx::core::array::array<int>(&v35, 0, (*a1)[7] & 0xFFFFFFFFFFLL);
 }
 
-void sub_25A316B6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, void *a40, uint64_t a41)
+void sub_25A316B6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41)
 {
   if (__p)
   {
@@ -9419,128 +8323,126 @@ void sub_25A316B6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t mlx::core::Convolution::vjp@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t ***a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+void mlx::core::Convolution::vjp(uint64_t a1@<X0>, uint64_t ***a2@<X1>, uint64_t ***a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
   v5 = *a2;
-  if (*(a2 + 8) - *a2 != 32)
+  if (a2[1] - *a2 != 32)
   {
     mlx::core::Convolution::vjp();
   }
 
-  v6 = result;
   *a5 = 0;
   a5[1] = 0;
   a5[2] = 0;
   v7 = *a3;
-  v60[0] = result;
+  v57[0] = a1;
   v9 = *a4;
   v8 = *(a4 + 8);
   if (*a4 != v8)
   {
-    v47 = *(a4 + 8);
     do
     {
       if (!*v9)
       {
-        v57 = 0;
-        v58 = 0;
-        v59 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v57, *(result + 24), *(result + 32), (*(result + 32) - *(result + 24)) >> 2);
         v54 = 0;
         v55 = 0;
         v56 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v54, *(v6 + 24), *(v6 + 32), (*(v6 + 32) - *(v6 + 24)) >> 2);
-        v20 = v57;
-        v21 = v58;
-        if (v58 == v57)
-        {
-          v29 = (v58 - v57) >> 2;
-        }
-
-        else
-        {
-          v22 = 0;
-          do
-          {
-            v23 = *(*(v6 + 72) + 4 * v22);
-            v24 = mlx::core::array::shape(v5 + 2, v22 + 1);
-            *(v57 + 4 * v22) = (v24 - 1) * v23 - *(*(v6 + 24) + 4 * v22);
-            v25 = *(*(v6 + 96) + 4 * v22);
-            v26 = mlx::core::array::shape(v5, v22 + 1);
-            v27 = *(*(v6 + 48) + 4 * v22);
-            v28 = mlx::core::array::shape(v7, v22 + 1);
-            v54[v22] = v27 - v27 * v28 + (v26 - 1) * v25 + *(*(v6 + 24) + 4 * v22);
-            v20 = v57;
-            v21 = v58;
-            v29 = (v58 - v57) >> 2;
-            ++v22;
-          }
-
-          while (v29 > v22);
-        }
-
-        if (v20 == v21)
-        {
-          v38 = 0;
-        }
-
-        else
-        {
-          LOBYTE(v38) = 0;
-          v39 = v20;
-          do
-          {
-            v40 = *v39++;
-            v38 = v38 & 1 | (v40 >> 31);
-          }
-
-          while (v39 != v21);
-        }
-
-        for (i = v54; i != v55; ++i)
-        {
-          v42 = *i;
-          v38 = v38 & 1 | (v42 >> 31);
-        }
-
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v54, *(a1 + 24), *(a1 + 32), (*(a1 + 32) - *(a1 + 24)) >> 2);
         v51 = 0;
         v52 = 0;
         v53 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v51, v20, v21, v29);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v51, *(a1 + 24), *(a1 + 32), (*(a1 + 32) - *(a1 + 24)) >> 2);
+        v18 = v54;
+        v19 = v55;
+        if (v55 == v54)
+        {
+          v27 = (v55 - v54) >> 2;
+        }
+
+        else
+        {
+          v20 = 0;
+          do
+          {
+            v21 = *(*(a1 + 72) + 4 * v20);
+            v22 = mlx::core::array::shape(v5 + 2, v20 + 1);
+            v54[v20] = (v22 - 1) * v21 - *(*(a1 + 24) + 4 * v20);
+            v23 = *(*(a1 + 96) + 4 * v20);
+            v24 = mlx::core::array::shape(v5, v20 + 1);
+            v25 = *(*(a1 + 48) + 4 * v20);
+            v26 = mlx::core::array::shape(v7, v20 + 1);
+            v51[v20] = v25 - v25 * v26 + (v24 - 1) * v23 + *(*(a1 + 24) + 4 * v20);
+            v18 = v54;
+            v19 = v55;
+            v27 = (v55 - v54) >> 2;
+            ++v20;
+          }
+
+          while (v27 > v20);
+        }
+
+        if (v18 == v19)
+        {
+          v36 = 0;
+        }
+
+        else
+        {
+          LOBYTE(v36) = 0;
+          v37 = v18;
+          do
+          {
+            v38 = *v37++;
+            v36 = v36 & 1 | (v38 >> 31);
+          }
+
+          while (v37 != v19);
+        }
+
+        for (i = v51; i != v52; ++i)
+        {
+          v40 = *i;
+          v36 = v36 & 1 | (v40 >> 31);
+        }
+
         v48 = 0;
         v49 = 0;
         v50 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v48, v54, v55, v55 - v54);
-        if (v38)
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v48, v18, v19, v27);
+        v45 = 0;
+        v46 = 0;
+        v47 = 0;
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v45, v51, v52, v52 - v51);
+        if (v36)
         {
-          v43 = v51;
-          v44 = v52;
+          v41 = v48;
+          v42 = v49;
+          while (v41 != v42)
+          {
+            *v41 &= ~(*v41 >> 31);
+            ++v41;
+          }
+
+          v43 = v45;
+          v44 = v46;
           while (v43 != v44)
           {
             *v43 &= ~(*v43 >> 31);
             ++v43;
           }
-
-          v45 = v48;
-          v46 = v49;
-          while (v45 != v46)
-          {
-            *v45 &= ~(*v45 >> 31);
-            ++v45;
-          }
         }
 
-        mlx::core::Convolution::vjp(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&,std::vector<mlx::core::array> const&)::$_0::operator()(v60, v5 + 2, 0, 1);
+        mlx::core::Convolution::vjp(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&,std::vector<mlx::core::array> const&)::$_0::operator()(v57, v5 + 2, 0, 1);
       }
 
       if (*v9 == 1)
       {
-        v10 = *(result + 96);
-        v11 = *(result + 104);
+        v10 = *(a1 + 96);
+        v11 = *(a1 + 104);
         v12 = v11 - v10;
         if (v11 == v10)
         {
-          goto LABEL_17;
+          goto LABEL_16;
         }
 
         v13 = 0;
@@ -9549,7 +8451,7 @@ uint64_t mlx::core::Convolution::vjp@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>
         v16 = 1;
         do
         {
-          v17 = *(v10 + 4 * v13) == 1 && *(*(result + 72) + 4 * v13) == 1;
+          v17 = *(v10 + 4 * v13) == 1 && *(*(a1 + 72) + 4 * v13) == 1;
           v16 &= v17;
           ++v13;
         }
@@ -9557,43 +8459,41 @@ uint64_t mlx::core::Convolution::vjp@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>
         while (v15 != v13);
         if (v16)
         {
-LABEL_17:
-          if ((*(result + 124) & 1) == 0 && *(result + 120) == 1)
+LABEL_16:
+          if ((*(a1 + 124) & 1) == 0 && *(a1 + 120) == 1)
           {
-            v18 = *(result + 8);
-            v19 = *(result + 16) | 0x100000000;
-            mlx::core::conv_weight_backward_patches(v5, (v5 + 2), v7, result + 48, (result + 24));
+            mlx::core::conv_weight_backward_patches(v5, v5 + 2, v7, (a1 + 48), (a1 + 24));
           }
         }
 
-        v57 = 0;
-        v58 = 0;
-        v59 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v57, *(result + 24), *(result + 32), (*(result + 32) - *(result + 24)) >> 2);
         v54 = 0;
         v55 = 0;
         v56 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v54, *(v6 + 24), *(v6 + 32), (*(v6 + 32) - *(v6 + 24)) >> 2);
-        if (v55 != v54)
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v54, *(a1 + 24), *(a1 + 32), (*(a1 + 32) - *(a1 + 24)) >> 2);
+        v51 = 0;
+        v52 = 0;
+        v53 = 0;
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v51, *(a1 + 24), *(a1 + 32), (*(a1 + 32) - *(a1 + 24)) >> 2);
+        if (v52 != v51)
         {
-          v30 = 0;
+          v28 = 0;
           do
           {
-            v31 = *(*(v6 + 96) + 4 * v30);
-            v32 = mlx::core::array::shape(v5, v30 + 1);
-            v33 = *(*(v6 + 48) + 4 * v30);
-            v34 = mlx::core::array::shape(v7, v30 + 1);
-            v35 = *(*(v6 + 72) + 4 * v30);
-            v36 = mlx::core::array::shape(v5 + 2, v30 + 1);
-            v37 = v54;
-            v54[v30] = (v36 - 1) * v35 + (v34 - 1) * v33 - (*(*(v6 + 24) + 4 * v30) + (v32 - 1) * v31);
-            ++v30;
+            v29 = *(*(a1 + 96) + 4 * v28);
+            v30 = mlx::core::array::shape(v5, v28 + 1);
+            v31 = *(*(a1 + 48) + 4 * v28);
+            v32 = mlx::core::array::shape(v7, v28 + 1);
+            v33 = *(*(a1 + 72) + 4 * v28);
+            v34 = mlx::core::array::shape(v5 + 2, v28 + 1);
+            v35 = v51;
+            v51[v28] = (v34 - 1) * v33 + (v32 - 1) * v31 - (*(*(a1 + 24) + 4 * v28) + (v30 - 1) * v29);
+            ++v28;
           }
 
-          while (v30 < (v55 - v37) >> 2);
+          while (v28 < v52 - v35);
         }
 
-        mlx::core::swapaxes(v7, 0, 0xFFFFFFFFLL, *(v6 + 8), *(v6 + 16) | 0x100000000);
+        mlx::core::swapaxes(v7, 0, 0xFFFFFFFFLL, *(a1 + 8), *(a1 + 16) | 0x100000000);
       }
 
       ++v9;
@@ -9601,8 +8501,6 @@ LABEL_17:
 
     while (v9 != v8);
   }
-
-  return result;
 }
 
 void sub_25A317818(_Unwind_Exception *a1)
@@ -9613,34 +8511,34 @@ void sub_25A317818(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::Convolution::vjp(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&,std::vector<mlx::core::array> const&)::$_0::operator()(void *a1, uint64_t **a2, int a3, uint64_t a4)
+void mlx::core::Convolution::vjp(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&,std::vector<mlx::core::array> const&)::$_0::operator()(void *a1, const void ***a2, int a3, uint64_t x3_0)
 {
-  v5 = *a1;
-  v6 = (*a1 + 120);
-  if (*v6 >= 2)
+  v6 = *a1;
+  v7 = (*a1 + 120);
+  if (*v7 >= 2)
   {
-    v9 = *a2;
-    memset(&v18, 0, sizeof(v18));
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v18, *v9, v9[1], (v9[1] - *v9) >> 2);
-    v10 = (((v18.__end_ - v18.__begin_) >> 2) - 1) & (a3 >> 31);
-    v11.__i_ = &v18.__begin_[v10];
-    std::vector<int>::insert(&v18, v11, v6);
-    begin = v18.__begin_;
-    v18.__begin_[v10 + 1] /= *(v5 + 120);
+    v10 = *a2;
+    memset(&v19, 0, sizeof(v19));
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v19, *v10, v10[1], (v10[1] - *v10) >> 2);
+    v11 = (((v19.__end_ - v19.__begin_) >> 2) - 1) & (a3 >> 31);
+    v12.__i_ = &v19.__begin_[v11];
+    std::vector<int>::insert(&v19, v12, v7);
+    begin = v19.__begin_;
+    v19.__begin_[v11 + 1] /= *(v6 + 120);
     __p = begin;
-    v16 = *&v18.__end_;
-    memset(&v18, 0, sizeof(v18));
-    mlx::core::reshape(a2, &__p, *(v5 + 8), *(v5 + 16) | 0x100000000, v17);
-    mlx::core::swapaxes(v17, a4, 0xFFFFFFFFLL, *(v5 + 8), *(v5 + 16) | 0x100000000);
+    v17 = *&v19.__end_;
+    memset(&v19, 0, sizeof(v19));
+    mlx::core::reshape(a2, &__p, *(v6 + 8), *(v6 + 16) | 0x100000000, v18);
+    mlx::core::swapaxes(v18, x3_0, 0xFFFFFFFFLL, *(v6 + 8), *(v6 + 16) | 0x100000000);
   }
 
-  v13 = *(v5 + 8);
-  v14 = *(v5 + 16) | 0x100000000;
+  v14 = *(v6 + 8);
+  v15 = *(v6 + 16) | 0x100000000;
 
-  mlx::core::swapaxes(a2, 0, 0xFFFFFFFFLL, v13, v14);
+  mlx::core::swapaxes(a2, 0, 0xFFFFFFFFLL, v14, v15);
 }
 
-void sub_25A317CC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, char a14, uint64_t a15, void *__p, uint64_t a17)
+void sub_25A317CC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17)
 {
   mlx::core::array::~array(&a14);
   if (__p)
@@ -9656,129 +8554,129 @@ void mlx::core::Convolution::vmap(uint64_t a1, void **a2, unsigned int **a3)
 {
   v38[9] = *MEMORY[0x277D85DE8];
   v38[0] = a1;
-  v5 = **a3;
-  v6 = (*a3)[1];
-  v7 = *a2;
-  v8 = **a2;
-  v9 = (*a2)[1];
-  *&v37 = v8;
-  *(&v37 + 1) = v9;
-  if (v9)
-  {
-    atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
-    v7 = *a2;
-  }
-
-  v11 = v7[2];
-  v10 = v7[3];
-  *&v36 = v11;
-  *(&v36 + 1) = v10;
+  v6 = **a3;
+  v7 = (*a3)[1];
+  v8 = *a2;
+  v9 = **a2;
+  v10 = (*a2)[1];
+  *&v37 = v9;
+  *(&v37 + 1) = v10;
   if (v10)
   {
-    atomic_fetch_add_explicit(v10 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
+    v8 = *a2;
   }
 
-  if ((v5 & 0x80000000) == 0 && v6 < 0)
+  v12 = v8[2];
+  v11 = v8[3];
+  *&v36 = v12;
+  *(&v36 + 1) = v11;
+  if (v11)
   {
-    v12 = **a3;
-    if (v12 >= 1)
+    atomic_fetch_add_explicit(v11 + 1, 1uLL, memory_order_relaxed);
+  }
+
+  if ((v6 & 0x80000000) == 0 && v7 < 0)
+  {
+    v13 = **a3;
+    if (v13 >= 1)
     {
-      mlx::core::moveaxis(&v37, v12, 0, *(a1 + 8), *(a1 + 16) | 0x100000000, &v35);
-      v13 = v35;
+      mlx::core::moveaxis(&v37, *(a1 + 8), *(a1 + 16) | 0x100000000, &v35, v13, 0);
+      v14 = v35;
       v35 = 0uLL;
-      v14 = *(&v37 + 1);
-      v37 = v13;
-      if (v14)
+      v15 = *(&v37 + 1);
+      v37 = v14;
+      if (v15)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v15);
       }
 
       mlx::core::array::~array(&v35);
     }
 
-    mlx::core::flatten(&v37, 0, 1, *(a1 + 8), *(a1 + 16) | 0x100000000, &v35);
+    mlx::core::flatten(&v35, &v37, 0, 1, *(a1 + 8), *(a1 + 16) | 0x100000000);
     mlx::core::Convolution::vmap(std::vector<mlx::core::array> const&,std::vector<int> const&)::$_0::operator()(v38, &v35, &v36, *(a1 + 120));
   }
 
-  if ((v5 & 0x80000000) != 0 && (v6 & 0x80000000) == 0)
+  if ((v6 & 0x80000000) != 0 && (v7 & 0x80000000) == 0)
   {
-    v15 = (*a3)[1];
-    if (v15 >= 1)
+    v16 = (*a3)[1];
+    if (v16 >= 1)
     {
-      mlx::core::moveaxis(&v36, v15, 0, *(a1 + 8), *(a1 + 16) | 0x100000000, &v35);
-      v16 = v35;
+      mlx::core::moveaxis(&v36, *(a1 + 8), *(a1 + 16) | 0x100000000, &v35, v16, 0);
+      v17 = v35;
       v35 = 0uLL;
-      v17 = *(&v36 + 1);
-      v36 = v16;
-      if (v17)
+      v18 = *(&v36 + 1);
+      v36 = v17;
+      if (v18)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v18);
       }
 
       mlx::core::array::~array(&v35);
     }
 
-    mlx::core::flatten(&v36, 0, 1, *(a1 + 8), *(a1 + 16) | 0x100000000, &v35);
+    mlx::core::flatten(&v35, &v36, 0, 1, *(a1 + 8), *(a1 + 16) | 0x100000000);
     mlx::core::Convolution::vmap(std::vector<mlx::core::array> const&,std::vector<int> const&)::$_0::operator()(v38, &v37, &v35, *(a1 + 120));
   }
 
-  v18 = v5 >> 31;
-  if (v6 < 0)
+  v19 = v6 >> 31;
+  if (v7 < 0)
   {
-    LOBYTE(v18) = 1;
+    LOBYTE(v19) = 1;
   }
 
-  if (v18)
+  if (v19)
   {
     mlx::core::Convolution::vmap(std::vector<mlx::core::array> const&,std::vector<int> const&)::$_0::operator()(v38, &v37, &v36, *(a1 + 120));
   }
 
-  v19 = **a3;
-  v21 = v8;
-  v20 = *v8;
-  v22 = (v21[1] - v20) >> 2;
-  v23 = v19 + v22;
-  if (v19 >= 0)
+  v20 = **a3;
+  v22 = v9;
+  v21 = *v9;
+  v23 = (v22[1] - v21) >> 2;
+  v24 = v20 + v23;
+  if (v20 >= 0)
   {
-    v23 = **a3;
+    v24 = **a3;
   }
 
-  if (v22 > v23)
+  if (v23 > v24)
   {
-    v24 = *(v20 + 4 * v23);
-    mlx::core::moveaxis(&v37, v19, 4294967294, *(a1 + 8), *(a1 + 16) | 0x100000000, &v35);
-    v25 = v35;
+    v25 = *(v21 + 4 * v24);
+    mlx::core::moveaxis(&v37, *(a1 + 8), *(a1 + 16) | 0x100000000, &v35, v20, 4294967294);
+    v26 = v35;
     v35 = 0uLL;
-    v26 = *(&v37 + 1);
-    v37 = v25;
-    if (v26)
+    v27 = *(&v37 + 1);
+    v37 = v26;
+    if (v27)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v27);
     }
 
     mlx::core::array::~array(&v35);
-    mlx::core::flatten(&v37, 4294967294, -1, *(a1 + 8), *(a1 + 16) | 0x100000000, &v35);
-    v27 = v35;
+    mlx::core::flatten(&v35, &v37, 4294967294, -1, *(a1 + 8), *(a1 + 16) | 0x100000000);
+    v28 = v35;
     v35 = 0uLL;
-    v28 = *(&v37 + 1);
-    v37 = v27;
-    if (v28)
+    v29 = *(&v37 + 1);
+    v37 = v28;
+    if (v29)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v29);
     }
 
     mlx::core::array::~array(&v35);
-    v29 = (*a3)[1];
-    if (v29 >= 1)
+    v30 = (*a3)[1];
+    if (v30 >= 1)
     {
-      mlx::core::moveaxis(&v36, v29, 0, *(a1 + 8), *(a1 + 16) | 0x100000000, &v35);
-      v30 = v35;
+      mlx::core::moveaxis(&v36, *(a1 + 8), *(a1 + 16) | 0x100000000, &v35, v30, 0);
+      v31 = v35;
       v35 = 0uLL;
-      v31 = *(&v36 + 1);
-      v36 = v30;
-      if (v31)
+      v32 = *(&v36 + 1);
+      v36 = v31;
+      if (v32)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v32);
       }
 
       mlx::core::array::~array(&v35);
@@ -9786,8 +8684,7 @@ void mlx::core::Convolution::vmap(uint64_t a1, void **a2, unsigned int **a3)
 
     if (*(v36 + 8) - *v36 > 4uLL)
     {
-      v32 = *(*v36 + 4);
-      mlx::core::flatten(&v36, 0, 1, *(a1 + 8), *(a1 + 16) | 0x100000000, &v35);
+      mlx::core::flatten(&v35, &v36, 0, 1, *(a1 + 8), *(a1 + 16) | 0x100000000);
       v33 = v35;
       v35 = 0uLL;
       v34 = *(&v36 + 1);
@@ -9798,7 +8695,7 @@ void mlx::core::Convolution::vmap(uint64_t a1, void **a2, unsigned int **a3)
       }
 
       mlx::core::array::~array(&v35);
-      mlx::core::Convolution::vmap(std::vector<mlx::core::array> const&,std::vector<int> const&)::$_0::operator()(v38, &v37, &v36, (*(a1 + 120) * v24));
+      mlx::core::Convolution::vmap(std::vector<mlx::core::array> const&,std::vector<int> const&)::$_0::operator()(v38, &v37, &v36, (*(a1 + 120) * v25));
     }
 
     std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
@@ -9807,14 +8704,15 @@ void mlx::core::Convolution::vmap(uint64_t a1, void **a2, unsigned int **a3)
   std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
 }
 
-void sub_25A318478(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, char a25)
+void sub_25A318478(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
+  va_start(va, a24);
   mlx::core::array::~array(&a23);
-  mlx::core::array::~array(&a25);
+  mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::Convolution::vmap(std::vector<mlx::core::array> const&,std::vector<int> const&)::$_0::operator()(uint64_t *a1, uint64_t **a2, uint64_t **a3, uint64_t a4)
+void mlx::core::Convolution::vmap(std::vector<mlx::core::array> const&,std::vector<int> const&)::$_0::operator()(uint64_t *a1, uint64_t **a2, int ***a3, uint64_t a4)
 {
   v7 = *a1;
   memset(v11, 0, sizeof(v11));
@@ -9862,25 +8760,7 @@ BOOL mlx::core::Convolution::is_equivalent(uint64_t a1, uint64_t a2)
   v6 = *(v5 + 8) - v4;
   v8 = a2 + 24;
   v7 = *(a2 + 24);
-  if (v6 != *(v8 + 8) - v7)
-  {
-    return 0;
-  }
-
-  if (memcmp(v4, v7, v6))
-  {
-    return 0;
-  }
-
-  v9 = *(a1 + 48);
-  v10 = *(a1 + 56) - v9;
-  v11 = *(a2 + 48);
-  if (v10 != *(a2 + 56) - v11)
-  {
-    return 0;
-  }
-
-  if (!memcmp(v9, v11, v10) && (v12 = *(a1 + 72), v13 = *(a1 + 80) - v12, v14 = *(a2 + 72), v13 == *(a2 + 80) - v14) && !memcmp(v12, v14, v13) && (v15 = *(a1 + 96), v16 = *(a1 + 104) - v15, v17 = *(a2 + 96), v16 == *(a2 + 104) - v17) && !memcmp(v15, v17, v16) && *(a1 + 120) == *(a2 + 120))
+  if (v6 == *(v8 + 8) - v7 && !memcmp(v4, v7, v6) && (v9 = *(a1 + 48), v10 = *(a1 + 56) - v9, v11 = *(a2 + 48), v10 == *(a2 + 56) - v11) && !memcmp(v9, v11, v10) && (v12 = *(a1 + 72), v13 = *(a1 + 80) - v12, v14 = *(a2 + 72), v13 == *(a2 + 80) - v14) && !memcmp(v12, v14, v13) && (v15 = *(a1 + 96), v16 = *(a1 + 104) - v15, v17 = *(a2 + 96), v16 == *(a2 + 104) - v17) && !memcmp(v15, v17, v16) && *(a1 + 120) == *(a2 + 120))
   {
     return *(a1 + 124) == *(a2 + 124);
   }
@@ -9889,4 +8769,1116 @@ BOOL mlx::core::Convolution::is_equivalent(uint64_t a1, uint64_t a2)
   {
     return 0;
   }
+}
+
+uint64_t *mlx::core::Copy::vjp@<X0>(void *a1@<X1>, char **a2@<X2>, void *a3@<X3>, uint64_t *a4@<X8>)
+{
+  if (a1[1] - *a1 != 16)
+  {
+    mlx::core::Copy::vjp();
+  }
+
+  if (a3[1] - *a3 != 4)
+  {
+    mlx::core::Copy::vjp();
+  }
+
+  *a4 = 0;
+  a4[1] = 0;
+  a4[2] = 0;
+  v4 = *a2;
+  v5 = a2[1];
+
+  return std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>(a4, v4, v5, (v5 - v4) >> 4);
+}
+
+uint64_t *mlx::core::Copy::jvp@<X0>(void *a1@<X1>, char **a2@<X2>, void *a3@<X3>, uint64_t *a4@<X8>)
+{
+  if (a1[1] - *a1 != 16)
+  {
+    mlx::core::Copy::jvp();
+  }
+
+  if (a3[1] - *a3 != 4)
+  {
+    mlx::core::Copy::jvp();
+  }
+
+  *a4 = 0;
+  a4[1] = 0;
+  a4[2] = 0;
+  v4 = *a2;
+  v5 = a2[1];
+
+  return std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>(a4, v4, v5, (v5 - v4) >> 4);
+}
+
+void mlx::core::Copy::vmap(uint64_t a1, uint64_t a2, void *a3)
+{
+  v7[8] = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  if (*(a2 + 8) - *a2 == 16)
+  {
+    if (a3[1] - *a3 == 4)
+    {
+      v6 = *v4;
+      v5 = v4[1];
+      v7[0] = v6;
+      v7[1] = v5;
+      if (v5)
+      {
+        atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+      }
+
+      mlx::core::copy(v7, *(a1 + 8), *(a1 + 16) | 0x100000000);
+    }
+
+    mlx::core::Copy::vmap();
+  }
+
+  mlx::core::Copy::vmap();
+}
+
+void sub_25A3189EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
+  va_copy(va2, va1);
+  v10 = va_arg(va2, void **);
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va1);
+  mlx::core::array::~array(va2);
+  mlx::core::array::~array(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Cos::jvp(uint64_t a1, uint64_t a2, void **a3, void *a4)
+{
+  if (*(a2 + 8) - *a2 == 16)
+  {
+    if (a4[1] - *a4 == 4)
+    {
+      mlx::core::sin(*a2, *(a1 + 8), *(a1 + 16) | 0x100000000);
+    }
+
+    mlx::core::Cos::jvp();
+  }
+
+  mlx::core::Cos::jvp();
+}
+
+void sub_25A318B74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
+  va_copy(va2, va1);
+  v7 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
+  mlx::core::array::~array(va2);
+  mlx::core::array::~array(va1);
+  mlx::core::array::~array(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Cos::vmap(uint64_t a1, uint64_t a2, void *a3)
+{
+  if (*(a2 + 8) - *a2 == 16)
+  {
+    if (a3[1] - *a3 == 4)
+    {
+      mlx::core::cos(*a2, *(a1 + 8), *(a1 + 16) | 0x100000000);
+    }
+
+    mlx::core::Cos::vmap();
+  }
+
+  mlx::core::Cos::vmap();
+}
+
+void sub_25A318CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void **);
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
+  mlx::core::array::~array(va1);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Cosh::jvp(uint64_t a1, uint64_t a2, void **a3, void *a4)
+{
+  if (*(a2 + 8) - *a2 == 16)
+  {
+    if (a4[1] - *a4 == 4)
+    {
+      mlx::core::sinh(*a2, *(a1 + 8), *(a1 + 16) | 0x100000000);
+    }
+
+    mlx::core::Cosh::jvp();
+  }
+
+  mlx::core::Cosh::jvp();
+}
+
+void sub_25A318DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
+  mlx::core::array::~array(va1);
+  mlx::core::array::~array(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Cosh::vmap(uint64_t a1, uint64_t a2, void *a3)
+{
+  if (*(a2 + 8) - *a2 == 16)
+  {
+    if (a3[1] - *a3 == 4)
+    {
+      mlx::core::cosh(*a2, *(a1 + 8), *(a1 + 16) | 0x100000000);
+    }
+
+    mlx::core::Cosh::vmap();
+  }
+
+  mlx::core::Cosh::vmap();
+}
+
+void sub_25A318F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void **);
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
+  mlx::core::array::~array(va1);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::CustomTransforms::vjp(uint64_t a1@<X0>, uint64_t a2@<X1>, __int128 **a3@<X2>, int **a4@<X3>, void *a5@<X8>)
+{
+  v9 = *a2;
+  v10 = (*(a2 + 8) - 16 * *(a1 + 20));
+  memset(v17, 0, sizeof(v17));
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlx::core::array const*>,std::__wrap_iter<mlx::core::array const*>>(v17, v9, v10, (v10 - v9) >> 4);
+  v11 = *(a1 + 48);
+  if (!v11)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  (*(*v11 + 48))(v16);
+  v13 = *a3;
+  v12 = a3[1];
+  while (v13 != v12)
+  {
+    std::vector<mlx::core::array>::emplace_back<mlx::core::array const&>(v16, v13++);
+  }
+
+  *a5 = 0;
+  a5[1] = 0;
+  a5[2] = 0;
+  std::vector<mlx::core::array>::reserve(a5, a4[1] - *a4);
+  v15 = *a4;
+  v14 = a4[1];
+  while (v15 != v14)
+  {
+    std::vector<mlx::core::array>::emplace_back<mlx::core::array const&>(a5, &v16[0][2 * *v15++]);
+  }
+
+  v18 = v16;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v18);
+  v16[0] = v17;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](v16);
+}
+
+void sub_25A319070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, void ***a16)
+{
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a16);
+  a16 = &a10;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a16);
+  a10 = &a13;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a10);
+  _Unwind_Resume(a1);
+}
+
+void *std::vector<mlx::core::array>::emplace_back<mlx::core::array const&>(void *a1, __int128 *a2)
+{
+  v4 = a1[1];
+  v5 = a1[2];
+  if (v4 >= v5)
+  {
+    v8 = (v4 - *a1) >> 4;
+    v9 = v8 + 1;
+    if ((v8 + 1) >> 60)
+    {
+      std::vector<int>::__throw_length_error[abi:ne200100]();
+    }
+
+    v10 = v5 - *a1;
+    if (v10 >> 3 > v9)
+    {
+      v9 = v10 >> 3;
+    }
+
+    if (v10 >= 0x7FFFFFFFFFFFFFF0)
+    {
+      v11 = 0xFFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v11 = v9;
+    }
+
+    v15[4] = a1;
+    if (v11)
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<mlx::core::array>>(a1, v11);
+    }
+
+    v12 = (16 * v8);
+    v15[0] = 0;
+    v15[1] = v12;
+    v15[3] = 0;
+    v13 = *a2;
+    *v12 = *a2;
+    if (*(&v13 + 1))
+    {
+      atomic_fetch_add_explicit((*(&v13 + 1) + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v15[2] = v12 + 1;
+    std::vector<mlx::core::array>::__swap_out_circular_buffer(a1, v15);
+    v7 = a1[1];
+    std::__split_buffer<mlx::core::array>::~__split_buffer(v15);
+  }
+
+  else
+  {
+    v6 = *(a2 + 1);
+    *v4 = *a2;
+    v4[1] = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v7 = v4 + 2;
+    a1[1] = v4 + 2;
+  }
+
+  a1[1] = v7;
+  return v7 - 2;
+}
+
+void sub_25A3191C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__split_buffer<mlx::core::array>::~__split_buffer(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::CustomTransforms::jvp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v7 = *a2;
+  v8 = (*(a2 + 8) - 16 * *(a1 + 20));
+  memset(v10, 0, sizeof(v10));
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlx::core::array const*>,std::__wrap_iter<mlx::core::array const*>>(v10, v7, v8, (v8 - v7) >> 4);
+  v9 = *(a1 + 80);
+  if (!v9)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  (*(*v9 + 48))(v9, v10, a3, a4);
+  v11 = v10;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v11);
+}
+
+void sub_25A319294(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+{
+  a12 = &a9;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a12);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::CustomTransforms::vmap(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *a2;
+  v6 = (*(a2 + 8) - 16 * *(a1 + 20));
+  v7 = v6 - *a2;
+  memset(v15, 0, sizeof(v15));
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlx::core::array const*>,std::__wrap_iter<mlx::core::array const*>>(v15, v5, v6, v7 >> 4);
+  v8 = *a3;
+  v9 = (*(a3 + 8) - 4 * *(a1 + 20));
+  v10 = (v9 - *a3) >> 2;
+  v13 = 0;
+  v14 = 0;
+  __p = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(&__p, v8, v9, v10);
+  v11 = *(a1 + 112);
+  if (!v11)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  (*(*v11 + 48))(v11, v15, &__p);
+  if (__p)
+  {
+    v13 = __p;
+    operator delete(__p);
+  }
+
+  __p = v15;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
+}
+
+void sub_25A319394(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *__p, uint64_t a10, uint64_t a11, char a12)
+{
+  __p = &a12;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Depends::vjp(mlx::core *a1@<X1>, void *a2@<X2>, int **a3@<X3>, void *a4@<X8>)
+{
+  *a4 = 0;
+  a4[1] = 0;
+  a4[2] = 0;
+  v5 = *a3;
+  v6 = a3[1];
+  if (*a3 != v6)
+  {
+    do
+    {
+      v10 = *v5;
+      if (v10 >= (a2[1] - *a2) >> 4)
+      {
+        mlx::core::zeros_like((*a1 + 16 * v10), a1, v4);
+      }
+
+      std::vector<mlx::core::array>::emplace_back<mlx::core::array const&>(a4, (*a2 + 16 * v10));
+      ++v5;
+    }
+
+    while (v5 != v6);
+  }
+}
+
+void sub_25A319478(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a9);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Divide::vjp(uint64_t a1@<X0>, void **a2@<X1>, void **a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+{
+  *a5 = 0;
+  a5[1] = 0;
+  a5[2] = 0;
+  if (*a4 != *(a4 + 8))
+  {
+    if (**a4)
+    {
+      mlx::core::multiply(*a3, *a2, *(a1 + 8), *(a1 + 16) | 0x100000000);
+    }
+
+    mlx::core::divide(*a3, *a2 + 2, *(a1 + 8), *(a1 + 16) | 0x100000000);
+  }
+}
+
+void sub_25A3195DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  mlx::core::array::~array(va);
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::DivMod::vjp(uint64_t a1@<X0>, void *a2@<X1>, int **a3@<X3>, void *a4@<X8>)
+{
+  *a4 = 0;
+  a4[1] = 0;
+  a4[2] = 0;
+  if (*a3 != a3[1])
+  {
+    mlx::core::zeros_like((*a2 + 16 * **a3), *(a1 + 8), *(a1 + 16) | 0x100000000);
+  }
+}
+
+void sub_25A319798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  mlx::core::array::~array(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_25A319888(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char *__p, char *a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
+  if (__p)
+  {
+    a11 = __p;
+    operator delete(__p);
+  }
+
+  __p = &a13;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
+  mlx::core::array::~array((v15 + 16));
+  mlx::core::array::~array(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Divide::jvp(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+{
+  v5[7] = *MEMORY[0x277D85DE8];
+  v5[0] = a4;
+  v5[1] = a3;
+  v5[2] = a2;
+  v5[3] = a1;
+  mlx::core::Divide::jvp(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&)::$_0::operator()(v5, 0);
+}
+
+void sub_25A3199FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
+{
+  mlx::core::array::~array(&a9);
+  mlx::core::array::~array(&a11);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Divide::jvp(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&)::$_0::operator()(uint64_t a1, unsigned int a2)
+{
+  v3 = *(a1 + 24);
+  if (*(**a1 + 4 * a2))
+  {
+    mlx::core::multiply((**(a1 + 8) + 16 * a2), **(a1 + 16), *(v3 + 8), *(v3 + 16) | 0x100000000);
+  }
+
+  v4 = *(a1 + 16);
+  v5 = (**(a1 + 8) + 16 * a2);
+  v6 = *(v3 + 8);
+  v7 = (*v4 + 16);
+  v8 = *(v3 + 16) | 0x100000000;
+
+  mlx::core::divide(v5, v7, v6, v8);
+}
+
+void sub_25A319B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+{
+  va_start(va, a12);
+  mlx::core::array::~array(va);
+  mlx::core::array::~array(&a9);
+  mlx::core::array::~array(&a11);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Divide::vmap(uint64_t a1, uint64_t a2, char **a3)
+{
+  v6[5] = *MEMORY[0x277D85DE8];
+  mlx::core::divide(v5, v6, *(a1 + 8), *(a1 + 16) | 0x100000000);
+}
+
+void sub_25A319CB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char *__p, char *a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  if (__p)
+  {
+    a12 = __p;
+    operator delete(__p);
+  }
+
+  __p = &a14;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
+  mlx::core::array::~array((v17 - 56));
+  mlx::core::array::~array((v16 + 16));
+  mlx::core::array::~array(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Remainder::vjp(uint64_t a1@<X0>, void **a2@<X1>, __int128 **a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+{
+  *a5 = 0;
+  a5[1] = 0;
+  a5[2] = 0;
+  v5 = *a4;
+  v6 = *(a4 + 8);
+  if (*a4 != v6)
+  {
+    do
+    {
+      if (*v5)
+      {
+        mlx::core::divide(*a2, *a2 + 2, *(a1 + 8), *(a1 + 16) | 0x100000000);
+      }
+
+      std::vector<mlx::core::array>::emplace_back<mlx::core::array const&>(a5, *a3);
+      ++v5;
+    }
+
+    while (v5 != v6);
+  }
+}
+
+void sub_25A319E40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va, a9);
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Remainder::jvp(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, uint64_t *a5@<X8>)
+{
+  v12[1] = *MEMORY[0x277D85DE8];
+  v10[0] = a4;
+  v10[1] = a3;
+  v10[2] = a2;
+  v10[3] = a1;
+  mlx::core::Remainder::jvp(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&)::$_0::operator()(v10, 0, &v9);
+  if (a4[1] - *a4 >= 5uLL)
+  {
+    mlx::core::Remainder::jvp(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&)::$_0::operator()(v10, 1u, &v8);
+    mlx::core::add(&v9, &v8, *(a1 + 8), *(a1 + 16) | 0x100000000);
+  }
+
+  v11 = v9;
+  if (*(&v9 + 1))
+  {
+    atomic_fetch_add_explicit((*(&v9 + 1) + 8), 1uLL, memory_order_relaxed);
+  }
+
+  *a5 = 0;
+  a5[1] = 0;
+  a5[2] = 0;
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a5, &v11, v12, 1uLL);
+  mlx::core::array::~array(&v11);
+  mlx::core::array::~array(&v9);
+}
+
+void sub_25A319FB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
+{
+  mlx::core::array::~array(&a9);
+  mlx::core::array::~array(&a11);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Remainder::jvp(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&)::$_0::operator()(uint64_t a1@<X0>, unsigned int a2@<W1>, _OWORD *a3@<X8>)
+{
+  if (*(**a1 + 4 * a2))
+  {
+    mlx::core::divide(**(a1 + 16), (**(a1 + 16) + 16), *(*(a1 + 24) + 8), *(*(a1 + 24) + 16) | 0x100000000);
+  }
+
+  v3 = *(**(a1 + 8) + 16 * a2);
+  *a3 = v3;
+  if (*(&v3 + 1))
+  {
+    atomic_fetch_add_explicit((*(&v3 + 1) + 8), 1uLL, memory_order_relaxed);
+  }
+}
+
+void sub_25A31A104(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
+{
+  va_start(va, a10);
+  mlx::core::array::~array(&a9);
+  mlx::core::array::~array(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Remainder::vmap(uint64_t a1, uint64_t a2, char **a3)
+{
+  v6[5] = *MEMORY[0x277D85DE8];
+  mlx::core::remainder(v5, v6, *(a1 + 8), *(a1 + 16) | 0x100000000);
+}
+
+void sub_25A31A254(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char *__p, char *a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  if (__p)
+  {
+    a12 = __p;
+    operator delete(__p);
+  }
+
+  __p = &a14;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
+  mlx::core::array::~array((v17 - 56));
+  mlx::core::array::~array((v16 + 16));
+  mlx::core::array::~array(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Equal::vmap(uint64_t a1, uint64_t a2, char **a3)
+{
+  v6[5] = *MEMORY[0x277D85DE8];
+  mlx::core::equal(v5, v6, *(a1 + 8), *(a1 + 16) | 0x100000000);
+}
+
+void sub_25A31A3E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char *__p, char *a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  if (__p)
+  {
+    a12 = __p;
+    operator delete(__p);
+  }
+
+  __p = &a14;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
+  mlx::core::array::~array((v17 - 56));
+  mlx::core::array::~array((v16 + 16));
+  mlx::core::array::~array(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Equal::vjp(uint64_t a1@<X0>, void *a2@<X1>, int **a3@<X3>, void *a4@<X8>)
+{
+  *a4 = 0;
+  a4[1] = 0;
+  a4[2] = 0;
+  if (*a3 != a3[1])
+  {
+    mlx::core::zeros_like((*a2 + 16 * **a3), *(a1 + 8), *(a1 + 16) | 0x100000000);
+  }
+}
+
+void mlx::core::Equal::jvp(uint64_t a1, uint64_t ***a2)
+{
+  __p[5] = *MEMORY[0x277D85DE8];
+  mlx::core::broadcast_shapes(**a2, (*a2)[2], __p);
+  mlx::core::zeros(__p, 0x100000000);
+}
+
+void sub_25A31A5C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
+  mlx::core::array::~array(va);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Erf::jvp(uint64_t a1, void **a2, void **a3, void *a4)
+{
+  v5[2] = *MEMORY[0x277D85DE8];
+  if (a2[1] - *a2 == 16)
+  {
+    if (a4[1] - *a4 == 4)
+    {
+      mlx::core::array::array<double>(v5, *(**a2 + 56) & 0xFFFFFFFFFFLL, 1.12837917);
+    }
+
+    mlx::core::Erf::jvp();
+  }
+
+  mlx::core::Erf::jvp();
+}
+
+void sub_25A31A798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
+  va_copy(va2, va1);
+  v8 = va_arg(va2, void);
+  v10 = va_arg(va2, void);
+  va_copy(va3, va2);
+  v11 = va_arg(va3, void);
+  v13 = va_arg(va3, void);
+  mlx::core::array::~array((v3 - 56));
+  mlx::core::array::~array(va2);
+  mlx::core::array::~array(va1);
+  mlx::core::array::~array(va);
+  mlx::core::array::~array(va3);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Erf::vmap(uint64_t a1, uint64_t a2, void *a3)
+{
+  if (*(a2 + 8) - *a2 == 16)
+  {
+    if (a3[1] - *a3 == 4)
+    {
+      mlx::core::erf(*a2, *(a1 + 8), *(a1 + 16) | 0x100000000);
+    }
+
+    mlx::core::Erf::vmap();
+  }
+
+  mlx::core::Erf::vmap();
+}
+
+void sub_25A31A8F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void **);
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
+  mlx::core::array::~array(va1);
+  _Unwind_Resume(a1);
+}
+
+void sub_25A31AA58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
+  va_copy(va2, va1);
+  v7 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
+  va_copy(va3, va2);
+  v10 = va_arg(va3, void);
+  v12 = va_arg(va3, void);
+  mlx::core::array::~array(va3);
+  mlx::core::array::~array(va1);
+  mlx::core::array::~array(va);
+  mlx::core::array::~array(va2);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::ErfInv::jvp(uint64_t a1, void **a2, void **a3, void *a4)
+{
+  v5[2] = *MEMORY[0x277D85DE8];
+  if (a2[1] - *a2 == 16)
+  {
+    if (a4[1] - *a4 == 4)
+    {
+      mlx::core::array::array<double>(v5, *(**a2 + 56) & 0xFFFFFFFFFFLL, 0.886226925);
+    }
+
+    mlx::core::ErfInv::jvp();
+  }
+
+  mlx::core::ErfInv::jvp();
+}
+
+void sub_25A31AC30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
+  va_copy(va2, va1);
+  v8 = va_arg(va2, void);
+  v10 = va_arg(va2, void);
+  va_copy(va3, va2);
+  v11 = va_arg(va3, void);
+  v13 = va_arg(va3, void);
+  mlx::core::array::~array((v3 - 56));
+  mlx::core::array::~array(va2);
+  mlx::core::array::~array(va1);
+  mlx::core::array::~array(va);
+  mlx::core::array::~array(va3);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::ErfInv::vmap(uint64_t a1, uint64_t a2, void *a3)
+{
+  if (*(a2 + 8) - *a2 == 16)
+  {
+    if (a3[1] - *a3 == 4)
+    {
+      mlx::core::erfinv(*a2, *(a1 + 8), *(a1 + 16) | 0x100000000);
+    }
+
+    mlx::core::ErfInv::vmap();
+  }
+
+  mlx::core::ErfInv::vmap();
+}
+
+void sub_25A31AD88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void **);
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
+  mlx::core::array::~array(va1);
+  _Unwind_Resume(a1);
+}
+
+void sub_25A31AE54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  mlx::core::array::~array(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Exp::jvp(uint64_t a1, uint64_t a2, void **a3, void *a4)
+{
+  if (*(a2 + 8) - *a2 == 16)
+  {
+    if (a4[1] - *a4 == 4)
+    {
+      mlx::core::exp(*a2, *(a1 + 8), *(a1 + 16) | 0x100000000);
+    }
+
+    mlx::core::Exp::jvp();
+  }
+
+  mlx::core::Exp::jvp();
+}
+
+void sub_25A31AF68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
+  mlx::core::array::~array(va1);
+  mlx::core::array::~array(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Exp::vmap(uint64_t a1, uint64_t a2, void *a3)
+{
+  if (*(a2 + 8) - *a2 == 16)
+  {
+    if (a3[1] - *a3 == 4)
+    {
+      mlx::core::exp(*a2, *(a1 + 8), *(a1 + 16) | 0x100000000);
+    }
+
+    mlx::core::Exp::vmap();
+  }
+
+  mlx::core::Exp::vmap();
+}
+
+void sub_25A31B084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void **);
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
+  mlx::core::array::~array(va1);
+  _Unwind_Resume(a1);
+}
+
+void sub_25A31B1A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
+  va_copy(va2, va1);
+  v7 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
+  mlx::core::array::~array(va2);
+  mlx::core::array::~array(va1);
+  mlx::core::array::~array(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Expm1::jvp(uint64_t a1, uint64_t a2, void **a3, void *a4)
+{
+  if (*(a2 + 8) - *a2 == 16)
+  {
+    if (a4[1] - *a4 == 4)
+    {
+      mlx::core::exp(*a2, *(a1 + 8), *(a1 + 16) | 0x100000000);
+    }
+
+    mlx::core::Expm1::jvp();
+  }
+
+  mlx::core::Expm1::jvp();
+}
+
+void sub_25A31B2D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
+  mlx::core::array::~array(va1);
+  mlx::core::array::~array(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::Expm1::vmap(uint64_t a1, uint64_t a2, void *a3)
+{
+  if (*(a2 + 8) - *a2 == 16)
+  {
+    if (a3[1] - *a3 == 4)
+    {
+      mlx::core::expm1(*a2, *(a1 + 8), *(a1 + 16) | 0x100000000);
+    }
+
+    mlx::core::Expm1::vmap();
+  }
+
+  mlx::core::Expm1::vmap();
+}
+
+void sub_25A31B3F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void **);
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](va);
+  mlx::core::array::~array(va1);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::ExpandDims::vjp(uint64_t a1@<X0>, std::string::size_type **a2@<X2>, uint64_t *a3@<X8>)
+{
+  v5 = *MEMORY[0x277D85DE8];
+  mlx::core::squeeze(*a2, (a1 + 24), *(a1 + 8), *(a1 + 16) | 0x100000000, v4);
+  *a3 = 0;
+  a3[1] = 0;
+  a3[2] = 0;
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a3, v4, &v5, 1uLL);
+  mlx::core::array::~array(v4);
+}
+
+void sub_25A31B4C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  mlx::core::array::~array(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::ExpandDims::jvp(uint64_t a1@<X0>, uint64_t ***a2@<X2>, uint64_t *a3@<X8>)
+{
+  v5 = *MEMORY[0x277D85DE8];
+  mlx::core::expand_dims(*a2, (a1 + 24), *(a1 + 8), *(a1 + 16) | 0x100000000, v4);
+  *a3 = 0;
+  a3[1] = 0;
+  a3[2] = 0;
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a3, v4, &v5, 1uLL);
+  mlx::core::array::~array(v4);
+}
+
+void sub_25A31B578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  mlx::core::array::~array(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::ExpandDims::vmap(uint64_t a1@<X0>, uint64_t ***a2@<X1>, int **a3@<X2>, uint64_t *a4@<X8>)
+{
+  v21 = *MEMORY[0x277D85DE8];
+  v8 = **a3;
+  v17 = 0;
+  v18 = 0;
+  v19 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v17, *(a1 + 24), *(a1 + 32), (*(a1 + 32) - *(a1 + 24)) >> 2);
+  v9 = v17;
+  v10 = v18;
+  if (v17 != v18)
+  {
+    v11 = *a3;
+    do
+    {
+      if (*v9 >= *v11)
+      {
+        ++*v9;
+      }
+
+      else
+      {
+        ++v8;
+      }
+
+      ++v9;
+    }
+
+    while (v9 != v10);
+  }
+
+  mlx::core::expand_dims(*a2, &v17, *(a1 + 8), *(a1 + 16) | 0x100000000, v20);
+  memset(v16, 0, sizeof(v16));
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(v16, v20, &v21, 1uLL);
+  v12 = v8;
+  v14 = 0;
+  v15 = 0;
+  __p = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, &v12, &__p, 1uLL);
+  std::pair<std::vector<mlx::core::array>,std::vector<int>>::pair[abi:ne200100]<true,0>(a4, v16, &__p);
+  if (__p)
+  {
+    v14 = __p;
+    operator delete(__p);
+  }
+
+  __p = v16;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
+  mlx::core::array::~array(v20);
+  if (v17)
+  {
+    v18 = v17;
+    operator delete(v17);
+  }
+}
+
+void sub_25A31B70C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char *__p, char *a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18)
+{
+  if (__p)
+  {
+    a12 = __p;
+    operator delete(__p);
+  }
+
+  __p = &a14;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&__p);
+  mlx::core::array::~array((v18 - 72));
+  if (a17)
+  {
+    a18 = a17;
+    operator delete(a17);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+BOOL mlx::core::ExpandDims::is_equivalent(uint64_t a1, uint64_t a2)
+{
+  v3 = a1 + 24;
+  v2 = *(a1 + 24);
+  v4 = *(v3 + 8) - v2;
+  v6 = a2 + 24;
+  v5 = *(a2 + 24);
+  return v4 == *(v6 + 8) - v5 && memcmp(v2, v5, v4) == 0;
+}
+
+void *mlx::core::ExpandDims::output_shape@<X0>(uint64_t *a1@<X0>, int **a2@<X1>, uint64_t *a3@<X8>)
+{
+  v5 = *a1;
+  a3[1] = 0;
+  a3[2] = 0;
+  *a3 = 0;
+  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a3, *v5, *(v5 + 8), (*(v5 + 8) - *v5) >> 2);
+  v8 = *a2;
+  for (i = a2[1]; v8 != i; ++v8)
+  {
+    v9.__i_ = (*a3 + 4 * *v8);
+    __x = 1;
+    result = std::vector<int>::insert(a3, v9, &__x).__i_;
+  }
+
+  return result;
 }

@@ -56,7 +56,7 @@ uint64_t __50__AXSpeechPronunciationHelper__assetUpdaterClient__block_invoke()
 
 - (id)userInterfaceClient:(id)client processMessageFromServer:(id)server withIdentifier:(unint64_t)identifier error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   mEMORY[0x277CE6980] = [MEMORY[0x277CE6980] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6980] ignoreLogging];
@@ -74,7 +74,7 @@ uint64_t __50__AXSpeechPronunciationHelper__assetUpdaterClient__block_invoke()
       if (os_log_type_enabled(v12, v13))
       {
         *buf = 138543362;
-        v23 = v15;
+        v22 = v15;
         _os_log_impl(&dword_23D6A6000, v12, v13, "%{public}@", buf, 0xCu);
       }
     }
@@ -96,7 +96,6 @@ uint64_t __50__AXSpeechPronunciationHelper__assetUpdaterClient__block_invoke()
     self->_inSession = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -119,7 +118,7 @@ uint64_t __50__AXSpeechPronunciationHelper__assetUpdaterClient__block_invoke()
 
 - (void)startPronunciationSession:(id)session resultCallback:(id)callback
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   callbackCopy = callback;
   _assetUpdaterClient = [(AXSpeechPronunciationHelper *)self _assetUpdaterClient];
@@ -142,7 +141,7 @@ uint64_t __50__AXSpeechPronunciationHelper__assetUpdaterClient__block_invoke()
       if (os_log_type_enabled(v12, v13))
       {
         *buf = 138543362;
-        v43 = v15;
+        v42 = v15;
         _os_log_impl(&dword_23D6A6000, v12, v13, "%{public}@", buf, 0xCu);
       }
     }
@@ -172,15 +171,15 @@ uint64_t __50__AXSpeechPronunciationHelper__assetUpdaterClient__block_invoke()
         if (os_log_type_enabled(v21, v22))
         {
           *buf = 138543362;
-          v43 = v24;
+          v42 = v24;
           _os_log_impl(&dword_23D6A6000, v21, v22, "%{public}@", buf, 0xCu);
         }
       }
     }
 
-    v39 = 0;
-    v25 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:sessionCopy requiringSecureCoding:1 error:{&v39, inSession}];
-    v26 = v39;
+    v38 = 0;
+    v25 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:sessionCopy requiringSecureCoding:1 error:{&v38, inSession}];
+    v26 = v38;
     if (v26)
     {
       mEMORY[0x277CE6980]3 = [MEMORY[0x277CE6980] sharedInstance];
@@ -199,7 +198,7 @@ uint64_t __50__AXSpeechPronunciationHelper__assetUpdaterClient__block_invoke()
           if (os_log_type_enabled(v30, v31))
           {
             *buf = 138543362;
-            v43 = v33;
+            v42 = v33;
             _os_log_impl(&dword_23D6A6000, v30, v31, "%{public}@", buf, 0xCu);
           }
         }
@@ -209,20 +208,18 @@ uint64_t __50__AXSpeechPronunciationHelper__assetUpdaterClient__block_invoke()
     if (v25)
     {
       _assetUpdaterClient2 = [(AXSpeechPronunciationHelper *)self _assetUpdaterClient];
-      v40 = @"options";
-      v41 = v25;
-      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+      v39 = @"options";
+      v40 = v25;
+      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
       mainAccessQueue = [MEMORY[0x277CE6948] mainAccessQueue];
       [_assetUpdaterClient2 sendAsynchronousMessage:v35 withIdentifier:4 targetAccessQueue:mainAccessQueue completion:0];
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopPronunciationSession
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CE6980] = [MEMORY[0x277CE6980] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6980] ignoreLogging];
 
@@ -235,12 +232,11 @@ uint64_t __50__AXSpeechPronunciationHelper__assetUpdaterClient__block_invoke()
     if (os_log_type_enabled(v6, v7))
     {
       v8 = AXColorizeFormatLog();
-      inSession = self->_inSession;
       v9 = _AXStringForArgs();
       if (os_log_type_enabled(v6, v7))
       {
         *buf = 138543362;
-        v15 = v9;
+        v13 = v9;
         _os_log_impl(&dword_23D6A6000, v6, v7, "%{public}@", buf, 0xCu);
       }
     }
@@ -252,13 +248,11 @@ uint64_t __50__AXSpeechPronunciationHelper__assetUpdaterClient__block_invoke()
     mainAccessQueue = [MEMORY[0x277CE6948] mainAccessQueue];
     [_assetUpdaterClient sendAsynchronousMessage:MEMORY[0x277CBEC10] withIdentifier:5 targetAccessQueue:mainAccessQueue completion:0];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelPronunciationSession
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CE6980] = [MEMORY[0x277CE6980] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6980] ignoreLogging];
 
@@ -271,12 +265,11 @@ uint64_t __50__AXSpeechPronunciationHelper__assetUpdaterClient__block_invoke()
     if (os_log_type_enabled(v6, v7))
     {
       v8 = AXColorizeFormatLog();
-      inSession = self->_inSession;
       v9 = _AXStringForArgs();
       if (os_log_type_enabled(v6, v7))
       {
         *buf = 138543362;
-        v15 = v9;
+        v13 = v9;
         _os_log_impl(&dword_23D6A6000, v6, v7, "%{public}@", buf, 0xCu);
       }
     }
@@ -288,8 +281,6 @@ uint64_t __50__AXSpeechPronunciationHelper__assetUpdaterClient__block_invoke()
     mainAccessQueue = [MEMORY[0x277CE6948] mainAccessQueue];
     [_assetUpdaterClient sendAsynchronousMessage:MEMORY[0x277CBEC10] withIdentifier:6 targetAccessQueue:mainAccessQueue completion:&__block_literal_global_368];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

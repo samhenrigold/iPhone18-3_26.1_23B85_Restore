@@ -53,7 +53,7 @@
 
 - (void)uploadWorkflow:(id)workflow withName:(id)name shortDescription:(id)description longDescription:(id)longDescription private:(BOOL)private completionHandler:(id)handler
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   nameCopy = name;
   workflowCopy = workflow;
@@ -70,62 +70,59 @@
   database = [(WFGallerySessionManager *)self database];
   v20 = [(WFCloudKitItemRequest *)v17 initWithContainer:container database:database];
 
-  v29[0] = v16;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __110__WFGallerySessionManager_uploadWorkflow_withName_shortDescription_longDescription_private_completionHandler___block_invoke;
-  v26[3] = &unk_1E837FA10;
-  v27 = v16;
-  v28 = handlerCopy;
+  v28[0] = v16;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __110__WFGallerySessionManager_uploadWorkflow_withName_shortDescription_longDescription_private_completionHandler___block_invoke;
+  v25[3] = &unk_1E837FA10;
+  v26 = v16;
+  v27 = handlerCopy;
   v22 = v16;
   v23 = handlerCopy;
-  v24 = [(WFCloudKitItemRequest *)v20 updateItems:v21 setNilValues:0 qualityOfService:25 timeoutIntervalForRequest:v26 completionHandler:30.0];
-
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = [(WFCloudKitItemRequest *)v20 updateItems:v21 setNilValues:0 qualityOfService:25 timeoutIntervalForRequest:v25 completionHandler:30.0];
 }
 
 void __110__WFGallerySessionManager_uploadWorkflow_withName_shortDescription_longDescription_private_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 LABEL_3:
 
-    v4();
+    v3();
     return;
   }
 
-  v5 = [*(a1 + 32) identifier];
+  v4 = [*(a1 + 32) identifier];
 
-  if (!v5)
+  if (!v4)
   {
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
     goto LABEL_3;
   }
 
-  v6 = [*(a1 + 32) identifier];
-  v7 = [v6 recordName];
-  v8 = WFGallerySharingURLForIdentifier(v7);
+  v5 = [*(a1 + 32) identifier];
+  v6 = [v5 recordName];
+  v7 = WFGallerySharingURLForIdentifier(v6);
 
   (*(*(a1 + 40) + 16))();
 }
 
 - (void)reportWorkflow:(id)workflow iCloudIdentifier:(id)identifier reportReason:(id)reason reportMessage:(id)message completionHandler:(id)handler
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   reasonCopy = reason;
   messageCopy = message;
   handlerCopy = handler;
   fileRepresentation = [workflow fileRepresentation];
-  v29 = 0;
-  v17 = [fileRepresentation writeToDiskWithError:&v29];
-  v18 = v29;
+  v28 = 0;
+  v17 = [fileRepresentation writeToDiskWithError:&v28];
+  v18 = v28;
   if (v17)
   {
-    v28 = reasonCopy;
+    v27 = reasonCopy;
     v19 = [[WFShortcutConcerningReport alloc] initWithReason:reasonCopy shortcutContent:v17];
     [(WFShortcutConcerningReport *)v19 setReportMessage:messageCopy];
     if (identifierCopy)
@@ -139,19 +136,17 @@ LABEL_3:
     database = [(WFGallerySessionManager *)self database];
     v24 = [(WFCloudKitItemRequest *)v21 initWithContainer:container database:database];
 
-    v30[0] = v19;
-    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+    v29[0] = v19;
+    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
     v26 = [(WFCloudKitItemRequest *)v24 updateItems:v25 setNilValues:0 qualityOfService:25 timeoutIntervalForRequest:handlerCopy completionHandler:30.0];
 
-    reasonCopy = v28;
+    reasonCopy = v27;
   }
 
   else
   {
     handlerCopy[2](handlerCopy, v18);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (id)unshareSharedShortcut:(id)shortcut completionHandler:(id)handler
@@ -248,7 +243,7 @@ void __82__WFGallerySessionManager_getCollectionForPersistentIdentifier_completi
 
 - (id)getWorkflowForIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   identifierCopy = identifier;
   v8 = [WFCloudKitWebServiceRequest alloc];
@@ -256,45 +251,43 @@ void __82__WFGallerySessionManager_getCollectionForPersistentIdentifier_completi
   database = [(WFGallerySessionManager *)self database];
   v11 = [(WFCloudKitWebServiceRequest *)v8 initWithContainer:container database:database];
 
-  v16[0] = objc_opt_class();
-  v16[1] = objc_opt_class();
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v15[0] = objc_opt_class();
+  v15[1] = objc_opt_class();
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
   v13 = [(WFCloudKitWebServiceRequest *)v11 fetchProxiedRecordWithIdentifier:identifierCopy possibleItemTypes:v12 completionHandler:handlerCopy];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (id)sortAndFilterSearchResults:(id)results query:(id)query
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   queryCopy = query;
   v6 = objc_opt_new();
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v7 = resultsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (!v8)
   {
     goto LABEL_24;
   }
 
   v9 = v8;
-  v10 = *v38;
+  v10 = *v37;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v38 != v10)
+      if (*v37 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v37 + 1) + 8 * i);
+      v12 = *(*(&v36 + 1) + 8 * i);
       persistentIdentifier = [v12 persistentIdentifier];
       if (persistentIdentifier)
       {
@@ -357,27 +350,27 @@ LABEL_17:
 LABEL_22:
     }
 
-    v9 = [v7 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v36 objects:v40 count:16];
   }
 
   while (v9);
 LABEL_24:
 
   preferredLocalizations = [(WFGallerySessionManager *)self preferredLocalizations];
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __60__WFGallerySessionManager_sortAndFilterSearchResults_query___block_invoke;
-  v35[3] = &unk_1E837EA28;
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __60__WFGallerySessionManager_sortAndFilterSearchResults_query___block_invoke;
+  v34[3] = &unk_1E837EA28;
   v19 = preferredLocalizations;
-  v36 = v19;
-  [v6 enumerateKeysAndObjectsUsingBlock:v35];
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __60__WFGallerySessionManager_sortAndFilterSearchResults_query___block_invoke_3;
-  v33[3] = &unk_1E837EA50;
+  v35 = v19;
+  [v6 enumerateKeysAndObjectsUsingBlock:v34];
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __60__WFGallerySessionManager_sortAndFilterSearchResults_query___block_invoke_3;
+  v32[3] = &unk_1E837EA50;
   v20 = v6;
-  v34 = v20;
-  v21 = [v7 if_objectsPassingTest:v33];
+  v33 = v20;
+  v21 = [v7 if_objectsPassingTest:v32];
 
   if (queryCopy)
   {
@@ -385,21 +378,19 @@ LABEL_24:
     v23 = [queryCopy componentsSeparatedByCharactersInSet:whitespaceAndNewlineCharacterSet];
     firstObject = [v23 firstObject];
 
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __60__WFGallerySessionManager_sortAndFilterSearchResults_query___block_invoke_4;
-    v31[3] = &unk_1E837EA00;
-    v32 = firstObject;
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __60__WFGallerySessionManager_sortAndFilterSearchResults_query___block_invoke_4;
+    v30[3] = &unk_1E837EA00;
+    v31 = firstObject;
     v25 = firstObject;
-    v26 = [v21 sortedArrayUsingComparator:v31];
+    v26 = [v21 sortedArrayUsingComparator:v30];
   }
 
   else
   {
     v26 = v21;
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
@@ -493,7 +484,7 @@ uint64_t __60__WFGallerySessionManager_sortAndFilterSearchResults_query___block_
 
 - (id)searchCollections:(id)collections completionHandler:(id)handler
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   collectionsCopy = collections;
   handlerCopy = handler;
   whitespaceAndNewlineCharacterSet = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
@@ -514,23 +505,21 @@ uint64_t __60__WFGallerySessionManager_sortAndFilterSearchResults_query___block_
     preferredLocalizations = [(WFGallerySessionManager *)self preferredLocalizations];
     v15 = [WFCloudKitWebServiceQueryFilter filterWithComparisonOf:@"language" toStringArray:preferredLocalizations by:1];
 
-    v24[0] = v13;
-    v24[1] = v15;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+    v23[0] = v13;
+    v23[1] = v15;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
     v17 = [WFCloudKitWebServiceQueryFilter filterWithCombinationOf:v16 by:0];
 
     v18 = objc_opt_class();
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __63__WFGallerySessionManager_searchCollections_completionHandler___block_invoke;
-    v21[3] = &unk_1E837E9D0;
-    v23 = handlerCopy;
-    v21[4] = self;
-    v22 = v9;
-    v12 = [(WFGallerySessionManager *)self searchUsingWebServicesForItem:v18 query:collectionsCopy queryFilter:v17 completionHandler:v21];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __63__WFGallerySessionManager_searchCollections_completionHandler___block_invoke;
+    v20[3] = &unk_1E837E9D0;
+    v22 = handlerCopy;
+    v20[4] = self;
+    v21 = v9;
+    v12 = [(WFGallerySessionManager *)self searchUsingWebServicesForItem:v18 query:collectionsCopy queryFilter:v17 completionHandler:v20];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -587,7 +576,7 @@ void __63__WFGallerySessionManager_searchCollections_completionHandler___block_i
 
 - (id)searchWorkflows:(id)workflows completionHandler:(id)handler
 {
-  v25[3] = *MEMORY[0x1E69E9840];
+  v24[3] = *MEMORY[0x1E69E9840];
   workflowsCopy = workflows;
   handlerCopy = handler;
   whitespaceAndNewlineCharacterSet = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
@@ -609,24 +598,22 @@ void __63__WFGallerySessionManager_searchCollections_completionHandler___block_i
     preferredLocalizations = [(WFGallerySessionManager *)self preferredLocalizations];
     v16 = [WFCloudKitWebServiceQueryFilter filterWithComparisonOf:@"language" toStringArray:preferredLocalizations by:1];
 
-    v25[0] = v13;
-    v25[1] = v14;
-    v25[2] = v16;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:3];
+    v24[0] = v13;
+    v24[1] = v14;
+    v24[2] = v16;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:3];
     v18 = [WFCloudKitWebServiceQueryFilter filterWithCombinationOf:v17 by:0];
 
     v19 = objc_opt_class();
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __61__WFGallerySessionManager_searchWorkflows_completionHandler___block_invoke;
-    v22[3] = &unk_1E837E9D0;
-    v24 = handlerCopy;
-    v22[4] = self;
-    v23 = v9;
-    v12 = [(WFGallerySessionManager *)self searchUsingWebServicesForItem:v19 query:workflowsCopy queryFilter:v18 completionHandler:v22];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __61__WFGallerySessionManager_searchWorkflows_completionHandler___block_invoke;
+    v21[3] = &unk_1E837E9D0;
+    v23 = handlerCopy;
+    v21[4] = self;
+    v22 = v9;
+    v12 = [(WFGallerySessionManager *)self searchUsingWebServicesForItem:v19 query:workflowsCopy queryFilter:v18 completionHandler:v21];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -761,12 +748,12 @@ void __75__WFGallerySessionManager_searchWorkflowsAndCollections_completionHandl
   {
     if (v3)
     {
-      v7[0] = MEMORY[0x1E69E9820];
-      v7[1] = 3221225472;
-      v7[2] = __75__WFGallerySessionManager_searchWorkflowsAndCollections_completionHandler___block_invoke_4;
-      v7[3] = &unk_1E837E8B0;
-      v7[4] = *(a1 + 40);
-      v4 = [v3 if_compactMap:v7];
+      v6[0] = MEMORY[0x1E69E9820];
+      v6[1] = 3221225472;
+      v6[2] = __75__WFGallerySessionManager_searchWorkflowsAndCollections_completionHandler___block_invoke_4;
+      v6[3] = &unk_1E837E8B0;
+      v6[4] = *(a1 + 40);
+      v4 = [v3 if_compactMap:v6];
 
       v5 = [*(a1 + 40) collectionSearchCache];
       [v5 setObject:v4 forKey:*(a1 + 48)];
@@ -774,7 +761,6 @@ void __75__WFGallerySessionManager_searchWorkflowsAndCollections_completionHandl
       v3 = v4;
     }
 
-    v6 = *(a1 + 56);
     (*(*(a1 + 64) + 16))();
   }
 }
@@ -844,7 +830,7 @@ void __75__WFGallerySessionManager_loadWorkflowInGalleryWorkflow_completionHandl
   v15 = a2;
   v5 = a3;
   v6 = [v5 domain];
-  if ([v6 isEqualToString:@"WFCloudKitErrorDomain"])
+  if (objc_msgSend_isEqualToString_(v6))
   {
     v7 = [v5 code];
 
@@ -944,11 +930,11 @@ LABEL_11:
 
 - (BOOL)collectionIsRestricted:(id)restricted
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   restrictedCopy = restricted;
   identifier = [restrictedCopy identifier];
   recordName = [identifier recordName];
-  if (([recordName isEqualToString:@"UseModel"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(recordName) & 1) == 0)
   {
 
 LABEL_7:
@@ -990,15 +976,14 @@ LABEL_7:
   self = getWFGalleryLogObject();
   if (os_log_type_enabled(&self->super, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315138;
-    v17 = "[WFGallerySessionManager collectionIsRestricted:]";
-    _os_log_impl(&dword_1CA256000, &self->super, OS_LOG_TYPE_DEFAULT, "%s Use model collection is restricted due to action disablement", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "[WFGallerySessionManager collectionIsRestricted:]";
+    _os_log_impl(&dword_1CA256000, &self->super, OS_LOG_TYPE_DEFAULT, "%s Use model collection is restricted due to action disablement", &v15, 0xCu);
   }
 
   LOBYTE(self) = 1;
 LABEL_13:
 
-  v14 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -1162,29 +1147,29 @@ id __59__WFGallerySessionManager_removeRestrictedContentFromPage___block_invoke_
 
 - (id)preferredPageInPages:(id)pages preferredLanguages:(id)languages
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   languagesCopy = languages;
   v6 = [pages sortedArrayUsingComparator:&__block_literal_global_251_68297];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = languagesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [v6 objectMatchingKey:@"language" value:{*(*(&v16 + 1) + 8 * i), v16}];
+        v12 = [v6 objectMatchingKey:@"language" value:{*(*(&v15 + 1) + 8 * i), v15}];
         if (v12)
         {
           v13 = v12;
@@ -1192,7 +1177,7 @@ id __59__WFGallerySessionManager_removeRestrictedContentFromPage___block_invoke_
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         continue;
@@ -1204,8 +1189,6 @@ id __59__WFGallerySessionManager_removeRestrictedContentFromPage___block_invoke_
 
   v13 = 0;
 LABEL_11:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -1222,7 +1205,7 @@ uint64_t __67__WFGallerySessionManager_preferredPageInPages_preferredLanguages__
 
 - (id)getImageForBanner:(id)banner completionHandler:(id)handler
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   bannerCopy = banner;
   handlerCopy = handler;
   identifier = [bannerCopy identifier];
@@ -1253,22 +1236,20 @@ uint64_t __67__WFGallerySessionManager_preferredPageInPages_preferredLanguages__
     {
       createItemRequest = [(WFGallerySessionManager *)self createItemRequest];
       identifier2 = [bannerCopy identifier];
-      v21 = objc_opt_class();
+      v20 = objc_opt_class();
       v17 = +[WFGalleryBanner imageProperty];
-      v25[0] = v17;
-      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __63__WFGallerySessionManager_getImageForBanner_completionHandler___block_invoke;
-      v22[3] = &unk_1E837E868;
-      v22[4] = self;
-      v23 = recordName;
-      v24 = handlerCopy;
-      v12 = [createItemRequest fetchItemWithID:identifier2 itemType:v21 groupName:@"GalleryFetch" properties:v18 completionHandler:v22];
+      v24[0] = v17;
+      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __63__WFGallerySessionManager_getImageForBanner_completionHandler___block_invoke;
+      v21[3] = &unk_1E837E868;
+      v21[4] = self;
+      v22 = recordName;
+      v23 = handlerCopy;
+      v12 = [createItemRequest fetchItemWithID:identifier2 itemType:v20 groupName:@"GalleryFetch" properties:v18 completionHandler:v21];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1429,7 +1410,6 @@ void __75__WFGallerySessionManager_getHomeWithPreferredLanguages_completionHandl
 
 - (NSString)containerDescription
 {
-  v3 = *MEMORY[0x1E69E1140];
   if (!os_variant_has_internal_content())
   {
     return 0;
@@ -1437,13 +1417,13 @@ void __75__WFGallerySessionManager_getHomeWithPreferredLanguages_completionHandl
 
   container = [(WFGallerySessionManager *)self container];
   containerIdentifier = [container containerIdentifier];
-  v6 = [containerIdentifier isEqualToString:*MEMORY[0x1E6997148]];
+  isEqualToString = objc_msgSend_isEqualToString_(containerIdentifier);
 
   container2 = [(WFGallerySessionManager *)self container];
   containerID = [container2 containerID];
   environment = [containerID environment];
 
-  if (v6)
+  if (isEqualToString)
   {
     if (environment == 2)
     {
@@ -1469,7 +1449,7 @@ void __75__WFGallerySessionManager_getHomeWithPreferredLanguages_completionHandl
 
 - (int64_t)version
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v3 = [v2 objectForInfoDictionaryKey:*MEMORY[0x1E695E500]];
   integerValue = [v3 integerValue];
@@ -1487,14 +1467,13 @@ void __75__WFGallerySessionManager_getHomeWithPreferredLanguages_completionHandl
   v7 = getWFGalleryLogObject();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v10 = 136315394;
-    v11 = "[WFGallerySessionManager version]";
-    v12 = 2048;
-    v13 = integerValue;
-    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_INFO, "%s using build version: %li", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[WFGallerySessionManager version]";
+    v11 = 2048;
+    v12 = integerValue;
+    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_INFO, "%s using build version: %li", &v9, 0x16u);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return integerValue;
 }
 

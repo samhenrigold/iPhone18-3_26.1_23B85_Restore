@@ -2793,49 +2793,49 @@ LABEL_11:
 
   if (!parseDate)
   {
-    v5 = _ITEpubParsingLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = _ITEpubParsingLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       assetLogID = [(AEBookInfo *)self assetLogID];
       assetID = [(AEBookInfo *)self assetID];
-      v20 = 138543618;
-      v21 = assetLogID;
-      v22 = 2112;
-      v23 = assetID;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "We've never parsed %{public}@ - %@", &v20, 0x16u);
+      v22 = 138543618;
+      v23 = assetLogID;
+      v24 = 2112;
+      v25 = assetID;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "We've never parsed %{public}@ - %@", &v22, 0x16u);
     }
   }
 
   updateDate = [(AEBookInfo *)self updateDate];
   if (updateDate)
   {
-    v9 = updateDate;
+    v10 = updateDate;
     parseDate2 = [(AEBookInfo *)self parseDate];
 
     if (parseDate2)
     {
       updateDate2 = [(AEBookInfo *)self updateDate];
       parseDate3 = [(AEBookInfo *)self parseDate];
-      v13 = [updateDate2 compare:parseDate3];
+      v14 = [updateDate2 compare:parseDate3];
 
-      if (v13 == &dword_0 + 1)
+      if (v14 == &dword_0 + 1)
       {
-        v14 = _ITEpubParsingLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        v16 = _ITEpubParsingLog(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
           updateDate3 = [(AEBookInfo *)self updateDate];
           parseDate4 = [(AEBookInfo *)self parseDate];
           assetLogID2 = [(AEBookInfo *)self assetLogID];
           assetID2 = [(AEBookInfo *)self assetID];
-          v20 = 138544130;
-          v21 = updateDate3;
-          v22 = 2114;
-          v23 = parseDate4;
+          v22 = 138544130;
+          v23 = updateDate3;
           v24 = 2114;
-          v25 = assetLogID2;
-          v26 = 2112;
-          v27 = assetID2;
-          _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "UpdateDate: %{public}@ parseDate: %{public}@ -- %{public}@ - %@", &v20, 0x2Au);
+          v25 = parseDate4;
+          v26 = 2114;
+          v27 = assetLogID2;
+          v28 = 2112;
+          v29 = assetID2;
+          _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "UpdateDate: %{public}@ parseDate: %{public}@ -- %{public}@ - %@", &v22, 0x2Au);
         }
 
         return 1;

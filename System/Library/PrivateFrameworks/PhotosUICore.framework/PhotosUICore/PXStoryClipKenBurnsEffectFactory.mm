@@ -455,15 +455,12 @@ __n128 __68__PXStoryClipKenBurnsEffectFactory__getParameters_forConfiguration___
   return result;
 }
 
-BOOL __68__PXStoryClipKenBurnsEffectFactory__getParameters_forConfiguration___block_invoke_22(double a1, double a2, double a3, double a4)
+void __68__PXStoryClipKenBurnsEffectFactory__getParameters_forConfiguration___block_invoke_22(uint64_t a1, double a2, double a3, double a4, double a5)
 {
-  result = CGRectIsEmpty(*&a1);
-  if (!result)
+  if (!CGRectIsEmpty(*&a2))
   {
     PXRectFlippedVertically();
   }
-
-  return result;
 }
 
 - (CGRect)clipFrameForClipIndex:(int64_t)index

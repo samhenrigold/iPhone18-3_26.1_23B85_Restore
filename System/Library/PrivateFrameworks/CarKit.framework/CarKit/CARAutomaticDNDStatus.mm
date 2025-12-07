@@ -111,11 +111,11 @@ uint64_t __45__CARAutomaticDNDStatus__DNDServiceInterface__block_invoke()
   _DNDServiceInterface = [objc_opt_class() _DNDServiceInterface];
   [v3 setRemoteObjectInterface:_DNDServiceInterface];
 
-  v5 = CarDNDWDLogging();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = CarDNDWDLogging(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1C81FC000, v5, OS_LOG_TYPE_DEFAULT, "Connecting to CarKit DND service.", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_DEFAULT, "Connecting to CarKit DND service.", v7, 2u);
   }
 
   [v3 resume];
@@ -165,7 +165,7 @@ void __61__CARAutomaticDNDStatus_fetchAutomaticDNDAssertionWithReply___block_inv
 uint64_t __61__CARAutomaticDNDStatus_fetchAutomaticDNDAssertionWithReply___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x1E69E9840];
-  v4 = CarDNDWDLogging();
+  v4 = CarDNDWDLogging(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x1E696AD98] numberWithBool:a2];
@@ -217,24 +217,25 @@ void __48__CARAutomaticDNDStatus_isAutomaticDNDAvailable__block_invoke()
 {
   blockCopy = block;
   handlerCopy = handler;
-  if ([objc_opt_class() isAutomaticDNDAvailable])
+  isAutomaticDNDAvailable = [objc_opt_class() isAutomaticDNDAvailable];
+  if (isAutomaticDNDAvailable)
   {
     connection = [(CARAutomaticDNDStatus *)self connection];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __64__CARAutomaticDNDStatus__xpcFetchWithServiceBlock_errorHandler___block_invoke_2;
-    v14[3] = &unk_1E82FBF48;
-    v9 = &v15;
-    v15 = handlerCopy;
-    connection2 = [connection remoteObjectProxyWithErrorHandler:v14];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __64__CARAutomaticDNDStatus__xpcFetchWithServiceBlock_errorHandler___block_invoke_2;
+    v16[3] = &unk_1E82FBF48;
+    v10 = &v17;
+    v17 = handlerCopy;
+    connection2 = [connection remoteObjectProxyWithErrorHandler:v16];
 
     if (blockCopy)
     {
-      v11 = CarDNDWDLogging();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = CarDNDWDLogging(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C81FC000, v11, OS_LOG_TYPE_DEFAULT, "Connecting to CarKit Driving service.", buf, 2u);
+        _os_log_impl(&dword_1C81FC000, v13, OS_LOG_TYPE_DEFAULT, "Connecting to CarKit Driving service.", buf, 2u);
       }
 
       blockCopy[2](blockCopy, connection2);
@@ -243,11 +244,11 @@ void __48__CARAutomaticDNDStatus_isAutomaticDNDAvailable__block_invoke()
     goto LABEL_10;
   }
 
-  v12 = CarDNDWDLogging();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v14 = CarDNDWDLogging(isAutomaticDNDAvailable);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C81FC000, v12, OS_LOG_TYPE_DEFAULT, "DND While Driving is not available on this device.", buf, 2u);
+    _os_log_impl(&dword_1C81FC000, v14, OS_LOG_TYPE_DEFAULT, "DND While Driving is not available on this device.", buf, 2u);
   }
 
   if (handlerCopy)
@@ -258,8 +259,8 @@ void __48__CARAutomaticDNDStatus_isAutomaticDNDAvailable__block_invoke()
     block[1] = 3221225472;
     block[2] = __64__CARAutomaticDNDStatus__xpcFetchWithServiceBlock_errorHandler___block_invoke;
     block[3] = &unk_1E82FC988;
-    v9 = &v17;
-    v17 = handlerCopy;
+    v10 = &v19;
+    v19 = handlerCopy;
     dispatch_async(_queue, block);
 
 LABEL_10:
@@ -270,7 +271,7 @@ void __64__CARAutomaticDNDStatus__xpcFetchWithServiceBlock_errorHandler___block_
 {
   v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = CarDNDWDLogging();
+  v4 = CarDNDWDLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -638,7 +639,7 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
   preferenceCopy = preference;
   v14 = *MEMORY[0x1E69E9840];
   v4 = @"CARDNDMiniInternalExitConfirmationOverride";
-  v5 = CarDNDWDLogging();
+  v5 = CarDNDWDLogging(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [MEMORY[0x1E696AD98] numberWithBool:preferenceCopy];
@@ -673,7 +674,7 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
   preferenceCopy = preference;
   v14 = *MEMORY[0x1E69E9840];
   v4 = @"CARDNDMiniInternalForceOverride";
-  v5 = CarDNDWDLogging();
+  v5 = CarDNDWDLogging(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [MEMORY[0x1E696AD98] numberWithBool:preferenceCopy];
@@ -708,7 +709,7 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
   preferenceCopy = preference;
   v14 = *MEMORY[0x1E69E9840];
   v4 = @"CARDNDMiniHasCompletedFirstRide";
-  v5 = CarDNDWDLogging();
+  v5 = CarDNDWDLogging(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [MEMORY[0x1E696AD98] numberWithBool:preferenceCopy];
@@ -743,7 +744,7 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
   preferenceCopy = preference;
   v14 = *MEMORY[0x1E69E9840];
   v4 = @"CARDNDMiniHasStartedFirstRide";
-  v5 = CarDNDWDLogging();
+  v5 = CarDNDWDLogging(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [MEMORY[0x1E696AD98] numberWithBool:preferenceCopy];
@@ -780,7 +781,7 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
   {
     v5 = @"CARDNDAutomaticTriggeringMethod";
     v6 = [MEMORY[0x1E696AD98] numberWithInteger:method];
-    v7 = CarDNDWDLogging();
+    v7 = CarDNDWDLogging(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v9 = 138412802;
@@ -814,7 +815,7 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
   preferenceCopy = preference;
   v14 = *MEMORY[0x1E69E9840];
   v4 = @"CARDNDMiniInternalShowGeofencingAlerts";
-  v5 = CarDNDWDLogging();
+  v5 = CarDNDWDLogging(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [MEMORY[0x1E696AD98] numberWithBool:preferenceCopy];
@@ -849,7 +850,7 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
   preferenceCopy = preference;
   v14 = *MEMORY[0x1E69E9840];
   v4 = @"CARDNDMiniInternalShowInternalAlerts";
-  v5 = CarDNDWDLogging();
+  v5 = CarDNDWDLogging(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [MEMORY[0x1E696AD98] numberWithBool:preferenceCopy];
@@ -884,7 +885,7 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
   preferenceCopy = preference;
   v14 = *MEMORY[0x1E69E9840];
   v4 = @"CARDNDInternalDNDBuddyDisplay";
-  v5 = CarDNDWDLogging();
+  v5 = CarDNDWDLogging(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [MEMORY[0x1E696AD98] numberWithBool:preferenceCopy];
@@ -919,7 +920,7 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
   dCopy = d;
   v14 = *MEMORY[0x1E69E9840];
   v4 = @"CARDNDMiniUserOptedOutInBuddy";
-  v5 = CarDNDWDLogging();
+  v5 = CarDNDWDLogging(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [MEMORY[0x1E696AD98] numberWithBool:dCopy];
@@ -954,7 +955,7 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
   methodCopy = method;
   v14 = *MEMORY[0x1E69E9840];
   v4 = @"CARDNDUserHasAdjustedTriggerMethod";
-  v5 = CarDNDWDLogging();
+  v5 = CarDNDWDLogging(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [MEMORY[0x1E696AD98] numberWithBool:methodCopy];
@@ -997,7 +998,7 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
   drivingCopy = driving;
   v14 = *MEMORY[0x1E69E9840];
   v4 = @"CARHasMigratedToDriving";
-  v5 = CarDNDWDLogging();
+  v5 = CarDNDWDLogging(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [MEMORY[0x1E696AD98] numberWithBool:drivingCopy];
@@ -1026,7 +1027,7 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
   if ([(CARAutomaticDNDStatus *)self shouldActivateWithCarPlay]!= play)
   {
     v4 = @"CARDNDActivateWithCarPlay";
-    v5 = CarDNDWDLogging();
+    v5 = CarDNDWDLogging(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = [MEMORY[0x1E696AD98] numberWithBool:playCopy];
@@ -1074,7 +1075,7 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
   changeCopy = change;
   v4 = @"CARDNDTriggerPreferenceChangedTimestamp";
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:changeCopy];
-  v6 = CarDNDWDLogging();
+  v6 = CarDNDWDLogging(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = 138412802;
@@ -1102,7 +1103,7 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
     v7 = v6;
     v8 = @"CARDNDFirstBuddyDateFirstMoment";
     v9 = [MEMORY[0x1E696AD98] numberWithInteger:v7];
-    v10 = CarDNDWDLogging();
+    v10 = CarDNDWDLogging(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v12 = 138412802;
@@ -1121,7 +1122,7 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
   {
     v5 = @"CARDNDFirstBuddyDateFirstMoment";
     v8 = [MEMORY[0x1E696AD98] numberWithInteger:0];
-    v11 = CarDNDWDLogging();
+    v11 = CarDNDWDLogging(v8);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = 138412802;
@@ -1175,7 +1176,7 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
   }
 
   v8 = [v6 numberWithInteger:v7];
-  v9 = CarDNDWDLogging();
+  v9 = CarDNDWDLogging(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = 138412802;
@@ -1215,12 +1216,13 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
   v6 = blockCopy;
   if (readingCopy)
   {
-    if (!CFPreferencesAppSynchronize(CRPreferencesAutomaticDNDDomain))
+    v7 = CFPreferencesAppSynchronize(CRPreferencesAutomaticDNDDomain);
+    if (!v7)
     {
-      v7 = CarDNDWDLogging();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v8 = CarDNDWDLogging(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
-        [CARAutomaticDNDStatus _performCARPreferencesBlock:v7 forReading:?];
+        [CARAutomaticDNDStatus _performCARPreferencesBlock:v8 forReading:?];
       }
     }
 
@@ -1230,12 +1232,13 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
   else
   {
     blockCopy[2](blockCopy);
-    if (!CFPreferencesAppSynchronize(CRPreferencesAutomaticDNDDomain))
+    v9 = CFPreferencesAppSynchronize(CRPreferencesAutomaticDNDDomain);
+    if (!v9)
     {
-      v8 = CarDNDWDLogging();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v10 = CarDNDWDLogging(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        [CARAutomaticDNDStatus _performCARPreferencesBlock:v8 forReading:?];
+        [CARAutomaticDNDStatus _performCARPreferencesBlock:v10 forReading:?];
       }
     }
   }
@@ -1251,7 +1254,7 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
 - (void)_dndStateChanged:(BOOL)changed
 {
   changedCopy = changed;
-  v5 = CarDNDWDLogging();
+  v5 = CarDNDWDLogging(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (changedCopy)
   {
@@ -1292,7 +1295,7 @@ uint64_t __68__CARAutomaticDNDStatus_disableDNDUntilEndOfDriveWithContext_reply_
 - (void)_exitConfirmationStateChanged:(BOOL)changed
 {
   changedCopy = changed;
-  v5 = CarDNDWDLogging();
+  v5 = CarDNDWDLogging(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (changedCopy)
   {

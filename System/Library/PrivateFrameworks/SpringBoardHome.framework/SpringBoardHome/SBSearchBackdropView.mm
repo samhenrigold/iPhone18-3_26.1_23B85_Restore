@@ -24,7 +24,7 @@
       {
         objc_storeStrong(&v5->_materialView, v7);
         materialView = v5->_materialView;
-        [(SBSearchBackdropView *)v5 bounds];
+        objc_msgSend_bounds(v5);
         [(MTMaterialView *)materialView setFrame:?];
         [(MTMaterialView *)v5->_materialView setShouldCrossfade:1];
         [(MTMaterialView *)v5->_materialView setAutoresizingMask:18];
@@ -94,48 +94,48 @@
 
 - (id)_materialViewForStyle:(int64_t)style
 {
-  v17[3] = *MEMORY[0x1E69E9840];
+  v18[3] = *MEMORY[0x1E69E9840];
   if (style == 4)
   {
-    v12 = MEMORY[0x1E69AE158];
-    v13 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v11 = [v12 materialViewWithRecipeNamed:@"coplanarLeadingTrailingBackgroundBlur" inBundle:v13 options:0 initialWeighting:0 scaleAdjustment:1.0];
+    v13 = MEMORY[0x1E69AE158];
+    v14 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v12 = [v13 materialViewWithRecipeNamed:@"coplanarLeadingTrailingBackgroundBlur" inBundle:v14 options:0 initialWeighting:0 scaleAdjustment:1.0];
   }
 
   else if (style == 3)
   {
     v4 = [MEMORY[0x1E69DD1B8] traitCollectionWithUserInterfaceStyle:0];
-    v16[0] = v4;
-    v17[0] = @"knowledgeBackgroundZoomed";
+    v17[0] = v4;
+    v18[0] = @"knowledgeBackgroundZoomed";
     v5 = [MEMORY[0x1E69DD1B8] traitCollectionWithUserInterfaceStyle:1];
-    v16[1] = v5;
-    v17[1] = @"knowledgeBackgroundZoomed";
+    v17[1] = v5;
+    v18[1] = @"knowledgeBackgroundZoomed";
     v6 = [MEMORY[0x1E69DD1B8] traitCollectionWithUserInterfaceStyle:2];
-    v16[2] = v6;
-    v17[2] = @"knowledgeBackgroundDarkZoomed";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
+    v17[2] = v6;
+    v18[2] = @"knowledgeBackgroundDarkZoomed";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3];
 
     v8 = MEMORY[0x1E69AE158];
-    v9 = SBHBundle();
+    v10 = SBHBundle(v9);
     traitCollection = [(SBSearchBackdropView *)self traitCollection];
-    v11 = [v8 materialViewWithRecipeNamesByTraitCollection:v7 inBundle:v9 options:0 initialWeighting:0 scaleAdjustment:traitCollection compatibleWithTraitCollection:0.0];
+    v12 = [v8 materialViewWithRecipeNamesByTraitCollection:v7 inBundle:v10 options:0 initialWeighting:0 scaleAdjustment:traitCollection compatibleWithTraitCollection:0.0];
   }
 
   else
   {
-    v14 = [objc_opt_class() _builtInMaterialRecipeForStyle:style];
-    if (v14)
+    v15 = [objc_opt_class() _builtInMaterialRecipeForStyle:style];
+    if (v15)
     {
-      v11 = [MEMORY[0x1E69AE158] materialViewWithRecipe:v14];
+      v12 = [MEMORY[0x1E69AE158] materialViewWithRecipe:v15];
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
   }
 
-  return v11;
+  return v12;
 }
 
 + (int64_t)_builtInMaterialRecipeForStyle:(int64_t)style

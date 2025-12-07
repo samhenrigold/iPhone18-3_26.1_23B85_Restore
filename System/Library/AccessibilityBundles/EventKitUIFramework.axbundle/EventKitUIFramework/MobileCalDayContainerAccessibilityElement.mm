@@ -10,41 +10,40 @@
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   children = [(MobileCalDayContainerAccessibilityElement *)self children];
-  v4 = [children countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [children countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(children);
         }
 
-        [*(*(&v10 + 1) + 8 * v7++) setAccessibilityContainer:0];
+        [*(*(&v9 + 1) + 8 * v7++) setAccessibilityContainer:0];
       }
 
       while (v5 != v7);
-      v5 = [children countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [children countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v9.receiver = self;
-  v9.super_class = MobileCalDayContainerAccessibilityElement;
-  [(MobileCalDayContainerAccessibilityElement *)&v9 dealloc];
-  v8 = *MEMORY[0x29EDCA608];
+  v8.receiver = self;
+  v8.super_class = MobileCalDayContainerAccessibilityElement;
+  [(MobileCalDayContainerAccessibilityElement *)&v8 dealloc];
 }
 
 - (id)accessibilityLabel
@@ -62,7 +61,7 @@
   else
   {
     date = [(MobileCalDayContainerAccessibilityElement *)self date];
-    v5 = _AXGetYearlessStringForDay();
+    v5 = _AXGetYearlessStringForDay(date);
   }
 
   return v5;
@@ -98,39 +97,39 @@
 {
   y = test.y;
   x = test.x;
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   eventCopy = event;
   _accessibilityParentView = [(MobileCalDayContainerAccessibilityElement *)self _accessibilityParentView];
   UIAccessibilityPointForPoint();
   v10 = v9;
   v12 = v11;
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   children = [(MobileCalDayContainerAccessibilityElement *)self children];
-  v14 = [children countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v14 = [children countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v14)
   {
     v15 = v14;
     v16 = 0;
-    v17 = *v28;
+    v17 = *v27;
     do
     {
       v18 = 0;
       do
       {
-        if (*v28 != v17)
+        if (*v27 != v17)
         {
           objc_enumerationMutation(children);
         }
 
-        v19 = *(*(&v27 + 1) + 8 * v18);
+        v19 = *(*(&v26 + 1) + 8 * v18);
         [v19 accessibilityFrame];
-        v34.x = v10;
-        v34.y = v12;
-        if (CGRectContainsPoint(v35, v34))
+        v33.x = v10;
+        v33.y = v12;
+        if (CGRectContainsPoint(v34, v33))
         {
           if (v16)
           {
@@ -180,7 +179,7 @@
       }
 
       while (v15 != v18);
-      v24 = [children countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v24 = [children countByEnumeratingWithState:&v26 objects:v30 count:16];
       v15 = v24;
     }
 
@@ -193,8 +192,6 @@
   }
 
 LABEL_22:
-
-  v25 = *MEMORY[0x29EDCA608];
 
   return v16;
 }

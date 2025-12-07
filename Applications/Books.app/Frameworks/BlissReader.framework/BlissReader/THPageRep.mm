@@ -317,10 +317,10 @@ LABEL_6:
   p_hasBookmark = [(THPageRep *)self p_hasBookmark];
   if ((((contents == 0) ^ p_hasBookmark) & 1) == 0)
   {
-    v7 = p_hasBookmark;
+    v8 = p_hasBookmark;
     if (p_hasBookmark)
     {
-      -[CALayer setContents:](self->mBookmarkLayer, "setContents:", [+[TSUImage imageNamed:inBundle:](TSUImage imageNamed:@"ib_bookmark_on_page" inBundle:{THBundle()), "CGImage"}]);
+      -[CALayer setContents:](self->mBookmarkLayer, "setContents:", [+[TSUImage imageNamed:inBundle:](TSUImage imageNamed:@"ib_bookmark_on_page" inBundle:{THBundle(p_hasBookmark, v7)), "CGImage"}]);
       if (!animatedCopy)
       {
         [(THPageRep *)self p_bookmarkLayerFrame];
@@ -338,61 +338,61 @@ LABEL_6:
 LABEL_10:
       [(CALayer *)self->mBookmarkLayer removeAllAnimations];
       +[CATransaction begin];
-      if ((v7 & 1) == 0)
+      if ((v8 & 1) == 0)
       {
-        v25[0] = _NSConcreteStackBlock;
-        v25[1] = 3221225472;
-        v25[2] = sub_469C0;
-        v25[3] = &unk_45AE00;
-        v25[4] = self;
-        [CATransaction setCompletionBlock:v25];
+        v26[0] = _NSConcreteStackBlock;
+        v26[1] = 3221225472;
+        v26[2] = sub_469C0;
+        v26[3] = &unk_45AE00;
+        v26[4] = self;
+        [CATransaction setCompletionBlock:v26];
       }
 
-      v9 = [CABasicAnimation animationWithKeyPath:@"transform.translation.y"];
-      v10 = [NSNumber numberWithFloat:0.0];
+      v10 = [CABasicAnimation animationWithKeyPath:@"transform.translation.y"];
+      v11 = [NSNumber numberWithFloat:0.0];
       [(CALayer *)self->mBookmarkLayer bounds];
-      v12 = v11;
-      *&v13 = -v12;
-      v14 = [NSNumber numberWithFloat:v13];
-      if (v7)
+      v13 = v12;
+      *&v14 = -v13;
+      v15 = [NSNumber numberWithFloat:v14];
+      if (v8)
       {
-        v15 = v14;
+        v16 = v15;
       }
 
       else
       {
-        v15 = v10;
+        v16 = v11;
       }
 
-      if (v7)
+      if (v8)
       {
-        v16 = v10;
+        v17 = v11;
       }
 
       else
       {
-        v16 = v14;
+        v17 = v15;
       }
 
-      [(CABasicAnimation *)v9 setFromValue:v15];
-      [(CABasicAnimation *)v9 setToValue:v16];
-      [(CALayer *)self->mBookmarkLayer addAnimation:v9 forKey:@"slide"];
+      [(CABasicAnimation *)v10 setFromValue:v16];
+      [(CABasicAnimation *)v10 setToValue:v17];
+      [(CALayer *)self->mBookmarkLayer addAnimation:v10 forKey:@"slide"];
       [(CALayer *)self->mBookmarkLayer frame];
-      v18 = v17;
-      v20 = v19;
-      v22 = v21;
+      v19 = v18;
+      v21 = v20;
+      v23 = v22;
       objc_opt_class();
-      [(CABasicAnimation *)v9 toValue];
+      [(CABasicAnimation *)v10 toValue];
       [TSUDynamicCast() floatValue];
-      [(CALayer *)self->mBookmarkLayer setFrame:v18, v23, v20, v22];
+      [(CALayer *)self->mBookmarkLayer setFrame:v19, v24, v21, v23];
       +[CATransaction commit];
       return;
     }
 
     [(CALayer *)self->mBookmarkLayer setContents:0];
-    v24 = self->mBookmarkLayer;
+    v25 = self->mBookmarkLayer;
 
-    [(CALayer *)v24 setContents:0];
+    [(CALayer *)v25 setContents:0];
   }
 }
 

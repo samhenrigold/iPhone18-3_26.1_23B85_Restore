@@ -988,7 +988,7 @@ void __77__NTKCompanionRemoteComplicationManager_isComplicationAvailable_forFami
   }
 }
 
-uint64_t __77__NTKCompanionRemoteComplicationManager_isComplicationAvailable_forFamilies___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__77__NTKCompanionRemoteComplicationManager_isComplicationAvailable_forFamilies___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) containsObject:a2];
   if (result)

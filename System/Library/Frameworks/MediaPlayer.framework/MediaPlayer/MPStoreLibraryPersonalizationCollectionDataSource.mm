@@ -72,10 +72,15 @@ LABEL_10:
       libraryView = self->_libraryView;
       if (libraryView)
       {
-        [(MPMediaLibraryView *)libraryView mlCoreView];
+        objc_msgSend_mlCoreView(libraryView);
       }
 
-      std::allocate_shared[abi:ne200100]<mlcore::EntityCache,std::allocator<mlcore::EntityCache>,std::shared_ptr<mlcore::DeviceLibraryView>,0>();
+      else
+      {
+        v18 = 0uLL;
+      }
+
+      std::allocate_shared[abi:ne200100]<mlcore::EntityCache,std::allocator<mlcore::EntityCache>,std::shared_ptr<mlcore::DeviceLibraryView>,0>(v7, &v18);
     }
   }
 
@@ -97,72 +102,72 @@ LABEL_10:
   if (propertySetCopy && persistentID)
   {
     v13 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:class];
-    entityClass = [v13 entityClass];
+    [v13 entityClass];
     if (v13)
     {
-      [v13 MLCorePropertiesForPropertySet:propertySetCopy];
+      objc_msgSend_MLCorePropertiesForPropertySet_(v13);
     }
 
     else
     {
       __p = 0;
-      v24 = 0;
+      v23 = 0;
     }
 
     os_unfair_lock_lock(&self->_lock);
-    v44 = 0;
-    v45 = 0;
     v43 = 0;
-    std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(&v43, __p, v24, (v24 - __p) >> 3);
-    [(MPStoreLibraryPersonalizationCollectionDataSource *)self _entityCacheForEntityClass:entityClass propertiesToFetch:&v43];
-    if (v43)
+    v44 = 0;
+    v42 = 0;
+    std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(&v42, __p, v23, (v23 - __p) >> 3);
+    objc_msgSend__entityCacheForEntityClass_propertiesToFetch_(self);
+    if (v42)
     {
-      v44 = v43;
-      operator delete(v43);
+      v43 = v42;
+      operator delete(v42);
     }
 
-    *&v31[8] = 0u;
+    *&v30[8] = 0u;
+    v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v34 = 1065353216;
-    *&v36[8] = 0u;
-    v30[0] = 1065353216;
-    *&v30[1] = 0u;
-    *v31 = 0u;
-    v33 = 0u;
+    v33 = 1065353216;
+    *&v35[8] = 0u;
+    v29[0] = 1065353216;
+    *&v29[1] = 0u;
+    *v30 = 0u;
     v32 = 0u;
-    *&v31[16] = 1065353216;
-    v35 = 0u;
-    *v36 = 0u;
-    *&v36[16] = 1065353216;
-    v38 = 0u;
+    v31 = 0u;
+    *&v30[16] = 1065353216;
+    v34 = 0u;
+    *v35 = 0u;
+    *&v35[16] = 1065353216;
     v37 = 0u;
-    v39 = 1065353216;
-    v27 = MEMORY[0x1E69B0818] + 16;
-    v40 = MEMORY[0x1E69B0818] + 56;
-    (*(*v25 + 24))(&v41);
-    mlcore::PropertyCacheBase<long long,int,double,std::string,mediaplatform::Data>::~PropertyCacheBase(&v27);
+    v36 = 0u;
+    v38 = 1065353216;
+    v26 = MEMORY[0x1E69B0818] + 16;
+    v39 = MEMORY[0x1E69B0818] + 56;
+    (*(*v24 + 24))(&v40);
+    mlcore::PropertyCacheBase<long long,int,double,std::string,mediaplatform::Data>::~PropertyCacheBase(&v26);
     +[MPMediaLibrary logDatabaseAccess];
-    if (v41)
+    if (v40)
     {
-      v15 = objc_alloc_init(MPMediaLibraryEntityTranslationContext);
+      v14 = objc_alloc_init(MPMediaLibraryEntityTranslationContext);
       library2 = [(MPMediaLibraryView *)self->_libraryView library];
-      [(MPMediaLibraryEntityTranslationContext *)v15 setMediaLibrary:library2];
+      [(MPMediaLibraryEntityTranslationContext *)v14 setMediaLibrary:library2];
 
-      v17 = [MPModelKind kindWithModelClass:class];
-      [(MPMediaLibraryEntityTranslationContext *)v15 setModelKind:v17];
+      v16 = [MPModelKind kindWithModelClass:class];
+      [(MPMediaLibraryEntityTranslationContext *)v14 setModelKind:v16];
 
-      [(MPMediaLibraryEntityTranslationContext *)v15 setIdentifierSourcePrefix:@"PersonalizedDataSource-"];
+      [(MPMediaLibraryEntityTranslationContext *)v14 setIdentifierSourcePrefix:@"PersonalizedDataSource-"];
       if ([MEMORY[0x1E69E4688] canAccessAccountStore])
       {
         library3 = [(MPMediaLibraryView *)self->_libraryView library];
         userIdentity = [library3 userIdentity];
         accountDSID = [userIdentity accountDSID];
-        [(MPMediaLibraryEntityTranslationContext *)v15 setPersonID:accountDSID];
+        [(MPMediaLibraryEntityTranslationContext *)v14 setPersonID:accountDSID];
       }
 
-      v21 = (*(*v41 + 48))(v41);
-      v12 = [v13 objectForPropertySet:propertySetCopy entityClass:v21 propertyCache:mlcore::Entity::propertyCache(v41) context:v15];
+      v20 = (*(*v40 + 48))(v40);
+      v12 = [v13 objectForPropertySet:propertySetCopy entityClass:v20 propertyCache:mlcore::Entity::propertyCache(v40) context:v14];
     }
 
     else
@@ -171,14 +176,14 @@ LABEL_10:
     }
 
     os_unfair_lock_unlock(&self->_lock);
-    if (v42)
+    if (v41)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v42);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v41);
     }
 
-    if (v26)
+    if (v25)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v25);
     }
 
     if (__p)

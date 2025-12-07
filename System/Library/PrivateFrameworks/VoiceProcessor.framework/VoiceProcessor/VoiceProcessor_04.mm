@@ -8,13 +8,6 @@ void sub_2724FF248(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *VoiceProcessorV8::SetupDownlinkBasicAUChain(VoiceProcessorV8 *this)
-{
-  result = VoiceProcessorV7::SetupDownlinkBasicAUChain(this);
-  *(this + 1108) = *(this + 1108) & 0xFFFFEFF8FFFFFC53 | 0x1004000002A8;
-  return result;
-}
-
 uint64_t VoiceProcessorV8::SetupUplink_MS(uint64_t this, unsigned int a2)
 {
   if (a2 != 1)
@@ -139,12 +132,12 @@ uint64_t VoiceProcessorV8::SetupUplink_MMNS(uint64_t this, unsigned int a2)
   return this;
 }
 
-void VoiceProcessorV8::InitializeDownlinkTimeFreqConverters(VoiceProcessorV8 *this)
+void VoiceProcessorV8::InitializeDownlinkTimeFreqConverters(VoiceProcessorV8 *this, unsigned int a2, unsigned int a3)
 {
-  v2 = *(this + 2190);
-  if (v2)
+  v4 = *(this + 2190);
+  if (v4)
   {
-    VPTimeFreqConverter::~VPTimeFreqConverter(v2);
+    VPTimeFreqConverter::~VPTimeFreqConverter(v4);
     MEMORY[0x2743CBFA0]();
     *(this + 2190) = 0;
   }
@@ -156,32 +149,31 @@ void VoiceProcessorV8::InitializeDownlinkTimeFreqConverters(VoiceProcessorV8 *th
 
   if ((~*(this + 2216) & 0xC0) == 0)
   {
-    v3 = *(this + 37);
-    v4 = *(this + 42);
-    v5 = *(this + 131);
-    if (v3 != v4)
+    v5 = *(this + 37);
+    v6 = *(this + 42);
+    v7 = *(this + 131);
+    if (v5 != v6)
     {
-      v5 = vcvtpd_u64_f64(v3 * v5 / v4);
+      v7 = vcvtpd_u64_f64(v5 * v7 / v6);
     }
 
     if (*(this + 488) == 1)
     {
-      if (v5 / v3 >= 0.012)
+      if (v7 / v5 >= 0.012)
       {
-        v6 = v5;
+        v8 = v7;
       }
 
       else
       {
-        v6 = (v3 * 0.012);
+        v8 = (v5 * 0.012);
       }
 
-      BlockSizeHelper::GetNextFFTFriendlyBlkSz(v6);
-      v7 = *(this + 81);
+      BlockSizeHelper::GetNextFFTFriendlyBlkSz(v8);
       operator new();
     }
 
-    VPTimeFreqConverter_Create();
+    VPTimeFreqConverter_Create(2, v7, this + 2190);
   }
 }
 
@@ -242,7 +234,7 @@ void VoiceProcessorV8::~VoiceProcessorV8(VoiceProcessorV8 *this)
 
 {
   *this = &unk_2881B1448;
-  caulk::details::lifetime_guard_base<VoiceProcessorV2>::invalidate(this + 16616);
+  caulk::details::lifetime_guard_base<VoiceProcessorV2>::invalidate(this + 2077);
   myFreeABLDynamic(this + 2179);
   myFreeABLDynamic(this + 2180);
   myFreeABLDynamic(this + 2181);
@@ -617,43 +609,41 @@ uint64_t VoiceProcessorV9::Initialize(VoiceProcessorV9 *this)
       MEMORY[0x2743CBFA0]();
     }
 
-    v5 = *(this + 129);
-    VPTimeFreqConverter_Create();
+    VPTimeFreqConverter_Create(2, *(this + 129), this + 2200);
   }
 
   if (v3 == 45 && (*(this + 8871) & 8) != 0 && (*(this + 8879) & 8) != 0)
   {
-    v10 = *(this + 498);
-    if (v10)
+    v9 = *(this + 498);
+    if (v9)
     {
-      AudioUnitGetPropertyInfo(v10, 0x19E6u, 0, 0, v2 + 340, 0);
-      v11 = *(v2 + 340);
+      AudioUnitGetPropertyInfo(v9, 0x19E6u, 0, 0, v2 + 340, 0);
       operator new[]();
     }
   }
 
   v2[776] = 0;
-  v6 = *(this + 294);
-  if (v6 == *(this + 295))
+  v5 = *(this + 294);
+  if (v5 == *(this + 295))
   {
-    v7 = *(this + 19);
+    v6 = *(this + 19);
   }
 
   else
   {
-    v7 = *(this + 19);
-    if ((v7 - 34) >= 0xFFFFFFFB && *v6 == 1886613611)
+    v6 = *(this + 19);
+    if ((v6 - 34) >= 0xFFFFFFFB && *v5 == 1886613611)
     {
-      v8 = 1;
+      v7 = 1;
 LABEL_18:
-      v2[776] = v8;
+      v2[776] = v7;
       return 0;
     }
   }
 
-  if ((v7 - 23) < 4 || v7 == 34)
+  if ((v6 - 23) < 4 || v6 == 34)
   {
-    v8 = *(this + 3134) == 3;
+    v7 = *(this + 3134) == 3;
     goto LABEL_18;
   }
 
@@ -669,7 +659,7 @@ void VoiceProcessorV9::~VoiceProcessorV9(VoiceProcessorV9 *this)
 
 {
   *this = &unk_2881B1770;
-  caulk::details::lifetime_guard_base<VoiceProcessorV2>::invalidate(this + 16616);
+  caulk::details::lifetime_guard_base<VoiceProcessorV2>::invalidate(this + 2077);
   v2 = *(this + 2216);
   if (v2)
   {
@@ -742,7 +732,7 @@ void VoiceProcessorV9::~VoiceProcessorV9(VoiceProcessorV9 *this)
 
 void std::__function::__func<VoiceProcessorV9::VoiceProcessorV9(vp::Context const&)::$_0,std::allocator<VoiceProcessorV9::VoiceProcessorV9(vp::Context const&)::$_0>,void ()(__CFDictionary const*)>::operator()(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 8);
   if ((*(v1 + 8870) & 0x80) != 0 && (*(v1 + 8878) & 0x80) != 0 && *(v1 + 3952))
   {
@@ -769,11 +759,11 @@ void std::__function::__func<VoiceProcessorV9::VoiceProcessorV9(vp::Context cons
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v9 = "VoiceProcessor_v9.cpp";
-        v10 = 1024;
-        v11 = 31;
-        v12 = 2048;
-        v13 = v2;
+        v8 = "VoiceProcessor_v9.cpp";
+        v9 = 1024;
+        v10 = 31;
+        v11 = 2048;
+        v12 = v2;
         _os_log_impl(&dword_2724B4000, v4, OS_LOG_TYPE_INFO, "%25s:%-5d  <vp> notification: mitigate front camera noise: %f", buf, 0x1Cu);
       }
     }
@@ -783,16 +773,14 @@ void std::__function::__func<VoiceProcessorV9::VoiceProcessorV9(vp::Context cons
     {
       if (VPLogScope(void)::once != -1)
       {
-        v7 = *(v1 + 12704);
+        v6 = *(v1 + 12704);
         dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-        v5 = v7;
+        v5 = v6;
       }
 
       CALegacyLog::log(v5, 4, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v9.cpp", 31, "operator()", "notification: mitigate front camera noise: %f", v2);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::__function::__func<VoiceProcessorV9::VoiceProcessorV9(vp::Context const&)::$_0,std::allocator<VoiceProcessorV9::VoiceProcessorV9(vp::Context const&)::$_0>,void ()(__CFDictionary const*)>::__clone(uint64_t result, void *a2)
@@ -805,35 +793,89 @@ uint64_t std::__function::__func<VoiceProcessorV9::VoiceProcessorV9(vp::Context 
 
 unsigned int *util::make_abl_view(unsigned int *result, _DWORD *a2, uint64_t a3, uint64_t a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (!result)
   {
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v19 = 0;
+    v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v22 = 0u;
+    v13 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v14 = 3;
+    }
+
+    else
+    {
+      v14 = 2;
+    }
+
+    v20 = 134217984;
+    v21 = 0;
+    _os_log_send_and_compose_impl(v14, &v19, &v22, 80, &dword_2724B4000, v13, 16, "assertion failure: inMasterABL != nullptr -> %llu", &v20);
     _os_crash_msg();
     __break(1u);
-    goto LABEL_18;
+    goto LABEL_21;
   }
 
   if (!a2)
   {
-LABEL_18:
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+LABEL_21:
+    v19 = 0;
+    v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v22 = 0u;
+    v15 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v16 = 3;
+    }
+
+    else
+    {
+      v16 = 2;
+    }
+
+    v20 = 134217984;
+    v21 = 0;
+    _os_log_send_and_compose_impl(v16, &v19, &v22, 80, &dword_2724B4000, v15, 16, "assertion failure: inScratchABL != nullptr -> %llu", &v20);
     _os_crash_msg();
     __break(1u);
-    goto LABEL_19;
+    goto LABEL_25;
   }
 
   v4 = *result;
   if (v4 != *a2)
   {
-LABEL_19:
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+LABEL_25:
+    v19 = 0;
+    v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v22 = 0u;
+    v17 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v18 = 3;
+    }
+
+    else
+    {
+      v18 = 2;
+    }
+
+    v20 = 134217984;
+    v21 = 0;
+    _os_log_send_and_compose_impl(v18, &v19, &v22, 80, &dword_2724B4000, v17, 16, "assertion failure: inMasterABL->mNumberBuffers == inScratchABL->mNumberBuffers -> %llu", &v20);
     _os_crash_msg();
     __break(1u);
-    goto LABEL_20;
+    goto LABEL_29;
   }
 
   if (v4)
@@ -849,8 +891,7 @@ LABEL_19:
     }
 
     v6 = result + 2;
-    v7 = a2 + 4;
-    while (1)
+    for (i = a2 + 4; ; i += 2)
     {
       v9 = *v6;
       v8 = v6[1];
@@ -860,19 +901,19 @@ LABEL_19:
         break;
       }
 
-      *v7 = *(v6 + 1) + 4 * v10;
-      *(v7 - 2) = v9;
+      *i = *(v6 + 1) + 4 * v10;
+      *(i - 2) = v9;
       if ((a4 & 0x100000000) != 0)
       {
         if (v5 > a4)
         {
-          goto LABEL_21;
+          goto LABEL_30;
         }
 
         v12 = *v6 * a4;
         if (v8 < 4 * v12)
         {
-          goto LABEL_22;
+          goto LABEL_31;
         }
 
         v11 = 4 * (v12 - v10);
@@ -883,62 +924,113 @@ LABEL_19:
         v11 = v8 - 4 * v10;
       }
 
-      *(v7 - 1) = v11;
+      *(i - 1) = v11;
       v6 += 4;
-      v7 += 2;
       if (!--v4)
       {
-        goto LABEL_16;
+        return result;
       }
     }
 
-LABEL_20:
+LABEL_29:
     _os_crash();
     __break(1u);
-LABEL_21:
+LABEL_30:
     _os_crash();
     __break(1u);
-LABEL_22:
+LABEL_31:
     _os_crash();
     __break(1u);
   }
 
-LABEL_16:
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 _DWORD *util::copy_abl_data(_DWORD *this, const AudioBufferList *a2, AudioBufferList *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (!this)
   {
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v17 = 0;
+    v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v20 = 0u;
+    v11 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v12 = 3;
+    }
+
+    else
+    {
+      v12 = 2;
+    }
+
+    v18 = 134217984;
+    v19 = 0;
+    _os_log_send_and_compose_impl(v12, &v17, &v20, 80, &dword_2724B4000, v11, 16, "assertion failure: inSourceABL != nullptr -> %llu", &v18);
     _os_crash_msg();
     __break(1u);
-    goto LABEL_11;
+    goto LABEL_14;
   }
 
   if (!a2)
   {
-LABEL_11:
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+LABEL_14:
+    v17 = 0;
+    v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v20 = 0u;
+    v13 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v14 = 3;
+    }
+
+    else
+    {
+      v14 = 2;
+    }
+
+    v18 = 134217984;
+    v19 = 0;
+    _os_log_send_and_compose_impl(v14, &v17, &v20, 80, &dword_2724B4000, v13, 16, "assertion failure: ioTargetABL != nullptr -> %llu", &v18);
     _os_crash_msg();
     __break(1u);
-    goto LABEL_12;
+    goto LABEL_18;
   }
 
   v3 = this;
   if (*this != a2->mNumberBuffers)
   {
-LABEL_12:
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+LABEL_18:
+    v17 = 0;
+    v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v20 = 0u;
+    v15 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v16 = 3;
+    }
+
+    else
+    {
+      v16 = 2;
+    }
+
+    v18 = 134217984;
+    v19 = 0;
+    _os_log_send_and_compose_impl(v16, &v17, &v20, 80, &dword_2724B4000, v15, 16, "assertion failure: inSourceABL->mNumberBuffers == ioTargetABL->mNumberBuffers -> %llu", &v18);
     _os_crash_msg();
     __break(1u);
-    goto LABEL_13;
+    goto LABEL_22;
   }
 
   if (*this)
@@ -946,42 +1038,38 @@ LABEL_12:
     v4 = 0;
     v5 = 4 * a3;
     p_mData = &a2->mBuffers[0].mData;
-    v7 = (this + 4);
-    while (*(v7 - 1) >= v5)
+    for (i = (this + 4); *(i - 1) >= v5; i += 2)
     {
       if (*(p_mData - 1) < v5)
       {
-        goto LABEL_14;
+        goto LABEL_23;
       }
 
       v9 = *p_mData;
       p_mData += 2;
       v8 = v9;
-      v10 = *v7;
-      v7 += 2;
+      v10 = *i;
       this = memcpy(v8, v10, v5);
       if (++v4 >= *v3)
       {
-        goto LABEL_9;
+        return this;
       }
     }
 
-LABEL_13:
+LABEL_22:
     _os_crash();
     __break(1u);
-LABEL_14:
+LABEL_23:
     _os_crash();
     __break(1u);
   }
 
-LABEL_9:
-  v11 = *MEMORY[0x277D85DE8];
   return this;
 }
 
 void util::zero_fill_abl(util *this, AudioBufferList *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*this)
   {
     v3 = 0;
@@ -990,8 +1078,22 @@ void util::zero_fill_abl(util *this, AudioBufferList *a2)
     {
       if (!*v4)
       {
-        os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
+        v7 = 0;
+        memset(v10, 0, sizeof(v10));
+        v5 = MEMORY[0x277D86220];
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          v6 = 3;
+        }
+
+        else
+        {
+          v6 = 2;
+        }
+
+        v8 = 134217984;
+        v9 = 0;
+        _os_log_send_and_compose_impl(v6, &v7, v10, 80, &dword_2724B4000, v5, 16, "assertion failure: inABL->mBuffers[n].mData -> %llu", &v8);
         _os_crash_msg();
         __break(1u);
       }
@@ -1003,13 +1105,11 @@ void util::zero_fill_abl(util *this, AudioBufferList *a2)
 
     while (v3 < *this);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t VPSPICreateWithContext(uint64_t a1, uint64_t a2)
+uint64_t VPSPICreateWithContext(uint64_t a1, uint64_t *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = vp::log(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -1022,7 +1122,7 @@ uint64_t VPSPICreateWithContext(uint64_t a1, uint64_t a2)
     if (a1)
     {
       vp::Context::Context(buf, (a1 + 8));
-      v18 = 1;
+      v17 = 1;
       v6 = gVPSPIBaseFactory;
       VoiceProcessorVersion = GetVoiceProcessorVersion(buf, 0, 0, 0, 0);
       v6[2](v6, VoiceProcessorVersion, buf);
@@ -1031,24 +1131,24 @@ uint64_t VPSPICreateWithContext(uint64_t a1, uint64_t a2)
         CFRelease(cf);
       }
 
-      if (v20 < 0)
+      if (v19 < 0)
       {
         operator delete(__p);
       }
 
-      if (v17 < 0)
+      if (v16 < 0)
       {
-        operator delete(v16);
+        operator delete(v15);
       }
 
-      if (v15 < 0)
+      if (v14 < 0)
       {
-        operator delete(v14[0]);
+        operator delete(v13[0]);
       }
 
-      if (v13 < 0)
+      if (v12 < 0)
       {
-        operator delete(v12);
+        operator delete(v11);
       }
 
       if (*&buf[8])
@@ -1077,9 +1177,7 @@ uint64_t VPSPICreateWithContext(uint64_t a1, uint64_t a2)
     }
   }
 
-  result = 1650553447;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1650553447;
 }
 
 void sub_2725015D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
@@ -1111,7 +1209,7 @@ uint64_t ___ZN2vpL3logEv_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-uint64_t VPSPICreateWithConfiguration(uint64_t a1, uint64_t a2)
+uint64_t VPSPICreateWithConfiguration(uint64_t *a1, uint64_t a2)
 {
   v4 = objc_opt_new();
   [v4 setRunsInAudioDSPManagerMode:1];
@@ -1262,16 +1360,28 @@ uint64_t VPSPIDestroy(uint64_t a1)
 
 void caulk::concurrent::shared_spin_lock::~shared_spin_lock(caulk::concurrent::shared_spin_lock *this)
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (atomic_load(this))
   {
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v4 = 0;
+    memset(v7, 0, sizeof(v7));
+    v2 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v3 = 3;
+    }
+
+    else
+    {
+      v3 = 2;
+    }
+
+    v5 = 134217984;
+    v6 = 0;
+    _os_log_send_and_compose_impl(v3, &v4, v7, 80, &dword_2724B4000, v2, 16, "assertion failure: m_state == state_t{} -> %llu", &v5);
     _os_crash_msg();
     __break(1u);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void sub_272501B8C(_Unwind_Exception *a1, int a2)
@@ -1286,35 +1396,36 @@ void sub_272501B8C(_Unwind_Exception *a1, int a2)
 
 uint64_t VPSPIGetVersion(uint64_t a1, _DWORD *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  if (!a1)
+  v5 = *MEMORY[0x277D85DE8];
+  if (a1)
   {
-    v4 = vp::log(0);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    if (a2)
     {
-      *buf = 0;
-      _os_log_fault_impl(&dword_2724B4000, v4, OS_LOG_TYPE_FAULT, "failed to get version due to bad reference", buf, 2u);
+      *a2 = (*(**(a1 + 8) + 112))(*(a1 + 8));
+
+      return ErrorFromOSStatus(0);
     }
 
-    result = 1651664230;
-    goto LABEL_10;
+    else
+    {
+      return 1650553447;
+    }
   }
 
-  if (!a2)
+  else
   {
-    result = 1650553447;
-LABEL_10:
-    v5 = *MEMORY[0x277D85DE8];
-    return result;
+    v3 = vp::log(0);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 0;
+      _os_log_fault_impl(&dword_2724B4000, v3, OS_LOG_TYPE_FAULT, "failed to get version due to bad reference", buf, 2u);
+    }
+
+    return 1651664230;
   }
-
-  *a2 = (*(**(a1 + 8) + 112))(*(a1 + 8));
-  v2 = *MEMORY[0x277D85DE8];
-
-  return ErrorFromOSStatus(0);
 }
 
-void sub_272501CD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+void sub_272501CD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void **__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, char *a20, char a21, uint64_t a22, uint64_t a23, uint64_t *a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, __int16 *a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
 {
   if (a2)
   {
@@ -1327,24 +1438,24 @@ void sub_272501CD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       JUMPOUT(0x272501C04);
     }
 
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27, "call_name");
   }
 
   _Unwind_Resume(a1);
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(uint64_t a1, char *a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
   operator new();
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const* const&,char const*,0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const* const&,char const*,0>(uint64_t a1, char **a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const* const&>();
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const* const&>(a2);
 }
 
 void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
@@ -1428,7 +1539,7 @@ unsigned __int8 *nlohmann::detail::json_ref<nlohmann::basic_json<std::map,std::v
   }
 }
 
-void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -1452,7 +1563,6 @@ unsigned __int8 *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long
       {
         if (v4 == 8)
         {
-          v7 = *(a2 + 1);
           operator new();
         }
 
@@ -1465,7 +1575,7 @@ unsigned __int8 *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long
       goto LABEL_20;
     }
 
-    v6 = *(a2 + 1);
+    v5 = *(a2 + 1);
     goto LABEL_19;
   }
 
@@ -1473,13 +1583,11 @@ unsigned __int8 *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long
   {
     if (v4 == 1)
     {
-      v8 = *(a2 + 1);
       operator new();
     }
 
     if (v4 == 2)
     {
-      v5 = *(a2 + 1);
       operator new();
     }
 
@@ -1488,15 +1596,14 @@ unsigned __int8 *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long
 
   if (v4 == 3)
   {
-    v9 = *(a2 + 1);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,std::string const&>();
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,std::string const&>(*(a2 + 1));
   }
 
   if (v4 == 4)
   {
-    v6 = a2[8];
+    v5 = a2[8];
 LABEL_19:
-    *(a1 + 1) = v6;
+    *(a1 + 1) = v5;
   }
 
 LABEL_20:
@@ -1511,7 +1618,7 @@ void sub_272502764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -1590,145 +1697,145 @@ uint64_t VPSPIInitializeUplink(vp *a1, unsigned int *a2)
   }
 }
 
-unint64_t VoiceProcessorImplementation::InitializeUplink(uint64_t a1, unsigned int *a2)
+unint64_t VoiceProcessorImplementation::InitializeUplink(char *a1, unsigned int *a2)
 {
-  v218 = *MEMORY[0x277D85DE8];
+  v223 = *MEMORY[0x277D85DE8];
   v7 = vp::log(a1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v166[0] = 0;
-    v167 = 0;
+    v171[0] = 0;
+    v172 = 0;
     v8 = *a2;
-    v188[0] = 5;
-    v189 = v8;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v188);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v188);
-    v9 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "topology");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v188);
+    v193[0] = 5;
+    v194 = v8;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v193);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v193);
+    v9 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "topology");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v193);
     v10 = *v9;
     *v9 = 5;
-    v188[0] = v10;
+    v193[0] = v10;
     v11 = *(v9 + 1);
     *(v9 + 1) = v8;
-    v189 = v11;
+    v194 = v11;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v9);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v188);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v189, v10);
-    v158 = a2;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v193);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v194, v10);
+    v163 = a2;
     v12 = a2[1];
-    v186[0] = 0;
-    v187 = 0;
+    v191[0] = 0;
+    v192 = 0;
     if (v12)
     {
       v13 = a2 + 42;
       do
       {
-        v190[0] = 0;
-        v191 = 0;
+        v195[0] = 0;
+        v196 = 0;
         v14 = *(v13 - 40);
-        LOBYTE(v198[0]) = 5;
-        *(&v198[0] + 1) = v14;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v198);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v198);
-        v15 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v190, "type");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v198);
+        LOBYTE(v203[0]) = 5;
+        *(&v203[0] + 1) = v14;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v203);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v203);
+        v15 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v195, "type");
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v203);
         v16 = *v15;
         *v15 = 5;
-        LOBYTE(v198[0]) = v16;
+        LOBYTE(v203[0]) = v16;
         v17 = *(v15 + 1);
         *(v15 + 1) = v14;
-        *(&v198[0] + 1) = v17;
+        *(&v203[0] + 1) = v17;
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v15);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v198);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v198 + 1, v16);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v203);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v203 + 1, v16);
         v18 = *(v13 - 39);
-        LOBYTE(v164[0]) = 6;
-        *(&v164[0] + 1) = v18;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v164);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v164);
-        v19 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v190, "io_block_size");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v164);
+        LOBYTE(v169[0]) = 6;
+        *(&v169[0] + 1) = v18;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v169);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v169);
+        v19 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v195, "io_block_size");
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v169);
         v20 = *v19;
         *v19 = 6;
-        LOBYTE(v164[0]) = v20;
+        LOBYTE(v169[0]) = v20;
         v21 = *(v19 + 1);
         *(v19 + 1) = v18;
-        *(&v164[0] + 1) = v21;
+        *(&v169[0] + 1) = v21;
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v19);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v164);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v164 + 1, v20);
-        *v159 = *(v13 - 38);
-        *&v159[8] = v13 - 37;
-        LOBYTE(v162[0]) = 0;
-        *(&v162[0] + 1) = 0;
-        nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<VoiceProcessorUplinkTerminalType>>(v162, v159);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v162);
-        v22 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v190, "input_types");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v162);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v169);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v169 + 1, v20);
+        *v164 = *(v13 - 38);
+        *&v164[8] = v13 - 37;
+        LOBYTE(v167[0]) = 0;
+        *(&v167[0] + 1) = 0;
+        nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<VoiceProcessorUplinkTerminalType>>(v167, v164);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v167);
+        v22 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v195, "input_types");
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v167);
         v23 = *v22;
-        *v22 = v162[0];
-        LOBYTE(v162[0]) = v23;
+        *v22 = v167[0];
+        LOBYTE(v167[0]) = v23;
         v24 = *(v22 + 1);
-        *(v22 + 1) = *(&v162[0] + 1);
-        *(&v162[0] + 1) = v24;
+        *(v22 + 1) = *(&v167[0] + 1);
+        *(&v167[0] + 1) = v24;
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v22);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v162);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v162 + 1, v23);
-        *v159 = *(v13 - 38);
-        *&v159[8] = v13 - 34;
-        LOBYTE(v196) = 0;
-        v197 = 0;
-        nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<AudioStreamBasicDescription>>(&v196, v159);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v196);
-        v25 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v190, "input_formats");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v196);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v167);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v167 + 1, v23);
+        *v164 = *(v13 - 38);
+        *&v164[8] = v13 - 34;
+        v201[0] = 0;
+        v202 = 0;
+        nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<AudioStreamBasicDescription>>(v201, v164);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v201);
+        v25 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v195, "input_formats");
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v201);
         v26 = *v25;
-        *v25 = v196;
-        LOBYTE(v196) = v26;
+        *v25 = v201[0];
+        v201[0] = v26;
         v27 = *(v25 + 1);
-        *(v25 + 1) = v197;
-        v197 = v27;
+        *(v25 + 1) = v202;
+        v202 = v27;
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v196);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v197, v26);
-        *v159 = *(v13 - 4);
-        *&v159[8] = v13 - 3;
-        LOBYTE(v194) = 0;
-        v195 = 0;
-        nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<VoiceProcessorUplinkTerminalType>>(&v194, v159);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v194);
-        v28 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v190, "output_types");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v194);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v201);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v202, v26);
+        *v164 = *(v13 - 4);
+        *&v164[8] = v13 - 3;
+        LOBYTE(v199) = 0;
+        v200 = 0;
+        nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<VoiceProcessorUplinkTerminalType>>(&v199, v164);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v199);
+        v28 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v195, "output_types");
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v199);
         v29 = *v28;
-        *v28 = v194;
-        LOBYTE(v194) = v29;
+        *v28 = v199;
+        LOBYTE(v199) = v29;
         v30 = *(v28 + 1);
-        *(v28 + 1) = v195;
-        v195 = v30;
+        *(v28 + 1) = v200;
+        v200 = v30;
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v194);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v195, v29);
-        *v159 = *(v13 - 4);
-        *&v159[8] = v13;
-        v192[0] = 0;
-        v193 = 0;
-        nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<AudioStreamBasicDescription>>(v192, v159);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v192);
-        v31 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v190, "output_formats");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v192);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v199);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v200, v29);
+        *v164 = *(v13 - 4);
+        *&v164[8] = v13;
+        v197[0] = 0;
+        v198 = 0;
+        nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<AudioStreamBasicDescription>>(v197, v164);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v197);
+        v31 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v195, "output_formats");
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v197);
         v32 = *v31;
-        *v31 = v192[0];
-        v192[0] = v32;
+        *v31 = v197[0];
+        v197[0] = v32;
         v33 = *(v31 + 1);
-        *(v31 + 1) = v193;
-        v193 = v33;
+        *(v31 + 1) = v198;
+        v198 = v33;
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v31);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v192);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v193, v32);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v190);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::push_back(v186, v190);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v190);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v191, v190[0]);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v197);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v198, v32);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v195);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::push_back(v191, v195);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v195);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v196, v195[0]);
         v13 += 70;
         --v12;
       }
@@ -1736,292 +1843,292 @@ unint64_t VoiceProcessorImplementation::InitializeUplink(uint64_t a1, unsigned i
       while (v12);
     }
 
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v186);
-    v34 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "node_configurations");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v186);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v191);
+    v34 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "node_configurations");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v191);
     v35 = *v34;
-    *v34 = v186[0];
-    v186[0] = v35;
+    *v34 = v191[0];
+    v191[0] = v35;
     v36 = *(v34 + 1);
-    *(v34 + 1) = v187;
-    v187 = v36;
+    *(v34 + 1) = v192;
+    v192 = v36;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v34);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v186);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v187, v35);
-    v37 = v158[212];
-    LOBYTE(v198[0]) = 6;
-    *(&v198[0] + 1) = v37;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v198);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v198);
-    v38 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "microphone_port_type");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v198);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v191);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v192, v35);
+    v37 = v163[212];
+    LOBYTE(v203[0]) = 6;
+    *(&v203[0] + 1) = v37;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v203);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v203);
+    v38 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "microphone_port_type");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v203);
     v39 = *v38;
     *v38 = 6;
-    LOBYTE(v198[0]) = v39;
+    LOBYTE(v203[0]) = v39;
     v40 = *(v38 + 1);
     *(v38 + 1) = v37;
-    *(&v198[0] + 1) = v40;
+    *(&v203[0] + 1) = v40;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v38);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v198);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v198 + 1, v39);
-    v41 = v158[213];
-    LOBYTE(v164[0]) = 6;
-    *(&v164[0] + 1) = v41;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v164);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v164);
-    v42 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "microphone_port_subtype");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v164);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v203);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v203 + 1, v39);
+    v41 = v163[213];
+    LOBYTE(v169[0]) = 6;
+    *(&v169[0] + 1) = v41;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v169);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v169);
+    v42 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "microphone_port_subtype");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v169);
     v43 = *v42;
     *v42 = 6;
-    LOBYTE(v164[0]) = v43;
+    LOBYTE(v169[0]) = v43;
     v44 = *(v42 + 1);
     *(v42 + 1) = v41;
-    *(&v164[0] + 1) = v44;
+    *(&v169[0] + 1) = v44;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v42);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v164);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v164 + 1, v43);
-    v45 = *(v158 + 107);
-    LOBYTE(v162[0]) = 7;
-    *(&v162[0] + 1) = v45;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v162);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v162);
-    v46 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "microphone_hardware_sample_rate");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v162);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v169);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v169 + 1, v43);
+    v45 = *(v163 + 107);
+    LOBYTE(v167[0]) = 7;
+    *(&v167[0] + 1) = v45;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v167);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v167);
+    v46 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "microphone_hardware_sample_rate");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v167);
     v47 = *v46;
     *v46 = 7;
-    LOBYTE(v162[0]) = v47;
+    LOBYTE(v167[0]) = v47;
     v48 = *(v46 + 1);
     *(v46 + 1) = v45;
-    *(&v162[0] + 1) = v48;
+    *(&v167[0] + 1) = v48;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v46);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v162);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v162 + 1, v47);
-    v49 = v158[216];
-    v159[0] = 6;
-    *&v159[8] = v49;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v159);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v159);
-    v50 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "microphone_hardware_input_latency");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v159);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v167);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v167 + 1, v47);
+    v49 = v163[216];
+    v164[0] = 6;
+    *&v164[8] = v49;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v164);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v164);
+    v50 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "microphone_hardware_input_latency");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v164);
     v51 = *v50;
     *v50 = 6;
-    v159[0] = v51;
+    v164[0] = v51;
     v52 = *(v50 + 1);
     *(v50 + 1) = v49;
-    *&v159[8] = v52;
+    *&v164[8] = v52;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v50);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v159);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v159[8], v51);
-    v53 = v158[217];
-    LOBYTE(v196) = 6;
-    v197 = v53;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v196);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v196);
-    v54 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "microphone_hardware_input_safety_offset");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v196);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v164);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v164[8], v51);
+    v53 = v163[217];
+    v201[0] = 6;
+    v202 = v53;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v201);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v201);
+    v54 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "microphone_hardware_input_safety_offset");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v201);
     v55 = *v54;
     *v54 = 6;
-    LOBYTE(v196) = v55;
+    v201[0] = v55;
     v56 = *(v54 + 1);
     *(v54 + 1) = v53;
-    v197 = v56;
+    v202 = v56;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v54);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v196);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v197, v55);
-    v57 = v158[232];
-    LOBYTE(v194) = 6;
-    v195 = v57;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v194);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v194);
-    v58 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "reference_port_type");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v194);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v201);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v202, v55);
+    v57 = v163[232];
+    LOBYTE(v199) = 6;
+    v200 = v57;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v199);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v199);
+    v58 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "reference_port_type");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v199);
     v59 = *v58;
     *v58 = 6;
-    LOBYTE(v194) = v59;
+    LOBYTE(v199) = v59;
     v60 = *(v58 + 1);
     *(v58 + 1) = v57;
-    v195 = v60;
+    v200 = v60;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v58);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v194);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v195, v59);
-    v61 = v158[233];
-    v192[0] = 6;
-    v193 = v61;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v192);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v192);
-    v62 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "reference_port_subtype");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v192);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v199);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v200, v59);
+    v61 = v163[233];
+    v197[0] = 6;
+    v198 = v61;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v197);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v197);
+    v62 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "reference_port_subtype");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v197);
     v63 = *v62;
     *v62 = 6;
-    v192[0] = v63;
+    v197[0] = v63;
     v64 = *(v62 + 1);
     *(v62 + 1) = v61;
-    v193 = v64;
+    v198 = v64;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v62);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v192);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v193, v63);
-    v65 = *(v158 + 117);
-    v190[0] = 7;
-    v191 = v65;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v190);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v190);
-    v66 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "reference_hardware_sample_rate");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v190);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v197);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v198, v63);
+    v65 = *(v163 + 117);
+    v195[0] = 7;
+    v196 = v65;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v195);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v195);
+    v66 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "reference_hardware_sample_rate");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v195);
     v67 = *v66;
     *v66 = 7;
-    v190[0] = v67;
+    v195[0] = v67;
     v68 = *(v66 + 1);
     *(v66 + 1) = v65;
-    v191 = v68;
+    v196 = v68;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v66);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v190);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v191, v67);
-    v69 = v158[236];
-    v184[0] = 6;
-    v185 = v69;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v184);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v184);
-    v70 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "reference_hardware_input_latency");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v184);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v195);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v196, v67);
+    v69 = v163[236];
+    v189[0] = 6;
+    v190 = v69;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v189);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v189);
+    v70 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "reference_hardware_input_latency");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v189);
     v71 = *v70;
     *v70 = 6;
-    v184[0] = v71;
+    v189[0] = v71;
     v72 = *(v70 + 1);
     *(v70 + 1) = v69;
-    v185 = v72;
+    v190 = v72;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v70);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v184);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v185, v71);
-    v73 = v158[237];
-    v182[0] = 6;
-    v183 = v73;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v182);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v182);
-    v74 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "reference_hardware_input_safety_offset");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v182);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v189);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v190, v71);
+    v73 = v163[237];
+    v187[0] = 6;
+    v188 = v73;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v187);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v187);
+    v74 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "reference_hardware_input_safety_offset");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v187);
     v75 = *v74;
     *v74 = 6;
-    v182[0] = v75;
+    v187[0] = v75;
     v76 = *(v74 + 1);
     *(v74 + 1) = v73;
-    v183 = v76;
+    v188 = v76;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v74);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v182);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v183, v75);
-    v77 = v158[238];
-    v180[0] = 6;
-    v181 = v77;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v180);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v180);
-    v78 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "reference_hardware_output_latency");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v180);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v187);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v188, v75);
+    v77 = v163[238];
+    v185[0] = 6;
+    v186 = v77;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v185);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v185);
+    v78 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "reference_hardware_output_latency");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v185);
     v79 = *v78;
     *v78 = 6;
-    v180[0] = v79;
+    v185[0] = v79;
     v80 = *(v78 + 1);
     *(v78 + 1) = v77;
-    v181 = v80;
+    v186 = v80;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v78);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v180);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v181, v79);
-    v81 = v158[239];
-    v178[0] = 6;
-    v179 = v81;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v178);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v178);
-    v82 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "reference_hardware_output_safety_offset");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v178);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v185);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v186, v79);
+    v81 = v163[239];
+    v183[0] = 6;
+    v184 = v81;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v183);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v183);
+    v82 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "reference_hardware_output_safety_offset");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v183);
     v83 = *v82;
     *v82 = 6;
-    v178[0] = v83;
+    v183[0] = v83;
     v84 = *(v82 + 1);
     *(v82 + 1) = v81;
-    v179 = v84;
+    v184 = v84;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v82);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v178);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v179, v83);
-    v85 = v158[257];
-    v176[0] = 6;
-    v177 = v85;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v176);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v176);
-    v86 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "client_io_block_size");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v176);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v183);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v184, v83);
+    v85 = v163[257];
+    v181[0] = 6;
+    v182 = v85;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v181);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v181);
+    v86 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "client_io_block_size");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v181);
     v87 = *v86;
     *v86 = 6;
-    v176[0] = v87;
+    v181[0] = v87;
     v88 = *(v86 + 1);
     *(v86 + 1) = v85;
-    v177 = v88;
+    v182 = v88;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v86);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v176);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v177, v87);
-    v89 = v158[258];
-    v174[0] = 6;
-    v175 = v89;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v174);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v174);
-    v90 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "reference_is_hardware_tap_stream");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v174);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v181);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v182, v87);
+    v89 = v163[258];
+    v179[0] = 6;
+    v180 = v89;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v179);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v179);
+    v90 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "reference_is_hardware_tap_stream");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v179);
     v91 = *v90;
     *v90 = 6;
-    v174[0] = v91;
+    v179[0] = v91;
     v92 = *(v90 + 1);
     *(v90 + 1) = v89;
-    v175 = v92;
+    v180 = v92;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v90);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v174);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v175, v91);
-    v93 = v158[259];
-    v172[0] = 6;
-    v173 = v93;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v172);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v172);
-    v94 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "chat_flavor");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v172);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v179);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v180, v91);
+    v93 = v163[259];
+    v177[0] = 6;
+    v178 = v93;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v177);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v177);
+    v94 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "chat_flavor");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v177);
     v95 = *v94;
     *v94 = 6;
-    v172[0] = v95;
+    v177[0] = v95;
     v96 = *(v94 + 1);
     *(v94 + 1) = v93;
-    v173 = v96;
+    v178 = v96;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v94);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v172);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v173, v95);
-    v97 = v158[260];
-    v170[0] = 6;
-    v171 = v97;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v170);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v170);
-    v98 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "enable_agc");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v170);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v177);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v178, v95);
+    v97 = v163[260];
+    v175[0] = 6;
+    v176 = v97;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v175);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v175);
+    v98 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "enable_agc");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v175);
     v99 = *v98;
     *v98 = 6;
-    v170[0] = v99;
+    v175[0] = v99;
     v100 = *(v98 + 1);
     *(v98 + 1) = v97;
-    v171 = v100;
+    v176 = v100;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v98);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v170);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v171, v99);
-    v101 = v158[261];
-    v168[0] = 6;
-    v169 = v101;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v168);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v168);
-    v102 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v166, "enable_media_chat");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v168);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v175);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v176, v99);
+    v101 = v163[261];
+    v173[0] = 6;
+    v174 = v101;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v173);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v173);
+    v102 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "enable_media_chat");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v173);
     v103 = *v102;
     *v102 = 6;
-    v168[0] = v103;
+    v173[0] = v103;
     v104 = *(v102 + 1);
     *(v102 + 1) = v101;
-    v169 = v104;
+    v174 = v104;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v102);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v168);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v169, v103);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v166);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::dump(__p);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v173);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v174, v103);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v171);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::dump(__p, v171, 4);
   }
 
   if (*a2 != 1)
@@ -2082,7 +2189,7 @@ unint64_t VoiceProcessorImplementation::InitializeUplink(uint64_t a1, unsigned i
     goto LABEL_24;
   }
 
-  v109 = (a2 + 2);
+  v109 = a2 + 2;
   v110 = 3;
   v111 = (a2 + 2);
   do
@@ -2143,7 +2250,7 @@ LABEL_36:
 
       while (*v109 != 3)
       {
-        v109 = (v109 + 280);
+        v109 += 70;
         if (!--v114)
         {
           goto LABEL_36;
@@ -2211,30 +2318,30 @@ LABEL_24:
       if (*a2 == 1)
       {
         v118 = 1;
-        v125 = util::get_node_configuration<VoiceProcessorUplinkConfiguration,VoiceProcessorUplinkNodeType,util::required_tag>(a2, 1);
-        v126 = util::get_node_configuration<VoiceProcessorUplinkConfiguration,VoiceProcessorUplinkNodeType,util::required_tag>(a2, 2);
-        v127 = util::get_node_configuration<VoiceProcessorUplinkConfiguration,VoiceProcessorUplinkNodeType,util::required_tag>(a2, 3);
-        v4 = v125[1];
-        v196 = v4;
-        v3 = util::get_input_asbd<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v125, 0);
-        v2 = util::get_input_asbd<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v125, 2);
-        v107 = util::get_output_asbd<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v127);
-        v119 = *(v126 + 1);
-        v120 = v126[3];
+        v124 = util::get_node_configuration<VoiceProcessorUplinkConfiguration,VoiceProcessorUplinkNodeType,util::required_tag>(a2, 1);
+        v125 = util::get_node_configuration<VoiceProcessorUplinkConfiguration,VoiceProcessorUplinkNodeType,util::required_tag>(a2, 2);
+        v126 = util::get_node_configuration<VoiceProcessorUplinkConfiguration,VoiceProcessorUplinkNodeType,util::required_tag>(a2, 3);
+        v4 = v124[1];
+        *v201 = v4;
+        v3 = util::get_input_asbd<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v124, 0);
+        v2 = util::get_input_asbd<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v124, 2);
+        v107 = util::get_output_asbd<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v126);
+        v119 = *(v125 + 1);
+        v120 = v125[3];
       }
 
       else
       {
         if (*a2)
         {
-          v139 = _os_crash();
+          v144 = _os_crash();
           __break(1u);
-          goto LABEL_111;
+          goto LABEL_120;
         }
 
         v117 = util::get_node_configuration<VoiceProcessorUplinkConfiguration,VoiceProcessorUplinkNodeType,util::required_tag>(a2, 0);
         v4 = a2[257];
-        v196 = v4;
+        *v201 = v4;
         v3 = util::get_input_asbd<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v117, 0);
         v2 = util::get_input_asbd<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v117, 2);
         v107 = util::get_output_asbd<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v117);
@@ -2250,11 +2357,25 @@ LABEL_24:
           if (v107)
           {
             v5 = a2;
-            LODWORD(v162[0]) = a2[258];
-            LODWORD(v198[0]) = 32792;
-            __p[0] = v162;
-            LODWORD(v164[0]) = 4;
-            v128 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)7,unsigned int &,void const*&,unsigned int &>(a1, v198, __p, v164);
+            LODWORD(v167[0]) = a2[258];
+            LODWORD(v203[0]) = 32792;
+            __p[0] = v167;
+            LODWORD(v169[0]) = 4;
+            v127 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)7,unsigned int &,void const*&,unsigned int &>(a1, v203, __p, v169);
+            if (!HIDWORD(v127))
+            {
+              v122 = v127;
+              if (v127)
+              {
+                goto LABEL_82;
+              }
+            }
+
+            LODWORD(v167[0]) = a2[259];
+            LODWORD(v203[0]) = 1718384242;
+            __p[0] = v167;
+            LODWORD(v169[0]) = 4;
+            v128 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)7,unsigned int &,void const*&,unsigned int &>(a1, v203, __p, v169);
             if (!HIDWORD(v128))
             {
               v122 = v128;
@@ -2264,11 +2385,11 @@ LABEL_24:
               }
             }
 
-            LODWORD(v162[0]) = a2[259];
-            LODWORD(v198[0]) = 1718384242;
-            __p[0] = v162;
-            LODWORD(v164[0]) = 4;
-            v129 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)7,unsigned int &,void const*&,unsigned int &>(a1, v198, __p, v164);
+            LODWORD(v167[0]) = a2[213];
+            LODWORD(v203[0]) = 1986883699;
+            __p[0] = v167;
+            LODWORD(v169[0]) = 4;
+            v129 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)7,unsigned int &,void const*&,unsigned int &>(a1, v203, __p, v169);
             if (!HIDWORD(v129))
             {
               v122 = v129;
@@ -2278,11 +2399,11 @@ LABEL_24:
               }
             }
 
-            LODWORD(v162[0]) = a2[213];
-            LODWORD(v198[0]) = 1986883699;
-            __p[0] = v162;
-            LODWORD(v164[0]) = 4;
-            v130 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)7,unsigned int &,void const*&,unsigned int &>(a1, v198, __p, v164);
+            *&v203[0] = *(a2 + 107);
+            LODWORD(v169[0]) = 1986884466;
+            __p[0] = v203;
+            LODWORD(v167[0]) = 8;
+            v130 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)7,unsigned int &,void const*&,unsigned int &>(a1, v169, __p, v167);
             if (!HIDWORD(v130))
             {
               v122 = v130;
@@ -2292,80 +2413,66 @@ LABEL_24:
               }
             }
 
-            *&v198[0] = *(a2 + 107);
-            LODWORD(v164[0]) = 1986884466;
-            __p[0] = v198;
-            LODWORD(v162[0]) = 8;
-            v131 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)7,unsigned int &,void const*&,unsigned int &>(a1, v164, __p, v162);
-            if (!HIDWORD(v131))
-            {
-              v122 = v131;
-              if (v131)
-              {
-                goto LABEL_82;
-              }
-            }
-
-            LODWORD(v162[0]) = a2[216];
-            LODWORD(v198[0]) = 1986881900;
-            __p[0] = v162;
-            LODWORD(v164[0]) = 4;
-            v132 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)7,unsigned int &,void const*&,unsigned int &>(a1, v198, __p, v164);
-            v122 = v132 >= 0x100000000 ? 0x100000000 : v132;
+            LODWORD(v167[0]) = a2[216];
+            LODWORD(v203[0]) = 1986881900;
+            __p[0] = v167;
+            LODWORD(v169[0]) = 4;
+            v131 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)7,unsigned int &,void const*&,unsigned int &>(a1, v203, __p, v169);
+            v122 = v131 >= 0x100000000 ? 0x100000000 : v131;
             if (v122)
             {
               goto LABEL_82;
             }
 
-            v133 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x766D696Fu, a2[217]);
-            if (v133)
+            v132 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x766D696Fu, a2[217]);
+            if (v132)
             {
               goto LABEL_81;
             }
 
-            v133 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x76727073u, a2[233]);
-            if (v133)
+            v132 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x76727073u, a2[233]);
+            if (v132)
             {
               goto LABEL_81;
             }
 
-            v133 = VoiceProcessorImplementation::SetProperty<double,(decltype(nullptr))0>(a1, 0x76727372u, *(a2 + 117));
-            if (v133)
+            v132 = VoiceProcessorImplementation::SetProperty<double,(decltype(nullptr))0>(a1, 0x76727372u, *(a2 + 117));
+            if (v132)
             {
               goto LABEL_81;
             }
 
-            v133 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x7672696Cu, a2[236]);
-            if (v133)
+            v132 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x7672696Cu, a2[236]);
+            if (v132)
             {
               goto LABEL_81;
             }
 
-            v133 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x7672696Fu, a2[237]);
-            if (v133)
+            v132 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x7672696Fu, a2[237]);
+            if (v132)
             {
               goto LABEL_81;
             }
 
-            v133 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x76726F6Cu, a2[238]);
-            if (v133)
+            v132 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x76726F6Cu, a2[238]);
+            if (v132)
             {
               goto LABEL_81;
             }
 
-            v133 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x76726F6Fu, a2[239]);
-            if (v133)
+            v132 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x76726F6Fu, a2[239]);
+            if (v132)
             {
               goto LABEL_81;
             }
 
             if (v118)
             {
-              v133 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x65706273u, v119);
-              if (v133)
+              v132 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x65706273u, v119);
+              if (v132)
               {
 LABEL_81:
-                v122 = v133;
+                v122 = v132;
                 goto LABEL_82;
               }
 
@@ -2377,56 +2484,56 @@ LABEL_81:
               }
             }
 
-            v133 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x8013u, a2[251]);
-            if (v133)
+            v132 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x8013u, a2[251]);
+            if (v132)
             {
               goto LABEL_81;
             }
 
-            v133 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x74766374u, a2[252]);
-            if (v133)
+            v132 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x74766374u, a2[252]);
+            if (v132)
             {
               goto LABEL_81;
             }
 
-            v133 = VoiceProcessorImplementation::SetProperty<double,(decltype(nullptr))0>(a1, 0x74766372u, *(a2 + 127));
-            if (v133)
+            v132 = VoiceProcessorImplementation::SetProperty<double,(decltype(nullptr))0>(a1, 0x74766372u, *(a2 + 127));
+            if (v132)
             {
               goto LABEL_81;
             }
 
-            v133 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x8005u, a2[256]);
-            if (v133)
+            v132 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x8005u, a2[256]);
+            if (v132)
             {
               goto LABEL_81;
             }
 
-            v133 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x8001u, a2[260]);
-            if (v133)
+            v132 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x8001u, a2[260]);
+            if (v132)
             {
               goto LABEL_81;
             }
 
-            v133 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x6D656463u, a2[261]);
-            if (v133)
+            v132 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x6D656463u, a2[261]);
+            if (v132)
             {
               goto LABEL_81;
             }
 
-            v134 = a2[229];
-            if (v134)
+            v139 = a2[229];
+            if (v139)
             {
-              v122 = VoiceProcessorImplementation::SetProperty(a1, 0x800Cu, a2 + 221, 4 * v134);
+              v122 = VoiceProcessorImplementation::SetProperty(a1, 0x800Cu, a2 + 221, 4 * v139);
               if (v122)
               {
                 goto LABEL_82;
               }
             }
 
-            v135 = *(a2 + 109);
-            if (v135)
+            v140 = *(a2 + 109);
+            if (v140)
             {
-              applesauce::CF::DictionaryRef::from_get(__p, v135);
+              applesauce::CF::DictionaryRef::from_get(__p, v140);
               v122 = VoiceProcessorImplementation::SetProperty<applesauce::CF::DictionaryRef,(decltype(nullptr))0>(a1, 0x800Fu, __p[0]);
               applesauce::CF::DictionaryRef::~DictionaryRef(__p);
               if (v122)
@@ -2435,40 +2542,40 @@ LABEL_81:
               }
             }
 
-            v136 = *(a2 + 115);
-            if (v136)
+            v141 = *(a2 + 115);
+            if (v141)
             {
               CFRetain(*(a2 + 115));
-              applesauce::CF::ArrayRef::ArrayRef(v198, v136);
-              __p[0] = *&v198[0];
+              applesauce::CF::ArrayRef::ArrayRef(v203, v141);
+              __p[0] = *&v203[0];
               v122 = VoiceProcessorImplementation::SetProperty(a1, 0x66696964u, __p, 8u);
-              applesauce::CF::ArrayRef::~ArrayRef(v198);
+              applesauce::CF::ArrayRef::~ArrayRef(v203);
               if (v122)
               {
                 goto LABEL_82;
               }
             }
 
-            v133 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x8014u, a2[220]);
-            if (v133)
+            v132 = VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(a1, 0x8014u, a2[220]);
+            if (v132)
             {
               goto LABEL_81;
             }
 
-            v137 = a2[250];
-            if (v137)
+            v142 = a2[250];
+            if (v142)
             {
-              v122 = VoiceProcessorImplementation::SetProperty(a1, 0x800Du, a2 + 242, 4 * v137);
+              v122 = VoiceProcessorImplementation::SetProperty(a1, 0x800Du, a2 + 242, 4 * v142);
               if (v122)
               {
                 goto LABEL_82;
               }
             }
 
-            v138 = *(a2 + 120);
-            if (v138)
+            v143 = *(a2 + 120);
+            if (v143)
             {
-              applesauce::CF::DictionaryRef::from_get(__p, v138);
+              applesauce::CF::DictionaryRef::from_get(__p, v143);
               v122 = VoiceProcessorImplementation::SetProperty<applesauce::CF::DictionaryRef,(decltype(nullptr))0>(a1, 0x8010u, __p[0]);
               applesauce::CF::DictionaryRef::~DictionaryRef(__p);
               if (v122)
@@ -2477,141 +2584,136 @@ LABEL_81:
               }
             }
 
-            LODWORD(v164[0]) = 0;
-            LODWORD(v162[0]) = 1;
+            LODWORD(v169[0]) = 0;
+            LODWORD(v167[0]) = 1;
             __p[0] = a2 + 232;
-            *v159 = 0;
-            v194 = 1;
-            *&v198[0] = a2 + 212;
-            v139 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)1,AudioStreamBasicDescription const&,decltype(nullptr),unsigned int &,int,int,unsigned int const*,AudioStreamBasicDescription const&,decltype(nullptr),unsigned int &,int,int,unsigned int const*>(a1, v2, &v196, v164, v162, __p, v3, &v196, v159, &v194, v198);
-            if (!HIDWORD(v139))
+            *v164 = 0;
+            v199 = 1;
+            *&v203[0] = a2 + 212;
+            v144 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)1,AudioStreamBasicDescription const&,decltype(nullptr),unsigned int &,int,int,unsigned int const*,AudioStreamBasicDescription const&,decltype(nullptr),unsigned int &,int,int,unsigned int const*>(a1, v2, v201, v169, v167, __p, v3, v201, v164, &v199, v203);
+            if (!HIDWORD(v144) || (v145 = *v107, v146 = *(v107 + 16), __p[4] = *(v107 + 32), *__p = v145, *&__p[2] = v146, LODWORD(v203[0]) = 0, LODWORD(v169[0]) = 0, LODWORD(v167[0]) = 0, v144 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)2,CA::StreamDescription &,decltype(nullptr),unsigned int &,unsigned int &,unsigned int &>(a1, __p, v203, v169, v167), !HIDWORD(v144)))
             {
-              goto LABEL_109;
-            }
-
-            v140 = *v107;
-            v141 = *(v107 + 16);
-            __p[4] = *(v107 + 32);
-            *__p = v140;
-            *&__p[2] = v141;
-            LODWORD(v198[0]) = 0;
-            LODWORD(v164[0]) = 0;
-            LODWORD(v162[0]) = 0;
-            v139 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)2,CA::StreamDescription &,decltype(nullptr),unsigned int &,unsigned int &,unsigned int &>(a1, __p, v198, v164, v162);
-            if (!HIDWORD(v139))
-            {
-LABEL_109:
-              v122 = v139;
+              v122 = v144;
               goto LABEL_82;
             }
 
-LABEL_111:
+LABEL_120:
             if ((vminv_u16(vmovn_s32(vceqq_s32(*&__p[1], *(v107 + 8)))) & 1) != 0 && LODWORD(__p[3]) == *(v107 + 24) && *__p == *v107 && *(&__p[3] + 4) == *(v107 + 28))
             {
-              if (LODWORD(v164[0]) == 4)
+              if (LODWORD(v169[0]) == 4)
               {
-                v142 = v198[0];
-                v143 = memcpy(__p, v5, sizeof(__p));
-                v201 = 1;
-                v202 = v4;
-                v203 = 0;
-                v204 = v198[0];
-                v198[0] = *v3;
-                v198[1] = *(v3 + 16);
-                v199 = *(v3 + 32);
-                default_resource = std::pmr::get_default_resource(v143);
-                v145 = vp::Audio_Buffer::create(&v205, v198, 0, default_resource);
-                v164[0] = *v2;
-                v164[1] = *(v2 + 16);
-                v165 = *(v2 + 32);
-                v146 = std::pmr::get_default_resource(v145);
-                v147 = vp::Audio_Buffer::create(&v206, v164, 0, v146);
-                v162[0] = *v107;
-                v162[1] = *(v107 + 16);
-                v163 = *(v107 + 32);
-                v148 = std::pmr::get_default_resource(v147);
-                v149 = vp::Audio_Buffer::create(&v207, v162, v142, v148);
-                *v159 = *v107;
-                v160 = *(v107 + 16);
-                v161 = *(v107 + 32);
-                v150 = std::pmr::get_default_resource(v149);
-                vp::Audio_Buffer::create(&v208, v159, v142, v150);
-                v209 = 0;
-                v210 = v4;
-                v211 = v142;
-                v212 = 0;
-                v217 = 0;
-                v213 = 0;
-                v215 = 0;
+                v147 = v203[0];
+                v148 = memcpy(__p, v5, sizeof(__p));
+                v206 = 1;
+                v207 = v4;
+                v208 = 0;
+                v209 = v203[0];
+                v203[0] = *v3;
+                v203[1] = *(v3 + 16);
+                v204 = *(v3 + 32);
+                default_resource = std::pmr::get_default_resource(v148);
+                v150 = vp::Audio_Buffer::create(&v210, v203, 0, default_resource);
+                v169[0] = *v2;
+                v169[1] = *(v2 + 16);
+                v170 = *(v2 + 32);
+                v151 = std::pmr::get_default_resource(v150);
+                v152 = vp::Audio_Buffer::create(&v211, v169, 0, v151);
+                v167[0] = *v107;
+                v167[1] = *(v107 + 16);
+                v168 = *(v107 + 32);
+                v153 = std::pmr::get_default_resource(v152);
+                v154 = vp::Audio_Buffer::create(&v212, v167, v147, v153);
+                *v164 = *v107;
+                v165 = *(v107 + 16);
+                v166 = *(v107 + 32);
+                v155 = std::pmr::get_default_resource(v154);
+                vp::Audio_Buffer::create(&v213, v164, v147, v155);
                 v214 = 0;
-                v216 = 0;
-                std::optional<VoiceProcessorImplementation::Uplink>::emplace[abi:ne200100]<VoiceProcessorImplementation::Uplink,void>((a1 + 40), __p);
+                v215 = v4;
+                v216 = v147;
+                v217 = 0;
+                v222 = 0;
+                v218 = 0;
+                v220 = 0;
+                v219 = 0;
+                v221 = 0;
+                std::optional<VoiceProcessorImplementation::Uplink>::emplace[abi:ne200100]<VoiceProcessorImplementation::Uplink,void>(a1 + 40, __p);
                 VoiceProcessorImplementation::Uplink::~Uplink(__p);
-                if (*(a1 + 1088) == 1)
+                if (a1[1088] == 1)
                 {
-                  if ((4 * v4) <= 0x1000)
+                  if (4 * v4 <= 0x1000)
                   {
-                    v152 = 4096;
+                    v157 = 4096;
                   }
 
                   else
                   {
-                    v152 = 4 * v4;
+                    v157 = 4 * v4;
                   }
 
                   *__p = *v107;
                   *&__p[2] = *(v107 + 16);
                   __p[4] = *(v107 + 32);
-                  v153 = std::pmr::get_default_resource(v151);
-                  vp::Audio_Ring_Buffer::create(v198, __p, v152, v153);
-                  v154 = *&v198[0];
-                  *&v198[0] = 0;
-                  std::unique_ptr<vp::Audio_Ring_Buffer::Storage,vp::Audio_Ring_Buffer::Storage_Deleter>::reset[abi:ne200100]((a1 + 1160), v154);
-                  v151 = std::unique_ptr<vp::Audio_Ring_Buffer::Storage,vp::Audio_Ring_Buffer::Storage_Deleter>::reset[abi:ne200100](v198, 0);
+                  v158 = std::pmr::get_default_resource(v156);
+                  vp::Audio_Ring_Buffer::create(v203, __p, v157, v158);
+                  v159 = *&v203[0];
+                  *&v203[0] = 0;
+                  std::unique_ptr<vp::Audio_Ring_Buffer::Storage,vp::Audio_Ring_Buffer::Storage_Deleter>::reset[abi:ne200100](a1 + 145, v159);
+                  v156 = std::unique_ptr<vp::Audio_Ring_Buffer::Storage,vp::Audio_Ring_Buffer::Storage_Deleter>::reset[abi:ne200100](v203, 0);
                 }
 
-                v155 = vp::log(v151);
-                if (os_log_type_enabled(v155, OS_LOG_TYPE_INFO))
+                v160 = vp::log(v156);
+                if (os_log_type_enabled(v160, OS_LOG_TYPE_INFO))
                 {
                   LOWORD(__p[0]) = 0;
-                  _os_log_impl(&dword_2724B4000, v155, OS_LOG_TYPE_INFO, "initialized uplink", __p, 2u);
+                  _os_log_impl(&dword_2724B4000, v160, OS_LOG_TYPE_INFO, "initialized uplink", __p, 2u);
                 }
 
                 v122 = 0;
                 goto LABEL_82;
               }
 
-              v156 = vp::log(v139);
-              if (os_log_type_enabled(v156, OS_LOG_TYPE_ERROR))
+              v161 = vp::log(v144);
+              if (os_log_type_enabled(v161, OS_LOG_TYPE_ERROR))
               {
-                *v159 = 0;
-                _os_log_error_impl(&dword_2724B4000, v156, OS_LOG_TYPE_ERROR, "failed to initialize uplink - voice processor must output float data", v159, 2u);
+                *v164 = 0;
+                _os_log_error_impl(&dword_2724B4000, v161, OS_LOG_TYPE_ERROR, "failed to initialize uplink - voice processor must output float data", v164, 2u);
               }
             }
 
             else
             {
-              v156 = vp::log(v139);
-              if (os_log_type_enabled(v156, OS_LOG_TYPE_ERROR))
+              v161 = vp::log(v144);
+              if (os_log_type_enabled(v161, OS_LOG_TYPE_ERROR))
               {
-                *v159 = 0;
-                _os_log_error_impl(&dword_2724B4000, v156, OS_LOG_TYPE_ERROR, "failed to initialize uplink - voice processor did not accept requested output format", v159, 2u);
+                *v164 = 0;
+                _os_log_error_impl(&dword_2724B4000, v161, OS_LOG_TYPE_ERROR, "failed to initialize uplink - voice processor did not accept requested output format", v164, 2u);
               }
             }
 
             v122 = 1651270508;
 LABEL_82:
             caulk::pooled_semaphore_mutex::_unlock((a1 + 32));
-            goto LABEL_57;
+            return v122;
           }
 
-LABEL_86:
-          *&v164[0] = 0;
+LABEL_92:
+          *&v169[0] = 0;
           memset(__p, 0, 80);
-          os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-          LODWORD(v198[0]) = 134217984;
-          *(v198 + 4) = 0;
-          _os_log_send_and_compose_impl();
+          v137 = MEMORY[0x277D86220];
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            v138 = 3;
+          }
+
+          else
+          {
+            v138 = 2;
+          }
+
+          LODWORD(v203[0]) = 134217984;
+          *(v203 + 4) = 0;
+          _os_log_send_and_compose_impl(v138, v169, __p, 80, &dword_2724B4000, v137, 16, "assertion failure: ulOutputASBD != nullptr -> %llu", v203);
           _os_crash_msg();
           __break(1u);
         }
@@ -2619,25 +2721,45 @@ LABEL_86:
 
       else
       {
-        *&v164[0] = 0;
+        *&v169[0] = 0;
         memset(__p, 0, 80);
-        os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-        LODWORD(v198[0]) = 134217984;
-        *(v198 + 4) = 0;
-        _os_log_send_and_compose_impl();
+        v133 = MEMORY[0x277D86220];
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          v134 = 3;
+        }
+
+        else
+        {
+          v134 = 2;
+        }
+
+        LODWORD(v203[0]) = 134217984;
+        *(v203 + 4) = 0;
+        _os_log_send_and_compose_impl(v134, v169, __p, 80, &dword_2724B4000, v133, 16, "assertion failure: micInputASBD != nullptr -> %llu", v203);
         _os_crash_msg();
         __break(1u);
       }
 
-      *&v164[0] = 0;
+      *&v169[0] = 0;
       memset(__p, 0, 80);
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      LODWORD(v198[0]) = 134217984;
-      *(v198 + 4) = 0;
-      _os_log_send_and_compose_impl();
+      v135 = MEMORY[0x277D86220];
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        v136 = 3;
+      }
+
+      else
+      {
+        v136 = 2;
+      }
+
+      LODWORD(v203[0]) = 134217984;
+      *(v203 + 4) = 0;
+      _os_log_send_and_compose_impl(v136, v169, __p, 80, &dword_2724B4000, v135, 16, "assertion failure: refInputASBD != nullptr -> %llu", v203);
       _os_crash_msg();
       __break(1u);
-      goto LABEL_86;
+      goto LABEL_92;
     }
 
     v111 = (v111 + 280);
@@ -2663,10 +2785,7 @@ LABEL_54:
     _os_log_error_impl(&dword_2724B4000, v121, OS_LOG_TYPE_ERROR, "failed to initialize uplink due to bad configuration", __p, 2u);
   }
 
-  v122 = 1650681447;
-LABEL_57:
-  v123 = *MEMORY[0x277D85DE8];
-  return v122;
+  return 1650681447;
 }
 
 _DWORD *util::get_node_configuration<VoiceProcessorUplinkConfiguration,VoiceProcessorUplinkNodeType,util::required_tag>(uint64_t a1, int a2)
@@ -2745,11 +2864,10 @@ LABEL_5:
   return a1 + 40 * v2 + 160;
 }
 
-uint64_t vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)7,unsigned int &,void const*&,unsigned int &>(uint64_t a1, unsigned int *a2, void *a3, unsigned int *a4)
+uint64_t vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)7,unsigned int &,void const*&,unsigned int &>(atomic_uint *a1, unsigned int *a2, void *a3, unsigned int *a4)
 {
-  v12 = *MEMORY[0x277D85DE8];
   caulk::concurrent::shared_spin_lock::lock(a1);
-  v8 = (*(**(a1 + 8) + 56))(*(a1 + 8), *a2, *a3, *a4);
+  v8 = (*(**(a1 + 1) + 56))(*(a1 + 1), *a2, *a3, *a4);
   if (v8)
   {
     if (!*MEMORY[0x277D7F098])
@@ -2764,15 +2882,14 @@ uint64_t vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)7,unsign
     *(v9 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::SetProperty, ArgTypeList = <unsigned int &, const void *&, unsigned int &>]";
     *v9 = &unk_2881B1C60;
     *(v9 + 8) = 0;
-    caulk::concurrent::messenger::enqueue((a1 + 16), v9);
+    caulk::concurrent::messenger::enqueue((a1 + 4), v9);
   }
 
   caulk::concurrent::shared_spin_lock::unlock(a1);
-  v10 = *MEMORY[0x277D85DE8];
   return 0x1626C6300;
 }
 
-void sub_272504904(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+void sub_272504904(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void **__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, char *a20, char a21, uint64_t a22, uint64_t a23, uint64_t *a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, __int16 *a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
 {
   if (a2)
   {
@@ -2785,13 +2902,13 @@ void sub_272504904(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       JUMPOUT(0x2725048C0);
     }
 
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27, "call_name");
   }
 
   _Unwind_Resume(a1);
 }
 
-unint64_t VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(uint64_t a1, unsigned int a2, int a3)
+unint64_t VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullptr))0>(atomic_uint *a1, unsigned int a2, int a3)
 {
   v7 = a2;
   v6 = &v4;
@@ -2806,7 +2923,7 @@ unint64_t VoiceProcessorImplementation::SetProperty<unsigned int,(decltype(nullp
   return result;
 }
 
-unint64_t VoiceProcessorImplementation::SetProperty<double,(decltype(nullptr))0>(uint64_t a1, unsigned int a2, double a3)
+unint64_t VoiceProcessorImplementation::SetProperty<double,(decltype(nullptr))0>(atomic_uint *a1, unsigned int a2, double a3)
 {
   v4 = a3;
   v7 = a2;
@@ -2821,34 +2938,40 @@ unint64_t VoiceProcessorImplementation::SetProperty<double,(decltype(nullptr))0>
   return result;
 }
 
-unint64_t VoiceProcessorImplementation::SetProperty(VoiceProcessorImplementation *this, unsigned int a2, const void *a3, unsigned int a4)
+unint64_t VoiceProcessorImplementation::SetProperty(atomic_uint *this, unsigned int a2, const void *a3, unsigned int a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v8[0] = a2;
-  v7 = a3;
-  v6 = a4;
+  v14 = *MEMORY[0x277D85DE8];
+  v10 = a2;
+  v9 = a3;
+  v8 = a4;
   if (!a3)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
-    v12 = 0u;
-    v10 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v8[1] = 134217984;
-    v9 = 0;
-    _os_log_send_and_compose_impl();
+    v7 = 0;
+    memset(v13, 0, sizeof(v13));
+    v5 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v11 = 134217984;
+    v12 = 0;
+    _os_log_send_and_compose_impl(v6, &v7, v13, 80, &dword_2724B4000, v5, 16, "assertion failure: inPropertyData != nullptr -> %llu", &v11);
     _os_crash_msg();
     __break(1u);
   }
 
-  result = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)7,unsigned int &,void const*&,unsigned int &>(this, v8, &v7, &v6);
+  result = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)7,unsigned int &,void const*&,unsigned int &>(this, &v10, &v9, &v8);
   if (result >= 0x100000000)
   {
-    result = 0x100000000;
+    return 0x100000000;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2874,7 +2997,7 @@ void sub_272504CF8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unint64_t VoiceProcessorImplementation::SetProperty<applesauce::CF::DictionaryRef,(decltype(nullptr))0>(uint64_t a1, unsigned int a2, uint64_t a3)
+unint64_t VoiceProcessorImplementation::SetProperty<applesauce::CF::DictionaryRef,(decltype(nullptr))0>(atomic_uint *a1, unsigned int a2, uint64_t a3)
 {
   v4 = a3;
   v7 = a2;
@@ -2922,34 +3045,25 @@ void sub_272504E30(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)1,AudioStreamBasicDescription const&,decltype(nullptr),unsigned int &,int,int,unsigned int const*,AudioStreamBasicDescription const&,decltype(nullptr),unsigned int &,int,int,unsigned int const*>(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned int *a4, unsigned int *a5, uint64_t *a6, uint64_t a7, int *a8, int *a9, int *a10, uint64_t *a11)
+uint64_t vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)1,AudioStreamBasicDescription const&,decltype(nullptr),unsigned int &,int,int,unsigned int const*,AudioStreamBasicDescription const&,decltype(nullptr),unsigned int &,int,int,unsigned int const*>(caulk::concurrent::shared_spin_lock *a1, uint64_t a2, unsigned int *a3, unsigned int *a4, unsigned int *a5, void *a6, uint64_t a7, _DWORD *a8, _DWORD *a9, _DWORD *a10, void *a11)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   caulk::concurrent::shared_spin_lock::lock(a1);
-  v17 = *a3;
-  v18 = *a4;
-  v19 = *a5;
-  v20 = *a6;
-  v28 = *a11;
-  v26 = *a9;
-  v27 = *a10;
-  v25 = *a8;
-  v21 = VoiceProcessorInterface::InitializeHWInput(*(a1 + 8));
-  if (v21)
+  v12 = VoiceProcessorInterface::InitializeHWInput(*(a1 + 1));
+  if (v12)
   {
-    v22 = vp::log(v21);
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v13 = vp::log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v29);
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v15);
     }
   }
 
   caulk::concurrent::shared_spin_lock::unlock(a1);
-  v23 = *MEMORY[0x277D85DE8];
   return 0x1626C6300;
 }
 
-void sub_2725051C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint8_t buf)
+void sub_2725051C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, void **__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, char *a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, int buf)
 {
   if (a2)
   {
@@ -2962,32 +3076,31 @@ void sub_2725051C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       JUMPOUT(0x272504F30);
     }
 
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(v40 - 152);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(v40 - 152, "call_name");
   }
 
   _Unwind_Resume(a1);
 }
 
-uint64_t vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)2,CA::StreamDescription &,decltype(nullptr),unsigned int &,unsigned int &,unsigned int &>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)2,CA::StreamDescription &,decltype(nullptr),unsigned int &,unsigned int &,unsigned int &>(atomic_uint *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   caulk::concurrent::shared_spin_lock::lock(a1);
-  v10 = (*(**(a1 + 8) + 24))(*(a1 + 8), a2, 0, a3, a4, a5);
+  v10 = (*(**(a1 + 1) + 24))(*(a1 + 1), a2, 0, a3, a4, a5);
   if (v10)
   {
     v11 = vp::log(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v14);
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v13);
     }
   }
 
   caulk::concurrent::shared_spin_lock::unlock(a1);
-  v12 = *MEMORY[0x277D85DE8];
   return 0x1626C6300;
 }
 
-void sub_2725056D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint8_t buf)
+void sub_2725056D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void **__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, char *a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, int buf)
 {
   if (a2)
   {
@@ -3000,7 +3113,7 @@ void sub_2725056D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       JUMPOUT(0x272505440);
     }
 
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(v36 - 136);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(v36 - 136, "call_name");
   }
 
   _Unwind_Resume(a1);
@@ -3097,21 +3210,32 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
   operator new();
 }
 
-atomic_uint *caulk::concurrent::shared_spin_lock::unlock(atomic_uint *this)
+void caulk::concurrent::shared_spin_lock::unlock(atomic_uint *this)
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v1 = 0x80000000;
   atomic_compare_exchange_strong(this, &v1, 0);
   if (v1 != 0x80000000)
   {
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v4 = 0;
+    memset(v7, 0, sizeof(v7));
+    v2 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v3 = 3;
+    }
+
+    else
+    {
+      v3 = 2;
+    }
+
+    v5 = 134217984;
+    v6 = 0;
+    _os_log_send_and_compose_impl(v3, &v4, v7, 80, &dword_2724B4000, v2, 16, "assertion failure: result == true -> %llu", &v5);
     _os_crash_msg();
     __break(1u);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
-  return this;
 }
 
 void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[407],char [407],0>(uint64_t a1)
@@ -3121,33 +3245,30 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
   operator new();
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[246],char [246],0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[246],char [246],0>(uint64_t a1, char *a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
   operator new();
 }
 
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE7EJRjRPKvS9_EEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA246_SL_EE7performEv(uint64_t a1)
+caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE7EJRjRPKvS9_EEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA246_SL_EE7performEv(caulk::concurrent::message *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v6[0] = a1;
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 32);
-  v6[6] = *(a1 + 40);
-  v6[7] = v2;
-  v3 = vp::log(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = a1;
+  v1 = *(a1 + 4);
+  v5 = *(a1 + 5);
+  v6 = v1;
+  v2 = vp::log(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v7);
   }
 
-  result = _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&v4);
 }
 
-void sub_272506098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, caulk::concurrent::message *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_272506098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
 {
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a10);
   v36 = -96;
@@ -3196,7 +3317,7 @@ void _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18V
 uint64_t VoiceProcessorImplementation::IsValid(uint64_t a1)
 {
   result = 0;
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   if (*a1 > 1)
   {
@@ -3225,7 +3346,7 @@ uint64_t VoiceProcessorImplementation::IsValid(uint64_t a1)
                 }
 
                 p_p = &__p;
-                if (v51 < 0)
+                if (v50 < 0)
                 {
                   p_p = __p;
                 }
@@ -3248,10 +3369,10 @@ uint64_t VoiceProcessorImplementation::IsValid(uint64_t a1)
             v38 = *v28;
             *&buf = *v18;
             *(&buf + 1) = v38;
-            v53 = *(v17 + 40 * v27);
+            v52 = *(v17 + 40 * v27);
             std::set<double>::set[abi:ne200100](&__p, &buf, 3);
-            v39 = v51;
-            std::__tree<unsigned int>::destroy(v50);
+            v39 = v50;
+            std::__tree<unsigned int>::destroy(v49);
             if (v39 != 1)
             {
               std::string::basic_string[abi:ne200100]<0>(&__p, "'EchoDSP' node input sample rates are not equal");
@@ -3282,7 +3403,7 @@ uint64_t VoiceProcessorImplementation::IsValid(uint64_t a1)
               goto LABEL_147;
             }
 
-            goto LABEL_98;
+            return 1;
           }
 
           ++v9;
@@ -3297,7 +3418,7 @@ uint64_t VoiceProcessorImplementation::IsValid(uint64_t a1)
         }
 
         p_p = &__p;
-        if (v51 < 0)
+        if (v50 < 0)
         {
           p_p = __p;
         }
@@ -3313,7 +3434,7 @@ uint64_t VoiceProcessorImplementation::IsValid(uint64_t a1)
         }
 
         p_p = &__p;
-        if (v51 < 0)
+        if (v50 < 0)
         {
           p_p = __p;
         }
@@ -3324,7 +3445,7 @@ uint64_t VoiceProcessorImplementation::IsValid(uint64_t a1)
     {
       if (v3 != 3)
       {
-        goto LABEL_151;
+        return result;
       }
 
       if (*(a1 + 8) == 1)
@@ -3339,7 +3460,7 @@ uint64_t VoiceProcessorImplementation::IsValid(uint64_t a1)
               {
                 if (*(a1 + 4))
                 {
-                  goto LABEL_98;
+                  return 1;
                 }
 
                 std::string::basic_string[abi:ne200100]<0>(&__p, "'DynamicsDSP' node doesn't support variable I/O block size");
@@ -3367,7 +3488,7 @@ uint64_t VoiceProcessorImplementation::IsValid(uint64_t a1)
           }
 
           p_p = &__p;
-          if (v51 < 0)
+          if (v50 < 0)
           {
             p_p = __p;
           }
@@ -3383,7 +3504,7 @@ uint64_t VoiceProcessorImplementation::IsValid(uint64_t a1)
           }
 
           p_p = &__p;
-          if (v51 < 0)
+          if (v50 < 0)
           {
             p_p = __p;
           }
@@ -3400,7 +3521,7 @@ uint64_t VoiceProcessorImplementation::IsValid(uint64_t a1)
         }
 
         p_p = &__p;
-        if (v51 < 0)
+        if (v50 < 0)
         {
           p_p = __p;
         }
@@ -3422,7 +3543,7 @@ uint64_t VoiceProcessorImplementation::IsValid(uint64_t a1)
       }
 
       p_p = &__p;
-      if (v51 < 0)
+      if (v50 < 0)
       {
         p_p = __p;
       }
@@ -3443,7 +3564,7 @@ uint64_t VoiceProcessorImplementation::IsValid(uint64_t a1)
         }
 
         p_p = &__p;
-        if (v51 < 0)
+        if (v50 < 0)
         {
           p_p = __p;
         }
@@ -3474,7 +3595,7 @@ LABEL_65:
           {
             if (*v24 == *(a1 + 160))
             {
-              goto LABEL_98;
+              return 1;
             }
 
             std::string::basic_string[abi:ne200100]<0>(&__p, "'AllOfUplinkDSP' node microphone input and uplink output sample rates are not equal");
@@ -3502,7 +3623,7 @@ LABEL_65:
       }
 
       p_p = &__p;
-      if (v51 < 0)
+      if (v50 < 0)
       {
         p_p = __p;
       }
@@ -3522,7 +3643,7 @@ LABEL_143:
     }
 
     p_p = &__p;
-    if (v51 < 0)
+    if (v50 < 0)
     {
       p_p = __p;
     }
@@ -3532,7 +3653,7 @@ LABEL_143:
 
   if (v3 != 1)
   {
-    goto LABEL_151;
+    return result;
   }
 
   if (*(a1 + 8) != 2)
@@ -3545,7 +3666,7 @@ LABEL_143:
     }
 
     p_p = &__p;
-    if (v51 < 0)
+    if (v50 < 0)
     {
       p_p = __p;
     }
@@ -3573,7 +3694,7 @@ LABEL_61:
     }
 
     p_p = &__p;
-    if (v51 < 0)
+    if (v50 < 0)
     {
       p_p = __p;
     }
@@ -3591,7 +3712,7 @@ LABEL_61:
     }
 
     p_p = &__p;
-    if (v51 < 0)
+    if (v50 < 0)
     {
       p_p = __p;
     }
@@ -3612,8 +3733,8 @@ LABEL_55:
   *&buf = *v21;
   *(&buf + 1) = v30;
   std::set<double>::set[abi:ne200100](&__p, &buf, 2);
-  v31 = v51;
-  std::__tree<unsigned int>::destroy(v50);
+  v31 = v50;
+  std::__tree<unsigned int>::destroy(v49);
   if (v31 == 1)
   {
     if (*(a1 + 144) == 3)
@@ -3655,10 +3776,10 @@ LABEL_55:
       v46 = *v45;
       *&buf = *v43;
       *(&buf + 1) = v46;
-      v53 = *(v42 + 40 * v44);
+      v52 = *(v42 + 40 * v44);
       std::set<double>::set[abi:ne200100](&__p, &buf, 3);
-      v47 = v51;
-      std::__tree<unsigned int>::destroy(v50);
+      v47 = v50;
+      std::__tree<unsigned int>::destroy(v49);
       if (v47 != 1)
       {
         std::string::basic_string[abi:ne200100]<0>(&__p, "'HardwareDSP' node output sample rates are not equal");
@@ -3677,9 +3798,7 @@ LABEL_55:
         goto LABEL_147;
       }
 
-LABEL_98:
-      result = 1;
-      goto LABEL_151;
+      return 1;
     }
 
     std::string::basic_string[abi:ne200100]<0>(&__p, "'HardwareDSP' node has wrong number of outputs");
@@ -3693,7 +3812,7 @@ LABEL_147:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     p_p = &__p;
-    if (v51 < 0)
+    if (v50 < 0)
     {
       p_p = __p;
     }
@@ -3704,15 +3823,12 @@ LABEL_147:
 LABEL_71:
 
 LABEL_148:
-  if (SHIBYTE(v51) < 0)
+  if (SHIBYTE(v50) < 0)
   {
     operator delete(__p);
   }
 
-  result = 0;
-LABEL_151:
-  v48 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 void sub_272506DE0(_Unwind_Exception *a1, int a2)
@@ -3725,50 +3841,48 @@ void sub_272506DE0(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void VoiceProcessorImplementation::IsValid(VoiceProcessorUplinkNodeConfiguration const&)const::{lambda(std::string const&)#1}::operator()(char *a1)
+void VoiceProcessorImplementation::IsValid(VoiceProcessorUplinkNodeConfiguration const&)const::{lambda(std::string const&)#1}::operator()(vp *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = vp::log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    if (a1[23] >= 0)
+    if (*(a1 + 23) >= 0)
     {
-      v4 = a1;
+      v3 = a1;
     }
 
     else
     {
-      v4 = *a1;
+      v3 = *a1;
     }
 
-    v5 = 136315138;
-    v6 = v4;
-    _os_log_error_impl(&dword_2724B4000, v2, OS_LOG_TYPE_ERROR, "uplink configuration is not valid - %s", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = v3;
+    _os_log_error_impl(&dword_2724B4000, v2, OS_LOG_TYPE_ERROR, "uplink configuration is not valid - %s", &v4, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-void *std::set<double>::set[abi:ne200100](void *result, double *a2, uint64_t a3)
+uint64_t **std::set<double>::set[abi:ne200100](uint64_t **a1, double *a2, uint64_t a3)
 {
-  result[1] = 0;
-  result[2] = 0;
-  *result = result + 1;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v3 = a2;
     v4 = 0;
-    v5 = result + 1;
+    v5 = a1 + 1;
     while (1)
     {
-      v6 = result + 1;
-      if (v5 == result + 1)
+      v6 = a1 + 1;
+      if (v5 == a1 + 1)
       {
         goto LABEL_9;
       }
 
       v7 = v4;
-      v8 = result + 1;
+      v8 = a1 + 1;
       if (v4)
       {
         do
@@ -3796,15 +3910,15 @@ void *std::set<double>::set[abi:ne200100](void *result, double *a2, uint64_t a3)
       if (*(v6 + 4) < *v3)
       {
 LABEL_9:
-        v11 = v4 ? v6 + 1 : result + 1;
+        v11 = v4 ? v6 + 1 : a1 + 1;
       }
 
       else
       {
-        v11 = result + 1;
+        v11 = a1 + 1;
         if (v4)
         {
-          v11 = result + 1;
+          v11 = a1 + 1;
           while (1)
           {
             while (1)
@@ -3829,7 +3943,7 @@ LABEL_9:
               break;
             }
 
-            v11 = v4 + 1;
+            v11 = (v4 + 1);
             v4 = v4[1];
             if (!v4)
             {
@@ -3850,12 +3964,12 @@ LABEL_13:
         break;
       }
 
-      v5 = *result;
-      v4 = result[1];
+      v5 = *a1;
+      v4 = a1[1];
     }
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(unsigned __int8 *a1, char *__s)
@@ -3969,7 +4083,7 @@ LABEL_8:
   goto LABEL_8;
 }
 
-void nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<VoiceProcessorUplinkTerminalType>>(unsigned __int8 *a1, unsigned int *a2)
+void nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<VoiceProcessorUplinkTerminalType>>(unsigned __int8 *result, unsigned int *a2)
 {
   if (*a2)
   {
@@ -3981,7 +4095,7 @@ void nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std:
       v7 = v5;
       nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v6);
       nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v6);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::push_back(a1, v6);
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::push_back(result, v6);
       nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v6);
       nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v7, v6[0]);
       ++v4;
@@ -3991,7 +4105,7 @@ void nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std:
   }
 }
 
-void nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<AudioStreamBasicDescription>>(unsigned __int8 *a1, unsigned int *a2)
+void nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<AudioStreamBasicDescription>>(unsigned __int8 *result, unsigned int *a2)
 {
   if (*a2)
   {
@@ -4147,7 +4261,7 @@ void nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std:
       nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v45);
       nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v46, v40);
       nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v43);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::push_back(a1, v43);
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::push_back(result, v43);
       nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v43);
       nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v44, v43[0]);
       ++v3;
@@ -4158,10 +4272,581 @@ void nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std:
   }
 }
 
-uint64_t VPSPIInitializeDownlink(uint64_t a1, char *a2)
+uint64_t VPSPIInitializeDownlink(uint64_t a1, unsigned int *a2)
 {
-  v127 = *MEMORY[0x277D85DE8];
-  if (!a1)
+  v125 = *MEMORY[0x277D85DE8];
+  if (a1)
+  {
+    if (a2)
+    {
+      v5 = vp::log(a1);
+      __src = a2;
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        v97[0] = 0;
+        v98 = 0;
+        v6 = *a2;
+        v101[0] = 5;
+        v102 = v6;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v101);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v101);
+        v7 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v97, "topology");
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v101);
+        v8 = *v7;
+        *v7 = 5;
+        v101[0] = v8;
+        v9 = *(v7 + 1);
+        *(v7 + 1) = v6;
+        v102 = v9;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v7);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v101);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v102, v8);
+        v10 = a2[1];
+        v99[0] = 0;
+        v100 = 0;
+        if (v10)
+        {
+          v11 = __src + 62;
+          do
+          {
+            v103[0] = 0;
+            v104 = 0;
+            v12 = *(v11 - 60);
+            v122[0] = 5;
+            *&v122[8] = v12;
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v122);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v122);
+            v13 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v103, "type");
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v122);
+            v14 = *v13;
+            *v13 = 5;
+            v122[0] = v14;
+            v15 = *(v13 + 1);
+            *(v13 + 1) = v12;
+            *&v122[8] = v15;
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v13);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v122);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v122[8], v14);
+            v16 = *(v11 - 59);
+            LOBYTE(v120[0]) = 6;
+            *(&v120[0] + 1) = v16;
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v120);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v120);
+            v17 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v103, "io_block_size");
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v120);
+            v18 = *v17;
+            *v17 = 6;
+            LOBYTE(v120[0]) = v18;
+            v19 = *(v17 + 1);
+            *(v17 + 1) = v16;
+            *(&v120[0] + 1) = v19;
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v17);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v120);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v120 + 1, v18);
+            LODWORD(aBlock) = *(v11 - 58);
+            v93 = (v11 - 57);
+            LOBYTE(v116[0]) = 0;
+            *(&v116[0] + 1) = 0;
+            nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<VoiceProcessorDownlinkTerminalType>>(v116, &aBlock);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v116);
+            v20 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v103, "input_types");
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v116);
+            v21 = *v20;
+            *v20 = v116[0];
+            LOBYTE(v116[0]) = v21;
+            v22 = *(v20 + 1);
+            *(v20 + 1) = *(&v116[0] + 1);
+            *(&v116[0] + 1) = v22;
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v20);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v116);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v116 + 1, v21);
+            LODWORD(aBlock) = *(v11 - 58);
+            v93 = (v11 - 52);
+            LOBYTE(v105) = 0;
+            v106 = 0;
+            nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<AudioStreamBasicDescription>>(&v105, &aBlock);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v105);
+            v23 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v103, "input_formats");
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v105);
+            v24 = *v23;
+            *v23 = v105;
+            LOBYTE(v105) = v24;
+            v25 = *(v23 + 1);
+            *(v23 + 1) = v106;
+            v106 = v25;
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v105);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v106, v24);
+            LODWORD(aBlock) = *(v11 - 2);
+            v93 = (v11 - 1);
+            v118[0] = 0;
+            v119 = 0;
+            nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<VoiceProcessorDownlinkTerminalType>>(v118, &aBlock);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v118);
+            v26 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v103, "output_types");
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v118);
+            v27 = *v26;
+            *v26 = v118[0];
+            v118[0] = v27;
+            v28 = *(v26 + 1);
+            *(v26 + 1) = v119;
+            v119 = v28;
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v118);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v119, v27);
+            LODWORD(aBlock) = *(v11 - 2);
+            v93 = v11;
+            v114[0] = 0;
+            v115 = 0;
+            nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<AudioStreamBasicDescription>>(v114, &aBlock);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v114);
+            v29 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v103, "output_formats");
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v114);
+            v30 = *v29;
+            *v29 = v114[0];
+            v114[0] = v30;
+            v31 = *(v29 + 1);
+            *(v29 + 1) = v115;
+            v115 = v31;
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v29);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v114);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v115, v30);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v103);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::push_back(v99, v103);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v103);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v104, v103[0]);
+            v11 += 70;
+            --v10;
+          }
+
+          while (v10);
+        }
+
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v99);
+        v32 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v97, "node_configurations");
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v99);
+        v33 = *v32;
+        *v32 = v99[0];
+        v99[0] = v33;
+        v34 = *(v32 + 1);
+        *(v32 + 1) = v100;
+        v100 = v34;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v32);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v99);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v100, v33);
+        v35 = __src[229];
+        v122[0] = 6;
+        *&v122[8] = v35;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v122);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v122);
+        v36 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v97, "client_io_block_size");
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v122);
+        v37 = *v36;
+        *v36 = 6;
+        v122[0] = v37;
+        v38 = *(v36 + 1);
+        *(v36 + 1) = v35;
+        *&v122[8] = v38;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v36);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v122);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v122[8], v37);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v97);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::dump(__p, v97, 4);
+      }
+
+      if (*a2 == 1)
+      {
+        if (a2[1] == 1)
+        {
+          v40 = (a2 + 2);
+          if (a2[2] == 1)
+          {
+            v41 = a2[4];
+            if ((v41 - 3) > 0xFFFFFFFD)
+            {
+              v51 = 0;
+              while (a2[v51 + 5])
+              {
+                if (v41 == ++v51)
+                {
+                  v52 = std::string::basic_string[abi:ne200100]<0>(__p, "'AllOfDownlinkDSPWithFarEndVoiceOnly' node has no far-end-voice input");
+                  v40 = vp::log(v52);
+                  if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+                  {
+                    goto LABEL_54;
+                  }
+
+LABEL_68:
+                  v58 = __p;
+                  if (SHIBYTE(__p[2]) < 0)
+                  {
+                    v58 = __p[0];
+                  }
+
+                  goto LABEL_99;
+                }
+              }
+
+              v53 = 0;
+              v54 = &a2[10 * v51 + 10];
+              while (a2[v53 + 5] != 4)
+              {
+                if (v41 == ++v53)
+                {
+                  goto LABEL_46;
+                }
+              }
+
+              if (*v54 != *&a2[10 * v53 + 10])
+              {
+                v55 = std::string::basic_string[abi:ne200100]<0>(__p, "'AllOfDownlinkDSPWithFarEndVoiceOnly' node far-end-voice and telemetry input sample rates are not equal");
+                v40 = vp::log(v55);
+                if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+                {
+                  goto LABEL_54;
+                }
+
+                v58 = __p;
+                if (SHIBYTE(__p[2]) < 0)
+                {
+                  v58 = __p[0];
+                }
+
+                goto LABEL_99;
+              }
+
+LABEL_46:
+              if (a2[60] != 1)
+              {
+                v56 = std::string::basic_string[abi:ne200100]<0>(__p, "'AllOfDownlinkDSPWithFarEndVoiceOnly' node has wrong number of outputs");
+                v40 = vp::log(v56);
+                if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+                {
+                  goto LABEL_54;
+                }
+
+                v58 = __p;
+                if (SHIBYTE(__p[2]) < 0)
+                {
+                  v58 = __p[0];
+                }
+
+                goto LABEL_99;
+              }
+
+              if (a2[61] != 5)
+              {
+                v57 = std::string::basic_string[abi:ne200100]<0>(__p, "'AllOfDownlinkDSPWithFarEndVoiceOnly' node has no downlink output");
+                v40 = vp::log(v57);
+                if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+                {
+                  goto LABEL_54;
+                }
+
+                v58 = __p;
+                if (SHIBYTE(__p[2]) < 0)
+                {
+                  v58 = __p[0];
+                }
+
+                goto LABEL_99;
+              }
+
+              if (a2[228] >= 0x11)
+              {
+                v46 = vp::log(v39);
+                if (!os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+                {
+                  goto LABEL_27;
+                }
+
+                LOWORD(__p[0]) = 0;
+                v47 = "downlink configuration is not valid - speaker telemetry input data sources count is out of bounds";
+                goto LABEL_26;
+              }
+
+              v59 = a2[229];
+              v60 = vp::log(v39);
+              v46 = v60;
+              if (!v59)
+              {
+                if (!os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+                {
+                  goto LABEL_27;
+                }
+
+                LOWORD(__p[0]) = 0;
+                v47 = "downlink configuration is not valid - client I/O block size can't be 0";
+                goto LABEL_26;
+              }
+
+              if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+              {
+                LOWORD(__p[0]) = 0;
+                _os_log_impl(&dword_2724B4000, v46, OS_LOG_TYPE_INFO, "downlink configuration is valid!", __p, 2u);
+              }
+
+              caulk::pooled_semaphore_mutex::_lock((a1 + 32));
+              if (*a2 != 1)
+              {
+                result = _os_crash();
+                __break(1u);
+                return result;
+              }
+
+              v61 = a2[1];
+              if (!v61)
+              {
+LABEL_67:
+                _os_crash();
+                __break(1u);
+                goto LABEL_68;
+              }
+
+              v62 = 0;
+              v63 = 280 * v61;
+              while (1)
+              {
+                v64 = v40 + v62;
+                if (*(v40 + v62) == 1)
+                {
+                  break;
+                }
+
+                v62 += 280;
+                if (v63 == v62)
+                {
+                  goto LABEL_67;
+                }
+              }
+
+              v65 = *(v64 + 8);
+              if (v65)
+              {
+                v66 = 0;
+                v2 = a2[229];
+                v67 = v62 + 20;
+                v68 = v62 + 244;
+                while (*(a2 + v67))
+                {
+                  ++v66;
+                  v67 += 4;
+                  if (v65 == v66)
+                  {
+                    goto LABEL_75;
+                  }
+                }
+              }
+
+              else
+              {
+LABEL_75:
+                _os_crash();
+                __break(1u);
+              }
+
+              v69 = *(v64 + 232);
+              if (v69)
+              {
+                v40 = 0;
+                v3 = v64 + 40 * v66;
+                while (*(a2 + v68) != 5)
+                {
+                  ++v40;
+                  v68 += 4;
+                  if (v69 == v40)
+                  {
+                    goto LABEL_80;
+                  }
+                }
+              }
+
+              else
+              {
+LABEL_80:
+                _os_crash();
+                __break(1u);
+              }
+
+              aBlock = MEMORY[0x277D85DD0];
+              v93 = 3221225472;
+              v94 = ___ZN28VoiceProcessorImplementation18InitializeDownlinkERK35VoiceProcessorDownlinkConfiguration_block_invoke;
+              v95 = &__block_descriptor_40_e99_i32__0__AudioBufferList_I_1_AudioBuffer_II_v___8__AudioTimeStamp_dQdQ_SMPTETime_ssIIIssss_II_16_I24l;
+              v96 = a1;
+              v70 = _Block_copy(&aBlock);
+              caulk::concurrent::shared_spin_lock::lock(a1);
+              v71 = v64 + 40 * v40;
+              v72 = *(a1 + 8);
+              v73 = v70;
+              v74 = (*(*v72 + 32))(v72, v71 + 240, v2, v3 + 32, v73);
+              if (v74)
+              {
+                v75 = vp::log(v74);
+                if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+                {
+                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v122);
+                }
+              }
+
+              caulk::concurrent::shared_spin_lock::unlock(a1);
+              v76 = memcpy(__p, a2, sizeof(__p));
+              LOBYTE(v108) = 1;
+              HIDWORD(v108) = v2;
+              v109 = v2;
+              v77 = *(v3 + 48);
+              *v122 = *(v3 + 32);
+              v123 = v77;
+              v124 = *(v3 + 64);
+              v78 = 2 * a2[229];
+              default_resource = std::pmr::get_default_resource(v76);
+              v80 = vp::Audio_Buffer::create(&v110, v122, v78, default_resource);
+              v81 = *(v3 + 48);
+              v120[0] = *(v3 + 32);
+              v120[1] = v81;
+              v121 = *(v3 + 64);
+              v82 = std::pmr::get_default_resource(v80);
+              v83 = vp::Audio_Buffer::create(&v110 + 1, v120, 0, v82);
+              *&v112[0] = 0;
+              v111 = 0u;
+              v84 = *(v71 + 256);
+              v116[0] = *(v71 + 240);
+              v116[1] = v84;
+              v117 = *(v71 + 272);
+              v85 = std::pmr::get_default_resource(v83);
+              vp::Audio_Buffer::create(v112 + 1, v116, 0, v85);
+              v112[1] = 0u;
+              v113 = 0;
+              if (*(a1 + 2216) == 1)
+              {
+                std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100]((a1 + 2184), 0);
+                std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100]((a1 + 2176), 0);
+                std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100]((a1 + 2168), 0);
+                std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100]((a1 + 2160), 0);
+                std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100]((a1 + 2152), 0);
+                std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100]((a1 + 2144), 0);
+                *(a1 + 2216) = 0;
+              }
+
+              memcpy((a1 + 1208), __p, 0x398uLL);
+              v86 = v111;
+              *(a1 + 2144) = v110;
+              *(a1 + 2128) = v108;
+              *(a1 + 2136) = v109;
+              v110 = 0u;
+              v111 = 0u;
+              *(a1 + 2160) = v86;
+              v87 = v112[0];
+              v112[0] = 0u;
+              *(a1 + 2176) = v87;
+              *(a1 + 2192) = 0u;
+              *(a1 + 2208) = 0;
+              *(a1 + 2216) = 1;
+              std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](v112 + 1, 0);
+              std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](v112, 0);
+              std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](&v111 + 1, 0);
+              std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](&v111, 0);
+              std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](&v110 + 1, 0);
+              v88 = std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](&v110, 0);
+              v89 = vp::log(v88);
+              if (os_log_type_enabled(v89, OS_LOG_TYPE_INFO))
+              {
+                LOWORD(__p[0]) = 0;
+                _os_log_impl(&dword_2724B4000, v89, OS_LOG_TYPE_INFO, "initialized downlink", __p, 2u);
+              }
+
+              v50 = 0;
+              caulk::pooled_semaphore_mutex::_unlock((a1 + 32));
+              goto LABEL_31;
+            }
+
+            v42 = std::string::basic_string[abi:ne200100]<0>(__p, "'AllOfDownlinkDSPWithFarEndVoiceOnly' node has wrong number of inputs");
+            v40 = vp::log(v42);
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+            {
+              v58 = __p;
+              if (SHIBYTE(__p[2]) < 0)
+              {
+                v58 = __p[0];
+              }
+
+LABEL_99:
+              *v122 = 136315138;
+              *&v122[4] = v58;
+              _os_log_error_impl(&dword_2724B4000, v40, OS_LOG_TYPE_ERROR, "downlink configuration is not valid - %s", v122, 0xCu);
+            }
+
+LABEL_54:
+
+            if (SHIBYTE(__p[2]) < 0)
+            {
+              operator delete(__p[0]);
+            }
+
+LABEL_28:
+            v49 = vp::log(v48);
+            if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+            {
+              LOWORD(__p[0]) = 0;
+              _os_log_error_impl(&dword_2724B4000, v49, OS_LOG_TYPE_ERROR, "failed to initialize downlink due to bad configuration", __p, 2u);
+            }
+
+            v50 = 1650681447;
+LABEL_31:
+
+            return ErrorFromOSStatus(v50);
+          }
+
+          v46 = vp::log(v39);
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+          {
+            LOWORD(__p[0]) = 0;
+            v47 = "downlink configuration is not valid - 'AllOfDownlinkDSPWithFarEndVoiceOnly' node configuration not found";
+            goto LABEL_26;
+          }
+
+LABEL_27:
+
+          goto LABEL_28;
+        }
+
+        v46 = vp::log(v39);
+        if (!os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_27;
+        }
+
+        LOWORD(__p[0]) = 0;
+        v47 = "downlink configuration is not valid - wrong number of node configurations";
+      }
+
+      else
+      {
+        v46 = vp::log(v39);
+        if (!os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_27;
+        }
+
+        LOWORD(__p[0]) = 0;
+        v47 = "downlink configuration is not valid - topology is not supported";
+      }
+
+LABEL_26:
+      _os_log_error_impl(&dword_2724B4000, v46, OS_LOG_TYPE_ERROR, v47, __p, 2u);
+      goto LABEL_27;
+    }
+
+    v45 = vp::log(a1);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(__p[0]) = 0;
+      _os_log_error_impl(&dword_2724B4000, v45, OS_LOG_TYPE_ERROR, "VoiceProcessor_InitializeDownlink BadArgument (inConfiguration)", __p, 2u);
+    }
+
+    return 1650553447;
+  }
+
+  else
   {
     v43 = vp::log(0);
     if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
@@ -4170,578 +4855,8 @@ uint64_t VPSPIInitializeDownlink(uint64_t a1, char *a2)
       _os_log_fault_impl(&dword_2724B4000, v43, OS_LOG_TYPE_FAULT, "failed to initialize downlink due to bad reference", __p, 2u);
     }
 
-    result = 1651664230;
-    goto LABEL_20;
+    return 1651664230;
   }
-
-  if (!a2)
-  {
-    v45 = vp::log(a1);
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
-    {
-      LOWORD(__p[0]) = 0;
-      _os_log_error_impl(&dword_2724B4000, v45, OS_LOG_TYPE_ERROR, "VoiceProcessor_InitializeDownlink BadArgument (inConfiguration)", __p, 2u);
-    }
-
-    result = 1650553447;
-LABEL_20:
-    v46 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  v5 = vp::log(a1);
-  __src = a2;
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    v99[0] = 0;
-    v100 = 0;
-    v6 = *a2;
-    v103[0] = 5;
-    v104 = v6;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v103);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v103);
-    v7 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v99, "topology");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v103);
-    v8 = *v7;
-    *v7 = 5;
-    v103[0] = v8;
-    v9 = *(v7 + 1);
-    *(v7 + 1) = v6;
-    v104 = v9;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v7);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v103);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v104, v8);
-    v10 = *(a2 + 1);
-    v101[0] = 0;
-    v102 = 0;
-    if (v10)
-    {
-      v11 = __src + 248;
-      do
-      {
-        v105[0] = 0;
-        v106 = 0;
-        v12 = *(v11 - 60);
-        v124[0] = 5;
-        *&v124[8] = v12;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v124);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v124);
-        v13 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v105, "type");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v124);
-        v14 = *v13;
-        *v13 = 5;
-        v124[0] = v14;
-        v15 = *(v13 + 1);
-        *(v13 + 1) = v12;
-        *&v124[8] = v15;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v13);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v124);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v124[8], v14);
-        v16 = *(v11 - 59);
-        LOBYTE(v122[0]) = 6;
-        *(&v122[0] + 1) = v16;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v122);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v122);
-        v17 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v105, "io_block_size");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v122);
-        v18 = *v17;
-        *v17 = 6;
-        LOBYTE(v122[0]) = v18;
-        v19 = *(v17 + 1);
-        *(v17 + 1) = v16;
-        *(&v122[0] + 1) = v19;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v17);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v122);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v122 + 1, v18);
-        LODWORD(aBlock) = *(v11 - 58);
-        v95 = (v11 - 228);
-        LOBYTE(v118[0]) = 0;
-        *(&v118[0] + 1) = 0;
-        nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<VoiceProcessorDownlinkTerminalType>>(v118, &aBlock);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v118);
-        v20 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v105, "input_types");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v118);
-        v21 = *v20;
-        *v20 = v118[0];
-        LOBYTE(v118[0]) = v21;
-        v22 = *(v20 + 1);
-        *(v20 + 1) = *(&v118[0] + 1);
-        *(&v118[0] + 1) = v22;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v20);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v118);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v118 + 1, v21);
-        LODWORD(aBlock) = *(v11 - 58);
-        v95 = (v11 - 208);
-        LOBYTE(v107) = 0;
-        v108 = 0;
-        nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<AudioStreamBasicDescription>>(&v107, &aBlock);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v107);
-        v23 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v105, "input_formats");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v107);
-        v24 = *v23;
-        *v23 = v107;
-        LOBYTE(v107) = v24;
-        v25 = *(v23 + 1);
-        *(v23 + 1) = v108;
-        v108 = v25;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v107);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v108, v24);
-        LODWORD(aBlock) = *(v11 - 2);
-        v95 = (v11 - 4);
-        v120[0] = 0;
-        v121 = 0;
-        nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<VoiceProcessorDownlinkTerminalType>>(v120, &aBlock);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v120);
-        v26 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v105, "output_types");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v120);
-        v27 = *v26;
-        *v26 = v120[0];
-        v120[0] = v27;
-        v28 = *(v26 + 1);
-        *(v26 + 1) = v121;
-        v121 = v28;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v120);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v121, v27);
-        LODWORD(aBlock) = *(v11 - 2);
-        v95 = v11;
-        v116[0] = 0;
-        v117 = 0;
-        nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<AudioStreamBasicDescription>>(v116, &aBlock);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v116);
-        v29 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v105, "output_formats");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v116);
-        v30 = *v29;
-        *v29 = v116[0];
-        v116[0] = v30;
-        v31 = *(v29 + 1);
-        *(v29 + 1) = v117;
-        v117 = v31;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v29);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v116);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v117, v30);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v105);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::push_back(v101, v105);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v105);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v106, v105[0]);
-        v11 += 280;
-        --v10;
-      }
-
-      while (v10);
-    }
-
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v101);
-    v32 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v99, "node_configurations");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v101);
-    v33 = *v32;
-    *v32 = v101[0];
-    v101[0] = v33;
-    v34 = *(v32 + 1);
-    *(v32 + 1) = v102;
-    v102 = v34;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v32);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v101);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v102, v33);
-    v35 = *(__src + 229);
-    v124[0] = 6;
-    *&v124[8] = v35;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v124);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v124);
-    v36 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v99, "client_io_block_size");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v124);
-    v37 = *v36;
-    *v36 = 6;
-    v124[0] = v37;
-    v38 = *(v36 + 1);
-    *(v36 + 1) = v35;
-    *&v124[8] = v38;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v36);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v124);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v124[8], v37);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v99);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::dump(__p);
-  }
-
-  if (*a2 != 1)
-  {
-    v47 = vp::log(v39);
-    if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_28;
-    }
-
-    LOWORD(__p[0]) = 0;
-    v48 = "downlink configuration is not valid - topology is not supported";
-LABEL_27:
-    _os_log_error_impl(&dword_2724B4000, v47, OS_LOG_TYPE_ERROR, v48, __p, 2u);
-    goto LABEL_28;
-  }
-
-  if (*(a2 + 1) != 1)
-  {
-    v47 = vp::log(v39);
-    if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_28;
-    }
-
-    LOWORD(__p[0]) = 0;
-    v48 = "downlink configuration is not valid - wrong number of node configurations";
-    goto LABEL_27;
-  }
-
-  v40 = (a2 + 8);
-  if (*(a2 + 2) != 1)
-  {
-    v47 = vp::log(v39);
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
-    {
-      LOWORD(__p[0]) = 0;
-      v48 = "downlink configuration is not valid - 'AllOfDownlinkDSPWithFarEndVoiceOnly' node configuration not found";
-      goto LABEL_27;
-    }
-
-LABEL_28:
-
-    goto LABEL_29;
-  }
-
-  v41 = *(a2 + 4);
-  if ((v41 - 3) > 0xFFFFFFFD)
-  {
-    v53 = 0;
-    while (*&a2[4 * v53 + 20])
-    {
-      if (v41 == ++v53)
-      {
-        v54 = std::string::basic_string[abi:ne200100]<0>(__p, "'AllOfDownlinkDSPWithFarEndVoiceOnly' node has no far-end-voice input");
-        v40 = vp::log(v54);
-        if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_55;
-        }
-
-LABEL_69:
-        v60 = __p;
-        if (SHIBYTE(__p[2]) < 0)
-        {
-          v60 = __p[0];
-        }
-
-        goto LABEL_100;
-      }
-    }
-
-    v55 = 0;
-    v56 = &a2[40 * v53 + 40];
-    while (*&a2[4 * v55 + 20] != 4)
-    {
-      if (v41 == ++v55)
-      {
-        goto LABEL_47;
-      }
-    }
-
-    if (*v56 != *&a2[40 * v55 + 40])
-    {
-      v57 = std::string::basic_string[abi:ne200100]<0>(__p, "'AllOfDownlinkDSPWithFarEndVoiceOnly' node far-end-voice and telemetry input sample rates are not equal");
-      v40 = vp::log(v57);
-      if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_55;
-      }
-
-      v60 = __p;
-      if (SHIBYTE(__p[2]) < 0)
-      {
-        v60 = __p[0];
-      }
-
-      goto LABEL_100;
-    }
-
-LABEL_47:
-    if (*(a2 + 60) != 1)
-    {
-      v58 = std::string::basic_string[abi:ne200100]<0>(__p, "'AllOfDownlinkDSPWithFarEndVoiceOnly' node has wrong number of outputs");
-      v40 = vp::log(v58);
-      if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_55;
-      }
-
-      v60 = __p;
-      if (SHIBYTE(__p[2]) < 0)
-      {
-        v60 = __p[0];
-      }
-
-      goto LABEL_100;
-    }
-
-    if (*(a2 + 61) != 5)
-    {
-      v59 = std::string::basic_string[abi:ne200100]<0>(__p, "'AllOfDownlinkDSPWithFarEndVoiceOnly' node has no downlink output");
-      v40 = vp::log(v59);
-      if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_55;
-      }
-
-      v60 = __p;
-      if (SHIBYTE(__p[2]) < 0)
-      {
-        v60 = __p[0];
-      }
-
-      goto LABEL_100;
-    }
-
-    if (*(a2 + 228) >= 0x11u)
-    {
-      v47 = vp::log(v39);
-      if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_28;
-      }
-
-      LOWORD(__p[0]) = 0;
-      v48 = "downlink configuration is not valid - speaker telemetry input data sources count is out of bounds";
-      goto LABEL_27;
-    }
-
-    v61 = *(a2 + 229);
-    v62 = vp::log(v39);
-    v47 = v62;
-    if (!v61)
-    {
-      if (!os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_28;
-      }
-
-      LOWORD(__p[0]) = 0;
-      v48 = "downlink configuration is not valid - client I/O block size can't be 0";
-      goto LABEL_27;
-    }
-
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
-    {
-      LOWORD(__p[0]) = 0;
-      _os_log_impl(&dword_2724B4000, v47, OS_LOG_TYPE_INFO, "downlink configuration is valid!", __p, 2u);
-    }
-
-    caulk::pooled_semaphore_mutex::_lock((a1 + 32));
-    if (*a2 != 1)
-    {
-      result = _os_crash();
-      __break(1u);
-      return result;
-    }
-
-    v63 = *(a2 + 1);
-    if (!v63)
-    {
-LABEL_68:
-      _os_crash();
-      __break(1u);
-      goto LABEL_69;
-    }
-
-    v64 = 0;
-    v65 = 280 * v63;
-    while (1)
-    {
-      v66 = v40 + v64;
-      if (*(v40 + v64) == 1)
-      {
-        break;
-      }
-
-      v64 += 280;
-      if (v65 == v64)
-      {
-        goto LABEL_68;
-      }
-    }
-
-    v67 = *(v66 + 8);
-    if (v67)
-    {
-      v68 = 0;
-      v2 = *(a2 + 229);
-      v69 = v64 + 20;
-      v70 = v64 + 244;
-      while (*&a2[v69])
-      {
-        ++v68;
-        v69 += 4;
-        if (v67 == v68)
-        {
-          goto LABEL_76;
-        }
-      }
-    }
-
-    else
-    {
-LABEL_76:
-      _os_crash();
-      __break(1u);
-    }
-
-    v71 = *(v66 + 232);
-    if (v71)
-    {
-      v40 = 0;
-      v3 = v66 + 40 * v68;
-      while (*&a2[v70] != 5)
-      {
-        ++v40;
-        v70 += 4;
-        if (v71 == v40)
-        {
-          goto LABEL_81;
-        }
-      }
-    }
-
-    else
-    {
-LABEL_81:
-      _os_crash();
-      __break(1u);
-    }
-
-    aBlock = MEMORY[0x277D85DD0];
-    v95 = 3221225472;
-    v96 = ___ZN28VoiceProcessorImplementation18InitializeDownlinkERK35VoiceProcessorDownlinkConfiguration_block_invoke;
-    v97 = &__block_descriptor_40_e99_i32__0__AudioBufferList_I_1_AudioBuffer_II_v___8__AudioTimeStamp_dQdQ_SMPTETime_ssIIIssss_II_16_I24l;
-    v98 = a1;
-    v72 = _Block_copy(&aBlock);
-    caulk::concurrent::shared_spin_lock::lock(a1);
-    v73 = v66 + 40 * v40;
-    v74 = *(a1 + 8);
-    v75 = v72;
-    v76 = (*(*v74 + 32))(v74, v73 + 240, v2, v3 + 32, v75);
-    if (v76)
-    {
-      v77 = vp::log(v76);
-      if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
-      {
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v124);
-      }
-    }
-
-    caulk::concurrent::shared_spin_lock::unlock(a1);
-    v78 = memcpy(__p, a2, sizeof(__p));
-    LOBYTE(v110) = 1;
-    HIDWORD(v110) = v2;
-    v111 = v2;
-    v79 = *(v3 + 48);
-    *v124 = *(v3 + 32);
-    v125 = v79;
-    v126 = *(v3 + 64);
-    v80 = 2 * *(a2 + 229);
-    default_resource = std::pmr::get_default_resource(v78);
-    v82 = vp::Audio_Buffer::create(&v112, v124, v80, default_resource);
-    v83 = *(v3 + 48);
-    v122[0] = *(v3 + 32);
-    v122[1] = v83;
-    v123 = *(v3 + 64);
-    v84 = std::pmr::get_default_resource(v82);
-    v85 = vp::Audio_Buffer::create(&v112 + 1, v122, 0, v84);
-    *&v114[0] = 0;
-    v113 = 0u;
-    v86 = *(v73 + 256);
-    v118[0] = *(v73 + 240);
-    v118[1] = v86;
-    v119 = *(v73 + 272);
-    v87 = std::pmr::get_default_resource(v85);
-    vp::Audio_Buffer::create(v114 + 1, v118, 0, v87);
-    v114[1] = 0u;
-    v115 = 0;
-    if (*(a1 + 2216) == 1)
-    {
-      std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100]((a1 + 2184), 0);
-      std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100]((a1 + 2176), 0);
-      std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100]((a1 + 2168), 0);
-      std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100]((a1 + 2160), 0);
-      std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100]((a1 + 2152), 0);
-      std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100]((a1 + 2144), 0);
-      *(a1 + 2216) = 0;
-    }
-
-    memcpy((a1 + 1208), __p, 0x398uLL);
-    v88 = v113;
-    *(a1 + 2144) = v112;
-    *(a1 + 2128) = v110;
-    *(a1 + 2136) = v111;
-    v112 = 0u;
-    v113 = 0u;
-    *(a1 + 2160) = v88;
-    v89 = v114[0];
-    v114[0] = 0u;
-    *(a1 + 2176) = v89;
-    *(a1 + 2192) = 0u;
-    *(a1 + 2208) = 0;
-    *(a1 + 2216) = 1;
-    std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](v114 + 1, 0);
-    std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](v114, 0);
-    std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](&v113 + 1, 0);
-    std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](&v113, 0);
-    std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](&v112 + 1, 0);
-    v90 = std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](&v112, 0);
-    v91 = vp::log(v90);
-    if (os_log_type_enabled(v91, OS_LOG_TYPE_INFO))
-    {
-      LOWORD(__p[0]) = 0;
-      _os_log_impl(&dword_2724B4000, v91, OS_LOG_TYPE_INFO, "initialized downlink", __p, 2u);
-    }
-
-    v51 = 0;
-    caulk::pooled_semaphore_mutex::_unlock((a1 + 32));
-    goto LABEL_32;
-  }
-
-  v42 = std::string::basic_string[abi:ne200100]<0>(__p, "'AllOfDownlinkDSPWithFarEndVoiceOnly' node has wrong number of inputs");
-  v40 = vp::log(v42);
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
-  {
-    v60 = __p;
-    if (SHIBYTE(__p[2]) < 0)
-    {
-      v60 = __p[0];
-    }
-
-LABEL_100:
-    *v124 = 136315138;
-    *&v124[4] = v60;
-    _os_log_error_impl(&dword_2724B4000, v40, OS_LOG_TYPE_ERROR, "downlink configuration is not valid - %s", v124, 0xCu);
-  }
-
-LABEL_55:
-
-  if (SHIBYTE(__p[2]) < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-LABEL_29:
-  v50 = vp::log(v49);
-  if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
-  {
-    LOWORD(__p[0]) = 0;
-    _os_log_error_impl(&dword_2724B4000, v50, OS_LOG_TYPE_ERROR, "failed to initialize downlink due to bad configuration", __p, 2u);
-  }
-
-  v51 = 1650681447;
-LABEL_32:
-  v52 = *MEMORY[0x277D85DE8];
-
-  return ErrorFromOSStatus(v51);
 }
 
 uint64_t ___ZN28VoiceProcessorImplementation18InitializeDownlinkERK35VoiceProcessorDownlinkConfiguration_block_invoke(uint64_t a1, const AudioBufferList *a2, uint64_t a3, _DWORD *a4)
@@ -4794,7 +4909,7 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
   operator new();
 }
 
-void nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<VoiceProcessorDownlinkTerminalType>>(unsigned __int8 *a1, unsigned int *a2)
+void nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,util::view<VoiceProcessorDownlinkTerminalType>>(unsigned __int8 *result, unsigned int *a2)
 {
   if (*a2)
   {
@@ -4806,7 +4921,7 @@ void nlohmann::detail::to_json_fn::operator()<nlohmann::basic_json<std::map,std:
       v7 = v5;
       nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v6);
       nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v6);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::push_back(a1, v6);
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::push_back(result, v6);
       nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v6);
       nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v7, v6[0]);
       ++v4;
@@ -4978,80 +5093,73 @@ LABEL_11:
 
 uint64_t VPSPIGetPropertyInfo(void **a1, int a2, uint64_t a3, _DWORD *a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (!a1)
+  v12 = *MEMORY[0x277D85DE8];
+  if (a1)
   {
-    v10 = vp::log(0);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    if (a3)
     {
-      *buf = 0;
-      _os_log_fault_impl(&dword_2724B4000, v10, OS_LOG_TYPE_FAULT, "failed to get property info due to bad reference", buf, 2u);
+      if (a4)
+      {
+        if (a2 != 1651074168)
+        {
+          return 1651536498;
+        }
+
+        v6 = (*(*a1[1] + 152))(a1[1], 32786);
+        if (v6)
+        {
+          if (!*MEMORY[0x277D7F098])
+          {
+            __break(1u);
+          }
+
+          v7 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
+          *(v7 + 16) = 0;
+          *(v7 + 24) = v6;
+          *(v7 + 32) = "GetPropertyInfo";
+          *(v7 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::GetPropertyInfo, ArgTypeList = <unsigned int &, unsigned int *&, unsigned char *>]";
+          *v7 = &unk_2881B1C10;
+          *(v7 + 8) = 0;
+          caulk::concurrent::messenger::enqueue((a1 + 2), v7);
+        }
+
+        *a4 = 0;
+
+        return ErrorFromOSStatus(0);
+      }
+
+      v10 = vp::log(a1);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_error_impl(&dword_2724B4000, v10, OS_LOG_TYPE_ERROR, "VoiceProcessor_GetPropertyInfo BadArgument (outPropertyIsWritable)", buf, 2u);
+      }
     }
 
-    result = 1651664230;
-    goto LABEL_21;
-  }
-
-  if (!a3)
-  {
-    v11 = vp::log(a1);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    else
     {
-      *buf = 0;
-      _os_log_error_impl(&dword_2724B4000, v11, OS_LOG_TYPE_ERROR, "VoiceProcessor_GetPropertyInfo BadArgument (outPropertySize)", buf, 2u);
+      v10 = vp::log(a1);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_error_impl(&dword_2724B4000, v10, OS_LOG_TYPE_ERROR, "VoiceProcessor_GetPropertyInfo BadArgument (outPropertySize)", buf, 2u);
+      }
     }
 
-    goto LABEL_19;
+    return 1650553447;
   }
 
-  if (!a4)
+  v9 = vp::log(0);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
   {
-    v11 = vp::log(a1);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_error_impl(&dword_2724B4000, v11, OS_LOG_TYPE_ERROR, "VoiceProcessor_GetPropertyInfo BadArgument (outPropertyIsWritable)", buf, 2u);
-    }
-
-LABEL_19:
-
-    result = 1650553447;
-LABEL_21:
-    v12 = *MEMORY[0x277D85DE8];
-    return result;
+    *buf = 0;
+    _os_log_fault_impl(&dword_2724B4000, v9, OS_LOG_TYPE_FAULT, "failed to get property info due to bad reference", buf, 2u);
   }
 
-  if (a2 != 1651074168)
-  {
-    result = 1651536498;
-    goto LABEL_21;
-  }
-
-  v6 = (*(*a1[1] + 152))(a1[1], 32786);
-  if (v6)
-  {
-    if (!*MEMORY[0x277D7F098])
-    {
-      __break(1u);
-    }
-
-    v7 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
-    *(v7 + 16) = 0;
-    *(v7 + 24) = v6;
-    *(v7 + 32) = "GetPropertyInfo";
-    *(v7 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::GetPropertyInfo, ArgTypeList = <unsigned int &, unsigned int *&, unsigned char *>]";
-    *v7 = &unk_2881B1C10;
-    *(v7 + 8) = 0;
-    caulk::concurrent::messenger::enqueue((a1 + 2), v7);
-  }
-
-  *a4 = 0;
-  v8 = *MEMORY[0x277D85DE8];
-
-  return ErrorFromOSStatus(0);
+  return 1651664230;
 }
 
-void sub_272509668(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+void sub_272509668(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void **__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, char *a20, char a21, uint64_t a22, uint64_t a23, uint64_t *a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, __int16 *a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
 {
   if (a2)
   {
@@ -5064,7 +5172,7 @@ void sub_272509668(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       JUMPOUT(0x2725094F4);
     }
 
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27, "call_name");
   }
 
   _Unwind_Resume(a1);
@@ -5077,26 +5185,23 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
   operator new();
 }
 
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE5EJRjRPjPhEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA253_SL_EE7performEv(uint64_t a1)
+caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE5EJRjRPjPhEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA253_SL_EE7performEv(caulk::concurrent::message *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v6[0] = a1;
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 32);
-  v6[6] = *(a1 + 40);
-  v6[7] = v2;
-  v3 = vp::log(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = a1;
+  v1 = *(a1 + 4);
+  v5 = *(a1 + 5);
+  v6 = v1;
+  v2 = vp::log(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v7);
   }
 
-  result = _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&v4);
 }
 
-void sub_272509B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, caulk::concurrent::message *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_272509B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
 {
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a10);
   v36 = -96;
@@ -5201,7 +5306,6 @@ LABEL_18:
 
 unint64_t VoiceProcessorImplementation::GetProperty(VoiceProcessorImplementation *this, uint64_t a2, void *a3, unsigned int *a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v4 = 1651270507;
   v5 = atomic_load(this);
   if (v5 > 0x7FFFFFFE)
@@ -5254,19 +5358,16 @@ LABEL_5:
   v11 = v4 | v8;
   if (v11 >= 0x100000000)
   {
-    result = 0x100000000;
+    return 0x100000000;
   }
 
   else
   {
-    result = v11;
+    return v11;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void sub_272509FB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+void sub_272509FB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void **__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, char *a20, char a21, uint64_t a22, uint64_t a23, uint64_t *a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, __int16 *a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
 {
   if (a2)
   {
@@ -5279,13 +5380,13 @@ void sub_272509FB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       JUMPOUT(0x272509F48);
     }
 
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27, "call_name");
   }
 
   _Unwind_Resume(a1);
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[257],char [257],0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[257],char [257],0>(uint64_t a1, char *a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
@@ -5294,7 +5395,7 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
 
 unsigned int *caulk::concurrent::shared_spin_lock::unlock_shared(unsigned int *this)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = atomic_load(this);
   v2 = v1 & 0x7FFFFFFF;
   if ((v1 & 0x7FFFFFFF) != 0)
@@ -5303,8 +5404,26 @@ unsigned int *caulk::concurrent::shared_spin_lock::unlock_shared(unsigned int *t
     {
       if ((v1 & 0x80000000) != 0)
       {
-        os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
+        v9 = 0;
+        v15 = 0u;
+        v16 = 0u;
+        v13 = 0u;
+        v14 = 0u;
+        v12 = 0u;
+        v7 = MEMORY[0x277D86220];
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          v8 = 3;
+        }
+
+        else
+        {
+          v8 = 2;
+        }
+
+        v10 = 134217984;
+        v11 = 0;
+        _os_log_send_and_compose_impl(v8, &v9, &v12, 80, &dword_2724B4000, v7, 16, "assertion failure: expected_state.m_writer_count == 0 -> %llu", &v10);
         _os_crash_msg();
         __break(1u);
       }
@@ -5329,36 +5448,50 @@ unsigned int *caulk::concurrent::shared_spin_lock::unlock_shared(unsigned int *t
   else
   {
 LABEL_5:
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v9 = 0;
+    v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v12 = 0u;
+    v5 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v10 = 134217984;
+    v11 = 0;
+    _os_log_send_and_compose_impl(v6, &v9, &v12, 80, &dword_2724B4000, v5, 16, "assertion failure: expected_state.m_reader_count > 0 -> %llu", &v10);
     this = _os_crash_msg();
     __break(1u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPvS9_RPjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSF_EUlT_PKcSN_E_JRiRKSN_RA257_SM_EE7performEv(uint64_t a1)
+caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPvS9_RPjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSF_EUlT_PKcSN_E_JRiRKSN_RA257_SM_EE7performEv(caulk::concurrent::message *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v6[0] = a1;
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 32);
-  v6[6] = *(a1 + 40);
-  v6[7] = v2;
-  v3 = vp::log(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = a1;
+  v1 = *(a1 + 4);
+  v5 = *(a1 + 5);
+  v6 = v1;
+  v2 = vp::log(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v7);
   }
 
-  result = _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&v4);
 }
 
-void sub_27250A678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, caulk::concurrent::message *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_27250A678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
 {
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a10);
   v36 = -96;
@@ -5404,7 +5537,7 @@ void _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18V
   JUMPOUT(0x2743CBFA0);
 }
 
-uint64_t VPSPISetProperty(vp *a1, int a2, uint64_t a3, unsigned int a4)
+uint64_t VPSPISetProperty(atomic_uint *a1, int a2, uint64_t a3, unsigned int a4)
 {
   if (a1)
   {
@@ -5566,8 +5699,102 @@ LABEL_11:
 
 uint64_t VPSPIPreflightUplink(uint64_t a1, uint64_t a2, unsigned int a3, _DWORD *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  if (!a1)
+  v20 = *MEMORY[0x277D85DE8];
+  if (a1)
+  {
+    if (a4)
+    {
+      v7 = 1651270507;
+      v8 = caulk::pooled_semaphore_mutex::try_lock((a1 + 32));
+      if (!v8)
+      {
+LABEL_22:
+
+        return ErrorFromOSStatus(v7);
+      }
+
+      if (*(a1 + 1200) != 1 || (*(a1 + 2216) & 1) == 0)
+      {
+        v16 = vp::log(v8);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          _os_log_error_impl(&dword_2724B4000, v16, OS_LOG_TYPE_ERROR, "PreflightUplink BadState", buf, 2u);
+        }
+
+        v7 = 1651733601;
+        goto LABEL_21;
+      }
+
+      v9 = 0;
+      *(a1 + 1148) = 0;
+      *(a1 + 1152) = a3;
+      v10 = *(a1 + 1144);
+      if (a3 > v10)
+      {
+        v11 = atomic_load(a1);
+        if (v11 > 0x7FFFFFFE)
+        {
+LABEL_21:
+          caulk::pooled_semaphore_mutex::_unlock((a1 + 32));
+          goto LABEL_22;
+        }
+
+        v12 = v11;
+        while (1)
+        {
+          atomic_compare_exchange_strong(a1, &v12, v11 + 1);
+          if (v12 == v11)
+          {
+            break;
+          }
+
+          v11 = v12;
+          if (v12 >= 0x7FFFFFFF)
+          {
+            goto LABEL_21;
+          }
+        }
+
+        v17 = (*(**(a1 + 8) + 160))(*(a1 + 8), a3 - v10, a1 + 1148);
+        if (v17)
+        {
+          if (!*MEMORY[0x277D7F098])
+          {
+            __break(1u);
+          }
+
+          v18 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
+          *(v18 + 16) = 0;
+          *(v18 + 24) = v17;
+          *(v18 + 32) = "PreflightUplink";
+          *(v18 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::PreflightUplink, ArgTypeList = <unsigned int, unsigned int *>]";
+          *v18 = &unk_2881B1C88;
+          *(v18 + 8) = 0;
+          caulk::concurrent::messenger::enqueue((a1 + 16), v18);
+        }
+
+        caulk::concurrent::shared_spin_lock::unlock_shared(a1);
+        v9 = *(a1 + 1148);
+      }
+
+      v7 = 0;
+      *a4 = v9;
+      *(a1 + 1156) = 1;
+      goto LABEL_21;
+    }
+
+    v15 = vp::log(a1);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_2724B4000, v15, OS_LOG_TYPE_ERROR, "VoiceProcessor_PreflightUplink BadArgument (outNumRequiredUplinkInputSamples)", buf, 2u);
+    }
+
+    return 1650553447;
+  }
+
+  else
   {
     v13 = vp::log(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
@@ -5576,107 +5803,11 @@ uint64_t VPSPIPreflightUplink(uint64_t a1, uint64_t a2, unsigned int a3, _DWORD 
       _os_log_fault_impl(&dword_2724B4000, v13, OS_LOG_TYPE_FAULT, "failed to preflight uplink due to bad reference", buf, 2u);
     }
 
-    result = 1651664230;
-    goto LABEL_18;
+    return 1651664230;
   }
-
-  if (!a4)
-  {
-    v15 = vp::log(a1);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_error_impl(&dword_2724B4000, v15, OS_LOG_TYPE_ERROR, "VoiceProcessor_PreflightUplink BadArgument (outNumRequiredUplinkInputSamples)", buf, 2u);
-    }
-
-    result = 1650553447;
-LABEL_18:
-    v16 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  v7 = 1651270507;
-  v8 = caulk::pooled_semaphore_mutex::try_lock((a1 + 32));
-  if (v8)
-  {
-    if (*(a1 + 1200) != 1 || (*(a1 + 2216) & 1) == 0)
-    {
-      v17 = vp::log(v8);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 0;
-        _os_log_error_impl(&dword_2724B4000, v17, OS_LOG_TYPE_ERROR, "PreflightUplink BadState", buf, 2u);
-      }
-
-      v7 = 1651733601;
-      goto LABEL_22;
-    }
-
-    v9 = 0;
-    *(a1 + 1148) = 0;
-    *(a1 + 1152) = a3;
-    v10 = *(a1 + 1144);
-    if (a3 > v10)
-    {
-      v11 = atomic_load(a1);
-      if (v11 > 0x7FFFFFFE)
-      {
-LABEL_22:
-        caulk::pooled_semaphore_mutex::_unlock((a1 + 32));
-        goto LABEL_23;
-      }
-
-      v12 = v11;
-      while (1)
-      {
-        atomic_compare_exchange_strong(a1, &v12, v11 + 1);
-        if (v12 == v11)
-        {
-          break;
-        }
-
-        v11 = v12;
-        if (v12 >= 0x7FFFFFFF)
-        {
-          goto LABEL_22;
-        }
-      }
-
-      v19 = (*(**(a1 + 8) + 160))(*(a1 + 8), a3 - v10, a1 + 1148);
-      if (v19)
-      {
-        if (!*MEMORY[0x277D7F098])
-        {
-          __break(1u);
-        }
-
-        v20 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
-        *(v20 + 16) = 0;
-        *(v20 + 24) = v19;
-        *(v20 + 32) = "PreflightUplink";
-        *(v20 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::PreflightUplink, ArgTypeList = <unsigned int, unsigned int *>]";
-        *v20 = &unk_2881B1C88;
-        *(v20 + 8) = 0;
-        caulk::concurrent::messenger::enqueue((a1 + 16), v20);
-      }
-
-      caulk::concurrent::shared_spin_lock::unlock_shared(a1);
-      v9 = *(a1 + 1148);
-    }
-
-    v7 = 0;
-    *a4 = v9;
-    *(a1 + 1156) = 1;
-    goto LABEL_22;
-  }
-
-LABEL_23:
-  v18 = *MEMORY[0x277D85DE8];
-
-  return ErrorFromOSStatus(v7);
 }
 
-void sub_27250AE54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_27250AE54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void **__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, char *a20, char a21, uint64_t a22, uint64_t a23, uint64_t *a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, __int16 *a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, __int16 *a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
 {
   if (a2)
   {
@@ -5689,39 +5820,36 @@ void sub_27250AE54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       JUMPOUT(0x27250AE1CLL);
     }
 
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27, "call_name");
   }
 
   _Unwind_Resume(a1);
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[233],char [233],0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[233],char [233],0>(uint64_t a1, char *a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
   operator new();
 }
 
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE14EJjPjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSB_EUlT_PKcSJ_E_JRiRKSJ_RA233_SI_EE7performEv(uint64_t a1)
+caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE14EJjPjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSB_EUlT_PKcSJ_E_JRiRKSJ_RA233_SI_EE7performEv(caulk::concurrent::message *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v6[0] = a1;
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 32);
-  v6[6] = *(a1 + 40);
-  v6[7] = v2;
-  v3 = vp::log(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = a1;
+  v1 = *(a1 + 4);
+  v5 = *(a1 + 5);
+  v6 = v1;
+  v2 = vp::log(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v7);
   }
 
-  result = _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&v4);
 }
 
-void sub_27250B380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, caulk::concurrent::message *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_27250B380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
 {
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a10);
   v36 = -96;
@@ -5940,304 +6068,396 @@ LABEL_28:
 
 uint64_t VoiceProcessorImplementation::ProcessAllOfULDSP(uint64_t a1, uint64_t a2)
 {
-  v123 = *MEMORY[0x277D85DE8];
-  v4 = util::get_node_configuration<VoiceProcessorImplementation::Uplink,VoiceProcessorUplinkNodeType,util::required_tag>(a1 + 40, 0);
-  v5 = util::get_input_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v4, 0);
-  v6 = *(a2 + 8 + 8 * v5);
-  if (!v6)
+  v4 = buf;
+  v143 = *MEMORY[0x277D85DE8];
+  v5 = util::get_node_configuration<VoiceProcessorImplementation::Uplink,VoiceProcessorUplinkNodeType,util::required_tag>(a1 + 40, 0);
+  v6 = util::get_input_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v5, 0);
+  v7 = *(a2 + 8 + 8 * v6);
+  if (!v7)
   {
-    v119 = 0;
-    v117 = 0u;
-    v118 = 0u;
-    v115 = 0u;
-    v116 = 0u;
+    v139[0] = 0;
+    v137 = 0u;
+    v138 = 0u;
+    v135 = 0u;
+    v136 = 0u;
     *buf = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v120 = 134217984;
-    *v121 = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_135;
-  }
+    v101 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v102 = 3;
+    }
 
-  v7 = v5;
-  v8 = *(a2 + 32 + 8 * v5);
-  if (!v8)
-  {
-LABEL_135:
-    v119 = 0;
-    v117 = 0u;
-    v118 = 0u;
-    v115 = 0u;
-    v116 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v120 = 134217984;
-    *v121 = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_136;
-  }
+    else
+    {
+      v102 = 2;
+    }
 
-  v9 = util::get_input_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v4, 2);
-  v10 = *(a2 + 8 + 8 * v9);
-  if (!v10)
-  {
-LABEL_136:
-    v119 = 0;
-    v117 = 0u;
-    v118 = 0u;
-    v115 = 0u;
-    v116 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v120 = 134217984;
-    *v121 = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_137;
-  }
-
-  v11 = v9;
-  v12 = *(a2 + 32 + 8 * v9);
-  if (!v12)
-  {
-LABEL_137:
-    v119 = 0;
-    v117 = 0u;
-    v118 = 0u;
-    v115 = 0u;
-    v116 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v120 = 134217984;
-    *v121 = 0;
-    _os_log_send_and_compose_impl();
+    v140 = 134217984;
+    *v141 = 0;
+    _os_log_send_and_compose_impl(v102, v139, buf, 80, &dword_2724B4000, v101, 16, "assertion failure: micInputABL != nullptr -> %llu", &v140);
     _os_crash_msg();
     __break(1u);
     goto LABEL_138;
   }
 
-  v13 = util::get_output_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v4, 3);
-  v14 = *(a2 + 8 * v13 + 72);
-  if (!v14)
+  v8 = v6;
+  v9 = *(a2 + 32 + 8 * v6);
+  if (!v9)
   {
 LABEL_138:
-    v119 = 0;
-    v117 = 0u;
-    v118 = 0u;
-    v115 = 0u;
-    v116 = 0u;
+    v139[0] = 0;
+    v137 = 0u;
+    v138 = 0u;
+    v135 = 0u;
+    v136 = 0u;
     *buf = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v120 = 134217984;
-    *v121 = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_139;
-  }
+    v103 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v104 = 3;
+    }
 
-  v15 = *(a2 + 8 * v13 + 96);
-  if (!v15)
-  {
-LABEL_139:
-    v119 = 0;
-    v117 = 0u;
-    v118 = 0u;
-    v115 = 0u;
-    v116 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v120 = 134217984;
-    *v121 = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_140;
-  }
+    else
+    {
+      v104 = 2;
+    }
 
-  v16 = *(a2 + 56 + 4 * v7);
-  if (v16 != *(a1 + 1148))
-  {
-LABEL_140:
-    v119 = 0;
-    v117 = 0u;
-    v118 = 0u;
-    v115 = 0u;
-    v116 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v120 = 134217984;
-    *v121 = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_141;
-  }
-
-  if (*(a2 + 56 + 4 * v11) != v16)
-  {
-LABEL_141:
-    v119 = 0;
-    v117 = 0u;
-    v118 = 0u;
-    v115 = 0u;
-    v116 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v120 = 134217984;
-    *v121 = 0;
-    _os_log_send_and_compose_impl();
+    v140 = 134217984;
+    *v141 = 0;
+    _os_log_send_and_compose_impl(v104, v139, buf, 80, &dword_2724B4000, v103, 16, "assertion failure: micInputTS != nullptr -> %llu", &v140);
     _os_crash_msg();
     __break(1u);
     goto LABEL_142;
   }
 
-  if (v16 % *(a1 + 1092))
+  LODWORD(v4) = 2;
+  v10 = util::get_input_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v5, 2);
+  v11 = *(a2 + 8 + 8 * v10);
+  if (!v11)
   {
 LABEL_142:
-    v119 = 0;
-    v117 = 0u;
-    v118 = 0u;
-    v115 = 0u;
-    v116 = 0u;
+    v139[0] = 0;
+    v137 = 0u;
+    v138 = 0u;
+    v135 = 0u;
+    v136 = 0u;
     *buf = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v120 = 6291970;
-    *v121 = 2048;
-    *&v121[2] = 0;
-    _os_log_send_and_compose_impl();
+    v105 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v106 = (v4 + 1);
+    }
+
+    else
+    {
+      v106 = v4;
+    }
+
+    v140 = 134217984;
+    *v141 = 0;
+    _os_log_send_and_compose_impl(v106, v139, buf, 80, &dword_2724B4000, v105, 16, "assertion failure: refInputABL != nullptr -> %llu", &v140);
     _os_crash_msg();
-    goto LABEL_143;
+    __break(1u);
+    goto LABEL_146;
+  }
+
+  v12 = v10;
+  v13 = *(a2 + 32 + 8 * v10);
+  if (!v13)
+  {
+LABEL_146:
+    v139[0] = 0;
+    v137 = 0u;
+    v138 = 0u;
+    v135 = 0u;
+    v136 = 0u;
+    *buf = 0u;
+    v107 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v108 = 3;
+    }
+
+    else
+    {
+      v108 = 2;
+    }
+
+    v140 = 134217984;
+    *v141 = 0;
+    _os_log_send_and_compose_impl(v108, v139, buf, 80, &dword_2724B4000, v107, 16, "assertion failure: refInputTS != nullptr -> %llu", &v140);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_150;
+  }
+
+  v14 = util::get_output_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v5, 3);
+  v15 = *(a2 + 8 * v14 + 72);
+  if (!v15)
+  {
+LABEL_150:
+    v139[0] = 0;
+    v137 = 0u;
+    v138 = 0u;
+    v135 = 0u;
+    v136 = 0u;
+    *buf = 0u;
+    v109 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v110 = 3;
+    }
+
+    else
+    {
+      v110 = 2;
+    }
+
+    v140 = 134217984;
+    *v141 = 0;
+    _os_log_send_and_compose_impl(v110, v139, buf, 80, &dword_2724B4000, v109, 16, "assertion failure: ulOutputABL != nullptr -> %llu", &v140);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_154;
+  }
+
+  v16 = *(a2 + 8 * v14 + 96);
+  if (!v16)
+  {
+LABEL_154:
+    v139[0] = 0;
+    v137 = 0u;
+    v138 = 0u;
+    v135 = 0u;
+    v136 = 0u;
+    *buf = 0u;
+    v111 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v112 = 3;
+    }
+
+    else
+    {
+      v112 = 2;
+    }
+
+    v140 = 134217984;
+    *v141 = 0;
+    _os_log_send_and_compose_impl(v112, v139, buf, 80, &dword_2724B4000, v111, 16, "assertion failure: ulOutputTS != nullptr -> %llu", &v140);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_158;
+  }
+
+  v17 = *(a2 + 56 + 4 * v8);
+  if (v17 != *(a1 + 1148))
+  {
+LABEL_158:
+    v139[0] = 0;
+    v137 = 0u;
+    v138 = 0u;
+    v135 = 0u;
+    v136 = 0u;
+    *buf = 0u;
+    v113 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v114 = 3;
+    }
+
+    else
+    {
+      v114 = 2;
+    }
+
+    v140 = 134217984;
+    *v141 = 0;
+    _os_log_send_and_compose_impl(v114, v139, buf, 80, &dword_2724B4000, v113, 16, "assertion failure: ioData->mInputFrameCounts[micInputIndex] == mUplink->mNumFutureInputSamples -> %llu", &v140);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_162;
+  }
+
+  if (*(a2 + 56 + 4 * v12) != v17)
+  {
+LABEL_162:
+    v139[0] = 0;
+    v137 = 0u;
+    v138 = 0u;
+    v135 = 0u;
+    v136 = 0u;
+    *buf = 0u;
+    v115 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v116 = 3;
+    }
+
+    else
+    {
+      v116 = 2;
+    }
+
+    v140 = 134217984;
+    *v141 = 0;
+    _os_log_send_and_compose_impl(v116, v139, buf, 80, &dword_2724B4000, v115, 16, "assertion failure: ioData->mInputFrameCounts[refInputIndex] == mUplink->mNumFutureInputSamples -> %llu", &v140);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_166;
+  }
+
+  if (v17 % *(a1 + 1092))
+  {
+LABEL_166:
+    v139[0] = 0;
+    v137 = 0u;
+    v138 = 0u;
+    v135 = 0u;
+    v136 = 0u;
+    *buf = 0u;
+    v117 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v118 = 3;
+    }
+
+    else
+    {
+      v118 = 2;
+    }
+
+    v140 = 6291970;
+    *v141 = 2048;
+    *&v141[2] = 0;
+    _os_log_send_and_compose_impl(v118, v139, buf, 80, &dword_2724B4000, v117, 16, "assertion failure: ioData->mInputFrameCounts[micInputIndex] % mUplink->mInputBlockSize == 0 -> %llu", &v140);
+    _os_crash_msg();
+    goto LABEL_170;
   }
 
   if (*(a1 + 1088) == 1)
   {
-    v17 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)17,AudioBufferList &,AudioTimeStamp &>(a1);
-    if (!HIDWORD(v17))
+    v18 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)17,AudioBufferList &,AudioTimeStamp &>(a1);
+    if (!HIDWORD(v18))
     {
-      v19 = v17;
+      v20 = v18;
 LABEL_120:
-      VoiceProcessorImplementation::ZeroOut(a2, v18);
-      goto LABEL_121;
+      VoiceProcessorImplementation::ZeroOut(a2, v19);
+      return v20;
     }
 
-    *v122 = 0;
-    v23 = *(a1 + 1128);
-    if (v23)
+    *v142 = 0;
+    v24 = *(a1 + 1128);
+    if (v24)
     {
-      v23 = *(v23 + 24) | 0x100000000;
+      v24 = *(v24 + 24) | 0x100000000;
     }
 
-    if ((v23 & 0x100000000) != 0)
+    if ((v24 & 0x100000000) != 0)
     {
-      v24 = v23;
+      v25 = v24;
     }
 
     else
     {
-      v24 = 0;
+      v25 = 0;
     }
 
-    vp::Audio_Buffer::prepare((a1 + 1128), v24);
-    v26 = *v8;
-    v27 = v15;
-    v28 = 0;
+    vp::Audio_Buffer::prepare((a1 + 1128), v25);
+    v27 = *v9;
+    v28 = v16;
+    v29 = 0;
     if (*(a1 + 1192) == 1)
     {
-      LODWORD(v25) = *(a1 + 1092);
-      if (v26 != *(a1 + 1184) + v25)
+      LODWORD(v26) = *(a1 + 1092);
+      if (v27 != *(a1 + 1184) + v26)
       {
-        v28 = 1;
+        v29 = 1;
       }
     }
 
-    *(a1 + 1184) = v26;
+    *(a1 + 1184) = v27;
     *(a1 + 1192) = 1;
-    v30 = *(a1 + 1128);
-    if (v30)
+    v31 = *(a1 + 1128);
+    if (v31)
     {
-      v31 = *(v30 + 80);
+      v32 = *(v31 + 80);
     }
 
     else
     {
-      v31 = 0;
+      v32 = 0;
     }
 
-    v19 = 1651270507;
-    v83 = atomic_load(a1);
-    if (v83 > 0x7FFFFFFE)
+    v20 = 1651270507;
+    v84 = atomic_load(a1);
+    if (v84 > 0x7FFFFFFE)
     {
       goto LABEL_120;
     }
 
-    v84 = v83;
+    v85 = v84;
     while (1)
     {
-      atomic_compare_exchange_strong(a1, &v84, v83 + 1);
-      if (v84 == v83)
+      atomic_compare_exchange_strong(a1, &v85, v84 + 1);
+      if (v85 == v84)
       {
         break;
       }
 
-      v83 = v84;
-      if (v84 >= 0x7FFFFFFF)
+      v84 = v85;
+      if (v85 >= 0x7FFFFFFF)
       {
         goto LABEL_120;
       }
     }
 
-    v85 = (*(**(a1 + 8) + 64))(*(a1 + 8), v6, v8, v31, v27, v122, 0, 0, 0);
-    if (!v85)
+    v86 = (*(**(a1 + 8) + 64))(*(a1 + 8), v7, v9, v32, v28, v142, 0, 0, 0);
+    if (!v86)
     {
-      v86 = v14;
+      v87 = v15;
       goto LABEL_117;
     }
 
     if (*MEMORY[0x277D7F098])
     {
-      v86 = v14;
-      v87 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
-      *(v87 + 16) = 0;
-      *(v87 + 24) = v85;
-      *(v87 + 32) = "Process";
-      *(v87 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::Process, ArgTypeList = <AudioBufferList &, AudioTimeStamp &, AudioBufferList &, AudioTimeStamp &, unsigned int &, std::nullptr_t, std::nullptr_t, std::nullptr_t>]";
-      *v87 = &unk_2881B1CD8;
-      *(v87 + 8) = 0;
-      caulk::concurrent::messenger::enqueue((a1 + 16), v87);
+      v87 = v15;
+      v88 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
+      *(v88 + 16) = 0;
+      *(v88 + 24) = v86;
+      *(v88 + 32) = "Process";
+      *(v88 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::Process, ArgTypeList = <AudioBufferList &, AudioTimeStamp &, AudioBufferList &, AudioTimeStamp &, unsigned int &, std::nullptr_t, std::nullptr_t, std::nullptr_t>]";
+      *v88 = &unk_2881B1CD8;
+      *(v88 + 8) = 0;
+      caulk::concurrent::messenger::enqueue((a1 + 16), v88);
 LABEL_117:
       caulk::concurrent::shared_spin_lock::unlock_shared(a1);
-      if (*v122)
+      if (*v142)
       {
-        v89 = *(a1 + 1128);
-        if (v89)
+        v90 = *(a1 + 1128);
+        if (v90)
         {
-          v90 = *(v89 + 80);
+          v91 = *(v90 + 80);
         }
 
         else
         {
-          v90 = 0;
+          v91 = 0;
         }
 
-        vp::Audio_Ring_Buffer::write(*(a1 + 1160), v90, *v27, *v27 + *v122);
+        vp::Audio_Ring_Buffer::write(*(a1 + 1160), v91, *v28, *v28 + *v142);
       }
 
       else
       {
-        util::zero_fill_abl(v86, v88);
+        util::zero_fill_abl(v87, v89);
       }
 
       v94 = *(a1 + 1176);
       v95 = *(a1 + 1168);
-      if (((v94 > v95) & ~v28) == 0)
+      if (((v94 > v95) & ~v29) == 0)
       {
-        v95 = *v27;
+        v95 = *v28;
         v94 = *(a1 + 1092) + v95;
         *(a1 + 1168) = v95;
         *(a1 + 1176) = v94;
@@ -6246,7 +6466,7 @@ LABEL_117:
       v96 = *(a1 + 1160);
       if (v96 && (v97 = *(v96 + 72), v98 = *(v96 + 80), v98 > v97) && (v94 <= v95 || v98 >= v94 && v97 <= v95))
       {
-        vp::Audio_Ring_Buffer::read(v96, v86, v95, v94);
+        vp::Audio_Ring_Buffer::read(v96, v87, v95, v94);
         v99 = *(a1 + 1176);
         v100 = v99 + *(a1 + 1092);
         *(a1 + 1168) = v99;
@@ -6255,65 +6475,73 @@ LABEL_117:
 
       else
       {
-        util::zero_fill_abl(v86, v93);
+        util::zero_fill_abl(v87, v93);
       }
 
-LABEL_33:
-      v19 = 0;
-      goto LABEL_121;
+      return 0;
     }
 
-LABEL_143:
+LABEL_170:
     __break(1u);
-LABEL_144:
-    v119 = 0;
-    v117 = 0u;
-    v118 = 0u;
-    v115 = 0u;
-    v116 = 0u;
+LABEL_171:
+    v139[0] = 0;
+    v137 = 0u;
+    v138 = 0u;
+    v135 = 0u;
+    v136 = 0u;
     *buf = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v120 = 134217984;
-    *v121 = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v20 = *(a1 + 1144);
-  if (v20)
-  {
-    v21 = *(a1 + 1136);
-    if (v21)
+    v119 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v22 = *(v21 + 80);
+      v120 = 3;
     }
 
     else
     {
-      v22 = 0;
+      v120 = 2;
     }
 
-    if (v20 >= *(a1 + 1152))
+    v140 = 134217984;
+    *v141 = 0;
+    _os_log_send_and_compose_impl(v120, v139, buf, 80, &dword_2724B4000, v119, 16, "assertion failure: mUplink->mNumOutputBufferSamplesAvailable == 0 -> %llu", &v140);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  v21 = *(a1 + 1144);
+  if (v21)
+  {
+    v22 = *(a1 + 1136);
+    if (v22)
     {
-      util::copy_abl_data(v22, v14, *(a1 + 1152));
-      v29 = *(a1 + 1152);
-      *(a1 + 1144) -= v29;
-      *v15 = *v15 + v29;
-      v16 = *(a1 + 1148);
-      if (v16)
+      v23 = *(v22 + 80);
+    }
+
+    else
+    {
+      v23 = 0;
+    }
+
+    if (v21 >= *(a1 + 1152))
+    {
+      util::copy_abl_data(v23, v15, *(a1 + 1152));
+      v30 = *(a1 + 1152);
+      *(a1 + 1144) -= v30;
+      *v16 = *v16 + v30;
+      v17 = *(a1 + 1148);
+      if (v17)
       {
-        v82 = _os_crash();
+        v83 = _os_crash();
         __break(1u);
-LABEL_146:
-        v101 = vp::log(v82);
-        if (os_log_type_enabled(v101, OS_LOG_TYPE_FAULT))
+LABEL_176:
+        v121 = vp::log(v83);
+        if (os_log_type_enabled(v121, OS_LOG_TYPE_FAULT))
         {
           *buf = 67109376;
-          *&buf[4] = v14;
+          *&buf[4] = v15;
           *&buf[8] = 1024;
-          *&buf[10] = v104;
-          _os_log_fault_impl(&dword_2724B4000, v101, OS_LOG_TYPE_FAULT, "I/O rate mismatch has occurred on I/O cycle %u out of %d", buf, 0xEu);
+          *&buf[10] = v124;
+          _os_log_fault_impl(&dword_2724B4000, v121, OS_LOG_TYPE_FAULT, "I/O rate mismatch has occurred on I/O cycle %u out of %d", buf, 0xEu);
         }
 
         std::terminate();
@@ -6322,324 +6550,321 @@ LABEL_146:
 
     else
     {
-      util::copy_abl_data(v22, v14, v20);
-      v29 = *(a1 + 1144);
+      util::copy_abl_data(v23, v15, v21);
+      v30 = *(a1 + 1144);
       *(a1 + 1144) = 0;
-      *v15 = *v15 + v29;
-      v16 = *(a1 + 1148);
+      *v16 = *v16 + v30;
+      v17 = *(a1 + 1148);
     }
   }
 
   else
   {
-    v29 = 0;
+    v30 = 0;
   }
 
-  v32 = *(a1 + 1092);
-  if (v32 > v16)
+  v33 = *(a1 + 1092);
+  if (v33 > v17)
   {
-    goto LABEL_33;
+    return 0;
   }
 
-  v106 = v29;
-  p_mNumberBuffers = &v14->mNumberBuffers;
-  v33 = 0;
-  v104 = v16 / v32;
-  v103 = v16 / v32 - 1;
+  v126 = v30;
+  p_mNumberBuffers = &v15->mNumberBuffers;
+  v34 = 0;
+  v124 = v17 / v33;
+  v123 = v17 / v33 - 1;
   while (1)
   {
-    LODWORD(v14) = v33;
-    v34 = *(a1 + 1112);
-    v35 = v34 ? *(v34 + 80) : 0;
-    v36 = *(a1 + 1092);
-    v37 = v36 * v33++;
-    util::make_abl_view(v6, v35, v37 | 0x100000000, (v36 * v33) | 0x100000000);
-    v38 = *(a1 + 1120);
-    v39 = v38 ? *(v38 + 80) : 0;
-    util::make_abl_view(v10, v39, (*(a1 + 1092) * v14) | 0x100000000, (*(a1 + 1092) * v33) | 0x100000000);
-    if (*(a1 + 1152) - v106 >= *(a1 + 1104))
+    LODWORD(v15) = v34;
+    v35 = *(a1 + 1112);
+    v36 = v35 ? *(v35 + 80) : 0;
+    v37 = *(a1 + 1092);
+    v38 = v37 * v34++;
+    util::make_abl_view(v7, v36, v38 | 0x100000000, (v37 * v34) | 0x100000000);
+    v39 = *(a1 + 1120);
+    v40 = v39 ? *(v39 + 80) : 0;
+    util::make_abl_view(v11, v40, (*(a1 + 1092) * v15) | 0x100000000, (*(a1 + 1092) * v34) | 0x100000000);
+    if (*(a1 + 1152) - v126 >= *(a1 + 1104))
     {
-      v42 = *(a1 + 1128);
-      v43 = v42 ? *(v42 + 80) : 0;
-      util::make_abl_view(p_mNumberBuffers, v43, v106 | 0x100000000, 0);
+      v43 = *(a1 + 1128);
+      v44 = v43 ? *(v43 + 80) : 0;
+      util::make_abl_view(p_mNumberBuffers, v44, v126 | 0x100000000, 0);
     }
 
     else
     {
-      v40 = *(a1 + 1136);
-      if (v40)
+      v41 = *(a1 + 1136);
+      if (v41)
       {
-        v41 = *(v40 + 80);
+        v42 = *(v41 + 80);
       }
 
       else
       {
-        v41 = 0;
+        v42 = 0;
       }
 
-      v44 = *(a1 + 1128);
-      if (v44)
+      v45 = *(a1 + 1128);
+      if (v45)
       {
-        v45 = *(v44 + 80);
+        v46 = *(v45 + 80);
       }
 
       else
       {
-        v45 = 0;
+        v46 = 0;
       }
 
-      util::make_abl_view(v41, v45, 0, 0);
+      util::make_abl_view(v42, v46, 0, 0);
       if (*(a1 + 1144))
       {
-        goto LABEL_144;
+        goto LABEL_171;
       }
     }
 
-    v46 = v12[3];
-    v48 = *v12;
-    v47 = v12[1];
-    v113[2] = v12[2];
-    v113[3] = v46;
-    v113[0] = v48;
-    v113[1] = v47;
-    *v113 = *&v48 + (*(a1 + 1092) * v14);
-    v49 = *(a1 + 1120);
-    v50 = v49 ? *(v49 + 80) : 0;
-    v51 = atomic_load(a1);
-    if (v51 > 0x7FFFFFFE)
+    v47 = v13[3];
+    v49 = *v13;
+    v48 = v13[1];
+    v133[2] = v13[2];
+    v133[3] = v47;
+    v133[0] = v49;
+    v133[1] = v48;
+    *v133 = *&v49 + (*(a1 + 1092) * v15);
+    v50 = *(a1 + 1120);
+    v51 = v50 ? *(v50 + 80) : 0;
+    v52 = atomic_load(a1);
+    if (v52 > 0x7FFFFFFE)
     {
       break;
     }
 
-    v52 = v51;
+    v53 = v52;
     while (1)
     {
-      atomic_compare_exchange_strong(a1, &v52, v51 + 1);
-      if (v52 == v51)
+      atomic_compare_exchange_strong(a1, &v53, v52 + 1);
+      if (v53 == v52)
       {
         break;
       }
 
-      v51 = v52;
-      if (v52 >= 0x7FFFFFFF)
+      v52 = v53;
+      if (v53 >= 0x7FFFFFFF)
       {
         goto LABEL_106;
       }
     }
 
-    v53 = (*(**(a1 + 8) + 128))(*(a1 + 8), v50, v113);
-    if (v53)
+    v54 = (*(**(a1 + 8) + 128))(*(a1 + 8), v51, v133);
+    if (v54)
     {
       if (!*MEMORY[0x277D7F098])
       {
-        goto LABEL_143;
+        goto LABEL_170;
       }
 
-      v54 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
-      *(v54 + 16) = 0;
-      *(v54 + 24) = v53;
-      *(v54 + 32) = "AppendReferenceSignal";
-      *(v54 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::AppendReferenceSignal, ArgTypeList = <AudioBufferList &, CA::TimeStamp &>]";
-      *v54 = &unk_2881B1D00;
-      *(v54 + 8) = 0;
-      caulk::concurrent::messenger::enqueue((a1 + 16), v54);
+      v55 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
+      *(v55 + 16) = 0;
+      *(v55 + 24) = v54;
+      *(v55 + 32) = "AppendReferenceSignal";
+      *(v55 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::AppendReferenceSignal, ArgTypeList = <AudioBufferList &, CA::TimeStamp &>]";
+      *v55 = &unk_2881B1D00;
+      *(v55 + 8) = 0;
+      caulk::concurrent::messenger::enqueue((a1 + 16), v55);
     }
 
     caulk::concurrent::shared_spin_lock::unlock_shared(a1);
-    v112 = 0;
-    v55 = *(v8 + 3);
-    v57 = *v8;
-    v56 = *(v8 + 1);
-    v110 = *(v8 + 2);
-    v111 = v55;
-    *__p = v57;
-    v109 = v56;
-    *__p = *&v57 + (*(a1 + 1092) * v14);
-    v58 = *(a1 + 1112);
-    v50 = v58 ? *(v58 + 80) : 0;
-    v59 = *(a1 + 1128);
-    v60 = v59 ? *(v59 + 80) : 0;
-    v61 = atomic_load(a1);
-    if (v61 > 0x7FFFFFFE)
+    v132 = 0;
+    v56 = *(v9 + 3);
+    v58 = *v9;
+    v57 = *(v9 + 1);
+    v130 = *(v9 + 2);
+    v131 = v56;
+    *__p = v58;
+    v129 = v57;
+    *__p = *&v58 + (*(a1 + 1092) * v15);
+    v59 = *(a1 + 1112);
+    v51 = v59 ? *(v59 + 80) : 0;
+    v60 = *(a1 + 1128);
+    v61 = v60 ? *(v60 + 80) : 0;
+    v62 = atomic_load(a1);
+    if (v62 > 0x7FFFFFFE)
     {
       break;
     }
 
-    v62 = v61;
+    v63 = v62;
     while (1)
     {
-      atomic_compare_exchange_strong(a1, &v62, v61 + 1);
-      if (v62 == v61)
+      atomic_compare_exchange_strong(a1, &v63, v62 + 1);
+      if (v63 == v62)
       {
         break;
       }
 
-      v61 = v62;
-      if (v62 >= 0x7FFFFFFF)
+      v62 = v63;
+      if (v63 >= 0x7FFFFFFF)
       {
         goto LABEL_106;
       }
     }
 
-    v63 = (*(**(a1 + 8) + 64))(*(a1 + 8), v50, __p, v60, v15, &v112, 0, 0, 0);
-    if (v63)
+    v64 = (*(**(a1 + 8) + 64))(*(a1 + 8), v51, __p, v61, v16, &v132, 0, 0, 0);
+    if (v64)
     {
       if (!*MEMORY[0x277D7F098])
       {
-        goto LABEL_143;
+        goto LABEL_170;
       }
 
-      v64 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
-      *(v64 + 16) = 0;
-      *(v64 + 24) = v63;
-      *(v64 + 32) = "Process";
-      *(v64 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::Process, ArgTypeList = <AudioBufferList &, CA::TimeStamp &, AudioBufferList &, AudioTimeStamp &, unsigned int &, std::nullptr_t, std::nullptr_t, std::nullptr_t>]";
-      *v64 = &unk_2881B1D28;
-      *(v64 + 8) = 0;
-      caulk::concurrent::messenger::enqueue((a1 + 16), v64);
+      v65 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
+      *(v65 + 16) = 0;
+      *(v65 + 24) = v64;
+      *(v65 + 32) = "Process";
+      *(v65 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::Process, ArgTypeList = <AudioBufferList &, CA::TimeStamp &, AudioBufferList &, AudioTimeStamp &, unsigned int &, std::nullptr_t, std::nullptr_t, std::nullptr_t>]";
+      *v65 = &unk_2881B1D28;
+      *(v65 + 8) = 0;
+      caulk::concurrent::messenger::enqueue((a1 + 16), v65);
     }
 
     caulk::concurrent::shared_spin_lock::unlock_shared(a1);
-    v65 = v106;
-    if (*(a1 + 1152) - v106 >= *(a1 + 1104))
+    v66 = v126;
+    if (*(a1 + 1152) - v126 >= *(a1 + 1104))
     {
-      v106 += v112;
+      v126 += v132;
     }
 
     else
     {
-      v66 = *(a1 + 1128);
-      if (v66)
+      v67 = *(a1 + 1128);
+      if (v67)
       {
-        v67 = *(v66 + 80);
+        v68 = *(v67 + 80);
       }
 
       else
       {
-        v67 = 0;
+        v68 = 0;
       }
 
-      util::make_abl_view(p_mNumberBuffers, v67, v106 | 0x100000000, 0);
-      v68 = *(a1 + 1136);
-      if (v68)
+      util::make_abl_view(p_mNumberBuffers, v68, v126 | 0x100000000, 0);
+      v69 = *(a1 + 1136);
+      if (v69)
       {
-        v69 = *(v68 + 80);
-      }
-
-      else
-      {
-        v69 = 0;
-      }
-
-      v70 = *(a1 + 1128);
-      if (v70)
-      {
-        v71 = *(v70 + 80);
+        v70 = *(v69 + 80);
       }
 
       else
       {
-        v71 = 0;
+        v70 = 0;
+      }
+
+      v71 = *(a1 + 1128);
+      if (v71)
+      {
+        v72 = *(v71 + 80);
+      }
+
+      else
+      {
+        v72 = 0;
       }
 
       log = *(a1 + 1152);
-      if (log - v106 <= v112)
+      if (log - v126 <= v132)
       {
-        v107 = log - v106;
-        util::copy_abl_data(v69, v71, (log - v65));
-        v72 = *(a1 + 1136);
-        if (v72)
+        v127 = log - v126;
+        util::copy_abl_data(v70, v72, (log - v66));
+        v73 = *(a1 + 1136);
+        if (v73)
         {
-          v73 = *(v72 + 80);
+          v74 = *(v73 + 80);
         }
 
         else
         {
-          v73 = 0;
+          v74 = 0;
         }
 
-        v74 = *(a1 + 1128);
-        if (v74)
+        v75 = *(a1 + 1128);
+        if (v75)
         {
-          v75 = *(v74 + 80);
-        }
-
-        else
-        {
-          v75 = 0;
-        }
-
-        v76 = v112;
-        util::make_abl_view(v73, v75, v107 | 0x100000000, v112 | 0x100000000);
-        v77 = *(a1 + 1128);
-        if (v77)
-        {
-          v78 = *(v77 + 80);
+          v76 = *(v75 + 80);
         }
 
         else
         {
-          v78 = 0;
+          v76 = 0;
         }
 
-        v79 = *(a1 + 1136);
-        if (v79)
+        v77 = v132;
+        util::make_abl_view(v74, v76, v127 | 0x100000000, v132 | 0x100000000);
+        v78 = *(a1 + 1128);
+        if (v78)
         {
-          v80 = *(v79 + 80);
+          v79 = *(v78 + 80);
         }
 
         else
         {
-          v80 = 0;
+          v79 = 0;
         }
 
-        v81 = (v76 - v107);
-        v82 = util::copy_abl_data(v78, v80, v81);
-        *(a1 + 1144) = v81;
-        v106 = log;
-        if (v14 != v103)
+        v80 = *(a1 + 1136);
+        if (v80)
         {
-          goto LABEL_146;
+          v81 = *(v80 + 80);
+        }
+
+        else
+        {
+          v81 = 0;
+        }
+
+        v82 = (v77 - v127);
+        v83 = util::copy_abl_data(v79, v81, v82);
+        *(a1 + 1144) = v82;
+        v126 = log;
+        if (v15 != v123)
+        {
+          goto LABEL_176;
         }
       }
 
       else
       {
-        util::copy_abl_data(v69, v71, v112);
-        v106 += v112;
+        util::copy_abl_data(v70, v72, v132);
+        v126 += v132;
         *(a1 + 1144) = 0;
       }
     }
 
-    v19 = 0;
-    if (v33 >= v104)
+    v20 = 0;
+    if (v34 >= v124)
     {
-      goto LABEL_121;
+      return v20;
     }
   }
 
 LABEL_106:
-  VoiceProcessorImplementation::ZeroOut(a2, v50);
-  v19 = 1651270507;
-LABEL_121:
-  v91 = *MEMORY[0x277D85DE8];
-  return v19;
+  VoiceProcessorImplementation::ZeroOut(a2, v51);
+  return 1651270507;
 }
 
-void sub_27250CB58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, char a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61)
+void sub_27250CB58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void **__p, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, char *a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, char a54, uint64_t a55, char *a56, char a57, uint64_t a58, uint64_t a59, uint64_t *a60, char a61, uint64_t a62, uint64_t a63)
 {
   if (a2)
   {
-    v62 = __cxa_begin_catch(a1);
-    v63 = vp::log(v62);
-    if (!os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+    v64 = __cxa_begin_catch(a1);
+    v65 = vp::log(v64);
+    if (!os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
     {
 
       __cxa_end_catch();
       JUMPOUT(0x27250C40CLL);
     }
 
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(v61 - 240);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(v63 - 240, "call_name");
   }
 
   _Unwind_Resume(a1);
@@ -6657,213 +6882,290 @@ void sub_27250CD10(_Unwind_Exception *a1, int a2)
 
 uint64_t VoiceProcessorImplementation::ProcessULHardwareDSP(uint64_t a1, uint64_t a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v4 = util::get_node_configuration<VoiceProcessorImplementation::Uplink,VoiceProcessorUplinkNodeType,util::required_tag>(a1 + 40, 1);
-  v5 = util::get_input_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v4, 0);
-  v6 = *(a2 + 8 + 8 * v5);
-  if (!v6)
+  v47 = *MEMORY[0x277D85DE8];
+  v6 = util::get_node_configuration<VoiceProcessorImplementation::Uplink,VoiceProcessorUplinkNodeType,util::required_tag>(a1 + 40, 1);
+  v7 = util::get_input_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v6, 0);
+  v8 = *(a2 + 8 + 8 * v7);
+  if (!v8)
   {
-    v29 = 0;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v24 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v30 = 134217984;
-    v31 = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_26;
-  }
+    v44[0] = 0;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v39 = 0u;
+    v22 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v23 = 3;
+    }
 
-  v7 = *(a2 + 32 + 8 * v5);
-  if (!v7)
-  {
-LABEL_26:
-    v29 = 0;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v24 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v30 = 134217984;
-    v31 = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_27;
-  }
+    else
+    {
+      v23 = 2;
+    }
 
-  v8 = util::get_input_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v4, 2);
-  if (!*(a2 + 8 + 8 * v8))
-  {
-LABEL_27:
-    v29 = 0;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v24 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v30 = 134217984;
-    v31 = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_28;
-  }
-
-  if (!*(a2 + 32 + 8 * v8))
-  {
-LABEL_28:
-    v29 = 0;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v24 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v30 = 134217984;
-    v31 = 0;
-    _os_log_send_and_compose_impl();
+    v45 = 134217984;
+    v46 = 0;
+    _os_log_send_and_compose_impl(v23, v44, &v39, 80, &dword_2724B4000, v22, 16, "assertion failure: micInputABL != nullptr -> %llu", &v45);
     _os_crash_msg();
     __break(1u);
     goto LABEL_29;
   }
 
-  v9 = a2 + 72;
-  v23[0] = *(a2 + 72 + 8 * util::get_output_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v4, 0));
-  if (!v23[0])
+  v3 = a2 + 32;
+  v9 = *(a2 + 32 + 8 * v7);
+  if (!v9)
   {
 LABEL_29:
-    v29 = 0;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v24 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v30 = 134217984;
-    v31 = 0;
-    _os_log_send_and_compose_impl();
+    v44[0] = 0;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v39 = 0u;
+    v24 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v25 = 3;
+    }
+
+    else
+    {
+      v25 = 2;
+    }
+
+    v45 = 134217984;
+    v46 = 0;
+    _os_log_send_and_compose_impl(v25, v44, &v39, 80, &dword_2724B4000, v24, 16, "assertion failure: micInputTS != nullptr -> %llu", &v45);
     _os_crash_msg();
     __break(1u);
-    goto LABEL_30;
+    goto LABEL_33;
   }
 
-  v22 = *(v9 + 8 * util::get_output_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v4, 1));
-  if (!v22)
+  v2 = 2;
+  v10 = util::get_input_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v6, 2);
+  if (!*(a2 + 8 + 8 * v10))
   {
-LABEL_30:
-    v29 = 0;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v24 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v30 = 134217984;
-    v31 = 0;
-    _os_log_send_and_compose_impl();
+LABEL_33:
+    v44[0] = 0;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v39 = 0u;
+    v26 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v27 = v2 + 1;
+    }
+
+    else
+    {
+      v27 = v2;
+    }
+
+    v45 = 134217984;
+    v46 = 0;
+    _os_log_send_and_compose_impl(v27, v44, &v39, 80, &dword_2724B4000, v26, 16, "assertion failure: refInputABL != nullptr -> %llu", &v45);
     _os_crash_msg();
     __break(1u);
-    goto LABEL_31;
+    goto LABEL_37;
   }
 
-  v21 = *(v9 + 8 * util::get_output_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v4, 2));
-  if (!v21)
+  if (!*(v3 + 8 * v10))
   {
-LABEL_31:
-    v29 = 0;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v24 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v30 = 134217984;
-    v31 = 0;
-    _os_log_send_and_compose_impl();
+LABEL_37:
+    v44[0] = 0;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v39 = 0u;
+    v28 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v29 = 3;
+    }
+
+    else
+    {
+      v29 = 2;
+    }
+
+    v45 = 134217984;
+    v46 = 0;
+    _os_log_send_and_compose_impl(v29, v44, &v39, 80, &dword_2724B4000, v28, 16, "assertion failure: refInputTS != nullptr -> %llu", &v45);
     _os_crash_msg();
-    goto LABEL_32;
+    __break(1u);
+    goto LABEL_41;
   }
 
-  v10 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)17,AudioBufferList &,AudioTimeStamp &>(a1);
-  if (!HIDWORD(v10))
+  v11 = a2 + 72;
+  v38[0] = *(a2 + 72 + 8 * util::get_output_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v6, 0));
+  if (!v38[0])
   {
-    v12 = v10;
+LABEL_41:
+    v44[0] = 0;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v39 = 0u;
+    v30 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v31 = 3;
+    }
+
+    else
+    {
+      v31 = 2;
+    }
+
+    v45 = 134217984;
+    v46 = 0;
+    _os_log_send_and_compose_impl(v31, v44, &v39, 80, &dword_2724B4000, v30, 16, "assertion failure: micOutputABL != nullptr -> %llu", &v45);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_45;
+  }
+
+  v37 = *(v11 + 8 * util::get_output_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v6, 1));
+  if (!v37)
+  {
+LABEL_45:
+    v44[0] = 0;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v39 = 0u;
+    v32 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v33 = 3;
+    }
+
+    else
+    {
+      v33 = 2;
+    }
+
+    v45 = 134217984;
+    v46 = 0;
+    _os_log_send_and_compose_impl(v33, v44, &v39, 80, &dword_2724B4000, v32, 16, "assertion failure: micClipDataABL != nullptr -> %llu", &v45);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_49;
+  }
+
+  LODWORD(v3) = 2;
+  v36 = *(v11 + 8 * util::get_output_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v6, 2));
+  if (!v36)
+  {
+LABEL_49:
+    v44[0] = 0;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v39 = 0u;
+    v34 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v35 = (v3 + 1);
+    }
+
+    else
+    {
+      v35 = v3;
+    }
+
+    v45 = 134217984;
+    v46 = 0;
+    _os_log_send_and_compose_impl(v35, v44, &v39, 80, &dword_2724B4000, v34, 16, "assertion failure: refOutputABL != nullptr -> %llu", &v45);
+    _os_crash_msg();
+    goto LABEL_53;
+  }
+
+  v12 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)17,AudioBufferList &,AudioTimeStamp &>(a1);
+  if (!HIDWORD(v12))
+  {
+    v14 = v12;
 LABEL_22:
-    VoiceProcessorImplementation::ZeroOut(a2, v11);
-    goto LABEL_23;
+    VoiceProcessorImplementation::ZeroOut(a2, v13);
+    return v14;
   }
 
-  v12 = 1651270507;
-  v13 = atomic_load(a1);
-  if (v13 > 0x7FFFFFFE)
+  v14 = 1651270507;
+  v15 = atomic_load(a1);
+  if (v15 > 0x7FFFFFFE)
   {
     goto LABEL_22;
   }
 
-  v14 = v13;
+  v16 = v15;
   while (1)
   {
-    atomic_compare_exchange_strong(a1, &v14, v13 + 1);
-    if (v14 == v13)
+    atomic_compare_exchange_strong(a1, &v16, v15 + 1);
+    if (v16 == v15)
     {
       break;
     }
 
-    v13 = v14;
-    if (v14 >= 0x7FFFFFFF)
+    v15 = v16;
+    if (v16 >= 0x7FFFFFFF)
     {
       goto LABEL_22;
     }
   }
 
-  v15 = (*(**(a1 + 8) + 192))(*(a1 + 8), v6, v7);
-  if (v15)
+  v17 = (*(**(a1 + 8) + 192))(*(a1 + 8), v8, v9);
+  if (v17)
   {
     if (*MEMORY[0x277D7F098])
     {
-      v16 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
-      *(v16 + 16) = 0;
-      *(v16 + 24) = v15;
-      *(v16 + 32) = "RunUplinkHardwareDSP";
-      *(v16 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::RunUplinkHardwareDSP, ArgTypeList = <AudioBufferList *&, AudioTimeStamp *&>]";
-      *v16 = &unk_2881B1D50;
-      *(v16 + 8) = 0;
-      caulk::concurrent::messenger::enqueue((a1 + 16), v16);
+      v18 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
+      *(v18 + 16) = 0;
+      *(v18 + 24) = v17;
+      *(v18 + 32) = "RunUplinkHardwareDSP";
+      *(v18 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::RunUplinkHardwareDSP, ArgTypeList = <AudioBufferList *&, AudioTimeStamp *&>]";
+      *v18 = &unk_2881B1D50;
+      *(v18 + 8) = 0;
+      caulk::concurrent::messenger::enqueue((a1 + 16), v18);
       goto LABEL_18;
     }
 
-LABEL_32:
+LABEL_53:
     __break(1u);
   }
 
 LABEL_18:
   caulk::concurrent::shared_spin_lock::unlock_shared(a1);
-  LODWORD(v24) = 0;
-  v17 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)12,vp::BufferID,AudioBufferList *&>(a1, &v24, v23);
-  if (HIDWORD(v17) && (LODWORD(v24) = 1, v17 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)12,vp::BufferID,AudioBufferList *&>(a1, &v24, &v21), HIDWORD(v17)) && (LODWORD(v24) = 2, v17 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)12,vp::BufferID,AudioBufferList *&>(a1, &v24, &v22), HIDWORD(v17)))
+  LODWORD(v39) = 0;
+  v19 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)12,vp::BufferID,AudioBufferList *&>(a1, &v39, v38);
+  if (HIDWORD(v19))
   {
-    v12 = 0;
+    LODWORD(v39) = 1;
+    v19 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)12,vp::BufferID,AudioBufferList *&>(a1, &v39, &v36);
+    if (HIDWORD(v19))
+    {
+      LODWORD(v39) = 2;
+      v19 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)12,vp::BufferID,AudioBufferList *&>(a1, &v39, &v37);
+      if (HIDWORD(v19))
+      {
+        return 0;
+      }
+    }
   }
 
-  else
-  {
-    v12 = v17;
-    VoiceProcessorImplementation::ZeroOut(a2, v18);
-  }
-
-LABEL_23:
-  v19 = *MEMORY[0x277D85DE8];
-  return v12;
+  v14 = v19;
+  VoiceProcessorImplementation::ZeroOut(a2, v20);
+  return v14;
 }
 
-void sub_27250D3A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, char a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_27250D3A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, void **__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, char a22, uint64_t a23, char *a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, char *a34, char a35, uint64_t a36, uint64_t a37, uint64_t *a38, char a39)
 {
   if (a2)
   {
@@ -6876,7 +7178,7 @@ void sub_27250D3A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       JUMPOUT(0x27250CF08);
     }
 
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(v39 - 192);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(v39 - 192, "call_name");
   }
 
   _Unwind_Resume(a1);
@@ -6884,172 +7186,243 @@ void sub_27250D3A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t VoiceProcessorImplementation::ProcessULEchoDSP(uint64_t a1, uint64_t a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v4 = util::get_node_configuration<VoiceProcessorImplementation::Uplink,VoiceProcessorUplinkNodeType,util::required_tag>(a1 + 40, 2);
-  v5 = util::get_input_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v4, 0);
-  v6 = a2 + 8;
-  v27[0] = *(a2 + 8 + 8 * v5);
-  if (!v27[0])
+  v50 = *MEMORY[0x277D85DE8];
+  v5 = util::get_node_configuration<VoiceProcessorImplementation::Uplink,VoiceProcessorUplinkNodeType,util::required_tag>(a1 + 40, 2);
+  v6 = util::get_input_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v5, 0);
+  v7 = a2 + 8;
+  v41[0] = *(a2 + 8 + 8 * v6);
+  if (!v41[0])
   {
-    v33 = 0;
-    v32 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v34 = 134217984;
-    v35 = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_29;
-  }
+    v47[0] = 0;
+    v46 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v24 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v25 = 3;
+    }
 
-  v7 = a2 + 32;
-  v8 = *(a2 + 32 + 8 * v5);
-  if (!v8)
-  {
-LABEL_29:
-    v33 = 0;
-    v32 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v34 = 134217984;
-    v35 = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_30;
-  }
+    else
+    {
+      v25 = 2;
+    }
 
-  v9 = util::get_input_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v4, 2);
-  v10 = *(v6 + 8 * v9);
-  v26 = v10;
-  if (!v10)
-  {
-LABEL_30:
-    v33 = 0;
-    v32 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v34 = 134217984;
-    v35 = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_31;
-  }
-
-  if (!*(v7 + 8 * v9))
-  {
-LABEL_31:
-    v33 = 0;
-    v32 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v34 = 134217984;
-    v35 = 0;
-    _os_log_send_and_compose_impl();
+    v48 = 134217984;
+    v49 = 0;
+    _os_log_send_and_compose_impl(v25, v47, &v42, 80, &dword_2724B4000, v24, 16, "assertion failure: micInputABL != nullptr -> %llu", &v48);
     _os_crash_msg();
     __break(1u);
     goto LABEL_32;
   }
 
-  v11 = util::get_input_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v4, 1);
-  v25 = *(v6 + 8 * v11);
-  if (!v25)
+  v8 = a2 + 32;
+  v9 = *(a2 + 32 + 8 * v6);
+  if (!v9)
   {
 LABEL_32:
-    v33 = 0;
-    v32 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v34 = 134217984;
-    v35 = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_33;
-  }
-
-  if (!*(v7 + 8 * v11))
-  {
-LABEL_33:
-    v33 = 0;
-    v32 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v34 = 134217984;
-    v35 = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_34;
-  }
-
-  v24 = *(a2 + 8 * util::get_output_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v4, 3) + 72);
-  if (!v24)
-  {
-LABEL_34:
-    v33 = 0;
-    v32 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v34 = 134217984;
-    v35 = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    goto LABEL_35;
-  }
-
-  LODWORD(v28) = 3;
-  v12 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)13,vp::BufferID,AudioBufferList *&>(a1, &v28, v27);
-  if (HIDWORD(v12))
-  {
-    if (*v10)
+    v47[0] = 0;
+    v46 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v26 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v15 = 0;
-      v16 = (v10 + 4);
+      v27 = 3;
+    }
+
+    else
+    {
+      v27 = 2;
+    }
+
+    v48 = 134217984;
+    v49 = 0;
+    _os_log_send_and_compose_impl(v27, v47, &v42, 80, &dword_2724B4000, v26, 16, "assertion failure: micInputTS != nullptr -> %llu", &v48);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_36;
+  }
+
+  v2 = 2;
+  v10 = util::get_input_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v5, 2);
+  v11 = *(v7 + 8 * v10);
+  v40 = v11;
+  if (!v11)
+  {
+LABEL_36:
+    v47[0] = 0;
+    v46 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v28 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v29 = v2 + 1;
+    }
+
+    else
+    {
+      v29 = v2;
+    }
+
+    v48 = 134217984;
+    v49 = 0;
+    _os_log_send_and_compose_impl(v29, v47, &v42, 80, &dword_2724B4000, v28, 16, "assertion failure: refInputABL != nullptr -> %llu", &v48);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_40;
+  }
+
+  if (!*(v8 + 8 * v10))
+  {
+LABEL_40:
+    v47[0] = 0;
+    v46 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v30 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v31 = 3;
+    }
+
+    else
+    {
+      v31 = 2;
+    }
+
+    v48 = 134217984;
+    v49 = 0;
+    _os_log_send_and_compose_impl(v31, v47, &v42, 80, &dword_2724B4000, v30, 16, "assertion failure: refInputTS != nullptr -> %llu", &v48);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_44;
+  }
+
+  v12 = util::get_input_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v5, 1);
+  v39 = *(v7 + 8 * v12);
+  if (!v39)
+  {
+LABEL_44:
+    v47[0] = 0;
+    v46 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v32 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v33 = 3;
+    }
+
+    else
+    {
+      v33 = 2;
+    }
+
+    v48 = 134217984;
+    v49 = 0;
+    _os_log_send_and_compose_impl(v33, v47, &v42, 80, &dword_2724B4000, v32, 16, "assertion failure: micClipDataABL != nullptr -> %llu", &v48);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_48;
+  }
+
+  if (!*(v8 + 8 * v12))
+  {
+LABEL_48:
+    v47[0] = 0;
+    v46 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v34 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v35 = 3;
+    }
+
+    else
+    {
+      v35 = 2;
+    }
+
+    v48 = 134217984;
+    v49 = 0;
+    _os_log_send_and_compose_impl(v35, v47, &v42, 80, &dword_2724B4000, v34, 16, "assertion failure: micClipDataTS != nullptr -> %llu", &v48);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_52;
+  }
+
+  v38 = *(a2 + 8 * util::get_output_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v5, 3) + 72);
+  if (!v38)
+  {
+LABEL_52:
+    v47[0] = 0;
+    v46 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v36 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v37 = 3;
+    }
+
+    else
+    {
+      v37 = 2;
+    }
+
+    v48 = 134217984;
+    v49 = 0;
+    _os_log_send_and_compose_impl(v37, v47, &v42, 80, &dword_2724B4000, v36, 16, "assertion failure: micOutputABL != nullptr -> %llu", &v48);
+    _os_crash_msg();
+    goto LABEL_56;
+  }
+
+  LODWORD(v42) = 3;
+  v13 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)13,vp::BufferID,AudioBufferList *&>(a1, &v42, v41);
+  if (HIDWORD(v13))
+  {
+    if (*v11)
+    {
+      v16 = 0;
+      v17 = (v11 + 4);
       do
       {
-        bzero(*v16, *(v16 - 1));
-        ++v15;
-        v16 += 2;
+        bzero(*v17, *(v17 - 1));
+        ++v16;
+        v17 += 2;
       }
 
-      while (v15 < *v10);
+      while (v16 < *v11);
     }
 
-    LODWORD(v28) = 4;
-    v17 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)13,vp::BufferID,AudioBufferList *&>(a1, &v28, &v26);
-    if (!HIDWORD(v17) || (LODWORD(v28) = 5, v17 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)13,vp::BufferID,AudioBufferList *&>(a1, &v28, &v25), !HIDWORD(v17)))
+    LODWORD(v42) = 4;
+    v18 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)13,vp::BufferID,AudioBufferList *&>(a1, &v42, &v40);
+    if (!HIDWORD(v18) || (LODWORD(v42) = 5, v18 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)13,vp::BufferID,AudioBufferList *&>(a1, &v42, &v39), !HIDWORD(v18)))
     {
 LABEL_16:
-      v14 = v17;
-      VoiceProcessorImplementation::ZeroOut(a2, v13);
-      goto LABEL_17;
+      v15 = v18;
+      VoiceProcessorImplementation::ZeroOut(a2, v14);
+      return v15;
     }
 
-    v14 = 1651270507;
+    v15 = 1651270507;
     v20 = atomic_load(a1);
     if (v20 > 0x7FFFFFFE)
     {
@@ -7072,17 +7445,16 @@ LABEL_16:
       }
     }
 
-    v22 = (*(**(a1 + 8) + 200))(*(a1 + 8), v8);
+    v22 = (*(**(a1 + 8) + 200))(*(a1 + 8), v9);
     if (!v22)
     {
 LABEL_26:
       caulk::concurrent::shared_spin_lock::unlock_shared(a1);
-      LODWORD(v28) = 6;
-      v17 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)12,vp::BufferID,AudioBufferList *&>(a1, &v28, &v24);
-      if (HIDWORD(v17))
+      LODWORD(v42) = 6;
+      v18 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)12,vp::BufferID,AudioBufferList *&>(a1, &v42, &v38);
+      if (HIDWORD(v18))
       {
-        v14 = 0;
-        goto LABEL_17;
+        return 0;
       }
 
       goto LABEL_16;
@@ -7101,32 +7473,30 @@ LABEL_26:
       goto LABEL_26;
     }
 
-LABEL_35:
+LABEL_56:
     __break(1u);
   }
 
-  v14 = v12;
+  v15 = v13;
 LABEL_10:
-  VoiceProcessorImplementation::ZeroOut(a2, v13);
-LABEL_17:
-  v18 = *MEMORY[0x277D85DE8];
-  return v14;
+  VoiceProcessorImplementation::ZeroOut(a2, v14);
+  return v15;
 }
 
-void sub_27250DC04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_27250DC04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, void **__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, uint64_t a25, char *a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, char *a36, char a37, uint64_t a38, uint64_t a39, uint64_t *a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, __int128 a50)
 {
   if (a2)
   {
-    v42 = __cxa_begin_catch(a1);
-    v43 = vp::log(v42);
-    if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v51 = __cxa_begin_catch(a1);
+    v52 = vp::log(v51);
+    if (!os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
 
       __cxa_end_catch();
       JUMPOUT(0x27250D7F4);
     }
 
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(v41 - 176);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(v50 - 176, "call_name");
   }
 
   _Unwind_Resume(a1);
@@ -7134,28 +7504,64 @@ void sub_27250DC04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t VoiceProcessorImplementation::ProcessULDynamicsDSP(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v4 = util::get_node_configuration<VoiceProcessorImplementation::Uplink,VoiceProcessorUplinkNodeType,util::required_tag>(a1 + 40, 3);
   v5 = util::get_input_index<VoiceProcessorUplinkNodeConfiguration,VoiceProcessorUplinkTerminalType,util::required_tag>(v4, 3);
   v6 = *(a2 + 8 * v5 + 8);
   if (!v6)
   {
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v29[0] = 0;
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v24 = 0u;
+    v18 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v19 = 3;
+    }
+
+    else
+    {
+      v19 = 2;
+    }
+
+    v30 = 134217984;
+    v31 = 0;
+    _os_log_send_and_compose_impl(v19, v29, &v24, 80, &dword_2724B4000, v18, 16, "assertion failure: inputABL != nullptr -> %llu", &v30);
     _os_crash_msg();
     __break(1u);
-    goto LABEL_16;
+    goto LABEL_19;
   }
 
   v7 = *(a2 + 8 * v5 + 32);
   if (!v7)
   {
-LABEL_16:
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+LABEL_19:
+    v29[0] = 0;
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v24 = 0u;
+    v20 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v21 = 3;
+    }
+
+    else
+    {
+      v21 = 2;
+    }
+
+    v30 = 134217984;
+    v31 = 0;
+    _os_log_send_and_compose_impl(v21, v29, &v24, 80, &dword_2724B4000, v20, 16, "assertion failure: inputTS != nullptr -> %llu", &v30);
     _os_crash_msg();
     __break(1u);
-    goto LABEL_17;
+    goto LABEL_23;
   }
 
   v8 = *(a2 + 4 * v5 + 56);
@@ -7163,11 +7569,29 @@ LABEL_16:
   v10 = *(v9 + 72);
   if (!v10)
   {
-LABEL_17:
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+LABEL_23:
+    v29[0] = 0;
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v24 = 0u;
+    v22 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v23 = 3;
+    }
+
+    else
+    {
+      v23 = 2;
+    }
+
+    v30 = 134217984;
+    v31 = 0;
+    _os_log_send_and_compose_impl(v23, v29, &v24, 80, &dword_2724B4000, v22, 16, "assertion failure: outputABL != nullptr -> %llu", &v30);
     _os_crash_msg();
-    goto LABEL_18;
+    goto LABEL_27;
   }
 
   v11 = 1651270507;
@@ -7177,7 +7601,7 @@ LABEL_17:
   {
 LABEL_13:
     VoiceProcessorImplementation::ZeroOut(a2, v12);
-    goto LABEL_14;
+    return v11;
   }
 
   v14 = v13;
@@ -7212,19 +7636,16 @@ LABEL_13:
       goto LABEL_12;
     }
 
-LABEL_18:
+LABEL_27:
     __break(1u);
   }
 
 LABEL_12:
   caulk::concurrent::shared_spin_lock::unlock_shared(a1);
-  v11 = 0;
-LABEL_14:
-  v17 = *MEMORY[0x277D85DE8];
-  return v11;
+  return 0;
 }
 
-void sub_27250E14C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_27250E14C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, void **__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20, uint64_t a21, char *a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, char *a32, char a33, uint64_t a34, uint64_t a35, uint64_t *a36, char a37)
 {
   if (a2)
   {
@@ -7237,7 +7658,7 @@ void sub_27250E14C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       JUMPOUT(0x27250DF44);
     }
 
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(v37 - 176);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(v37 - 176, "call_name");
   }
 
   _Unwind_Resume(a1);
@@ -7351,26 +7772,23 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
   operator new();
 }
 
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE11EJRP15AudioBufferListRP14AudioTimeStampRjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSH_EUlT_PKcSP_E_JRiRKSP_RA263_SO_EE7performEv(uint64_t a1)
+caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE11EJRP15AudioBufferListRP14AudioTimeStampRjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSH_EUlT_PKcSP_E_JRiRKSP_RA263_SO_EE7performEv(caulk::concurrent::message *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v6[0] = a1;
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 32);
-  v6[6] = *(a1 + 40);
-  v6[7] = v2;
-  v3 = vp::log(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = a1;
+  v1 = *(a1 + 4);
+  v5 = *(a1 + 5);
+  v6 = v1;
+  v2 = vp::log(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v7);
   }
 
-  result = _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&v4);
 }
 
-void sub_27250E7B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, caulk::concurrent::message *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_27250E7B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
 {
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a10);
   v36 = -96;
@@ -7418,7 +7836,6 @@ void _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18V
 
 uint64_t vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)13,vp::BufferID,AudioBufferList *&>(uint64_t a1, unsigned int *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = 1651270507;
   v4 = atomic_load(a1);
   if (v4 > 0x7FFFFFFE)
@@ -7468,11 +7885,10 @@ LABEL_5:
     v3 = 1651270400;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v3 | v7;
 }
 
-void sub_27250EA84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+void sub_27250EA84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void **__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, char *a20, char a21, uint64_t a22, uint64_t a23, uint64_t *a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, __int16 *a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
 {
   if (a2)
   {
@@ -7485,7 +7901,7 @@ void sub_27250EA84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       JUMPOUT(0x27250EA28);
     }
 
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27, "call_name");
   }
 
   _Unwind_Resume(a1);
@@ -7493,7 +7909,6 @@ void sub_27250EA84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)12,vp::BufferID,AudioBufferList *&>(uint64_t a1, unsigned int *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = 1651270507;
   v4 = atomic_load(a1);
   if (v4 > 0x7FFFFFFE)
@@ -7543,11 +7958,10 @@ LABEL_5:
     v3 = 1651270400;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v3 | v7;
 }
 
-void sub_27250EDB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+void sub_27250EDB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void **__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, char *a20, char a21, uint64_t a22, uint64_t a23, uint64_t *a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, __int16 *a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
 {
   if (a2)
   {
@@ -7560,7 +7974,7 @@ void sub_27250EDB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       JUMPOUT(0x27250ED58);
     }
 
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27, "call_name");
   }
 
   _Unwind_Resume(a1);
@@ -7573,26 +7987,23 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
   operator new();
 }
 
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE12EJNS3_8BufferIDERP15AudioBufferListEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA232_SL_EE7performEv(uint64_t a1)
+caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE12EJNS3_8BufferIDERP15AudioBufferListEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA232_SL_EE7performEv(caulk::concurrent::message *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v6[0] = a1;
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 32);
-  v6[6] = *(a1 + 40);
-  v6[7] = v2;
-  v3 = vp::log(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = a1;
+  v1 = *(a1 + 4);
+  v5 = *(a1 + 5);
+  v6 = v1;
+  v2 = vp::log(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v7);
   }
 
-  result = _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&v4);
 }
 
-void sub_27250F2D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, caulk::concurrent::message *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_27250F2D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
 {
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a10);
   v36 = -96;
@@ -7645,26 +8056,23 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
   operator new();
 }
 
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE10EJRP14AudioTimeStampEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSD_EUlT_PKcSL_E_JRiRKSL_RA223_SK_EE7performEv(uint64_t a1)
+caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE10EJRP14AudioTimeStampEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSD_EUlT_PKcSL_E_JRiRKSL_RA223_SK_EE7performEv(caulk::concurrent::message *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v6[0] = a1;
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 32);
-  v6[6] = *(a1 + 40);
-  v6[7] = v2;
-  v3 = vp::log(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = a1;
+  v1 = *(a1 + 4);
+  v5 = *(a1 + 5);
+  v6 = v1;
+  v2 = vp::log(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v7);
   }
 
-  result = _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&v4);
 }
 
-void sub_27250F794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, caulk::concurrent::message *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_27250F794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
 {
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a10);
   v36 = -96;
@@ -7710,26 +8118,23 @@ void _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18V
   JUMPOUT(0x2743CBFA0);
 }
 
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE13EJNS3_8BufferIDERP15AudioBufferListEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA233_SL_EE7performEv(uint64_t a1)
+caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE13EJNS3_8BufferIDERP15AudioBufferListEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA233_SL_EE7performEv(caulk::concurrent::message *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v6[0] = a1;
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 32);
-  v6[6] = *(a1 + 40);
-  v6[7] = v2;
-  v3 = vp::log(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = a1;
+  v1 = *(a1 + 4);
+  v5 = *(a1 + 5);
+  v6 = v1;
+  v2 = vp::log(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v7);
   }
 
-  result = _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&v4);
 }
 
-void sub_27250FBD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, caulk::concurrent::message *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_27250FBD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
 {
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a10);
   v36 = -96;
@@ -7777,7 +8182,6 @@ void _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18V
 
 uint64_t vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)17,AudioBufferList &,AudioTimeStamp &>(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = 1651270507;
   v2 = atomic_load(a1);
   if (v2 > 0x7FFFFFFE)
@@ -7827,11 +8231,10 @@ LABEL_5:
     v1 = 1651270400;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v1 | v5;
 }
 
-void sub_27250FEA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+void sub_27250FEA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void **__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, char *a20, char a21, uint64_t a22, uint64_t a23, uint64_t *a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, __int16 *a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
 {
   if (a2)
   {
@@ -7844,7 +8247,7 @@ void sub_27250FEA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       JUMPOUT(0x27250FE44);
     }
 
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27, "call_name");
   }
 
   _Unwind_Resume(a1);
@@ -7857,26 +8260,23 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
   operator new();
 }
 
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE9EJRP15AudioBufferListRP14AudioTimeStampEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSG_EUlT_PKcSO_E_JRiRKSO_RA247_SN_EE7performEv(uint64_t a1)
+caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE9EJRP15AudioBufferListRP14AudioTimeStampEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSG_EUlT_PKcSO_E_JRiRKSO_RA247_SN_EE7performEv(caulk::concurrent::message *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v6[0] = a1;
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 32);
-  v6[6] = *(a1 + 40);
-  v6[7] = v2;
-  v3 = vp::log(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = a1;
+  v1 = *(a1 + 4);
+  v5 = *(a1 + 5);
+  v6 = v1;
+  v2 = vp::log(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v7);
   }
 
-  result = _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&v4);
 }
 
-void sub_2725103C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, caulk::concurrent::message *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_2725103C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
 {
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a10);
   v36 = -96;
@@ -7922,26 +8322,23 @@ void _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18V
   JUMPOUT(0x2743CBFA0);
 }
 
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE17EJR15AudioBufferListR14AudioTimeStampEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA246_SL_EE7performEv(uint64_t a1)
+caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE17EJR15AudioBufferListR14AudioTimeStampEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA246_SL_EE7performEv(caulk::concurrent::message *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v6[0] = a1;
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 32);
-  v6[6] = *(a1 + 40);
-  v6[7] = v2;
-  v3 = vp::log(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = a1;
+  v1 = *(a1 + 4);
+  v5 = *(a1 + 5);
+  v6 = v1;
+  v2 = vp::log(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v7);
   }
 
-  result = _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&v4);
 }
 
-void sub_272510808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, caulk::concurrent::message *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_272510808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
 {
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a10);
   v36 = -96;
@@ -7994,26 +8391,23 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
   operator new();
 }
 
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE8EJR15AudioBufferListRN2CA9TimeStampESA_R14AudioTimeStampRjDnDnDnEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSI_EUlT_PKcSQ_E_JRiRKSQ_RA332_SP_EE7performEv(uint64_t a1)
+caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE8EJR15AudioBufferListRN2CA9TimeStampESA_R14AudioTimeStampRjDnDnDnEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSI_EUlT_PKcSQ_E_JRiRKSQ_RA332_SP_EE7performEv(caulk::concurrent::message *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v6[0] = a1;
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 32);
-  v6[6] = *(a1 + 40);
-  v6[7] = v2;
-  v3 = vp::log(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = a1;
+  v1 = *(a1 + 4);
+  v5 = *(a1 + 5);
+  v6 = v1;
+  v2 = vp::log(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v7);
   }
 
-  result = _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&v4);
 }
 
-void sub_272510CCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, caulk::concurrent::message *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_272510CCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
 {
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a10);
   v36 = -96;
@@ -8066,26 +8460,23 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
   operator new();
 }
 
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE17EJR15AudioBufferListRN2CA9TimeStampEEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSF_EUlT_PKcSN_E_JRiRKSN_RA245_SM_EE7performEv(uint64_t a1)
+caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE17EJR15AudioBufferListRN2CA9TimeStampEEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSF_EUlT_PKcSN_E_JRiRKSN_RA245_SM_EE7performEv(caulk::concurrent::message *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v6[0] = a1;
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 32);
-  v6[6] = *(a1 + 40);
-  v6[7] = v2;
-  v3 = vp::log(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = a1;
+  v1 = *(a1 + 4);
+  v5 = *(a1 + 5);
+  v6 = v1;
+  v2 = vp::log(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v7);
   }
 
-  result = _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&v4);
 }
 
-void sub_272511190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, caulk::concurrent::message *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_272511190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
 {
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a10);
   v36 = -96;
@@ -8138,26 +8529,23 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
   operator new();
 }
 
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE8EJR15AudioBufferListR14AudioTimeStampSA_SC_RjDnDnDnEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSF_EUlT_PKcSN_E_JRiRKSN_RA333_SM_EE7performEv(uint64_t a1)
+caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE8EJR15AudioBufferListR14AudioTimeStampSA_SC_RjDnDnDnEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSF_EUlT_PKcSN_E_JRiRKSN_RA333_SM_EE7performEv(caulk::concurrent::message *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v6[0] = a1;
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 32);
-  v6[6] = *(a1 + 40);
-  v6[7] = v2;
-  v3 = vp::log(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = a1;
+  v1 = *(a1 + 4);
+  v5 = *(a1 + 5);
+  v6 = v1;
+  v2 = vp::log(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v7);
   }
 
-  result = _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&v4);
 }
 
-void sub_272511654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, caulk::concurrent::message *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_272511654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
 {
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a10);
   v36 = -96;
@@ -8205,188 +8593,202 @@ void _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18V
 
 uint64_t VPSPIPreflightDownlink(uint64_t a1, uint64_t a2, int a3, _DWORD *a4, _DWORD *a5)
 {
-  *(&v31[10] + 4) = *MEMORY[0x277D85DE8];
-  if (!a1)
+  *(&v33[10] + 4) = *MEMORY[0x277D85DE8];
+  if (a1)
   {
-    v14 = vp::log(0);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    if (a4)
     {
-      *buf = 0;
-      _os_log_fault_impl(&dword_2724B4000, v14, OS_LOG_TYPE_FAULT, "failed to preflight downlink due to bad reference", buf, 2u);
-    }
-
-    result = 1651664230;
-    goto LABEL_21;
-  }
-
-  if (!a4)
-  {
-    v16 = vp::log(a1);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_error_impl(&dword_2724B4000, v16, OS_LOG_TYPE_ERROR, "VoiceProcessor_PreflightDownlink BadArgument (outNumConsumedDownlinkInputSamples)", buf, 2u);
-    }
-
-    goto LABEL_20;
-  }
-
-  if (!a5)
-  {
-    v16 = vp::log(a1);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_error_impl(&dword_2724B4000, v16, OS_LOG_TYPE_ERROR, "VoiceProcessor_PreflightDownlink BadArgument (outNumProducesDownlinkOutputSamples)", buf, 2u);
-    }
-
-LABEL_20:
-
-    result = 1650553447;
-LABEL_21:
-    v17 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  v9 = caulk::pooled_semaphore_mutex::try_lock((a1 + 32));
-  if ((v9 & 1) == 0)
-  {
-    v18 = vp::log(v9);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_error_impl(&dword_2724B4000, v18, OS_LOG_TYPE_ERROR, "PreflightDownlink BadLock", buf, 2u);
-    }
-
-    v10 = 1651270507;
-    goto LABEL_32;
-  }
-
-  v10 = 1651733601;
-  if (*(a1 + 1200) != 1)
-  {
-    v19 = vp::log(v9);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_error_impl(&dword_2724B4000, v19, OS_LOG_TYPE_ERROR, "PreflightDownlink BadState (uplink)", buf, 2u);
-    }
-
-    if (*(a1 + 2216))
-    {
-      goto LABEL_31;
-    }
-
-    goto LABEL_28;
-  }
-
-  if ((*(a1 + 2216) & 1) == 0)
-  {
-LABEL_28:
-    v20 = vp::log(v9);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_error_impl(&dword_2724B4000, v20, OS_LOG_TYPE_ERROR, "PreflightDownlink BadState (downlink)", buf, 2u);
-    }
-
-    goto LABEL_31;
-  }
-
-  v10 = 1651270507;
-  v11 = *(a1 + 2196);
-  v12 = atomic_load(a1);
-  if (v12 <= 0x7FFFFFFE)
-  {
-    v13 = v12;
-    while (1)
-    {
-      atomic_compare_exchange_strong(a1, &v13, v12 + 1);
-      if (v13 == v12)
+      if (a5)
       {
-        break;
-      }
+        v9 = caulk::pooled_semaphore_mutex::try_lock((a1 + 32));
+        if ((v9 & 1) == 0)
+        {
+          v17 = vp::log(v9);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 0;
+            _os_log_error_impl(&dword_2724B4000, v17, OS_LOG_TYPE_ERROR, "PreflightDownlink BadLock", buf, 2u);
+          }
 
-      v12 = v13;
-      if (v13 >= 0x7FFFFFFF)
-      {
-        goto LABEL_31;
-      }
-    }
+          v10 = 1651270507;
+          goto LABEL_31;
+        }
 
-    v22 = (*(**(a1 + 8) + 168))(*(a1 + 8), (v11 + a3), a1 + 2200, a1 + 2204);
-    if (v22)
-    {
-      if (!*MEMORY[0x277D7F098])
-      {
-        __break(1u);
-        goto LABEL_42;
-      }
-
-      v23 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
-      *(v23 + 16) = 0;
-      *(v23 + 24) = v22;
-      *(v23 + 32) = "PreflightDownlink";
-      *(v23 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::PreflightDownlink, ArgTypeList = <unsigned int, unsigned int *, unsigned int *>]";
-      *v23 = &unk_2881B1E18;
-      *(v23 + 8) = 0;
-      caulk::concurrent::messenger::enqueue((a1 + 16), v23);
-    }
-
-    caulk::concurrent::shared_spin_lock::unlock_shared(a1);
-    if (*(a1 + 2200) <= (*(a1 + 2196) + a3))
-    {
-      if (!(*(a1 + 2204) % *(a1 + 2136)))
-      {
-        v10 = 0;
-        *(a1 + 2200) = a3;
-        *a4 = a3;
-        *a5 = *(a1 + 2204);
-        *(a1 + 2208) = 1;
-        goto LABEL_31;
-      }
-
-LABEL_43:
-      v29 = 0;
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      v30 = 6291970;
-      LOWORD(v31[0]) = 2048;
-      *(v31 + 2) = 0;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-LABEL_42:
-    v29 = 0;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v30 = 134217984;
-    v31[0] = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_43;
-  }
-
+        v10 = 1651733601;
+        if (*(a1 + 1200) == 1)
+        {
+          if (*(a1 + 2216))
+          {
+            v10 = 1651270507;
+            v11 = *(a1 + 2196);
+            v12 = atomic_load(a1);
+            if (v12 > 0x7FFFFFFE)
+            {
+LABEL_30:
+              caulk::pooled_semaphore_mutex::_unlock((a1 + 32));
 LABEL_31:
-  caulk::pooled_semaphore_mutex::_unlock((a1 + 32));
-LABEL_32:
-  v21 = *MEMORY[0x277D85DE8];
 
-  return ErrorFromOSStatus(v10);
+              return ErrorFromOSStatus(v10);
+            }
+
+            v13 = v12;
+            while (1)
+            {
+              atomic_compare_exchange_strong(a1, &v13, v12 + 1);
+              if (v13 == v12)
+              {
+                break;
+              }
+
+              v12 = v13;
+              if (v13 >= 0x7FFFFFFF)
+              {
+                goto LABEL_30;
+              }
+            }
+
+            v20 = (*(**(a1 + 8) + 168))(*(a1 + 8), (v11 + a3), a1 + 2200, a1 + 2204);
+            if (v20)
+            {
+              if (!*MEMORY[0x277D7F098])
+              {
+                __break(1u);
+                goto LABEL_41;
+              }
+
+              v21 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
+              *(v21 + 16) = 0;
+              *(v21 + 24) = v20;
+              *(v21 + 32) = "PreflightDownlink";
+              *(v21 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::PreflightDownlink, ArgTypeList = <unsigned int, unsigned int *, unsigned int *>]";
+              *v21 = &unk_2881B1E18;
+              *(v21 + 8) = 0;
+              caulk::concurrent::messenger::enqueue((a1 + 16), v21);
+            }
+
+            caulk::concurrent::shared_spin_lock::unlock_shared(a1);
+            if (*(a1 + 2200) <= (*(a1 + 2196) + a3))
+            {
+              if (!(*(a1 + 2204) % *(a1 + 2136)))
+              {
+                v10 = 0;
+                *(a1 + 2200) = a3;
+                *a4 = a3;
+                *a5 = *(a1 + 2204);
+                *(a1 + 2208) = 1;
+                goto LABEL_30;
+              }
+
+LABEL_45:
+              v31[0] = 0;
+              v29 = 0u;
+              v30 = 0u;
+              v27 = 0u;
+              v28 = 0u;
+              *buf = 0u;
+              v24 = MEMORY[0x277D86220];
+              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+              {
+                v25 = 3;
+              }
+
+              else
+              {
+                v25 = 2;
+              }
+
+              v32 = 6291970;
+              LOWORD(v33[0]) = 2048;
+              *(v33 + 2) = 0;
+              _os_log_send_and_compose_impl(v25, v31, buf, 80, &dword_2724B4000, v24, 16, "assertion failure: mDownlink->mNumFutureOutputSamples % mDownlink->mOutputBlockSize == 0 -> %llu", &v32);
+              _os_crash_msg();
+              __break(1u);
+            }
+
+LABEL_41:
+            v31[0] = 0;
+            v29 = 0u;
+            v30 = 0u;
+            v27 = 0u;
+            v28 = 0u;
+            *buf = 0u;
+            v22 = MEMORY[0x277D86220];
+            if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+            {
+              v23 = 3;
+            }
+
+            else
+            {
+              v23 = 2;
+            }
+
+            v32 = 134217984;
+            v33[0] = 0;
+            _os_log_send_and_compose_impl(v23, v31, buf, 80, &dword_2724B4000, v22, 16, "assertion failure: mDownlink->mNumFutureInputSamples <= inNumDesiredDownlinkInputSamples + mDownlink->mNumFarEndVoiceBufferSamplesAvailable -> %llu", &v32);
+            _os_crash_msg();
+            __break(1u);
+            goto LABEL_45;
+          }
+        }
+
+        else
+        {
+          v18 = vp::log(v9);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 0;
+            _os_log_error_impl(&dword_2724B4000, v18, OS_LOG_TYPE_ERROR, "PreflightDownlink BadState (uplink)", buf, 2u);
+          }
+
+          if (*(a1 + 2216))
+          {
+            goto LABEL_30;
+          }
+        }
+
+        v19 = vp::log(v9);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          _os_log_error_impl(&dword_2724B4000, v19, OS_LOG_TYPE_ERROR, "PreflightDownlink BadState (downlink)", buf, 2u);
+        }
+
+        goto LABEL_30;
+      }
+
+      v16 = vp::log(a1);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_error_impl(&dword_2724B4000, v16, OS_LOG_TYPE_ERROR, "VoiceProcessor_PreflightDownlink BadArgument (outNumProducesDownlinkOutputSamples)", buf, 2u);
+      }
+    }
+
+    else
+    {
+      v16 = vp::log(a1);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_error_impl(&dword_2724B4000, v16, OS_LOG_TYPE_ERROR, "VoiceProcessor_PreflightDownlink BadArgument (outNumConsumedDownlinkInputSamples)", buf, 2u);
+      }
+    }
+
+    return 1650553447;
+  }
+
+  v14 = vp::log(0);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+  {
+    *buf = 0;
+    _os_log_fault_impl(&dword_2724B4000, v14, OS_LOG_TYPE_FAULT, "failed to preflight downlink due to bad reference", buf, 2u);
+  }
+
+  return 1651664230;
 }
 
-void sub_272511D04(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_272511D04(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, void **__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20, uint64_t a21, char *a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, char *a32, char a33, uint64_t a34, uint64_t a35, uint64_t *a36, char a37)
 {
   if (a2)
   {
@@ -8399,7 +8801,7 @@ void sub_272511D04(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
       JUMPOUT(0x272511AF8);
     }
 
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(v37 - 192);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(v37 - 192, "call_name");
   }
 
   _Unwind_Resume(exception_object);
@@ -8412,26 +8814,23 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
   operator new();
 }
 
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE15EJjPjS9_EEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSB_EUlT_PKcSJ_E_JRiRKSJ_RA251_SI_EE7performEv(uint64_t a1)
+caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE15EJjPjS9_EEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSB_EUlT_PKcSJ_E_JRiRKSJ_RA251_SI_EE7performEv(caulk::concurrent::message *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v6[0] = a1;
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 32);
-  v6[6] = *(a1 + 40);
-  v6[7] = v2;
-  v3 = vp::log(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = a1;
+  v1 = *(a1 + 4);
+  v5 = *(a1 + 5);
+  v6 = v1;
+  v2 = vp::log(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v7);
   }
 
-  result = _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&v4);
 }
 
-void sub_27251224C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, caulk::concurrent::message *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_27251224C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
 {
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a10);
   v36 = -96;
@@ -8631,13 +9030,13 @@ LABEL_28:
 
 uint64_t VoiceProcessorImplementation::ProcessAllOfDownlinkWithFarEndVoiceOnly(uint64_t a1, uint64_t a2)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 1212);
   if (v6)
   {
     v2 = a2;
     v3 = a1;
-    v5 = &v52;
+    v5 = v64;
     v7 = 1216;
     while (1)
     {
@@ -8689,10 +9088,26 @@ LABEL_10:
   v13 = *(v2 + 8 * v10 + 8);
   if (!v13)
   {
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v52 = 134217984;
+    v63[0] = 0;
+    v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    v58 = 0u;
+    v48 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v49 = 3;
+    }
+
+    else
+    {
+      v49 = 2;
+    }
+
+    v64[0] = 134217984;
     *(v5 + 1) = 0;
-    _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(v49, v63, &v58, 80, &dword_2724B4000, v48, 16, "assertion failure: fevInputABL != nullptr -> %llu", v64);
     _os_crash_msg();
     __break(1u);
     goto LABEL_70;
@@ -8702,20 +9117,52 @@ LABEL_10:
   if (!*(v2 + 8 * v10 + 48))
   {
 LABEL_70:
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v52 = 134217984;
+    v63[0] = 0;
+    v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    v58 = 0u;
+    v50 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v51 = 3;
+    }
+
+    else
+    {
+      v51 = 2;
+    }
+
+    v64[0] = 134217984;
     *(v5 + 1) = 0;
-    _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(v51, v63, &v58, 80, &dword_2724B4000, v50, 16, "assertion failure: fevInputTS != nullptr -> %llu", v64);
     _os_crash_msg();
     __break(1u);
-LABEL_71:
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v52 = 134217984;
+LABEL_74:
+    v63[0] = 0;
+    v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    v58 = 0u;
+    v52 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v53 = 3;
+    }
+
+    else
+    {
+      v53 = 2;
+    }
+
+    v64[0] = 134217984;
     *(v5 + 1) = 0;
-    _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(v53, v63, &v58, 80, &dword_2724B4000, v52, 16, "assertion failure: dlOutputABL != nullptr -> %llu", v64);
     _os_crash_msg();
     __break(1u);
-    goto LABEL_72;
+    goto LABEL_78;
   }
 
   v15 = *(v8 + 232);
@@ -8744,31 +9191,63 @@ LABEL_17:
   v17 = *(v2 + 112 + 8 * v16);
   if (!v17)
   {
-    goto LABEL_71;
+    goto LABEL_74;
   }
 
   v18 = *(v2 + 8 * v16 + 120);
   if (!v18)
   {
-LABEL_72:
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v52 = 134217984;
+LABEL_78:
+    v63[0] = 0;
+    v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    v58 = 0u;
+    v54 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v55 = 3;
+    }
+
+    else
+    {
+      v55 = 2;
+    }
+
+    v64[0] = 134217984;
     *(v5 + 1) = 0;
-    _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(v55, v63, &v58, 80, &dword_2724B4000, v54, 16, "assertion failure: dlOutputTS != nullptr -> %llu", v64);
     _os_crash_msg();
     __break(1u);
-    goto LABEL_73;
+    goto LABEL_82;
   }
 
   if (*(v3 + 2200) != v4)
   {
-LABEL_73:
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v52 = 134217984;
+LABEL_82:
+    v63[0] = 0;
+    v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    v58 = 0u;
+    v56 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v57 = 3;
+    }
+
+    else
+    {
+      v57 = 2;
+    }
+
+    v64[0] = 134217984;
     *(v5 + 1) = 0;
-    _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(v57, v63, &v58, 80, &dword_2724B4000, v56, 16, "assertion failure: mDownlink->mNumFutureInputSamples == fevInputFrameCount -> %llu", v64);
     _os_crash_msg();
-LABEL_74:
+LABEL_86:
     __break(1u);
   }
 
@@ -8861,98 +9340,84 @@ LABEL_74:
   util::copy_abl_data(v13, v33, v4);
   *(v3 + 2196) += v4;
   v34 = *(v3 + 2136);
-  if (v34 <= *(v3 + 2204))
+  if (v34 > *(v3 + 2204))
   {
-    v36 = 0;
+    return 0;
+  }
+
+  v36 = 0;
+  while (1)
+  {
+    v37 = *(v3 + 2184);
+    v38 = v37 ? *(v37 + 80) : 0;
+    v39 = v34 * v36++;
+    util::make_abl_view(v17, v38, v39 | 0x100000000, (v34 * v36) | 0x100000000);
+    v41 = atomic_load(v3);
+    if (v41 > 0x7FFFFFFE)
+    {
+      break;
+    }
+
+    v42 = v41;
     while (1)
     {
-      v37 = *(v3 + 2184);
-      v38 = v37 ? *(v37 + 80) : 0;
-      v39 = v34 * v36++;
-      util::make_abl_view(v17, v38, v39 | 0x100000000, (v34 * v36) | 0x100000000);
-      v41 = atomic_load(v3);
-      if (v41 > 0x7FFFFFFE)
+      atomic_compare_exchange_strong(v3, &v42, v41 + 1);
+      if (v42 == v41)
       {
         break;
       }
 
-      v42 = v41;
-      while (1)
+      v41 = v42;
+      if (v42 >= 0x7FFFFFFF)
       {
-        atomic_compare_exchange_strong(v3, &v42, v41 + 1);
-        if (v42 == v41)
-        {
-          break;
-        }
-
-        v41 = v42;
-        if (v42 >= 0x7FFFFFFF)
-        {
-          goto LABEL_62;
-        }
-      }
-
-      v43 = *(v3 + 2184);
-      if (v43)
-      {
-        v44 = *(v43 + 80);
-      }
-
-      v45 = *(v3 + 2136);
-      v46 = VoiceProcessorInterface::ProcessDownlinkAudio(*(v3 + 8));
-      if (v46)
-      {
-        if (!*MEMORY[0x277D7F098])
-        {
-          goto LABEL_74;
-        }
-
-        v47 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
-        *(v47 + 16) = 0;
-        *(v47 + 24) = v46;
-        *(v47 + 32) = "ProcessDownlinkAudio";
-        *(v47 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::ProcessDownlinkAudio, ArgTypeList = <std::nullptr_t, std::nullptr_t, std::nullptr_t, vp::Audio_Buffer &, const unsigned int &, AudioTimeStamp &>]";
-        *v47 = &unk_2881B1E40;
-        *(v47 + 8) = 0;
-        caulk::concurrent::messenger::enqueue((v3 + 16), v47);
-      }
-
-      caulk::concurrent::shared_spin_lock::unlock_shared(v3);
-      result = 0;
-      v34 = *(v3 + 2136);
-      *v18 = *v18 + v34;
-      if (v36 >= *(v3 + 2204) / v34)
-      {
-        goto LABEL_68;
+        goto LABEL_60;
       }
     }
 
-LABEL_62:
-    v48 = *(v2 + 108);
-    if (v48)
+    v43 = VoiceProcessorInterface::ProcessDownlinkAudio(*(v3 + 8));
+    if (v43)
     {
-      for (i = 0; i < v48; ++i)
+      if (!*MEMORY[0x277D7F098])
       {
-        v50 = *(v2 + 112 + 8 * i);
-        if (v50)
-        {
-          util::zero_fill_abl(v50, v40);
-          v48 = *(v2 + 108);
-        }
+        goto LABEL_86;
       }
+
+      v44 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
+      *(v44 + 16) = 0;
+      *(v44 + 24) = v43;
+      *(v44 + 32) = "ProcessDownlinkAudio";
+      *(v44 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::ProcessDownlinkAudio, ArgTypeList = <std::nullptr_t, std::nullptr_t, std::nullptr_t, vp::Audio_Buffer &, const unsigned int &, AudioTimeStamp &>]";
+      *v44 = &unk_2881B1E40;
+      *(v44 + 8) = 0;
+      caulk::concurrent::messenger::enqueue((v3 + 16), v44);
     }
 
-    result = 1651270507;
-  }
-
-  else
-  {
+    caulk::concurrent::shared_spin_lock::unlock_shared(v3);
     result = 0;
+    v34 = *(v3 + 2136);
+    *v18 = *v18 + v34;
+    if (v36 >= *(v3 + 2204) / v34)
+    {
+      return result;
+    }
   }
 
-LABEL_68:
-  v51 = *MEMORY[0x277D85DE8];
-  return result;
+LABEL_60:
+  v45 = *(v2 + 108);
+  if (v45)
+  {
+    for (i = 0; i < v45; ++i)
+    {
+      v47 = *(v2 + 112 + 8 * i);
+      if (v47)
+      {
+        util::zero_fill_abl(v47, v40);
+        v45 = *(v2 + 108);
+      }
+    }
+  }
+
+  return 1651270507;
 }
 
 void sub_272512F88(_Unwind_Exception *a1, int a2)
@@ -8972,26 +9437,23 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
   operator new();
 }
 
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE16EJDnDnDnRNS3_12Audio_BufferERKjR14AudioTimeStampEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSG_EUlT_PKcSO_E_JRiRKSO_RA316_SN_EE7performEv(uint64_t a1)
+caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE16EJDnDnDnRNS3_12Audio_BufferERKjR14AudioTimeStampEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSG_EUlT_PKcSO_E_JRiRKSO_RA316_SN_EE7performEv(caulk::concurrent::message *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v6[0] = a1;
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 32);
-  v6[6] = *(a1 + 40);
-  v6[7] = v2;
-  v3 = vp::log(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = a1;
+  v1 = *(a1 + 4);
+  v5 = *(a1 + 5);
+  v6 = v1;
+  v2 = vp::log(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v7);
   }
 
-  result = _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&v4);
 }
 
-void sub_272513318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, caulk::concurrent::message *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_272513318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
 {
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a10);
   v36 = -96;
@@ -9078,369 +9540,72 @@ uint64_t VPSPISetBaseFactory_Private(const void *a1)
 
 uint64_t VPSPIGetParameter_Private(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  if (!a1)
-  {
-    v8 = vp::log(0);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
-    {
-      *buf = 0;
-      _os_log_fault_impl(&dword_2724B4000, v8, OS_LOG_TYPE_FAULT, "failed to get parameter due to bad reference", buf, 2u);
-    }
-
-    result = 1651664230;
-    goto LABEL_12;
-  }
-
-  if (!a3)
-  {
-    result = 1650553447;
-LABEL_12:
-    v10 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  v4 = 1651270507;
-  v5 = atomic_load(a1);
-  if (v5 > 0x7FFFFFFE)
-  {
-LABEL_7:
-    v7 = 0;
-  }
-
-  else
-  {
-    v6 = v5;
-    while (1)
-    {
-      atomic_compare_exchange_strong(a1, &v6, v5 + 1);
-      if (v6 == v5)
-      {
-        break;
-      }
-
-      v5 = v6;
-      if (v6 >= 0x7FFFFFFF)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    v11 = (*(**(a1 + 8) + 48))(*(a1 + 8));
-    if (v11)
-    {
-      if (!*MEMORY[0x277D7F098])
-      {
-        __break(1u);
-      }
-
-      v12 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
-      *(v12 + 16) = 0;
-      *(v12 + 24) = v11;
-      *(v12 + 32) = "GetProperty";
-      *(v12 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::GetProperty, ArgTypeList = <unsigned int &, float *&, unsigned int &, unsigned int *>]";
-      *v12 = &unk_2881B1BC0;
-      *(v12 + 8) = 0;
-      caulk::concurrent::messenger::enqueue((a1 + 16), v12);
-    }
-
-    caulk::concurrent::shared_spin_lock::unlock_shared(a1);
-    v7 = 0x100000000;
-    v4 = 1651270400;
-  }
-
-  v13 = v4 | v7;
-  if (v13 >= 0x100000000)
-  {
-    v14 = 0x100000000;
-  }
-
-  else
-  {
-    v14 = v13;
-  }
-
   v15 = *MEMORY[0x277D85DE8];
-
-  return ErrorFromOSStatus(v14);
-}
-
-void sub_2725137A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
-{
-  if (a2)
-  {
-    v36 = __cxa_begin_catch(a1);
-    v37 = vp::log(v36);
-    if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
-    {
-
-      __cxa_end_catch();
-      JUMPOUT(0x2725136FCLL);
-    }
-
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE7performEv(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v6[0] = a1;
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 32);
-  v6[6] = *(a1 + 40);
-  v6[7] = v2;
-  v3 = vp::log(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-  {
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v7);
-  }
-
-  result = _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_272513C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, caulk::concurrent::message *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
-{
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a10);
-  v36 = -96;
-  v37 = v34;
-  do
-  {
-    v37 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(v37) - 32;
-    v36 += 32;
-  }
-
-  while (v36);
-  v38 = &a21;
-  v39 = -64;
-  do
-  {
-    v38 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(v38) - 32;
-    v39 += 32;
-  }
-
-  while (v39);
-  v40 = &a29;
-  v41 = -64;
-  do
-  {
-    v40 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(v40) - 32;
-    v41 += 32;
-  }
-
-  while (v41);
-  for (i = 32; i != -32; i -= 32)
-  {
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a33 + i);
-  }
-
-  _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&a9);
-  _Unwind_Resume(a1);
-}
-
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(caulk::concurrent::message **a1)
-{
-  v2 = *a1;
-  caulk::concurrent::message::~message(*a1);
-  result = *MEMORY[0x277D7F098];
-  if (*MEMORY[0x277D7F098])
-  {
-    caulk::rt_safe_memory_resource::rt_deallocate(result, v2);
-    return a1;
-  }
-
-  else
-  {
-    __break(1u);
-  }
-
-  return result;
-}
-
-void _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EED0Ev(caulk::concurrent::message *a1)
-{
-  caulk::concurrent::message::~message(a1);
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t VPSPISetParameter_Private(uint64_t a1, uint64_t a2, float a3)
-{
-  v12 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v10[0] = a3;
-    caulk::concurrent::shared_spin_lock::lock(a1);
-    v5 = (*(**(a1 + 8) + 56))(*(a1 + 8), a2, v10, 4);
-    if (v5)
-    {
-      if (!*MEMORY[0x277D7F098])
-      {
-        __break(1u);
-      }
-
-      v6 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
-      *(v6 + 16) = 0;
-      *(v6 + 24) = v5;
-      *(v6 + 32) = "SetProperty";
-      *(v6 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::SetProperty, ArgTypeList = <unsigned int &, float *, const unsigned int &>]";
-      *v6 = &unk_2881B1BE8;
-      *(v6 + 8) = 0;
-      caulk::concurrent::messenger::enqueue((a1 + 16), v6);
-    }
-
-    caulk::concurrent::shared_spin_lock::unlock(a1);
-    result = ErrorFromOSStatus(0x100000000);
-  }
-
-  else
-  {
-    v8 = vp::log(0);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
-    {
-      *buf = 0;
-      _os_log_fault_impl(&dword_2724B4000, v8, OS_LOG_TYPE_FAULT, "failed to set parameter due to bad reference", buf, 2u);
-    }
-
-    result = 1651664230;
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_272513F90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
-{
-  if (a2)
-  {
-    v36 = __cxa_begin_catch(a1);
-    v37 = vp::log(v36);
-    if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
-    {
-
-      __cxa_end_catch();
-      JUMPOUT(0x272513EECLL);
-    }
-
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE7EJRjPfRKjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA246_SL_EE7performEv(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v6[0] = a1;
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 32);
-  v6[6] = *(a1 + 40);
-  v6[7] = v2;
-  v3 = vp::log(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-  {
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v7);
-  }
-
-  result = _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_272514448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, caulk::concurrent::message *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
-{
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a10);
-  v36 = -96;
-  v37 = v34;
-  do
-  {
-    v37 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(v37) - 32;
-    v36 += 32;
-  }
-
-  while (v36);
-  v38 = &a21;
-  v39 = -64;
-  do
-  {
-    v38 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(v38) - 32;
-    v39 += 32;
-  }
-
-  while (v39);
-  v40 = &a29;
-  v41 = -64;
-  do
-  {
-    v40 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(v40) - 32;
-    v41 += 32;
-  }
-
-  while (v41);
-  for (i = 32; i != -32; i -= 32)
-  {
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a33 + i);
-  }
-
-  _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&a9);
-  _Unwind_Resume(a1);
-}
-
-void _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE7EJRjPfRKjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA246_SL_EED0Ev(caulk::concurrent::message *a1)
-{
-  caulk::concurrent::message::~message(a1);
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-uint64_t VPSPIGetProperty_Private(VoiceProcessorImplementation *this, uint64_t a2, void *a3, unsigned int *a4)
-{
-  if (this)
-  {
-    result = 1650553447;
-    if (a3 && a4)
-    {
-      Property = VoiceProcessorImplementation::GetProperty(this, a2, a3, a4);
-
-      return ErrorFromOSStatus(Property);
-    }
-  }
-
-  else
-  {
-    v7 = vp::log(0);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
-    {
-      *v8 = 0;
-      _os_log_fault_impl(&dword_2724B4000, v7, OS_LOG_TYPE_FAULT, "failed to get property due to bad reference", v8, 2u);
-    }
-
-    return 1651664230;
-  }
-
-  return result;
-}
-
-uint64_t VPSPISetProperty_Private(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4)
-{
   if (a1)
   {
     if (a3)
     {
-      v9 = a2;
-      *buf = a3;
-      v7 = a4;
-      v4 = vp::call_synchronizer<VoiceProcessorBase>::call<(vp::call_type)7,unsigned int &,void const*&,unsigned int &>(a1, &v9, buf, &v7);
-      if (v4 >= 0x100000000)
+      v4 = 1651270507;
+      v5 = atomic_load(a1);
+      if (v5 > 0x7FFFFFFE)
       {
-        v4 = 0x100000000;
+LABEL_7:
+        v7 = 0;
       }
 
-      return ErrorFromOSStatus(v4);
+      else
+      {
+        v6 = v5;
+        while (1)
+        {
+          atomic_compare_exchange_strong(a1, &v6, v5 + 1);
+          if (v6 == v5)
+          {
+            break;
+          }
+
+          v5 = v6;
+          if (v6 >= 0x7FFFFFFF)
+          {
+            goto LABEL_7;
+          }
+        }
+
+        v10 = (*(**(a1 + 8) + 48))(*(a1 + 8), a2);
+        if (v10)
+        {
+          if (!*MEMORY[0x277D7F098])
+          {
+            __break(1u);
+          }
+
+          v11 = caulk::rt_safe_memory_resource::rt_allocate(*MEMORY[0x277D7F098]);
+          *(v11 + 16) = 0;
+          *(v11 + 24) = v10;
+          *(v11 + 32) = "GetProperty";
+          *(v11 + 40) = "expected_call_result_t<CallType, T, ArgTypeList...> vp::call_synchronizer<VoiceProcessorBase>::call(ArgTypeList &&...) [T = VoiceProcessorBase, CallType = vp::call_type::GetProperty, ArgTypeList = <unsigned int &, float *&, unsigned int &, unsigned int *>]";
+          *v11 = &unk_2881B1BC0;
+          *(v11 + 8) = 0;
+          caulk::concurrent::messenger::enqueue((a1 + 16), v11);
+        }
+
+        caulk::concurrent::shared_spin_lock::unlock_shared(a1);
+        v7 = 0x100000000;
+        v4 = 1651270400;
+      }
+
+      v12 = v4 | v7;
+      if (v12 >= 0x100000000)
+      {
+        v13 = 0x100000000;
+      }
+
+      else
+      {
+        v13 = v12;
+      }
+
+      return ErrorFromOSStatus(v13);
     }
 
     else
@@ -9451,249 +9616,87 @@ uint64_t VPSPISetProperty_Private(uint64_t a1, unsigned int a2, uint64_t a3, uns
 
   else
   {
-    v6 = vp::log(0);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v8 = vp::log(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_fault_impl(&dword_2724B4000, v6, OS_LOG_TYPE_FAULT, "failed to set property due to bad reference", buf, 2u);
+      _os_log_fault_impl(&dword_2724B4000, v8, OS_LOG_TYPE_FAULT, "failed to get parameter due to bad reference", buf, 2u);
     }
 
     return 1651664230;
   }
 }
 
-id getADASManagerClass(void)
+void sub_2725137A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void **__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, char *a20, char a21, uint64_t a22, uint64_t a23, uint64_t *a24, char a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, __int16 *a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, __int128 a45)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2050000000;
-  v0 = getADASManagerClass(void)::softClass;
-  v7 = getADASManagerClass(void)::softClass;
-  if (!getADASManagerClass(void)::softClass)
+  if (a2)
   {
-    v3[0] = MEMORY[0x277D85DD0];
-    v3[1] = 3221225472;
-    v3[2] = ___ZL19getADASManagerClassv_block_invoke_1321;
-    v3[3] = &unk_279E48E20;
-    v3[4] = &v4;
-    ___ZL19getADASManagerClassv_block_invoke_1321(v3);
-    v0 = v5[3];
+    v45 = __cxa_begin_catch(a1);
+    v46 = vp::log(v45);
+    if (!os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+    {
+
+      __cxa_end_catch();
+      JUMPOUT(0x2725136FCLL);
+    }
+
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(&a27, "call_name");
   }
 
-  v1 = v0;
-  _Block_object_dispose(&v4, 8);
-
-  return v1;
-}
-
-void sub_272514800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void *___ZL47getADAFPreferenceKeyVolumeLimitEnabledSymbolLocv_block_invoke_1299(uint64_t a1)
-{
-  v2 = AudioDataAnalysisLibrary();
-  result = dlsym(v2, "ADAFPreferenceKeyVolumeLimitEnabled");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getADAFPreferenceKeyVolumeLimitEnabledSymbolLoc(void)::ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void *AudioDataAnalysisLibrary()
+caulk::rt_safe_memory_resource *_ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE7performEv(caulk::concurrent::message *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
-  if (!AudioDataAnalysisLibraryCore(char **)::frameworkLibrary)
+  v4 = a1;
+  v1 = *(a1 + 4);
+  v5 = *(a1 + 5);
+  v6 = v1;
+  v2 = vp::log(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = ___ZL28AudioDataAnalysisLibraryCorePPc_block_invoke_1316;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_279E48E40;
-    v7 = 0;
-    AudioDataAnalysisLibraryCore(char **)::frameworkLibrary = _sl_dlopen();
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v7);
   }
 
-  v0 = AudioDataAnalysisLibraryCore(char **)::frameworkLibrary;
-  if (!AudioDataAnalysisLibraryCore(char **)::frameworkLibrary)
-  {
-    v0 = [MEMORY[0x277CCA890] currentHandler];
-    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *AudioDataAnalysisLibrary()"];
-    [v0 handleFailureInFunction:v4 file:@"vpADASManagerInterface.mm" lineNumber:20 description:{@"%s", v5[0]}];
-
-    __break(1u);
-    goto LABEL_7;
-  }
-
-  v1 = v5[0];
-  if (v5[0])
-  {
-LABEL_7:
-    free(v1);
-  }
-
-  v2 = *MEMORY[0x277D85DE8];
-  return v0;
+  return _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&v4);
 }
 
-void *___ZL49getADAFPreferenceKeyVolumeLimitThresholdSymbolLocv_block_invoke_1306(uint64_t a1)
+void sub_272513C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
 {
-  v2 = AudioDataAnalysisLibrary();
-  result = dlsym(v2, "ADAFPreferenceKeyVolumeLimitThreshold");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getADAFPreferenceKeyVolumeLimitThresholdSymbolLoc(void)::ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-uint64_t ___ZL28AudioDataAnalysisLibraryCorePPc_block_invoke_1316(uint64_t a1)
-{
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  result = _sl_dlopen();
-  AudioDataAnalysisLibraryCore(char **)::frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void ___ZL19getADASManagerClassv_block_invoke_1321(uint64_t a1)
-{
-  AudioDataAnalysisLibrary();
-  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("ADASManager");
-  if (*(*(*(a1 + 32) + 8) + 24))
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a10);
+  v36 = -96;
+  v37 = v34;
+  do
   {
-    getADASManagerClass(void)::softClass = *(*(*(a1 + 32) + 8) + 24);
+    v37 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(v37) - 32;
+    v36 += 32;
   }
 
-  else
+  while (v36);
+  v38 = &a21;
+  v39 = -64;
+  do
   {
-    v2 = [MEMORY[0x277CCA890] currentHandler];
-    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Class getADASManagerClass()_block_invoke"];
-    [v2 handleFailureInFunction:v3 file:@"vpADASManagerInterface.mm" lineNumber:21 description:{@"Unable to find class %s", "ADASManager"}];
-
-    __break(1u);
-  }
-}
-
-void VoiceProcessorV2::TryLoadingTuningPlists(VoiceProcessorV2 *this, const char *a2, const char *a3, const char *__s1, unsigned int a5, unsigned int a6, unsigned int a7)
-{
-  v64 = *MEMORY[0x277D85DE8];
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2000000000;
-  v41 = 0;
-  if (__s1 && !strcmp(__s1, "gen"))
-  {
-    v14 = 0;
+    v38 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(v38) - 32;
+    v39 += 32;
   }
 
-  else
+  while (v39);
+  v40 = &a29;
+  v41 = -64;
+  do
   {
-    v14 = *(this + 60);
+    v40 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(v40) - 32;
+    v41 += 32;
   }
 
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 0x40000000;
-  v27 = ___ZN16VoiceProcessorV222TryLoadingTuningPlistsEPKcS1_S1_jjj_block_invoke;
-  v28 = &unk_279E48E60;
-  v37 = v14 & 1;
-  v34 = a5;
-  v35 = a6;
-  v36 = a7;
-  v31 = __s1;
-  v32 = a2;
-  v33 = a3;
-  v29 = &v38;
-  v30 = this;
-  v15 = ___ZN16VoiceProcessorV222TryLoadingTuningPlistsEPKcS1_S1_jjj_block_invoke(v26, v63, "ulnk");
-  v16 = v39[3];
-  if (v16)
+  while (v41);
+  for (i = 32; i != -32; i -= 32)
   {
-    CACFString::operator=(this + 4568, v16);
-    CFRelease(v39[3]);
-    v39[3] = 0;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a33 + i);
   }
 
-  v17 = v27(v26, v63, "dlnk");
-  v18 = v39[3];
-  if (v18)
-  {
-    CACFString::operator=(this + 4584, v18);
-    CFRelease(v39[3]);
-    v39[3] = 0;
-  }
-
-  if (!(v15 | v17))
-  {
-    if (VPLogScope(void)::once != -1)
-    {
-      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-    }
-
-    v19 = VPLogScope(void)::scope;
-    if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(3, VPLogScope(void)::scope, 0))
-    {
-      v20 = (*v19 ? *v19 : MEMORY[0x277D86220]);
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
-      {
-        CAX4CCStringNoQuote::CAX4CCStringNoQuote(v44, a5);
-        CAX4CCStringNoQuote::CAX4CCStringNoQuote(v43, a6);
-        CAX4CCStringNoQuote::CAX4CCStringNoQuote(v42, a7);
-        v21 = (this + 8);
-        if (*(this + 31) < 0)
-        {
-          v21 = *v21;
-        }
-
-        *buf = 136317186;
-        v46 = "vpAspen_v2.cpp";
-        v47 = 1024;
-        v48 = 158;
-        v49 = 2080;
-        v50 = v44;
-        v51 = 2080;
-        v52 = v43;
-        v53 = 2080;
-        v54 = v42;
-        v55 = 2080;
-        v56 = v21;
-        v57 = 2080;
-        v58 = a2;
-        v59 = 2080;
-        v60 = a3;
-        v61 = 2080;
-        v62 = v63;
-        _os_log_impl(&dword_2724B4000, v20, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Tunings loaded successfully for %s-%s-%s! '%s/%s/%s/%s'", buf, 0x58u);
-      }
-    }
-
-    v22 = *(this + 1588);
-    if (v22 && ((*(this + 15881) & 1) != 0 || *(this + 15882) == 1))
-    {
-      if (VPLogScope(void)::once != -1)
-      {
-        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-      }
-
-      v23 = VPLogScope(void)::scope;
-      CAX4CCStringNoQuote::CAX4CCStringNoQuote(buf, a5);
-      CAX4CCStringNoQuote::CAX4CCStringNoQuote(v44, a6);
-      CAX4CCStringNoQuote::CAX4CCStringNoQuote(v43, a7);
-      v24 = this + 8;
-      if (*(this + 31) < 0)
-      {
-        v24 = *v24;
-      }
-
-      CALegacyLog::log(v22, 3, v23, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpAspen_v2.cpp", 158, "TryLoadingTuningPlists", "Tunings loaded successfully for %s-%s-%s! '%s/%s/%s/%s'", buf, v44, v43, v24, a2, a3, v63);
-    }
-
-    *(this + 4600) = 1;
-  }
-
-  _Block_object_dispose(&v38, 8);
-  v25 = *MEMORY[0x277D85DE8];
+  _ZN5caulk10concurrent7details15rt_message_callIZN2vp17call_synchronizerI18VoiceProcessorBaseE4callILNS3_9call_typeE6EJRjRPfS9_PjEEENS3_11call_resultIXT_ES5_JDpT0_EE13expected_typeEDpOSE_EUlT_PKcSM_E_JRiRKSM_RA257_SL_EE10rt_cleanupD2Ev(&a9);
+  _Unwind_Resume(a1);
 }

@@ -4,8 +4,12 @@
 - (void)_acquireAppSwitcherAssertion;
 - (void)_appWillTerminate:(id)terminate;
 - (void)_configureWithDefaultContext;
+- (void)_dismissHintsAnimated:(BOOL)animated;
+- (void)_dismissPresentedContentAnimated:(BOOL)animated;
 - (void)_releaseAppSwitcherAssertion;
 - (void)configureWithContext:(id)context;
+- (void)device:(id)device supportsSiri:(BOOL)siri volume:(BOOL)volume;
+- (void)device:(id)device supportsVolume:(BOOL)volume;
 - (void)deviceDidConnect;
 - (void)deviceDidDisconnect;
 - (void)devicePickerWillExpand;
@@ -15,6 +19,8 @@
 - (void)sceneDidEnterBackground:(id)background;
 - (void)sceneWillDeactivate:(id)deactivate;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)willEnterLockScreenScene;
 - (void)willExitLockScreenScene;
 @end
@@ -77,39 +83,79 @@
   [v34 addObserver:self selector:"sceneDidEnterBackground:" name:UISceneDidEnterBackgroundNotification object:0];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = _TVRUIServiceAppLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v11 = "[TVRemoteViewController viewWillAppear:]";
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+  }
+
+  v9.receiver = self;
+  v9.super_class = TVRemoteViewController;
+  [(TVRemoteViewController *)&v9 viewWillAppear:appearCopy];
+  remoteViewController = [(TVRemoteViewController *)self remoteViewController];
+  isConfigured = [remoteViewController isConfigured];
+
+  if ((isConfigured & 1) == 0)
+  {
+    [(TVRemoteViewController *)self _configureWithDefaultContext];
+  }
+
+  remoteViewController2 = [(TVRemoteViewController *)self remoteViewController];
+  [remoteViewController2 startConnections];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = TVRemoteViewController;
+  [(TVRemoteViewController *)&v5 viewWillDisappear:disappear];
+  [(TVRemoteViewController *)self _dismissHintsAnimated:1];
+  v4 = +[_TtC17TVRemoteUIService11TipsManager shared];
+  [v4 invalidate];
+}
+
 - (void)sceneDidActivate:(id)activate
 {
   object = [activate object];
-  v5 = _TVRUIServiceAppLog();
+  v5 = _TVRUIServiceAppLog(object);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[TVRemoteViewController sceneDidActivate:]";
-    v10 = 2112;
-    v11 = object;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s - %@", &v8, 0x16u);
+    v9 = 136315394;
+    v10 = "[TVRemoteViewController sceneDidActivate:]";
+    v11 = 2112;
+    v12 = object;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s - %@", &v9, 0x16u);
   }
 
-  if ([(TVRemoteViewController *)self isConnectedToDevice]&& [(TVRemoteViewController *)self shouldReplayHints])
+  if ([(TVRemoteViewController *)self isConnectedToDevice])
   {
-    v6 = _TVRUIServiceAppLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    shouldReplayHints = [(TVRemoteViewController *)self shouldReplayHints];
+    if (shouldReplayHints)
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Replaying hints", &v8, 2u);
+      v7 = _TVRUIServiceAppLog(shouldReplayHints);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(v9) = 0;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Replaying hints", &v9, 2u);
+      }
+
+      hintsViewController = [(TVRemoteViewController *)self hintsViewController];
+      [hintsViewController replayHints];
+
+      [(TVRemoteViewController *)self setShouldReplayHints:0];
     }
-
-    hintsViewController = [(TVRemoteViewController *)self hintsViewController];
-    [hintsViewController replayHints];
-
-    [(TVRemoteViewController *)self setShouldReplayHints:0];
   }
 }
 
 - (void)sceneWillDeactivate:(id)deactivate
 {
   object = [deactivate object];
-  v5 = _TVRUIServiceAppLog();
+  v5 = _TVRUIServiceAppLog(object);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315394;
@@ -124,10 +170,23 @@
   [v6 invalidate];
 }
 
+- (void)_dismissHintsAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  hintsViewController = [(TVRemoteViewController *)self hintsViewController];
+  hasPresentedContent = [hintsViewController hasPresentedContent];
+
+  if (hasPresentedContent)
+  {
+    hintsViewController2 = [(TVRemoteViewController *)self hintsViewController];
+    [hintsViewController2 dismissPresentedContentAnimated:animatedCopy completion:0];
+  }
+}
+
 - (void)sceneDidEnterBackground:(id)background
 {
   object = [background object];
-  v5 = _TVRUIServiceAppLog();
+  v5 = _TVRUIServiceAppLog(object);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315394;
@@ -154,7 +213,7 @@
 
 - (void)willEnterLockScreenScene
 {
-  v3 = _TVRUIServiceAppLog();
+  v3 = _TVRUIServiceAppLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -167,7 +226,7 @@
 
 - (void)willExitLockScreenScene
 {
-  v3 = _TVRUIServiceAppLog();
+  v3 = _TVRUIServiceAppLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -182,7 +241,7 @@
 {
   if (!self->_appSwitcherAssertion)
   {
-    v3 = _TVRUIServiceAppLog();
+    v3 = _TVRUIServiceAppLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
@@ -206,7 +265,7 @@ void __54__TVRemoteViewController__acquireAppSwitcherAssertion__block_invoke(uin
 
 - (void)_releaseAppSwitcherAssertion
 {
-  v3 = _TVRUIServiceAppLog();
+  v3 = _TVRUIServiceAppLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -220,7 +279,7 @@ void __54__TVRemoteViewController__acquireAppSwitcherAssertion__block_invoke(uin
 
 - (void)_appWillTerminate:(id)terminate
 {
-  v4 = _TVRUIServiceAppLog();
+  v4 = _TVRUIServiceAppLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
@@ -231,9 +290,34 @@ void __54__TVRemoteViewController__acquireAppSwitcherAssertion__block_invoke(uin
   [(TVRemoteViewController *)self dismiss];
 }
 
+- (void)_dismissPresentedContentAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  remoteViewController = [(TVRemoteViewController *)self remoteViewController];
+  hasPresentedContent = [remoteViewController hasPresentedContent];
+
+  if (hasPresentedContent)
+  {
+    remoteViewController2 = [(TVRemoteViewController *)self remoteViewController];
+    [remoteViewController2 dismissPresentedContentAnimated:animatedCopy completion:0];
+  }
+
+  hintsViewController = [(TVRemoteViewController *)self hintsViewController];
+  hasPresentedContent2 = [hintsViewController hasPresentedContent];
+
+  if (hasPresentedContent2)
+  {
+    hintsViewController2 = [(TVRemoteViewController *)self hintsViewController];
+    [hintsViewController2 dismissPresentedContentAnimated:animatedCopy completion:0];
+  }
+
+  v11 = +[_TtC17TVRemoteUIService11TipsManager shared];
+  [v11 invalidate];
+}
+
 - (void)_configureWithDefaultContext
 {
-  v3 = _TVRUIServiceAppLog();
+  v3 = _TVRUIServiceAppLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -247,7 +331,7 @@ void __54__TVRemoteViewController__acquireAppSwitcherAssertion__block_invoke(uin
 - (void)configureWithContext:(id)context
 {
   contextCopy = context;
-  v5 = _TVRUIServiceAppLog();
+  v5 = _TVRUIServiceAppLog(contextCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138543362;
@@ -266,7 +350,7 @@ void __54__TVRemoteViewController__acquireAppSwitcherAssertion__block_invoke(uin
 
 - (void)dismiss
 {
-  v3 = _TVRUIServiceAppLog();
+  v3 = _TVRUIServiceAppLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -305,7 +389,7 @@ void __54__TVRemoteViewController__acquireAppSwitcherAssertion__block_invoke(uin
 
 - (void)deviceDidConnect
 {
-  v3 = _TVRUIServiceAppLog();
+  v3 = _TVRUIServiceAppLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -325,7 +409,7 @@ void __54__TVRemoteViewController__acquireAppSwitcherAssertion__block_invoke(uin
 
 - (void)deviceDidDisconnect
 {
-  v3 = _TVRUIServiceAppLog();
+  v3 = _TVRUIServiceAppLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -343,23 +427,40 @@ void __54__TVRemoteViewController__acquireAppSwitcherAssertion__block_invoke(uin
 
   if (isInSecureWindow)
   {
-    v5 = _TVRUIServiceAppLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _TVRUIServiceAppLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Not showing the mini tip since the view controller is in a secure window", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Not showing the mini tip since the view controller is in a secure window", buf, 2u);
     }
   }
 
   else
   {
-    v8 = +[_TtC17TVRemoteUIService11TipsManager shared];
+    v9 = +[_TtC17TVRemoteUIService11TipsManager shared];
     remoteViewController2 = [(TVRemoteViewController *)self remoteViewController];
     tipSourceViewProvider = [remoteViewController2 tipSourceViewProvider];
-    [v8 updatePresentingViewController:tipSourceViewProvider];
+    [v9 updatePresentingViewController:tipSourceViewProvider];
 
-    [v8 presentTip];
+    [v9 presentTip];
   }
+}
+
+- (void)device:(id)device supportsSiri:(BOOL)siri volume:(BOOL)volume
+{
+  volumeCopy = volume;
+  siriCopy = siri;
+  deviceCopy = device;
+  hintsViewController = [(TVRemoteViewController *)self hintsViewController];
+  [hintsViewController device:deviceCopy supportsSiri:siriCopy volume:volumeCopy];
+}
+
+- (void)device:(id)device supportsVolume:(BOOL)volume
+{
+  volumeCopy = volume;
+  deviceCopy = device;
+  hintsViewController = [(TVRemoteViewController *)self hintsViewController];
+  [hintsViewController device:deviceCopy supportsVolume:volumeCopy];
 }
 
 - (void)devicePickerWillExpand

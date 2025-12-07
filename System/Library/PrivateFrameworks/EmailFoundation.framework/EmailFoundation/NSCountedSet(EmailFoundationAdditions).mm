@@ -7,29 +7,29 @@
 
 - (id)ef_mostCommonObjects
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   selfCopy = self;
-  v4 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = 0;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
-        v9 = [selfCopy countForObject:{v8, v13}];
+        v8 = *(*(&v12 + 1) + 8 * i);
+        v9 = [selfCopy countForObject:{v8, v12}];
         v10 = v9;
         if (v9 <= v5)
         {
@@ -47,42 +47,40 @@
         }
       }
 
-      v4 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (id)ef_leastCommonObjects
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   selfCopy = self;
-  v4 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
-    v5 = *v14;
+    v5 = *v13;
     v6 = -1;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
-        v9 = [selfCopy countForObject:{v8, v13}];
+        v8 = *(*(&v12 + 1) + 8 * i);
+        v9 = [selfCopy countForObject:{v8, v12}];
         v10 = v9;
         if (v9 >= v6)
         {
@@ -100,13 +98,11 @@
         }
       }
 
-      v4 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

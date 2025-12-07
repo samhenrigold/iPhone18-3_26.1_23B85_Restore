@@ -16,20 +16,20 @@
   if (firstObject)
   {
     [(OBPrivacyModalNavigationController *)self setDismissButtonPressedHandler:handlerCopy];
-    v7 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:24 target:self action:sel__doneButtonPressed];
+    v8 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:24 target:self action:sel__doneButtonPressed];
     viewControllers2 = [(OBPrivacyModalNavigationController *)self viewControllers];
     firstObject2 = [viewControllers2 firstObject];
     navigationItem = [firstObject2 navigationItem];
-    [navigationItem setLeftBarButtonItem:v7];
+    [navigationItem setLeftBarButtonItem:v8];
   }
 
   else
   {
-    v11 = _OBLoggingFacility();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _OBLoggingFacility(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_1B4FB6000, v11, OS_LOG_TYPE_DEFAULT, "addDismissButtonWithHandler: Need a view controller before we can add a button.", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_1B4FB6000, v12, OS_LOG_TYPE_DEFAULT, "addDismissButtonWithHandler: Need a view controller before we can add a button.", v13, 2u);
     }
   }
 }

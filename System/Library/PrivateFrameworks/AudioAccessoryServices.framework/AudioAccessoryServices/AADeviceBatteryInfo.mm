@@ -9,6 +9,8 @@
 - (BOOL)_updateBatteriesFromTetheredAdvertisement:(id)advertisement;
 - (BOOL)_updateBatteriesFromUntetheredAdvertisement:(id)advertisement;
 - (BOOL)_updateCaseInfo:(id)info;
+- (BOOL)_updateChargingOBCTimeUntilCharged:(unsigned __int8)charged;
+- (BOOL)_updateWithAACPBatteryInfo:(id)info;
 - (BOOL)_updateWithNearbyBattery:(id)battery forType:(int64_t)type withSource:(unsigned int)source;
 - (BOOL)_updateWithProximityPairingPayload:(id)payload;
 - (BOOL)applyOverrideFromStr:(id)str forBatteryType:(int64_t)type;
@@ -216,7 +218,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = [objc_opt_class() allocWithZone:zone];
   bluetoothAddress = [(AADeviceBatteryInfo *)self bluetoothAddress];
   v7 = [bluetoothAddress copyWithZone:zone];
@@ -241,157 +243,173 @@
 
   [v5 setOptimizedBatteryChargingCapability:{-[AADeviceBatteryInfo optimizedBatteryChargingCapability](self, "optimizedBatteryChargingCapability")}];
   [v5 setProductID:{-[AADeviceBatteryInfo productID](self, "productID")}];
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   batteries = [(AADeviceBatteryInfo *)self batteries];
-  v16 = [batteries countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v16 = [batteries countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v24;
+    v18 = *v23;
     do
     {
       v19 = 0;
       do
       {
-        if (*v24 != v18)
+        if (*v23 != v18)
         {
           objc_enumerationMutation(batteries);
         }
 
-        v20 = [*(*(&v23 + 1) + 8 * v19) copy];
+        v20 = [*(*(&v22 + 1) + 8 * v19) copy];
         [v5 setBatteryInMap:v20];
 
         ++v19;
       }
 
       while (v17 != v19);
-      v17 = [batteries countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v17 = [batteries countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v17);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)descriptionWithLevel:(int)level
 {
   levelCopy = level;
-  identifier = self->_identifier;
-  NSAppendPrintF_safe();
-  v5 = 0;
+  v51 = 0;
+  NSAppendPrintF_safe(&v51, "AADeviceBatteryInfo identifier: %@", self->_identifier);
+  v5 = v51;
   bluetoothAddress = [(AADeviceBatteryInfo *)self bluetoothAddress];
+  v7 = bluetoothAddress;
   if (bluetoothAddress)
   {
-    NSAppendPrintF_safe();
-    v7 = v5;
+    v50 = v5;
+    NSAppendPrintF_safe(&v50, ", Bt Addr '%@'", bluetoothAddress);
+    v8 = v50;
 
-    v5 = v7;
+    v5 = v8;
   }
 
-  color = [(AADeviceBatteryInfo *)self color];
-  NSAppendPrintF_safe();
-  v8 = v5;
+  v49 = v5;
+  NSAppendPrintF_safe(&v49, ", Col '%u'", [(AADeviceBatteryInfo *)self color]);
+  v9 = v49;
 
   name = [(AADeviceBatteryInfo *)self name];
-  v10 = name;
+  v11 = name;
   if (name)
   {
-    v33 = name;
-    NSAppendPrintF_safe();
-    v11 = v8;
+    v48 = v9;
+    NSAppendPrintF_safe(&v48, ", Nm '%@'", name);
+    v12 = v48;
 
-    v8 = v11;
+    v9 = v12;
   }
 
   productID = [(AADeviceBatteryInfo *)self productID];
   if (productID)
   {
-    v33 = productID;
-    NSAppendPrintF_safe();
-    v13 = v8;
+    v47 = v9;
+    NSAppendPrintF_safe(&v47, ", Pid '%u'", productID);
+    v14 = v47;
 
-    v8 = v13;
+    v9 = v14;
   }
 
   findMyGroupIdentifier = [(AADeviceBatteryInfo *)self findMyGroupIdentifier];
+  v16 = findMyGroupIdentifier;
   if (findMyGroupIdentifier)
   {
-    NSAppendPrintF_safe();
-    v15 = v8;
+    v46 = v9;
+    NSAppendPrintF_safe(&v46, ", fmGI '%@'", findMyGroupIdentifier);
+    v17 = v46;
 
-    v8 = v15;
+    v9 = v17;
   }
 
   caseIdentifier = [(AADeviceBatteryInfo *)self caseIdentifier];
+  v19 = caseIdentifier;
   if (caseIdentifier)
   {
-    NSAppendPrintF_safe();
-    v17 = v8;
+    v45 = v9;
+    NSAppendPrintF_safe(&v45, ", fmCI '%@'", caseIdentifier);
+    v20 = v45;
 
-    v8 = v17;
+    v9 = v20;
   }
 
   batteryCase = [(AADeviceBatteryInfo *)self batteryCase];
+  v22 = batteryCase;
   if (batteryCase)
   {
-    NSAppendPrintF_safe();
-    v19 = v8;
+    v44 = v9;
+    NSAppendPrintF_safe(&v44, ",\n%@", batteryCase);
+    v23 = v44;
 
-    v8 = v19;
+    v9 = v23;
   }
 
   batteryMain = [(AADeviceBatteryInfo *)self batteryMain];
+  v25 = batteryMain;
   if (batteryMain)
   {
-    NSAppendPrintF_safe();
-    v21 = v8;
+    v43 = v9;
+    NSAppendPrintF_safe(&v43, ",\n%@", batteryMain);
+    v26 = v43;
 
-    v8 = v21;
+    v9 = v26;
   }
 
   batteryCombinedLeftRight = [(AADeviceBatteryInfo *)self batteryCombinedLeftRight];
+  v28 = batteryCombinedLeftRight;
   if (batteryCombinedLeftRight)
   {
-    NSAppendPrintF_safe();
-    v23 = v8;
+    v42 = v9;
+    NSAppendPrintF_safe(&v42, ",\n%@", batteryCombinedLeftRight);
+    v29 = v42;
 
-    v8 = v23;
+    v9 = v29;
   }
 
   batteryLeft = [(AADeviceBatteryInfo *)self batteryLeft];
+  v31 = batteryLeft;
   if (batteryLeft)
   {
-    NSAppendPrintF_safe();
-    v25 = v8;
+    v41 = v9;
+    NSAppendPrintF_safe(&v41, ",\n%@", batteryLeft);
+    v32 = v41;
 
-    v8 = v25;
+    v9 = v32;
   }
 
-  v26 = levelCopy;
+  v33 = levelCopy;
 
   batteryRight = [(AADeviceBatteryInfo *)self batteryRight];
+  v35 = batteryRight;
   if (batteryRight)
   {
-    NSAppendPrintF_safe();
-    v28 = v8;
+    v40 = v9;
+    NSAppendPrintF_safe(&v40, ",\n%@", batteryRight);
+    v36 = v40;
 
-    v8 = v28;
+    v9 = v36;
   }
 
-  if (v26 < 0x15)
+  if (v33 < 0x15)
   {
-    NSAppendPrintF_safe();
-    v29 = v8;
+    v39 = v9;
+    NSAppendPrintF_safe(&v39, "\n");
+    v37 = v39;
 
-    v8 = v29;
+    v9 = v37;
   }
 
-  return v8;
+  return v9;
 }
 
 - (BOOL)updateWithAACPBatteryInfoData:(id)data
@@ -440,6 +458,45 @@
   [(AADeviceBatteryInfo *)self _updateCombinedBatteryWithChanges:v17 & 1];
 
   return v17 & 1;
+}
+
+- (BOOL)_updateWithAACPBatteryInfo:(id)info
+{
+  var3 = info.var3;
+  v5 = [[AABattery alloc] initWithAACPBatteryInfo:*&info.var0 & 0xFFFFFFFFFFLL productID:[(AADeviceBatteryInfo *)self productID]];
+  v6 = [(AADeviceBatteryInfo *)self batteryForType:[(AABattery *)v5 type]];
+  if (gLogCategory_AADeviceBatteryInfo <= 30 && (gLogCategory_AADeviceBatteryInfo != -1 || _LogCategory_Initialize()))
+  {
+    identifier = [(AADeviceBatteryInfo *)self identifier];
+    LogPrintF();
+  }
+
+  if (var3 - 3 > 1)
+  {
+    if (v6)
+    {
+      v8 = [v6 updateWithAABattery:v5];
+    }
+
+    else
+    {
+      [(AADeviceBatteryInfo *)self setBatteryInMap:v5];
+      v8 = 1;
+    }
+  }
+
+  else
+  {
+    if (v6)
+    {
+      [v6 setSourceFlags:{objc_msgSend(v6, "sourceFlags") & 0xFFFFFFFBLL}];
+      [v6 setLastSeen:CFAbsoluteTimeGetCurrent()];
+    }
+
+    v8 = 0;
+  }
+
+  return v8;
 }
 
 - (int64_t)_batteryStateFromCharging:(BOOL)charging chargingOBC:(BOOL)c chargingDEOC:(BOOL)oC
@@ -976,20 +1033,20 @@ LABEL_119:
 
 - (BOOL)updateWithLostAANearbyDevice:(id)device
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   [(AADeviceBatteryInfo *)self setIsNearby:0];
   isCase = [deviceCopy isCase];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   batteries = [(AADeviceBatteryInfo *)self batteries];
-  v7 = [batteries countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [batteries countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     if (isCase)
     {
       v10 = -3;
@@ -1005,24 +1062,23 @@ LABEL_119:
       v11 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(batteries);
         }
 
-        [*(*(&v14 + 1) + 8 * v11) setSourceFlags:{objc_msgSend(*(*(&v14 + 1) + 8 * v11), "sourceFlags") & v10}];
+        [*(*(&v13 + 1) + 8 * v11) setSourceFlags:{objc_msgSend(*(*(&v13 + 1) + 8 * v11), "sourceFlags") & v10}];
         ++v11;
       }
 
       while (v8 != v11);
-      v8 = [batteries countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [batteries countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
   [(AADeviceBatteryInfo *)self _updateCombinedBatteryWithChanges:0];
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1171,6 +1227,52 @@ LABEL_10:
   v11 = [(AADeviceBatteryInfo *)self _updateWithNearbyBattery:v8 forType:3 withSource:v5];
 
   return v10 | v11;
+}
+
+- (BOOL)_updateChargingOBCTimeUntilCharged:(unsigned __int8)charged
+{
+  chargedCopy = charged;
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  batteries = [(AADeviceBatteryInfo *)self batteries];
+  v5 = [batteries countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = 0;
+    v8 = *v13;
+    do
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v13 != v8)
+        {
+          objc_enumerationMutation(batteries);
+        }
+
+        v10 = *(*(&v12 + 1) + 8 * i);
+        if (([v10 isCaseBattery] & 1) == 0 && objc_msgSend(v10, "chargingOBCTimeUntilCharged") != chargedCopy)
+        {
+          [v10 setChargingOBCTimeUntilCharged:chargedCopy];
+          v7 = 1;
+        }
+      }
+
+      v6 = [batteries countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v6);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  return v7 & 1;
 }
 
 - (BOOL)_updateCaseInfo:(id)info
@@ -1350,29 +1452,29 @@ LABEL_20:
 
 - (BOOL)clearExpiredBatteries
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   batteries = [(AADeviceBatteryInfo *)self batteries];
-  v4 = [batteries countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [batteries countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(batteries);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         if ([v9 isExpired])
         {
           if (gLogCategory_AADeviceBatteryInfo <= 30 && (gLogCategory_AADeviceBatteryInfo != -1 || _LogCategory_Initialize()))
@@ -1388,7 +1490,7 @@ LABEL_20:
       }
 
       while (v5 != v8);
-      v10 = [batteries countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v10 = [batteries countByEnumeratingWithState:&v12 objects:v16 count:16];
       v5 = v10;
     }
 
@@ -1400,7 +1502,6 @@ LABEL_20:
     v6 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6 & 1;
 }
 
@@ -1623,7 +1724,7 @@ LABEL_20:
   {
     if (gLogCategory_AADeviceBatteryInfo <= 30 && (gLogCategory_AADeviceBatteryInfo != -1 || _LogCategory_Initialize()))
     {
-      [AADeviceBatteryInfo applyOverrideFromStr:type forBatteryType:?];
+      [AADeviceBatteryInfo applyOverrideFromStr:forBatteryType:];
     }
 
     v8 = [(AADeviceBatteryInfo *)self batteryForType:type];
@@ -1692,7 +1793,7 @@ LABEL_17:
 
       if (gLogCategory_AADeviceBatteryInfo <= 30 && (gLogCategory_AADeviceBatteryInfo != -1 || _LogCategory_Initialize()))
       {
-        [AADeviceBatteryInfo applyOverrideFromStr:type forBatteryType:?];
+        [AADeviceBatteryInfo applyOverrideFromStr:forBatteryType:];
       }
 
       [(AADeviceBatteryInfo *)self setBatteryInMap:v14];
@@ -1864,7 +1965,7 @@ LABEL_37:
 
 - (BOOL)updateWithDisconnectedDevice:(id)device
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   identifier = [deviceCopy identifier];
   identifier2 = [(AADeviceBatteryInfo *)self identifier];
@@ -1876,32 +1977,32 @@ LABEL_37:
     if (bluetoothAddress)
     {
       [(AADeviceBatteryInfo *)self setIsConnected:0];
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       batteries = [(AADeviceBatteryInfo *)self batteries];
-      v10 = [batteries countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [batteries countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v17;
+        v12 = *v16;
         do
         {
           v13 = 0;
           do
           {
-            if (*v17 != v12)
+            if (*v16 != v12)
             {
               objc_enumerationMutation(batteries);
             }
 
-            [*(*(&v16 + 1) + 8 * v13) setSourceFlags:{objc_msgSend(*(*(&v16 + 1) + 8 * v13), "sourceFlags") & 0xFFFFFFFBLL}];
+            [*(*(&v15 + 1) + 8 * v13) setSourceFlags:{objc_msgSend(*(*(&v15 + 1) + 8 * v13), "sourceFlags") & 0xFFFFFFFBLL}];
             ++v13;
           }
 
           while (v11 != v13);
-          v11 = [batteries countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v11 = [batteries countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
         while (v11);
@@ -1911,7 +2012,6 @@ LABEL_37:
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1937,26 +2037,6 @@ LABEL_37:
 {
   [a1 state];
   [a2 state];
-  return LogPrintF();
-}
-
-- (uint64_t)applyOverrideFromStr:(uint64_t)a1 forBatteryType:.cold.1(uint64_t a1)
-{
-  if ((a1 - 1) <= 4)
-  {
-    v1 = off_278CDE028[a1 - 1];
-  }
-
-  return LogPrintF();
-}
-
-- (uint64_t)applyOverrideFromStr:(unint64_t)a1 forBatteryType:.cold.3(unint64_t a1)
-{
-  if (a1 <= 5)
-  {
-    v1 = off_278CDE050[a1];
-  }
-
   return LogPrintF();
 }
 

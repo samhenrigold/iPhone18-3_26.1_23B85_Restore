@@ -454,31 +454,31 @@
 - (void)sendPurchaseIntents:(id)intents forApp:(id)app
 {
   v7 = objc_opt_new();
-  v18 = 0u;
-  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v8 = [intents countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v22 = 0u;
+  v23 = 0u;
+  v8 = [intents countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v21;
     do
     {
       v11 = 0;
       do
       {
-        if (*v19 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(intents);
         }
 
-        [v7 addObject:{objc_msgSend(*(*(&v18 + 1) + 8 * v11), "productIdentifier")}];
+        [v7 addObject:{objc_msgSend(*(*(&v20 + 1) + 8 * v11), "productIdentifier")}];
         v11 = v11 + 1;
       }
 
       while (v9 != v11);
-      v9 = [intents countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [intents countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
@@ -502,15 +502,15 @@
   [(StoreKitClientIdentity *)v13 setSandboxed:profileValidated];
   [(LoadMicroPaymentProductsOperation *)v12 setClientIdentity:v13];
 
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_1001A5D64;
-  v17[3] = &unk_1003273E0;
-  v17[4] = v12;
-  v17[5] = self;
-  v17[6] = app;
-  [(LoadMicroPaymentProductsOperation *)v12 setCompletionBlock:v17];
-  [sub_1000D20B0() addOperation:v12];
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_1001A5D64;
+  v19[3] = &unk_1003273E0;
+  v19[4] = v12;
+  v19[5] = self;
+  v19[6] = app;
+  v17 = [(LoadMicroPaymentProductsOperation *)v12 setCompletionBlock:v19];
+  [sub_1000D20B0(v17 v18)];
 }
 
 - (XPCClient)XPCClient
@@ -576,15 +576,21 @@
     shouldLog = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = shouldLog | 2;
+      LODWORD(v6) = shouldLog | 2;
     }
 
     else
     {
-      v6 = shouldLog;
+      LODWORD(v6) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v4 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
@@ -595,15 +601,13 @@
       v14 = objc_opt_class();
       v15 = 2048;
       v16 = [ds count];
-      LODWORD(v11) = 22;
-      v10 = &v13;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%{public}@: Canceling %lu downloads", &v13, 22);
+      if (v8)
       {
-        v8 = v7;
-        v9 = [NSString stringWithCString:v7 encoding:4, &v13, v11];
-        free(v8);
-        v10 = v9;
+        v9 = v8;
+        v10 = [NSString stringWithCString:v8 encoding:4];
+        free(v9);
+        v11 = v10;
         SSFileLog();
       }
     }
@@ -963,95 +967,103 @@ LABEL_21:
       shouldLog = [v7 shouldLog];
       if ([v7 shouldLogToDisk])
       {
-        v9 = shouldLog | 2;
+        LODWORD(v9) = shouldLog | 2;
       }
 
       else
       {
-        v9 = shouldLog;
+        LODWORD(v9) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_INFO))
+      oSLogObject = [v7 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+      {
+        v9 = v9;
+      }
+
+      else
       {
         v9 &= 2u;
       }
 
       if (v9)
       {
-        v35 = 138543618;
-        v36 = objc_opt_class();
-        v37 = 2112;
+        v39 = 138543618;
+        v40 = objc_opt_class();
+        v41 = 2112;
         reasonCopy = [(StoreKitClient *)self _clientIdentifier];
-        LODWORD(v32) = 22;
-        v31 = &v35;
-        v10 = _os_log_send_and_compose_impl();
-        if (v10)
+        v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%{public}@: Client checked in mid-refresh: %@", &v39, 22);
+        if (v11)
         {
-          v11 = v10;
-          v12 = [NSString stringWithCString:v10 encoding:4, &v35, v32];
-          free(v11);
-          v31 = v12;
+          v12 = v11;
+          v13 = [NSString stringWithCString:v11 encoding:4];
+          free(v12);
+          v36 = v13;
           SSFileLog();
         }
       }
 
-      [(LoadMicroPaymentQueuesOperation *)self->_loadQueueOperation setReason:0, v31];
+      [(LoadMicroPaymentQueuesOperation *)self->_loadQueueOperation setReason:0, v36];
     }
   }
 
   else
   {
-    v13 = [(StoreKitClient *)self _copyAccountIDsForRefreshReason:reason];
-    v14 = v13;
+    v14 = [(StoreKitClient *)self _copyAccountIDsForRefreshReason:reason];
+    v15 = v14;
     if (identifier)
     {
-      [v13 addObject:identifier];
+      [v14 addObject:identifier];
     }
 
-    if ([v14 count])
+    if ([v15 count])
     {
-      allObjects = [v14 allObjects];
-      v15 = +[SSLogConfig sharedDaemonConfig];
-      if (!v15)
+      allObjects = [v15 allObjects];
+      v16 = +[SSLogConfig sharedDaemonConfig];
+      if (!v16)
       {
-        v15 = +[SSLogConfig sharedConfig];
+        v16 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v15 shouldLog];
-      if ([v15 shouldLogToDisk])
+      shouldLog2 = [v16 shouldLog];
+      if ([v16 shouldLogToDisk])
       {
-        v17 = shouldLog2 | 2;
+        LODWORD(v18) = shouldLog2 | 2;
       }
 
       else
       {
-        v17 = shouldLog2;
+        LODWORD(v18) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v15 OSLogObject], OS_LOG_TYPE_INFO))
+      oSLogObject2 = [v16 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
       {
-        v17 &= 2u;
+        v18 = v18;
       }
 
-      if (v17)
+      else
       {
-        v35 = 138544130;
-        v36 = objc_opt_class();
-        v37 = 2048;
+        v18 &= 2u;
+      }
+
+      if (v18)
+      {
+        v39 = 138544130;
+        v40 = objc_opt_class();
+        v41 = 2048;
         reasonCopy = reason;
-        v39 = 2112;
+        v43 = 2112;
         _clientIdentifier = [(StoreKitClient *)self _clientIdentifier];
-        v41 = 2112;
-        v42 = [allObjects componentsJoinedByString:{@", "}];
-        LODWORD(v32) = 42;
-        v31 = &v35;
-        v18 = _os_log_send_and_compose_impl();
-        if (v18)
+        v45 = 2112;
+        v46 = [allObjects componentsJoinedByString:{@", "}];
+        v20 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%{public}@: Refreshing from server (%ld; %@; %@)", &v39, 42);
+        if (v20)
         {
-          v19 = v18;
-          v20 = [NSString stringWithCString:v18 encoding:4, &v35, v32];
-          free(v19);
-          v31 = v20;
+          v21 = v20;
+          v22 = [NSString stringWithCString:v20 encoding:4];
+          free(v21);
+          v36 = v22;
           SSFileLog();
         }
       }
@@ -1064,71 +1076,75 @@ LABEL_21:
         self->_loadQueueOperation = 0;
       }
 
-      v22 = objc_alloc_init(LoadMicroPaymentQueuesOperation);
-      self->_loadQueueOperation = v22;
-      [(LoadMicroPaymentQueuesOperation *)v22 setClientIdentity:[(StoreKitClient *)self _clientIdentity]];
+      v24 = objc_alloc_init(LoadMicroPaymentQueuesOperation);
+      self->_loadQueueOperation = v24;
+      [(LoadMicroPaymentQueuesOperation *)v24 setClientIdentity:[(StoreKitClient *)self _clientIdentity]];
       [(LoadMicroPaymentQueuesOperation *)self->_loadQueueOperation setLastQueueCheckDate:[(StoreKitClient *)self _lastQueueCheckDate]];
       [(LoadMicroPaymentQueuesOperation *)self->_loadQueueOperation setReason:reason];
       [(LoadMicroPaymentQueuesOperation *)self->_loadQueueOperation setShouldRunWithBackgroundPriority:1];
       [(LoadMicroPaymentQueuesOperation *)self->_loadQueueOperation setUserDSIDs:allObjects];
-      v23 = [SSWeakReference weakReferenceWithObject:self];
-      v24 = self->_loadQueueOperation;
-      v34[0] = _NSConcreteStackBlock;
-      v34[1] = 3221225472;
-      v34[2] = sub_1001A8B0C;
-      v34[3] = &unk_100327350;
-      v34[4] = v23;
-      v34[5] = v22;
-      [(LoadMicroPaymentQueuesOperation *)v24 setCompletionBlock:v34];
+      v25 = [SSWeakReference weakReferenceWithObject:self];
+      v26 = self->_loadQueueOperation;
+      v38[0] = _NSConcreteStackBlock;
+      v38[1] = 3221225472;
+      v38[2] = sub_1001A8B0C;
+      v38[3] = &unk_100327350;
+      v38[4] = v25;
+      v38[5] = v24;
+      [(LoadMicroPaymentQueuesOperation *)v26 setCompletionBlock:v38];
       self->_lastRefreshReason = reason;
-      [(StoreKitClient *)self _setClientState:1];
-      [sub_1000D20B0() addOperation:self->_loadQueueOperation];
+      v27 = [(StoreKitClient *)self _setClientState:1];
+      [sub_1000D20B0(v27 v28)];
     }
 
     else
     {
-      v25 = +[SSLogConfig sharedDaemonConfig];
-      if (!v25)
+      v29 = +[SSLogConfig sharedDaemonConfig];
+      if (!v29)
       {
-        v25 = +[SSLogConfig sharedConfig];
+        v29 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog3 = [v25 shouldLog];
-      if ([v25 shouldLogToDisk])
+      shouldLog3 = [v29 shouldLog];
+      if ([v29 shouldLogToDisk])
       {
-        v27 = shouldLog3 | 2;
+        LODWORD(v31) = shouldLog3 | 2;
       }
 
       else
       {
-        v27 = shouldLog3;
+        LODWORD(v31) = shouldLog3;
       }
 
-      if (!os_log_type_enabled([v25 OSLogObject], OS_LOG_TYPE_INFO))
+      oSLogObject3 = [v29 OSLogObject];
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
       {
-        v27 &= 2u;
+        v31 = v31;
       }
 
-      if (v27)
+      else
       {
-        v35 = 138543362;
-        v36 = objc_opt_class();
-        LODWORD(v32) = 12;
-        v31 = &v35;
-        v28 = _os_log_send_and_compose_impl();
-        if (v28)
+        v31 &= 2u;
+      }
+
+      if (v31)
+      {
+        v39 = 138543362;
+        v40 = objc_opt_class();
+        v33 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%{public}@: Tried to refresh from server, but either had no payments or no usable DSIDs", &v39, 12);
+        if (v33)
         {
-          v29 = v28;
-          v30 = [NSString stringWithCString:v28 encoding:4, &v35, v32];
-          free(v29);
-          v31 = v30;
+          v34 = v33;
+          v35 = [NSString stringWithCString:v33 encoding:4];
+          free(v34);
+          v36 = v35;
           SSFileLog();
         }
       }
     }
   }
 
-  [ISLoadURLBagOperation decrementNetworkCounterForBagContext:[SSURLBagContext contextWithBagType:0, v31]];
+  [ISLoadURLBagOperation decrementNetworkCounterForBagContext:[SSURLBagContext contextWithBagType:0, v36]];
 }
 
 - (void)_reloadClientProperties
@@ -1174,16 +1190,16 @@ LABEL_21:
   objectID = [payment objectID];
   v7 = [PrivacyPromptOperation alloc];
   v8 = [(PrivacyPromptOperation *)v7 initWithPrivacyIdentifier:SSPrivacyIdentifierAppStore];
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_1001A8E2C;
-  v9[3] = &unk_10032B008;
-  v9[4] = [SSWeakReference weakReferenceWithObject:self];
-  v9[5] = objectID;
-  v9[6] = v8;
-  v9[7] = block;
-  [(PrivacyPromptOperation *)v8 setCompletion:v9];
-  [sub_1000D20B0() addOperation:v8];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_1001A8E2C;
+  v11[3] = &unk_10032B008;
+  v11[4] = [SSWeakReference weakReferenceWithObject:self];
+  v11[5] = objectID;
+  v11[6] = v8;
+  v11[7] = block;
+  v9 = [(PrivacyPromptOperation *)v8 setCompletion:v11];
+  [sub_1000D20B0(v9 v10)];
 }
 
 - (void)_sendBuyRequestForPayment:(id)payment withCompletionBlock:(id)block
@@ -1218,16 +1234,16 @@ LABEL_21:
   [(BuyMicroPaymentOperation *)v7 setQuantity:integerValue];
   -[BuyMicroPaymentOperation setSimulatesAskToBuyInSandbox:](v7, "setSimulatesAskToBuyInSandbox:", [objc_msgSend(payment "simulatesAskToBuyInSandbox")]);
   objectID = [payment objectID];
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_1001A942C;
-  v11[3] = &unk_10032AFB8;
-  v11[4] = [SSWeakReference weakReferenceWithObject:self];
-  v11[5] = v7;
-  v11[6] = objectID;
-  v11[7] = block;
-  [(BuyMicroPaymentOperation *)v7 setCompletionBlock:v11];
-  [sub_1000D20B0() addOperation:v7];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_1001A942C;
+  v13[3] = &unk_10032AFB8;
+  v13[4] = [SSWeakReference weakReferenceWithObject:self];
+  v13[5] = v7;
+  v13[6] = objectID;
+  v13[7] = block;
+  v11 = [(BuyMicroPaymentOperation *)v7 setCompletionBlock:v13];
+  [sub_1000D20B0(v11 v12)];
 }
 
 - (void)_sendDownloadChangesets:(id)changesets
@@ -1257,16 +1273,16 @@ LABEL_21:
   -[FinishMicroPaymentOperation setTransactionIdentifier:](v7, "setTransactionIdentifier:", [payment transactionIdentifier]);
   -[FinishMicroPaymentOperation setUserDSID:](v7, "setUserDSID:", [payment userDSID]);
   objectID = [payment objectID];
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_1001A963C;
-  v9[3] = &unk_10032AFB8;
-  v9[4] = [SSWeakReference weakReferenceWithObject:self];
-  v9[5] = v7;
-  v9[6] = objectID;
-  v9[7] = block;
-  [(FinishMicroPaymentOperation *)v7 setCompletionBlock:v9];
-  [sub_1000D20B0() addOperation:v7];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_1001A963C;
+  v11[3] = &unk_10032AFB8;
+  v11[4] = [SSWeakReference weakReferenceWithObject:self];
+  v11[5] = v7;
+  v11[6] = objectID;
+  v11[7] = block;
+  v9 = [(FinishMicroPaymentOperation *)v7 setCompletionBlock:v11];
+  [sub_1000D20B0(v9 v10)];
 }
 
 - (void)_sendMergeResults:(id)results
@@ -1380,9 +1396,9 @@ LABEL_15:
   xpc_dictionary_set_int64(v5, "0", 20005);
   if (error)
   {
-    v6 = sub_1000D2580(error);
-    v7 = sub_1001FA200(v6);
-    sub_1001FA20C(v5, "1", v7);
+    sub_1000D2580(error);
+    v6 = sub_1001FA200();
+    sub_1001FA20C(v5, "1", v6);
   }
 
   [(SSXPCConnection *)[(XPCClient *)self->_client outputConnection] sendMessage:v5];

@@ -105,19 +105,19 @@
 
 - (void)_setCurrentTransition:(id)transition
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   transitionCopy = transition;
   currentTransition = self->_currentTransition;
   p_currentTransition = &self->_currentTransition;
   if (currentTransition != transitionCopy)
   {
     objc_storeStrong(p_currentTransition, transition);
-    v8 = SBLogAlertItemStack();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = SBLogAlertItemStack(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v9 = 138412290;
-      v10 = transitionCopy;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "Set new current transition: %@", &v9, 0xCu);
+      v10 = 138412290;
+      v11 = transitionCopy;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "Set new current transition: %@", &v10, 0xCu);
     }
   }
 }
@@ -129,18 +129,19 @@
   v6 = transitionCopy;
   if (!transitionCopy)
   {
-    v7 = 0;
+    v8 = 0;
 LABEL_4:
-    [(NSMutableArray *)self->_viewControllerStack removeObject:v7];
-    [(NSMutableArray *)self->_viewControllerStack addObject:v7];
+    [(NSMutableArray *)self->_viewControllerStack removeObject:v8];
+    v7 = [(NSMutableArray *)self->_viewControllerStack addObject:v8];
     goto LABEL_8;
   }
 
   v7 = *(transitionCopy + 1);
-  v8 = v6[2];
-  if (v8 != 1)
+  v8 = v7;
+  v9 = v6[2];
+  if (v9 != 1)
   {
-    if (v8)
+    if (v9)
     {
       goto LABEL_8;
     }
@@ -148,22 +149,22 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  if (([(NSMutableArray *)self->_viewControllerStack containsObject:v7]& 1) == 0)
+  if ((objc_msgSend_containsObject_(self->_viewControllerStack) & 1) == 0)
   {
-    [(SBModalViewControllerStack *)a2 _queuePendingTransition:v7];
+    [(SBModalViewControllerStack *)a2 _queuePendingTransition:v8];
   }
 
-  [(NSMutableArray *)self->_viewControllerStack removeObject:v7];
+  v7 = [(NSMutableArray *)self->_viewControllerStack removeObject:v8];
 LABEL_8:
   currentTransition = self->_currentTransition;
-  v10 = SBLogAlertItemStack();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+  v11 = SBLogAlertItemStack(v7);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
   if (!currentTransition)
   {
-    if (v11)
+    if (v12)
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "No current transition is on-going, but pending it for immediate execution.", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_INFO, "No current transition is on-going, but pending it for immediate execution.", buf, 2u);
     }
 
     if ([(NSMutableArray *)self->_pendingTransitions count])
@@ -174,10 +175,10 @@ LABEL_8:
     goto LABEL_37;
   }
 
-  if (v11)
+  if (v12)
   {
     *buf = 0;
-    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "We have a current transition on-going; attempting to pend the next operation.", buf, 2u);
+    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_INFO, "We have a current transition on-going; attempting to pend the next operation.", buf, 2u);
   }
 
   if (!v6 || v6[2] != 1)
@@ -191,68 +192,68 @@ LABEL_37:
   v27 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v12 = [(NSMutableArray *)self->_pendingTransitions copy];
-  v13 = [v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
-  if (!v13)
+  v13 = [(NSMutableArray *)self->_pendingTransitions copy];
+  v14 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  if (!v14)
   {
 
     goto LABEL_37;
   }
 
-  v15 = v13;
-  v16 = *v25;
-  v17 = 1;
-  *&v14 = 138412546;
-  v23 = v14;
+  v16 = v14;
+  v17 = *v25;
+  v18 = 1;
+  *&v15 = 138412546;
+  v23 = v15;
   do
   {
-    v18 = 0;
+    v19 = 0;
     do
     {
-      if (*v25 != v16)
+      if (*v25 != v17)
       {
-        objc_enumerationMutation(v12);
+        objc_enumerationMutation(v13);
       }
 
-      v19 = *(*(&v24 + 1) + 8 * v18);
-      if (v19)
+      v20 = *(*(&v24 + 1) + 8 * v19);
+      if (v20)
       {
-        v20 = *(v19 + 8);
+        v21 = *(v20 + 8);
       }
 
       else
       {
-        v20 = 0;
+        v21 = 0;
       }
 
-      if (v20 == v6[1] && (!v19 || !*(v19 + 16)))
+      if (v21 == v6[1] && (!v20 || !*(v20 + 16)))
       {
-        v21 = SBLogAlertItemStack();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v22 = SBLogAlertItemStack(v14);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           *buf = v23;
-          v29 = v19;
+          v29 = v20;
           v30 = 2112;
           v31 = v6;
-          _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_INFO, "Found a previously queued activation for this view controller (%@), and this is a dismissal (%@), so removing both from the pending queue.", buf, 0x16u);
+          _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_INFO, "Found a previously queued activation for this view controller (%@), and this is a dismissal (%@), so removing both from the pending queue.", buf, 0x16u);
         }
 
-        [(SBModalViewControllerStack *)self _removePendingTransition:v19 forSuccess:1];
+        [(SBModalViewControllerStack *)self _removePendingTransition:v20 forSuccess:1];
         [_SBModalViewControllerStackTransition invokeCompletionIfNecessaryWithResult:v6];
-        v17 = 0;
+        v18 = 0;
       }
 
-      ++v18;
+      ++v19;
     }
 
-    while (v15 != v18);
-    v22 = [v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
-    v15 = v22;
+    while (v16 != v19);
+    v14 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v16 = v14;
   }
 
-  while (v22);
+  while (v14);
 
-  if (v17)
+  if (v18)
   {
     goto LABEL_37;
   }
@@ -271,7 +272,7 @@ LABEL_38:
 uint64_t __66__SBModalViewControllerStack__performPendingTransitionIfNecessary__block_invoke_39(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = SBLogAlertItemStack();
+  v2 = SBLogAlertItemStack(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -286,7 +287,7 @@ uint64_t __66__SBModalViewControllerStack__performPendingTransitionIfNecessary__
 uint64_t __66__SBModalViewControllerStack__performPendingTransitionIfNecessary__block_invoke_40(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = SBLogAlertItemStack();
+  v2 = SBLogAlertItemStack(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -300,7 +301,7 @@ uint64_t __66__SBModalViewControllerStack__performPendingTransitionIfNecessary__
 
 - (void)_addViewController:(id)controller completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   completionCopy = completion;
   if (controllerCopy)
@@ -321,30 +322,31 @@ uint64_t __66__SBModalViewControllerStack__performPendingTransitionIfNecessary__
   }
 
   v10 = v9;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __60__SBModalViewControllerStack__addViewController_completion___block_invoke;
-  v24[3] = &unk_2783A8EB0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __60__SBModalViewControllerStack__addViewController_completion___block_invoke;
+  v25[3] = &unk_2783A8EB0;
   selfCopy3 = self;
-  v25 = selfCopy3;
+  v26 = selfCopy3;
   v12 = v10;
-  v26 = v12;
+  v27 = v12;
   v13 = controllerCopy;
-  v27 = v13;
+  v28 = v13;
   v14 = completionCopy;
-  v28 = v14;
-  v15 = MEMORY[0x223D6F7F0](v24);
+  v29 = v14;
+  v15 = MEMORY[0x223D6F7F0](v25);
   presentedViewController = [(UIViewController *)selfCopy3->_presentingViewController presentedViewController];
+  v17 = presentedViewController;
   if (presentedViewController)
   {
-    v17 = SBLogAlertItemStack();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
-    if (presentedViewController == v12)
+    v18 = SBLogAlertItemStack(presentedViewController);
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_INFO);
+    if (v17 == v12)
     {
-      if (v18)
+      if (v19)
       {
         *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_INFO, "Current view-controller is already presented, so we have nothing to do.", buf, 2u);
+        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_INFO, "Current view-controller is already presented, so we have nothing to do.", buf, 2u);
       }
 
       if (v14)
@@ -355,63 +357,63 @@ uint64_t __66__SBModalViewControllerStack__performPendingTransitionIfNecessary__
 
     else
     {
-      if (v18)
+      if (v19)
       {
         *buf = 138412546;
-        v30 = presentedViewController;
-        v31 = 2112;
-        v32 = v12;
-        _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_INFO, "Need to dismiss current presented view controller (%@) in order to present ourself (%@)", buf, 0x16u);
+        v31 = v17;
+        v32 = 2112;
+        v33 = v12;
+        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_INFO, "Need to dismiss current presented view controller (%@) in order to present ourself (%@)", buf, 0x16u);
       }
 
-      v20 = [_SBModalViewControllerStackTransition transitionForViewController:presentedViewController operation:1uLL animated:0 completion:0];
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __60__SBModalViewControllerStack__addViewController_completion___block_invoke_45;
-      v22[3] = &unk_2783A9348;
-      v23 = v15;
-      [(SBModalViewControllerStack *)selfCopy3 _removeViewController:v20 completion:v22];
+      v21 = [_SBModalViewControllerStackTransition transitionForViewController:v17 operation:1uLL animated:0 completion:0];
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __60__SBModalViewControllerStack__addViewController_completion___block_invoke_45;
+      v23[3] = &unk_2783A9348;
+      v24 = v15;
+      [(SBModalViewControllerStack *)selfCopy3 _removeViewController:v21 completion:v23];
     }
   }
 
   else
   {
-    v19 = SBLogAlertItemStack();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v20 = SBLogAlertItemStack(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_INFO, "No current presented view controller, presenting straight away.", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_INFO, "No current presented view controller, presenting straight away.", buf, 2u);
     }
 
     v15[2](v15);
   }
 }
 
-void __60__SBModalViewControllerStack__addViewController_completion___block_invoke_44(uint64_t a1)
+void __60__SBModalViewControllerStack__addViewController_completion___block_invoke_44(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssertMain();
-  v2 = *(a1 + 32);
-  v3 = SBLogAlertItemStack();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v3 = *(a1 + 32);
+  v4 = SBLogAlertItemStack(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v4 = *(a1 + 40);
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_INFO, "Really finished presenting view controller: %@", &v6, 0xCu);
+    v5 = *(a1 + 40);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, "Really finished presenting view controller: %@", &v7, 0xCu);
   }
 
-  [v2 _noteDidPresentViewController:*(a1 + 40)];
-  v5 = *(a1 + 48);
-  if (v5)
+  [v3 _noteDidPresentViewController:*(a1 + 40)];
+  v6 = *(a1 + 48);
+  if (v6)
   {
-    (*(v5 + 16))();
+    (*(v6 + 16))();
   }
 }
 
 - (void)_removeViewController:(id)controller completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   completionCopy = completion;
   if (controllerCopy)
@@ -433,46 +435,46 @@ void __60__SBModalViewControllerStack__addViewController_completion___block_invo
   v9 = v8;
   presentedViewController = [(UIViewController *)self->_presentingViewController presentedViewController];
 
-  v11 = SBLogAlertItemStack();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
+  v12 = SBLogAlertItemStack(v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
   if (presentedViewController == v9)
   {
-    if (v12)
+    if (v13)
     {
       *buf = 138412290;
-      v20 = v9;
-      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_INFO, "Really begin dismissing topmost view controller: %@", buf, 0xCu);
+      v21 = v9;
+      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_INFO, "Really begin dismissing topmost view controller: %@", buf, 0xCu);
     }
 
     if (controllerCopy)
     {
       [(SBModalViewControllerStack *)self _noteWillDismissViewController:v9 animated:*(controllerCopy + 24)];
-      v13 = *(controllerCopy + 24);
+      v14 = *(controllerCopy + 24);
     }
 
     else
     {
       [(SBModalViewControllerStack *)self _noteWillDismissViewController:v9 animated:0];
-      v13 = 0;
+      v14 = 0;
     }
 
     presentingViewController = self->_presentingViewController;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __63__SBModalViewControllerStack__removeViewController_completion___block_invoke;
-    v15[3] = &unk_2783AA1E8;
-    v16 = v9;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __63__SBModalViewControllerStack__removeViewController_completion___block_invoke;
+    v16[3] = &unk_2783AA1E8;
+    v17 = v9;
     selfCopy = self;
-    v18 = completionCopy;
-    [(UIViewController *)presentingViewController dismissViewControllerAnimated:v13 & 1 completion:v15];
+    v19 = completionCopy;
+    [(UIViewController *)presentingViewController dismissViewControllerAnimated:v14 & 1 completion:v16];
   }
 
   else
   {
-    if (v12)
+    if (v13)
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_INFO, "There is no presented view-controller to dismiss.", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_INFO, "There is no presented view-controller to dismiss.", buf, 2u);
     }
 
     if (completionCopy)
@@ -482,17 +484,17 @@ void __60__SBModalViewControllerStack__addViewController_completion___block_invo
   }
 }
 
-uint64_t __63__SBModalViewControllerStack__removeViewController_completion___block_invoke(uint64_t a1)
+uint64_t __63__SBModalViewControllerStack__removeViewController_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  BSDispatchQueueAssertMain();
-  v2 = SBLogAlertItemStack();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = BSDispatchQueueAssertMain();
+  v4 = SBLogAlertItemStack(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_INFO, "Really finished dismissing topmost view controller: %@", &v5, 0xCu);
+    v5 = *(a1 + 32);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, "Really finished dismissing topmost view controller: %@", &v7, 0xCu);
   }
 
   [*(a1 + 40) _noteDidDismissViewController:*(a1 + 32)];
@@ -507,15 +509,15 @@ uint64_t __63__SBModalViewControllerStack__removeViewController_completion___blo
 
 - (void)_noteWillPresentViewController:(id)controller
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  BSDispatchQueueAssertMain();
-  v5 = SBLogAlertItemStack();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v5 = BSDispatchQueueAssertMain();
+  v6 = SBLogAlertItemStack(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412290;
-    v8 = controllerCopy;
-    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "Calling out to delegate for willPresent: %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = controllerCopy;
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_INFO, "Calling out to delegate for willPresent: %@", &v8, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -527,15 +529,15 @@ uint64_t __63__SBModalViewControllerStack__removeViewController_completion___blo
 
 - (void)_noteDidPresentViewController:(id)controller
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  BSDispatchQueueAssertMain();
-  v5 = SBLogAlertItemStack();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v5 = BSDispatchQueueAssertMain();
+  v6 = SBLogAlertItemStack(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412290;
-    v8 = controllerCopy;
-    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "Calling out to delegate for didPresent: %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = controllerCopy;
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_INFO, "Calling out to delegate for didPresent: %@", &v8, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -548,15 +550,15 @@ uint64_t __63__SBModalViewControllerStack__removeViewController_completion___blo
 - (void)_noteWillDismissViewController:(id)controller animated:(BOOL)animated
 {
   animatedCopy = animated;
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  BSDispatchQueueAssertMain();
-  v7 = SBLogAlertItemStack();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v7 = BSDispatchQueueAssertMain();
+  v8 = SBLogAlertItemStack(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v9 = 138412290;
-    v10 = controllerCopy;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "Calling out to delegate for willDismiss: %@", &v9, 0xCu);
+    v10 = 138412290;
+    v11 = controllerCopy;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "Calling out to delegate for willDismiss: %@", &v10, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -568,15 +570,15 @@ uint64_t __63__SBModalViewControllerStack__removeViewController_completion___blo
 
 - (void)_noteDidDismissViewController:(id)controller
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  BSDispatchQueueAssertMain();
-  v5 = SBLogAlertItemStack();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v5 = BSDispatchQueueAssertMain();
+  v6 = SBLogAlertItemStack(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412290;
-    v8 = controllerCopy;
-    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "Calling out to delegate for didDismiss: %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = controllerCopy;
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_INFO, "Calling out to delegate for didDismiss: %@", &v8, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -598,23 +600,23 @@ uint64_t __63__SBModalViewControllerStack__removeViewController_completion___blo
   OUTLINED_FUNCTION_3_31();
   v10 = v9;
   v11 = v7;
-  BSDispatchQueueAssertMain();
+  v12 = BSDispatchQueueAssertMain();
   if (!v10)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:v8 object:v5 file:@"SBModalViewControllerStack.m" lineNumber:102 description:@"View controller to add to the stack must be non-nil."];
   }
 
-  v12 = SBLogAlertItemStack();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = SBLogAlertItemStack(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_0_47();
-    OUTLINED_FUNCTION_4_15(&dword_21ED4E000, v13, v14, "Adding view controller to pending transition list for presentation (animated? %d): %@", v15, v16, v17, v18, v21);
+    OUTLINED_FUNCTION_4_15(&dword_21ED4E000, v14, v15, "Adding view controller to pending transition list for presentation (animated? %d): %@", v16, v17, v18, v19);
   }
 
-  v19 = [_SBModalViewControllerStackTransition transitionForViewController:v10 operation:0 animated:v6 completion:v11];
+  v20 = [_SBModalViewControllerStackTransition transitionForViewController:v10 operation:0 animated:v6 completion:v11];
 
-  [v5 _queuePendingTransition:v19];
+  [v5 _queuePendingTransition:v20];
   [v5 _performPendingTransitionIfNecessary];
 }
 
@@ -623,76 +625,76 @@ uint64_t __63__SBModalViewControllerStack__removeViewController_completion___blo
   OUTLINED_FUNCTION_3_31();
   v10 = v9;
   v11 = v7;
-  BSDispatchQueueAssertMain();
+  v12 = BSDispatchQueueAssertMain();
   if (!v10)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:v8 object:v5 file:@"SBModalViewControllerStack.m" lineNumber:112 description:@"View controller to remove from the stack must be non-nil."];
   }
 
-  v12 = SBLogAlertItemStack();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = SBLogAlertItemStack(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_0_47();
-    OUTLINED_FUNCTION_4_15(&dword_21ED4E000, v13, v14, "Adding view controller to pending transition list for dismissal (animated? %d): %@", v15, v16, v17, v18, v21);
+    OUTLINED_FUNCTION_4_15(&dword_21ED4E000, v14, v15, "Adding view controller to pending transition list for dismissal (animated? %d): %@", v16, v17, v18, v19);
   }
 
-  v19 = [_SBModalViewControllerStackTransition transitionForViewController:v10 operation:1uLL animated:v6 completion:v11];
+  v20 = [_SBModalViewControllerStackTransition transitionForViewController:v10 operation:1uLL animated:v6 completion:v11];
 
-  [v5 _queuePendingTransition:v19];
+  [v5 _queuePendingTransition:v20];
   [v5 _performPendingTransitionIfNecessary];
 }
 
-void __66__SBModalViewControllerStack__performPendingTransitionIfNecessary__block_invoke(uint64_t a1)
+void __66__SBModalViewControllerStack__performPendingTransitionIfNecessary__block_invoke(uint64_t a1, uint64_t a2)
 {
   BSDispatchQueueAssertMain();
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4 = v2;
-  [_SBModalViewControllerStackTransition invokeCompletionIfNecessaryWithResult:v3];
-  [v4 _setCurrentTransition:0];
-  [v4 _performPendingTransitionIfNecessary];
+  v3 = *(a1 + 32);
+  v4 = *(a1 + 40);
+  v5 = v3;
+  [_SBModalViewControllerStackTransition invokeCompletionIfNecessaryWithResult:v4];
+  [v5 _setCurrentTransition:0];
+  [v5 _performPendingTransitionIfNecessary];
 }
 
-void __60__SBModalViewControllerStack__addViewController_completion___block_invoke(uint64_t a1)
+void __60__SBModalViewControllerStack__addViewController_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssertMain();
-  v2 = *(a1 + 32);
-  v3 = SBLogAlertItemStack();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v3 = *(a1 + 32);
+  v4 = SBLogAlertItemStack(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v4 = *(a1 + 40);
-    v5 = v2[2];
+    v5 = *(a1 + 40);
+    v6 = v3[2];
     *buf = 138412546;
-    v15 = v4;
-    v16 = 2112;
-    v17 = v5;
-    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_INFO, "Really begin presenting view controller: %@ (presentingVC = %@)", buf, 0x16u);
+    v16 = v5;
+    v17 = 2112;
+    v18 = v6;
+    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, "Really begin presenting view controller: %@ (presentingVC = %@)", buf, 0x16u);
   }
 
-  [v2 _noteWillPresentViewController:*(a1 + 40)];
-  v6 = v2[2];
-  v8 = *(a1 + 40);
-  v7 = *(a1 + 48);
-  if (v7)
+  [v3 _noteWillPresentViewController:*(a1 + 40)];
+  v7 = v3[2];
+  v9 = *(a1 + 40);
+  v8 = *(a1 + 48);
+  if (v8)
   {
-    v9 = *(v7 + 24);
+    v10 = *(v8 + 24);
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __60__SBModalViewControllerStack__addViewController_completion___block_invoke_44;
-  v10[3] = &unk_2783AA1E8;
-  v11 = *(a1 + 32);
-  v12 = *(a1 + 40);
-  v13 = *(a1 + 56);
-  [v6 presentViewController:v8 animated:v9 & 1 completion:v10];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __60__SBModalViewControllerStack__addViewController_completion___block_invoke_44;
+  v11[3] = &unk_2783AA1E8;
+  v12 = *(a1 + 32);
+  v13 = *(a1 + 40);
+  v14 = *(a1 + 56);
+  [v7 presentViewController:v9 animated:v10 & 1 completion:v11];
 }
 
 - (void)initWithPresentingViewController:.cold.1()

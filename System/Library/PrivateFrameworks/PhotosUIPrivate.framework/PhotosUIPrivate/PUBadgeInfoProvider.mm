@@ -85,7 +85,7 @@
 {
   *&retstr->badges = 0u;
   *&retstr->count = 0u;
-  [(PUBadgeInfoProvider *)self badgeInfo];
+  objc_msgSend_badgeInfo(self, time);
   [(PUBadgeInfoProvider *)self lastPlayingTime];
   v10 = v9;
   if (v9 == -1.79769313e308)
@@ -203,7 +203,7 @@ LABEL_34:
     v6 = 0u;
     v7 = 0u;
     [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
-    [(PUBadgeInfoProvider *)self _filteredBadgeInfoForTime:&v8 outShouldAnimate:?];
+    objc_msgSend__filteredBadgeInfoForTime_outShouldAnimate_(self);
     v5[0] = v6;
     v5[1] = v7;
     [(PUBadgeInfoProvider *)self _setOutputBadgeInfo:v5 shouldAnimate:v8];

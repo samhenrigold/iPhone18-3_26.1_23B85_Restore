@@ -126,6 +126,7 @@
 - (id)mediaDestinationController:(id)controller rootDestinationWithDecendantIdentifier:(id)identifier;
 - (id)mediaDestinationControllerWithData:(id)data backingStore:(id)store messageDispatcher:(id)dispatcher notificationCenter:(id)center logEventSubmitter:(id)submitter dailyScheduler:(id)scheduler targetDevice:(BOOL)device dataSource:(id)self0 delegate:(id)self1;
 - (id)mediaDestinationManager:(id)manager destinationControllerWithIdentifier:(id)identifier;
+- (id)mediaDestinationManagerWithDestination:(id)destination messageDispatcher:(id)dispatcher notificationCenter:(id)center backingStore:(id)store targetDevice:(BOOL)device dataSource:(id)source delegate:(id)delegate;
 - (id)mediaGroupLocalDataStorageForMediaDestinationController:(id)controller;
 - (id)mediaGroupParticipantDataLocalStorage;
 - (id)mediaGroupParticipantLocalDataStorageForMediaDestinationManager:(id)manager;
@@ -235,6 +236,7 @@
 - (void)runTransactionWithPreferredMediaUserUUID:(id)d selectionType:(unint64_t)type completion:(id)completion;
 - (void)setCapabilitiesInternal:(id)internal;
 - (void)setDeviceController:(id)controller;
+- (void)setDeviceReachable:(BOOL)reachable;
 - (void)setIdsIdentifier:(id)identifier;
 - (void)setLastStagedWifiNetworkInfo:(id)info;
 - (void)setPairingIdentity:(id)identity;
@@ -264,7 +266,7 @@
 
 - (void)deleteSiriHistoryForAccessoryWithUUID:(id)d completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   messenger = [(HMDAppleMediaAccessory *)self messenger];
@@ -283,25 +285,23 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138543874;
-      v17 = v14;
-      v18 = 2112;
-      v19 = dCopy;
-      v20 = 2112;
-      v21 = v10;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to get messenger to delete siri history for accessory with uuid: %@ error: %@", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v14;
+      v17 = 2112;
+      v18 = dCopy;
+      v19 = 2112;
+      v20 = v10;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to get messenger to delete siri history for accessory with uuid: %@ error: %@", &v15, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
     handlerCopy[2](handlerCopy, v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)supportsHomeHub
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   capabilities = [(HMDAppleMediaAccessory *)self capabilities];
   v4 = capabilities;
   if (capabilities)
@@ -318,20 +318,19 @@
     {
       v9 = HMFGetLogIdentifier();
       device = [(HMDAppleMediaAccessory *)selfCopy device];
-      v13 = 138543874;
-      v14 = v9;
-      v15 = 2112;
-      v16 = device;
-      v17 = 2112;
-      v18 = 0;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get supports home hub due to no capabilities or device: %@, capabilities: %@", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = v9;
+      v14 = 2112;
+      v15 = device;
+      v16 = 2112;
+      v17 = 0;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get supports home hub due to no capabilities or device: %@, capabilities: %@", &v12, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
     supportsHomeHub = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return supportsHomeHub;
 }
 
@@ -466,7 +465,7 @@ uint64_t __86__HMDAppleMediaAccessory_accessoriesWithHostUUID_forAppleMediaAcces
 
 - (void)renameService:(id)service name:(id)name
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   nameCopy = name;
   accessory = [serviceCopy accessory];
@@ -476,30 +475,30 @@ uint64_t __86__HMDAppleMediaAccessory_accessoriesWithHostUUID_forAppleMediaAcces
     uuid = [accessory uuid];
     v11 = [v9 initWithTarget:uuid];
 
-    v30[0] = *MEMORY[0x277CD25F8];
+    v29[0] = *MEMORY[0x277CD25F8];
     instanceID = [serviceCopy instanceID];
-    v30[1] = *MEMORY[0x277CD2620];
-    v31[0] = instanceID;
-    v31[1] = nameCopy;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+    v29[1] = *MEMORY[0x277CD2620];
+    v30[0] = instanceID;
+    v30[1] = nameCopy;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
 
     v14 = [MEMORY[0x277D0F848] messageWithName:*MEMORY[0x277CD2550] destination:v11 payload:v13];
     objc_initWeak(location, self);
-    v22 = MEMORY[0x277D85DD0];
-    v23 = 3221225472;
-    v24 = __45__HMDAppleMediaAccessory_renameService_name___block_invoke;
-    v25 = &unk_2797308C0;
-    objc_copyWeak(&v29, location);
-    v26 = serviceCopy;
+    v21 = MEMORY[0x277D85DD0];
+    v22 = 3221225472;
+    v23 = __45__HMDAppleMediaAccessory_renameService_name___block_invoke;
+    v24 = &unk_2797308C0;
+    objc_copyWeak(&v28, location);
+    v25 = serviceCopy;
     v15 = accessory;
-    v27 = v15;
-    v28 = nameCopy;
-    [v14 setResponseHandler:&v22];
-    v16 = [(HMDAccessory *)self home:v22];
+    v26 = v15;
+    v27 = nameCopy;
+    [v14 setResponseHandler:&v21];
+    v16 = [(HMDAccessory *)self home:v21];
     [v16 isCurrentDevicePrimaryResident];
     [v15 _handleRenameService:v14];
 
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v28);
     objc_destroyWeak(location);
   }
 
@@ -513,22 +512,20 @@ uint64_t __86__HMDAppleMediaAccessory_accessoriesWithHostUUID_forAppleMediaAcces
       v20 = HMFGetLogIdentifier();
       *location = 138543874;
       *&location[4] = v20;
-      v33 = 2112;
-      v34 = serviceCopy;
-      v35 = 2112;
-      v36 = nameCopy;
+      v32 = 2112;
+      v33 = serviceCopy;
+      v34 = 2112;
+      v35 = nameCopy;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Unable to rename service %@ to %@ as it has no accessory", location, 0x20u);
     }
 
     objc_autoreleasePoolPop(v17);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __45__HMDAppleMediaAccessory_renameService_name___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -538,31 +535,30 @@ void __45__HMDAppleMediaAccessory_renameService_name___block_invoke(uint64_t a1,
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v18 = *(a1 + 32);
+    v17 = *(a1 + 32);
     v12 = [*(a1 + 40) uuid];
     v13 = v8;
     v14 = v6;
     v15 = *(a1 + 48);
     v16 = HMFBooleanToString();
     *buf = 138544642;
-    v20 = v11;
-    v21 = 2112;
-    v22 = v18;
-    v23 = 2112;
-    v24 = v12;
-    v25 = 2112;
-    v26 = v15;
+    v19 = v11;
+    v20 = 2112;
+    v21 = v17;
+    v22 = 2112;
+    v23 = v12;
+    v24 = 2112;
+    v25 = v15;
     v6 = v14;
     v8 = v13;
-    v27 = 2112;
-    v28 = v16;
-    v29 = 2112;
-    v30 = v5;
+    v26 = 2112;
+    v27 = v16;
+    v28 = 2112;
+    v29 = v5;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Did complete renaming service %@ on accessory %@ to %@ after sensor pairing with success: %@/%@", buf, 0x3Eu);
   }
 
   objc_autoreleasePoolPop(v8);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performLocalAddAccessoryWithDescription:(id)description progressHandlerDelegate:(id)delegate completion:(id)completion
@@ -858,7 +854,7 @@ void *__115__HMDAppleMediaAccessory_numberOfTriggersWithCurrentAccessoryPairedSe
 {
   room = [(HMDAccessory *)self room];
   name = [room name];
-  v5 = [name copy];
+  v5 = objc_msgSend_copy(name);
 
   return v5;
 }
@@ -905,7 +901,7 @@ void __60__HMDAppleMediaAccessory__handleWiFiPickerMessage_withName___block_invo
       goto LABEL_7;
     }
 
-    v9 = [v5 copy];
+    v9 = objc_msgSend_copy(v5);
     [v7 respondWithPayload:v9];
   }
 
@@ -921,43 +917,43 @@ LABEL_7:
 
 - (id)_dumpStateCachedSettingsForHome:(id)home accessory:(id)accessory eventStoreReadHandle:(id)handle
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   accessoryCopy = accessory;
   handleCopy = handle;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v27 = objc_alloc_init(HMDAccessorySettingsEventHelper);
-  v28 = accessoryCopy;
-  v29 = homeCopy;
-  [(HMDAccessorySettingsEventHelper *)v27 allTopicsForHome:homeCopy accessory:accessoryCopy];
+  v26 = objc_alloc_init(HMDAccessorySettingsEventHelper);
+  v27 = accessoryCopy;
+  v28 = homeCopy;
+  [(HMDAccessorySettingsEventHelper *)v26 allTopicsForHome:homeCopy accessory:accessoryCopy];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  obj = v39 = 0u;
-  v10 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
+  obj = v38 = 0u;
+  v10 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v37;
-    v31 = handleCopy;
+    v12 = *v36;
+    v30 = handleCopy;
     do
     {
       v13 = 0;
-      v33 = v11;
+      v32 = v11;
       do
       {
-        if (*v37 != v12)
+        if (*v36 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v36 + 1) + 8 * v13);
+        v14 = *(*(&v35 + 1) + 8 * v13);
         v15 = [handleCopy lastEventForTopic:v14];
         if (v15)
         {
-          v35 = 0;
-          v16 = [MEMORY[0x277CD1AD8] decodeSettingFromEvent:v15 error:&v35];
-          v17 = v35;
+          v34 = 0;
+          v16 = [MEMORY[0x277CD1AD8] decodeSettingFromEvent:v15 error:&v34];
+          v17 = v34;
           if (v17)
           {
             v18 = v17;
@@ -969,19 +965,19 @@ LABEL_7:
             {
               v23 = HMFGetLogIdentifier();
               *buf = 138543874;
-              v41 = v23;
-              v42 = 2112;
-              v43 = v14;
-              v44 = 2112;
-              v45 = v18;
+              v40 = v23;
+              v41 = 2112;
+              v42 = v14;
+              v43 = 2112;
+              v44 = v18;
               _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Error decoding stored setting for topic %@, error: %@", buf, 0x20u);
 
-              handleCopy = v31;
+              handleCopy = v30;
             }
 
             objc_autoreleasePoolPop(v20);
             v12 = v19;
-            v11 = v33;
+            v11 = v32;
           }
 
           else
@@ -1003,20 +999,18 @@ LABEL_14:
       }
 
       while (v11 != v13);
-      v11 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
+      v11 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
     }
 
     while (v11);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 - (id)dumpStateLocalSettings
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   home = [(HMDAccessory *)self home];
   v4 = home;
   if (home)
@@ -1038,9 +1032,9 @@ LABEL_14:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = HMFGetLogIdentifier();
-        v20 = 138543362;
-        v21 = v17;
-        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Media accessory that has a home but does not have home manager", &v20, 0xCu);
+        v19 = 138543362;
+        v20 = v17;
+        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Media accessory that has a home but does not have home manager", &v19, 0xCu);
       }
 
       objc_autoreleasePoolPop(v14);
@@ -1056,16 +1050,14 @@ LABEL_14:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v13;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Media accessory does not have a home", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v13;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Media accessory does not have a home", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = MEMORY[0x277CBEC10];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1135,7 +1127,7 @@ id __52__HMDAppleMediaAccessory_dumpStateWithPrivacyLevel___block_invoke(uint64_
   else
   {
     v7 = _HMFPreconditionFailure();
-    __65__HMDAppleMediaAccessory_encodeFlagsFromHostedAccessories_coder___block_invoke(v7);
+    __65__HMDAppleMediaAccessory_encodeFlagsFromHostedAccessories_coder___block_invoke(v7, v8, v9);
   }
 }
 
@@ -1182,7 +1174,7 @@ id __65__HMDAppleMediaAccessory_encodeFlagsFromHostedAccessories_coder___block_i
   else
   {
     v10 = _HMFPreconditionFailure();
-    __68__HMDAppleMediaAccessory_encodeServicesFromHostedAccessories_coder___block_invoke_2(v10);
+    __68__HMDAppleMediaAccessory_encodeServicesFromHostedAccessories_coder___block_invoke_2(v10, v11);
   }
 }
 
@@ -1479,11 +1471,11 @@ LABEL_24:
 
 - (id)_initWithCoder:(id)coder
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v77.receiver = self;
-  v77.super_class = HMDAppleMediaAccessory;
-  v5 = [(HMDMediaAccessory *)&v77 initWithCoder:coderCopy];
+  v76.receiver = self;
+  v76.super_class = HMDAppleMediaAccessory;
+  v5 = [(HMDMediaAccessory *)&v76 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = objc_alloc_init(HMDAppleMediaAccessoryDependencyFactory);
@@ -1536,11 +1528,11 @@ LABEL_24:
       v28 = HMFBooleanToString();
       settingsController = v25->_settingsController;
       *buf = 138543874;
-      v79 = v27;
-      v80 = 2112;
-      v81 = v28;
-      v82 = 2112;
-      v83 = settingsController;
+      v78 = v27;
+      v79 = 2112;
+      v80 = v28;
+      v81 = 2112;
+      v82 = settingsController;
       _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@hh2SettingsMigrationEnabled: %@, _settingsController: %@", buf, 0x20u);
     }
 
@@ -1588,7 +1580,7 @@ LABEL_24:
         HMFGetLogIdentifier();
         v48 = v47 = v42;
         *buf = 138543362;
-        v79 = v48;
+        v78 = v48;
         _os_log_impl(&dword_2531F8000, v46, OS_LOG_TYPE_INFO, "%{public}@Decoding destination controller data using legacy encoding", buf, 0xCu);
 
         v42 = v47;
@@ -1618,7 +1610,7 @@ LABEL_24:
       v55 = parentIdentifier;
       if (!parentIdentifier || ([parentIdentifier UUIDString], v56 = objc_claimAutoreleasedReturnValue(), v57 = objc_msgSend(v56, "isEqualToString:", *MEMORY[0x277CD0860]), v56, v57))
       {
-        v76 = v42;
+        v75 = v42;
         v58 = objc_autoreleasePoolPush();
         v59 = v25;
         v60 = HMFGetOSLogHandle();
@@ -1626,7 +1618,7 @@ LABEL_24:
         {
           v61 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v79 = v61;
+          v78 = v61;
           _os_log_impl(&dword_2531F8000, v60, OS_LOG_TYPE_ERROR, "%{public}@No parent identifier given was given - fixing bad legacy encoding state", buf, 0xCu);
         }
 
@@ -1640,7 +1632,7 @@ LABEL_24:
         v68 = v25->_committedAudioDestination;
         v25->_committedAudioDestination = v67;
 
-        v42 = v76;
+        v42 = v75;
       }
     }
 
@@ -1658,7 +1650,6 @@ LABEL_24:
     v25->_productColor = [coderCopy decodeIntegerForKey:*MEMORY[0x277CD0C90]];
   }
 
-  v74 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1676,17 +1667,16 @@ LABEL_24:
 
 uint64_t __37__HMDAppleMediaAccessory_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v295;
-  logCategory__hmf_once_v295 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v295;
+  logCategory__hmf_once_v295 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)messageBindingForDispatcher:(id)dispatcher message:(id)message receiver:(id)receiver
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   dispatcherCopy = dispatcher;
   messageCopy = message;
   receiverCopy = receiver;
@@ -1707,175 +1697,129 @@ uint64_t __37__HMDAppleMediaAccessory_logCategory__block_invoke()
   if (home)
   {
     v14 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-    v70[0] = v14;
+    v54[0] = v14;
     v15 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
-    v70[1] = v15;
+    v54[1] = v15;
     v16 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:3 remoteAccessRequired:0];
-    v70[2] = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:3];
+    v54[2] = v16;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:3];
 
     name = [messageCopy name];
-    v19 = *MEMORY[0x277CCEAB8];
     LOBYTE(v15) = HMFEqualObjects();
 
     name2 = [messageCopy name];
     if (v15)
     {
-      v21 = &selRef_handleFetchManagedConfigurationProfiles_;
-LABEL_14:
-      v32 = *v21;
-      v27 = HMFCreateMessageBindingWithReceiver();
-
-      goto LABEL_15;
+      goto LABEL_13;
     }
 
-    v28 = *MEMORY[0x277CCECB8];
-    v29 = HMFEqualObjects();
+    v26 = HMFEqualObjects();
 
     name2 = [messageCopy name];
-    if (v29)
+    if (v26)
     {
-      v21 = &selRef_handleRemoveManagedConfigurationProfile_;
-      goto LABEL_14;
+      goto LABEL_13;
     }
 
-    v30 = *MEMORY[0x277CCEB18];
-    v31 = HMFEqualObjects();
+    v27 = HMFEqualObjects();
 
-    if (v31)
+    if (v27)
     {
       name2 = [messageCopy name];
-      v21 = &selRef_handleInstallManagedConfigurationProfile_;
+LABEL_13:
+      v25 = HMFCreateMessageBindingWithReceiver();
+
       goto LABEL_14;
     }
 
-    v35 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-    v69[0] = v35;
-    v36 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
-    v69[1] = v36;
-    v37 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:4 remoteAccessRequired:0];
-    v69[2] = v37;
-    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:3];
+    v29 = [HMDXPCMessagePolicy policyWithEntitlements:5];
+    v53[0] = v29;
+    v30 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
+    v53[1] = v30;
+    v31 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:4 remoteAccessRequired:0];
+    v53[2] = v31;
+    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:3];
 
     name3 = [messageCopy name];
-    v40 = *MEMORY[0x277CD1080];
-    LOBYTE(v36) = HMFEqualObjects();
+    LOBYTE(v30) = HMFEqualObjects();
 
     name4 = [messageCopy name];
-    if (v36)
+    if ((v30 & 1) == 0)
     {
-      v42 = &selRef__startUpdate_;
-    }
-
-    else
-    {
-      v43 = *MEMORY[0x277CCEA08];
-      v44 = HMFEqualObjects();
+      v35 = HMFEqualObjects();
 
       name4 = [messageCopy name];
-      if (v44)
+      if ((v35 & 1) == 0)
       {
-        v42 = &selRef_handleDeleteSiriHistoryRequest_;
-      }
-
-      else
-      {
-        v45 = *MEMORY[0x277CCF0D0];
-        v46 = HMFEqualObjects();
+        v36 = HMFEqualObjects();
 
         name4 = [messageCopy name];
-        if (v46)
+        if ((v36 & 1) == 0)
         {
-          v42 = &selRef_handleUpdatePreferredMediaUser_;
-        }
-
-        else
-        {
-          v47 = *MEMORY[0x277CCEF08];
-          v48 = HMFEqualObjects();
+          v37 = HMFEqualObjects();
 
           name4 = [messageCopy name];
-          if (v48)
+          if ((v37 & 1) == 0)
           {
-            v42 = &selRef_handleSoftwareUpdateV2Scan_;
-          }
-
-          else
-          {
-            v49 = *MEMORY[0x277CCECF0];
-            v50 = HMFEqualObjects();
+            v38 = HMFEqualObjects();
 
             name4 = [messageCopy name];
-            if (v50)
+            if ((v38 & 1) == 0)
             {
-              v42 = &selRef__handleScanNetworksMessage_;
-            }
-
-            else
-            {
-              v51 = *MEMORY[0x277CCEB30];
-              v52 = HMFEqualObjects();
+              v39 = HMFEqualObjects();
 
               name4 = [messageCopy name];
-              if (v52)
+              if ((v39 & 1) == 0)
               {
-                v42 = &selRef__handleAssociateToNetworkMessage_;
-              }
+                v40 = HMFEqualObjects();
 
-              else
-              {
-                v53 = *MEMORY[0x277CCF118];
-                v54 = HMFEqualObjects();
-
-                if (!v54)
+                if (!v40)
                 {
 
                   if (isInternalBuild())
                   {
-                    v38 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:0 remoteAccessRequired:0];
-                    v56 = [HMDXPCMessagePolicy policyWithEntitlements:13];
-                    v68[0] = v56;
-                    v68[1] = v38;
-                    name4 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:2];
+                    v32 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:0 remoteAccessRequired:0];
+                    v41 = [HMDXPCMessagePolicy policyWithEntitlements:13];
+                    v52[0] = v41;
+                    v52[1] = v32;
+                    name4 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
 
                     name5 = [messageCopy name];
-                    v58 = *MEMORY[0x277CCF0A8];
-                    v59 = HMFEqualObjects();
+                    v43 = HMFEqualObjects();
 
-                    if (v59)
+                    if (v43)
                     {
                       name6 = [messageCopy name];
-                      v27 = HMFCreateMessageBindingWithReceiver();
+                      v25 = HMFCreateMessageBindingWithReceiver();
 
-                      goto LABEL_33;
+                      goto LABEL_26;
                     }
                   }
 
                   settingsController = [v12 settingsController];
                   messageHandler = [settingsController messageHandler];
-                  v62 = objc_opt_class();
+                  v46 = objc_opt_class();
                   settingsController2 = [v12 settingsController];
                   messageHandler2 = [settingsController2 messageHandler];
-                  v38 = [v62 messageBindingForDispatcher:dispatcherCopy message:messageCopy receiver:messageHandler2];
+                  v32 = [v46 messageBindingForDispatcher:dispatcherCopy message:messageCopy receiver:messageHandler2];
 
-                  if (v38)
+                  if (v32)
                   {
-                    v65 = v38;
+                    v49 = v32;
                   }
 
                   else
                   {
-                    v67.receiver = self;
-                    v67.super_class = &OBJC_METACLASS___HMDAppleMediaAccessory;
-                    v65 = objc_msgSendSuper2(&v67, sel_messageBindingForDispatcher_message_receiver_, dispatcherCopy, messageCopy, receiverCopy);
+                    v51.receiver = self;
+                    v51.super_class = &OBJC_METACLASS___HMDAppleMediaAccessory;
+                    v49 = objc_msgSendSuper2(&v51, sel_messageBindingForDispatcher_message_receiver_, dispatcherCopy, messageCopy, receiverCopy);
                   }
 
-                  v27 = v65;
-                  goto LABEL_34;
+                  v25 = v49;
+                  goto LABEL_27;
                 }
 
                 name4 = [messageCopy name];
-                v42 = &selRef__handleQueryNetworkStatusMessage_;
               }
             }
           }
@@ -1883,42 +1827,39 @@ LABEL_14:
       }
     }
 
-    v55 = *v42;
-    v27 = HMFCreateMessageBindingWithReceiver();
-LABEL_33:
+    v25 = HMFCreateMessageBindingWithReceiver();
+LABEL_26:
 
-LABEL_34:
-    goto LABEL_15;
+LABEL_27:
+    goto LABEL_14;
   }
 
-  v22 = objc_autoreleasePoolPush();
+  v20 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v24 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v22 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
-    v25 = HMFGetLogIdentifier();
+    v23 = HMFGetLogIdentifier();
     name7 = [messageCopy name];
     *buf = 138543874;
-    v72 = v25;
-    v73 = 2112;
-    v74 = name7;
-    v75 = 2112;
-    v76 = receiverCopy;
-    _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unable to find binding for message %@, receiver does not have valid home: %@", buf, 0x20u);
+    v56 = v23;
+    v57 = 2112;
+    v58 = name7;
+    v59 = 2112;
+    v60 = receiverCopy;
+    _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Unable to find binding for message %@, receiver does not have valid home: %@", buf, 0x20u);
   }
 
-  objc_autoreleasePoolPop(v22);
-  v27 = 0;
-LABEL_15:
+  objc_autoreleasePoolPop(v20);
+  v25 = 0;
+LABEL_14:
 
-  v33 = *MEMORY[0x277D85DE8];
-
-  return v27;
+  return v25;
 }
 
 + (BOOL)shouldAcceptMessage:(id)message home:(id)home privilege:(unint64_t)privilege
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   homeCopy = home;
   if ([messageCopy isRemote])
@@ -1952,11 +1893,11 @@ LABEL_17:
     }
 
     v19 = HMFGetLogIdentifier();
-    v33 = 138543362;
-    v34 = v19;
+    v32 = 138543362;
+    v33 = v19;
     v20 = "%{public}@Only secure clients may modify settings";
 LABEL_16:
-    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEBUG, v20, &v33, 0xCu);
+    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEBUG, v20, &v32, 0xCu);
 
     goto LABEL_17;
   }
@@ -1972,8 +1913,8 @@ LABEL_16:
     }
 
     v19 = HMFGetLogIdentifier();
-    v33 = 138543362;
-    v34 = v19;
+    v32 = 138543362;
+    v33 = v19;
     v20 = "%{public}@Only entitled clients may modify settings";
     goto LABEL_16;
   }
@@ -1992,10 +1933,10 @@ LABEL_6:
     }
 
     v14 = HMFGetLogIdentifier();
-    v33 = 138543618;
-    v34 = v14;
-    v35 = 2112;
-    v36 = messageCopy;
+    v32 = 138543618;
+    v33 = v14;
+    v34 = 2112;
+    v35 = messageCopy;
     v15 = "%{public}@Unable to determine originator of message: %@";
     goto LABEL_27;
   }
@@ -2013,10 +1954,10 @@ LABEL_6:
       }
 
       v14 = HMFGetLogIdentifier();
-      v33 = 138543618;
-      v34 = v14;
-      v35 = 2112;
-      v36 = responseHandler;
+      v32 = 138543618;
+      v33 = v14;
+      v34 = 2112;
+      v35 = responseHandler;
       v15 = "%{public}@User does not have administrator privilege: %@";
       goto LABEL_27;
     }
@@ -2028,11 +1969,11 @@ LABEL_22:
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       v27 = HMFGetLogIdentifier();
-      v33 = 138543618;
-      v34 = v27;
-      v35 = 2112;
-      v36 = messageCopy;
-      _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_DEBUG, "%{public}@Accepting message: %@", &v33, 0x16u);
+      v32 = 138543618;
+      v33 = v27;
+      v34 = 2112;
+      v35 = messageCopy;
+      _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_DEBUG, "%{public}@Accepting message: %@", &v32, 0x16u);
     }
 
     objc_autoreleasePoolPop(responseHandler3);
@@ -2054,13 +1995,13 @@ LABEL_22:
   }
 
   v14 = HMFGetLogIdentifier();
-  v33 = 138543618;
-  v34 = v14;
-  v35 = 2112;
-  v36 = responseHandler;
+  v32 = 138543618;
+  v33 = v14;
+  v34 = 2112;
+  v35 = responseHandler;
   v15 = "%{public}@User does not have owner privilege: %@";
 LABEL_27:
-  _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, v15, &v33, 0x16u);
+  _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, v15, &v32, 0x16u);
 
 LABEL_28:
   objc_autoreleasePoolPop(v11);
@@ -2078,7 +2019,6 @@ LABEL_30:
 
 LABEL_31:
 
-  v31 = *MEMORY[0x277D85DE8];
   return responseHandler3;
 }
 
@@ -2222,31 +2162,27 @@ id __41__HMDAppleMediaAccessory__initWithCoder___block_invoke_2()
 
 - (void)languagesChangedForAccessorySettingsController:(id)controller
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   home = [(HMDAccessory *)self home];
   if (home)
   {
     notificationCenter = [(HMDMediaAccessory *)self notificationCenter];
-    v8 = @"HMDHomeNotificationKey";
-    v9[0] = home;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = @"HMDHomeNotificationKey";
+    v8[0] = home;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
     [notificationCenter postNotificationName:@"HMDAppleMediaAccessoryLanguagesChangedNotification" object:self userInfo:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)assistantAccessControlModelWithRemovedAccessoriesForAccessorySettingsController:(id)controller
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   home = [(HMDAccessory *)self home];
   currentUser = [home currentUser];
   assistantAccessControl = [currentUser assistantAccessControl];
-  v11[0] = self;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = self;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v8 = [assistantAccessControl assistantAccessControlModelWithRemovedAccessories:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -2300,12 +2236,12 @@ id __41__HMDAppleMediaAccessory__initWithCoder___block_invoke_2()
 
 - (void)removeManagedConfigurationProfileWithProfileData:(id)data completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   completionCopy = completion;
-  v20 = 0;
-  v8 = [MEMORY[0x277D26290] profileWithData:dataCopy outError:&v20];
-  v9 = v20;
+  v19 = 0;
+  v8 = [MEMORY[0x277D26290] profileWithData:dataCopy outError:&v19];
+  v9 = v19;
   v10 = objc_autoreleasePoolPush();
   selfCopy = self;
   v12 = HMFGetOSLogHandle();
@@ -2327,9 +2263,9 @@ id __41__HMDAppleMediaAccessory__initWithCoder___block_invoke_2()
       v17 = HMFGetLogIdentifier();
       identifier = [v8 identifier];
       *buf = 138543618;
-      v22 = v17;
-      v23 = 2112;
-      v24 = identifier;
+      v21 = v17;
+      v22 = 2112;
+      v23 = identifier;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Remove managed configuration profile with identifier: %@", buf, 0x16u);
     }
 
@@ -2344,11 +2280,11 @@ id __41__HMDAppleMediaAccessory__initWithCoder___block_invoke_2()
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v22 = v15;
-      v23 = 2112;
-      v24 = v8;
-      v25 = 2112;
-      v26 = v9;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v8;
+      v24 = 2112;
+      v25 = v9;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to get managed configuration profile: %@ with error: %@", buf, 0x20u);
     }
 
@@ -2356,8 +2292,6 @@ id __41__HMDAppleMediaAccessory__initWithCoder___block_invoke_2()
     identifier2 = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
     completionCopy[2](completionCopy, identifier2);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)modelsToMigrateSettingsForController:(id)controller
@@ -2379,7 +2313,7 @@ id __41__HMDAppleMediaAccessory__initWithCoder___block_invoke_2()
 
 - (id)modelsToMakeSettingsForController:(id)controller parentUUID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dCopy = d;
   v8 = objc_autoreleasePoolPush();
@@ -2388,9 +2322,9 @@ id __41__HMDAppleMediaAccessory__initWithCoder___block_invoke_2()
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v18 = 138543362;
-    v19 = v11;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Adding root settings", &v18, 0xCu);
+    v17 = 138543362;
+    v18 = v11;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Adding root settings", &v17, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -2410,8 +2344,6 @@ id __41__HMDAppleMediaAccessory__initWithCoder___block_invoke_2()
   v15 = 0;
 LABEL_7:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
@@ -2427,26 +2359,24 @@ LABEL_7:
 
 - (void)setSetupStartTimestamp:(double)timestamp
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v8 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2048;
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2048;
     timestampCopy = timestamp;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Setup start timestamp %f", &v12, 0x16u);
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Setup start timestamp %f", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   home = [(HMDAccessory *)selfCopy home];
   homeManager = [home homeManager];
   [homeManager setSetupStartTimestamp:timestamp];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSetupActivity:(id)activity
@@ -2486,7 +2416,7 @@ LABEL_7:
 
 - (void)mediaDestinationManagerDidUpdateStagedValues:(id)values
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -2494,9 +2424,9 @@ LABEL_7:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v18 = 138543362;
-    v19 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling media destination manager did update staged values", &v18, 0xCu);
+    v17 = 138543362;
+    v18 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling media destination manager did update staged values", &v17, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -2520,15 +2450,27 @@ LABEL_7:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v16;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Failed to handle expired values due to no home manager", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v16;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Failed to handle expired values due to no home manager", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
   }
+}
 
-  v17 = *MEMORY[0x277D85DE8];
+- (id)mediaDestinationManagerWithDestination:(id)destination messageDispatcher:(id)dispatcher notificationCenter:(id)center backingStore:(id)store targetDevice:(BOOL)device dataSource:(id)source delegate:(id)delegate
+{
+  deviceCopy = device;
+  delegateCopy = delegate;
+  sourceCopy = source;
+  storeCopy = store;
+  centerCopy = center;
+  dispatcherCopy = dispatcher;
+  destinationCopy = destination;
+  v21 = [[HMDMediaDestinationManager alloc] initWithDestination:destinationCopy messageDispatcher:dispatcherCopy notificationCenter:centerCopy backingStore:storeCopy targetDevice:deviceCopy dataSource:sourceCopy delegate:delegateCopy];
+
+  return v21;
 }
 
 - (id)mediaGroupParticipantLocalDataStorageForMediaDestinationManager:(id)manager
@@ -2578,7 +2520,7 @@ LABEL_7:
 
 - (void)mediaDestinationControllerDidUpdateStagedValues:(id)values
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -2586,9 +2528,9 @@ LABEL_7:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v18 = 138543362;
-    v19 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling media destination controller did update staged values", &v18, 0xCu);
+    v17 = 138543362;
+    v18 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling media destination controller did update staged values", &v17, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -2612,20 +2554,18 @@ LABEL_7:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v16;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Failed to handle expired values due to no home manager", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v16;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Failed to handle expired values due to no home manager", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)currentDestinationTypeForMediaDestinationControllerMetricsEventDispatcher:(id)dispatcher
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dispatcherCopy = dispatcher;
   audioDestinationControllerData = [(HMDAppleMediaAccessory *)self audioDestinationControllerData];
   v6 = audioDestinationControllerData;
@@ -2651,23 +2591,21 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v12;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to get controller data for media destination controller metrics", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v12;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to get controller data for media destination controller metrics", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
     v8 = &unk_2866286C0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (int64_t)mediaDestinationControllerMetricsEventDispatcher:(id)dispatcher destinationTypeForDestinationWithIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dispatcherCopy = dispatcher;
   identifierCopy = identifier;
   home = [(HMDAccessory *)self home];
@@ -2685,18 +2623,17 @@ LABEL_7:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v14;
-      v19 = 2112;
-      v20 = identifierCopy;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not get home to derive destination identifier from parent destination identifier: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v14;
+      v18 = 2112;
+      v19 = identifierCopy;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not get home to derive destination identifier from parent destination identifier: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
     v10 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -2710,7 +2647,7 @@ LABEL_7:
 
 - (id)mediaGroupLocalDataStorageForMediaDestinationController:(id)controller
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   home = [(HMDAccessory *)self home];
   v6 = home;
@@ -2735,11 +2672,11 @@ LABEL_7:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           v23 = HMFGetLogIdentifier();
-          v26 = 138543618;
-          v27 = v23;
-          v28 = 2112;
-          v29 = v8;
-          _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to get media group participant data local storage on home manager: %@", &v26, 0x16u);
+          v25 = 138543618;
+          v26 = v23;
+          v27 = 2112;
+          v28 = v8;
+          _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to get media group participant data local storage on home manager: %@", &v25, 0x16u);
         }
 
         objc_autoreleasePoolPop(v20);
@@ -2754,11 +2691,11 @@ LABEL_7:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         v19 = HMFGetLogIdentifier();
-        v26 = 138543618;
-        v27 = v19;
-        v28 = 2112;
-        v29 = v6;
-        _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to get media group participant data local storage due to no home manager on home: %@", &v26, 0x16u);
+        v25 = 138543618;
+        v26 = v19;
+        v27 = 2112;
+        v28 = v6;
+        _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to get media group participant data local storage due to no home manager on home: %@", &v25, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -2774,23 +2711,21 @@ LABEL_7:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v26 = 138543362;
-      v27 = v15;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to get media group participant data local storage due to no home", &v26, 0xCu);
+      v25 = 138543362;
+      v26 = v15;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to get media group participant data local storage due to no home", &v25, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
     v10 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)mediaDestinationController:(id)controller rootDestinationWithDecendantIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   identifierCopy = identifier;
   home = [(HMDAccessory *)self home];
@@ -2809,25 +2744,23 @@ LABEL_7:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2112;
-      v21 = identifierCopy;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not get home to derive root destination from destination identifier: %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v15;
+      v19 = 2112;
+      v20 = identifierCopy;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not get home to derive root destination from destination identifier: %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
     destination = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return destination;
 }
 
 - (id)mediaDestinationController:(id)controller destinationWithParentIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   identifierCopy = identifier;
   home = [(HMDAccessory *)self home];
@@ -2846,18 +2779,16 @@ LABEL_7:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2112;
-      v21 = identifierCopy;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not get home to derive destination from parent identifier: %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v15;
+      v19 = 2112;
+      v20 = identifierCopy;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not get home to derive destination from parent identifier: %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
     destination = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return destination;
 }
@@ -2889,32 +2820,32 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
 
 - (id)availableDestinationIdentifiersForMediaDestinationController:(id)controller
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   home = [(HMDAccessory *)self home];
   room = [(HMDAccessory *)self room];
   v6 = [home mediaDestinationsInRoom:room];
 
   v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v6, "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         if ([v13 containsHomeTheaterSupportedOptions])
         {
           uniqueIdentifier = [v13 uniqueIdentifier];
@@ -2922,21 +2853,20 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
 
-  v15 = [v7 copy];
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = objc_msgSend_copy(v7);
 
   return v15;
 }
 
 - (void)handleRemovedMediaDestinationControllerModel:(id)model message:(id)message
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   messageCopy = message;
   v8 = objc_autoreleasePoolPush();
@@ -2945,11 +2875,11 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v23 = 138543618;
-    v24 = v11;
-    v25 = 2112;
-    v26 = modelCopy;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Handling transaction removed media destination controller model: %@", &v23, 0x16u);
+    v22 = 138543618;
+    v23 = v11;
+    v24 = 2112;
+    v25 = modelCopy;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Handling transaction removed media destination controller model: %@", &v22, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -2966,11 +2896,11 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       v19 = HMFGetLogIdentifier();
-      v23 = 138543618;
-      v24 = v19;
-      v25 = 2112;
-      v26 = audioDestinationController;
-      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Removing audio destination controller: %@", &v23, 0x16u);
+      v22 = 138543618;
+      v23 = v19;
+      v24 = 2112;
+      v25 = audioDestinationController;
+      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Removing audio destination controller: %@", &v22, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
@@ -2984,13 +2914,11 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
   }
 
   [messageCopy respondWithSuccess];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRemovedMediaDestinationModel:(id)model message:(id)message
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   messageCopy = message;
   v8 = objc_autoreleasePoolPush();
@@ -2999,11 +2927,11 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v25 = 138543618;
-    v26 = v11;
-    v27 = 2112;
-    v28 = modelCopy;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Handling transaction removed media destination model: %@", &v25, 0x16u);
+    v24 = 138543618;
+    v25 = v11;
+    v26 = 2112;
+    v27 = modelCopy;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Handling transaction removed media destination model: %@", &v24, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -3020,9 +2948,9 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       v19 = HMFGetLogIdentifier();
-      v25 = 138543362;
-      v26 = v19;
-      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Removing audio destination manager due to removed model transaction", &v25, 0xCu);
+      v24 = 138543362;
+      v25 = v19;
+      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Removing audio destination manager due to removed model transaction", &v24, 0xCu);
     }
 
     objc_autoreleasePoolPop(v16);
@@ -3040,8 +2968,6 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
   }
 
   [messageCopy respondWithSuccess];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectRemoved:(id)removed message:(id)message
@@ -3097,7 +3023,7 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
 
 - (void)handleUpdatedMediaDestinationModel:(id)model message:(id)message
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   messageCopy = message;
   if (isFeatureHomeTheaterQFAEnabledForTests && [isFeatureHomeTheaterQFAEnabledForTests BOOLValue])
@@ -3109,9 +3035,9 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v42 = v11;
-      v43 = 2112;
-      v44 = modelCopy;
+      v41 = v11;
+      v42 = 2112;
+      v43 = modelCopy;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Skipping model: %@ due to home theater QFA", buf, 0x16u);
     }
 
@@ -3137,14 +3063,14 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
       v19 = os_log_type_enabled(v18, OS_LOG_TYPE_INFO);
       if (home)
       {
-        v40 = home;
+        v39 = home;
         if (v19)
         {
           v20 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v42 = v20;
-          v43 = 2112;
-          v44 = modelCopy;
+          v41 = v20;
+          v42 = 2112;
+          v43 = modelCopy;
           _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Creating new audio destination manager with model: %@", buf, 0x16u);
         }
 
@@ -3166,8 +3092,8 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
         [(HMDAppleMediaAccessory *)selfCopy2 setAudioDestinationManager:v32];
 
         audioDestinationManager2 = [(HMDAppleMediaAccessory *)selfCopy2 audioDestinationManager];
-        home = v40;
-        [audioDestinationManager2 configureWithHome:v40 currentAccessory:{-[HMDAppleMediaAccessory isCurrentAccessory](selfCopy2, "isCurrentAccessory")}];
+        home = v39;
+        [audioDestinationManager2 configureWithHome:v39 currentAccessory:{-[HMDAppleMediaAccessory isCurrentAccessory](selfCopy2, "isCurrentAccessory")}];
 
         audioDestinationManager3 = [(HMDAppleMediaAccessory *)selfCopy2 audioDestinationManager];
         messageHandler = [audioDestinationManager3 messageHandler];
@@ -3188,7 +3114,7 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
         {
           v38 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v42 = v38;
+          v41 = v38;
           _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Failed to create audio destination manager due to no home", buf, 0xCu);
         }
 
@@ -3198,13 +3124,11 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
       }
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUpdatedMediaDestinationControllerModel:(id)model message:(id)message
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   messageCopy = message;
   if (isFeatureHomeTheaterQFAEnabledForTests && [isFeatureHomeTheaterQFAEnabledForTests BOOLValue])
@@ -3216,9 +3140,9 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v54 = v11;
-      v55 = 2112;
-      v56 = modelCopy;
+      v53 = v11;
+      v54 = 2112;
+      v55 = modelCopy;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Skipping transaction update: %@ due to Home Theater QFA enabled", buf, 0x16u);
     }
 
@@ -3244,9 +3168,9 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v54 = v18;
-        v55 = 2112;
-        v56 = modelCopy;
+        v53 = v18;
+        v54 = 2112;
+        v55 = modelCopy;
         _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Creating new audio destination controller with model: %@", buf, 0x16u);
       }
 
@@ -3266,28 +3190,28 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
       parentUUID = [modelCopy parentUUID];
       destinationModelIdentifier = [modelCopy destinationModelIdentifier];
       supportedOptions = [modelCopy supportedOptions];
-      v51 = v22;
-      v52 = [v23 initWithIdentifier:uuid parentIdentifier:parentUUID destinationIdentifier:destinationModelIdentifier supportedOptions:objc_msgSend(supportedOptions availableDestinationIdentifiers:{"unsignedIntegerValue"), v22}];
+      v50 = v22;
+      v51 = [v23 initWithIdentifier:uuid parentIdentifier:parentUUID destinationIdentifier:destinationModelIdentifier supportedOptions:objc_msgSend(supportedOptions availableDestinationIdentifiers:{"unsignedIntegerValue"), v22}];
 
       home = [(HMDAccessory *)selfCopy2 home];
       backingStore = [(HMDAppleMediaAccessory *)selfCopy2 backingStore];
       msgDispatcher = [(HMDAccessory *)selfCopy2 msgDispatcher];
       notificationCenter = [(HMDMediaAccessory *)selfCopy2 notificationCenter];
       logEventSubmitter = [home logEventSubmitter];
-      v50 = home;
+      v49 = home;
       dailyScheduler = [home dailyScheduler];
       v34 = dailyScheduler;
-      v49 = messageCopy;
+      v48 = messageCopy;
       if (backingStore && msgDispatcher && notificationCenter && logEventSubmitter && dailyScheduler)
       {
         v35 = [HMDMediaDestinationController alloc];
-        LOBYTE(v47) = [(HMDAppleMediaAccessory *)selfCopy2 isCurrentAccessory];
-        v36 = [(HMDMediaDestinationController *)v35 initWithData:v52 backingStore:backingStore messageDispatcher:msgDispatcher notificationCenter:notificationCenter logEventSubmitter:logEventSubmitter dailyScheduler:v34 targetDevice:v47 dataSource:selfCopy2 delegate:selfCopy2];
+        LOBYTE(v46) = [(HMDAppleMediaAccessory *)selfCopy2 isCurrentAccessory];
+        v36 = [(HMDMediaDestinationController *)v35 initWithData:v51 backingStore:backingStore messageDispatcher:msgDispatcher notificationCenter:notificationCenter logEventSubmitter:logEventSubmitter dailyScheduler:v34 targetDevice:v46 dataSource:selfCopy2 delegate:selfCopy2];
         [(HMDAppleMediaAccessory *)selfCopy2 setAudioDestinationController:v36];
 
         audioDestinationController2 = [(HMDAppleMediaAccessory *)selfCopy2 audioDestinationController];
-        v38 = v50;
-        [audioDestinationController2 configureWithHome:v50];
+        v38 = v49;
+        [audioDestinationController2 configureWithHome:v49];
 
         transactionResult = [messageCopy transactionResult];
         [transactionResult markChanged];
@@ -3296,7 +3220,7 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
         [transactionResult2 markSaveToAssistant];
 
         v41 = messageCopy;
-        v42 = v52;
+        v42 = v51;
         [v41 respondWithSuccess];
       }
 
@@ -3307,37 +3231,35 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
         v45 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
-          v48 = HMFGetLogIdentifier();
+          v47 = HMFGetLogIdentifier();
           *buf = 138544642;
-          v54 = v48;
-          v55 = 2112;
-          v56 = backingStore;
-          v57 = 2112;
-          v58 = msgDispatcher;
-          v59 = 2112;
-          v60 = notificationCenter;
-          v61 = 2112;
-          v62 = logEventSubmitter;
-          v63 = 2112;
-          v64 = v34;
+          v53 = v47;
+          v54 = 2112;
+          v55 = backingStore;
+          v56 = 2112;
+          v57 = msgDispatcher;
+          v58 = 2112;
+          v59 = notificationCenter;
+          v60 = 2112;
+          v61 = logEventSubmitter;
+          v62 = 2112;
+          v63 = v34;
           _os_log_impl(&dword_2531F8000, v45, OS_LOG_TYPE_ERROR, "%{public}@Failed to create new audio destination controller due to missing dependencies backing store: %@ message dispatcher: %@ notification center: %@ log submitter: %@ daily scheduler: %@", buf, 0x3Eu);
         }
 
         objc_autoreleasePoolPop(v43);
-        v42 = v52;
-        v38 = v50;
+        v42 = v51;
+        v38 = v49;
       }
 
-      messageCopy = v49;
+      messageCopy = v48;
     }
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleTransactionUpdatedPublicPairingIdentity:(id)identity result:(id)result
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   resultCopy = result;
   if (![(HMDAppleMediaAccessory *)self isCurrentAccessory])
@@ -3348,11 +3270,11 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v19 = 138543618;
-      v20 = v11;
-      v21 = 2112;
-      v22 = identityCopy;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Handling transaction updated accessory public pairing identity: %@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v11;
+      v20 = 2112;
+      v21 = identityCopy;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Handling transaction updated accessory public pairing identity: %@", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -3367,9 +3289,9 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         v17 = HMFGetLogIdentifier();
-        v19 = 138543362;
-        v20 = v17;
-        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Skipping already saved pairing identity", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = v17;
+        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Skipping already saved pairing identity", &v18, 0xCu);
       }
 
       objc_autoreleasePoolPop(v14);
@@ -3382,13 +3304,11 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
       [resultCopy markChanged];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v199 = *MEMORY[0x277D85DE8];
+  v198 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -3408,13 +3328,13 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
 
   if (v12)
   {
-    v173 = 0;
-    v174 = &v173;
-    v175 = 0x3032000000;
-    v176 = __Block_byref_object_copy__94518;
-    v177 = __Block_byref_object_dispose__94519;
-    v178 = 0;
-    v168 = messageCopy;
+    v172 = 0;
+    v173 = &v172;
+    v174 = 0x3032000000;
+    v175 = __Block_byref_object_copy__94518;
+    v176 = __Block_byref_object_dispose__94519;
+    v177 = 0;
+    v167 = messageCopy;
     responseHandler = [messageCopy responseHandler];
     if (responseHandler)
     {
@@ -3422,18 +3342,18 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
       aBlock[1] = 3221225472;
       aBlock[2] = __69__HMDAppleMediaAccessory_transactionObjectUpdated_newValues_message___block_invoke;
       aBlock[3] = &unk_27972A108;
-      aBlock[4] = &v173;
+      aBlock[4] = &v172;
       v13 = _Block_copy(aBlock);
       [messageCopy setResponseHandler:v13];
     }
 
-    v171.receiver = self;
-    v171.super_class = HMDAppleMediaAccessory;
-    [(HMDMediaAccessory *)&v171 transactionObjectUpdated:0 newValues:v10 message:messageCopy];
+    v170.receiver = self;
+    v170.super_class = HMDAppleMediaAccessory;
+    [(HMDMediaAccessory *)&v170 transactionObjectUpdated:0 newValues:v10 message:messageCopy];
     selfCopy = self;
     v15 = v12;
-    v165 = messageCopy;
-    transactionResult = [v165 transactionResult];
+    v164 = messageCopy;
+    transactionResult = [v164 transactionResult];
     deviceController = __HMDAppleMediaAccessoryGetDeviceController(selfCopy);
     deviceUUID = [v15 deviceUUID];
 
@@ -3450,7 +3370,7 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
           {
             v21 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v196 = v21;
+            v195 = v21;
             _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Setting up device controller for ourselves", buf, 0xCu);
           }
 
@@ -3491,9 +3411,9 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
             v39 = HMFGetLogIdentifier();
             uUIDString = [v30 UUIDString];
             *buf = 138543618;
-            v196 = v39;
-            v197 = 2112;
-            v198 = uUIDString;
+            v195 = v39;
+            v196 = 2112;
+            v197 = uUIDString;
             _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_DEFAULT, "%{public}@Updating the underlying device with identifier: %@", buf, 0x16u);
           }
 
@@ -3527,30 +3447,30 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
 
         if (device6)
         {
-          v185 = 0u;
-          v186 = 0u;
-          v183 = 0u;
           v184 = 0u;
+          v185 = 0u;
+          v182 = 0u;
+          v183 = 0u;
           device7 = [(HMDAppleMediaAccessory *)selfCopy device];
           v49 = [device7 backingStoreObjectsWithChangeType:0 version:4];
 
-          v50 = [v49 countByEnumeratingWithState:&v183 objects:buf count:16];
+          v50 = [v49 countByEnumeratingWithState:&v182 objects:buf count:16];
           if (v50)
           {
-            v51 = *v184;
+            v51 = *v183;
             do
             {
               for (i = 0; i != v50; ++i)
               {
-                if (*v184 != v51)
+                if (*v183 != v51)
                 {
                   objc_enumerationMutation(v49);
                 }
 
-                [*(*(&v183 + 1) + 8 * i) dumpDebug:@" LOCAL: "];
+                [*(*(&v182 + 1) + 8 * i) dumpDebug:@" LOCAL: "];
               }
 
-              v50 = [v49 countByEnumeratingWithState:&v183 objects:buf count:16];
+              v50 = [v49 countByEnumeratingWithState:&v182 objects:buf count:16];
             }
 
             while (v50);
@@ -3561,30 +3481,30 @@ uint64_t __86__HMDAppleMediaAccessory_mediaDestinationController_destinationMana
 
         if (device8)
         {
-          v181 = 0u;
-          v182 = 0u;
-          v179 = 0u;
           v180 = 0u;
+          v181 = 0u;
+          v178 = 0u;
+          v179 = 0u;
           device9 = [v15 device];
           v55 = [device9 backingStoreObjectsWithChangeType:0 version:4];
 
-          v56 = [v55 countByEnumeratingWithState:&v179 objects:v194 count:16];
+          v56 = [v55 countByEnumeratingWithState:&v178 objects:v193 count:16];
           if (v56)
           {
-            v57 = *v180;
+            v57 = *v179;
             do
             {
               for (j = 0; j != v56; ++j)
               {
-                if (*v180 != v57)
+                if (*v179 != v57)
                 {
                   objc_enumerationMutation(v55);
                 }
 
-                [*(*(&v179 + 1) + 8 * j) dumpDebug:@"REMOTE: "];
+                [*(*(&v178 + 1) + 8 * j) dumpDebug:@"REMOTE: "];
               }
 
-              v56 = [v55 countByEnumeratingWithState:&v179 objects:v194 count:16];
+              v56 = [v55 countByEnumeratingWithState:&v178 objects:v193 count:16];
             }
 
             while (v56);
@@ -3674,11 +3594,11 @@ LABEL_91:
               {
                 v118 = HMFGetLogIdentifier();
                 softwareVersion4 = [v15 softwareVersion];
-                *v191 = 138543618;
-                *&v191[4] = v118;
-                *&v191[12] = 2112;
-                *&v191[14] = softwareVersion4;
-                _os_log_impl(&dword_2531F8000, v117, OS_LOG_TYPE_DEFAULT, "%{public}@Updated software version: %@", v191, 0x16u);
+                *v190 = 138543618;
+                *&v190[4] = v118;
+                *&v190[12] = 2112;
+                *&v190[14] = softwareVersion4;
+                _os_log_impl(&dword_2531F8000, v117, OS_LOG_TYPE_DEFAULT, "%{public}@Updated software version: %@", v190, 0x16u);
               }
 
               objc_autoreleasePoolPop(v115);
@@ -3704,13 +3624,13 @@ LABEL_91:
                     softwareVersion8 = [(HMDAppleMediaAccessory *)v126 softwareVersion];
                     productInfo2 = [MEMORY[0x277D0F8E8] productInfo];
                     softwareVersion9 = [productInfo2 softwareVersion];
-                    *v191 = 138543874;
-                    *&v191[4] = v128;
-                    *&v191[12] = 2112;
-                    *&v191[14] = softwareVersion8;
-                    *&v191[22] = 2112;
-                    v192 = softwareVersion9;
-                    _os_log_impl(&dword_2531F8000, v127, OS_LOG_TYPE_DEFAULT, "%{public}@Stored software version is incorrect (%@), updating to: (%@)", v191, 0x20u);
+                    *v190 = 138543874;
+                    *&v190[4] = v128;
+                    *&v190[12] = 2112;
+                    *&v190[14] = softwareVersion8;
+                    *&v190[22] = 2112;
+                    v191 = softwareVersion9;
+                    _os_log_impl(&dword_2531F8000, v127, OS_LOG_TYPE_DEFAULT, "%{public}@Stored software version is incorrect (%@), updating to: (%@)", v190, 0x20u);
                   }
 
                   objc_autoreleasePoolPop(v125);
@@ -3737,11 +3657,11 @@ LABEL_91:
               {
                 v140 = HMFGetLogIdentifier();
                 supportedStereoPairVersions2 = [v15 supportedStereoPairVersions];
-                *v191 = 138543618;
-                *&v191[4] = v140;
-                *&v191[12] = 2112;
-                *&v191[14] = supportedStereoPairVersions2;
-                _os_log_impl(&dword_2531F8000, v139, OS_LOG_TYPE_DEFAULT, "%{public}@Updated supported stereo pair versions: %@", v191, 0x16u);
+                *v190 = 138543618;
+                *&v190[4] = v140;
+                *&v190[12] = 2112;
+                *&v190[14] = supportedStereoPairVersions2;
+                _os_log_impl(&dword_2531F8000, v139, OS_LOG_TYPE_DEFAULT, "%{public}@Updated supported stereo pair versions: %@", v190, 0x16u);
               }
 
               objc_autoreleasePoolPop(v137);
@@ -3767,11 +3687,11 @@ LABEL_91:
               {
                 v149 = HMFGetLogIdentifier();
                 wifiNetworkInfo3 = [v15 wifiNetworkInfo];
-                *v191 = 138543618;
-                *&v191[4] = v149;
-                *&v191[12] = 2112;
-                *&v191[14] = wifiNetworkInfo3;
-                _os_log_impl(&dword_2531F8000, v148, OS_LOG_TYPE_DEFAULT, "%{public}@Updated WiFi network info: %@", v191, 0x16u);
+                *v190 = 138543618;
+                *&v190[4] = v149;
+                *&v190[12] = 2112;
+                *&v190[14] = wifiNetworkInfo3;
+                _os_log_impl(&dword_2531F8000, v148, OS_LOG_TYPE_DEFAULT, "%{public}@Updated WiFi network info: %@", v190, 0x16u);
               }
 
               objc_autoreleasePoolPop(v146);
@@ -3785,18 +3705,18 @@ LABEL_91:
           if ([v15 propertyWasSet:@"loggedInAccount"])
           {
             remoteLoginHandler = [(HMDAppleMediaAccessory *)selfCopy remoteLoginHandler];
-            [remoteLoginHandler _handleRemoteLoginAccount:v15 message:v165];
+            [remoteLoginHandler _handleRemoteLoginAccount:v15 message:v164];
 
             [transactionResult markChanged];
           }
 
-          *v191 = MEMORY[0x277D85DD0];
-          *&v191[8] = 3221225472;
-          *&v191[16] = ____transactionAccessoryUpdated_block_invoke_94534;
-          v192 = &unk_279734468;
+          *v190 = MEMORY[0x277D85DD0];
+          *&v190[8] = 3221225472;
+          *&v190[16] = ____transactionAccessoryUpdated_block_invoke_94534;
+          v191 = &unk_279734468;
           v153 = transactionResult;
-          v193 = v153;
-          [(HMDAccessory *)selfCopy transactionAccessoryUpdatedForPreferredMediaUser:v15 completionHandler:v191];
+          v192 = v153;
+          [(HMDAccessory *)selfCopy transactionAccessoryUpdatedForPreferredMediaUser:v15 completionHandler:v190];
           if ([v15 propertyWasSet:@"productColor"])
           {
             productColor = [v15 productColor];
@@ -3812,11 +3732,11 @@ LABEL_91:
               {
                 v160 = HMFGetLogIdentifier();
                 productColor2 = [v15 productColor];
-                *v187 = 138543618;
-                v188 = v160;
-                v189 = 2112;
-                v190 = productColor2;
-                _os_log_impl(&dword_2531F8000, v159, OS_LOG_TYPE_DEFAULT, "%{public}@Updated product color: %@", v187, 0x16u);
+                *v186 = 138543618;
+                v187 = v160;
+                v188 = 2112;
+                v189 = productColor2;
+                _os_log_impl(&dword_2531F8000, v159, OS_LOG_TYPE_DEFAULT, "%{public}@Updated product color: %@", v186, 0x16u);
               }
 
               objc_autoreleasePoolPop(v157);
@@ -3827,15 +3747,15 @@ LABEL_91:
             }
           }
 
-          [v165 respondWithPayload:0];
+          [v164 respondWithPayload:0];
 
           if (responseHandler)
           {
-            responseHandler[2](responseHandler, v174[5], 0);
+            responseHandler[2](responseHandler, v173[5], 0);
           }
 
-          _Block_object_dispose(&v173, 8);
-          messageCopy = v168;
+          _Block_object_dispose(&v172, 8);
+          messageCopy = v167;
           goto LABEL_122;
         }
       }
@@ -3851,11 +3771,11 @@ LABEL_91:
       {
         v99 = HMFGetLogIdentifier();
         pairingIdentity6 = [v15 pairingIdentity];
-        *v191 = 138543618;
-        *&v191[4] = v99;
-        *&v191[12] = 2112;
-        *&v191[14] = pairingIdentity6;
-        _os_log_impl(&dword_2531F8000, v98, OS_LOG_TYPE_DEFAULT, "%{public}@Updated pairing identity: %@", v191, 0x16u);
+        *v190 = 138543618;
+        *&v190[4] = v99;
+        *&v190[12] = 2112;
+        *&v190[14] = pairingIdentity6;
+        _os_log_impl(&dword_2531F8000, v98, OS_LOG_TYPE_DEFAULT, "%{public}@Updated pairing identity: %@", v190, 0x16u);
       }
 
       objc_autoreleasePoolPop(v96);
@@ -3881,11 +3801,11 @@ LABEL_91:
         {
           v79 = HMFGetLogIdentifier();
           pairingIdentity8 = [v15 pairingIdentity];
-          *v191 = 138543618;
-          *&v191[4] = v79;
-          *&v191[12] = 2112;
-          *&v191[14] = pairingIdentity8;
-          _os_log_impl(&dword_2531F8000, v78, OS_LOG_TYPE_DEFAULT, "%{public}@Updated pairing identity with private info: %@", v191, 0x16u);
+          *v190 = 138543618;
+          *&v190[4] = v79;
+          *&v190[12] = 2112;
+          *&v190[14] = pairingIdentity8;
+          _os_log_impl(&dword_2531F8000, v78, OS_LOG_TYPE_DEFAULT, "%{public}@Updated pairing identity with private info: %@", v190, 0x16u);
         }
 
         objc_autoreleasePoolPop(v76);
@@ -3925,9 +3845,9 @@ LABEL_77:
           if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
           {
             v95 = HMFGetLogIdentifier();
-            *v191 = 138543362;
-            *&v191[4] = v95;
-            _os_log_impl(&dword_2531F8000, v94, OS_LOG_TYPE_DEFAULT, "%{public}@Pushing a fix to cloud, mark changed", v191, 0xCu);
+            *v190 = 138543362;
+            *&v190[4] = v95;
+            _os_log_impl(&dword_2531F8000, v94, OS_LOG_TYPE_DEFAULT, "%{public}@Pushing a fix to cloud, mark changed", v190, 0xCu);
           }
 
           objc_autoreleasePoolPop(v92);
@@ -3942,9 +3862,9 @@ LABEL_88:
         if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
         {
           v110 = HMFGetLogIdentifier();
-          *v191 = 138543362;
-          *&v191[4] = v110;
-          _os_log_impl(&dword_2531F8000, v109, OS_LOG_TYPE_ERROR, "%{public}@Updated pairing identity does not match lastCreated", v191, 0xCu);
+          *v190 = 138543362;
+          *&v190[4] = v110;
+          _os_log_impl(&dword_2531F8000, v109, OS_LOG_TYPE_ERROR, "%{public}@Updated pairing identity does not match lastCreated", v190, 0xCu);
         }
 
         objc_autoreleasePoolPop(v107);
@@ -3972,12 +3892,12 @@ LABEL_88:
   if (v26)
   {
     settingsController = [(HMDAppleMediaAccessory *)self settingsController];
-    v170[0] = MEMORY[0x277D85DD0];
-    v170[1] = 3221225472;
-    v170[2] = __69__HMDAppleMediaAccessory_transactionObjectUpdated_newValues_message___block_invoke_2;
-    v170[3] = &unk_2797359D8;
-    v170[4] = self;
-    [settingsController handleUpdatedGroupModel:v26 completion:v170];
+    v169[0] = MEMORY[0x277D85DD0];
+    v169[1] = 3221225472;
+    v169[2] = __69__HMDAppleMediaAccessory_transactionObjectUpdated_newValues_message___block_invoke_2;
+    v169[3] = &unk_2797359D8;
+    v169[4] = self;
+    [settingsController handleUpdatedGroupModel:v26 completion:v169];
   }
 
   else
@@ -4019,9 +3939,9 @@ LABEL_88:
 
       if (!v103)
       {
-        v169.receiver = self;
-        v169.super_class = HMDAppleMediaAccessory;
-        [(HMDMediaAccessory *)&v169 transactionObjectUpdated:updatedCopy newValues:v33 message:messageCopy];
+        v168.receiver = self;
+        v168.super_class = HMDAppleMediaAccessory;
+        [(HMDMediaAccessory *)&v168 transactionObjectUpdated:updatedCopy newValues:v33 message:messageCopy];
         goto LABEL_122;
       }
 
@@ -4030,8 +3950,6 @@ LABEL_88:
   }
 
 LABEL_122:
-
-  v163 = *MEMORY[0x277D85DE8];
 }
 
 void __69__HMDAppleMediaAccessory_transactionObjectUpdated_newValues_message___block_invoke(uint64_t a1, void *a2)
@@ -4047,7 +3965,7 @@ void __69__HMDAppleMediaAccessory_transactionObjectUpdated_newValues_message___b
 
 void __69__HMDAppleMediaAccessory_transactionObjectUpdated_newValues_message___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -4057,17 +3975,15 @@ void __69__HMDAppleMediaAccessory_transactionObjectUpdated_newValues_message___b
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error adding group %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error adding group %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)backingStoreObjectForMediaDestinationControllerData
@@ -4158,7 +4074,7 @@ void __69__HMDAppleMediaAccessory_transactionObjectUpdated_newValues_message___b
   v16 = [(HMDAccessory *)&v19 backingStoreObjects:objects];
   [v10 addObjectsFromArray:v16];
 
-  v17 = [v10 copy];
+  v17 = objc_msgSend_copy(v10);
 
   return v17;
 }
@@ -4431,7 +4347,7 @@ LABEL_19:
 
 - (void)migrateWithCloudZone:(id)zone migrationQueue:(id)queue completion:(id)completion
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   queueCopy = queue;
   completionCopy = completion;
@@ -4440,46 +4356,46 @@ LABEL_19:
   v12 = dispatch_group_create();
   objc_initWeak(&location, self);
   dispatch_group_enter(v12);
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __73__HMDAppleMediaAccessory_migrateWithCloudZone_migrationQueue_completion___block_invoke;
-  v59[3] = &unk_27972A0E0;
-  objc_copyWeak(&v63, &location);
+  v58[0] = MEMORY[0x277D85DD0];
+  v58[1] = 3221225472;
+  v58[2] = __73__HMDAppleMediaAccessory_migrateWithCloudZone_migrationQueue_completion___block_invoke;
+  v58[3] = &unk_27972A0E0;
+  objc_copyWeak(&v62, &location);
   v13 = array;
-  v60 = v13;
+  v59 = v13;
   v14 = array2;
-  v61 = v14;
+  v60 = v14;
   v15 = v12;
-  v62 = v15;
-  [(HMDAppleMediaAccessory *)self migrateAudioDestinationControllerWithCloudZone:zoneCopy migrationQueue:queueCopy completion:v59];
+  v61 = v15;
+  [(HMDAppleMediaAccessory *)self migrateAudioDestinationControllerWithCloudZone:zoneCopy migrationQueue:queueCopy completion:v58];
   dispatch_group_enter(v15);
-  v54[0] = MEMORY[0x277D85DD0];
-  v54[1] = 3221225472;
-  v54[2] = __73__HMDAppleMediaAccessory_migrateWithCloudZone_migrationQueue_completion___block_invoke_2;
-  v54[3] = &unk_27972A0E0;
-  objc_copyWeak(&v58, &location);
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = __73__HMDAppleMediaAccessory_migrateWithCloudZone_migrationQueue_completion___block_invoke_2;
+  v53[3] = &unk_27972A0E0;
+  objc_copyWeak(&v57, &location);
   v16 = v13;
-  v55 = v16;
+  v54 = v16;
   v17 = v14;
-  v56 = v17;
+  v55 = v17;
   v18 = v15;
-  v57 = v18;
-  [(HMDAppleMediaAccessory *)self migrateAudioDestinationWithCloudZone:zoneCopy migrationQueue:queueCopy completion:v54];
+  v56 = v18;
+  [(HMDAppleMediaAccessory *)self migrateAudioDestinationWithCloudZone:zoneCopy migrationQueue:queueCopy completion:v53];
   dispatch_group_enter(v18);
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __73__HMDAppleMediaAccessory_migrateWithCloudZone_migrationQueue_completion___block_invoke_3;
-  v49[3] = &unk_27972A0E0;
-  objc_copyWeak(&v53, &location);
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __73__HMDAppleMediaAccessory_migrateWithCloudZone_migrationQueue_completion___block_invoke_3;
+  v48[3] = &unk_27972A0E0;
+  objc_copyWeak(&v52, &location);
   v19 = v16;
-  v50 = v19;
+  v49 = v19;
   v20 = v17;
-  v51 = v20;
+  v50 = v20;
   v21 = v18;
-  v52 = v21;
-  v44 = zoneCopy;
+  v51 = v21;
+  v43 = zoneCopy;
   v22 = queueCopy;
-  v23 = v49;
+  v23 = v48;
   if (self)
   {
     softwareUpdate = [(HMDAccessory *)self softwareUpdate];
@@ -4497,45 +4413,45 @@ LABEL_19:
     if (v26 && ![softwareUpdate downloadSize])
     {
       uuid = [(HMDAccessory *)self uuid];
-      v33 = [softwareUpdate transactionWithObjectChangeType:1 forAccessoryUUID:uuid];
+      v32 = [softwareUpdate transactionWithObjectChangeType:1 forAccessoryUUID:uuid];
 
-      uuid2 = [v33 uuid];
+      uuid2 = [v32 uuid];
       context = objc_autoreleasePoolPush();
       selfCopy = self;
-      v35 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      v34 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        v41 = HMFGetLogIdentifier();
-        uuid3 = [v33 uuid];
+        v40 = HMFGetLogIdentifier();
+        uuid3 = [v32 uuid];
         *block = 138544130;
-        *&block[4] = v41;
+        *&block[4] = v40;
         *&block[12] = 2112;
         *&block[14] = uuid3;
         *&block[22] = 2112;
-        v66 = v33;
-        LOWORD(v67) = 2112;
-        *(&v67 + 2) = selfCopy;
-        v40 = uuid3;
-        _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@Fixing up bad software update model with uuid: %@ and 0 download size: %@ for accessory: %@", block, 0x2Au);
+        v65 = v32;
+        LOWORD(v66) = 2112;
+        *(&v66 + 2) = selfCopy;
+        v39 = uuid3;
+        _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@Fixing up bad software update model with uuid: %@ and 0 download size: %@ for accessory: %@", block, 0x2Au);
       }
 
       objc_autoreleasePoolPop(context);
-      [v33 setSoftwareVersion:0];
-      [v33 setState:0];
-      [v33 setInstallDuration:0];
-      [v33 setDownloadSize:0];
-      [v33 setReleaseDate:0];
+      [v32 setSoftwareVersion:0];
+      [v32 setState:0];
+      [v32 setInstallDuration:0];
+      [v32 setDownloadSize:0];
+      [v32 setReleaseDate:0];
       home = [(HMDAccessory *)selfCopy home];
       [home dropAllChangesWithObjectID:uuid2];
 
       *block = MEMORY[0x277D85DD0];
       *&block[8] = 3221225472;
       *&block[16] = __87__HMDAppleMediaAccessory_migrateSoftwareUpdateWithCloudZone_migrationQueue_completion___block_invoke_503;
-      v66 = &unk_279735738;
-      v38 = v23;
-      *&v67 = v33;
-      *(&v67 + 1) = v38;
-      v39 = v33;
+      v65 = &unk_279735738;
+      v37 = v23;
+      *&v66 = v32;
+      *(&v66 + 1) = v37;
+      v38 = v32;
       dispatch_async(v22, block);
     }
 
@@ -4544,32 +4460,30 @@ LABEL_19:
       *block = MEMORY[0x277D85DD0];
       *&block[8] = 3221225472;
       *&block[16] = __87__HMDAppleMediaAccessory_migrateSoftwareUpdateWithCloudZone_migrationQueue_completion___block_invoke;
-      v66 = &unk_2797348C0;
-      *&v67 = v23;
+      v65 = &unk_2797348C0;
+      *&v66 = v23;
       dispatch_async(v22, block);
-      uuid2 = v67;
+      uuid2 = v66;
     }
   }
 
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __73__HMDAppleMediaAccessory_migrateWithCloudZone_migrationQueue_completion___block_invoke_4;
-  v45[3] = &unk_2797355D0;
-  v47 = v20;
-  v48 = completionCopy;
-  v46 = v19;
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __73__HMDAppleMediaAccessory_migrateWithCloudZone_migrationQueue_completion___block_invoke_4;
+  v44[3] = &unk_2797355D0;
+  v46 = v20;
+  v47 = completionCopy;
+  v45 = v19;
   v28 = v20;
   v29 = v19;
   v30 = completionCopy;
-  dispatch_group_notify(v21, v22, v45);
+  dispatch_group_notify(v21, v22, v44);
 
-  objc_destroyWeak(&v53);
-  objc_destroyWeak(&v58);
+  objc_destroyWeak(&v52);
+  objc_destroyWeak(&v57);
 
-  objc_destroyWeak(&v63);
+  objc_destroyWeak(&v62);
   objc_destroyWeak(&location);
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HMDAppleMediaAccessory_migrateWithCloudZone_migrationQueue_completion___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
@@ -4619,13 +4533,11 @@ void __73__HMDAppleMediaAccessory_migrateWithCloudZone_migrationQueue_completion
 
 void __87__HMDAppleMediaAccessory_migrateSoftwareUpdateWithCloudZone_migrationQueue_completion___block_invoke_503(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40);
-  v4[0] = *(a1 + 32);
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+  v3[0] = *(a1 + 32);
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
   (*(v1 + 16))(v1, MEMORY[0x277CBEBF8], v2, 0);
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (id)remoteMessageDestination
@@ -4650,7 +4562,7 @@ void __87__HMDAppleMediaAccessory_migrateSoftwareUpdateWithCloudZone_migrationQu
 
 - (void)_relayRequestMessage:(id)message responseHandler:(id)handler
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   handlerCopy = handler;
   if ([messageCopy isRemote])
@@ -4662,7 +4574,7 @@ void __87__HMDAppleMediaAccessory_migrateSoftwareUpdateWithCloudZone_migrationQu
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v36 = v11;
+      v35 = v11;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot relay a remote message", buf, 0xCu);
     }
 
@@ -4689,16 +4601,16 @@ void __87__HMDAppleMediaAccessory_migrateSoftwareUpdateWithCloudZone_migrationQu
 
         [v19 setResponseRestriction:{objc_msgSend(messageCopy, "remoteResponseRestriction")}];
         objc_initWeak(buf, self);
-        v29 = MEMORY[0x277D85DD0];
-        v30 = 3221225472;
-        v31 = __63__HMDAppleMediaAccessory__relayRequestMessage_responseHandler___block_invoke;
-        v32 = &unk_2797355F8;
-        objc_copyWeak(&v34, buf);
-        v33 = handlerCopy;
-        [v19 setResponseHandler:&v29];
-        [messageDispatcher sendMessage:{v19, v29, v30, v31, v32}];
+        v28 = MEMORY[0x277D85DD0];
+        v29 = 3221225472;
+        v30 = __63__HMDAppleMediaAccessory__relayRequestMessage_responseHandler___block_invoke;
+        v31 = &unk_2797355F8;
+        objc_copyWeak(&v33, buf);
+        v32 = handlerCopy;
+        [v19 setResponseHandler:&v28];
+        [messageDispatcher sendMessage:{v19, v28, v29, v30, v31}];
 
-        objc_destroyWeak(&v34);
+        objc_destroyWeak(&v33);
         objc_destroyWeak(buf);
       }
 
@@ -4711,7 +4623,7 @@ void __87__HMDAppleMediaAccessory_migrateSoftwareUpdateWithCloudZone_migrationQu
         {
           v27 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v36 = v27;
+          v35 = v27;
           _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Cannot send message to unknown remote device", buf, 0xCu);
         }
 
@@ -4730,7 +4642,7 @@ void __87__HMDAppleMediaAccessory_migrateSoftwareUpdateWithCloudZone_migrationQu
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v36 = v23;
+        v35 = v23;
         _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Not configured to relay messages", buf, 0xCu);
       }
 
@@ -4739,8 +4651,6 @@ void __87__HMDAppleMediaAccessory_migrateSoftwareUpdateWithCloudZone_migrationQu
       [messageCopy respondWithError:remoteMessageDestination];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HMDAppleMediaAccessory__relayRequestMessage_responseHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -4765,7 +4675,7 @@ void __63__HMDAppleMediaAccessory__relayRequestMessage_responseHandler___block_i
 
 - (void)handleCurrentNetworkChangedNotification:(id)notification
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -4773,17 +4683,15 @@ void __63__HMDAppleMediaAccessory__relayRequestMessage_responseHandler___block_i
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = notificationCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Received current network changed notification: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2112;
+    v12 = notificationCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Received current network changed notification: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDAppleMediaAccessory *)selfCopy updateWiFiNetworkInfo];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWiFiNetworkInfo
@@ -4799,7 +4707,7 @@ void __63__HMDAppleMediaAccessory__relayRequestMessage_responseHandler___block_i
 
 void __47__HMDAppleMediaAccessory_updateWiFiNetworkInfo__block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) wifiManager];
   v3 = [v2 MACAddress];
 
@@ -4823,18 +4731,18 @@ void __47__HMDAppleMediaAccessory_updateWiFiNetworkInfo__block_invoke(uint64_t a
         v13 = HMFGetLogIdentifier();
         v14 = [*(a1 + 32) wifiNetworkInfo];
         [*(a1 + 32) lastStagedWifiNetworkInfo];
-        v15 = v29 = v10;
+        v15 = v28 = v10;
         *buf = 138544130;
-        v32 = v13;
-        v33 = 2112;
-        v34 = v6;
-        v35 = 2112;
-        v36 = v14;
-        v37 = 2112;
-        v38 = v15;
+        v31 = v13;
+        v32 = 2112;
+        v33 = v6;
+        v34 = 2112;
+        v35 = v14;
+        v36 = 2112;
+        v37 = v15;
         _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Updating WiFi network info to %@, lastCommitedWiFiInfo: %@, lastStagedWiFiInfo %@", buf, 0x2Au);
 
-        v10 = v29;
+        v10 = v28;
       }
 
       objc_autoreleasePoolPop(v10);
@@ -4871,27 +4779,25 @@ void __47__HMDAppleMediaAccessory_updateWiFiNetworkInfo__block_invoke(uint64_t a
         v7 = v24;
       }
 
-      [*(a1 + 32) setLastStagedWifiNetworkInfo:{v6, v29}];
+      [*(a1 + 32) setLastStagedWifiNetworkInfo:{v6, v28}];
       v25 = [*(a1 + 32) home];
       v26 = [v25 backingStore];
       v27 = [v26 transaction:v23 options:v7];
 
       [v27 add:v18];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __47__HMDAppleMediaAccessory_updateWiFiNetworkInfo__block_invoke_499;
-      v30[3] = &unk_2797359D8;
-      v30[4] = *(a1 + 32);
-      [v27 run:v30];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __47__HMDAppleMediaAccessory_updateWiFiNetworkInfo__block_invoke_499;
+      v29[3] = &unk_2797359D8;
+      v29[4] = *(a1 + 32);
+      [v27 run:v29];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __47__HMDAppleMediaAccessory_updateWiFiNetworkInfo__block_invoke_499(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -4902,17 +4808,15 @@ void __47__HMDAppleMediaAccessory_updateWiFiNetworkInfo__block_invoke_499(uint64
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Updating WiFi network info backing store transaction failed: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Updating WiFi network info backing store transaction failed: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (HMFWiFiNetworkInfo)lastStagedWifiNetworkInfo
@@ -4938,7 +4842,6 @@ void __47__HMDAppleMediaAccessory_updateWiFiNetworkInfo__block_invoke_499(uint64
 {
   infoCopy = info;
   os_unfair_recursive_lock_lock_with_options();
-  wifiNetworkInfo = self->_wifiNetworkInfo;
   if (HMFEqualObjects())
   {
     os_unfair_recursive_lock_unlock();
@@ -4964,7 +4867,7 @@ void __47__HMDAppleMediaAccessory_updateWiFiNetworkInfo__block_invoke_499(uint64
 
 - (void)handleSoftwareUpdateV2Scan:(id)scan
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   scanCopy = scan;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -4973,7 +4876,7 @@ void __47__HMDAppleMediaAccessory_updateWiFiNetworkInfo__block_invoke_499(uint64
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v17 = v8;
+    v16 = v8;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling SoftwareUpdateV2Scan", buf, 0xCu);
   }
 
@@ -4987,26 +4890,24 @@ void __47__HMDAppleMediaAccessory_updateWiFiNetworkInfo__block_invoke_499(uint64
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v17 = v12;
+      v16 = v12;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Relaying SoftwareUpdateV2Scan", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __53__HMDAppleMediaAccessory_handleSoftwareUpdateV2Scan___block_invoke;
-    v14[3] = &unk_279733FB0;
-    v14[4] = v10;
-    v15 = scanCopy;
-    [(HMDAppleMediaAccessory *)v10 _relayRequestMessage:v15 responseHandler:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __53__HMDAppleMediaAccessory_handleSoftwareUpdateV2Scan___block_invoke;
+    v13[3] = &unk_279733FB0;
+    v13[4] = v10;
+    v14 = scanCopy;
+    [(HMDAppleMediaAccessory *)v10 _relayRequestMessage:v14 responseHandler:v13];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HMDAppleMediaAccessory_handleSoftwareUpdateV2Scan___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -5018,11 +4919,11 @@ void __53__HMDAppleMediaAccessory_handleSoftwareUpdateV2Scan___block_invoke(uint
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v5;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@SoftwareUpdateV2Scan responded with error: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@SoftwareUpdateV2Scan responded with error: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -5034,21 +4935,19 @@ void __53__HMDAppleMediaAccessory_handleSoftwareUpdateV2Scan___block_invoke(uint
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@SoftwareUpdateV2Scan responded", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@SoftwareUpdateV2Scan responded", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
     [*(a1 + 40) respondWithPayload:v6];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_scanForSoftwareUpdate
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -5056,7 +4955,7 @@ void __53__HMDAppleMediaAccessory_handleSoftwareUpdateV2Scan___block_invoke(uint
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v26 = v6;
+    v25 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@SRAISU: Scanning for software update.", buf, 0xCu);
   }
 
@@ -5066,34 +4965,32 @@ void __53__HMDAppleMediaAccessory_handleSoftwareUpdateV2Scan___block_invoke(uint
   v9 = [v7 initWithTarget:uuid];
 
   v10 = MEMORY[0x277D0F848];
-  v23 = *MEMORY[0x277CCEEF8];
-  v24 = &unk_2866286A8;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+  v22 = *MEMORY[0x277CCEEF8];
+  v23 = &unk_2866286A8;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
   v12 = [v10 messageWithName:*MEMORY[0x277CCEF08] destination:v9 payload:v11];
 
   v13 = objc_alloc_init(MEMORY[0x277D2C900]);
   objc_initWeak(buf, selfCopy);
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 3221225472;
-  v19 = __48__HMDAppleMediaAccessory__scanForSoftwareUpdate__block_invoke;
-  v20 = &unk_279733AE8;
-  objc_copyWeak(&v22, buf);
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __48__HMDAppleMediaAccessory__scanForSoftwareUpdate__block_invoke;
+  v19 = &unk_279733AE8;
+  objc_copyWeak(&v21, buf);
   v14 = v13;
-  v21 = v14;
-  [v12 setResponseHandler:&v17];
-  [(HMDAppleMediaAccessory *)selfCopy handleSoftwareUpdateV2Scan:v12, v17, v18, v19, v20];
+  v20 = v14;
+  [v12 setResponseHandler:&v16];
+  [(HMDAppleMediaAccessory *)selfCopy handleSoftwareUpdateV2Scan:v12, v16, v17, v18, v19];
 
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(buf);
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 void __48__HMDAppleMediaAccessory__scanForSoftwareUpdate__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -5105,9 +5002,9 @@ void __48__HMDAppleMediaAccessory__scanForSoftwareUpdate__block_invoke(uint64_t 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v34 = 138543362;
-      v35 = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@SRAISU: Received response for HMAccessorySoftwareUpdateControllerV2ScanMessage", &v34, 0xCu);
+      v33 = 138543362;
+      v34 = v11;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@SRAISU: Received response for HMAccessorySoftwareUpdateControllerV2ScanMessage", &v33, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -5119,11 +5016,11 @@ void __48__HMDAppleMediaAccessory__scanForSoftwareUpdate__block_invoke(uint64_t 
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         v15 = HMFGetLogIdentifier();
-        v34 = 138543618;
-        v35 = v15;
-        v36 = 2112;
-        v37 = v5;
-        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@SRAISU: Scan message failed with error: %@", &v34, 0x16u);
+        v33 = 138543618;
+        v34 = v15;
+        v35 = 2112;
+        v36 = v5;
+        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@SRAISU: Scan message failed with error: %@", &v33, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -5147,9 +5044,9 @@ void __48__HMDAppleMediaAccessory__scanForSoftwareUpdate__block_invoke(uint64_t 
         if (v25)
         {
           v26 = HMFGetLogIdentifier();
-          v34 = 138543362;
-          v35 = v26;
-          _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@SRAISU: scanResultFuture successfully found update", &v34, 0xCu);
+          v33 = 138543362;
+          v34 = v26;
+          _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@SRAISU: scanResultFuture successfully found update", &v33, 0xCu);
         }
 
         objc_autoreleasePoolPop(v22);
@@ -5163,8 +5060,8 @@ void __48__HMDAppleMediaAccessory__scanForSoftwareUpdate__block_invoke(uint64_t 
       }
 
       v27 = HMFGetLogIdentifier();
-      v34 = 138543362;
-      v35 = v27;
+      v33 = 138543362;
+      v34 = v27;
       v28 = "%{public}@SRAISU: scanResultFuture failed to find update";
       v29 = v24;
       v30 = OS_LOG_TYPE_INFO;
@@ -5189,14 +5086,14 @@ LABEL_22:
       }
 
       v27 = HMFGetLogIdentifier();
-      v34 = 138543362;
-      v35 = v27;
+      v33 = 138543362;
+      v34 = v27;
       v28 = "%{public}@SRAISU: Message did not contain required key in response: HMAccessorySoftwareUpdateControllerV2MessageKeyScanDidFindUpdate";
       v29 = v24;
       v30 = OS_LOG_TYPE_ERROR;
     }
 
-    _os_log_impl(&dword_2531F8000, v29, v30, v28, &v34, 0xCu);
+    _os_log_impl(&dword_2531F8000, v29, v30, v28, &v33, 0xCu);
 
     goto LABEL_21;
   }
@@ -5205,21 +5102,19 @@ LABEL_22:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     v19 = HMFGetLogIdentifier();
-    v34 = 138543362;
-    v35 = v19;
-    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@SRAISU: Completing scan future with success because the accessory was deallocated", &v34, 0xCu);
+    v33 = 138543362;
+    v34 = v19;
+    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@SRAISU: Completing scan future with success because the accessory was deallocated", &v33, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
   [*(a1 + 32) finishWithNoResult];
 LABEL_23:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_scanForSoftwareUpdateWithRetries
 {
-  v36[5] = *MEMORY[0x277D85DE8];
+  v35[5] = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -5227,22 +5122,22 @@ LABEL_23:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v33 = v6;
+    v32 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@SRAISU: Scanning for software update with retries.", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:360.0];
-  v36[0] = v7;
+  v35[0] = v7;
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:900.0];
-  v36[1] = v8;
+  v35[1] = v8;
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:1800.0];
-  v36[2] = v9;
+  v35[2] = v9;
   v10 = [MEMORY[0x277CCABB0] numberWithDouble:7200.0];
-  v36[3] = v10;
+  v35[3] = v10;
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:21600.0];
-  v36[4] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:5];
+  v35[4] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:5];
 
   if (isInternalBuild() && ([MEMORY[0x277D0F8D0] sharedPreferences], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "preferenceForKey:", @"HMDAppleMediaAccessoryShouldOverrideRepeatScanningIntervals"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "BOOLValue"), v14, v13, v15))
   {
@@ -5270,9 +5165,9 @@ LABEL_23:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v24;
-      v34 = 2112;
-      v35 = v20;
+      v32 = v24;
+      v33 = 2112;
+      v34 = v20;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@SRAISU: Overriding retries with new retries: %@", buf, 0x16u);
     }
 
@@ -5287,23 +5182,22 @@ LABEL_23:
   objc_initWeak(buf, selfCopy);
   v25 = MEMORY[0x277D2C900];
   workQueue = [(HMDAccessory *)selfCopy workQueue];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __59__HMDAppleMediaAccessory__scanForSoftwareUpdateWithRetries__block_invoke;
-  v30[3] = &unk_27972A0B8;
-  objc_copyWeak(&v31, buf);
-  v27 = [v25 futureWithRetryIntervals:v20 workQueue:workQueue block:v30];
-  objc_destroyWeak(&v31);
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __59__HMDAppleMediaAccessory__scanForSoftwareUpdateWithRetries__block_invoke;
+  v29[3] = &unk_27972A0B8;
+  objc_copyWeak(&v30, buf);
+  v27 = [v25 futureWithRetryIntervals:v20 workQueue:workQueue block:v29];
+  objc_destroyWeak(&v30);
 
   objc_destroyWeak(buf);
-  v28 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
 
 id __59__HMDAppleMediaAccessory__scanForSoftwareUpdateWithRetries__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_autoreleasePoolPush();
@@ -5314,11 +5208,11 @@ id __59__HMDAppleMediaAccessory__scanForSoftwareUpdateWithRetries__block_invoke(
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v3;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@SRAISU: Scanning for software update with retryIntervalsRemaining: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v3;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@SRAISU: Scanning for software update with retryIntervalsRemaining: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -5331,9 +5225,9 @@ id __59__HMDAppleMediaAccessory__scanForSoftwareUpdateWithRetries__block_invoke(
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@SRAISU: Completing scan future with success because the accessory was deallocated", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v11;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@SRAISU: Completing scan future with success because the accessory was deallocated", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -5342,14 +5236,12 @@ id __59__HMDAppleMediaAccessory__scanForSoftwareUpdateWithRetries__block_invoke(
 
   v12 = v9;
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)_softwareUpdateV2FromDescriptor:(id)descriptor
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -5357,24 +5249,22 @@ id __59__HMDAppleMediaAccessory__scanForSoftwareUpdateWithRetries__block_invoke(
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2112;
-    v15 = descriptorCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Creating HMSoftwareUpdateV2 for descriptor: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2112;
+    v14 = descriptorCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Creating HMSoftwareUpdateV2 for descriptor: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   v9 = [MEMORY[0x277CD1E68] softwareUpdateFromDescriptor:descriptorCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (void)_applySoftwareUpdateWithDescriptor:(id)descriptor
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -5383,9 +5273,9 @@ id __59__HMDAppleMediaAccessory__scanForSoftwareUpdateWithRetries__block_invoke(
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v31 = v8;
-    v32 = 2112;
-    v33 = descriptorCopy;
+    v30 = v8;
+    v31 = 2112;
+    v32 = descriptorCopy;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@SRAISU: Applying software update with descriptor: %@", buf, 0x16u);
   }
 
@@ -5403,29 +5293,29 @@ id __59__HMDAppleMediaAccessory__scanForSoftwareUpdateWithRetries__block_invoke(
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v15;
-      v32 = 2112;
-      v33 = v11;
+      v30 = v15;
+      v31 = 2112;
+      v32 = v11;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@SRAISU: Created HMSoftwareUpdate: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
-    v28 = *MEMORY[0x277CD1090];
+    v27 = *MEMORY[0x277CD1090];
     v16 = encodeRootObject();
-    v29 = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v28 = v16;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
 
     v18 = objc_alloc(MEMORY[0x277D0F820]);
     uuid = [(HMDAccessory *)v13 uuid];
     v20 = [v18 initWithTarget:uuid];
 
     v21 = [MEMORY[0x277D0F848] messageWithName:*MEMORY[0x277CD1080] destination:v20 payload:v17];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __61__HMDAppleMediaAccessory__applySoftwareUpdateWithDescriptor___block_invoke;
-    v27[3] = &unk_279734E00;
-    v27[4] = v13;
-    [v21 setResponseHandler:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __61__HMDAppleMediaAccessory__applySoftwareUpdateWithDescriptor___block_invoke;
+    v26[3] = &unk_279734E00;
+    v26[4] = v13;
+    [v21 setResponseHandler:v26];
     [(HMDAppleMediaAccessory *)v13 _startUpdate:v21];
   }
 
@@ -5438,21 +5328,19 @@ id __59__HMDAppleMediaAccessory__scanForSoftwareUpdateWithRetries__block_invoke(
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v25;
-      v32 = 2112;
-      v33 = v9;
+      v30 = v25;
+      v31 = 2112;
+      v32 = v9;
       _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@SRAISU: Cannot apply software update with no version: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v22);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HMDAppleMediaAccessory__applySoftwareUpdateWithDescriptor___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -5464,24 +5352,24 @@ void __61__HMDAppleMediaAccessory__applySoftwareUpdateWithDescriptor___block_inv
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v5;
+      v16 = 138543618;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v5;
       v12 = "%{public}@SRAISU: Failed to start software update with error: %@";
       v13 = v10;
       v14 = OS_LOG_TYPE_ERROR;
       v15 = 22;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v13, v14, v12, &v17, v15);
+      _os_log_impl(&dword_2531F8000, v13, v14, v12, &v16, v15);
     }
   }
 
   else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v17 = 138543362;
-    v18 = v11;
+    v16 = 138543362;
+    v17 = v11;
     v12 = "%{public}@SRAISU: Successfully started software update";
     v13 = v10;
     v14 = OS_LOG_TYPE_INFO;
@@ -5490,12 +5378,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v7);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runTransactionWithPreferredMediaUserUUID:(id)d selectionType:(unint64_t)type completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   v10 = objc_autoreleasePoolPush();
@@ -5506,11 +5393,11 @@ LABEL_6:
     v13 = HMFGetLogIdentifier();
     v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
     *buf = 138543874;
-    v23 = v13;
-    v24 = 2112;
-    v25 = dCopy;
-    v26 = 2112;
-    v27 = v14;
+    v22 = v13;
+    v23 = 2112;
+    v24 = dCopy;
+    v25 = 2112;
+    v26 = v14;
     _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Run transaction and set preferred media user: %@, type: %@.", buf, 0x20u);
   }
 
@@ -5533,16 +5420,15 @@ LABEL_6:
   v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
   [v17 setPreferredUserSelectionType:v18];
 
-  v21 = v17;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+  v20 = v17;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
 
   [(HMDAccessory *)selfCopy runTransactionWithModels:v19 label:@"Update preferred media user" completion:completionCopy];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatePreferredMediaUser:(id)user selectionType:(unint64_t)type
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   userCopy = user;
   v7 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:userCopy];
   [(HMDAccessory *)self setPreferredMediaUserUUID:v7];
@@ -5558,17 +5444,16 @@ LABEL_6:
     v12 = HMFGetLogIdentifier();
     preferredMediaUserUUID = [(HMDAccessory *)selfCopy preferredMediaUserUUID];
     preferredMediaUserSelectionTypeNumber = [(HMDAccessory *)selfCopy preferredMediaUserSelectionTypeNumber];
-    v16 = 138543874;
-    v17 = v12;
-    v18 = 2112;
-    v19 = preferredMediaUserUUID;
-    v20 = 2112;
-    v21 = preferredMediaUserSelectionTypeNumber;
-    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Updated preferred media user UUID: %@, type: %@", &v16, 0x20u);
+    v15 = 138543874;
+    v16 = v12;
+    v17 = 2112;
+    v18 = preferredMediaUserUUID;
+    v19 = 2112;
+    v20 = preferredMediaUserSelectionTypeNumber;
+    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Updated preferred media user UUID: %@, type: %@", &v15, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatePreferredMediaUserWithUUID:(id)d selectionType:(unint64_t)type completion:(id)completion
@@ -5599,7 +5484,7 @@ LABEL_6:
 
 void __84__HMDAppleMediaAccessory_updatePreferredMediaUserWithUUID_selectionType_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = WeakRetained;
@@ -5612,13 +5497,13 @@ void __84__HMDAppleMediaAccessory_updatePreferredMediaUserWithUUID_selectionType
     {
       v9 = HMFGetLogIdentifier();
       v10 = *(a1 + 32);
-      v18 = 138543874;
-      v19 = v9;
-      v20 = 2112;
-      v21 = v10;
-      v22 = 2112;
-      v23 = v3;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Updated preferred media user to %@ with error: %@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = v9;
+      v19 = 2112;
+      v20 = v10;
+      v21 = 2112;
+      v22 = v3;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Updated preferred media user to %@ with error: %@", &v17, 0x20u);
     }
   }
 
@@ -5636,13 +5521,13 @@ void __84__HMDAppleMediaAccessory_updatePreferredMediaUserWithUUID_selectionType
       v13 = HMFGetLogIdentifier();
       v14 = [v12 preferredMediaUserUUID];
       v15 = [v12 preferredMediaUserSelectionTypeNumber];
-      v18 = 138543874;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v14;
-      v22 = 2112;
-      v23 = v15;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Updated preferred media user UUID: %@, type: %@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v14;
+      v21 = 2112;
+      v22 = v15;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Updated preferred media user UUID: %@, type: %@", &v17, 0x20u);
     }
   }
 
@@ -5652,13 +5537,11 @@ void __84__HMDAppleMediaAccessory_updatePreferredMediaUserWithUUID_selectionType
   {
     (*(v16 + 16))(v16, v3);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUpdatePreferredMediaUser:(id)user
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   userCopy = user;
   if ([(HMDAppleMediaAccessory *)self isCurrentAccessory])
   {
@@ -5685,7 +5568,7 @@ LABEL_17:
           {
             v28 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v57 = v28;
+            v56 = v28;
             _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@Handling update preferred media user notification", buf, 0xCu);
           }
 
@@ -5702,7 +5585,7 @@ LABEL_17:
             {
               v37 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v57 = v37;
+              v56 = v37;
               _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_INFO, "%{public}@User already matches.", buf, 0xCu);
             }
 
@@ -5719,7 +5602,7 @@ LABEL_17:
             {
               v41 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v57 = v41;
+              v56 = v41;
               _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_INFO, "%{public}@Messaged HomePod Settings not supported", buf, 0xCu);
             }
 
@@ -5731,16 +5614,16 @@ LABEL_17:
           else
           {
             objc_initWeak(buf, selfCopy);
-            v50[0] = MEMORY[0x277D85DD0];
-            v50[1] = 3221225472;
-            v50[2] = __57__HMDAppleMediaAccessory_handleUpdatePreferredMediaUser___block_invoke_485;
-            v50[3] = &unk_279731988;
-            objc_copyWeak(&v53, buf);
-            v51 = v8;
-            v52 = userCopy;
-            [(HMDAccessory *)selfCopy setPreferredMediaUser:v51 selectionType:v11 completion:v50];
+            v49[0] = MEMORY[0x277D85DD0];
+            v49[1] = 3221225472;
+            v49[2] = __57__HMDAppleMediaAccessory_handleUpdatePreferredMediaUser___block_invoke_485;
+            v49[3] = &unk_279731988;
+            objc_copyWeak(&v52, buf);
+            v50 = v8;
+            v51 = userCopy;
+            [(HMDAccessory *)selfCopy setPreferredMediaUser:v50 selectionType:v11 completion:v49];
 
-            objc_destroyWeak(&v53);
+            objc_destroyWeak(&v52);
             objc_destroyWeak(buf);
           }
 
@@ -5755,11 +5638,11 @@ LABEL_17:
           v46 = HMFGetLogIdentifier();
           home2 = [(HMDAccessory *)selfCopy2 home];
           *buf = 138543874;
-          v57 = v46;
-          v58 = 2112;
-          v59 = v8;
-          v60 = 2112;
-          v61 = home2;
+          v56 = v46;
+          v57 = 2112;
+          v58 = v8;
+          v59 = 2112;
+          v60 = home2;
           _os_log_impl(&dword_2531F8000, v45, OS_LOG_TYPE_ERROR, "%{public}@Did not find user with uuid %@ in home %@.", buf, 0x20u);
         }
 
@@ -5784,9 +5667,9 @@ LABEL_17:
         {
           v24 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v57 = v24;
-          v58 = 2112;
-          v59 = v7;
+          v56 = v24;
+          v57 = 2112;
+          v58 = v7;
           _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Unexpected selection type %@", buf, 0x16u);
         }
 
@@ -5805,7 +5688,7 @@ LABEL_17:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v57 = v19;
+      v56 = v19;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Cannot set preferred user on device class.", buf, 0xCu);
     }
 
@@ -5823,28 +5706,26 @@ LABEL_17:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v57 = v15;
+      v56 = v15;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Relaying preferred media user update.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __57__HMDAppleMediaAccessory_handleUpdatePreferredMediaUser___block_invoke;
-    v54[3] = &unk_279733FB0;
-    v54[4] = selfCopy5;
-    v55 = userCopy;
-    [(HMDAppleMediaAccessory *)selfCopy5 _relayRequestMessage:v55 responseHandler:v54];
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __57__HMDAppleMediaAccessory_handleUpdatePreferredMediaUser___block_invoke;
+    v53[3] = &unk_279733FB0;
+    v53[4] = selfCopy5;
+    v54 = userCopy;
+    [(HMDAppleMediaAccessory *)selfCopy5 _relayRequestMessage:v54 responseHandler:v53];
   }
 
 LABEL_35:
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HMDAppleMediaAccessory_handleUpdatePreferredMediaUser___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -5853,11 +5734,11 @@ void __57__HMDAppleMediaAccessory_handleUpdatePreferredMediaUser___block_invoke(
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Got preferred user update response %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Got preferred user update response %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -5871,13 +5752,11 @@ void __57__HMDAppleMediaAccessory_handleUpdatePreferredMediaUser___block_invoke(
   {
     [v11 respondWithSuccess];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HMDAppleMediaAccessory_handleUpdatePreferredMediaUser___block_invoke_485(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = objc_autoreleasePoolPush();
@@ -5890,13 +5769,13 @@ void __57__HMDAppleMediaAccessory_handleUpdatePreferredMediaUser___block_invoke_
     {
       v9 = HMFGetLogIdentifier();
       v10 = *(a1 + 32);
-      v14 = 138543874;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v3;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to update preferred media User to %@, error: %@", &v14, 0x20u);
+      v13 = 138543874;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v3;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to update preferred media User to %@, error: %@", &v13, 0x20u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -5909,23 +5788,21 @@ void __57__HMDAppleMediaAccessory_handleUpdatePreferredMediaUser___block_invoke_
     {
       v11 = HMFGetLogIdentifier();
       v12 = *(a1 + 32);
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v12;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Updated preferred media User to %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v12;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Updated preferred media User to %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
     [*(a1 + 40) respondWithSuccess];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDeleteSiriHistoryRequest:(id)request
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -5934,7 +5811,7 @@ void __57__HMDAppleMediaAccessory_handleUpdatePreferredMediaUser___block_invoke_
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v33 = v8;
+    v32 = v8;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Received delete siri history request", buf, 0xCu);
   }
 
@@ -5952,18 +5829,18 @@ void __57__HMDAppleMediaAccessory_handleUpdatePreferredMediaUser___block_invoke_
       v14 = [(HMDAppleMediaAccessoryDeleteSiriHistoryOperation *)v11 initWithSettingsConnection:v13];
 
       objc_initWeak(buf, v14);
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __57__HMDAppleMediaAccessory_handleDeleteSiriHistoryRequest___block_invoke_483;
-      v27[3] = &unk_279732670;
-      objc_copyWeak(&v29, buf);
-      v27[4] = selfCopy;
-      v28 = requestCopy;
-      [(HMDAppleMediaAccessoryDeleteSiriHistoryOperation *)v14 setCompletionBlock:v27];
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __57__HMDAppleMediaAccessory_handleDeleteSiriHistoryRequest___block_invoke_483;
+      v26[3] = &unk_279732670;
+      objc_copyWeak(&v28, buf);
+      v26[4] = selfCopy;
+      v27 = requestCopy;
+      [(HMDAppleMediaAccessoryDeleteSiriHistoryOperation *)v14 setCompletionBlock:v26];
       defaultScheduler = [MEMORY[0x277D0F8F0] defaultScheduler];
       v16 = [defaultScheduler performOperation:v14];
 
-      objc_destroyWeak(&v29);
+      objc_destroyWeak(&v28);
       objc_destroyWeak(buf);
     }
 
@@ -5976,7 +5853,7 @@ void __57__HMDAppleMediaAccessory_handleUpdatePreferredMediaUser___block_invoke_
       {
         v24 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v33 = v24;
+        v32 = v24;
         _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Attempted to delete siri history on unsupported device", buf, 0xCu);
       }
 
@@ -5995,26 +5872,24 @@ void __57__HMDAppleMediaAccessory_handleUpdatePreferredMediaUser___block_invoke_
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v20;
+      v32 = v20;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Relaying delete siri history request to current accessory", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v17);
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __57__HMDAppleMediaAccessory_handleDeleteSiriHistoryRequest___block_invoke;
-    v30[3] = &unk_279733FB0;
-    v30[4] = v18;
-    v31 = requestCopy;
-    [(HMDAppleMediaAccessory *)v18 _relayRequestMessage:v31 responseHandler:v30];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __57__HMDAppleMediaAccessory_handleDeleteSiriHistoryRequest___block_invoke;
+    v29[3] = &unk_279733FB0;
+    v29[4] = v18;
+    v30 = requestCopy;
+    [(HMDAppleMediaAccessory *)v18 _relayRequestMessage:v30 responseHandler:v29];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HMDAppleMediaAccessory_handleDeleteSiriHistoryRequest___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -6026,11 +5901,11 @@ void __57__HMDAppleMediaAccessory_handleDeleteSiriHistoryRequest___block_invoke(
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v5;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Delete siri history relay responded with error: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Delete siri history relay responded with error: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -6042,21 +5917,19 @@ void __57__HMDAppleMediaAccessory_handleDeleteSiriHistoryRequest___block_invoke(
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Delete siri history relay responded", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Delete siri history relay responded", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
     [*(a1 + 40) respondWithPayload:0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HMDAppleMediaAccessory_handleDeleteSiriHistoryRequest___block_invoke_483(id *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   v3 = [WeakRetained error];
   v4 = objc_autoreleasePoolPush();
@@ -6068,11 +5941,11 @@ void __57__HMDAppleMediaAccessory_handleDeleteSiriHistoryRequest___block_invoke_
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Delete siri history operation completed with error: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Delete siri history operation completed with error: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -6084,21 +5957,19 @@ void __57__HMDAppleMediaAccessory_handleDeleteSiriHistoryRequest___block_invoke_
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Delete siri history operation completed", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Delete siri history operation completed", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     [a1[5] respondWithPayload:0];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startUpdate:(id)update
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -6107,9 +5978,9 @@ void __57__HMDAppleMediaAccessory_handleDeleteSiriHistoryRequest___block_invoke_
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v51 = v8;
-    v52 = 2112;
-    v53 = updateCopy;
+    v50 = v8;
+    v51 = 2112;
+    v52 = updateCopy;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Starting update for message: %@", buf, 0x16u);
   }
 
@@ -6133,9 +6004,9 @@ void __57__HMDAppleMediaAccessory_handleDeleteSiriHistoryRequest___block_invoke_
           {
             v16 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v51 = v16;
-            v52 = 2112;
-            v53 = v10;
+            v50 = v16;
+            v51 = 2112;
+            v52 = v10;
             _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Received request to start update: %@", buf, 0x16u);
           }
 
@@ -6144,18 +6015,18 @@ void __57__HMDAppleMediaAccessory_handleDeleteSiriHistoryRequest___block_invoke_
           if (softwareUpdateInstallProvider)
           {
             objc_initWeak(buf, v14);
-            v42[0] = MEMORY[0x277D85DD0];
-            v42[1] = 3221225472;
-            v42[2] = __39__HMDAppleMediaAccessory__startUpdate___block_invoke_481;
-            v42[3] = &unk_27972F820;
-            objc_copyWeak(&v46, buf);
-            v43 = v10;
+            v41[0] = MEMORY[0x277D85DD0];
+            v41[1] = 3221225472;
+            v41[2] = __39__HMDAppleMediaAccessory__startUpdate___block_invoke_481;
+            v41[3] = &unk_27972F820;
+            objc_copyWeak(&v45, buf);
+            v42 = v10;
             responseHandler3 = responseHandler3;
-            v44 = responseHandler3;
-            v45 = updateCopy;
-            [softwareUpdateInstallProvider startUpdate:v43 completionHandler:v42];
+            v43 = responseHandler3;
+            v44 = updateCopy;
+            [softwareUpdateInstallProvider startUpdate:v42 completionHandler:v41];
 
-            objc_destroyWeak(&v46);
+            objc_destroyWeak(&v45);
             objc_destroyWeak(buf);
           }
 
@@ -6168,7 +6039,7 @@ void __57__HMDAppleMediaAccessory_handleDeleteSiriHistoryRequest___block_invoke_
             {
               v38 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v51 = v38;
+              v50 = v38;
               _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_INFO, "%{public}@Software update install not supported", buf, 0xCu);
             }
 
@@ -6184,16 +6055,16 @@ void __57__HMDAppleMediaAccessory_handleDeleteSiriHistoryRequest___block_invoke_
 
         else
         {
-          v47[0] = MEMORY[0x277D85DD0];
-          v47[1] = 3221225472;
-          v47[2] = __39__HMDAppleMediaAccessory__startUpdate___block_invoke;
-          v47[3] = &unk_279733FB0;
+          v46[0] = MEMORY[0x277D85DD0];
+          v46[1] = 3221225472;
+          v46[2] = __39__HMDAppleMediaAccessory__startUpdate___block_invoke;
+          v46[3] = &unk_279733FB0;
           responseHandler3 = responseHandler3;
-          v48 = responseHandler3;
-          v49 = updateCopy;
-          [(HMDAppleMediaAccessory *)selfCopy _relayRequestMessage:v49 responseHandler:v47];
+          v47 = responseHandler3;
+          v48 = updateCopy;
+          [(HMDAppleMediaAccessory *)selfCopy _relayRequestMessage:v48 responseHandler:v46];
 
-          softwareUpdateInstallProvider = v48;
+          softwareUpdateInstallProvider = v47;
         }
       }
 
@@ -6207,9 +6078,9 @@ void __57__HMDAppleMediaAccessory_handleDeleteSiriHistoryRequest___block_invoke_
           v32 = HMFGetLogIdentifier();
           currentUser = [home currentUser];
           *buf = 138543618;
-          v51 = v32;
-          v52 = 2112;
-          v53 = currentUser;
+          v50 = v32;
+          v51 = 2112;
+          v52 = currentUser;
           _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Only administrators may start updates, current user: %@", buf, 0x16u);
         }
 
@@ -6236,7 +6107,7 @@ void __57__HMDAppleMediaAccessory_handleDeleteSiriHistoryRequest___block_invoke_
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v51 = v27;
+        v50 = v27;
         _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Invalid software update in message payload", buf, 0xCu);
       }
 
@@ -6268,9 +6139,9 @@ LABEL_30:
     v21 = HMFGetLogIdentifier();
     messagePayload = [updateCopy messagePayload];
     *buf = 138543618;
-    v51 = v21;
-    v52 = 2112;
-    v53 = messagePayload;
+    v50 = v21;
+    v51 = 2112;
+    v52 = messagePayload;
     _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Missing serialized software update from message payload: %@", buf, 0x16u);
   }
 
@@ -6286,8 +6157,6 @@ LABEL_30:
   }
 
 LABEL_32:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void __39__HMDAppleMediaAccessory__startUpdate___block_invoke(uint64_t a1, void *a2)
@@ -6307,7 +6176,7 @@ void __39__HMDAppleMediaAccessory__startUpdate___block_invoke(uint64_t a1, void 
 
 void __39__HMDAppleMediaAccessory__startUpdate___block_invoke_481(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v5 = objc_autoreleasePoolPush();
@@ -6320,18 +6189,18 @@ void __39__HMDAppleMediaAccessory__startUpdate___block_invoke_481(uint64_t a1, v
     {
       v9 = HMFGetLogIdentifier();
       v10 = *(a1 + 32);
-      v18 = 138543874;
-      v19 = v9;
-      v20 = 2112;
-      v21 = v10;
-      v22 = 2112;
-      v23 = v3;
+      v17 = 138543874;
+      v18 = v9;
+      v19 = 2112;
+      v20 = v10;
+      v21 = 2112;
+      v22 = v3;
       v11 = "%{public}@Failed to start update, %@, with error: %@";
       v12 = v8;
       v13 = OS_LOG_TYPE_DEFAULT;
       v14 = 32;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v12, v13, v11, &v18, v14);
+      _os_log_impl(&dword_2531F8000, v12, v13, v11, &v17, v14);
     }
   }
 
@@ -6339,10 +6208,10 @@ LABEL_6:
   {
     v9 = HMFGetLogIdentifier();
     v15 = *(a1 + 32);
-    v18 = 138543618;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v15;
+    v17 = 138543618;
+    v18 = v9;
+    v19 = 2112;
+    v20 = v15;
     v11 = "%{public}@Successfully started update: %@";
     v12 = v8;
     v13 = OS_LOG_TYPE_INFO;
@@ -6355,12 +6224,11 @@ LABEL_6:
   [v16 submitLogEvent:*(a1 + 40) error:v3];
 
   [*(a1 + 48) respondWithPayload:0 error:v3];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchAvailableUpdate:(id)update
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   v5 = [HMDSoftwareUpdateFetchedEvent eventWasUserInitiated:1 wasNewUpdateFetched:0];
   isCurrentAccessory = [(HMDAppleMediaAccessory *)self isCurrentAccessory];
@@ -6374,7 +6242,7 @@ LABEL_6:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v11;
+      v31 = v11;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Received request to fetch available updates", buf, 0xCu);
     }
 
@@ -6386,16 +6254,16 @@ LABEL_6:
     if (softwareUpdateManager)
     {
       objc_initWeak(buf, selfCopy);
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __48__HMDAppleMediaAccessory__fetchAvailableUpdate___block_invoke_472;
-      v24[3] = &unk_27972A068;
-      objc_copyWeak(&v27, buf);
-      v25 = v5;
-      v26 = updateCopy;
-      [softwareUpdateManager fetchAvailableUpdateWithCompletionHandler:v24];
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __48__HMDAppleMediaAccessory__fetchAvailableUpdate___block_invoke_472;
+      v23[3] = &unk_27972A068;
+      objc_copyWeak(&v26, buf);
+      v24 = v5;
+      v25 = updateCopy;
+      [softwareUpdateManager fetchAvailableUpdateWithCompletionHandler:v23];
 
-      objc_destroyWeak(&v27);
+      objc_destroyWeak(&v26);
       objc_destroyWeak(buf);
     }
 
@@ -6408,7 +6276,7 @@ LABEL_6:
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v32 = v19;
+        v31 = v19;
         _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Software update not supported", buf, 0xCu);
       }
 
@@ -6430,43 +6298,41 @@ LABEL_6:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v15;
+      v31 = v15;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Requesting accessory to fetch available software updates", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __48__HMDAppleMediaAccessory__fetchAvailableUpdate___block_invoke;
-    v28[3] = &unk_279730A88;
-    v28[4] = selfCopy;
-    v29 = v5;
-    v30 = updateCopy;
-    [(HMDAppleMediaAccessory *)selfCopy _relayRequestMessage:v30 responseHandler:v28];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __48__HMDAppleMediaAccessory__fetchAvailableUpdate___block_invoke;
+    v27[3] = &unk_279730A88;
+    v27[4] = selfCopy;
+    v28 = v5;
+    v29 = updateCopy;
+    [(HMDAppleMediaAccessory *)selfCopy _relayRequestMessage:v29 responseHandler:v27];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HMDAppleMediaAccessory__fetchAvailableUpdate___block_invoke(id *a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *MEMORY[0x277CD1090];
   v8 = [v6 hmf_dataForKey:*MEMORY[0x277CD1090]];
   if (v8)
   {
-    v21 = 0;
-    v9 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v8 error:&v21];
-    v10 = v21;
+    v20 = 0;
+    v9 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v8 error:&v20];
+    v10 = v20;
     if (v9)
     {
       [a1[5] setNewUpdateFetched:1];
-      v22 = v7;
+      v21 = v7;
       v11 = encodeRootObjectForIncomingXPCMessage(v9, 0);
-      v23 = v11;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v22 = v11;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
     }
 
     else
@@ -6478,9 +6344,9 @@ void __48__HMDAppleMediaAccessory__fetchAvailableUpdate___block_invoke(id *a1, v
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v25 = v16;
-        v26 = 2112;
-        v27 = v10;
+        v24 = v16;
+        v25 = 2112;
+        v26 = v10;
         _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to unarchive software updata from software update data: %@", buf, 0x16u);
       }
 
@@ -6504,13 +6370,11 @@ void __48__HMDAppleMediaAccessory__fetchAvailableUpdate___block_invoke(id *a1, v
     v19 = [a1[6] responseHandler];
     (v19)[2](v19, v5, v12);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HMDAppleMediaAccessory__fetchAvailableUpdate___block_invoke_472(id *a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained(a1 + 6);
@@ -6524,9 +6388,9 @@ void __48__HMDAppleMediaAccessory__fetchAvailableUpdate___block_invoke_472(id *a
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v12;
-      v24 = 2114;
-      v25 = v6;
+      v22 = v12;
+      v23 = 2114;
+      v24 = v6;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to start fetch with error: %{public}@", buf, 0x16u);
     }
 
@@ -6540,9 +6404,9 @@ LABEL_5:
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v23 = v14;
-    v24 = 2112;
-    v25 = v5;
+    v22 = v14;
+    v23 = 2112;
+    v24 = v5;
     _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Successfully fetched update: %@", buf, 0x16u);
   }
 
@@ -6553,10 +6417,10 @@ LABEL_5:
   }
 
   [a1[4] setNewUpdateFetched:1];
-  v20 = *MEMORY[0x277CD1090];
+  v19 = *MEMORY[0x277CD1090];
   v15 = encodeRootObject();
-  v21 = v15;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+  v20 = v15;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
 
 LABEL_10:
   v16 = +[HMDMetricsManager sharedLogEventSubmitter];
@@ -6569,8 +6433,6 @@ LABEL_10:
     v18 = [a1[5] responseHandler];
     (v18)[2](v18, v6, v13);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_applySoftwareUpdateModel:(id)model completion:(id)completion
@@ -6630,7 +6492,7 @@ uint64_t __63__HMDAppleMediaAccessory__applySoftwareUpdateModel_completion___blo
 
 - (void)_updateSoftwareVersion:(id)version
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   versionCopy = version;
   if (versionCopy)
   {
@@ -6641,11 +6503,11 @@ uint64_t __63__HMDAppleMediaAccessory__applySoftwareUpdateModel_completion___blo
     {
       v8 = HMFGetLogIdentifier();
       versionString = [versionCopy versionString];
-      v25 = 138543618;
-      v26 = v8;
-      v27 = 2112;
-      v28 = versionString;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating software version to: %@", &v25, 0x16u);
+      v24 = 138543618;
+      v25 = v8;
+      v26 = 2112;
+      v27 = versionString;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating software version to: %@", &v24, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -6691,15 +6553,12 @@ uint64_t __63__HMDAppleMediaAccessory__applySoftwareUpdateModel_completion___blo
 
     [v16 run];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSoftwareVersion:(id)version
 {
   versionCopy = version;
   os_unfair_recursive_lock_lock_with_options();
-  softwareVersion = self->_softwareVersion;
   if (HMFEqualObjects())
   {
     os_unfair_recursive_lock_unlock();
@@ -6725,7 +6584,7 @@ uint64_t __63__HMDAppleMediaAccessory__applySoftwareUpdateModel_completion___blo
 
 - (void)postDeviceIRKIfDifferent:(id)different
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   differentCopy = different;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -6734,9 +6593,9 @@ uint64_t __63__HMDAppleMediaAccessory__applySoftwareUpdateModel_completion___blo
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v49 = v8;
-    v50 = 2112;
-    v51 = differentCopy;
+    v48 = v8;
+    v49 = 2112;
+    v50 = differentCopy;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Posting device IRK: %@", buf, 0x16u);
   }
 
@@ -6754,7 +6613,7 @@ uint64_t __63__HMDAppleMediaAccessory__applySoftwareUpdateModel_completion___blo
     uuid2 = [(HMDAccessory *)selfCopy uuid];
     v17 = [v14 topicFromSuffixID:v15 homeUUID:uuid accessoryUUID:uuid2];
 
-    v46 = v17;
+    v45 = v17;
     v18 = [v13 lastEventForTopic:v17];
     if (!v18)
     {
@@ -6765,7 +6624,7 @@ uint64_t __63__HMDAppleMediaAccessory__applySoftwareUpdateModel_completion___blo
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v49 = v22;
+        v48 = v22;
         _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@No previously cached IRK", buf, 0xCu);
       }
 
@@ -6774,7 +6633,7 @@ uint64_t __63__HMDAppleMediaAccessory__applySoftwareUpdateModel_completion___blo
 
     encodedData = [v18 encodedData];
     v24 = encodedData;
-    v45 = uuid;
+    v44 = uuid;
     if (!v18 || encodedData)
     {
       if (encodedData && [differentCopy isEqualToData:encodedData])
@@ -6786,14 +6645,14 @@ uint64_t __63__HMDAppleMediaAccessory__applySoftwareUpdateModel_completion___blo
         {
           v36 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v49 = v36;
-          v50 = 2112;
-          v51 = differentCopy;
+          v48 = v36;
+          v49 = 2112;
+          v50 = differentCopy;
           _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_INFO, "%{public}@Skipping posting already cached device IRK: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v33);
-        v37 = v46;
+        v37 = v45;
         goto LABEL_25;
       }
     }
@@ -6807,9 +6666,9 @@ uint64_t __63__HMDAppleMediaAccessory__applySoftwareUpdateModel_completion___blo
       {
         v28 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v49 = v28;
-        v50 = 2112;
-        v51 = v18;
+        v48 = v28;
+        v49 = 2112;
+        v50 = v18;
         _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode cached device IRK from event: %@", buf, 0x16u);
       }
 
@@ -6825,16 +6684,16 @@ uint64_t __63__HMDAppleMediaAccessory__applySoftwareUpdateModel_completion___blo
 
     v24 = v40;
     v43 = [objc_alloc(MEMORY[0x277D174A0]) initWithEventData:differentCopy metadata:v42];
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __51__HMDAppleMediaAccessory_postDeviceIRKIfDifferent___block_invoke;
-    v47[3] = &unk_2797359D8;
-    v47[4] = selfCopy;
-    v37 = v46;
-    [eventForwarder forwardEvent:v43 topic:v46 completion:v47];
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __51__HMDAppleMediaAccessory_postDeviceIRKIfDifferent___block_invoke;
+    v46[3] = &unk_2797359D8;
+    v46[4] = selfCopy;
+    v37 = v45;
+    [eventForwarder forwardEvent:v43 topic:v45 completion:v46];
 
 LABEL_25:
-    uuid = v45;
+    uuid = v44;
 
     goto LABEL_26;
   }
@@ -6846,27 +6705,25 @@ LABEL_25:
   {
     v32 = HMFGetLogIdentifier();
     *buf = 138544386;
-    v49 = v32;
-    v50 = 2112;
-    v51 = differentCopy;
-    v52 = 2112;
-    v53 = eventForwarder;
-    v54 = 2112;
-    v55 = v13;
-    v56 = 2112;
-    v57 = uuid;
+    v48 = v32;
+    v49 = 2112;
+    v50 = differentCopy;
+    v51 = 2112;
+    v52 = eventForwarder;
+    v53 = 2112;
+    v54 = v13;
+    v55 = 2112;
+    v56 = uuid;
     _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to post deviceIRK: %@ due to missing dependencies eventforwarder: %@ event store read handle: %@ homeUUID: %@", buf, 0x34u);
   }
 
   objc_autoreleasePoolPop(v29);
 LABEL_26:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __51__HMDAppleMediaAccessory_postDeviceIRKIfDifferent___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -6874,20 +6731,19 @@ void __51__HMDAppleMediaAccessory_postDeviceIRKIfDifferent___block_invoke(uint64
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Forwarded current device IRK error: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Forwarded current device IRK error: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCurrentDeviceIRKUpdated:(id)updated
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   userInfo = [updatedCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"deviceIRK"];
@@ -6905,15 +6761,13 @@ void __51__HMDAppleMediaAccessory_postDeviceIRKIfDifferent___block_invoke(uint64
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@No device IRK in notification", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@No device IRK in notification", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRoomChanged:(id)changed
@@ -7027,7 +6881,7 @@ LABEL_9:
 
 - (void)handleHomeUserRemovedNotification:(id)notification
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKey:@"HMDUserNotificationKey"];
@@ -7052,29 +6906,27 @@ LABEL_9:
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v17 = v12;
-    v18 = 2112;
-    v19 = v8;
+    v16 = v12;
+    v17 = 2112;
+    v18 = v8;
     _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Handling removed user: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   if (v8 && (_os_feature_enabled_impl() & 1) == 0)
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __60__HMDAppleMediaAccessory_handleHomeUserRemovedNotification___block_invoke;
-    v14[3] = &unk_2797359D8;
-    v15 = v8;
-    [(HMDAccessory *)selfCopy setDefaultPreferredMediaUserIfRemoved:v15 defaultUser:0 completion:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __60__HMDAppleMediaAccessory_handleHomeUserRemovedNotification___block_invoke;
+    v13[3] = &unk_2797359D8;
+    v14 = v8;
+    [(HMDAccessory *)selfCopy setDefaultPreferredMediaUserIfRemoved:v14 defaultUser:0 completion:v13];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HMDAppleMediaAccessory_handleHomeUserRemovedNotification___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = HMFGetOSLogHandle();
@@ -7085,20 +6937,20 @@ void __60__HMDAppleMediaAccessory_handleHomeUserRemovedNotification___block_invo
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 32);
-      v15 = 138544130;
-      v16 = v7;
-      v17 = 2112;
-      v18 = v8;
-      v19 = 2112;
-      v20 = 0;
-      v21 = 2112;
-      v22 = v3;
+      v14 = 138544130;
+      v15 = v7;
+      v16 = 2112;
+      v17 = v8;
+      v18 = 2112;
+      v19 = 0;
+      v20 = 2112;
+      v21 = v3;
       v9 = "%{public}@Updated preferred media user %@ to owner: %@ with error: %@";
       v10 = v6;
       v11 = OS_LOG_TYPE_ERROR;
       v12 = 42;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v10, v11, v9, &v15, v12);
+      _os_log_impl(&dword_2531F8000, v10, v11, v9, &v14, v12);
     }
   }
 
@@ -7106,12 +6958,12 @@ LABEL_6:
   {
     v7 = HMFGetLogIdentifier();
     v13 = *(a1 + 32);
-    v15 = 138543874;
-    v16 = v7;
-    v17 = 2112;
-    v18 = v13;
-    v19 = 2112;
-    v20 = 0;
+    v14 = 138543874;
+    v15 = v7;
+    v16 = 2112;
+    v17 = v13;
+    v18 = 2112;
+    v19 = 0;
     v9 = "%{public}@Updated preferred media user %@ to owner: %@";
     v10 = v6;
     v11 = OS_LOG_TYPE_INFO;
@@ -7120,12 +6972,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pairingsWithCompletionHandler:(id)handler
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -7133,9 +6984,9 @@ LABEL_6:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Does not support user management", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Does not support user management", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -7144,13 +6995,11 @@ LABEL_6:
     v9 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     handlerCopy[2](handlerCopy, 0, v9);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeUser:(id)user completionHandler:(id)handler
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   userCopy = user;
   handlerCopy = handler;
   v8 = objc_autoreleasePoolPush();
@@ -7159,9 +7008,9 @@ LABEL_6:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v11;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Does not support user management", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v11;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Does not support user management", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -7170,13 +7019,11 @@ LABEL_6:
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     handlerCopy[2](handlerCopy, v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addUser:(id)user completionHandler:(id)handler
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   userCopy = user;
   handlerCopy = handler;
   v8 = objc_autoreleasePoolPush();
@@ -7185,9 +7032,9 @@ LABEL_6:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v11;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Does not support user management", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v11;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Does not support user management", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -7196,13 +7043,11 @@ LABEL_6:
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     handlerCopy[2](handlerCopy, v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createPairingIdentity
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = [(HMDAppleMediaAccessory *)self transactionWithObjectChangeType:2];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -7226,7 +7071,7 @@ LABEL_6:
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v9;
+      v22 = v9;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Creating pairing identity", buf, 0xCu);
     }
 
@@ -7255,23 +7100,21 @@ LABEL_6:
 
     [v17 add:v5];
     objc_initWeak(buf, selfCopy);
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __47__HMDAppleMediaAccessory_createPairingIdentity__block_invoke;
-    v20[3] = &unk_27972A040;
-    objc_copyWeak(v21, buf);
-    v21[1] = 0xEEEEB0B5B2B2EEEELL;
-    [v17 run:v20];
-    objc_destroyWeak(v21);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __47__HMDAppleMediaAccessory_createPairingIdentity__block_invoke;
+    v19[3] = &unk_27972A040;
+    objc_copyWeak(v20, buf);
+    v20[1] = 0xEEEEB0B5B2B2EEEELL;
+    [v17 run:v19];
+    objc_destroyWeak(v20);
     objc_destroyWeak(buf);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __47__HMDAppleMediaAccessory_createPairingIdentity__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained[66];
@@ -7279,8 +7122,8 @@ void __47__HMDAppleMediaAccessory_createPairingIdentity__block_invoke(uint64_t a
   v7 = *(a1 + 40);
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    LOWORD(v14) = 0;
-    _os_signpost_emit_with_name_impl(&dword_2531F8000, v6, OS_SIGNPOST_INTERVAL_END, v7, "CreatePairingIdentity", "", &v14, 2u);
+    LOWORD(v13) = 0;
+    _os_signpost_emit_with_name_impl(&dword_2531F8000, v6, OS_SIGNPOST_INTERVAL_END, v7, "CreatePairingIdentity", "", &v13, 2u);
   }
 
   v8 = objc_autoreleasePoolPush();
@@ -7289,23 +7132,21 @@ void __47__HMDAppleMediaAccessory_createPairingIdentity__block_invoke(uint64_t a
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v11;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Saved pairing identity", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v11;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Saved pairing identity", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
   v12 = [v9 currentAccessorySetupMetricDispatcher];
   [v12 markSetupEndStage:6 error:v3];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPairingIdentity:(id)identity
 {
   identityCopy = identity;
   os_unfair_recursive_lock_lock_with_options();
-  v4 = [identityCopy copy];
+  v4 = objc_msgSend_copy(identityCopy);
   pairingIdentity = self->_pairingIdentity;
   self->_pairingIdentity = v4;
 
@@ -7314,7 +7155,7 @@ void __47__HMDAppleMediaAccessory_createPairingIdentity__block_invoke(uint64_t a
 
 - (void)_handleTriggerPairingIdentityUpdateNotification:(id)notification
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   [notificationCopy respondWithSuccess];
   v5 = objc_autoreleasePoolPush();
@@ -7323,22 +7164,20 @@ void __47__HMDAppleMediaAccessory_createPairingIdentity__block_invoke(uint64_t a
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = selfCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Will trigger notification for updated pairing identity for accessory: %@ with message HMAccessoryPairingIdentityUpdatedNotification", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2112;
+    v12 = selfCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Will trigger notification for updated pairing identity for accessory: %@ with message HMAccessoryPairingIdentityUpdatedNotification", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDAppleMediaAccessory *)selfCopy notifyFrameworkOfUpdatedPairingIdentity];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyFrameworkOfUpdatedPairingIdentity
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D0F848];
   v4 = *MEMORY[0x277CCEC38];
   v5 = objc_alloc(MEMORY[0x277D0F820]);
@@ -7352,16 +7191,14 @@ void __47__HMDAppleMediaAccessory_createPairingIdentity__block_invoke(uint64_t a
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v15 = 138543362;
-    v16 = v12;
-    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Notifying clients of updated accessory pairing identity", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = v12;
+    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Notifying clients of updated accessory pairing identity", &v14, 0xCu);
   }
 
   objc_autoreleasePoolPop(v9);
   msgDispatcher = [(HMDAccessory *)selfCopy msgDispatcher];
   [msgDispatcher sendMessage:v8];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (HMFPairingIdentity)pairingIdentity
@@ -7382,20 +7219,19 @@ void __47__HMDAppleMediaAccessory_createPairingIdentity__block_invoke(uint64_t a
 
 - (id)runtimeState
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v10.receiver = self;
-  v10.super_class = HMDAppleMediaAccessory;
-  runtimeState = [(HMDAccessory *)&v10 runtimeState];
+  v11[1] = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = HMDAppleMediaAccessory;
+  runtimeState = [(HMDAccessory *)&v9 runtimeState];
   v4 = [runtimeState mutableCopy];
 
-  v11 = *MEMORY[0x277CCE9E0];
+  v10 = *MEMORY[0x277CCE9E0];
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDAppleMediaAccessory isDeviceReachable](self, "isDeviceReachable")}];
-  v12[0] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   [v4 addEntriesFromDictionary:v6];
 
-  v7 = [v4 copy];
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = objc_msgSend_copy(v4);
 
   return v7;
 }
@@ -7443,7 +7279,7 @@ void __47__HMDAppleMediaAccessory_createPairingIdentity__block_invoke(uint64_t a
 
 - (void)removeAdvertisement:(id)advertisement
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   advertisementCopy = advertisement;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -7451,20 +7287,19 @@ void __47__HMDAppleMediaAccessory_createPairingIdentity__block_invoke(uint64_t a
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = advertisementCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Ignoring removed advertisement: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2112;
+    v12 = advertisementCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Ignoring removed advertisement: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAdvertisement:(id)advertisement
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   advertisementCopy = advertisement;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -7472,15 +7307,14 @@ void __47__HMDAppleMediaAccessory_createPairingIdentity__block_invoke(uint64_t a
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = advertisementCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Ignoring added advertisement: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2112;
+    v12 = advertisementCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Ignoring added advertisement: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDeviceIsNotReachable:(id)reachable
@@ -7503,22 +7337,20 @@ void __47__HMDAppleMediaAccessory_createPairingIdentity__block_invoke(uint64_t a
 
 uint64_t __53__HMDAppleMediaAccessory_handleDeviceIsNotReachable___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Received notification device is no longer reachable", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Received notification device is no longer reachable", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) setDeviceReachable:0];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setDeviceReachable:0];
 }
 
 - (void)handleDeviceIsReachable:(id)reachable
@@ -7541,27 +7373,25 @@ uint64_t __53__HMDAppleMediaAccessory_handleDeviceIsNotReachable___block_invoke(
 
 uint64_t __50__HMDAppleMediaAccessory_handleDeviceIsReachable___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Received notification device is reachable", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Received notification device is reachable", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) setDeviceReachable:1];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setDeviceReachable:1];
 }
 
 - (void)startMonitoringReachability
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   notificationCenter = [(HMDMediaAccessory *)self notificationCenter];
   [notificationCenter removeObserver:self name:@"HMDRemoteDeviceIsReachableNotification" object:0];
 
@@ -7596,17 +7426,15 @@ uint64_t __50__HMDAppleMediaAccessory_handleDeviceIsReachable___block_invoke(uin
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v17;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Enabling notifications for media properties directly on the device", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v17;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Enabling notifications for media properties directly on the device", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
     home = [(HMDAccessory *)selfCopy home];
     [home enableHomeNotificationsForMediaAccessory:selfCopy];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)deviceMonitor
@@ -7623,21 +7451,70 @@ uint64_t __50__HMDAppleMediaAccessory_handleDeviceIsReachable___block_invoke(uin
 - (void)notifyClientsOfUpdatedAccessoryControllableValue:(BOOL)value
 {
   valueCopy = value;
-  v11[1] = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = HMDAppleMediaAccessory;
-  [(HMDAccessory *)&v9 notifyClientsOfUpdatedAccessoryControllableValue:?];
+  v10[1] = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = HMDAppleMediaAccessory;
+  [(HMDAccessory *)&v8 notifyClientsOfUpdatedAccessoryControllableValue:?];
   if (valueCopy)
   {
     notificationCenter = [(HMDMediaAccessory *)self notificationCenter];
     device = [(HMDAppleMediaAccessory *)self device];
-    v10 = @"HMDAccessoryNotificationKey";
-    v11[0] = self;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = @"HMDAccessoryNotificationKey";
+    v10[0] = self;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     [notificationCenter postNotificationName:@"HMDAppleMediaAccessoryDeviceIsReachableNotification" object:device userInfo:v7];
   }
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)setDeviceReachable:(BOOL)reachable
+{
+  reachableCopy = reachable;
+  v19 = *MEMORY[0x277D85DE8];
+  os_unfair_recursive_lock_lock_with_options();
+  if (self->_deviceReachable == reachableCopy)
+  {
+
+    os_unfair_recursive_lock_unlock();
+  }
+
+  else
+  {
+    self->_deviceReachable = reachableCopy;
+    os_unfair_recursive_lock_unlock();
+    v5 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v7 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    {
+      v8 = HMFGetLogIdentifier();
+      v9 = HMFBooleanToString();
+      v15 = 138543618;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v9;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Notifying clients of updated accessory controllable value: %@", &v15, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v5);
+    [(HMDAppleMediaAccessory *)selfCopy notifyClientsOfUpdatedAccessoryControllableValue:reachableCopy];
+    if (reachableCopy)
+    {
+      v10 = objc_autoreleasePoolPush();
+      v11 = selfCopy;
+      v12 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      {
+        v13 = HMFGetLogIdentifier();
+        v15 = 138543362;
+        v16 = v13;
+        _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Modifying notification registrations with media accessory due to reachability change.", &v15, 0xCu);
+      }
+
+      objc_autoreleasePoolPop(v10);
+      home = [(HMDAccessory *)v11 home];
+      [home enableHomeNotificationsForMediaAccessory:v11];
+    }
+  }
 }
 
 - (BOOL)isDeviceReachable
@@ -7650,7 +7527,7 @@ uint64_t __50__HMDAppleMediaAccessory_handleDeviceIsReachable___block_invoke(uin
 
 - (void)updateReachabilityFromDevicePublishingState
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([(HMDAppleMediaAccessory *)self isCurrentAccessory])
   {
     v3 = objc_autoreleasePoolPush();
@@ -7659,9 +7536,9 @@ uint64_t __50__HMDAppleMediaAccessory_handleDeviceIsReachable___block_invoke(uin
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       v6 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v6;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Updating reachability to YES as this is the current device", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v6;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Updating reachability to YES as this is the current device", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -7685,16 +7562,14 @@ uint64_t __50__HMDAppleMediaAccessory_handleDeviceIsReachable___block_invoke(uin
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         v12 = HMFGetLogIdentifier();
-        v14 = 138543362;
-        v15 = v12;
-        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Not updating reachability from publishing state as device is nil", &v14, 0xCu);
+        v13 = 138543362;
+        v14 = v12;
+        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Not updating reachability from publishing state as device is nil", &v13, 0xCu);
       }
 
       objc_autoreleasePoolPop(v9);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForPublishingNotifications
@@ -7730,7 +7605,7 @@ uint64_t __50__HMDAppleMediaAccessory_handleDeviceIsReachable___block_invoke(uin
 
 uint64_t __70__HMDAppleMediaAccessory_handleDeviceIsPublishingChangedNotification___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -7739,24 +7614,22 @@ uint64_t __70__HMDAppleMediaAccessory_handleDeviceIsPublishingChangedNotificatio
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
     v7 = [v6 userInfo];
-    v10 = 138543874;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Received device is publishing notification %@, user info: %@", &v10, 0x20u);
+    v9 = 138543874;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Received device is publishing notification %@, user info: %@", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) updateReachabilityFromDevicePublishingState];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) updateReachabilityFromDevicePublishingState];
 }
 
 - (void)_installManagedConfigurationProfileWithData:(id)data completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   completionCopy = completion;
   v8 = objc_autoreleasePoolPush();
@@ -7765,9 +7638,9 @@ uint64_t __70__HMDAppleMediaAccessory_handleDeviceIsPublishingChangedNotificatio
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v21 = 138543362;
-    v22 = v11;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Installing managed configuration profile", &v21, 0xCu);
+    v20 = 138543362;
+    v21 = v11;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Installing managed configuration profile", &v20, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -7780,9 +7653,9 @@ uint64_t __70__HMDAppleMediaAccessory_handleDeviceIsPublishingChangedNotificatio
     if (v15)
     {
       v16 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v16;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Managed Configuration Profile is not supported", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v16;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Managed Configuration Profile is not supported", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -7800,9 +7673,9 @@ LABEL_12:
     if (v15)
     {
       v18 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v18;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Passed nil managed configuration profile data", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v18;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Passed nil managed configuration profile data", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -7812,13 +7685,11 @@ LABEL_12:
       goto LABEL_12;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeManagedConfigurationProfileWithIdentifier:(id)identifier completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   v8 = objc_autoreleasePoolPush();
@@ -7827,11 +7698,11 @@ LABEL_12:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v21 = 138543618;
-    v22 = v11;
-    v23 = 2112;
-    v24 = identifierCopy;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Removing managed configuration profile: %@", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = v11;
+    v22 = 2112;
+    v23 = identifierCopy;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Removing managed configuration profile: %@", &v20, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -7844,9 +7715,9 @@ LABEL_12:
     if (v15)
     {
       v16 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v16;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Managed Configuration Profile is not supported", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v16;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Managed Configuration Profile is not supported", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -7864,9 +7735,9 @@ LABEL_12:
     if (v15)
     {
       v18 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v18;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Nil managed configuration profile identifier", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v18;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Nil managed configuration profile identifier", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -7876,13 +7747,11 @@ LABEL_12:
       goto LABEL_12;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleInstallManagedConfigurationProfile:(id)profile
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -7891,7 +7760,7 @@ LABEL_12:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v25 = v8;
+    v24 = v8;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Received install managed configuration profile request", buf, 0xCu);
   }
 
@@ -7901,13 +7770,13 @@ LABEL_12:
     v9 = [profileCopy dataForKey:*MEMORY[0x277CCEB58]];
     if (v9)
     {
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __67__HMDAppleMediaAccessory_handleInstallManagedConfigurationProfile___block_invoke_433;
-      v20[3] = &unk_27972EEB0;
-      v21 = profileCopy;
-      [(HMDAppleMediaAccessory *)selfCopy _installManagedConfigurationProfileWithData:v9 completion:v20];
-      v10 = v21;
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __67__HMDAppleMediaAccessory_handleInstallManagedConfigurationProfile___block_invoke_433;
+      v19[3] = &unk_27972EEB0;
+      v20 = profileCopy;
+      [(HMDAppleMediaAccessory *)selfCopy _installManagedConfigurationProfileWithData:v9 completion:v19];
+      v10 = v20;
     }
 
     else
@@ -7919,7 +7788,7 @@ LABEL_12:
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v25 = v18;
+        v24 = v18;
         _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@No profile data", buf, 0xCu);
       }
 
@@ -7938,26 +7807,24 @@ LABEL_12:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v14;
+      v24 = v14;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Relaying remove managed configuration profile request", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __67__HMDAppleMediaAccessory_handleInstallManagedConfigurationProfile___block_invoke;
-    v22[3] = &unk_279733FB0;
-    v22[4] = v12;
-    v23 = profileCopy;
-    [(HMDAppleMediaAccessory *)v12 _relayRequestMessage:v23 responseHandler:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __67__HMDAppleMediaAccessory_handleInstallManagedConfigurationProfile___block_invoke;
+    v21[3] = &unk_279733FB0;
+    v21[4] = v12;
+    v22 = profileCopy;
+    [(HMDAppleMediaAccessory *)v12 _relayRequestMessage:v22 responseHandler:v21];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HMDAppleMediaAccessory_handleInstallManagedConfigurationProfile___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -7969,11 +7836,11 @@ void __67__HMDAppleMediaAccessory_handleInstallManagedConfigurationProfile___blo
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v5;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Remove managed configuration profile responded with error: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Remove managed configuration profile responded with error: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -7985,21 +7852,19 @@ void __67__HMDAppleMediaAccessory_handleInstallManagedConfigurationProfile___blo
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Remove managed configuration profile responded", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Remove managed configuration profile responded", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
     [*(a1 + 40) respondWithPayload:v6];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HMDAppleMediaAccessory_handleInstallManagedConfigurationProfile___block_invoke_433(uint64_t a1, void *a2, uint64_t a3)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   if (a3)
   {
@@ -8009,20 +7874,18 @@ void __67__HMDAppleMediaAccessory_handleInstallManagedConfigurationProfile___blo
 
   else
   {
-    v9 = *MEMORY[0x277CCEB50];
-    v10[0] = a2;
+    v8 = *MEMORY[0x277CCEB50];
+    v9[0] = a2;
     v6 = MEMORY[0x277CBEAC0];
     v7 = a2;
-    v5 = [v6 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v5 = [v6 dictionaryWithObjects:v9 forKeys:&v8 count:1];
     [v3 respondWithPayload:v5];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRemoveManagedConfigurationProfile:(id)profile
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -8031,7 +7894,7 @@ void __67__HMDAppleMediaAccessory_handleInstallManagedConfigurationProfile___blo
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v25 = v8;
+    v24 = v8;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Received remove managed configuration profile request", buf, 0xCu);
   }
 
@@ -8041,13 +7904,13 @@ void __67__HMDAppleMediaAccessory_handleInstallManagedConfigurationProfile___blo
     v9 = [profileCopy stringForKey:*MEMORY[0x277CCEB50]];
     if (v9)
     {
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __66__HMDAppleMediaAccessory_handleRemoveManagedConfigurationProfile___block_invoke_432;
-      v20[3] = &unk_2797359D8;
-      v21 = profileCopy;
-      [(HMDAppleMediaAccessory *)selfCopy _removeManagedConfigurationProfileWithIdentifier:v9 completion:v20];
-      v10 = v21;
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __66__HMDAppleMediaAccessory_handleRemoveManagedConfigurationProfile___block_invoke_432;
+      v19[3] = &unk_2797359D8;
+      v20 = profileCopy;
+      [(HMDAppleMediaAccessory *)selfCopy _removeManagedConfigurationProfileWithIdentifier:v9 completion:v19];
+      v10 = v20;
     }
 
     else
@@ -8059,7 +7922,7 @@ void __67__HMDAppleMediaAccessory_handleInstallManagedConfigurationProfile___blo
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v25 = v18;
+        v24 = v18;
         _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Nil identifier", buf, 0xCu);
       }
 
@@ -8078,26 +7941,24 @@ void __67__HMDAppleMediaAccessory_handleInstallManagedConfigurationProfile___blo
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v14;
+      v24 = v14;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Relaying remove managed configuration profile request", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __66__HMDAppleMediaAccessory_handleRemoveManagedConfigurationProfile___block_invoke;
-    v22[3] = &unk_279733FB0;
-    v22[4] = v12;
-    v23 = profileCopy;
-    [(HMDAppleMediaAccessory *)v12 _relayRequestMessage:v23 responseHandler:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __66__HMDAppleMediaAccessory_handleRemoveManagedConfigurationProfile___block_invoke;
+    v21[3] = &unk_279733FB0;
+    v21[4] = v12;
+    v22 = profileCopy;
+    [(HMDAppleMediaAccessory *)v12 _relayRequestMessage:v22 responseHandler:v21];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HMDAppleMediaAccessory_handleRemoveManagedConfigurationProfile___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -8109,11 +7970,11 @@ void __66__HMDAppleMediaAccessory_handleRemoveManagedConfigurationProfile___bloc
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v5;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Remove managed configuration profile responded with error: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Remove managed configuration profile responded with error: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -8125,16 +7986,14 @@ void __66__HMDAppleMediaAccessory_handleRemoveManagedConfigurationProfile___bloc
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Remove managed configuration profile responded", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Remove managed configuration profile responded", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
     [*(a1 + 40) respondWithPayload:v6];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__HMDAppleMediaAccessory_handleRemoveManagedConfigurationProfile___block_invoke_432(uint64_t a1, uint64_t a2)
@@ -8153,7 +8012,7 @@ uint64_t __66__HMDAppleMediaAccessory_handleRemoveManagedConfigurationProfile___
 
 - (void)handleFetchManagedConfigurationProfiles:(id)profiles
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   profilesCopy = profiles;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -8162,7 +8021,7 @@ uint64_t __66__HMDAppleMediaAccessory_handleRemoveManagedConfigurationProfile___
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v59 = v8;
+    v58 = v8;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Received fetch managed configuration profiles request", buf, 0xCu);
   }
 
@@ -8178,7 +8037,7 @@ uint64_t __66__HMDAppleMediaAccessory_handleRemoveManagedConfigurationProfile___
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v59 = v14;
+      v58 = v14;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Handling fetch managed configuration profiles request", buf, 0xCu);
     }
 
@@ -8186,7 +8045,7 @@ uint64_t __66__HMDAppleMediaAccessory_handleRemoveManagedConfigurationProfile___
     sharedConnection = [getMCProfileConnectionClass() sharedConnection];
     if (sharedConnection)
     {
-      v47 = profilesCopy;
+      v46 = profilesCopy;
       sharedConnection2 = [getMCProfileConnectionClass() sharedConnection];
       installedProfileIdentifiers = [sharedConnection2 installedProfileIdentifiers];
 
@@ -8198,60 +8057,60 @@ uint64_t __66__HMDAppleMediaAccessory_handleRemoveManagedConfigurationProfile___
         v21 = HMFGetLogIdentifier();
         v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(installedProfileIdentifiers, "count")}];
         *buf = 138543874;
-        v59 = v21;
-        v60 = 2112;
-        v61 = v22;
-        v62 = 2112;
-        v63 = installedProfileIdentifiers;
+        v58 = v21;
+        v59 = 2112;
+        v60 = v22;
+        v61 = 2112;
+        v62 = installedProfileIdentifiers;
         _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Fetched profile identifiers: %@, %@", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v18);
       array = [MEMORY[0x277CBEB18] array];
+      v48 = 0u;
       v49 = 0u;
       v50 = 0u;
       v51 = 0u;
-      v52 = 0u;
       v24 = installedProfileIdentifiers;
-      v25 = [v24 countByEnumeratingWithState:&v49 objects:v57 count:16];
+      v25 = [v24 countByEnumeratingWithState:&v48 objects:v56 count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v50;
+        v27 = *v49;
         do
         {
           for (i = 0; i != v26; ++i)
           {
-            if (*v50 != v27)
+            if (*v49 != v27)
             {
               objc_enumerationMutation(v24);
             }
 
-            v29 = *(*(&v49 + 1) + 8 * i);
-            v30 = [sharedConnection installedProfileDataWithIdentifier:{v29, v47}];
+            v29 = *(*(&v48 + 1) + 8 * i);
+            v30 = [sharedConnection installedProfileDataWithIdentifier:{v29, v46}];
             v31 = [objc_alloc(MEMORY[0x277CD1B60]) initWithIdentifier:v29 profileData:v30];
             [array addObject:v31];
           }
 
-          v26 = [v24 countByEnumeratingWithState:&v49 objects:v57 count:16];
+          v26 = [v24 countByEnumeratingWithState:&v48 objects:v56 count:16];
         }
 
         while (v26);
       }
 
       v32 = MEMORY[0x277CCAAB0];
-      v33 = [array copy];
-      v48 = 0;
-      v34 = [v32 archivedDataWithRootObject:v33 requiringSecureCoding:1 error:&v48];
-      v35 = v48;
+      v33 = objc_msgSend_copy(array);
+      v47 = 0;
+      v34 = [v32 archivedDataWithRootObject:v33 requiringSecureCoding:1 error:&v47];
+      v35 = v47;
 
       if (v34)
       {
-        v55 = *MEMORY[0x277CCEB60];
-        v56 = v34;
-        v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
-        profilesCopy = v47;
-        [v47 respondWithPayload:v36];
+        v54 = *MEMORY[0x277CCEB60];
+        v55 = v34;
+        v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+        profilesCopy = v46;
+        [v46 respondWithPayload:v36];
       }
 
       else
@@ -8259,22 +8118,22 @@ uint64_t __66__HMDAppleMediaAccessory_handleRemoveManagedConfigurationProfile___
         v42 = objc_autoreleasePoolPush();
         v43 = v19;
         v44 = HMFGetOSLogHandle();
-        profilesCopy = v47;
+        profilesCopy = v46;
         if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
           v45 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v59 = v45;
-          v60 = 2112;
-          v61 = array;
-          v62 = 2112;
-          v63 = v35;
+          v58 = v45;
+          v59 = 2112;
+          v60 = array;
+          v61 = 2112;
+          v62 = v35;
           _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_ERROR, "%{public}@Failed to encode profiles %@:%@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v42);
         v36 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
-        [v47 respondWithError:v36];
+        [v46 respondWithError:v36];
       }
     }
 
@@ -8287,7 +8146,7 @@ uint64_t __66__HMDAppleMediaAccessory_handleRemoveManagedConfigurationProfile___
       {
         v41 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v59 = v41;
+        v58 = v41;
         _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_ERROR, "%{public}@Failed to link profile connection", buf, 0xCu);
       }
 
@@ -8303,26 +8162,24 @@ uint64_t __66__HMDAppleMediaAccessory_handleRemoveManagedConfigurationProfile___
     {
       v37 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v59 = v37;
+      v58 = v37;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Relaying fetch managed configuration profiles request", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __66__HMDAppleMediaAccessory_handleFetchManagedConfigurationProfiles___block_invoke;
-    v53[3] = &unk_279733FB0;
-    v53[4] = v11;
-    v54 = profilesCopy;
-    [(HMDAppleMediaAccessory *)v11 _relayRequestMessage:v54 responseHandler:v53];
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __66__HMDAppleMediaAccessory_handleFetchManagedConfigurationProfiles___block_invoke;
+    v52[3] = &unk_279733FB0;
+    v52[4] = v11;
+    v53 = profilesCopy;
+    [(HMDAppleMediaAccessory *)v11 _relayRequestMessage:v53 responseHandler:v52];
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HMDAppleMediaAccessory_handleFetchManagedConfigurationProfiles___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -8334,11 +8191,11 @@ void __66__HMDAppleMediaAccessory_handleFetchManagedConfigurationProfiles___bloc
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v5;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Fetch managed configuration profiles responded with error: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Fetch managed configuration profiles responded with error: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -8350,16 +8207,14 @@ void __66__HMDAppleMediaAccessory_handleFetchManagedConfigurationProfiles___bloc
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Fetch managed configuration profiles responded", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Fetch managed configuration profiles responded", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
     [*(a1 + 40) respondWithPayload:v6];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCurrentDeviceUpdated:(id)updated
@@ -8407,7 +8262,7 @@ LABEL_10:
 - (BOOL)shouldUpdateWithDevice:(id)device initialConfiguration:(BOOL)configuration
 {
   configurationCopy = configuration;
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   device = [(HMDAppleMediaAccessory *)self device];
   if (device == deviceCopy && !configurationCopy || !HMFEqualObjects())
@@ -8459,8 +8314,8 @@ LABEL_22:
         if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
         {
           v38 = HMFGetLogIdentifier();
-          v45 = 138543362;
-          v46 = v38;
+          v44 = 138543362;
+          v45 = v38;
           v39 = "%{public}@Force updating product information";
           goto LABEL_24;
         }
@@ -8474,32 +8329,19 @@ LABEL_22:
 
 LABEL_10:
   category = [(HMDAccessory *)self category];
-  if (!category)
+  if (!category || (v20 = category, -[HMDAccessory category](self, "category"), v21 = objc_claimAutoreleasedReturnValue(), v22 = MEMORY[0x277CD1680], [deviceCopy productInfo], v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "categoryForProductInfo:", v23), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v21, "isEqual:", v24), v24, v23, v21, v20, (v25 & 1) == 0))
   {
-    goto LABEL_16;
-  }
-
-  v20 = category;
-  category2 = [(HMDAccessory *)self category];
-  v22 = MEMORY[0x277CD1680];
-  productInfo4 = [deviceCopy productInfo];
-  v24 = [v22 categoryForProductInfo:productInfo4];
-  v25 = [category2 isEqual:v24];
-
-  if ((v25 & 1) == 0)
-  {
-LABEL_16:
     v35 = objc_autoreleasePoolPush();
     selfCopy2 = self;
     v37 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
     {
       v38 = HMFGetLogIdentifier();
-      v45 = 138543362;
-      v46 = v38;
+      v44 = 138543362;
+      v45 = v38;
       v39 = "%{public}@Force updating category";
 LABEL_24:
-      _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_INFO, v39, &v45, 0xCu);
+      _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_INFO, v39, &v44, 0xCu);
     }
 
 LABEL_25:
@@ -8520,8 +8362,8 @@ LABEL_25:
     if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
     {
       v38 = HMFGetLogIdentifier();
-      v45 = 138543362;
-      v46 = v38;
+      v44 = 138543362;
+      v45 = v38;
       v39 = "%{public}@Force updating capabilities";
       goto LABEL_24;
     }
@@ -8548,8 +8390,8 @@ LABEL_25:
       }
 
       v38 = HMFGetLogIdentifier();
-      v45 = 138543362;
-      v46 = v38;
+      v44 = 138543362;
+      v45 = v38;
       v39 = "%{public}@Force updating rapport identity";
       goto LABEL_24;
     }
@@ -8558,13 +8400,12 @@ LABEL_25:
   v34 = 0;
 LABEL_27:
 
-  v42 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
 - (void)updateWithDevice:(id)device
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   if (deviceCopy)
   {
@@ -8574,11 +8415,11 @@ LABEL_27:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v44 = 138543618;
-      v45 = v8;
-      v46 = 2112;
-      v47 = deviceCopy;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating with device: %@", &v44, 0x16u);
+      v43 = 138543618;
+      v44 = v8;
+      v45 = 2112;
+      v46 = deviceCopy;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating with device: %@", &v43, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -8691,8 +8532,6 @@ LABEL_27:
       [v42 run];
     }
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDeviceController:(id)controller
@@ -8817,13 +8656,12 @@ LABEL_27:
 {
   category = [(HMDAccessory *)self category];
   categoryType = [category categoryType];
-  v5 = *MEMORY[0x277CCE870];
-  v6 = HMFEqualObjects();
+  v5 = HMFEqualObjects();
 
   capabilities = [(HMDAppleMediaAccessory *)self capabilities];
   LOBYTE(category) = [capabilities supportsLoreto];
 
-  return (category ^ 1) & v6;
+  return (category ^ 1) & v5;
 }
 
 - (BOOL)supportsManagedConfigurationProfile
@@ -9111,7 +8949,7 @@ LABEL_5:
 
 - (BOOL)legacyLocationServicesEnabled
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   settingsController = [(HMDAppleMediaAccessory *)self settingsController];
   rootGroup = [settingsController rootGroup];
   groups = [rootGroup groups];
@@ -9148,11 +8986,11 @@ LABEL_5:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         v16 = HMFGetLogIdentifier();
-        v19 = 138543618;
-        v20 = v16;
-        v21 = 2112;
-        v22 = value;
-        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to get location service enabled value due to unknown class for value: %@", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v16;
+        v20 = 2112;
+        v21 = value;
+        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to get location service enabled value due to unknown class for value: %@", &v18, 0x16u);
       }
 
       objc_autoreleasePoolPop(v13);
@@ -9165,7 +9003,6 @@ LABEL_5:
     bOOLValue = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
@@ -9393,7 +9230,7 @@ LABEL_12:
 
 - (void)autoConfigureTargetControllers
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   targetControlManager = [(HMDAppleMediaAccessory *)self targetControlManager];
 
   v4 = objc_autoreleasePoolPush();
@@ -9406,40 +9243,40 @@ LABEL_12:
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v41 = v7;
+      v40 = v7;
       _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Accessory supports target control - adding to all target controllers", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     array = [MEMORY[0x277CBEB18] array];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     home = [(HMDAccessory *)selfCopy home];
     accessories = [home accessories];
 
-    v10 = [accessories countByEnumeratingWithState:&v36 objects:v50 count:16];
+    v10 = [accessories countByEnumeratingWithState:&v35 objects:v49 count:16];
     if (v10)
     {
       v12 = v10;
-      v13 = *v37;
+      v13 = *v36;
       *&v11 = 138544386;
-      v28 = v11;
-      v29 = *v37;
-      v30 = accessories;
+      v27 = v11;
+      v28 = *v36;
+      v29 = accessories;
       do
       {
         v14 = 0;
-        v31 = v12;
+        v30 = v12;
         do
         {
-          if (*v37 != v13)
+          if (*v36 != v13)
           {
             objc_enumerationMutation(accessories);
           }
 
-          v15 = *(*(&v36 + 1) + 8 * v14);
+          v15 = *(*(&v35 + 1) + 8 * v14);
           if ([v15 supportsTargetController])
           {
             v16 = objc_autoreleasePoolPush();
@@ -9454,24 +9291,24 @@ LABEL_12:
               name2 = [v15 name];
               uuid2 = [v15 uuid];
               [uuid2 UUIDString];
-              v24 = v33 = v16;
-              *buf = v28;
-              v41 = v19;
-              v42 = 2112;
-              v43 = name;
-              v44 = 2112;
-              v45 = uUIDString;
-              v46 = 2112;
-              v47 = name2;
-              v48 = 2112;
-              v49 = v24;
+              v24 = v32 = v16;
+              *buf = v27;
+              v40 = v19;
+              v41 = 2112;
+              v42 = name;
+              v43 = 2112;
+              v44 = uUIDString;
+              v45 = 2112;
+              v46 = name2;
+              v47 = 2112;
+              v48 = v24;
               _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Adding accessory %@/%@ as a target to the target controller %@/%@", buf, 0x34u);
 
-              v12 = v31;
-              accessories = v30;
+              v12 = v30;
+              accessories = v29;
 
-              v16 = v33;
-              v13 = v29;
+              v16 = v32;
+              v13 = v28;
             }
 
             objc_autoreleasePoolPop(v16);
@@ -9482,7 +9319,7 @@ LABEL_12:
         }
 
         while (v12 != v14);
-        v12 = [accessories countByEnumeratingWithState:&v36 objects:v50 count:16];
+        v12 = [accessories countByEnumeratingWithState:&v35 objects:v49 count:16];
       }
 
       while (v12);
@@ -9498,22 +9335,20 @@ LABEL_12:
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v41 = v26;
+      v40 = v26;
       _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Attempt to auto-configure target controllers to an accessory with no target control manager", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fixCloudKeyIfNeeded
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (![(HMDAppleMediaAccessory *)self isCurrentAccessory])
   {
-    goto LABEL_19;
+    return;
   }
 
   pairingIdentity = [(HMDAppleMediaAccessory *)self pairingIdentity];
@@ -9527,7 +9362,7 @@ LABEL_12:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v29 = v24;
+      v28 = v24;
       v25 = "%{public}@No pairing identity yet to fix";
 LABEL_17:
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, v25, buf, 0xCu);
@@ -9536,7 +9371,7 @@ LABEL_17:
 LABEL_18:
 
     objc_autoreleasePoolPop(v21);
-    goto LABEL_19;
+    return;
   }
 
   pairingIdentity2 = [(HMDAppleMediaAccessory *)self pairingIdentity];
@@ -9551,7 +9386,7 @@ LABEL_18:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v29 = v24;
+      v28 = v24;
       v25 = "%{public}@Pairing identity can't be used.";
       goto LABEL_17;
     }
@@ -9584,7 +9419,7 @@ LABEL_18:
       {
         v12 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v29 = v12;
+        v28 = v12;
         _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Fixing pairing identity", buf, 0xCu);
       }
 
@@ -9603,22 +9438,19 @@ LABEL_18:
       v20 = [backingStore transaction:@"Fix Pairing Identity" options:v19];
 
       [v20 add:v8];
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __46__HMDAppleMediaAccessory__fixCloudKeyIfNeeded__block_invoke;
-      v27[3] = &unk_2797359D8;
-      v27[4] = selfCopy3;
-      [v20 run:v27];
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __46__HMDAppleMediaAccessory__fixCloudKeyIfNeeded__block_invoke;
+      v26[3] = &unk_2797359D8;
+      v26[4] = selfCopy3;
+      [v20 run:v26];
     }
   }
-
-LABEL_19:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __46__HMDAppleMediaAccessory__fixCloudKeyIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -9626,18 +9458,17 @@ void __46__HMDAppleMediaAccessory__fixCloudKeyIfNeeded__block_invoke(uint64_t a1
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Fixed pairing identity", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Fixed pairing identity", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchMultiUserLanguages
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -9645,7 +9476,7 @@ void __46__HMDAppleMediaAccessory__fixCloudKeyIfNeeded__block_invoke(uint64_t a1
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v15 = v6;
+    v14 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Fetching multi-user languages.", buf, 0xCu);
   }
 
@@ -9653,21 +9484,19 @@ void __46__HMDAppleMediaAccessory__fixCloudKeyIfNeeded__block_invoke(uint64_t a1
   settingsConnectionFactory = [(HMDAppleMediaAccessory *)selfCopy settingsConnectionFactory];
   v8 = settingsConnectionFactory[2]();
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __50__HMDAppleMediaAccessory__fetchMultiUserLanguages__block_invoke;
-  v11[3] = &unk_279734D18;
-  v12 = v8;
-  v13 = selfCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __50__HMDAppleMediaAccessory__fetchMultiUserLanguages__block_invoke;
+  v10[3] = &unk_279734D18;
+  v11 = v8;
+  v12 = selfCopy;
   v9 = v8;
-  [v9 fetchSupportedMultiUserLanguageCodes:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [v9 fetchSupportedMultiUserLanguageCodes:v10];
 }
 
 void __50__HMDAppleMediaAccessory__fetchMultiUserLanguages__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -9679,11 +9508,11 @@ void __50__HMDAppleMediaAccessory__fetchMultiUserLanguages__block_invoke(uint64_
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v6;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not obtain supported multi-user languages. Error: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v6;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not obtain supported multi-user languages. Error: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -9694,18 +9523,16 @@ void __50__HMDAppleMediaAccessory__fetchMultiUserLanguages__block_invoke(uint64_
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v12;
-      v16 = 2112;
-      v17 = v5;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Fetched multi-user languages %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Fetched multi-user languages %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
     [*(a1 + 40) setSupportedMultiUserLanguageCodes:v5];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createMediaProfile
@@ -9717,7 +9544,7 @@ void __50__HMDAppleMediaAccessory__fetchMultiUserLanguages__block_invoke(uint64_
 
 - (void)removeAudioDestination
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ([(HMDAppleMediaAccessory *)self isCurrentAccessory])
   {
     audioDestination = [(HMDAppleMediaAccessory *)self audioDestination];
@@ -9728,9 +9555,9 @@ void __50__HMDAppleMediaAccessory__fetchMultiUserLanguages__block_invoke(uint64_
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v16 = v7;
-      v17 = 2112;
-      v18 = audioDestination;
+      v15 = v7;
+      v16 = 2112;
+      v17 = audioDestination;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Removing audio destination: %@", buf, 0x16u);
     }
 
@@ -9738,12 +9565,12 @@ void __50__HMDAppleMediaAccessory__fetchMultiUserLanguages__block_invoke(uint64_
     if (audioDestination)
     {
       v8 = [[HMDMediaDestinationModel alloc] initWithDestination:audioDestination changeType:3];
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __48__HMDAppleMediaAccessory_removeAudioDestination__block_invoke;
-      v14[3] = &unk_2797359D8;
-      v14[4] = selfCopy;
-      [(HMDAccessory *)selfCopy runTransactionWithModel:v8 label:@"Remove audio destination" completion:v14];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __48__HMDAppleMediaAccessory_removeAudioDestination__block_invoke;
+      v13[3] = &unk_2797359D8;
+      v13[4] = selfCopy;
+      [(HMDAccessory *)selfCopy runTransactionWithModel:v8 label:@"Remove audio destination" completion:v13];
     }
   }
 
@@ -9756,19 +9583,17 @@ void __50__HMDAppleMediaAccessory__fetchMultiUserLanguages__block_invoke(uint64_
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v16 = v12;
+      v15 = v12;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Skipping removing audio destination due to non-current device", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HMDAppleMediaAccessory_removeAudioDestination__block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -9779,24 +9604,24 @@ void __48__HMDAppleMediaAccessory_removeAudioDestination__block_invoke(uint64_t 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v3;
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v3;
       v9 = "%{public}@Audio destination removal transaction completed with error: %@";
       v10 = v7;
       v11 = OS_LOG_TYPE_ERROR;
       v12 = 22;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v10, v11, v9, &v14, v12);
+      _os_log_impl(&dword_2531F8000, v10, v11, v9, &v13, v12);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v8;
+    v13 = 138543362;
+    v14 = v8;
     v9 = "%{public}@Audio destination removal transaction completed";
     v10 = v7;
     v11 = OS_LOG_TYPE_INFO;
@@ -9805,12 +9630,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mediaGroupParticipantDataLocalStorage
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   home = [(HMDAccessory *)self home];
   homeManager = [home homeManager];
   mediaGroupParticipantDataLocalStorage = [homeManager mediaGroupParticipantDataLocalStorage];
@@ -9828,19 +9652,17 @@ LABEL_6:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543874;
-      v15 = v11;
-      v16 = 2112;
-      v17 = home;
-      v18 = 2112;
-      v19 = homeManager;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get media groups participant data local storage due to dependencies home: %@ homeManager: %@", &v14, 0x20u);
+      v13 = 138543874;
+      v14 = v11;
+      v15 = 2112;
+      v16 = home;
+      v17 = 2112;
+      v18 = homeManager;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get media groups participant data local storage due to dependencies home: %@ homeManager: %@", &v13, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -9865,7 +9687,7 @@ LABEL_6:
 
 void __86__HMDAppleMediaAccessory_legacyCreateAudioDestinationWithIdentifier_supportedOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -9876,24 +9698,24 @@ void __86__HMDAppleMediaAccessory_legacyCreateAudioDestinationWithIdentifier_sup
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v3;
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v3;
       v9 = "%{public}@Audio destination transaction completed with error: %@";
       v10 = v7;
       v11 = OS_LOG_TYPE_ERROR;
       v12 = 22;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v10, v11, v9, &v14, v12);
+      _os_log_impl(&dword_2531F8000, v10, v11, v9, &v13, v12);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v8;
+    v13 = 138543362;
+    v14 = v8;
     v9 = "%{public}@Audio destination transaction completed";
     v10 = v7;
     v11 = OS_LOG_TYPE_INFO;
@@ -9902,12 +9724,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createAudioDestination
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if ([(HMDAppleMediaAccessory *)self isCurrentAccessory])
   {
     if (+[HMDDeviceCapabilities supportsAudioDestinationCreation])
@@ -9927,13 +9748,13 @@ LABEL_6:
       {
         v13 = HMFGetLogIdentifier();
         v14 = HMMediaDestinationSupportOptionsAsString();
-        v35 = 138543874;
-        v36 = v13;
-        v37 = 2112;
-        v38 = v8;
-        v39 = 2112;
-        v40 = v14;
-        _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Creating new audio destination with identifier: %@ supportedOptions: %@", &v35, 0x20u);
+        v34 = 138543874;
+        v35 = v13;
+        v36 = 2112;
+        v37 = v8;
+        v38 = 2112;
+        v39 = v14;
+        _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Creating new audio destination with identifier: %@ supportedOptions: %@", &v34, 0x20u);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -9951,11 +9772,11 @@ LABEL_6:
           if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
           {
             v21 = HMFGetLogIdentifier();
-            v35 = 138543618;
-            v36 = v21;
-            v37 = 2112;
-            v38 = destination;
-            _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Overwriting stale audio destination: %@", &v35, 0x16u);
+            v34 = 138543618;
+            v35 = v21;
+            v36 = 2112;
+            v37 = destination;
+            _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Overwriting stale audio destination: %@", &v34, 0x16u);
           }
 
           objc_autoreleasePoolPop(v18);
@@ -9978,9 +9799,9 @@ LABEL_6:
         if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
           v33 = HMFGetLogIdentifier();
-          v35 = 138543362;
-          v36 = v33;
-          _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Home Theater QFA is not enabled", &v35, 0xCu);
+          v34 = 138543362;
+          v35 = v33;
+          _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Home Theater QFA is not enabled", &v34, 0xCu);
         }
 
         objc_autoreleasePoolPop(v30);
@@ -9996,16 +9817,14 @@ LABEL_6:
       if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
         v29 = HMFGetLogIdentifier();
-        v35 = 138543362;
-        v36 = v29;
-        _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Skipping creating audio destination manager for unsupported device", &v35, 0xCu);
+        v34 = 138543362;
+        v35 = v29;
+        _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Skipping creating audio destination manager for unsupported device", &v34, 0xCu);
       }
 
       objc_autoreleasePoolPop(v26);
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)expectedDestinationSupportOptions
@@ -10048,7 +9867,7 @@ LABEL_6:
 
 - (void)configureAudioDestinationManager
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if ([(HMDAppleMediaAccessory *)self isHomePod])
   {
     committedAudioDestination = [(HMDAppleMediaAccessory *)self committedAudioDestination];
@@ -10080,7 +9899,7 @@ LABEL_6:
         {
           v18 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v21 = v18;
+          v20 = v18;
           _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to validate required home objects during destination manager configuration", buf, 0xCu);
         }
 
@@ -10093,13 +9912,11 @@ LABEL_6:
       [(HMDAppleMediaAccessory *)self createAudioDestination];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mergeAudioDestination:(id)destination
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   destinationCopy = destination;
   audioDestinationManager = [(HMDAppleMediaAccessory *)self audioDestinationManager];
   v6 = audioDestinationManager;
@@ -10117,9 +9934,9 @@ LABEL_6:
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v10;
-      v27 = 2112;
-      v28 = destinationCopy;
+      v25 = v10;
+      v26 = 2112;
+      v27 = destinationCopy;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Merging new audio destination: %@", buf, 0x16u);
     }
 
@@ -10151,15 +9968,13 @@ LABEL_6:
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v26 = v23;
+        v25 = v23;
         _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to validate required home objects during destination merge", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v20);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unsetAudioDestination
@@ -10192,7 +10007,7 @@ LABEL_6:
 
 - (HMMediaDestination)audioDestination
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (isFeatureHomeTheaterQFAEnabledForTests && ([isFeatureHomeTheaterQFAEnabledForTests BOOLValue] & 1) != 0)
   {
     dataSource = [(HMDAppleMediaAccessory *)self dataSource];
@@ -10210,9 +10025,9 @@ LABEL_6:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         v9 = HMFGetLogIdentifier();
-        v12 = 138543362;
-        v13 = v9;
-        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get audio destination due to no data source", &v12, 0xCu);
+        v11 = 138543362;
+        v12 = v9;
+        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get audio destination due to no data source", &v11, 0xCu);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -10224,8 +10039,6 @@ LABEL_6:
   {
     legacyAudioDestination = [(HMDAppleMediaAccessory *)self legacyAudioDestination];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return legacyAudioDestination;
 }
@@ -10299,7 +10112,7 @@ LABEL_7:
 
 void __89__HMDAppleMediaAccessory_legacyCreateAudioDestinationControllerWithControllerIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -10310,24 +10123,24 @@ void __89__HMDAppleMediaAccessory_legacyCreateAudioDestinationControllerWithCont
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v3;
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v3;
       v9 = "%{public}@Upload audio destination controller finished with error: %@";
       v10 = v7;
       v11 = OS_LOG_TYPE_ERROR;
       v12 = 22;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v10, v11, v9, &v14, v12);
+      _os_log_impl(&dword_2531F8000, v10, v11, v9, &v13, v12);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v8;
+    v13 = 138543362;
+    v14 = v8;
     v9 = "%{public}@Upload audio destination controller completed";
     v10 = v7;
     v11 = OS_LOG_TYPE_INFO;
@@ -10336,12 +10149,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createAudioDestinationController
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if ([(HMDAppleMediaAccessory *)self isCurrentAccessory])
   {
     if (+[HMDDeviceCapabilities supportsAudioDestinationControllerCreation])
@@ -10359,11 +10171,11 @@ LABEL_6:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         v12 = HMFGetLogIdentifier();
-        v34 = 138543618;
-        v35 = v12;
-        v36 = 2112;
-        v37 = v8;
-        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Creating new audio destination controller with identifier: %@", &v34, 0x16u);
+        v33 = 138543618;
+        v34 = v12;
+        v35 = 2112;
+        v36 = v8;
+        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Creating new audio destination controller with identifier: %@", &v33, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -10381,11 +10193,11 @@ LABEL_6:
           if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
           {
             v19 = HMFGetLogIdentifier();
-            v34 = 138543618;
-            v35 = v19;
-            v36 = 2112;
-            v37 = destinationControllerData;
-            _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Overwriting stale audio destination controller data: %@", &v34, 0x16u);
+            v33 = 138543618;
+            v34 = v19;
+            v35 = 2112;
+            v36 = destinationControllerData;
+            _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Overwriting stale audio destination controller data: %@", &v33, 0x16u);
           }
 
           objc_autoreleasePoolPop(v16);
@@ -10409,9 +10221,9 @@ LABEL_6:
         if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
           v32 = HMFGetLogIdentifier();
-          v34 = 138543362;
-          v35 = v32;
-          _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Home Theater QFA is not enabled", &v34, 0xCu);
+          v33 = 138543362;
+          v34 = v32;
+          _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Home Theater QFA is not enabled", &v33, 0xCu);
         }
 
         objc_autoreleasePoolPop(v29);
@@ -10427,21 +10239,19 @@ LABEL_6:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         v28 = HMFGetLogIdentifier();
-        v34 = 138543362;
-        v35 = v28;
-        _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@Skipping audio destination controller creation due to device does not support home theater", &v34, 0xCu);
+        v33 = 138543362;
+        v34 = v28;
+        _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@Skipping audio destination controller creation due to device does not support home theater", &v33, 0xCu);
       }
 
       objc_autoreleasePoolPop(v25);
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasValidHome:(id)home backingStore:(id)store messageDispatcher:(id)dispatcher
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   storeCopy = store;
   dispatcherCopy = dispatcher;
@@ -10466,27 +10276,26 @@ LABEL_6:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = HMFGetLogIdentifier();
-      v21 = 138544130;
-      v22 = v18;
-      v23 = 2112;
-      v24 = homeCopy;
-      v25 = 2112;
-      v26 = v11;
-      v27 = 2112;
-      v28 = storeCopy;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Found nil objects: home: %@ messageDispatcher: %@ backing store: %@", &v21, 0x2Au);
+      v20 = 138544130;
+      v21 = v18;
+      v22 = 2112;
+      v23 = homeCopy;
+      v24 = 2112;
+      v25 = v11;
+      v26 = 2112;
+      v27 = storeCopy;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Found nil objects: home: %@ messageDispatcher: %@ backing store: %@", &v20, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v15);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (void)configureAudioDestinationController
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   category = [(HMDAccessory *)self category];
   categoryType = [category categoryType];
   v5 = [categoryType isEqual:*MEMORY[0x277CCE870]];
@@ -10512,9 +10321,9 @@ LABEL_6:
         {
           v20 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v30 = v20;
-          v31 = 2112;
-          v32 = v7;
+          v29 = v20;
+          v30 = 2112;
+          v31 = v7;
           _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Configuring audio destination controller with data: %@", buf, 0x16u);
         }
 
@@ -10522,8 +10331,8 @@ LABEL_6:
         mediaDestinationControllerFactory = [(HMDAppleMediaAccessory *)selfCopy mediaDestinationControllerFactory];
         logEventSubmitter = [home logEventSubmitter];
         dailyScheduler = [home dailyScheduler];
-        LOBYTE(v28) = [(HMDAppleMediaAccessory *)selfCopy isCurrentAccessory];
-        v24 = [mediaDestinationControllerFactory mediaDestinationControllerWithData:v7 backingStore:backingStore messageDispatcher:msgDispatcher notificationCenter:notificationCenter logEventSubmitter:logEventSubmitter dailyScheduler:dailyScheduler targetDevice:v28 dataSource:selfCopy delegate:selfCopy];
+        LOBYTE(v27) = [(HMDAppleMediaAccessory *)selfCopy isCurrentAccessory];
+        v24 = [mediaDestinationControllerFactory mediaDestinationControllerWithData:v7 backingStore:backingStore messageDispatcher:msgDispatcher notificationCenter:notificationCenter logEventSubmitter:logEventSubmitter dailyScheduler:dailyScheduler targetDevice:v27 dataSource:selfCopy delegate:selfCopy];
         [(HMDAppleMediaAccessory *)selfCopy setAudioDestinationController:v24];
 
         audioDestinationController = [(HMDAppleMediaAccessory *)selfCopy audioDestinationController];
@@ -10538,7 +10347,7 @@ LABEL_6:
         {
           v26 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v30 = v26;
+          v29 = v26;
           _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to validate required home objects during destination controller configuration", buf, 0xCu);
         }
 
@@ -10551,13 +10360,11 @@ LABEL_6:
       [(HMDAppleMediaAccessory *)self createAudioDestinationController];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mergeAudioDestinationControllerData:(id)data
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   audioDestinationController = [(HMDAppleMediaAccessory *)self audioDestinationController];
   v6 = audioDestinationController;
@@ -10575,9 +10382,9 @@ LABEL_6:
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v10;
-      v29 = 2112;
-      v30 = dataCopy;
+      v27 = v10;
+      v28 = 2112;
+      v29 = dataCopy;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Merging new audio destination controller with data: %@", buf, 0x16u);
     }
 
@@ -10591,15 +10398,15 @@ LABEL_6:
       mediaDestinationControllerFactory = [(HMDAppleMediaAccessory *)selfCopy mediaDestinationControllerFactory];
       logEventSubmitter = [home logEventSubmitter];
       dailyScheduler = [home dailyScheduler];
-      LOBYTE(v25) = [(HMDAppleMediaAccessory *)selfCopy isCurrentAccessory];
-      [mediaDestinationControllerFactory mediaDestinationControllerWithData:dataCopy backingStore:backingStore messageDispatcher:msgDispatcher notificationCenter:notificationCenter logEventSubmitter:logEventSubmitter dailyScheduler:dailyScheduler targetDevice:v25 dataSource:selfCopy delegate:selfCopy];
-      v18 = v26 = notificationCenter;
+      LOBYTE(v24) = [(HMDAppleMediaAccessory *)selfCopy isCurrentAccessory];
+      [mediaDestinationControllerFactory mediaDestinationControllerWithData:dataCopy backingStore:backingStore messageDispatcher:msgDispatcher notificationCenter:notificationCenter logEventSubmitter:logEventSubmitter dailyScheduler:dailyScheduler targetDevice:v24 dataSource:selfCopy delegate:selfCopy];
+      v18 = v25 = notificationCenter;
       [(HMDAppleMediaAccessory *)selfCopy setAudioDestinationController:v18];
 
       audioDestinationController2 = [(HMDAppleMediaAccessory *)selfCopy audioDestinationController];
       [audioDestinationController2 configureWithHome:home];
 
-      notificationCenter = v26;
+      notificationCenter = v25;
     }
 
     else
@@ -10611,15 +10418,13 @@ LABEL_6:
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v28 = v23;
+        v27 = v23;
         _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to validate required home objects during destination controller merge", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v20);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unsetAudioDestinationControllerData
@@ -10698,7 +10503,7 @@ LABEL_7:
 
 - (HMMediaDestinationControllerData)audioDestinationControllerData
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (isFeatureHomeTheaterQFAEnabledForTests && ([isFeatureHomeTheaterQFAEnabledForTests BOOLValue] & 1) != 0)
   {
     dataSource = [(HMDAppleMediaAccessory *)self dataSource];
@@ -10716,9 +10521,9 @@ LABEL_7:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         v9 = HMFGetLogIdentifier();
-        v12 = 138543362;
-        v13 = v9;
-        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get audio destination data due to no data source", &v12, 0xCu);
+        v11 = 138543362;
+        v12 = v9;
+        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get audio destination data due to no data source", &v11, 0xCu);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -10730,8 +10535,6 @@ LABEL_7:
   {
     legacyAudioDestinationControllerData = [(HMDAppleMediaAccessory *)self legacyAudioDestinationControllerData];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return legacyAudioDestinationControllerData;
 }
@@ -10820,16 +10623,16 @@ uint64_t __55__HMDAppleMediaAccessory_isDoorbellChimeSettingEnabled__block_invok
 
 - (void)updateProductInformation
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v33 = 138543362;
-    v34 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Updating Product Information", &v33, 0xCu);
+    v32 = 138543362;
+    v33 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Updating Product Information", &v32, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -10858,11 +10661,11 @@ uint64_t __55__HMDAppleMediaAccessory_isDoorbellChimeSettingEnabled__block_invok
     {
       v15 = HMFGetLogIdentifier();
       v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v10];
-      v33 = 138543618;
-      v34 = v15;
-      v35 = 2112;
-      v36 = v16;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Updating supported stereo pair versions to: %@", &v33, 0x16u);
+      v32 = 138543618;
+      v33 = v15;
+      v34 = 2112;
+      v35 = v16;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Updating supported stereo pair versions to: %@", &v32, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -10882,11 +10685,11 @@ uint64_t __55__HMDAppleMediaAccessory_isDoorbellChimeSettingEnabled__block_invok
     {
       v25 = HMFGetLogIdentifier();
       v26 = HMFProductColorToString();
-      v33 = 138543618;
-      v34 = v25;
-      v35 = 2112;
-      v36 = v26;
-      _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@Updating product color to: %@", &v33, 0x16u);
+      v32 = 138543618;
+      v33 = v25;
+      v34 = 2112;
+      v35 = v26;
+      _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@Updating product color to: %@", &v32, 0x16u);
     }
 
     objc_autoreleasePoolPop(v22);
@@ -10908,20 +10711,19 @@ uint64_t __55__HMDAppleMediaAccessory_isDoorbellChimeSettingEnabled__block_invok
   [v31 run];
 
 LABEL_18:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithHome:(id)home msgDispatcher:(id)dispatcher configurationTracker:(id)tracker initialConfiguration:(BOOL)configuration
 {
   configurationCopy = configuration;
-  v160 = *MEMORY[0x277D85DE8];
+  v159 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   dispatcherCopy = dispatcher;
   trackerCopy = tracker;
   HMFUptime();
   v14 = v13;
-  v130 = configurationCopy;
-  v128 = trackerCopy;
+  v129 = configurationCopy;
+  v127 = trackerCopy;
   if (configurationCopy)
   {
     v15 = objc_autoreleasePoolPush();
@@ -10934,27 +10736,27 @@ LABEL_18:
       uuid2 = [(HMDAccessory *)selfCopy uuid];
       v21 = [MEMORY[0x277CCABB0] numberWithBool:1];
       *buf = 138545922;
-      v139 = v18;
-      v140 = 2114;
-      v141 = @"accessoryConfigureStart";
-      v142 = 2112;
-      v143 = @"Configuring accessory";
-      v144 = 2114;
-      v145 = @"state";
-      v146 = 2112;
-      v147 = @"start";
-      v148 = 2114;
-      v149 = @"homeUUID";
-      v150 = 2112;
-      v151 = uuid;
-      v152 = 2114;
-      v153 = @"accessoryUUID";
-      v154 = 2112;
-      v155 = uuid2;
-      v156 = 2114;
-      v157 = @"initialConfig";
-      v158 = 2112;
-      v159 = v21;
+      v138 = v18;
+      v139 = 2114;
+      v140 = @"accessoryConfigureStart";
+      v141 = 2112;
+      v142 = @"Configuring accessory";
+      v143 = 2114;
+      v144 = @"state";
+      v145 = 2112;
+      v146 = @"start";
+      v147 = 2114;
+      v148 = @"homeUUID";
+      v149 = 2112;
+      v150 = uuid;
+      v151 = 2114;
+      v152 = @"accessoryUUID";
+      v153 = 2112;
+      v154 = uuid2;
+      v155 = 2114;
+      v156 = @"initialConfig";
+      v157 = 2112;
+      v158 = v21;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_DEBUG, "%{public}@tag=%{public}@ desc=%@ %{public}@=%@ %{public}@=%@ %{public}@=%@ %{public}@=%@", buf, 0x70u);
     }
 
@@ -10969,7 +10771,7 @@ LABEL_18:
     currentTagProcessorList = [MEMORY[0x277D0F770] currentTagProcessorList];
     [mEMORY[0x277D17DE8] submitTaggedEvent:v28 processorList:currentTagProcessorList];
 
-    trackerCopy = v128;
+    trackerCopy = v127;
   }
 
   homeManager = [homeCopy homeManager];
@@ -10984,9 +10786,9 @@ LABEL_18:
     [(NSMutableSet *)self->super.super._accessoryProfiles addObject:v30];
   }
 
-  v137.receiver = self;
-  v137.super_class = HMDAppleMediaAccessory;
-  [(HMDAccessory *)&v137 configureWithHome:homeCopy msgDispatcher:dispatcherCopy configurationTracker:trackerCopy initialConfiguration:v130];
+  v136.receiver = self;
+  v136.super_class = HMDAppleMediaAccessory;
+  [(HMDAccessory *)&v136 configureWithHome:homeCopy msgDispatcher:dispatcherCopy configurationTracker:trackerCopy initialConfiguration:v129];
   [(HMDAppleMediaAccessory *)self configureAppleMediaAccessoryMessengerWithFactory:self];
   wifiManager = [homeCopy wifiManager];
   [(HMDAppleMediaAccessory *)self setWifiManager:wifiManager];
@@ -11006,11 +10808,11 @@ LABEL_18:
     v39 = HMFBooleanToString();
     settingsController = [(HMDAppleMediaAccessory *)selfCopy2 settingsController];
     *buf = 138543874;
-    v139 = v38;
-    v140 = 2112;
-    v141 = v39;
-    v142 = 2112;
-    v143 = settingsController;
+    v138 = v38;
+    v139 = 2112;
+    v140 = v39;
+    v141 = 2112;
+    v142 = settingsController;
     _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_INFO, "%{public}@hh2SettingsMigrationEnabled: %@, self.settingsController: %@", buf, 0x20u);
   }
 
@@ -11066,7 +10868,7 @@ LABEL_18:
     v60 = logger;
     uuid6 = [(HMDAccessory *)selfCopy2 uuid];
     *buf = 138412290;
-    v139 = uuid6;
+    v138 = uuid6;
     _os_signpost_emit_with_name_impl(&dword_2531F8000, v60, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "ConfigureCurrentAccessory", "accessoryUUID=%{signpost.description:attribute}@ ", buf, 0xCu);
   }
 
@@ -11083,7 +10885,7 @@ LABEL_18:
     {
       v68 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v139 = v68;
+      v138 = v68;
       _os_log_impl(&dword_2531F8000, v67, OS_LOG_TYPE_INFO, "%{public}@Setting up device controller for ourselves", buf, 0xCu);
     }
 
@@ -11103,7 +10905,7 @@ LABEL_18:
 
   if (device)
   {
-    if ([(HMDAppleMediaAccessory *)selfCopy2 shouldUpdateWithDevice:device initialConfiguration:v130])
+    if ([(HMDAppleMediaAccessory *)selfCopy2 shouldUpdateWithDevice:device initialConfiguration:v129])
     {
       [(HMDAppleMediaAccessory *)selfCopy2 updateWithDevice:device];
     }
@@ -11149,7 +10951,7 @@ LABEL_18:
       {
         v89 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v139 = v89;
+        v138 = v89;
         _os_log_impl(&dword_2531F8000, v88, OS_LOG_TYPE_DEFAULT, "%{public}@Don't have private info recreate pairing identity", buf, 0xCu);
       }
 
@@ -11277,20 +11079,18 @@ LABEL_50:
   [(HMDAppleMediaAccessory *)selfCopy2 createSoftwareUpdateEventListenerIfNecessary];
   [(HMDDeviceController *)selfCopy2->_deviceController setDelegate:selfCopy2];
   workQueue6 = [(HMDAccessory *)selfCopy2 workQueue];
-  v131[0] = MEMORY[0x277D85DD0];
-  v131[1] = 3221225472;
-  v131[2] = __100__HMDAppleMediaAccessory_configureWithHome_msgDispatcher_configurationTracker_initialConfiguration___block_invoke_370;
-  v131[3] = &unk_279729FD8;
-  v135 = v130;
-  v134 = v14;
-  v131[4] = selfCopy2;
-  v132 = homeCopy;
-  v133 = v128;
-  v125 = v128;
+  v130[0] = MEMORY[0x277D85DD0];
+  v130[1] = 3221225472;
+  v130[2] = __100__HMDAppleMediaAccessory_configureWithHome_msgDispatcher_configurationTracker_initialConfiguration___block_invoke_370;
+  v130[3] = &unk_279729FD8;
+  v134 = v129;
+  v133 = v14;
+  v130[4] = selfCopy2;
+  v131 = homeCopy;
+  v132 = v127;
+  v125 = v127;
   v126 = homeCopy;
-  dispatch_async(workQueue6, v131);
-
-  v127 = *MEMORY[0x277D85DE8];
+  dispatch_async(workQueue6, v130);
 }
 
 void __100__HMDAppleMediaAccessory_configureWithHome_msgDispatcher_configurationTracker_initialConfiguration___block_invoke(uint64_t a1)
@@ -11303,7 +11103,7 @@ void __100__HMDAppleMediaAccessory_configureWithHome_msgDispatcher_configuration
 
 void __100__HMDAppleMediaAccessory_configureWithHome_msgDispatcher_configurationTracker_initialConfiguration___block_invoke_370(uint64_t a1)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     v2 = objc_autoreleasePoolPush();
@@ -11317,67 +11117,63 @@ void __100__HMDAppleMediaAccessory_configureWithHome_msgDispatcher_configuration
       v8 = [v6 stringWithFormat:@"%.3f", v7 - *(a1 + 56)];
       v9 = [*(a1 + 40) uuid];
       v10 = [*(a1 + 32) uuid];
-      v11 = *(a1 + 32);
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       *buf = 138546434;
-      v30 = v5;
-      v31 = 2114;
-      v32 = @"accessoryConfigureDone";
-      v33 = 2112;
-      v34 = @"Configured accessory";
-      v35 = 2114;
-      v36 = @"state";
-      v37 = 2112;
-      v38 = @"end";
-      v39 = 2114;
-      v40 = @"duration";
-      v41 = 2112;
-      v42 = v8;
-      v43 = 2114;
-      v44 = @"homeUUID";
-      v45 = 2112;
-      v46 = v9;
-      v47 = 2114;
-      v48 = @"accessoryUUID";
-      v49 = 2112;
-      v50 = v10;
-      v51 = 2114;
-      v52 = @"accessoryType";
-      v53 = 2112;
-      v54 = v13;
+      v27 = v5;
+      v28 = 2114;
+      v29 = @"accessoryConfigureDone";
+      v30 = 2112;
+      v31 = @"Configured accessory";
+      v32 = 2114;
+      v33 = @"state";
+      v34 = 2112;
+      v35 = @"end";
+      v36 = 2114;
+      v37 = @"duration";
+      v38 = 2112;
+      v39 = v8;
+      v40 = 2114;
+      v41 = @"homeUUID";
+      v42 = 2112;
+      v43 = v9;
+      v44 = 2114;
+      v45 = @"accessoryUUID";
+      v46 = 2112;
+      v47 = v10;
+      v48 = 2114;
+      v49 = @"accessoryType";
+      v50 = 2112;
+      v51 = v12;
       _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@tag=%{public}@ desc=%@ %{public}@=%@ %{public}@=%@ %{public}@=%@ %{public}@=%@ %{public}@=%@", buf, 0x84u);
     }
 
     objc_autoreleasePoolPop(v2);
-    v14 = [MEMORY[0x277D17DE8] sharedInstance];
-    v15 = objc_alloc(MEMORY[0x277D17DF8]);
-    v16 = MEMORY[0x277CCACA8];
+    v13 = [MEMORY[0x277D17DE8] sharedInstance];
+    v14 = objc_alloc(MEMORY[0x277D17DF8]);
+    v15 = MEMORY[0x277CCACA8];
     HMFUptime();
-    v18 = [v16 stringWithFormat:@"%.3f", v17 - *(a1 + 56)];
-    v19 = [*(a1 + 40) uuid];
-    v20 = [*(a1 + 32) uuid];
-    v21 = *(a1 + 32);
-    v22 = objc_opt_class();
-    v23 = NSStringFromClass(v22);
-    v24 = HMDTaggedLoggingCreateDictionary();
-    v25 = [v15 initWithTag:@"accessoryConfigureDone" data:{v24, @"state", @"end", @"duration", v18, @"homeUUID", v19, @"accessoryUUID", v20, @"accessoryType", v23}];
-    v26 = [MEMORY[0x277D0F770] currentTagProcessorList];
-    [v14 submitTaggedEvent:v25 processorList:v26];
+    v17 = [v15 stringWithFormat:@"%.3f", v16 - *(a1 + 56)];
+    v18 = [*(a1 + 40) uuid];
+    v19 = [*(a1 + 32) uuid];
+    v20 = objc_opt_class();
+    v21 = NSStringFromClass(v20);
+    v22 = HMDTaggedLoggingCreateDictionary();
+    v23 = [v14 initWithTag:@"accessoryConfigureDone" data:{v22, @"state", @"end", @"duration", v17, @"homeUUID", v18, @"accessoryUUID", v19, @"accessoryType", v21}];
+    v24 = [MEMORY[0x277D0F770] currentTagProcessorList];
+    [v13 submitTaggedEvent:v23 processorList:v24];
   }
 
-  v27 = *(a1 + 48);
-  if (v27)
+  v25 = *(a1 + 48);
+  if (v25)
   {
-    dispatch_group_leave(v27);
+    dispatch_group_leave(v25);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureGroupParticipantLocalDataStorageWithHome:(id)home
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   if ([(HMDAppleMediaAccessory *)self isCurrentAccessory])
   {
@@ -11400,17 +11196,17 @@ void __100__HMDAppleMediaAccessory_configureWithHome_msgDispatcher_configuration
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           v16 = HMFGetLogIdentifier();
-          v18 = 138544386;
-          v19 = v16;
-          v20 = 2112;
-          v21 = homeCopy;
-          v22 = 2112;
-          v23 = msgDispatcher;
-          v24 = 2112;
-          v25 = v8;
-          v26 = 2112;
-          v27 = homeManager;
-          _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Failed to configure groups participant local data storage with dependencies home: %@ messageDispatcher: %@ dataStorage: %@ homeManager: %@", &v18, 0x34u);
+          v17 = 138544386;
+          v18 = v16;
+          v19 = 2112;
+          v20 = homeCopy;
+          v21 = 2112;
+          v22 = msgDispatcher;
+          v23 = 2112;
+          v24 = v8;
+          v25 = 2112;
+          v26 = homeManager;
+          _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Failed to configure groups participant local data storage with dependencies home: %@ messageDispatcher: %@ dataStorage: %@ homeManager: %@", &v17, 0x34u);
         }
 
         objc_autoreleasePoolPop(v13);
@@ -11425,41 +11221,39 @@ void __100__HMDAppleMediaAccessory_configureWithHome_msgDispatcher_configuration
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v12 = HMFGetLogIdentifier();
-        v18 = 138543362;
-        v19 = v12;
-        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Home Theater QFA is not enabled", &v18, 0xCu);
+        v17 = 138543362;
+        v18 = v12;
+        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Home Theater QFA is not enabled", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v9);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDDoorbellChimeProfile)doorbellChimeProfile
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   accessoryProfiles = [(HMDAccessory *)self accessoryProfiles];
-  v3 = [accessoryProfiles countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [accessoryProfiles countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v13 != v5)
+      if (*v12 != v5)
       {
         objc_enumerationMutation(accessoryProfiles);
       }
 
-      v7 = *(*(&v12 + 1) + 8 * v6);
+      v7 = *(*(&v11 + 1) + 8 * v6);
       objc_opt_class();
       v8 = (objc_opt_isKindOfClass() & 1) != 0 ? v7 : 0;
       v9 = v8;
@@ -11471,7 +11265,7 @@ LABEL_3:
 
       if (v4 == ++v6)
       {
-        v4 = [accessoryProfiles countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v4 = [accessoryProfiles countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -11487,8 +11281,6 @@ LABEL_3:
 LABEL_12:
     v7 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -11539,31 +11331,31 @@ LABEL_12:
 
 - (void)_registerForMessages
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   home = [(HMDAccessory *)self home];
-  v17.receiver = self;
-  v17.super_class = HMDAppleMediaAccessory;
-  [(HMDAccessory *)&v17 _registerForMessages];
+  v16.receiver = self;
+  v16.super_class = HMDAppleMediaAccessory;
+  [(HMDAccessory *)&v16 _registerForMessages];
   msgDispatcher = [(HMDAccessory *)self msgDispatcher];
   v5 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-  v20[0] = v5;
+  v19[0] = v5;
   v6 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
-  v20[1] = v6;
+  v19[1] = v6;
   v7 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:3 remoteAccessRequired:0];
-  v20[2] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+  v19[2] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
 
   [msgDispatcher registerForMessage:*MEMORY[0x277CCEAB8] receiver:self policies:v8 selector:sel_handleFetchManagedConfigurationProfiles_];
   [msgDispatcher registerForMessage:*MEMORY[0x277CCECB8] receiver:self policies:v8 selector:sel_handleRemoveManagedConfigurationProfile_];
   [msgDispatcher registerForMessage:*MEMORY[0x277CCEB18] receiver:self policies:v8 selector:sel_handleInstallManagedConfigurationProfile_];
 
   v9 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-  v19[0] = v9;
+  v18[0] = v9;
   v10 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
-  v19[1] = v10;
+  v18[1] = v10;
   v11 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:4 remoteAccessRequired:0];
-  v19[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
+  v18[2] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
 
   [msgDispatcher registerForMessage:*MEMORY[0x277CD1070] receiver:self policies:v12 selector:sel__fetchAvailableUpdate_];
   [msgDispatcher registerForMessage:*MEMORY[0x277CD1080] receiver:self policies:v12 selector:sel__startUpdate_];
@@ -11578,14 +11370,12 @@ LABEL_12:
   {
     v13 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:0 remoteAccessRequired:0];
     v14 = [HMDXPCMessagePolicy policyWithEntitlements:13];
-    v18[0] = v14;
-    v18[1] = v13;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+    v17[0] = v14;
+    v17[1] = v13;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
 
     [msgDispatcher registerForMessage:*MEMORY[0x277CCF0A8] receiver:self policies:v15 selector:sel__handleTriggerPairingIdentityUpdateNotification_];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -11724,7 +11514,7 @@ id __30__HMDAppleMediaAccessory_init__block_invoke()
 
 - (HMDAppleMediaAccessory)initWithTransaction:(id)transaction home:(id)home dependencyFactory:(id)factory
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   homeCopy = home;
   factoryCopy = factory;
@@ -11777,25 +11567,25 @@ id __30__HMDAppleMediaAccessory_init__block_invoke()
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v55 = homeCopy;
+        v54 = homeCopy;
         v24 = v23 = factoryCopy;
         *buf = 138543362;
-        v59 = v24;
+        v58 = v24;
         _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Unable to determine device", buf, 0xCu);
 
         factoryCopy = v23;
-        homeCopy = v55;
+        homeCopy = v54;
       }
 
       objc_autoreleasePoolPop(v21);
     }
 
-    v57.receiver = self;
-    v57.super_class = HMDAppleMediaAccessory;
-    v25 = [(HMDMediaAccessory *)&v57 initWithTransaction:v12 home:homeCopy];
+    v56.receiver = self;
+    v56.super_class = HMDAppleMediaAccessory;
+    v25 = [(HMDMediaAccessory *)&v56 initWithTransaction:v12 home:homeCopy];
     if (v25)
     {
-      v56 = homeCopy;
+      v55 = homeCopy;
       v26 = HMFGetOSLogHandle();
       logger = v25->_logger;
       v25->_logger = v26;
@@ -11853,7 +11643,7 @@ id __30__HMDAppleMediaAccessory_init__block_invoke()
 
       objc_storeStrong(&v25->_dependencyFactory, factory);
       factoryCopy = v38;
-      homeCopy = v56;
+      homeCopy = v55;
     }
 
     selfCopy2 = v25;
@@ -11870,7 +11660,7 @@ id __30__HMDAppleMediaAccessory_init__block_invoke()
     {
       v52 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v59 = v52;
+      v58 = v52;
       _os_log_impl(&dword_2531F8000, v51, OS_LOG_TYPE_ERROR, "%{public}@Cannot initialize an AppleMedia accessory without an AppleMedia model.", buf, 0xCu);
     }
 
@@ -11878,7 +11668,6 @@ id __30__HMDAppleMediaAccessory_init__block_invoke()
     v49 = 0;
   }
 
-  v53 = *MEMORY[0x277D85DE8];
   return v49;
 }
 
@@ -11901,10 +11690,10 @@ id __69__HMDAppleMediaAccessory_initWithTransaction_home_dependencyFactory___blo
 
 - (id)assistantObject
 {
-  v88 = *MEMORY[0x277D85DE8];
-  v77.receiver = self;
-  v77.super_class = HMDAppleMediaAccessory;
-  assistantObject = [(HMDMediaAccessory *)&v77 assistantObject];
+  v87 = *MEMORY[0x277D85DE8];
+  v76.receiver = self;
+  v76.super_class = HMDAppleMediaAccessory;
+  assistantObject = [(HMDMediaAccessory *)&v76 assistantObject];
   v4 = [assistantObject mutableCopy];
 
   category = [(HMDAccessory *)self category];
@@ -11938,14 +11727,14 @@ LABEL_5:
       v14 = 1;
     }
 
-    v62 = v13;
+    v61 = v13;
     if (!v14)
     {
-      v82[0] = @"objectServiceType";
-      v82[1] = @"objectServiceSubType";
-      v83[0] = v12;
-      v83[1] = v13;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:v82 count:2];
+      v81[0] = @"objectServiceType";
+      v81[1] = @"objectServiceSubType";
+      v82[0] = v12;
+      v82[1] = v13;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:2];
       [v4 addEntriesFromDictionary:v15];
     }
 
@@ -11958,43 +11747,43 @@ LABEL_5:
   {
     v18 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v85 = v18;
-    v86 = 2112;
-    v87 = category;
+    v84 = v18;
+    v85 = 2112;
+    v86 = category;
     _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Apple media accessory with invalid accessory category: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v16);
   v12 = 0;
-  v62 = 0;
+  v61 = 0;
 LABEL_13:
   home = [(HMDAccessory *)self home];
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
   mediaSystems = [home mediaSystems];
-  v21 = [mediaSystems copy];
+  v21 = objc_msgSend_copy(mediaSystems);
 
-  v22 = [v21 countByEnumeratingWithState:&v73 objects:v81 count:16];
-  v64 = home;
-  v65 = v4;
-  v63 = category;
+  v22 = [v21 countByEnumeratingWithState:&v72 objects:v80 count:16];
+  v63 = home;
+  v64 = v4;
+  v62 = category;
   if (v22)
   {
     v23 = v22;
     v24 = v12;
-    v25 = *v74;
+    v25 = *v73;
     while (2)
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v74 != v25)
+        if (*v73 != v25)
         {
           objc_enumerationMutation(v21);
         }
 
-        v27 = *(*(&v73 + 1) + 8 * i);
+        v27 = *(*(&v72 + 1) + 8 * i);
         accessories = [v27 accessories];
         v29 = [accessories containsObject:self];
 
@@ -12006,7 +11795,7 @@ LABEL_13:
         }
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v73 objects:v81 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v72 objects:v80 count:16];
       if (v23)
       {
         continue;
@@ -12019,8 +11808,8 @@ LABEL_13:
     name = 0;
 LABEL_23:
     v12 = v24;
-    home = v64;
-    v4 = v65;
+    home = v63;
+    v4 = v64;
   }
 
   else
@@ -12047,39 +11836,39 @@ LABEL_23:
   v38 = audioDestination;
   if (!name && audioDestination)
   {
-    v67 = audioDestination;
-    v68 = urlString;
-    v59 = data;
-    v60 = audioDestinationController;
-    v61 = v12;
+    v66 = audioDestination;
+    v67 = urlString;
+    v58 = data;
+    v59 = audioDestinationController;
+    v60 = v12;
     accessories2 = [home accessories];
     v40 = [accessories2 na_map:&__block_literal_global_115782];
 
-    v71 = 0u;
-    v72 = 0u;
-    v69 = 0u;
     v70 = 0u;
+    v71 = 0u;
+    v68 = 0u;
+    v69 = 0u;
     obj = v40;
-    v41 = [obj countByEnumeratingWithState:&v69 objects:v80 count:16];
+    v41 = [obj countByEnumeratingWithState:&v68 objects:v79 count:16];
     if (v41)
     {
       v42 = v41;
       v43 = 0;
-      v44 = *v70;
+      v44 = *v69;
       do
       {
         for (j = 0; j != v42; ++j)
         {
-          if (*v70 != v44)
+          if (*v69 != v44)
           {
             objc_enumerationMutation(obj);
           }
 
-          v46 = *(*(&v69 + 1) + 8 * j);
+          v46 = *(*(&v68 + 1) + 8 * j);
           audioDestinationController2 = [v46 audioDestinationController];
           data2 = [audioDestinationController2 data];
           destinationIdentifier2 = [data2 destinationIdentifier];
-          uniqueIdentifier = [v67 uniqueIdentifier];
+          uniqueIdentifier = [v66 uniqueIdentifier];
           v51 = [destinationIdentifier2 hmf_isEqualToUUID:uniqueIdentifier];
 
           if (v51)
@@ -12088,12 +11877,12 @@ LABEL_23:
 
             urlString3 = [audioDestinationController2 urlString];
 
-            v68 = urlString3;
+            v67 = urlString3;
             v43 = name3;
           }
         }
 
-        v42 = [obj countByEnumeratingWithState:&v69 objects:v80 count:16];
+        v42 = [obj countByEnumeratingWithState:&v68 objects:v79 count:16];
       }
 
       while (v42);
@@ -12104,30 +11893,28 @@ LABEL_23:
       v43 = 0;
     }
 
-    home = v64;
-    v4 = v65;
-    audioDestinationController = v60;
-    v12 = v61;
-    v38 = v67;
-    urlString = v68;
-    data = v59;
+    home = v63;
+    v4 = v64;
+    audioDestinationController = v59;
+    v12 = v60;
+    v38 = v66;
+    urlString = v67;
+    data = v58;
     name = v43;
   }
 
   if (name && urlString)
   {
-    v79 = name;
-    v54 = [MEMORY[0x277CBEA60] arrayWithObjects:&v79 count:1];
+    v78 = name;
+    v54 = [MEMORY[0x277CBEA60] arrayWithObjects:&v78 count:1];
     [v4 setObject:v54 forKey:@"objectGroups"];
 
-    v78 = urlString;
-    v55 = [MEMORY[0x277CBEA60] arrayWithObjects:&v78 count:1];
+    v77 = urlString;
+    v55 = [MEMORY[0x277CBEA60] arrayWithObjects:&v77 count:1];
     [v4 setObject:v55 forKey:@"objectGroupIdentifiers"];
   }
 
-  v56 = [v4 copy];
-
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = objc_msgSend_copy(v4);
 
   return v56;
 }
@@ -12184,7 +11971,7 @@ void *__52__HMDAppleMediaAccessory_Assistant__assistantObject__block_invoke(uint
 
 - (void)configureAppleMediaAccessoryMessengerWithFactory:(id)factory
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   factoryCopy = factory;
   uuid = [(HMDAccessory *)self uuid];
   msgDispatcher = [(HMDAccessory *)self msgDispatcher];
@@ -12226,15 +12013,13 @@ LABEL_10:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v18;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to configure apple media accessory due to no home on accessory", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v18;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to configure apple media accessory due to no home on accessory", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isCurrentDevicePrimaryResident

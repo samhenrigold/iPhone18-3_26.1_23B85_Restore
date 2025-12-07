@@ -1,4 +1,5 @@
 @interface ICBulkRemoveRequest
+- (ICBulkRemoveRequest)initWithDatabaseID:(unsigned int)d sagaIDs:(id)ds itemKind:(unsigned __int8)kind;
 - (id)_bodyDataForSagaIDs:(id)ds itemKind:(unsigned __int8)kind;
 - (id)canonicalResponseForResponse:(id)response;
 @end
@@ -33,6 +34,29 @@
   v5 = ICDAAPUtilitiesCreateDataForItemKindContainer();
 
   return v5;
+}
+
+- (ICBulkRemoveRequest)initWithDatabaseID:(unsigned int)d sagaIDs:(id)ds itemKind:(unsigned __int8)kind
+{
+  kindCopy = kind;
+  v6 = *&d;
+  dsCopy = ds;
+  v15.receiver = self;
+  v15.super_class = ICBulkRemoveRequest;
+  v9 = [(ICBulkRemoveRequest *)&v15 init];
+  v10 = [NSString stringWithFormat:@"databases/%u/edit", v6];
+  v14.receiver = v9;
+  v14.super_class = ICBulkRemoveRequest;
+  v11 = [(ICDRequest *)&v14 initWithAction:v10];
+
+  if (v11)
+  {
+    [(ICDRequest *)v11 setMethod:1];
+    v12 = [(ICBulkRemoveRequest *)v11 _bodyDataForSagaIDs:dsCopy itemKind:kindCopy];
+    [(ICDRequest *)v11 setBodyData:v12];
+  }
+
+  return v11;
 }
 
 @end

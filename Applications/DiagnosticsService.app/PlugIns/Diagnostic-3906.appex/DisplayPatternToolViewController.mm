@@ -4,6 +4,7 @@
 - (CGRect)frameForConfirmation;
 - (CGRect)frameForPage:(int)page;
 - (CGRect)rectangle;
+- (id)imageViewForPage:(int)page;
 - (id)labelForConfirmation;
 - (int)maxNumPages;
 - (void)_downloadTestImagesUsingResponder:(id)responder;
@@ -35,6 +36,8 @@
 - (void)start;
 - (void)tapOccurred:(id)occurred;
 - (void)updateBrightnessIndicator:(float)indicator;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation DisplayPatternToolViewController
@@ -292,6 +295,35 @@ LABEL_23:
   [(DisplayPatternToolViewController *)self addTapGesture];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = DisplayPatternToolViewController;
+  [(DisplayPatternToolViewController *)&v8 viewWillAppear:appear];
+  [(DisplayPatternToolViewController *)self setupView];
+  [(DisplayPatternToolViewController *)self saveAndMaximizeBrightness];
+  objc_initWeak(&location, self);
+  animatedScrollingQueue = [(DisplayViewController *)self animatedScrollingQueue];
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_1000037C0;
+  v5[3] = &unk_100010348;
+  objc_copyWeak(&v6, &location);
+  dispatch_async(animatedScrollingQueue, v5);
+
+  objc_destroyWeak(&v6);
+  objc_destroyWeak(&location);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = DisplayPatternToolViewController;
+  [(DisplayPatternToolViewController *)&v5 viewDidAppear:appear];
+  scrollView = [(DisplayViewController *)self scrollView];
+  [scrollView becomeFirstResponder];
+}
+
 - (void)shuffleImageOrder
 {
   testImages = [(DisplayPatternToolViewController *)self testImages];
@@ -486,6 +518,31 @@ LABEL_23:
   v3 = [v2 localizedStringForKey:@"DISPLAY_TOOL_COMPLETED" value:&stru_1000106B0 table:0];
 
   return v3;
+}
+
+- (id)imageViewForPage:(int)page
+{
+  v3 = *&page;
+  v5 = [UIImageView alloc];
+  [(DisplayPatternToolViewController *)self frameForPage:v3];
+  v6 = [v5 initWithFrame:?];
+  testImages = [(DisplayPatternToolViewController *)self testImages];
+  v8 = v3;
+  v9 = [testImages objectAtIndexedSubscript:v3];
+  file = [v9 file];
+
+  path = [file path];
+  v12 = [UIImage imageWithContentsOfFile:path];
+  [v6 setImage:v12];
+
+  testImages2 = [(DisplayPatternToolViewController *)self testImages];
+  v14 = [testImages2 objectAtIndexedSubscript:v8];
+  drawingOverlay = [v14 drawingOverlay];
+  [v6 addSubview:drawingOverlay];
+
+  [v6 setUserInteractionEnabled:1];
+
+  return v6;
 }
 
 - (int)maxNumPages
@@ -910,7 +967,7 @@ LABEL_49:
   v12 = brightnessIndicator2;
   if (brightnessIndicator2)
   {
-    [brightnessIndicator2 transform];
+    objc_msgSend_transform(brightnessIndicator2);
   }
 
   else

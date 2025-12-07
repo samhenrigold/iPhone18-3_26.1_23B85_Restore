@@ -50,7 +50,7 @@
   }
 
   v8.receiver = self;
-  v8.super_class = type metadata accessor for CalendarYearOverlayView();
+  v8.super_class = type metadata accessor for CalendarYearOverlayView(0);
   attributesCopy = attributes;
   selfCopy = self;
   [(CalendarYearOverlayView *)&v8 applyLayoutAttributes:attributesCopy];

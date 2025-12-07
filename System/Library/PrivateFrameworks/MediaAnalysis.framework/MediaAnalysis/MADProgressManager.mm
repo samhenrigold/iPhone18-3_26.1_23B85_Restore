@@ -212,49 +212,49 @@ LABEL_5:
       goto LABEL_14;
     }
 
-    v21 = VCPLogToOSLogType[5];
-    if (!os_log_type_enabled(&_os_log_default, v21))
+    v22 = VCPLogToOSLogType[5];
+    if (!os_log_type_enabled(&_os_log_default, v22))
     {
       goto LABEL_14;
     }
 
     *buf = 0;
-    v18 = "[MADProgressManager] Unable to report BGST checkpoint for photo library";
-    v19 = v21;
-    v20 = 2;
+    v19 = "[MADProgressManager] Unable to report BGST checkpoint for photo library";
+    v20 = v22;
+    v21 = 2;
     goto LABEL_13;
   }
 
-  v14 = BGSystemTaskCustomCheckpointMax;
-  v15 = BGSystemTaskCustomCheckpointMin;
+  v15 = BGSystemTaskCustomCheckpointMax;
+  v16 = BGSystemTaskCustomCheckpointMin;
   if (BGSystemTaskCustomCheckpointMax >= checkpoint && BGSystemTaskCustomCheckpointMin <= checkpoint)
   {
-    v23 = MADTaskIdentifierForBackgroundTask(d);
-    v24 = v23;
-    if (!v23)
+    v24 = MADTaskIdentifierForBackgroundTask(d, v14);
+    v25 = v24;
+    if (!v24)
     {
       if (MediaAnalysisLogLevel() >= 4)
       {
-        v30 = VCPLogToOSLogType[4];
-        if (os_log_type_enabled(&_os_log_default, v30))
+        v31 = VCPLogToOSLogType[4];
+        if (os_log_type_enabled(&_os_log_default, v31))
         {
           *buf = 67109120;
-          *v41 = d;
-          _os_log_impl(&_mh_execute_header, &_os_log_default, v30, "[MADProgressManager] taskIdentifier not found for task %u", buf, 8u);
+          *v42 = d;
+          _os_log_impl(&_mh_execute_header, &_os_log_default, v31, "[MADProgressManager] taskIdentifier not found for task %u", buf, 8u);
         }
       }
 
-      v22 = 0;
+      v23 = 0;
       goto LABEL_34;
     }
 
-    v25 = [VCPDatabaseManager sharedDatabaseForPhotoLibrary:libraryCopy];
+    v26 = [VCPDatabaseManager sharedDatabaseForPhotoLibrary:libraryCopy];
     if (+[MADManagedKeyValueStore isMACDReadEnabled])
     {
       mad_fetchRequest = [libraryCopy mad_fetchRequest];
-      v27 = [mad_fetchRequest dataStoreValueForKey:keyCopy];
+      v28 = [mad_fetchRequest dataStoreValueForKey:keyCopy];
 
-      if (!v27)
+      if (!v28)
       {
         goto LABEL_18;
       }
@@ -262,58 +262,58 @@ LABEL_5:
 
     else
     {
-      v27 = [v25 valueForKey:keyCopy];
-      if (!v27)
+      v28 = [v26 valueForKey:keyCopy];
+      if (!v28)
       {
 LABEL_18:
-        v39 = 0;
-        v22 = [BGSystemTaskCheckpoints reportCustomCheckpoint:checkpoint forTask:v24 error:&v39];
-        v28 = v39;
-        if (v22)
+        v40 = 0;
+        v23 = [BGSystemTaskCheckpoints reportCustomCheckpoint:checkpoint forTask:v25 error:&v40];
+        v29 = v40;
+        if (v23)
         {
           if (MediaAnalysisLogLevel() >= 5)
           {
-            v29 = VCPLogToOSLogType[5];
-            if (os_log_type_enabled(&_os_log_default, v29))
+            v30 = VCPLogToOSLogType[5];
+            if (os_log_type_enabled(&_os_log_default, v30))
             {
               *buf = 67109378;
-              *v41 = checkpoint;
-              *&v41[4] = 2112;
-              *&v41[6] = v24;
-              _os_log_impl(&_mh_execute_header, &_os_log_default, v29, "[MADProgressManager] Reported BGST Custom Checkpoint %d for task taskIdentifier %@", buf, 0x12u);
+              *v42 = checkpoint;
+              *&v42[4] = 2112;
+              *&v42[6] = v25;
+              _os_log_impl(&_mh_execute_header, &_os_log_default, v30, "[MADProgressManager] Reported BGST Custom Checkpoint %d for task taskIdentifier %@", buf, 0x12u);
             }
           }
 
           if (+[MADManagedKeyValueStore isMACDPersistEnabled])
           {
-            v36[0] = _NSConcreteStackBlock;
-            v36[1] = 3221225472;
-            v36[2] = sub_10016572C;
-            v36[3] = &unk_100282938;
-            v37 = dateCopy;
-            v38 = keyCopy;
-            [libraryCopy mad_performAnalysisDataStoreChanges:v36 error:0];
+            v37[0] = _NSConcreteStackBlock;
+            v37[1] = 3221225472;
+            v37[2] = sub_10016572C;
+            v37[3] = &unk_100282938;
+            v38 = dateCopy;
+            v39 = keyCopy;
+            [libraryCopy mad_performAnalysisDataStoreChanges:v37 error:0];
           }
 
           else
           {
             [dateCopy timeIntervalSinceReferenceDate];
-            [v25 setValue:v35 forKey:keyCopy];
+            [v26 setValue:v36 forKey:keyCopy];
           }
         }
 
         else if (MediaAnalysisLogLevel() >= 3)
         {
-          v34 = VCPLogToOSLogType[3];
-          if (os_log_type_enabled(&_os_log_default, v34))
+          v35 = VCPLogToOSLogType[3];
+          if (os_log_type_enabled(&_os_log_default, v35))
           {
             *buf = 67109634;
-            *v41 = checkpoint;
-            *&v41[4] = 2112;
-            *&v41[6] = v24;
-            *&v41[14] = 2112;
-            *&v41[16] = v28;
-            _os_log_impl(&_mh_execute_header, &_os_log_default, v34, "[MADProgressManager] Failed to report BGST Custom Checkpoint %d for taskIdentifier %@ - %@", buf, 0x1Cu);
+            *v42 = checkpoint;
+            *&v42[4] = 2112;
+            *&v42[6] = v25;
+            *&v42[14] = 2112;
+            *&v42[16] = v29;
+            _os_log_impl(&_mh_execute_header, &_os_log_default, v35, "[MADProgressManager] Failed to report BGST Custom Checkpoint %d for taskIdentifier %@ - %@", buf, 0x1Cu);
           }
         }
 
@@ -324,49 +324,49 @@ LABEL_34:
       }
     }
 
-    v28 = [NSDate dateWithTimeIntervalSinceReferenceDate:v27];
+    v29 = [NSDate dateWithTimeIntervalSinceReferenceDate:v28];
     if (MediaAnalysisLogLevel() >= 7)
     {
-      v31 = VCPLogToOSLogType[7];
-      if (os_log_type_enabled(&_os_log_default, v31))
+      v32 = VCPLogToOSLogType[7];
+      if (os_log_type_enabled(&_os_log_default, v32))
       {
-        v32 = [v28 description];
+        v33 = [v29 description];
         *buf = 138412546;
-        *v41 = v32;
-        *&v41[8] = 2048;
-        *&v41[10] = v27;
-        _os_log_impl(&_mh_execute_header, &_os_log_default, v31, "[MADProgressManager] checkpoint reported on %@ (timestamp: %lld)", buf, 0x16u);
+        *v42 = v33;
+        *&v42[8] = 2048;
+        *&v42[10] = v28;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, v32, "[MADProgressManager] checkpoint reported on %@ (timestamp: %lld)", buf, 0x16u);
       }
     }
 
-    v22 = 0;
+    v23 = 0;
     goto LABEL_33;
   }
 
   if (MediaAnalysisLogLevel() >= 4)
   {
-    v17 = VCPLogToOSLogType[4];
-    if (os_log_type_enabled(&_os_log_default, v17))
+    v18 = VCPLogToOSLogType[4];
+    if (os_log_type_enabled(&_os_log_default, v18))
     {
       *buf = 67109632;
-      *v41 = checkpoint;
-      *&v41[4] = 1024;
-      *&v41[6] = v15;
-      *&v41[10] = 1024;
-      *&v41[12] = v14;
-      v18 = "[MADProgressManager] MADBGCheckpoint %d is not within range [%d, %d]";
-      v19 = v17;
-      v20 = 20;
+      *v42 = checkpoint;
+      *&v42[4] = 1024;
+      *&v42[6] = v16;
+      *&v42[10] = 1024;
+      *&v42[12] = v15;
+      v19 = "[MADProgressManager] MADBGCheckpoint %d is not within range [%d, %d]";
+      v20 = v18;
+      v21 = 20;
 LABEL_13:
-      _os_log_impl(&_mh_execute_header, &_os_log_default, v19, v18, buf, v20);
+      _os_log_impl(&_mh_execute_header, &_os_log_default, v20, v19, buf, v21);
     }
   }
 
 LABEL_14:
-  v22 = 0;
+  v23 = 0;
 LABEL_35:
 
-  return v22;
+  return v23;
 }
 
 + (BOOL)_reportBGSTCompletionCheckpoint:(unint64_t)checkpoint ForTask:(unint64_t)task photoLibrary:(id)library currentDate:(id)date
@@ -400,7 +400,7 @@ LABEL_35:
 
 + (BOOL)_reportBGSTFeatureCheckpointForTask:(unint64_t)task
 {
-  v20 = MADTaskIdentifierForBackgroundTask(task);
+  v20 = MADTaskIdentifierForBackgroundTask(task, a2);
   v25 = 0u;
   v26 = 0u;
   v23 = 0u;
@@ -549,49 +549,49 @@ LABEL_8:
 {
   detailCopy = detail;
   v7 = VCPTaskIDDescription();
-  v8 = MADTaskIdentifierForBackgroundTask(task);
-  if (v8)
+  v9 = MADTaskIdentifierForBackgroundTask(task, v8);
+  if (v9)
   {
-    v9 = [detailCopy objectForKeyedSubscript:VCPAnalysisCountProcessedKey];
-    v10 = [detailCopy objectForKeyedSubscript:VCPAnalysisCountTotalAllowedKey];
-    v11 = [detailCopy objectForKeyedSubscript:VCPAnalysisCountFailedKey];
-    integerValue = [v11 integerValue];
+    v10 = [detailCopy objectForKeyedSubscript:VCPAnalysisCountProcessedKey];
+    v11 = [detailCopy objectForKeyedSubscript:VCPAnalysisCountTotalAllowedKey];
+    v12 = [detailCopy objectForKeyedSubscript:VCPAnalysisCountFailedKey];
+    integerValue = [v12 integerValue];
 
-    integerValue2 = [v10 integerValue];
-    integerValue3 = [v9 integerValue];
+    integerValue2 = [v11 integerValue];
+    integerValue3 = [v10 integerValue];
     if (integerValue >= integerValue2 - integerValue3)
     {
-      v15 = (integerValue2 - integerValue3);
+      v16 = (integerValue2 - integerValue3);
     }
 
     else
     {
-      v15 = integerValue;
+      v16 = integerValue;
     }
 
-    v16 = [NSNumber numberWithInteger:v15];
-    bOOLValue = [v10 BOOLValue];
+    v17 = [NSNumber numberWithInteger:v16];
+    bOOLValue = [v11 BOOLValue];
     if (bOOLValue)
     {
-      v18 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s.processed", [v8 UTF8String]);
-      [self _reportProgressMetricForIdentifier:v18 itemsCompleted:v9 totalCount:v10];
+      v19 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s.processed", [v9 UTF8String]);
+      [self _reportProgressMetricForIdentifier:v19 itemsCompleted:v10 totalCount:v11];
 
-      v19 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s.failed", [v8 UTF8String]);
-      [self _reportProgressMetricForIdentifier:v19 itemsCompleted:v16 totalCount:v10];
+      v20 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s.failed", [v9 UTF8String]);
+      [self _reportProgressMetricForIdentifier:v20 itemsCompleted:v17 totalCount:v11];
     }
 
     else if (MediaAnalysisLogLevel() >= 4)
     {
-      v21 = VCPLogToOSLogType[4];
-      if (os_log_type_enabled(&_os_log_default, v21))
+      v22 = VCPLogToOSLogType[4];
+      if (os_log_type_enabled(&_os_log_default, v22))
       {
         *buf = 138412802;
-        *v24 = v7;
-        *&v24[8] = 1024;
-        *&v24[10] = [v9 unsignedIntegerValue];
-        v25 = 1024;
-        unsignedIntValue = [v10 unsignedIntValue];
-        _os_log_impl(&_mh_execute_header, &_os_log_default, v21, "[MADProgressManagers] totalCount for %@ equal to zero, skipping reporting (%d/%d)", buf, 0x18u);
+        *v25 = v7;
+        *&v25[8] = 1024;
+        *&v25[10] = [v10 unsignedIntegerValue];
+        v26 = 1024;
+        unsignedIntValue = [v11 unsignedIntValue];
+        _os_log_impl(&_mh_execute_header, &_os_log_default, v22, "[MADProgressManagers] totalCount for %@ equal to zero, skipping reporting (%d/%d)", buf, 0x18u);
       }
     }
   }
@@ -600,14 +600,14 @@ LABEL_8:
   {
     if (MediaAnalysisLogLevel() >= 4)
     {
-      v20 = VCPLogToOSLogType[4];
-      if (os_log_type_enabled(&_os_log_default, v20))
+      v21 = VCPLogToOSLogType[4];
+      if (os_log_type_enabled(&_os_log_default, v21))
       {
         *buf = 67109378;
-        *v24 = task;
-        *&v24[4] = 2112;
-        *&v24[6] = v7;
-        _os_log_impl(&_mh_execute_header, &_os_log_default, v20, "[MADProgressManager] unable to determine BGST identifier for task %d (%@)", buf, 0x12u);
+        *v25 = task;
+        *&v25[4] = 2112;
+        *&v25[6] = v7;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, v21, "[MADProgressManager] unable to determine BGST identifier for task %d (%@)", buf, 0x12u);
       }
     }
 
@@ -623,24 +623,24 @@ LABEL_8:
   countCopy = count;
   categoryCopy = category;
   v11 = VCPTaskIDDescription();
-  v12 = MADTaskIdentifierForBackgroundTask(1);
-  v13 = v12;
+  v13 = MADTaskIdentifierForBackgroundTask(1, v12);
+  v14 = v13;
   if (countCopy)
   {
-    v14 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s.%s", [v12 UTF8String], objc_msgSend(categoryCopy, "UTF8String"));
-    [self _reportProgressMetricForIdentifier:v14 itemsCompleted:progressCopy totalCount:countCopy];
+    v15 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s.%s", [v13 UTF8String], objc_msgSend(categoryCopy, "UTF8String"));
+    [self _reportProgressMetricForIdentifier:v15 itemsCompleted:progressCopy totalCount:countCopy];
   }
 
   else if (MediaAnalysisLogLevel() >= 4)
   {
-    v15 = VCPLogToOSLogType[4];
-    if (os_log_type_enabled(&_os_log_default, v15))
+    v16 = VCPLogToOSLogType[4];
+    if (os_log_type_enabled(&_os_log_default, v16))
     {
       *buf = 138412546;
-      v17 = v13;
-      v18 = 2112;
-      v19 = categoryCopy;
-      _os_log_impl(&_mh_execute_header, &_os_log_default, v15, "[MADProgressManager] Total assets for %@ (%@) equal to zero, skipping reporting", buf, 0x16u);
+      v18 = v14;
+      v19 = 2112;
+      v20 = categoryCopy;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, v16, "[MADProgressManager] Total assets for %@ (%@) equal to zero, skipping reporting", buf, 0x16u);
     }
   }
 }
@@ -1818,32 +1818,32 @@ LABEL_15:
   valueCopy = value;
   libraryCopy = library;
   blockCopy = block;
-  v46 = MADTaskIdentifierForBackgroundTask(task);
-  v12 = [VCPDatabaseManager sharedDatabaseForPhotoLibrary:libraryCopy];
+  v47 = MADTaskIdentifierForBackgroundTask(task, v12);
+  v13 = [VCPDatabaseManager sharedDatabaseForPhotoLibrary:libraryCopy];
   if (task == 1)
   {
-    v21 = mach_absolute_time();
-    v22 = VCPSignPostLog();
-    v23 = os_signpost_id_generate(v22);
+    v22 = mach_absolute_time();
+    v23 = VCPSignPostLog();
+    v24 = os_signpost_id_generate(v23);
 
-    v24 = VCPSignPostLog();
-    v25 = v24;
-    if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+    v25 = VCPSignPostLog();
+    v26 = v25;
+    if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v25, OS_SIGNPOST_INTERVAL_BEGIN, v23, "VCPMADCollectAndReportAnalysisProgress_MediaAnalysisImage", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v26, OS_SIGNPOST_INTERVAL_BEGIN, v24, "VCPMADCollectAndReportAnalysisProgress_MediaAnalysisImage", "", buf, 2u);
     }
 
     [self _queryAndReportProgressForMediaAnalysisImageForPhotoLibrary:libraryCopy reuseCachedValue:valueCopy];
-    v26 = VCPSignPostLog();
-    v27 = v26;
-    if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+    v27 = VCPSignPostLog();
+    v28 = v27;
+    if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v27, OS_SIGNPOST_INTERVAL_END, v23, "VCPMADCollectAndReportAnalysisProgress_MediaAnalysisImage", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v28, OS_SIGNPOST_INTERVAL_END, v24, "VCPMADCollectAndReportAnalysisProgress_MediaAnalysisImage", "", buf, 2u);
     }
 
-    if (v21)
+    if (v22)
     {
       goto LABEL_30;
     }
@@ -1858,44 +1858,44 @@ LABEL_15:
       goto LABEL_31;
     }
 
-    v13 = mach_absolute_time();
-    v14 = VCPSignPostLog();
-    v15 = os_signpost_id_generate(v14);
+    v14 = mach_absolute_time();
+    v15 = VCPSignPostLog();
+    v16 = os_signpost_id_generate(v15);
 
-    v16 = VCPSignPostLog();
-    v17 = v16;
-    if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+    v17 = VCPSignPostLog();
+    v18 = v17;
+    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v17, OS_SIGNPOST_INTERVAL_BEGIN, v15, "VCPMADCollectAndReportAnalysisProgress_CacheFaceProgress", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v18, OS_SIGNPOST_INTERVAL_BEGIN, v16, "VCPMADCollectAndReportAnalysisProgress_CacheFaceProgress", "", buf, 2u);
     }
 
     if (+[MADManagedKeyValueStore isMACDReadEnabled])
     {
       mad_fetchRequest = [libraryCopy mad_fetchRequest];
-      v19 = [mad_fetchRequest dataStoreValueForKey:VCPKeyValueNumberOfAssetsAllowedForPhotosFaceProcessing];
+      v20 = [mad_fetchRequest dataStoreValueForKey:VCPKeyValueNumberOfAssetsAllowedForPhotosFaceProcessing];
 
-      if (!v19)
+      if (!v20)
       {
         goto LABEL_25;
       }
     }
 
-    else if (![v12 valueForKey:VCPKeyValueNumberOfAssetsAllowedForPhotosFaceProcessing])
+    else if (![v13 valueForKey:VCPKeyValueNumberOfAssetsAllowedForPhotosFaceProcessing])
     {
 LABEL_25:
       [objc_opt_class() cacheCurrentFaceProgressForPhotoLibrary:libraryCopy];
     }
 
-    v32 = VCPSignPostLog();
-    v33 = v32;
-    if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+    v33 = VCPSignPostLog();
+    v34 = v33;
+    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v33, OS_SIGNPOST_INTERVAL_END, v15, "VCPMADCollectAndReportAnalysisProgress_CacheFaceProgress", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v34, OS_SIGNPOST_INTERVAL_END, v16, "VCPMADCollectAndReportAnalysisProgress_CacheFaceProgress", "", buf, 2u);
     }
 
-    if (v13)
+    if (v14)
     {
 LABEL_30:
       mach_absolute_time();
@@ -1907,14 +1907,14 @@ LABEL_31:
     {
       if (MediaAnalysisLogLevel() >= 5)
       {
-        v34 = VCPLogToOSLogType[5];
-        if (os_log_type_enabled(&_os_log_default, v34))
+        v35 = VCPLogToOSLogType[5];
+        if (os_log_type_enabled(&_os_log_default, v35))
         {
           *buf = 138412290;
-          v48 = v46;
-          v29 = "[%@] User cancelled during updateProgressForTask ...";
-          v30 = v34;
-          v31 = 12;
+          v49 = v47;
+          v30 = "[%@] User cancelled during updateProgressForTask ...";
+          v31 = v35;
+          v32 = 12;
           goto LABEL_36;
         }
       }
@@ -1922,32 +1922,32 @@ LABEL_31:
 
     else
     {
-      v35 = mach_absolute_time();
-      v36 = VCPSignPostLog();
-      v37 = os_signpost_id_generate(v36);
+      v36 = mach_absolute_time();
+      v37 = VCPSignPostLog();
+      v38 = os_signpost_id_generate(v37);
 
-      v38 = VCPSignPostLog();
-      v39 = v38;
-      if (v37 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
+      v39 = VCPSignPostLog();
+      v40 = v39;
+      if (v38 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
       {
-        v40 = VCPTaskIDDescription();
+        v41 = VCPTaskIDDescription();
         *buf = 138412290;
-        v48 = v40;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v39, OS_SIGNPOST_INTERVAL_BEGIN, v37, "VCPMADCollectAndReportAnalysisProgress", "_%@", buf, 0xCu);
+        v49 = v41;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v40, OS_SIGNPOST_INTERVAL_BEGIN, v38, "VCPMADCollectAndReportAnalysisProgress", "_%@", buf, 0xCu);
       }
 
-      v41 = [self _queryAndReportProgressForAnalysis:task photoLibrary:libraryCopy cancelOrExtendTimeoutBlock:blockCopy];
-      v42 = VCPSignPostLog();
-      v43 = v42;
-      if (v37 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
+      v42 = [self _queryAndReportProgressForAnalysis:task photoLibrary:libraryCopy cancelOrExtendTimeoutBlock:blockCopy];
+      v43 = VCPSignPostLog();
+      v44 = v43;
+      if (v38 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
       {
-        v44 = VCPTaskIDDescription();
+        v45 = VCPTaskIDDescription();
         *buf = 138412290;
-        v48 = v44;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v43, OS_SIGNPOST_INTERVAL_END, v37, "VCPMADCollectAndReportAnalysisProgress", "_%@", buf, 0xCu);
+        v49 = v45;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v44, OS_SIGNPOST_INTERVAL_END, v38, "VCPMADCollectAndReportAnalysisProgress", "_%@", buf, 0xCu);
       }
 
-      if (v35)
+      if (v36)
       {
         mach_absolute_time();
         VCPPerformance_LogMeasurement();
@@ -1960,8 +1960,8 @@ LABEL_31:
 
       else
       {
-        [v12 removeProgressEntriesBeyondLimits];
-        [v12 commit];
+        [v13 removeProgressEntriesBeyondLimits];
+        [v13 commit];
       }
     }
 
@@ -1970,17 +1970,17 @@ LABEL_31:
 
   if (MADIsPECProcessingEnabled())
   {
-    v20 = objc_alloc_init(VIService);
-    if (([v20 mad_isEncryptedSearchProxyEnabled] & 1) == 0)
+    v21 = objc_alloc_init(VIService);
+    if (([v21 mad_isEncryptedSearchProxyEnabled] & 1) == 0)
     {
       if (MediaAnalysisLogLevel() >= 5)
       {
-        v45 = VCPLogToOSLogType[5];
-        if (os_log_type_enabled(&_os_log_default, v45))
+        v46 = VCPLogToOSLogType[5];
+        if (os_log_type_enabled(&_os_log_default, v46))
         {
           *buf = 138412290;
-          v48 = v46;
-          _os_log_impl(&_mh_execute_header, &_os_log_default, v45, "[%@] PEC is disabled in this region, skipping progress update", buf, 0xCu);
+          v49 = v47;
+          _os_log_impl(&_mh_execute_header, &_os_log_default, v46, "[%@] PEC is disabled in this region, skipping progress update", buf, 0xCu);
         }
       }
 
@@ -1992,15 +1992,15 @@ LABEL_31:
 
   if (MediaAnalysisLogLevel() >= 5)
   {
-    v28 = VCPLogToOSLogType[5];
-    if (os_log_type_enabled(&_os_log_default, v28))
+    v29 = VCPLogToOSLogType[5];
+    if (os_log_type_enabled(&_os_log_default, v29))
     {
       *buf = 0;
-      v29 = "[MADProgressManager] PEC is disabled by user settings, skipping progress update";
-      v30 = v28;
-      v31 = 2;
+      v30 = "[MADProgressManager] PEC is disabled by user settings, skipping progress update";
+      v31 = v29;
+      v32 = 2;
 LABEL_36:
-      _os_log_impl(&_mh_execute_header, &_os_log_default, v30, v29, buf, v31);
+      _os_log_impl(&_mh_execute_header, &_os_log_default, v31, v30, buf, v32);
     }
   }
 
@@ -2344,7 +2344,7 @@ LABEL_40:
 
 + (void)resetProcessingCheckpointForTask:(unint64_t)task
 {
-  v26 = MADTaskIdentifierForBackgroundTask(task);
+  v26 = MADTaskIdentifierForBackgroundTask(task, a2);
   v32 = 0u;
   v33 = 0u;
   v30 = 0u;

@@ -62,9 +62,9 @@
     else
     {
       configurationRecord2 = [bundleCopy configurationRecord];
-      isBluetoothLEConfigurationRecord = [configurationRecord2 isBluetoothLEConfigurationRecord];
+      v10 = objc_msgSend_isBluetoothLEConfigurationRecord(configurationRecord2);
 
-      if (isBluetoothLEConfigurationRecord)
+      if (v10)
       {
         v8 = 2;
       }
@@ -72,9 +72,9 @@
       else
       {
         configurationRecord3 = [bundleCopy configurationRecord];
-        isNfcConfigurationRecord = [configurationRecord3 isNfcConfigurationRecord];
+        v12 = objc_msgSend_isNfcConfigurationRecord(configurationRecord3);
 
-        if (!isNfcConfigurationRecord)
+        if (!v12)
         {
           v5->_type = 0;
           goto LABEL_9;

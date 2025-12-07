@@ -233,12 +233,11 @@ LABEL_9:
 {
   toCopy = to;
   has = self->_has;
-  v13 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v13;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -257,9 +256,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  earfcn = self->_earfcn;
   PBDataWriterWriteUint32Field();
-  toCopy = v13;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -273,9 +271,8 @@ LABEL_4:
   }
 
 LABEL_16:
-  phyCellId = self->_phyCellId;
   PBDataWriterWriteUint32Field();
-  toCopy = v13;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -289,9 +286,8 @@ LABEL_5:
   }
 
 LABEL_17:
-  pagingCycleMs = self->_pagingCycleMs;
   PBDataWriterWriteUint32Field();
-  toCopy = v13;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -305,9 +301,8 @@ LABEL_6:
   }
 
 LABEL_18:
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
-  toCopy = v13;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -321,22 +316,20 @@ LABEL_7:
   }
 
 LABEL_19:
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
-  toCopy = v13;
+  toCopy = v6;
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_8:
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
-    toCopy = v13;
+    toCopy = v6;
   }
 
 LABEL_9:
   if (self->_plmn)
   {
     PBDataWriterWriteDataField();
-    toCopy = v13;
+    toCopy = v6;
   }
 }
 
@@ -556,7 +549,6 @@ LABEL_9:
     goto LABEL_39;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -568,7 +560,7 @@ LABEL_9:
   else if (*(equalCopy + 48))
   {
 LABEL_39:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_40;
   }
 
@@ -653,17 +645,17 @@ LABEL_39:
   plmn = self->_plmn;
   if (plmn | *(equalCopy + 4))
   {
-    v7 = [(NSData *)plmn isEqual:?];
+    v6 = [(NSData *)plmn isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_40:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

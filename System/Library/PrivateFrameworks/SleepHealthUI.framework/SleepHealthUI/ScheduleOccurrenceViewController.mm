@@ -32,8 +32,8 @@
 {
   v6 = sub_269D97870();
   v7 = *(v6 - 8);
-  MEMORY[0x28223BE20](v6);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6, v8);
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_269D9A8E0();
   sub_269D9A8D0();
   sub_269D9A880();
@@ -45,20 +45,20 @@
   sub_269D97840();
   viewCopy = view;
   selfCopy = self;
-  sub_269C301BC();
-  v13 = v12;
+  sub_269C301BC(v10);
+  v14 = v13;
 
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v10, v6);
 
-  return v13 & 1;
+  return v14 & 1;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
   v6 = sub_269D97870();
   v7 = *(v6 - 8);
-  MEMORY[0x28223BE20](v6);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6, v8);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_269D9A8E0();
   sub_269D9A8D0();
   sub_269D9A880();
@@ -70,17 +70,17 @@
   sub_269D97840();
   viewCopy = view;
   selfCopy = self;
-  sub_269C29198(viewCopy);
+  sub_269C29198(viewCopy, v10);
 
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v10, v6);
 }
 
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path
 {
   v8 = sub_269D97870();
   v9 = *(v8 - 8);
-  MEMORY[0x28223BE20](v8);
-  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8, v10);
+  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_269D9A8E0();
   sub_269D9A8D0();
   sub_269D9A880();
@@ -95,7 +95,7 @@
   selfCopy = self;
   sub_269C302BC(cellCopy);
 
-  (*(v9 + 8))(v11, v8);
+  (*(v9 + 8))(v12, v8);
 }
 
 - (id)tableView:(id)view viewForHeaderInSection:(int64_t)section
@@ -127,9 +127,9 @@
 
   viewCopy = view;
   selfCopy = self;
-  v9 = sub_269C3079C(section);
+  v10 = sub_269C3079C(section, v9);
 
-  return v9;
+  return v10;
 }
 
 - (void)handleSignificantTimeChange
@@ -148,6 +148,7 @@
 
 - (void)switchCellValueChanged:(id)changed value:(BOOL)value
 {
+  valueCopy = value;
   sub_269D9A8E0();
   sub_269D9A8D0();
   sub_269D9A880();
@@ -163,7 +164,7 @@
     {
       selfCopy2 = self;
       changedCopy2 = changed;
-      ScheduleOccurrenceEditModel.alarmEnabled.setter(value);
+      ScheduleOccurrenceEditModel.alarmEnabled.setter(valueCopy);
       sub_269D4B714();
 LABEL_8:
 
@@ -175,7 +176,7 @@ LABEL_8:
     {
       selfCopy2 = self;
       changedCopy2 = changed;
-      ScheduleOccurrenceEditModel.allowsSnooze.setter(value);
+      ScheduleOccurrenceEditModel.allowsSnooze.setter(valueCopy);
       goto LABEL_8;
     }
   }

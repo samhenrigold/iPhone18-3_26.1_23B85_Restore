@@ -1,10 +1,10 @@
 @interface NSBundle(PCXBundleAdditions)
-- (uint64_t)pcxPathForImageResource:()PCXBundleAdditions;
+- (void)pcxPathForImageResource:()PCXBundleAdditions;
 @end
 
 @implementation NSBundle(PCXBundleAdditions)
 
-- (uint64_t)pcxPathForImageResource:()PCXBundleAdditions
+- (void)pcxPathForImageResource:()PCXBundleAdditions
 {
   v14 = *MEMORY[0x277D85DE8];
   v9 = 0u;

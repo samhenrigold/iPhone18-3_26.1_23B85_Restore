@@ -14,9 +14,9 @@
     [SFShareAudioErrorViewController viewWillAppear:];
   }
 
-  v10.receiver = self;
-  v10.super_class = SFShareAudioErrorViewController;
-  [(SFShareAudioBaseViewController *)&v10 viewWillAppear:appearCopy];
+  v9.receiver = self;
+  v9.super_class = SFShareAudioErrorViewController;
+  [(SFShareAudioBaseViewController *)&v9 viewWillAppear:appearCopy];
   mainBundle = [(SFShareAudioViewController *)self->super._mainController mainBundle];
   v6 = SFLocalizedStringEx();
   [(UILabel *)self->super._titleLabel setText:v6];
@@ -26,9 +26,8 @@
 
   if (IsAppleInternalBuild())
   {
-    error = self->_error;
-    v8 = NSPrintF();
-    [(UILabel *)self->_internalLabel setText:v8, error];
+    v8 = NSPrintF("Internal: %{error}", self->_error);
+    [(UILabel *)self->_internalLabel setText:v8];
 
     [(UILabel *)self->_internalLabel setHidden:0];
   }

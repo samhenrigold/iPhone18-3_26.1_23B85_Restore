@@ -69,7 +69,7 @@
 
 - (void)updateStatus:(id)status
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   userInfo = [status userInfo];
   v5 = [userInfo objectForKeyedSubscript:@"MRGroupSessionEligibilityStatusUserInfoKey"];
 
@@ -80,27 +80,27 @@
   allObjects = [observers allObjects];
 
   os_unfair_lock_unlock(&self->_lock);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v9 = allObjects;
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * v13);
+        v14 = *(*(&v15 + 1) + 8 * v13);
         if (objc_opt_respondsToSelector())
         {
           [v14 groupSessionMonitor:self statusDidChangeFrom:v6 to:v5];
@@ -108,20 +108,18 @@
 
         else if (objc_opt_respondsToSelector())
         {
-          [v14 groupSessionMonitor:self statusDidChange:{v5, v16}];
+          [v14 groupSessionMonitor:self statusDidChange:{v5, v15}];
         }
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -1,3 +1,207 @@
+intptr_t sub_10003A118(uint64_t a1, void *a2)
+{
+  *(*(*(a1 + 40) + 8) + 40) = [a2 copy];
+  v3 = *(a1 + 32);
+
+  return dispatch_semaphore_signal(v3);
+}
+
+intptr_t sub_10003A160(uint64_t a1, void *a2)
+{
+  *(*(*(a1 + 40) + 8) + 40) = [a2 copy];
+  v3 = *(a1 + 32);
+
+  return dispatch_semaphore_signal(v3);
+}
+
+intptr_t sub_10003A1A8(uint64_t a1, void *a2)
+{
+  *(*(*(a1 + 40) + 8) + 40) = [a2 copy];
+  v3 = *(a1 + 32);
+
+  return dispatch_semaphore_signal(v3);
+}
+
+intptr_t sub_10003A1F0(uint64_t a1, void *a2)
+{
+  *(*(*(a1 + 40) + 8) + 40) = [a2 copy];
+  v3 = *(a1 + 32);
+
+  return dispatch_semaphore_signal(v3);
+}
+
+intptr_t sub_10003A238(uint64_t a1, void *a2)
+{
+  *(*(*(a1 + 40) + 8) + 40) = [a2 copy];
+  v3 = *(a1 + 32);
+
+  return dispatch_semaphore_signal(v3);
+}
+
+intptr_t sub_10003A280(uint64_t a1, void *a2)
+{
+  *(*(*(a1 + 40) + 8) + 40) = [a2 copy];
+  v3 = *(a1 + 32);
+
+  return dispatch_semaphore_signal(v3);
+}
+
+intptr_t sub_10003A2C8(uint64_t a1, void *a2)
+{
+  *(*(*(a1 + 40) + 8) + 40) = [a2 copy];
+  v3 = *(a1 + 32);
+
+  return dispatch_semaphore_signal(v3);
+}
+
+void sub_10003A424(uint64_t a1)
+{
+  v2 = objc_autoreleasePoolPush();
+  v3 = [*(*(a1 + 32) + 16) activeDiagnostics];
+  if (v3)
+  {
+    v4 = [v3 firstObject];
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  v5 = *(a1 + 40);
+  if (v5)
+  {
+    (*(v5 + 16))(v5, 0, v4);
+  }
+
+  objc_autoreleasePoolPop(v2);
+}
+
+void sub_10003A530(void *a1)
+{
+  v2 = objc_autoreleasePoolPush();
+  v3 = a1[5];
+  v4 = *(a1[4] + 16);
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_10003A5C4;
+  v5[3] = &unk_1000E1C48;
+  v5[4] = a1[6];
+  [v4 updateDiagnosticsMode:v3 reply:v5];
+  objc_autoreleasePoolPop(v2);
+}
+
+uint64_t sub_10003A5C4(uint64_t a1)
+{
+  result = *(a1 + 32);
+  if (result)
+  {
+    return (*(result + 16))();
+  }
+
+  return result;
+}
+
+void sub_10003A8A0(uint64_t a1)
+{
+  v2 = objc_autoreleasePoolPush();
+  v3 = WiFiManagerClientCreate();
+  v4 = WiFiManagerClientCopyProperty();
+  if (v4)
+  {
+    v5 = v4;
+    v6 = CFBooleanGetValue(v4) != 0;
+    CFRelease(v5);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = [[OSLogPreferencesSubsystem alloc] initWithName:@"com.apple.WiFiManager"];
+  if (!v6 || (v8 = v7, [v7 effectiveEnabledLevel] != 4))
+  {
+    v9 = 0;
+    if (!v3)
+    {
+      goto LABEL_10;
+    }
+
+    goto LABEL_9;
+  }
+
+  v9 = [v8 effectivePersistedLevel] == 4;
+  if (v3)
+  {
+LABEL_9:
+    CFRelease(v3);
+  }
+
+LABEL_10:
+  v10 = *(a1 + 32);
+  if (v10)
+  {
+    (*(v10 + 16))(v10, 0, v9);
+  }
+
+  objc_autoreleasePoolPop(v2);
+}
+
+void sub_10003AA44(uint64_t a1)
+{
+  v2 = objc_autoreleasePoolPush();
+  v3 = WiFiManagerClientCreate();
+  WiFiManagerClientSetProperty();
+  v4 = [[OSLogPreferencesSubsystem alloc] initWithName:@"com.apple.WiFiManager"];
+  v5 = v4;
+  if (*(a1 + 48))
+  {
+    v6 = 4;
+  }
+
+  else
+  {
+    v6 = 1;
+  }
+
+  [v4 setPersistedLevel:v6];
+  if (*(a1 + 48))
+  {
+    v7 = 4;
+  }
+
+  else
+  {
+    v7 = 1;
+  }
+
+  [v5 setEnabledLevel:v7];
+  if (*(a1 + 48))
+  {
+    v8 = @"debug";
+  }
+
+  else
+  {
+    v8 = @"inherit";
+  }
+
+  [*(a1 + 32) setOSLogPreferenceLevel:v8 enableOvserizeMessages:1 subsystem:@"com.apple.WiFiManager"];
+  v9 = *(a1 + 40);
+  if (v9)
+  {
+    (*(v9 + 16))(v9, 0);
+  }
+
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
+  objc_autoreleasePoolPop(v2);
+}
+
 void sub_10003AE08(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
@@ -135,9 +339,9 @@ uint64_t sub_10003B3A8(uint64_t a1)
   return result;
 }
 
-void sub_10003B5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10003B5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -150,70 +354,69 @@ void sub_10003B5D0(uint64_t a1, int a2, uint64_t a3)
     v4 = *(a1 + 56);
     if (v4)
     {
-      v5 = *(*(*(a1 + 64) + 8) + 24);
-      v6 = *(v4 + 16);
+      v5 = *(v4 + 16);
 
-      v6();
+      v5();
     }
   }
 
   else
   {
-    v8 = objc_autoreleasePoolPush();
+    v7 = objc_autoreleasePoolPush();
     [*(a1 + 40) appendData:a3];
-    v9 = [objc_msgSend([NSString alloc] initWithData:*(a1 + 40) encoding:{4), "componentsSeparatedByString:", @"\n"}];
-    [*(a1 + 40) setData:{objc_msgSend(objc_msgSend(v9, "lastObject"), "dataUsingEncoding:", 4)}];
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
+    v8 = [objc_msgSend([NSString alloc] initWithData:*(a1 + 40) encoding:{4), "componentsSeparatedByString:", @"\n"}];
+    [*(a1 + 40) setData:{objc_msgSend(objc_msgSend(v8, "lastObject"), "dataUsingEncoding:", 4)}];
     v17 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
-    if (v10)
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v9)
     {
-      v11 = v10;
-      v12 = *v17;
+      v10 = v9;
+      v11 = *v16;
       do
       {
-        v13 = 0;
+        v12 = 0;
         do
         {
-          if (*v17 != v12)
+          if (*v16 != v11)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v8);
           }
 
-          v14 = *(*(&v16 + 1) + 8 * v13);
+          v13 = *(*(&v15 + 1) + 8 * v12);
           if ([*(a1 + 48) count])
           {
-            v15 = 0;
+            v14 = 0;
             do
             {
-              if ([v14 hasSuffix:{objc_msgSend(*(a1 + 48), "objectAtIndexedSubscript:", v15)}])
+              if ([v13 hasSuffix:{objc_msgSend(*(a1 + 48), "objectAtIndexedSubscript:", v14)}])
               {
-                *(*(*(a1 + 64) + 8) + 24) = v15;
+                *(*(*(a1 + 64) + 8) + 24) = v14;
               }
 
-              ++v15;
+              ++v14;
             }
 
-            while (v15 < [*(a1 + 48) count]);
+            while (v14 < [*(a1 + 48) count]);
           }
 
-          v13 = v13 + 1;
+          v12 = v12 + 1;
         }
 
-        while (v13 != v11);
-        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        while (v12 != v10);
+        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
-      while (v11);
+      while (v10);
     }
 
-    objc_autoreleasePoolPop(v8);
+    objc_autoreleasePoolPop(v7);
   }
 }
 
-id sub_10003B870(uint64_t a1, uint64_t a2)
+void *sub_10003B870(uint64_t a1, uint64_t a2)
 {
   if (a2 == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -231,7 +434,7 @@ id sub_10003B870(uint64_t a1, uint64_t a2)
     result = *(a1 + 40);
     if (result)
     {
-      v5 = *(result + 2);
+      v5 = result[2];
 
       return v5();
     }
@@ -240,14 +443,14 @@ id sub_10003B870(uint64_t a1, uint64_t a2)
   return result;
 }
 
-id sub_10003B934(uint64_t a1, uint64_t a2)
+void *sub_10003B934(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
     result = *(a1 + 40);
     if (result)
     {
-      v5 = *(result + 2);
+      v5 = result[2];
 
       return v5();
     }
@@ -295,14 +498,14 @@ uint64_t sub_10003B9F0(uint64_t a1, uint64_t a2)
   return v4();
 }
 
-id sub_10003BF14(uint64_t a1, uint64_t a2)
+void *sub_10003BF14(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
     result = *(a1 + 40);
     if (result)
     {
-      v5 = *(result + 2);
+      v5 = result[2];
 
       return v5();
     }
@@ -419,7 +622,7 @@ LABEL_13:
   objc_autoreleasePoolPop(v2);
 }
 
-id sub_10003C3E4(uint64_t a1, uint64_t a2, int a3)
+void *sub_10003C3E4(uint64_t a1, uint64_t a2, int a3)
 {
   v3 = *(a1 + 40);
   if (a2 || v3 != a3)
@@ -454,7 +657,7 @@ id sub_10003C3E4(uint64_t a1, uint64_t a2, int a3)
     result = *(a1 + 32);
     if (result)
     {
-      v5 = *(result + 2);
+      v5 = result[2];
 
       return v5();
     }
@@ -534,7 +737,7 @@ LABEL_13:
   objc_autoreleasePoolPop(v2);
 }
 
-id sub_10003C798(uint64_t a1, uint64_t a2, int a3)
+void *sub_10003C798(uint64_t a1, uint64_t a2, int a3)
 {
   v3 = *(a1 + 40);
   if (a2 || v3 != a3)
@@ -569,7 +772,7 @@ id sub_10003C798(uint64_t a1, uint64_t a2, int a3)
     result = *(a1 + 32);
     if (result)
     {
-      v5 = *(result + 2);
+      v5 = result[2];
 
       return v5();
     }
@@ -696,9 +899,9 @@ void sub_10003D3D4(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_10003D520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003D520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -735,9 +938,9 @@ void sub_10003D700(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_10003D930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10003D930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -840,28 +1043,24 @@ void sub_10003E478(uint64_t a1)
   if ([v22[5] code] == 3)
   {
     v7 = sub_100098A04();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_11;
+      v27 = 134217984;
+      v28 = v4;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v7, 0, "[wifivelocity] DIAGNOSTICS TIMEOUT (timeout=%lums)", &v27);
     }
-
-    v27 = 134217984;
-    v28 = v4;
-    goto LABEL_10;
   }
 
-  if ([v22[5] code] == 6)
+  else if ([v22[5] code] == 6)
   {
     v8 = sub_100098A04();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v27) = 0;
-LABEL_10:
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] DIAGNOSTICS CANCELLED");
     }
   }
 
-LABEL_11:
   v9 = *(a1 + 56);
   if (v9)
   {
@@ -875,10 +1074,11 @@ LABEL_11:
   _Block_object_dispose(&v21, 8);
 }
 
-void sub_10003E7C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_10003E7C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 160), 8);
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -924,11 +1124,11 @@ void sub_10003E7F8(uint64_t a1)
   _Block_object_dispose(v24, 8);
 }
 
-void sub_10003E964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_10003E964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 128), 8);
+  _Block_object_dispose((v24 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1089,12 +1289,13 @@ void sub_1000409E4(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_100046158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_100046158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   _Block_object_dispose(&a20, 8);
   _Block_object_dispose(&a24, 8);
-  _Block_object_dispose(&a28, 8);
-  _Block_object_dispose((v28 - 152), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v27 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1122,9 +1323,9 @@ uint64_t sub_1000461A8()
   return v0;
 }
 
-void sub_10004627C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004627C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1153,9 +1354,9 @@ uint64_t sub_100046294()
   return v0;
 }
 
-void sub_100046368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100046368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1177,12 +1378,13 @@ void sub_100046380(uint64_t a1, void *a2, void *a3)
   objc_autoreleasePoolPop(v6);
 }
 
-void sub_1000467DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_1000467DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   _Block_object_dispose(&a20, 8);
   _Block_object_dispose(&a24, 8);
-  _Block_object_dispose(&a28, 8);
-  _Block_object_dispose((v28 - 152), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v27 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1231,10 +1433,10 @@ uint64_t sub_1000474C8(uint64_t a1, void *a2, void *a3)
   return v11;
 }
 
-void sub_10004AB40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_10004AB40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
-  _Block_object_dispose((v10 - 144), 8);
+  va_start(va, a17);
+  _Block_object_dispose((v17 - 144), 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1275,9 +1477,9 @@ void sub_10004BC34(uint64_t a1)
   CFRelease(v2);
 }
 
-void sub_10004C034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004C034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1294,7 +1496,7 @@ intptr_t sub_10004C054(uint64_t a1, void *a2, uint64_t a3)
   return dispatch_semaphore_signal(v4);
 }
 
-uint64_t sub_10004C0BC()
+uint64_t sub_10004C0BC(uint64_t a1)
 {
   if (!qword_100106BD0)
   {
@@ -1306,7 +1508,6 @@ uint64_t sub_10004C0BC()
 
 uint64_t sub_10004C18C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100106BD0 = result;
   return result;
@@ -1333,10 +1534,20 @@ Class sub_10004C200(uint64_t a1)
 
 void sub_10004C2AC()
 {
-  if (!sub_10004C0BC())
+  v3 = 0;
+  if (!sub_10004C0BC(&v3))
   {
-    v0 = [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInFunction:"handleFailureInFunction:file:lineNumber:description:" file:[NSString stringWithUTF8String:?], @"W5DiagnosticsManager.m", 50, @"%s", 0];
+    v1 = +[NSAssertionHandler currentHandler];
+    v2 = [NSString stringWithUTF8String:"void *NPTKitLibrary(void)"];
+    v0 = [(NSAssertionHandler *)v1 handleFailureInFunction:v2 file:@"W5DiagnosticsManager.m" lineNumber:50 description:@"%s", v3];
     __break(1u);
+    goto LABEL_5;
+  }
+
+  v0 = v3;
+  if (v3)
+  {
+LABEL_5:
     free(v0);
   }
 }
@@ -1360,7 +1571,7 @@ Class sub_10004C340(uint64_t a1)
   return result;
 }
 
-uint64_t sub_10004C3EC()
+uint64_t sub_10004C3EC(uint64_t a1)
 {
   if (!qword_100106BE8)
   {
@@ -1372,7 +1583,6 @@ uint64_t sub_10004C3EC()
 
 uint64_t sub_10004C4BC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100106BE8 = result;
   return result;
@@ -1380,8 +1590,14 @@ uint64_t sub_10004C4BC(uint64_t a1)
 
 Class sub_10004C530(uint64_t a1)
 {
-  if (sub_10004C3EC())
+  v5 = 0;
+  if (sub_10004C3EC(&v5))
   {
+    if (v5)
+    {
+      free(v5);
+    }
+
     result = objc_getClass("IMPingTest");
     *(*(*(a1 + 32) + 8) + 40) = result;
     if (*(*(*(a1 + 32) + 8) + 40))
@@ -1395,7 +1611,9 @@ Class sub_10004C530(uint64_t a1)
 
   else
   {
-    result = [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInFunction:"handleFailureInFunction:file:lineNumber:description:" file:[NSString stringWithUTF8String:?], @"W5DiagnosticsManager.m", 45, @"%s", 0];
+    v3 = +[NSAssertionHandler currentHandler];
+    v4 = [NSString stringWithUTF8String:"void *IMFoundationLibrary(void)"];
+    result = [(NSAssertionHandler *)v3 handleFailureInFunction:v4 file:@"W5DiagnosticsManager.m" lineNumber:45 description:@"%s", v5];
   }
 
   __break(1u);
@@ -1416,7 +1634,14 @@ void sub_10004CC0C(uint64_t a1)
   v2 = sub_100098A04();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v5 = 136315650;
+    v6 = "[W5RapportClient _configureDiscoveryClient]_block_invoke";
+    v7 = 2080;
+    v8 = "W5RapportClient.m";
+    v9 = 1024;
+    v10 = 101;
+    v4 = 28;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v2, 0, "[wifivelocity] %s (%s:%u) rapport discovery session invalidated", &v5, v4);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -1458,7 +1683,16 @@ void sub_10004CE88(id a1, RPCompanionLinkDevice *a2)
   v3 = sub_100098A04();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v5 = 136315906;
+    v6 = "[W5RapportClient _configureDiscoveryClient]_block_invoke_5";
+    v7 = 2080;
+    v8 = "W5RapportClient.m";
+    v9 = 1024;
+    v10 = 122;
+    v11 = 2114;
+    v12 = v2;
+    v4 = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v3, 0, "[wifivelocity] %s (%s:%u) local device updated inDevice='%{public}@'", &v5, v4);
   }
 }
 
@@ -1477,7 +1711,16 @@ void sub_10004D610(uint64_t a1, void *a2)
     v4 = sub_100098A04();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v7 = 136315906;
+      v8 = "[W5RapportClient startDiscoveringDevices]_block_invoke";
+      v9 = 2080;
+      v10 = "W5RapportClient.m";
+      v11 = 1024;
+      v12 = 179;
+      v13 = 2114;
+      v14 = v3;
+      v6 = 38;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v4, 0, "[wifivelocity] %s (%s:%u) W5RapportDiscoveryRequest activation of rapport discovery client falied, error: %{public}@", &v7, v6);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -1497,7 +1740,14 @@ void sub_10004DB90(id a1)
   v1 = sub_100098A04();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v3 = 136315650;
+    v4 = "[W5RapportClient sendMessageToDevice:request:]_block_invoke";
+    v5 = 2080;
+    v6 = "W5RapportClient.m";
+    v7 = 1024;
+    v8 = 223;
+    v2 = 28;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v1, 0, "[wifivelocity] %s (%s:%u) rapport client invalidated", &v3, v2);
   }
 }
 
@@ -1522,9 +1772,7 @@ void sub_10004DC74(uint64_t a1, void *a2)
       v37 = v7;
       v38 = 2114;
       v39 = v3;
-      LODWORD(v25) = 48;
-      v24 = location;
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v5, 0, "[wifivelocity] %s (%s:%u) failed to activate rapport request='%{public}@' error='%{public}@'", location, 48);
     }
 
     if ([v3 code] == -71146)
@@ -1545,13 +1793,12 @@ void sub_10004DC74(uint64_t a1, void *a2)
         v38 = 2114;
         v39 = v10;
         LODWORD(v25) = 48;
-        v24 = location;
-        _os_log_send_and_compose_impl();
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) Service unsupported on device='%{public}@' for request='%{public}@'", location, v25);
       }
     }
 
     v11 = *(a1 + 32);
-    v12 = [W5RapportResponse responseWithPayload:0 options:0 error:v3, v24, v25];
+    v12 = [W5RapportResponse responseWithPayload:0 options:0 error:v3];
     [v11 handleResponse:v12];
   }
 
@@ -1562,7 +1809,7 @@ void sub_10004DC74(uint64_t a1, void *a2)
       v13 = [*(a1 + 32) identifier];
       v14 = [*(a1 + 32) controlFlags];
       v15 = [*(a1 + 32) requestPayload];
-      [*(a1 + 32) peer];
+      v16 = [*(a1 + 32) peer];
       *location = 136316674;
       *&location[4] = "[W5RapportClient sendMessageToDevice:request:]_block_invoke";
       v32 = 2080;
@@ -1575,24 +1822,25 @@ void sub_10004DC74(uint64_t a1, void *a2)
       v39 = v14;
       v40 = 2114;
       v41 = v15;
-      v43 = v42 = 2114;
-      _os_log_send_and_compose_impl();
+      v42 = 2114;
+      v43 = v16;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v5, 0, "[wifivelocity] %s (%s:%u) sending request='%{public}@' flags='%ld' payload='%{public}@ to='%{public}@'", location, 68);
     }
 
-    v16 = [*(a1 + 32) requestPayload];
-    v12 = [v16 encode];
+    v17 = [*(a1 + 32) requestPayload];
+    v12 = [v17 encode];
 
     if (v12)
     {
       objc_initWeak(location, WeakRetained);
-      v17 = [*(a1 + 32) identifier];
+      v18 = [*(a1 + 32) identifier];
       v26[0] = _NSConcreteStackBlock;
       v26[1] = 3221225472;
       v26[2] = sub_10004E1EC;
       v26[3] = &unk_1000E2AB8;
       objc_copyWeak(&v28, location);
       v27 = *(a1 + 32);
-      [WeakRetained sendRequestID:v17 request:v12 options:0 responseHandler:v26];
+      [WeakRetained sendRequestID:v18 request:v12 options:0 responseHandler:v26];
 
       objc_destroyWeak(&v28);
       objc_destroyWeak(location);
@@ -1600,10 +1848,10 @@ void sub_10004DC74(uint64_t a1, void *a2)
 
     else
     {
-      v18 = sub_100098A04();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_100098A04();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = *(a1 + 32);
+        v20 = *(a1 + 32);
         *location = 136315906;
         *&location[4] = "[W5RapportClient sendMessageToDevice:request:]_block_invoke";
         v32 = 2080;
@@ -1611,17 +1859,18 @@ void sub_10004DC74(uint64_t a1, void *a2)
         v34 = 1024;
         v35 = 244;
         v36 = 2114;
-        v37 = v19;
-        _os_log_send_and_compose_impl();
+        v37 = v20;
+        LODWORD(v25) = 38;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v19, 0, "[wifivelocity] %s (%s:%u) failed to encode payload for request='%{public}@'", location, v25);
       }
 
-      v20 = *(a1 + 32);
+      v21 = *(a1 + 32);
       v29 = NSLocalizedFailureReasonErrorKey;
       v30 = @"W5ParamErr";
-      v21 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-      v22 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:1 userInfo:v21];
-      v23 = [W5RapportResponse responseWithPayload:0 options:0 error:v22];
-      [v20 handleResponse:v23];
+      v22 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v23 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:1 userInfo:v22];
+      v24 = [W5RapportResponse responseWithPayload:0 options:0 error:v23];
+      [v21 handleResponse:v24];
 
       v12 = 0;
     }
@@ -1647,7 +1896,7 @@ void sub_10004E1EC(uint64_t a1, void *a2, void *a3, void *a4)
   v13 = sub_100098A04();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = WeakRetained;
+    v28 = WeakRetained;
     v14 = +[NSMutableArray array];
     v15 = 0;
     v16 = &unk_1000B2888;
@@ -1673,8 +1922,21 @@ void sub_10004E1EC(uint64_t a1, void *a2, void *a3, void *a4)
     while (*v16);
     v20 = [v14 componentsJoinedByString:@" "];
 
-    _os_log_send_and_compose_impl();
-    WeakRetained = v26;
+    v29 = 136316418;
+    v30 = "[W5RapportClient sendMessageToDevice:request:]_block_invoke";
+    v31 = 2080;
+    v32 = "W5RapportClient.m";
+    v33 = 1024;
+    v34 = 257;
+    v35 = 2114;
+    v36 = v20;
+    v37 = 2114;
+    v38 = v7;
+    v39 = 2114;
+    v40 = v8;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v13, 0, "[wifivelocity] %s (%s:%u) transport='%{public}@' inResponse='%{public}@' inOptions='%{public}@'", &v29, 58);
+
+    WeakRetained = v28;
   }
 
   if (v9)
@@ -1682,29 +1944,40 @@ void sub_10004E1EC(uint64_t a1, void *a2, void *a3, void *a4)
     v21 = sub_100098A04();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = *(a1 + 32);
-      _os_log_send_and_compose_impl();
+      v22 = *(a1 + 32);
+      v29 = 136316162;
+      v30 = "[W5RapportClient sendMessageToDevice:request:]_block_invoke";
+      v31 = 2080;
+      v32 = "W5RapportClient.m";
+      v33 = 1024;
+      v34 = 259;
+      v35 = 2114;
+      v36 = v22;
+      v37 = 2114;
+      v38 = v9;
+      LODWORD(v27) = 48;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v21, 0, "[wifivelocity] %s (%s:%u) failed to recieve response from rapport request='%{public}@' error='%{public}@'", &v29, v27);
     }
 
-    v22 = *(a1 + 32);
-    v23 = [W5RapportResponse responseWithPayload:0 options:v8 error:v9];
-    [v22 handleResponse:v23];
+    v23 = *(a1 + 32);
+    v24 = [W5RapportResponse responseWithPayload:0 options:v8 error:v9];
+    [v23 handleResponse:v24];
   }
 
   else
   {
-    v23 = [objc_msgSend(*(a1 + 32) "responsePayloadClass")];
-    v24 = *(a1 + 32);
-    v25 = [W5RapportResponse responseWithPayload:v23 options:v8 error:0];
-    [v24 handleResponse:v25];
+    v24 = [objc_msgSend(*(a1 + 32) "responsePayloadClass")];
+    v25 = *(a1 + 32);
+    v26 = [W5RapportResponse responseWithPayload:v24 options:v8 error:0];
+    [v25 handleResponse:v26];
   }
 
   [WeakRetained invalidate];
 }
 
-void sub_10004E76C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004E76C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1717,9 +1990,9 @@ void sub_10004E7A0(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_10004E92C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004E92C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1861,9 +2134,9 @@ void sub_10004F964(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_10004FAAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004FAAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1876,9 +2149,9 @@ void sub_10004FAC4(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_10004FBF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004FBF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1891,9 +2164,9 @@ void sub_10004FC0C(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_10004FD3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004FD3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1906,9 +2179,9 @@ void sub_10004FD54(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_10004FE80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004FE80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1921,9 +2194,9 @@ void sub_10004FE98(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_10004FFC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004FFC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1936,9 +2209,9 @@ void sub_10004FFDC(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_100050108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100050108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1951,9 +2224,9 @@ void sub_100050120(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_100050250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100050250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1987,9 +2260,9 @@ void sub_10005036C(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_100050494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100050494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2039,17 +2312,16 @@ id sub_1000507E8(uint64_t a1)
   v2 = sub_100098A04();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315906;
-    v7 = "[W5StatusManager __forceUpdateTrigger]_block_invoke";
-    v8 = 2080;
-    v9 = "W5StatusManager.m";
-    v10 = 1024;
-    v11 = 545;
-    v12 = 1024;
-    v13 = 10;
-    LODWORD(v5) = 34;
-    v4 = &v6;
-    _os_log_send_and_compose_impl();
+    v5 = 136315906;
+    v6 = "[W5StatusManager __forceUpdateTrigger]_block_invoke";
+    v7 = 2080;
+    v8 = "W5StatusManager.m";
+    v9 = 1024;
+    v10 = 545;
+    v11 = 1024;
+    v12 = 10;
+    v4 = 34;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v2, 0, "[wifivelocity] %s (%s:%u) force status update (interval=%d)", &v5, v4);
   }
 
   return [*(a1 + 32) __updateStatusCoalesce];
@@ -2063,17 +2335,16 @@ id sub_1000509B4(uint64_t a1)
   v2 = sub_100098A04();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315906;
-    v7 = "[W5StatusManager __updateStatusCoalesce]_block_invoke";
-    v8 = 2080;
-    v9 = "W5StatusManager.m";
-    v10 = 1024;
-    v11 = 576;
-    v12 = 1024;
-    v13 = 5;
-    LODWORD(v5) = 34;
-    v4 = &v6;
-    _os_log_send_and_compose_impl();
+    v5 = 136315906;
+    v6 = "[W5StatusManager __updateStatusCoalesce]_block_invoke";
+    v7 = 2080;
+    v8 = "W5StatusManager.m";
+    v9 = 1024;
+    v10 = 576;
+    v11 = 1024;
+    v12 = 5;
+    v4 = 34;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v2, 0, "[wifivelocity] %s (%s:%u) coalesced status update (interval=%d)", &v5, v4);
   }
 
   return [*(a1 + 32) __updateStatus];
@@ -2086,20 +2357,19 @@ void sub_1000521A8(uint64_t a1)
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v9 = 136315906;
-    v10 = "[W5StatusManager scanForNetworksWithConfiguration:handler:]_block_invoke";
-    v11 = 2080;
-    v12 = "W5StatusManager.m";
-    v13 = 1024;
-    v14 = 970;
-    v15 = 2112;
-    v16 = v4;
-    LODWORD(v8) = 38;
-    v7 = &v9;
-    _os_log_send_and_compose_impl();
+    v8 = 136315906;
+    v9 = "[W5StatusManager scanForNetworksWithConfiguration:handler:]_block_invoke";
+    v10 = 2080;
+    v11 = "W5StatusManager.m";
+    v12 = 1024;
+    v13 = 970;
+    v14 = 2112;
+    v15 = v4;
+    v7 = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v3, 0, "[wifivelocity] %s (%s:%u) Initiating scan with parameters: %@", &v8, v7);
   }
 
-  v5 = [*(a1 + 40) performScanWithParams:*(a1 + 32) error:{0, v7, v8}];
+  v5 = [*(a1 + 40) performScanWithParams:*(a1 + 32) error:0];
   v6 = *(a1 + 48);
   if (v6)
   {
@@ -2116,30 +2386,28 @@ void sub_100052408(uint64_t a1)
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v37 = 136315906;
-    v38 = "[W5StatusManager associateToNetwork:configuration:reply:]_block_invoke";
-    v39 = 2080;
-    v40 = "W5StatusManager.m";
-    v41 = 1024;
-    v42 = 994;
-    v43 = 2112;
-    v44 = v4;
-    LODWORD(v24) = 38;
-    v22 = &v37;
-    _os_log_send_and_compose_impl();
+    v34 = 136315906;
+    v35 = "[W5StatusManager associateToNetwork:configuration:reply:]_block_invoke";
+    v36 = 2080;
+    v37 = "W5StatusManager.m";
+    v38 = 1024;
+    v39 = 994;
+    v40 = 2112;
+    v41 = v4;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v3, 0, "[wifivelocity] %s (%s:%u) Initiating a directed scan with parameters: %@", &v34, 38);
   }
 
-  v32 = 0;
-  v5 = [*(*(a1 + 40) + 80) performScanWithParameters:*(a1 + 32) error:{&v32, v22, v24}];
+  v29 = 0;
+  v5 = [*(*(a1 + 40) + 80) performScanWithParameters:*(a1 + 32) error:&v29];
   context = v2;
-  if (!v32)
+  if (!v29)
   {
     v9 = v5;
-    v30 = 0u;
-    v31 = 0u;
+    v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v10 = [v5 countByEnumeratingWithState:&v28 objects:v47 count:16];
+    v25 = 0u;
+    v26 = 0u;
+    v10 = [v5 countByEnumeratingWithState:&v25 objects:v44 count:16];
     if (!v10)
     {
       goto LABEL_26;
@@ -2147,18 +2415,18 @@ void sub_100052408(uint64_t a1)
 
     v11 = v10;
     v12 = 0;
-    v13 = *v29;
+    v13 = *v26;
 LABEL_10:
     v14 = 0;
     while (1)
     {
-      if (*v29 != v13)
+      if (*v26 != v13)
       {
         objc_enumerationMutation(v9);
       }
 
-      v15 = *(*(&v28 + 1) + 8 * v14);
-      if ([objc_msgSend(v15 BSSID])
+      v15 = *(*(&v25 + 1) + 8 * v14);
+      if ([objc_msgSend(v15 "BSSID")])
       {
         v16 = objc_alloc_init(CWFAssocParameters);
         [v16 setScanResult:v15];
@@ -2168,28 +2436,27 @@ LABEL_10:
         v17 = sub_100098A04();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          v37 = 136316162;
-          v38 = "[W5StatusManager associateToNetwork:configuration:reply:]_block_invoke";
-          v39 = 2080;
-          v40 = "W5StatusManager.m";
-          v41 = 1024;
-          v42 = 1012;
-          v43 = 2112;
-          v44 = v15;
-          v45 = 2112;
-          v46 = v16;
-          LODWORD(v25) = 48;
-          v23 = &v37;
-          _os_log_send_and_compose_impl();
+          v34 = 136316162;
+          v35 = "[W5StatusManager associateToNetwork:configuration:reply:]_block_invoke";
+          v36 = 2080;
+          v37 = "W5StatusManager.m";
+          v38 = 1024;
+          v39 = 1012;
+          v40 = 2112;
+          v41 = v15;
+          v42 = 2112;
+          v43 = v16;
+          LODWORD(v22) = 48;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v17, 0, "[wifivelocity] %s (%s:%u) Attempting association to: %@ with parameters: %@", &v34, v22);
         }
 
         v18 = *(*(a1 + 40) + 80);
-        v27[0] = _NSConcreteStackBlock;
-        v27[1] = 3221225472;
-        v27[2] = sub_100052994;
-        v27[3] = &unk_1000E1C48;
-        v27[4] = *(a1 + 64);
-        [v18 associateWithParameters:v16 reply:{v27, v23, v25}];
+        v24[0] = _NSConcreteStackBlock;
+        v24[1] = 3221225472;
+        v24[2] = sub_100052994;
+        v24[3] = &unk_1000E1C48;
+        v24[4] = *(a1 + 64);
+        [v18 associateWithParameters:v16 reply:v24];
       }
 
       else if ((v12 & 1) == 0)
@@ -2198,25 +2465,24 @@ LABEL_10:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           v20 = *(a1 + 48);
-          v37 = 136315906;
-          v38 = "[W5StatusManager associateToNetwork:configuration:reply:]_block_invoke_2";
-          v39 = 2080;
-          v40 = "W5StatusManager.m";
-          v41 = 1024;
-          v42 = 1020;
-          v43 = 2112;
-          v44 = v20;
-          LODWORD(v25) = 38;
-          v23 = &v37;
-          _os_log_send_and_compose_impl();
+          v34 = 136315906;
+          v35 = "[W5StatusManager associateToNetwork:configuration:reply:]_block_invoke_2";
+          v36 = 2080;
+          v37 = "W5StatusManager.m";
+          v38 = 1024;
+          v39 = 1020;
+          v40 = 2112;
+          v41 = v20;
+          LODWORD(v22) = 38;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v19, 0, "[wifivelocity] %s (%s:%u) Directed scan did not find network: %@", &v34, v22);
         }
 
         v21 = *(a1 + 64);
         if (v21)
         {
-          v35 = NSLocalizedFailureReasonErrorKey;
-          v36 = @"W5InternalErr";
-          (*(v21 + 16))(v21, [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:9 userInfo:[NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1]]);
+          v32 = NSLocalizedFailureReasonErrorKey;
+          v33 = @"W5InternalErr";
+          (*(v21 + 16))(v21, [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:9 userInfo:[NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1]]);
         }
 
         v12 = 0;
@@ -2227,7 +2493,7 @@ LABEL_10:
 LABEL_24:
       if (v11 == ++v14)
       {
-        v11 = [v9 countByEnumeratingWithState:&v28 objects:v47 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v25 objects:v44 count:16];
         if (!v11)
         {
           goto LABEL_26;
@@ -2242,23 +2508,24 @@ LABEL_24:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v37 = 136315906;
-    v38 = "[W5StatusManager associateToNetwork:configuration:reply:]_block_invoke";
-    v39 = 2080;
-    v40 = "W5StatusManager.m";
-    v41 = 1024;
-    v42 = 1026;
-    v43 = 2112;
-    v44 = v7;
-    _os_log_send_and_compose_impl();
+    v34 = 136315906;
+    v35 = "[W5StatusManager associateToNetwork:configuration:reply:]_block_invoke";
+    v36 = 2080;
+    v37 = "W5StatusManager.m";
+    v38 = 1024;
+    v39 = 1026;
+    v40 = 2112;
+    v41 = v7;
+    LODWORD(v22) = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v6, 0, "[wifivelocity] %s (%s:%u) Directed scan with pararmeters: %@ failed!", &v34, v22);
   }
 
   v8 = *(a1 + 64);
   if (v8)
   {
-    v33 = NSLocalizedFailureReasonErrorKey;
-    v34 = @"W5InternalErr";
-    (*(v8 + 16))(v8, [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:9 userInfo:[NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1]]);
+    v30 = NSLocalizedFailureReasonErrorKey;
+    v31 = @"W5InternalErr";
+    (*(v8 + 16))(v8, [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:9 userInfo:[NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1]]);
   }
 
 LABEL_26:
@@ -2839,9 +3106,9 @@ void sub_100054A64(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_100054BA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100054BA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2866,9 +3133,9 @@ id sub_100054D60(id result)
   return result;
 }
 
-void sub_100054EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100054EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2881,9 +3148,9 @@ void sub_100054EC4(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_100054FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100054FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3203,9 +3470,9 @@ uint64_t sub_100055C38(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void sub_100055DFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100055DFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3414,19 +3681,25 @@ _BYTE *sub_1000571C0(uint64_t a1)
 
 void sub_1000571D8(id a1, NSError *a2)
 {
-  v2 = sub_100098A04();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_100098A04();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v5 = 138412290;
+    v6 = a2;
+    v4 = 12;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v3, 0, "[wifivelocity] CBController errorHandler invoked (error=%@)", &v5, v4);
   }
 }
 
 void sub_10005728C(id a1, NSError *a2)
 {
-  v2 = sub_100098A04();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_100098A04();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v5 = 138412290;
+    v6 = a2;
+    v4 = 12;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v3, 0, "[wifivelocity] Activation completed for CBController (error=%@)", &v5, v4);
   }
 }
 
@@ -3607,20 +3880,18 @@ void sub_100058F4C(uint64_t a1)
     if (v5)
     {
       v6 = *(a1 + 32);
-      v11 = 136315906;
-      v12 = "[W5WiFiSniffManager __nextRequest]_block_invoke_2";
-      v13 = 2080;
-      v14 = "W5WiFiSniffManager.m";
-      v15 = 1024;
-      v16 = 378;
-      v17 = 2114;
-      v18 = v6;
-      LODWORD(v10) = 38;
-      v9 = &v11;
-      _os_log_send_and_compose_impl();
+      v9 = 136315906;
+      v10 = "[W5WiFiSniffManager __nextRequest]_block_invoke_2";
+      v11 = 2080;
+      v12 = "W5WiFiSniffManager.m";
+      v13 = 1024;
+      v14 = 378;
+      v15 = 2114;
+      v16 = v6;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v4, 0, "[wifivelocity] %s (%s:%u) tcpdump failed to start %{public}@", &v9, 38);
     }
 
-    if ([objc_msgSend(*(*(a1 + 40) + 56) requestInfo])
+    if ([objc_msgSend(*(*(a1 + 40) + 56) "requestInfo")])
     {
       v7 = [objc_msgSend(*(*(a1 + 40) + 56) "requestInfo")];
       v7[2](v7, *(a1 + 32));
@@ -3634,13 +3905,13 @@ void sub_100058F4C(uint64_t a1)
   {
     if (v5)
     {
-      v11 = 136315650;
-      v12 = "[W5WiFiSniffManager __nextRequest]_block_invoke";
-      v13 = 2080;
-      v14 = "W5WiFiSniffManager.m";
-      v15 = 1024;
-      v16 = 389;
-      _os_log_send_and_compose_impl();
+      v9 = 136315650;
+      v10 = "[W5WiFiSniffManager __nextRequest]_block_invoke";
+      v11 = 2080;
+      v12 = "W5WiFiSniffManager.m";
+      v13 = 1024;
+      v14 = 389;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v4, 0, "[wifivelocity] %s (%s:%u) tcpdump started", &v9, 28);
     }
 
     v8 = *(a1 + 40);
@@ -3739,7 +4010,14 @@ uint64_t sub_10005938C(uint64_t a1, uint64_t a2)
     result = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
     if (result)
     {
-      return _os_log_send_and_compose_impl();
+      v9 = 136315650;
+      v10 = "[W5WiFiSniffManager __nextRequest]_block_invoke_3";
+      v11 = 2080;
+      v12 = "W5WiFiSniffManager.m";
+      v13 = 1024;
+      v14 = 440;
+      v8 = 28;
+      return _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v7, 0, "[wifivelocity] %s (%s:%u) Sniff via bhound is active", &v9, v8);
     }
   }
 
@@ -3800,18 +4078,17 @@ id sub_100059BEC(uint64_t a1)
   v2 = sub_100098A04();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315650;
-    v7 = "[W5WiFiSniffManager startSniffingWithRequest:interfaceName:reply:]_block_invoke";
-    v8 = 2080;
-    v9 = "W5WiFiSniffManager.m";
-    v10 = 1024;
-    v11 = 613;
-    LODWORD(v5) = 28;
-    v4 = &v6;
-    _os_log_send_and_compose_impl();
+    v5 = 136315650;
+    v6 = "[W5WiFiSniffManager startSniffingWithRequest:interfaceName:reply:]_block_invoke";
+    v7 = 2080;
+    v8 = "W5WiFiSniffManager.m";
+    v9 = 1024;
+    v10 = 613;
+    v4 = 28;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v2, 0, "[wifivelocity] %s (%s:%u) Sniffer timer ended", &v5, v4);
   }
 
-  return [*(a1 + 32) stopSniffingActiveRequestWithError:{0, v4, v5}];
+  return [*(a1 + 32) stopSniffingActiveRequestWithError:0];
 }
 
 uint64_t sub_10005BE14()
@@ -3838,9 +4115,9 @@ uint64_t sub_10005BE14()
   return v0;
 }
 
-void sub_10005BEE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10005BEE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3884,60 +4161,57 @@ void sub_10005C65C(uint64_t a1)
         v14 = sub_100098A04();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v44) = 0;
-          LODWORD(v31) = 2;
-          v30 = &v44;
-          _os_log_send_and_compose_impl();
+          LOWORD(v43) = 0;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v14, 0, "[wifivelocity] Cached content for sysdiagnose will be generated before processing request", &v43, 2);
         }
 
         v15 = objc_alloc_init(W5LogItemRequestInternal);
         [(W5LogItemRequestInternal *)v15 setUuid:+[NSUUID UUID]];
-        v35 = [W5LogItemRequest requestWithItemID:56 configuration:0];
-        [(W5LogItemRequestInternal *)v15 setItemRequests:[NSArray arrayWithObjects:&v35 count:1]];
+        v34 = [W5LogItemRequest requestWithItemID:56 configuration:0];
+        [(W5LogItemRequestInternal *)v15 setItemRequests:[NSArray arrayWithObjects:&v34 count:1]];
         [(W5LogItemRequestInternal *)v15 setConfiguration:&off_1000F2158];
         [(W5LogItemRequestInternal *)v15 setFilename:[(NSUUID *)[(W5LogItemRequestInternal *)v15 uuid] UUIDString]];
         [(W5LogItemRequestInternal *)v15 setAdditionalLog:0];
         -[W5LogItemRequestInternal setUid:](v15, "setUid:", [*(a1 + 32) uid]);
         -[W5LogItemRequestInternal setGid:](v15, "setGid:", [*(a1 + 32) gid]);
         [(W5LogItemRequestInternal *)v15 setIncludeEvents:0];
-        v33[0] = _NSConcreteStackBlock;
-        v33[1] = 3221225472;
-        v33[2] = sub_10005D058;
-        v33[3] = &unk_1000E2C60;
+        v32[0] = _NSConcreteStackBlock;
+        v32[1] = 3221225472;
+        v32[2] = sub_10005D058;
+        v32[3] = &unk_1000E2C60;
         v16 = *(a1 + 32);
-        v33[4] = *(a1 + 40);
-        v33[5] = v15;
-        v33[6] = v16;
-        [(W5LogItemRequestInternal *)v15 setReply:v33];
+        v32[4] = *(a1 + 40);
+        v32[5] = v15;
+        v32[6] = v16;
+        [(W5LogItemRequestInternal *)v15 setReply:v32];
         [*(*(a1 + 40) + 48) addObject:v15];
         v17 = sub_100098A04();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v44) = 0;
-          LODWORD(v31) = 2;
-          v30 = &v44;
-          _os_log_send_and_compose_impl();
+          LOWORD(v43) = 0;
+          LODWORD(v30) = 2;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v17, 0, "[wifivelocity] Cached content for sysdiagnose (BT) will be generated before processing request", &v43, v30);
         }
 
         v18 = objc_alloc_init(W5LogItemRequestInternal);
         [(W5LogItemRequestInternal *)v18 setUuid:+[NSUUID UUID]];
-        v34 = [W5LogItemRequest requestWithItemID:79 configuration:0];
-        [(W5LogItemRequestInternal *)v18 setItemRequests:[NSArray arrayWithObjects:&v34 count:1]];
+        v33 = [W5LogItemRequest requestWithItemID:79 configuration:0];
+        [(W5LogItemRequestInternal *)v18 setItemRequests:[NSArray arrayWithObjects:&v33 count:1]];
         [(W5LogItemRequestInternal *)v18 setConfiguration:&off_1000F2180];
         [(W5LogItemRequestInternal *)v18 setFilename:[(NSUUID *)[(W5LogItemRequestInternal *)v18 uuid] UUIDString]];
         [(W5LogItemRequestInternal *)v18 setAdditionalLog:0];
         -[W5LogItemRequestInternal setUid:](v18, "setUid:", [*(a1 + 32) uid]);
         -[W5LogItemRequestInternal setGid:](v18, "setGid:", [*(a1 + 32) gid]);
         [(W5LogItemRequestInternal *)v18 setIncludeEvents:0];
-        v32[0] = _NSConcreteStackBlock;
-        v32[1] = 3221225472;
-        v32[2] = sub_10005D530;
-        v32[3] = &unk_1000E2C60;
+        v31[0] = _NSConcreteStackBlock;
+        v31[1] = 3221225472;
+        v31[2] = sub_10005D530;
+        v31[3] = &unk_1000E2C60;
         v19 = *(a1 + 32);
-        v32[4] = *(a1 + 40);
-        v32[5] = v18;
-        v32[6] = v19;
-        [(W5LogItemRequestInternal *)v18 setReply:v32];
+        v31[4] = *(a1 + 40);
+        v31[5] = v18;
+        v31[6] = v19;
+        [(W5LogItemRequestInternal *)v18 setReply:v31];
         [*(*(a1 + 40) + 48) addObject:v18];
       }
 
@@ -3954,11 +4228,9 @@ void sub_10005C65C(uint64_t a1)
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           v13 = *(a1 + 32);
-          v44 = 138543362;
-          v45 = v13;
-          LODWORD(v31) = 12;
-          v30 = &v44;
-          _os_log_send_and_compose_impl();
+          v43 = 138543362;
+          v44 = v13;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v12, 0, "[wifivelocity] Replying with cached content for sysdiagnose (BT) request (%{public}@)", &v43, 12);
         }
 
         v8 = *(a1 + 32);
@@ -3972,15 +4244,11 @@ void sub_10005C65C(uint64_t a1)
         v27 = sub_100098A04();
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v44) = 0;
-          LODWORD(v31) = 2;
-          v30 = &v44;
-          goto LABEL_41;
+          LOWORD(v43) = 0;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v27, 0, "[wifivelocity] Cached content being generated, enqueueing sysdiagnose (BT) request", &v43, 2);
         }
 
-LABEL_42:
-        [*(*(a1 + 40) + 48) addObject:{*(a1 + 32), v30, v31}];
-        goto LABEL_23;
+        goto LABEL_41;
       }
 
       if ([*(a1 + 40) __logItems:objc_msgSend(*(a1 + 40) containsID:{"__expandLogItems:configuration:", objc_msgSend(*(*(a1 + 40) + 56), "itemRequests"), objc_msgSend(*(*(a1 + 40) + 56), "configuration")), 14}])
@@ -3988,20 +4256,18 @@ LABEL_42:
         v29 = sub_100098A04();
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v44) = 0;
-          LODWORD(v31) = 2;
-          v30 = &v44;
-          _os_log_send_and_compose_impl();
+          LOWORD(v43) = 0;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v29, 0, "[wifivelocity] Active request contains sysdiagnose, replying immediately with EDEADLK", &v43, 2);
         }
 
         if ([*(a1 + 32) reply])
         {
           v21 = [*(a1 + 32) reply];
           v22 = NSPOSIXErrorDomain;
-          v38 = NSLocalizedFailureReasonErrorKey;
-          v39 = @"EDEADLK";
-          v23 = &v39;
-          v24 = &v38;
+          v37 = NSLocalizedFailureReasonErrorKey;
+          v38 = @"EDEADLK";
+          v23 = &v38;
+          v24 = &v37;
           goto LABEL_34;
         }
 
@@ -4009,7 +4275,7 @@ LABEL_42:
       }
 
 LABEL_22:
-      [*(*(a1 + 40) + 48) addObject:{*(a1 + 32), v30, v31}];
+      [*(*(a1 + 40) + 48) addObject:*(a1 + 32)];
       [*(a1 + 40) __nextRequest];
       goto LABEL_23;
     }
@@ -4022,10 +4288,8 @@ LABEL_22:
     v25 = sub_100098A04();
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v44) = 0;
-      LODWORD(v31) = 2;
-      v30 = &v44;
-      _os_log_send_and_compose_impl();
+      LOWORD(v43) = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v25, 0, "[wifivelocity] Active request contains sysdiagnose, replying immediately with EDEADLK", &v43, 2);
     }
 
     if (![*(a1 + 32) reply])
@@ -4035,10 +4299,10 @@ LABEL_22:
 
     v21 = [*(a1 + 32) reply];
     v22 = NSPOSIXErrorDomain;
-    v36 = NSLocalizedFailureReasonErrorKey;
-    v37 = @"EDEADLK";
-    v23 = &v37;
-    v24 = &v36;
+    v35 = NSLocalizedFailureReasonErrorKey;
+    v36 = @"EDEADLK";
+    v23 = &v36;
+    v24 = &v35;
 LABEL_34:
     (*(v21 + 2))(v21, [NSError errorWithDomain:v22 code:11 userInfo:[NSDictionary dictionaryWithObjects:v23 forKeys:v24 count:1]], 0, 0);
     goto LABEL_23;
@@ -4056,10 +4320,8 @@ LABEL_34:
     v20 = sub_100098A04();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v44) = 0;
-      LODWORD(v31) = 2;
-      v30 = &v44;
-      _os_log_send_and_compose_impl();
+      LOWORD(v43) = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v20, 0, "[wifivelocity] Active request contains sysdiagnose, replying immediately with EDEADLK", &v43, 2);
     }
 
     if (![*(a1 + 32) reply])
@@ -4069,10 +4331,10 @@ LABEL_34:
 
     v21 = [*(a1 + 32) reply];
     v22 = NSPOSIXErrorDomain;
-    v40 = NSLocalizedFailureReasonErrorKey;
-    v41 = @"EDEADLK";
-    v23 = &v41;
-    v24 = &v40;
+    v39 = NSLocalizedFailureReasonErrorKey;
+    v40 = @"EDEADLK";
+    v23 = &v40;
+    v24 = &v39;
     goto LABEL_34;
   }
 
@@ -4082,18 +4344,16 @@ LABEL_34:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v44 = 138543362;
-      v45 = v6;
-      LODWORD(v31) = 12;
-      v30 = &v44;
-      _os_log_send_and_compose_impl();
+      v43 = 138543362;
+      v44 = v6;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v5, 0, "[wifivelocity] Replying with cached content for sysdiagnose request (%{public}@)", &v43, 12);
     }
 
     v8 = *(a1 + 32);
     v7 = *(a1 + 40);
     v9 = v7[22];
 LABEL_15:
-    [v7 __replyWithCachedSysdiagnoseContentForRequest:v8 temporaryURL:{v9, v30, v31}];
+    [v7 __replyWithCachedSysdiagnoseContentForRequest:v8 temporaryURL:v9];
     goto LABEL_23;
   }
 
@@ -4102,15 +4362,13 @@ LABEL_15:
     v26 = sub_100098A04();
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v44) = 0;
-      LODWORD(v31) = 2;
-      v30 = &v44;
-LABEL_41:
-      _os_log_send_and_compose_impl();
-      goto LABEL_42;
+      LOWORD(v43) = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v26, 0, "[wifivelocity] Cached content being generated, enqueueing sysdiagnose request", &v43, 2);
     }
 
-    goto LABEL_42;
+LABEL_41:
+    [*(*(a1 + 40) + 48) addObject:*(a1 + 32)];
+    goto LABEL_23;
   }
 
   if (![*(a1 + 40) __logItems:objc_msgSend(*(a1 + 40) containsID:{"__expandLogItems:configuration:", objc_msgSend(*(*(a1 + 40) + 56), "itemRequests"), objc_msgSend(*(*(a1 + 40) + 56), "configuration")), 14}])
@@ -4121,20 +4379,18 @@ LABEL_41:
   v28 = sub_100098A04();
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v44) = 0;
-    LODWORD(v31) = 2;
-    v30 = &v44;
-    _os_log_send_and_compose_impl();
+    LOWORD(v43) = 0;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v28, 0, "[wifivelocity] Active request contains sysdiagnose, replying immediately with EDEADLK", &v43, 2);
   }
 
   if ([*(a1 + 32) reply])
   {
     v21 = [*(a1 + 32) reply];
     v22 = NSPOSIXErrorDomain;
-    v42 = NSLocalizedFailureReasonErrorKey;
-    v43 = @"EDEADLK";
-    v23 = &v43;
-    v24 = &v42;
+    v41 = NSLocalizedFailureReasonErrorKey;
+    v42 = @"EDEADLK";
+    v23 = &v42;
+    v24 = &v41;
     goto LABEL_34;
   }
 
@@ -4165,11 +4421,10 @@ void sub_10005D0E0(id *a1)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [objc_msgSend(objc_msgSend(a1[4] "uuid")];
-    v20 = 138543362;
-    v21 = v3;
-    LODWORD(v14) = 12;
-    v12 = &v20;
-    _os_log_send_and_compose_impl();
+    v18 = 138543362;
+    v19 = v3;
+    v13 = 12;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v2, 0, "[wifivelocity] Cached content for sysdiagnose generated (uuid=%{public}@), will review pending requests", &v18, v13);
   }
 
   if (*(a1[5] + 22))
@@ -4190,14 +4445,13 @@ void sub_10005D0E0(id *a1)
         v7 = sub_100098A04();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = 138543362;
-          v21 = v6;
-          LODWORD(v15) = 12;
-          v13 = &v20;
-          _os_log_send_and_compose_impl();
+          v18 = 138543362;
+          v19 = v6;
+          LODWORD(v12) = 12;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v7, 0, "[wifivelocity] Replying with cached content for sysdiagnose request (%{public}@)", &v18, v12);
         }
 
-        [a1[5] __replyWithCachedSysdiagnoseContentForRequest:v6 temporaryURL:{a1[6], v13, v15}];
+        [a1[5] __replyWithCachedSysdiagnoseContentForRequest:v6 temporaryURL:a1[6]];
         [v4 addIndex:v5];
       }
 
@@ -4216,8 +4470,8 @@ void sub_10005D0E0(id *a1)
   block[2] = sub_10005D3D4;
   block[3] = &unk_1000E1948;
   v11 = *(v10 + 5);
-  v18 = v9;
-  v19 = a1[4];
+  v16 = v9;
+  v17 = a1[4];
   dispatch_after(v8, v11, block);
   objc_autoreleasePoolPop(context);
 }
@@ -4232,18 +4486,17 @@ void sub_10005D3D4(uint64_t a1)
     {
       v4 = [objc_msgSend(objc_msgSend(*(a1 + 48) "uuid")];
       v5 = [*(a1 + 32) path];
-      v8[0] = 67109634;
-      v8[1] = 480;
-      v9 = 2114;
-      v10 = v4;
-      v11 = 2114;
-      v12 = v5;
-      LODWORD(v7) = 28;
-      v6 = v8;
-      _os_log_send_and_compose_impl();
+      v7[0] = 67109634;
+      v7[1] = 480;
+      v8 = 2114;
+      v9 = v4;
+      v10 = 2114;
+      v11 = v5;
+      v6 = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v3, 0, "[wifivelocity] CLEANUP cached content for sysdiagnose (delay=%ds, uuid=%{public}@, path='%{public}@')", v7, v6);
     }
 
-    -[NSFileManager removeItemAtPath:error:](+[NSFileManager defaultManager](NSFileManager, "defaultManager", v6, v7), "removeItemAtPath:error:", [*(*(a1 + 40) + 176) path], 0);
+    -[NSFileManager removeItemAtPath:error:](+[NSFileManager defaultManager](NSFileManager, "defaultManager"), "removeItemAtPath:error:", [*(*(a1 + 40) + 176) path], 0);
 
     *(*(a1 + 40) + 176) = 0;
   }
@@ -4274,11 +4527,10 @@ void sub_10005D5B8(id *a1)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [objc_msgSend(objc_msgSend(a1[4] "uuid")];
-    v20 = 138543362;
-    v21 = v3;
-    LODWORD(v14) = 12;
-    v12 = &v20;
-    _os_log_send_and_compose_impl();
+    v18 = 138543362;
+    v19 = v3;
+    v13 = 12;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v2, 0, "[wifivelocity] Cached content for sysdiagnose (BT) generated (uuid=%{public}@), will review pending requests", &v18, v13);
   }
 
   if (*(a1[5] + 23))
@@ -4299,14 +4551,13 @@ void sub_10005D5B8(id *a1)
         v7 = sub_100098A04();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = 138543362;
-          v21 = v6;
-          LODWORD(v15) = 12;
-          v13 = &v20;
-          _os_log_send_and_compose_impl();
+          v18 = 138543362;
+          v19 = v6;
+          LODWORD(v12) = 12;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v7, 0, "[wifivelocity] Replying with cached content for sysdiagnose (BT) request (%{public}@)", &v18, v12);
         }
 
-        [a1[5] __replyWithCachedSysdiagnoseContentForRequest:v6 temporaryURL:{a1[6], v13, v15}];
+        [a1[5] __replyWithCachedSysdiagnoseContentForRequest:v6 temporaryURL:a1[6]];
         [v4 addIndex:v5];
       }
 
@@ -4325,8 +4576,8 @@ void sub_10005D5B8(id *a1)
   block[2] = sub_10005D8AC;
   block[3] = &unk_1000E1948;
   v11 = *(v10 + 5);
-  v18 = v9;
-  v19 = a1[4];
+  v16 = v9;
+  v17 = a1[4];
   dispatch_after(v8, v11, block);
   objc_autoreleasePoolPop(context);
 }
@@ -4341,18 +4592,17 @@ void sub_10005D8AC(uint64_t a1)
     {
       v4 = [objc_msgSend(objc_msgSend(*(a1 + 48) "uuid")];
       v5 = [*(a1 + 32) path];
-      v8[0] = 67109634;
-      v8[1] = 480;
-      v9 = 2114;
-      v10 = v4;
-      v11 = 2114;
-      v12 = v5;
-      LODWORD(v7) = 28;
-      v6 = v8;
-      _os_log_send_and_compose_impl();
+      v7[0] = 67109634;
+      v7[1] = 480;
+      v8 = 2114;
+      v9 = v4;
+      v10 = 2114;
+      v11 = v5;
+      v6 = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v3, 0, "[wifivelocity] CLEANUP cached content for sysdiagnose (BT) (delay=%ds, uuid=%{public}@, path='%{public}@')", v7, v6);
     }
 
-    -[NSFileManager removeItemAtPath:error:](+[NSFileManager defaultManager](NSFileManager, "defaultManager", v6, v7), "removeItemAtPath:error:", [*(*(a1 + 40) + 184) path], 0);
+    -[NSFileManager removeItemAtPath:error:](+[NSFileManager defaultManager](NSFileManager, "defaultManager"), "removeItemAtPath:error:", [*(*(a1 + 40) + 184) path], 0);
 
     *(*(a1 + 40) + 184) = 0;
   }
@@ -4458,9 +4708,9 @@ void sub_10005DDB8(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_10005E4D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10005E4D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4520,7 +4770,7 @@ void sub_10005E50C(uint64_t a1, NSError *a2, void *a3, uint64_t a4)
         v17 = a2;
       }
 
-      v16[2](v16, v17, v13, a4);
+      (v16)[2](v16, v17, v13, a4);
     }
   }
 
@@ -4598,11 +4848,9 @@ void sub_10005EADC(uint64_t a1)
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [*(a1 + 32) uuid];
-    v18 = 138543362;
-    v19 = v4;
-    LODWORD(v12) = 12;
-    v11 = &v18;
-    _os_log_send_and_compose_impl();
+    v16 = 138543362;
+    v17 = v4;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v3, 0, "[wifivelocity] CLEANUP temporary log request resources (uuid=%{public}@)", &v16, 12);
   }
 
   if (*(a1 + 96) == 1)
@@ -4610,33 +4858,33 @@ void sub_10005EADC(uint64_t a1)
     -[NSFileManager removeItemAtPath:error:](+[NSFileManager defaultManager](NSFileManager, "defaultManager"), "removeItemAtPath:error:", [*(a1 + 40) path], 0);
   }
 
-  v15 = 0u;
-  v16 = 0u;
   v13 = 0u;
   v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = *(a1 + 48);
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:{16, v11, v12}];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v14 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(a1 + 56) + 72) objectForKeyedSubscript:*(*(&v13 + 1) + 8 * i)];
+        v10 = [*(*(a1 + 56) + 72) objectForKeyedSubscript:*(*(&v11 + 1) + 8 * i)];
         if (v10)
         {
           kill([v10 processIdentifier], 9);
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -4682,7 +4930,19 @@ void sub_1000616B8(id a1)
   v5 = sub_100098A04();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    if (byte_100106C20)
+    {
+      v6 = "ENABLED";
+    }
+
+    else
+    {
+      v6 = "DISABLED";
+    }
+
+    v7 = 136315138;
+    v8 = v6;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v5, 0, "[wifivelocity] CoreCapture collection is %s", &v7);
   }
 }
 
@@ -4734,7 +4994,7 @@ void sub_100064560(uint64_t a1)
   {
     v17 = 138543362;
     v18 = v11;
-    _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v12, 0, "[wifivelocity] %{public}@", &v17, 12);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -5008,35 +5268,27 @@ void sub_100065260(uint64_t a1)
     v2 = [NSString stringWithFormat:@"COLLECTION TIMEOUT (timeout=%lums)", *(a1 + 64)];
     [objc_msgSend(*(*(a1 + 32) + 96) objectForKeyedSubscript:{objc_msgSend(objc_msgSend(*(a1 + 40), "uuid"), "UUIDString")), "appendFormat:", @"\n%@\n", v2}];
     v3 = sub_100098A04();
-    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_8;
+      v36 = 138543362;
+      v37 = v2;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v3, 0, "[wifivelocity] %{public}@", &v36, 12, context);
     }
-
-    v38 = 138543362;
-    v39 = v2;
-    LODWORD(v25) = 12;
-    v24 = &v38;
-    goto LABEL_7;
   }
 
-  if ([*(*(*(a1 + 56) + 8) + 40) code] == 6)
+  else if ([*(*(*(a1 + 56) + 8) + 40) code] == 6)
   {
     [objc_msgSend(*(*(a1 + 32) + 96) objectForKeyedSubscript:{objc_msgSend(objc_msgSend(*(a1 + 40), "uuid"), "UUIDString")), "appendFormat:", @"\n%@\n", @"COLLECTION CANCELLED"}];
     v4 = sub_100098A04();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v38 = 138543362;
-      v39 = @"COLLECTION CANCELLED";
-      LODWORD(v25) = 12;
-      v24 = &v38;
-LABEL_7:
-      _os_log_send_and_compose_impl();
+      v36 = 138543362;
+      v37 = @"COLLECTION CANCELLED";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v4, 0, "[wifivelocity] %{public}@", &v36, 12, context);
     }
   }
 
-LABEL_8:
-  v5 = [*(*(a1 + 32) + 96) objectForKeyedSubscript:{objc_msgSend(objc_msgSend(*(a1 + 40), "uuid", v24, v25), "UUIDString")}];
+  v5 = [*(*(a1 + 32) + 96) objectForKeyedSubscript:{objc_msgSend(objc_msgSend(*(a1 + 40), "uuid"), "UUIDString")}];
   v6 = [*(*(a1 + 32) + 104) count];
   v7 = "";
   if (!v6)
@@ -5045,26 +5297,26 @@ LABEL_8:
   }
 
   [v5 appendFormat:@"\nINCOMPLETE:%s\n", v7];
-  v34 = 0u;
-  v35 = 0u;
   v32 = 0u;
   v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   obj = [objc_msgSend(*(*(a1 + 32) + 104) objectForKeyedSubscript:{objc_msgSend(objc_msgSend(*(a1 + 40), "uuid"), "UUIDString")), "allValues"}];
-  v8 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v8 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v33;
+    v10 = *v31;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v33 != v10)
+        if (*v31 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v32 + 1) + 8 * i);
+        v12 = *(*(&v30 + 1) + 8 * i);
         v13 = [objc_msgSend(v12 "configuration")];
         v14 = [*(*(a1 + 32) + 96) objectForKeyedSubscript:{objc_msgSend(objc_msgSend(*(a1 + 40), "uuid"), "UUIDString")}];
         v15 = [objc_msgSend(objc_msgSend(v12 "uuid")];
@@ -5074,10 +5326,10 @@ LABEL_8:
           v13 = W5DescriptionForLogItemID();
         }
 
-        [v14 appendFormat:@"[%@] %@\n", v15, v13, context];
+        [v14 appendFormat:@"[%@] %@\n", v15, v13];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v9 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v9);
@@ -5093,28 +5345,28 @@ LABEL_8:
   }
 
   [v17 appendFormat:@"\nPATHS:%s\n", v19];
-  v30 = 0u;
-  v31 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v20 = [(NSArray *)v16 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v26 = 0u;
+  v27 = 0u;
+  v20 = [(NSArray *)v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v29;
+    v22 = *v27;
     do
     {
       for (j = 0; j != v21; j = j + 1)
       {
-        if (*v29 != v22)
+        if (*v27 != v22)
         {
           objc_enumerationMutation(v16);
         }
 
-        [objc_msgSend(*(*(a1 + 32) + 96) objectForKeyedSubscript:{objc_msgSend(objc_msgSend(*(a1 + 40), "uuid"), "UUIDString")), "appendFormat:", @"./%@\n", *(*(&v28 + 1) + 8 * j)}];
+        [objc_msgSend(*(*(a1 + 32) + 96) objectForKeyedSubscript:{objc_msgSend(objc_msgSend(*(a1 + 40), "uuid"), "UUIDString")), "appendFormat:", @"./%@\n", *(*(&v26 + 1) + 8 * j)}];
       }
 
-      v21 = [(NSArray *)v16 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v21 = [(NSArray *)v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v21);
@@ -5142,9 +5394,9 @@ int64_t sub_100065EC0(id a1, W5DiagnosticsTestResult *a2, W5DiagnosticsTestResul
   }
 }
 
-void sub_10006A914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_10006A914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5255,7 +5507,10 @@ void sub_10006D7C0(uint64_t a1)
   v3 = sub_100098A04();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v5 = 138543362;
+    v6 = @"Filtered known networks for customer install without MegaWiFi profile\n";
+    v4 = 12;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v3, 0, "[wifivelocity] %{public}@", &v5, v4);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -5349,7 +5604,7 @@ void sub_10007104C(void *a1)
   objc_autoreleasePoolPop(v2);
 }
 
-uint64_t sub_1000717DC(uint64_t a1)
+uint64_t sub_1000717DC(uint64_t a1, uint64_t a2)
 {
   if (!IOReportChannelGetGroup())
   {
@@ -5360,7 +5615,7 @@ uint64_t sub_1000717DC(uint64_t a1)
   return 16 * (CFStringFind(Group, *(a1 + 32), 1uLL).location == -1);
 }
 
-uint64_t sub_100071834(uint64_t a1)
+uint64_t sub_100071834(uint64_t a1, uint64_t a2)
 {
   if (!IOReportChannelGetGroup())
   {
@@ -5371,7 +5626,7 @@ uint64_t sub_100071834(uint64_t a1)
   return 16 * (CFStringFind(Group, *(a1 + 32), 1uLL).location == -1);
 }
 
-uint64_t sub_10007188C(uint64_t a1)
+uint64_t sub_10007188C(uint64_t a1, uint64_t a2)
 {
   if (!IOReportChannelGetSubGroup())
   {
@@ -5388,8 +5643,17 @@ intptr_t sub_10007392C(uint64_t a1, uint64_t a2)
   v3 = sub_100098A04();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    _os_log_send_and_compose_impl();
+    v4 = *(a1 + 32);
+    v7 = 136315906;
+    v8 = "[W5LogManager __collectDeviceAnalyticsStore:]_block_invoke";
+    v9 = 2080;
+    v10 = "W5LogManager.m";
+    v11 = 1024;
+    v12 = 7102;
+    v13 = 2114;
+    v14 = v4;
+    v6 = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v3, 0, "[wifivelocity] %s (%s:%u) Device Analytics Store File:%{public}@", &v7, v6);
   }
 
   return dispatch_semaphore_signal(*(a1 + 40));
@@ -5401,8 +5665,17 @@ intptr_t sub_100073E88(uint64_t a1, uint64_t a2)
   v3 = sub_100098A04();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    _os_log_send_and_compose_impl();
+    v4 = *(a1 + 32);
+    v7 = 136315906;
+    v8 = "[W5LogManager __collectDeviceAnalyticsDeploymentGraph:]_block_invoke";
+    v9 = 2080;
+    v10 = "W5LogManager.m";
+    v11 = 1024;
+    v12 = 7166;
+    v13 = 2114;
+    v14 = v4;
+    v6 = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v3, 0, "[wifivelocity] %s (%s:%u) Device Analytics Deployment Graph File:%{public}@", &v7, v6);
   }
 
   return dispatch_semaphore_signal(*(a1 + 40));
@@ -5414,8 +5687,17 @@ intptr_t sub_100074594(uint64_t a1, uint64_t a2)
   v3 = sub_100098A04();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    _os_log_send_and_compose_impl();
+    v4 = *(a1 + 32);
+    v7 = 136315906;
+    v8 = "[W5LogManager __collectDeviceAnalyticsEntityCSVs:]_block_invoke";
+    v9 = 2080;
+    v10 = "W5LogManager.m";
+    v11 = 1024;
+    v12 = 7236;
+    v13 = 2112;
+    v14 = v4;
+    v6 = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v3, 0, "[wifivelocity] %s (%s:%u) Device Analytics CSV Files:%@", &v7, v6);
   }
 
   return dispatch_semaphore_signal(*(a1 + 40));
@@ -5438,10 +5720,11 @@ intptr_t sub_100075194(uint64_t a1)
   return dispatch_semaphore_signal(v2);
 }
 
-void sub_100075FB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53)
+void sub_100075FB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, ...)
 {
-  _Block_object_dispose((v53 - 176), 8);
-  _Block_object_dispose(&a53, 8);
+  va_start(va, a52);
+  _Block_object_dispose((v52 - 176), 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -5563,10 +5846,11 @@ void sub_100076460(void *a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_100077198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_100077198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
+  va_start(va, a33);
   _Block_object_dispose(&a30, 8);
-  _Block_object_dispose(&a34, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -5582,11 +5866,15 @@ void sub_1000771DC(uint64_t a1)
     v4 = *(a1 + 48);
   }
 
-  [objc_msgSend(*(*(a1 + 40) + 96) objectForKeyedSubscript:{v3), "appendString:", +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@ [%@] BEGIN   %@\n", v5, v6, v4)}];
-  v7 = sub_100098A04();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v7 = [NSString stringWithFormat:@"%@ [%@] BEGIN   %@\n", v5, v6, v4];
+  [objc_msgSend(*(*(a1 + 40) + 96) objectForKeyedSubscript:{v3), "appendString:", v7}];
+  v8 = sub_100098A04();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v10 = 138543362;
+    v11 = v7;
+    LODWORD(v9) = 12;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %{public}@", &v10, v9);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -5689,18 +5977,22 @@ void sub_100077448(uint64_t a1)
   v19 = sub_100098A04();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v21 = 138543362;
+    v22 = v15;
+    LODWORD(v20) = 12;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v19, 0, "[wifivelocity] %{public}@", &v21, v20);
   }
 
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_100077B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_100077B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
+  va_start(va, a38);
   _Block_object_dispose(&a31, 8);
   _Block_object_dispose(&a35, 8);
-  _Block_object_dispose(&a39, 8);
-  _Block_object_dispose((v39 - 192), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v38 - 192), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5728,10 +6020,10 @@ id sub_100077C30(uint64_t a1, void *a2, void *a3)
   return [v6 unlock];
 }
 
-void sub_10007BEF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_10007BEF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
-  _Block_object_dispose((v10 - 144), 8);
+  va_start(va, a17);
+  _Block_object_dispose((v17 - 144), 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5773,7 +6065,7 @@ void sub_10007CC3C(uint64_t a1)
     v2 = @"WiFi";
   }
 
-  if (sub_10007E9E8())
+  if (sub_10007E9E8(0))
   {
     v15 = 0;
     v16 = &v15;
@@ -5841,9 +6133,9 @@ void sub_10007CC3C(uint64_t a1)
   }
 }
 
-void sub_10007CEE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10007CEE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5852,7 +6144,7 @@ void sub_10007D3B4(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, 
 {
   if ((a2 & 2) != 0)
   {
-    v11 = [a11 addDomain:a9 rdlen:a8];
+    v11 = [a11 addDomain:a9 rdlen:{a8, a5, a6, a7}];
     if (v11)
     {
       v12 = v11;
@@ -5872,7 +6164,7 @@ void sub_10007D3B4(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, 
           v23 = 9988;
           v24 = 1024;
           LODWORD(v25) = v15;
-          goto LABEL_9;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v16, 0, "[wifivelocity] %s (%s:%u) DNSServiceQueryRecord failed. Error: %d", &v18, 34);
         }
       }
     }
@@ -5890,8 +6182,7 @@ void sub_10007D3B4(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, 
         v23 = 9982;
         v24 = 2112;
         v25 = 0;
-LABEL_9:
-        _os_log_send_and_compose_impl();
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v14, 0, "[wifivelocity] %s (%s:%u) Failed to add domain: %@", &v18, 38);
       }
     }
   }
@@ -5924,7 +6215,6 @@ Class sub_10007E270(uint64_t a1)
 
 uint64_t sub_10007E374(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100106C38 = result;
   return result;
@@ -5980,16 +6270,15 @@ LABEL_10:
   return result;
 }
 
-void sub_10007E5F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10007E5F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_10007E610(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   result = _sl_dlopen();
   *(*(*(a1 + 32) + 8) + 24) = result;
   qword_100106C48 = *(*(*(a1 + 32) + 8) + 24);
@@ -6036,7 +6325,7 @@ LABEL_11:
   return v5;
 }
 
-uint64_t sub_10007E790()
+uint64_t sub_10007E790(uint64_t a1)
 {
   if (!qword_100106C08)
   {
@@ -6048,7 +6337,6 @@ uint64_t sub_10007E790()
 
 uint64_t sub_10007E860(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100106C08 = result;
   return result;
@@ -6056,8 +6344,14 @@ uint64_t sub_10007E860(uint64_t a1)
 
 Class sub_10007E8D4(uint64_t a1)
 {
-  if (sub_10007E790())
+  v5 = 0;
+  if (sub_10007E790(&v5))
   {
+    if (v5)
+    {
+      free(v5);
+    }
+
     result = objc_getClass("IMPingTest");
     *(*(*(a1 + 32) + 8) + 40) = result;
     if (*(*(*(a1 + 32) + 8) + 40))
@@ -6071,14 +6365,16 @@ Class sub_10007E8D4(uint64_t a1)
 
   else
   {
-    result = [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInFunction:"handleFailureInFunction:file:lineNumber:description:" file:[NSString stringWithUTF8String:?], @"W5LogManager.m", 67, @"%s", 0];
+    v3 = +[NSAssertionHandler currentHandler];
+    v4 = [NSString stringWithUTF8String:"void *IMFoundationLibrary(void)"];
+    result = [(NSAssertionHandler *)v3 handleFailureInFunction:v4 file:@"W5LogManager.m" lineNumber:67 description:@"%s", v5];
   }
 
   __break(1u);
   return result;
 }
 
-uint64_t sub_10007E9E8()
+uint64_t sub_10007E9E8(uint64_t a1)
 {
   if (!qword_100106C18)
   {
@@ -6090,7 +6386,6 @@ uint64_t sub_10007E9E8()
 
 uint64_t sub_10007EAB8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100106C18 = result;
   return result;
@@ -6107,16 +6402,25 @@ void *sub_10007EB2C(uint64_t a1)
 
 NSAssertionHandler *sub_10007EB7C()
 {
-  v0 = sub_10007E9E8();
-  if (v0)
+  v5 = 0;
+  v0 = sub_10007E9E8(&v5);
+  if (!v0)
   {
-    return v0;
+    v1 = +[NSAssertionHandler currentHandler];
+    v4 = [NSString stringWithUTF8String:"void *CoreCaptureControlLibrary(void)"];
+    v2 = [(NSAssertionHandler *)v1 handleFailureInFunction:v4 file:@"W5LogManager.m" lineNumber:51 description:@"%s", v5];
+    __break(1u);
+    goto LABEL_5;
   }
 
-  v1 = +[NSAssertionHandler currentHandler];
-  v3 = [(NSAssertionHandler *)v1 handleFailureInFunction:[NSString stringWithUTF8String:?]description:@"W5LogManager.m", 51, @"%s", 0];
-  __break(1u);
-  free(v3);
+  v1 = v0;
+  v2 = v5;
+  if (v5)
+  {
+LABEL_5:
+    free(v2);
+  }
+
   return v1;
 }
 
@@ -6133,7 +6437,7 @@ void sub_10007EC68(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, 
 {
   if ((a2 & 2) != 0)
   {
-    v11 = [a11 addServiceType:a9 rdlen:a8 fullname:?];
+    v11 = [a11 addServiceType:a9 rdlen:a8 fullname:{a5, a6, a7}];
     if (v11)
     {
       v12 = v11;
@@ -6155,7 +6459,7 @@ void sub_10007EC68(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, 
           v25 = v12;
           v26 = 1024;
           v27 = v15;
-          goto LABEL_9;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v16, 0, "[wifivelocity] %s (%s:%u) DNSServiceBrowse for: %@ failed. Error: %d", &v18, 44);
         }
       }
     }
@@ -6173,8 +6477,7 @@ void sub_10007EC68(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, 
         v23 = 9953;
         v24 = 2112;
         v25 = 0;
-LABEL_9:
-        _os_log_send_and_compose_impl();
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v14, 0, "[wifivelocity] %s (%s:%u) Failed to add serviceType: %@", &v18, 38);
       }
     }
   }
@@ -6208,7 +6511,7 @@ void sub_10007EE84(uint64_t a1, char a2, uint32_t a3, uint64_t a4, const char *a
           v29 = a7;
           v30 = 1024;
           v31 = v15;
-          goto LABEL_9;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v16, 0, "[wifivelocity] %s (%s:%u) DNSServiceResolve for:  %s, %s, %s failed. Error: %d", &v18, 64);
         }
       }
     }
@@ -6230,8 +6533,7 @@ void sub_10007EE84(uint64_t a1, char a2, uint32_t a3, uint64_t a4, const char *a
         v27 = a6;
         v28 = 2080;
         v29 = a7;
-LABEL_9:
-        _os_log_send_and_compose_impl();
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v14, 0, "[wifivelocity] %s (%s:%u) Failed to add serviceInstance: %s, %s, %s", &v18, 58);
       }
     }
   }
@@ -6239,9 +6541,9 @@ LABEL_9:
 
 uint64_t sub_10007F094(uint64_t a1, uint64_t a2, uint32_t a3, uint64_t a4, uint64_t a5, const char *a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
 {
-  v30[0] = a10;
-  v30[1] = [NSString stringWithFormat:@"%s", a5];
-  v13 = [NSArray arrayWithObjects:v30 count:2];
+  v32[0] = a10;
+  v32[1] = [NSString stringWithFormat:@"%s", a4, a5];
+  v13 = [NSArray arrayWithObjects:v32 count:2];
   [a10 addBrowseContext:v13];
   sdRef = [a10 serviceRef];
   result = DNSServiceGetAddrInfo(&sdRef, 0x4000u, a3, 3u, a6, sub_10007F230, v13);
@@ -6252,19 +6554,20 @@ uint64_t sub_10007F094(uint64_t a1, uint64_t a2, uint32_t a3, uint64_t a4, uint6
     result = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
     if (result)
     {
-      v18 = 136316418;
-      v19 = "_ServiceBrowserResolveCallback";
-      v20 = 2080;
-      v21 = "W5LogManager.m";
-      v22 = 1024;
-      v23 = 9901;
-      v24 = 2080;
-      v25 = a5;
+      v20 = 136316418;
+      v21 = "_ServiceBrowserResolveCallback";
+      v22 = 2080;
+      v23 = "W5LogManager.m";
+      v24 = 1024;
+      v25 = 9901;
       v26 = 2080;
-      v27 = a6;
-      v28 = 1024;
-      v29 = v15;
-      return _os_log_send_and_compose_impl();
+      v27 = a5;
+      v28 = 2080;
+      v29 = a6;
+      v30 = 1024;
+      v31 = v15;
+      LODWORD(v17) = 54;
+      return _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v16, 0, "[wifivelocity] %s (%s:%u) DNSServiceGetAddrInfo for: (%s, %s) failed. Error: %d", &v20, v17, v18, sdRef);
     }
   }
 
@@ -6396,18 +6699,19 @@ id sub_100083904()
   return v1;
 }
 
-void sub_1000839CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000839CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100083D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_100083D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 144), 8);
-  _Block_object_dispose((v29 - 96), 8);
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 144), 8);
+  _Block_object_dispose((v28 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6537,7 +6841,8 @@ void sub_100084880(uint64_t a1)
     v3 = sub_100098A04();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v5[0] = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v3, 0, "[wifivelocity] W5DatabaseManager startEventMonitoring", v5, 2);
     }
 
     *(*(a1 + 32) + 24) = 1;
@@ -6556,7 +6861,9 @@ void sub_1000849CC(uint64_t a1)
     v3 = sub_100098A04();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v6[0] = 0;
+      v5 = 2;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v3, 0, "[wifivelocity] W5DatabaseManager stopEventMonitoring", v6, v5);
     }
 
     *(*(a1 + 32) + 24) = 0;
@@ -6582,15 +6889,14 @@ Class sub_100084B44(uint64_t a1)
 
 uint64_t sub_100084C48(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100106C88 = result;
   return result;
 }
 
-void sub_100084FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100084FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6603,9 +6909,9 @@ void sub_100084FE4(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_100085110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100085110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6618,9 +6924,9 @@ void sub_100085128(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_100085254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100085254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6649,9 +6955,9 @@ void sub_10008545C(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_100085578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100085578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6672,7 +6978,7 @@ void sub_100085880(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
     v19 = sub_100098A04();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v19, 0, "[wifivelocity] %s (%s:%u) [NSFileHandle writeData:] failed with exception %{public}@");
     }
 
     objc_end_catch();
@@ -6853,18 +7159,15 @@ void sub_10008627C(uint64_t a1)
   -[W5ActiveRequest setWantsUpdates:](v3, "setWantsUpdates:", [v4 type] != 6);
   [*(*(a1 + 48) + 16) addObject:v3];
   v5 = *(a1 + 48);
-  v6 = *(a1 + 56);
-  v7 = *(v5 + 80);
-  v9 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  v10 = _NSConcreteStackBlock;
-  v11 = 3221225472;
-  v12 = sub_1000863A8;
-  v13 = &unk_1000E3218;
-  v14 = v5;
-  v15 = v3;
-  v16 = *(a1 + 64);
-  [v7 xpcConnection:? runDiagnostics:? configuration:? uuid:? reply:?];
+  v6 = *(v5 + 80);
+  v7 = _NSConcreteStackBlock;
+  v8 = 3221225472;
+  v9 = sub_1000863A8;
+  v10 = &unk_1000E3218;
+  v11 = v5;
+  v12 = v3;
+  v13 = *(a1 + 64);
+  [v6 xpcConnection:? runDiagnostics:? configuration:? uuid:? reply:?];
   objc_autoreleasePoolPop(v2);
 }
 
@@ -6911,19 +7214,15 @@ void sub_10008650C(uint64_t a1)
   -[W5ActiveRequest setWantsUpdates:](v3, "setWantsUpdates:", [v4 type] != 6);
   [*(*(a1 + 48) + 16) addObject:v3];
   v5 = *(a1 + 48);
-  v6 = *(a1 + 56);
-  v7 = *(v5 + 80);
-  v9 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  v11 = _NSConcreteStackBlock;
-  v12 = 3221225472;
-  v13 = sub_100086638;
-  v14 = &unk_1000E3218;
-  v15 = v5;
-  v16 = v3;
-  v10 = *(a1 + 64);
-  v17 = *(a1 + 72);
-  [v7 xpcConnection:? runDiagnosticsForPeer:? diagnostics:? configuration:? uuid:? reply:?];
+  v6 = *(v5 + 80);
+  v7 = _NSConcreteStackBlock;
+  v8 = 3221225472;
+  v9 = sub_100086638;
+  v10 = &unk_1000E3218;
+  v11 = v5;
+  v12 = v3;
+  v13 = *(a1 + 72);
+  [v6 xpcConnection:? runDiagnosticsForPeer:? diagnostics:? configuration:? uuid:? reply:?];
   objc_autoreleasePoolPop(v2);
 }
 
@@ -7018,18 +7317,15 @@ void sub_100086C2C(uint64_t a1)
   -[W5ActiveRequest setWantsUpdates:](v3, "setWantsUpdates:", [v4 type] != 6);
   [*(*(a1 + 48) + 16) addObject:v3];
   v5 = *(a1 + 48);
-  v6 = *(a1 + 56);
-  v7 = *(v5 + 80);
-  v9 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  v10 = _NSConcreteStackBlock;
-  v11 = 3221225472;
-  v12 = sub_100086D58;
-  v13 = &unk_1000E3268;
-  v14 = v5;
-  v15 = v3;
-  v16 = *(a1 + 64);
-  [v7 xpcConnection:? collectLogs:? configuration:? uuid:? reply:?];
+  v6 = *(v5 + 80);
+  v7 = _NSConcreteStackBlock;
+  v8 = 3221225472;
+  v9 = sub_100086D58;
+  v10 = &unk_1000E3268;
+  v11 = v5;
+  v12 = v3;
+  v13 = *(a1 + 64);
+  [v6 xpcConnection:? collectLogs:? configuration:? uuid:? reply:?];
   objc_autoreleasePoolPop(v2);
 }
 
@@ -7076,18 +7372,16 @@ void sub_100086EBC(uint64_t a1)
   [(W5ActiveRequest *)v3 setTimestamp:?];
   -[W5ActiveRequest setWantsUpdates:](v3, "setWantsUpdates:", [v4 type] != 6);
   [*(*(a1 + 48) + 16) addObject:v3];
-  v6 = *(a1 + 40);
   v5 = *(a1 + 48);
-  v7 = *(v5 + 80);
-  v8 = *(a1 + 32);
-  v9 = _NSConcreteStackBlock;
-  v10 = 3221225472;
-  v11 = sub_100086FE8;
-  v12 = &unk_1000E3268;
-  v13 = v5;
-  v14 = v3;
-  v15 = *(a1 + 56);
-  [v7 xpcConnection:? collectLogsDiagnosticMode:? uuid:? reply:?];
+  v6 = *(v5 + 80);
+  v7 = _NSConcreteStackBlock;
+  v8 = 3221225472;
+  v9 = sub_100086FE8;
+  v10 = &unk_1000E3268;
+  v11 = v5;
+  v12 = v3;
+  v13 = *(a1 + 56);
+  [v6 xpcConnection:? collectLogsDiagnosticMode:? uuid:? reply:?];
   objc_autoreleasePoolPop(v2);
 }
 
@@ -7133,15 +7427,13 @@ void sub_10008714C(void *a1)
   [(W5ActiveRequest *)v3 setTimestamp:?];
   [(W5ActiveRequest *)v3 setWantsUpdates:1];
   [*(a1[5] + 16) addObject:v3];
-  v5 = a1[4];
   v4 = a1[5];
-  v6 = *(v4 + 80);
-  v8 = _NSConcreteStackBlock;
-  v9 = 3221225472;
-  v10 = sub_10008724C;
-  v11 = &unk_1000E2158;
-  v7 = a1[6];
-  [v6 xpcConnection:_NSConcreteStackBlock startPeerDiscoveryWithConfiguration:3221225472 uuid:sub_10008724C reply:{&unk_1000E2158, v4, a1[7]}];
+  v5 = *(v4 + 80);
+  v6 = _NSConcreteStackBlock;
+  v7 = 3221225472;
+  v8 = sub_10008724C;
+  v9 = &unk_1000E2158;
+  [v5 xpcConnection:_NSConcreteStackBlock startPeerDiscoveryWithConfiguration:3221225472 uuid:sub_10008724C reply:{&unk_1000E2158, v4, a1[7]}];
   objc_autoreleasePoolPop(v2);
 }
 
@@ -7205,19 +7497,16 @@ void sub_1000875F0(uint64_t a1)
   [(W5ActiveRequest *)v3 setTimestamp:?];
   [*(*(a1 + 48) + 16) addObject:v3];
   v4 = *(a1 + 48);
-  v5 = *(a1 + 56);
-  v6 = *(v4 + 80);
-  v7 = *(a1 + 72);
-  v9 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  v10 = _NSConcreteStackBlock;
-  v11 = 3221225472;
-  v12 = sub_1000876F8;
-  v13 = &unk_1000E32B8;
-  v14 = v4;
-  v15 = v3;
-  v16 = *(a1 + 64);
-  [v6 xpcConnection:v7 runWiFiSnifferOnChannels:? duration:? peer:? uuid:? reply:?];
+  v5 = *(v4 + 80);
+  v6 = *(a1 + 72);
+  v7 = _NSConcreteStackBlock;
+  v8 = 3221225472;
+  v9 = sub_1000876F8;
+  v10 = &unk_1000E32B8;
+  v11 = v4;
+  v12 = v3;
+  v13 = *(a1 + 64);
+  [v5 xpcConnection:v6 runWiFiSnifferOnChannels:? duration:? peer:? uuid:? reply:?];
   objc_autoreleasePoolPop(v2);
 }
 
@@ -7264,19 +7553,16 @@ void sub_100087868(uint64_t a1)
   [(W5ActiveRequest *)v3 setTimestamp:?];
   [*(*(a1 + 48) + 16) addObject:v3];
   v4 = *(a1 + 48);
-  v5 = *(a1 + 56);
-  v6 = *(v4 + 80);
-  v7 = *(a1 + 72);
-  v9 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  v10 = _NSConcreteStackBlock;
-  v11 = 3221225472;
-  v12 = sub_100087970;
-  v13 = &unk_1000E3218;
-  v14 = v4;
-  v15 = v3;
-  v16 = *(a1 + 64);
-  [v6 xpcConnection:v7 runWiFiSnifferWithTCPDumpOnChannels:? duration:? peer:? uuid:? reply:?];
+  v5 = *(v4 + 80);
+  v6 = *(a1 + 72);
+  v7 = _NSConcreteStackBlock;
+  v8 = 3221225472;
+  v9 = sub_100087970;
+  v10 = &unk_1000E3218;
+  v11 = v4;
+  v12 = v3;
+  v13 = *(a1 + 64);
+  [v5 xpcConnection:v6 runWiFiSnifferWithTCPDumpOnChannels:? duration:? peer:? uuid:? reply:?];
   objc_autoreleasePoolPop(v2);
 }
 
@@ -7320,18 +7606,16 @@ void sub_100087AD0(uint64_t a1)
   +[NSDate timeIntervalSinceReferenceDate];
   [(W5ActiveRequest *)v3 setTimestamp:?];
   [*(*(a1 + 48) + 16) addObject:v3];
-  v5 = *(a1 + 40);
   v4 = *(a1 + 48);
-  v6 = *(v4 + 80);
-  v7 = *(a1 + 32);
-  v8 = _NSConcreteStackBlock;
-  v9 = 3221225472;
-  v10 = sub_100087BE0;
-  v11 = &unk_1000E3308;
-  v12 = v4;
-  v13 = v3;
-  v14 = *(a1 + 56);
-  [v6 xpcConnection:? runWiFiPerformanceLoggingWithConfiguration:? uuid:? reply:?];
+  v5 = *(v4 + 80);
+  v6 = _NSConcreteStackBlock;
+  v7 = 3221225472;
+  v8 = sub_100087BE0;
+  v9 = &unk_1000E3308;
+  v10 = v4;
+  v11 = v3;
+  v12 = *(a1 + 56);
+  [v5 xpcConnection:? runWiFiPerformanceLoggingWithConfiguration:? uuid:? reply:?];
   objc_autoreleasePoolPop(v2);
 }
 
@@ -7501,7 +7785,6 @@ void sub_100088370(void *a1)
   if (!a1[5])
   {
     v5 = *(v3 + 80);
-    v6 = a1[6];
 LABEL_7:
     [v5 xpcConnection:? startMonitoringFaultEventsForPeer:? reply:?];
     goto LABEL_8;
@@ -7510,9 +7793,7 @@ LABEL_7:
   if (([*(v3 + 72) containsObject:a1[5]] & 1) == 0)
   {
     [*(a1[4] + 72) addObject:a1[5]];
-    v7 = a1[5];
     v5 = *(a1[4] + 80);
-    v8 = a1[6];
     goto LABEL_7;
   }
 
@@ -7897,7 +8178,14 @@ id sub_10008BF78(uint64_t a1)
   v2 = sub_100098A04();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v5 = 136315650;
+    v6 = "[W5RapportServer _configureCompaionLinkClient]_block_invoke";
+    v7 = 2080;
+    v8 = "W5RapportServer.m";
+    v9 = 1024;
+    v10 = 76;
+    v4 = 28;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v2, 0, "[wifivelocity] %s (%s:%u) rapport discovery session invalidated", &v5, v4);
   }
 
   return [*(a1 + 32) invalidateDiscoveryClient];
@@ -7920,8 +8208,8 @@ void sub_10008C2F0(uint64_t a1, void *a2, void *a3, void *a4)
   if (os_signpost_enabled(v12))
   {
     *buf = 138412290;
-    v37 = objc_opt_class();
-    v13 = v37;
+    v40 = objc_opt_class();
+    v13 = v40;
     _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "W5RapportServer payloadFromDictionary", "%@", buf, 0xCu);
   }
 
@@ -7934,7 +8222,7 @@ void sub_10008C2F0(uint64_t a1, void *a2, void *a3, void *a4)
     {
       v17 = objc_opt_class();
       *buf = 138412290;
-      v37 = v17;
+      v40 = v17;
       v18 = v17;
       v19 = "%@";
 LABEL_10:
@@ -7946,7 +8234,7 @@ LABEL_10:
   {
     v20 = objc_opt_class();
     *buf = 138412290;
-    v37 = v20;
+    v40 = v20;
     v18 = v20;
     v19 = "%@ Failure";
     goto LABEL_10;
@@ -7958,30 +8246,30 @@ LABEL_12:
   {
     v22 = objc_opt_class();
     *buf = 138412290;
-    v37 = v22;
+    v40 = v22;
     v23 = v22;
     _os_signpost_emit_with_name_impl(&_mh_execute_header, v21, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "W5RapportClientRequest initWithPayload", "%@", buf, 0xCu);
   }
 
   v24 = [W5RapportClientRequest alloc];
-  v33[0] = _NSConcreteStackBlock;
-  v33[1] = 3221225472;
-  v33[2] = sub_10008C748;
-  v33[3] = &unk_1000E3488;
+  v33 = _NSConcreteStackBlock;
+  v34 = 3221225472;
+  v35 = sub_10008C748;
+  v36 = &unk_1000E3488;
   v25 = v8;
-  v34 = v25;
-  v35 = v11;
-  v26 = [(W5RapportClientRequest *)v24 initWithPayload:v14 options:v10 handler:v33];
+  v37 = v25;
+  v38 = v11;
+  v26 = [(W5RapportClientRequest *)v24 initWithPayload:v14 options:v10 handler:&v33];
 
   v27 = sub_100098A04();
   if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     v28 = [*(a1 + 32) identifier];
     *buf = 138543618;
-    v37 = v28;
-    v38 = 2114;
-    v39 = v26;
-    _os_log_send_and_compose_impl();
+    v40 = v28;
+    v41 = 2114;
+    v42 = v26;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v27, 0, "[wifivelocity] handling incoming connection identifier='%{public}@' clientRequest='%{public}@'", buf, 22, v33, v34, v35, v36);
   }
 
   v29 = sub_10009A49C();
@@ -7989,7 +8277,7 @@ LABEL_12:
   {
     v30 = [*(a1 + 32) identifier];
     *buf = 138412290;
-    v37 = v30;
+    v40 = v30;
     _os_signpost_emit_with_name_impl(&_mh_execute_header, v29, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "W5PeerRequestListener handleClientRequest", "%@", buf, 0xCu);
   }
 
@@ -7999,7 +8287,7 @@ LABEL_12:
   {
     v32 = [*(a1 + 32) identifier];
     *buf = 138412290;
-    v37 = v32;
+    v40 = v32;
     _os_signpost_emit_with_name_impl(&_mh_execute_header, v31, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "W5PeerRequestListener handleClientRequest", "%@", buf, 0xCu);
   }
 }
@@ -8016,13 +8304,13 @@ void sub_10008C748(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v22 = v5;
-      _os_log_send_and_compose_impl();
+      v21 = v5;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v9, 0, "[wifivelocity] failed to encode payload for response='%{public}@'", buf, 12);
     }
 
-    v25 = NSLocalizedFailureReasonErrorKey;
-    v26 = @"W5EncodingErr";
-    v10 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v24 = NSLocalizedFailureReasonErrorKey;
+    v25 = @"W5EncodingErr";
+    v10 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
     v8 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:8 userInfo:v10];
   }
 
@@ -8030,38 +8318,37 @@ void sub_10008C748(uint64_t a1, void *a2, void *a3)
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v22 = "[W5RapportServer _registerRequestsForListener:rapportClient:]_block_invoke";
-    v23 = 2114;
-    v24 = v7;
-    _os_log_send_and_compose_impl();
+    v21 = "[W5RapportServer _registerRequestsForListener:rapportClient:]_block_invoke";
+    v22 = 2114;
+    v23 = v7;
+    LODWORD(v19) = 22;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v11, 0, "[wifivelocity] %s: sending response payload='%{public}@'", buf, v19);
   }
 
-  (*(*(a1 + 32) + 16))(*(a1 + 32), v7);
+  (*(*(a1 + 32) + 16))();
   v12 = sub_10009A49C();
   v13 = os_signpost_enabled(v12);
   if (v8)
   {
     if (v13)
     {
-      v14 = *(a1 + 40);
-      v15 = objc_opt_class();
-      v16 = v15;
-      v17 = [v8 description];
+      v14 = objc_opt_class();
+      v15 = v14;
+      v16 = [v8 description];
       *buf = 138412546;
-      v22 = v15;
-      v23 = 2112;
-      v24 = v17;
+      v21 = v14;
+      v22 = 2112;
+      v23 = v16;
       _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "W5RapportClientRequest initWithPayload", "%@ Error=%@", buf, 0x16u);
     }
   }
 
   else if (v13)
   {
-    v18 = *(a1 + 40);
-    v19 = objc_opt_class();
+    v17 = objc_opt_class();
     *buf = 138412290;
-    v22 = v19;
-    v20 = v19;
+    v21 = v17;
+    v18 = v17;
     _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "W5RapportClientRequest initWithPayload", "%@", buf, 0xCu);
   }
 }
@@ -8226,58 +8513,56 @@ void sub_100091090(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_1000910B4(uint64_t a1)
 {
-  v2 = *(a1 + 64);
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v5 = (*(*(a1 + 48) + 16))();
+  v2 = (*(*(a1 + 48) + 16))();
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v7 = [v5 error];
+  v4 = [v2 error];
 
-  v8 = sub_100098A04();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-  if (v7)
+  v5 = sub_100098A04();
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
-    if (v9)
+    if (v6)
     {
-      v10 = *(a1 + 64);
-      v11 = *(a1 + 32);
-      v12 = sub_100091350(v10);
-      [v5 error];
-      v21 = 136316162;
-      v22 = "[W5DiagnosticsModeProcessor _runAction:peer:info:handler:completion:]_block_invoke";
-      v23 = 2048;
-      v24 = v10;
-      v25 = 2112;
-      v26 = v11;
+      v7 = *(a1 + 64);
+      v8 = *(a1 + 32);
+      v9 = sub_100091350(v7);
+      v10 = [v2 error];
+      v19 = 136316162;
+      v20 = "[W5DiagnosticsModeProcessor _runAction:peer:info:handler:completion:]_block_invoke";
+      v21 = 2048;
+      v22 = v7;
+      v23 = 2112;
+      v24 = v8;
+      v25 = 2114;
+      v26 = v9;
       v27 = 2114;
-      v28 = v12;
-      v30 = v29 = 2114;
-      _os_log_send_and_compose_impl();
+      v28 = v10;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v5, 0, "[wifivelocity] %s: [DM] failed to run action=%ld (%@) on peer='%{public}@' error='%{public}@'", &v19, 52);
     }
 
-    v8 = [WeakRetained operationErrors];
-    v13 = [NSNumber numberWithInteger:*(a1 + 64)];
-    v19 = v13;
-    v14 = [v5 error];
-    v20 = v14;
-    v15 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-    [v8 addObject:v15];
+    v5 = [WeakRetained operationErrors];
+    v11 = [NSNumber numberWithInteger:*(a1 + 64)];
+    v17 = v11;
+    v12 = [v2 error];
+    v18 = v12;
+    v13 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    [v5 addObject:v13];
   }
 
-  else if (v9)
+  else if (v6)
   {
-    v16 = *(a1 + 64);
-    v17 = sub_100091350(v16);
-    v18 = *(a1 + 32);
-    v21 = 136315906;
-    v22 = "[W5DiagnosticsModeProcessor _runAction:peer:info:handler:completion:]_block_invoke";
-    v23 = 2048;
-    v24 = v16;
-    v25 = 2112;
-    v26 = v17;
-    v27 = 2114;
-    v28 = v18;
-    _os_log_send_and_compose_impl();
+    v14 = *(a1 + 64);
+    v15 = sub_100091350(v14);
+    v16 = *(a1 + 32);
+    v19 = 136315906;
+    v20 = "[W5DiagnosticsModeProcessor _runAction:peer:info:handler:completion:]_block_invoke";
+    v21 = 2048;
+    v22 = v14;
+    v23 = 2112;
+    v24 = v15;
+    v25 = 2114;
+    v26 = v16;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v5, 0, "[wifivelocity] %s: [DM] successful run action=%ld (%@) on peer='%{public}@'", &v19, 42);
   }
 }
 
@@ -8447,7 +8732,18 @@ void sub_1000940C4(uint64_t a1, void *a2, void *a3)
   v8 = sub_100098A04();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v12 = 136316162;
+    v13 = "[W5PeerGenericRequestListener handleClientRequest:]_block_invoke";
+    v14 = 2080;
+    v15 = "W5PeerGenericRequestListener.m";
+    v16 = 1024;
+    v17 = 25;
+    v18 = 2114;
+    v19 = v5;
+    v20 = 2114;
+    v21 = v6;
+    v11 = 48;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) SEND RESPONSE (error=%{public}@, info=%{public}@)", &v12, v11);
   }
 
   v9 = [*(a1 + 32) handler];
@@ -8703,9 +8999,9 @@ LABEL_3:
   }
 }
 
-void sub_100096AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100096AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8772,29 +9068,29 @@ void sub_1000978F0(uint64_t a1, void *a2, uint64_t a3, void *a4)
   v11 = sub_100098A04();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = 136315906;
-    v30 = "[W5PeerInfraManager _requestHandler]_block_invoke";
-    v31 = 2080;
-    v32 = "W5PeerInfraManager.m";
-    v33 = 1024;
-    v34 = 73;
-    v35 = 2112;
-    v36 = v10;
-    _os_log_send_and_compose_impl();
+    v30 = 136315906;
+    v31 = "[W5PeerInfraManager _requestHandler]_block_invoke";
+    v32 = 2080;
+    v33 = "W5PeerInfraManager.m";
+    v34 = 1024;
+    v35 = 73;
+    v36 = 2112;
+    v37 = v10;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v11, 0, "[wifivelocity] %s (%s:%u) W5InfraManager: Handle Request Type: %@", &v30, 38);
   }
 
   if ([v10 integerValue] == 1)
   {
     v12 = WeakRetained[2];
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_100097D00;
-    v22[3] = &unk_1000E36D0;
-    v23 = v9;
-    v24 = v7;
-    [v12 scanForNetworksWithConfiguration:0 handler:v22];
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_100097D00;
+    v23[3] = &unk_1000E36D0;
+    v24 = v9;
+    v25 = v7;
+    [v12 scanForNetworksWithConfiguration:0 handler:v23];
 
-    v13 = v23;
+    v13 = v24;
 LABEL_17:
 
     goto LABEL_18;
@@ -8808,9 +9104,9 @@ LABEL_17:
     v16 = WeakRetained[2];
     if (v14)
     {
-      v27 = @"JoinPassword";
-      v28 = v14;
-      v17 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+      v28 = @"JoinPassword";
+      v29 = v14;
+      v17 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     }
 
     else
@@ -8818,13 +9114,13 @@ LABEL_17:
       v17 = 0;
     }
 
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_100097D9C;
-    v19[3] = &unk_1000E36F8;
-    v20 = v9;
-    v21 = v7;
-    [v16 associateToNetwork:v13 configuration:v17 reply:v19];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100097D9C;
+    v20[3] = &unk_1000E36F8;
+    v21 = v9;
+    v22 = v7;
+    [v16 associateToNetwork:v13 configuration:v17 reply:v20];
     if (v15)
     {
     }
@@ -8835,20 +9131,21 @@ LABEL_17:
   v18 = sub_100098A04();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = 136315650;
-    v30 = "[W5PeerInfraManager _requestHandler]_block_invoke_3";
-    v31 = 2080;
-    v32 = "W5PeerInfraManager.m";
-    v33 = 1024;
-    v34 = 92;
-    _os_log_send_and_compose_impl();
+    v30 = 136315650;
+    v31 = "[W5PeerInfraManager _requestHandler]_block_invoke_3";
+    v32 = 2080;
+    v33 = "W5PeerInfraManager.m";
+    v34 = 1024;
+    v35 = 92;
+    LODWORD(v19) = 28;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v18, 0, "[wifivelocity] %s (%s:%u) Unsupported requested type", &v30, v19, LODWORD(v20[0]));
   }
 
   if (v7)
   {
-    v25 = NSLocalizedFailureReasonErrorKey;
-    v26 = @"W5ParamErr";
-    v13 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v26 = NSLocalizedFailureReasonErrorKey;
+    v27 = @"W5ParamErr";
+    v13 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
     v15 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:1 userInfo:v13];
     (*(v7 + 2))(v7, v15, v9);
 LABEL_16:
@@ -8869,10 +9166,9 @@ uint64_t sub_100097D00(uint64_t a1, uint64_t a2, void *a3)
   result = *(a1 + 40);
   if (result)
   {
-    v8 = *(a1 + 32);
-    v9 = *(result + 16);
+    v8 = *(result + 16);
 
-    return v9();
+    return v8();
   }
 
   return result;
@@ -8884,10 +9180,9 @@ uint64_t sub_100097D9C(uint64_t a1, uint64_t a2)
   result = *(a1 + 40);
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = *(result + 16);
+    v4 = *(result + 16);
 
-    return v5();
+    return v4();
   }
 
   return result;
@@ -8981,13 +9276,13 @@ id sub_100098418()
   return v4;
 }
 
-void sub_1000984DC(const __CFString *a1, int a2)
+void sub_1000984DC(uint64_t a1, int a2)
 {
   v4 = [[NSMutableArray alloc] initWithArray:sub_100098418()];
   v5 = v4;
   if (!v4)
   {
-    goto LABEL_37;
+    goto LABEL_35;
   }
 
   v6 = [v4 containsObject:a1];
@@ -9000,162 +9295,154 @@ void sub_1000984DC(const __CFString *a1, int a2)
         dispatch_once(&qword_100106C98, &stru_1000E3740);
       }
 
-      if (!os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
+      v7 = qword_100106C90;
+      if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_37;
+        *v21 = 136315906;
+        *&v21[4] = "W5UpdateBootargs";
+        *&v21[12] = 2080;
+        *&v21[14] = "W5MiscUtil.m";
+        *&v21[22] = 1024;
+        LODWORD(v22) = 133;
+        WORD2(v22) = 2114;
+        *(&v22 + 6) = a1;
+        LODWORD(v20) = 38;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v7, 0, "[wifivelocity] %s (%s:%u) %{public}@ is already in current boot-args", v21, v20, *v21, *&v21[8], v22);
       }
 
-      v17 = 136315906;
-      v18 = "W5UpdateBootargs";
-      v19 = 2080;
-      v20 = "W5MiscUtil.m";
-      v21 = 1024;
-      v22 = 133;
-      v23 = 2114;
-      v24 = a1;
-      goto LABEL_36;
+      goto LABEL_35;
     }
+  }
 
-LABEL_9:
-    HIDWORD(v16) = 0;
-    if (IOMainPort(bootstrap_port, &v16 + 1))
-    {
-      goto LABEL_37;
-    }
-
-    v7 = IORegistryEntryFromPath(HIDWORD(v16), "IODeviceTree:/options");
-    if (!v7)
-    {
-      goto LABEL_37;
-    }
-
-    v8 = v7;
+  else if ((v6 & 1) == 0)
+  {
     if (qword_100106C98 != -1)
     {
       dispatch_once(&qword_100106C98, &stru_1000E3740);
     }
 
+    v19 = qword_100106C90;
     if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [v5 componentsJoinedByString:@" "];
-      v17 = 136315906;
-      v18 = "W5UpdateBootargs";
-      v19 = 2080;
-      v20 = "W5MiscUtil.m";
-      v21 = 1024;
-      v22 = 143;
-      v23 = 2114;
-      v24 = v9;
-      LODWORD(v16) = 38;
-      v15 = &v17;
-      _os_log_send_and_compose_impl();
+      *v21 = 136315906;
+      *&v21[4] = "W5UpdateBootargs";
+      *&v21[12] = 2080;
+      *&v21[14] = "W5MiscUtil.m";
+      *&v21[22] = 1024;
+      LODWORD(v22) = 134;
+      WORD2(v22) = 2114;
+      *(&v22 + 6) = a1;
+      LODWORD(v20) = 38;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v19, 0, "[wifivelocity] %s (%s:%u) %{public}@ is not present current in boot-args", v21, v20, *v21, *&v21[8], v22);
     }
 
-    if (a2)
-    {
-      [v5 addObject:a1];
-    }
+    goto LABEL_35;
+  }
 
-    else
-    {
-      [v5 removeObject:a1];
-    }
+  HIDWORD(v20) = 0;
+  if (IOMainPort(bootstrap_port, &v20 + 1) || (v8 = IORegistryEntryFromPath(HIDWORD(v20), "IODeviceTree:/options")) == 0)
+  {
+LABEL_35:
 
-    v10 = [v5 componentsJoinedByString:{@" ", v15, v16}];
-    v11 = IORegistryEntrySetCFProperty(v8, @"boot-args", v10);
-    if (v11)
-    {
-      v12 = v11;
-      if (qword_100106C98 != -1)
-      {
-        dispatch_once(&qword_100106C98, &stru_1000E3740);
-      }
-
-      if (!os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_24;
-      }
-
-      if (a2)
-      {
-        v13 = @"add";
-      }
-
-      else
-      {
-        v13 = @"remove";
-      }
-
-      v14 = mach_error_string(v12);
-      v17 = 136316418;
-      v18 = "W5UpdateBootargs";
-      v19 = 2080;
-      v20 = "W5MiscUtil.m";
-      v21 = 1024;
-      v22 = 151;
-      v23 = 2114;
-      v24 = v13;
-      v25 = 2114;
-      v26 = a1;
-      v27 = 2082;
-      v28 = v14;
-    }
-
-    else
-    {
-      if (qword_100106C98 != -1)
-      {
-        dispatch_once(&qword_100106C98, &stru_1000E3740);
-      }
-
-      if (!os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_24;
-      }
-
-      v17 = 136315906;
-      v18 = "W5UpdateBootargs";
-      v19 = 2080;
-      v20 = "W5MiscUtil.m";
-      v21 = 1024;
-      v22 = 153;
-      v23 = 2114;
-      v24 = v10;
-    }
-
-    _os_log_send_and_compose_impl();
-LABEL_24:
-
-    IOObjectRelease(v8);
     return;
   }
 
-  if (v6)
-  {
-    goto LABEL_9;
-  }
-
+  v9 = v8;
   if (qword_100106C98 != -1)
   {
     dispatch_once(&qword_100106C98, &stru_1000E3740);
   }
 
-  if (!os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
+  v10 = qword_100106C90;
+  if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
   {
-    goto LABEL_37;
+    v11 = [v5 componentsJoinedByString:@" "];
+    *v21 = 136315906;
+    *&v21[4] = "W5UpdateBootargs";
+    *&v21[12] = 2080;
+    *&v21[14] = "W5MiscUtil.m";
+    *&v21[22] = 1024;
+    LODWORD(v22) = 143;
+    WORD2(v22) = 2114;
+    *(&v22 + 6) = v11;
+    LODWORD(v20) = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v10, 0, "[wifivelocity] %s (%s:%u) Existing boot-args: %{public}@", v21, v20);
   }
 
-  v17 = 136315906;
-  v18 = "W5UpdateBootargs";
-  v19 = 2080;
-  v20 = "W5MiscUtil.m";
-  v21 = 1024;
-  v22 = 134;
-  v23 = 2114;
-  v24 = a1;
-LABEL_36:
-  _os_log_send_and_compose_impl();
-LABEL_37:
+  if (a2)
+  {
+    [v5 addObject:a1];
+  }
+
+  else
+  {
+    [v5 removeObject:a1];
+  }
+
+  v12 = [v5 componentsJoinedByString:@" "];
+  v13 = IORegistryEntrySetCFProperty(v9, @"boot-args", v12);
+  if (v13)
+  {
+    v15 = v13;
+    if (qword_100106C98 != -1)
+    {
+      dispatch_once(&qword_100106C98, &stru_1000E3740);
+    }
+
+    v16 = qword_100106C90;
+    if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
+    {
+      if (a2)
+      {
+        v17 = @"add";
+      }
+
+      else
+      {
+        v17 = @"remove";
+      }
+
+      v18 = mach_error_string(v15);
+      *v21 = 136316418;
+      *&v21[4] = "W5UpdateBootargs";
+      *&v21[12] = 2080;
+      *&v21[14] = "W5MiscUtil.m";
+      *&v21[22] = 1024;
+      LODWORD(v22) = 151;
+      WORD2(v22) = 2114;
+      *(&v22 + 6) = v17;
+      HIWORD(v22) = 2114;
+      LOWORD(v24) = 2082;
+      *(&v24 + 2) = v18;
+      LODWORD(v20) = 58;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v16, 0, "[wifivelocity] %s (%s:%u) Unable to %{public}@ boot-arg: %{public}@, return: %{public}s", v21, v20, *v21, *&v21[8], v22, a1, v24);
+    }
+  }
+
+  else
+  {
+    if (qword_100106C98 != -1)
+    {
+      dispatch_once(&qword_100106C98, &stru_1000E3740);
+    }
+
+    v14 = qword_100106C90;
+    if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
+    {
+      *v21 = 136315906;
+      *&v21[4] = "W5UpdateBootargs";
+      *&v21[12] = 2080;
+      *&v21[14] = "W5MiscUtil.m";
+      *&v21[22] = 1024;
+      LODWORD(v22) = 153;
+      WORD2(v22) = 2114;
+      *(&v22 + 6) = v12;
+      LODWORD(v20) = 38;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v14, 0, "[wifivelocity] %s (%s:%u) Updated device boot-args to: %{public}@", v21, v20, *v21, *&v21[8], v22, v23, v24);
+    }
+  }
+
+  IOObjectRelease(v9);
 }
 
 uint64_t sub_100098A04()
@@ -9170,102 +9457,103 @@ uint64_t sub_100098A04()
 
 uint64_t sub_100098A4C(void *a1, void *a2, NSError **a3)
 {
-  v24 = 0;
-  memset(&v23, 0, sizeof(v23));
-  stat([objc_msgSend(a1 "path")], &v23);
+  v26 = 0;
+  memset(&v25, 0, sizeof(v25));
+  stat([objc_msgSend(a1 "path")], &v25);
   if (qword_100106C98 != -1)
   {
     dispatch_once(&qword_100106C98, &stru_1000E3740);
   }
 
+  v6 = qword_100106C90;
   if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [a1 path];
-    st_size = v23.st_size;
-    v8 = [a2 path];
-    v31 = 136316418;
-    v32 = "W5CreateTarball";
-    v33 = 2080;
-    v34 = "W5MiscUtil.m";
-    v35 = 1024;
-    v36 = 388;
-    v37 = 2114;
-    v38 = v6;
-    v39 = 2048;
-    v40 = st_size;
-    v41 = 2114;
-    v42 = v8;
-    LODWORD(v22) = 58;
-    v21 = &v31;
-    _os_log_send_and_compose_impl();
+    v7 = [a1 path];
+    st_size = v25.st_size;
+    v9 = [a2 path];
+    v33 = 136316418;
+    v34 = "W5CreateTarball";
+    v35 = 2080;
+    v36 = "W5MiscUtil.m";
+    v37 = 1024;
+    v38 = 388;
+    v39 = 2114;
+    v40 = v7;
+    v41 = 2048;
+    v42 = st_size;
+    v43 = 2114;
+    v44 = v9;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v6, 0, "[wifivelocity] %s (%s:%u) Archiving '%{public}@' (size=%lld) --> '%{public}@'", &v33, 58);
   }
 
-  v9 = archive_write_new();
-  if (!v9)
+  v10 = archive_write_new();
+  if (!v10)
   {
-    v29 = NSLocalizedFailureReasonErrorKey;
-    v30 = @"ENOMEM";
-    v14 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-    v15 = NSPOSIXErrorDomain;
-    v16 = 12;
+    v31 = NSLocalizedFailureReasonErrorKey;
+    v32 = @"ENOMEM";
+    v16 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+    v17 = NSPOSIXErrorDomain;
+    v18 = 12;
 LABEL_17:
-    v24 = [NSError errorWithDomain:v15 code:v16 userInfo:v14, v21, v22];
+    v26 = [NSError errorWithDomain:v17 code:v18 userInfo:v16];
     goto LABEL_18;
   }
 
   if (!-[NSFileManager fileExistsAtPath:](+[NSFileManager defaultManager](NSFileManager, "defaultManager"), "fileExistsAtPath:", [a1 path]))
   {
-    v27 = NSLocalizedFailureReasonErrorKey;
-    v28 = @"ENOENT";
-    v14 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-    v15 = NSPOSIXErrorDomain;
-    v16 = 2;
+    v29 = NSLocalizedFailureReasonErrorKey;
+    v30 = @"ENOENT";
+    v16 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v17 = NSPOSIXErrorDomain;
+    v18 = 2;
     goto LABEL_17;
   }
 
   archive_write_add_filter_gzip();
   archive_write_set_format_pax();
   [objc_msgSend(a2 "path")];
-  v10 = archive_write_open_filename();
-  if (v10)
+  v11 = archive_write_open_filename();
+  if (v11)
   {
-    v17 = v10;
-    v25 = NSLocalizedFailureReasonErrorKey;
-    v26 = @"err";
-    v14 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-    v15 = NSPOSIXErrorDomain;
-    v16 = v17;
+    v19 = v11;
+    v27 = NSLocalizedFailureReasonErrorKey;
+    v28 = @"err";
+    v16 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v17 = NSPOSIXErrorDomain;
+    v18 = v19;
     goto LABEL_17;
   }
 
-  if (sub_100098F6C(v9, a1, [objc_msgSend(a2 "lastPathComponent")], &v24))
+  if (sub_100098F6C(v10, a1, [objc_msgSend(a2 "lastPathComponent")], &v26))
   {
     if (qword_100106C98 != -1)
     {
       dispatch_once(&qword_100106C98, &stru_1000E3740);
     }
 
+    v12 = qword_100106C90;
     if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [a1 path];
-      v12 = [a2 path];
-      v31 = 136316162;
-      v32 = "W5CreateTarball";
-      v33 = 2080;
-      v34 = "W5MiscUtil.m";
-      v35 = 1024;
-      v36 = 412;
-      v37 = 2114;
-      v38 = v11;
+      v13 = [a1 path];
+      v14 = [a2 path];
+      v33 = 136316162;
+      v34 = "W5CreateTarball";
+      v35 = 2080;
+      v36 = "W5MiscUtil.m";
+      v37 = 1024;
+      v38 = 412;
       v39 = 2114;
-      v40 = v12;
-      v13 = 1;
-      _os_log_send_and_compose_impl();
+      v40 = v13;
+      v41 = 2114;
+      v42 = v14;
+      LODWORD(v24) = 48;
+      v15 = 1;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v12, 0, "[wifivelocity] %s (%s:%u) Successfuly archived '%{public}@' --> '%{public}@'", &v33, v24);
     }
 
     else
     {
-      v13 = 1;
+      v15 = 1;
     }
 
     goto LABEL_22;
@@ -9277,149 +9565,150 @@ LABEL_18:
     dispatch_once(&qword_100106C98, &stru_1000E3740);
   }
 
-  v13 = 0;
+  v20 = qword_100106C90;
+  v15 = 0;
   if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = [a2 path];
-    v19 = [(NSError *)v24 code];
-    v32 = "W5CreateTarball";
-    v33 = 2080;
-    v31 = 136316162;
-    v34 = "W5MiscUtil.m";
-    v35 = 1024;
-    v36 = 408;
-    v37 = 2114;
-    v38 = v18;
-    v39 = 2048;
-    v40 = v19;
-    _os_log_send_and_compose_impl();
-    v13 = 0;
+    v21 = [a2 path];
+    v22 = [(NSError *)v26 code];
+    v34 = "W5CreateTarball";
+    v35 = 2080;
+    v33 = 136316162;
+    v36 = "W5MiscUtil.m";
+    v37 = 1024;
+    v38 = 408;
+    v39 = 2114;
+    v40 = v21;
+    v41 = 2048;
+    v42 = v22;
+    LODWORD(v24) = 48;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v20, 0, "[wifivelocity] %s (%s:%u) FAILED to create archive '%{public}@', returned error %ld", &v33, v24);
+    v15 = 0;
   }
 
 LABEL_22:
-  if (a3 && v24)
+  if (a3 && v26)
   {
-    *a3 = v24;
+    *a3 = v26;
   }
 
-  if (v9)
+  if (v10)
   {
     archive_write_free();
   }
 
-  return v13;
+  return v15;
 }
 
 uint64_t sub_100098F6C(uint64_t a1, void *a2, void *a3, id *a4)
 {
-  v40 = 0;
+  v41 = 0;
   v8 = objc_autoreleasePoolPush();
-  if (![a2 checkResourceIsReachableAndReturnError:&v40])
+  if (![a2 checkResourceIsReachableAndReturnError:&v41])
   {
     goto LABEL_33;
   }
 
-  v39 = 0;
-  if (![a2 getResourceValue:&v39 forKey:NSURLIsDirectoryKey error:&v40])
+  v40 = 0;
+  if (![a2 getResourceValue:&v40 forKey:NSURLIsDirectoryKey error:&v41])
   {
     goto LABEL_33;
   }
 
-  if ([v39 BOOLValue])
+  if ([v40 BOOLValue])
   {
-    memset(&v51, 0, sizeof(v51));
-    stat([objc_msgSend(a2 "path")], &v51);
+    memset(&v52, 0, sizeof(v52));
+    stat([objc_msgSend(a2 "path")], &v52);
     if (qword_100106C98 != -1)
     {
       dispatch_once(&qword_100106C98, &stru_1000E3740);
     }
 
+    v9 = qword_100106C90;
     if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [a2 path];
-      *&v42[4] = "__W5ArchiveAddURLToArchive";
-      v43 = 2080;
-      *v42 = 136316162;
-      v44 = "W5MiscUtil.m";
-      v45 = 1024;
-      v46 = 341;
-      v47 = 2114;
-      v48 = v9;
-      v49 = 2048;
-      st_size = v51.st_size;
-      LODWORD(v30) = 48;
-      v28 = v42;
-      _os_log_send_and_compose_impl();
+      v10 = [a2 path];
+      *&v43[4] = "__W5ArchiveAddURLToArchive";
+      v44 = 2080;
+      *v43 = 136316162;
+      v45 = "W5MiscUtil.m";
+      v46 = 1024;
+      v47 = 341;
+      v48 = 2114;
+      v49 = v10;
+      v50 = 2048;
+      st_size = v52.st_size;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v9, 0, "[wifivelocity] %s (%s:%u) Adding contents of directory '%{public}@' (size=%lld) to archive...", v43, 48);
     }
 
-    v10 = [+[NSFileManager contentsOfDirectoryAtURL:v28]options:"contentsOfDirectoryAtURL:includingPropertiesForKeys:options:error:" error:a2, 0, 0, &v40];
-    if (v10)
+    v11 = [+[NSFileManager defaultManager](NSFileManager contentsOfDirectoryAtURL:"contentsOfDirectoryAtURL:includingPropertiesForKeys:options:error:" includingPropertiesForKeys:a2 options:0 error:0, &v41];
+    if (v11)
     {
-      v11 = v10;
-      v33 = a4;
-      v12 = v8;
-      v37 = 0u;
+      v12 = v11;
+      v34 = a4;
+      v13 = v8;
       v38 = 0u;
-      v35 = 0u;
+      v39 = 0u;
       v36 = 0u;
-      v13 = [(NSArray *)v10 countByEnumeratingWithState:&v35 objects:v41 count:16];
-      if (v13)
+      v37 = 0u;
+      v14 = [(NSArray *)v11 countByEnumeratingWithState:&v36 objects:v42 count:16];
+      if (v14)
       {
-        v14 = v13;
-        v15 = *v36;
+        v15 = v14;
+        v16 = *v37;
         do
         {
-          v16 = 0;
+          v17 = 0;
           do
           {
-            if (*v36 != v15)
+            if (*v37 != v16)
             {
-              objc_enumerationMutation(v11);
+              objc_enumerationMutation(v12);
             }
 
-            v17 = *(*(&v35 + 1) + 8 * v16);
-            v34 = 0;
-            if ((sub_100098F6C(a1, v17, [a3 stringByAppendingPathComponent:{objc_msgSend(v17, "lastPathComponent", v29, v31)}], &v34) & 1) == 0)
+            v18 = *(*(&v36 + 1) + 8 * v17);
+            v35 = 0;
+            if ((sub_100098F6C(a1, v18, [a3 stringByAppendingPathComponent:{objc_msgSend(v18, "lastPathComponent")}], &v35) & 1) == 0)
             {
               if (qword_100106C98 != -1)
               {
                 dispatch_once(&qword_100106C98, &stru_1000E3740);
               }
 
+              v19 = qword_100106C90;
               if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
               {
-                v32 = [a2 path];
-                v18 = [v34 code];
-                *v42 = 136316162;
-                *&v42[4] = "__W5ArchiveAddURLToArchive";
-                v43 = 2080;
-                v44 = "W5MiscUtil.m";
-                v45 = 1024;
-                v46 = 351;
-                v47 = 2114;
-                v48 = v32;
-                v49 = 2048;
-                st_size = v18;
-                LODWORD(v31) = 48;
-                v29 = v42;
-                _os_log_send_and_compose_impl();
+                v33 = [a2 path];
+                v20 = [v35 code];
+                *v43 = 136316162;
+                *&v43[4] = "__W5ArchiveAddURLToArchive";
+                v44 = 2080;
+                v45 = "W5MiscUtil.m";
+                v46 = 1024;
+                v47 = 351;
+                v48 = 2114;
+                v49 = v33;
+                v50 = 2048;
+                st_size = v20;
+                LODWORD(v32) = 48;
+                _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v19, 0, "[wifivelocity] %s (%s:%u) FAILED to add directory archive entry '%{public}@', returned error %ld", v43, v32);
               }
             }
 
-            v16 = v16 + 1;
+            v17 = v17 + 1;
           }
 
-          while (v14 != v16);
-          v19 = [(NSArray *)v11 countByEnumeratingWithState:&v35 objects:v41 count:16];
-          v14 = v19;
+          while (v15 != v17);
+          v21 = [(NSArray *)v12 countByEnumeratingWithState:&v36 objects:v42 count:16];
+          v15 = v21;
         }
 
-        while (v19);
+        while (v21);
       }
 
-      v20 = 1;
-      v8 = v12;
-      a4 = v33;
+      v22 = 1;
+      v8 = v13;
+      a4 = v34;
       goto LABEL_25;
     }
 
@@ -9428,29 +9717,31 @@ uint64_t sub_100098F6C(uint64_t a1, void *a2, void *a3, id *a4)
       dispatch_once(&qword_100106C98, &stru_1000E3740);
     }
 
+    v26 = qword_100106C90;
     if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = [a2 path];
-      v25 = [v40 code];
-      *&v42[4] = "__W5ArchiveAddURLToArchive";
-      v43 = 2080;
-      *v42 = 136316162;
-      v44 = "W5MiscUtil.m";
-      v45 = 1024;
-      v46 = 344;
-      v47 = 2114;
-      v48 = v24;
-      v49 = 2048;
-      st_size = v25;
-      _os_log_send_and_compose_impl();
+      v27 = [a2 path];
+      v28 = [v41 code];
+      *&v43[4] = "__W5ArchiveAddURLToArchive";
+      v44 = 2080;
+      *v43 = 136316162;
+      v45 = "W5MiscUtil.m";
+      v46 = 1024;
+      v47 = 344;
+      v48 = 2114;
+      v49 = v27;
+      v50 = 2048;
+      st_size = v28;
+      LODWORD(v32) = 48;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v26, 0, "[wifivelocity] %s (%s:%u) FAILED to get contents at URL '%{public}@', returned error %ld", v43, v32);
     }
 
 LABEL_33:
-    v20 = 0;
+    v22 = 0;
     goto LABEL_25;
   }
 
-  *v42 = 0;
+  *v43 = 0;
   if ((sub_10009A6AC() & 1) == 0)
   {
     if (qword_100106C98 != -1)
@@ -9458,181 +9749,186 @@ LABEL_33:
       dispatch_once(&qword_100106C98, &stru_1000E3740);
     }
 
+    v29 = qword_100106C90;
     if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = [a2 path];
-      v27 = [*v42 code];
-      *&v51.st_mode = "__W5ArchiveAddURLToArchive";
-      WORD2(v51.st_ino) = 2080;
-      v51.st_dev = 136316162;
-      *(&v51.st_ino + 6) = "W5MiscUtil.m";
-      HIWORD(v51.st_gid) = 1024;
-      v51.st_rdev = 359;
-      *(&v51.st_rdev + 2) = 2114;
-      *(&v51.st_rdev + 6) = v26;
-      HIWORD(v51.st_atimespec.tv_sec) = 2048;
-      v51.st_atimespec.tv_nsec = v27;
-      _os_log_send_and_compose_impl();
+      v30 = [a2 path];
+      v31 = [*v43 code];
+      *&v52.st_mode = "__W5ArchiveAddURLToArchive";
+      WORD2(v52.st_ino) = 2080;
+      v52.st_dev = 136316162;
+      *(&v52.st_ino + 6) = "W5MiscUtil.m";
+      HIWORD(v52.st_gid) = 1024;
+      v52.st_rdev = 359;
+      *(&v52.st_rdev + 2) = 2114;
+      *(&v52.st_rdev + 6) = v30;
+      HIWORD(v52.st_atimespec.tv_sec) = 2048;
+      v52.st_atimespec.tv_nsec = v31;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v29, 0, "[wifivelocity] %s (%s:%u) FAILED to add file archive entry '%{public}@', returned error %ld", &v52, 48);
     }
   }
 
-  v20 = 1;
+  v22 = 1;
 LABEL_25:
-  v21 = v40;
+  v23 = v41;
   objc_autoreleasePoolPop(v8);
-  v22 = v40;
-  if (a4 && v40)
+  v24 = v41;
+  if (a4 && v41)
   {
-    *a4 = v40;
+    *a4 = v41;
   }
 
-  return v20;
+  return v22;
 }
 
 uint64_t sub_100099544(void *a1, void *a2, NSError **a3)
 {
-  memset(&v25, 0, sizeof(v25));
-  stat([objc_msgSend(a1 "path")], &v25);
+  memset(&v27, 0, sizeof(v27));
+  stat([objc_msgSend(a1 "path")], &v27);
   if (qword_100106C98 != -1)
   {
     dispatch_once(&qword_100106C98, &stru_1000E3740);
   }
 
+  v6 = qword_100106C90;
   if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [a1 path];
-    st_size = v25.st_size;
-    v8 = [a2 path];
-    v32 = 136316418;
-    v33 = "W5CopyUsingBOMCopier";
-    v34 = 2080;
-    v35 = "W5MiscUtil.m";
-    v36 = 1024;
-    v37 = 490;
-    v38 = 2114;
-    v39 = v6;
-    v40 = 2048;
-    v41 = st_size;
-    v42 = 2114;
-    v43 = v8;
-    LODWORD(v24) = 58;
-    v23 = &v32;
-    _os_log_send_and_compose_impl();
+    v7 = [a1 path];
+    st_size = v27.st_size;
+    v9 = [a2 path];
+    v34 = 136316418;
+    v35 = "W5CopyUsingBOMCopier";
+    v36 = 2080;
+    v37 = "W5MiscUtil.m";
+    v38 = 1024;
+    v39 = 490;
+    v40 = 2114;
+    v41 = v7;
+    v42 = 2048;
+    v43 = st_size;
+    v44 = 2114;
+    v45 = v9;
+    LODWORD(v26) = 58;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v6, 0, "[wifivelocity] %s (%s:%u) Copying '%{public}@' (size=%lld) --> '%{public}@'", &v34, v26);
   }
 
-  -[NSFileManager createDirectoryAtPath:withIntermediateDirectories:attributes:error:](+[NSFileManager defaultManager](NSFileManager, "defaultManager", v23, v24), "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", [objc_msgSend(a2 "path")], 1, 0, 0);
-  v9 = BOMCopierNew();
-  if (v9)
+  -[NSFileManager createDirectoryAtPath:withIntermediateDirectories:attributes:error:](+[NSFileManager defaultManager](NSFileManager, "defaultManager"), "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", [objc_msgSend(a2 "path")], 1, 0, 0);
+  v10 = BOMCopierNew();
+  if (v10)
   {
     if (!-[NSFileManager fileExistsAtPath:](+[NSFileManager defaultManager](NSFileManager, "defaultManager"), "fileExistsAtPath:", [a1 path]))
     {
-      v19 = 0;
+      v21 = 0;
       goto LABEL_20;
     }
 
-    HIBYTE(v24) = 0;
-    if (-[NSFileManager fileExistsAtPath:isDirectory:](+[NSFileManager defaultManager](NSFileManager, "defaultManager"), "fileExistsAtPath:isDirectory:", [a1 path], &v24 + 7))
+    HIBYTE(v26) = 0;
+    if (-[NSFileManager fileExistsAtPath:isDirectory:](+[NSFileManager defaultManager](NSFileManager, "defaultManager"), "fileExistsAtPath:isDirectory:", [a1 path], &v26 + 7))
     {
-      v10 = +[NSMutableDictionary dictionary];
-      [v10 setObject:&__kCFBooleanTrue forKeyedSubscript:@"copyResources"];
-      [v10 setObject:&__kCFBooleanTrue forKeyedSubscript:@"copyExtendedAttributes"];
+      v11 = +[NSMutableDictionary dictionary];
+      [v11 setObject:&__kCFBooleanTrue forKeyedSubscript:@"copyResources"];
+      [v11 setObject:&__kCFBooleanTrue forKeyedSubscript:@"copyExtendedAttributes"];
       [a1 fileSystemRepresentation];
       [a2 fileSystemRepresentation];
-      v11 = BOMCopierCopyWithOptions();
-      if (!v11)
+      v12 = BOMCopierCopyWithOptions();
+      if (!v12)
       {
         if (qword_100106C98 != -1)
         {
           dispatch_once(&qword_100106C98, &stru_1000E3740);
         }
 
+        v13 = qword_100106C90;
         if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = [a1 path];
-          v13 = [a2 path];
-          v32 = 136316162;
-          v33 = "W5CopyUsingBOMCopier";
-          v34 = 2080;
-          v35 = "W5MiscUtil.m";
-          v36 = 1024;
-          v37 = 520;
-          v38 = 2114;
-          v39 = v12;
+          v14 = [a1 path];
+          v15 = [a2 path];
+          v34 = 136316162;
+          v35 = "W5CopyUsingBOMCopier";
+          v36 = 2080;
+          v37 = "W5MiscUtil.m";
+          v38 = 1024;
+          v39 = 520;
           v40 = 2114;
-          v41 = v13;
-          v14 = 1;
-          _os_log_send_and_compose_impl();
+          v41 = v14;
+          v42 = 2114;
+          v43 = v15;
+          LODWORD(v26) = 48;
+          v16 = 1;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v13, 0, "[wifivelocity] %s (%s:%u) Successfuly copied using BOMCopier '%{public}@' --> '%{public}@'", &v34, v26);
         }
 
         else
         {
-          v14 = 1;
+          v16 = 1;
         }
 
 LABEL_14:
         BOMCopierFree();
-        return v14;
+        return v16;
       }
 
-      v20 = v11;
-      v26 = NSLocalizedFailureReasonErrorKey;
-      v27 = @"err";
-      v16 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-      v17 = NSPOSIXErrorDomain;
-      v18 = v20;
+      v22 = v12;
+      v28 = NSLocalizedFailureReasonErrorKey;
+      v29 = @"err";
+      v18 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+      v19 = NSPOSIXErrorDomain;
+      v20 = v22;
     }
 
     else
     {
-      v28 = NSLocalizedFailureReasonErrorKey;
-      v29 = @"ENOENT";
-      v16 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-      v17 = NSPOSIXErrorDomain;
-      v18 = 2;
+      v30 = NSLocalizedFailureReasonErrorKey;
+      v31 = @"ENOENT";
+      v18 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v19 = NSPOSIXErrorDomain;
+      v20 = 2;
     }
   }
 
   else
   {
-    v30 = NSLocalizedFailureReasonErrorKey;
-    v31 = @"ENOMEM";
-    v16 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
-    v17 = NSPOSIXErrorDomain;
-    v18 = 12;
+    v32 = NSLocalizedFailureReasonErrorKey;
+    v33 = @"ENOMEM";
+    v18 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v19 = NSPOSIXErrorDomain;
+    v20 = 12;
   }
 
-  v19 = [NSError errorWithDomain:v17 code:v18 userInfo:v16];
+  v21 = [NSError errorWithDomain:v19 code:v20 userInfo:v18];
 LABEL_20:
   if (qword_100106C98 != -1)
   {
     dispatch_once(&qword_100106C98, &stru_1000E3740);
   }
 
+  v23 = qword_100106C90;
   if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = [a1 path];
-    v22 = [(NSError *)v19 code];
-    v33 = "W5CopyUsingBOMCopier";
-    v34 = 2080;
-    v32 = 136316162;
-    v35 = "W5MiscUtil.m";
-    v36 = 1024;
-    v37 = 516;
-    v38 = 2114;
-    v39 = v21;
-    v40 = 2048;
-    v41 = v22;
-    _os_log_send_and_compose_impl();
+    v24 = [a1 path];
+    v25 = [(NSError *)v21 code];
+    v35 = "W5CopyUsingBOMCopier";
+    v36 = 2080;
+    v34 = 136316162;
+    v37 = "W5MiscUtil.m";
+    v38 = 1024;
+    v39 = 516;
+    v40 = 2114;
+    v41 = v24;
+    v42 = 2048;
+    v43 = v25;
+    LODWORD(v26) = 48;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v23, 0, "[wifivelocity] %s (%s:%u) FAILED to copy using BOMCopier '%{public}@', returned error %ld", &v34, v26);
   }
 
-  if (a3 && v19)
+  if (a3 && v21)
   {
-    *a3 = v19;
+    *a3 = v21;
   }
 
-  v14 = 0;
+  v16 = 0;
   result = 0;
-  if (v9)
+  if (v10)
   {
     goto LABEL_14;
   }
@@ -9640,236 +9936,243 @@ LABEL_20:
   return result;
 }
 
-uint64_t sub_100099AD4(const __CFString *a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+uint64_t sub_100099AD4(const __CFString *a1, uint64_t a2, NSInteger a3, _BYTE *a4)
 {
   if (qword_100106C98 != -1)
   {
     dispatch_once(&qword_100106C98, &stru_1000E3740);
   }
 
+  v7 = qword_100106C90;
   if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
   {
-    v33 = 136316418;
-    v34 = "W5DeleteFilesAtPath";
-    v35 = 2080;
-    v36 = "W5MiscUtil.m";
-    v37 = 1024;
-    v38 = 648;
-    v39 = 2114;
-    v40 = a1;
-    v41 = 2114;
-    *v42 = a2;
-    *&v42[8] = 2048;
-    *&v42[10] = a3;
-    LODWORD(v23) = 58;
-    v22 = &v33;
-    _os_log_send_and_compose_impl();
+    v42 = 136316418;
+    v43 = "W5DeleteFilesAtPath";
+    v44 = 2080;
+    v45 = "W5MiscUtil.m";
+    v46 = 1024;
+    v47 = 648;
+    v48 = 2114;
+    v49 = a1;
+    v50 = 2114;
+    *v51 = a2;
+    *&v51[8] = 2048;
+    *&v51[10] = a3;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v7, 0, "[wifivelocity] %s (%s:%u) [START] File Deletion Request, path: %{public}@, filter: %{public}@, threshold: %ld", &v42, 58);
   }
 
-  v31 = 0;
-  v32 = 0;
-  if (!*a4)
+  v40 = 0;
+  v41 = 0;
+  if (*a4)
   {
-    v7 = +[NSFileManager defaultManager];
-    v8 = [[NSURL alloc] initFileURLWithPath:a1 isDirectory:1];
-    v46 = NSURLCreationDateKey;
-    v9 = [(NSFileManager *)v7 contentsOfDirectoryAtURL:v8 includingPropertiesForKeys:[NSArray arrayWithObjects:1 count:?], 4, &v32];
-    if (v9)
-    {
-      obj = [(NSArray *)v9 filteredArrayUsingPredicate:a2];
-      if (qword_100106C98 != -1)
-      {
-        dispatch_once(&qword_100106C98, &stru_1000E3740);
-      }
-
-      if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
-      {
-        v10 = [(NSArray *)obj count];
-        v33 = 136316162;
-        v34 = "W5DeleteFilesAtPath";
-        v35 = 2080;
-        v36 = "W5MiscUtil.m";
-        v37 = 1024;
-        v38 = 667;
-        v39 = 2048;
-        v40 = v10;
-        v41 = 2114;
-        *v42 = @"/var/run/com.apple.wifivelocity";
-        LODWORD(v23) = 48;
-        v22 = &v33;
-        _os_log_send_and_compose_impl();
-      }
-
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
-      v28 = 0u;
-      v11 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v45 count:16, v22, v23];
-      if (v11)
-      {
-        v12 = v11;
-        v24 = 0;
-        v13 = *v28;
-LABEL_13:
-        v14 = 0;
-        while (1)
-        {
-          if (*v28 != v13)
-          {
-            objc_enumerationMutation(obj);
-          }
-
-          if (*a4)
-          {
-            break;
-          }
-
-          v15 = *(*(&v27 + 1) + 8 * v14);
-          [(__CFString *)v15 getResourceValue:&v31 forKey:NSURLCreationDateKey error:&v32];
-          if (v32)
-          {
-            if (qword_100106C98 != -1)
-            {
-              dispatch_once(&qword_100106C98, &stru_1000E3740);
-            }
-
-            if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
-            {
-              v33 = 136315906;
-              v34 = "W5DeleteFilesAtPath";
-              v35 = 2080;
-              v36 = "W5MiscUtil.m";
-              v37 = 1024;
-              v38 = 675;
-              v39 = 2114;
-              v40 = v15;
-              _os_log_send_and_compose_impl();
-            }
-          }
-
-          else
-          {
-            v16 = +[NSCalendar currentCalendar];
-            v17 = [(NSDateComponents *)[(NSCalendar *)v16 components:16 fromDate:v31 toDate:+[NSDate options:"date"]day];
-            if (qword_100106C98 != -1)
-            {
-              dispatch_once(&qword_100106C98, &stru_1000E3740);
-            }
-
-            if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
-            {
-              v33 = 136316674;
-              v34 = "W5DeleteFilesAtPath";
-              v35 = 2080;
-              v36 = "W5MiscUtil.m";
-              v37 = 1024;
-              v38 = 682;
-              v39 = 2114;
-              v40 = v15;
-              v41 = 2114;
-              *v42 = v31;
-              *&v42[8] = 2048;
-              *&v42[10] = v17;
-              v43 = 1024;
-              v44 = v17 >= a3;
-              _os_log_send_and_compose_impl();
-            }
-
-            if (v17 >= a3)
-            {
-              v18 = [+[NSFileManager defaultManager](NSFileManager removeItemAtURL:"removeItemAtURL:error:" error:v15, &v32];
-              if (qword_100106C98 != -1)
-              {
-                dispatch_once(&qword_100106C98, &stru_1000E3740);
-              }
-
-              if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
-              {
-                v33 = 136316418;
-                v34 = "W5DeleteFilesAtPath";
-                v35 = 2080;
-                v36 = "W5MiscUtil.m";
-                v37 = 1024;
-                v38 = 687;
-                v39 = 2112;
-                v40 = v15;
-                v41 = 1024;
-                *v42 = v18;
-                *&v42[4] = 2112;
-                *&v42[6] = v32;
-                _os_log_send_and_compose_impl();
-              }
-
-              v19 = v24;
-              if (!v32)
-              {
-                v19 = v24 + 1;
-              }
-
-              v24 = v19;
-            }
-          }
-
-          if (v12 == ++v14)
-          {
-            v12 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v45 count:16];
-            if (v12)
-            {
-              goto LABEL_13;
-            }
-
-            goto LABEL_51;
-          }
-        }
-
-        if (qword_100106C98 != -1)
-        {
-          dispatch_once(&qword_100106C98, &stru_1000E3740);
-        }
-
-        if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
-        {
-          v33 = 136315650;
-          v34 = "W5DeleteFilesAtPath";
-          v35 = 2080;
-          v36 = "W5MiscUtil.m";
-          v37 = 1024;
-          v38 = 670;
-          _os_log_send_and_compose_impl();
-          goto LABEL_51;
-        }
-
-LABEL_52:
-        v20 = v24;
-        goto LABEL_53;
-      }
-
-      goto LABEL_50;
-    }
-
     if (qword_100106C98 != -1)
     {
       dispatch_once(&qword_100106C98, &stru_1000E3740);
     }
 
+    v26 = qword_100106C90;
     if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
     {
-      v33 = 136316162;
-      v34 = "W5DeleteFilesAtPath";
-      v35 = 2080;
-      v36 = "W5MiscUtil.m";
-      v37 = 1024;
-      v38 = 664;
-      v39 = 2114;
-      v40 = @"/var/run/com.apple.wifivelocity";
-      v41 = 2114;
-      *v42 = v32;
+      v42 = 136315650;
+      v43 = "W5DeleteFilesAtPath";
+      v44 = 2080;
+      v45 = "W5MiscUtil.m";
+      v46 = 1024;
+      v47 = 656;
+      LODWORD(v31) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v26, 0, "[wifivelocity] %s (%s:%u) [STOP] File Deletion Request", &v42, v31);
       goto LABEL_49;
     }
 
-LABEL_56:
-    v20 = 0;
-    goto LABEL_53;
+LABEL_55:
+    v28 = 0;
+    goto LABEL_52;
+  }
+
+  v8 = +[NSFileManager defaultManager];
+  v9 = [[NSURL alloc] initFileURLWithPath:a1 isDirectory:1];
+  v55 = NSURLCreationDateKey;
+  v10 = [(NSFileManager *)v8 contentsOfDirectoryAtURL:v9 includingPropertiesForKeys:[NSArray arrayWithObjects:1 count:?], 4, &v41];
+  if (v10)
+  {
+    obj = [(NSArray *)v10 filteredArrayUsingPredicate:a2];
+    if (qword_100106C98 != -1)
+    {
+      dispatch_once(&qword_100106C98, &stru_1000E3740);
+    }
+
+    v11 = qword_100106C90;
+    if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = [(NSArray *)obj count];
+      v42 = 136316162;
+      v43 = "W5DeleteFilesAtPath";
+      v44 = 2080;
+      v45 = "W5MiscUtil.m";
+      v46 = 1024;
+      v47 = 667;
+      v48 = 2048;
+      v49 = v12;
+      v50 = 2114;
+      *v51 = @"/var/run/com.apple.wifivelocity";
+      LODWORD(v31) = 48;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v11, 0, "[wifivelocity] %s (%s:%u) Found %lu files in %{public}@ matching filter", &v42, v31);
+    }
+
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v13 = [(NSArray *)obj countByEnumeratingWithState:&v36 objects:v54 count:16];
+    if (v13)
+    {
+      v14 = v13;
+      v33 = 0;
+      v15 = *v37;
+      v32 = 136316418;
+LABEL_13:
+      v16 = 0;
+      while (1)
+      {
+        if (*v37 != v15)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        if (*a4)
+        {
+          break;
+        }
+
+        v17 = *(*(&v36 + 1) + 8 * v16);
+        [(__CFString *)v17 getResourceValue:&v40 forKey:NSURLCreationDateKey error:&v41];
+        if (v41)
+        {
+          if (qword_100106C98 != -1)
+          {
+            dispatch_once(&qword_100106C98, &stru_1000E3740);
+          }
+
+          v18 = qword_100106C90;
+          if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
+          {
+            v42 = 136315906;
+            v43 = "W5DeleteFilesAtPath";
+            v44 = 2080;
+            v45 = "W5MiscUtil.m";
+            v46 = 1024;
+            v47 = 675;
+            v48 = 2114;
+            v49 = v17;
+            LODWORD(v31) = 38;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v18, 0, "[wifivelocity] %s (%s:%u) Could not get creation date for: %{public}@", &v42, v31);
+          }
+        }
+
+        else
+        {
+          v19 = +[NSCalendar currentCalendar];
+          v20 = [(NSDateComponents *)[(NSCalendar *)v19 components:16 fromDate:v40 toDate:+[NSDate options:"date"]day];
+          if (qword_100106C98 != -1)
+          {
+            dispatch_once(&qword_100106C98, &stru_1000E3740);
+          }
+
+          v21 = qword_100106C90;
+          if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
+          {
+            v42 = 136316674;
+            v43 = "W5DeleteFilesAtPath";
+            v44 = 2080;
+            v45 = "W5MiscUtil.m";
+            v46 = 1024;
+            v47 = 682;
+            v48 = 2114;
+            v49 = v17;
+            v50 = 2114;
+            *v51 = v40;
+            *&v51[8] = 2048;
+            *&v51[10] = v20;
+            v52 = 1024;
+            v53 = v20 >= a3;
+            LODWORD(v31) = 64;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v21, 0, "[wifivelocity] %s (%s:%u) %{public}@, Creation Date: %{public}@, Delta from Today: %ld days, Delete: %d", &v42, v31);
+          }
+
+          if (v20 >= a3)
+          {
+            v22 = [+[NSFileManager defaultManager](NSFileManager removeItemAtURL:"removeItemAtURL:error:" error:v17, &v41];
+            if (qword_100106C98 != -1)
+            {
+              dispatch_once(&qword_100106C98, &stru_1000E3740);
+            }
+
+            v23 = qword_100106C90;
+            if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
+            {
+              v42 = 136316418;
+              v43 = "W5DeleteFilesAtPath";
+              v44 = 2080;
+              v45 = "W5MiscUtil.m";
+              v46 = 1024;
+              v47 = 687;
+              v48 = 2112;
+              v49 = v17;
+              v50 = 1024;
+              *v51 = v22;
+              *&v51[4] = 2112;
+              *&v51[6] = v41;
+              LODWORD(v31) = 54;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v23, 0, "[wifivelocity] %s (%s:%u) Attempted to delete: %@, success: %d, error: %@", &v42, v31);
+            }
+
+            v24 = v33;
+            if (!v41)
+            {
+              v24 = v33 + 1;
+            }
+
+            v33 = v24;
+          }
+        }
+
+        if (v14 == ++v16)
+        {
+          v14 = [(NSArray *)obj countByEnumeratingWithState:&v36 objects:v54 count:16];
+          if (v14)
+          {
+            goto LABEL_13;
+          }
+
+          goto LABEL_50;
+        }
+      }
+
+      if (qword_100106C98 != -1)
+      {
+        dispatch_once(&qword_100106C98, &stru_1000E3740);
+      }
+
+      v25 = qword_100106C90;
+      if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
+      {
+        v42 = 136315650;
+        v43 = "W5DeleteFilesAtPath";
+        v44 = 2080;
+        v45 = "W5MiscUtil.m";
+        v46 = 1024;
+        v47 = 670;
+        LODWORD(v31) = 28;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v25, 0, "[wifivelocity] %s (%s:%u) [STOP] File Deletion Request", &v42, v31, 136316418);
+        goto LABEL_50;
+      }
+
+LABEL_51:
+      v28 = v33;
+      goto LABEL_52;
+    }
+
+    goto LABEL_49;
   }
 
   if (qword_100106C98 != -1)
@@ -9877,42 +10180,49 @@ LABEL_56:
     dispatch_once(&qword_100106C98, &stru_1000E3740);
   }
 
+  v27 = qword_100106C90;
   if (!os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
   {
-    goto LABEL_56;
+    goto LABEL_55;
   }
 
-  v33 = 136315650;
-  v34 = "W5DeleteFilesAtPath";
-  v35 = 2080;
-  v36 = "W5MiscUtil.m";
-  v37 = 1024;
-  v38 = 656;
+  v42 = 136316162;
+  v43 = "W5DeleteFilesAtPath";
+  v44 = 2080;
+  v45 = "W5MiscUtil.m";
+  v46 = 1024;
+  v47 = 664;
+  v48 = 2114;
+  v49 = @"/var/run/com.apple.wifivelocity";
+  v50 = 2114;
+  *v51 = v41;
+  LODWORD(v31) = 48;
+  _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v27, 0, "[wifivelocity] %s (%s:%u) Unable to list contents of: %{public}@, error: %{public}@", &v42, v31);
 LABEL_49:
-  _os_log_send_and_compose_impl();
+  v33 = 0;
 LABEL_50:
-  v24 = 0;
-LABEL_51:
   if (qword_100106C98 == -1)
   {
-    goto LABEL_52;
+    goto LABEL_51;
   }
 
   dispatch_once(&qword_100106C98, &stru_1000E3740);
-  v20 = v24;
-LABEL_53:
+  v28 = v33;
+LABEL_52:
+  v29 = qword_100106C90;
   if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
   {
-    v33 = 136315650;
-    v34 = "W5DeleteFilesAtPath";
-    v35 = 2080;
-    v36 = "W5MiscUtil.m";
-    v37 = 1024;
-    v38 = 695;
-    _os_log_send_and_compose_impl();
+    v42 = 136315650;
+    v43 = "W5DeleteFilesAtPath";
+    v44 = 2080;
+    v45 = "W5MiscUtil.m";
+    v46 = 1024;
+    v47 = 695;
+    LODWORD(v31) = 28;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v29, 0, "[wifivelocity] %s (%s:%u) [END] File Deletion Request", &v42, v31, v32);
   }
 
-  return v20;
+  return v28;
 }
 
 uint64_t sub_10009A49C()
@@ -10044,139 +10354,138 @@ uint64_t sub_10009A6AC()
   v1 = v0;
   v3 = v2;
   v5 = v4;
-  memset(&v26, 0, sizeof(v26));
-  stat([objc_msgSend(v4 "path")], &v26);
+  memset(&v25, 0, sizeof(v25));
+  stat([objc_msgSend(v4 "path")], &v25);
   if (qword_100106C98 != -1)
   {
     dispatch_once(&qword_100106C98, &stru_1000E3740);
   }
 
+  v6 = qword_100106C90;
   if (os_log_type_enabled(qword_100106C90, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [v5 path];
-    v35 = "__W5ArchiveAddFileURLToArchive";
-    v36 = 2080;
+    v7 = [v5 path];
+    v34 = "__W5ArchiveAddFileURLToArchive";
+    v35 = 2080;
     *buf = 136316162;
-    *v37 = "W5MiscUtil.m";
-    *&v37[8] = 1024;
-    *&v37[10] = 276;
-    *&v37[14] = 2114;
-    *&v37[16] = v6;
-    v38 = 2048;
-    st_size = v26.st_size;
-    LODWORD(v25) = 48;
-    v24 = buf;
-    _os_log_send_and_compose_impl();
+    *v36 = "W5MiscUtil.m";
+    *&v36[8] = 1024;
+    *&v36[10] = 276;
+    *&v36[14] = 2114;
+    *&v36[16] = v7;
+    v37 = 2048;
+    st_size = v25.st_size;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v6, 0, "[wifivelocity] %s (%s:%u) Adding file '%{public}@' (size=%lld) to archive", buf, 48);
   }
 
-  v7 = archive_entry_new();
-  if (v7)
+  v8 = archive_entry_new();
+  if (v8)
   {
     archive_entry_copy_stat();
     [v3 UTF8String];
     archive_entry_set_pathname();
     archive_entry_set_perm();
-    v8 = archive_write_header();
-    if (v8)
+    v9 = archive_write_header();
+    if (v9)
     {
-      v17 = v8;
-      v30 = NSLocalizedFailureReasonErrorKey;
-      v31 = @"err";
-      v18 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v8 userInfo:[NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1]];
+      v18 = v9;
+      v29 = NSLocalizedFailureReasonErrorKey;
+      v30 = @"err";
+      v19 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v9 userInfo:[NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1]];
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v19 = [v3 UTF8String];
-        v20 = archive_error_string();
+        v20 = [v3 UTF8String];
+        v21 = archive_error_string();
         *buf = 136446722;
-        v35 = v19;
-        v36 = 1026;
-        *v37 = v17;
-        *&v37[4] = 2082;
-        *&v37[6] = v20;
+        v34 = v20;
+        v35 = 1026;
+        *v36 = v18;
+        *&v36[4] = 2082;
+        *&v36[6] = v21;
         _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "[wifivelocity] archive_write_header() FAILED for %{public}s, returned %{public}d (%{public}s)", buf, 0x1Cu);
       }
 
       goto LABEL_21;
     }
 
-    v9 = open([objc_msgSend(v5 "path")], 0);
-    if ((v9 & 0x80000000) == 0)
+    v10 = open([objc_msgSend(v5 "path")], 0);
+    if ((v10 & 0x80000000) == 0)
     {
-      v10 = v9;
-      if (read(v9, v27, 0x2000uLL) < 1)
+      v11 = v10;
+      if (read(v10, v26, 0x2000uLL) < 1)
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          v23 = [v3 UTF8String];
+          v24 = [v3 UTF8String];
           *buf = 136446210;
-          v35 = v23;
+          v34 = v24;
           _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "[wifivelocity] Unexpected zero-length file encountered for %{public}s", buf, 0xCu);
         }
 
-        v11 = 0;
+        v12 = 0;
       }
 
       else
       {
-        v11 = 0;
+        v12 = 0;
         do
         {
-          v11 += archive_write_data();
+          v12 += archive_write_data();
         }
 
-        while (read(v10, v27, 0x2000uLL) > 0);
+        while (read(v11, v26, 0x2000uLL) > 0);
       }
 
-      close(v10);
-      if (v11 != v26.st_size && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      close(v11);
+      if (v12 != v25.st_size && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v22 = [v3 UTF8String];
+        v23 = [v3 UTF8String];
         *buf = 136446722;
-        v35 = v22;
-        v36 = 2050;
-        *v37 = v26.st_size;
-        *&v37[8] = 2050;
-        *&v37[10] = v11;
+        v34 = v23;
+        v35 = 2050;
+        *v36 = v25.st_size;
+        *&v36[8] = 2050;
+        *&v36[10] = v12;
         _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "[wifivelocity] Bytes written does not equal file size (file='%{public}s', size=%{public}lld, written=%{public}zd)", buf, 0x20u);
       }
 
-      v12 = 1;
+      v13 = 1;
       goto LABEL_13;
     }
 
-    v21 = *__error();
-    v28 = NSLocalizedFailureReasonErrorKey;
-    v29 = @"errno";
-    v14 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-    v15 = NSPOSIXErrorDomain;
-    v16 = v21;
+    v22 = *__error();
+    v27 = NSLocalizedFailureReasonErrorKey;
+    v28 = @"errno";
+    v15 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v16 = NSPOSIXErrorDomain;
+    v17 = v22;
   }
 
   else
   {
-    v32 = NSLocalizedFailureReasonErrorKey;
-    v33 = @"ENOMEM";
-    v14 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-    v15 = NSPOSIXErrorDomain;
-    v16 = 12;
+    v31 = NSLocalizedFailureReasonErrorKey;
+    v32 = @"ENOMEM";
+    v15 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+    v16 = NSPOSIXErrorDomain;
+    v17 = 12;
   }
 
-  v18 = [NSError errorWithDomain:v15 code:v16 userInfo:v14, v24, v25];
+  v19 = [NSError errorWithDomain:v16 code:v17 userInfo:v15];
 LABEL_21:
-  v12 = 0;
-  if (v1 && v18)
+  v13 = 0;
+  if (v1 && v19)
   {
-    v12 = 0;
-    *v1 = v18;
+    v13 = 0;
+    *v1 = v19;
   }
 
 LABEL_13:
-  if (v7)
+  if (v8)
   {
     archive_entry_free();
   }
 
-  return v12;
+  return v13;
 }
 
 void sub_10009B050(id a1)
@@ -10184,25 +10493,50 @@ void sub_10009B050(id a1)
   v1 = sub_100098A04();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v3 = 136315650;
+    v4 = "[W5PeerDiagnosticsManager configureDiscoveryClientAndActivate]_block_invoke";
+    v5 = 2080;
+    v6 = "W5PeerDiagnosticsManager.m";
+    v7 = 1024;
+    v8 = 135;
+    v2 = 28;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v1, 0, "[wifivelocity] %s (%s:%u) rapport discovery session invalidated", &v3, v2);
   }
 }
 
 void sub_10009B12C(id a1, RPCompanionLinkDevice *a2)
 {
-  v2 = sub_100098A04();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_100098A04();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v5 = 136315906;
+    v6 = "[W5PeerDiagnosticsManager configureDiscoveryClientAndActivate]_block_invoke";
+    v7 = 2080;
+    v8 = "W5PeerDiagnosticsManager.m";
+    v9 = 1024;
+    v10 = 138;
+    v11 = 2114;
+    v12 = a2;
+    v4 = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v3, 0, "[wifivelocity] %s (%s:%u) found device:%{public}@", &v5, v4);
   }
 }
 
 void sub_10009B218(id a1, RPCompanionLinkDevice *a2)
 {
-  v2 = sub_100098A04();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_100098A04();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v5 = 136315906;
+    v6 = "[W5PeerDiagnosticsManager configureDiscoveryClientAndActivate]_block_invoke";
+    v7 = 2080;
+    v8 = "W5PeerDiagnosticsManager.m";
+    v9 = 1024;
+    v10 = 141;
+    v11 = 2114;
+    v12 = a2;
+    v4 = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v3, 0, "[wifivelocity] %s (%s:%u) lost device:%{public}@", &v5, v4);
   }
 }
 
@@ -10222,16 +10556,24 @@ intptr_t sub_10009B37C(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = sub_100098A04();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100098A04();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v7 = 136315906;
+      v8 = "[W5PeerDiagnosticsManager configureDiscoveryClientAndActivate]_block_invoke_2";
+      v9 = 2080;
+      v10 = "W5PeerDiagnosticsManager.m";
+      v11 = 1024;
+      v12 = 157;
+      v13 = 2114;
+      v14 = a2;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v4, 0, "[wifivelocity] %s (%s:%u) PeerDiagnostics activation of rapport disovery client falied, error: %{public}@", &v7, 38);
     }
 
-    v4 = *(a1 + 32);
-    objc_sync_enter(v4);
+    v5 = *(a1 + 32);
+    objc_sync_enter(v5);
     *(*(a1 + 32) + 24) = 0;
-    objc_sync_exit(v4);
+    objc_sync_exit(v5);
   }
 
   return dispatch_semaphore_signal(*(a1 + 40));
@@ -10240,69 +10582,68 @@ intptr_t sub_10009B37C(uint64_t a1, uint64_t a2)
 void sub_10009B5E4(uint64_t a1)
 {
   dispatch_source_cancel(*(a1 + 32));
-  v17 = objc_alloc_init(NSMutableDictionary);
+  v16 = objc_alloc_init(NSMutableDictionary);
   v2 = objc_alloc_init(NSMutableSet);
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
-  v16 = a1;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v15 = a1;
   v3 = [*(*(a1 + 40) + 16) activeDevices];
-  v4 = [v3 countByEnumeratingWithState:&v22 objects:v44 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v21 objects:v43 count:16];
   if (v4)
   {
+    v17 = 0;
     v18 = 0;
     v19 = 0;
     v20 = 0;
-    v21 = 0;
-    v5 = *v23;
+    v5 = *v22;
     do
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v23 != v5)
+        if (*v22 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v22 + 1) + 8 * i);
+        v7 = *(*(&v21 + 1) + 8 * i);
         if ([v7 idsDeviceIdentifier] && !objc_msgSend(v2, "containsObject:", objc_msgSend(v7, "idsDeviceIdentifier")))
         {
           v9 = sub_100098A04();
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
-            v26 = 136315906;
-            v27 = "[W5PeerDiagnosticsManager beginPeerDiscovery]_block_invoke";
-            v28 = 2080;
-            v29 = "W5PeerDiagnosticsManager.m";
-            v30 = 1024;
-            v31 = 218;
-            v32 = 2114;
-            v33 = v7;
-            LODWORD(v15) = 38;
-            v14 = &v26;
-            _os_log_send_and_compose_impl();
+            v25 = 136315906;
+            v26 = "[W5PeerDiagnosticsManager beginPeerDiscovery]_block_invoke";
+            v27 = 2080;
+            v28 = "W5PeerDiagnosticsManager.m";
+            v29 = 1024;
+            v30 = 218;
+            v31 = 2114;
+            v32 = v7;
+            LODWORD(v14) = 38;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v9, 0, "[wifivelocity] %s (%s:%u) counting device %{public}@", &v25, v14);
           }
 
-          [v2 addObject:{objc_msgSend(v7, "idsDeviceIdentifier", v14, v15)}];
+          [v2 addObject:{objc_msgSend(v7, "idsDeviceIdentifier")}];
           if ([v7 model] && ((objc_msgSend(objc_msgSend(v7, "model"), "containsString:", @"iPhone") & 1) != 0 || objc_msgSend(objc_msgSend(v7, "model"), "containsString:", @"iPad")))
-          {
-            ++v21;
-          }
-
-          else if ([v7 model] && objc_msgSend(objc_msgSend(v7, "model"), "containsString:", @"Mac"))
           {
             ++v20;
           }
 
+          else if ([v7 model] && objc_msgSend(objc_msgSend(v7, "model"), "containsString:", @"Mac"))
+          {
+            ++v19;
+          }
+
           else if ([v7 model] && objc_msgSend(objc_msgSend(v7, "model"), "containsString:", @"AppleTV"))
           {
-            ++v18;
+            ++v17;
           }
 
           else if ([v7 model])
           {
-            v19 += [objc_msgSend(v7 "model")];
+            v18 += [objc_msgSend(v7 "model")];
           }
         }
 
@@ -10311,22 +10652,21 @@ void sub_10009B5E4(uint64_t a1)
           v8 = sub_100098A04();
           if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
           {
-            v26 = 136315906;
-            v27 = "[W5PeerDiagnosticsManager beginPeerDiscovery]_block_invoke";
-            v28 = 2080;
-            v29 = "W5PeerDiagnosticsManager.m";
-            v30 = 1024;
-            v31 = 215;
-            v32 = 2114;
-            v33 = v7;
-            LODWORD(v15) = 38;
-            v14 = &v26;
-            _os_log_send_and_compose_impl();
+            v25 = 136315906;
+            v26 = "[W5PeerDiagnosticsManager beginPeerDiscovery]_block_invoke";
+            v27 = 2080;
+            v28 = "W5PeerDiagnosticsManager.m";
+            v29 = 1024;
+            v30 = 215;
+            v31 = 2114;
+            v32 = v7;
+            LODWORD(v14) = 38;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) skipping device %{public}@", &v25, v14);
           }
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v22 objects:v44 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v21 objects:v43 count:16];
     }
 
     while (v4);
@@ -10334,51 +10674,52 @@ void sub_10009B5E4(uint64_t a1)
 
   else
   {
+    v17 = 0;
     v18 = 0;
     v19 = 0;
     v20 = 0;
-    v21 = 0;
   }
 
-  [v17 setObject:objc_msgSend(objc_msgSend(*(*(a1 + 40) + 16) forKeyedSubscript:{"localDevice", v14, v15), "model"), @"DeviceModel"}];
-  [v17 setObject:+[NSDate date](NSDate forKeyedSubscript:{"date"), @"Timestamp"}];
-  [v17 setObject:+[NSNumber numberWithUnsignedInt:](NSNumber forKeyedSubscript:{"numberWithUnsignedInt:", v21), @"numberOfIOSDevices"}];
-  [v17 setObject:+[NSNumber numberWithUnsignedInt:](NSNumber forKeyedSubscript:{"numberWithUnsignedInt:", v18), @"numberOfTVOSDevices"}];
-  [v17 setObject:+[NSNumber numberWithUnsignedInt:](NSNumber forKeyedSubscript:{"numberWithUnsignedInt:", v20), @"numberOfMacOSDevices"}];
-  [v17 setObject:+[NSNumber numberWithUnsignedInt:](NSNumber forKeyedSubscript:{"numberWithUnsignedInt:", v19), @"numberOfWatchOSDevices"}];
+  [v16 setObject:objc_msgSend(objc_msgSend(*(*(a1 + 40) + 16) forKeyedSubscript:{"localDevice"), "model"), @"DeviceModel"}];
+  [v16 setObject:+[NSDate date](NSDate forKeyedSubscript:{"date"), @"Timestamp"}];
+  [v16 setObject:+[NSNumber numberWithUnsignedInt:](NSNumber forKeyedSubscript:{"numberWithUnsignedInt:", v20), @"numberOfIOSDevices"}];
+  [v16 setObject:+[NSNumber numberWithUnsignedInt:](NSNumber forKeyedSubscript:{"numberWithUnsignedInt:", v17), @"numberOfTVOSDevices"}];
+  [v16 setObject:+[NSNumber numberWithUnsignedInt:](NSNumber forKeyedSubscript:{"numberWithUnsignedInt:", v19), @"numberOfMacOSDevices"}];
+  [v16 setObject:+[NSNumber numberWithUnsignedInt:](NSNumber forKeyedSubscript:{"numberWithUnsignedInt:", v18), @"numberOfWatchOSDevices"}];
   v10 = sub_100098A04();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [v17 objectForKeyedSubscript:@"DeviceModel"];
-    v12 = [v17 objectForKeyedSubscript:@"Timestamp"];
-    v26 = 136317186;
-    v27 = "[W5PeerDiagnosticsManager beginPeerDiscovery]_block_invoke";
-    v28 = 2080;
-    v29 = "W5PeerDiagnosticsManager.m";
-    v30 = 1024;
-    v31 = 245;
-    v32 = 2114;
-    v33 = v11;
-    v34 = 2114;
-    v35 = v12;
-    v36 = 2048;
-    v37 = v21;
-    v38 = 2048;
-    v39 = v18;
-    v40 = 2048;
-    v41 = v20;
-    v42 = 2048;
-    v43 = v19;
-    _os_log_send_and_compose_impl();
+    v11 = [v16 objectForKeyedSubscript:@"DeviceModel"];
+    v12 = [v16 objectForKeyedSubscript:@"Timestamp"];
+    v25 = 136317186;
+    v26 = "[W5PeerDiagnosticsManager beginPeerDiscovery]_block_invoke";
+    v27 = 2080;
+    v28 = "W5PeerDiagnosticsManager.m";
+    v29 = 1024;
+    v30 = 245;
+    v31 = 2114;
+    v32 = v11;
+    v33 = 2114;
+    v34 = v12;
+    v35 = 2048;
+    v36 = v20;
+    v37 = 2048;
+    v38 = v17;
+    v39 = 2048;
+    v40 = v19;
+    v41 = 2048;
+    v42 = v18;
+    LODWORD(v14) = 88;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v10, 0, "[wifivelocity] %s (%s:%u) Device model %{public}@, timestamp %{public}@, found iOS devices %lu, tvOS devices %lu, macOS devices %lu, watchOS devices %lu", &v25, v14);
   }
 
-  v13 = *(a1 + 40);
-  objc_sync_enter(*(v16 + 40));
+  v13 = *(v15 + 40);
+  objc_sync_enter(v13);
 
-  *(*(v16 + 40) + 32) = [v17 copy];
+  *(*(v15 + 40) + 32) = [v16 copy];
   objc_sync_exit(v13);
-  [*(v16 + 40) invalidateDiscoveryClient];
-  dispatch_release(*(v16 + 32));
+  [*(v15 + 40) invalidateDiscoveryClient];
+  dispatch_release(*(v15 + 32));
 }
 
 id sub_10009BC38(uint64_t a1)
@@ -10397,10 +10738,19 @@ intptr_t sub_10009BCC4(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = sub_100098A04();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100098A04();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v7 = 136315906;
+      v8 = "[W5PeerDiagnosticsManager registerCallbacksAndActivate]_block_invoke_2";
+      v9 = 2080;
+      v10 = "W5PeerDiagnosticsManager.m";
+      v11 = 1024;
+      v12 = 267;
+      v13 = 2114;
+      v14 = a2;
+      v6 = 38;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v4, 0, "[wifivelocity] %s (%s:%u) PeerDiagnostics activation of rapport disovery client falied, error: %{public}@", &v7, v6);
     }
   }
 
@@ -10409,25 +10759,35 @@ intptr_t sub_10009BCC4(uint64_t a1, uint64_t a2)
 
 uint64_t sub_10009BE48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  (*(a4 + 16))(a4, [*(a1 + 32) localDiagnostics], 0, 0);
-  v4 = sub_100098A04();
-  result = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v5 = [*(a1 + 32) localDiagnostics];
+  (*(a4 + 16))(a4, v5, 0, 0);
+  v6 = sub_100098A04();
+  result = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (result)
   {
-    return _os_log_send_and_compose_impl();
+    v9 = 136315906;
+    v10 = "[W5PeerDiagnosticsManager registerRequestHandler]_block_invoke";
+    v11 = 2080;
+    v12 = "W5PeerDiagnosticsManager.m";
+    v13 = 1024;
+    v14 = 290;
+    v15 = 2114;
+    v16 = v5;
+    v8 = 38;
+    return _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v6, 0, "[wifivelocity] %s (%s:%u) received peerdiagnostics request, response %{public}@", &v9, v8);
   }
 
   return result;
 }
 
-void sub_10009C3A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10009C3A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -10457,9 +10817,9 @@ uint64_t sub_10009C3EC()
   return v0;
 }
 
-void sub_10009C4C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10009C4C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -10471,7 +10831,13 @@ intptr_t sub_10009C4D8(uint64_t a1, void *a2, uint64_t a3)
     v4 = sub_100098A04();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v9 = 136315650;
+      v10 = "[W5PeerDiagnosticsManager getDPSSummary]_block_invoke";
+      v11 = 2080;
+      v12 = "W5PeerDiagnosticsManager.m";
+      v13 = 1024;
+      v14 = 335;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v4, 0, "[wifivelocity] %s (%s:%u) Failed to obtain DPS summarized logs from wifianalyticsd", &v9, 28);
     }
 
     return dispatch_semaphore_signal(*(a1 + 32));
@@ -10500,7 +10866,16 @@ uint64_t sub_10009C8DC(uint64_t a1)
   if (result)
   {
     v4 = *(a1 + 32);
-    return _os_log_send_and_compose_impl();
+    v6 = 136315906;
+    v7 = "[W5PeerDiagnosticsManager requestDiagnostics:completionBlock:]_block_invoke";
+    v8 = 2080;
+    v9 = "W5PeerDiagnosticsManager.m";
+    v10 = 1024;
+    v11 = 381;
+    v12 = 2114;
+    v13 = v4;
+    v5 = 38;
+    return _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v2, 0, "[wifivelocity] %s (%s:%u) session client with device %{public}@ invalidated", &v6, v5);
   }
 
   return result;
@@ -10513,33 +10888,41 @@ id sub_10009C9CC(uint64_t a1, uint64_t a2)
     v4 = sub_100098A04();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315906;
-      v12 = "[W5PeerDiagnosticsManager requestDiagnostics:completionBlock:]_block_invoke";
-      v13 = 2080;
-      v14 = "W5PeerDiagnosticsManager.m";
-      v15 = 1024;
-      v16 = 387;
-      v17 = 2114;
-      v18 = a2;
-      _os_log_send_and_compose_impl();
+      v12 = 136315906;
+      v13 = "[W5PeerDiagnosticsManager requestDiagnostics:completionBlock:]_block_invoke";
+      v14 = 2080;
+      v15 = "W5PeerDiagnosticsManager.m";
+      v16 = 1024;
+      v17 = 387;
+      v18 = 2114;
+      v19 = a2;
+      v8 = 38;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v4, 0, "[wifivelocity] %s (%s:%u) session client falied to activate, error: %{public}@", &v12, v8);
     }
 
-    return (*(*(a1 + 40) + 16))(*(a1 + 40), 0);
+    return (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v9 = RPOptionAllowUnauthenticated;
-    v10 = &__kCFBooleanTrue;
-    v6 = [NSDictionary dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_10009CB7C;
-    v8[3] = &unk_1000E3860;
+    v10 = RPOptionAllowUnauthenticated;
+    v11 = &__kCFBooleanTrue;
+    v6 = [NSDictionary dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10009CB7C;
+    v9[3] = &unk_1000E3860;
     v7 = *(a1 + 32);
-    v8[4] = *(a1 + 40);
-    return [v7 sendRequestID:@"com.apple.proximity.peerdiagnosticslink" request:&__NSDictionary0__struct options:v6 responseHandler:v8];
+    v9[4] = *(a1 + 40);
+    return [v7 sendRequestID:@"com.apple.proximity.peerdiagnosticslink" request:&__NSDictionary0__struct options:v6 responseHandler:v9];
   }
+}
+
+void sub_10009D100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
+{
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 id sub_10009D144(uint64_t a1)
@@ -10565,24 +10948,42 @@ void sub_10009D1CC(uint64_t a1, uint64_t a2)
     objc_sync_enter(v4);
     ++*(*(*(a1 + 64) + 8) + 24);
     [*(a1 + 40) addObject:a2];
-    [*(a1 + 40) count];
+    v5 = [*(a1 + 40) count];
     objc_sync_exit(v4);
-    v5 = sub_100098A04();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100098A04();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      [*(a1 + 48) model];
-LABEL_6:
-      _os_log_send_and_compose_impl();
+      v7 = [*(a1 + 48) model];
+      *v10 = 136316418;
+      *&v10[4] = "[W5PeerDiagnosticsManager gatherPeerDiagnostics]_block_invoke_2";
+      *&v10[12] = 2080;
+      *&v10[14] = "W5PeerDiagnosticsManager.m";
+      *&v10[22] = 1024;
+      LODWORD(v11) = 450;
+      WORD2(v11) = 2114;
+      *(&v11 + 6) = v7;
+      HIWORD(v11) = 2114;
+      LOWORD(v13) = 2048;
+      *(&v13 + 2) = v5;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v6, 0, "[wifivelocity] %s (%s:%u) response from peer %{public}@: %{public}@, total responses %lu", v10, 58, *v10, *&v10[8], v11, a2, v13);
     }
   }
 
   else
   {
-    v6 = sub_100098A04();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100098A04();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 48);
-      goto LABEL_6;
+      v9 = *(a1 + 48);
+      *v10 = 136315906;
+      *&v10[4] = "[W5PeerDiagnosticsManager gatherPeerDiagnostics]_block_invoke";
+      *&v10[12] = 2080;
+      *&v10[14] = "W5PeerDiagnosticsManager.m";
+      *&v10[22] = 1024;
+      LODWORD(v11) = 453;
+      WORD2(v11) = 2114;
+      *(&v11 + 6) = v9;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) no response from peer %{public}@", v10, 38, *v10, *&v10[8], v11, v12, v13);
     }
   }
 
@@ -10600,7 +11001,15 @@ void sub_10009D3D8(uint64_t a1)
   v4 = sub_100098A04();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v5 = 136315906;
+    v6 = "[W5PeerDiagnosticsManager gatherPeerDiagnostics]_block_invoke";
+    v7 = 2080;
+    v8 = "W5PeerDiagnosticsManager.m";
+    v9 = 1024;
+    v10 = 467;
+    v11 = 2114;
+    v12 = v2;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v4, 0, "[wifivelocity] %s (%s:%u) local diagnostics %{public}@", &v5, 38);
   }
 
   dispatch_group_leave(*(a1 + 48));
@@ -10649,7 +11058,6 @@ LABEL_10:
 
 uint64_t sub_10009D6E4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100106CB8 = result;
   return result;

@@ -109,7 +109,7 @@
   if (([v15 containsObject:a3] & 1) == 0)
   {
     [v15 addObject:a3];
-    (v18)[2](v18, a3);
+    v18[2](v18, a3);
   }
 }
 

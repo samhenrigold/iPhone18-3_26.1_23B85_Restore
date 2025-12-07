@@ -293,7 +293,7 @@ void __57__ICLongRunningTaskController_startTask_completionBlock___block_invoke(
     if (progressStringBlock4)
     {
       progressStringBlock5 = [(ICLongRunningTaskController *)self progressStringBlock];
-      v35 = progressStringBlock5[2](progressStringBlock5, 0, 0);
+      v36 = progressStringBlock5[2](progressStringBlock5, 0, 0);
     }
 
     else
@@ -310,7 +310,7 @@ void __57__ICLongRunningTaskController_startTask_completionBlock___block_invoke(
         progressString5 = &stru_1F4F94F00;
       }
 
-      v35 = progressString5;
+      v36 = progressString5;
     }
 
     updateProgressUIBlock3 = [(ICLongRunningTaskController *)self updateProgressUIBlock];
@@ -318,10 +318,10 @@ void __57__ICLongRunningTaskController_startTask_completionBlock___block_invoke(
     if (updateProgressUIBlock3)
     {
       updateProgressUIBlock4 = [(ICLongRunningTaskController *)self updateProgressUIBlock];
-      updateProgressUIBlock4[2](updateProgressUIBlock4, v35, 0.0);
+      updateProgressUIBlock4[2](updateProgressUIBlock4, v36, 0.0);
     }
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v34);
   }
 }
 
@@ -430,7 +430,7 @@ void __49__ICLongRunningTaskController_openProgressDialog__block_invoke_2(uint64
   [v4 setText:v3];
 }
 
-uint64_t __49__ICLongRunningTaskController_openProgressDialog__block_invoke_3(uint64_t a1)
+void *__49__ICLongRunningTaskController_openProgressDialog__block_invoke_3(uint64_t a1)
 {
   [*(a1 + 32) setProgressViewControllerDidFinishPresenting:1];
   result = [*(a1 + 32) shouldDismissProgressViewController];

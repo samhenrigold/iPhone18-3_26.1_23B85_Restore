@@ -119,11 +119,11 @@ void __52___UIBackdropView_adjustTintImplementationIfNeeded___block_invoke(uint6
   }
 }
 
-uint64_t __55___UIBackdropView_computeAndApplySettingsForTransition__block_invoke(uint64_t result, int a2)
+id *__55___UIBackdropView_computeAndApplySettingsForTransition__block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) transitionComplete];
+    return [result[4] transitionComplete];
   }
 
   return result;

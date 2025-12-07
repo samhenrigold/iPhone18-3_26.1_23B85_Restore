@@ -142,7 +142,7 @@ id __63__HUTriggerDurationItemModule_buildSectionsWithDisplayedItems___block_inv
       v8 = MEMORY[0x277CCABB0];
       v9 = [*(a1 + 32) triggerBuilder];
       v10 = [v9 designatedDurationEventBuilder];
-      [v10 duration];
+      objc_msgSend_duration(v10);
       v11 = [v8 numberWithDouble:?];
       v12 = [v7 hf_naturalLanguageTurnOffAfterDuration:v11 style:2];
 

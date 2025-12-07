@@ -8,6 +8,7 @@
 - (unsigned)extractMediaState;
 - (void)didRequestCurrentTrackInfoRead;
 - (void)didRequestMediaControlOpcodesSupportedRead;
+- (void)didRequestMediaControlPointWrite:(unsigned __int8)write;
 - (void)didRequestMediaPlayerInfoRead;
 - (void)didRequestMediaPlayerNameRead;
 - (void)didRequestMediaStateRead;
@@ -1135,6 +1136,22 @@ LABEL_25:
   peripheral = [(ServiceInterface *)self peripheral];
   mediaStateCharacteristic = [(MCSInterface *)self mediaStateCharacteristic];
   [peripheral readValueForCharacteristic:mediaStateCharacteristic];
+}
+
+- (void)didRequestMediaControlPointWrite:(unsigned __int8)write
+{
+  writeCopy = write;
+  mediaControlPointCharacteristic = [(MCSInterface *)self mediaControlPointCharacteristic];
+
+  if (mediaControlPointCharacteristic)
+  {
+    v9 = [DataOutputStream outputStreamWithByteOrder:1];
+    [v9 writeUint8:writeCopy];
+    peripheral = [(ServiceInterface *)self peripheral];
+    data = [v9 data];
+    mediaControlPointCharacteristic2 = [(MCSInterface *)self mediaControlPointCharacteristic];
+    [peripheral writeValue:data forCharacteristic:mediaControlPointCharacteristic2 type:1];
+  }
 }
 
 - (void)didRequestMediaControlOpcodesSupportedRead

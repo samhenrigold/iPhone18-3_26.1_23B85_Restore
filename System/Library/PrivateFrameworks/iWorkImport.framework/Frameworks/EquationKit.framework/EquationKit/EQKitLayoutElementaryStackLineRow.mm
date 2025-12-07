@@ -44,9 +44,9 @@
 
   v14 = [EQKitRule alloc];
   mThickness = self->mThickness;
-  v17 = *(sub_275CA3150(manager) + 112);
+  v16 = sub_275CA3150(manager)[14];
 
-  return objc_msgSend_initWithHeight_depth_width_cgColor_(v14, v16, v17, v18, 0.0, mThickness, width);
+  return [(EQKitRule *)v14 initWithHeight:v16 depth:0.0 width:mThickness cgColor:width];
 }
 
 @end

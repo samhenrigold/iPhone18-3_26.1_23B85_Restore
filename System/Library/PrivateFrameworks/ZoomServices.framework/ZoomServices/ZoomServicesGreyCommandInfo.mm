@@ -10,17 +10,16 @@
 
 + (id)defaultCustomizeGestures
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5[0] = &unk_2883FD900;
-  v5[1] = &unk_2883FD930;
-  v6[0] = &unk_2883FD918;
-  v6[1] = &unk_2883FD948;
-  v5[2] = &unk_2883FD960;
-  v5[3] = &unk_2883FD978;
-  v6[2] = &unk_2883FD918;
-  v6[3] = &unk_2883FD918;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:4];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_2883FD900;
+  v4[1] = &unk_2883FD930;
+  v5[0] = &unk_2883FD918;
+  v5[1] = &unk_2883FD948;
+  v4[2] = &unk_2883FD960;
+  v4[3] = &unk_2883FD978;
+  v5[2] = &unk_2883FD918;
+  v5[3] = &unk_2883FD918;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:4];
 
   return v2;
 }

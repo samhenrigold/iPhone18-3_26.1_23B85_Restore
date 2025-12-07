@@ -11,22 +11,24 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  v4 = sub_100747064();
-  v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  height = fits.height;
+  width = fits.width;
+  v6 = sub_100747064();
+  v7 = *(v6 - 8);
+  __chkstk_darwin(v6);
+  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
 
-  sub_1001CDA40(v7);
+  sub_1001CDA40(v9);
   [(SmallLockupView *)selfCopy layoutMargins];
-  v9 = sub_1001CF184(v7, selfCopy);
-  v11 = v10;
+  v11 = sub_1001CF184(v9, selfCopy, width, height);
+  v13 = v12;
 
-  (*(v5 + 8))(v7, v4);
-  v12 = v9;
-  v13 = v11;
-  result.height = v13;
-  result.width = v12;
+  (*(v7 + 8))(v9, v6);
+  v14 = v11;
+  v15 = v13;
+  result.height = v15;
+  result.width = v14;
   return result;
 }
 
@@ -39,7 +41,7 @@
   selfCopy = self;
   sub_1001CDA40(v6);
   [(SmallLockupView *)selfCopy layoutMargins];
-  v8 = sub_1001CF184(v6, selfCopy);
+  v8 = sub_1001CF184(v6, selfCopy, 0.0, 0.0);
   v10 = v9;
   (*(v4 + 8))(v6, v3, v8);
 
@@ -53,7 +55,7 @@
 - (void)layoutSubviews
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for SmallLockupView();
+  v5.super_class = type metadata accessor for SmallLockupView(0);
   v2 = v5.receiver;
   [(SmallLockupView *)&v5 layoutSubviews];
   sub_1001CDEE8(v4);
@@ -86,7 +88,7 @@
     goto LABEL_5;
   }
 
-  sub_100016C60(0, &unk_10092C570);
+  sub_100016C60(0, &unk_10092C570, UIGestureRecognizer_ptr);
   recognizerCopy2 = recognizer;
   gestureRecognizerCopy2 = gestureRecognizer;
   selfCopy2 = self;
@@ -112,11 +114,12 @@ LABEL_6:
   v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension15SmallLockupView_lockupTapBlock);
   if (v2)
   {
+    v3 = *&self->super.artworkView[OBJC_IVAR____TtC22SubscribePageExtension15SmallLockupView_lockupTapBlock];
     selfCopy = self;
-    v4 = sub_10001B5AC(v2);
-    v2(v4);
+    v5 = sub_10001B5AC(v2, v3);
+    v2(v5);
 
-    sub_1000164A8(v2);
+    sub_1000164A8(v2, v3);
   }
 }
 

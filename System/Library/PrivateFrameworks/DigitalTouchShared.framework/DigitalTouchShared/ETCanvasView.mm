@@ -651,7 +651,7 @@ LABEL_11:
   }
 }
 
-uint64_t __53__ETCanvasView_wispVisibleSketchViewsWithCompletion___block_invoke(uint64_t a1)
+void (**__53__ETCanvasView_wispVisibleSketchViewsWithCompletion___block_invoke(uint64_t a1))(void)
 {
   result = [*(*(a1 + 32) + 600) count];
   if (!result)
@@ -659,7 +659,7 @@ uint64_t __53__ETCanvasView_wispVisibleSketchViewsWithCompletion___block_invoke(
     result = *(a1 + 40);
     if (result)
     {
-      (*(result + 16))();
+      result[2]();
       v3 = *(a1 + 32);
 
       return [v3 _updateRecognizersAtEndOfComposition];

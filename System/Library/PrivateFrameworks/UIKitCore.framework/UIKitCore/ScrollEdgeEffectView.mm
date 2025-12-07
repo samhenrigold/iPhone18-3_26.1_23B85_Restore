@@ -93,13 +93,13 @@ LABEL_7:
 
 - (id)focusItemsInRect:(CGRect)rect
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA933EB0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA933EB0, &unk_18A64BA50);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_18A64B710;
   v5 = *(&self->super.super.super.isa + OBJC_IVAR____TtC5UIKit20ScrollEdgeEffectView_touchBlocker);
   *(v4 + 32) = v5;
   v6 = v5;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93A738);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93A738, &unk_18A65EAA0);
   v7 = sub_18A4A7518();
 
   return v7;

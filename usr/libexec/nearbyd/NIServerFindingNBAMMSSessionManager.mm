@@ -11,6 +11,7 @@
 - (void)_updateAnalyticsWithFailedRangingRequestToken:(id)token isFinder:(BOOL)finder;
 - (void)_updateAnalyticsWithSuccessfulRangingRequest;
 - (void)logUnservableRangingRequestWithToken:(id)token isFinder:(BOOL)finder;
+- (void)mutualAuthUpdateForSession:(id)session token:(id)token isFinder:(BOOL)finder result:(BOOL)result;
 - (void)refreshRangingForToken:(id)token withNewStartOptions:(const void *)options;
 - (void)session:(id)session updateState:(int)state;
 - (void)unregisterNBAMMSSessionForToken:(id)token;
@@ -369,7 +370,7 @@
   v19 = *p_nmiSession2;
   if (v16)
   {
-    [v16 attachedRoles];
+    objc_msgSend_attachedRoles(v16);
     v20 = __p;
     v21 = v28;
   }
@@ -396,14 +397,14 @@ LABEL_41:
     __assert_rtn("[NIServerFindingNBAMMSSessionManager session:updateState:]", "NIServerFindingRanging.mm", 3122, "optServiceRequest.has_value()");
   }
 
-  [v16 sessionServiceRequestForFinder:v22 == 0];
+  objc_msgSend_sessionServiceRequestForFinder_(v16);
   if ((buf[576] & 1) == 0)
   {
     goto LABEL_41;
   }
 
   memcpy(__dst, buf, sizeof(__dst));
-  [v16 sessionStartRangingOptionsForFinder:v22 == 0];
+  objc_msgSend_sessionStartRangingOptionsForFinder_(v16);
   if ((v30 & 1) == 0)
   {
     __assert_rtn("[NIServerFindingNBAMMSSessionManager session:updateState:]", "NIServerFindingRanging.mm", 3127, "optStartRangingOptions.has_value()");
@@ -451,7 +452,7 @@ LABEL_4:
   nmiSession1 = self->_nmiSession1;
   if (nmiSession1)
   {
-    [(NIServerNBAMMSSession *)nmiSession1 attachedRoles];
+    objc_msgSend_attachedRoles(nmiSession1, a2);
   }
 
   else
@@ -463,7 +464,7 @@ LABEL_4:
   nmiSession2 = self->_nmiSession2;
   if (nmiSession2)
   {
-    [(NIServerNBAMMSSession *)nmiSession2 attachedRoles];
+    objc_msgSend_attachedRoles(nmiSession2);
   }
 
   else
@@ -545,6 +546,92 @@ LABEL_20:
   return v14;
 }
 
+- (void)mutualAuthUpdateForSession:(id)session token:(id)token isFinder:(BOOL)finder result:(BOOL)result
+{
+  resultCopy = result;
+  finderCopy = finder;
+  sessionCopy = session;
+  tokenCopy = token;
+  dispatch_assert_queue_V2(self->_internalQueue);
+  v12 = [(NSMutableDictionary *)self->_tokenToMutualAuthSessions objectForKey:tokenCopy];
+
+  if (v12)
+  {
+    if (resultCopy)
+    {
+      v13 = qword_1009F9820;
+      if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#find-range,Attachment is successful", buf, 2u);
+      }
+
+      [(NSMutableDictionary *)self->_tokenToMutualAuthSessions removeObjectForKey:tokenCopy];
+      nmiSession1 = self->_nmiSession1;
+      if (nmiSession1 != sessionCopy || (nmiSession1 = self->_nmiSession2, nmiSession1 != sessionCopy))
+      {
+        [(NIServerNBAMMSSession *)nmiSession1 unregisterNBAMMSSessionForToken:tokenCopy];
+      }
+
+      [(NIServerFindingNBAMMSSessionManager *)self _updateAnalyticsWithSuccessfulRangingRequest];
+    }
+
+    else
+    {
+      v15 = [(NSMutableDictionary *)self->_tokenToMutualAuthSessions objectForKey:tokenCopy];
+      if ([v15 containsObject:sessionCopy])
+      {
+        if ([v15 count] < 2)
+        {
+          v17 = [(NIServerFindingNBAMMSSessionManager *)self shouldInformMutualAuthFailure:tokenCopy];
+          v18 = qword_1009F9820;
+          v19 = os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT);
+          if (v17)
+          {
+            if (v19)
+            {
+              *v21 = 0;
+              _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#find-range,Inform mutual auth failure to client", v21, 2u);
+            }
+
+            [(NIServerNBAMMSSession *)sessionCopy informMutualAuthFailuresToClients];
+            [(NIServerFindingNBAMMSSessionManager *)self _updateAnalyticsWithFailedRangingRequestToken:tokenCopy isFinder:finderCopy];
+          }
+
+          else
+          {
+            if (v19)
+            {
+              *v20 = 0;
+              _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#find-range,Do not inform mutual auth failure to client, clean attached token silently", v20, 2u);
+            }
+
+            [(NIServerNBAMMSSession *)sessionCopy unregisterNBAMMSSessionForToken:tokenCopy];
+            [(NIServerFindingNBAMMSSessionManager *)self _updateAnalyticsWithSuccessfulRangingRequest];
+          }
+        }
+
+        else
+        {
+          [(NIServerNBAMMSSession *)sessionCopy unregisterNBAMMSSessionForToken:tokenCopy];
+          v16 = qword_1009F9820;
+          if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+          {
+            *v22 = 0;
+            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#find-range,One attaching attempt failed, more to come", v22, 2u);
+          }
+        }
+
+        [v15 removeObject:sessionCopy];
+        if (![v15 count])
+        {
+          [(NSMutableDictionary *)self->_tokenToMutualAuthSessions removeObjectForKey:tokenCopy];
+        }
+      }
+    }
+  }
+}
+
 - (pair<int,)_getAuthenticatedFinderFindeeClients
 {
   sessionClientsStatus = [(NIServerNBAMMSSession *)self->_nmiSession1 sessionClientsStatus];
@@ -556,7 +643,7 @@ LABEL_20:
 - (BOOL)_isReciprocalFindingPossibleRoleIsFinder:(BOOL)finder rangingSession:(id)session
 {
   sessionCopy = session;
-  [sessionCopy attachedRoles];
+  objc_msgSend_attachedRoles(sessionCopy);
   if (v10 - v9 == 8)
   {
     v6 = 0;

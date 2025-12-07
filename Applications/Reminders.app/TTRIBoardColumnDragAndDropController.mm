@@ -94,26 +94,28 @@
 
 - (BOOL)collectionView:(id)view canHandleDropSession:(id)session
 {
-  if (swift_unknownObjectWeakLoadStrong())
+  Strong = swift_unknownObjectWeakLoadStrong();
+  if (Strong)
   {
+    v7 = Strong;
     swift_unknownObjectRetain();
     selfCopy = self;
-    v7 = sub_100400E5C(session);
+    v9 = sub_100400E5C(session, v7);
     swift_unknownObjectRelease();
     swift_unknownObjectRelease();
   }
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  return v7 & 1;
+  return v9 & 1;
 }
 
 - (id)collectionView:(id)view dropSessionDidUpdate:(id)update withDestinationIndexPath:(id)path
 {
-  v9 = sub_100058000(&unk_100771B10);
+  v9 = sub_100058000(&unk_100771B10, qword_10062E540);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   if (path)
@@ -147,7 +149,7 @@
     v18 = [objc_allocWithZone(UICollectionViewDropProposal) initWithDropOperation:0];
   }
 
-  sub_1000079B4(v11, &unk_100771B10);
+  sub_1000079B4(v11, &unk_100771B10, qword_10062E540);
 
   return v18;
 }

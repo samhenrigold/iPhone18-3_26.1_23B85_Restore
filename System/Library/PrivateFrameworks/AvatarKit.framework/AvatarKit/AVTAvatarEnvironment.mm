@@ -28,55 +28,55 @@
 {
   v2 = +[AVTResourceLocator sharedResourceLocator];
   v3 = [AVTResourceLocator pathForEnvironmentResource:v2 ofType:? isDirectory:?];
-  v4 = [MEMORY[0x1E695DFF8] fileURLWithPath:v3 isDirectory:0];
-  v16 = 0;
-  v5 = [MEMORY[0x1E69DF388] avt_rootNodeForWorldAtURL:v4 options:0 error:&v16];
-  v6 = v16;
+  v4 = [MEMORY[0x1E695DFF8] fileURLWithPath:? isDirectory:?];
+  v5 = [MEMORY[0x1E69DF388] avt_rootNodeForWorldAtURL:? options:? error:?];
+  v6 = 0;
+  v7 = v6;
   if (v6)
   {
-    v7 = avt_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = avt_default_log(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(AVTAvatarEnvironment *)v3 defaultEnvironmentNode];
     }
   }
 
-  v8 = [AVTResourceLocator pathForMemojiResource:v2 ofType:? isDirectory:?];
-  if (v8)
+  v9 = [AVTResourceLocator pathForMemojiResource:v2 ofType:? isDirectory:?];
+  if (v9)
   {
-    v9 = [MEMORY[0x1E695DFF8] fileURLWithPath:v8 isDirectory:0];
-    v15 = 0;
-    v10 = [MEMORY[0x1E69DF388] avt_nodeNamed:@"cameras" forWorldAtURL:v9 options:0 error:&v15];
-    v11 = v15;
-    if (v11)
+    v10 = [MEMORY[0x1E695DFF8] fileURLWithPath:? isDirectory:?];
+    v11 = [MEMORY[0x1E69DF388] avt_nodeNamed:? forWorldAtURL:? options:? error:?];
+    v12 = 0;
+    v13 = v12;
+    if (v12)
     {
-      v12 = avt_default_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = avt_default_log(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(AVTAvatarEnvironment *)v8 defaultEnvironmentNode];
+        [(AVTAvatarEnvironment *)v9 defaultEnvironmentNode];
       }
     }
 
-    if (v10)
+    if (v11)
     {
-      [v5 addChildNode:v10];
+      [v5 addChildNode:?];
     }
   }
 
   clone = [v5 clone];
-  [clone setName:@"environment"];
+  [clone setName:?];
 
   return clone;
 }
 
 - (id)initAndInstallInScene:(id)scene renderer:(id)renderer
 {
-  v63[1] = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   sceneCopy = scene;
   rendererCopy = renderer;
-  v61.receiver = self;
-  v61.super_class = AVTAvatarEnvironment;
-  v8 = [(AVTAvatarEnvironment *)&v61 init];
+  v57.receiver = self;
+  v57.super_class = AVTAvatarEnvironment;
+  v8 = [(AVTAvatarEnvironment *)&v57 init];
   v9 = v8;
   if (v8)
   {
@@ -88,17 +88,17 @@
 
     WeakRetained = objc_loadWeakRetained(&v9->_scene);
     rootNode = [WeakRetained rootNode];
-    [rootNode addChildNode:v9->_environmentNode];
+    [rootNode addChildNode:?];
 
-    v14 = [(VFXNode *)v9->_environmentNode childNodeWithName:@"camera" recursively:1];
+    v14 = [VFXNode childNodeWithName:"childNodeWithName:recursively:" recursively:?];
     animojiCamera = v9->_animojiCamera;
     v9->_animojiCamera = v14;
 
-    v16 = [(VFXNode *)v9->_environmentNode childNodeWithName:@"cameras" recursively:1];
+    v16 = [VFXNode childNodeWithName:"childNodeWithName:recursively:" recursively:?];
     memojiCameraGroup = v9->_memojiCameraGroup;
     v9->_memojiCameraGroup = v16;
 
-    v18 = [(VFXNode *)v9->_environmentNode childNodeWithName:@"lighting" recursively:1];
+    v18 = [VFXNode childNodeWithName:"childNodeWithName:recursively:" recursively:?];
     defaultLightingNode = v9->_defaultLightingNode;
     v9->_defaultLightingNode = v18;
 
@@ -107,13 +107,12 @@
     framingMode = v9->_framingMode;
     v9->_framingMode = name;
 
-    defaultPointOfView = v9->_defaultPointOfView;
-    v23 = objc_loadWeakRetained(&v9->_renderer);
-    [v23 setPointOfView:defaultPointOfView];
+    v22 = objc_loadWeakRetained(&v9->_renderer);
+    [v22 setPointOfView:?];
 
     if (!v9->_defaultPointOfView)
     {
-      v24 = avt_default_log();
+      v24 = avt_default_log(v23);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [AVTAvatarEnvironment initAndInstallInScene:v24 renderer:?];
@@ -124,81 +123,78 @@
     whitePlane = v9->_whitePlane;
     v9->_whitePlane = node;
 
-    LODWORD(v27) = 10.0;
-    LODWORD(v28) = 10.0;
-    v29 = [MEMORY[0x1E69DF338] planeWithWidth:v27 height:v28];
-    [(VFXNode *)v9->_whitePlane setModel:v29];
+    v27 = [MEMORY[0x1E69DF338] planeWithWidth:? height:?];
+    [(VFXNode *)v9->_whitePlane setModel:?];
 
     model = [(VFXNode *)v9->_whitePlane model];
     firstMaterial = [model firstMaterial];
-    [firstMaterial setShadingModel:2];
+    [firstMaterial setShadingModel:?];
 
-    [(VFXNode *)v9->_whitePlane setPosition:0.0];
-    [(VFXNode *)v9->_whitePlane setRenderingOrder:1000];
-    [(VFXNode *)v9->_whitePlane setOpacity:0.0];
+    [(VFXNode *)v9->_whitePlane setPosition:?];
+    [(VFXNode *)v9->_whitePlane setRenderingOrder:?];
+    [(VFXNode *)v9->_whitePlane setOpacity:?];
     node2 = [MEMORY[0x1E69DF330] node];
     trackingLostIndicator = v9->_trackingLostIndicator;
     v9->_trackingLostIndicator = node2;
 
-    LODWORD(v34) = 1.0;
-    LODWORD(v35) = 1.0;
-    v36 = [MEMORY[0x1E69DF338] planeWithWidth:v34 height:v35];
-    [(VFXNode *)v9->_trackingLostIndicator setModel:v36];
+    v32 = [MEMORY[0x1E69DF338] planeWithWidth:? height:?];
+    [(VFXNode *)v9->_trackingLostIndicator setModel:?];
 
     model2 = [(VFXNode *)v9->_trackingLostIndicator model];
     firstMaterial2 = [model2 firstMaterial];
-    [firstMaterial2 setWritesToDepthBuffer:0];
+    [firstMaterial2 setWritesToDepthBuffer:?];
 
     model3 = [(VFXNode *)v9->_trackingLostIndicator model];
     firstMaterial3 = [model3 firstMaterial];
-    [firstMaterial3 setReadsFromDepthBuffer:0];
+    [firstMaterial3 setReadsFromDepthBuffer:?];
 
     model4 = [(VFXNode *)v9->_trackingLostIndicator model];
     firstMaterial4 = [model4 firstMaterial];
-    [firstMaterial4 setBlendMode:1];
+    [firstMaterial4 setBlendMode:?];
 
     model5 = [(VFXNode *)v9->_trackingLostIndicator model];
     firstMaterial5 = [model5 firstMaterial];
-    [firstMaterial5 setShadingModel:2];
+    [firstMaterial5 setShadingModel:?];
 
     redColor = [MEMORY[0x1E69DC888] redColor];
     model6 = [(VFXNode *)v9->_trackingLostIndicator model];
     firstMaterial6 = [model6 firstMaterial];
     diffuse = [firstMaterial6 diffuse];
-    [diffuse setContents:redColor];
+    [diffuse setContents:?];
 
-    [(VFXNode *)v9->_trackingLostIndicator setPosition:3.52429132e-14];
-    [(VFXNode *)v9->_trackingLostIndicator setRenderingOrder:100];
-    [(VFXNode *)v9->_trackingLostIndicator setOpacity:0.0];
-    v49 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v50 = [v49 pathForResource:@"trackingIndicator" ofType:@"shader"];
+    [(VFXNode *)v9->_trackingLostIndicator setPosition:?];
+    [(VFXNode *)v9->_trackingLostIndicator setRenderingOrder:?];
+    [(VFXNode *)v9->_trackingLostIndicator setOpacity:?];
+    v45 = MEMORY[0x1E696AAE8];
+    objc_opt_class();
+    v46 = [v45 bundleForClass:?];
+    v47 = [v46 pathForResource:? ofType:?];
 
-    v51 = [MEMORY[0x1E696AEC0] stringWithContentsOfFile:v50 encoding:4 error:0];
+    v48 = [MEMORY[0x1E696AEC0] stringWithContentsOfFile:? encoding:? error:?];
     model7 = [(VFXNode *)v9->_trackingLostIndicator model];
-    v62 = *MEMORY[0x1E69DF3B0];
-    v63[0] = v51;
-    v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:&v62 count:1];
-    [model7 setShaderModifiers:v53];
+    v58 = *MEMORY[0x1E69DF3B0];
+    v59 = v48;
+    v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    [model7 setShaderModifiers:?];
 
-    [(VFXNode *)v9->_defaultPointOfView addChildNode:v9->_trackingLostIndicator];
-    v54 = [(VFXNode *)v9->_defaultPointOfView copy];
+    [(VFXNode *)v9->_defaultPointOfView addChildNode:?];
+    v51 = [(VFXNode *)v9->_defaultPointOfView copy];
     arModeCamera = v9->_arModeCamera;
-    v9->_arModeCamera = v54;
+    v9->_arModeCamera = v51;
 
     camera = [(VFXNode *)v9->_defaultPointOfView camera];
-    v57 = [camera copy];
-    [(VFXNode *)v9->_arModeCamera setCamera:v57];
+    v54 = [camera copy];
+    [(VFXNode *)v9->_arModeCamera setCamera:?];
 
-    [(VFXNode *)v9->_arModeCamera setName:@"cameraARMode"];
+    [(VFXNode *)v9->_arModeCamera setName:?];
     camera2 = [(VFXNode *)v9->_arModeCamera camera];
-    [camera2 setName:@"cameraARMode"];
+    [camera2 setName:?];
 
-    [(VFXNode *)v9->_environmentNode addChildNode:v9->_arModeCamera];
+    [(VFXNode *)v9->_environmentNode addChildNode:?];
     [(AVTAvatarEnvironment *)v9 configureARCameraForReticle];
-    [(VFXNode *)v9->_defaultPointOfView addChildNode:v9->_whitePlane];
+    [(VFXNode *)v9->_defaultPointOfView addChildNode:?];
   }
 
-  v59 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -223,7 +219,7 @@
     [(AVTAvatarEnvironment *)self updateSpecializedLighting];
   }
 
-  [(AVTAvatarEnvironment *)self updateWithPresentationConfiguration:configurationCopy];
+  [(AVTAvatarEnvironment *)self updateWithPresentationConfiguration:?];
   [(AVTAvatarEnvironment *)self updatePointOfViewFromFramingMode];
 }
 
@@ -253,17 +249,16 @@
   specializedLightingNode = self->_specializedLightingNode;
   self->_specializedLightingNode = clone;
 
-  v7 = self->_specializedLightingNode;
-  if (v7)
+  if (self->_specializedLightingNode)
   {
-    v8 = objc_loadWeakRetained(&self->_scene);
-    rootNode = [v8 rootNode];
-    [rootNode addChildNode:self->_specializedLightingNode];
+    v7 = objc_loadWeakRetained(&self->_scene);
+    rootNode = [v7 rootNode];
+    [rootNode addChildNode:?];
   }
 
   defaultLightingNode = self->_defaultLightingNode;
 
-  [(VFXNode *)defaultLightingNode setHidden:v7 != 0];
+  [(VFXNode *)defaultLightingNode setHidden:?];
 }
 
 - (void)setFramingMode:(id)mode animationDuration:(double)duration
@@ -283,7 +278,7 @@
     else
     {
       [MEMORY[0x1E69DF378] begin];
-      [MEMORY[0x1E69DF378] setAnimationDuration:duration];
+      [MEMORY[0x1E69DF378] setAnimationDuration:?];
       [(AVTAvatarEnvironment *)self updatePointOfViewFromFramingMode];
       [MEMORY[0x1E69DF378] commit];
     }
@@ -302,7 +297,7 @@
 - (id)pointOfViewForFramingMode:(id)mode
 {
   modeCopy = mode;
-  if ([(__CFString *)modeCopy isEqualToString:@"cameraGrid"])
+  if ([(__CFString *)modeCopy isEqualToString:?])
   {
     WeakRetained = objc_loadWeakRetained(&self->_avatar);
     objc_opt_class();
@@ -315,20 +310,19 @@
     }
   }
 
-  v7 = [(VFXNode *)self->_environmentNode childNodeWithName:modeCopy recursively:1];
+  v7 = [VFXNode childNodeWithName:"childNodeWithName:recursively:" recursively:?];
 
   return v7;
 }
 
 - (void)updatePointOfViewFromFramingMode
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = *self;
   name = [a2 name];
+  LODWORD(v10) = 138412546;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_1_5();
-  OUTLINED_FUNCTION_1_2(&dword_1BB472000, v4, v5, "Error: Failed to find the %@ camera, using the default one instead (%@)", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1BB472000, v4, v5, "Error: Failed to find the %@ camera, using the default one instead (%@)", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)updateWithPresentationConfiguration:(id)configuration
@@ -336,29 +330,21 @@
   configurationCopy = configuration;
   WeakRetained = objc_loadWeakRetained(&self->_avatar);
   objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
+  objc_opt_isKindOfClass();
 
   if (updateWithPresentationConfiguration__onceToken != -1)
   {
     [AVTAvatarEnvironment updateWithPresentationConfiguration:];
   }
 
-  v7 = isKindOfClass & 1;
-  usesAR = [configurationCopy usesAR];
+  [configurationCopy usesAR];
 
-  environmentNode = self->_environmentNode;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __60__AVTAvatarEnvironment_updateWithPresentationConfiguration___block_invoke_2;
-  v14[3] = &__block_descriptor_34_e21_v24__0__VFXNode_8_B16l;
-  v15 = v7;
-  v16 = usesAR;
-  [(VFXNode *)environmentNode enumerateHierarchyUsingBlock:v14];
-  v10 = objc_loadWeakRetained(&self->_avatar);
-  rootJointNode = [v10 rootJointNode];
+  [(VFXNode *)self->_environmentNode enumerateHierarchyUsingBlock:?];
+  v6 = objc_loadWeakRetained(&self->_avatar);
+  rootJointNode = [v6 rootJointNode];
   parentNode = [rootJointNode parentNode];
   parentNode2 = [(VFXNode *)self->_arModeCamera parentNode];
-  [parentNode convertTransform:parentNode2 toNode:{*MEMORY[0x1E69E9B18], *(MEMORY[0x1E69E9B18] + 16), *(MEMORY[0x1E69E9B18] + 32), *(MEMORY[0x1E69E9B18] + 48)}];
+  [parentNode convertTransform:? toNode:?];
   [(VFXNode *)self->_arModeCamera setTransform:?];
 }
 
@@ -377,49 +363,25 @@ void __60__AVTAvatarEnvironment_updateWithPresentationConfiguration___block_invo
 void __60__AVTAvatarEnvironment_updateWithPresentationConfiguration___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = [a2 light];
-  v9 = v3;
+  v4 = v3;
   if (*(a1 + 32) == 1)
   {
     if ([v3 type] == 2)
     {
-      [v9 setCastsShadow:1];
-      v4 = 512.0;
-      if (updateWithPresentationConfiguration__shadowSize)
-      {
-        v4 = 1024.0;
-      }
-
-      [v9 setShadowMapSize:{v4, v4}];
-      if (updateWithPresentationConfiguration__shadowSamples)
-      {
-        v5 = 32;
-      }
-
-      else
-      {
-        v5 = 16;
-      }
-
-      [v9 setShadowSampleCount:v5];
-      [v9 setShadowRadius:0.0];
-      LODWORD(v6) = 1036831949;
-      if (!*(a1 + 33))
-      {
-        *&v6 = 1.0;
-      }
-
-      [v9 setZNear:v6];
-      LODWORD(v7) = 1120403456;
-      [v9 setZFar:v7];
-      [v9 setAutomaticallyAdjustsShadowProjection:*(a1 + 33)];
-      LODWORD(v8) = 25.0;
-      [v9 setOrthographicScale:v8];
+      [v4 setCastsShadow:?];
+      [v4 setShadowMapSize:?];
+      [v4 setShadowSampleCount:?];
+      [v4 setShadowRadius:?];
+      [v4 setZNear:?];
+      [v4 setZFar:?];
+      [v4 setAutomaticallyAdjustsShadowProjection:?];
+      [v4 setOrthographicScale:?];
     }
   }
 
   else
   {
-    [v3 setCastsShadow:0];
+    [v3 setCastsShadow:?];
   }
 }
 
@@ -432,28 +394,22 @@ void __60__AVTAvatarEnvironment_updateWithPresentationConfiguration___block_invo
   [physicsWorld speed];
   if ((((v6 != 4.0) ^ simulationCopy) & 1) == 0)
   {
-    v7 = 0.0;
+    [physicsWorld setSpeed:?];
     if (simulationCopy)
     {
-      *&v7 = 4.0;
-    }
+      v7 = objc_loadWeakRetained(&self->_scene);
+      clock = [v7 clock];
+      [clock isPaused];
+      v9 = objc_loadWeakRetained(&self->_scene);
+      clock2 = [v9 clock];
+      [clock2 setPaused:?];
 
-    [physicsWorld setSpeed:v7];
-    if (simulationCopy)
-    {
-      v8 = objc_loadWeakRetained(&self->_scene);
-      clock = [v8 clock];
-      isPaused = [clock isPaused];
       v11 = objc_loadWeakRetained(&self->_scene);
-      clock2 = [v11 clock];
-      [clock2 setPaused:isPaused ^ 1u];
-
+      clock3 = [v11 clock];
+      [clock3 isPaused];
       v13 = objc_loadWeakRetained(&self->_scene);
-      clock3 = [v13 clock];
-      isPaused2 = [clock3 isPaused];
-      v16 = objc_loadWeakRetained(&self->_scene);
-      clock4 = [v16 clock];
-      [clock4 setPaused:isPaused2 ^ 1u];
+      clock4 = [v13 clock];
+      [clock4 setPaused:?];
     }
   }
 }
@@ -482,70 +438,64 @@ void __60__AVTAvatarEnvironment_updateWithPresentationConfiguration___block_invo
 {
   self->_trackingLostIndicatorVisible = 1;
   model = [(VFXNode *)self->_trackingLostIndicator model];
-  [model setValue:&unk_1F39E11D8 forKey:@"hold"];
+  [model setValue:? forKey:?];
 
   [MEMORY[0x1E69DF378] begin];
-  [MEMORY[0x1E69DF378] setAnimationDuration:0.23];
+  [MEMORY[0x1E69DF378] setAnimationDuration:?];
   model2 = [(VFXNode *)self->_trackingLostIndicator model];
-  [model2 setValue:&unk_1F39E11E8 forKey:@"hold"];
+  [model2 setValue:? forKey:?];
 
-  LODWORD(v5) = 1.0;
-  [(VFXNode *)self->_trackingLostIndicator setOpacity:v5];
+  [(VFXNode *)self->_trackingLostIndicator setOpacity:?];
   [MEMORY[0x1E69DF378] commit];
-  v13 = [MEMORY[0x1E6979318] animationWithKeyPath:@"scale"];
-  [v13 setDuration:30.0];
-  v6 = [MEMORY[0x1E696B098] avt_valueWithFloat3_usableWithKVCForSCNVector3:0.00718750152];
-  [v13 setFromValue:v6];
+  v12 = [MEMORY[0x1E6979318] animationWithKeyPath:?];
+  [v12 setDuration:?];
+  v5 = [MEMORY[0x1E696B098] avt_valueWithFloat3_usableWithKVCForSCNVector3:?];
+  [v12 setFromValue:?];
 
   __asm { FMOV            V0.4S, #1.0 }
 
-  v12 = [MEMORY[0x1E696B098] avt_valueWithFloat3_usableWithKVCForSCNVector3:*&_Q0];
-  [v13 setToValue:v12];
+  v11 = [MEMORY[0x1E696B098] avt_valueWithFloat3_usableWithKVCForSCNVector3:?];
+  [v12 setToValue:?];
 
-  [(VFXNode *)self->_trackingLostIndicator addAnimation:v13 forKey:@"pulse"];
+  [VFXNode addAnimation:"addAnimation:forKey:" forKey:?];
 }
 
 - (void)hideTrackingLossIndicator
 {
   self->_trackingLostIndicatorVisible = 0;
   [MEMORY[0x1E69DF378] begin];
-  [MEMORY[0x1E69DF378] setAnimationDuration:0.23];
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __49__AVTAvatarEnvironment_hideTrackingLossIndicator__block_invoke;
-  v4[3] = &unk_1E7F47F90;
-  v4[4] = self;
-  [MEMORY[0x1E69DF378] setCompletionBlock:v4];
+  [MEMORY[0x1E69DF378] setAnimationDuration:?];
+  [MEMORY[0x1E69DF378] setCompletionBlock:?];
   model = [(VFXNode *)self->_trackingLostIndicator model];
-  [model setValue:&unk_1F39E11D8 forKey:@"hold"];
+  [model setValue:? forKey:?];
 
   [MEMORY[0x1E69DF378] commit];
 }
 
-uint64_t __49__AVTAvatarEnvironment_hideTrackingLossIndicator__block_invoke(uint64_t a1)
+void *__49__AVTAvatarEnvironment_hideTrackingLossIndicator__block_invoke(uint64_t a1)
 {
   [MEMORY[0x1E69DF378] begin];
-  [MEMORY[0x1E69DF378] setAnimationDuration:0.3];
+  [MEMORY[0x1E69DF378] setAnimationDuration:?];
   v2 = MEMORY[0x1E69DF378];
-  v3 = [MEMORY[0x1E69793D0] functionWithName:*MEMORY[0x1E6979EB0]];
-  [v2 setAnimationTimingFunction:v3];
+  v3 = [MEMORY[0x1E69793D0] functionWithName:?];
+  [v2 setAnimationTimingFunction:?];
 
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __49__AVTAvatarEnvironment_hideTrackingLossIndicator__block_invoke_2;
-  v5[3] = &unk_1E7F47F90;
-  v5[4] = *(a1 + 32);
-  [MEMORY[0x1E69DF378] setCompletionBlock:v5];
-  [*(*(a1 + 32) + 32) setOpacity:0.0];
+  v5 = MEMORY[0x1E69E9820];
+  v6 = 3221225472;
+  v7 = __49__AVTAvatarEnvironment_hideTrackingLossIndicator__block_invoke_2;
+  v8 = &unk_1E7F47F90;
+  v9 = *(a1 + 32);
+  [MEMORY[0x1E69DF378] setCompletionBlock:?];
+  [*(*(a1 + 32) + 32) setOpacity:?];
   return [MEMORY[0x1E69DF378] commit];
 }
 
-uint64_t __49__AVTAvatarEnvironment_hideTrackingLossIndicator__block_invoke_2(uint64_t result)
+void *__49__AVTAvatarEnvironment_hideTrackingLossIndicator__block_invoke_2(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if ((*(v1 + 40) & 1) == 0)
   {
-    return [*(v1 + 32) removeAnimationForKey:@"pulse"];
+    return [*(v1 + 32) removeAnimationForKey:?];
   }
 
   return result;
@@ -557,7 +507,7 @@ uint64_t __49__AVTAvatarEnvironment_hideTrackingLossIndicator__block_invoke_2(ui
   rootJointNode = [WeakRetained rootJointNode];
   parentNode = [rootJointNode parentNode];
   parentNode2 = [(VFXNode *)self->_arModeCamera parentNode];
-  [parentNode convertTransform:parentNode2 toNode:{*MEMORY[0x1E69E9B18], *(MEMORY[0x1E69E9B18] + 16), *(MEMORY[0x1E69E9B18] + 32), *(MEMORY[0x1E69E9B18] + 48)}];
+  [parentNode convertTransform:? toNode:?];
   [(VFXNode *)self->_arModeCamera setTransform:?];
 }
 
@@ -569,16 +519,17 @@ uint64_t __49__AVTAvatarEnvironment_hideTrackingLossIndicator__block_invoke_2(ui
   [camera2 setFocalLength:?];
   [camera sensorHeight];
   [camera2 setSensorHeight:?];
-  [camera2 setProjectionDirection:{objc_msgSend(camera, "projectionDirection")}];
+  [camera projectionDirection];
+  [camera2 setProjectionDirection:?];
   defaultPointOfView = self->_defaultPointOfView;
   parentNode = [(VFXNode *)self->_arModeCamera parentNode];
-  [(VFXNode *)defaultPointOfView convertTransform:parentNode toNode:*MEMORY[0x1E69E9B18], *(MEMORY[0x1E69E9B18] + 16), *(MEMORY[0x1E69E9B18] + 32), *(MEMORY[0x1E69E9B18] + 48)];
+  [VFXNode convertTransform:"convertTransform:toNode:" toNode:?];
   [(VFXNode *)self->_arModeCamera setTransform:?];
 }
 
 - (void)willSnapshot
 {
-  [(VFXNode *)self->_trackingLostIndicator setHidden:1];
+  [(VFXNode *)self->_trackingLostIndicator setHidden:?];
   v2 = MEMORY[0x1E69DF378];
 
   [v2 flush];
@@ -586,7 +537,7 @@ uint64_t __49__AVTAvatarEnvironment_hideTrackingLossIndicator__block_invoke_2(ui
 
 - (void)didSnapshot
 {
-  [(VFXNode *)self->_trackingLostIndicator setHidden:0];
+  [(VFXNode *)self->_trackingLostIndicator setHidden:?];
   v2 = MEMORY[0x1E69DF378];
 
   [v2 flush];
@@ -603,12 +554,11 @@ uint64_t __49__AVTAvatarEnvironment_hideTrackingLossIndicator__block_invoke_2(ui
 
 - (void)defaultEnvironmentNode
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = [a2 description];
+  v3 = [a2 description];
+  LODWORD(v10) = 138412546;
+  *(&v10 + 4) = self;
   OUTLINED_FUNCTION_1_5();
-  OUTLINED_FUNCTION_1_2(&dword_1BB472000, v3, v4, "Error: could not load scene at %@ with error: %@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1BB472000, v4, v5, "Error: could not load scene at %@ with error: %@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 @end

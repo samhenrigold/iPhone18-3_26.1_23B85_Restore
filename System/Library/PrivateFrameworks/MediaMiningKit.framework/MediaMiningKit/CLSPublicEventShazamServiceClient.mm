@@ -9,29 +9,29 @@
 
 - (id)publicEventQueryHelperWithTimeLocationTuples:(id)tuples queryRadius:(double)radius queryContext:(id)context simulatesTimeout:(BOOL)timeout
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1C90);
-  v8 = sub_22F989B90();
-  v9 = objc_allocWithZone(type metadata accessor for PublicEventShazamQuery());
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1C90, &qword_22F992320);
+  v9 = sub_22F989B90();
+  v10 = objc_allocWithZone(type metadata accessor for PublicEventShazamQuery(0));
   swift_unknownObjectRetain();
-  v10 = sub_22F91BCD8(v8, radius);
-  type metadata accessor for PublicEventShazamQueryHelper();
+  v11 = sub_22F91BCD8(v9, context, radius);
+  type metadata accessor for PublicEventShazamQueryHelper(0);
   swift_allocObject();
-  v11 = PublicEventShazamQueryHelper.init(with:isSimulatingTimeout:)(v10, timeout);
+  v12 = PublicEventShazamQueryHelper.init(with:isSimulatingTimeout:)(v11, timeout);
   swift_unknownObjectRelease();
 
-  return v11;
+  return v12;
 }
 
 - (id)queryContext
 {
-  v2 = [objc_allocWithZone(type metadata accessor for PublicEventShazamQueryContext()) init];
+  v2 = [objc_allocWithZone(type metadata accessor for PublicEventShazamQueryContext(0)) init];
 
   return v2;
 }
 
 - (void)serverVersionWithCompletionBlock:(id)block
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1990);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1990, &qword_22F991DD0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(block);
@@ -58,7 +58,7 @@
 {
   sub_22F989A10();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for PublicEventShazamServiceClient();
+  v4.super_class = type metadata accessor for PublicEventShazamServiceClient(0);
   return [(CLSPublicEventShazamServiceClient *)&v4 init];
 }
 

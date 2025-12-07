@@ -74,7 +74,7 @@
   if (isCompanionCapable)
   {
 
-    return +[_HKBehavior currentOSVersionStruct];
+    return objc_msgSend_currentOSVersionStruct(_HKBehavior);
   }
 
   else

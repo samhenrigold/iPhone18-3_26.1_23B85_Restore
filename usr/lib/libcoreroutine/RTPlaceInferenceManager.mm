@@ -3346,7 +3346,7 @@ LABEL_72:
   }
 }
 
-void __55__RTPlaceInferenceManager_sanityCheckMapItemProviders___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __55__RTPlaceInferenceManager_sanityCheckMapItemProviders___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
@@ -3368,7 +3368,7 @@ void __55__RTPlaceInferenceManager_sanityCheckMapItemProviders___block_invoke(ui
     }
   }
 
-  if ([v5 isMemberOfClass:objc_opt_class()] && objc_msgSend(*(a1 + 32), "count") - 1 != a3)
+  if ([v5 isMemberOfClass:objc_opt_class()] && (objc_msgSend(*(a1 + 32), "count") - 1) != a3)
   {
     v8 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))

@@ -14,6 +14,10 @@
 - (void)orphanPipes;
 - (void)registerEndpoint:(id)endpoint type:(int64_t)type priority:(int64_t)priority options:(id)options;
 - (void)registerEndpoint:(id)endpoint type:(int64_t)type priority:(int64_t)priority transport:(int64_t)transport;
+- (void)registerEndpoint:(id)endpoint type:(int64_t)type priority:(int64_t)priority transport:(int64_t)transport requireEncryption:(BOOL)encryption;
+- (void)setLinkRequirementsForPeer:(id)peer packetsPerSecond:(unsigned int)second inputBytesPerSecond:(unsigned int)perSecond outputBytesPerSecond:(unsigned int)bytesPerSecond;
+- (void)setLinkRequirementsForPeer:(id)peer withClientName:(id)name packetsPerSecond:(unsigned int)second inputBytesPerSecond:(unsigned int)perSecond outputBytesPerSecond:(unsigned int)bytesPerSecond;
+- (void)setLinkRequirementsForPeerWithLatency:(id)latency latencyInMs:(unsigned int)ms inputBytesPerSecond:(unsigned int)second outputBytesPerSecond:(unsigned int)perSecond;
 - (void)unregisterAllEndpoints;
 - (void)unregisterEndpoint:(id)endpoint;
 @end
@@ -141,29 +145,29 @@ LABEL_20:
 
 - (id)pipeForName:(id)name identifier:(id)identifier
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   identifierCopy = identifier;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v7 = self->_pipes;
-  v8 = [(NSHashTable *)v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [(NSHashTable *)v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
+    v10 = *v22;
 LABEL_4:
     v11 = 0;
     while (1)
     {
-      if (*v23 != v10)
+      if (*v22 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v22 + 1) + 8 * v11);
+      v12 = *(*(&v21 + 1) + 8 * v11);
       name = [v12 name];
       if ([name isEqualToString:nameCopy])
       {
@@ -185,7 +189,7 @@ LABEL_4:
 
       if (v9 == ++v11)
       {
-        v9 = [(NSHashTable *)v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v9 = [(NSHashTable *)v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (!v9)
         {
           break;
@@ -210,65 +214,76 @@ LABEL_4:
   v17 = 0;
 LABEL_17:
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
 - (void)orphanPipes
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_pipes;
-  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) setOrphan];
+        [*(*(&v8 + 1) + 8 * v7++) setOrphan];
       }
 
       while (v5 != v7);
-      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   [(NSHashTable *)self->_pipes removeAllObjects];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerEndpoint:(id)endpoint type:(int64_t)type priority:(int64_t)priority transport:(int64_t)transport
 {
-  v16[1] = *MEMORY[0x1E69E9840];
-  v15 = @"kCBMsgArgsTransport";
+  v15[1] = *MEMORY[0x1E69E9840];
+  v14 = @"kCBMsgArgsTransport";
   v10 = MEMORY[0x1E696AD98];
   endpointCopy = endpoint;
   v12 = [v10 numberWithInteger:transport];
-  v16[0] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v15[0] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   [(CBScalablePipeManager *)self registerEndpoint:endpointCopy type:type priority:priority options:v13];
+}
 
-  v14 = *MEMORY[0x1E69E9840];
+- (void)registerEndpoint:(id)endpoint type:(int64_t)type priority:(int64_t)priority transport:(int64_t)transport requireEncryption:(BOOL)encryption
+{
+  encryptionCopy = encryption;
+  v18[2] = *MEMORY[0x1E69E9840];
+  v17[0] = @"kCBMsgArgsTransport";
+  v12 = MEMORY[0x1E696AD98];
+  endpointCopy = endpoint;
+  v14 = [v12 numberWithInteger:transport];
+  v17[1] = @"kCBMsgArgRequiresEncryption";
+  v18[0] = v14;
+  v15 = [MEMORY[0x1E696AD98] numberWithBool:encryptionCopy];
+  v18[1] = v15;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  [(CBScalablePipeManager *)self registerEndpoint:endpointCopy type:type priority:priority options:v16];
 }
 
 - (void)registerEndpoint:(id)endpoint type:(int64_t)type priority:(int64_t)priority options:(id)options
 {
-  v42[8] = *MEMORY[0x1E69E9840];
+  v41[8] = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   optionsCopy = options;
   v12 = [optionsCopy objectForKeyedSubscript:@"kCBMsgArgRequiresEncryption"];
@@ -347,104 +362,174 @@ LABEL_17:
 
   [CBScalablePipeManager registerEndpoint:a2 type:selfCopy priority:? options:?];
 LABEL_15:
-  v42[0] = endpointCopy;
-  v41[0] = @"kCBMsgArgName";
-  v41[1] = @"kCBMsgArgType";
-  v35 = endpointCopy;
-  v37 = [MEMORY[0x1E696AD98] numberWithInteger:type];
-  v42[1] = v37;
-  v41[2] = @"kCBLePipeMsgArgPriority";
+  v41[0] = endpointCopy;
+  v40[0] = @"kCBMsgArgName";
+  v40[1] = @"kCBMsgArgType";
+  v34 = endpointCopy;
+  v36 = [MEMORY[0x1E696AD98] numberWithInteger:type];
+  v41[1] = v36;
+  v40[2] = @"kCBLePipeMsgArgPriority";
   v25 = [MEMORY[0x1E696AD98] numberWithInteger:priority];
-  v42[2] = v25;
-  v41[3] = @"kCBMsgArgOptions";
+  v41[2] = v25;
+  v40[3] = @"kCBMsgArgOptions";
   v26 = [MEMORY[0x1E696AD98] numberWithInteger:intValue];
-  v42[3] = v26;
-  v41[4] = @"kCBMsgArgRequiresEncryption";
+  v41[3] = v26;
+  v40[4] = @"kCBMsgArgRequiresEncryption";
   v27 = [MEMORY[0x1E696AD98] numberWithInt:bOOLValue];
-  v42[4] = v27;
-  v41[5] = @"kCBDisableBluetoothReliability";
+  v41[4] = v27;
+  v40[5] = @"kCBDisableBluetoothReliability";
   v28 = [MEMORY[0x1E696AD98] numberWithInt:bOOLValue2];
-  v42[5] = v28;
-  v41[6] = @"kCBOptionStayConnectedWhenIdle";
+  v41[5] = v28;
+  v40[6] = @"kCBOptionStayConnectedWhenIdle";
   v29 = [MEMORY[0x1E696AD98] numberWithInt:bOOLValue3];
-  v42[6] = v29;
-  v41[7] = @"kCBLePipeOptionTrace";
+  v41[6] = v29;
+  v40[7] = @"kCBLePipeOptionTrace";
   v30 = [MEMORY[0x1E696AD98] numberWithInt:intValue2];
-  v42[7] = v30;
-  v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:8];
+  v41[7] = v30;
+  v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:8];
   v32 = [(CBManager *)selfCopy sendMsg:10 args:v31];
 
   if (v32)
   {
-    [(NSMutableSet *)selfCopy->_identifiers addObject:v35];
+    [(NSMutableSet *)selfCopy->_identifiers addObject:v34];
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterEndpoint:(id)endpoint
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   if (![endpointCopy length])
   {
     [(CBScalablePipeManager *)a2 unregisterEndpoint:?];
   }
 
-  v9 = @"kCBMsgArgName";
-  v10[0] = endpointCopy;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"kCBMsgArgName";
+  v9[0] = endpointCopy;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v7 = [(CBManager *)self sendMsg:11 args:v6];
 
   if (v7)
   {
     [(NSMutableSet *)self->_identifiers removeObject:endpointCopy];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterAllEndpoints
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = self->_identifiers;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v11 objects:v17 count:16];
+  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v10 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * v7);
-        v15 = @"kCBMsgArgName";
-        v16 = v8;
-        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:{1, v11}];
+        v8 = *(*(&v10 + 1) + 8 * v7);
+        v14 = @"kCBMsgArgName";
+        v15 = v8;
+        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:{1, v10}];
         [(CBManager *)self sendMsg:11 args:v9];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v11 objects:v17 count:16];
+      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v10 objects:v16 count:16];
     }
 
     while (v5);
   }
 
   [(NSMutableSet *)self->_identifiers removeAllObjects];
-  v10 = *MEMORY[0x1E69E9840];
+}
+
+- (void)setLinkRequirementsForPeer:(id)peer packetsPerSecond:(unsigned int)second inputBytesPerSecond:(unsigned int)perSecond outputBytesPerSecond:(unsigned int)bytesPerSecond
+{
+  v6 = *&bytesPerSecond;
+  v7 = *&perSecond;
+  v8 = *&second;
+  v17[4] = *MEMORY[0x1E69E9840];
+  v17[0] = peer;
+  v16[0] = @"kCBMsgArgDeviceUUID";
+  v16[1] = @"kCBMsgArgPacketsPerSecond";
+  v10 = MEMORY[0x1E696AD98];
+  peerCopy = peer;
+  v12 = [v10 numberWithUnsignedInt:v8];
+  v17[1] = v12;
+  v16[2] = @"kCBMsgArgInputBytesPerSecond";
+  v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v7];
+  v17[2] = v13;
+  v16[3] = @"kCBMsgArgOutputBytesPerSecond";
+  v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v6];
+  v17[3] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
+
+  [(CBManager *)self sendMsg:12 args:v15];
+}
+
+- (void)setLinkRequirementsForPeer:(id)peer withClientName:(id)name packetsPerSecond:(unsigned int)second inputBytesPerSecond:(unsigned int)perSecond outputBytesPerSecond:(unsigned int)bytesPerSecond
+{
+  v7 = *&bytesPerSecond;
+  v8 = *&perSecond;
+  v9 = *&second;
+  v20[5] = *MEMORY[0x1E69E9840];
+  v19[0] = @"kCBMsgArgDeviceUUID";
+  v19[1] = @"kCBMsgArgClientName";
+  v20[0] = peer;
+  v20[1] = name;
+  v19[2] = @"kCBMsgArgPacketsPerSecond";
+  v12 = MEMORY[0x1E696AD98];
+  nameCopy = name;
+  peerCopy = peer;
+  v15 = [v12 numberWithUnsignedInt:v9];
+  v20[2] = v15;
+  v19[3] = @"kCBMsgArgInputBytesPerSecond";
+  v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v8];
+  v20[3] = v16;
+  v19[4] = @"kCBMsgArgOutputBytesPerSecond";
+  v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v7];
+  v20[4] = v17;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:5];
+
+  [(CBManager *)self sendMsg:12 args:v18];
+}
+
+- (void)setLinkRequirementsForPeerWithLatency:(id)latency latencyInMs:(unsigned int)ms inputBytesPerSecond:(unsigned int)second outputBytesPerSecond:(unsigned int)perSecond
+{
+  v6 = *&perSecond;
+  v7 = *&second;
+  v8 = *&ms;
+  v17[4] = *MEMORY[0x1E69E9840];
+  v17[0] = latency;
+  v16[0] = @"kCBMsgArgDeviceUUID";
+  v16[1] = @"kCBMsgArgLatencyInMs";
+  v10 = MEMORY[0x1E696AD98];
+  latencyCopy = latency;
+  v12 = [v10 numberWithUnsignedInt:v8];
+  v17[1] = v12;
+  v16[2] = @"kCBMsgArgInputBytesPerSecond";
+  v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v7];
+  v17[2] = v13;
+  v16[3] = @"kCBMsgArgOutputBytesPerSecond";
+  v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v6];
+  v17[3] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
+
+  [(CBManager *)self sendMsg:13 args:v15];
 }
 
 - (void)getStatistics:(id)statistics
@@ -635,13 +720,12 @@ LABEL_18:
 
 - (void)pipeForName:(os_log_t)log identifier:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1C0AC1000, log, OS_LOG_TYPE_ERROR, "Unable to locate pipe to device %@ on endpoint %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1C0AC1000, log, OS_LOG_TYPE_ERROR, "Unable to locate pipe to device %@ on endpoint %@", &v3, 0x16u);
 }
 
 - (void)registerEndpoint:(uint64_t)a1 type:(uint64_t)a2 priority:options:.cold.1(uint64_t a1, uint64_t a2)
@@ -658,22 +742,20 @@ LABEL_18:
 
 - (void)handleMsg:(os_log_t)log args:.cold.2(uint64_t a1, int a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 1024;
-  v7 = a2;
-  _os_log_debug_impl(&dword_1C0AC1000, log, OS_LOG_TYPE_DEBUG, "%@ is not powered on, ignoring message: %u", &v4, 0x12u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 1024;
+  v6 = a2;
+  _os_log_debug_impl(&dword_1C0AC1000, log, OS_LOG_TYPE_DEBUG, "%@ is not powered on, ignoring message: %u", &v3, 0x12u);
 }
 
 - (void)handleMsg:(int)a1 args:(NSObject *)a2 .cold.4(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1C0AC1000, a2, OS_LOG_TYPE_ERROR, "Unhandled XPC message: %u", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1C0AC1000, a2, OS_LOG_TYPE_ERROR, "Unhandled XPC message: %u", v2, 8u);
 }
 
 @end

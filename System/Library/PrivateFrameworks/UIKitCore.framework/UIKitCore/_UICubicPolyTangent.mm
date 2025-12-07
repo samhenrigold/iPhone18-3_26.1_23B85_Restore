@@ -218,19 +218,19 @@
 {
   settingsCopy = settings;
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"linear"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     [settingsCopy linear];
     [(_UICubicPolyTangent *)self setTangentLineSpeed:?];
   }
 
-  else if ([keyCopy isEqualToString:@"parabolic"])
+  else if (objc_msgSend_isEqualToString_(keyCopy))
   {
     [settingsCopy parabolic];
     [(_UICubicPolyTangent *)self setTangentSqrtSpeed:?];
   }
 
-  else if ([keyCopy isEqualToString:@"gain"])
+  else if (objc_msgSend_isEqualToString_(keyCopy))
   {
     [settingsCopy gain];
     [(_UICubicPolyTangent *)self setParabolicGain:?];

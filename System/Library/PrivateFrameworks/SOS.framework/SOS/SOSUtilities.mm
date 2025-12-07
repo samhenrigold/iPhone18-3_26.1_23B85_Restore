@@ -1,4 +1,5 @@
 @interface SOSUtilities
++ (BOOL)BOOLOverrideForDefaultsKey:(id)key defaultValue:(BOOL)value;
 + (BOOL)_hasAccessibilityConflict;
 + (BOOL)_isCarryDevice;
 + (BOOL)_potentialForAccessibilityConflict;
@@ -33,10 +34,12 @@
 + (BOOL)longPressTriggersMandrake;
 + (BOOL)newtonTriggersEmergencySOS;
 + (BOOL)newtonTriggersEmergencySOSWorkouts;
++ (BOOL)setShouldPlayAudioDuringCountdown:(BOOL)countdown;
 + (BOOL)shouldAllowSOSStatusReset;
 + (BOOL)shouldBlockNonEmergencyCalls;
 + (BOOL)shouldForceDisableAutoCallForClient:(id)client;
 + (BOOL)shouldPlayAudioDuringCountdown;
++ (BOOL)shouldShowCrashDetectionThirdPartySettingsForPairedDevice:(BOOL)device;
 + (BOOL)shouldSilenceSOSFlow;
 + (BOOL)shouldSkipNewtonCall;
 + (BOOL)sosMessagesUrgentAlertingBypassesMute;
@@ -114,10 +117,12 @@
 + (id)crashDetectionThirdPartyStopSharingDescriptionPhoneWithAppName:(id)name;
 + (id)crashDetectionThirdPartyStopSharingDescriptionWatchWithAppName:(id)name;
 + (id)fetchSOSStatusWithKey:(id)key;
++ (id)getAssetViewForWatchWithCrownOrientationOnRightSide:(BOOL)side layoutLeftToRight:(BOOL)right tintColor:(id)color;
 + (id)numberOverrideForDefaultsKey:(id)key defaultValue:(id)value;
 + (id)phoneAssetName;
 + (id)sosLocationBundle;
 + (id)stringOverrideForDefaultsKey:(id)key defaultValue:(id)value;
++ (id)thirdPartySettingsSpecifiersWithTarget:(id)target displayName:(id)name forPairedDevice:(BOOL)device disableAction:(SEL)action;
 + (id)thirdPartySettingsSpecifiersWithTarget:(id)target forApp:(id)app disableAction:(SEL)action;
 + (id)watchAssetNameWithCrownOrientationOnRightSide:(BOOL)side layoutLeftToRight:(BOOL)right;
 + (int64_t)SOSFlowStateForString:(id)string;
@@ -131,21 +136,37 @@
 + (int64_t)defaultSOSTriggerMechanism;
 + (int64_t)getSettingsResetFollowUpState;
 + (int64_t)mostRecentlyUsedSOSTriggerMechanism;
-+ (void)activeDeviceHasMandrake;
++ (void)_setKappaTriggersEmergencySOS:(BOOL)s;
++ (void)_setKappaTriggersEmergencySOSTinker:(BOOL)tinker;
 + (void)getAssetViewForPhoneWithCompletion:(id)completion;
 + (void)openEmergencyContactsFooterLinkOnViewController:(id)controller;
 + (void)presentConfirmationOnViewController:(id)controller title:(id)title message:(id)message cancelTitle:(id)cancelTitle cancelHandler:(id)handler confirmTitle:(id)confirmTitle confirmHandler:(id)confirmHandler;
 + (void)presentStewieDemoUnavailableAlertOnViewController:(id)controller reason:(int64_t)reason;
 + (void)presentStewieLearnMoreLinkOnViewController:(id)controller;
++ (void)setAllowedToMessageSOSContacts:(BOOL)contacts;
++ (void)setAutomaticCallCountdownEnabled:(BOOL)enabled;
 + (void)setCallWithSideButtonPresses:(BOOL)presses presentErrorAlertOnViewController:(id)controller completion:(id)completion;
++ (void)setCallWithSideButtonPressesEnabled:(BOOL)enabled;
++ (void)setCallWithVolumeLockHoldEnabled:(BOOL)enabled;
 + (void)setCurrentSOSTriggerMechanism:(int64_t)mechanism;
++ (void)setHasMultiPressResetLogicRun:(BOOL)run;
 + (void)setKappaThirdPartyActive:(BOOL)active forApp:(id)app forPairedDevice:(BOOL)device presentConfirmationOnViewController:(id)controller completion:(id)completion;
++ (void)setKappaThirdPartyActiveApp:(BOOL)app presentConfirmationOnViewController:(id)controller completion:(id)completion;
 + (void)setKappaTriggersEmergencySOS:(BOOL)s confirmationDelegate:(id)delegate completion:(id)completion;
 + (void)setKappaTriggersEmergencySOS:(BOOL)s isWristDetectionEnabled:(BOOL)enabled confirmationDelegate:(id)delegate completion:(id)completion;
++ (void)setLongPressTriggersEmergencySOS:(BOOL)s;
++ (void)setLongPressTriggersMandrake:(BOOL)mandrake;
++ (void)setNewtonTriggersEmergencySOS:(BOOL)s;
 + (void)setNewtonTriggersEmergencySOS:(BOOL)s isWristDetectionEnabled:(BOOL)enabled doesNewtonRequireConfirmation:(BOOL)confirmation presentConfirmationOnViewController:(id)controller completion:(id)completion;
 + (void)setNewtonTriggersEmergencySOS:(BOOL)s isWristDetectionEnabled:(BOOL)enabled newtonEligibility:(unint64_t)eligibility confirmationDelegate:(id)delegate completion:(id)completion;
++ (void)setNewtonTriggersEmergencySOS:(BOOL)s newtonTriggersEmergencySOSWorkoutsOnly:(BOOL)only;
 + (void)setNewtonTriggersEmergencySOSNumber:(id)number;
++ (void)setNewtonTriggersEmergencySOSWorkouts:(BOOL)workouts;
++ (void)setNewtonTriggersEmergencySOSWorkoutsOnly:(BOOL)only isWristDetectionEnabled:(BOOL)enabled newtonEligibility:(unint64_t)eligibility confirmationDelegate:(id)delegate completion:(id)completion;
 + (void)setNumberOfSideButtonPresses:(int64_t)presses;
++ (void)setPlayAudioDuringCountdown:(BOOL)countdown;
++ (void)setSOSMessagesUrgentAlertingBypassesMute:(BOOL)mute;
++ (void)setSOSMessagesUrgentAlertingEnabled:(BOOL)enabled;
 + (void)setSOSStatus:(id)status withKey:(id)key;
 + (void)setSettingsResetFollowUpState:(int64_t)state;
 + (void)setShortSOSNotificationDisplayTimestamp;
@@ -217,26 +238,25 @@
   v10 = *MEMORY[0x277D85DE8];
   v2 = +[SOSUtilities mostRecentSOSStatus];
   v3 = v2;
-  if (v2 && [v2 shouldBlockNonEmergencyCalls])
+  if (v2 && (v4 = [v2 shouldBlockNonEmergencyCalls], v4))
   {
-    v4 = sos_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sos_default_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412290;
       v9 = v3;
-      _os_log_impl(&dword_264323000, v4, OS_LOG_TYPE_DEFAULT, "SOSUtilities,should block non-emergency calls due to %@", &v8, 0xCu);
+      _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "SOSUtilities,should block non-emergency calls due to %@", &v8, 0xCu);
     }
 
-    v5 = 1;
+    v6 = 1;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v6;
 }
 
 + (SOSStatus)mostRecentSOSStatus
@@ -353,6 +373,24 @@
   return bOOLValue;
 }
 
++ (void)setLongPressTriggersEmergencySOS:(BOOL)s
+{
+  sCopy = s;
+  [SOSCoreAnalyticsReporter reportSOSLongPressTriggersEmergencySOS:?];
+  _userFriendsDomainAccessor = [self _userFriendsDomainAccessor];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:sCopy];
+  [_userFriendsDomainAccessor setObject:v6 forKey:@"SOSLongPressTriggersEmergencySOSKey"];
+
+  v7 = dispatch_get_global_queue(2, 0);
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __49__SOSUtilities_setLongPressTriggersEmergencySOS___block_invoke;
+  block[3] = &unk_279B532A0;
+  v10 = _userFriendsDomainAccessor;
+  v8 = _userFriendsDomainAccessor;
+  dispatch_async(v7, block);
+}
+
 void __49__SOSUtilities_setLongPressTriggersEmergencySOS___block_invoke(uint64_t a1)
 {
   v1 = [*(a1 + 32) synchronize];
@@ -429,9 +467,9 @@ void __49__SOSUtilities_setLongPressTriggersEmergencySOS___block_invoke(uint64_t
 
 + (void)setNewtonTriggersEmergencySOSNumber:(id)number
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   numberCopy = number;
-  v5 = sos_default_log();
+  v5 = sos_default_log(numberCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -450,11 +488,9 @@ void __49__SOSUtilities_setLongPressTriggersEmergencySOS___block_invoke(uint64_t
     block[1] = 3221225472;
     block[2] = __52__SOSUtilities_setNewtonTriggersEmergencySOSNumber___block_invoke;
     block[3] = &unk_279B532A0;
-    v11 = _SOSDomainAccessor;
+    v10 = _SOSDomainAccessor;
     dispatch_async(v8, block);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SOSUtilities_setNewtonTriggersEmergencySOSNumber___block_invoke(uint64_t a1)
@@ -733,6 +769,35 @@ void __52__SOSUtilities_setNewtonTriggersEmergencySOSNumber___block_invoke_2()
   return v4;
 }
 
++ (void)setNewtonTriggersEmergencySOSWorkouts:(BOOL)workouts
+{
+  workoutsCopy = workouts;
+  v14 = *MEMORY[0x277D85DE8];
+  v5 = sos_default_log(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v13 = workoutsCopy;
+    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "newton workouts status change: %d", buf, 8u);
+  }
+
+  _SOSDomainAccessor = [self _SOSDomainAccessor];
+  v7 = [_SOSDomainAccessor objectForKey:@"SOSNewtonWorkoutTriggersEmergencySOSKey"];
+  if ([v7 BOOLValue] != workoutsCopy)
+  {
+    v8 = [MEMORY[0x277CCABB0] numberWithBool:workoutsCopy];
+    [_SOSDomainAccessor setObject:v8 forKey:@"SOSNewtonWorkoutTriggersEmergencySOSKey"];
+
+    v9 = dispatch_get_global_queue(2, 0);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __54__SOSUtilities_setNewtonTriggersEmergencySOSWorkouts___block_invoke;
+    block[3] = &unk_279B532A0;
+    v11 = _SOSDomainAccessor;
+    dispatch_async(v9, block);
+  }
+}
+
 void __54__SOSUtilities_setNewtonTriggersEmergencySOSWorkouts___block_invoke(uint64_t a1)
 {
   v1 = [*(a1 + 32) synchronize];
@@ -766,6 +831,12 @@ void __54__SOSUtilities_setNewtonTriggersEmergencySOSWorkouts___block_invoke_2()
 
   bOOLValue = [v5 BOOLValue];
   return bOOLValue;
+}
+
++ (void)setNewtonTriggersEmergencySOS:(BOOL)s
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:s];
+  [self setNewtonTriggersEmergencySOSNumber:v4];
 }
 
 + (void)setNewtonTriggersEmergencySOS:(BOOL)s isWristDetectionEnabled:(BOOL)enabled doesNewtonRequireConfirmation:(BOOL)confirmation presentConfirmationOnViewController:(id)controller completion:(id)completion
@@ -833,30 +904,27 @@ void __147__SOSUtilities_setNewtonTriggersEmergencySOS_isWristDetectionEnabled_d
   if (*(a1 + 56) == 1 && (*(a1 + 57) & 1) == 0)
   {
     UIAlertControllerClass = getUIAlertControllerClass();
-    v4 = *(a1 + 48);
-    v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v6 = [v5 localizedStringForKey:@"SOS_WRIST_DETECTION_OFF_TITLE" value:&stru_2875C9CD8 table:0];
-    v7 = *(a1 + 48);
-    v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v9 = [v8 localizedStringForKey:@"SOS_WRIST_DETECTION_OFF_DETAIL" value:&stru_2875C9CD8 table:0];
-    v10 = [UIAlertControllerClass alertControllerWithTitle:v6 message:v9 preferredStyle:1];
+    v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v5 = [v4 localizedStringForKey:@"SOS_WRIST_DETECTION_OFF_TITLE" value:&stru_2875C9CD8 table:0];
+    v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v7 = [v6 localizedStringForKey:@"SOS_WRIST_DETECTION_OFF_DETAIL" value:&stru_2875C9CD8 table:0];
+    v8 = [UIAlertControllerClass alertControllerWithTitle:v5 message:v7 preferredStyle:1];
 
     UIAlertActionClass = getUIAlertActionClass();
-    v12 = *(a1 + 48);
-    v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v14 = [v13 localizedStringForKey:@"SOS_WRIST_DETECTION_OK" value:&stru_2875C9CD8 table:0];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __147__SOSUtilities_setNewtonTriggersEmergencySOS_isWristDetectionEnabled_doesNewtonRequireConfirmation_presentConfirmationOnViewController_completion___block_invoke_2;
-    v18[3] = &unk_279B532C8;
-    v20 = *(a1 + 56);
-    v17 = *(a1 + 40);
-    v15 = v17;
-    v19 = v17;
-    v16 = [UIAlertActionClass actionWithTitle:v14 style:0 handler:v18];
-    [v10 addAction:v16];
+    v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v11 = [v10 localizedStringForKey:@"SOS_WRIST_DETECTION_OK" value:&stru_2875C9CD8 table:0];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __147__SOSUtilities_setNewtonTriggersEmergencySOS_isWristDetectionEnabled_doesNewtonRequireConfirmation_presentConfirmationOnViewController_completion___block_invoke_2;
+    v15[3] = &unk_279B532C8;
+    v17 = *(a1 + 56);
+    v14 = *(a1 + 40);
+    v12 = v14;
+    v16 = v14;
+    v13 = [UIAlertActionClass actionWithTitle:v11 style:0 handler:v15];
+    [v8 addAction:v13];
 
-    [*(a1 + 32) presentViewController:v10 animated:1 completion:0];
+    [*(a1 + 32) presentViewController:v8 animated:1 completion:0];
   }
 
   else
@@ -886,7 +954,7 @@ uint64_t __147__SOSUtilities_setNewtonTriggersEmergencySOS_isWristDetectionEnabl
 
 + (void)presentConfirmationOnViewController:(id)controller title:(id)title message:(id)message cancelTitle:(id)cancelTitle cancelHandler:(id)handler confirmTitle:(id)confirmTitle confirmHandler:(id)confirmHandler
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   titleCopy = title;
   cancelTitleCopy = cancelTitle;
@@ -894,11 +962,11 @@ uint64_t __147__SOSUtilities_setNewtonTriggersEmergencySOS_isWristDetectionEnabl
   confirmTitleCopy = confirmTitle;
   confirmHandlerCopy = confirmHandler;
   messageCopy = message;
-  v21 = sos_default_log();
+  v21 = sos_default_log(messageCopy);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v36 = titleCopy;
+    v35 = titleCopy;
     _os_log_impl(&dword_264323000, v21, OS_LOG_TYPE_DEFAULT, "Presenting confirmation with title: %@", buf, 0xCu);
   }
 
@@ -907,30 +975,28 @@ uint64_t __147__SOSUtilities_setNewtonTriggersEmergencySOS_isWristDetectionEnabl
   if ([cancelTitleCopy length])
   {
     UIAlertActionClass = getUIAlertActionClass();
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __120__SOSUtilities_presentConfirmationOnViewController_title_message_cancelTitle_cancelHandler_confirmTitle_confirmHandler___block_invoke;
-    v33[3] = &unk_279B53340;
-    v34 = handlerCopy;
-    v24 = [UIAlertActionClass actionWithTitle:cancelTitleCopy style:1 handler:v33];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __120__SOSUtilities_presentConfirmationOnViewController_title_message_cancelTitle_cancelHandler_confirmTitle_confirmHandler___block_invoke;
+    v32[3] = &unk_279B53340;
+    v33 = handlerCopy;
+    v24 = [UIAlertActionClass actionWithTitle:cancelTitleCopy style:1 handler:v32];
     [v22 addAction:v24];
   }
 
   if ([confirmTitleCopy length])
   {
     v25 = getUIAlertActionClass();
-    v28 = MEMORY[0x277D85DD0];
-    v29 = 3221225472;
-    v30 = __120__SOSUtilities_presentConfirmationOnViewController_title_message_cancelTitle_cancelHandler_confirmTitle_confirmHandler___block_invoke_2;
-    v31 = &unk_279B53340;
-    v32 = confirmHandlerCopy;
-    v26 = [v25 actionWithTitle:confirmTitleCopy style:0 handler:&v28];
-    [v22 addAction:{v26, v28, v29, v30, v31}];
+    v27 = MEMORY[0x277D85DD0];
+    v28 = 3221225472;
+    v29 = __120__SOSUtilities_presentConfirmationOnViewController_title_message_cancelTitle_cancelHandler_confirmTitle_confirmHandler___block_invoke_2;
+    v30 = &unk_279B53340;
+    v31 = confirmHandlerCopy;
+    v26 = [v25 actionWithTitle:confirmTitleCopy style:0 handler:&v27];
+    [v22 addAction:{v26, v27, v28, v29, v30}];
   }
 
   [controllerCopy presentViewController:v22 animated:1 completion:0];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __120__SOSUtilities_presentConfirmationOnViewController_title_message_cancelTitle_cancelHandler_confirmTitle_confirmHandler___block_invoke(uint64_t a1)
@@ -955,247 +1021,324 @@ uint64_t __120__SOSUtilities_presentConfirmationOnViewController_title_message_c
   return result;
 }
 
++ (void)setNewtonTriggersEmergencySOS:(BOOL)s newtonTriggersEmergencySOSWorkoutsOnly:(BOOL)only
+{
+  onlyCopy = only;
+  sCopy = s;
+  v11 = *MEMORY[0x277D85DE8];
+  v7 = sos_default_log(self);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8[0] = 67109376;
+    v8[1] = sCopy;
+    v9 = 1024;
+    v10 = onlyCopy;
+    _os_log_impl(&dword_264323000, v7, OS_LOG_TYPE_DEFAULT, "setNewtonTriggersEmergencySOS:%d newtonTriggersEmergencySOSWorkoutsOnly:%d", v8, 0xEu);
+  }
+
+  [self setNewtonTriggersEmergencySOS:sCopy];
+  if (sCopy && onlyCopy)
+  {
+    [self setNewtonTriggersEmergencySOSWorkouts:1];
+  }
+}
+
 + (void)setNewtonTriggersEmergencySOS:(BOOL)s isWristDetectionEnabled:(BOOL)enabled newtonEligibility:(unint64_t)eligibility confirmationDelegate:(id)delegate completion:(id)completion
 {
   enabledCopy = enabled;
   sCopy = s;
-  v50 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   completionCopy = completion;
-  v14 = sos_default_log();
+  v14 = sos_default_log(completionCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109890;
-    *v46 = sCopy;
-    *&v46[4] = 1024;
-    *&v46[6] = enabledCopy;
-    *v47 = 2048;
-    *&v47[2] = eligibility;
-    v48 = 2112;
-    v49 = delegateCopy;
+    *v48 = sCopy;
+    *&v48[4] = 1024;
+    *&v48[6] = enabledCopy;
+    *v49 = 2048;
+    *&v49[2] = eligibility;
+    v50 = 2112;
+    v51 = delegateCopy;
     _os_log_impl(&dword_264323000, v14, OS_LOG_TYPE_DEFAULT, "setNewtonTriggersEmergencySOS:%d isWristDetectionEnabled:%d newtonEligibility:%zd confirmationDelegate:%@", buf, 0x22u);
   }
 
   newtonTriggersEmergencySOSWorkouts = [self newtonTriggersEmergencySOSWorkouts];
-  v16 = sos_default_log();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v16 = newtonTriggersEmergencySOSWorkouts;
+  v17 = sos_default_log(newtonTriggersEmergencySOSWorkouts);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    *v46 = "+[SOSUtilities setNewtonTriggersEmergencySOS:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]";
-    *&v46[8] = 1024;
-    *v47 = newtonTriggersEmergencySOSWorkouts;
-    _os_log_impl(&dword_264323000, v16, OS_LOG_TYPE_DEFAULT, "%s - newtonTriggersEmergencySOSWorkoutsOnly:%d", buf, 0x12u);
+    *v48 = "+[SOSUtilities setNewtonTriggersEmergencySOS:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]";
+    *&v48[8] = 1024;
+    *v49 = v16;
+    _os_log_impl(&dword_264323000, v17, OS_LOG_TYPE_DEFAULT, "%s - newtonTriggersEmergencySOSWorkoutsOnly:%d", buf, 0x12u);
   }
 
   if (([self hasNewtonTriggersEmergencySOSWorkoutsSetting] & 1) == 0 && objc_msgSend(self, "activeDeviceSupportsNewtonWorkoutsOnly"))
   {
-    newtonTriggersEmergencySOSWorkouts = [self defaultToWorkoutsOnlyForEligibility:eligibility];
-    v17 = sos_default_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = [self defaultToWorkoutsOnlyForEligibility:eligibility];
+    v16 = v18;
+    v19 = sos_default_log(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      *v46 = "+[SOSUtilities setNewtonTriggersEmergencySOS:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]";
-      *&v46[8] = 1024;
-      *v47 = newtonTriggersEmergencySOSWorkouts;
-      _os_log_impl(&dword_264323000, v17, OS_LOG_TYPE_DEFAULT, "%s - !hasNewtonTriggersEmergencySOSWorkoutsSetting, set default newtonTriggersEmergencySOSWorkoutsOnly:%d", buf, 0x12u);
+      *v48 = "+[SOSUtilities setNewtonTriggersEmergencySOS:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]";
+      *&v48[8] = 1024;
+      *v49 = v16;
+      _os_log_impl(&dword_264323000, v19, OS_LOG_TYPE_DEFAULT, "%s - !hasNewtonTriggersEmergencySOSWorkoutsSetting, set default newtonTriggersEmergencySOSWorkoutsOnly:%d", buf, 0x12u);
     }
   }
 
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __120__SOSUtilities_setNewtonTriggersEmergencySOS_isWristDetectionEnabled_newtonEligibility_confirmationDelegate_completion___block_invoke;
-  v38[3] = &unk_279B53390;
-  v42 = sCopy;
-  v43 = enabledCopy;
-  v18 = delegateCopy;
-  v39 = v18;
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __120__SOSUtilities_setNewtonTriggersEmergencySOS_isWristDetectionEnabled_newtonEligibility_confirmationDelegate_completion___block_invoke;
+  v40[3] = &unk_279B53390;
+  v44 = sCopy;
+  v45 = enabledCopy;
+  v20 = delegateCopy;
+  v41 = v20;
   selfCopy = self;
-  v44 = newtonTriggersEmergencySOSWorkouts;
-  v19 = completionCopy;
-  v40 = v19;
-  v20 = MEMORY[0x266735F90](v38);
-  if (sCopy && (newtonTriggersEmergencySOSWorkouts & 1) == 0 && [self newtonAlwaysOnRequiresConfirmationForEligibility:eligibility])
+  v46 = v16;
+  v21 = completionCopy;
+  v42 = v21;
+  v22 = MEMORY[0x266735F90](v40);
+  v23 = v22;
+  if (sCopy && (v16 & 1) == 0 && (v22 = [self newtonAlwaysOnRequiresConfirmationForEligibility:eligibility], v22))
   {
-    v21 = sos_default_log();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v24 = sos_default_log(v22);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      *v46 = "+[SOSUtilities setNewtonTriggersEmergencySOS:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]";
-      _os_log_impl(&dword_264323000, v21, OS_LOG_TYPE_DEFAULT, "%s - presenting eligibility-related confirmation", buf, 0xCu);
+      *v48 = "+[SOSUtilities setNewtonTriggersEmergencySOS:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]";
+      _os_log_impl(&dword_264323000, v24, OS_LOG_TYPE_DEFAULT, "%s - presenting eligibility-related confirmation", buf, 0xCu);
     }
 
-    v31 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v30 = [v31 localizedStringForKey:@"SOS_MODE_NEWTON_CONFIRM_TITLE" value:&stru_2875C9CD8 table:0];
-    v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v23 = [v22 localizedStringForKey:@"SOS_MODE_NEWTON_CONFIRM_DETAIL" value:&stru_2875C9CD8 table:0];
-    v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v25 = [v24 localizedStringForKey:@"SOS_MODE_NEWTON_CONFIRM_CANCEL" value:&stru_2875C9CD8 table:0];
+    v33 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v32 = [v33 localizedStringForKey:@"SOS_MODE_NEWTON_CONFIRM_TITLE" value:&stru_2875C9CD8 table:0];
+    v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v26 = [v25 localizedStringForKey:@"SOS_MODE_NEWTON_CONFIRM_DETAIL" value:&stru_2875C9CD8 table:0];
+    v27 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v28 = [v27 localizedStringForKey:@"SOS_MODE_NEWTON_CONFIRM_CANCEL" value:&stru_2875C9CD8 table:0];
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __120__SOSUtilities_setNewtonTriggersEmergencySOS_isWristDetectionEnabled_newtonEligibility_confirmationDelegate_completion___block_invoke_607;
+    v36[3] = &unk_279B533B8;
+    selfCopy2 = self;
+    v39 = 0;
+    v37 = v21;
+    v29 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v30 = [v29 localizedStringForKey:@"SOS_MODE_NEWTON_CONFIRM_OK" value:&stru_2875C9CD8 table:0];
     v34[0] = MEMORY[0x277D85DD0];
     v34[1] = 3221225472;
-    v34[2] = __120__SOSUtilities_setNewtonTriggersEmergencySOS_isWristDetectionEnabled_newtonEligibility_confirmationDelegate_completion___block_invoke_607;
-    v34[3] = &unk_279B533B8;
-    selfCopy2 = self;
-    v37 = 0;
-    v35 = v19;
-    v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v27 = [v26 localizedStringForKey:@"SOS_MODE_NEWTON_CONFIRM_OK" value:&stru_2875C9CD8 table:0];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __120__SOSUtilities_setNewtonTriggersEmergencySOS_isWristDetectionEnabled_newtonEligibility_confirmationDelegate_completion___block_invoke_608;
-    v32[3] = &unk_279B533E0;
-    v33 = v20;
-    [v18 presentConfirmationWithTitle:v30 message:v23 cancelTitle:v25 cancelHandler:v34 confirmTitle:v27 confirmHandler:v32];
+    v34[2] = __120__SOSUtilities_setNewtonTriggersEmergencySOS_isWristDetectionEnabled_newtonEligibility_confirmationDelegate_completion___block_invoke_608;
+    v34[3] = &unk_279B533E0;
+    v35 = v23;
+    [v20 presentConfirmationWithTitle:v32 message:v26 cancelTitle:v28 cancelHandler:v36 confirmTitle:v30 confirmHandler:v34];
   }
 
   else
   {
-    v28 = sos_default_log();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v31 = sos_default_log(v22);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      *v46 = "+[SOSUtilities setNewtonTriggersEmergencySOS:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]";
-      _os_log_impl(&dword_264323000, v28, OS_LOG_TYPE_DEFAULT, "%s - no eligibility confirmation needed", buf, 0xCu);
+      *v48 = "+[SOSUtilities setNewtonTriggersEmergencySOS:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]";
+      _os_log_impl(&dword_264323000, v31, OS_LOG_TYPE_DEFAULT, "%s - no eligibility confirmation needed", buf, 0xCu);
     }
 
-    v20[2](v20);
+    v23[2](v23);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __120__SOSUtilities_setNewtonTriggersEmergencySOS_isWristDetectionEnabled_newtonEligibility_confirmationDelegate_completion___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (*(a1 + 56) == 1 && (*(a1 + 57) & 1) == 0)
   {
-    v3 = sos_default_log();
+    v3 = sos_default_log(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v22 = "+[SOSUtilities setNewtonTriggersEmergencySOS:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]_block_invoke";
+      v18 = "+[SOSUtilities setNewtonTriggersEmergencySOS:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]_block_invoke";
       _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "%s - presenting wrist detection notification", buf, 0xCu);
     }
 
     v4 = *(a1 + 32);
-    v5 = *(a1 + 48);
-    v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v7 = [v6 localizedStringForKey:@"SOS_WRIST_DETECTION_OFF_TITLE" value:&stru_2875C9CD8 table:0];
-    v8 = *(a1 + 48);
+    v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v6 = [v5 localizedStringForKey:@"SOS_WRIST_DETECTION_OFF_TITLE" value:&stru_2875C9CD8 table:0];
+    v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v8 = [v7 localizedStringForKey:@"SOS_WRIST_DETECTION_OFF_DETAIL" value:&stru_2875C9CD8 table:0];
     v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v10 = [v9 localizedStringForKey:@"SOS_WRIST_DETECTION_OFF_DETAIL" value:&stru_2875C9CD8 table:0];
-    v11 = *(a1 + 48);
-    v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v13 = [v12 localizedStringForKey:@"SOS_WRIST_DETECTION_OK" value:&stru_2875C9CD8 table:0];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __120__SOSUtilities_setNewtonTriggersEmergencySOS_isWristDetectionEnabled_newtonEligibility_confirmationDelegate_completion___block_invoke_606;
-    v17[3] = &unk_279B53368;
-    v19 = *(a1 + 56);
-    v20 = *(a1 + 58);
-    v16 = *(a1 + 40);
-    v14 = v16;
-    v18 = v16;
-    [v4 presentConfirmationWithTitle:v7 message:v10 cancelTitle:0 cancelHandler:0 confirmTitle:v13 confirmHandler:v17];
+    v10 = [v9 localizedStringForKey:@"SOS_WRIST_DETECTION_OK" value:&stru_2875C9CD8 table:0];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __120__SOSUtilities_setNewtonTriggersEmergencySOS_isWristDetectionEnabled_newtonEligibility_confirmationDelegate_completion___block_invoke_606;
+    v13[3] = &unk_279B53368;
+    v15 = *(a1 + 56);
+    v16 = *(a1 + 58);
+    v12 = *(a1 + 40);
+    v11 = v12;
+    v14 = v12;
+    [v4 presentConfirmationWithTitle:v6 message:v8 cancelTitle:0 cancelHandler:0 confirmTitle:v10 confirmHandler:v13];
   }
 
   else
   {
-    v2 = sos_default_log();
+    v2 = sos_default_log(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v22 = "+[SOSUtilities setNewtonTriggersEmergencySOS:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]_block_invoke";
+      v18 = "+[SOSUtilities setNewtonTriggersEmergencySOS:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]_block_invoke";
       _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - no wrist detection notification needed", buf, 0xCu);
     }
 
     [*(a1 + 48) setNewtonTriggersEmergencySOS:*(a1 + 56) newtonTriggersEmergencySOSWorkoutsOnly:*(a1 + 58)];
     (*(*(a1 + 40) + 16))();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __120__SOSUtilities_setNewtonTriggersEmergencySOS_isWristDetectionEnabled_newtonEligibility_confirmationDelegate_completion___block_invoke_606(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = sos_default_log();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = sos_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "+[SOSUtilities setNewtonTriggersEmergencySOS:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]_block_invoke";
-    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - ack'd", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "+[SOSUtilities setNewtonTriggersEmergencySOS:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]_block_invoke";
+    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - ack'd", &v4, 0xCu);
   }
 
   [*(a1 + 40) setNewtonTriggersEmergencySOS:*(a1 + 48) newtonTriggersEmergencySOSWorkoutsOnly:*(a1 + 49)];
-  result = (*(*(a1 + 32) + 16))();
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 uint64_t __120__SOSUtilities_setNewtonTriggersEmergencySOS_isWristDetectionEnabled_newtonEligibility_confirmationDelegate_completion___block_invoke_607(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = sos_default_log();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = sos_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "+[SOSUtilities setNewtonTriggersEmergencySOS:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]_block_invoke";
-    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - canceled", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "+[SOSUtilities setNewtonTriggersEmergencySOS:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]_block_invoke";
+    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - canceled", &v4, 0xCu);
   }
 
   [*(a1 + 40) setNewtonTriggersEmergencySOS:0 newtonTriggersEmergencySOSWorkoutsOnly:*(a1 + 48)];
-  result = (*(*(a1 + 32) + 16))();
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 uint64_t __120__SOSUtilities_setNewtonTriggersEmergencySOS_isWristDetectionEnabled_newtonEligibility_confirmationDelegate_completion___block_invoke_608(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = sos_default_log();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = sos_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "+[SOSUtilities setNewtonTriggersEmergencySOS:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]_block_invoke";
-    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - confirmed", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "+[SOSUtilities setNewtonTriggersEmergencySOS:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]_block_invoke";
+    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - confirmed", &v4, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
+}
+
++ (void)setNewtonTriggersEmergencySOSWorkoutsOnly:(BOOL)only isWristDetectionEnabled:(BOOL)enabled newtonEligibility:(unint64_t)eligibility confirmationDelegate:(id)delegate completion:(id)completion
+{
+  enabledCopy = enabled;
+  onlyCopy = only;
+  v38 = *MEMORY[0x277D85DE8];
+  delegateCopy = delegate;
+  completionCopy = completion;
+  v14 = sos_default_log(completionCopy);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109890;
+    *v33 = onlyCopy;
+    *&v33[4] = 1024;
+    *&v33[6] = enabledCopy;
+    v34 = 2048;
+    eligibilityCopy = eligibility;
+    v36 = 2112;
+    v37 = delegateCopy;
+    _os_log_impl(&dword_264323000, v14, OS_LOG_TYPE_DEFAULT, "setNewtonTriggersEmergencySOSWorkoutsOnly:%d isWristDetectionEnabled:%d newtonEligibility:%zd confirmationDelegate:%@", buf, 0x22u);
+  }
+
+  if (onlyCopy || (v15 = [self newtonAlwaysOnRequiresConfirmationForEligibility:eligibility], !v15))
+  {
+    v21 = sos_default_log(v15);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      *v33 = "+[SOSUtilities setNewtonTriggersEmergencySOSWorkoutsOnly:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]";
+      _os_log_impl(&dword_264323000, v21, OS_LOG_TYPE_DEFAULT, "%s - no eligibility confirmation needed", buf, 0xCu);
+    }
+
+    [self setNewtonTriggersEmergencySOSWorkouts:onlyCopy];
+    completionCopy[2](completionCopy, 1);
+  }
+
+  else
+  {
+    v16 = sos_default_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      *v33 = "+[SOSUtilities setNewtonTriggersEmergencySOSWorkoutsOnly:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]";
+      _os_log_impl(&dword_264323000, v16, OS_LOG_TYPE_DEFAULT, "%s - presenting eligibility-related confirmation", buf, 0xCu);
+    }
+
+    v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v23 = [v25 localizedStringForKey:@"SOS_MODE_NEWTON_CONFIRM_TITLE" value:&stru_2875C9CD8 table:0];
+    v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v22 = [v24 localizedStringForKey:@"SOS_MODE_NEWTON_CONFIRM_DETAIL" value:&stru_2875C9CD8 table:0];
+    v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v18 = [v17 localizedStringForKey:@"SOS_MODE_NEWTON_CONFIRM_CANCEL" value:&stru_2875C9CD8 table:0];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __132__SOSUtilities_setNewtonTriggersEmergencySOSWorkoutsOnly_isWristDetectionEnabled_newtonEligibility_confirmationDelegate_completion___block_invoke;
+    v30[3] = &unk_279B533E0;
+    v31 = completionCopy;
+    v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v20 = [v19 localizedStringForKey:@"SOS_MODE_NEWTON_CONFIRM_OK" value:&stru_2875C9CD8 table:0];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __132__SOSUtilities_setNewtonTriggersEmergencySOSWorkoutsOnly_isWristDetectionEnabled_newtonEligibility_confirmationDelegate_completion___block_invoke_609;
+    v26[3] = &unk_279B533B8;
+    selfCopy = self;
+    v29 = onlyCopy;
+    v27 = v31;
+    [delegateCopy presentConfirmationWithTitle:v23 message:v22 cancelTitle:v18 cancelHandler:v30 confirmTitle:v20 confirmHandler:v26];
+  }
 }
 
 uint64_t __132__SOSUtilities_setNewtonTriggersEmergencySOSWorkoutsOnly_isWristDetectionEnabled_newtonEligibility_confirmationDelegate_completion___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = sos_default_log();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = sos_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "+[SOSUtilities setNewtonTriggersEmergencySOSWorkoutsOnly:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]_block_invoke";
-    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - canceled", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "+[SOSUtilities setNewtonTriggersEmergencySOSWorkoutsOnly:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]_block_invoke";
+    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - canceled", &v4, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 uint64_t __132__SOSUtilities_setNewtonTriggersEmergencySOSWorkoutsOnly_isWristDetectionEnabled_newtonEligibility_confirmationDelegate_completion___block_invoke_609(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = sos_default_log();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = sos_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "+[SOSUtilities setNewtonTriggersEmergencySOSWorkoutsOnly:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]_block_invoke";
-    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - confirmed", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "+[SOSUtilities setNewtonTriggersEmergencySOSWorkoutsOnly:isWristDetectionEnabled:newtonEligibility:confirmationDelegate:completion:]_block_invoke";
+    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - confirmed", &v4, 0xCu);
   }
 
   [*(a1 + 40) setNewtonTriggersEmergencySOSWorkouts:*(a1 + 48)];
-  result = (*(*(a1 + 32) + 16))();
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 + (BOOL)isSmallScreen
@@ -1282,10 +1425,10 @@ LABEL_12:
 
 + (void)getAssetViewForPhoneWithCompletion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   phoneAssetName = [self phoneAssetName];
-  v6 = sos_default_log();
+  v6 = sos_default_log(phoneAssetName);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
@@ -1296,36 +1439,34 @@ LABEL_12:
   v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v8 = [v7 URLForResource:phoneAssetName withExtension:@"caar"];
 
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2050000000;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2050000000;
   v9 = get_UICAPackageViewClass_softClass;
-  v21 = get_UICAPackageViewClass_softClass;
+  v20 = get_UICAPackageViewClass_softClass;
   if (!get_UICAPackageViewClass_softClass)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v23 = __get_UICAPackageViewClass_block_invoke;
-    v24 = &unk_279B53140;
-    v25 = &v18;
+    v22 = __get_UICAPackageViewClass_block_invoke;
+    v23 = &unk_279B53140;
+    v24 = &v17;
     __get_UICAPackageViewClass_block_invoke(&buf);
-    v9 = v19[3];
+    v9 = v18[3];
   }
 
   v10 = v9;
-  _Block_object_dispose(&v18, 8);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __51__SOSUtilities_getAssetViewForPhoneWithCompletion___block_invoke;
-  v14[3] = &unk_279B53408;
-  v16 = completionCopy;
+  _Block_object_dispose(&v17, 8);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __51__SOSUtilities_getAssetViewForPhoneWithCompletion___block_invoke;
+  v13[3] = &unk_279B53408;
+  v15 = completionCopy;
   selfCopy = self;
-  v15 = phoneAssetName;
+  v14 = phoneAssetName;
   v11 = completionCopy;
   v12 = phoneAssetName;
-  [v9 loadPackageViewWithContentsOfURL:v8 publishedObjectViewClassMap:0 completion:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [v9 loadPackageViewWithContentsOfURL:v8 publishedObjectViewClassMap:0 completion:v13];
 }
 
 void __51__SOSUtilities_getAssetViewForPhoneWithCompletion___block_invoke(void *a1, void *a2, void *a3)
@@ -1341,43 +1482,42 @@ void __51__SOSUtilities_getAssetViewForPhoneWithCompletion___block_invoke(void *
   {
     UIImageClass = getUIImageClass();
     v9 = a1[4];
-    v10 = a1[6];
-    v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v12 = [UIImageClass imageNamed:v9 inBundle:v11 withConfiguration:0];
-    v13 = [v12 imageWithRenderingMode:2];
+    v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v11 = [UIImageClass imageNamed:v9 inBundle:v10 withConfiguration:0];
+    v12 = [v11 imageWithRenderingMode:2];
 
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2050000000;
-    v14 = getUIImageViewClass_softClass;
-    v25 = getUIImageViewClass_softClass;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2050000000;
+    v13 = getUIImageViewClass_softClass;
+    v24 = getUIImageViewClass_softClass;
     if (!getUIImageViewClass_softClass)
     {
-      *&v20.a = MEMORY[0x277D85DD0];
-      *&v20.b = 3221225472;
-      *&v20.c = __getUIImageViewClass_block_invoke;
-      *&v20.d = &unk_279B53140;
-      *&v20.tx = &v22;
-      __getUIImageViewClass_block_invoke(&v20);
-      v14 = v23[3];
+      *&v19.a = MEMORY[0x277D85DD0];
+      *&v19.b = 3221225472;
+      *&v19.c = __getUIImageViewClass_block_invoke;
+      *&v19.d = &unk_279B53140;
+      *&v19.tx = &v21;
+      __getUIImageViewClass_block_invoke(&v19);
+      v13 = v22[3];
     }
 
-    v15 = v14;
-    _Block_object_dispose(&v22, 8);
-    v7 = [[v14 alloc] initWithImage:v13];
+    v14 = v13;
+    _Block_object_dispose(&v21, 8);
+    v7 = [[v13 alloc] initWithImage:v12];
   }
 
-  v16 = [getUIScreenClass() mainScreen];
-  [v16 scale];
-  v18 = 1.0 / v17;
+  v15 = [getUIScreenClass() mainScreen];
+  [v15 scale];
+  v17 = 1.0 / v16;
 
-  v19 = *(MEMORY[0x277CBF2C0] + 16);
-  *&v20.a = *MEMORY[0x277CBF2C0];
-  *&v20.c = v19;
-  *&v20.tx = *(MEMORY[0x277CBF2C0] + 32);
-  CGAffineTransformScale(&v21, &v20, v18, v18);
-  v20 = v21;
-  [v7 setTransform:&v20];
+  v18 = *(MEMORY[0x277CBF2C0] + 16);
+  *&v19.a = *MEMORY[0x277CBF2C0];
+  *&v19.c = v18;
+  *&v19.tx = *(MEMORY[0x277CBF2C0] + 32);
+  CGAffineTransformScale(&v20, &v19, v17, v17);
+  v19 = v20;
+  [v7 setTransform:&v19];
   (*(a1[5] + 16))();
 }
 
@@ -1433,6 +1573,53 @@ void __51__SOSUtilities_getAssetViewForPhoneWithCompletion___block_invoke(void *
   }
 
   return [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@_%@", @"watch", v4, v5];
+}
+
++ (id)getAssetViewForWatchWithCrownOrientationOnRightSide:(BOOL)side layoutLeftToRight:(BOOL)right tintColor:(id)color
+{
+  rightCopy = right;
+  sideCopy = side;
+  colorCopy = color;
+  v9 = [self watchAssetNameWithCrownOrientationOnRightSide:sideCopy layoutLeftToRight:rightCopy];
+  v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v11 = [getUIImageClass() imageNamed:v9 inBundle:v10 withConfiguration:0];
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2050000000;
+  v12 = getSOSUIAnimatingSpriteImageViewClass_softClass;
+  v25 = getSOSUIAnimatingSpriteImageViewClass_softClass;
+  if (!getSOSUIAnimatingSpriteImageViewClass_softClass)
+  {
+    *&v20.a = MEMORY[0x277D85DD0];
+    *&v20.b = 3221225472;
+    *&v20.c = __getSOSUIAnimatingSpriteImageViewClass_block_invoke;
+    *&v20.d = &unk_279B53140;
+    *&v20.tx = &v22;
+    __getSOSUIAnimatingSpriteImageViewClass_block_invoke(&v20);
+    v12 = v23[3];
+  }
+
+  v13 = v12;
+  _Block_object_dispose(&v22, 8);
+  v14 = [[v12 alloc] initWithFrame:{0.0, 0.0, 320.0, 320.0}];
+  mainScreen = [getUIScreenClass() mainScreen];
+  [mainScreen scale];
+  v17 = 1.0 / v16;
+
+  v18 = *(MEMORY[0x277CBF2C0] + 16);
+  *&v20.a = *MEMORY[0x277CBF2C0];
+  *&v20.c = v18;
+  *&v20.tx = *(MEMORY[0x277CBF2C0] + 32);
+  CGAffineTransformScale(&v21, &v20, v17, v17);
+  v20 = v21;
+  [v14 setTransform:&v20];
+  [v14 setTintColor:colorCopy];
+  [v14 setSpriteFrameCount:350];
+  [v14 setSpriteColumnCount:18];
+  [v14 setSpriteImage:v11];
+  [v14 startAnimating];
+
+  return v14;
 }
 
 + (NSString)watchTriggerAnimationFooterDescription
@@ -1630,7 +1817,8 @@ uint64_t __90__SOSUtilities_setCallWithSideButtonPresses_presentErrorAlertOnView
 
 + (void)setNumberOfSideButtonPresses:(int64_t)presses
 {
-  if ([self mustAllowThreeClickTrigger] && !objc_msgSend(self, "isDeviceD2xOrNewer"))
+  mustAllowThreeClickTrigger = [self mustAllowThreeClickTrigger];
+  if (mustAllowThreeClickTrigger && (mustAllowThreeClickTrigger = [self isDeviceD2xOrNewer], !mustAllowThreeClickTrigger))
   {
     if ((presses - 3) > 0xFFFFFFFFFFFFFFFDLL)
     {
@@ -1640,8 +1828,8 @@ uint64_t __90__SOSUtilities_setCallWithSideButtonPresses_presentErrorAlertOnView
 
     else
     {
-      v6 = sos_default_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = sos_default_log(mustAllowThreeClickTrigger);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         +[SOSUtilities setNumberOfSideButtonPresses:];
       }
@@ -1650,8 +1838,8 @@ uint64_t __90__SOSUtilities_setCallWithSideButtonPresses_presentErrorAlertOnView
 
   else
   {
-    v5 = sos_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sos_default_log(mustAllowThreeClickTrigger);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       +[SOSUtilities setNumberOfSideButtonPresses:];
     }
@@ -1814,7 +2002,7 @@ LABEL_26:
   return deviceHasDynamicIsland___supportsDynamicIsland;
 }
 
-uint64_t __38__SOSUtilities_deviceHasDynamicIsland__block_invoke()
+uint64_t __38__SOSUtilities_deviceHasDynamicIsland__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = MGGetBoolAnswer();
   deviceHasDynamicIsland___supportsDynamicIsland = result;
@@ -1823,31 +2011,28 @@ uint64_t __38__SOSUtilities_deviceHasDynamicIsland__block_invoke()
 
 + (BOOL)isDeviceD2xOrNewer
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v16 = 414393924;
-  v15 = xmmword_2643605F0;
-  v14 = -996295886;
-  v13 = xmmword_264360604;
-  v12 = 897736383;
-  v11 = xmmword_264360618;
-  v10 = -453987047;
-  v9 = xmmword_26436062C;
-  v8 = -121925081;
-  v7 = xmmword_264360640;
-  v6 = -1431778695;
-  v5 = xmmword_264360654;
+  v16 = *MEMORY[0x277D85DE8];
+  v15 = 414393924;
+  v14 = xmmword_2643605F0;
+  v13 = -996295886;
+  v12 = xmmword_264360604;
+  v11 = 897736383;
+  v10 = xmmword_264360618;
+  v9 = -453987047;
+  v8 = xmmword_26436062C;
+  v7 = -121925081;
+  v6 = xmmword_264360640;
+  v5 = -1431778695;
+  v4 = xmmword_264360654;
   if (MGIsDeviceOneOfType())
   {
-    result = 1;
+    return 1;
   }
 
   else
   {
-    result = [self deviceHasHomeButton] ^ 1;
+    return [self deviceHasHomeButton] ^ 1;
   }
-
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 + (BOOL)deviceHasHomeButton
@@ -1920,144 +2105,148 @@ uint64_t __35__SOSUtilities_deviceHasHomeButton__block_invoke()
 
 + (BOOL)hasActiveSIMForClient:(id)client
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   clientCopy = client;
-  v37 = 0;
-  v4 = [clientCopy getSubscriptionInfoWithError:&v37];
-  v5 = v37;
+  v39 = 0;
+  v4 = [clientCopy getSubscriptionInfoWithError:&v39];
+  v5 = v39;
   subscriptions = v5;
   if (v4)
   {
 
+    v37 = 0u;
+    v38 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
     subscriptions = [v4 subscriptions];
-    v7 = [subscriptions countByEnumeratingWithState:&v33 objects:v42 count:16];
+    v7 = [subscriptions countByEnumeratingWithState:&v35 objects:v44 count:16];
     if (!v7)
     {
-      v24 = 0;
+      v27 = 0;
       goto LABEL_38;
     }
 
     v8 = v7;
-    v28 = v4;
+    v30 = v4;
     v9 = 0;
-    v10 = *v34;
-    v30 = *MEMORY[0x277CC3ED8];
-    v29 = clientCopy;
+    v10 = *v36;
+    v32 = *MEMORY[0x277CC3ED8];
+    v31 = clientCopy;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v34 != v10)
+        if (*v36 != v10)
         {
           objc_enumerationMutation(subscriptions);
         }
 
-        v12 = *(*(&v33 + 1) + 8 * i);
-        v32 = v9;
-        v13 = [clientCopy getSIMStatus:v12 error:&v32];
-        v14 = v32;
+        v12 = *(*(&v35 + 1) + 8 * i);
+        v34 = v9;
+        v13 = [clientCopy getSIMStatus:v12 error:&v34];
+        v14 = v34;
 
         if (v14)
         {
-          v15 = sos_default_log();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v16 = sos_default_log(v15);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v39 = v12;
-            _os_log_error_impl(&dword_264323000, v15, OS_LOG_TYPE_ERROR, "Error retrieving SIM status for context: %@", buf, 0xCu);
+            v41 = v12;
+            _os_log_error_impl(&dword_264323000, v16, OS_LOG_TYPE_ERROR, "Error retrieving SIM status for context: %@", buf, 0xCu);
           }
 
           v9 = v14;
         }
 
-        else if ([v30 isEqualToString:v13])
-        {
-          v15 = sos_default_log();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 138412290;
-            v39 = v12;
-            _os_log_impl(&dword_264323000, v15, OS_LOG_TYPE_DEFAULT, "kCTSIMSupportSIMStatusNotInserted for context: %@", buf, 0xCu);
-          }
-
-          v9 = 0;
-        }
-
         else
         {
-          v31 = 0;
-          v15 = [clientCopy getSimLabel:v12 error:&v31];
-          v16 = v31;
-          v9 = v16;
-          if (v15)
-          {
-            v17 = v16 == 0;
-          }
-
-          else
-          {
-            v17 = 0;
-          }
-
+          v17 = [v32 isEqualToString:v13];
           if (v17)
           {
-            v19 = subscriptions;
-            unique_id = [v15 unique_id];
-            v21 = [unique_id isEqualToString:@"00000000-0000-0000-0000-000000000000"];
-
-            v18 = sos_default_log();
-            v22 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
-            if ((v21 & 1) == 0)
+            v16 = sos_default_log(v17);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
-              if (v22)
-              {
-                unique_id2 = [v15 unique_id];
-                *buf = 138412546;
-                v39 = unique_id2;
-                v40 = 2112;
-                v41 = v12;
-                _os_log_impl(&dword_264323000, v18, OS_LOG_TYPE_DEFAULT, "Successfully retrieved SIM label %@ for context: %@", buf, 0x16u);
-              }
-
-              v24 = 1;
-              v4 = v28;
-              subscriptions = v19;
-              clientCopy = v29;
-              goto LABEL_36;
-            }
-
-            if (v22)
-            {
-              unique_id3 = [v15 unique_id];
-              *buf = 138412546;
-              v39 = unique_id3;
-              v40 = 2112;
+              *buf = 138412290;
               v41 = v12;
-              _os_log_impl(&dword_264323000, v18, OS_LOG_TYPE_DEFAULT, "retrieved SIM label %@ for context: %@", buf, 0x16u);
+              _os_log_impl(&dword_264323000, v16, OS_LOG_TYPE_DEFAULT, "kCTSIMSupportSIMStatusNotInserted for context: %@", buf, 0xCu);
             }
 
-            subscriptions = v19;
-            clientCopy = v29;
+            v9 = 0;
           }
 
           else
           {
-            v18 = sos_default_log();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+            v33 = 0;
+            v16 = [clientCopy getSimLabel:v12 error:&v33];
+            v18 = v33;
+            v9 = v18;
+            if (v16)
             {
-              *buf = 138412290;
-              v39 = v12;
-              _os_log_error_impl(&dword_264323000, v18, OS_LOG_TYPE_ERROR, "Error retrieving SIM label for context: %@", buf, 0xCu);
+              v19 = v18 == 0;
+            }
+
+            else
+            {
+              v19 = 0;
+            }
+
+            if (v19)
+            {
+              v21 = subscriptions;
+              unique_id = [v16 unique_id];
+              v23 = [unique_id isEqualToString:@"00000000-0000-0000-0000-000000000000"];
+
+              v20 = sos_default_log(v24);
+              v25 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+              if ((v23 & 1) == 0)
+              {
+                if (v25)
+                {
+                  unique_id2 = [v16 unique_id];
+                  *buf = 138412546;
+                  v41 = unique_id2;
+                  v42 = 2112;
+                  v43 = v12;
+                  _os_log_impl(&dword_264323000, v20, OS_LOG_TYPE_DEFAULT, "Successfully retrieved SIM label %@ for context: %@", buf, 0x16u);
+                }
+
+                v27 = 1;
+                v4 = v30;
+                subscriptions = v21;
+                clientCopy = v31;
+                goto LABEL_36;
+              }
+
+              if (v25)
+              {
+                unique_id3 = [v16 unique_id];
+                *buf = 138412546;
+                v41 = unique_id3;
+                v42 = 2112;
+                v43 = v12;
+                _os_log_impl(&dword_264323000, v20, OS_LOG_TYPE_DEFAULT, "retrieved SIM label %@ for context: %@", buf, 0x16u);
+              }
+
+              subscriptions = v21;
+              clientCopy = v31;
+            }
+
+            else
+            {
+              v20 = sos_default_log(v18);
+              if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 138412290;
+                v41 = v12;
+                _os_log_error_impl(&dword_264323000, v20, OS_LOG_TYPE_ERROR, "Error retrieving SIM label for context: %@", buf, 0xCu);
+              }
             }
           }
         }
       }
 
-      v8 = [subscriptions countByEnumeratingWithState:&v33 objects:v42 count:16];
+      v8 = [subscriptions countByEnumeratingWithState:&v35 objects:v44 count:16];
       if (v8)
       {
         continue;
@@ -2066,26 +2255,26 @@ uint64_t __35__SOSUtilities_deviceHasHomeButton__block_invoke()
       break;
     }
 
-    v24 = 0;
+    v27 = 0;
     v13 = v9;
-    v4 = v28;
+    v4 = v30;
   }
 
   else
   {
     if (!v5)
     {
-      v24 = 0;
+      v27 = 0;
       goto LABEL_39;
     }
 
-    v13 = sos_default_log();
+    v13 = sos_default_log(v5);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       +[SOSUtilities hasActiveSIMForClient:];
     }
 
-    v24 = 0;
+    v27 = 0;
   }
 
 LABEL_36:
@@ -2093,8 +2282,7 @@ LABEL_36:
 LABEL_38:
 LABEL_39:
 
-  v26 = *MEMORY[0x277D85DE8];
-  return v24;
+  return v27;
 }
 
 + (BOOL)hasEmergencyContacts
@@ -2255,6 +2443,14 @@ LABEL_39:
   return bOOLValue;
 }
 
++ (void)setCallWithVolumeLockHoldEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  [SOSCoreAnalyticsReporter reportSOSAutomaticCallCountdownEnabled:?];
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  [self _setSOSPrefsValue:v5 forKey:@"SOSCallWithVolumeLockHoldKey"];
+}
+
 + (double)clawReleaseToCallSupport
 {
   v2 = [self _sosPrefsValueForKey:@"SOSClawReleaseToCallSupportKey"];
@@ -2383,6 +2579,12 @@ LABEL_9:
   return mustAllowThreeClickTrigger;
 }
 
++ (void)setCallWithSideButtonPressesEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+  [self _setSOSPrefsValue:v4 forKey:@"SOSCallWithSideButtonPressesKey"];
+}
+
 + (NSString)autoCallTitleDescription
 {
   v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -2426,6 +2628,23 @@ LABEL_9:
   }
 }
 
++ (void)setAutomaticCallCountdownEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([self isDeviceD2xOrNewer])
+  {
+    [self setCallWithVolumeLockHoldEnabled:enabledCopy];
+  }
+
+  else
+  {
+    [self setCallWithSideButtonPressesEnabled:enabledCopy];
+  }
+
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  [self _setSOSPrefsValue:v5 forKey:@"SOSAutomaticCallCountdownEnabledKey"];
+}
+
 + (NSString)countdownSoundTitleDescription
 {
   v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -2460,13 +2679,14 @@ LABEL_9:
 
 + (BOOL)shouldPlayAudioDuringCountdown
 {
-  if ([self shouldSilenceSOSFlow])
+  shouldSilenceSOSFlow = [self shouldSilenceSOSFlow];
+  if (shouldSilenceSOSFlow)
   {
-    v3 = sos_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sos_default_log(shouldSilenceSOSFlow);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "SOSUtilities,SOS flow is silenced so audio during countdown is off", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_264323000, v4, OS_LOG_TYPE_DEFAULT, "SOSUtilities,SOS flow is silenced so audio during countdown is off", v9, 2u);
     }
 
     return 0;
@@ -2474,21 +2694,51 @@ LABEL_9:
 
   else
   {
-    v5 = [self _sosPrefsValueForKey:@"SOSPlayAudioDuringCountdownKey"];
-    if (v5)
+    v6 = [self _sosPrefsValueForKey:@"SOSPlayAudioDuringCountdownKey"];
+    if (v6)
     {
-      v6 = v5;
+      v7 = v6;
     }
 
     else
     {
-      v6 = MEMORY[0x277CBEC38];
+      v7 = MEMORY[0x277CBEC38];
     }
 
-    bOOLValue = [v6 BOOLValue];
+    bOOLValue = [v7 BOOLValue];
 
     return bOOLValue;
   }
+}
+
++ (BOOL)setShouldPlayAudioDuringCountdown:(BOOL)countdown
+{
+  countdownCopy = countdown;
+  shouldSilenceSOSFlow = [self shouldSilenceSOSFlow];
+  v6 = shouldSilenceSOSFlow;
+  if (shouldSilenceSOSFlow)
+  {
+    v7 = sos_default_log(shouldSilenceSOSFlow);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      +[SOSUtilities setShouldPlayAudioDuringCountdown:];
+    }
+  }
+
+  else
+  {
+    [self setPlayAudioDuringCountdown:countdownCopy];
+  }
+
+  return v6 ^ 1;
+}
+
++ (void)setPlayAudioDuringCountdown:(BOOL)countdown
+{
+  countdownCopy = countdown;
+  [SOSCoreAnalyticsReporter reportSOSShouldPlayAudioDuringCountdown:?];
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:countdownCopy];
+  [self _setSOSPrefsValue:v5 forKey:@"SOSPlayAudioDuringCountdownKey"];
 }
 
 + (NSString)accidentalCallNotificationTitle
@@ -2650,6 +2900,12 @@ LABEL_18:
   return bOOLValue;
 }
 
++ (void)setHasMultiPressResetLogicRun:(BOOL)run
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:run];
+  [self _setSOSPrefsValue:v4 forKey:@"SOSMultiPressResetKey"];
+}
+
 + (int64_t)getSettingsResetFollowUpState
 {
   v3 = [self _sosPrefsValueForKey:@"SOSSettingsResetFollowUpStateKey"];
@@ -2676,13 +2932,13 @@ LABEL_18:
 
 + (void)setSettingsResetFollowUpState:(int64_t)state
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = sos_default_log();
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = sos_default_log(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
+    v8 = 134217984;
     stateCopy = state;
-    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "SOSUtilities,setting FollowUp state to %ld", &v9, 0xCu);
+    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "SOSUtilities,setting FollowUp state to %ld", &v8, 0xCu);
   }
 
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:state];
@@ -2690,7 +2946,6 @@ LABEL_18:
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterPostNotification(DarwinNotifyCenter, @"SOSSettingsResetFollowUpStateChangedNotification", 0, 0, 1u);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (NSString)settingsResetFollowUpTitle
@@ -2739,30 +2994,65 @@ LABEL_18:
     v4 = MEMORY[0x277CBEC28];
   }
 
-  if ([self isActivePairedDeviceTinker])
+  isActivePairedDeviceTinker = [self isActivePairedDeviceTinker];
+  if (isActivePairedDeviceTinker)
   {
-    v5 = sos_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sos_default_log(isActivePairedDeviceTinker);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v11[0]) = 0;
-      _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "This is Tinker config, allowing to message SOS contacts", v11, 2u);
+      _os_log_impl(&dword_264323000, v6, OS_LOG_TYPE_DEFAULT, "This is Tinker config, allowing to message SOS contacts", v11, 2u);
     }
 
     v4 = MEMORY[0x277CBEC38];
   }
 
-  v6 = sos_default_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sos_default_log(isActivePairedDeviceTinker);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     bOOLValue = [v4 BOOLValue];
     v11[0] = 67109120;
     v11[1] = bOOLValue;
-    _os_log_impl(&dword_264323000, v6, OS_LOG_TYPE_DEFAULT, "isAllowedToMessageSOSContacts: %d", v11, 8u);
+    _os_log_impl(&dword_264323000, v7, OS_LOG_TYPE_DEFAULT, "isAllowedToMessageSOSContacts: %d", v11, 8u);
   }
 
   bOOLValue2 = [v4 BOOLValue];
-  v9 = *MEMORY[0x277D85DE8];
   return bOOLValue2;
+}
+
++ (void)setAllowedToMessageSOSContacts:(BOOL)contacts
+{
+  contactsCopy = contacts;
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = sos_default_log(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v10[0] = 67109120;
+    v10[1] = contactsCopy;
+    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "setAllowedToMessageSOSContacts: %d", v10, 8u);
+  }
+
+  isActivePairedDeviceTinker = [self isActivePairedDeviceTinker];
+  if (isActivePairedDeviceTinker)
+  {
+    v7 = sos_default_log(isActivePairedDeviceTinker);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v10[0]) = 0;
+      _os_log_impl(&dword_264323000, v7, OS_LOG_TYPE_DEFAULT, "Tinker config, ignoring setAllowedToMessageSOSContacts", v10, 2u);
+    }
+  }
+
+  else
+  {
+    v8 = [MEMORY[0x277CCABB0] numberWithBool:contactsCopy];
+    [self _setSOSPrefsValue:v8 forKey:@"SOSAllowedToMessageSOSContactsKey"];
+
+    [self _synchronizeSOSPrefs];
+    v7 = objc_opt_new();
+    v9 = [MEMORY[0x277CBEB98] setWithObject:@"SOSAllowedToMessageSOSContactsKey"];
+    [v7 synchronizeUserDefaultsDomain:@"com.apple.SOS" keys:v9];
+  }
 }
 
 + (BOOL)shouldSilenceSOSFlow
@@ -2957,6 +3247,45 @@ LABEL_18:
   return v5;
 }
 
++ (void)_setKappaTriggersEmergencySOS:(BOOL)s
+{
+  sCopy = s;
+  v14 = *MEMORY[0x277D85DE8];
+  kappaTriggersEmergencySOS = [self kappaTriggersEmergencySOS];
+  v6 = kappaTriggersEmergencySOS;
+  v7 = sos_default_log(kappaTriggersEmergencySOS);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v13 = v6;
+    _os_log_impl(&dword_264323000, v7, OS_LOG_TYPE_DEFAULT, "kappa status change: %d", buf, 8u);
+  }
+
+  if (v6 == sCopy)
+  {
+    v10 = sos_default_log(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_264323000, v10, OS_LOG_TYPE_DEFAULT, "new kappa status same as the current store kappa status: returning", buf, 2u);
+    }
+  }
+
+  else
+  {
+    v9 = [MEMORY[0x277CCABB0] numberWithBool:sCopy];
+    [self _setSOSPrefsValue:v9 forKey:@"SOSKappaTriggersEmergencySOSKey"];
+
+    v10 = dispatch_get_global_queue(2, 0);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __46__SOSUtilities__setKappaTriggersEmergencySOS___block_invoke;
+    block[3] = &__block_descriptor_40_e5_v8__0l;
+    block[4] = self;
+    dispatch_async(v10, block);
+  }
+}
+
 void __46__SOSUtilities__setKappaTriggersEmergencySOS___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _synchronizeSOSPrefs];
@@ -2974,6 +3303,46 @@ void __46__SOSUtilities__setKappaTriggersEmergencySOS___block_invoke_2()
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
 
   CFNotificationCenterPostNotification(DarwinNotifyCenter, @"SOSKappaStateChangedNotification", 0, 0, 1u);
+}
+
++ (void)_setKappaTriggersEmergencySOSTinker:(BOOL)tinker
+{
+  tinkerCopy = tinker;
+  v15 = *MEMORY[0x277D85DE8];
+  kappaTriggersEmergencySOSTinker = [self kappaTriggersEmergencySOSTinker];
+  v6 = kappaTriggersEmergencySOSTinker;
+  v7 = sos_default_log(kappaTriggersEmergencySOSTinker);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v14 = v6;
+    _os_log_impl(&dword_264323000, v7, OS_LOG_TYPE_DEFAULT, "kappa status change: %d", buf, 8u);
+  }
+
+  if (v6 == tinkerCopy)
+  {
+    v11 = sos_default_log(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_264323000, v11, OS_LOG_TYPE_DEFAULT, "new kappa status same as the current store kappa status: returning", buf, 2u);
+    }
+  }
+
+  else
+  {
+    _SOSDomainAccessor = [self _SOSDomainAccessor];
+    v10 = [MEMORY[0x277CCABB0] numberWithBool:tinkerCopy];
+    [_SOSDomainAccessor setObject:v10 forKey:@"SOSKappaTriggersEmergencySOSKeyTinker"];
+
+    v11 = dispatch_get_global_queue(2, 0);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __52__SOSUtilities__setKappaTriggersEmergencySOSTinker___block_invoke;
+    block[3] = &__block_descriptor_40_e5_v8__0l;
+    block[4] = self;
+    dispatch_async(v11, block);
+  }
 }
 
 void __52__SOSUtilities__setKappaTriggersEmergencySOSTinker___block_invoke(uint64_t a1)
@@ -3001,35 +3370,35 @@ void __52__SOSUtilities__setKappaTriggersEmergencySOSTinker___block_invoke_2()
 {
   enabledCopy = enabled;
   sCopy = s;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   completionCopy = completion;
-  v12 = sos_default_log();
+  v12 = sos_default_log(completionCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109634;
-    *v35 = sCopy;
-    *&v35[4] = 1024;
-    *&v35[6] = enabledCopy;
-    v36 = 2112;
-    v37 = delegateCopy;
+    *v34 = sCopy;
+    *&v34[4] = 1024;
+    *&v34[6] = enabledCopy;
+    v35 = 2112;
+    v36 = delegateCopy;
     _os_log_impl(&dword_264323000, v12, OS_LOG_TYPE_DEFAULT, "setKappaTriggersEmergencySOS:%d isWristDetectionEnabled:%d confirmationDelegate:%@", buf, 0x18u);
   }
 
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __101__SOSUtilities_setKappaTriggersEmergencySOS_isWristDetectionEnabled_confirmationDelegate_completion___block_invoke;
-  v33[3] = &__block_descriptor_40_e8_v12__0B8l;
-  v33[4] = self;
-  v13 = MEMORY[0x266735F90](v33);
-  v14 = sos_default_log();
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __101__SOSUtilities_setKappaTriggersEmergencySOS_isWristDetectionEnabled_confirmationDelegate_completion___block_invoke;
+  v32[3] = &__block_descriptor_40_e8_v12__0B8l;
+  v32[4] = self;
+  v13 = MEMORY[0x266735F90](v32);
+  v14 = sos_default_log(v13);
   v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
   if (sCopy)
   {
     if (v15)
     {
       *buf = 136315138;
-      *v35 = "+[SOSUtilities setKappaTriggersEmergencySOS:isWristDetectionEnabled:confirmationDelegate:completion:]";
+      *v34 = "+[SOSUtilities setKappaTriggersEmergencySOS:isWristDetectionEnabled:confirmationDelegate:completion:]";
       _os_log_impl(&dword_264323000, v14, OS_LOG_TYPE_DEFAULT, "%s - no confirmation needed", buf, 0xCu);
     }
 
@@ -3039,43 +3408,41 @@ void __52__SOSUtilities__setKappaTriggersEmergencySOSTinker___block_invoke_2()
 
   else
   {
-    v25 = completionCopy;
+    v24 = completionCopy;
     if (v15)
     {
       *buf = 136315138;
-      *v35 = "+[SOSUtilities setKappaTriggersEmergencySOS:isWristDetectionEnabled:confirmationDelegate:completion:]";
+      *v34 = "+[SOSUtilities setKappaTriggersEmergencySOS:isWristDetectionEnabled:confirmationDelegate:completion:]";
       _os_log_impl(&dword_264323000, v14, OS_LOG_TYPE_DEFAULT, "%s - presenting 'are you sure?' confirmation", buf, 0xCu);
     }
 
     v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v24 = [v16 localizedStringForKey:@"SOS_KAPPA_CONFIRM_TITLE" value:&stru_2875C9CD8 table:@"Localizable-kappa"];
+    v23 = [v16 localizedStringForKey:@"SOS_KAPPA_CONFIRM_TITLE" value:&stru_2875C9CD8 table:@"Localizable-kappa"];
 
     v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v23 = [v17 localizedStringForKey:@"SOS_KAPPA_CONFIRM_DETAIL_WATCH" value:&stru_2875C9CD8 table:@"Localizable-kappa"];
+    v22 = [v17 localizedStringForKey:@"SOS_KAPPA_CONFIRM_DETAIL_WATCH" value:&stru_2875C9CD8 table:@"Localizable-kappa"];
 
     v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v19 = [v18 localizedStringForKey:@"SOS_KAPPA_CONFIRM_CANCEL" value:&stru_2875C9CD8 table:@"Localizable-kappa"];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __101__SOSUtilities_setKappaTriggersEmergencySOS_isWristDetectionEnabled_confirmationDelegate_completion___block_invoke_904;
-    v30[3] = &unk_279B53470;
-    v31 = v13;
-    v32 = completionCopy;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __101__SOSUtilities_setKappaTriggersEmergencySOS_isWristDetectionEnabled_confirmationDelegate_completion___block_invoke_904;
+    v29[3] = &unk_279B53470;
+    v30 = v13;
+    v31 = completionCopy;
     v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v21 = [v20 localizedStringForKey:@"SOS_KAPPA_CONFIRM_OK" value:&stru_2875C9CD8 table:@"Localizable-kappa"];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __101__SOSUtilities_setKappaTriggersEmergencySOS_isWristDetectionEnabled_confirmationDelegate_completion___block_invoke_908;
-    v26[3] = &unk_279B53498;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __101__SOSUtilities_setKappaTriggersEmergencySOS_isWristDetectionEnabled_confirmationDelegate_completion___block_invoke_908;
+    v25[3] = &unk_279B53498;
+    v26 = v30;
+    v28 = 0;
     v27 = v31;
-    v29 = 0;
-    v28 = v32;
-    [delegateCopy presentConfirmationWithTitle:v24 message:v23 cancelTitle:v19 cancelHandler:v30 confirmTitle:v21 confirmHandler:v26];
+    [delegateCopy presentConfirmationWithTitle:v23 message:v22 cancelTitle:v19 cancelHandler:v29 confirmTitle:v21 confirmHandler:v25];
 
-    completionCopy = v25;
+    completionCopy = v24;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __101__SOSUtilities_setKappaTriggersEmergencySOS_isWristDetectionEnabled_confirmationDelegate_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -3097,58 +3464,53 @@ uint64_t __101__SOSUtilities_setKappaTriggersEmergencySOS_isWristDetectionEnable
 
 uint64_t __101__SOSUtilities_setKappaTriggersEmergencySOS_isWristDetectionEnabled_confirmationDelegate_completion___block_invoke_904(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = sos_default_log();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = sos_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "+[SOSUtilities setKappaTriggersEmergencySOS:isWristDetectionEnabled:confirmationDelegate:completion:]_block_invoke";
-    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - canceled", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "+[SOSUtilities setKappaTriggersEmergencySOS:isWristDetectionEnabled:confirmationDelegate:completion:]_block_invoke";
+    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - canceled", &v4, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  result = (*(*(a1 + 40) + 16))();
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 uint64_t __101__SOSUtilities_setKappaTriggersEmergencySOS_isWristDetectionEnabled_confirmationDelegate_completion___block_invoke_908(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = sos_default_log();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = sos_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "+[SOSUtilities setKappaTriggersEmergencySOS:isWristDetectionEnabled:confirmationDelegate:completion:]_block_invoke";
-    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - confirmed", &v6, 0xCu);
+    v4 = 136315138;
+    v5 = "+[SOSUtilities setKappaTriggersEmergencySOS:isWristDetectionEnabled:confirmationDelegate:completion:]_block_invoke";
+    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - confirmed", &v4, 0xCu);
   }
 
-  v3 = *(a1 + 48);
   (*(*(a1 + 32) + 16))();
-  result = (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 + (void)setKappaTriggersEmergencySOS:(BOOL)s confirmationDelegate:(id)delegate completion:(id)completion
 {
   sCopy = s;
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   completionCopy = completion;
-  v10 = sos_default_log();
+  v10 = sos_default_log(completionCopy);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (!sCopy)
   {
     if (v11)
     {
       *buf = 136315138;
-      v29 = "+[SOSUtilities setKappaTriggersEmergencySOS:confirmationDelegate:completion:]";
+      v28 = "+[SOSUtilities setKappaTriggersEmergencySOS:confirmationDelegate:completion:]";
       _os_log_impl(&dword_264323000, v10, OS_LOG_TYPE_DEFAULT, "%s - presenting 'are you sure?' confirmation", buf, 0xCu);
     }
 
     v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v21 = [v12 localizedStringForKey:@"SOS_KAPPA_CONFIRM_TITLE" value:&stru_2875C9CD8 table:@"Localizable-kappa"];
+    v20 = [v12 localizedStringForKey:@"SOS_KAPPA_CONFIRM_TITLE" value:&stru_2875C9CD8 table:@"Localizable-kappa"];
 
     if ([self isKappaDetectionSupportedOnPhone] && (objc_msgSend(self, "isKappaDetectionSupportedOnActiveWatch") & 1) != 0)
     {
@@ -3177,21 +3539,21 @@ uint64_t __101__SOSUtilities_setKappaTriggersEmergencySOS_isWristDetectionEnable
 LABEL_15:
     v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v17 = [v16 localizedStringForKey:@"SOS_KAPPA_CONFIRM_CANCEL" value:&stru_2875C9CD8 table:@"Localizable-kappa"];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __77__SOSUtilities_setKappaTriggersEmergencySOS_confirmationDelegate_completion___block_invoke;
-    v25[3] = &unk_279B534C0;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __77__SOSUtilities_setKappaTriggersEmergencySOS_confirmationDelegate_completion___block_invoke;
+    v24[3] = &unk_279B534C0;
     selfCopy = self;
-    v26 = completionCopy;
+    v25 = completionCopy;
     v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v19 = [v18 localizedStringForKey:@"SOS_KAPPA_CONFIRM_OK" value:&stru_2875C9CD8 table:@"Localizable-kappa"];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __77__SOSUtilities_setKappaTriggersEmergencySOS_confirmationDelegate_completion___block_invoke_915;
-    v22[3] = &unk_279B534C0;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __77__SOSUtilities_setKappaTriggersEmergencySOS_confirmationDelegate_completion___block_invoke_915;
+    v21[3] = &unk_279B534C0;
     selfCopy2 = self;
-    v23 = v26;
-    [delegateCopy presentConfirmationWithTitle:v21 message:v15 cancelTitle:v17 cancelHandler:v25 confirmTitle:v19 confirmHandler:v22];
+    v22 = v25;
+    [delegateCopy presentConfirmationWithTitle:v20 message:v15 cancelTitle:v17 cancelHandler:v24 confirmTitle:v19 confirmHandler:v21];
 
     goto LABEL_16;
   }
@@ -3199,49 +3561,43 @@ LABEL_15:
   if (v11)
   {
     *buf = 136315138;
-    v29 = "+[SOSUtilities setKappaTriggersEmergencySOS:confirmationDelegate:completion:]";
+    v28 = "+[SOSUtilities setKappaTriggersEmergencySOS:confirmationDelegate:completion:]";
     _os_log_impl(&dword_264323000, v10, OS_LOG_TYPE_DEFAULT, "%s - no confirmation needed", buf, 0xCu);
   }
 
   [self _setKappaTriggersEmergencySOS:1];
   (*(completionCopy + 2))(completionCopy, 1);
 LABEL_16:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __77__SOSUtilities_setKappaTriggersEmergencySOS_confirmationDelegate_completion___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = sos_default_log();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = sos_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "+[SOSUtilities setKappaTriggersEmergencySOS:confirmationDelegate:completion:]_block_invoke";
-    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - canceled", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "+[SOSUtilities setKappaTriggersEmergencySOS:confirmationDelegate:completion:]_block_invoke";
+    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - canceled", &v4, 0xCu);
   }
 
   [*(a1 + 40) _setKappaTriggersEmergencySOS:1];
-  result = (*(*(a1 + 32) + 16))();
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 uint64_t __77__SOSUtilities_setKappaTriggersEmergencySOS_confirmationDelegate_completion___block_invoke_915(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = sos_default_log();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = sos_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "+[SOSUtilities setKappaTriggersEmergencySOS:confirmationDelegate:completion:]_block_invoke";
-    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - confirmed", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "+[SOSUtilities setKappaTriggersEmergencySOS:confirmationDelegate:completion:]_block_invoke";
+    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "%s - confirmed", &v4, 0xCu);
   }
 
   [*(a1 + 40) _setKappaTriggersEmergencySOS:0];
-  result = (*(*(a1 + 32) + 16))();
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 + (BOOL)isKappaDetectionSupportedOnCurrentDevice
@@ -3254,34 +3610,32 @@ uint64_t __77__SOSUtilities_setKappaTriggersEmergencySOS_confirmationDelegate_co
   return isKappaDetectionSupportedOnCurrentDevice___kappaDetectionAvailable;
 }
 
-void __56__SOSUtilities_isKappaDetectionSupportedOnCurrentDevice__block_invoke()
+void __56__SOSUtilities_isKappaDetectionSupportedOnCurrentDevice__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if ((MGGetBoolAnswer() & 1) != 0 || (v0 = _os_feature_enabled_impl()) != 0)
+  v10 = *MEMORY[0x277D85DE8];
+  if ((MGGetBoolAnswer() & 1) != 0 || (v2 = _os_feature_enabled_impl(), v2))
   {
-    LOBYTE(v0) = +[SOSUtilities isKappaVisible];
-    v1 = 1;
+    v2 = +[SOSUtilities isKappaVisible];
+    v3 = 1;
   }
 
   else
   {
-    v1 = 0;
+    v3 = 0;
   }
 
-  isKappaDetectionSupportedOnCurrentDevice___kappaDetectionAvailable = v0;
-  v2 = sos_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  isKappaDetectionSupportedOnCurrentDevice___kappaDetectionAvailable = v2;
+  v4 = sos_default_log(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4[0] = 67109632;
-    v4[1] = v1;
-    v5 = 1024;
-    v6 = +[SOSUtilities isKappaVisible];
-    v7 = 1024;
-    v8 = isKappaDetectionSupportedOnCurrentDevice___kappaDetectionAvailable;
-    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "_kappaDetectionAvailableOnCurrentDevice: deviceSupportsKappa:%{BOOL}d / isKappaVisible:%{BOOL}d => kappaDetectionAvailable:%{BOOL}d", v4, 0x14u);
+    v5[0] = 67109632;
+    v5[1] = v3;
+    v6 = 1024;
+    v7 = +[SOSUtilities isKappaVisible];
+    v8 = 1024;
+    v9 = isKappaDetectionSupportedOnCurrentDevice___kappaDetectionAvailable;
+    _os_log_impl(&dword_264323000, v4, OS_LOG_TYPE_DEFAULT, "_kappaDetectionAvailableOnCurrentDevice: deviceSupportsKappa:%{BOOL}d / isKappaVisible:%{BOOL}d => kappaDetectionAvailable:%{BOOL}d", v5, 0x14u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isKappaDetectionSupportedOnActiveWatch
@@ -3588,6 +3942,57 @@ void __56__SOSUtilities_isKappaDetectionSupportedOnCurrentDevice__block_invoke()
   return bundleId;
 }
 
++ (BOOL)shouldShowCrashDetectionThirdPartySettingsForPairedDevice:(BOOL)device
+{
+  if (![self isDeviceWatchUsePairedDevice:device])
+  {
+    getKappaThirdPartyApp = [self getKappaThirdPartyApp];
+    crashDetectionThirdPartyBundleId = getKappaThirdPartyApp;
+    if (getKappaThirdPartyApp)
+    {
+      v12 = [getKappaThirdPartyApp deviceType] == 0;
+      goto LABEL_12;
+    }
+
+LABEL_11:
+    v12 = 0;
+    goto LABEL_12;
+  }
+
+  crashDetectionThirdPartyBundleId = [self crashDetectionThirdPartyBundleId];
+  if (!crashDetectionThirdPartyBundleId)
+  {
+    goto LABEL_11;
+  }
+
+  mEMORY[0x277D2BCF8] = [MEMORY[0x277D2BCF8] sharedInstance];
+  getActivePairedDevice = [mEMORY[0x277D2BCF8] getActivePairedDevice];
+
+  sharedDeviceConnection = [getACXDeviceConnectionClass() sharedDeviceConnection];
+  v15 = 0;
+  v8 = [sharedDeviceConnection getApplicationIsInstalled:0 withBundleID:crashDetectionThirdPartyBundleId onPairedDevice:getActivePairedDevice error:&v15];
+  v9 = v15;
+
+  if (v9)
+  {
+    v11 = sos_default_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      +[SOSUtilities shouldShowCrashDetectionThirdPartySettingsForPairedDevice:];
+    }
+  }
+
+  if ((v8 & 1) == 0)
+  {
+    goto LABEL_11;
+  }
+
+  v12 = 1;
+LABEL_12:
+
+  return v12;
+}
+
 + (void)thirdPartySettingsSpecifiersForRemoteDeviceWithTarget:(id)target forApp:(id)app disableAction:(SEL)action withCompletion:(id)completion
 {
   targetCopy = target;
@@ -3621,62 +4026,165 @@ void __106__SOSUtilities_thirdPartySettingsSpecifiersForRemoteDeviceWithTarget_f
   return v10;
 }
 
++ (id)thirdPartySettingsSpecifiersWithTarget:(id)target displayName:(id)name forPairedDevice:(BOOL)device disableAction:(SEL)action
+{
+  deviceCopy = device;
+  targetCopy = target;
+  nameCopy = name;
+  v11 = objc_opt_new();
+  v12 = [getPSSpecifierClass() groupSpecifierWithID:@"SHARE_CRASH_EVENT_GROUP"];
+  if ([self isDeviceWatchUsePairedDevice:deviceCopy])
+  {
+    +[SOSUtilities crashDetectionThirdPartyFooterDescriptionWatch];
+  }
+
+  else
+  {
+    +[SOSUtilities crashDetectionThirdPartyFooterDescriptionPhone];
+  }
+  v13 = ;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v14 = getPSFooterTextGroupKeySymbolLoc_ptr;
+  v35 = getPSFooterTextGroupKeySymbolLoc_ptr;
+  if (!getPSFooterTextGroupKeySymbolLoc_ptr)
+  {
+    v15 = PreferencesLibrary();
+    v33[3] = dlsym(v15, "PSFooterTextGroupKey");
+    getPSFooterTextGroupKeySymbolLoc_ptr = v33[3];
+    v14 = v33[3];
+  }
+
+  _Block_object_dispose(&v32, 8);
+  if (!v14)
+  {
+    +[SOSUtilities thirdPartySettingsSpecifiersWithTarget:displayName:forPairedDevice:disableAction:];
+LABEL_17:
+    +[SOSUtilities thirdPartySettingsSpecifiersWithTarget:displayName:forPairedDevice:disableAction:];
+    goto LABEL_18;
+  }
+
+  [v12 setProperty:v13 forKey:*v14];
+
+  [v11 addObject:v12];
+  PSSpecifierClass = getPSSpecifierClass();
+  v17 = +[SOSUtilities crashDetectionThirdPartyAppWithAccessDescription];
+  v18 = [PSSpecifierClass groupSpecifierWithID:@"SHARE_CRASH_APP_WITH_ACCESS_GROUP" name:v17];
+
+  [v11 addObject:v18];
+  v19 = [getPSSpecifierClass() preferenceSpecifierNamed:nameCopy target:self set:0 get:0 detail:0 cell:3 edit:0];
+  [v11 ps_addSpecifier:v19 toGroup:v18];
+  v20 = [getPSSpecifierClass() groupSpecifierWithID:@"SOS_KAPPA_THIRD_PARTY_APP_DISABLE_GROUP"];
+  [v11 ps_addGroup:v20 afterGroup:v18];
+  v21 = getPSSpecifierClass();
+  v22 = +[SOSUtilities crashDetectionThirdPartyShareDisableDescription];
+  v23 = [v21 deleteButtonSpecifierWithName:v22 target:targetCopy action:action];
+
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v24 = getPSAllowMultilineTitleKeySymbolLoc_ptr;
+  v35 = getPSAllowMultilineTitleKeySymbolLoc_ptr;
+  if (!getPSAllowMultilineTitleKeySymbolLoc_ptr)
+  {
+    v25 = PreferencesLibrary();
+    v33[3] = dlsym(v25, "PSAllowMultilineTitleKey");
+    getPSAllowMultilineTitleKeySymbolLoc_ptr = v33[3];
+    v24 = v33[3];
+  }
+
+  _Block_object_dispose(&v32, 8);
+  if (!v24)
+  {
+    goto LABEL_17;
+  }
+
+  [v23 setProperty:MEMORY[0x277CBEC38] forKey:*v24];
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v26 = getPSAlignmentKeySymbolLoc_ptr;
+  v35 = getPSAlignmentKeySymbolLoc_ptr;
+  if (!getPSAlignmentKeySymbolLoc_ptr)
+  {
+    v27 = PreferencesLibrary();
+    v33[3] = dlsym(v27, "PSAlignmentKey");
+    getPSAlignmentKeySymbolLoc_ptr = v33[3];
+    v26 = v33[3];
+  }
+
+  _Block_object_dispose(&v32, 8);
+  if (!v26)
+  {
+LABEL_18:
+    +[SOSUtilities thirdPartySettingsSpecifiersWithTarget:displayName:forPairedDevice:disableAction:];
+    v30 = v29;
+    _Block_object_dispose(&v32, 8);
+    _Unwind_Resume(v30);
+  }
+
+  [v23 setProperty:&unk_2875D2938 forKey:*v26];
+  [v11 ps_addSpecifier:v23 toGroup:v20];
+
+  return v11;
+}
+
 + (__CFBundle)getKappaThirdPartyActiveAppBundle
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v2 = *MEMORY[0x277D6C140];
-  v3 = TCCAccessCopyInformation();
-  if (v3)
+  v29 = *MEMORY[0x277D85DE8];
+  v2 = TCCAccessCopyInformation();
+  if (v2)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
-    v4 = v3;
-    v5 = [v4 countByEnumeratingWithState:&v21 objects:v29 count:16];
-    if (v5)
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v3 = v2;
+    v4 = [v3 countByEnumeratingWithState:&v20 objects:v28 count:16];
+    if (v4)
     {
-      v7 = v5;
-      v8 = *v22;
-      v9 = MEMORY[0x277D6C0C8];
-      v10 = MEMORY[0x277D6C0D0];
-      *&v6 = 138412546;
-      v20 = v6;
+      v6 = v4;
+      v7 = *v21;
+      v8 = MEMORY[0x277D6C0C8];
+      v9 = MEMORY[0x277D6C0D0];
+      *&v5 = 138412546;
+      v19 = v5;
 LABEL_4:
-      v11 = 0;
+      v10 = 0;
       while (1)
       {
-        if (*v22 != v8)
+        if (*v21 != v7)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v3);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * v11);
-        v13 = [v12 objectForKeyedSubscript:{*v9, v20, v21}];
+        v11 = *(*(&v20 + 1) + 8 * v10);
+        v12 = [v11 objectForKeyedSubscript:{*v8, v19, v20}];
 
-        v14 = CFBundleGetIdentifier(v13);
-        v15 = [v12 objectForKeyedSubscript:*v10];
-        bOOLValue = [v15 BOOLValue];
+        v13 = CFBundleGetIdentifier(v12);
+        v14 = [v11 objectForKeyedSubscript:*v9];
+        bOOLValue = [v14 BOOLValue];
 
-        v17 = sos_default_log();
+        v17 = sos_default_log(v16);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v20;
-          v26 = v14;
-          v27 = 1024;
-          v28 = bOOLValue;
+          *buf = v19;
+          v25 = v13;
+          v26 = 1024;
+          v27 = bOOLValue;
           _os_log_impl(&dword_264323000, v17, OS_LOG_TYPE_DEFAULT, "KappaThirdParty,getKappaThirdPartyActiveAppBundle, bundleID:%@, grant status: %d", buf, 0x12u);
         }
 
-        if (((v13 != 0) & bOOLValue) != 0)
+        if (((v12 != 0) & bOOLValue) != 0)
         {
           break;
         }
 
-        if (v7 == ++v11)
+        if (v6 == ++v10)
         {
-          v7 = [v4 countByEnumeratingWithState:&v21 objects:v29 count:16];
-          if (v7)
+          v6 = [v3 countByEnumeratingWithState:&v20 objects:v28 count:16];
+          if (v6)
           {
             goto LABEL_4;
           }
@@ -3689,24 +4197,32 @@ LABEL_4:
     else
     {
 LABEL_12:
-      v13 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v4 = sos_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v3 = sos_default_log(0);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_264323000, v4, OS_LOG_TYPE_DEFAULT, "KappaThirdParty,getKappaThirdPartyActiveAppBundle, No element registered for the service. Return nil app name", buf, 2u);
+      _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "KappaThirdParty,getKappaThirdPartyActiveAppBundle, No element registered for the service. Return nil app name", buf, 2u);
     }
 
-    v13 = 0;
+    v12 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v12;
+}
+
++ (void)setKappaThirdPartyActiveApp:(BOOL)app presentConfirmationOnViewController:(id)controller completion:(id)completion
+{
+  appCopy = app;
+  completionCopy = completion;
+  controllerCopy = controller;
+  getKappaThirdPartyApp = [self getKappaThirdPartyApp];
+  [self setKappaThirdPartyActive:appCopy forApp:getKappaThirdPartyApp forPairedDevice:0 presentConfirmationOnViewController:controllerCopy completion:completionCopy];
 }
 
 + (void)setKappaThirdPartyActive:(BOOL)active forApp:(id)app forPairedDevice:(BOOL)device presentConfirmationOnViewController:(id)controller completion:(id)completion
@@ -3716,40 +4232,41 @@ LABEL_12:
   appCopy = app;
   controllerCopy = controller;
   completionCopy = completion;
+  v15 = completionCopy;
   if (activeCopy)
   {
-    v15 = sos_default_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sos_default_log(completionCopy);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_264323000, v15, OS_LOG_TYPE_DEFAULT, "KappaThirdParty,setKappaThirdPartyActiveApp,the request is invalid", buf, 2u);
+      _os_log_impl(&dword_264323000, v16, OS_LOG_TYPE_DEFAULT, "KappaThirdParty,setKappaThirdPartyActiveApp,the request is invalid", buf, 2u);
     }
 
-    completionCopy[2](completionCopy, 0);
+    v15[2](v15, 0);
   }
 
   else
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __111__SOSUtilities_setKappaThirdPartyActive_forApp_forPairedDevice_presentConfirmationOnViewController_completion___block_invoke;
-    v19[3] = &unk_279B53538;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __111__SOSUtilities_setKappaThirdPartyActive_forApp_forPairedDevice_presentConfirmationOnViewController_completion___block_invoke;
+    v20[3] = &unk_279B53538;
     selfCopy = self;
-    v24 = deviceCopy;
-    v20 = controllerCopy;
-    v22 = completionCopy;
-    v16 = appCopy;
-    v21 = v16;
-    v17 = MEMORY[0x266735F90](v19);
+    v25 = deviceCopy;
+    v21 = controllerCopy;
+    v23 = v15;
+    v17 = appCopy;
+    v22 = v17;
+    v18 = MEMORY[0x266735F90](v20);
     if (deviceCopy)
     {
-      [v16 getLocalizedNameForPairedDeviceWithCompletion:v17];
+      [v17 getLocalizedNameForPairedDeviceWithCompletion:v18];
     }
 
     else
     {
-      getLocalizedName = [v16 getLocalizedName];
-      (v17)[2](v17, getLocalizedName);
+      getLocalizedName = [v17 getLocalizedName];
+      (v18)[2](v18, getLocalizedName);
     }
   }
 }
@@ -3772,29 +4289,27 @@ void __111__SOSUtilities_setKappaThirdPartyActive_forApp_forPairedDevice_present
 
   v7 = *(a1 + 32);
   v8 = +[SOSUtilities crashDetectionThirdPartyAlertTitle];
-  v9 = *(a1 + 56);
-  v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v11 = [v10 localizedStringForKey:@"KAPPA_THIRD_PARTY_STOP_SHARING_CANCEL" value:&stru_2875C9CD8 table:@"Localizable-kappa"];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __111__SOSUtilities_setKappaThirdPartyActive_forApp_forPairedDevice_presentConfirmationOnViewController_completion___block_invoke_2;
-  v18[3] = &unk_279B533E0;
-  v19 = *(a1 + 48);
-  v12 = *(a1 + 56);
-  v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v14 = [v13 localizedStringForKey:@"KAPPA_THIRD_PARTY_STOP_SHARING_CONTINUE" value:&stru_2875C9CD8 table:@"Localizable-kappa"];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __111__SOSUtilities_setKappaThirdPartyActive_forApp_forPairedDevice_presentConfirmationOnViewController_completion___block_invoke_1018;
-  v15[3] = &unk_279B53510;
-  v16 = *(a1 + 40);
+  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v10 = [v9 localizedStringForKey:@"KAPPA_THIRD_PARTY_STOP_SHARING_CANCEL" value:&stru_2875C9CD8 table:@"Localizable-kappa"];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __111__SOSUtilities_setKappaThirdPartyActive_forApp_forPairedDevice_presentConfirmationOnViewController_completion___block_invoke_2;
+  v16[3] = &unk_279B533E0;
   v17 = *(a1 + 48);
-  [SOSUtilities presentConfirmationOnViewController:v7 title:v8 message:v6 cancelTitle:v11 cancelHandler:v18 confirmTitle:v14 confirmHandler:v15];
+  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v12 = [v11 localizedStringForKey:@"KAPPA_THIRD_PARTY_STOP_SHARING_CONTINUE" value:&stru_2875C9CD8 table:@"Localizable-kappa"];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __111__SOSUtilities_setKappaThirdPartyActive_forApp_forPairedDevice_presentConfirmationOnViewController_completion___block_invoke_1018;
+  v13[3] = &unk_279B53510;
+  v14 = *(a1 + 40);
+  v15 = *(a1 + 48);
+  [SOSUtilities presentConfirmationOnViewController:v7 title:v8 message:v6 cancelTitle:v10 cancelHandler:v16 confirmTitle:v12 confirmHandler:v13];
 }
 
 uint64_t __111__SOSUtilities_setKappaThirdPartyActive_forApp_forPairedDevice_presentConfirmationOnViewController_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = sos_default_log();
+  v2 = sos_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -3806,8 +4321,8 @@ uint64_t __111__SOSUtilities_setKappaThirdPartyActive_forApp_forPairedDevice_pre
 
 uint64_t __111__SOSUtilities_setKappaThirdPartyActive_forApp_forPairedDevice_presentConfirmationOnViewController_completion___block_invoke_1018(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v12 = 0;
+  v13 = *MEMORY[0x277D85DE8];
+  v11 = 0;
   v2 = NSSelectorFromString(&cfstr_SetaccessForbu.isa);
   getSAAuthorizationClass();
   if (objc_opt_respondsToSelector())
@@ -3818,32 +4333,29 @@ uint64_t __111__SOSUtilities_setKappaThirdPartyActive_forApp_forPairedDevice_pre
 
     [v5 setSelector:v2];
     [v5 setTarget:getSAAuthorizationClass()];
-    v11 = 0;
+    v10 = 0;
     *buf = [*(a1 + 32) bundleId];
-    [v5 setArgument:&v11 atIndex:2];
+    [v5 setArgument:&v10 atIndex:2];
     [v5 setArgument:buf atIndex:3];
     [v5 invoke];
-    [v5 getReturnValue:&v12];
+    [v5 getReturnValue:&v11];
   }
 
   else
   {
-    v6 = *MEMORY[0x277D6C140];
     v7 = [*(a1 + 32) bundleId];
-    v12 = TCCAccessSetForBundleId() != 0;
+    v11 = TCCAccessSetForBundleId() != 0;
   }
 
-  v8 = sos_default_log();
+  v8 = sos_default_log(v6);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    *&buf[4] = v12;
+    *&buf[4] = v11;
     _os_log_impl(&dword_264323000, v8, OS_LOG_TYPE_DEFAULT, "KappaThirdParty,setKappaThirdPartyActiveApp,revoking the right to receive kappa data completed with status:%d", buf, 8u);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 + (BOOL)activeDeviceSupportsMandrake
@@ -3856,60 +4368,60 @@ uint64_t __111__SOSUtilities_setKappaThirdPartyActive_forApp_forPairedDevice_pre
 
 + (BOOL)activeDeviceHasMandrake
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if ([self activeDeviceSupportsMandrake])
+  v17 = *MEMORY[0x277D85DE8];
+  activeDeviceSupportsMandrake = [self activeDeviceSupportsMandrake];
+  if (activeDeviceSupportsMandrake)
   {
     buf[0] = 0;
     mEMORY[0x277D2BCF8] = [MEMORY[0x277D2BCF8] sharedInstance];
     getActivePairedDeviceExcludingAltAccount = [mEMORY[0x277D2BCF8] getActivePairedDeviceExcludingAltAccount];
 
     sharedDeviceConnection = [getACXDeviceConnectionClass() sharedDeviceConnection];
-    v13 = 0;
-    v5 = [sharedDeviceConnection getApplicationIsInstalled:buf withBundleID:@"com.apple.Mandrake" onPairedDevice:getActivePairedDeviceExcludingAltAccount error:&v13];
-    v6 = v13;
+    v14 = 0;
+    v6 = [sharedDeviceConnection getApplicationIsInstalled:buf withBundleID:@"com.apple.Mandrake" onPairedDevice:getActivePairedDeviceExcludingAltAccount error:&v14];
+    v7 = v14;
 
-    if (v5)
+    if (v6)
     {
-      v7 = v6 == 0;
+      v9 = v7 == 0;
     }
 
     else
     {
-      v7 = 0;
+      v9 = 0;
     }
 
-    if (v7)
+    if (v9)
     {
-      v9 = buf[0];
+      v11 = buf[0];
     }
 
     else
     {
-      v8 = sos_default_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = sos_default_log(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         +[SOSUtilities activeDeviceHasMandrake];
       }
 
-      v9 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
-    v9 = 0;
+    v11 = 0;
   }
 
-  v10 = sos_mandrake_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = sos_mandrake_log(activeDeviceSupportsMandrake);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v15 = v9 & 1;
-    _os_log_impl(&dword_264323000, v10, OS_LOG_TYPE_DEFAULT, "activeDeviceHasMandrake:%{BOOL}d", buf, 8u);
+    v16 = v11 & 1;
+    _os_log_impl(&dword_264323000, v12, OS_LOG_TYPE_DEFAULT, "activeDeviceHasMandrake:%{BOOL}d", buf, 8u);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v9 & 1;
+  return v11 & 1;
 }
 
 + (BOOL)longPressTriggersMandrake
@@ -3928,6 +4440,23 @@ uint64_t __111__SOSUtilities_setKappaThirdPartyActive_forApp_forPairedDevice_pre
   }
 
   return bOOLValue;
+}
+
++ (void)setLongPressTriggersMandrake:(BOOL)mandrake
+{
+  mandrakeCopy = mandrake;
+  _SOSDomainAccessor = [self _SOSDomainAccessor];
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:mandrakeCopy];
+  [_SOSDomainAccessor setObject:v5 forKey:@"SOSLongPressTriggersMandrakeKey"];
+
+  v6 = dispatch_get_global_queue(2, 0);
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __45__SOSUtilities_setLongPressTriggersMandrake___block_invoke;
+  block[3] = &unk_279B532A0;
+  v9 = _SOSDomainAccessor;
+  v7 = _SOSDomainAccessor;
+  dispatch_async(v6, block);
 }
 
 void __45__SOSUtilities_setLongPressTriggersMandrake___block_invoke(uint64_t a1)
@@ -3971,6 +4500,20 @@ void __45__SOSUtilities_setLongPressTriggersMandrake___block_invoke_2()
   return bOOLValue;
 }
 
++ (void)setSOSMessagesUrgentAlertingEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+  [self _setSOSPrefsValue:v4 forKey:@"SOSMessagesUrgentAlertingEnabledKey"];
+
+  v5 = dispatch_get_global_queue(2, 0);
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __52__SOSUtilities_setSOSMessagesUrgentAlertingEnabled___block_invoke;
+  block[3] = &__block_descriptor_40_e5_v8__0l;
+  block[4] = self;
+  dispatch_async(v5, block);
+}
+
 void __52__SOSUtilities_setSOSMessagesUrgentAlertingEnabled___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _synchronizeSOSPrefs];
@@ -4010,6 +4553,20 @@ void __52__SOSUtilities_setSOSMessagesUrgentAlertingEnabled___block_invoke_2()
   }
 
   return bOOLValue;
+}
+
++ (void)setSOSMessagesUrgentAlertingBypassesMute:(BOOL)mute
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:mute];
+  [self _setSOSPrefsValue:v4 forKey:@"SOSMessagesUrgentAlertingBypassesMuteKey"];
+
+  v5 = dispatch_get_global_queue(2, 0);
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __57__SOSUtilities_setSOSMessagesUrgentAlertingBypassesMute___block_invoke;
+  block[3] = &__block_descriptor_40_e5_v8__0l;
+  block[4] = self;
+  dispatch_async(v5, block);
 }
 
 void __57__SOSUtilities_setSOSMessagesUrgentAlertingBypassesMute___block_invoke(uint64_t a1)
@@ -4069,30 +4626,30 @@ void __57__SOSUtilities_setSOSMessagesUrgentAlertingBypassesMute___block_invoke_
 
 void __33__SOSUtilities_sosLocationBundle__block_invoke()
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAA00] defaultManager];
   v1 = [v0 URLsForDirectory:5 inDomains:8];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v2 = v1;
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v14 != v5)
+      if (*v13 != v5)
       {
         objc_enumerationMutation(v2);
       }
 
-      v7 = [*(*(&v13 + 1) + 8 * v6) URLByAppendingPathComponent:{@"LocationBundles", v13}];
+      v7 = [*(*(&v12 + 1) + 8 * v6) URLByAppendingPathComponent:{@"LocationBundles", v12}];
       v8 = [v7 URLByAppendingPathComponent:@"Emergency SOS.bundle"];
       v9 = [MEMORY[0x277CCA8D8] bundleWithURL:v8];
       v10 = sosLocationBundle___bundle;
@@ -4106,7 +4663,7 @@ LABEL_3:
 
       if (v4 == ++v6)
       {
-        v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -4116,46 +4673,45 @@ LABEL_3:
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)fetchSOSStatusWithKey:(id)key
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v5 = [self _sosPrefsValueForKey:keyCopy];
   if (v5)
   {
     v6 = MEMORY[0x277CCAAC8];
     v7 = objc_alloc(MEMORY[0x277CBEB98]);
-    v19[0] = objc_opt_class();
-    v19[1] = objc_opt_class();
-    v19[2] = objc_opt_class();
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
+    v20[0] = objc_opt_class();
+    v20[1] = objc_opt_class();
+    v20[2] = objc_opt_class();
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
     v9 = [v7 initWithArray:v8];
-    v18 = 0;
-    v10 = [v6 unarchivedObjectOfClasses:v9 fromData:v5 error:&v18];
-    v11 = v18;
+    v19 = 0;
+    v10 = [v6 unarchivedObjectOfClasses:v9 fromData:v5 error:&v19];
+    v11 = v19;
 
     if (v10)
     {
       isValid = [v10 isValid];
-      v13 = sos_default_log();
-      v14 = v13;
-      if ((isValid & 1) == 0)
+      v14 = isValid;
+      v15 = sos_default_log(isValid);
+      v16 = v15;
+      if ((v14 & 1) == 0)
       {
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           +[SOSUtilities fetchSOSStatusWithKey:];
         }
 
         [self _setSOSPrefsValue:0 forKey:keyCopy];
-        v15 = 0;
+        v17 = 0;
         goto LABEL_15;
       }
 
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         +[SOSUtilities fetchSOSStatusWithKey:];
       }
@@ -4163,31 +4719,29 @@ LABEL_3:
 
     else
     {
-      v14 = sos_default_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = sos_default_log(v12);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         +[SOSUtilities fetchSOSStatusWithKey:];
       }
     }
 
-    v15 = v10;
+    v17 = v10;
 LABEL_15:
 
     goto LABEL_16;
   }
 
-  v11 = sos_default_log();
+  v11 = sos_default_log(0);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [SOSUtilities fetchSOSStatusWithKey:v11];
   }
 
-  v15 = 0;
+  v17 = 0;
 LABEL_16:
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v17;
 }
 
 + (void)setSOSStatus:(id)status withKey:(id)key
@@ -4197,7 +4751,7 @@ LABEL_16:
   v14 = 0;
   v8 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:statusCopy requiringSecureCoding:1 error:&v14];
   v9 = v14;
-  v10 = sos_default_log();
+  v10 = sos_default_log(v9);
   v11 = v10;
   if (v8)
   {
@@ -4236,99 +4790,101 @@ LABEL_16:
 
 + (BOOL)isMessagesHandlingSMS
 {
-  v20 = *MEMORY[0x277D85DE8];
-  if (_os_feature_enabled_impl())
+  v22 = *MEMORY[0x277D85DE8];
+  v2 = _os_feature_enabled_impl();
+  if (v2)
   {
     defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-    v3 = defaultWorkspace;
+    v4 = defaultWorkspace;
     if (defaultWorkspace)
     {
-      if (([defaultWorkspace canChangeDefaultAppForCategory:10]& 1) != 0)
+      v5 = [defaultWorkspace canChangeDefaultAppForCategory:10];
+      if (v5)
       {
-        v15 = 0;
-        v4 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:@"com.apple.MobileSMS" allowPlaceholder:0 error:&v15];
-        v5 = v15;
-        if (v4)
+        v17 = 0;
+        v6 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:@"com.apple.MobileSMS" allowPlaceholder:0 error:&v17];
+        v7 = v17;
+        v8 = v7;
+        if (v6)
         {
           defaultWorkspace2 = [MEMORY[0x277CC1E80] defaultWorkspace];
-          v14 = v5;
-          v7 = [defaultWorkspace2 defaultApplicationForCategory:10 error:&v14];
-          v8 = v14;
+          v16 = v8;
+          v10 = [defaultWorkspace2 defaultApplicationForCategory:10 error:&v16];
+          v11 = v16;
 
-          v9 = [v7 isEqual:v4];
-          v10 = sos_default_log();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          v12 = [v10 isEqual:v6];
+          v13 = sos_default_log(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v17 = "+[SOSUtilities isMessagesHandlingSMS]";
-            v18 = 1024;
-            LODWORD(v19) = v9;
-            _os_log_impl(&dword_264323000, v10, OS_LOG_TYPE_DEFAULT, "%s - %d", buf, 0x12u);
+            v19 = "+[SOSUtilities isMessagesHandlingSMS]";
+            v20 = 1024;
+            LODWORD(v21) = v12;
+            _os_log_impl(&dword_264323000, v13, OS_LOG_TYPE_DEFAULT, "%s - %d", buf, 0x12u);
           }
 
-          v5 = v8;
+          v8 = v11;
         }
 
         else
         {
-          v7 = sos_default_log();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+          v10 = sos_default_log(v7);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v17 = "+[SOSUtilities isMessagesHandlingSMS]";
-            v18 = 2112;
-            v19 = v5;
-            _os_log_impl(&dword_264323000, v7, OS_LOG_TYPE_DEFAULT, "%s - Can't find application record for Messages, error %@", buf, 0x16u);
+            v19 = "+[SOSUtilities isMessagesHandlingSMS]";
+            v20 = 2112;
+            v21 = v8;
+            _os_log_impl(&dword_264323000, v10, OS_LOG_TYPE_DEFAULT, "%s - Can't find application record for Messages, error %@", buf, 0x16u);
           }
 
-          LOBYTE(v9) = 0;
+          LOBYTE(v12) = 0;
         }
 
         goto LABEL_21;
       }
 
-      v5 = sos_default_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v8 = sos_default_log(v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v17 = "+[SOSUtilities isMessagesHandlingSMS]";
-        v11 = "%s - Can't change default app so behaving as if Messages is the default";
+        v19 = "+[SOSUtilities isMessagesHandlingSMS]";
+        v14 = "%s - Can't change default app so behaving as if Messages is the default";
         goto LABEL_15;
       }
     }
 
     else
     {
-      v5 = sos_default_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v8 = sos_default_log(0);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v17 = "+[SOSUtilities isMessagesHandlingSMS]";
-        v11 = "%s - assuming YES";
+        v19 = "+[SOSUtilities isMessagesHandlingSMS]";
+        v14 = "%s - assuming YES";
 LABEL_15:
-        _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, v11, buf, 0xCu);
+        _os_log_impl(&dword_264323000, v8, OS_LOG_TYPE_DEFAULT, v14, buf, 0xCu);
       }
     }
 
-    LOBYTE(v9) = 1;
+    LOBYTE(v12) = 1;
 LABEL_21:
 
     goto LABEL_22;
   }
 
-  v3 = sos_default_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = sos_default_log(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v17 = "+[SOSUtilities isMessagesHandlingSMS]";
-    _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "%s - FF is off", buf, 0xCu);
+    v19 = "+[SOSUtilities isMessagesHandlingSMS]";
+    _os_log_impl(&dword_264323000, v4, OS_LOG_TYPE_DEFAULT, "%s - FF is off", buf, 0xCu);
   }
 
-  LOBYTE(v9) = 1;
+  LOBYTE(v12) = 1;
 LABEL_22:
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v12;
 }
 
 + (BOOL)_isCarryDevice
@@ -4350,7 +4906,7 @@ LABEL_22:
   }
 
   v9 = [SOSUtilities _sosPrefsValueForKey:keyCopy];
-  v10 = sos_config_log();
+  v10 = sos_config_log(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v14 = 138543874;
@@ -4362,7 +4918,8 @@ LABEL_22:
     _os_log_debug_impl(&dword_264323000, v10, OS_LOG_TYPE_DEBUG, "#debugOverride - _overrideForDefaultsKey:%{public}@ (default %{public}@, testing %{public}@)", &v14, 0x20u);
   }
 
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
 
 LABEL_9:
@@ -4370,8 +4927,8 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v11 = sos_config_log();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sos_config_log(isKindOfClass);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138543874;
     v15 = keyCopy;
@@ -4379,11 +4936,10 @@ LABEL_9:
     v17 = valueCopy;
     v18 = 2114;
     v19 = v9;
-    _os_log_impl(&dword_264323000, v11, OS_LOG_TYPE_DEFAULT, "#debugOverride - _overrideForDefaultsKey:%{public}@ (%{public}@ => %{public}@)", &v14, 0x20u);
+    _os_log_impl(&dword_264323000, v12, OS_LOG_TYPE_DEFAULT, "#debugOverride - _overrideForDefaultsKey:%{public}@ (%{public}@ => %{public}@)", &v14, 0x20u);
   }
 
 LABEL_10:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -4395,6 +4951,18 @@ LABEL_10:
   v8 = [self _overrideForDefaultsKey:keyCopy expectedClass:objc_opt_class() defaultValue:valueCopy];
 
   return v8;
+}
+
++ (BOOL)BOOLOverrideForDefaultsKey:(id)key defaultValue:(BOOL)value
+{
+  valueCopy = value;
+  v6 = MEMORY[0x277CCABB0];
+  keyCopy = key;
+  v8 = [v6 numberWithBool:valueCopy];
+  v9 = [self numberOverrideForDefaultsKey:keyCopy defaultValue:v8];
+
+  LOBYTE(v6) = [v9 BOOLValue];
+  return v6;
 }
 
 + (id)stringOverrideForDefaultsKey:(id)key defaultValue:(id)value
@@ -4441,97 +5009,56 @@ LABEL_10:
   return v5;
 }
 
-+ (void)setNumberOfSideButtonPresses:.cold.1()
++ (void)thirdPartySettingsSpecifiersWithTarget:displayName:forPairedDevice:disableAction:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)hasActiveSIMForClient:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)shouldShowCrashDetectionThirdPartySettingsForPairedDevice:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (uint64_t)thirdPartySettingsSpecifiersWithTarget:displayName:forPairedDevice:disableAction:.cold.1()
-{
-  dlerror();
-  v0 = abort_report_np();
-  return +[(SOSUtilities *)v0];
-}
-
-+ (void)activeDeviceHasMandrake
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  +[SOSUtilities activeDeviceHasMandrake];
 }
 
 + (void)fetchSOSStatusWithKey:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)fetchSOSStatusWithKey:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(&dword_264323000, v0, OS_LOG_TYPE_DEBUG, "%s - loaded SOS status, sosStatus: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_264323000, v0, OS_LOG_TYPE_DEBUG, "%s - loaded SOS status, sosStatus: %@", v1, 0x16u);
 }
 
 + (void)fetchSOSStatusWithKey:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)fetchSOSStatusWithKey:(os_log_t)log .cold.4(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "+[SOSUtilities fetchSOSStatusWithKey:]";
-  _os_log_debug_impl(&dword_264323000, log, OS_LOG_TYPE_DEBUG, "%s - no SOS status found", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "+[SOSUtilities fetchSOSStatusWithKey:]";
+  _os_log_debug_impl(&dword_264323000, log, OS_LOG_TYPE_DEBUG, "%s - no SOS status found", &v1, 0xCu);
 }
 
 + (void)setSOSStatus:withKey:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(&dword_264323000, v0, OS_LOG_TYPE_DEBUG, "%s - saving SOS status, sosStatus: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_264323000, v0, OS_LOG_TYPE_DEBUG, "%s - saving SOS status, sosStatus: %@", v1, 0x16u);
 }
 
 + (void)setSOSStatus:withKey:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

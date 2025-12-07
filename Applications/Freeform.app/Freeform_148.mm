@@ -34,7 +34,7 @@ unint64_t sub_10116FE78()
   result = qword_101A2BAE0;
   if (!qword_101A2BAE0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CC010, &_s10DropShadowV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BAE0);
   }
 
@@ -46,7 +46,7 @@ unint64_t sub_10116FED0()
   result = qword_101A2BAE8;
   if (!qword_101A2BAE8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CBF48, &_s10DropShadowV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BAE8);
   }
 
@@ -58,7 +58,7 @@ unint64_t sub_10116FF28()
   result = qword_101A2BAF0;
   if (!qword_101A2BAF0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CBF70, &_s10DropShadowV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BAF0);
   }
 
@@ -184,26 +184,26 @@ uint64_t sub_1011702D0(uint64_t a1)
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-double TSContentLanguage.Models.ScaffoldColumnStyle.init(from:)@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
+double TSContentLanguage.Models.ScaffoldColumnStyle.init(from:)@<D0>(_OWORD *a1@<X8>, void *a2@<X0>)
 {
-  sub_10117078C(a1, v9);
+  sub_10117078C(a2, v9);
   if (!v2)
   {
     v5 = v9[7];
-    a2[6] = v9[6];
-    a2[7] = v5;
-    a2[8] = v10[0];
-    *(a2 + 141) = *(v10 + 13);
+    a1[6] = v9[6];
+    a1[7] = v5;
+    a1[8] = v10[0];
+    *(a1 + 141) = *(v10 + 13);
     v6 = v9[3];
-    a2[2] = v9[2];
-    a2[3] = v6;
+    a1[2] = v9[2];
+    a1[3] = v6;
     v7 = v9[5];
-    a2[4] = v9[4];
-    a2[5] = v7;
+    a1[4] = v9[4];
+    a1[5] = v7;
     result = *v9;
     v8 = v9[1];
-    *a2 = v9[0];
-    a2[1] = v8;
+    *a1 = v9[0];
+    a1[1] = v8;
   }
 
   return result;
@@ -212,7 +212,7 @@ double TSContentLanguage.Models.ScaffoldColumnStyle.init(from:)@<D0>(void *a1@<X
 uint64_t TSContentLanguage.Models.ScaffoldColumnStyle.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = sub_1005B981C(&qword_101A2BAF8);
+  v5 = sub_1005B981C(&qword_101A2BAF8, &unk_1014CC088);
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = &v16[-v7];
@@ -261,7 +261,7 @@ uint64_t TSContentLanguage.Models.ScaffoldColumnStyle.encode(to:)(void *a1)
   v18[1] = v22;
   v18[2] = v23;
   v18[3] = v24;
-  sub_10000CAAC(v18, &qword_101A00900);
+  sub_10000CAAC(v18, &qword_101A00900, &qword_1014C7930);
   LOBYTE(v17) = 4;
   KeyedEncodingContainer.encode(_:forKey:)();
   if (qword_1019F2998 != -1)
@@ -272,7 +272,7 @@ uint64_t TSContentLanguage.Models.ScaffoldColumnStyle.encode(to:)(void *a1)
   v17 = static TSContentLanguage.Models.ScaffoldColumnStyle.version;
   v16[7] = 5;
   type metadata accessor for TSCLVersion();
-  sub_100969804(&qword_101A00458);
+  sub_100969804(&qword_101A00458, protocol conformance descriptor for TSCLVersion);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   return (*(v6 + 8))(v8, v5);
 }
@@ -298,14 +298,14 @@ unint64_t sub_101170740(Swift::String string)
 uint64_t sub_10117078C@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   v57 = a2;
-  v3 = sub_1005B981C(&qword_101A003E8);
+  v3 = sub_1005B981C(&qword_101A003E8, &qword_101481A70);
   __chkstk_darwin(v3 - 8);
   v5 = &v40 - v4;
   v6 = type metadata accessor for CodingUserInfoKey();
   v55 = *(v6 - 8);
   __chkstk_darwin(v6);
   v8 = &v40 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_1005B981C(&qword_101A006B8);
+  v9 = sub_1005B981C(&qword_101A006B8, &qword_10147C778);
   v56 = *(v9 - 8);
   __chkstk_darwin(v9);
   v11 = &v40 - v10;
@@ -366,7 +366,7 @@ LABEL_14:
 
   type metadata accessor for TSCLVersion();
   LOBYTE(v65) = 5;
-  sub_100969804(&qword_101A00400);
+  sub_100969804(&qword_101A00400, protocol conformance descriptor for TSCLVersion);
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
   v23 = v74;
   if (v74)
@@ -419,7 +419,7 @@ LABEL_14:
     v66 = v75;
     v67 = v76;
     v68 = v77;
-    sub_10000CAAC(&v65, &qword_101A00900);
+    sub_10000CAAC(&v65, &qword_101A00900, &qword_1014C7930);
     v31 = 0;
     v40 = 0;
     v41 = 0;
@@ -463,7 +463,7 @@ LABEL_14:
   v62 = 0u;
   v63 = 0u;
   memset(v64, 0, sizeof(v64));
-  sub_10000CAAC(v59, &qword_101A00900);
+  sub_10000CAAC(v59, &qword_101A00900, &qword_1014C7930);
   v32 = v53;
   v65 = v53;
   v33 = v52;
@@ -530,7 +530,7 @@ unint64_t sub_1011711E4()
   result = qword_101A2BB00;
   if (!qword_101A2BB00)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CC340, &_s19ScaffoldColumnStyleV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BB00);
   }
 
@@ -558,7 +558,7 @@ unint64_t sub_101171298()
   result = qword_101A2BB08;
   if (!qword_101A2BB08)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("]x6", &type metadata for TSContentLanguage.Models.ScaffoldColumnStyle, v0, v1);
     atomic_store(result, &qword_101A2BB08);
   }
 
@@ -570,7 +570,7 @@ unint64_t sub_1011712EC()
   result = qword_101A2BB10;
   if (!qword_101A2BB10)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("%x6", v0);
     atomic_store(result, &qword_101A2BB10);
   }
 
@@ -582,7 +582,7 @@ unint64_t sub_101171340()
   result = qword_101A2BB18;
   if (!qword_101A2BB18)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.ScaffoldColumnStyle, &type metadata for TSContentLanguage.Models.ScaffoldColumnStyle, v0, v1);
     atomic_store(result, &qword_101A2BB18);
   }
 
@@ -594,7 +594,7 @@ unint64_t sub_1011713B8()
   result = qword_101A2BB20;
   if (!qword_101A2BB20)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CC318, &_s19ScaffoldColumnStyleV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BB20);
   }
 
@@ -606,7 +606,7 @@ unint64_t sub_101171410()
   result = qword_101A2BB28;
   if (!qword_101A2BB28)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CC250, &_s19ScaffoldColumnStyleV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BB28);
   }
 
@@ -618,7 +618,7 @@ unint64_t sub_101171468()
   result = qword_101A2BB30;
   if (!qword_101A2BB30)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CC278, &_s19ScaffoldColumnStyleV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BB30);
   }
 
@@ -662,14 +662,14 @@ id static TSContentLanguage.Models.ScaffoldCharacterStyle.version.getter()
 
 uint64_t sub_101171610(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1005B981C(&qword_101A006A0);
+  v4 = sub_1005B981C(&qword_101A006A0, &qword_1014CC390);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_101171688(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1005B981C(&qword_101A006A0);
+  v4 = sub_1005B981C(&qword_101A006A0, &qword_1014CC390);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
@@ -729,12 +729,12 @@ uint64_t sub_1011718F8(uint64_t a1)
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void *TSContentLanguage.Models.ScaffoldCharacterStyle.init(from:)@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+void *TSContentLanguage.Models.ScaffoldCharacterStyle.init(from:)@<X0>(void *a1@<X8>, uint64_t a2@<X0>)
 {
-  result = sub_101172420(a1);
+  result = sub_101172420(a2);
   if (!v2)
   {
-    return memcpy(a2, v5, 0x3ACuLL);
+    return memcpy(a1, v5, 0x3ACuLL);
   }
 
   return result;
@@ -743,7 +743,7 @@ void *TSContentLanguage.Models.ScaffoldCharacterStyle.init(from:)@<X0>(uint64_t 
 uint64_t TSContentLanguage.Models.ScaffoldCharacterStyle.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = sub_1005B981C(&qword_101A2BB38);
+  v5 = sub_1005B981C(&qword_101A2BB38, &qword_1014CC398);
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = &v11[-v7 - 8];
@@ -768,7 +768,7 @@ uint64_t TSContentLanguage.Models.ScaffoldCharacterStyle.encode(to:)(void *a1)
   sub_10115CE3C();
   KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
   memcpy(v11, v12, 0x37CuLL);
-  sub_10000CAAC(v11, &qword_101A006A0);
+  sub_10000CAAC(v11, &qword_101A006A0, &qword_1014CC390);
   LOBYTE(v10) = 4;
   KeyedEncodingContainer.encode(_:forKey:)();
   if (qword_1019F29A0 != -1)
@@ -779,7 +779,7 @@ uint64_t TSContentLanguage.Models.ScaffoldCharacterStyle.encode(to:)(void *a1)
   v10 = static TSContentLanguage.Models.ScaffoldCharacterStyle.version;
   v13[918] = 5;
   type metadata accessor for TSCLVersion();
-  sub_100969804(&qword_101A00458);
+  sub_100969804(&qword_101A00458, protocol conformance descriptor for TSCLVersion);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   return (*(v6 + 8))(v8, v5);
 }
@@ -860,10 +860,10 @@ LABEL_24:
       sub_101171610(v20, v14);
       sub_101171610(__src, v14);
       v11 = TSContentLanguage.Models.CharacterProperties.isEquivalent(to:)(v22);
-      sub_10000CAAC(v13, &qword_101A006A0);
-      sub_10000CAAC(__src, &qword_101A006A0);
+      sub_10000CAAC(v13, &qword_101A006A0, &qword_1014CC390);
+      sub_10000CAAC(__src, &qword_101A006A0, &qword_1014CC390);
       memcpy(v14, v1 + 6, 0x37CuLL);
-      sub_10000CAAC(v14, &qword_101A006A0);
+      sub_10000CAAC(v14, &qword_101A006A0, &qword_1014CC390);
       return v11;
     }
 
@@ -877,14 +877,14 @@ LABEL_28:
     memcpy(__dst, v18, 0x6FCuLL);
     sub_101171610(v21, v22);
     sub_101171610(v20, v22);
-    sub_10000CAAC(__dst, &qword_101A006A8);
+    sub_10000CAAC(__dst, &qword_101A006A8, &qword_1014CC3A0);
     return 0;
   }
 
   memcpy(v22, v1 + 6, 0x37CuLL);
   sub_101171610(v21, v17);
   sub_101171610(v20, v17);
-  sub_10000CAAC(v22, &qword_101A006A0);
+  sub_10000CAAC(v22, &qword_101A006A0, &qword_1014CC390);
   return 1;
 }
 
@@ -970,9 +970,9 @@ BOOL _s8Freeform17TSContentLanguageO6ModelsO22ScaffoldCharacterStyleV23__derived
     sub_101171610(v21, v15);
     sub_101171610(v20, v15);
     v13 = _s8Freeform17TSContentLanguageO6ModelsO19CharacterPropertiesV23__derived_struct_equalsySbAG_AGtFZ_0(v22);
-    sub_10000CAAC(v14, &qword_101A006A0);
+    sub_10000CAAC(v14, &qword_101A006A0, &qword_1014CC390);
     memcpy(v15, v4 + 6, 0x37CuLL);
-    sub_10000CAAC(v15, &qword_101A006A0);
+    sub_10000CAAC(v15, &qword_101A006A0, &qword_1014CC390);
     return v13;
   }
 
@@ -983,14 +983,14 @@ LABEL_28:
     memcpy(__dst, v18, 0x6FCuLL);
     sub_101171610(v21, v22);
     sub_101171610(v20, v22);
-    sub_10000CAAC(__dst, &qword_101A006A8);
+    sub_10000CAAC(__dst, &qword_101A006A8, &qword_1014CC3A0);
     return 0;
   }
 
   memcpy(v22, v4 + 6, 0x37CuLL);
   sub_101171610(v21, v16);
   sub_101171610(v20, v16);
-  sub_10000CAAC(v22, &qword_101A006A0);
+  sub_10000CAAC(v22, &qword_101A006A0, &qword_1014CC390);
   return 1;
 }
 
@@ -1018,14 +1018,14 @@ void *sub_101172420(uint64_t a1)
   v52 = v1;
   v3 = v2;
   v49 = v4;
-  v5 = sub_1005B981C(&qword_101A003E8);
+  v5 = sub_1005B981C(&qword_101A003E8, &qword_101481A70);
   __chkstk_darwin(v5 - 8);
   v7 = &v41 - v6;
   v8 = type metadata accessor for CodingUserInfoKey();
   v50 = *(v8 - 8);
   __chkstk_darwin(v8);
   v10 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = sub_1005B981C(&qword_101A006B0);
+  v11 = sub_1005B981C(&qword_101A006B0, &unk_1014CC780);
   v51 = *(v11 - 8);
   __chkstk_darwin(v11);
   v13 = &v41 - v12;
@@ -1078,7 +1078,7 @@ LABEL_11:
 
   type metadata accessor for TSCLVersion();
   LOBYTE(v55[0]) = 5;
-  sub_100969804(&qword_101A00400);
+  sub_100969804(&qword_101A00400, protocol conformance descriptor for TSCLVersion);
   v22 = v47;
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
   v24 = v57[0];
@@ -1141,7 +1141,7 @@ LABEL_11:
 
     (*v37)(v47, v46);
     memcpy(v54, v57, 0x37CuLL);
-    sub_10000CAAC(v54, &qword_101A006A0);
+    sub_10000CAAC(v54, &qword_101A006A0, &qword_1014CC390);
     memcpy(v56, v59, sizeof(v56));
   }
 
@@ -1155,7 +1155,7 @@ LABEL_11:
   v38 = v45;
   v39 = v42;
   memcpy(v54, v58, 0x37CuLL);
-  sub_10000CAAC(v54, &qword_101A006A0);
+  sub_10000CAAC(v54, &qword_101A006A0, &qword_1014CC390);
   v55[0] = v38;
   v55[1] = v29;
   v40 = v44;
@@ -1182,7 +1182,7 @@ unint64_t sub_101172D78()
   result = qword_101A2BB40;
   if (!qword_101A2BB40)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("5r6", &_s22ScaffoldCharacterStyleV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BB40);
   }
 
@@ -1210,7 +1210,7 @@ unint64_t sub_101172E2C()
   result = qword_101A2BB48;
   if (!qword_101A2BB48)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("Mu6", &type metadata for TSContentLanguage.Models.ScaffoldCharacterStyle, v0, v1);
     atomic_store(result, &qword_101A2BB48);
   }
 
@@ -1222,7 +1222,7 @@ unint64_t sub_101172E80()
   result = qword_101A2BB50;
   if (!qword_101A2BB50)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.ScaffoldCharacterStyle, &type metadata for TSContentLanguage.Models.ScaffoldCharacterStyle, v0, v1);
     atomic_store(result, &qword_101A2BB50);
   }
 
@@ -1234,7 +1234,7 @@ unint64_t sub_101172ED4()
   result = qword_101A2BB58;
   if (!qword_101A2BB58)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.ScaffoldCharacterStyle, &type metadata for TSContentLanguage.Models.ScaffoldCharacterStyle, v0, v1);
     atomic_store(result, &qword_101A2BB58);
   }
 
@@ -1359,7 +1359,7 @@ unint64_t sub_1011730FC()
   result = qword_101A2BB60;
   if (!qword_101A2BB60)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CC6FC, &_s22ScaffoldCharacterStyleV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BB60);
   }
 
@@ -1371,7 +1371,7 @@ unint64_t sub_101173154()
   result = qword_101A2BB68;
   if (!qword_101A2BB68)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CC634, &_s22ScaffoldCharacterStyleV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BB68);
   }
 
@@ -1383,7 +1383,7 @@ unint64_t sub_1011731AC()
   result = qword_101A2BB70;
   if (!qword_101A2BB70)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CC65C, &_s22ScaffoldCharacterStyleV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BB70);
   }
 
@@ -1408,12 +1408,12 @@ Swift::Int sub_1011732B4()
   return Hasher._finalize()();
 }
 
-uint64_t sub_101173398()
+uint64_t sub_101173398(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int sub_101173468()
+Swift::Int sub_101173468(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -1527,44 +1527,44 @@ uint64_t sub_101173718(uint64_t a1)
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-uint64_t TSContentLanguage.Models.TabStopType.encode(to:)(void *a1, int a2)
+uint64_t TSContentLanguage.Models.TabStopType.encode(to:)(void *a1, int a2, uint64_t a3, uint64_t a4, double a5)
 {
-  v10 = a2;
-  v4 = sub_1005B981C(&qword_101A2BB78);
-  v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = &v9 - v6;
+  v13 = a2;
+  v7 = sub_1005B981C(&qword_101A2BB78, &qword_1014CC790);
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = &v12 - v9;
   sub_100020E58(a1, a1[3]);
   sub_101174730();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v17 = 0;
+  v20 = 0;
   KeyedEncodingContainer.encode(_:forKey:)();
-  if (!v2)
+  if (!v5)
   {
-    v16 = v10;
-    v15 = 1;
+    v19 = v13;
+    v18 = 1;
     sub_101174784();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    v14 = 2;
+    v17 = 2;
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
-    v13 = 3;
+    v16 = 3;
     KeyedEncodingContainer.encode(_:forKey:)();
     if (qword_1019F29A8 != -1)
     {
       swift_once();
     }
 
-    v12 = static TSContentLanguage.Models.TabStopType.version;
-    v11 = 4;
+    v15 = static TSContentLanguage.Models.TabStopType.version;
+    v14 = 4;
     type metadata accessor for TSCLVersion();
-    sub_100969804(&qword_101A00458);
+    sub_100969804(&qword_101A00458, protocol conformance descriptor for TSCLVersion);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  return (*(v5 + 8))(v7, v4);
+  return (*(v8 + 8))(v10, v7);
 }
 
-uint64_t TSContentLanguage.Models.TabStopType.isEquivalent(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, double a7, double a8)
+uint64_t TSContentLanguage.Models.TabStopType.isEquivalent(to:)(char a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6, double a7, double a8)
 {
   result = sub_1007C87EC(a8, a7);
   if (result)
@@ -1577,7 +1577,7 @@ uint64_t TSContentLanguage.Models.TabStopType.isEquivalent(to:)(uint64_t a1, uin
       }
     }
 
-    else if (a1 == 4 || (sub_100B6994C(a4, a1) & 1) == 0)
+    else if (a1 == 4 || (sub_100B6994C() & 1) == 0)
     {
       return 0;
     }
@@ -1601,15 +1601,15 @@ uint64_t TSContentLanguage.Models.TabStopType.isEquivalent(to:)(uint64_t a1, uin
   return result;
 }
 
-uint64_t sub_101173B10@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_101173B10@<X0>(uint64_t a1@<X8>, void *a2@<X0>)
 {
-  result = sub_101174174(a1);
+  result = sub_101174174(a2);
   if (!v2)
   {
-    *a2 = v7;
-    *(a2 + 8) = result;
-    *(a2 + 16) = v5;
-    *(a2 + 24) = v6;
+    *a1 = v7;
+    *(a1 + 8) = result;
+    *(a1 + 16) = v5;
+    *(a1 + 24) = v6;
   }
 
   return result;
@@ -1658,12 +1658,12 @@ Swift::Int sub_101173CEC()
   return Hasher._finalize()();
 }
 
-uint64_t sub_101173DA0()
+uint64_t sub_101173DA0(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int sub_101173E40()
+Swift::Int sub_101173E40(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -1715,7 +1715,7 @@ void sub_101173F20(uint64_t *a1@<X8>)
   a1[1] = v2;
 }
 
-BOOL _s8Freeform17TSContentLanguageO6ModelsO11TabStopTypeV23__derived_struct_equalsySbAG_AGtFZ_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, double a7, double a8)
+BOOL _s8Freeform17TSContentLanguageO6ModelsO11TabStopTypeV23__derived_struct_equalsySbAG_AGtFZ_0(char a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6, double a7, double a8)
 {
   if (a7 != a8)
   {
@@ -1741,7 +1741,7 @@ BOOL _s8Freeform17TSContentLanguageO6ModelsO11TabStopTypeV23__derived_struct_equ
     v9 = a6;
     v10 = a5;
     v11 = a3;
-    v12 = sub_100B6994C(a1, a4);
+    v12 = sub_100B6994C();
     a2 = v8;
     a3 = v11;
     a5 = v10;
@@ -1780,7 +1780,7 @@ unint64_t sub_101174128(Swift::String string)
 
 uint64_t sub_101174174(void *a1)
 {
-  v3 = sub_1005B981C(&qword_101A00690);
+  v3 = sub_1005B981C(&qword_101A00690, &unk_1014CCB40);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v28 - v5;
@@ -1821,7 +1821,7 @@ LABEL_26:
 
   type metadata accessor for TSCLVersion();
   LOBYTE(v36) = 4;
-  sub_100969804(&qword_101A00400);
+  sub_100969804(&qword_101A00400, protocol conformance descriptor for TSCLVersion);
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
   v12 = v33;
   if (v33)
@@ -1932,7 +1932,7 @@ unint64_t sub_101174730()
   result = qword_101A2BB80;
   if (!qword_101A2BB80)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("in6", &_s11TabStopTypeV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BB80);
   }
 
@@ -1944,7 +1944,7 @@ unint64_t sub_101174784()
   result = qword_101A2BB88;
   if (!qword_101A2BB88)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.TabStopType.TabAlignmentKindType, &type metadata for TSContentLanguage.Models.TabStopType.TabAlignmentKindType, v0, v1);
     atomic_store(result, &qword_101A2BB88);
   }
 
@@ -1981,7 +1981,7 @@ unint64_t sub_10117488C()
   result = qword_101A2BB90;
   if (!qword_101A2BB90)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("%q6", &type metadata for TSContentLanguage.Models.TabStopType, v0, v1);
     atomic_store(result, &qword_101A2BB90);
   }
 
@@ -1993,7 +1993,7 @@ unint64_t sub_1011748E0()
   result = qword_101A2BB98;
   if (!qword_101A2BB98)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.TabStopType, &type metadata for TSContentLanguage.Models.TabStopType, v0, v1);
     atomic_store(result, &qword_101A2BB98);
   }
 
@@ -2005,7 +2005,7 @@ unint64_t sub_101174938()
   result = qword_101A2BBA0;
   if (!qword_101A2BBA0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.TabStopType.TabAlignmentKindType, &type metadata for TSContentLanguage.Models.TabStopType.TabAlignmentKindType, v0, v1);
     atomic_store(result, &qword_101A2BBA0);
   }
 
@@ -2025,7 +2025,7 @@ unint64_t sub_1011749BC()
   result = qword_101A2BBA8;
   if (!qword_101A2BBA8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(")m6", &type metadata for TSContentLanguage.Models.TabStopType.TabAlignmentKindType, v0, v1);
     atomic_store(result, &qword_101A2BBA8);
   }
 
@@ -2037,7 +2037,7 @@ unint64_t sub_101174A10()
   result = qword_101A2BBB0;
   if (!qword_101A2BBB0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.TabStopType.TabAlignmentKindType, &type metadata for TSContentLanguage.Models.TabStopType.TabAlignmentKindType, v0, v1);
     atomic_store(result, &qword_101A2BBB0);
   }
 
@@ -2053,7 +2053,7 @@ unint64_t sub_101174A64(uint64_t a1)
 
 uint64_t sub_101174ACC(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void), uint64_t (*a6)(void))
 {
-  a1[2] = a4();
+  a1[2] = (a4)(a1, a2, a3);
   a1[3] = a5();
   result = a6();
   a1[4] = result;
@@ -2065,7 +2065,7 @@ unint64_t sub_101174B54()
   result = qword_101A2BBB8;
   if (!qword_101A2BBB8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CCAC8, &_s11TabStopTypeV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BBB8);
   }
 
@@ -2077,7 +2077,7 @@ unint64_t sub_101174BAC()
   result = qword_101A2BBC0;
   if (!qword_101A2BBC0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("9o6", &_s11TabStopTypeV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BBC0);
   }
 
@@ -2089,7 +2089,7 @@ unint64_t sub_101174C04()
   result = qword_101A2BBC8;
   if (!qword_101A2BBC8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("!o6", &_s11TabStopTypeV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BBC8);
   }
 
@@ -2201,12 +2201,12 @@ uint64_t sub_101175008(uint64_t a1)
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void *TSContentLanguage.Models.CharacterStyleType.init(from:)@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+void *TSContentLanguage.Models.CharacterStyleType.init(from:)@<X0>(void *a1@<X8>, uint64_t a2@<X0>)
 {
-  result = sub_1011757D4(a1);
+  result = sub_1011757D4(a2);
   if (!v2)
   {
-    return memcpy(a2, v5, 0x3ADuLL);
+    return memcpy(a1, v5, 0x3ADuLL);
   }
 
   return result;
@@ -2215,7 +2215,7 @@ void *TSContentLanguage.Models.CharacterStyleType.init(from:)@<X0>(uint64_t a1@<
 uint64_t TSContentLanguage.Models.CharacterStyleType.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = sub_1005B981C(&qword_101A2BBD0);
+  v5 = sub_1005B981C(&qword_101A2BBD0, &qword_1014CCB50);
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -2248,7 +2248,7 @@ uint64_t TSContentLanguage.Models.CharacterStyleType.encode(to:)(void *a1)
         v17[0] = static TSContentLanguage.Models.CharacterStyleType.version;
         v21 = 3;
         type metadata accessor for TSCLVersion();
-        sub_100969804(&qword_101A00458);
+        sub_100969804(&qword_101A00458, protocol conformance descriptor for TSCLVersion);
         KeyedEncodingContainer.encode<A>(_:forKey:)();
       }
 
@@ -2288,7 +2288,7 @@ uint64_t TSContentLanguage.Models.CharacterStyleType.encode(to:)(void *a1)
       v17[0] = static TSContentLanguage.Models.CharacterStyleType.version;
       v21 = 3;
       type metadata accessor for TSCLVersion();
-      sub_100969804(&qword_101A00458);
+      sub_100969804(&qword_101A00458, protocol conformance descriptor for TSCLVersion);
       KeyedEncodingContainer.encode<A>(_:forKey:)();
     }
 
@@ -2396,7 +2396,7 @@ void *sub_1011757D4(uint64_t a1)
   v43 = v1;
   v3 = v2;
   v40 = v4;
-  v5 = sub_1005B981C(&qword_101A003E8);
+  v5 = sub_1005B981C(&qword_101A003E8, &qword_101481A70);
   __chkstk_darwin(v5 - 8);
   v38 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v7);
@@ -2407,7 +2407,7 @@ void *sub_1011757D4(uint64_t a1)
   v11 = &v34 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v12);
   v14 = &v34 - v13;
-  v15 = sub_1005B981C(&qword_101A2BC10);
+  v15 = sub_1005B981C(&qword_101A2BC10, &qword_1014CD0E8);
   v41 = *(v15 - 8);
   __chkstk_darwin(v15);
   v17 = &v34 - v16;
@@ -2448,7 +2448,7 @@ void *sub_1011757D4(uint64_t a1)
 LABEL_11:
     type metadata accessor for TSCLVersion();
     LOBYTE(v47[0]) = 3;
-    sub_100969804(&qword_101A00400);
+    sub_100969804(&qword_101A00400, protocol conformance descriptor for TSCLVersion);
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
     v30 = v48[0];
     if (v48[0])
@@ -2483,7 +2483,7 @@ LABEL_11:
       v43 = v17;
 
       memcpy(v48, v47, 0x37CuLL);
-      sub_10000CAAC(v48, &qword_101A006A0);
+      sub_10000CAAC(v48, &qword_101A006A0, &qword_1014CC390);
       sub_100020E58(v20, v20[3]);
       dispatch thunk of Decoder.userInfo.getter();
       v50 = 1;
@@ -2495,7 +2495,7 @@ LABEL_11:
 
         (*(v21 + 8))(v43, v15);
         memcpy(v48, v47, 0x3ACuLL);
-        sub_10000CAAC(v48, &qword_101A2BC18);
+        sub_10000CAAC(v48, &qword_101A2BC18, &unk_1014CD0F0);
         goto LABEL_25;
       }
 
@@ -2564,7 +2564,7 @@ unint64_t sub_101176274()
   result = qword_101A2BBD8;
   if (!qword_101A2BBD8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CD090, &_s18CharacterStyleTypeO9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BBD8);
   }
 
@@ -2584,7 +2584,7 @@ unint64_t sub_1011762F8()
   result = qword_101A2BBE0;
   if (!qword_101A2BBE0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.CharacterStyleType, &type metadata for TSContentLanguage.Models.CharacterStyleType, v0, v1);
     atomic_store(result, &qword_101A2BBE0);
   }
 
@@ -2596,7 +2596,7 @@ unint64_t sub_10117634C()
   result = qword_101A2BBE8;
   if (!qword_101A2BBE8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.CharacterStyleType, &type metadata for TSContentLanguage.Models.CharacterStyleType, v0, v1);
     atomic_store(result, &qword_101A2BBE8);
   }
 
@@ -2617,7 +2617,7 @@ unint64_t sub_1011763D8()
   result = qword_101A2BBF0;
   if (!qword_101A2BBF0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.CharacterStyleType, &type metadata for TSContentLanguage.Models.CharacterStyleType, v0, v1);
     atomic_store(result, &qword_101A2BBF0);
   }
 
@@ -2754,7 +2754,7 @@ unint64_t sub_101176620()
   result = qword_101A2BBF8;
   if (!qword_101A2BBF8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("qe6", &_s18CharacterStyleTypeO9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BBF8);
   }
 
@@ -2766,7 +2766,7 @@ unint64_t sub_101176678()
   result = qword_101A2BC00;
   if (!qword_101A2BC00)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CCFA0, &_s18CharacterStyleTypeO9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BC00);
   }
 
@@ -2778,7 +2778,7 @@ unint64_t sub_1011766D0()
   result = qword_101A2BC08;
   if (!qword_101A2BC08)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CCFC8, &_s18CharacterStyleTypeO9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BC08);
   }
 
@@ -2875,12 +2875,12 @@ uint64_t sub_101176A64(uint64_t a1)
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void *TSContentLanguage.Models.ScaffoldParagraphStyle.init(from:)@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+void *TSContentLanguage.Models.ScaffoldParagraphStyle.init(from:)@<X0>(void *a1@<X8>, uint64_t a2@<X0>)
 {
-  result = sub_101177710(a1);
+  result = sub_101177710(a2);
   if (!v2)
   {
-    return memcpy(a2, __src, 0x5C4uLL);
+    return memcpy(a1, __src, 0x5C4uLL);
   }
 
   return result;
@@ -2891,7 +2891,7 @@ uint64_t TSContentLanguage.Models.ScaffoldParagraphStyle.encode(to:)(uint64_t a1
   __chkstk_darwin(a1);
   v3 = v1;
   v5 = v4;
-  v6 = sub_1005B981C(&qword_101A2BC20);
+  v6 = sub_1005B981C(&qword_101A2BC20, &qword_1014CD108);
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
   v9 = &v11 - v8;
@@ -2916,7 +2916,7 @@ uint64_t TSContentLanguage.Models.ScaffoldParagraphStyle.encode(to:)(uint64_t a1
   sub_101152C88();
   KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
   memcpy(v13, v14, 0x594uLL);
-  sub_10000CAAC(v13, &qword_101A2B798);
+  sub_10000CAAC(v13, &qword_101A2B798, &qword_1014CD100);
   LOBYTE(v12) = 4;
   KeyedEncodingContainer.encode(_:forKey:)();
   if (qword_1019F29C0 != -1)
@@ -2927,7 +2927,7 @@ uint64_t TSContentLanguage.Models.ScaffoldParagraphStyle.encode(to:)(uint64_t a1
   v12 = static TSContentLanguage.Models.ScaffoldParagraphStyle.version;
   v15[1454] = 5;
   type metadata accessor for TSCLVersion();
-  sub_100969804(&qword_101A00458);
+  sub_100969804(&qword_101A00458, protocol conformance descriptor for TSCLVersion);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   return (*(v7 + 8))(v9, v6);
 }
@@ -3010,10 +3010,10 @@ LABEL_24:
       sub_10117757C(v20, v14);
       sub_10117757C(v16, v14);
       v11 = TSContentLanguage.Models.ParagraphProperties.isEquivalent(to:)(v22);
-      sub_10000CAAC(v13, &qword_101A2B798);
-      sub_10000CAAC(v16, &qword_101A2B798);
+      sub_10000CAAC(v13, &qword_101A2B798, &qword_1014CD100);
+      sub_10000CAAC(v16, &qword_101A2B798, &qword_1014CD100);
       memcpy(v14, v1 + 6, 0x594uLL);
-      sub_10000CAAC(v14, &qword_101A2B798);
+      sub_10000CAAC(v14, &qword_101A2B798, &qword_1014CD100);
       return v11 & 1;
     }
 
@@ -3027,14 +3027,14 @@ LABEL_28:
     memcpy(__dst, v18, 0xB2CuLL);
     sub_10117757C(v21, v22);
     sub_10117757C(v20, v22);
-    sub_10000CAAC(__dst, &qword_101A2BC30);
+    sub_10000CAAC(__dst, &qword_101A2BC30, &qword_1014CD110);
     goto LABEL_29;
   }
 
   memcpy(v22, v1 + 6, 0x594uLL);
   sub_10117757C(v21, v17);
   sub_10117757C(v20, v17);
-  sub_10000CAAC(v22, &qword_101A2B798);
+  sub_10000CAAC(v22, &qword_101A2B798, &qword_1014CD100);
   v11 = 1;
   return v11 & 1;
 }
@@ -3121,9 +3121,9 @@ BOOL _s8Freeform17TSContentLanguageO6ModelsO22ScaffoldParagraphStyleV23__derived
     sub_10117757C(v21, v15);
     sub_10117757C(v20, v15);
     v13 = _s8Freeform17TSContentLanguageO6ModelsO19ParagraphPropertiesV23__derived_struct_equalsySbAG_AGtFZ_0(v22);
-    sub_10000CAAC(v14, &qword_101A2B798);
+    sub_10000CAAC(v14, &qword_101A2B798, &qword_1014CD100);
     memcpy(v15, v4 + 6, 0x594uLL);
-    sub_10000CAAC(v15, &qword_101A2B798);
+    sub_10000CAAC(v15, &qword_101A2B798, &qword_1014CD100);
     return v13;
   }
 
@@ -3134,27 +3134,27 @@ LABEL_28:
     memcpy(v17, v18, 0xB2CuLL);
     sub_10117757C(v21, v22);
     sub_10117757C(v20, v22);
-    sub_10000CAAC(v17, &qword_101A2BC30);
+    sub_10000CAAC(v17, &qword_101A2BC30, &qword_1014CD110);
     return 0;
   }
 
   memcpy(v22, v4 + 6, 0x594uLL);
   sub_10117757C(v21, __dst);
   sub_10117757C(v20, __dst);
-  sub_10000CAAC(v22, &qword_101A2B798);
+  sub_10000CAAC(v22, &qword_101A2B798, &qword_1014CD100);
   return 1;
 }
 
 uint64_t sub_10117757C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1005B981C(&qword_101A2B798);
+  v4 = sub_1005B981C(&qword_101A2B798, &qword_1014CD100);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_1011775EC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1005B981C(&qword_101A2B798);
+  v4 = sub_1005B981C(&qword_101A2B798, &qword_1014CD100);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
@@ -3183,14 +3183,14 @@ void *sub_101177710(uint64_t a1)
   v52 = v1;
   v3 = v2;
   v49 = v4;
-  v5 = sub_1005B981C(&qword_101A003E8);
+  v5 = sub_1005B981C(&qword_101A003E8, &qword_101481A70);
   __chkstk_darwin(v5 - 8);
   v7 = &v41 - v6;
   v8 = type metadata accessor for CodingUserInfoKey();
   v50 = *(v8 - 8);
   __chkstk_darwin(v8);
   v10 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = sub_1005B981C(&qword_101A00688);
+  v11 = sub_1005B981C(&qword_101A00688, &unk_1014CD560);
   v51 = *(v11 - 8);
   __chkstk_darwin(v11);
   v13 = &v41 - v12;
@@ -3243,7 +3243,7 @@ LABEL_11:
 
   type metadata accessor for TSCLVersion();
   LOBYTE(v55[0]) = 5;
-  sub_100969804(&qword_101A00400);
+  sub_100969804(&qword_101A00400, protocol conformance descriptor for TSCLVersion);
   v22 = v47;
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
   v24 = v57[0];
@@ -3306,7 +3306,7 @@ LABEL_11:
 
     (*v37)(v47, v46);
     memcpy(v54, v57, 0x594uLL);
-    sub_10000CAAC(v54, &qword_101A2B798);
+    sub_10000CAAC(v54, &qword_101A2B798, &qword_1014CD100);
     memcpy(v56, v59, sizeof(v56));
   }
 
@@ -3320,7 +3320,7 @@ LABEL_11:
   v38 = v45;
   v39 = v42;
   memcpy(v54, v58, 0x594uLL);
-  sub_10000CAAC(v54, &qword_101A2B798);
+  sub_10000CAAC(v54, &qword_101A2B798, &qword_1014CD100);
   v55[0] = v38;
   v55[1] = v29;
   v40 = v44;
@@ -3347,7 +3347,7 @@ unint64_t sub_1011780AC()
   result = qword_101A2BC28;
   if (!qword_101A2BC28)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("Ud6", &_s22ScaffoldParagraphStyleV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BC28);
   }
 
@@ -3375,7 +3375,7 @@ unint64_t sub_101178160()
   result = qword_101A2BC38;
   if (!qword_101A2BC38)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("9d6", &type metadata for TSContentLanguage.Models.ScaffoldParagraphStyle, v0, v1);
     atomic_store(result, &qword_101A2BC38);
   }
 
@@ -3534,7 +3534,7 @@ unint64_t sub_101178418()
   result = qword_101A2BC40;
   if (!qword_101A2BC40)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CD4DC, &_s22ScaffoldParagraphStyleV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BC40);
   }
 
@@ -3546,7 +3546,7 @@ unint64_t sub_101178470()
   result = qword_101A2BC48;
   if (!qword_101A2BC48)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("%e6", v0);
     atomic_store(result, &qword_101A2BC48);
   }
 
@@ -3558,7 +3558,7 @@ unint64_t sub_1011784C8()
   result = qword_101A2BC50;
   if (!qword_101A2BC50)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("\re6", &_s22ScaffoldParagraphStyleV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BC50);
   }
 
@@ -3575,7 +3575,7 @@ uint64_t *TSContentLanguage.Models.NumberFormatType.version.unsafeMutableAddress
   return &static TSContentLanguage.Models.NumberFormatType.version;
 }
 
-uint64_t sub_101178684()
+uint64_t sub_101178684(uint64_t a1)
 {
   String.hash(into:)();
 }
@@ -3700,9 +3700,9 @@ uint64_t sub_101178974(uint64_t a1)
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-uint64_t TSContentLanguage.Models.NumberFormatType.encode(to:)(void *a1, int a2)
+uint64_t TSContentLanguage.Models.NumberFormatType.encode(to:)(void *a1, unsigned int a2)
 {
-  v5 = sub_1005B981C(&qword_101A2BC58);
+  v5 = sub_1005B981C(&qword_101A2BC58, &qword_1014CD570);
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = &v10 - v7;
@@ -3736,13 +3736,14 @@ uint64_t TSContentLanguage.Models.NumberFormatType.encode(to:)(void *a1, int a2)
   v10 = static TSContentLanguage.Models.NumberFormatType.version;
   v11 = 5;
   type metadata accessor for TSCLVersion();
-  sub_100969804(&qword_101A00458);
+  sub_100969804(&qword_101A00458, protocol conformance descriptor for TSCLVersion);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   return (*(v6 + 8))(v8, v5);
 }
 
-uint64_t TSContentLanguage.Models.NumberFormatType.isEquivalent(to:)(unsigned int a1, unsigned int a2)
+uint64_t TSContentLanguage.Models.NumberFormatType.isEquivalent(to:)(uint64_t a1, uint64_t a2)
 {
+  v2 = a1;
   if (a2 == 16)
   {
     if (a1 != 16)
@@ -3761,17 +3762,17 @@ uint64_t TSContentLanguage.Models.NumberFormatType.isEquivalent(to:)(unsigned in
     v3 = a2;
     v4 = TSContentLanguage.Models.NumberFormatType.Kind.rawValue.getter(a2);
     v6 = v5;
-    if (v4 == TSContentLanguage.Models.NumberFormatType.Kind.rawValue.getter(a1) && v6 == v7)
+    if (v4 == TSContentLanguage.Models.NumberFormatType.Kind.rawValue.getter(v2) && v6 == v7)
     {
 
-      a2 = v3;
+      LODWORD(a2) = v3;
     }
 
     else
     {
       v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      a2 = v3;
+      LODWORD(a2) = v3;
       if ((v8 & 1) == 0)
       {
         return 0;
@@ -3779,7 +3780,7 @@ uint64_t TSContentLanguage.Models.NumberFormatType.isEquivalent(to:)(unsigned in
     }
   }
 
-  v9 = a1 & 0xFF00;
+  v9 = v2 & 0xFF00;
   if ((a2 & 0xFF00) == 0x200)
   {
     if (v9 != 512)
@@ -3788,12 +3789,12 @@ uint64_t TSContentLanguage.Models.NumberFormatType.isEquivalent(to:)(unsigned in
     }
   }
 
-  else if (v9 == 512 || ((a2 ^ a1) & 0x100) != 0)
+  else if (v9 == 512 || ((a2 ^ v2) & 0x100) != 0)
   {
     return 0;
   }
 
-  v10 = a1 & 0xFF0000;
+  v10 = v2 & 0xFF0000;
   if ((a2 & 0xFF0000) == 0x20000)
   {
     if (v10 != 0x20000)
@@ -3802,13 +3803,13 @@ uint64_t TSContentLanguage.Models.NumberFormatType.isEquivalent(to:)(unsigned in
     }
   }
 
-  else if (v10 == 0x20000 || ((a2 ^ a1) & 0x10000) != 0)
+  else if (v10 == 0x20000 || ((a2 ^ v2) & 0x10000) != 0)
   {
     return 0;
   }
 
-  v11 = HIBYTE(a1);
-  if (HIBYTE(a2) == 5)
+  v11 = HIBYTE(v2);
+  if (BYTE3(a2) == 5)
   {
     return v11 == 5;
   }
@@ -3818,15 +3819,15 @@ uint64_t TSContentLanguage.Models.NumberFormatType.isEquivalent(to:)(unsigned in
     return 0;
   }
 
-  return sub_100B59D10(HIBYTE(a2), HIBYTE(a1));
+  return sub_100B59D10(BYTE3(a2), HIBYTE(v2));
 }
 
-uint64_t sub_101178E2C@<X0>(void *a1@<X0>, _DWORD *a2@<X8>)
+uint64_t sub_101178E2C@<X0>(_DWORD *a1@<X8>, void *a2@<X0>)
 {
-  result = sub_101179B44(a1);
+  result = sub_101179B44(a2);
   if (!v2)
   {
-    *a2 = result;
+    *a1 = result;
   }
 
   return result;
@@ -3927,17 +3928,17 @@ Swift::Int sub_101179194()
   return Hasher._finalize()();
 }
 
-uint64_t sub_1011791F8()
+uint64_t sub_1011791F8(uint64_t a1)
 {
-  TSContentLanguage.Models.NumberFormatType.Kind.rawValue.getter(*v0);
+  TSContentLanguage.Models.NumberFormatType.Kind.rawValue.getter(*v1);
   String.hash(into:)();
 }
 
-Swift::Int sub_10117924C()
+Swift::Int sub_10117924C(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  TSContentLanguage.Models.NumberFormatType.Kind.rawValue.getter(v1);
+  TSContentLanguage.Models.NumberFormatType.Kind.rawValue.getter(v2);
   String.hash(into:)();
 
   return Hasher._finalize()();
@@ -4007,12 +4008,12 @@ Swift::Int sub_101179534()
   return Hasher._finalize()();
 }
 
-uint64_t sub_10117961C()
+uint64_t sub_10117961C(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int sub_1011796F0()
+Swift::Int sub_1011796F0(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -4182,7 +4183,7 @@ unint64_t sub_101179AF8(Swift::String string)
 
 uint64_t sub_101179B44(void *a1)
 {
-  v3 = sub_1005B981C(&qword_101A00670);
+  v3 = sub_1005B981C(&qword_101A00670, &qword_10147C770);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v21 - v5;
@@ -4223,7 +4224,7 @@ LABEL_11:
 
   type metadata accessor for TSCLVersion();
   v24 = 5;
-  sub_100969804(&qword_101A00400);
+  sub_100969804(&qword_101A00400, protocol conformance descriptor for TSCLVersion);
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
   v13 = v22;
   if (v22)
@@ -4271,7 +4272,7 @@ unint64_t sub_101179FD8()
   result = qword_101A2BC60;
   if (!qword_101A2BC60)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("A_6", &_s16NumberFormatTypeV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BC60);
   }
 
@@ -4283,7 +4284,7 @@ unint64_t sub_10117A02C()
   result = qword_101A2BC68;
   if (!qword_101A2BC68)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.NumberFormatType.Kind, &type metadata for TSContentLanguage.Models.NumberFormatType.Kind, v0, v1);
     atomic_store(result, &qword_101A2BC68);
   }
 
@@ -4295,7 +4296,6 @@ unint64_t sub_10117A080()
   result = qword_101A2BC70;
   if (!qword_101A2BC70)
   {
-    result = swift_getWitnessTable();
     atomic_store(result, &qword_101A2BC70);
   }
 
@@ -4350,7 +4350,7 @@ unint64_t sub_10117A1D4()
   result = qword_101A2BC78;
   if (!qword_101A2BC78)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.NumberFormatType, &type metadata for TSContentLanguage.Models.NumberFormatType, v0, v1);
     atomic_store(result, &qword_101A2BC78);
   }
 
@@ -4362,7 +4362,7 @@ unint64_t sub_10117A22C()
   result = qword_101A2BC80;
   if (!qword_101A2BC80)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.NumberFormatType.Kind, &type metadata for TSContentLanguage.Models.NumberFormatType.Kind, v0, v1);
     atomic_store(result, &qword_101A2BC80);
   }
 
@@ -4374,7 +4374,7 @@ unint64_t sub_10117A2AC()
   result = qword_101A2BC88;
   if (!qword_101A2BC88)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("I_6", &type metadata for TSContentLanguage.Models.NumberFormatType.Kind, v0, v1);
     atomic_store(result, &qword_101A2BC88);
   }
 
@@ -4386,7 +4386,7 @@ unint64_t sub_10117A300()
   result = qword_101A2BC90;
   if (!qword_101A2BC90)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.NumberFormatType.Kind, &type metadata for TSContentLanguage.Models.NumberFormatType.Kind, v0, v1);
     atomic_store(result, &qword_101A2BC90);
   }
 
@@ -4405,16 +4405,16 @@ unint64_t sub_10117A3C0()
   result = qword_101A2BC98;
   if (!qword_101A2BC98)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("M^6", &type metadata for TSContentLanguage.Models.NumberFormatType.Format, v0, v1);
     atomic_store(result, &qword_101A2BC98);
   }
 
   return result;
 }
 
-uint64_t sub_10117A440(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void))
+uint64_t sub_10117A440(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t), uint64_t (*a5)(void))
 {
-  *(a1 + 8) = a4();
+  *(a1 + 8) = a4(a1, a2, a3);
   result = a5();
   *(a1 + 16) = result;
   return result;
@@ -4425,7 +4425,7 @@ unint64_t sub_10117A47C()
   result = qword_101A2BCA0;
   if (!qword_101A2BCA0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.NumberFormatType.Format, &type metadata for TSContentLanguage.Models.NumberFormatType.Format, v0, v1);
     atomic_store(result, &qword_101A2BCA0);
   }
 
@@ -4437,7 +4437,7 @@ unint64_t sub_10117A4D0()
   result = qword_101A2BCA8;
   if (!qword_101A2BCA8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.NumberFormatType.Format, &type metadata for TSContentLanguage.Models.NumberFormatType.Format, v0, v1);
     atomic_store(result, &qword_101A2BCA8);
   }
 
@@ -4453,7 +4453,7 @@ unint64_t sub_10117A524(uint64_t a1)
 
 uint64_t sub_10117A58C(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void), uint64_t (*a6)(void))
 {
-  a1[2] = a4();
+  a1[2] = (a4)(a1, a2, a3);
   a1[3] = a5();
   result = a6();
   a1[4] = result;
@@ -4523,7 +4523,7 @@ unint64_t sub_10117A6D0()
   result = qword_101A2BCB0;
   if (!qword_101A2BCB0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CD9F0, &_s16NumberFormatTypeV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BCB0);
   }
 
@@ -4535,7 +4535,7 @@ unint64_t sub_10117A728()
   result = qword_101A2BCB8;
   if (!qword_101A2BCB8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CD928, &_s16NumberFormatTypeV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BCB8);
   }
 
@@ -4547,7 +4547,7 @@ unint64_t sub_10117A780()
   result = qword_101A2BCC0;
   if (!qword_101A2BCC0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CD950, &_s16NumberFormatTypeV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BCC0);
   }
 
@@ -4651,12 +4651,12 @@ Swift::Int sub_10117AA6C()
   return Hasher._finalize()();
 }
 
-uint64_t sub_10117AB20()
+uint64_t sub_10117AB20(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int sub_10117ABC0()
+Swift::Int sub_10117ABC0(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -4743,12 +4743,12 @@ uint64_t sub_10117ADE0(uint64_t a1)
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void *TSContentLanguage.Models.ScaffoldFill.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
+void *TSContentLanguage.Models.ScaffoldFill.init(from:)@<X0>(void *a1@<X8>, void *a2@<X0>)
 {
-  result = sub_10117BF44(a1, v5);
+  result = sub_10117BF44(a2, v5);
   if (!v2)
   {
-    return memcpy(a2, v5, 0x190uLL);
+    return memcpy(a1, v5, 0x190uLL);
   }
 
   return result;
@@ -4757,7 +4757,7 @@ void *TSContentLanguage.Models.ScaffoldFill.init(from:)@<X0>(void *a1@<X0>, void
 uint64_t TSContentLanguage.Models.ScaffoldFill.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = sub_1005B981C(&qword_101A2BCC8);
+  v5 = sub_1005B981C(&qword_101A2BCC8, &qword_1014CDA70);
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = &v11[-v7 - 8];
@@ -4789,7 +4789,7 @@ uint64_t TSContentLanguage.Models.ScaffoldFill.encode(to:)(void *a1)
     v10 = static TSContentLanguage.Models.ScaffoldFill.version;
     v12[422] = 2;
     type metadata accessor for TSCLVersion();
-    sub_100969804(&qword_101A00458);
+    sub_100969804(&qword_101A00458, protocol conformance descriptor for TSCLVersion);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
@@ -4922,12 +4922,12 @@ uint64_t sub_10117B5D4(uint64_t a1)
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void *TSContentLanguage.Models.ScaffoldFill.ScaffoldFillType.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
+void *TSContentLanguage.Models.ScaffoldFill.ScaffoldFillType.init(from:)@<X0>(void *a1@<X8>, void *a2@<X0>)
 {
-  result = sub_10117C704(a1, v5);
+  result = sub_10117C704(a2, v5);
   if (!v2)
   {
-    return memcpy(a2, v5, 0x190uLL);
+    return memcpy(a1, v5, 0x190uLL);
   }
 
   return result;
@@ -4936,7 +4936,7 @@ void *TSContentLanguage.Models.ScaffoldFill.ScaffoldFillType.init(from:)@<X0>(vo
 uint64_t TSContentLanguage.Models.ScaffoldFill.ScaffoldFillType.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = sub_1005B981C(&qword_101A2BCE0);
+  v5 = sub_1005B981C(&qword_101A2BCE0, &qword_1014CDA78);
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = &v22[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -4971,7 +4971,7 @@ uint64_t TSContentLanguage.Models.ScaffoldFill.ScaffoldFillType.encode(to:)(void
         *&v24[0] = static TSContentLanguage.Models.ScaffoldFill.ScaffoldFillType.version;
         v23 = 4;
         type metadata accessor for TSCLVersion();
-        sub_100969804(&qword_101A00458);
+        sub_100969804(&qword_101A00458, protocol conformance descriptor for TSCLVersion);
         KeyedEncodingContainer.encode<A>(_:forKey:)();
       }
 
@@ -5021,7 +5021,7 @@ uint64_t TSContentLanguage.Models.ScaffoldFill.ScaffoldFillType.encode(to:)(void
       *&v24[0] = static TSContentLanguage.Models.ScaffoldFill.ScaffoldFillType.version;
       v23 = 4;
       type metadata accessor for TSCLVersion();
-      sub_100969804(&qword_101A00458);
+      sub_100969804(&qword_101A00458, protocol conformance descriptor for TSCLVersion);
       KeyedEncodingContainer.encode<A>(_:forKey:)();
     }
 
@@ -5051,7 +5051,7 @@ uint64_t TSContentLanguage.Models.ScaffoldFill.ScaffoldFillType.encode(to:)(void
       *&v24[0] = static TSContentLanguage.Models.ScaffoldFill.ScaffoldFillType.version;
       v23 = 4;
       type metadata accessor for TSCLVersion();
-      sub_100969804(&qword_101A00458);
+      sub_100969804(&qword_101A00458, protocol conformance descriptor for TSCLVersion);
       KeyedEncodingContainer.encode<A>(_:forKey:)();
     }
 
@@ -5213,7 +5213,7 @@ unint64_t sub_10117BEF8(Swift::String string)
 void *sub_10117BF44@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v36 = a2;
-  v4 = sub_1005B981C(&qword_101A2BD58);
+  v4 = sub_1005B981C(&qword_101A2BD58, &qword_1014CE128);
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
   v7 = &v32 - v6;
@@ -5259,7 +5259,7 @@ LABEL_11:
 
   type metadata accessor for TSCLVersion();
   v40[0] = 2;
-  sub_100969804(&qword_101A00400);
+  sub_100969804(&qword_101A00400, protocol conformance descriptor for TSCLVersion);
   v14 = v33;
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
   v16 = v41[0];
@@ -5297,7 +5297,7 @@ LABEL_11:
     if (sub_1007CE6B0(v39) != 1)
     {
       memcpy(v38, v41, sizeof(v38));
-      sub_10000CAAC(v38, &unk_101A2BD60);
+      sub_10000CAAC(v38, &unk_101A2BD60, qword_1014CE130);
     }
 
     goto LABEL_23;
@@ -5373,7 +5373,7 @@ unint64_t sub_10117C4F8()
   result = qword_101A2BCD0;
   if (!qword_101A2BCD0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CE0CC, &_s12ScaffoldFillV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BCD0);
   }
 
@@ -5385,7 +5385,7 @@ unint64_t sub_10117C584()
   result = qword_101A2BCD8;
   if (!qword_101A2BCD8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(")]6", &type metadata for TSContentLanguage.Models.ScaffoldFill.ScaffoldFillType, v0, v1);
     atomic_store(result, &qword_101A2BCD8);
   }
 
@@ -5455,7 +5455,7 @@ unint64_t sub_10117C6B8(Swift::String string)
 void *sub_10117C704@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v40 = a2;
-  v3 = sub_1005B981C(&qword_101A003E8);
+  v3 = sub_1005B981C(&qword_101A003E8, &qword_101481A70);
   __chkstk_darwin(v3 - 8);
   v37 = &v34 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v5);
@@ -5466,7 +5466,7 @@ void *sub_10117C704@<X0>(void *a1@<X0>, void *a2@<X8>)
   v9 = &v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
   v12 = &v34 - v11;
-  v13 = sub_1005B981C(&qword_101A00668);
+  v13 = sub_1005B981C(&qword_101A00668, &qword_10147C768);
   v41 = *(v13 - 8);
   __chkstk_darwin(v13);
   v15 = &v34 - v14;
@@ -5505,7 +5505,7 @@ void *sub_10117C704@<X0>(void *a1@<X0>, void *a2@<X8>)
 LABEL_20:
     type metadata accessor for TSCLVersion();
     LOBYTE(v45[0]) = 4;
-    sub_100969804(&qword_101A00400);
+    sub_100969804(&qword_101A00400, protocol conformance descriptor for TSCLVersion);
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
     v28 = *&v47[0];
     if (*&v47[0])
@@ -5588,7 +5588,7 @@ LABEL_20:
 
     (*(v33 + 8))(v35, v13);
     memcpy(v44, v47, sizeof(v44));
-    sub_10000CAAC(v44, &qword_101A11468);
+    sub_10000CAAC(v44, &qword_101A11468, &qword_101495E50);
     v20 = v51;
     goto LABEL_28;
   }
@@ -5655,7 +5655,7 @@ unint64_t sub_10117D268()
   result = qword_101A2BCE8;
   if (!qword_101A2BCE8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CE07C, &_s12ScaffoldFillV16ScaffoldFillTypeO9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BCE8);
   }
 
@@ -5667,7 +5667,7 @@ unint64_t sub_10117D2BC()
   result = qword_101A2BCF0;
   if (!qword_101A2BCF0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.ScaffoldGradient, &type metadata for TSContentLanguage.Models.ScaffoldGradient, v0, v1);
     atomic_store(result, &qword_101A2BCF0);
   }
 
@@ -5686,7 +5686,7 @@ unint64_t sub_10117D378()
   result = qword_101A2BCF8;
   if (!qword_101A2BCF8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.ScaffoldFill, &type metadata for TSContentLanguage.Models.ScaffoldFill, v0, v1);
     atomic_store(result, &qword_101A2BCF8);
   }
 
@@ -5706,7 +5706,7 @@ unint64_t sub_10117D3FC()
   result = qword_101A2BD00;
   if (!qword_101A2BD00)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.ScaffoldFill.ScaffoldFillType, &type metadata for TSContentLanguage.Models.ScaffoldFill.ScaffoldFillType, v0, v1);
     atomic_store(result, &qword_101A2BD00);
   }
 
@@ -5718,7 +5718,7 @@ unint64_t sub_10117D450()
   result = qword_101A2BD08;
   if (!qword_101A2BD08)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.ScaffoldFill.ScaffoldFillType, &type metadata for TSContentLanguage.Models.ScaffoldFill.ScaffoldFillType, v0, v1);
     atomic_store(result, &qword_101A2BD08);
   }
 
@@ -5727,7 +5727,7 @@ unint64_t sub_10117D450()
 
 uint64_t sub_10117D4E4(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void), uint64_t (*a6)(void))
 {
-  a1[2] = a4();
+  a1[2] = (a4)(a1, a2, a3);
   a1[3] = a5();
   result = a6();
   a1[4] = result;
@@ -5739,7 +5739,7 @@ unint64_t sub_10117D538()
   result = qword_101A2BD10;
   if (!qword_101A2BD10)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("a]6", &type metadata for TSContentLanguage.Models.ScaffoldFill.ScaffoldFillType, v0, v1);
     atomic_store(result, &qword_101A2BD10);
   }
 
@@ -5751,7 +5751,7 @@ unint64_t sub_10117D58C()
   result = qword_101A2BD18;
   if (!qword_101A2BD18)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TSContentLanguage.Models.ScaffoldFill.ScaffoldFillType, &type metadata for TSContentLanguage.Models.ScaffoldFill.ScaffoldFillType, v0, v1);
     atomic_store(result, &qword_101A2BD18);
   }
 
@@ -5923,7 +5923,7 @@ unint64_t sub_10117D81C()
   result = qword_101A2BD20;
   if (!qword_101A2BD20)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("uV6", &_s12ScaffoldFillV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BD20);
   }
 
@@ -5935,7 +5935,7 @@ unint64_t sub_10117D874()
   result = qword_101A2BD28;
   if (!qword_101A2BD28)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CE054, &_s12ScaffoldFillV16ScaffoldFillTypeO9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BD28);
   }
 
@@ -5947,7 +5947,7 @@ unint64_t sub_10117D8CC()
   result = qword_101A2BD30;
   if (!qword_101A2BD30)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CDF8C, &_s12ScaffoldFillV16ScaffoldFillTypeO9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BD30);
   }
 
@@ -5959,7 +5959,7 @@ unint64_t sub_10117D924()
   result = qword_101A2BD38;
   if (!qword_101A2BD38)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CDFB4, &_s12ScaffoldFillV16ScaffoldFillTypeO9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BD38);
   }
 
@@ -5971,7 +5971,7 @@ unint64_t sub_10117D97C()
   result = qword_101A2BD40;
   if (!qword_101A2BD40)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CDE9C, &_s12ScaffoldFillV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BD40);
   }
 
@@ -5983,7 +5983,7 @@ unint64_t sub_10117D9D4()
   result = qword_101A2BD48;
   if (!qword_101A2BD48)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014CDEC4, &_s12ScaffoldFillV9CodingKeyON, v0, v1);
     atomic_store(result, &qword_101A2BD48);
   }
 
@@ -6027,7 +6027,7 @@ unint64_t sub_10117DA6C()
   result = qword_101A2BD50;
   if (!qword_101A2BD50)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("=<6", &type metadata for TSContentLanguage.Models.ScaffoldGradient, v0, v1);
     atomic_store(result, &qword_101A2BD50);
   }
 
@@ -6037,7 +6037,7 @@ unint64_t sub_10117DA6C()
 void sub_10117DAD0()
 {
   ObjectType = swift_getObjectType();
-  v2 = sub_1005B981C(&qword_1019FB750);
+  v2 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v2 - 8);
   v4 = aBlock - v3;
   if ((sub_10098EABC(&_mh_execute_header, "setUpAutoRefine()", 17, 2, "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2, 526) & 1) != 0 && [objc_opt_self() isOSFeatureEnabled:0])
@@ -6150,11 +6150,11 @@ void sub_10117DE8C()
         v7 = objc_opt_self();
         v8 = [v7 _atomicIncrementAssertCount];
         v30 = [objc_allocWithZone(NSString) init];
-        sub_100604538(_swiftEmptyArrayStorage, &v30);
-        StaticString.description.getter();
+        sub_100604538(_swiftEmptyArrayStorage, &v30, "invalid nil found when unwrapping value", 39, 2u);
+        StaticString.description.getter("setUpDetectorInteraction()", 26, 2);
         v9 = String._bridgeToObjectiveC()();
 
-        StaticString.description.getter();
+        StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
         v10 = String._bridgeToObjectiveC()();
 
         v11 = [v10 lastPathComponent];
@@ -6168,13 +6168,13 @@ void sub_10117DE8C()
         }
 
         v15 = static OS_os_log.crlAssert;
-        sub_1005B981C(&qword_1019F54E0);
+        sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_10146CA70;
         *(inited + 56) = &type metadata for Int32;
         *(inited + 64) = &protocol witness table for Int32;
         *(inited + 32) = v8;
-        v17 = sub_100006370(0, &qword_1019F4D30);
+        v17 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
         *(inited + 96) = v17;
         v18 = sub_1005CF04C();
         *(inited + 104) = v18;
@@ -6196,7 +6196,7 @@ void sub_10117DE8C()
         v23 = static os_log_type_t.error.getter();
         sub_100005404(v15, &_mh_execute_header, v23, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
         swift_setDeallocating();
-        sub_1005B981C(&unk_1019F5670);
+        sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
         swift_arrayDestroy();
         v24 = static os_log_type_t.error.getter();
         sub_100005404(v15, &_mh_execute_header, v24, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -6208,13 +6208,13 @@ void sub_10117DE8C()
         v25[4] = 0;
         v25[5] = 0;
         v26 = __VaListBuilder.va_list()();
-        StaticString.description.getter();
+        StaticString.description.getter("setUpDetectorInteraction()", 26, 2);
         v27 = String._bridgeToObjectiveC()();
 
-        StaticString.description.getter();
+        StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
         v28 = String._bridgeToObjectiveC()();
 
-        StaticString.description.getter();
+        StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
         v29 = String._bridgeToObjectiveC()();
 
         [v7 handleFailureInFunction:v27 file:v28 lineNumber:1344 isFatal:0 format:v29 args:v26];
@@ -6232,11 +6232,11 @@ id sub_10117E4A0()
     v26 = objc_opt_self();
     v3 = [v26 _atomicIncrementAssertCount];
     v28 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v28);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v28, "Must call tearDown() before CRLFreehandDrawingIntelligenceProvider is de-initialized.", 85, 2u);
+    StaticString.description.getter("deinit", 6, 2);
     v4 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v5 = String._bridgeToObjectiveC()();
 
     v6 = [v5 lastPathComponent];
@@ -6250,13 +6250,13 @@ id sub_10117E4A0()
     }
 
     v10 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v3;
-    v12 = sub_100006370(0, &qword_1019F4D30);
+    v12 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v12;
     v13 = sub_1005CF04C();
     *(inited + 104) = v13;
@@ -6278,7 +6278,7 @@ id sub_10117E4A0()
     v18 = static os_log_type_t.error.getter();
     sub_100005404(v10, &_mh_execute_header, v18, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v19 = static os_log_type_t.error.getter();
     sub_100005404(v10, &_mh_execute_header, v19, "Must call tearDown() before CRLFreehandDrawingIntelligenceProvider is de-initialized.", 85, 2, _swiftEmptyArrayStorage);
@@ -6290,13 +6290,13 @@ id sub_10117E4A0()
     v20[4] = 0;
     v20[5] = 0;
     v21 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("deinit", 6, 2);
     v22 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v23 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("Must call tearDown() before CRLFreehandDrawingIntelligenceProvider is de-initialized.", 85, 2);
     v24 = String._bridgeToObjectiveC()();
 
     [v26 handleFailureInFunction:v22 file:v23 lineNumber:88 isFatal:0 format:v24 args:v21];
@@ -6307,207 +6307,207 @@ id sub_10117E4A0()
   return objc_msgSendSuper2(&v27, "dealloc");
 }
 
-void sub_10117E948()
+double sub_10117E948()
 {
   v1 = v0;
-  v2 = sub_1005B981C(&qword_1019FB750);
+  v2 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v2 - 8);
-  v4 = &v79 - v3;
+  v4 = &v80 - v3;
   sub_10098EABC(&_mh_execute_header, "tearDown()", 10, 2, "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2, 93);
   if ((*(v0 + OBJC_IVAR____TtC8Freeform38CRLFreehandDrawingIntelligenceProvider_isTornDown) & 1) == 0)
   {
     *(v0 + OBJC_IVAR____TtC8Freeform38CRLFreehandDrawingIntelligenceProvider_isTornDown) = 1;
-    v28 = OBJC_IVAR____TtC8Freeform38CRLFreehandDrawingIntelligenceProvider_icc;
+    v29 = OBJC_IVAR____TtC8Freeform38CRLFreehandDrawingIntelligenceProvider_icc;
     Strong = swift_unknownObjectWeakLoadStrong();
     if (!Strong)
     {
-      v81 = 0;
-      v82 = v28;
-      v83 = v4;
-      v80 = objc_opt_self();
-      v30 = [v80 _atomicIncrementAssertCount];
-      v84[0] = [objc_allocWithZone(NSString) init];
-      sub_100604538(_swiftEmptyArrayStorage, v84);
-      StaticString.description.getter();
-      v31 = String._bridgeToObjectiveC()();
-
-      StaticString.description.getter();
+      v82 = 0;
+      v83 = v29;
+      v84 = v4;
+      v81 = objc_opt_self();
+      v31 = [v81 _atomicIncrementAssertCount];
+      v85[0] = [objc_allocWithZone(NSString) init];
+      sub_100604538(_swiftEmptyArrayStorage, v85, "invalid nil found when unwrapping value", 39, 2u);
+      StaticString.description.getter("tearDown()", 10, 2);
       v32 = String._bridgeToObjectiveC()();
 
-      v33 = [v32 lastPathComponent];
+      StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
+      v33 = String._bridgeToObjectiveC()();
 
-      v34 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v36 = v35;
+      v34 = [v33 lastPathComponent];
+
+      v35 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v37 = v36;
 
       if (qword_1019F20A0 != -1)
       {
         swift_once();
       }
 
-      v37 = static OS_os_log.crlAssert;
-      sub_1005B981C(&qword_1019F54E0);
+      v38 = static OS_os_log.crlAssert;
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_10146CA70;
       *(inited + 56) = &type metadata for Int32;
       *(inited + 64) = &protocol witness table for Int32;
-      *(inited + 32) = v30;
-      v39 = sub_100006370(0, &qword_1019F4D30);
-      *(inited + 96) = v39;
-      v40 = sub_1005CF04C();
-      *(inited + 104) = v40;
-      *(inited + 72) = v31;
+      *(inited + 32) = v31;
+      v40 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
+      *(inited + 96) = v40;
+      v41 = sub_1005CF04C();
+      *(inited + 104) = v41;
+      *(inited + 72) = v32;
       *(inited + 136) = &type metadata for String;
-      v41 = sub_1000053B0();
-      *(inited + 112) = v34;
-      *(inited + 120) = v36;
+      v42 = sub_1000053B0();
+      *(inited + 112) = v35;
+      *(inited + 120) = v37;
       *(inited + 176) = &type metadata for UInt;
       *(inited + 184) = &protocol witness table for UInt;
-      *(inited + 144) = v41;
+      *(inited + 144) = v42;
       *(inited + 152) = 102;
-      v42 = v84[0];
-      *(inited + 216) = v39;
-      *(inited + 224) = v40;
-      *(inited + 192) = v42;
-      v43 = v31;
-      v44 = v42;
-      v45 = static os_log_type_t.error.getter();
-      sub_100005404(v37, &_mh_execute_header, v45, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
-      swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
-      swift_arrayDestroy();
+      v43 = v85[0];
+      *(inited + 216) = v40;
+      *(inited + 224) = v41;
+      *(inited + 192) = v43;
+      v44 = v32;
+      v45 = v43;
       v46 = static os_log_type_t.error.getter();
-      sub_100005404(v37, &_mh_execute_header, v46, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
+      sub_100005404(v38, &_mh_execute_header, v46, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
+      swift_setDeallocating();
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
+      swift_arrayDestroy();
+      v47 = static os_log_type_t.error.getter();
+      sub_100005404(v38, &_mh_execute_header, v47, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
 
       type metadata accessor for __VaListBuilder();
-      v47 = swift_allocObject();
-      v47[2] = 8;
-      v47[3] = 0;
-      v47[4] = 0;
-      v47[5] = 0;
-      v48 = __VaListBuilder.va_list()();
-      StaticString.description.getter();
-      v49 = String._bridgeToObjectiveC()();
-
-      StaticString.description.getter();
+      v48 = swift_allocObject();
+      v48[2] = 8;
+      v48[3] = 0;
+      v48[4] = 0;
+      v48[5] = 0;
+      v49 = __VaListBuilder.va_list()();
+      StaticString.description.getter("tearDown()", 10, 2);
       v50 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
       v51 = String._bridgeToObjectiveC()();
 
-      [v80 handleFailureInFunction:v49 file:v50 lineNumber:102 isFatal:0 format:v51 args:v48];
+      StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
+      v52 = String._bridgeToObjectiveC()();
 
-      v28 = v82;
-      v4 = v83;
-      Strong = v81;
+      [v81 handleFailureInFunction:v50 file:v51 lineNumber:102 isFatal:0 format:v52 args:v49];
+
+      v29 = v83;
+      v4 = v84;
+      Strong = v82;
     }
 
-    v52 = [Strong pkDrawingProvider];
-    if (v52)
+    v53 = [Strong pkDrawingProvider];
+    if (v53)
     {
-      v53 = v52;
-      [v52 removeConsolidatedPKDrawingObserver:v1];
+      v54 = v53;
+      [v53 removeConsolidatedPKDrawingObserver:v1];
 
       if (!Strong)
       {
 LABEL_12:
         CanvasDataDetectorInteraction.wantsDataDetection.setter();
         CanvasDataDetectorInteraction.wantsProofreadingDetection.setter();
-        v54 = type metadata accessor for TaskPriority();
-        (*(*(v54 - 8) + 56))(v4, 1, 1, v54);
+        v55 = type metadata accessor for TaskPriority();
+        (*(*(v55 - 8) + 56))(v4, 1, 1, v55);
         type metadata accessor for MainActor();
-        v55 = v1;
-        v56 = static MainActor.shared.getter();
-        v57 = swift_allocObject();
-        v57[2] = v56;
-        v57[3] = &protocol witness table for MainActor;
-        v57[4] = v55;
-        sub_10064191C(0, 0, v4, &unk_1014CE3C8, v57);
+        v56 = v1;
+        v57 = static MainActor.shared.getter();
+        v58 = swift_allocObject();
+        v58[2] = v57;
+        v58[3] = &protocol witness table for MainActor;
+        v58[4] = v56;
+        sub_10064191C(0, 0, v4, &unk_1014CE3C8, v58);
 
         swift_unknownObjectWeakAssign();
         swift_unknownObjectWeakAssign();
-        return;
+        return result;
       }
     }
 
     else
     {
-      v81 = Strong;
-      v82 = v28;
-      v83 = v4;
-      v80 = objc_opt_self();
-      HIDWORD(v79) = [v80 _atomicIncrementAssertCount];
-      v84[0] = [objc_allocWithZone(NSString) init];
-      sub_100604538(_swiftEmptyArrayStorage, v84);
-      StaticString.description.getter();
-      v58 = String._bridgeToObjectiveC()();
-
-      StaticString.description.getter();
+      v82 = Strong;
+      v83 = v29;
+      v84 = v4;
+      v81 = objc_opt_self();
+      HIDWORD(v80) = [v81 _atomicIncrementAssertCount];
+      v85[0] = [objc_allocWithZone(NSString) init];
+      sub_100604538(_swiftEmptyArrayStorage, v85, "invalid nil found when unwrapping value", 39, 2u);
+      StaticString.description.getter("tearDown()", 10, 2);
       v59 = String._bridgeToObjectiveC()();
 
-      v60 = [v59 lastPathComponent];
+      StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
+      v60 = String._bridgeToObjectiveC()();
 
-      v61 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v63 = v62;
+      v61 = [v60 lastPathComponent];
+
+      v62 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v64 = v63;
 
       if (qword_1019F20A0 != -1)
       {
         swift_once();
       }
 
-      v64 = static OS_os_log.crlAssert;
-      sub_1005B981C(&qword_1019F54E0);
-      v65 = swift_initStackObject();
-      *(v65 + 16) = xmmword_10146CA70;
-      *(v65 + 56) = &type metadata for Int32;
-      *(v65 + 64) = &protocol witness table for Int32;
-      *(v65 + 32) = HIDWORD(v79);
-      v66 = sub_100006370(0, &qword_1019F4D30);
-      *(v65 + 96) = v66;
-      v67 = sub_1005CF04C();
-      *(v65 + 104) = v67;
-      *(v65 + 72) = v58;
-      *(v65 + 136) = &type metadata for String;
-      v68 = sub_1000053B0();
-      *(v65 + 112) = v61;
-      *(v65 + 120) = v63;
-      *(v65 + 176) = &type metadata for UInt;
-      *(v65 + 184) = &protocol witness table for UInt;
-      *(v65 + 144) = v68;
-      *(v65 + 152) = 104;
-      v69 = v84[0];
-      *(v65 + 216) = v66;
-      *(v65 + 224) = v67;
-      *(v65 + 192) = v69;
-      v70 = v58;
-      v71 = v69;
-      v72 = static os_log_type_t.error.getter();
-      sub_100005404(v64, &_mh_execute_header, v72, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v65);
-      swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
-      swift_arrayDestroy();
+      v65 = static OS_os_log.crlAssert;
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
+      v66 = swift_initStackObject();
+      *(v66 + 16) = xmmword_10146CA70;
+      *(v66 + 56) = &type metadata for Int32;
+      *(v66 + 64) = &protocol witness table for Int32;
+      *(v66 + 32) = HIDWORD(v80);
+      v67 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
+      *(v66 + 96) = v67;
+      v68 = sub_1005CF04C();
+      *(v66 + 104) = v68;
+      *(v66 + 72) = v59;
+      *(v66 + 136) = &type metadata for String;
+      v69 = sub_1000053B0();
+      *(v66 + 112) = v62;
+      *(v66 + 120) = v64;
+      *(v66 + 176) = &type metadata for UInt;
+      *(v66 + 184) = &protocol witness table for UInt;
+      *(v66 + 144) = v69;
+      *(v66 + 152) = 104;
+      v70 = v85[0];
+      *(v66 + 216) = v67;
+      *(v66 + 224) = v68;
+      *(v66 + 192) = v70;
+      v71 = v59;
+      v72 = v70;
       v73 = static os_log_type_t.error.getter();
-      sub_100005404(v64, &_mh_execute_header, v73, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
+      sub_100005404(v65, &_mh_execute_header, v73, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v66);
+      swift_setDeallocating();
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
+      swift_arrayDestroy();
+      v74 = static os_log_type_t.error.getter();
+      sub_100005404(v65, &_mh_execute_header, v74, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
 
       type metadata accessor for __VaListBuilder();
-      v74 = swift_allocObject();
-      v74[2] = 8;
-      v74[3] = 0;
-      v74[4] = 0;
-      v74[5] = 0;
-      v75 = __VaListBuilder.va_list()();
-      StaticString.description.getter();
-      v76 = String._bridgeToObjectiveC()();
-
-      StaticString.description.getter();
+      v75 = swift_allocObject();
+      v75[2] = 8;
+      v75[3] = 0;
+      v75[4] = 0;
+      v75[5] = 0;
+      v76 = __VaListBuilder.va_list()();
+      StaticString.description.getter("tearDown()", 10, 2);
       v77 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
       v78 = String._bridgeToObjectiveC()();
 
-      [v80 handleFailureInFunction:v76 file:v77 lineNumber:104 isFatal:0 format:v78 args:v75];
+      StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
+      v79 = String._bridgeToObjectiveC()();
 
-      v4 = v83;
-      Strong = v81;
+      [v81 handleFailureInFunction:v77 file:v78 lineNumber:104 isFatal:0 format:v79 args:v76];
+
+      v4 = v84;
+      Strong = v82;
 
       if (!Strong)
       {
@@ -6521,12 +6521,12 @@ LABEL_12:
 
   v5 = objc_opt_self();
   v6 = [v5 _atomicIncrementAssertCount];
-  v84[0] = [objc_allocWithZone(NSString) init];
-  sub_100604538(_swiftEmptyArrayStorage, v84);
-  StaticString.description.getter();
+  v85[0] = [objc_allocWithZone(NSString) init];
+  sub_100604538(_swiftEmptyArrayStorage, v85, "Should not call tearDown() twice.", 33, 2u);
+  StaticString.description.getter("tearDown()", 10, 2);
   v7 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
   v8 = String._bridgeToObjectiveC()();
 
   v9 = [v8 lastPathComponent];
@@ -6540,13 +6540,13 @@ LABEL_12:
   }
 
   v13 = static OS_os_log.crlAssert;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   v14 = swift_initStackObject();
   *(v14 + 16) = xmmword_10146CA70;
   *(v14 + 56) = &type metadata for Int32;
   *(v14 + 64) = &protocol witness table for Int32;
   *(v14 + 32) = v6;
-  v15 = sub_100006370(0, &qword_1019F4D30);
+  v15 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
   *(v14 + 96) = v15;
   v16 = sub_1005CF04C();
   *(v14 + 104) = v16;
@@ -6559,7 +6559,7 @@ LABEL_12:
   *(v14 + 184) = &protocol witness table for UInt;
   *(v14 + 144) = v17;
   *(v14 + 152) = 96;
-  v18 = v84[0];
+  v18 = v85[0];
   *(v14 + 216) = v15;
   *(v14 + 224) = v16;
   *(v14 + 192) = v18;
@@ -6568,7 +6568,7 @@ LABEL_12:
   v21 = static os_log_type_t.error.getter();
   sub_100005404(v13, &_mh_execute_header, v21, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v14);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   v22 = static os_log_type_t.error.getter();
   sub_100005404(v13, &_mh_execute_header, v22, "Should not call tearDown() twice.", 33, 2, _swiftEmptyArrayStorage);
@@ -6580,16 +6580,18 @@ LABEL_12:
   v23[4] = 0;
   v23[5] = 0;
   v24 = __VaListBuilder.va_list()();
-  StaticString.description.getter();
+  StaticString.description.getter("tearDown()", 10, 2);
   v25 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
   v26 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("Should not call tearDown() twice.", 33, 2);
   v27 = String._bridgeToObjectiveC()();
 
   [v5 handleFailureInFunction:v25 file:v26 lineNumber:96 isFatal:0 format:v27 args:v24];
+
+  return result;
 }
 
 uint64_t sub_10117F598(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -6661,7 +6663,7 @@ uint64_t sub_10117FA24()
 
 void *sub_10117FB18()
 {
-  v1 = sub_1005B981C(&qword_1019FB750);
+  v1 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v1 - 8);
   v3 = &v13 - v2;
   v4 = dispatch_semaphore_create(0);
@@ -6701,7 +6703,7 @@ uint64_t sub_10117FCBC()
 {
   *(v0 + 296) = *(*(v0 + 280) + OBJC_IVAR____TtC8Freeform38CRLFreehandDrawingIntelligenceProvider_strokeProvider);
   type metadata accessor for RecognitionStrokeProvider();
-  sub_10119D3B8(&qword_101A2BF20, &type metadata accessor for RecognitionStrokeProvider);
+  sub_10119D3B8(&qword_101A2BF20, &type metadata accessor for RecognitionStrokeProvider, &protocol conformance descriptor for RecognitionStrokeProvider);
   v2 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return _swift_task_switch(sub_10117FD84, v2, v1);
@@ -6734,11 +6736,11 @@ uint64_t sub_10117FDF0()
     v4 = objc_opt_self();
     v5 = [v4 _atomicIncrementAssertCount];
     v29 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v29);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v29, "invalid nil value found", 23, 2u);
+    StaticString.description.getter("pkRecognitionController", 23, 2);
     v6 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v7 = String._bridgeToObjectiveC()();
 
     v8 = [v7 lastPathComponent];
@@ -6752,13 +6754,13 @@ uint64_t sub_10117FDF0()
     }
 
     v12 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v5;
-    v14 = sub_100006370(0, &qword_1019F4D30);
+    v14 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v14;
     v15 = sub_1005CF04C();
     *(inited + 104) = v15;
@@ -6780,7 +6782,7 @@ uint64_t sub_10117FDF0()
     v20 = static os_log_type_t.error.getter();
     sub_100005404(v12, &_mh_execute_header, v20, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v21 = static os_log_type_t.error.getter();
     sub_100005404(v12, &_mh_execute_header, v21, "invalid nil value found", 23, 2, _swiftEmptyArrayStorage);
@@ -6792,13 +6794,13 @@ uint64_t sub_10117FDF0()
     v22[4] = 0;
     v22[5] = 0;
     v23 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("pkRecognitionController", 23, 2);
     v24 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v25 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil value found", 23, 2);
     v26 = String._bridgeToObjectiveC()();
 
     [v4 handleFailureInFunction:v24 file:v25 lineNumber:132 isFatal:0 format:v26 args:v23];
@@ -6880,11 +6882,11 @@ uint64_t sub_101180810()
     v0 = objc_opt_self();
     LODWORD(v18) = [v0 _atomicIncrementAssertCount];
     v90 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v90);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v90, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("snapToShapeSelectedStrokesCount", 31, 2);
     v3 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v45 = String._bridgeToObjectiveC()();
 
     v46 = [v45 lastPathComponent];
@@ -6969,7 +6971,7 @@ LABEL_6:
     v25 = *(v1 + 16);
     v3 = v87;
     v25(v6, v76 + v24 * v23, v0);
-    v26 = sub_1005B981C(&qword_101A11B00);
+    v26 = sub_1005B981C(&qword_101A11B00, &unk_1014C7040);
     v27 = v89;
     v84 = v26;
     v28 = swift_allocObject();
@@ -7128,13 +7130,13 @@ LABEL_43:
   swift_once();
 LABEL_34:
   v48 = static OS_os_log.crlAssert;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146CA70;
   *(inited + 56) = &type metadata for Int32;
   *(inited + 64) = &protocol witness table for Int32;
   *(inited + 32) = v18;
-  v50 = sub_100006370(0, &qword_1019F4D30);
+  v50 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
   *(inited + 96) = v50;
   v51 = sub_1005CF04C();
   *(inited + 104) = v51;
@@ -7156,7 +7158,7 @@ LABEL_34:
   v56 = static os_log_type_t.error.getter();
   sub_100005404(v48, &_mh_execute_header, v56, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   v57 = static os_log_type_t.error.getter();
   sub_100005404(v48, &_mh_execute_header, v57, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -7168,13 +7170,13 @@ LABEL_34:
   v58[4] = 0;
   v58[5] = 0;
   v59 = __VaListBuilder.va_list()();
-  StaticString.description.getter();
+  StaticString.description.getter("snapToShapeSelectedStrokesCount", 31, 2);
   v60 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
   v61 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
   v62 = String._bridgeToObjectiveC()();
 
   [v0 handleFailureInFunction:v60 file:v61 lineNumber:189 isFatal:0 format:v62 args:v59];
@@ -7194,12 +7196,12 @@ void *sub_101181474(char a1)
   {
     v7 = objc_opt_self();
     LODWORD(isa) = [v7 _atomicIncrementAssertCount];
-    v83[0] = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, v83);
-    StaticString.description.getter();
+    v84[0] = [objc_allocWithZone(NSString) init];
+    sub_100604538(_swiftEmptyArrayStorage, v84, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("currentlySelectedStrokesWrappers(includeFills:)", 47, 2);
     v9 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v10 = String._bridgeToObjectiveC()();
 
     v11 = [v10 lastPathComponent];
@@ -7222,12 +7224,12 @@ void *sub_101181474(char a1)
     v30 = v3;
     v31 = objc_opt_self();
     v32 = [v31 _atomicIncrementAssertCount];
-    v83[0] = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, v83);
-    StaticString.description.getter();
+    v84[0] = [objc_allocWithZone(NSString) init];
+    sub_100604538(_swiftEmptyArrayStorage, v84, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("currentlySelectedStrokesWrappers(includeFills:)", 47, 2);
     v33 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v34 = String._bridgeToObjectiveC()();
 
     v35 = [v34 lastPathComponent];
@@ -7241,13 +7243,13 @@ void *sub_101181474(char a1)
     }
 
     v39 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v32;
-    v41 = sub_100006370(0, &qword_1019F4D30);
+    v41 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v41;
     v42 = sub_1005CF04C();
     *(inited + 104) = v42;
@@ -7260,7 +7262,7 @@ void *sub_101181474(char a1)
     *(inited + 184) = &protocol witness table for UInt;
     *(inited + 144) = v43;
     *(inited + 152) = 627;
-    v44 = v83[0];
+    v44 = v84[0];
     *(inited + 216) = v41;
     *(inited + 224) = v42;
     *(inited + 192) = v44;
@@ -7269,7 +7271,7 @@ void *sub_101181474(char a1)
     v47 = static os_log_type_t.error.getter();
     sub_100005404(v39, &_mh_execute_header, v47, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v48 = static os_log_type_t.error.getter();
     sub_100005404(v39, &_mh_execute_header, v48, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -7281,13 +7283,13 @@ void *sub_101181474(char a1)
     v49[4] = 0;
     v49[5] = 0;
     v50 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("currentlySelectedStrokesWrappers(includeFills:)", 47, 2);
     v27 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v28 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v29 = String._bridgeToObjectiveC()();
 
     [v31 handleFailureInFunction:v27 file:v28 lineNumber:627 isFatal:0 format:v29 args:v50];
@@ -7296,7 +7298,7 @@ void *sub_101181474(char a1)
   }
 
   v5 = v4;
-  if (sub_100006370(0, &qword_101A0C7E0))
+  if (sub_100006370(0, &qword_101A0C7E0, off_10182F958))
   {
     ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   }
@@ -7316,10 +7318,10 @@ void *sub_101181474(char a1)
     return _swiftEmptyArrayStorage;
   }
 
-  v75 = v5;
-  v76 = a1;
+  v76 = v5;
+  v77 = a1;
   v53 = [v52 allShapeItems];
-  v14 = type metadata accessor for CRLShapeItem();
+  v14 = type metadata accessor for CRLShapeItem(0);
   v54 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   v12 = sub_100E95618(v54);
@@ -7327,13 +7329,13 @@ void *sub_101181474(char a1)
   sub_1012E3C14(v12);
   isa = Set._bridgeToObjectiveC()().super.isa;
 
-  v77 = v3;
+  v78 = v3;
   v7 = [v3 topLevelZOrderedSiblingsOfInfos:isa];
 
-  sub_1005B981C(&qword_1019F5720);
+  sub_1005B981C(&qword_1019F5720, &unk_101474E20);
   v55 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v83[0] = _swiftEmptyArrayStorage;
+  v84[0] = _swiftEmptyArrayStorage;
   v9 = (v55 & 0xFFFFFFFFFFFFFF8);
   if (v55 >> 62)
   {
@@ -7347,16 +7349,16 @@ void *sub_101181474(char a1)
 
   if (!v56)
   {
-    v78 = _swiftEmptyArrayStorage;
+    v79 = _swiftEmptyArrayStorage;
 LABEL_35:
 
-    v83[0] = _swiftEmptyArrayStorage;
-    v59 = v78;
-    if (v78 >> 62)
+    v84[0] = _swiftEmptyArrayStorage;
+    v59 = v79;
+    if (v79 >> 62)
     {
-      v7 = v78;
+      v7 = v79;
       isa = _CocoaArrayWrapper.endIndex.getter();
-      v59 = v78;
+      v59 = v79;
       v60 = v3;
       if (isa)
       {
@@ -7366,35 +7368,35 @@ LABEL_35:
 
     else
     {
-      isa = *((v78 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      isa = *((v79 & 0xFFFFFFFFFFFFFF8) + 0x10);
       v60 = v3;
       if (isa)
       {
 LABEL_37:
         v61 = 0;
-        v81 = v59 & 0xFFFFFFFFFFFFFF8;
-        v82 = v59 & 0xC000000000000001;
-        v79 = isa;
-        v80 = v59 + 32;
+        v82 = v59 & 0xFFFFFFFFFFFFFF8;
+        v83 = v59 & 0xC000000000000001;
+        v80 = isa;
+        v81 = v59 + 32;
         v9 = (v12 & 0xC000000000000001);
         v62 = v12 + 56;
         while (1)
         {
           while (1)
           {
-            if (v82)
+            if (v83)
             {
               v63 = specialized _ArrayBuffer._getElementSlowPath(_:)();
             }
 
             else
             {
-              if (v61 >= *(v81 + 16))
+              if (v61 >= *(v82 + 16))
               {
                 goto LABEL_60;
               }
 
-              v63 = *(v80 + 8 * v61);
+              v63 = *(v81 + 8 * v61);
             }
 
             v7 = v63;
@@ -7425,8 +7427,8 @@ LABEL_38:
             specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
             specialized ContiguousArray._endMutation()();
 LABEL_39:
-            isa = v79;
-            if (v61 == v79)
+            isa = v80;
+            if (v61 == v80)
             {
               goto LABEL_56;
             }
@@ -7466,8 +7468,8 @@ LABEL_52:
           if (v61 == isa)
           {
 LABEL_56:
-            v73 = v83[0];
-            v60 = v77;
+            v73 = v84[0];
+            v60 = v78;
             goto LABEL_65;
           }
         }
@@ -7477,15 +7479,15 @@ LABEL_56:
     v73 = _swiftEmptyArrayStorage;
 LABEL_65:
 
-    v74 = sub_10118D4A8(v73, v76 & 1);
+    v75 = sub_10118D4A8(v73, v77 & 1, v74);
 
     swift_unknownObjectRelease();
 
-    return v74;
+    return v75;
   }
 
   v57 = 0;
-  v78 = _swiftEmptyArrayStorage;
+  v79 = _swiftEmptyArrayStorage;
 LABEL_19:
   v7 = v57;
   while ((v55 & 0xC000000000000001) != 0)
@@ -7498,20 +7500,20 @@ LABEL_19:
     }
 
 LABEL_23:
-    type metadata accessor for CRLFreehandDrawingShapeItem();
+    type metadata accessor for CRLFreehandDrawingShapeItem(0);
     v58 = swift_dynamicCastClass();
     if (v58)
     {
       v7 = v58;
-      isa = v83;
+      isa = v84;
       specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-      if (*((v83[0] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v83[0] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (*((v84[0] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v84[0] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
 
       specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-      v78 = v83[0];
+      v79 = v84[0];
       if (v57 == v56)
       {
         goto LABEL_35;
@@ -7553,13 +7555,13 @@ LABEL_61:
   swift_once();
 LABEL_7:
   v15 = static OS_os_log.crlAssert;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   v16 = swift_initStackObject();
   *(v16 + 16) = xmmword_10146CA70;
   *(v16 + 56) = &type metadata for Int32;
   *(v16 + 64) = &protocol witness table for Int32;
   *(v16 + 32) = isa;
-  v17 = sub_100006370(0, &qword_1019F4D30);
+  v17 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
   *(v16 + 96) = v17;
   v18 = sub_1005CF04C();
   *(v16 + 104) = v18;
@@ -7572,7 +7574,7 @@ LABEL_7:
   *(v16 + 184) = &protocol witness table for UInt;
   *(v16 + 144) = v19;
   *(v16 + 152) = 626;
-  v20 = v83[0];
+  v20 = v84[0];
   *(v16 + 216) = v17;
   *(v16 + 224) = v18;
   *(v16 + 192) = v20;
@@ -7581,7 +7583,7 @@ LABEL_7:
   v23 = static os_log_type_t.error.getter();
   sub_100005404(v15, &_mh_execute_header, v23, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v16);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   v24 = static os_log_type_t.error.getter();
   sub_100005404(v15, &_mh_execute_header, v24, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -7593,13 +7595,13 @@ LABEL_7:
   v25[4] = 0;
   v25[5] = 0;
   v26 = __VaListBuilder.va_list()();
-  StaticString.description.getter();
+  StaticString.description.getter("currentlySelectedStrokesWrappers(includeFills:)", 47, 2);
   v27 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
   v28 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
   v29 = String._bridgeToObjectiveC()();
 
   [v7 handleFailureInFunction:v27 file:v28 lineNumber:626 isFatal:0 format:v29 args:v26];
@@ -7660,11 +7662,11 @@ uint64_t sub_1011821B8()
     v11 = objc_opt_self();
     v12 = [v11 _atomicIncrementAssertCount];
     v36 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v36);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v36, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("snapToShapeSelectedStrokes()", 28, 2);
     v13 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v14 = String._bridgeToObjectiveC()();
 
     v15 = [v14 lastPathComponent];
@@ -7678,13 +7680,13 @@ uint64_t sub_1011821B8()
     }
 
     v19 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v12;
-    v21 = sub_100006370(0, &qword_1019F4D30);
+    v21 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v21;
     v22 = sub_1005CF04C();
     *(inited + 104) = v22;
@@ -7706,7 +7708,7 @@ uint64_t sub_1011821B8()
     v27 = static os_log_type_t.error.getter();
     sub_100005404(v19, &_mh_execute_header, v27, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v28 = static os_log_type_t.error.getter();
     sub_100005404(v19, &_mh_execute_header, v28, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -7718,13 +7720,13 @@ uint64_t sub_1011821B8()
     v29[4] = 0;
     v29[5] = 0;
     v30 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("snapToShapeSelectedStrokes()", 28, 2);
     v31 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v32 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v33 = String._bridgeToObjectiveC()();
 
     [v11 handleFailureInFunction:v31 file:v32 lineNumber:263 isFatal:0 format:v33 args:v30];
@@ -7819,93 +7821,93 @@ uint64_t sub_101182BC4(uint64_t a1)
   return _swift_task_switch(sub_101182CC4, 0, 0);
 }
 
-uint64_t sub_101182CC4()
+uint64_t sub_101182CC4(__n128 a1)
 {
-  v1 = *(v0 + 440);
-  v2 = *(v0 + 424);
-  if (v1)
+  v2 = *(v1 + 440);
+  v3 = *(v1 + 424);
+  if (v2)
   {
-    v4 = *(v0 + 272);
-    v3 = *(v0 + 280);
-    v5 = *(v0 + 256);
-    sub_1011A04B8(*(v0 + 304), v3, type metadata accessor for CRLFreehandDrawingIntelligenceProvider.CRLOriginalStrokesWrapper);
-    *(v3 + *(v5 + 20)) = v1;
-    *(v3 + *(v5 + 24)) = 0;
-    sub_1011A04B8(v3, v4, type metadata accessor for CRLFreehandDrawingIntelligenceProvider.CRLUpdatedStrokesWrapper);
+    v5 = *(v1 + 272);
+    v4 = *(v1 + 280);
+    v6 = *(v1 + 256);
+    sub_1011A04B8(*(v1 + 304), v4, type metadata accessor for CRLFreehandDrawingIntelligenceProvider.CRLOriginalStrokesWrapper);
+    *(v4 + *(v6 + 20)) = v2;
+    *(v4 + *(v6 + 24)) = 0;
+    sub_1011A04B8(v4, v5, type metadata accessor for CRLFreehandDrawingIntelligenceProvider.CRLUpdatedStrokesWrapper);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v2 = *(v0 + 424);
+    v3 = *(v1 + 424);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v2 = sub_100B39988(0, v2[2] + 1, 1, *(v0 + 424));
+      v3 = sub_100B39988(0, v3[2] + 1, 1, *(v1 + 424));
     }
 
-    v8 = v2[2];
-    v7 = v2[3];
-    if (v8 >= v7 >> 1)
+    v9 = v3[2];
+    v8 = v3[3];
+    if (v9 >= v8 >> 1)
     {
-      v2 = sub_100B39988(v7 > 1, v8 + 1, 1, v2);
+      v3 = sub_100B39988((v8 > 1), v9 + 1, 1, v3);
     }
 
-    v9 = *(v0 + 272);
-    v10 = *(v0 + 264);
-    sub_1011A0324(*(v0 + 280), type metadata accessor for CRLFreehandDrawingIntelligenceProvider.CRLUpdatedStrokesWrapper);
-    v2[2] = v8 + 1;
-    sub_1011A0450(v9, v2 + ((*(v10 + 80) + 32) & ~*(v10 + 80)) + *(v10 + 72) * v8, type metadata accessor for CRLFreehandDrawingIntelligenceProvider.CRLUpdatedStrokesWrapper);
+    v10 = *(v1 + 272);
+    v11 = *(v1 + 264);
+    sub_1011A0324(*(v1 + 280), type metadata accessor for CRLFreehandDrawingIntelligenceProvider.CRLUpdatedStrokesWrapper);
+    v3[2] = v9 + 1;
+    sub_1011A0450(v10, v3 + ((*(v11 + 80) + 32) & ~*(v11 + 80)) + *(v11 + 72) * v9, type metadata accessor for CRLFreehandDrawingIntelligenceProvider.CRLUpdatedStrokesWrapper);
   }
 
-  v11 = *(v0 + 376);
-  v12 = *(v0 + 416) + 1;
-  sub_1011A0324(*(v0 + 304), type metadata accessor for CRLFreehandDrawingIntelligenceProvider.CRLOriginalStrokesWrapper);
-  if (v12 == v11)
+  v12 = *(v1 + 376);
+  v13 = *(v1 + 416) + 1;
+  sub_1011A0324(*(v1 + 304), type metadata accessor for CRLFreehandDrawingIntelligenceProvider.CRLOriginalStrokesWrapper);
+  if (v13 == v12)
   {
 
-    *(v0 + 392) = v2;
-    if (v2[2])
+    *(v1 + 392) = v3;
+    if (v3[2])
     {
-      v14 = *(v0 + 352);
-      v13 = *(v0 + 360);
-      v15 = *(v0 + 248);
-      v16 = swift_task_alloc();
-      *(v0 + 400) = v16;
-      *(v16 + 16) = v15;
-      *(v16 + 24) = v2;
-      *(v16 + 32) = v13;
-      *(v16 + 40) = v14;
-      *(v16 + 48) = 1;
+      v15 = *(v1 + 352);
+      v14 = *(v1 + 360);
+      v16 = *(v1 + 248);
       v17 = swift_task_alloc();
-      *(v0 + 408) = v17;
-      *v17 = v0;
-      v17[1] = sub_1011829D0;
+      *(v1 + 400) = v17;
+      *(v17 + 16) = v16;
+      *(v17 + 24) = v3;
+      *(v17 + 32) = v14;
+      *(v17 + 40) = v15;
+      *(v17 + 48) = 1;
+      v18 = swift_task_alloc();
+      *(v1 + 408) = v18;
+      *v18 = v1;
+      v18[1] = sub_1011829D0;
 
-      return withCheckedContinuation<A>(isolation:function:_:)(v17, 0, 0, 0xD00000000000003ALL, 0x80000001015C4850, sub_1011A7394, v16, &type metadata for () + 8);
+      return withCheckedContinuation<A>(isolation:function:_:)(v18, 0, 0, 0xD00000000000003ALL, 0x80000001015C4850, sub_1011A7394, v17, &type metadata for () + 8);
     }
 
     else
     {
 
-      v24 = *(v0 + 320);
-      v25 = *(v0 + 328);
+      v25 = *(v1 + 320);
+      v26 = *(v1 + 328);
 
-      return _swift_task_switch(sub_101182B40, v24, v25);
+      return _swift_task_switch(sub_101182B40, v25, v26);
     }
   }
 
   else
   {
-    *(v0 + 416) = v12;
-    *(v0 + 424) = v2;
-    v18 = *(v0 + 344);
-    v19 = *(v0 + 304);
-    v20 = *(v0 + 288);
-    sub_1011A04B8(*(v0 + 368) + ((*(v0 + 448) + 32) & ~*(v0 + 448)) + *(v0 + 384) * v12, v19, type metadata accessor for CRLFreehandDrawingIntelligenceProvider.CRLOriginalStrokesWrapper);
-    v21 = *(v19 + *(v20 + 28));
-    v22 = swift_task_alloc();
-    *(v0 + 432) = v22;
-    *v22 = v0;
-    v22[1] = sub_101182BC4;
-    v23 = *(v0 + 248);
+    *(v1 + 416) = v13;
+    *(v1 + 424) = v3;
+    v19 = *(v1 + 344);
+    v20 = *(v1 + 304);
+    v21 = *(v1 + 288);
+    sub_1011A04B8(*(v1 + 368) + ((*(v1 + 448) + 32) & ~*(v1 + 448)) + *(v1 + 384) * v13, v20, type metadata accessor for CRLFreehandDrawingIntelligenceProvider.CRLOriginalStrokesWrapper);
+    v22 = *(v20 + *(v21 + 28));
+    v23 = swift_task_alloc();
+    *(v1 + 432) = v23;
+    *v23 = v1;
+    v23[1] = sub_101182BC4;
+    v24 = *(v1 + 248);
 
-    return sub_1011A4180(v21, v23, 1.0 / v18);
+    return sub_1011A4180(v22, v24, 1.0 / v19);
   }
 }
 
@@ -7944,7 +7946,7 @@ uint64_t sub_101183314(uint64_t a1, double a2)
   *(v3 + 40) = v4;
   *(v3 + 48) = *(v4 - 8);
   *(v3 + 56) = swift_task_alloc();
-  sub_1005B981C(&qword_101A01C10);
+  sub_1005B981C(&qword_101A01C10, &qword_10147ECC0);
   *(v3 + 64) = swift_task_alloc();
   v5 = type metadata accessor for PKDrawing();
   *(v3 + 72) = v5;
@@ -7959,7 +7961,7 @@ uint64_t sub_101183470()
   v1 = *(v0 + 40);
   v2 = *(v0 + 48);
   v3 = *(v0 + 16);
-  sub_1005B981C(&qword_101A11B00);
+  sub_1005B981C(&qword_101A11B00, &unk_1014C7040);
   *(v0 + 96) = *(v2 + 72);
   v4 = *(v2 + 80);
   *(v0 + 136) = v4;
@@ -7994,7 +7996,7 @@ uint64_t sub_1011836C8()
   v3 = *(v0 + 64);
   if ((*(v2 + 48))(v3, 1, v1) == 1)
   {
-    sub_10000CAAC(v3, &qword_101A01C10);
+    sub_10000CAAC(v3, &qword_101A01C10, &qword_10147ECC0);
 LABEL_3:
     v4 = 0;
     goto LABEL_11;
@@ -8107,7 +8109,7 @@ uint64_t sub_101183BC8()
     v5 = v0[22];
     v8 = v0[19];
     v7 = v0[20];
-    sub_100006370(0, &qword_1019F2D90);
+    sub_100006370(0, &qword_1019F2D90, OS_dispatch_queue_ptr);
     v23 = static OS_dispatch_queue.main.getter();
     v9 = swift_allocObject();
     v9[2] = v8;
@@ -8125,8 +8127,8 @@ uint64_t sub_101183BC8()
     v21 = v2;
     static DispatchQoS.unspecified.getter();
     v0[18] = _swiftEmptyArrayStorage;
-    sub_10119D3B8(&qword_1019F4D10, &type metadata accessor for DispatchWorkItemFlags);
-    sub_1005B981C(&unk_1019FF400);
+    sub_10119D3B8(&qword_1019F4D10, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+    sub_1005B981C(&unk_1019FF400, &unk_10146CF00);
     sub_10000D494();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     OS_dispatch_queue.async(group:qos:flags:execute:)();
@@ -8146,7 +8148,7 @@ uint64_t sub_101183BC8()
     v13 = v0[22];
     v15 = v0[19];
     v16 = v0[20];
-    sub_100006370(0, &qword_1019F2D90);
+    sub_100006370(0, &qword_1019F2D90, OS_dispatch_queue_ptr);
     v24 = static OS_dispatch_queue.main.getter();
     v17 = swift_allocObject();
     *(v17 + 16) = v15;
@@ -8161,8 +8163,8 @@ uint64_t sub_101183BC8()
 
     static DispatchQoS.unspecified.getter();
     v0[17] = _swiftEmptyArrayStorage;
-    sub_10119D3B8(&qword_1019F4D10, &type metadata accessor for DispatchWorkItemFlags);
-    sub_1005B981C(&unk_1019FF400);
+    sub_10119D3B8(&qword_1019F4D10, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+    sub_1005B981C(&unk_1019FF400, &unk_10146CF00);
     sub_10000D494();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     OS_dispatch_queue.async(group:qos:flags:execute:)();
@@ -8181,7 +8183,7 @@ uint64_t sub_101183FD4(uint64_t a1)
 {
   v2[119] = v1;
   v2[118] = a1;
-  sub_1005B981C(&unk_101A2BF40);
+  sub_1005B981C(&unk_101A2BF40, &qword_1014CE308);
   v2[120] = swift_task_alloc();
   v2[121] = swift_task_alloc();
   v3 = type metadata accessor for PKStroke();
@@ -8189,7 +8191,7 @@ uint64_t sub_101183FD4(uint64_t a1)
   v2[123] = *(v3 - 8);
   v2[124] = swift_task_alloc();
   v2[125] = swift_task_alloc();
-  sub_1005B981C(&qword_101A01C10);
+  sub_1005B981C(&qword_101A01C10, &qword_10147ECC0);
   v2[126] = swift_task_alloc();
   v2[127] = swift_task_alloc();
   v4 = type metadata accessor for PKDrawing();
@@ -8243,11 +8245,11 @@ uint64_t sub_1011841CC()
     v14 = objc_opt_self();
     v15 = [v14 _atomicIncrementAssertCount];
     v39 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v39);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v39, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("pathBySnappingFillPathToShape(_:)", 33, 2);
     v16 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v17 = String._bridgeToObjectiveC()();
 
     v18 = [v17 lastPathComponent];
@@ -8261,13 +8263,13 @@ uint64_t sub_1011841CC()
     }
 
     v22 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v15;
-    v24 = sub_100006370(0, &qword_1019F4D30);
+    v24 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v24;
     v25 = sub_1005CF04C();
     *(inited + 104) = v25;
@@ -8289,7 +8291,7 @@ uint64_t sub_1011841CC()
     v30 = static os_log_type_t.error.getter();
     sub_100005404(v22, &_mh_execute_header, v30, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v31 = static os_log_type_t.error.getter();
     sub_100005404(v22, &_mh_execute_header, v31, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -8301,13 +8303,13 @@ uint64_t sub_1011841CC()
     v32[4] = 0;
     v32[5] = 0;
     v33 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("pathBySnappingFillPathToShape(_:)", 33, 2);
     v34 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v35 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v36 = String._bridgeToObjectiveC()();
 
     [v14 handleFailureInFunction:v34 file:v35 lineNumber:370 isFatal:0 format:v36 args:v33];
@@ -8339,7 +8341,7 @@ uint64_t sub_101184904()
   *(v0 + 142) = (v3 + 48) & 0xFFFFFFFFFFFFLL | 0x60F0000000000000;
   if (v6(v5, 1, v4) == 1)
   {
-    sub_10000CAAC(v5, &qword_101A01C10);
+    sub_10000CAAC(v5, &qword_101A01C10, &qword_10147ECC0);
 LABEL_7:
     v13 = v0[136];
     v14 = sub_1011A3950(*(v0 + 138));
@@ -8384,11 +8386,11 @@ LABEL_7:
     v18 = objc_opt_self();
     v19 = [v18 _atomicIncrementAssertCount];
     v125 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v125);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v125, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("pathBySnappingFillPathToShape(_:)", 33, 2);
     v20 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v21 = String._bridgeToObjectiveC()();
 
     v22 = [v21 lastPathComponent];
@@ -8402,13 +8404,13 @@ LABEL_7:
     }
 
     v25 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v19;
-    v27 = sub_100006370(0, &qword_1019F4D30);
+    v27 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v27;
     v28 = sub_1005CF04C();
     *(inited + 104) = v28;
@@ -8430,7 +8432,7 @@ LABEL_7:
     v32 = static os_log_type_t.error.getter();
     sub_100005404(v25, &_mh_execute_header, v32, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v33 = static os_log_type_t.error.getter();
     sub_100005404(v25, &_mh_execute_header, v33, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -8442,13 +8444,13 @@ LABEL_7:
     v34[4] = 0;
     v34[5] = 0;
     v35 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("pathBySnappingFillPathToShape(_:)", 33, 2);
     v36 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v37 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v38 = String._bridgeToObjectiveC()();
 
     [v18 handleFailureInFunction:v36 file:v37 lineNumber:409 isFatal:0 format:v38 args:v35];
@@ -8461,7 +8463,7 @@ LABEL_7:
   v39 = *(v0 + 123);
   v40 = *(v0 + 122);
   v41 = *(v0 + 121);
-  sub_10003DFF8(*(v0 + 120), v41, &unk_101A2BF40);
+  sub_10003DFF8(*(v0 + 120), v41, &unk_101A2BF40, &qword_1014CE308);
   if ((*(v39 + 48))(v41, 1, v40) != 1)
   {
     (*(*(v0 + 123) + 32))(*(v0 + 125), *(v0 + 121), *(v0 + 122));
@@ -8544,13 +8546,13 @@ LABEL_40:
           v115 = *(v0 + 135);
           v118 = *(v0 + 122);
           v97 = static OS_os_log.crlAssert;
-          sub_1005B981C(&qword_1019F54E0);
+          sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
           v98 = swift_initStackObject();
           *(v98 + 16) = xmmword_10146CA70;
           *(v98 + 56) = &type metadata for Int32;
           *(v98 + 64) = &protocol witness table for Int32;
           *(v98 + 32) = v45.super.isa;
-          v99 = sub_100006370(0, &qword_1019F4D30);
+          v99 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
           *(v98 + 96) = v99;
           v100 = sub_1005CF04C();
           *(v98 + 104) = v100;
@@ -8572,7 +8574,7 @@ LABEL_40:
           v105 = static os_log_type_t.error.getter();
           sub_100005404(v97, &_mh_execute_header, v105, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v98);
           swift_setDeallocating();
-          sub_1005B981C(&unk_1019F5670);
+          sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
           swift_arrayDestroy();
           v106 = static os_log_type_t.error.getter();
           sub_100005404(v97, &_mh_execute_header, v106, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -8584,13 +8586,13 @@ LABEL_40:
           v107[4] = 0;
           v107[5] = 0;
           v108 = __VaListBuilder.va_list()();
-          StaticString.description.getter();
+          StaticString.description.getter("pathBySnappingFillPathToShape(_:)", 33, 2);
           v109 = String._bridgeToObjectiveC()();
 
-          StaticString.description.getter();
+          StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
           v110 = String._bridgeToObjectiveC()();
 
-          StaticString.description.getter();
+          StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
           v111 = String._bridgeToObjectiveC()();
 
           [v122 handleFailureInFunction:v109 file:v110 lineNumber:426 isFatal:0 format:v111 args:v108];
@@ -8633,11 +8635,11 @@ LABEL_40:
         v123 = objc_opt_self();
         v64 = [v123 _atomicIncrementAssertCount];
         v125 = [objc_allocWithZone(NSString) init];
-        sub_100604538(_swiftEmptyArrayStorage, &v125);
-        StaticString.description.getter();
+        sub_100604538(_swiftEmptyArrayStorage, &v125, "invalid nil found when unwrapping value", 39, 2u);
+        StaticString.description.getter("pathBySnappingFillPathToShape(_:)", 33, 2);
         v65 = String._bridgeToObjectiveC()();
 
-        StaticString.description.getter();
+        StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
         v66 = String._bridgeToObjectiveC()();
 
         v67 = [v66 lastPathComponent];
@@ -8655,13 +8657,13 @@ LABEL_40:
         v117 = *(v124 + 122);
         v120 = *(v124 + 125);
         v71 = static OS_os_log.crlAssert;
-        sub_1005B981C(&qword_1019F54E0);
+        sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
         v72 = swift_initStackObject();
         *(v72 + 16) = xmmword_10146CA70;
         *(v72 + 56) = &type metadata for Int32;
         *(v72 + 64) = &protocol witness table for Int32;
         *(v72 + 32) = v64;
-        v73 = sub_100006370(0, &qword_1019F4D30);
+        v73 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
         *(v72 + 96) = v73;
         v74 = sub_1005CF04C();
         *(v72 + 104) = v74;
@@ -8683,7 +8685,7 @@ LABEL_40:
         v79 = static os_log_type_t.error.getter();
         sub_100005404(v71, &_mh_execute_header, v79, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v72);
         swift_setDeallocating();
-        sub_1005B981C(&unk_1019F5670);
+        sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
         swift_arrayDestroy();
         v80 = static os_log_type_t.error.getter();
         sub_100005404(v71, &_mh_execute_header, v80, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -8695,13 +8697,13 @@ LABEL_40:
         v81[4] = 0;
         v81[5] = 0;
         v82 = __VaListBuilder.va_list()();
-        StaticString.description.getter();
+        StaticString.description.getter("pathBySnappingFillPathToShape(_:)", 33, 2);
         v83 = String._bridgeToObjectiveC()();
 
-        StaticString.description.getter();
+        StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
         v84 = String._bridgeToObjectiveC()();
 
-        StaticString.description.getter();
+        StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
         v85 = String._bridgeToObjectiveC()();
 
         [v123 handleFailureInFunction:v83 file:v84 lineNumber:420 isFatal:0 format:v85 args:v82];
@@ -8717,7 +8719,7 @@ LABEL_40:
 
 LABEL_34:
     v86 = objc_opt_self();
-    sub_100006370(0, &qword_101A02480);
+    sub_100006370(0, &qword_101A02480, off_10182F728);
     v87 = Array._bridgeToObjectiveC()().super.isa;
 
     v43 = [v86 uniteBezierPaths:v87];
@@ -8737,11 +8739,11 @@ LABEL_34:
     v122 = objc_opt_self();
     LODWORD(v45.super.isa) = [v122 _atomicIncrementAssertCount];
     v125 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v125);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v125, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("pathBySnappingFillPathToShape(_:)", 33, 2);
     v9 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v93 = String._bridgeToObjectiveC()();
 
     v94 = [v93 lastPathComponent];
@@ -8759,7 +8761,7 @@ LABEL_34:
 
   v42 = *(v0 + 121);
 
-  sub_10000CAAC(v42, &unk_101A2BF40);
+  sub_10000CAAC(v42, &unk_101A2BF40, &qword_1014CE308);
 LABEL_15:
   v43 = 0;
   v44 = 0;
@@ -8790,7 +8792,7 @@ uint64_t sub_101185B10()
   if (v3(v5, 1, v4) == 1)
   {
     v6 = v0[135];
-    sub_10000CAAC(v0[126], &qword_101A01C10);
+    sub_10000CAAC(v0[126], &qword_101A01C10, &qword_10147ECC0);
 
 LABEL_12:
     v43 = 0;
@@ -8834,11 +8836,11 @@ LABEL_12:
     v18 = objc_opt_self();
     v19 = [v18 _atomicIncrementAssertCount];
     v121 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v121);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v121, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("pathBySnappingFillPathToShape(_:)", 33, 2);
     v20 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v21 = String._bridgeToObjectiveC()();
 
     v22 = [v21 lastPathComponent];
@@ -8852,13 +8854,13 @@ LABEL_12:
     }
 
     v25 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v19;
-    v27 = sub_100006370(0, &qword_1019F4D30);
+    v27 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v27;
     v28 = sub_1005CF04C();
     *(inited + 104) = v28;
@@ -8880,7 +8882,7 @@ LABEL_12:
     v32 = static os_log_type_t.error.getter();
     sub_100005404(v25, &_mh_execute_header, v32, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v33 = static os_log_type_t.error.getter();
     sub_100005404(v25, &_mh_execute_header, v33, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -8892,13 +8894,13 @@ LABEL_12:
     v34[4] = 0;
     v34[5] = 0;
     v35 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("pathBySnappingFillPathToShape(_:)", 33, 2);
     v36 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v37 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v38 = String._bridgeToObjectiveC()();
 
     [v18 handleFailureInFunction:v36 file:v37 lineNumber:409 isFatal:0 format:v38 args:v35];
@@ -8911,12 +8913,12 @@ LABEL_12:
   v39 = v0[123];
   v40 = v0[122];
   v41 = v0[121];
-  sub_10003DFF8(v0[120], v41, &unk_101A2BF40);
+  sub_10003DFF8(v0[120], v41, &unk_101A2BF40, &qword_1014CE308);
   if ((*(v39 + 48))(v41, 1, v40) == 1)
   {
     v42 = v0[121];
 
-    sub_10000CAAC(v42, &unk_101A2BF40);
+    sub_10000CAAC(v42, &unk_101A2BF40, &qword_1014CE308);
     goto LABEL_12;
   }
 
@@ -8969,7 +8971,7 @@ LABEL_20:
 
 LABEL_34:
       v85 = objc_opt_self();
-      sub_100006370(0, &qword_101A02480);
+      sub_100006370(0, &qword_101A02480, off_10182F728);
       v86 = Array._bridgeToObjectiveC()().super.isa;
 
       v43 = [v85 uniteBezierPaths:v86];
@@ -8987,11 +8989,11 @@ LABEL_34:
       v118 = objc_opt_self();
       LODWORD(v47.super.isa) = [v118 _atomicIncrementAssertCount];
       v121 = [objc_allocWithZone(NSString) init];
-      sub_100604538(_swiftEmptyArrayStorage, &v121);
-      StaticString.description.getter();
+      sub_100604538(_swiftEmptyArrayStorage, &v121, "invalid nil found when unwrapping value", 39, 2u);
+      StaticString.description.getter("pathBySnappingFillPathToShape(_:)", 33, 2);
       v13 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
       v90 = String._bridgeToObjectiveC()();
 
       v91 = [v90 lastPathComponent];
@@ -9007,13 +9009,13 @@ LABEL_38:
         v111 = v0[135];
         v114 = v0[122];
         v94 = static OS_os_log.crlAssert;
-        sub_1005B981C(&qword_1019F54E0);
+        sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
         v95 = swift_initStackObject();
         *(v95 + 16) = xmmword_10146CA70;
         *(v95 + 56) = &type metadata for Int32;
         *(v95 + 64) = &protocol witness table for Int32;
         *(v95 + 32) = v47.super.isa;
-        v96 = sub_100006370(0, &qword_1019F4D30);
+        v96 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
         *(v95 + 96) = v96;
         v97 = sub_1005CF04C();
         *(v95 + 104) = v97;
@@ -9035,7 +9037,7 @@ LABEL_38:
         v102 = static os_log_type_t.error.getter();
         sub_100005404(v94, &_mh_execute_header, v102, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v95);
         swift_setDeallocating();
-        sub_1005B981C(&unk_1019F5670);
+        sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
         swift_arrayDestroy();
         v103 = static os_log_type_t.error.getter();
         sub_100005404(v94, &_mh_execute_header, v103, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -9047,13 +9049,13 @@ LABEL_38:
         v104[4] = 0;
         v104[5] = 0;
         v105 = __VaListBuilder.va_list()();
-        StaticString.description.getter();
+        StaticString.description.getter("pathBySnappingFillPathToShape(_:)", 33, 2);
         v106 = String._bridgeToObjectiveC()();
 
-        StaticString.description.getter();
+        StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
         v107 = String._bridgeToObjectiveC()();
 
-        StaticString.description.getter();
+        StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
         v108 = String._bridgeToObjectiveC()();
 
         [v118 handleFailureInFunction:v106 file:v107 lineNumber:426 isFatal:0 format:v108 args:v105];
@@ -9101,11 +9103,11 @@ LABEL_41:
     v119 = objc_opt_self();
     v63 = [v119 _atomicIncrementAssertCount];
     v121 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v121);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v121, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("pathBySnappingFillPathToShape(_:)", 33, 2);
     v64 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v65 = String._bridgeToObjectiveC()();
 
     v66 = [v65 lastPathComponent];
@@ -9123,13 +9125,13 @@ LABEL_41:
     v113 = v120[122];
     v116 = v120[125];
     v70 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     v71 = swift_initStackObject();
     *(v71 + 16) = xmmword_10146CA70;
     *(v71 + 56) = &type metadata for Int32;
     *(v71 + 64) = &protocol witness table for Int32;
     *(v71 + 32) = v63;
-    v72 = sub_100006370(0, &qword_1019F4D30);
+    v72 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(v71 + 96) = v72;
     v73 = sub_1005CF04C();
     *(v71 + 104) = v73;
@@ -9151,7 +9153,7 @@ LABEL_41:
     v78 = static os_log_type_t.error.getter();
     sub_100005404(v70, &_mh_execute_header, v78, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v71);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v79 = static os_log_type_t.error.getter();
     sub_100005404(v70, &_mh_execute_header, v79, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -9163,13 +9165,13 @@ LABEL_41:
     v80[4] = 0;
     v80[5] = 0;
     v81 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("pathBySnappingFillPathToShape(_:)", 33, 2);
     v82 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v83 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v84 = String._bridgeToObjectiveC()();
 
     [v119 handleFailureInFunction:v82 file:v83 lineNumber:420 isFatal:0 format:v84 args:v81];
@@ -9219,7 +9221,7 @@ uint64_t sub_101186CB0()
   v1[4] = *(v2 - 8);
   v1[5] = swift_task_alloc();
   v1[6] = swift_task_alloc();
-  sub_1005B981C(&qword_101A01C10);
+  sub_1005B981C(&qword_101A01C10, &qword_10147ECC0);
   v1[7] = swift_task_alloc();
   v3 = type metadata accessor for CRLFreehandDrawingIntelligenceProvider.CRLOriginalStrokesWrapper(0);
   v1[8] = v3;
@@ -9358,7 +9360,7 @@ uint64_t sub_1011875E8()
   v5 = *(v0 + 56);
   if (v4 == 1)
   {
-    sub_10000CAAC(*(v0 + 56), &qword_101A01C10);
+    sub_10000CAAC(*(v0 + 56), &qword_101A01C10, &qword_10147ECC0);
     v6 = sub_101187704;
   }
 
@@ -9372,62 +9374,62 @@ uint64_t sub_1011875E8()
   return _swift_task_switch(v6, 0, 0);
 }
 
-uint64_t sub_101187704()
+uint64_t sub_101187704(__n128 a1)
 {
-  v1 = *(v0 + 200);
-  v2 = *(v0 + 144);
-  v3 = *(v0 + 192) + 1;
-  sub_1011A0324(*(v0 + 80), type metadata accessor for CRLFreehandDrawingIntelligenceProvider.CRLOriginalStrokesWrapper);
-  if (v3 == v2)
+  v2 = *(v1 + 200);
+  v3 = *(v1 + 144);
+  v4 = *(v1 + 192) + 1;
+  sub_1011A0324(*(v1 + 80), type metadata accessor for CRLFreehandDrawingIntelligenceProvider.CRLOriginalStrokesWrapper);
+  if (v4 == v3)
   {
 
-    *(v0 + 168) = v1;
-    if (*(v1 + 16))
+    *(v1 + 168) = v2;
+    if (*(v2 + 16))
     {
-      v5 = *(v0 + 128);
-      v4 = *(v0 + 136);
-      v6 = *(v0 + 16);
-      v7 = swift_task_alloc();
-      *(v0 + 176) = v7;
-      *(v7 + 16) = v6;
-      *(v7 + 24) = v1;
-      *(v7 + 32) = v5;
-      *(v7 + 40) = v4;
-      *(v7 + 48) = 1;
+      v6 = *(v1 + 128);
+      v5 = *(v1 + 136);
+      v7 = *(v1 + 16);
       v8 = swift_task_alloc();
-      *(v0 + 184) = v8;
-      *v8 = v0;
-      v8[1] = sub_1011872AC;
+      *(v1 + 176) = v8;
+      *(v8 + 16) = v7;
+      *(v8 + 24) = v2;
+      *(v8 + 32) = v6;
+      *(v8 + 40) = v5;
+      *(v8 + 48) = 1;
+      v9 = swift_task_alloc();
+      *(v1 + 184) = v9;
+      *v9 = v1;
+      v9[1] = sub_1011872AC;
 
-      return withCheckedContinuation<A>(isolation:function:_:)(v8, 0, 0, 0xD00000000000003ALL, 0x80000001015C4850, sub_1011A7394, v7, &type metadata for () + 8);
+      return withCheckedContinuation<A>(isolation:function:_:)(v9, 0, 0, 0xD00000000000003ALL, 0x80000001015C4850, sub_1011A7394, v8, &type metadata for () + 8);
     }
 
     else
     {
 
-      v14 = *(v0 + 104);
-      v15 = *(v0 + 112);
+      v15 = *(v1 + 104);
+      v16 = *(v1 + 112);
 
-      return _swift_task_switch(sub_10118741C, v14, v15);
+      return _swift_task_switch(sub_10118741C, v15, v16);
     }
   }
 
   else
   {
-    *(v0 + 192) = v3;
-    *(v0 + 200) = v1;
-    v9 = *(v0 + 80);
-    v10 = *(v0 + 64);
-    sub_1011A04B8(*(v0 + 120) + ((*(v0 + 232) + 32) & ~*(v0 + 232)) + *(v0 + 160) * v3, v9, type metadata accessor for CRLFreehandDrawingIntelligenceProvider.CRLOriginalStrokesWrapper);
-    v11 = *(v9 + *(v10 + 28));
-    *(v0 + 208) = static MainActor.shared.getter();
-    v12 = swift_task_alloc();
-    *(v0 + 216) = v12;
-    *v12 = v0;
-    v12[1] = sub_1011874AC;
-    v13 = *(v0 + 56);
+    *(v1 + 192) = v4;
+    *(v1 + 200) = v2;
+    v10 = *(v1 + 80);
+    v11 = *(v1 + 64);
+    sub_1011A04B8(*(v1 + 120) + ((*(v1 + 232) + 32) & ~*(v1 + 232)) + *(v1 + 160) * v4, v10, type metadata accessor for CRLFreehandDrawingIntelligenceProvider.CRLOriginalStrokesWrapper);
+    v12 = *(v10 + *(v11 + 28));
+    *(v1 + 208) = static MainActor.shared.getter();
+    v13 = swift_task_alloc();
+    *(v1 + 216) = v13;
+    *v13 = v1;
+    v13[1] = sub_1011874AC;
+    v14 = *(v1 + 56);
 
-    return RecognitionController.drawingByStraighteningHandwriting(in:)(v13, v11);
+    return RecognitionController.drawingByStraighteningHandwriting(in:)(v14, v12);
   }
 }
 
@@ -9452,7 +9454,7 @@ uint64_t sub_101187974()
   v7 = v6[3];
   if (v8 >= v7 >> 1)
   {
-    v6 = sub_100B39988(v7 > 1, v8 + 1, 1, v6);
+    v6 = sub_100B39988((v7 > 1), v8 + 1, 1, v6);
   }
 
   v9 = *(v0 + 40);
@@ -9542,9 +9544,9 @@ uint64_t sub_101187F08()
   return sub_101186CB0();
 }
 
-uint64_t sub_101188094(uint64_t a1, void *a2)
+double sub_101188094(uint64_t a1, void *a2)
 {
-  v3 = sub_1005B981C(&qword_1019FB750);
+  v3 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   v6 = type metadata accessor for TaskPriority();
@@ -9555,6 +9557,8 @@ uint64_t sub_101188094(uint64_t a1, void *a2)
   v7[4] = a2;
   v8 = a2;
   sub_10064191C(0, 0, v5, &unk_1014CE3A8, v7);
+
+  return result;
 }
 
 uint64_t sub_1011881BC()
@@ -9732,11 +9736,11 @@ LABEL_5:
     v39 = objc_opt_self();
     v6 = [v39 _atomicIncrementAssertCount];
     v40 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v40);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v40, "Should not be receiving Auto-Refine results when we don't have a PencilKit canvas view controller.", 98, 2u);
+    StaticString.description.getter("setUpAutoRefine()", 17, 2);
     v7 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v8 = String._bridgeToObjectiveC()();
 
     v9 = [v8 lastPathComponent];
@@ -9750,13 +9754,13 @@ LABEL_5:
     }
 
     v13 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v6;
-    v15 = sub_100006370(0, &qword_1019F4D30);
+    v15 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v15;
     v16 = sub_1005CF04C();
     *(inited + 104) = v16;
@@ -9778,7 +9782,7 @@ LABEL_5:
     v21 = static os_log_type_t.error.getter();
     sub_100005404(v13, &_mh_execute_header, v21, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v22 = static os_log_type_t.error.getter();
     sub_100005404(v13, &_mh_execute_header, v22, "Should not be receiving Auto-Refine results when we don't have a PencilKit canvas view controller.", 98, 2, _swiftEmptyArrayStorage);
@@ -9790,13 +9794,13 @@ LABEL_5:
     v23[4] = 0;
     v23[5] = 0;
     v24 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("setUpAutoRefine()", 17, 2);
     v25 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingIntelligenceProvider.swift", 109, 2);
     v26 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("Should not be receiving Auto-Refine results when we don't have a PencilKit canvas view controller.", 98, 2);
     v27 = String._bridgeToObjectiveC()();
 
     [v39 handleFailureInFunction:v25 file:v26 lineNumber:558 isFatal:0 format:v27 args:v24];
@@ -9859,7 +9863,7 @@ uint64_t sub_1011892B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char 
   *(v7 + 368) = v9;
   *(v7 + 376) = *(v9 - 8);
   *(v7 + 384) = swift_task_alloc();
-  *(v7 + 392) = *(sub_1005B981C(&qword_1019F6990) - 8);
+  *(v7 + 392) = *(sub_1005B981C(&qword_1019F6990, &qword_10146D2F0) - 8);
   *(v7 + 400) = swift_task_alloc();
   *(v7 + 408) = swift_task_alloc();
   *(v7 + 416) = swift_task_alloc();

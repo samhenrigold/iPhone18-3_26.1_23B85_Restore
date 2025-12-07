@@ -38,7 +38,7 @@
   v6 = PASExtensionPickedAccount.isEqual(_:)(v8);
 
   sub_260FAC3F0(v8);
-  return v6 & 1;
+  return v6;
 }
 
 - (int64_t)hash

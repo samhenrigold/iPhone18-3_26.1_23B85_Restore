@@ -65,7 +65,7 @@
     if ([(MSDPartialDownload *)self totalFileSize]< v5)
     {
       v6 = [NSDictionary dictionaryWithObjectsAndKeys:@"Downloaded file size went bigger than total size", @"testEventAdditionalData", &off_10017AF00, @"testLogLevel", 0];
-      v7 = sub_100063A54();
+      v7 = sub_100063A54(v6);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;

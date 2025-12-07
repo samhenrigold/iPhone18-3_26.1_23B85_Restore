@@ -1,13 +1,13 @@
 @interface NSString(TSUNSStringPathExtensions)
 - (BOOL)tsu_isPathCreatedByAppendingPathComponent:()TSUNSStringPathExtensions insideBasePath:;
+- (char)tsu_rangeOfString:()TSUNSStringPathExtensions options:updatingSearchRange:;
 - (id)tsu_pathToRelativeComponentPath:()TSUNSStringPathExtensions;
-- (uint64_t)tsu_rangeOfString:()TSUNSStringPathExtensions options:updatingSearchRange:;
 - (void)tsu_enumerateRangesOfCharactersInSet:()TSUNSStringPathExtensions usingBlock:;
 @end
 
 @implementation NSString(TSUNSStringPathExtensions)
 
-- (uint64_t)tsu_rangeOfString:()TSUNSStringPathExtensions options:updatingSearchRange:
+- (char)tsu_rangeOfString:()TSUNSStringPathExtensions options:updatingSearchRange:
 {
   if (a5)
   {
@@ -22,13 +22,13 @@
     else if ((a4 & 4) != 0)
     {
       *a5 = v9;
-      a5[1] = result - v9;
+      a5[1] = &result[-v9];
     }
 
     else
     {
-      *a5 = result + v12;
-      a5[1] = v10 + v9 - (result + v12);
+      *a5 = &result[v12];
+      a5[1] = v10 + v9 - &result[v12];
     }
   }
 

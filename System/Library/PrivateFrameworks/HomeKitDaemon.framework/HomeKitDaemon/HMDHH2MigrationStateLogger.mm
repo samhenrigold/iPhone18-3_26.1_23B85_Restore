@@ -10,10 +10,15 @@
 + (void)commitMigrationLogEventToDiskWithKey:(id)key value:(id)value;
 + (void)incrementAutoMigrationAttempt;
 + (void)incrementMigrationAttempt;
++ (void)recordIsDryRun:(BOOL)run;
++ (void)recordMigrationEnd:(BOOL)end;
 + (void)recordMigrationEndTimeWithValue:(unint64_t)value;
 + (void)recordMigrationFailedWithError:(id)error withReason:(id)reason;
++ (void)recordMigrationStart:(BOOL)start isDryRun:(BOOL)run;
 + (void)recordMigrationStartTimeWithValue:(unint64_t)value;
 + (void)removeMigrationLogEventRecordFromDisk;
++ (void)setAutoMigration:(BOOL)migration;
++ (void)setMigrationSuccessful:(BOOL)successful;
 - (BOOL)isAutoMigration;
 - (BOOL)isDryRun;
 - (BOOL)isMigrationSuccessful;
@@ -163,12 +168,12 @@
 
 + (void)removeMigrationLogEventRecordFromDisk
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = hh2MigrationLogEventPath;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v17 = 0;
-  v5 = [defaultManager removeItemAtPath:v3 error:&v17];
-  v6 = v17;
+  v16 = 0;
+  v5 = [defaultManager removeItemAtPath:v3 error:&v16];
+  v6 = v16;
 
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -180,7 +185,7 @@
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v19 = v11;
+      v18 = v11;
       v12 = "%{public}@Successfully deleted the HH2 migration log event record from disk";
       v13 = v10;
       v14 = OS_LOG_TYPE_INFO;
@@ -194,9 +199,9 @@ LABEL_6:
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v19 = v11;
-    v20 = 2112;
-    v21 = v6;
+    v18 = v11;
+    v19 = 2112;
+    v20 = v6;
     v12 = "%{public}@Failed to delete the HH2 migration log event record from disk : %@";
     v13 = v10;
     v14 = OS_LOG_TYPE_ERROR;
@@ -205,25 +210,24 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v7);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (id)migrationLogEventRecord
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if ([objc_opt_class() doesLogEventExistOnDisk])
   {
     v3 = hh2MigrationLogEventPath;
-    v33 = 0;
-    v4 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v3 options:2 error:&v33];
-    v5 = v33;
+    v32 = 0;
+    v4 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v3 options:2 error:&v32];
+    v5 = v32;
     if (v4)
     {
       v6 = MEMORY[0x277CCAAC8];
       allowedValues = [objc_opt_class() allowedValues];
-      v32 = 0;
-      dictionary = [v6 unarchivedObjectOfClasses:allowedValues fromData:v4 error:&v32];
-      v9 = v32;
+      v31 = 0;
+      dictionary = [v6 unarchivedObjectOfClasses:allowedValues fromData:v4 error:&v31];
+      v9 = v31;
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -268,14 +272,14 @@ LABEL_6:
           if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
             HMFGetLogIdentifier();
-            v28 = v31 = v25;
+            v28 = v30 = v25;
             *buf = 138543618;
-            v35 = v28;
-            v36 = 2112;
-            v37 = v12;
+            v34 = v28;
+            v35 = 2112;
+            v36 = v12;
             _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Unable to open the migration log event record from archive data: %@", buf, 0x16u);
 
-            v25 = v31;
+            v25 = v30;
           }
 
           objc_autoreleasePoolPop(v25);
@@ -292,9 +296,9 @@ LABEL_6:
         {
           v24 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v35 = v24;
-          v36 = 2112;
-          v37 = v9;
+          v34 = v24;
+          v35 = 2112;
+          v36 = v9;
           _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive migration log event record from archive data: %@", buf, 0x16u);
         }
 
@@ -312,9 +316,9 @@ LABEL_6:
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v35 = v20;
-        v36 = 2112;
-        v37 = v5;
+        v34 = v20;
+        v35 = 2112;
+        v36 = v5;
         _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Unable to read the migration log event record due to an error: [%@]", buf, 0x16u);
       }
 
@@ -327,8 +331,6 @@ LABEL_6:
   {
     dictionary = [MEMORY[0x277CBEAC0] dictionary];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -344,23 +346,21 @@ LABEL_6:
 
 + (id)allowedValues
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = objc_opt_class();
-  v7[1] = objc_opt_class();
-  v7[2] = objc_opt_class();
-  v7[3] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v6[3] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (void)commitMigrationLogEventToDisk:(id)disk
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   diskCopy = disk;
   v5 = hh2MigrationLogEventPath;
   v6 = objc_autoreleasePoolPush();
@@ -369,11 +369,11 @@ LABEL_6:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v21 = 138543618;
-    v22 = v9;
-    v23 = 2112;
-    v24 = diskCopy;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Going to write migration log event : [%@]", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = v9;
+    v22 = 2112;
+    v23 = diskCopy;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Going to write migration log event : [%@]", &v20, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -387,10 +387,10 @@ LABEL_6:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v15;
-      v23 = 2112;
-      v24 = v5;
+      v20 = 138543618;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v5;
       v16 = "%{public}@Unable to write migration log event at location : %@";
       v17 = v14;
       v18 = 22;
@@ -411,17 +411,17 @@ LABEL_10:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v21 = 138543874;
-      v22 = v15;
-      v23 = 2112;
-      v24 = v11;
-      v25 = 2112;
-      v26 = v5;
+      v20 = 138543874;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v11;
+      v24 = 2112;
+      v25 = v5;
       v16 = "%{public}@Unable to write migration log event [%@] to location : %@";
       v17 = v14;
       v18 = 32;
 LABEL_9:
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, v16, &v21, v18);
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, v16, &v20, v18);
 
       goto LABEL_10;
     }
@@ -430,8 +430,6 @@ LABEL_9:
   }
 
 LABEL_11:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 + (void)commitMigrationLogEventToDiskWithKey:(id)key value:(id)value
@@ -447,7 +445,7 @@ LABEL_11:
 
 + (void)incrementAutoMigrationAttempt
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   productInfo = [MEMORY[0x277D0F8E8] productInfo];
   softwareVersion = [productInfo softwareVersion];
@@ -467,18 +465,18 @@ LABEL_11:
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v29 = v13;
-        v30 = 2114;
-        v31 = v9;
-        v32 = 2114;
-        v33 = buildVersion;
+        v28 = v13;
+        v29 = 2114;
+        v30 = v9;
+        v31 = 2114;
+        v32 = buildVersion;
         _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Incrementing auto migration attempt to %{public}@ for build %{public}@", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v10);
-      v26 = buildVersion;
-      v27 = v9;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+      v25 = buildVersion;
+      v26 = v9;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
       [standardUserDefaults setObject:v14 forKey:@"autoMigrationAttemptCount"];
     }
 
@@ -491,16 +489,16 @@ LABEL_11:
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v29 = v22;
-        v30 = 2114;
-        v31 = buildVersion;
+        v28 = v22;
+        v29 = 2114;
+        v30 = buildVersion;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Initializing first auto migration attempt for build %{public}@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v19);
-      v24 = buildVersion;
-      v25 = &unk_283E71630;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v23 = buildVersion;
+      v24 = &unk_283E71630;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
       [standardUserDefaults setObject:v9 forKey:@"autoMigrationAttemptCount"];
     }
   }
@@ -514,14 +512,12 @@ LABEL_11:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v29 = v18;
+      v28 = v18;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_FAULT, "%{public}@Should not get here, skipping incrementing auto migration attempt due to missing build version", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (id)autoMigrationAttempt
@@ -586,6 +582,14 @@ LABEL_11:
   [standardUserDefaults setInteger:migrationAttempt + 1 forKey:@"migrationAttemptCount"];
 }
 
++ (void)setMigrationSuccessful:(BOOL)successful
+{
+  successfulCopy = successful;
+  v4 = objc_opt_class();
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:successfulCopy];
+  [v4 commitMigrationLogEventToDiskWithKey:@"migrationSuccess" value:v5];
+}
+
 + (void)recordMigrationEndTimeWithValue:(unint64_t)value
 {
   v4 = objc_opt_class();
@@ -598,6 +602,14 @@ LABEL_11:
   v4 = objc_opt_class();
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:value];
   [v4 commitMigrationLogEventToDiskWithKey:@"migrationStartTime" value:v5];
+}
+
++ (void)setAutoMigration:(BOOL)migration
+{
+  migrationCopy = migration;
+  v4 = objc_opt_class();
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:migrationCopy];
+  [v4 commitMigrationLogEventToDiskWithKey:@"isAutoMigration" value:v5];
 }
 
 + (id)_getLowestError:(id)error
@@ -804,6 +816,39 @@ void __72__HMDHH2MigrationStateLogger_recordMigrationFailedWithError_withReason_
     v8 = v9;
     *a4 = 1;
   }
+}
+
++ (void)recordIsDryRun:(BOOL)run
+{
+  runCopy = run;
+  v4 = objc_opt_class();
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:runCopy];
+  [v4 commitMigrationLogEventToDiskWithKey:@"isDryRun" value:v5];
+}
+
++ (void)recordMigrationEnd:(BOOL)end
+{
+  [objc_opt_class() setMigrationSuccessful:end];
+  v3 = objc_opt_class();
+  mach_absolute_time();
+  v4 = UpTicksToSeconds();
+
+  [v3 recordMigrationEndTimeWithValue:v4];
+}
+
++ (void)recordMigrationStart:(BOOL)start isDryRun:(BOOL)run
+{
+  runCopy = run;
+  startCopy = start;
+  [objc_opt_class() removeMigrationLogEventRecordFromDisk];
+  [objc_opt_class() setAutoMigration:startCopy];
+  [objc_opt_class() incrementMigrationAttempt];
+  v6 = objc_opt_class();
+  mach_absolute_time();
+  [v6 recordMigrationStartTimeWithValue:UpTicksToSeconds()];
+  v7 = objc_opt_class();
+
+  [v7 recordIsDryRun:runCopy];
 }
 
 @end

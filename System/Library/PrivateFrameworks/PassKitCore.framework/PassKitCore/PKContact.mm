@@ -149,18 +149,14 @@
     }
   }
 
-  else
+  else if (([(NSPersonNameComponents *)name isEqual:?]& 1) == 0)
   {
-    v8 = [(NSPersonNameComponents *)name isEqual:?];
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_26;
-    }
+    goto LABEL_26;
   }
 
   postalAddress = self->_postalAddress;
-  v10 = contactCopy[2];
-  if (postalAddress && v10)
+  v9 = contactCopy[2];
+  if (postalAddress && v9)
   {
     if (([(CNPostalAddress *)postalAddress isEqual:?]& 1) == 0)
     {
@@ -168,38 +164,38 @@
     }
   }
 
-  else if (postalAddress != v10)
+  else if (postalAddress != v9)
   {
     goto LABEL_26;
   }
 
-  v11 = contactCopy[4];
-  v12 = self->_emailAddress;
-  v13 = v11;
-  v14 = v13;
-  if (v12 == v13)
+  v10 = contactCopy[4];
+  v11 = self->_emailAddress;
+  v12 = v10;
+  v13 = v12;
+  if (v11 == v12)
   {
   }
 
   else
   {
-    if (!v12 || !v13)
+    if (!v11 || !v12)
     {
 
       goto LABEL_26;
     }
 
-    v15 = [(NSString *)v12 isEqualToString:v13];
+    isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-    if (!v15)
+    if (!isEqualToString)
     {
       goto LABEL_26;
     }
   }
 
   phoneNumber = self->_phoneNumber;
-  v17 = contactCopy[3];
-  if (phoneNumber && v17)
+  v16 = contactCopy[3];
+  if (phoneNumber && v16)
   {
     if (([(CNPhoneNumber *)phoneNumber isEqual:?]& 1) != 0)
     {
@@ -207,31 +203,31 @@
     }
 
 LABEL_26:
-    v18 = 0;
+    v17 = 0;
     goto LABEL_27;
   }
 
-  if (phoneNumber != v17)
+  if (phoneNumber != v16)
   {
     goto LABEL_26;
   }
 
 LABEL_28:
   supplementarySubLocality = self->_supplementarySubLocality;
-  v21 = contactCopy[5];
-  if (supplementarySubLocality && v21)
+  v20 = contactCopy[5];
+  if (supplementarySubLocality && v20)
   {
-    v18 = [(NSString *)supplementarySubLocality isEqual:?];
+    v17 = [(NSString *)supplementarySubLocality isEqual:?];
   }
 
   else
   {
-    v18 = supplementarySubLocality == v21;
+    v17 = supplementarySubLocality == v20;
   }
 
 LABEL_27:
 
-  return v18;
+  return v17;
 }
 
 - (unint64_t)hash
@@ -444,11 +440,11 @@ LABEL_12:
 
 uint64_t __52__PKContact_sanitizePostalAddressCountryWithLocale___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 isoCountryCode];
-  v4 = [v3 uppercaseString];
+  v2 = [a2 isoCountryCode];
+  v3 = [v2 uppercaseString];
 
-  v5 = [v4 isEqualToString:*(a1 + 32)];
-  return v5;
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
+  return isEqualToString;
 }
 
 - (PKContact)initWithDictionary:(id)dictionary error:(id *)error
@@ -653,7 +649,7 @@ LABEL_33:
 void __38__PKContact_initWithDictionary_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
-  if (![a2 isEqualToString:@"addressLines"])
+  if (!objc_msgSend_isEqualToString_(a2))
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())

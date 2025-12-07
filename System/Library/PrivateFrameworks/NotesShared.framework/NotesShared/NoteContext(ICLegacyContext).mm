@@ -282,13 +282,17 @@
 - (void)performBlock:()ICLegacyContext .cold.1()
 {
   v0 = [MEMORY[0x277CCACC8] callStackSymbols];
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v1, v2, "Trying to call performBlock on a legacy context with confinement concurrency type: %@", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v1, v2, "Trying to call performBlock on a legacy context with confinement concurrency type: %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 - (void)performBlockAndWait:()ICLegacyContext .cold.1()
 {
   v0 = [MEMORY[0x277CCACC8] callStackSymbols];
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v1, v2, "Trying to call performBlockAndWait on a legacy context with confinement concurrency type: %@", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v1, v2, "Trying to call performBlockAndWait on a legacy context with confinement concurrency type: %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 - (void)attachmentForIdentifier:()ICLegacyContext .cold.1(uint64_t a1, void *a2, NSObject *a3)

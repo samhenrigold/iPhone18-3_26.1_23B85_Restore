@@ -212,9 +212,11 @@ LABEL_43:
 
 uint64_t __45__ICMonitoredAccountStore_sharedAccountStore__block_invoke()
 {
-  sharedAccountStore_sSharedAccountStore = objc_alloc_init(ICMonitoredAccountStore);
+  v0 = objc_alloc_init(ICMonitoredAccountStore);
+  v1 = sharedAccountStore_sSharedAccountStore;
+  sharedAccountStore_sSharedAccountStore = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (ICMonitoredAccountStore)init

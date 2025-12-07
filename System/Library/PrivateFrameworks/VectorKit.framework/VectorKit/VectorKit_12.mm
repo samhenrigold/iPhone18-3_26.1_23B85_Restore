@@ -1,4 +1,4 @@
-uint64_t gss::trafficDecoder<gss::PropertyID>(uint64_t a1, unint64_t a2, uint64_t a3, __int16 a4, uint64_t a5, void *a6)
+uint64_t gss::trafficDecoder<gss::PropertyID>(uint64_t a1, uint64_t a2, uint64_t a3, __int16 a4, uint64_t a5, void *a6)
 {
   v295 = *MEMORY[0x1E69E9840];
   v11 = *(a1 + 24);
@@ -1893,19 +1893,20 @@ unsigned __int8 *geo::QuadTile::computeHash(unsigned __int8 *this)
   return this;
 }
 
-uint64_t gms::_BasicMaterial<ggl::Texture2D>::addAlbedoFactor(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+uint64_t gms::_BasicMaterial<ggl::Texture2D>::addAlbedoFactor(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v6 = *(a1 + 112);
   if (!v6)
   {
+    v7 = a5;
     if (a5)
     {
-      v11 = 8;
-      v12 = a5;
-      std::__hash_table<std::__hash_value_type<gms::PropertyKey,BOOL>,std::__unordered_map_hasher<gms::PropertyKey,std::__hash_value_type<gms::PropertyKey,BOOL>,std::hash<gms::PropertyKey>,std::equal_to<gms::PropertyKey>,true>,std::__unordered_map_equal<gms::PropertyKey,std::__hash_value_type<gms::PropertyKey,BOOL>,std::equal_to<gms::PropertyKey>,std::hash<gms::PropertyKey>,true>,std::allocator<std::__hash_value_type<gms::PropertyKey,BOOL>>>::__emplace_unique_key_args<gms::PropertyKey,std::pair<gms::PropertyKey const,BOOL>>((a1 + 8), 8u);
+      LOBYTE(v11) = 8;
+      HIBYTE(v11) = a5;
+      std::__hash_table<std::__hash_value_type<gms::PropertyKey,BOOL>,std::__unordered_map_hasher<gms::PropertyKey,std::__hash_value_type<gms::PropertyKey,BOOL>,std::hash<gms::PropertyKey>,std::equal_to<gms::PropertyKey>,true>,std::__unordered_map_equal<gms::PropertyKey,std::__hash_value_type<gms::PropertyKey,BOOL>,std::equal_to<gms::PropertyKey>,std::hash<gms::PropertyKey>,true>,std::allocator<std::__hash_value_type<gms::PropertyKey,BOOL>>>::__emplace_unique_key_args<gms::PropertyKey,std::pair<gms::PropertyKey const,BOOL>>((a1 + 8), 8u, &v11);
     }
 
-    gms::createPropertyStore<geo::Color<float,4,(geo::ColorSpace)0>>(&v10, a5);
+    gms::createPropertyStore<geo::Color<float,4,(geo::ColorSpace)0>>(&v10, v7);
   }
 
   v8 = *(*v6 + 8);
@@ -1913,7 +1914,7 @@ uint64_t gms::_BasicMaterial<ggl::Texture2D>::addAlbedoFactor(uint64_t a1, uint6
   return v8();
 }
 
-void **std::unique_ptr<gms::MaterialSheet<ggl::Texture2D>>::~unique_ptr[abi:nn200100](void **a1)
+uint64_t *std::unique_ptr<gms::MaterialSheet<ggl::Texture2D>>::~unique_ptr[abi:nn200100](uint64_t *a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -2004,7 +2005,7 @@ uint64_t std::__function::__func<md::LightingLogic::LightingLogic(NSObject  {obj
 {
   if (*a2 == 1)
   {
-    return MEMORY[0x1EEE0BE10]();
+    return MEMORY[0x1EEE0BE10](a1);
   }
 
   else
@@ -2159,7 +2160,7 @@ uint64_t gm::Box<float,3>::forEachCorner(_DWORD *a1, uint64_t a2)
         v7 = v6;
       }
 
-      *(&v11 + v5++) = *v7;
+      *(&v12 + v5++) = *v7;
       ++v6;
     }
 
@@ -2170,7 +2171,7 @@ uint64_t gm::Box<float,3>::forEachCorner(_DWORD *a1, uint64_t a2)
       break;
     }
 
-    result = (*(*v8 + 48))(v8, &v11);
+    result = (*(*v8 + 48))(v8, &v12);
     if (++v4 == 8)
     {
       return result;
@@ -2178,7 +2179,7 @@ uint64_t gm::Box<float,3>::forEachCorner(_DWORD *a1, uint64_t a2)
   }
 
   v10 = std::__throw_bad_function_call[abi:nn200100]();
-  return md::VenueLogic::setNearestVenueDidChangeCallback(v10);
+  return md::VenueLogic::setNearestVenueDidChangeCallback(v10, v11);
 }
 
 uint64_t md::VenueLogic::setNearestVenueDidChangeCallback(uint64_t a1, uint64_t a2)
@@ -3152,7 +3153,7 @@ void *std::unique_ptr<md::SharedDeviceResources>::reset[abi:nn200100](void *resu
   return result;
 }
 
-uint64_t ggl::pixelFormatPixelsSize(int a1, unint64_t a2, unint64_t a3)
+unint64_t ggl::pixelFormatPixelsSize(int a1, unint64_t a2, unint64_t a3)
 {
   result = 0;
   switch(a1)
@@ -3547,7 +3548,7 @@ LABEL_34:
   }
 }
 
-void sub_1B28681FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1B28681FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v12 = *(v9 + 152);
   if (v12)
@@ -3879,7 +3880,7 @@ LABEL_59:
   }
 }
 
-uint64_t ggl::MetalResourceManager::upload(ggl::MetalResourceManager *a1, uint64_t a2, uint64_t a3)
+uint64_t ggl::MetalResourceManager::upload(ggl::MetalResourceManager *a1, uint64_t a2, void *a3)
 {
   v5 = *a2;
   v6 = *(a2 + 8);
@@ -4305,7 +4306,7 @@ LABEL_47:
   return result;
 }
 
-void ggl::IsoAlphaAtlas::IsoAlphaAtlas(ggl::IsoAlphaAtlas *this, unsigned int a2, float a3, float a4, ggl::Device *a5, float a6, float a7)
+void ggl::IsoAlphaAtlas::IsoAlphaAtlas(ggl::IsoAlphaAtlas *this, uint64_t a2, float a3, float a4, ggl::Device *a5, float a6, float a7)
 {
   v7[6] = *MEMORY[0x1E69E9840];
   *this = 0x800000080;
@@ -4313,7 +4314,7 @@ void ggl::IsoAlphaAtlas::IsoAlphaAtlas(ggl::IsoAlphaAtlas *this, unsigned int a2
   *(this + 2) = 0;
   *(this + 3) = 0;
   *(this + 4) = 0;
-  ggl::AlphaAtlas::generateTexture(v7, a3, 0.15, a6, a7);
+  ggl::AlphaAtlas::generateTexture(v7, 128, 0x80u, a3, 0.15, a6, a7);
 }
 
 BOOL geo::StringLiteral::operator==(uint64_t a1, uint64_t a2)
@@ -4455,7 +4456,7 @@ _BYTE *ggl::StencilManager::reset(_BYTE *this)
   return this;
 }
 
-unint64_t md::DaVinciPipelineStateManager<ggl::DaVinci::LinearDepthPipelineState,std::shared_ptr<ggl::LinearDepthShader>,ggl::ColorBufferOperation>::pipelineStateForFunctionConstants(void *a1, int8x8_t *a2, uint64_t *a3, uint8x8_t a4)
+void md::DaVinciPipelineStateManager<ggl::DaVinci::LinearDepthPipelineState,std::shared_ptr<ggl::LinearDepthShader>,ggl::ColorBufferOperation>::pipelineStateForFunctionConstants(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint8x8_t a4)
 {
   v61 = *MEMORY[0x1E69E9840];
   v6 = *a3;
@@ -4464,7 +4465,7 @@ unint64_t md::DaVinciPipelineStateManager<ggl::DaVinci::LinearDepthPipelineState
   v9 = *(a3 + 11);
   v10 = *(a3 + 12);
   a4.i32[0] = *(a3 + 13);
-  v36 = vmovl_u8(a4);
+  *v36[0].i8 = vmovl_u8(a4);
   v11 = *(a3 + 17);
   v12 = *(a3 + 18);
   v13 = *(a3 + 19);
@@ -4499,7 +4500,7 @@ unint64_t md::DaVinciPipelineStateManager<ggl::DaVinci::LinearDepthPipelineState
   v49 = v16;
   v50 = v17;
   v51 = BYTE2(v6) | BYTE3(v6);
-  v52 = (v36.i8[4] & 1) == 0;
+  v52 = (v36[0].i8[4] & 1) == 0;
   v53 = v7 ^ 1;
   v54 = 0;
   v55 = 0;
@@ -4512,10 +4513,10 @@ unint64_t md::DaVinciPipelineStateManager<ggl::DaVinci::LinearDepthPipelineState
   v60[3] = v24;
   v60[4] = v25;
   v60[5] = v26;
-  v60[6] = v8 & v36.i8[4] | v12 | v11;
+  v60[6] = v8 & v36[0].i8[4] | v12 | v11;
   *&v60[7] = v25 ^ 1u;
   v60[8] = v27;
-  result = ggl::packFunctionConstantKey(&v37, v15);
+  v28 = ggl::packFunctionConstantKey(&v37, v15);
   v29 = a2[13];
   if (!*&v29)
   {
@@ -4526,19 +4527,19 @@ unint64_t md::DaVinciPipelineStateManager<ggl::DaVinci::LinearDepthPipelineState
   v30.i16[0] = vaddlv_u8(v30);
   if (v30.u32[0] > 1uLL)
   {
-    v31 = result;
-    if (result >= *&v29)
+    v31 = v28;
+    if (v28 >= *&v29)
     {
-      v31 = result % *&v29;
+      v31 = v28 % *&v29;
     }
   }
 
   else
   {
-    v31 = (*&v29 - 1) & result;
+    v31 = (*&v29 - 1) & v28;
   }
 
-  v32 = *(*&a2[12] + 8 * v31);
+  v32 = *(a2[12] + 8 * v31);
   if (!v32 || (v33 = *v32) == 0)
   {
 LABEL_17:
@@ -4548,7 +4549,7 @@ LABEL_17:
   while (1)
   {
     v34 = v33[1];
-    if (v34 == result)
+    if (v34 == v28)
     {
       break;
     }
@@ -4579,7 +4580,7 @@ LABEL_16:
     }
   }
 
-  if (v33[2] != result)
+  if (v33[2] != v28)
   {
     goto LABEL_16;
   }
@@ -4591,8 +4592,6 @@ LABEL_16:
   {
     atomic_fetch_add_explicit((v35 + 8), 1uLL, memory_order_relaxed);
   }
-
-  return result;
 }
 
 void sub_1B286AD18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, __int128 a25)
@@ -4747,7 +4746,7 @@ ggl::zone_mallocator *std::vector<ggl::ConstantDataTyped<ggl::Tile::Clipping> *,
   return result;
 }
 
-void *std::unique_ptr<ggl::FragmentedPool<ggl::ConstantDataTyped<ggl::DaVinci::RibbonStyle>>>::reset[abi:nn200100](void **a1, void *a2)
+void *std::unique_ptr<ggl::FragmentedPool<ggl::ConstantDataTyped<ggl::DaVinci::RibbonStyle>>>::reset[abi:nn200100](uint64_t *a1, uint64_t a2)
 {
   result = *a1;
   *a1 = a2;
@@ -4917,9 +4916,9 @@ void md::LabelsLogic::setNeedsLayoutCallback(uint64_t a1, uint64_t a2)
   operator new();
 }
 
-void sub_1B286BD28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B286BD28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::__function::__value_func<void ()(md::LabelManager const*,md::NeedsLayoutReason)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -5019,9 +5018,9 @@ void md::LabelsLogic::setDidLayoutCallback(uint64_t a1, uint64_t a2)
   operator new();
 }
 
-void sub_1B286C480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B286C480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::__function::__value_func<void ()(md::LabelManager *)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -5067,59 +5066,59 @@ uint64_t std::__function::__value_func<void ()(VKARWalkingFeatureDidUpdateInfo *
   return a1;
 }
 
-uint64_t geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::operator[](uint64_t a1, unsigned int a2)
+uint64_t geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::operator[](unsigned __int16 *a1, unsigned int a2)
 {
   v4 = geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::keyIndex(a1, a2);
   v5 = v4;
-  if (v4 != *(a1 + 12))
+  if (v4 != a1[6])
   {
-    return *a1 + *(a1 + 8) + 2 * v4;
+    return *a1 + *(a1 + 2) + 2 * v4;
   }
 
-  if ((*(a1 + 16) & 1) == 0 && geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::keyIndex(a1, a2) == v4)
+  if ((a1[8] & 1) == 0 && geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::keyIndex(a1, a2) == v4)
   {
     isSpaceAvailable = geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::isSpaceAvailable(a1);
-    v7 = *(a1 + 12);
-    v5 = *(a1 + 12);
+    v7 = a1[6];
+    v5 = a1[6];
     if (isSpaceAvailable)
     {
       v8 = *a1;
       *(*a1 + 4 * v7) = a2;
-      *(v8 + *(a1 + 8) + 2 * v7) = 0;
-      v5 = *(a1 + 12) + 1;
-      *(a1 + 12) = v5;
+      *(v8 + *(a1 + 2) + 2 * v7) = 0;
+      v5 = a1[6] + 1;
+      a1[6] = v5;
       *(a1 + 17) = 0;
     }
   }
 
-  return *a1 + *(a1 + 8) + 2 * v5 - 2;
+  return *a1 + *(a1 + 2) + 2 * v5 - 2;
 }
 
-void geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::copy(uint64_t a1, uint64_t a2)
+void geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::copy(uint64_t *result, uint64_t *a2)
 {
   v5 = *(a2 + 16);
   if (v5 == 1)
   {
-    *a1 = *a2;
-    *(a1 + 8) = *(a2 + 8);
-    *(a1 + 12) = *(a2 + 12);
+    *result = *a2;
+    *(result + 2) = *(a2 + 2);
+    *(result + 6) = *(a2 + 6);
   }
 
   else
   {
-    v6 = *(a2 + 12);
-    if ((*(a1 + 16) & 1) == 0 && *(a1 + 14) < v6)
+    v6 = *(a2 + 6);
+    if ((result[2] & 1) == 0 && *(result + 7) < v6)
     {
-      geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::reallocate(a1, *(a2 + 12), 0);
-      v6 = *(a2 + 12);
+      geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::reallocate(result, *(a2 + 6), 0);
+      v6 = *(a2 + 6);
     }
 
     v7 = 0;
     v8 = 0;
     v9 = 0;
-    while (v8 != v6 && geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::isSpaceAvailable(a1))
+    while (v8 != v6 && geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::isSpaceAvailable(result))
     {
-      if (v9 & 1 | (v8 >= *(a2 + 12)))
+      if (v9 & 1 | (v8 >= *(a2 + 6)))
       {
         v10 = v9;
       }
@@ -5127,23 +5126,23 @@ void geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,ge
       else
       {
         v7 = (*a2 + 4 * v8);
-        v2 = (*a2 + *(a2 + 8) + 2 * v8);
+        v2 = (*a2 + *(a2 + 2) + 2 * v8);
         v10 = 1;
       }
 
-      v11 = *(a1 + 12);
-      v12 = *a1;
-      *(*a1 + 4 * v11) = *v7;
-      *(v12 + *(a1 + 8) + 2 * v11) = *v2;
-      ++*(a1 + 12);
-      if (v8 + 1 < *(a2 + 12))
+      v11 = *(result + 6);
+      v12 = *result;
+      *(*result + 4 * v11) = *v7;
+      *(v12 + *(result + 2) + 2 * v11) = *v2;
+      ++*(result + 6);
+      if (v8 + 1 < *(a2 + 6))
       {
         ++v8;
       }
 
       else
       {
-        v8 = *(a2 + 12);
+        v8 = *(a2 + 6);
       }
 
       if (v10)
@@ -5160,8 +5159,8 @@ void geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,ge
     LOBYTE(v5) = *(a2 + 16);
   }
 
-  *(a1 + 16) = v5;
-  *(a1 + 17) = *(a2 + 17);
+  *(result + 16) = v5;
+  *(result + 17) = *(a2 + 17);
 }
 
 void gss::ClientStyleState<gss::ScenePropertyID>::setClientStyleAttribute(uint64_t a1, unsigned int a2, int a3)
@@ -5176,7 +5175,7 @@ void gss::ClientStyleState<gss::ScenePropertyID>::setClientStyleAttribute(uint64
   v9 = geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::keyIndex(a1 + 216, a2);
   if (v9 == *(a1 + 228) || (v3 = (*(a1 + 216) + *(a1 + 224) + 2 * v9), *v3 != a3))
   {
-    *geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::operator[](a1 + 216, a2) = a3;
+    *geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::operator[]((a1 + 216), a2) = a3;
     if (*(a1 + 232) & 1) != 0 || (*(a1 + 233))
     {
       v10 = 1;
@@ -5185,7 +5184,7 @@ void gss::ClientStyleState<gss::ScenePropertyID>::setClientStyleAttribute(uint64
     else
     {
       v10 = 1;
-      geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::reallocate(a1 + 216, *(a1 + 230), 1);
+      geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::reallocate((a1 + 216), *(a1 + 230), 1);
     }
   }
 
@@ -5209,10 +5208,10 @@ void gss::ClientStyleState<gss::ScenePropertyID>::setClientStyleAttribute(uint64
   if (*v3 != a3)
   {
 LABEL_16:
-    *geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::operator[](a1 + 240, a2) = a3;
+    *geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::operator[]((a1 + 240), a2) = a3;
     if ((*(a1 + 256) & 1) == 0 && (*(a1 + 257) & 1) == 0)
     {
-      geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::reallocate(a1 + 240, *(a1 + 254), 1);
+      geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::reallocate((a1 + 240), *(a1 + 254), 1);
     }
   }
 
@@ -5235,9 +5234,9 @@ LABEL_23:
   geo::write_lock_guard::~write_lock_guard(&v16);
 }
 
-void sub_1B286CD20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B286CD20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   geo::write_lock_guard::~write_lock_guard(va);
   _Unwind_Resume(a1);
 }
@@ -5309,7 +5308,7 @@ id ___ZN2md19StyleSheetExtension12initWithNameIN3gss15ScenePropertyIDEEENSt3__11
   return v15;
 }
 
-void sub_1B286D270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, void **a11, void **a12, void **a13, void **a14, uint64_t a15, void **a16)
+void sub_1B286D270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (*(v16 + 3023) < 0)
   {
@@ -5345,30 +5344,30 @@ void sub_1B286D270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   a16 = a12;
   std::vector<std::shared_ptr<md::TrafficDynamicTileResource>>::__destroy_vector::operator()[abi:nn200100](&a16);
   a16 = a13;
-  std::vector<std::unique_ptr<unsigned char,std::function<void ()(unsigned char *)>>>::__destroy_vector::operator()[abi:nn200100](&a16);
+  std::vector<std::unique_ptr<unsigned char,std::function<void ()(unsigned char *)>>>::__destroy_vector::operator()[abi:nn200100](&a16, v27);
   a16 = a14;
-  std::vector<std::unique_ptr<unsigned char,std::function<void ()(unsigned char *)>>>::__destroy_vector::operator()[abi:nn200100](&a16);
-  a16 = (v16 + 256);
-  std::vector<std::unique_ptr<unsigned char,std::function<void ()(unsigned char *)>>>::__destroy_vector::operator()[abi:nn200100](&a16);
+  std::vector<std::unique_ptr<unsigned char,std::function<void ()(unsigned char *)>>>::__destroy_vector::operator()[abi:nn200100](&a16, v28);
+  a16 = v16 + 256;
+  std::vector<std::unique_ptr<unsigned char,std::function<void ()(unsigned char *)>>>::__destroy_vector::operator()[abi:nn200100](&a16, v29);
   std::mutex::~mutex(v20);
   std::unique_ptr<gss::StyleMatchingTree<gss::CartoStyle<gss::ScenePropertyID>>>::reset[abi:nn200100](v19, 0);
   geo::intern_vector<std::shared_ptr<gss::StylePropertySet<gss::ScenePropertyID>>,unsigned short,geo::allocator_adapter<std::shared_ptr<gss::StylePropertySet<gss::ScenePropertyID>>,gss::zone_mallocator>>::deallocateStorage(v18);
-  v27 = *(v16 + 152);
-  if (v27)
+  v30 = *(v16 + 152);
+  if (v30)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v27);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v30);
   }
 
-  v28 = *(v16 + 136);
-  if (v28)
+  v31 = *(v16 + 136);
+  if (v31)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v28);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v31);
   }
 
-  v29 = *(v16 + 120);
-  if (v29)
+  v32 = *(v16 + 120);
+  if (v32)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v29);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v32);
   }
 
   geo::intern_vector<std::shared_ptr<gss::CartoStyle<gss::ScenePropertyID>>,unsigned short,geo::allocator_adapter<std::shared_ptr<gss::CartoStyle<gss::ScenePropertyID>>,gss::zone_mallocator>>::deallocateStorage(v17);
@@ -5377,20 +5376,20 @@ void sub_1B286D270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(*(v16 + 56));
   }
 
-  v30 = *(v16 + 48);
-  if (v30)
+  v33 = *(v16 + 48);
+  if (v33)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v30);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v33);
   }
 
-  v31 = *(v16 + 32);
-  if (v31)
+  v34 = *(v16 + 32);
+  if (v34)
   {
-    std::__shared_weak_count::__release_weak(v31);
+    std::__shared_weak_count::__release_weak(v34);
   }
 
   std::__shared_weak_count::~__shared_weak_count(v16);
-  operator delete(v32);
+  operator delete(v35);
   _Unwind_Resume(a1);
 }
 
@@ -5553,10 +5552,10 @@ void std::__function::__func<std::shared_ptr<gss::StyleSheet<gss::ScenePropertyI
   operator delete(a1);
 }
 
-void gss::StyleManagerExtension::initWithName<gss::PropertyID>(void *a1, uint64_t a2, unsigned int a3, void *a4, float a5)
+void gss::StyleManagerExtension::initWithName<gss::PropertyID>(uint64_t *a1, uint64_t *a2, uint64_t a3, void *a4, float a5)
 {
   v9 = a4;
-  [v9 stylesheetVendor];
+  objc_msgSend_stylesheetVendor(v9);
   gss::StyleManagerExtension::initWithName<gss::PropertyID>(a1, a2, a3, v10, a5);
   if (v11)
   {
@@ -5716,8 +5715,8 @@ LABEL_27:
   *(a1 + 24) = v11;
   if ((v14 & 0x80) == 0)
   {
-    geo::ibitstream::readUIntBits(v33, a1, a4);
-    if (v33[0])
+    geo::ibitstream::readUIntBits(&v33, a1, a4);
+    if (v33)
     {
       *a2 = v34 + 0x10000;
       return 1;
@@ -5744,9 +5743,9 @@ LABEL_27:
     return 0;
   }
 
-  geo::ibitstream::readUIntBits(v33, a1, a3);
-  v20 = v33[0];
-  if (v33[0])
+  geo::ibitstream::readUIntBits(&v33, a1, a3);
+  v20 = v33;
+  if (v33)
   {
     *a2 = v34;
   }
@@ -6264,8 +6263,8 @@ LABEL_107:
     *a1 = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -6327,8 +6326,8 @@ LABEL_107:
     *(a1 + 48) = v834 * 0.125;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -6390,8 +6389,8 @@ LABEL_107:
     *(a1 + 52) = v834 * 0.125;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -6453,8 +6452,8 @@ LABEL_107:
     *(a1 + 56) = v834 * 0.125;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -6516,8 +6515,8 @@ LABEL_107:
     *(a1 + 60) = v834 * 0.125;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -6579,8 +6578,8 @@ LABEL_107:
     *(a1 + 64) = v834 * 0.125;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -6642,8 +6641,8 @@ LABEL_107:
     *(a1 + 68) = v834 * 0.125;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -6705,8 +6704,8 @@ LABEL_107:
     *(a1 + 72) = v834 * 0.125;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -6768,8 +6767,8 @@ LABEL_107:
     *(a1 + 76) = v834 * 0.125;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -6831,8 +6830,8 @@ LABEL_107:
     *(a1 + 84) = v834 * 0.00097752;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -6894,8 +6893,8 @@ LABEL_107:
     *(a1 + 88) = v834 * 0.00097752;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -6957,8 +6956,8 @@ LABEL_107:
     *(a1 + 92) = v834 * 0.00097752;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -7051,8 +7050,8 @@ LABEL_107:
     *(a1 + 1) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -7145,8 +7144,8 @@ LABEL_107:
     *(a1 + 2) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -7239,8 +7238,8 @@ LABEL_107:
     *(a1 + 3) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -7333,8 +7332,8 @@ LABEL_107:
     *(a1 + 4) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -7427,8 +7426,8 @@ LABEL_107:
     *(a1 + 5) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -7521,8 +7520,8 @@ LABEL_107:
     *(a1 + 6) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -7615,8 +7614,8 @@ LABEL_107:
     *(a1 + 7) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -7709,8 +7708,8 @@ LABEL_107:
     *(a1 + 8) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -7803,8 +7802,8 @@ LABEL_107:
     *(a1 + 9) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -7897,8 +7896,8 @@ LABEL_107:
     *(a1 + 10) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -7991,8 +7990,8 @@ LABEL_107:
     *(a1 + 11) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -8085,8 +8084,8 @@ LABEL_107:
     *(a1 + 12) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -8199,8 +8198,8 @@ LABEL_226:
     *(a1 + 14) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -8313,8 +8312,8 @@ LABEL_546:
     *(a1 + 15) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -8426,8 +8425,8 @@ LABEL_571:
     *(a1 + 208) = v364;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -8539,8 +8538,8 @@ LABEL_596:
     *(a1 + 216) = v379;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -8653,8 +8652,8 @@ LABEL_618:
     *(a1 + 16) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -8767,8 +8766,8 @@ LABEL_641:
     *(a1 + 17) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -8881,8 +8880,8 @@ LABEL_668:
     *(a1 + 18) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -8995,8 +8994,8 @@ LABEL_695:
     *(a1 + 19) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -9109,8 +9108,8 @@ LABEL_722:
     *(a1 + 20) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -9223,8 +9222,8 @@ LABEL_749:
     *(a1 + 21) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -9332,8 +9331,8 @@ LABEL_749:
   }
 
 LABEL_790:
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -9367,8 +9366,8 @@ LABEL_790:
     return 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -9435,8 +9434,8 @@ LABEL_790:
     return 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -9549,8 +9548,8 @@ LABEL_809:
     *(a1 + 23) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -9663,8 +9662,8 @@ LABEL_842:
     *(a1 + 24) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -9777,8 +9776,8 @@ LABEL_881:
     *(a1 + 25) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -9891,8 +9890,8 @@ LABEL_908:
     *(a1 + 26) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -10005,8 +10004,8 @@ LABEL_935:
     *(a1 + 27) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -10119,8 +10118,8 @@ LABEL_962:
     *(a1 + 28) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -10238,8 +10237,8 @@ LABEL_989:
     return 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -10307,8 +10306,8 @@ LABEL_989:
     return 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -10342,8 +10341,8 @@ LABEL_989:
     return 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -10441,8 +10440,8 @@ LABEL_989:
     return 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -10706,8 +10705,8 @@ LABEL_989:
     return 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -10774,8 +10773,8 @@ LABEL_989:
     return 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -10843,8 +10842,8 @@ LABEL_989:
     return 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -10878,8 +10877,8 @@ LABEL_989:
     return 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -10913,8 +10912,8 @@ LABEL_989:
     return 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -11027,8 +11026,8 @@ LABEL_1152:
     *(a1 + 32) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -11141,8 +11140,8 @@ LABEL_1183:
     *(a1 + 33) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {
@@ -11255,8 +11254,8 @@ LABEL_1234:
     *(a1 + 34) = 1;
   }
 
-  geo::ibitstream::readUIntBits(v831, a2, 1u);
-  if ((v831[0] & 1) == 0)
+  geo::ibitstream::readUIntBits(&v831, a2, 1u);
+  if ((v831 & 1) == 0)
   {
     if (GEOGetGeoCSSStyleSheetLog_onceToken != -1)
     {

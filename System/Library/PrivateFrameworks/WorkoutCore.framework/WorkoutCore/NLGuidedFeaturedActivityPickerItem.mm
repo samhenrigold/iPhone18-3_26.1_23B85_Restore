@@ -19,17 +19,16 @@
   if (v2)
   {
     v3 = *(self + OBJC_IVAR___NLGuidedFeaturedActivityPickerItem_recencyTag);
-    v4 = *(self + OBJC_IVAR___NLGuidedFeaturedActivityPickerItem_recencyTag + 8);
 
-    v5 = MEMORY[0x20F2E6C00](v3, v2);
+    v4 = MEMORY[0x20F2E6C00](v3, v2);
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 - (_TtC11WorkoutCore26CompoundActivityPickerItem)compoundItem
@@ -140,7 +139,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  type metadata accessor for GuidedFeaturedActivityPickerItem();
+  type metadata accessor for GuidedFeaturedActivityPickerItem(0);
   if ((swift_dynamicCast() & 1) == 0)
   {
 LABEL_8:

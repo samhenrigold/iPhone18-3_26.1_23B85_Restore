@@ -30,7 +30,7 @@
 
 - (void)_registerActivity
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
+  v3 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -50,31 +50,32 @@
 {
   stateCopy = state;
   v5 = os_transaction_create();
-  v6 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B1C8D000, v6, OS_LOG_TYPE_INFO, "Periodic maintenance activity transitioned to state Run.", buf, 2u);
+    _os_log_impl(&dword_1B1C8D000, v7, OS_LOG_TYPE_INFO, "Periodic maintenance activity transitioned to state Run.", buf, 2u);
   }
 
-  if (!xpc_activity_set_state(stateCopy, 4))
+  v8 = xpc_activity_set_state(stateCopy, 4);
+  if (!v8)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [_ASAgentPeriodicMaintenanceActivity _activityDidTransitionToRunState:];
     }
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __72___ASAgentPeriodicMaintenanceActivity__activityDidTransitionToRunState___block_invoke;
-  v10[3] = &unk_1E7AF7DB0;
-  v11 = stateCopy;
-  v12 = v5;
-  v8 = v5;
-  v9 = stateCopy;
-  [(_ASAgentPeriodicMaintenanceActivity *)self _runActivityWithCompletionHandler:v10];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __72___ASAgentPeriodicMaintenanceActivity__activityDidTransitionToRunState___block_invoke;
+  v13[3] = &unk_1E7AF7DB0;
+  v14 = stateCopy;
+  v15 = v5;
+  v11 = v5;
+  v12 = stateCopy;
+  [(_ASAgentPeriodicMaintenanceActivity *)self _runActivityWithCompletionHandler:v13];
 }
 
 - (void)_runActivityWithCompletionHandler:(id)handler
@@ -94,29 +95,28 @@
 - (void)performPasskeyAvailabilityCheckForDomainsInSavedAccounts:(NSArray *)accounts completionHandler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB775460, &qword_1B1D86860);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v18 - v9;
-  v11 = _Block_copy(handler);
-  v12 = swift_allocObject();
-  v12[2] = accounts;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_1B1D7BF4C();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v17 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = accounts;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1B1D7BF4C();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_1B1D88698;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_1B1D88698;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_1B1D885D0;
-  v15[5] = v14;
+  v14[4] = &unk_1B1D885D0;
+  v14[5] = v13;
   accountsCopy = accounts;
   selfCopy = self;
-  sub_1B1D22574(0, 0, v10, &unk_1B1D86880, v15);
+  sub_1B1D22574(0, 0, v9, &unk_1B1D86880, v14);
 }
 
 @end

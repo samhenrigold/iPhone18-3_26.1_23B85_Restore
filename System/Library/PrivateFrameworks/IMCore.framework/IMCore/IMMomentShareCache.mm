@@ -59,68 +59,67 @@
   stringCopy = string;
   handlerCopy = handler;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
-  v9 = objc_msgSend_objectForKeyedSubscript_(self->_completionHandlers, v8, stringCopy);
-  if (objc_msgSend_count(v9, v10, v11))
+  v8 = [(NSMutableDictionary *)self->_completionHandlers objectForKeyedSubscript:stringCopy];
+  if ([v8 count])
   {
-    v13 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v9 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       sub_1A84E49C4();
     }
 
-    v14 = _Block_copy(handlerCopy);
-    objc_msgSend_addObject_(v9, v15, v14);
+    v10 = _Block_copy(handlerCopy);
+    [v8 addObject:v10];
   }
 
   else
   {
-    v44 = 0;
-    v16 = objc_msgSend__momentShareForURLString_error_(self, v12, stringCopy, &v44);
-    v17 = v44;
-    v14 = v17;
-    if (v16)
+    v22 = 0;
+    v11 = [(IMMomentShareCache *)self _momentShareForURLString:stringCopy error:&v22];
+    v12 = v22;
+    v10 = v12;
+    if (v11)
     {
-      (*(handlerCopy + 2))(handlerCopy, v16, 0);
+      (*(handlerCopy + 2))(handlerCopy, v11, 0);
     }
 
-    else if (IMMomentShareCacheErrorIsPermanent(v17))
+    else if (IMMomentShareCacheErrorIsPermanent(v12))
     {
-      (*(handlerCopy + 2))(handlerCopy, 0, v14);
+      (*(handlerCopy + 2))(handlerCopy, 0, v10);
     }
 
     else
     {
-      if (!v9)
+      if (!v8)
       {
-        v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        objc_msgSend_setObject_forKeyedSubscript_(self->_completionHandlers, v18, v9, stringCopy);
+        v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        [(NSMutableDictionary *)self->_completionHandlers setObject:v8 forKeyedSubscript:stringCopy];
       }
 
-      v19 = _Block_copy(handlerCopy);
-      objc_msgSend_addObject_(v9, v20, v19);
+      v13 = _Block_copy(handlerCopy);
+      [v8 addObject:v13];
 
-      v21 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v14 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         sub_1A84E4A2C();
       }
 
-      v23 = objc_msgSend_URLWithString_(MEMORY[0x1E695DFF8], v22, stringCopy);
-      v26 = objc_msgSend__ensureLibraryRegistration(self, v24, v25);
-      v29 = sub_1A83E1A48(v26, v27, v28);
-      v32 = objc_msgSend_sharedMomentSharePhotoLibrary(v29, v30, v31);
-      v35 = objc_msgSend_librarySpecificFetchOptions(v32, v33, v34);
+      v15 = [MEMORY[0x1E695DFF8] URLWithString:stringCopy];
+      [(IMMomentShareCache *)self _ensureLibraryRegistration];
+      sharedMomentSharePhotoLibrary = [sub_1A83E1A48() sharedMomentSharePhotoLibrary];
+      librarySpecificFetchOptions = [sharedMomentSharePhotoLibrary librarySpecificFetchOptions];
 
-      v39 = sub_1A83E1F6C(v36, v37, v38);
-      v41[0] = MEMORY[0x1E69E9820];
-      v41[1] = 3221225472;
-      v41[2] = sub_1A83E204C;
-      v41[3] = &unk_1E7814CA0;
-      v41[4] = self;
-      v42 = stringCopy;
-      v9 = v9;
-      v43 = v9;
-      objc_msgSend_fetchMomentShareFromShareURL_options_completionHandler_(v39, v40, v23, v35, v41);
+      v18 = sub_1A83E1F6C();
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = sub_1A83E204C;
+      v19[3] = &unk_1E7814CA0;
+      v19[4] = self;
+      v20 = stringCopy;
+      v8 = v8;
+      v21 = v8;
+      [v18 fetchMomentShareFromShareURL:v15 options:librarySpecificFetchOptions completionHandler:v19];
     }
   }
 }
@@ -129,12 +128,12 @@
 {
   stringCopy = string;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
-  v8 = objc_msgSend_objectForKeyedSubscript_(self->_completionHandlers, v7, stringCopy);
-  if (!objc_msgSend_count(v8, v9, v10))
+  v7 = [(NSMutableDictionary *)self->_completionHandlers objectForKeyedSubscript:stringCopy];
+  if (![v7 count])
   {
-    v17 = 0;
-    v14 = objc_msgSend__momentShareForURLString_error_(self, v11, stringCopy, &v17);
-    v13 = v17;
+    v13 = 0;
+    v10 = [(IMMomentShareCache *)self _momentShareForURLString:stringCopy error:&v13];
+    v9 = v13;
     if (!error)
     {
       goto LABEL_9;
@@ -143,27 +142,27 @@
     goto LABEL_7;
   }
 
-  v12 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v8 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1A84E4A94();
   }
 
-  v13 = sub_1A83E22A4(-1000, 0);
-  v14 = 0;
+  v9 = sub_1A83E22A4(-1000, 0);
+  v10 = 0;
   if (error)
   {
 LABEL_7:
-    if (!v14)
+    if (!v10)
     {
-      v15 = v13;
-      *error = v13;
+      v11 = v9;
+      *error = v9;
     }
   }
 
 LABEL_9:
 
-  return v14;
+  return v10;
 }
 
 - (void)_ensureLibraryRegistration
@@ -179,110 +178,106 @@ LABEL_9:
 
 - (id)_momentShareForURLString:(id)string error:(id *)error
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x3032000000;
-  v62 = sub_1A8259CC0;
-  v63 = sub_1A825AF8C;
-  v64 = 0;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = sub_1A8259CC0;
-  v57 = sub_1A825AF8C;
-  v58 = 0;
-  v8 = objc_msgSend_objectForKeyedSubscript_(self->_cache, v7, stringCopy);
-  v11 = v8;
-  if (v8)
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = sub_1A8259CC0;
+  v37 = sub_1A825AF8C;
+  v38 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = sub_1A8259CC0;
+  v31 = sub_1A825AF8C;
+  v32 = 0;
+  v7 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:stringCopy];
+  v8 = v7;
+  if (v7)
   {
-    v14 = objc_msgSend_first(v8, v9, v10);
-    if (v14)
+    first = [v7 first];
+    if (first)
     {
-      v15 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v10 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v16 = v15;
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        v11 = v10;
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
-          v19 = objc_msgSend_uuid(v14, v17, v18);
-          sub_1A84E4AFC(v19, stringCopy, buf, v16);
+          uuid = [first uuid];
+          sub_1A84E4AFC(uuid, stringCopy, buf, v11);
         }
       }
 
-      v20 = v60;
-      v14 = v14;
-      v21 = v20[5];
-      v20[5] = v14;
+      v13 = v34;
+      first = first;
+      second = v13[5];
+      v13[5] = first;
     }
 
     else
     {
-      v21 = objc_msgSend_second(v11, v12, v13);
-      if (v21)
+      second = [v8 second];
+      if (second)
       {
-        v46 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+        v21 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v67 = v21;
-          v68 = 2112;
-          v69 = stringCopy;
-          _os_log_impl(&dword_1A823F000, v46, OS_LOG_TYPE_DEFAULT, "Returning cached permanent error: %@, for URL: %@", buf, 0x16u);
+          v41 = second;
+          v42 = 2112;
+          v43 = stringCopy;
+          _os_log_impl(&dword_1A823F000, v21, OS_LOG_TYPE_DEFAULT, "Returning cached permanent error: %@, for URL: %@", buf, 0x16u);
         }
 
-        objc_storeStrong(v54 + 5, v21);
+        objc_storeStrong(v28 + 5, second);
       }
     }
   }
 
   else
   {
-    v22 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v15 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       sub_1A84E4B64();
     }
 
-    v14 = objc_msgSend_URLWithString_(MEMORY[0x1E695DFF8], v23, stringCopy);
-    v26 = objc_msgSend__ensureLibraryRegistration(self, v24, v25);
-    v29 = sub_1A83E1A48(v26, v27, v28);
-    v32 = objc_msgSend_sharedMomentSharePhotoLibrary(v29, v30, v31);
-    v35 = objc_msgSend_librarySpecificFetchOptions(v32, v33, v34);
+    first = [MEMORY[0x1E695DFF8] URLWithString:stringCopy];
+    [(IMMomentShareCache *)self _ensureLibraryRegistration];
+    sharedMomentSharePhotoLibrary = [sub_1A83E1A48() sharedMomentSharePhotoLibrary];
+    librarySpecificFetchOptions = [sharedMomentSharePhotoLibrary librarySpecificFetchOptions];
 
-    v39 = sub_1A83E1F6C(v36, v37, v38);
-    v52 = 0;
-    v41 = objc_msgSend_fetchLocalMomentShareFromShareURL_error_options_(v39, v40, v14, &v52, v35);
-    v21 = v52;
-    v51[0] = MEMORY[0x1E69E9820];
-    v51[1] = 3221225472;
-    v51[2] = sub_1A83E281C;
-    v51[3] = &unk_1E7814CC8;
-    v51[4] = &v59;
-    v51[5] = &v53;
-    v42 = _Block_copy(v51);
-    v65 = v42;
-    v44 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v43, &v65, 1);
-    objc_msgSend__processFetchedMomentShare_forURLString_error_completionHandlers_(self, v45, v41, stringCopy, v21, v44);
+    v26 = 0;
+    v18 = [sub_1A83E1F6C() fetchLocalMomentShareFromShareURL:first error:&v26 options:librarySpecificFetchOptions];
+    second = v26;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = sub_1A83E281C;
+    v25[3] = &unk_1E7814CC8;
+    v25[4] = &v33;
+    v25[5] = &v27;
+    v19 = _Block_copy(v25);
+    v39 = v19;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
+    [(IMMomentShareCache *)self _processFetchedMomentShare:v18 forURLString:stringCopy error:second completionHandlers:v20];
   }
 
-  v47 = v60[5];
-  if (error && !v47)
+  v22 = v34[5];
+  if (error && !v22)
   {
-    *error = v54[5];
-    v47 = v60[5];
+    *error = v28[5];
+    v22 = v34[5];
   }
 
-  v48 = v47;
+  v23 = v22;
 
-  _Block_object_dispose(&v53, 8);
-  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v33, 8);
 
-  v49 = *MEMORY[0x1E69E9840];
-
-  return v48;
+  return v23;
 }
 
 - (void)_processFetchedMomentShare:(id)share forURLString:(id)string error:(id)error completionHandlers:(id)handlers
@@ -294,82 +289,81 @@ LABEL_9:
   if (shareCopy)
   {
     v14 = sub_1A83E2B6C(shareCopy);
-    objc_msgSend_setObject_forKeyedSubscript_(self->_cache, v15, v14, stringCopy);
+    [(NSMutableDictionary *)self->_cache setObject:v14 forKeyedSubscript:stringCopy];
 
-    v16 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v15 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      sub_1A84E4BCC(shareCopy, stringCopy, v16);
+      sub_1A84E4BCC(shareCopy);
     }
 
-    v17 = shareCopy;
-    v18 = 0;
+    v16 = shareCopy;
+    v17 = 0;
   }
 
   else
   {
-    v19 = errorCopy;
-    v22 = v19;
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x2020000000;
-    v23 = off_1EB2EA670;
-    v48 = off_1EB2EA670;
+    v18 = errorCopy;
+    v36 = 0;
+    v37 = &v36;
+    v38 = 0x2020000000;
+    v19 = off_1EB2EA670;
+    v39 = off_1EB2EA670;
     if (!off_1EB2EA670)
     {
-      v40 = MEMORY[0x1E69E9820];
-      v41 = 3221225472;
-      v42 = sub_1A83E32A8;
-      v43 = &unk_1E7811770;
-      v44 = &v45;
-      v24 = sub_1A83E32F8(v19, v20, v21);
-      v46[3] = dlsym(v24, "PXIsMomentShareErrorPermanent");
-      off_1EB2EA670 = *(v44[1] + 24);
-      v23 = v46[3];
+      v31 = MEMORY[0x1E69E9820];
+      v32 = 3221225472;
+      v33 = sub_1A83E32A8;
+      v34 = &unk_1E7811770;
+      v35 = &v36;
+      v20 = sub_1A83E32F8();
+      v37[3] = dlsym(v20, "PXIsMomentShareErrorPermanent");
+      off_1EB2EA670 = *(v35[1] + 24);
+      v19 = v37[3];
     }
 
-    _Block_object_dispose(&v45, 8);
-    if (!v23)
+    _Block_object_dispose(&v36, 8);
+    if (!v19)
     {
-      sub_1A84E4CE0(v25, v26, v27);
+      sub_1A84E4CE0();
     }
 
-    v28 = v23(v22);
+    v21 = v19(v18);
 
-    if (v28)
+    if (v21)
     {
-      v29 = -1001;
+      v22 = -1001;
     }
 
     else
     {
-      v29 = -1000;
+      v22 = -1000;
     }
 
-    v30 = sub_1A83E22A4(v29, v22);
-    v18 = v30;
-    if (v28)
+    v23 = sub_1A83E22A4(v22, v18);
+    v17 = v23;
+    if (v21)
     {
-      v31 = sub_1A83E2BC0(v30);
-      objc_msgSend_setObject_forKeyedSubscript_(self->_cache, v32, v31, stringCopy);
+      v24 = sub_1A83E2BC0(v23);
+      [(NSMutableDictionary *)self->_cache setObject:v24 forKeyedSubscript:stringCopy];
     }
 
-    v33 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v25 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       sub_1A84E4C64();
     }
   }
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = sub_1A83E2C14;
-  v37[3] = &unk_1E7814CF0;
-  v38 = shareCopy;
-  v39 = v18;
-  v34 = v18;
-  v35 = shareCopy;
-  objc_msgSend_enumerateObjectsUsingBlock_(handlersCopy, v36, v37);
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = sub_1A83E2C14;
+  v28[3] = &unk_1E7814CF0;
+  v29 = shareCopy;
+  v30 = v17;
+  v26 = v17;
+  v27 = shareCopy;
+  [handlersCopy enumerateObjectsUsingBlock:v28];
 }
 
 - (void)photoLibraryDidChange:(id)change

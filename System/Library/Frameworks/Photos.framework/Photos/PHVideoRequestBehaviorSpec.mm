@@ -32,25 +32,25 @@
 
 - (BOOL)hasValidTimeRange
 {
-  [(PHVideoRequestBehaviorSpec *)self timeRange];
+  objc_msgSend_timeRange(self, a2);
   if ((v7 & 1) == 0)
   {
     return 0;
   }
 
-  [(PHVideoRequestBehaviorSpec *)self timeRange];
+  objc_msgSend_timeRange(self);
   if ((v6 & 1) == 0)
   {
     return 0;
   }
 
-  [(PHVideoRequestBehaviorSpec *)self timeRange];
+  objc_msgSend_timeRange(self);
   if (v5)
   {
     return 0;
   }
 
-  [(PHVideoRequestBehaviorSpec *)self timeRange];
+  objc_msgSend_timeRange(self);
   return v4 >= 0;
 }
 
@@ -76,7 +76,7 @@
     *(v5 + 6) = [coderCopy decodeIntegerForKey:@"downloadPriority"];
     if (coderCopy)
     {
-      [coderCopy decodeCMTimeRangeForKey:@"timeRange"];
+      objc_msgSend_decodeCMTimeRangeForKey_(coderCopy);
     }
 
     else
@@ -132,7 +132,7 @@
   [(PHVideoRequestBehaviorSpec *)v4 setRestrictToEncryptedStream:[(PHVideoRequestBehaviorSpec *)self restrictToEncryptedStream]];
   [(PHVideoRequestBehaviorSpec *)v4 setDownloadIntent:[(PHVideoRequestBehaviorSpec *)self downloadIntent]];
   [(PHVideoRequestBehaviorSpec *)v4 setDownloadPriority:[(PHVideoRequestBehaviorSpec *)self downloadPriority]];
-  [(PHVideoRequestBehaviorSpec *)self timeRange];
+  objc_msgSend_timeRange(self);
   v6[0] = v6[3];
   v6[1] = v6[4];
   v6[2] = v6[5];
@@ -275,7 +275,7 @@ LABEL_31:
   if (hasValidTimeRange)
   {
     v14 = *MEMORY[0x1E695E480];
-    [(PHVideoRequestBehaviorSpec *)self timeRange];
+    objc_msgSend_timeRange(self);
     v15 = CMTimeRangeCopyDescription(v14, &range);
   }
 

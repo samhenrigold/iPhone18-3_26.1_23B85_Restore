@@ -3,10 +3,12 @@
 + (id)_cleanedRatingLabel:(id)label;
 + (id)_imageLookupKeyWithRatingLabel:(id)label inRatingSystem:(int64_t)system;
 + (id)sharedInstance;
++ (void)_addImageDescriptorToDictionary:(id)dictionary ratingSystem:(int64_t)system ratingLabel:(id)label resourceName:(id)name isTemplatedImage:(BOOL)image;
 - (BOOL)isTemplatedBadgeForContentRating:(id)rating;
 - (NSDictionary)badgeDescriptors;
 - (id)_badgeDescriptorForContentRating:(id)rating;
 - (id)_badgeDescriptorForRatingLabel:(id)label inRatingSystem:(int64_t)system;
+- (id)badgeForContentRating:(id)rating drawUnknownRatingBadge:(BOOL)badge;
 - (id)badgeForRatingLabel:(id)label inRatingSystem:(int64_t)system drawUnknownRatingBadge:(BOOL)badge;
 - (void)setCachesImages:(BOOL)images;
 @end
@@ -44,6 +46,18 @@
 
     [(_TVContentRatingBadgeManager *)self setImageCache:v5];
   }
+}
+
+- (id)badgeForContentRating:(id)rating drawUnknownRatingBadge:(BOOL)badge
+{
+  badgeCopy = badge;
+  ratingCopy = rating;
+  ratingLabel = [ratingCopy ratingLabel];
+  ratingSystem = [ratingCopy ratingSystem];
+
+  v9 = [(_TVContentRatingBadgeManager *)self badgeForRatingLabel:ratingLabel inRatingSystem:ratingSystem drawUnknownRatingBadge:badgeCopy];
+
+  return v9;
 }
 
 - (id)badgeForRatingLabel:(id)label inRatingSystem:(int64_t)system drawUnknownRatingBadge:(BOOL)badge
@@ -248,6 +262,22 @@ LABEL_13:
   lowercaseString = [v5 lowercaseString];
 
   return lowercaseString;
+}
+
++ (void)_addImageDescriptorToDictionary:(id)dictionary ratingSystem:(int64_t)system ratingLabel:(id)label resourceName:(id)name isTemplatedImage:(BOOL)image
+{
+  imageCopy = image;
+  dictionaryCopy = dictionary;
+  nameCopy = name;
+  labelCopy = label;
+  v13 = [[_TVContentRatingBadgeDescriptor alloc] initWithResourceName:nameCopy isTemplatedImage:imageCopy];
+
+  v14 = [objc_opt_class() _badgeDescriptorLookupKeyWithRatingLabel:labelCopy inRatingSystem:system];
+
+  if (v14)
+  {
+    [dictionaryCopy setObject:v13 forKey:v14];
+  }
 }
 
 + (id)_imageLookupKeyWithRatingLabel:(id)label inRatingSystem:(int64_t)system

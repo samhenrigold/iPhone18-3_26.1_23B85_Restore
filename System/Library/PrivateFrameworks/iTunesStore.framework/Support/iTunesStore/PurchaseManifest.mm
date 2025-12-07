@@ -182,40 +182,40 @@ LABEL_17:
 - (id)removeItemsWithAssetPaths:(id)paths error:(id *)error
 {
   v5 = +[NSMutableSet set];
-  v74 = objc_alloc_init(NSMutableOrderedSet);
-  v88 = 0;
-  v89 = &v88;
-  v90 = 0x3052000000;
-  v91 = sub_100099120;
-  v92 = sub_100099130;
-  v93 = 0;
+  v78 = objc_alloc_init(NSMutableOrderedSet);
+  v92 = 0;
+  v93 = &v92;
+  v94 = 0x3052000000;
+  v95 = sub_100099120;
+  v96 = sub_100099130;
+  v97 = 0;
   v6 = objc_alloc_init(NSMutableSet);
   stringByDeletingLastPathComponent = [(NSString *)self->_path stringByDeletingLastPathComponent];
-  v75 = v6;
+  v79 = v6;
   selfCopy = self;
-  v73 = v5;
-  v86 = 0u;
-  v87 = 0u;
-  v84 = 0u;
-  v85 = 0u;
-  v8 = [paths countByEnumeratingWithState:&v84 objects:v101 count:16];
+  v77 = v5;
+  v90 = 0u;
+  v91 = 0u;
+  v88 = 0u;
+  v89 = 0u;
+  v8 = [paths countByEnumeratingWithState:&v88 objects:v105 count:16];
   if (v8)
   {
-    v9 = *v85;
+    v9 = *v89;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v85 != v9)
+        if (*v89 != v9)
         {
           objc_enumerationMutation(paths);
         }
 
-        v11 = *(*(&v84 + 1) + 8 * i);
+        v11 = *(*(&v88 + 1) + 8 * i);
         v12 = [v11 length];
         if (v12 > -[NSString length](stringByDeletingLastPathComponent, "length") && ([v11 hasPrefix:stringByDeletingLastPathComponent] & 1) != 0)
         {
-          [v75 addObject:{objc_msgSend(v11, "substringFromIndex:", -[NSString length](stringByDeletingLastPathComponent, "length") + 1)}];
+          [v79 addObject:{objc_msgSend(v11, "substringFromIndex:", -[NSString length](stringByDeletingLastPathComponent, "length") + 1)}];
         }
 
         else
@@ -229,65 +229,65 @@ LABEL_17:
           shouldLog = [v13 shouldLog];
           shouldLogToDisk = [v13 shouldLogToDisk];
           oSLogObject = [v13 OSLogObject];
+          v17 = oSLogObject;
           if (shouldLogToDisk)
           {
-            v17 = shouldLog | 2;
+            v18 = shouldLog | 2;
           }
 
           else
           {
-            v17 = shouldLog;
+            v18 = shouldLog;
           }
 
           if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
           {
-            v18 = v17;
+            v19 = v18;
           }
 
           else
           {
-            v18 = v17 & 2;
+            v19 = v18 & 2;
           }
 
-          if (v18)
+          if (v19)
           {
-            v19 = objc_opt_class();
-            v95 = 138412802;
-            v96 = v19;
-            v97 = 2112;
-            v98 = v11;
-            v99 = 2112;
-            v100 = stringByDeletingLastPathComponent;
-            LODWORD(v71) = 32;
-            v68 = &v95;
-            v20 = _os_log_send_and_compose_impl();
-            if (v20)
+            v20 = objc_opt_class();
+            v99 = 138412802;
+            v100 = v20;
+            v101 = 2112;
+            v102 = v11;
+            v103 = 2112;
+            v104 = stringByDeletingLastPathComponent;
+            LODWORD(v75) = 32;
+            v21 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, v17, 0, "%@: Path: %@ not valid for manifest: %@", &v99, v75);
+            if (v21)
             {
-              v21 = v20;
-              v22 = [NSString stringWithCString:v20 encoding:4, &v95, v71];
-              free(v21);
-              v68 = v22;
+              v22 = v21;
+              v23 = [NSString stringWithCString:v21 encoding:4];
+              free(v22);
+              v72 = v23;
               SSFileLog();
             }
           }
         }
       }
 
-      v8 = [paths countByEnumeratingWithState:&v84 objects:v101 count:16];
+      v8 = [paths countByEnumeratingWithState:&v88 objects:v105 count:16];
     }
 
     while (v8);
   }
 
-  v23 = v73;
-  v24 = [v75 count];
-  if (v24 != [paths count])
+  v24 = v77;
+  v25 = [v79 count];
+  if (v25 != [paths count])
   {
-    v25 = [NSError errorWithDomain:SSErrorDomain code:601 userInfo:0];
-    v89[5] = v25;
+    v26 = [NSError errorWithDomain:SSErrorDomain code:601 userInfo:0];
+    v93[5] = v26;
   }
 
-  if ([v75 count])
+  if ([v79 count])
   {
     dispatchQueue = selfCopy->_dispatchQueue;
     block[0] = _NSConcreteStackBlock;
@@ -295,139 +295,139 @@ LABEL_17:
     block[2] = sub_10009913C;
     block[3] = &unk_1003273B8;
     block[4] = selfCopy;
-    block[5] = v75;
-    block[6] = v73;
+    block[5] = v79;
+    block[6] = v77;
     block[7] = stringByDeletingLastPathComponent;
-    block[8] = v74;
-    block[9] = &v88;
+    block[8] = v78;
+    block[9] = &v92;
     dispatch_sync(dispatchQueue, block);
   }
 
-  v27 = [v73 count];
-  if (v27 == [paths count])
+  v28 = [v77 count];
+  if (v28 == [paths count])
   {
-    if ([v74 count])
+    if ([v78 count])
     {
-      v28 = objc_alloc_init(NSFileManager);
-      v29 = +[SSLogConfig sharedDaemonConfig];
-      if (!v29)
+      v29 = objc_alloc_init(NSFileManager);
+      v30 = +[SSLogConfig sharedDaemonConfig];
+      if (!v30)
       {
-        v29 = +[SSLogConfig sharedConfig];
+        v30 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v29 shouldLog];
-      shouldLogToDisk2 = [v29 shouldLogToDisk];
-      oSLogObject2 = [v29 OSLogObject];
+      shouldLog2 = [v30 shouldLog];
+      shouldLogToDisk2 = [v30 shouldLogToDisk];
+      oSLogObject2 = [v30 OSLogObject];
+      v34 = oSLogObject2;
       if (shouldLogToDisk2)
       {
-        v33 = shouldLog2 | 2;
+        v35 = shouldLog2 | 2;
       }
 
       else
       {
-        v33 = shouldLog2;
+        v35 = shouldLog2;
       }
 
       if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
       {
-        v34 = v33;
+        v36 = v35;
       }
 
       else
       {
-        v34 = v33 & 2;
+        v36 = v35 & 2;
       }
 
-      if (v34)
+      if (v36)
       {
-        v35 = objc_opt_class();
-        v36 = [v74 count];
-        v37 = [v73 count];
-        v95 = 138412802;
-        v96 = v35;
-        v97 = 2048;
-        v98 = v36;
-        v99 = 2048;
+        v37 = objc_opt_class();
+        v38 = [v78 count];
+        v39 = [v77 count];
+        v99 = 138412802;
         v100 = v37;
-        LODWORD(v71) = 32;
-        v69 = &v95;
-        v38 = _os_log_send_and_compose_impl();
-        if (v38)
+        v101 = 2048;
+        v102 = v38;
+        v103 = 2048;
+        v104 = v39;
+        LODWORD(v75) = 32;
+        v40 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &_mh_execute_header, v34, 1, "%@: Deleting %lu secondary files for %lu removed manifest items", &v99, v75);
+        if (v40)
         {
-          v39 = v38;
-          v40 = [NSString stringWithCString:v38 encoding:4, &v95, v71];
-          free(v39);
-          v69 = v40;
+          v41 = v40;
+          v42 = [NSString stringWithCString:v40 encoding:4];
+          free(v41);
+          v73 = v42;
           SSFileLog();
         }
       }
 
-      v81 = 0u;
-      v82 = 0u;
-      v79 = 0u;
-      v80 = 0u;
-      v41 = [v74 countByEnumeratingWithState:&v79 objects:v94 count:{16, v69}];
-      if (v41)
+      v85 = 0u;
+      v86 = 0u;
+      v83 = 0u;
+      v84 = 0u;
+      v43 = [v78 countByEnumeratingWithState:&v83 objects:v98 count:{16, v73}];
+      if (v43)
       {
-        v42 = *v80;
+        v44 = *v84;
         do
         {
-          for (j = 0; j != v41; j = j + 1)
+          for (j = 0; j != v43; j = j + 1)
           {
-            if (*v80 != v42)
+            if (*v84 != v44)
             {
-              objc_enumerationMutation(v74);
+              objc_enumerationMutation(v78);
             }
 
-            v44 = *(*(&v79 + 1) + 8 * j);
-            v78 = 0;
-            if ([v28 removeItemAtPath:v44 error:{&v78, v70, v71}])
+            v46 = *(*(&v83 + 1) + 8 * j);
+            v82 = 0;
+            if ([v29 removeItemAtPath:v46 error:{&v82, v74}])
             {
-              v45 = +[SSLogConfig sharedDaemonConfig];
-              if (!v45)
+              v47 = +[SSLogConfig sharedDaemonConfig];
+              if (!v47)
               {
-                v45 = +[SSLogConfig sharedConfig];
+                v47 = +[SSLogConfig sharedConfig];
               }
 
-              shouldLog3 = [v45 shouldLog];
-              shouldLogToDisk3 = [v45 shouldLogToDisk];
-              oSLogObject3 = [v45 OSLogObject];
+              shouldLog3 = [v47 shouldLog];
+              shouldLogToDisk3 = [v47 shouldLogToDisk];
+              oSLogObject3 = [v47 OSLogObject];
+              v51 = oSLogObject3;
               if (shouldLogToDisk3)
               {
-                v49 = shouldLog3 | 2;
+                v52 = shouldLog3 | 2;
               }
 
               else
               {
-                v49 = shouldLog3;
+                v52 = shouldLog3;
               }
 
               if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
               {
-                v50 = v49;
+                v53 = v52;
               }
 
               else
               {
-                v50 = v49 & 2;
+                v53 = v52 & 2;
               }
 
-              if (v50)
+              if (v53)
               {
-                v51 = objc_opt_class();
-                v95 = 138412546;
-                v96 = v51;
-                v97 = 2112;
-                v98 = v44;
-                LODWORD(v71) = 22;
-                v70 = &v95;
-                v52 = _os_log_send_and_compose_impl();
-                if (v52)
+                v54 = objc_opt_class();
+                v99 = 138412546;
+                v100 = v54;
+                v101 = 2112;
+                v102 = v46;
+                LODWORD(v75) = 22;
+                v55 = _os_log_send_and_compose_impl(v53, 0, 0, 0, &_mh_execute_header, v51, 1, "%@: Deleted secondary file: %@", &v99, v75);
+                if (v55)
                 {
-                  v53 = v52;
-                  v54 = [NSString stringWithCString:v52 encoding:4, &v95, v71];
-                  free(v53);
-                  v70 = v54;
+                  v56 = v55;
+                  v57 = [NSString stringWithCString:v55 encoding:4];
+                  free(v56);
+                  v74 = v57;
                   SSFileLog();
                 }
               }
@@ -435,78 +435,78 @@ LABEL_17:
 
             else
             {
-              v55 = +[SSLogConfig sharedDaemonConfig];
-              if (!v55)
+              v58 = +[SSLogConfig sharedDaemonConfig];
+              if (!v58)
               {
-                v55 = +[SSLogConfig sharedConfig];
+                v58 = +[SSLogConfig sharedConfig];
               }
 
-              shouldLog4 = [v55 shouldLog];
-              shouldLogToDisk4 = [v55 shouldLogToDisk];
-              oSLogObject4 = [v55 OSLogObject];
+              shouldLog4 = [v58 shouldLog];
+              shouldLogToDisk4 = [v58 shouldLogToDisk];
+              oSLogObject4 = [v58 OSLogObject];
+              v62 = oSLogObject4;
               if (shouldLogToDisk4)
               {
-                v59 = shouldLog4 | 2;
+                v63 = shouldLog4 | 2;
               }
 
               else
               {
-                v59 = shouldLog4;
+                v63 = shouldLog4;
               }
 
               if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
               {
-                v60 = v59;
+                v64 = v63;
               }
 
               else
               {
-                v60 = v59 & 2;
+                v64 = v63 & 2;
               }
 
-              if (v60)
+              if (v64)
               {
-                v61 = objc_opt_class();
-                v62 = v89[5];
-                v95 = 138412802;
-                v96 = v61;
-                v97 = 2112;
-                v98 = v62;
-                v99 = 2112;
-                v100 = v44;
-                LODWORD(v71) = 32;
-                v70 = &v95;
-                v63 = _os_log_send_and_compose_impl();
-                if (v63)
+                v65 = objc_opt_class();
+                v66 = v93[5];
+                v99 = 138412802;
+                v100 = v65;
+                v101 = 2112;
+                v102 = v66;
+                v103 = 2112;
+                v104 = v46;
+                LODWORD(v75) = 32;
+                v67 = _os_log_send_and_compose_impl(v64, 0, 0, 0, &_mh_execute_header, v62, 0, "%@: Could not delete secondary file: %@: %@", &v99, v75);
+                if (v67)
                 {
-                  v64 = v63;
-                  v65 = [NSString stringWithCString:v63 encoding:4, &v95, v71];
-                  free(v64);
-                  v70 = v65;
+                  v68 = v67;
+                  v69 = [NSString stringWithCString:v67 encoding:4];
+                  free(v68);
+                  v74 = v69;
                   SSFileLog();
                 }
               }
             }
           }
 
-          v41 = [v74 countByEnumeratingWithState:&v79 objects:v94 count:16];
+          v43 = [v78 countByEnumeratingWithState:&v83 objects:v98 count:16];
         }
 
-        while (v41);
+        while (v43);
       }
 
-      v23 = v73;
+      v24 = v77;
     }
   }
 
   else if (error)
   {
-    *error = v89[5];
+    *error = v93[5];
   }
 
-  v66 = v89[5];
-  _Block_object_dispose(&v88, 8);
-  return v23;
+  v70 = v93[5];
+  _Block_object_dispose(&v92, 8);
+  return v24;
 }
 
 + (void)getPathsWithMessage:(id)message connection:(id)connection
@@ -590,8 +590,8 @@ LABEL_17:
 {
   if (!self->_dictionary && [NSFileManager ensureDirectoryExists:[(NSString *)self->_path stringByDeletingLastPathComponent]])
   {
-    memset(&v21, 0, sizeof(v21));
-    if (stat([(NSString *)self->_path fileSystemRepresentation], &v21))
+    memset(&v22, 0, sizeof(v22));
+    if (stat([(NSString *)self->_path fileSystemRepresentation], &v22))
     {
       if (*__error() == 2)
       {
@@ -604,34 +604,39 @@ LABEL_17:
         shouldLog = [v3 shouldLog];
         if ([v3 shouldLogToDisk])
         {
-          v5 = shouldLog | 2;
+          LODWORD(v5) = shouldLog | 2;
         }
 
         else
         {
-          v5 = shouldLog;
+          LODWORD(v5) = shouldLog;
         }
 
-        if (!os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_INFO))
+        oSLogObject = [v3 OSLogObject];
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+        {
+          v5 = v5;
+        }
+
+        else
         {
           v5 &= 2u;
         }
 
         if (v5)
         {
-          v6 = objc_opt_class();
+          v7 = objc_opt_class();
           path = self->_path;
-          v22 = 138412546;
-          v23 = v6;
-          v24 = 2112;
-          v25 = path;
-          LODWORD(v20) = 22;
-          v8 = _os_log_send_and_compose_impl();
-          if (v8)
+          v23 = 138412546;
+          v24 = v7;
+          v25 = 2112;
+          v26 = path;
+          v9 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Path does not exist: %@", &v23, 22);
+          if (v9)
           {
-            v9 = v8;
-            [NSString stringWithCString:v8 encoding:4, &v22, v20];
-            free(v9);
+            v10 = v9;
+            [NSString stringWithCString:v9 encoding:4];
+            free(v10);
             SSFileLog();
           }
         }
@@ -640,61 +645,66 @@ LABEL_17:
       }
     }
 
-    else if (v21.st_mode < 0)
+    else if (v22.st_mode < 0)
     {
-      v10 = sub_1000CA250(self->_path);
-      if ([(__CFDictionary *)v10 length])
+      v11 = sub_1000CA250(self->_path);
+      if ([(__CFDictionary *)v11 length])
       {
-        v11 = [NSPropertyListSerialization propertyListWithData:v10 options:1 format:0 error:0];
+        v12 = [NSPropertyListSerialization propertyListWithData:v11 options:1 format:0 error:0];
       }
 
       else
       {
-        v12 = +[SSLogConfig sharedDaemonConfig];
-        if (!v12)
+        v13 = +[SSLogConfig sharedDaemonConfig];
+        if (!v13)
         {
-          v12 = +[SSLogConfig sharedConfig];
+          v13 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog2 = [v12 shouldLog];
-        if ([v12 shouldLogToDisk])
+        shouldLog2 = [v13 shouldLog];
+        if ([v13 shouldLogToDisk])
         {
-          v14 = shouldLog2 | 2;
+          LODWORD(v15) = shouldLog2 | 2;
         }
 
         else
         {
-          v14 = shouldLog2;
+          LODWORD(v15) = shouldLog2;
         }
 
-        if (!os_log_type_enabled([v12 OSLogObject], OS_LOG_TYPE_INFO))
+        oSLogObject2 = [v13 OSLogObject];
+        if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
         {
-          v14 &= 2u;
+          v15 = v15;
         }
 
-        if (v14)
+        else
         {
-          v15 = objc_opt_class();
-          v16 = self->_path;
-          v22 = 138412546;
-          v23 = v15;
-          v24 = 2112;
-          v25 = v16;
-          LODWORD(v20) = 22;
-          v17 = _os_log_send_and_compose_impl();
-          if (v17)
+          v15 &= 2u;
+        }
+
+        if (v15)
+        {
+          v17 = objc_opt_class();
+          v18 = self->_path;
+          v23 = 138412546;
+          v24 = v17;
+          v25 = 2112;
+          v26 = v18;
+          v19 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Path returned empty plist: %@", &v23, 22);
+          if (v19)
           {
-            v18 = v17;
-            [NSString stringWithCString:v17 encoding:4, &v22, v20];
-            free(v18);
+            v20 = v19;
+            [NSString stringWithCString:v19 encoding:4];
+            free(v20);
             SSFileLog();
           }
         }
 
-        v11 = objc_alloc_init(NSMutableDictionary);
+        v12 = objc_alloc_init(NSMutableDictionary);
       }
 
-      self->_dictionary = v11;
+      self->_dictionary = v12;
     }
   }
 
@@ -726,15 +736,21 @@ LABEL_17:
   shouldLog = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v7 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
@@ -745,13 +761,12 @@ LABEL_17:
     v15 = objc_opt_class();
     v16 = 1024;
     v17 = v5 != 0;
-    LODWORD(v13) = 18;
-    v10 = _os_log_send_and_compose_impl();
-    if (v10)
+    v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Wrote dictionary (success: %d)", &v14, 18);
+    if (v11)
     {
-      v11 = v10;
-      [NSString stringWithCString:v10 encoding:4, &v14, v13];
-      free(v11);
+      v12 = v11;
+      [NSString stringWithCString:v11 encoding:4];
+      free(v12);
       SSFileLog();
     }
   }

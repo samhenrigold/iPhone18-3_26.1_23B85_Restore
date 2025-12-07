@@ -1533,7 +1533,7 @@ LABEL_19:
   v4 = v3;
   if (v3)
   {
-    [v3 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v3);
   }
 
   else

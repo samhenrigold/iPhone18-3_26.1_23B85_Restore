@@ -6,6 +6,7 @@
 - (id)parameterDefinitionDictionary;
 - (id)parameterStateFromLinkValue:(id)value;
 - (id)trueDisplayName;
+- (void)getLinkValueFromProcessedParameterValue:(id)value parameterState:(id)state permissionRequestor:(id)requestor runningFromToolKit:(BOOL)kit action:(id)action parameterKey:(id)key completionHandler:(id)handler;
 @end
 
 @implementation WFLinkActionBoolParameterDefinition
@@ -106,7 +107,7 @@ LABEL_15:
 
 - (id)parameterStateFromLinkValue:(id)value
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   value = [value value];
   if (value)
   {
@@ -123,21 +124,40 @@ LABEL_15:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       valueType2 = [(WFLinkActionParameterDefinition *)self valueType];
-      v12 = 136315650;
-      v13 = "[WFLinkActionBoolParameterDefinition parameterStateFromLinkValue:]";
-      v14 = 2114;
-      v15 = value;
-      v16 = 2114;
-      v17 = valueType2;
+      v11 = 136315650;
+      v12 = "[WFLinkActionBoolParameterDefinition parameterStateFromLinkValue:]";
+      v13 = 2114;
+      v14 = value;
+      v15 = 2114;
+      v16 = valueType2;
     }
   }
 
   v7 = 0;
 LABEL_8:
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v7;
+}
+
+- (void)getLinkValueFromProcessedParameterValue:(id)value parameterState:(id)state permissionRequestor:(id)requestor runningFromToolKit:(BOOL)kit action:(id)action parameterKey:(id)key completionHandler:(id)handler
+{
+  kitCopy = kit;
+  if (value || kit)
+  {
+    v17.receiver = self;
+    v17.super_class = WFLinkActionBoolParameterDefinition;
+    handlerCopy = handler;
+    [(WFLinkActionParameterDefinition *)&v17 getLinkValueFromProcessedParameterValue:value parameterState:state permissionRequestor:requestor runningFromToolKit:kitCopy action:action parameterKey:key completionHandler:handlerCopy];
+  }
+
+  else
+  {
+    v18.receiver = self;
+    v18.super_class = WFLinkActionBoolParameterDefinition;
+    handlerCopy2 = handler;
+    handlerCopy = [(WFLinkActionParameterDefinition *)&v18 linkValueWithValue:MEMORY[0x1E695E110]];
+    (*(handler + 2))(handlerCopy2, handlerCopy, 0);
+  }
 }
 
 - (id)linkValueFromParameterState:(id)state action:(id)action

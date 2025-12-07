@@ -45,7 +45,8 @@ id getCSVoiceTriggerXPCServiceClass()
       CoreSpeechLibraryCore_frameworkLibrary = _sl_dlopen();
       if (!CoreSpeechLibraryCore_frameworkLibrary)
       {
-        goto LABEL_11;
+        abort_report_np("%s", v7[0]);
+        goto LABEL_13;
       }
 
       if (v7[0])
@@ -62,8 +63,8 @@ id getCSVoiceTriggerXPCServiceClass()
       goto LABEL_8;
     }
 
-LABEL_11:
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "CSVoiceTriggerXPCService");
+LABEL_13:
     __break(1u);
   }
 
@@ -74,9 +75,9 @@ LABEL_8:
   return v1;
 }
 
-void sub_223A33828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_223A33828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -309,7 +310,7 @@ void sub_223A33DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a12, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   __cxa_end_catch();
@@ -320,18 +321,18 @@ uint64_t NWavChunk2HTKFrames::run(uint64_t a1, const char *a2, int *a3, int *a4,
 {
   if ((*(a1 + 800) & 1) == 0)
   {
-    Error::chuck("NWavChunk2HTKFrames::run - NWavChunk2HTKFrames::init() must be called before running", a2);
+    Error::chuck("NWavChunk2HTKFrames::run - NWavChunk2HTKFrames::init() must be called before running", a2, a3, a4, a5);
   }
 
   v6 = (a1 + 48);
   if ((*(a1 + 48) & 1) == 0)
   {
-    Error::chuck("AccelStaticMFCC::start() - AccelStaticMFCC::init() has to be called before starting", a2);
+    Error::chuck("AccelStaticMFCC::start() - AccelStaticMFCC::init() has to be called before starting", a2, a3, a4, a5);
   }
 
   if (*(a1 + 560))
   {
-    Error::chuck("AccelStaticMFCC::start() - frames undrained from previous chunk - call isFrame() or reset()", a2);
+    Error::chuck("AccelStaticMFCC::start() - frames undrained from previous chunk - call isFrame() or reset()", a2, a3, a4, a5);
   }
 
   v8 = *a3;
@@ -839,13 +840,13 @@ uint64_t AccelFFT::run(uint64_t a1, uint64_t a2, const DSPSplitComplex *a3)
 {
   if ((*(a1 + 8) & 1) == 0)
   {
-    Error::chuck("AccelFFT::run() - You need to call AccelFFT::init() before running the FFT", a2);
+    Error::chuck("AccelFFT::run() - You need to call AccelFFT::init() before running the FFT", a2, a3);
   }
 
   v4 = *(a2 + 16);
   if (v4 != *(a1 + 16))
   {
-    Error::chuck("AccelFFT::run() - length of input array should be %d, not %d", a2, *(a1 + 16), v4);
+    Error::chuck("AccelFFT::run() - length of input array should be %d, not %d", a2, a3, *(a1 + 16), v4);
   }
 
   memcpy(*(a1 + 32), *(a2 + 8), 4 * v4);
@@ -1346,7 +1347,7 @@ void sub_223A353E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a12, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   __cxa_end_catch();
@@ -1669,9 +1670,9 @@ LABEL_13:
   return result;
 }
 
-void sub_223A35DDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_223A35DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   NArray<NResizingQueue<NFrame>::NElement>::~NArray(va);
   _Unwind_Resume(a1);
 }
@@ -1694,21 +1695,21 @@ void NConfig::load(NConfig *this, const NString *a2, const NString *a3)
   operator new[]();
 }
 
-void sub_223A362C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_223A362C8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (a16)
   {
-    MEMORY[0x223DF1D00](a16, v16);
+    MEMORY[0x223DF1D00](a16, v16, a3, a4, a5, a6, a7, a8);
   }
 
   if (a13)
   {
-    (*(*a13 + 8))(a13);
+    (*(*a13 + 8))(a13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a11)
   {
-    MEMORY[0x223DF1D00](a11, v16);
+    MEMORY[0x223DF1D00](a11, v16, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -1893,7 +1894,7 @@ BOOL NString::endswith(NString *this, const char *__s)
   return v6 && memcmp((*(this + 2) + v7), __s, v4) == 0;
 }
 
-uint64_t NDBlobGetBlobSize(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, _DWORD *a5)
+uint64_t NDBlobGetBlobSize(const char *a1, const char *a2, N16ByteAlignedString *a3, BOOL a4, _DWORD *a5)
 {
   v9[7] = *MEMORY[0x277D85DE8];
   result = 0xFFFFFFFFLL;
@@ -1913,7 +1914,7 @@ uint64_t NDBlobGetBlobSize(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4
   return result;
 }
 
-void sub_223A37458(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, __int128 buf)
+void sub_223A37458(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, __int128 buf)
 {
   if (!a2)
   {
@@ -1985,16 +1986,16 @@ void NConfig::NConfig(NConfig *this, const BOOL *a2)
   }
 }
 
-void sub_223A379DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_223A379DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   NConfigSection::~NConfigSection(va);
-  if (a7)
+  if (a13)
   {
-    MEMORY[0x223DF1D00](a7, v8);
+    MEMORY[0x223DF1D00](a13, v14);
   }
 
-  NMap<NString,NConfigSection>::~NMap(v7);
+  NMap<NString,NConfigSection>::~NMap(v13);
   _Unwind_Resume(a1);
 }
 
@@ -2109,7 +2110,7 @@ LABEL_5:
     {
       v6 = this + 272;
 LABEL_27:
-      TSHMMDetector::advanceHMMScores(this, v6, a3.n128_f64[0]);
+      TSHMMDetector::advanceHMMScores(this, v6, a3);
       v4 = *v5;
       goto LABEL_28;
     }
@@ -2428,99 +2429,99 @@ LABEL_14:
   return this;
 }
 
-uint64_t NDeepnetDistribution::forwardComputeFloat(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t NDeepnetDistribution::forwardComputeFloat(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __n128 a5)
 {
-  v29[1] = *MEMORY[0x277D85DE8];
-  v6 = *(a2 + 8);
-  v7 = *(a1 + 48);
-  v8 = (v7 - 1);
-  if (v7 != 1)
+  v30[1] = *MEMORY[0x277D85DE8];
+  v7 = *(a2 + 8);
+  v8 = *(a1 + 48);
+  v9 = (v8 - 1);
+  if (v8 != 1)
   {
-    v9 = (MEMORY[0x28223BE20])();
-    v11 = v29 - ((v10 + 15) & 0x7FFFFFFF0);
-    MEMORY[0x28223BE20](v9);
-    v13 = v29 - ((v12 + 15) & 0x7FFFFFFF0);
-    v14 = *(*(a1 + 40) + 8);
+    MEMORY[0x28223BE20](a1);
+    v11 = v30 - ((v10 + 15) & 0x7FFFFFFF0);
+    a5 = MEMORY[0x28223BE20](v12);
+    v14 = v30 - ((v13 + 15) & 0x7FFFFFFF0);
+    v15 = *(*(a1 + 40) + 8);
     if (a4)
     {
-      if (!v14)
+      if (!v15)
       {
         goto LABEL_26;
       }
 
-      (*(*v14 + 24))(v14);
-      if (v8 >= 2)
+      (*(*v15 + 24))(v15, a5);
+      if (v9 >= 2)
       {
-        v15 = 1;
-        v16 = 24;
+        v16 = 1;
+        v17 = 24;
         while (1)
         {
-          v17 = *(*(a1 + 40) + v16);
-          if (!v17)
+          v18 = *(*(a1 + 40) + v17);
+          if (!v18)
           {
             goto LABEL_26;
           }
 
-          v18 = v11;
-          v11 = v13;
-          (*(*v17 + 24))(v17, v13, v18, *(*(a4 + 8) + 8 * v15++));
-          v16 += 16;
-          v13 = v18;
-          if (v8 == v15)
+          v19 = v11;
+          v11 = v14;
+          (*(*v18 + 24))(v18, v14, v19, *(*(a4 + 8) + 8 * v16++));
+          v17 += 16;
+          v14 = v19;
+          if (v9 == v16)
           {
             goto LABEL_20;
           }
         }
       }
 
-      v8 = 1;
+      v9 = 1;
 LABEL_20:
-      v26 = *(*(a1 + 40) + 16 * v8 + 8);
-      if (v26)
+      v27 = *(*(a1 + 40) + 16 * v9 + 8);
+      if (v27)
       {
-        v27 = *(*v26 + 24);
-        return v27();
+        v28 = *(*v27 + 24);
+        return v28();
       }
     }
 
     else
     {
-      if (!v14)
+      if (!v15)
       {
         goto LABEL_26;
       }
 
-      (*(*v14 + 24))(v14);
-      if (v8 < 2)
+      (*(*v15 + 24))(v15, a5);
+      if (v9 < 2)
       {
-        v8 = 1;
+        v9 = 1;
 LABEL_23:
-        v28 = *(*(a1 + 40) + 16 * v8 + 8);
-        if (v28)
+        v29 = *(*(a1 + 40) + 16 * v9 + 8);
+        if (v29)
         {
-          v27 = *(*v28 + 24);
-          return v27();
+          v28 = *(*v29 + 24);
+          return v28();
         }
       }
 
       else
       {
-        v22 = v8 - 1;
-        v23 = 24;
+        v23 = v9 - 1;
+        v24 = 24;
         while (1)
         {
-          v24 = *(*(a1 + 40) + v23);
-          if (!v24)
+          v25 = *(*(a1 + 40) + v24);
+          if (!v25)
           {
             break;
           }
 
-          v25 = v11;
-          v11 = v13;
-          (*(*v24 + 24))(v24, v13, v25, 0);
-          v23 += 16;
-          v13 = v25;
-          if (!--v22)
+          v26 = v11;
+          v11 = v14;
+          (*(*v25 + 24))(v25, v14, v26, 0);
+          v24 += 16;
+          v14 = v26;
+          if (!--v23)
           {
             goto LABEL_23;
           }
@@ -2529,44 +2530,44 @@ LABEL_23:
     }
 
 LABEL_26:
-    Error::chuck("NSmartPointer::checkptr() - pointer unset", v6);
+    Error::chuck("NSmartPointer::checkptr() - pointer unset", v7, a5.n128_f64[0]);
   }
 
-  v19 = *(*(a1 + 40) + 8);
-  if (!v19)
+  v20 = *(*(a1 + 40) + 8);
+  if (!v20)
   {
     goto LABEL_26;
   }
 
-  v20 = *(*v19 + 24);
+  v21 = *(*v20 + 24);
 
-  return v20();
+  return v21();
 }
 
-uint64_t NDeepnetDistribution::scoreAll(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void NDeepnetDistribution::scoreAll(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __n128 a5)
 {
-  v4 = *(a1 + 12);
-  if (*(a2 + 16) != v4)
+  v5 = *(a1 + 12);
+  if (*(a2 + 16) != v5)
   {
-    Error::chuck("NDeepnetDistribution::scoreAll() - input vector has wrong size (%d, should be %d)", a2, *(a2 + 16), v4);
+    Error::chuck("NDeepnetDistribution::scoreAll() - input vector has wrong size (%d, should be %d)", a2, a3, a4, *(a2 + 16), v5);
   }
 
-  v5 = *(a1 + 8);
-  if (*(a3 + 16) != v5)
+  v6 = *(a1 + 8);
+  if (*(a3 + 16) != v6)
   {
-    Error::chuck("NDeepnetDistribution::scoreAll() - output (dist) vector has wrong size (%d, should be %d)", a2, *(a3 + 16), v5);
+    Error::chuck("NDeepnetDistribution::scoreAll() - output (dist) vector has wrong size (%d, should be %d)", a2, *(a3 + 16), v6);
   }
 
   if (*(a1 + 376) == 1)
   {
 
-    return NDeepnetDistribution::forwardComputeFixed(a1, a2, a3);
+    NDeepnetDistribution::forwardComputeFixed(a1, a2, a3);
   }
 
   else
   {
 
-    return NDeepnetDistribution::forwardComputeFloat(a1, a2, a3, a4);
+    NDeepnetDistribution::forwardComputeFloat(a1, a2, a3, a4, a5);
   }
 }
 
@@ -2781,7 +2782,7 @@ LABEL_10:
   return result;
 }
 
-float32x4_t NNormalizationLayer::compute(NNormalizationLayer *this, float32x4_t *a2, const float *a3, void *a4)
+float32x4_t NNormalizationLayer::compute(NNormalizationLayer *this, float32x4_t *a2, float32_t *a3, void *a4)
 {
   v4 = *(this + 2);
   if (!v4)
@@ -2876,16 +2877,16 @@ void N8BitMatrixLayer::compute(N8BitMatrixLayer *this, const float *a2, float *a
   }
 
   v7 = (*(this + 8) + *(this + 2));
-  v8 = MEMORY[0x28223BE20](this);
-  v10 = (v122 - v9);
-  v11 = *(v8 + 12);
-  MEMORY[0x28223BE20](v8);
+  MEMORY[0x28223BE20](this);
+  v9 = (v122 - v8);
+  v11 = *(v10 + 12);
+  MEMORY[0x28223BE20](v10);
   v18 = (v122 - ((v17 + 15) & 0x7FFFFFFF0));
   if (v13 >= 0x10)
   {
     v19 = v13 >> 4;
     v20 = v12 + 2;
-    v21 = &v10->i8[8];
+    v21 = &v9->i8[8];
     v22 = vdupq_n_s32(0x437F0000u);
     do
     {
@@ -2930,7 +2931,7 @@ void N8BitMatrixLayer::compute(N8BitMatrixLayer *this, const float *a2, float *a
     if (v29 >= 0x10)
     {
       v31 = v29 - (v28 & 0xF);
-      v32 = (v10 + v27);
+      v32 = (v9 + v27);
       v33 = (v12 + (v30 & 0x3FFFFFFC0));
       v34 = vdupq_n_s32(0x437F0000u);
       v35 = v31;
@@ -2981,7 +2982,7 @@ void N8BitMatrixLayer::compute(N8BitMatrixLayer *this, const float *a2, float *a
     v43 = v28 & 3;
     v44 = v29 - v43;
     v45 = v31 + v27 + v43 - v28;
-    v46 = &v10->i8[v31 + v27];
+    v46 = &v9->i8[v31 + v27];
     v47 = (v12 + 4 * v31 + (v30 & 0x3FFFFFFC0));
     v48 = vdupq_n_s32(0x437F0000u);
     do
@@ -3006,7 +3007,7 @@ void N8BitMatrixLayer::compute(N8BitMatrixLayer *this, const float *a2, float *a
       do
       {
 LABEL_21:
-        v10->i8[v27] = rintf(v12->f32[v27] * 255.0);
+        v9->i8[v27] = rintf(v12->f32[v27] * 255.0);
         ++v27;
       }
 
@@ -3017,7 +3018,7 @@ LABEL_21:
 LABEL_22:
   if (v13 < v7)
   {
-    bzero(&v10->i8[v13], (v14 - 1) + 1);
+    bzero(&v9->i8[v13], (v14 - 1) + 1);
   }
 
   if ((v11 & 0xFFFFFFFC) != 0)
@@ -3032,7 +3033,7 @@ LABEL_22:
         v55 = 0uLL;
         v54 = 0uLL;
         v63 = v4;
-        v64 = v10;
+        v64 = v9;
         v53 = 0uLL;
         do
         {
@@ -3114,7 +3115,7 @@ LABEL_54:
           v77 = 0uLL;
           v78 = v72;
           v79 = 0uLL;
-          v80 = v10 + 1;
+          v80 = v9 + 1;
           v81 = v7 & 0xFFFFFFE0;
           v82 = 0uLL;
           v83 = 0uLL;
@@ -3174,7 +3175,7 @@ LABEL_54:
         {
           v15.i32[0] = *(v4->i32 + v76);
           v15.i64[0] = vmovl_s8(*v15.f32).u64[0];
-          LODWORD(v16.f64[0]) = *(v10->i32 + v76);
+          LODWORD(v16.f64[0]) = *(v9->i32 + v76);
           *&v16.f64[0] = vmovl_u8(*&v16.f64[0]).u64[0];
           v95 = vmlal_s16(v95, *&v16.f64[0], *v15.f32);
           v76 += 4;
@@ -3191,7 +3192,7 @@ LABEL_54:
         v73 = v7 & 0xFFFFFFFC;
 LABEL_51:
         v96 = v7 - v73;
-        v97 = &v10->i8[v73];
+        v97 = &v9->i8[v73];
         do
         {
           v99 = v75->i8[0];
@@ -3843,7 +3844,7 @@ LABEL_80:
   }
 }
 
-uint64_t TSHMMDetector::advanceHMMScores(uint64_t result, uint64_t a2, double a3)
+uint64_t TSHMMDetector::advanceHMMScores(uint64_t result, uint64_t a2, __n128 a3)
 {
   v4 = result;
   if (*(result + 447) == 1)
@@ -3852,7 +3853,7 @@ uint64_t TSHMMDetector::advanceHMMScores(uint64_t result, uint64_t a2, double a3
     if (v5)
     {
       v6 = *(a2 + 8);
-      LODWORD(a3) = *v6;
+      a3.n128_u32[0] = *v6;
       if (v5 != 1)
       {
         v7 = v5 - 1;
@@ -3861,9 +3862,9 @@ uint64_t TSHMMDetector::advanceHMMScores(uint64_t result, uint64_t a2, double a3
         {
           v9 = *v8++;
           v10 = v9;
-          if (v9 > *&a3)
+          if (v9 > a3.n128_f32[0])
           {
-            *&a3 = v10;
+            a3.n128_f32[0] = v10;
           }
 
           --v7;
@@ -3875,7 +3876,7 @@ uint64_t TSHMMDetector::advanceHMMScores(uint64_t result, uint64_t a2, double a3
 
     else
     {
-      a3 = 0.0;
+      a3.n128_u64[0] = 0;
     }
   }
 
@@ -3894,10 +3895,10 @@ LABEL_11:
       goto LABEL_17;
     }
 
-    LODWORD(a3) = *(*(a2 + 8) + 4 * **(*(result + 168) + 64));
+    a3.n128_u32[0] = *(*(a2 + 8) + 4 * **(*(result + 168) + 64));
   }
 
-  v34 = LODWORD(a3);
+  v34 = a3.n128_u32[0];
   if (!*(result + 176))
   {
     goto LABEL_11;
@@ -3974,7 +3975,7 @@ LABEL_17:
   return result;
 }
 
-uint64_t TSHMMDetector::updateStateProbs(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, float *a5, _BYTE *a6, double a7)
+uint64_t TSHMMDetector::updateStateProbs(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, float *a5, _BYTE *a6, __n128 a7)
 {
   v10 = a2;
   v11 = result;
@@ -3997,27 +3998,27 @@ uint64_t TSHMMDetector::updateStateProbs(uint64_t result, uint64_t a2, uint64_t 
       do
       {
         v24 = v21 + v14;
-        v25 = *(v23 + 4 * v14) + *(v22 + 4 * v14);
-        v26 = *(v15 + 4 * (v21 + v14)) + *(v19 + 4 * (v21 + v14));
-        a2 = v26 >= v25;
-        if (v26 >= v25)
+        a7.n128_f32[0] = *(v23 + 4 * v14) + *(v22 + 4 * v14);
+        v25 = *(v15 + 4 * (v21 + v14)) + *(v19 + 4 * (v21 + v14));
+        a2 = v25 >= a7.n128_f32[0];
+        if (v25 >= a7.n128_f32[0])
         {
           *(v18 + 4 * v14) = *(v16 + 4 * v24);
-          v25 = v26;
+          a7.n128_f32[0] = v25;
         }
 
         if (v13 + v14 != 1 && ((v13 + v14) & 1) != 0)
         {
-          v27 = *(v15 + 4 * (v20 + v14)) + *(v19 + 4 * (v20 + v14));
-          if (v27 >= v25)
+          v26 = *(v15 + 4 * (v20 + v14)) + *(v19 + 4 * (v20 + v14));
+          if (v26 >= a7.n128_f32[0])
           {
             *(v18 + 4 * v14) = *(v16 + 4 * (v20 + v14));
             a2 = 1;
-            v25 = v27;
+            a7.n128_f32[0] = v26;
           }
         }
 
-        *(v23 + 4 * v14) = v25;
+        *(v23 + 4 * v14) = a7.n128_u32[0];
         if (*a6 == 1)
         {
           *(*(v11 + 352) + v24) = a2;
@@ -4032,72 +4033,72 @@ uint64_t TSHMMDetector::updateStateProbs(uint64_t result, uint64_t a2, uint64_t 
     if (*a6)
     {
 LABEL_21:
-      v39 = *(v11 + 148);
-      if (*(v11 + 360) != v39)
+      v37 = *(v11 + 148);
+      if (*(v11 + 360) != v37)
       {
-        Error::chuck("NLRHMMTraceback::drop() - mismatched number of states (%d != %d)", a2, *(v11 + 360), v39);
+        Error::chuck("NLRHMMTraceback::drop() - mismatched number of states (%d != %d)", a2, a7.n128_f64[0], *(v11 + 360), v37);
       }
 
-      v40 = *(v11 + 120) + 24 * *(v11 + 152);
-      result = (*(*v40 + 16))(v40, v11 + 344);
-      v42 = *(v11 + 152);
-      v41 = *(v11 + 156);
-      v43 = *(v11 + 144);
-      if (v42 + 1 < v43)
+      v38 = *(v11 + 120) + 24 * *(v11 + 152);
+      result = (*(*v38 + 16))(v38, v11 + 344, a7);
+      v40 = *(v11 + 152);
+      v39 = *(v11 + 156);
+      v41 = *(v11 + 144);
+      if (v40 + 1 < v41)
       {
-        v44 = v42 + 1;
+        v42 = v40 + 1;
       }
 
       else
       {
-        v44 = 0;
+        v42 = 0;
       }
 
-      *(v11 + 152) = v44;
-      if (v41 < v43)
+      *(v11 + 152) = v42;
+      if (v39 < v41)
       {
-        *(v11 + 156) = v41 + 1;
+        *(v11 + 156) = v39 + 1;
       }
     }
   }
 
   else
   {
-    v28 = (v12 - 1);
+    v27 = (v12 - 1);
     if (*a6)
     {
       if (v12 != 1)
       {
-        v29 = *(a3 + 8);
-        v30 = *(a2 + 16);
-        v31 = *(a2 + 40);
-        v32 = *(a3 + 32);
-        v33 = v12 - 2;
-        v34 = *(result + 352);
+        v28 = *(a3 + 8);
+        v29 = *(a2 + 16);
+        v30 = *(a2 + 40);
+        v31 = *(a3 + 32);
+        v32 = v12 - 2;
+        v33 = *(result + 352);
         do
         {
-          v36 = *(v29 + 4 * v28) + *(v30 + 4 * v28);
-          v37 = v33;
-          v38 = *(v29 + 4 * v33) + *(v31 + 4 * v33);
-          if (v36 <= v38)
+          a7.n128_f32[0] = *(v28 + 4 * v27) + *(v29 + 4 * v27);
+          v35 = v32;
+          v36 = *(v28 + 4 * v32) + *(v30 + 4 * v32);
+          if (a7.n128_f32[0] <= v36)
           {
-            *(v32 + 4 * v28) = *(v32 + 4 * v33);
-            v35 = 1;
-            v36 = v38;
+            *(v31 + 4 * v27) = *(v31 + 4 * v32);
+            v34 = 1;
+            a7.n128_f32[0] = v36;
           }
 
           else
           {
-            v35 = 0;
+            v34 = 0;
           }
 
-          *(v34 + v37) = v35;
-          *(v29 + 4 * v28) = v36;
-          v33 = v37 - 1;
-          --v28;
+          *(v33 + v35) = v34;
+          *(v28 + 4 * v27) = a7.n128_u32[0];
+          v32 = v35 - 1;
+          --v27;
         }
 
-        while (v28);
+        while (v27);
       }
 
       goto LABEL_21;
@@ -4108,99 +4109,99 @@ LABEL_21:
       goto LABEL_36;
     }
 
-    v49 = *(a3 + 8);
-    v50 = *(a2 + 16);
-    v51 = *(a2 + 40);
-    v52 = v12 - 2;
-    v53 = *(a3 + 32);
+    v47 = *(a3 + 8);
+    v48 = *(a2 + 16);
+    v49 = *(a2 + 40);
+    v50 = v12 - 2;
+    v51 = *(a3 + 32);
     do
     {
-      v54 = *(v49 + 4 * v28) + *(v50 + 4 * v28);
-      v55 = *(v49 + 4 * v52) + *(v51 + 4 * v52);
-      if (v54 <= v55)
+      v52 = *(v47 + 4 * v27) + *(v48 + 4 * v27);
+      v53 = *(v47 + 4 * v50) + *(v49 + 4 * v50);
+      if (v52 <= v53)
       {
-        *(v53 + 4 * v28) = *(v53 + 4 * v52);
-        v54 = v55;
+        *(v51 + 4 * v27) = *(v51 + 4 * v50);
+        v52 = v53;
       }
 
-      *(v49 + 4 * v28) = v54;
-      --v52;
-      --v28;
+      *(v47 + 4 * v27) = v52;
+      --v50;
+      --v27;
     }
 
-    while (v28);
+    while (v27);
   }
 
   if (v12 > 1)
   {
-    v45 = *(v10 + 64);
-    v46 = *(a4 + 8);
-    v47 = 1;
-    v48 = *(a3 + 8);
+    v43 = *(v10 + 64);
+    v44 = *(a4 + 8);
+    v45 = 1;
+    v46 = *(a3 + 8);
     do
     {
-      v48[v47] = *(v46 + 4 * *(v45 + v47 * 4)) + v48[v47];
-      ++v47;
+      v46[v45] = *(v44 + 4 * *(v43 + v45 * 4)) + v46[v45];
+      ++v45;
     }
 
-    while (v12 != v47);
+    while (v12 != v45);
     goto LABEL_37;
   }
 
 LABEL_36:
-  v48 = *(a3 + 8);
+  v46 = *(a3 + 8);
 LABEL_37:
-  v56 = *v48 + **(v10 + 16);
-  *v48 = v56;
-  *v48 = v56 + *a5;
-  v57 = *(a3 + 32);
-  *v57 = *(v11 + 416) + 1;
-  v58 = *(v10 + 40);
-  v48[v12] = v48[(v12 - 1)] + v58[(v12 - 1)];
-  v57[v12] = v57[(v12 - 1)];
-  *&a7 = *v48 + *v58;
+  v54 = *v46 + **(v10 + 16);
+  *v46 = v54;
+  *v46 = v54 + *a5;
+  v55 = *(a3 + 32);
+  *v55 = *(v11 + 416) + 1;
+  v56 = *(v10 + 40);
+  v46[v12] = v46[(v12 - 1)] + v56[(v12 - 1)];
+  v55[v12] = v55[(v12 - 1)];
+  a7.n128_f32[0] = *v46 + *v56;
   if ((v12 + 1) > 1)
   {
-    v59 = (v12 + 1);
+    v57 = (v12 + 1);
   }
 
   else
   {
-    v59 = 1;
+    v57 = 1;
   }
 
   if ((v12 + 1) <= 7)
   {
-    v60 = 0;
+    v58 = 0;
 LABEL_45:
-    v65 = v59 - v60;
-    v66 = &v48[v60];
+    v63 = v57 - v58;
+    v64 = &v46[v58];
     do
     {
-      *v66 = *v66 - *&a7;
-      ++v66;
-      --v65;
+      *v64 = *v64 - a7.n128_f32[0];
+      ++v64;
+      --v63;
     }
 
-    while (v65);
+    while (v63);
     return result;
   }
 
-  v60 = v59 & 0xFFFFFFF8;
-  v61 = vdupq_lane_s32(*&a7, 0);
-  v62 = (v48 + 4);
-  v63 = v60;
+  v58 = v57 & 0xFFFFFFF8;
+  v59 = vdupq_lane_s32(a7.n128_u64[0], 0);
+  v60 = (v46 + 4);
+  v61 = v58;
   do
   {
-    v64 = vsubq_f32(*v62, v61);
-    v62[-1] = vsubq_f32(v62[-1], v61);
-    *v62 = v64;
-    v62 += 2;
-    v63 -= 8;
+    v62 = vsubq_f32(*v60, v59);
+    v60[-1] = vsubq_f32(v60[-1], v59);
+    *v60 = v62;
+    v60 += 2;
+    v61 -= 8;
   }
 
-  while (v63);
-  if (v60 != v59)
+  while (v61);
+  if (v58 != v57)
   {
     goto LABEL_45;
   }
@@ -4362,7 +4363,7 @@ uint64_t IntNovDetect::getphraseresults(IntNovDetect *this, const char *a2)
   return this + 2728;
 }
 
-uint64_t NArray<float>::resize(uint64_t result, _DWORD *a2)
+uint64_t NArray<float>::resize(uint64_t result, unsigned int *a2)
 {
   if (*(result + 16) != *a2)
   {
@@ -4373,131 +4374,132 @@ uint64_t NArray<float>::resize(uint64_t result, _DWORD *a2)
   return result;
 }
 
-void BlobBuilder::buildBlob(BlobBuilder *this, const NConfig *a2, N16ByteAlignedString *a3, __n128 a4)
+void BlobBuilder::buildBlob(BlobBuilder *this, const NConfig *a2, N16ByteAlignedString *a3, _BOOL4 a4, __n128 a5)
 {
-  a4.n128_u64[0] = 0;
-  v13 = xmmword_223B13230;
-  v14 = 0;
-  v15 = 0;
+  v6 = a3;
+  a5.n128_u64[0] = 0;
+  v16 = xmmword_223B13230;
+  v17 = 0;
+  v18 = 0;
   __asm { FMOV            V1.2S, #-1.0 }
 
-  v16 = _D1;
-  v17 = 1056964608;
-  v18 = 1;
-  v19 = off_28370A538;
-  v20 = 0;
-  v21 = 0;
+  v19 = _D1;
+  v20 = 1056964608;
+  v21 = 1;
   v22 = off_28370A538;
   v23 = 0;
   v24 = 0;
-  v25 = &unk_283708F80;
+  v25 = off_28370A538;
   v26 = 0;
   v27 = 0;
-  v28 = 0x4874240047C35000;
-  v29 = 1064849900;
-  v30 = 257;
-  v31 = 26;
-  v32 = xmmword_223B13240;
-  v39 = 0x200000002;
-  v40 = 51;
-  v33 = 0x160000000CLL;
-  v34 = 1;
-  *&v35[3] = 0x3F80000000000000;
-  *v35 = 0;
-  v36 = 0;
-  v38 = 0;
-  v37 = 0;
-  v41 = 1065353216;
-  v44 = 0;
-  v42 = &unk_283708908;
-  v43 = 0;
-  v47 = a4;
-  v46 = &unk_2837089D0;
-  v48 = 0;
-  v45 = &unk_283708968;
-  v49 = &unk_283709C80;
-  v52 = 16;
+  v28 = &unk_283708F80;
+  v29 = 0;
+  v30 = 0;
+  v31 = 0x4874240047C35000;
+  v32 = 1064849900;
+  v33 = 257;
+  v34 = 26;
+  v35 = xmmword_223B13240;
+  v42 = 0x200000002;
+  v43 = 51;
+  v36 = 0x160000000CLL;
+  v37 = 1;
+  *&v38[3] = 0x3F80000000000000;
+  *v38 = 0;
+  v39 = 0;
+  v41 = 0;
+  v40 = 0;
+  v44 = 1065353216;
+  v47 = 0;
+  v45 = &unk_283708908;
+  v46 = 0;
+  v50 = a5;
+  v49 = &unk_2837089D0;
+  v51 = 0;
+  v48 = &unk_283708968;
+  v52 = &unk_283709C80;
+  v55 = 16;
   memptr = 0;
   if (!malloc_type_posix_memalign(&memptr, 0x10uLL, 1uLL, 0xFD34284uLL))
   {
-    v50 = 0;
-    v51 = memptr;
-    v49 = &unk_283709C80;
+    v53 = 0;
+    v54 = memptr;
+    v52 = &unk_283709C80;
     *memptr = 0;
-    NDeepnetDistribution::NDeepnetDistribution(v53);
-    v53[384] = 0;
-    v54 = off_28370A538;
-    v55 = 0;
-    v56 = 0;
+    NDeepnetDistribution::NDeepnetDistribution(v56);
+    v56[384] = 0;
     v57 = off_28370A538;
     v58 = 0;
     v59 = 0;
     v60 = off_28370A538;
     v61 = 0;
     v62 = 0;
-    v63 = 0;
+    v63 = off_28370A538;
     v64 = 0;
-    v65 = off_28370A538;
+    v65 = 0;
     v66 = 0;
     v67 = 0;
-    v68 = 0;
+    v68 = off_28370A538;
     v69 = 0;
-    v70 = off_28370A538;
+    v70 = 0;
     v71 = 0;
     v72 = 0;
-    v73 = 0;
+    v73 = off_28370A538;
     v74 = 0;
-    v75 = off_283709B60;
+    v75 = 0;
     v76 = 0;
     v77 = 0;
-    v78 = &unk_2837073D8;
+    v78 = off_283709B60;
     v79 = 0;
     v80 = 0;
-    v81 = off_28370A538;
+    v81 = &unk_2837073D8;
     v82 = 0;
     v83 = 0;
-    v84 = 0;
+    v84 = off_28370A538;
     v85 = 0;
+    v86 = 0;
     v87 = 0;
-    v86 = &unk_283707420;
     v88 = 0;
-    v89 = 0;
-    v90 = off_28370A538;
+    v90 = 0;
+    v89 = &unk_283707420;
     v91 = 0;
     v92 = 0;
-    v94 = off_28370A538;
+    v93 = off_28370A538;
+    v94 = 0;
     v95 = 0;
-    v96 = 0;
-    v93 = 0u;
     v97 = off_28370A538;
     v98 = 0;
     v99 = 0;
+    v96 = 0u;
+    v100 = off_28370A538;
     v101 = 0;
     v102 = 0;
-    v100 = &unk_28370A4D8;
-    v103 = 0;
-    v104 = 1203982336;
-    v105 = 0x3F7851EC48742400;
-    v106 = 257;
-    v107 = 26;
-    v108 = xmmword_223B13240;
-    v109 = 0x160000000CLL;
-    v110 = 1;
-    *&v111[3] = 0x3F80000000000000;
-    *v111 = 0;
-    v112 = 0;
-    v115 = 0x200000002;
-    v113 = 0;
-    v114 = 0;
-    BlobBuilder::build(v12, this, a2);
+    v104 = 0;
+    v105 = 0;
+    v103 = &unk_28370A4D8;
+    v106 = 0;
+    v107 = 1203982336;
+    v108 = 0x3F7851EC48742400;
+    v109 = 257;
+    v110 = 26;
+    v111 = xmmword_223B13240;
+    v112 = 0x160000000CLL;
+    v113 = 1;
+    *&v114[3] = 0x3F80000000000000;
+    *v114 = 0;
+    v115 = 0;
+    v118 = 0x200000002;
+    v116 = 0;
+    v117 = 0;
+    BlobBuilder::build(v15, this, a2, v6, a4);
   }
 
-  Error::chuck("N16ByteAlignedString::allocate() - failed to allocate %d bytes %d-aligned", v11, 1, v52);
+  Error::chuck("N16ByteAlignedString::allocate() - failed to allocate %d bytes %d-aligned", v14, 1, v55);
 }
 
-void sub_223A3AFC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_223A3AFC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   BlobBuilder::~BlobBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -4601,39 +4603,39 @@ void sub_223A3B2F4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void BlobBuilder::build(BlobBuilder *this, const NConfig *a2, N16ByteAlignedString *a3)
+void BlobBuilder::build(BlobBuilder *this, const NConfig *a2, N16ByteAlignedString *a3, int a4, _BOOL4 a5)
 {
-  v3 = &unk_28370A720;
-  v4 = 4;
+  v5 = &unk_28370A720;
+  v6 = 4;
   operator new[]();
 }
 
-void sub_223A3BA78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
+void sub_223A3BA78(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   if (a18)
   {
-    MEMORY[0x223DF1D00](a18, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a18, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_223A3BD7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
+void sub_223A3BD7C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   if (a18)
   {
-    MEMORY[0x223DF1D00](a18, v18);
+    MEMORY[0x223DF1D00](a18, v18, a3, a4, a5, a6, a7, a8);
   }
 
   if (a15)
   {
-    MEMORY[0x223DF1D00](a15, v18);
+    MEMORY[0x223DF1D00](a15, v18, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void NMap<NString,NString>::operator[]()
+void NMap<NString,NString>::operator[](uint64_t a1, uint64_t a2)
 {
   operator new[]();
 }
@@ -4642,16 +4644,16 @@ void NMap<NString,NString>::operator[]()
   operator new[]();
 }
 
-void sub_223A3BFE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
+void sub_223A3BFE4(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   if (a15)
   {
-    MEMORY[0x223DF1D00](a15, v18);
+    MEMORY[0x223DF1D00](a15, v18, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, v18);
+    MEMORY[0x223DF1D00](a12, v18, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4677,11 +4679,11 @@ void BlobBuilder::buildDistBlob(BlobBuilder *this, const NConfigSection *a2)
   Error::chuck("N16ByteAlignedString::allocate() - failed to allocate %d bytes %d-aligned", v2, 1, v6);
 }
 
-void sub_223A3C97C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, _Unwind_Exception *exception_object, uint64_t a40)
+void sub_223A3C97C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, _Unwind_Exception *exception_object, uint64_t a40)
 {
   if (a30)
   {
-    MEMORY[0x223DF1D00](a30, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a30, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   if (a33)
@@ -4737,20 +4739,20 @@ void NDeepnetDistribution::mapFromMemory(NDeepnetDistribution *this, uint64_t a2
 {
   if (!a2)
   {
-    v51 = "null pointer";
+    v52 = "null pointer";
     goto LABEL_77;
   }
 
   v5 = *a3;
   if (v5 <= 0x33)
   {
-    v51 = "DNN image smaller than minimum";
+    v52 = "DNN image smaller than minimum";
     goto LABEL_77;
   }
 
   if (*a2 != 0x20624C4E4E442023 || *(a2 + 8) != 0xA0A0A30302E3176)
   {
-    v51 = "cannot read cookie from";
+    v52 = "cannot read cookie from";
     goto LABEL_77;
   }
 
@@ -4759,7 +4761,7 @@ void NDeepnetDistribution::mapFromMemory(NDeepnetDistribution *this, uint64_t a2
   v10 = *(a2 + 24);
   v11 = *(a2 + 28);
   v12 = *(a2 + 36);
-  v58 = *(a2 + 36);
+  v60 = *(a2 + 36);
   v13 = *(a2 + 40);
   v14 = *(a2 + 44);
   if ((v8 & 0xF) == 2)
@@ -4771,7 +4773,7 @@ void NDeepnetDistribution::mapFromMemory(NDeepnetDistribution *this, uint64_t a2
   {
     if (v8 != 1)
     {
-      v51 = "only version 1 or 2 of DNN file supported:";
+      v52 = "only version 1 or 2 of DNN file supported:";
       goto LABEL_77;
     }
 
@@ -4798,7 +4800,7 @@ void NDeepnetDistribution::mapFromMemory(NDeepnetDistribution *this, uint64_t a2
   v18 = (a2 + 52 + v17);
   if (v18 > a2 + v5)
   {
-    v51 = "cannot read comment from";
+    v52 = "cannot read comment from";
   }
 
   else
@@ -4806,9 +4808,9 @@ void NDeepnetDistribution::mapFromMemory(NDeepnetDistribution *this, uint64_t a2
     *(this + 376) = 0;
     if ((v10 & 0x20) != 0)
     {
-      v55 = &unk_283708F80;
-      v56 = 0;
-      v57 = 0;
+      v57 = &unk_283708F80;
+      v58 = 0;
+      v59 = 0;
       if (&v18[(4 * v14) + 4] > v16)
       {
         Error::chuck("NDeepnetDistribution::mapFromMemory() - %s %s", a2, "cannot read fixpoint scaling from", a4);
@@ -4817,7 +4819,7 @@ void NDeepnetDistribution::mapFromMemory(NDeepnetDistribution *this, uint64_t a2
       v19 = *v18;
       if (v14 * v13)
       {
-        v57 = v14 * v13;
+        v59 = v14 * v13;
         operator new[]();
       }
 
@@ -4925,17 +4927,17 @@ LABEL_40:
       }
 
       *(this + 42) = v19;
-      if ((this + 176) != &v55)
+      if ((this + 176) != &v57)
       {
         v38 = *(this + 48);
-        v39 = v57;
-        if (v38 != v57)
+        v39 = v59;
+        if (v38 != v59)
         {
           v40 = *(this + 23);
           if (v40)
           {
             MEMORY[0x223DF1D00](v40, 0x1000C8052888210);
-            v39 = v57;
+            v39 = v59;
           }
 
           *(this + 48) = v39;
@@ -4945,7 +4947,7 @@ LABEL_40:
         if (v38)
         {
           v41 = 0;
-          v42 = v56;
+          v42 = v58;
           v43 = *(this + 23);
           do
           {
@@ -4967,10 +4969,10 @@ LABEL_40:
       NFixedPointLogaddTable::initialize((this + 328), 0x100, v46, 8.0);
       *(this + 369) = 1;
       *(this + 376) = 1;
-      v55 = &unk_283708F80;
-      if (v56)
+      v57 = &unk_283708F80;
+      if (v58)
       {
-        MEMORY[0x223DF1D00](v56, 0x1000C8052888210);
+        MEMORY[0x223DF1D00](v58, 0x1000C8052888210);
       }
 
       v18 += (4 * v14) + 4;
@@ -4979,7 +4981,7 @@ LABEL_40:
     v47 = &v18[16 * v12];
     if (v47 > v16)
     {
-      v51 = "cannot read layer definitions from";
+      v52 = "cannot read layer definitions from";
     }
 
     else
@@ -4988,47 +4990,49 @@ LABEL_40:
       {
         if (&v47[v9] == v16)
         {
-          LODWORD(v55) = v11;
-          NArray<NLayer>::resize(this + 32, &v58);
-          v54 = *v18;
-          v48 = *(v18 + 2);
-          v53 = *(v18 + 3);
-          v49 = __CFADD__(v53, v48);
-          if (v53 + v48 <= v9 && !v49)
+          LODWORD(v57) = v11;
+          NArray<NLayer>::resize(this + 32, &v60);
+          v48 = *v18;
+          v55 = *(v18 + 1);
+          v56 = v48;
+          v49 = *(v18 + 2);
+          v54 = *(v18 + 3);
+          v50 = __CFADD__(v54, v49);
+          if (v54 + v49 <= v9 && !v50)
           {
-            NLayer::initialize(*(this + 5), &v54);
+            NLayer::initialize(*(this + 5), &v56, &v57, &v55, &v47[v49], &v54, this + 288);
           }
 
-          v52 = "layer incorrectly defined in";
+          v53 = "layer incorrectly defined in";
         }
 
         else
         {
-          v52 = "extra junk at end of image:";
+          v53 = "extra junk at end of image:";
         }
 
-        Error::chuck("NDeepnetDistribution::mapFromMemory() - %s %s", a2, v52, a4);
+        Error::chuck("NDeepnetDistribution::mapFromMemory() - %s %s", a2, v53, a4);
       }
 
-      v51 = "cannot read enough data from image:";
+      v52 = "cannot read enough data from image:";
     }
   }
 
 LABEL_77:
-  Error::chuck("NDeepnetDistribution::mapFromMemory() - %s %s", a2, v51, a4);
+  Error::chuck("NDeepnetDistribution::mapFromMemory() - %s %s", a2, v52, a4);
 }
 
-void sub_223A3D4EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+void sub_223A3D4EC(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   if (a22)
   {
-    MEMORY[0x223DF1D00](a22, 0x1000C8052888210);
+    MEMORY[0x223DF1D00](a22, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void NLayer::initialize(uint64_t a1, unsigned int *a2)
+void NLayer::initialize(void *a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   switch(*a2)
   {
@@ -5095,8 +5099,8 @@ void NLayer::initialize(uint64_t a1, unsigned int *a2)
     case 0x20u:
       operator new();
     default:
-      (*(*a1 + 16))(a1, 0);
-      Error::chuck("NLayer::initialize() - unsupported layer type %d", v3, *a2);
+      (*(*a1 + 16))(a1, 0, a3, a4, a5, a6, a7);
+      Error::chuck("NLayer::initialize() - unsupported layer type %d", v8, *a2);
   }
 }
 
@@ -5295,11 +5299,11 @@ void BlobBuilder::buildPhoneHmmArray(BlobBuilder *this, const NConfigSection *a2
   operator new[]();
 }
 
-void sub_223A3E460(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_223A3E460(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a14)
   {
-    MEMORY[0x223DF1D00](a14, v14);
+    MEMORY[0x223DF1D00](a14, v14, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5399,14 +5403,14 @@ void NString::deallocate(NString *this, char *a2)
   }
 }
 
-void NFile::read(NFile *this@<X0>, uint64_t a2@<X8>)
+void NFile::read(uint64_t *__return_ptr a1@<X8>, NFile *this@<X0>)
 {
   if ((*(*this + 32))(this))
   {
     if (!*(this + 156))
     {
-      *a2 = &unk_28370A720;
-      *(a2 + 8) = 0;
+      *a1 = &unk_28370A720;
+      *(a1 + 2) = 0;
       operator new[]();
     }
 
@@ -5416,23 +5420,23 @@ void NFile::read(NFile *this@<X0>, uint64_t a2@<X8>)
   Error::chuck("NFile::read() - cannot read, file %s is not open", v4, *(this + 3));
 }
 
-void sub_223A3EC10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
+void sub_223A3EC10(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
 {
   if (a18)
   {
-    MEMORY[0x223DF1D00](a18, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a18, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   if (a21)
   {
-    MEMORY[0x223DF1D00](a21, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a21, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   *v21 = a11;
   v23 = v21[2];
   if (v23)
   {
-    MEMORY[0x223DF1D00](v23, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](v23, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5460,7 +5464,7 @@ void sub_223A40FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a45)
   {
-    MEMORY[0x223DF1D00](a45, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a45, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   if (a30)
@@ -5480,9 +5484,9 @@ void sub_223A40FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   NArray<NString>::~NArray(&a55);
   a64 = a16;
-  if (a66)
+  if (a65)
   {
-    MEMORY[0x223DF1D00](a66, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a65, 0x1000C8077774924);
   }
 
   a59 = a17;
@@ -5491,32 +5495,32 @@ void sub_223A40FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     MEMORY[0x223DF1D00](a61, 0x1000C8077774924);
   }
 
-  *(v66 - 192) = a18;
-  v68 = *(v66 - 176);
+  *(v65 - 192) = a18;
+  v67 = *(v65 - 176);
+  if (v67)
+  {
+    MEMORY[0x223DF1D00](v67, 0x1000C8077774924);
+  }
+
+  *(v65 - 168) = a19;
+  v68 = *(v65 - 152);
   if (v68)
   {
     MEMORY[0x223DF1D00](v68, 0x1000C8077774924);
   }
 
-  *(v66 - 168) = a19;
-  v69 = *(v66 - 152);
+  *(v65 - 144) = a20;
+  v69 = *(v65 - 128);
   if (v69)
   {
     MEMORY[0x223DF1D00](v69, 0x1000C8077774924);
   }
 
-  *(v66 - 144) = a20;
-  v70 = *(v66 - 128);
+  *(v65 - 120) = a21;
+  v70 = *(v65 - 104);
   if (v70)
   {
     MEMORY[0x223DF1D00](v70, 0x1000C8077774924);
-  }
-
-  *(v66 - 120) = a21;
-  v71 = *(v66 - 104);
-  if (v71)
-  {
-    MEMORY[0x223DF1D00](v71, 0x1000C8077774924);
   }
 
   _Unwind_Resume(a1);
@@ -5535,78 +5539,78 @@ void NScrambler::NScrambler(uint64_t a1, uint64_t a2)
   operator new[]();
 }
 
-void NString::slice(NString *this@<X0>, unsigned int *a2@<X1>, const unsigned int *a3@<X2>, uint64_t a4@<X8>)
+void NString::slice(uint64_t *__return_ptr a1@<X8>, NString *this@<X0>, unsigned int *a3@<X1>, const unsigned int *a4@<X2>)
 {
-  v4 = *a2;
+  v4 = *a3;
   v5 = *(this + 2);
-  if (*a2 <= v5)
+  if (*a3 <= v5)
   {
-    v7 = *a3;
+    v7 = *a4;
     if (v7 <= v5)
     {
       if (v7 >= v4)
       {
         v8 = *(this + 2);
-        *a4 = &unk_28370A720;
+        *a1 = &unk_28370A720;
         if (v8)
         {
-          *(a4 + 8) = v7 - v4;
+          *(a1 + 2) = v7 - v4;
           operator new[]();
         }
 
-        Error::chuck("Null pointer passed to string constructor", a2);
+        Error::chuck("Null pointer passed to string constructor", a3);
       }
 
-      Error::chuck("Start and end indices conflict, start [%d], end [%d]", a2, *a2, v7);
+      Error::chuck("Start and end indices conflict, start [%d], end [%d]", a3, *a3, v7);
     }
 
-    Error::chuck("Index %d outside of range [0,%d]", a2, a3, *a3, v5);
+    Error::chuck("Index %d outside of range [0,%d]", a3, a4, *a4, v5);
   }
 
-  Error::chuck("Index %d outside of range [0,%d]", a2, a3, *a2, v5);
+  Error::chuck("Index %d outside of range [0,%d]", a3, a4, *a3, v5);
 }
 
-void NScrambler::unscramble(NScrambler *this, const NString *a2)
+void NScrambler::unscramble()
 {
-  v2 = &unk_28370A720;
-  v3 = 0;
+  v3 = &unk_28370A720;
+  v4 = 0;
   operator new[]();
 }
 
-void sub_223A41A84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_223A41A84(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a11)
   {
-    MEMORY[0x223DF1D00](a11, v14);
+    MEMORY[0x223DF1D00](a11, v14, a3, a4, a5, a6, a7, a8);
   }
 
   *v15 = v16;
   v18 = v15[2];
   if (v18)
   {
-    MEMORY[0x223DF1D00](v18, v14);
+    MEMORY[0x223DF1D00](v18, v14, a3, a4, a5, a6, a7, a8);
   }
 
   if (a14)
   {
-    MEMORY[0x223DF1D00](a14, v14);
+    MEMORY[0x223DF1D00](a14, v14, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void base64_decode(const NString *a1)
+void base64_decode(const NString *a2)
 {
-  v3 = *(a1 + 2);
-  v1 = vcvtd_n_f64_u32(v3, 1uLL);
-  NAutoString::NAutoString(&v2, &v3, &v1);
+  v5 = *(a2 + 2);
+  v3 = vcvtd_n_f64_u32(v5, 1uLL);
+  NAutoString::NAutoString(&v4, &v5, &v3);
 }
 
-void sub_223A42018(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_223A42018(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (a16)
   {
-    MEMORY[0x223DF1D00](a16, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a16, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5675,7 +5679,7 @@ LABEL_8:
       while (v12);
       *(a1 + 40) = 1;
 LABEL_17:
-      NString::slice(v2, &v30, v4, v29);
+      NString::slice(v29, v2, &v30, v4);
     }
   }
 
@@ -5769,33 +5773,33 @@ LABEL_17:
   return result;
 }
 
-void sub_223A42418(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+void sub_223A42418(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   if (a13)
   {
-    MEMORY[0x223DF1D00](a13, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a13, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void NString::creplace(NString *this, const NString *a2, const NString *a3)
+void NString::creplace()
 {
-  v3 = &unk_28370A720;
-  v4 = 0;
+  v4 = &unk_28370A720;
+  v5 = 0;
   operator new[]();
 }
 
-void sub_223A428C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
+void sub_223A428C8(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
 {
   if (a16)
   {
-    MEMORY[0x223DF1D00](a16, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a16, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   if (a19)
   {
-    MEMORY[0x223DF1D00](a19, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a19, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5813,23 +5817,23 @@ uint64_t NString::operator=(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_223A42DC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_223A42DC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   NMap<NString,NConfigSection>::HashItem::~HashItem(va);
   _Unwind_Resume(a1);
 }
 
-void sub_223A42DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_223A42DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   NConfigSection::~NConfigSection(va);
-  if (!a4)
+  if (!a7)
   {
     _Unwind_Resume(a1);
   }
 
-  MEMORY[0x223DF1D00](a4, v4);
+  MEMORY[0x223DF1D00](a7, v7);
   _Unwind_Resume(a1);
 }
 
@@ -5910,13 +5914,13 @@ uint64_t NLinkedList<NMap<NString,NString>::HashItem>::reset(uint64_t result)
   return result;
 }
 
-void sub_223A43564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_223A43564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   NConfigSection::~NConfigSection(va);
-  if (a4)
+  if (a7)
   {
-    MEMORY[0x223DF1D00](a4, v4);
+    MEMORY[0x223DF1D00](a7, v7);
     _Unwind_Resume(a1);
   }
 
@@ -5984,7 +5988,7 @@ uint64_t NArray<NLinkedList<NMap<NString,NString>::HashItem>>::resize(uint64_t r
   return result;
 }
 
-void NMap<NString,NConfigSection>::HashItem::HashItem(uint64_t a1, uint64_t a2)
+void NMap<NString,NConfigSection>::HashItem::HashItem(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *a1 = &unk_28370A720;
   *(a1 + 8) = *(a2 + 8);
@@ -6044,16 +6048,16 @@ uint64_t NLinkedList<NMap<NString,NConfigSection>::HashItem>::prepend(uint64_t a
   return result;
 }
 
-void sub_223A44048(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
+void sub_223A44048(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   if (a15)
   {
-    MEMORY[0x223DF1D00](a15, v18);
+    MEMORY[0x223DF1D00](a15, v18, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, v18);
+    MEMORY[0x223DF1D00](a12, v18, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6093,16 +6097,16 @@ uint64_t NLinkedList<NMap<NString,NString>::HashItem>::prepend(uint64_t a1)
 
 void NString::operator+(uint64_t a1)
 {
-  v1 = &unk_28370A720;
-  v2 = *(a1 + 8);
+  v3 = &unk_28370A720;
+  v4 = *(a1 + 8);
   operator new[]();
 }
 
-void sub_223A443A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_223A443A8(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    MEMORY[0x223DF1D00](a11, v11);
+    MEMORY[0x223DF1D00](a11, v11, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6156,13 +6160,13 @@ void NFile::~NFile(NFile *this)
   }
 }
 
-void sub_223A44A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_223A44A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   NConfigSection::~NConfigSection(va);
-  if (a6)
+  if (a11)
   {
-    MEMORY[0x223DF1D00](a6, v6);
+    MEMORY[0x223DF1D00](a11, v11);
     _Unwind_Resume(a1);
   }
 
@@ -6180,7 +6184,7 @@ void *N16ByteAlignedString::allocate(N16ByteAlignedString *this, const unsigned 
   return memptr;
 }
 
-uint64_t NArray<unsigned int>::fromArray(uint64_t result, uint64_t a2, int *a3)
+uint64_t NArray<unsigned int>::fromArray(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v3 = result;
   v4 = *(result + 16);
@@ -6355,10 +6359,10 @@ void sub_223A45890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void NFile::readLine(uint64_t a1@<X8>)
+void NFile::readLine(uint64_t a3@<X8>)
 {
-  *a1 = &unk_28370A720;
-  *(a1 + 8) = 0;
+  *a3 = &unk_28370A720;
+  *(a3 + 8) = 0;
   operator new[]();
 }
 
@@ -6389,16 +6393,16 @@ void NFile::readLine(NFile *this, const char *a2, NString *a3)
   Error::chuck("NFile::readLine() - cannot read, file %s is not open", v4, *(this + 3));
 }
 
-void sub_223A45F10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
+void sub_223A45F10(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   if (a15)
   {
-    MEMORY[0x223DF1D00](a15, v18);
+    MEMORY[0x223DF1D00](a15, v18, a3, a4, a5, a6, a7, a8);
   }
 
   if (a18)
   {
-    MEMORY[0x223DF1D00](a18, v18);
+    MEMORY[0x223DF1D00](a18, v18, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6459,7 +6463,7 @@ uint64_t NString::stripComments(uint64_t this, unsigned __int8 a2)
   return this;
 }
 
-void *NString::split(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
+void *NString::split(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4)
 {
   v5 = *(a1 + 16);
   result = (*(*a2 + 56))(a2);
@@ -6555,11 +6559,11 @@ LABEL_20:
   return result;
 }
 
-void sub_223A46334(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_223A46334(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (a16)
   {
-    MEMORY[0x223DF1D00](a16, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a16, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6684,7 +6688,7 @@ void NLinkedList<NString>::NElement::~NElement(void *a1)
   JUMPOUT(0x223DF1D20);
 }
 
-uint64_t NAutoArray<NPhoneHMM>::resize(uint64_t result, unsigned int *a2, unsigned int a3)
+_BYTE *NAutoArray<NPhoneHMM>::resize(_BYTE *result, unsigned int *a2, unsigned int a3)
 {
   v4 = result;
   v5 = *a2;
@@ -6704,10 +6708,10 @@ uint64_t NAutoArray<NPhoneHMM>::resize(uint64_t result, unsigned int *a2, unsign
     operator new[]();
   }
 
-  v7 = *(result + 16);
+  v7 = *(result + 4);
   if (v5 < v7)
   {
-    *(result + 16) = v5;
+    *(result + 4) = v5;
     v7 = v5;
   }
 
@@ -6716,7 +6720,7 @@ uint64_t NAutoArray<NPhoneHMM>::resize(uint64_t result, unsigned int *a2, unsign
     v8 = 0;
     do
     {
-      v9 = *(v4 + 8);
+      v9 = *(v4 + 1);
       if (v9)
       {
         v10 = v9 + 48 * v8;
@@ -6752,10 +6756,10 @@ uint64_t NAutoArray<NPhoneHMM>::resize(uint64_t result, unsigned int *a2, unsign
       ++v8;
     }
 
-    while (v8 < *(v4 + 16));
+    while (v8 < *(v4 + 4));
   }
 
-  v14 = *(v4 + 8);
+  v14 = *(v4 + 1);
   if (v14)
   {
     v15 = v14 - 16;
@@ -6793,9 +6797,9 @@ uint64_t NAutoArray<NPhoneHMM>::resize(uint64_t result, unsigned int *a2, unsign
     result = MEMORY[0x223DF1D00](v15, 0x10B1C80FD921951);
   }
 
-  *(v4 + 8) = 0;
-  *(v4 + 16) = *a2;
-  *(v4 + 20) = v22;
+  *(v4 + 1) = 0;
+  *(v4 + 4) = *a2;
+  *(v4 + 5) = v22;
   return result;
 }
 
@@ -6972,24 +6976,24 @@ void BlobBuilder::buildAcAnalConfig(BlobBuilder *this, const NConfigSection *a2)
   operator new[]();
 }
 
-void sub_223A48400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_223A48400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
-  if (a7)
+  va_start(va, a17);
+  if (a14)
   {
-    MEMORY[0x223DF1D00](a7, v10);
+    MEMORY[0x223DF1D00](a14, v17, a3, a4, a5, a6, a7, a8);
   }
 
-  if (a10)
+  if (a17)
   {
-    MEMORY[0x223DF1D00](a10, v10);
+    MEMORY[0x223DF1D00](a17, v17, a3, a4, a5, a6, a7, a8);
   }
 
-  *(v12 - 88) = v11;
-  v14 = *(v12 - 72);
-  if (v14)
+  *(v19 - 88) = v18;
+  v21 = *(v19 - 72);
+  if (v21)
   {
-    MEMORY[0x223DF1D00](v14, v10);
+    MEMORY[0x223DF1D00](v21, v17, a3, a4, a5, a6, a7, a8);
   }
 
   NConfig::~NConfig(va);
@@ -7003,24 +7007,24 @@ void BlobBuilder::sanityCheckAcAnalOption(BlobBuilder *this, const NConfigSectio
   operator new[]();
 }
 
-void sub_223A49514(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_223A49514(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (a16)
   {
-    MEMORY[0x223DF1D00](a16, v16);
+    MEMORY[0x223DF1D00](a16, v16, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void BlobBuilder::analysisTargetKind()
+void BlobBuilder::analysisTargetKind(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v0 = &unk_28370A720;
-  v1 = 10;
+  v3 = &unk_28370A720;
+  v4 = 10;
   operator new[]();
 }
 
-void sub_223A49C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
+void sub_223A49C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   NLinkedList<NString>::~NLinkedList(&a18);
   a22 = a13;
@@ -7103,12 +7107,12 @@ void NDEAcAnal::init(uint64_t a1, uint64_t a2, unsigned int *a3)
   Error::chuck("NDEAcAnal::setSamRate() - a_iSamRate (= %d) must be strictly positive\n", a2, 0);
 }
 
-void AccelStaticMFCC::init(AccelStaticMFCC *this, const char *a2, unsigned int *a3, const unsigned int *a4, const BOOL *a5, float *a6, const BOOL *a7, const BOOL *a8, double a9, const BOOL *a10, const unsigned int *a11, const float *a12, const float *a13, const unsigned int *a14, const unsigned int *a15, const float *a16, const float *a17, const float *a18, const float *a19)
+void AccelStaticMFCC::init(AccelStaticMFCC *this, const char *a2, unsigned int *a3, const unsigned int *a4, const BOOL *a5, float *a6, const BOOL *a7, const BOOL *a8, double d0_0, const BOOL *a9, const unsigned int *a10, const float *a11, const float *a12, const unsigned int *a13, const unsigned int *a14, const float *a15, const float *a16, const float *a17, const float *a18)
 {
   if (!(*a4 >> 30))
   {
     *(this + 123) = *a2;
-    *(this + 124) = *a15;
+    *(this + 124) = *a14;
     v19 = *a4;
     *(this + 122) = *a4;
     *(this + 125) = *a6;
@@ -7147,20 +7151,20 @@ void AccelStaticMFCC::init(AccelStaticMFCC *this, const char *a2, unsigned int *
     while (v24 < v22);
     *(this + 108) = v24;
     *(this + 109) = (v24 >> 1) + 1;
-    *(this + 440) = *a10;
-    *(this + 111) = *a16 * *a17;
+    *(this + 440) = *a9;
+    *(this + 111) = *a15 * *a16;
     *(this + 448) = *a7;
-    v25 = *a11;
-    *(this + 113) = *a11;
+    v25 = *a10;
+    *(this + 113) = *a10;
     *(this + 114) = v21 >> 1;
-    *(this + 115) = *a12;
-    *(this + 116) = *a13;
-    *(this + 117) = *a18;
-    *&a9 = *a19;
-    *(this + 118) = *a19;
+    *(this + 115) = *a11;
+    *(this + 116) = *a12;
+    *(this + 117) = *a17;
+    *&d0_0 = *a18;
+    *(this + 118) = *a18;
     v26 = *a8;
     *(this + 449) = v26;
-    *(this + 119) = *a14;
+    *(this + 119) = *a13;
     if (v26)
     {
       v27 = v25;
@@ -7172,7 +7176,7 @@ void AccelStaticMFCC::init(AccelStaticMFCC *this, const char *a2, unsigned int *
     }
 
     *(this + 120) = v27;
-    AccelWin2MFCC::initProc((this + 88), a9);
+    AccelWin2MFCC::initProc((this + 88), d0_0);
   }
 
   Error::chuck("AccelStaticMFCC::init() - windowlen too large (%u >2^30)", a2, a3, *a4);
@@ -7450,7 +7454,7 @@ uint64_t NSmartPointer<NBaseLayer>::setPointer(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void AccelMelFilter::init(AccelMelFilter *this, const char *a2, const unsigned int *a3, const unsigned int *a4, const float *a5, const float *a6, const float *a7, const float *a8)
+void AccelMelFilter::init(AccelMelFilter *this, const char *a2, const unsigned int *a3, const unsigned int *a4, const float *a5, float *a6, float *a7, float *a8)
 {
   v8 = *a2;
   v9 = *a3;
@@ -7477,21 +7481,21 @@ void AccelMelFilter::init(AccelMelFilter *this, const char *a2, const unsigned i
   Error::chuck("AccelMelFilter::init - NUMCHANS %d > %d spectral samples", a2, *a2, v9);
 }
 
-void sub_223A4B1E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
+void sub_223A4B1E0(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
 {
   if (a13)
   {
-    MEMORY[0x223DF1D00](a13, 0x1000C8052888210);
+    MEMORY[0x223DF1D00](a13, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
   if (a16)
   {
-    MEMORY[0x223DF1D00](a16, 0x1000C8052888210);
+    MEMORY[0x223DF1D00](a16, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
   if (a19)
   {
-    MEMORY[0x223DF1D00](a19, 0x1000C8052888210);
+    MEMORY[0x223DF1D00](a19, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -7817,7 +7821,7 @@ void NLinkedList<NMap<NString,NString>::HashItem>::NElement::~NElement(void *a1)
 void BlobBuilder::buildDetectConfig(BlobBuilder *this, const NConfigSection *a2, const NConfigSection *a3, const NConfigSection *a4)
 {
   v4 = &unk_28370A720;
-  v5 = 11;
+  LODWORD(v5) = 11;
   operator new[]();
 }
 
@@ -7835,11 +7839,11 @@ void sub_223A4DAC0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void NPhoneHMMArray::operator()(uint64_t a1)
+void NPhoneHMMArray::operator()(uint64_t a1, uint64_t a2)
 {
   if (!*(a1 + 52))
   {
-    NHash<NMap<NString,unsigned int>::HashItem>::resize(a1 + 32, *(a1 + 16), 0);
+    NHash<NMap<NString,unsigned int>::HashItem>::resize((a1 + 32), *(a1 + 16), 0);
     if (*(a1 + 16))
     {
       NMap<NString,unsigned int>::operator[](a1 + 24, *(a1 + 8) + 24);
@@ -7849,19 +7853,19 @@ void NPhoneHMMArray::operator()(uint64_t a1)
   operator new[]();
 }
 
-void sub_223A4E268(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_223A4E268(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    MEMORY[0x223DF1D00](a11, v11);
+    MEMORY[0x223DF1D00](a11, v11, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t NHash<NMap<NString,unsigned int>::HashItem>::resize(uint64_t result, unsigned int a2, char a3)
+uint64_t (**NHash<NMap<NString,unsigned int>::HashItem>::resize(uint64_t (**result)(void **, uint64_t), unsigned int a2, char a3))(void **, uint64_t)
 {
-  if (*(result + 20) != a2)
+  if (*(result + 5) != a2)
   {
     v3 = result;
     v32 = 0;
@@ -8037,10 +8041,11 @@ LABEL_6:
   return result;
 }
 
-void sub_223A4E620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+void sub_223A4E620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   NLinkedList<NMap<NString,unsigned int>::HashItem>::~NLinkedList(&a9);
-  NHash<NMap<NString,unsigned int>::HashItem>::~NHash(&a13);
+  NHash<NMap<NString,unsigned int>::HashItem>::~NHash(va);
   _Unwind_Resume(a1);
 }
 
@@ -8153,11 +8158,11 @@ void NMap<NString,unsigned int>::operator[](uint64_t a1, uint64_t a2)
   operator new[]();
 }
 
-void sub_223A4ED34(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_223A4ED34(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    MEMORY[0x223DF1D00](a11, v11);
+    MEMORY[0x223DF1D00](a11, v11, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8569,11 +8574,11 @@ void BlobBuilder::serializeDetectConfig(BlobBuilder *this, N16ByteAlignedString 
   operator new[]();
 }
 
-void sub_223A4F7B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_223A4F7B4(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    MEMORY[0x223DF1D00](a10, v10);
+    MEMORY[0x223DF1D00](a10, v10, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8587,11 +8592,11 @@ void BlobBuilder::serializeAcAnalConfig(BlobBuilder *this, N16ByteAlignedString 
   operator new[]();
 }
 
-void sub_223A4F8DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_223A4F8DC(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    MEMORY[0x223DF1D00](a10, v10);
+    MEMORY[0x223DF1D00](a10, v10, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8613,11 +8618,11 @@ uint64_t BlobBuilder::serializeDistBlob(BlobBuilder *this, N16ByteAlignedString 
   return result;
 }
 
-void sub_223A4FA2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_223A4FA2C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    MEMORY[0x223DF1D00](a10, v10);
+    MEMORY[0x223DF1D00](a10, v10, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8686,11 +8691,11 @@ uint64_t BlobBuilder::serializeHmmArray(BlobBuilder *this, N16ByteAlignedString 
   return (v11 + 15) & 0xFFFFFFF0;
 }
 
-void sub_223A4FD70(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_223A4FD70(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, v12);
+    MEMORY[0x223DF1D00](a12, v12, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8706,11 +8711,11 @@ void BlobBuilder::serializeHeap(BlobBuilder *this, N16ByteAlignedString *a2)
   Error::chuck("BlobBuilder: Cannot allocate heap", a2);
 }
 
-void sub_223A4FE88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_223A4FE88(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    MEMORY[0x223DF1D00](a10, v10);
+    MEMORY[0x223DF1D00](a10, v10, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9188,18 +9193,18 @@ void NLinkedList<NMap<NString,unsigned int>::HashItem>::NElement::~NElement(void
   JUMPOUT(0x223DF1D20);
 }
 
-uint64_t NDBlobBuildBlob(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t NDBlobBuildBlob(const char *a1, const char *a2, N16ByteAlignedString *a3, BOOL a4, void *a5, unsigned int a6)
 {
-  v9[7] = *MEMORY[0x277D85DE8];
+  v10[7] = *MEMORY[0x277D85DE8];
   result = 0xFFFFFFFFLL;
   if (a1 && a2)
   {
     if (a5)
     {
-      v7[0] = 0;
-      NConfig::NConfig(v9, v7);
-      *v7 = &unk_28370A720;
-      v8 = strlen(a1);
+      v8[0] = 0;
+      NConfig::NConfig(v10, v8);
+      *v8 = &unk_28370A720;
+      v9 = strlen(a1);
       operator new[]();
     }
   }
@@ -9207,7 +9212,7 @@ uint64_t NDBlobBuildBlob(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, 
   return result;
 }
 
-void sub_223A50F2C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, __int128 buf)
+void sub_223A50F2C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, __int128 buf)
 {
   if (!a2)
   {
@@ -9263,7 +9268,7 @@ LABEL_14:
   goto LABEL_14;
 }
 
-uint64_t nde_create(char *a1, unint64_t a2)
+IntNovDetectE *nde_create(_DWORD *a1, unint64_t a2)
 {
   result = 0;
   if (a2 >= 0x30 && a1 && ((gpNovDetect != 0) & ~gIsMultiInstance) == 0)
@@ -9278,73 +9283,73 @@ uint64_t nde_create(char *a1, unint64_t a2)
   return result;
 }
 
-uint64_t _nde_create(char *a1, unint64_t a2)
+IntNovDetectE *_nde_create(_DWORD *a1, unint64_t a2)
 {
   if (NMemPool::m_bLocked == 1)
   {
     v16 = 0;
     if (sanity_check_model(a1, a2, &v16))
     {
-      v3 = &a1[*(a1 + 3)];
-      if ((v3[40] & 1) == 0 || *(a1 + 5) + 12 <= *(a1 + 6))
+      v3 = a1 + a1[3];
+      if ((v3[40] & 1) == 0 || a1[5] + 12 <= a1[6])
       {
-        v4 = *(a1 + 9);
-        if (v4 >= 4)
+        v15 = a1[9];
+        if (v15 >= 4)
         {
-          v5 = &a1[*(a1 + 8)];
-          v6 = (8 * (*(v3 + 1) < -1)) | 4;
-          v7 = v5 + v4;
-          v9 = v5 + 1;
-          v8 = *v5;
-          v10 = *v5 == 0;
-          if (*v5)
+          v4 = (a1 + a1[8]);
+          v5 = (8 * (*(v3 + 1) < -1)) | 4;
+          v6 = v4 + v15;
+          v8 = v4 + 1;
+          v7 = *v4;
+          v9 = *v4 == 0;
+          if (*v4)
           {
-            v11 = v5 + v6 + 4 > v7;
+            v10 = v4 + v5 + 4 > v6;
           }
 
           else
           {
-            v11 = 1;
+            v10 = 1;
           }
 
-          if (v11)
+          if (v10)
           {
 LABEL_11:
-            if (v10)
+            if (v9)
             {
-              v12 = *(a1 + 11);
-              if (!(v12 >> 30))
+              v11 = a1[11];
+              if (!(v11 >> 30))
               {
-                NMemPool::m_pData = &a1[*(a1 + 10)];
-                NMemPool::m_iSize = v12;
+                NMemPool::m_pData = a1 + a1[10];
+                NMemPool::m_iSize = v11;
                 NMemPool::m_iAlignBytes = 16;
                 NMemPool::m_bLocked = 0;
                 NMemPool::m_iPos = 0;
-                bzero(NMemPool::m_pData, v12);
+                bzero(NMemPool::m_pData, v11);
                 operator new();
               }
 
-              Error::chuck("NMemPool::init - pool size too large", v12);
+              Error::chuck("NMemPool::init - pool size too large", v11);
             }
           }
 
           else
           {
-            v14 = 1;
+            v13 = 1;
             while (1)
             {
-              v13 = 2 * (*(v3 + 1) < -1);
-              v9 = (v9 + 8 * v9[v13] + v13 * 4 + 4);
-              if (v9 > v7)
+              v12 = 2 * (*(v3 + 1) < -1);
+              v8 = (v8 + 8 * v8[v12] + v12 * 4 + 4);
+              if (v8 > v6)
               {
                 break;
               }
 
-              v10 = v14 >= v8;
-              if (v14 < v8)
+              v9 = v13 >= v7;
+              if (v13 < v7)
               {
-                ++v14;
-                if (v9 + v6 <= v7)
+                ++v13;
+                if (v8 + v5 <= v6)
                 {
                   continue;
                 }
@@ -9826,75 +9831,4 @@ void sub_223A5270C(_Unwind_Exception *a1)
 
   NDEAcAnal::~NDEAcAnal(v1);
   _Unwind_Resume(a1);
-}
-
-uint64_t IntNovDetectE::init(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  if ((*(a3 + 46) & 1) == 0)
-  {
-    NDEAcAnal::init(a1 + 8, a3, a2);
-  }
-
-  v6 = *(a3 + 47) & 1;
-  v7 = *(a3 + 16);
-  v8 = 10000000.0 / *a3;
-  if (*(a1 + 688) != v7)
-  {
-    *(a1 + 688) = v7;
-    operator new[]();
-  }
-
-  *(a1 + 700) = *(a3 + 52) * *(a3 + 48);
-  *(a1 + 708) = v6;
-  *(a1 + 704) = v8;
-  *(a1 + 696) = 1;
-  v17 = *(a1 + 688);
-  *(a1 + 1073) = 1;
-  v9 = (*a2 / v8) + 0.5;
-  *(a1 + 1040) = v9;
-  if ((v9 & 0x80000000) != 0)
-  {
-    Error::chuck("NovDetectE: unsupportable frame advance %u", a2, v9);
-  }
-
-  if (!v9)
-  {
-    *(a1 + 1040) = 1;
-  }
-
-  v10 = (a4 != 0) & *(a2 + 40);
-  *(a1 + 1072) = v10;
-  if (v10 != 1)
-  {
-LABEL_16:
-    NDEHMMDetector::init(a1 + 800, a2, v8 * *(a2 + 12));
-  }
-
-  v11 = *(a4 + 4) + (*a4 >> 1);
-  if (v11 < *a4)
-  {
-    v15 = 0;
-    v16 = v11;
-    NLocalCepNorm::configure((a1 + 712), a4, &v17, (a4 + 8), &v16, &v15);
-    v12 = *(a1 + 624);
-    if (*(a1 + 644))
-    {
-      v13 = 3;
-    }
-
-    else
-    {
-      v13 = 1;
-    }
-
-    if (*(a1 + 1032) != v13 * v12)
-    {
-      *(a1 + 1032) = v13 * v12;
-      operator new[]();
-    }
-
-    goto LABEL_16;
-  }
-
-  return 0xFFFFFFFFLL;
 }

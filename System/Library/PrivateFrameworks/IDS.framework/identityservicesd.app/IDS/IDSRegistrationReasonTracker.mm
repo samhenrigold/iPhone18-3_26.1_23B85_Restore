@@ -4,6 +4,7 @@
 - (id)registrationRequestReasonString;
 - (int64_t)getPNRReasonForUserUniqueIdentifier:(id)identifier;
 - (void)clearPNRReasonForUserUniqueIdentifier:(id)identifier;
+- (void)clearRegistrationRequestReason;
 - (void)setPNRReason:(int64_t)reason forUserUniqueIdentifier:(id)identifier;
 @end
 
@@ -119,6 +120,13 @@
   }
 
   return integerValue;
+}
+
+- (void)clearRegistrationRequestReason
+{
+  requestReasonContainer = self->_requestReasonContainer;
+  self->_requestReasonContainer = 0;
+  _objc_release_x1(self, requestReasonContainer);
 }
 
 - (id)registrationRequestReasonString

@@ -12,9 +12,9 @@
     +[NSUnitEnergy(CAFUnit) wattHours];
   }
 
-  v1 = wattHours__wattHours;
+  v2 = wattHours__wattHours;
 
-  return v1;
+  return v2;
 }
 
 + (id)milliwattHours
@@ -24,9 +24,9 @@
     +[NSUnitEnergy(CAFUnit) milliwattHours];
   }
 
-  v1 = milliwattHours__wattHours;
+  v2 = milliwattHours__wattHours;
 
-  return v1;
+  return v2;
 }
 
 @end

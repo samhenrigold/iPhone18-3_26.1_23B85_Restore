@@ -148,35 +148,35 @@ uint64_t __56__WBSPasswordAuditor_accountStoreHasDuplicatedPasswords__block_invo
 
 - (BOOL)savedAccount:(id)account reusesPasswordWithAccountInSavedAccounts:(id)accounts
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   accountCopy = account;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   accountsCopy = accounts;
-  v8 = [accountsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [accountsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(accountsCopy);
         }
 
-        if ([(WBSPasswordAuditor *)self _passwordIsReused:*(*(&v15 + 1) + 8 * i) byOtherSavedAccount:accountCopy, v15])
+        if ([(WBSPasswordAuditor *)self _passwordIsReused:*(*(&v14 + 1) + 8 * i) byOtherSavedAccount:accountCopy, v14])
         {
           v12 = 1;
           goto LABEL_11;
         }
       }
 
-      v9 = [accountsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [accountsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v9)
       {
         continue;
@@ -189,7 +189,6 @@ uint64_t __56__WBSPasswordAuditor_accountStoreHasDuplicatedPasswords__block_invo
   v12 = 0;
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

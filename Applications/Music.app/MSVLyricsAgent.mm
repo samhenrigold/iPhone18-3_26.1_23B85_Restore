@@ -22,7 +22,7 @@
 
   v6 = MSVLyricsAgent.isEqual(_:)(v8);
 
-  sub_1000095E8(v8, &qword_1011BD990);
+  sub_1000095E8(v8, &qword_1011BD990, &qword_100F10740);
   return v6 & 1;
 }
 

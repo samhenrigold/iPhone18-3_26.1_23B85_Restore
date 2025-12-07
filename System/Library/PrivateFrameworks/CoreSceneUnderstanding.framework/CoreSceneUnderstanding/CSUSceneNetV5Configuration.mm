@@ -42,7 +42,7 @@
   {
     case 1:
       v20 = objc_msgSend_pathForResource_ofType_inDirectory_(v49, v16, @"SceneNet_v5.10.4_8wiqmpbbig_fe1.3_sc3.3_sa2.4_ae2.4_so2.4_od1.5_fp1.5", @"espresso.net", @"scenenet_v5_model/SceneNet_v5.13.0_8wiqmpbbig_fe1.3_sc3.3_sa2.4_ae2.4_so2.4_od1.5_fp1.5_en0.2");
-      v21 = sub_1AC090E50();
+      v21 = sub_1AC090E50(v20);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
@@ -54,7 +54,7 @@
       break;
     case 2:
       v20 = objc_msgSend_pathForResource_ofType_inDirectory_(v49, v16, @"SceneNet_v5.11.1_47tazbjgzq_fe1.3_sc3.3_sa2.4_ae2.4_so2.4_od1.5_fp1.5_en0.1", @"espresso.net", @"scenenet_v5_model/SceneNet_v5.11.1_47tazbjgzq_fe1.3_sc3.3_sa2.4_ae2.4_so2.4_od1.5_fp1.5_en0.1");
-      v21 = sub_1AC090E50();
+      v21 = sub_1AC090E50(v20);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         v51 = 0;
@@ -66,7 +66,7 @@
       break;
     case 3:
       v20 = objc_msgSend_pathForResource_ofType_inDirectory_(v49, v16, @"SceneNet_v5.13.0_8wiqmpbbig_fe1.3_sc3.3_sa2.4_ae2.4_so2.4_od1.5_fp1.5_en0.2", @"espresso.net", @"scenenet_v5_model/SceneNet_v5.13.0_8wiqmpbbig_fe1.3_sc3.3_sa2.4_ae2.4_so2.4_od1.5_fp1.5_en0.2");
-      v21 = sub_1AC090E50();
+      v21 = sub_1AC090E50(v20);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         v50 = 0;

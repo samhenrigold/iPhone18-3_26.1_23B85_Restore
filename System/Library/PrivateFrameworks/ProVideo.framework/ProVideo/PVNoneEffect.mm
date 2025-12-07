@@ -12,7 +12,8 @@
   v9 = [(PVEffect *)self effectID:time];
   NSLog(&cfstr_RenderingANone.isa, v9);
 
-  return PVInputHGNodeMap<unsigned int>::GetNode(inputs, 0, v8);
+  PVInputHGNodeMap<unsigned int>::GetNode(inputs, 0, v8);
+  return v10;
 }
 
 - (BOOL)loadEffect

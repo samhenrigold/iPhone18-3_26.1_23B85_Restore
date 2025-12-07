@@ -233,7 +233,7 @@ LABEL_14:
 
 - ($E297CC25127479E857BE23A4F8632EA4)lengthFromValue:(SEL)value
 {
-  [(TUIStatsEventCollector *)self->_statsCollector recordEvent:5];
+  objc_msgSend_recordEvent_(self->_statsCollector, value, 5);
   if (!TUIValueNotNil(a4.var0))
   {
     return 0x7FC000007FC00000;
@@ -247,7 +247,7 @@ LABEL_14:
 
 - (double)floatFromValue:(id)value default:(double)default
 {
-  [(TUIStatsEventCollector *)self->_statsCollector recordEvent:1];
+  objc_msgSend_recordEvent_(self->_statsCollector, a2, 1);
   if (TUIValueNotNil(value.var0))
   {
     TUI::Evaluation::Context::resolve(self->_context, value.var0, v8);
@@ -259,7 +259,7 @@ LABEL_14:
 
 - (unint64_t)unsignedIntegerFromValue:(id)value default:(unint64_t)default
 {
-  [(TUIStatsEventCollector *)self->_statsCollector recordEvent:2];
+  objc_msgSend_recordEvent_(self->_statsCollector, a2, 2);
   if (TUIValueNotNil(value.var0))
   {
     TUI::Evaluation::Context::resolve(self->_context, value.var0, v8);
@@ -271,7 +271,7 @@ LABEL_14:
 
 - (int64_t)integerFromValue:(id)value default:(int64_t)default
 {
-  [(TUIStatsEventCollector *)self->_statsCollector recordEvent:2];
+  objc_msgSend_recordEvent_(self->_statsCollector, a2, 2);
   if (TUIValueNotNil(value.var0))
   {
     TUI::Evaluation::Context::resolve(self->_context, value.var0, v8);
@@ -283,7 +283,7 @@ LABEL_14:
 
 - (CGSize)sizeFromValue:(id)value
 {
-  [(TUIStatsEventCollector *)self->_statsCollector recordEvent:8];
+  objc_msgSend_recordEvent_(self->_statsCollector, a2, 8);
   if (TUIValueNotNil(value.var0))
   {
     TUI::Evaluation::Context::resolve(self->_context, value.var0, v10);
@@ -306,7 +306,7 @@ LABEL_14:
 
 - (id)colorFromValue:(id)value
 {
-  [(TUIStatsEventCollector *)self->_statsCollector recordEvent:10];
+  objc_msgSend_recordEvent_(self->_statsCollector, a2, 10);
   if (TUIValueNotNil(value.var0))
   {
     TUI::Evaluation::Context::resolve(self->_context, value.var0, v7);
@@ -323,7 +323,7 @@ LABEL_14:
 
 - (BOOL)BOOLFromValue:(id)value
 {
-  [(TUIStatsEventCollector *)self->_statsCollector recordEvent:3];
+  objc_msgSend_recordEvent_(self->_statsCollector, a2, 3);
   if (!TUIValueNotNil(value.var0))
   {
     return 0;
@@ -343,7 +343,7 @@ LABEL_14:
     return 1;
   }
 
-  [(TUIStatsEventCollector *)self->_statsCollector recordEvent:0];
+  objc_msgSend_recordEvent_(self->_statsCollector);
   TUI::Evaluation::Context::resolve(self->_context, var0, v7);
   v5 = TUI::Evaluation::ResolvedValue::BOOLValue(v7, self->_context);
 
@@ -352,7 +352,7 @@ LABEL_14:
 
 - (id)stringFromValue:(id)value
 {
-  [(TUIStatsEventCollector *)self->_statsCollector recordEvent:6];
+  objc_msgSend_recordEvent_(self->_statsCollector, a2, 6);
   if (TUIValueNotNil(value.var0))
   {
     TUI::Evaluation::Context::resolve(self->_context, value.var0, v7);
@@ -369,7 +369,7 @@ LABEL_14:
 
 - (id)objectFromValue:(id)value
 {
-  [(TUIStatsEventCollector *)self->_statsCollector recordEvent:7];
+  objc_msgSend_recordEvent_(self->_statsCollector, a2, 7);
   if (TUIValueNotNil(value.var0))
   {
     TUI::Evaluation::Context::resolve(self->_context, value.var0, v7);
@@ -386,12 +386,12 @@ LABEL_14:
 
 - (CGAffineTransform)transformFromValue:(SEL)value
 {
-  [(TUIStatsEventCollector *)self->_statsCollector recordEvent:4];
+  objc_msgSend_recordEvent_(self->_statsCollector, value, 4);
   result = TUIValueNotNil(a4.var0);
   if (result)
   {
     TUI::Evaluation::Context::resolve(self->_context, a4.var0, v9);
-    TUI::Evaluation::ResolvedValue::transformValue(v9, self->_context, retstr);
+    TUI::Evaluation::ResolvedValue::transformValue(retstr, v9, self->_context);
   }
 
   else
@@ -407,7 +407,7 @@ LABEL_14:
 
 - ($2940F3BBF0C500EC413214967FDB6F62)springTimingParametersFromValue:(SEL)value
 {
-  [(TUIStatsEventCollector *)self->_statsCollector recordEvent:28];
+  objc_msgSend_recordEvent_(self->_statsCollector, value, 28);
   result = TUIValueNotNil(a4.var0);
   if (result)
   {
@@ -601,7 +601,7 @@ LABEL_14:
     if (blockCopy)
     {
       context = self->_context;
-      [snapshotCopy contextSnapshot];
+      objc_msgSend_contextSnapshot(snapshotCopy);
       TUI::Evaluation::Context::evaluateWithSnapshot(context, &v10, v8);
       if (v11)
       {
@@ -635,8 +635,7 @@ LABEL_14:
   valueCopy = value;
   if (TUINameIsValid(*&name))
   {
-    nameCopy = name;
-    TUI::Evaluation::Context::defineComponentBinding(self->_context, nameCopy, valueCopy);
+    TUI::Evaluation::Context::defineComponentBinding(self->_context, *&name, valueCopy);
   }
 }
 
@@ -843,7 +842,7 @@ LABEL_5:
 
 - ($E297CC25127479E857BE23A4F8632EA4)lengthForAttribute:(SEL)attribute node:(unsigned __int16)node
 {
-  v6 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:node node:a5.var0];
+  v6 = objc_msgSend__resolvedValueForAttribute_node_(self, attribute, node, a5.var0);
   if (v6)
   {
     return TUI::Evaluation::ResolvedValue::lengthValue(v6, self->_context);
@@ -857,7 +856,7 @@ LABEL_5:
 
 - (UIEdgeInsets)insetsForAttribute:(unsigned __int16)attribute node:(id)node
 {
-  v5 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:attribute node:node.var0];
+  v5 = objc_msgSend__resolvedValueForAttribute_node_(self, a2, attribute, node.var0);
   if (v5)
   {
     top = TUI::Evaluation::ResolvedValue::insetsValue(v5, self->_context);
@@ -884,7 +883,7 @@ LABEL_5:
   bottom = default.bottom;
   left = default.left;
   top = default.top;
-  v10 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:attribute node:node.var0];
+  v10 = objc_msgSend__resolvedValueForAttribute_node_(self, a2, attribute, node.var0);
   if (v10)
   {
     top = TUI::Evaluation::ResolvedValue::insetsValue(v10, self->_context);
@@ -906,7 +905,7 @@ LABEL_5:
 
 - (double)floatForAttribute:(unsigned __int16)attribute node:(id)node
 {
-  v5 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:attribute node:node.var0];
+  v5 = objc_msgSend__resolvedValueForAttribute_node_(self, a2, attribute, node.var0);
   if (!v5)
   {
     return 0.0;
@@ -919,7 +918,7 @@ LABEL_5:
 
 - (double)floatForAttribute:(unsigned __int16)attribute withDefault:(double)default node:(id)node
 {
-  v7 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:attribute node:node.var0];
+  v7 = objc_msgSend__resolvedValueForAttribute_node_(self, a2, attribute, node.var0);
   if (!v7)
   {
     return default;
@@ -932,7 +931,7 @@ LABEL_5:
 
 - (int64_t)integerForAttribute:(unsigned __int16)attribute withDefault:(int64_t)default node:(id)node
 {
-  v7 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:attribute node:node.var0];
+  v7 = objc_msgSend__resolvedValueForAttribute_node_(self, a2, attribute, node.var0);
   if (!v7)
   {
     return default;
@@ -945,7 +944,7 @@ LABEL_5:
 
 - (unint64_t)unsignedIntegerForAttribute:(unsigned __int16)attribute withDefault:(unint64_t)default node:(id)node
 {
-  v7 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:attribute node:node.var0];
+  v7 = objc_msgSend__resolvedValueForAttribute_node_(self, a2, attribute, node.var0);
   if (!v7)
   {
     return default;
@@ -958,7 +957,7 @@ LABEL_5:
 
 - (CGSize)sizeForAttribute:(unsigned __int16)attribute node:(id)node
 {
-  v5 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:attribute node:node.var0];
+  v5 = objc_msgSend__resolvedValueForAttribute_node_(self, a2, attribute, node.var0);
   if (v5)
   {
     width = TUI::Evaluation::ResolvedValue::sizeValue(v5, self->_context);
@@ -977,7 +976,7 @@ LABEL_5:
 
 - (id)colorForAttribute:(unsigned __int16)attribute node:(id)node
 {
-  v5 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:attribute node:node.var0];
+  v5 = objc_msgSend__resolvedValueForAttribute_node_(self, a2, attribute, node.var0);
   if (v5)
   {
     v5 = TUI::Evaluation::ResolvedValue::colorValue(v5, self->_context);
@@ -988,7 +987,7 @@ LABEL_5:
 
 - (id)colorArrayForAttribute:(unsigned __int16)attribute node:(id)node
 {
-  v5 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:attribute node:node.var0];
+  v5 = objc_msgSend__resolvedValueForAttribute_node_(self, a2, attribute, node.var0);
   if (v5)
   {
     v5 = TUI::Evaluation::ResolvedValue::colorArrayValue(v5, self->_context);
@@ -999,7 +998,7 @@ LABEL_5:
 
 - (id)stringArrayForAttribute:(unsigned __int16)attribute node:(id)node
 {
-  v5 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:attribute node:node.var0];
+  v5 = objc_msgSend__resolvedValueForAttribute_node_(self, a2, attribute, node.var0);
   if (v5)
   {
     v5 = TUI::Evaluation::ResolvedValue::stringArrayValue(v5, self->_context);
@@ -1010,7 +1009,7 @@ LABEL_5:
 
 - (id)stringForAttribute:(unsigned __int16)attribute node:(id)node
 {
-  v5 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:attribute node:node.var0];
+  v5 = objc_msgSend__resolvedValueForAttribute_node_(self, a2, attribute, node.var0);
   if (v5)
   {
     v5 = TUI::Evaluation::ResolvedValue::stringValue(v5, self->_context);
@@ -1021,7 +1020,7 @@ LABEL_5:
 
 - (BOOL)BOOLForAttribute:(unsigned __int16)attribute node:(id)node
 {
-  v5 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:attribute node:node.var0];
+  v5 = objc_msgSend__resolvedValueForAttribute_node_(self, a2, attribute, node.var0);
   if (v5)
   {
     context = self->_context;
@@ -1034,7 +1033,7 @@ LABEL_5:
 
 - (BOOL)BOOLForAttribute:(unsigned __int16)attribute withDefault:(BOOL)default node:(id)node
 {
-  v7 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:attribute node:node.var0];
+  v7 = objc_msgSend__resolvedValueForAttribute_node_(self, a2, attribute, node.var0);
   if (!v7)
   {
     return default;
@@ -1047,7 +1046,7 @@ LABEL_5:
 
 - (id)objectForAttribute:(unsigned __int16)attribute node:(id)node
 {
-  v5 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:attribute node:node.var0];
+  v5 = objc_msgSend__resolvedValueForAttribute_node_(self, a2, attribute, node.var0);
   if (v5)
   {
     v5 = TUI::Evaluation::ResolvedValue::objectValue(v5, self->_context);
@@ -1058,12 +1057,12 @@ LABEL_5:
 
 - (CGAffineTransform)transformForAttribute:(SEL)attribute node:(unsigned __int16)node
 {
-  result = [(TUIInstantiateContext *)self _resolvedValueForAttribute:node node:a5.var0];
+  result = objc_msgSend__resolvedValueForAttribute_node_(self, attribute, node, a5.var0);
   if (result)
   {
     context = self->_context;
 
-    TUI::Evaluation::ResolvedValue::transformValue(result, context, retstr);
+    TUI::Evaluation::ResolvedValue::transformValue(retstr, result, context);
   }
 
   else
@@ -1079,7 +1078,7 @@ LABEL_5:
 
 - ($2940F3BBF0C500EC413214967FDB6F62)springTimingParametersForAttribute:(SEL)attribute node:(unsigned __int16)node
 {
-  result = [(TUIInstantiateContext *)self _resolvedValueForAttribute:node node:a5.var0];
+  result = objc_msgSend__resolvedValueForAttribute_node_(self, attribute, node, a5.var0);
   if (result)
   {
     context = self->_context;
@@ -1101,27 +1100,27 @@ LABEL_5:
 {
   var0 = node.var0;
   v5 = [(TUIInstantiateContext *)self stringForAttribute:64 node:node.var0];
-  if ([v5 isEqualToString:@"ease-in-out"])
+  if (objc_msgSend_isEqualToString_(v5))
   {
     v6 = 0;
   }
 
-  else if ([v5 isEqualToString:@"ease-in"])
+  else if (objc_msgSend_isEqualToString_(v5))
   {
     v6 = 0x10000;
   }
 
-  else if ([v5 isEqualToString:@"ease-out"])
+  else if (objc_msgSend_isEqualToString_(v5))
   {
     v6 = 0x20000;
   }
 
-  else if ([v5 isEqualToString:@"linear"])
+  else if (objc_msgSend_isEqualToString_(v5))
   {
     v6 = 196608;
   }
 
-  else if ([v5 isEqualToString:@"sigmoid"])
+  else if (objc_msgSend_isEqualToString_(v5))
   {
     v6 = 0x40000;
   }
@@ -1132,24 +1131,24 @@ LABEL_5:
   }
 
   v7 = [(TUIInstantiateContext *)self stringForAttribute:46 node:var0];
-  if (([v7 isEqualToString:@"linear"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v7) & 1) == 0)
   {
-    if ([v7 isEqualToString:@"discrete"])
+    if (objc_msgSend_isEqualToString_(v7))
     {
       v6 |= 0x400uLL;
     }
 
-    else if ([v7 isEqualToString:@"paced"])
+    else if (objc_msgSend_isEqualToString_(v7))
     {
       v6 |= 0x800uLL;
     }
 
-    else if ([v7 isEqualToString:@"cubic"])
+    else if (objc_msgSend_isEqualToString_(v7))
     {
       v6 |= 0xC00uLL;
     }
 
-    else if ([v7 isEqualToString:@"cubic-paced"])
+    else if (objc_msgSend_isEqualToString_(v7))
     {
       v6 |= 0x1000uLL;
     }
@@ -1160,11 +1159,15 @@ LABEL_5:
 
 - (id)guidesForNode:(id)node
 {
-  var0 = node.var0;
-  v5 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:121 node:node.var0];
-  v6 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:209 node:var0];
-  v7 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:207 node:var0];
-  v8 = [(TUIInstantiateContext *)self _resolvedValueForAttribute:43 node:var0];
+  v4 = objc_msgSend__resolvedValueForAttribute_node_(self, a2, 121, node.var0);
+  v5 = objc_msgSend__resolvedValueForAttribute_node_(self);
+  v6 = objc_msgSend__resolvedValueForAttribute_node_(self);
+  v7 = objc_msgSend__resolvedValueForAttribute_node_(self);
+  if (v4)
+  {
+    v4 = TUI::Evaluation::ResolvedValue::guideValue(v4, self->_context);
+  }
+
   if (v5)
   {
     v5 = TUI::Evaluation::ResolvedValue::guideValue(v5, self->_context);
@@ -1177,13 +1180,8 @@ LABEL_5:
 
   if (v7)
   {
-    v7 = TUI::Evaluation::ResolvedValue::guideValue(v7, self->_context);
-  }
-
-  if (v8)
-  {
-    v9 = TUI::Evaluation::ResolvedValue::guideValue(v8, self->_context);
-    if (v5)
+    v8 = TUI::Evaluation::ResolvedValue::guideValue(v7, self->_context);
+    if (v4)
     {
       goto LABEL_15;
     }
@@ -1191,24 +1189,24 @@ LABEL_5:
 
   else
   {
-    v9 = 0;
-    if (v5)
+    v8 = 0;
+    if (v4)
     {
       goto LABEL_15;
     }
   }
 
-  if (!v6 && !v7 && !v9)
+  if (!v5 && !v6 && !v8)
   {
-    v10 = 0;
+    v9 = 0;
     goto LABEL_16;
   }
 
 LABEL_15:
-  v10 = [[TUIGuides alloc] initWithLeading:v5 trailing:v6 top:v7 bottom:v9];
+  v9 = [[TUIGuides alloc] initWithLeading:v4 trailing:v5 top:v6 bottom:v8];
 LABEL_16:
 
-  return v10;
+  return v9;
 }
 
 - (id)pointerStyleForNode:(id)node
@@ -1605,47 +1603,48 @@ LABEL_23:
     v5 = *(self->_context + 95);
     package = [v5 package];
 
-    if (objc_opt_respondsToSelector())
+    v7 = objc_opt_respondsToSelector();
+    if (v7)
     {
-      v7 = [NSURLComponents componentsWithURL:lCopy resolvingAgainstBaseURL:1];
-      path = [v7 path];
+      v8 = [NSURLComponents componentsWithURL:lCopy resolvingAgainstBaseURL:1];
+      path = [v8 path];
       stringByStandardizingPath = [path stringByStandardizingPath];
-      [v7 setPath:stringByStandardizingPath];
+      [v8 setPath:stringByStandardizingPath];
 
-      v10 = [v7 URL];
+      v11 = [v8 URL];
       prebuiltTemplates = [package prebuiltTemplates];
-      v12 = [prebuiltTemplates objectForKeyedSubscript:v10];
+      v13 = [prebuiltTemplates objectForKeyedSubscript:v11];
 
-      if (v12)
+      if (v13)
       {
-        TUI::Evaluation::Context::includeTemplate(self->_context, v12);
+        TUI::Evaluation::Context::includeTemplate(self->_context, v13);
       }
 
       else
       {
-        v13 = TUIInstantiationLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v15 = TUIInstantiationLog(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           uniqueIdentifier = self->_feedId.uniqueIdentifier;
           absoluteURL = [lCopy absoluteURL];
-          v16 = [package url];
-          v17 = 134218498;
-          v18 = uniqueIdentifier;
-          v19 = 2114;
-          v20 = absoluteURL;
+          v18 = [package url];
+          v19 = 134218498;
+          v20 = uniqueIdentifier;
           v21 = 2114;
-          v22 = v16;
-          _os_log_error_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "[fid:%lu] failed to find template: %{public}@ in package: %{public}@", &v17, 0x20u);
+          v22 = absoluteURL;
+          v23 = 2114;
+          v24 = v18;
+          _os_log_error_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "[fid:%lu] failed to find template: %{public}@ in package: %{public}@", &v19, 0x20u);
         }
       }
     }
 
     else
     {
-      v7 = TUIInstantiationLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = TUIInstantiationLog(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        sub_19A070(self, v7);
+        sub_19A070(self, v8);
       }
     }
   }

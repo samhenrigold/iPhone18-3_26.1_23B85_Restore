@@ -22,7 +22,7 @@
   *v5 = 0;
   v5[1] = 0;
   v6 = self + OBJC_IVAR____TtC21contactsdonationagent22ProductionInfoProvider_environment;
-  v7 = type metadata accessor for ProductionInfoProvider();
+  v7 = type metadata accessor for ProductionInfoProvider(0);
   *v6 = 0u;
   *(v6 + 1) = 0u;
   *(v6 + 4) = 0;

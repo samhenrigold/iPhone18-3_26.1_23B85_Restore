@@ -108,18 +108,16 @@
 {
   if (*(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_experimentalizableFieldPostfix + 8))
   {
-    v2 = *(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_experimentalizableFieldPostfix);
-    v3 = *(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_experimentalizableFieldPostfix + 8);
     sub_1DACB71E4();
-    v4 = sub_1DACB92F4();
+    v2 = sub_1DACB92F4();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSNumber)currentTreatment
@@ -450,110 +448,90 @@
 
 - (NSString)embedConfigurationAssetID
 {
-  v2 = *(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_newsUIConfiguration);
-  v3 = *(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_newsUIConfiguration + 8);
   sub_1DACB71E4();
-  v4 = sub_1DACB92F4();
+  v2 = sub_1DACB92F4();
 
-  return v4;
+  return v2;
 }
 
 - (NSArray)mediaSharingBlacklistedChannelIDs
 {
-  v2 = *(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_newsUIConfiguration + 16);
   sub_1DACB71E4();
-  v3 = sub_1DACB9634();
+  v2 = sub_1DACB9634();
 
-  return v3;
+  return v2;
 }
 
 - (NSString)webEmbedContentBlockers
 {
-  v2 = *(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_newsUIConfiguration + 24);
-  v3 = *(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_newsUIConfiguration + 32);
   sub_1DACB71E4();
-  v4 = sub_1DACB92F4();
+  v2 = sub_1DACB92F4();
 
-  return v4;
+  return v2;
 }
 
 - (NSString)webEmbedContentBlockerOverrides
 {
-  v2 = *(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_newsUIConfiguration + 40);
-  v3 = *(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_newsUIConfiguration + 48);
   sub_1DACB71E4();
-  v4 = sub_1DACB92F4();
+  v2 = sub_1DACB92F4();
 
-  return v4;
+  return v2;
 }
 
 - (NSString)anfRenderingConfiguration
 {
-  v2 = *(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_newsUIConfiguration + 56);
-  v3 = *(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_newsUIConfiguration + 64);
   sub_1DACB71E4();
-  v4 = sub_1DACB92F4();
+  v2 = sub_1DACB92F4();
 
-  return v4;
+  return v2;
 }
 
 - (NSString)endOfArticleFeedConfigurationResourceId
 {
-  v2 = *(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_appConfiguration + 1328);
-  v3 = *(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_appConfiguration + 1336);
   sub_1DACB71E4();
-  v4 = sub_1DACB92F4();
+  v2 = sub_1DACB92F4();
 
-  return v4;
+  return v2;
 }
 
 - (NSString)userConcernConfigurationResourceId
 {
   if (*(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_appConfiguration + 4120))
   {
-    v2 = *(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_appConfiguration + 4112);
-    v3 = *(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_appConfiguration + 4120);
     sub_1DACB71E4();
-    v4 = sub_1DACB92F4();
+    v2 = sub_1DACB92F4();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)configurableOffersMappingResourceId
 {
-  if (*(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_appConfiguration + 4184))
-  {
-    v2 = *(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_appConfiguration + 4176);
-  }
-
   sub_1DACB71E4();
-  v3 = sub_1DACB92F4();
+  v2 = sub_1DACB92F4();
 
-  return v3;
+  return v2;
 }
 
 - (NSString)aiAttributionArticleString
 {
   if (*(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_appConfiguration + 4136))
   {
-    v2 = *(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_appConfiguration + 4128);
-    v3 = *(self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_appConfiguration + 4136);
     sub_1DACB71E4();
-    v4 = sub_1DACB92F4();
+    v2 = sub_1DACB92F4();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (FCNewsPersonalizationConfiguration)newsPersonalizationConfiguration
@@ -646,17 +624,15 @@ LABEL_7:
 - (NSDictionary)articleConfig
 {
   v3 = self + OBJC_IVAR____TtC10StocksCore21NewsCoreConfiguration_appConfiguration;
-  v4 = type metadata accessor for AppConfiguration(0);
-  if (*&v3[*(v4 + 544)])
+  if (*&v3[*(type metadata accessor for AppConfiguration(0) + 544)])
   {
-    v10 = *&v3[*(v4 + 544)];
     sub_1DAA7C3AC(0, &qword_1EE123FE8, MEMORY[0x1E69D6A58], MEMORY[0x1E69E5E28]);
     sub_1DAB68654();
     selfCopy = self;
-    v6 = sub_1DACB91D4();
-    if (v6)
+    v5 = sub_1DACB91D4();
+    if (v5)
     {
-      sub_1DAA55EB0(v6);
+      sub_1DAA55EB0(v5);
 
       goto LABEL_6;
     }
@@ -670,9 +646,9 @@ LABEL_7:
   sub_1DAB68448(MEMORY[0x1E69E7CC0]);
 LABEL_6:
 
-  v8 = sub_1DACB9114();
+  v7 = sub_1DACB9114();
 
-  return v8;
+  return v7;
 }
 
 - (NSArray)onboardingFeedIDs

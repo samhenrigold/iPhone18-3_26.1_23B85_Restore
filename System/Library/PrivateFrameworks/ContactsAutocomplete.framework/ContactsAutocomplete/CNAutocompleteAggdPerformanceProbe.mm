@@ -10,16 +10,15 @@
 
 - (CNAutocompleteAggdPerformanceProbe)init
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"com.apple.contacts.autocomplete";
-  v10[1] = @"performance";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"com.apple.contacts.autocomplete";
+  v9[1] = @"performance";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   v5 = CNAutocompleteProbeBuildKey(v3, v4);
 
   v6 = [[CNAutocompleteAggdProbe alloc] initWithKeyPrefix:v5];
   v7 = [(CNAutocompleteAggdPerformanceProbe *)self initWithAggdProbe:v6];
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -44,27 +43,27 @@
 - (void)recordNumberOfResultsReturned:(unint64_t)returned inTimeInterval:(double)interval forBatch:(unint64_t)batch includesServers:(BOOL)servers
 {
   serversCopy = servers;
-  v29[2] = *MEMORY[0x277D85DE8];
-  v29[0] = @"latency";
+  v28[2] = *MEMORY[0x277D85DE8];
+  v28[0] = @"latency";
   v11 = CNAutocompleteProbeBatchKey(batch);
-  v29[1] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+  v28[1] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
   v14 = CNAutocompleteProbeBuildKey(v12, v13);
 
   if (serversCopy)
   {
-    v28[0] = v14;
-    v28[1] = @"includingServers";
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+    v27[0] = v14;
+    v27[1] = @"includingServers";
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
     v17 = CNAutocompleteProbeBuildKey(v15, v16);
 
     v14 = v17;
   }
 
-  v27[0] = @"numberOfResults";
+  v26[0] = @"numberOfResults";
   v18 = CNAutocompleteProbeBatchKey(batch);
-  v27[1] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+  v26[1] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
   v21 = CNAutocompleteProbeBuildKey(v19, v20);
 
   v22 = [MEMORY[0x277CCABB0] numberWithDouble:interval];
@@ -74,23 +73,21 @@
   v24 = [MEMORY[0x277CCABB0] numberWithDouble:returned];
   pendingAddData2 = [(CNAutocompleteAggdPerformanceProbe *)self pendingAddData];
   [pendingAddData2 setObject:v24 forKeyedSubscript:v21];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordLatency:(double)latency forResultCount:(unint64_t)count forSource:(id)source
 {
-  v22[2] = *MEMORY[0x277D85DE8];
-  v22[0] = @"latency";
-  v22[1] = source;
+  v21[2] = *MEMORY[0x277D85DE8];
+  v21[0] = @"latency";
+  v21[1] = source;
   v8 = MEMORY[0x277CBEA60];
   sourceCopy = source;
-  v10 = [v8 arrayWithObjects:v22 count:2];
+  v10 = [v8 arrayWithObjects:v21 count:2];
   v12 = CNAutocompleteProbeBuildKey(v10, v11);
 
-  v21[0] = @"numberOfResults";
-  v21[1] = sourceCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v20[0] = @"numberOfResults";
+  v20[1] = sourceCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
   v15 = CNAutocompleteProbeBuildKey(v13, v14);
 
   v16 = [MEMORY[0x277CCABB0] numberWithDouble:latency];
@@ -101,8 +98,6 @@
 
   pendingAddData2 = [(CNAutocompleteAggdPerformanceProbe *)self pendingAddData];
   [pendingAddData2 setObject:v18 forKeyedSubscript:v15];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendData

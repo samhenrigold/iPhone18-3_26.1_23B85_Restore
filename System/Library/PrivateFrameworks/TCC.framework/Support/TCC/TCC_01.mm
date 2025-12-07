@@ -1,6 +1,6 @@
-void sub_100022F5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_100022F5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -249,9 +249,9 @@ void sub_100023640(void *a1, void *a2)
         sub_1000654AC();
       }
 
-      v8 = dispatch_time(0, 5000000000);
-      v9 = dispatch_get_global_queue(0, 0);
-      dispatch_after(v8, v9, &stru_1000A5B50);
+      v9 = dispatch_time(0, 5000000000);
+      v10 = dispatch_get_global_queue(0, 0);
+      dispatch_after(v9, v10, &stru_1000A5B50);
     }
 
     else
@@ -278,33 +278,33 @@ void sub_100023640(void *a1, void *a2)
         {
           if (!strncmp(string, "SyncPromptForWatchApp", 0x15uLL))
           {
-            v12 = xpc_dictionary_get_string(v3, "arg1");
-            v13 = xpc_dictionary_get_string(v3, "arg2");
-            v14 = [qword_1000C1300 platform];
-            v15 = [NSString stringWithUTF8String:v13];
-            v16 = [v14 serviceByName:v15];
+            v13 = xpc_dictionary_get_string(v3, "arg1");
+            v14 = xpc_dictionary_get_string(v3, "arg2");
+            v15 = [qword_1000C1300 platform];
+            v16 = [NSString stringWithUTF8String:v14];
+            v17 = [v15 serviceByName:v16];
 
-            v17 = [TCCDRequestContext alloc];
-            v18 = [NSString stringWithUTF8String:v12];
-            v19 = [(TCCDRequestContext *)v17 initForSyncRequestForSubjectBundleIdentifier:v18 service:v16];
+            v18 = [TCCDRequestContext alloc];
+            v19 = [NSString stringWithUTF8String:v13];
+            v20 = [(TCCDRequestContext *)v18 initForSyncRequestForSubjectBundleIdentifier:v19 service:v17];
 
-            if (!v19)
+            if (!v20)
             {
-              LOBYTE(v11) = 0;
+              LOBYTE(v12) = 0;
               goto LABEL_52;
             }
 
             buf[0] = 0;
-            v20 = sub_100007B54(v19, buf);
-            v21 = [v20 error];
+            v21 = sub_100007B54(v20, buf);
+            v22 = [v21 error];
 
-            LOBYTE(v11) = v21 == 0;
-            if (v21)
+            LOBYTE(v12) = v22 == 0;
+            if (v22)
             {
-              v22 = qword_1000C12F8;
+              v23 = qword_1000C12F8;
               if (os_log_type_enabled(qword_1000C12F8, OS_LOG_TYPE_ERROR))
               {
-                sub_1000653FC(v22);
+                sub_1000653FC(v23);
               }
             }
 
@@ -340,27 +340,27 @@ LABEL_53:
             {
               if (!strncmp(string, "SetGenerateBacktraceOnPrompt", 0x1CuLL))
               {
-                v23 = xpc_dictionary_get_BOOL(v3, "arg1");
-                [qword_1000C1300 setGenerateBacktraceOnPrompt:v23];
-                v24 = [qword_1000C1300 logHandle];
-                if (!os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+                v24 = xpc_dictionary_get_BOOL(v3, "arg1");
+                [qword_1000C1300 setGenerateBacktraceOnPrompt:v24];
+                v25 = [qword_1000C1300 logHandle];
+                if (!os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
                 {
 LABEL_62:
 
                   goto LABEL_36;
                 }
 
-                v25 = "false";
-                if (v23)
+                v26 = "false";
+                if (v24)
                 {
-                  v25 = "true";
+                  v26 = "true";
                 }
 
                 *buf = 136446210;
-                v69 = v25;
-                v26 = "Setting generateBacktraceOnPrompt: %{public}s";
+                v70 = v26;
+                v27 = "Setting generateBacktraceOnPrompt: %{public}s";
 LABEL_61:
-                _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, v26, buf, 0xCu);
+                _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, v27, buf, 0xCu);
                 goto LABEL_62;
               }
 
@@ -374,66 +374,67 @@ LABEL_61:
               {
                 if (strncmp(string, "show-alert", 0xAuLL))
                 {
-                  if (!strncmp(string, "LogFDs", 6uLL))
+                  v8 = strncmp(string, "LogFDs", 6uLL);
+                  if (!v8)
                   {
-                    log_open_file_descriptors();
+                    log_open_file_descriptors(v8);
                     goto LABEL_36;
                   }
 
                   if (!strncmp(string, "ExhaustFDs", 0xAuLL))
                   {
-                    v24 = dispatch_get_global_queue(0, 0);
-                    dispatch_async(v24, &stru_1000A5BB0);
+                    v25 = dispatch_get_global_queue(0, 0);
+                    dispatch_async(v25, &stru_1000A5BB0);
                     goto LABEL_62;
                   }
 
                   if (!strncmp(string, "SetReminderCooldownPeriod", 0x19uLL))
                   {
                     int64 = xpc_dictionary_get_int64(v3, "arg1");
-                    v36 = xpc_dictionary_get_int64(v3, "arg2");
-                    v37 = [qword_1000C1300 logHandle];
-                    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+                    v37 = xpc_dictionary_get_int64(v3, "arg2");
+                    v38 = [qword_1000C1300 logHandle];
+                    if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
                     {
                       *buf = 134349312;
-                      v69 = int64;
-                      v70 = 2050;
-                      v71 = v36;
-                      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, "SetReminderCooldownPeriod, system: %{public}llu, service: %{public}llu", buf, 0x16u);
+                      v70 = int64;
+                      v71 = 2050;
+                      v72 = v37;
+                      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_INFO, "SetReminderCooldownPeriod, system: %{public}llu, service: %{public}llu", buf, 0x16u);
                     }
 
-                    v38 = [qword_1000C1300 reminderMonitor];
-                    [v38 setReminderCooldownPeriod:int64 with:v36];
+                    v39 = [qword_1000C1300 reminderMonitor];
+                    [v39 setReminderCooldownPeriod:int64 with:v37];
 
                     goto LABEL_36;
                   }
 
                   if (!strncmp(string, "GetReminderCooldownPeriod", 0x19uLL))
                   {
-                    v41 = [qword_1000C1300 logHandle];
-                    if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+                    v42 = [qword_1000C1300 logHandle];
+                    if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
                     {
-                      v42 = [qword_1000C1300 reminderMonitor];
-                      [v42 systemCooldown];
-                      v44 = v43;
-                      v45 = [qword_1000C1300 reminderMonitor];
-                      [v45 serviceCooldown];
+                      v43 = [qword_1000C1300 reminderMonitor];
+                      [v43 systemCooldown];
+                      v45 = v44;
+                      v46 = [qword_1000C1300 reminderMonitor];
+                      [v46 serviceCooldown];
                       *buf = 134349312;
-                      v69 = v44;
-                      v70 = 2050;
-                      v71 = v46;
-                      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "GetReminderCooldownPeriod, system: %{public}llu, service: %{public}llu", buf, 0x16u);
+                      v70 = v45;
+                      v71 = 2050;
+                      v72 = v47;
+                      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_INFO, "GetReminderCooldownPeriod, system: %{public}llu, service: %{public}llu", buf, 0x16u);
                     }
 
-                    v47 = [qword_1000C1300 reminderMonitor];
-                    [v47 systemCooldown];
-                    xpc_dictionary_set_int64(v4, "systemReminderCooldown", v48);
+                    v48 = [qword_1000C1300 reminderMonitor];
+                    [v48 systemCooldown];
+                    xpc_dictionary_set_int64(v4, "systemReminderCooldown", v49);
 
-                    v24 = [qword_1000C1300 reminderMonitor];
-                    [v24 serviceCooldown];
-                    v50 = v49;
-                    v51 = "serviceReminderCooldown";
+                    v25 = [qword_1000C1300 reminderMonitor];
+                    [v25 serviceCooldown];
+                    v51 = v50;
+                    v52 = "serviceReminderCooldown";
 LABEL_105:
-                    xpc_dictionary_set_int64(v4, v51, v50);
+                    xpc_dictionary_set_int64(v4, v52, v51);
                     goto LABEL_62;
                   }
 
@@ -441,10 +442,10 @@ LABEL_105:
                   {
                     if (!strncmp(string, "TestDatabaseCorrupt", 0x13uLL))
                     {
-                      v53 = xpc_dictionary_get_int64(v3, "arg1");
-                      v54 = db_test_corrupt(v53);
-                      xpc_dictionary_set_int64(v4, "result_type", v54);
-                      LOBYTE(v11) = v54 == 0;
+                      v54 = xpc_dictionary_get_int64(v3, "arg1");
+                      v55 = db_test_corrupt(v54);
+                      xpc_dictionary_set_int64(v4, "result_type", v55);
+                      LOBYTE(v12) = v55 == 0;
                       goto LABEL_37;
                     }
 
@@ -452,15 +453,15 @@ LABEL_105:
                     {
                       if (!strncmp(string, "SurfaceIndirectOutstandingAlert", 0x1FuLL))
                       {
-                        v58 = [qword_1000C1300 logHandle];
-                        if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+                        v59 = [qword_1000C1300 logHandle];
+                        if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
                         {
                           *buf = 0;
-                          _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_INFO, "SurfaceIndirectOutstandingAlert", buf, 2u);
+                          _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_INFO, "SurfaceIndirectOutstandingAlert", buf, 2u);
                         }
 
-                        v9 = [qword_1000C1300 platform];
-                        [TCCDTapToRadar surfaceIndirectAlert:[v9 indirectRequestsOutstanding]];
+                        v10 = [qword_1000C1300 platform];
+                        [TCCDTapToRadar surfaceIndirectAlert:[v10 indirectRequestsOutstanding]];
                       }
 
                       else
@@ -477,20 +478,20 @@ LABEL_105:
                             goto LABEL_56;
                           }
 
-                          v61 = xpc_dictionary_get_string(v3, "arg1");
-                          v62 = xpc_dictionary_get_string(v3, "arg2");
+                          v62 = xpc_dictionary_get_string(v3, "arg1");
+                          v63 = xpc_dictionary_get_string(v3, "arg2");
                           uint64 = xpc_dictionary_get_uint64(v3, "arg3");
-                          v67 = xpc_dictionary_get_int64(v3, "arg4");
-                          v64 = [TCCDSyncUpdateAccessAction alloc];
-                          v65 = [NSString stringWithUTF8String:v61];
-                          v11 = [NSString stringWithUTF8String:v62];
-                          v16 = [(TCCDSyncClientAccessAction *)v64 initWithServiceIdentifier:v65 mainClientIdentifier:v11 replicaClientIdentifier:0 clientType:uint64];
+                          v68 = xpc_dictionary_get_int64(v3, "arg4");
+                          v65 = [TCCDSyncUpdateAccessAction alloc];
+                          v66 = [NSString stringWithUTF8String:v62];
+                          v12 = [NSString stringWithUTF8String:v63];
+                          v17 = [(TCCDSyncClientAccessAction *)v65 initWithServiceIdentifier:v66 mainClientIdentifier:v12 replicaClientIdentifier:0 clientType:uint64];
 
-                          LOBYTE(v11) = v16 != 0;
-                          if (v16)
+                          LOBYTE(v12) = v17 != 0;
+                          if (v17)
                           {
-                            [(TCCDSyncUpdateAccessAction *)v16 setUpdateAccessActionStatus:[TCCDSyncUpdateAccessAction accessUpdateStatusForAuthorizationRight:v67 forMain:0]];
-                            [(TCCDSyncUpdateAccessAction *)v16 updateDatabase:1 killClient:0];
+                            [(TCCDSyncUpdateAccessAction *)v17 setUpdateAccessActionStatus:[TCCDSyncUpdateAccessAction accessUpdateStatusForAuthorizationRight:v68 forMain:0]];
+                            [(TCCDSyncUpdateAccessAction *)v17 updateDatabase:1 killClient:0];
                           }
 
                           else if (os_log_type_enabled(qword_1000C12F8, OS_LOG_TYPE_ERROR))
@@ -501,79 +502,79 @@ LABEL_105:
                           goto LABEL_53;
                         }
 
-                        v59 = xpc_dictionary_get_int64(v3, "arg1");
-                        v60 = [qword_1000C1300 logHandle];
-                        if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+                        v60 = xpc_dictionary_get_int64(v3, "arg1");
+                        v61 = [qword_1000C1300 logHandle];
+                        if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
                         {
                           *buf = 67240192;
-                          LODWORD(v69) = v59;
-                          _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_INFO, "SetIndrectRequesetsOutstanding, requests: %{public}d", buf, 8u);
+                          LODWORD(v70) = v60;
+                          _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_INFO, "SetIndrectRequesetsOutstanding, requests: %{public}d", buf, 8u);
                         }
 
-                        v9 = [qword_1000C1300 platform];
-                        [v9 setIndirectRequestsOutstanding:v59];
+                        v10 = [qword_1000C1300 platform];
+                        [v10 setIndirectRequestsOutstanding:v60];
                       }
 
                       goto LABEL_35;
                     }
 
-                    v55 = [qword_1000C1300 logHandle];
-                    if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+                    v56 = [qword_1000C1300 logHandle];
+                    if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
                     {
-                      v56 = [qword_1000C1300 platform];
+                      v57 = [qword_1000C1300 platform];
                       *buf = 134349056;
-                      v69 = [v56 indirectRequestsOutstanding];
-                      _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_INFO, "GetIndirectRequestsOutstanding, indirect reuqests outstanding: %{public}llu", buf, 0xCu);
+                      v70 = [v57 indirectRequestsOutstanding];
+                      _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_INFO, "GetIndirectRequestsOutstanding, indirect reuqests outstanding: %{public}llu", buf, 0xCu);
                     }
 
-                    v24 = [qword_1000C1300 platform];
-                    v50 = [v24 indirectRequestsOutstanding];
-                    v51 = "indirectRequestsOutstanding";
+                    v25 = [qword_1000C1300 platform];
+                    v51 = [v25 indirectRequestsOutstanding];
+                    v52 = "indirectRequestsOutstanding";
                     goto LABEL_105;
                   }
 
-                  v52 = [qword_1000C1300 logHandle];
-                  if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+                  v53 = [qword_1000C1300 logHandle];
+                  if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
                   {
                     *buf = 136315138;
-                    v69 = "handle_TCCTestInternal";
-                    _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_INFO, "%s accessSetPrompt", buf, 0xCu);
+                    v70 = "handle_TCCTestInternal";
+                    _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_INFO, "%s accessSetPrompt", buf, 0xCu);
                   }
 
-                  v24 = [qword_1000C1300 logHandle];
-                  if (!os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+                  v25 = [qword_1000C1300 logHandle];
+                  if (!os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
                   {
                     goto LABEL_62;
                   }
 
                   *buf = 136315138;
-                  v69 = "handle_TCCTestInternal";
-                  v26 = "%s not functional";
+                  v70 = "handle_TCCTestInternal";
+                  v27 = "%s not functional";
                   goto LABEL_61;
                 }
 
-                v32 = xpc_dictionary_get_string(v3, "arg1");
-                v33 = xpc_dictionary_get_string(v3, "arg2");
-                if (v32)
+                v33 = xpc_dictionary_get_string(v3, "arg1");
+                v34 = xpc_dictionary_get_string(v3, "arg2");
+                if (v33)
                 {
-                  v16 = [NSString stringWithUTF8String:v32];
+                  v17 = [NSString stringWithUTF8String:v33];
                 }
 
                 else
                 {
-                  v16 = 0;
+                  v17 = 0;
                 }
 
-                if (v33)
+                if (v34)
                 {
-                  v34 = [NSString stringWithUTF8String:v33];
-                  v19 = v34;
-                  if (v16 && v34)
+                  v35 = [NSString stringWithUTF8String:v34];
+                  v20 = v35;
+                  if (v17 && v35)
                   {
-                    LODWORD(v11) = [v34 isEqualToString:@"FirstPromptFor3Rights"];
-                    if (v11)
+                    LODWORD(v12) = [v35 isEqualToString:@"FirstPromptFor3Rights"];
+                    if (v12)
                     {
-                      v66 = 1;
+                      v67 = 1;
                     }
 
                     else
@@ -583,35 +584,35 @@ LABEL_105:
                         sub_100065298();
                       }
 
-                      v66 = 0;
+                      v67 = 0;
                     }
 
-                    v39 = +[TCCDPlatform currentPlatform];
-                    v20 = [v39 serviceByName:v16];
+                    v40 = +[TCCDPlatform currentPlatform];
+                    v21 = [v40 serviceByName:v17];
 
-                    if (v20)
+                    if (v21)
                     {
-                      if (v11)
+                      if (v12)
                       {
-                        v40 = [v20 alertManager];
-                        v11 = v40;
-                        if (v40)
+                        v41 = [v21 alertManager];
+                        v12 = v41;
+                        if (v41)
                         {
-                          [v40 displayAlertForCondition:v66 withCustomUserInfo:0];
+                          [v41 displayAlertForCondition:v67 withCustomUserInfo:0];
                         }
 
                         else
                         {
-                          v57 = qword_1000C1060;
+                          v58 = qword_1000C1060;
                           if (os_log_type_enabled(qword_1000C1060, OS_LOG_TYPE_DEFAULT))
                           {
                             *buf = 138543362;
-                            v69 = v16;
-                            _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "show-alert: Service: %{public}@ has no alert manager.", buf, 0xCu);
+                            v70 = v17;
+                            _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "show-alert: Service: %{public}@ has no alert manager.", buf, 0xCu);
                           }
                         }
 
-                        LOBYTE(v11) = 1;
+                        LOBYTE(v12) = 1;
                       }
 
                       goto LABEL_46;
@@ -628,7 +629,7 @@ LABEL_105:
 
                 else
                 {
-                  v19 = 0;
+                  v20 = 0;
                 }
 
                 if (os_log_type_enabled(qword_1000C1060, OS_LOG_TYPE_ERROR))
@@ -637,39 +638,39 @@ LABEL_105:
                 }
 
 LABEL_91:
-                v20 = 0;
-                LOBYTE(v11) = 0;
+                v21 = 0;
+                LOBYTE(v12) = 0;
                 goto LABEL_46;
               }
 
-              v27 = xpc_dictionary_get_string(v3, "arg1");
-              v28 = xpc_dictionary_get_string(v3, "arg2");
-              v29 = xpc_dictionary_get_int64(v3, "arg3");
-              if (v27)
-              {
-                v27 = [NSString stringWithUTF8String:v27];
-              }
-
+              v28 = xpc_dictionary_get_string(v3, "arg1");
+              v29 = xpc_dictionary_get_string(v3, "arg2");
+              v30 = xpc_dictionary_get_int64(v3, "arg3");
               if (v28)
               {
                 v28 = [NSString stringWithUTF8String:v28];
               }
 
-              if (!v27)
+              if (v29)
+              {
+                v29 = [NSString stringWithUTF8String:v29];
+              }
+
+              if (!v28)
               {
                 goto LABEL_71;
               }
 
-              v30 = [v27 isEqualToString:@"PostUpgrade3RightAlert"];
+              v31 = [v28 isEqualToString:@"PostUpgrade3RightAlert"];
               if (!strncmp(string, "pstate-get", 0xAuLL))
               {
-                value = db_persistent_state_get_value(v30, v28);
+                value = db_persistent_state_get_value(v31, v29);
                 xpc_dictionary_set_int64(v4, "pstate_value", value);
               }
 
               else if (!strncmp(string, "pstate-set", 0xAuLL))
               {
-                db_persistent_state_set_value(v30, v28, v29);
+                db_persistent_state_set_value(v31, v29, v30);
               }
 
               else
@@ -677,16 +678,16 @@ LABEL_91:
                 if (strncmp(string, "pstate-reset", 0xCuLL))
                 {
 LABEL_71:
-                  LOBYTE(v11) = 0;
+                  LOBYTE(v12) = 0;
 LABEL_79:
 
                   goto LABEL_37;
                 }
 
-                db_persistent_state_reset(v30, v28);
+                db_persistent_state_reset(v31, v29);
               }
 
-              LOBYTE(v11) = 1;
+              LOBYTE(v12) = 1;
               goto LABEL_79;
             }
 
@@ -699,22 +700,22 @@ LABEL_79:
         }
 
 LABEL_56:
-        LOBYTE(v11) = 0;
+        LOBYTE(v12) = 0;
         goto LABEL_37;
       }
 
-      v10 = [qword_1000C1300 stateDumpDictionary];
-      v9 = [v10 description];
+      v11 = [qword_1000C1300 stateDumpDictionary];
+      v10 = [v11 description];
 
-      xpc_dictionary_set_string(v4, "description_string", [v9 UTF8String]);
+      xpc_dictionary_set_string(v4, "description_string", [v10 UTF8String]);
     }
 
 LABEL_35:
 
 LABEL_36:
-    LOBYTE(v11) = 1;
+    LOBYTE(v12) = 1;
 LABEL_37:
-    xpc_dictionary_set_BOOL(v4, "result", v11);
+    xpc_dictionary_set_BOOL(v4, "result", v12);
   }
 }
 
@@ -885,13 +886,13 @@ void sub_100024AD4(void *a1, void *a2)
   if (os_log_type_enabled(qword_1000C1060, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v114 = "handle_TCCSetAccessWithPrompt";
+    v116 = "handle_TCCSetAccessWithPrompt";
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s begin", buf, 0xCu);
   }
 
-  v112 = 0;
-  v7 = [qword_1000C1300 serviceFromMessage:v3 error:&v112];
-  v8 = v112;
+  v114 = 0;
+  v7 = [qword_1000C1300 serviceFromMessage:v3 error:&v114];
+  v8 = v114;
   if (v7)
   {
     if (!_os_feature_enabled_impl() || ([qword_1000C1300 platform], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "protectedAppManager"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "name"), v11 = v4, v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v10, "authenticateForAccessToService:", v12), v12, v4 = v11, v10, v9, (v13 & 1) != 0))
@@ -904,16 +905,16 @@ void sub_100024AD4(void *a1, void *a2)
       [(TCCDRequestContext *)v14 setAccessSetPrompt:1];
       v16 = [[TCCDAttributionChain alloc] initWithMessage:v3];
       v17 = qword_1000C1060;
-      v106 = v16;
+      v108 = v16;
       if (os_log_type_enabled(qword_1000C1060, OS_LOG_TYPE_DEFAULT))
       {
         v18 = v17;
         v19 = [(TCCDAttributionChain *)v16 requestingProcess];
         *buf = 138412290;
-        v114 = v19;
+        v116 = v19;
         _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "requesting process; %@", buf, 0xCu);
 
-        v16 = v106;
+        v16 = v108;
       }
 
       v20 = qword_1000C1300;
@@ -922,9 +923,9 @@ void sub_100024AD4(void *a1, void *a2)
 
       if ((v20 & 1) == 0)
       {
-        v110 = v8;
-        [qword_1000C1300 makeError:&v110 withCode:5 infoText:0];
-        v24 = v110;
+        v112 = v8;
+        [qword_1000C1300 makeError:&v112 withCode:5 infoText:0];
+        v24 = v112;
 
         v25 = objc_opt_new();
         [qword_1000C1300 buildErrorString:v25 forError:v24 contextString:0];
@@ -941,9 +942,9 @@ void sub_100024AD4(void *a1, void *a2)
       v23 = xpc_dictionary_get_string(v3, "client");
       if (strcmp(string, "bundle"))
       {
-        v109 = v8;
-        [qword_1000C1300 makeError:&v109 withCode:6 infoText:0];
-        v24 = v109;
+        v111 = v8;
+        [qword_1000C1300 makeError:&v111 withCode:6 infoText:0];
+        v24 = v111;
 
         v25 = objc_opt_new();
         [qword_1000C1300 buildErrorString:v25 forError:v24 contextString:0];
@@ -961,7 +962,7 @@ void sub_100024AD4(void *a1, void *a2)
       v35 = [(TCCDAccessIdentity *)v33 initWithIdentifier:v34 type:0 executableURL:0 SDKVersion:0 platformType:0];
 
       v36 = qword_1000C1060;
-      v105 = v35;
+      v107 = v35;
       if (!v35)
       {
         if (os_log_type_enabled(qword_1000C1060, OS_LOG_TYPE_ERROR))
@@ -969,9 +970,9 @@ void sub_100024AD4(void *a1, void *a2)
           sub_100065830();
         }
 
-        v108 = v8;
-        [qword_1000C1300 makeError:&v108 withCode:6 infoText:0];
-        v24 = v108;
+        v110 = v8;
+        [qword_1000C1300 makeError:&v110 withCode:6 infoText:0];
+        v24 = v110;
 
         v26 = objc_opt_new();
         [qword_1000C1300 buildErrorString:v26 forError:v24 contextString:0];
@@ -985,27 +986,27 @@ void sub_100024AD4(void *a1, void *a2)
         goto LABEL_71;
       }
 
-      v101 = v4;
+      v103 = v4;
       if (os_log_type_enabled(qword_1000C1060, OS_LOG_TYPE_DEFAULT))
       {
         v37 = v36;
         v38 = [(TCCDRequestContext *)v14 subjectIdentity];
         v39 = [v38 identifier];
         *buf = 138412290;
-        v114 = v39;
+        v116 = v39;
         _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "context.subjectIdentity.identifier: %@", buf, 0xCu);
       }
 
-      [(TCCDRequestContext *)v14 setSubjectIdentity:v105];
+      [(TCCDRequestContext *)v14 setSubjectIdentity:v107];
       uint64 = xpc_dictionary_get_uint64(v3, "desired_auth_value");
       [(TCCDRequestContext *)v14 setDesiredAuth:uint64];
-      v103 = [v7 settingsRequestFullTitleTextLocalizationKey];
+      v105 = [v7 settingsRequestFullTitleTextLocalizationKey];
       v41 = [(TCCDRequestContext *)v14 service];
-      v100 = [v41 requestAdditionalTextForSettingsRequestsLocalizationKey];
+      v102 = [v41 requestAdditionalTextForSettingsRequestsLocalizationKey];
 
       v42 = [v7 buttonTitleLocalizationKeyForAuthorization:uint64 desiredAuth:uint64];
       v43 = [v7 cancelButtontitleLocalizationKey];
-      v90 = uint64;
+      v92 = uint64;
       if ([v7 swapButtonOrderForPromptFromSettings])
       {
         v44 = [v7 buttonTitleLocalizationKeyForAuthorization:uint64 desiredAuth:uint64];
@@ -1016,110 +1017,110 @@ void sub_100024AD4(void *a1, void *a2)
         v47 = v42;
         v48 = v46;
 
-        v91 = uint64;
+        v93 = uint64;
         log = 0;
-        v102 = v48;
+        v104 = v48;
       }
 
       else
       {
-        v102 = v42;
-        v91 = 0;
+        v104 = v42;
+        v93 = 0;
         log = uint64;
       }
 
-      v104 = v43;
+      v106 = v43;
       v50 = qword_1000C1060;
       if (os_log_type_enabled(qword_1000C1060, OS_LOG_TYPE_DEFAULT))
       {
         v51 = v50;
         v52 = [v7 name];
         *buf = 136315906;
-        v114 = "handle_TCCSetAccessWithPrompt";
-        v115 = 2048;
-        v116 = 1;
+        v116 = "handle_TCCSetAccessWithPrompt";
         v117 = 2048;
-        v118 = uint64;
-        v119 = 2112;
-        v120 = v52;
+        v118 = 1;
+        v119 = 2048;
+        v120 = uint64;
+        v121 = 2112;
+        v122 = v52;
         _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "%s currentAuth: %llu desiredAuth: %llu, got auth choices for service %@", buf, 0x2Au);
       }
 
-      v95 = v15;
+      v97 = v15;
       v53 = qword_1000C1060;
       if (os_log_type_enabled(qword_1000C1060, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218240;
-        v114 = v91;
-        v115 = 2048;
-        v116 = log;
+        v116 = v93;
+        v117 = 2048;
+        v118 = log;
         _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "aButtonAuth: %llu bButtonAuth: %llu", buf, 0x16u);
       }
 
       v54 = [(TCCDRequestContext *)v14 service];
-      v99 = [v54 localizedTextWithKey:v104];
+      v101 = [v54 localizedTextWithKey:v106];
 
       v55 = [(TCCDRequestContext *)v14 service];
-      v56 = v102;
-      v98 = [v55 localizedTextWithKey:v102];
+      v56 = v104;
+      v100 = [v55 localizedTextWithKey:v104];
 
-      v57 = [v7 localizedTextWithKey:v103];
-      v96 = v57;
+      v57 = [v7 localizedTextWithKey:v105];
+      v98 = v57;
       if (!v57)
       {
-        v67 = tcc_access_log();
-        v4 = v101;
-        v97 = v67;
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+        v69 = tcc_access_log(0);
+        v4 = v103;
+        v99 = v69;
+        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v114 = v7;
-          _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "Could not find localized string for service: %@", buf, 0xCu);
+          v116 = v7;
+          _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEFAULT, "Could not find localized string for service: %@", buf, 0xCu);
         }
 
-        v49 = v100;
-        v15 = v95;
+        v49 = v102;
+        v15 = v97;
         goto LABEL_70;
       }
 
       v58 = v57;
-      v59 = [(TCCDAccessIdentity *)v105 displayName];
+      v59 = [(TCCDAccessIdentity *)v107 displayName];
       v60 = [NSString stringWithValidatedFormat:v58 validFormatSpecifiers:@"%@" error:0, v59];
 
-      v97 = v60;
+      v99 = v60;
       if (!v60)
       {
-        v68 = tcc_access_log();
-        v4 = v101;
-        v15 = v95;
-        if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+        v70 = tcc_access_log(v61);
+        v4 = v103;
+        v15 = v97;
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v114 = v7;
-          _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, "Could not find localized request string for service: %@", buf, 0xCu);
+          v116 = v7;
+          _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "Could not find localized request string for service: %@", buf, 0xCu);
         }
 
         goto LABEL_69;
       }
 
-      v4 = v101;
-      v15 = v95;
-      if (v100)
+      v4 = v103;
+      v15 = v97;
+      if (v102)
       {
-        v61 = [(TCCDRequestContext *)v14 service];
-        v87 = [v61 localizedResourcesBundle];
-        v62 = [v87 localizedStringForKey:v100 value:&stru_1000A7240 table:0];
-        v89 = v62;
-        if (v62)
+        v62 = [(TCCDRequestContext *)v14 service];
+        v89 = [v62 localizedResourcesBundle];
+        v63 = [v89 localizedStringForKey:v102 value:&stru_1000A7240 table:0];
+        v91 = v63;
+        if (v63)
         {
-          v63 = v62;
-          v64 = [(TCCDAccessIdentity *)v105 displayName];
-          v65 = [NSString stringWithValidatedFormat:v63 validFormatSpecifiers:@"%@" error:0, v64];
+          v64 = v63;
+          v65 = [(TCCDAccessIdentity *)v107 displayName];
+          v66 = [NSString stringWithValidatedFormat:v64 validFormatSpecifiers:@"%@" error:0, v65];
 
-          v4 = v101;
-          if (v65)
+          v4 = v103;
+          if (v66)
           {
-            v66 = v65;
+            v68 = v66;
             goto LABEL_50;
           }
         }
@@ -1128,102 +1129,101 @@ void sub_100024AD4(void *a1, void *a2)
         {
         }
 
-        v69 = tcc_access_log();
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+        v71 = tcc_access_log(v67);
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
         {
           sub_1000657C0();
         }
 
-        v66 = 0;
+        v68 = 0;
       }
 
       else
       {
-        v66 = 0;
-        v89 = 0;
+        v68 = 0;
+        v91 = 0;
       }
 
 LABEL_50:
-      v88 = v66;
-      [TCCDRequestContext presentSynchronousPromptWithHeader:v14 message:"presentSynchronousPromptWithHeader:message:aButtonTitle:aButtonAuth:bButtonTitle:bButtonAuth:cButtonTitle:cButtonAuth:currentAuth:updatingResult:" aButtonTitle:v97 aButtonAuth:0 bButtonTitle:1 bButtonAuth:1 cButtonTitle:v5 cButtonAuth:? currentAuth:? updatingResult:?];
-      v70 = tcc_access_log();
-      if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+      v90 = v68;
+      v72 = tcc_access_log([TCCDRequestContext presentSynchronousPromptWithHeader:v14 message:"presentSynchronousPromptWithHeader:message:aButtonTitle:aButtonAuth:bButtonTitle:bButtonAuth:cButtonTitle:cButtonAuth:currentAuth:updatingResult:" aButtonTitle:v99 aButtonAuth:0 bButtonTitle:1 bButtonAuth:1 cButtonTitle:v5 cButtonAuth:? currentAuth:? updatingResult:?]);
+      if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v114 = "handle_TCCSetAccessWithPrompt";
-        v115 = 2112;
-        v116 = v5;
-        _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "%s: result %@", buf, 0x16u);
+        v116 = "handle_TCCSetAccessWithPrompt";
+        v117 = 2112;
+        v118 = v5;
+        _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEFAULT, "%s: result %@", buf, 0x16u);
       }
 
       if (!v5)
       {
-        v107 = v8;
-        [qword_1000C1300 makeError:&v107 withCode:8 infoText:0];
-        v72 = v107;
+        v109 = v8;
+        [qword_1000C1300 makeError:&v109 withCode:8 infoText:0];
+        v74 = v109;
 
-        v73 = objc_opt_new();
-        [qword_1000C1300 buildErrorString:v73 forError:v72 contextString:0];
-        v74 = [qword_1000C1300 logHandle];
-        if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+        v75 = objc_opt_new();
+        [qword_1000C1300 buildErrorString:v75 forError:v74 contextString:0];
+        v76 = [qword_1000C1300 logHandle];
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
         {
           sub_100065744();
         }
 
-        v68 = v88;
-        v8 = v72;
+        v70 = v90;
+        v8 = v74;
         goto LABEL_69;
       }
 
       if ([v5 databaseAction] != 1 || !objc_msgSend(v5, "authorizationValue"))
       {
 LABEL_64:
-        v79 = qword_1000C1060;
+        v81 = qword_1000C1060;
         if (os_log_type_enabled(qword_1000C1060, OS_LOG_TYPE_DEFAULT))
         {
-          loga = v79;
-          v80 = [(TCCDRequestContext *)v14 messageIdentifier];
-          v92 = [v5 authorizationValue];
-          v86 = [v5 authorizationReason];
-          v81 = [v5 authorizationVersion];
-          v82 = [v5 error];
+          loga = v81;
+          v82 = [(TCCDRequestContext *)v14 messageIdentifier];
+          v94 = [v5 authorizationValue];
+          v88 = [v5 authorizationReason];
+          v83 = [v5 authorizationVersion];
+          v84 = [v5 error];
           *buf = 138544386;
-          v114 = v80;
-          v115 = 2048;
-          v116 = v92;
+          v116 = v82;
           v117 = 2048;
-          v118 = v86;
+          v118 = v94;
           v119 = 2048;
-          v120 = v81;
-          v121 = 2114;
-          v122 = v82;
+          v120 = v88;
+          v121 = 2048;
+          v122 = v83;
+          v123 = 2114;
+          v124 = v84;
           _os_log_impl(&_mh_execute_header, loga, OS_LOG_TYPE_DEFAULT, "AUTH_SET_PROMPT: msgID=%{public}@, authValue=%llu, authReason=%llu, authVersion=%llu, error=%{public}@,", buf, 0x34u);
         }
 
-        v83 = [qword_1000C1300 platform];
-        v84 = [(TCCDRequestContext *)v14 service];
-        [v83 sendAnalyticsForAction:4 service:v84 subjectIdentity:v105 indirectObjectIdentity:0 authValue:objc_msgSend(v5 includeV1AuthValue:"authorizationValue") v1AuthValue:0 desiredAuth:objc_msgSend(v5 domainReason:"v1AuthorizationValue") promptType:v90 macBuddyStatus:{0, objc_msgSend(v5, "promptType"), 0}];
+        v85 = [qword_1000C1300 platform];
+        v86 = [(TCCDRequestContext *)v14 service];
+        [v85 sendAnalyticsForAction:4 service:v86 subjectIdentity:v107 indirectObjectIdentity:0 authValue:objc_msgSend(v5 includeV1AuthValue:"authorizationValue") v1AuthValue:0 desiredAuth:objc_msgSend(v5 domainReason:"v1AuthorizationValue") promptType:v92 macBuddyStatus:{0, objc_msgSend(v5, "promptType"), 0}];
 
-        v4 = v101;
-        [v5 populateReplyMessage:v101];
-        v85 = qword_1000C1060;
+        v4 = v103;
+        [v5 populateReplyMessage:v103];
+        v87 = qword_1000C1060;
         if (os_log_type_enabled(qword_1000C1060, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v114 = "handle_TCCSetAccessWithPrompt";
-          _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEFAULT, "%s end", buf, 0xCu);
+          v116 = "handle_TCCSetAccessWithPrompt";
+          _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_DEFAULT, "%s end", buf, 0xCu);
         }
 
-        v68 = v88;
+        v70 = v90;
 
 LABEL_69:
-        v49 = v100;
-        v56 = v102;
+        v49 = v102;
+        v56 = v104;
 
 LABEL_70:
         v24 = v8;
-        v25 = v105;
-        v26 = v103;
+        v25 = v107;
+        v26 = v105;
 LABEL_71:
 
 LABEL_72:
@@ -1231,17 +1231,17 @@ LABEL_72:
         goto LABEL_73;
       }
 
-      v71 = [v7 name];
-      if ([v71 isEqualToString:@"kTCCServicePhotos"])
+      v73 = [v7 name];
+      if ([v73 isEqualToString:@"kTCCServicePhotos"])
       {
       }
 
       else
       {
-        v75 = [v7 name];
-        v76 = [v75 isEqualToString:@"kTCCServiceCalendar"];
+        v77 = [v7 name];
+        v78 = [v77 isEqualToString:@"kTCCServiceCalendar"];
 
-        if (!v76)
+        if (!v78)
         {
           goto LABEL_62;
         }
@@ -1251,9 +1251,9 @@ LABEL_72:
 LABEL_62:
       if (([qword_1000C1300 updateAuthorizationRecordFromContext:v14 forResult:v5 syncedUpdate:0] & 1) == 0)
       {
-        v77 = [(TCCDRequestContext *)v14 service];
-        v78 = [(TCCDRequestContext *)v14 identityDescription];
-        [v5 denyAuthorizationWithErrorCode:4 format:{@"Failed to update database %@ from %@", v77, v78}];
+        v79 = [(TCCDRequestContext *)v14 service];
+        v80 = [(TCCDRequestContext *)v14 identityDescription];
+        [v5 denyAuthorizationWithErrorCode:4 format:{@"Failed to update database %@ from %@", v79, v80}];
       }
 
       goto LABEL_64;
@@ -1265,16 +1265,16 @@ LABEL_62:
       v31 = v30;
       v32 = [v7 name];
       *buf = 138412290;
-      v114 = v32;
+      v116 = v32;
       _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "service: %@ is locked and authentication failed", buf, 0xCu);
     }
   }
 
   else
   {
-    v111 = v8;
-    [qword_1000C1300 makeError:&v111 withCode:2 infoText:0];
-    v27 = v111;
+    v113 = v8;
+    [qword_1000C1300 makeError:&v113 withCode:2 infoText:0];
+    v27 = v113;
 
     v28 = objc_opt_new();
     [qword_1000C1300 buildErrorString:v28 forError:v27 contextString:0];
@@ -1735,15 +1735,16 @@ void sub_100026CAC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t 
   _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, a5, 0xCu);
 }
 
-void sub_100027950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_100027950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
+  va_start(va, a44);
   _Block_object_dispose(&a29, 8);
   _Block_object_dispose(&a33, 8);
   _Block_object_dispose(&a37, 8);
   _Block_object_dispose(&a41, 8);
-  _Block_object_dispose(&a45, 8);
-  _Block_object_dispose((v45 - 256), 8);
-  _Block_object_dispose((v45 - 224), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v44 - 256), 8);
+  _Block_object_dispose((v44 - 224), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1794,65 +1795,66 @@ void sub_100027B40(uint64_t a1, sqlite3_stmt *a2)
   *(*(*(a1 + 64) + 8) + 24) = sqlite3_column_int(a2, 2);
   v7 = sqlite3_column_int(a2, 3);
   *(*(*(a1 + 72) + 8) + 24) = sqlite3_column_int(a2, 4);
-  *(*(*(a1 + 80) + 8) + 24) = sqlite3_column_int(a2, 5);
-  v8 = *(*(*(a1 + 64) + 8) + 24);
-  v9 = *(*(*(a1 + 88) + 8) + 24);
-  if (v8 < 1)
+  v8 = sqlite3_column_int(a2, 5);
+  *(*(*(a1 + 80) + 8) + 24) = v8;
+  v9 = *(*(*(a1 + 64) + 8) + 24);
+  v10 = *(*(*(a1 + 88) + 8) + 24);
+  if (v9 < 1)
   {
-    v11 = tcc_access_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = tcc_access_log(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(*(*(a1 + 88) + 8) + 24);
-      v24 = 136315650;
-      v25 = "[TCCDReminderMonitor reportResourceUsage:]_block_invoke_2";
-      v26 = 2048;
-      v27 = v12;
-      v28 = 1024;
-      v29 = v7;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s: lastReminded is 0 for this record, now: %f last_modified: %d", &v24, 0x1Cu);
+      v13 = *(*(*(a1 + 88) + 8) + 24);
+      v26 = 136315650;
+      v27 = "[TCCDReminderMonitor reportResourceUsage:]_block_invoke_2";
+      v28 = 2048;
+      v29 = v13;
+      v30 = 1024;
+      v31 = v7;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s: lastReminded is 0 for this record, now: %f last_modified: %d", &v26, 0x1Cu);
     }
 
-    v10 = v7 - kCFAbsoluteTimeIntervalSince1970;
+    v11 = v7 - kCFAbsoluteTimeIntervalSince1970;
   }
 
   else
   {
-    v10 = v8;
+    v11 = v9;
   }
 
-  v13 = v9 - v10;
-  [*(a1 + 32) serviceCooldown];
-  *(*(*(a1 + 96) + 8) + 24) = v13 > v14;
-  v15 = tcc_access_log();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v14 = v10 - v11;
+  v15 = [*(a1 + 32) serviceCooldown];
+  *(*(*(a1 + 96) + 8) + 24) = v14 > v16;
+  v17 = tcc_access_log(v15);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = [*(*(*(a1 + 48) + 8) + 40) UTF8String];
-    v17 = *(*(*(a1 + 56) + 8) + 24);
-    v18 = [*(a1 + 40) service];
-    v19 = [v18 name];
-    v20 = [v19 UTF8String];
-    v21 = *(*(*(a1 + 64) + 8) + 24);
-    v22 = *(*(*(a1 + 88) + 8) + 24);
+    v18 = [*(*(*(a1 + 48) + 8) + 40) UTF8String];
+    v19 = *(*(*(a1 + 56) + 8) + 24);
+    v20 = [*(a1 + 40) service];
+    v21 = [v20 name];
+    v22 = [v21 UTF8String];
+    v23 = *(*(*(a1 + 64) + 8) + 24);
+    v24 = *(*(*(a1 + 88) + 8) + 24);
     [*(a1 + 32) serviceCooldown];
-    v24 = 136317186;
-    v25 = "[TCCDReminderMonitor reportResourceUsage:]_block_invoke";
-    v26 = 2080;
-    v27 = v16;
-    v28 = 1024;
-    v29 = v17;
-    v30 = 2080;
-    v31 = v20;
-    v32 = 1024;
-    v33 = v21;
+    v26 = 136317186;
+    v27 = "[TCCDReminderMonitor reportResourceUsage:]_block_invoke";
+    v28 = 2080;
+    v29 = v18;
+    v30 = 1024;
+    v31 = v19;
+    v32 = 2080;
+    v33 = v22;
     v34 = 1024;
-    v35 = v7;
-    v36 = 2048;
-    v37 = v22;
+    v35 = v23;
+    v36 = 1024;
+    v37 = v7;
     v38 = 2048;
-    v39 = v13;
+    v39 = v24;
     v40 = 2048;
-    v41 = v23;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s: client: %s clientType: %d service: %s last_reminded: %d last_modified: %d now: %f elapsed: %f service_cooldown: %f", &v24, 0x50u);
+    v41 = v14;
+    v42 = 2048;
+    v43 = v25;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s: client: %s clientType: %d service: %s last_reminded: %d last_modified: %d now: %f elapsed: %f service_cooldown: %f", &v26, 0x50u);
   }
 }
 
@@ -1879,16 +1881,16 @@ void sub_100028A60(id a1)
   _objc_release_x1();
 }
 
-id tcc_events_log()
+id tcc_events_log(uint64_t a1)
 {
   if (qword_1000C10C0 != -1)
   {
     sub_100028CD8();
   }
 
-  v1 = qword_1000C10B8;
+  v2 = qword_1000C10B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100028AE8(id a1)
@@ -1898,16 +1900,16 @@ void sub_100028AE8(id a1)
   _objc_release_x1();
 }
 
-id tcc_sync_log()
+id tcc_sync_log(uint64_t a1)
 {
   if (qword_1000C10D0 != -1)
   {
     sub_100028CEC();
   }
 
-  v1 = qword_1000C10C8;
+  v2 = qword_1000C10C8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100028B70(id a1)
@@ -1917,16 +1919,16 @@ void sub_100028B70(id a1)
   _objc_release_x1();
 }
 
-id tcc_assumed_identity_monitor_log()
+id tcc_assumed_identity_monitor_log(uint64_t a1)
 {
   if (qword_1000C10E0 != -1)
   {
     sub_100028D00();
   }
 
-  v1 = qword_1000C10D8;
+  v2 = qword_1000C10D8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100028BF8(id a1)
@@ -1936,16 +1938,16 @@ void sub_100028BF8(id a1)
   _objc_release_x1();
 }
 
-id tcc_open_fds_log()
+id tcc_open_fds_log(uint64_t a1)
 {
   if (qword_1000C10F0 != -1)
   {
     sub_100028D14();
   }
 
-  v1 = qword_1000C10E8;
+  v2 = qword_1000C10E8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100028C80(id a1)
@@ -1964,26 +1966,28 @@ void sub_100029118(uint64_t a1)
     goto LABEL_30;
   }
 
-  if (*__error() == 17)
+  v2 = __error();
+  if (*v2 == 17)
   {
-    v2 = *(a1 + 32);
-    v39 = a1 + 32;
-    v3 = *(v2 + 8);
-    v55 = 0;
-    v4 = [NSData dataWithContentsOfFile:v3 options:0 error:&v55];
-    v5 = v55;
-    v6 = v5;
-    if (!v4)
+    v3 = *(a1 + 32);
+    v45 = a1 + 32;
+    v4 = *(v3 + 8);
+    v61 = 0;
+    v5 = [NSData dataWithContentsOfFile:v4 options:0 error:&v61];
+    v6 = v61;
+    v7 = v6;
+    if (!v5)
     {
-      if ([v5 code] == 260)
+      v35 = [v6 code];
+      if (v35 == 260)
       {
 LABEL_45:
 
         goto LABEL_46;
       }
 
-      v10 = tcc_assumed_identity_monitor_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = tcc_assumed_identity_monitor_log(v35);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_10002A488();
       }
@@ -1993,123 +1997,123 @@ LABEL_44:
       goto LABEL_45;
     }
 
-    v7 = objc_opt_class();
     v8 = objc_opt_class();
     v9 = objc_opt_class();
-    v10 = [NSSet setWithObjects:v7, v8, v9, objc_opt_class(), 0];
-    v54 = v6;
-    v11 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v10 fromData:v4 error:&v54];
-    v12 = v54;
+    v10 = objc_opt_class();
+    v11 = [NSSet setWithObjects:v8, v9, v10, objc_opt_class(), 0];
+    v60 = v7;
+    v12 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v11 fromData:v5 error:&v60];
+    v13 = v60;
 
-    if (v11)
+    if (v12)
     {
-      v35 = v12;
-      v36 = v11;
-      v37 = v4;
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      v13 = v11;
-      v41 = [v13 countByEnumeratingWithState:&v49 objects:v58 count:16];
-      if (v41)
+      v41 = v13;
+      v42 = v12;
+      v43 = v5;
+      v57 = 0u;
+      v58 = 0u;
+      v55 = 0u;
+      v56 = 0u;
+      v15 = v12;
+      v47 = [v15 countByEnumeratingWithState:&v55 objects:v64 count:16];
+      if (v47)
       {
-        v40 = *v50;
+        v46 = *v56;
         do
         {
-          for (i = 0; i != v41; i = i + 1)
+          for (i = 0; i != v47; i = i + 1)
           {
-            if (*v50 != v40)
+            if (*v56 != v46)
             {
-              objc_enumerationMutation(v13);
+              objc_enumerationMutation(v15);
             }
 
-            v15 = *(*(&v49 + 1) + 8 * i);
-            v16 = [v13 objectForKeyedSubscript:v15];
-            v17 = +[NSMutableSet set];
-            v45 = 0u;
-            v46 = 0u;
-            v47 = 0u;
-            v48 = 0u;
-            v18 = v16;
-            v19 = [v18 countByEnumeratingWithState:&v45 objects:v57 count:16];
-            if (v19)
+            v17 = *(*(&v55 + 1) + 8 * i);
+            v18 = [v15 objectForKeyedSubscript:v17];
+            v19 = +[NSMutableSet set];
+            v51 = 0u;
+            v52 = 0u;
+            v53 = 0u;
+            v54 = 0u;
+            v20 = v18;
+            v21 = [v20 countByEnumeratingWithState:&v51 objects:v63 count:16];
+            if (v21)
             {
-              v20 = v19;
-              v21 = *v46;
+              v22 = v21;
+              v23 = *v52;
               do
               {
-                for (j = 0; j != v20; j = j + 1)
+                for (j = 0; j != v22; j = j + 1)
                 {
-                  if (*v46 != v21)
+                  if (*v52 != v23)
                   {
-                    objc_enumerationMutation(v18);
+                    objc_enumerationMutation(v20);
                   }
 
-                  v23 = *(*(&v45 + 1) + 8 * j);
-                  v43 = 0u;
-                  v44 = 0u;
-                  [v23 getBytes:&v43 length:32];
-                  v24 = [TCCDProcess alloc];
-                  v42[0] = v43;
-                  v42[1] = v44;
-                  v25 = [(TCCDProcess *)v24 initWithAuditToken:v42 responsibleIdentity:0];
-                  if (v25)
+                  v25 = *(*(&v51 + 1) + 8 * j);
+                  v49 = 0u;
+                  v50 = 0u;
+                  [v25 getBytes:&v49 length:32];
+                  v26 = [TCCDProcess alloc];
+                  v48[0] = v49;
+                  v48[1] = v50;
+                  v27 = [(TCCDProcess *)v26 initWithAuditToken:v48 responsibleIdentity:0];
+                  if (v27)
                   {
-                    [v17 addObject:v25];
+                    [v19 addObject:v27];
                   }
                 }
 
-                v20 = [v18 countByEnumeratingWithState:&v45 objects:v57 count:16];
+                v22 = [v20 countByEnumeratingWithState:&v51 objects:v63 count:16];
               }
 
-              while (v20);
+              while (v22);
             }
 
-            if ([v17 count])
+            if ([v19 count])
             {
-              [*(*v39 + 24) setObject:v17 forKeyedSubscript:v15];
+              [*(*v45 + 24) setObject:v19 forKeyedSubscript:v17];
             }
           }
 
-          v41 = [v13 countByEnumeratingWithState:&v49 objects:v58 count:16];
+          v47 = [v15 countByEnumeratingWithState:&v55 objects:v64 count:16];
         }
 
-        while (v41);
+        while (v47);
       }
 
-      v26 = tcc_assumed_identity_monitor_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v29 = tcc_assumed_identity_monitor_log(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
         sub_10002A3A4();
       }
 
-      v6 = v35;
-      v11 = v36;
-      v4 = v37;
+      v7 = v41;
+      v12 = v42;
+      v5 = v43;
     }
 
     else
     {
-      v31 = tcc_assumed_identity_monitor_log();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v36 = tcc_assumed_identity_monitor_log(v14);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         sub_10002A420();
       }
 
-      v32 = +[NSFileManager defaultManager];
-      v33 = *(*v39 + 8);
-      v53 = v12;
-      v34 = [v32 removeItemAtPath:v33 error:&v53];
-      v6 = v53;
+      v37 = +[NSFileManager defaultManager];
+      v38 = *(*v45 + 8);
+      v59 = v13;
+      v39 = [v37 removeItemAtPath:v38 error:&v59];
+      v7 = v59;
 
-      if (v34)
+      if (v39)
       {
         goto LABEL_43;
       }
 
-      v26 = tcc_assumed_identity_monitor_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v29 = tcc_assumed_identity_monitor_log(v40);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         sub_10002A334();
       }
@@ -2119,28 +2123,32 @@ LABEL_43:
     goto LABEL_44;
   }
 
-  v27 = tcc_assumed_identity_monitor_log();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  v30 = tcc_assumed_identity_monitor_log(v2);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
-    sub_10002A2A4(v27);
+    sub_10002A2A4(v30);
   }
 
 LABEL_30:
-  v28 = +[NSFileManager defaultManager];
-  v29 = *(*(a1 + 32) + 8);
-  v56 = 0;
-  v30 = [v28 removeItemAtPath:v29 error:&v56];
-  v6 = v56;
+  v31 = +[NSFileManager defaultManager];
+  v32 = *(*(a1 + 32) + 8);
+  v62 = 0;
+  v33 = [v31 removeItemAtPath:v32 error:&v62];
+  v7 = v62;
 
-  if ((v30 & 1) == 0 && [v6 code] != 4)
+  if ((v33 & 1) == 0)
   {
-    v4 = tcc_assumed_identity_monitor_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v34 = [v7 code];
+    if (v34 != 4)
     {
-      sub_10002A334();
-    }
+      v5 = tcc_assumed_identity_monitor_log(v34);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        sub_10002A334();
+      }
 
-    goto LABEL_45;
+      goto LABEL_45;
+    }
   }
 
 LABEL_46:
@@ -2148,84 +2156,84 @@ LABEL_46:
 
 void sub_1000297BC(uint64_t a1)
 {
-  v20 = objc_opt_new();
-  v28 = 0u;
+  v21 = objc_opt_new();
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
+  v28 = 0u;
   obj = *(*(a1 + 32) + 24);
-  v1 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v1 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v1)
   {
     v2 = v1;
-    v3 = *v27;
+    v3 = *v28;
     do
     {
       v4 = 0;
       do
       {
-        if (*v27 != v3)
+        if (*v28 != v3)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v26 + 1) + 8 * v4);
+        v5 = *(*(&v27 + 1) + 8 * v4);
         v6 = objc_opt_new();
-        v24 = 0u;
         v25 = 0u;
-        v22 = 0u;
+        v26 = 0u;
         v23 = 0u;
+        v24 = 0u;
         v7 = [*(*(a1 + 32) + 24) objectForKeyedSubscript:v5];
-        v8 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v23;
+          v10 = *v24;
           do
           {
             v11 = 0;
             do
             {
-              if (*v23 != v10)
+              if (*v24 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = [*(*(&v22 + 1) + 8 * v11) description];
+              v12 = [*(*(&v23 + 1) + 8 * v11) description];
               [v6 addObject:v12];
 
               v11 = v11 + 1;
             }
 
             while (v9 != v11);
-            v9 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
           }
 
           while (v9);
         }
 
-        [v20 setObject:v6 forKeyedSubscript:v5];
+        [v21 setObject:v6 forKeyedSubscript:v5];
         v4 = v4 + 1;
       }
 
       while (v4 != v2);
-      v2 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v2 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v2);
   }
 
-  v21 = 0;
-  v13 = [NSPropertyListSerialization dataWithPropertyList:v20 format:200 options:0 error:&v21];
-  v14 = v21;
+  v22 = 0;
+  v13 = [NSPropertyListSerialization dataWithPropertyList:v21 format:200 options:0 error:&v22];
+  v14 = v22;
   v15 = *(*(a1 + 40) + 8);
   v16 = *(v15 + 40);
   *(v15 + 40) = v13;
 
   if (v14)
   {
-    v17 = tcc_assumed_identity_monitor_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = tcc_assumed_identity_monitor_log(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_10002A564();
     }
@@ -2253,11 +2261,11 @@ _DWORD *sub_100029AC0(uint64_t a1, uint64_t a2)
     *v5 = 1;
     v5[1] = v4;
     __strlcpy_chk();
-    memcpy(v5 + 50, [v3 bytes], v4);
-    v6 = tcc_assumed_identity_monitor_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v6 = memcpy(v5 + 50, [v3 bytes], v4);
+    v7 = tcc_assumed_identity_monitor_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_10002A5CC(v4, v6);
+      sub_10002A5CC(v4, v7);
     }
   }
 
@@ -2286,8 +2294,7 @@ void sub_100029CC8(uint64_t a1)
     [v5 setObject:v4 forKeyedSubscript:v6];
   }
 
-  [v4 addObject:*(a1 + 48)];
-  v7 = tcc_assumed_identity_monitor_log();
+  v7 = tcc_assumed_identity_monitor_log([v4 addObject:*(a1 + 48)]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_10002A6AC();
@@ -2300,26 +2307,26 @@ LABEL_8:
 void sub_100029E60(uint64_t a1)
 {
   v2 = objc_opt_new();
-  v22 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
+  v22 = 0u;
   v3 = *(*(a1 + 32) + 24);
-  v4 = [v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v22;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v21 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * i);
+        v8 = *(*(&v21 + 1) + 8 * i);
         v9 = [*(*(a1 + 32) + 24) objectForKeyedSubscript:v8];
         [v9 removeObject:*(a1 + 40)];
         if (![v9 count])
@@ -2328,44 +2335,44 @@ void sub_100029E60(uint64_t a1)
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v5);
   }
 
-  v18 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
+  v18 = 0u;
   v10 = v2;
-  v11 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v18;
     do
     {
       for (j = 0; j != v12; j = j + 1)
       {
-        if (*v17 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [*(*(a1 + 32) + 24) removeObjectForKey:{*(*(&v16 + 1) + 8 * j), v16}];
+        [*(*(a1 + 32) + 24) removeObjectForKey:{*(*(&v17 + 1) + 8 * j), v17}];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v12);
   }
 
-  v15 = tcc_assumed_identity_monitor_log();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v16 = tcc_assumed_identity_monitor_log(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    sub_10002A72C(a1, v15);
+    sub_10002A72C(a1, v16);
   }
 
   [*(a1 + 32) _saveState];
@@ -2496,7 +2503,7 @@ LABEL_6:
 
   else
   {
-    v9 = tcc_access_log();
+    v9 = tcc_access_log(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10002E024();
@@ -2828,9 +2835,9 @@ id sub_10002ECD4(uint64_t a1)
   return [*(a1 + 32) setDb:0];
 }
 
-void sub_10002F364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10002F364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2915,9 +2922,9 @@ LABEL_11:
   sqlite3_finalize(ppStmt);
 }
 
-void sub_10002F660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10002F660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4105,11 +4112,12 @@ LABEL_94:
   return database;
 }
 
-void sub_1000323F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1000323F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose((v27 - 176), 8);
-  _Block_object_dispose((v27 - 144), 8);
-  _Block_object_dispose(&a27, 8);
+  va_start(va, a26);
+  _Block_object_dispose((v26 - 176), 8);
+  _Block_object_dispose((v26 - 144), 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4179,9 +4187,9 @@ uint64_t db_get_current_version()
   return v3;
 }
 
-void sub_1000326E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000326E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4221,9 +4229,9 @@ uint64_t db_get_current_version_locked()
   return v3;
 }
 
-void sub_10003284C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003284C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4272,9 +4280,9 @@ uint64_t db_persistent_state_get_value(uint64_t a1, void *a2)
   return v9;
 }
 
-void sub_100032A24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100032A24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4588,9 +4596,9 @@ LABEL_6:
   return v0;
 }
 
-void sub_1000335E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000335E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4859,10 +4867,11 @@ uint64_t sub_100033DE4(uint64_t a1, sqlite3_stmt *a2)
   return sqlite3_bind_int(a2, 13, v4);
 }
 
-void sub_100033FBC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100033FBC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_100034040()
@@ -4949,14 +4958,14 @@ void sub_100035580(void *a1)
 {
   v1 = [a1 executableURL];
   sub_10000913C();
-  sub_1000091E4(&_mh_execute_header, v2, v3, "Unable to resolve realpath of: %{public}@: %{public}@", v4, v5, v6, v7, v8);
+  sub_1000091E4(&_mh_execute_header, v2, v3, "Unable to resolve realpath of: %{public}@: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_100035614(void *a1)
 {
   v1 = [a1 bundleURL];
   sub_10000913C();
-  sub_1000091E4(&_mh_execute_header, v2, v3, "Unable to resolve realpath of: %{public}@: %{public}@", v4, v5, v6, v7, v8);
+  sub_1000091E4(&_mh_execute_header, v2, v3, "Unable to resolve realpath of: %{public}@: %{public}@", v4, v5, v6, v7);
 }
 
 int sub_100035B74(id a1, TCCDSQLDatabase *a2)
@@ -5065,9 +5074,9 @@ LABEL_2:
   return v3;
 }
 
-void sub_100035F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100035F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5097,9 +5106,9 @@ void sub_10003603C(uint64_t a1, sqlite3_stmt *a2)
   }
 }
 
-void sub_100036234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100036234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5211,36 +5220,36 @@ void sub_100037C10(char a1, char a2, os_log_t log)
   _os_log_fault_impl(&_mh_execute_header, log, OS_LOG_TYPE_FAULT, "#tccIcon One of cgImageRef is NULL. nullBaseImage: %s; nullOverlayImage: %s", &v5, 0x16u);
 }
 
-void sub_100038248()
+void sub_100038248(uint64_t a1)
 {
   objc_opt_class();
   sub_100009150();
   sub_100008FB4();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
-void sub_1000382CC()
+void sub_1000382CC(uint64_t a1)
 {
   objc_opt_class();
   sub_100009150();
   sub_100008FB4();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
-void sub_100038350()
+void sub_100038350(uint64_t a1)
 {
   objc_opt_class();
   sub_100009150();
   sub_100008FB4();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
-void sub_1000383D4()
+void sub_1000383D4(uint64_t a1)
 {
   objc_opt_class();
   sub_100009150();
   sub_100008FB4();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
 }
 
 void sub_10003846C(uint64_t a1, NSObject *a2)
@@ -5250,7 +5259,7 @@ void sub_10003846C(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Invalid filter key: must be the name of a TCC service, found %{public}@", &v2, 0xCu);
 }
 
-void sub_100038C74(uint64_t a1, int a2)
+void sub_100038C74(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -5502,6 +5511,13 @@ void sub_10003B61C(uint64_t a1, sqlite3_stmt *a2)
   }
 }
 
+void sub_10003C5E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_10003C608(uint64_t a1, sqlite3_stmt *a2)
 {
   v4 = [*(a1 + 32) name];
@@ -5696,11 +5712,11 @@ LABEL_9:
   _Block_object_dispose(&v29, 8);
 }
 
-void sub_10003D6E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10003D6E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 144), 8);
+  _Block_object_dispose((v20 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5771,9 +5787,9 @@ uint64_t sub_10003D9B8(uint64_t a1, sqlite3_stmt *a2)
   return result;
 }
 
-void sub_10003DF38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10003DF38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6256,12 +6272,13 @@ void sub_100041D74(id a1)
 void sub_100041DF4(id a1, NSError *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = tcc_access_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = tcc_access_log(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_100043E80(v2, v3);
+      sub_100043E80(v3, v4);
     }
   }
 }
@@ -6311,9 +6328,9 @@ id sub_100043430()
   return v1;
 }
 
-void sub_1000434F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000434F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6342,7 +6359,7 @@ Class sub_100043578(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -6360,134 +6377,134 @@ LABEL_4:
   return result;
 }
 
-uint64_t sub_1000436BC()
+uint64_t sub_1000436BC(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1000C11B8 = result;
   return result;
 }
 
-id sub_100043730()
+id sub_100043730(uint64_t a1)
 {
   if (qword_1000C11C8 != -1)
   {
     sub_1000443A0();
   }
 
-  v1 = qword_1000C11C0;
+  v2 = qword_1000C11C0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100043774(const void *a1, const char *a2)
 {
-  v4 = tcc_access_log();
+  v4 = tcc_access_log(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v36 = "notificationResponseHandler";
+    v40 = "notificationResponseHandler";
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
   v5 = [NSValue valueWithPointer:a1];
-  v6 = sub_100043730();
+  v6 = sub_100043730(v5);
   v7 = [v6 objectForKeyedSubscript:v5];
   v8 = [v7 objectAtIndexedSubscript:0];
 
-  v9 = sub_100043730();
-  v10 = [v9 objectForKeyedSubscript:v5];
-  v11 = [v10 objectAtIndexedSubscript:1];
+  v10 = sub_100043730(v9);
+  v11 = [v10 objectForKeyedSubscript:v5];
+  v12 = [v11 objectAtIndexedSubscript:1];
 
-  v12 = tcc_access_log();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
+  v14 = tcc_access_log(v13);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_INFO);
   if (v8)
   {
-    if (v13)
+    if (v15)
     {
-      v14 = [v11 service];
-      v15 = [v14 name];
-      v16 = [v11 subjectIdentity];
-      v17 = [v16 identifier];
+      v16 = [v12 service];
+      v17 = [v16 name];
+      v18 = [v12 subjectIdentity];
+      v19 = [v18 identifier];
       *buf = 134218498;
-      v36 = a2;
-      v37 = 2114;
-      v38 = v15;
-      v39 = 2114;
-      v40 = v17;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "CFUserNotification response: 0x%lx; service %{public}@ and subject %{public}@", buf, 0x20u);
+      v40 = a2;
+      v41 = 2114;
+      v42 = v17;
+      v43 = 2114;
+      v44 = v19;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "CFUserNotification response: 0x%lx; service %{public}@ and subject %{public}@", buf, 0x20u);
     }
 
-    v18 = sub_100043730();
-    [v18 removeObjectForKey:v5];
+    v21 = sub_100043730(v20);
+    [v21 removeObjectForKey:v5];
 
-    v19 = a2 & 3;
-    v20 = 1;
-    if (v19 > 1)
+    v22 = a2 & 3;
+    v23 = 1;
+    if (v22 > 1)
     {
-      if (v19 != 3)
+      if (v22 != 3)
       {
-        v20 = 2;
+        v23 = 2;
         goto LABEL_13;
       }
     }
 
-    else if (v19)
+    else if (v22)
     {
-      v20 = 3;
+      v23 = 3;
 LABEL_13:
       [v8 setAuthorizationReason:2];
     }
 
-    v34 = v5;
-    [v8 setAuthorizationValue:v20];
+    v38 = v5;
+    [v8 setAuthorizationValue:v23];
     [v8 setDatabaseAction:1];
-    v21 = [v11 server];
-    v22 = [v21 updateAuthorizationRecordFromContext:v11 forResult:v8 syncedUpdate:0];
+    v24 = [v12 server];
+    v25 = [v24 updateAuthorizationRecordFromContext:v12 forResult:v8 syncedUpdate:0];
 
-    if ((v22 & 1) == 0)
+    if ((v25 & 1) == 0)
     {
-      v23 = [v11 service];
-      v24 = [v11 identityDescription];
-      [v8 denyAuthorizationWithErrorCode:4 format:{@"Failed to update database %@ from %@", v23, v24}];
+      v26 = [v12 service];
+      v27 = [v12 identityDescription];
+      [v8 denyAuthorizationWithErrorCode:4 format:{@"Failed to update database %@ from %@", v26, v27}];
     }
 
     CFRelease(a1);
-    v25 = [v11 server];
-    v26 = [v25 platform];
-    v27 = [v11 service];
-    v28 = [v11 subjectIdentity];
-    [v26 sendAnalyticsForAction:4 service:v27 subjectIdentity:v28 indirectObjectIdentity:0 authValue:objc_msgSend(v8 includeV1AuthValue:"authorizationValue") v1AuthValue:objc_msgSend(v8 desiredAuth:"v1AuthorizationUpgrade") != 0 domainReason:objc_msgSend(v8 promptType:"v1AuthorizationValue") macBuddyStatus:{objc_msgSend(v11, "desiredAuth"), 0, objc_msgSend(v8, "promptType"), 0}];
+    v28 = [v12 server];
+    v29 = [v28 platform];
+    v30 = [v12 service];
+    v31 = [v12 subjectIdentity];
+    [v29 sendAnalyticsForAction:4 service:v30 subjectIdentity:v31 indirectObjectIdentity:0 authValue:objc_msgSend(v8 includeV1AuthValue:"authorizationValue") v1AuthValue:objc_msgSend(v8 desiredAuth:"v1AuthorizationUpgrade") != 0 domainReason:objc_msgSend(v8 promptType:"v1AuthorizationValue") macBuddyStatus:{objc_msgSend(v12, "desiredAuth"), 0, objc_msgSend(v8, "promptType"), 0}];
 
-    v12 = tcc_access_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v14 = tcc_access_log(v32);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v29 = [v11 messageIdentifier];
-      v30 = [v8 authorizationValue];
-      v31 = [v8 authorizationReason];
-      v32 = [v8 authorizationVersion];
-      v33 = [v8 error];
+      v33 = [v12 messageIdentifier];
+      v34 = [v8 authorizationValue];
+      v35 = [v8 authorizationReason];
+      v36 = [v8 authorizationVersion];
+      v37 = [v8 error];
       *buf = 138544386;
-      v36 = v29;
-      v37 = 2048;
-      v38 = v30;
-      v39 = 2048;
-      v40 = v31;
+      v40 = v33;
       v41 = 2048;
-      v42 = v32;
-      v43 = 2114;
-      v44 = v33;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "REMINDER_RESULT: msgID=%{public}@, authValue=%llu, authReason=%llu, authVersion=%llu, error=%{public}@,", buf, 0x34u);
+      v42 = v34;
+      v43 = 2048;
+      v44 = v35;
+      v45 = 2048;
+      v46 = v36;
+      v47 = 2114;
+      v48 = v37;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "REMINDER_RESULT: msgID=%{public}@, authValue=%llu, authReason=%llu, authVersion=%llu, error=%{public}@,", buf, 0x34u);
     }
 
-    v5 = v34;
+    v5 = v38;
     goto LABEL_19;
   }
 
-  if (v13)
+  if (v15)
   {
     *buf = 138412290;
-    v36 = a1;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Couldn't find result for notification %@", buf, 0xCu);
+    v40 = a1;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Couldn't find result for notification %@", buf, 0xCu);
   }
 
 LABEL_19:
@@ -6507,6 +6524,27 @@ void sub_100043CB4(id a1)
   qword_1000C11C0 = objc_alloc_init(NSMutableDictionary);
 
   _objc_release_x1();
+}
+
+void sub_100043D18(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TCCDRequestContext(AsynchronousNotification) presentAsynchronousDenialNotificationWithMessage:buttonTitle:]";
+  sub_10000904C(&_mh_execute_header, a1, a3, "%s: failed to instantiate notification request", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100043D90(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TCCDRequestContext(AsynchronousNotification) presentAsynchronousDenialNotificationWithMessage:buttonTitle:]";
+  sub_10000904C(&_mh_execute_header, a1, a3, "%s: failed to instantiate notification content", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100043E08(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TCCDRequestContext(AsynchronousNotification) presentAsynchronousDenialNotificationWithMessage:buttonTitle:]";
+  sub_10000904C(&_mh_execute_header, a1, a3, "%s: failed to instantiate notification center", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100043E80(uint64_t a1, NSObject *a2)
@@ -6555,6 +6593,13 @@ void sub_1000440E4(void *a1, void *a2, NSObject *a3)
   v10 = 2112;
   v11 = v7;
   _os_log_debug_impl(&_mh_execute_header, a3, OS_LOG_TYPE_DEBUG, "WK2 showUserNotification %ld for display name: %@", &v8, 0x16u);
+}
+
+void sub_1000441B0(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_10000904C(&_mh_execute_header, a2, a3, "error archiving extensionItem: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10004421C(uint64_t a1, NSObject *a2)
@@ -6647,9 +6692,9 @@ LABEL_15:
   return 0;
 }
 
-void sub_100044B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100044B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6808,9 +6853,9 @@ int64_t sub_100045A58(id a1, id a2, id a3)
   return v7;
 }
 
-void sub_100045BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100045BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6962,10 +7007,11 @@ void sub_1000462B4(id a1)
   _objc_release_x1();
 }
 
-void sub_1000462F8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000462F8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_10004632C()
@@ -7031,7 +7077,7 @@ void sub_100046814(uint64_t a1, void *a2, int a3)
   v4 = a2;
   strerror(a3);
   sub_100009204();
-  sub_1000462F8(&_mh_execute_header, v5, v6, "Failed to get volume attributes: volumePath=%{public}s error=%{public}s", v7, v8, v9, v10, v11);
+  sub_1000462F8(&_mh_execute_header, v5, v6, "Failed to get volume attributes: volumePath=%{public}s error=%{public}s", v7, v8, v9, v10);
 }
 
 void sub_100046978(uint64_t a1, void *a2, int a3)
@@ -7039,7 +7085,7 @@ void sub_100046978(uint64_t a1, void *a2, int a3)
   v4 = a2;
   strerror(a3);
   sub_100009204();
-  sub_1000462F8(&_mh_execute_header, v5, v6, "Failed to get path attributes: path=%{public}s error=%{public}s", v7, v8, v9, v10, v11);
+  sub_1000462F8(&_mh_execute_header, v5, v6, "Failed to get path attributes: path=%{public}s error=%{public}s", v7, v8, v9, v10);
 }
 
 void sub_100046A0C(void *a1, NSObject *a2)
@@ -7053,14 +7099,14 @@ void sub_100046A98()
 {
   sub_1000091C8(__stack_chk_guard);
   sub_100008FD8();
-  sub_100033FBC(&_mh_execute_header, v0, v1, "Got signature from in-memory cache: key=%{public}@", v2, v3, v4, v5, v6);
+  sub_100033FBC(&_mh_execute_header, v0, v1, "Got signature from in-memory cache: key=%{public}@", v2, v3, v4, v5);
 }
 
 void sub_100046B00()
 {
   sub_1000091C8(__stack_chk_guard);
   sub_100008FD8();
-  sub_100033FBC(&_mh_execute_header, v0, v1, "Got signature from on-disk cache: key=%{public}@", v2, v3, v4, v5, v6);
+  sub_100033FBC(&_mh_execute_header, v0, v1, "Got signature from on-disk cache: key=%{public}@", v2, v3, v4, v5);
 }
 
 void sub_100046B68()
@@ -7074,7 +7120,7 @@ void sub_100046BD8()
 {
   sub_1000091C8(__stack_chk_guard);
   sub_100008FD8();
-  sub_100033FBC(&_mh_execute_header, v0, v1, "No cache entry found: key=%{public}@", v2, v3, v4, v5, v6);
+  sub_100033FBC(&_mh_execute_header, v0, v1, "No cache entry found: key=%{public}@", v2, v3, v4, v5);
 }
 
 void sub_100046C40()
@@ -8906,8 +8952,8 @@ void handle_TCCAccessResetAll(void *a1, void *a2)
 
   else
   {
-    v13 = tcc_access_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = tcc_access_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10004F424(v5);
     }
@@ -9036,7 +9082,7 @@ void handle_TCCAccessResetInternal_with_attribution_chain_for_process(void *a1, 
     if (int64 != 1)
     {
       v46 = int64;
-      v47 = tcc_access_log();
+      v47 = tcc_access_log(int64);
       if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;

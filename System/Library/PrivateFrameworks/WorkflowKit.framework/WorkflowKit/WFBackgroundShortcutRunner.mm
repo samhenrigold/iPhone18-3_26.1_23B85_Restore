@@ -56,6 +56,8 @@
 - (void)finishRunningWithResult:(id)result;
 - (void)getContextualActionsForContext:(id)context completion:(id)completion;
 - (void)getCurrentProgressCompletedWithCompletionHandler:(id)handler;
+- (void)getEnvironmentForLinkViewSnippetWithDialog:(BOOL)dialog completion:(id)completion;
+- (void)getPreferredSizeForLinkViewSnippetWithDialog:(BOOL)dialog completion:(id)completion;
 - (void)handleAppProtectionRequestWithBundleIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)handleIncomingFileForRemoteExecutionWithURL:(id)l withIdentifier:(id)identifier;
 - (void)handleTestingEventIfTesting:(id)testing completionHandler:(id)handler;
@@ -75,6 +77,7 @@
 - (void)requestActionInterfacePresentationForActionClassName:(id)name classNamesByType:(id)type completionHandler:(id)handler;
 - (void)requestAuthorizationWithConfiguration:(id)configuration completionHandler:(id)handler;
 - (void)requestFileAccessForURLs:(id)ls workflowName:(id)name workflowID:(id)d completionHandler:(id)handler;
+- (void)resignDialogHandlingIfNeededWithPersistentMode:(BOOL)mode;
 - (void)resolveContent:(id)content completionHandler:(id)handler;
 - (void)resolveDeferredValueFromEncodedStorage:(id)storage withResolutionRequest:(id)request completionHandler:(id)handler;
 - (void)resolveDescriptor:(id)descriptor completionHandler:(id)handler;
@@ -91,6 +94,7 @@
 - (void)sendResponseForRunRequest:(id)request controller:(id)controller error:(id)error completion:(id)completion;
 - (void)shouldRunFollowUpActionWithBundleIdentifier:(id)identifier actionIdentifier:(id)actionIdentifier parameterValues:(id)values encodedToolInvocation:(id)invocation showOutputActionOptions:(unint64_t)options completionHandler:(id)handler;
 - (void)showChronoControlOfType:(unint64_t)type identity:(id)identity completionHandler:(id)handler;
+- (void)showConfirmInteraction:(id)interaction prompt:(id)prompt requireAuthentication:(BOOL)authentication completionHandler:(id)handler;
 - (void)showHandleInteraction:(id)interaction prompt:(id)prompt completionHandler:(id)handler;
 - (void)showLinkActionConfirmationWithActionMetadata:(id)metadata showPrompt:(BOOL)prompt dialog:(id)dialog dialogString:(id)string viewSnippet:(id)snippet snippetAction:(id)action encodedSnippetActionToolInvocation:(id)invocation confirmationActionName:(id)self0 isContinueInAppRequest:(BOOL)self1 systemStyle:(id)self2 completionHandler:(id)self3;
 - (void)showLinkChoice:(id)choice dialog:(id)dialog completionHandler:(id)handler;
@@ -107,6 +111,7 @@
 - (void)unaliveProcess;
 - (void)updateRunViewSource:(id)source;
 - (void)workflowController:(id)controller actionDidRequestWorkflowExit:(id)exit;
+- (void)workflowController:(id)controller didDecideRunningProgressIsAllowed:(BOOL)allowed forAction:(id)action;
 - (void)workflowController:(id)controller didFinishRunningWithError:(id)error cancelled:(BOOL)cancelled;
 - (void)workflowController:(id)controller didGenerateReversalState:(id)state forAction:(id)action;
 - (void)workflowController:(id)controller didRunAction:(id)action error:(id)error completionHandler:(id)handler;
@@ -317,9 +322,9 @@ LABEL_26:
     {
       if (v7 && v6)
       {
-        v9 = [v7 isEqualToString:v6];
+        isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-        if (v9)
+        if (isEqualToString)
         {
           v3 = 1;
 LABEL_17:
@@ -348,7 +353,7 @@ LABEL_17:
         v3 = 0;
         if (v13 && v14)
         {
-          v3 = [v13 isEqualToString:v14];
+          v3 = objc_msgSend_isEqualToString_(v13);
         }
       }
     }
@@ -361,12 +366,12 @@ LABEL_17:
 
 - (void)unaliveProcess
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = getWFXPCRunnerLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v17 = "[WFBackgroundShortcutRunner unaliveProcess]";
+    v16 = "[WFBackgroundShortcutRunner unaliveProcess]";
     _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEBUG, "%s Waiting for exit tasks before exiting.", buf, 0xCu);
   }
 
@@ -382,35 +387,31 @@ LABEL_17:
   block[2] = __44__WFBackgroundShortcutRunner_unaliveProcess__block_invoke_350;
   block[3] = &unk_1E837F4E8;
   v6 = v4;
-  v14 = v6;
+  v13 = v6;
   v7 = MEMORY[0x1E69E96A0];
   dispatch_group_notify(exitTaskGroup, MEMORY[0x1E69E96A0], block);
   v8 = dispatch_time(0, 20000000000);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __44__WFBackgroundShortcutRunner_unaliveProcess__block_invoke_351;
-  v11[3] = &unk_1E837F4E8;
-  v12 = v6;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __44__WFBackgroundShortcutRunner_unaliveProcess__block_invoke_351;
+  v10[3] = &unk_1E837F4E8;
+  v11 = v6;
   v9 = v6;
-  dispatch_after(v8, v7, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  dispatch_after(v8, v7, v10);
 }
 
-uint64_t __44__WFBackgroundShortcutRunner_unaliveProcess__block_invoke_350(uint64_t a1)
+uint64_t __44__WFBackgroundShortcutRunner_unaliveProcess__block_invoke_350(uint64_t a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v2 = getWFXPCRunnerLogObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = getWFXPCRunnerLogObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v5 = 136315138;
     v6 = "[WFBackgroundShortcutRunner unaliveProcess]_block_invoke";
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_DEBUG, "%s Finished exit tasks. Preparing to exit.", &v5, 0xCu);
+    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEBUG, "%s Finished exit tasks. Preparing to exit.", &v5, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 void __44__WFBackgroundShortcutRunner_unaliveProcess__block_invoke(uint64_t a1)
@@ -543,15 +544,15 @@ LABEL_21:
   if (currentRunRequest && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     runSource = [currentRunRequest runSource];
-    v4 = [runSource isEqualToString:*MEMORY[0x1E69E13E8]];
+    isEqualToString = objc_msgSend_isEqualToString_(runSource);
   }
 
   else
   {
-    v4 = 0;
+    isEqualToString = 0;
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 - (id)queue_runningProgressSuppressionStateMachine
@@ -590,14 +591,14 @@ LABEL_21:
 
 - (WFHarnessTestCase)currentTestCase
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   currentRunRequest = [(WFBackgroundShortcutRunner *)self currentRunRequest];
   if (currentRunRequest && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     testRunDescriptor = [currentRunRequest testRunDescriptor];
-    v9 = 0;
-    v4 = [testRunDescriptor loadTestCaseWithError:&v9];
-    v5 = v9;
+    v8 = 0;
+    v4 = [testRunDescriptor loadTestCaseWithError:&v8];
+    v5 = v8;
 
     if (!v4)
     {
@@ -605,9 +606,9 @@ LABEL_21:
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v11 = "[WFBackgroundShortcutRunner(TestHarness) currentTestCase]";
-        v12 = 2112;
-        v13 = v5;
+        v10 = "[WFBackgroundShortcutRunner(TestHarness) currentTestCase]";
+        v11 = 2112;
+        v12 = v5;
         _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s Running in test harness, but can't load test case: %@", buf, 0x16u);
       }
     }
@@ -618,8 +619,6 @@ LABEL_21:
 
     v4 = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -719,19 +718,18 @@ LABEL_9:
 id __89__WFBackgroundShortcutRunner_TestHarness__handleTestingEventIfTesting_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
   [v3 eventClass];
-  if ((objc_opt_isKindOfClass() & 1) != 0 && ([v3 selector], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "matchesContext:", *(a1 + 40)), v5, v6))
+  if ((objc_opt_isKindOfClass() & 1) != 0 && ([v3 selector], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "matchesContext:", *(a1 + 40)), v4, v5))
   {
-    v7 = v3;
+    v6 = v3;
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  return v7;
+  return v6;
 }
 
 void __89__WFBackgroundShortcutRunner_TestHarness__handleTestingEventIfTesting_completionHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -750,7 +748,7 @@ void __89__WFBackgroundShortcutRunner_TestHarness__handleTestingEventIfTesting_c
 
 void __89__WFBackgroundShortcutRunner_TestHarness__handleTestingEventIfTesting_completionHandler___block_invoke_4(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = v4;
   if (v4)
@@ -763,9 +761,9 @@ void __89__WFBackgroundShortcutRunner_TestHarness__handleTestingEventIfTesting_c
       v8 = getWFTestHarnessLogObject();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
-        v12 = 136315138;
-        v13 = "[WFBackgroundShortcutRunner(TestHarness) handleTestingEventIfTesting:completionHandler:]_block_invoke_4";
-        _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_FAULT, "%s Condition failed, but failure does not contain a test result", &v12, 0xCu);
+        v10 = 136315138;
+        v11 = "[WFBackgroundShortcutRunner(TestHarness) handleTestingEventIfTesting:completionHandler:]_block_invoke_4";
+        _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_FAULT, "%s Condition failed, but failure does not contain a test result", &v10, 0xCu);
       }
 
       v9 = [v5 localizedDescription];
@@ -777,13 +775,10 @@ void __89__WFBackgroundShortcutRunner_TestHarness__handleTestingEventIfTesting_c
 
   else
   {
-    v10 = *(a1 + 32);
     objc_opt_class();
     objc_opt_isKindOfClass();
     (*(*(a1 + 40) + 16))();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __89__WFBackgroundShortcutRunner_TestHarness__handleTestingEventIfTesting_completionHandler___block_invoke_3(uint64_t a1, void *a2)
@@ -803,7 +798,7 @@ void __89__WFBackgroundShortcutRunner_TestHarness__handleTestingEventIfTesting_c
 
 - (id)contextForAction:(id)action
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   if (!actionCopy)
   {
@@ -822,11 +817,11 @@ void __89__WFBackgroundShortcutRunner_TestHarness__handleTestingEventIfTesting_c
     {
       workflowForTesting2 = [(WFBackgroundShortcutRunner *)self workflowForTesting];
       *buf = 136315650;
-      v18 = "[WFBackgroundShortcutRunner(TestHarness) contextForAction:]";
-      v19 = 2112;
-      v20 = actionCopy;
-      v21 = 2112;
-      v22 = workflowForTesting2;
+      v17 = "[WFBackgroundShortcutRunner(TestHarness) contextForAction:]";
+      v18 = 2112;
+      v19 = actionCopy;
+      v20 = 2112;
+      v21 = workflowForTesting2;
       _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_FAULT, "%s Can't find executing action %@ in executing workflow %@", buf, 0x20u);
     }
 
@@ -839,8 +834,6 @@ void __89__WFBackgroundShortcutRunner_TestHarness__handleTestingEventIfTesting_c
     identifier = [actionCopy identifier];
     v11 = [(WFHarnessActionContext *)v12 initWithIdentifier:identifier indexInWorkflow:v8];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -871,18 +864,16 @@ void __89__WFBackgroundShortcutRunner_TestHarness__handleTestingEventIfTesting_c
 
 - (void)reindexToolKitDatabaseWithRequest:(id)request completionHandler:(id)handler
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696ABC0];
   v6 = *MEMORY[0x1E696A798];
-  v12 = *MEMORY[0x1E696A578];
-  v13[0] = @"Unsupported runner type";
+  v11 = *MEMORY[0x1E696A578];
+  v12[0] = @"Unsupported runner type";
   v7 = MEMORY[0x1E695DF20];
   handlerCopy = handler;
-  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v9 = [v7 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v10 = [v5 errorWithDomain:v6 code:94 userInfo:v9];
   (*(handler + 2))(handlerCopy, v10);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)runToolWithInvocation:(id)invocation
@@ -893,179 +884,157 @@ void __89__WFBackgroundShortcutRunner_TestHarness__handleTestingEventIfTesting_c
 
 - (void)transformAction:(id)action completionHandler:(id)handler
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696ABC0];
   v6 = *MEMORY[0x1E696A798];
-  v12 = *MEMORY[0x1E696A578];
-  v13[0] = @"Unsupported runner type";
+  v11 = *MEMORY[0x1E696A578];
+  v12[0] = @"Unsupported runner type";
   v7 = MEMORY[0x1E695DF20];
   handlerCopy = handler;
-  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v9 = [v7 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v10 = [v5 errorWithDomain:v6 code:94 userInfo:v9];
   (*(handler + 2))(handlerCopy, 0, v10);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchToolInvocationSummaryForInvocation:(id)invocation fetchingDefaultValues:(BOOL)values completionHandler:(id)handler
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E696ABC0];
   v7 = *MEMORY[0x1E696A798];
-  v13 = *MEMORY[0x1E696A578];
-  v14[0] = @"Unsupported runner type";
+  v12 = *MEMORY[0x1E696A578];
+  v13[0] = @"Unsupported runner type";
   v8 = MEMORY[0x1E695DF20];
   handlerCopy = handler;
-  v10 = [v8 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v10 = [v8 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v11 = [v6 errorWithDomain:v7 code:94 userInfo:v10];
   (*(handler + 2))(handlerCopy, 0, v11);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resolveDeferredValueFromEncodedStorage:(id)storage withResolutionRequest:(id)request completionHandler:(id)handler
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E696ABC0];
   v7 = *MEMORY[0x1E696A798];
-  v13 = *MEMORY[0x1E696A578];
-  v14[0] = @"Unsupported runner type";
+  v12 = *MEMORY[0x1E696A578];
+  v13[0] = @"Unsupported runner type";
   v8 = MEMORY[0x1E695DF20];
   handlerCopy = handler;
-  v10 = [v8 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v10 = [v8 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v11 = [v6 errorWithDomain:v7 code:94 userInfo:v10];
   (*(handler + 2))(handlerCopy, 0, v11);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchDisplayValueForRequest:(id)request completionHandler:(id)handler
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696ABC0];
   v6 = *MEMORY[0x1E696A798];
-  v12 = *MEMORY[0x1E696A578];
-  v13[0] = @"Unsupported runner type";
+  v11 = *MEMORY[0x1E696A578];
+  v12[0] = @"Unsupported runner type";
   v7 = MEMORY[0x1E695DF20];
   handlerCopy = handler;
-  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v9 = [v7 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v10 = [v5 errorWithDomain:v6 code:94 userInfo:v9];
   (*(handler + 2))(handlerCopy, 0, v10);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performQuery:(id)query inValueSet:(id)set toolInvocation:(id)invocation options:(id)options completionHandler:(id)handler
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E696ABC0];
   v9 = *MEMORY[0x1E696A798];
-  v15 = *MEMORY[0x1E696A578];
-  v16[0] = @"Unsupported runner type";
+  v14 = *MEMORY[0x1E696A578];
+  v15[0] = @"Unsupported runner type";
   v10 = MEMORY[0x1E695DF20];
   handlerCopy = handler;
-  v12 = [v10 dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v12 = [v10 dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v13 = [v8 errorWithDomain:v9 code:94 userInfo:v12];
   (*(handler + 2))(handlerCopy, 0, v13);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resolveContent:(id)content completionHandler:(id)handler
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696ABC0];
   v6 = *MEMORY[0x1E696A798];
-  v12 = *MEMORY[0x1E696A578];
-  v13[0] = @"Unsupported runner type";
+  v11 = *MEMORY[0x1E696A578];
+  v12[0] = @"Unsupported runner type";
   v7 = MEMORY[0x1E695DF20];
   handlerCopy = handler;
-  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v9 = [v7 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v10 = [v5 errorWithDomain:v6 code:94 userInfo:v9];
   (*(handler + 2))(handlerCopy, 0, v10);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)injectContentAsVariable:(id)variable completionHandler:(id)handler
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696ABC0];
   v6 = *MEMORY[0x1E696A798];
-  v12 = *MEMORY[0x1E696A578];
-  v13[0] = @"Unsupported runner type";
+  v11 = *MEMORY[0x1E696A578];
+  v12[0] = @"Unsupported runner type";
   v7 = MEMORY[0x1E695DF20];
   handlerCopy = handler;
-  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v9 = [v7 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v10 = [v5 errorWithDomain:v6 code:94 userInfo:v9];
   (*(handler + 2))(handlerCopy, 0, v10);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAvailableParameterStatesForEncodedValueSetDefinition:(id)definition searchTerm:(id)term forEncodedToolInvocation:(id)invocation completionHandler:(id)handler
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E696ABC0];
   v8 = *MEMORY[0x1E696A798];
-  v14 = *MEMORY[0x1E696A578];
-  v15[0] = @"Unsupported runner type";
+  v13 = *MEMORY[0x1E696A578];
+  v14[0] = @"Unsupported runner type";
   v9 = MEMORY[0x1E695DF20];
   handlerCopy = handler;
-  v11 = [v9 dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v11 = [v9 dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v12 = [v7 errorWithDomain:v8 code:94 userInfo:v11];
   (*(handler + 2))(handlerCopy, 0, v12);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)extractVariableContentFromEncodedReference:(id)reference withResolutionRequest:(id)request completionHandler:(id)handler
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E696ABC0];
   v7 = *MEMORY[0x1E696A798];
-  v13 = *MEMORY[0x1E696A578];
-  v14[0] = @"Unsupported runner type";
+  v12 = *MEMORY[0x1E696A578];
+  v13[0] = @"Unsupported runner type";
   v8 = MEMORY[0x1E695DF20];
   handlerCopy = handler;
-  v10 = [v8 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v10 = [v8 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v11 = [v6 errorWithDomain:v7 code:94 userInfo:v10];
   (*(handler + 2))(handlerCopy, 0, v11);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)assessmentModeActiveError
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ABC0];
   v3 = *MEMORY[0x1E696A798];
-  v9 = *MEMORY[0x1E696A578];
+  v8 = *MEMORY[0x1E696A578];
   v4 = WFLocalizedString(@"A shortcut cannot be run while in Assessment Mode.");
-  v10[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v2 errorWithDomain:v3 code:1 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (void)assessmentModeManagerDidBecomeActive:(id)active
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = getWFXPCRunnerLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[WFBackgroundShortcutRunner assessmentModeManagerDidBecomeActive:]";
-    _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_DEFAULT, "%s Assessment Mode became active stopping workflow execution.", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[WFBackgroundShortcutRunner assessmentModeManagerDidBecomeActive:]";
+    _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_DEFAULT, "%s Assessment Mode became active stopping workflow execution.", &v6, 0xCu);
   }
 
   assessmentModeActiveError = [(WFBackgroundShortcutRunner *)self assessmentModeActiveError];
   [(WFBackgroundShortcutRunner *)self stopWithError:assessmentModeActiveError];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (WFAssessmentModeManager)assessmentModeManager
@@ -1087,7 +1056,7 @@ void __89__WFBackgroundShortcutRunner_TestHarness__handleTestingEventIfTesting_c
 
 - (void)evaluateRemoteQuarantinePolicyForWorkflow:(id)workflow workflowReference:(id)reference withCompletionHandler:(id)handler
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   workflowCopy = workflow;
   referenceCopy = reference;
   handlerCopy = handler;
@@ -1111,9 +1080,9 @@ void __89__WFBackgroundShortcutRunner_TestHarness__handleTestingEventIfTesting_c
     {
       identifier = [referenceCopy identifier];
       *buf = 136315394;
-      v45 = "[WFBackgroundShortcutRunner evaluateRemoteQuarantinePolicyForWorkflow:workflowReference:withCompletionHandler:]";
-      v46 = 2112;
-      v47 = identifier;
+      v44 = "[WFBackgroundShortcutRunner evaluateRemoteQuarantinePolicyForWorkflow:workflowReference:withCompletionHandler:]";
+      v45 = 2112;
+      v46 = identifier;
       _os_log_impl(&dword_1CA256000, v17, OS_LOG_TYPE_INFO, "%s Evaluating remote quarantine policy for workflow %@", buf, 0x16u);
     }
 
@@ -1126,9 +1095,9 @@ void __89__WFBackgroundShortcutRunner_TestHarness__handleTestingEventIfTesting_c
       {
         identifier2 = [referenceCopy identifier];
         *buf = 136315394;
-        v45 = "[WFBackgroundShortcutRunner evaluateRemoteQuarantinePolicyForWorkflow:workflowReference:withCompletionHandler:]";
-        v46 = 2112;
-        v47 = identifier2;
+        v44 = "[WFBackgroundShortcutRunner evaluateRemoteQuarantinePolicyForWorkflow:workflowReference:withCompletionHandler:]";
+        v45 = 2112;
+        v46 = identifier2;
         _os_log_impl(&dword_1CA256000, v21, OS_LOG_TYPE_INFO, "%s Skipping remote quarantine policy evaluation for workflow %@, since it has been explicitly allowed by the user.", buf, 0x16u);
       }
 
@@ -1154,21 +1123,21 @@ void __89__WFBackgroundShortcutRunner_TestHarness__handleTestingEventIfTesting_c
         if (v28)
         {
           [referenceCopy identifier];
-          v31 = v39 = workflowCopy;
+          v31 = v38 = workflowCopy;
           remoteQuarantineHash2 = [referenceCopy remoteQuarantineHash];
           v32 = [remoteQuarantineHash2 debugDescription];
           v33 = [v20 debugDescription];
           *buf = 136315906;
-          v45 = "[WFBackgroundShortcutRunner evaluateRemoteQuarantinePolicyForWorkflow:workflowReference:withCompletionHandler:]";
-          v46 = 2112;
-          v47 = v31;
-          v48 = 2112;
-          v49 = v32;
-          v50 = 2112;
-          v51 = v33;
+          v44 = "[WFBackgroundShortcutRunner evaluateRemoteQuarantinePolicyForWorkflow:workflowReference:withCompletionHandler:]";
+          v45 = 2112;
+          v46 = v31;
+          v47 = 2112;
+          v48 = v32;
+          v49 = 2112;
+          v50 = v33;
           _os_log_impl(&dword_1CA256000, v27, OS_LOG_TYPE_INFO, "%s Remote quarantine policy evaluation required for workflow %@: %@ != %@", buf, 0x2Au);
 
-          workflowCopy = v39;
+          workflowCopy = v38;
         }
 
         v34 = [WFWorkflowRemoteQuarantineRequest alloc];
@@ -1176,14 +1145,14 @@ void __89__WFBackgroundShortcutRunner_TestHarness__handleTestingEventIfTesting_c
         v36 = [(WFWorkflowRemoteQuarantineRequest *)v34 initWithWorkflowRecord:record];
 
         [v19 setDelegate:self];
-        v40[0] = MEMORY[0x1E69E9820];
-        v40[1] = 3221225472;
-        v40[2] = __112__WFBackgroundShortcutRunner_evaluateRemoteQuarantinePolicyForWorkflow_workflowReference_withCompletionHandler___block_invoke;
-        v40[3] = &unk_1E8374C00;
-        v43 = v13;
-        v42 = handlerCopy;
-        v41 = v20;
-        [v19 evaluatePolicyForRequest:v36 completion:v40];
+        v39[0] = MEMORY[0x1E69E9820];
+        v39[1] = 3221225472;
+        v39[2] = __112__WFBackgroundShortcutRunner_evaluateRemoteQuarantinePolicyForWorkflow_workflowReference_withCompletionHandler___block_invoke;
+        v39[3] = &unk_1E8374C00;
+        v42 = v13;
+        v41 = handlerCopy;
+        v40 = v20;
+        [v19 evaluatePolicyForRequest:v36 completion:v39];
 
         goto LABEL_27;
       }
@@ -1192,9 +1161,9 @@ void __89__WFBackgroundShortcutRunner_TestHarness__handleTestingEventIfTesting_c
       {
         identifier3 = [referenceCopy identifier];
         *buf = 136315394;
-        v45 = "[WFBackgroundShortcutRunner evaluateRemoteQuarantinePolicyForWorkflow:workflowReference:withCompletionHandler:]";
-        v46 = 2112;
-        v47 = identifier3;
+        v44 = "[WFBackgroundShortcutRunner evaluateRemoteQuarantinePolicyForWorkflow:workflowReference:withCompletionHandler:]";
+        v45 = 2112;
+        v46 = identifier3;
         _os_log_impl(&dword_1CA256000, v27, OS_LOG_TYPE_INFO, "%s Skipping remote quarantine policy evaluation for workflow %@, since it has already been checked.", buf, 0x16u);
       }
 
@@ -1220,62 +1189,58 @@ LABEL_27:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v45 = "[WFBackgroundShortcutRunner evaluateRemoteQuarantinePolicyForWorkflow:workflowReference:withCompletionHandler:]";
+    v44 = "[WFBackgroundShortcutRunner evaluateRemoteQuarantinePolicyForWorkflow:workflowReference:withCompletionHandler:]";
     _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_INFO, "%s Skipping remote quarantine policy evaluation for workflow, since it has no database reference.", buf, 0xCu);
   }
 
   (*(handlerCopy + 2))(handlerCopy, 1, 0, 0);
 LABEL_28:
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
-void __112__WFBackgroundShortcutRunner_evaluateRemoteQuarantinePolicyForWorkflow_workflowReference_withCompletionHandler___block_invoke(void *a1, uint64_t a2, void *a3)
+void __112__WFBackgroundShortcutRunner_evaluateRemoteQuarantinePolicyForWorkflow_workflowReference_withCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
   v5 = getWFWorkflowExecutionLogObject();
   v6 = v5;
-  v7 = a1[6];
+  v7 = *(a1 + 48);
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *v9 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1CA256000, v6, OS_SIGNPOST_INTERVAL_END, v7, "RemoteQuarantineEvaluation", "", v9, 2u);
+    *v8 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1CA256000, v6, OS_SIGNPOST_INTERVAL_END, v7, "RemoteQuarantineEvaluation", "", v8, 2u);
   }
 
-  v8 = a1[4];
-  (*(a1[5] + 16))();
+  (*(*(a1 + 40) + 16))();
 }
 
 - (id)metricsRunSourceFromEnvironment:(int64_t)environment runSource:(id)source
 {
   sourceCopy = source;
   v6 = sourceCopy;
-  v7 = *MEMORY[0x1E69E1428];
   if (sourceCopy)
   {
-    v8 = sourceCopy;
+    v7 = sourceCopy;
   }
 
   else
   {
-    v8 = *MEMORY[0x1E69E1428];
+    v7 = *MEMORY[0x1E69E1428];
   }
 
-  v9 = v8;
-  v10 = [v9 isEqualToString:v7];
-  if ((environment - 1) <= 4 && v10)
+  v8 = v7;
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
+  if ((environment - 1) <= 4 && isEqualToString)
   {
-    v11 = **(&unk_1E8374C20 + environment - 1);
+    v10 = **(&unk_1E8374C20 + environment - 1);
 
-    v9 = v11;
+    v8 = v10;
   }
 
-  return v9;
+  return v8;
 }
 
 - (BOOL)launchAppToContinueFromState:(id)state runSource:(id)source withCompletion:(id)completion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   sourceCopy = source;
   completionCopy = completion;
@@ -1289,7 +1254,7 @@ void __112__WFBackgroundShortcutRunner_evaluateRemoteQuarantinePolicyForWorkflow
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v26 = "[WFBackgroundShortcutRunner launchAppToContinueFromState:runSource:withCompletion:]";
+    v24 = "[WFBackgroundShortcutRunner launchAppToContinueFromState:runSource:withCompletion:]";
     _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_DEFAULT, "%s Launching Shortcuts app to continue running", buf, 0xCu);
   }
 
@@ -1299,12 +1264,12 @@ void __112__WFBackgroundShortcutRunner_evaluateRemoteQuarantinePolicyForWorkflow
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v26 = "[WFBackgroundShortcutRunner launchAppToContinueFromState:runSource:withCompletion:]";
+      v24 = "[WFBackgroundShortcutRunner launchAppToContinueFromState:runSource:withCompletion:]";
       _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_ERROR, "%s Can't open app from resident device", buf, 0xCu);
     }
 
 LABEL_15:
-    v18 = 0;
+    v17 = 0;
     goto LABEL_16;
   }
 
@@ -1315,75 +1280,72 @@ LABEL_15:
     {
       workflowController = [(WFBackgroundShortcutRunner *)self workflowController];
       *buf = 136315394;
-      v26 = "[WFBackgroundShortcutRunner launchAppToContinueFromState:runSource:withCompletion:]";
-      v27 = 2112;
-      v28 = workflowController;
+      v24 = "[WFBackgroundShortcutRunner launchAppToContinueFromState:runSource:withCompletion:]";
+      v25 = 2112;
+      v26 = workflowController;
       _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_ERROR, "%s failed to get state from controller (%@)", buf, 0x16u);
     }
 
     goto LABEL_15;
   }
 
-  v14 = *MEMORY[0x1E69E1388];
   if (sourceCopy)
   {
-    v15 = sourceCopy;
+    v14 = sourceCopy;
   }
 
   else
   {
-    v15 = *MEMORY[0x1E69E1388];
+    v14 = *MEMORY[0x1E69E1388];
   }
 
-  v13 = [WFHandoffSimulator userActivityForContinuingWorkflowWithState:stateCopy fromSource:v15];
-  v16 = objc_alloc(MEMORY[0x1E6996CA0]);
-  v17 = [v16 initWithBundleIdentifier:*MEMORY[0x1E69E0FB0] options:0 URL:0 userActivity:v13];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __84__WFBackgroundShortcutRunner_launchAppToContinueFromState_runSource_withCompletion___block_invoke;
-  v23[3] = &unk_1E837F0F0;
-  v24 = completionCopy;
-  [v17 performWithCompletionHandler:v23];
+  v13 = [WFHandoffSimulator userActivityForContinuingWorkflowWithState:stateCopy fromSource:v14];
+  v15 = objc_alloc(MEMORY[0x1E6996CA0]);
+  v16 = [v15 initWithBundleIdentifier:*MEMORY[0x1E69E0FB0] options:0 URL:0 userActivity:v13];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __84__WFBackgroundShortcutRunner_launchAppToContinueFromState_runSource_withCompletion___block_invoke;
+  v21[3] = &unk_1E837F0F0;
+  v22 = completionCopy;
+  [v16 performWithCompletionHandler:v21];
 
-  v18 = 1;
+  v17 = 1;
 LABEL_16:
 
-  v20 = *MEMORY[0x1E69E9840];
-  return v18;
+  return v17;
 }
 
-uint64_t __84__WFBackgroundShortcutRunner_launchAppToContinueFromState_runSource_withCompletion___block_invoke(uint64_t a1, char a2)
+uint64_t __84__WFBackgroundShortcutRunner_launchAppToContinueFromState_runSource_withCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v13 = *MEMORY[0x1E69E9840];
   v4 = getWFXPCRunnerLogObject();
   v5 = v4;
-  if (a2)
+  if (v2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315138;
-      v13 = "[WFBackgroundShortcutRunner launchAppToContinueFromState:runSource:withCompletion:]_block_invoke";
+      v11 = 136315138;
+      v12 = "[WFBackgroundShortcutRunner launchAppToContinueFromState:runSource:withCompletion:]_block_invoke";
       v6 = "%s Succeeded launching Shortcuts app";
       v7 = v5;
       v8 = OS_LOG_TYPE_DEFAULT;
 LABEL_6:
-      _os_log_impl(&dword_1CA256000, v7, v8, v6, &v12, 0xCu);
+      _os_log_impl(&dword_1CA256000, v7, v8, v6, &v11, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v12 = 136315138;
-    v13 = "[WFBackgroundShortcutRunner launchAppToContinueFromState:runSource:withCompletion:]_block_invoke";
+    v11 = 136315138;
+    v12 = "[WFBackgroundShortcutRunner launchAppToContinueFromState:runSource:withCompletion:]_block_invoke";
     v6 = "%s Failed to open Shortcuts app to continue";
     v7 = v5;
     v8 = OS_LOG_TYPE_ERROR;
     goto LABEL_6;
   }
 
-  result = (*(*(a1 + 32) + 16))(*(a1 + 32), v9);
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 32) + 16))(*(a1 + 32), v9);
 }
 
 - (void)getCurrentProgressCompletedWithCompletionHandler:(id)handler
@@ -1420,7 +1382,7 @@ LABEL_6:
 
 void __92__WFBackgroundShortcutRunner_sendDialogRequestForParameter_action_dialogRequest_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
@@ -1452,56 +1414,55 @@ void __92__WFBackgroundShortcutRunner_sendDialogRequestForParameter_action_dialo
       v15 = [*(a1 + 32) stateClass];
       if (v15 == objc_opt_class())
       {
-        v34 = [WFInputtedState alloc];
-        v35 = [*(a1 + 32) key];
-        v36 = [(WFInputtedState *)v34 initWithParameterKey:v35 parameterState:v14];
+        v33 = [WFInputtedState alloc];
+        v34 = [*(a1 + 32) key];
+        v35 = [(WFInputtedState *)v33 initWithParameterKey:v34 parameterState:v14];
 
         (*(*(a1 + 48) + 16))();
       }
 
       else
       {
-        v38 = v5;
+        v36 = v5;
         v16 = getWFRemoteExecutionLogObject();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
         {
-          v17 = *(a1 + 32);
-          v18 = objc_opt_class();
-          v19 = *(a1 + 32);
-          v20 = v18;
-          v21 = [v19 stateClass];
-          v22 = v21;
+          v17 = objc_opt_class();
+          v18 = *(a1 + 32);
+          v19 = v17;
+          v20 = [v18 stateClass];
+          v21 = v20;
           *buf = 136315906;
-          v42 = "[WFBackgroundShortcutRunner sendDialogRequestForParameter:action:dialogRequest:completion:]_block_invoke";
+          v40 = "[WFBackgroundShortcutRunner sendDialogRequestForParameter:action:dialogRequest:completion:]_block_invoke";
+          v41 = 2112;
+          v42 = v17;
           v43 = 2112;
-          v44 = v18;
+          v44 = v20;
           v45 = 2112;
-          v46 = v21;
-          v47 = 2112;
-          v48 = objc_opt_class();
-          v23 = v48;
+          v46 = objc_opt_class();
+          v22 = v46;
           _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_FAULT, "%s %@ expected a parameter state of class: %@, but received a different parameter state class: %@", buf, 0x2Au);
         }
 
-        v24 = MEMORY[0x1E696ABC0];
-        v39[0] = *MEMORY[0x1E696A578];
-        v25 = WFLocalizedString(@"Invalid parameter state");
-        v40[0] = v25;
-        v39[1] = *MEMORY[0x1E696A588];
-        v26 = MEMORY[0x1E696AEC0];
-        v27 = WFLocalizedString(@"Received invalid parameter state for action %@ and parameter %@");
-        v28 = [*(a1 + 40) localizedName];
+        v23 = MEMORY[0x1E696ABC0];
+        v37[0] = *MEMORY[0x1E696A578];
+        v24 = WFLocalizedString(@"Invalid parameter state");
+        v38[0] = v24;
+        v37[1] = *MEMORY[0x1E696A588];
+        v25 = MEMORY[0x1E696AEC0];
+        v26 = WFLocalizedString(@"Received invalid parameter state for action %@ and parameter %@");
+        v27 = [*(a1 + 40) localizedName];
         [*(a1 + 32) localizedLabel];
-        v30 = v29 = v14;
-        v31 = [v26 localizedStringWithFormat:v27, v28, v30];
-        v40[1] = v31;
-        v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:2];
-        v33 = [v24 errorWithDomain:@"WFBackgroundShortcutRunnerErrorDomain" code:14 userInfo:v32];
+        v29 = v28 = v14;
+        v30 = [v25 localizedStringWithFormat:v26, v27, v29];
+        v38[1] = v30;
+        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:2];
+        v32 = [v23 errorWithDomain:@"WFBackgroundShortcutRunnerErrorDomain" code:14 userInfo:v31];
 
-        v14 = v29;
+        v14 = v28;
         (*(*(a1 + 48) + 16))();
 
-        v5 = v38;
+        v5 = v36;
       }
     }
   }
@@ -1513,17 +1474,15 @@ void __92__WFBackgroundShortcutRunner_sendDialogRequestForParameter_action_dialo
     {
       v10 = [*(a1 + 32) localizedLabel];
       *buf = 136315394;
-      v42 = "[WFBackgroundShortcutRunner sendDialogRequestForParameter:action:dialogRequest:completion:]_block_invoke";
-      v43 = 2112;
-      v44 = v10;
+      v40 = "[WFBackgroundShortcutRunner sendDialogRequestForParameter:action:dialogRequest:completion:]_block_invoke";
+      v41 = 2112;
+      v42 = v10;
       _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_FAULT, "%s Received an invalid dialog request for parameter: %@", buf, 0x16u);
     }
 
     v6 = WFBackgroundShortcutRunnerError(12, v5);
     (*(*(a1 + 48) + 16))();
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendRemoteAskWhenRunRequestWithParameters:(id)parameters action:(id)action completion:(id)completion
@@ -1560,7 +1519,7 @@ void __92__WFBackgroundShortcutRunner_sendDialogRequestForParameter_action_dialo
 
 void __90__WFBackgroundShortcutRunner_sendRemoteAskWhenRunRequestWithParameters_action_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a4;
   if ([v6 conformsToProtocol:&unk_1F4A9DDC8])
@@ -1569,56 +1528,56 @@ void __90__WFBackgroundShortcutRunner_sendRemoteAskWhenRunRequestWithParameters_
     v9 = [*(a1 + 32) dialogTransformer];
     v10 = [v9 attribution];
 
-    v59[0] = MEMORY[0x1E69E9820];
-    v59[1] = 3221225472;
-    v59[2] = __90__WFBackgroundShortcutRunner_sendRemoteAskWhenRunRequestWithParameters_action_completion___block_invoke_2;
-    v59[3] = &unk_1E8374B88;
-    v63 = v7;
+    v58[0] = MEMORY[0x1E69E9820];
+    v58[1] = 3221225472;
+    v58[2] = __90__WFBackgroundShortcutRunner_sendRemoteAskWhenRunRequestWithParameters_action_completion___block_invoke_2;
+    v58[3] = &unk_1E8374B88;
+    v62 = v7;
     v11 = *(a1 + 32);
     v12 = *(a1 + 40);
-    v60 = v8;
-    v61 = v11;
+    v59 = v8;
+    v60 = v11;
     v13 = v12;
     v14 = *(a1 + 48);
-    v62 = v13;
-    v64 = v14;
+    v61 = v13;
+    v63 = v14;
     v15 = v7;
     v16 = v8;
-    [(WFRemoteExecutionDialogRequest *)v16 createDialogRequestWithAttribution:v10 defaultState:0 prompt:0 completionHandler:v59];
+    [(WFRemoteExecutionDialogRequest *)v16 createDialogRequestWithAttribution:v10 defaultState:0 prompt:0 completionHandler:v58];
 
-    v17 = v60;
+    v17 = v59;
   }
 
   else
   {
-    v50 = v7;
-    v51 = objc_opt_new();
+    v49 = v7;
+    v50 = objc_opt_new();
+    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
     v18 = a1;
     v19 = [*(a1 + 40) parameters];
-    v20 = [v19 countByEnumeratingWithState:&v55 objects:v65 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v54 objects:v64 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v56;
+      v22 = *v55;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v56 != v22)
+          if (*v55 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v55 + 1) + 8 * i);
+          v24 = *(*(&v54 + 1) + 8 * i);
           v25 = [v24 key];
           v26 = [v6 key];
-          v27 = [v25 isEqualToString:v26];
+          isEqualToString = objc_msgSend_isEqualToString_(v25);
 
-          if ((v27 & 1) == 0)
+          if ((isEqualToString & 1) == 0)
           {
             v28 = *(v18 + 40);
             v29 = [v24 key];
@@ -1626,11 +1585,11 @@ void __90__WFBackgroundShortcutRunner_sendRemoteAskWhenRunRequestWithParameters_
 
             v31 = [v30 serializedRepresentation];
             v32 = [v24 key];
-            [v51 if_setObjectIfNonNil:v31 forKey:v32];
+            [v50 if_setObjectIfNonNil:v31 forKey:v32];
           }
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v55 objects:v65 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v54 objects:v64 count:16];
       }
 
       while (v21);
@@ -1655,9 +1614,9 @@ void __90__WFBackgroundShortcutRunner_sendRemoteAskWhenRunRequestWithParameters_
     v38 = [v6 key];
     v39 = [objc_alloc(MEMORY[0x1E69E0A98]) initWithTitle:0 icon:0];
     v40 = [v6 localizedPrompt];
-    LOBYTE(v49) = 1;
-    v10 = v51;
-    v15 = [v36 initWithActionIdentifier:v37 parameterKey:v38 serializedParameterStates:v51 style:v33 attribution:v39 prompt:v40 doneButton:v16 focusImmediatelyWhenPresented:v49];
+    LOBYTE(v48) = 1;
+    v10 = v50;
+    v15 = [v36 initWithActionIdentifier:v37 parameterKey:v38 serializedParameterStates:v50 style:v33 attribution:v39 prompt:v40 doneButton:v16 focusImmediatelyWhenPresented:v48];
 
     v41 = [WFRemoteExecutionDialogRequest alloc];
     v42 = [*(v18 + 32) currentRemoteExecutionRunRequest];
@@ -1666,63 +1625,60 @@ void __90__WFBackgroundShortcutRunner_sendRemoteAskWhenRunRequestWithParameters_
 
     v44 = *(v18 + 32);
     v45 = *(v18 + 40);
-    v52[0] = MEMORY[0x1E69E9820];
-    v52[1] = 3221225472;
-    v52[2] = __90__WFBackgroundShortcutRunner_sendRemoteAskWhenRunRequestWithParameters_action_completion___block_invoke_2_546;
-    v52[3] = &unk_1E8374B60;
+    v51[0] = MEMORY[0x1E69E9820];
+    v51[1] = 3221225472;
+    v51[2] = __90__WFBackgroundShortcutRunner_sendRemoteAskWhenRunRequestWithParameters_action_completion___block_invoke_2_546;
+    v51[3] = &unk_1E8374B60;
     v46 = *(v18 + 48);
-    v53 = v50;
-    v54 = v46;
-    v47 = v50;
-    [v44 sendDialogRequestForParameter:v6 action:v45 dialogRequest:v17 completion:v52];
+    v52 = v49;
+    v53 = v46;
+    v47 = v49;
+    [v44 sendDialogRequestForParameter:v6 action:v45 dialogRequest:v17 completion:v51];
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 void __90__WFBackgroundShortcutRunner_sendRemoteAskWhenRunRequestWithParameters_action_completion___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = *(*(*(a1 + 40) + 8) + 40);
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         v12 = [v11 parameterState];
         v13 = [v11 parameterKey];
         [v5 setObject:v12 forKeyedSubscript:v13];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   (*(*(a1 + 32) + 16))();
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __90__WFBackgroundShortcutRunner_sendRemoteAskWhenRunRequestWithParameters_action_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -1734,14 +1690,14 @@ void __90__WFBackgroundShortcutRunner_sendRemoteAskWhenRunRequestWithParameters_
     v9 = *(a1 + 32);
     v8 = *(a1 + 40);
     v10 = *(a1 + 48);
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __90__WFBackgroundShortcutRunner_sendRemoteAskWhenRunRequestWithParameters_action_completion___block_invoke_540;
-    v20[3] = &unk_1E8374B60;
-    v19 = *(a1 + 56);
-    v11 = v19;
-    v21 = v19;
-    [v8 sendDialogRequestForParameter:v9 action:v10 dialogRequest:v7 completion:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __90__WFBackgroundShortcutRunner_sendRemoteAskWhenRunRequestWithParameters_action_completion___block_invoke_540;
+    v19[3] = &unk_1E8374B60;
+    v18 = *(a1 + 56);
+    v11 = v18;
+    v20 = v18;
+    [v8 sendDialogRequestForParameter:v9 action:v10 dialogRequest:v7 completion:v19];
   }
 
   else
@@ -1751,26 +1707,24 @@ void __90__WFBackgroundShortcutRunner_sendRemoteAskWhenRunRequestWithParameters_
     {
       v13 = [*(a1 + 32) localizedLabel];
       *buf = 136315394;
-      v25 = "[WFBackgroundShortcutRunner sendRemoteAskWhenRunRequestWithParameters:action:completion:]_block_invoke_2";
-      v26 = 2112;
-      v27 = v13;
+      v24 = "[WFBackgroundShortcutRunner sendRemoteAskWhenRunRequestWithParameters:action:completion:]_block_invoke_2";
+      v25 = 2112;
+      v26 = v13;
       _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_FAULT, "%s Unable to create valid dialog request for parameter: %@", buf, 0x16u);
     }
 
     v14 = MEMORY[0x1E696ABC0];
-    v22[0] = *MEMORY[0x1E696A578];
+    v21[0] = *MEMORY[0x1E696A578];
     v15 = WFLocalizedString(@"Unable to Run");
-    v23[0] = v15;
-    v22[1] = *MEMORY[0x1E696A588];
+    v22[0] = v15;
+    v21[1] = *MEMORY[0x1E696A588];
     v16 = WFLocalizedString(@"Unable to finish running action due to missing values.");
-    v23[1] = v16;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+    v22[1] = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
     v7 = [v14 errorWithDomain:@"WFBackgroundShortcutRunnerErrorDomain" code:5 userInfo:v17];
 
     (*(*(a1 + 56) + 16))();
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __90__WFBackgroundShortcutRunner_sendRemoteAskWhenRunRequestWithParameters_action_completion___block_invoke_2_546(uint64_t a1, uint64_t a2, void *a3)
@@ -1934,7 +1888,7 @@ void __77__WFBackgroundShortcutRunner_openURL_withBundleIdentifier_completionHan
 
 - (void)requestFileAccessForURLs:(id)ls workflowName:(id)name workflowID:(id)d completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   dCopy = d;
   nameCopy = name;
@@ -1943,36 +1897,34 @@ void __77__WFBackgroundShortcutRunner_openURL_withBundleIdentifier_completionHan
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v21 = "[WFBackgroundShortcutRunner requestFileAccessForURLs:workflowName:workflowID:completionHandler:]";
+    v20 = "[WFBackgroundShortcutRunner requestFileAccessForURLs:workflowName:workflowID:completionHandler:]";
     _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_DEFAULT, "%s requestFileAccessForURLs forwarding to dialogTransformer", buf, 0xCu);
   }
 
   dialogTransformer = [(WFBackgroundShortcutRunner *)self dialogTransformer];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __97__WFBackgroundShortcutRunner_requestFileAccessForURLs_workflowName_workflowID_completionHandler___block_invoke;
-  v18[3] = &unk_1E837F0F0;
-  v19 = handlerCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __97__WFBackgroundShortcutRunner_requestFileAccessForURLs_workflowName_workflowID_completionHandler___block_invoke;
+  v17[3] = &unk_1E837F0F0;
+  v18 = handlerCopy;
   v16 = handlerCopy;
-  [dialogTransformer requestFileAccessForURLs:lsCopy workflowName:nameCopy workflowID:dCopy completionHandler:v18];
-
-  v17 = *MEMORY[0x1E69E9840];
+  [dialogTransformer requestFileAccessForURLs:lsCopy workflowName:nameCopy workflowID:dCopy completionHandler:v17];
 }
 
 void __97__WFBackgroundShortcutRunner_requestFileAccessForURLs_workflowName_workflowID_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = getWFXPCRunnerLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315650;
-    v10 = "[WFBackgroundShortcutRunner requestFileAccessForURLs:workflowName:workflowID:completionHandler:]_block_invoke";
-    v11 = 1024;
-    v12 = a2;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_DEFAULT, "%s dialogTransformer completed with success: %d, error: %@", &v9, 0x1Cu);
+    v8 = 136315650;
+    v9 = "[WFBackgroundShortcutRunner requestFileAccessForURLs:workflowName:workflowID:completionHandler:]_block_invoke";
+    v10 = 1024;
+    v11 = a2;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_DEFAULT, "%s dialogTransformer completed with success: %d, error: %@", &v8, 0x1Cu);
   }
 
   v7 = *(a1 + 32);
@@ -1980,8 +1932,6 @@ void __97__WFBackgroundShortcutRunner_requestFileAccessForURLs_workflowName_work
   {
     (*(v7 + 16))(v7, a2, v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestAuthorizationWithConfiguration:(id)configuration completionHandler:(id)handler
@@ -2012,7 +1962,7 @@ void __97__WFBackgroundShortcutRunner_requestFileAccessForURLs_workflowName_work
 
 - (void)pauseWorkflowAndWriteStateToDisk:(id)disk
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   diskCopy = disk;
   [(WFBackgroundShortcutRunner *)self synchronouslyPerformWithHost:&__block_literal_global_469];
   workflowController = [(WFBackgroundShortcutRunner *)self workflowController];
@@ -2023,9 +1973,9 @@ void __97__WFBackgroundShortcutRunner_requestFileAccessForURLs_workflowName_work
   {
     workflowController2 = [(WFBackgroundShortcutRunner *)self workflowController];
     currentState = [workflowController2 currentState];
-    v15 = 0;
-    v9 = [currentState writeToURL:v6 error:&v15];
-    v10 = v15;
+    v14 = 0;
+    v9 = [currentState writeToURL:v6 error:&v14];
+    v10 = v14;
 
     if ((v9 & 1) == 0)
     {
@@ -2033,20 +1983,20 @@ void __97__WFBackgroundShortcutRunner_requestFileAccessForURLs_workflowName_work
       if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v17 = "[WFBackgroundShortcutRunner pauseWorkflowAndWriteStateToDisk:]";
-        v18 = 2112;
-        v19 = v10;
+        v16 = "[WFBackgroundShortcutRunner pauseWorkflowAndWriteStateToDisk:]";
+        v17 = 2112;
+        v18 = v10;
         _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_FAULT, "%s Failed to write current workflow controller state to disk because of %@", buf, 0x16u);
       }
     }
 
     v12 = dispatch_time(0, 500000000);
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __63__WFBackgroundShortcutRunner_pauseWorkflowAndWriteStateToDisk___block_invoke_470;
-    v14[3] = &unk_1E837FA70;
-    v14[4] = self;
-    dispatch_after(v12, MEMORY[0x1E69E96A0], v14);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __63__WFBackgroundShortcutRunner_pauseWorkflowAndWriteStateToDisk___block_invoke_470;
+    v13[3] = &unk_1E837FA70;
+    v13[4] = self;
+    dispatch_after(v12, MEMORY[0x1E69E96A0], v13);
   }
 
   else
@@ -2055,14 +2005,12 @@ void __97__WFBackgroundShortcutRunner_requestFileAccessForURLs_workflowName_work
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v17 = "[WFBackgroundShortcutRunner pauseWorkflowAndWriteStateToDisk:]";
-      v18 = 2112;
-      v19 = diskCopy;
+      v16 = "[WFBackgroundShortcutRunner pauseWorkflowAndWriteStateToDisk:]";
+      v17 = 2112;
+      v18 = diskCopy;
       _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_FAULT, "%s Unable to get destination URL from context: %@", buf, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __63__WFBackgroundShortcutRunner_pauseWorkflowAndWriteStateToDisk___block_invoke_470(uint64_t a1)
@@ -2173,6 +2121,22 @@ void __63__WFBackgroundShortcutRunner_pauseWorkflowAndWriteStateToDisk___block_i
   }
 }
 
+- (void)getPreferredSizeForLinkViewSnippetWithDialog:(BOOL)dialog completion:(id)completion
+{
+  dialogCopy = dialog;
+  completionCopy = completion;
+  dialogTransformer = [(WFBackgroundShortcutRunner *)self dialogTransformer];
+  [dialogTransformer getPreferredSizeForLinkViewSnippetWithDialog:dialogCopy completion:completionCopy];
+}
+
+- (void)getEnvironmentForLinkViewSnippetWithDialog:(BOOL)dialog completion:(id)completion
+{
+  dialogCopy = dialog;
+  completionCopy = completion;
+  dialogTransformer = [(WFBackgroundShortcutRunner *)self dialogTransformer];
+  [dialogTransformer getEnvironmentForLinkViewSnippetWithDialog:dialogCopy completion:completionCopy];
+}
+
 - (void)showChronoControlOfType:(unint64_t)type identity:(id)identity completionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -2280,6 +2244,16 @@ void __63__WFBackgroundShortcutRunner_pauseWorkflowAndWriteStateToDisk___block_i
   [dialogTransformer showHandleInteraction:interactionCopy prompt:promptCopy completionHandler:handlerCopy];
 }
 
+- (void)showConfirmInteraction:(id)interaction prompt:(id)prompt requireAuthentication:(BOOL)authentication completionHandler:(id)handler
+{
+  authenticationCopy = authentication;
+  handlerCopy = handler;
+  promptCopy = prompt;
+  interactionCopy = interaction;
+  dialogTransformer = [(WFBackgroundShortcutRunner *)self dialogTransformer];
+  [dialogTransformer showConfirmInteraction:interactionCopy prompt:promptCopy requireAuthentication:authenticationCopy completionHandler:handlerCopy];
+}
+
 - (void)requestActionInterfacePresentationForActionClassName:(id)name classNamesByType:(id)type completionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -2291,7 +2265,7 @@ void __63__WFBackgroundShortcutRunner_pauseWorkflowAndWriteStateToDisk___block_i
 
 - (void)presentAlert:(id)alert
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   alertCopy = alert;
   if ([(WFBackgroundShortcutRunner *)self environment]== 4)
   {
@@ -2299,7 +2273,7 @@ void __63__WFBackgroundShortcutRunner_pauseWorkflowAndWriteStateToDisk___block_i
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v16 = "[WFBackgroundShortcutRunner presentAlert:]";
+      v15 = "[WFBackgroundShortcutRunner presentAlert:]";
       _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_INFO, "%s Trying to present an alert in a remote execution environment, going to send to originating device", buf, 0xCu);
     }
 
@@ -2309,13 +2283,13 @@ void __63__WFBackgroundShortcutRunner_pauseWorkflowAndWriteStateToDisk___block_i
     v9 = [(WFRemoteExecutionAlertRequest *)v6 initWithAlert:alertCopy associatedRunRequestIdentifier:identifier];
 
     remoteExecutionCoordinator = [(WFBackgroundShortcutRunner *)self remoteExecutionCoordinator];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __43__WFBackgroundShortcutRunner_presentAlert___block_invoke;
-    v13[3] = &unk_1E8374AE8;
-    v13[4] = self;
-    v14 = alertCopy;
-    [remoteExecutionCoordinator sendAlertRequest:v9 completion:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __43__WFBackgroundShortcutRunner_presentAlert___block_invoke;
+    v12[3] = &unk_1E8374AE8;
+    v12[4] = self;
+    v13 = alertCopy;
+    [remoteExecutionCoordinator sendAlertRequest:v9 completion:v12];
   }
 
   else
@@ -2323,48 +2297,46 @@ void __63__WFBackgroundShortcutRunner_pauseWorkflowAndWriteStateToDisk___block_i
     dialogTransformer = [(WFBackgroundShortcutRunner *)self dialogTransformer];
     [dialogTransformer presentAlert:alertCopy];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __43__WFBackgroundShortcutRunner_presentAlert___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v7 = [*(a1 + 40) buttons];
-    v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v24;
+      v10 = *v23;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v23 + 1) + 8 * i);
+          v12 = *(*(&v22 + 1) + 8 * i);
           v13 = [v12 title];
-          v14 = [v13 isEqualToString:v5];
+          isEqualToString = objc_msgSend_isEqualToString_(v13);
 
-          if (v14)
+          if (isEqualToString)
           {
             v15 = [v12 handler];
             v15[2](v15, 0);
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v9);
@@ -2382,8 +2354,6 @@ void __43__WFBackgroundShortcutRunner_presentAlert___block_invoke(uint64_t a1, v
 
     [v21 finishRunningWithError:v6];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)workflowController:(id)controller handleTestingEvent:(id)event completionHandler:(id)handler
@@ -2525,7 +2495,7 @@ void __86__WFBackgroundShortcutRunner_workflowController_handleTestingEvent_comp
 
 - (BOOL)workflowController:(id)controller handleUnsupportedEnvironmentForAction:(id)action currentState:(id)state completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   actionCopy = action;
   stateCopy = state;
@@ -2534,9 +2504,9 @@ void __86__WFBackgroundShortcutRunner_workflowController_handleTestingEvent_comp
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v15 = [actionCopy description];
-    v20 = 138543362;
-    v21 = v15;
-    _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ is not supported in the current environment.", &v20, 0xCu);
+    v19 = 138543362;
+    v20 = v15;
+    _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ is not supported in the current environment.", &v19, 0xCu);
   }
 
   if ([(WFBackgroundShortcutRunner *)self environment]== 4)
@@ -2550,13 +2520,12 @@ void __86__WFBackgroundShortcutRunner_workflowController_handleTestingEvent_comp
     v16 = WFRemoteExecuteActionIfApplicable(actionCopy, stateCopy, self, self, runSource, handlerCopy);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (BOOL)workflowController:(id)controller handleUnsupportedUserInterfaceForAction:(id)action currentState:(id)state completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   handlerCopy = handler;
   isRunningWithSiriUI = [(WFBackgroundShortcutRunner *)self isRunningWithSiriUI];
@@ -2567,36 +2536,35 @@ void __86__WFBackgroundShortcutRunner_workflowController_handleTestingEvent_comp
     if (v12)
     {
       *buf = 136315138;
-      v20 = "[WFBackgroundShortcutRunner workflowController:handleUnsupportedUserInterfaceForAction:currentState:completionHandler:]";
+      v19 = "[WFBackgroundShortcutRunner workflowController:handleUnsupportedUserInterfaceForAction:currentState:completionHandler:]";
       _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_DEFAULT, "%s Using new punch out logic", buf, 0xCu);
     }
 
     v11 = objc_alloc_init(MEMORY[0x1E69E0D08]);
     dialogTransformer = [(WFBackgroundShortcutRunner *)self dialogTransformer];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __120__WFBackgroundShortcutRunner_workflowController_handleUnsupportedUserInterfaceForAction_currentState_completionHandler___block_invoke;
-    v17[3] = &unk_1E8374A98;
-    v17[4] = self;
-    v18 = handlerCopy;
-    [dialogTransformer performSiriRequest:v11 completionHandler:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __120__WFBackgroundShortcutRunner_workflowController_handleUnsupportedUserInterfaceForAction_currentState_completionHandler___block_invoke;
+    v16[3] = &unk_1E8374A98;
+    v16[4] = self;
+    v17 = handlerCopy;
+    [dialogTransformer performSiriRequest:v11 completionHandler:v16];
   }
 
   else if (v12)
   {
     v14 = [actionCopy description];
     *buf = 138543362;
-    v20 = v14;
+    v19 = v14;
     _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ is not supported in the current user interface.", buf, 0xCu);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return isRunningWithSiriUI;
 }
 
 void __120__WFBackgroundShortcutRunner_workflowController_handleUnsupportedUserInterfaceForAction_currentState_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -2612,16 +2580,16 @@ void __120__WFBackgroundShortcutRunner_workflowController_handleUnsupportedUserI
       }
 
       v7 = objc_alloc_init(WFCompactUnlockService);
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __120__WFBackgroundShortcutRunner_workflowController_handleUnsupportedUserInterfaceForAction_currentState_completionHandler___block_invoke_451;
-      v17[3] = &unk_1E8374A70;
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __120__WFBackgroundShortcutRunner_workflowController_handleUnsupportedUserInterfaceForAction_currentState_completionHandler___block_invoke_451;
+      v16[3] = &unk_1E8374A70;
       v8 = *(a1 + 40);
-      v17[4] = *(a1 + 32);
-      v18 = v7;
-      v19 = v8;
+      v16[4] = *(a1 + 32);
+      v17 = v7;
+      v18 = v8;
       v9 = v7;
-      [(WFCompactUnlockService *)v9 requestUnlockIfNeeded:v17];
+      [(WFCompactUnlockService *)v9 requestUnlockIfNeeded:v16];
     }
 
     else
@@ -2647,10 +2615,10 @@ void __120__WFBackgroundShortcutRunner_workflowController_handleUnsupportedUserI
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v21 = "[WFBackgroundShortcutRunner workflowController:handleUnsupportedUserInterfaceForAction:currentState:completionHandler:]_block_invoke";
-      v22 = 2112;
-      v23 = objc_opt_class();
-      v11 = v23;
+      v20 = "[WFBackgroundShortcutRunner workflowController:handleUnsupportedUserInterfaceForAction:currentState:completionHandler:]_block_invoke";
+      v21 = 2112;
+      v22 = objc_opt_class();
+      v11 = v22;
       _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_FAULT, "%s Received unexpected interaction response of type %@", buf, 0x16u);
     }
 
@@ -2658,8 +2626,6 @@ void __120__WFBackgroundShortcutRunner_workflowController_handleUnsupportedUserI
     v13 = [MEMORY[0x1E696ABC0] wfUnsupportedUserInterfaceError];
     (*(v12 + 16))(v12, v13);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __120__WFBackgroundShortcutRunner_workflowController_handleUnsupportedUserInterfaceForAction_currentState_completionHandler___block_invoke_451(uint64_t a1, int a2)
@@ -2712,43 +2678,39 @@ void __120__WFBackgroundShortcutRunner_workflowController_handleUnsupportedUserI
 
 void __120__WFBackgroundShortcutRunner_workflowController_handleUnsupportedUserInterfaceForAction_currentState_completionHandler___block_invoke_452(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = getWFGeneralLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "[WFBackgroundShortcutRunner workflowController:handleUnsupportedUserInterfaceForAction:currentState:completionHandler:]_block_invoke";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Failed to begin persistent mode: %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[WFBackgroundShortcutRunner workflowController:handleUnsupportedUserInterfaceForAction:currentState:completionHandler:]_block_invoke";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Failed to begin persistent mode: %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)workflowController:(id)controller actionDidRequestWorkflowExit:(id)exit
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   exitCopy = exit;
   v5 = getWFRunningLifecycleLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [exitCopy description];
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ requested shortcut exit.", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ requested shortcut exit.", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)workflowController:(id)controller didRunAction:(id)action error:(id)error completionHandler:(id)handler
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   actionCopy = action;
   errorCopy = error;
@@ -2759,11 +2721,11 @@ void __120__WFBackgroundShortcutRunner_workflowController_handleUnsupportedUserI
     v15 = [actionCopy description];
     output = [actionCopy output];
     *buf = 138543874;
-    v61 = v15;
-    v62 = 1026;
-    *v63 = errorCopy != 0;
-    *&v63[4] = 2112;
-    *&v63[6] = output;
+    v60 = v15;
+    v61 = 1026;
+    *v62 = errorCopy != 0;
+    *&v62[4] = 2112;
+    *&v62[6] = output;
     _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_DEFAULT, "Action finished running %{public}@, error: %{BOOL,public}d, output: %@.", buf, 0x1Cu);
   }
 
@@ -2776,7 +2738,7 @@ void __120__WFBackgroundShortcutRunner_workflowController_handleUnsupportedUserI
     block[1] = 3221225472;
     block[2] = __86__WFBackgroundShortcutRunner_workflowController_didRunAction_error_completionHandler___block_invoke;
     block[3] = &unk_1E837F870;
-    v58 = toolInvocation;
+    v57 = toolInvocation;
     selfCopy = self;
     dispatch_async(v18, block);
   }
@@ -2787,16 +2749,16 @@ void __120__WFBackgroundShortcutRunner_workflowController_handleUnsupportedUserI
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v61 = "[WFBackgroundShortcutRunner workflowController:didRunAction:error:completionHandler:]";
-      v62 = 2112;
-      *v63 = errorCopy;
+      v60 = "[WFBackgroundShortcutRunner workflowController:didRunAction:error:completionHandler:]";
+      v61 = 2112;
+      *v62 = errorCopy;
       _os_log_impl(&dword_1CA256000, v19, OS_LOG_TYPE_DEFAULT, "%s [Step-wise] Sending action result (error: %@) out", buf, 0x16u);
     }
 
     v20 = [actionCopy outputVariableWithVariableProvider:actionCopy UUIDProvider:0];
     v21 = actionCopy;
-    v46 = handlerCopy;
-    v47 = controllerCopy;
+    v45 = handlerCopy;
+    v46 = controllerCopy;
     if (v21)
     {
       objc_opt_class();
@@ -2826,18 +2788,18 @@ void __120__WFBackgroundShortcutRunner_workflowController_handleUnsupportedUserI
       v26 = 0;
     }
 
-    v52[0] = MEMORY[0x1E69E9820];
-    v52[1] = 3221225472;
-    v52[2] = __86__WFBackgroundShortcutRunner_workflowController_didRunAction_error_completionHandler___block_invoke_439;
-    v52[3] = &unk_1E8374A48;
-    v53 = v21;
+    v51[0] = MEMORY[0x1E69E9820];
+    v51[1] = 3221225472;
+    v51[2] = __86__WFBackgroundShortcutRunner_workflowController_didRunAction_error_completionHandler___block_invoke_439;
+    v51[3] = &unk_1E8374A48;
+    v52 = v21;
     v31 = errorCopy;
-    v54 = v31;
+    v53 = v31;
     v30 = v20;
-    v55 = v30;
+    v54 = v30;
     v32 = v26;
-    v56 = v32;
-    [(WFBackgroundShortcutRunner *)self performWithHost:v52];
+    v55 = v32;
+    [(WFBackgroundShortcutRunner *)self performWithHost:v51];
     if ([(WFBackgroundShortcutRunner *)self forcePersistentModeWhileStepping])
     {
       if (v31 && ([v31 wf_isUserCancelledError] & 1) == 0)
@@ -2846,11 +2808,11 @@ void __120__WFBackgroundShortcutRunner_workflowController_handleUnsupportedUserI
         standardClient = [MEMORY[0x1E69E0938] standardClient];
         dialogTransformer = [(WFBackgroundShortcutRunner *)self dialogTransformer];
         [dialogTransformer attribution];
-        v33 = v43 = v27;
+        v33 = v42 = v27;
         currentRunningContext = [(WFBackgroundShortcutRunner *)self currentRunningContext];
         [standardClient postNotificationAboutFailure:v31 inWorkflow:currentRunningWorkflowReference dialogAttribution:v33 runningContext:currentRunningContext];
 
-        v27 = v43;
+        v27 = v42;
       }
 
       objc_opt_class();
@@ -2868,10 +2830,10 @@ void __120__WFBackgroundShortcutRunner_workflowController_handleUnsupportedUserI
       }
     }
 
-    handlerCopy = v46;
-    v46[2](v46);
+    handlerCopy = v45;
+    v45[2](v45);
 
-    controllerCopy = v47;
+    controllerCopy = v46;
   }
 
   else
@@ -2880,67 +2842,62 @@ void __120__WFBackgroundShortcutRunner_workflowController_handleUnsupportedUserI
     output2 = [actionCopy output];
     v30 = [(WFActionDidRunTestingEvent *)v28 initWithAction:actionCopy output:output2 error:errorCopy];
 
-    v48[0] = MEMORY[0x1E69E9820];
-    v48[1] = 3221225472;
-    v48[2] = __86__WFBackgroundShortcutRunner_workflowController_didRunAction_error_completionHandler___block_invoke_444;
-    v48[3] = &unk_1E8374B38;
-    v48[4] = self;
-    v51 = handlerCopy;
-    v49 = actionCopy;
-    v50 = controllerCopy;
-    [(WFBackgroundShortcutRunner *)self handleTestingEventIfTesting:v30 completionHandler:v48];
+    v47[0] = MEMORY[0x1E69E9820];
+    v47[1] = 3221225472;
+    v47[2] = __86__WFBackgroundShortcutRunner_workflowController_didRunAction_error_completionHandler___block_invoke_444;
+    v47[3] = &unk_1E8374B38;
+    v47[4] = self;
+    v50 = handlerCopy;
+    v48 = actionCopy;
+    v49 = controllerCopy;
+    [(WFBackgroundShortcutRunner *)self handleTestingEventIfTesting:v30 completionHandler:v47];
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 void __86__WFBackgroundShortcutRunner_workflowController_didRunAction_error_completionHandler___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = getWFToolKitLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v10 = "[WFBackgroundShortcutRunner workflowController:didRunAction:error:completionHandler:]_block_invoke";
+    v9 = "[WFBackgroundShortcutRunner workflowController:didRunAction:error:completionHandler:]_block_invoke";
     _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_INFO, "%s Donating ToolKit run to ToolKit.Transcript Biome stream", buf, 0xCu);
   }
 
   v3 = *(a1 + 32);
-  v8 = 0;
-  v4 = [v3 donateToBiomeAndReturnError:&v8];
-  v5 = v8;
+  v7 = 0;
+  v4 = [v3 donateToBiomeAndReturnError:&v7];
+  v5 = v7;
   if ((v4 & 1) == 0)
   {
     v6 = getWFToolKitLogObject();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v10 = "[WFBackgroundShortcutRunner workflowController:didRunAction:error:completionHandler:]_block_invoke";
-      v11 = 2112;
-      v12 = v5;
+      v9 = "[WFBackgroundShortcutRunner workflowController:didRunAction:error:completionHandler:]_block_invoke";
+      v10 = 2112;
+      v11 = v5;
       _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s Error donating to Biome: %@", buf, 0x16u);
     }
   }
 
   dispatch_group_leave(*(*(a1 + 40) + 136));
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __86__WFBackgroundShortcutRunner_workflowController_didRunAction_error_completionHandler___block_invoke_439(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
   v4 = a2;
-  v10 = [v3 UUID];
-  v5 = *(a1 + 40);
-  v6 = WFEncodableError();
-  v7 = MEMORY[0x1E69E0958];
-  v8 = [*(a1 + 48) serializedRepresentation];
-  v9 = [v7 objectWithPropertyListObject:v8];
-  [v4 actionWithUUID:v10 didFinishRunningWithError:v6 serializedVariable:v9 executionResultMetadata:*(a1 + 56)];
+  v9 = [v3 UUID];
+  v5 = WFEncodableError();
+  v6 = MEMORY[0x1E69E0958];
+  v7 = [*(a1 + 48) serializedRepresentation];
+  v8 = [v6 objectWithPropertyListObject:v7];
+  [v4 actionWithUUID:v9 didFinishRunningWithError:v5 serializedVariable:v8 executionResultMetadata:*(a1 + 56)];
 }
 
-void __86__WFBackgroundShortcutRunner_workflowController_didRunAction_error_completionHandler___block_invoke_444(uint64_t a1, char a2, void *a3)
+void __86__WFBackgroundShortcutRunner_workflowController_didRunAction_error_completionHandler___block_invoke_444(id *a1, char a2, void *a3)
 {
   v5 = a3;
   if (a2)
@@ -2949,23 +2906,22 @@ void __86__WFBackgroundShortcutRunner_workflowController_didRunAction_error_comp
     aBlock[1] = 3221225472;
     aBlock[2] = __86__WFBackgroundShortcutRunner_workflowController_didRunAction_error_completionHandler___block_invoke_2_445;
     aBlock[3] = &unk_1E837F4E8;
-    v16 = *(a1 + 56);
+    v15 = a1[7];
     v6 = _Block_copy(aBlock);
-    v7 = [*(a1 + 32) dialogTransformer];
+    v7 = [a1[4] dialogTransformer];
     [v7 setCurrentAction:0];
 
-    v8 = *(a1 + 40);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v9 = [MEMORY[0x1E69E0C70] sharedManager];
-      v14 = 0;
-      v10 = [v9 retakeResignedExtensionsWithReason:@"Runner finished Run Workflow" error:&v14];
-      v11 = v14;
+      v8 = [MEMORY[0x1E69E0C70] sharedManager];
+      v13 = 0;
+      v9 = [v8 retakeResignedExtensionsWithReason:@"Runner finished Run Workflow" error:&v13];
+      v10 = v13;
 
-      if ((v10 & 1) == 0)
+      if ((v9 & 1) == 0)
       {
-        [*(a1 + 48) stopWithError:v11];
+        [a1[6] stopWithError:v10];
       }
     }
 
@@ -2974,35 +2930,33 @@ void __86__WFBackgroundShortcutRunner_workflowController_didRunAction_error_comp
 
   else
   {
-    v12 = [*(a1 + 32) stateMachine];
-    v13 = [v5 errorRepresentation];
-    [v12 stopShortcutWithError:v13 reason:@"harness test failed"];
+    v11 = [a1[4] stateMachine];
+    v12 = [v5 errorRepresentation];
+    [v11 stopShortcutWithError:v12 reason:@"harness test failed"];
   }
 }
 
 void __86__WFBackgroundShortcutRunner_workflowController_didRunAction_error_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = getWFGeneralLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "[WFBackgroundShortcutRunner workflowController:didRunAction:error:completionHandler:]_block_invoke_2";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Failed to complete persistent mode: %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[WFBackgroundShortcutRunner workflowController:didRunAction:error:completionHandler:]_block_invoke_2";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Failed to complete persistent mode: %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)workflowController:(id)controller prepareToRunAction:(id)action withInput:(id)input completionHandler:(id)handler
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   actionCopy = action;
   handlerCopy = handler;
@@ -3011,7 +2965,7 @@ void __86__WFBackgroundShortcutRunner_workflowController_didRunAction_error_comp
   {
     v13 = [actionCopy description];
     *buf = 138543362;
-    v44 = v13;
+    v43 = v13;
     _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_DEFAULT, "Running action %{public}@", buf, 0xCu);
   }
 
@@ -3038,23 +2992,23 @@ void __86__WFBackgroundShortcutRunner_workflowController_didRunAction_error_comp
   aBlock[2] = __96__WFBackgroundShortcutRunner_workflowController_prepareToRunAction_withInput_completionHandler___block_invoke;
   aBlock[3] = &unk_1E837ECE0;
   v20 = actionCopy;
-  v40 = v20;
+  v39 = v20;
   selfCopy = self;
   v21 = handlerCopy;
-  v42 = v21;
+  v41 = v21;
   v22 = _Block_copy(aBlock);
   dialogTransformer = [(WFBackgroundShortcutRunner *)self dialogTransformer];
   [dialogTransformer setCurrentAction:v20];
 
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __96__WFBackgroundShortcutRunner_workflowController_prepareToRunAction_withInput_completionHandler___block_invoke_3;
-  v36[3] = &unk_1E8374A20;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __96__WFBackgroundShortcutRunner_workflowController_prepareToRunAction_withInput_completionHandler___block_invoke_3;
+  v35[3] = &unk_1E8374A20;
   v24 = v20;
-  v37 = v24;
+  v36 = v24;
   v25 = controllerCopy;
-  v38 = v25;
-  [(WFBackgroundShortcutRunner *)self performWithRunningProgressSuppressionStateMachine:v36];
+  v37 = v25;
+  [(WFBackgroundShortcutRunner *)self performWithRunningProgressSuppressionStateMachine:v35];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -3077,15 +3031,13 @@ void __86__WFBackgroundShortcutRunner_workflowController_didRunAction_error_comp
     v31 = [v30 if_compactMap:&__block_literal_global_431];
 
     mEMORY[0x1E69E0C70]2 = [MEMORY[0x1E69E0C70] sharedManager];
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __96__WFBackgroundShortcutRunner_workflowController_prepareToRunAction_withInput_completionHandler___block_invoke_5;
-    v34[3] = &unk_1E837D0D0;
-    v35 = v22;
-    [mEMORY[0x1E69E0C70]2 requestSandboxExtensionForRunningActionWithAccessResources:v31 completion:v34];
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __96__WFBackgroundShortcutRunner_workflowController_prepareToRunAction_withInput_completionHandler___block_invoke_5;
+    v33[3] = &unk_1E837D0D0;
+    v34 = v22;
+    [mEMORY[0x1E69E0C70]2 requestSandboxExtensionForRunningActionWithAccessResources:v31 completion:v33];
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __96__WFBackgroundShortcutRunner_workflowController_prepareToRunAction_withInput_completionHandler___block_invoke(uint64_t a1)
@@ -3122,21 +3074,21 @@ uint64_t __96__WFBackgroundShortcutRunner_workflowController_prepareToRunAction_
   return v3();
 }
 
-id __96__WFBackgroundShortcutRunner_workflowController_prepareToRunAction_withInput_completionHandler___block_invoke_4()
+id __96__WFBackgroundShortcutRunner_workflowController_prepareToRunAction_withInput_completionHandler___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  if ([MEMORY[0x1E69E0C68] hasExtensionForResourceClassName:v1])
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  if ([MEMORY[0x1E69E0C68] hasExtensionForResourceClassName:v3])
   {
-    v2 = v1;
+    v4 = v3;
   }
 
   else
   {
-    v2 = 0;
+    v4 = 0;
   }
 
-  return v2;
+  return v4;
 }
 
 void __96__WFBackgroundShortcutRunner_workflowController_prepareToRunAction_withInput_completionHandler___block_invoke_2(uint64_t a1, char a2, void *a3)
@@ -3158,7 +3110,7 @@ void __96__WFBackgroundShortcutRunner_workflowController_prepareToRunAction_with
 - (void)workflowController:(id)controller didFinishRunningWithError:(id)error cancelled:(BOOL)cancelled
 {
   cancelledCopy = cancelled;
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   errorCopy = error;
   if (cancelledCopy)
@@ -3168,7 +3120,7 @@ void __96__WFBackgroundShortcutRunner_workflowController_prepareToRunAction_with
     {
       workflow = [controllerCopy workflow];
       *buf = 138412290;
-      v45 = workflow;
+      v44 = workflow;
       _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_DEFAULT, "Shortcut %@ was cancelled.", buf, 0xCu);
     }
 
@@ -3186,9 +3138,9 @@ void __96__WFBackgroundShortcutRunner_workflowController_prepareToRunAction_with
       {
         workflow2 = [controllerCopy workflow];
         *buf = 138412547;
-        v45 = workflow2;
-        v46 = 2113;
-        v47 = errorCopy;
+        v44 = workflow2;
+        v45 = 2113;
+        v46 = errorCopy;
         _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_DEFAULT, "Shortcut %@ failed with error %{private}@.", buf, 0x16u);
       }
     }
@@ -3200,9 +3152,9 @@ void __96__WFBackgroundShortcutRunner_workflowController_prepareToRunAction_with
         workflow3 = [controllerCopy workflow];
         output = [controllerCopy output];
         *buf = 138412547;
-        v45 = workflow3;
-        v46 = 2113;
-        v47 = output;
+        v44 = workflow3;
+        v45 = 2113;
+        v46 = output;
         _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_DEFAULT, "Shortcut %@ has finished running with output: %{private}@.", buf, 0x16u);
       }
 
@@ -3217,29 +3169,29 @@ void __96__WFBackgroundShortcutRunner_workflowController_prepareToRunAction_with
   aBlock[2] = __85__WFBackgroundShortcutRunner_workflowController_didFinishRunningWithError_cancelled___block_invoke;
   aBlock[3] = &unk_1E8374980;
   v18 = controllerCopy;
-  v42 = v18;
+  v41 = v18;
   selfCopy = self;
   v19 = _Block_copy(aBlock);
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __85__WFBackgroundShortcutRunner_workflowController_didFinishRunningWithError_cancelled___block_invoke_408;
-  v38[3] = &unk_1E837CF40;
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __85__WFBackgroundShortcutRunner_workflowController_didFinishRunningWithError_cancelled___block_invoke_408;
+  v37[3] = &unk_1E837CF40;
   v20 = v19;
-  v40 = v20;
-  v38[4] = self;
+  v39 = v20;
+  v37[4] = self;
   v21 = v18;
-  v39 = v21;
-  v22 = _Block_copy(v38);
+  v38 = v21;
+  v22 = _Block_copy(v37);
   if ([(WFBackgroundShortcutRunner *)self environment]== 4)
   {
     currentRemoteExecutionRunRequest = [(WFBackgroundShortcutRunner *)self currentRemoteExecutionRunRequest];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __85__WFBackgroundShortcutRunner_workflowController_didFinishRunningWithError_cancelled___block_invoke_5;
-    v35[3] = &unk_1E837E1F8;
-    v37 = v22;
-    v36 = v17;
-    [(WFBackgroundShortcutRunner *)self sendResponseForRunRequest:currentRemoteExecutionRunRequest controller:v21 error:v36 completion:v35];
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __85__WFBackgroundShortcutRunner_workflowController_didFinishRunningWithError_cancelled___block_invoke_5;
+    v34[3] = &unk_1E837E1F8;
+    v36 = v22;
+    v35 = v17;
+    [(WFBackgroundShortcutRunner *)self sendResponseForRunRequest:currentRemoteExecutionRunRequest controller:v21 error:v35 completion:v34];
   }
 
   else if ((([v17 wf_isUnsupportedUserInterfaceError] & 1) != 0 || objc_msgSend(v17, "wf_isUnsupportedEnvironmentError")) && (objc_msgSend(v21, "runningContext"), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "isShortcutsApp"), v24, (v25 & 1) == 0))
@@ -3251,15 +3203,15 @@ void __96__WFBackgroundShortcutRunner_workflowController_prepareToRunAction_with
     runSource = [v21 runSource];
     if (v28)
     {
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __85__WFBackgroundShortcutRunner_workflowController_didFinishRunningWithError_cancelled___block_invoke_6;
-      v32[3] = &unk_1E837E1F8;
-      v33 = 0;
-      v34 = v22;
-      [(WFBackgroundShortcutRunner *)self launchAppToContinueFromState:v28 runSource:runSource withCompletion:v32];
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __85__WFBackgroundShortcutRunner_workflowController_didFinishRunningWithError_cancelled___block_invoke_6;
+      v31[3] = &unk_1E837E1F8;
+      v32 = 0;
+      v33 = v22;
+      [(WFBackgroundShortcutRunner *)self launchAppToContinueFromState:v28 runSource:runSource withCompletion:v31];
 
-      v30 = v34;
+      v30 = v33;
     }
 
     else
@@ -3268,7 +3220,7 @@ void __96__WFBackgroundShortcutRunner_workflowController_prepareToRunAction_with
       if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v45 = "[WFBackgroundShortcutRunner workflowController:didFinishRunningWithError:cancelled:]";
+        v44 = "[WFBackgroundShortcutRunner workflowController:didFinishRunningWithError:cancelled:]";
         _os_log_impl(&dword_1CA256000, v30, OS_LOG_TYPE_FAULT, "%s Need to handoff, but workflow controller state is nil", buf, 0xCu);
       }
     }
@@ -3278,8 +3230,6 @@ void __96__WFBackgroundShortcutRunner_workflowController_prepareToRunAction_with
   {
     (*(v22 + 2))(v22, v17);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __85__WFBackgroundShortcutRunner_workflowController_didFinishRunningWithError_cancelled___block_invoke(uint64_t a1, void *a2)
@@ -3396,15 +3346,15 @@ void __85__WFBackgroundShortcutRunner_workflowController_didFinishRunningWithErr
 
 void __85__WFBackgroundShortcutRunner_workflowController_didFinishRunningWithError_cancelled___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (a2 == 2)
   {
     v9 = getWFSecurityLogObject();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315138;
-      v12 = "[WFBackgroundShortcutRunner workflowController:didFinishRunningWithError:cancelled:]_block_invoke";
-      _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_DEFAULT, "%s User selected Allow Once at output smart prompt", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[WFBackgroundShortcutRunner workflowController:didFinishRunningWithError:cancelled:]_block_invoke";
+      _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_DEFAULT, "%s User selected Allow Once at output smart prompt", &v10, 0xCu);
     }
 
     v4 = [*(a1 + 32) output];
@@ -3415,9 +3365,9 @@ void __85__WFBackgroundShortcutRunner_workflowController_didFinishRunningWithErr
     v5 = getWFSecurityLogObject();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315138;
-      v12 = "[WFBackgroundShortcutRunner workflowController:didFinishRunningWithError:cancelled:]_block_invoke";
-      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s User selected Allow Always at output smart prompt", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[WFBackgroundShortcutRunner workflowController:didFinishRunningWithError:cancelled:]_block_invoke";
+      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s User selected Allow Always at output smart prompt", &v10, 0xCu);
     }
 
     v4 = [*(a1 + 32) output];
@@ -3434,9 +3384,9 @@ void __85__WFBackgroundShortcutRunner_workflowController_didFinishRunningWithErr
       v3 = getWFSecurityLogObject();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 136315138;
-        v12 = "[WFBackgroundShortcutRunner workflowController:didFinishRunningWithError:cancelled:]_block_invoke_2";
-        _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s User selected Deny at output smart prompt", &v11, 0xCu);
+        v10 = 136315138;
+        v11 = "[WFBackgroundShortcutRunner workflowController:didFinishRunningWithError:cancelled:]_block_invoke_2";
+        _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s User selected Deny at output smart prompt", &v10, 0xCu);
       }
     }
 
@@ -3444,22 +3394,30 @@ void __85__WFBackgroundShortcutRunner_workflowController_didFinishRunningWithErr
   }
 
   (*(*(a1 + 40) + 16))();
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (void)workflowController:(id)controller didDecideRunningProgressIsAllowed:(BOOL)allowed forAction:(id)action
+{
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __93__WFBackgroundShortcutRunner_workflowController_didDecideRunningProgressIsAllowed_forAction___block_invoke;
+  v5[3] = &__block_descriptor_33_e50_v16__0__WFRunningProgressSuppressionStateMachine_8l;
+  allowedCopy = allowed;
+  [(WFBackgroundShortcutRunner *)self performWithRunningProgressSuppressionStateMachine:v5, allowed, action];
 }
 
 - (void)workflowControllerWillRun:(id)run
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   runCopy = run;
   v5 = getWFXPCRunnerLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     workflow = [runCopy workflow];
     *buf = 136315394;
-    v30 = "[WFBackgroundShortcutRunner workflowControllerWillRun:]";
-    v31 = 2112;
-    v32 = workflow;
+    v29 = "[WFBackgroundShortcutRunner workflowControllerWillRun:]";
+    v30 = 2112;
+    v31 = workflow;
     _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEBUG, "%s Workflow controller starting for workflow: %@", buf, 0x16u);
   }
 
@@ -3484,9 +3442,9 @@ void __85__WFBackgroundShortcutRunner_workflowController_didFinishRunningWithErr
   if (requiredResourcesForContent)
   {
     mEMORY[0x1E69E0C70] = [MEMORY[0x1E69E0C70] sharedManager];
-    v28 = 0;
-    v18 = [mEMORY[0x1E69E0C70] requestSandboxExtensionForRunningActionWithAccessResources:requiredResourcesForContent error:&v28];
-    v19 = v28;
+    v27 = 0;
+    v18 = [mEMORY[0x1E69E0C70] requestSandboxExtensionForRunningActionWithAccessResources:requiredResourcesForContent error:&v27];
+    v19 = v27;
 
     if ((v18 & 1) == 0)
     {
@@ -3494,9 +3452,9 @@ void __85__WFBackgroundShortcutRunner_workflowController_didFinishRunningWithErr
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v30 = "[WFBackgroundShortcutRunner workflowControllerWillRun:]";
-        v31 = 2112;
-        v32 = requiredResourcesForContent;
+        v29 = "[WFBackgroundShortcutRunner workflowControllerWillRun:]";
+        v30 = 2112;
+        v31 = requiredResourcesForContent;
         _os_log_impl(&dword_1CA256000, v20, OS_LOG_TYPE_ERROR, "%s Error consuming sandbox resources %@ required to access shortcut input. The shortcut might have trouble accessing its input.", buf, 0x16u);
       }
     }
@@ -3505,18 +3463,16 @@ void __85__WFBackgroundShortcutRunner_workflowController_didFinishRunningWithErr
   dialogTransformer4 = [(WFBackgroundShortcutRunner *)self dialogTransformer];
   [dialogTransformer4 workflowWillBegin];
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __56__WFBackgroundShortcutRunner_workflowControllerWillRun___block_invoke;
-  v25[3] = &unk_1E8374938;
-  v25[4] = self;
-  v26 = attribution;
-  v27 = runCopy;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __56__WFBackgroundShortcutRunner_workflowControllerWillRun___block_invoke;
+  v24[3] = &unk_1E8374938;
+  v24[4] = self;
+  v25 = attribution;
+  v26 = runCopy;
   v22 = runCopy;
   v23 = attribution;
-  [(WFBackgroundShortcutRunner *)self performWithHost:v25];
-
-  v24 = *MEMORY[0x1E69E9840];
+  [(WFBackgroundShortcutRunner *)self performWithHost:v24];
 }
 
 void __56__WFBackgroundShortcutRunner_workflowControllerWillRun___block_invoke(uint64_t a1, void *a2)
@@ -3592,19 +3548,17 @@ void __59__WFBackgroundShortcutRunner_synchronouslyPerformWithHost___block_invok
 
 void __59__WFBackgroundShortcutRunner_synchronouslyPerformWithHost___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = getWFXPCRunnerLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[WFBackgroundShortcutRunner synchronouslyPerformWithHost:]_block_invoke_2";
-    v7 = 2114;
-    v8 = v2;
-    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s failed to get remote object proxy to host: %{public}@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[WFBackgroundShortcutRunner synchronouslyPerformWithHost:]_block_invoke_2";
+    v6 = 2114;
+    v7 = v2;
+    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s failed to get remote object proxy to host: %{public}@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performWithHost:(id)host
@@ -3631,24 +3585,22 @@ void __46__WFBackgroundShortcutRunner_performWithHost___block_invoke(uint64_t a1
 
 void __46__WFBackgroundShortcutRunner_performWithHost___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = getWFXPCRunnerLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[WFBackgroundShortcutRunner performWithHost:]_block_invoke_2";
-    v7 = 2114;
-    v8 = v2;
-    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s failed to get remote object proxy to host: %{public}@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[WFBackgroundShortcutRunner performWithHost:]_block_invoke_2";
+    v6 = 2114;
+    v7 = v2;
+    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s failed to get remote object proxy to host: %{public}@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)allowIncomingRunRequest:(id)request withDescriptor:(id)descriptor accessSpecifier:(id)specifier record:(id)record
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   descriptorCopy = descriptor;
   specifierCopy = specifier;
@@ -3727,26 +3679,8 @@ LABEL_8:
 
   associatedAppBundleIdentifier = [v21 associatedAppBundleIdentifier];
 
-  if (associatedAppBundleIdentifier && ([associatedAppBundleIdentifier wf_isEmpty] & 1) == 0 && (objc_msgSend(specifierCopy, "allowLinkContextualActionRunningForBundleIdentifier:", associatedAppBundleIdentifier) & 1) != 0)
+  if (associatedAppBundleIdentifier && ([associatedAppBundleIdentifier wf_isEmpty] & 1) == 0 && (objc_msgSend(specifierCopy, "allowLinkContextualActionRunningForBundleIdentifier:", associatedAppBundleIdentifier) & 1) != 0 || objc_msgSend(specifierCopy, "allowCustomShortcutRunning") && (v23 = v15, objc_opt_class(), v24 = objc_opt_isKindOfClass(), v23, (v24 & 1) != 0) || objc_msgSend(specifierCopy, "allowStepwiseExecution") && (v25 = v15, objc_opt_class(), v26 = objc_opt_isKindOfClass(), v25, (v26 & 1) != 0) || (objc_msgSend(specifierCopy, "allowHomeResidentShortcutRunning") & 1) != 0)
   {
-    goto LABEL_26;
-  }
-
-  if ([specifierCopy allowCustomShortcutRunning])
-  {
-    v23 = v15;
-    objc_opt_class();
-    v24 = objc_opt_isKindOfClass();
-
-    if (v24)
-    {
-      goto LABEL_26;
-    }
-  }
-
-  if ([specifierCopy allowStepwiseExecution] && (v25 = v15, objc_opt_class(), v26 = objc_opt_isKindOfClass(), v25, (v26 & 1) != 0) || (objc_msgSend(specifierCopy, "allowHomeResidentShortcutRunning") & 1) != 0)
-  {
-LABEL_26:
     LOBYTE(v11) = 1;
   }
 
@@ -3757,31 +3691,31 @@ LABEL_26:
     {
       action2 = [v27 action];
       WFStaticContextualActionDefinitionsForSurface();
+      v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
-      v29 = v37 = 0u;
-      v11 = [v29 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v29 = v36 = 0u;
+      v11 = [v29 countByEnumeratingWithState:&v33 objects:v37 count:16];
       if (v11)
       {
-        v30 = *v35;
+        v30 = *v34;
         while (2)
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v35 != v30)
+            if (*v34 != v30)
             {
               objc_enumerationMutation(v29);
             }
 
-            if ([*(*(&v34 + 1) + 8 * i) isEqual:{action2, v34}])
+            if ([*(*(&v33 + 1) + 8 * i) isEqual:{action2, v33}])
             {
               LOBYTE(v11) = 1;
               goto LABEL_40;
             }
           }
 
-          v11 = [v29 countByEnumeratingWithState:&v34 objects:v38 count:16];
+          v11 = [v29 countByEnumeratingWithState:&v33 objects:v37 count:16];
           if (v11)
           {
             continue;
@@ -3802,40 +3736,39 @@ LABEL_40:
   }
 
 LABEL_43:
-  v32 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (void)computeFinderResizedSizesForImages:(id)images inSizes:(id)sizes completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   imagesCopy = images;
   sizesCopy = sizes;
   completionCopy = completion;
   v9 = objc_alloc_init(WFFinderImageResizer);
   v10 = objc_alloc_init(MEMORY[0x1E6996D40]);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v11 = imagesCopy;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       v15 = 0;
       do
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
         v16 = MEMORY[0x1E6996E20];
-        fileURL = [*(*(&v21 + 1) + 8 * v15) fileURL];
+        fileURL = [*(*(&v20 + 1) + 8 * v15) fileURL];
         v18 = [v16 fileWithURL:fileURL options:29];
 
         [v10 addFile:v18];
@@ -3843,44 +3776,43 @@ LABEL_43:
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v13);
   }
 
   [(WFFinderImageResizer *)v9 computeResizedSizesForImages:v10 inSizes:sizesCopy completion:completionCopy];
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)filterContextualActions:(id)actions forContext:(id)context completion:(id)completion
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
   contextCopy = context;
   completionCopy = completion;
   v8 = objc_alloc_init(MEMORY[0x1E6996D40]);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v29 = contextCopy;
+  v28 = contextCopy;
   obj = [contextCopy files];
-  v9 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v9 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v35;
+    v11 = *v34;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v35 != v11)
+        if (*v34 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v34 + 1) + 8 * i);
+        v13 = *(*(&v33 + 1) + 8 * i);
         v14 = MEMORY[0x1E6996E20];
         fileURL = [v13 fileURL];
         v16 = MEMORY[0x1E69E0AF8];
@@ -3892,7 +3824,7 @@ LABEL_43:
         [v8 addFile:v20];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v10 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v10);
@@ -3902,17 +3834,15 @@ LABEL_43:
   v22 = +[WFActionRegistry sharedRegistry];
   v23 = [v22 createActionsWithIdentifiers:v21 serializedParameterArray:0];
 
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __76__WFBackgroundShortcutRunner_filterContextualActions_forContext_completion___block_invoke_2;
-  v31[3] = &unk_1E8374910;
-  v32 = actionsCopy;
-  v33 = v8;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __76__WFBackgroundShortcutRunner_filterContextualActions_forContext_completion___block_invoke_2;
+  v30[3] = &unk_1E8374910;
+  v31 = actionsCopy;
+  v32 = v8;
   v24 = v8;
   v25 = actionsCopy;
-  [v23 if_mapAsynchronously:v31 completionHandler:completionCopy];
-
-  v26 = *MEMORY[0x1E69E9840];
+  [v23 if_mapAsynchronously:v30 completionHandler:completionCopy];
 }
 
 void __76__WFBackgroundShortcutRunner_filterContextualActions_forContext_completion___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -3951,53 +3881,52 @@ uint64_t __76__WFBackgroundShortcutRunner_filterContextualActions_forContext_com
 
 - (void)getContextualActionsForContext:(id)context completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   completionCopy = completion;
   v7 = +[WFActionRegistry sharedRegistry];
   v8 = [v7 createActionsWithIdentifiers:MEMORY[0x1E695E0F0] serializedParameterArray:0];
 
   v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v17 + 1) + 8 * v14) contextualActionsForSurface:{objc_msgSend(contextCopy, "surface", v17)}];
+        v15 = [*(*(&v16 + 1) + 8 * v14) contextualActionsForSurface:{objc_msgSend(contextCopy, "surface", v16)}];
         [v9 addObjectsFromArray:v15];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v12);
   }
 
   completionCopy[2](completionCopy, v9, 0);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendResponseForRunRequest:(id)request controller:(id)controller error:(id)error completion:(id)completion
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   controllerCopy = controller;
   errorCopy = error;
@@ -4007,11 +3936,11 @@ uint64_t __76__WFBackgroundShortcutRunner_filterContextualActions_forContext_com
   {
     identifier = [requestCopy identifier];
     *buf = 136315650;
-    v30 = "[WFBackgroundShortcutRunner sendResponseForRunRequest:controller:error:completion:]";
-    v31 = 2114;
-    v32 = identifier;
-    v33 = 2114;
-    v34 = errorCopy;
+    v29 = "[WFBackgroundShortcutRunner sendResponseForRunRequest:controller:error:completion:]";
+    v30 = 2114;
+    v31 = identifier;
+    v32 = 2114;
+    v33 = errorCopy;
     _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_INFO, "%s <%{public}@> preparing to send response, error: %{public}@", buf, 0x20u);
   }
 
@@ -4028,9 +3957,9 @@ uint64_t __76__WFBackgroundShortcutRunner_filterContextualActions_forContext_com
     [v20 setCoordinator:remoteExecutionCoordinator];
 
     v22 = objc_alloc_init(MEMORY[0x1E69C65C0]);
-    v28 = 0;
-    [v20 writeTo:v22 error:&v28];
-    v23 = v28;
+    v27 = 0;
+    [v20 writeTo:v22 error:&v27];
+    v23 = v27;
     immutableData = [v22 immutableData];
 
     if (immutableData)
@@ -4046,9 +3975,9 @@ uint64_t __76__WFBackgroundShortcutRunner_filterContextualActions_forContext_com
       if (os_log_type_enabled(remoteExecutionCoordinator2, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v30 = "[WFBackgroundShortcutRunner sendResponseForRunRequest:controller:error:completion:]";
-        v31 = 2114;
-        v32 = v23;
+        v29 = "[WFBackgroundShortcutRunner sendResponseForRunRequest:controller:error:completion:]";
+        v30 = 2114;
+        v31 = v23;
         _os_log_impl(&dword_1CA256000, remoteExecutionCoordinator2, OS_LOG_TYPE_FAULT, "%s An error occurred while writing the run request data %{public}@", buf, 0x16u);
       }
     }
@@ -4060,35 +3989,31 @@ uint64_t __76__WFBackgroundShortcutRunner_filterContextualActions_forContext_com
     if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v30 = "[WFBackgroundShortcutRunner sendResponseForRunRequest:controller:error:completion:]";
+      v29 = "[WFBackgroundShortcutRunner sendResponseForRunRequest:controller:error:completion:]";
       _os_log_impl(&dword_1CA256000, v20, OS_LOG_TYPE_FAULT, "%s Unable to send response for run request because the run request did not have an identifier", buf, 0xCu);
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleIncomingFileForRemoteExecutionWithURL:(id)l withIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   lCopy = l;
   identifierCopy = identifier;
   v8 = getWFRemoteExecutionLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315650;
-    v12 = "[WFBackgroundShortcutRunner handleIncomingFileForRemoteExecutionWithURL:withIdentifier:]";
-    v13 = 2112;
-    v14 = identifierCopy;
-    v15 = 2112;
-    v16 = lCopy;
-    _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_INFO, "%s Incoming file with id: %@, at fileURL: %@", &v11, 0x20u);
+    v10 = 136315650;
+    v11 = "[WFBackgroundShortcutRunner handleIncomingFileForRemoteExecutionWithURL:withIdentifier:]";
+    v12 = 2112;
+    v13 = identifierCopy;
+    v14 = 2112;
+    v15 = lCopy;
+    _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_INFO, "%s Incoming file with id: %@, at fileURL: %@", &v10, 0x20u);
   }
 
   fileCoordinator = [(WFBackgroundShortcutRunner *)self fileCoordinator];
   [fileCoordinator handleFile:lCopy withIdentifier:identifierCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (WFRemoteExecutionCoordinator)remoteExecutionCoordinator
@@ -4240,7 +4165,7 @@ LABEL_9:
 
 - (void)runningProgressSuppressionStateMachine:(id)machine didDecideRunningProgressIsAllowed:(BOOL)allowed dialogAttribution:(id)attribution
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   attributionCopy = attribution;
   queue = [(WFBackgroundShortcutRunner *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -4258,11 +4183,11 @@ LABEL_9:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v23 = "[WFBackgroundShortcutRunner runningProgressSuppressionStateMachine:didDecideRunningProgressIsAllowed:dialogAttribution:]";
-    v24 = 1024;
-    v25 = shortcutShouldShowRunningProgress;
-    v26 = 1024;
-    v27 = userInterfacePresenter != 0;
+    v22 = "[WFBackgroundShortcutRunner runningProgressSuppressionStateMachine:didDecideRunningProgressIsAllowed:dialogAttribution:]";
+    v23 = 1024;
+    v24 = shortcutShouldShowRunningProgress;
+    v25 = 1024;
+    v26 = userInterfacePresenter != 0;
     _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_DEFAULT, "%s Deciding if persistent mode should be started: shortcutShouldShowRunningProgress: %d, hasUserInterfacePresenter: %d", buf, 0x18u);
   }
 
@@ -4275,7 +4200,7 @@ LABEL_9:
       if (v16)
       {
         *buf = 136315138;
-        v23 = "[WFBackgroundShortcutRunner runningProgressSuppressionStateMachine:didDecideRunningProgressIsAllowed:dialogAttribution:]";
+        v22 = "[WFBackgroundShortcutRunner runningProgressSuppressionStateMachine:didDecideRunningProgressIsAllowed:dialogAttribution:]";
         _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_DEFAULT, "%s Beginning persistent mode", buf, 0xCu);
       }
 
@@ -4283,12 +4208,12 @@ LABEL_9:
       dialogTransformer2 = [(WFBackgroundShortcutRunner *)self dialogTransformer];
       userInterfacePresenter2 = [dialogTransformer2 userInterfacePresenter];
       currentRunningContext = [(WFBackgroundShortcutRunner *)self currentRunningContext];
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __121__WFBackgroundShortcutRunner_runningProgressSuppressionStateMachine_didDecideRunningProgressIsAllowed_dialogAttribution___block_invoke;
-      v21[3] = &unk_1E837E5E0;
-      v21[4] = self;
-      [userInterfacePresenter2 beginPersistentModeWithRunningContext:currentRunningContext attribution:attributionCopy completionHandler:v21];
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __121__WFBackgroundShortcutRunner_runningProgressSuppressionStateMachine_didDecideRunningProgressIsAllowed_dialogAttribution___block_invoke;
+      v20[3] = &unk_1E837E5E0;
+      v20[4] = self;
+      [userInterfacePresenter2 beginPersistentModeWithRunningContext:currentRunningContext attribution:attributionCopy completionHandler:v20];
     }
 
     else
@@ -4296,51 +4221,46 @@ LABEL_9:
       if (v16)
       {
         *buf = 136315138;
-        v23 = "[WFBackgroundShortcutRunner runningProgressSuppressionStateMachine:didDecideRunningProgressIsAllowed:dialogAttribution:]";
+        v22 = "[WFBackgroundShortcutRunner runningProgressSuppressionStateMachine:didDecideRunningProgressIsAllowed:dialogAttribution:]";
         _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_DEFAULT, "%s Would have started persistent mode, but we are asked to suppress running progress dialogs", buf, 0xCu);
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __121__WFBackgroundShortcutRunner_runningProgressSuppressionStateMachine_didDecideRunningProgressIsAllowed_dialogAttribution___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = getWFGeneralLogObject();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315394;
-      v7 = "[WFBackgroundShortcutRunner runningProgressSuppressionStateMachine:didDecideRunningProgressIsAllowed:dialogAttribution:]_block_invoke";
-      v8 = 2112;
-      v9 = v3;
-      _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_ERROR, "%s Failed to begin persistent mode: %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "[WFBackgroundShortcutRunner runningProgressSuppressionStateMachine:didDecideRunningProgressIsAllowed:dialogAttribution:]_block_invoke";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_ERROR, "%s Failed to begin persistent mode: %@", &v5, 0x16u);
     }
   }
 
   dispatch_group_leave(*(*(a1 + 32) + 136));
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)runnerStateMachineDidRequestProcessExit:(id)exit
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = getWFXPCRunnerLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315138;
-    v7 = "[WFBackgroundShortcutRunner runnerStateMachineDidRequestProcessExit:]";
-    _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_DEBUG, "%s Notify the host that runner will exit", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[WFBackgroundShortcutRunner runnerStateMachineDidRequestProcessExit:]";
+    _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_DEBUG, "%s Notify the host that runner will exit", &v5, 0xCu);
   }
 
   [(WFBackgroundShortcutRunner *)self synchronouslyPerformWithHost:&__block_literal_global_364];
   [(WFBackgroundShortcutRunner *)self unaliveProcess];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)runnerStateMachine:(id)machine didFinishRunningShortcutWithResult:(id)result
@@ -4368,37 +4288,27 @@ void __84__WFBackgroundShortcutRunner_runnerStateMachine_didFinishRunningShortcu
 {
   errorCopy = error;
   workflowController = [(WFBackgroundShortcutRunner *)self workflowController];
-  if (!workflowController)
+  if (workflowController && (v6 = workflowController, -[WFBackgroundShortcutRunner workflowController](self, "workflowController"), v7 = objc_claimAutoreleasedReturnValue(), [v7 workflow], v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v6, v8))
   {
-    goto LABEL_4;
-  }
-
-  v6 = workflowController;
-  workflowController2 = [(WFBackgroundShortcutRunner *)self workflowController];
-  workflow = [workflowController2 workflow];
-
-  if (workflow)
-  {
-    workflowController3 = [(WFBackgroundShortcutRunner *)self workflowController];
-    [workflowController3 stopWithError:errorCopy];
+    workflowController2 = [(WFBackgroundShortcutRunner *)self workflowController];
+    [workflowController2 stopWithError:errorCopy];
   }
 
   else
   {
-LABEL_4:
     completionBlock = [(WFBackgroundShortcutRunner *)self completionBlock];
 
     if (completionBlock)
     {
-      workflowController3 = [objc_alloc(MEMORY[0x1E69E0E28]) initWithError:errorCopy];
+      workflowController2 = [objc_alloc(MEMORY[0x1E69E0E28]) initWithError:errorCopy];
       stateMachine = [(WFBackgroundShortcutRunner *)self stateMachine];
-      [stateMachine finishRunningWithReason:@"runner was asked to stop but there's a completion handler and NO workflow" result:workflowController3];
+      [stateMachine finishRunningWithReason:@"runner was asked to stop but there's a completion handler and NO workflow" result:workflowController2];
     }
 
     else
     {
-      workflowController3 = [(WFBackgroundShortcutRunner *)self stateMachine];
-      [workflowController3 exitWithReason:{@"-stop was called and there is no running shortcut, proceeding directly to stop"}];
+      workflowController2 = [(WFBackgroundShortcutRunner *)self stateMachine];
+      [workflowController2 exitWithReason:{@"-stop was called and there is no running shortcut, proceeding directly to stop"}];
     }
   }
 }
@@ -4512,7 +4422,7 @@ LABEL_12:
 
 - (void)callWorkflowRunningCompletionBlockWithResult:(id)result
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   queue = [(WFBackgroundShortcutRunner *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -4525,9 +4435,9 @@ LABEL_12:
   {
     if (v8)
     {
-      v12 = 136315138;
-      v13 = "[WFBackgroundShortcutRunner callWorkflowRunningCompletionBlockWithResult:]";
-      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEFAULT, "%s Workflow Did Finish: Calling Completion Block", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[WFBackgroundShortcutRunner callWorkflowRunningCompletionBlockWithResult:]";
+      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEFAULT, "%s Workflow Did Finish: Calling Completion Block", &v11, 0xCu);
     }
 
     completionBlock2 = [(WFBackgroundShortcutRunner *)self completionBlock];
@@ -4539,62 +4449,56 @@ LABEL_12:
     v7 = getWFGeneralLogObject();
     if (os_signpost_enabled(v7))
     {
-      LOWORD(v12) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1CA256000, v7, OS_SIGNPOST_INTERVAL_END, 0xFFFFFFFEuLL, "BackgroundRunnerExecute", "", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1CA256000, v7, OS_SIGNPOST_INTERVAL_END, 0xFFFFFFFEuLL, "BackgroundRunnerExecute", "", &v11, 2u);
     }
   }
 
   else if (v8)
   {
-    v12 = 136315138;
-    v13 = "[WFBackgroundShortcutRunner callWorkflowRunningCompletionBlockWithResult:]";
-    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEFAULT, "%s Workflow Did Finish: No Completion Block", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[WFBackgroundShortcutRunner callWorkflowRunningCompletionBlockWithResult:]";
+    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEFAULT, "%s Workflow Did Finish: No Completion Block", &v11, 0xCu);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __44__WFBackgroundShortcutRunner_unaliveProcess__block_invoke_351(uint64_t a1)
+uint64_t __44__WFBackgroundShortcutRunner_unaliveProcess__block_invoke_351(uint64_t a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v2 = getWFXPCRunnerLogObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v3 = getWFXPCRunnerLogObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     v5 = 136315138;
     v6 = "[WFBackgroundShortcutRunner unaliveProcess]_block_invoke";
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Forcing BGSR exit with dirty tasks. This is a programmer error. Exiting anyways.", &v5, 0xCu);
+    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_FAULT, "%s Forcing BGSR exit with dirty tasks. This is a programmer error. Exiting anyways.", &v5, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 - (void)stopWithError:(id)error
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v5 = getWFXPCRunnerLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     workflowController = [(WFBackgroundShortcutRunner *)self workflowController];
     workflow = [workflowController workflow];
-    v10 = 136315394;
-    v11 = "[WFBackgroundShortcutRunner stopWithError:]";
-    v12 = 2112;
-    v13 = workflow;
-    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s Requested stopping workflow run: %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[WFBackgroundShortcutRunner stopWithError:]";
+    v11 = 2112;
+    v12 = workflow;
+    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s Requested stopping workflow run: %@", &v9, 0x16u);
   }
 
   stateMachine = [(WFBackgroundShortcutRunner *)self stateMachine];
   [stateMachine stopShortcutWithError:errorCopy reason:@"-stop was called"];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resumeRunningFromContext:(id)context withRequest:(id)request completion:(id)completion
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   requestCopy = request;
   completionCopy = completion;
@@ -4617,9 +4521,9 @@ uint64_t __44__WFBackgroundShortcutRunner_unaliveProcess__block_invoke_351(uint6
   if (v17)
   {
     runSource = [requestCopy runSource];
-    v19 = [runSource isEqualToString:*MEMORY[0x1E69E13B0]];
+    isEqualToString = objc_msgSend_isEqualToString_(runSource);
 
-    if (v19)
+    if (isEqualToString)
     {
       [(WFBackgroundShortcutRunner *)self setIsPersonalAutomation:1];
     }
@@ -4640,17 +4544,17 @@ uint64_t __44__WFBackgroundShortcutRunner_unaliveProcess__block_invoke_351(uint6
 
     v29 = [objc_alloc(MEMORY[0x1E69E0C78]) initWithAccessResourceClassNames:v28];
     mEMORY[0x1E69E0C70] = [MEMORY[0x1E69E0C70] sharedManager];
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __78__WFBackgroundShortcutRunner_resumeRunningFromContext_withRequest_completion___block_invoke;
-    v34[3] = &unk_1E8374838;
-    v35 = v17;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __78__WFBackgroundShortcutRunner_resumeRunningFromContext_withRequest_completion___block_invoke;
+    v33[3] = &unk_1E8374838;
+    v34 = v17;
     selfCopy = self;
-    v37 = contextCopy;
-    v38 = requestCopy;
-    [mEMORY[0x1E69E0C70] performWithSandboxExtensions:v29 asynchronousBlock:v34];
+    v36 = contextCopy;
+    v37 = requestCopy;
+    [mEMORY[0x1E69E0C70] performWithSandboxExtensions:v29 asynchronousBlock:v33];
 
-    stateMachine2 = v35;
+    stateMachine2 = v34;
   }
 
   else
@@ -4659,20 +4563,20 @@ uint64_t __44__WFBackgroundShortcutRunner_unaliveProcess__block_invoke_351(uint6
     if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v42 = "[WFBackgroundShortcutRunner resumeRunningFromContext:withRequest:completion:]";
-      v43 = 2112;
-      v44 = contextCopy;
+      v41 = "[WFBackgroundShortcutRunner resumeRunningFromContext:withRequest:completion:]";
+      v42 = 2112;
+      v43 = contextCopy;
       _os_log_impl(&dword_1CA256000, v23, OS_LOG_TYPE_FAULT, "%s Unable to get state URL from context: %@", buf, 0x16u);
     }
 
     v24 = MEMORY[0x1E696ABC0];
-    v39[0] = *MEMORY[0x1E696A578];
+    v38[0] = *MEMORY[0x1E696A578];
     v25 = WFLocalizedString(@"Unable to run");
-    v40[0] = v25;
-    v39[1] = *MEMORY[0x1E696A588];
+    v39[0] = v25;
+    v38[1] = *MEMORY[0x1E696A588];
     v26 = WFLocalizedString(@"An error occurred while resuming your shortcut.");
-    v40[1] = v26;
-    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:2];
+    v39[1] = v26;
+    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:2];
     v28 = [v24 errorWithDomain:@"WFBackgroundShortcutRunnerErrorDomain" code:11 userInfo:v27];
 
     v29 = [objc_alloc(MEMORY[0x1E69E0E28]) initWithError:v28];
@@ -4680,13 +4584,11 @@ uint64_t __44__WFBackgroundShortcutRunner_unaliveProcess__block_invoke_351(uint6
     contextCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unable to get state URL from context: %@", contextCopy];
     [stateMachine2 finishRunningWithReason:contextCopy2 result:v29];
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __78__WFBackgroundShortcutRunner_resumeRunningFromContext_withRequest_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   if (v6)
@@ -4695,32 +4597,30 @@ void __78__WFBackgroundShortcutRunner_resumeRunningFromContext_withRequest_compl
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v19 = "[WFBackgroundShortcutRunner resumeRunningFromContext:withRequest:completion:]_block_invoke";
-      v20 = 2112;
-      v21 = v6;
+      v18 = "[WFBackgroundShortcutRunner resumeRunningFromContext:withRequest:completion:]_block_invoke";
+      v19 = 2112;
+      v20 = v6;
       _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Error temporarily taking all sandbox extensions at workflow run resume: %@", buf, 0x16u);
     }
   }
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __78__WFBackgroundShortcutRunner_resumeRunningFromContext_withRequest_completion___block_invoke_332;
-  v13[3] = &unk_1E8374810;
-  v12 = *(a1 + 32);
-  v9 = v12.i64[0];
-  v14 = vextq_s8(v12, v12, 8uLL);
-  v17 = v7;
-  v15 = *(a1 + 48);
-  v16 = *(a1 + 56);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __78__WFBackgroundShortcutRunner_resumeRunningFromContext_withRequest_completion___block_invoke_332;
+  v12[3] = &unk_1E8374810;
+  v11 = *(a1 + 32);
+  v9 = v11.i64[0];
+  v13 = vextq_s8(v11, v11, 8uLL);
+  v16 = v7;
+  v14 = *(a1 + 48);
+  v15 = *(a1 + 56);
   v10 = v7;
-  [WFWorkflowControllerState getStateFromURL:v9 completionHandler:v13];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [WFWorkflowControllerState getStateFromURL:v9 completionHandler:v12];
 }
 
 void __78__WFBackgroundShortcutRunner_resumeRunningFromContext_withRequest_completion___block_invoke_332(uint64_t a1, void *a2, void *a3)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v5 workflow];
@@ -4763,9 +4663,9 @@ LABEL_11:
     [(WFWorkflowController *)v12 run];
     v17 = [MEMORY[0x1E696AC08] defaultManager];
     v18 = *(a1 + 40);
-    v32 = v6;
-    LOBYTE(v16) = [v17 removeItemAtURL:v18 error:&v32];
-    v19 = v32;
+    v31 = v6;
+    LOBYTE(v16) = [v17 removeItemAtURL:v18 error:&v31];
+    v19 = v31;
 
     if ((v16 & 1) == 0)
     {
@@ -4774,11 +4674,11 @@ LABEL_11:
       {
         v21 = *(a1 + 40);
         *buf = 136315650;
-        v36 = "[WFBackgroundShortcutRunner resumeRunningFromContext:withRequest:completion:]_block_invoke";
-        v37 = 2112;
-        v38 = v21;
-        v39 = 2112;
-        v40 = v19;
+        v35 = "[WFBackgroundShortcutRunner resumeRunningFromContext:withRequest:completion:]_block_invoke";
+        v36 = 2112;
+        v37 = v21;
+        v38 = 2112;
+        v39 = v19;
         _os_log_impl(&dword_1CA256000, v20, OS_LOG_TYPE_ERROR, "%s Unable to remove serialized state file at URL (%@): %@", buf, 0x20u);
       }
     }
@@ -4794,22 +4694,22 @@ LABEL_12:
   {
     v23 = *(a1 + 40);
     *buf = 136315650;
-    v36 = "[WFBackgroundShortcutRunner resumeRunningFromContext:withRequest:completion:]_block_invoke";
-    v37 = 2112;
-    v38 = v23;
-    v39 = 2112;
-    v40 = v6;
+    v35 = "[WFBackgroundShortcutRunner resumeRunningFromContext:withRequest:completion:]_block_invoke";
+    v36 = 2112;
+    v37 = v23;
+    v38 = 2112;
+    v39 = v6;
     _os_log_impl(&dword_1CA256000, v22, OS_LOG_TYPE_FAULT, "%s Unable to get deserialized state from (%@): %@", buf, 0x20u);
   }
 
   v24 = MEMORY[0x1E696ABC0];
-  v33[0] = *MEMORY[0x1E696A578];
+  v32[0] = *MEMORY[0x1E696A578];
   v25 = WFLocalizedString(@"Unable to run");
-  v34[0] = v25;
-  v33[1] = *MEMORY[0x1E696A588];
+  v33[0] = v25;
+  v32[1] = *MEMORY[0x1E696A588];
   v26 = WFLocalizedString(@"An error occurred while resuming your shortcut.");
-  v34[1] = v26;
-  v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:2];
+  v33[1] = v26;
+  v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
   v12 = [v24 errorWithDomain:@"WFBackgroundShortcutRunnerErrorDomain" code:11 userInfo:v27];
 
   v28 = [objc_alloc(MEMORY[0x1E69E0E28]) initWithError:v12];
@@ -4819,13 +4719,11 @@ LABEL_12:
 
   (*(*(a1 + 64) + 16))();
 LABEL_15:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)runActionFromRunRequestData:(id)data runningContext:(id)context completion:(id)completion
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   completionCopy = completion;
   dataCopy = data;
@@ -4842,10 +4740,10 @@ LABEL_15:
   stateMachine = [(WFBackgroundShortcutRunner *)self stateMachine];
   [stateMachine handlingRequestStateWithReason:@"incoming remote execution request"];
 
-  v39 = 0;
-  v16 = [[WFRemoteExecutionRunRequest alloc] initWithData:dataCopy error:&v39];
+  v38 = 0;
+  v16 = [[WFRemoteExecutionRunRequest alloc] initWithData:dataCopy error:&v38];
 
-  v17 = v39;
+  v17 = v38;
   if (v16)
   {
     [(WFBackgroundShortcutRunner *)self setCurrentRemoteExecutionRunRequest:v16];
@@ -4858,36 +4756,36 @@ LABEL_15:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v41 = "[WFBackgroundShortcutRunner runActionFromRunRequestData:runningContext:completion:]";
+        v40 = "[WFBackgroundShortcutRunner runActionFromRunRequestData:runningContext:completion:]";
         _os_log_impl(&dword_1CA256000, v20, OS_LOG_TYPE_ERROR, "%s BackgroundShortcutRunner asked to run two workflows in parallel which is not supported.", buf, 0xCu);
       }
 
       v21 = WFBackgroundShortcutRunnerError(3, 0);
       currentRemoteExecutionRunRequest = [(WFBackgroundShortcutRunner *)self currentRemoteExecutionRunRequest];
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext_completion___block_invoke;
-      v36[3] = &unk_1E837F870;
-      v37 = v21;
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext_completion___block_invoke;
+      v35[3] = &unk_1E837F870;
+      v36 = v21;
       selfCopy = self;
       v23 = v21;
-      [(WFBackgroundShortcutRunner *)self sendResponseForRunRequest:currentRemoteExecutionRunRequest controller:0 error:v23 completion:v36];
+      [(WFBackgroundShortcutRunner *)self sendResponseForRunRequest:currentRemoteExecutionRunRequest controller:0 error:v23 completion:v35];
     }
 
     else
     {
       mEMORY[0x1E69E0C70] = [MEMORY[0x1E69E0C70] sharedManager];
       v30 = [MEMORY[0x1E69E0C78] all];
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext_completion___block_invoke_2;
-      v32[3] = &unk_1E83747E8;
-      v33 = v16;
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext_completion___block_invoke_2;
+      v31[3] = &unk_1E83747E8;
+      v32 = v16;
       selfCopy2 = self;
-      v35 = contextCopy;
-      [mEMORY[0x1E69E0C70] performWithSandboxExtensions:v30 asynchronousBlock:v32];
+      v34 = contextCopy;
+      [mEMORY[0x1E69E0C70] performWithSandboxExtensions:v30 asynchronousBlock:v31];
 
-      v23 = v33;
+      v23 = v32;
     }
   }
 
@@ -4897,9 +4795,9 @@ LABEL_15:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v41 = "[WFBackgroundShortcutRunner runActionFromRunRequestData:runningContext:completion:]";
-      v42 = 2114;
-      v43 = v17;
+      v40 = "[WFBackgroundShortcutRunner runActionFromRunRequestData:runningContext:completion:]";
+      v41 = 2114;
+      v42 = v17;
       _os_log_impl(&dword_1CA256000, v24, OS_LOG_TYPE_FAULT, "%s failed to read run request from data, error: %{public}@", buf, 0x16u);
     }
 
@@ -4911,8 +4809,6 @@ LABEL_15:
     v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to parse remote execution run request from data, error: %@", v17];
     [stateMachine3 finishRunningWithReason:v28 result:v23];
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext_completion___block_invoke(uint64_t a1)
@@ -4924,7 +4820,7 @@ void __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext
 
 void __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   if (v6)
@@ -4933,40 +4829,38 @@ void __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v19 = "[WFBackgroundShortcutRunner runActionFromRunRequestData:runningContext:completion:]_block_invoke_2";
-      v20 = 2112;
-      v21 = v6;
+      v18 = "[WFBackgroundShortcutRunner runActionFromRunRequestData:runningContext:completion:]_block_invoke_2";
+      v19 = 2112;
+      v20 = v6;
       _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Error temporarily taking all sandbox extensions at workflow run start: %@", buf, 0x16u);
     }
   }
 
   v9 = *(a1 + 32);
   v10 = [*(a1 + 40) fileCoordinator];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext_completion___block_invoke_295;
-  v15[3] = &unk_1E83747C0;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext_completion___block_invoke_295;
+  v14[3] = &unk_1E83747C0;
   v11 = *(a1 + 40);
   v12 = *(a1 + 48);
-  v17 = v7;
-  v15[4] = v11;
-  v16 = v12;
+  v16 = v7;
+  v14[4] = v11;
+  v15 = v12;
   v13 = v7;
-  [v9 inflateWithFileCoordinator:v10 completion:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [v9 inflateWithFileCoordinator:v10 completion:v14];
 }
 
 void __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext_completion___block_invoke_295(id *a1, void *a2, void *a3)
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext_completion___block_invoke_2_296;
   aBlock[3] = &unk_1E837F4E8;
-  v61 = a1[6];
+  v60 = a1[6];
   v7 = _Block_copy(aBlock);
   if (v6)
   {
@@ -4975,29 +4869,29 @@ void __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext
     {
       v9 = [v5 identifier];
       *buf = 136315650;
-      v63 = "[WFBackgroundShortcutRunner runActionFromRunRequestData:runningContext:completion:]_block_invoke";
-      v64 = 2114;
-      v65 = v9;
-      v66 = 2114;
-      v67 = v6;
+      v62 = "[WFBackgroundShortcutRunner runActionFromRunRequestData:runningContext:completion:]_block_invoke";
+      v63 = 2114;
+      v64 = v9;
+      v65 = 2114;
+      v66 = v6;
       _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_FAULT, "%s <%{public}@> an error occurred while inflating request: %{public}@", buf, 0x20u);
     }
 
     v10 = WFBackgroundShortcutRunnerError(5, v6);
     v11 = a1[4];
     v12 = [v11 currentRemoteExecutionRunRequest];
-    v56[0] = MEMORY[0x1E69E9820];
-    v56[1] = 3221225472;
-    v56[2] = __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext_completion___block_invoke_297;
-    v56[3] = &unk_1E837C1E8;
+    v55[0] = MEMORY[0x1E69E9820];
+    v55[1] = 3221225472;
+    v55[2] = __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext_completion___block_invoke_297;
+    v55[3] = &unk_1E837C1E8;
     v13 = v10;
     v14 = a1[4];
-    v57 = v13;
-    v58 = v14;
-    v59 = v6;
-    [v11 sendResponseForRunRequest:v12 controller:0 error:v13 completion:v56];
+    v56 = v13;
+    v57 = v14;
+    v58 = v6;
+    [v11 sendResponseForRunRequest:v12 controller:0 error:v13 completion:v55];
 
-    v15 = v57;
+    v15 = v56;
   }
 
   else
@@ -5010,28 +4904,28 @@ void __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext
     if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       v15 = [v5 workflowID];
-      v43 = +[WFDatabaseProxy defaultDatabase];
-      v51 = [v43 referenceForWorkflowID:v15];
-      v50 = objc_alloc_init(WFWorkflowRecord);
-      v26 = [v51 name];
-      [(WFWorkflowRecord *)v50 setName:v26];
+      v42 = +[WFDatabaseProxy defaultDatabase];
+      v50 = [v42 referenceForWorkflowID:v15];
+      v49 = objc_alloc_init(WFWorkflowRecord);
+      v26 = [v50 name];
+      [(WFWorkflowRecord *)v49 setName:v26];
 
-      v52 = [(WFWorkflow *)[WFRemoteExecutionRunRequestWorkflow alloc] initWithRecord:v50 reference:v51 storageProvider:0 error:0];
+      v51 = [(WFWorkflow *)[WFRemoteExecutionRunRequestWorkflow alloc] initWithRecord:v49 reference:v50 storageProvider:0 error:0];
       v27 = [v5 workflowID];
-      [(WFRemoteExecutionRunRequestWorkflow *)v52 setWorkflowID:v27];
+      [(WFRemoteExecutionRunRequestWorkflow *)v51 setWorkflowID:v27];
 
-      [(WFWorkflow *)v52 addAction:v13];
-      [v13 willBeAddedToWorkflow:v52];
-      [v13 wasAddedToWorkflow:v52];
+      [(WFWorkflow *)v51 addAction:v13];
+      [v13 willBeAddedToWorkflow:v51];
+      [v13 wasAddedToWorkflow:v51];
       v28 = objc_alloc(MEMORY[0x1E69E0E38]);
-      v29 = [(WFRemoteExecutionRunRequestWorkflow *)v52 workflowID];
-      v49 = [v28 initWithWorkflowIdentifier:v29];
+      v29 = [(WFRemoteExecutionRunRequestWorkflow *)v51 workflowID];
+      v48 = [v28 initWithWorkflowIdentifier:v29];
 
-      [v49 setRunKind:*MEMORY[0x1E69E1350]];
-      v44 = [WFWorkflowControllerState alloc];
-      v48 = [v5 variables];
-      v47 = [v5 input];
-      v46 = [v5 processedParameters];
+      [v48 setRunKind:*MEMORY[0x1E69E1350]];
+      v43 = [WFWorkflowControllerState alloc];
+      v47 = [v5 variables];
+      v46 = [v5 input];
+      v45 = [v5 processedParameters];
       v30 = [MEMORY[0x1E695DF00] date];
       v31 = [v13 contentAttributionTracker];
       v32 = v13;
@@ -5049,12 +4943,12 @@ void __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext
       v34 = v33;
 
       v35 = [v34 controlFlowTracker];
-      LOBYTE(v42) = 0;
-      v45 = [(WFWorkflowControllerState *)v44 initWithWorkflow:0 variables:v48 currentActionIndex:0 runningContext:v49 currentInput:v47 currentProcessedParameters:v46 startDate:v30 currentRunSource:0 numberOfDialogsPresented:0 outputBehavior:2 contentAttributionTracker:v31 contentItemCache:0 flowTracker:v35 allowedOnceSmartPromptStates:0 extensionResourceClasses:0 shouldDisablePrivacyPrompts:v42];
+      LOBYTE(v41) = 0;
+      v44 = [(WFWorkflowControllerState *)v43 initWithWorkflow:0 variables:v47 currentActionIndex:0 runningContext:v48 currentInput:v46 currentProcessedParameters:v45 startDate:v30 currentRunSource:0 numberOfDialogsPresented:0 outputBehavior:2 contentAttributionTracker:v31 contentItemCache:0 flowTracker:v35 allowedOnceSmartPromptStates:0 extensionResourceClasses:0 shouldDisablePrivacyPrompts:v41];
 
       v36 = objc_alloc_init(WFWorkflowController);
-      [(WFWorkflowController *)v36 setWorkflow:v52];
-      [(WFWorkflowController *)v36 setCurrentState:v45];
+      [(WFWorkflowController *)v36 setWorkflow:v51];
+      [(WFWorkflowController *)v36 setCurrentState:v44];
       [(WFWorkflowController *)v36 setDelegate:a1[4]];
       v37 = a1[4];
       v38 = [v37 environment];
@@ -5068,7 +4962,7 @@ void __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext
       [v40 startRunningShortcutWithEnvironment:objc_msgSend(a1[4] reference:"environment") isPersonalAutomation:0 reason:{0, @"running remote execution request"}];
 
       [(WFWorkflowController *)v36 run];
-      v25 = v43;
+      v25 = v42;
     }
 
     else
@@ -5078,33 +4972,32 @@ void __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext
       {
         v20 = [v5 identifier];
         *buf = 136315650;
-        v63 = "[WFBackgroundShortcutRunner runActionFromRunRequestData:runningContext:completion:]_block_invoke_2";
-        v64 = 2114;
-        v65 = v20;
-        v66 = 2114;
-        v67 = v13;
+        v62 = "[WFBackgroundShortcutRunner runActionFromRunRequestData:runningContext:completion:]_block_invoke_2";
+        v63 = 2114;
+        v64 = v20;
+        v65 = 2114;
+        v66 = v13;
         _os_log_impl(&dword_1CA256000, v19, OS_LOG_TYPE_FAULT, "%s <%{public}@> stopping execution because of invalid action: %{public}@", buf, 0x20u);
       }
 
       v21 = WFBackgroundShortcutRunnerError(4, 0);
       v22 = a1[4];
       v23 = [v22 currentRemoteExecutionRunRequest];
-      v53[0] = MEMORY[0x1E69E9820];
-      v53[1] = 3221225472;
-      v53[2] = __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext_completion___block_invoke_302;
-      v53[3] = &unk_1E837F870;
+      v52[0] = MEMORY[0x1E69E9820];
+      v52[1] = 3221225472;
+      v52[2] = __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext_completion___block_invoke_302;
+      v52[3] = &unk_1E837F870;
       v15 = v21;
       v24 = a1[4];
-      v54 = v15;
-      v55 = v24;
-      [v22 sendResponseForRunRequest:v23 controller:0 error:v15 completion:v53];
+      v53 = v15;
+      v54 = v24;
+      [v22 sendResponseForRunRequest:v23 controller:0 error:v15 completion:v52];
 
-      v25 = v54;
+      v25 = v53;
     }
   }
 
   v7[2](v7);
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 void __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext_completion___block_invoke_297(uint64_t a1)
@@ -5124,7 +5017,7 @@ void __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext
 
 - (void)beginPersistentModeIfNeededWithRunningContext:(id)context action:(id)action attributionBehavior:(int64_t)behavior
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   actionCopy = action;
   dialogTransformer = [(WFBackgroundShortcutRunner *)self dialogTransformer];
@@ -5146,20 +5039,20 @@ void __84__WFBackgroundShortcutRunner_runActionFromRunRequestData_runningContext
     goto LABEL_10;
   }
 
-  v17 = [v14 isEqualToString:v15];
+  isEqualToString = objc_msgSend_isEqualToString_(v14);
 
-  if (v17)
+  if (isEqualToString)
   {
 LABEL_7:
     v18 = getWFXPCRunnerLogObject();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       identifier2 = [contextCopy identifier];
-      v32 = 136315394;
-      v33 = "[WFBackgroundShortcutRunner beginPersistentModeIfNeededWithRunningContext:action:attributionBehavior:]";
-      v34 = 2112;
-      v35 = identifier2;
-      _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_ERROR, "%s Already began persistent mode for %@ not doing anything", &v32, 0x16u);
+      v31 = 136315394;
+      v32 = "[WFBackgroundShortcutRunner beginPersistentModeIfNeededWithRunningContext:action:attributionBehavior:]";
+      v33 = 2112;
+      v34 = identifier2;
+      _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_ERROR, "%s Already began persistent mode for %@ not doing anything", &v31, 0x16u);
     }
 
     goto LABEL_18;
@@ -5171,9 +5064,9 @@ LABEL_10:
     v18 = getWFXPCRunnerLogObject();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v32 = 136315138;
-      v33 = "[WFBackgroundShortcutRunner beginPersistentModeIfNeededWithRunningContext:action:attributionBehavior:]";
-      _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_ERROR, "%s Not starting persistent mode because should not force.", &v32, 0xCu);
+      v31 = 136315138;
+      v32 = "[WFBackgroundShortcutRunner beginPersistentModeIfNeededWithRunningContext:action:attributionBehavior:]";
+      _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_ERROR, "%s Not starting persistent mode because should not force.", &v31, 0xCu);
     }
 
 LABEL_18:
@@ -5192,11 +5085,11 @@ LABEL_18:
     {
       workflowController2 = [(WFBackgroundShortcutRunner *)self workflowController];
       currentAction2 = [workflowController2 currentAction];
-      v32 = 136315394;
-      v33 = "[WFBackgroundShortcutRunner beginPersistentModeIfNeededWithRunningContext:action:attributionBehavior:]";
-      v34 = 2112;
-      v35 = currentAction2;
-      _os_log_impl(&dword_1CA256000, dialogTransformer3, OS_LOG_TYPE_INFO, "%s Skipping Spotlight stepping prep for action: %@ because action did not want attribution with behavior", &v32, 0x16u);
+      v31 = 136315394;
+      v32 = "[WFBackgroundShortcutRunner beginPersistentModeIfNeededWithRunningContext:action:attributionBehavior:]";
+      v33 = 2112;
+      v34 = currentAction2;
+      _os_log_impl(&dword_1CA256000, dialogTransformer3, OS_LOG_TYPE_INFO, "%s Skipping Spotlight stepping prep for action: %@ because action did not want attribution with behavior", &v31, 0x16u);
     }
 
     goto LABEL_23;
@@ -5221,37 +5114,41 @@ LABEL_23:
   v23 = getWFXPCRunnerLogObject();
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    v32 = 136315394;
-    v33 = "[WFBackgroundShortcutRunner beginPersistentModeIfNeededWithRunningContext:action:attributionBehavior:]";
-    v34 = 2112;
-    v35 = actionCopy;
-    _os_log_impl(&dword_1CA256000, v23, OS_LOG_TYPE_DEBUG, "%s Skipping beginning persistent mode for run workflow action since it will handle starting it: %@", &v32, 0x16u);
+    v31 = 136315394;
+    v32 = "[WFBackgroundShortcutRunner beginPersistentModeIfNeededWithRunningContext:action:attributionBehavior:]";
+    v33 = 2112;
+    v34 = actionCopy;
+    _os_log_impl(&dword_1CA256000, v23, OS_LOG_TYPE_DEBUG, "%s Skipping beginning persistent mode for run workflow action since it will handle starting it: %@", &v31, 0x16u);
   }
 
   [actionCopy beginPersistentModeForSpotlightWhenReady];
 LABEL_19:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __103__WFBackgroundShortcutRunner_beginPersistentModeIfNeededWithRunningContext_action_attributionBehavior___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = getWFXPCRunnerLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "[WFBackgroundShortcutRunner beginPersistentModeIfNeededWithRunningContext:action:attributionBehavior:]_block_invoke";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Failed to begin persistent mode: %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[WFBackgroundShortcutRunner beginPersistentModeIfNeededWithRunningContext:action:attributionBehavior:]_block_invoke";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Failed to begin persistent mode: %@", &v4, 0x16u);
     }
   }
+}
 
-  v4 = *MEMORY[0x1E69E9840];
+- (void)resignDialogHandlingIfNeededWithPersistentMode:(BOOL)mode
+{
+  currentRunningContext = [(WFBackgroundShortcutRunner *)self currentRunningContext];
+  workflowController = [(WFBackgroundShortcutRunner *)self workflowController];
+  currentAction = [workflowController currentAction];
+  [(WFBackgroundShortcutRunner *)self beginPersistentModeIfNeededWithRunningContext:currentRunningContext action:currentAction attributionBehavior:1];
 }
 
 - (void)prepareForSteppingInPersistentModeWithAction:(id)action
@@ -5277,7 +5174,7 @@ void __103__WFBackgroundShortcutRunner_beginPersistentModeIfNeededWithRunningCon
 
 - (void)stepWithAction:(id)action
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   if ([actionCopy isMissing])
   {
@@ -5291,26 +5188,24 @@ void __103__WFBackgroundShortcutRunner_beginPersistentModeIfNeededWithRunningCon
   v8 = getWFXPCRunnerLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315650;
-    v13 = "[WFBackgroundShortcutRunner stepWithAction:]";
-    v14 = 2112;
-    v15 = actionCopy;
-    v16 = 2112;
-    v17 = workflow;
-    _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_DEFAULT, "%s Adding action: %@ to workflow: %@", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[WFBackgroundShortcutRunner stepWithAction:]";
+    v13 = 2112;
+    v14 = actionCopy;
+    v15 = 2112;
+    v16 = workflow;
+    _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_DEFAULT, "%s Adding action: %@ to workflow: %@", &v11, 0x20u);
   }
 
   [workflow addAction:actionCopy];
   [(WFBackgroundShortcutRunner *)self prepareForSteppingInPersistentModeWithAction:actionCopy];
   workflowController2 = [(WFBackgroundShortcutRunner *)self workflowController];
   [workflowController2 step];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)runWorkflowWithDescriptor:(id)descriptor request:(id)request inEnvironment:(id)environment runningContext:(id)context completion:(id)completion
 {
-  v91[1] = *MEMORY[0x1E69E9840];
+  v90[1] = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   requestCopy = request;
   environmentCopy = environment;
@@ -5325,9 +5220,9 @@ void __103__WFBackgroundShortcutRunner_beginPersistentModeIfNeededWithRunningCon
     {
       v36 = objc_alloc(MEMORY[0x1E69E0E28]);
       v37 = MEMORY[0x1E696ABC0];
-      v90 = *MEMORY[0x1E696A578];
-      v91[0] = @"You're trying to run a shortcut stepwise, but you don't have the entitlement for it.";
-      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v91 forKeys:&v90 count:1];
+      v89 = *MEMORY[0x1E696A578];
+      v90[0] = @"You're trying to run a shortcut stepwise, but you don't have the entitlement for it.";
+      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v90 forKeys:&v89 count:1];
       v39 = [v37 errorWithDomain:*MEMORY[0x1E696A798] code:1 userInfo:v38];
       v40 = WFBackgroundShortcutRunnerError(0, v39);
       v27 = [v36 initWithError:v40];
@@ -5422,9 +5317,9 @@ void __103__WFBackgroundShortcutRunner_beginPersistentModeIfNeededWithRunningCon
     self->_completionBlock = v47;
 
     v27 = +[WFDatabaseProxy defaultDatabase];
-    v82 = 0;
-    v49 = [descriptorCopy workflowReferenceWithDatabase:v27 error:&v82];
-    v50 = v82;
+    v81 = 0;
+    v49 = [descriptorCopy workflowReferenceWithDatabase:v27 error:&v81];
+    v50 = v81;
     error3 = v50;
     if (!v49 && v50)
     {
@@ -5442,10 +5337,10 @@ LABEL_46:
     if ([v49 disabledOnLockScreen] && +[WFCompactUnlockService isDeviceLocked](WFCompactUnlockService, "isDeviceLocked"))
     {
       v55 = MEMORY[0x1E696ABC0];
-      v88 = *MEMORY[0x1E696A578];
+      v87 = *MEMORY[0x1E696A578];
       v56 = WFLocalizedString(@"This shortcut cannot run when the device is locked. You can change this in the Privacy tab of the shortcut settings.");
-      v89 = v56;
-      v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+      v88 = v56;
+      v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
       v58 = [v55 errorWithDomain:@"WFWorkflowErrorDomain" code:7 userInfo:v57];
 
       v59 = objc_alloc(MEMORY[0x1E69E0E28]);
@@ -5463,8 +5358,8 @@ LABEL_46:
     self->_isPersonalAutomation = [v49 hiddenFromLibraryAndSync];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v86 = 0x2020000000;
-    v87 = 0;
+    v85 = 0x2020000000;
+    v86 = 0;
     if (v49)
     {
       if ([(WFBackgroundShortcutRunner *)self isPersonalAutomation])
@@ -5472,14 +5367,14 @@ LABEL_46:
         v63 = getWFSecurityLogObject();
         if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
         {
-          *v83 = 136315138;
-          v84 = "[WFBackgroundShortcutRunner runWorkflowWithDescriptor:request:inEnvironment:runningContext:completion:]";
+          *v82 = 136315138;
+          v83 = "[WFBackgroundShortcutRunner runWorkflowWithDescriptor:request:inEnvironment:runningContext:completion:]";
           v64 = "%s Disabling privacy prompts because this is a personal automation.";
 LABEL_42:
           v65 = v63;
           v66 = OS_LOG_TYPE_DEFAULT;
 LABEL_43:
-          _os_log_impl(&dword_1CA256000, v65, v66, v64, v83, 0xCu);
+          _os_log_impl(&dword_1CA256000, v65, v66, v64, v82, 0xCu);
         }
       }
 
@@ -5488,8 +5383,8 @@ LABEL_43:
         v63 = getWFSecurityLogObject();
         if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
         {
-          *v83 = 136315138;
-          v84 = "[WFBackgroundShortcutRunner runWorkflowWithDescriptor:request:inEnvironment:runningContext:completion:]";
+          *v82 = 136315138;
+          v83 = "[WFBackgroundShortcutRunner runWorkflowWithDescriptor:request:inEnvironment:runningContext:completion:]";
           v64 = "%s Disabling privacy prompts because this is a home automation.";
           goto LABEL_42;
         }
@@ -5505,8 +5400,8 @@ LABEL_43:
         v63 = getWFSecurityLogObject();
         if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
         {
-          *v83 = 136315138;
-          v84 = "[WFBackgroundShortcutRunner runWorkflowWithDescriptor:request:inEnvironment:runningContext:completion:]";
+          *v82 = 136315138;
+          v83 = "[WFBackgroundShortcutRunner runWorkflowWithDescriptor:request:inEnvironment:runningContext:completion:]";
           v64 = "%s ‼️ Disabling privacy prompts due to disable smart prompts defaults. If you did not set this explicitly, your device is in an unexpected and unsupported state.";
           v65 = v63;
           v66 = OS_LOG_TYPE_ERROR;
@@ -5520,8 +5415,8 @@ LABEL_43:
       v63 = getWFSecurityLogObject();
       if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
       {
-        *v83 = 136315138;
-        v84 = "[WFBackgroundShortcutRunner runWorkflowWithDescriptor:request:inEnvironment:runningContext:completion:]";
+        *v82 = 136315138;
+        v83 = "[WFBackgroundShortcutRunner runWorkflowWithDescriptor:request:inEnvironment:runningContext:completion:]";
         v64 = "%s Disabling privacy prompts because this is an on-the-fly shortcut.";
         goto LABEL_42;
       }
@@ -5531,20 +5426,20 @@ LABEL_43:
 LABEL_45:
     mEMORY[0x1E69E0C70] = [MEMORY[0x1E69E0C70] sharedManager];
     v68 = [MEMORY[0x1E69E0C78] all];
-    v72[0] = MEMORY[0x1E69E9820];
-    v72[1] = 3221225472;
-    v72[2] = __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvironment_runningContext_completion___block_invoke;
-    v72[3] = &unk_1E8374798;
-    v73 = descriptorCopy;
-    v74 = environmentCopy;
-    v75 = v27;
+    v71[0] = MEMORY[0x1E69E9820];
+    v71[1] = 3221225472;
+    v71[2] = __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvironment_runningContext_completion___block_invoke;
+    v71[3] = &unk_1E8374798;
+    v72 = descriptorCopy;
+    v73 = environmentCopy;
+    v74 = v27;
     selfCopy = self;
-    v81 = a2;
-    v77 = requestCopy;
-    v78 = contextCopy;
-    v79 = v49;
+    v80 = a2;
+    v76 = requestCopy;
+    v77 = contextCopy;
+    v78 = v49;
     p_buf = &buf;
-    [mEMORY[0x1E69E0C70] performWithSandboxExtensions:v68 asynchronousBlock:v72];
+    [mEMORY[0x1E69E0C70] performWithSandboxExtensions:v68 asynchronousBlock:v71];
 
     _Block_object_dispose(&buf, 8);
     goto LABEL_46;
@@ -5574,13 +5469,11 @@ LABEL_23:
   error3 = [v27 error];
   (*(completionCopy + 2))(completionCopy, v27, error3);
 LABEL_47:
-
-  v69 = *MEMORY[0x1E69E9840];
 }
 
 void __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvironment_runningContext_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -5590,9 +5483,9 @@ void __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvir
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v35 = "[WFBackgroundShortcutRunner runWorkflowWithDescriptor:request:inEnvironment:runningContext:completion:]_block_invoke";
-      v36 = 2112;
-      v37 = v8;
+      v34 = "[WFBackgroundShortcutRunner runWorkflowWithDescriptor:request:inEnvironment:runningContext:completion:]_block_invoke";
+      v35 = 2112;
+      v36 = v8;
       _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_ERROR, "%s Error temporarily taking all sandbox extensions at workflow run start: %@", buf, 0x16u);
     }
   }
@@ -5610,34 +5503,32 @@ void __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvir
 
   v15 = *(a1 + 32);
   v16 = [*(a1 + 40) integerValue];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvironment_runningContext_completion___block_invoke_224;
-  v24[3] = &unk_1E8374770;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvironment_runningContext_completion___block_invoke_224;
+  v23[3] = &unk_1E8374770;
   v17 = *(a1 + 48);
   v18 = *(a1 + 64);
-  v24[4] = *(a1 + 56);
-  v30 = v9;
+  v23[4] = *(a1 + 56);
+  v29 = v9;
   v19 = *(a1 + 96);
-  v32 = v12;
-  v33 = v19;
-  v25 = v18;
-  v26 = *(a1 + 32);
-  v27 = *(a1 + 72);
+  v31 = v12;
+  v32 = v19;
+  v24 = v18;
+  v25 = *(a1 + 32);
+  v26 = *(a1 + 72);
   v20 = *(a1 + 80);
   v21 = *(a1 + 88);
-  v28 = v20;
-  v31 = v21;
-  v29 = *(a1 + 48);
+  v27 = v20;
+  v30 = v21;
+  v28 = *(a1 + 48);
   v22 = v9;
-  [v15 createWorkflowWithEnvironment:v16 database:v17 completionHandler:v24];
-
-  v23 = *MEMORY[0x1E69E9840];
+  [v15 createWorkflowWithEnvironment:v16 database:v17 completionHandler:v23];
 }
 
 void __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvironment_runningContext_completion___block_invoke_224(uint64_t a1, void *a2, void *a3)
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = getWFXPCRunnerLogObject();
@@ -5655,9 +5546,9 @@ void __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvir
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v73 = "[WFBackgroundShortcutRunner runWorkflowWithDescriptor:request:inEnvironment:runningContext:completion:]_block_invoke";
-      v74 = 2112;
-      v75 = v6;
+      v72 = "[WFBackgroundShortcutRunner runWorkflowWithDescriptor:request:inEnvironment:runningContext:completion:]_block_invoke";
+      v73 = 2112;
+      v74 = v6;
       _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_ERROR, "%s Unable to get workflow from descriptor. %@", buf, 0x16u);
     }
 
@@ -5674,8 +5565,8 @@ void __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvir
   v10 = [v5 environment];
   if (v10 != [*(a1 + 32) environment])
   {
-    v62 = [MEMORY[0x1E696AAA8] currentHandler];
-    [v62 handleFailureInMethod:*(a1 + 104) object:*(a1 + 32) file:@"WFBackgroundShortcutRunner.m" lineNumber:378 description:@"Environment on workflow should be the same as environment of BGSR"];
+    v61 = [MEMORY[0x1E696AAA8] currentHandler];
+    [v61 handleFailureInMethod:*(a1 + 104) object:*(a1 + 32) file:@"WFBackgroundShortcutRunner.m" lineNumber:378 description:@"Environment on workflow should be the same as environment of BGSR"];
   }
 
   v11 = [v5 actions];
@@ -5705,9 +5596,9 @@ LABEL_13:
       {
         v26 = *(a1 + 40);
         *buf = 138543618;
-        v73 = v5;
-        v74 = 2114;
-        v75 = v26;
+        v72 = v5;
+        v73 = 2114;
+        v74 = v26;
         _os_log_impl(&dword_1CA256000, v25, OS_LOG_TYPE_DEFAULT, "Starting shortcut run: %{public}@, request: %{public}@", buf, 0x16u);
       }
 
@@ -5749,15 +5640,15 @@ LABEL_13:
         [*(a1 + 56) setContextualActionContext:v48];
 
         v49 = *(a1 + 40);
-        v63[0] = MEMORY[0x1E69E9820];
-        v63[1] = 3221225472;
-        v63[2] = __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvironment_runningContext_completion___block_invoke_260;
-        v63[3] = &unk_1E8374748;
+        v62[0] = MEMORY[0x1E69E9820];
+        v62[1] = 3221225472;
+        v62[2] = __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvironment_runningContext_completion___block_invoke_260;
+        v62[3] = &unk_1E8374748;
         v50 = *(a1 + 80);
         v51 = *(a1 + 32);
-        v68 = v50;
-        v63[4] = v51;
-        v64 = v5;
+        v67 = v50;
+        v62[4] = v51;
+        v63 = v5;
         v52 = *(a1 + 64);
         v53 = *(a1 + 40);
         v54 = *(a1 + 56);
@@ -5766,26 +5657,26 @@ LABEL_13:
         *(&v56 + 1) = v55;
         *&v57 = v52;
         *(&v57 + 1) = v53;
-        v65 = v57;
-        v66 = v56;
-        v69 = *(a1 + 88);
-        v67 = *(a1 + 72);
-        [v49 getInputWithCompletionHandler:v63];
+        v64 = v57;
+        v65 = v56;
+        v68 = *(a1 + 88);
+        v66 = *(a1 + 72);
+        [v49 getInputWithCompletionHandler:v62];
 
         goto LABEL_29;
       }
 
-      v59 = getWFXPCRunnerLogObject();
-      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+      v58 = getWFXPCRunnerLogObject();
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v73 = "[WFBackgroundShortcutRunner runWorkflowWithDescriptor:request:inEnvironment:runningContext:completion:]_block_invoke";
-        _os_log_impl(&dword_1CA256000, v59, OS_LOG_TYPE_ERROR, "%s workflow is not home resident-compatible, but run from home-resident environment", buf, 0xCu);
+        v72 = "[WFBackgroundShortcutRunner runWorkflowWithDescriptor:request:inEnvironment:runningContext:completion:]_block_invoke";
+        _os_log_impl(&dword_1CA256000, v58, OS_LOG_TYPE_ERROR, "%s workflow is not home resident-compatible, but run from home-resident environment", buf, 0xCu);
       }
 
-      v60 = objc_alloc(MEMORY[0x1E69E0E28]);
-      v61 = WFBackgroundShortcutRunnerError(2, 0);
-      v15 = [v60 initWithError:v61];
+      v59 = objc_alloc(MEMORY[0x1E69E0E28]);
+      v60 = WFBackgroundShortcutRunnerError(2, 0);
+      v15 = [v59 initWithError:v60];
 
       v16 = [*(a1 + 32) stateMachine];
       v17 = v16;
@@ -5815,23 +5706,23 @@ LABEL_23:
   {
     v37 = [v5 name];
     *buf = 136315394;
-    v73 = "[WFBackgroundShortcutRunner runWorkflowWithDescriptor:request:inEnvironment:runningContext:completion:]_block_invoke";
-    v74 = 2112;
-    v75 = v37;
+    v72 = "[WFBackgroundShortcutRunner runWorkflowWithDescriptor:request:inEnvironment:runningContext:completion:]_block_invoke";
+    v73 = 2112;
+    v74 = v37;
     _os_log_impl(&dword_1CA256000, v36, OS_LOG_TYPE_ERROR, "%s “%@” contains no actions.", buf, 0x16u);
   }
 
   v38 = MEMORY[0x1E696ABC0];
-  v70[0] = *MEMORY[0x1E696A578];
+  v69[0] = *MEMORY[0x1E696A578];
   v39 = WFLocalizedString(@"Empty Shortcut");
-  v71[0] = v39;
-  v70[1] = *MEMORY[0x1E696A588];
+  v70[0] = v39;
+  v69[1] = *MEMORY[0x1E696A588];
   v40 = MEMORY[0x1E696AEC0];
   v41 = WFLocalizedString(@"“%@” contains no actions.");
   v42 = [v5 name];
   v43 = [v40 localizedStringWithFormat:v41, v42];
-  v71[1] = v43;
-  v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v71 forKeys:v70 count:2];
+  v70[1] = v43;
+  v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v70 forKeys:v69 count:2];
   v15 = [v38 errorWithDomain:@"WFBackgroundShortcutRunnerErrorDomain" code:10 userInfo:v44];
 
   v45 = [objc_alloc(MEMORY[0x1E69E0E28]) initWithError:v15];
@@ -5840,13 +5731,11 @@ LABEL_23:
 
   (*(*(a1 + 80) + 16))();
 LABEL_29:
-
-  v58 = *MEMORY[0x1E69E9840];
 }
 
 void __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvironment_runningContext_completion___block_invoke_260(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   (*(*(a1 + 88) + 16))();
@@ -5855,31 +5744,31 @@ void __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvir
     v10 = *(a1 + 32);
     v11 = *(a1 + 40);
     v12 = *(a1 + 48);
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvironment_runningContext_completion___block_invoke_264;
-    v23[3] = &unk_1E8374720;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvironment_runningContext_completion___block_invoke_264;
+    v22[3] = &unk_1E8374720;
     v13 = v12;
     v14 = *(a1 + 32);
     v15 = *(a1 + 40);
-    v24 = v13;
-    v25 = v14;
-    v26 = v15;
-    v27 = v5;
+    v23 = v13;
+    v24 = v14;
+    v25 = v15;
+    v26 = v5;
     v16 = *(a1 + 56);
     v17 = *(a1 + 64);
     v18 = *(a1 + 72);
-    v30 = *(a1 + 96);
+    v29 = *(a1 + 96);
     v19 = *(a1 + 80);
     *&v20 = v18;
     *(&v20 + 1) = v19;
     *&v21 = v16;
     *(&v21 + 1) = v17;
-    v28 = v21;
-    v29 = v20;
-    [v10 evaluateRemoteQuarantinePolicyForWorkflow:v11 workflowReference:v13 withCompletionHandler:v23];
+    v27 = v21;
+    v28 = v20;
+    [v10 evaluateRemoteQuarantinePolicyForWorkflow:v11 workflowReference:v13 withCompletionHandler:v22];
 
-    v7 = v24;
+    v7 = v23;
   }
 
   else
@@ -5889,17 +5778,15 @@ void __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvir
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v32 = "[WFBackgroundShortcutRunner runWorkflowWithDescriptor:request:inEnvironment:runningContext:completion:]_block_invoke";
-      v33 = 2112;
-      v34 = v6;
+      v31 = "[WFBackgroundShortcutRunner runWorkflowWithDescriptor:request:inEnvironment:runningContext:completion:]_block_invoke";
+      v32 = 2112;
+      v33 = v6;
       _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Could not get input with error: %@", buf, 0x16u);
     }
 
     v9 = [*(a1 + 32) stateMachine];
     [v9 finishRunningWithReason:@"no input and input error" result:v7];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvironment_runningContext_completion___block_invoke_264(uint64_t a1, char a2, void *a3, void *a4)
@@ -5979,7 +5866,7 @@ void __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvir
 
 - (void)startWorkflowExecution:(id)execution workflowController:(id)controller descriptor:(id)descriptor workflowReference:(id)reference database:(id)database
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   executionCopy = execution;
   descriptorCopy = descriptor;
   referenceCopy = reference;
@@ -5989,9 +5876,9 @@ void __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvir
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v28 = "[WFBackgroundShortcutRunner startWorkflowExecution:workflowController:descriptor:workflowReference:database:]";
-    v29 = 2048;
-    v30 = CACurrentMediaTime();
+    v27 = "[WFBackgroundShortcutRunner startWorkflowExecution:workflowController:descriptor:workflowReference:database:]";
+    v28 = 2048;
+    v29 = CACurrentMediaTime();
     _os_log_impl(&dword_1CA256000, v17, OS_LOG_TYPE_DEBUG, "%s [Performance] Starting workflow run, %f", buf, 0x16u);
   }
 
@@ -6007,18 +5894,16 @@ void __104__WFBackgroundShortcutRunner_runWorkflowWithDescriptor_request_inEnvir
   if ([executionCopy donateInteraction])
   {
     v21 = dispatch_get_global_queue(0, 0);
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __110__WFBackgroundShortcutRunner_startWorkflowExecution_workflowController_descriptor_workflowReference_database___block_invoke;
-    v23[3] = &unk_1E837F848;
-    v23[4] = self;
-    v24 = descriptorCopy;
-    v25 = databaseCopy;
-    v26 = referenceCopy;
-    dispatch_async(v21, v23);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __110__WFBackgroundShortcutRunner_startWorkflowExecution_workflowController_descriptor_workflowReference_database___block_invoke;
+    v22[3] = &unk_1E837F848;
+    v22[4] = self;
+    v23 = descriptorCopy;
+    v24 = databaseCopy;
+    v25 = referenceCopy;
+    dispatch_async(v21, v22);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __110__WFBackgroundShortcutRunner_startWorkflowExecution_workflowController_descriptor_workflowReference_database___block_invoke(void *a1)
@@ -6037,18 +5922,17 @@ uint64_t __110__WFBackgroundShortcutRunner_startWorkflowExecution_workflowContro
 
 - (void)prewarmRunnerWithCompletion:(id)completion
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v4 = getWFXPCRunnerLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[WFBackgroundShortcutRunner prewarmRunnerWithCompletion:]";
-    _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_DEFAULT, "%s Runner prewarm complete", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[WFBackgroundShortcutRunner prewarmRunnerWithCompletion:]";
+    _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_DEFAULT, "%s Runner prewarm complete", &v5, 0xCu);
   }
 
   completionCopy[2](completionCopy, 0);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateRunViewSource:(id)source
@@ -6061,28 +5945,28 @@ uint64_t __110__WFBackgroundShortcutRunner_startWorkflowExecution_workflowContro
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v6 = getWFXPCRunnerLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v16 = "[WFBackgroundShortcutRunner listener:shouldAcceptNewConnection:]";
+    v15 = "[WFBackgroundShortcutRunner listener:shouldAcceptNewConnection:]";
     _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_DEBUG, "%s Received new connection", buf, 0xCu);
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __65__WFBackgroundShortcutRunner_listener_shouldAcceptNewConnection___block_invoke;
-  v14[3] = &unk_1E837FA70;
-  v14[4] = self;
-  [connectionCopy setInterruptionHandler:v14];
   v13[0] = MEMORY[0x1E69E9820];
   v13[1] = 3221225472;
-  v13[2] = __65__WFBackgroundShortcutRunner_listener_shouldAcceptNewConnection___block_invoke_196;
+  v13[2] = __65__WFBackgroundShortcutRunner_listener_shouldAcceptNewConnection___block_invoke;
   v13[3] = &unk_1E837FA70;
   v13[4] = self;
-  [connectionCopy setInvalidationHandler:v13];
+  [connectionCopy setInterruptionHandler:v13];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __65__WFBackgroundShortcutRunner_listener_shouldAcceptNewConnection___block_invoke_196;
+  v12[3] = &unk_1E837FA70;
+  v12[4] = self;
+  [connectionCopy setInvalidationHandler:v12];
   v7 = WFOutOfProcessWorkflowControllerHostXPCInterface();
   [connectionCopy setRemoteObjectInterface:v7];
 
@@ -6098,42 +5982,37 @@ uint64_t __110__WFBackgroundShortcutRunner_startWorkflowExecution_workflowContro
   stateMachine = [(WFBackgroundShortcutRunner *)self stateMachine];
   [stateMachine idleStateWithReason:@"incoming connection to runner"];
 
-  v11 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
-void __65__WFBackgroundShortcutRunner_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
+void __65__WFBackgroundShortcutRunner_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v2 = getWFXPCRunnerLogObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = getWFXPCRunnerLogObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v5 = 136315138;
     v6 = "[WFBackgroundShortcutRunner listener:shouldAcceptNewConnection:]_block_invoke";
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_ERROR, "%s XPC connection interrupted", &v5, 0xCu);
+    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s XPC connection interrupted", &v5, 0xCu);
   }
 
-  v3 = [*(a1 + 32) stateMachine];
-  [v3 connectionInvalidatedOrInterrupted];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = [*(a1 + 32) stateMachine];
+  [v4 connectionInvalidatedOrInterrupted];
 }
 
-void __65__WFBackgroundShortcutRunner_listener_shouldAcceptNewConnection___block_invoke_196(uint64_t a1)
+void __65__WFBackgroundShortcutRunner_listener_shouldAcceptNewConnection___block_invoke_196(uint64_t a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v2 = getWFXPCRunnerLogObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = getWFXPCRunnerLogObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v5 = 136315138;
     v6 = "[WFBackgroundShortcutRunner listener:shouldAcceptNewConnection:]_block_invoke";
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_ERROR, "%s XPC connection invalidated", &v5, 0xCu);
+    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s XPC connection invalidated", &v5, 0xCu);
   }
 
-  v3 = [*(a1 + 32) stateMachine];
-  [v3 connectionInvalidatedOrInterrupted];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = [*(a1 + 32) stateMachine];
+  [v4 connectionInvalidatedOrInterrupted];
 }
 
 - (WFBackgroundShortcutRunner)initWithProcessPolicy:(unint64_t)policy

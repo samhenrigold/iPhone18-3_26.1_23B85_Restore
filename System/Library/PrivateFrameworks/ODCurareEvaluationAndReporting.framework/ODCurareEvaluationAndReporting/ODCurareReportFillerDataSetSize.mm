@@ -34,10 +34,8 @@
 
 - (void)writeTo:(id)to
 {
-  numberOfUserSessions = self->_numberOfUserSessions;
   toCopy = to;
   PBDataWriterWriteUint32Field();
-  numberOfUserSamples = self->_numberOfUserSamples;
   PBDataWriterWriteUint32Field();
 }
 

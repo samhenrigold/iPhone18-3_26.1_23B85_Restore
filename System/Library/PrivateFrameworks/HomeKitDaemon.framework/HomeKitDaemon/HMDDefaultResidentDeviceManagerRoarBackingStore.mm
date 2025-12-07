@@ -49,7 +49,7 @@
 
 - (id)_canonicalResidentSelectionModelForHome:(id)home
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   residentSelections = [homeCopy residentSelections];
   if ([residentSelections count])
@@ -66,16 +66,14 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v11;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Resident Selection model is not present in the backing store.", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v11;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Resident Selection model is not present in the backing store.", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     firstObject = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -99,7 +97,7 @@ uint64_t __91__HMDDefaultResidentDeviceManagerRoarBackingStore__canonicalResiden
 
 - (void)_writeResidentSelectionInfoToWorkingStore
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   home = [(HMDDefaultResidentDeviceManagerRoarBackingStore *)self home];
   if ([home isCurrentDevicePrimaryResident] && -[HMDDefaultResidentDeviceManagerRoarBackingStore allowedToWriteResidentSelectionInfo](self, "allowedToWriteResidentSelectionInfo") && (-[HMDDefaultResidentDeviceManagerRoarBackingStore residentSelectionInfoToWrite](self, "residentSelectionInfoToWrite"), v4 = objc_claimAutoreleasedReturnValue(), v4, v4))
   {
@@ -108,19 +106,19 @@ uint64_t __91__HMDDefaultResidentDeviceManagerRoarBackingStore__canonicalResiden
     context = [backingStore context];
 
     residentSelectionInfoWriteCompletion = [(HMDDefaultResidentDeviceManagerRoarBackingStore *)self residentSelectionInfoWriteCompletion];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __92__HMDDefaultResidentDeviceManagerRoarBackingStore__writeResidentSelectionInfoToWorkingStore__block_invoke;
-    v19[3] = &unk_278688978;
-    v19[4] = self;
-    v20 = residentSelectionInfoToWrite;
-    v21 = home;
-    v22 = context;
-    v23 = residentSelectionInfoWriteCompletion;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __92__HMDDefaultResidentDeviceManagerRoarBackingStore__writeResidentSelectionInfoToWorkingStore__block_invoke;
+    v18[3] = &unk_278688978;
+    v18[4] = self;
+    v19 = residentSelectionInfoToWrite;
+    v20 = home;
+    v21 = context;
+    v22 = residentSelectionInfoWriteCompletion;
     v9 = residentSelectionInfoWriteCompletion;
     v10 = context;
     v11 = residentSelectionInfoToWrite;
-    [v10 performBlock:v19];
+    [v10 performBlock:v18];
     [(HMDDefaultResidentDeviceManagerRoarBackingStore *)self setResidentSelectionInfoToWrite:0];
     [(HMDDefaultResidentDeviceManagerRoarBackingStore *)self setResidentSelectionInfoWriteCompletion:0];
   }
@@ -139,10 +137,10 @@ uint64_t __91__HMDDefaultResidentDeviceManagerRoarBackingStore__canonicalResiden
         v16 = HMFGetLogIdentifier();
         residentSelectionInfoToWrite3 = [(HMDDefaultResidentDeviceManagerRoarBackingStore *)selfCopy residentSelectionInfoToWrite];
         *buf = 138543874;
-        v25 = v16;
-        v26 = 2112;
-        v27 = residentSelectionInfoToWrite3;
-        v28 = 1024;
+        v24 = v16;
+        v25 = 2112;
+        v26 = residentSelectionInfoToWrite3;
+        v27 = 1024;
         allowedToWriteResidentSelectionInfo = [(HMDDefaultResidentDeviceManagerRoarBackingStore *)selfCopy allowedToWriteResidentSelectionInfo];
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Not writing resident selection info:%@ to working store yet. Allowed to write: %d", buf, 0x1Cu);
       }
@@ -150,13 +148,11 @@ uint64_t __91__HMDDefaultResidentDeviceManagerRoarBackingStore__canonicalResiden
       objc_autoreleasePoolPop(v13);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __92__HMDDefaultResidentDeviceManagerRoarBackingStore__writeResidentSelectionInfoToWorkingStore__block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -164,11 +160,11 @@ void __92__HMDDefaultResidentDeviceManagerRoarBackingStore__writeResidentSelecti
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v30 = 138543618;
-    v31 = v5;
-    v32 = 2112;
-    v33 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Writing resident selection info: %@ to working store.", &v30, 0x16u);
+    v29 = 138543618;
+    v30 = v5;
+    v31 = 2112;
+    v32 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Writing resident selection info: %@ to working store.", &v29, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -185,11 +181,11 @@ void __92__HMDDefaultResidentDeviceManagerRoarBackingStore__writeResidentSelecti
     {
       v13 = HMFGetLogIdentifier();
       v14 = *(a1 + 40);
-      v30 = 138543618;
-      v31 = v13;
-      v32 = 2112;
-      v33 = v14;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Creating new resident selection model with info: %@", &v30, 0x16u);
+      v29 = 138543618;
+      v30 = v13;
+      v31 = 2112;
+      v32 = v14;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Creating new resident selection model with info: %@", &v29, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -208,9 +204,9 @@ void __92__HMDDefaultResidentDeviceManagerRoarBackingStore__writeResidentSelecti
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       v21 = HMFGetLogIdentifier();
-      v30 = 138543362;
-      v31 = v21;
-      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Updating home model to indicate support for resident selection", &v30, 0xCu);
+      v29 = 138543362;
+      v30 = v21;
+      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Updating home model to indicate support for resident selection", &v29, 0xCu);
     }
 
     objc_autoreleasePoolPop(v18);
@@ -240,13 +236,11 @@ void __92__HMDDefaultResidentDeviceManagerRoarBackingStore__writeResidentSelecti
   {
     (*(v28 + 16))(v28, 0);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateResidentSelectionInfoTo:(id)to completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
   completionCopy = completion;
   v8 = objc_autoreleasePoolPush();
@@ -255,19 +249,17 @@ void __92__HMDDefaultResidentDeviceManagerRoarBackingStore__writeResidentSelecti
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v11;
-    v15 = 2112;
-    v16 = toCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received updated resident selection info to write to working store: %@.", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v11;
+    v14 = 2112;
+    v15 = toCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received updated resident selection info to write to working store: %@.", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   [(HMDDefaultResidentDeviceManagerRoarBackingStore *)selfCopy setResidentSelectionInfoToWrite:toCopy];
   [(HMDDefaultResidentDeviceManagerRoarBackingStore *)selfCopy setResidentSelectionInfoWriteCompletion:completionCopy];
   [(HMDDefaultResidentDeviceManagerRoarBackingStore *)selfCopy _writeResidentSelectionInfoToWorkingStore];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasResidentSelectionInfoUpdateInNotification:(id)notification
@@ -333,7 +325,7 @@ void __92__HMDDefaultResidentDeviceManagerRoarBackingStore__writeResidentSelecti
 
 void __96__HMDDefaultResidentDeviceManagerRoarBackingStore_hasResidentSelectionInfoUpdateInNotification___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [*(a1 + 32) _residentSelectionModelFromManagedObject:v5];
   v7 = *(*(a1 + 40) + 8);
@@ -348,22 +340,20 @@ void __96__HMDDefaultResidentDeviceManagerRoarBackingStore_hasResidentSelectionI
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Resident selection info has updated in the working store.", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Resident selection info has updated in the working store.", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
     *(*(*(a1 + 48) + 8) + 24) = 1;
     *a3 = 1;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __96__HMDDefaultResidentDeviceManagerRoarBackingStore_hasResidentSelectionInfoUpdateInNotification___block_invoke_55(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -397,9 +387,9 @@ void __96__HMDDefaultResidentDeviceManagerRoarBackingStore_hasResidentSelectionI
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         v16 = HMFGetLogIdentifier();
-        v18 = 138543362;
-        v19 = v16;
-        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Resident selection info got deleted from the working store.", &v18, 0xCu);
+        v17 = 138543362;
+        v18 = v16;
+        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Resident selection info got deleted from the working store.", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v13);
@@ -407,13 +397,11 @@ void __96__HMDDefaultResidentDeviceManagerRoarBackingStore_hasResidentSelectionI
       *a3 = 1;
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_residentSelectionModelFromManagedObject:(id)object
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -451,11 +439,11 @@ void __96__HMDDefaultResidentDeviceManagerRoarBackingStore_hasResidentSelectionI
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         v17 = HMFGetLogIdentifier();
-        v20 = 138543618;
-        v21 = v17;
-        v22 = 2112;
-        v23 = castIfResidentSelection;
-        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Ignoring resident selection model for another home: %@", &v20, 0x16u);
+        v19 = 138543618;
+        v20 = v17;
+        v21 = 2112;
+        v22 = castIfResidentSelection;
+        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Ignoring resident selection model for another home: %@", &v19, 0x16u);
       }
 
       objc_autoreleasePoolPop(v14);
@@ -468,14 +456,12 @@ void __96__HMDDefaultResidentDeviceManagerRoarBackingStore_hasResidentSelectionI
     v13 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (HMDResidentSelectionInfo)residentSelectionInfo
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   residentSelectionInfoToWrite = [(HMDDefaultResidentDeviceManagerRoarBackingStore *)self residentSelectionInfoToWrite];
 
   if (residentSelectionInfoToWrite)
@@ -503,26 +489,24 @@ void __96__HMDDefaultResidentDeviceManagerRoarBackingStore_hasResidentSelectionI
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v17 = __Block_byref_object_copy__223849;
-    v18 = __Block_byref_object_dispose__223850;
-    v19 = 0;
+    v16 = __Block_byref_object_copy__223849;
+    v17 = __Block_byref_object_dispose__223850;
+    v18 = 0;
     home = [(HMDDefaultResidentDeviceManagerRoarBackingStore *)self home];
     backingStore = [home backingStore];
 
     context = [backingStore context];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __72__HMDDefaultResidentDeviceManagerRoarBackingStore_residentSelectionInfo__block_invoke;
-    v15[3] = &unk_27868A688;
-    v15[4] = self;
-    v15[5] = buf;
-    [context unsafeSynchronousBlock:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __72__HMDDefaultResidentDeviceManagerRoarBackingStore_residentSelectionInfo__block_invoke;
+    v14[3] = &unk_27868A688;
+    v14[4] = self;
+    v14[5] = buf;
+    [context unsafeSynchronousBlock:v14];
 
     residentSelectionInfoToWrite3 = *(*&buf[8] + 40);
     _Block_object_dispose(buf, 8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return residentSelectionInfoToWrite3;
 }
@@ -596,11 +580,11 @@ void __88__HMDDefaultResidentDeviceManagerRoarBackingStore_residentsRequiringRea
   }
 }
 
-void __88__HMDDefaultResidentDeviceManagerRoarBackingStore_residentsRequiringReachabilityUpdate___block_invoke_2(uint64_t a1)
+void __88__HMDDefaultResidentDeviceManagerRoarBackingStore_residentsRequiringReachabilityUpdate___block_invoke_2(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 32);
-  v2 = [*(a1 + 40) copy];
-  [v1 fulfillWithValue:v2];
+  v3 = *(a1 + 32);
+  v4 = objc_msgSend_copy(*(a1 + 40), a2);
+  [v3 fulfillWithValue:v4];
 }
 
 - (void)updateReachabilityForResidents:(id)residents
@@ -627,7 +611,7 @@ void __88__HMDDefaultResidentDeviceManagerRoarBackingStore_residentsRequiringRea
 
 void __82__HMDDefaultResidentDeviceManagerRoarBackingStore_updateReachabilityForResidents___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v6 reachable];
@@ -644,15 +628,15 @@ void __82__HMDDefaultResidentDeviceManagerRoarBackingStore_updateReachabilityFor
       v13 = [v6 name];
       v14 = [v5 identifier];
       v15 = HMFBooleanToString();
-      v18 = 138544130;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v13;
-      v22 = 2112;
-      v23 = v14;
-      v24 = 2112;
-      v25 = v15;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Updating resident %@ %@ with reachability: %@", &v18, 0x2Au);
+      v17 = 138544130;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v13;
+      v21 = 2112;
+      v22 = v14;
+      v23 = 2112;
+      v24 = v15;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Updating resident %@ %@ with reachability: %@", &v17, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -660,8 +644,6 @@ void __82__HMDDefaultResidentDeviceManagerRoarBackingStore_updateReachabilityFor
     v16 = [MEMORY[0x277CCABB0] numberWithBool:v5 != 0];
     [v6 setReachable:v16];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __82__HMDDefaultResidentDeviceManagerRoarBackingStore_updateReachabilityForResidents___block_invoke_52(uint64_t a1)
@@ -776,18 +758,18 @@ void __98__HMDDefaultResidentDeviceManagerRoarBackingStore__mapResidentsToMKFRes
 void __96__HMDDefaultResidentDeviceManagerRoarBackingStore_updateIdentifiersForAvailableResidentDevices___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) home];
   v3 = [v2 uuid];
   v4 = [HMCContext findHomeWithModelID:v3];
 
   v5 = [MEMORY[0x277CBEB98] setWithArray:*(v1 + 40)];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v6 = [v4 residents];
-  v7 = [v6 countByEnumeratingWithState:&v35 objects:v41 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v34 objects:v40 count:16];
   if (!v7)
   {
 
@@ -795,20 +777,20 @@ void __96__HMDDefaultResidentDeviceManagerRoarBackingStore_updateIdentifiersForA
   }
 
   v8 = v7;
-  v32 = v4;
-  v33 = v6;
-  v34 = 0;
-  v9 = *v36;
+  v31 = v4;
+  v32 = v6;
+  v33 = 0;
+  v9 = *v35;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v36 != v9)
+      if (*v35 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v35 + 1) + 8 * i);
+      v11 = *(*(&v34 + 1) + 8 * i);
       v12 = [v11 device];
       if (v12)
       {
@@ -847,24 +829,24 @@ void __96__HMDDefaultResidentDeviceManagerRoarBackingStore_updateIdentifiersForA
             {
               v25 = *(v23 + 32);
               v26 = [v18 device];
-              v34 |= [v25 _addDeviceIdentifiersIfNecessary:v11 fromResidentDevice:v26];
+              v33 |= [v25 _addDeviceIdentifiersIfNecessary:v11 fromResidentDevice:v26];
             }
 
             v1 = v23;
             v5 = v21;
-            v6 = v33;
+            v6 = v32;
           }
         }
       }
     }
 
-    v8 = [v6 countByEnumeratingWithState:&v35 objects:v41 count:16];
+    v8 = [v6 countByEnumeratingWithState:&v34 objects:v40 count:16];
   }
 
   while (v8);
 
-  v4 = v32;
-  if (v34)
+  v4 = v31;
+  if (v33)
   {
     v27 = objc_autoreleasePoolPush();
     v28 = *(v1 + 32);
@@ -873,7 +855,7 @@ void __96__HMDDefaultResidentDeviceManagerRoarBackingStore_updateIdentifiersForA
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v40 = v30;
+      v39 = v30;
       _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@Saving on adding identifiers to resident", buf, 0xCu);
     }
 
@@ -882,13 +864,11 @@ void __96__HMDDefaultResidentDeviceManagerRoarBackingStore_updateIdentifiersForA
   }
 
 LABEL_24:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_addDeviceIdentifiersIfNecessary:(id)necessary fromResidentDevice:(id)device
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   necessaryCopy = necessary;
   deviceCopy = device;
   if ([(HMDDefaultResidentDeviceManagerRoarBackingStore *)self _shouldUpdateDeviceIdentifiersForResident:necessaryCopy fromResidentDevice:deviceCopy])
@@ -915,11 +895,11 @@ LABEL_24:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         v16 = HMFGetLogIdentifier();
-        v19 = 138543618;
-        v20 = v16;
-        v21 = 2112;
-        v22 = necessaryCopy;
-        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Setting resident: %@ with device address identifiers", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v16;
+        v20 = 2112;
+        v21 = necessaryCopy;
+        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Setting resident: %@ with device address identifiers", &v18, 0x16u);
       }
 
       objc_autoreleasePoolPop(v13);
@@ -933,7 +913,6 @@ LABEL_24:
     v12 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -985,7 +964,7 @@ LABEL_10:
 
 - (id)_handleRemovalOfResidentModel:(id)model currentResidents:(id)residents
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   residentsCopy = residents;
   os_unfair_lock_lock_with_options();
@@ -1006,24 +985,24 @@ LABEL_10:
     v16 = HMFGetLogIdentifier();
     modelID3 = [modelCopy modelID];
     *buf = 138543874;
-    v32 = v16;
-    v33 = 2112;
-    v34 = modelID3;
-    v35 = 2112;
-    v36 = v10;
+    v31 = v16;
+    v32 = 2112;
+    v33 = modelID3;
+    v34 = 2112;
+    v35 = v10;
     _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Matched resident removal for modelID: %@ to pending removal for resident device: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v13);
   if (!v10)
   {
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __98__HMDDefaultResidentDeviceManagerRoarBackingStore__handleRemovalOfResidentModel_currentResidents___block_invoke;
-    v29[3] = &unk_2786850E0;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __98__HMDDefaultResidentDeviceManagerRoarBackingStore__handleRemovalOfResidentModel_currentResidents___block_invoke;
+    v28[3] = &unk_2786850E0;
     v18 = modelCopy;
-    v30 = v18;
-    v10 = [residentsCopy na_firstObjectPassingTest:v29];
+    v29 = v18;
+    v10 = [residentsCopy na_firstObjectPassingTest:v28];
     if (v10)
     {
       v19 = objc_autoreleasePoolPush();
@@ -1033,9 +1012,9 @@ LABEL_10:
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v32 = v22;
-        v33 = 2112;
-        v34 = v10;
+        v31 = v22;
+        v32 = 2112;
+        v33 = v10;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Found matching HMDResidentDevice to remove: %@ from the list of residents in the home.", buf, 0x16u);
       }
 
@@ -1052,9 +1031,9 @@ LABEL_10:
       {
         v26 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v32 = v26;
-        v33 = 2112;
-        v34 = v18;
+        v31 = v26;
+        v32 = 2112;
+        v33 = v18;
         _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Notified of deleted resident model with no matching HMDResidentDevice: %@", buf, 0x16u);
       }
 
@@ -1062,8 +1041,6 @@ LABEL_10:
       v10 = 0;
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1249,7 +1226,7 @@ uint64_t __98__HMDDefaultResidentDeviceManagerRoarBackingStore__handleRemovalOfR
 
 void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentChange_currentResidents_isCurrentDevicePrimaryResident_currentDevice___block_invoke(uint64_t a1, void *a2)
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v5 = *(a1 + 32);
   v4 = *(a1 + 40);
@@ -1294,9 +1271,9 @@ void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentC
         {
           v20 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v82 = v20;
-          v83 = 2112;
-          v84 = v11;
+          v81 = v20;
+          v82 = 2112;
+          v83 = v11;
           _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Ignoring resident model with invalid home: %@", buf, 0x16u);
         }
 
@@ -1322,27 +1299,27 @@ void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentC
 
     if (!v21)
     {
-      v67 = objc_autoreleasePoolPush();
-      v68 = *(a1 + 32);
-      v69 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v69, OS_LOG_TYPE_FAULT))
+      v66 = objc_autoreleasePoolPush();
+      v67 = *(a1 + 32);
+      v68 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_FAULT))
       {
-        v70 = HMFGetLogIdentifier();
-        v71 = [v16 debugDescription];
+        v69 = HMFGetLogIdentifier();
+        v70 = [v16 debugDescription];
         *buf = 138543618;
-        v82 = v70;
-        v83 = 2112;
-        v84 = v71;
-        _os_log_impl(&dword_229538000, v69, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Model ID is nil for %@", buf, 0x16u);
+        v81 = v69;
+        v82 = 2112;
+        v83 = v70;
+        _os_log_impl(&dword_229538000, v68, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Model ID is nil for %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v67);
-      v72 = [HMDAssertionLogEvent alloc];
-      v73 = [v16 debugDescription];
-      v74 = [(HMDAssertionLogEvent *)v72 initWithReason:@"Model ID is nil for %@", v73];
+      objc_autoreleasePoolPop(v66);
+      v71 = [HMDAssertionLogEvent alloc];
+      v72 = [v16 debugDescription];
+      v73 = [(HMDAssertionLogEvent *)v71 initWithReason:@"Model ID is nil for %@", v72];
 
-      v75 = +[HMDMetricsManager sharedLogEventSubmitter];
-      [v75 submitLogEvent:v74];
+      v74 = +[HMDMetricsManager sharedLogEventSubmitter];
+      [v74 submitLogEvent:v73];
     }
 
     v22 = [v16 modelID];
@@ -1362,11 +1339,11 @@ void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentC
           v28 = HMFGetLogIdentifier();
           v29 = [v16 debugDescription];
           *buf = 138543874;
-          v82 = v28;
-          v83 = 2112;
-          v84 = v29;
-          v85 = 2112;
-          v86 = v24;
+          v81 = v28;
+          v82 = 2112;
+          v83 = v29;
+          v84 = 2112;
+          v85 = v24;
           _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_DEBUG, "%{public}@Found existing resident device for model %@: %@", buf, 0x20u);
         }
 
@@ -1438,11 +1415,11 @@ void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentC
             v39 = HMFGetLogIdentifier();
             v40 = [v16 debugDescription];
             *buf = 138543874;
-            v82 = v39;
-            v83 = 2112;
-            v84 = v40;
-            v85 = 2112;
-            v86 = v24;
+            v81 = v39;
+            v82 = 2112;
+            v83 = v40;
+            v84 = 2112;
+            v85 = v24;
             _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@Created new resident device for model %@: %@", buf, 0x20u);
           }
 
@@ -1457,9 +1434,9 @@ void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentC
             v52 = HMFGetLogIdentifier();
             v53 = [v16 debugDescription];
             *buf = 138543618;
-            v82 = v52;
-            v83 = 2112;
-            v84 = v53;
+            v81 = v52;
+            v82 = 2112;
+            v83 = v53;
             _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@No resident device is created for model: %@", buf, 0x16u);
           }
 
@@ -1481,18 +1458,18 @@ void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentC
           v58 = [v57 context];
 
           v59 = [v16 databaseID];
-          v76[0] = MEMORY[0x277D85DD0];
-          v76[1] = 3221225472;
-          v76[2] = __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentChange_currentResidents_isCurrentDevicePrimaryResident_currentDevice___block_invoke_41;
-          v76[3] = &unk_2786891E0;
+          v75[0] = MEMORY[0x277D85DD0];
+          v75[1] = 3221225472;
+          v75[2] = __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentChange_currentResidents_isCurrentDevicePrimaryResident_currentDevice___block_invoke_41;
+          v75[3] = &unk_2786891E0;
           v60 = *(a1 + 32);
-          v77 = v59;
-          v78 = v60;
-          v79 = v24;
-          v80 = v58;
+          v76 = v59;
+          v77 = v60;
+          v78 = v24;
+          v79 = v58;
           v61 = v58;
           v62 = v59;
-          [v61 performBlock:v76];
+          [v61 performBlock:v75];
         }
       }
 
@@ -1505,8 +1482,6 @@ void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentC
       os_unfair_lock_unlock(v63 + 2);
     }
   }
-
-  v66 = *MEMORY[0x277D85DE8];
 }
 
 void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentChange_currentResidents_isCurrentDevicePrimaryResident_currentDevice___block_invoke_43(uint64_t a1, void *a2)
@@ -1557,7 +1532,7 @@ void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentC
 
 void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentChange_currentResidents_isCurrentDevicePrimaryResident_currentDevice___block_invoke_3(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [HMCContext findResidentWithDatabaseID:v3];
   v5 = v4;
@@ -1575,24 +1550,22 @@ void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentC
     {
       v12 = HMFGetLogIdentifier();
       v13 = [v5 reachable];
-      v15 = 138543874;
-      v16 = v12;
-      v17 = 1024;
-      v18 = [v13 intValue];
-      v19 = 2112;
-      v20 = v5;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Updating reachability to '%d' for HMDResidentDevice: %@", &v15, 0x1Cu);
+      v14 = 138543874;
+      v15 = v12;
+      v16 = 1024;
+      v17 = [v13 intValue];
+      v18 = 2112;
+      v19 = v5;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Updating reachability to '%d' for HMDResidentDevice: %@", &v14, 0x1Cu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDResidentDevice)_residentDeviceFromModel:(void *)model currentDevice:
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   modelCopy = model;
   if (self)
@@ -1611,11 +1584,11 @@ void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentC
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           v13 = HMFGetLogIdentifier();
-          v30 = 138543618;
-          v31 = v13;
-          v32 = 2112;
-          v33 = v7;
-          _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Create resident device using %@", &v30, 0x16u);
+          v29 = 138543618;
+          v30 = v13;
+          v31 = 2112;
+          v32 = v7;
+          _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Create resident device using %@", &v29, 0x16u);
         }
 
         objc_autoreleasePoolPop(v9);
@@ -1636,11 +1609,11 @@ void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentC
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v27 = HMFGetLogIdentifier();
-        v30 = 138543618;
-        v31 = v27;
-        v32 = 2112;
-        v33 = v5;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Skip creating resident. Model does not have a valid accessory: %@", &v30, 0x16u);
+        v29 = 138543618;
+        v30 = v27;
+        v31 = 2112;
+        v32 = v5;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Skip creating resident. Model does not have a valid accessory: %@", &v29, 0x16u);
       }
 
       v26 = v9;
@@ -1654,9 +1627,9 @@ void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentC
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         v25 = HMFGetLogIdentifier();
-        v30 = 138543362;
-        v31 = v25;
-        _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_DEBUG, "%{public}@No device found for this model", &v30, 0xCu);
+        v29 = 138543362;
+        v30 = v25;
+        _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_DEBUG, "%{public}@No device found for this model", &v29, 0xCu);
       }
 
       v26 = v22;
@@ -1672,14 +1645,12 @@ LABEL_14:
   v20 = 0;
 LABEL_15:
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentChange_currentResidents_isCurrentDevicePrimaryResident_currentDevice___block_invoke_41(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [HMCContext findResidentWithDatabaseID:*(a1 + 32)];
   if (v2)
   {
@@ -1696,11 +1667,11 @@ void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentC
       {
         v8 = HMFGetLogIdentifier();
         v9 = [v2 modelID];
-        v16 = 138543618;
-        v17 = v8;
-        v18 = 2112;
-        v19 = v9;
-        _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Saving resident: %@ with added device address identifiers", &v16, 0x16u);
+        v15 = 138543618;
+        v16 = v8;
+        v17 = 2112;
+        v18 = v9;
+        _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Saving resident: %@ with added device address identifiers", &v15, 0x16u);
       }
 
       objc_autoreleasePoolPop(v5);
@@ -1717,17 +1688,15 @@ void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentC
     {
       v13 = HMFGetLogIdentifier();
       v14 = *(a1 + 32);
-      v16 = 138543618;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v14;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Did not find resident %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v13;
+      v17 = 2112;
+      v18 = v14;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Did not find resident %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)residentModel:(id)model isTheSameAs:(id)as
@@ -1753,34 +1722,34 @@ void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentC
 
 - (id)pruneDuplicateResidentModelsFrom:(id)from
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = [MEMORY[0x277CBEB18] arrayWithArray:fromCopy];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __84__HMDDefaultResidentDeviceManagerRoarBackingStore_pruneDuplicateResidentModelsFrom___block_invoke;
-  v23[3] = &unk_278681A58;
-  v23[4] = self;
-  [v5 sortUsingComparator:v23];
-  v21[0] = 0;
-  v21[1] = v21;
-  v21[2] = 0x3032000000;
-  v21[3] = __Block_byref_object_copy__223849;
-  v21[4] = __Block_byref_object_dispose__223850;
-  v22 = 0;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __84__HMDDefaultResidentDeviceManagerRoarBackingStore_pruneDuplicateResidentModelsFrom___block_invoke_31;
-  v17[3] = &unk_278681A80;
-  v17[4] = self;
-  v20 = v21;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __84__HMDDefaultResidentDeviceManagerRoarBackingStore_pruneDuplicateResidentModelsFrom___block_invoke;
+  v22[3] = &unk_278681A58;
+  v22[4] = self;
+  [v5 sortUsingComparator:v22];
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x3032000000;
+  v20[3] = __Block_byref_object_copy__223849;
+  v20[4] = __Block_byref_object_dispose__223850;
+  v21 = 0;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __84__HMDDefaultResidentDeviceManagerRoarBackingStore_pruneDuplicateResidentModelsFrom___block_invoke_31;
+  v16[3] = &unk_278681A80;
+  v16[4] = self;
+  v19 = v20;
   v8 = array2;
-  v18 = v8;
+  v17 = v8;
   v9 = array;
-  v19 = v9;
-  [v5 hmf_enumerateWithAutoreleasePoolUsingBlock:v17];
+  v18 = v9;
+  [v5 hmf_enumerateWithAutoreleasePoolUsingBlock:v16];
   if ([v8 count])
   {
     v10 = objc_autoreleasePoolPush();
@@ -1790,9 +1759,9 @@ void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentC
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v13;
-      v26 = 2114;
-      v27 = v8;
+      v24 = v13;
+      v25 = 2114;
+      v26 = v8;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Duplicate MKFResident models are present in the working store: %{public}@.", buf, 0x16u);
     }
 
@@ -1801,8 +1770,7 @@ void __139__HMDDefaultResidentDeviceManagerRoarBackingStore_handleCloudResidentC
 
   v14 = [MEMORY[0x277CBEA60] arrayWithArray:v9];
 
-  _Block_object_dispose(v21, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v20, 8);
 
   return v14;
 }
@@ -1894,14 +1862,14 @@ void __84__HMDDefaultResidentDeviceManagerRoarBackingStore_pruneDuplicateResiden
   v12 = residentsCopy;
   [context unsafeSynchronousBlock:&v15];
 
-  v13 = [v11 copy];
+  v13 = objc_msgSend_copy(v11, v15, v16, v17, v18, selfCopy);
 
   return v13;
 }
 
 void __81__HMDDefaultResidentDeviceManagerRoarBackingStore_findResidents_outHasResidents___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) home];
   v3 = [v2 uuid];
   v4 = [HMCContext findHomeWithModelID:v3];
@@ -1910,18 +1878,18 @@ void __81__HMDDefaultResidentDeviceManagerRoarBackingStore_findResidents_outHasR
   v6 = [v4 residents];
   v7 = [v5 pruneDuplicateResidentModelsFrom:v6];
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __81__HMDDefaultResidentDeviceManagerRoarBackingStore_findResidents_outHasResidents___block_invoke_2;
-  v18[3] = &unk_278681A30;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __81__HMDDefaultResidentDeviceManagerRoarBackingStore_findResidents_outHasResidents___block_invoke_2;
+  v17[3] = &unk_278681A30;
   v8 = *(a1 + 56);
-  v17 = *(a1 + 32);
-  v9 = *(&v17 + 1);
+  v16 = *(a1 + 32);
+  v9 = *(&v16 + 1);
   *&v10 = *(a1 + 48);
   *(&v10 + 1) = v8;
-  v19 = v17;
-  v20 = v10;
-  [v7 hmf_enumerateWithAutoreleasePoolUsingBlock:v18];
+  v18 = v16;
+  v19 = v10;
+  [v7 hmf_enumerateWithAutoreleasePoolUsingBlock:v17];
   v11 = objc_autoreleasePoolPush();
   v12 = *(a1 + 32);
   v13 = HMFGetOSLogHandle();
@@ -1930,16 +1898,15 @@ void __81__HMDDefaultResidentDeviceManagerRoarBackingStore_findResidents_outHasR
     v14 = HMFGetLogIdentifier();
     v15 = *(a1 + 48);
     *buf = 138543874;
-    v22 = v14;
-    v23 = 2114;
-    v24 = v15;
-    v25 = 2114;
-    v26 = v7;
+    v21 = v14;
+    v22 = 2114;
+    v23 = v15;
+    v24 = 2114;
+    v25 = v7;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Created resident devices: %{public}@ from models: %{public}@.", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v11);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __81__HMDDefaultResidentDeviceManagerRoarBackingStore_findResidents_outHasResidents___block_invoke_2(uint64_t a1, void *a2)
@@ -1975,34 +1942,34 @@ void __81__HMDDefaultResidentDeviceManagerRoarBackingStore_findResidents_outHasR
 
 - (void)_updateHasAnyResident
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   home = [(HMDDefaultResidentDeviceManagerRoarBackingStore *)self home];
   uuid = [home uuid];
 
   if (uuid)
   {
     v5 = [HMCContext findHomeWithModelID:uuid];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     residents = [v5 residents];
-    v7 = [residents countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v7 = [residents countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v23;
+      v10 = *v22;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(residents);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
+          v12 = *(*(&v21 + 1) + 8 * i);
           appleMediaAccessory = [v12 appleMediaAccessory];
           if (appleMediaAccessory)
           {
@@ -2013,7 +1980,7 @@ void __81__HMDDefaultResidentDeviceManagerRoarBackingStore_findResidents_outHasR
           }
         }
 
-        v8 = [residents countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v8 = [residents countByEnumeratingWithState:&v21 objects:v29 count:16];
       }
 
       while (v8);
@@ -2034,9 +2001,9 @@ void __81__HMDDefaultResidentDeviceManagerRoarBackingStore_findResidents_outHasR
         v19 = HMFGetLogIdentifier();
         v20 = HMFBooleanToString();
         *buf = 138543618;
-        v27 = v19;
-        v28 = 2112;
-        v29 = v20;
+        v26 = v19;
+        v27 = 2112;
+        v28 = v20;
         _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Updating hasAnyResident to %@", buf, 0x16u);
       }
 
@@ -2044,8 +2011,6 @@ void __81__HMDDefaultResidentDeviceManagerRoarBackingStore_findResidents_outHasR
       [(HMDDefaultResidentDeviceManagerRoarBackingStore *)selfCopy setHasAnyResident:v9 & 1];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setHasAnyResident:(BOOL)resident
@@ -2066,7 +2031,7 @@ void __81__HMDDefaultResidentDeviceManagerRoarBackingStore_findResidents_outHasR
 
 - (id)_deviceFromModel:(id)model currentDevice:(id)device
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   deviceCopy = device;
   if (deviceCopy && _isMKFResidentCurrentDevice(modelCopy))
@@ -2077,19 +2042,19 @@ void __81__HMDDefaultResidentDeviceManagerRoarBackingStore_findResidents_outHasR
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v11;
-      v22 = 2112;
-      v23 = deviceCopy;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Using current device: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v11;
+      v21 = 2112;
+      v22 = deviceCopy;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Using current device: %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     logger = selfCopy->_logger;
     if (os_signpost_enabled(logger))
     {
-      LOWORD(v20) = 0;
-      _os_signpost_emit_with_name_impl(&dword_229538000, logger, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HH2CurrentDeviceResidentDeviceCreated", "", &v20, 2u);
+      LOWORD(v19) = 0;
+      _os_signpost_emit_with_name_impl(&dword_229538000, logger, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HH2CurrentDeviceResidentDeviceCreated", "", &v19, 2u);
     }
 
     v13 = deviceCopy;
@@ -2104,26 +2069,24 @@ void __81__HMDDefaultResidentDeviceManagerRoarBackingStore_findResidents_outHasR
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = HMFGetLogIdentifier();
-      v20 = 138543874;
-      v21 = v17;
-      v22 = 2112;
-      v23 = v13;
-      v24 = 2112;
-      v25 = modelCopy;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Using device: %@ from account for model: %@", &v20, 0x20u);
+      v19 = 138543874;
+      v20 = v17;
+      v21 = 2112;
+      v22 = v13;
+      v23 = 2112;
+      v24 = modelCopy;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Using device: %@ from account for model: %@", &v19, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (id)_deviceFromModel:(id)model
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   appleAccountManager = [(HMDDefaultResidentDeviceManagerRoarBackingStore *)self appleAccountManager];
   idsIdentifier = [modelCopy idsIdentifier];
@@ -2140,57 +2103,32 @@ void __81__HMDDefaultResidentDeviceManagerRoarBackingStore_findResidents_outHasR
     account = [appleAccountManager account];
     idsIdentifier2 = [modelCopy idsIdentifier];
 
-    if (idsIdentifier2)
+    if (idsIdentifier2 && ([modelCopy idsIdentifier], v14 = objc_claimAutoreleasedReturnValue(), -[HMDDefaultResidentDeviceManagerRoarBackingStore _deviceWithIdsIdentifier:fromAccount:](self, "_deviceWithIdsIdentifier:fromAccount:", v14, account), v15 = objc_claimAutoreleasedReturnValue(), v14, v15) || (objc_msgSend(modelCopy, "idsDestination"), v16 = objc_claimAutoreleasedReturnValue(), v16, v16) && (objc_msgSend(modelCopy, "idsDestination"), v17 = objc_claimAutoreleasedReturnValue(), -[HMDDefaultResidentDeviceManagerRoarBackingStore _deviceWithIdsDestination:fromAccount:](self, "_deviceWithIdsDestination:fromAccount:", v17, account), v15 = objc_claimAutoreleasedReturnValue(), v17, v15))
     {
-      idsIdentifier3 = [modelCopy idsIdentifier];
-      v15 = [(HMDDefaultResidentDeviceManagerRoarBackingStore *)self _deviceWithIdsIdentifier:idsIdentifier3 fromAccount:account];
-
-      if (v15)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    idsDestination2 = [modelCopy idsDestination];
-
-    if (!idsDestination2)
-    {
-      goto LABEL_9;
-    }
-
-    idsDestination3 = [modelCopy idsDestination];
-    v15 = [(HMDDefaultResidentDeviceManagerRoarBackingStore *)self _deviceWithIdsDestination:idsDestination3 fromAccount:account];
-
-    if (v15)
-    {
-LABEL_8:
       v11 = v15;
     }
 
     else
     {
-LABEL_9:
       v18 = objc_autoreleasePoolPush();
       selfCopy = self;
       v20 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         v21 = HMFGetLogIdentifier();
-        v24 = 138543874;
-        v25 = v21;
-        v26 = 2112;
-        v27 = modelCopy;
-        v28 = 2112;
-        v29 = account;
-        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unable to find the device for model: %@ from account: %@", &v24, 0x20u);
+        v23 = 138543874;
+        v24 = v21;
+        v25 = 2112;
+        v26 = modelCopy;
+        v27 = 2112;
+        v28 = account;
+        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unable to find the device for model: %@ from account: %@", &v23, 0x20u);
       }
 
       objc_autoreleasePoolPop(v18);
       v11 = 0;
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -2288,10 +2226,9 @@ LABEL_9:
 
 void __62__HMDDefaultResidentDeviceManagerRoarBackingStore_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v51_223911;
-  logCategory__hmf_once_v51_223911 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v51_223911;
+  logCategory__hmf_once_v51_223911 = v0;
 }
 
 @end

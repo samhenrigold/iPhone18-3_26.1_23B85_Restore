@@ -13,7 +13,7 @@
   sceneCopy = scene;
   if (!sceneCopy)
   {
-    [SBFMutablePhysicalButtonSceneTarget targetWithScene:a2];
+    [(SBFMutablePhysicalButtonSceneTarget *)a2 targetWithScene:self];
   }
 
   [(SBFMutablePhysicalButtonSceneTarget *)self targetWithScene:sceneCopy, &v7];
@@ -25,7 +25,7 @@
   identityCopy = identity;
   if (!identityCopy)
   {
-    [SBFMutablePhysicalButtonSceneTarget targetWithSceneIdentity:a2];
+    [(SBFMutablePhysicalButtonSceneTarget *)a2 targetWithSceneIdentity:self];
   }
 
   [(SBFMutablePhysicalButtonSceneTarget *)self targetWithSceneIdentity:identityCopy, &v7];
@@ -71,24 +71,24 @@
   return v7;
 }
 
-+ (void)targetWithScene:(const char *)a1 .cold.2(const char *a1)
++ (void)targetWithScene:(const char *)a1 .cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"scene != ((void *)0)"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"scene != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1_6();
-    v8 = @"SBFPhysicalButtonSceneTarget.m";
-    v9 = 1024;
-    v10 = 190;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBFPhysicalButtonSceneTarget.m";
+    v10 = 1024;
+    v11 = 190;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1BEA11000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -101,24 +101,24 @@
   return v5;
 }
 
-+ (void)targetWithSceneIdentity:(const char *)a1 .cold.2(const char *a1)
++ (void)targetWithSceneIdentity:(const char *)a1 .cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"sceneIdentity != ((void *)0)"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"sceneIdentity != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1_6();
-    v8 = @"SBFPhysicalButtonSceneTarget.m";
-    v9 = 1024;
-    v10 = 195;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBFPhysicalButtonSceneTarget.m";
+    v10 = 1024;
+    v11 = 195;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1BEA11000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

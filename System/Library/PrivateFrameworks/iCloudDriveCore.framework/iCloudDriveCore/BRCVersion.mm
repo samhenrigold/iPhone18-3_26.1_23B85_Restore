@@ -8,6 +8,7 @@
 - (id)additionNameForItemID:(id)d zoneID:(id)iD;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)descriptionWithContext:(id)context;
+- (id)initFromResultSet:(id)set pos:(int)pos;
 - (id)lastEditorDeviceDisplayNameWithDBFacade:(id)facade;
 - (id)lastEditorDisplayNameWithDBFacade:(id)facade;
 - (id)lastEditorUserIdentityWithDBFacade:(id)facade;
@@ -306,6 +307,73 @@ LABEL_33:
   [v5 deleteCharactersInRange:{objc_msgSend(v5, "length") - 1, 1}];
 
   return v5;
+}
+
+- (id)initFromResultSet:(id)set pos:(int)pos
+{
+  v4 = *&pos;
+  setCopy = set;
+  v7 = [setCopy stringAtIndex:v4];
+  if (v7)
+  {
+    v28.receiver = self;
+    v28.super_class = BRCVersion;
+    v8 = [(BRCVersion *)&v28 init];
+    if (v8)
+    {
+      v9 = [setCopy objectOfClass:objc_opt_class() atIndex:(v4 + 1)];
+      ckInfo = v8->_ckInfo;
+      v8->_ckInfo = v9;
+
+      v8->_mtime = [setCopy longLongAtIndex:(v4 + 2)];
+      objc_storeStrong(&v8->_originalPOSIXName, v7);
+      v8->_size = [setCopy longLongAtIndex:(v4 + 3)];
+      v8->_thumbnailSize = [setCopy longLongAtIndex:(v4 + 4)];
+      v11 = [setCopy dataAtIndex:(v4 + 5)];
+      thumbnailSignature = v8->_thumbnailSignature;
+      v8->_thumbnailSignature = v11;
+
+      v13 = [setCopy dataAtIndex:(v4 + 6)];
+      contentSignature = v8->_contentSignature;
+      v8->_contentSignature = v13;
+
+      v15 = [setCopy dataAtIndex:(v4 + 7)];
+      xattrSignature = v8->_xattrSignature;
+      v8->_xattrSignature = v15;
+
+      v17 = [setCopy numberAtIndex:(v4 + 8)];
+      editedSinceShared = v8->_editedSinceShared;
+      v8->_editedSinceShared = v17;
+
+      v19 = [setCopy numberAtIndex:(v4 + 9)];
+      lastEditorDeviceOrUserRowID = v8->_lastEditorDeviceOrUserRowID;
+      v8->_lastEditorDeviceOrUserRowID = v19;
+
+      if (_BRCClassesConflictLoserEtags_once != -1)
+      {
+        [BRCVersion initFromResultSet:pos:];
+      }
+
+      v21 = _BRCClassesConflictLoserEtags_allowedClasses;
+      v22 = [setCopy unarchivedObjectOfClasses:v21 atIndex:(v4 + 10)];
+      conflictLoserEtags = v8->_conflictLoserEtags;
+      v8->_conflictLoserEtags = v22;
+
+      v24 = [setCopy dataAtIndex:(v4 + 11)];
+      quarantineInfo = v8->_quarantineInfo;
+      v8->_quarantineInfo = v24;
+    }
+
+    self = v8;
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
 }
 
 - (BRCVersion)initWithVersion:(id)version
@@ -739,7 +807,7 @@ LABEL_70:
 
 - (BOOL)isSmallAndMostRecentClientsGenerateThumbnails
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (![(BRCVersion *)self size])
   {
     v5 = brc_bread_crumbs();
@@ -766,15 +834,15 @@ LABEL_70:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         v11 = [BRCDumpContext stringFromByteCount:[(BRCVersion *)self size] context:0];
-        v15 = 138412802;
-        v16 = v11;
-        v17 = 2112;
-        v18 = v5;
-        v19 = 2112;
-        v20 = v6;
+        v14 = 138412802;
+        v15 = v11;
+        v16 = 2112;
+        v17 = v5;
+        v18 = 2112;
+        v19 = v6;
         v12 = "[DEBUG] Being greedy because the document is small %@ and QL can generate a thumbnail for %@%@";
 LABEL_15:
-        _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, v12, &v15, 0x20u);
+        _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, v12, &v14, 0x20u);
       }
     }
 
@@ -785,12 +853,12 @@ LABEL_15:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         v11 = [BRCDumpContext stringFromByteCount:[(BRCVersion *)self size] context:0];
-        v15 = 138412802;
-        v16 = v11;
-        v17 = 2112;
-        v18 = v5;
-        v19 = 2112;
-        v20 = v6;
+        v14 = 138412802;
+        v15 = v11;
+        v16 = 2112;
+        v17 = v5;
+        v18 = 2112;
+        v19 = v6;
         v12 = "[DEBUG] Not being greedy even though the document is small %@: QL can’t generate a thumbnail for %@%@";
         goto LABEL_15;
       }
@@ -805,26 +873,25 @@ LABEL_15:
   {
     v7 = [BRCDumpContext stringFromByteCount:[(BRCVersion *)self size] context:0];
     v8 = [BRCDumpContext stringFromByteCount:minFileSizeForThumbnailTransfer context:0];
-    v15 = 138412802;
-    v16 = v7;
-    v17 = 2112;
-    v18 = v8;
-    v19 = 2112;
-    v20 = v5;
-    _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] Not being greedy because document is bigger %@ than minimum size (%@) to generate a thumbnail%@", &v15, 0x20u);
+    v14 = 138412802;
+    v15 = v7;
+    v16 = 2112;
+    v17 = v8;
+    v18 = 2112;
+    v19 = v5;
+    _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] Not being greedy because document is bigger %@ than minimum size (%@) to generate a thumbnail%@", &v14, 0x20u);
   }
 
 LABEL_7:
   LOBYTE(v9) = 0;
 LABEL_13:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (id)lazyXattrWithXattrStager:(id)stager
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   stagerCopy = stager;
   v5 = stagerCopy;
   if (self->_xattrSignature)
@@ -850,11 +917,11 @@ LABEL_13:
         {
           xattrSignature = self->_xattrSignature;
           *buf = 138412802;
-          v17 = xattrSignature;
-          v18 = 2112;
-          v19 = 0;
-          v20 = 2112;
-          v21 = v11;
+          v16 = xattrSignature;
+          v17 = 2112;
+          v18 = 0;
+          v19 = 2112;
+          v20 = v11;
           _os_log_fault_impl(&dword_223E7A000, v12, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed to load xattr with signature %@ - %@%@", buf, 0x20u);
         }
 
@@ -870,14 +937,11 @@ LABEL_13:
     v7 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (void)setLastEditorDeviceRowID:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -885,15 +949,12 @@ LABEL_13:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: ![self _hasLastEditorRowID]%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: ![self _hasLastEditorRowID]%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLastEditorDeviceRowID:.cold.2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -901,15 +962,12 @@ LABEL_13:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: lastEditorDeviceRowID && lastEditorDeviceRowID.longLongValue > 0%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: lastEditorDeviceRowID && lastEditorDeviceRowID.longLongValue > 0%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLastEditorRowID:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -917,35 +975,31 @@ LABEL_13:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: !_lastEditorDeviceOrUserRowID || ![self _hasLastEditorDeviceRowID]%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: !_lastEditorDeviceOrUserRowID || ![self _hasLastEditorDeviceRowID]%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isPackage
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_fault_impl(&dword_223E7A000, v5, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: _contentSignature%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_fault_impl(&dword_223E7A000, v5, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: _contentSignature%@", &v6, 0xCu);
   }
 
   *a2 = *self;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isSmallAndMostRecentClientsGenerateThumbnails
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Not being greedy because current version size is 0%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Not being greedy because current version size is 0%@", &v2, 0xCu);
 }
 
 @end

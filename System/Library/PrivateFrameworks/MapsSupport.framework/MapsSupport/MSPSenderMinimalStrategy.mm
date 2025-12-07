@@ -52,124 +52,115 @@
 
 - (void)_sendInitialStateIfNeeded
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   if ([(NSMutableSet *)self->super.super._participants count]&& [(NSMutableSet *)self->_participantsNeedingInitialState count])
   {
     v3 = [(GEOSharedNavState *)self->super.super._state copy];
     v4 = [objc_opt_class() _validateState:v3 forEvent:3];
-    v5 = MSPGetSharedTripLog();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
-    if (v4)
+    v5 = v4;
+    v6 = MSPGetSharedTripLog(v4);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+    if (v5)
     {
-      v40 = v3;
-      if (v6)
+      v41 = v3;
+      if (v7)
       {
-        v7 = MEMORY[0x277CCACA8];
+        v8 = MEMORY[0x277CCACA8];
         selfCopy = self;
-        selfCopy = [v7 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+        selfCopy = [v8 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
         participantsNeedingInitialState = self->_participantsNeedingInitialState;
-        v11 = selfCopy;
-        v12 = [(NSMutableSet *)participantsNeedingInitialState count];
-        v13 = self->_participantsNeedingInitialState;
+        v12 = selfCopy;
+        v13 = [(NSMutableSet *)participantsNeedingInitialState count];
+        v14 = self->_participantsNeedingInitialState;
 
         *buf = 138543875;
-        v47 = selfCopy;
-        v48 = 2048;
-        v49 = v12;
-        v50 = 2113;
-        v51 = v13;
-        _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_INFO, "[%{public}@] Need to send initial state to %lu participants: %{private}@", buf, 0x20u);
+        v48 = selfCopy;
+        v49 = 2048;
+        v50 = v13;
+        v51 = 2113;
+        v52 = v14;
+        _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_INFO, "[%{public}@] Need to send initial state to %lu participants: %{private}@", buf, 0x20u);
       }
 
-      v5 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{-[NSMutableSet count](self->_participantsNeedingInitialState, "count")}];
-      v41 = 0u;
+      v6 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{-[NSMutableSet count](self->_participantsNeedingInitialState, "count")}];
       v42 = 0u;
       v43 = 0u;
       v44 = 0u;
-      v14 = self->_participantsNeedingInitialState;
-      v15 = [(NSMutableSet *)v14 countByEnumeratingWithState:&v41 objects:v45 count:16];
-      if (v15)
+      v45 = 0u;
+      v15 = self->_participantsNeedingInitialState;
+      v16 = [(NSMutableSet *)v15 countByEnumeratingWithState:&v42 objects:v46 count:16];
+      if (v16)
       {
-        v16 = v15;
-        v17 = *v42;
+        v17 = v16;
+        v18 = *v43;
         do
         {
-          for (i = 0; i != v16; ++i)
+          for (i = 0; i != v17; ++i)
           {
-            if (*v42 != v17)
+            if (*v43 != v18)
             {
-              objc_enumerationMutation(v14);
+              objc_enumerationMutation(v15);
             }
 
-            v19 = *(*(&v41 + 1) + 8 * i);
+            v20 = *(*(&v42 + 1) + 8 * i);
             capabilitiesByParticipant = [(MSPSenderIDSStrategy *)self capabilitiesByParticipant];
-            v21 = [capabilitiesByParticipant objectForKeyedSubscript:v19];
-            v22 = [v21 count];
+            v22 = [capabilitiesByParticipant objectForKeyedSubscript:v20];
+            v23 = [v22 count];
 
-            if (v22)
+            if (v23)
             {
-              [v5 addObject:v19];
+              [v6 addObject:v20];
             }
           }
 
-          v16 = [(NSMutableSet *)v14 countByEnumeratingWithState:&v41 objects:v45 count:16];
+          v17 = [(NSMutableSet *)v15 countByEnumeratingWithState:&v42 objects:v46 count:16];
         }
 
-        while (v16);
+        while (v17);
       }
 
-      v23 = [v5 count];
-      v3 = v40;
-      if (v23 != [(NSMutableSet *)self->_participantsNeedingInitialState count])
+      v24 = [v6 count];
+      v25 = [(NSMutableSet *)self->_participantsNeedingInitialState count];
+      v3 = v41;
+      if (v24 != v25)
       {
-        v24 = MSPGetSharedTripLog();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+        v26 = MSPGetSharedTripLog(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
-          v25 = MEMORY[0x277CCACA8];
+          v27 = MEMORY[0x277CCACA8];
           selfCopy2 = self;
-          selfCopy2 = [v25 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
+          selfCopy2 = [v27 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
 
-          v28 = selfCopy2;
-          v29 = [v5 count];
-          v30 = [(NSMutableSet *)self->_participantsNeedingInitialState count];
+          v30 = selfCopy2;
+          v31 = [v6 count];
+          v32 = [(NSMutableSet *)self->_participantsNeedingInitialState count];
 
           *buf = 138543874;
-          v47 = selfCopy2;
-          v48 = 2048;
-          v49 = v29;
-          v50 = 2048;
-          v51 = v30;
-          _os_log_impl(&dword_25813A000, v24, OS_LOG_TYPE_INFO, "[%{public}@] only %lu/%lu participants are currently reachable for initial state", buf, 0x20u);
+          v48 = selfCopy2;
+          v49 = 2048;
+          v50 = v31;
+          v51 = 2048;
+          v52 = v32;
+          _os_log_impl(&dword_25813A000, v26, OS_LOG_TYPE_INFO, "[%{public}@] only %lu/%lu participants are currently reachable for initial state", buf, 0x20u);
         }
       }
 
-      if ([v5 count])
+      if ([v6 count])
       {
-        [(NSMutableSet *)self->_participantsNeedingInitialState minusSet:v5];
-        [(MSPSenderIDSStrategy *)self _sendUpdatedWaypoints:v40 to:v5];
+        [(NSMutableSet *)self->_participantsNeedingInitialState minusSet:v6];
+        [(MSPSenderIDSStrategy *)self _sendUpdatedWaypoints:v41 to:v6];
       }
     }
 
-    else if (v6)
+    else if (v7)
     {
-      v31 = MEMORY[0x277CCACA8];
+      v33 = MEMORY[0x277CCACA8];
       selfCopy3 = self;
-      selfCopy3 = [v31 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy3];
+      selfCopy3 = [v33 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy3];
 
-      v34 = [(NSMutableSet *)self->_participantsNeedingInitialState count];
+      v36 = [(NSMutableSet *)self->_participantsNeedingInitialState count];
       if ([v3 waypointInfosCount])
-      {
-        v35 = @"YES";
-      }
-
-      else
-      {
-        v35 = @"NO";
-      }
-
-      v36 = v35;
-      if ([v3 etaInfosCount])
       {
         v37 = @"YES";
       }
@@ -180,19 +171,28 @@
       }
 
       v38 = v37;
+      if ([v3 etaInfosCount])
+      {
+        v39 = @"YES";
+      }
+
+      else
+      {
+        v39 = @"NO";
+      }
+
+      v40 = v39;
       *buf = 138544130;
-      v47 = selfCopy3;
-      v48 = 2048;
-      v49 = v34;
-      v50 = 2114;
-      v51 = v36;
-      v52 = 2114;
-      v53 = v38;
-      _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_INFO, "[%{public}@] Need to send initial state to %lu participants, but initial state isn't ready (hasWaypoints: %{public}@, hasETAInfos: %{public}@)", buf, 0x2Au);
+      v48 = selfCopy3;
+      v49 = 2048;
+      v50 = v36;
+      v51 = 2114;
+      v52 = v38;
+      v53 = 2114;
+      v54 = v40;
+      _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_INFO, "[%{public}@] Need to send initial state to %lu participants, but initial state isn't ready (hasWaypoints: %{public}@, hasETAInfos: %{public}@)", buf, 0x2Au);
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addParticipants:(id)participants
@@ -222,41 +222,44 @@
 {
   v21 = *MEMORY[0x277D85DE8];
   participantCopy = participant;
-  if ([objc_opt_class() _supportsEvent:9] && -[NSMutableSet containsObject:](self->super.super._participants, "containsObject:", participantCopy))
+  if ([objc_opt_class() _supportsEvent:9])
   {
-    v7 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v7 = [(NSMutableSet *)self->super.super._participants containsObject:participantCopy];
+    if (v7)
     {
-      v8 = MEMORY[0x277CCACA8];
-      selfCopy = self;
-      selfCopy = [v8 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+      v8 = MSPGetSharedTripLog(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      {
+        v9 = MEMORY[0x277CCACA8];
+        selfCopy = self;
+        selfCopy = [v9 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
-      *buf = 138543618;
-      v18 = selfCopy;
-      v19 = 2048;
-      reasonCopy = reason;
-      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_INFO, "[%{public}@] will remove and send stopped with reason: %lu", buf, 0x16u);
+        *buf = 138543618;
+        v18 = selfCopy;
+        v19 = 2048;
+        reasonCopy = reason;
+        _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_INFO, "[%{public}@] will remove and send stopped with reason: %lu", buf, 0x16u);
+      }
+
+      v12 = [(GEOSharedNavState *)self->super.super._state copy];
+      [v12 setClosed:1];
+      [v12 setClosureReason:reason];
+      [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+      [v12 setClosedTimestamp:?];
+      v13 = [MEMORY[0x277CBEB98] setWithObject:participantCopy];
+      [(MSPSenderIDSStrategy *)self _sendStoppedUpdate:v12 to:v13];
     }
-
-    v11 = [(GEOSharedNavState *)self->super.super._state copy];
-    [v11 setClosed:1];
-    [v11 setClosureReason:reason];
-    [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-    [v11 setClosedTimestamp:?];
-    v12 = [MEMORY[0x277CBEB98] setWithObject:participantCopy];
-    [(MSPSenderIDSStrategy *)self _sendStoppedUpdate:v11 to:v12];
   }
 
   v16.receiver = self;
   v16.super_class = MSPSenderMinimalStrategy;
-  v13 = [(MSPSenderStrategy *)&v16 removeParticipant:participantCopy forReason:reason];
-  if (v13)
+  v14 = [(MSPSenderStrategy *)&v16 removeParticipant:participantCopy forReason:reason];
+  if (v14)
   {
     [(NSMutableSet *)self->_participantsNeedingInitialState removeObject:participantCopy];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v14;
 }
 
 - (void)didFetchCapabilitiesForParticipants:(id)participants

@@ -34,7 +34,7 @@
 
 - (int64_t)indexForSize:(CGSize)size
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (size.width >= size.height)
   {
     width = size.width;
@@ -45,17 +45,17 @@
     width = size.height;
   }
 
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_dimensions;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       v9 = 0;
@@ -63,12 +63,12 @@
       v7 += v6;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v14 + 1) + 8 * v9) doubleValue];
+        [*(*(&v13 + 1) + 8 * v9) doubleValue];
         if (width <= v11)
         {
           v7 = v10;
@@ -80,7 +80,7 @@
       }
 
       while (v6 != v9);
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -97,7 +97,6 @@
 
 LABEL_15:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

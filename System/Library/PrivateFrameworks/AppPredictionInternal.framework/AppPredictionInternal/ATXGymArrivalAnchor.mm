@@ -82,33 +82,29 @@ uint64_t __70__ATXGymArrivalAnchor_fetchAnchorOccurrencesBetweenStartDate_endDat
 
 + (id)sampleEvent
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v2 = [ATXPOICategoryVisitDuetEvent alloc];
   v3 = objc_alloc(MEMORY[0x277CBEB70]);
-  v11[0] = @"gym";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = @"gym";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v5 = [v3 initWithArray:v4];
   v6 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-20.0];
   v7 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-10.0];
   v8 = [(ATXPOICategoryVisitDuetEvent *)v2 initWithPossibleCategoryNames:v5 startDate:v6 endDate:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (void)registerForNotificationsWithoutUsingContextStoreForObserver:(id)observer enterSelector:(SEL)selector exitSelector:(SEL)exitSelector
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   v8 = +[ATXPOICategoryVisitDuetDataProvider sharedInstance];
   v9 = *MEMORY[0x277D0E890];
-  v12[0] = @"gym";
-  v12[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[0] = @"gym";
+  v11[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   [v8 subscribeToPOIChangesForCategory:v10 observer:observerCopy enterSelector:selector exitSelector:exitSelector];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)unregisterForNotificationsWithoutUsingContextStoreForObserver:(id)observer

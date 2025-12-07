@@ -14,24 +14,21 @@
 
 + (id)uniquedColumns
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"owning_query_id";
-  v5[1] = @"bucket_index";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"owning_query_id";
+  v4[1] = @"bucket_index";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"owning_query_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"owning_query_id";
   v2 = +[(HDHealthEntity *)HDCachedQueryMetadataEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -132,7 +129,7 @@
 
 + (BOOL)insertCachedData:(id)data forQueryIdentifier:(id)identifier sourceEntity:(id)entity generationNumber:(int64_t)number persistentAnchorDate:(id)date intervalComponents:(id)components profile:(id)profile error:(id *)self0
 {
-  v49[4] = *MEMORY[0x277D85DE8];
+  v48[4] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   identifierCopy = identifier;
   entityCopy = entity;
@@ -185,25 +182,25 @@ LABEL_9:
   }
 
 LABEL_5:
-  v49[0] = @"owning_query_id";
-  v49[1] = @"bucket_index";
-  v49[2] = @"data";
-  v49[3] = @"generation_number";
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:4];
+  v48[0] = @"owning_query_id";
+  v48[1] = @"bucket_index";
+  v48[2] = @"data";
+  v48[3] = @"generation_number";
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:4];
   database = [profileCopy database];
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __152__HDSampleAggregateCacheEntity_insertCachedData_forQueryIdentifier_sourceEntity_generationNumber_persistentAnchorDate_intervalComponents_profile_error___block_invoke;
-  v39[3] = &unk_27862A458;
-  v40 = identifierCopy;
-  v41 = entityCopy;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __152__HDSampleAggregateCacheEntity_insertCachedData_forQueryIdentifier_sourceEntity_generationNumber_persistentAnchorDate_intervalComponents_profile_error___block_invoke;
+  v38[3] = &unk_27862A458;
+  v39 = identifierCopy;
+  v40 = entityCopy;
   selfCopy = self;
   numberCopy = number;
-  v42 = dateCopy;
-  v43 = componentsCopy;
-  v44 = profileCopy;
-  v45 = dataCopy;
-  v46 = v22;
+  v41 = dateCopy;
+  v42 = componentsCopy;
+  v43 = profileCopy;
+  v44 = dataCopy;
+  v45 = v22;
   v24 = v22;
   v25 = dataCopy;
   v26 = profileCopy;
@@ -211,69 +208,68 @@ LABEL_5:
   v28 = dateCopy;
   v29 = entityCopy;
   v30 = identifierCopy;
-  v31 = [self performWriteTransactionWithHealthDatabase:database error:error block:v39];
+  v31 = [self performWriteTransactionWithHealthDatabase:database error:error block:v38];
 
-  v32 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
 uint64_t __152__HDSampleAggregateCacheEntity_insertCachedData_forQueryIdentifier_sourceEntity_generationNumber_persistentAnchorDate_intervalComponents_profile_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v27 = [HDSampleAggregateCacheEntity _queryMetadataForIdentifier:*(a1 + 32) sourceEntity:*(a1 + 40) generationNumber:*(a1 + 48) persistentAnchorDate:*(a1 + 56) intervalComponents:*(a1 + 64) profile:v5 transaction:a3 error:?];
-  if (v27)
+  v26 = [HDSampleAggregateCacheEntity _queryMetadataForIdentifier:*(a1 + 32) sourceEntity:*(a1 + 40) generationNumber:*(a1 + 48) persistentAnchorDate:*(a1 + 56) intervalComponents:*(a1 + 64) profile:v5 transaction:a3 error:?];
+  if (v26)
   {
-    v26 = [v5 databaseForEntityClass:*(a1 + 88)];
+    v25 = [v5 databaseForEntityClass:*(a1 + 88)];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     obj = *(a1 + 72);
-    v6 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v6 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v35;
-      v24 = v5;
+      v8 = *v34;
+      v23 = v5;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v35 != v8)
+          if (*v34 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v34 + 1) + 8 * i);
+          v10 = *(*(&v33 + 1) + 8 * i);
           v11 = [v10 bucketIndexForIntervalComponents:*(a1 + 56) anchorDate:*(a1 + 48)];
-          v33 = 0;
-          v12 = [v10 getData:&v33 error:a3];
-          v13 = v33;
+          v32 = 0;
+          v12 = [v10 getData:&v32 error:a3];
+          v13 = v32;
           v14 = v13;
           if (!v12)
           {
 
 LABEL_15:
             v21 = 0;
-            v5 = v24;
+            v5 = v23;
             goto LABEL_16;
           }
 
           v15 = *(a1 + 80);
           v16 = *(a1 + 88);
-          v28[0] = MEMORY[0x277D85DD0];
-          v28[1] = 3221225472;
-          v28[2] = __152__HDSampleAggregateCacheEntity_insertCachedData_forQueryIdentifier_sourceEntity_generationNumber_persistentAnchorDate_intervalComponents_profile_error___block_invoke_2;
-          v28[3] = &unk_27861BAE8;
-          v17 = v27;
+          v27[0] = MEMORY[0x277D85DD0];
+          v27[1] = 3221225472;
+          v27[2] = __152__HDSampleAggregateCacheEntity_insertCachedData_forQueryIdentifier_sourceEntity_generationNumber_persistentAnchorDate_intervalComponents_profile_error___block_invoke_2;
+          v27[3] = &unk_27861BAE8;
+          v17 = v26;
           v18 = *(a1 + 96);
-          v31 = v11;
-          v32 = v18;
-          v29 = v17;
-          v30 = v14;
+          v30 = v11;
+          v31 = v18;
+          v28 = v17;
+          v29 = v14;
           v19 = v14;
-          v20 = [v16 insertOrReplaceEntity:1 database:v26 properties:v15 error:a3 bindingHandler:v28];
+          v20 = [v16 insertOrReplaceEntity:1 database:v25 properties:v15 error:a3 bindingHandler:v27];
 
           if (!v20)
           {
@@ -281,9 +277,9 @@ LABEL_15:
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v7 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
         v21 = 1;
-        v5 = v24;
+        v5 = v23;
         if (v7)
         {
           continue;
@@ -306,7 +302,6 @@ LABEL_16:
     v21 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -315,7 +310,6 @@ void __152__HDSampleAggregateCacheEntity_insertCachedData_forQueryIdentifier_sou
   MEMORY[0x22AAC6B90](a2, @"owning_query_id", [*(a1 + 32) persistentID]);
   MEMORY[0x22AAC6B90](a2, @"bucket_index", *(a1 + 48));
   MEMORY[0x22AAC6B90](a2, @"generation_number", *(a1 + 56));
-  v4 = *(a1 + 40);
 
   JUMPOUT(0x22AAC6B40);
 }
@@ -558,14 +552,14 @@ uint64_t __89__HDSampleAggregateCacheEntity_cachesExistForQueryIdentifier_source
 
 uint64_t __136__HDSampleAggregateCacheEntity_enumerateCachedDataForQueryIdentifier_sourceEntity_profile_startIndex_endIndex_error_enumerationHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v42[3] = *MEMORY[0x277D85DE8];
+  v41[3] = *MEMORY[0x277D85DE8];
   v5 = [a2 databaseForEntityClass:*(a1 + 56)];
   v6 = *(a1 + 56);
   v7 = *(a1 + 32);
   v8 = *(a1 + 40);
-  v39 = 0;
-  v9 = [(HDSampleAggregateCacheEntity *)v6 _owningCachedQueryEntityForQueryIdentifier:v7 sourceEntity:v8 database:v5 error:&v39];
-  v10 = v39;
+  v38 = 0;
+  v9 = [(HDSampleAggregateCacheEntity *)v6 _owningCachedQueryEntityForQueryIdentifier:v7 sourceEntity:v8 database:v5 error:&v38];
+  v10 = v38;
   v11 = v10;
   if (v9)
   {
@@ -582,44 +576,44 @@ uint64_t __136__HDSampleAggregateCacheEntity_enumerateCachedDataForQueryIdentifi
     if (v9)
     {
       v13 = [v9 persistentID];
-      v36 = a3;
+      v35 = a3;
       v14 = *(a1 + 64);
-      v32 = *(a1 + 72);
-      v35 = objc_alloc_init(MEMORY[0x277D10B80]);
-      [v35 setEntityClass:objc_opt_class()];
+      v31 = *(a1 + 72);
+      v34 = objc_alloc_init(MEMORY[0x277D10B80]);
+      [v34 setEntityClass:objc_opt_class()];
       v15 = MEMORY[0x277D10B18];
-      v34 = [MEMORY[0x277CCABB0] numberWithLongLong:v13];
-      v33 = [v15 predicateWithProperty:@"owning_query_id" equalToValue:v34];
-      v42[0] = v33;
+      v33 = [MEMORY[0x277CCABB0] numberWithLongLong:v13];
+      v32 = [v15 predicateWithProperty:@"owning_query_id" equalToValue:v33];
+      v41[0] = v32;
       v16 = MEMORY[0x277D10B18];
       v17 = [MEMORY[0x277CCABB0] numberWithInteger:v14];
       v18 = [v16 predicateWithProperty:@"bucket_index" greaterThanOrEqualToValue:v17];
-      v42[1] = v18;
+      v41[1] = v18;
       v19 = MEMORY[0x277D10B18];
-      v20 = [MEMORY[0x277CCABB0] numberWithInteger:v32];
+      v20 = [MEMORY[0x277CCABB0] numberWithInteger:v31];
       v21 = [v19 predicateWithProperty:@"bucket_index" lessThanValue:v20];
-      v42[2] = v21;
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
+      v41[2] = v21;
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:3];
 
       v23 = [MEMORY[0x277D10B20] predicateMatchingAllPredicates:v22];
-      [v35 setPredicate:v23];
+      [v34 setPredicate:v23];
 
       v24 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"bucket_index" entityClass:objc_opt_class() ascending:1];
-      v41 = v24;
-      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
-      [v35 setOrderingTerms:v25];
+      v40 = v24;
+      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+      [v34 setOrderingTerms:v25];
 
-      v26 = [objc_alloc(MEMORY[0x277D10B78]) initWithDatabase:v5 descriptor:v35];
-      v40[0] = @"data";
-      v40[1] = @"bucket_index";
-      v40[2] = @"generation_number";
-      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:3];
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __136__HDSampleAggregateCacheEntity_enumerateCachedDataForQueryIdentifier_sourceEntity_profile_startIndex_endIndex_error_enumerationHandler___block_invoke_2;
-      v37[3] = &unk_2786145A8;
-      v38 = *(a1 + 48);
-      v28 = [v26 enumerateProperties:v27 error:v36 enumerationHandler:v37];
+      v26 = [objc_alloc(MEMORY[0x277D10B78]) initWithDatabase:v5 descriptor:v34];
+      v39[0] = @"data";
+      v39[1] = @"bucket_index";
+      v39[2] = @"generation_number";
+      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:3];
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __136__HDSampleAggregateCacheEntity_enumerateCachedDataForQueryIdentifier_sourceEntity_profile_startIndex_endIndex_error_enumerationHandler___block_invoke_2;
+      v36[3] = &unk_2786145A8;
+      v37 = *(a1 + 48);
+      v28 = [v26 enumerateProperties:v27 error:v35 enumerationHandler:v36];
     }
 
     else
@@ -641,29 +635,25 @@ uint64_t __136__HDSampleAggregateCacheEntity_enumerateCachedDataForQueryIdentifi
     v28 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
-uint64_t __136__HDSampleAggregateCacheEntity_enumerateCachedDataForQueryIdentifier_sourceEntity_profile_startIndex_endIndex_error_enumerationHandler___block_invoke_2(uint64_t a1)
+uint64_t __136__HDSampleAggregateCacheEntity_enumerateCachedDataForQueryIdentifier_sourceEntity_profile_startIndex_endIndex_error_enumerationHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = *(a1 + 32);
-  v1 = HKWithAutoreleasePool();
+  v6 = *(a1 + 32);
+  v4 = HKWithAutoreleasePool();
 
-  return v1;
+  return v4;
 }
 
 uint64_t __136__HDSampleAggregateCacheEntity_enumerateCachedDataForQueryIdentifier_sourceEntity_profile_startIndex_endIndex_error_enumerationHandler___block_invoke_3(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = HDSQLiteColumnWithNameAsData();
-  v4 = *(a1 + 40);
+  v2 = HDSQLiteColumnWithNameAsData();
   HDSQLiteColumnWithNameAsInt64();
-  v5 = *(a1 + 40);
   HDSQLiteColumnWithNameAsInt64();
-  v6 = (*(*(a1 + 32) + 16))();
+  v3 = (*(*(a1 + 32) + 16))();
 
-  return v6;
+  return v3;
 }
 
 + (id)pruneWithProfile:(id)profile nowDate:(id)date limit:(unint64_t)limit error:(id *)error

@@ -605,7 +605,7 @@ LABEL_5:
     v21 = 0u;
     v18 = 0u;
     v19 = 0u;
-    [(CKBalloonView *)self balloonDescriptor];
+    objc_msgSend_balloonDescriptor(self);
     videoPlayerMaskLayer = self->_videoPlayerMaskLayer;
     if (!videoPlayerMaskLayer)
     {

@@ -78,7 +78,7 @@
     v15 = __nwlog_obj();
     *buf = 136446210;
     v28 = "[NWOutboundMessage initWithContent:]";
-    v16 = _os_log_send_and_compose_impl();
+    v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v25 = 0;
@@ -158,7 +158,7 @@ LABEL_39:
   v10 = __nwlog_obj();
   *buf = 136446210;
   v28 = "[NWOutboundMessage initWithContent:]";
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null content", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v25 = 0;

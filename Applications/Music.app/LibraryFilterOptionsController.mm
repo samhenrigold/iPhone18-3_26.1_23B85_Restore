@@ -8,9 +8,10 @@
 
 + (BOOL)isFilteringToFavoritesWithStorageKey:(id)key legacyStorageKey:(id)storageKey
 {
+  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = v5;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v4 = sub_100482A64();
+  LOBYTE(v4) = sub_100482A64(v4, v6);
 
   return v4 & 1;
 }

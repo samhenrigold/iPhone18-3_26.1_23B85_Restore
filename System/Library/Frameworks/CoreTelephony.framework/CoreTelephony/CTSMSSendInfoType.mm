@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (CTSMSSendInfoType)init;
 - (CTSMSSendInfoType)initWithCoder:(id)coder;
+- (CTSMSSendInfoType)initWithStatusType:(int64_t)type error1:(int)error1 error2:(int)error2 delay:(int)delay;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -28,6 +29,31 @@
   }
 
   return v3;
+}
+
+- (CTSMSSendInfoType)initWithStatusType:(int64_t)type error1:(int)error1 error2:(int)error2 delay:(int)delay
+{
+  v6 = *&delay;
+  v7 = *&error2;
+  v8 = *&error1;
+  v16.receiver = self;
+  v16.super_class = CTSMSSendInfoType;
+  v10 = [(CTSMSSendInfoType *)&v16 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(CTSMSSendInfoType *)v10 setStatusType:type];
+    v12 = [MEMORY[0x1E696AD98] numberWithInt:v8];
+    [(CTSMSSendInfoType *)v11 setError1:v12];
+
+    v13 = [MEMORY[0x1E696AD98] numberWithInt:v7];
+    [(CTSMSSendInfoType *)v11 setError2:v13];
+
+    v14 = [MEMORY[0x1E696AD98] numberWithInt:v6];
+    [(CTSMSSendInfoType *)v11 setRecommendedRetryDelayInSeconds:v14];
+  }
+
+  return v11;
 }
 
 - (BOOL)isEqual:(id)equal

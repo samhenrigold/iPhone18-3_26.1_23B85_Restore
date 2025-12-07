@@ -18,16 +18,16 @@ uint64_t b2ChainShape::GetVertex(b2ChainShape *this, int a2)
 
 uint64_t QuadTree::visitLeaves(uint64_t *a1, uint64_t a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  std::__function::__value_func<void ()(float,float,int)>::__value_func[abi:ne200100](v4, a2);
-  QuadTreeNode::visitLeaves(v2, v4);
-  return std::__function::__value_func<void ()(float,float,int)>::~__value_func[abi:ne200100](v4);
+  std::__function::__value_func<void ()(float,float,int)>::__value_func[abi:ne200100](v6, a2);
+  QuadTreeNode::visitLeaves(v2, v6, v3, v4);
+  return std::__function::__value_func<void ()(float,float,int)>::~__value_func[abi:ne200100](v6);
 }
 
-void sub_25E7AD440(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25E7AD440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(float,float,int)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -42,36 +42,34 @@ void sub_25E7AD7FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<b2Vec2>::resize(uint64_t a1, unint64_t a2)
+void std::vector<b2Vec2>::resize(const void **result, unint64_t a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      *(a1 + 8) = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<b2Vec2>::__append(a1, a2 - v2);
+    std::vector<b2Vec2>::__append(result, a2 - v2);
   }
 }
 
-void *std::vector<PKPoint>::reserve(void *result, unint64_t a2)
+void std::vector<PKPoint>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<PKPoint>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<PKPoint>>(a1, a2);
     }
 
     std::vector<PKPoint>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::vector<PKPoint>::push_back[abi:ne200100](uint64_t a1, void *a2)
@@ -133,7 +131,7 @@ void std::vector<PKPoint>::push_back[abi:ne200100](uint64_t a1, void *a2)
   *(a1 + 8) = v6;
 }
 
-void sub_25E7ADDF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, void *a15, std::__shared_weak_count *a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, void *a21, uint64_t a22)
+void sub_25E7ADDF8(_Unwind_Exception *a1, uint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, void *a15, std::__shared_weak_count *a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, void *a21, uint64_t a22)
 {
   if (a14)
   {
@@ -166,7 +164,7 @@ void addEdge(PKPhysicsBody *a1, const CGPoint *a2, const CGPoint *a3)
   operator new();
 }
 
-uint64_t addPolygonFromPath(void *a1, uint64_t a2)
+uint64_t addPolygonFromPath(void *a1, void *a2)
 {
   v5 = a1;
   v6 = *(*a2 + 16) - *(*a2 + 8);
@@ -254,7 +252,7 @@ uint64_t addPolygonFromPath(void *a1, uint64_t a2)
   return 0;
 }
 
-void addEdgeChain(void *a1, std::__shared_weak_count **a2)
+void addEdgeChain(void *a1, void *a2)
 {
   v5 = a1;
   v6 = v5;
@@ -262,7 +260,7 @@ void addEdgeChain(void *a1, std::__shared_weak_count **a2)
   v7 = a2[1];
   if (v7)
   {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
   }
 
   v9 = v5[22];
@@ -275,13 +273,13 @@ void addEdgeChain(void *a1, std::__shared_weak_count **a2)
 
   *(v6 + 28) = 1;
   *(v6 + 9) = 1;
-  v10 = (*a2)->__shared_weak_owners_ - (*a2)->__shared_owners_;
+  v10 = *(*a2 + 16) - *(*a2 + 8);
   v11 = malloc_type_malloc((v10 << 29) >> 29, 0x100004000313F17uLL);
   if ((v10 >> 3) >= 1)
   {
     v12 = 0;
     v13 = (v10 >> 3) & 0x7FFFFFFF;
-    v14 = ((*a2)->__shared_owners_ + 4);
+    v14 = (*(*a2 + 8) + 4);
     do
     {
       v15 = *(v14 - 1);
@@ -422,7 +420,7 @@ void sub_25E7B072C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void addEdgeLoop(void *a1, uint64_t a2)
+void addEdgeLoop(void *a1, void *a2)
 {
   v5 = a1;
   v5[28] = 1;
@@ -485,7 +483,7 @@ void addEdgeLoop(void *a1, uint64_t a2)
   operator new();
 }
 
-void sub_25E7B0FF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_25E7B0FF0(_Unwind_Exception *exception_object, uint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
 {
   if (a10)
   {
@@ -495,11 +493,11 @@ void sub_25E7B0FF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25E7B2B44(_Unwind_Exception *a1)
+void sub_25E7B2B44(_Unwind_Exception *a1, uint64_t a2)
 {
-  if (v2)
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
   _Unwind_Resume(a1);
@@ -530,17 +528,17 @@ uint64_t std::__function::__value_func<void ()(float,float,int)>::__value_func[a
   return a1;
 }
 
-void *std::vector<PKPoint>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<PKPoint>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<PKPoint>::__vallocate[abi:ne200100](result, a2);
+    std::vector<PKPoint>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_25E7B3198(_Unwind_Exception *exception_object)
@@ -555,7 +553,7 @@ void sub_25E7B3198(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<PKPoint>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<PKPoint>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -697,7 +695,7 @@ uint64_t std::__shared_ptr_emplace<PKPath>::__shared_ptr_emplace[abi:ne200100]<P
   *(a1 + 24) = *a2;
   *(a1 + 40) = 0u;
   *(a1 + 32) = 0;
-  std::vector<PKPoint>::__init_with_size[abi:ne200100]<PKPoint*,PKPoint*>(a1 + 32, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 3);
+  std::vector<PKPoint>::__init_with_size[abi:ne200100]<PKPoint*,PKPoint*>((a1 + 32), *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 3);
   *(a1 + 56) = 0;
   return a1;
 }
@@ -710,7 +708,7 @@ void std::__shared_ptr_emplace<PKPath>::~__shared_ptr_emplace(std::__shared_weak
   JUMPOUT(0x25F8C0280);
 }
 
-uint64_t std::vector<PKPoint>::__init_with_size[abi:ne200100]<PKPoint*,PKPoint*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<PKPoint>::__init_with_size[abi:ne200100]<PKPoint*,PKPoint*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -755,9 +753,9 @@ void std::shared_ptr<PKPath>::shared_ptr[abi:ne200100]<PKPath,0>(void *a1, uint6
   operator new();
 }
 
-void sub_25E7B3A5C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25E7B3A5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<PKPath>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -807,7 +805,7 @@ uint64_t std::__shared_ptr_pointer<PKPath *,std::shared_ptr<PKPath>::__shared_pt
   }
 }
 
-void *std::vector<PKPoint>::__assign_with_size[abi:ne200100]<PKPoint*,PKPoint*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<PKPoint>::__assign_with_size[abi:ne200100]<PKPoint*,PKPoint*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -1323,9 +1321,9 @@ void PKQueryHandler::~PKQueryHandler(id *this)
   JUMPOUT(0x25F8C0280);
 }
 
-void sub_25E7B9308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25E7B9308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   PKRayCastHandler::~PKRayCastHandler(va);
 
   _Unwind_Resume(a1);
@@ -1343,7 +1341,7 @@ void PKRayCastHandler::issueCallbacks(PKRayCastHandler *this)
   }
 }
 
-void sub_25E7B94D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_25E7B94D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -1357,28 +1355,28 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25E7B9630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_25E7B9630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_25E7B9770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_25E7B9770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_25E7B9EFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25E7B9EFC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PKPhysicsWorld;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_25E7BA720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id a31)
+void sub_25E7BA720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id a31)
 {
   _Block_object_dispose(&a26, 8);
 
@@ -1428,27 +1426,27 @@ void PKCAether::Evaluator::~Evaluator(PKCAether::Evaluator *this)
   std::vector<std::shared_ptr<PKCField>>::__destroy_vector::operator()[abi:ne200100](&v3);
 }
 
-void sub_25E7BB778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25E7BB778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   PKCAether::Evaluator::~Evaluator(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25E7BB878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25E7BB878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   PKCAether::Evaluator::~Evaluator(va);
   _Unwind_Resume(a1);
 }
 
-void PKDebugDraw::DrawSolidPolygon(uint64_t a1, uint64_t *a2, int a3, uint64_t a4)
+void PKDebugDraw::DrawSolidPolygon(uint64_t a1, uint64_t *a2, int a3, uint64_t *a4)
 {
   v8 = 2 * a3;
   std::vector<PKPoint>::reserve(*(a1 + 16), v8);
   std::vector<PKDebugDrawPacket::color4>::reserve((*(a1 + 16) + 24), v8);
   *&v15 = *a4;
-  DWORD2(v15) = *(a4 + 8);
+  DWORD2(v15) = *(a4 + 2);
   HIDWORD(v15) = 1065353216;
   v9 = (a3 - 1);
   if (a3 >= 2)
@@ -1496,7 +1494,7 @@ uint64_t PKQueryHandler::ReportFixture(PKQueryHandler *this, id *a2)
       if (!std::__hash_table<void *,std::hash<void *>,std::equal_to<void *>,std::allocator<void *>>::find<void *>(this + 3, &v8))
       {
         v8 = v5;
-        std::__hash_table<void *,std::hash<void *>,std::equal_to<void *>,std::allocator<void *>>::__emplace_unique_key_args<void *,void *>(this + 3, &v8);
+        std::__hash_table<void *,std::hash<void *>,std::equal_to<void *>,std::allocator<void *>>::__emplace_unique_key_args<void *,void *>(this + 6, &v8, &v8);
         (*(*(this + 8) + 16))();
       }
 
@@ -1545,79 +1543,71 @@ void *std::__hash_table<void *,std::hash<void *>,std::equal_to<void *>,std::allo
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<void *,std::hash<void *>,std::equal_to<void *>,std::allocator<void *>>::__emplace_unique_key_args<void *,void *>(void *a1, void *a2)
+void *std::__hash_table<void *,std::hash<void *>,std::equal_to<void *>,std::allocator<void *>>::__emplace_unique_key_args<void *,void *>(float *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = *(a1 + 2);
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -1625,47 +1615,47 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
-void std::__hash_table<void *,std::hash<void *>,std::equal_to<void *>,std::allocator<void *>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<void *,std::hash<void *>,std::equal_to<void *>,std::allocator<void *>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -1681,7 +1671,7 @@ void std::__hash_table<void *,std::hash<void *>,std::equal_to<void *>,std::alloc
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -1689,7 +1679,7 @@ void std::__hash_table<void *,std::hash<void *>,std::equal_to<void *>,std::alloc
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -1713,7 +1703,7 @@ void std::__hash_table<void *,std::hash<void *>,std::equal_to<void *>,std::alloc
     {
 LABEL_6:
 
-      std::__hash_table<void *,std::hash<void *>,std::equal_to<void *>,std::allocator<void *>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<void *,std::hash<void *>,std::equal_to<void *>,std::allocator<void *>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -1765,7 +1755,7 @@ uint64_t std::__hash_table<void *,std::hash<void *>,std::equal_to<void *>,std::a
   return a1;
 }
 
-void PKRayCastHandler::~PKRayCastHandler(PKRayCastHandler *this)
+void PKRayCastHandler::~PKRayCastHandler(id *this)
 {
   *this = &unk_287079768;
   std::__list_imp<PKRayCastItem>::clear(this + 2);
@@ -1780,19 +1770,34 @@ void PKRayCastHandler::~PKRayCastHandler(PKRayCastHandler *this)
 
 float PKRayCastHandler::ReportFixture(PKRayCastHandler *this, id *a2, const b2Vec2 *a3, const b2Vec2 *a4, float a5)
 {
-  v5 = a2[9];
-  if (v5)
+  v8 = a2[9];
+  if (v8)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v6 = v5;
-      PKGet_PTM_RATIO();
-      PKGet_PTM_RATIO();
-      PKGet_PTM_RATIO();
-      PKGet_PTM_RATIO();
-      v6;
-      std::list<PKRayCastItem>::push_back();
+      v9 = v8;
+      x = a3->x;
+      v11 = PKGet_PTM_RATIO();
+      y = a3->y;
+      v13 = PKGet_PTM_RATIO();
+      v14 = a4->x;
+      v15 = PKGet_PTM_RATIO();
+      v16 = a4->y;
+      v17 = PKGet_PTM_RATIO();
+      v18 = x * v11;
+      v19 = (x * v11);
+      v20 = y * v13;
+      v21 = (y * v13);
+      v22 = (v16 * v17);
+      v23 = (((v20 - *(this + 11)) * (v20 - *(this + 11))) + ((v18 - *(this + 10)) * (v18 - *(this + 10))));
+      v25[0] = v9;
+      *&v25[1] = v19;
+      *&v25[2] = v21;
+      *&v25[3] = (v14 * v15);
+      *&v25[4] = v22;
+      *&v25[5] = v23;
+      std::list<PKRayCastItem>::push_back(this + 2, v25);
     }
   }
 
@@ -1806,7 +1811,7 @@ BOOL PKRayCastItemSortInline(uint64_t a1, uint64_t a2)
   return v3;
 }
 
-uint64_t std::list<PKRayCastItem>::__sort<BOOL (*)(PKRayCastItem,PKRayCastItem)>(uint64_t a1, uint64_t *a2, unint64_t a3, unsigned int (**a4)(id *, id *))
+uint64_t *std::list<PKRayCastItem>::__sort<BOOL (*)(PKRayCastItem,PKRayCastItem)>(uint64_t *a1, uint64_t *a2, unint64_t a3, unsigned int (**a4)(id *, id *))
 {
   v4 = a1;
   if (a3 >= 2)
@@ -1851,7 +1856,7 @@ uint64_t std::list<PKRayCastItem>::__sort<BOOL (*)(PKRayCastItem,PKRayCastItem)>
       v22 = a1;
       do
       {
-        v22 = *(v22 + 8);
+        v22 = v22[1];
         --v21;
       }
 
@@ -2227,13 +2232,13 @@ void PKDebugDraw::PKDebugDraw(PKDebugDraw *this, PKDebugDrawPacket *a2, int a3, 
   b2Draw::SetFlags(v7, v9);
 }
 
-void PKDebugDraw::DrawPolygon(uint64_t a1, uint64_t *a2, int a3, uint64_t a4)
+void PKDebugDraw::DrawPolygon(uint64_t a1, uint64_t *a2, int a3, uint64_t *a4)
 {
   v8 = 2 * a3;
   std::vector<PKPoint>::reserve(*(a1 + 16), v8);
   std::vector<PKDebugDrawPacket::color4>::reserve((*(a1 + 16) + 24), v8);
   *&v15 = *a4;
-  DWORD2(v15) = *(a4 + 8);
+  DWORD2(v15) = *(a4 + 2);
   HIDWORD(v15) = 1065353216;
   v9 = (a3 - 1);
   if (a3 >= 2)
@@ -2263,10 +2268,10 @@ void PKDebugDraw::DrawPolygon(uint64_t a1, uint64_t *a2, int a3, uint64_t a4)
   std::vector<PKDebugDrawPacket::color4>::push_back[abi:ne200100](*(a1 + 16) + 24, &v15);
 }
 
-void PKDebugDraw::DrawCircle(uint64_t a1, float *a2, uint64_t a3, float a4)
+void PKDebugDraw::DrawCircle(uint64_t a1, float *a2, uint64_t *a3, float a4)
 {
   *&v14 = *a3;
-  DWORD2(v14) = *(a3 + 8);
+  DWORD2(v14) = *(a3 + 2);
   HIDWORD(v14) = 1065353216;
   std::vector<PKPoint>::reserve(*(a1 + 16), 0x20uLL);
   std::vector<PKDebugDrawPacket::color4>::reserve((*(a1 + 16) + 24), 0x20uLL);
@@ -2291,10 +2296,10 @@ void PKDebugDraw::DrawCircle(uint64_t a1, float *a2, uint64_t a3, float a4)
   while (v7 < 6.6758844);
 }
 
-void PKDebugDraw::DrawSolidCircle(uint64_t a1, float *a2, float a3, uint64_t a4, uint64_t a5)
+void PKDebugDraw::DrawSolidCircle(uint64_t a1, float *a2, float a3, uint64_t a4, uint64_t *a5)
 {
   *&v15 = *a5;
-  DWORD2(v15) = *(a5 + 8);
+  DWORD2(v15) = *(a5 + 2);
   HIDWORD(v15) = 1065353216;
   std::vector<PKPoint>::reserve(*(a1 + 16), 0x20uLL);
   std::vector<PKDebugDrawPacket::color4>::reserve((*(a1 + 16) + 24), 0x20uLL);
@@ -2373,19 +2378,17 @@ void PKDebugDraw::DrawFieldSample(uint64_t a1, float32x2_t *a2, float32x2_t *a3,
   std::vector<PKDebugDrawPacket::color4>::push_back[abi:ne200100](*(a1 + 16) + 24, &v20);
 }
 
-void *std::vector<PKDebugDrawPacket::color4>::reserve(void *result, unint64_t a2)
+void std::vector<PKDebugDrawPacket::color4>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<PKDebugDrawPacket::color4>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<PKDebugDrawPacket::color4>>(a1, a2);
     }
 
     std::vector<PKPoint>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::vector<PKDebugDrawPacket::color4>::push_back[abi:ne200100](uint64_t a1, _OWORD *a2)
@@ -3939,7 +3942,7 @@ LABEL_69:
         v138 = 0;
         v139 = v92;
         v140 = 1;
-        v141 = *(*&v109 + 8 * v108);
+        v141 = v109[v108];
         v142 = 0;
         v143 = v108;
         v144 = 1;
@@ -4227,13 +4230,13 @@ void b2EPCollider::~b2EPCollider(b2EPCollider *this)
   }
 }
 
-void b2CollidePolygons(float32x2_t *a1, float *a2, const b2Transform *a3, float *a4, const b2Transform *a5)
+void b2CollidePolygons(float32x2_t *a1, const b2PolygonShape *a2, const b2Transform *a3, const b2PolygonShape *a4, const b2Transform *a5)
 {
   v5 = a5;
   v6 = a4;
   v99 = *MEMORY[0x277D85DE8];
   a1[7].i32[1] = 0;
-  v10 = a2[3] + a4[3];
+  v10 = *(a2 + 3) + *(a4 + 3);
   v86 = 0;
   MaxSeparation = b2FindMaxSeparation(&v86, a2, a3, a4, a5);
   if (MaxSeparation <= v10)
@@ -4249,7 +4252,7 @@ void b2CollidePolygons(float32x2_t *a1, float *a2, const b2Transform *a3, float 
       {
         v16 = &v85;
         v17 = 2;
-        p_var0 = &a3->var0;
+        v18 = a3;
         v19 = a2;
       }
 
@@ -4257,7 +4260,7 @@ void b2CollidePolygons(float32x2_t *a1, float *a2, const b2Transform *a3, float 
       {
         v16 = &v86;
         v17 = 1;
-        p_var0 = &v5->var0;
+        v18 = v5;
         v5 = a3;
         v19 = v6;
         v6 = a2;
@@ -4268,10 +4271,10 @@ void b2CollidePolygons(float32x2_t *a1, float *a2, const b2Transform *a3, float 
       var1 = v5->var1.var1;
       x = v5->var0.x;
       y = v5->var0.y;
-      v25 = *p_var0;
-      v26 = p_var0[1];
-      v28 = p_var0[2];
-      v27 = p_var0[3];
+      v25 = v18->var0.x;
+      v26 = v18->var0.y;
+      v28 = v18->var1.var0;
+      v27 = v18->var1.var1;
       a1[7].i32[0] = v17;
       if ((v20 & 0x80000000) != 0 || (v29 = *(v6 + 2), v30 = (*(v6 + 3) - v29) >> 3, v20 >= v30))
       {
@@ -4543,9 +4546,9 @@ LABEL_28:
   return v34;
 }
 
-float b2EdgeSeparation(const b2PolygonShape *a1, const b2Transform *a2, unsigned int a3, const b2PolygonShape *a4, const b2Transform *a5)
+float b2EdgeSeparation(const b2PolygonShape *a1, const b2Transform *a2, int a3, const b2PolygonShape *a4, const b2Transform *a5)
 {
-  if ((a3 & 0x80000000) != 0 || (v5 = *(a1 + 2), ((*(a1 + 3) - v5) >> 3) <= a3))
+  if (a3 < 0 || (v5 = *(a1 + 2), ((*(a1 + 3) - v5) >> 3) <= a3))
   {
     b2EdgeSeparation();
   }
@@ -5017,7 +5020,7 @@ float b2DistanceProxy::Set(b2DistanceProxy *this, b2Shape *a2, int a3)
     {
       if (v5 == 4)
       {
-        if ((atomic_load_explicit(&qword_27FD070C8, memory_order_acquire) & 1) == 0)
+        if ((atomic_load_explicit(byte_27FD070C8, memory_order_acquire) & 1) == 0)
         {
           b2DistanceProxy::Set();
         }
@@ -5237,24 +5240,24 @@ LABEL_8:
 
 int32x4_t b2Distance(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   ++b2_gjkCalls;
   v6 = *(a3 + 64);
-  v63 = *(a3 + 80);
-  v64 = v6;
-  b2Simplex::ReadCache(v60, a2, a3, &v64, a3 + 32, &v63);
-  b2Simplex::GetClosestPoint(v60);
+  v64 = *(a3 + 80);
+  v65 = v6;
+  b2Simplex::ReadCache(v61, a2, a3, &v65, a3 + 32, &v64, v6, v64);
+  b2Simplex::GetClosestPoint(v61);
   v7 = 0;
-  v8 = v62;
+  v8 = v63;
   do
   {
     v9 = v8;
     if (v8 >= 1)
     {
-      v10 = v65;
-      v11 = v66;
+      v10 = v66;
+      v11 = v67;
       v12 = v8;
-      v13 = &v61;
+      v13 = &v62;
       do
       {
         v14 = *v13;
@@ -5271,7 +5274,7 @@ int32x4_t b2Distance(uint64_t a1, uint64_t a2, uint64_t a3)
     {
       if (v8 == 2)
       {
-        b2Simplex::Solve2(v60);
+        b2Simplex::Solve2(v61);
       }
 
       else
@@ -5281,206 +5284,206 @@ int32x4_t b2Distance(uint64_t a1, uint64_t a2, uint64_t a3)
           b2Distance();
         }
 
-        b2Simplex::Solve3(v60);
+        b2Simplex::Solve3(v61);
       }
     }
 
-    if (v62 == 3)
+    if (v63 == 3)
     {
       break;
     }
 
-    b2Simplex::GetClosestPoint(v60);
-    SearchDirection = b2Simplex::GetSearchDirection(v60);
-    if (((v16 * v16) + (SearchDirection * SearchDirection)) < 1.4211e-14)
+    b2Simplex::GetClosestPoint(v61);
+    SearchDirection = b2Simplex::GetSearchDirection(v61, v15);
+    if (((v17 * v17) + (SearchDirection * SearchDirection)) < 1.4211e-14)
     {
       break;
     }
 
-    v17 = v62;
-    v18 = &v60[9 * v62];
-    v19 = *(&v64 + 1);
-    v20 = *(a3 + 16);
-    v21 = *(a3 + 24);
-    if (v21 <= 1)
+    v18 = v63;
+    v19 = &v61[9 * v63];
+    v20 = v65.n128_u64[1];
+    v21 = *(a3 + 16);
+    v22 = *(a3 + 24);
+    if (v22 <= 1)
     {
-      v22 = 0;
-      v18[7] = 0;
+      v23 = 0;
+      v19[7] = 0.0;
     }
 
     else
     {
-      v22 = 0;
-      v23 = -(v16 * *(&v64 + 2)) - (*(&v64 + 3) * SearchDirection);
-      v24 = (*(&v64 + 2) * SearchDirection) - (v16 * *(&v64 + 3));
-      v25 = (v24 * v20[1]) + (*v20 * v23);
-      v26 = v20 + 3;
-      for (i = 1; i != v21; ++i)
+      v23 = 0;
+      v24 = -(v17 * v65.n128_f32[2]) - (v65.n128_f32[3] * SearchDirection);
+      v25 = (v65.n128_f32[2] * SearchDirection) - (v17 * v65.n128_f32[3]);
+      v26 = (v25 * v21[1]) + (*v21 * v24);
+      v27 = v21 + 3;
+      for (i = 1; i != v22; ++i)
       {
-        if (((v24 * *v26) + (*(v26 - 1) * v23)) > v25)
+        if (((v25 * *v27) + (*(v27 - 1) * v24)) > v26)
         {
-          v25 = (v24 * *v26) + (*(v26 - 1) * v23);
-          v22 = i;
+          v26 = (v25 * *v27) + (*(v27 - 1) * v24);
+          v23 = i;
         }
 
-        v26 += 2;
+        v27 += 2;
       }
 
-      v18[7] = v22;
-      if (v22 < 0)
+      *(v19 + 7) = v23;
+      if (v23 < 0)
       {
 LABEL_48:
         b2Distance();
       }
     }
 
-    if (v21 <= v22)
+    if (v22 <= v23)
     {
       goto LABEL_48;
     }
 
-    v28 = &v20[2 * v22];
-    v29 = v28[1];
-    v30 = *&v64 + ((v29 * -*&v19) + (*(&v19 + 1) * *v28));
-    v31 = ((*(&v19 + 1) * v29) + (*&v19 * *v28)) + *(&v64 + 1);
-    *v18 = v30;
-    *(v18 + 1) = v31;
-    v32 = *(&v63 + 1);
-    v33 = *(a3 + 48);
-    v34 = *(a3 + 56);
-    if (v34 <= 1)
+    v29 = &v21[2 * v23];
+    v30 = v29[1];
+    v31 = v65.n128_f32[0] + ((v30 * -*&v20) + (*(&v20 + 1) * *v29));
+    v32 = ((*(&v20 + 1) * v30) + (*&v20 * *v29)) + v65.n128_f32[1];
+    *v19 = v31;
+    v19[1] = v32;
+    v33 = v64.n128_u64[1];
+    v34 = *(a3 + 48);
+    v35 = *(a3 + 56);
+    if (v35 <= 1)
     {
-      v35 = 0;
-      v18[8] = 0;
+      v36 = 0;
+      v19[8] = 0.0;
     }
 
     else
     {
-      v35 = 0;
-      v36 = (v16 * *(&v63 + 2)) + (*(&v63 + 3) * SearchDirection);
-      v37 = (v16 * *(&v63 + 3)) - (*(&v63 + 2) * SearchDirection);
-      v38 = (v37 * v33[1]) + (*v33 * v36);
-      v39 = v33 + 3;
-      for (j = 1; j != v34; ++j)
+      v36 = 0;
+      v37 = (v17 * v64.n128_f32[2]) + (v64.n128_f32[3] * SearchDirection);
+      v38 = (v17 * v64.n128_f32[3]) - (v64.n128_f32[2] * SearchDirection);
+      v39 = (v38 * v34[1]) + (*v34 * v37);
+      v40 = v34 + 3;
+      for (j = 1; j != v35; ++j)
       {
-        if (((v37 * *v39) + (*(v39 - 1) * v36)) > v38)
+        if (((v38 * *v40) + (*(v40 - 1) * v37)) > v39)
         {
-          v38 = (v37 * *v39) + (*(v39 - 1) * v36);
-          v35 = j;
+          v39 = (v38 * *v40) + (*(v40 - 1) * v37);
+          v36 = j;
         }
 
-        v39 += 2;
+        v40 += 2;
       }
 
-      v18[8] = v35;
-      if (v35 < 0)
+      *(v19 + 8) = v36;
+      if (v36 < 0)
       {
 LABEL_49:
         b2Distance();
       }
     }
 
-    if (v34 <= v35)
+    if (v35 <= v36)
     {
       goto LABEL_49;
     }
 
-    v41 = &v33[2 * v35];
-    v42 = v41[1];
-    v43 = *&v63 + ((v42 * -*&v32) + (*(&v32 + 1) * *v41));
-    v44 = ((*(&v32 + 1) * v42) + (*&v32 * *v41)) + *(&v63 + 1);
-    *(v18 + 2) = v43;
-    *(v18 + 3) = v44;
-    *(v18 + 4) = v43 - v30;
-    *(v18 + 5) = v44 - v31;
+    v42 = &v34[2 * v36];
+    v43 = v42[1];
+    v44 = v64.n128_f32[0] + ((v43 * -*&v33) + (*(&v33 + 1) * *v42));
+    v45 = ((*(&v33 + 1) * v43) + (*&v33 * *v42)) + v64.n128_f32[1];
+    v19[2] = v44;
+    v19[3] = v45;
+    v19[4] = v44 - v31;
+    v19[5] = v45 - v32;
     ++v7;
     ++b2_gjkIters;
-    v45 = v65;
     v46 = v66;
+    v47 = v67;
     do
     {
-      v47 = *v46++;
-      if (v22 == v47 && v35 == *v45)
+      v48 = *v47++;
+      if (v23 == v48 && v36 == *v46)
       {
         goto LABEL_35;
       }
 
-      ++v45;
+      ++v46;
       --v9;
     }
 
     while (v9);
-    v8 = v17 + 1;
-    v62 = v17 + 1;
+    v8 = v18 + 1;
+    v63 = v18 + 1;
   }
 
   while (v7 != 20);
 LABEL_35:
-  v48 = b2_gjkMaxIters;
+  v49 = b2_gjkMaxIters;
   if (b2_gjkMaxIters <= v7)
   {
-    v48 = v7;
+    v49 = v7;
   }
 
-  b2_gjkMaxIters = v48;
-  b2Simplex::GetWitnessPoints(v60, a1, (a1 + 8));
+  b2_gjkMaxIters = v49;
+  b2Simplex::GetWitnessPoints(v61, a1, (a1 + 8));
   *(a1 + 16) = sqrtf(((*(a1 + 4) - *(a1 + 12)) * (*(a1 + 4) - *(a1 + 12))) + ((*a1 - *(a1 + 8)) * (*a1 - *(a1 + 8))));
   *(a1 + 20) = v7;
-  b2Simplex::WriteCache(v60, a2);
+  b2Simplex::WriteCache(v61, a2);
   if (*(a3 + 96) == 1)
   {
     result.i32[0] = *(a3 + 28);
-    v50 = *(a3 + 60);
-    v51 = *(a1 + 16);
-    if (v51 <= (*result.i32 + v50) || v51 <= 0.00000011921)
+    v51 = *(a3 + 60);
+    v52 = *(a1 + 16);
+    if (v52 <= (*result.i32 + v51) || v52 <= 0.00000011921)
     {
-      *v53.f32 = vadd_f32(*a1, *(a1 + 8));
-      v53.i64[1] = v53.i64[0];
-      v54.i64[0] = 0x3F0000003F000000;
-      v54.i64[1] = 0x3F0000003F000000;
-      result = vmulq_f32(v53, v54);
+      *v54.f32 = vadd_f32(*a1, *(a1 + 8));
+      v54.i64[1] = v54.i64[0];
+      v55.i64[0] = 0x3F0000003F000000;
+      v55.i64[1] = 0x3F0000003F000000;
+      result = vmulq_f32(v54, v55);
       *a1 = result;
       *(a1 + 16) = 0;
     }
 
     else
     {
-      *(a1 + 16) = v51 - (*result.i32 + v50);
-      v55 = *a1;
-      *v56.f32 = vsub_f32(*&vextq_s8(v55, v55, 8uLL), *a1);
-      v57 = sqrtf(COERCE_FLOAT(vmul_f32(*&v56, *&v56).i32[1]) + (v56.f32[0] * v56.f32[0]));
-      if (v57 >= 0.00000011921)
+      *(a1 + 16) = v52 - (*result.i32 + v51);
+      v56 = *a1;
+      *v57.f32 = vsub_f32(*&vextq_s8(v56, v56, 8uLL), *a1);
+      v58 = sqrtf(COERCE_FLOAT(vmul_f32(*&v57, *&v57).i32[1]) + (v57.f32[0] * v57.f32[0]));
+      if (v58 >= 0.00000011921)
       {
-        *v56.f32 = vmul_n_f32(*v56.f32, 1.0 / v57);
+        *v57.f32 = vmul_n_f32(*v57.f32, 1.0 / v58);
       }
 
-      v56.i64[1] = v56.i64[0];
-      *&result.i32[1] = v50;
-      v58 = vmulq_f32(vzip1q_s32(result, result), v56);
-      *&v59 = vaddq_f32(v55, v58).u64[0];
-      result = vsubq_f32(v55, v58);
-      *(&v59 + 1) = result.i64[1];
-      *a1 = v59;
+      v57.i64[1] = v57.i64[0];
+      *&result.i32[1] = v51;
+      v59 = vmulq_f32(vzip1q_s32(result, result), v57);
+      *&v60 = vaddq_f32(v56, v59).u64[0];
+      result = vsubq_f32(v56, v59);
+      *(&v60 + 1) = result.i64[1];
+      *a1 = v60;
     }
   }
 
   return result;
 }
 
-void b2Simplex::ReadCache(b2Simplex *this, uint64_t a2, uint64_t a3, float *a4, uint64_t a5, float *a6)
+void b2Simplex::ReadCache(float *this, uint64_t a2, uint64_t a3, float *a4, uint64_t a5, float *a6, __n128 a7, __n128 a8)
 {
-  v6 = *(a2 + 4);
-  if (v6 >= 4)
+  v8 = *(a2 + 4);
+  if (v8 >= 4)
   {
     b2Simplex::ReadCache();
   }
 
-  *(this + 27) = v6;
-  if (!v6)
+  *(this + 27) = v8;
+  if (!v8)
   {
 LABEL_10:
-    *(this + 7) = 0;
-    *(this + 8) = 0;
+    this[7] = 0.0;
+    this[8] = 0.0;
     if (*(a3 + 24) <= 0)
     {
       b2Distance();
@@ -5491,84 +5494,84 @@ LABEL_10:
       b2Distance();
     }
 
-    v33 = *(a3 + 16);
-    v35 = *v33;
-    v34 = v33[1];
-    v36 = *(a5 + 16);
-    v37 = *v36;
-    v38 = v36[1];
-    v40 = a4[2];
-    v39 = a4[3];
-    v41 = *a4 + ((v39 * v35) - (v40 * v34));
-    v42 = ((v34 * v39) + (v40 * v35)) + a4[1];
-    *this = v41;
-    *(this + 1) = v42;
-    v44 = a6[2];
-    v43 = a6[3];
-    v45 = *a6 + ((v43 * v37) - (v44 * v38));
-    v46 = ((v38 * v43) + (v44 * v37)) + a6[1];
-    *(this + 2) = v45;
-    *(this + 3) = v46;
-    *(this + 4) = v45 - v41;
-    *(this + 5) = v46 - v42;
-    *(this + 6) = 1065353216;
+    v35 = *(a3 + 16);
+    v37 = *v35;
+    v36 = v35[1];
+    v38 = *(a5 + 16);
+    v39 = *v38;
+    v40 = v38[1];
+    v42 = a4[2];
+    v41 = a4[3];
+    v43 = *a4 + ((v41 * v37) - (v42 * v36));
+    v44 = ((v36 * v41) + (v42 * v37)) + a4[1];
+    *this = v43;
+    this[1] = v44;
+    v46 = a6[2];
+    v45 = a6[3];
+    v47 = *a6 + ((v45 * v39) - (v46 * v40));
+    v48 = ((v40 * v45) + (v46 * v39)) + a6[1];
+    this[2] = v47;
+    this[3] = v48;
+    this[4] = v47 - v43;
+    this[5] = v48 - v44;
+    this[6] = 1.0;
     *(this + 27) = 1;
     return;
   }
 
-  v12 = (a2 + 6);
-  v13 = *(a3 + 24);
-  v14 = this + 16;
-  v15 = v6;
+  v14 = (a2 + 6);
+  v15 = *(a3 + 24);
+  v16 = this + 4;
+  v17 = v8;
   do
   {
-    v16 = *v12;
-    *(v14 + 3) = v16;
-    v17 = v12[3];
-    *(v14 + 4) = v17;
-    if (v13 <= v16)
+    v18 = *v14;
+    *(v16 + 3) = v18;
+    v19 = v14[3];
+    *(v16 + 4) = v19;
+    if (v15 <= v18)
     {
       b2Distance();
     }
 
-    if (*(a5 + 24) <= v17)
+    if (*(a5 + 24) <= v19)
     {
       b2Distance();
     }
 
-    v18 = (*(a3 + 16) + 8 * v16);
-    v19 = v18[1];
-    v20 = (*(a5 + 16) + 8 * v17);
-    v21 = *v20;
-    v22 = v20[1];
-    v24 = a4[2];
-    v23 = a4[3];
-    v25 = *a4 + ((v23 * *v18) - (v24 * v19));
-    v26 = ((v19 * v23) + (v24 * *v18)) + a4[1];
-    *(v14 - 4) = v25;
-    *(v14 - 3) = v26;
-    v28 = a6[2];
-    v27 = a6[3];
-    v29 = *a6 + ((v27 * v21) - (v28 * v22));
-    ++v12;
-    v30 = ((v22 * v27) + (v28 * v21)) + a6[1];
-    *(v14 - 2) = v29;
-    *(v14 - 1) = v30;
-    *v14 = v29 - v25;
-    *(v14 + 1) = v30 - v26;
-    *(v14 + 2) = 0;
-    v14 += 36;
-    --v15;
+    v20 = (*(a3 + 16) + 8 * v18);
+    v21 = v20[1];
+    v22 = (*(a5 + 16) + 8 * v19);
+    v23 = *v22;
+    v24 = v22[1];
+    v26 = a4[2];
+    v25 = a4[3];
+    v27 = *a4 + ((v25 * *v20) - (v26 * v21));
+    v28 = ((v21 * v25) + (v26 * *v20)) + a4[1];
+    *(v16 - 4) = v27;
+    *(v16 - 3) = v28;
+    v30 = a6[2];
+    v29 = a6[3];
+    v31 = *a6 + ((v29 * v23) - (v30 * v24));
+    ++v14;
+    v32 = ((v24 * v29) + (v30 * v23)) + a6[1];
+    *(v16 - 2) = v31;
+    *(v16 - 1) = v32;
+    *v16 = v31 - v27;
+    v16[1] = v32 - v28;
+    v16[2] = 0.0;
+    v16 += 9;
+    --v17;
   }
 
-  while (v15);
-  if (v6 != 1)
+  while (v17);
+  if (v8 != 1)
   {
-    v31 = *a2;
+    v33 = *a2;
     Metric = b2Simplex::GetMetric(this);
-    if (Metric < (v31 * 0.5) || (v31 + v31) < Metric || Metric < 0.00000011921)
+    if (Metric < (v33 * 0.5) || (v33 + v33) < Metric || Metric < 0.00000011921)
     {
-      *(this + 27) = 0;
+      this[27] = 0.0;
     }
 
     else if (*(this + 27))
@@ -5616,14 +5619,14 @@ LABEL_12:
   return b2Vec2_zero_fn(void)::b2Vec2_zero_init;
 }
 
-float b2Simplex::GetSearchDirection(b2Simplex *this)
+float b2Simplex::GetSearchDirection(b2Simplex *this, uint64_t a2)
 {
-  v1 = *(this + 27);
-  if (v1 == 2)
+  v2 = *(this + 27);
+  if (v2 == 2)
   {
-    v3 = *(this + 5);
-    result = *(this + 14) - v3;
-    if (((*(this + 4) * result) - ((*(this + 13) - *(this + 4)) * v3)) > 0.0)
+    v4 = *(this + 5);
+    result = *(this + 14) - v4;
+    if (((*(this + 4) * result) - ((*(this + 13) - *(this + 4)) * v4)) > 0.0)
     {
       return -result;
     }
@@ -5631,7 +5634,7 @@ float b2Simplex::GetSearchDirection(b2Simplex *this)
 
   else
   {
-    if (v1 != 1)
+    if (v2 != 1)
     {
       b2Simplex::GetSearchDirection();
     }
@@ -5682,16 +5685,16 @@ LABEL_8:
   return this;
 }
 
-void b2Simplex::WriteCache(int *a1, uint64_t a2)
+void b2Simplex::WriteCache(b2Simplex *a1, uint64_t a2)
 {
   *a2 = b2Simplex::GetMetric(a1);
-  v4 = a1[27];
+  v4 = *(a1 + 27);
   *(a2 + 4) = v4;
   if (v4 >= 1)
   {
     v5 = 0;
     v6 = (a2 + 9);
-    v7 = a1 + 8;
+    v7 = (a1 + 32);
     do
     {
       *(v6 - 3) = *(v7 - 1);
@@ -5701,7 +5704,7 @@ void b2Simplex::WriteCache(int *a1, uint64_t a2)
       ++v5;
     }
 
-    while (v5 < a1[27]);
+    while (v5 < *(a1 + 27));
   }
 }
 
@@ -5865,7 +5868,8 @@ LABEL_82:
           operator new();
         }
 
-        this = QuadTreeNode::addLine(*v10, a2, v8, a4, a5, a6);
+        *&a3 = v8;
+        this = QuadTreeNode::addLine(*v10, a2, a3, a4, a5, a6);
         v14 = *v13;
         LODWORD(a3) = *(v10 + 44);
         v23 = v21 - *&a3;
@@ -5886,7 +5890,8 @@ LABEL_82:
           operator new();
         }
 
-        this = QuadTreeNode::addLine(v63, a2, v8, a4, a5, a6);
+        *&a3 = v8;
+        this = QuadTreeNode::addLine(v63, a2, a3, a4, a5, a6);
         *&a3 = v21 - v8;
         v18 = 1.0;
       }
@@ -5906,7 +5911,8 @@ LABEL_82:
           operator new();
         }
 
-        this = QuadTreeNode::addLine(v84, a2, v8, a4, a5, a6);
+        *&a3 = v8;
+        this = QuadTreeNode::addLine(v84, a2, a3, a4, a5, a6);
         v64 = *(v10 + 40);
         v18 = 1.0;
       }
@@ -6220,7 +6226,7 @@ void sub_25E7C2808(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t QuadTreeNode::intersectVector(QuadTreeNode *a1, uint64_t a2, float a3, float a4, float a5, float a6)
+uint64_t QuadTreeNode::intersectVector(QuadTreeNode **a1, uint64_t a2, float a3, float a4, float a5, float a6)
 {
   result = QuadTreeNode::intersectVectorSelf(a1, a3, a4, a5, a6);
   if (!result)
@@ -6230,13 +6236,13 @@ uint64_t QuadTreeNode::intersectVector(QuadTreeNode *a1, uint64_t a2, float a3, 
 
   if (!*a1)
   {
-    v13 = *(a1 + 1);
+    v13 = a1[1];
     if (v13)
     {
       goto LABEL_7;
     }
 
-    if (*(a1 + 2) || *(a1 + 3))
+    if (a1[2] || a1[3])
     {
       goto LABEL_11;
     }
@@ -6251,7 +6257,7 @@ uint64_t QuadTreeNode::intersectVector(QuadTreeNode *a1, uint64_t a2, float a3, 
     return 1;
   }
 
-  v13 = *(a1 + 1);
+  v13 = a1[1];
   if (!v13)
   {
     goto LABEL_11;
@@ -6264,13 +6270,13 @@ LABEL_7:
   }
 
 LABEL_11:
-  v14 = *(a1 + 2);
+  v14 = a1[2];
   if (v14 && (QuadTreeNode::intersectVectorSelf(v14, a3, a4, a5, a6) & 1) != 0)
   {
     return 1;
   }
 
-  v15 = *(a1 + 3);
+  v15 = a1[3];
   if (v15)
   {
     if (QuadTreeNode::intersectVectorSelf(v15, a3, a4, a5, a6))
@@ -6293,7 +6299,7 @@ float QuadTree::bounds(QuadTree *this, float *a2, float *a3, float *a4, float *a
   return result;
 }
 
-void QuadTreeNode::~QuadTreeNode(QuadTreeNode **this)
+void QuadTreeNode::~QuadTreeNode(QuadTreeNode ***this)
 {
   v2 = *this;
   if (v2)
@@ -6357,18 +6363,18 @@ uint64_t get_line_intersection(float a1, float a2, float a3, float a4, float a5,
   return result;
 }
 
-uint64_t QuadTreeNode::visitLeaves(uint64_t result, uint64_t a2)
+uint64_t QuadTreeNode::visitLeaves(uint64_t result, uint64_t a2, __n128 a3, __n128 a4)
 {
-  v3 = result;
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = *result;
+  v5 = result;
+  v25 = *MEMORY[0x277D85DE8];
+  v6 = *result;
   if (*result)
   {
-    std::__function::__value_func<void ()(float,float,int)>::__value_func[abi:ne200100](v14, a2);
-    QuadTreeNode::visitLeaves(v4, v14);
-    result = std::__function::__value_func<void ()(float,float,int)>::~__value_func[abi:ne200100](v14);
-    v5 = v3[1];
-    if (!v5)
+    std::__function::__value_func<void ()(float,float,int)>::__value_func[abi:ne200100](v24, a2);
+    QuadTreeNode::visitLeaves(v6, v24, v7, v8);
+    result = std::__function::__value_func<void ()(float,float,int)>::~__value_func[abi:ne200100](v24);
+    v9 = v5[1];
+    if (!v9)
     {
       goto LABEL_6;
     }
@@ -6376,28 +6382,28 @@ uint64_t QuadTreeNode::visitLeaves(uint64_t result, uint64_t a2)
     goto LABEL_5;
   }
 
-  v5 = *(result + 8);
-  if (v5)
+  v9 = *(result + 8);
+  if (v9)
   {
 LABEL_5:
-    std::__function::__value_func<void ()(float,float,int)>::__value_func[abi:ne200100](v13, a2);
-    QuadTreeNode::visitLeaves(v5, v13);
-    result = std::__function::__value_func<void ()(float,float,int)>::~__value_func[abi:ne200100](v13);
+    std::__function::__value_func<void ()(float,float,int)>::__value_func[abi:ne200100](v23, a2);
+    QuadTreeNode::visitLeaves(v9, v23, v10, v11);
+    result = std::__function::__value_func<void ()(float,float,int)>::~__value_func[abi:ne200100](v23);
 LABEL_6:
-    v6 = v3[2];
-    if (v6)
+    v12 = v5[2];
+    if (v12)
     {
-      std::__function::__value_func<void ()(float,float,int)>::__value_func[abi:ne200100](v12, a2);
-      QuadTreeNode::visitLeaves(v6, v12);
-      result = std::__function::__value_func<void ()(float,float,int)>::~__value_func[abi:ne200100](v12);
+      std::__function::__value_func<void ()(float,float,int)>::__value_func[abi:ne200100](v22, a2);
+      QuadTreeNode::visitLeaves(v12, v22, v13, v14);
+      result = std::__function::__value_func<void ()(float,float,int)>::~__value_func[abi:ne200100](v22);
     }
 
-    v7 = v3[3];
-    if (v7)
+    v15 = v5[3];
+    if (v15)
     {
-      std::__function::__value_func<void ()(float,float,int)>::__value_func[abi:ne200100](v11, a2);
-      QuadTreeNode::visitLeaves(v7, v11);
-      return std::__function::__value_func<void ()(float,float,int)>::~__value_func[abi:ne200100](v11);
+      std::__function::__value_func<void ()(float,float,int)>::__value_func[abi:ne200100](v21, a2);
+      QuadTreeNode::visitLeaves(v15, v21, v16, v17);
+      return std::__function::__value_func<void ()(float,float,int)>::~__value_func[abi:ne200100](v21);
     }
 
     return result;
@@ -6408,16 +6414,16 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v8 = *(result + 52);
-  v9 = *(result + 32) + ((*(result + 36) - *(result + 32)) * 0.5);
-  v10 = *(result + 40) + ((*(result + 44) - *(result + 40)) * 0.5);
+  v18 = *(result + 52);
+  v19 = *(result + 32) + ((*(result + 36) - *(result + 32)) * 0.5);
+  v20 = *(result + 40) + ((*(result + 44) - *(result + 40)) * 0.5);
 
-  return std::function<void ()(float,float,int)>::operator()(a2, v8, v9, v10);
+  return std::function<void ()(float,float,int)>::operator()(a2, v18, v19, v20);
 }
 
-void sub_25E7C2C1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25E7C2C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(float,float,int)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6643,9 +6649,9 @@ double b2DynamicTree::AllocateNode(b2DynamicTree *this)
   return result;
 }
 
-uint64_t b2DynamicTree::FreeNode(uint64_t this, unsigned int a2)
+uint64_t b2DynamicTree::FreeNode(uint64_t this, signed int a2)
 {
-  if ((a2 & 0x80000000) != 0 || *(this + 20) <= a2)
+  if (a2 < 0 || *(this + 20) <= a2)
   {
     b2DynamicTree::FreeNode();
   }
@@ -6793,8 +6799,8 @@ int8x16_t b2DynamicTree::InsertLeaf(b2DynamicTree *this, int a2, int8x16_t resul
       v38 = vadd_f32(vsub_f32(vzip1_s32(v37, v35), vzip1_s32(v36, *v34)), vsub_f32(vzip2_s32(v37, v35), vzip2_s32(v36, *v34)));
       v39 = vadd_f32(v38, v38);
       LODWORD(v40) = vsub_f32(v39, vdup_lane_s32(v39, 1)).u32[0];
-      v35.f32[0] = vaddv_f32(vsub_f32(v37, v36));
-      v41 = v35.f32[0] + v35.f32[0];
+      *v35.i32 = vaddv_f32(vsub_f32(v37, v36));
+      v41 = *v35.i32 + *v35.i32;
       if (v34[4].i32[1] == -1)
       {
         v40 = v41;
@@ -6896,9 +6902,9 @@ int8x16_t b2DynamicTree::InsertLeaf(b2DynamicTree *this, int a2, int8x16_t resul
   return result;
 }
 
-uint64_t b2DynamicTree::DestroyProxy(b2DynamicTree *this, unsigned int a2)
+uint64_t b2DynamicTree::DestroyProxy(b2DynamicTree *this, int a2)
 {
-  if ((a2 & 0x80000000) != 0 || *(this + 5) <= a2)
+  if (a2 < 0 || *(this + 5) <= a2)
   {
     b2DynamicTree::DestroyProxy();
   }
@@ -6985,9 +6991,9 @@ b2DynamicTree *b2DynamicTree::RemoveLeaf(b2DynamicTree *this, int a2)
   return this;
 }
 
-uint64_t b2DynamicTree::MoveProxy(b2DynamicTree *this, unsigned int a2, float32x2_t *a3, float32x2_t *a4)
+uint64_t b2DynamicTree::MoveProxy(b2DynamicTree *this, int a2, float32x2_t *a3, float32x2_t *a4)
 {
-  if ((a2 & 0x80000000) != 0 || *(this + 5) <= a2)
+  if (a2 < 0 || *(this + 5) <= a2)
   {
     b2DynamicTree::MoveProxy();
   }
@@ -7315,9 +7321,9 @@ double b2DynamicTree::GetAreaRatio(b2DynamicTree *this)
   return result;
 }
 
-uint64_t b2DynamicTree::ComputeHeight(b2DynamicTree *this, unsigned int a2)
+uint64_t b2DynamicTree::ComputeHeight(b2DynamicTree *this, signed int a2)
 {
-  if ((a2 & 0x80000000) != 0 || *(this + 5) <= a2)
+  if (a2 < 0 || *(this + 5) <= a2)
   {
     b2DynamicTree::ComputeHeight();
   }
@@ -7366,7 +7372,7 @@ uint64_t b2DynamicTree::ValidateStructure(uint64_t this, unsigned int a2)
         break;
       }
 
-      if (v7 < 0 || (v8 = *(i + 20), v7 >= v8))
+      if ((v7 & 0x80000000) != 0 || (v8 = *(i + 20), v7 >= v8))
       {
         b2DynamicTree::ValidateStructure();
       }
@@ -7692,7 +7698,7 @@ void b2TimeOfImpact(int *a1, uint64_t a2)
   v66 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v2 = *(a2 + 192);
-  *(a1 + 1) = v2;
+  a1[1] = v2;
   v3 = *(a2 + 80);
   v62 = *(a2 + 64);
   v63 = v3;
@@ -7727,7 +7733,7 @@ void b2TimeOfImpact(int *a1, uint64_t a2)
     b2TimeOfImpact();
   }
 
-  v37 = v2;
+  v37 = *&v2;
   v12 = 0;
   v56 = 0;
   v13 = *(a2 + 16);
@@ -7797,11 +7803,11 @@ LABEL_46:
         if (v23 < v38)
         {
           v34 = 1;
-          v25 = *&v43;
+          v25 = v43;
           goto LABEL_40;
         }
 
-        v25 = *&v43;
+        v25 = v43;
         if (v24 <= v39)
         {
           v34 = 3;
@@ -7902,10 +7908,10 @@ LABEL_35:
 
 LABEL_37:
   v34 = 4;
-  v25 = v37;
+  v25 = LODWORD(v37);
 LABEL_40:
   *a1 = v34;
-  *(a1 + 1) = v25;
+  a1[1] = v25;
   ++v12;
   ++b2_toiIters;
 LABEL_41:
@@ -8096,23 +8102,23 @@ void b2SeparationFunction::Initialize(uint64_t a1, uint64_t a2, uint64_t a3, __i
   }
 }
 
-void b2SeparationFunction::FindMinSeparation(b2SeparationFunction *this, int *a2, int *a3, float a4)
+void b2SeparationFunction::FindMinSeparation(float32x4_t *this, int *a2, int *a3, float a4)
 {
   v57 = 1.0 - a4;
-  v7 = __sincosf_stret(COERCE_FLOAT(vmlaq_n_f32(vmulq_n_f32(*(this + 48), a4), *(this + 32), 1.0 - a4).i32[3]));
+  v7 = __sincosf_stret(COERCE_FLOAT(vmlaq_n_f32(vmulq_n_f32(this[48], a4), this[32], 1.0 - a4).i32[3]));
   v8 = -v7.__sinval;
-  v9 = __sincosf_stret(COERCE_FLOAT(vmlaq_n_f32(vmulq_n_f32(*(this + 112), a4), *(this + 96), v57).i32[3]));
-  v10 = *(this + 36);
+  v9 = __sincosf_stret(COERCE_FLOAT(vmlaq_n_f32(vmulq_n_f32(this[112], a4), this[96], v57).i32[3]));
+  v10 = this[9].i32[0];
   if (v10 == 2)
   {
-    v35 = *(this + 39);
-    v36 = *(this + 40);
+    v35 = this[9].f32[3];
+    v36 = this[10].f32[0];
     v37 = (v36 * -v9.__sinval) + (v9.__cosval * v35);
     v38 = (v9.__cosval * v36) + (v9.__sinval * v35);
     *a3 = -1;
-    v39 = *this;
-    v40 = *(*this + 16);
-    v41 = *(*this + 24);
+    v39 = this->i64[0];
+    v40 = *(this->i64[0] + 16);
+    v41 = *(this->i64[0] + 24);
     if (v41 <= 1)
     {
       v42 = 0;
@@ -8155,12 +8161,12 @@ LABEL_44:
 
   if (v10 == 1)
   {
-    v22 = *(this + 39);
-    v23 = *(this + 40);
+    v22 = this[9].f32[3];
+    v23 = this[10].f32[0];
     v24 = (v23 * v8) + (v7.__cosval * v22);
     v25 = (v7.__cosval * v23) + (v7.__sinval * v22);
     *a2 = -1;
-    v26 = *(this + 1);
+    v26 = this->i64[1];
     v27 = *(v26 + 16);
     v28 = *(v26 + 24);
     if (v28 <= 1)
@@ -8208,11 +8214,11 @@ LABEL_43:
     b2SeparationFunction::FindMinSeparation();
   }
 
-  v11 = *(this + 39);
-  v12 = *(this + 40);
-  v13 = *this;
-  v14 = *(*this + 16);
-  v15 = *(*this + 24);
+  v11 = this[9].f32[3];
+  v12 = this[10].f32[0];
+  v13 = this->i64[0];
+  v14 = *(this->i64[0] + 16);
+  v15 = *(this->i64[0] + 24);
   if (v15 < 2)
   {
     v16 = 0;
@@ -8238,7 +8244,7 @@ LABEL_43:
   }
 
   *a2 = v16;
-  v48 = *(this + 1);
+  v48 = this->i64[1];
   v49 = *(v48 + 16);
   v50 = *(v48 + 24);
   if (v50 < 2)
@@ -8277,15 +8283,15 @@ LABEL_43:
   }
 }
 
-void b2SeparationFunction::Evaluate(b2SeparationFunction *this, int a2, int a3, float a4)
+void b2SeparationFunction::Evaluate(float32x4_t *this, int a2, int a3, float a4)
 {
   v8 = 1.0 - a4;
-  __sincosf_stret(COERCE_FLOAT(vmlaq_n_f32(vmulq_n_f32(*(this + 48), a4), *(this + 32), 1.0 - a4).i32[3]));
-  __sincosf_stret(COERCE_FLOAT(vmlaq_n_f32(vmulq_n_f32(*(this + 112), a4), *(this + 96), v8).i32[3]));
-  v7 = *(this + 36);
+  __sincosf_stret(COERCE_FLOAT(vmlaq_n_f32(vmulq_n_f32(this[48], a4), this[32], 1.0 - a4).i32[3]));
+  __sincosf_stret(COERCE_FLOAT(vmlaq_n_f32(vmulq_n_f32(this[112], a4), this[96], v8).i32[3]));
+  v7 = this[9].i32[0];
   if (v7 == 2)
   {
-    if (a2 < 0 || *(*this + 24) <= a2)
+    if (a2 < 0 || *(this->i64[0] + 24) <= a2)
     {
       b2Distance();
     }
@@ -8293,7 +8299,7 @@ void b2SeparationFunction::Evaluate(b2SeparationFunction *this, int a2, int a3, 
 
   else if (v7 == 1)
   {
-    if (a3 < 0 || *(*(this + 1) + 24) <= a3)
+    if (a3 < 0 || *(this->i64[1] + 24) <= a3)
     {
       b2Distance();
     }
@@ -8306,12 +8312,12 @@ void b2SeparationFunction::Evaluate(b2SeparationFunction *this, int a2, int a3, 
       b2SeparationFunction::Evaluate();
     }
 
-    if (a2 < 0 || *(*this + 24) <= a2)
+    if (a2 < 0 || *(this->i64[0] + 24) <= a2)
     {
       b2Distance();
     }
 
-    if (a3 < 0 || *(*(this + 1) + 24) <= a3)
+    if (a3 < 0 || *(this->i64[1] + 24) <= a3)
     {
       b2Distance();
     }
@@ -8745,7 +8751,7 @@ void PKCField::evalForceVec2(uint64_t a1, uint64_t a2, int a3, int a4, int a5, f
   {
     v10 = *(*a1 + 16);
 
-    v10();
+    v10(a6);
     return;
   }
 
@@ -8859,7 +8865,7 @@ LABEL_18:
   }
 }
 
-void PKCField::evalForceVec2(void **a1, uint64_t a2, int a3, double a4, int32x2_t a5, float32x4_t a6)
+void PKCField::evalForceVec2(void **a1, uint64_t a2, int a3, double a4, double a5, float32x4_t a6)
 {
   v9 = *a1[1];
   if (v9)
@@ -8893,10 +8899,10 @@ void PKCField::evalForceVec2(void **a1, uint64_t a2, int a3, double a4, int32x2_
     v17 = *(a2 + 8);
     v18 = *(a2 + 16);
     v19 = *(a2 + 264);
-    a5.i32[0] = *(a2 + 272);
+    LODWORD(a5) = *(a2 + 272);
     v20 = *(a2 + 256);
-    v26 = *a5.i32;
-    v21 = vdup_lane_s32(a5, 0);
+    v26 = *&a5;
+    v21 = vdup_lane_s32(*&a5, 0);
     v22 = v20;
     do
     {

@@ -166,9 +166,9 @@ intptr_t __16__SGFuture_wait__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3
 
 - (id)waitWithTimeout:(double)timeout
 {
-  v12[1] = *MEMORY[0x1E69E9840];
-  v12[0] = self;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[1] = *MEMORY[0x1E69E9840];
+  v11[0] = self;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   v6 = [SGFuture createAfter:v5 onCreate:&__block_literal_global_45];
 
   [v6 setTimeout:timeout];
@@ -183,8 +183,6 @@ intptr_t __16__SGFuture_wait__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3
   }
 
   wait = [v6 wait];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return wait;
 }
@@ -434,46 +432,46 @@ void __29__SGFuture__wait_forSyncAPI___block_invoke_2(uint64_t a1)
 
 + (void)waitForFuturesToComplete:(id)complete withCallback:(id)callback
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   completeCopy = complete;
   callbackCopy = callback;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0;
-  v14 = completeCopy;
-  v25 = [completeCopy count];
-  if (atomic_load(v23 + 3))
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  v13 = completeCopy;
+  v24 = [completeCopy count];
+  if (atomic_load(v22 + 3))
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v8 = completeCopy;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v25 count:16];
     if (v9)
     {
-      v10 = *v19;
+      v10 = *v18;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * i);
-          v15[0] = MEMORY[0x1E69E9820];
-          v15[1] = 3221225472;
-          v15[2] = __50__SGFuture_waitForFuturesToComplete_withCallback___block_invoke;
-          v15[3] = &unk_1E7EFAE50;
-          v17 = &v22;
-          v16 = callbackCopy;
-          [v12 wait:v15];
+          v12 = *(*(&v17 + 1) + 8 * i);
+          v14[0] = MEMORY[0x1E69E9820];
+          v14[1] = 3221225472;
+          v14[2] = __50__SGFuture_waitForFuturesToComplete_withCallback___block_invoke;
+          v14[3] = &unk_1E7EFAE50;
+          v16 = &v21;
+          v15 = callbackCopy;
+          [v12 wait:v14];
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v17 objects:v25 count:16];
       }
 
       while (v9);
@@ -485,9 +483,7 @@ void __29__SGFuture__wait_forSyncAPI___block_invoke_2(uint64_t a1)
     callbackCopy[2](callbackCopy);
   }
 
-  _Block_object_dispose(&v22, 8);
-
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v21, 8);
 }
 
 uint64_t __50__SGFuture_waitForFuturesToComplete_withCallback___block_invoke(uint64_t result)

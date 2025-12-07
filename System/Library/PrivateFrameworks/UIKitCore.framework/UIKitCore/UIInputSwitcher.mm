@@ -402,9 +402,9 @@ LABEL_10:
   if ([eventCopy _modifierFlags] == 0x40000)
   {
     _unmodifiedInput = [eventCopy _unmodifiedInput];
-    v9 = [_unmodifiedInput isEqualToString:@" "];
+    isEqualToString = objc_msgSend_isEqualToString_(_unmodifiedInput);
 
-    if (v9)
+    if (isEqualToString)
     {
       [(UIInputSwitcher *)self setUsingCapsLockLanguageSwitch:0];
       [(UIInputSwitcher *)self setShowingCapsLockSwitcher:0];
@@ -546,24 +546,24 @@ LABEL_25:
   }
 
   _unmodifiedInput2 = [eventCopy _unmodifiedInput];
-  v11 = [_unmodifiedInput2 isEqualToString:@"UIKeyInputDownArrow"];
-  if (v11)
+  isEqualToString = objc_msgSend_isEqualToString_(_unmodifiedInput2);
+  if (isEqualToString)
   {
     goto LABEL_7;
   }
 
   _unmodifiedInput3 = [eventCopy _unmodifiedInput];
-  v13 = [_unmodifiedInput3 isEqualToString:@"UIKeyInputPageDown"];
+  v13 = objc_msgSend_isEqualToString_(_unmodifiedInput3);
 
   if (v13)
   {
-    v11 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
     _unmodifiedInput2 = [eventCopy _unmodifiedInput];
-    if ([_unmodifiedInput2 isEqualToString:@"UIKeyInputUpArrow"])
+    if (objc_msgSend_isEqualToString_(_unmodifiedInput2))
     {
 LABEL_7:
 
@@ -571,19 +571,19 @@ LABEL_7:
     }
 
     _unmodifiedInput4 = [eventCopy _unmodifiedInput];
-    v18 = [_unmodifiedInput4 isEqualToString:@"UIKeyInputPageUp"];
+    v18 = objc_msgSend_isEqualToString_(_unmodifiedInput4);
 
     if ((v18 & 1) == 0)
     {
       _unmodifiedInput5 = [eventCopy _unmodifiedInput];
-      if ([_unmodifiedInput5 isEqualToString:@"\r"])
+      if (objc_msgSend_isEqualToString_(_unmodifiedInput5))
       {
       }
 
       else
       {
         _unmodifiedInput6 = [eventCopy _unmodifiedInput];
-        if (([_unmodifiedInput6 isEqualToString:@" "] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(_unmodifiedInput6) & 1) == 0)
         {
 
           goto LABEL_22;
@@ -602,11 +602,11 @@ LABEL_7:
       goto LABEL_23;
     }
 
-    v11 = 0;
+    isEqualToString = 0;
   }
 
 LABEL_10:
-  v14 = [(UIInputSwitcher *)self inputModeIdentifierWithNextFlag:v11];
+  v14 = [(UIInputSwitcher *)self inputModeIdentifierWithNextFlag:isEqualToString];
   if (!v14)
   {
 LABEL_22:

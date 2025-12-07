@@ -1,82 +1,4 @@
-void std::vector<std::vector<int>>::__vdeallocate(uint64_t *a1)
-{
-  if (*a1)
-  {
-    std::vector<std::vector<int>>::clear[abi:ne200100](a1);
-    operator delete(*a1);
-    *a1 = 0;
-    a1[1] = 0;
-    a1[2] = 0;
-  }
-}
-
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<int>>,std::vector<int>*,std::vector<int>*,std::vector<int>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
-{
-  v4 = a4;
-  v10 = a4;
-  v11 = a4;
-  v8[0] = a1;
-  v8[1] = &v10;
-  v8[2] = &v11;
-  v9 = 0;
-  if (a2 != a3)
-  {
-    v6 = a2;
-    do
-    {
-      *v4 = 0;
-      v4[1] = 0;
-      v4[2] = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v4, *v6, v6[1], (v6[1] - *v6) >> 2);
-      v6 += 3;
-      v4 = v11 + 3;
-      v11 += 3;
-    }
-
-    while (v6 != a3);
-  }
-
-  v9 = 1;
-  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<int>>,std::vector<int>*>>::~__exception_guard_exceptions[abi:ne200100](v8);
-  return v4;
-}
-
-uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<int>>,std::vector<int>*>>::~__exception_guard_exceptions[abi:ne200100](uint64_t a1)
-{
-  if ((*(a1 + 24) & 1) == 0)
-  {
-    std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<int>>,std::vector<int>*>::operator()[abi:ne200100](a1);
-  }
-
-  return a1;
-}
-
-void std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<int>>,std::vector<int>*>::operator()[abi:ne200100](uint64_t a1)
-{
-  v1 = **(a1 + 16);
-  v2 = **(a1 + 8);
-  if (v1 != v2)
-  {
-    v3 = **(a1 + 16);
-    do
-    {
-      v5 = *(v3 - 24);
-      v3 -= 24;
-      v4 = v5;
-      if (v5)
-      {
-        *(v1 - 16) = v4;
-        operator delete(v4);
-      }
-
-      v1 = v3;
-    }
-
-    while (v3 != v2);
-  }
-}
-
-char **std::__copy_impl::operator()[abi:ne200100]<std::vector<int> *,std::vector<int> *,std::vector<int> *>(int a1, char **a2, char **a3, char **a4)
+char **std::__copy_impl::operator()[abi:ne200100]<std::vector<int> *,std::vector<int> *,std::vector<int> *>(int a1, char **a2, char **a3, uint64_t *a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -199,7 +121,7 @@ void CPMLKMeans::CPMLKMeans(CPMLKMeans *this, CPMLCDB *a2, CPMLSerialization *a3
   v5[17] = v6;
   v5[15] = v7 + 2;
   v5[23] = 0;
-  CPMLCDB::getIterator();
+  CPMLCDB::getIterator(a2, 0, 0, 0);
 }
 
 void *CPMLKMeans::initializeKMeans(CPMLKMeans *this)
@@ -361,7 +283,7 @@ LABEL_17:
 
 void CPMLKMeans::CPMLKMeans(CPMLKMeans *this, CPMLSerialization *a2, CPMLTunableData *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   CPMLAlgorithm::CPMLAlgorithm(this, 0, a2, a3);
   *v5 = &unk_285927B08;
   (*(a2->var0 + 10))(a2, v5 + 16, "totalCols", 1, 0);
@@ -379,8 +301,8 @@ void CPMLKMeans::CPMLKMeans(CPMLKMeans *this, CPMLSerialization *a2, CPMLTunable
     do
     {
       v9 = *(*(this + 22) + v8);
-      sprintf(v12, "centroid%lld", v7);
-      (*(a2->var0 + 12))(a2, v9, v12, *(this + 15), 0);
+      sprintf(v10, "centroid%lld", v7);
+      (*(a2->var0 + 12))(a2, v9, v10, *(this + 15), 0);
       ++v7;
       v8 += 48;
     }
@@ -389,9 +311,7 @@ void CPMLKMeans::CPMLKMeans(CPMLKMeans *this, CPMLSerialization *a2, CPMLTunable
   }
 
   (*(**(this + 11) + 80))(*(this + 11), *(this + 5), "modelDataInt", **(this + 5), 0);
-  v10 = *(*(this + 5) + 8 * **(this + 5));
   (*(**(this + 11) + 96))(*(this + 11));
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void CPMLKMeans::CPMLKMeans(CPMLKMeans *this, int a2, int a3, double **a4, int a5, int a6, double a7, int a8, CPMLTunableData *a9)
@@ -465,7 +385,7 @@ void CPMLKMeans::~CPMLKMeans(CPMLKMeans *this)
 
 uint64_t CPMLKMeans::serialize(CPMLKMeans *this)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   (*(**(this + 11) + 32))(*(this + 11), this + 128, "totalCols", 1, 0);
   (*(**(this + 11) + 32))(*(this + 11), this + 136, "totalRows", 1, 0);
   (*(**(this + 11) + 32))(*(this + 11), this + 112, "kValue", 1, 0);
@@ -476,8 +396,8 @@ uint64_t CPMLKMeans::serialize(CPMLKMeans *this)
     do
     {
       v4 = *(*(this + 22) + v3);
-      sprintf(v9, "centroid%lld", v2);
-      (*(**(this + 11) + 48))(*(this + 11), v4, v9, *(this + 15), 0);
+      sprintf(v8, "centroid%lld", v2);
+      (*(**(this + 11) + 48))(*(this + 11), v4, v8, *(this + 15), 0);
       ++v2;
       v3 += 48;
     }
@@ -489,13 +409,12 @@ uint64_t CPMLKMeans::serialize(CPMLKMeans *this)
   v6 = *v5;
   (*(**(this + 11) + 32))(*(this + 11));
   (*(**(this + 11) + 48))(*(this + 11), v5, "modelDataReal", v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t CPMLKMeans::train(CPMLKMeans *this)
 {
-  v84[1] = *MEMORY[0x277D85DE8];
+  v81[1] = *MEMORY[0x277D85DE8];
   v2 = (*(**(this + 10) + 32))(*(this + 10));
   if (v2)
   {
@@ -532,17 +451,16 @@ uint64_t CPMLKMeans::train(CPMLKMeans *this)
       if (v14)
       {
         v15 = v14 >> 3;
-        v16 = *IntVector;
         if (v15 <= 1)
         {
           v15 = 1;
         }
 
-        v17 = (*(this + 21) + *(this + 15) * v4 + 2 * (IntVector[1] - *IntVector));
+        v16 = (*(this + 21) + *(this + 15) * v4 + 2 * (IntVector[1] - *IntVector));
         do
         {
-          v18 = *v13++;
-          *v17++ = v18;
+          v17 = *v13++;
+          *v16++ = v17;
           --v15;
         }
 
@@ -550,11 +468,11 @@ uint64_t CPMLKMeans::train(CPMLKMeans *this)
       }
 
       YHat = CPMLFeatureVector::getYHat(v3);
-      v20 = *(this + 15);
-      v21 = *(RealVector + 8) - *RealVector;
-      v22 = IntVector[1] - *IntVector;
-      *(*(this + 21) + 8 * v20 * v5 + v21 + 2 * v22) = YHat;
-      if (v20 * v5 + (v21 >> 3) + (v22 >> 2) > *(this + 17) * v20)
+      v19 = *(this + 15);
+      v20 = *(RealVector + 8) - *RealVector;
+      v21 = IntVector[1] - *IntVector;
+      *(*(this + 21) + 8 * v19 * v5 + v20 + 2 * v21) = YHat;
+      if (v19 * v5 + (v20 >> 3) + (v21 >> 2) > *(this + 17) * v19)
       {
         break;
       }
@@ -568,10 +486,8 @@ uint64_t CPMLKMeans::train(CPMLKMeans *this)
       }
     }
 
-    fprintf(*MEMORY[0x277D85DF8], "Index access beyond allocated. %d : %d : %d : %d\n", v5, *(this + 16), v21 >> 3, v22 >> 2);
-LABEL_85:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_86;
+    fprintf(*MEMORY[0x277D85DF8], "Index access beyond allocated. %d : %d : %d : %d\n", v5, *(this + 16), v20 >> 3, v21 >> 2);
+    return 0xFFFFFFFFLL;
   }
 
   v5 = 0;
@@ -579,58 +495,58 @@ LABEL_17:
   if (*(this + 14) > v5)
   {
     fprintf(*MEMORY[0x277D85DF8], "kMeans %s cannot have more centroid than training rows\n", "train");
-    goto LABEL_85;
+    return 0xFFFFFFFFLL;
   }
 
   MEMORY[0x28223BE20](0);
-  v24 = v84 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = time(0);
-  srand(v25);
-  v26 = *(this + 14);
-  if (v26)
+  v23 = v81 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = time(0);
+  srand(v24);
+  v25 = *(this + 14);
+  if (v25)
   {
-    for (i = 0; i < v26; ++i)
+    for (i = 0; i < v25; ++i)
     {
       if (*(this + 153) == 1)
       {
-        v28 = rand() % v5;
+        v27 = rand() % v5;
       }
 
       else
       {
-        v28 = v5 / v26 * i;
+        v27 = v5 / v25 * i;
       }
 
-      v29 = *(this + 16);
-      v30 = *(this + 22);
-      if (v29)
+      v28 = *(this + 16);
+      v29 = *(this + 22);
+      if (v28)
       {
-        v31 = (*(this + 21) + 8 * *(this + 15) * v28);
-        v32 = v30 + 48 * i;
-        v33 = *(v32 + 32);
-        v34 = *(v32 + 40);
+        v30 = (*(this + 21) + 8 * *(this + 15) * v27);
+        v31 = v29 + 48 * i;
+        v32 = *(v31 + 32);
+        v33 = *(v31 + 40);
         do
         {
-          v35 = *v31++;
-          *v33++ = v35;
-          *v34++ = v35;
-          --v29;
+          v34 = *v30++;
+          *v32++ = v34;
+          *v33++ = v34;
+          --v28;
         }
 
-        while (v29);
+        while (v28);
       }
 
-      v36 = (v30 + 48 * i);
-      *v36 = 0xBFF0000000000000;
-      v36[3] = 0;
-      *&v24[8 * i] = v28;
-      v26 = *(this + 14);
-      if (i && v26 < v5)
+      v35 = (v29 + 48 * i);
+      *v35 = 0xBFF0000000000000;
+      v35[3] = 0;
+      *&v23[8 * i] = v27;
+      v25 = *(this + 14);
+      if (i && v25 < v5)
       {
-        v37 = 0;
-        while (*&v24[8 * v37] != v28)
+        v36 = 0;
+        while (*&v23[8 * v36] != v27)
         {
-          if (i == ++v37)
+          if (i == ++v36)
           {
             goto LABEL_34;
           }
@@ -644,216 +560,212 @@ LABEL_34:
     }
   }
 
-  v38 = 0;
-  v39 = 0.0;
+  v37 = 0;
+  v38 = 0.0;
   do
   {
-    if (v26)
+    if (v25)
     {
-      v40 = *(this + 16);
-      v41 = (*(this + 22) + 40);
-      v42 = v26;
+      v39 = *(this + 16);
+      v40 = (*(this + 22) + 40);
+      v41 = v25;
       do
       {
-        *(v41 - 4) = 0;
-        *(v41 - 3) = 0;
-        *(v41 - 2) = 0;
-        if (v40)
+        *(v40 - 4) = 0;
+        *(v40 - 3) = 0;
+        *(v40 - 2) = 0;
+        if (v39)
         {
-          bzero(*v41, 8 * v40);
+          bzero(*v40, 8 * v39);
         }
 
-        v41 += 6;
-        --v42;
+        v40 += 6;
+        --v41;
       }
 
-      while (v42);
+      while (v41);
     }
 
     if (*(this + 17))
     {
-      v43 = 0;
-      v44 = *(this + 21);
-      v45 = *(this + 15);
+      v42 = 0;
+      v43 = *(this + 21);
+      v44 = *(this + 15);
       do
       {
-        NearestCentroid = CPMLKMeans::findNearestCentroid(this, (v44 + 8 * v45 * v43));
-        v45 = *(this + 15);
-        v44 = *(this + 21);
-        v47 = *(this + 22);
-        *(v44 + 8 * v45 * v43 + 8 * *(this + 16)) = NearestCentroid;
-        *(v47 + 48 * NearestCentroid + 24) = *(v47 + 48 * NearestCentroid + 24) + 1.0;
-        ++v43;
-        v48 = *(this + 17);
+        NearestCentroid = CPMLKMeans::findNearestCentroid(this, (v43 + 8 * v44 * v42));
+        v44 = *(this + 15);
+        v43 = *(this + 21);
+        v46 = *(this + 22);
+        *(v43 + 8 * v44 * v42 + 8 * *(this + 16)) = NearestCentroid;
+        *(v46 + 48 * NearestCentroid + 24) = *(v46 + 48 * NearestCentroid + 24) + 1.0;
+        ++v42;
+        v47 = *(this + 17);
       }
 
-      while (v48 > v43);
-      v26 = *(this + 14);
-      v49 = v48 == 0;
-      if (!v26)
+      while (v47 > v42);
+      v25 = *(this + 14);
+      v48 = v47 == 0;
+      if (!v25)
       {
 LABEL_52:
-        v51 = 0.0;
+        v50 = 0.0;
         goto LABEL_53;
       }
     }
 
     else
     {
-      v49 = 1;
-      if (!v26)
+      v48 = 1;
+      if (!v25)
       {
         goto LABEL_52;
       }
     }
 
-    v50 = *(this + 22);
-    v51 = 0.0;
-    v52 = v26;
+    v49 = *(this + 22);
+    v50 = 0.0;
+    v51 = v25;
     do
     {
-      v53 = v50[3];
-      if (v53 == 0.0)
+      v52 = v49[3];
+      if (v52 == 0.0)
       {
-        v54 = *(this + 20);
+        v53 = *(this + 20);
       }
 
       else
       {
-        v54 = v50[1] / v53;
+        v53 = v49[1] / v52;
       }
 
-      *v50 = v54;
-      v50 += 6;
-      v51 = v51 + v54;
-      --v52;
+      *v49 = v53;
+      v49 += 6;
+      v50 = v50 + v53;
+      --v51;
     }
 
-    while (v52);
+    while (v51);
 LABEL_53:
-    v55 = vabdd_f64(v39, v51);
-    v56 = *(this + 20);
-    if (v55 > v56 && ++v38 < *(this + 13) && v26 != 0)
+    v54 = vabdd_f64(v38, v50);
+    v55 = *(this + 20);
+    if (v54 > v55 && ++v37 < *(this + 13) && v25 != 0)
     {
-      v58 = 0;
-      v59 = *(this + 16);
+      v57 = 0;
+      v58 = *(this + 16);
       do
       {
-        if (v59)
+        if (v58)
         {
-          v60 = 0;
-          v61 = *(this + 22) + 48 * v58;
+          v59 = 0;
+          v60 = *(this + 22) + 48 * v57;
           do
           {
-            v62 = *(v61 + 24);
-            if (v62 != 0.0)
+            v61 = *(v60 + 24);
+            if (v61 != 0.0)
             {
-              *(*(v61 + 32) + 8 * v60) = *(*(v61 + 40) + 8 * v60) / v62;
+              *(*(v60 + 32) + 8 * v59) = *(*(v60 + 40) + 8 * v59) / v61;
             }
 
-            ++v60;
+            ++v59;
           }
 
-          while (v59 != v60);
+          while (v58 != v59);
         }
 
-        ++v58;
+        ++v57;
       }
 
-      while (v58 != v26);
-      v56 = *(this + 20);
+      while (v57 != v25);
+      v55 = *(this + 20);
     }
 
-    if (v55 <= v56)
+    if (v54 <= v55)
     {
       break;
     }
 
-    v39 = v51;
+    v38 = v50;
   }
 
-  while (v38 < *(this + 13));
-  v63 = *(this + 5);
-  if (!v49)
+  while (v37 < *(this + 13));
+  v62 = *(this + 5);
+  if (!v48)
   {
-    v64 = 0;
-    v65 = v63[5];
-    v66 = MEMORY[0x277D85DF8];
+    v63 = 0;
+    v64 = v62[5];
+    v65 = MEMORY[0x277D85DF8];
     do
     {
-      v67 = *(*(this + 21) + 8 * *(this + 15) * v64 + 8 * *(this + 16));
-      if (*(this + 14) <= v67)
+      v66 = *(*(this + 21) + 8 * *(this + 15) * v63 + 8 * *(this + 16));
+      if (*(this + 14) <= v66)
       {
-        fprintf(*v66, "%s Cluster value shouldn't be greater than kValue\n", "train");
+        fprintf(*v65, "%s Cluster value shouldn't be greater than kValue\n", "train");
       }
 
       else
       {
-        v68 = *(this + 5);
-        *(v68 + 8 * v64 + 48) = v67;
-        ++*(v68 + 8 * v65 + 8 * v67);
+        v67 = *(this + 5);
+        *(v67 + 8 * v63 + 48) = v66;
+        ++*(v67 + 8 * v64 + 8 * v66);
       }
 
-      ++v64;
+      ++v63;
     }
 
-    while (v64 < *(this + 17));
-    v63 = *(this + 5);
-    v26 = *(this + 14);
+    while (v63 < *(this + 17));
+    v62 = *(this + 5);
+    v25 = *(this + 14);
   }
 
-  v69 = &v63[*v63];
-  CPMLKMeans::findTotss(this, *(this + 21));
-  *(v69 + 2) = v70;
-  if (v26)
+  v68 = &v62[*v62];
+  v68[2] = CPMLKMeans::findTotss(this, *(this + 21));
+  if (v25)
   {
-    v71 = 0;
-    v72 = &v69[v69[4]];
-    v73 = (*(this + 22) + 16);
+    v69 = 0;
+    v70 = &v68[v68[4]];
+    v71 = (*(this + 22) + 16);
     do
     {
-      v74 = *v73;
-      v73 += 6;
-      v72[v71++] = v74;
+      v72 = *v71;
+      v71 += 6;
+      v70[v69++] = v72;
     }
 
-    while (v26 != v71);
-    v75 = 0;
-    v76 = *(this + 16);
-    v77 = &v69[v69[3]];
+    while (v25 != v69);
+    v73 = 0;
+    v74 = *(this + 16);
+    v75 = &v68[v68[3]];
     do
     {
-      if (v76)
+      if (v74)
       {
-        v78 = *(*(this + 22) + 48 * v75 + 32);
-        v79 = v77;
-        v80 = v76;
+        v76 = *(*(this + 22) + 48 * v73 + 32);
+        v77 = v75;
+        v78 = v74;
         do
         {
-          v81 = *v78++;
-          *v79++ = v81;
-          --v80;
+          v79 = *v76++;
+          *v77++ = v79;
+          --v78;
         }
 
-        while (v80);
+        while (v78);
       }
 
-      ++v75;
-      v77 += v76;
+      ++v73;
+      v75 += v74;
     }
 
-    while (v75 != v26);
+    while (v73 != v25);
   }
 
-  result = 0;
-LABEL_86:
-  v83 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t CPMLKMeans::findNearestCentroid(CPMLKMeans *this, double *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = *(this + 152);
   v3 = *(this + 16);
   v4 = *(this + 14);
@@ -861,28 +773,28 @@ uint64_t CPMLKMeans::findNearestCentroid(CPMLKMeans *this, double *a2)
   if (v3 == v2 || !v4)
   {
     fprintf(*MEMORY[0x277D85DF8], "%s feature vector length %lld or kValue %lld\n", "findNearestCentroid", v5, v4);
-    v12 = 0;
+    return 0;
   }
 
   else
   {
-    v29[1] = v29;
+    v28[1] = v28;
     v8 = MEMORY[0x28223BE20](this);
-    v9 = (v29 - ((8 * v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+    v9 = (v28 - ((8 * v5 + 15) & 0xFFFFFFFFFFFFFFF0));
     v10 = *(v8 + 112);
-    v31 = *(v8 + 176);
+    v30 = *(v8 + 176);
     if (v10)
     {
       v11 = 0;
       v12 = 0;
-      v30 = a2 - 1;
+      v29 = a2 - 1;
       v13 = *(this + 152);
       v14 = vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL);
       do
       {
-        v32 = v14;
-        v15 = *(v31 + 48 * v11 + 32);
-        memcpy(v29 - ((8 * v5 + 15) & 0xFFFFFFFFFFFFFFF0), a2, 8 * v5);
+        v31 = v14;
+        v15 = *(v30 + 48 * v11 + 32);
+        memcpy(v28 - ((8 * v5 + 15) & 0xFFFFFFFFFFFFFFF0), a2, 8 * v5);
         v16 = 0.0;
         v17 = a2;
         v18 = v5;
@@ -899,19 +811,19 @@ uint64_t CPMLKMeans::findNearestCentroid(CPMLKMeans *this, double *a2)
         *v22.i64 = sqrt(v16);
         if (v13)
         {
-          *v22.i64 = *v22.i64 * v30[*(this + 16)];
+          *v22.i64 = *v22.i64 * v29[*(this + 16)];
         }
 
-        if (*v22.i64 < *v32.i64)
+        if (*v22.i64 < *v31.i64)
         {
           v12 = v11;
         }
 
-        v23 = vdup_n_s32(*v22.i64 < *v32.i64);
+        v23 = vdup_n_s32(*v22.i64 < *v31.i64);
         v24.i64[0] = v23.u32[0];
         v24.i64[1] = v23.u32[1];
         *&v22.i64[1] = *v22.i64 * *v22.i64;
-        v14 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v24, 0x3FuLL)), v22, v32);
+        v14 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v24, 0x3FuLL)), v22, v31);
         ++v11;
       }
 
@@ -924,7 +836,7 @@ uint64_t CPMLKMeans::findNearestCentroid(CPMLKMeans *this, double *a2)
       v14 = vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL);
     }
 
-    v25 = *(v31 + 48 * v12 + 40);
+    v25 = *(v30 + 48 * v12 + 40);
     do
     {
       v26 = *v9++;
@@ -934,23 +846,22 @@ uint64_t CPMLKMeans::findNearestCentroid(CPMLKMeans *this, double *a2)
     }
 
     while (v5);
-    *(v31 + 48 * v12 + 8) = vaddq_f64(v14, *(v31 + 48 * v12 + 8));
+    *(v30 + 48 * v12 + 8) = vaddq_f64(v14, *(v30 + 48 * v12 + 8));
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
-void CPMLKMeans::findTotss(CPMLKMeans *this, double *a2)
+double CPMLKMeans::findTotss(CPMLKMeans *this, double *a2)
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   v4 = *(this + 152);
   v5 = *(this + 16);
   MEMORY[0x28223BE20](this);
-  v7 = (v27 - v6);
+  v7 = (v26 - v6);
   if (v5 != v4)
   {
-    bzero(v27 - v6, 8 * (v5 - v4));
+    bzero(v26 - v6, 8 * (v5 - v4));
   }
 
   v8 = *(this + 17);
@@ -993,38 +904,39 @@ void CPMLKMeans::findTotss(CPMLKMeans *this, double *a2)
     while (v16);
   }
 
-  if (v8)
+  if (!v8)
   {
-    v17 = 0;
-    v18 = 0;
-    v19 = 0.0;
-    do
-    {
-      if (v5 != v4)
-      {
-        v20 = (a2 + *(this + 15) * v17);
-        v21 = v7;
-        v22 = v5 - v4;
-        do
-        {
-          v23 = *v20++;
-          v24 = v23;
-          v25 = *v21++;
-          v19 = v19 + (v24 - v25) * (v24 - v25);
-          --v22;
-        }
-
-        while (v22);
-      }
-
-      ++v18;
-      v17 += 8;
-    }
-
-    while (v18 != v8);
+    return 0.0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
+  v17 = 0;
+  v18 = 0;
+  result = 0.0;
+  do
+  {
+    if (v5 != v4)
+    {
+      v20 = (a2 + *(this + 15) * v17);
+      v21 = v7;
+      v22 = v5 - v4;
+      do
+      {
+        v23 = *v20++;
+        v24 = v23;
+        v25 = *v21++;
+        result = result + (v24 - v25) * (v24 - v25);
+        --v22;
+      }
+
+      while (v22);
+    }
+
+    ++v18;
+    v17 += 8;
+  }
+
+  while (v18 != v8);
+  return result;
 }
 
 uint64_t CPMLKMeans::eval(void *a1, CPMLFeatureVector *a2)
@@ -1756,7 +1668,7 @@ void CPNaiveBayesClassifier::CPNaiveBayesClassifier(CPNaiveBayesClassifier *this
     *(this + 42) = v13 - 1;
   }
 
-  CPMLCDB::getIterator();
+  CPMLCDB::getIterator(a2, 0, 0, 0);
 }
 
 void sub_24731A1BC(_Unwind_Exception *a1)
@@ -1859,7 +1771,7 @@ size_t CPNaiveBayesClassifier::initializeNaiveBayesMemory(CPNaiveBayesClassifier
 
 void CPNaiveBayesClassifier::CPNaiveBayesClassifier(CPNaiveBayesClassifier *this, CPMLSerialization *a2, CPMLTunableData *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   CPMLAlgorithm::CPMLAlgorithm(this, 0, a2, a3);
   *v5 = &unk_2859274C0;
   v5[24] = 0;
@@ -1875,12 +1787,11 @@ void CPNaiveBayesClassifier::CPNaiveBayesClassifier(CPNaiveBayesClassifier *this
   if (v6)
   {
     *(this + 22) = malloc_type_calloc(v6, 4uLL, 0x100004052888210uLL);
-    v7 = *(this + 42);
     (*(a2->var0 + 8))(a2);
   }
 
   CPNaiveBayesClassifier::initializeNaiveBayesMemory(this);
-  v8 = *(this + 25);
+  v7 = *(this + 25);
   if (*(this + 42))
   {
     if (!*(this + 25))
@@ -1888,46 +1799,45 @@ void CPNaiveBayesClassifier::CPNaiveBayesClassifier(CPNaiveBayesClassifier *this
       goto LABEL_15;
     }
 
-    v9 = 0;
-    LODWORD(v10) = 1;
+    v8 = 0;
+    LODWORD(v9) = 1;
     do
     {
-      if (v10)
+      if (v9)
       {
-        v11 = 0;
+        v10 = 0;
         do
         {
-          sprintf(v15, "discreteFeatureTable_%d_%d", v9, v11);
-          (*(a2->var0 + 10))(a2, *(*(*(this + 23) + 8 * v9) + 8 * v11), v15, *(*(this + 22) + 4 * v11), 0);
-          ++v11;
-          v10 = *(this + 42);
+          sprintf(v13, "discreteFeatureTable_%d_%d", v8, v10);
+          (*(a2->var0 + 10))(a2, *(*(*(this + 23) + 8 * v8) + 8 * v10), v13, *(*(this + 22) + 4 * v10), 0);
+          ++v10;
+          v9 = *(this + 42);
         }
 
-        while (v11 < v10);
-        v8 = *(this + 25);
+        while (v10 < v9);
+        v7 = *(this + 25);
       }
 
-      ++v9;
+      ++v8;
     }
 
-    while (v9 < v8);
+    while (v8 < v7);
   }
 
-  if (*(this + 20) && v8)
+  if (*(this + 20) && v7)
   {
-    for (i = 0; i < v8; ++i)
+    for (i = 0; i < v7; ++i)
     {
-      sprintf(v15, "datasetMean%d", i);
-      sprintf(v14, "datasetVariance%d", i);
-      (*(a2->var0 + 12))(a2, *(*(this + 13) + 8 * i), v15, *(this + 24), 0);
-      (*(a2->var0 + 12))(a2, *(*(this + 14) + 8 * i), v14, *(this + 24), 0);
-      v8 = *(this + 25);
+      sprintf(v13, "datasetMean%d", i);
+      sprintf(v12, "datasetVariance%d", i);
+      (*(a2->var0 + 12))(a2, *(*(this + 13) + 8 * i), v13, *(this + 24), 0);
+      (*(a2->var0 + 12))(a2, *(*(this + 14) + 8 * i), v12, *(this + 24), 0);
+      v7 = *(this + 25);
     }
   }
 
 LABEL_15:
-  (*(a2->var0 + 10))(a2, *(this + 18), "dist_datasetOutput", v8, 0);
-  v13 = *MEMORY[0x277D85DE8];
+  (*(a2->var0 + 10))(a2, *(this + 18), "dist_datasetOutput", v7, 0);
 }
 
 void sub_24731A840(_Unwind_Exception *a1)
@@ -2014,7 +1924,7 @@ void CPNaiveBayesClassifier::~CPNaiveBayesClassifier(CPNaiveBayesClassifier *thi
 
 uint64_t CPNaiveBayesClassifier::serialize(CPNaiveBayesClassifier *this)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *(this + 11);
   v3 = strlen(this + 8);
   (*(*v2 + 56))(v2, this + 8, "version", v3, 0);
@@ -2043,8 +1953,8 @@ uint64_t CPNaiveBayesClassifier::serialize(CPNaiveBayesClassifier *this)
         v8 = 0;
         do
         {
-          sprintf(v13, "discreteFeatureTable_%d_%d", v6, v8);
-          (*(**(this + 11) + 32))(*(this + 11), *(*(*(this + 23) + 8 * v6) + 8 * v8), v13, *(*(this + 22) + 4 * v8), 0);
+          sprintf(v12, "discreteFeatureTable_%d_%d", v6, v8);
+          (*(**(this + 11) + 32))(*(this + 11), *(*(*(this + 23) + 8 * v6) + 8 * v8), v12, *(*(this + 22) + 4 * v8), 0);
           ++v8;
           v7 = *(this + 42);
         }
@@ -2068,17 +1978,16 @@ uint64_t CPNaiveBayesClassifier::serialize(CPNaiveBayesClassifier *this)
   {
     for (i = 0; i < v5; ++i)
     {
-      sprintf(v13, "datasetMean%d", i);
-      sprintf(v12, "datasetVariance%d", i);
-      (*(**(this + 11) + 48))(*(this + 11), *(*(this + 13) + 8 * i), v13, *(this + 24), 0);
-      (*(**(this + 11) + 48))(*(this + 11), *(*(this + 14) + 8 * i), v12, *(this + 24), 0);
+      sprintf(v12, "datasetMean%d", i);
+      sprintf(v11, "datasetVariance%d", i);
+      (*(**(this + 11) + 48))(*(this + 11), *(*(this + 13) + 8 * i), v12, *(this + 24), 0);
+      (*(**(this + 11) + 48))(*(this + 11), *(*(this + 14) + 8 * i), v11, *(this + 24), 0);
       v5 = *(this + 25);
     }
   }
 
 LABEL_17:
   (*(**(this + 11) + 32))(*(this + 11), *(this + 18), "dist_datasetOutput", v5, 0);
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2587,7 +2496,7 @@ double CPMLNaiveBayesSuggestionsAdaptor::get_cx_given_y(CPMLNaiveBayesSuggestion
   {
     v13 = v9;
     v14 = &v13;
-    v10 = std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 14, &v13)[3];
+    v10 = std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 14, &v13, &std::piecewise_construct, &v14)[3];
   }
 
   else
@@ -2608,11 +2517,11 @@ double CPMLNaiveBayesSuggestionsAdaptor::get_cx_given_y(CPMLNaiveBayesSuggestion
     if (v11)
     {
       v14 = &v13;
-      return *(std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 9, &v13) + 3);
+      return *(std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 9, &v13, &std::piecewise_construct, &v14) + 3);
     }
 
     v14 = &v13;
-    std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 9, &v13)[3] = 0;
+    std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 9, &v13, &std::piecewise_construct, &v14)[3] = 0;
   }
 
   return 0.0;
@@ -2620,76 +2529,74 @@ double CPMLNaiveBayesSuggestionsAdaptor::get_cx_given_y(CPMLNaiveBayesSuggestion
 
 void CPMLNaiveBayesSuggestionsAdaptor::setCacheSize(CPMLNaiveBayesSuggestionsAdaptor *this, int a2, int a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  CPMLNaiveBayesAdaptor::setCacheSize(this, a2, a3);
-  v35 = 0.0;
+  v35[1] = *MEMORY[0x277D85DE8];
+  CPMLNaiveBayesAdaptor::setCacheSize(this);
+  v34 = 0.0;
   v6 = sqlite3_mprintf("select count(*) from xcol0;");
-  (*(**(this + 1) + 224))(*(this + 1), &v35, v6);
+  (*(**(this + 1) + 224))(*(this + 1), &v34, v6);
   sqlite3_free(v6);
-  if (v35 > (a3 * a2))
+  if (v34 > (a3 * a2))
   {
-    v35 = (a3 * a2);
+    v34 = (a3 * a2);
   }
 
   v8 = MEMORY[0x28223BE20](v7);
-  v10 = &v33 - v9;
+  v10 = &v32 - v9;
   v11 = MEMORY[0x28223BE20](v8);
-  v13 = &v33 - ((v12 + 15) & 0xFFFFFFFF0);
+  v13 = &v32 - ((v12 + 15) & 0xFFFFFFFF0);
   MEMORY[0x28223BE20](v11);
-  v15 = &v33 - v14;
+  v15 = &v32 - v14;
   v16 = sqlite3_mprintf("select xMap from xcol0;");
-  (*(**(this + 1) + 208))(*(this + 1), v10, v35, v16);
+  (*(**(this + 1) + 208))(*(this + 1), v10, v34, v16);
   sqlite3_free(v16);
   v17 = sqlite3_mprintf("select yMap from xcol0;");
-  (*(**(this + 1) + 208))(*(this + 1), v13, v35, v17);
+  (*(**(this + 1) + 208))(*(this + 1), v13, v34, v17);
   sqlite3_free(v17);
   v18 = sqlite3_mprintf("select xyCount from xcol0;");
-  (*(**(this + 1) + 216))(*(this + 1), v15, v35, v18);
+  (*(**(this + 1) + 216))(*(this + 1), v15, v34, v18);
   sqlite3_free(v18);
-  if (v35)
+  if (v34)
   {
     v19 = 0;
     do
     {
-      v34 = *&v13[8 * v19] | (*&v10[8 * v19] << 32);
+      v33 = *&v13[8 * v19] | (*&v10[8 * v19] << 32);
       v20 = *&v15[8 * v19];
-      v36 = &v34;
-      std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 9, &v34)[3] = v20;
+      v35[0] = &v33;
+      std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 9, &v33, &std::piecewise_construct, v35)[3] = v20;
       ++v19;
     }
 
-    while (v19 < v35);
+    while (v19 < v34);
   }
 
   v21 = sqlite3_mprintf("select count(*) from xCardinality0;");
-  (*(**(this + 1) + 224))(*(this + 1), &v35, v21);
+  (*(**(this + 1) + 224))(*(this + 1), &v34, v21);
   sqlite3_free(v21);
   v23 = MEMORY[0x28223BE20](v22);
-  v25 = (&v33 - ((v24 + 15) & 0xFFFFFFFF0));
+  v25 = (&v32 - ((v24 + 15) & 0xFFFFFFFF0));
   MEMORY[0x28223BE20](v23);
-  v27 = &v33 - v26;
+  v27 = &v32 - v26;
   v28 = sqlite3_mprintf("select yMap from xCardinality0;");
-  (*(**(this + 1) + 208))(*(this + 1), v25, v35, v28);
+  (*(**(this + 1) + 208))(*(this + 1), v25, v34, v28);
   sqlite3_free(v28);
   v29 = sqlite3_mprintf("select xCardinality from xCardinality0;");
-  (*(**(this + 1) + 216))(*(this + 1), v27, v35, v29);
+  (*(**(this + 1) + 216))(*(this + 1), v27, v34, v29);
   sqlite3_free(v29);
-  if (v35)
+  if (v34)
   {
     v30 = 0;
     do
     {
       v31 = *&v27[8 * v30];
-      v36 = v25;
-      std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 14, v25)[3] = v31;
+      v35[0] = v25;
+      std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 14, v25, &std::piecewise_construct, v35)[3] = v31;
       ++v30;
       ++v25;
     }
 
-    while (v30 < v35);
+    while (v30 < v34);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void *std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::find<unsigned long long>(void *a1, unint64_t *a2)
@@ -2723,45 +2630,37 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::_
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -2770,11 +2669,9 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::_
 uint64_t CPMLlinearSVM::TRON::info(uint64_t (**this)(char *), const char *a2, ...)
 {
   va_start(va, a2);
-  v6 = *MEMORY[0x277D85DE8];
-  vsprintf(v5, a2, va);
-  result = this[3](v5);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = *MEMORY[0x277D85DE8];
+  vsprintf(v4, a2, va);
+  return this[3](v4);
 }
 
 uint64_t CPMLlinearSVM::TRON::TRON(uint64_t result, uint64_t a2, int a3, double a4)
@@ -2811,7 +2708,7 @@ void CPMLlinearSVM::TRON::trcg(CPMLlinearSVM::TRON *this, double a2, double *a3,
   operator new[]();
 }
 
-void CPMLlinearSVM::TRON::norm_inf(CPMLlinearSVM::TRON *this, int a2, double *a3)
+void CPMLlinearSVM::TRON::norm_inf(CPMLlinearSVM::TRON *this, unsigned int a2, double *a3)
 {
   v3 = fabs(*a3);
   if (a2 >= 2)
@@ -2870,12 +2767,11 @@ uint64_t CPMLKMeansAnalysisHandler::cluster(CPMLKMeansAnalysisHandler *this, int
 uint64_t CPMLKMeansAnalysisHandler::centers(CPMLKMeansAnalysisHandler *this, double **a2)
 {
   v2 = *(this + 2);
-  v3 = v2[2];
-  v4 = v2[3];
+  v3 = *(v2 + 16);
+  v4 = *(v2 + 24);
   v5 = *(this + 4);
   if (!v5)
   {
-    v6 = *v2;
     operator new[]();
   }
 
@@ -2885,17 +2781,15 @@ uint64_t CPMLKMeansAnalysisHandler::centers(CPMLKMeansAnalysisHandler *this, dou
 
 uint64_t CPMLKMeansAnalysisHandler::withinss(CPMLKMeansAnalysisHandler *this, double **a2)
 {
-  v2 = *(this + 2);
-  v3 = v2[2];
-  v4 = *(this + 5);
-  if (!v4)
+  v2 = *(*(this + 2) + 16);
+  v3 = *(this + 5);
+  if (!v3)
   {
-    v5 = *v2;
     operator new[]();
   }
 
-  *a2 = v4;
-  return v3;
+  *a2 = v3;
+  return v2;
 }
 
 double CPMLKMeansAnalysisHandler::totalWithinss(CPMLKMeansAnalysisHandler *this)

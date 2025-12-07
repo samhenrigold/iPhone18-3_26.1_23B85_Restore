@@ -159,7 +159,7 @@ void __58__LNAppConnectionListener_handleAction_completionHandler___block_invoke
   v6 = v5;
   if (v5)
   {
-    [v5 if_auditToken];
+    objc_msgSend_if_auditToken(v5);
   }
 
   else

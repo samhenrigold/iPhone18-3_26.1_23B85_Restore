@@ -143,7 +143,7 @@ void __57__AXMessageUIFrameworkGlue_accessibilityInitializeBundle__block_invoke_
   }
 }
 
-void __46__AXMessageUIFrameworkGlue__webKitInitialized__block_invoke()
+void __46__AXMessageUIFrameworkGlue__webKitInitialized__block_invoke(uint64_t result, uint64_t a2)
 {
   if (_Failover_block_invoke_onceToken != -1)
   {

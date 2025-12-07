@@ -219,7 +219,7 @@ void __45__PUPinchedTileTracker_tileControllerToTrack__block_invoke(uint64_t a1,
   v47 = 0u;
   if (v5)
   {
-    [v5 transform];
+    objc_msgSend_transform(v5);
   }
 
   if (self->_delegateFlags.respondsToInitialAspectRatioForTileWithLayoutInfo)

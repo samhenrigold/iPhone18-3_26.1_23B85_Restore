@@ -32,10 +32,10 @@
 
 - (void)viewDidLoad
 {
-  v9.receiver = self;
-  v9.super_class = swift_getObjectType();
-  v2 = v9.receiver;
-  [(IdentityProofingViewController *)&v9 viewDidLoad];
+  v10.receiver = self;
+  v10.super_class = swift_getObjectType();
+  v2 = v10.receiver;
+  [(IdentityProofingViewController *)&v10 viewDidLoad];
   sub_2457B333C();
   sub_2457B3424();
   v3 = objc_opt_self();
@@ -49,10 +49,11 @@
   swift_unknownObjectWeakInit();
   v7 = &v2[OBJC_IVAR____TtC9CoreIDVUI30IdentityProofingViewController_secondaryButtonTargetAction];
   v8 = *&v2[OBJC_IVAR____TtC9CoreIDVUI30IdentityProofingViewController_secondaryButtonTargetAction];
+  v9 = *&v2[OBJC_IVAR____TtC9CoreIDVUI30IdentityProofingViewController_secondaryButtonTargetAction + 8];
   *v7 = sub_2457B69C0;
   v7[1] = v6;
 
-  sub_245771C34(v8);
+  sub_245771C34(v8, v9);
 
   sub_2457B3508();
 }

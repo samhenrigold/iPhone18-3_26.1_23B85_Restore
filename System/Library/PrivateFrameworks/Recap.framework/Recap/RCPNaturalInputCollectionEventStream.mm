@@ -115,7 +115,7 @@
   if (v14)
   {
     v15 = [RCPNaturalInputCollectionManipulator alloc];
-    [v14 orientation];
+    objc_msgSend_orientation(v14);
     v16 = -[RCPNaturalInputCollectionManipulator initWithLocation:zPosition:orientation:sourceGroup:interactionMethod:isOpen:](v15, "initWithLocation:zPosition:orientation:sourceGroup:interactionMethod:isOpen:", &v19, group, method, [v14 isOpen], x, y, position);
     currentManipulatorsBySourceGroup2 = [(RCPNaturalInputCollectionEventStream *)self currentManipulatorsBySourceGroup];
     v18 = [MEMORY[0x277CCABB0] numberWithInteger:group];

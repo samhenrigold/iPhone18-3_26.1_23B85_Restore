@@ -1,6 +1,8 @@
 @interface WLRetryViewController
 - (WLRetryViewController)initWithWelcomeController:(id)controller;
 - (void)_retry:(id)_retry;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WLRetryViewController
@@ -37,6 +39,22 @@
   }
 
   return v11;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WLRetryViewController;
+  [(WLRetryViewController *)&v4 viewWillAppear:appear];
+  [(OBTrayButton *)self->_retryButton hidesBusyIndicator];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = WLRetryViewController;
+  [(OBBaseWelcomeController *)&v4 viewDidDisappear:disappear];
+  [(OBTrayButton *)self->_retryButton hidesBusyIndicator];
 }
 
 - (void)_retry:(id)_retry

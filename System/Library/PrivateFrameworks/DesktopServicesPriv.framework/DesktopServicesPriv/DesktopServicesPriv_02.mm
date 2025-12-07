@@ -1,10 +1,10 @@
-void sub_1E5698148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1E5698148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
 
-  if (v10)
+  if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 
   TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>::~TRef(va);
@@ -100,7 +100,7 @@ void sub_1E56985F4(_Unwind_Exception *a1, TPropertyValue *a2, uint64_t a3, uint6
 
 BOOL TRefCount::Retain<int>(unsigned int *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = atomic_load(a1);
   if ((v2 & 0x80000000) != 0)
   {
@@ -121,19 +121,19 @@ LABEL_7:
         v7 = [v1 description];
       }
 
-      v10 = 136446722;
-      v11 = "Retain";
-      v12 = 2048;
-      v13 = v4;
-      v14 = 2114;
-      v15 = v7;
-      _os_log_impl(&dword_1E5674000, v5, OS_LOG_TYPE_ERROR, "%{public}s on bad object. -- refCount: %ld\n%{public}@", &v10, 0x20u);
+      v9 = 136446722;
+      v10 = "Retain";
+      v11 = 2048;
+      v12 = v4;
+      v13 = 2114;
+      v14 = v7;
+      _os_log_impl(&dword_1E5674000, v5, OS_LOG_TYPE_ERROR, "%{public}s on bad object. -- refCount: %ld\n%{public}@", &v9, 0x20u);
       if (!v6)
       {
       }
     }
 
-    v3 = 0;
+    return 0;
   }
 
   else
@@ -161,37 +161,35 @@ LABEL_7:
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
-ISignpostInterval *AutoSignpostInterval_FPProvider_Gathering::AutoSignpostInterval_FPProvider_Gathering<char [13],DSProvidersObserver * {__strong}>(ISignpostInterval *a1, void *a2, __CFString *a3, void **a4)
+std::mutex *AutoSignpostInterval_FPProvider_Gathering::AutoSignpostInterval_FPProvider_Gathering<char [13],DSProvidersObserver * {__strong}>(std::mutex *a1, void *a2, __CFString *a3, void **a4, ...)
 {
-  v13[4] = *MEMORY[0x1E69E9840];
+  v12[4] = *MEMORY[0x1E69E9840];
   v8 = LogObj(4);
-  TString::TString(v13, "Gathering");
+  TString::TString(v12, "Gathering");
   ISignpostInterval::ISignpostInterval(a1, v8);
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v13[0].fString.fRef);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v12[0].fString.fRef);
 
-  *(a1 + 14) = ISignpostInterval::MakeSignpostID(a1, a2);
+  *&a1[1].__m_.__opaque[40] = ISignpostInterval::MakeSignpostID(a1, a2);
   std::mutex::lock(a1);
-  v13[0].fString.fRef = a3;
-  v13[1].fString.fRef = strlen(a3);
-  FormatDetails<DSProvidersObserver * {__strong}>(v13, a4, &__p);
-  v9 = *(a1 + 14);
-  v13[0].fString.fRef = &unk_1F5F41448;
-  v13[1].fString.fRef = a1;
-  v13[2].fString.fRef = &__p;
-  v13[3].fString.fRef = v13;
-  ISignpostInterval::BeginPriv(a1, v9, v13);
-  std::__function::__value_func<void ()(NSObject  {objcproto9OS_os_log}*)>::~__value_func[abi:ne200100](v13);
+  v12[0].fString.fRef = a3;
+  v12[1].fString.fRef = strlen(a3);
+  FormatDetails<DSProvidersObserver * {__strong}>(v12, &__p, a4);
+  v9 = *&a1[1].__m_.__opaque[40];
+  v12[0].fString.fRef = &unk_1F5F41448;
+  v12[1].fString.fRef = a1;
+  v12[2].fString.fRef = &__p;
+  v12[3].fString.fRef = v12;
+  ISignpostInterval::BeginPriv(a1, v9, v12);
+  std::__function::__value_func<void ()(NSObject  {objcproto9OS_os_log}*)>::~__value_func[abi:ne200100](v12);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   std::mutex::unlock(a1);
-  v10 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -224,17 +222,17 @@ TReferenceCounted **std::__variant_detail::__assignment<std::__variant_detail::_
   return TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>::~TRef(&v4);
 }
 
-void FormatDetails<DSProvidersObserver * {__strong}>(__int128 *a1@<X0>, void **a2@<X1>, std::string *a3@<X8>)
+void FormatDetails<DSProvidersObserver * {__strong}>(_OWORD *a1@<X0>, std::string *a2@<X8>, void **a3@<X1>)
 {
   memset(&__p, 0, sizeof(__p));
-  v10 = *a1;
+  *&v10.__r_.__value_.__l.__data_ = *a1;
   do
   {
-    v5 = FormatOneDetails<DSProvidersObserver * {__strong}>(&v10, &__p, a2);
+    v5 = FormatOneDetails<DSProvidersObserver * {__strong}>(&v10.__r_.__value_.__l.__data_, &__p, a3);
     if (v5)
     {
-      *(&a3->__r_.__value_.__s + 23) = 0;
-      a3->__r_.__value_.__s.__data_[0] = 0;
+      *(&a2->__r_.__value_.__s + 23) = 0;
+      a2->__r_.__value_.__s.__data_[0] = 0;
       goto LABEL_13;
     }
   }
@@ -262,7 +260,7 @@ void FormatDetails<DSProvidersObserver * {__strong}>(__int128 *a1@<X0>, void **a
   }
 
   v8 = std::string::insert(&v9, 0, p_p, size);
-  *a3 = *v8;
+  *a2 = *v8;
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
@@ -364,7 +362,7 @@ unint64_t FormatOneDetails<DSProvidersObserver * {__strong}>(const std::string::
   }
 
   v7 = *a1;
-  v8 = &v3[*a1];
+  v8 = &(*a1)[v3];
   v9 = 1;
   v10 = *a1;
 LABEL_3:
@@ -393,7 +391,7 @@ LABEL_3:
       std::string::append(this, v7, v10 - v7);
       v14 = a1[1];
       v15 = v14 >= v13;
-      v16 = &v14[-v13];
+      v16 = v14 - v13;
       if (!v15)
       {
         goto LABEL_93;
@@ -401,7 +399,7 @@ LABEL_3:
 
       *a1 += v13;
       a1[1] = v16;
-      ParseFormat(a1, &v36);
+      ParseFormat(&v36, a1);
       v17 = v37;
       if (!v37)
       {
@@ -523,7 +521,7 @@ LABEL_69:
         {
 LABEL_90:
           v28 = a1[1];
-          v29 = &v28[-v37];
+          v29 = v28 - v37;
           if (v28 >= v37)
           {
             v9 = 0;
@@ -558,7 +556,7 @@ LABEL_89:
         *(&__dst.__r_.__value_.__s + 23) = v37;
         memmove(&__dst, v36, v37);
         __dst.__r_.__value_.__s.__data_[v17] = 0;
-        ExtractEmbeddedFormat(&__dst, &__p);
+        ExtractEmbeddedFormat(&__p, &__dst);
         if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__dst.__r_.__value_.__l.__data_);
@@ -574,7 +572,7 @@ LABEL_89:
 
         v33.__r_.__value_.__r.__words[0] = v23;
         v33.__r_.__value_.__l.__size_ = v22;
-        FormatDetails<DSProvidersObserver * {__strong}>(&__dst, &v33, a3);
+        FormatDetails<DSProvidersObserver * {__strong}>(&v33, &__dst);
         v24 = v37;
         if (v37 > 0x7FFFFFFFFFFFFFF7)
         {
@@ -805,16 +803,16 @@ uint64_t std::vector<TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>>::_
   return v10;
 }
 
-void sub_1E5699348(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5699348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
 void AutoSignpostInterval_FPProvider_Gathering::AutoSignpostInterval_FPProvider_Gathering<char [13],DSProvidersObserver * {__strong}>(void *,char [13],DSProvidersObserver * {__strong} const&)::{lambda(NSObject  {objcproto9OS_os_log}*)#1}::operator()(uint64_t *a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *a1;
   v5 = v3;
@@ -843,14 +841,12 @@ void AutoSignpostInterval_FPProvider_Gathering::AutoSignpostInterval_FPProvider_
       v9 = "";
     }
 
-    v11 = 136446466;
-    v12 = v9;
-    v13 = 2082;
-    v14 = v8;
-    _os_signpost_emit_with_name_impl(&dword_1E5674000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v7, "Gathering", "Begin%{public}s%{public}s", &v11, 0x16u);
+    v10 = 136446466;
+    v11 = v9;
+    v12 = 2082;
+    v13 = v8;
+    _os_signpost_emit_with_name_impl(&dword_1E5674000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v7, "Gathering", "Begin%{public}s%{public}s", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E5699520(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
@@ -863,17 +859,17 @@ void sub_1E5699520(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-TPropertyValue *TPropertyValue::MoveFrom(TPropertyValue *result, uint64_t a2)
+TPropertyValue *TPropertyValue::MoveFrom(TPropertyValue *result, TPropertyValue *a2)
 {
   if (result != a2)
   {
     v3 = result;
     TPropertyValue::Release(result);
     result = std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>>(v3, a2);
-    if (*(a2 + 16))
+    if (a2->fData.__impl_.__index)
     {
       result = std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a2);
-      *(a2 + 16) = 0;
+      a2->fData.__impl_.__index = 0;
     }
   }
 
@@ -993,33 +989,33 @@ id __copy_helper_block_ea8_32c50_ZTSKZ37__DSProvidersObserver_startObserving_E3_
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<NodeNotificationOptions,unsigned long>,std::__unordered_map_hasher<NodeNotificationOptions,std::__hash_value_type<NodeNotificationOptions,unsigned long>,std::hash<NodeNotificationOptions>,std::equal_to<NodeNotificationOptions>,true>,std::__unordered_map_equal<NodeNotificationOptions,std::__hash_value_type<NodeNotificationOptions,unsigned long>,std::equal_to<NodeNotificationOptions>,std::hash<NodeNotificationOptions>,true>,std::allocator<std::__hash_value_type<NodeNotificationOptions,unsigned long>>>::__emplace_unique_key_args<NodeNotificationOptions,std::piecewise_construct_t const&,std::tuple<NodeNotificationOptions const&>,std::tuple<>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<NodeNotificationOptions,unsigned long>,std::__unordered_map_hasher<NodeNotificationOptions,std::__hash_value_type<NodeNotificationOptions,unsigned long>,std::hash<NodeNotificationOptions>,std::equal_to<NodeNotificationOptions>,true>,std::__unordered_map_equal<NodeNotificationOptions,std::__hash_value_type<NodeNotificationOptions,unsigned long>,std::equal_to<NodeNotificationOptions>,std::hash<NodeNotificationOptions>,true>,std::allocator<std::__hash_value_type<NodeNotificationOptions,unsigned long>>>::__emplace_unique_key_args<NodeNotificationOptions,std::piecewise_construct_t const&,std::tuple<NodeNotificationOptions const&>,std::tuple<>>(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1027,44 +1023,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void sub_1E5699BA4(_Unwind_Exception *a1)
@@ -1074,9 +1070,9 @@ void sub_1E5699BA4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t TNode::NewNodeIterator(uint64_t a1, void *a2, void *a3, unsigned int a4)
+uint64_t TNode::NewNodeIterator(uint64_t a1, TNodeIterator **a2, void *a3, unsigned int a4)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   *a2 = 0;
   v7 = TNode::InfoLock(a1);
   os_unfair_lock_lock(v7);
@@ -1155,9 +1151,9 @@ uint64_t TNode::NewNodeIterator(uint64_t a1, void *a2, void *a3, unsigned int a4
 
             else
             {
-              v33 = *buf;
-              v29.fFINode = &v33;
-              StFirstPopulationLock::StFirstPopulationLock(&v34, v29);
+              v32 = *buf;
+              v29.fFINode = &v32;
+              StFirstPopulationLock::StFirstPopulationLock(&v33, v29);
 
               v30 = TNodeFromFINode(*buf);
               if ((TNode::IsPopulated(v30) & 1) == 0)
@@ -1166,7 +1162,7 @@ uint64_t TNode::NewNodeIterator(uint64_t a1, void *a2, void *a3, unsigned int a4
                 TNode::HandlePopulate(v31, 0, HIBYTE(a4) & 1);
               }
 
-              StFirstPopulationLock::~StFirstPopulationLock(&v34);
+              StFirstPopulationLock::~StFirstPopulationLock(&v33);
             }
           }
         }
@@ -1182,23 +1178,21 @@ uint64_t TNode::NewNodeIterator(uint64_t a1, void *a2, void *a3, unsigned int a4
     v12 = LogObj(5);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      TNode::CFURL(a1, &v34);
-      v13 = v34;
+      TNode::CFURL(&v33, a1);
+      v13 = v33;
       v14 = SanitizedURL(v13);
       *buf = 138412290;
       *&buf[4] = v14;
       _os_log_impl(&dword_1E5674000, v12, OS_LOG_TYPE_ERROR, "Failed to get node iterator for node that doesn't support container %@", buf, 0xCu);
 
-      TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(&v34);
+      TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(&v33);
     }
   }
 
-  result = 4294959224;
-  v32 = *MEMORY[0x1E69E9840];
-  return result;
+  return 4294959224;
 }
 
-void TNode::CopyChildren(TNode *this@<X0>, void *a2@<X8>)
+void TNode::CopyChildren(TNode *this@<X0>, uint64_t *a2@<X8>)
 {
   TNodePtr::TNodePtr(&v6, this);
   TNode::StPopulating::StPopulating(v7, &v6.fFINode, 0);
@@ -1217,13 +1211,13 @@ void TNode::CopyChildren(TNode *this@<X0>, void *a2@<X8>)
   a2[1] = 0;
   a2[2] = 0;
   *a2 = 0;
-  std::vector<TNodePtr>::__init_with_size[abi:ne200100]<TNodePtr*,TNodePtr*>(a2, *v5, v5[1], (v5[1] - *v5) >> 3);
+  std::vector<TNodePtr>::__init_with_size[abi:ne200100]<TNodePtr*,TNodePtr*>(a2, *v5, v5[1], v5[1] - *v5);
   TNode::StPopulating::~StPopulating(v7);
 }
 
-void sub_1E5699FD4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5699FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TNode::StPopulating::~StPopulating(va);
   _Unwind_Resume(a1);
 }
@@ -1257,7 +1251,7 @@ uint64_t IDContainerIteratorAdaptor<NSArray<NSString *>>::NSForwardIterator<NSAr
   return a1;
 }
 
-uint64_t std::vector<TNodePtr>::__init_with_size[abi:ne200100]<TNodePtr*,TNodePtr*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TNodePtr>::__init_with_size[abi:ne200100]<TNodePtr*,TNodePtr*>(uint64_t *result, void **a2, void **a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1284,31 +1278,31 @@ uint64_t IDContainerIteratorAdaptor<NSArray<NSString *>>::IDContainerIteratorAda
   return a1;
 }
 
-void TNodeIterator::GetVisibleChildrenAndSortProperties(const TNodePtr *a1@<X1>, int a2@<W2>, int a3@<W3>, void *a4@<X8>)
+void TNodeIterator::GetVisibleChildrenAndSortProperties(const TNodePtr *a1@<X1>, int a2@<W2>, int a3@<W3>, uint64_t *a4@<X8>)
 {
-  v9 = TNodeFromFINode(a1->fFINode);
-  TNode::GetSuperRootNode(&v46, v9);
-  v10 = TNodeFromFINode(v46);
+  v8 = TNodeFromFINode(a1->fFINode);
+  TNode::GetSuperRootNode(&v45, v8);
+  v9 = TNodeFromFINode(v45);
 
-  v11 = TNodeFromFINode(a1->fFINode);
-  TNode::CopyChildren(v11, &v46);
-  memset(v45, 0, sizeof(v45));
-  std::vector<TNodePtr>::reserve(v45, v47 - v46);
+  v10 = TNodeFromFINode(a1->fFINode);
+  TNode::CopyChildren(v10, &v45);
   memset(v44, 0, sizeof(v44));
-  memset(&v43, 0, sizeof(v43));
+  std::vector<TNodePtr>::reserve(v44, v46 - v45);
+  memset(v43, 0, sizeof(v43));
+  memset(&v42, 0, sizeof(v42));
   if (a2)
   {
-    std::vector<TString>::reserve(v44, v47 - v46);
-    std::vector<int>::reserve(&v43, v47 - v46);
+    std::vector<TString>::reserve(v43, v46 - v45);
+    std::vector<int>::reserve(&v42, v46 - v45);
   }
 
-  v38 = a4;
-  TNode::StPopulating::StPopulating(v42, a1, 0);
+  v37 = a4;
+  TNode::StPopulating::StPopulating(v41, &a1->fFINode, 0);
+  v11 = v45;
   v12 = v46;
-  v13 = v47;
-  if (v46 != v47)
+  if (v45 != v46)
   {
-    v39 = v9;
+    v38 = v8;
     while (1)
     {
       if (!a3)
@@ -1316,10 +1310,10 @@ void TNodeIterator::GetVisibleChildrenAndSortProperties(const TNodePtr *a1@<X1>,
         goto LABEL_15;
       }
 
-      v14 = TNodeFromFINode(*v12);
-      IsVisible = TNode::IsVisible(v14);
-      v16 = v9 == v10 ? IsVisible : 0;
-      if (v16 == 1)
+      v13 = TNodeFromFINode(*v11);
+      IsVisible = TNode::IsVisible(v13);
+      v15 = v8 == v9 ? IsVisible : 0;
+      if (v15 == 1)
       {
         break;
       }
@@ -1330,140 +1324,140 @@ void TNodeIterator::GetVisibleChildrenAndSortProperties(const TNodePtr *a1@<X1>,
       }
 
 LABEL_37:
-      if (++v12 == v13)
+      if (++v11 == v12)
       {
         goto LABEL_38;
       }
     }
 
-    v17 = TNodeFromFINode(*v12);
-    TNode::GetVolumeInfo(v17, &v40);
-    v18 = BYTE2(v40.fString.fRef[3].data);
-    if (v41)
+    v16 = TNodeFromFINode(*v11);
+    TNode::GetVolumeInfo(&v39, v16);
+    v17 = BYTE2(v39.fString.fRef[3].data);
+    if (v40)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v41);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v40);
     }
 
-    if (v18)
+    if (v17)
     {
       goto LABEL_37;
     }
 
 LABEL_15:
-    std::vector<TNodePtr>::push_back[abi:ne200100](v45, v12);
+    std::vector<TNodePtr>::push_back[abi:ne200100](v44, v11);
     if (a2)
     {
-      v19 = TNodeFromFINode(*v12);
-      v20 = TNode::InfoLock(v19);
-      os_unfair_lock_lock(v20);
-      v22 = *(v19 + 16);
-      v21 = *(v19 + 24);
-      if (v21)
+      v18 = TNodeFromFINode(*v11);
+      v19 = TNode::InfoLock(v18);
+      os_unfair_lock_lock(v19);
+      v21 = *(v18 + 16);
+      v20 = *(v18 + 24);
+      if (v20)
       {
-        atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      os_unfair_lock_unlock(v20);
-      Index = TFSInfo::GetIndex(v22);
-      end = v43.__end_;
-      if (v43.__end_ >= v43.__end_cap_.__value_)
+      os_unfair_lock_unlock(v19);
+      Index = TFSInfo::GetIndex(v21);
+      end = v42.__end_;
+      if (v42.__end_ >= v42.__end_cap_.__value_)
       {
-        begin = v43.__begin_;
-        v27 = v43.__end_ - v43.__begin_;
-        v28 = v43.__end_ - v43.__begin_;
-        v29 = v28 + 1;
-        if ((v28 + 1) >> 62)
+        begin = v42.__begin_;
+        v26 = v42.__end_ - v42.__begin_;
+        v27 = v42.__end_ - v42.__begin_;
+        v28 = v27 + 1;
+        if ((v27 + 1) >> 62)
         {
           std::vector<std::pair<TNodePtr,TNodePtr>>::__throw_length_error[abi:ne200100]();
         }
 
-        v30 = v43.__end_cap_.__value_ - v43.__begin_;
-        if ((v43.__end_cap_.__value_ - v43.__begin_) >> 1 > v29)
+        v29 = v42.__end_cap_.__value_ - v42.__begin_;
+        if ((v42.__end_cap_.__value_ - v42.__begin_) >> 1 > v28)
         {
-          v29 = v30 >> 1;
+          v28 = v29 >> 1;
         }
 
-        v31 = v30 >= 0x7FFFFFFFFFFFFFFCLL;
-        v32 = 0x3FFFFFFFFFFFFFFFLL;
-        if (!v31)
+        v30 = v29 >= 0x7FFFFFFFFFFFFFFCLL;
+        v31 = 0x3FFFFFFFFFFFFFFFLL;
+        if (!v30)
         {
-          v32 = v29;
+          v31 = v28;
         }
 
+        if (v31)
+        {
+          std::allocator<int>::allocate_at_least[abi:ne200100](&v42, v31);
+        }
+
+        *(4 * v27) = Index;
+        v24 = (4 * v27 + 4);
+        memcpy(0, begin, v26);
+        v32 = v42.__begin_;
+        v42.__begin_ = 0;
+        v42.__end_ = v24;
+        v42.__end_cap_.__value_ = 0;
         if (v32)
         {
-          std::allocator<int>::allocate_at_least[abi:ne200100](&v43, v32);
+          operator delete(v32);
         }
 
-        *(4 * v28) = Index;
-        v25 = (4 * v28 + 4);
-        memcpy(0, begin, v27);
-        v33 = v43.__begin_;
-        v43.__begin_ = 0;
-        v43.__end_ = v25;
-        v43.__end_cap_.__value_ = 0;
-        if (v33)
-        {
-          operator delete(v33);
-        }
-
-        v9 = v39;
+        v8 = v38;
       }
 
       else
       {
-        *v43.__end_ = Index;
-        v25 = end + 1;
+        *v42.__end_ = Index;
+        v24 = end + 1;
       }
 
-      v43.__end_ = v25;
-      if (v21)
+      v42.__end_ = v24;
+      if (v20)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v20);
       }
 
-      v34 = TNodeFromFINode(*v12);
-      v35 = TNode::InfoLock(v34);
-      os_unfair_lock_lock(v35);
-      v37 = *(v34 + 16);
-      v36 = *(v34 + 24);
-      if (v36)
+      v33 = TNodeFromFINode(*v11);
+      v34 = TNode::InfoLock(v33);
+      os_unfair_lock_lock(v34);
+      v36 = *(v33 + 16);
+      v35 = *(v33 + 24);
+      if (v35)
       {
-        atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      os_unfair_lock_unlock(v35);
-      TFSInfo::Name(v37, &v40);
-      if (v36)
+      os_unfair_lock_unlock(v34);
+      TFSInfo::Name(v36, &v39);
+      if (v35)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v36);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v35);
       }
 
-      std::vector<TString>::push_back[abi:ne200100](v44, &v40.fString.fRef);
-      TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v40.fString.fRef);
+      std::vector<TString>::push_back[abi:ne200100](v43, &v39.fString.fRef);
+      TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v39.fString.fRef);
     }
 
     goto LABEL_37;
   }
 
 LABEL_38:
-  _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorI8TNodePtrNS_9allocatorIS4_EEEENS3_I7TStringNS5_IS8_EEEENS3_IiNS5_IiEEEEEEC2B8ne200100IJLm0ELm1ELm2EEJS7_SA_SC_EJEJEJRS7_RSA_RSC_EEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSJ_IJDpT2_EEEDpOT3_(v38, v45, v44, &v43);
-  TNode::StPopulating::~StPopulating(v42);
-  if (v43.__begin_)
+  _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorI8TNodePtrNS_9allocatorIS4_EEEENS3_I7TStringNS5_IS8_EEEENS3_IiNS5_IiEEEEEEC2B8ne200100IJLm0ELm1ELm2EEJS7_SA_SC_EJEJEJRS7_RSA_RSC_EEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSJ_IJDpT2_EEEDpOT3_(v37, v44, v43, &v42);
+  TNode::StPopulating::~StPopulating(v41);
+  if (v42.__begin_)
   {
-    v43.__end_ = v43.__begin_;
-    operator delete(v43.__begin_);
+    v42.__end_ = v42.__begin_;
+    operator delete(v42.__begin_);
   }
 
-  v43.__begin_ = v44;
-  std::vector<TString>::__destroy_vector::operator()[abi:ne200100](&v43);
-  v44[0] = v45;
+  v42.__begin_ = v43;
+  std::vector<TString>::__destroy_vector::operator()[abi:ne200100](&v42);
+  v43[0] = v44;
+  std::vector<TNodePtr>::__destroy_vector::operator()[abi:ne200100](v43);
+  v44[0] = &v45;
   std::vector<TNodePtr>::__destroy_vector::operator()[abi:ne200100](v44);
-  v45[0] = &v46;
-  std::vector<TNodePtr>::__destroy_vector::operator()[abi:ne200100](v45);
 }
 
-void sub_1E569A4E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t **__p, uint64_t **a17, uint64_t a18, uint64_t *a19, uint64_t a20, uint64_t a21, uint64_t a22)
+void sub_1E569A4E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, FINode *a13, uint64_t a14, uint64_t a15, uint64_t **__p, uint64_t **a17, uint64_t a18, uint64_t *a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   TNode::StPopulating::~StPopulating(&a13);
   if (__p)
@@ -1558,26 +1552,26 @@ uint64_t algorithm_extras::distance_or_zero<IDContainerIteratorAdaptor<NSArray<N
   return v3;
 }
 
-void *_ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorI8TNodePtrNS_9allocatorIS4_EEEENS3_I7TStringNS5_IS8_EEEENS3_IiNS5_IiEEEEEEC2B8ne200100IJLm0ELm1ELm2EEJS7_SA_SC_EJEJEJRS7_RSA_RSC_EEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSJ_IJDpT2_EEEDpOT3_(void *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
+uint64_t *_ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorI8TNodePtrNS_9allocatorIS4_EEEENS3_I7TStringNS5_IS8_EEEENS3_IiNS5_IiEEEEEEC2B8ne200100IJLm0ELm1ELm2EEJS7_SA_SC_EJEJEJRS7_RSA_RSC_EEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSJ_IJDpT2_EEEDpOT3_(uint64_t *a1, void ***a2, uint64_t *a3, uint64_t a4)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<TNodePtr>::__init_with_size[abi:ne200100]<TNodePtr*,TNodePtr*>(a1, *a2, a2[1], (a2[1] - *a2) >> 3);
+  std::vector<TNodePtr>::__init_with_size[abi:ne200100]<TNodePtr*,TNodePtr*>(a1, *a2, a2[1], a2[1] - *a2);
   a1[3] = 0;
   a1[4] = 0;
   a1[5] = 0;
-  std::vector<TString>::__init_with_size[abi:ne200100]<TString*,TString*>((a1 + 3), *a3, a3[1], (a3[1] - *a3) >> 3);
+  std::vector<TString>::__init_with_size[abi:ne200100]<TString*,TString*>(a1 + 3, *a3, a3[1], (a3[1] - *a3) >> 3);
   a1[6] = 0;
   a1[7] = 0;
   a1[8] = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 6), *a4, a4[1], (a4[1] - *a4) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 6, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 2);
   return a1;
 }
 
-void sub_1E569A8B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E569A8B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<TString>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<TNodePtr>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -1683,7 +1677,7 @@ void TNodeIterator::TNodeIterator(TNodeIterator *this, const TNodePtr *a2, int a
         v18 = 1;
         do
         {
-          objc_storeStrong(&(*v5)[v17], v16[v20.__begin_[v17]]);
+          objc_storeStrong(&(*v5)[8 * v17], v16[v20.__begin_[v17]]);
           v17 = v18;
           v16 = v21;
           ++v18;
@@ -1735,27 +1729,27 @@ void sub_1E569AC10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 uint64_t std::construct_at[abi:ne200100]<TNodeTask,decltype(nullptr),TNodeTask*>(uint64_t a1)
 {
   v3 = 0;
-  TNodeTask::TNodeTask(a1);
+  TNodeTask::TNodeTask();
   TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>::~TRef(&v3);
   return a1;
 }
 
-void sub_1E569ACB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E569ACB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>::~TRef(va);
   _Unwind_Resume(a1);
 }
 
-void std::vector<TNodePtr>::__assign_with_size[abi:ne200100]<TNodePtr*,TNodePtr*>(uint64_t a1, void **a2, void **a3, unint64_t a4)
+void std::vector<TNodePtr>::__assign_with_size[abi:ne200100]<TNodePtr*,TNodePtr*>(char **a1, void **a2, void **a3, unint64_t a4)
 {
   v7 = *a1;
-  if (a4 > (*(a1 + 16) - *a1) >> 3)
+  if (a4 > (a1[2] - *a1) >> 3)
   {
     std::vector<TNodePtr>::__vdeallocate(a1);
     if (!(a4 >> 61))
     {
-      v8 = *(a1 + 16) - *a1;
+      v8 = a1[2] - *a1;
       v9 = v8 >> 2;
       if (v8 >> 2 <= a4)
       {
@@ -1778,12 +1772,12 @@ void std::vector<TNodePtr>::__assign_with_size[abi:ne200100]<TNodePtr*,TNodePtr*
     std::vector<std::pair<TNodePtr,TNodePtr>>::__throw_length_error[abi:ne200100]();
   }
 
-  v11 = *(a1 + 8) - v7;
+  v11 = a1[1] - v7;
   if (a4 <= v11 >> 3)
   {
     std::__copy_impl::operator()[abi:ne200100]<TNodePtr *,TNodePtr *,TNodePtr *>(&v22, a2, a3, v7);
     v18 = v17;
-    v19 = *(a1 + 8);
+    v19 = a1[1];
     if (v19 != v17)
     {
       do
@@ -1795,28 +1789,29 @@ void std::vector<TNodePtr>::__assign_with_size[abi:ne200100]<TNodePtr*,TNodePtr*
       while (v19 != v18);
     }
 
-    *(a1 + 8) = v18;
+    a1[1] = v18;
   }
 
   else
   {
     v12 = std::__copy_impl::operator()[abi:ne200100]<TNodePtr *,TNodePtr *,TNodePtr *>(&v21, a2, (a2 + v11), v7);
-    v13 = *(a1 + 8);
+    v13 = a1[1];
     if (v12 != a3)
     {
       v14 = v12;
-      v15 = *(a1 + 8);
+      v15 = a1[1];
       do
       {
         v16 = *v14++;
-        *v15++ = v16;
+        *v15 = v16;
+        v15 += 8;
         v13 += 8;
       }
 
       while (v14 != a3);
     }
 
-    *(a1 + 8) = v13;
+    a1[1] = v13;
   }
 }
 
@@ -1884,9 +1879,9 @@ TPropertyValue *TNodeTask::SetRequest(uint64_t a1, id *a2, int a3, int a4, TProp
   return result;
 }
 
-void sub_1E569B060(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E569B060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<OpaqueNodeRef *,TRetainReleasePolicy<OpaqueNodeRef *>>::~TRef(va);
   _Unwind_Resume(a1);
 }
@@ -1951,7 +1946,7 @@ void TNodeIterator::Next(TNodeIterator *this@<X0>, TNodePtr *a2@<X8>)
   TNodePtr::TNodePtr(a2, 0);
 }
 
-TPropertyValue *TPropertyValue::operator=(TPropertyValue *a1, uint64_t a2)
+TPropertyValue *TPropertyValue::operator=(TPropertyValue *a1, TPropertyValue *a2)
 {
   if (a1 != a2)
   {
@@ -1984,12 +1979,12 @@ uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0ELm
   return result;
 }
 
-uint64_t NodeDisposeIterator(uint64_t result)
+id *NodeDisposeIterator(id *result)
 {
   if (result)
   {
     v1 = result;
-    v2 = (result + 16);
+    v2 = result + 2;
     std::vector<TNodePtr>::__destroy_vector::operator()[abi:ne200100](&v2);
 
     return MEMORY[0x1E692CD30](v1, 0x10E0C40DDD8502FLL);
@@ -2000,7 +1995,7 @@ uint64_t NodeDisposeIterator(uint64_t result)
 
 void TNode::PostNodeTaskRequest(uint64_t a1, void *a2)
 {
-  TNode::GetVolumeInfo(a1, &v25);
+  TNode::GetVolumeInfo(&v25, a1);
   v4 = v25;
   if (!v25)
   {
@@ -2008,11 +2003,11 @@ void TNode::PostNodeTaskRequest(uint64_t a1, void *a2)
   }
 
   v5 = *(*a2 + 16);
-  VolumeSyncThread = TFSVolumeInfo::GetVolumeSyncThread(v25, &v24);
+  VolumeSyncThread = TFSVolumeInfo::GetVolumeSyncThread(&v24, v25);
   if ((v5 & 0xFFFFFFFD) == 1)
   {
 LABEL_3:
-    TFSVolumeInfo::GetPropertyUpdateThread(v4, &v23);
+    TFSVolumeInfo::GetPropertyUpdateThread(&v23, v4);
     v7 = v23;
     v23 = 0uLL;
     v8 = *(&v24 + 1);
@@ -2067,7 +2062,7 @@ LABEL_3:
   v14 = TPropertyValue::As<__CFURL const*>((v13 + 24), &v23);
   if ((TCFURLInfo::GetBooleanProperty(v14, *MEMORY[0x1E695ED38], v15) & 1) == 0)
   {
-    if ((atomic_load_explicit(&qword_1ECFF44E0, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(byte_1ECFF44E0, memory_order_acquire) & 1) == 0)
     {
       TNode::PostNodeTaskRequest();
     }
@@ -2258,11 +2253,11 @@ LABEL_9:
   }
 }
 
-TFSVolumeInfo *TFSVolumeInfo::GetVolumeSyncThread@<X0>(TFSVolumeInfo *this@<X0>, void *a2@<X8>)
+uint64_t *TFSVolumeInfo::GetVolumeSyncThread@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v2 = *(this + 41);
-  *a2 = *(this + 40);
-  a2[1] = v2;
+  v2 = this[41];
+  *a1 = this[40];
+  a1[1] = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
@@ -2297,7 +2292,7 @@ id __copy_helper_block_ea8_32c98_ZTSKZN9TNodeTask19PostNodeTaskRequestERKNSt3__1
 
 BOOL TRefCount::Release<int>(unsigned int *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = atomic_load(a1);
   if (v2 < 1)
   {
@@ -2318,13 +2313,13 @@ LABEL_6:
         v7 = [v1 description];
       }
 
-      v11 = 136446722;
-      v12 = "Release";
-      v13 = 2048;
-      v14 = v4;
-      v15 = 2114;
-      v16 = v7;
-      _os_log_impl(&dword_1E5674000, v5, OS_LOG_TYPE_ERROR, "%{public}s overrelease -- refCount: %ld\n%{public}@", &v11, 0x20u);
+      v10 = 136446722;
+      v11 = "Release";
+      v12 = 2048;
+      v13 = v4;
+      v14 = 2114;
+      v15 = v7;
+      _os_log_impl(&dword_1E5674000, v5, OS_LOG_TYPE_ERROR, "%{public}s overrelease -- refCount: %ld\n%{public}@", &v10, 0x20u);
       if (!v6)
       {
       }
@@ -2355,9 +2350,7 @@ LABEL_6:
     LODWORD(v4) = v2;
   }
 
-  result = v4 == 1 && v3 == 0;
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return v4 == 1 && v3 == 0;
 }
 
 uint64_t TDSNotifier::CountForOptions(uint64_t a1)
@@ -2427,24 +2420,23 @@ uint64_t TDSNotifier::CountForOptions(uint64_t a1)
 
 void AutoSignpostInterval_FPProvider_Gathering::~AutoSignpostInterval_FPProvider_Gathering(AutoSignpostInterval_FPProvider_Gathering *this)
 {
-  v4[4] = *MEMORY[0x1E69E9840];
+  v3[4] = *MEMORY[0x1E69E9840];
   std::mutex::lock(this);
-  v4[0] = *(this + 14);
-  if (std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>>>::find<unsigned long long>(this + 9, v4))
+  v3[0] = *(this + 14);
+  if (std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>>>::find<unsigned long long>(this + 9, v3))
   {
     v2 = *(this + 14);
-    v4[0] = &unk_1F5F414C8;
-    v4[1] = this;
-    v4[3] = v4;
-    ISignpostInterval::EndPriv(this, v2, v4);
-    std::__function::__value_func<void ()(NSObject  {objcproto9OS_os_log}*)>::~__value_func[abi:ne200100](v4);
+    v3[0] = &unk_1F5F414C8;
+    v3[1] = this;
+    v3[3] = v3;
+    ISignpostInterval::EndPriv(this, v2, v3);
+    std::__function::__value_func<void ()(NSObject  {objcproto9OS_os_log}*)>::~__value_func[abi:ne200100](v3);
   }
 
   std::mutex::unlock(this);
   std::__hash_table<std::__hash_value_type<unsigned long long,TRecordProgress>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,TRecordProgress>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,TRecordProgress>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,TRecordProgress>>>::~__hash_table(this + 72);
 
   std::mutex::~mutex(this);
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E569BC00(_Unwind_Exception *a1, int a2)
@@ -2759,16 +2751,16 @@ uint64_t TNode::IsInitialPopulationDeferred(TNode *this)
   return (v7 >> 5) & 1;
 }
 
-uint64_t TNode::HandleSync(uint64_t a1, uint64_t a2, TNodeEventPtrs *a3)
+uint64_t TNode::HandleSync(uint64_t a1, uint64_t a2, void ***a3)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v6 = FINodeFromTNode(a1);
-  v55 = [v6 shortDescription];
-  Description(a2, v53);
-  AutoSignpostInterval_General_HandleSync::AutoSignpostInterval_General_HandleSync<char [34],NSString * {__strong},TString>(v56, a1, "Node: '%{public}@', options: '%@'", &v55, v53);
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v53[0].fString.fRef);
+  v54 = [v6 shortDescription];
+  Description(a2, v52);
+  AutoSignpostInterval_General_HandleSync::AutoSignpostInterval_General_HandleSync<char [34],NSString * {__strong},TString>(&v55, a1, "Node: '%{public}@', options: '%@'", &v54, v52);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v52[0].fString.fRef);
 
-  v54 = 0;
+  v53 = 0;
   IsFPv2 = TNode::VirtualType(a1);
   if (IsFPv2 == 27 || (IsFPv2 = TNode::IsFPv2(a1, 1), v8 = a2, IsFPv2))
   {
@@ -2791,10 +2783,10 @@ uint64_t TNode::HandleSync(uint64_t a1, uint64_t a2, TNodeEventPtrs *a3)
     std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
-  v15 = TNode::HandleSyncStarted(a1, v8, &v54);
+  v15 = TNode::HandleSyncStarted(a1, v8, &v53);
   v16 = v15;
-  v17 = (a2 & 0x80000) == 0 || v54;
-  memset(v53, 0, sizeof(v53));
+  v17 = (a2 & 0x80000) == 0 || v53;
+  memset(v52, 0, sizeof(v52));
   if ((a2 & 0x100) == 0)
   {
     v18 = TNode::InfoLock(v15);
@@ -2866,7 +2858,7 @@ LABEL_11:
 
     v29 = TNode::ParentLock(v22);
     os_unfair_lock_lock(v29);
-    TNodePtr::TNodePtr(&v52, *(a1 + 48));
+    TNodePtr::TNodePtr(&v51, *(a1 + 48));
     os_unfair_lock_unlock(v29);
     v31 = TNode::InfoLock(v30);
     os_unfair_lock_lock(v31);
@@ -2878,7 +2870,7 @@ LABEL_11:
     }
 
     os_unfair_lock_unlock(v31);
-    TFSInfo::Name(v33, &v51);
+    TFSInfo::Name(v33, &v50);
     if (v32)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v32);
@@ -2909,7 +2901,7 @@ LABEL_28:
   if ((*&v17 & ((v37 & 0x20) >> 5)) == 1)
   {
     v39 = FIDSNodeFromTNode(a1);
-    [v39 synchronizeChildren:v16 events:v53];
+    [v39 synchronizeChildren:v16 events:v52];
   }
 
   if (IsDataless)
@@ -2954,45 +2946,44 @@ LABEL_28:
   }
 
   TNode::HandleSyncCompleted(a1, v16);
-  TNodeEventPtrs::AddEvents(a3, v53);
-  v50 = v53;
-  std::vector<std::pair<TNodePtr,TNodeEventPtr>>::__destroy_vector::operator()[abi:ne200100](&v50);
-  AutoSignpostInterval_General_HandleSync::~AutoSignpostInterval_General_HandleSync(v56);
-  v48 = *MEMORY[0x1E69E9840];
+  TNodeEventPtrs::AddEvents(a3, v52);
+  v49 = v52;
+  std::vector<std::pair<TNodePtr,TNodeEventPtr>>::__destroy_vector::operator()[abi:ne200100](&v49);
+  AutoSignpostInterval_General_HandleSync::~AutoSignpostInterval_General_HandleSync(&v55);
   return 0;
 }
 
-void sub_1E569C6CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1E569C6CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va3, a3);
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v6 = va_arg(va1, void **);
-  v8 = va_arg(va1, std::__shared_weak_count *);
+  va_start(va3, a5);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v8 = va_arg(va1, id **);
+  v10 = va_arg(va1, std::__shared_weak_count *);
   va_copy(va2, va1);
-  v9 = va_arg(va2, const void *);
-  v11 = va_arg(va2, id);
+  v11 = va_arg(va2, const void *);
+  v13 = va_arg(va2, id);
   va_copy(va3, va2);
-  v12 = va_arg(va3, void);
   v14 = va_arg(va3, void);
-  v15 = va_arg(va3, void);
   v16 = va_arg(va3, void);
   v17 = va_arg(va3, void);
+  v18 = va_arg(va3, void);
+  v19 = va_arg(va3, void);
 
-  if (v4)
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (v8)
+  if (v10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va1);
 
-  va_copy(v6, va2);
+  va_copy(v8, va2);
   std::vector<std::pair<TNodePtr,TNodeEventPtr>>::__destroy_vector::operator()[abi:ne200100](va);
   AutoSignpostInterval_General_HandleSync::~AutoSignpostInterval_General_HandleSync(va3);
   _Unwind_Resume(a1);
@@ -3008,40 +2999,39 @@ uint64_t TNode::HandleSync(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-void sub_1E569C894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1E569C894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::pair<TNodePtr,TNodeEventPtr>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-ISignpostInterval *AutoSignpostInterval_General_HandleSync::AutoSignpostInterval_General_HandleSync<char [34],NSString * {__strong},TString>(ISignpostInterval *a1, void *a2, __CFString *a3, void **a4, TString **a5)
+std::mutex *AutoSignpostInterval_General_HandleSync::AutoSignpostInterval_General_HandleSync<char [34],NSString * {__strong},TString>(std::mutex *a1, void *a2, __CFString *a3, void **a4, TString **a5, ...)
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   v10 = LogObj(5);
-  TString::TString(v15, "HandleSync");
+  TString::TString(v14, "HandleSync");
   ISignpostInterval::ISignpostInterval(a1, v10);
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v15[0].fString.fRef);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v14[0].fString.fRef);
 
-  *(a1 + 14) = ISignpostInterval::MakeSignpostID(a1, a2);
+  *&a1[1].__m_.__opaque[40] = ISignpostInterval::MakeSignpostID(a1, a2);
   std::mutex::lock(a1);
-  v15[0].fString.fRef = a3;
-  v15[1].fString.fRef = strlen(a3);
-  FormatDetails<NSString * {__strong},TString>(v15, a4, a5, &__p);
-  v11 = *(a1 + 14);
-  v15[0].fString.fRef = &unk_1F5F40B78;
-  v15[1].fString.fRef = a1;
-  v15[2].fString.fRef = &__p;
-  v15[3].fString.fRef = v15;
-  ISignpostInterval::BeginPriv(a1, v11, v15);
-  std::__function::__value_func<void ()(NSObject  {objcproto9OS_os_log}*)>::~__value_func[abi:ne200100](v15);
+  v14[0].fString.fRef = a3;
+  v14[1].fString.fRef = strlen(a3);
+  FormatDetails<NSString * {__strong},TString>(v14, a5, &__p, a4);
+  v11 = *&a1[1].__m_.__opaque[40];
+  v14[0].fString.fRef = &unk_1F5F40B78;
+  v14[1].fString.fRef = a1;
+  v14[2].fString.fRef = &__p;
+  v14[3].fString.fRef = v14;
+  ISignpostInterval::BeginPriv(a1, v11, v14);
+  std::__function::__value_func<void ()(NSObject  {objcproto9OS_os_log}*)>::~__value_func[abi:ne200100](v14);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   std::mutex::unlock(a1);
-  v12 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -3060,7 +3050,7 @@ void sub_1E569C9F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void AutoSignpostInterval_General_HandleSync::AutoSignpostInterval_General_HandleSync<char [34],NSString * {__strong},TString>(void *,char [34],NSString * {__strong},TString const&)::{lambda(NSObject  {objcproto9OS_os_log}*)#1}::operator()(uint64_t *a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *a1;
   v5 = v3;
@@ -3089,14 +3079,12 @@ void AutoSignpostInterval_General_HandleSync::AutoSignpostInterval_General_Handl
       v9 = "";
     }
 
-    v11 = 136446466;
-    v12 = v9;
-    v13 = 2082;
-    v14 = v8;
-    _os_signpost_emit_with_name_impl(&dword_1E5674000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v7, "HandleSync", "Begin%{public}s%{public}s", &v11, 0x16u);
+    v10 = 136446466;
+    v11 = v9;
+    v12 = 2082;
+    v13 = v8;
+    _os_signpost_emit_with_name_impl(&dword_1E5674000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v7, "HandleSync", "Begin%{public}s%{public}s", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 const __CFURL *TCFURLInfo::GetNumericalProperty(const __CFURL *this, const __CFString *a2, const __CFString *a3)
@@ -3218,14 +3206,14 @@ uint64_t std::vector<TString>::__emplace_back_slow_path<char const(&)[21]>(uint6
   return v13;
 }
 
-void sub_1E569CDF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1E569CDF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<TString>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t TNodeEvent::NotifyCommon(unsigned int *a1, TDSNotifier **a2, int a3)
+uint64_t TNodeEvent::NotifyCommon(TNode *a1, TDSNotifier **a2, int a3)
 {
   if (TNode::IsContextOpen(a1))
   {
@@ -3258,18 +3246,18 @@ uint64_t TNodeEvent::NotifyCommon(unsigned int *a1, TDSNotifier **a2, int a3)
   return 0;
 }
 
-uint64_t TNodeEvent::RedispatchEventToNotifier(uint64_t a1, unsigned int a2, TBlockingEventQueue *this, TDSNotifier **a4)
+uint64_t TNodeEvent::RedispatchEventToNotifier(uint64_t a1, OpaqueEventQueue *a2, TBlockingEventQueue *this, TDSNotifier **a4)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v6 = atomic_load(*a4 + 11);
   if (v6 > 0 || a2 > 0x32 || ((1 << a2) & 0x4000000100358) == 0)
   {
-    TBlockingEventQueue::EventQueueFromID(this, &v42);
-    if (v42)
+    TBlockingEventQueue::EventQueueFromID(&v41, this, a2);
+    if (v41)
     {
+      v38 = 0;
       v39 = 0;
       v40 = 0;
-      v41 = 0;
       v7 = [[FINodeEvent alloc] init:a1];
       v8 = v7;
       if (v7)
@@ -3284,93 +3272,92 @@ uint64_t TNodeEvent::RedispatchEventToNotifier(uint64_t a1, unsigned int a2, TBl
 
       TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>::operator=(v9 + 8, *a4);
       v10 = *a4;
-      v44.fFINode = v10;
+      v43.fFINode = v10;
       if (v10)
       {
         TDSNotifier::AddPtrReference(v10);
       }
 
-      TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>::~TRef(&v44);
+      TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>::~TRef(&v43);
       if ((*v9 & 0xFFFFFFFD) == 4)
       {
         v11 = [*(v9 + 1) nodeRef];
         v13 = TNode::NodeFromNodeRef(v11, v12);
-        TNodePtr::TNodePtr(&v44, v13);
-        v14 = TNodeFromFINode(v44.fFINode);
+        TNodePtr::TNodePtr(&v43, v13);
+        v14 = TNodeFromFINode(v43.fFINode);
         TNode::CopyReplicas(v14, v15);
+        v36 = 0u;
         v37 = 0u;
-        v38 = 0u;
-        v35 = 0u;
-        v16 = v36 = 0u;
-        v17 = [v16 countByEnumeratingWithState:&v35 objects:v45 count:16];
+        v34 = 0u;
+        v16 = v35 = 0u;
+        v17 = [v16 countByEnumeratingWithState:&v34 objects:v44 count:16];
         if (v17)
         {
-          v18 = *v36;
+          v18 = *v35;
           do
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v36 != v18)
+              if (*v35 != v18)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v20 = *(*(&v35 + 1) + 8 * i);
-              v34 = [[FINodeEvent alloc] init:v9];
-              v21 = (v34 + 8);
-              if (!v34)
+              v20 = *(*(&v34 + 1) + 8 * i);
+              v33 = [[FINodeEvent alloc] init:v9];
+              v21 = (v33 + 8);
+              if (!v33)
               {
                 v21 = 0;
               }
 
               objc_storeStrong(v21 + 1, v20);
-              std::vector<TNodeEventPtr>::push_back[abi:ne200100](&v39, &v34);
-              v22 = v34;
-              v34 = 0;
+              std::vector<TNodeEventPtr>::push_back[abi:ne200100](&v38, &v33);
+              v22 = v33;
+              v33 = 0;
             }
 
-            v17 = [v16 countByEnumeratingWithState:&v35 objects:v45 count:16];
+            v17 = [v16 countByEnumeratingWithState:&v34 objects:v44 count:16];
           }
 
           while (v17);
         }
       }
 
-      v23 = v42;
+      v23 = v41;
       v24 = v8;
-      v33 = v24;
-      TBlockingQueue<TNodeEventPtr>::Enqueue(v23, &v33);
-      v25 = v33;
-      v33 = 0;
+      v32 = v24;
+      TBlockingQueue<TNodeEventPtr>::Enqueue(v23, &v32);
+      v25 = v32;
+      v32 = 0;
 
-      v26 = v39;
-      v27 = v40;
+      v26 = v38;
+      v27 = v39;
       while (v26 != v27)
       {
         v28 = *v26;
-        v32 = v28;
-        TBlockingQueue<TNodeEventPtr>::Enqueue(v23, &v32);
-        v29 = v32;
-        v32 = 0;
+        v31 = v28;
+        TBlockingQueue<TNodeEventPtr>::Enqueue(v23, &v31);
+        v29 = v31;
+        v31 = 0;
 
         ++v26;
       }
 
-      v44.fFINode = &v39;
-      std::vector<TNodeEventPtr>::__destroy_vector::operator()[abi:ne200100](&v44);
+      v43.fFINode = &v38;
+      std::vector<TNodeEventPtr>::__destroy_vector::operator()[abi:ne200100](&v43);
     }
 
-    if (v43)
+    if (v42)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v43);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v42);
     }
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
-void sub_1E569D170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, std::__shared_weak_count *a26, void **a27)
+void sub_1E569D170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, std::__shared_weak_count *a26, char *a27)
 {
   a27 = &a22;
   std::vector<TNodeEventPtr>::__destroy_vector::operator()[abi:ne200100](&a27);
@@ -3382,20 +3369,20 @@ void sub_1E569D170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void TBlockingEventQueue::EventQueueFromID(TBlockingEventQueue *this@<X0>, void *a2@<X8>)
+void TBlockingEventQueue::EventQueueFromID(uint64_t *__return_ptr a1@<X8>, TBlockingEventQueue *this@<X0>, OpaqueEventQueue *a3@<X1>)
 {
-  EventQueueSpinLock();
+  EventQueueSpinLock(this, a3);
   os_unfair_lock_lock(&_MergedGlobals);
-  v9[0] = this;
+  v9 = this;
   v5 = EventQueues();
-  if (std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>>>::find<unsigned long long>(v5, v9))
+  if (std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>>>::find<unsigned long long>(v5, &v9))
   {
     v6 = EventQueues();
-    v9[2] = v9;
-    v7 = std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v6, v9);
+    v10 = &v9;
+    v7 = std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v6, &v9, &std::piecewise_construct, &v10);
     v8 = v7[4];
-    *a2 = v7[3];
-    a2[1] = v8;
+    *a1 = v7[3];
+    a1[1] = v8;
     if (v8)
     {
       atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
@@ -3404,8 +3391,8 @@ void TBlockingEventQueue::EventQueueFromID(TBlockingEventQueue *this@<X0>, void 
 
   else
   {
-    *a2 = 0;
-    a2[1] = 0;
+    *a1 = 0;
+    a1[1] = 0;
   }
 
   os_unfair_lock_unlock(&_MergedGlobals);
@@ -3424,19 +3411,19 @@ void TBlockingQueue<TNodeEventPtr>::Enqueue(uint64_t a1, id *a2)
   std::mutex::unlock((a1 + 48));
 }
 
-void *std::deque<TNodeEventPtr>::__add_back_capacity(void *a1)
+void std::deque<TNodeEventPtr>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -3444,25 +3431,25 @@ void *std::deque<TNodeEventPtr>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::allocator<TNodeEventPtr *>::allocate_at_least[abi:ne200100](a1, v9);
+    v10 = a1;
+    std::allocator<TNodeEventPtr *>::allocate_at_least[abi:ne200100](a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<TNodeEventPtr *>::emplace_back<TNodeEventPtr *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<TNodeEventPtr *>::emplace_back<TNodeEventPtr *&>(a1, &v9);
 }
 
 void sub_1E569D4F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -3476,7 +3463,7 @@ void sub_1E569D4F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id std::deque<TNodeEventPtr>::push_back(void *a1, id *a2)
+id std::deque<TNodeEventPtr>::push_back(unint64_t *a1, id *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -3510,27 +3497,26 @@ id std::deque<TNodeEventPtr>::push_back(void *a1, id *a2)
   return result;
 }
 
-void *std::__split_buffer<TNodeEventPtr *>::emplace_back<TNodeEventPtr *>(void *result, void *a2)
+void std::__split_buffer<TNodeEventPtr *>::emplace_back<TNodeEventPtr *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::allocator<TNodeEventPtr *>::allocate_at_least[abi:ne200100](result[4], v11);
+      std::allocator<TNodeEventPtr *>::allocate_at_least[abi:ne200100](a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -3539,18 +3525,17 @@ void *std::__split_buffer<TNodeEventPtr *>::emplace_back<TNodeEventPtr *>(void *
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void TConditionVariable::Signal(TConditionVariable *this)
@@ -3566,46 +3551,46 @@ void TConditionVariable::Signal(TConditionVariable *this)
 void TDSNotifier::Tickle(TDSNotifier *this, int a2)
 {
   v4 = TTime::MicrosecondsSinceStartup(this);
-  TickleLock();
+  TickleLock(v4, v5);
   os_unfair_lock_lock(&_MergedGlobals_4);
   if (a2)
   {
-    v5 = 200000;
+    v6 = 200000;
 LABEL_16:
     *(this + 8) = v4;
-    *(this + 9) = v5;
+    *(this + 9) = v6;
     os_unfair_lock_unlock(&_MergedGlobals_4);
-    v9 = *this;
+    v10 = *this;
 
-    TClientChangeNotifier::WakeUp(v9);
+    TClientChangeNotifier::WakeUp(v10);
     return;
   }
 
-  v7 = *(this + 8);
-  v6 = *(this + 9);
-  if (v4 - v7 >= v6)
+  v8 = *(this + 8);
+  v7 = *(this + 9);
+  if (v4 - v8 >= v7)
   {
-    if (v4 - v7 >= 2 * v6)
+    if (v4 - v8 >= 2 * v7)
     {
-      v10 = (v6 >> 1);
-      v8 = &v10;
-      if (v6 >> 7 < 0xC35)
+      v11 = (v7 >> 1);
+      v9 = &v11;
+      if (v7 >> 7 < 0xC35)
       {
-        v8 = &kMinimumTickleDelta;
+        v9 = &kMinimumTickleDelta;
       }
     }
 
     else
     {
-      v10 = (2 * v6);
-      v8 = &v10;
-      if (2 * v6 > 0x3D0900)
+      v11 = (2 * v7);
+      v9 = &v11;
+      if (2 * v7 > 0x3D0900)
       {
-        v8 = &kMaximumTickleDelta;
+        v9 = &kMaximumTickleDelta;
       }
     }
 
-    v5 = *v8;
+    v6 = *v9;
     goto LABEL_16;
   }
 
@@ -3619,16 +3604,16 @@ LABEL_16:
   {
     *(this + 60) = 1;
     os_unfair_lock_unlock(&_MergedGlobals_4);
-    v10 = this;
+    v11 = this;
     TRefCount::Retain<int>(this + 9);
-    TClientChangeNotifier::SetTimerToHandleTickle(*this, this, v6 + v7);
-    TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>::~TRef(&v10);
+    TClientChangeNotifier::SetTimerToHandleTickle(*this, this, v7 + v8);
+    TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>::~TRef(&v11);
   }
 }
 
-void sub_1E569D8A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E569D8A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>::~TRef(va);
   _Unwind_Resume(a1);
 }
@@ -3658,9 +3643,9 @@ void std::vector<TNodeEventPtr>::__destroy_vector::operator()[abi:ne200100](void
   }
 }
 
-void TickleLock(void)
+void TickleLock(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_1ECFF4590, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ECFF4590, memory_order_acquire) & 1) == 0)
   {
     TickleLock();
   }
@@ -3668,18 +3653,18 @@ void TickleLock(void)
 
 void TickleLock()
 {
-  if (__cxa_guard_acquire(&qword_1ECFF4590))
+  if (__cxa_guard_acquire(byte_1ECFF4590))
   {
     _MergedGlobals_4 = 0;
 
-    __cxa_guard_release(&qword_1ECFF4590);
+    __cxa_guard_release(byte_1ECFF4590);
   }
 }
 
-void TClientChangeNotifier::WakeUp(TClientChangeNotifier *this)
+void TClientChangeNotifier::WakeUp(NSObject **this)
 {
   std::shared_ptr<TClientChangeNotifier>::shared_ptr[abi:ne200100]<TClientChangeNotifier,0>(&v17, this);
-  v2 = *(this + 6);
+  v2 = this[6];
   if (v2)
   {
     v11[0] = MEMORY[0x1E69E9820];
@@ -3813,92 +3798,67 @@ uint64_t __copy_helper_block_ea8_32c44_ZTSKZN21TClientChangeNotifier6WakeUpEvE3_
   return result;
 }
 
-void TNode::SynchronizeChildren(uint64_t a1, unsigned int a2)
+void TNode::SynchronizeChildren(uint64_t a1, unsigned int a2, TNodeEventPtrs *a3)
 {
   v41 = *MEMORY[0x1E69E9840];
-  v3 = FINodeFromTNode(a1);
-  v39 = [v3 shortDescription];
+  v4 = FINodeFromTNode(a1);
+  v39 = [v4 shortDescription];
   Description(a2, buf);
-  AutoSignpostInterval_General_SynchronizeChildren::AutoSignpostInterval_General_SynchronizeChildren<char [34],NSString * {__strong},TString>(v40, a1, "Node: '%{public}@', options: '%@'", &v39, buf);
+  AutoSignpostInterval_General_SynchronizeChildren::AutoSignpostInterval_General_SynchronizeChildren<char [34],NSString * {__strong},TString>(&v40, a1, "Node: '%{public}@', options: '%@'", &v39, buf);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(buf);
 
-  v5 = TNode::InfoLock(v4);
-  os_unfair_lock_lock(v5);
-  v6 = *(a1 + 16);
-  v7 = *(a1 + 24);
-  if (v7)
+  v6 = TNode::InfoLock(v5);
+  os_unfair_lock_lock(v6);
+  v7 = *(a1 + 16);
+  v8 = *(a1 + 24);
+  if (v8)
   {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-    os_unfair_lock_unlock(v5);
-    v8 = *(v6 + 120);
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+    os_unfair_lock_unlock(v6);
+    v9 = *(v7 + 120);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
   else
   {
-    os_unfair_lock_unlock(v5);
-    v8 = *(v6 + 120);
+    os_unfair_lock_unlock(v6);
+    v9 = *(v7 + 120);
   }
 
-  if (v8)
+  if (v9 || (TNode::CFURL(&v33, a1), v10 = v33, [v10 path], v11 = objc_claimAutoreleasedReturnValue(), theString = &stru_1F5F42870, CFRetain(&stru_1F5F42870), TString::SetStringRefAsImmutable(&theString, v11), v11, v11, v12 = theString, *buf = &stru_1F5F42870, CFRetain(&stru_1F5F42870), MutableCopy = CFStringCreateMutableCopy(*MEMORY[0x1E695E480], 0, v12), CFRelease(&stru_1F5F42870), *buf = MutableCopy, TString::Append(buf, "/"), TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&theString), v11, v10, TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(&v33), LOBYTE(v10) = PathEligibleForSynching(buf), TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(buf), (v10 & 1) != 0))
   {
-    goto LABEL_6;
-  }
-
-  TNode::CFURL(a1, &v33);
-  v9 = v33;
-  v10 = [v9 path];
-  theString = &stru_1F5F42870;
-  CFRetain(&stru_1F5F42870);
-  TString::SetStringRefAsImmutable(&theString, v10);
-
-  v11 = theString;
-  *buf = &stru_1F5F42870;
-  CFRetain(&stru_1F5F42870);
-  MutableCopy = CFStringCreateMutableCopy(*MEMORY[0x1E695E480], 0, v11);
-  CFRelease(&stru_1F5F42870);
-  *buf = MutableCopy;
-  TString::Append(buf, "/");
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&theString);
-
-  TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(&v33);
-  LOBYTE(v9) = PathEligibleForSynching(buf);
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(buf);
-  if (v9)
-  {
-LABEL_6:
-    v13 = TNode::VirtualType(a1);
-    if (v13 == 30)
+    v14 = TNode::VirtualType(a1);
+    if (v14 == 30)
     {
-      v14 = LogObj(6);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = LogObj(6);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1E5674000, v14, OS_LOG_TYPE_DEFAULT, "Synching iTunes device list", buf, 2u);
+        _os_log_impl(&dword_1E5674000, v15, OS_LOG_TYPE_DEFAULT, "Synching iTunes device list", buf, 2u);
       }
     }
 
-    v15 = TNode::InfoLock(v13);
-    os_unfair_lock_lock(v15);
-    v17 = *(a1 + 16);
-    v16 = *(a1 + 24);
-    if (v16)
+    v16 = TNode::InfoLock(v14);
+    os_unfair_lock_lock(v16);
+    v18 = *(a1 + 16);
+    v17 = *(a1 + 24);
+    if (v17)
     {
-      atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    os_unfair_lock_unlock(v15);
-    os_unfair_lock_lock((v17 + 108));
-    v18 = *(v17 + 123);
-    os_unfair_lock_unlock((v17 + 108));
-    if (v16)
+    os_unfair_lock_unlock(v16);
+    os_unfair_lock_lock((v18 + 108));
+    v19 = *(v18 + 123);
+    os_unfair_lock_unlock((v18 + 108));
+    if (v17)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
     }
 
-    if ((v18 & 0x100) != 0)
+    if ((v19 & 0x100) != 0)
     {
-      TNode::GetVolumeInfo(a1, buf);
+      TNode::GetVolumeInfo(buf, a1);
       TFSVolumeInfo::ReadHiddenListFile(*buf);
       if (v36)
       {
@@ -3906,11 +3866,11 @@ LABEL_6:
       }
     }
 
-    v19 = TNode::NeedsChildReconcile(a1);
-    v20 = (a2 & 0x1C00000) != 0 || v19;
-    if ((a2 & 0xA00000) == 0xA00000 || (a2 & 0x1200000) == 0x200000 || v20)
+    v20 = TNode::NeedsChildReconcile(a1);
+    v21 = (a2 & 0x1C00000) != 0 || v20;
+    if ((a2 & 0xA00000) == 0xA00000 || (a2 & 0x1200000) == 0x200000 || v21)
     {
-      TTime::MicrosecondsSinceStartup(v19);
+      TTime::MicrosecondsSinceStartup(v20);
       TNodePtr::TNodePtr(&theString, a1);
       TNode::StPopulating::StPopulating(buf, &theString, 0);
 
@@ -3924,12 +3884,12 @@ LABEL_6:
       if (Dir)
       {
         Dir = TNode::ShouldUseReadDir(a1);
-        v22 = Dir;
+        v23 = Dir;
       }
 
       else
       {
-        v22 = 0;
+        v23 = 0;
       }
 
       if ((TFSVolumeInfo::ShouldSkipLSProperties(Dir) & 1) == 0)
@@ -3940,12 +3900,12 @@ LABEL_6:
       TNodePtr::TNodePtr(&theString, a1);
       TFSInfoSynchronizer::TFSInfoSynchronizer(buf, &theString);
 
-      v23 = objc_autoreleasePoolPush();
+      v24 = objc_autoreleasePoolPush();
       Current = CFAbsoluteTimeGetCurrent();
-      v25 = *(*a1 + 132);
-      v26 = atomic_load((a1 + 88));
-      Children = TFSInfoSynchronizer::FetchChildren(buf, v22, v25, (v26 & 0x1000) == 0);
-      v28 = Children;
+      v26 = *(*a1 + 132);
+      v27 = atomic_load((a1 + 88));
+      Children = TFSInfoSynchronizer::FetchChildren(buf, v23, v26, (v27 & 0x1000) == 0);
+      v29 = Children;
       if (Children == -8086 || !Children)
       {
         if (Children != -8086)
@@ -3953,21 +3913,21 @@ LABEL_6:
           atomic_fetch_or((a1 + 88), 0x1000u);
         }
 
-        v29 = CFAbsoluteTimeGetCurrent();
-        if (TFSVolumeInfo::ShouldRecordIterationTimes(v30))
+        v30 = CFAbsoluteTimeGetCurrent();
+        if (TFSVolumeInfo::ShouldRecordIterationTimes(v31))
         {
-          TNode::Path(a1, &theString);
+          TNode::Path(&theString, a1);
           if (CFStringGetLength(theString))
           {
-            TFSVolumeInfo::UpdateIterationPerfData(&theString, v22, v29 - Current, v28 == -8086, (v36 - *buf) >> 4);
+            TFSVolumeInfo::UpdateIterationPerfData(&theString, v23, v30 - Current, v29 == -8086, (v36 - *buf) >> 4);
           }
 
           TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&theString);
         }
       }
 
-      objc_autoreleasePoolPop(v23);
-      if (!v28 || v28 == -8086)
+      objc_autoreleasePoolPop(v24);
+      if (!v29 || v29 == -8086)
       {
         operator new();
       }
@@ -3982,12 +3942,12 @@ LABEL_6:
     }
   }
 
-  AutoSignpostInterval_General_SynchronizeChildren::~AutoSignpostInterval_General_SynchronizeChildren(v40);
-  v31 = *MEMORY[0x1E69E9840];
+  AutoSignpostInterval_General_SynchronizeChildren::~AutoSignpostInterval_General_SynchronizeChildren(&v40);
 }
 
-void sub_1E569EE2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21, uint64_t a22, uint64_t a23, uint64_t a24, id a25, uint64_t a26, uint64_t a27, std::__shared_weak_count *a28, uint64_t a29, uint64_t a30, void ****a31, uint64_t a32, uint64_t a33, void ***a34, uint64_t a35, uint64_t a36, void **a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+void sub_1E569EE2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21, uint64_t a22, uint64_t a23, uint64_t a24, id a25, uint64_t a26, uint64_t a27, std::__shared_weak_count *a28, uint64_t a29, uint64_t a30, void ****a31, uint64_t a32, uint64_t a33, void ***a34, uint64_t a35, uint64_t a36, void **a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
 {
+  va_start(va, a42);
   TNodeEventPtr::~TNodeEventPtr(&a17);
 
   if (a28)
@@ -4002,9 +3962,9 @@ void sub_1E569EE2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   std::vector<TNodePtr>::__destroy_vector::operator()[abi:ne200100](&a34);
   a37 = &a40;
   std::vector<std::shared_ptr<TCFURLInfoList>>::__destroy_vector::operator()[abi:ne200100](&a37);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v43);
-  TFSInfoSynchronizer::~TFSInfoSynchronizer(&a43);
-  AutoSignpostInterval_General_SynchronizeChildren::~AutoSignpostInterval_General_SynchronizeChildren((v44 - 232));
+  std::__shared_weak_count::__release_shared[abi:ne200100](v42);
+  TFSInfoSynchronizer::~TFSInfoSynchronizer(va);
+  AutoSignpostInterval_General_SynchronizeChildren::~AutoSignpostInterval_General_SynchronizeChildren((v43 - 232));
   _Unwind_Resume(a1);
 }
 
@@ -4059,40 +4019,39 @@ uint64_t std::vector<TString>::__emplace_back_slow_path<char const(&)[31]>(uint6
   return v13;
 }
 
-void sub_1E569F400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1E569F400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<TString>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-ISignpostInterval *AutoSignpostInterval_General_SynchronizeChildren::AutoSignpostInterval_General_SynchronizeChildren<char [34],NSString * {__strong},TString>(ISignpostInterval *a1, void *a2, __CFString *a3, void **a4, TString **a5)
+std::mutex *AutoSignpostInterval_General_SynchronizeChildren::AutoSignpostInterval_General_SynchronizeChildren<char [34],NSString * {__strong},TString>(std::mutex *a1, void *a2, __CFString *a3, void **a4, TString **a5, ...)
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   v10 = LogObj(5);
-  TString::TString(v15, "SynchronizeChildren");
+  TString::TString(v14, "SynchronizeChildren");
   ISignpostInterval::ISignpostInterval(a1, v10);
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v15[0].fString.fRef);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v14[0].fString.fRef);
 
-  *(a1 + 14) = ISignpostInterval::MakeSignpostID(a1, a2);
+  *&a1[1].__m_.__opaque[40] = ISignpostInterval::MakeSignpostID(a1, a2);
   std::mutex::lock(a1);
-  v15[0].fString.fRef = a3;
-  v15[1].fString.fRef = strlen(a3);
-  FormatDetails<NSString * {__strong},TString>(v15, a4, a5, &__p);
-  v11 = *(a1 + 14);
-  v15[0].fString.fRef = &unk_1F5F40F58;
-  v15[1].fString.fRef = a1;
-  v15[2].fString.fRef = &__p;
-  v15[3].fString.fRef = v15;
-  ISignpostInterval::BeginPriv(a1, v11, v15);
-  std::__function::__value_func<void ()(NSObject  {objcproto9OS_os_log}*)>::~__value_func[abi:ne200100](v15);
+  v14[0].fString.fRef = a3;
+  v14[1].fString.fRef = strlen(a3);
+  FormatDetails<NSString * {__strong},TString>(v14, a5, &__p, a4);
+  v11 = *&a1[1].__m_.__opaque[40];
+  v14[0].fString.fRef = &unk_1F5F40F58;
+  v14[1].fString.fRef = a1;
+  v14[2].fString.fRef = &__p;
+  v14[3].fString.fRef = v14;
+  ISignpostInterval::BeginPriv(a1, v11, v14);
+  std::__function::__value_func<void ()(NSObject  {objcproto9OS_os_log}*)>::~__value_func[abi:ne200100](v14);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   std::mutex::unlock(a1);
-  v12 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -4111,7 +4070,7 @@ void sub_1E569F55C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void AutoSignpostInterval_General_SynchronizeChildren::AutoSignpostInterval_General_SynchronizeChildren<char [34],NSString * {__strong},TString>(void *,char [34],NSString * {__strong},TString const&)::{lambda(NSObject  {objcproto9OS_os_log}*)#1}::operator()(uint64_t *a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *a1;
   v5 = v3;
@@ -4140,14 +4099,12 @@ void AutoSignpostInterval_General_SynchronizeChildren::AutoSignpostInterval_Gene
       v9 = "";
     }
 
-    v11 = 136446466;
-    v12 = v9;
-    v13 = 2082;
-    v14 = v8;
-    _os_signpost_emit_with_name_impl(&dword_1E5674000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v7, "SynchronizeChildren", "Begin%{public}s%{public}s", &v11, 0x16u);
+    v10 = 136446466;
+    v11 = v9;
+    v12 = 2082;
+    v13 = v8;
+    _os_signpost_emit_with_name_impl(&dword_1E5674000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v7, "SynchronizeChildren", "Begin%{public}s%{public}s", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 BOOL TNode::NeedsChildReconcile(TNode *this)
@@ -4177,7 +4134,7 @@ BOOL TNode::NeedsChildReconcile(TNode *this)
 
 void TFSVolumeInfo::ReadHiddenListFile(TFSVolumeInfo *this)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (TFSVolumeInfo::MayHaveHiddenList(this))
   {
     std::mutex::lock((this + 224));
@@ -4195,22 +4152,22 @@ void TFSVolumeInfo::ReadHiddenListFile(TFSVolumeInfo *this)
             {
               v4 = strspn(__s, " \t");
               v5 = strcspn(&__s[v4], "\n\r\f");
-              TString::TString(&v9, &__s[v4], v5);
+              TString::TString(&v8, &__s[v4], v5);
               v6 = *(this + 25);
               if (v6 >= *(this + 26))
               {
-                v7 = std::vector<TString>::__emplace_back_slow_path<TString const&>(this + 192, &v9);
+                v7 = std::vector<TString>::__emplace_back_slow_path<TString const&>(this + 192, &v8);
               }
 
               else
               {
-                std::allocator_traits<std::allocator<TString>>::construct[abi:ne200100]<TString,TString const&,void,0>(this + 192, *(this + 25), &v9);
+                std::allocator_traits<std::allocator<TString>>::construct[abi:ne200100]<TString,TString const&,void,0>(this + 192, *(this + 25), &v8);
                 v7 = v6 + 8;
                 *(this + 25) = v6 + 8;
               }
 
               *(this + 25) = v7;
-              TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v9.fString.fRef);
+              TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v8.fString.fRef);
             }
 
             fclose(v3);
@@ -4223,8 +4180,6 @@ void TFSVolumeInfo::ReadHiddenListFile(TFSVolumeInfo *this)
 
     std::mutex::unlock((this + 224));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E569F904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9)
@@ -4260,7 +4215,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  TNode::GetVolumeInfo(a1, &v89);
+  TNode::GetVolumeInfo(&v89, a1);
   IsLocked = v90;
   v15 = *(v89 + 104);
   if (v90)
@@ -4405,7 +4360,7 @@ LABEL_33:
 
   if ((*a2 & 0x20) != 0)
   {
-    TNode::GetVolumeInfo(a1, &v89);
+    TNode::GetVolumeInfo(&v89, a1);
     if (*(v89 + 135) == 1)
     {
       v21 = TFSInfo::UserCanChangeLock(v6);
@@ -4848,7 +4803,7 @@ LABEL_33:
 
     if ((v60 & 0x100) != 0)
     {
-      TNode::GetVolumeInfo(a1, &v89);
+      TNode::GetVolumeInfo(&v89, a1);
       v62 = *(v89 + 111);
       if (v90)
       {
@@ -4880,11 +4835,11 @@ LABEL_221:
         if (TNode::FetchExtendedUserAccess(v63))
         {
           v64 = TNodeFromFINode(v91.fFINode);
-          TNode::GetFSInfo(v64, &v89);
+          TNode::GetFSInfo(&v89, v64);
           if (TFSInfo::UserCanAddDeleteChild(v89))
           {
             v65 = TNodeFromFINode(v91.fFINode);
-            TNode::GetFSInfo(v65, &v86);
+            TNode::GetFSInfo(&v86, v65);
             if ((TFSInfo::IsLocked(v86) & 1) != 0 || !TNode::IsLocalVolume(a1))
             {
               IsSticky = 0;
@@ -4958,7 +4913,7 @@ LABEL_222:
     }
 
     v76 = TNodeFromFINode(v91.fFINode);
-    TNode::GetFSInfo(v76, &v89);
+    TNode::GetFSInfo(&v89, v76);
     v77 = TFSInfo::IsLocked(v89);
     if (v90)
     {
@@ -5060,7 +5015,7 @@ void sub_1E56A05A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t TNode::ApplyFPItemRestrictions(uint64_t a1, int a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = TNode::InfoLock(a1);
   os_unfair_lock_lock(v4);
   v5 = *(a1 + 16);
@@ -5086,9 +5041,9 @@ uint64_t TNode::ApplyFPItemRestrictions(uint64_t a1, int a2)
       v11 = LogObj(2);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412290;
-        v15 = v8;
-        _os_log_impl(&dword_1E5674000, v11, OS_LOG_TYPE_DEFAULT, "Unreadable FPItem found with busy creation date, forcing read capability to match local file: %@", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = v8;
+        _os_log_impl(&dword_1E5674000, v11, OS_LOG_TYPE_DEFAULT, "Unreadable FPItem found with busy creation date, forcing read capability to match local file: %@", &v13, 0xCu);
       }
 
       v9 = v9 | 0x10000;
@@ -5099,7 +5054,6 @@ uint64_t TNode::ApplyFPItemRestrictions(uint64_t a1, int a2)
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -5208,19 +5162,17 @@ void sub_1E56A0A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 CFIndex TFSInfoSynchronizer::FetchChildren(uint64_t a1, uint64_t a2, const __CFString *a3, uint64_t a4)
 {
-  v82 = *MEMORY[0x1E69E9840];
-  v77 = a3;
+  v77 = *MEMORY[0x1E69E9840];
+  v72 = a3;
   v6 = (a1 + 32);
   v5 = *(a1 + 32);
   if (!v5)
   {
-LABEL_63:
-    v30 = 0;
-    goto LABEL_75;
+    return 0;
   }
 
-  v76 = *(v5 + 120);
-  if (v76 == 27)
+  v71 = *(v5 + 120);
+  if (v71 == 27)
   {
     v11 = TNodeFromFINode(*(a1 + 24));
     NotifierList = TNode::GetNotifierList(v11);
@@ -5241,77 +5193,70 @@ LABEL_63:
 
     if ([v15 populated])
     {
-      v72 = [v15 providers];
+      v67 = [v15 providers];
       *__dst = 0x4008000000000000;
-      v80.f_bavail = 0;
-      TNode::RootFPItemsForDomainsWithTimeout(v72);
+      v75.f_bavail = 0;
+      TNode::RootFPItemsForDomainsWithTimeout(v67, __dst, &v75);
     }
 
-    v41 = LogObj(4);
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+    v40 = LogObj(4);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v80.f_bsize) = 0;
-      _os_log_impl(&dword_1E5674000, v41, OS_LOG_TYPE_DEBUG, "FPProviders not fetched", &v80, 2u);
+      LOWORD(v75.f_bsize) = 0;
+      _os_log_impl(&dword_1E5674000, v40, OS_LOG_TYPE_DEBUG, "FPProviders not fetched", &v75, 2u);
     }
 
-    v30 = 4294959279;
-    goto LABEL_75;
+    return 4294959279;
   }
 
-  if (v76)
+  if (v71)
   {
     v16 = TNodeFromFINode(*(a1 + 24));
     if (TNode::IsFPv2(v16, 1))
     {
       v17 = TNodeFromFINode(*(a1 + 24));
       v18 = TChildrenList::GetCollectionStatusObserver(*(v17 + 56));
-      v67 = 0u;
-      v68 = 0u;
-      v65 = 0u;
-      v66 = 0u;
+      v62 = 0u;
+      v63 = 0u;
+      v60 = 0u;
+      v61 = 0u;
       v19 = [v18 fpItems];
-      v20 = [v19 countByEnumeratingWithState:&v65 objects:v79 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v60 objects:v74 count:16];
       if (v20)
       {
-        v21 = *v66;
+        v21 = *v61;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v66 != v21)
+            if (*v61 != v21)
             {
               objc_enumerationMutation(v19);
             }
 
-            if (([*(*(&v65 + 1) + 8 * i) isTrashed] & 1) == 0)
+            if (([*(*(&v60 + 1) + 8 * i) isTrashed] & 1) == 0)
             {
               _ZNSt3__115allocate_sharedB8ne200100I7TFSInfoNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
             }
           }
 
-          v20 = [v19 countByEnumeratingWithState:&v65 objects:v79 count:16];
+          v20 = [v19 countByEnumeratingWithState:&v60 objects:v74 count:16];
         }
 
         while (v20);
       }
     }
 
-    else if ((v76 & 0xFE) == 0x18)
+    else if ((v71 & 0xFE) == 0x18)
     {
       if (ICloudDriveFPFSEnabled())
       {
         v37 = TNodeFromFINode(*(a1 + 24));
         v38 = TChildrenList::GetCollectionStatusObserver(*(v37 + 56));
-        v63 = 0u;
-        v64 = 0u;
-        v61 = 0u;
-        v62 = 0u;
+        memset(v59, 0, sizeof(v59));
         v39 = [v38 fpItems];
-        if ([v39 countByEnumeratingWithState:&v61 objects:v78 count:16])
+        if ([v39 countByEnumeratingWithState:v59 objects:v73 count:16])
         {
-          *v62;
-          *v62;
-          v40 = **(&v61 + 1);
           _ZNSt3__115allocate_sharedB8ne200100I7TFSInfoNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
         }
       }
@@ -5319,15 +5264,15 @@ LABEL_63:
 
     else
     {
-      v42 = TFSInfo::CopySFBrowserRef(*v6);
-      *__dst = v42;
-      if (v42 && TFSInfo::IsBrowserOpen(v42))
+      v41 = TFSInfo::CopySFBrowserRef(*v6);
+      *__dst = v41;
+      if (v41 && TFSInfo::IsBrowserOpen(v41))
       {
-        v43 = SFBrowserCopyChildren();
-        theArray = v43;
-        if (v43)
+        v42 = SFBrowserCopyChildren();
+        theArray = v42;
+        if (v42)
         {
-          Count = CFArrayGetCount(v43);
+          Count = CFArrayGetCount(v42);
           std::vector<std::shared_ptr<TFSInfo>>::reserve(a1, Count);
           if (Count >= 1)
           {
@@ -5347,7 +5292,7 @@ LABEL_63:
       TAutoRef<__SFBrowser *,TRetainReleasePolicy<__SFBrowser *>>::~TAutoRef(__dst);
     }
 
-    goto LABEL_63;
+    return 0;
   }
 
   if (a2)
@@ -5358,13 +5303,13 @@ LABEL_63:
       v8 = opendir(__dst);
       if (v8)
       {
-        statfs(__dst, &v80);
+        statfs(__dst, &v75);
         strlcat(__dst, "/", 0x400uLL);
         *__error() = 0;
         for (k = readdir(v8); k; k = readdir(v8))
         {
-          v69 = 0;
-          LOBYTE(v72) = 0;
+          LOBYTE(v64) = 0;
+          LOBYTE(v67) = 0;
           d_type = k->d_type;
           if (d_type > 0xE)
           {
@@ -5375,12 +5320,12 @@ LABEL_63:
           {
             if (d_type != 4)
             {
-              LOBYTE(v72) = d_type == 10;
+              LOBYTE(v67) = d_type == 10;
 LABEL_16:
-              std::allocate_shared[abi:ne200100]<TFSInfo,std::allocator<TFSInfo>,std::shared_ptr<TFSInfo> &,char (&)[1024],char (&)[1024],fsid &,unsigned long long &,BOOL &,BOOL &,BOOL &,0>();
+              std::allocate_shared[abi:ne200100]<TFSInfo,std::allocator<TFSInfo>,std::shared_ptr<TFSInfo> &,char (&)[1024],char (&)[1024],fsid &,unsigned long long &,BOOL &,BOOL &,BOOL &,0>(&v65, v6, __dst, k->d_name, &v75.f_fsid, k, &v72, &v64, &v67);
             }
 
-            v69 = 1;
+            LOBYTE(v64) = 1;
             if (k->d_name[0] != 46 || k->d_name[1] && (k->d_name[1] != 46 || k->d_name[2]))
             {
               goto LABEL_16;
@@ -5396,33 +5341,34 @@ LABEL_16:
 
       else
       {
-        v57 = __error();
-        v60 = TCFURLInfo::TranslateXAttrError(*v57, v58, v59);
-        if (v60 == -5000)
+        v55 = __error();
+        v58 = TCFURLInfo::TranslateXAttrError(*v55, v56, v57);
+        if (v58 == -5000)
         {
           v7 = 0;
         }
 
         else
         {
-          v7 = v60;
+          v7 = v58;
         }
       }
     }
 
     if (v7 == -1417)
     {
-      v30 = 0;
+      return 0;
     }
 
     else
     {
-      v30 = v7;
+      return v7;
     }
   }
 
   else
   {
+    v23 = a4;
     if (!TFSInfo::IsDataless(v5, a2, a3))
     {
       goto LABEL_66;
@@ -5436,25 +5382,25 @@ LABEL_16:
     block[2] = ___ZN19TFSInfoSynchronizer13FetchChildrenEbb12LSProperties_block_invoke;
     block[3] = &__block_descriptor_40_ea8_32c65_ZTSKZN19TFSInfoSynchronizer13FetchChildrenEbb12LSPropertiesE3__0_e5_v8__0l;
     v27 = v24;
-    v75 = v27;
+    v70 = v27;
     dispatch_after(v25, v26, block);
 
     v28 = *v6;
     os_unfair_lock_lock(*v6 + 27);
     v29 = *(v28 + 2);
-    *&v80.f_bsize = v29;
+    *&v75.f_bsize = v29;
     if (v29)
     {
       CFRetain(v29);
     }
 
     os_unfair_lock_unlock(v28 + 27);
-    v30 = *&v80.f_bsize;
-    v73 = 0;
-    [v27 coordinateReadingItemAtURL:v30 options:1 error:&v73 byAccessor:&__block_literal_global_4];
-    v31 = v73;
+    v30 = *&v75.f_bsize;
+    v68 = 0;
+    [v27 coordinateReadingItemAtURL:v30 options:1 error:&v68 byAccessor:&__block_literal_global_4];
+    v31 = v68;
 
-    TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(&v80);
+    TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(&v75);
     if (!v31)
     {
       goto LABEL_64;
@@ -5463,15 +5409,15 @@ LABEL_16:
     v32 = LogObj(4);
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      v80.f_bsize = 138412290;
-      *&v80.f_iosize = v31;
-      _os_log_impl(&dword_1E5674000, v32, OS_LOG_TYPE_ERROR, "Synchronizer coordinateReadingItemAtURL error: %@", &v80, 0xCu);
+      v75.f_bsize = 138412290;
+      *&v75.f_iosize = v31;
+      _os_log_impl(&dword_1E5674000, v32, OS_LOG_TYPE_ERROR, "Synchronizer coordinateReadingItemAtURL error: %@", &v75, 0xCu);
     }
 
     TFSInfo::InitializeAndGetPath(__dst, *v6);
     v33 = TString::c_str(__dst);
-    v30 = stat(v33, &v80);
-    v34 = *&v80.f_mntonname[28];
+    v30 = stat(v33, &v75);
+    v34 = *&v75.f_mntonname[28];
     TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(__dst);
     if (!v30 && (v34 & 0x40000000) != 0)
     {
@@ -5488,46 +5434,45 @@ LABEL_64:
     if (v36)
     {
 LABEL_66:
-      v46 = *v6;
-      os_unfair_lock_lock(v46 + 27);
-      v47 = *(v46 + 2);
-      *__dst = v47;
-      if (v47)
+      v45 = *v6;
+      os_unfair_lock_lock(v45 + 27);
+      v46 = *(v45 + 2);
+      *__dst = v46;
+      if (v46)
       {
-        CFRetain(v47);
+        CFRetain(v46);
       }
 
-      os_unfair_lock_unlock(v46 + 27);
-      v49 = *__dst;
-      if (a4)
+      os_unfair_lock_unlock(v45 + 27);
+      v48 = *__dst;
+      if (v23)
       {
-        v50 = TFSInfo::IterationInfoPropertyKeys(v48);
+        v49 = TFSInfo::IterationInfoPropertyKeys(v47);
       }
 
       else
       {
-        v50 = TFSInfo::IterationFullSetOfPropertyKeys(v48);
+        v49 = TFSInfo::IterationFullSetOfPropertyKeys(v47);
       }
 
-      v51 = v50;
-      v52 = TNodeFromFINode(*(a1 + 24));
-      v53 = TNode::GetFIProvider(v52);
-      TFSIterator::TFSIterator(&v80, v49, v51, a4, v53 != 0);
+      v50 = v49;
+      v51 = TNodeFromFINode(*(a1 + 24));
+      v52 = TNode::GetFIProvider(v51);
+      TFSIterator::TFSIterator(&v75, v48, v50);
 
       TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(__dst);
-      v54 = objc_autoreleasePoolPush();
+      v53 = objc_autoreleasePoolPush();
       _ZNSt3__115allocate_sharedB8ne200100I7TFSInfoNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
     }
   }
 
-LABEL_75:
-  v55 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
-void sub_1E56A143C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, const void *a36)
+void sub_1E56A143C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
 {
-  TAutoRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>::~TAutoRef(&a36);
+  va_start(va, a35);
+  TAutoRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>::~TAutoRef(va);
   TAutoRef<__SFBrowser *,TRetainReleasePolicy<__SFBrowser *>>::~TAutoRef(&STACK[0xAA8]);
   _Unwind_Resume(a1);
 }
@@ -5608,7 +5553,7 @@ void ___ZN5TNode32RootFPItemsForDomainsWithTimeoutEP7NSArrayIP16FPProviderDomain
   v13 = v8;
   v14 = *(a1 + 80);
   *buf = a1 + 32;
-  v15 = std::__hash_table<std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>,std::__unordered_map_hasher<FPProviderDomain * {__strong},std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>,std::hash<FPProviderDomain * {__strong}>,std::equal_to<FPProviderDomain * {__strong}>,true>,std::__unordered_map_equal<FPProviderDomain * {__strong},std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>,std::equal_to<FPProviderDomain * {__strong}>,std::hash<FPProviderDomain * {__strong}>,true>,std::allocator<std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>>>::__emplace_unique_key_args<FPProviderDomain * {__strong},std::piecewise_construct_t const&,std::tuple<FPProviderDomain * const {__strong}&>,std::tuple<>>(v14, (a1 + 32));
+  v15 = std::__hash_table<std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>,std::__unordered_map_hasher<FPProviderDomain * {__strong},std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>,std::hash<FPProviderDomain * {__strong}>,std::equal_to<FPProviderDomain * {__strong}>,true>,std::__unordered_map_equal<FPProviderDomain * {__strong},std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>,std::equal_to<FPProviderDomain * {__strong}>,std::hash<FPProviderDomain * {__strong}>,true>,std::allocator<std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>>>::__emplace_unique_key_args<FPProviderDomain * {__strong},std::piecewise_construct_t const&,std::tuple<FPProviderDomain * const {__strong}&>,std::tuple<>>(v14, (a1 + 32), &std::piecewise_construct, buf, &v18);
   v16 = v15[3];
   v15[3] = v12;
 
@@ -5621,39 +5566,37 @@ void ___ZN5TNode32RootFPItemsForDomainsWithTimeoutEP7NSArrayIP16FPProviderDomain
   {
     std::function<void ()(FPProviderDomain *,FPItem *,NSError *)>::operator()(a1 + 48, *(a1 + 32), v12, v13);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>,std::__unordered_map_hasher<FPProviderDomain * {__strong},std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>,std::hash<FPProviderDomain * {__strong}>,std::equal_to<FPProviderDomain * {__strong}>,true>,std::__unordered_map_equal<FPProviderDomain * {__strong},std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>,std::equal_to<FPProviderDomain * {__strong}>,std::hash<FPProviderDomain * {__strong}>,true>,std::allocator<std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>>>::__emplace_unique_key_args<FPProviderDomain * {__strong},std::piecewise_construct_t const&,std::tuple<FPProviderDomain * const {__strong}&>,std::tuple<>>(void *a1, id *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>,std::__unordered_map_hasher<FPProviderDomain * {__strong},std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>,std::hash<FPProviderDomain * {__strong}>,std::equal_to<FPProviderDomain * {__strong}>,true>,std::__unordered_map_equal<FPProviderDomain * {__strong},std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>,std::equal_to<FPProviderDomain * {__strong}>,std::hash<FPProviderDomain * {__strong}>,true>,std::allocator<std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>>>::__emplace_unique_key_args<FPProviderDomain * {__strong},std::piecewise_construct_t const&,std::tuple<FPProviderDomain * const {__strong}&>,std::tuple<>>(void *a1, id *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = [*a2 hash];
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = [*a2 hash];
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>,std::__unordered_map_hasher<FPProviderDomain * {__strong},std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>,std::hash<FPProviderDomain * {__strong}>,std::equal_to<FPProviderDomain * {__strong}>,true>,std::__unordered_map_equal<FPProviderDomain * {__strong},std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>,std::equal_to<FPProviderDomain * {__strong}>,std::hash<FPProviderDomain * {__strong}>,true>,std::allocator<std::__hash_value_type<FPProviderDomain * {__strong},fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<FPProviderDomain * const {__strong}&>,std::tuple<>>();
@@ -5661,44 +5604,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if ((std::equal_to<FPProviderDomain * {__strong}>::operator()(a1, v11[2], *a2) & 1) == 0)
+  if ((std::equal_to<FPProviderDomain * {__strong}>::operator()(a1, v14[2], *a2) & 1) == 0)
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_1E56A1BD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id *a10, uint64_t a11)
@@ -5774,19 +5717,19 @@ void sub_1E56A1DA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void TClientChangeNotifier::HandleEvents(TClientChangeNotifier *this)
+void TClientChangeNotifier::HandleEvents(TClientChangeNotifier *this, OpaqueEventQueue *a2)
 {
-  v2 = *(this + 5);
-  TBlockingEventQueue::EventQueueFromID(v2, &v4);
-  v3 = v4;
-  if (v5)
+  v3 = *(this + 5);
+  TBlockingEventQueue::EventQueueFromID(&v5, v3, a2);
+  v4 = v5;
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (v3)
+  if (v4)
   {
-    std::function<void ()(OpaqueEventQueue *)>::operator()(this + 56, v2);
+    std::function<void ()(OpaqueEventQueue *)>::operator()(this + 56, v3);
   }
 }
 
@@ -5804,7 +5747,7 @@ uint64_t std::function<void ()(OpaqueEventQueue *)>::operator()(uint64_t a1, uin
 
 void std::__function::__func<TClientChangeNotifier::TClientChangeNotifier(std::vector<std::function<void ()(void)>> &,NodeClientContext,OpaqueEventQueue *,void (*)(OpaqueEventQueue *),NSObject  {objcproto17OS_dispatch_queue}*,void({block_pointer})(FINodeEvent *),__CFString const*)::$_1,std::allocator<TClientChangeNotifier::TClientChangeNotifier(std::vector<std::function<void ()(void)>> &,NodeClientContext,OpaqueEventQueue *,void (*)(OpaqueEventQueue *),NSObject  {objcproto17OS_dispatch_queue}*,void({block_pointer})(FINodeEvent *),__CFString const*)::$_1>,void ()(OpaqueEventQueue *)>::operator()(uint64_t a1, TBlockingEventQueue **a2)
 {
-  TBlockingEventQueue::EventQueueFromID(*a2, &v2);
+  TBlockingEventQueue::EventQueueFromID(&v2, *a2, a2);
   if (v2)
   {
     TBlockingEventQueue::Tickle(v2);
@@ -5828,7 +5771,7 @@ void sub_1E56A1ECC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t NodeEventGetNextEvent(void *a1, TBlockingEventQueue *this)
 {
-  TBlockingEventQueue::EventQueueFromID(this, &v13);
+  TBlockingEventQueue::EventQueueFromID(&v13, this, this);
   v4 = 0;
   if (a1 && this && v13)
   {
@@ -5930,7 +5873,7 @@ BOOL TBlockingQueue<TNodeEventPtr>::Dequeue(uint64_t a1, id *a2, int a3)
   {
     if (!*(a1 + 40))
     {
-      TConditionVariable::Wait((a1 + 112), (a1 + 48));
+      TConditionVariable::Wait(a1 + 112, (a1 + 48));
     }
 
     goto LABEL_6;
@@ -6024,7 +5967,7 @@ BOOL TDSNotifier::RemovePtrReference(TDSNotifier *this)
 void NodeDispatchEvent(void *a1)
 {
   v1 = a1;
-  NodeEventFromNodeEventRef(v1, &v12);
+  NodeEventFromNodeEventRef(&v12, v1);
   v2 = *TNodeEventPtr::operator->(&v12) - 100;
   v3 = v2 > 0xB;
   v4 = (1 << v2) & 0xC1F;
@@ -6077,10 +6020,10 @@ void sub_1E56A246C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-FINodeEvent *NodeEventFromNodeEventRef@<X0>(FINodeEvent *a1@<X0>, FINodeEvent **a2@<X8>)
+FINodeEvent *NodeEventFromNodeEventRef@<X0>(FINodeEvent **__return_ptr a1@<X8>, FINodeEvent *a2@<X0>)
 {
-  result = a1;
-  *a2 = result;
+  result = a2;
+  *a1 = result;
   return result;
 }
 
@@ -6107,13 +6050,13 @@ void __destroy_helper_block_ea8_32c44_ZTSKZN21TClientChangeNotifier6WakeUpEvE3__
 
 uint64_t TFSInfo::FPItemPermissionRestrictions(TFSInfo *this, FPItem *a2)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   v2 = this;
   if (v2)
   {
     v3 = FPItemManagerInstance();
-    v18[0] = v2;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+    v17[0] = v2;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
     v5 = [v3 eligibleActionsForItems:v4];
 
     if (([(TFSInfo *)v2 isFolder]& 1) != 0)
@@ -6246,7 +6189,6 @@ LABEL_28:
   v7 = 0;
 LABEL_29:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -6494,7 +6436,7 @@ id fstd::optional_err<FPItem * {__strong},NSError * {__strong}>::value_or<declty
   return v2;
 }
 
-uint64_t std::__shared_ptr_emplace<TFSInfo>::__shared_ptr_emplace[abi:ne200100]<FIProviderDomain * {__strong},FPItem * {__strong},BOOL,std::allocator<TFSInfo>,0>(uint64_t a1, FIProviderDomain **a2, FPItem **a3, unsigned __int8 *a4)
+uint64_t std::__shared_ptr_emplace<TFSInfo>::__shared_ptr_emplace[abi:ne200100]<FIProviderDomain * {__strong},FPItem * {__strong},BOOL,std::allocator<TFSInfo>,0>(uint64_t a1, FIProviderDomain **a2, FPItem **a3, BOOL *a4)
 {
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
@@ -6505,7 +6447,7 @@ uint64_t std::__shared_ptr_emplace<TFSInfo>::__shared_ptr_emplace[abi:ne200100]<
 
 void TFSInfo::TFSInfo(TFSInfo *this, FIProviderDomain *a2, FPItem *a3, int a4)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   *this = 0u;
@@ -6559,23 +6501,23 @@ LABEL_5:
   if (v12)
   {
     v16 = [(FIProviderDomain *)v7 domain];
-    ProviderDisplayName(v16, &v35);
+    ProviderDisplayName(&v34, v16);
   }
 
   else
   {
     v16 = [(FIProviderDomain *)v7 identifier];
-    v35.fString.fRef = &stru_1F5F42870;
+    v34.fString.fRef = &stru_1F5F42870;
     CFRetain(&stru_1F5F42870);
-    TString::SetStringRefAsImmutable(&v35, v16);
+    TString::SetStringRefAsImmutable(&v34, v16);
   }
 
-  TFSInfo::SetItemName(this, &v35);
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v35.fString.fRef);
+  TFSInfo::SetItemName(this, &v34);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v34.fString.fRef);
 
   os_unfair_lock_lock(this + 26);
   Overflow = TFSInfo::GetOrCreateOverflow(this);
-  os_unfair_lock_lock((Overflow + 72));
+  os_unfair_lock_lock(Overflow + 18);
   v18 = *(Overflow + 76);
   if (v18 == 2)
   {
@@ -6586,16 +6528,16 @@ LABEL_5:
   else if (v18 == 3)
   {
     *(Overflow + 76) = 1;
-    *(Overflow + 32) = 0;
+    *(Overflow + 4) = 0;
     *Overflow = 0u;
-    *(Overflow + 16) = 0u;
-    *(Overflow + 32) = 0x80000000;
-    os_unfair_lock_unlock((Overflow + 72));
+    *(Overflow + 1) = 0u;
+    *(Overflow + 8) = 0x80000000;
+    os_unfair_lock_unlock(Overflow + 18);
     goto LABEL_17;
   }
 
   v19 = v18;
-  os_unfair_lock_unlock((Overflow + 72));
+  os_unfair_lock_unlock(Overflow + 18);
   if (v19 != 1)
   {
     Overflow = 0;
@@ -6603,7 +6545,7 @@ LABEL_5:
 
 LABEL_17:
   os_unfair_lock_unlock(this + 26);
-  objc_storeStrong((Overflow + 24), v7);
+  objc_storeStrong(Overflow + 3, v7);
   if (!v8 && a4)
   {
     if (![(FIProviderDomain *)v7 expectFPItems]|| (FPItemManagerInstance(), v20 = objc_claimAutoreleasedReturnValue(), v21 = v20 == 0, v20, v21))
@@ -6614,20 +6556,20 @@ LABEL_17:
     else
     {
       v22 = [(FIProviderDomain *)v7 domain];
-      v36 = 0;
-      TNode::RootFPItemForDomainWithTimeout(v22, &v35, &v33);
-      if (v34)
+      v35 = 0;
+      TNode::RootFPItemForDomainWithTimeout(v22, &v34, &v32);
+      if (v33)
       {
         v8 = 0;
       }
 
       else
       {
-        v8 = v33;
-        v33 = 0;
+        v8 = v32;
+        v32 = 0;
       }
 
-      std::__function::__value_func<void ()(FPItem *,NSError *)>::~__value_func[abi:ne200100](&v35);
+      std::__function::__value_func<void ()(FPItem *,NSError *)>::~__value_func[abi:ne200100](&v34);
     }
   }
 
@@ -6681,25 +6623,23 @@ LABEL_39:
     TFSInfoOverflow::SetIFSymbol(v31, v30);
     os_unfair_lock_unlock(this + 26);
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1E56A3474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1E56A3474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<void ()(FPItem *,NSError *)>::~__value_func[abi:ne200100](va);
 
-  TFSInfo::~TFSInfo(v5);
+  TFSInfo::~TFSInfo(v8);
   _Unwind_Resume(a1);
 }
 
-void ProviderDisplayName(FPProviderDomain *a1@<X0>, TString *a2@<X8>)
+void ProviderDisplayName(TString *__return_ptr a1@<X8>, FPProviderDomain *a2@<X0>)
 {
-  v3 = [(FPProviderDomain *)a1 domainFullDisplayName];
-  a2->fString.fRef = &stru_1F5F42870;
+  v3 = [(FPProviderDomain *)a2 domainFullDisplayName];
+  a1->fString.fRef = &stru_1F5F42870;
   CFRetain(&stru_1F5F42870);
-  TString::SetStringRefAsImmutable(a2, v3);
+  TString::SetStringRefAsImmutable(a1, v3);
 }
 
 void sub_1E56A3604(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
@@ -6709,7 +6649,7 @@ void sub_1E56A3604(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t TFSInfo::GetOrCreateOverflow(TFSInfo *this)
+TFSInfoOverflow *TFSInfo::GetOrCreateOverflow(TFSInfo *this)
 {
   result = *(this + 10);
   if (!result)
@@ -6729,27 +6669,8 @@ ISIcon *TFSInfo::FetchISIcon(TFSInfo *this)
     if (TFSInfo::IsFPv2(this, 1))
     {
       v3 = TFSInfo::GetFPItem(this);
-      if ([v3 folderType] != 1)
+      if ([v3 folderType] != 1 || ((os_unfair_lock_lock(this + 27), v4 = *(this + 127), os_unfair_lock_unlock(this + 27), objc_msgSend(v3, "childItemCount"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "intValue"), v7 = (v4 & 0x200) == 0, v5, v6 <= 0) ? (v8 = 256) : (v8 = 257), TFSInfo::GetFolderIconConfiguration(this, v8, v7), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_alloc(MEMORY[0x1E69A8A00]), objc_msgSend(*MEMORY[0x1E6982DC8], "identifier"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "initWithType:iconConfiguration:", v11, v9), v11, v9, !v12))
       {
-        goto LABEL_8;
-      }
-
-      os_unfair_lock_lock(this + 27);
-      v4 = *(this + 127);
-      os_unfair_lock_unlock(this + 27);
-      v5 = [v3 childItemCount];
-      v6 = [v5 intValue];
-      v7 = (v4 & 0x200) == 0;
-
-      v8 = v6 <= 0 ? 256 : 257;
-      v9 = TFSInfo::GetFolderIconConfiguration(this, v8, v7);
-      v10 = objc_alloc(MEMORY[0x1E69A8A00]);
-      v11 = [*MEMORY[0x1E6982DC8] identifier];
-      v12 = [v10 initWithType:v11 iconConfiguration:v9];
-
-      if (!v12)
-      {
-LABEL_8:
         v12 = TFSInfo::ISIconRefFromTypeInfo(this);
       }
 
@@ -6790,55 +6711,15 @@ LABEL_8:
       else
       {
         v32 = [objc_alloc(MEMORY[0x1E69A8A00]) initWithURL:v3];
-        if (!SolariumCustomFolders())
+        if (!SolariumCustomFolders() || (os_unfair_lock_lock(this + 27), v16 = *(this + 123), os_unfair_lock_unlock(this + 27), (v16 & 0x20) == 0) || (os_unfair_lock_lock(this + 27), v17 = *(this + 123), os_unfair_lock_unlock(this + 27), (v17 & 0x100) != 0) || (os_unfair_lock_lock(this + 27), v18 = *(this + 123), os_unfair_lock_unlock(this + 27), (v18 & 2) != 0) || (os_unfair_lock_lock(this + 27), v19 = *(this + 123), os_unfair_lock_unlock(this + 27), (v19 & 4) != 0) || (TFSInfo::GetHasAnyVisibleChildren(this, 1) != 1 ? (v20 = 256) : (v20 = 257), TFSInfo::GetFolderIconConfiguration(this, v20, 0), (v21 = objc_claimAutoreleasedReturnValue()) == 0))
         {
-          goto LABEL_34;
-        }
-
-        os_unfair_lock_lock(this + 27);
-        v16 = *(this + 123);
-        os_unfair_lock_unlock(this + 27);
-        if ((v16 & 0x20) == 0)
-        {
-          goto LABEL_34;
-        }
-
-        os_unfair_lock_lock(this + 27);
-        v17 = *(this + 123);
-        os_unfair_lock_unlock(this + 27);
-        if ((v17 & 0x100) != 0)
-        {
-          goto LABEL_34;
-        }
-
-        os_unfair_lock_lock(this + 27);
-        v18 = *(this + 123);
-        os_unfair_lock_unlock(this + 27);
-        if ((v18 & 2) != 0)
-        {
-          goto LABEL_34;
-        }
-
-        os_unfair_lock_lock(this + 27);
-        v19 = *(this + 123);
-        os_unfair_lock_unlock(this + 27);
-        if ((v19 & 4) != 0)
-        {
-          goto LABEL_34;
-        }
-
-        v20 = TFSInfo::GetHasAnyVisibleChildren(this, 1) == 1 ? 257 : 256;
-        v21 = TFSInfo::GetFolderIconConfiguration(this, v20, 0);
-        if (!v21)
-        {
-LABEL_34:
           v12 = v32;
         }
 
         else
         {
           v22 = TFSInfo::GetFPItem(this);
-          FolderIconType(v22, &theString);
+          FolderIconType(&theString, v22);
 
           if (CFStringGetLength(theString) || (TFSInfo::GetFPItem(this), v23 = objc_claimAutoreleasedReturnValue(), v24 = IsFPEmbossedFolder(v23), v23, v24))
           {
@@ -6887,9 +6768,9 @@ LABEL_40:
   return v2;
 }
 
-void sub_1E56A3A84(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1E56A3A84(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
 
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
@@ -6926,7 +6807,7 @@ id TFSInfo::ISIconRefFromTypeInfo(TFSInfo *this)
 
   else
   {
-    TFSInfo::ActualSuffix(this, &v8);
+    TFSInfo::ActualSuffix(&v8, this);
     v6 = objc_alloc(MEMORY[0x1E69A8A00]);
     v5 = [v6 initWithFileExtension:v8];
     TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v8);
@@ -6935,9 +6816,9 @@ id TFSInfo::ISIconRefFromTypeInfo(TFSInfo *this)
   return v5;
 }
 
-void sub_1E56A3DEC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E56A3DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
@@ -7013,7 +6894,7 @@ void **std::vector<std::shared_ptr<TFSInfo>>::push_back[abi:ne200100](void **res
 uint64_t *LocalStorageDomainID(void)
 {
   {
-    operator"" _t("com.apple.FileProvider.LocalStorage", 35, &LocalStorageDomainID(void)::sLocalStorageID);
+    operator"" _t(&LocalStorageDomainID(void)::sLocalStorageID, "com.apple.FileProvider.LocalStorage", 35);
   }
 
   return &LocalStorageDomainID(void)::sLocalStorageID;
@@ -7022,11 +6903,11 @@ uint64_t *LocalStorageDomainID(void)
 BOOL IsExternalDeviceDomainID(const TString *this)
 {
   {
-    operator"" _t("com.apple.filesystems.UserFS.FileProvider", 41, &IsExternalDeviceDomainID(TString const&)::kUSBDomainID);
+    operator"" _t(&IsExternalDeviceDomainID(TString const&)::kUSBDomainID, "com.apple.filesystems.UserFS.FileProvider", 41);
   }
 
   {
-    operator"" _t("com.apple.SMBClientProvider.FileProvider", 40, &IsExternalDeviceDomainID(TString const&)::kSMBDomainID);
+    operator"" _t(&IsExternalDeviceDomainID(TString const&)::kSMBDomainID, "com.apple.SMBClientProvider.FileProvider", 40);
   }
 
   if (TString::BeginsWith(this, &IsExternalDeviceDomainID(TString const&)::kUSBDomainID))
@@ -7259,10 +7140,10 @@ uint64_t TFSVolumeInfo::ShouldRecordIterationTimes(TFSVolumeInfo *this)
   return TFSVolumeInfo::gTimeIterations;
 }
 
-uint64_t *TFSInfoSynchronizer::Next@<X0>(uint64_t *this@<X0>, void *a2@<X8>)
+uint64_t *TFSInfoSynchronizer::Next@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   v2 = *(this + 12);
   v3 = *this;
   if (v2 < (this[1] - *this) >> 4)
@@ -7274,7 +7155,7 @@ uint64_t *TFSInfoSynchronizer::Next@<X0>(uint64_t *this@<X0>, void *a2@<X8>)
       atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
 
-    *a2 = v4;
+    *a1 = v4;
     ++*(this + 12);
   }
 
@@ -7283,7 +7164,7 @@ uint64_t *TFSInfoSynchronizer::Next@<X0>(uint64_t *this@<X0>, void *a2@<X8>)
 
 void TNode::UpdateOnDiskProviderRoot(TNode *this)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (UseFileProviderFramework())
   {
     v2 = TNode::VirtualType(this);
@@ -7331,10 +7212,10 @@ void TNode::UpdateOnDiskProviderRoot(TNode *this)
             v8 = v10;
           }
 
-          v30 = 0;
+          v29 = 0;
           *buf = v8;
-          TNode::GetNodeFromURL(buf, &v30, 0);
-          if (!TNodeFromFINode(v30) || (v11 = TNodeFromFINode(v30), v12 = TNode::ParentLock(v11), os_unfair_lock_lock(v12), TNodePtr::TNodePtr(buf, *(v11 + 48)), os_unfair_lock_unlock(v12), LOBYTE(v12) = TNodeFromFINode(*buf) == 0, *buf, (v12 & 1) != 0))
+          TNode::GetNodeFromURL(buf, &v29, 0);
+          if (!TNodeFromFINode(v29) || (v11 = TNodeFromFINode(v29), v12 = TNode::ParentLock(v11), os_unfair_lock_lock(v12), TNodePtr::TNodePtr(buf, *(v11 + 48)), os_unfair_lock_unlock(v12), LOBYTE(v12) = TNodeFromFINode(*buf) == 0, *buf, (v12 & 1) != 0))
           {
             v15 = LogObj(4);
             if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -7349,14 +7230,14 @@ void TNode::UpdateOnDiskProviderRoot(TNode *this)
           {
             if (v9)
             {
-              v13 = TNodeFromFINode(v30);
-              TNode::GetParent(v13, buf);
+              v13 = TNodeFromFINode(v29);
+              TNode::GetParent(buf, v13);
               v14 = *buf;
             }
 
             else
             {
-              v14 = v30;
+              v14 = v29;
               *buf = v14;
             }
 
@@ -7414,10 +7295,10 @@ void TNode::UpdateOnDiskProviderRoot(TNode *this)
 
             if (v24)
             {
-              v26 = TNodeFromFINode(v30);
+              v26 = TNodeFromFINode(v29);
               if (v26 != TNodeFromFINode(*buf))
               {
-                v27 = TNodeFromFINode(v30);
+                v27 = TNodeFromFINode(v29);
                 TNode::AttachCreateFPItemIfNeeded(v27, 1);
               }
 
@@ -7434,8 +7315,6 @@ void TNode::UpdateOnDiskProviderRoot(TNode *this)
       }
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E56A4B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11)
@@ -7453,17 +7332,17 @@ void sub_1E56A4B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1E56A4D9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E56A4D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t TNode::GetNodeFromURL(CFURLRef *a1, void **a2, unsigned int a3)
+uint64_t TNode::GetNodeFromURL(CFURLRef *a1, TNodePtr *a2, unsigned int a3)
 {
   TNodePtr::TNodePtr(&v14, 0);
-  TNodePtr::operator=(a2, &v14.fString.fRef);
+  TNodePtr::operator=(&a2->fFINode, &v14.fString.fRef);
 
   if (*a1)
   {
@@ -7494,7 +7373,7 @@ uint64_t TNode::GetNodeFromURL(CFURLRef *a1, void **a2, unsigned int a3)
 
     else
     {
-      TCFURLInfo::FileSystemRepresentation(*a1, 1, &theString);
+      TCFURLInfo::FileSystemRepresentation(&theString, *a1, 1);
       if (CFStringGetLength(theString))
       {
         NodeFromPath = TNode::GetNodeFromPath(&theString, a2, a3);
@@ -7505,10 +7384,10 @@ uint64_t TNode::GetNodeFromURL(CFURLRef *a1, void **a2, unsigned int a3)
             _ZNSt3__115allocate_sharedB8ne200100I7TFSInfoNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
           }
 
-          if (TNodeFromFINode(*a2))
+          if (TNodeFromFINode(a2->fFINode))
           {
-            v10 = TNodeFromFINode(*a2);
-            TNode::GetFSInfo(v10, &v14);
+            v10 = TNodeFromFINode(a2->fFINode);
+            TNode::GetFSInfo(&v14, v10);
             NodeFromPath = TFSInfo::IsMountTrigger(v14.fString.fRef);
             if (v15)
             {
@@ -7517,8 +7396,8 @@ uint64_t TNode::GetNodeFromURL(CFURLRef *a1, void **a2, unsigned int a3)
 
             if (NodeFromPath)
             {
-              v11 = TNodeFromFINode(*a2);
-              TNode::GetFSInfo(v11, &v14);
+              v11 = TNodeFromFINode(a2->fFINode);
+              TNode::GetFSInfo(&v14, v11);
               NodeFromPath = TFSInfo::TriggerMount(v14.fString.fRef);
               if (v15)
               {
@@ -7547,7 +7426,7 @@ uint64_t TNode::GetNodeFromURL(CFURLRef *a1, void **a2, unsigned int a3)
       TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&theString);
       if (!NodeFromPath)
       {
-        if (TNodeFromFINode(*a2))
+        if (TNodeFromFINode(a2->fFINode))
         {
           NodeFromPath = 0;
         }
@@ -7562,7 +7441,7 @@ uint64_t TNode::GetNodeFromURL(CFURLRef *a1, void **a2, unsigned int a3)
     }
 
     TNodePtr::TNodePtr(&v14, 0);
-    TNodePtr::operator=(a2, &v14.fString.fRef);
+    TNodePtr::operator=(&a2->fFINode, &v14.fString.fRef);
 
 LABEL_19:
     TAutoRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TAutoRef(&v17);
@@ -7606,21 +7485,7 @@ void sub_1E56A5254(_Unwind_Exception *a1)
 uint64_t IsAppInbox(NSURL *a1)
 {
   v1 = a1;
-  if (!UseFileProviderFramework())
-  {
-    goto LABEL_22;
-  }
-
-  v2 = [(NSURL *)v1 lastPathComponent];
-  obj = CFStringCreateWithBytesNoCopy(*MEMORY[0x1E695E480], "Inbox", 5, 0x8000100u, 0, *MEMORY[0x1E695E498]);
-  v22.fString.fRef = &stru_1F5F42870;
-  CFRetain(&stru_1F5F42870);
-  TString::SetStringRefAsImmutable(&v22, obj);
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&obj);
-  v3 = operator==(&v22.fString.fRef, v2);
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v22.fString.fRef);
-
-  if (v3)
+  if (UseFileProviderFramework() && ([(NSURL *)v1 lastPathComponent], v2 = objc_claimAutoreleasedReturnValue(), obj = CFStringCreateWithBytesNoCopy(*MEMORY[0x1E695E480], "Inbox", 5, 0x8000100u, 0, *MEMORY[0x1E695E498]), v22.fString.fRef = &stru_1F5F42870, CFRetain(&stru_1F5F42870), TString::SetStringRefAsImmutable(&v22, obj), TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&obj), v3 = operator==(&v22.fString.fRef, v2), TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v22.fString.fRef), v2, v3))
   {
     v4 = [(NSURL *)v1 path];
     v5 = [v4 stringByStandardizingPath];
@@ -7717,7 +7582,6 @@ LABEL_25:
 
   else
   {
-LABEL_22:
     v15 = 0;
   }
 
@@ -7750,12 +7614,12 @@ uint64_t operator==(void **a1, void *a2)
   return v6;
 }
 
-uint64_t TNode::GetNodeFromPath(TString *a1, void **a2, unsigned int a3)
+uint64_t TNode::GetNodeFromPath(TString *a1, TNodePtr *a2, unsigned int a3)
 {
   TPathName::TPathName(v55, a1, TPathName::kPOSIXPathNameSeparator);
-  v5 = std::deque<TString>::deque(&v50, v55);
+  v5 = std::deque<TString>::deque(v50, v55);
   TGlobalNodes::BootNode(&obj, v5);
-  TNodePtr::operator=(a2, &obj);
+  TNodePtr::operator=(&a2->fFINode, &obj);
 
   if (v52 == v51 || (v6 = (v51 + 8 * (v53 >> 9)), v7 = *v6, v8 = (*v6 + 8 * (v53 & 0x1FF)), v9 = *(v51 + (((v54 + v53) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v54 + v53) & 0x1FF), v8 == v9))
   {
@@ -7780,7 +7644,7 @@ uint64_t TNode::GetNodeFromPath(TString *a1, void **a2, unsigned int a3)
     v13 = v12 == v9;
     if ((a3 & 0x200) != 0)
     {
-      v14 = TNodeFromFINode(*a2);
+      v14 = TNodeFromFINode(a2->fFINode);
       v15 = TNode::ParentLock(v14);
       os_unfair_lock_lock(v15);
       TNodePtr::TNodePtr(&obj, *(v14 + 48));
@@ -7789,7 +7653,7 @@ uint64_t TNode::GetNodeFromPath(TString *a1, void **a2, unsigned int a3)
       TGlobalNodes::BootNode(&v48, v16);
       if (v16 == TNodeFromFINode(v48))
       {
-        v17 = TNodeFromFINode(*a2);
+        v17 = TNodeFromFINode(a2->fFINode);
         v18 = TNode::InfoLock(v17);
         os_unfair_lock_lock(v18);
         v20 = *(v17 + 16);
@@ -7813,7 +7677,7 @@ uint64_t TNode::GetNodeFromPath(TString *a1, void **a2, unsigned int a3)
 
         if (v21)
         {
-          v22 = TNodeFromFINode(*a2);
+          v22 = TNodeFromFINode(a2->fFINode);
           TNode::HandleSync(v22, 0x1000000);
         }
       }
@@ -7823,7 +7687,7 @@ uint64_t TNode::GetNodeFromPath(TString *a1, void **a2, unsigned int a3)
       }
     }
 
-    v23 = TNodeFromFINode(*a2);
+    v23 = TNodeFromFINode(a2->fFINode);
     v24 = TNode::InfoLock(v23);
     os_unfair_lock_lock(v24);
     v26 = *(v23 + 16);
@@ -7842,7 +7706,7 @@ uint64_t TNode::GetNodeFromPath(TString *a1, void **a2, unsigned int a3)
 
     if (IsAlias)
     {
-      v28 = TNodeFromFINode(*a2);
+      v28 = TNodeFromFINode(a2->fFINode);
       obj = 0;
       v10 = TNode::FollowAlias(v28, a2, &obj, 8);
     }
@@ -7851,12 +7715,12 @@ uint64_t TNode::GetNodeFromPath(TString *a1, void **a2, unsigned int a3)
     {
       if ((a3 & 0x40000) != 0)
       {
-        v29 = TNodeFromFINode(*a2);
+        v29 = TNodeFromFINode(a2->fFINode);
         TNode::HandleSync(v29, 285212672);
       }
 
-      v30 = TNodeFromFINode(*a2);
-      TNode::FindChild(v30, v8, v13 & (a3 >> 13), 0, &obj);
+      v30 = TNodeFromFINode(a2->fFINode);
+      TNode::FindChild(&obj, v30, v8, v13 & (a3 >> 13), 0);
       if (TNodeFromFINode(obj))
       {
         v31 = TNodeFromFINode(obj);
@@ -7931,10 +7795,10 @@ uint64_t TNode::GetNodeFromPath(TString *a1, void **a2, unsigned int a3)
 
       v10 = 0;
 LABEL_43:
-      objc_storeStrong(a2, obj);
+      objc_storeStrong(&a2->fFINode, obj);
     }
 
-    if (!TNodeFromFINode(*a2))
+    if (!TNodeFromFINode(a2->fFINode))
     {
       break;
     }
@@ -7957,9 +7821,9 @@ LABEL_43:
 
   v10 = 4294959236;
 LABEL_51:
-  if (TNodeFromFINode(*a2))
+  if (TNodeFromFINode(a2->fFINode))
   {
-    TNodeFromFINode(*a2);
+    TNodeFromFINode(a2->fFINode);
   }
 
   else
@@ -7967,24 +7831,24 @@ LABEL_51:
     v10 = 4294959236;
   }
 
-  std::deque<TString>::~deque[abi:ne200100](&v50);
+  std::deque<TString>::~deque[abi:ne200100](v50);
   std::deque<TString>::~deque[abi:ne200100](v55);
   return v10;
 }
 
-void sub_1E56A5C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, ...)
+void sub_1E56A5C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
   v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
-  if (v5)
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
   std::deque<TString>::~deque[abi:ne200100](va);
@@ -8019,7 +7883,7 @@ void TPathName::TPathName(TPathName *this, TString *a2, int a3)
       {
         if (v8)
         {
-          TString::SubString(a2, v7, v8, &theString);
+          TString::SubString(&theString, a2, v7, v8);
           if (CFStringGetLength(theString) == 1 && CFStringGetLength(theString) >= 1 && CFStringGetCharacterAtIndex(theString, 0) == 46 || CFStringGetLength(theString) == 2 && CFStringGetLength(theString) >= 1 && CFStringGetCharacterAtIndex(theString, 0) == 46 && CFStringGetLength(theString) >= 2 && CFStringGetCharacterAtIndex(theString, 1) == 46)
           {
             goto LABEL_32;
@@ -8038,7 +7902,7 @@ void TPathName::TPathName(TPathName *this, TString *a2, int a3)
         ++v8;
         if (Length == v9 && v8)
         {
-          TString::SubString(a2, v7, v8, &theString);
+          TString::SubString(&theString, a2, v7, v8);
           if (CFStringGetLength(theString) == 1 && CFStringGetLength(theString) >= 1 && CFStringGetCharacterAtIndex(theString, 0) == 46 || CFStringGetLength(theString) == 2 && CFStringGetLength(theString) >= 1 && CFStringGetCharacterAtIndex(theString, 0) == 46 && CFStringGetLength(theString) >= 2 && CFStringGetCharacterAtIndex(theString, 1) == 46)
           {
 LABEL_32:
@@ -8067,10 +7931,10 @@ LABEL_32:
   }
 }
 
-void TString::SubString(TString *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, TString *a4@<X8>)
+void TString::SubString(TString *__return_ptr a1@<X8>, TString *this@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>)
 {
-  v6 = a2 & ~(a2 >> 63);
-  v7 = a3 + v6 - 1;
+  v6 = a3 & ~(a3 >> 63);
+  v7 = a4 + v6 - 1;
   Length = CFStringGetLength(this->fString.fRef);
   if (Length - 1 < v7)
   {
@@ -8100,42 +7964,42 @@ void TString::SubString(TString *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, 
       v12.location = v6;
       v10 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], this->fString.fRef, v12);
       v11 = v10;
-      a4->fString.fRef = &stru_1F5F42870;
+      a1->fString.fRef = &stru_1F5F42870;
       CFRetain(&stru_1F5F42870);
-      TString::SetStringRefAsImmutable(a4, v10);
+      TString::SetStringRefAsImmutable(a1, v10);
       TAutoRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TAutoRef(&v11);
     }
 
     else
     {
       v9 = TString::KEmptyString(Length);
-      a4->fString.fRef = &stru_1F5F42870;
+      a1->fString.fRef = &stru_1F5F42870;
       CFRetain(&stru_1F5F42870);
-      TString::SetStringRefAsImmutable(a4, *v9);
+      TString::SetStringRefAsImmutable(a1, *v9);
     }
   }
 
   else
   {
-    a4->fString.fRef = &stru_1F5F42870;
+    a1->fString.fRef = &stru_1F5F42870;
     CFRetain(&stru_1F5F42870);
-    TString::SetStringRefAsImmutable(a4, this->fString.fRef);
+    TString::SetStringRefAsImmutable(a1, this->fString.fRef);
   }
 }
 
-void *std::deque<TString>::__add_back_capacity(void *a1)
+void std::deque<TString>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -8143,25 +8007,25 @@ void *std::deque<TString>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::allocator<TNodeEventPtr *>::allocate_at_least[abi:ne200100](a1, v9);
+    v10 = a1;
+    std::allocator<TNodeEventPtr *>::allocate_at_least[abi:ne200100](a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<TNodeEventPtr *>::emplace_back<TNodeEventPtr *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<TNodeEventPtr *>::emplace_back<TNodeEventPtr *&>(a1, &v9);
 }
 
 void sub_1E56A62F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -8175,33 +8039,32 @@ void sub_1E56A62F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::deque<TString>::push_back(uint64_t a1, TString **a2)
+void std::deque<TString>::push_back(unint64_t *a1, TString **a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = ((v5 - v6) << 6) - 1;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = ((v4 - v5) << 6) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(a1 + 40) + *(a1 + 32);
-  if (v7 == v8)
+  v7 = a1[5] + a1[4];
+  if (v6 == v7)
   {
     std::deque<TString>::__add_back_capacity(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40) + *(a1 + 32);
+    v5 = a1[1];
+    v7 = a1[5] + a1[4];
   }
 
-  v9 = (*(v6 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF));
-  v9->fString.fRef = &stru_1F5F42870;
+  v8 = (*(v5 + ((v7 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v7 & 0x1FF));
+  v8->fString.fRef = &stru_1F5F42870;
   CFRetain(&stru_1F5F42870);
-  TString::SetStringRefAsImmutable(v9, *a2);
-  ++*(a1 + 40);
+  TString::SetStringRefAsImmutable(v8, *a2);
+  ++a1[5];
 }
 
-void std::deque<TString>::__append_with_size[abi:ne200100]<std::__deque_iterator<TString,TString const*,TString const&,TString const* const*,long,512l>>(void *a1, void *a2, TString **a3, unint64_t a4)
+void std::deque<TString>::__append_with_size[abi:ne200100]<std::__deque_iterator<TString,TString const*,TString const&,TString const* const*,long,512l>>(unint64_t *a1, void *a2, TString **a3, unint64_t a4)
 {
   v8 = a1[1];
   v9 = a1[2];
@@ -8298,10 +8161,9 @@ void std::deque<TString>::__append_with_size[abi:ne200100]<std::__deque_iterator
   }
 }
 
-void *std::deque<TString>::__add_back_capacity(void *result, unint64_t a2)
+void std::deque<TString>::__add_back_capacity(unint64_t *a1, unint64_t a2)
 {
-  v2 = result;
-  v3 = result[2] - result[1];
+  v3 = a1[2] - a1[1];
   if (v3)
   {
     v4 = a2;
@@ -8322,7 +8184,7 @@ void *std::deque<TString>::__add_back_capacity(void *result, unint64_t a2)
     v5 = v4 >> 9;
   }
 
-  v6 = result[4];
+  v6 = a1[4];
   if (v5 >= v6 >> 9)
   {
     v7 = v6 >> 9;
@@ -8335,19 +8197,19 @@ void *std::deque<TString>::__add_back_capacity(void *result, unint64_t a2)
 
   if (v5 <= v6 >> 9)
   {
-    for (result[4] = v6 - (v7 << 9); v7; --v7)
+    for (a1[4] = v6 - (v7 << 9); v7; --v7)
     {
-      v14 = v2[1];
+      v14 = a1[1];
       v16[0] = *v14;
-      v2[1] = v14 + 1;
-      result = std::__split_buffer<TNodeEventPtr *>::emplace_back<TNodeEventPtr *&>(v2, v16);
+      a1[1] = (v14 + 1);
+      std::__split_buffer<TNodeEventPtr *>::emplace_back<TNodeEventPtr *&>(a1, v16);
     }
   }
 
   else
   {
     v8 = v5 - v7;
-    v9 = result[3] - *result;
+    v9 = a1[3] - *a1;
     if (v5 - v7 > (v9 >> 3) - (v3 >> 3))
     {
       v10 = v3 >> 3;
@@ -8363,10 +8225,10 @@ void *std::deque<TString>::__add_back_capacity(void *result, unint64_t a2)
       }
 
       v13 = v10 - v7;
-      v18 = result;
+      v18 = a1;
       if (v12)
       {
-        std::allocator<TNodeEventPtr *>::allocate_at_least[abi:ne200100](result, v12);
+        std::allocator<TNodeEventPtr *>::allocate_at_least[abi:ne200100](a1, v12);
       }
 
       v16[0] = 0;
@@ -8377,7 +8239,7 @@ void *std::deque<TString>::__add_back_capacity(void *result, unint64_t a2)
 
     if (v8)
     {
-      if (result[3] != result[2])
+      if (a1[3] != a1[2])
       {
         operator new();
       }
@@ -8385,16 +8247,14 @@ void *std::deque<TString>::__add_back_capacity(void *result, unint64_t a2)
       operator new();
     }
 
-    for (result[4] -= v7 << 9; v7; --v7)
+    for (a1[4] -= v7 << 9; v7; --v7)
     {
-      v15 = v2[1];
+      v15 = a1[1];
       v16[0] = *v15;
-      v2[1] = v15 + 1;
-      result = std::__split_buffer<TNodeEventPtr *>::emplace_back<TNodeEventPtr *&>(v2, v16);
+      a1[1] = (v15 + 1);
+      std::__split_buffer<TNodeEventPtr *>::emplace_back<TNodeEventPtr *&>(a1, v16);
     }
   }
-
-  return result;
 }
 
 void sub_1E56A6820(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -8407,7 +8267,7 @@ void sub_1E56A6820(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::deque<TString>::__append<std::__deque_iterator<TString,TString const*,TString const&,TString const* const*,long,512l>,0>(void *a1, char *a2, TString **a3, char *a4, TString **a5)
+void std::deque<TString>::__append<std::__deque_iterator<TString,TString const*,TString const&,TString const* const*,long,512l>,0>(unint64_t *a1, char *a2, TString **a3, char *a4, TString **a5)
 {
   if (a5 == a3)
   {
@@ -8457,7 +8317,7 @@ void std::allocator_traits<std::allocator<TString>>::construct[abi:ne200100]<TSt
   TString::SetStringRefAsImmutable(a2, *a3);
 }
 
-uint64_t *std::__deque_iterator<TString,TString*,TString&,TString**,long,512l>::operator+[abi:ne200100](uint64_t a1, uint64_t a2)
+void *std::__deque_iterator<TString,TString*,TString&,TString**,long,512l>::operator+[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   result = *a1;
   if (a2)
@@ -8466,29 +8326,27 @@ uint64_t *std::__deque_iterator<TString,TString*,TString&,TString**,long,512l>::
     if (v4 < 1)
     {
       result -= (511 - v4) >> 9;
-      v6 = *result;
     }
 
     else
     {
       result += v4 >> 9;
-      v5 = *result;
     }
   }
 
   return result;
 }
 
-void TNode::FindChild(TNode *this@<X0>, TNode *a2@<X1>, int a3@<W2>, char a4@<W3>, void **a5@<X8>)
+void TNode::FindChild(void **__return_ptr a1@<X8>, TNode *this@<X0>, TNode *a3@<X1>, int a4@<W2>, char a5@<W3>)
 {
-  *a5 = 0;
+  *a1 = 0;
   TGlobalNodes::RootNode(&v29, this);
   v10 = TNodeFromFINode(v29.fFINode);
 
   if (v10 == this)
   {
-    TNode::GetVolume(a2, &v29);
-    TNodePtr::operator=(a5, &v29.fFINode);
+    TNode::GetVolume(a3, &v29);
+    TNodePtr::operator=(a1, &v29.fFINode);
 
     return;
   }
@@ -8511,7 +8369,7 @@ void TNode::FindChild(TNode *this@<X0>, TNode *a2@<X1>, int a3@<W2>, char a4@<W3
     std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   }
 
-  if ((v15 & 0x20) != 0 && CFStringGetLength(*a2) >= 1)
+  if ((v15 & 0x20) != 0 && CFStringGetLength(*a3) >= 1)
   {
     TNodePtr::TNodePtr(&v28, this);
     TNode::StPopulating::StPopulating(&v29, &v28.fFINode, 0);
@@ -8519,15 +8377,15 @@ void TNode::FindChild(TNode *this@<X0>, TNode *a2@<X1>, int a3@<W2>, char a4@<W3
     v16 = *(this + 7);
     if (v16)
     {
-      TChildrenList::Find(v16, a2, &v28);
-      TNodePtr::operator=(a5, &v28.fFINode);
+      TChildrenList::Find(&v28, v16, a3);
+      TNodePtr::operator=(a1, &v28.fFINode);
     }
 
     TNode::StPopulating::~StPopulating(&v29.fFINode);
-    v17 = TNodeFromFINode(*a5);
-    if (v17 || (a4 & 1) != 0)
+    v17 = TNodeFromFINode(*a1);
+    if (v17 || (a5 & 1) != 0)
     {
-      if (!a3)
+      if (!a4)
       {
         return;
       }
@@ -8556,7 +8414,7 @@ void TNode::FindChild(TNode *this@<X0>, TNode *a2@<X1>, int a3@<W2>, char a4@<W3
       {
       }
 
-      v27 = TNodeFromFINode(*a5);
+      v27 = TNodeFromFINode(*a1);
       TNode::HandleSync(v27, 268959744);
       return;
     }
@@ -8586,7 +8444,7 @@ void TNode::FindChild(TNode *this@<X0>, TNode *a2@<X1>, int a3@<W2>, char a4@<W3
       }
     }
 
-    if ((CFStringGetLength(*a2) != 1 || CFStringGetLength(*a2) < 1 || CFStringGetCharacterAtIndex(*a2, 0) != 46) && (CFStringGetLength(*a2) != 2 || TString::GetUniChar(a2, 0) != 46 || TString::GetUniChar(a2, 1) != 46))
+    if ((CFStringGetLength(*a3) != 1 || CFStringGetLength(*a3) < 1 || CFStringGetCharacterAtIndex(*a3, 0) != 46) && (CFStringGetLength(*a3) != 2 || TString::GetUniChar(a3, 0) != 46 || TString::GetUniChar(a3, 1) != 46))
     {
       _ZNSt3__115allocate_sharedB8ne200100I7TFSInfoNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
     }
@@ -8608,7 +8466,7 @@ void sub_1E56A6D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void TChildrenList::Find(TChildrenList *this@<X0>, const TString *a2@<X1>, TNodePtr *a3@<X8>)
+void TChildrenList::Find(TNodePtr *__return_ptr a1@<X8>, TChildrenList *this@<X0>, const TString *a3@<X1>)
 {
   v6 = *(this + 12);
   v7 = TNode::InfoLock(this);
@@ -8640,7 +8498,7 @@ LABEL_3:
         while (1)
         {
           v13 = TNodeFromFINode(*v11);
-          if (TNode::Equal(v13, a2))
+          if (TNode::Equal(v13, a3))
           {
             break;
           }
@@ -8676,7 +8534,7 @@ LABEL_3:
       v18 = *v16;
       v17 = v16 + 1;
       v19 = TNodeFromFINode(v18);
-      v20 = TNode::LessThan(v19, a2);
+      v20 = TNode::LessThan(v19, a3);
       if (v20)
       {
         v15 += ~(v15 >> 1);
@@ -8697,10 +8555,10 @@ LABEL_3:
     if (v11 != *(this + 9))
     {
       v21 = TNodeFromFINode(*v11);
-      if (TNode::Equal(v21, a2))
+      if (TNode::Equal(v21, a3))
       {
 LABEL_9:
-        a3->fFINode = *v11;
+        a1->fFINode = *v11;
         return;
       }
     }
@@ -8708,7 +8566,7 @@ LABEL_9:
 
 LABEL_21:
 
-  TNodePtr::TNodePtr(a3, 0);
+  TNodePtr::TNodePtr(a1, 0);
 }
 
 CFIndex TFSInfo::Initialize(TFSInfo *this, os_unfair_lock_s *a2, const TString *a3)
@@ -8762,14 +8620,14 @@ CFIndex TFSInfo::Initialize(TFSInfo *this, os_unfair_lock_s *a2, const TString *
   return v9;
 }
 
-void sub_1E56A70D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E56A70D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v5 = va_arg(va2, const void *);
+  v6 = va_arg(va2, const void *);
   TAutoRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TAutoRef(va);
   TAutoRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TAutoRef(va1);
   TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(va2);
@@ -8779,10 +8637,10 @@ void sub_1E56A70D4(_Unwind_Exception *a1, uint64_t a2, ...)
 CFURLRef TCFURLInfo::CreateURLAppendingNameToDirectoryURL(TCFURLInfo *this, const void **a2, const TString *a3)
 {
   v3 = a3;
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (!CFURLGetFileSystemRepresentation(this, 1u, buffer, 1024))
   {
-    goto LABEL_8;
+    return 0;
   }
 
   v5 = RetainCF<__CFString const*>(a2);
@@ -8792,20 +8650,13 @@ CFURLRef TCFURLInfo::CreateURLAppendingNameToDirectoryURL(TCFURLInfo *this, cons
     v5 = static_cf_cast<__CFString const*,void const*>(v6);
   }
 
-  if (CFStringGetCString(v5, __source, 1024, 0x8000100u) && (strlen(buffer) < 2 || strlcat(buffer, "/", 0x400uLL) <= 0x3FF) && strlcat(buffer, __source, 0x400uLL) <= 0x3FF)
+  if (!CFStringGetCString(v5, __source, 1024, 0x8000100u) || strlen(buffer) >= 2 && strlcat(buffer, "/", 0x400uLL) > 0x3FF || strlcat(buffer, __source, 0x400uLL) > 0x3FF)
   {
-    v9 = strlen(buffer);
-    result = CFURLCreateFromFileSystemRepresentation(*MEMORY[0x1E695E480], buffer, v9, v3);
+    return 0;
   }
 
-  else
-  {
-LABEL_8:
-    result = 0;
-  }
-
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  v8 = strlen(buffer);
+  return CFURLCreateFromFileSystemRepresentation(*MEMORY[0x1E695E480], buffer, v8, v3);
 }
 
 uint64_t TFSInfo::HasLSProperties(TFSInfo *this)
@@ -8964,23 +8815,23 @@ const void **TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary cons
   return a1;
 }
 
-void TNode::FindOrCreateChild(TNode *a1@<X0>, TFSInfo **a2@<X1>, TNodePtr *a3@<X8>)
+void TNode::FindOrCreateChild(TNodePtr *__return_ptr a1@<X8>, TNode *a2@<X0>, TFSInfo **a3@<X1>)
 {
-  TNodePtr::TNodePtr(&v30, a1);
+  TNodePtr::TNodePtr(&v30, a2);
   TNode::StPopulating::StPopulating(&v33, &v30.fFINode, 0);
 
-  TChildrenList::FindRenamedChild(*(a1 + 7), a2, a3);
-  v6 = TNodeFromFINode(a3->fFINode);
-  fFINode = a3->fFINode;
+  TChildrenList::FindRenamedChild(*(a2 + 7), a3, a1);
+  v6 = TNodeFromFINode(a1->fFINode);
+  fFINode = a1->fFINode;
   if (v6)
   {
     v8 = TNodeFromFINode(fFINode);
-    TNode::FetchAdditionalPropertiesForSync(v8, a2, 1);
+    TNode::FetchAdditionalPropertiesForSync(v8, a3, 1);
     v30.fFINode = 0;
     v31 = 0;
     v32 = 0;
-    v9 = TNodeFromFINode(a3->fFINode);
-    TNode::ReconcileInternalProperties(v9, a2, &v30, 1);
+    v9 = TNodeFromFINode(a1->fFINode);
+    TNode::ReconcileInternalProperties(v9, a3, &v30, 1);
     TNodeEventPtrs::SendNotifications(&v30);
     v34 = &v30;
     std::vector<std::pair<TNodePtr,TNodeEventPtr>>::__destroy_vector::operator()[abi:ne200100](&v34);
@@ -8989,16 +8840,16 @@ void TNode::FindOrCreateChild(TNode *a1@<X0>, TFSInfo **a2@<X1>, TNodePtr *a3@<X
   }
 
   TNode::StPopulating::~StPopulating(&v33);
-  TNodePtr::TNodePtr(&v30, a1);
+  TNodePtr::TNodePtr(&v30, a2);
   v33.fData.__impl_.__data = 0uLL;
-  TNode::CreateNode(a3, &v30, a2, &v33);
+  TNode::CreateNode(&v30, a3, &v33, a1);
   if (v33.fData.__impl_.__data.__tail.__tail.__tail.__tail.__tail.__tail.__tail.__tail.__tail.__head.__value.buffer)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v33.fData.__impl_.__data.__tail.__tail.__tail.__tail.__tail.__tail.__tail.__tail.__tail.__head.__value.buffer);
   }
 
-  TNode::AddChild(a1, a3);
-  v10 = TNodeFromFINode(a3->fFINode);
+  TNode::AddChild(a2, a1);
+  v10 = TNodeFromFINode(a1->fFINode);
   v11 = TNode::InfoLock(v10);
   os_unfair_lock_lock(v11);
   v13 = *(v10 + 16);
@@ -9017,7 +8868,7 @@ void TNode::FindOrCreateChild(TNode *a1@<X0>, TFSInfo **a2@<X1>, TNodePtr *a3@<X
     std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   }
 
-  v15 = a3->fFINode;
+  v15 = a1->fFINode;
   if ((v14 & 0x100) == 0)
   {
     v16 = TNodeFromFINode(v15);
@@ -9046,7 +8897,7 @@ void TNode::FindOrCreateChild(TNode *a1@<X0>, TFSInfo **a2@<X1>, TNodePtr *a3@<X
       }
     }
 
-    v25 = TNodeFromFINode(a3->fFINode);
+    v25 = TNodeFromFINode(a1->fFINode);
     v33.fData.__impl_.__data.__tail.__tail.__tail.__tail.__tail.__head.__value = 0;
     v26 = TNode::CopyURL(v25, &v33);
     v30.fFINode = v33.fData.__impl_.__data.__tail.__tail.__tail.__tail.__tail.__head.__value;
@@ -9071,7 +8922,7 @@ void TNode::FindOrCreateChild(TNode *a1@<X0>, TFSInfo **a2@<X1>, TNodePtr *a3@<X
   }
 
   os_unfair_lock_unlock(v22);
-  TFSInfo::GetVolumeID(v24, &v28);
+  TFSInfo::GetVolumeID(&v28, v24);
   TNode::GetVolumeNode(&v28, &v29);
 
   TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>::~TRef(&v28);
@@ -9099,7 +8950,7 @@ void TChildrenList::FindRenamedChild(uint64_t a1@<X0>, TFSInfo **a2@<X1>, TNodeP
     if (IsFPv2)
     {
       v27 = TFSInfo::GetFPItem(v8);
-      TChildrenList::FindByFPItem(a1, v27, a3);
+      TChildrenList::FindByFPItem(a3, a1, v27);
 LABEL_4:
     }
 
@@ -9219,7 +9070,7 @@ LABEL_4:
           do
           {
             v25 = TNodeFromFINode(*v17);
-            TNode::CFURL(v25, &v38);
+            TNode::CFURL(&v38, v25);
             if (v38)
             {
               v26 = IsEqual(v38, cf2);
@@ -9291,22 +9142,22 @@ void sub_1E56A8030(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void TNode::GetAliasTarget(TNode *this@<X0>, void *a2@<X8>)
+void TNode::GetAliasTarget(uint64_t *__return_ptr a1@<X8>, TNode *this@<X0>)
 {
   v4 = TNode::InfoLock(this);
   os_unfair_lock_lock(v4);
-  *a2 = *(this + 4);
+  *a1 = *(this + 4);
 
   os_unfair_lock_unlock(v4);
 }
 
-uint64_t TNode::AddChild(TNode *a1, TNodePtr *a2, void *a3, void *a4)
+TNode *TNode::AddChild(TNode *a1, TNodePtr *a2, void *a3, void *a4)
 {
   v25 = 0;
   TNodePtr::TNodePtr(&v19, a1);
   TNode::StPopulating::StPopulating(&v24, &v19.fFINode, 0);
 
-  TNode::AddNewChild(&v19, a1, a2, &v25, 0, 0);
+  TNode::AddNewChild(&v19, a1, a2, &v25, 0);
   TNodePtr::operator=(&a2->fFINode, &v19.fFINode);
 
   if (*a3 != a3[1] || *a4)
@@ -9434,7 +9285,7 @@ void TNode::AddChild(TNode *this, TNodePtr *a2)
   std::vector<TPropertyInfo>::__destroy_vector::operator()[abi:ne200100](&v2);
 }
 
-void sub_1E56A84B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, std::__shared_weak_count *a11, char a12)
+void sub_1E56A84B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char *a10, std::__shared_weak_count *a11, char a12)
 {
   if (a11)
   {
@@ -9446,7 +9297,7 @@ void sub_1E56A84B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t TNode::CopyProperties(uint64_t result, uint64_t a2)
+TNode *TNode::CopyProperties(TNode *result, uint64_t a2)
 {
   if (*a2)
   {
@@ -9485,15 +9336,15 @@ void std::vector<TPropertyInfo>::__destroy_vector::operator()[abi:ne200100](void
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 48;
-      v7 = v4 - 48;
-      v8 = v4 - 48;
+      v6 = v4 - 6;
+      v7 = v4 - 6;
+      v8 = v4 - 6;
       do
       {
         v9 = *v8;
-        v8 -= 48;
+        v8 -= 6;
         (*v9)(v7);
-        v6 -= 48;
+        v6 -= 6;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -9544,7 +9395,7 @@ void sub_1E56A86B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -9554,17 +9405,17 @@ void std::vector<char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
   std::vector<std::pair<TNodePtr,TNodePtr>>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<unsigned char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1E56A8784(_Unwind_Exception *exception_object)
@@ -9579,7 +9430,7 @@ void sub_1E56A8784(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t TNode::FollowAlias(_BOOL8 IsAlias, TNodePtr *a2, TOperationErrorRecord **a3, int a4)
+uint64_t TNode::FollowAlias(_BOOL8 IsAlias, TNodePtr *a2, TOperationErrorRecord **a3, uint64_t a4)
 {
   v7 = IsAlias;
   if ((a4 & 0x20000) == 0)
@@ -9595,8 +9446,8 @@ uint64_t TNode::FollowAlias(_BOOL8 IsAlias, TNodePtr *a2, TOperationErrorRecord 
 
   v8 = TNode::InfoLock(IsAlias);
   os_unfair_lock_lock(v8);
-  v10 = *(v7 + 16);
-  v9 = *(v7 + 24);
+  v10 = *(v7 + 2);
+  v9 = *(v7 + 3);
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -9615,8 +9466,8 @@ uint64_t TNode::FollowAlias(_BOOL8 IsAlias, TNodePtr *a2, TOperationErrorRecord 
 LABEL_9:
     v13 = TNode::InfoLock(IsAlias);
     os_unfair_lock_lock(v13);
-    v15 = *(v7 + 16);
-    v14 = *(v7 + 24);
+    v15 = *(v7 + 2);
+    v14 = *(v7 + 3);
     if (v14)
     {
       atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -9633,8 +9484,8 @@ LABEL_9:
 
     if (v16 == 1)
     {
-      TGlobalNodes::RootNode(&v36, v17);
-      TNodePtr::operator=(&a2->fFINode, &v36.fFINode);
+      TGlobalNodes::RootNode(&v36.fData.__impl_.__data.__tail.__tail.__tail.__tail.__tail.__head.__value, v17);
+      TNodePtr::operator=(&a2->fFINode, &v36);
 
       TNode::SetAliasTarget(v7, a2, 1);
       return 0;
@@ -9642,8 +9493,8 @@ LABEL_9:
 
     v18 = TNode::InfoLock(v17);
     os_unfair_lock_lock(v18);
-    v20 = *(v7 + 16);
-    v19 = *(v7 + 24);
+    v20 = *(v7 + 2);
+    v19 = *(v7 + 3);
     if (v19)
     {
       atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -9659,30 +9510,30 @@ LABEL_9:
     if (!v21)
     {
       TNodePtr::TNodePtr(&v36, v7);
-      TNodePtr::operator=(&a2->fFINode, &v36.fFINode);
+      TNodePtr::operator=(&a2->fFINode, &v36);
 
       return 0;
     }
 
-    TNode::GetAliasTarget(v7, &obj);
+    TNode::GetAliasTarget(&obj, v7);
     if (TNodeFromFINode(obj))
     {
       v22 = TNodeFromFINode(obj);
       if (TNode::Validate(v22, v23))
       {
         v24 = TNodeFromFINode(obj);
-        TNode::GetVolumeInfo(v24, &v36);
-        v25 = BYTE3(v36.fFINode[15].super.isa);
-        if (v37)
+        TNode::GetVolumeInfo(&v36.fData.__impl_.__data.__tail.__tail.__tail.__tail.__tail.__head.__value, v24);
+        v25 = *(v36.fData.__impl_.__data.__tail.__tail.__tail.__tail.__tail.__head.__value + 123);
+        if (v36.fData.__impl_.__data.__tail.__tail.__tail.__tail.__tail.__tail.__tail.__tail.__tail.__head.__value.buffer)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v37);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v36.fData.__impl_.__data.__tail.__tail.__tail.__tail.__tail.__tail.__tail.__tail.__tail.__head.__value.buffer);
         }
 
         if ((v25 & 1) == 0)
         {
           TNode::ClearAliasTarget(v7, 0);
           TNodePtr::TNodePtr(&v36, 0);
-          TNodePtr::operator=(&obj, &v36.fFINode);
+          TNodePtr::operator=(&obj, &v36);
         }
       }
     }
@@ -9690,7 +9541,7 @@ LABEL_9:
     if ((a4 & 0x40000) != 0)
     {
       TNodePtr::TNodePtr(&v36, 0);
-      TNodePtr::operator=(&obj, &v36.fFINode);
+      TNodePtr::operator=(&obj, &v36);
 
       v27 = 0;
     }
@@ -9752,10 +9603,10 @@ LABEL_44:
       if (v27)
       {
         TNode::SetUnresolvedTarget(v7);
-        v38 = 0;
+        v36.fData.__impl_.__index = 0;
         std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v36);
-        v38 = 21;
-        LODWORD(v36.fFINode) = a4 & 0xFFFBFFFD | 0x40000;
+        v36.fData.__impl_.__index = 21;
+        v36.fData.__impl_.__data.__tail.__tail.__tail.__tail.__head.__value = a4 & 0xFFFBFFFD | 0x40000;
         v33 = *a3;
         v35 = v33;
         if (v33)
@@ -9763,12 +9614,12 @@ LABEL_44:
           TOperationErrorRecord::AddPtrReference(v33);
         }
 
-        TNode::RequestTask(v7, 10, 1920167792, &v36, &v35);
+        TNode::RequestTask(v7, 10, 1920167792, &v36, &v35, 0);
       }
 
       v12 = TNode::FollowAlias(v7, a4);
-      TNode::GetAliasTarget(v7, &v36);
-      TNodePtr::operator=(&obj, &v36.fFINode);
+      TNode::GetAliasTarget(&v36.fData.__impl_.__data.__tail.__tail.__tail.__tail.__tail.__head.__value, v7);
+      TNodePtr::operator=(&obj, &v36);
     }
 
     goto LABEL_50;

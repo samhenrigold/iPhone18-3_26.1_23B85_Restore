@@ -35,7 +35,7 @@ uint64_t __26__TVPVideoView_initialize__block_invoke()
 
 + (void)preserveVideoViewForReuse:(id)reuse identifier:(id)identifier
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   reuseCopy = reuse;
   identifierCopy = identifier;
   player = [reuseCopy player];
@@ -63,32 +63,32 @@ uint64_t __26__TVPVideoView_initialize__block_invoke()
     goto LABEL_19;
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   p_cache = TVPPlaybackState.cache;
   allKeys = [sPreservedVideoViews allKeys];
-  v14 = [allKeys countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v14 = [allKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v14)
   {
     v15 = v14;
     v16 = 0;
-    v17 = *v24;
+    v17 = *v23;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v24 != v17)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v19 = [self preservedVideoViewsForPlayer:v9 identifier:*(*(&v23 + 1) + 8 * i)];
+        v19 = [self preservedVideoViewsForPlayer:v9 identifier:*(*(&v22 + 1) + 8 * i)];
         v16 += [v19 count];
       }
 
-      v15 = [allKeys countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v15 = [allKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v15);
@@ -118,37 +118,36 @@ LABEL_16:
   [p_cache[127] setObject:v21 forKey:identifierCopy];
 
 LABEL_19:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (id)preservedVideoViewsForPlayer:(id)player identifier:(id)identifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   playerCopy = player;
   identifierCopy = identifier;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (playerCopy && identifierCopy)
   {
     v8 = [sPreservedVideoViews objectForKey:identifierCopy];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
+          v13 = *(*(&v16 + 1) + 8 * i);
           player = [v13 player];
 
           if (player == playerCopy)
@@ -157,14 +156,12 @@ LABEL_19:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -237,48 +234,48 @@ LABEL_6:
 
 + (void)_purgePreservedVideoViewsForPlayer:(id)player
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   playerCopy = player;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = [sPreservedVideoViews allValues];
-  v4 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v4 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v4)
   {
     v5 = v4;
-    v17 = *v23;
+    v16 = *v22;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v17)
+        if (*v22 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v22 + 1) + 8 * i);
+        v7 = *(*(&v21 + 1) + 8 * i);
+        v17 = 0u;
         v18 = 0u;
         v19 = 0u;
         v20 = 0u;
-        v21 = 0u;
         v8 = [v7 copy];
-        v9 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v17 objects:v25 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v19;
+          v11 = *v18;
           do
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v19 != v11)
+              if (*v18 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v18 + 1) + 8 * j);
+              v13 = *(*(&v17 + 1) + 8 * j);
               player = [v13 player];
 
               if (player == playerCopy)
@@ -287,20 +284,18 @@ LABEL_6:
               }
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v17 objects:v25 count:16];
           }
 
           while (v10);
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v5 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v5);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (TVPVideoView)initWithFrame:(CGRect)frame

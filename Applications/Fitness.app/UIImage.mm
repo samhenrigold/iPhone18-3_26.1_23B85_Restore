@@ -9,9 +9,10 @@
   height = size.height;
   width = size.width;
   selfCopy = self;
-  v6 = sub_100183174(width, height);
+  sub_100183174(width, height);
+  v7 = v6;
 
-  return v6;
+  return v7;
 }
 
 @end

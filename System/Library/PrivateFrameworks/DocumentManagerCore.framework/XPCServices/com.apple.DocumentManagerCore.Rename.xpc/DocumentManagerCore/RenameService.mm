@@ -18,7 +18,7 @@
   {
     if (v10)
     {
-      [v10 auditToken];
+      objc_msgSend_auditToken(v10);
     }
 
     else
@@ -117,7 +117,7 @@
   {
     if (v7)
     {
-      [v7 auditToken];
+      objc_msgSend_auditToken(v7);
     }
 
     else

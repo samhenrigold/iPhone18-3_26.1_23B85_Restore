@@ -1,14 +1,14 @@
-void *std::vector<unsigned short>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned short>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned short>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned short>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2512AC4D0(_Unwind_Exception *exception_object)
@@ -3574,7 +3574,7 @@ LABEL_169:
   return result;
 }
 
-void *std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned char &,void>(uint64_t a1, unsigned __int8 *a2)
+uint64_t *std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned char &,void>(uint64_t a1, unsigned __int8 *a2)
 {
   if (*(a1 + 24) == 1)
   {
@@ -3593,17 +3593,17 @@ void *std::optional<std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patc
   return result;
 }
 
-void *std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>::__vallocate[abi:ne200100](result, a2);
+    std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2512AE984(_Unwind_Exception *exception_object)
@@ -3618,7 +3618,7 @@ void sub_2512AE984(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<mimosa::v2::OpticalSamplesV2SubpacketState::Patch::Sample>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x787878787878788)
   {
@@ -7359,13 +7359,13 @@ double mimosa::v2::PacketState::update_@<D0>(mimosa::v2::PacketState *this@<X0>,
   *(a3 + 136) = 0;
   *a3 = mimosa::v2::ContainerHeaderState::update(this, a2);
   *(a3 + 8) = v7;
-  mimosa::v2::OpticalSamplesV1SubpacketState::update((this + 40), (a2 + 24), &v14);
+  mimosa::v2::OpticalSamplesV1SubpacketState::update(&v14, (this + 40), (a2 + 24));
   v8 = v15;
   *v6 = v14;
   v9 = v16;
   *(a3 + 32) = v8;
   *(a3 + 48) = v9;
-  mimosa::v2::AccelSubpacketState::update((this + 280), (a2 + 104), &v14);
+  mimosa::v2::AccelSubpacketState::update(&v14, (this + 280), (a2 + 104));
   v10 = v15;
   *(a3 + 56) = v14;
   v11 = v16;
@@ -7439,7 +7439,7 @@ double mimosa::v2::PacketState::update_@<D0>(mimosa::v2::PacketState *this@<X0>,
 
   *(a3 + 32) = v21;
   *(a3 + 48) = v22;
-  mimosa::v2::AccelSubpacketState::update((this + 280), (a2 + 104), &v20);
+  mimosa::v2::AccelSubpacketState::update(&v20, (this + 280), (a2 + 104));
   *(v10 - 136) = v20;
   v14 = *v8;
   if (*v8)
@@ -7522,7 +7522,7 @@ double mimosa::v2::PacketState::update_@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>,
 
   *(a3 + 32) = v18;
   *(a3 + 48) = v19;
-  mimosa::v2::AccelSubpacketState::update((a1 + 280), (a2 + 104), &v17);
+  mimosa::v2::AccelSubpacketState::update(&v17, (a1 + 280), (a2 + 104));
   *(a3 + 56) = v17;
   v14 = *v8;
   if (*v8)
@@ -7601,7 +7601,7 @@ double mimosa::v2::PacketState::update_@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>,
 
   *(a3 + 32) = v23;
   *(a3 + 48) = v24;
-  mimosa::v2::AccelSubpacketState::update((a1 + 280), (a2 + 104), &v22);
+  mimosa::v2::AccelSubpacketState::update(&v22, (a1 + 280), (a2 + 104));
   *(v10 - 144) = v22;
   v15 = *v8;
   if (*v8)
@@ -7670,13 +7670,13 @@ double mimosa::v2::PacketState::update_@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>,
   v10 = v21;
   *(a3 + 144) = v20;
   *(a3 + 160) = v10;
-  mimosa::v2::OpticalSamplesV2SubpacketState::update((a1 + 144), (a2 + 24), *(a3 + 168), *(a3 + 169), &v20);
+  mimosa::v2::OpticalSamplesV2SubpacketState::update(&v20, (a1 + 144), (a2 + 24), *(a3 + 168), *(a3 + 169));
   v11 = v21;
   *v6 = v20;
   v12 = v22;
   *(a3 + 32) = v11;
   *(a3 + 48) = v12;
-  mimosa::v2::AccelSubpacketState::update((a1 + 280), (a2 + 144), &v20);
+  mimosa::v2::AccelSubpacketState::update(&v20, (a1 + 280), (a2 + 144));
   v13 = v21;
   *(a3 + 56) = v20;
   v14 = v22;
@@ -7742,13 +7742,13 @@ double mimosa::v2::PacketState::update_@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>,
   v10 = v21;
   *(a3 + 144) = v20;
   *(a3 + 160) = v10;
-  mimosa::v2::OpticalSamplesV2SubpacketState::update((a1 + 144), (a2 + 24), *(a3 + 168), *(a3 + 169), &v20);
+  mimosa::v2::OpticalSamplesV2SubpacketState::update(&v20, (a1 + 144), (a2 + 24), *(a3 + 168), *(a3 + 169));
   v11 = v21;
   *v6 = v20;
   v12 = v22;
   *(a3 + 32) = v11;
   *(a3 + 48) = v12;
-  mimosa::v2::AccelSubpacketState::update((a1 + 280), (a2 + 144), &v20);
+  mimosa::v2::AccelSubpacketState::update(&v20, (a1 + 280), (a2 + 144));
   v13 = v21;
   *(a3 + 56) = v20;
   v14 = v22;
@@ -8141,7 +8141,7 @@ double mimosa::v2::PacketState::update_@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>,
   mimosa::v2::ContainerHeaderState::update(a1, a2, v29);
   *a3 = *v29;
   *(a3 + 16) = *&v29[16];
-  mimosa::v2::OpticalSamplesV2SubpacketState::update(a1 + 144, a2 + 16, *(a2 + 168), *(a2 + 169), v29);
+  mimosa::v2::OpticalSamplesV2SubpacketState::update(v29, a1 + 144, a2 + 16, *(a2 + 168), *(a2 + 169));
   *v8 = *v29;
   *(v8 + 16) = *&v29[16];
   std::__optional_storage_base<std::variant<std::vector<unsigned short>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<unsigned short>,unsigned char>,false>>(v6, &v29[24]);
@@ -8296,7 +8296,7 @@ double mimosa::v2::PacketState::update_@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>,
   mimosa::v2::ContainerHeaderState::update(a1, a2, v29);
   *a3 = *v29;
   *(a3 + 16) = *&v29[16];
-  mimosa::v2::OpticalSamplesV2SubpacketState::update(a1 + 144, a2 + 16, *(a2 + 168), *(a2 + 169), v29);
+  mimosa::v2::OpticalSamplesV2SubpacketState::update(v29, a1 + 144, a2 + 16, *(a2 + 168), *(a2 + 169));
   *v8 = *v29;
   *(v8 + 16) = *&v29[16];
   std::__optional_storage_base<std::variant<std::vector<unsigned short>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<unsigned short>,unsigned char>,false>>(v6, &v29[24]);
@@ -8385,573 +8385,6 @@ double mimosa::v2::PacketState::update_@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>,
   return result;
 }
 
-{
-  *(a3 + 24) = 0;
-  v6 = a3 + 24;
-  *(a3 + 48) = 0;
-  v7 = a3 + 48;
-  *(a3 + 88) = 0;
-  v8 = a3 + 88;
-  *(a3 + 80) = 0;
-  *(a3 + 112) = 0;
-  *(a3 + 120) = 0u;
-  v9 = (a3 + 120);
-  *(a3 + 224) = 0;
-  *(a3 + 296) = 0;
-  *(a3 + 304) = 0;
-  *(a3 + 368) = 0;
-  *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
-  *(a3 + 32) = 0;
-  *(a3 + 40) = 0;
-  *(a3 + 136) = 0u;
-  *(a3 + 146) = 0u;
-  *(a3 + 168) = 0;
-  v10 = (a3 + 168);
-  *(a3 + 192) = 0;
-  v20 = a3 + 192;
-  *(a3 + 232) = 0;
-  v11 = (a3 + 232);
-  *(a3 + 312) = 0;
-  v19 = (a3 + 312);
-  *(a3 + 176) = 0;
-  *(a3 + 184) = 0;
-  *(a3 + 240) = 0;
-  *(a3 + 248) = 0;
-  *(a3 + 256) = 0u;
-  *(a3 + 272) = 0u;
-  *(a3 + 288) = 0;
-  *(a3 + 320) = 0;
-  *(a3 + 328) = 0;
-  *(a3 + 344) = 0;
-  *(a3 + 352) = 0;
-  *(a3 + 336) = 0;
-  *(a3 + 360) = 0;
-  mimosa::v2::ContainerHeaderState::update(a1, a2, v21);
-  *a3 = *v21;
-  *(a3 + 16) = *&v21[16];
-  mimosa::v2::OpticalSamplesV2SubpacketState::update(a1 + 144, a2 + 16, *(a2 + 160), *(a2 + 161), v21);
-  *v6 = *v21;
-  *(v6 + 16) = *&v21[16];
-  std::__optional_storage_base<std::variant<std::vector<unsigned short>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<unsigned short>,unsigned char>,false>>(v7, &v21[24]);
-  std::__optional_storage_base<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>,false>>(v8, &v22[16]);
-  v12 = *v9;
-  if (*v9)
-  {
-    *(a3 + 128) = v12;
-    operator delete(v12);
-  }
-
-  *(a3 + 120) = v25;
-  *(a3 + 136) = v26;
-  v26 = 0;
-  v25 = 0uLL;
-  if (v24 == 1 && *&v22[16])
-  {
-    *&v22[24] = *&v22[16];
-    operator delete(*&v22[16]);
-  }
-
-  if (v22[8] == 1)
-  {
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned short>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v21[24]);
-  }
-
-  mimosa::v2::AccelSubpacketState::update(a1 + 280, a2 + 56, v21);
-  v13 = v10 - 3;
-  *v13 = *v21;
-  *(v13 + 8) = *&v21[16];
-  v14 = *v10;
-  if (*v10)
-  {
-    *(a3 + 176) = v14;
-    operator delete(v14);
-  }
-
-  *(a3 + 168) = *&v21[24];
-  *(a3 + 184) = *&v21[40];
-  memset(&v21[24], 0, 24);
-  std::__optional_storage_base<std::variant<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,false>>(v20, v22);
-  if (v23 == 1)
-  {
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v22);
-  }
-
-  if (*&v21[24])
-  {
-    *&v21[32] = *&v21[24];
-    operator delete(*&v21[24]);
-  }
-
-  mimosa::v2::AlgsResponseV4SubpacketState::update(a1 + 544, a2 + 96, v21);
-  v15 = *v22;
-  v11[2] = *&v21[32];
-  v11[3] = v15;
-  *(v11 + 58) = *&v22[10];
-  v16 = *&v21[16];
-  *v11 = *v21;
-  v11[1] = v16;
-  mimosa::v2::OpticalDecoderV4SubpacketState::update((a1 + 872), (a2 + 144), v21);
-  v17 = *&v21[16];
-  *v19 = *v21;
-  v19[1] = v17;
-  mimosa::v2::OpticalScalarsSubpacketState::update(a1 + 1272, a2 + 168, v21);
-  *(a3 + 344) = *v21;
-  result = *&v21[10];
-  *(a3 + 354) = *&v21[10];
-  return result;
-}
-
-{
-  *(a3 + 24) = 0;
-  v6 = a3 + 24;
-  *(a3 + 48) = 0;
-  v7 = a3 + 48;
-  *(a3 + 80) = 0;
-  *(a3 + 88) = 0;
-  v8 = a3 + 88;
-  *(a3 + 112) = 0;
-  *(a3 + 224) = 0;
-  *(a3 + 296) = 0;
-  *(a3 + 304) = 0;
-  *(a3 + 368) = 0;
-  *(a3 + 370) = 0;
-  *(a3 + 464) = 0;
-  *(a3 + 468) = 0;
-  *(a3 + 470) = 0;
-  *(a3 + 496) = 0;
-  *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
-  *(a3 + 32) = 0;
-  *(a3 + 120) = 0u;
-  *(a3 + 168) = 0;
-  v10 = (a3 + 168);
-  v9 = a3 + 120;
-  *(a3 + 192) = 0;
-  v24 = a3 + 192;
-  *(a3 + 232) = 0;
-  v11 = (a3 + 232);
-  *(a3 + 312) = 0;
-  v23 = (a3 + 312);
-  *(a3 + 344) = 0;
-  v22 = (a3 + 344);
-  *(a3 + 40) = 0;
-  *(a3 + 146) = 0u;
-  *(a3 + 136) = 0u;
-  *(a3 + 176) = 0;
-  *(a3 + 184) = 0;
-  *(a3 + 240) = 0;
-  *(a3 + 248) = 0;
-  *(a3 + 256) = 0u;
-  *(a3 + 272) = 0u;
-  *(a3 + 288) = 0;
-  *(a3 + 320) = 0;
-  *(a3 + 328) = 0;
-  *(a3 + 352) = 0;
-  *(a3 + 336) = 0;
-  *(a3 + 360) = 0;
-  *(a3 + 380) = 0;
-  *(a3 + 372) = 0;
-  *(a3 + 386) = 0;
-  *(a3 + 448) = 0;
-  *(a3 + 432) = 0u;
-  *(a3 + 416) = 0u;
-  *(a3 + 400) = 0u;
-  *(a3 + 488) = 0;
-  *(a3 + 472) = 0;
-  *(a3 + 480) = 0;
-  mimosa::v2::ContainerHeaderState::update(a1, a2, v25);
-  *a3 = *v25;
-  *(a3 + 16) = *&v25[16];
-  mimosa::v2::OpticalSamplesV2SubpacketState::update(a1 + 144, a2 + 16, *(a2 + 160), *(a2 + 161), v25);
-  *v6 = *v25;
-  *(v6 + 16) = *&v25[16];
-  std::__optional_storage_base<std::variant<std::vector<unsigned short>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<unsigned short>,unsigned char>,false>>(v7, &v25[24]);
-  std::__optional_storage_base<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>,false>>(v8, &v26[16]);
-  v12 = *v9;
-  if (*v9)
-  {
-    *(a3 + 128) = v12;
-    operator delete(v12);
-  }
-
-  *(a3 + 120) = v28;
-  *(a3 + 136) = v29;
-  v29 = 0;
-  v28 = 0uLL;
-  if (BYTE8(v27) == 1 && *&v26[16])
-  {
-    *&v26[24] = *&v26[16];
-    operator delete(*&v26[16]);
-  }
-
-  if (v26[8] == 1)
-  {
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned short>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v25[24]);
-  }
-
-  mimosa::v2::AccelSubpacketState::update(a1 + 280, a2 + 56, v25);
-  *(v9 + 24) = *v25;
-  *(v9 + 40) = *&v25[16];
-  v13 = *v10;
-  if (*v10)
-  {
-    *(a3 + 176) = v13;
-    operator delete(v13);
-  }
-
-  *(a3 + 168) = *&v25[24];
-  *(a3 + 184) = *&v25[40];
-  memset(&v25[24], 0, 24);
-  std::__optional_storage_base<std::variant<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,false>>(v24, v26);
-  if (v27 == 1)
-  {
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v26);
-  }
-
-  if (*&v25[24])
-  {
-    *&v25[32] = *&v25[24];
-    operator delete(*&v25[24]);
-  }
-
-  mimosa::v2::AlgsResponseV4SubpacketState::update(a1 + 544, a2 + 96, v25);
-  v14 = *v26;
-  v11[2] = *&v25[32];
-  v11[3] = v14;
-  *(v11 + 58) = *&v26[10];
-  v15 = *&v25[16];
-  *v11 = *v25;
-  v11[1] = v15;
-  mimosa::v2::OpticalDecoderV4SubpacketState::update((a1 + 872), (a2 + 144), v25);
-  v16 = *&v25[16];
-  *v23 = *v25;
-  v23[1] = v16;
-  mimosa::v2::TemperatureSubpacketState::update(a1 + 920, a2 + 168, v25);
-  v17 = *&v25[16];
-  *v22 = *v25;
-  v22[1] = v17;
-  mimosa::v2::WavelengthV2SubpacketState::update(a1 + 968, a2 + 192, v25);
-  v18 = *v26;
-  *(v9 + 288) = *&v25[32];
-  *(v9 + 304) = v18;
-  v19 = v27;
-  *(v9 + 320) = *&v26[16];
-  *(v9 + 336) = v19;
-  v20 = *&v25[16];
-  *(v9 + 256) = *v25;
-  *(v9 + 272) = v20;
-  mimosa::v2::OpticalScalarsSubpacketState::update(a1 + 1272, a2 + 264, v25);
-  *(v9 + 352) = *v25;
-  result = *&v25[10];
-  *(v9 + 362) = *&v25[10];
-  return result;
-}
-
-{
-  *(a3 + 24) = 0;
-  v6 = a3 + 24;
-  *(a3 + 48) = 0;
-  v7 = a3 + 48;
-  *(a3 + 88) = 0;
-  v8 = a3 + 88;
-  *(a3 + 80) = 0;
-  *(a3 + 112) = 0;
-  *(a3 + 224) = 0;
-  *(a3 + 296) = 0;
-  *(a3 + 304) = 0;
-  *(a3 + 368) = 0;
-  *(a3 + 370) = 0;
-  *(a3 + 496) = 0;
-  *(a3 + 500) = 0;
-  *(a3 + 502) = 0;
-  *(a3 + 528) = 0;
-  *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
-  *(a3 + 32) = 0;
-  *(a3 + 40) = 0;
-  *(a3 + 120) = 0u;
-  *(a3 + 168) = 0;
-  v10 = (a3 + 168);
-  v9 = a3 + 120;
-  *(a3 + 192) = 0;
-  v25 = a3 + 192;
-  *(a3 + 232) = 0;
-  v11 = (a3 + 232);
-  *(a3 + 312) = 0;
-  v24 = (a3 + 312);
-  *(a3 + 344) = 0;
-  v23 = (a3 + 344);
-  *(a3 + 146) = 0u;
-  *(a3 + 136) = 0u;
-  *(a3 + 176) = 0;
-  *(a3 + 184) = 0;
-  *(a3 + 240) = 0;
-  *(a3 + 248) = 0;
-  *(a3 + 256) = 0u;
-  *(a3 + 272) = 0u;
-  *(a3 + 288) = 0;
-  *(a3 + 320) = 0;
-  *(a3 + 328) = 0;
-  *(a3 + 352) = 0;
-  *(a3 + 336) = 0;
-  *(a3 + 360) = 0;
-  *(a3 + 380) = 0;
-  *(a3 + 372) = 0;
-  *(a3 + 386) = 0;
-  *(a3 + 457) = 0u;
-  *(a3 + 448) = 0u;
-  *(a3 + 432) = 0u;
-  *(a3 + 416) = 0u;
-  *(a3 + 400) = 0u;
-  *(a3 + 520) = 0;
-  *(a3 + 504) = 0;
-  *(a3 + 512) = 0;
-  mimosa::v2::ContainerHeaderState::update(a1, a2, v26);
-  *a3 = *v26;
-  *(a3 + 16) = *&v26[16];
-  mimosa::v2::OpticalSamplesV2SubpacketState::update(a1 + 144, a2 + 16, *(a2 + 160), *(a2 + 161), v26);
-  *v6 = *v26;
-  *(v6 + 16) = *&v26[16];
-  std::__optional_storage_base<std::variant<std::vector<unsigned short>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<unsigned short>,unsigned char>,false>>(v7, &v26[24]);
-  std::__optional_storage_base<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>,false>>(v8, &v27[16]);
-  v12 = *v9;
-  if (*v9)
-  {
-    *(a3 + 128) = v12;
-    operator delete(v12);
-  }
-
-  *(a3 + 120) = v29;
-  *(a3 + 136) = v30;
-  *&v30 = 0;
-  v29 = 0uLL;
-  if (BYTE8(v28) == 1 && *&v27[16])
-  {
-    *&v27[24] = *&v27[16];
-    operator delete(*&v27[16]);
-  }
-
-  if (v27[8] == 1)
-  {
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned short>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v26[24]);
-  }
-
-  mimosa::v2::AccelSubpacketState::update(a1 + 280, a2 + 56, v26);
-  *(v9 + 24) = *v26;
-  *(v9 + 40) = *&v26[16];
-  v13 = *v10;
-  if (*v10)
-  {
-    *(a3 + 176) = v13;
-    operator delete(v13);
-  }
-
-  *(a3 + 168) = *&v26[24];
-  *(a3 + 184) = *&v26[40];
-  memset(&v26[24], 0, 24);
-  std::__optional_storage_base<std::variant<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,false>>(v25, v27);
-  if (v28 == 1)
-  {
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v27);
-  }
-
-  if (*&v26[24])
-  {
-    *&v26[32] = *&v26[24];
-    operator delete(*&v26[24]);
-  }
-
-  mimosa::v2::AlgsResponseV4SubpacketState::update(a1 + 544, a2 + 96, v26);
-  v14 = *v27;
-  v11[2] = *&v26[32];
-  v11[3] = v14;
-  *(v11 + 58) = *&v27[10];
-  v15 = *&v26[16];
-  *v11 = *v26;
-  v11[1] = v15;
-  mimosa::v2::OpticalDecoderV4SubpacketState::update((a1 + 872), (a2 + 144), v26);
-  v16 = *&v26[16];
-  *v24 = *v26;
-  v24[1] = v16;
-  mimosa::v2::TemperatureSubpacketState::update(a1 + 920, a2 + 168, v26);
-  v17 = *&v26[16];
-  *v23 = *v26;
-  v23[1] = v17;
-  mimosa::v2::WavelengthV3SubpacketState::update(a1 + 1120, a2 + 192, v26);
-  v18 = v28;
-  *(v9 + 320) = *&v27[16];
-  *(v9 + 336) = v18;
-  v19 = v30;
-  *(v9 + 352) = v29;
-  *(v9 + 368) = v19;
-  v20 = *&v26[16];
-  *(v9 + 256) = *v26;
-  *(v9 + 272) = v20;
-  v21 = *v27;
-  *(v9 + 288) = *&v26[32];
-  *(v9 + 304) = v21;
-  mimosa::v2::OpticalScalarsSubpacketState::update(a1 + 1272, a2 + 288, v26);
-  *(v9 + 384) = *v26;
-  result = *&v26[10];
-  *(v9 + 394) = *&v26[10];
-  return result;
-}
-
-{
-  *(a3 + 24) = 0;
-  v6 = a3 + 24;
-  *(a3 + 48) = 0;
-  v7 = a3 + 48;
-  *(a3 + 88) = 0;
-  v8 = a3 + 88;
-  *(a3 + 80) = 0;
-  *(a3 + 112) = 0;
-  *(a3 + 224) = 0;
-  *(a3 + 296) = 0;
-  *(a3 + 304) = 0;
-  *(a3 + 368) = 0;
-  *(a3 + 370) = 0;
-  *(a3 + 496) = 0;
-  *(a3 + 500) = 0;
-  *(a3 + 502) = 0;
-  *(a3 + 528) = 0;
-  *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
-  *(a3 + 32) = 0;
-  *(a3 + 40) = 0;
-  *(a3 + 120) = 0u;
-  *(a3 + 168) = 0;
-  v10 = (a3 + 168);
-  v9 = a3 + 120;
-  *(a3 + 192) = 0;
-  v25 = a3 + 192;
-  *(a3 + 232) = 0;
-  v11 = (a3 + 232);
-  *(a3 + 312) = 0;
-  v24 = (a3 + 312);
-  *(a3 + 344) = 0;
-  v23 = (a3 + 344);
-  *(a3 + 146) = 0u;
-  *(a3 + 136) = 0u;
-  *(a3 + 176) = 0;
-  *(a3 + 184) = 0;
-  *(a3 + 240) = 0;
-  *(a3 + 248) = 0;
-  *(a3 + 256) = 0u;
-  *(a3 + 272) = 0u;
-  *(a3 + 288) = 0;
-  *(a3 + 320) = 0;
-  *(a3 + 328) = 0;
-  *(a3 + 352) = 0;
-  *(a3 + 336) = 0;
-  *(a3 + 360) = 0;
-  *(a3 + 380) = 0;
-  *(a3 + 372) = 0;
-  *(a3 + 386) = 0;
-  *(a3 + 457) = 0u;
-  *(a3 + 448) = 0u;
-  *(a3 + 432) = 0u;
-  *(a3 + 416) = 0u;
-  *(a3 + 400) = 0u;
-  *(a3 + 520) = 0;
-  *(a3 + 504) = 0;
-  *(a3 + 512) = 0;
-  mimosa::v2::ContainerHeaderState::update(a1, a2, v26);
-  *a3 = *v26;
-  *(a3 + 16) = *&v26[16];
-  mimosa::v2::OpticalSamplesV2SubpacketState::update(a1 + 144, a2 + 16, *(a2 + 160), *(a2 + 161), v26);
-  *v6 = *v26;
-  *(v6 + 16) = *&v26[16];
-  std::__optional_storage_base<std::variant<std::vector<unsigned short>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<unsigned short>,unsigned char>,false>>(v7, &v26[24]);
-  std::__optional_storage_base<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>,false>>(v8, &v27[16]);
-  v12 = *v9;
-  if (*v9)
-  {
-    *(a3 + 128) = v12;
-    operator delete(v12);
-  }
-
-  *(a3 + 120) = v29;
-  *(a3 + 136) = v30;
-  *&v30 = 0;
-  v29 = 0uLL;
-  if (BYTE8(v28) == 1 && *&v27[16])
-  {
-    *&v27[24] = *&v27[16];
-    operator delete(*&v27[16]);
-  }
-
-  if (v27[8] == 1)
-  {
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned short>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v26[24]);
-  }
-
-  mimosa::v2::AccelSubpacketState::update(a1 + 280, a2 + 56, v26);
-  *(v9 + 24) = *v26;
-  *(v9 + 40) = *&v26[16];
-  v13 = *v10;
-  if (*v10)
-  {
-    *(a3 + 176) = v13;
-    operator delete(v13);
-  }
-
-  *(a3 + 168) = *&v26[24];
-  *(a3 + 184) = *&v26[40];
-  memset(&v26[24], 0, 24);
-  std::__optional_storage_base<std::variant<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,false>>(v25, v27);
-  if (v28 == 1)
-  {
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v27);
-  }
-
-  if (*&v26[24])
-  {
-    *&v26[32] = *&v26[24];
-    operator delete(*&v26[24]);
-  }
-
-  mimosa::v2::AlgsResponseV4SubpacketState::update(a1 + 544, a2 + 96, v26);
-  v14 = *v27;
-  v11[2] = *&v26[32];
-  v11[3] = v14;
-  *(v11 + 58) = *&v27[10];
-  v15 = *&v26[16];
-  *v11 = *v26;
-  v11[1] = v15;
-  mimosa::v2::OpticalDecoderV4SubpacketState::update((a1 + 872), (a2 + 144), v26);
-  v16 = *&v26[16];
-  *v24 = *v26;
-  v24[1] = v16;
-  mimosa::v2::TemperatureSubpacketState::update(a1 + 920, a2 + 168, v26);
-  v17 = *&v26[16];
-  *v23 = *v26;
-  v23[1] = v17;
-  mimosa::v2::WavelengthV3SubpacketState::update(a1 + 1120, a2 + 192, v26);
-  v18 = v28;
-  *(v9 + 320) = *&v27[16];
-  *(v9 + 336) = v18;
-  v19 = v30;
-  *(v9 + 352) = v29;
-  *(v9 + 368) = v19;
-  v20 = *&v26[16];
-  *(v9 + 256) = *v26;
-  *(v9 + 272) = v20;
-  v21 = *v27;
-  *(v9 + 288) = *&v26[32];
-  *(v9 + 304) = v21;
-  mimosa::v2::OpticalScalarsSubpacketState::update(a1 + 1272, a2 + 288, v26);
-  *(v9 + 384) = *v26;
-  result = *&v26[10];
-  *(v9 + 394) = *&v26[10];
-  return result;
-}
-
 __n128 mimosa::v2::PacketState::update_@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   *a3 = 0;
@@ -9010,7 +8443,7 @@ __n128 mimosa::v2::PacketState::update_@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>,
 
   *(a3 + 32) = v21;
   *(a3 + 48) = v22;
-  mimosa::v2::AccelSubpacketState::update((a1 + 280), (a2 + 104), &v20);
+  mimosa::v2::AccelSubpacketState::update(&v20, (a1 + 280), (a2 + 104));
   *(v10 - 144) = v20;
   v15 = *v8;
   if (*v8)
@@ -9176,13 +8609,13 @@ double mimosa::v2::PacketState::update_@<D0>(mimosa::v2::PacketState *this@<X0>,
   v10 = v20;
   *(a3 + 144) = v19;
   *(a3 + 160) = v10;
-  mimosa::v2::OpticalSamplesV2SubpacketState::update((this + 144), (a2 + 24), *(a3 + 168), *(a3 + 169), &v19);
+  mimosa::v2::OpticalSamplesV2SubpacketState::update(&v19, (this + 144), (a2 + 24), *(a3 + 168), *(a3 + 169));
   v11 = v20;
   *v6 = v19;
   v12 = v21;
   *(a3 + 32) = v11;
   *(a3 + 48) = v12;
-  mimosa::v2::AccelSubpacketState::update((this + 280), (a2 + 144), &v19);
+  mimosa::v2::AccelSubpacketState::update(&v19, (this + 280), (a2 + 144));
   v13 = v20;
   *(a3 + 56) = v19;
   v14 = v21;
@@ -9236,13 +8669,13 @@ double mimosa::v2::PacketState::update_@<D0>(unsigned __int8 *a1@<X0>, _BYTE *a2
   mimosa::v2::OpticalDecoderV4SubpacketState::update(a1 + 872, a2 + 312, &v14);
   *(a3 + 144) = v14;
   *(a3 + 160) = v15;
-  mimosa::v2::OpticalSamplesV2SubpacketState::update((a1 + 144), (a2 + 24), *(a3 + 160), *(a3 + 161), &v14);
+  mimosa::v2::OpticalSamplesV2SubpacketState::update(&v14, (a1 + 144), (a2 + 24), *(a3 + 160), *(a3 + 161));
   v8 = v15;
   *v6 = v14;
   v9 = v16;
   *(a3 + 32) = v8;
   *(a3 + 48) = v9;
-  mimosa::v2::AccelSubpacketState::update((a1 + 280), (a2 + 144), &v14);
+  mimosa::v2::AccelSubpacketState::update(&v14, (a1 + 280), (a2 + 144));
   v10 = v15;
   *(a3 + 56) = v14;
   v11 = v16;
@@ -9291,13 +8724,13 @@ double mimosa::v2::PacketState::update_@<D0>(unsigned __int8 *a1@<X0>, _BYTE *a2
   mimosa::v2::OpticalDecoderV4SubpacketState::update(a1 + 872, a2 + 312, &v17);
   *(a3 + 144) = v17;
   *(a3 + 160) = v18;
-  mimosa::v2::OpticalSamplesV2SubpacketState::update((a1 + 144), (a2 + 24), *(a3 + 160), *(a3 + 161), &v17);
+  mimosa::v2::OpticalSamplesV2SubpacketState::update(&v17, (a1 + 144), (a2 + 24), *(a3 + 160), *(a3 + 161));
   v9 = v18;
   *v6 = v17;
   v10 = v19;
   *(a3 + 32) = v9;
   *(a3 + 48) = v10;
-  mimosa::v2::AccelSubpacketState::update((a1 + 280), (a2 + 144), &v17);
+  mimosa::v2::AccelSubpacketState::update(&v17, (a1 + 280), (a2 + 144));
   v11 = v18;
   *(a3 + 56) = v17;
   v12 = v19;
@@ -9359,13 +8792,13 @@ double mimosa::v2::PacketState::update_@<D0>(unsigned __int8 *a1@<X0>, _BYTE *a2
   mimosa::v2::OpticalDecoderV4SubpacketState::update(a1 + 872, a2 + 312, &v19);
   *(a3 + 144) = v19;
   *(a3 + 160) = v20;
-  mimosa::v2::OpticalSamplesV2SubpacketState::update((a1 + 144), (a2 + 24), *(a3 + 160), *(a3 + 161), &v19);
+  mimosa::v2::OpticalSamplesV2SubpacketState::update(&v19, (a1 + 144), (a2 + 24), *(a3 + 160), *(a3 + 161));
   v10 = v20;
   *v6 = v19;
   v11 = v21;
   *(a3 + 32) = v10;
   *(a3 + 48) = v11;
-  mimosa::v2::AccelSubpacketState::update((a1 + 280), (a2 + 144), &v19);
+  mimosa::v2::AccelSubpacketState::update(&v19, (a1 + 280), (a2 + 144));
   v12 = v20;
   *(a3 + 56) = v19;
   v13 = v21;
@@ -9429,13 +8862,13 @@ double mimosa::v2::PacketState::update_@<D0>(unsigned __int8 *a1@<X0>, _BYTE *a2
   mimosa::v2::OpticalDecoderV4SubpacketState::update(a1 + 872, a2 + 312, &v19);
   *(a3 + 144) = v19;
   *(a3 + 160) = v20;
-  mimosa::v2::OpticalSamplesV2SubpacketState::update((a1 + 144), (a2 + 24), *(a3 + 160), *(a3 + 161), &v19);
+  mimosa::v2::OpticalSamplesV2SubpacketState::update(&v19, (a1 + 144), (a2 + 24), *(a3 + 160), *(a3 + 161));
   v10 = v20;
   *v6 = v19;
   v11 = v21;
   *(a3 + 32) = v10;
   *(a3 + 48) = v11;
-  mimosa::v2::AccelSubpacketState::update((a1 + 280), (a2 + 144), &v19);
+  mimosa::v2::AccelSubpacketState::update(&v19, (a1 + 280), (a2 + 144));
   v12 = v20;
   *(a3 + 56) = v19;
   v13 = v21;
@@ -9801,7 +9234,7 @@ double mimosa::v2::PacketState::update_@<D0>(mimosa::v2::PacketState *this@<X0>,
   mimosa::v2::ContainerHeaderState::update(this, a2, v24);
   *a3 = *v24;
   *(a3 + 16) = *&v24[16];
-  mimosa::v2::OpticalSamplesV2SubpacketState::update(this + 144, a2 + 16, *(a2 + 168), *(a2 + 169), v24);
+  mimosa::v2::OpticalSamplesV2SubpacketState::update(v24, this + 144, a2 + 16, *(a2 + 168), *(a2 + 169));
   *v8 = *v24;
   *(v8 + 16) = *&v24[16];
   std::__optional_storage_base<std::variant<std::vector<unsigned short>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<unsigned short>,unsigned char>,false>>(v6, &v24[24]);
@@ -9884,5 +9317,573 @@ double mimosa::v2::PacketState::update_@<D0>(mimosa::v2::PacketState *this@<X0>,
   *(a3 + 488) = *v24;
   result = *&v24[10];
   *(a3 + 498) = *&v24[10];
+  return result;
+}
+
+double mimosa::v2::PacketState::update_@<D0>(uint64_t a1@<X0>, unsigned __int8 *a2@<X1>, uint64_t a3@<X8>)
+{
+  *(a3 + 24) = 0;
+  v6 = a3 + 24;
+  *(a3 + 48) = 0;
+  v7 = a3 + 48;
+  *(a3 + 88) = 0;
+  v8 = a3 + 88;
+  *(a3 + 80) = 0;
+  *(a3 + 112) = 0;
+  *(a3 + 120) = 0u;
+  v9 = (a3 + 120);
+  *(a3 + 224) = 0;
+  *(a3 + 296) = 0;
+  *(a3 + 304) = 0;
+  *(a3 + 368) = 0;
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = 0;
+  *(a3 + 32) = 0;
+  *(a3 + 40) = 0;
+  *(a3 + 136) = 0u;
+  *(a3 + 146) = 0u;
+  *(a3 + 168) = 0;
+  v10 = (a3 + 168);
+  *(a3 + 192) = 0;
+  v20 = a3 + 192;
+  *(a3 + 232) = 0;
+  v11 = (a3 + 232);
+  *(a3 + 312) = 0;
+  v19 = (a3 + 312);
+  *(a3 + 176) = 0;
+  *(a3 + 184) = 0;
+  *(a3 + 240) = 0;
+  *(a3 + 248) = 0;
+  *(a3 + 256) = 0u;
+  *(a3 + 272) = 0u;
+  *(a3 + 288) = 0;
+  *(a3 + 320) = 0;
+  *(a3 + 328) = 0;
+  *(a3 + 344) = 0;
+  *(a3 + 352) = 0;
+  *(a3 + 336) = 0;
+  *(a3 + 360) = 0;
+  mimosa::v2::ContainerHeaderState::update(a1, a2, v21);
+  *a3 = *v21;
+  *(a3 + 16) = *&v21[16];
+  mimosa::v2::OpticalSamplesV2SubpacketState::update(v21, a1 + 144, (a2 + 16), a2[160], a2[161]);
+  *v6 = *v21;
+  *(v6 + 16) = *&v21[16];
+  std::__optional_storage_base<std::variant<std::vector<unsigned short>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<unsigned short>,unsigned char>,false>>(v7, &v21[24]);
+  std::__optional_storage_base<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>,false>>(v8, &v22[16]);
+  v12 = *v9;
+  if (*v9)
+  {
+    *(a3 + 128) = v12;
+    operator delete(v12);
+  }
+
+  *(a3 + 120) = v25;
+  *(a3 + 136) = v26;
+  v26 = 0;
+  v25 = 0uLL;
+  if (v24 == 1 && *&v22[16])
+  {
+    *&v22[24] = *&v22[16];
+    operator delete(*&v22[16]);
+  }
+
+  if (v22[8] == 1)
+  {
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned short>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v21[24]);
+  }
+
+  mimosa::v2::AccelSubpacketState::update(a1 + 280, (a2 + 56), v21);
+  v13 = v10 - 3;
+  *v13 = *v21;
+  *(v13 + 8) = *&v21[16];
+  v14 = *v10;
+  if (*v10)
+  {
+    *(a3 + 176) = v14;
+    operator delete(v14);
+  }
+
+  *(a3 + 168) = *&v21[24];
+  *(a3 + 184) = *&v21[40];
+  memset(&v21[24], 0, 24);
+  std::__optional_storage_base<std::variant<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,false>>(v20, v22);
+  if (v23 == 1)
+  {
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v22);
+  }
+
+  if (*&v21[24])
+  {
+    *&v21[32] = *&v21[24];
+    operator delete(*&v21[24]);
+  }
+
+  mimosa::v2::AlgsResponseV4SubpacketState::update(a1 + 544, (a2 + 96), v21);
+  v15 = *v22;
+  v11[2] = *&v21[32];
+  v11[3] = v15;
+  *(v11 + 58) = *&v22[10];
+  v16 = *&v21[16];
+  *v11 = *v21;
+  v11[1] = v16;
+  mimosa::v2::OpticalDecoderV4SubpacketState::update((a1 + 872), a2 + 144, v21);
+  v17 = *&v21[16];
+  *v19 = *v21;
+  v19[1] = v17;
+  mimosa::v2::OpticalScalarsSubpacketState::update(a1 + 1272, (a2 + 168), v21);
+  *(a3 + 344) = *v21;
+  result = *&v21[10];
+  *(a3 + 354) = *&v21[10];
+  return result;
+}
+
+{
+  *(a3 + 24) = 0;
+  v6 = a3 + 24;
+  *(a3 + 48) = 0;
+  v7 = a3 + 48;
+  *(a3 + 80) = 0;
+  *(a3 + 88) = 0;
+  v8 = a3 + 88;
+  *(a3 + 112) = 0;
+  *(a3 + 224) = 0;
+  *(a3 + 296) = 0;
+  *(a3 + 304) = 0;
+  *(a3 + 368) = 0;
+  *(a3 + 370) = 0;
+  *(a3 + 464) = 0;
+  *(a3 + 468) = 0;
+  *(a3 + 470) = 0;
+  *(a3 + 496) = 0;
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = 0;
+  *(a3 + 32) = 0;
+  *(a3 + 120) = 0u;
+  *(a3 + 168) = 0;
+  v10 = (a3 + 168);
+  v9 = a3 + 120;
+  *(a3 + 192) = 0;
+  v24 = a3 + 192;
+  *(a3 + 232) = 0;
+  v11 = (a3 + 232);
+  *(a3 + 312) = 0;
+  v23 = (a3 + 312);
+  *(a3 + 344) = 0;
+  v22 = (a3 + 344);
+  *(a3 + 40) = 0;
+  *(a3 + 146) = 0u;
+  *(a3 + 136) = 0u;
+  *(a3 + 176) = 0;
+  *(a3 + 184) = 0;
+  *(a3 + 240) = 0;
+  *(a3 + 248) = 0;
+  *(a3 + 256) = 0u;
+  *(a3 + 272) = 0u;
+  *(a3 + 288) = 0;
+  *(a3 + 320) = 0;
+  *(a3 + 328) = 0;
+  *(a3 + 352) = 0;
+  *(a3 + 336) = 0;
+  *(a3 + 360) = 0;
+  *(a3 + 380) = 0;
+  *(a3 + 372) = 0;
+  *(a3 + 386) = 0;
+  *(a3 + 448) = 0;
+  *(a3 + 432) = 0u;
+  *(a3 + 416) = 0u;
+  *(a3 + 400) = 0u;
+  *(a3 + 488) = 0;
+  *(a3 + 472) = 0;
+  *(a3 + 480) = 0;
+  mimosa::v2::ContainerHeaderState::update(a1, a2, v25);
+  *a3 = *v25;
+  *(a3 + 16) = *&v25[16];
+  mimosa::v2::OpticalSamplesV2SubpacketState::update(v25, a1 + 144, (a2 + 16), a2[160], a2[161]);
+  *v6 = *v25;
+  *(v6 + 16) = *&v25[16];
+  std::__optional_storage_base<std::variant<std::vector<unsigned short>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<unsigned short>,unsigned char>,false>>(v7, &v25[24]);
+  std::__optional_storage_base<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>,false>>(v8, &v26[16]);
+  v12 = *v9;
+  if (*v9)
+  {
+    *(a3 + 128) = v12;
+    operator delete(v12);
+  }
+
+  *(a3 + 120) = v28;
+  *(a3 + 136) = v29;
+  v29 = 0;
+  v28 = 0uLL;
+  if (BYTE8(v27) == 1 && *&v26[16])
+  {
+    *&v26[24] = *&v26[16];
+    operator delete(*&v26[16]);
+  }
+
+  if (v26[8] == 1)
+  {
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned short>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v25[24]);
+  }
+
+  mimosa::v2::AccelSubpacketState::update(a1 + 280, (a2 + 56), v25);
+  *(v9 + 24) = *v25;
+  *(v9 + 40) = *&v25[16];
+  v13 = *v10;
+  if (*v10)
+  {
+    *(a3 + 176) = v13;
+    operator delete(v13);
+  }
+
+  *(a3 + 168) = *&v25[24];
+  *(a3 + 184) = *&v25[40];
+  memset(&v25[24], 0, 24);
+  std::__optional_storage_base<std::variant<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,false>>(v24, v26);
+  if (v27 == 1)
+  {
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v26);
+  }
+
+  if (*&v25[24])
+  {
+    *&v25[32] = *&v25[24];
+    operator delete(*&v25[24]);
+  }
+
+  mimosa::v2::AlgsResponseV4SubpacketState::update(a1 + 544, (a2 + 96), v25);
+  v14 = *v26;
+  v11[2] = *&v25[32];
+  v11[3] = v14;
+  *(v11 + 58) = *&v26[10];
+  v15 = *&v25[16];
+  *v11 = *v25;
+  v11[1] = v15;
+  mimosa::v2::OpticalDecoderV4SubpacketState::update((a1 + 872), a2 + 144, v25);
+  v16 = *&v25[16];
+  *v23 = *v25;
+  v23[1] = v16;
+  mimosa::v2::TemperatureSubpacketState::update(a1 + 920, (a2 + 168), v25);
+  v17 = *&v25[16];
+  *v22 = *v25;
+  v22[1] = v17;
+  mimosa::v2::WavelengthV2SubpacketState::update(a1 + 968, (a2 + 192), v25);
+  v18 = *v26;
+  *(v9 + 288) = *&v25[32];
+  *(v9 + 304) = v18;
+  v19 = v27;
+  *(v9 + 320) = *&v26[16];
+  *(v9 + 336) = v19;
+  v20 = *&v25[16];
+  *(v9 + 256) = *v25;
+  *(v9 + 272) = v20;
+  mimosa::v2::OpticalScalarsSubpacketState::update(a1 + 1272, (a2 + 264), v25);
+  *(v9 + 352) = *v25;
+  result = *&v25[10];
+  *(v9 + 362) = *&v25[10];
+  return result;
+}
+
+{
+  *(a3 + 24) = 0;
+  v6 = a3 + 24;
+  *(a3 + 48) = 0;
+  v7 = a3 + 48;
+  *(a3 + 88) = 0;
+  v8 = a3 + 88;
+  *(a3 + 80) = 0;
+  *(a3 + 112) = 0;
+  *(a3 + 224) = 0;
+  *(a3 + 296) = 0;
+  *(a3 + 304) = 0;
+  *(a3 + 368) = 0;
+  *(a3 + 370) = 0;
+  *(a3 + 496) = 0;
+  *(a3 + 500) = 0;
+  *(a3 + 502) = 0;
+  *(a3 + 528) = 0;
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = 0;
+  *(a3 + 32) = 0;
+  *(a3 + 40) = 0;
+  *(a3 + 120) = 0u;
+  *(a3 + 168) = 0;
+  v10 = (a3 + 168);
+  v9 = a3 + 120;
+  *(a3 + 192) = 0;
+  v25 = a3 + 192;
+  *(a3 + 232) = 0;
+  v11 = (a3 + 232);
+  *(a3 + 312) = 0;
+  v24 = (a3 + 312);
+  *(a3 + 344) = 0;
+  v23 = (a3 + 344);
+  *(a3 + 146) = 0u;
+  *(a3 + 136) = 0u;
+  *(a3 + 176) = 0;
+  *(a3 + 184) = 0;
+  *(a3 + 240) = 0;
+  *(a3 + 248) = 0;
+  *(a3 + 256) = 0u;
+  *(a3 + 272) = 0u;
+  *(a3 + 288) = 0;
+  *(a3 + 320) = 0;
+  *(a3 + 328) = 0;
+  *(a3 + 352) = 0;
+  *(a3 + 336) = 0;
+  *(a3 + 360) = 0;
+  *(a3 + 380) = 0;
+  *(a3 + 372) = 0;
+  *(a3 + 386) = 0;
+  *(a3 + 457) = 0u;
+  *(a3 + 448) = 0u;
+  *(a3 + 432) = 0u;
+  *(a3 + 416) = 0u;
+  *(a3 + 400) = 0u;
+  *(a3 + 520) = 0;
+  *(a3 + 504) = 0;
+  *(a3 + 512) = 0;
+  mimosa::v2::ContainerHeaderState::update(a1, a2, v26);
+  *a3 = *v26;
+  *(a3 + 16) = *&v26[16];
+  mimosa::v2::OpticalSamplesV2SubpacketState::update(v26, a1 + 144, (a2 + 16), a2[160], a2[161]);
+  *v6 = *v26;
+  *(v6 + 16) = *&v26[16];
+  std::__optional_storage_base<std::variant<std::vector<unsigned short>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<unsigned short>,unsigned char>,false>>(v7, &v26[24]);
+  std::__optional_storage_base<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>,false>>(v8, &v27[16]);
+  v12 = *v9;
+  if (*v9)
+  {
+    *(a3 + 128) = v12;
+    operator delete(v12);
+  }
+
+  *(a3 + 120) = v29;
+  *(a3 + 136) = v30;
+  *&v30 = 0;
+  v29 = 0uLL;
+  if (BYTE8(v28) == 1 && *&v27[16])
+  {
+    *&v27[24] = *&v27[16];
+    operator delete(*&v27[16]);
+  }
+
+  if (v27[8] == 1)
+  {
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned short>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v26[24]);
+  }
+
+  mimosa::v2::AccelSubpacketState::update(a1 + 280, (a2 + 56), v26);
+  *(v9 + 24) = *v26;
+  *(v9 + 40) = *&v26[16];
+  v13 = *v10;
+  if (*v10)
+  {
+    *(a3 + 176) = v13;
+    operator delete(v13);
+  }
+
+  *(a3 + 168) = *&v26[24];
+  *(a3 + 184) = *&v26[40];
+  memset(&v26[24], 0, 24);
+  std::__optional_storage_base<std::variant<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,false>>(v25, v27);
+  if (v28 == 1)
+  {
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v27);
+  }
+
+  if (*&v26[24])
+  {
+    *&v26[32] = *&v26[24];
+    operator delete(*&v26[24]);
+  }
+
+  mimosa::v2::AlgsResponseV4SubpacketState::update(a1 + 544, (a2 + 96), v26);
+  v14 = *v27;
+  v11[2] = *&v26[32];
+  v11[3] = v14;
+  *(v11 + 58) = *&v27[10];
+  v15 = *&v26[16];
+  *v11 = *v26;
+  v11[1] = v15;
+  mimosa::v2::OpticalDecoderV4SubpacketState::update((a1 + 872), a2 + 144, v26);
+  v16 = *&v26[16];
+  *v24 = *v26;
+  v24[1] = v16;
+  mimosa::v2::TemperatureSubpacketState::update(a1 + 920, (a2 + 168), v26);
+  v17 = *&v26[16];
+  *v23 = *v26;
+  v23[1] = v17;
+  mimosa::v2::WavelengthV3SubpacketState::update(a1 + 1120, (a2 + 192), v26);
+  v18 = v28;
+  *(v9 + 320) = *&v27[16];
+  *(v9 + 336) = v18;
+  v19 = v30;
+  *(v9 + 352) = v29;
+  *(v9 + 368) = v19;
+  v20 = *&v26[16];
+  *(v9 + 256) = *v26;
+  *(v9 + 272) = v20;
+  v21 = *v27;
+  *(v9 + 288) = *&v26[32];
+  *(v9 + 304) = v21;
+  mimosa::v2::OpticalScalarsSubpacketState::update(a1 + 1272, (a2 + 288), v26);
+  *(v9 + 384) = *v26;
+  result = *&v26[10];
+  *(v9 + 394) = *&v26[10];
+  return result;
+}
+
+{
+  *(a3 + 24) = 0;
+  v6 = a3 + 24;
+  *(a3 + 48) = 0;
+  v7 = a3 + 48;
+  *(a3 + 88) = 0;
+  v8 = a3 + 88;
+  *(a3 + 80) = 0;
+  *(a3 + 112) = 0;
+  *(a3 + 224) = 0;
+  *(a3 + 296) = 0;
+  *(a3 + 304) = 0;
+  *(a3 + 368) = 0;
+  *(a3 + 370) = 0;
+  *(a3 + 496) = 0;
+  *(a3 + 500) = 0;
+  *(a3 + 502) = 0;
+  *(a3 + 528) = 0;
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = 0;
+  *(a3 + 32) = 0;
+  *(a3 + 40) = 0;
+  *(a3 + 120) = 0u;
+  *(a3 + 168) = 0;
+  v10 = (a3 + 168);
+  v9 = a3 + 120;
+  *(a3 + 192) = 0;
+  v25 = a3 + 192;
+  *(a3 + 232) = 0;
+  v11 = (a3 + 232);
+  *(a3 + 312) = 0;
+  v24 = (a3 + 312);
+  *(a3 + 344) = 0;
+  v23 = (a3 + 344);
+  *(a3 + 146) = 0u;
+  *(a3 + 136) = 0u;
+  *(a3 + 176) = 0;
+  *(a3 + 184) = 0;
+  *(a3 + 240) = 0;
+  *(a3 + 248) = 0;
+  *(a3 + 256) = 0u;
+  *(a3 + 272) = 0u;
+  *(a3 + 288) = 0;
+  *(a3 + 320) = 0;
+  *(a3 + 328) = 0;
+  *(a3 + 352) = 0;
+  *(a3 + 336) = 0;
+  *(a3 + 360) = 0;
+  *(a3 + 380) = 0;
+  *(a3 + 372) = 0;
+  *(a3 + 386) = 0;
+  *(a3 + 457) = 0u;
+  *(a3 + 448) = 0u;
+  *(a3 + 432) = 0u;
+  *(a3 + 416) = 0u;
+  *(a3 + 400) = 0u;
+  *(a3 + 520) = 0;
+  *(a3 + 504) = 0;
+  *(a3 + 512) = 0;
+  mimosa::v2::ContainerHeaderState::update(a1, a2, v26);
+  *a3 = *v26;
+  *(a3 + 16) = *&v26[16];
+  mimosa::v2::OpticalSamplesV2SubpacketState::update(v26, a1 + 144, (a2 + 16), a2[160], a2[161]);
+  *v6 = *v26;
+  *(v6 + 16) = *&v26[16];
+  std::__optional_storage_base<std::variant<std::vector<unsigned short>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<unsigned short>,unsigned char>,false>>(v7, &v26[24]);
+  std::__optional_storage_base<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>,false>>(v8, &v27[16]);
+  v12 = *v9;
+  if (*v9)
+  {
+    *(a3 + 128) = v12;
+    operator delete(v12);
+  }
+
+  *(a3 + 120) = v29;
+  *(a3 + 136) = v30;
+  *&v30 = 0;
+  v29 = 0uLL;
+  if (BYTE8(v28) == 1 && *&v27[16])
+  {
+    *&v27[24] = *&v27[16];
+    operator delete(*&v27[16]);
+  }
+
+  if (v27[8] == 1)
+  {
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned short>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v26[24]);
+  }
+
+  mimosa::v2::AccelSubpacketState::update(a1 + 280, (a2 + 56), v26);
+  *(v9 + 24) = *v26;
+  *(v9 + 40) = *&v26[16];
+  v13 = *v10;
+  if (*v10)
+  {
+    *(a3 + 176) = v13;
+    operator delete(v13);
+  }
+
+  *(a3 + 168) = *&v26[24];
+  *(a3 + 184) = *&v26[40];
+  memset(&v26[24], 0, 24);
+  std::__optional_storage_base<std::variant<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,false>>(v25, v27);
+  if (v28 == 1)
+  {
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>,unsigned char>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v27);
+  }
+
+  if (*&v26[24])
+  {
+    *&v26[32] = *&v26[24];
+    operator delete(*&v26[24]);
+  }
+
+  mimosa::v2::AlgsResponseV4SubpacketState::update(a1 + 544, (a2 + 96), v26);
+  v14 = *v27;
+  v11[2] = *&v26[32];
+  v11[3] = v14;
+  *(v11 + 58) = *&v27[10];
+  v15 = *&v26[16];
+  *v11 = *v26;
+  v11[1] = v15;
+  mimosa::v2::OpticalDecoderV4SubpacketState::update((a1 + 872), a2 + 144, v26);
+  v16 = *&v26[16];
+  *v24 = *v26;
+  v24[1] = v16;
+  mimosa::v2::TemperatureSubpacketState::update(a1 + 920, (a2 + 168), v26);
+  v17 = *&v26[16];
+  *v23 = *v26;
+  v23[1] = v17;
+  mimosa::v2::WavelengthV3SubpacketState::update(a1 + 1120, (a2 + 192), v26);
+  v18 = v28;
+  *(v9 + 320) = *&v27[16];
+  *(v9 + 336) = v18;
+  v19 = v30;
+  *(v9 + 352) = v29;
+  *(v9 + 368) = v19;
+  v20 = *&v26[16];
+  *(v9 + 256) = *v26;
+  *(v9 + 272) = v20;
+  v21 = *v27;
+  *(v9 + 288) = *&v26[32];
+  *(v9 + 304) = v21;
+  mimosa::v2::OpticalScalarsSubpacketState::update(a1 + 1272, (a2 + 288), v26);
+  *(v9 + 384) = *v26;
+  result = *&v26[10];
+  *(v9 + 394) = *&v26[10];
   return result;
 }

@@ -40,18 +40,17 @@
   v4 = *((swift_isaMask & self->super.isa) + 0x70);
   swift_unknownObjectRetain();
   selfCopy = self;
-  v6 = v4(v10);
+  v6 = v4(v9);
   v8 = v7;
   swift_unknownObjectRetain();
   specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
   if (*((*v8 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*v8 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
   {
-    v9 = *((*v8 & 0xFFFFFFFFFFFFFF8) + 0x10);
     specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
   }
 
   specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-  v6(v10, 0);
+  v6(v9, 0);
   swift_unknownObjectRelease();
 }
 

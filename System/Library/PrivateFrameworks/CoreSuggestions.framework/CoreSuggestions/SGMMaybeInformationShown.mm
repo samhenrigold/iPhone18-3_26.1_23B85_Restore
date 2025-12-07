@@ -7,7 +7,7 @@
 
 - (void)trackEventWithScalar:(unint64_t)scalar extracted:(SGMBannerExtractionType_)extracted extractionModelVersion:(unint64_t)version
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   if (extracted.var0 >= 4)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -23,35 +23,32 @@
   }
 
   tracker = self->_tracker;
-  v16[0] = v9;
+  v15[0] = v9;
   v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:version];
-  v16[1] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v15[1] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
   [(PETScalarEventTracker *)tracker trackEventWithPropertyValues:v14 value:scalar];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (SGMMaybeInformationShown)init
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = SGMMaybeInformationShown;
-  v2 = [(SGMMaybeInformationShown *)&v11 init];
+  v11[2] = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = SGMMaybeInformationShown;
+  v2 = [(SGMMaybeInformationShown *)&v10 init];
   if (v2)
   {
     v3 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"Extracted"];
     v4 = [MEMORY[0x1E69C5B40] propertyWithName:@"ExtractionModelVersion" range:0 clampValues:{1000, 1}];
     v5 = objc_alloc(MEMORY[0x1E69C5B58]);
-    v12[0] = v3;
-    v12[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+    v11[0] = v3;
+    v11[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
     v7 = [v5 initWithFeatureId:@"Found" event:@"MaybeShown" registerProperties:v6 propertySubsets:MEMORY[0x1E695E0F0]];
     tracker = v2->_tracker;
     v2->_tracker = v7;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

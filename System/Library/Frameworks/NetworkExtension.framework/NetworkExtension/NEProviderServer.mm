@@ -20,7 +20,7 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   connectionCopy = connection;
   v8 = listenerCopy;
@@ -82,7 +82,7 @@ LABEL_19:
 
   v11 = [v10 alloc];
   v12 = connectionCopy;
-  if (!v11 || (v30.receiver = v11, v30.super_class = NEExtensionProviderContext, (v13 = [(NEProviderServer *)&v30 init]) == 0))
+  if (!v11 || (v29.receiver = v11, v29.super_class = NEExtensionProviderContext, (v13 = [(NEProviderServer *)&v29 init]) == 0))
   {
 
     v26 = ne_log_obj();
@@ -90,16 +90,16 @@ LABEL_19:
     {
       if (v8)
       {
-        v29 = v8[7];
+        v28 = v8[7];
       }
 
       else
       {
-        v29 = 0;
+        v28 = 0;
       }
 
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v29;
+      *(&buf + 4) = v28;
       _os_log_error_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_ERROR, "Failed to instantiate a %@ object", &buf, 0xCu);
     }
 
@@ -116,10 +116,10 @@ LABEL_19:
   [v12 setExportedObject:v13];
   *&buf = MEMORY[0x1E69E9820];
   *(&buf + 1) = 3221225472;
-  v32 = __49__NEExtensionProviderContext_initWithConnection___block_invoke;
-  v33 = &unk_1E7F0B0E8;
+  v31 = __49__NEExtensionProviderContext_initWithConnection___block_invoke;
+  v32 = &unk_1E7F0B0E8;
   v16 = v13;
-  v34 = v16;
+  v33 = v16;
   [v12 setInvalidationHandler:&buf];
   [v12 resume];
   objc_storeStrong(&v16[8].isa, connection);
@@ -142,7 +142,6 @@ LABEL_19:
   v21 = 1;
 LABEL_20:
 
-  v27 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -158,7 +157,7 @@ LABEL_20:
 
 void __25__NEProviderServer_start__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   string = xpc_dictionary_get_string(v3, "extension-point");
   if (string && (v5 = string, *string))
@@ -176,13 +175,11 @@ void __25__NEProviderServer_start__block_invoke(uint64_t a1, void *a2)
     v9 = ne_log_obj();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "com.apple.networkextension.provider.matching";
-      _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "Received a %s event without an extension point", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "com.apple.networkextension.provider.matching";
+      _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "Received a %s event without an extension point", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (NEExtensionProviderContext)firstContext
@@ -197,144 +194,91 @@ void __25__NEProviderServer_start__block_invoke(uint64_t a1, void *a2)
 
 - (void)generateProviderEndpointInfoInMessage:(id)message extensionPoint:(id)point
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   xdict = message;
   pointCopy = point;
   endpoint = pointCopy;
   if (!self)
   {
-    goto LABEL_26;
+    goto LABEL_20;
   }
 
-  if ([pointCopy isEqualToString:@"com.apple.networkextension.filter-data"])
+  if (objc_msgSend_isEqualToString_(pointCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(endpoint) & 1) != 0 || (objc_msgSend_isEqualToString_(endpoint) & 1) != 0 || (objc_msgSend_isEqualToString_(endpoint) & 1) != 0 || (objc_msgSend_isEqualToString_(endpoint) & 1) != 0 || (objc_msgSend_isEqualToString_(endpoint))
   {
-    v8 = off_1E7F047A8;
-  }
-
-  else if ([endpoint isEqualToString:@"com.apple.networkextension.app-proxy"])
-  {
-    v8 = off_1E7F04728;
-  }
-
-  else if ([endpoint isEqualToString:@"com.apple.networkextension.packet-tunnel"])
-  {
-    v8 = off_1E7F04760;
-  }
-
-  else if ([endpoint isEqualToString:@"com.apple.networkextension.dns-proxy"])
-  {
-    v8 = off_1E7F04750;
-  }
-
-  else if ([endpoint isEqualToString:@"com.apple.networkextension.filter-packet"])
-  {
-    v8 = off_1E7F047F0;
-  }
-
-  else
-  {
-    if (([endpoint isEqualToString:@"com.apple.networkextension.app-push"] & 1) == 0)
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    if ([(NSMutableArray *)self->_listeners count]&& (v10 = self->_listeners, v21 = MEMORY[0x1E69E9820], v22 = 3221225472, v23 = __49__NEProviderServer_getListenerForExtensionPoint___block_invoke, v24 = &unk_1E7F0AF70, v11 = v9, v25 = v11, v12 = [(NSMutableArray *)v10 indexOfObjectPassingTest:&v21], v25, v12 != 0x7FFFFFFFFFFFFFFFLL))
     {
-      v13 = ne_log_obj();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-      {
-        LODWORD(v29.receiver) = 138412290;
-        *(&v29.receiver + 4) = endpoint;
-        _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "Failed to create a listener, extension point is not supported: %@", &v29, 0xCu);
-      }
-
-      self = 0;
-      goto LABEL_24;
-    }
-
-    v8 = off_1E7F04738;
-  }
-
-  v9 = *v8;
-  v10 = objc_opt_class();
-  v11 = NSStringFromClass(v10);
-  if (![(NSMutableArray *)self->_listeners count])
-  {
-    goto LABEL_16;
-  }
-
-  listeners = self->_listeners;
-  v24 = MEMORY[0x1E69E9820];
-  v25 = 3221225472;
-  v26 = __49__NEProviderServer_getListenerForExtensionPoint___block_invoke;
-  v27 = &unk_1E7F0AF70;
-  v13 = v11;
-  v28 = v13;
-  v14 = [(NSMutableArray *)listeners indexOfObjectPassingTest:&v24];
-
-  if (v14 != 0x7FFFFFFFFFFFFFFFLL)
-  {
-    self = [(NSMutableArray *)self->_listeners objectAtIndexedSubscript:v14];
-  }
-
-  else
-  {
-LABEL_16:
-    v15 = [NEProviderXPCListener alloc];
-    v13 = v11;
-    if (v15 && (v29.receiver = v15, v29.super_class = NEProviderXPCListener, (v16 = [(NEProviderServer *)&v29 initWithServiceName:&stru_1F3880810]) != 0))
-    {
-      v17 = v16;
-      objc_storeStrong(&v16[2]._listeners, v11);
-
-      [(NEProviderServer *)v17 setDelegate:self];
-      [(NEProviderServer *)v17 resume];
-      v18 = self->_listeners;
-      if (!v18)
-      {
-        v19 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        v20 = self->_listeners;
-        self->_listeners = v19;
-
-        v18 = self->_listeners;
-      }
-
-      [(NSMutableArray *)v18 addObject:v17, xdict, v24, v25, v26, v27];
-      self = v17;
+      self = [(NSMutableArray *)self->_listeners objectAtIndexedSubscript:v12];
     }
 
     else
     {
+      v13 = [NEProviderXPCListener alloc];
+      v11 = v9;
+      if (v13 && (v26.receiver = v13, v26.super_class = NEProviderXPCListener, (v14 = [(NEProviderServer *)&v26 initWithServiceName:&stru_1F3880810]) != 0))
+      {
+        v15 = v14;
+        objc_storeStrong(&v14[2]._listeners, v9);
 
-      self = 0;
+        [(NEProviderServer *)v15 setDelegate:self];
+        [(NEProviderServer *)v15 resume];
+        listeners = self->_listeners;
+        if (!listeners)
+        {
+          v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v18 = self->_listeners;
+          self->_listeners = v17;
+
+          listeners = self->_listeners;
+        }
+
+        [(NSMutableArray *)listeners addObject:v15, xdict, v21, v22, v23, v24];
+        self = v15;
+      }
+
+      else
+      {
+
+        self = 0;
+      }
     }
   }
 
-LABEL_24:
-
-  if (!self)
+  else
   {
-    goto LABEL_27;
+    v11 = ne_log_obj();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(v26.receiver) = 138412290;
+      *(&v26.receiver + 4) = endpoint;
+      _os_log_error_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_ERROR, "Failed to create a listener, extension point is not supported: %@", &v26, 0xCu);
+    }
+
+    self = 0;
   }
 
-  endpoint = [(NEProviderServer *)self endpoint];
-  _endpoint = [endpoint _endpoint];
-  xpc_dictionary_set_value(xdict, "listener-endpoint", _endpoint);
+  if (self)
+  {
+    endpoint = [(NEProviderServer *)self endpoint];
+    _endpoint = [endpoint _endpoint];
+    xpc_dictionary_set_value(xdict, "listener-endpoint", _endpoint);
 
-LABEL_26:
-LABEL_27:
-
-  v22 = *MEMORY[0x1E69E9840];
+LABEL_20:
+  }
 }
 
 uint64_t __49__NEProviderServer_getListenerForExtensionPoint___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(a2 + 56);
+    return objc_msgSend_isEqualToString_(*(a2 + 56));
   }
 
   else
   {
-    v2 = 0;
+    return objc_msgSend_isEqualToString_(0);
   }
-
-  return [v2 isEqualToString:*(a1 + 32)];
 }
 
 + (NEProviderServer)sharedServer

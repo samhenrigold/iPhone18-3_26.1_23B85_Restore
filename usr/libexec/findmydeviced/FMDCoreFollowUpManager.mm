@@ -35,11 +35,11 @@
   {
     if (coverage == 1)
     {
-      v6 = deviceClass - 1;
-      if (deviceClass - 1) < 6 && ((0x2Bu >> v6))
+      v7 = deviceClass - 1;
+      if (deviceClass - 1) < 6 && ((0x2Bu >> v7))
       {
-        v7 = off_1002CF800;
-        return v7[v6];
+        v8 = off_1002CF800;
+        return v8[v7];
       }
     }
 
@@ -54,30 +54,30 @@
     switch(coverage)
     {
       case 3uLL:
-        v6 = deviceClass - 1;
-        if (deviceClass - 1) < 6 && ((0x2Bu >> v6))
+        v7 = deviceClass - 1;
+        if (deviceClass - 1) < 6 && ((0x2Bu >> v7))
         {
-          v7 = off_1002CF860;
-          return v7[v6];
+          v8 = off_1002CF860;
+          return v8[v7];
         }
 
         break;
       case 4uLL:
         return @"Watches";
       case 5uLL:
-        v6 = deviceClass - 1;
-        if (deviceClass - 1) < 6 && ((0x2Bu >> v6))
+        v7 = deviceClass - 1;
+        if (deviceClass - 1) < 6 && ((0x2Bu >> v7))
         {
-          v7 = off_1002CF830;
-          return v7[v6];
+          v8 = off_1002CF830;
+          return v8[v7];
         }
 
         break;
     }
   }
 
-  v9 = sub_100002880();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = sub_100002880(v6);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     sub_10022AAD0();
   }
@@ -123,12 +123,12 @@
 
   else
   {
-    v5 = sub_100002880();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002880(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
-      v7 = @"com.apple.findmy.theftandlosscfu";
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Task %@ ran but there's no record of a last Find My iPhone Sign out", &v6, 0xCu);
+      v7 = 138412290;
+      v8 = @"com.apple.findmy.theftandlosscfu";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Task %@ ran but there's no record of a last Find My iPhone Sign out", &v7, 0xCu);
     }
   }
 }
@@ -151,50 +151,50 @@
 
   if (v4)
   {
-    readFindMySignOutTimeFromFile = sub_100002880();
+    readFindMySignOutTimeFromFile = sub_100002880(v5);
     if (os_log_type_enabled(readFindMySignOutTimeFromFile, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = @"com.apple.findmy.theftandlosscfu";
+      v18 = @"com.apple.findmy.theftandlosscfu";
       _os_log_impl(&_mh_execute_header, readFindMySignOutTimeFromFile, OS_LOG_TYPE_DEFAULT, "%@ already submitted", buf, 0xCu);
     }
   }
 
   else
   {
-    v6 = +[FMDSharedConfiguration sharedInstance];
-    readFindMySignOutTimeFromFile = [v6 readFindMySignOutTimeFromFile];
+    v7 = +[FMDSharedConfiguration sharedInstance];
+    readFindMySignOutTimeFromFile = [v7 readFindMySignOutTimeFromFile];
 
     if (readFindMySignOutTimeFromFile)
     {
-      v7 = sub_100002880();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100002880(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v16 = readFindMySignOutTimeFromFile;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Last FMiP signout: %@", buf, 0xCu);
+        v18 = readFindMySignOutTimeFromFile;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Last FMiP signout: %@", buf, 0xCu);
       }
 
-      v8 = +[BGSystemTaskScheduler sharedScheduler];
+      v10 = +[BGSystemTaskScheduler sharedScheduler];
+      v16[0] = _NSConcreteStackBlock;
+      v16[1] = 3221225472;
+      v16[2] = sub_10017AFCC;
+      v16[3] = &unk_1002CF798;
+      v16[4] = self;
+      [v10 registerForTaskWithIdentifier:@"com.apple.findmy.theftandlosscfu" usingQueue:0 launchHandler:v16];
+
+      v11 = +[FMDSharedConfiguration sharedInstance];
+      localeString = [v11 localeString];
+
+      v13 = +[FMDSharedConfigurationManager sharedInstance];
       v14[0] = _NSConcreteStackBlock;
       v14[1] = 3221225472;
-      v14[2] = sub_10017AFCC;
-      v14[3] = &unk_1002CF798;
+      v14[2] = sub_10017B020;
+      v14[3] = &unk_1002CE320;
       v14[4] = self;
-      [v8 registerForTaskWithIdentifier:@"com.apple.findmy.theftandlosscfu" usingQueue:0 launchHandler:v14];
-
-      v9 = +[FMDSharedConfiguration sharedInstance];
-      localeString = [v9 localeString];
-
-      v11 = +[FMDSharedConfigurationManager sharedInstance];
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_10017B020;
-      v12[3] = &unk_1002CE320;
-      v12[4] = self;
       readFindMySignOutTimeFromFile = readFindMySignOutTimeFromFile;
-      v13 = readFindMySignOutTimeFromFile;
-      [v11 downloadSharedConfigurationWithLocale:localeString reply:v12];
+      v15 = readFindMySignOutTimeFromFile;
+      [v13 downloadSharedConfigurationWithLocale:localeString reply:v14];
     }
   }
 }
@@ -206,58 +206,58 @@
 
   if (readFindMySignOutTimeFromFile)
   {
-    v5 = sub_100002880();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002880(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v30 = readFindMySignOutTimeFromFile;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "User signed out of FMIP %@", buf, 0xCu);
+      v33 = readFindMySignOutTimeFromFile;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "User signed out of FMIP %@", buf, 0xCu);
     }
 
-    v6 = +[BGSystemTaskScheduler sharedScheduler];
-    v28[0] = _NSConcreteStackBlock;
-    v28[1] = 3221225472;
-    v28[2] = sub_10017B300;
-    v28[3] = &unk_1002CF798;
-    v28[4] = self;
-    v7 = [v6 registerForTaskWithIdentifier:@"com.apple.findmy.theftandlosscfu.firstunlock" usingQueue:0 launchHandler:v28];
+    v7 = +[BGSystemTaskScheduler sharedScheduler];
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_10017B300;
+    v31[3] = &unk_1002CF798;
+    v31[4] = self;
+    v8 = [v7 registerForTaskWithIdentifier:@"com.apple.findmy.theftandlosscfu.firstunlock" usingQueue:0 launchHandler:v31];
 
-    if (v7)
+    if (v8)
     {
-      v8 = [[BGNonRepeatingSystemTaskRequest alloc] initWithIdentifier:@"com.apple.findmy.theftandlosscfu.firstunlock"];
-      [v8 setRequiresNetworkConnectivity:1];
-      [v8 setRequiresExternalPower:0];
-      [v8 setScheduleAfter:0.0];
-      [v8 setPriority:2];
-      [v8 setRequiresProtectionClass:4];
-      v9 = +[BGSystemTaskScheduler sharedScheduler];
-      v27 = 0;
-      v10 = [v9 submitTaskRequest:v8 error:&v27];
+      v10 = [[BGNonRepeatingSystemTaskRequest alloc] initWithIdentifier:@"com.apple.findmy.theftandlosscfu.firstunlock"];
+      [v10 setRequiresNetworkConnectivity:1];
+      [v10 setRequiresExternalPower:0];
+      [v10 setScheduleAfter:0.0];
+      [v10 setPriority:2];
+      [v10 setRequiresProtectionClass:4];
+      v11 = +[BGSystemTaskScheduler sharedScheduler];
+      v30 = 0;
+      v12 = [v11 submitTaskRequest:v10 error:&v30];
 
-      v11 = sub_100002880();
-      v12 = v11;
-      if (v10)
+      v14 = sub_100002880(v13);
+      v15 = v14;
+      if (v12)
       {
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v30 = @"com.apple.findmy.theftandlosscfu.firstunlock";
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Submitted task %@ to run after first unlock", buf, 0xCu);
+          v33 = @"com.apple.findmy.theftandlosscfu.firstunlock";
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Submitted task %@ to run after first unlock", buf, 0xCu);
         }
       }
 
-      else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        sub_10022AD9C(v12, v20, v21, v22, v23, v24, v25, v26);
+        sub_10022AD9C(v15, v23, v24, v25, v26, v27, v28, v29);
       }
     }
 
     else
     {
-      v8 = sub_100002880();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = sub_100002880(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        sub_10022AD24(v8, v13, v14, v15, v16, v17, v18, v19);
+        sub_10022AD24(v10, v16, v17, v18, v19, v20, v21, v22);
       }
     }
   }
@@ -269,13 +269,13 @@
   {
     if (u == 1)
     {
-      v9 = +[FMDSharedConfigurationManager sharedInstance];
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_10017B56C;
-      v12[3] = &unk_1002CF7C0;
-      v12[4] = self;
-      [v9 getTheftAndLossCoverageWithSerialNumber:0 completion:v12];
+      v10 = +[FMDSharedConfigurationManager sharedInstance];
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_10017B56C;
+      v13[3] = &unk_1002CF7C0;
+      v13[4] = self;
+      [v10 getTheftAndLossCoverageWithSerialNumber:0 completion:v13];
 
       return;
     }
@@ -291,11 +291,11 @@ LABEL_10:
 
     if (unlockState == 1)
     {
-      v7 = sub_100002880();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_100002880(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v11 = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Before first unlock. Submit reminder TnL task.", v11, 2u);
+        *v12 = 0;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Before first unlock. Submit reminder TnL task.", v12, 2u);
       }
 
       [(FMDCoreFollowUpManager *)self registerAndSubmitBGSTForFirstUnlock];
@@ -314,8 +314,8 @@ LABEL_10:
     if (u != 4)
     {
 LABEL_14:
-      v8 = sub_100002880();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = sub_100002880(self);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_10022AE14();
       }
@@ -323,21 +323,21 @@ LABEL_14:
       return;
     }
 
-    v4 = sub_100002880();
+    v4 = sub_100002880(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "First unlock. Register for TnL CFU.", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "First unlock. Register for TnL CFU.", v12, 2u);
     }
 
     goto LABEL_10;
   }
 
-  v10 = sub_100002880();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100002880(self);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "User signed out, clearing CFU", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "User signed out, clearing CFU", v12, 2u);
   }
 
   [(FMDCoreFollowUpManager *)self clearTheftAndLossCFU];

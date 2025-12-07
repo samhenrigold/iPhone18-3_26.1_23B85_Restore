@@ -49,25 +49,25 @@
   tracksCopy = tracks;
   objc_storeStrong(&self->_mediaLibraryTracks, tracks);
   v6 = objc_opt_new();
-  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
   v7 = self->_mediaLibraryTracks;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v36 objects:v52 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v37 objects:v53 count:16];
   if (v8)
   {
-    v9 = *v37;
+    v9 = *v38;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v37 != v9)
+        if (*v38 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v36 + 1) + 8 * i);
+        v11 = *(*(&v37 + 1) + 8 * i);
         chapters = [v11 chapters];
         [v6 addObjectsFromArray:chapters];
 
@@ -75,7 +75,7 @@
         self->_duration = v13 + self->_duration;
       }
 
-      v8 = [(NSArray *)v7 countByEnumeratingWithState:&v36 objects:v52 count:16];
+      v8 = [(NSArray *)v7 countByEnumeratingWithState:&v37 objects:v53 count:16];
     }
 
     while (v8);
@@ -97,38 +97,38 @@
 
   objc_initWeak(&location, self);
   firstObject = [tracksCopy firstObject];
-  v30 = _NSConcreteStackBlock;
-  v31 = 3221225472;
-  v32 = sub_DA48;
-  v33 = &unk_3CF20;
-  objc_copyWeak(&v34, &location);
-  [firstObject lookupRacGUIDWithCompletion:&v30];
+  v31 = _NSConcreteStackBlock;
+  v32 = 3221225472;
+  v33 = sub_DA48;
+  v34 = &unk_3CF20;
+  objc_copyWeak(&v35, &location);
+  [firstObject lookupRacGUIDWithCompletion:&v31];
 
-  v23 = BKAudiobooksLog();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v24 = BKAudiobooksLog(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     duration = self->_duration;
-    v25 = [(NSArray *)self->_mediaLibraryTracks count:v30];
-    v26 = [(NSArray *)self->_mediaLibraryChapters count];
-    v27 = [(NSArray *)self->_supplementalContents count];
-    v28 = self->_title;
-    v29 = self->_author;
+    v26 = [(NSArray *)self->_mediaLibraryTracks count:v31];
+    v27 = [(NSArray *)self->_mediaLibraryChapters count];
+    v28 = [(NSArray *)self->_supplementalContents count];
+    v29 = self->_title;
+    v30 = self->_author;
     *buf = 134219266;
-    v41 = duration;
-    v42 = 2048;
-    v43 = v25;
-    v44 = 2048;
-    v45 = v26;
-    v46 = 2048;
-    v47 = v27;
-    v48 = 2112;
-    v49 = v28;
-    v50 = 2112;
-    v51 = v29;
-    _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Setup audiobook with duration:%.2f tracks:%ld chapters:%ld supplemental content count:%lu title:'%@' author:'%@'", buf, 0x3Eu);
+    v42 = duration;
+    v43 = 2048;
+    v44 = v26;
+    v45 = 2048;
+    v46 = v27;
+    v47 = 2048;
+    v48 = v28;
+    v49 = 2112;
+    v50 = v29;
+    v51 = 2112;
+    v52 = v30;
+    _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "Setup audiobook with duration:%.2f tracks:%ld chapters:%ld supplemental content count:%lu title:'%@' author:'%@'", buf, 0x3Eu);
   }
 
-  objc_destroyWeak(&v34);
+  objc_destroyWeak(&v35);
   objc_destroyWeak(&location);
 }
 
@@ -136,54 +136,55 @@
 {
   completionCopy = completion;
   representativeItem = [(BKMLAudiobook *)self representativeItem];
+  v6 = representativeItem;
   if (representativeItem)
   {
     if (self->_coverArt)
     {
-      v6 = objc_retainBlock(completionCopy);
-      v7 = v6;
-      if (v6)
+      v7 = objc_retainBlock(completionCopy);
+      v8 = v7;
+      if (v7)
       {
-        (*(v6 + 2))(v6, self->_coverArt);
+        (*(v7 + 2))(v7, self->_coverArt);
       }
     }
 
     else
     {
-      v11 = BKAudiobooksLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = BKAudiobooksLog(representativeItem);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Lazy loading artwork into memory.", buf, 2u);
+        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Lazy loading artwork into memory.", buf, 2u);
       }
 
       objc_initWeak(buf, self);
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_DCEC;
-      v12[3] = &unk_3CF48;
-      objc_copyWeak(&v14, buf);
-      v13 = completionCopy;
-      [representativeItem bk_artworkImageWithCompletion:v12];
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_DCEC;
+      v13[3] = &unk_3CF48;
+      objc_copyWeak(&v15, buf);
+      v14 = completionCopy;
+      [v6 bk_artworkImageWithCompletion:v13];
 
-      objc_destroyWeak(&v14);
+      objc_destroyWeak(&v15);
       objc_destroyWeak(buf);
     }
   }
 
   else
   {
-    v8 = BKAudiobooksLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = BKAudiobooksLog(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_21524(v8);
+      sub_21524(v9);
     }
 
-    v9 = objc_retainBlock(completionCopy);
-    v10 = v9;
-    if (v9)
+    v10 = objc_retainBlock(completionCopy);
+    v11 = v10;
+    if (v10)
     {
-      (*(v9 + 2))(v9, 0);
+      (*(v10 + 2))(v10, 0);
     }
   }
 }
@@ -213,12 +214,12 @@
   [firstObject bookmarkTime];
   v4 = v3;
 
-  v5 = BKAudiobooksLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = BKAudiobooksLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = v4;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Fetched media library bookmark time of %.2f.", &v7, 0xCu);
+    v8 = 134217984;
+    v9 = v4;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Fetched media library bookmark time of %.2f.", &v8, 0xCu);
   }
 
   return v4;
@@ -226,14 +227,15 @@
 
 - (void)setBookmarkTime:(double)time
 {
-  if ([(NSArray *)self->_mediaLibraryTracks count])
+  v5 = [(NSArray *)self->_mediaLibraryTracks count];
+  if (v5)
   {
-    v5 = BKAudiobooksLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = BKAudiobooksLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 134217984;
+      v8 = 134217984;
       timeCopy = time;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Saving media library bookmark time to be %.2f.", &v7, 0xCu);
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Saving media library bookmark time to be %.2f.", &v8, 0xCu);
     }
 
     firstObject = [(NSArray *)self->_mediaLibraryTracks firstObject];
@@ -248,12 +250,12 @@
   v3 = [representativeItem objectForKeyedSubscript:MPMediaItemPropertyLastPlayedDate];
   v4 = BUDynamicCast();
 
-  v5 = BKAudiobooksLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = BKAudiobooksLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Fetched media library last opened date of %@.", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = v4;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Fetched media library last opened date of %@.", &v8, 0xCu);
   }
 
   return v4;

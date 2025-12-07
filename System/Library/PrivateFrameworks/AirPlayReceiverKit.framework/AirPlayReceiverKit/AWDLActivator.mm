@@ -97,10 +97,10 @@ void __38__AWDLActivator_startWithMaxDuration___block_invoke(uint64_t a1)
   if (*(v2 + 8))
   {
 LABEL_8:
-    v3 = *(v2 + 24);
-    v4 = dispatch_time(0, 1000000000 * *(a1 + 40));
+    v5 = *(v2 + 24);
+    v6 = dispatch_time(0, 1000000000 * *(a1 + 40));
 
-    dispatch_source_set_timer(v3, v4, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
+    dispatch_source_set_timer(v5, v6, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
     return;
   }
 
@@ -109,21 +109,25 @@ LABEL_8:
     __38__AWDLActivator_startWithMaxDuration___block_invoke_cold_1();
   }
 
-  if (BonjourBrowser_Create())
+  v3 = BonjourBrowser_Create();
+  if (v3)
   {
-    __38__AWDLActivator_startWithMaxDuration___block_invoke_cold_2();
+    v7 = v3;
+    __38__AWDLActivator_startWithMaxDuration___block_invoke_cold_2(v3);
   }
 
   else
   {
-    if (!BonjourBrowser_Start())
+    v4 = BonjourBrowser_Start();
+    if (!v4)
     {
       usleep(0x186A0u);
       v2 = *(a1 + 32);
       goto LABEL_8;
     }
 
-    __38__AWDLActivator_startWithMaxDuration___block_invoke_cold_3();
+    v7 = v4;
+    __38__AWDLActivator_startWithMaxDuration___block_invoke_cold_3(v4);
   }
 
   if (*(*(a1 + 32) + 8))
@@ -135,7 +139,7 @@ LABEL_8:
 
   if (gLogCategory_AirPlayReceiverKit <= 90 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
   {
-    __38__AWDLActivator_startWithMaxDuration___block_invoke_cold_4();
+    __38__AWDLActivator_startWithMaxDuration___block_invoke_cold_4(v7, v8, v9);
   }
 }
 

@@ -4,12 +4,12 @@
 - (NTKSnowglobeState)snowglobeState;
 - (SCNRenderer)renderer;
 - (double)_tritiumOriginAdjustmentForDigit:(uint64_t)digit;
-- (double)_tritiumRotationForDigit:(uint64_t)digit;
 - (double)backgroundObjectOpacity;
 - (id)_charactersFromFormatter:(id)formatter;
 - (id)_queue_backgroundObjectColorsFromColors:(id)colors;
 - (id)_queue_backgroundObjectPositions;
 - (uint64_t)_restingOriginForDigit:(uint64_t)digit node:(unint64_t)node;
+- (uint64_t)_tritiumRotationForDigit:(uint64_t)digit;
 - (void)_queue_animatedReplaceDigit:(unint64_t)digit withCharacter:(unint64_t)character;
 - (void)_queue_animatedReplaceDigit:(unint64_t)digit withCharacter:(unint64_t)character force:(BOOL)force;
 - (void)_queue_applyBackgroundContents;
@@ -39,6 +39,7 @@
 - (void)renderer:(id)renderer updateAtTime:(double)time;
 - (void)setBackgroundObjectOpacity:(double)opacity;
 - (void)setColorPalette:(id)palette;
+- (void)setIdealizedState:(BOOL)state editing:(BOOL)editing;
 - (void)setOverrideDate:(id)date duration:(double)duration;
 - (void)setSnowglobeState:(id)state;
 - (void)setTritiumState:(unint64_t)state fraction:(double)fraction;
@@ -216,6 +217,16 @@
   return v3;
 }
 
+- (void)setIdealizedState:(BOOL)state editing:(BOOL)editing
+{
+  editingCopy = editing;
+  stateCopy = state;
+  dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
+  snowglobeState = [(NTKSnowglobeSceneController *)self snowglobeState];
+  v7 = [snowglobeState withIdealizedState:stateCopy editing:editingCopy];
+  [(NTKSnowglobeSceneController *)self setSnowglobeState:v7];
+}
+
 - (void)setTritiumState:(unint64_t)state fraction:(double)fraction
 {
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
@@ -257,7 +268,7 @@
 
 - (void)_queue_applyState
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_renderQueue);
   snowglobeState = [(NTKSnowglobeSceneController *)self snowglobeState];
   appliedSnowglobeState = [(NTKSnowglobeSceneController *)self appliedSnowglobeState];
@@ -342,12 +353,12 @@ LABEL_23:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109888;
-        v38 = v19;
-        v39 = 1024;
+        v37 = v19;
+        v38 = 1024;
         idealizedState = [snowglobeState idealizedState];
-        v41 = 1024;
+        v40 = 1024;
         editing = [snowglobeState editing];
-        v43 = 2048;
+        v42 = 2048;
         tritiumState2 = [snowglobeState tritiumState];
         _os_log_impl(&dword_23C07F000, v24, OS_LOG_TYPE_DEFAULT, "Apply state (changes=%X, idealized=%i, editing=%i, tritium=%lu)", buf, 0x1Eu);
       }
@@ -360,29 +371,29 @@ LABEL_23:
       if ((v19 & 2) != 0)
       {
         scenePaused2 = [snowglobeState scenePaused];
+        v31 = 0u;
         v32 = 0u;
         v33 = 0u;
         v34 = 0u;
-        v35 = 0u;
         allValues = [(NSMutableDictionary *)self->_digitControllers allValues];
-        v27 = [allValues countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v27 = [allValues countByEnumeratingWithState:&v31 objects:v35 count:16];
         if (v27)
         {
           v28 = v27;
-          v29 = *v33;
+          v29 = *v32;
           do
           {
             for (i = 0; i != v28; ++i)
             {
-              if (*v33 != v29)
+              if (*v32 != v29)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              [*(*(&v32 + 1) + 8 * i) setPausePhysics:scenePaused2];
+              [*(*(&v31 + 1) + 8 * i) setPausePhysics:scenePaused2];
             }
 
-            v28 = [allValues countByEnumeratingWithState:&v32 objects:v36 count:16];
+            v28 = [allValues countByEnumeratingWithState:&v31 objects:v35 count:16];
           }
 
           while (v28);
@@ -427,7 +438,6 @@ LABEL_23:
   }
 
 LABEL_46:
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_applyBackgroundContents
@@ -477,71 +487,70 @@ LABEL_46:
 
 - (void)_queue_resetToIdealizedState
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_renderQueue);
   *self->_backgroundParallax = 0u;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   allValues = [(NSMutableDictionary *)self->_digitControllers allValues];
-  v4 = [allValues countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       v7 = 0;
       do
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v18 + 1) + 8 * v7++) resetToOrigin];
+        [*(*(&v17 + 1) + 8 * v7++) resetToOrigin];
       }
 
       while (v5 != v7);
-      v5 = [allValues countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v5);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = self->_exitingDigitControllers;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v13 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) destroy];
+        [*(*(&v13 + 1) + 8 * v12++) destroy];
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v13 objects:v21 count:16];
     }
 
     while (v10);
   }
 
   [(NSMutableArray *)self->_exitingDigitControllers removeAllObjects];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_applyColorPalette
@@ -629,24 +638,25 @@ LABEL_46:
   v5 = v4;
   v7 = v6;
 
-  v8 = NTKSnowglobeTunableFloat(@"cameraParallaxSensitivity", 0.2);
-  v9 = NTKSnowglobeTunableFloat(@"cameraParallaxMaxAngle", 1.0);
-  *&v10 = v5;
-  *&v11 = v7;
-  v12 = __PAIR64__(v11, v10);
-  v13 = v8;
+  NTKSnowglobeTunableFloat();
+  v9 = v8;
+  NTKSnowglobeTunableFloat();
+  *&v11 = v5;
+  *&v12 = v7;
+  v13 = __PAIR64__(v12, v11);
+  v14 = v9;
   __asm { FMOV            V3.4S, #30.0 }
 
-  v19 = vaddq_f32(vmulq_f32(*self->_backgroundParallax, vdupq_n_s32(0x3F7AE148u)), vdivq_f32(vmulq_n_f32(v12, v13), _Q3));
-  v20 = vmulq_f32(v19, v19);
-  v21 = (v20.f32[2] + vaddv_f32(*v20.f32));
-  if (v9 * v9 < v21)
+  v20 = vaddq_f32(vmulq_f32(*self->_backgroundParallax, vdupq_n_s32(0x3F7AE148u)), vdivq_f32(vmulq_n_f32(v13, v14), _Q3));
+  v21 = vmulq_f32(v20, v20);
+  v22 = (v21.f32[2] + vaddv_f32(*v21.f32));
+  if (v10 * v10 < v22)
   {
-    v22 = v9 / sqrt(v21);
-    v19 = vmulq_n_f32(v19, v22);
+    v23 = v10 / sqrt(v22);
+    v20 = vmulq_n_f32(v20, v23);
   }
 
-  *self->_backgroundParallax = v19;
+  *self->_backgroundParallax = v20;
 
   MEMORY[0x2821F9670](self, sel__queue_updateCameraAngles);
 }
@@ -801,18 +811,20 @@ LABEL_46:
   [camera3 setZNear:1.0];
 
   CameraMode = NTKSnowglobeDebugGetCameraMode();
-  v8 = NTKSnowglobeTunableFloat(@"cameraPivotDepth", -2.5);
+  NTKSnowglobeTunableFloat();
+  v9 = v8;
   if (CameraMode == 1)
   {
-    v16 = NTKSnowglobeTunableFloat(@"cameraFOV", 40.0);
-    *&v17 = NTKSnowglobeTunableFloat3(@"cameraPosition", 0);
-    *v25 = v17;
+    NTKSnowglobeTunableFloat();
+    v19 = v18;
+    NTKSnowglobeTunableFloat3();
+    *v28 = v20;
     camera4 = [(SCNNode *)node camera];
-    [camera4 setFieldOfView:v16];
+    [camera4 setFieldOfView:v19];
 
-    v14 = *v25;
-    LODWORD(v13) = v25[1];
-    LODWORD(v15) = HIDWORD(v25[0]);
+    v16 = *v28;
+    LODWORD(v15) = v28[1];
+    LODWORD(v17) = HIDWORD(v28[0]);
   }
 
   else
@@ -822,37 +834,38 @@ LABEL_46:
       goto LABEL_6;
     }
 
-    v9 = NTKSnowglobeTunableFloat(@"cameraFOV", 40.0);
-    v10 = 4.0 / tan(v9 / 180.0 * 3.14159265 * 0.5);
+    NTKSnowglobeTunableFloat();
+    v11 = v10;
+    v12 = 4.0 / tan(v10 / 180.0 * 3.14159265 * 0.5);
     camera5 = [(SCNNode *)node camera];
-    [camera5 setFieldOfView:v9];
+    [camera5 setFieldOfView:v11];
 
     camera6 = [(SCNNode *)node camera];
     [camera6 setProjectionDirection:1];
 
-    *&v13 = v10 - v8;
-    v14 = 0.0;
-    v15 = 0.0;
+    *&v15 = v12 - v9;
+    v16 = 0.0;
+    v17 = 0.0;
   }
 
-  [(SCNNode *)node setPosition:v14, v15, v13];
+  [(SCNNode *)node setPosition:v16, v17, v15];
 LABEL_6:
   [(SCNNode *)node setName:@"NTKPointOfView"];
   node2 = [MEMORY[0x277CDBAA8] node];
-  *&v20 = v8;
-  [(SCNNode *)node2 setPosition:0.0, 0.0, v20];
+  *&v23 = v9;
+  [(SCNNode *)node2 setPosition:0.0, 0.0, v23];
   cameraNode = self->_cameraNode;
   self->_cameraNode = node;
-  v22 = node;
+  v25 = node;
 
   cameraFocalNode = self->_cameraFocalNode;
   self->_cameraFocalNode = node2;
-  v24 = node2;
+  v27 = node2;
 
-  [(SCNNode *)v24 addChildNode:v22];
+  [(SCNNode *)v27 addChildNode:v25];
   rootNode = [(SCNScene *)self->_scene rootNode];
 
-  [rootNode addChildNode:v24];
+  [rootNode addChildNode:v27];
 }
 
 - (void)_queue_setupPlane
@@ -985,7 +998,7 @@ LABEL_6:
 
 - (void)_queue_replaceDigit:(unint64_t)digit withCharacter:(unint64_t)character
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_renderQueue);
   digitControllers = self->_digitControllers;
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:digit];
@@ -999,7 +1012,7 @@ LABEL_6:
 
     if (digit == character)
     {
-      goto LABEL_8;
+      return;
     }
   }
 
@@ -1012,7 +1025,7 @@ LABEL_6:
   {
     *buf = 134218240;
     digitCopy = digit;
-    v33 = 2048;
+    v32 = 2048;
     characterCopy = character;
     _os_log_impl(&dword_23C07F000, v14, OS_LOG_TYPE_DEFAULT, "Replacing digit at %lu with %lu", buf, 0x16u);
   }
@@ -1026,43 +1039,39 @@ LABEL_6:
   scene = self->_scene;
   group = self->_group;
   renderQueue = self->_renderQueue;
-  v26 = MEMORY[0x277D85DD0];
-  v27 = 3221225472;
-  v28 = sub_23C08A8A0;
-  v29 = &unk_278BAC8E8;
-  objc_copyWeak(v30, buf);
-  v30[1] = digit;
-  v22 = [(NTKSnowglobeDigitController *)v18 initWithDigit:character scene:scene queue:renderQueue group:group configureNode:&v26];
+  v25 = MEMORY[0x277D85DD0];
+  v26 = 3221225472;
+  v27 = sub_23C08A8A0;
+  v28 = &unk_278BAC8E8;
+  objc_copyWeak(v29, buf);
+  v29[1] = digit;
+  v22 = [(NTKSnowglobeDigitController *)v18 initWithDigit:character scene:scene queue:renderQueue group:group configureNode:&v25];
   v23 = self->_digitControllers;
-  v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{digit, v26, v27, v28, v29}];
+  v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{digit, v25, v26, v27, v28}];
   [(NSMutableDictionary *)v23 setObject:v22 forKeyedSubscript:v24];
 
   [v17 destroy];
-  objc_destroyWeak(v30);
+  objc_destroyWeak(v29);
   objc_destroyWeak(buf);
-
-LABEL_8:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
-- (double)_tritiumRotationForDigit:(uint64_t)digit
+- (uint64_t)_tritiumRotationForDigit:(uint64_t)digit
 {
-  result = 0.0;
   if (digit > 1)
   {
     if (digit == 2)
     {
-      v4 = vdupq_n_s32(0x3E715BEFu);
+      v3 = vdupq_n_s32(0x3E715BEFu);
     }
 
     else
     {
       if (digit != 3)
       {
-        return result;
+        return self;
       }
 
-      v4 = xmmword_23C0907B0;
+      v3 = xmmword_23C0907B0;
     }
   }
 
@@ -1070,34 +1079,34 @@ LABEL_8:
   {
     if (digit != 1)
     {
-      return result;
+      return self;
     }
 
-    v4 = xmmword_23C0907C0;
+    v3 = xmmword_23C0907C0;
   }
 
   else
   {
-    v4 = xmmword_23C0907A0;
+    v3 = xmmword_23C0907A0;
   }
 
-  return sub_23C08A994(xmmword_23C0907D0, v4);
+  sub_23C08A994(xmmword_23C0907D0, v3);
+  return self;
 }
 
 - (uint64_t)_restingOriginForDigit:(uint64_t)digit node:(unint64_t)node
 {
   self.n128_u32[0] = -1.5;
-  v5 = qword_23C090810[node < 2];
-  v10 = 0;
   v9 = 0;
+  v8 = 0;
   if (node < 2)
   {
     self.n128_f32[0] = 2.5;
   }
 
-  v8 = 0;
   v7 = 0;
-  return [a5 getBoundingBoxMin:&v9 max:{&v7, *&self}];
+  v6 = 0;
+  return [a5 getBoundingBoxMin:&v8 max:{&v6, *&self}];
 }
 
 - (double)_tritiumOriginAdjustmentForDigit:(uint64_t)digit
@@ -1165,7 +1174,7 @@ LABEL_7:
 - (void)_queue_animatedReplaceDigit:(unint64_t)digit withCharacter:(unint64_t)character force:(BOOL)force
 {
   forceCopy = force;
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_renderQueue);
   digitControllers = self->_digitControllers;
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:digit];
@@ -1179,7 +1188,7 @@ LABEL_7:
 
     if (digit == character && !forceCopy)
     {
-      goto LABEL_20;
+      return;
     }
   }
 
@@ -1192,7 +1201,7 @@ LABEL_7:
   {
     *buf = 134218240;
     digitCopy = digit;
-    v55 = 2048;
+    v54 = 2048;
     characterCopy = character;
     _os_log_impl(&dword_23C07F000, v16, OS_LOG_TYPE_DEFAULT, "Replacing digit with animation at %lu with %lu", buf, 0x16u);
   }
@@ -1211,7 +1220,7 @@ LABEL_7:
     {
       if (digit != 3)
       {
-        goto LABEL_20;
+        return;
       }
 
       v18 = -1.5;
@@ -1229,7 +1238,7 @@ LABEL_7:
     {
       if (digit != 1)
       {
-        goto LABEL_20;
+        return;
       }
 
       v17 = 5.5;
@@ -1272,38 +1281,36 @@ LABEL_7:
   block[2] = sub_23C08B3FC;
   block[3] = &unk_278BAC910;
   v33 = v23;
-  v51 = v33;
-  objc_copyWeak(&v52, buf);
+  v50 = v33;
+  objc_copyWeak(&v51, buf);
   dispatch_after(v31, renderQueue, block);
   v34 = [NTKSnowglobeDigitController alloc];
   scene = self->_scene;
   group = self->_group;
   v36 = self->_renderQueue;
-  v42 = MEMORY[0x277D85DD0];
-  v43 = 3221225472;
-  v44 = sub_23C08B47C;
-  v45 = &unk_278BAC938;
-  objc_copyWeak(v46, buf);
-  v47 = v17;
-  v48 = v18;
-  v49 = 0;
-  v46[1] = digit;
-  v38 = [(NTKSnowglobeDigitController *)v34 initWithDigit:character scene:scene queue:v36 group:group configureNode:&v42];
+  v41 = MEMORY[0x277D85DD0];
+  v42 = 3221225472;
+  v43 = sub_23C08B47C;
+  v44 = &unk_278BAC938;
+  objc_copyWeak(v45, buf);
+  v46 = v17;
+  v47 = v18;
+  v48 = 0;
+  v45[1] = digit;
+  v38 = [(NTKSnowglobeDigitController *)v34 initWithDigit:character scene:scene queue:v36 group:group configureNode:&v41];
   v39 = self->_digitControllers;
-  v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{digit, v42, v43, v44, v45}];
+  v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{digit, v41, v42, v43, v44}];
   [(NSMutableDictionary *)v39 setObject:v38 forKeyedSubscript:v40];
 
-  objc_destroyWeak(v46);
-  objc_destroyWeak(&v52);
+  objc_destroyWeak(v45);
+  objc_destroyWeak(&v51);
 
   objc_destroyWeak(buf);
-LABEL_20:
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queue_backgroundObjectPositions
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_renderQueue);
   v3 = self->_screenSize.height / self->_screenSize.width;
   v4 = objc_opt_new();
@@ -1331,44 +1338,44 @@ LABEL_20:
 
   v7 = objc_opt_new();
   v8 = objc_opt_new();
-  v61[0] = MEMORY[0x277D85DD0];
-  v61[1] = 3221225472;
-  v61[2] = sub_23C08BAD0;
-  v61[3] = &unk_278BAC960;
+  v60[0] = MEMORY[0x277D85DD0];
+  v60[1] = 3221225472;
+  v60[2] = sub_23C08BAD0;
+  v60[3] = &unk_278BAC960;
   v9 = v4;
-  v62 = v9;
-  v63 = 9;
-  v10 = MEMORY[0x23EEC6230](v61);
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = sub_23C08BB14;
-  v55[3] = &unk_278BAC988;
-  v58 = 0x3FBCF68D4FFF04DCLL;
-  v59 = xmmword_23C090840;
-  v60 = v5;
-  v43 = v10;
-  v57 = v43;
+  v61 = v9;
+  v62 = 9;
+  v10 = MEMORY[0x23EEC6230](v60);
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = sub_23C08BB14;
+  v54[3] = &unk_278BAC988;
+  v57 = 0x3FBCF68D4FFF04DCLL;
+  v58 = xmmword_23C090840;
+  v59 = v5;
+  v42 = v10;
+  v56 = v42;
   v11 = v8;
-  v56 = v11;
-  v12 = MEMORY[0x23EEC6230](v55);
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = sub_23C08BC50;
-  v51[3] = &unk_278BAC9B0;
-  v53 = 0x3FBCF68D4FFF04DCLL;
-  v42 = v9;
-  v52 = v42;
-  v54 = 9;
-  v13 = MEMORY[0x23EEC6230](v51);
+  v55 = v11;
+  v12 = MEMORY[0x23EEC6230](v54);
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = sub_23C08BC50;
+  v50[3] = &unk_278BAC9B0;
+  v52 = 0x3FBCF68D4FFF04DCLL;
+  v41 = v9;
+  v51 = v41;
+  v53 = 9;
+  v13 = MEMORY[0x23EEC6230](v50);
   v14 = vcvts_n_f32_u32(arc4random(), 0x20uLL);
   v15 = vcvts_n_f32_u32(arc4random(), 0x20uLL);
-  *v50 = v14;
-  *&v50[1] = v15;
-  v16 = [MEMORY[0x277CCAE60] valueWithBytes:v50 objCType:"{CGPoint=dd}"];
+  *v49 = v14;
+  *&v49[1] = v15;
+  v16 = [MEMORY[0x277CCAE60] valueWithBytes:v49 objCType:"{CGPoint=dd}"];
   [v11 addObject:v16];
 
   [v7 addObject:&unk_284EDC7D8];
-  v44 = v13;
+  v43 = v13;
   (*(v13 + 16))(v13, 0, v14, v15);
   while ([v7 count])
   {
@@ -1411,26 +1418,26 @@ LABEL_26:
     }
 
     v29 = v12[2](v12, v24, v25);
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
     v30 = v29;
-    v31 = [v30 countByEnumeratingWithState:&v46 objects:v64 count:16];
+    v31 = [v30 countByEnumeratingWithState:&v45 objects:v63 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v47;
+      v33 = *v46;
       while (2)
       {
         for (i = 0; i != v32; ++i)
         {
-          if (*v47 != v33)
+          if (*v46 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          [*(*(&v46 + 1) + 8 * i) CGPointValue];
+          [*(*(&v45 + 1) + 8 * i) CGPointValue];
           if ((v36 - v27) * (v36 - v27) + (v35 - v26) * (v35 - v26) < 0.0256)
           {
 
@@ -1438,7 +1445,7 @@ LABEL_26:
           }
         }
 
-        v32 = [v30 countByEnumeratingWithState:&v46 objects:v64 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v45 objects:v63 count:16];
         if (v32)
         {
           continue;
@@ -1448,13 +1455,13 @@ LABEL_26:
       }
     }
 
-    v44[2](v44, [v11 count], v26, v27);
+    v43[2](v43, [v11 count], v26, v27);
     v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v11, "count")}];
     [v7 addObject:v37];
 
-    *v45 = v26;
-    *&v45[1] = v27;
-    v38 = [MEMORY[0x277CCAE60] valueWithBytes:v45 objCType:"{CGPoint=dd}"];
+    *v44 = v26;
+    *&v44[1] = v27;
+    v38 = [MEMORY[0x277CCAE60] valueWithBytes:v44 objCType:"{CGPoint=dd}"];
     [v11 addObject:v38];
 
 LABEL_29:
@@ -1463,13 +1470,12 @@ LABEL_29:
 
   v39 = v11;
 
-  v40 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)_queue_loadBackgroundObjects
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_renderQueue);
   [(SCNNode *)self->_backgroundContainer removeFromParentNode];
   daintyIndex = self->_daintyIndex;
@@ -1486,9 +1492,9 @@ LABEL_29:
   v8 = v7;
 
   [(SCNNode *)self->_cameraFocalNode simdPosition];
-  v58 = v9;
+  v57 = v9;
   [(SCNNode *)self->_cameraNode simdPosition];
-  v54 = v10;
+  v53 = v10;
   v11 = objc_opt_new();
   v12 = CACurrentMediaTime();
   _queue_backgroundObjectPositions = [(NTKSnowglobeSceneController *)self _queue_backgroundObjectPositions];
@@ -1496,20 +1502,20 @@ LABEL_29:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v69 = [_queue_backgroundObjectPositions count];
-    v70 = 2048;
-    v71 = (CACurrentMediaTime() - v12) * 1000.0;
+    v68 = [_queue_backgroundObjectPositions count];
+    v69 = 2048;
+    v70 = (CACurrentMediaTime() - v12) * 1000.0;
     _os_log_impl(&dword_23C07F000, v14, OS_LOG_TYPE_DEFAULT, "fished %lu in %.2fms", buf, 0x16u);
   }
 
-  v52 = objc_opt_new();
+  v51 = objc_opt_new();
   v15 = objc_opt_new();
   if ([_queue_backgroundObjectPositions count])
   {
     v16 = 0;
     v17 = v8 * 3.14159265 / 180.0;
-    v53 = v17;
-    v18 = COERCE_FLOAT(vaddq_f32(v58, v54).i32[2]);
+    v52 = v17;
+    v18 = COERCE_FLOAT(vaddq_f32(v57, v53).i32[2]);
     v19 = vdup_n_s32(0x3F8CCCCDu);
     do
     {
@@ -1518,11 +1524,11 @@ LABEL_29:
 
       v21 = [_queue_backgroundObjectPositions objectAtIndexedSubscript:v16];
       [v21 CGPointValue];
-      v55 = v23;
-      v59 = v22;
+      v54 = v23;
+      v58 = v22;
 
-      v24.f64[0] = v59;
-      v24.f64[1] = v55;
+      v24.f64[0] = v58;
+      v24.f64[1] = v54;
       v25 = vmul_f32(vadd_f32(vcvt_f32_f64(v24), 0xBF000000BF000000), v19);
       v26 = self->_screenSize.height / self->_screenSize.width;
       v27 = fabsf(v25.f32[0]);
@@ -1536,32 +1542,32 @@ LABEL_29:
 
       if (v30 == v28)
       {
-        v60 = v25;
+        v59 = v25;
         v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v16];
-        [v52 addObject:v31];
+        [v51 addObject:v31];
 
-        v25 = v60;
+        v25 = v59;
       }
 
-      v56 = vmul_n_f32(v25, v53);
-      v61 = -(arc4random_uniform(0xFu) + 4) - v18;
-      v32 = __sincosf_stret(v56.f32[1]);
-      v33 = __sincosf_stret(v56.f32[0]);
-      *&v34 = vcvt_f32_f64(vmulq_n_f64(vcvtq_f64_f32(__PAIR64__(LODWORD(v32.__sinval), LODWORD(v33.__sinval))), v61));
-      v35 = v61 * (v33.__cosval * v32.__cosval);
+      v55 = vmul_n_f32(v25, v52);
+      v60 = -(arc4random_uniform(0xFu) + 4) - v18;
+      v32 = __sincosf_stret(v55.f32[1]);
+      v33 = __sincosf_stret(v55.f32[0]);
+      *&v34 = vcvt_f32_f64(vmulq_n_f64(vcvtq_f64_f32(__PAIR64__(LODWORD(v32.__sinval), LODWORD(v33.__sinval))), v60));
+      v35 = v60 * (v33.__cosval * v32.__cosval);
       *(&v34 + 2) = v18 + v35;
-      v57 = v34;
-      v36 = v61 / (v18 + 10.0) * ((arc4random() / 4294967300.0 * 0.5 + 1.0) * -0.7);
+      v56 = v34;
+      v36 = v60 / (v18 + 10.0) * ((arc4random() / 4294967300.0 * 0.5 + 1.0) * -0.7);
       v37 = self->_renderQueue;
-      v64[0] = MEMORY[0x277D85DD0];
-      v64[1] = 3221225472;
-      v64[2] = sub_23C08C2F8;
-      v64[3] = &unk_278BACA00;
-      v66 = v37;
-      v67 = v36;
-      v65 = v57;
+      v63[0] = MEMORY[0x277D85DD0];
+      v63[1] = 3221225472;
+      v63[2] = sub_23C08C2F8;
+      v63[3] = &unk_278BACA00;
+      v65 = v37;
+      v66 = v36;
+      v64 = v56;
       v38 = v37;
-      v39 = [NTKSnowglobePromise promiseWithBlock:v64];
+      v39 = [NTKSnowglobePromise promiseWithBlock:v63];
       [v15 addObject:v39];
       [(NTKSnowglobeSceneController *)self _queue_setupBackgroundObject:v39];
 
@@ -1579,18 +1585,18 @@ LABEL_29:
   backgroundObjects = self->_backgroundObjects;
   self->_backgroundObjects = v42;
 
-  v44 = [v52 copy];
+  v44 = [v51 copy];
   offscreenBackgroundObjectIndices = self->_offscreenBackgroundObjectIndices;
   self->_offscreenBackgroundObjectIndices = v44;
 
   v46 = self->_renderQueue;
-  v62[0] = MEMORY[0x277D85DD0];
-  v62[1] = 3221225472;
-  v62[2] = sub_23C08C45C;
-  v62[3] = &unk_278BACA28;
+  v61[0] = MEMORY[0x277D85DD0];
+  v61[1] = 3221225472;
+  v61[2] = sub_23C08C45C;
+  v61[3] = &unk_278BACA28;
   v47 = v46;
-  v63 = v47;
-  v48 = [NTKSnowglobePromise promiseWithBlock:v62];
+  v62 = v47;
+  v48 = [NTKSnowglobePromise promiseWithBlock:v61];
   daintyPromise = self->_daintyPromise;
   self->_daintyPromise = v48;
 
@@ -1602,8 +1608,6 @@ LABEL_29:
 
   rootNode = [(SCNScene *)self->_scene rootNode];
   [rootNode addChildNode:self->_backgroundContainer];
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_setupBackgroundObject:(id)object
@@ -1704,16 +1708,16 @@ LABEL_29:
 
 - (void)physicsWorld:(id)world didBeginContact:(id)contact
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   worldCopy = world;
   contactCopy = contact;
   dispatch_assert_queue_V2(self->_renderQueue);
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = sub_23C08D0FC;
-  v31[3] = &unk_278BACB08;
-  v31[4] = self;
-  v8 = MEMORY[0x23EEC6230](v31);
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = sub_23C08D0FC;
+  v32[3] = &unk_278BACB08;
+  v32[4] = self;
+  v8 = MEMORY[0x23EEC6230](v32);
   selfCopy = self;
   objc_sync_enter(selfCopy);
   nodeA = [contactCopy nodeA];
@@ -1767,15 +1771,17 @@ LABEL_16:
     if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
       *buf = 134218240;
-      v33 = v23;
-      v34 = 2048;
-      v35 = v25;
+      v34 = v23;
+      v35 = 2048;
+      v36 = v25;
       _os_log_impl(&dword_23C07F000, v26, OS_LOG_TYPE_INFO, "Play haptic %f %f", buf, 0x16u);
     }
 
-    v28 = NTKSnowglobeTunableFloat(@"hapticTimeout", 0.1);
-    v29 = NTKSnowglobeTunableFloat(@"hapticVelocityMin", 2.0);
-    if (CACurrentMediaTime() - selfCopy->_lastHaptic > v28 && v29 < v27)
+    NTKSnowglobeTunableFloat();
+    v29 = v28;
+    NTKSnowglobeTunableFloat();
+    v31 = v30;
+    if (CACurrentMediaTime() - selfCopy->_lastHaptic > v29 && v31 < v27)
     {
       selfCopy->_lastHaptic = CACurrentMediaTime();
     }
@@ -1784,24 +1790,20 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setOverrideDate:(id)date duration:(double)duration
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   [(CLKTimeFormatter *)self->_timeFormatter setOverrideDate:dateCopy];
   v6 = _NTKLoggingObjectForDomain();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = dateCopy;
-    _os_log_impl(&dword_23C07F000, v6, OS_LOG_TYPE_DEFAULT, "Snowglobe override date %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = dateCopy;
+    _os_log_impl(&dword_23C07F000, v6, OS_LOG_TYPE_DEFAULT, "Snowglobe override date %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupTimeFormatter
@@ -1819,7 +1821,7 @@ LABEL_17:
 
 - (id)_charactersFromFormatter:(id)formatter
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   formatterCopy = formatter;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   timeSubstringToSeparatorText = [formatterCopy timeSubstringToSeparatorText];
@@ -1847,16 +1849,14 @@ LABEL_17:
   intValue4 = [v12 intValue];
 
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:intValue2];
-  v21[0] = v14;
+  v20[0] = v14;
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:intValue];
-  v21[1] = v15;
+  v20[1] = v15;
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:intValue3];
-  v21[2] = v16;
+  v20[2] = v16;
   v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:intValue4];
-  v21[3] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v20[3] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
 
   return v18;
 }
@@ -1905,7 +1905,7 @@ LABEL_17:
 {
   y = point.y;
   x = point.x;
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_renderQueue);
   v6 = x + x;
   WeakRetained = objc_loadWeakRetained(&self->_renderer);
@@ -1926,41 +1926,41 @@ LABEL_17:
     if (node)
     {
       v17 = objc_loadWeakRetained(&self->_renderer);
-      v32[1] = v12;
-      v33[0] = MEMORY[0x277CBEC38];
-      v32[0] = v11;
+      v31[1] = v12;
+      v32[0] = MEMORY[0x277CBEC38];
+      v31[0] = v11;
       node2 = [v15 node];
-      v33[1] = node2;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
+      v32[1] = node2;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
       v20 = [v17 hitTest:v19 options:{v6, v9}];
 
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v21 = v20;
-      v22 = [v21 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v28;
+        v24 = *v27;
         do
         {
           v25 = 0;
           do
           {
-            if (*v28 != v24)
+            if (*v27 != v24)
             {
               objc_enumerationMutation(v21);
             }
 
-            [*(*(&v27 + 1) + 8 * v25) localCoordinates];
+            [*(*(&v26 + 1) + 8 * v25) localCoordinates];
             [v15 applyTapAtLocalPosition:?];
             ++v25;
           }
 
           while (v23 != v25);
-          v23 = [v21 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v23 = [v21 countByEnumeratingWithState:&v26 objects:v30 count:16];
         }
 
         while (v23);
@@ -1971,7 +1971,6 @@ LABEL_17:
   }
 
   while (v10 != 4);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_configureLightingWithTritiumFraction:(double)fraction

@@ -494,14 +494,14 @@ LABEL_16:
 LABEL_9:
         v111 = v88;
         v112 = MEMORY[0x277CBF3A8];
-        *v137 = *MEMORY[0x277CBF3A8];
+        v137[0] = *MEMORY[0x277CBF3A8];
         v113 = *(MEMORY[0x277CBF398] + 16);
         v136.origin = *MEMORY[0x277CBF398];
         v136.size = v113;
         memset(&v135, 0, sizeof(v135));
         v114 = objc_msgSend_range(selectionCopy, v89, 0.0, v113.width, v90);
-        objc_msgSend_transformForRenderingLabelForReferenceLine_ofType_range_inLayoutItem_outElementSize_outClipRect_(v46, v115, v116, v117, v118, v57, v67, v114, v115, v111, v137, &v136);
-        if (!CGRectIsNull(v136) && (*v112 != v137[0] || v112[1] != v137[1]))
+        objc_msgSend_transformForRenderingLabelForReferenceLine_ofType_range_inLayoutItem_outElementSize_outClipRect_(v46, v116, v117, v118, v115, v57, v67, v114, v115, v111, v137, &v136);
+        if (!CGRectIsNull(v136) && (*v112 != *v137 || v112[1] != *(v137 + 1)))
         {
           TSURectWithSize();
           v134 = v135;

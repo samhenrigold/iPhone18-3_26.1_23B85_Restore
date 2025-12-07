@@ -32,7 +32,7 @@
 
 - (id)_encodedData
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   data = [MEMORY[0x277CBEB28] data];
   _prefixContentString = [(REHTMLElement *)self->_parent _prefixContentString];
   v5 = [(REHTMLElement *)self _encodeString:_prefixContentString];
@@ -50,30 +50,30 @@
     [data appendData:v7];
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v8 = self->_children;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        encodedData = [*(*(&v19 + 1) + 8 * i) encodedData];
+        encodedData = [*(*(&v18 + 1) + 8 * i) encodedData];
         [data appendData:encodedData];
       }
 
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
@@ -88,8 +88,6 @@
   }
 
   v16 = [data copy];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

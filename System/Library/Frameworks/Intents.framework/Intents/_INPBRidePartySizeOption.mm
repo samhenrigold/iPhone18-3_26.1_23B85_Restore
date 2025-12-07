@@ -196,7 +196,6 @@ LABEL_18:
   v9 = toCopy;
   if (sizeDescription)
   {
-    sizeDescription = self->_sizeDescription;
     PBDataWriterWriteStringField();
     v9 = toCopy;
   }

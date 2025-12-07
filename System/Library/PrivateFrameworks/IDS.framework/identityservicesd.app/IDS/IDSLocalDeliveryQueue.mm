@@ -555,11 +555,11 @@ LABEL_3:
   }
 
   v17 = [dictCopy objectForKey:@"localDeliveryQueueStatsLastDeliveredTime"];
-  [v17 doubleValue];
+  objc_msgSend_doubleValue(v17);
   v19 = v18;
 
   v20 = [aggregateCopy objectForKey:@"localDeliveryQueueStatsLastDeliveredTime"];
-  [v20 doubleValue];
+  objc_msgSend_doubleValue(v20);
   v22 = v21;
 
   if (v19 > v22)

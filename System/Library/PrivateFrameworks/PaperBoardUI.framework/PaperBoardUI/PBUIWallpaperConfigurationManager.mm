@@ -104,67 +104,68 @@
 {
   height = size.height;
   width = size.width;
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   storesCopy = stores;
-  v24.receiver = self;
-  v24.super_class = PBUIWallpaperConfigurationManager;
-  v12 = [(PBUIWallpaperConfigurationManager *)&v24 init];
+  v25.receiver = self;
+  v25.super_class = PBUIWallpaperConfigurationManager;
+  v12 = [(PBUIWallpaperConfigurationManager *)&v25 init];
+  v13 = v12;
   if (v12)
   {
-    v13 = PBUILogCommon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = PBUILogCommon(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v33.width = width;
-      v33.height = height;
-      v19 = NSStringFromCGSize(v33);
-      v20 = v19;
+      v34.width = width;
+      v34.height = height;
+      v20 = NSStringFromCGSize(v34);
+      v21 = v20;
       if (type > 4)
       {
-        v21 = &stru_282FB34B0;
+        v22 = &stru_282FB34B0;
       }
 
       else
       {
-        v21 = *(&off_2783624B8 + type);
+        v22 = *(&off_2783624B8 + type);
       }
 
       *location = 138413058;
       *&location[4] = storesCopy;
-      v26 = 2112;
-      v27 = v19;
-      v28 = 2048;
+      v27 = 2112;
+      v28 = v20;
+      v29 = 2048;
       scaleCopy = scale;
-      v30 = 2112;
-      v31 = v21;
-      _os_log_debug_impl(&dword_21E67D000, v13, OS_LOG_TYPE_DEBUG, "Initialize PBUIWallpaperConfigurationManager with data stores: %@, wallpaper size: %@, scale: %f, size type: %@", location, 0x2Au);
+      v31 = 2112;
+      v32 = v22;
+      _os_log_debug_impl(&dword_21E67D000, v14, OS_LOG_TYPE_DEBUG, "Initialize PBUIWallpaperConfigurationManager with data stores: %@, wallpaper size: %@, scale: %f, size type: %@", location, 0x2Au);
     }
 
-    v14 = [storesCopy copy];
-    dataStores = v12->_dataStores;
-    v12->_dataStores = v14;
+    v15 = [storesCopy copy];
+    dataStores = v13->_dataStores;
+    v13->_dataStores = v15;
 
-    v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    wallpaperImageCache = v12->_wallpaperImageCache;
-    v12->_wallpaperImageCache = v16;
+    v17 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    wallpaperImageCache = v13->_wallpaperImageCache;
+    v13->_wallpaperImageCache = v17;
 
-    v12->_wallpaperSize.width = width;
-    v12->_wallpaperSize.height = height;
-    v12->_wallpaperScale = scale;
-    v12->_wallpaperMode = 0;
-    v12->_wallpaperSizeType = type;
-    v12->_enableWallpaperDimming = 0;
-    objc_initWeak(location, v12);
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __94__PBUIWallpaperConfigurationManager_initWithWallpaperDataStores_wallpaperSize_scale_sizeType___block_invoke;
-    v22[3] = &unk_278362380;
-    objc_copyWeak(&v23, location);
-    v12->_externalNotificationToken = PBUIRegisterForExternalWallpaperChangeNotificationWithHandler(v22);
-    objc_destroyWeak(&v23);
+    v13->_wallpaperSize.width = width;
+    v13->_wallpaperSize.height = height;
+    v13->_wallpaperScale = scale;
+    v13->_wallpaperMode = 0;
+    v13->_wallpaperSizeType = type;
+    v13->_enableWallpaperDimming = 0;
+    objc_initWeak(location, v13);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __94__PBUIWallpaperConfigurationManager_initWithWallpaperDataStores_wallpaperSize_scale_sizeType___block_invoke;
+    v23[3] = &unk_278362380;
+    objc_copyWeak(&v24, location);
+    v13->_externalNotificationToken = PBUIRegisterForExternalWallpaperChangeNotificationWithHandler(v23);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(location);
   }
 
-  return v12;
+  return v13;
 }
 
 void __94__PBUIWallpaperConfigurationManager_initWithWallpaperDataStores_wallpaperSize_scale_sizeType___block_invoke(uint64_t a1, uint64_t a2, char a3)
@@ -291,14 +292,14 @@ LABEL_6:
 
 - (id)wallpaperConfigurationForVariant:(int64_t)variant includingValuesForTypes:(unint64_t)types wallpaperMode:(int64_t)mode
 {
-  v89 = *MEMORY[0x277D85DE8];
-  v8 = PBUILogCommon();
+  v93 = *MEMORY[0x277D85DE8];
+  v8 = PBUILogCommon(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [PBUIWallpaperConfigurationManager wallpaperConfigurationForVariant:variant includingValuesForTypes:types wallpaperMode:v8];
   }
 
-  v72 = [(PBUIWallpaperConfigurationManager *)self isVideoSupportedForVariant:variant];
+  v76 = [(PBUIWallpaperConfigurationManager *)self isVideoSupportedForVariant:variant];
   if (variant == 1)
   {
     v9 = 0;
@@ -319,88 +320,88 @@ LABEL_6:
     LOBYTE(v10) = 1;
   }
 
-  v66 = v10;
+  v70 = v10;
   modeCopy = mode;
   selfCopy = self;
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
-  v79 = 0u;
+  v84 = 0u;
+  v85 = 0u;
+  v82 = 0u;
+  v83 = 0u;
   obj = [(PBUIWallpaperConfigurationManager *)self dataStores];
-  v11 = [obj countByEnumeratingWithState:&v78 objects:v88 count:16];
+  v11 = [obj countByEnumeratingWithState:&v82 objects:v92 count:16];
   if (!v11)
   {
-    LOBYTE(v67) = 0;
+    LOBYTE(v71) = 0;
     LOBYTE(v9) = 0;
-    v41 = 0;
+    v42 = 0;
     v14 = 0;
     v21 = 0;
-    v74 = 0;
+    v78 = 0;
     v15 = 0;
-    v70 = 0;
-    v42 = 0;
+    v74 = 0;
+    v43 = 0;
     variantCopy2 = -1;
     goto LABEL_68;
   }
 
   v13 = v11;
-  v65 = v9;
-  v67 = 0;
+  v69 = v9;
+  v71 = 0;
   LOBYTE(v9) = 0;
   v14 = 0;
   v15 = 0;
-  v70 = 0;
-  v73 = *v79;
   v74 = 0;
+  v77 = *v83;
+  v78 = 0;
   variantCopy2 = -1;
   *&v12 = 138543618;
-  v64 = v12;
+  v68 = v12;
   do
   {
     v16 = 0;
     do
     {
       v17 = v14;
-      if (*v79 != v73)
+      if (*v83 != v77)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v78 + 1) + 8 * v16);
-      v19 = [v18 proceduralWallpaperInfoForVariant:{variant, v64}];
+      v18 = *(*(&v82 + 1) + 8 * v16);
+      v19 = [v18 proceduralWallpaperInfoForVariant:{variant, v68}];
       if (v19)
       {
         v20 = v19;
         if ([(PBUIWallpaperConfigurationManager *)selfCopy isProceduralWallpaperInfoValid:v19])
         {
-          v43 = [(PBUIWallpaperConfigurationManager *)selfCopy cleanedProceduralWallpaperInfo:v20];
-          v44 = PBUIWallpaperLocationForVariant(variant);
-          v45 = v18;
-          v42 = v43;
-          [v45 setProceduralWallpaperInfo:v43 forVariants:v44];
+          v44 = [(PBUIWallpaperConfigurationManager *)selfCopy cleanedProceduralWallpaperInfo:v20];
+          v45 = PBUIWallpaperLocationForVariant(variant);
+          v46 = v18;
+          v43 = v44;
+          [v46 setProceduralWallpaperInfo:v44 forVariants:v45];
 
-          v41 = 0;
+          v42 = 0;
           v21 = 0;
           goto LABEL_68;
         }
       }
 
-      v77 = v14;
-      v21 = [(PBUIWallpaperConfigurationManager *)selfCopy wallpaperColorForVariant:variant fromDataStore:v18 colorName:&v77];
-      v14 = v77;
+      v81 = v14;
+      v21 = [(PBUIWallpaperConfigurationManager *)selfCopy wallpaperColorForVariant:variant fromDataStore:v18 colorName:&v81];
+      v14 = v81;
 
       if (v21)
       {
-        v41 = 0;
-LABEL_66:
         v42 = 0;
+LABEL_66:
+        v43 = 0;
         goto LABEL_68;
       }
 
       v22 = [v18 wallpaperGradientForVariant:variant];
       if (v22)
       {
-        v41 = v22;
+        v42 = v22;
         v21 = 0;
         goto LABEL_66;
       }
@@ -421,43 +422,43 @@ LABEL_66:
         {
           LOBYTE(v9) = 1;
           variantCopy2 = variant;
-          v70 = v24;
+          v74 = v24;
           goto LABEL_40;
         }
 
-        v9 = PBUILogCommon();
+        v9 = PBUILogCommon(v25);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = PBUIStringForWallpaperVariant(variant);
-          v28 = PBUIStringForWallpaperMode(modeCopy);
-          *buf = v64;
-          v83 = v27;
-          v84 = 2114;
-          v85 = v28;
+          v28 = PBUIStringForWallpaperVariant(variant);
+          v29 = PBUIStringForWallpaperMode(modeCopy);
+          *buf = v68;
+          v87 = v28;
+          v88 = 2114;
+          v89 = v29;
           _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_DEFAULT, "Cannot find image for variant: %{public}@ with wallpaper mode: %{public}@. Defaulting to PBUIWallpaperModeNone image.", buf, 0x16u);
         }
 
-        v29 = [v18 wallpaperImageForVariant:variant wallpaperMode:0];
-        LODWORD(v9) = v29 != 0;
-        v30 = v9 | v67;
-        if (variant == 1 && !v29)
+        v30 = [v18 wallpaperImageForVariant:variant wallpaperMode:0];
+        LODWORD(v9) = v30 != 0;
+        v31 = v9 | v71;
+        if (variant == 1 && !v30)
         {
-          v31 = [v18 wallpaperImageForVariant:v65 wallpaperMode:modeCopy];
-          if (!v31)
+          v32 = [v18 wallpaperImageForVariant:v69 wallpaperMode:modeCopy];
+          if (!v32)
           {
-            v31 = [v18 wallpaperImageForVariant:v65 wallpaperMode:0];
-            v30 = (v31 != 0) | v67;
+            v32 = [v18 wallpaperImageForVariant:v69 wallpaperMode:0];
+            v31 = (v32 != 0) | v71;
           }
 
-          v70 = v31;
-          v26 = v65;
-          LOBYTE(v9) = v31 != 0;
-          v67 = v30;
+          v74 = v32;
+          v27 = v69;
+          LOBYTE(v9) = v32 != 0;
+          v71 = v31;
           goto LABEL_37;
         }
 
-        v70 = v29;
-        v67 |= v9;
+        v74 = v30;
+        v71 |= v9;
         goto LABEL_39;
       }
 
@@ -469,89 +470,89 @@ LABEL_39:
         goto LABEL_40;
       }
 
-      v25 = [v18 hasWallpaperImageForVariant:variant wallpaperMode:0];
-      LOBYTE(v9) = v25;
-      v67 |= v25;
-      if (variant != 1 || (v25 & 1) != 0)
+      v26 = [v18 hasWallpaperImageForVariant:variant wallpaperMode:0];
+      LOBYTE(v9) = v26;
+      v71 |= v26;
+      if (variant != 1 || (v26 & 1) != 0)
       {
         goto LABEL_39;
       }
 
-      if ([v18 hasWallpaperImageForVariant:v65 wallpaperMode:modeCopy])
+      if ([v18 hasWallpaperImageForVariant:v69 wallpaperMode:modeCopy])
       {
-        v26 = v65;
+        v27 = v69;
         LOBYTE(v9) = 1;
 LABEL_37:
-        variantCopy2 = v26;
+        variantCopy2 = v27;
         goto LABEL_40;
       }
 
-      LODWORD(v9) = [v18 hasWallpaperImageForVariant:v65 wallpaperMode:0];
-      v67 |= v9;
-      variantCopy2 = v65;
+      LODWORD(v9) = [v18 hasWallpaperImageForVariant:v69 wallpaperMode:0];
+      v71 |= v9;
+      variantCopy2 = v69;
 LABEL_40:
       if (v15)
       {
-        v32 = 0;
+        v33 = 0;
       }
 
       else
       {
-        v32 = v72;
+        v33 = v76;
       }
 
-      if (v32)
+      if (v33)
       {
-        v33 = [v18 verifiedVideoURLForVariant:variant wallpaperMode:v23];
-        if (v33)
+        v34 = [v18 verifiedVideoURLForVariant:variant wallpaperMode:v23];
+        if (v34)
         {
-          v15 = v33;
-          v34 = v18;
+          v15 = v34;
+          v35 = v18;
           variantCopy4 = variant;
           goto LABEL_46;
         }
 
-        if ((v66 & 1) == 0)
+        if ((v70 & 1) == 0)
         {
-          v37 = [v18 verifiedVideoURLForVariant:v65 wallpaperMode:v23];
-          if (v37)
+          v38 = [v18 verifiedVideoURLForVariant:v69 wallpaperMode:v23];
+          if (v38)
           {
-            v15 = v37;
-            v34 = v18;
-            variantCopy4 = v65;
+            v15 = v38;
+            v35 = v18;
+            variantCopy4 = v69;
 LABEL_46:
-            v36 = v23;
+            v37 = v23;
 LABEL_53:
-            v39 = [v34 verifiedOriginalVideoURLForVariant:variantCopy4 wallpaperMode:v36];
+            v40 = [v35 verifiedOriginalVideoURLForVariant:variantCopy4 wallpaperMode:v37];
 
-            v74 = v39;
+            v78 = v40;
             goto LABEL_54;
           }
         }
 
-        v38 = [v18 verifiedVideoURLForVariant:variant wallpaperMode:0];
-        if (v38)
+        v39 = [v18 verifiedVideoURLForVariant:variant wallpaperMode:0];
+        if (v39)
         {
-          v15 = v38;
-          v34 = v18;
+          v15 = v39;
+          v35 = v18;
           variantCopy4 = variant;
 LABEL_52:
-          v36 = 0;
+          v37 = 0;
           goto LABEL_53;
         }
 
-        if (v66)
+        if (v70)
         {
           v15 = 0;
         }
 
         else
         {
-          v15 = [v18 verifiedVideoURLForVariant:v65 wallpaperMode:0];
+          v15 = [v18 verifiedVideoURLForVariant:v69 wallpaperMode:0];
           if (v15)
           {
-            v34 = v18;
-            variantCopy4 = v65;
+            v35 = v18;
+            variantCopy4 = v69;
             goto LABEL_52;
           }
         }
@@ -562,64 +563,64 @@ LABEL_54:
     }
 
     while (v13 != v16);
-    v40 = [obj countByEnumeratingWithState:&v78 objects:v88 count:16];
-    v13 = v40;
-    v41 = 0;
-    v21 = 0;
+    v41 = [obj countByEnumeratingWithState:&v82 objects:v92 count:16];
+    v13 = v41;
     v42 = 0;
+    v21 = 0;
+    v43 = 0;
   }
 
-  while (v40);
+  while (v41);
 LABEL_68:
 
-  v46 = PBUILogCommon();
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+  v48 = PBUILogCommon(v47);
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v83 = v42;
-    v84 = 2112;
-    v85 = v15;
-    v86 = 2112;
-    v87 = v70;
-    _os_log_debug_impl(&dword_21E67D000, v46, OS_LOG_TYPE_DEBUG, "Procedural: %@, Video: %@, Static: %@", buf, 0x20u);
+    v87 = v43;
+    v88 = 2112;
+    v89 = v15;
+    v90 = 2112;
+    v91 = v74;
+    _os_log_debug_impl(&dword_21E67D000, v48, OS_LOG_TYPE_DEBUG, "Procedural: %@, Video: %@, Static: %@", buf, 0x20u);
   }
 
-  if (v42)
+  if (v43)
   {
-    v47 = [[PBUIWallpaperConfiguration alloc] initWithVariant:variant type:2];
-    [(PBUIWallpaperConfiguration *)v47 setProceduralWallpaperInfo:v42];
+    v50 = [[PBUIWallpaperConfiguration alloc] initWithVariant:variant type:2];
+    v49 = [(PBUIWallpaperConfiguration *)v50 setProceduralWallpaperInfo:v43];
     goto LABEL_76;
   }
 
   if (v21)
   {
-    v47 = [[PBUIWallpaperConfiguration alloc] initWithVariant:variant type:4];
-    [(PBUIWallpaperConfiguration *)v47 setWallpaperColor:v21];
-    [(PBUIWallpaperConfiguration *)v47 setWallpaperColorName:v14];
+    v50 = [[PBUIWallpaperConfiguration alloc] initWithVariant:variant type:4];
+    [(PBUIWallpaperConfiguration *)v50 setWallpaperColor:v21];
+    v49 = [(PBUIWallpaperConfiguration *)v50 setWallpaperColorName:v14];
     goto LABEL_76;
   }
 
-  if (v41)
+  if (v42)
   {
-    v47 = [[PBUIWallpaperConfiguration alloc] initWithVariant:variant type:5];
-    [(PBUIWallpaperConfiguration *)v47 setWallpaperGradient:v41];
+    v50 = [[PBUIWallpaperConfiguration alloc] initWithVariant:variant type:5];
+    v49 = [(PBUIWallpaperConfiguration *)v50 setWallpaperGradient:v42];
     goto LABEL_76;
   }
 
   if (((v15 != 0) & v9) == 1)
   {
-    v47 = [[PBUIWallpaperConfiguration alloc] initWithVariant:variant type:3];
-    [(PBUIWallpaperConfiguration *)v47 setVideoURL:v15];
-    [(PBUIWallpaperConfiguration *)v47 setOriginalVideoURL:v74];
-    v63 = v47;
+    v50 = [[PBUIWallpaperConfiguration alloc] initWithVariant:variant type:3];
+    [(PBUIWallpaperConfiguration *)v50 setVideoURL:v15];
+    [(PBUIWallpaperConfiguration *)v50 setOriginalVideoURL:v78];
+    v67 = v50;
     goto LABEL_107;
   }
 
   if ((v9 & 1) == 0)
   {
-    v47 = 0;
+    v50 = 0;
 LABEL_76:
-    if (!v70)
+    if (!v74)
     {
       goto LABEL_79;
     }
@@ -629,101 +630,102 @@ LABEL_77:
     {
       wallpaperImageCache = selfCopy->_wallpaperImageCache;
       [MEMORY[0x277CCABB0] numberWithInteger:variantCopy2];
-      v50 = v49 = v42;
-      [(NSMutableDictionary *)wallpaperImageCache setObject:v70 forKey:v50];
+      v53 = v52 = v43;
+      [(NSMutableDictionary *)wallpaperImageCache setObject:v74 forKey:v53];
 
-      v42 = v49;
+      v43 = v52;
     }
 
     goto LABEL_79;
   }
 
-  v63 = [[PBUIWallpaperConfiguration alloc] initWithVariant:variant type:1];
-  v47 = v63;
+  v67 = [[PBUIWallpaperConfiguration alloc] initWithVariant:variant type:1];
+  v50 = v67;
 LABEL_107:
-  [(PBUIWallpaperConfiguration *)v63 setWallpaperImage:v70];
-  if (v70)
+  v49 = [(PBUIWallpaperConfiguration *)v67 setWallpaperImage:v74];
+  if (v74)
   {
     goto LABEL_77;
   }
 
 LABEL_79:
-  if (v47)
+  if (v50)
   {
     goto LABEL_84;
   }
 
-  v51 = PBUILogCommon();
-  if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+  v54 = PBUILogCommon(v49);
+  if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
   {
     [PBUIWallpaperConfigurationManager wallpaperConfigurationForVariant:includingValuesForTypes:wallpaperMode:];
   }
 
-  v47 = [(PBUIWallpaperConfigurationManager *)selfCopy fallbackWallpaperConfigurationForVarient:variant];
-  if (v47)
+  v55 = [(PBUIWallpaperConfigurationManager *)selfCopy fallbackWallpaperConfigurationForVarient:variant];
+  v50 = v55;
+  if (v55)
   {
 LABEL_84:
-    if ((types & 0x10) != 0 && !v42)
+    if ((types & 0x10) != 0 && !v43)
     {
-      if (v67)
+      if (v71)
       {
-        v52 = [(PBUIWallpaperConfigurationManager *)selfCopy wallpaperOptionsForVariant:variant wallpaperMode:0];
-        v53 = v52;
+        v56 = [(PBUIWallpaperConfigurationManager *)selfCopy wallpaperOptionsForVariant:variant wallpaperMode:0];
+        v57 = v56;
         if (selfCopy->_enableWallpaperDimming)
         {
-          [v52 setWallpaperMode:modeCopy];
-          [(PBUIWallpaperConfiguration *)v47 setNeedsWallpaperDimmingTreatment:1];
+          [v56 setWallpaperMode:modeCopy];
+          [(PBUIWallpaperConfiguration *)v50 setNeedsWallpaperDimmingTreatment:1];
         }
       }
 
       else
       {
-        v53 = [(PBUIWallpaperConfigurationManager *)selfCopy wallpaperOptionsForVariant:variant wallpaperMode:modeCopy];
+        v57 = [(PBUIWallpaperConfigurationManager *)selfCopy wallpaperOptionsForVariant:variant wallpaperMode:modeCopy];
       }
 
       if (modeCopy == 3)
       {
-        [(PBUIWallpaperConfiguration *)v47 setNeedsInactiveAppearanceTreatment:1];
+        [(PBUIWallpaperConfiguration *)v50 setNeedsInactiveAppearanceTreatment:1];
       }
 
-      [(PBUIWallpaperConfiguration *)v47 setWallpaperOptions:v53];
+      [(PBUIWallpaperConfiguration *)v50 setWallpaperOptions:v57];
     }
 
-    if ((types & 2) != 0 && !v42)
+    if ((types & 2) != 0 && !v43)
     {
-      wallpaperOptions = [(PBUIWallpaperConfiguration *)v47 wallpaperOptions];
-      v55 = -[PBUIWallpaperConfigurationManager wallpaperOriginalImageForVariant:wallpaperMode:](selfCopy, "wallpaperOriginalImageForVariant:wallpaperMode:", variant, [wallpaperOptions wallpaperMode]);
+      wallpaperOptions = [(PBUIWallpaperConfiguration *)v50 wallpaperOptions];
+      v59 = -[PBUIWallpaperConfigurationManager wallpaperOriginalImageForVariant:wallpaperMode:](selfCopy, "wallpaperOriginalImageForVariant:wallpaperMode:", variant, [wallpaperOptions wallpaperMode]);
 
-      [(PBUIWallpaperConfiguration *)v47 setWallpaperOriginalImage:v55];
-      v42 = 0;
+      [(PBUIWallpaperConfiguration *)v50 setWallpaperOriginalImage:v59];
+      v43 = 0;
     }
 
     if ((types & 4) != 0)
     {
-      v56 = [(PBUIWallpaperConfigurationManager *)selfCopy wallpaperThumbnailImageForFulfillingLookupForConfiguration:v47];
-      [(PBUIWallpaperConfiguration *)v47 setWallpaperThumbnailImage:v56];
+      v60 = [(PBUIWallpaperConfigurationManager *)selfCopy wallpaperThumbnailImageForFulfillingLookupForConfiguration:v50];
+      [(PBUIWallpaperConfiguration *)v50 setWallpaperThumbnailImage:v60];
     }
 
     if ((types & 8) != 0)
     {
-      v57 = [(PBUIWallpaperConfigurationManager *)selfCopy wallpaperThumbnailImageDataForFulfillingLookupForConfiguration:v47];
-      [(PBUIWallpaperConfiguration *)v47 setWallpaperThumbnailImageData:v57];
+      v61 = [(PBUIWallpaperConfigurationManager *)selfCopy wallpaperThumbnailImageDataForFulfillingLookupForConfiguration:v50];
+      [(PBUIWallpaperConfiguration *)v50 setWallpaperThumbnailImageData:v61];
     }
 
-    wallpaperOptions2 = [(PBUIWallpaperConfiguration *)v47 wallpaperOptions];
-    v59 = -[PBUIWallpaperConfigurationManager wallpaperImageHashDataForVariant:wallpaperMode:](selfCopy, "wallpaperImageHashDataForVariant:wallpaperMode:", variant, [wallpaperOptions2 wallpaperMode]);
+    wallpaperOptions2 = [(PBUIWallpaperConfiguration *)v50 wallpaperOptions];
+    v63 = -[PBUIWallpaperConfigurationManager wallpaperImageHashDataForVariant:wallpaperMode:](selfCopy, "wallpaperImageHashDataForVariant:wallpaperMode:", variant, [wallpaperOptions2 wallpaperMode]);
 
-    [(PBUIWallpaperConfiguration *)v47 setWallpaperImageHashData:v59];
+    [(PBUIWallpaperConfiguration *)v50 setWallpaperImageHashData:v63];
   }
 
-  v60 = PBUILogCommon();
-  if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+  v64 = PBUILogCommon(v55);
+  if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
   {
-    [PBUIWallpaperConfigurationManager wallpaperConfigurationForVariant:v47 includingValuesForTypes:variant wallpaperMode:v60];
+    [PBUIWallpaperConfigurationManager wallpaperConfigurationForVariant:v50 includingValuesForTypes:variant wallpaperMode:v64];
   }
 
-  v61 = v47;
-  return v47;
+  v65 = v50;
+  return v50;
 }
 
 - (id)wallpaperConfigurationForVariant:(int64_t)variant
@@ -769,7 +771,8 @@ LABEL_84:
     if ((wallpaperType & 0xFFFFFFFFFFFFFFFDLL) == 1)
     {
       v14 = 2;
-      if ([(PBUIWallpaperConfigurationManager *)self hasWallpaperImageForVariant:1 wallpaperMode:2])
+      wallpaperType = [(PBUIWallpaperConfigurationManager *)self hasWallpaperImageForVariant:1 wallpaperMode:2];
+      if (wallpaperType)
       {
         goto LABEL_24;
       }
@@ -785,7 +788,7 @@ LABEL_23:
 
         v14 = v18;
 LABEL_24:
-        v21 = PBUILogCommon();
+        v21 = PBUILogCommon(wallpaperType);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           v26 = PBUIStringForWallpaperVariant(1);
@@ -837,7 +840,7 @@ LABEL_34:
       variantCopy = 1;
     }
 
-    v19 = PBUILogCommon();
+    v19 = PBUILogCommon(wallpaperType);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       v20 = PBUIStringForWallpaperVariant(1);
@@ -852,7 +855,7 @@ LABEL_34:
   if (variantCopy)
   {
 LABEL_13:
-    v21 = PBUILogCommon();
+    v21 = PBUILogCommon(homeConfigCopy);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [PBUIWallpaperConfigurationManager _providerForVariant:variant lockConfig:? homeConfig:?];
@@ -875,7 +878,8 @@ LABEL_13:
   }
 
   v14 = 2;
-  if ([(PBUIWallpaperConfigurationManager *)self hasWallpaperImageForVariant:0 wallpaperMode:2])
+  wallpaperType2 = [(PBUIWallpaperConfigurationManager *)self hasWallpaperImageForVariant:0 wallpaperMode:2];
+  if (wallpaperType2)
   {
     goto LABEL_32;
   }
@@ -893,7 +897,7 @@ LABEL_13:
     }
 
 LABEL_37:
-    v33 = PBUILogCommon();
+    v33 = PBUILogCommon(wallpaperType2);
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       v34 = PBUIStringForWallpaperVariant(variant);
@@ -911,7 +915,7 @@ LABEL_37:
 LABEL_31:
 
 LABEL_32:
-  v21 = PBUILogCommon();
+  v21 = PBUILogCommon(wallpaperType2);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     v26 = PBUIStringForWallpaperVariant(variant);
@@ -1031,7 +1035,7 @@ LABEL_20:
 
 LABEL_25:
   v21 = [[PBUIPosterWallpaperMigrationInfo alloc] _initWithPairingType:v8 lockProvider:v5 homeProvider:v7];
-  v22 = PBUILogCommon();
+  v22 = PBUILogCommon(v21);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
     [PBUIWallpaperConfigurationManager posterMigrationInfo];
@@ -1457,37 +1461,38 @@ LABEL_13:
 
 - (BOOL)setWallpaperImage:(id)image originalImage:(id)originalImage thumbnailData:(id)data imageHashData:(id)hashData wallpaperOptions:(id)options forVariants:(int64_t)variants options:(unint64_t)a9 wallpaperMode:(int64_t)self0 isMigrating:(BOOL)self1
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   imageCopy = image;
   originalImageCopy = originalImage;
   dataCopy = data;
   hashDataCopy = hashData;
   optionsCopy = options;
+  v21 = optionsCopy;
   if (!imageCopy)
   {
     [PBUIWallpaperConfigurationManager setWallpaperImage:a2 originalImage:self thumbnailData:? imageHashData:? wallpaperOptions:? forVariants:? options:? wallpaperMode:? isMigrating:?];
   }
 
-  v21 = PBUILogCommon();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v22 = PBUILogCommon(optionsCopy);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = PBUIStringForWallpaperLocations(variants);
+    v23 = PBUIStringForWallpaperLocations(variants);
     *buf = 138543618;
-    v62 = optionsCopy;
-    v63 = 2114;
-    v64 = v22;
-    _os_log_impl(&dword_21E67D000, v21, OS_LOG_TYPE_DEFAULT, "Set wallpaper options: %{public}@ for variants: %{public}@", buf, 0x16u);
+    v63 = v21;
+    v64 = 2114;
+    v65 = v23;
+    _os_log_impl(&dword_21E67D000, v22, OS_LOG_TYPE_DEFAULT, "Set wallpaper options: %{public}@ for variants: %{public}@", buf, 0x16u);
   }
 
-  v23 = objc_autoreleasePoolPush();
+  v24 = objc_autoreleasePoolPush();
   pbui_CGImageBackedImage = [imageCopy pbui_CGImageBackedImage];
   pbui_CGImageBackedImage2 = [originalImageCopy pbui_CGImageBackedImage];
 
   if (a9)
   {
-    v25 = [(PBUIWallpaperConfigurationManager *)self normalizeImage:pbui_CGImageBackedImage];
+    v26 = [(PBUIWallpaperConfigurationManager *)self normalizeImage:pbui_CGImageBackedImage];
 
-    pbui_CGImageBackedImage = v25;
+    pbui_CGImageBackedImage = v26;
   }
 
   if (![hashDataCopy length])
@@ -1499,70 +1504,70 @@ LABEL_13:
 
   if (![dataCopy length])
   {
-    v27 = [(PBUIWallpaperConfigurationManager *)self thumbnailDataForImage:pbui_CGImageBackedImage];
+    v28 = [(PBUIWallpaperConfigurationManager *)self thumbnailDataForImage:pbui_CGImageBackedImage];
 
-    dataCopy = v27;
+    dataCopy = v28;
   }
 
-  v28 = [(PBUIWallpaperConfigurationManager *)self effectiveSharedVariantForVariants:variants];
+  v29 = [(PBUIWallpaperConfigurationManager *)self effectiveSharedVariantForVariants:variants];
   if ([pbui_CGImageBackedImage CGImage])
   {
-    v47 = hashDataCopy;
-    v48 = imageCopy;
-    v49 = dataCopy;
-    if ([optionsCopy wallpaperStatus] == 1 || objc_msgSend(optionsCopy, "wallpaperStatus") == 3 || migrating && objc_msgSend(optionsCopy, "wallpaperMode") == mode)
+    v48 = hashDataCopy;
+    v49 = imageCopy;
+    v50 = dataCopy;
+    if ([v21 wallpaperStatus] == 1 || objc_msgSend(v21, "wallpaperStatus") == 3 || migrating && objc_msgSend(v21, "wallpaperMode") == mode)
     {
       [(PBUIWallpaperConfigurationManager *)self wallpaperWillChangeForVariants:variants];
     }
 
     if (((pbui_CGImageBackedImage2 == 0) & (a9 >> 1)) != 0)
     {
-      v29 = -3;
+      v30 = -3;
     }
 
     else
     {
-      v29 = -1;
+      v30 = -1;
     }
 
-    v56 = 0u;
     v57 = 0u;
-    v52 = v29;
+    v58 = 0u;
+    v53 = v30;
     if ([(PBUIWallpaperConfigurationManager *)self variantsShareWallpaperConfigurationForTypes:54])
     {
-      v30 = v29;
+      v31 = v30;
     }
 
     else
     {
-      v30 = 0;
+      v31 = 0;
     }
 
-    v50 = v30;
-    v58 = 0uLL;
+    v51 = v31;
     v59 = 0uLL;
+    v60 = 0uLL;
     dataStores = [(PBUIWallpaperConfigurationManager *)self dataStores];
-    v32 = [dataStores countByEnumeratingWithState:&v56 objects:v60 count:16];
-    if (v32)
+    v33 = [dataStores countByEnumeratingWithState:&v57 objects:v61 count:16];
+    if (v33)
     {
-      v33 = v32;
+      v34 = v33;
       modeCopy = mode;
       modeCopy2 = mode;
-      v34 = *v57;
-      v35 = variants & 3;
+      v35 = *v58;
+      v36 = variants & 3;
       while (2)
       {
-        for (i = 0; i != v33; ++i)
+        for (i = 0; i != v34; ++i)
         {
-          if (*v57 != v34)
+          if (*v58 != v35)
           {
             objc_enumerationMutation(dataStores);
           }
 
-          v37 = *(*(&v56 + 1) + 8 * i);
+          v38 = *(*(&v57 + 1) + 8 * i);
           if (migrating)
           {
-            if ([*(*(&v56 + 1) + 8 * i) setWallpaperImage:pbui_CGImageBackedImage forVariant:v28 wallpaperMode:mode])
+            if ([*(*(&v57 + 1) + 8 * i) setWallpaperImage:pbui_CGImageBackedImage forVariant:v29 wallpaperMode:mode])
             {
               goto LABEL_40;
             }
@@ -1570,35 +1575,35 @@ LABEL_13:
 
           else
           {
-            if ([optionsCopy wallpaperStatus] == 1 || objc_msgSend(optionsCopy, "wallpaperStatus") == 2)
+            if ([v21 wallpaperStatus] == 1 || objc_msgSend(v21, "wallpaperStatus") == 2)
             {
-              if (v35 == 3)
+              if (v36 == 3)
               {
-                [v37 removeWallpaperImageDataTypes:v52 forVariants:2];
+                [v38 removeWallpaperImageDataTypes:v53 forVariants:2];
               }
 
               else if (variants)
               {
-                [v37 moveWallpaperImageDataTypes:v50 fromVariant:0 toVariant:1];
+                [v38 moveWallpaperImageDataTypes:v51 fromVariant:0 toVariant:1];
               }
 
-              [v37 removeWallpaperImageDataTypes:1 forVariants:{variants, modeCopy}];
+              [v38 removeWallpaperImageDataTypes:1 forVariants:{variants, modeCopy}];
             }
 
-            if ([v37 setWallpaperImage:pbui_CGImageBackedImage forVariant:v28 wallpaperMode:{objc_msgSend(optionsCopy, "wallpaperMode", modeCopy)}])
+            if ([v38 setWallpaperImage:pbui_CGImageBackedImage forVariant:v29 wallpaperMode:{objc_msgSend(v21, "wallpaperMode", modeCopy)}])
             {
 LABEL_40:
               if (pbui_CGImageBackedImage2)
               {
-                imageCopy = v48;
-                dataCopy = v49;
+                imageCopy = v49;
+                dataCopy = v50;
                 selfCopy3 = self;
-                if ([optionsCopy wallpaperStatus] == 1)
+                if ([v21 wallpaperStatus] == 1)
                 {
                   if (migrating)
                   {
 LABEL_55:
-                    [v37 setWallpaperOriginalImage:pbui_CGImageBackedImage2 forVariant:v28 wallpaperMode:{mode, modeCopy}];
+                    [v38 setWallpaperOriginalImage:pbui_CGImageBackedImage2 forVariant:v29 wallpaperMode:{mode, modeCopy}];
 LABEL_56:
                     if (dataCopy)
                     {
@@ -1606,32 +1611,32 @@ LABEL_56:
                     }
 
 LABEL_68:
-                    if (v35 != 3 && !migrating)
+                    if (v36 != 3 && !migrating)
                     {
-                      v40 = [v37 wallpaperThumbnailDataForVariant:0 wallpaperMode:1];
-                      v41 = [v37 wallpaperThumbnailDataForVariant:1 wallpaperMode:1];
-                      v42 = [v37 wallpaperThumbnailDataForVariant:0 wallpaperMode:2];
-                      v43 = [v37 wallpaperThumbnailDataForVariant:1 wallpaperMode:2];
-                      if ([v40 isEqualToData:v41] && objc_msgSend(v42, "isEqualToData:", v43))
+                      v41 = [v38 wallpaperThumbnailDataForVariant:0 wallpaperMode:1];
+                      v42 = [v38 wallpaperThumbnailDataForVariant:1 wallpaperMode:1];
+                      v43 = [v38 wallpaperThumbnailDataForVariant:0 wallpaperMode:2];
+                      v44 = [v38 wallpaperThumbnailDataForVariant:1 wallpaperMode:2];
+                      if ([v41 isEqualToData:v42] && objc_msgSend(v43, "isEqualToData:", v44))
                       {
-                        [v37 removeWallpaperImageDataTypes:-1 forVariants:2];
+                        [v38 removeWallpaperImageDataTypes:-1 forVariants:2];
                       }
 
-                      dataCopy = v49;
+                      dataCopy = v50;
                       selfCopy3 = self;
                     }
 
 LABEL_74:
 
-                    if (optionsCopy)
+                    if (v21)
                     {
-                      -[PBUIWallpaperConfigurationManager setWallpaperOptions:forVariants:wallpaperMode:](selfCopy3, "setWallpaperOptions:forVariants:wallpaperMode:", optionsCopy, variants, [optionsCopy wallpaperMode]);
+                      -[PBUIWallpaperConfigurationManager setWallpaperOptions:forVariants:wallpaperMode:](selfCopy3, "setWallpaperOptions:forVariants:wallpaperMode:", v21, variants, [v21 wallpaperMode]);
                     }
 
-                    hashDataCopy = v47;
-                    if (v47)
+                    hashDataCopy = v48;
+                    if (v48)
                     {
-                      if ([optionsCopy wallpaperStatus] == 1)
+                      if ([v21 wallpaperStatus] == 1)
                       {
                         if (migrating)
                         {
@@ -1642,44 +1647,44 @@ LABEL_82:
                         [(PBUIWallpaperConfigurationManager *)selfCopy3 removeWallpaperImageHashDataForVariants:variants, modeCopy];
                       }
 
-                      else if ([optionsCopy wallpaperStatus] == 2 && !migrating)
+                      else if ([v21 wallpaperStatus] == 2 && !migrating)
                       {
                         goto LABEL_82;
                       }
 
                       if (!migrating)
                       {
-                        modeCopy2 = [optionsCopy wallpaperMode];
+                        modeCopy2 = [v21 wallpaperMode];
                       }
 
 LABEL_85:
-                      [(PBUIWallpaperConfigurationManager *)selfCopy3 setWallpaperImageHashData:v47 forVariants:variants wallpaperMode:modeCopy2, modeCopy];
+                      [(PBUIWallpaperConfigurationManager *)selfCopy3 setWallpaperImageHashData:v48 forVariants:variants wallpaperMode:modeCopy2, modeCopy];
                     }
 
-                    if ([optionsCopy wallpaperStatus] == 1 || objc_msgSend(optionsCopy, "wallpaperStatus") == 2)
+                    if ([v21 wallpaperStatus] == 1 || objc_msgSend(v21, "wallpaperStatus") == 2)
                     {
                       [(PBUIWallpaperConfigurationManager *)selfCopy3 removeAllDataExceptForTypes:10 variants:variants variantsShareWallpaperConfiguration:0];
                     }
 
-                    if ([optionsCopy wallpaperStatus] == 1 || objc_msgSend(optionsCopy, "wallpaperStatus") == 3 || migrating && objc_msgSend(optionsCopy, "wallpaperMode") == v46)
+                    if ([v21 wallpaperStatus] == 1 || objc_msgSend(v21, "wallpaperStatus") == 3 || migrating && objc_msgSend(v21, "wallpaperMode") == v47)
                     {
-                      v38 = 1;
+                      v39 = 1;
                       [(PBUIWallpaperConfigurationManager *)selfCopy3 wallpaperDidChangeForVariants:variants shouldNotify:1];
                     }
 
                     else
                     {
-                      v38 = 1;
+                      v39 = 1;
                     }
 
                     goto LABEL_92;
                   }
 
 LABEL_53:
-                  [v37 removeWallpaperImageDataTypes:2 forVariants:{variants, modeCopy}];
+                  [v38 removeWallpaperImageDataTypes:2 forVariants:{variants, modeCopy}];
                 }
 
-                else if ([optionsCopy wallpaperStatus] == 2 && !migrating)
+                else if ([v21 wallpaperStatus] == 2 && !migrating)
                 {
                   goto LABEL_53;
                 }
@@ -1689,8 +1694,8 @@ LABEL_53:
                   goto LABEL_55;
                 }
 
-                [v37 setWallpaperOriginalImage:pbui_CGImageBackedImage2 forVariant:v28 wallpaperMode:{objc_msgSend(optionsCopy, "wallpaperMode")}];
-                if (v49)
+                [v38 setWallpaperOriginalImage:pbui_CGImageBackedImage2 forVariant:v29 wallpaperMode:{objc_msgSend(v21, "wallpaperMode")}];
+                if (v50)
                 {
                   goto LABEL_57;
                 }
@@ -1698,27 +1703,27 @@ LABEL_53:
                 goto LABEL_68;
               }
 
-              imageCopy = v48;
-              dataCopy = v49;
+              imageCopy = v49;
+              dataCopy = v50;
               selfCopy3 = self;
               if ((a9 >> 1))
               {
                 goto LABEL_56;
               }
 
-              [v37 removeWallpaperImageDataTypes:2 forVariants:PBUIWallpaperLocationForVariant(v28)];
-              if (!v49)
+              [v38 removeWallpaperImageDataTypes:2 forVariants:PBUIWallpaperLocationForVariant(v29)];
+              if (!v50)
               {
                 goto LABEL_68;
               }
 
 LABEL_57:
-              if ([optionsCopy wallpaperStatus] == 1)
+              if ([v21 wallpaperStatus] == 1)
               {
                 if (migrating)
                 {
 LABEL_64:
-                  [(PBUIWallpaperConfigurationManager *)selfCopy3 setWallpaperThumbnailData:dataCopy forVariant:v28 wallpaperMode:mode];
+                  [(PBUIWallpaperConfigurationManager *)selfCopy3 setWallpaperThumbnailData:dataCopy forVariant:v29 wallpaperMode:mode];
                   goto LABEL_74;
                 }
 
@@ -1726,14 +1731,14 @@ LABEL_62:
                 [(PBUIWallpaperConfigurationManager *)selfCopy3 removeWallpaperImageDataTypes:4 forVariants:variants];
               }
 
-              else if ([optionsCopy wallpaperStatus] == 2 && !migrating)
+              else if ([v21 wallpaperStatus] == 2 && !migrating)
               {
                 goto LABEL_62;
               }
 
               if (!migrating)
               {
-                -[PBUIWallpaperConfigurationManager setWallpaperThumbnailData:forVariant:wallpaperMode:](selfCopy3, "setWallpaperThumbnailData:forVariant:wallpaperMode:", dataCopy, v28, [optionsCopy wallpaperMode]);
+                -[PBUIWallpaperConfigurationManager setWallpaperThumbnailData:forVariant:wallpaperMode:](selfCopy3, "setWallpaperThumbnailData:forVariant:wallpaperMode:", dataCopy, v29, [v21 wallpaperMode]);
                 goto LABEL_68;
               }
 
@@ -1742,8 +1747,8 @@ LABEL_62:
           }
         }
 
-        v33 = [dataStores countByEnumeratingWithState:&v56 objects:v60 count:16];
-        if (v33)
+        v34 = [dataStores countByEnumeratingWithState:&v57 objects:v61 count:16];
+        if (v34)
         {
           continue;
         }
@@ -1752,60 +1757,60 @@ LABEL_62:
       }
     }
 
-    v38 = 0;
-    imageCopy = v48;
-    dataCopy = v49;
-    hashDataCopy = v47;
+    v39 = 0;
+    imageCopy = v49;
+    dataCopy = v50;
+    hashDataCopy = v48;
   }
 
   else
   {
-    v38 = 0;
+    v39 = 0;
   }
 
 LABEL_92:
 
-  objc_autoreleasePoolPop(v23);
-  return v38;
+  objc_autoreleasePoolPop(v24);
+  return v39;
 }
 
 - (id)normalizeImage:(id)image
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   imageCopy = image;
   if (imageCopy)
   {
-    v35 = 0u;
     v36 = 0u;
-    v33 = 0u;
+    v37 = 0u;
     v34 = 0u;
+    v35 = 0u;
     dataStores = [(PBUIWallpaperConfigurationManager *)self dataStores];
-    v6 = [dataStores countByEnumeratingWithState:&v33 objects:v45 count:16];
+    v6 = [dataStores countByEnumeratingWithState:&v34 objects:v46 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v34;
+      v8 = *v35;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v34 != v8)
+          if (*v35 != v8)
           {
             objc_enumerationMutation(dataStores);
           }
 
-          v10 = [*(*(&v33 + 1) + 8 * i) verifiedVideoURLForVariant:0 wallpaperMode:0];
+          v10 = [*(*(&v34 + 1) + 8 * i) verifiedVideoURLForVariant:0 wallpaperMode:0];
 
           if (v10)
           {
-            v27 = imageCopy;
+            v28 = imageCopy;
 
-            v26 = v27;
+            v26 = v28;
             goto LABEL_21;
           }
         }
 
-        v7 = [dataStores countByEnumeratingWithState:&v33 objects:v45 count:16];
+        v7 = [dataStores countByEnumeratingWithState:&v34 objects:v46 count:16];
         if (v7)
         {
           continue;
@@ -1831,34 +1836,34 @@ LABEL_92:
     if (v20 < Height && v20 < Width)
     {
       UIRectCenteredIntegralRect();
-      v22 = v50.size.width;
-      v23 = v50.size.height;
-      v24 = CGImageCreateWithImageInRect(cGImage, v50);
+      v22 = v51.size.width;
+      v23 = v51.size.height;
+      v24 = CGImageCreateWithImageInRect(cGImage, v51);
       if (v24)
       {
         v25 = v24;
         v26 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:v24 scale:0 orientation:v15];
 
         CGImageRelease(v25);
-        v27 = PBUILogCommon();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v28 = PBUILogCommon(v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           [v26 size];
-          v28 = NSStringFromCGSize(v48);
+          v29 = NSStringFromCGSize(v49);
           [v26 scale];
-          v30 = v29;
-          v49.width = v22;
-          v49.height = v23;
-          v31 = NSStringFromCGSize(v49);
+          v31 = v30;
+          v50.width = v22;
+          v50.height = v23;
+          v32 = NSStringFromCGSize(v50);
           *buf = 138544130;
-          v38 = v26;
-          v39 = 2114;
-          v40 = v28;
-          v41 = 2048;
-          v42 = v30;
-          v43 = 2114;
-          v44 = v31;
-          _os_log_impl(&dword_21E67D000, v27, OS_LOG_TYPE_DEFAULT, "<SpringBoardUI>: Modified wallpaper image: %{public}@ [size=%{public}@, scale=%f] - cgImageSize=%{public}@", buf, 0x2Au);
+          v39 = v26;
+          v40 = 2114;
+          v41 = v29;
+          v42 = 2048;
+          v43 = v31;
+          v44 = 2114;
+          v45 = v32;
+          _os_log_impl(&dword_21E67D000, v28, OS_LOG_TYPE_DEFAULT, "<SpringBoardUI>: Modified wallpaper image: %{public}@ [size=%{public}@, scale=%f] - cgImageSize=%{public}@", buf, 0x2Au);
         }
 
 LABEL_21:
@@ -2613,13 +2618,14 @@ LABEL_51:
 - (void)restoreDefaultWallpaperForAllVariantsAndNotify:(BOOL)notify
 {
   notifyCopy = notify;
-  v5 = PBUILogCommon();
+  v5 = PBUILogCommon(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [PBUIWallpaperConfigurationManager restoreDefaultWallpaperForAllVariantsAndNotify:];
   }
 
-  if (soft_PF_IS_PAD_DEVICE() && !soft_PUIFeatureEnabled(0))
+  v6 = soft_PF_IS_PAD_DEVICE();
+  if (v6 && (v6 = soft_PUIFeatureEnabled(0), !v6))
   {
     [(PBUIWallpaperConfigurationManager *)self wallpaperWillChangeForVariants:3];
     [(PBUIWallpaperConfigurationManager *)self beginChangeBatch];
@@ -2631,8 +2637,8 @@ LABEL_51:
 
   else
   {
-    v6 = PBUILogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = PBUILogCommon(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [PBUIWallpaperConfigurationManager restoreDefaultWallpaperForAllVariantsAndNotify:];
     }
@@ -2769,7 +2775,7 @@ LABEL_27:
   return v13;
 }
 
-uint64_t __127__PBUIWallpaperConfigurationManager_setWallpaperConfigurationFromDefaultWallpaperConfiguration_forVariants_wallpaperMode_name___block_invoke(uint64_t result, uint64_t a2)
+id *__127__PBUIWallpaperConfigurationManager_setWallpaperConfigurationFromDefaultWallpaperConfiguration_forVariants_wallpaperMode_name___block_invoke(id *result, uint64_t a2)
 {
   v2 = result;
   if (a2 == 1)
@@ -2787,9 +2793,9 @@ uint64_t __127__PBUIWallpaperConfigurationManager_setWallpaperConfigurationFromD
     v3 = 1;
   }
 
-  [*(result + 32) setProceduralIdentifier:*(result + 40) forLocations:v3];
-  [*(v2 + 32) setProceduralOptions:*(v2 + 48) forLocations:v3];
-  v4 = *(v2 + 32);
+  [result[4] setProceduralIdentifier:result[5] forLocations:v3];
+  [v2[4] setProceduralOptions:v2[6] forLocations:v3];
+  v4 = v2[4];
 
   return [v4 setProceduralUserSet:0 forLocations:v3];
 }
@@ -2797,7 +2803,7 @@ uint64_t __127__PBUIWallpaperConfigurationManager_setWallpaperConfigurationFromD
 - (void)clearCacheForVariants:(int64_t)variants memoryOnly:(BOOL)only
 {
   variantsCopy = variants;
-  v7 = PBUILogCommon();
+  v7 = PBUILogCommon(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [PBUIWallpaperConfigurationManager clearCacheForVariants:memoryOnly:];
@@ -2841,7 +2847,7 @@ void __70__PBUIWallpaperConfigurationManager_clearCacheForVariants_memoryOnly___
 
 - (void)performMigrationWithFailureHandler:(id)handler
 {
-  v128 = *MEMORY[0x277D85DE8];
+  v140 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!soft_PF_IS_PAD_DEVICE() || soft_PUIFeatureEnabled(0))
   {
@@ -2851,8 +2857,8 @@ void __70__PBUIWallpaperConfigurationManager_clearCacheForVariants_memoryOnly___
 
     if (v7)
     {
-      v8 = PBUILogCommon();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = PBUILogCommon(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [PBUIWallpaperConfigurationManager performMigrationWithFailureHandler:];
       }
@@ -2861,105 +2867,105 @@ void __70__PBUIWallpaperConfigurationManager_clearCacheForVariants_memoryOnly___
     }
   }
 
-  v105 = os_transaction_create();
-  v104 = objc_autoreleasePoolPush();
-  v9 = PBUILogCommon();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v117 = os_transaction_create();
+  v116 = objc_autoreleasePoolPush();
+  v10 = PBUILogCommon(v116);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     [PBUIWallpaperConfigurationManager performMigrationWithFailureHandler:];
   }
 
-  v10 = objc_alloc_init(PBUIWallpaperDefaultsDomain);
-  lockScreenWallpapers = [(PBUIWallpaperDefaultsDomain *)v10 lockScreenWallpapers];
+  v11 = objc_alloc_init(PBUIWallpaperDefaultsDomain);
+  lockScreenWallpapers = [(PBUIWallpaperDefaultsDomain *)v11 lockScreenWallpapers];
 
   if (!lockScreenWallpapers)
   {
-    v12 = objc_alloc_init(PBUIWallpaperLegacyDefaultsDomain);
-    v13 = [PBUIWallpaperDefaultsWrapper lockScreenWrapperForLegacyDefaults:v12];
-    wallpaperDefaultsDict = [v13 wallpaperDefaultsDict];
+    v13 = objc_alloc_init(PBUIWallpaperLegacyDefaultsDomain);
+    v14 = [PBUIWallpaperDefaultsWrapper lockScreenWrapperForLegacyDefaults:v13];
+    wallpaperDefaultsDict = [v14 wallpaperDefaultsDict];
 
-    v15 = MEMORY[0x277CBEAC0];
-    v16 = PBUIStringForWallpaperMode(0);
-    v17 = [v15 dictionaryWithObject:wallpaperDefaultsDict forKey:v16];
+    v16 = MEMORY[0x277CBEAC0];
+    v17 = PBUIStringForWallpaperMode(0);
+    v18 = [v16 dictionaryWithObject:wallpaperDefaultsDict forKey:v17];
 
-    v18 = [PBUIWallpaperDefaultsWrapper homeScreenWrapperForLegacyDefaults:v12];
-    wallpaperDefaultsDict2 = [v18 wallpaperDefaultsDict];
+    v19 = [PBUIWallpaperDefaultsWrapper homeScreenWrapperForLegacyDefaults:v13];
+    wallpaperDefaultsDict2 = [v19 wallpaperDefaultsDict];
 
-    v20 = MEMORY[0x277CBEAC0];
-    v21 = PBUIStringForWallpaperMode(0);
-    v22 = [v20 dictionaryWithObject:wallpaperDefaultsDict2 forKey:v21];
+    v21 = MEMORY[0x277CBEAC0];
+    v22 = PBUIStringForWallpaperMode(0);
+    v23 = [v21 dictionaryWithObject:wallpaperDefaultsDict2 forKey:v22];
 
-    [(PBUIWallpaperDefaultsDomain *)v10 setLockScreenWallpapers:v17];
-    [(PBUIWallpaperDefaultsDomain *)v10 setHomeScreenWallpapers:v22];
-    [(BSAbstractDefaultDomain *)v12 resetAllDefaults];
+    [(PBUIWallpaperDefaultsDomain *)v11 setLockScreenWallpapers:v18];
+    [(PBUIWallpaperDefaultsDomain *)v11 setHomeScreenWallpapers:v23];
+    [(BSAbstractDefaultDomain *)v13 resetAllDefaults];
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v24 = +[PBUIWallpaperDirectoryDataStore defaultDirectoryURL];
-  v25 = [v24 URLByAppendingPathComponent:@"LockBackground.jpg" isDirectory:0];
-  v26 = NSHomeDirectory();
-  v27 = [v26 stringByAppendingPathComponent:@"Library/LockBackground.jpg"];
+  v25 = +[PBUIWallpaperDirectoryDataStore defaultDirectoryURL];
+  v26 = [v25 URLByAppendingPathComponent:@"LockBackground.jpg" isDirectory:0];
+  v27 = NSHomeDirectory();
+  v28 = [v27 stringByAppendingPathComponent:@"Library/LockBackground.jpg"];
 
-  v111 = v24;
-  v108 = [v24 URLByAppendingPathComponent:@"HomeBackground.jpg" isDirectory:0];
-  v110 = v25;
-  if ([v25 checkResourceIsReachableAndReturnError:0] & 1) != 0 || (objc_msgSend(defaultManager, "fileExistsAtPath:", v27))
+  v123 = v25;
+  v120 = [v25 URLByAppendingPathComponent:@"HomeBackground.jpg" isDirectory:0];
+  v122 = v26;
+  if ([v26 checkResourceIsReachableAndReturnError:0] & 1) != 0 || (objc_msgSend(defaultManager, "fileExistsAtPath:", v28))
   {
-    v28 = 1;
+    v29 = 1;
   }
 
   else
   {
-    v28 = [v108 checkResourceIsReachableAndReturnError:0];
+    v29 = [v120 checkResourceIsReachableAndReturnError:0];
   }
 
-  v102 = v28;
-  v109 = v27;
-  v112 = defaultManager;
-  v103 = v10;
+  v114 = v29;
+  v121 = v28;
+  v124 = defaultManager;
+  v115 = v11;
   selfCopy = self;
-  v107 = handlerCopy;
-  v124 = 0u;
-  v125 = 0u;
-  v122 = 0u;
-  v123 = 0u;
+  v119 = handlerCopy;
+  v136 = 0u;
+  v137 = 0u;
+  v134 = 0u;
+  v135 = 0u;
   obj = [(PBUIWallpaperConfigurationManager *)self dataStores];
-  v29 = [obj countByEnumeratingWithState:&v122 objects:v127 count:16];
-  if (v29)
+  v30 = [obj countByEnumeratingWithState:&v134 objects:v139 count:16];
+  if (v30)
   {
-    v30 = v29;
-    LOBYTE(v31) = 0;
+    v31 = v30;
     LOBYTE(v32) = 0;
     LOBYTE(v33) = 0;
     LOBYTE(v34) = 0;
-    v35 = 0;
-    LOBYTE(v36) = 0;
-    v115 = *v123;
-    v117 = 0;
+    LOBYTE(v35) = 0;
+    v36 = 0;
+    LOBYTE(v37) = 0;
+    v127 = *v135;
+    v129 = 0;
     while (1)
     {
-      for (i = 0; i != v30; ++i)
+      for (i = 0; i != v31; ++i)
       {
-        if (*v123 != v115)
+        if (*v135 != v127)
         {
           objc_enumerationMutation(obj);
         }
 
-        v38 = *(*(&v122 + 1) + 8 * i);
-        if ((v117 & 0x100000000) != 0)
+        v39 = *(*(&v134 + 1) + 8 * i);
+        if ((v129 & 0x100000000) != 0)
         {
-          HIDWORD(v117) = 1;
+          HIDWORD(v129) = 1;
         }
 
         else
         {
-          HIDWORD(v117) = [*(*(&v122 + 1) + 8 * i) hasWallpaperImageForVariant:0 wallpaperMode:0];
+          HIDWORD(v129) = [*(*(&v134 + 1) + 8 * i) hasWallpaperImageForVariant:0 wallpaperMode:0];
         }
 
-        if (v117)
+        if (v129)
         {
-          LODWORD(v117) = 1;
-          if (!v36)
+          LODWORD(v129) = 1;
+          if (!v37)
           {
             goto LABEL_24;
           }
@@ -2967,14 +2973,14 @@ void __70__PBUIWallpaperConfigurationManager_clearCacheForVariants_memoryOnly___
 
         else
         {
-          LODWORD(v117) = [v38 hasWallpaperImageForVariant:1 wallpaperMode:0];
-          if (!v36)
+          LODWORD(v129) = [v39 hasWallpaperImageForVariant:1 wallpaperMode:0];
+          if (!v37)
           {
 LABEL_24:
-            v39 = [v38 proceduralWallpaperInfoForVariant:0];
-            v36 = v39 != 0;
+            v40 = [v39 proceduralWallpaperInfoForVariant:0];
+            v37 = v40 != 0;
 
-            if (!v35)
+            if (!v36)
             {
               goto LABEL_25;
             }
@@ -2983,14 +2989,14 @@ LABEL_24:
           }
         }
 
-        v36 = 1;
-        if (!v35)
+        v37 = 1;
+        if (!v36)
         {
 LABEL_25:
-          v40 = [v38 proceduralWallpaperInfoForVariant:1];
-          v35 = v40 != 0;
+          v41 = [v39 proceduralWallpaperInfoForVariant:1];
+          v36 = v41 != 0;
 
-          if (v34)
+          if (v35)
           {
             goto LABEL_31;
           }
@@ -2999,12 +3005,12 @@ LABEL_25:
         }
 
 LABEL_30:
-        v35 = 1;
-        if (v34)
+        v36 = 1;
+        if (v35)
         {
 LABEL_31:
-          v34 = 1;
-          if (v33)
+          v35 = 1;
+          if (v34)
           {
             goto LABEL_39;
           }
@@ -3013,23 +3019,23 @@ LABEL_31:
         }
 
 LABEL_26:
-        v41 = [v38 wallpaperColorForVariant:0];
-        if (v41)
+        v42 = [v39 wallpaperColorForVariant:0];
+        if (v42)
         {
-          v34 = 1;
+          v35 = 1;
         }
 
         else
         {
-          v46 = [v38 wallpaperColorNameForVariant:0];
-          v34 = v46 != 0;
+          v47 = [v39 wallpaperColorNameForVariant:0];
+          v35 = v47 != 0;
         }
 
-        if (v33)
+        if (v34)
         {
 LABEL_39:
-          v33 = 1;
-          if (!v32)
+          v34 = 1;
+          if (!v33)
           {
             goto LABEL_35;
           }
@@ -3038,21 +3044,21 @@ LABEL_39:
         }
 
 LABEL_32:
-        v33 = 1;
-        v42 = [v38 wallpaperColorForVariant:1];
-        if (!v42)
+        v34 = 1;
+        v43 = [v39 wallpaperColorForVariant:1];
+        if (!v43)
         {
-          v43 = [v38 wallpaperColorNameForVariant:1];
-          v33 = v43 != 0;
+          v44 = [v39 wallpaperColorNameForVariant:1];
+          v34 = v44 != 0;
         }
 
-        if (!v32)
+        if (!v33)
         {
 LABEL_35:
-          v44 = [v38 wallpaperGradientForVariant:0];
-          v32 = v44 != 0;
+          v45 = [v39 wallpaperGradientForVariant:0];
+          v33 = v45 != 0;
 
-          if (!v31)
+          if (!v32)
           {
             goto LABEL_36;
           }
@@ -3061,106 +3067,114 @@ LABEL_35:
         }
 
 LABEL_40:
-        v32 = 1;
-        if (!v31)
+        v33 = 1;
+        if (!v32)
         {
 LABEL_36:
-          v45 = [v38 wallpaperGradientForVariant:1];
-          v31 = v45 != 0;
+          v46 = [v39 wallpaperGradientForVariant:1];
+          v32 = v46 != 0;
 
           continue;
         }
 
 LABEL_41:
-        v31 = 1;
+        v32 = 1;
       }
 
-      v30 = [obj countByEnumeratingWithState:&v122 objects:v127 count:16];
-      if (!v30)
+      v31 = [obj countByEnumeratingWithState:&v134 objects:v139 count:16];
+      if (!v31)
       {
         goto LABEL_46;
       }
     }
   }
 
-  v31 = 0;
   v32 = 0;
   v33 = 0;
   v34 = 0;
   v35 = 0;
   v36 = 0;
-  v117 = 0;
+  v37 = 0;
+  v129 = 0;
 LABEL_46:
 
-  v47 = objc_alloc_init(PBUIWallpaperDefaultsDomain);
-  v48 = [[PBUIWallpaperDefaults alloc] initWithdefaultsDomain:v47];
-  v49 = v48;
-  if (v36 && v35)
+  v48 = objc_alloc_init(PBUIWallpaperDefaultsDomain);
+  v49 = [[PBUIWallpaperDefaults alloc] initWithdefaultsDomain:v48];
+  v50 = v49;
+  if (v37 && v36)
   {
-    v100 = 1;
-    v101 = 1;
-    v50 = v112;
+    v112 = 1;
+    v113 = 1;
+    v51 = v124;
   }
 
   else
   {
+    if (v37)
+    {
+      v112 = 1;
+    }
+
+    else
+    {
+      v49 = [(PBUIWallpaperDefaults *)v49 proceduralUserSetForVariant:0];
+      if (v49)
+      {
+        v52 = [(PBUIWallpaperDefaults *)v50 proceduralIdentifierForVariant:0];
+        v112 = v52 != 0;
+      }
+
+      else
+      {
+        v112 = 0;
+      }
+    }
+
+    v51 = v124;
     if (v36)
     {
-      v100 = 1;
-    }
-
-    else if ([(PBUIWallpaperDefaults *)v48 proceduralUserSetForVariant:0])
-    {
-      v51 = [(PBUIWallpaperDefaults *)v49 proceduralIdentifierForVariant:0];
-      v100 = v51 != 0;
+      v113 = 1;
     }
 
     else
     {
-      v100 = 0;
-    }
+      v49 = [(PBUIWallpaperDefaults *)v50 proceduralUserSetForVariant:1];
+      if (v49)
+      {
+        v53 = [(PBUIWallpaperDefaults *)v50 proceduralIdentifierForVariant:1];
+        v113 = v53 != 0;
+      }
 
-    v50 = v112;
-    if (v35)
-    {
-      v101 = 1;
-    }
-
-    else if ([(PBUIWallpaperDefaults *)v49 proceduralUserSetForVariant:1])
-    {
-      v52 = [(PBUIWallpaperDefaults *)v49 proceduralIdentifierForVariant:1];
-      v101 = v52 != 0;
-    }
-
-    else
-    {
-      v101 = 0;
+      else
+      {
+        v113 = 0;
+      }
     }
   }
 
-  if (!v34 || !v33)
+  if (!v35 || !v34)
   {
-    handlerCopy = v107;
-    if (v34)
+    handlerCopy = v119;
+    if (v35)
     {
       obja = 1;
-      v54 = v109;
-      if (!v33)
+      v55 = v121;
+      if (!v34)
       {
 LABEL_63:
-        v55 = [(PBUIWallpaperDefaults *)v49 wallpaperColorDataForVariant:1];
-        if (v55)
+        v56 = [(PBUIWallpaperDefaults *)v50 wallpaperColorDataForVariant:1];
+        if (v56)
         {
-          v56 = [(PBUIWallpaperDefaults *)v49 wallpaperColorNameForVariant:1];
-          v53 = v56 != 0;
+          v57 = [(PBUIWallpaperDefaults *)v50 wallpaperColorNameForVariant:1];
+          v54 = v57 != 0;
         }
 
         else
         {
-          v53 = 0;
+          v54 = 0;
         }
 
-        v59 = v102;
+        v60 = v114;
 
         goto LABEL_73;
       }
@@ -3168,11 +3182,11 @@ LABEL_63:
 
     else
     {
-      v57 = [(PBUIWallpaperDefaults *)v49 wallpaperColorDataForVariant:0];
-      if (v57)
+      v58 = [(PBUIWallpaperDefaults *)v50 wallpaperColorDataForVariant:0];
+      if (v58)
       {
-        v58 = [(PBUIWallpaperDefaults *)v49 wallpaperColorNameForVariant:0];
-        obja = v58 != 0;
+        v59 = [(PBUIWallpaperDefaults *)v50 wallpaperColorNameForVariant:0];
+        obja = v59 != 0;
       }
 
       else
@@ -3180,35 +3194,47 @@ LABEL_63:
         obja = 0;
       }
 
-      v54 = v109;
+      v55 = v121;
 
-      if (!v33)
+      if (!v34)
       {
         goto LABEL_63;
       }
     }
 
-    v53 = 1;
+    v54 = 1;
     goto LABEL_72;
   }
 
-  v53 = 1;
+  v54 = 1;
   obja = 1;
-  handlerCopy = v107;
-  v54 = v109;
+  handlerCopy = v119;
+  v55 = v121;
 LABEL_72:
-  v59 = v102;
+  v60 = v114;
 LABEL_73:
-  v116 = v47;
-  if (v32 && v31)
+  v128 = v48;
+  if (v33 && v32)
   {
-    v60 = 1;
     v61 = 1;
-    v62 = selfCopy;
+    v62 = 1;
+    v63 = selfCopy;
   }
 
   else
   {
+    if (v33)
+    {
+      v62 = 1;
+    }
+
+    else
+    {
+      v64 = [(PBUIWallpaperDefaults *)v50 wallpaperGradientDataForVariant:0];
+      v62 = v64 != 0;
+    }
+
+    v63 = selfCopy;
     if (v32)
     {
       v61 = 1;
@@ -3216,102 +3242,90 @@ LABEL_73:
 
     else
     {
-      v63 = [(PBUIWallpaperDefaults *)v49 wallpaperGradientDataForVariant:0];
-      v61 = v63 != 0;
-    }
-
-    v62 = selfCopy;
-    if (v31)
-    {
-      v60 = 1;
-    }
-
-    else
-    {
-      v64 = [(PBUIWallpaperDefaults *)v49 wallpaperGradientDataForVariant:1];
-      v60 = v64 != 0;
+      v65 = [(PBUIWallpaperDefaults *)v50 wallpaperGradientDataForVariant:1];
+      v61 = v65 != 0;
     }
   }
 
-  v65 = PBUILogCommon();
-  if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
-  {
-    [PBUIWallpaperConfigurationManager performMigrationWithFailureHandler:];
-  }
-
-  v66 = PBUILogCommon();
+  v66 = PBUILogCommon(v49);
   if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
   {
     [PBUIWallpaperConfigurationManager performMigrationWithFailureHandler:];
   }
 
-  v67 = PBUILogCommon();
-  if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
-  {
-    [PBUIWallpaperConfigurationManager performMigrationWithFailureHandler:];
-  }
-
-  v68 = PBUILogCommon();
+  v68 = PBUILogCommon(v67);
   if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
   {
     [PBUIWallpaperConfigurationManager performMigrationWithFailureHandler:];
   }
 
-  v69 = PBUILogCommon();
-  if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
-  {
-    [PBUIWallpaperConfigurationManager performMigrationWithFailureHandler:];
-  }
-
-  v70 = PBUILogCommon();
+  v70 = PBUILogCommon(v69);
   if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
   {
     [PBUIWallpaperConfigurationManager performMigrationWithFailureHandler:];
   }
 
-  if (v59 & 1 | ((v117 & 0x100000000) == 0))
+  v72 = PBUILogCommon(v71);
+  if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
   {
-    legacyUsesUniqueHomeScreenWallpaper = [(PBUIWallpaperDefaultsDomain *)v116 legacyUsesUniqueHomeScreenWallpaper];
-    v72 = v101 || v100 || obja || v53 || v61 || v60;
-    v73 = MEMORY[0x277D755B8];
-    path = [v110 path];
-    v75 = [v73 imageWithContentsOfFile:path];
-    v76 = v75;
-    if (v75)
+    [PBUIWallpaperConfigurationManager performMigrationWithFailureHandler:];
+  }
+
+  v74 = PBUILogCommon(v73);
+  if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
+  {
+    [PBUIWallpaperConfigurationManager performMigrationWithFailureHandler:];
+  }
+
+  v76 = PBUILogCommon(v75);
+  if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
+  {
+    [PBUIWallpaperConfigurationManager performMigrationWithFailureHandler:];
+  }
+
+  if (v60 & 1 | ((v129 & 0x100000000) == 0))
+  {
+    legacyUsesUniqueHomeScreenWallpaper = [(PBUIWallpaperDefaultsDomain *)v128 legacyUsesUniqueHomeScreenWallpaper];
+    v78 = v113 || v112 || obja || v54 || v62 || v61;
+    v79 = MEMORY[0x277D755B8];
+    path = [v122 path];
+    v81 = [v79 imageWithContentsOfFile:path];
+    v82 = v81;
+    if (v81)
     {
-      v77 = v75;
+      v83 = v81;
     }
 
     else
     {
-      v77 = [MEMORY[0x277D755B8] imageWithContentsOfFile:v54];
+      v83 = [MEMORY[0x277D755B8] imageWithContentsOfFile:v55];
     }
 
-    v84 = legacyUsesUniqueHomeScreenWallpaper | v72;
+    v90 = legacyUsesUniqueHomeScreenWallpaper | v78;
 
-    v85 = PBUILogCommon();
-    if (os_log_type_enabled(v85, OS_LOG_TYPE_DEBUG))
+    v92 = PBUILogCommon(v91);
+    if (os_log_type_enabled(v92, OS_LOG_TYPE_DEBUG))
     {
       [PBUIWallpaperConfigurationManager performMigrationWithFailureHandler:];
     }
 
-    v86 = PBUILogCommon();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_DEBUG))
+    v94 = PBUILogCommon(v93);
+    if (os_log_type_enabled(v94, OS_LOG_TYPE_DEBUG))
     {
       [PBUIWallpaperConfigurationManager performMigrationWithFailureHandler:];
     }
 
-    if ((v84 & 1) == 0)
+    if ((v90 & 1) == 0)
     {
-      if (v77)
+      if (v83)
       {
-        v94 = PBUILogCommon();
-        if (os_log_type_enabled(v94, OS_LOG_TYPE_DEBUG))
+        v105 = PBUILogCommon(v95);
+        if (os_log_type_enabled(v105, OS_LOG_TYPE_DEBUG))
         {
           [PBUIWallpaperConfigurationManager performMigrationWithFailureHandler:];
         }
 
-        v92 = [(PBUIWallpaperConfigurationManager *)v62 setWallpaperImage:v77 originalImage:0 forVariants:3 options:1];
+        v103 = [(PBUIWallpaperConfigurationManager *)v63 setWallpaperImage:v83 originalImage:0 forVariants:3 options:1];
         if (!handlerCopy)
         {
           goto LABEL_129;
@@ -3320,97 +3334,98 @@ LABEL_73:
         goto LABEL_126;
       }
 
-      [(PBUIWallpaperConfigurationManager *)v62 restoreDefaultWallpaperForAllVariantsAndNotify:0];
+      [(PBUIWallpaperConfigurationManager *)v63 restoreDefaultWallpaperForAllVariantsAndNotify:0];
 LABEL_129:
-      v120 = 0u;
-      v121 = 0u;
-      v118 = 0u;
-      v119 = 0u;
-      v95 = [&unk_282FD5948 countByEnumeratingWithState:&v118 objects:v126 count:16];
-      v83 = v104;
-      if (v95)
+      v132 = 0u;
+      v133 = 0u;
+      v130 = 0u;
+      v131 = 0u;
+      v106 = [&unk_282FD5948 countByEnumeratingWithState:&v130 objects:v138 count:16];
+      v89 = v116;
+      if (v106)
       {
-        v96 = v95;
-        v97 = *v119;
+        v107 = v106;
+        v108 = *v131;
         do
         {
-          for (j = 0; j != v96; ++j)
+          for (j = 0; j != v107; ++j)
           {
-            if (*v119 != v97)
+            if (*v131 != v108)
             {
               objc_enumerationMutation(&unk_282FD5948);
             }
 
-            v99 = [v111 URLByAppendingPathComponent:*(*(&v118 + 1) + 8 * j) isDirectory:0];
-            [v112 removeItemAtURL:v99 error:0];
+            v110 = [v123 URLByAppendingPathComponent:*(*(&v130 + 1) + 8 * j) isDirectory:0];
+            [v124 removeItemAtURL:v110 error:0];
           }
 
-          v96 = [&unk_282FD5948 countByEnumeratingWithState:&v118 objects:v126 count:16];
+          v107 = [&unk_282FD5948 countByEnumeratingWithState:&v130 objects:v138 count:16];
         }
 
-        while (v96);
+        while (v107);
       }
 
-      v50 = v112;
-      v54 = v109;
-      [v112 removeItemAtPath:v109 error:0];
-      v78 = v116;
-      [(PBUIWallpaperDefaultsDomain *)v116 clearLegacyDefaults];
+      v51 = v124;
+      v55 = v121;
+      [v124 removeItemAtPath:v121 error:0];
+      v84 = v128;
+      [(PBUIWallpaperDefaultsDomain *)v128 clearLegacyDefaults];
 
-      v82 = v105;
+      v88 = v117;
       goto LABEL_137;
     }
 
-    v87 = MEMORY[0x277D755B8];
-    path2 = [v108 path];
-    v89 = [v87 imageWithContentsOfFile:path2];
+    v96 = MEMORY[0x277D755B8];
+    path2 = [v120 path];
+    v98 = [v96 imageWithContentsOfFile:path2];
 
-    v90 = PBUILogCommon();
-    if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
+    v100 = PBUILogCommon(v99);
+    if (os_log_type_enabled(v100, OS_LOG_TYPE_DEBUG))
     {
       [PBUIWallpaperConfigurationManager performMigrationWithFailureHandler:];
     }
 
-    if (v77)
+    if (v83)
     {
-      v91 = PBUILogCommon();
-      if (os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG))
+      v102 = PBUILogCommon(v101);
+      if (os_log_type_enabled(v102, OS_LOG_TYPE_DEBUG))
       {
         [PBUIWallpaperConfigurationManager performMigrationWithFailureHandler:];
       }
 
-      v92 = [(PBUIWallpaperConfigurationManager *)v62 setWallpaperImage:v77 originalImage:0 forVariants:1 options:1];
-      if (v89)
+      v101 = [(PBUIWallpaperConfigurationManager *)v63 setWallpaperImage:v83 originalImage:0 forVariants:1 options:1];
+      v103 = v101;
+      if (v98)
       {
 LABEL_112:
-        v93 = PBUILogCommon();
-        if (os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
+        v104 = PBUILogCommon(v101);
+        if (os_log_type_enabled(v104, OS_LOG_TYPE_DEBUG))
         {
           [PBUIWallpaperConfigurationManager performMigrationWithFailureHandler:];
         }
 
-        v92 &= [(PBUIWallpaperConfigurationManager *)v62 setWallpaperImage:v89 originalImage:0 forVariants:2 options:1];
+        v103 &= [(PBUIWallpaperConfigurationManager *)v63 setWallpaperImage:v98 originalImage:0 forVariants:2 options:1];
         goto LABEL_125;
       }
     }
 
     else
     {
-      if (((v100 | HIDWORD(v117) | obja) & 1) == 0)
+      if (((v112 | HIDWORD(v129) | obja) & 1) == 0)
       {
-        [(PBUIWallpaperConfigurationManager *)v62 restoreDefaultWallpaperForAllVariantsAndNotify:0];
+        v101 = [(PBUIWallpaperConfigurationManager *)v63 restoreDefaultWallpaperForAllVariantsAndNotify:0];
       }
 
-      v92 = 1;
-      if (v89)
+      v103 = 1;
+      if (v98)
       {
         goto LABEL_112;
       }
     }
 
-    if (((v101 | v117 | obja) & 1) == 0)
+    if (((v113 | v129 | obja) & 1) == 0)
     {
-      [(PBUIWallpaperConfigurationManager *)v62 restoreDefaultWallpaperForAllVariantsAndNotify:0];
+      [(PBUIWallpaperConfigurationManager *)v63 restoreDefaultWallpaperForAllVariantsAndNotify:0];
     }
 
 LABEL_125:
@@ -3418,7 +3433,7 @@ LABEL_125:
     if (handlerCopy)
     {
 LABEL_126:
-      if ((v92 & 1) == 0)
+      if ((v103 & 1) == 0)
       {
         handlerCopy[2](handlerCopy);
       }
@@ -3429,32 +3444,32 @@ LABEL_126:
     goto LABEL_129;
   }
 
-  v78 = v116;
-  if ([(PBUIWallpaperConfigurationManager *)v62 variantsShareWallpaperConfigurationForTypes:54])
+  v84 = v128;
+  if ([(PBUIWallpaperConfigurationManager *)v63 variantsShareWallpaperConfigurationForTypes:54])
   {
-    v79 = v62;
-    v80 = 0;
-    v81 = 3;
+    v85 = v63;
+    v86 = 0;
+    v87 = 3;
   }
 
   else
   {
-    [(PBUIWallpaperConfigurationManager *)v62 migrateWallpaperOptionsForImageIfNecessaryForVariant:0 representingVariants:PBUIWallpaperLocationForVariant(0)];
-    v81 = PBUIWallpaperLocationForVariant(1);
-    v79 = v62;
-    v80 = 1;
+    [(PBUIWallpaperConfigurationManager *)v63 migrateWallpaperOptionsForImageIfNecessaryForVariant:0 representingVariants:PBUIWallpaperLocationForVariant(0)];
+    v87 = PBUIWallpaperLocationForVariant(1);
+    v85 = v63;
+    v86 = 1;
   }
 
-  [(PBUIWallpaperConfigurationManager *)v79 migrateWallpaperOptionsForImageIfNecessaryForVariant:v80 representingVariants:v81];
-  v83 = v104;
-  v82 = v105;
-  [(PBUIWallpaperConfigurationManager *)v62 safeMigrateWallpaperImageIfNecessary];
+  [(PBUIWallpaperConfigurationManager *)v85 migrateWallpaperOptionsForImageIfNecessaryForVariant:v86 representingVariants:v87];
+  v89 = v116;
+  v88 = v117;
+  [(PBUIWallpaperConfigurationManager *)v63 safeMigrateWallpaperImageIfNecessary];
 LABEL_137:
-  [(PBUIWallpaperConfigurationManager *)v62 regenerateThumbnailsIfNecessary];
+  [(PBUIWallpaperConfigurationManager *)v63 regenerateThumbnailsIfNecessary];
 
-  objc_autoreleasePoolPop(v83);
-  v8 = PBUILogCommon();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  objc_autoreleasePoolPop(v89);
+  v9 = PBUILogCommon(v111);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [PBUIWallpaperConfigurationManager performMigrationWithFailureHandler:];
   }
@@ -3464,8 +3479,8 @@ LABEL_139:
 
 - (void)migrateWallpaperOptionsForImageIfNecessaryForVariant:(int64_t)variant representingVariants:(int64_t)variants
 {
-  v119 = *MEMORY[0x277D85DE8];
-  v7 = PBUILogCommon();
+  v130 = *MEMORY[0x277D85DE8];
+  v7 = PBUILogCommon(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [PBUIWallpaperConfigurationManager migrateWallpaperOptionsForImageIfNecessaryForVariant:variant representingVariants:v7];
@@ -3484,22 +3499,22 @@ LABEL_139:
     {
       magnifyMode = [(PBUIWallpaperConfigurationManager *)self magnifyMode];
       [magnifyMode zoomFactor];
-      v31 = v30;
+      v34 = v33;
       isMagnifyEnabled = [wallpaperOptions isMagnifyEnabled];
       if (!magnifyMode)
       {
-        v24 = 0;
+        v26 = 0;
         goto LABEL_63;
       }
 
-      v108 = magnifyMode;
-      v33 = v31;
-      v34 = fabs(v33 + -1.0);
-      if (isMagnifyEnabled == v34 >= 2.22044605e-16)
+      v119 = magnifyMode;
+      v36 = v34;
+      v37 = fabs(v36 + -1.0);
+      if (isMagnifyEnabled == v37 >= 2.22044605e-16)
       {
-        v24 = 0;
+        v26 = 0;
 LABEL_62:
-        magnifyMode = v108;
+        magnifyMode = v119;
 LABEL_63:
 
         if (wallpaperImage)
@@ -3507,7 +3522,8 @@ LABEL_63:
           wallpaperImageHashData = [v8 wallpaperImageHashData];
           if (!wallpaperImageHashData)
           {
-            if (![(PBUIWallpaperConfigurationManager *)self shouldSetWallpaperImageHashData])
+            shouldSetWallpaperImageHashData = [(PBUIWallpaperConfigurationManager *)self shouldSetWallpaperImageHashData];
+            if (!shouldSetWallpaperImageHashData)
             {
               goto LABEL_66;
             }
@@ -3521,8 +3537,8 @@ LABEL_63:
         }
 
 LABEL_66:
-        v91 = PBUILogCommon();
-        if (os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG))
+        v102 = PBUILogCommon(shouldSetWallpaperImageHashData);
+        if (os_log_type_enabled(v102, OS_LOG_TYPE_DEBUG))
         {
           [PBUIWallpaperConfigurationManager migrateWallpaperOptionsForImageIfNecessaryForVariant:representingVariants:];
         }
@@ -3530,31 +3546,31 @@ LABEL_66:
         goto LABEL_69;
       }
 
-      v35 = PBUILogCommon();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+      v38 = PBUILogCommon(isMagnifyEnabled);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
       {
         [PBUIWallpaperConfigurationManager migrateWallpaperOptionsForImageIfNecessaryForVariant:representingVariants:];
       }
 
       pbui_resizedImageForCurrentMagnifyMode = [wallpaperOriginalImage pbui_resizedImageForCurrentMagnifyMode];
-      LOBYTE(v92) = 1;
-      if (![(PBUIWallpaperConfigurationManager *)self setWallpaperImage:pbui_resizedImageForCurrentMagnifyMode originalImage:wallpaperOriginalImage thumbnailData:0 imageHashData:0 wallpaperOptions:0 forVariants:variants options:1 wallpaperMode:[(PBUIWallpaperConfigurationManager *)self wallpaperMode] isMigrating:v92])
+      LOBYTE(v103) = 1;
+      if (![(PBUIWallpaperConfigurationManager *)self setWallpaperImage:pbui_resizedImageForCurrentMagnifyMode originalImage:wallpaperOriginalImage thumbnailData:0 imageHashData:0 wallpaperOptions:0 forVariants:variants options:1 wallpaperMode:[(PBUIWallpaperConfigurationManager *)self wallpaperMode] isMigrating:v103])
       {
-        v24 = 0;
+        v26 = 0;
 LABEL_61:
 
         goto LABEL_62;
       }
 
-      v24 = [wallpaperOptions copy];
-      [v24 setMagnifyEnabled:v34 >= 2.22044605e-16];
-      [v24 setZoomScale:1.0 / v33];
-      [(PBUIWallpaperConfigurationManager *)self setWallpaperOptions:v24 forVariants:variants wallpaperMode:[(PBUIWallpaperConfigurationManager *)self wallpaperMode]];
+      v26 = [wallpaperOptions copy];
+      [v26 setMagnifyEnabled:v37 >= 2.22044605e-16];
+      [v26 setZoomScale:1.0 / v36];
+      [(PBUIWallpaperConfigurationManager *)self setWallpaperOptions:v26 forVariants:variants wallpaperMode:[(PBUIWallpaperConfigurationManager *)self wallpaperMode]];
       pbui_resizedImageForCurrentMagnifyMode = pbui_resizedImageForCurrentMagnifyMode;
-      v28 = pbui_resizedImageForCurrentMagnifyMode;
+      v31 = pbui_resizedImageForCurrentMagnifyMode;
 LABEL_60:
 
-      wallpaperImage = v28;
+      wallpaperImage = v31;
       goto LABEL_61;
     }
 
@@ -3562,38 +3578,39 @@ LABEL_60:
     [wallpaperOriginalImage size];
     v16 = v15;
     v18 = v17;
-    [wallpaperOriginalImage scale];
-    v20 = v19;
-    v21 = PBUILogCommon();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_21E67D000, v21, OS_LOG_TYPE_INFO, "//////////__migrateWallpaperOptionsForImageIfNecessary//////////", buf, 2u);
-    }
-
-    v22 = PBUILogCommon();
-    rect_8 = v14;
+    scale = [wallpaperOriginalImage scale];
+    v21 = v20;
+    v22 = PBUILogCommon(scale);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v120.width = v16;
-      v120.height = v18;
-      v23 = NSStringFromSize(v120);
-      *buf = 138543618;
-      v110 = v23;
-      v111 = 2048;
-      v112 = v20;
-      _os_log_impl(&dword_21E67D000, v22, OS_LOG_TYPE_INFO, "originalImage size %{public}@ scale %g", buf, 0x16u);
+      *buf = 0;
+      _os_log_impl(&dword_21E67D000, v22, OS_LOG_TYPE_INFO, "//////////__migrateWallpaperOptionsForImageIfNecessary//////////", buf, 2u);
     }
 
-    v24 = [(PBUIWallpaperConfigurationManager *)self migratedWallpaperOptionsForWallpaperOptions:wallpaperOptions originalImageSize:v16, v18];
+    v24 = PBUILogCommon(v23);
+    rect_8 = v14;
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    {
+      v131.width = v16;
+      v131.height = v18;
+      v25 = NSStringFromSize(v131);
+      *buf = 138543618;
+      v121 = v25;
+      v122 = 2048;
+      v123 = v21;
+      _os_log_impl(&dword_21E67D000, v24, OS_LOG_TYPE_INFO, "originalImage size %{public}@ scale %g", buf, 0x16u);
+    }
+
+    v26 = [(PBUIWallpaperConfigurationManager *)self migratedWallpaperOptionsForWallpaperOptions:wallpaperOptions originalImageSize:v16, v18];
     videoURL = [v8 videoURL];
     rect_16 = [v8 originalVideoURL];
     [(PBUIWallpaperConfigurationManager *)self wallpaperScale];
-    v27 = v26;
-    v108 = videoURL;
-    if ([v24 isLooselyEqualToWallpaperOptions:wallpaperOptions])
+    v29 = v28;
+    v30 = [v26 isLooselyEqualToWallpaperOptions:wallpaperOptions];
+    v119 = videoURL;
+    if (v30)
     {
-      v28 = wallpaperImage;
+      v31 = wallpaperImage;
       variants = rect_24;
       goto LABEL_58;
     }
@@ -3601,220 +3618,220 @@ LABEL_60:
     variants = rect_24;
     if (videoURL && !rect_16)
     {
-      v28 = wallpaperImage;
+      v31 = wallpaperImage;
       goto LABEL_58;
     }
 
-    v98 = v27;
-    v99 = v20;
-    v37 = PBUILogCommon();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+    v109 = v29;
+    v110 = v21;
+    v40 = PBUILogCommon(v30);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
     {
       [PBUIWallpaperConfigurationManager migrateWallpaperOptionsForImageIfNecessaryForVariant:representingVariants:];
     }
 
     [wallpaperOptions cropRect];
-    v39 = v38;
-    v41 = v40;
-    v43 = v42;
-    v45 = v44;
+    v42 = v41;
+    v44 = v43;
+    v46 = v45;
+    v48 = v47;
     [wallpaperOptions parallaxFactor];
-    v47 = v46;
+    v50 = v49;
     [wallpaperOptions zoomScale];
-    v49 = v48;
-    [v24 cropRect];
-    v101 = v51;
-    rect = v50;
-    v100 = v52;
-    v97 = v53;
-    v54 = PBUILogCommon();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+    v52 = v51;
+    cropRect = [v26 cropRect];
+    v112 = v55;
+    rect = v54;
+    v111 = v56;
+    v108 = v57;
+    v58 = PBUILogCommon(cropRect);
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
     {
       if (rect_8 == 2)
       {
-        v55 = @"Home";
+        v59 = @"Home";
       }
 
       else
       {
-        v55 = @"Lock";
+        v59 = @"Lock";
       }
 
-      v126.origin.x = v39;
-      v126.origin.y = v41;
-      v126.size.width = v43;
-      v126.size.height = v45;
-      v95 = NSStringFromCGRect(v126);
-      v127.origin.x = v39;
-      v127.origin.y = v41;
-      v127.size.width = v43;
-      v127.size.height = v45;
-      v94 = v18;
-      v56 = v16;
-      v57 = v47;
-      MidX = CGRectGetMidX(v127);
-      v128.origin.x = v39;
-      v128.origin.y = v41;
-      v128.size.width = v43;
-      v128.size.height = v45;
-      v121.y = CGRectGetMidY(v128);
-      v121.x = MidX;
-      v93 = NSStringFromCGPoint(v121);
+      v137.origin.x = v42;
+      v137.origin.y = v44;
+      v137.size.width = v46;
+      v137.size.height = v48;
+      v106 = NSStringFromCGRect(v137);
+      v138.origin.x = v42;
+      v138.origin.y = v44;
+      v138.size.width = v46;
+      v138.size.height = v48;
+      v105 = v18;
+      v60 = v16;
+      v61 = v50;
+      MidX = CGRectGetMidX(v138);
+      v139.origin.x = v42;
+      v139.origin.y = v44;
+      v139.size.width = v46;
+      v139.size.height = v48;
+      v132.y = CGRectGetMidY(v139);
+      v132.x = MidX;
+      v104 = NSStringFromCGPoint(v132);
       *buf = 138413314;
-      v110 = v55;
+      v121 = v59;
       variants = rect_24;
-      v111 = 2114;
-      v112 = *&v95;
-      v113 = 2114;
-      v114 = v93;
-      v115 = 2048;
-      v116 = v49;
-      v117 = 2048;
-      v118 = v57;
-      v16 = v56;
-      v18 = v94;
-      _os_log_impl(&dword_21E67D000, v54, OS_LOG_TYPE_INFO, "%@ Old Crop: %{public}@ Center: %{public}@ Zoom: %g Parallax: %g", buf, 0x34u);
+      v122 = 2114;
+      v123 = *&v106;
+      v124 = 2114;
+      v125 = v104;
+      v126 = 2048;
+      v127 = v52;
+      v128 = 2048;
+      v129 = v61;
+      v16 = v60;
+      v18 = v105;
+      _os_log_impl(&dword_21E67D000, v58, OS_LOG_TYPE_INFO, "%@ Old Crop: %{public}@ Center: %{public}@ Zoom: %g Parallax: %g", buf, 0x34u);
     }
 
-    v59 = PBUILogCommon();
-    if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
+    v64 = PBUILogCommon(v63);
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
     {
       if (rect_8 == 2)
       {
-        v60 = @"Home";
+        v65 = @"Home";
       }
 
       else
       {
-        v60 = @"Lock";
+        v65 = @"Lock";
       }
 
-      v61 = v101;
-      v129.origin.x = rect;
-      v129.origin.y = v101;
-      v62 = v100;
-      v129.size.width = v100;
-      v63 = v97;
-      v129.size.height = v97;
-      v96 = NSStringFromCGRect(v129);
-      v130.origin.x = rect;
-      v130.origin.y = v101;
-      v130.size.width = v100;
-      v130.size.height = v97;
-      v64 = CGRectGetMidX(v130);
-      v131.origin.x = rect;
-      v131.origin.y = v101;
-      v131.size.width = v100;
-      v131.size.height = v97;
-      v122.y = CGRectGetMidY(v131);
-      v122.x = v64;
-      NSStringFromCGPoint(v122);
-      v65 = rect_8b = v24;
+      v66 = v112;
+      v140.origin.x = rect;
+      v140.origin.y = v112;
+      v67 = v111;
+      v140.size.width = v111;
+      v68 = v108;
+      v140.size.height = v108;
+      v107 = NSStringFromCGRect(v140);
+      v141.origin.x = rect;
+      v141.origin.y = v112;
+      v141.size.width = v111;
+      v141.size.height = v108;
+      v69 = CGRectGetMidX(v141);
+      v142.origin.x = rect;
+      v142.origin.y = v112;
+      v142.size.width = v111;
+      v142.size.height = v108;
+      v133.y = CGRectGetMidY(v142);
+      v133.x = v69;
+      NSStringFromCGPoint(v133);
+      v70 = rect_8b = v26;
       [rect_8b zoomScale];
-      v67 = v66;
+      v72 = v71;
       [rect_8b parallaxFactor];
       *buf = 138413314;
-      v110 = v60;
+      v121 = v65;
       variants = rect_24;
-      v111 = 2114;
-      v112 = *&v96;
-      v113 = 2114;
-      v114 = v65;
-      v115 = 2048;
-      v116 = v67;
-      v117 = 2048;
-      v118 = v68;
-      _os_log_impl(&dword_21E67D000, v59, OS_LOG_TYPE_INFO, "%@ New Crop: %{public}@ Center: %{public}@ Zoom: %g Parallax: %g", buf, 0x34u);
+      v122 = 2114;
+      v123 = *&v107;
+      v124 = 2114;
+      v125 = v70;
+      v126 = 2048;
+      v127 = v72;
+      v128 = 2048;
+      v129 = v73;
+      _os_log_impl(&dword_21E67D000, v64, OS_LOG_TYPE_INFO, "%@ New Crop: %{public}@ Center: %{public}@ Zoom: %g Parallax: %g", buf, 0x34u);
 
-      v24 = rect_8b;
+      v26 = rect_8b;
     }
 
     else
     {
-      v62 = v100;
-      v61 = v101;
-      v63 = v97;
+      v67 = v111;
+      v66 = v112;
+      v68 = v108;
     }
 
-    [(PBUIWallpaperConfigurationManager *)self setWallpaperOptions:v24 forVariants:variants wallpaperMode:[(PBUIWallpaperConfigurationManager *)self wallpaperMode]];
+    [(PBUIWallpaperConfigurationManager *)self setWallpaperOptions:v26 forVariants:variants wallpaperMode:[(PBUIWallpaperConfigurationManager *)self wallpaperMode]];
     [(PBUIWallpaperConfigurationManager *)self wallpaperSize];
-    [v24 bestWallpaperSizeForWallpaperSize:-[PBUIWallpaperConfigurationManager parallaxDeviceType](self wallpaperScale:"parallaxDeviceType") deviceType:v69 imageScale:{v70, v98, v99}];
-    v72 = v71;
-    v74 = v73;
-    rect_8a = [wallpaperOriginalImage pbui_cropImageWithRect:rect outputSize:{v61, v62, v63, v71, v73}];
-    v75 = PBUILogCommon();
-    if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
+    [v26 bestWallpaperSizeForWallpaperSize:-[PBUIWallpaperConfigurationManager parallaxDeviceType](self wallpaperScale:"parallaxDeviceType") deviceType:v74 imageScale:{v75, v109, v110}];
+    v77 = v76;
+    v79 = v78;
+    rect_8a = [wallpaperOriginalImage pbui_cropImageWithRect:rect outputSize:{v66, v67, v68, v76, v78}];
+    v80 = PBUILogCommon(rect_8a);
+    if (os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
     {
-      v123.width = v16;
-      v123.height = v18;
-      v76 = NSStringFromCGSize(v123);
+      v134.width = v16;
+      v134.height = v18;
+      v81 = NSStringFromCGSize(v134);
       *buf = 138543362;
-      v110 = v76;
-      _os_log_impl(&dword_21E67D000, v75, OS_LOG_TYPE_INFO, "originalImageSize: %{public}@", buf, 0xCu);
+      v121 = v81;
+      _os_log_impl(&dword_21E67D000, v80, OS_LOG_TYPE_INFO, "originalImageSize: %{public}@", buf, 0xCu);
 
       variants = rect_24;
     }
 
-    v77 = PBUILogCommon();
-    if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
+    v83 = PBUILogCommon(v82);
+    if (os_log_type_enabled(v83, OS_LOG_TYPE_INFO))
     {
-      v124.width = v72;
-      v124.height = v74;
-      v78 = NSStringFromCGSize(v124);
+      v135.width = v77;
+      v135.height = v79;
+      v84 = NSStringFromCGSize(v135);
       *buf = 138543362;
-      v110 = v78;
-      _os_log_impl(&dword_21E67D000, v77, OS_LOG_TYPE_INFO, "outputSize: %{public}@", buf, 0xCu);
+      v121 = v84;
+      _os_log_impl(&dword_21E67D000, v83, OS_LOG_TYPE_INFO, "outputSize: %{public}@", buf, 0xCu);
 
       variants = rect_24;
     }
 
-    v79 = PBUILogCommon();
-    if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
+    v86 = PBUILogCommon(v85);
+    if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
     {
       [rect_8a size];
-      v80 = NSStringFromCGSize(v125);
+      v87 = NSStringFromCGSize(v136);
       *buf = 138543362;
-      v110 = v80;
-      _os_log_impl(&dword_21E67D000, v79, OS_LOG_TYPE_INFO, "adjustedImageSize: %{public}@", buf, 0xCu);
+      v121 = v87;
+      _os_log_impl(&dword_21E67D000, v86, OS_LOG_TYPE_INFO, "adjustedImageSize: %{public}@", buf, 0xCu);
 
       variants = rect_24;
     }
 
     if (rect_8a)
     {
-      v81 = [(PBUIWallpaperConfigurationManager *)self setWallpaperImage:rect_8a originalImage:wallpaperOriginalImage forVariants:variants options:0];
-      v28 = rect_8a;
+      v89 = [(PBUIWallpaperConfigurationManager *)self setWallpaperImage:rect_8a originalImage:wallpaperOriginalImage forVariants:variants options:0];
+      v31 = rect_8a;
 
-      if (v81)
+      if (v89)
       {
         if (rect_16)
         {
           CGAffineTransformMakeScale(buf, 1.0 / v16, 1.0 / v18);
-          v132.origin.x = rect;
-          v132.origin.y = v61;
-          v132.size.width = v62;
-          v132.size.height = v63;
-          v133 = CGRectApplyAffineTransform(v132, buf);
-          x = v133.origin.x;
-          y = v133.origin.y;
-          width = v133.size.width;
-          height = v133.size.height;
-          v86 = PBUILogCommon();
-          if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
+          v143.origin.x = rect;
+          v143.origin.y = v66;
+          v143.size.width = v67;
+          v143.size.height = v68;
+          v144 = CGRectApplyAffineTransform(v143, buf);
+          x = v144.origin.x;
+          y = v144.origin.y;
+          width = v144.size.width;
+          height = v144.size.height;
+          v95 = PBUILogCommon(v94);
+          if (os_log_type_enabled(v95, OS_LOG_TYPE_INFO))
           {
-            v134.origin.x = x;
-            v134.origin.y = y;
-            v134.size.width = width;
-            v134.size.height = height;
-            v87 = NSStringFromCGRect(v134);
+            v145.origin.x = x;
+            v145.origin.y = y;
+            v145.size.width = width;
+            v145.size.height = height;
+            v96 = NSStringFromCGRect(v145);
             *buf = 138543362;
-            v110 = v87;
-            _os_log_impl(&dword_21E67D000, v86, OS_LOG_TYPE_INFO, "Re-cropping video to relative rect: %{public}@", buf, 0xCu);
+            v121 = v96;
+            _os_log_impl(&dword_21E67D000, v95, OS_LOG_TYPE_INFO, "Re-cropping video to relative rect: %{public}@", buf, 0xCu);
           }
 
-          v88 = PBUILogCommon();
+          v98 = PBUILogCommon(v97);
           variants = rect_24;
-          if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
           {
             [PBUIWallpaperConfigurationManager migrateWallpaperOptionsForImageIfNecessaryForVariant:representingVariants:];
           }
@@ -3830,7 +3847,7 @@ LABEL_60:
 LABEL_57:
 
 LABEL_58:
-        wallpaperImage = PBUILogCommon();
+        wallpaperImage = PBUILogCommon(v30);
         pbui_resizedImageForCurrentMagnifyMode = rect_16;
         if (os_log_type_enabled(wallpaperImage, OS_LOG_TYPE_INFO))
         {
@@ -3846,11 +3863,11 @@ LABEL_58:
 
     else
     {
-      v28 = wallpaperImage;
+      v31 = wallpaperImage;
     }
 
-    v89 = PBUILogCommon();
-    if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
+    v99 = PBUILogCommon(v88);
+    if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
     {
       [PBUIWallpaperConfigurationManager migrateWallpaperOptionsForImageIfNecessaryForVariant:representingVariants:];
     }
@@ -3935,33 +3952,33 @@ LABEL_69:
 
 - (void)regenerateThumbnailIfNecessaryForVariant:(int64_t)variant wallpaperMode:(int64_t)mode
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = [PBUIWallpaperConfigurationManager wallpaperThumbnailImageForVariant:"wallpaperThumbnailImageForVariant:wallpaperMode:" wallpaperMode:?];
   [v7 scale];
   v9 = v8;
-  [(PBUIWallpaperConfigurationManager *)self wallpaperScale];
-  if (v9 != v10)
+  wallpaperScale = [(PBUIWallpaperConfigurationManager *)self wallpaperScale];
+  if (v9 != v11)
   {
-    v11 = PBUILogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = PBUILogCommon(wallpaperScale);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v12 = PBUIStringForWallpaperVariant(variant);
+      v13 = PBUIStringForWallpaperVariant(variant);
       [v7 scale];
-      v14 = v13;
+      v15 = v14;
       [(PBUIWallpaperConfigurationManager *)self wallpaperScale];
-      v17 = 138543874;
-      v18 = v12;
-      v19 = 2048;
-      v20 = v14;
-      v21 = 2048;
-      v22 = v15;
-      _os_log_impl(&dword_21E67D000, v11, OS_LOG_TYPE_INFO, "Regenerating thumbnail for variant: %{public}@ (existing thumbnail scale: %f, expected scale: %f)", &v17, 0x20u);
+      v18 = 138543874;
+      v19 = v13;
+      v20 = 2048;
+      v21 = v15;
+      v22 = 2048;
+      v23 = v16;
+      _os_log_impl(&dword_21E67D000, v12, OS_LOG_TYPE_INFO, "Regenerating thumbnail for variant: %{public}@ (existing thumbnail scale: %f, expected scale: %f)", &v18, 0x20u);
     }
 
-    v16 = [(PBUIWallpaperConfigurationManager *)self wallpaperImageForVariant:variant wallpaperMode:mode];
-    if (v16)
+    v17 = [(PBUIWallpaperConfigurationManager *)self wallpaperImageForVariant:variant wallpaperMode:mode];
+    if (v17)
     {
-      [(PBUIWallpaperConfigurationManager *)self setWallpaperThumbnailFromFullsizeImage:v16 forVariant:variant wallpaperMode:mode];
+      [(PBUIWallpaperConfigurationManager *)self setWallpaperThumbnailFromFullsizeImage:v17 forVariant:variant wallpaperMode:mode];
     }
   }
 }
@@ -4141,7 +4158,7 @@ LABEL_13:
   v55 = 0u;
   if (firstObject)
   {
-    [firstObject preferredTransform];
+    objc_msgSend_preferredTransform(firstObject);
   }
 
   [firstObject naturalSize];
@@ -4172,7 +4189,7 @@ LABEL_13:
   *&v53.c = v56;
   *&v53.tx = v57;
   memset(&v54, 0, sizeof(v54));
-  [(PBUIWallpaperConfigurationManager *)self _naturalPreferredTransform:&v53 forNaturalSize:*&v41, v42, v41];
+  objc_msgSend__naturalPreferredTransform_forNaturalSize_(self, *&v41, v42, v41);
   v52 = v54;
   CGAffineTransformInvert(&v53, &v52);
   v62.origin.x = v21;
@@ -4209,7 +4226,7 @@ LABEL_13:
   videoCompositionInstruction = [MEMORY[0x277CE6570] videoCompositionInstruction];
   if (videoCopy)
   {
-    [videoCopy duration];
+    objc_msgSend_duration(videoCopy);
   }
 
   else
@@ -4256,7 +4273,7 @@ void __87__PBUIWallpaperConfigurationManager_saveCroppedVideo_toURL_cropRect_com
   v2 = (a1 + 32);
   if ([*(a1 + 32) status] == 4)
   {
-    v3 = PBUILogCommon();
+    v3 = PBUILogCommon(4);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __87__PBUIWallpaperConfigurationManager_saveCroppedVideo_toURL_cropRect_completionHandler___block_invoke_cold_1(v2);
@@ -4311,7 +4328,7 @@ void __87__PBUIWallpaperConfigurationManager_saveCroppedVideo_toURL_cropRect_com
 
       else
       {
-        v17 = PBUILogCommon();
+        v17 = PBUILogCommon(self);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           [PBUIWallpaperConfigurationManager _naturalPreferredTransform:? forNaturalSize:?];
@@ -4745,7 +4762,7 @@ LABEL_8:
   v9 = [MEMORY[0x277D75348] pui_wallpaperColorForName:v8];
   if (!v9)
   {
-    v12 = PBUILogCommon();
+    v12 = PBUILogCommon(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [PBUIWallpaperConfigurationManager wallpaperColorForVariant:fromDataStore:colorName:];
@@ -4977,186 +4994,186 @@ LABEL_11:
   v14 = port.size.width;
   y = port.origin.y;
   x = port.origin.x;
-  v63 = *MEMORY[0x277D85DE8];
-  v18 = PBUILogCommon();
+  v71 = *MEMORY[0x277D85DE8];
+  v18 = PBUILogCommon(self);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf.a) = 0;
     _os_log_impl(&dword_21E67D000, v18, OS_LOG_TYPE_INFO, "//////////PBUIWallpaperCropRectForViewPort//////////", &buf, 2u);
   }
 
-  v19 = PBUILogCommon();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  v20 = PBUILogCommon(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
-    v66.origin.x = x;
-    v66.origin.y = y;
-    v66.size.width = v14;
-    v66.size.height = v13;
-    v20 = NSStringFromCGRect(v66);
+    v74.origin.x = x;
+    v74.origin.y = y;
+    v74.size.width = v14;
+    v74.size.height = v13;
+    v21 = NSStringFromCGRect(v74);
     LODWORD(buf.a) = 138543362;
-    *(&buf.a + 4) = v20;
-    _os_log_impl(&dword_21E67D000, v19, OS_LOG_TYPE_INFO, "viewPort: %{public}@", &buf, 0xCu);
+    *(&buf.a + 4) = v21;
+    _os_log_impl(&dword_21E67D000, v20, OS_LOG_TYPE_INFO, "viewPort: %{public}@", &buf, 0xCu);
   }
 
-  v21 = PBUILogCommon();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+  v23 = PBUILogCommon(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf.a) = 134217984;
     *(&buf.a + 4) = scale;
-    _os_log_impl(&dword_21E67D000, v21, OS_LOG_TYPE_INFO, "zoomScale: %g", &buf, 0xCu);
+    _os_log_impl(&dword_21E67D000, v23, OS_LOG_TYPE_INFO, "zoomScale: %g", &buf, 0xCu);
   }
 
-  if (scale == 0.0 || (width == *MEMORY[0x277CBF3A8] ? (v22 = height == *(MEMORY[0x277CBF3A8] + 8)) : (v22 = 0), v22))
+  if (scale == 0.0 || (width == *MEMORY[0x277CBF3A8] ? (v25 = height == *(MEMORY[0x277CBF3A8] + 8)) : (v25 = 0), v25))
   {
-    v46 = *MEMORY[0x277CBF3A0];
-    v48 = *(MEMORY[0x277CBF3A0] + 8);
-    v50 = *(MEMORY[0x277CBF3A0] + 16);
-    v52 = *(MEMORY[0x277CBF3A0] + 24);
+    v53 = *MEMORY[0x277CBF3A0];
+    v55 = *(MEMORY[0x277CBF3A0] + 8);
+    v57 = *(MEMORY[0x277CBF3A0] + 16);
+    v59 = *(MEMORY[0x277CBF3A0] + 24);
   }
 
   else
   {
-    v23 = width * scale;
-    v24 = height * scale;
-    v25 = PBUILogCommon();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    v26 = width * scale;
+    v27 = height * scale;
+    v28 = PBUILogCommon(v24);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
-      v64.width = v23;
-      v64.height = v24;
-      v26 = NSStringFromCGSize(v64);
+      v72.width = v26;
+      v72.height = v27;
+      v29 = NSStringFromCGSize(v72);
       LODWORD(buf.a) = 138543362;
-      *(&buf.a + 4) = v26;
-      _os_log_impl(&dword_21E67D000, v25, OS_LOG_TYPE_INFO, "scaledImageSize: %{public}@", &buf, 0xCu);
+      *(&buf.a + 4) = v29;
+      _os_log_impl(&dword_21E67D000, v28, OS_LOG_TYPE_INFO, "scaledImageSize: %{public}@", &buf, 0xCu);
     }
 
-    v61 = v24;
+    v69 = v27;
 
     [(PBUIWallpaperConfigurationManager *)self wallpaperSize];
-    v28 = v27;
-    v30 = v29;
+    v31 = v30;
+    v33 = v32;
     parallaxDeviceType = [(PBUIWallpaperConfigurationManager *)self parallaxDeviceType];
     if (factor == 0.0)
     {
-      v32 = 0.0;
+      v35 = 0.0;
     }
 
     else
     {
-      v32 = 1.0;
+      v35 = 1.0;
     }
 
-    [PBUIWallpaperParallaxSettings bestWallpaperSizeForWallpaperSize:parallaxDeviceType deviceType:portraitCopy parallaxFactor:v28 portrait:v30, v32, *&v23];
-    v34 = v33;
-    v36 = v35;
-    v37 = PBUILogCommon();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+    v36 = [PBUIWallpaperParallaxSettings bestWallpaperSizeForWallpaperSize:parallaxDeviceType deviceType:portraitCopy parallaxFactor:v31 portrait:v33, v35, *&v26];
+    v38 = v37;
+    v40 = v39;
+    v41 = PBUILogCommon(v36);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
     {
-      v65.width = v34;
-      v65.height = v36;
-      v38 = NSStringFromCGSize(v65);
+      v73.width = v38;
+      v73.height = v40;
+      v42 = NSStringFromCGSize(v73);
       LODWORD(buf.a) = 138543362;
-      *(&buf.a + 4) = v38;
-      _os_log_impl(&dword_21E67D000, v37, OS_LOG_TYPE_INFO, "bestSize: %{public}@", &buf, 0xCu);
-    }
-
-    v39 = (v34 - v14) * 0.5;
-    v40 = (v36 - v13) * 0.5;
-    if (v39 >= x)
-    {
-      v39 = x;
-    }
-
-    if (v39 >= v60 - (x + v14))
-    {
-      v39 = v60 - (x + v14);
-    }
-
-    if (v40 >= y)
-    {
-      v40 = y;
-    }
-
-    if (v40 >= v61 - (y + v13))
-    {
-      v40 = v61 - (y + v13);
-    }
-
-    if (v39 >= 0.0)
-    {
-      v41 = v39;
-    }
-
-    else
-    {
-      v41 = 0.0;
-    }
-
-    if (v40 >= 0.0)
-    {
-      v42 = v40;
-    }
-
-    else
-    {
-      v42 = 0.0;
-    }
-
-    v43 = PBUILogCommon();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
-    {
-      LODWORD(buf.a) = 134217984;
-      *(&buf.a + 4) = v41;
-      _os_log_impl(&dword_21E67D000, v43, OS_LOG_TYPE_INFO, "extraX: %g", &buf, 0xCu);
-    }
-
-    v44 = PBUILogCommon();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
-    {
-      LODWORD(buf.a) = 134217984;
       *(&buf.a + 4) = v42;
-      _os_log_impl(&dword_21E67D000, v44, OS_LOG_TYPE_INFO, "extraY: %g", &buf, 0xCu);
+      _os_log_impl(&dword_21E67D000, v41, OS_LOG_TYPE_INFO, "bestSize: %{public}@", &buf, 0xCu);
+    }
+
+    v44 = (v38 - v14) * 0.5;
+    v45 = (v40 - v13) * 0.5;
+    if (v44 >= x)
+    {
+      v44 = x;
+    }
+
+    if (v44 >= v68 - (x + v14))
+    {
+      v44 = v68 - (x + v14);
+    }
+
+    if (v45 >= y)
+    {
+      v45 = y;
+    }
+
+    if (v45 >= v69 - (y + v13))
+    {
+      v45 = v69 - (y + v13);
+    }
+
+    if (v44 >= 0.0)
+    {
+      v46 = v44;
+    }
+
+    else
+    {
+      v46 = 0.0;
+    }
+
+    if (v45 >= 0.0)
+    {
+      v47 = v45;
+    }
+
+    else
+    {
+      v47 = 0.0;
+    }
+
+    v48 = PBUILogCommon(v43);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+    {
+      LODWORD(buf.a) = 134217984;
+      *(&buf.a + 4) = v46;
+      _os_log_impl(&dword_21E67D000, v48, OS_LOG_TYPE_INFO, "extraX: %g", &buf, 0xCu);
+    }
+
+    v50 = PBUILogCommon(v49);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+    {
+      LODWORD(buf.a) = 134217984;
+      *(&buf.a + 4) = v47;
+      _os_log_impl(&dword_21E67D000, v50, OS_LOG_TYPE_INFO, "extraY: %g", &buf, 0xCu);
     }
 
     CGAffineTransformMakeScale(&buf, 1.0 / scaleFactor, 1.0 / scaleFactor);
-    v67.origin.x = x - v41;
-    v67.origin.y = y - v42;
-    v67.size.width = v14 + v41 * 2.0;
-    v67.size.height = v13 + v42 * 2.0;
-    CGRectApplyAffineTransform(v67, &buf);
-    UIRectCenteredRect();
-    v46 = v45;
-    v48 = v47;
-    v50 = v49;
-    v52 = v51;
-    v53 = PBUILogCommon();
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+    v75.origin.x = x - v46;
+    v75.origin.y = y - v47;
+    v75.size.width = v14 + v46 * 2.0;
+    v75.size.height = v13 + v47 * 2.0;
+    CGRectApplyAffineTransform(v75, &buf);
+    v51 = UIRectCenteredRect();
+    v53 = v52;
+    v55 = v54;
+    v57 = v56;
+    v59 = v58;
+    v60 = PBUILogCommon(v51);
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
     {
-      v68.origin.x = v46;
-      v68.origin.y = v48;
-      v68.size.width = v50;
-      v68.size.height = v52;
-      v54 = NSStringFromCGRect(v68);
+      v76.origin.x = v53;
+      v76.origin.y = v55;
+      v76.size.width = v57;
+      v76.size.height = v59;
+      v61 = NSStringFromCGRect(v76);
       LODWORD(buf.a) = 138543362;
-      *(&buf.a + 4) = v54;
-      _os_log_impl(&dword_21E67D000, v53, OS_LOG_TYPE_INFO, "PBUIWallpaperCropRectForViewPort: %{public}@", &buf, 0xCu);
+      *(&buf.a + 4) = v61;
+      _os_log_impl(&dword_21E67D000, v60, OS_LOG_TYPE_INFO, "PBUIWallpaperCropRectForViewPort: %{public}@", &buf, 0xCu);
     }
 
-    v55 = PBUILogCommon();
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+    v63 = PBUILogCommon(v62);
+    if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf.a) = 0;
-      _os_log_impl(&dword_21E67D000, v55, OS_LOG_TYPE_INFO, "/////////////////////////", &buf, 2u);
+      _os_log_impl(&dword_21E67D000, v63, OS_LOG_TYPE_INFO, "/////////////////////////", &buf, 2u);
     }
   }
 
-  v56 = v46;
-  v57 = v48;
-  v58 = v50;
-  v59 = v52;
-  result.size.height = v59;
-  result.size.width = v58;
-  result.origin.y = v57;
-  result.origin.x = v56;
+  v64 = v53;
+  v65 = v55;
+  v66 = v57;
+  v67 = v59;
+  result.size.height = v67;
+  result.size.width = v66;
+  result.origin.y = v65;
+  result.origin.x = v64;
   return result;
 }
 
@@ -5271,8 +5288,8 @@ LABEL_11:
   v9 = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v70 = *MEMORY[0x277D85DE8];
-  v13 = PBUILogCommon();
+  v82 = *MEMORY[0x277D85DE8];
+  v13 = PBUILogCommon(self);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf.a) = 0;
@@ -5280,202 +5297,202 @@ LABEL_11:
   }
 
   CGAffineTransformMakeScale(&buf, scale, scale);
-  v73.origin.x = x;
-  v73.origin.y = y;
-  v73.size.width = v9;
-  v73.size.height = height;
-  CGRectApplyAffineTransform(v73, &buf);
+  v85.origin.x = x;
+  v85.origin.y = y;
+  v85.size.width = v9;
+  v85.size.height = height;
+  CGRectApplyAffineTransform(v85, &buf);
   [(PBUIWallpaperConfigurationManager *)self wallpaperSize];
   v15 = v14;
   v17 = v16;
-  UIRectCenteredRect();
-  v19 = v18;
-  v21 = v20;
-  v23 = v22;
-  v66 = v24;
-  v25 = PBUILogCommon();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+  v18 = UIRectCenteredRect();
+  v20 = v19;
+  v22 = v21;
+  v24 = v23;
+  v78 = v25;
+  v26 = PBUILogCommon(v18);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
-    v71.width = width;
-    v71.height = size;
-    v26 = NSStringFromCGSize(v71);
+    v83.width = width;
+    v83.height = size;
+    v27 = NSStringFromCGSize(v83);
     LODWORD(buf.a) = 138543362;
-    *(&buf.a + 4) = v26;
-    _os_log_impl(&dword_21E67D000, v25, OS_LOG_TYPE_INFO, "imageSize %{public}@", &buf, 0xCu);
+    *(&buf.a + 4) = v27;
+    _os_log_impl(&dword_21E67D000, v26, OS_LOG_TYPE_INFO, "imageSize %{public}@", &buf, 0xCu);
   }
 
   parallaxDeviceType = [(PBUIWallpaperConfigurationManager *)self parallaxDeviceType];
-  v65 = v23;
-  if (v23 / width >= v66 / size)
+  v77 = v24;
+  if (v24 / width >= v78 / size)
   {
-    v28 = v23 / width;
+    v29 = v24 / width;
   }
 
   else
   {
-    v28 = v66 / size;
+    v29 = v78 / size;
   }
 
-  [PBUIWallpaperParallaxSettings minimumWallpaperSizeForWallpaperSize:parallaxDeviceType deviceType:v15, v17];
-  v30 = v29 / width;
-  v32 = v31 / size;
-  if (v30 >= v32)
+  v30 = [PBUIWallpaperParallaxSettings minimumWallpaperSizeForWallpaperSize:parallaxDeviceType deviceType:v15, v17];
+  v32 = v31 / width;
+  v34 = v33 / size;
+  if (v32 >= v34)
   {
-    v33 = v30;
+    v35 = v32;
   }
 
   else
   {
-    v33 = v32;
+    v35 = v34;
   }
 
-  v34 = PBUILogCommon();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
-  {
-    LODWORD(buf.a) = 134217984;
-    *(&buf.a + 4) = scale;
-    _os_log_impl(&dword_21E67D000, v34, OS_LOG_TYPE_INFO, "zoomScale %g", &buf, 0xCu);
-  }
-
-  v35 = PBUILogCommon();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
-  {
-    LODWORD(buf.a) = 134217984;
-    *(&buf.a + 4) = v28;
-    _os_log_impl(&dword_21E67D000, v35, OS_LOG_TYPE_INFO, "minimumZoomScale %g", &buf, 0xCu);
-  }
-
-  v36 = PBUILogCommon();
+  v36 = PBUILogCommon(v30);
   if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf.a) = 134217984;
-    *(&buf.a + 4) = v33;
-    _os_log_impl(&dword_21E67D000, v36, OS_LOG_TYPE_INFO, "minimumZoomScaleForParallax %g", &buf, 0xCu);
+    *(&buf.a + 4) = scale;
+    _os_log_impl(&dword_21E67D000, v36, OS_LOG_TYPE_INFO, "zoomScale %g", &buf, 0xCu);
   }
 
-  v37 = fmin(fmax((scale - v28) / (v33 - v28), 0.0), 1.0);
-  v38 = PBUILogCommon();
+  v38 = PBUILogCommon(v37);
   if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf.a) = 134217984;
-    *(&buf.a + 4) = v37;
-    _os_log_impl(&dword_21E67D000, v38, OS_LOG_TYPE_INFO, "zoomFactor %g", &buf, 0xCu);
+    *(&buf.a + 4) = v29;
+    _os_log_impl(&dword_21E67D000, v38, OS_LOG_TYPE_INFO, "minimumZoomScale %g", &buf, 0xCu);
   }
 
-  v64 = v37;
-
-  [PBUIWallpaperParallaxSettings overhangSizeForDeviceType:parallaxDeviceType];
-  v40 = v39;
-  v67 = v41;
-  v42 = PBUILogCommon();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+  v40 = PBUILogCommon(v39);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
   {
-    v72.width = v40;
-    v72.height = v67;
-    v43 = NSStringFromCGSize(v72);
+    LODWORD(buf.a) = 134217984;
+    *(&buf.a + 4) = v35;
+    _os_log_impl(&dword_21E67D000, v40, OS_LOG_TYPE_INFO, "minimumZoomScaleForParallax %g", &buf, 0xCu);
+  }
+
+  v41 = fmin(fmax((scale - v29) / (v35 - v29), 0.0), 1.0);
+  v43 = PBUILogCommon(v42);
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+  {
+    LODWORD(buf.a) = 134217984;
+    *(&buf.a + 4) = v41;
+    _os_log_impl(&dword_21E67D000, v43, OS_LOG_TYPE_INFO, "zoomFactor %g", &buf, 0xCu);
+  }
+
+  v76 = v41;
+
+  v44 = [PBUIWallpaperParallaxSettings overhangSizeForDeviceType:parallaxDeviceType];
+  v46 = v45;
+  v79 = v47;
+  v48 = PBUILogCommon(v44);
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+  {
+    v84.width = v46;
+    v84.height = v79;
+    v49 = NSStringFromCGSize(v84);
     LODWORD(buf.a) = 138543362;
-    *(&buf.a + 4) = v43;
-    _os_log_impl(&dword_21E67D000, v42, OS_LOG_TYPE_INFO, "overhangSize %{public}@", &buf, 0xCu);
+    *(&buf.a + 4) = v49;
+    _os_log_impl(&dword_21E67D000, v48, OS_LOG_TYPE_INFO, "overhangSize %{public}@", &buf, 0xCu);
   }
 
-  v44 = v19;
-  v45 = v19 / v40;
-  v46 = PBUILogCommon();
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+  v50 = v20;
+  v51 = v20 / v46;
+  v53 = PBUILogCommon(v52);
+  if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf.a) = 134217984;
-    *(&buf.a + 4) = v19 / v40;
-    _os_log_impl(&dword_21E67D000, v46, OS_LOG_TYPE_INFO, "minOffsetXFactor %g", &buf, 0xCu);
+    *(&buf.a + 4) = v20 / v46;
+    _os_log_impl(&dword_21E67D000, v53, OS_LOG_TYPE_INFO, "minOffsetXFactor %g", &buf, 0xCu);
   }
 
-  v47 = v21;
-  v48 = v21 / v67;
-  v49 = PBUILogCommon();
-  if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+  v54 = v22;
+  v55 = v22 / v79;
+  v57 = PBUILogCommon(v56);
+  if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf.a) = 134217984;
-    *(&buf.a + 4) = v21 / v67;
-    _os_log_impl(&dword_21E67D000, v49, OS_LOG_TYPE_INFO, "minOffsetYFactor %g", &buf, 0xCu);
+    *(&buf.a + 4) = v22 / v79;
+    _os_log_impl(&dword_21E67D000, v57, OS_LOG_TYPE_INFO, "minOffsetYFactor %g", &buf, 0xCu);
   }
 
-  v50 = width * scale;
-  v51 = size * scale;
+  v58 = width * scale;
+  v59 = size * scale;
 
-  if (v45 >= v48)
+  if (v51 >= v55)
   {
-    v52 = v48;
+    v61 = v55;
   }
 
   else
   {
-    v52 = v45;
+    v61 = v51;
   }
 
-  v53 = fmin(fmax(v52, 0.0), 1.0);
-  v54 = PBUILogCommon();
-  if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+  v62 = fmin(fmax(v61, 0.0), 1.0);
+  v63 = PBUILogCommon(v60);
+  if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf.a) = 134217984;
-    *(&buf.a + 4) = v53;
-    _os_log_impl(&dword_21E67D000, v54, OS_LOG_TYPE_INFO, "minOffsetFactor %g", &buf, 0xCu);
+    *(&buf.a + 4) = v62;
+    _os_log_impl(&dword_21E67D000, v63, OS_LOG_TYPE_INFO, "minOffsetFactor %g", &buf, 0xCu);
   }
 
-  v74.origin.x = v44;
-  v74.origin.y = v47;
-  v74.size.width = v65;
-  v74.size.height = v66;
-  v55 = (v50 - CGRectGetMaxX(v74)) / v40;
-  v75.origin.x = v44;
-  v75.origin.y = v47;
-  v75.size.width = v65;
-  v75.size.height = v66;
-  v56 = (v51 - CGRectGetMaxY(v75)) / v67;
-  if (v55 < v56)
+  v86.origin.x = v50;
+  v86.origin.y = v54;
+  v86.size.width = v77;
+  v86.size.height = v78;
+  v64 = (v58 - CGRectGetMaxX(v86)) / v46;
+  v87.origin.x = v50;
+  v87.origin.y = v54;
+  v87.size.width = v77;
+  v87.size.height = v78;
+  v66 = (v59 - CGRectGetMaxY(v87)) / v79;
+  if (v64 < v66)
   {
-    v56 = v55;
+    v66 = v64;
   }
 
-  v57 = fmin(fmax(v56, 0.0), 1.0);
-  v58 = PBUILogCommon();
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+  v67 = fmin(fmax(v66, 0.0), 1.0);
+  v68 = PBUILogCommon(v65);
+  if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf.a) = 134217984;
-    *(&buf.a + 4) = v57;
-    _os_log_impl(&dword_21E67D000, v58, OS_LOG_TYPE_INFO, "maxOffsetFactor %g", &buf, 0xCu);
+    *(&buf.a + 4) = v67;
+    _os_log_impl(&dword_21E67D000, v68, OS_LOG_TYPE_INFO, "maxOffsetFactor %g", &buf, 0xCu);
   }
 
-  v59 = v64;
-  if (v64 > v53)
+  v70 = v76;
+  if (v76 > v62)
   {
-    v59 = v53;
+    v70 = v62;
   }
 
-  if (v59 <= v57)
+  if (v70 <= v67)
   {
-    v60 = v59;
+    v71 = v70;
   }
 
   else
   {
-    v60 = v57;
+    v71 = v67;
   }
 
-  v61 = PBUILogCommon();
-  if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
+  v72 = PBUILogCommon(v69);
+  if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf.a) = 134217984;
-    *(&buf.a + 4) = v60;
-    _os_log_impl(&dword_21E67D000, v61, OS_LOG_TYPE_INFO, "result: %g", &buf, 0xCu);
+    *(&buf.a + 4) = v71;
+    _os_log_impl(&dword_21E67D000, v72, OS_LOG_TYPE_INFO, "result: %g", &buf, 0xCu);
   }
 
-  v62 = PBUILogCommon();
-  if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+  v74 = PBUILogCommon(v73);
+  if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf.a) = 0;
-    _os_log_impl(&dword_21E67D000, v62, OS_LOG_TYPE_INFO, "/////////////////////////", &buf, 2u);
+    _os_log_impl(&dword_21E67D000, v74, OS_LOG_TYPE_INFO, "/////////////////////////", &buf, 2u);
   }
 
-  return v60;
+  return v71;
 }
 
 - (void)getBestCropRect:(CGRect *)rect zoomScale:(double *)scale forImageSize:(CGSize)size portrait:(BOOL)portrait parallaxFactor:(double)factor
@@ -5671,7 +5688,7 @@ LABEL_11:
 {
   v1 = PBUIStringForWallpaperVariant(a1);
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_7(&dword_21E67D000, v2, v3, "failed to determine provider of variant %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_7(&dword_21E67D000, v2, v3, "failed to determine provider of variant %{public}@", v4, v5, v6, v7);
 }
 
 - (void)posterMigrationInfo
@@ -5825,7 +5842,7 @@ void __87__PBUIWallpaperConfigurationManager_saveCroppedVideo_toURL_cropRect_com
   v1 = [*a1 error];
   v2 = [v1 localizedDescription];
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_7(&dword_21E67D000, v3, v4, "Failed with error: %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_7(&dword_21E67D000, v3, v4, "Failed with error: %{public}@", v5, v6, v7, v8);
 }
 
 - (void)_naturalPreferredTransform:(_OWORD *)a1 forNaturalSize:.cold.1(_OWORD *a1)
@@ -5837,7 +5854,7 @@ void __87__PBUIWallpaperConfigurationManager_saveCroppedVideo_toURL_cropRect_com
   *&v9.tx = a1[2];
   v2 = NSStringFromCGAffineTransform(&v9);
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_7(&dword_21E67D000, v3, v4, "naturalPreferredTransform: unrecognized preferred transform (%@). The resulting video may be (part) black\n", v5, v6, v7, v8, LOBYTE(v9.a));
+  OUTLINED_FUNCTION_7(&dword_21E67D000, v3, v4, "naturalPreferredTransform: unrecognized preferred transform (%@). The resulting video may be (part) black\n", v5, v6, v7, v8);
 }
 
 - (void)wallpaperColorForVariant:fromDataStore:colorName:.cold.1()

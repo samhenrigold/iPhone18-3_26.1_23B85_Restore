@@ -8,6 +8,7 @@
 - (void)interruptLocalUserSwitchTest;
 - (void)isReadyToLoginWithCompletionHandler:(id)handler;
 - (void)isReadyToLogoutWithCompletionHandler:(id)handler;
+- (void)loginAppleID:(id)d password:(id)password localLoginOnly:(BOOL)only isTemporarySession:(BOOL)session withCompletionHandler:(id)handler;
 - (void)logoutWithLogoutType:(unint64_t)type completionHandler:(id)handler;
 - (void)saveClassConfiguration:(id)configuration withCompletionHandler:(id)handler;
 - (void)triggerLocalUserSwitchTestForType:(unint64_t)type count:(int64_t)count username:(id)username password:(id)password loginDelay:(int64_t)delay logoutDelay:(int64_t)logoutDelay completionHandler:(id)handler;
@@ -33,9 +34,8 @@
   return v2;
 }
 
-void __37__LKLoginController_sharedController__block_invoke(uint64_t a1)
+void __37__LKLoginController_sharedController__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   v2 = objc_opt_new();
   v3 = sharedController_sharedController;
   sharedController_sharedController = v2;
@@ -108,16 +108,16 @@ void __37__LKLoginController_sharedController__block_invoke_3(uint64_t a1)
 
 - (LKLoginController)init
 {
-  v6.receiver = self;
-  v6.super_class = LKLoginController;
-  v2 = [(LKLoginController *)&v6 init];
+  v8.receiver = self;
+  v8.super_class = LKLoginController;
+  v2 = [(LKLoginController *)&v8 init];
   v3 = v2;
   if (v2)
   {
     completionHandler = v2->_completionHandler;
     v2->_completionHandler = 0;
 
-    LKRegisterLoginKitLogging();
+    LKRegisterLoginKitLogging(v5, v6);
   }
 
   return v3;
@@ -214,6 +214,48 @@ void __91__LKLoginController_chooseUserWithIdentifier_inClassWithID_password_wit
     (v4)[2](v4, v5);
 
     [*(a1 + 32) setCompletionHandler:0];
+  }
+}
+
+- (void)loginAppleID:(id)d password:(id)password localLoginOnly:(BOOL)only isTemporarySession:(BOOL)session withCompletionHandler:(id)handler
+{
+  sessionCopy = session;
+  onlyCopy = only;
+  dCopy = d;
+  passwordCopy = password;
+  handlerCopy = handler;
+  v15 = LKLogDefault;
+  if (os_log_type_enabled(LKLogDefault, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_25618F000, v15, OS_LOG_TYPE_DEFAULT, "LoginKit: Login is initiated.", buf, 2u);
+  }
+
+  if (isMultiUser())
+  {
+    completionHandler = [(LKLoginController *)self completionHandler];
+
+    if (completionHandler)
+    {
+      v17 = [LKError errorWithCode:3];
+      completionHandler2 = [(LKLoginController *)self completionHandler];
+      (completionHandler2)[2](completionHandler2, v17);
+    }
+
+    [(LKLoginController *)self setCompletionHandler:handlerCopy];
+    proxy = [(LKLoginController *)self proxy];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __99__LKLoginController_loginAppleID_password_localLoginOnly_isTemporarySession_withCompletionHandler___block_invoke;
+    v21[3] = &unk_2798263D0;
+    v21[4] = self;
+    [proxy loginAppleID:dCopy password:passwordCopy localLoginOnly:onlyCopy isTemporarySession:sessionCopy withCompletionHandler:v21];
+  }
+
+  else if (handlerCopy)
+  {
+    v20 = [LKError errorWithCode:28];
+    handlerCopy[2](handlerCopy, v20);
   }
 }
 
@@ -378,44 +420,42 @@ void __69__LKLoginController_checkInWithCurrentEnvironment_completionHandler___b
 
 - (id)recentUsers
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D77BF8] = [MEMORY[0x277D77BF8] sharedManager];
   allUsers = [mEMORY[0x277D77BF8] allUsers];
 
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(allUsers, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = allUsers;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [LKUser userFromUMUser:*(*(&v13 + 1) + 8 * i), v13];
+        v10 = [LKUser userFromUMUser:*(*(&v12 + 1) + 8 * i), v12];
         if (v10)
         {
           [v4 addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

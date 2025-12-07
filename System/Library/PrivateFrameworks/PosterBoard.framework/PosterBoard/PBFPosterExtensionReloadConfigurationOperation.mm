@@ -179,8 +179,7 @@
     os_unfair_recursive_lock_unlock();
     if (v12)
     {
-      [(CLInUseAssertion *)v12 invalidate];
-      v24 = PBFLogReloadConfiguration();
+      v24 = PBFLogReloadConfiguration([(CLInUseAssertion *)v12 invalidate]);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
@@ -214,8 +213,7 @@ LABEL_19:
     [v10 invalidate];
     if (v12)
     {
-      [(CLInUseAssertion *)v12 invalidate];
-      v20 = PBFLogReloadConfiguration();
+      v20 = PBFLogReloadConfiguration([(CLInUseAssertion *)v12 invalidate]);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
@@ -351,7 +349,7 @@ uint64_t __85__PBFPosterExtensionReloadConfigurationOperation_invalidateAssertio
 
 void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke(uint64_t a1)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained && ([WeakRetained isCancelled] & 1) == 0 && (objc_msgSend(v3, "isFinished") & 1) == 0)
@@ -360,11 +358,11 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke(u
     v5 = v4;
     if (!v4 || ([v4 isValid] & 1) == 0)
     {
-      v9 = MEMORY[0x277CCA9B8];
-      v10 = [v3 _userInfoForErrors];
-      v11 = [v9 pbf_dataStoreErrorWithCode:-2211 userInfo:v10];
+      v11 = MEMORY[0x277CCA9B8];
+      v12 = [v3 _userInfoForErrors];
+      v13 = [v11 pbf_dataStoreErrorWithCode:-2211 userInfo:v12];
 
-      [v3 _finishWithError:v11 postRefreshPosterPathsAssertion:0];
+      [v3 _finishWithError:v13 postRefreshPosterPathsAssertion:0];
 LABEL_35:
 
       goto LABEL_36;
@@ -373,11 +371,11 @@ LABEL_35:
     v6 = [v5 auditToken];
     if (!v6)
     {
-      v12 = MEMORY[0x277CCA9B8];
-      v13 = [v3 _userInfoForErrors];
-      v14 = [v12 pbf_dataStoreErrorWithCode:-2210 userInfo:v13];
+      v14 = MEMORY[0x277CCA9B8];
+      v15 = [v3 _userInfoForErrors];
+      v16 = [v14 pbf_dataStoreErrorWithCode:-2210 userInfo:v15];
 
-      [v3 _finishWithError:v14 postRefreshPosterPathsAssertion:0];
+      [v3 _finishWithError:v16 postRefreshPosterPathsAssertion:0];
 LABEL_34:
 
       goto LABEL_35;
@@ -386,167 +384,167 @@ LABEL_34:
     v7 = [v5 target];
     if (!v7)
     {
-      v15 = MEMORY[0x277CCA9B8];
-      v16 = [v3 _userInfoForErrors];
-      v17 = [v15 pbf_dataStoreErrorWithCode:-2209 userInfo:v16];
+      v17 = MEMORY[0x277CCA9B8];
+      v18 = [v3 _userInfoForErrors];
+      v19 = [v17 pbf_dataStoreErrorWithCode:-2209 userInfo:v18];
 
-      [v3 _finishWithError:v17 postRefreshPosterPathsAssertion:0];
+      [v3 _finishWithError:v19 postRefreshPosterPathsAssertion:0];
 LABEL_33:
 
       goto LABEL_34;
     }
 
-    v54 = [v5 bundleIdentifier];
-    os_unfair_recursive_lock_lock_with_options();
+    v60 = [v5 bundleIdentifier];
+    v8 = os_unfair_recursive_lock_lock_with_options();
     if (*(v3 + 304) == 1)
     {
-      os_unfair_recursive_lock_unlock();
-      v8 = PBFLogReloadConfiguration();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = os_unfair_recursive_lock_unlock();
+      v10 = PBFLogReloadConfiguration(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v58 = v3;
-        _os_log_impl(&dword_21B526000, v8, OS_LOG_TYPE_DEFAULT, "(%{public}@)  Invalidated before operation started", buf, 0xCu);
+        v64 = v3;
+        _os_log_impl(&dword_21B526000, v10, OS_LOG_TYPE_DEFAULT, "(%{public}@)  Invalidated before operation started", buf, 0xCu);
       }
     }
 
     else
     {
-      v18 = PBFLogReloadConfiguration();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = PBFLogReloadConfiguration(v8);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = [v3 preRefreshPosterConfiguration];
-        v20 = [v19 serverIdentity];
-        v21 = [v20 provider];
+        v21 = [v3 preRefreshPosterConfiguration];
+        v22 = [v21 serverIdentity];
+        v23 = [v22 provider];
         *buf = 138543618;
-        v58 = v3;
-        v59 = 2114;
-        v60 = v21;
-        _os_log_impl(&dword_21B526000, v18, OS_LOG_TYPE_DEFAULT, "(%{public}@)  Starting reload configuration operation for %{public}@", buf, 0x16u);
+        v64 = v3;
+        v65 = 2114;
+        v66 = v23;
+        _os_log_impl(&dword_21B526000, v20, OS_LOG_TYPE_DEFAULT, "(%{public}@)  Starting reload configuration operation for %{public}@", buf, 0x16u);
       }
 
-      BSAbsoluteMachTimeNow();
-      *(v3 + 384) = v22;
-      v23 = PBFLogReloadConfiguration();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v24 = BSAbsoluteMachTimeNow();
+      *(v3 + 384) = v25;
+      v26 = PBFLogReloadConfiguration(v24);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = [v3 preRefreshPosterConfiguration];
+        v27 = [v3 preRefreshPosterConfiguration];
         *buf = 138543618;
-        v58 = v3;
-        v59 = 2114;
-        v60 = v24;
-        _os_log_impl(&dword_21B526000, v23, OS_LOG_TYPE_DEFAULT, "(%{public}@)  Current understanding of paths: %{public}@", buf, 0x16u);
+        v64 = v3;
+        v65 = 2114;
+        v66 = v27;
+        _os_log_impl(&dword_21B526000, v26, OS_LOG_TYPE_DEFAULT, "(%{public}@)  Current understanding of paths: %{public}@", buf, 0x16u);
       }
 
-      v25 = *(v3 + 416);
-      v26 = [@"PBFPosterExtensionReloadConfigurationOperation refreshPosterConfiguration" stringByAppendingString:v54];
-      v27 = [MEMORY[0x277D47008] currentProcess];
-      v28 = [v25 acquirePosterUpdateRuntimeAssertionForReason:v26 target:v27];
-      v29 = *(v3 + 352);
-      *(v3 + 352) = v28;
+      v28 = *(v3 + 416);
+      v29 = [@"PBFPosterExtensionReloadConfigurationOperation refreshPosterConfiguration" stringByAppendingString:v60];
+      v30 = [MEMORY[0x277D47008] currentProcess];
+      v31 = [v28 acquirePosterUpdateRuntimeAssertionForReason:v29 target:v30];
+      v32 = *(v3 + 352);
+      *(v3 + 352) = v31;
 
-      v30 = [*(v3 + 416) acquirePosterUpdateRuntimeAssertionForReason:@"reloadConfiguration" target:v7];
-      v31 = *(v3 + 320);
-      *(v3 + 320) = v30;
+      v33 = [*(v3 + 416) acquirePosterUpdateRuntimeAssertionForReason:@"reloadConfiguration" target:v7];
+      v34 = *(v3 + 320);
+      *(v3 + 320) = v33;
 
-      v32 = [*(v3 + 416) acquirePosterUpdateMemoryAssertionForReason:@"reloadConfiguration entitled update" target:v7 auditToken:v6 posterProviderBundleIdentifier:v54];
-      v33 = *(v3 + 328);
-      *(v3 + 328) = v32;
+      v35 = [*(v3 + 416) acquirePosterUpdateMemoryAssertionForReason:@"reloadConfiguration entitled update" target:v7 auditToken:v6 posterProviderBundleIdentifier:v60];
+      v36 = *(v3 + 328);
+      *(v3 + 328) = v35;
 
       if (*(v3 + 368) == 1)
       {
-        v34 = [MEMORY[0x277CBFBF8] newAssertionForBundleIdentifier:v54 withReason:@"background update of in-use poster" level:0];
-        v35 = *(v3 + 336);
-        *(v3 + 336) = v34;
+        v37 = [MEMORY[0x277CBFBF8] newAssertionForBundleIdentifier:v60 withReason:@"background update of in-use poster" level:0];
+        v38 = *(v3 + 336);
+        *(v3 + 336) = v37;
 
-        v36 = PBFLogReloadConfiguration();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v40 = PBFLogReloadConfiguration(v39);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
-          v37 = *(v3 + 336);
+          v41 = *(v3 + 336);
           *buf = 134218242;
-          v58 = v37;
-          v59 = 2114;
-          v60 = v54;
-          _os_log_impl(&dword_21B526000, v36, OS_LOG_TYPE_DEFAULT, "created CLInUseAssertion=%p for background update of %{public}@", buf, 0x16u);
+          v64 = v41;
+          v65 = 2114;
+          v66 = v60;
+          _os_log_impl(&dword_21B526000, v40, OS_LOG_TYPE_DEFAULT, "created CLInUseAssertion=%p for background update of %{public}@", buf, 0x16u);
         }
       }
 
-      v38 = dispatch_group_create();
-      v39 = *(v3 + 296);
-      *(v3 + 296) = v38;
+      v42 = dispatch_group_create();
+      v43 = *(v3 + 296);
+      *(v3 + 296) = v42;
 
-      v8 = v38;
-      dispatch_group_enter(v8);
+      v10 = v42;
+      dispatch_group_enter(v10);
       os_unfair_recursive_lock_unlock();
       [v5 addUpdatingServiceObserver:v3];
-      [PBFPowerLogger logUpdate:2 reason:*(v3 + 360) inServiceOfBundleIdentifier:v54];
-      v40 = [v5 invalidationError];
-      if (v40)
+      [PBFPowerLogger logUpdate:2 reason:*(v3 + 360) inServiceOfBundleIdentifier:v60];
+      v44 = [v5 invalidationError];
+      if (v44)
       {
       }
 
       else if ([v5 isValid])
       {
-        v41 = [v3 preRefreshPosterConfiguration];
-        v42 = *(v3 + 288);
-        v55[0] = MEMORY[0x277D85DD0];
-        v55[1] = 3221225472;
-        v55[2] = __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_134;
-        v55[3] = &unk_2782C9300;
-        v55[4] = v3;
-        objc_copyWeak(&v56, (a1 + 32));
-        [v5 updateConfiguration:v41 sessionInfo:v42 completion:v55];
+        v45 = [v3 preRefreshPosterConfiguration];
+        v46 = *(v3 + 288);
+        v61[0] = MEMORY[0x277D85DD0];
+        v61[1] = 3221225472;
+        v61[2] = __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_134;
+        v61[3] = &unk_2782C9300;
+        v61[4] = v3;
+        objc_copyWeak(&v62, (a1 + 32));
+        [v5 updateConfiguration:v45 sessionInfo:v46 completion:v61];
 
         os_unfair_recursive_lock_lock_with_options();
-        v43 = *(v3 + 304);
-        os_unfair_recursive_lock_unlock();
-        if (v43 == 1)
+        v47 = *(v3 + 304);
+        v48 = os_unfair_recursive_lock_unlock();
+        if (v47 == 1)
         {
-          v44 = PBFLogReloadConfiguration();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+          v49 = PBFLogReloadConfiguration(v48);
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v58 = v3;
-            _os_log_impl(&dword_21B526000, v44, OS_LOG_TYPE_DEFAULT, "(%{public}@)  Abort timeout check; operation has already finished.", buf, 0xCu);
+            v64 = v3;
+            _os_log_impl(&dword_21B526000, v49, OS_LOG_TYPE_DEFAULT, "(%{public}@)  Abort timeout check; operation has already finished.", buf, 0xCu);
           }
 
-          objc_destroyWeak(&v56);
+          objc_destroyWeak(&v62);
         }
 
         else
         {
           [v3 timeoutInterval];
-          v49 = dispatch_time(0, (v48 * 1000000000.0));
-          if (dispatch_group_wait(v8, v49))
+          v54 = dispatch_time(0, (v53 * 1000000000.0));
+          if (dispatch_group_wait(v10, v54))
           {
-            v50 = MEMORY[0x277CCA9B8];
-            v51 = [v3 _userInfoForErrors];
-            v52 = [v50 pbf_dataStoreErrorWithCode:-2221 userInfo:v51];
+            v55 = MEMORY[0x277CCA9B8];
+            v56 = [v3 _userInfoForErrors];
+            v57 = [v55 pbf_dataStoreErrorWithCode:-2221 userInfo:v56];
 
-            v53 = PBFLogReloadConfiguration();
-            if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+            v59 = PBFLogReloadConfiguration(v58);
+            if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
             {
-              __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_cold_1(v3, v53);
+              __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_cold_1(v3, v59);
             }
 
-            [v3 _finishWithError:v52 postRefreshPosterPathsAssertion:0];
+            [v3 _finishWithError:v57 postRefreshPosterPathsAssertion:0];
           }
 
-          objc_destroyWeak(&v56);
+          objc_destroyWeak(&v62);
         }
 
         goto LABEL_32;
       }
 
-      v45 = [v5 invalidationError];
-      if (!v45)
+      v50 = [v5 invalidationError];
+      if (!v50)
       {
-        v46 = MEMORY[0x277CCA9B8];
-        v47 = [v3 _userInfoForErrors];
-        v45 = [v46 pbf_generalErrorWithCode:3 userInfo:v47];
+        v51 = MEMORY[0x277CCA9B8];
+        v52 = [v3 _userInfoForErrors];
+        v50 = [v51 pbf_generalErrorWithCode:3 userInfo:v52];
       }
 
-      [v3 _finishWithError:v45 postRefreshPosterPathsAssertion:0];
+      [v3 _finishWithError:v50 postRefreshPosterPathsAssertion:0];
     }
 
 LABEL_32:
@@ -562,7 +560,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
   v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = PBFLogReloadConfiguration();
+  v7 = PBFLogReloadConfiguration(v6);
   v8 = v7;
   if (v6)
   {
@@ -590,7 +588,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
 {
   v14 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v5 = PBFLogReloadConfiguration();
+  v5 = PBFLogReloadConfiguration(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -677,7 +675,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
 
 - (void)_finishWithError:(id)error postRefreshPosterPathsAssertion:(id)assertion
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   assertionCopy = assertion;
   os_unfair_recursive_lock_lock_with_options();
@@ -702,12 +700,12 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
     updatingService = [(PBFPosterExtensionReloadConfigurationOperation *)self updatingService];
     [updatingService removeUpdatingServiceObserver:self];
 
-    if (errorCopy || ([assertionCopy paths], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "count"), v14, v15 != 1) && (v16 = MEMORY[0x277CCA9B8], v34 = *MEMORY[0x277CCA470], objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"Extension did not return appropriate path data : %@", assertionCopy), v17 = objc_claimAutoreleasedReturnValue(), v35[0] = v17, objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v35, &v34, 1), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "pbf_dataStoreErrorWithCode:userInfo:", -2214, v18), errorCopy = objc_claimAutoreleasedReturnValue(), v18, v17, errorCopy))
+    if (errorCopy || ([assertionCopy paths], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "count"), v15, v16 != 1) && (v17 = MEMORY[0x277CCA9B8], v35 = *MEMORY[0x277CCA470], objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"Extension did not return appropriate path data : %@", assertionCopy), v18 = objc_claimAutoreleasedReturnValue(), v36[0] = v18, objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v36, &v35, 1), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "pbf_dataStoreErrorWithCode:userInfo:", -2214, v19), errorCopy = objc_claimAutoreleasedReturnValue(), v19, v18, errorCopy))
     {
-      v13 = PBFLogReloadConfiguration();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = PBFLogReloadConfiguration(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(PBFPosterExtensionReloadDescriptorsOperation *)self _finishWithError:errorCopy postRefreshPosterPathsAssertion:v13];
+        [(PBFPosterExtensionReloadDescriptorsOperation *)self _finishWithError:errorCopy postRefreshPosterPathsAssertion:v14];
       }
 
       [(PBFPosterExtensionReloadConfigurationOperation *)self setError:errorCopy];
@@ -716,24 +714,24 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
 
     else
     {
-      v19 = PBFLogReloadConfiguration();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = PBFLogReloadConfiguration(v13);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         paths = [assertionCopy paths];
         preRefreshPosterConfiguration = [(PBFPosterExtensionReloadConfigurationOperation *)self preRefreshPosterConfiguration];
-        v25 = preRefreshPosterConfiguration;
-        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
-        v23 = [paths isEqual:v22] ^ 1;
+        v26 = preRefreshPosterConfiguration;
+        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+        v24 = [paths isEqual:v23] ^ 1;
         [(PBFPosterExtensionReloadConfigurationOperation *)self executionTime];
         *buf = 138544130;
         selfCopy = self;
-        v28 = 1024;
-        v29 = v23;
-        v30 = 2114;
-        v31 = assertionCopy;
-        v32 = 2048;
-        v33 = v24;
-        _os_log_impl(&dword_21B526000, v19, OS_LOG_TYPE_DEFAULT, "(%{public}@)  Finished SUCCESSFULLY; Has modified paths? %{BOOL}d -- '%{public}@' -- execution time: %f", buf, 0x26u);
+        v29 = 1024;
+        v30 = v24;
+        v31 = 2114;
+        v32 = assertionCopy;
+        v33 = 2048;
+        v34 = v25;
+        _os_log_impl(&dword_21B526000, v20, OS_LOG_TYPE_DEFAULT, "(%{public}@)  Finished SUCCESSFULLY; Has modified paths? %{BOOL}d -- '%{public}@' -- execution time: %f", buf, 0x26u);
       }
 
       objc_storeStrong(&self->_lock_postRefreshPosterPathsAssertion, assertion);
@@ -843,7 +841,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
 
 - (void)initWithUpdatingService:(char *)a1 sessionInfo:existingConfigurationPath:locationInUse:runtimeAssertionProvider:timeout:powerLogReason:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRSPosterUpdateSessionInfoClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -851,7 +849,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRSPosterUpdateSessionInfoClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -861,7 +859,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
 
 - (void)initWithUpdatingService:(char *)a1 sessionInfo:existingConfigurationPath:locationInUse:runtimeAssertionProvider:timeout:powerLogReason:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PFPosterPathClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -869,7 +867,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PFPosterPathClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -879,7 +877,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
 
 - (void)initWithUpdatingService:(char *)a1 sessionInfo:existingConfigurationPath:locationInUse:runtimeAssertionProvider:timeout:powerLogReason:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRUpdatingServiceClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -887,7 +885,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRUpdatingServiceClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -897,7 +895,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
 
 - (void)initWithUpdatingService:(char *)a1 sessionInfo:existingConfigurationPath:locationInUse:runtimeAssertionProvider:timeout:powerLogReason:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(PBFRuntimeAssertionProviding)]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -905,7 +903,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object conformsToProtocol:@protocol(PBFRuntimeAssertionProviding)]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -915,7 +913,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
 
 - (void)initWithUpdatingService:(char *)a1 sessionInfo:existingConfigurationPath:locationInUse:runtimeAssertionProvider:timeout:powerLogReason:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"__objc_no == BSFloatLessThanOrEqualToFloat(timeoutInterval, 0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -923,7 +921,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"__objc_no == BSFloatLessThanOrEqualToFloat(timeoutInterval, 0)", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -933,7 +931,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
 
 - (void)initWithUpdatingService:(char *)a1 sessionInfo:existingConfigurationPath:locationInUse:runtimeAssertionProvider:timeout:powerLogReason:.cold.6(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -941,7 +939,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -951,7 +949,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
 
 - (void)initWithUpdatingService:(char *)a1 sessionInfo:existingConfigurationPath:locationInUse:runtimeAssertionProvider:timeout:powerLogReason:.cold.7(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -959,7 +957,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -969,7 +967,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
 
 - (void)initWithUpdatingService:(char *)a1 sessionInfo:existingConfigurationPath:locationInUse:runtimeAssertionProvider:timeout:powerLogReason:.cold.8(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -977,7 +975,7 @@ void __56__PBFPosterExtensionReloadConfigurationOperation__setup__block_invoke_1
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

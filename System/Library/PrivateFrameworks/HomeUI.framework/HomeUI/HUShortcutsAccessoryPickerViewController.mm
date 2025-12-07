@@ -27,7 +27,7 @@
 {
   moduleCopy = module;
   selfCopy = self;
-  v6 = sub_20CFF09FC();
+  v6 = sub_20CFF09FC(moduleCopy);
 
   return v6;
 }
@@ -43,7 +43,7 @@
   selfCopy = self;
   sub_20CFF0F54();
 
-  sub_20CECF940(0, &qword_27C81AEC0);
+  sub_20CECF940(0, &qword_27C81AEC0, 0x277CD1D90);
   sub_20CFF1C68();
   v3 = sub_20D567CD8();
 
@@ -52,7 +52,7 @@
 
 - (void)setServices:(id)services
 {
-  sub_20CECF940(0, &qword_27C81AEC0);
+  sub_20CECF940(0, &qword_27C81AEC0, 0x277CD1D90);
   sub_20CFF1C68();
   v4 = sub_20D567D08();
   v5 = OBJC_IVAR___HUShortcutsAccessoryPickerViewController_selectionController;

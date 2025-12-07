@@ -31,9 +31,9 @@
 - (id)reapStaleSnapshots
 {
   selfCopy = self;
-  v3 = PRUISPosterChannelReaper.reapStaleSnapshots()();
+  v4 = PRUISPosterChannelReaper.reapStaleSnapshots()(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (_TtC21PosterBoardUIServices24PRUISPosterChannelReaper)init

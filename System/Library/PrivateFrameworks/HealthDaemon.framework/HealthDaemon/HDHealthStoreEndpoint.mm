@@ -284,7 +284,7 @@ LABEL_38:
           v39[3] = &unk_278614008;
           v41 = completionCopy;
           v40 = v29;
-          v36 = [v39 copy];
+          v36 = objc_msgSend_copy(v39);
           v37 = _Block_copy(v36);
           [(NSMutableArray *)serverCompletionsAwaitingProfileReady addObject:v37];
         }
@@ -331,36 +331,36 @@ LABEL_41:
 
 - (void)profileDidBecomeReady:(id)ready
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (self->_server)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v4 = self->_serverCompletionsAwaitingProfileReady;
-    v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v12;
+      v7 = *v11;
       do
       {
         v8 = 0;
         do
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          (*(*(*(&v11 + 1) + 8 * v8) + 16))(*(*(&v11 + 1) + 8 * v8));
+          (*(*(*(&v10 + 1) + 8 * v8) + 16))(*(*(&v10 + 1) + 8 * v8));
           ++v8;
         }
 
         while (v6 != v8);
-        v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v6);
@@ -371,7 +371,6 @@ LABEL_41:
   self->_serverCompletionsAwaitingProfileReady = 0;
 
   os_unfair_lock_unlock(&self->_lock);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HDDaemon)daemon

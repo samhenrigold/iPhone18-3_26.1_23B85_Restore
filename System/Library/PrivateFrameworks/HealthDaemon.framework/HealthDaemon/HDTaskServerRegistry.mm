@@ -129,34 +129,34 @@ LABEL_11:
 
 - (BOOL)registerTaskServerClasses:(id)classes error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   classesCopy = classes;
   os_unfair_lock_lock(&self->_lock);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v7 = classesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v22;
+    v11 = *v21;
 LABEL_3:
     v12 = 0;
     v13 = v10;
     while (1)
     {
-      if (*v22 != v11)
+      if (*v21 != v11)
       {
         objc_enumerationMutation(v7);
       }
 
-      v14 = *(*(&v21 + 1) + 8 * v12);
-      v20 = v13;
-      v15 = [(HDTaskServerRegistry *)self _lock_registerTaskServerClass:v14 error:&v20];
-      v10 = v20;
+      v14 = *(*(&v20 + 1) + 8 * v12);
+      v19 = v13;
+      v15 = [(HDTaskServerRegistry *)self _lock_registerTaskServerClass:v14 error:&v19];
+      v10 = v19;
 
       if (!v15)
       {
@@ -167,7 +167,7 @@ LABEL_3:
       v13 = v10;
       if (v9 == v12)
       {
-        v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -204,13 +204,12 @@ LABEL_3:
   v16 = 0;
 LABEL_16:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (BOOL)loadTaskServersFromPluginAtURL:(id)l error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   lCopy = l;
   os_unfair_lock_lock(&self->_lock);
   v7 = lCopy;
@@ -225,15 +224,15 @@ LABEL_16:
     goto LABEL_31;
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   daemon = [(HDTaskServerRegistry *)self daemon];
   pluginManager = [daemon pluginManager];
   allowablePluginDirectoryPaths = [pluginManager allowablePluginDirectoryPaths];
 
-  v12 = [allowablePluginDirectoryPaths countByEnumeratingWithState:&v34 objects:v41 count:16];
+  v12 = [allowablePluginDirectoryPaths countByEnumeratingWithState:&v33 objects:v40 count:16];
   if (!v12)
   {
 LABEL_12:
@@ -245,17 +244,17 @@ LABEL_24:
   }
 
   v13 = v12;
-  v14 = *v35;
+  v14 = *v34;
 LABEL_6:
   v15 = 0;
   while (1)
   {
-    if (*v35 != v14)
+    if (*v34 != v14)
     {
       objc_enumerationMutation(allowablePluginDirectoryPaths);
     }
 
-    v16 = *(*(&v34 + 1) + 8 * v15);
+    v16 = *(*(&v33 + 1) + 8 * v15);
     path = [v7 path];
     LOBYTE(v16) = [path hasPrefix:v16];
 
@@ -266,7 +265,7 @@ LABEL_6:
 
     if (v13 == ++v15)
     {
-      v13 = [allowablePluginDirectoryPaths countByEnumeratingWithState:&v34 objects:v41 count:16];
+      v13 = [allowablePluginDirectoryPaths countByEnumeratingWithState:&v33 objects:v40 count:16];
       if (v13)
       {
         goto LABEL_6;
@@ -278,8 +277,8 @@ LABEL_6:
 
   [(NSMutableSet *)self->_loadedPluginURLs addObject:v7];
   v18 = MEMORY[0x277CCD798];
-  v40 = &unk_283CCAEA0;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+  v39 = &unk_283CCAEA0;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
   v20 = [v18 loadPrincipalClassConformingToProtocols:v19 fromBundleAtURL:v7 skipIfLoaded:0];
 
   if (!v20)
@@ -292,20 +291,20 @@ LABEL_6:
   if (v21)
   {
     [v21 taskServerClasses];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    v23 = v33 = 0u;
-    v24 = [v23 countByEnumeratingWithState:&v30 objects:buf count:16];
+    v23 = v32 = 0u;
+    v24 = [v23 countByEnumeratingWithState:&v29 objects:buf count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v31;
+      v26 = *v30;
       while (2)
       {
         for (i = 0; i != v25; ++i)
         {
-          if (*v31 != v26)
+          if (*v30 != v26)
           {
             objc_enumerationMutation(v23);
           }
@@ -317,7 +316,7 @@ LABEL_6:
           }
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v30 objects:buf count:16];
+        v25 = [v23 countByEnumeratingWithState:&v29 objects:buf count:16];
         if (v25)
         {
           continue;
@@ -338,7 +337,7 @@ LABEL_26:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v39 = v20;
+      v38 = v20;
       _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "Unable to instantiate candidate task server class provider %{public}@", buf, 0xCu);
     }
 
@@ -347,7 +346,6 @@ LABEL_26:
 
 LABEL_31:
   os_unfair_lock_unlock(&self->_lock);
-  v28 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -413,42 +411,40 @@ LABEL_31:
 
 - (void)removeTaskServerObserver:(id)observer
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   os_unfair_lock_lock(&self->_lock);
   allValues = [(NSMutableDictionary *)self->_taskServerObserversByUUID allValues];
   os_unfair_lock_unlock(&self->_lock);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = allValues;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) unregisterObserver:{observerCopy, v12}];
+        [*(*(&v11 + 1) + 8 * v10++) unregisterObserver:{observerCopy, v11}];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didCreateTaskServer:(id)server
@@ -508,7 +504,7 @@ LABEL_31:
 
 - (id)createTaskServerEndpointForIdentifier:(id)identifier taskUUID:(id)d instanceUUID:(id)iD configuration:(id)configuration client:(id)client connectionQueue:(id)queue error:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dCopy = d;
   iDCopy = iD;
@@ -530,38 +526,38 @@ LABEL_31:
     goto LABEL_16;
   }
 
-  v36 = iDCopy;
-  v38 = dCopy;
+  v35 = iDCopy;
+  v37 = dCopy;
   [(objc_class *)v21 requiredEntitlements];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v22 = v43 = 0u;
-  v23 = [v22 countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v22 = v42 = 0u;
+  v23 = [v22 countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v41;
+    v25 = *v40;
     while (2)
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v41 != v25)
+        if (*v40 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        if (![clientCopy hasRequiredEntitlement:*(*(&v40 + 1) + 8 * i) error:error])
+        if (![clientCopy hasRequiredEntitlement:*(*(&v39 + 1) + 8 * i) error:error])
         {
 
           v21 = 0;
-          iDCopy = v36;
-          dCopy = v38;
+          iDCopy = v35;
+          dCopy = v37;
           goto LABEL_19;
         }
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v39 objects:v43 count:16];
       if (v24)
       {
         continue;
@@ -573,13 +569,13 @@ LABEL_31:
 
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    iDCopy = v36;
-    dCopy = v38;
+    iDCopy = v35;
+    dCopy = v37;
     if (configurationCopy)
     {
-      v31 = MEMORY[0x277CCA9B8];
+      v30 = MEMORY[0x277CCA9B8];
       v28 = NSStringFromClass(v21);
-      [v31 hk_assignError:error code:125 format:{@"Task server class %@ does not implement configurationClass", v28}];
+      [v30 hk_assignError:error code:125 format:{@"Task server class %@ does not implement configurationClass", v28}];
       goto LABEL_16;
     }
 
@@ -587,8 +583,8 @@ LABEL_31:
   }
 
   [(objc_class *)v21 configurationClass];
-  iDCopy = v36;
-  dCopy = v38;
+  iDCopy = v35;
+  dCopy = v37;
   if (objc_opt_isKindOfClass())
   {
 LABEL_24:
@@ -610,15 +606,15 @@ LABEL_24:
       }
 
 LABEL_29:
-      v39 = [HDTaskServerEndpoint alloc];
+      v38 = [HDTaskServerEndpoint alloc];
       configuration = [clientCopy configuration];
       profile = [clientCopy profile];
       databaseAccessibilityAssertions = [clientCopy databaseAccessibilityAssertions];
-      v21 = [(HDTaskServerEndpoint *)v39 initWithTaskServerClass:v21 taskConfiguration:configurationCopy healthStoreConfiguration:configuration taskUUID:dCopy instanceUUID:iDCopy profile:profile databaseAccessibilityAssertions:databaseAccessibilityAssertions connectionQueue:queueCopy];
+      v21 = [(HDTaskServerEndpoint *)v38 initWithTaskServerClass:v21 taskConfiguration:configurationCopy healthStoreConfiguration:configuration taskUUID:dCopy instanceUUID:iDCopy profile:profile databaseAccessibilityAssertions:databaseAccessibilityAssertions connectionQueue:queueCopy];
 
       if (v21)
       {
-        v33 = v21;
+        v32 = v21;
       }
 
       else
@@ -629,9 +625,9 @@ LABEL_29:
       goto LABEL_19;
     }
 
-    v34 = MEMORY[0x277CCA9B8];
+    v33 = MEMORY[0x277CCA9B8];
     v28 = NSStringFromClass(v21);
-    [v34 hk_assignError:error code:125 format:{@"Task server class %@ failed to implement validateConfiguration:error:", v28}];
+    [v33 hk_assignError:error code:125 format:{@"Task server class %@ failed to implement validateConfiguration:error:", v28}];
 LABEL_16:
 
     goto LABEL_17;
@@ -641,8 +637,6 @@ LABEL_16:
 LABEL_17:
   v21 = 0;
 LABEL_19:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

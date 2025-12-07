@@ -109,6 +109,13 @@ LABEL_7:
   }
 }
 
+void sub_B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t _buildRTKitCommsCrashRequest(uint64_t result, char a2, int a3)
 {
   if (result)
@@ -121,17 +128,17 @@ uint64_t _buildRTKitCommsCrashRequest(uint64_t result, char a2, int a3)
   return result;
 }
 
-uint64_t _processRTKitCommsCrashlogResponse(unsigned __int8 *a1)
+uint64_t _processRTKitCommsCrashlogResponse(_RCLog *a1)
 {
   Instance = _RCLog::getInstance(a1);
-  _RCLog::log(Instance, 1, "crashlog trigger with status %d", a1[4]);
-  if (!a1[4])
+  _RCLog::log(Instance, 1, "crashlog trigger with status %d", *(a1 + 4));
+  if (!*(a1 + 4))
   {
     return 0;
   }
 
   v4 = _RCLog::getInstance(v3);
-  _RCLog::log(v4, 16, "crashlog trigger failed with status %d", a1[4]);
+  _RCLog::log(v4, 16, "crashlog trigger failed with status %d", *(a1 + 4));
   return 3758097084;
 }
 
@@ -431,20 +438,20 @@ void *_buildRTKitCommsSIKInfoRequest(void *result, __int16 a2)
   return result;
 }
 
-uint64_t _processRTKitCommsSIKInfoResponse(unsigned __int16 *a1)
+uint64_t _processRTKitCommsSIKInfoResponse(_RCLog *a1)
 {
   Instance = _RCLog::getInstance(a1);
-  _RCLog::log(Instance, 1, "SIK response with session id %d status %d", a1[3], a1[2]);
-  if (a1[2])
+  _RCLog::log(Instance, 1, "SIK response with session id %d status %d", *(a1 + 3), *(a1 + 2));
+  if (*(a1 + 2))
   {
     v4 = _RCLog::getInstance(v3);
-    _RCLog::log(v4, 16, "SIK generation for session id %d failed with status %d", a1[3], a1[2]);
+    _RCLog::log(v4, 16, "SIK generation for session id %d failed with status %d", *(a1 + 3), *(a1 + 2));
     return 0;
   }
 
   else
   {
-    v6 = a1[3];
+    v6 = *(a1 + 3);
 
     return RoseSIKDataSession::InitSessionWithID(v6);
   }
@@ -1020,7 +1027,6 @@ void RoseController::RTKitCommsCallback(RoseController *this, RoseController *a2
     else
     {
       v9 = _RCLog::getInstance(v7);
-      v10 = (*a2 >> 10) & 0xF;
       _RCLog::log(v9, 16, "unhandled endpoint %d on RTKOS comms interface");
     }
   }
@@ -1491,7 +1497,7 @@ _RCLog *RoseController::GetBootNonceHash(RoseController *this, void *outputStruc
   return v6;
 }
 
-_RCLog *RoseController::GetBootNonce(RoseController *this, void *a2, uint64_t a3, unint64_t *a4)
+_RCLog *RoseController::GetBootNonce(RoseController *this, void *a2, size_t a3, unint64_t *a4)
 {
   input = 229;
   outputCnt = 0;
@@ -2023,7 +2029,6 @@ void *sub_40FC(void *result)
   if (v1)
   {
     v2 = *(*(result[4] + 8) + 24);
-    v3 = result[6];
     if (v2)
     {
       return v1(result[6], v2, 0, 0);
@@ -2075,7 +2080,7 @@ uint64_t RoseController::_dequeueLogs(RoseController *this, unsigned __int8 *out
   return v6;
 }
 
-uint64_t RoseController::DequeueCrashLogForCore(mach_port_t *a1, unsigned int a2, char *a3, void *a4, size_t a5, size_t *a6)
+uint64_t RoseController::DequeueCrashLogForCore(mach_port_t *a1, unsigned int a2, char *a3, void *a4, mach_vm_size_t a5, mach_vm_size_t *a6)
 {
   outputCnt = 1;
   v28 = 0;
@@ -2300,7 +2305,7 @@ _RCLog *RoseController::GetCoreDumpInfo(mach_port_t *a1, unsigned int a2, void *
   return v4;
 }
 
-uint64_t RoseController::ReadCoredump(RoseController *this, unsigned int a2, uint64_t a3, size_t a4, unsigned __int8 *outputStruct, unint64_t *a6)
+uint64_t RoseController::ReadCoredump(RoseController *this, uint64_t a2, uint64_t a3, size_t a4, unsigned __int8 *outputStruct, unint64_t *a6)
 {
   outputCnt = 0;
   v10 = a4;
@@ -3013,7 +3018,7 @@ IODataQueueEntry *RoseController::_dequeueEvents(IODataQueueEntry *this)
       v3 = this;
       do
       {
-        RoseController::_dispatchDataQueueMessage(v2, v3 + 4, *v3);
+        RoseController::_dispatchDataQueueMessage(v2, v3->data, v3->size);
         dataSize = 0;
         IODataQueueDequeue(v1, 0, &dataSize);
         this = IODataQueuePeek(v1);
@@ -3208,7 +3213,7 @@ void _RCLog::_RCLog(_RCLog *this)
 
 uint64_t *_RCLog::getInstance(_RCLog *this)
 {
-  if ((atomic_load_explicit(&qword_10228, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_10228, memory_order_acquire) & 1) == 0)
   {
     sub_88B4();
   }
@@ -4191,14 +4196,14 @@ void sub_8838(_RCLog *a1)
 
 void sub_88B4()
 {
-  if (__cxa_guard_acquire(&qword_10228))
+  if (__cxa_guard_acquire(byte_10228))
   {
     qword_10238 = 0;
     qword_10230 = 0;
     qword_10240 = os_log_create("com.apple.RoseControllerLib", "default");
     __cxa_atexit(nullsub_3, &qword_10230, &dword_0);
 
-    __cxa_guard_release(&qword_10228);
+    __cxa_guard_release(byte_10228);
   }
 }
 

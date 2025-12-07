@@ -44,8 +44,8 @@
 
 - (id)toDict
 {
-  v40[11] = *MEMORY[0x277D85DE8];
-  v39[0] = @"utcOffset";
+  v39[11] = *MEMORY[0x277D85DE8];
+  v38[0] = @"utcOffset";
   utcOffset = [(ICASSessionData *)self utcOffset];
   if (utcOffset)
   {
@@ -57,9 +57,9 @@
     utcOffset2 = objc_opt_new();
   }
 
-  v37 = utcOffset2;
-  v40[0] = utcOffset2;
-  v39[1] = @"countryCode";
+  v36 = utcOffset2;
+  v39[0] = utcOffset2;
+  v38[1] = @"countryCode";
   countryCode = [(ICASSessionData *)self countryCode];
   if (countryCode)
   {
@@ -71,9 +71,9 @@
     countryCode2 = objc_opt_new();
   }
 
-  v35 = countryCode2;
-  v40[1] = countryCode2;
-  v39[2] = @"languageCode";
+  v34 = countryCode2;
+  v39[1] = countryCode2;
+  v38[2] = @"languageCode";
   languageCode = [(ICASSessionData *)self languageCode];
   if (languageCode)
   {
@@ -85,9 +85,9 @@
     languageCode2 = objc_opt_new();
   }
 
-  v33 = languageCode2;
-  v40[2] = languageCode2;
-  v39[3] = @"productType";
+  v32 = languageCode2;
+  v39[2] = languageCode2;
+  v38[3] = @"productType";
   productType = [(ICASSessionData *)self productType];
   if (productType)
   {
@@ -99,9 +99,9 @@
     productType2 = objc_opt_new();
   }
 
-  v31 = productType2;
-  v40[3] = productType2;
-  v39[4] = @"cellularRadioAccessTechnology";
+  v30 = productType2;
+  v39[3] = productType2;
+  v38[4] = @"cellularRadioAccessTechnology";
   cellularRadioAccessTechnology = [(ICASSessionData *)self cellularRadioAccessTechnology];
   if (cellularRadioAccessTechnology)
   {
@@ -113,9 +113,9 @@
     cellularRadioAccessTechnology2 = objc_opt_new();
   }
 
-  v29 = cellularRadioAccessTechnology2;
-  v40[4] = cellularRadioAccessTechnology2;
-  v39[5] = @"bioAuthEnabled";
+  v28 = cellularRadioAccessTechnology2;
+  v39[4] = cellularRadioAccessTechnology2;
+  v38[5] = @"bioAuthEnabled";
   bioAuthEnabled = [(ICASSessionData *)self bioAuthEnabled];
   if (bioAuthEnabled)
   {
@@ -127,9 +127,9 @@
     bioAuthEnabled2 = objc_opt_new();
   }
 
-  v27 = bioAuthEnabled2;
-  v40[5] = bioAuthEnabled2;
-  v39[6] = @"localNotesEnabled";
+  v26 = bioAuthEnabled2;
+  v39[5] = bioAuthEnabled2;
+  v38[6] = @"localNotesEnabled";
   localNotesEnabled = [(ICASSessionData *)self localNotesEnabled];
   if (localNotesEnabled)
   {
@@ -142,8 +142,8 @@
   }
 
   v10 = localNotesEnabled2;
-  v40[6] = localNotesEnabled2;
-  v39[7] = @"accountTypeSummary";
+  v39[6] = localNotesEnabled2;
+  v38[7] = @"accountTypeSummary";
   accountTypeSummary = [(ICASSessionData *)self accountTypeSummary];
   if (accountTypeSummary)
   {
@@ -156,8 +156,8 @@
   }
 
   v13 = accountTypeSummary2;
-  v40[7] = accountTypeSummary2;
-  v39[8] = @"sessionType";
+  v39[7] = accountTypeSummary2;
+  v38[8] = @"sessionType";
   sessionType = [(ICASSessionData *)self sessionType];
   if (sessionType)
   {
@@ -170,8 +170,8 @@
   }
 
   v16 = sessionType2;
-  v40[8] = sessionType2;
-  v39[9] = @"isSaltRegenerated";
+  v39[8] = sessionType2;
+  v38[9] = @"isSaltRegenerated";
   isSaltRegenerated = [(ICASSessionData *)self isSaltRegenerated];
   if (isSaltRegenerated)
   {
@@ -184,8 +184,8 @@
   }
 
   v19 = isSaltRegenerated2;
-  v40[9] = isSaltRegenerated2;
-  v39[10] = @"isGlobalSession";
+  v39[9] = isSaltRegenerated2;
+  v38[10] = @"isGlobalSession";
   isGlobalSession = [(ICASSessionData *)self isGlobalSession];
   if (isGlobalSession)
   {
@@ -198,10 +198,8 @@
   }
 
   v22 = isGlobalSession2;
-  v40[10] = isGlobalSession2;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:11];
-
-  v24 = *MEMORY[0x277D85DE8];
+  v39[10] = isGlobalSession2;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:11];
 
   return v23;
 }

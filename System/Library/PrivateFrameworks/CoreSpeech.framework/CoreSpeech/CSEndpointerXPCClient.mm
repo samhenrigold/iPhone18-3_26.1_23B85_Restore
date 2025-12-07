@@ -29,7 +29,7 @@
 
 - (id)_getRemoteServiceProxyObject
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   remoteObjectProxy = self->_remoteObjectProxy;
   if (!remoteObjectProxy || !self->_endpointerConnection)
   {
@@ -38,31 +38,31 @@
     if (os_log_type_enabled(*MEMORY[0x277D015B8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v15 = "[CSEndpointerXPCClient _getRemoteServiceProxyObject]";
+      v14 = "[CSEndpointerXPCClient _getRemoteServiceProxyObject]";
       _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEFAULT, "%s Creating RemoteServiceProxy", buf, 0xCu);
     }
 
     endpointerConnection = self->_endpointerConnection;
     if (endpointerConnection || ([(CSEndpointerXPCClient *)self _createClientConnection], (endpointerConnection = self->_endpointerConnection) != 0))
     {
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __53__CSEndpointerXPCClient__getRemoteServiceProxyObject__block_invoke;
-      v13[3] = &unk_2784C51E0;
-      v13[4] = self;
-      v7 = [(NSXPCConnection *)endpointerConnection synchronousRemoteObjectProxyWithErrorHandler:v13];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __53__CSEndpointerXPCClient__getRemoteServiceProxyObject__block_invoke;
+      v12[3] = &unk_2784C51E0;
+      v12[4] = self;
+      v7 = [(NSXPCConnection *)endpointerConnection synchronousRemoteObjectProxyWithErrorHandler:v12];
       v8 = self->_remoteObjectProxy;
       self->_remoteObjectProxy = v7;
     }
 
     else
     {
-      v12 = *v4;
+      v11 = *v4;
       if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v15 = "[CSEndpointerXPCClient _getRemoteServiceProxyObject]";
-        _os_log_error_impl(&dword_222E4D000, v12, OS_LOG_TYPE_ERROR, "%s ERR: Endpointer endpointerConnection is nil", buf, 0xCu);
+        v14 = "[CSEndpointerXPCClient _getRemoteServiceProxyObject]";
+        _os_log_error_impl(&dword_222E4D000, v11, OS_LOG_TYPE_ERROR, "%s ERR: Endpointer endpointerConnection is nil", buf, 0xCu);
       }
 
       v8 = self->_remoteObjectProxy;
@@ -73,7 +73,6 @@
   }
 
   v9 = remoteObjectProxy;
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -99,16 +98,16 @@
 
 void __48__CSEndpointerXPCClient_didDetectTwoShotAtTime___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015B8];
   if (os_log_type_enabled(*MEMORY[0x277D015B8], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v10 = 136315394;
-    v11 = "[CSEndpointerXPCClient didDetectTwoShotAtTime:]_block_invoke";
-    v12 = 2048;
-    v13 = v3;
-    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Endpointer didDetectTwoShotAtTime %f", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[CSEndpointerXPCClient didDetectTwoShotAtTime:]_block_invoke";
+    v11 = 2048;
+    v12 = v3;
+    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Endpointer didDetectTwoShotAtTime %f", &v9, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
@@ -124,29 +123,27 @@ void __48__CSEndpointerXPCClient_didDetectTwoShotAtTime___block_invoke(uint64_t 
       [v8 endpointer:*(a1 + 32) detectedTwoShotAtTime:*(a1 + 40)];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deliverHardEndpointDetectedAtTime:(double)time withMetrics:(id)metrics eventType:(int64_t)type
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   v9 = *MEMORY[0x277D015B8];
   if (os_log_type_enabled(*MEMORY[0x277D015B8], OS_LOG_TYPE_DEFAULT))
   {
     requestId = self->_requestId;
-    v17 = 136316162;
-    v18 = "[CSEndpointerXPCClient _deliverHardEndpointDetectedAtTime:withMetrics:eventType:]";
-    v19 = 2048;
+    v16 = 136316162;
+    v17 = "[CSEndpointerXPCClient _deliverHardEndpointDetectedAtTime:withMetrics:eventType:]";
+    v18 = 2048;
     timeCopy = time;
-    v21 = 2112;
-    v22 = metricsCopy;
-    v23 = 2048;
+    v20 = 2112;
+    v21 = metricsCopy;
+    v22 = 2048;
     typeCopy = type;
-    v25 = 2112;
-    v26 = requestId;
-    _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_DEFAULT, "%s Endpointer didDetectHardEndpointAtTime %f withMetrics %@ eventType %ld, current requestId %@", &v17, 0x34u);
+    v24 = 2112;
+    v25 = requestId;
+    _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_DEFAULT, "%s Endpointer didDetectHardEndpointAtTime %f withMetrics %@ eventType %ld, current requestId %@", &v16, 0x34u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -162,8 +159,6 @@ void __48__CSEndpointerXPCClient_didDetectTwoShotAtTime___block_invoke(uint64_t 
       [v15 endpointer:self didDetectHardEndpointAtTime:metricsCopy withMetrics:type eventType:time];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didDetectHardEndpointAtTime:(double)time withMetrics:(id)metrics eventType:(int64_t)type
@@ -184,7 +179,7 @@ void __48__CSEndpointerXPCClient_didDetectTwoShotAtTime___block_invoke(uint64_t 
 
 void __75__CSEndpointerXPCClient_didDetectHardEndpointAtTime_withMetrics_eventType___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 80);
   v3 = [*(a1 + 40) requestId];
   LODWORD(v2) = [v2 isEqualToString:v3];
@@ -203,24 +198,23 @@ void __75__CSEndpointerXPCClient_didDetectHardEndpointAtTime_withMetrics_eventTy
       v6 = *(*(a1 + 32) + 80);
       v7 = v4;
       v8 = [v5 requestId];
-      v10 = 136315650;
-      v11 = "[CSEndpointerXPCClient didDetectHardEndpointAtTime:withMetrics:eventType:]_block_invoke";
-      v12 = 2112;
-      v13 = v6;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEFAULT, "%s Do not deliver hardEndpoint right away since current requestId (%@) is not matching the event to fire (%@)", &v10, 0x20u);
+      v9 = 136315650;
+      v10 = "[CSEndpointerXPCClient didDetectHardEndpointAtTime:withMetrics:eventType:]_block_invoke";
+      v11 = 2112;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v8;
+      _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEFAULT, "%s Do not deliver hardEndpoint right away since current requestId (%@) is not matching the event to fire (%@)", &v9, 0x20u);
     }
   }
 
   objc_storeStrong((*(a1 + 32) + 64), *(a1 + 40));
   *(*(a1 + 32) + 72) = *(a1 + 56);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createClientConnection
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.corespeech.corespeechd.endpointer.service" options:0];
   endpointerConnection = self->_endpointerConnection;
   self->_endpointerConnection = v3;
@@ -230,8 +224,8 @@ void __75__CSEndpointerXPCClient_didDetectHardEndpointAtTime_withMetrics_eventTy
 
   v6 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_28367D650];
   v7 = MEMORY[0x277CBEB98];
-  v18[0] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17[0] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   v9 = [v7 setWithArray:v8];
   [v6 setClasses:v9 forSelector:sel_didDetectHardEndpointAtTime_withMetrics_eventType_ argumentIndex:1 ofReply:0];
 
@@ -240,30 +234,28 @@ void __75__CSEndpointerXPCClient_didDetectHardEndpointAtTime_withMetrics_eventTy
   [(NSXPCConnection *)self->_endpointerConnection _setQueue:self->_xpcConnectionQueue];
   objc_initWeak(&location, self);
   v10 = self->_endpointerConnection;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __48__CSEndpointerXPCClient__createClientConnection__block_invoke;
-  v15[3] = &unk_2784C5F68;
-  objc_copyWeak(&v16, &location);
-  [(NSXPCConnection *)v10 setInterruptionHandler:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __48__CSEndpointerXPCClient__createClientConnection__block_invoke;
+  v14[3] = &unk_2784C5F68;
+  objc_copyWeak(&v15, &location);
+  [(NSXPCConnection *)v10 setInterruptionHandler:v14];
   v11 = self->_endpointerConnection;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __48__CSEndpointerXPCClient__createClientConnection__block_invoke_2;
-  v13[3] = &unk_2784C5F68;
-  objc_copyWeak(&v14, &location);
-  [(NSXPCConnection *)v11 setInvalidationHandler:v13];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __48__CSEndpointerXPCClient__createClientConnection__block_invoke_2;
+  v12[3] = &unk_2784C5F68;
+  objc_copyWeak(&v13, &location);
+  [(NSXPCConnection *)v11 setInvalidationHandler:v12];
   [(NSXPCConnection *)self->_endpointerConnection resume];
-  objc_destroyWeak(&v14);
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __48__CSEndpointerXPCClient__createClientConnection__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = *MEMORY[0x277D015B8];
   if (os_log_type_enabled(*MEMORY[0x277D015B8], OS_LOG_TYPE_DEFAULT))
@@ -272,11 +264,11 @@ void __48__CSEndpointerXPCClient__createClientConnection__block_invoke(uint64_t 
     v4 = [WeakRetained endpointerConnection];
     v5 = [WeakRetained endpointerConnection];
     *buf = 136315650;
-    v11 = "[CSEndpointerXPCClient _createClientConnection]_block_invoke";
-    v12 = 2114;
-    v13 = v4;
-    v14 = 1026;
-    v15 = [v5 processIdentifier];
+    v10 = "[CSEndpointerXPCClient _createClientConnection]_block_invoke";
+    v11 = 2114;
+    v12 = v4;
+    v13 = 1026;
+    v14 = [v5 processIdentifier];
     _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s Client Interruption Handler: %{public}@, client PID: %{public}d)", buf, 0x1Cu);
   }
 
@@ -295,13 +287,11 @@ void __48__CSEndpointerXPCClient__createClientConnection__block_invoke(uint64_t 
       dispatch_async(v7, block);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __48__CSEndpointerXPCClient__createClientConnection__block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = *MEMORY[0x277D015B8];
   if (os_log_type_enabled(*MEMORY[0x277D015B8], OS_LOG_TYPE_DEFAULT))
@@ -310,11 +300,11 @@ void __48__CSEndpointerXPCClient__createClientConnection__block_invoke_2(uint64_
     v4 = [WeakRetained endpointerConnection];
     v5 = [WeakRetained endpointerConnection];
     *buf = 136315650;
-    v11 = "[CSEndpointerXPCClient _createClientConnection]_block_invoke_2";
-    v12 = 2114;
-    v13 = v4;
-    v14 = 1026;
-    v15 = [v5 processIdentifier];
+    v10 = "[CSEndpointerXPCClient _createClientConnection]_block_invoke_2";
+    v11 = 2114;
+    v12 = v4;
+    v13 = 1026;
+    v14 = [v5 processIdentifier];
     _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s Client Invalidation Handler: %{public}@, client PID: %{public}d exited", buf, 0x1Cu);
   }
 
@@ -333,8 +323,6 @@ void __48__CSEndpointerXPCClient__createClientConnection__block_invoke_2(uint64_
       dispatch_async(v7, block);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__CSEndpointerXPCClient__createClientConnection__block_invoke_139(uint64_t a1)
@@ -358,31 +346,29 @@ uint64_t __48__CSEndpointerXPCClient__createClientConnection__block_invoke_138(u
 
 void __53__CSEndpointerXPCClient__getRemoteServiceProxyObject__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = *MEMORY[0x277D015B8];
     if (os_log_type_enabled(*MEMORY[0x277D015B8], OS_LOG_TYPE_ERROR))
     {
-      v8 = v4;
-      v9 = [v3 code];
-      v10 = [v3 localizedDescription];
-      v11 = 136315650;
-      v12 = "[CSEndpointerXPCClient _getRemoteServiceProxyObject]_block_invoke";
-      v13 = 2050;
-      v14 = v9;
-      v15 = 2114;
-      v16 = v10;
-      _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, "%s ERR: Endpointer Remote Object Proxy returned error : %{public}ld (%{public}@)", &v11, 0x20u);
+      v7 = v4;
+      v8 = [v3 code];
+      v9 = [v3 localizedDescription];
+      v10 = 136315650;
+      v11 = "[CSEndpointerXPCClient _getRemoteServiceProxyObject]_block_invoke";
+      v12 = 2050;
+      v13 = v8;
+      v14 = 2114;
+      v15 = v9;
+      _os_log_error_impl(&dword_222E4D000, v7, OS_LOG_TYPE_ERROR, "%s ERR: Endpointer Remote Object Proxy returned error : %{public}ld (%{public}@)", &v10, 0x20u);
     }
 
     v5 = *(a1 + 32);
     v6 = *(v5 + 24);
     *(v5 + 24) = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopEndpointer
@@ -493,7 +479,7 @@ void __51__CSEndpointerXPCClient_recordingStoppedForReason___block_invoke(uint64
 
 void __102__CSEndpointerXPCClient_resetForNewRequestWithSampleRate_recordContext_recordOption_voiceTriggerInfo___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 40) siriSessionUUID];
   v3 = *(a1 + 32);
   v4 = *(v3 + 80);
@@ -501,41 +487,37 @@ void __102__CSEndpointerXPCClient_resetForNewRequestWithSampleRate_recordContext
 
   v5 = *(a1 + 32);
   v6 = *(v5 + 64);
-  if (!v6)
+  if (v6)
   {
-LABEL_7:
-    v13 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v7 = *(v5 + 80);
-  v15 = [v6 requestId];
-  if ([v7 isEqualToString:?])
-  {
-    v8 = [*(a1 + 48) isContinuousConversation];
-
-    if (v8)
+    v7 = *(v5 + 80);
+    v13 = [v6 requestId];
+    if ([v7 isEqualToString:?])
     {
-      v9 = *MEMORY[0x277D015B8];
-      if (os_log_type_enabled(*MEMORY[0x277D015B8], OS_LOG_TYPE_DEFAULT))
-      {
-        v10 = *(*(a1 + 32) + 80);
-        *buf = 136315394;
-        v17 = "[CSEndpointerXPCClient resetForNewRequestWithSampleRate:recordContext:recordOption:voiceTriggerInfo:]_block_invoke";
-        v18 = 2112;
-        v19 = v10;
-        _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_DEFAULT, "%s Deliver cached endpointer event for requestId %@", buf, 0x16u);
-      }
+      v8 = [*(a1 + 48) isContinuousConversation];
 
-      v11 = *(a1 + 32);
-      [v11[8] totalAudioRecorded];
-      [v11 _deliverHardEndpointDetectedAtTime:*(*(a1 + 32) + 64) withMetrics:*(*(a1 + 32) + 72) eventType:v12 / 1000.0];
+      if (v8)
+      {
+        v9 = *MEMORY[0x277D015B8];
+        if (os_log_type_enabled(*MEMORY[0x277D015B8], OS_LOG_TYPE_DEFAULT))
+        {
+          v10 = *(*(a1 + 32) + 80);
+          *buf = 136315394;
+          v15 = "[CSEndpointerXPCClient resetForNewRequestWithSampleRate:recordContext:recordOption:voiceTriggerInfo:]_block_invoke";
+          v16 = 2112;
+          v17 = v10;
+          _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_DEFAULT, "%s Deliver cached endpointer event for requestId %@", buf, 0x16u);
+        }
+
+        v11 = *(a1 + 32);
+        [v11[8] totalAudioRecorded];
+        [v11 _deliverHardEndpointDetectedAtTime:*(*(a1 + 32) + 64) withMetrics:*(*(a1 + 32) + 72) eventType:v12 / 1000.0];
+      }
     }
 
-    goto LABEL_7;
+    else
+    {
+    }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __102__CSEndpointerXPCClient_resetForNewRequestWithSampleRate_recordContext_recordOption_voiceTriggerInfo___block_invoke_22(uint64_t a1)
@@ -546,96 +528,91 @@ void __102__CSEndpointerXPCClient_resetForNewRequestWithSampleRate_recordContext
 
 - (void)setEndpointerOperationMode:(int64_t)mode
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277D015B8];
   if (os_log_type_enabled(*MEMORY[0x277D015B8], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v10 = "[CSEndpointerXPCClient setEndpointerOperationMode:]";
+    v9 = "[CSEndpointerXPCClient setEndpointerOperationMode:]";
     _os_log_debug_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
   xpcClientQueue = self->_xpcClientQueue;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __52__CSEndpointerXPCClient_setEndpointerOperationMode___block_invoke;
-  v8[3] = &unk_2784C6EC0;
-  v8[4] = self;
-  v8[5] = mode;
-  dispatch_async(xpcClientQueue, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __52__CSEndpointerXPCClient_setEndpointerOperationMode___block_invoke;
+  v7[3] = &unk_2784C6EC0;
+  v7[4] = self;
+  v7[5] = mode;
+  dispatch_async(xpcClientQueue, v7);
 }
 
 void __52__CSEndpointerXPCClient_setEndpointerOperationMode___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015B8];
   if (os_log_type_enabled(*MEMORY[0x277D015B8], OS_LOG_TYPE_DEBUG))
   {
-    v5 = *(a1 + 40);
-    v6 = v2;
-    v7 = AFSpeechEndpointerOperationModeGetName();
-    v8 = 136315394;
-    v9 = "[CSEndpointerXPCClient setEndpointerOperationMode:]_block_invoke";
-    v10 = 2112;
-    v11 = v7;
-    _os_log_debug_impl(&dword_222E4D000, v6, OS_LOG_TYPE_DEBUG, "%s endpointerOperationMode = %@", &v8, 0x16u);
+    v4 = v2;
+    v5 = AFSpeechEndpointerOperationModeGetName();
+    v6 = 136315394;
+    v7 = "[CSEndpointerXPCClient setEndpointerOperationMode:]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    _os_log_debug_impl(&dword_222E4D000, v4, OS_LOG_TYPE_DEBUG, "%s endpointerOperationMode = %@", &v6, 0x16u);
   }
 
   v3 = [*(a1 + 32) _getRemoteServiceProxyObject];
   [v3 setEndpointerOperationMode:*(a1 + 40)];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldAcceptEagerResultForDurationSync:(double)sync withEndpointerMetrics:(id)metrics
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 0;
-  date = [MEMORY[0x277CBEAA8] date];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__7388;
-  v25 = __Block_byref_object_dispose__7389;
   v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
+  date = [MEMORY[0x277CBEAA8] date];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__7388;
+  v24 = __Block_byref_object_dispose__7389;
+  v25 = 0;
   xpcClientQueue = self->_xpcClientQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __86__CSEndpointerXPCClient_shouldAcceptEagerResultForDurationSync_withEndpointerMetrics___block_invoke;
   block[3] = &unk_2784C5348;
-  v18 = &v27;
+  v17 = &v26;
   block[4] = self;
   syncCopy = sync;
   v9 = metricsCopy;
-  v17 = v9;
-  v19 = &v21;
+  v16 = v9;
+  v18 = &v20;
   dispatch_async_and_wait(xpcClientQueue, block);
-  v10 = v22;
-  if (v22[5])
+  v10 = v21;
+  if (v21[5])
   {
     v11 = *MEMORY[0x277D015B8];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       [v10[5] timeIntervalSinceDate:date];
       *buf = 136315394;
-      v32 = "[CSEndpointerXPCClient shouldAcceptEagerResultForDurationSync:withEndpointerMetrics:]";
-      v33 = 2050;
-      v34 = v12;
+      v31 = "[CSEndpointerXPCClient shouldAcceptEagerResultForDurationSync:withEndpointerMetrics:]";
+      v32 = 2050;
+      v33 = v12;
       _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_DEFAULT, "%s elapsed time = %{public}lf", buf, 0x16u);
     }
   }
 
-  v13 = *(v28 + 24);
+  v13 = *(v27 + 24);
 
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v26, 8);
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13 & 1;
 }
 
@@ -709,23 +686,21 @@ void __85__CSEndpointerXPCClient_shouldAcceptEagerResultForDuration_resultsCompl
 
 void __51__CSEndpointerXPCClient_updateEndpointerThreshold___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015B8];
   if (os_log_type_enabled(*MEMORY[0x277D015B8], OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 40);
-    v7 = 136315394;
-    v8 = "[CSEndpointerXPCClient updateEndpointerThreshold:]_block_invoke";
-    v9 = 2048;
-    v10 = v6;
-    _os_log_debug_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEBUG, "%s threshold = %f", &v7, 0x16u);
+    v5 = *(a1 + 40);
+    v6 = 136315394;
+    v7 = "[CSEndpointerXPCClient updateEndpointerThreshold:]_block_invoke";
+    v8 = 2048;
+    v9 = v5;
+    _os_log_debug_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEBUG, "%s threshold = %f", &v6, 0x16u);
   }
 
   v3 = [*(a1 + 32) _getRemoteServiceProxyObject];
   LODWORD(v4) = *(a1 + 40);
   [v3 updateEndpointerThreshold:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processASRFeatures:(id)features fromServer:(BOOL)server
@@ -767,49 +742,48 @@ void __55__CSEndpointerXPCClient_processASRFeatures_fromServer___block_invoke(ui
 
 - (NSString)endpointerModelVersion
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__7388;
-  v22 = __Block_byref_object_dispose__7389;
-  v23 = 0;
-  date = [MEMORY[0x277CBEAA8] date];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__7388;
-  v16 = __Block_byref_object_dispose__7389;
+  v27 = *MEMORY[0x277D85DE8];
   v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__7388;
+  v21 = __Block_byref_object_dispose__7389;
+  v22 = 0;
+  date = [MEMORY[0x277CBEAA8] date];
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__7388;
+  v15 = __Block_byref_object_dispose__7389;
+  v16 = 0;
   xpcClientQueue = self->_xpcClientQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __47__CSEndpointerXPCClient_endpointerModelVersion__block_invoke;
   block[3] = &unk_2784C5CE0;
   block[4] = self;
-  block[5] = &v18;
-  block[6] = &v12;
+  block[5] = &v17;
+  block[6] = &v11;
   dispatch_async_and_wait(xpcClientQueue, block);
-  v5 = v13;
-  if (v13[5])
+  v5 = v12;
+  if (v12[5])
   {
     v6 = *MEMORY[0x277D015B8];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       [v5[5] timeIntervalSinceDate:date];
       *buf = 136315394;
-      v25 = "[CSEndpointerXPCClient endpointerModelVersion]";
-      v26 = 2050;
-      v27 = v7;
+      v24 = "[CSEndpointerXPCClient endpointerModelVersion]";
+      v25 = 2050;
+      v26 = v7;
       _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_DEFAULT, "%s elapsed time = %{public}lf", buf, 0x16u);
     }
   }
 
-  v8 = v19[5];
-  _Block_object_dispose(&v12, 8);
+  v8 = v18[5];
+  _Block_object_dispose(&v11, 8);
 
-  _Block_object_dispose(&v18, 8);
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
 
   return v8;
 }
@@ -827,7 +801,7 @@ void __47__CSEndpointerXPCClient_endpointerModelVersion__block_invoke(uint64_t a
 
 void __47__CSEndpointerXPCClient_endpointerModelVersion__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -835,9 +809,9 @@ void __47__CSEndpointerXPCClient_endpointerModelVersion__block_invoke_2(uint64_t
     v7 = *MEMORY[0x277D015B8];
     if (os_log_type_enabled(*MEMORY[0x277D015B8], OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[CSEndpointerXPCClient endpointerModelVersion]_block_invoke_2";
-      _os_log_error_impl(&dword_222E4D000, v7, OS_LOG_TYPE_ERROR, "%s Endpointer Failed to get epVersion", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[CSEndpointerXPCClient endpointerModelVersion]_block_invoke_2";
+      _os_log_error_impl(&dword_222E4D000, v7, OS_LOG_TYPE_ERROR, "%s Endpointer Failed to get epVersion", &v11, 0xCu);
     }
   }
 
@@ -850,8 +824,6 @@ void __47__CSEndpointerXPCClient_endpointerModelVersion__block_invoke_2(uint64_t
   v9 = *(*(a1 + 40) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v8;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setActiveChannel:(unint64_t)channel

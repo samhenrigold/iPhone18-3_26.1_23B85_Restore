@@ -86,19 +86,19 @@
 
 - (MTAlarmDataSource)initWithAlarmManager:(id)manager
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
-  v14.receiver = self;
-  v14.super_class = MTAlarmDataSource;
-  v6 = [(MTAlarmDataSource *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = MTAlarmDataSource;
+  v6 = [(MTAlarmDataSource *)&v13 init];
   if (v6)
   {
     v7 = MTLogForCategory(3);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v16 = v6;
+      v15 = v6;
       _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ initializing", buf, 0xCu);
     }
 
@@ -114,7 +114,6 @@
     [(MTAlarmDataSource *)v6 _registerForNotifications];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -233,7 +232,7 @@ void __46__MTAlarmDataSource__registerForNotifications__block_invoke_8(uint64_t 
 
 - (void)_handleAlarmNotification:(id)notification block:(id)block
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   blockCopy = block;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
@@ -246,41 +245,38 @@ void __46__MTAlarmDataSource__registerForNotifications__block_invoke_8(uint64_t 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       name = [notificationCopy name];
-      v14 = 138543874;
+      v13 = 138543874;
       selfCopy = self;
-      v16 = 2114;
-      v17 = name;
-      v18 = 1024;
-      v19 = [v9 count];
-      _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ received %{public}@ notification for %d alarms.", &v14, 0x1Cu);
+      v15 = 2114;
+      v16 = name;
+      v17 = 1024;
+      v18 = [v9 count];
+      _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ received %{public}@ notification for %d alarms.", &v13, 0x1Cu);
     }
 
     reloadAlarms = [(MTAlarmDataSource *)self reloadAlarms];
     blockCopy[2](blockCopy, v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_stateReset
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   v3 = MTLogForCategory(3);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ received MTAlarmManagerStateReset notification.", &v6, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ received MTAlarmManagerStateReset notification.", &v5, 0xCu);
   }
 
   reloadAlarms = [(MTAlarmDataSource *)self reloadAlarms];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)reloadAlarmsNotifyObservers:(BOOL)observers
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   v5 = MTLogForCategory(3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -293,23 +289,21 @@ void __46__MTAlarmDataSource__registerForNotifications__block_invoke_8(uint64_t 
   v6 = [(MTAlarmManager *)self->_alarmManager alarmsIncludingSleepAlarm:1];
   mtMainThreadScheduler = [MEMORY[0x1E69B3790] mtMainThreadScheduler];
   v8 = [v6 reschedule:mtMainThreadScheduler];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __49__MTAlarmDataSource_reloadAlarmsNotifyObservers___block_invoke;
-  v13[3] = &unk_1E7B0F9E0;
-  v13[4] = self;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __49__MTAlarmDataSource_reloadAlarmsNotifyObservers___block_invoke;
+  v12[3] = &unk_1E7B0F9E0;
+  v12[4] = self;
   observersCopy = observers;
-  v9 = [v8 addCompletionBlock:v13];
+  v9 = [v8 addCompletionBlock:v12];
   v10 = [v9 flatMap:&__block_literal_global_43];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 void __49__MTAlarmDataSource_reloadAlarmsNotifyObservers___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -325,88 +319,88 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v9 = objc_opt_new();
-  v10 = *(a1 + 32);
-  v11 = *(v10 + 24);
-  *(v10 + 24) = v9;
+  v8 = objc_opt_new();
+  v9 = *(a1 + 32);
+  v10 = *(v9 + 24);
+  *(v9 + 24) = v8;
 
-  v12 = *(a1 + 32);
-  v13 = *(v12 + 32);
-  *(v12 + 32) = 0;
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 32);
+  *(v11 + 32) = 0;
 
-  v14 = objc_opt_new();
-  v15 = *(a1 + 32);
-  v16 = *(v15 + 40);
-  *(v15 + 40) = v14;
+  v13 = objc_opt_new();
+  v14 = *(a1 + 32);
+  v15 = *(v14 + 40);
+  *(v14 + 40) = v13;
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
-  v17 = v5;
-  v18 = [v17 countByEnumeratingWithState:&v32 objects:v38 count:16];
-  if (v18)
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v16 = v5;
+  v17 = [v16 countByEnumeratingWithState:&v31 objects:v37 count:16];
+  if (v17)
   {
-    v19 = v18;
-    v20 = *v33;
+    v18 = v17;
+    v19 = *v32;
     do
     {
-      for (i = 0; i != v19; ++i)
+      for (i = 0; i != v18; ++i)
       {
-        if (*v33 != v20)
+        if (*v32 != v19)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v16);
         }
 
-        v22 = *(*(&v32 + 1) + 8 * i);
-        if ([v22 isSleepAlarm])
+        v21 = *(*(&v31 + 1) + 8 * i);
+        if ([v21 isSleepAlarm])
         {
-          v23 = 40;
+          v22 = 40;
         }
 
         else
         {
-          v23 = 24;
+          v22 = 24;
         }
 
-        [*(*(a1 + 32) + v23) addObject:v22];
+        [*(*(a1 + 32) + v22) addObject:v21];
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v31 objects:v37 count:16];
     }
 
-    while (v19);
+    while (v18);
   }
 
-  v24 = [*(*(a1 + 32) + 40) firstObject];
-  v25 = *(a1 + 32);
-  v26 = *(v25 + 32);
-  *(v25 + 32) = v24;
+  v23 = [*(*(a1 + 32) + 40) firstObject];
+  v24 = *(a1 + 32);
+  v25 = *(v24 + 32);
+  *(v24 + 32) = v23;
 
   if (*(a1 + 40) == 1)
   {
-    v27 = MTLogForCategory(3);
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v26 = MTLogForCategory(3);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = *(a1 + 32);
+      v27 = *(a1 + 32);
       *buf = 138543362;
-      v37 = v28;
-      _os_log_impl(&dword_1B1F9F000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@ calling reload block", buf, 0xCu);
+      v36 = v27;
+      _os_log_impl(&dword_1B1F9F000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@ calling reload block", buf, 0xCu);
     }
 
-    v29 = *(a1 + 32);
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __49__MTAlarmDataSource_reloadAlarmsNotifyObservers___block_invoke_15;
-    v31[3] = &unk_1E7B0F9B8;
-    v31[4] = v29;
-    [v29 _iterateObserversWithBlock:v31];
+    v28 = *(a1 + 32);
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __49__MTAlarmDataSource_reloadAlarmsNotifyObservers___block_invoke_15;
+    v30[3] = &unk_1E7B0F9B8;
+    v30[4] = v28;
+    [v28 _iterateObserversWithBlock:v30];
     v7 = MTLogForCategory(3);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = *(a1 + 32);
+      v29 = *(a1 + 32);
       *buf = 138543362;
-      v37 = v30;
+      v36 = v29;
       _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ finished reloading", buf, 0xCu);
     }
 
@@ -414,8 +408,6 @@ LABEL_4:
   }
 
 LABEL_5:
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)alarmAtRow:(unint64_t)row
@@ -578,14 +570,13 @@ uint64_t __56__MTAlarmDataSource_hasSleepAlarmMatchingAlarmIDString___block_invo
 
 void __49__MTAlarmDataSource_reloadAlarmsNotifyObservers___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%{public}@ failed reloading: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%{public}@ failed reloading: %{public}@", &v4, 0x16u);
 }
 
 @end

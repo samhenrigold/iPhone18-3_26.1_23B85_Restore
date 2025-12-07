@@ -45,11 +45,11 @@
 
 - (id)specifiers
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v3)
   {
-    v76 = *MEMORY[0x277D3FC48];
+    v75 = *MEMORY[0x277D3FC48];
     array = [MEMORY[0x277CBEB18] array];
     keyboardLanguageCodes = [(VoiceOverBrailleAllLanguagesController *)self keyboardLanguageCodes];
     searchController = [(VoiceOverBrailleAllLanguagesController *)self searchController];
@@ -72,7 +72,7 @@
     specifier5 = [(VoiceOverBrailleAllLanguagesController *)self specifier];
     v16 = [specifier5 propertyForKey:?];
     v17 = v16 != 0;
-    v81 = v16;
+    v80 = v16;
 
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
@@ -80,38 +80,38 @@
     aBlock[3] = &unk_278B90B78;
     aBlock[4] = self;
     v18 = v7;
-    v102 = v18;
-    v82 = bOOLValue;
-    v105 = bOOLValue;
-    v83 = v12;
-    v104 = v83;
-    v75 = v14;
-    v103 = v75;
-    v106 = v17;
-    v85 = _Block_copy(aBlock);
-    v87 = v18;
+    v101 = v18;
+    v81 = bOOLValue;
+    v104 = bOOLValue;
+    v82 = v12;
+    v103 = v82;
+    v74 = v14;
+    v102 = v74;
+    v105 = v17;
+    v84 = _Block_copy(aBlock);
+    v86 = v18;
     supportedLanguageLocales = [v18 supportedLanguageLocales];
     array2 = [MEMORY[0x277CBEB18] array];
+    v96 = 0u;
     v97 = 0u;
     v98 = 0u;
     v99 = 0u;
-    v100 = 0u;
     v20 = supportedLanguageLocales;
-    v21 = [v20 countByEnumeratingWithState:&v97 objects:v109 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v96 objects:v108 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v98;
+      v23 = *v97;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v98 != v23)
+          if (*v97 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v97 + 1) + 8 * i);
+          v25 = *(*(&v96 + 1) + 8 * i);
           languageCode = [v25 languageCode];
           v27 = [keyboardLanguageCodes containsObject:languageCode];
 
@@ -133,13 +133,13 @@
 
             if (![text length] || objc_msgSend(v31, "localizedCaseInsensitiveContainsString:", text))
             {
-              v35 = v85[2](v85, v31, v25);
+              v35 = v84[2](v84, v31, v25);
               [array2 addObject:v35];
             }
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v97 objects:v109 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v96 objects:v108 count:16];
       }
 
       while (v22);
@@ -157,26 +157,26 @@
     }
 
     array3 = [MEMORY[0x277CBEB18] array];
+    v92 = 0u;
     v93 = 0u;
     v94 = 0u;
     v95 = 0u;
-    v96 = 0u;
     obj = v20;
-    v38 = [obj countByEnumeratingWithState:&v93 objects:v108 count:16];
+    v38 = [obj countByEnumeratingWithState:&v92 objects:v107 count:16];
     if (v38)
     {
       v39 = v38;
-      v40 = *v94;
+      v40 = *v93;
       do
       {
         for (j = 0; j != v39; ++j)
         {
-          if (*v94 != v40)
+          if (*v93 != v40)
           {
             objc_enumerationMutation(obj);
           }
 
-          v42 = *(*(&v93 + 1) + 8 * j);
+          v42 = *(*(&v92 + 1) + 8 * j);
           languageCode2 = [v42 languageCode];
           v44 = [keyboardLanguageCodes containsObject:languageCode2];
 
@@ -198,13 +198,13 @@
 
             if (![text length] || objc_msgSend(v48, "localizedCaseInsensitiveContainsString:", text))
             {
-              v54 = v85[2](v85, v48, v42);
+              v54 = v84[2](v84, v48, v42);
               [array3 addObject:v54];
             }
           }
         }
 
-        v39 = [obj countByEnumeratingWithState:&v93 objects:v108 count:16];
+        v39 = [obj countByEnumeratingWithState:&v92 objects:v107 count:16];
       }
 
       while (v39);
@@ -219,43 +219,43 @@
       [array addObjectsFromArray:array3];
     }
 
-    v74 = array3;
+    v73 = array3;
     array4 = [MEMORY[0x277CBEB18] array];
+    v88 = 0u;
     v89 = 0u;
     v90 = 0u;
     v91 = 0u;
-    v92 = 0u;
-    languageAgnosticTableIdentifiers = [v87 languageAgnosticTableIdentifiers];
-    v57 = [languageAgnosticTableIdentifiers countByEnumeratingWithState:&v89 objects:v107 count:16];
+    languageAgnosticTableIdentifiers = [v86 languageAgnosticTableIdentifiers];
+    v57 = [languageAgnosticTableIdentifiers countByEnumeratingWithState:&v88 objects:v106 count:16];
     if (v57)
     {
       v58 = v57;
-      v59 = *v90;
+      v59 = *v89;
       do
       {
         for (k = 0; k != v58; ++k)
         {
-          if (*v90 != v59)
+          if (*v89 != v59)
           {
             objc_enumerationMutation(languageAgnosticTableIdentifiers);
           }
 
-          v61 = *(*(&v89 + 1) + 8 * k);
+          v61 = *(*(&v88 + 1) + 8 * k);
           v62 = [objc_opt_class() localizedNameForLanguageAgnosticTableIdentifier:v61];
           if (![text length] || objc_msgSend(v62, "localizedCaseInsensitiveContainsString:", text))
           {
             v63 = array4;
             v64 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v62 target:selfCopy set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
             [v64 setProperty:v61 forKey:@"TableIdentifier"];
-            [v64 setProperty:v87 forKey:@"TableEnumerator"];
-            v65 = [MEMORY[0x277CCABB0] numberWithBool:v82];
+            [v64 setProperty:v86 forKey:@"TableEnumerator"];
+            v65 = [MEMORY[0x277CCABB0] numberWithBool:v81];
             [v64 setProperty:v65 forKey:@"IsAddingNewLanguage"];
 
-            v66 = _Block_copy(v83);
+            v66 = _Block_copy(v82);
             [v64 setProperty:v66 forKey:@"DismissBlock"];
 
             [v64 setProperty:MEMORY[0x277CBEC38] forKey:@"IsLanguageAgnostic"];
-            v67 = [MEMORY[0x277CCABB0] numberWithBool:v81 != 0];
+            v67 = [MEMORY[0x277CCABB0] numberWithBool:v80 != 0];
             [v64 setProperty:v67 forKey:@"AllowDuplicatesKey"];
 
             array4 = v63;
@@ -263,7 +263,7 @@
           }
         }
 
-        v58 = [languageAgnosticTableIdentifiers countByEnumeratingWithState:&v89 objects:v107 count:16];
+        v58 = [languageAgnosticTableIdentifiers countByEnumeratingWithState:&v88 objects:v106 count:16];
       }
 
       while (v58);
@@ -279,14 +279,12 @@
     }
 
     v69 = array4;
-    v70 = *(&selfCopy->super.super.super.super.super.super.isa + v76);
-    *(&selfCopy->super.super.super.super.super.super.isa + v76) = array;
+    v70 = *(&selfCopy->super.super.super.super.super.super.isa + v75);
+    *(&selfCopy->super.super.super.super.super.super.isa + v75) = array;
     v71 = array;
 
-    v3 = *(&selfCopy->super.super.super.super.super.super.isa + v76);
+    v3 = *(&selfCopy->super.super.super.super.super.super.isa + v75);
   }
-
-  v72 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -352,31 +350,31 @@ uint64_t __52__VoiceOverBrailleAllLanguagesController_specifiers__block_invoke_4
 
 - (id)keyboardLanguageCodes
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CE7DA0] = [MEMORY[0x277CE7DA0] sharedInstance];
   preferredLanguageIDsFromUserSelectedKeyboards = [mEMORY[0x277CE7DA0] preferredLanguageIDsFromUserSelectedKeyboards];
 
   v4 = [MEMORY[0x277CBEB58] set];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = preferredLanguageIDsFromUserSelectedKeyboards;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:{*(*(&v15 + 1) + 8 * i), v15}];
+        v10 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:{*(*(&v14 + 1) + 8 * i), v14}];
         v11 = v10;
         if (v10)
         {
@@ -385,13 +383,11 @@ uint64_t __52__VoiceOverBrailleAllLanguagesController_specifiers__block_invoke_4
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

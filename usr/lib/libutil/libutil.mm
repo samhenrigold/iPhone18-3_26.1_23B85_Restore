@@ -1,4 +1,4 @@
-void *ExtentManager::Init(ExtentManager *this, unsigned int a2, unsigned int a3, unint64_t a4)
+uint64_t *ExtentManager::Init(ExtentManager *this, unsigned int a2, unsigned int a3, unint64_t a4)
 {
   *this = a2;
   *(this + 1) = a3;
@@ -20,7 +20,7 @@ void *ExtentManager::Init(ExtentManager *this, unsigned int a2, unsigned int a3,
   return ExtentManager::AddBlockRangeExtent(this, v6, 0);
 }
 
-void *ExtentManager::AddBlockRangeExtent(void *this, uint64_t a2, uint64_t a3)
+uint64_t *ExtentManager::AddBlockRangeExtent(uint64_t *this, uint64_t a2, uint64_t a3)
 {
   v3 = this[3];
   if (v3 >= a2)
@@ -132,7 +132,7 @@ LABEL_13:
 
 uint64_t *ExtentManager::RemoveBlockRangeExtent(ExtentManager *this, uint64_t a2, uint64_t a3)
 {
-  v4 = this + 32;
+  v4 = (this + 32);
   result = *(this + 5);
   if (result != v4)
   {
@@ -155,13 +155,13 @@ uint64_t *ExtentManager::RemoveBlockRangeExtent(ExtentManager *this, uint64_t a2
           v11 = v9 - v7;
           if (v9 <= v7)
           {
-            v13 = *result;
-            v14 = result[1];
-            *(v13 + 8) = v14;
-            *v14 = v13;
+            v12 = *result;
+            v13 = result[1];
+            *(v12 + 8) = v13;
+            *v13 = v12;
             --*(this + 6);
             operator delete(result);
-            result = v14;
+            result = v13;
             continue;
           }
 
@@ -171,7 +171,6 @@ uint64_t *ExtentManager::RemoveBlockRangeExtent(ExtentManager *this, uint64_t a2
         else if (v9 > v7)
         {
           result[3] = v11;
-          v12 = result[1];
           operator new();
         }
 
@@ -280,13 +279,13 @@ void freemntopts(void **a1)
   free(a1);
 }
 
-void *getmntopts(const char *a1, void *a2, int *a3, int *a4)
+void *getmntopts(const char *a1, const char **a2, int *a3, int *a4)
 {
   __lasts = 0;
   if (*a2)
   {
     v6 = 0;
-    v7 = a2 + 3;
+    v7 = (a2 + 3);
     do
     {
       ++v6;
@@ -423,7 +422,7 @@ uint64_t humanize_number(char *a1, size_t a2, uint64_t a3, char *__s, unsigned i
 
   if ((a6 & 0x10) != 0)
   {
-    v33 = 973;
+    v32 = 973;
     v11 = 2;
   }
 
@@ -431,17 +430,17 @@ uint64_t humanize_number(char *a1, size_t a2, uint64_t a3, char *__s, unsigned i
   {
     if ((a6 & 8) != 0)
     {
-      v33 = 950;
-      v34 = 1;
+      v32 = 950;
+      v33 = 1;
       v12 = 1000;
       goto LABEL_15;
     }
 
-    v33 = 973;
+    v32 = 973;
     v11 = 1;
   }
 
-  v34 = v11;
+  v33 = v11;
   v12 = 1024;
 LABEL_15:
   if (a3 >= 0)
@@ -464,7 +463,7 @@ LABEL_15:
     v14 = 1;
   }
 
-  v32 = v14;
+  v31 = v14;
   if (a3 >= 0)
   {
     v15 = 1;
@@ -486,7 +485,7 @@ LABEL_15:
     v17 = v15 + 1;
   }
 
-  v18 = v17 + v34 + v16;
+  v18 = v17 + v33 + v16;
   if (v18 + 1 > a2)
   {
     return v10;
@@ -560,7 +559,7 @@ LABEL_15:
         goto LABEL_54;
       }
 
-      if (v23 < v33)
+      if (v23 < v32)
       {
         break;
       }
@@ -592,7 +591,7 @@ LABEL_54:
 LABEL_55:
   if (v13 == 9)
   {
-    if (v23 < v33 && v10 != 0)
+    if (v23 < v32 && v10 != 0)
     {
       goto LABEL_66;
     }
@@ -613,15 +612,15 @@ LABEL_66:
       return snprintf(a1, a2, "%lld%s%s%s");
     }
 
-    v30 = v32 * (((10 * v23 + (v12 >> 1)) / v12 / 0xA) + v13);
-    decimal_point = localeconv()->decimal_point;
+    v30 = v31 * (((10 * v23 + (v12 >> 1)) / v12 / 0xA) + v13);
+    localeconv();
     return snprintf(a1, a2, "%d%s%d%s%s%s", v30);
   }
 }
 
 char *pidfile_open(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v6 = malloc_type_malloc(0x418uLL, 0x10000408CD2D07FuLL);
   if (v6)
   {
@@ -636,7 +635,7 @@ char *pidfile_open(uint64_t a1, uint64_t a2, _DWORD *a3)
       snprintf(v6 + 4, 0x401uLL, "/var/run/%s.pid", v7);
     }
 
-    memset(&v19, 0, sizeof(v19));
+    memset(&v18, 0, sizeof(v18));
     if (strlen(v6 + 4) == 1024)
     {
       free(v6);
@@ -690,13 +689,13 @@ char *pidfile_open(uint64_t a1, uint64_t a2, _DWORD *a3)
         }
 
         free(v6);
-        v6 = 0;
+        return 0;
       }
 
       else
       {
         v9 = v8;
-        if (fstat(v8, &v19) == -1)
+        if (fstat(v8, &v18) == -1)
         {
           v16 = *__error();
           unlink(v6 + 4);
@@ -709,42 +708,42 @@ char *pidfile_open(uint64_t a1, uint64_t a2, _DWORD *a3)
         else
         {
           *v6 = v9;
-          *(v6 + 258) = v19.st_dev;
-          *(v6 + 130) = v19.st_ino;
+          *(v6 + 258) = v18.st_dev;
+          *(v6 + 130) = v18.st_ino;
         }
       }
     }
   }
 
-  v17 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
 uint64_t pidfile_write(int *a1)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v2 = pidfile_verify(a1);
   *__error() = v2;
-  if (*__error())
+  if (!*__error())
   {
-    goto LABEL_6;
-  }
+    v3 = *a1;
+    if (ftruncate(*a1, 0) != -1)
+    {
+      v4 = getpid();
+      snprintf(__str, 0x10uLL, "%u", v4);
+      v5 = strlen(__str);
+      v6 = pwrite(v3, __str, v5, 0);
+      if (v6 == strlen(__str))
+      {
+        return 0;
+      }
+    }
 
-  v3 = *a1;
-  if (ftruncate(*a1, 0) == -1 || (v4 = getpid(), snprintf(__str, 0x10uLL, "%u", v4), v5 = strlen(__str), v6 = pwrite(v3, __str, v5, 0), v6 != strlen(__str)))
-  {
     v8 = *__error();
     _pidfile_remove(a1, 0);
     *__error() = v8;
-LABEL_6:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_7;
   }
 
-  result = 0;
-LABEL_7:
-  v9 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t pidfile_verify(uint64_t a1)
@@ -956,7 +955,7 @@ LABEL_24:
 
 uint64_t realhostname(char *a1, size_t a2, _DWORD *a3)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   v6 = 2;
   v7 = gethostbyaddr(a3, 4u, 2);
   if (!v7)
@@ -965,10 +964,9 @@ uint64_t realhostname(char *a1, size_t a2, _DWORD *a3)
   }
 
   p_h_name = &v7->h_name;
-  h_name = v7->h_name;
   __strlcpy_chk();
-  v10 = strlen(__s);
-  trimdomain(__s, v10);
+  v9 = strlen(__s);
+  trimdomain(__s, v9);
   if (strlen(__s) > a2)
   {
     goto LABEL_10;
@@ -976,48 +974,45 @@ uint64_t realhostname(char *a1, size_t a2, _DWORD *a3)
 
   strncpy(__dst, *p_h_name, 0xFFuLL);
   __dst[255] = 0;
-  v11 = gethostbyname(__dst);
-  if (!v11)
+  v10 = gethostbyname(__dst);
+  if (!v10)
   {
     v6 = 3;
     goto LABEL_10;
   }
 
-  h_addr_list = v11->h_addr_list;
-  v13 = *h_addr_list;
+  h_addr_list = v10->h_addr_list;
+  v12 = *h_addr_list;
   if (!*h_addr_list)
   {
 LABEL_8:
     v6 = 1;
 LABEL_10:
-    v16.s_addr = *a3;
-    v17 = inet_ntoa(v16);
-    strncpy(a1, v17, a2);
-    goto LABEL_11;
+    v15.s_addr = *a3;
+    v16 = inet_ntoa(v15);
+    strncpy(a1, v16, a2);
+    return v6;
   }
 
-  v14 = h_addr_list + 1;
-  while (*v13 != *a3)
+  v13 = h_addr_list + 1;
+  while (*v12 != *a3)
   {
-    v11->h_addr_list = v14;
-    v15 = *v14++;
-    v13 = v15;
-    if (!v15)
+    v10->h_addr_list = v13;
+    v14 = *v13++;
+    v12 = v14;
+    if (!v14)
     {
       goto LABEL_8;
     }
   }
 
   strncpy(a1, __s, a2);
-  v6 = 0;
-LABEL_11:
-  v18 = *MEMORY[0x29EDCA608];
-  return v6;
+  return 0;
 }
 
 uint64_t realhostname_sa(char *a1, size_t a2, sockaddr *a3, socklen_t a4)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   if (getnameinfo(a3, a4, __src, 0x401u, 0, 0, 4))
   {
     v8 = 2;
@@ -1025,19 +1020,19 @@ uint64_t realhostname_sa(char *a1, size_t a2, sockaddr *a3, socklen_t a4)
 
   else
   {
-    v16 = 0;
-    memset(&v17.ai_socktype, 0, 40);
+    v15 = 0;
+    memset(&v16.ai_socktype, 0, 40);
     sa_family = a3->sa_family;
     v8 = 3;
-    v17.ai_flags = 3;
-    v17.ai_family = sa_family;
-    v17.ai_socktype = 1;
-    if (!getaddrinfo(__src, 0, &v17, &v16))
+    v16.ai_flags = 3;
+    v16.ai_family = sa_family;
+    v16.ai_socktype = 1;
+    if (!getaddrinfo(__src, 0, &v16, &v15))
     {
-      v10 = v16;
-      if (v16)
+      v10 = v15;
+      if (v15)
       {
-        v11 = v16;
+        v11 = v15;
         do
         {
           ai_addr = v11->ai_addr;
@@ -1061,13 +1056,12 @@ uint64_t realhostname_sa(char *a1, size_t a2, sockaddr *a3, socklen_t a4)
 
               strncpy(a1, __src, a2);
               freeaddrinfo(v10);
-              v8 = 0;
-              goto LABEL_13;
+              return 0;
             }
           }
 
           v11 = v11->ai_next;
-          v16 = v11;
+          v15 = v11;
         }
 
         while (v11);
@@ -1084,8 +1078,6 @@ LABEL_11:
     strncpy(a1, __src, a2);
   }
 
-LABEL_13:
-  v14 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
@@ -1117,62 +1109,67 @@ uint64_t reexec_to_match_kernel()
 
 uint64_t current_kernel_arch()
 {
-  v41 = *MEMORY[0x29EDCA608];
+  v40 = *MEMORY[0x29EDCA608];
+  v6 = 0u;
   v7 = 0u;
-  v8 = 0u;
   *host_info_out = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
-  memset(v9, 0, sizeof(v9));
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  memset(v8, 0, sizeof(v8));
   host_info_outCnt = 12;
   v0 = MEMORY[0x29C2A56D0]();
-  if (host_info(v0, 1, host_info_out, &host_info_outCnt) || (v2 = host_info_out[3], *v40 = xmmword_29997C470, v4 = 648, sysctl(v40, 4u, v9, &v4, 0, 0) == -1))
+  if (host_info(v0, 1, host_info_out, &host_info_outCnt))
   {
-    result = 0;
+    return 0;
+  }
+
+  v2 = host_info_out[3];
+  *v39 = xmmword_29997C470;
+  v3 = 648;
+  if (sysctl(v39, 4u, v8, &v3, 0, 0) == -1)
+  {
+    return 0;
   }
 
   else
   {
-    result = (v10 << 22) & 0x1000000 | v2;
+    return (v9 << 22) & 0x1000000 | v2;
   }
-
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t reexec(cpu_type_t a1, const char *a2)
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
+  v20 = 0;
   v21 = 0;
-  v22 = 0;
   v4 = *_NSGetArgv();
   v5 = _NSGetEnviron();
   v6 = 0;
@@ -1207,28 +1204,21 @@ uint64_t reexec(cpu_type_t a1, const char *a2)
   *v15 = __str;
   v15[1] = 0;
   bufsize = 1025;
-  if (_NSGetExecutablePath(buf, &bufsize) || posix_spawnattr_init(&v22) || posix_spawnattr_setflags(&v22, 64) || ((v23 = a1, v24 = 0, (a1 & 0x1000000) != 0) ? (v18 = 1) : (v23 = a1 | 0x2000000, v24 = a1, v18 = 2), posix_spawnattr_setbinpref_np(&v22, v18, &v23, &v21) || v21 != v18))
+  if (_NSGetExecutablePath(buf, &bufsize) || posix_spawnattr_init(&v21) || posix_spawnattr_setflags(&v21, 64) || ((v22 = a1, v23 = 0, (a1 & 0x1000000) != 0) ? (v17 = 1) : (v22 = a1 | 0x2000000, v23 = a1, v17 = 2), posix_spawnattr_setbinpref_np(&v21, v17, &v22, &v20) || v20 != v17))
   {
     free(v10);
+    return 0xFFFFFFFFLL;
   }
 
-  else
+  v18 = posix_spawn(0, buf, 0, &v21, v4, v10);
+  free(v10);
+  if (v18)
   {
-    v19 = posix_spawn(0, buf, 0, &v22, v4, v10);
-    free(v10);
-    if (!v19)
-    {
-      result = 0;
-      goto LABEL_13;
-    }
-
-    *__error() = v19;
+    *__error() = v18;
+    return 0xFFFFFFFFLL;
   }
 
-  result = 0xFFFFFFFFLL;
-LABEL_13:
-  v17 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
 uint64_t reexec_to_match_lp64ness(int a1)
@@ -1371,38 +1361,38 @@ uint64_t tzlink(const char *a1)
 
 uint64_t wipefs_alloc(int a1, uint64_t a2, uint64_t *a3)
 {
-  *&v22[1023] = *MEMORY[0x29EDCA608];
-  v20 = 0;
+  *&v21[1023] = *MEMORY[0x29EDCA608];
   v19 = 0;
-  memset(&v18, 0, sizeof(v18));
+  v18 = 0;
+  memset(&v17, 0, sizeof(v17));
   *a3 = 0;
-  fstat(a1, &v18);
-  v6 = v18.st_mode & 0xF000;
+  fstat(a1, &v17);
+  v6 = v17.st_mode & 0xF000;
   switch(v6)
   {
     case 0x2000:
       goto LABEL_5;
     case 0x8000:
       v12 = 0;
-      st_blksize = v18.st_blksize;
-      v19 = v18.st_blksize;
-      st_size = v18.st_size;
-      v20 = v18.st_size / v18.st_blksize;
+      st_blksize = v17.st_blksize;
+      v18 = v17.st_blksize;
+      st_size = v17.st_size;
+      v19 = v17.st_size / v17.st_blksize;
       goto LABEL_23;
     case 0x6000:
 LABEL_5:
-      if (ioctl(a1, 0x40046418uLL, &v19) < 0 || ioctl(a1, 0x40086419uLL, &v20) < 0)
+      if (ioctl(a1, 0x40046418uLL, &v18) < 0 || ioctl(a1, 0x40086419uLL, &v19) < 0)
       {
         v13 = *__error();
         if (!v13)
         {
-          goto LABEL_32;
+          return v13;
         }
 
         goto LABEL_31;
       }
 
-      st_size = v20 * v19;
+      st_size = v19 * v18;
       if (fcntl(a1, 50, &__s) == -1)
       {
         goto LABEL_16;
@@ -1422,7 +1412,7 @@ LABEL_5:
       v10 = v8 + 2;
       if (!v8)
       {
-        v10 = v22;
+        v10 = v21;
       }
 
       v11 = *p_s == 114 ? v10 : p_s;
@@ -1437,7 +1427,7 @@ LABEL_16:
         v12 = 0;
       }
 
-      st_blksize = v19;
+      st_blksize = v18;
 LABEL_23:
       if (a2)
       {
@@ -1462,13 +1452,11 @@ LABEL_23:
 
 LABEL_31:
       wipefs_free(a3);
-      goto LABEL_32;
+      return v13;
   }
 
   v13 = 0;
   *__error() = 22;
-LABEL_32:
-  v16 = *MEMORY[0x29EDCA608];
   return v13;
 }
 
@@ -1504,20 +1492,20 @@ void sub_29997B6D8(void *a1)
 
 void wipefs_wipe(uint64_t a1)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 64);
   if (v2)
   {
-    v17 = 0;
     v16 = 0;
     v15 = 0;
-    v22 = 0;
-    strcpy(v23, "xartutil");
-    strcpy(v18, "--erase-disk");
-    __argv = v23;
-    v20 = v18;
-    v21 = v2;
-    if (posix_spawn_file_actions_init(&v16))
+    v14 = 0;
+    v21 = 0;
+    strcpy(v22, "xartutil");
+    strcpy(v17, "--erase-disk");
+    __argv = v22;
+    v19 = v17;
+    v20 = v2;
+    if (posix_spawn_file_actions_init(&v15))
     {
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
@@ -1527,9 +1515,9 @@ void wipefs_wipe(uint64_t a1)
 
     else
     {
-      posix_spawn_file_actions_addopen(&v16, 1, "/dev/null", 1, 0);
-      posix_spawn_file_actions_addopen(&v16, 2, "/dev/null", 1, 0);
-      if (posix_spawn(&v17, "/usr/sbin/xartutil", &v16, 0, &__argv, 0))
+      posix_spawn_file_actions_addopen(&v15, 1, "/dev/null", 1, 0);
+      posix_spawn_file_actions_addopen(&v15, 2, "/dev/null", 1, 0);
+      if (posix_spawn(&v16, "/usr/sbin/xartutil", &v15, 0, &__argv, 0))
       {
         if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
         {
@@ -1541,10 +1529,10 @@ void wipefs_wipe(uint64_t a1)
 
       do
       {
-        if (waitpid(v17, &v15, 0) != -1)
+        if (waitpid(v16, &v14, 0) != -1)
         {
-          v3 = v15;
-          if ((v15 & 0x7F) == 0x7F)
+          v3 = v14;
+          if ((v14 & 0x7F) == 0x7F)
           {
             v4 = os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR);
             if (v3 >> 8 == 19)
@@ -1561,7 +1549,7 @@ void wipefs_wipe(uint64_t a1)
             }
           }
 
-          else if ((v15 & 0x7F) != 0)
+          else if ((v14 & 0x7F) != 0)
           {
             if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
             {
@@ -1569,7 +1557,7 @@ void wipefs_wipe(uint64_t a1)
             }
           }
 
-          else if (BYTE1(v15) && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
+          else if (BYTE1(v14) && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
           {
             wipefs_wipe_cold_5();
           }
@@ -1585,22 +1573,17 @@ void wipefs_wipe(uint64_t a1)
       }
 
 LABEL_24:
-      posix_spawn_file_actions_destroy(&v16);
+      posix_spawn_file_actions_destroy(&v15);
     }
   }
 
   v12 = *a1;
   v13 = *(a1 + 24);
   __argv = 0;
-  v20 = v13;
-  v18[0] = &__argv;
-  v18[1] = 0x100000001;
-  ioctl(v12, 0x8010641FuLL, v18);
-  if (*(a1 + 16) > 0x20000uLL)
-  {
-    v14 = *(a1 + 16);
-  }
-
+  v19 = v13;
+  v17[0] = &__argv;
+  v17[1] = 0x100000001;
+  ioctl(v12, 0x8010641FuLL, v17);
   operator new[]();
 }
 
@@ -1631,65 +1614,25 @@ void *std::__list_imp<ExtentInfo>::clear(void *result)
   return result;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
-}
-
-void wipefs_wipe_cold_1()
-{
-  v7 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_299979000, MEMORY[0x29EDCA988], v0, "Warning, init xartutil file actions error: %d", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x29EDCA608];
-}
-
-void wipefs_wipe_cold_2()
-{
-  v7 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_299979000, MEMORY[0x29EDCA988], v0, "Warning, unable to start xartutil, spawn error: %d", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x29EDCA608];
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 void wipefs_wipe_cold_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_0(&dword_299979000, MEMORY[0x29EDCA988], a3, "Warning, xartutil stopped by signal: %u", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x29EDCA608];
-}
-
-void wipefs_wipe_cold_4()
-{
-  v7 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_299979000, MEMORY[0x29EDCA988], v0, "Warning, xartutil terminated abnormally, status 0x%x", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x29EDCA608];
-}
-
-void wipefs_wipe_cold_5()
-{
-  v7 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_299979000, MEMORY[0x29EDCA988], v0, "Warning, xartutil returned status %d", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x29EDCA608];
-}
-
-void wipefs_wipe_cold_6()
-{
-  v7 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_299979000, MEMORY[0x29EDCA988], v0, "Warning, xartutil terminated by signal: %u", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x29EDCA608];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1 >> 8;
+  OUTLINED_FUNCTION_0(&dword_299979000, MEMORY[0x29EDCA988], a3, "Warning, xartutil stopped by signal: %u", a5, a6, a7, a8, v8);
 }
 
 void wipefs_wipe_cold_7()
 {
-  v7 = *MEMORY[0x29EDCA608];
-  v0 = *__error();
-  OUTLINED_FUNCTION_0(&dword_299979000, MEMORY[0x29EDCA988], v1, "Warning, unable to start xartutil, waitpid error: %d", v2, v3, v4, v5, 0);
-  v6 = *MEMORY[0x29EDCA608];
+  LODWORD(v5) = 67109120;
+  HIDWORD(v5) = *__error();
+  OUTLINED_FUNCTION_0(&dword_299979000, MEMORY[0x29EDCA988], v0, "Warning, unable to start xartutil, waitpid error: %d", v1, v2, v3, v4, v5);
 }
 
 void operator delete[]()

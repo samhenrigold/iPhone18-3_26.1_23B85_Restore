@@ -39,7 +39,7 @@
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC14WidgetRenderer27AmbientCompactSceneDelegate__viewController) = 0;
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC14WidgetRenderer27AmbientCompactSceneDelegate__viewModel) = 0;
   v3.receiver = self;
-  v3.super_class = type metadata accessor for AmbientCompactSceneDelegate();
+  v3.super_class = type metadata accessor for AmbientCompactSceneDelegate(0);
   return [(SingleActivitySceneDelegate *)&v3 init];
 }
 

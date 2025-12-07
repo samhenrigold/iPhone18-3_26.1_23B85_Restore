@@ -11,8 +11,8 @@
   v30 = *MEMORY[0x1E69E9840];
   textCopy = text;
   localeCopy = locale;
-  md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>>::StringWithLocaleImp(v26, [textCopy UTF8String], objc_msgSend(localeCopy, "UTF8String"));
-  md::LabelMetrics::boundingRectForItem(v23, self->_labelMetrics.__ptr_, itemCopy, v26);
+  md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>>::StringWithLocaleImp(&v26, [textCopy UTF8String], objc_msgSend(localeCopy, "UTF8String"));
+  md::LabelMetrics::boundingRectForItem(v23, self->_labelMetrics.__ptr_, itemCopy, &v26);
   if (v25)
   {
     v11 = v23[0];
@@ -38,7 +38,7 @@
 
   if (v27 < 0)
   {
-    v17 = v26[0];
+    v17 = v26;
     v18 = mdm::zone_mallocator::instance(v10);
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<char>(v18, v17);
   }

@@ -215,58 +215,58 @@ LABEL_11:
 
 - (id)sr_dictionaryRepresentation
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](-[SRApplicationUsage textInputSessions](self, "textInputSessions"), "count")}];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   textInputSessions = [(SRApplicationUsage *)self textInputSessions];
-  v5 = [(NSArray *)textInputSessions countByEnumeratingWithState:&v28 objects:v37 count:16];
+  v5 = [(NSArray *)textInputSessions countByEnumeratingWithState:&v27 objects:v36 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v29;
+    v7 = *v28;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(textInputSessions);
         }
 
-        [v3 addObject:{objc_msgSend(*(*(&v28 + 1) + 8 * i), "sr_dictionaryRepresentation")}];
+        [v3 addObject:{objc_msgSend(*(*(&v27 + 1) + 8 * i), "sr_dictionaryRepresentation")}];
       }
 
-      v6 = [(NSArray *)textInputSessions countByEnumeratingWithState:&v28 objects:v37 count:16];
+      v6 = [(NSArray *)textInputSessions countByEnumeratingWithState:&v27 objects:v36 count:16];
     }
 
     while (v6);
   }
 
   v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](-[SRApplicationUsage supplementalCategories](self, "supplementalCategories"), "count")}];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   selfCopy = self;
   supplementalCategories = [(SRApplicationUsage *)self supplementalCategories];
-  v11 = [(NSArray *)supplementalCategories countByEnumeratingWithState:&v24 objects:v36 count:16];
+  v11 = [(NSArray *)supplementalCategories countByEnumeratingWithState:&v23 objects:v35 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v25;
+    v13 = *v24;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v25 != v13)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(supplementalCategories);
         }
 
-        v15 = *(*(&v24 + 1) + 8 * j);
+        v15 = *(*(&v23 + 1) + 8 * j);
         if ([v15 conformsToProtocol:&unk_1F48CC170])
         {
           [v9 addObject:{objc_msgSend(v15, "sr_dictionaryRepresentation")}];
@@ -280,7 +280,7 @@ LABEL_11:
             v17 = objc_opt_class();
             v18 = NSStringFromClass(v17);
             *buf = 138543362;
-            v35 = v18;
+            v34 = v18;
             _os_log_fault_impl(&dword_1C914D000, v16, OS_LOG_TYPE_FAULT, "Unable to output usage of class %{public}@", buf, 0xCu);
             v16 = SRLogUsageReport;
           }
@@ -288,19 +288,19 @@ LABEL_11:
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             *buf = 138477827;
-            v35 = v15;
+            v34 = v15;
             _os_log_error_impl(&dword_1C914D000, v16, OS_LOG_TYPE_ERROR, "%{private}@ does not conform to <SRSampleExporting> protocol. Excluding from dictionary output", buf, 0xCu);
           }
         }
       }
 
-      v12 = [(NSArray *)supplementalCategories countByEnumeratingWithState:&v24 objects:v36 count:16];
+      v12 = [(NSArray *)supplementalCategories countByEnumeratingWithState:&v23 objects:v35 count:16];
     }
 
     while (v12);
   }
 
-  v32[0] = @"totalUsageTime";
+  v31[0] = @"totalUsageTime";
   v19 = [MEMORY[0x1E696AD98] numberWithDouble:selfCopy->_usageTime];
   bundleIdentifier = &stru_1F48BB5C0;
   if (selfCopy->_bundleIdentifier)
@@ -308,20 +308,18 @@ LABEL_11:
     bundleIdentifier = selfCopy->_bundleIdentifier;
   }
 
-  v33[0] = v19;
-  v33[1] = bundleIdentifier;
-  v32[1] = @"bundleIdentifier";
-  v32[2] = @"reportApplicationIdentifier";
-  v33[2] = selfCopy->_reportApplicationIdentifier;
-  v33[3] = v3;
-  v32[3] = @"textInputSessions";
-  v32[4] = @"supplementalCategories";
-  v33[4] = v9;
-  v32[5] = @"relativeStartTime";
-  v33[5] = [MEMORY[0x1E696AD98] numberWithDouble:selfCopy->_relativeStartTime];
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:6];
-  v22 = *MEMORY[0x1E69E9840];
-  return result;
+  v32[0] = v19;
+  v32[1] = bundleIdentifier;
+  v31[1] = @"bundleIdentifier";
+  v31[2] = @"reportApplicationIdentifier";
+  v32[2] = selfCopy->_reportApplicationIdentifier;
+  v32[3] = v3;
+  v31[3] = @"textInputSessions";
+  v31[4] = @"supplementalCategories";
+  v32[4] = v9;
+  v31[5] = @"relativeStartTime";
+  v32[5] = [MEMORY[0x1E696AD98] numberWithDouble:selfCopy->_relativeStartTime];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:6];
 }
 
 @end

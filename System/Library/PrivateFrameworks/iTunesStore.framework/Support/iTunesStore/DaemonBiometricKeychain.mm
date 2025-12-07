@@ -78,6 +78,104 @@
 - (id)createAttestationDataForAccountIdentifier_:(id)identifier_ purpose:(int64_t)purpose error:(id *)error
 {
   identifier_Copy = identifier_;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = sub_1001542B0;
+  v44 = sub_1001542C0;
+  v45 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = sub_1001542B0;
+  v38 = sub_1001542C0;
+  v39 = 0;
+  v9 = dispatch_semaphore_create(0);
+  dispatchQueue = self->_dispatchQueue;
+  block = _NSConcreteStackBlock;
+  v25 = 3221225472;
+  v26 = sub_1001542C8;
+  v27 = &unk_100329F08;
+  v31 = &v40;
+  selfCopy = self;
+  v11 = identifier_Copy;
+  v32 = &v34;
+  purposeCopy = purpose;
+  v29 = v11;
+  v12 = v9;
+  v30 = v12;
+  dispatch_async(dispatchQueue, &block);
+  v13 = dispatch_time(0, 5000000000);
+  dispatch_semaphore_wait(v12, v13);
+  if (!v41[5] && !v35[5])
+  {
+    v14 = +[SSLogConfig sharedDaemonConfig];
+    if (!v14)
+    {
+      v14 = +[SSLogConfig sharedConfig];
+    }
+
+    LODWORD(v15) = [v14 shouldLog];
+    shouldLogToDisk = [v14 shouldLogToDisk];
+    oSLogObject = [v14 OSLogObject];
+    v18 = oSLogObject;
+    if (shouldLogToDisk)
+    {
+      LODWORD(v15) = v15 | 2;
+    }
+
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = v15;
+    }
+
+    else
+    {
+      v15 &= 2u;
+    }
+
+    if (v15)
+    {
+      v19 = objc_opt_class();
+      v46 = 138543618;
+      v47 = v19;
+      v48 = 2112;
+      v49 = v11;
+      v20 = v19;
+      v21 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, v18, 0, "%{public}@: Create attestation data timed out for DSID: %@", &v46, 22, block, v25, v26, v27, selfCopy, v29);
+
+      if (!v21)
+      {
+LABEL_14:
+
+        goto LABEL_15;
+      }
+
+      v18 = [NSString stringWithCString:v21 encoding:4];
+      free(v21);
+      SSFileLog();
+    }
+
+    goto LABEL_14;
+  }
+
+LABEL_15:
+  if (error)
+  {
+    *error = v35[5];
+  }
+
+  v22 = v41[5];
+
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v40, 8);
+
+  return v22;
+}
+
+- (id)createX509CertChainDataForAccountIdentifier_:(id)identifier_ purpose:(int64_t)purpose error:(id *)error
+{
+  identifier_Copy = identifier_;
   v41 = 0;
   v42 = &v41;
   v43 = 0x3032000000;
@@ -94,7 +192,7 @@
   dispatchQueue = self->_dispatchQueue;
   block = _NSConcreteStackBlock;
   v26 = 3221225472;
-  v27 = sub_1001542C8;
+  v27 = sub_100154A80;
   v28 = &unk_100329F08;
   v32 = &v41;
   selfCopy = self;
@@ -105,9 +203,8 @@
   v12 = v9;
   v31 = v12;
   dispatch_async(dispatchQueue, &block);
-  v13 = dispatch_time(0, 5000000000);
-  dispatch_semaphore_wait(v12, v13);
-  if (!v42[5] && !v36[5])
+  v13 = dispatch_time(0, 30000000000);
+  if (dispatch_semaphore_wait(v12, v13))
   {
     v14 = +[SSLogConfig sharedDaemonConfig];
     if (!v14)
@@ -115,30 +212,36 @@
       v14 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v14 shouldLog];
+    LODWORD(v15) = [v14 shouldLog];
     shouldLogToDisk = [v14 shouldLogToDisk];
     oSLogObject = [v14 OSLogObject];
     v18 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v15) = v15 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      shouldLog &= 2u;
+      v15 = v15;
     }
 
-    if (shouldLog)
+    else
+    {
+      v15 &= 2u;
+    }
+
+    if (v15)
     {
       v19 = objc_opt_class();
-      v47 = 138543618;
+      v20 = [NSNumber numberWithInteger:purpose];
+      v47 = 138543874;
       v48 = v19;
       v49 = 2112;
       v50 = v11;
-      v20 = v19;
-      LODWORD(v24) = 22;
-      v21 = _os_log_send_and_compose_impl();
+      v51 = 2114;
+      v52 = v20;
+      v21 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, v18, 16, "%{public}@: Create X509 cert chain data timed out for DSID: %@, purpose: %{public}@", &v47, 32, block, v26, v27, v28, selfCopy, v30);
 
       if (!v21)
       {
@@ -147,8 +250,9 @@ LABEL_13:
         goto LABEL_14;
       }
 
-      v18 = [NSString stringWithCString:v21 encoding:4, &v47, v24, block, v26, v27, v28, selfCopy, v30];
+      v18 = [NSString stringWithCString:v21 encoding:4];
       free(v21);
+      v24 = v18;
       SSFileLog();
     }
 
@@ -161,107 +265,10 @@ LABEL_14:
     *error = v36[5];
   }
 
-  v22 = v42[5];
+  v22 = [NSArray arrayWithArray:v42[5], v24];
 
   _Block_object_dispose(&v35, 8);
   _Block_object_dispose(&v41, 8);
-
-  return v22;
-}
-
-- (id)createX509CertChainDataForAccountIdentifier_:(id)identifier_ purpose:(int64_t)purpose error:(id *)error
-{
-  identifier_Copy = identifier_;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = sub_1001542B0;
-  v46 = sub_1001542C0;
-  v47 = 0;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = sub_1001542B0;
-  v40 = sub_1001542C0;
-  v41 = 0;
-  v9 = dispatch_semaphore_create(0);
-  dispatchQueue = self->_dispatchQueue;
-  block = _NSConcreteStackBlock;
-  v27 = 3221225472;
-  v28 = sub_100154A80;
-  v29 = &unk_100329F08;
-  v33 = &v42;
-  selfCopy = self;
-  v11 = identifier_Copy;
-  v34 = &v36;
-  purposeCopy = purpose;
-  v31 = v11;
-  v12 = v9;
-  v32 = v12;
-  dispatch_async(dispatchQueue, &block);
-  v13 = dispatch_time(0, 30000000000);
-  if (dispatch_semaphore_wait(v12, v13))
-  {
-    v14 = +[SSLogConfig sharedDaemonConfig];
-    if (!v14)
-    {
-      v14 = +[SSLogConfig sharedConfig];
-    }
-
-    shouldLog = [v14 shouldLog];
-    shouldLogToDisk = [v14 shouldLogToDisk];
-    oSLogObject = [v14 OSLogObject];
-    v18 = oSLogObject;
-    if (shouldLogToDisk)
-    {
-      shouldLog |= 2u;
-    }
-
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
-    {
-      shouldLog &= 2u;
-    }
-
-    if (shouldLog)
-    {
-      v19 = objc_opt_class();
-      v20 = [NSNumber numberWithInteger:purpose];
-      v48 = 138543874;
-      v49 = v19;
-      v50 = 2112;
-      v51 = v11;
-      v52 = 2114;
-      v53 = v20;
-      LODWORD(v25) = 32;
-      v24 = &v48;
-      v21 = _os_log_send_and_compose_impl();
-
-      if (!v21)
-      {
-LABEL_12:
-
-        goto LABEL_13;
-      }
-
-      v18 = [NSString stringWithCString:v21 encoding:4, &v48, v25, block, v27, v28, v29, selfCopy, v31];
-      free(v21);
-      v24 = v18;
-      SSFileLog();
-    }
-
-    goto LABEL_12;
-  }
-
-LABEL_13:
-  if (error)
-  {
-    *error = v37[5];
-  }
-
-  v22 = [NSArray arrayWithArray:v43[5], v24];
-
-  _Block_object_dispose(&v36, 8);
-  _Block_object_dispose(&v42, 8);
 
   return v22;
 }
@@ -311,6 +318,111 @@ LABEL_13:
 - (id)publicKeyDataForAccountIdentifier_:(id)identifier_ purpose:(int64_t)purpose regenerateKeys:(BOOL)keys error:(id *)error
 {
   identifier_Copy = identifier_;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = sub_1001542B0;
+  v45 = sub_1001542C0;
+  v46 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = sub_1001542B0;
+  v39 = sub_1001542C0;
+  v40 = 0;
+  v11 = dispatch_semaphore_create(0);
+  v12 = dispatch_get_global_queue(0, 0);
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100155100;
+  block[3] = &unk_100329F58;
+  v31 = &v41;
+  block[4] = self;
+  v13 = identifier_Copy;
+  v32 = &v35;
+  purposeCopy = purpose;
+  keysCopy = keys;
+  v29 = v13;
+  v14 = v11;
+  v30 = v14;
+  dispatch_async(v12, block);
+
+  v15 = dispatch_time(0, 5000000000);
+  dispatch_semaphore_wait(v14, v15);
+  if (!v42[5] && !v36[5])
+  {
+    v16 = +[SSLogConfig sharedDaemonConfig];
+    if (!v16)
+    {
+      v16 = +[SSLogConfig sharedConfig];
+    }
+
+    LODWORD(v17) = [v16 shouldLog];
+    shouldLogToDisk = [v16 shouldLogToDisk];
+    oSLogObject = [v16 OSLogObject];
+    v20 = oSLogObject;
+    if (shouldLogToDisk)
+    {
+      LODWORD(v17) = v17 | 2;
+    }
+
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = v17;
+    }
+
+    else
+    {
+      v17 &= 2u;
+    }
+
+    if (v17)
+    {
+      v21 = objc_opt_class();
+      v47 = 138543618;
+      v48 = v21;
+      v49 = 2112;
+      v50 = v13;
+      v22 = v21;
+      v23 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, v20, 0, "%{public}@: Public key data copy timed out for DSID: %@", &v47, 22);
+
+      if (!v23)
+      {
+LABEL_14:
+
+        v24 = SSError();
+        v25 = v36[5];
+        v36[5] = v24;
+
+        goto LABEL_15;
+      }
+
+      v20 = [NSString stringWithCString:v23 encoding:4];
+      free(v23);
+      SSFileLog();
+    }
+
+    goto LABEL_14;
+  }
+
+LABEL_15:
+  if (error)
+  {
+    *error = v36[5];
+  }
+
+  v26 = v42[5];
+
+  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v41, 8);
+
+  return v26;
+}
+
+- (id)signData_:(id)data_ context:(id)context error:(id *)error
+{
+  data_Copy = data_;
+  contextCopy = context;
   v42 = 0;
   v43 = &v42;
   v44 = 0x3032000000;
@@ -323,24 +435,24 @@ LABEL_13:
   v39 = sub_1001542B0;
   v40 = sub_1001542C0;
   v41 = 0;
-  v11 = dispatch_semaphore_create(0);
-  v12 = dispatch_get_global_queue(0, 0);
-  block[0] = _NSConcreteStackBlock;
-  block[1] = 3221225472;
-  block[2] = sub_100155100;
-  block[3] = &unk_100329F58;
-  v32 = &v42;
-  block[4] = self;
-  v13 = identifier_Copy;
-  v33 = &v36;
-  purposeCopy = purpose;
-  keysCopy = keys;
-  v30 = v13;
-  v14 = v11;
-  v31 = v14;
-  dispatch_async(v12, block);
+  v10 = dispatch_semaphore_create(0);
+  v11 = dispatch_get_global_queue(0, 0);
+  block = _NSConcreteStackBlock;
+  v27 = 3221225472;
+  v28 = sub_100155560;
+  v29 = &unk_100329F80;
+  v34 = &v42;
+  selfCopy = self;
+  v12 = data_Copy;
+  v31 = v12;
+  v13 = contextCopy;
+  v32 = v13;
+  v35 = &v36;
+  v14 = v10;
+  v33 = v14;
+  dispatch_async(v11, &block);
 
-  v15 = dispatch_time(0, 5000000000);
+  v15 = dispatch_time(0, 180000000000);
   dispatch_semaphore_wait(v14, v15);
   if (!v43[5] && !v37[5])
   {
@@ -350,157 +462,60 @@ LABEL_13:
       v16 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v16 shouldLog];
+    LODWORD(v17) = [v16 shouldLog];
     shouldLogToDisk = [v16 shouldLogToDisk];
     oSLogObject = [v16 OSLogObject];
     v20 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v17) = v17 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog &= 2u;
+      v17 = v17;
     }
 
-    if (shouldLog)
+    else
+    {
+      v17 &= 2u;
+    }
+
+    if (v17)
     {
       v21 = objc_opt_class();
+      accountIdentifier = [v13 accountIdentifier];
       v48 = 138543618;
       v49 = v21;
       v50 = 2112;
-      v51 = v13;
-      v22 = v21;
-      LODWORD(v28) = 22;
-      v23 = _os_log_send_and_compose_impl();
+      v51 = accountIdentifier;
+      v23 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, v20, 0, "%{public}@: Sign data timed out for DSID: %@", &v48, 22, block, v27, v28, v29, selfCopy, v31, v32);
 
       if (!v23)
       {
-LABEL_13:
+LABEL_14:
 
-        v24 = SSError();
-        v25 = v37[5];
-        v37[5] = v24;
-
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      v20 = [NSString stringWithCString:v23 encoding:4, &v48, v28];
+      v20 = [NSString stringWithCString:v23 encoding:4];
       free(v23);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
   if (error)
   {
     *error = v37[5];
   }
 
-  v26 = v43[5];
+  v24 = v43[5];
 
   _Block_object_dispose(&v36, 8);
   _Block_object_dispose(&v42, 8);
-
-  return v26;
-}
-
-- (id)signData_:(id)data_ context:(id)context error:(id *)error
-{
-  data_Copy = data_;
-  contextCopy = context;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = sub_1001542B0;
-  v47 = sub_1001542C0;
-  v48 = 0;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = sub_1001542B0;
-  v41 = sub_1001542C0;
-  v42 = 0;
-  v10 = dispatch_semaphore_create(0);
-  v11 = dispatch_get_global_queue(0, 0);
-  block = _NSConcreteStackBlock;
-  v28 = 3221225472;
-  v29 = sub_100155560;
-  v30 = &unk_100329F80;
-  v35 = &v43;
-  selfCopy = self;
-  v12 = data_Copy;
-  v32 = v12;
-  v13 = contextCopy;
-  v33 = v13;
-  v36 = &v37;
-  v14 = v10;
-  v34 = v14;
-  dispatch_async(v11, &block);
-
-  v15 = dispatch_time(0, 180000000000);
-  dispatch_semaphore_wait(v14, v15);
-  if (!v44[5] && !v38[5])
-  {
-    v16 = +[SSLogConfig sharedDaemonConfig];
-    if (!v16)
-    {
-      v16 = +[SSLogConfig sharedConfig];
-    }
-
-    shouldLog = [v16 shouldLog];
-    shouldLogToDisk = [v16 shouldLogToDisk];
-    oSLogObject = [v16 OSLogObject];
-    v20 = oSLogObject;
-    if (shouldLogToDisk)
-    {
-      shouldLog |= 2u;
-    }
-
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
-    {
-      shouldLog &= 2u;
-    }
-
-    if (shouldLog)
-    {
-      v21 = objc_opt_class();
-      accountIdentifier = [v13 accountIdentifier];
-      v49 = 138543618;
-      v50 = v21;
-      v51 = 2112;
-      v52 = accountIdentifier;
-      LODWORD(v26) = 22;
-      v23 = _os_log_send_and_compose_impl();
-
-      if (!v23)
-      {
-LABEL_13:
-
-        goto LABEL_14;
-      }
-
-      v20 = [NSString stringWithCString:v23 encoding:4, &v49, v26, block, v28, v29, v30, selfCopy, v32, v33];
-      free(v23);
-      SSFileLog();
-    }
-
-    goto LABEL_13;
-  }
-
-LABEL_14:
-  if (error)
-  {
-    *error = v38[5];
-  }
-
-  v24 = v44[5];
-
-  _Block_object_dispose(&v37, 8);
-  _Block_object_dispose(&v43, 8);
 
   return v24;
 }
@@ -520,19 +535,24 @@ LABEL_14:
       v39 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v39 shouldLog];
+    LODWORD(v40) = [v39 shouldLog];
     if ([v39 shouldLogToDisk])
     {
-      shouldLog |= 2u;
+      LODWORD(v40) = v40 | 2;
     }
 
     oSLogObject = [v39 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      shouldLog &= 2u;
+      v40 = v40;
     }
 
-    if (shouldLog)
+    else
+    {
+      v40 &= 2u;
+    }
+
+    if (v40)
     {
       v42 = objc_opt_class();
       v43 = v42;
@@ -543,13 +563,11 @@ LABEL_14:
       v82 = identifier_Copy;
       v83 = 2112;
       v84 = v44;
-      LODWORD(v66) = 32;
-      v64 = &v79;
-      v45 = _os_log_send_and_compose_impl();
+      v45 = _os_log_send_and_compose_impl(v40, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%@: Failed to generate label for DSID: %@, purpose: %@", &v79, 32);
 
       if (v45)
       {
-        v46 = [NSString stringWithCString:v45 encoding:4, &v79, v66];
+        v46 = [NSString stringWithCString:v45 encoding:4];
         free(v45);
         v64 = v46;
         SSFileLog();
@@ -560,7 +578,7 @@ LABEL_14:
     {
     }
 
-    goto LABEL_40;
+    goto LABEL_43;
   }
 
   v9 = objc_alloc_init(NSMutableDictionary);
@@ -582,19 +600,24 @@ LABEL_14:
       v16 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v16 shouldLog];
+    LODWORD(v17) = [v16 shouldLog];
     if ([v16 shouldLogToDisk])
     {
-      shouldLog2 |= 2u;
+      LODWORD(v17) = v17 | 2;
     }
 
     oSLogObject2 = [v16 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      shouldLog2 &= 2u;
+      v17 = v17;
     }
 
-    if (shouldLog2)
+    else
+    {
+      v17 &= 2u;
+    }
+
+    if (v17)
     {
       v19 = v9;
       v20 = objc_opt_class();
@@ -611,31 +634,29 @@ LABEL_14:
       v84 = v21;
       v85 = 2114;
       v86 = v22;
-      LODWORD(v66) = 42;
-      v64 = &v79;
-      v23 = _os_log_send_and_compose_impl();
+      v23 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "%{public}@: Failed to find public key cert for DSID: %@, purpose: %{public}@, status: %{public}@", &v79, 42);
 
       v8 = v69;
       if (!v23)
       {
-LABEL_13:
+LABEL_14:
 
         v12 = kSecClassCertificate;
         v11 = kSecAttrLabel;
         v13 = kSecClass;
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v23 encoding:4, &v79, v66];
+      oSLogObject2 = [NSString stringWithCString:v23 encoding:4];
       free(v23);
       v64 = oSLogObject2;
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
   v24 = objc_alloc_init(NSMutableDictionary);
   [v24 setObject:ISBiometricsIntermediateCertKeychainLabel forKeyedSubscript:v11];
   [v24 setObject:v12 forKeyedSubscript:v13];
@@ -650,19 +671,24 @@ LABEL_14:
       v27 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v27 shouldLog];
+    LODWORD(v28) = [v27 shouldLog];
     if ([v27 shouldLogToDisk])
     {
-      shouldLog3 |= 2u;
+      LODWORD(v28) = v28 | 2;
     }
 
     oSLogObject3 = [v27 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
     {
-      shouldLog3 &= 2u;
+      v28 = v28;
     }
 
-    if (shouldLog3)
+    else
+    {
+      v28 &= 2u;
+    }
+
+    if (v28)
     {
       v70 = v8;
       v72 = identifier_Copy;
@@ -680,27 +706,26 @@ LABEL_14:
       v85 = 2114;
       v86 = v32;
       LODWORD(v66) = 42;
-      v64 = &v79;
-      v33 = _os_log_send_and_compose_impl();
+      v33 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &_mh_execute_header, oSLogObject3, 16, "%{public}@: Failed to find intermediate cert for DSID: %@, purpose: %{public}@, status: %{public}@", &v79, v66);
 
       identifier_Copy = v72;
       if (!v33)
       {
-LABEL_25:
+LABEL_27:
 
-        goto LABEL_26;
+        goto LABEL_28;
       }
 
-      oSLogObject3 = [NSString stringWithCString:v33 encoding:4, &v79, v66];
+      oSLogObject3 = [NSString stringWithCString:v33 encoding:4];
       free(v33);
       v64 = oSLogObject3;
       SSFileLog();
     }
 
-    goto LABEL_25;
+    goto LABEL_27;
   }
 
-LABEL_26:
+LABEL_28:
 
   if (result && v77)
   {
@@ -713,15 +738,15 @@ LABEL_26:
 
     v37 = [v34 copy];
     v38 = 0;
-    goto LABEL_65;
+    goto LABEL_70;
   }
 
-LABEL_40:
+LABEL_43:
   if (!certsCopy)
   {
     v38 = 0;
     v37 = 0;
-    goto LABEL_66;
+    goto LABEL_71;
   }
 
   v47 = +[SSLogConfig sharedDaemonConfig];
@@ -730,21 +755,26 @@ LABEL_40:
     v47 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog4 = [v47 shouldLog];
+  LODWORD(v48) = [v47 shouldLog];
   if ([v47 shouldLogToDisk])
   {
-    shouldLog4 |= 2u;
+    LODWORD(v48) = v48 | 2;
   }
 
   oSLogObject4 = [v47 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
   {
-    shouldLog4 &= 2u;
+    v48 = v48;
   }
 
-  if (!shouldLog4)
+  else
   {
-    goto LABEL_50;
+    v48 &= 2u;
+  }
+
+  if (!v48)
+  {
+    goto LABEL_54;
   }
 
   v50 = objc_opt_class();
@@ -757,16 +787,15 @@ LABEL_40:
   v83 = 2114;
   v84 = v52;
   LODWORD(v66) = 32;
-  v65 = &v79;
-  v53 = _os_log_send_and_compose_impl();
+  v53 = _os_log_send_and_compose_impl(v48, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%{public}@: Failed to find X509 certs in Keychain, generating new X509 cert chain for DSID: %@, purpose: %{public}@", &v79, v66);
 
   if (v53)
   {
-    oSLogObject4 = [NSString stringWithCString:v53 encoding:4, &v79, v66];
+    oSLogObject4 = [NSString stringWithCString:v53 encoding:4];
     free(v53);
     v65 = oSLogObject4;
     SSFileLog();
-LABEL_50:
+LABEL_54:
   }
 
   v76 = 0;
@@ -781,19 +810,24 @@ LABEL_50:
       v34 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog5 = [v34 shouldLog];
+    LODWORD(v55) = [v34 shouldLog];
     if ([v34 shouldLogToDisk])
     {
-      shouldLog5 |= 2u;
+      LODWORD(v55) = v55 | 2;
     }
 
     oSLogObject5 = [v34 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_ERROR))
     {
-      shouldLog5 &= 2u;
+      v55 = v55;
     }
 
-    if (shouldLog5)
+    else
+    {
+      v55 &= 2u;
+    }
+
+    if (v55)
     {
       v71 = v8;
       v57 = objc_opt_class();
@@ -808,24 +842,24 @@ LABEL_50:
       v85 = 2114;
       v86 = v38;
       LODWORD(v66) = 42;
-      v60 = _os_log_send_and_compose_impl();
+      v60 = _os_log_send_and_compose_impl(v55, 0, 0, 0, &_mh_execute_header, oSLogObject5, 16, "%{public}@: Failed to create new X509 certs for DSID: %@, purpose: %{public}@, error: %{public}@", &v79, v66);
 
       if (!v60)
       {
         v8 = v71;
-        goto LABEL_65;
+        goto LABEL_70;
       }
 
-      oSLogObject5 = [NSString stringWithCString:v60 encoding:4, &v79, v66];
+      oSLogObject5 = [NSString stringWithCString:v60 encoding:4];
       free(v60);
       SSFileLog();
       v8 = v71;
     }
 
-LABEL_65:
+LABEL_70:
   }
 
-LABEL_66:
+LABEL_71:
   if (error)
   {
     v61 = v38;
@@ -851,46 +885,50 @@ LABEL_66:
     shouldLog = [v18 shouldLog];
     if ([v18 shouldLogToDisk])
     {
-      v20 = shouldLog | 2;
+      LODWORD(v20) = shouldLog | 2;
     }
 
     else
     {
-      v20 = shouldLog;
+      LODWORD(v20) = shouldLog;
     }
 
     oSLogObject = [v18 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v20 = v20;
+    }
+
+    else
     {
       v20 &= 2u;
     }
 
     if (v20)
     {
-      LODWORD(v25) = 138543362;
-      *(&v25 + 4) = objc_opt_class();
-      v22 = *(&v25 + 4);
-      LODWORD(v24) = 12;
-      v23 = _os_log_send_and_compose_impl();
+      v24 = 138543362;
+      v25 = objc_opt_class();
+      v22 = v25;
+      v23 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Copy ACL for key failed to fetch key attributes", &v24, 12);
 
       if (!v23)
       {
-        goto LABEL_31;
+        goto LABEL_33;
       }
 
-      oSLogObject = [NSString stringWithCString:v23 encoding:4, &v25, v24, v25];
+      oSLogObject = [NSString stringWithCString:v23 encoding:4];
       free(v23);
       SSFileLog();
     }
 
-LABEL_31:
+LABEL_33:
     v10 = 0;
     if (!error)
     {
       return v10;
     }
 
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   v6 = v5;
@@ -902,7 +940,7 @@ LABEL_31:
     if (TypeID == CFGetTypeID(v8))
     {
       v10 = CFRetain(v8);
-      goto LABEL_17;
+      goto LABEL_18;
     }
   }
 
@@ -915,45 +953,49 @@ LABEL_31:
   shouldLog2 = [v11 shouldLog];
   if ([v11 shouldLogToDisk])
   {
-    v13 = shouldLog2 | 2;
+    LODWORD(v13) = shouldLog2 | 2;
   }
 
   else
   {
-    v13 = shouldLog2;
+    LODWORD(v13) = shouldLog2;
   }
 
   oSLogObject2 = [v11 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  {
+    v13 = v13;
+  }
+
+  else
   {
     v13 &= 2u;
   }
 
   if (!v13)
   {
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
-  LODWORD(v25) = 138543362;
-  *(&v25 + 4) = objc_opt_class();
-  v15 = *(&v25 + 4);
-  LODWORD(v24) = 12;
-  v16 = _os_log_send_and_compose_impl();
+  v24 = 138543362;
+  v25 = objc_opt_class();
+  v15 = v25;
+  v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "%{public}@: Copy ACL for key failed to find ACL associated with key", &v24, 12);
 
   if (v16)
   {
-    oSLogObject2 = [NSString stringWithCString:v16 encoding:4, &v25, v24, v25];
+    oSLogObject2 = [NSString stringWithCString:v16 encoding:4];
     free(v16);
     SSFileLog();
-LABEL_15:
+LABEL_16:
   }
 
   v10 = 0;
-LABEL_17:
+LABEL_18:
   CFRelease(v6);
   if (error)
   {
-LABEL_18:
+LABEL_19:
     *error = 0;
   }
 
@@ -1003,23 +1045,28 @@ LABEL_18:
     shouldLog = [v18 shouldLog];
     if ([v18 shouldLogToDisk])
     {
-      v20 = shouldLog | 2;
+      LODWORD(v20) = shouldLog | 2;
     }
 
     else
     {
-      v20 = shouldLog;
+      LODWORD(v20) = shouldLog;
     }
 
     oSLogObject = [v18 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v20 = v20;
+    }
+
+    else
     {
       v20 &= 2u;
     }
 
     if (!v20)
     {
-      goto LABEL_15;
+      goto LABEL_16;
     }
 
     v22 = objc_opt_class();
@@ -1028,24 +1075,24 @@ LABEL_18:
     v36 = 2114;
     v37 = v17;
     v23 = v22;
-    LODWORD(v31) = 22;
-LABEL_13:
-    v24 = _os_log_send_and_compose_impl();
+    v24 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Copy ACL for context failed to copy private key with error: %{public}@", &v34, 22);
+LABEL_14:
+    v25 = v24;
 
-    if (!v24)
+    if (!v25)
     {
-LABEL_16:
+LABEL_17:
 
-      v25 = 0;
-      goto LABEL_19;
+      v26 = 0;
+      goto LABEL_20;
     }
 
-    oSLogObject = [NSString stringWithCString:v24 encoding:4, &v34, v31];
-    free(v24);
+    oSLogObject = [NSString stringWithCString:v25 encoding:4];
+    free(v25);
     SSFileLog();
-LABEL_15:
+LABEL_16:
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
   if (!result)
@@ -1060,37 +1107,42 @@ LABEL_15:
     shouldLog2 = [v18 shouldLog];
     if ([v18 shouldLogToDisk])
     {
-      v29 = shouldLog2 | 2;
+      LODWORD(v30) = shouldLog2 | 2;
     }
 
     else
     {
-      v29 = shouldLog2;
+      LODWORD(v30) = shouldLog2;
     }
 
     oSLogObject = [v18 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      v29 &= 2u;
+      v30 = v30;
     }
 
-    if (!v29)
+    else
     {
-      goto LABEL_15;
+      v30 &= 2u;
     }
 
-    v30 = objc_opt_class();
+    if (!v30)
+    {
+      goto LABEL_16;
+    }
+
+    v31 = objc_opt_class();
     v34 = 138543362;
-    v35 = v30;
-    v23 = v30;
-    LODWORD(v31) = 12;
-    goto LABEL_13;
+    v35 = v31;
+    v23 = v31;
+    v24 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Copy ACL for context failed to copy private key", &v34, 12);
+    goto LABEL_14;
   }
 
   v32 = 0;
-  v25 = [(DaemonBiometricKeychain *)self copyAccessControlListForKey:result error:&v32];
+  v26 = [(DaemonBiometricKeychain *)self copyAccessControlListForKey:result error:&v32];
   v17 = v32;
-LABEL_19:
+LABEL_20:
   if (result)
   {
     CFRelease(result);
@@ -1098,11 +1150,11 @@ LABEL_19:
 
   if (error)
   {
-    v26 = v17;
+    v27 = v17;
     *error = v17;
   }
 
-  return v25;
+  return v26;
 }
 
 - (id)signDataWithKeychain:(id)keychain accountIdentifier:(id)identifier purpose:(int64_t)purpose localAuthContext:(id)context localAuthOptions:(id)options error:(id *)error
@@ -1111,45 +1163,45 @@ LABEL_19:
   identifierCopy = identifier;
   contextCopy = context;
   optionsCopy = options;
-  v63 = 0;
-  v64 = &v63;
-  v65 = 0x3032000000;
-  v66 = sub_1001542B0;
-  v67 = sub_1001542C0;
-  v68 = 0;
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x3032000000;
-  v60 = sub_1001542B0;
-  v61 = sub_1001542C0;
   v62 = 0;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v63 = &v62;
+  v64 = 0x3032000000;
+  v65 = sub_1001542B0;
+  v66 = sub_1001542C0;
+  v67 = 0;
   v56 = 0;
+  v57 = &v56;
+  v58 = 0x3032000000;
+  v59 = sub_1001542B0;
+  v60 = sub_1001542C0;
+  v61 = 0;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
+  v55 = 0;
   v17 = dispatch_semaphore_create(0);
-  v43[0] = _NSConcreteStackBlock;
-  v43[1] = 3221225472;
-  v43[2] = sub_100156C08;
-  v43[3] = &unk_100329FA8;
+  v42[0] = _NSConcreteStackBlock;
+  v42[1] = 3221225472;
+  v42[2] = sub_100156C08;
+  v42[3] = &unk_100329FA8;
   purposeCopy = purpose;
   v18 = identifierCopy;
-  v44 = v18;
+  v43 = v18;
   v19 = contextCopy;
-  v45 = v19;
+  v44 = v19;
   selfCopy = self;
-  v49 = &v57;
+  v48 = &v56;
   v20 = keychainCopy;
-  v47 = v20;
-  v50 = &v53;
-  v51 = &v63;
+  v46 = v20;
+  v49 = &v52;
+  v50 = &v62;
   v21 = optionsCopy;
   v22 = v17;
-  v48 = v22;
-  [v19 evaluatePolicy:1 options:optionsCopy reply:v43];
+  v47 = v22;
+  [v19 evaluatePolicy:1 options:optionsCopy reply:v42];
   v23 = dispatch_time(0, 180000000000);
   dispatch_semaphore_wait(v22, v23);
-  if (!v64[5] && !v58[5])
+  if (!v63[5] && !v57[5])
   {
     v24 = +[SSLogConfig sharedDaemonConfig];
     if (!v24)
@@ -1159,8 +1211,8 @@ LABEL_19:
 
     shouldLog = [v24 shouldLog];
     shouldLogToDisk = [v24 shouldLogToDisk];
-    v40 = v24;
-    v41 = v21;
+    v39 = v24;
+    v40 = v21;
     oSLogObject = [v24 OSLogObject];
     v28 = oSLogObject;
     if (shouldLogToDisk)
@@ -1186,18 +1238,17 @@ LABEL_19:
     v31 = v28;
     if (v30)
     {
-      v32 = v40;
-      v21 = v41;
-      v39 = objc_opt_class();
+      v32 = v39;
+      v21 = v40;
+      v38 = objc_opt_class();
       v33 = [NSNumber numberWithInteger:purpose];
-      v69 = 138543874;
-      v70 = v39;
-      v71 = 2112;
-      v72 = v18;
-      v73 = 2114;
-      v74 = v33;
-      LODWORD(v38) = 32;
-      v34 = _os_log_send_and_compose_impl();
+      v68 = 138543874;
+      v69 = v38;
+      v70 = 2112;
+      v71 = v18;
+      v72 = 2114;
+      v73 = v33;
+      v34 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, v31, 0, "%{public}@: Sign data with keychain timed out for DSID: %@, purpose: %{public}@", &v68, 32);
 
       if (!v34)
       {
@@ -1206,22 +1257,22 @@ LABEL_16:
         goto LABEL_17;
       }
 
-      v31 = [NSString stringWithCString:v34 encoding:4, &v69, v38];
+      v31 = [NSString stringWithCString:v34 encoding:4];
       free(v34);
       SSFileLog();
     }
 
     else
     {
-      v32 = v40;
-      v21 = v41;
+      v32 = v39;
+      v21 = v40;
     }
 
     goto LABEL_16;
   }
 
 LABEL_17:
-  v35 = v54[3];
+  v35 = v53[3];
   if (v35)
   {
     CFRelease(v35);
@@ -1229,15 +1280,15 @@ LABEL_17:
 
   if (error)
   {
-    *error = v58[5];
+    *error = v57[5];
   }
 
-  v36 = v64[5];
+  v36 = v63[5];
 
-  _Block_object_dispose(&v53, 8);
-  _Block_object_dispose(&v57, 8);
+  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v56, 8);
 
-  _Block_object_dispose(&v63, 8);
+  _Block_object_dispose(&v62, 8);
 
   return v36;
 }
@@ -1442,37 +1493,41 @@ LABEL_9:
   shouldLog = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    LODWORD(v8) = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    LODWORD(v8) = shouldLog;
   }
 
   oSLogObject = [v6 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
 
   if (!v8)
   {
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
-  LODWORD(v15) = 138543362;
-  *(&v15 + 4) = objc_opt_class();
-  v10 = *(&v15 + 4);
-  LODWORD(v14) = 12;
-  v11 = _os_log_send_and_compose_impl();
+  v14 = 138543362;
+  v15 = objc_opt_class();
+  v10 = v15;
+  v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Device is locked", &v14, 12);
 
   if (v11)
   {
-    oSLogObject = [NSString stringWithCString:v11 encoding:4, &v15, v14, v15];
+    oSLogObject = [NSString stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog();
-LABEL_15:
+LABEL_16:
   }
 
   return !v4 || v4 == 3;
@@ -1574,7 +1629,7 @@ LABEL_15:
   cf = 0;
   error = 0;
   [NSString stringWithFormat:@"%@", identifierCopy];
-  v134 = v133 = identifierCopy;
+  v136 = v135 = identifierCopy;
   purposeCopy = purpose;
   v8 = [ISBiometricStore keychainLabelForCertWithAccountID:identifierCopy purpose:purpose];
   v9 = objc_alloc_init(NSMutableDictionary);
@@ -1593,52 +1648,55 @@ LABEL_15:
       v14 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v14 shouldLog];
+    LODWORD(v15) = [v14 shouldLog];
     if ([v14 shouldLogToDisk])
     {
-      shouldLog |= 2u;
+      LODWORD(v15) = v15 | 2;
     }
 
     oSLogObject = [v14 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog &= 2u;
+      v15 = v15;
     }
 
-    if (shouldLog)
+    else
+    {
+      v15 &= 2u;
+    }
+
+    if (v15)
     {
       v17 = objc_opt_class();
-      v139 = 138543618;
-      v140 = v17;
-      v141 = 2114;
-      v142 = v13;
+      v141 = 138543618;
+      v142 = v17;
+      v143 = 2114;
+      v144 = v13;
       v18 = v17;
-      LODWORD(v125) = 22;
-      v122 = &v139;
-      v19 = _os_log_send_and_compose_impl();
+      v19 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Attempting to look up AMS public key cert using label: %{public}@", &v141, 22);
 
       if (!v19)
       {
-LABEL_14:
+LABEL_15:
 
         v11 = SecItemCopyMatching(v9, &result);
         v12 = result;
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      oSLogObject = [NSString stringWithCString:v19 encoding:4, &v139, v125];
+      oSLogObject = [NSString stringWithCString:v19 encoding:4];
       free(v19);
-      v122 = oSLogObject;
+      v124 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   v13 = v8;
-LABEL_15:
+LABEL_16:
   selfCopy = self;
-  v131 = v9;
+  v133 = v9;
   if (v11 == -25300 || !v12)
   {
     v38 = +[SSLogConfig sharedDaemonConfig];
@@ -1647,21 +1705,21 @@ LABEL_15:
       v38 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v38 shouldLog];
+    shouldLog = [v38 shouldLog];
     if ([v38 shouldLogToDisk])
     {
-      shouldLog2 |= 2u;
+      shouldLog |= 2u;
     }
 
     oSLogObject2 = [v38 OSLogObject];
     if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v41 = shouldLog2;
+      v41 = shouldLog;
     }
 
     else
     {
-      v41 = shouldLog2 & 2;
+      v41 = shouldLog & 2;
     }
 
     if (v41)
@@ -1670,29 +1728,28 @@ LABEL_15:
       v43 = v42;
       v44 = SSHashIfNeeded();
       v45 = [NSNumber numberWithInteger:purposeCopy];
-      v139 = 138543874;
-      v140 = v42;
-      v141 = 2112;
-      v142 = v44;
-      v143 = 2114;
+      v141 = 138543874;
+      v142 = v42;
+      v143 = 2112;
+      v144 = v44;
+      v145 = 2114;
       errorCopy2 = v45;
-      LODWORD(v125) = 32;
-      v123 = &v139;
-      v46 = _os_log_send_and_compose_impl();
+      LODWORD(v127) = 32;
+      v46 = _os_log_send_and_compose_impl(v41, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Failed to find X509 cert for public key for DSID: %@, purpose: %{public}@", &v141, v127);
 
       self = selfCopy;
       if (!v46)
       {
-        goto LABEL_40;
+        goto LABEL_41;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v46 encoding:4, &v139, v125];
+      oSLogObject2 = [NSString stringWithCString:v46 encoding:4];
       free(v46);
-      v123 = oSLogObject2;
+      v125 = oSLogObject2;
       SSFileLog();
     }
 
-LABEL_40:
+LABEL_41:
     v47 = [ISBiometricStore keychainLabelForAccountID:identifierCopy purpose:purposeCopy];
 
     v23 = [(DaemonBiometricKeychain *)self _queryForPrivateKeyWithLabel:v47 prompt:0];
@@ -1702,22 +1759,22 @@ LABEL_40:
       v48 = +[SSLogConfig sharedConfig];
     }
 
-    v128 = v47;
-    shouldLog3 = [v48 shouldLog];
+    v130 = v47;
+    shouldLog2 = [v48 shouldLog];
     if ([v48 shouldLogToDisk])
     {
-      shouldLog3 |= 2u;
+      shouldLog2 |= 2u;
     }
 
     oSLogObject3 = [v48 OSLogObject];
     if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      v51 = shouldLog3;
+      v51 = shouldLog2;
     }
 
     else
     {
-      v51 = shouldLog3 & 2;
+      v51 = shouldLog2 & 2;
     }
 
     if (v51)
@@ -1726,28 +1783,27 @@ LABEL_40:
       v53 = v52;
       v54 = SSHashIfNeeded();
       v55 = [NSNumber numberWithInteger:purposeCopy];
-      v139 = 138543874;
-      v140 = v52;
-      v141 = 2112;
-      v142 = v54;
-      v143 = 2114;
+      v141 = 138543874;
+      v142 = v52;
+      v143 = 2112;
+      v144 = v54;
+      v145 = 2114;
       errorCopy2 = v55;
-      LODWORD(v125) = 32;
-      v124 = &v139;
-      v56 = _os_log_send_and_compose_impl();
+      LODWORD(v127) = 32;
+      v56 = _os_log_send_and_compose_impl(v51, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%{public}@: Public key data query as X509 fallback [BEGIN] for DSID: %@, purpose: %{public}@", &v141, v127);
 
       if (!v56)
       {
-        goto LABEL_51;
+        goto LABEL_52;
       }
 
-      oSLogObject3 = [NSString stringWithCString:v56 encoding:4, &v139, v125];
+      oSLogObject3 = [NSString stringWithCString:v56 encoding:4];
       free(v56);
-      v124 = oSLogObject3;
+      v126 = oSLogObject3;
       SSFileLog();
     }
 
-LABEL_51:
+LABEL_52:
     v57 = SecItemCopyMatching(v23, &cf);
     v58 = +[SSLogConfig sharedDaemonConfig];
     if (!v58)
@@ -1755,24 +1811,24 @@ LABEL_51:
       v58 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog4 = [v58 shouldLog];
+    shouldLog3 = [v58 shouldLog];
     if ([v58 shouldLogToDisk])
     {
-      shouldLog4 |= 2u;
+      shouldLog3 |= 2u;
     }
 
     oSLogObject4 = [v58 OSLogObject];
     if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
     {
-      v61 = shouldLog4;
+      v61 = shouldLog3;
     }
 
     else
     {
-      v61 = shouldLog4 & 2;
+      v61 = shouldLog3 & 2;
     }
 
-    v130 = v23;
+    v132 = v23;
     v62 = selfCopy;
     if (v61)
     {
@@ -1780,84 +1836,87 @@ LABEL_51:
       v64 = v63;
       v65 = SSHashIfNeeded();
       v66 = [NSNumber numberWithInteger:purposeCopy];
-      v139 = 138543874;
-      v140 = v63;
-      v141 = 2112;
-      v142 = v65;
-      v143 = 2114;
+      v141 = 138543874;
+      v142 = v63;
+      v143 = 2112;
+      v144 = v65;
+      v145 = 2114;
       errorCopy2 = v66;
-      LODWORD(v125) = 32;
-      v122 = &v139;
-      v67 = _os_log_send_and_compose_impl();
+      LODWORD(v127) = 32;
+      v67 = _os_log_send_and_compose_impl(v61, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%{public}@: Public key data query as X509 fallback [COMPLETE] for DSID: %@, purpose: %{public}@", &v141, v127);
 
-      v23 = v130;
+      v23 = v132;
       v62 = selfCopy;
 
       v68 = kSecAttrLabel;
       if (!v67)
       {
-LABEL_63:
+LABEL_64:
 
         if (v57 != -25300 && cf)
         {
           if (v57)
           {
-            goto LABEL_66;
+            goto LABEL_67;
           }
 
-          goto LABEL_87;
+          goto LABEL_89;
         }
 
-        v122 = [(DaemonBiometricKeychain *)v62 _amsKeychainLabelForPurpose:purposeCopy, v122];
+        v124 = [(DaemonBiometricKeychain *)v62 _amsKeychainLabelForPurpose:purposeCopy, v124];
         v82 = [(__CFDictionary *)v23 mutableCopy];
-        [v82 setObject:v122 forKeyedSubscript:v68];
+        [v82 setObject:v124 forKeyedSubscript:v68];
         v83 = +[SSLogConfig sharedDaemonConfig];
         if (!v83)
         {
           v83 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog5 = [v83 shouldLog];
+        LODWORD(v84) = [v83 shouldLog];
         if ([v83 shouldLogToDisk])
         {
-          shouldLog5 |= 2u;
+          LODWORD(v84) = v84 | 2;
         }
 
         oSLogObject5 = [v83 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
         {
-          shouldLog5 &= 2u;
+          v84 = v84;
         }
 
-        if (shouldLog5)
+        else
+        {
+          v84 &= 2u;
+        }
+
+        if (v84)
         {
           v86 = objc_opt_class();
-          v139 = 138543618;
-          v140 = v86;
-          v141 = 2114;
-          v142 = v122;
+          v141 = 138543618;
+          v142 = v86;
+          v143 = 2114;
+          v144 = v124;
           v87 = v86;
-          LODWORD(v125) = 22;
-          v122 = &v139;
-          v88 = _os_log_send_and_compose_impl();
+          LODWORD(v127) = 22;
+          v88 = _os_log_send_and_compose_impl(v84, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "%{public}@: Attempting to look up AMS public key using label: %{public}@", &v141, v127);
 
           if (!v88)
           {
-            goto LABEL_86;
+            goto LABEL_88;
           }
 
-          oSLogObject5 = [NSString stringWithCString:v88 encoding:4, &v139, v125];
+          oSLogObject5 = [NSString stringWithCString:v88 encoding:4];
           free(v88);
-          v122 = oSLogObject5;
+          v124 = oSLogObject5;
           SSFileLog();
         }
 
-LABEL_86:
+LABEL_88:
         v57 = SecItemCopyMatching(v82, &cf);
 
         if (v57)
         {
-LABEL_66:
+LABEL_67:
           v69 = SSError();
           v70 = [NSNumber numberWithInt:v57];
           errorCopy = SSErrorBySettingUserInfoValue();
@@ -1868,15 +1927,15 @@ LABEL_66:
             oSLogObject7 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog6 = [oSLogObject7 shouldLog];
+          shouldLog4 = [oSLogObject7 shouldLog];
           if ([oSLogObject7 shouldLogToDisk])
           {
-            v72 = shouldLog6 | 2;
+            v72 = shouldLog4 | 2;
           }
 
           else
           {
-            v72 = shouldLog6;
+            v72 = shouldLog4;
           }
 
           oSLogObject6 = [oSLogObject7 OSLogObject];
@@ -1897,43 +1956,43 @@ LABEL_66:
             v77 = SSHashIfNeeded();
             v78 = [NSNumber numberWithInteger:purposeCopy];
             v79 = [NSNumber numberWithInt:v57];
-            v139 = 138544130;
-            v140 = v75;
-            v141 = 2112;
-            v142 = v77;
-            v143 = 2114;
-            errorCopy2 = v78;
+            v141 = 138544130;
+            v142 = v75;
+            v143 = 2112;
+            v144 = v77;
             v145 = 2114;
-            v146 = v79;
-            LODWORD(v125) = 42;
-            v80 = _os_log_send_and_compose_impl();
+            errorCopy2 = v78;
+            v147 = 2114;
+            v148 = v79;
+            LODWORD(v127) = 42;
+            v80 = _os_log_send_and_compose_impl(v74, 0, 0, 0, &_mh_execute_header, oSLogObject6, 0, "%{public}@: Key copy as X509 fallback failed for DSID: %@, purpose: %{public}@, status: %{public}@", &v141, v127);
 
-LABEL_146:
+LABEL_151:
             if (!v80)
             {
               v33 = 0;
               v34 = 0;
               v35 = 0;
               LOBYTE(v36) = 1;
-              v23 = v130;
-              goto LABEL_165;
+              v23 = v132;
+              goto LABEL_171;
             }
 
-            oSLogObject6 = [NSString stringWithCString:v80 encoding:4, &v139, v125];
+            oSLogObject6 = [NSString stringWithCString:v80 encoding:4];
             free(v80);
             SSFileLog();
-            v23 = v130;
+            v23 = v132;
           }
 
-LABEL_148:
-          v13 = v128;
+LABEL_153:
+          v13 = v130;
 
           v33 = 0;
           v34 = 0;
-          goto LABEL_149;
+          goto LABEL_154;
         }
 
-LABEL_87:
+LABEL_89:
         if (cf)
         {
           v89 = SecKeyCopyPublicKey(cf);
@@ -1941,7 +2000,7 @@ LABEL_87:
           {
             v33 = v89;
 
-            goto LABEL_92;
+            goto LABEL_94;
           }
 
           errorCopy = SSError();
@@ -1951,32 +2010,45 @@ LABEL_87:
             oSLogObject7 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog7 = [oSLogObject7 shouldLog];
+          shouldLog5 = [oSLogObject7 shouldLog];
           if ([oSLogObject7 shouldLogToDisk])
           {
-            v111 = shouldLog7 | 2;
+            v116 = shouldLog5 | 2;
           }
 
           else
           {
-            v111 = shouldLog7;
+            v116 = shouldLog5;
           }
 
           oSLogObject6 = [oSLogObject7 OSLogObject];
           if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_DEFAULT))
           {
-            v112 = v111;
+            v117 = v116;
           }
 
           else
           {
-            v112 = v111 & 2;
+            v117 = v116 & 2;
           }
 
-          if (!v112)
+          if (!v117)
           {
-            goto LABEL_148;
+            goto LABEL_153;
           }
+
+          v118 = objc_opt_class();
+          v104 = v118;
+          v105 = SSHashIfNeeded();
+          v106 = [NSNumber numberWithInteger:purposeCopy];
+          v141 = 138543874;
+          v142 = v118;
+          v143 = 2112;
+          v144 = v105;
+          v145 = 2114;
+          errorCopy2 = v106;
+          LODWORD(v127) = 32;
+          v107 = _os_log_send_and_compose_impl(v117, 0, 0, 0, &_mh_execute_header, oSLogObject6, 0, "%{public}@: Public key copy as X509 fallback failed with no public key for DSID: %@, purpose: %{public}@", &v141, v127);
         }
 
         else
@@ -1988,15 +2060,15 @@ LABEL_87:
             oSLogObject7 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog8 = [oSLogObject7 shouldLog];
+          shouldLog6 = [oSLogObject7 shouldLog];
           if ([oSLogObject7 shouldLogToDisk])
           {
-            v101 = shouldLog8 | 2;
+            v101 = shouldLog6 | 2;
           }
 
           else
           {
-            v101 = shouldLog8;
+            v101 = shouldLog6;
           }
 
           oSLogObject6 = [oSLogObject7 OSLogObject];
@@ -2012,29 +2084,31 @@ LABEL_87:
 
           if (!v102)
           {
-            goto LABEL_148;
+            goto LABEL_153;
           }
+
+          v103 = objc_opt_class();
+          v104 = v103;
+          v105 = SSHashIfNeeded();
+          v106 = [NSNumber numberWithInteger:purposeCopy];
+          v141 = 138543874;
+          v142 = v103;
+          v143 = 2112;
+          v144 = v105;
+          v145 = 2114;
+          errorCopy2 = v106;
+          LODWORD(v127) = 32;
+          v107 = _os_log_send_and_compose_impl(v102, 0, 0, 0, &_mh_execute_header, oSLogObject6, 0, "%{public}@: Key copy as X509 fallback failed with bad query for DSID: %@, purpose: %{public}@", &v141, v127);
         }
 
-        v113 = objc_opt_class();
-        v114 = v113;
-        v115 = SSHashIfNeeded();
-        v116 = [NSNumber numberWithInteger:purposeCopy];
-        v139 = 138543874;
-        v140 = v113;
-        v141 = 2112;
-        v142 = v115;
-        v143 = 2114;
-        errorCopy2 = v116;
-        LODWORD(v125) = 32;
-        v80 = _os_log_send_and_compose_impl();
+        v80 = v107;
 
-        goto LABEL_146;
+        goto LABEL_151;
       }
 
-      oSLogObject4 = [NSString stringWithCString:v67 encoding:4, &v139, v125];
+      oSLogObject4 = [NSString stringWithCString:v67 encoding:4];
       free(v67);
-      v122 = oSLogObject4;
+      v124 = oSLogObject4;
       SSFileLog();
     }
 
@@ -2043,14 +2117,14 @@ LABEL_87:
       v68 = kSecAttrLabel;
     }
 
-    goto LABEL_63;
+    goto LABEL_64;
   }
 
   if (v11)
   {
     v21 = SSError();
     v22 = [NSNumber numberWithInt:v11];
-    v126 = SSErrorBySettingUserInfoValue();
+    v128 = SSErrorBySettingUserInfoValue();
 
     v23 = +[SSLogConfig sharedDaemonConfig];
     if (!v23)
@@ -2058,41 +2132,41 @@ LABEL_87:
       v23 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog9 = [(__CFDictionary *)v23 shouldLog];
+    shouldLog7 = [(__CFDictionary *)v23 shouldLog];
     if ([(__CFDictionary *)v23 shouldLogToDisk])
     {
-      shouldLog9 |= 2u;
+      shouldLog7 |= 2u;
     }
 
     oSLogObject7 = [(__CFDictionary *)v23 OSLogObject];
     if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_ERROR))
     {
-      v26 = shouldLog9;
+      v26 = shouldLog7;
     }
 
     else
     {
-      v26 = shouldLog9 & 2;
+      v26 = shouldLog7 & 2;
     }
 
     if (v26)
     {
-      v129 = v23;
+      v131 = v23;
       v27 = objc_opt_class();
       v28 = v27;
       v29 = SSHashIfNeeded();
       v30 = [NSNumber numberWithInteger:purposeCopy];
       v31 = [NSNumber numberWithInt:v11];
-      v139 = 138544130;
-      v140 = v27;
-      v141 = 2112;
-      v142 = v29;
-      v143 = 2114;
-      errorCopy2 = v30;
+      v141 = 138544130;
+      v142 = v27;
+      v143 = 2112;
+      v144 = v29;
       v145 = 2114;
-      v146 = v31;
-      LODWORD(v125) = 42;
-      v32 = _os_log_send_and_compose_impl();
+      errorCopy2 = v30;
+      v147 = 2114;
+      v148 = v31;
+      LODWORD(v127) = 42;
+      v32 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &_mh_execute_header, oSLogObject7, 16, "%{public}@: Failed to look up public key cert using X509 for DSID: %@, purpose: %{public}@, status: %{public}@", &v141, v127);
 
       if (!v32)
       {
@@ -2100,14 +2174,14 @@ LABEL_87:
         v34 = 0;
         v35 = 0;
         LOBYTE(v36) = 1;
-        v23 = v129;
-        errorCopy = v126;
-        goto LABEL_167;
+        v23 = v131;
+        errorCopy = v128;
+        goto LABEL_173;
       }
 
-      oSLogObject7 = [NSString stringWithCString:v32 encoding:4, &v139, v125];
+      oSLogObject7 = [NSString stringWithCString:v32 encoding:4];
       free(v32);
-      v23 = v129;
+      v23 = v131;
       SSFileLog();
     }
 
@@ -2115,8 +2189,8 @@ LABEL_87:
     v34 = 0;
     v35 = 0;
     LOBYTE(v36) = 1;
-    errorCopy = v126;
-    goto LABEL_166;
+    errorCopy = v128;
+    goto LABEL_172;
   }
 
   v90 = SecCertificateCopyKey(v12);
@@ -2128,50 +2202,50 @@ LABEL_87:
       v23 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog10 = [(__CFDictionary *)v23 shouldLog];
+    shouldLog8 = [(__CFDictionary *)v23 shouldLog];
     if ([(__CFDictionary *)v23 shouldLogToDisk])
     {
-      shouldLog10 |= 2u;
+      shouldLog8 |= 2u;
     }
 
     oSLogObject7 = [(__CFDictionary *)v23 OSLogObject];
     if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_ERROR))
     {
-      v104 = shouldLog10;
+      v109 = shouldLog8;
     }
 
     else
     {
-      v104 = shouldLog10 & 2;
+      v109 = shouldLog8 & 2;
     }
 
-    if (v104)
+    if (v109)
     {
       v96 = v23;
-      v105 = objc_opt_class();
-      v106 = v105;
-      v107 = SSHashIfNeeded();
-      v108 = [NSNumber numberWithInteger:purposeCopy];
-      v139 = 138543874;
-      v140 = v105;
-      v141 = 2112;
-      v142 = v107;
-      v143 = 2114;
-      errorCopy2 = v108;
-      LODWORD(v125) = 32;
-      v109 = _os_log_send_and_compose_impl();
+      v110 = objc_opt_class();
+      v111 = v110;
+      v112 = SSHashIfNeeded();
+      v113 = [NSNumber numberWithInteger:purposeCopy];
+      v141 = 138543874;
+      v142 = v110;
+      v143 = 2112;
+      v144 = v112;
+      v145 = 2114;
+      errorCopy2 = v113;
+      LODWORD(v127) = 32;
+      v114 = _os_log_send_and_compose_impl(v109, 0, 0, 0, &_mh_execute_header, oSLogObject7, 16, "%{public}@: Failed to copy public key using X509 for DSID: %@, purpose: %{public}@", &v141, v127);
 
-      if (!v109)
+      if (!v114)
       {
         v33 = 0;
         v34 = 0;
         v35 = 0;
         LOBYTE(v36) = 1;
-        goto LABEL_162;
+        goto LABEL_168;
       }
 
-      oSLogObject7 = [NSString stringWithCString:v109 encoding:4, &v139, v125];
-      free(v109);
+      oSLogObject7 = [NSString stringWithCString:v114 encoding:4];
+      free(v114);
       v23 = v96;
       SSFileLog();
     }
@@ -2179,15 +2253,15 @@ LABEL_87:
     v33 = 0;
     v34 = 0;
     errorCopy = 0;
-LABEL_149:
+LABEL_154:
     v35 = 0;
     LOBYTE(v36) = 1;
-    goto LABEL_166;
+    goto LABEL_172;
   }
 
   v33 = v90;
-  v128 = v13;
-LABEL_92:
+  v130 = v13;
+LABEL_94:
   v91 = SecKeyCopyExternalRepresentation(v33, &error);
   v34 = v91;
   if (error)
@@ -2206,47 +2280,52 @@ LABEL_92:
     }
 
     oSLogObject7 = [(__CFDictionary *)v23 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v36) = v36 & 2;
+      v36 = v36;
+    }
+
+    else
+    {
+      v36 &= 2u;
     }
 
     if (v36)
     {
-      v127 = errorCopy;
+      v129 = errorCopy;
       v92 = v23;
       v93 = objc_opt_class();
       v94 = v93;
       v95 = SSHashIfNeeded();
-      v139 = 138543874;
-      v140 = v93;
-      v141 = 2112;
-      v142 = v95;
-      v143 = 2114;
+      v141 = 138543874;
+      v142 = v93;
+      v143 = 2112;
+      v144 = v95;
+      v145 = 2114;
       errorCopy2 = error;
-      LODWORD(v125) = 32;
-      v36 = _os_log_send_and_compose_impl();
+      LODWORD(v127) = 32;
+      v36 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &_mh_execute_header, oSLogObject7, 0, "%{public}@: Public key data copy failed with no external representation for DSID: %@, error: %{public}@", &v141, v127);
 
       if (v36)
       {
-        oSLogObject7 = [NSString stringWithCString:v36 encoding:4, &v139, v125];
+        oSLogObject7 = [NSString stringWithCString:v36 encoding:4];
         free(v36);
         v23 = v92;
         SSFileLog();
         LOBYTE(v36) = 0;
-LABEL_102:
+LABEL_105:
         v35 = 0;
-        errorCopy = v127;
-        v13 = v128;
-LABEL_166:
+        errorCopy = v129;
+        v13 = v130;
+LABEL_172:
 
-        goto LABEL_167;
+        goto LABEL_173;
       }
 
-      goto LABEL_181;
+      goto LABEL_187;
     }
 
-    goto LABEL_164;
+    goto LABEL_170;
   }
 
   if (v91)
@@ -2265,48 +2344,53 @@ LABEL_166:
     }
 
     oSLogObject7 = [(__CFDictionary *)v23 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEBUG))
     {
-      LODWORD(v36) = v36 & 2;
+      v36 = v36;
+    }
+
+    else
+    {
+      v36 &= 2u;
     }
 
     if (!v36)
     {
-      goto LABEL_114;
+      goto LABEL_118;
     }
 
     v96 = v23;
     v97 = objc_opt_class();
     v98 = v97;
     v99 = SSHashIfNeeded();
-    v139 = 138543618;
-    v140 = v97;
-    v141 = 2112;
-    v142 = v99;
-    LODWORD(v125) = 22;
-    v36 = _os_log_send_and_compose_impl();
+    v141 = 138543618;
+    v142 = v97;
+    v143 = 2112;
+    v144 = v99;
+    LODWORD(v127) = 22;
+    v36 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &_mh_execute_header, oSLogObject7, 2, "%{public}@: Public key data copied for DSID: %@", &v141, v127);
 
     if (v36)
     {
-      oSLogObject7 = [NSString stringWithCString:v36 encoding:4, &v139, v125];
+      oSLogObject7 = [NSString stringWithCString:v36 encoding:4];
       free(v36);
       v23 = v96;
       SSFileLog();
       LOBYTE(v36) = 0;
-LABEL_114:
+LABEL_118:
       errorCopy = 0;
       v35 = v34;
-LABEL_165:
-      v13 = v128;
-      goto LABEL_166;
+LABEL_171:
+      v13 = v130;
+      goto LABEL_172;
     }
 
-    v13 = v128;
+    v13 = v130;
     v35 = v34;
-LABEL_162:
+LABEL_168:
     v23 = v96;
     errorCopy = 0;
-    goto LABEL_167;
+    goto LABEL_173;
   }
 
   errorCopy = SSError();
@@ -2323,49 +2407,54 @@ LABEL_162:
   }
 
   oSLogObject7 = [(__CFDictionary *)v23 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v36) = v36 & 2;
+    v36 = v36;
+  }
+
+  else
+  {
+    v36 &= 2u;
   }
 
   if (!v36)
   {
     v34 = 0;
-LABEL_164:
+LABEL_170:
     v35 = 0;
-    goto LABEL_165;
+    goto LABEL_171;
   }
 
-  v127 = errorCopy;
+  v129 = errorCopy;
   v92 = v23;
-  v117 = objc_opt_class();
-  v118 = v117;
-  v119 = SSHashIfNeeded();
-  v139 = 138543618;
-  v140 = v117;
-  v141 = 2112;
+  v119 = objc_opt_class();
+  v120 = v119;
+  v121 = SSHashIfNeeded();
+  v141 = 138543618;
   v142 = v119;
-  LODWORD(v125) = 22;
-  v36 = _os_log_send_and_compose_impl();
+  v143 = 2112;
+  v144 = v121;
+  LODWORD(v127) = 22;
+  v36 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &_mh_execute_header, oSLogObject7, 0, "%{public}@: Public key data copy failed with no key data for DSID: %@", &v141, v127);
 
   if (v36)
   {
-    oSLogObject7 = [NSString stringWithCString:v36 encoding:4, &v139, v125];
+    oSLogObject7 = [NSString stringWithCString:v36 encoding:4];
     free(v36);
     v23 = v92;
     SSFileLog();
     LOBYTE(v36) = 0;
     v34 = 0;
-    goto LABEL_102;
+    goto LABEL_105;
   }
 
   v34 = 0;
-LABEL_181:
+LABEL_187:
   v35 = 0;
   v23 = v92;
-  errorCopy = v127;
-  v13 = v128;
-LABEL_167:
+  errorCopy = v129;
+  v13 = v130;
+LABEL_173:
 
   if (cf)
   {
@@ -2394,7 +2483,7 @@ LABEL_167:
 
   if (error)
   {
-    v120 = errorCopy;
+    v122 = errorCopy;
     *error = errorCopy;
   }
 
@@ -2413,8 +2502,8 @@ LABEL_167:
   if (v12)
   {
     v13 = v12;
-    v75 = v11;
-    v79 = v10;
+    v74 = v11;
+    v78 = v10;
     errorCopy = error;
     v14 = SSError();
     v15 = [NSNumber numberWithInt:v13];
@@ -2455,28 +2544,27 @@ LABEL_167:
       v24 = identifierCopy;
       v25 = SSHashIfNeeded();
       v26 = [NSNumber numberWithInt:v13];
-      v86 = 138543874;
-      v87 = v22;
-      v88 = 2112;
-      v89 = v25;
-      v90 = 2114;
-      v91 = v26;
-      LODWORD(v72) = 32;
-      v27 = _os_log_send_and_compose_impl();
+      v85 = 138543874;
+      v86 = v22;
+      v87 = 2112;
+      v88 = v25;
+      v89 = 2114;
+      v90 = v26;
+      v27 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Key copy failed while attesting for DSID: %@, status: %{public}@", &v85, 32);
 
       error = errorCopy;
-      v11 = v75;
+      v11 = v74;
       if (!v27)
       {
 LABEL_30:
 
         v41 = 0;
         identifierCopy = v24;
-        v10 = v79;
+        v10 = v78;
         goto LABEL_69;
       }
 
-      oSLogObject = [NSString stringWithCString:v27 encoding:4, &v86, v72];
+      oSLogObject = [NSString stringWithCString:v27 encoding:4];
       free(v27);
       SSFileLog();
     }
@@ -2519,21 +2607,20 @@ LABEL_30:
     if (v45)
     {
       v46 = objc_opt_class();
-      v77 = v46;
-      v81 = v16;
+      v76 = v46;
+      v80 = v16;
       v47 = identifierCopy;
       SSHashIfNeeded();
       v49 = v48 = v11;
-      v86 = 138543618;
-      v87 = v46;
-      v88 = 2112;
-      v89 = v49;
-      LODWORD(v72) = 22;
-      v50 = _os_log_send_and_compose_impl();
+      v85 = 138543618;
+      v86 = v46;
+      v87 = 2112;
+      v88 = v49;
+      v50 = _os_log_send_and_compose_impl(v45, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Key copy failed while attesting for DSID: %@", &v85, 22);
 
       v11 = v48;
       identifierCopy = v47;
-      v16 = v81;
+      v16 = v80;
 
       if (!v50)
       {
@@ -2543,7 +2630,7 @@ LABEL_42:
         goto LABEL_69;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v50 encoding:4, &v86, v72];
+      oSLogObject2 = [NSString stringWithCString:v50 encoding:4];
       free(v50);
       SSFileLog();
     }
@@ -2582,17 +2669,16 @@ LABEL_42:
     if (v54)
     {
       v55 = objc_opt_class();
-      v78 = v55;
+      v77 = v55;
       SSHashIfNeeded();
       v57 = v56 = v11;
-      v86 = 138543874;
-      v87 = v55;
-      v88 = 2112;
-      v89 = v57;
-      v90 = 2114;
-      v91 = v16;
-      LODWORD(v72) = 32;
-      v58 = _os_log_send_and_compose_impl();
+      v85 = 138543874;
+      v86 = v55;
+      v87 = 2112;
+      v88 = v57;
+      v89 = 2114;
+      v90 = v16;
+      v58 = _os_log_send_and_compose_impl(v54, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%{public}@: Attesting key copy failed for DSID: %@, error: %{public}@", &v85, 32);
 
       v11 = v56;
       error = errorCopy2;
@@ -2604,7 +2690,7 @@ LABEL_67:
         goto LABEL_69;
       }
 
-      oSLogObject3 = [NSString stringWithCString:v58 encoding:4, &v86, v72];
+      oSLogObject3 = [NSString stringWithCString:v58 encoding:4];
       free(v58);
       SSFileLog();
     }
@@ -2648,25 +2734,24 @@ LABEL_67:
     if (v62)
     {
       v63 = objc_opt_class();
-      v82 = v28;
+      v81 = v28;
       v64 = v16;
       v65 = identifierCopy;
-      v74 = v63;
+      v73 = v63;
       SSHashIfNeeded();
       v67 = v66 = v11;
-      v86 = 138543874;
-      v87 = v63;
-      v88 = 2112;
-      v89 = v67;
-      v90 = 2114;
-      v91 = v64;
-      LODWORD(v72) = 32;
-      v68 = _os_log_send_and_compose_impl();
+      v85 = 138543874;
+      v86 = v63;
+      v87 = 2112;
+      v88 = v67;
+      v89 = 2114;
+      v90 = v64;
+      v68 = _os_log_send_and_compose_impl(v62, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%{public}@: Attestation generation failed for DSID: %@, error: %{public}@", &v85, 32);
 
       v11 = v66;
       identifierCopy = v65;
       v16 = v64;
-      v28 = v82;
+      v28 = v81;
 
       if (!v68)
       {
@@ -2677,7 +2762,7 @@ LABEL_64:
         goto LABEL_68;
       }
 
-      oSLogObject4 = [NSString stringWithCString:v68 encoding:4, &v86, v72];
+      oSLogObject4 = [NSString stringWithCString:v68 encoding:4];
       free(v68);
       SSFileLog();
     }
@@ -2685,8 +2770,8 @@ LABEL_64:
     goto LABEL_64;
   }
 
-  v80 = v10;
-  v73 = Attestation;
+  v79 = v10;
+  v72 = Attestation;
   v31 = +[SSLogConfig sharedDaemonConfig];
   if (!v31)
   {
@@ -2716,35 +2801,34 @@ LABEL_64:
   }
 
   v35 = objc_opt_class();
-  v76 = v30;
+  v75 = v30;
   v36 = v28;
   v37 = v35;
   SSHashIfNeeded();
   v39 = v38 = v11;
-  v86 = 138543618;
-  v87 = v35;
-  v88 = 2112;
-  v89 = v39;
-  LODWORD(v72) = 22;
-  v40 = _os_log_send_and_compose_impl();
+  v85 = 138543618;
+  v86 = v35;
+  v87 = 2112;
+  v88 = v39;
+  v40 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &_mh_execute_header, oSLogObject5, 2, "%{public}@: Attestation generated for DSID: %@", &v85, 22);
 
   v11 = v38;
   v28 = v36;
-  v30 = v76;
+  v30 = v75;
 
   if (v40)
   {
-    oSLogObject5 = [NSString stringWithCString:v40 encoding:4, &v86, v72];
+    oSLogObject5 = [NSString stringWithCString:v40 encoding:4];
     free(v40);
     SSFileLog();
 LABEL_26:
   }
 
   v16 = 0;
-  v10 = v80;
+  v10 = v79;
   error = errorCopy2;
   CFRelease(v30);
-  v69 = v73;
+  v69 = v72;
 LABEL_68:
   CFRelease(v28);
   v41 = v69;
@@ -2805,21 +2889,26 @@ LABEL_69:
       v8 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v8 shouldLog];
+    LODWORD(v9) = [v8 shouldLog];
     shouldLogToDisk = [v8 shouldLogToDisk];
     oSLogObject = [v8 OSLogObject];
-    v162 = oSLogObject;
+    v12 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v9) = v9 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      shouldLog &= 2u;
+      v9 = v9;
     }
 
-    if (shouldLog)
+    else
+    {
+      v9 &= 2u;
+    }
+
+    if (v9)
     {
       v13 = objc_opt_class();
       v14 = SSHashIfNeeded();
@@ -2833,27 +2922,25 @@ LABEL_69:
       v217 = v15;
       v218 = 2114;
       v219 = v16;
-      LODWORD(v162) = 42;
-      v157 = &v212;
-      v17 = _os_log_send_and_compose_impl();
+      v17 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, v12, 16, "%{public}@: Failed to delete keychain tokens while creating X509 certs for account: %@, purpose: %{public}@, error: %{public}@", &v212, 42);
 
       if (!v17)
       {
-LABEL_12:
+LABEL_13:
 
-        goto LABEL_13;
+        goto LABEL_14;
       }
 
-      v162 = [NSString stringWithCString:v17 encoding:4, &v212, v162];
+      v12 = [NSString stringWithCString:v17 encoding:4];
       free(v17);
-      v157 = v162;
+      v157 = v12;
       SSFileLog();
     }
 
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
-LABEL_13:
+LABEL_14:
   cf = SecAccessControlCreateWithFlags(kCFAllocatorDefault, kSecAttrAccessibleWhenUnlockedThisDeviceOnly, 0x40000002uLL, &error);
   if (!cf)
   {
@@ -2864,22 +2951,27 @@ LABEL_13:
       v18 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v18 shouldLog];
+    LODWORD(v19) = [v18 shouldLog];
     shouldLogToDisk2 = [v18 shouldLogToDisk];
     v21 = identifierCopy;
     oSLogObject2 = [v18 OSLogObject];
-    v1622 = oSLogObject2;
+    v23 = oSLogObject2;
     if (shouldLogToDisk2)
     {
-      shouldLog2 |= 2u;
+      LODWORD(v19) = v19 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      shouldLog2 &= 2u;
+      v19 = v19;
     }
 
-    if (shouldLog2)
+    else
+    {
+      v19 &= 2u;
+    }
+
+    if (v19)
     {
       v24 = objc_opt_class();
       v25 = SSHashIfNeeded();
@@ -2894,24 +2986,23 @@ LABEL_13:
       v218 = 2114;
       v219 = v27;
       LODWORD(v162) = 42;
-      v158 = &v212;
-      v28 = _os_log_send_and_compose_impl();
+      v28 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, v23, 16, "%{public}@: Failed to create ACL while creating X509 certs for account: %@, purpose: %{public}@, error: %{public}@", &v212, v162);
 
       identifierCopy = v21;
       if (!v28)
       {
-LABEL_101:
+LABEL_108:
 
-        goto LABEL_192;
+        goto LABEL_205;
       }
 
-      v1622 = [NSString stringWithCString:v28 encoding:4, &v212, v162];
+      v23 = [NSString stringWithCString:v28 encoding:4];
       free(v28);
-      v158 = v1622;
+      v158 = v23;
       SSFileLog();
     }
 
-    goto LABEL_101;
+    goto LABEL_108;
   }
 
   if (purposeCopy == 1)
@@ -2923,7 +3014,7 @@ LABEL_101:
   {
     if (purposeCopy)
     {
-      goto LABEL_37;
+      goto LABEL_40;
     }
 
     _constraintsForExtendedActions = [(DaemonBiometricKeychain *)self _constraintsForPurchase];
@@ -2938,21 +3029,26 @@ LABEL_101:
       v29 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v29 shouldLog];
+    LODWORD(v30) = [v29 shouldLog];
     shouldLogToDisk3 = [v29 shouldLogToDisk];
     oSLogObject3 = [v29 OSLogObject];
-    v1623 = oSLogObject3;
+    v33 = oSLogObject3;
     if (shouldLogToDisk3)
     {
-      shouldLog3 |= 2u;
+      LODWORD(v30) = v30 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog3 &= 2u;
+      v30 = v30;
     }
 
-    if (shouldLog3)
+    else
+    {
+      v30 &= 2u;
+    }
+
+    if (v30)
     {
       v34 = objc_opt_class();
       v35 = SSHashIfNeeded();
@@ -2964,47 +3060,51 @@ LABEL_101:
       v216 = 2114;
       v217 = v36;
       LODWORD(v162) = 32;
-      v159 = &v212;
-      v37 = _os_log_send_and_compose_impl();
+      v37 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, v33, 0, "%{public}@: Configured biometric keypair ACL constraints while creating X509 certs for DSID: %@, purpose: %{public}@", &v212, v162);
 
       if (!v37)
       {
-        goto LABEL_48;
+        goto LABEL_52;
       }
 
-      v1623 = [NSString stringWithCString:v37 encoding:4, &v212, v162];
+      v33 = [NSString stringWithCString:v37 encoding:4];
       free(v37);
-      v159 = v1623;
+      v159 = v33;
       SSFileLog();
     }
 
-    goto LABEL_47;
+    goto LABEL_51;
   }
 
-LABEL_37:
+LABEL_40:
   v29 = +[SSLogConfig sharedDaemonConfig];
   if (!v29)
   {
     v29 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog4 = [v29 shouldLog];
+  LODWORD(v38) = [v29 shouldLog];
   shouldLogToDisk4 = [v29 shouldLogToDisk];
   oSLogObject4 = [v29 OSLogObject];
-  v1623 = oSLogObject4;
+  v33 = oSLogObject4;
   if (shouldLogToDisk4)
   {
-    shouldLog4 |= 2u;
+    LODWORD(v38) = v38 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_ERROR))
   {
-    shouldLog4 &= 2u;
+    v38 = v38;
   }
 
-  if (!shouldLog4)
+  else
   {
-    goto LABEL_46;
+    v38 &= 2u;
+  }
+
+  if (!v38)
+  {
+    goto LABEL_50;
   }
 
   v41 = objc_opt_class();
@@ -3017,24 +3117,23 @@ LABEL_37:
   v216 = 2114;
   v217 = v43;
   LODWORD(v162) = 32;
-  v159 = &v212;
-  v44 = _os_log_send_and_compose_impl();
+  v44 = _os_log_send_and_compose_impl(v38, 0, 0, 0, &_mh_execute_header, v33, 16, "%{public}@: Failed to configure biometric keypair ACL constraints while creating X509 certs for DSID: %@, purpose: %{public}@", &v212, v162);
 
   if (v44)
   {
-    v1623 = [NSString stringWithCString:v44 encoding:4, &v212, v162];
+    v33 = [NSString stringWithCString:v44 encoding:4];
     free(v44);
-    v159 = v1623;
+    v159 = v33;
     SSFileLog();
-LABEL_46:
+LABEL_50:
     _constraintsForExtendedActions = 0;
-LABEL_47:
+LABEL_51:
 
-    goto LABEL_48;
+    goto LABEL_52;
   }
 
   _constraintsForExtendedActions = 0;
-LABEL_48:
+LABEL_52:
 
   v169 = ISWeakLinkedStringConstantForString();
   v170 = ISWeakLinkedStringConstantForString();
@@ -3097,21 +3196,26 @@ LABEL_48:
       v52 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog5 = [v52 shouldLog];
+    LODWORD(v53) = [v52 shouldLog];
     shouldLogToDisk5 = [v52 shouldLogToDisk];
     oSLogObject5 = [v52 OSLogObject];
-    v1624 = oSLogObject5;
+    v56 = oSLogObject5;
     if (shouldLogToDisk5)
     {
-      shouldLog5 |= 2u;
+      LODWORD(v53) = v53 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_ERROR))
     {
-      shouldLog5 &= 2u;
+      v53 = v53;
     }
 
-    if (shouldLog5)
+    else
+    {
+      v53 &= 2u;
+    }
+
+    if (v53)
     {
       v57 = objc_opt_class();
       v58 = SSHashIfNeeded();
@@ -3123,35 +3227,34 @@ LABEL_48:
       v216 = 2114;
       v217 = v59;
       LODWORD(v162) = 32;
-      v159 = &v212;
-      v60 = _os_log_send_and_compose_impl();
+      v60 = _os_log_send_and_compose_impl(v53, 0, 0, 0, &_mh_execute_header, v56, 16, "%{public}@: Create X509 cert data timed out for DSID: %@, purpose: %{public}@", &v212, v162);
 
       if (!v60)
       {
-LABEL_69:
+LABEL_74:
 
-        goto LABEL_70;
+        goto LABEL_75;
       }
 
-      v1624 = [NSString stringWithCString:v60 encoding:4, &v212, v162];
+      v56 = [NSString stringWithCString:v60 encoding:4];
       free(v60);
-      v159 = v1624;
+      v159 = v56;
       SSFileLog();
     }
 
-    goto LABEL_69;
+    goto LABEL_74;
   }
 
-LABEL_70:
+LABEL_75:
   if (v193[3])
   {
     v61 = [ISBiometricStore keychainLabelForKeyWithAccountID:identifierCopy purpose:purposeCopy];
-    v1626 = objc_alloc_init(NSMutableDictionary);
-    [v1626 setObject:kSecAttrKeyClassPrivate forKeyedSubscript:kSecAttrKeyClass];
-    [v1626 setObject:v61 forKeyedSubscript:kSecAttrLabel];
-    [v1626 setObject:kSecClassKey forKeyedSubscript:kSecClass];
-    [v1626 setObject:v193[3] forKeyedSubscript:kSecValueRef];
-    v63 = SecItemAdd(v1626, 0);
+    v62 = objc_alloc_init(NSMutableDictionary);
+    [v62 setObject:kSecAttrKeyClassPrivate forKeyedSubscript:kSecAttrKeyClass];
+    [v62 setObject:v61 forKeyedSubscript:kSecAttrLabel];
+    [v62 setObject:kSecClassKey forKeyedSubscript:kSecClass];
+    [v62 setObject:v193[3] forKeyedSubscript:kSecValueRef];
+    v63 = SecItemAdd(v62, 0);
     if (v63)
     {
       v64 = +[SSLogConfig sharedDaemonConfig];
@@ -3160,23 +3263,28 @@ LABEL_70:
         v64 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog6 = [v64 shouldLog];
+      LODWORD(v65) = [v64 shouldLog];
       shouldLogToDisk6 = [v64 shouldLogToDisk];
       oSLogObject6 = [v64 OSLogObject];
-      v1625 = oSLogObject6;
+      v68 = oSLogObject6;
       if (shouldLogToDisk6)
       {
-        shouldLog6 |= 2u;
+        LODWORD(v65) = v65 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_ERROR))
       {
-        shouldLog6 &= 2u;
+        v65 = v65;
       }
 
-      if (!shouldLog6)
+      else
       {
-        goto LABEL_103;
+        v65 &= 2u;
+      }
+
+      if (!v65)
+      {
+        goto LABEL_110;
       }
 
       v69 = objc_opt_class();
@@ -3192,17 +3300,16 @@ LABEL_70:
       v218 = 2114;
       v219 = v72;
       LODWORD(v162) = 42;
-      v160 = &v212;
-      v73 = _os_log_send_and_compose_impl();
+      v73 = _os_log_send_and_compose_impl(v65, 0, 0, 0, &_mh_execute_header, v68, 16, "%{public}@: Failed to save private key to Keychain for DSID: %@, purpose: %{public}@, status: %{public}@", &v212, v162);
 
       if (v73)
       {
-LABEL_80:
-        v1625 = [NSString stringWithCString:v73 encoding:4, &v212, v162];
+LABEL_86:
+        v68 = [NSString stringWithCString:v73 encoding:4];
         free(v73);
-        v160 = v1625;
+        v160 = v68;
         SSFileLog();
-LABEL_103:
+LABEL_110:
       }
     }
 
@@ -3214,29 +3321,29 @@ LABEL_103:
         v64 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog7 = [v64 shouldLog];
+      shouldLog = [v64 shouldLog];
       shouldLogToDisk7 = [v64 shouldLogToDisk];
       v163 = identifierCopy;
       oSLogObject7 = [v64 OSLogObject];
-      v1625 = oSLogObject7;
+      v68 = oSLogObject7;
       if (shouldLogToDisk7)
       {
-        shouldLog7 |= 2u;
+        shouldLog |= 2u;
       }
 
       if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEFAULT))
       {
-        v84 = shouldLog7;
+        v84 = shouldLog;
       }
 
       else
       {
-        v84 = shouldLog7 & 2;
+        v84 = shouldLog & 2;
       }
 
       if (!v84)
       {
-        goto LABEL_103;
+        goto LABEL_110;
       }
 
       v85 = objc_opt_class();
@@ -3252,17 +3359,16 @@ LABEL_103:
       v218 = 2114;
       v219 = v88;
       LODWORD(v162) = 42;
-      v160 = &v212;
-      v73 = _os_log_send_and_compose_impl();
+      v73 = _os_log_send_and_compose_impl(v84, 0, 0, 0, &_mh_execute_header, v68, 0, "%{public}@: Saved private key to Keychain for DSID: %@, purpose: %{public}@, status: %{public}@", &v212, v162);
 
       identifierCopy = v163;
       if (v73)
       {
-        goto LABEL_80;
+        goto LABEL_86;
       }
     }
 
-    goto LABEL_105;
+    goto LABEL_112;
   }
 
   v61 = +[SSLogConfig sharedDaemonConfig];
@@ -3271,21 +3377,26 @@ LABEL_103:
     v61 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog8 = [v61 shouldLog];
+  LODWORD(v74) = [v61 shouldLog];
   shouldLogToDisk8 = [v61 shouldLogToDisk];
   oSLogObject8 = [v61 OSLogObject];
-  v1626 = oSLogObject8;
+  v62 = oSLogObject8;
   if (shouldLogToDisk8)
   {
-    shouldLog8 |= 2u;
+    LODWORD(v74) = v74 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject8, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject8, OS_LOG_TYPE_ERROR))
   {
-    shouldLog8 &= 2u;
+    v74 = v74;
   }
 
-  if (shouldLog8)
+  else
+  {
+    v74 &= 2u;
+  }
+
+  if (v74)
   {
     v77 = objc_opt_class();
     v78 = SSHashIfNeeded();
@@ -3297,31 +3408,30 @@ LABEL_103:
     v216 = 2114;
     v217 = v79;
     LODWORD(v162) = 32;
-    v160 = &v212;
-    v80 = _os_log_send_and_compose_impl();
+    v80 = _os_log_send_and_compose_impl(v74, 0, 0, 0, &_mh_execute_header, v62, 16, "%{public}@: Failed to save private key to Keychain for DSID: %@, purpose: %{public}@ for no private key", &v212, v162);
 
     if (!v80)
     {
-      goto LABEL_106;
+      goto LABEL_113;
     }
 
-    v1626 = [NSString stringWithCString:v80 encoding:4, &v212, v162];
+    v62 = [NSString stringWithCString:v80 encoding:4];
     free(v80);
-    v160 = v1626;
+    v160 = v62;
     SSFileLog();
   }
 
-LABEL_105:
+LABEL_112:
 
-LABEL_106:
+LABEL_113:
   if (v189[3])
   {
     v89 = [ISBiometricStore keychainLabelForCertWithAccountID:identifierCopy purpose:purposeCopy];
-    v1628 = objc_alloc_init(NSMutableDictionary);
-    [v1628 setObject:v89 forKeyedSubscript:kSecAttrLabel];
-    [v1628 setObject:kSecClassCertificate forKeyedSubscript:kSecClass];
-    [v1628 setObject:v189[3] forKeyedSubscript:kSecValueRef];
-    v91 = SecItemAdd(v1628, 0);
+    v90 = objc_alloc_init(NSMutableDictionary);
+    [v90 setObject:v89 forKeyedSubscript:kSecAttrLabel];
+    [v90 setObject:kSecClassCertificate forKeyedSubscript:kSecClass];
+    [v90 setObject:v189[3] forKeyedSubscript:kSecValueRef];
+    v91 = SecItemAdd(v90, 0);
     if (v91)
     {
       v92 = +[SSLogConfig sharedDaemonConfig];
@@ -3330,23 +3440,28 @@ LABEL_106:
         v92 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog9 = [v92 shouldLog];
+      LODWORD(v93) = [v92 shouldLog];
       shouldLogToDisk9 = [v92 shouldLogToDisk];
       oSLogObject9 = [v92 OSLogObject];
-      v1627 = oSLogObject9;
+      v96 = oSLogObject9;
       if (shouldLogToDisk9)
       {
-        shouldLog9 |= 2u;
+        LODWORD(v93) = v93 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject9, OS_LOG_TYPE_ERROR))
       {
-        shouldLog9 &= 2u;
+        v93 = v93;
       }
 
-      if (!shouldLog9)
+      else
       {
-        goto LABEL_135;
+        v93 &= 2u;
+      }
+
+      if (!v93)
+      {
+        goto LABEL_145;
       }
 
       v97 = objc_opt_class();
@@ -3362,17 +3477,16 @@ LABEL_106:
       v218 = 2114;
       v219 = v100;
       LODWORD(v162) = 42;
-      v161 = &v212;
-      v101 = _os_log_send_and_compose_impl();
+      v101 = _os_log_send_and_compose_impl(v93, 0, 0, 0, &_mh_execute_header, v96, 16, "%{public}@: Failed to save public key cert to Keychain for DSID: %@, purpose: %{public}@, status: %{public}@", &v212, v162);
 
       if (v101)
       {
-LABEL_134:
-        v1627 = [NSString stringWithCString:v101 encoding:4, &v212, v162];
+LABEL_144:
+        v96 = [NSString stringWithCString:v101 encoding:4];
         free(v101);
-        v161 = v1627;
+        v161 = v96;
         SSFileLog();
-LABEL_135:
+LABEL_145:
       }
     }
 
@@ -3384,23 +3498,28 @@ LABEL_135:
         v92 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog10 = [v92 shouldLog];
+      LODWORD(v109) = [v92 shouldLog];
       shouldLogToDisk10 = [v92 shouldLogToDisk];
       oSLogObject10 = [v92 OSLogObject];
-      v1627 = oSLogObject10;
+      v96 = oSLogObject10;
       if (shouldLogToDisk10)
       {
-        shouldLog10 |= 2u;
+        LODWORD(v109) = v109 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject10, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject10, OS_LOG_TYPE_DEFAULT))
       {
-        shouldLog10 &= 2u;
+        v109 = v109;
       }
 
-      if (!shouldLog10)
+      else
       {
-        goto LABEL_135;
+        v109 &= 2u;
+      }
+
+      if (!v109)
+      {
+        goto LABEL_145;
       }
 
       v112 = objc_opt_class();
@@ -3413,16 +3532,15 @@ LABEL_135:
       v216 = 2112;
       v217 = v114;
       LODWORD(v162) = 32;
-      v161 = &v212;
-      v101 = _os_log_send_and_compose_impl();
+      v101 = _os_log_send_and_compose_impl(v109, 0, 0, 0, &_mh_execute_header, v96, 0, "%{public}@: Saved public key cert to Keychain for DSID: %@, purpose: %{purpose}@", &v212, v162);
 
       if (v101)
       {
-        goto LABEL_134;
+        goto LABEL_144;
       }
     }
 
-    goto LABEL_137;
+    goto LABEL_147;
   }
 
   v89 = +[SSLogConfig sharedDaemonConfig];
@@ -3431,21 +3549,26 @@ LABEL_135:
     v89 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog11 = [v89 shouldLog];
+  LODWORD(v102) = [v89 shouldLog];
   shouldLogToDisk11 = [v89 shouldLogToDisk];
   oSLogObject11 = [v89 OSLogObject];
-  v1628 = oSLogObject11;
+  v90 = oSLogObject11;
   if (shouldLogToDisk11)
   {
-    shouldLog11 |= 2u;
+    LODWORD(v102) = v102 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject11, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject11, OS_LOG_TYPE_ERROR))
   {
-    shouldLog11 &= 2u;
+    v102 = v102;
   }
 
-  if (shouldLog11)
+  else
+  {
+    v102 &= 2u;
+  }
+
+  if (v102)
   {
     v105 = objc_opt_class();
     v106 = SSHashIfNeeded();
@@ -3457,23 +3580,22 @@ LABEL_135:
     v216 = 2112;
     v217 = v107;
     LODWORD(v162) = 32;
-    v161 = &v212;
-    v108 = _os_log_send_and_compose_impl();
+    v108 = _os_log_send_and_compose_impl(v102, 0, 0, 0, &_mh_execute_header, v90, 16, "%{public}@: Failed to save public key cert to Keychain for DSID: %@, purpose: %{purpose}@ for no public key cert", &v212, v162);
 
     if (!v108)
     {
-      goto LABEL_138;
+      goto LABEL_148;
     }
 
-    v1628 = [NSString stringWithCString:v108 encoding:4, &v212, v162];
+    v90 = [NSString stringWithCString:v108 encoding:4];
     free(v108);
-    v161 = v1628;
+    v161 = v90;
     SSFileLog();
   }
 
-LABEL_137:
+LABEL_147:
 
-LABEL_138:
+LABEL_148:
   if (v197[3])
   {
     v115 = objc_alloc_init(NSMutableDictionary);
@@ -3491,29 +3613,34 @@ LABEL_138:
         v118 = SecItemAdd(v115, 0);
         if (v118)
         {
-          v16210 = +[SSLogConfig sharedDaemonConfig];
-          if (!v16210)
+          v119 = +[SSLogConfig sharedDaemonConfig];
+          if (!v119)
           {
-            v16210 = +[SSLogConfig sharedConfig];
+            v119 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog12 = [v16210 shouldLog];
-          shouldLogToDisk12 = [v16210 shouldLogToDisk];
-          oSLogObject12 = [v16210 OSLogObject];
-          v1629 = oSLogObject12;
+          LODWORD(v120) = [v119 shouldLog];
+          shouldLogToDisk12 = [v119 shouldLogToDisk];
+          oSLogObject12 = [v119 OSLogObject];
+          v123 = oSLogObject12;
           if (shouldLogToDisk12)
           {
-            shouldLog12 |= 2u;
+            LODWORD(v120) = v120 | 2;
           }
 
-          if (!os_log_type_enabled(oSLogObject12, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(oSLogObject12, OS_LOG_TYPE_ERROR))
           {
-            shouldLog12 &= 2u;
+            v120 = v120;
           }
 
-          if (!shouldLog12)
+          else
           {
-            goto LABEL_189;
+            v120 &= 2u;
+          }
+
+          if (!v120)
+          {
+            goto LABEL_202;
           }
 
           v124 = SSHashIfNeeded();
@@ -3526,45 +3653,44 @@ LABEL_138:
           v216 = 2112;
           v217 = v126;
           LODWORD(v162) = 32;
-          v158 = &v212;
-          v127 = _os_log_send_and_compose_impl();
+          v127 = _os_log_send_and_compose_impl(v120, 0, 0, 0, &_mh_execute_header, v123, 16, "DaemonBiometricKeychain: Failed to save intermediate cert to Keychain for DSID: %@, purpose: %@, status: %@", &v212, v162);
 
           if (v127)
           {
-            goto LABEL_178;
+            goto LABEL_191;
           }
         }
 
         else
         {
-          v16210 = +[SSLogConfig sharedDaemonConfig];
-          if (!v16210)
+          v119 = +[SSLogConfig sharedDaemonConfig];
+          if (!v119)
           {
-            v16210 = +[SSLogConfig sharedConfig];
+            v119 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog13 = [v16210 shouldLog];
-          shouldLogToDisk13 = [v16210 shouldLogToDisk];
-          oSLogObject13 = [v16210 OSLogObject];
-          v1629 = oSLogObject13;
+          shouldLog2 = [v119 shouldLog];
+          shouldLogToDisk13 = [v119 shouldLogToDisk];
+          oSLogObject13 = [v119 OSLogObject];
+          v123 = oSLogObject13;
           if (shouldLogToDisk13)
           {
-            shouldLog13 |= 2u;
+            shouldLog2 |= 2u;
           }
 
           if (os_log_type_enabled(oSLogObject13, OS_LOG_TYPE_DEFAULT))
           {
-            v148 = shouldLog13;
+            v148 = shouldLog2;
           }
 
           else
           {
-            v148 = shouldLog13 & 2;
+            v148 = shouldLog2 & 2;
           }
 
           if (!v148)
           {
-            goto LABEL_189;
+            goto LABEL_202;
           }
 
           v149 = SSHashIfNeeded();
@@ -3574,47 +3700,51 @@ LABEL_138:
           v214 = 2114;
           v215 = v150;
           LODWORD(v162) = 22;
-          v158 = &v212;
-          v151 = _os_log_send_and_compose_impl();
+          v151 = _os_log_send_and_compose_impl(v148, 0, 0, 0, &_mh_execute_header, v123, 0, "DaemonBiometricKeychain: Saved intermediate cert to Keychain for DSID: %@, purpose: %{public}@", &v212, v162);
 
           if (v151)
           {
-            v1629 = [NSString stringWithCString:v151 encoding:4, &v212, v162];
+            v123 = [NSString stringWithCString:v151 encoding:4];
             free(v151);
-            v158 = v1629;
+            v158 = v123;
             SSFileLog();
-            goto LABEL_189;
+            goto LABEL_202;
           }
         }
 
-LABEL_190:
+LABEL_203:
 
-        goto LABEL_191;
+        goto LABEL_204;
       }
 
-      v16210 = +[SSLogConfig sharedDaemonConfig];
-      if (!v16210)
+      v119 = +[SSLogConfig sharedDaemonConfig];
+      if (!v119)
       {
-        v16210 = +[SSLogConfig sharedConfig];
+        v119 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog14 = [v16210 shouldLog];
-      shouldLogToDisk14 = [v16210 shouldLogToDisk];
-      oSLogObject14 = [v16210 OSLogObject];
-      v1629 = oSLogObject14;
+      LODWORD(v139) = [v119 shouldLog];
+      shouldLogToDisk14 = [v119 shouldLogToDisk];
+      oSLogObject14 = [v119 OSLogObject];
+      v123 = oSLogObject14;
       if (shouldLogToDisk14)
       {
-        shouldLog14 |= 2u;
+        LODWORD(v139) = v139 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject14, OS_LOG_TYPE_ERROR))
       {
-        shouldLog14 &= 2u;
+        v139 = v139;
       }
 
-      if (!shouldLog14)
+      else
       {
-        goto LABEL_189;
+        v139 &= 2u;
+      }
+
+      if (!v139)
+      {
+        goto LABEL_202;
       }
 
       v142 = SSHashIfNeeded();
@@ -3627,66 +3757,64 @@ LABEL_190:
       v216 = 2114;
       v217 = v144;
       LODWORD(v162) = 32;
-      v158 = &v212;
-      v127 = _os_log_send_and_compose_impl();
+      v127 = _os_log_send_and_compose_impl(v139, 0, 0, 0, &_mh_execute_header, v123, 16, "DaemonBiometricKeychain: Failed to lookup intermediate X509 cert for DSID: %@, purpose: %{public}@, status: %{public}@", &v212, v162);
 
       if (!v127)
       {
-        goto LABEL_190;
+        goto LABEL_203;
       }
     }
 
     else
     {
-      v16210 = +[SSLogConfig sharedDaemonConfig];
-      if (!v16210)
+      v119 = +[SSLogConfig sharedDaemonConfig];
+      if (!v119)
       {
-        v16210 = +[SSLogConfig sharedConfig];
+        v119 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog15 = [v16210 shouldLog];
-      shouldLogToDisk15 = [v16210 shouldLogToDisk];
-      oSLogObject15 = [v16210 OSLogObject];
-      v1629 = oSLogObject15;
+      shouldLog3 = [v119 shouldLog];
+      shouldLogToDisk15 = [v119 shouldLogToDisk];
+      oSLogObject15 = [v119 OSLogObject];
+      v123 = oSLogObject15;
       if (shouldLogToDisk15)
       {
-        shouldLog15 |= 2u;
+        shouldLog3 |= 2u;
       }
 
       if (os_log_type_enabled(oSLogObject15, OS_LOG_TYPE_DEFAULT))
       {
-        v138 = shouldLog15;
+        v138 = shouldLog3;
       }
 
       else
       {
-        v138 = shouldLog15 & 2;
+        v138 = shouldLog3 & 2;
       }
 
       if (!v138)
       {
-        goto LABEL_189;
+        goto LABEL_202;
       }
 
       LOWORD(v212) = 0;
       LODWORD(v162) = 2;
-      v158 = &v212;
-      v127 = _os_log_send_and_compose_impl();
+      v127 = _os_log_send_and_compose_impl(v138, 0, 0, 0, &_mh_execute_header, v123, 0, "DaemonBiometricKeychain: Successfully found intermediate X509 cert, not updating Keychain", &v212, v162);
 
       if (!v127)
       {
-        goto LABEL_190;
+        goto LABEL_203;
       }
     }
 
-LABEL_178:
-    v1629 = [NSString stringWithCString:v127 encoding:4, &v212, v162];
+LABEL_191:
+    v123 = [NSString stringWithCString:v127 encoding:4];
     free(v127);
-    v158 = v1629;
+    v158 = v123;
     SSFileLog();
-LABEL_189:
+LABEL_202:
 
-    goto LABEL_190;
+    goto LABEL_203;
   }
 
   v115 = +[SSLogConfig sharedDaemonConfig];
@@ -3695,23 +3823,28 @@ LABEL_189:
     v115 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog16 = [v115 shouldLog];
+  LODWORD(v128) = [v115 shouldLog];
   shouldLogToDisk16 = [v115 shouldLogToDisk];
   oSLogObject16 = [v115 OSLogObject];
-  v16210 = oSLogObject16;
+  v119 = oSLogObject16;
   if (shouldLogToDisk16)
   {
-    shouldLog16 |= 2u;
+    LODWORD(v128) = v128 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject16, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject16, OS_LOG_TYPE_ERROR))
   {
-    shouldLog16 &= 2u;
+    v128 = v128;
   }
 
-  if (!shouldLog16)
+  else
   {
-    goto LABEL_190;
+    v128 &= 2u;
+  }
+
+  if (!v128)
+  {
+    goto LABEL_203;
   }
 
   v131 = objc_opt_class();
@@ -3724,25 +3857,24 @@ LABEL_189:
   v216 = 2114;
   v217 = v133;
   LODWORD(v162) = 32;
-  v158 = &v212;
-  v134 = _os_log_send_and_compose_impl();
+  v134 = _os_log_send_and_compose_impl(v128, 0, 0, 0, &_mh_execute_header, v119, 16, "%{public}@: Failed to save intermediate cert to Keychain for DSID: %@, purpose: %{public}@ for no intermediate cert", &v212, v162);
 
   if (v134)
   {
-    v16210 = [NSString stringWithCString:v134 encoding:4, &v212, v162];
+    v119 = [NSString stringWithCString:v134 encoding:4];
     free(v134);
-    v158 = v16210;
+    v158 = v119;
     SSFileLog();
-    goto LABEL_190;
+    goto LABEL_203;
   }
 
-LABEL_191:
+LABEL_204:
 
   objc_destroyWeak(v184);
   objc_destroyWeak(&location);
 
   CFRelease(cf);
-LABEL_192:
+LABEL_205:
   v152 = v197[3];
   if (v152)
   {
@@ -3833,9 +3965,7 @@ LABEL_192:
       v18 = identifierCopy;
       errorCopy = error;
       v20 = v15;
-      LODWORD(v36) = 22;
-      v35 = &v42;
-      v21 = _os_log_send_and_compose_impl();
+      v21 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Failed to delete TouchID token with error: %{public}@", &v42, 22);
 
       error = errorCopy;
       identifierCopy = v18;
@@ -3850,7 +3980,7 @@ LABEL_13:
         goto LABEL_14;
       }
 
-      oSLogObject = [NSString stringWithCString:v21 encoding:4, &v42, v36];
+      oSLogObject = [NSString stringWithCString:v21 encoding:4];
       free(v21);
       v35 = oSLogObject;
       SSFileLog();
@@ -3878,45 +4008,50 @@ LABEL_14:
       v26 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v26 shouldLog];
+    LODWORD(v27) = [v26 shouldLog];
     if ([v26 shouldLogToDisk])
     {
-      shouldLog2 |= 2u;
+      LODWORD(v27) = v27 | 2;
     }
 
     oSLogObject2 = [v26 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      shouldLog2 &= 2u;
+      v27 = v27;
     }
 
-    if (shouldLog2)
+    else
+    {
+      v27 &= 2u;
+    }
+
+    if (v27)
     {
       v29 = objc_opt_class();
       v42 = 138543362;
       v43 = v29;
       v30 = v29;
       LODWORD(v36) = 12;
-      v31 = _os_log_send_and_compose_impl();
+      v31 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "%{public}@: Failed to delete both purchase and extended action keys", &v42, v36);
 
       if (!v31)
       {
-        goto LABEL_26;
+        goto LABEL_27;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v31 encoding:4, &v42, v36];
+      oSLogObject2 = [NSString stringWithCString:v31 encoding:4];
       free(v31);
       SSFileLog();
     }
 
-LABEL_26:
+LABEL_27:
     error = errorCopy2;
     if (!errorCopy2)
     {
-      goto LABEL_34;
+      goto LABEL_35;
     }
 
-    goto LABEL_33;
+    goto LABEL_34;
   }
 
   if (v22)
@@ -3931,10 +4066,10 @@ LABEL_26:
       v25 = 0;
       if (!error)
       {
-        goto LABEL_34;
+        goto LABEL_35;
       }
 
-      goto LABEL_33;
+      goto LABEL_34;
     }
 
     v32 = v23;
@@ -3943,12 +4078,12 @@ LABEL_26:
   v25 = v32;
   if (error)
   {
-LABEL_33:
+LABEL_34:
     v33 = v25;
     *error = v25;
   }
 
-LABEL_34:
+LABEL_35:
 
   return v25 == 0;
 }
@@ -3962,9 +4097,9 @@ LABEL_34:
   v11 = [(DaemonBiometricKeychain *)self _queryForPrivateKeyWithLabel:v10 prompt:0 useTokenID:0];
   v12 = SecItemDelete(v11);
   v13 = &CFDictionaryGetValue_ptr;
-  v158 = identifierCopy;
+  v164 = identifierCopy;
   purposeCopy = purpose;
-  v153 = v11;
+  v159 = v11;
   errorCopy = error;
   if (!v12)
   {
@@ -3977,49 +4112,53 @@ LABEL_34:
     shouldLog = [v15 shouldLog];
     if ([v15 shouldLogToDisk])
     {
-      v20 = shouldLog | 2;
+      LODWORD(v24) = shouldLog | 2;
     }
 
     else
     {
-      v20 = shouldLog;
+      LODWORD(v24) = shouldLog;
     }
 
     oSLogObject = [v15 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v20 &= 2u;
+      v24 = v24;
     }
 
-    if (!v20)
+    else
     {
-
-      v26 = 0;
-      goto LABEL_40;
+      v24 &= 2u;
     }
 
-LABEL_20:
-    v21 = objc_opt_class();
-    v22 = v21;
-    v23 = SSHashIfNeeded();
-    v163 = 138543618;
-    v164 = v21;
-    v165 = 2112;
-    v166 = v23;
-    LODWORD(v149) = 22;
-    v144 = &v163;
-    v24 = _os_log_send_and_compose_impl();
-
-    if (v24)
+    if (!v24)
     {
-      v149 = [NSString stringWithCString:v24 encoding:4, &v163, v149];
-      free(v24);
-      v144 = v149;
+
+      v28 = 0;
+      goto LABEL_43;
+    }
+
+    v25 = objc_opt_class();
+    v20 = v25;
+    v21 = SSHashIfNeeded();
+    v169 = 138543618;
+    v170 = v25;
+    v171 = 2112;
+    v172 = v21;
+    v22 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Keychain reset for DSID: %@", &v169, 22);
+LABEL_23:
+    v26 = v22;
+
+    if (v26)
+    {
+      v27 = [NSString stringWithCString:v26 encoding:4];
+      free(v26);
+      v150 = v27;
       SSFileLog();
     }
 
-    v26 = 0;
-    goto LABEL_38;
+    v28 = 0;
+    goto LABEL_41;
   }
 
   v14 = v12;
@@ -4034,16 +4173,21 @@ LABEL_20:
     shouldLog2 = [v15 shouldLog];
     if ([v15 shouldLogToDisk])
     {
-      v17 = shouldLog2 | 2;
+      LODWORD(v17) = shouldLog2 | 2;
     }
 
     else
     {
-      v17 = shouldLog2;
+      LODWORD(v17) = shouldLog2;
     }
 
     oSLogObject = [v15 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
@@ -4051,18 +4195,26 @@ LABEL_20:
     if (!v17)
     {
 
-      v26 = 0;
-LABEL_39:
+      v28 = 0;
+LABEL_42:
       purpose = purposeCopy;
-      goto LABEL_40;
+      goto LABEL_43;
     }
 
-    goto LABEL_20;
+    v19 = objc_opt_class();
+    v20 = v19;
+    v21 = SSHashIfNeeded();
+    v169 = 138543618;
+    v170 = v19;
+    v171 = 2112;
+    v172 = v21;
+    v22 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "%{public}@: Key not found while resetting keychain for DSID: %@", &v169, 22);
+    goto LABEL_23;
   }
 
-  v27 = SSError();
-  v28 = [NSNumber numberWithInt:v14];
-  v26 = SSErrorBySettingUserInfoValue();
+  v29 = SSError();
+  v30 = [NSNumber numberWithInt:v14];
+  v28 = SSErrorBySettingUserInfoValue();
 
   v15 = +[SSLogConfig sharedDaemonConfig];
   if (!v15)
@@ -4073,171 +4225,177 @@ LABEL_39:
   shouldLog3 = [v15 shouldLog];
   if ([v15 shouldLogToDisk])
   {
-    v30 = shouldLog3 | 2;
+    v32 = shouldLog3 | 2;
   }
 
   else
   {
-    v30 = shouldLog3;
+    v32 = shouldLog3;
   }
 
   oSLogObject2 = [v15 OSLogObject];
   if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
   {
-    v32 = v30;
+    v34 = v32;
   }
 
   else
   {
-    v32 = v30 & 2;
+    v34 = v32 & 2;
   }
 
-  if (!v32)
+  if (!v34)
   {
 
-LABEL_38:
+LABEL_41:
     v13 = &CFDictionaryGetValue_ptr;
-    goto LABEL_39;
+    goto LABEL_42;
   }
 
-  v156 = v26;
-  v33 = objc_opt_class();
-  v34 = v33;
-  v35 = SSHashIfNeeded();
-  v36 = [NSNumber numberWithInt:v14];
-  v163 = 138543874;
-  v164 = v33;
-  v165 = 2112;
-  v166 = v35;
-  v167 = 2114;
-  v168 = v36;
-  LODWORD(v149) = 32;
-  v144 = &v163;
-  v37 = _os_log_send_and_compose_impl();
+  v162 = v28;
+  v35 = objc_opt_class();
+  v36 = v35;
+  v37 = SSHashIfNeeded();
+  v38 = [NSNumber numberWithInt:v14];
+  v169 = 138543874;
+  v170 = v35;
+  v171 = 2112;
+  v172 = v37;
+  v173 = 2114;
+  v174 = v38;
+  v39 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "%{public}@: Keychain reset failed for DSID: %@, status: %{public}@", &v169, 32);
 
-  if (v37)
+  if (v39)
   {
-    v1492 = [NSString stringWithCString:v37 encoding:4, &v163, v149];
-    free(v37);
-    v144 = v1492;
+    v40 = [NSString stringWithCString:v39 encoding:4];
+    free(v39);
+    v150 = v40;
     SSFileLog();
   }
 
-  v26 = v156;
-  identifierCopy = v158;
+  v28 = v162;
+  identifierCopy = v164;
   v13 = &CFDictionaryGetValue_ptr;
   v9 = &CFDictionaryGetValue_ptr;
-LABEL_40:
+LABEL_43:
 
-  v39 = [v9[280] keychainLabelForKeyWithAccountID:identifierCopy purpose:purpose];
+  v41 = [v9[280] keychainLabelForKeyWithAccountID:identifierCopy purpose:purpose];
 
-  v40 = SSVURLProtocolConsumer_ptr;
-  v41 = objc_alloc_init(NSMutableDictionary);
-  v42 = kSecAttrLabel;
-  [v41 setObject:v39 forKeyedSubscript:kSecAttrLabel];
-  v43 = kSecClass;
-  [v41 setObject:kSecClassKey forKeyedSubscript:kSecClass];
-  [v41 setObject:kSecAttrKeyClassPrivate forKeyedSubscript:kSecAttrKeyClass];
-  v44 = SecItemDelete(v41);
-  v152 = v41;
-  if (!v44)
+  v42 = SSVURLProtocolConsumer_ptr;
+  v43 = objc_alloc_init(NSMutableDictionary);
+  v44 = kSecAttrLabel;
+  [v43 setObject:v41 forKeyedSubscript:kSecAttrLabel];
+  v45 = kSecClass;
+  [v43 setObject:kSecClassKey forKeyedSubscript:kSecClass];
+  [v43 setObject:kSecAttrKeyClassPrivate forKeyedSubscript:kSecAttrKeyClass];
+  v46 = SecItemDelete(v43);
+  v158 = v43;
+  if (!v46)
   {
-    v157 = v26;
+    v163 = v28;
     sharedDaemonConfig = [v13[412] sharedDaemonConfig];
     if (!sharedDaemonConfig)
     {
       sharedDaemonConfig = [v13[412] sharedConfig];
     }
 
-    shouldLog4 = [sharedDaemonConfig shouldLog];
+    LODWORD(v56) = [sharedDaemonConfig shouldLog];
     if ([sharedDaemonConfig shouldLogToDisk])
     {
-      shouldLog4 |= 2u;
+      LODWORD(v56) = v56 | 2;
     }
 
     oSLogObject3 = [sharedDaemonConfig OSLogObject];
-    if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog4 &= 2u;
+      v56 = v56;
     }
 
-    if (!shouldLog4)
+    else
     {
-      goto LABEL_71;
+      v56 &= 2u;
     }
 
-    v55 = objc_opt_class();
-    v50 = v55;
-    v56 = SSHashIfNeeded();
-    v57 = [NSNumber numberWithInteger:purpose];
-    v163 = 138543874;
-    v164 = v55;
-    v165 = 2112;
-    v166 = v56;
-    v167 = 2114;
-    v168 = v57;
-    LODWORD(v149) = 32;
-    v145 = &v163;
-    v53 = _os_log_send_and_compose_impl();
+    if (!v56)
+    {
+      goto LABEL_77;
+    }
 
-LABEL_58:
+    v57 = objc_opt_class();
+    v52 = v57;
+    v58 = SSHashIfNeeded();
+    v59 = [NSNumber numberWithInteger:purpose];
+    v169 = 138543874;
+    v170 = v57;
+    v171 = 2112;
+    v172 = v58;
+    v173 = 2114;
+    v174 = v59;
+    LODWORD(v155) = 32;
+    v55 = _os_log_send_and_compose_impl(v56, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%{public}@: (X509) Private key reset for DSID: %@, purpose: %{public}@", &v169, v155);
+
+LABEL_63:
     v13 = &CFDictionaryGetValue_ptr;
-    if (!v53)
+    if (!v55)
     {
-      goto LABEL_73;
+      goto LABEL_79;
     }
 
-    goto LABEL_69;
+    goto LABEL_75;
   }
 
-  v45 = v44;
-  if (v44 == -25300)
+  v47 = v46;
+  if (v46 == -25300)
   {
-    v157 = v26;
+    v163 = v28;
     sharedDaemonConfig = [v13[412] sharedDaemonConfig];
     if (!sharedDaemonConfig)
     {
       sharedDaemonConfig = [v13[412] sharedConfig];
     }
 
-    shouldLog5 = [sharedDaemonConfig shouldLog];
+    LODWORD(v49) = [sharedDaemonConfig shouldLog];
     if ([sharedDaemonConfig shouldLogToDisk])
     {
-      shouldLog5 |= 2u;
+      LODWORD(v49) = v49 | 2;
     }
 
     oSLogObject3 = [sharedDaemonConfig OSLogObject];
-    if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG))
     {
-      shouldLog5 &= 2u;
+      v49 = v49;
     }
 
-    if (!shouldLog5)
+    else
     {
-      goto LABEL_71;
+      v49 &= 2u;
     }
 
-    v49 = objc_opt_class();
-    v50 = v49;
-    v51 = SSHashIfNeeded();
-    v52 = [NSNumber numberWithInteger:purpose];
-    v163 = 138543874;
-    v164 = v49;
-    v165 = 2112;
-    v166 = v51;
-    v167 = 2114;
-    v168 = v52;
-    LODWORD(v149) = 32;
-    v145 = &v163;
-    v53 = _os_log_send_and_compose_impl();
+    if (!v49)
+    {
+      goto LABEL_77;
+    }
 
-    goto LABEL_58;
+    v51 = objc_opt_class();
+    v52 = v51;
+    v53 = SSHashIfNeeded();
+    v54 = [NSNumber numberWithInteger:purpose];
+    v169 = 138543874;
+    v170 = v51;
+    v171 = 2112;
+    v172 = v53;
+    v173 = 2114;
+    v174 = v54;
+    LODWORD(v155) = 32;
+    v55 = _os_log_send_and_compose_impl(v49, 0, 0, 0, &_mh_execute_header, oSLogObject3, 2, "%{public}@: (X509) Private key not found whilte resetting keychain for DSID: %@, purpose: %{public}@", &v169, v155);
+
+    goto LABEL_63;
   }
 
-  v58 = SSError();
+  v60 = SSError();
 
-  v59 = [NSNumber numberWithInt:v45];
-  v157 = SSErrorBySettingUserInfoValue();
+  v61 = [NSNumber numberWithInt:v47];
+  v163 = SSErrorBySettingUserInfoValue();
 
   v13 = &CFDictionaryGetValue_ptr;
   sharedDaemonConfig = +[SSLogConfig sharedDaemonConfig];
@@ -4246,75 +4404,79 @@ LABEL_58:
     sharedDaemonConfig = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog6 = [sharedDaemonConfig shouldLog];
+  LODWORD(v62) = [sharedDaemonConfig shouldLog];
   if ([sharedDaemonConfig shouldLogToDisk])
   {
-    shouldLog6 |= 2u;
+    LODWORD(v62) = v62 | 2;
   }
 
   oSLogObject3 = [sharedDaemonConfig OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
   {
-    shouldLog6 &= 2u;
+    v62 = v62;
   }
 
-  if (!shouldLog6)
+  else
+  {
+    v62 &= 2u;
+  }
+
+  if (!v62)
   {
     purpose = purposeCopy;
-    v43 = kSecClass;
-    goto LABEL_71;
+    v45 = kSecClass;
+    goto LABEL_77;
   }
 
-  v61 = objc_opt_class();
-  v62 = v61;
-  v63 = SSHashIfNeeded();
-  v64 = [NSNumber numberWithInteger:purposeCopy];
-  v65 = [NSNumber numberWithInt:v45];
-  v163 = 138544130;
-  v164 = v61;
-  v165 = 2112;
-  v166 = v63;
-  v167 = 2112;
-  v168 = v64;
-  v169 = 2114;
-  v170 = v65;
-  LODWORD(v149) = 42;
-  v145 = &v163;
-  v53 = _os_log_send_and_compose_impl();
+  v63 = objc_opt_class();
+  v64 = v63;
+  v65 = SSHashIfNeeded();
+  v66 = [NSNumber numberWithInteger:purposeCopy];
+  v67 = [NSNumber numberWithInt:v47];
+  v169 = 138544130;
+  v170 = v63;
+  v171 = 2112;
+  v172 = v65;
+  v173 = 2112;
+  v174 = v66;
+  v175 = 2114;
+  v176 = v67;
+  LODWORD(v155) = 42;
+  v55 = _os_log_send_and_compose_impl(v62, 0, 0, 0, &_mh_execute_header, oSLogObject3, 16, "%{public}@: (X509) Private key reset failed for DSID: %@, purpose: %{pulbic}@, status: %{public}@", &v169, v155);
 
   v13 = &CFDictionaryGetValue_ptr;
-  if (v53)
+  if (v55)
   {
     purpose = purposeCopy;
-    v42 = kSecAttrLabel;
-LABEL_69:
-    v40 = SSVURLProtocolConsumer_ptr;
-    v43 = kSecClass;
-    oSLogObject3 = [NSString stringWithCString:v53 encoding:4, &v163, v149];
-    free(v53);
-    v145 = oSLogObject3;
+    v44 = kSecAttrLabel;
+LABEL_75:
+    v42 = SSVURLProtocolConsumer_ptr;
+    v45 = kSecClass;
+    oSLogObject3 = [NSString stringWithCString:v55 encoding:4];
+    free(v55);
+    v151 = oSLogObject3;
     SSFileLog();
-LABEL_71:
+LABEL_77:
 
-    goto LABEL_74;
+    goto LABEL_80;
   }
 
   purpose = purposeCopy;
-  v42 = kSecAttrLabel;
-LABEL_73:
-  v40 = SSVURLProtocolConsumer_ptr;
-  v43 = kSecClass;
-LABEL_74:
+  v44 = kSecAttrLabel;
+LABEL_79:
+  v42 = SSVURLProtocolConsumer_ptr;
+  v45 = kSecClass;
+LABEL_80:
 
-  v66 = [ISBiometricStore keychainLabelForCertWithAccountID:v158 purpose:purpose];
+  v68 = [ISBiometricStore keychainLabelForCertWithAccountID:v164 purpose:purpose];
 
-  v67 = objc_alloc_init(v40[479]);
-  [v67 setObject:v66 forKeyedSubscript:v42];
-  [v67 setObject:kSecClassCertificate forKeyedSubscript:v43];
-  v151 = v67;
-  v68 = SecItemDelete(v67);
-  v155 = v66;
-  if (!v68)
+  v69 = objc_alloc_init(v42[479]);
+  [v69 setObject:v68 forKeyedSubscript:v44];
+  [v69 setObject:kSecClassCertificate forKeyedSubscript:v45];
+  v157 = v69;
+  v70 = SecItemDelete(v69);
+  v161 = v68;
+  if (!v70)
   {
     sharedDaemonConfig2 = [v13[412] sharedDaemonConfig];
     if (!sharedDaemonConfig2)
@@ -4322,62 +4484,67 @@ LABEL_74:
       sharedDaemonConfig2 = [v13[412] sharedConfig];
     }
 
-    shouldLog7 = [sharedDaemonConfig2 shouldLog];
+    LODWORD(v81) = [sharedDaemonConfig2 shouldLog];
     if ([sharedDaemonConfig2 shouldLogToDisk])
     {
-      shouldLog7 |= 2u;
+      LODWORD(v81) = v81 | 2;
     }
 
     oSLogObject4 = [sharedDaemonConfig2 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog7 &= 2u;
+      v81 = v81;
     }
 
-    if (!shouldLog7)
+    else
     {
-      goto LABEL_106;
+      v81 &= 2u;
     }
 
-LABEL_91:
-    v74 = v42;
-    v75 = objc_opt_class();
-    v76 = v75;
-    v77 = SSHashIfNeeded();
-    v78 = [NSNumber numberWithInteger:purpose];
-    v163 = 138543874;
-    v164 = v75;
-    v165 = 2112;
-    v166 = v77;
-    v167 = 2114;
-    v168 = v78;
-    LODWORD(v149) = 32;
-    v146 = &v163;
-    v79 = _os_log_send_and_compose_impl();
+    if (!v81)
+    {
+      goto LABEL_115;
+    }
+
+    v75 = v44;
+    v82 = objc_opt_class();
+    v77 = v82;
+    v78 = SSHashIfNeeded();
+    v79 = [NSNumber numberWithInteger:purpose];
+    v169 = 138543874;
+    v170 = v82;
+    v171 = 2112;
+    v172 = v78;
+    v173 = 2114;
+    v174 = v79;
+    LODWORD(v155) = 32;
+    v80 = _os_log_send_and_compose_impl(v81, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%{public}@: (X509) Public key cert reset for DSID: %@, purpose: %{public}@", &v169, v155);
+LABEL_100:
+    v83 = v80;
 
     v13 = &CFDictionaryGetValue_ptr;
-    v42 = v74;
-    if (v79)
+    v44 = v75;
+    if (v83)
     {
-      v66 = v155;
-LABEL_103:
-      v40 = SSVURLProtocolConsumer_ptr;
-      v43 = kSecClass;
-      oSLogObject4 = [NSString stringWithCString:v79 encoding:4, &v163, v149];
-      free(v79);
-      v146 = oSLogObject4;
+      v68 = v161;
+LABEL_112:
+      v42 = SSVURLProtocolConsumer_ptr;
+      v45 = kSecClass;
+      oSLogObject4 = [NSString stringWithCString:v83 encoding:4];
+      free(v83);
+      v152 = oSLogObject4;
       SSFileLog();
-LABEL_106:
+LABEL_115:
 
-      goto LABEL_109;
+      goto LABEL_118;
     }
 
-    v66 = v155;
-    goto LABEL_108;
+    v68 = v161;
+    goto LABEL_117;
   }
 
-  v69 = v68;
-  if (v68 == -25300)
+  v71 = v70;
+  if (v70 == -25300)
   {
     sharedDaemonConfig2 = [v13[412] sharedDaemonConfig];
     if (!sharedDaemonConfig2)
@@ -4385,31 +4552,49 @@ LABEL_106:
       sharedDaemonConfig2 = [v13[412] sharedConfig];
     }
 
-    shouldLog8 = [sharedDaemonConfig2 shouldLog];
+    LODWORD(v73) = [sharedDaemonConfig2 shouldLog];
     if ([sharedDaemonConfig2 shouldLogToDisk])
     {
-      shouldLog8 |= 2u;
+      LODWORD(v73) = v73 | 2;
     }
 
     oSLogObject4 = [sharedDaemonConfig2 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEBUG))
     {
-      shouldLog8 &= 2u;
+      v73 = v73;
     }
 
-    if (!shouldLog8)
+    else
     {
-      goto LABEL_106;
+      v73 &= 2u;
     }
 
-    goto LABEL_91;
+    if (!v73)
+    {
+      goto LABEL_115;
+    }
+
+    v75 = v44;
+    v76 = objc_opt_class();
+    v77 = v76;
+    v78 = SSHashIfNeeded();
+    v79 = [NSNumber numberWithInteger:purpose];
+    v169 = 138543874;
+    v170 = v76;
+    v171 = 2112;
+    v172 = v78;
+    v173 = 2114;
+    v174 = v79;
+    LODWORD(v155) = 32;
+    v80 = _os_log_send_and_compose_impl(v73, 0, 0, 0, &_mh_execute_header, oSLogObject4, 2, "%{public}@: (X509) Public key cert not found while resetting keychain for DSID: %@, purpose: %{public}@", &v169, v155);
+    goto LABEL_100;
   }
 
-  v150 = v42;
-  v80 = SSError();
+  v156 = v44;
+  v84 = SSError();
 
-  v81 = [NSNumber numberWithInt:v69];
-  v157 = SSErrorBySettingUserInfoValue();
+  v85 = [NSNumber numberWithInt:v71];
+  v163 = SSErrorBySettingUserInfoValue();
 
   sharedDaemonConfig2 = [v13[412] sharedDaemonConfig];
   if (!sharedDaemonConfig2)
@@ -4417,155 +4602,173 @@ LABEL_106:
     sharedDaemonConfig2 = [v13[412] sharedConfig];
   }
 
-  shouldLog9 = [sharedDaemonConfig2 shouldLog];
+  shouldLog4 = [sharedDaemonConfig2 shouldLog];
   if ([sharedDaemonConfig2 shouldLogToDisk])
   {
-    shouldLog9 |= 2u;
+    shouldLog4 |= 2u;
   }
 
   oSLogObject4 = [sharedDaemonConfig2 OSLogObject];
   if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_ERROR))
   {
-    v83 = shouldLog9;
+    v87 = shouldLog4;
   }
 
   else
   {
-    v83 = shouldLog9 & 2;
+    v87 = shouldLog4 & 2;
   }
 
-  if (!v83)
+  if (!v87)
   {
     purpose = purposeCopy;
-    v66 = v155;
-    v43 = kSecClass;
-    v42 = v150;
-    goto LABEL_106;
+    v68 = v161;
+    v45 = kSecClass;
+    v44 = v156;
+    goto LABEL_115;
   }
 
-  v84 = objc_opt_class();
-  v85 = v84;
-  v86 = SSHashIfNeeded();
-  v87 = [NSNumber numberWithInteger:purposeCopy];
-  v88 = [NSNumber numberWithInt:v69];
-  v163 = 138544130;
-  v164 = v84;
-  v165 = 2112;
-  v166 = v86;
-  v167 = 2112;
-  v168 = v87;
-  v169 = 2114;
+  v88 = objc_opt_class();
+  v89 = v88;
+  v90 = SSHashIfNeeded();
+  v91 = [NSNumber numberWithInteger:purposeCopy];
+  v92 = [NSNumber numberWithInt:v71];
+  v169 = 138544130;
   v170 = v88;
-  LODWORD(v149) = 42;
-  v146 = &v163;
-  v79 = _os_log_send_and_compose_impl();
+  v171 = 2112;
+  v172 = v90;
+  v173 = 2112;
+  v174 = v91;
+  v175 = 2114;
+  v176 = v92;
+  LODWORD(v155) = 42;
+  v83 = _os_log_send_and_compose_impl(v87, 0, 0, 0, &_mh_execute_header, oSLogObject4, 16, "%{public}@: (X509) Public key cert reset failed for DSID: %@, purpose: %{pulbic}@, status: %{public}@", &v169, v155);
 
   v13 = &CFDictionaryGetValue_ptr;
-  if (v79)
+  if (v83)
   {
     purpose = purposeCopy;
-    v66 = v155;
-    v42 = v150;
-    goto LABEL_103;
+    v68 = v161;
+    v44 = v156;
+    goto LABEL_112;
   }
 
   purpose = purposeCopy;
-  v66 = v155;
-  v42 = v150;
-LABEL_108:
-  v40 = SSVURLProtocolConsumer_ptr;
-  v43 = kSecClass;
-LABEL_109:
+  v68 = v161;
+  v44 = v156;
+LABEL_117:
+  v42 = SSVURLProtocolConsumer_ptr;
+  v45 = kSecClass;
+LABEL_118:
 
-  v89 = objc_alloc_init(v40[479]);
-  [v89 setObject:ISBiometricsIntermediateCertKeychainLabel forKeyedSubscript:v42];
-  [v89 setObject:kSecClassCertificate forKeyedSubscript:v43];
-  v90 = SecItemDelete(v89);
-  if (!v90)
+  v93 = objc_alloc_init(v42[479]);
+  [v93 setObject:ISBiometricsIntermediateCertKeychainLabel forKeyedSubscript:v44];
+  [v93 setObject:kSecClassCertificate forKeyedSubscript:v45];
+  v94 = SecItemDelete(v93);
+  if (!v94)
   {
     sharedDaemonConfig3 = [v13[412] sharedDaemonConfig];
-    v92 = v157;
-    v94 = v151;
+    v96 = v163;
+    v98 = v157;
     if (!sharedDaemonConfig3)
     {
       sharedDaemonConfig3 = [v13[412] sharedConfig];
     }
 
-    shouldLog10 = [sharedDaemonConfig3 shouldLog];
+    LODWORD(v105) = [sharedDaemonConfig3 shouldLog];
     if ([sharedDaemonConfig3 shouldLogToDisk])
     {
-      shouldLog10 |= 2u;
+      LODWORD(v105) = v105 | 2;
     }
 
     oSLogObject5 = [sharedDaemonConfig3 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_INFO))
     {
-      shouldLog10 &= 2u;
+      v105 = v105;
     }
 
-    if (!shouldLog10)
+    else
     {
-      goto LABEL_142;
+      v105 &= 2u;
     }
 
-LABEL_126:
-    v98 = objc_opt_class();
-    v99 = v98;
-    v100 = SSHashIfNeeded();
-    v163 = 138543618;
-    v164 = v98;
-    v165 = 2112;
-    v166 = v100;
-    LODWORD(v149) = 22;
-    v147 = &v163;
-    v101 = _os_log_send_and_compose_impl();
+    if (!v105)
+    {
+      goto LABEL_154;
+    }
+
+    v106 = objc_opt_class();
+    v102 = v106;
+    v103 = SSHashIfNeeded();
+    v169 = 138543618;
+    v170 = v106;
+    v171 = 2112;
+    v172 = v103;
+    LODWORD(v155) = 22;
+    v104 = _os_log_send_and_compose_impl(v105, 0, 0, 0, &_mh_execute_header, oSLogObject5, 1, "%{public}@: (X509) Intermediate cert reset for DSID: %@", &v169, v155);
+LABEL_138:
+    v107 = v104;
 
     v13 = &CFDictionaryGetValue_ptr;
-    if (!v101)
+    if (!v107)
     {
       purpose = purposeCopy;
-      goto LABEL_143;
+      goto LABEL_155;
     }
 
     purpose = purposeCopy;
-    goto LABEL_139;
+    goto LABEL_151;
   }
 
-  v91 = v90;
-  v92 = v157;
-  if (v90 == -25300)
+  v95 = v94;
+  v96 = v163;
+  if (v94 == -25300)
   {
     sharedDaemonConfig3 = [v13[412] sharedDaemonConfig];
-    v94 = v151;
+    v98 = v157;
     if (!sharedDaemonConfig3)
     {
       sharedDaemonConfig3 = [v13[412] sharedConfig];
     }
 
-    shouldLog11 = [sharedDaemonConfig3 shouldLog];
+    LODWORD(v99) = [sharedDaemonConfig3 shouldLog];
     if ([sharedDaemonConfig3 shouldLogToDisk])
     {
-      shouldLog11 |= 2u;
+      LODWORD(v99) = v99 | 2;
     }
 
     oSLogObject5 = [sharedDaemonConfig3 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_INFO))
     {
-      shouldLog11 &= 2u;
+      v99 = v99;
     }
 
-    if (!shouldLog11)
+    else
     {
-      goto LABEL_142;
+      v99 &= 2u;
     }
 
-    goto LABEL_126;
+    if (!v99)
+    {
+      goto LABEL_154;
+    }
+
+    v101 = objc_opt_class();
+    v102 = v101;
+    v103 = SSHashIfNeeded();
+    v169 = 138543618;
+    v170 = v101;
+    v171 = 2112;
+    v172 = v103;
+    LODWORD(v155) = 22;
+    v104 = _os_log_send_and_compose_impl(v99, 0, 0, 0, &_mh_execute_header, oSLogObject5, 1, "%{public}@: (X509) Intermediate cert not found while resetting keychain for DSID: %@", &v169, v155);
+    goto LABEL_138;
   }
 
-  v102 = SSError();
+  v108 = SSError();
 
-  v103 = [NSNumber numberWithInt:v91];
-  v104 = SSErrorBySettingUserInfoValue();
+  v109 = [NSNumber numberWithInt:v95];
+  v110 = SSErrorBySettingUserInfoValue();
 
   sharedDaemonConfig3 = [v13[412] sharedDaemonConfig];
   if (!sharedDaemonConfig3)
@@ -4573,81 +4776,80 @@ LABEL_126:
     sharedDaemonConfig3 = [v13[412] sharedConfig];
   }
 
-  shouldLog12 = [sharedDaemonConfig3 shouldLog];
+  shouldLog5 = [sharedDaemonConfig3 shouldLog];
   if ([sharedDaemonConfig3 shouldLogToDisk])
   {
-    v106 = shouldLog12 | 2;
+    v112 = shouldLog5 | 2;
   }
 
   else
   {
-    v106 = shouldLog12;
+    v112 = shouldLog5;
   }
 
   oSLogObject5 = [sharedDaemonConfig3 OSLogObject];
   if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_ERROR))
   {
-    v107 = v106;
+    v113 = v112;
   }
 
   else
   {
-    v107 = v106 & 2;
+    v113 = v112 & 2;
   }
 
-  if (!v107)
+  if (!v113)
   {
     v13 = &CFDictionaryGetValue_ptr;
-    v92 = v104;
-    v66 = v155;
-    v94 = v151;
-    goto LABEL_142;
+    v96 = v110;
+    v68 = v161;
+    v98 = v157;
+    goto LABEL_154;
   }
 
-  v108 = objc_opt_class();
-  v109 = v108;
-  v110 = SSHashIfNeeded();
-  v111 = [NSNumber numberWithInt:v91];
-  v163 = 138543874;
-  v164 = v108;
-  v165 = 2112;
-  v166 = v110;
-  v167 = 2114;
-  v168 = v111;
-  LODWORD(v149) = 32;
-  v147 = &v163;
-  v101 = _os_log_send_and_compose_impl();
+  v114 = objc_opt_class();
+  v115 = v114;
+  v116 = SSHashIfNeeded();
+  v117 = [NSNumber numberWithInt:v95];
+  v169 = 138543874;
+  v170 = v114;
+  v171 = 2112;
+  v172 = v116;
+  v173 = 2114;
+  v174 = v117;
+  LODWORD(v155) = 32;
+  v107 = _os_log_send_and_compose_impl(v113, 0, 0, 0, &_mh_execute_header, oSLogObject5, 16, "%{public}@: Intermediate cert reset failed for DSID: %@, status: %{public}@", &v169, v155);
 
   v13 = &CFDictionaryGetValue_ptr;
-  v92 = v104;
-  if (v101)
+  v96 = v110;
+  if (v107)
   {
     purpose = purposeCopy;
-    v66 = v155;
-    v94 = v151;
-LABEL_139:
-    oSLogObject5 = [NSString stringWithCString:v101 encoding:4, &v163, v149];
-    free(v101);
-    v147 = oSLogObject5;
+    v68 = v161;
+    v98 = v157;
+LABEL_151:
+    oSLogObject5 = [NSString stringWithCString:v107 encoding:4];
+    free(v107);
+    v153 = oSLogObject5;
     SSFileLog();
-LABEL_142:
+LABEL_154:
 
-    goto LABEL_143;
+    goto LABEL_155;
   }
 
   purpose = purposeCopy;
-  v66 = v155;
-  v94 = v151;
-LABEL_143:
+  v68 = v161;
+  v98 = v157;
+LABEL_155:
 
-  v112 = objc_alloc_init(AMSKeychainOptions);
-  [v112 setStyle:{+[AMSKeychainOptions preferredAttestationStyle](AMSKeychainOptions, "preferredAttestationStyle")}];
+  v118 = objc_alloc_init(AMSKeychainOptions);
+  [v118 setStyle:{+[AMSKeychainOptions preferredAttestationStyle](AMSKeychainOptions, "preferredAttestationStyle")}];
   if (purpose <= 1)
   {
-    [v112 setPurpose:purpose];
+    [v118 setPurpose:purpose];
   }
 
-  style = [v112 style];
+  style = [v118 style];
   sharedDaemonConfig4 = [v13[412] sharedDaemonConfig];
   sharedConfig = sharedDaemonConfig4;
   if (!style)
@@ -4657,50 +4859,54 @@ LABEL_143:
       sharedConfig = [v13[412] sharedConfig];
     }
 
-    shouldLog13 = [sharedConfig shouldLog];
+    shouldLog6 = [sharedConfig shouldLog];
     if ([sharedConfig shouldLogToDisk])
     {
-      v124 = shouldLog13 | 2;
+      LODWORD(v130) = shouldLog6 | 2;
     }
 
     else
     {
-      v124 = shouldLog13;
+      LODWORD(v130) = shouldLog6;
     }
 
     oSLogObject6 = [sharedConfig OSLogObject];
-    if (!os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_DEFAULT))
     {
-      v124 &= 2u;
+      v130 = v130;
     }
 
-    if (v124)
+    else
     {
-      v126 = objc_opt_class();
-      v163 = 138543362;
-      v164 = v126;
-      v127 = v126;
-      LODWORD(v149) = 12;
-      v148 = &v163;
-      v128 = _os_log_send_and_compose_impl();
+      v130 &= 2u;
+    }
 
-      if (!v128)
+    if (v130)
+    {
+      v132 = objc_opt_class();
+      v169 = 138543362;
+      v170 = v132;
+      v133 = v132;
+      LODWORD(v155) = 12;
+      v134 = _os_log_send_and_compose_impl(v130, 0, 0, 0, &_mh_execute_header, oSLogObject6, 0, "%{public}@: Deleting X509 cert AMS tokens", &v169, v155);
+
+      if (!v134)
       {
-LABEL_170:
+LABEL_184:
 
-        v161 = v92;
-        [AMSKeychain deleteCertificateChainWithOptions:v112 error:&v161];
-        v122 = v161;
-        goto LABEL_171;
+        v167 = v96;
+        [AMSKeychain deleteCertificateChainWithOptions:v118 error:&v167];
+        v128 = v167;
+        goto LABEL_185;
       }
 
-      oSLogObject6 = [NSString stringWithCString:v128 encoding:4, &v163, v149];
-      free(v128);
-      v148 = oSLogObject6;
+      oSLogObject6 = [NSString stringWithCString:v134 encoding:4];
+      free(v134);
+      v154 = oSLogObject6;
       SSFileLog();
     }
 
-    goto LABEL_170;
+    goto LABEL_184;
   }
 
   if (style == 1)
@@ -4710,53 +4916,57 @@ LABEL_170:
       sharedConfig = [v13[412] sharedConfig];
     }
 
-    shouldLog14 = [sharedConfig shouldLog];
+    shouldLog7 = [sharedConfig shouldLog];
     if ([sharedConfig shouldLogToDisk])
     {
-      v117 = shouldLog14 | 2;
+      LODWORD(v123) = shouldLog7 | 2;
     }
 
     else
     {
-      v117 = shouldLog14;
+      LODWORD(v123) = shouldLog7;
     }
 
     oSLogObject7 = [sharedConfig OSLogObject];
-    if (!os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEFAULT))
     {
-      v117 &= 2u;
+      v123 = v123;
     }
 
-    if (v117)
+    else
     {
-      v119 = objc_opt_class();
-      v163 = 138543362;
-      v164 = v119;
-      v120 = v119;
-      LODWORD(v149) = 12;
-      v148 = &v163;
-      v121 = _os_log_send_and_compose_impl();
+      v123 &= 2u;
+    }
 
-      if (!v121)
+    if (v123)
+    {
+      v125 = objc_opt_class();
+      v169 = 138543362;
+      v170 = v125;
+      v126 = v125;
+      LODWORD(v155) = 12;
+      v127 = _os_log_send_and_compose_impl(v123, 0, 0, 0, &_mh_execute_header, oSLogObject7, 0, "%{public}@: Deleting legacy AMS tokens", &v169, v155);
+
+      if (!v127)
       {
-LABEL_158:
-
-        v162 = v92;
-        [AMSKeychain deleteKeyPairWithOptions:v112 error:&v162];
-        v122 = v162;
 LABEL_171:
-        sharedConfig = v92;
-        v92 = v122;
-        goto LABEL_183;
+
+        v168 = v96;
+        [AMSKeychain deleteKeyPairWithOptions:v118 error:&v168];
+        v128 = v168;
+LABEL_185:
+        sharedConfig = v96;
+        v96 = v128;
+        goto LABEL_198;
       }
 
-      oSLogObject7 = [NSString stringWithCString:v121 encoding:4, &v163, v149];
-      free(v121);
-      v148 = oSLogObject7;
+      oSLogObject7 = [NSString stringWithCString:v127 encoding:4];
+      free(v127);
+      v154 = oSLogObject7;
       SSFileLog();
     }
 
-    goto LABEL_158;
+    goto LABEL_171;
   }
 
   if (!sharedDaemonConfig4)
@@ -4764,48 +4974,52 @@ LABEL_171:
     sharedConfig = [v13[412] sharedConfig];
   }
 
-  shouldLog15 = [sharedConfig shouldLog];
+  shouldLog8 = [sharedConfig shouldLog];
   if ([sharedConfig shouldLogToDisk])
   {
-    v130 = shouldLog15 | 2;
+    LODWORD(v136) = shouldLog8 | 2;
   }
 
   else
   {
-    v130 = shouldLog15;
+    LODWORD(v136) = shouldLog8;
   }
 
   oSLogObject8 = [sharedConfig OSLogObject];
-  if (!os_log_type_enabled(oSLogObject8, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject8, OS_LOG_TYPE_DEFAULT))
   {
-    v130 &= 2u;
+    v136 = v136;
   }
 
-  if (v130)
+  else
   {
-    v132 = objc_opt_class();
-    v163 = 138543362;
-    v164 = v132;
-    v133 = v132;
-    LODWORD(v149) = 12;
-    v148 = &v163;
-    v134 = _os_log_send_and_compose_impl();
+    v136 &= 2u;
+  }
 
-    if (!v134)
+  if (v136)
+  {
+    v138 = objc_opt_class();
+    v169 = 138543362;
+    v170 = v138;
+    v139 = v138;
+    LODWORD(v155) = 12;
+    v140 = _os_log_send_and_compose_impl(v136, 0, 0, 0, &_mh_execute_header, oSLogObject8, 0, "%{public}@: Skipping AMS token deletion", &v169, v155);
+
+    if (!v140)
     {
-      goto LABEL_183;
+      goto LABEL_198;
     }
 
-    oSLogObject8 = [NSString stringWithCString:v134 encoding:4, &v163, v149];
-    free(v134);
-    v148 = oSLogObject8;
+    oSLogObject8 = [NSString stringWithCString:v140 encoding:4];
+    free(v140);
+    v154 = oSLogObject8;
     SSFileLog();
   }
 
-LABEL_183:
-  if (!v92)
+LABEL_198:
+  if (!v96)
   {
-    goto LABEL_196;
+    goto LABEL_212;
   }
 
   sharedDaemonConfig5 = [v13[412] sharedDaemonConfig];
@@ -4814,53 +5028,58 @@ LABEL_183:
     sharedDaemonConfig5 = [v13[412] sharedConfig];
   }
 
-  shouldLog16 = [sharedDaemonConfig5 shouldLog];
+  shouldLog9 = [sharedDaemonConfig5 shouldLog];
   if ([sharedDaemonConfig5 shouldLogToDisk])
   {
-    v137 = shouldLog16 | 2;
+    LODWORD(v143) = shouldLog9 | 2;
   }
 
   else
   {
-    v137 = shouldLog16;
+    LODWORD(v143) = shouldLog9;
   }
 
   oSLogObject9 = [sharedDaemonConfig5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject9, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject9, OS_LOG_TYPE_ERROR))
   {
-    v137 &= 2u;
+    v143 = v143;
   }
 
-  if (!v137)
+  else
   {
-    goto LABEL_194;
+    v143 &= 2u;
   }
 
-  v139 = objc_opt_class();
-  v163 = 138543618;
-  v164 = v139;
-  v165 = 2114;
-  v166 = v92;
-  v140 = v139;
-  LODWORD(v149) = 22;
-  v141 = _os_log_send_and_compose_impl();
-
-  if (v141)
+  if (!v143)
   {
-    oSLogObject9 = [NSString stringWithCString:v141 encoding:4, &v163, v149];
-    free(v141);
+    goto LABEL_210;
+  }
+
+  v145 = objc_opt_class();
+  v169 = 138543618;
+  v170 = v145;
+  v171 = 2114;
+  v172 = v96;
+  v146 = v145;
+  LODWORD(v155) = 22;
+  v147 = _os_log_send_and_compose_impl(v143, 0, 0, 0, &_mh_execute_header, oSLogObject9, 16, "%{public}@: Delete AMS sync tokens failed with error: %{public}@", &v169, v155);
+
+  if (v147)
+  {
+    oSLogObject9 = [NSString stringWithCString:v147 encoding:4];
+    free(v147);
     SSFileLog();
-LABEL_194:
+LABEL_210:
   }
 
-LABEL_196:
+LABEL_212:
   if (errorCopy)
   {
-    v142 = v92;
-    *errorCopy = v92;
+    v148 = v96;
+    *errorCopy = v96;
   }
 
-  return v92 == 0;
+  return v96 == 0;
 }
 
 - (BOOL)_generateKeychainTokensForAccountIdentifier:(id)identifier purpose:(int64_t)purpose error:(id *)error
@@ -4883,16 +5102,21 @@ LABEL_196:
     shouldLog = [v11 shouldLog];
     if ([v11 shouldLogToDisk])
     {
-      v14 = shouldLog | 2;
+      LODWORD(v14) = shouldLog | 2;
     }
 
     else
     {
-      v14 = shouldLog;
+      LODWORD(v14) = shouldLog;
     }
 
     oSLogObject = [v11 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = v14;
+    }
+
+    else
     {
       v14 &= 2u;
     }
@@ -4910,21 +5134,20 @@ LABEL_196:
       v92 = v19;
       v93 = 2114;
       errorCopy4 = localizedDescription;
-      LODWORD(v75) = 32;
-      v21 = _os_log_send_and_compose_impl();
+      v21 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Keypair generation failed with no reset for DSID: %@, error: %{public}@", &v89, 32);
 
       if (!v21)
       {
-LABEL_31:
+LABEL_33:
 
         v33 = 0;
         identifierCopy = v18;
         identifierCopy = v12;
         error = errorCopy;
-        goto LABEL_94;
+        goto LABEL_98;
       }
 
-      oSLogObject = [NSString stringWithCString:v21 encoding:4, &v89, v75];
+      oSLogObject = [NSString stringWithCString:v21 encoding:4];
       free(v21);
       SSFileLog();
     }
@@ -4934,7 +5157,7 @@ LABEL_31:
       v18 = identifierCopy;
     }
 
-    goto LABEL_31;
+    goto LABEL_33;
   }
 
   publicKey = 0;
@@ -4964,7 +5187,7 @@ LABEL_31:
     {
       if (purpose)
       {
-        goto LABEL_48;
+        goto LABEL_50;
       }
 
       _constraintsForExtendedActions = [(DaemonBiometricKeychain *)self _constraintsForPurchase];
@@ -5007,7 +5230,7 @@ LABEL_31:
       if (!v41)
       {
         error = errorCopy2;
-        goto LABEL_60;
+        goto LABEL_62;
       }
 
       v42 = objc_opt_class();
@@ -5020,34 +5243,32 @@ LABEL_31:
       v92 = v43;
       v93 = 2114;
       errorCopy4 = v44;
-      LODWORD(v75) = 32;
-      v74 = &v89;
-      v45 = _os_log_send_and_compose_impl();
+      v45 = _os_log_send_and_compose_impl(v41, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Configured biometric keypair ACL constraints for DSID: %@, purpose: %{public}@", &v89, 32);
 
       if (v45)
       {
-        oSLogObject2 = [NSString stringWithCString:v45 encoding:4, &v89, v75];
+        oSLogObject2 = [NSString stringWithCString:v45 encoding:4];
         free(v45);
         v74 = oSLogObject2;
         SSFileLog();
         v23 = v83;
         error = errorCopy;
-LABEL_60:
-
-        goto LABEL_61;
-      }
-
-LABEL_58:
-      v23 = v83;
-      error = errorCopy;
-LABEL_61:
-      identifierCopy = v81;
 LABEL_62:
 
-      goto LABEL_63;
+        goto LABEL_63;
+      }
+
+LABEL_60:
+      v23 = v83;
+      error = errorCopy;
+LABEL_63:
+      identifierCopy = v81;
+LABEL_64:
+
+      goto LABEL_65;
     }
 
-LABEL_48:
+LABEL_50:
     v35 = +[SSLogConfig sharedDaemonConfig];
     if (!v35)
     {
@@ -5073,7 +5294,7 @@ LABEL_48:
 
     if (!v47)
     {
-      goto LABEL_62;
+      goto LABEL_64;
     }
 
     v48 = objc_opt_class();
@@ -5087,16 +5308,14 @@ LABEL_48:
     v92 = v50;
     v93 = 2114;
     errorCopy4 = v51;
-    LODWORD(v75) = 32;
-    v74 = &v89;
-    v52 = _os_log_send_and_compose_impl();
+    v52 = _os_log_send_and_compose_impl(v47, 0, 0, 0, &_mh_execute_header, oSLogObject3, 16, "%{public}@: Failed to configure biometric keypair ACL constraints for DSID: %@, purpose: %{public}@", &v89, 32);
 
     if (!v52)
     {
       v23 = v83;
       error = errorCopy;
       identifierCopy = v81;
-LABEL_63:
+LABEL_65:
 
       v53 = [ISBiometricStore keychainLabelForAccountID:identifierCopy purpose:purpose];
       v54 = objc_alloc_init(NSMutableDictionary);
@@ -5126,23 +5345,28 @@ LABEL_63:
           v60 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog4 = [v60 shouldLog];
+        LODWORD(v61) = [v60 shouldLog];
         if ([v60 shouldLogToDisk])
         {
-          shouldLog4 |= 2u;
+          LODWORD(v61) = v61 | 2;
         }
 
         oSLogObject4 = [v60 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
         {
-          shouldLog4 &= 2u;
+          v61 = v61;
         }
 
-        if (!shouldLog4)
+        else
+        {
+          v61 &= 2u;
+        }
+
+        if (!v61)
         {
           v23 = v83;
           error = errorCopy;
-          goto LABEL_86;
+          goto LABEL_90;
         }
 
         v77 = identifierCopy;
@@ -5158,7 +5382,7 @@ LABEL_63:
         v93 = 2114;
         errorCopy4 = v66;
         LODWORD(v75) = 32;
-        v67 = _os_log_send_and_compose_impl();
+        v67 = _os_log_send_and_compose_impl(v61, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%{public}@: Keypair generation failed for DSID: %@, status: %{public}@", &v89, v75);
 
         if (!v67)
         {
@@ -5166,16 +5390,16 @@ LABEL_63:
           error = errorCopy;
           identifierCopy = v64;
           identifierCopy = v77;
-LABEL_87:
+LABEL_91:
 
-LABEL_88:
+LABEL_92:
           CFRelease(v23);
           if (privateKey)
           {
             CFRelease(privateKey);
           }
 
-          goto LABEL_90;
+          goto LABEL_94;
         }
 
         v23 = v83;
@@ -5192,22 +5416,27 @@ LABEL_88:
           v60 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog5 = [v60 shouldLog];
+        LODWORD(v68) = [v60 shouldLog];
         if ([v60 shouldLogToDisk])
         {
-          shouldLog5 |= 2u;
+          LODWORD(v68) = v68 | 2;
         }
 
         oSLogObject4 = [v60 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEBUG))
         {
-          shouldLog5 &= 2u;
+          v68 = v68;
         }
 
-        if (!shouldLog5)
+        else
+        {
+          v68 &= 2u;
+        }
+
+        if (!v68)
         {
           errorCopy3 = 0;
-          goto LABEL_86;
+          goto LABEL_90;
         }
 
         v69 = objc_opt_class();
@@ -5218,31 +5447,31 @@ LABEL_88:
         v91 = 2112;
         v92 = v71;
         LODWORD(v75) = 22;
-        v67 = _os_log_send_and_compose_impl();
+        v67 = _os_log_send_and_compose_impl(v68, 0, 0, 0, &_mh_execute_header, oSLogObject4, 2, "%{public}@: Keypair generated for DSID: %@", &v89, v75);
 
         errorCopy3 = 0;
         if (!v67)
         {
           error = errorCopy;
-          goto LABEL_87;
+          goto LABEL_91;
         }
 
         error = errorCopy;
       }
 
-      oSLogObject4 = [NSString stringWithCString:v67 encoding:4, &v89, v75];
+      oSLogObject4 = [NSString stringWithCString:v67 encoding:4];
       free(v67);
       SSFileLog();
-LABEL_86:
+LABEL_90:
 
-      goto LABEL_87;
+      goto LABEL_91;
     }
 
-    oSLogObject3 = [NSString stringWithCString:v52 encoding:4, &v89, v75];
+    oSLogObject3 = [NSString stringWithCString:v52 encoding:4];
     free(v52);
     v74 = oSLogObject3;
     SSFileLog();
-    goto LABEL_58;
+    goto LABEL_60;
   }
 
   errorCopy3 = error;
@@ -5252,19 +5481,24 @@ LABEL_86:
     v25 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog6 = [v25 shouldLog];
+  shouldLog4 = [v25 shouldLog];
   if ([v25 shouldLogToDisk])
   {
-    v27 = shouldLog6 | 2;
+    LODWORD(v27) = shouldLog4 | 2;
   }
 
   else
   {
-    v27 = shouldLog6;
+    LODWORD(v27) = shouldLog4;
   }
 
   oSLogObject5 = [v25 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
+  {
+    v27 = v27;
+  }
+
+  else
   {
     v27 &= 2u;
   }
@@ -5280,28 +5514,27 @@ LABEL_86:
     v92 = v31;
     v93 = 2114;
     errorCopy4 = error;
-    LODWORD(v75) = 32;
-    v32 = _os_log_send_and_compose_impl();
+    v32 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "%{public}@: Access control creation failed for DSID: %@, error: %{public}@", &v89, 32);
 
     if (!v32)
     {
-      goto LABEL_27;
+      goto LABEL_29;
     }
 
-    oSLogObject5 = [NSString stringWithCString:v32 encoding:4, &v89, v75];
+    oSLogObject5 = [NSString stringWithCString:v32 encoding:4];
     free(v32);
     SSFileLog();
   }
 
-LABEL_27:
+LABEL_29:
   v33 = 0;
   error = errorCopy;
   if (v23)
   {
-    goto LABEL_88;
+    goto LABEL_92;
   }
 
-LABEL_90:
+LABEL_94:
   if (publicKey)
   {
     CFRelease(publicKey);
@@ -5312,7 +5545,7 @@ LABEL_90:
     CFRelease(error);
   }
 
-LABEL_94:
+LABEL_98:
   if (error)
   {
     v72 = errorCopy3;
@@ -5329,36 +5562,36 @@ LABEL_94:
   biometricContextCopy = biometricContext;
   dContextCopy = dContext;
   optionsCopy = options;
-  v78 = 0;
-  v79 = &v78;
-  v80 = 0x3032000000;
-  v81 = sub_1001542B0;
-  v82 = sub_1001542C0;
-  v83 = 0;
-  v72 = 0;
-  v73 = &v72;
-  v74 = 0x3032000000;
-  v75 = sub_1001542B0;
-  v76 = sub_1001542C0;
   v77 = 0;
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x3032000000;
-  v69 = sub_1001542B0;
-  v70 = sub_1001542C0;
+  v78 = &v77;
+  v79 = 0x3032000000;
+  v80 = sub_1001542B0;
+  v81 = sub_1001542C0;
+  v82 = 0;
   v71 = 0;
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x3032000000;
-  v63 = sub_1001542B0;
-  v64 = sub_1001542C0;
+  v72 = &v71;
+  v73 = 0x3032000000;
+  v74 = sub_1001542B0;
+  v75 = sub_1001542C0;
+  v76 = 0;
   v65 = 0;
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x3032000000;
-  v57 = sub_1001542B0;
-  v58 = sub_1001542C0;
+  v66 = &v65;
+  v67 = 0x3032000000;
+  v68 = sub_1001542B0;
+  v69 = sub_1001542C0;
+  v70 = 0;
   v59 = 0;
+  v60 = &v59;
+  v61 = 0x3032000000;
+  v62 = sub_1001542B0;
+  v63 = sub_1001542C0;
+  v64 = 0;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x3032000000;
+  v56 = sub_1001542B0;
+  v57 = sub_1001542C0;
+  v58 = 0;
   v19 = [NSString stringWithFormat:@"%@", objc_opt_class()];
   v20 = [DisplayPaymentSheetOperation alloc];
   paymentSheet = [biometricContextCopy paymentSheet];
@@ -5382,18 +5615,18 @@ LABEL_94:
   userAgent = [biometricContextCopy userAgent];
   [(DisplayPaymentSheetOperation *)v22 setUserAgent:userAgent];
 
-  v47[0] = _NSConcreteStackBlock;
-  v47[1] = 3221225472;
-  v47[2] = sub_100161A7C;
-  v47[3] = &unk_10032A098;
+  v46[0] = _NSConcreteStackBlock;
+  v46[1] = 3221225472;
+  v46[2] = sub_100161A7C;
+  v46[3] = &unk_10032A098;
   v27 = v19;
-  v48 = v27;
-  v49 = &v72;
-  v50 = &v78;
-  v51 = &v66;
-  v52 = &v60;
-  v53 = &v54;
-  [(DisplayPaymentSheetOperation *)v22 setCompletionHandlerForAutoEnrollment:v47];
+  v47 = v27;
+  v48 = &v71;
+  v49 = &v77;
+  v50 = &v65;
+  v51 = &v59;
+  v52 = &v53;
+  [(DisplayPaymentSheetOperation *)v22 setCompletionHandlerForAutoEnrollment:v46];
   v28 = [[DisplayPaymentSheetContainerOperation alloc] initWithDisplayPaymentSheetOperation:v22];
   v29 = +[SSLogConfig sharedDaemonConfig];
   if (!v29)
@@ -5401,42 +5634,46 @@ LABEL_94:
     v29 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog = [v29 shouldLog];
+  LODWORD(v30) = [v29 shouldLog];
   shouldLogToDisk = [v29 shouldLogToDisk];
   oSLogObject = [v29 OSLogObject];
   v33 = oSLogObject;
   if (shouldLogToDisk)
   {
-    shouldLog |= 2u;
+    LODWORD(v30) = v30 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    shouldLog &= 2u;
+    v30 = v30;
   }
 
-  if (!shouldLog)
+  else
   {
-    goto LABEL_10;
+    v30 &= 2u;
+  }
+
+  if (!v30)
+  {
+    goto LABEL_11;
   }
 
   v34 = objc_opt_class();
-  v84 = 138543362;
-  v85 = v34;
+  v83 = 138543362;
+  v84 = v34;
   v35 = v34;
-  LODWORD(v43) = 12;
-  v36 = _os_log_send_and_compose_impl();
+  v36 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, v33, 0, "%{public}@: Presenting payment sheet", &v83, 12);
 
   if (v36)
   {
-    v33 = [NSString stringWithCString:v36 encoding:4, &v84, v43];
+    v33 = [NSString stringWithCString:v36 encoding:4];
     free(v36);
     SSFileLog();
-LABEL_10:
+LABEL_11:
   }
 
   [(DisplayPaymentSheetContainerOperation *)v28 start];
-  if (!v73[5])
+  if (!v72[5])
   {
     error = [(DisplayPaymentSheetContainerOperation *)v28 error];
     v38 = error == 0;
@@ -5444,40 +5681,40 @@ LABEL_10:
     if (!v38)
     {
       error2 = [(DisplayPaymentSheetContainerOperation *)v28 error];
-      v40 = v73[5];
-      v73[5] = error2;
+      v40 = v72[5];
+      v72[5] = error2;
     }
   }
 
   if (token)
   {
-    *token = v67[5];
+    *token = v66[5];
   }
 
   if (data)
   {
-    *data = v61[5];
+    *data = v60[5];
   }
 
   if (d)
   {
-    *d = v55[5];
+    *d = v54[5];
   }
 
   if (error)
   {
-    *error = v73[5];
+    *error = v72[5];
   }
 
-  v41 = v79[5];
+  v41 = v78[5];
 
-  _Block_object_dispose(&v54, 8);
-  _Block_object_dispose(&v60, 8);
+  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v59, 8);
 
-  _Block_object_dispose(&v66, 8);
-  _Block_object_dispose(&v72, 8);
+  _Block_object_dispose(&v65, 8);
+  _Block_object_dispose(&v71, 8);
 
-  _Block_object_dispose(&v78, 8);
+  _Block_object_dispose(&v77, 8);
 
   return v41;
 }
@@ -5555,8 +5792,7 @@ LABEL_32:
       v75 = v49;
       v76 = 2112;
       v77 = v51;
-      LODWORD(v63) = 22;
-      v52 = _os_log_send_and_compose_impl();
+      v52 = _os_log_send_and_compose_impl(v48, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Public key not found, copy failed for DSID: %@. Generating new key-pair.", &v74, 22);
 
       error = errorCopy;
       if (!v52)
@@ -5572,7 +5808,7 @@ LABEL_50:
         goto LABEL_51;
       }
 
-      oSLogObject = [NSString stringWithCString:v52 encoding:4, &v74, v63];
+      oSLogObject = [NSString stringWithCString:v52 encoding:4];
       free(v52);
       SSFileLog();
     }
@@ -5622,8 +5858,7 @@ LABEL_50:
       v75 = v58;
       v76 = 2112;
       v77 = v60;
-      LODWORD(v63) = 22;
-      v61 = _os_log_send_and_compose_impl();
+      v61 = _os_log_send_and_compose_impl(v57, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Public key not found, copy failed for DSID: %@. Generating new keypair.", &v74, 22);
 
       error = v59;
       if (!v61)
@@ -5636,7 +5871,7 @@ LABEL_65:
         goto LABEL_50;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v61 encoding:4, &v74, v63];
+      oSLogObject2 = [NSString stringWithCString:v61 encoding:4];
       free(v61);
       SSFileLog();
     }
@@ -5684,16 +5919,14 @@ LABEL_65:
     v77 = v27;
     v78 = 2114;
     v79 = v28;
-    LODWORD(v63) = 32;
-    v62 = &v74;
-    v29 = _os_log_send_and_compose_impl();
+    v29 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%{public}@: Public key not found, creating new X509 cert chain for DSID: %@, purpose: %{public}@", &v74, 32);
 
     if (!v29)
     {
       goto LABEL_19;
     }
 
-    oSLogObject3 = [NSString stringWithCString:v29 encoding:4, &v74, v63];
+    oSLogObject3 = [NSString stringWithCString:v29 encoding:4];
     free(v29);
     v62 = oSLogObject3;
     SSFileLog();
@@ -5760,12 +5993,12 @@ LABEL_19:
   v80 = 2114;
   v81 = v31;
   LODWORD(v63) = 42;
-  v41 = _os_log_send_and_compose_impl();
+  v41 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &_mh_execute_header, oSLogObject4, 16, "%{public}@: Failed to create X509 cert chain for DSID: %@, purpose: %{public}@, error: %{public}@", &v74, v63);
 
   error = errorCopy2;
   if (v41)
   {
-    oSLogObject4 = [NSString stringWithCString:v41 encoding:4, &v74, v63];
+    oSLogObject4 = [NSString stringWithCString:v41 encoding:4];
     free(v41);
     SSFileLog();
 LABEL_68:
@@ -5803,42 +6036,46 @@ LABEL_34:
     shouldLog = [v11 shouldLog];
     if ([v11 shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      LODWORD(v13) = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      LODWORD(v13) = shouldLog;
     }
 
     oSLogObject = [v11 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
 
     if (v13)
     {
-      LODWORD(v19) = 138543362;
-      *(&v19 + 4) = objc_opt_class();
-      v15 = *(&v19 + 4);
-      LODWORD(v18) = 12;
-      v16 = _os_log_send_and_compose_impl();
+      v18 = 138543362;
+      v19 = objc_opt_class();
+      v15 = v19;
+      v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Query dictionary failed with no label", &v18, 12);
 
       if (!v16)
       {
-LABEL_18:
+LABEL_19:
 
         v10 = 0;
-        goto LABEL_19;
+        goto LABEL_20;
       }
 
-      oSLogObject = [NSString stringWithCString:v16 encoding:4, &v19, v18, v19];
+      oSLogObject = [NSString stringWithCString:v16 encoding:4];
       free(v16);
       SSFileLog();
     }
 
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   v9 = objc_alloc_init(NSMutableDictionary);
@@ -5858,7 +6095,7 @@ LABEL_18:
 
   v10 = [NSDictionary dictionaryWithDictionary:v9];
 
-LABEL_19:
+LABEL_20:
 
   return v10;
 }
@@ -5866,18 +6103,18 @@ LABEL_19:
 - (id)_regenerateKeychainTokensForAccountIdentifier:(id)identifier purpose:(int64_t)purpose error:(id *)error
 {
   identifierCopy = identifier;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = sub_1001542B0;
-  v44 = sub_1001542C0;
-  v45 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = sub_1001542B0;
-  v38 = sub_1001542C0;
   v39 = 0;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = sub_1001542B0;
+  v43 = sub_1001542C0;
+  v44 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = sub_1001542B0;
+  v37 = sub_1001542C0;
+  v38 = 0;
   identifierCopy = [NSString stringWithFormat:@"%@", identifierCopy];
   v10 = dispatch_semaphore_create(0);
   dispatchQueue = self->_dispatchQueue;
@@ -5885,20 +6122,20 @@ LABEL_19:
   block[1] = 3221225472;
   block[2] = sub_1001630D8;
   block[3] = &unk_10032A0C0;
-  v31 = &v40;
+  v30 = &v39;
   block[4] = self;
   v12 = identifierCopy;
-  v32 = &v34;
+  v31 = &v33;
   purposeCopy = purpose;
-  v28 = v12;
+  v27 = v12;
   v13 = identifierCopy;
-  v29 = v13;
+  v28 = v13;
   v14 = v10;
-  v30 = v14;
+  v29 = v14;
   dispatch_async(dispatchQueue, block);
   v15 = dispatch_time(0, 5000000000);
   dispatch_semaphore_wait(v14, v15);
-  if (!v41[5] && !v35[5])
+  if (!v40[5] && !v34[5])
   {
     v16 = +[SSLogConfig sharedDaemonConfig];
     if (!v16)
@@ -5906,56 +6143,60 @@ LABEL_19:
       v16 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v16 shouldLog];
+    LODWORD(v17) = [v16 shouldLog];
     shouldLogToDisk = [v16 shouldLogToDisk];
     oSLogObject = [v16 OSLogObject];
     v20 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v17) = v17 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog &= 2u;
+      v17 = v17;
     }
 
-    if (shouldLog)
+    else
+    {
+      v17 &= 2u;
+    }
+
+    if (v17)
     {
       v21 = objc_opt_class();
       v22 = SSHashIfNeeded();
-      v46 = 138543618;
-      v47 = v21;
-      v48 = 2112;
-      v49 = v22;
-      LODWORD(v26) = 22;
-      v23 = _os_log_send_and_compose_impl();
+      v45 = 138543618;
+      v46 = v21;
+      v47 = 2112;
+      v48 = v22;
+      v23 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, v20, 0, "%{public}@: Regenerate keychain tokens timed out for DSID: %@", &v45, 22);
 
       if (!v23)
       {
-LABEL_13:
+LABEL_14:
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      v20 = [NSString stringWithCString:v23 encoding:4, &v46, v26];
+      v20 = [NSString stringWithCString:v23 encoding:4];
       free(v23);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
   if (error)
   {
-    *error = v35[5];
+    *error = v34[5];
   }
 
-  v24 = v41[5];
+  v24 = v40[5];
 
-  _Block_object_dispose(&v34, 8);
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v39, 8);
 
   return v24;
 }
@@ -5968,10 +6209,10 @@ LABEL_14:
   reason = [consolidatedDialog reason];
 
   accountIdentifier = [contextCopy accountIdentifier];
-  v71 = [NSString stringWithFormat:@"%@", accountIdentifier];
-  v84 = 0;
-  v10 = [(DaemonBiometricKeychain *)self copyAccessControlListForPrivateKeyWithBiometricAuthenticationContext:contextCopy error:&v84];
-  v11 = v84;
+  v70 = [NSString stringWithFormat:@"%@", accountIdentifier];
+  v83 = 0;
+  v10 = [(DaemonBiometricKeychain *)self copyAccessControlListForPrivateKeyWithBiometricAuthenticationContext:contextCopy error:&v83];
+  v11 = v83;
   v12 = v11;
   cf = v10;
   if (v10 && !v11)
@@ -5991,7 +6232,7 @@ LABEL_14:
       [v14 setObject:reason forKey:&off_10034BFE8];
     }
 
-    v67 = v14;
+    v66 = v14;
     v17 = objc_alloc_init(ISWeakLinkedClassForString());
     v18 = +[SSAccountStore defaultStore];
     v19 = [v18 accountWithUniqueIdentifier:accountIdentifier];
@@ -6010,8 +6251,8 @@ LABEL_14:
     paymentSheet = [contextCopy paymentSheet];
     v37 = [paymentSheet authKitAuthenticationContextForAccount:activeAccount];
 
-    v68 = activeAccount;
-    v66 = v17;
+    v67 = activeAccount;
+    v65 = v17;
     if ([contextCopy isPayment])
     {
       v38 = +[SSLogConfig sharedDaemonConfig];
@@ -6045,28 +6286,27 @@ LABEL_14:
       if (v42)
       {
         v43 = objc_opt_class();
-        v85 = 138412290;
-        v86 = v43;
+        v84 = 138412290;
+        v85 = v43;
         v44 = v43;
-        LODWORD(v65) = 12;
-        v45 = _os_log_send_and_compose_impl();
+        v45 = _os_log_send_and_compose_impl(v42, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Preparing to present payment sheet", &v84, 12);
 
         if (!v45)
         {
 LABEL_36:
 
-          v82 = 0;
-          v83 = 0;
-          v80 = 0;
           v81 = 0;
-          v46 = &v80;
+          v82 = 0;
+          v79 = 0;
+          v80 = 0;
+          v46 = &v79;
           v47 = v17;
-          v48 = v67;
+          v48 = v66;
           v49 = cf;
-          v34 = [(DaemonBiometricKeychain *)self _presentPaymentSheetForChallenge:dataCopy authContext:v37 biometricContext:contextCopy touchIDContext:v47 touchIDOptions:v67 accessControlRef:cf passwordToken:&v83 paymentTokenData:&v82 fpanID:&v81 error:&v80];
-          v33 = v83;
-          v32 = v82;
-          v50 = v81;
+          v34 = [(DaemonBiometricKeychain *)self _presentPaymentSheetForChallenge:dataCopy authContext:v37 biometricContext:contextCopy touchIDContext:v47 touchIDOptions:v66 accessControlRef:cf passwordToken:&v82 paymentTokenData:&v81 fpanID:&v80 error:&v79];
+          v33 = v82;
+          v32 = v81;
+          v50 = v80;
 LABEL_53:
           v31 = v50;
 LABEL_55:
@@ -6092,7 +6332,7 @@ LABEL_55:
           goto LABEL_61;
         }
 
-        oSLogObject = [NSString stringWithCString:v45 encoding:4, &v85, v65];
+        oSLogObject = [NSString stringWithCString:v45 encoding:4];
         free(v45);
         SSFileLog();
       }
@@ -6102,10 +6342,10 @@ LABEL_55:
 
     if (!SSDebugShouldUseFileBasedPaymentSheetProxy())
     {
-      v75 = 0;
-      v46 = &v75;
-      v48 = v67;
-      v34 = [(DaemonBiometricKeychain *)self signDataWithKeychain:dataCopy accountIdentifier:accountIdentifier purpose:isExtendedAction localAuthContext:v17 localAuthOptions:v67 error:&v75];
+      v74 = 0;
+      v46 = &v74;
+      v48 = v66;
+      v34 = [(DaemonBiometricKeychain *)self signDataWithKeychain:dataCopy accountIdentifier:accountIdentifier purpose:isExtendedAction localAuthContext:v17 localAuthOptions:v66 error:&v74];
       v33 = 0;
       v32 = 0;
       v31 = 0;
@@ -6144,11 +6384,10 @@ LABEL_55:
     if (v55)
     {
       v56 = objc_opt_class();
-      v85 = 138412290;
-      v86 = v56;
+      v84 = 138412290;
+      v85 = v56;
       v57 = v56;
-      LODWORD(v65) = 12;
-      v58 = _os_log_send_and_compose_impl();
+      v58 = _os_log_send_and_compose_impl(v55, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Preparing to present payment sheet with disk-based payment sheet", &v84, 12);
 
       if (!v58)
       {
@@ -6162,22 +6401,22 @@ LABEL_50:
           [contextCopy setPaymentSheet:v60];
         }
 
-        v78 = 0;
-        v79 = 0;
-        v76 = 0;
         v77 = 0;
-        v46 = &v76;
+        v78 = 0;
+        v75 = 0;
+        v76 = 0;
+        v46 = &v75;
         v61 = v17;
-        v48 = v67;
+        v48 = v66;
         v49 = cf;
-        v34 = [(DaemonBiometricKeychain *)self _presentPaymentSheetForChallenge:dataCopy authContext:v37 biometricContext:contextCopy touchIDContext:v61 touchIDOptions:v67 accessControlRef:cf passwordToken:&v79 paymentTokenData:&v78 fpanID:&v77 error:&v76];
-        v33 = v79;
-        v32 = v78;
-        v50 = v77;
+        v34 = [(DaemonBiometricKeychain *)self _presentPaymentSheetForChallenge:dataCopy authContext:v37 biometricContext:contextCopy touchIDContext:v61 touchIDOptions:v66 accessControlRef:cf passwordToken:&v78 paymentTokenData:&v77 fpanID:&v76 error:&v75];
+        v33 = v78;
+        v32 = v77;
+        v50 = v76;
         goto LABEL_53;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v58 encoding:4, &v85, v65];
+      oSLogObject2 = [NSString stringWithCString:v58 encoding:4];
       free(v58);
       SSFileLog();
     }
@@ -6221,18 +6460,17 @@ LABEL_50:
   v27 = objc_opt_class();
   v28 = v27;
   v29 = SSHashIfNeeded();
-  v85 = 138543874;
-  v86 = v27;
-  v87 = 2112;
-  v88 = v29;
-  v89 = 2114;
-  v90 = v12;
-  LODWORD(v65) = 32;
-  v30 = _os_log_send_and_compose_impl();
+  v84 = 138543874;
+  v85 = v27;
+  v86 = 2112;
+  v87 = v29;
+  v88 = 2114;
+  v89 = v12;
+  v30 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%{public}@: Access control creation failed for DSID: %@, error: %{public}@", &v84, 32);
 
   if (v30)
   {
-    oSLogObject3 = [NSString stringWithCString:v30 encoding:4, &v85, v65];
+    oSLogObject3 = [NSString stringWithCString:v30 encoding:4];
     free(v30);
     SSFileLog();
 LABEL_18:

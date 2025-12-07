@@ -30,15 +30,15 @@
 
 - (void)dealloc
 {
-  v3 = [(KCSRPContext *)self context][8];
-  v4 = ccdh_ccn_size();
-  v5 = **[(KCSRPContext *)self context]+ v4;
+  [(KCSRPContext *)self context];
+  ccdh_ccn_size();
+  [(KCSRPContext *)self context];
   [(KCSRPContext *)self context];
   cc_clear();
   free([(KCSRPContext *)self context]);
-  v6.receiver = self;
-  v6.super_class = KCSRPContext;
-  [(KCSRPContext *)&v6 dealloc];
+  v3.receiver = self;
+  v3.super_class = KCSRPContext;
+  [(KCSRPContext *)&v3 dealloc];
 }
 
 - (KCSRPContext)initWithUser:(id)user digestInfo:(const ccdigest_info *)info group:(ccdh_gp *)group randomSource:(ccrng_state *)source

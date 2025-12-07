@@ -50,7 +50,7 @@ LABEL_8:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    __75__STXPCRemoteObjectProxy__proxyFromConnection_withRetryCount_proxyHandler___block_invoke_cold_1(a1, v4, (a1 + 48));
+    __75__STXPCRemoteObjectProxy__proxyFromConnection_withRetryCount_proxyHandler___block_invoke_cold_1(a1);
   }
 
   [*(a1 + 56) _proxyFromConnection:*(a1 + 32) withRetryCount:*(a1 + 48) - 1 proxyHandler:*(a1 + 40)];
@@ -102,22 +102,19 @@ LABEL_8:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    __75__STXPCRemoteObjectProxy__proxyFromConnection_withRetryCount_proxyHandler___block_invoke_cold_1(a1, v4, (a1 + 48));
+    __75__STXPCRemoteObjectProxy__proxyFromConnection_withRetryCount_proxyHandler___block_invoke_cold_1(a1);
   }
 
   [*(a1 + 56) _synchronousProxyFromConnection:*(a1 + 32) withRetryCount:*(a1 + 48) - 1 proxyHandler:*(a1 + 40)];
 LABEL_9:
 }
 
-void __75__STXPCRemoteObjectProxy__proxyFromConnection_withRetryCount_proxyHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t *a3)
+void __75__STXPCRemoteObjectProxy__proxyFromConnection_withRetryCount_proxyHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = [*(a1 + 32) serviceName];
-  v5 = *a3;
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = [*(a1 + 32) serviceName];
   OUTLINED_FUNCTION_0_11();
-  _os_log_error_impl(&dword_1B831F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Connection error from %{public}@: %{public}@\nAttempts remaining: %lu", v7, 0x20u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B831F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Connection error from %{public}@: %{public}@\nAttempts remaining: %lu", v2, 0x20u);
 }
 
 @end

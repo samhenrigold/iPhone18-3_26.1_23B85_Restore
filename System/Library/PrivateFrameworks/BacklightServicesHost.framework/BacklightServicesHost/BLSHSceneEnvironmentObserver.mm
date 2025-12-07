@@ -63,10 +63,9 @@
 
 - (void)sceneDidInvalidate:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(&dword_21FD11000, v0, OS_LOG_TYPE_DEBUG, "OSIP:%p sceneDidInvalidate:%{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_21FD11000, v0, OS_LOG_TYPE_DEBUG, "OSIP:%p sceneDidInvalidate:%{public}@", v1, 0x16u);
 }
 
 @end

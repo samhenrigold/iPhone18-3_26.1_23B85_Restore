@@ -9,7 +9,7 @@ void sub_260F10E78(void *a1, uint64_t a2, void *a3, uint64_t a4)
 
 void sub_260F114C0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_lock(*(a1 + 32), a2, a3, a4, a5);
   objc_msgSend_lock(v6, v7, v8, v9, v10);
   v15 = objc_msgSend_sessionDemultiplexerForIdentifier(*(a1 + 32), v11, v12, v13, v14);
@@ -21,38 +21,33 @@ void sub_260F114C0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64
   if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
     v28 = *(a1 + 40);
-    v30 = 138543362;
-    v31 = v28;
-    _os_log_impl(&dword_260F10000, v27, OS_LOG_TYPE_INFO, "Removed demultiplexer session '%{public}@'.", &v30, 0xCu);
+    v29 = 138543362;
+    v30 = v28;
+    _os_log_impl(&dword_260F10000, v27, OS_LOG_TYPE_INFO, "Removed demultiplexer session '%{public}@'.", &v29, 0xCu);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void sub_260F12BEC(uint64_t a1)
 {
-  v36[1] = *MEMORY[0x277D85DE8];
-  v2 = objc_alloc_init(APProxyProtocolProperties);
-  v3 = qword_280E74670;
-  qword_280E74670 = v2;
+  v33[1] = *MEMORY[0x277D85DE8];
+  v1 = objc_alloc_init(APProxyProtocolProperties);
+  v2 = qword_280E74670;
+  qword_280E74670 = v1;
 
-  v7 = objc_msgSend_URLWithString_(MEMORY[0x277CBEBC0], v4, @"https://webproxy.advp.apple.com:443", v5, v6);
-  v8 = [APProxySessionConfigurationProvider alloc];
-  v12 = objc_msgSend_initWithDefaultProxyURL_(v8, v9, v7, v10, v11);
-  v13 = *(a1 + 32);
-  v36[0] = objc_opt_class();
-  v16 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v14, v36, 1, v15);
-  objc_msgSend_addProtocolClasses_(v12, v17, v16, v18, v19);
+  v6 = objc_msgSend_URLWithString_(MEMORY[0x277CBEBC0], v3, @"https://webproxy.advp.apple.com:443", v4, v5);
+  v7 = [APProxySessionConfigurationProvider alloc];
+  v11 = objc_msgSend_initWithDefaultProxyURL_(v7, v8, v6, v9, v10);
+  v33[0] = objc_opt_class();
+  v14 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v12, v33, 1, v13);
+  objc_msgSend_addProtocolClasses_(v11, v15, v14, v16, v17);
 
-  objc_msgSend_setProxySessionConfigurationProvider_(qword_280E74670, v20, v12, v21, v22);
-  v23 = [APNSURLSessionDemultiplexerManager alloc];
-  v27 = objc_msgSend_initWithProxySessionConfigProvider_(v23, v24, v12, v25, v26);
-  objc_msgSend_setSessionDemultiplexerManager_(qword_280E74670, v28, v27, v29, v30);
+  objc_msgSend_setProxySessionConfigurationProvider_(qword_280E74670, v18, v11, v19, v20);
+  v21 = [APNSURLSessionDemultiplexerManager alloc];
+  v25 = objc_msgSend_initWithProxySessionConfigProvider_(v21, v22, v11, v23, v24);
+  objc_msgSend_setSessionDemultiplexerManager_(qword_280E74670, v26, v25, v27, v28);
 
-  v31 = objc_alloc_init(APProxyURLCredentialService);
-  objc_msgSend_setProxyURLCredentialService_(qword_280E74670, v32, v31, v33, v34);
-
-  v35 = *MEMORY[0x277D85DE8];
+  v29 = objc_alloc_init(APProxyURLCredentialService);
+  objc_msgSend_setProxyURLCredentialService_(qword_280E74670, v30, v29, v31, v32);
 }
 
 void sub_260F14F6C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)

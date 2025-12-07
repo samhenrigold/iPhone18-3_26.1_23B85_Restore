@@ -124,18 +124,18 @@
 
 - (EKChangeSet)initWithSingleValueChanges:(id)changes multiValueAdditions:(id)additions multiValueRemovals:(id)removals
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   additionsCopy = additions;
   removalsCopy = removals;
-  v53.receiver = self;
-  v53.super_class = EKChangeSet;
-  v10 = [(EKChangeSet *)&v53 init];
+  v52.receiver = self;
+  v52.super_class = EKChangeSet;
+  v10 = [(EKChangeSet *)&v52 init];
   v11 = v10;
   if (v10)
   {
     [(EKChangeSet *)v10 setIsNew:0];
-    v41 = changesCopy;
+    v40 = changesCopy;
     v12 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:changesCopy];
     [(EKChangeSet *)v11 setSingleValueChanges:v12];
 
@@ -144,26 +144,26 @@
 
     if (additionsCopy)
     {
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
       v50 = 0u;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
       obj = [additionsCopy allKeys];
-      v14 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
+      v14 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v50;
+        v16 = *v49;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v50 != v16)
+            if (*v49 != v16)
             {
               objc_enumerationMutation(obj);
             }
 
-            v18 = *(*(&v49 + 1) + 8 * i);
+            v18 = *(*(&v48 + 1) + 8 * i);
             [additionsCopy valueForKey:v18];
             v20 = v19 = additionsCopy;
             v21 = [MEMORY[0x1E695DFA8] setWithSet:v20];
@@ -173,7 +173,7 @@
             additionsCopy = v19;
           }
 
-          v15 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
+          v15 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
         }
 
         while (v15);
@@ -186,33 +186,33 @@
     if (removalsCopy)
     {
       obja = additionsCopy;
-      v47 = 0u;
-      v48 = 0u;
-      v45 = 0u;
       v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
       allKeys = [removalsCopy allKeys];
-      v25 = [allKeys countByEnumeratingWithState:&v45 objects:v54 count:16];
+      v25 = [allKeys countByEnumeratingWithState:&v44 objects:v53 count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v46;
+        v27 = *v45;
         do
         {
           for (j = 0; j != v26; ++j)
           {
-            if (*v46 != v27)
+            if (*v45 != v27)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v29 = *(*(&v45 + 1) + 8 * j);
+            v29 = *(*(&v44 + 1) + 8 * j);
             v30 = [removalsCopy valueForKey:v29];
             v31 = [MEMORY[0x1E695DFA8] setWithSet:v30];
             multiValueRemovals = [(EKChangeSet *)v11 multiValueRemovals];
             [multiValueRemovals setObject:v31 forKeyedSubscript:v29];
           }
 
-          v26 = [allKeys countByEnumeratingWithState:&v45 objects:v54 count:16];
+          v26 = [allKeys countByEnumeratingWithState:&v44 objects:v53 count:16];
         }
 
         while (v26);
@@ -231,10 +231,9 @@
     v38 = [multiValueRemovals2 count];
 
     [(EKChangeSet *)v11 setIsModified:(v36 | v38) != 0];
-    changesCopy = v41;
+    changesCopy = v40;
   }
 
-  v39 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -561,30 +560,30 @@ LABEL_7:
 
 - (id)valuesForMultiValueKey:(id)key basedOnSet:(id)set
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   setCopy = set;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   v9 = setCopy;
-  v10 = [v9 countByEnumeratingWithState:&v44 objects:v50 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v45;
+    v12 = *v44;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v45 != v12)
+        if (*v44 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v44 + 1) + 8 * i);
+        v14 = *(*(&v43 + 1) + 8 * i);
         uniqueIdentifier = [v14 uniqueIdentifier];
         if (uniqueIdentifier)
         {
@@ -592,70 +591,70 @@ LABEL_7:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v44 objects:v50 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v43 objects:v49 count:16];
     }
 
     while (v11);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   multiValueRemovals = [(EKChangeSet *)self multiValueRemovals];
   v17 = [multiValueRemovals objectForKeyedSubscript:keyCopy];
 
-  v18 = [v17 countByEnumeratingWithState:&v40 objects:v49 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v39 objects:v48 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v41;
+    v20 = *v40;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v41 != v20)
+        if (*v40 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        uniqueIdentifier2 = [*(*(&v40 + 1) + 8 * j) uniqueIdentifier];
+        uniqueIdentifier2 = [*(*(&v39 + 1) + 8 * j) uniqueIdentifier];
         [dictionary removeObjectForKey:uniqueIdentifier2];
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v40 objects:v49 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v39 objects:v48 count:16];
     }
 
     while (v19);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   multiValueAdditions = [(EKChangeSet *)self multiValueAdditions];
   v24 = [multiValueAdditions objectForKeyedSubscript:keyCopy];
 
-  v25 = [v24 countByEnumeratingWithState:&v36 objects:v48 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v35 objects:v47 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v37;
+    v27 = *v36;
     do
     {
       for (k = 0; k != v26; ++k)
       {
-        if (*v37 != v27)
+        if (*v36 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = *(*(&v36 + 1) + 8 * k);
+        v29 = *(*(&v35 + 1) + 8 * k);
         uniqueIdentifier3 = [v29 uniqueIdentifier];
         [dictionary setObject:v29 forKeyedSubscript:uniqueIdentifier3];
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v36 objects:v48 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v35 objects:v47 count:16];
     }
 
     while (v26);
@@ -665,38 +664,36 @@ LABEL_7:
   allValues = [dictionary allValues];
   v33 = [v31 setWithArray:allValues];
 
-  v34 = *MEMORY[0x1E69E9840];
-
   return v33;
 }
 
 - (BOOL)isUniqueAddedObject:(id)object forKey:(id)key
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   v7 = [(NSMutableDictionary *)self->_multiValueAdditions objectForKeyedSubscript:key];
   if (v7)
   {
     uniqueIdentifier = [objectCopy uniqueIdentifier];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
-      v11 = *v18;
+      v11 = *v17;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          uniqueIdentifier2 = [*(*(&v17 + 1) + 8 * i) uniqueIdentifier];
+          uniqueIdentifier2 = [*(*(&v16 + 1) + 8 * i) uniqueIdentifier];
           v14 = [uniqueIdentifier2 isEqualToString:uniqueIdentifier];
 
           if (v14)
@@ -706,7 +703,7 @@ LABEL_7:
           }
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v10)
         {
           continue;
@@ -724,7 +721,6 @@ LABEL_12:
     LOBYTE(v10) = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -742,7 +738,7 @@ LABEL_12:
 
 - (void)addChanges:(id)changes shouldCopyKeyCallback:(id)callback objectIdentifierBlock:(id)block
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   callbackCopy = callback;
   blockCopy = block;
@@ -754,44 +750,44 @@ LABEL_12:
     if (!self->_skipsPersistentObjectCopy)
     {
       v12 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(singleValueChanges, "count")}];
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __70__EKChangeSet_addChanges_shouldCopyKeyCallback_objectIdentifierBlock___block_invoke;
-      v35[3] = &unk_1E77FE650;
-      v37 = callbackCopy;
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __70__EKChangeSet_addChanges_shouldCopyKeyCallback_objectIdentifierBlock___block_invoke;
+      v34[3] = &unk_1E77FE650;
+      v36 = callbackCopy;
       v13 = v12;
-      v36 = v13;
-      [v11 enumerateKeysAndObjectsUsingBlock:v35];
+      v35 = v13;
+      [v11 enumerateKeysAndObjectsUsingBlock:v34];
       v14 = v13;
 
       v11 = v14;
     }
 
     singleValueChanges2 = [(EKChangeSet *)self singleValueChanges];
-    v28 = v11;
+    v27 = v11;
     [singleValueChanges2 addEntriesFromDictionary:v11];
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     obj = [changesCopy changedMultiValueKeys];
-    v16 = [obj countByEnumeratingWithState:&v31 objects:v38 count:16];
+    v16 = [obj countByEnumeratingWithState:&v30 objects:v37 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v32;
+      v18 = *v31;
       do
       {
         v19 = 0;
         do
         {
-          if (*v32 != v18)
+          if (*v31 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v31 + 1) + 8 * v19);
+          v20 = *(*(&v30 + 1) + 8 * v19);
           multiValueRemovals = [changesCopy multiValueRemovals];
           v22 = [multiValueRemovals objectForKeyedSubscript:v20];
           v23 = [v22 copy];
@@ -806,14 +802,12 @@ LABEL_12:
         }
 
         while (v17 != v19);
-        v17 = [obj countByEnumeratingWithState:&v31 objects:v38 count:16];
+        v17 = [obj countByEnumeratingWithState:&v30 objects:v37 count:16];
       }
 
       while (v17);
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __70__EKChangeSet_addChanges_shouldCopyKeyCallback_objectIdentifierBlock___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -837,7 +831,7 @@ void __70__EKChangeSet_addChanges_shouldCopyKeyCallback_objectIdentifierBlock___
 
 - (void)addToChanges:(id)changes forMultiValueKey:(id)key basedOn:(id)on and:(id)and shouldCopyKeyCallback:(id)callback objectIdentifierBlock:(id)block
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   keyCopy = key;
   onCopy = on;
@@ -849,12 +843,12 @@ void __70__EKChangeSet_addChanges_shouldCopyKeyCallback_objectIdentifierBlock___
     multiValueAdditions = [(EKChangeSet *)self multiValueAdditions];
     v20 = [multiValueAdditions objectForKeyedSubscript:keyCopy];
 
-    v47 = v20;
+    v46 = v20;
     if (!v20)
     {
       v21 = [MEMORY[0x1E695DFA8] set];
       multiValueAdditions2 = [(EKChangeSet *)self multiValueAdditions];
-      v47 = v21;
+      v46 = v21;
       [multiValueAdditions2 setObject:v21 forKeyedSubscript:keyCopy];
     }
 
@@ -865,8 +859,8 @@ void __70__EKChangeSet_addChanges_shouldCopyKeyCallback_objectIdentifierBlock___
 
     v23 = [andCopy objectForKeyedSubscript:keyCopy];
     v24 = v23;
-    v45 = callbackCopy;
-    v42 = andCopy;
+    v44 = callbackCopy;
+    v41 = andCopy;
     if (v23)
     {
       v25 = v23;
@@ -879,54 +873,54 @@ void __70__EKChangeSet_addChanges_shouldCopyKeyCallback_objectIdentifierBlock___
 
     v26 = v25;
 
-    v49 = v26;
-    v52 = [(EKChangeSet *)self _uniqueIdentifierToObjectMapForObjects:v26 identifierBlock:blockCopy];
+    v48 = v26;
+    v51 = [(EKChangeSet *)self _uniqueIdentifierToObjectMapForObjects:v26 identifierBlock:blockCopy];
     multiValueRemovals = [(EKChangeSet *)self multiValueRemovals];
-    v44 = keyCopy;
+    v43 = keyCopy;
     v28 = [multiValueRemovals objectForKeyedSubscript:keyCopy];
 
     selfCopy = self;
-    v51 = v28;
+    v50 = v28;
     v29 = [(EKChangeSet *)self _uniqueIdentifierToObjectMapForObjects:v28 identifierBlock:blockCopy];
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
-    v43 = changesCopy;
+    v42 = changesCopy;
     obj = changesCopy;
-    v30 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
+    v30 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v54;
+      v32 = *v53;
       do
       {
         for (i = 0; i != v31; ++i)
         {
-          if (*v54 != v32)
+          if (*v53 != v32)
           {
             objc_enumerationMutation(obj);
           }
 
-          v34 = *(*(&v53 + 1) + 8 * i);
+          v34 = *(*(&v52 + 1) + 8 * i);
           v35 = blockCopy[2](blockCopy, v34);
           v36 = [v29 objectForKey:v35];
 
           v37 = blockCopy[2](blockCopy, v34);
-          v38 = [v52 objectForKey:v37];
+          v38 = [v51 objectForKey:v37];
 
           if (v36)
           {
-            [v51 removeObject:v36];
+            [v50 removeObject:v36];
           }
 
-          else if (!v49 || ([v38 isEqual:v34] & 1) == 0)
+          else if (!v48 || ([v38 isEqual:v34] & 1) == 0)
           {
             frozenObject = [v34 frozenObject];
             if (!onCopy && !selfCopy->_skipsPersistentObjectCopy)
             {
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) != 0 && (!v45 || v45[2]()))
+              if ((objc_opt_isKindOfClass() & 1) != 0 && (!v44 || v44[2]()))
               {
                 v40 = [frozenObject copy];
 
@@ -934,31 +928,29 @@ void __70__EKChangeSet_addChanges_shouldCopyKeyCallback_objectIdentifierBlock___
               }
             }
 
-            [v47 addObject:frozenObject];
+            [v46 addObject:frozenObject];
           }
         }
 
-        v31 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
+        v31 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
       }
 
       while (v31);
     }
 
     [(EKChangeSet *)selfCopy setIsModified:1];
-    keyCopy = v44;
-    [(EKChangeSet *)selfCopy _cleanupEmptySetsForMultiValueKey:v44];
+    keyCopy = v43;
+    [(EKChangeSet *)selfCopy _cleanupEmptySetsForMultiValueKey:v43];
 
-    andCopy = v42;
-    changesCopy = v43;
-    callbackCopy = v45;
+    andCopy = v41;
+    changesCopy = v42;
+    callbackCopy = v44;
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeFromChanges:(id)changes forMultiValueKey:(id)key basedOn:(id)on and:(id)and objectIdentifierBlock:(id)block
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   keyCopy = key;
   onCopy = on;
@@ -969,12 +961,12 @@ void __70__EKChangeSet_addChanges_shouldCopyKeyCallback_objectIdentifierBlock___
     multiValueRemovals = [(EKChangeSet *)self multiValueRemovals];
     v18 = [multiValueRemovals objectForKeyedSubscript:keyCopy];
 
-    v44 = v18;
+    v43 = v18;
     if (!v18)
     {
       v19 = [MEMORY[0x1E695DFA8] set];
       multiValueRemovals2 = [(EKChangeSet *)self multiValueRemovals];
-      v44 = v19;
+      v43 = v19;
       [multiValueRemovals2 setObject:v19 forKeyedSubscript:keyCopy];
     }
 
@@ -985,8 +977,8 @@ void __70__EKChangeSet_addChanges_shouldCopyKeyCallback_objectIdentifierBlock___
 
     v21 = [andCopy objectForKeyedSubscript:keyCopy];
     v22 = v21;
-    v41 = andCopy;
-    v42 = onCopy;
+    v40 = andCopy;
+    v41 = onCopy;
     if (v21)
     {
       v23 = v21;
@@ -999,61 +991,61 @@ void __70__EKChangeSet_addChanges_shouldCopyKeyCallback_objectIdentifierBlock___
 
     v24 = v23;
 
-    v45 = v24;
-    v48 = [(EKChangeSet *)self _uniqueIdentifierToObjectMapForObjects:v24 identifierBlock:blockCopy];
+    v44 = v24;
+    v47 = [(EKChangeSet *)self _uniqueIdentifierToObjectMapForObjects:v24 identifierBlock:blockCopy];
     multiValueAdditions = [(EKChangeSet *)self multiValueAdditions];
     v26 = [multiValueAdditions objectForKeyedSubscript:keyCopy];
 
     selfCopy = self;
-    v47 = v26;
+    v46 = v26;
     v27 = [(EKChangeSet *)self _uniqueIdentifierToObjectMapForObjects:v26 identifierBlock:blockCopy];
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
-    v43 = changesCopy;
+    v42 = changesCopy;
     obj = changesCopy;
-    v28 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
+    v28 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v50;
+      v30 = *v49;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v50 != v30)
+          if (*v49 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v32 = *(*(&v49 + 1) + 8 * i);
+          v32 = *(*(&v48 + 1) + 8 * i);
           v33 = (blockCopy)[2](blockCopy, v32);
           v34 = [v27 objectForKey:v33];
 
           v35 = (blockCopy)[2](blockCopy, v32);
-          v36 = [v48 objectForKey:v35];
+          v36 = [v47 objectForKey:v35];
 
           if (v34)
           {
-            [v47 removeObject:v34];
+            [v46 removeObject:v34];
             goto LABEL_21;
           }
 
-          if (v45)
+          if (v44)
           {
             if (!v36)
             {
               goto LABEL_21;
             }
 
-            v37 = v44;
+            v37 = v43;
             v38 = v36;
           }
 
           else
           {
-            v37 = v44;
+            v37 = v43;
             v38 = v32;
           }
 
@@ -1061,7 +1053,7 @@ void __70__EKChangeSet_addChanges_shouldCopyKeyCallback_objectIdentifierBlock___
 LABEL_21:
         }
 
-        v29 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
+        v29 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
       }
 
       while (v29);
@@ -1070,61 +1062,59 @@ LABEL_21:
     [(EKChangeSet *)selfCopy setIsModified:1];
     [(EKChangeSet *)selfCopy _cleanupEmptySetsForMultiValueKey:keyCopy];
 
-    changesCopy = v43;
-    andCopy = v41;
-    onCopy = v42;
+    changesCopy = v42;
+    andCopy = v40;
+    onCopy = v41;
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (void)replaceUniqueMultiValueObjectsWithUpdatedObjects:(id)objects
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   selfCopy = self;
   obj = [(EKChangeSet *)self multiValueAdditions];
-  v5 = [obj countByEnumeratingWithState:&v46 objects:v53 count:16];
+  v5 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
   if (v5)
   {
     v6 = v5;
-    v32 = *v47;
+    v31 = *v46;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v47 != v32)
+        if (*v46 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v46 + 1) + 8 * i);
+        v8 = *(*(&v45 + 1) + 8 * i);
         multiValueAdditions = [(EKChangeSet *)selfCopy multiValueAdditions];
         v10 = [multiValueAdditions objectForKeyedSubscript:v8];
 
-        v44 = 0u;
-        v45 = 0u;
-        v42 = 0u;
         v43 = 0u;
+        v44 = 0u;
+        v41 = 0u;
+        v42 = 0u;
         v11 = v10;
-        v12 = [v11 countByEnumeratingWithState:&v42 objects:v52 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v41 objects:v51 count:16];
         if (v12)
         {
-          v13 = *v43;
+          v13 = *v42;
           while (2)
           {
             for (j = 0; j != v12; j = j + 1)
             {
-              if (*v43 != v13)
+              if (*v42 != v13)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v15 = *(*(&v42 + 1) + 8 * j);
+              v15 = *(*(&v41 + 1) + 8 * j);
               uniqueIdentifier = [v15 uniqueIdentifier];
               v17 = [objectsCopy objectForKeyedSubscript:uniqueIdentifier];
               if (v17)
@@ -1139,7 +1129,7 @@ LABEL_21:
               }
             }
 
-            v12 = [v11 countByEnumeratingWithState:&v42 objects:v52 count:16];
+            v12 = [v11 countByEnumeratingWithState:&v41 objects:v51 count:16];
             if (v12)
             {
               continue;
@@ -1152,122 +1142,120 @@ LABEL_21:
         v18 = 0;
 LABEL_16:
 
-        v40 = 0u;
-        v41 = 0u;
-        v38 = 0u;
         v39 = 0u;
+        v40 = 0u;
+        v37 = 0u;
+        v38 = 0u;
         v20 = v18;
-        v21 = [v20 countByEnumeratingWithState:&v38 objects:v51 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v37 objects:v50 count:16];
         if (v21)
         {
           v22 = v21;
-          v23 = *v39;
+          v23 = *v38;
           do
           {
             for (k = 0; k != v22; ++k)
             {
-              if (*v39 != v23)
+              if (*v38 != v23)
               {
                 objc_enumerationMutation(v20);
               }
 
-              [v11 removeObject:*(*(&v38 + 1) + 8 * k)];
+              [v11 removeObject:*(*(&v37 + 1) + 8 * k)];
             }
 
-            v22 = [v20 countByEnumeratingWithState:&v38 objects:v51 count:16];
+            v22 = [v20 countByEnumeratingWithState:&v37 objects:v50 count:16];
           }
 
           while (v22);
         }
 
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
         v35 = 0u;
+        v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
         v25 = v12;
-        v26 = [v25 countByEnumeratingWithState:&v34 objects:v50 count:16];
+        v26 = [v25 countByEnumeratingWithState:&v33 objects:v49 count:16];
         if (v26)
         {
           v27 = v26;
-          v28 = *v35;
+          v28 = *v34;
           do
           {
             for (m = 0; m != v27; ++m)
             {
-              if (*v35 != v28)
+              if (*v34 != v28)
               {
                 objc_enumerationMutation(v25);
               }
 
-              [v11 addObject:*(*(&v34 + 1) + 8 * m)];
+              [v11 addObject:*(*(&v33 + 1) + 8 * m)];
             }
 
-            v27 = [v25 countByEnumeratingWithState:&v34 objects:v50 count:16];
+            v27 = [v25 countByEnumeratingWithState:&v33 objects:v49 count:16];
           }
 
           while (v27);
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v46 objects:v53 count:16];
+      v6 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
     }
 
     while (v6);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addChangesAndUpdateUniqueMultiValueObjects:(id)objects
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   [(EKChangeSet *)self addChanges:objectsCopy];
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
-  v22 = objectsCopy;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v21 = objectsCopy;
   obj = [objectsCopy multiValueAdditions];
-  v5 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v5 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v21 = *v28;
+    v20 = *v27;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v28 != v21)
+        if (*v27 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * i);
-        multiValueAdditions = [v22 multiValueAdditions];
+        v9 = *(*(&v26 + 1) + 8 * i);
+        multiValueAdditions = [v21 multiValueAdditions];
         v11 = [multiValueAdditions objectForKeyedSubscript:v9];
 
-        v25 = 0u;
-        v26 = 0u;
-        v23 = 0u;
         v24 = 0u;
+        v25 = 0u;
+        v22 = 0u;
+        v23 = 0u;
         v12 = v11;
-        v13 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v24;
+          v15 = *v23;
           do
           {
             for (j = 0; j != v14; ++j)
             {
-              if (*v24 != v15)
+              if (*v23 != v15)
               {
                 objc_enumerationMutation(v12);
               }
 
-              v17 = *(*(&v23 + 1) + 8 * j);
+              v17 = *(*(&v22 + 1) + 8 * j);
               if (!v7)
               {
                 v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -1277,14 +1265,14 @@ LABEL_16:
               [v7 setObject:v17 forKeyedSubscript:uniqueIdentifier];
             }
 
-            v14 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
           }
 
           while (v14);
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v6 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v6);
@@ -1296,7 +1284,6 @@ LABEL_16:
   }
 
   [(EKChangeSet *)self replaceUniqueMultiValueObjectsWithUpdatedObjects:v7];
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cleanupEmptySetsForMultiValueKey:(id)key
@@ -1325,7 +1312,7 @@ LABEL_16:
 
 - (id)_uniqueIdentifierToObjectMapForObjects:(id)objects identifierBlock:(id)block
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   blockCopy = block;
   if ([objectsCopy count])
@@ -1338,34 +1325,34 @@ LABEL_16:
       anyObject2 = [objectsCopy anyObject];
       eventStore = [anyObject2 eventStore];
 
-      v37[0] = v8;
-      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:1];
+      v36[0] = v8;
+      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
       [eventStore ensureLoadedProperties:v11 forObjects:objectsCopy];
     }
 
-    v24 = v8;
+    v23 = v8;
     v12 = objc_opt_new();
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v25 = objectsCopy;
+    v24 = objectsCopy;
     v13 = objectsCopy;
-    v14 = [v13 countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v29;
+      v16 = *v28;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v29 != v16)
+          if (*v28 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v28 + 1) + 8 * i);
+          v18 = *(*(&v27 + 1) + 8 * i);
           v19 = blockCopy[2](blockCopy, v18);
           if (v19)
           {
@@ -1377,33 +1364,31 @@ LABEL_16:
             v20 = EKLogHandle;
             if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
             {
-              v26 = MEMORY[0x1E696AF00];
+              v25 = MEMORY[0x1E696AF00];
               log = v20;
-              callStackSymbols = [v26 callStackSymbols];
+              callStackSymbols = [v25 callStackSymbols];
               *buf = 138412546;
-              v33 = v18;
-              v34 = 2112;
-              v35 = callStackSymbols;
+              v32 = v18;
+              v33 = 2112;
+              v34 = callStackSymbols;
               _os_log_error_impl(&dword_1A805E000, log, OS_LOG_TYPE_ERROR, "Object %@ has no unique identifier: %@", buf, 0x16u);
             }
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
       }
 
       while (v15);
     }
 
-    objectsCopy = v25;
+    objectsCopy = v24;
   }
 
   else
   {
     v12 = MEMORY[0x1E695E0F8];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1440,28 +1425,28 @@ LABEL_16:
 
 - (void)removeAllChangesExceptRemovals
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   [(NSMutableDictionary *)self->_multiValueAdditions removeAllObjects];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   obj = [(NSMutableDictionary *)self->_singleValueChanges allKeys];
-  v3 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * i);
+        v7 = *(*(&v13 + 1) + 8 * i);
         v8 = [(NSMutableDictionary *)self->_singleValueChanges objectForKeyedSubscript:v7];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
@@ -1482,13 +1467,11 @@ LABEL_16:
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)summary

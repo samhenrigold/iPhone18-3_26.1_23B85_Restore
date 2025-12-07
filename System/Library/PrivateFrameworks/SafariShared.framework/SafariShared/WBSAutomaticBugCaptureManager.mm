@@ -84,34 +84,35 @@ void __109__WBSAutomaticBugCaptureManager__startLoggingSessionForDomain_detected
   [v2 setObject:a1[9] forKeyedSubscript:*MEMORY[0x1E69D50E8]];
   v4 = *(a1[4] + 8);
   v5 = v3[1];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __109__WBSAutomaticBugCaptureManager__startLoggingSessionForDomain_detectedProcess_type_subType_context_duration___block_invoke_2;
-  v7[3] = &unk_1E7FB6B08;
-  v8 = *v3;
-  if (([v4 snapshotWithSignature:v2 duration:0 event:0 payload:v7 reply:v5] & 1) == 0)
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __109__WBSAutomaticBugCaptureManager__startLoggingSessionForDomain_detectedProcess_type_subType_context_duration___block_invoke_2;
+  v9[3] = &unk_1E7FB6B08;
+  v10 = *v3;
+  v6 = [v4 snapshotWithSignature:v2 duration:0 event:0 payload:v9 reply:v5];
+  if ((v6 & 1) == 0)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXAutoBugCapture();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXAutoBugCapture(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __109__WBSAutomaticBugCaptureManager__startLoggingSessionForDomain_detectedProcess_type_subType_context_duration___block_invoke_cold_1(v3, v6);
+      __109__WBSAutomaticBugCaptureManager__startLoggingSessionForDomain_detectedProcess_type_subType_context_duration___block_invoke_cold_1(v3, v8);
     }
   }
 }
 
 void __109__WBSAutomaticBugCaptureManager__startLoggingSessionForDomain_detectedProcess_type_subType_context_duration___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoBugCapture();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoBugCapture(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = *(a1 + 32);
-    v6 = 138543619;
-    v7 = v5;
-    v8 = 2113;
-    v9 = v3;
-    _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_INFO, "Got a response from [SDRDiagnosticReporter snapshotWithSignature:...] with context '%{public}@': %{private}@", &v6, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = 138543619;
+    v8 = v6;
+    v9 = 2113;
+    v10 = v3;
+    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Got a response from [SDRDiagnosticReporter snapshotWithSignature:...] with context '%{public}@': %{private}@", &v7, 0x16u);
   }
 }
 

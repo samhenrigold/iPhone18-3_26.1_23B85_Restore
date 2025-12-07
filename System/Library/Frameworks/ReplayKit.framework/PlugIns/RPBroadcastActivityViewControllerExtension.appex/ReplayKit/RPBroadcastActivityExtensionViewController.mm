@@ -1,6 +1,7 @@
 @interface RPBroadcastActivityExtensionViewController
 - (id)_autoOptedInExtensionBundleIdentifiers;
 - (void)_autoOptInExtensionIfNeverOptedIn:(id)in;
+- (void)extensionDidFinishWithLaunchURL:(id)l broadcastURL:(id)rL extensionBundleID:(id)d cancelled:(BOOL)cancelled;
 - (void)loadHostAppInfo:(id)info;
 - (void)loadItems:(id)items withHandler:(id)handler;
 - (void)loadStreamingActivitiesWithHandler:(id)handler;
@@ -8,7 +9,9 @@
 - (void)setUpActivityViewController:(id)controller hostBundleID:(id)d iconImage:(id)image activities:(id)activities weakSelf:(id)self;
 - (void)setupSingleExtensionView:(id)view hostBundleID:(id)d preferredExtension:(id)extension iconImage:(id)image appName:(id)name activities:(id)activities;
 - (void)showNotInstalledAlert:(id)alert appName:(id)name broadcastActivitiesNotInstalledAlertTitle:(id)title broadcastActivitiesNotInstalledAlertMessage:(id)message;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation RPBroadcastActivityExtensionViewController
@@ -29,6 +32,59 @@
   v3.receiver = self;
   v3.super_class = RPBroadcastActivityExtensionViewController;
   [(RPBroadcastActivityExtensionViewController *)&v3 loadView];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  if (__RPLogLevel <= 1u && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446722;
+    v7 = "[RPBroadcastActivityExtensionViewController viewWillAppear:]";
+    v8 = 1024;
+    v9 = 76;
+    v10 = 2048;
+    selfCopy = self;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %p", buf, 0x1Cu);
+  }
+
+  v5.receiver = self;
+  v5.super_class = RPBroadcastActivityExtensionViewController;
+  [(RPBroadcastActivityExtensionViewController *)&v5 viewWillAppear:appearCopy];
+  dispatch_async(&_dispatch_main_q, &stru_10000C2D0);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  if (__RPLogLevel <= 1u && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446722;
+    v11 = "[RPBroadcastActivityExtensionViewController viewDidAppear:]";
+    v12 = 1024;
+    v13 = 88;
+    v14 = 2048;
+    selfCopy = self;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %p", buf, 0x1Cu);
+  }
+
+  v9.receiver = self;
+  v9.super_class = RPBroadcastActivityExtensionViewController;
+  [(RPBroadcastActivityExtensionViewController *)&v9 viewDidAppear:appearCopy];
+  v5 = dispatch_queue_create("com.apple.ReplayKit.RPBroadcastActivityExtension.replyQueue", 0);
+  replyQueue = self->_replyQueue;
+  self->_replyQueue = v5;
+
+  objc_initWeak(buf, self);
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_100001394;
+  v7[3] = &unk_10000C320;
+  v7[4] = self;
+  objc_copyWeak(&v8, buf);
+  [(RPBroadcastActivityExtensionViewController *)self loadHostAppInfo:v7];
+  objc_destroyWeak(&v8);
+  objc_destroyWeak(buf);
 }
 
 - (void)setupSingleExtensionView:(id)view hostBundleID:(id)d preferredExtension:(id)extension iconImage:(id)image appName:(id)name activities:(id)activities
@@ -503,6 +559,17 @@ LABEL_33:
 
   _Block_object_dispose(v19, 8);
   _Block_object_dispose(buf, 8);
+}
+
+- (void)extensionDidFinishWithLaunchURL:(id)l broadcastURL:(id)rL extensionBundleID:(id)d cancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  dCopy = d;
+  rLCopy = rL;
+  lCopy = l;
+  broadcastExtensionContext = [(RPBroadcastActivityExtensionViewController *)self broadcastExtensionContext];
+  extensionObjectProxy = [broadcastExtensionContext extensionObjectProxy];
+  [extensionObjectProxy extensionDidFinishWithLaunchURL:lCopy broadcastURL:rLCopy extensionBundleID:dCopy cancelled:cancelledCopy];
 }
 
 - (void)loadStreamingActivitiesWithHandler:(id)handler

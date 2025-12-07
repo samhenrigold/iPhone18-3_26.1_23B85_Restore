@@ -14,6 +14,7 @@
 - (void)handleNetworkDetectionNotification:(int)notification;
 - (void)handleResetCacheMessage:(id)message;
 - (void)handleStartMessage:(id)message;
+- (void)handleStopMessageWithReason:(int)reason;
 - (void)handleUserLogin;
 - (void)handleWakeup;
 - (void)invalidate;
@@ -22,6 +23,7 @@
 - (void)pluginDidAcknowledgeSleep:(id)sleep;
 - (void)pluginDidDispose:(id)dispose;
 - (void)pluginDidRequestAgentClientServer:(id)server;
+- (void)startWithCommand:(id)command isOnDemand:(BOOL)demand;
 - (void)uninstall;
 @end
 
@@ -178,6 +180,13 @@
   }
 
   return v5;
+}
+
+- (void)startWithCommand:(id)command isOnDemand:(BOOL)demand
+{
+  v4.receiver = self;
+  v4.super_class = NESMURLFilterSession;
+  [(NESMSession *)&v4 startWithCommand:command isOnDemand:demand];
 }
 
 - (void)handleUserLogin
@@ -739,6 +748,32 @@ LABEL_14:
   }
 
   return [(NESMURLFilterSession *)self handleSleep];
+}
+
+- (void)handleStopMessageWithReason:(int)reason
+{
+  v3 = *&reason;
+  if (self && reason != 37)
+  {
+    self->_externallyStopped = 1;
+    objc_setProperty_atomic(self, a2, 0, 416);
+  }
+
+  sub_10006D9D8(self, (v3 != 37));
+  v7.receiver = self;
+  v7.super_class = NESMURLFilterSession;
+  [(NESMSession *)&v7 handleStopMessageWithReason:v3];
+  if (self)
+  {
+    Property = objc_getProperty(self, v5, 384, 1);
+  }
+
+  else
+  {
+    Property = 0;
+  }
+
+  [Property handleStop];
 }
 
 - (void)handleStartMessage:(id)message

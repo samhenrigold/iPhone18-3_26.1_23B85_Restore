@@ -32,7 +32,7 @@
 - (CGRect)frame
 {
   selfCopy = self;
-  sub_24E0D9F08();
+  sub_24E0D9F08(selfCopy);
   v4 = v3;
   v6 = v5;
   v8 = v7;

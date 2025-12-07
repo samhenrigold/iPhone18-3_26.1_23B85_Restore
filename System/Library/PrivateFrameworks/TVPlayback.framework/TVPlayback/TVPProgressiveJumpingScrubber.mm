@@ -26,9 +26,7 @@
     self->_skipAdjustTime = v7;
     self->_nextSkipAdjustTime = v6;
     self->_rate = rate;
-    v8 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel__skipTimerFired_ selector:0 userInfo:1 repeats:0.5];
-    skipTimer = self->_skipTimer;
-    self->_skipTimer = v8;
+    self->_skipTimer = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel__skipTimerFired_ selector:0 userInfo:1 repeats:0.5];
 
     MEMORY[0x2821F96F8]();
   }
@@ -92,12 +90,12 @@ LABEL_12:
   }
 
   v5 = objc_loadWeakRetained(&self->_player);
-  [v5 elapsedTime];
+  objc_msgSend_elapsedTime(v5);
   [(TVPProgressiveJumpingScrubber *)self _nextTimeToAdvanceFromTime:?];
   v7 = v6;
 
   v8 = objc_loadWeakRetained(&self->_player);
-  [v8 duration];
+  objc_msgSend_duration(v8);
   v10 = v9;
 
   if (v7 == -1.0 || (v10 != 3.40282347e38 ? (v11 = v7 < v10) : (v11 = 1), !v11))

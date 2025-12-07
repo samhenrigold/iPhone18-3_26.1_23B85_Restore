@@ -23,14 +23,14 @@
 
 - (void)serializeToXPCObject:(id)object
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v5 = evaluationLogHandle;
   if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 138412290;
+    v13 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "serializeToXPCObject: %@", &v14, 0xCu);
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "serializeToXPCObject: %@", &v13, 0xCu);
   }
 
   xpc_dictionary_set_uint64(objectCopy, managed_event_key_seqno, self->_id_number);
@@ -54,8 +54,6 @@
     v12 = _CFXPCCreateXPCMessageWithCFObject();
     xpc_dictionary_set_value(objectCopy, v10, v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

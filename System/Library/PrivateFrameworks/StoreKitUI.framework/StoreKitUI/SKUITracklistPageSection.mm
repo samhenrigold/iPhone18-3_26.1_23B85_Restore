@@ -767,41 +767,41 @@ void __56__SKUITracklistPageSection_artworkRequest_didLoadImage___block_invoke(u
     pageComponent = [(SKUIStorePageSection *)self pageComponent];
     viewElement = [pageComponent viewElement];
 
-    v33[0] = 0;
-    v33[1] = v33;
-    v33[2] = 0x2020000000;
-    v33[3] = 0;
+    v34[0] = 0;
+    v34[1] = v34;
+    v34[2] = 0x2020000000;
+    v34[3] = 0;
     v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __39__SKUITracklistPageSection__columnData__block_invoke;
-    v29[3] = &unk_2781FFCD0;
-    v29[4] = self;
-    v32 = v33;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __39__SKUITracklistPageSection__columnData__block_invoke;
+    v30[3] = &unk_2781FFCD0;
+    v30[4] = self;
+    v33 = v34;
     v8 = v6;
-    v30 = v8;
+    v31 = v8;
     v9 = v7;
-    v31 = v9;
-    [viewElement enumerateTracksUsingBlock:v29];
+    v32 = v9;
+    [viewElement enumerateTracksUsingBlock:v30];
     v10 = SKUIFontLimitedPreferredFontForTextStyle(20, 5);
-    v11 = SKUIFontPreferredFontForTextStyle(5);
+    v12 = SKUIFontPreferredFontForTextStyle(5, v11);
     columns = [(SKUITracklistColumnData *)self->_columnData columns];
-    v19 = MEMORY[0x277D85DD0];
-    v20 = 3221225472;
-    v21 = __39__SKUITracklistPageSection__columnData__block_invoke_3;
-    v22 = &unk_2781FFCF8;
-    v13 = v9;
-    v28 = v33;
-    v23 = v13;
+    v20 = MEMORY[0x277D85DD0];
+    v21 = 3221225472;
+    v22 = __39__SKUITracklistPageSection__columnData__block_invoke_3;
+    v23 = &unk_2781FFCF8;
+    v14 = v9;
+    v29 = v34;
+    v24 = v14;
     selfCopy = self;
-    v14 = v8;
-    v25 = v14;
-    v15 = v11;
+    v15 = v8;
     v26 = v15;
-    v16 = v10;
+    v16 = v12;
     v27 = v16;
-    [columns enumerateObjectsUsingBlock:&v19];
+    v17 = v10;
+    v28 = v17;
+    [columns enumerateObjectsUsingBlock:&v20];
 
     header = [viewElement header];
     if (header)
@@ -809,7 +809,7 @@ void __56__SKUITracklistPageSection_artworkRequest_didLoadImage___block_invoke(u
       [(SKUITracklistColumnData *)self->_columnData enumerateColumnsForHeader:header usingBlock:&__block_literal_global_51];
     }
 
-    _Block_object_dispose(v33, 8);
+    _Block_object_dispose(v34, 8);
     columnData = self->_columnData;
   }
 

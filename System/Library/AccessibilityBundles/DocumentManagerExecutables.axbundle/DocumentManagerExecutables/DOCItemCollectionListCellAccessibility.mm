@@ -180,17 +180,16 @@ LABEL_13:
 
 void __60__DOCItemCollectionListCellAccessibility_accessibilityLabel__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = a2;
+  v8 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = *(*(*(a1 + 32) + 8) + 40);
-    v4 = [v9 contentView];
-    v8 = [v4 accessibilityLabel];
-    v5 = __UIAXStringForVariables();
-    v6 = *(*(a1 + 32) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    v3 = [v8 contentView];
+    v7 = [v3 accessibilityLabel];
+    v4 = __UIAXStringForVariables();
+    v5 = *(*(a1 + 32) + 8);
+    v6 = *(v5 + 40);
+    *(v5 + 40) = v4;
   }
 }
 

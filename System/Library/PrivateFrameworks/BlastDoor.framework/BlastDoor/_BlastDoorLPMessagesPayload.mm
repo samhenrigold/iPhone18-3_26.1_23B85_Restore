@@ -10,11 +10,11 @@
 
 - (_BlastDoorLPMessagesPayload)initWithCoder:(id)coder
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = _BlastDoorLPMessagesPayload;
-  v5 = [(_BlastDoorLPMessagesPayload *)&v13 init];
+  v11.receiver = self;
+  v11.super_class = _BlastDoorLPMessagesPayload;
+  v5 = [(_BlastDoorLPMessagesPayload *)&v11 init];
   if (v5)
   {
     v5->_placeholder = [coderCopy decodeBoolForKey:@"richLinkIsPlaceholder"];
@@ -22,18 +22,16 @@
     metadata = v5->_metadata;
     v5->_metadata = v6;
 
-    v8 = v5->_metadata;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v9 = v5->_metadata;
+      v8 = v5->_metadata;
       v5->_metadata = 0;
     }
 
-    v10 = v5;
+    v9 = v5;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -47,7 +45,7 @@
 
 + (id)linkWithDataRepresentation:(id)representation attachments:(id)attachments
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   attachmentsCopy = attachments;
   v7 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:representationCopy error:0];
@@ -65,9 +63,9 @@
   v11 = objc_opt_class();
   v12 = [v9 setWithObjects:{v10, v11, objc_opt_class(), 0}];
   v13 = *MEMORY[0x277CCA308];
-  v21[0] = 0;
-  v14 = [v7 decodeTopLevelObjectOfClasses:v12 forKey:v13 error:v21];
-  v15 = v21[0];
+  v20[0] = 0;
+  v14 = [v7 decodeTopLevelObjectOfClasses:v12 forKey:v13 error:v20];
+  v15 = v20[0];
 
   [v7 finishDecoding];
   if (v15)
@@ -111,8 +109,6 @@ LABEL_2:
   }
 
 LABEL_9:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

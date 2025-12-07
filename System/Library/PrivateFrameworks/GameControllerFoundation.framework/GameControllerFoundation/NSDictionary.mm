@@ -21,88 +21,80 @@ uint64_t __57__NSDictionary_GC__gc_enumerateKeysAndObjectsUsingBlock___block_inv
 
 id __57__NSDictionary_GC__gc_enumerateKeysAndObjectsUsingBlock___block_invoke_2(uint64_t a1, objc_class *a2, void *a3)
 {
-  v20[5] = *MEMORY[0x1E69E9840];
-  v6 = *(a1 + 32);
+  v17[5] = *MEMORY[0x1E69E9840];
   if (objc_opt_isKindOfClass())
   {
-    v7 = *(a1 + 32);
+    v6 = *(a1 + 32);
   }
 
   else
   {
     if (a3)
     {
-      v10 = [*(a1 + 32) description];
-      v11 = NSStringFromClass(a2);
-      v12 = *(a1 + 32);
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
-      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Key '%@' has unexpected class '%@'.", v10, v14];
-      v16 = MEMORY[0x1E696ABC0];
-      v17 = *MEMORY[0x1E696A588];
-      v19[0] = *MEMORY[0x1E696A578];
-      v19[1] = v17;
-      v20[0] = @"Invalid dictionary.";
-      v20[1] = v15;
-      v19[2] = @"NSCollectionErrorIndexKey";
-      v19[3] = @"NSCollectionErrorIndexClassKey";
-      v20[2] = v10;
-      v20[3] = v14;
-      v19[4] = @"NSCollectionErrorExpectedClassKey";
-      v20[4] = v11;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:5];
-      *a3 = [v16 errorWithDomain:@"NSCollectionErrorDomain" code:2 userInfo:v18];
+      v8 = [*(a1 + 32) description];
+      v9 = NSStringFromClass(a2);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Key '%@' has unexpected class '%@'.", v8, v11];
+      v13 = MEMORY[0x1E696ABC0];
+      v14 = *MEMORY[0x1E696A588];
+      v16[0] = *MEMORY[0x1E696A578];
+      v16[1] = v14;
+      v17[0] = @"Invalid dictionary.";
+      v17[1] = v12;
+      v16[2] = @"NSCollectionErrorIndexKey";
+      v16[3] = @"NSCollectionErrorIndexClassKey";
+      v17[2] = v8;
+      v17[3] = v11;
+      v16[4] = @"NSCollectionErrorExpectedClassKey";
+      v17[4] = v9;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:5];
+      *a3 = [v13 errorWithDomain:@"NSCollectionErrorDomain" code:2 userInfo:v15];
     }
 
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v6;
 }
 
 id __57__NSDictionary_GC__gc_enumerateKeysAndObjectsUsingBlock___block_invoke_3(uint64_t a1, objc_class *a2, void *a3)
 {
-  v20[5] = *MEMORY[0x1E69E9840];
-  v6 = *(a1 + 32);
+  v17[5] = *MEMORY[0x1E69E9840];
   if (objc_opt_isKindOfClass())
   {
-    v7 = *(a1 + 32);
+    v6 = *(a1 + 32);
   }
 
   else
   {
     if (a3)
     {
-      v10 = [*(a1 + 40) description];
-      v11 = NSStringFromClass(a2);
-      v12 = *(a1 + 40);
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
-      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Value for key '%@' has unexpected class '%@'.", v10, v14];
-      v16 = MEMORY[0x1E696ABC0];
-      v17 = *MEMORY[0x1E696A588];
-      v19[0] = *MEMORY[0x1E696A578];
-      v19[1] = v17;
-      v20[0] = @"Invalid dictionary.";
-      v20[1] = v15;
-      v19[2] = @"NSCollectionErrorIndexKey";
-      v19[3] = @"NSCollectionErrorElementClassKey";
-      v20[2] = v10;
-      v20[3] = v14;
-      v19[4] = @"NSCollectionErrorExpectedClassKey";
-      v20[4] = v11;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:5];
-      *a3 = [v16 errorWithDomain:@"NSCollectionErrorDomain" code:3 userInfo:v18];
+      v8 = [*(a1 + 40) description];
+      v9 = NSStringFromClass(a2);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Value for key '%@' has unexpected class '%@'.", v8, v11];
+      v13 = MEMORY[0x1E696ABC0];
+      v14 = *MEMORY[0x1E696A588];
+      v16[0] = *MEMORY[0x1E696A578];
+      v16[1] = v14;
+      v17[0] = @"Invalid dictionary.";
+      v17[1] = v12;
+      v16[2] = @"NSCollectionErrorIndexKey";
+      v16[3] = @"NSCollectionErrorElementClassKey";
+      v17[2] = v8;
+      v17[3] = v11;
+      v16[4] = @"NSCollectionErrorExpectedClassKey";
+      v17[4] = v9;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:5];
+      *a3 = [v13 errorWithDomain:@"NSCollectionErrorDomain" code:3 userInfo:v15];
     }
 
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v6;
 }
 
 @end

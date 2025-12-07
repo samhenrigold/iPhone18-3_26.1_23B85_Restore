@@ -8,6 +8,9 @@
 - (double)loadTrialMinInputChargeDuration;
 - (double)loadTrialThreshold;
 - (id)loadModelFromPath:(id)path deleteExistingFiles:(BOOL)files;
+- (id)loadTrialDRAModelByDeletingExistingModel:(BOOL)model;
+- (id)loadTrialDurationModelByDeletingExistingModel:(BOOL)model;
+- (id)loadTrialEngageModelByDeletingExistingModel:(BOOL)model;
 - (int64_t)longFactorForName:(id)name;
 - (void)addUpdateHandler:(id)handler;
 - (void)loadTrialUpdates;
@@ -175,6 +178,42 @@
   [(NSMutableArray *)updateHandlers addObject:v6];
 
   os_unfair_lock_unlock(&self->_lock);
+}
+
+- (id)loadTrialEngageModelByDeletingExistingModel:(BOOL)model
+{
+  modelCopy = model;
+  log = self->_log;
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    *v11 = 0;
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "Loading trial engagement model", v11, 2u);
+  }
+
+  v6 = [(OSIntelligenceTrialManager *)self trialFactor:@"trialEngageModel"];
+  fileValue = [v6 fileValue];
+  path = [fileValue path];
+  v9 = [(OSIntelligenceTrialManager *)self loadModelFromPath:path deleteExistingFiles:modelCopy];
+
+  return v9;
+}
+
+- (id)loadTrialDurationModelByDeletingExistingModel:(BOOL)model
+{
+  modelCopy = model;
+  log = self->_log;
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    *v11 = 0;
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "Loading trial duration model", v11, 2u);
+  }
+
+  v6 = [(OSIntelligenceTrialManager *)self trialFactor:@"trialDurationModel"];
+  fileValue = [v6 fileValue];
+  path = [fileValue path];
+  v9 = [(OSIntelligenceTrialManager *)self loadModelFromPath:path deleteExistingFiles:modelCopy];
+
+  return v9;
 }
 
 - (double)loadTrialThreshold
@@ -549,6 +588,24 @@ LABEL_54:
 LABEL_55:
 
   return v24;
+}
+
+- (id)loadTrialDRAModelByDeletingExistingModel:(BOOL)model
+{
+  modelCopy = model;
+  log = self->_log;
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    *v11 = 0;
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "Loading trial DRA model", v11, 2u);
+  }
+
+  v6 = [(OSIntelligenceTrialManager *)self trialFactor:@"trialDRAModel"];
+  fileValue = [v6 fileValue];
+  path = [fileValue path];
+  v9 = [(OSIntelligenceTrialManager *)self loadModelFromPath:path deleteExistingFiles:modelCopy];
+
+  return v9;
 }
 
 - (double)loadTrialDRAModelMinDuration

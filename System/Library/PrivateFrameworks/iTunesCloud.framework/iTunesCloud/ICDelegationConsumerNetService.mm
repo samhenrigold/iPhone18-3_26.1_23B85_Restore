@@ -235,13 +235,13 @@ void __57__ICDelegationConsumerNetService__updateNetServiceStatus__block_invoke_
   dispatch_barrier_async(accessQueue, block);
 }
 
-uint64_t __38__ICDelegationConsumerNetService_stop__block_invoke(uint64_t result)
+void *__38__ICDelegationConsumerNetService_stop__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (*(v1 + 25) == 1)
   {
     *(v1 + 25) = 0;
-    return [*(result + 32) _updateNetServiceStatus];
+    return [*(result + 4) _updateNetServiceStatus];
   }
 
   return result;
@@ -258,13 +258,13 @@ uint64_t __38__ICDelegationConsumerNetService_stop__block_invoke(uint64_t result
   dispatch_barrier_async(accessQueue, block);
 }
 
-uint64_t __41__ICDelegationConsumerNetService_publish__block_invoke(uint64_t result)
+void *__41__ICDelegationConsumerNetService_publish__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if ((*(v1 + 25) & 1) == 0)
   {
     *(v1 + 25) = 1;
-    return [*(result + 32) _updateNetServiceStatus];
+    return [*(result + 4) _updateNetServiceStatus];
   }
 
   return result;

@@ -10,61 +10,60 @@
 {
   v5 = a3;
   v6 = [self valueForEntitlement:v5];
-  v7 = v6;
+  v12 = v6;
   if (v6)
   {
-    v8 = CFGetTypeID(v6);
-    if (v8 == CFBooleanGetTypeID())
+    v13 = CFGetTypeID(v6);
+    if (v13 == CFBooleanGetTypeID())
     {
-      v7 = (CFBooleanGetValue(v7) != 0);
+      v12 = (CFBooleanGetValue(v12) != 0);
     }
 
     else
     {
-      v7 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v15 = v5;
-    _SLLog(v3, 3, @"Unable to get entitlement '%@'");
+    _SLLog(v3, 3, @"Unable to get entitlement '%@'", v7, v8, v9, v10, v11, v5);
   }
 
   sl_localizedClientName = [self sl_localizedClientName];
   if (!sl_localizedClientName)
   {
-    v10 = MEMORY[0x1E696AEC0];
-    v16 = 648;
+    v20 = MEMORY[0x1E696AEC0];
+    v25 = 648;
     dword_1EBF3D394 = [self processIdentifier];
     byte_1EBF3DB1B = 0;
-    v11 = sysctl(getprocname_name, 4u, &getprocname_kp, &v16, 0, 0);
+    v21 = sysctl(getprocname_name, 4u, &getprocname_kp, &v25, 0, 0);
     if (byte_1EBF3DB1B)
     {
-      v12 = &byte_1EBF3DB1B;
+      v22 = &byte_1EBF3DB1B;
     }
 
     else
     {
-      v12 = "exited?";
+      v22 = "exited?";
     }
 
-    if (v11)
+    if (v21)
     {
-      v13 = "?";
+      v23 = "?";
     }
 
     else
     {
-      v13 = v12;
+      v23 = v22;
     }
 
-    sl_localizedClientName = [v10 stringWithCString:v13 encoding:4];
+    sl_localizedClientName = [v20 stringWithCString:v23 encoding:4];
   }
 
-  _SLLog(v3, 6, @"Entitlement %@ verified for %@: %@");
+  _SLLog(v3, 6, @"Entitlement %@ verified for %@: %@", v14, v15, v16, v17, v18, v5);
 
-  return v7;
+  return v12;
 }
 
 - (id)sl_localizedClientName

@@ -87,7 +87,7 @@
 + (id)currentContext
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     currentThread = [MEMORY[0x277CCACC8] currentThread];
@@ -170,7 +170,7 @@ void __40__VSJSApp_evaluateScript_withSourceURL___block_invoke(uint64_t a1, void
 - (void)start
 {
   v8 = *MEMORY[0x277D85DE8];
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -266,7 +266,7 @@ void __29__VSJSApp__initializeContext__block_invoke(uint64_t a1)
 void __29__VSJSApp__initializeContext__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __29__VSJSApp__initializeContext__block_invoke_2_cold_1();
@@ -277,7 +277,7 @@ void __29__VSJSApp__initializeContext__block_invoke_97(uint64_t a1, void *a2)
 {
   v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -289,7 +289,7 @@ void __29__VSJSApp__initializeContext__block_invoke_97(uint64_t a1, void *a2)
 void __29__VSJSApp__initializeContext__block_invoke_101(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = VSErrorLogObject();
+  v3 = VSErrorLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __29__VSJSApp__initializeContext__block_invoke_101_cold_1();
@@ -396,7 +396,7 @@ LABEL_11:
 - (void)_invokeOnLaunch
 {
   v16 = *MEMORY[0x277D85DE8];
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -483,11 +483,11 @@ void __26__VSJSApp__invokeOnLaunch__block_invoke_2(uint64_t a1, void *a2, void *
 {
   v5 = a3;
   v6 = a2;
-  v7 = VSDefaultLogObject();
+  v7 = VSDefaultLogObject(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v12 = 0;
-    _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "onLaunch callback invoked", v12, 2u);
+    *v13 = 0;
+    _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "onLaunch callback invoked", v13, 2u);
   }
 
   [*(a1 + 32) _configureWatchdogWithSeconds:0];
@@ -495,18 +495,18 @@ void __26__VSJSApp__invokeOnLaunch__block_invoke_2(uint64_t a1, void *a2, void *
 
   if ((v8 & 1) == 0)
   {
-    v9 = VSErrorLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = VSErrorLogObject(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __26__VSJSApp__invokeOnLaunch__block_invoke_2_cold_1(v5, v9);
+      __26__VSJSApp__invokeOnLaunch__block_invoke_2_cold_1(v5, v10);
     }
 
-    v10 = [*(a1 + 32) stateMachine];
-    [v10 enqueueEvent:@"Error"];
+    v11 = [*(a1 + 32) stateMachine];
+    [v11 enqueueEvent:@"Error"];
   }
 
-  v11 = [*(a1 + 32) stateMachine];
-  [v11 enqueueEvent:@"Invoked OnLaunch Callback"];
+  v12 = [*(a1 + 32) stateMachine];
+  [v12 enqueueEvent:@"Invoked OnLaunch Callback"];
 }
 
 void __26__VSJSApp__invokeOnLaunch__block_invoke_119(uint64_t a1)
@@ -558,7 +558,7 @@ void __24__VSJSApp__invokeOnExit__block_invoke(uint64_t a1, void *a2)
 
 void __24__VSJSApp__invokeOnExit__block_invoke_2(uint64_t a1)
 {
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -574,7 +574,7 @@ void __24__VSJSApp__invokeOnExit__block_invoke_2(uint64_t a1)
 {
   v16 = *MEMORY[0x277D85DE8];
   watchdog = [(VSJSApp *)self watchdog];
-  v6 = VSDefaultLogObject();
+  v6 = VSDefaultLogObject(watchdog);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (seconds)
   {
@@ -628,7 +628,7 @@ LABEL_11:
 
 void __41__VSJSApp__configureWatchdogWithSeconds___block_invoke(uint64_t a1)
 {
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -647,7 +647,7 @@ void __41__VSJSApp__configureWatchdogWithSeconds___block_invoke(uint64_t a1)
 - (void)transitionToWaitingForBootUrlState
 {
   v20 = *MEMORY[0x277D85DE8];
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -705,7 +705,7 @@ void __45__VSJSApp_transitionToWaitingForBootUrlState__block_invoke_2(uint64_t a
 {
   v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = VSDefaultLogObject();
+  v4 = VSDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -722,7 +722,7 @@ void __45__VSJSApp_transitionToWaitingForBootUrlState__block_invoke_123(uint64_t
 {
   v14[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __45__VSJSApp_transitionToWaitingForBootUrlState__block_invoke_123_cold_1();
@@ -790,7 +790,7 @@ void __45__VSJSApp_transitionToWaitingForBootUrlState__block_invoke_126(uint64_t
 - (void)transitionToWaitingForBootScriptState
 {
   v19 = *MEMORY[0x277D85DE8];
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -826,113 +826,113 @@ void __45__VSJSApp_transitionToWaitingForBootUrlState__block_invoke_126(uint64_t
 
 void __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = VSDefaultLogObject();
+  v10 = VSDefaultLogObject(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v52 = v8;
+    v53 = v8;
     _os_log_impl(&dword_23AB8E000, v10, OS_LOG_TYPE_DEFAULT, "Got response for boot script: %@", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v12 = WeakRetained;
   if (WeakRetained)
   {
     if (v9)
     {
-      v12 = VSErrorLogObject();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = VSErrorLogObject(WeakRetained);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke_cold_1();
       }
 
-      v13 = [WeakRetained _errorWithCode:1 underlyingError:v9];
-      v39 = MEMORY[0x277D85DD0];
-      v40 = 3221225472;
-      v41 = __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke_140;
-      v42 = &unk_278B73708;
-      v43 = WeakRetained;
-      v44 = v13;
-      v14 = v13;
-      dispatch_async(MEMORY[0x277D85CD0], &v39);
-      v15 = [WeakRetained stateMachine];
-      [v15 enqueueEvent:@"Error"];
+      v14 = [v12 _errorWithCode:1 underlyingError:v9];
+      v40 = MEMORY[0x277D85DD0];
+      v41 = 3221225472;
+      v42 = __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke_140;
+      v43 = &unk_278B73708;
+      v44 = v12;
+      v45 = v14;
+      v15 = v14;
+      dispatch_async(MEMORY[0x277D85CD0], &v40);
+      v16 = [v12 stateMachine];
+      [v16 enqueueEvent:@"Error"];
 
-      v16 = v44;
+      v17 = v45;
     }
 
     else
     {
       if (v7)
       {
-        v14 = v7;
-        v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v14 encoding:4];
-        if (v17)
+        v15 = v7;
+        v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v15 encoding:4];
+        if (v18)
         {
-          [WeakRetained setScript:v17];
-          v18 = VSDefaultLogObject();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v19 = VSDefaultLogObject([v12 setScript:v18]);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_23AB8E000, v18, OS_LOG_TYPE_DEFAULT, "Will evaluate boot script", buf, 2u);
+            _os_log_impl(&dword_23AB8E000, v19, OS_LOG_TYPE_DEFAULT, "Will evaluate boot script", buf, 2u);
           }
 
-          v19 = [WeakRetained jsSingleThreadQueue];
-          v49[0] = MEMORY[0x277D85DD0];
-          v49[1] = 3221225472;
-          v49[2] = __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke_136;
-          v49[3] = &unk_278B73708;
-          v49[4] = WeakRetained;
-          v50 = v17;
-          [v19 dispatchBlock:v49];
+          v20 = [v12 jsSingleThreadQueue];
+          v50[0] = MEMORY[0x277D85DD0];
+          v50[1] = 3221225472;
+          v50[2] = __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke_136;
+          v50[3] = &unk_278B73708;
+          v50[4] = v12;
+          v51 = v18;
+          [v20 dispatchBlock:v50];
         }
 
         else
         {
-          v29 = VSErrorLogObject();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          v30 = VSErrorLogObject(0);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
-            __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke_cold_2(a1, v29, v30, v31, v32, v33, v34, v35);
+            __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke_cold_2(a1, v30, v31, v32, v33, v34, v35, v36);
           }
 
-          v36 = [WeakRetained _errorWithCode:2 underlyingError:0];
-          v47[0] = MEMORY[0x277D85DD0];
-          v47[1] = 3221225472;
-          v47[2] = __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke_138;
-          v47[3] = &unk_278B73708;
-          v47[4] = WeakRetained;
-          v48 = v36;
-          v37 = v36;
-          dispatch_async(MEMORY[0x277D85CD0], v47);
-          v38 = [WeakRetained stateMachine];
-          [v38 enqueueEvent:@"Error"];
+          v37 = [v12 _errorWithCode:2 underlyingError:0];
+          v48[0] = MEMORY[0x277D85DD0];
+          v48[1] = 3221225472;
+          v48[2] = __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke_138;
+          v48[3] = &unk_278B73708;
+          v48[4] = v12;
+          v49 = v37;
+          v38 = v37;
+          dispatch_async(MEMORY[0x277D85CD0], v48);
+          v39 = [v12 stateMachine];
+          [v39 enqueueEvent:@"Error"];
         }
 
         goto LABEL_21;
       }
 
-      v20 = VSErrorLogObject();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = VSErrorLogObject(WeakRetained);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke_cold_3(a1, v20, v21, v22, v23, v24, v25, v26);
+        __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke_cold_3(a1, v21, v22, v23, v24, v25, v26, v27);
       }
 
-      v27 = [WeakRetained _errorWithCode:2 underlyingError:0];
+      v28 = [v12 _errorWithCode:2 underlyingError:0];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke_139;
       block[3] = &unk_278B73708;
-      block[4] = WeakRetained;
-      v46 = v27;
-      v14 = v27;
+      block[4] = v12;
+      v47 = v28;
+      v15 = v28;
       dispatch_async(MEMORY[0x277D85CD0], block);
-      v28 = [WeakRetained stateMachine];
-      [v28 enqueueEvent:@"Error"];
+      v29 = [v12 stateMachine];
+      [v29 enqueueEvent:@"Error"];
 
-      v16 = v46;
+      v17 = v47;
     }
 
 LABEL_21:
@@ -941,7 +941,7 @@ LABEL_21:
 
 void __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke_136(uint64_t a1)
 {
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1004,7 +1004,7 @@ void __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke_140(uint6
 - (void)transitionToWaitingForOnLaunchCallbackState
 {
   v6 = *MEMORY[0x277D85DE8];
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315138;
@@ -1018,7 +1018,7 @@ void __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke_140(uint6
 - (void)transitionToWaitingForOnExitCallbackState
 {
   v6 = *MEMORY[0x277D85DE8];
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315138;
@@ -1032,7 +1032,7 @@ void __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke_140(uint6
 - (void)transitionToReadyState
 {
   v7 = *MEMORY[0x277D85DE8];
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -1056,19 +1056,19 @@ void __33__VSJSApp_transitionToReadyState__block_invoke(uint64_t a1)
 
 - (void)transitionToErrorState
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = VSDefaultLogObject();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[VSJSApp transitionToErrorState]";
-    _os_log_impl(&dword_23AB8E000, v2, OS_LOG_TYPE_DEFAULT, "Entering %s", &v4, 0xCu);
+    v5 = 136315138;
+    v6 = "[VSJSApp transitionToErrorState]";
+    _os_log_impl(&dword_23AB8E000, v2, OS_LOG_TYPE_DEFAULT, "Entering %s", &v5, 0xCu);
   }
 
-  v3 = VSErrorLogObject();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = VSErrorLogObject(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    [(VSJSApp *)v3 transitionToErrorState];
+    [(VSJSApp *)v4 transitionToErrorState];
   }
 }
 
@@ -1104,6 +1104,20 @@ void __26__VSJSApp__invokeOnLaunch__block_invoke_2_cold_1(void *a1, NSObject *a2
   v3 = [a1 message];
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(&dword_23AB8E000, a2, OS_LOG_TYPE_ERROR, "App indicated it is not ready to receive requests with error %@", v4, 0xCu);
+}
+
+void __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_0(&dword_23AB8E000, a2, a3, "Unexpected encoding for JS returned with URL %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __48__VSJSApp_transitionToWaitingForBootScriptState__block_invoke_cold_3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_0(&dword_23AB8E000, a2, a3, "No JS returned for URL %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

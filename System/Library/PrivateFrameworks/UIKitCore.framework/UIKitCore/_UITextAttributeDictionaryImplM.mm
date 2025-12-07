@@ -38,9 +38,9 @@
         v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:v10];
         v12 = [_attributes objectForKeyedSubscript:v10];
-        v13 = [v11 isEqual:v12];
+        isEqual = objc_msgSend_isEqual_(v11);
 
-        if (v13)
+        if (isEqual)
         {
           [(NSMutableDictionary *)self->super._storage removeObjectForKey:v10];
         }
@@ -71,28 +71,28 @@
     v12 = v11;
     if (v10 == v11)
     {
-      v8 = 1;
+      isEqual = 1;
     }
 
     else
     {
-      v8 = 0;
+      isEqual = 0;
       if (v11 && v10)
       {
-        v8 = [v10 isEqual:v11];
+        isEqual = objc_msgSend_isEqual_(v10);
       }
     }
   }
 
   else
   {
-    v8 = 0;
+    isEqual = 0;
   }
 
   if (keyCopy && (v13 = self->super._storage) != 0 && CFDictionaryContainsKey(v13, keyCopy))
   {
     storage = self->super._storage;
-    if (v8)
+    if (isEqual)
     {
       [(NSMutableDictionary *)storage removeObjectForKey:keyCopy];
       goto LABEL_20;
@@ -101,7 +101,7 @@
 
   else
   {
-    if (v8)
+    if (isEqual)
     {
       goto LABEL_20;
     }

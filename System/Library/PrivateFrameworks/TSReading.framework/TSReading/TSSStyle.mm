@@ -131,7 +131,7 @@
   return v7;
 }
 
-uint64_t __23__TSSStyle_description__block_invoke(uint64_t a1, uint64_t a2)
+void *__23__TSSStyle_description__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) appendFormat:@"%@%3d %@", *(*(*(a1 + 40) + 8) + 40), a2, String(a2)];
   *(*(*(a1 + 40) + 8) + 40) = @"\n";
@@ -1199,7 +1199,7 @@ LABEL_15:
   return v7 & 1;
 }
 
-uint64_t __54__TSSStyle_hasEqualValuesToPropertyMap_forProperties___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__54__TSSStyle_hasEqualValuesToPropertyMap_forProperties___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) p_hasEqualValuesTo:*(a1 + 40) forProperty:a2];
   if ((result & 1) == 0)
@@ -1239,7 +1239,7 @@ uint64_t __54__TSSStyle_hasEqualValuesToPropertyMap_forProperties___block_invoke
   return v7 & 1;
 }
 
-uint64_t __41__TSSStyle_hasEqualValues_forProperties___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__41__TSSStyle_hasEqualValues_forProperties___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) p_hasEqualValuesTo:*(a1 + 40) forProperty:a2];
   if ((result & 1) == 0)
@@ -1604,7 +1604,7 @@ uint64_t __28__TSSStyle_referencedStyles__block_invoke(uint64_t result, uint64_t
   [propertyMap enumeratePropertiesAndObjectsUsingBlock:v6];
 }
 
-uint64_t __46__TSSStyle_replaceReferencedStylesUsingBlock___block_invoke(uint64_t result, uint64_t a2, int a3, void *a4)
+void *__46__TSSStyle_replaceReferencedStylesUsingBlock___block_invoke(void *result, uint64_t a2, int a3, void *a4)
 {
   if (!a3)
   {
@@ -1612,11 +1612,11 @@ uint64_t __46__TSSStyle_replaceReferencedStylesUsingBlock___block_invoke(uint64_
     result = [a4 conformsToProtocol:&unk_287E212D0];
     if (result)
     {
-      result = (*(*(v6 + 40) + 16))();
+      result = (*(v6[5] + 16))();
       if (result != a4)
       {
         v7 = result;
-        v8 = *(v6 + 32);
+        v8 = v6[4];
 
         return [v8 setValue:v7 forProperty:a2];
       }

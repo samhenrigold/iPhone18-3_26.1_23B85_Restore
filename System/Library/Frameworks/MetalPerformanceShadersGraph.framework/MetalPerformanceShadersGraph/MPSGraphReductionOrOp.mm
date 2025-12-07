@@ -8,86 +8,86 @@
 {
   v48 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  mpsFileLoc("[MPSGraphReductionOrOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphReductionOps.mm", v36);
+  mpsFileLoc(v37, "[MPSGraphReductionOrOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphReductionOps.mm");
   v11 = nameCopy;
   v47 = 260;
-  v46[0] = v36;
+  v46[0] = v37;
   StringAttr = mlir::Builder::getStringAttr(builder, v46);
-  v14 = mlir::FileLineColLoc::get(StringAttr, 0x100u, 0);
+  v15 = mlir::FileLineColLoc::get(StringAttr, 0x100u, 0);
   if (v11)
   {
-    v15 = v11;
+    v16 = v11;
     uTF8String = [v11 UTF8String];
-    v17 = strlen(uTF8String);
-    if (v17 >= 0x7FFFFFFFFFFFFFF8)
+    v18 = strlen(uTF8String);
+    if (v18 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v18 = v17;
-    if (v17 >= 0x17)
+    v19 = v18;
+    if (v18 >= 0x17)
     {
       operator new();
     }
 
-    HIBYTE(v45) = v17;
-    if (v17)
+    *(&__dst[0].__r_.__value_.__s + 23) = v18;
+    if (v18)
     {
-      memmove(&__dst, uTF8String, v17);
+      memmove(__dst, uTF8String, v18);
     }
 
-    v19 = (&__dst + v18);
+    v20 = __dst + v19;
   }
 
   else
   {
-    HIBYTE(v45) = 16;
-    __dst = *"mps.reduction_or";
-    v19 = &v45;
+    *(&__dst[0].__r_.__value_.__s + 23) = 16;
+    *&__dst[0].__r_.__value_.__l.__data_ = *"mps.reduction_or";
+    v20 = &__dst[0].__r_.__value_.__s.__data_[16];
   }
 
-  *v19 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, v13, &__p);
+  *v20 = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, __dst, &__p, v13, v14);
   p_p = __p.__r_.__value_.__r.__words[0];
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
   }
 
-  v21 = 1;
+  v22 = 1;
   HIBYTE(v47) = 1;
   if (p_p->__r_.__value_.__s.__data_[0])
   {
     v46[0] = p_p;
-    v21 = 3;
+    v22 = 3;
   }
 
-  LOBYTE(v47) = v21;
-  v22 = mlir::Builder::getStringAttr(builder, v46);
-  v23 = mlir::NameLoc::get(v22, v14);
+  LOBYTE(v47) = v22;
+  v23 = mlir::Builder::getStringAttr(builder, v46);
+  v24 = mlir::NameLoc::get(v23, v15);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v45) & 0x80000000) == 0)
+    if ((SHIBYTE(__dst[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
   }
 
-  else if ((SHIBYTE(v45) & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_16;
   }
 
-  operator delete(__dst);
+  operator delete(__dst[0].__r_.__value_.__l.__data_);
 LABEL_16:
 
-  if (v37 < 0)
+  if (v38 < 0)
   {
-    operator delete(v36[0]);
-    v25 = *values;
-    v24 = *(values + 1);
-    if (v24 - *values >= 9)
+    operator delete(v37[0]);
+    v26 = *values;
+    v25 = *(values + 1);
+    if (v25 - *values >= 9)
     {
       goto LABEL_18;
     }
@@ -95,53 +95,53 @@ LABEL_16:
 
   else
   {
-    v25 = *values;
-    v24 = *(values + 1);
-    if (v24 - *values >= 9)
+    v26 = *values;
+    v25 = *(values + 1);
+    if (v25 - *values >= 9)
     {
 LABEL_18:
-      v26 = v25[1];
+      v27 = v26[1];
       goto LABEL_23;
     }
   }
 
-  v26 = 0;
+  v27 = 0;
 LABEL_23:
-  if (v24 == v25)
+  if (v25 == v26)
   {
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v38 = v23;
-  Context = mlir::Attribute::getContext(&v38);
-  v28 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::ReductionOrOp,void>::id, Context);
-  if ((v29 & 1) == 0)
+  v39 = v24;
+  Context = mlir::Attribute::getContext(&v39);
+  v29 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::ReductionOrOp,void>::id, Context);
+  if ((v30 & 1) == 0)
   {
-    v43 = 1283;
+    v44 = 1283;
     __p.__r_.__value_.__r.__words[2] = "mps.reduction_or";
-    v42 = 16;
-    v40 = 259;
-    llvm::operator+(&__p, &v39, &__dst);
-    llvm::report_fatal_error(&__dst, 1);
+    v43 = 16;
+    v41 = 259;
+    llvm::operator+(&__p, &v40, __dst);
+    llvm::report_fatal_error(__dst, 1);
   }
 
-  mlir::OperationState::OperationState(v46, v23, v28);
-  mlir::mps::ReductionOrOp::build(builder, v46, *v25, v26, 1);
-  v30 = mlir::OpBuilder::create(builder, v46);
-  v31 = *(*(v30 + 48) + 16);
+  mlir::OperationState::OperationState(v46, v24, v29);
+  mlir::mps::ReductionOrOp::build(builder, v46, *v26, v27, 1);
+  v31 = mlir::OpBuilder::create(builder, v46);
+  v32 = *(*(v31 + 6) + 16);
   mlir::OperationState::~OperationState(v46);
-  if (v31 == &mlir::detail::TypeIDResolver<mlir::mps::ReductionOrOp,void>::id)
+  if (v32 == &mlir::detail::TypeIDResolver<mlir::mps::ReductionOrOp,void>::id)
   {
-    v32 = v30;
+    v33 = v31;
   }
 
   else
   {
-    v32 = 0;
+    v33 = 0;
   }
 
-  v35 = v32 - 16;
-  DefiningOp = mlir::Value::getDefiningOp(&v35);
+  v36 = v33 - 16;
+  DefiningOp = mlir::Value::getDefiningOp(&v36);
 
   return DefiningOp;
 }

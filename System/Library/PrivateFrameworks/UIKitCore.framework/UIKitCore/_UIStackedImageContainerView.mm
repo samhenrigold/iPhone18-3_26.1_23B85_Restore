@@ -114,7 +114,7 @@
 - (void)setConfig:(id)config
 {
   configCopy = config;
-  if (![(_UIStackedImageConfiguration *)self->_config isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_config) & 1) == 0)
   {
     objc_storeStrong(&self->_config, config);
     [(_UIStackedImageContainerView *)self _updateContainerLayerImages];
@@ -125,7 +125,7 @@
 - (void)setStackImage:(id)image
 {
   imageCopy = image;
-  if (![(UIImage *)self->_stackImage isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_stackImage) & 1) == 0)
   {
     objc_storeStrong(&self->_stackImage, image);
     [(_UIStackedImageContainerView *)self _updateContainerLayerImages];

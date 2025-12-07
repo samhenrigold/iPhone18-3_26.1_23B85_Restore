@@ -201,64 +201,62 @@ LABEL_6:
 
 + (void)finalizeTopHitSection:(id)section
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   results = [section results];
-  v4 = [results countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [results countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(results);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) setUsesTopHitDisplay:1];
+        [*(*(&v8 + 1) + 8 * v7++) setUsesTopHitDisplay:1];
       }
 
       while (v5 != v7);
-      v5 = [results countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [results countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)finalizeTopHitsInSections:(id)sections withTopHitSection:(id)section
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   sectionsCopy = sections;
   sectionCopy = section;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v8 = [sectionsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [sectionsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(sectionsCopy);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         bundleIdentifier = [v12 bundleIdentifier];
         v14 = [bundleIdentifier isEqual:@"com.apple.spotlight.tophits"];
 
@@ -268,15 +266,13 @@ LABEL_6:
         }
       }
 
-      v9 = [sectionsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [sectionsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
 
   [self finalizeTopHitSection:sectionCopy];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (id)postProcessSectionsBasedOnTopHitSection:(id)section withTopHitSection:(id)hitSection
@@ -284,7 +280,7 @@ LABEL_6:
   sectionCopy = section;
   hitSectionCopy = hitSection;
   v8 = hitSectionCopy;
-  if (hitSectionCopy && ([hitSectionCopy results], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "count"), v9, v10))
+  if (hitSectionCopy && ([hitSectionCopy results], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend_count(v9), v9, v10))
   {
     results = [v8 results];
     firstObject = [results firstObject];
@@ -312,7 +308,7 @@ LABEL_6:
             if (v20 >= v21)
             {
               recentSimilarIntentEngagementDates = [rankingItem2 recentSimilarIntentEngagementDates];
-              v23 = [recentSimilarIntentEngagementDates count];
+              v23 = objc_msgSend_count(recentSimilarIntentEngagementDates);
 
               if (v23)
               {
@@ -339,34 +335,34 @@ LABEL_6:
 
 + (id)_dropSection:(id)section targetSection:(id)targetSection reasonString:(id)string
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   sectionCopy = section;
   targetSectionCopy = targetSection;
   stringCopy = string;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v10 = sectionCopy;
-  v11 = [v10 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
   v12 = v10;
   if (v11)
   {
     v13 = v11;
     v14 = 0;
-    v15 = *v24;
+    v15 = *v23;
 LABEL_3:
     v16 = 0;
     v17 = v14;
     v14 += v13;
     while (1)
     {
-      if (*v24 != v15)
+      if (*v23 != v15)
       {
         objc_enumerationMutation(v10);
       }
 
-      bundleIdentifier = [*(*(&v23 + 1) + 8 * v16) bundleIdentifier];
+      bundleIdentifier = [*(*(&v22 + 1) + 8 * v16) bundleIdentifier];
       v19 = [bundleIdentifier isEqual:targetSectionCopy];
 
       if (v19)
@@ -377,7 +373,7 @@ LABEL_3:
       ++v17;
       if (v13 == ++v16)
       {
-        v13 = [v10 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v13 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v13)
         {
           goto LABEL_3;
@@ -397,9 +393,9 @@ LABEL_3:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v28 = targetSectionCopy;
-      v29 = 2112;
-      v30 = stringCopy;
+      v27 = targetSectionCopy;
+      v28 = 2112;
+      v29 = stringCopy;
       _os_log_impl(&dword_1D9F69000, v20, OS_LOG_TYPE_DEFAULT, "[SpotlightRanking] postProcessSectionsBasedOnTopHitSection Rule: dropping %@ due to %@.", buf, 0x16u);
     }
 
@@ -411,8 +407,6 @@ LABEL_14:
 
   v10 = v12;
 LABEL_15:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -432,19 +426,17 @@ LABEL_15:
 
 void __54__SSTopHitNominationManager__bundleExcludedForTopHit___block_invoke()
 {
-  v5[5] = *MEMORY[0x1E69E9840];
+  v4[5] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"com.apple.searchd.syndicatedLinks";
-  v5[1] = @"com.apple.searchd.syndicatedPhotos";
-  v5[2] = @"com.apple.searchd.syndicatedPhotos.MobileSMS";
-  v5[3] = @"com.apple.searchd.syndicatedPhotos.mobilenotes";
-  v5[4] = @"com.apple.searchd.syndicatedPhotos.mobileslideshow";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:5];
+  v4[0] = @"com.apple.searchd.syndicatedLinks";
+  v4[1] = @"com.apple.searchd.syndicatedPhotos";
+  v4[2] = @"com.apple.searchd.syndicatedPhotos.MobileSMS";
+  v4[3] = @"com.apple.searchd.syndicatedPhotos.mobilenotes";
+  v4[4] = @"com.apple.searchd.syndicatedPhotos.mobileslideshow";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:5];
   v2 = [v0 setWithArray:v1];
   v3 = _bundleExcludedForTopHit___bundlesExcluded;
   _bundleExcludedForTopHit___bundlesExcluded = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (float)_likelihoodThresholdForBundle:(id)bundle
@@ -469,20 +461,18 @@ void __54__SSTopHitNominationManager__bundleExcludedForTopHit___block_invoke()
 
 void __59__SSTopHitNominationManager__likelihoodThresholdForBundle___block_invoke(double a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"com.apple.mobilemail";
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"com.apple.mobilemail";
   LODWORD(a1) = *"ff&?";
   v1 = [MEMORY[0x1E696AD98] numberWithFloat:a1];
-  v8[0] = v1;
-  v7[1] = @"com.apple.MobileSMS";
+  v7[0] = v1;
+  v6[1] = @"com.apple.MobileSMS";
   LODWORD(v2) = 1060320051;
   v3 = [MEMORY[0x1E696AD98] numberWithFloat:v2];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
   v5 = _likelihoodThresholdForBundle___bundleThresholds;
   _likelihoodThresholdForBundle___bundleThresholds = v4;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)_needQUIntentCheck:(id)check
@@ -503,23 +493,21 @@ void __59__SSTopHitNominationManager__likelihoodThresholdForBundle___block_invok
 
 void __48__SSTopHitNominationManager__needQUIntentCheck___block_invoke()
 {
-  v5[9] = *MEMORY[0x1E69E9840];
+  v4[9] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"com.apple.mobileslideshow";
-  v5[1] = @"com.apple.mobilenotes";
-  v5[2] = @"com.apple.DocumentsApp";
-  v5[3] = @"com.apple.mobilemail";
-  v5[4] = @"com.apple.MobileSMS";
-  v5[5] = @"com.apple.mobilecal";
-  v5[6] = @"com.apple.reminders";
-  v5[7] = @"com.apple.mobilesafari";
-  v5[8] = @"com.apple.spotlight.events";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:9];
+  v4[0] = @"com.apple.mobileslideshow";
+  v4[1] = @"com.apple.mobilenotes";
+  v4[2] = @"com.apple.DocumentsApp";
+  v4[3] = @"com.apple.mobilemail";
+  v4[4] = @"com.apple.MobileSMS";
+  v4[5] = @"com.apple.mobilecal";
+  v4[6] = @"com.apple.reminders";
+  v4[7] = @"com.apple.mobilesafari";
+  v4[8] = @"com.apple.spotlight.events";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:9];
   v2 = [v0 setWithArray:v1];
   v3 = _needQUIntentCheck___quBundlesToCheck;
   _needQUIntentCheck___quBundlesToCheck = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)_needImportantPropertyMatch:(id)match
@@ -584,7 +572,7 @@ void __48__SSTopHitNominationManager__needQUIntentCheck___block_invoke()
 
       rankingItem2 = [checkCopy rankingItem];
       recentSimilarIntentEngagementDates = [rankingItem2 recentSimilarIntentEngagementDates];
-      v6 = [recentSimilarIntentEngagementDates count] != 0;
+      v6 = objc_msgSend_count(recentSimilarIntentEngagementDates) != 0;
     }
 
     else
@@ -704,24 +692,7 @@ LABEL_8:
   [rankingItem9 mostRecentUseInMinutes];
   v34 = v33;
 
-  if (v34 <= 0.0)
-  {
-    goto LABEL_26;
-  }
-
-  [self getTopHitThreshold:@"IN_APP_USAGE_RECENCY_DAYS"];
-  if ((v35 * 1440.0) < v34)
-  {
-    goto LABEL_26;
-  }
-
-  rankingItem10 = [checkCopy rankingItem];
-  [rankingItem10 keywordMatchScore];
-  v38 = v37;
-  [self getTopHitThreshold:@"SAFARI_KEYWORDMATCH_THRESHOLD"];
-  v40 = v39;
-
-  if (v38 < v40 || (LOBYTE(rankingItem) = 1, v16 >= 0.0) && v16 > v19)
+  if (v34 <= 0.0 || ([self getTopHitThreshold:@"IN_APP_USAGE_RECENCY_DAYS"], (v35 * 1440.0) < v34) || (objc_msgSend(checkCopy, "rankingItem"), v36 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v36, "keywordMatchScore"), v38 = v37, objc_msgSend(self, "getTopHitThreshold:", @"SAFARI_KEYWORDMATCH_THRESHOLD"), v40 = v39, v36, v38 < v40) || (LOBYTE(rankingItem) = 1, v16 >= 0.0) && v16 > v19)
   {
 LABEL_26:
     LOBYTE(rankingItem) = 0;
@@ -955,7 +926,7 @@ LABEL_13:
   {
     rankingItem2 = [checkCopy rankingItem];
     recentSimilarIntentEngagementDates = [rankingItem2 recentSimilarIntentEngagementDates];
-    LOBYTE(rankingItem) = [recentSimilarIntentEngagementDates count] > 1;
+    LOBYTE(rankingItem) = objc_msgSend_count(recentSimilarIntentEngagementDates) > 1;
   }
 
   return rankingItem;
@@ -1069,7 +1040,7 @@ LABEL_24:
 
 + (void)topHitCandidacyThresholdingForAppSection:(id)section
 {
-  v95 = *MEMORY[0x1E69E9840];
+  v94 = *MEMORY[0x1E69E9840];
   sectionCopy = section;
   bundleIdentifier = [sectionCopy bundleIdentifier];
   if (![bundleIdentifier isEqualToString:@"com.apple.application"] || objc_msgSend(sectionCopy, "resultsCount") < 2)
@@ -1089,8 +1060,8 @@ LABEL_10:
   }
 
   resultSet2 = [sectionCopy resultSet];
-  v87 = [resultSet2 objectAtIndexedSubscript:1];
-  rankingItem2 = [v87 rankingItem];
+  v86 = [resultSet2 objectAtIndexedSubscript:1];
+  rankingItem2 = [v86 rankingItem];
   if (![rankingItem2 isLocalTopHitCandidate])
   {
 
@@ -1098,73 +1069,73 @@ LABEL_10:
   }
 
   resultSet3 = [sectionCopy resultSet];
-  v85 = [resultSet3 objectAtIndexedSubscript:1];
-  rankingItem3 = [v85 rankingItem];
+  v84 = [resultSet3 objectAtIndexedSubscript:1];
+  rankingItem3 = [v84 rankingItem];
   [rankingItem3 freshnessScore];
   v13 = v12;
   if (v12 < 0.96)
   {
-    v80 = resultSet3;
-    v81 = rankingItem2;
-    v82 = 0;
+    v79 = resultSet3;
+    v80 = rankingItem2;
+    v81 = 0;
     goto LABEL_13;
   }
 
   resultSet4 = [sectionCopy resultSet];
-  v77 = [resultSet4 objectAtIndexedSubscript:1];
-  rankingItem4 = [v77 rankingItem];
+  v76 = [resultSet4 objectAtIndexedSubscript:1];
+  rankingItem4 = [v76 rankingItem];
   [rankingItem4 topicalityScore];
   if (v14 < 0.6)
   {
-    v80 = resultSet3;
-    v81 = rankingItem2;
-    v82 = 0;
+    v79 = resultSet3;
+    v80 = rankingItem2;
+    v81 = 0;
     goto LABEL_13;
   }
 
   resultSet5 = [sectionCopy resultSet];
-  v28 = [resultSet5 objectAtIndexedSubscript:1];
-  rankingItem5 = [v28 rankingItem];
+  v27 = [resultSet5 objectAtIndexedSubscript:1];
+  rankingItem5 = [v27 rankingItem];
   [rankingItem5 freshnessScore];
-  if (v30 >= 0.9999)
+  if (v29 >= 0.9999)
   {
 LABEL_27:
 
-    v27 = 0;
+    v26 = 0;
     goto LABEL_28;
   }
 
-  v75 = rankingItem5;
-  v69 = v28;
+  v74 = rankingItem5;
+  v68 = v27;
   [sectionCopy resultSet];
-  v67 = v82 = 1;
-  v31 = [v67 objectAtIndexedSubscript:1];
-  rankingItem6 = [v31 rankingItem];
+  v66 = v81 = 1;
+  v30 = [v66 objectAtIndexedSubscript:1];
+  rankingItem6 = [v30 rankingItem];
   [rankingItem6 topicalityScore];
-  if (v33 >= 0.9)
+  if (v32 >= 0.9)
   {
 
-    v28 = v69;
-    rankingItem5 = v75;
+    v27 = v68;
+    rankingItem5 = v74;
     goto LABEL_27;
   }
 
-  v65 = rankingItem6;
-  v66 = v31;
-  v80 = resultSet3;
-  v81 = rankingItem2;
-  v3 = v69;
+  v64 = rankingItem6;
+  v65 = v30;
+  v79 = resultSet3;
+  v80 = rankingItem2;
+  v3 = v68;
 LABEL_13:
   resultSet6 = [sectionCopy resultSet];
-  v17 = [resultSet6 objectAtIndexedSubscript:1];
-  rankingItem7 = [v17 rankingItem];
+  v16 = [resultSet6 objectAtIndexedSubscript:1];
+  rankingItem7 = [v16 rankingItem];
   [rankingItem7 topicalityScore];
-  if (v19 >= 1.0)
+  if (v18 >= 1.0)
   {
 
-    v79 = 0;
-    v26 = v75;
-    if ((v82 & 1) == 0)
+    v78 = 0;
+    v25 = v74;
+    if ((v81 & 1) == 0)
     {
       goto LABEL_18;
     }
@@ -1172,57 +1143,57 @@ LABEL_13:
     goto LABEL_17;
   }
 
-  v73 = resultSet6;
+  v72 = resultSet6;
   resultSet7 = [sectionCopy resultSet];
-  v71 = [resultSet7 objectAtIndexedSubscript:0];
-  rankingItem8 = [v71 rankingItem];
+  v70 = [resultSet7 objectAtIndexedSubscript:0];
+  rankingItem8 = [v70 rankingItem];
   [rankingItem8 likelihood];
-  if (v20 <= 0.65)
+  if (v19 <= 0.65)
   {
-    v79 = 0;
-    v26 = v75;
+    v78 = 0;
+    v25 = v74;
   }
 
   else
   {
     resultSet8 = [sectionCopy resultSet];
-    v63 = [resultSet8 objectAtIndexedSubscript:0];
-    rankingItem9 = [v63 rankingItem];
+    v62 = [resultSet8 objectAtIndexedSubscript:0];
+    rankingItem9 = [v62 rankingItem];
     [rankingItem9 likelihood];
-    v22 = v21;
+    v21 = v20;
     resultSet9 = [sectionCopy resultSet];
     [resultSet9 objectAtIndexedSubscript:1];
-    v23 = v68 = v3;
-    rankingItem10 = [v23 rankingItem];
+    v22 = v67 = v3;
+    rankingItem10 = [v22 rankingItem];
     [rankingItem10 likelihood];
-    v79 = v22 - v25 > 0.25;
+    v78 = v21 - v24 > 0.25;
 
-    v26 = v75;
-    v3 = v68;
+    v25 = v74;
+    v3 = v67;
   }
 
-  if (v82)
+  if (v81)
   {
 LABEL_17:
   }
 
 LABEL_18:
-  resultSet3 = v80;
-  rankingItem2 = v81;
-  v27 = v79;
+  resultSet3 = v79;
+  rankingItem2 = v80;
+  v26 = v78;
   if (v13 >= 0.96)
   {
 LABEL_28:
   }
 
-  if (!v27)
+  if (!v26)
   {
     goto LABEL_11;
   }
 
   resultSet10 = [sectionCopy resultSet];
-  v35 = [resultSet10 objectAtIndexedSubscript:0];
-  rankingItem11 = [v35 rankingItem];
+  v34 = [resultSet10 objectAtIndexedSubscript:0];
+  rankingItem11 = [v34 rankingItem];
   bundleIdentifier = SSCompactRankingAttrsGetValue([rankingItem11 attributes], 0x78uLL);
 
   objc_opt_class();
@@ -1230,13 +1201,13 @@ LABEL_28:
   {
     *buf = 0;
     resultSet11 = [sectionCopy resultSet];
-    v38 = [resultSet11 objectAtIndexedSubscript:0];
-    rankingItem12 = [v38 rankingItem];
+    v37 = [resultSet11 objectAtIndexedSubscript:0];
+    rankingItem12 = [v37 rankingItem];
     SSCompactRankingAttrsGetFloat([rankingItem12 attributes], 0x163uLL, &buf[4]);
 
     resultSet12 = [sectionCopy resultSet];
-    v41 = [resultSet12 objectAtIndexedSubscript:1];
-    rankingItem13 = [v41 rankingItem];
+    v40 = [resultSet12 objectAtIndexedSubscript:1];
+    rankingItem13 = [v40 rankingItem];
     SSCompactRankingAttrsGetFloat([rankingItem13 attributes], 0x163uLL, buf);
 
     if (*&buf[4] > 10.0 && *buf < 5.0)
@@ -1254,26 +1225,26 @@ LABEL_28:
   v8 = [resultSet objectAtIndexedSubscript:1];
   rankingItem = [v8 rankingItem];
   [rankingItem topicalityScore];
-  if (v43 >= 0.6)
+  if (v42 >= 0.6)
   {
     goto LABEL_9;
   }
 
   resultSet13 = [sectionCopy resultSet];
-  v45 = [resultSet13 objectAtIndexedSubscript:1];
-  rankingItem14 = [v45 rankingItem];
+  v44 = [resultSet13 objectAtIndexedSubscript:1];
+  rankingItem14 = [v44 rankingItem];
   [rankingItem14 engagementScore];
-  if (v47 >= 0.6)
+  if (v46 >= 0.6)
   {
     resultSet14 = [sectionCopy resultSet];
-    v58 = [resultSet14 objectAtIndexedSubscript:1];
-    [v58 rankingItem];
-    v59 = v90 = bundleIdentifier;
-    [v59 recentSimilarIntentEngagementDates];
-    v60 = v84 = resultSet13;
-    v88 = [v60 count];
+    v57 = [resultSet14 objectAtIndexedSubscript:1];
+    [v57 rankingItem];
+    v58 = v89 = bundleIdentifier;
+    [v58 recentSimilarIntentEngagementDates];
+    v59 = v83 = resultSet13;
+    v87 = objc_msgSend_count(v59);
 
-    if (v88)
+    if (v87)
     {
       goto LABEL_11;
     }
@@ -1285,38 +1256,36 @@ LABEL_39:
 LABEL_40:
   if ([sectionCopy resultsCount] >= 2)
   {
-    v48 = 1;
+    v47 = 1;
     do
     {
       resultSet15 = [sectionCopy resultSet];
-      v50 = [resultSet15 objectAtIndexedSubscript:v48];
-      [self clearTopHitCandidate:v50];
+      v49 = [resultSet15 objectAtIndexedSubscript:v47];
+      [self clearTopHitCandidate:v49];
 
-      v51 = SSGeneralLog();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+      v50 = SSGeneralLog();
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
         resultSet16 = [sectionCopy resultSet];
-        v53 = [resultSet16 objectAtIndexedSubscript:v48];
-        identifier = [v53 identifier];
+        v52 = [resultSet16 objectAtIndexedSubscript:v47];
+        identifier = [v52 identifier];
         resultSet17 = [sectionCopy resultSet];
-        v56 = [resultSet17 objectAtIndexedSubscript:0];
-        identifier2 = [v56 identifier];
+        v55 = [resultSet17 objectAtIndexedSubscript:0];
+        identifier2 = [v55 identifier];
         *&buf[4] = 138412546;
-        v92 = identifier;
-        v93 = 2112;
-        v94 = identifier2;
-        _os_log_impl(&dword_1D9F69000, v51, OS_LOG_TYPE_DEFAULT, "[SpotlightRanking] <Engagement_Debug> Rule: app %@ TH candidacy thresholded in favor of app %@ with shortcuts.", &buf[4], 0x16u);
+        v91 = identifier;
+        v92 = 2112;
+        v93 = identifier2;
+        _os_log_impl(&dword_1D9F69000, v50, OS_LOG_TYPE_DEFAULT, "[SpotlightRanking] <Engagement_Debug> Rule: app %@ TH candidacy thresholded in favor of app %@ with shortcuts.", &buf[4], 0x16u);
       }
 
-      ++v48;
+      ++v47;
     }
 
-    while (v48 < [sectionCopy resultsCount]);
+    while (v47 < [sectionCopy resultsCount]);
   }
 
 LABEL_11:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

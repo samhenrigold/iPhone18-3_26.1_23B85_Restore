@@ -95,7 +95,7 @@
 {
   height = rect.size.height;
   width = rect.size.width;
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   v6 = *MEMORY[0x1E695F058];
   v7 = *(MEMORY[0x1E695F058] + 8);
   v8 = *(MEMORY[0x1E695F058] + 16);
@@ -126,9 +126,9 @@
 
       v20 = defaultFont;
 
-      v40 = *MEMORY[0x1E69DB648];
-      v41[0] = v20;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+      v39 = *MEMORY[0x1E69DB648];
+      v40[0] = v20;
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
       currentTitle2 = [(TPInComingCallBottomBarButton *)self currentTitle];
       [currentTitle2 boundingRectWithSize:1 options:v21 attributes:0 context:{3.40282347e38, 3.40282347e38}];
       v24 = v23;
@@ -181,15 +181,14 @@
     }
   }
 
-  v35 = *MEMORY[0x1E69E9840];
-  v36 = v6;
-  v37 = v7;
-  v38 = v8;
-  v39 = v9;
-  result.size.height = v39;
-  result.size.width = v38;
-  result.origin.y = v37;
-  result.origin.x = v36;
+  v35 = v6;
+  v36 = v7;
+  v37 = v8;
+  v38 = v9;
+  result.size.height = v38;
+  result.size.width = v37;
+  result.origin.y = v36;
+  result.origin.x = v35;
   return result;
 }
 

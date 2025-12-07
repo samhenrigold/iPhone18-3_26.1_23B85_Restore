@@ -1,14 +1,13 @@
 @interface WOPersistence
-- (uint64_t):(@guaranteed [WOPersistence :(@guaranteed)Error? )[WOPersistence]]?;
+- (double):(@guaranteed [WOPersistence :(@guaranteed)Error? )[WOPersistence]]?;
 @end
 
 @implementation WOPersistence
 
-- (uint64_t):(@guaranteed [WOPersistence :(@guaranteed)Error? )[WOPersistence]]?
+- (double):(@guaranteed [WOPersistence :(@guaranteed)Error? )[WOPersistence]]?
 {
   v4 = a2;
-  v6 = *(self + 32);
-  v5 = *(self + 40);
+  v5 = *(self + 32);
   if (a2)
   {
     type metadata accessor for NSNumber(0, &lazy cache variable for type metadata for WOPersistence, 0x277D7E7E8);
@@ -17,8 +16,10 @@
     v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
-  v7 = a3;
-  v6(v4, a3);
+  v6 = a3;
+  v5(v4, a3);
+
+  return result;
 }
 
 @end

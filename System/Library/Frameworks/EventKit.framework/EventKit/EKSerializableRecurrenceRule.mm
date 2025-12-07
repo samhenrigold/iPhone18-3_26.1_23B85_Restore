@@ -8,56 +8,54 @@
 
 + (id)classesForKey
 {
-  v26[10] = *MEMORY[0x1E69E9840];
-  v25[0] = @"frequency";
-  v24 = objc_opt_class();
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
-  v26[0] = v14;
-  v25[1] = @"interval";
+  v25[10] = *MEMORY[0x1E69E9840];
+  v24[0] = @"frequency";
   v23 = objc_opt_class();
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
-  v26[1] = v2;
-  v25[2] = @"recurrenceEnd";
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
+  v25[0] = v13;
+  v24[1] = @"interval";
   v22 = objc_opt_class();
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
-  v26[2] = v3;
-  v25[3] = @"firstDayOfTheWeek";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+  v25[1] = v2;
+  v24[2] = @"recurrenceEnd";
   v21 = objc_opt_class();
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
-  v26[3] = v4;
-  v25[4] = @"daysOfTheWeek";
-  v20[0] = objc_opt_class();
-  v20[1] = objc_opt_class();
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
-  v26[4] = v5;
-  v25[5] = @"daysOfTheMonth";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+  v25[2] = v3;
+  v24[3] = @"firstDayOfTheWeek";
+  v20 = objc_opt_class();
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+  v25[3] = v4;
+  v24[4] = @"daysOfTheWeek";
   v19[0] = objc_opt_class();
   v19[1] = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
-  v26[5] = v6;
-  v25[6] = @"daysOfTheYear";
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+  v25[4] = v5;
+  v24[5] = @"daysOfTheMonth";
   v18[0] = objc_opt_class();
   v18[1] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
-  v26[6] = v7;
-  v25[7] = @"weeksOfTheYear";
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v25[5] = v6;
+  v24[6] = @"daysOfTheYear";
   v17[0] = objc_opt_class();
   v17[1] = objc_opt_class();
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
-  v26[7] = v8;
-  v25[8] = @"monthsOfTheYear";
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v25[6] = v7;
+  v24[7] = @"weeksOfTheYear";
   v16[0] = objc_opt_class();
   v16[1] = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
-  v26[8] = v9;
-  v25[9] = @"setPositions";
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v25[7] = v8;
+  v24[8] = @"monthsOfTheYear";
   v15[0] = objc_opt_class();
   v15[1] = objc_opt_class();
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
-  v26[9] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:10];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v25[8] = v9;
+  v24[9] = @"setPositions";
+  v14[0] = objc_opt_class();
+  v14[1] = objc_opt_class();
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
+  v25[9] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:10];
 
   return v11;
 }
@@ -151,13 +149,11 @@
 
 - (void)createRecurrenceRule:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = a1;
-  v5[0] = 67109120;
-  v5[1] = [a2 interval];
-  _os_log_error_impl(&dword_1A805E000, v3, OS_LOG_TYPE_ERROR, "Serialized recurrence rule has invalid interval (%d). Ignoring.", v5, 8u);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4[0] = 67109120;
+  v4[1] = [a2 interval];
+  _os_log_error_impl(&dword_1A805E000, v3, OS_LOG_TYPE_ERROR, "Serialized recurrence rule has invalid interval (%d). Ignoring.", v4, 8u);
 }
 
 @end

@@ -33,7 +33,7 @@
 
   if (v3)
   {
-    sub_25E701520(0, &qword_27FD03BF0);
+    sub_25E701520(0, &qword_27FD03BF0, 0x277D75348);
     v4 = sub_25E756D38();
   }
 
@@ -47,14 +47,15 @@
 
 - (void)setColors:(id)colors
 {
+  colorsCopy = colors;
   if (colors)
   {
-    sub_25E701520(0, &qword_27FD03BF0);
-    sub_25E756D48();
+    sub_25E701520(0, &qword_27FD03BF0, 0x277D75348);
+    colorsCopy = sub_25E756D48();
   }
 
   selfCopy = self;
-  PEPhotoStylePaletteSlider.colors.setter();
+  PEPhotoStylePaletteSlider.colors.setter(colorsCopy);
 }
 
 - (NSString)gradientCast

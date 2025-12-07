@@ -24,18 +24,18 @@
 
 + (WAAnalyticsAccess)accessWithPersistentContainer:(id)container
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   containerCopy = container;
   v4 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136446722;
-    v10 = "+[WAAnalyticsAccess accessWithPersistentContainer:]";
-    v11 = 1024;
-    v12 = 66;
-    v13 = 2112;
-    v14 = @"read";
-    _os_log_impl(&dword_1C8460000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Initializing WAAnalyticsAccess with option %@", &v9, 0x1Cu);
+    v8 = 136446722;
+    v9 = "+[WAAnalyticsAccess accessWithPersistentContainer:]";
+    v10 = 1024;
+    v11 = 66;
+    v12 = 2112;
+    v13 = @"read";
+    _os_log_impl(&dword_1C8460000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Initializing WAAnalyticsAccess with option %@", &v8, 0x1Cu);
   }
 
   v5 = registry;
@@ -48,8 +48,6 @@
   }
 
   objc_sync_exit(v5);
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -90,17 +88,17 @@
 
 - (id)persistentStoreCoordinator
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (self->_options)
   {
-    v6 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136446466;
-      v8 = "[WAAnalyticsAccess persistentStoreCoordinator]";
-      v9 = 1024;
-      v10 = 149;
-      _os_log_impl(&dword_1C8460000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Return no persistentStoreCoordinator for WAAccessReadOnly", &v7, 0x12u);
+      v6 = 136446466;
+      v7 = "[WAAnalyticsAccess persistentStoreCoordinator]";
+      v8 = 1024;
+      v9 = 149;
+      _os_log_impl(&dword_1C8460000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Return no persistentStoreCoordinator for WAAccessReadOnly", &v6, 0x12u);
     }
 
     persistentStoreCoordinator = 0;
@@ -114,16 +112,14 @@
   v3 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 136446722;
-    v8 = "[WAAnalyticsAccess persistentStoreCoordinator]";
-    v9 = 1024;
-    v10 = 154;
-    v11 = 2112;
-    v12 = persistentStoreCoordinator;
-    _os_log_impl(&dword_1C8460000, v3, OS_LOG_TYPE_DEBUG, "%{public}s::%d:ret: %@", &v7, 0x1Cu);
+    v6 = 136446722;
+    v7 = "[WAAnalyticsAccess persistentStoreCoordinator]";
+    v8 = 1024;
+    v9 = 154;
+    v10 = 2112;
+    v11 = persistentStoreCoordinator;
+    _os_log_impl(&dword_1C8460000, v3, OS_LOG_TYPE_DEBUG, "%{public}s::%d:ret: %@", &v6, 0x1Cu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return persistentStoreCoordinator;
 }
@@ -177,10 +173,7 @@
 
 uint64_t __63__WAAnalyticsAccess__performFetchWithBlockAndWait_error_onMoc___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _performFetch:*(a1 + 40) error:*(a1 + 64) onMoc:*(a1 + 48)];
-  v3 = *(*(a1 + 56) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) _performFetch:*(a1 + 40) error:*(a1 + 64) onMoc:*(a1 + 48)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -211,7 +204,7 @@ uint64_t __63__WAAnalyticsAccess__performFetchWithBlockAndWait_error_onMoc___blo
   return v12;
 }
 
-uint64_t __71__WAAnalyticsAccess__countForFetchRequestWithBlockAndWait_error_onMoc___block_invoke(uint64_t a1)
+void *__71__WAAnalyticsAccess__countForFetchRequestWithBlockAndWait_error_onMoc___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _countForFetchRequest:*(a1 + 40) error:*(a1 + 64) onMoc:*(a1 + 48)];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -220,7 +213,7 @@ uint64_t __71__WAAnalyticsAccess__countForFetchRequestWithBlockAndWait_error_onM
 
 - (id)_performFetch:(id)fetch error:(id *)error onMoc:(id)moc
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   fetchCopy = fetch;
   mocCopy = moc;
   array = [MEMORY[0x1E695DEC8] array];
@@ -239,20 +232,20 @@ uint64_t __71__WAAnalyticsAccess__countForFetchRequestWithBlockAndWait_error_onM
     {
       entityName2 = [fetchCopy entityName];
       *buf = 136446722;
-      v39 = "[WAAnalyticsAccess _performFetch:error:onMoc:]";
-      v40 = 1024;
-      v41 = 194;
-      v42 = 2112;
-      v43 = entityName2;
+      v38 = "[WAAnalyticsAccess _performFetch:error:onMoc:]";
+      v39 = 1024;
+      v40 = 194;
+      v41 = 2112;
+      v42 = entityName2;
       _os_log_impl(&dword_1C8460000, v23, OS_LOG_TYPE_ERROR, "%{public}s::%d:entityName %@ doesn't exist", buf, 0x1Cu);
     }
 
     goto LABEL_11;
   }
 
-  v37 = 0;
-  v17 = [(WAAnalyticsAccess *)self _countForFetchRequest:fetchCopy error:&v37 onMoc:mocCopy];
-  v18 = v37;
+  v36 = 0;
+  v17 = [(WAAnalyticsAccess *)self _countForFetchRequest:fetchCopy error:&v36 onMoc:mocCopy];
+  v18 = v36;
   v19 = WALogCategoryDeviceStoreHandle();
   v20 = v19;
   if (!v18)
@@ -261,41 +254,41 @@ uint64_t __71__WAAnalyticsAccess__countForFetchRequestWithBlockAndWait_error_onM
     {
       entityName3 = [fetchCopy entityName];
       *buf = 136446978;
-      v39 = "[WAAnalyticsAccess _performFetch:error:onMoc:]";
-      v40 = 1024;
-      v41 = 200;
-      v42 = 2048;
-      v43 = v17;
-      v44 = 2112;
-      v45 = entityName3;
+      v38 = "[WAAnalyticsAccess _performFetch:error:onMoc:]";
+      v39 = 1024;
+      v40 = 200;
+      v41 = 2048;
+      v42 = v17;
+      v43 = 2112;
+      v44 = entityName3;
       _os_log_impl(&dword_1C8460000, v20, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:retrieving %lu entries from request.entityName %@", buf, 0x26u);
     }
 
     if (v17)
     {
-      v36 = 0;
-      v22 = [mocCopy executeFetchRequest:fetchCopy error:&v36];
-      v18 = v36;
+      v35 = 0;
+      v22 = [mocCopy executeFetchRequest:fetchCopy error:&v35];
+      v18 = v35;
 
       if (v18)
       {
-        v32 = WALogCategoryDeviceStoreHandle();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v31 = WALogCategoryDeviceStoreHandle();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           localizedDescription = [v18 localizedDescription];
           userInfo = [v18 userInfo];
           *buf = 136447234;
-          v39 = "[WAAnalyticsAccess _performFetch:error:onMoc:]";
-          v40 = 1024;
-          v41 = 210;
-          v42 = 2112;
-          v43 = fetchCopy;
-          v44 = 2112;
-          v45 = localizedDescription;
-          v46 = 2112;
-          v47 = userInfo;
-          v35 = userInfo;
-          _os_log_impl(&dword_1C8460000, v32, OS_LOG_TYPE_ERROR, "%{public}s::%d:Error with executeFetchRequest %@. %@ %@", buf, 0x30u);
+          v38 = "[WAAnalyticsAccess _performFetch:error:onMoc:]";
+          v39 = 1024;
+          v40 = 210;
+          v41 = 2112;
+          v42 = fetchCopy;
+          v43 = 2112;
+          v44 = localizedDescription;
+          v45 = 2112;
+          v46 = userInfo;
+          v34 = userInfo;
+          _os_log_impl(&dword_1C8460000, v31, OS_LOG_TYPE_ERROR, "%{public}s::%d:Error with executeFetchRequest %@. %@ %@", buf, 0x30u);
         }
       }
 
@@ -313,16 +306,16 @@ LABEL_11:
     localizedDescription2 = [v18 localizedDescription];
     userInfo2 = [v18 userInfo];
     *buf = 136447234;
-    v39 = "[WAAnalyticsAccess _performFetch:error:onMoc:]";
-    v40 = 1024;
-    v41 = 198;
-    v42 = 2112;
-    v43 = fetchCopy;
-    v44 = 2112;
-    v45 = localizedDescription2;
-    v46 = 2112;
-    v47 = userInfo2;
-    v31 = userInfo2;
+    v38 = "[WAAnalyticsAccess _performFetch:error:onMoc:]";
+    v39 = 1024;
+    v40 = 198;
+    v41 = 2112;
+    v42 = fetchCopy;
+    v43 = 2112;
+    v44 = localizedDescription2;
+    v45 = 2112;
+    v46 = userInfo2;
+    v30 = userInfo2;
     _os_log_impl(&dword_1C8460000, v20, OS_LOG_TYPE_ERROR, "%{public}s::%d:Error with countForFetchRequest %@. %@ %@", buf, 0x30u);
   }
 
@@ -335,13 +328,12 @@ LABEL_12:
 
   v26 = array;
 
-  v27 = *MEMORY[0x1E69E9840];
   return array;
 }
 
 - (unint64_t)_countForFetchRequest:(id)request error:(id *)error onMoc:(id)moc
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   mocCopy = moc;
   persistentStoreCoordinator = [mocCopy persistentStoreCoordinator];
@@ -354,45 +346,45 @@ LABEL_12:
 
   if (v14)
   {
-    v26 = 0;
-    v15 = [mocCopy countForFetchRequest:requestCopy error:&v26];
-    v16 = v26;
+    v25 = 0;
+    v15 = [mocCopy countForFetchRequest:requestCopy error:&v25];
+    v16 = v25;
     if (v16)
     {
-      v22 = WALogCategoryDeviceStoreHandle();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v21 = WALogCategoryDeviceStoreHandle();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         localizedDescription = [v16 localizedDescription];
         userInfo = [v16 userInfo];
         *buf = 136447234;
-        v28 = "[WAAnalyticsAccess _countForFetchRequest:error:onMoc:]";
-        v29 = 1024;
-        v30 = 240;
-        v31 = 2112;
-        v32 = requestCopy;
-        v33 = 2112;
-        v34 = localizedDescription;
-        v35 = 2112;
-        v36 = userInfo;
-        v25 = userInfo;
-        _os_log_impl(&dword_1C8460000, v22, OS_LOG_TYPE_ERROR, "%{public}s::%d:Error with countForFetchRequest %@. %@ %@", buf, 0x30u);
+        v27 = "[WAAnalyticsAccess _countForFetchRequest:error:onMoc:]";
+        v28 = 1024;
+        v29 = 240;
+        v30 = 2112;
+        v31 = requestCopy;
+        v32 = 2112;
+        v33 = localizedDescription;
+        v34 = 2112;
+        v35 = userInfo;
+        v24 = userInfo;
+        _os_log_impl(&dword_1C8460000, v21, OS_LOG_TYPE_ERROR, "%{public}s::%d:Error with countForFetchRequest %@. %@ %@", buf, 0x30u);
       }
     }
   }
 
   else
   {
-    v20 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       entityName2 = [requestCopy entityName];
       *buf = 136446722;
-      v28 = "[WAAnalyticsAccess _countForFetchRequest:error:onMoc:]";
-      v29 = 1024;
-      v30 = 228;
-      v31 = 2112;
-      v32 = entityName2;
-      _os_log_impl(&dword_1C8460000, v20, OS_LOG_TYPE_ERROR, "%{public}s::%d:entityName %@ doesn't exist", buf, 0x1Cu);
+      v27 = "[WAAnalyticsAccess _countForFetchRequest:error:onMoc:]";
+      v28 = 1024;
+      v29 = 228;
+      v30 = 2112;
+      v31 = entityName2;
+      _os_log_impl(&dword_1C8460000, v19, OS_LOG_TYPE_ERROR, "%{public}s::%d:entityName %@ doesn't exist", buf, 0x1Cu);
     }
 
     v15 = 0;
@@ -405,7 +397,6 @@ LABEL_12:
     *error = v16;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

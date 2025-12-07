@@ -249,7 +249,7 @@
     v12 = layout;
     if (layout)
     {
-      [layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     else
@@ -258,7 +258,7 @@
     }
 
     CGAffineTransformInvert(&t1, &v14);
-    [(CRLCanvasRep *)self transformToConvertNaturalToLayerRelative];
+    objc_msgSend_transformToConvertNaturalToLayerRelative(self);
     CGAffineTransformConcat(&v16, &t1, &v14);
 
     t1 = v16;

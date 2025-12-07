@@ -5,6 +5,7 @@
 - (id)pickerView:(id)view titleForRow:(int64_t)row forComponent:(int64_t)component;
 - (id)shouldSkip;
 - (int64_t)pickerView:(id)view numberOfRowsInComponent:(int64_t)component;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HSPCSelectRoomViewController
@@ -33,6 +34,19 @@
   }
 
   return v10;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = HSPCSelectRoomViewController;
+  [(HSPCSelectRoomViewController *)&v8 viewWillAppear:appear];
+  roomProvider = [(HSPCSelectRoomViewController *)self roomProvider];
+  initialRowIndex = [roomProvider initialRowIndex];
+
+  contentView = [(HSPCSelectRoomViewController *)self contentView];
+  pickerView = [contentView pickerView];
+  [pickerView selectRow:initialRowIndex inComponent:0 animated:0];
 }
 
 - (id)commitConfiguration

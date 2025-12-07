@@ -116,36 +116,36 @@ void __81__MOProactiveTravelManager_fetchTripsBetweenStartDate_EndDate_Completio
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v25 = __Block_byref_object_copy__34;
-  v26 = __Block_byref_object_dispose__34;
-  v27 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__34;
-  v20 = __Block_byref_object_dispose__34;
-  v21 = objc_opt_new();
+  v23 = __Block_byref_object_copy__34;
+  v24 = __Block_byref_object_dispose__34;
+  v25 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__34;
+  v18 = __Block_byref_object_dispose__34;
+  v19 = objc_opt_new();
   v6 = *&buf[8];
   v7 = *(*&buf[8] + 40);
   v8 = *(a1[6] + 16);
-  v14[5] = &v16;
+  v12[5] = &v14;
   obj = v7;
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = __81__MOProactiveTravelManager_fetchTripsBetweenStartDate_EndDate_CompletionHandler___block_invoke_112;
-  v14[3] = &unk_100337E50;
-  v14[4] = buf;
-  [v8 iterScoredEventsWithQuery:v5 error:&obj block:v14];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = __81__MOProactiveTravelManager_fetchTripsBetweenStartDate_EndDate_CompletionHandler___block_invoke_112;
+  v12[3] = &unk_100337E50;
+  v12[4] = buf;
+  [v8 iterScoredEventsWithQuery:v5 error:&obj block:v12];
   objc_storeStrong((v6 + 40), obj);
   if (*(*&buf[8] + 40))
   {
     v9 = _mo_log_facility_get_os_log(&MOLogFacilityProactiveTravel);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __81__MOProactiveTravelManager_fetchTripsBetweenStartDate_EndDate_CompletionHandler___block_invoke_cold_1(&buf[8]);
+      __81__MOProactiveTravelManager_fetchTripsBetweenStartDate_EndDate_CompletionHandler___block_invoke_cold_1();
     }
 
-    [v17[5] removeAllObjects];
+    [v15[5] removeAllObjects];
   }
 
   else
@@ -153,17 +153,15 @@ void __81__MOProactiveTravelManager_fetchTripsBetweenStartDate_EndDate_Completio
     v10 = _mo_log_facility_get_os_log(&MOLogFacilityProactiveTravel);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v11 = [v17[5] count];
-      *v22 = 134217984;
-      v23 = v11;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "found %lu trips", v22, 0xCu);
+      v11 = [v15[5] count];
+      *v20 = 134217984;
+      v21 = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "found %lu trips", v20, 0xCu);
     }
   }
 
-  v12 = v17[5];
-  v13 = *(*&buf[8] + 40);
   (*(a1[7] + 16))();
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v14, 8);
 
   _Block_object_dispose(buf, 8);
 }
@@ -245,25 +243,25 @@ id __46__MOProactiveTravelManager__providerIdOfTrip___block_invoke(id a1, PPTrip
   tripsCopy = trips;
   handlerCopy = handler;
   v8 = +[NSDate distantFuture];
-  v35 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
+  v37 = 0u;
   v9 = tripsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v10)
   {
-    v11 = *v34;
+    v11 = *v37;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v34 != v11)
+        if (*v37 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v33 + 1) + 8 * i);
+        v13 = *(*(&v36 + 1) + 8 * i);
         startDate = [v13 startDate];
         v15 = [v8 isAfterDate:startDate];
 
@@ -275,18 +273,18 @@ id __46__MOProactiveTravelManager__providerIdOfTrip___block_invoke(id a1, PPTrip
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v10);
   }
 
   v30 = 0;
-  v31[0] = &v30;
-  v31[1] = 0x3032000000;
-  v31[2] = __Block_byref_object_copy__34;
-  v31[3] = __Block_byref_object_dispose__34;
-  v32 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__34;
+  v34 = __Block_byref_object_dispose__34;
+  v35 = 0;
   v28[0] = 0;
   v28[1] = v28;
   v28[2] = 0x3032000000;
@@ -302,12 +300,12 @@ id __46__MOProactiveTravelManager__providerIdOfTrip___block_invoke(id a1, PPTrip
   v27[5] = v28;
   [momentStore fetchEventsWithStartDateAfter:v8 Category:8 CompletionHandler:v27];
 
-  if (*(v31[0] + 40))
+  if (v31[5])
   {
     v18 = _mo_log_facility_get_os_log(&MOLogFacilityProactiveTravel);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [MOProactiveTravelManager saveTrips:v31 handler:?];
+      [MOProactiveTravelManager saveTrips:handler:];
     }
 
     v19 = _mo_log_facility_get_os_log(&MOLogFacilityProactiveTravel);
@@ -318,7 +316,7 @@ id __46__MOProactiveTravelManager__providerIdOfTrip___block_invoke(id a1, PPTrip
 
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, *(v31[0] + 40), &__NSDictionary0__struct);
+      handlerCopy[2](handlerCopy, v31[5], &__NSDictionary0__struct);
     }
   }
 
@@ -767,20 +765,6 @@ void __69__MOProactiveTravelManager__removeTripEventsDeletedAtSource_handler___b
   {
     (*(v10 + 16))(v10, v5, v6);
   }
-}
-
-void __81__MOProactiveTravelManager_fetchTripsBetweenStartDate_EndDate_CompletionHandler___block_invoke_cold_1(uint64_t a1)
-{
-  v6 = *(*a1 + 40);
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-- (void)saveTrips:(uint64_t)a1 handler:.cold.1(uint64_t a1)
-{
-  v6 = *(*a1 + 40);
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 - (void)saveTrips:handler:.cold.2()

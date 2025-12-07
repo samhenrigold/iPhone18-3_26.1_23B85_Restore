@@ -16,6 +16,7 @@
 - (void)_recordTotalDuration;
 - (void)_shouldEndStage:(void *)stage error:;
 - (void)_startSubmissionTimerWithInterval:(double)interval;
+- (void)markControllerHH2Mode:(BOOL)mode controllerHH2SentinelExists:(BOOL)exists;
 - (void)markSetupBeginStage:(unint64_t)stage error:(id)error;
 - (void)markSetupEndStage:(unint64_t)stage error:(id)error;
 - (void)setControllerSetupSessionIdentifier:(id)identifier;
@@ -26,7 +27,7 @@
 
 - (void)setControllerSetupSessionIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -34,25 +35,24 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = identifierCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Setting controller setup session identifier %@ on the log event.", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = identifierCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Setting controller setup session identifier %@ on the log event.", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   os_unfair_lock_lock_with_options();
-  v9 = [identifierCopy copy];
+  v9 = objc_msgSend_copy(identifierCopy);
   [(HMDHomePodSetupLatencyLogEvent *)selfCopy->_setupLogEvent setSetupSessionIdentifier:v9];
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerDidFire:(id)fire
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   os_unfair_lock_lock_with_options();
   dataSource = [(HMDCurrentAccessorySetupMetricDispatcher *)&self->super.super.isa dataSource];
@@ -66,7 +66,7 @@
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v74 = v8;
+      v73 = v8;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Submission timer fired, but all stages are already submitted.", buf, 0xCu);
     }
 
@@ -87,7 +87,7 @@ LABEL_13:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v74 = v14;
+      v73 = v14;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Not a valid log event and do not submit", buf, 0xCu);
     }
 
@@ -104,7 +104,7 @@ LABEL_13:
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v74 = v12;
+      v73 = v12;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Do not submit as this appears to be a device repair session.", buf, 0xCu);
     }
 
@@ -303,11 +303,11 @@ LABEL_13:
     v56 = HMFGetLogIdentifier();
     coreAnalyticsEventDictionary = [(HMDHomePodSetupLatencyLogEvent *)self->_setupLogEvent coreAnalyticsEventDictionary];
     *buf = 138543874;
-    v74 = v56;
-    v75 = 2112;
-    v76 = coreAnalyticsEventDictionary;
-    v77 = 2112;
-    v78 = v16;
+    v73 = v56;
+    v74 = 2112;
+    v75 = coreAnalyticsEventDictionary;
+    v76 = 2112;
+    v77 = v16;
     _os_log_impl(&dword_2531F8000, v55, OS_LOG_TYPE_INFO, "%{public}@Submission timer fired and submitting the final metric log event: %@ with error %@", buf, 0x20u);
   }
 
@@ -328,7 +328,7 @@ LABEL_13:
     {
       v67 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v74 = v67;
+      v73 = v67;
       _os_log_impl(&dword_2531F8000, v66, OS_LOG_TYPE_INFO, "%{public}@Log event submitted during extended timeout, removing the metric dispatcher", buf, 0xCu);
     }
 
@@ -344,7 +344,7 @@ LABEL_13:
     {
       v69 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v74 = v69;
+      v73 = v69;
       _os_log_impl(&dword_2531F8000, v68, OS_LOG_TYPE_INFO, "%{public}@First timeout submission is done and starting extended timeout timer", buf, 0xCu);
     }
 
@@ -356,8 +356,6 @@ LABEL_13:
 
 LABEL_73:
   os_unfair_lock_unlock(&self->_lock);
-
-  v71 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dataSource
@@ -373,7 +371,7 @@ LABEL_73:
 
 - (void)_recordTotalDuration
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self)
   {
     os_unfair_lock_assert_owner((self + 8));
@@ -398,27 +396,25 @@ LABEL_73:
     {
       v11 = HMFGetLogIdentifier();
       totalDurationMS_HH1 = [selfCopy[6] totalDurationMS_HH1];
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2048;
-      v17 = totalDurationMS_HH1;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Total duration for HH1: %llu", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2048;
+      v16 = totalDurationMS_HH1;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Total duration for HH1: %llu", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_markMetricDispatcherSubmission
 {
-  if (self)
+  if (result)
   {
-    Property = objc_getProperty(self, a2, 24, 1);
+    Property = objc_getProperty(result, a2, 24, 1);
     v4 = Property[2]();
 
-    [(HMDCurrentAccessorySetupMetricDispatcher *)self _logWithoutStatesWithPrefix:@"Setup In HH1" stage:v4 time:0 error:?];
+    [(HMDCurrentAccessorySetupMetricDispatcher *)result _logWithoutStatesWithPrefix:@"Setup In HH1" stage:v4 time:0 error:?];
   }
 }
 
@@ -440,7 +436,7 @@ LABEL_73:
 
 - (void)_logWithoutStatesWithPrefix:(void *)prefix stage:(uint64_t)stage time:(void *)time error:
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v9 = a2;
   prefixCopy = prefix;
   timeCopy = time;
@@ -451,23 +447,22 @@ LABEL_73:
   {
     v15 = HMFGetLogIdentifier();
     v16 = HMFBooleanToString();
-    v18 = 138544642;
-    v19 = v15;
-    v20 = 2112;
-    v21 = v9;
-    v22 = 2112;
-    v23 = prefixCopy;
-    v24 = 2048;
+    v17 = 138544642;
+    v18 = v15;
+    v19 = 2112;
+    v20 = v9;
+    v21 = 2112;
+    v22 = prefixCopy;
+    v23 = 2048;
     stageCopy = stage;
-    v26 = 2112;
-    v27 = v16;
-    v28 = 2112;
-    v29 = timeCopy;
-    _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@%@: %@, time: %llu, HH2 mode: %@, error: %@", &v18, 0x3Eu);
+    v25 = 2112;
+    v26 = v16;
+    v27 = 2112;
+    v28 = timeCopy;
+    _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@%@: %@, time: %llu, HH2 mode: %@, error: %@", &v17, 0x3Eu);
   }
 
   objc_autoreleasePoolPop(v12);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_underlyingErrorByIgnoringCommunicationFailureErrors:(id)errors
@@ -492,7 +487,7 @@ LABEL_73:
 
 - (id)_findFirstNonCommunicationErrorIn:(uint64_t)in depth:(void *)depth maxDepth:(uint64_t)maxDepth
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   depthCopy = depth;
   v6 = depthCopy;
   if (in)
@@ -500,25 +495,25 @@ LABEL_73:
     if (depthCopy && maxDepth < 6 && ([depthCopy code] == 54 || objc_msgSend(v6, "code") == 3203))
     {
       [v6 underlyingErrors];
+      v15 = 0u;
       v16 = 0u;
       v17 = 0u;
-      v18 = 0u;
-      v7 = v19 = 0u;
-      v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = v18 = 0u;
+      v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v17;
+        v10 = *v16;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v17 != v10)
+            if (*v16 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = [HMDCurrentAccessorySetupMetricDispatcher _findFirstNonCommunicationErrorIn:in depth:*(*(&v16 + 1) + 8 * i) maxDepth:maxDepth + 1];
+            v12 = [HMDCurrentAccessorySetupMetricDispatcher _findFirstNonCommunicationErrorIn:in depth:*(*(&v15 + 1) + 8 * i) maxDepth:maxDepth + 1];
             if (v12)
             {
               v13 = v12;
@@ -526,7 +521,7 @@ LABEL_73:
             }
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
           if (v9)
           {
             continue;
@@ -551,14 +546,23 @@ LABEL_17:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
+}
+
+- (void)markControllerHH2Mode:(BOOL)mode controllerHH2SentinelExists:(BOOL)exists
+{
+  existsCopy = exists;
+  modeCopy = mode;
+  os_unfair_lock_lock_with_options();
+  [(HMDHomePodSetupLatencyLogEvent *)self->_setupLogEvent setControllerInHH2_INT:modeCopy];
+  [(HMDHomePodSetupLatencyLogEvent *)self->_setupLogEvent setControllerHasSentinelZone_INT:existsCopy];
+
+  os_unfair_lock_unlock(&self->_lock);
 }
 
 - (void)markSetupEndStage:(unint64_t)stage error:(id)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -577,13 +581,13 @@ LABEL_17:
     }
 
     v12 = v11;
-    v40 = 138543874;
-    v41 = v10;
-    v42 = 2112;
-    v43 = v12;
-    v44 = 2112;
-    v45 = errorCopy;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Mark end stage: %@ error: %@", &v40, 0x20u);
+    v39 = 138543874;
+    v40 = v10;
+    v41 = 2112;
+    v42 = v12;
+    v43 = 2112;
+    v44 = errorCopy;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Mark end stage: %@ error: %@", &v39, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -848,11 +852,11 @@ LABEL_91:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         v28 = HMFGetLogIdentifier();
-        v40 = 138543618;
-        v41 = v28;
-        v42 = 2112;
-        v43 = errorCopy;
-        _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@Unknown setup stage with error: %@", &v40, 0x16u);
+        v39 = 138543618;
+        v40 = v28;
+        v41 = 2112;
+        v42 = errorCopy;
+        _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@Unknown setup stage with error: %@", &v39, 0x16u);
       }
 
       objc_autoreleasePoolPop(v25);
@@ -860,13 +864,11 @@ LABEL_91:
   }
 
 LABEL_92:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_shouldEndStage:(void *)stage error:
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   stageCopy = stage;
   os_unfair_lock_assert_owner((self + 8));
@@ -878,17 +880,17 @@ LABEL_92:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v19 = 138543874;
-      v20 = v10;
-      v21 = 2112;
-      v22 = stageCopy;
-      v23 = 2112;
-      v24 = v5;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Save error %@ for stage %@", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = v10;
+      v20 = 2112;
+      v21 = stageCopy;
+      v22 = 2112;
+      v23 = v5;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Save error %@ for stage %@", &v18, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
-    v11 = [stageCopy copy];
+    v11 = objc_msgSend_copy(stageCopy);
     [selfCopy[8] setObject:v11 forKeyedSubscript:v5];
   }
 
@@ -905,26 +907,24 @@ LABEL_92:
       {
         v16 = HMFGetLogIdentifier();
         v17 = [selfCopy2[8] objectForKeyedSubscript:v5];
-        v19 = 138543874;
-        v20 = v16;
-        v21 = 2112;
-        v22 = v5;
-        v23 = 2112;
-        v24 = v17;
-        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Clear stage %@ with previously saved error %@", &v19, 0x20u);
+        v18 = 138543874;
+        v19 = v16;
+        v20 = 2112;
+        v21 = v5;
+        v22 = 2112;
+        v23 = v17;
+        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Clear stage %@ with previously saved error %@", &v18, 0x20u);
       }
 
       objc_autoreleasePoolPop(v13);
       [selfCopy2[8] removeObjectForKey:v5];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleErrorAndSaveStage:(uint64_t)stage stageTime:(void *)time stageString:(void *)string error:
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   timeCopy = time;
   stringCopy = string;
   os_unfair_lock_assert_owner((self + 8));
@@ -1012,7 +1012,7 @@ LABEL_32:
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v41 = v33;
+        v40 = v33;
         _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Log event submitted for all stages, removing the metric dispatcher", buf, 0xCu);
       }
 
@@ -1022,7 +1022,7 @@ LABEL_32:
       goto LABEL_35;
     }
 
-    v39 = v18;
+    v38 = v18;
     v21 = HMFGetLogIdentifier();
     coreAnalyticsEventDictionary = [selfCopy3[6] coreAnalyticsEventDictionary];
     savedEventState = [selfCopy3[6] savedEventState];
@@ -1060,25 +1060,23 @@ LABEL_26:
 LABEL_31:
     v27 = v24;
     *buf = 138543874;
-    v41 = v21;
-    v42 = 2112;
-    v43 = coreAnalyticsEventDictionary;
-    v44 = 2112;
-    v45 = v27;
+    v40 = v21;
+    v41 = 2112;
+    v42 = coreAnalyticsEventDictionary;
+    v43 = 2112;
+    v44 = v27;
     _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@All stages completed and submitted the event: %@ final state: %@", buf, 0x20u);
 
-    v18 = v39;
+    v18 = v38;
     goto LABEL_32;
   }
 
 LABEL_36:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markSetupBeginStage:(unint64_t)stage error:(id)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1097,13 +1095,13 @@ LABEL_36:
     }
 
     v12 = v11;
-    v37 = 138543874;
-    v38 = v10;
-    v39 = 2112;
-    v40 = v12;
-    v41 = 2112;
-    v42 = errorCopy;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Mark begin stage: %@ error: %@", &v37, 0x20u);
+    v36 = 138543874;
+    v37 = v10;
+    v38 = 2112;
+    v39 = v12;
+    v40 = 2112;
+    v41 = errorCopy;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Mark begin stage: %@ error: %@", &v36, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -1309,11 +1307,11 @@ LABEL_64:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         v25 = HMFGetLogIdentifier();
-        v37 = 138543618;
-        v38 = v25;
-        v39 = 2112;
-        v40 = errorCopy;
-        _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unknown setup stage with error: %@", &v37, 0x16u);
+        v36 = 138543618;
+        v37 = v25;
+        v38 = 2112;
+        v39 = errorCopy;
+        _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unknown setup stage with error: %@", &v36, 0x16u);
       }
 
       objc_autoreleasePoolPop(v22);
@@ -1321,8 +1319,6 @@ LABEL_64:
   }
 
 LABEL_65:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCurrentAccessorySetupMetricDispatcher)initWithDataSource:(id)source setupLogEvent:(id)event logEventSubmitter:(id)submitter
@@ -1399,22 +1395,21 @@ id __95__HMDCurrentAccessorySetupMetricDispatcher_initWithDataSource_setupLogEve
 
 uint64_t __55__HMDCurrentAccessorySetupMetricDispatcher_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v43_159873;
-  logCategory__hmf_once_v43_159873 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v43_159873;
+  logCategory__hmf_once_v43_159873 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (void)saveSetupLogEventIntoUserDefaults:(id)defaults setupLogEvent:(id)event
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   defaultsCopy = defaults;
   eventCopy = event;
   v8 = objc_alloc_init(MEMORY[0x277CD16D0]);
   error = [eventCopy error];
-  v10 = [error copy];
+  v10 = objc_msgSend_copy(error);
 
   [v8 setSessionSetupOpenMSHH1:{objc_msgSend(eventCopy, "sessionSetupOpenMS_HH1")}];
   [v8 setControllerKeyExchangeMSHH1:{objc_msgSend(eventCopy, "controllerKeyExchangeMS_HH1")}];
@@ -1522,9 +1517,9 @@ uint64_t __55__HMDCurrentAccessorySetupMetricDispatcher_logCategory__block_invok
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       v30 = HMFGetLogIdentifier();
-      v33 = 138543362;
-      v34 = v30;
-      _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@Saved HomePod setup latency log event", &v33, 0xCu);
+      v32 = 138543362;
+      v33 = v30;
+      _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@Saved HomePod setup latency log event", &v32, 0xCu);
     }
 
     objc_autoreleasePoolPop(v26);
@@ -1536,20 +1531,18 @@ uint64_t __55__HMDCurrentAccessorySetupMetricDispatcher_logCategory__block_invok
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       v31 = HMFGetLogIdentifier();
-      v33 = 138543362;
-      v34 = v31;
-      _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Error saving setup log event", &v33, 0xCu);
+      v32 = 138543362;
+      v33 = v31;
+      _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Error saving setup log event", &v32, 0xCu);
     }
 
     objc_autoreleasePoolPop(v26);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 + (id)readSetupLogEventFromUserDefaults:(id)defaults
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   defaultsCopy = defaults;
   v5 = [self readLastAccessorySetupInfo:defaultsCopy];
   if (v5)
@@ -1561,9 +1554,9 @@ uint64_t __55__HMDCurrentAccessorySetupMetricDispatcher_logCategory__block_invok
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Loaded setup log event", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v10;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Loaded setup log event", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -1573,8 +1566,6 @@ uint64_t __55__HMDCurrentAccessorySetupMetricDispatcher_logCategory__block_invok
   {
     v6 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1651,7 +1642,7 @@ uint64_t __55__HMDCurrentAccessorySetupMetricDispatcher_logCategory__block_invok
 
 + (void)removeLastAccessorySetupInfoFromUserDefaults:(id)defaults
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   defaultsCopy = defaults;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1659,15 +1650,13 @@ uint64_t __55__HMDCurrentAccessorySetupMetricDispatcher_logCategory__block_invok
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing last accessory setup info", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing last accessory setup info", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [defaultsCopy removeObjectForKey:@"accessorysetup.latencylogevent"];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)readLastAccessorySetupInfo:(id)info

@@ -1,6 +1,7 @@
 @interface _INPBStartCallIntentResponse
 - (BOOL)isEqual:(id)equal;
 - (_INPBStartCallIntentResponse)initWithCoder:(id)coder;
+- (id)confirmationReasonAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsConfirmationReason:(id)reason;
@@ -17,7 +18,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(_INPBStartCallIntentResponse *)self hasConfirmationReason])
   {
@@ -38,30 +39,30 @@
   if ([(NSArray *)self->_restrictedContacts count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v7 = self->_restrictedContacts;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v17 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v9);
@@ -79,8 +80,6 @@
   startedCall = [(_INPBStartCallIntentResponse *)self startedCall];
   dictionaryRepresentation2 = [startedCall dictionaryRepresentation];
   [dictionary setObject:dictionaryRepresentation2 forKeyedSubscript:@"startedCall"];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -264,49 +263,46 @@ LABEL_21:
 
 - (void)writeTo:(id)to
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_INPBStartCallIntentResponse *)self hasConfirmationReason])
   {
-    confirmationReason = self->_confirmationReason;
     PBDataWriterWriteInt32Field();
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v6 = self->_restrictedContacts;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v7)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v5 = self->_restrictedContacts;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v17;
+    v7 = v6;
+    v8 = *v13;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v13 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if ([(_INPBStartCallIntentResponse *)self hasShouldDoEmergencyCountdown])
   {
-    shouldDoEmergencyCountdown = self->_shouldDoEmergencyCountdown;
     PBDataWriterWriteBOOLField();
   }
 
@@ -317,8 +313,6 @@ LABEL_21:
     startedCall2 = [(_INPBStartCallIntentResponse *)self startedCall];
     PBDataWriterWriteSubmessage();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setHasShouldDoEmergencyCountdown:(BOOL)countdown
@@ -389,6 +383,21 @@ LABEL_21:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)confirmationReasonAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7287060 + (string - 1));
   }
 
   return v4;

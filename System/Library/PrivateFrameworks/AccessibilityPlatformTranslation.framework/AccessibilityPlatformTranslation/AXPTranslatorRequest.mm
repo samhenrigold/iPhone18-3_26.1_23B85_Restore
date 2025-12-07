@@ -69,18 +69,17 @@
 void __47__AXPTranslatorRequest_allowedDecodableClasses__block_invoke(uint64_t a1)
 {
   v1 = MEMORY[0x277CBEB98];
-  v2 = *(a1 + 32);
+  v2 = objc_opt_class();
   v3 = objc_opt_class();
   v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
-  v8 = objc_opt_class();
-  v12 = [v1 setWithObjects:{v3, v4, v5, v6, v7, v8, objc_opt_class(), 0}];
-  v9 = +[AXPTranslationObject allowedDecodableClasses];
-  v10 = [v12 setByAddingObjectsFromSet:v9];
-  v11 = allowedDecodableClasses_Allowed_0;
-  allowedDecodableClasses_Allowed_0 = v10;
+  v11 = [v1 setWithObjects:{v2, v3, v4, v5, v6, v7, objc_opt_class(), 0}];
+  v8 = +[AXPTranslationObject allowedDecodableClasses];
+  v9 = [v11 setByAddingObjectsFromSet:v8];
+  v10 = allowedDecodableClasses_Allowed_0;
+  allowedDecodableClasses_Allowed_0 = v9;
 }
 
 - (AXPTranslatorRequest)initWithCoder:(id)coder

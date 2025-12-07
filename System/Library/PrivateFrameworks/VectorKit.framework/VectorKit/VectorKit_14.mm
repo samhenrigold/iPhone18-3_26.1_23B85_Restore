@@ -26,7 +26,7 @@ uint64_t md::DaVinciTransitionManager::_setResourcesToUseLowZoom(uint64_t this, 
   return this;
 }
 
-void md::configurationForConfigurationType(uint64_t a1, int a2)
+void md::configurationForConfigurationType(uint64_t *a1, int a2)
 {
   if (a2 <= 1)
   {
@@ -81,9 +81,9 @@ void std::shared_ptr<gdc::Registry>::shared_ptr[abi:nn200100]<gdc::Registry,0>(v
   operator new();
 }
 
-void sub_1B288A208(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B288A208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<gdc::Registry>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -120,7 +120,7 @@ uint64_t gdc::ServiceLocator::resolve<RendererPassListProviderWrapper>(void *a1,
   return v3;
 }
 
-void sub_1B288AAF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22)
+void sub_1B288AAF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22)
 {
   ggl::BufferMemory::~BufferMemory(&a15);
   if (a22)
@@ -254,12 +254,12 @@ void sub_1B288AEB8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void md::FrameGraphBuilder::build(void *a1, unsigned __int8 ***a2, void *a3)
+void md::FrameGraphBuilder::build(uint64_t *a1, unsigned __int8 ***a2, uint32x2_t *a3)
 {
   v137 = *MEMORY[0x1E69E9840];
   v4 = *a2;
   v5 = a2[1];
-  v6 = 126 - 2 * __clz(v5 - v4);
+  v6 = 126 - 2 * __clz((v5 - v4) >> 3);
   if (v5 == v4)
   {
     v7 = 0;
@@ -325,7 +325,7 @@ void md::FrameGraphBuilder::build(void *a1, unsigned __int8 ***a2, void *a3)
     __p[0] = 0;
     __p[1] = 0;
     v123 = 0;
-    std::__tree<std::__value_type<md::FrameGraphPass *,geo::linear_set<md::FrameGraphPass *,md::FrameGraphPassLessThan,std::allocator<md::FrameGraphPass *>,std::vector<md::FrameGraphPass *>>>,std::__map_value_compare<md::FrameGraphPass *,std::__value_type<md::FrameGraphPass *,geo::linear_set<md::FrameGraphPass *,md::FrameGraphPassLessThan,std::allocator<md::FrameGraphPass *>,std::vector<md::FrameGraphPass *>>>,md::FrameGraphPassLessThan,true>,std::allocator<std::__value_type<md::FrameGraphPass *,geo::linear_set<md::FrameGraphPass *,md::FrameGraphPassLessThan,std::allocator<md::FrameGraphPass *>,std::vector<md::FrameGraphPass *>>>>>::__emplace_unique_key_args<md::FrameGraphPass *,md::FrameGraphPass *&,geo::linear_set<md::FrameGraphPass *,md::FrameGraphPassLessThan,std::allocator<md::FrameGraphPass *>,std::vector<md::FrameGraphPass *>>>(&v133, v26);
+    std::__tree<std::__value_type<md::FrameGraphPass *,geo::linear_set<md::FrameGraphPass *,md::FrameGraphPassLessThan,std::allocator<md::FrameGraphPass *>,std::vector<md::FrameGraphPass *>>>,std::__map_value_compare<md::FrameGraphPass *,std::__value_type<md::FrameGraphPass *,geo::linear_set<md::FrameGraphPass *,md::FrameGraphPassLessThan,std::allocator<md::FrameGraphPass *>,std::vector<md::FrameGraphPass *>>>,md::FrameGraphPassLessThan,true>,std::allocator<std::__value_type<md::FrameGraphPass *,geo::linear_set<md::FrameGraphPass *,md::FrameGraphPassLessThan,std::allocator<md::FrameGraphPass *>,std::vector<md::FrameGraphPass *>>>>>::__emplace_unique_key_args<md::FrameGraphPass *,md::FrameGraphPass *&,geo::linear_set<md::FrameGraphPass *,md::FrameGraphPassLessThan,std::allocator<md::FrameGraphPass *>,std::vector<md::FrameGraphPass *>>>(&v133, v26, &v135, __p);
 LABEL_37:
     v22 = *(v26 + 7);
     if (v22 != v26 + 64)
@@ -965,7 +965,7 @@ LABEL_172:
         v101 = (v91 + v93);
       }
 
-      v102 = *v101;
+      v102 = v101->i32[0];
       v103 = v91[5];
       v104 = v79[88];
       v105 = 0;
@@ -1141,7 +1141,7 @@ LABEL_170:
   std::__tree<std::__value_type<md::FrameGraphPass *,geo::linear_set<md::FrameGraphPass *,md::FrameGraphPassLessThan,std::allocator<md::FrameGraphPass *>,std::vector<md::FrameGraphPass *>>>,std::__map_value_compare<md::FrameGraphPass *,std::__value_type<md::FrameGraphPass *,geo::linear_set<md::FrameGraphPass *,md::FrameGraphPassLessThan,std::allocator<md::FrameGraphPass *>,std::vector<md::FrameGraphPass *>>>,md::FrameGraphPassLessThan,true>,std::allocator<std::__value_type<md::FrameGraphPass *,geo::linear_set<md::FrameGraphPass *,md::FrameGraphPassLessThan,std::allocator<md::FrameGraphPass *>,std::vector<md::FrameGraphPass *>>>>>::destroy(v134[0]);
 }
 
-unsigned __int8 **std::__introsort<std::_ClassicAlgPolicy,md::FrameGraphBuilder::build(md::FrameGraphResourceRegistry *)::$_0 &,md::FrameGraphPass **,false>(unsigned __int8 **result, unsigned __int8 **a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,md::FrameGraphBuilder::build(md::FrameGraphResourceRegistry *)::$_0 &,md::FrameGraphPass **,false>(uint64_t result, unsigned __int8 **a2, uint64_t a3, char a4)
 {
   v7 = result;
   while (2)
@@ -1278,7 +1278,7 @@ LABEL_32:
   }
 }
 
-unsigned __int8 **std::__introsort<std::_ClassicAlgPolicy,md::FrameGraphBuilder::build(md::FrameGraphResourceRegistry *)::$_1 &,md::FrameGraphLogicalResource **,false>(unsigned __int8 **result, unsigned __int8 **a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,md::FrameGraphBuilder::build(md::FrameGraphResourceRegistry *)::$_1 &,md::FrameGraphLogicalResource **,false>(uint64_t result, unsigned __int8 **a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
@@ -2198,7 +2198,7 @@ LABEL_60:
   }
 }
 
-uint64_t std::vector<md::FrameGraphPhysicalResource *>::__init_with_size[abi:nn200100]<std::ranges::elements_view<std::ranges::ref_view<std::unordered_map<md::FrameGraphLogicalResource *,md::FrameGraphPhysicalResource *>>,1ul>::__iterator<true>,std::ranges::elements_view<std::ranges::ref_view<std::unordered_map<md::FrameGraphLogicalResource *,md::FrameGraphPhysicalResource *>>,1ul>::__iterator<true>>(uint64_t result, uint64_t a2, unint64_t a3)
+uint64_t *std::vector<md::FrameGraphPhysicalResource *>::__init_with_size[abi:nn200100]<std::ranges::elements_view<std::ranges::ref_view<std::unordered_map<md::FrameGraphLogicalResource *,md::FrameGraphPhysicalResource *>>,1ul>::__iterator<true>,std::ranges::elements_view<std::ranges::ref_view<std::unordered_map<md::FrameGraphLogicalResource *,md::FrameGraphPhysicalResource *>>,1ul>::__iterator<true>>(uint64_t *result, void *a2, unint64_t a3)
 {
   if (a3)
   {
@@ -2500,7 +2500,7 @@ void ggl::TextureWithReverseAlpha::Pos2DUVPipelineSetup::typedReflection(ggl::Te
 uint64_t cmdBufferLocation(void *a1, unsigned int a2)
 {
   v3 = a1;
-  [v3 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v3);
   v4 = *(v6 + 8);
   if (v7)
   {
@@ -2640,7 +2640,7 @@ void ggl::MeshTyped<ggl::DottedRouteLine::DefaultVbo>::typedReflection()
   }
 }
 
-uint64_t gss::fixedPoint8_0Decoder<gss::PropertyID>(uint64_t *a1, unint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5, void *a6)
+uint64_t gss::fixedPoint8_0Decoder<gss::PropertyID>(uint64_t *a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5, void *a6)
 {
   v33 = *MEMORY[0x1E69E9840];
   if (a4 > 0x1E9)
@@ -3004,36 +3004,36 @@ uint64_t *std::unique_ptr<md::RouteLayoutInfo>::reset[abi:nn200100](uint64_t *re
   return result;
 }
 
-void md::BuildingRenderLayer::BuildingRenderLayer(uint64_t a1, uint64_t a2, void *a3)
+void md::BuildingRenderLayer::BuildingRenderLayer(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t *a5, uint64_t a6)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v5 = a3;
-  v7 = 14;
+  v23 = *MEMORY[0x1E69E9840];
+  v8 = a3;
+  v10 = 14;
   [*(a2 + 104) format];
-  [v5 standardCommandBufferSelector];
-  v8[0] = *(*(v15 + 8) + 154);
-  [v5 standardCommandBufferSelector];
-  v8[1] = *(*(v14 + 8) + 156);
-  [v5 standardCommandBufferSelector];
-  v8[2] = *(*(v13 + 8) + 178);
-  [v5 standardCommandBufferSelector];
-  v8[3] = *(*(v12 + 8) + 188);
-  [v5 standardCommandBufferSelector];
-  v8[4] = *(*(v11 + 8) + 158);
-  [v5 standardCommandBufferSelector];
-  v8[5] = *(*(v10 + 8) + 180);
-  [v5 standardCommandBufferSelector];
-  v8[6] = *(*(v9 + 8) + 190);
-  std::vector<md::CommandBufferLocation>::vector[abi:nn200100](&v16, v8, 7);
-  v6 = v5;
-  std::vector<md::CommandBufferLocation>::vector[abi:nn200100](&v18, &v7, 1);
+  objc_msgSend_standardCommandBufferSelector(v8);
+  v11[0] = *(*(v18 + 8) + 154);
+  objc_msgSend_standardCommandBufferSelector(v8);
+  v11[1] = *(*(v17 + 8) + 156);
+  objc_msgSend_standardCommandBufferSelector(v8);
+  v11[2] = *(*(v16 + 8) + 178);
+  objc_msgSend_standardCommandBufferSelector(v8);
+  v11[3] = *(*(v15 + 8) + 188);
+  objc_msgSend_standardCommandBufferSelector(v8);
+  v11[4] = *(*(v14 + 8) + 158);
+  objc_msgSend_standardCommandBufferSelector(v8);
+  v11[5] = *(*(v13 + 8) + 180);
+  objc_msgSend_standardCommandBufferSelector(v8);
+  v11[6] = *(*(v12 + 8) + 190);
+  std::vector<md::CommandBufferLocation>::vector[abi:nn200100](&v19, v11, 7);
+  v9 = v8;
+  std::vector<md::CommandBufferLocation>::vector[abi:nn200100](&v21, &v10, 1);
   *(a1 + 8) = 0;
   *a1 = &unk_1F2A16858;
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
-  if (v17 != v16)
+  if (v20 != v19)
   {
-    std::vector<md::MapDataType>::__vallocate[abi:nn200100](a1 + 8, (v17 - v16) >> 1);
+    std::vector<md::MapDataType>::__vallocate[abi:nn200100]((a1 + 8), (v20 - v19) >> 1);
   }
 
   *(a1 + 32) = 0;
@@ -3065,165 +3065,166 @@ void md::BuildingRenderLayer::BuildingRenderLayer(uint64_t a1, uint64_t a2, void
   *(a1 + 280) = 0u;
   *(a1 + 296) = 0u;
   *(a1 + 312) = 0;
-  *(a1 + 320) = v18;
-  *(a1 + 336) = v19;
+  *(a1 + 320) = v21;
+  *(a1 + 336) = v22;
   *(a1 + 344) = 1;
   *a1 = &unk_1F2A2E988;
   *(a1 + 352) = 0;
   operator new();
 }
 
-void sub_1B289E4A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void **a10, void **a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void **a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_1B289E4A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t *a10, uint64_t *a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  std::__function::__value_func<ggl::FoggedDiffuseLandmark::LandmarkPipelineSetup * ()(void)>::~__value_func[abi:nn200100](v43);
-  std::vector<ggl::FoggedDiffuseLandmark::LandmarkPipelineSetup *,geo::allocator_adapter<ggl::FoggedDiffuseLandmark::LandmarkPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](v42);
+  va_start(va, a38);
+  std::__function::__value_func<ggl::FoggedDiffuseLandmark::LandmarkPipelineSetup * ()(void)>::~__value_func[abi:nn200100](v42);
   std::vector<ggl::FoggedDiffuseLandmark::LandmarkPipelineSetup *,geo::allocator_adapter<ggl::FoggedDiffuseLandmark::LandmarkPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](v41);
+  std::vector<ggl::FoggedDiffuseLandmark::LandmarkPipelineSetup *,geo::allocator_adapter<ggl::FoggedDiffuseLandmark::LandmarkPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](v40);
   std::__function::__value_func<void ()(ggl::FoggedDiffuseLandmark::LandmarkPipelineSetup *)>::~__value_func[abi:nn200100](&a35);
-  std::__function::__value_func<ggl::FoggedDiffuseLandmark::LandmarkPipelineSetup * ()(void)>::~__value_func[abi:nn200100](&a39);
-  MEMORY[0x1B8C62190](v41, 0x10A0C405CD4001ALL);
-  v45 = *(v40 + 336);
+  std::__function::__value_func<ggl::FoggedDiffuseLandmark::LandmarkPipelineSetup * ()(void)>::~__value_func[abi:nn200100](va);
+  MEMORY[0x1B8C62190](v40, 0x10A0C405CD4001ALL);
+  v44 = v39[42];
+  if (v44)
+  {
+    v39[43] = v44;
+    operator delete(v44);
+  }
+
+  a22 = v39 + 38;
+  std::vector<gm::MultiRange<unsigned long>,geo::allocator_adapter<gm::MultiRange<unsigned long>,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&a22);
+  v45 = v39[35];
   if (v45)
   {
-    *(v40 + 344) = v45;
+    v39[36] = v45;
     operator delete(v45);
   }
 
-  a22 = (v40 + 304);
-  std::vector<gm::MultiRange<unsigned long>,geo::allocator_adapter<gm::MultiRange<unsigned long>,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&a22);
-  v46 = *(v40 + 280);
+  v46 = v39[33];
   if (v46)
   {
-    *(v40 + 288) = v46;
-    operator delete(v46);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v46);
   }
 
-  v47 = *(v40 + 264);
+  v47 = v39[31];
   if (v47)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v47);
   }
 
-  v48 = *(v40 + 248);
+  v48 = v39[29];
   if (v48)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v48);
   }
 
-  v49 = *(v40 + 232);
+  v49 = v39[27];
   if (v49)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v49);
   }
 
-  v50 = *(v40 + 216);
+  v50 = v39[25];
   if (v50)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v50);
   }
 
-  v51 = *(v40 + 200);
+  v51 = v39[23];
   if (v51)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v51);
   }
 
-  v52 = *(v40 + 184);
+  v52 = v39[21];
   if (v52)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v52);
   }
 
-  v53 = *(v40 + 168);
+  v53 = v39[19];
   if (v53)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v53);
   }
 
-  v54 = *(v40 + 152);
+  v54 = v39[17];
   if (v54)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v54);
   }
 
-  v55 = *(v40 + 136);
+  v55 = v39[15];
   if (v55)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v55);
   }
 
-  v56 = *(v40 + 120);
+  v56 = v39[13];
   if (v56)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v56);
   }
 
-  v57 = *(v40 + 104);
+  std::unique_ptr<ggl::FragmentedPool<ggl::RenderItem>>::reset[abi:nn200100](v39 + 11, 0);
+  v57 = v39[10];
+  v39[10] = 0;
   if (v57)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v57);
+    (*(*v57 + 8))(v57);
   }
 
-  std::unique_ptr<ggl::FragmentedPool<ggl::RenderItem>>::reset[abi:nn200100]((v40 + 88), 0);
-  v58 = *(v40 + 80);
-  *(v40 + 80) = 0;
+  v58 = v39[9];
+  v39[9] = 0;
   if (v58)
   {
     (*(*v58 + 8))(v58);
   }
 
-  v59 = *(v40 + 72);
-  *(v40 + 72) = 0;
+  v59 = v39[8];
+  v39[8] = 0;
   if (v59)
   {
     (*(*v59 + 8))(v59);
   }
 
-  v60 = *(v40 + 64);
-  *(v40 + 64) = 0;
+  v60 = v39[7];
+  v39[7] = 0;
   if (v60)
   {
     (*(*v60 + 8))(v60);
   }
 
-  v61 = *(v40 + 56);
-  *(v40 + 56) = 0;
+  v61 = v39[6];
+  v39[6] = 0;
   if (v61)
   {
     (*(*v61 + 8))(v61);
   }
 
-  v62 = *(v40 + 48);
-  *(v40 + 48) = 0;
+  std::unique_ptr<ggl::FragmentedPool<ggl::FoggedSpecularLandmark::LandmarkPipelineSetup>>::reset[abi:nn200100](v39 + 5, 0);
+  std::unique_ptr<ggl::FragmentedPool<ggl::FoggedDiffuseLandmark::LandmarkPipelineSetup>>::reset[abi:nn200100](a10, 0);
+  std::unique_ptr<ggl::FragmentedPool<ggl::LandmarkFlat::LandmarkPipelineSetup>>::reset[abi:nn200100](v39 + 3, 0);
+  std::unique_ptr<ggl::FragmentedPool<ggl::SpecularLandmark::LandmarkPipelineSetup>>::reset[abi:nn200100](a11, 0);
+  std::unique_ptr<ggl::FragmentedPool<ggl::DiffuseLandmark::BuildingPipelineSetup>>::reset[abi:nn200100](v39 + 1, 0);
+  std::unique_ptr<ggl::FragmentedPool<ggl::LandmarkDepth::BuildingPipelineSetup>>::reset[abi:nn200100](v39, 0);
+
+  MEMORY[0x1B8C62190](v39, 0x1020C403E18FA89);
+  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v38 + 416);
+  std::unique_ptr<md::LandmarkRenderResources>::reset[abi:nn200100]((v38 + 400), 0);
+  std::unique_ptr<md::BuildingRenderResources>::reset[abi:nn200100]((v38 + 392), 0);
+  v62 = *(v38 + 384);
   if (v62)
   {
-    (*(*v62 + 8))(v62);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v62);
   }
 
-  std::unique_ptr<ggl::FragmentedPool<ggl::FoggedSpecularLandmark::LandmarkPipelineSetup>>::reset[abi:nn200100]((v40 + 40), 0);
-  std::unique_ptr<ggl::FragmentedPool<ggl::FoggedDiffuseLandmark::LandmarkPipelineSetup>>::reset[abi:nn200100](a10, 0);
-  std::unique_ptr<ggl::FragmentedPool<ggl::LandmarkFlat::LandmarkPipelineSetup>>::reset[abi:nn200100]((v40 + 24), 0);
-  std::unique_ptr<ggl::FragmentedPool<ggl::SpecularLandmark::LandmarkPipelineSetup>>::reset[abi:nn200100](a11, 0);
-  std::unique_ptr<ggl::FragmentedPool<ggl::DiffuseLandmark::BuildingPipelineSetup>>::reset[abi:nn200100]((v40 + 8), 0);
-  std::unique_ptr<ggl::FragmentedPool<ggl::LandmarkDepth::BuildingPipelineSetup>>::reset[abi:nn200100](v40, 0);
-
-  MEMORY[0x1B8C62190](v40, 0x1020C403E18FA89);
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table((v39 + 52));
-  std::unique_ptr<md::LandmarkRenderResources>::reset[abi:nn200100](v39 + 50, 0);
-  std::unique_ptr<md::BuildingRenderResources>::reset[abi:nn200100](v39 + 49, 0);
-  v63 = v39[48];
-  if (v63)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v63);
-  }
-
-  md::CartographicTiledVectorRenderLayer<md::BuildingTileDataRenderable>::~CartographicTiledVectorRenderLayer(v39);
+  md::CartographicTiledVectorRenderLayer<md::BuildingTileDataRenderable>::~CartographicTiledVectorRenderLayer(v38);
 
   _Unwind_Resume(a1);
 }
 
-void md::BuildingRenderResources::BuildingRenderResources(uint64_t a1, void *a2)
+void md::BuildingRenderResources::BuildingRenderResources(uint64_t a1, void *a2, __int128 *a3, uint64_t a4)
 {
-  v3 = a2;
+  v5 = a2;
   *(a1 + 776) = 0;
   *(a1 + 784) = 0u;
   *(a1 + 800) = 0u;
@@ -3233,29 +3234,29 @@ void md::BuildingRenderResources::BuildingRenderResources(uint64_t a1, void *a2)
   *(a1 + 840) = 0u;
   *(a1 + 856) = 0u;
   *(a1 + 880) = 32;
-  v4 = malloc_type_malloc(0xF10uLL, 0x1020040EDED9539uLL);
-  *v4 = 0;
-  v4[1] = 0;
-  *(a1 + 864) = v4;
-  *(a1 + 872) = v4;
-  v5 = [v3 shaderLibrary];
+  v6 = malloc_type_malloc(0xF10uLL, 0x1020040EDED9539uLL);
+  *v6 = 0;
+  v6[1] = 0;
+  *(a1 + 864) = v6;
+  *(a1 + 872) = v6;
+  v7 = [v5 shaderLibrary];
   *a1 = 1065353216;
-  v7 = +[VKPlatform sharedPlatform];
-  *(a1 + 768) = [v7 supportsBuildingStrokes];
-  *(a1 + 769) = [v7 supports3DBuildingStrokes];
-  *(a1 + 770) = [v7 supportsBuildingShadows];
-  *(a1 + 771) = [v7 supports3DBuildings];
-  *(a1 + 772) = [v7 supportsPerFragmentLighting];
-  v6 = *(*(v5 + 80) + 184);
-  if (v6)
+  v9 = +[VKPlatform sharedPlatform];
+  *(a1 + 768) = [v9 supportsBuildingStrokes];
+  *(a1 + 769) = [v9 supports3DBuildingStrokes];
+  *(a1 + 770) = [v9 supportsBuildingShadows];
+  *(a1 + 771) = [v9 supports3DBuildings];
+  *(a1 + 772) = [v9 supportsPerFragmentLighting];
+  v8 = *(*(v7 + 80) + 184);
+  if (v8)
   {
-    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
   }
 
   operator new();
 }
 
-void sub_1B28A26B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void **a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52, uint64_t a53, uint64_t a54, uint64_t a55, char a56)
+void sub_1B28A26B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, char a56)
 {
   std::__function::__value_func<ggl::PrefilteredLine::PrefilteredLinePipelineSetup * ()(void)>::~__value_func[abi:nn200100](v59);
   std::vector<ggl::PrefilteredLine::PrefilteredLinePipelineSetup *,geo::allocator_adapter<ggl::PrefilteredLine::PrefilteredLinePipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](v58);
@@ -3264,7 +3265,7 @@ void sub_1B28A26B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   std::__function::__value_func<ggl::PrefilteredLine::PrefilteredLinePipelineSetup * ()(void)>::~__value_func[abi:nn200100](&a56);
   MEMORY[0x1B8C62190](v57, 0x10A0C405CD4001ALL);
 
-  md::FrameAllocator<ggl::RenderItem>::reset(v56 + 864);
+  md::FrameAllocator<ggl::RenderItem>::reset((v56 + 864));
   free(*(v56 + 864));
   v61 = *a10;
   if (*a10)
@@ -3273,7 +3274,7 @@ void sub_1B28A26B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(v61);
   }
 
-  a17 = (v56 + 808);
+  a17 = v56 + 808;
   std::vector<gm::MultiRange<unsigned long>,geo::allocator_adapter<gm::MultiRange<unsigned long>,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&a17);
   v62 = *(v56 + 784);
   if (v62)
@@ -3672,7 +3673,7 @@ uint64_t std::__function::__value_func<void ()(ggl::BuildingFlat::CompressedMesh
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::BuildingFlat::CompressedMeshPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::BuildingFlat::CompressedMeshPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -3804,7 +3805,7 @@ uint64_t std::__function::__value_func<ggl::BuildingFacadeDepth::BuildingPipelin
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::BuildingFacadeDepth::BuildingPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::BuildingFacadeDepth::BuildingPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -4614,11 +4615,11 @@ LABEL_322:
     if (*(a1 + 72))
     {
       v214 = *(a1 + 64);
-      v215 = &v214[2 * *(a1 + 72)];
+      v215 = v214 + 16 * *(a1 + 72);
       do
       {
         v216 = *v214;
-        v217 = v214[1];
+        v217 = *(v214 + 8);
         if (v217)
         {
           atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -4631,7 +4632,7 @@ LABEL_322:
           std::__shared_weak_count::__release_shared[abi:nn200100](v217);
         }
 
-        v214 += 2;
+        v214 += 16;
         v218 = 1;
       }
 
@@ -4974,7 +4975,7 @@ LABEL_330:
     v321 = v121;
     v148 = HIDWORD(v334[0]);
     v324 = *v129;
-    geo::intern_vector<gss::ZoomStyle<gss::PropertyID>,unsigned short,geo::allocator_adapter<gss::ZoomStyle<gss::PropertyID>,gss::zone_mallocator>>::resize(*v129 + 40, HIDWORD(v334[0]));
+    geo::intern_vector<gss::ZoomStyle<gss::PropertyID>,unsigned short,geo::allocator_adapter<gss::ZoomStyle<gss::PropertyID>,gss::zone_mallocator>>::resize((*v129 + 40), HIDWORD(v334[0]));
     v329 = v129;
     if (v148)
     {
@@ -5396,7 +5397,7 @@ LABEL_251:
         geo::intern_vector<unsigned int,unsigned short,geo::allocator_adapter<unsigned int,gss::zone_mallocator>>::copy(&buf[8], v332);
         v176 = v319 + 24 * v172;
         *v176 = *buf;
-        geo::intern_vector<unsigned int,unsigned short,geo::allocator_adapter<unsigned int,gss::zone_mallocator>>::deallocateStorage(v176 + 8);
+        geo::intern_vector<unsigned int,unsigned short,geo::allocator_adapter<unsigned int,gss::zone_mallocator>>::deallocateStorage((v176 + 8));
         *(v176 + 8) = *&buf[8];
         *(v176 + 16) = *&buf[16];
         *(v176 + 20) = buf[20];
@@ -5575,7 +5576,7 @@ LABEL_268:
 
     v192 = HIDWORD(v332[0]);
     v326 = *(v316 - 16);
-    geo::intern_vector<gss::ZoomStyle<gss::PropertyID>,unsigned short,geo::allocator_adapter<gss::ZoomStyle<gss::PropertyID>,gss::zone_mallocator>>::resize(v326 + 40, HIDWORD(v332[0]));
+    geo::intern_vector<gss::ZoomStyle<gss::PropertyID>,unsigned short,geo::allocator_adapter<gss::ZoomStyle<gss::PropertyID>,gss::zone_mallocator>>::resize((v326 + 40), HIDWORD(v332[0]));
     if (!v192)
     {
 LABEL_320:
@@ -5845,7 +5846,7 @@ LABEL_334:
   return v218;
 }
 
-void sub_1B28A9D64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31)
+void sub_1B28A9D64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31)
 {
   geo::intern_vector<gss::StyleCondition,unsigned short,geo::allocator_adapter<gss::StyleCondition,gss::zone_mallocator>>::deallocateStorage(&a24);
   if (a31 < 0)
@@ -5907,7 +5908,7 @@ ggl::zone_mallocator *std::__split_buffer<ggl::BuildingTopDepth::CompressedMeshP
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::BuildingTopDepth::CompressedMeshPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::BuildingTopDepth::CompressedMeshPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -6055,7 +6056,7 @@ uint64_t std::__function::__value_func<void ()(ggl::BuildingPointyRoofDepth::Bui
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::BuildingPointyRoofDepth::BuildingPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::BuildingPointyRoofDepth::BuildingPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -6171,7 +6172,7 @@ ggl::zone_mallocator *std::__split_buffer<ggl::DiffuseBuilding::BuildingPipeline
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::DiffuseBuilding::BuildingPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::DiffuseBuilding::BuildingPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -6335,7 +6336,7 @@ uint64_t std::__function::__value_func<ggl::FoggedDiffuseBuilding::BuildingPipel
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::FoggedDiffuseBuilding::BuildingPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::FoggedDiffuseBuilding::BuildingPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -6467,7 +6468,7 @@ uint64_t std::__function::__value_func<ggl::SpecularBuildingTop::CompressedMeshP
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::SpecularBuildingTop::CompressedMeshPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::SpecularBuildingTop::CompressedMeshPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -6583,7 +6584,7 @@ uint64_t std::__function::__value_func<void ()(ggl::FoggedSpecularBuildingTop::C
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::FoggedSpecularBuildingTop::CompressedMeshPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::FoggedSpecularBuildingTop::CompressedMeshPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -6699,7 +6700,7 @@ ggl::zone_mallocator *std::__split_buffer<ggl::SpecularBuildingPointyRoof::Build
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::SpecularBuildingPointyRoof::BuildingPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::SpecularBuildingPointyRoof::BuildingPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -6863,7 +6864,7 @@ uint64_t std::__function::__value_func<ggl::BuildingShadow::MeshPipelineSetup * 
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::BuildingShadow::MeshPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::BuildingShadow::MeshPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -6995,7 +6996,7 @@ uint64_t std::__function::__value_func<ggl::BuildingFlatStroke::BuildingFlatStro
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::BuildingFlatStroke::BuildingFlatStrokePipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::BuildingFlatStroke::BuildingFlatStrokePipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -7111,7 +7112,7 @@ uint64_t std::__function::__value_func<void ()(ggl::PrefilteredLine::Prefiltered
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::PrefilteredLine::PrefilteredLinePipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::PrefilteredLine::PrefilteredLinePipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -7174,7 +7175,7 @@ uint64_t *std::unique_ptr<md::BuildingRenderResources>::reset[abi:nn200100](uint
   *result = a2;
   if (v2)
   {
-    md::FrameAllocator<ggl::RenderItem>::reset(v2 + 864);
+    md::FrameAllocator<ggl::RenderItem>::reset((v2 + 864));
     free(*(v2 + 864));
     v3 = *(v2 + 840);
     if (v3)
@@ -7521,7 +7522,7 @@ uint64_t std::__function::__value_func<void ()(ggl::LandmarkDepth::BuildingPipel
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::LandmarkDepth::BuildingPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::LandmarkDepth::BuildingPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -7653,7 +7654,7 @@ uint64_t std::__function::__value_func<void ()(ggl::LandmarkFlat::LandmarkPipeli
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::LandmarkFlat::LandmarkPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::LandmarkFlat::LandmarkPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -7801,7 +7802,7 @@ uint64_t std::__function::__value_func<ggl::SpecularLandmark::LandmarkPipelineSe
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::SpecularLandmark::LandmarkPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::SpecularLandmark::LandmarkPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -7917,7 +7918,7 @@ uint64_t std::__function::__value_func<ggl::FoggedSpecularLandmark::LandmarkPipe
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::FoggedSpecularLandmark::LandmarkPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::FoggedSpecularLandmark::LandmarkPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -7974,7 +7975,7 @@ uint64_t std::__function::__value_func<void ()(ggl::FoggedSpecularLandmark::Land
   return a1;
 }
 
-uint64_t *std::unique_ptr<md::LandmarkRenderResources>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
+uint64_t **std::unique_ptr<md::LandmarkRenderResources>::reset[abi:nn200100](uint64_t **result, uint64_t *a2)
 {
   v2 = *result;
   *result = a2;
@@ -8174,7 +8175,7 @@ void std::vector<md::CommandBufferLocation>::push_back[abi:nn200100](uint64_t a1
   *(a1 + 8) = v5;
 }
 
-void md::CartographicTiledVectorRenderLayer<md::MapTileDataRenderable<md::PolygonTileData>>::CartographicTiledVectorRenderLayer(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, int a8, void *a9)
+void md::CartographicTiledVectorRenderLayer<md::MapTileDataRenderable<md::PolygonTileData>>::CartographicTiledVectorRenderLayer(uint64_t a1, char a2, __int16 *a3, uint64_t a4, uint64_t a5, const RenderTargetFormat *a6, void *a7, int a8, void *a9)
 {
   v15 = a7;
   std::vector<md::CommandBufferLocation>::vector[abi:nn200100](&v16, a3, a4);
@@ -8230,7 +8231,8 @@ void sub_1B28AE4F4(_Unwind_Exception *a1)
 
 void md::PolygonRenderResources::PolygonRenderResources(md::PolygonRenderResources *this, VKSharedResources *a2, const RenderTargetFormat *a3)
 {
-  v4 = a2;
+  v16 = *MEMORY[0x1E69E9840];
+  v5 = a2;
   *(this + 856) = 0u;
   bzero(this, 0x350uLL);
   *(this + 106) = this + 856;
@@ -8251,10 +8253,10 @@ void md::PolygonRenderResources::PolygonRenderResources(md::PolygonRenderResourc
   *(this + 111) = 0;
   *(this + 110) = 0;
   *(this + 135) = 32;
-  v5 = malloc_type_malloc(0xF10uLL, 0x1020040EDED9539uLL);
-  *v5 = 0u;
-  *(this + 133) = v5;
-  *(this + 134) = v5;
+  v6 = malloc_type_malloc(0xF10uLL, 0x1020040EDED9539uLL);
+  *v6 = 0u;
+  *(this + 133) = v6;
+  *(this + 134) = v6;
   ggl::RenderDataHolder::RenderDataHolder(this + 1088);
   *(this + 136) = &unk_1F2A5C710;
   *(this + 1124) = 65537;
@@ -8268,43 +8270,53 @@ void md::PolygonRenderResources::PolygonRenderResources(md::PolygonRenderResourc
   *(this + 638) = 257;
   *(this + 80) = 0u;
   *(this + 1296) = 0;
-  v6 = *(*([(VKSharedResources *)v4 shaderLibrary]+ 80) + 1768);
-  if (v6)
+  v7 = *([(VKSharedResources *)v5 shaderLibrary]+ 80);
+  v8 = *(v7 + 1768);
+  v14[0] = *(v7 + 1760);
+  v14[1] = v8;
+  if (v8)
   {
-    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
   }
 
-  std::allocate_shared[abi:nn200100]<ggl::PolygonStroke::MeshPipelineState,std::allocator<ggl::PolygonStroke::MeshPipelineState>,std::shared_ptr<ggl::PolygonStrokeShader>,ggl::ColorBufferOperation,ggl::RenderTargetFormat const&,0>();
+  v10 = 0;
+  v11 = 0;
+  v12 = 0;
+  LOBYTE(v9[0]) = 1;
+  *&v9[1] = xmmword_1B33B0790;
+  v9[5] = 7;
+  v13 = 15;
+  std::allocate_shared[abi:nn200100]<ggl::PolygonStroke::MeshPipelineState,std::allocator<ggl::PolygonStroke::MeshPipelineState>,std::shared_ptr<ggl::PolygonStrokeShader>,ggl::ColorBufferOperation,ggl::RenderTargetFormat const&,0>(&v15, v14, v9, a3->colorFormats);
 }
 
-void sub_1B28B0274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ggl::RenderDataHolder *a10, void **a11, uint64_t *a12, uint64_t *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
+void sub_1B28B0274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ggl::RenderDataHolder *a10, void *a11, uint64_t *a12, uint64_t *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t *a26, void *a27)
 {
   ggl::RenderDataHolder::~RenderDataHolder(a10);
-  md::FrameAllocator<ggl::RenderItem>::reset(a26 + 1064);
-  free(*(a26 + 1064));
-  v28 = *(a26 + 1040);
+  md::FrameAllocator<ggl::RenderItem>::reset(a26 + 133);
+  free(a26[133]);
+  v28 = a26[130];
   if (v28)
   {
-    *(a26 + 1048) = v28;
+    a26[131] = v28;
     operator delete(v28);
   }
 
-  a27 = a26 + 1008;
+  a27 = a26 + 126;
   std::vector<gm::MultiRange<unsigned long>,geo::allocator_adapter<gm::MultiRange<unsigned long>,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&a27);
-  v29 = *(a26 + 984);
+  v29 = a26[123];
   if (v29)
   {
-    *(a26 + 992) = v29;
+    a26[124] = v29;
     operator delete(v29);
   }
 
-  v30 = *(a26 + 976);
+  v30 = a26[122];
   if (v30)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v30);
   }
 
-  v31 = *(a26 + 960);
+  v31 = a26[120];
   if (v31)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v31);
@@ -8325,90 +8337,89 @@ void sub_1B28B0274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   std::__tree<std::__value_type<gss::StyleAttribute,std::unique_ptr<ggl::Texture2D>>,std::__map_value_compare<gss::StyleAttribute,std::__value_type<gss::StyleAttribute,std::unique_ptr<ggl::Texture2D>>,std::less<gss::StyleAttribute>,true>,std::allocator<std::__value_type<gss::StyleAttribute,std::unique_ptr<ggl::Texture2D>>>>::destroy(*a11);
-  v34 = 840;
+  v34 = 105;
   while (1)
   {
-    v35 = *(a26 + v34);
-    *(a26 + v34) = 0;
+    v35 = a26[v34];
+    a26[v34] = 0;
     if (v35)
     {
       (*(*v35 + 8))(v35);
     }
 
-    v34 -= 8;
-    if (v34 == 264)
+    if (--v34 == 33)
     {
-      a27 = a26 + 240;
+      a27 = a26 + 30;
       std::vector<std::shared_ptr<md::TrafficDynamicTileResource>>::__destroy_vector::operator()[abi:nn200100](&a27);
-      std::unique_ptr<ggl::FragmentedPool<ggl::PolygonFill::MeshPipelineSetup>>::reset[abi:nn200100]((a26 + 232), 0);
-      std::unique_ptr<ggl::FragmentedPool<ggl::PolygonAnimatableFill::CompressedMeshPipelineSetup>>::reset[abi:nn200100]((a26 + 224), 0);
-      std::unique_ptr<ggl::FragmentedPool<ggl::PolygonFill::CompressedMeshPipelineSetup>>::reset[abi:nn200100]((a26 + 216), 0);
-      std::unique_ptr<ggl::FragmentedPool<ggl::PolygonFill::CompressedMeshPipelineSetup>>::reset[abi:nn200100]((a26 + 208), 0);
-      std::unique_ptr<ggl::FragmentedPool<ggl::PolygonAnimatableStroke::MeshPipelineSetup>>::reset[abi:nn200100]((a26 + 200), 0);
-      std::unique_ptr<ggl::FragmentedPool<ggl::HillshadeFillMask::CompressedMeshPipelineSetup>>::reset[abi:nn200100]((a26 + 192), 0);
-      std::unique_ptr<ggl::FragmentedPool<ggl::PolygonStrokeMask::MeshPipelineSetup>>::reset[abi:nn200100]((a26 + 184), 0);
-      std::unique_ptr<ggl::FragmentedPool<ggl::PolygonStroke::MeshPipelineSetup>>::reset[abi:nn200100]((a26 + 176), 0);
-      v36 = *(a26 + 168);
+      std::unique_ptr<ggl::FragmentedPool<ggl::PolygonFill::MeshPipelineSetup>>::reset[abi:nn200100](a26 + 29, 0);
+      std::unique_ptr<ggl::FragmentedPool<ggl::PolygonAnimatableFill::CompressedMeshPipelineSetup>>::reset[abi:nn200100](a26 + 28, 0);
+      std::unique_ptr<ggl::FragmentedPool<ggl::PolygonFill::CompressedMeshPipelineSetup>>::reset[abi:nn200100](a26 + 27, 0);
+      std::unique_ptr<ggl::FragmentedPool<ggl::PolygonFill::CompressedMeshPipelineSetup>>::reset[abi:nn200100](a26 + 26, 0);
+      std::unique_ptr<ggl::FragmentedPool<ggl::PolygonAnimatableStroke::MeshPipelineSetup>>::reset[abi:nn200100](a26 + 25, 0);
+      std::unique_ptr<ggl::FragmentedPool<ggl::HillshadeFillMask::CompressedMeshPipelineSetup>>::reset[abi:nn200100](a26 + 24, 0);
+      std::unique_ptr<ggl::FragmentedPool<ggl::PolygonStrokeMask::MeshPipelineSetup>>::reset[abi:nn200100](a26 + 23, 0);
+      std::unique_ptr<ggl::FragmentedPool<ggl::PolygonStroke::MeshPipelineSetup>>::reset[abi:nn200100](a26 + 22, 0);
+      v36 = a26[21];
       if (v36)
       {
         std::__shared_weak_count::__release_shared[abi:nn200100](v36);
       }
 
-      v37 = *(a26 + 152);
+      v37 = a26[19];
       if (v37)
       {
         std::__shared_weak_count::__release_shared[abi:nn200100](v37);
       }
 
-      v38 = *(a26 + 136);
+      v38 = a26[17];
       if (v38)
       {
         std::__shared_weak_count::__release_shared[abi:nn200100](v38);
       }
 
-      v39 = *(a26 + 120);
+      v39 = a26[15];
       if (v39)
       {
         std::__shared_weak_count::__release_shared[abi:nn200100](v39);
       }
 
-      v40 = *(a26 + 104);
+      v40 = a26[13];
       if (v40)
       {
         std::__shared_weak_count::__release_shared[abi:nn200100](v40);
       }
 
-      v41 = *(a26 + 88);
+      v41 = a26[11];
       if (v41)
       {
         std::__shared_weak_count::__release_shared[abi:nn200100](v41);
       }
 
-      v42 = *(a26 + 72);
+      v42 = a26[9];
       if (v42)
       {
         std::__shared_weak_count::__release_shared[abi:nn200100](v42);
       }
 
-      v43 = *(a26 + 56);
+      v43 = a26[7];
       if (v43)
       {
         std::__shared_weak_count::__release_shared[abi:nn200100](v43);
       }
 
-      v44 = *(a26 + 40);
+      v44 = a26[5];
       if (v44)
       {
         std::__shared_weak_count::__release_shared[abi:nn200100](v44);
       }
 
-      v45 = *(a26 + 24);
+      v45 = a26[3];
       if (v45)
       {
         std::__shared_weak_count::__release_shared[abi:nn200100](v45);
       }
 
-      v46 = *(a26 + 8);
+      v46 = a26[1];
       if (v46)
       {
         std::__shared_weak_count::__release_shared[abi:nn200100](v46);
@@ -8510,7 +8521,7 @@ ggl::zone_mallocator *std::__split_buffer<ggl::PolygonStroke::MeshPipelineSetup 
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::PolygonStroke::MeshPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::PolygonStroke::MeshPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -8674,7 +8685,7 @@ uint64_t std::__function::__value_func<ggl::PolygonStrokeMask::MeshPipelineSetup
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::PolygonStrokeMask::MeshPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::PolygonStrokeMask::MeshPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -8798,7 +8809,7 @@ uint64_t std::__function::__value_func<void ()(ggl::PolygonAnimatableStroke::Mes
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::PolygonAnimatableStroke::MeshPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::PolygonAnimatableStroke::MeshPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -8855,16 +8866,16 @@ uint64_t std::__function::__value_func<ggl::PolygonAnimatableStroke::MeshPipelin
   return a1;
 }
 
-void *ggl::FragmentedPool<ggl::PolygonFill::CompressedMeshPipelineSetup>::FragmentedPool(void *a1, uint64_t a2, uint64_t a3)
+ggl::zone_mallocator *ggl::FragmentedPool<ggl::PolygonFill::CompressedMeshPipelineSetup>::FragmentedPool(ggl::zone_mallocator *a1, uint64_t a2, uint64_t a3)
 {
   *a1 = 0;
-  a1[1] = 0;
-  a1[2] = 0;
-  a1[4] = 0;
-  v5 = (a1 + 4);
-  a1[5] = 0;
-  a1[6] = 0;
-  v6 = a1 + 8;
+  *(a1 + 1) = 0;
+  *(a1 + 2) = 0;
+  *(a1 + 4) = 0;
+  v5 = (a1 + 32);
+  *(a1 + 5) = 0;
+  *(a1 + 6) = 0;
+  v6 = (a1 + 64);
   v7 = *(a2 + 24);
   if (!v7)
   {
@@ -8875,11 +8886,11 @@ void *ggl::FragmentedPool<ggl::PolygonFill::CompressedMeshPipelineSetup>::Fragme
   {
     v7 = (*(*v7 + 16))(v7);
 LABEL_4:
-    a1[11] = v7;
+    *(a1 + 11) = v7;
     goto LABEL_6;
   }
 
-  a1[11] = v6;
+  *(a1 + 11) = v6;
   (*(**(a2 + 24) + 24))(*(a2 + 24), v6);
 LABEL_6:
   v8 = *(a3 + 24);
@@ -8887,7 +8898,7 @@ LABEL_6:
   {
     if (v8 == a3)
     {
-      a1[15] = a1 + 12;
+      *(a1 + 15) = a1 + 96;
       (*(**(a3 + 24) + 24))(*(a3 + 24), a1 + 12);
       goto LABEL_11;
     }
@@ -8895,9 +8906,9 @@ LABEL_6:
     v8 = (*(*v8 + 16))(v8);
   }
 
-  a1[15] = v8;
+  *(a1 + 15) = v8;
 LABEL_11:
-  a1[16] = 2000;
+  *(a1 + 16) = 2000;
   std::vector<ggl::PolygonFill::CompressedMeshPipelineSetup *,geo::allocator_adapter<ggl::PolygonFill::CompressedMeshPipelineSetup *,ggl::zone_mallocator>>::reserve(a1);
   std::vector<ggl::PolygonFill::CompressedMeshPipelineSetup *,geo::allocator_adapter<ggl::PolygonFill::CompressedMeshPipelineSetup *,ggl::zone_mallocator>>::reserve(v5);
   return a1;
@@ -8986,7 +8997,7 @@ uint64_t std::__function::__value_func<void ()(ggl::PolygonFill::CompressedMeshP
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::PolygonFill::CompressedMeshPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::PolygonFill::CompressedMeshPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -9126,7 +9137,7 @@ uint64_t std::__function::__value_func<void ()(ggl::PolygonAnimatableFill::Compr
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::PolygonAnimatableFill::CompressedMeshPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::PolygonAnimatableFill::CompressedMeshPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -9242,7 +9253,7 @@ ggl::zone_mallocator *std::__split_buffer<ggl::PolygonFill::MeshPipelineSetup *,
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::PolygonFill::MeshPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::PolygonFill::MeshPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -9390,7 +9401,7 @@ uint64_t std::__function::__value_func<void ()(ggl::HillshadeFillMask::Compresse
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::HillshadeFillMask::CompressedMeshPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::HillshadeFillMask::CompressedMeshPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -9447,7 +9458,7 @@ uint64_t std::__function::__value_func<ggl::HillshadeFillMask::CompressedMeshPip
   return a1;
 }
 
-void md::ClearRenderLayer::ClearRenderLayer(uint64_t a1, uint64_t a2, char a3)
+void md::ClearRenderLayer::ClearRenderLayer(uint64_t a1, uint64_t a2, char a3, int a4, __int16 *a5)
 {
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
@@ -9472,7 +9483,7 @@ void sub_1B28B3760(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-double md::GridLogic::defaultBackgroundColor(md::GridLogic *a1, unsigned int a2, int a3, int a4)
+double md::GridLogic::defaultBackgroundColor(md::GridLogic *result, unsigned int a2, int a3, int a4)
 {
   if (a2 > 0xA)
   {
@@ -9482,19 +9493,19 @@ double md::GridLogic::defaultBackgroundColor(md::GridLogic *a1, unsigned int a2,
   if (((1 << a2) & 0x49E) != 0)
   {
     {
-      v9 = a1;
-      a1 = v9;
+      v9 = result;
+      result = v9;
       if (v6)
       {
         geo::Color<float,4,(geo::ColorSpace)0>::Color<(geo::ColorSpace)2,int,void>(&md::GridLogic::_defaultSatelliteBackgroundColor(void)::_defaultSatelliteBackgroundLinearColor, &kDefaultSatelliteBackgroundColor);
-        a1 = v9;
+        result = v9;
       }
     }
 
     v4 = &md::GridLogic::_defaultSatelliteBackgroundColor(void)::_defaultSatelliteBackgroundLinearColor;
 LABEL_5:
     v5 = *v4;
-    *a1 = *v4;
+    *result = *v4;
     return *&v5;
   }
 
@@ -9509,7 +9520,7 @@ LABEL_5:
 
 LABEL_16:
 
-      *&v5 = md::GridLogic::_defaultMutedBackgroundColor(a1);
+      *&v5 = md::GridLogic::_defaultMutedBackgroundColor(result);
       return *&v5;
     }
 
@@ -9520,7 +9531,7 @@ LABEL_16:
   {
 LABEL_19:
 
-    *&v5 = md::GridLogic::_defaultStandardDarkBackgroundColor(a1);
+    *&v5 = md::GridLogic::_defaultStandardDarkBackgroundColor(result);
     return *&v5;
   }
 
@@ -9532,12 +9543,12 @@ LABEL_19:
   if (a4 == 2)
   {
     {
-      v10 = a1;
-      a1 = v10;
+      v10 = result;
+      result = v10;
       if (v7)
       {
         geo::Color<float,4,(geo::ColorSpace)0>::Color<(geo::ColorSpace)2,int,void>(&md::GridLogic::_defaultExploreBackgroundColor(void)::_defaultExploreBackgroundLinearColor, &kDefaultExploreBackgroundColor);
-        a1 = v10;
+        result = v10;
       }
     }
 
@@ -9555,7 +9566,7 @@ LABEL_19:
     goto LABEL_16;
   }
 
-  *&v5 = md::GridLogic::_defaultDrivingBackgroundColor(a1);
+  *&v5 = md::GridLogic::_defaultDrivingBackgroundColor(result);
   return *&v5;
 }
 
@@ -9580,8 +9591,7 @@ int64x2_t ggl::RenderItem::RenderItem(int64x2_t *this, const char *a2)
 {
   this->i64[0] = &off_1F2A5D8B8;
   this[3].i64[0] = 0;
-  this[1].i64[1] = 0;
-  this[2].i64[0] = 0;
+  *(&this[1] + 8) = 0uLL;
   this[1].i64[0] = a2;
   this[2].i32[2] = 0;
   this[3].i32[2] = 1065353216;
@@ -9838,7 +9848,7 @@ void *ggl::Grid::GridPipelineSetup::GridPipelineSetup(void *a1, uint64_t a2, std
   return a1;
 }
 
-int64x2_t ggl::RenderItem::RenderItem(int64x2_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+int64x2_t ggl::RenderItem::RenderItem(int64x2_t *a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5)
 {
   a1->i64[0] = &off_1F2A5D8B8;
   a1[1].i64[0] = a5;
@@ -9847,10 +9857,8 @@ int64x2_t ggl::RenderItem::RenderItem(int64x2_t *a1, uint64_t a2, uint64_t a3, u
   a1[2].i32[2] = 0;
   a1[3].i64[0] = 0;
   a1[3].i32[2] = 1065353216;
-  a1[4].i64[0] = a4;
-  a1[4].i64[1] = 0;
-  a1[5].i64[0] = 0;
-  a1[5].i64[1] = 0;
+  a1[4] = a4;
+  a1[5] = 0uLL;
   result = vdupq_n_s64(1uLL);
   a1[6] = result;
   a1[7].i64[0] = 0;

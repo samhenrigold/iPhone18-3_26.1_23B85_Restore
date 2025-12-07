@@ -25,7 +25,7 @@
 
 - (id)initForDevice:(CGImage *)device image:(void *)image withStorageMode:(int)mode premultiplyAlpha:(CGColorSpace *)alpha colorSpace:(CGColorRenderingIntent)space renderingIntent:
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   v14 = a2;
   v15 = v14;
   selfCopy = 0;
@@ -400,7 +400,7 @@ LABEL_87:
     if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v70 = error;
+      v69 = error;
       _os_log_impl(&dword_25E0A9000, v58, OS_LOG_TYPE_DEFAULT, "PKTextureLoader: declining to initialize - failed to create converter due to %zd.", buf, 0xCu);
     }
 
@@ -416,9 +416,9 @@ LABEL_87:
     goto LABEL_102;
   }
 
-  v65.receiver = self;
-  v65.super_class = PKTextureLoader;
-  v53 = objc_msgSendSuper2(&v65, sel_init);
+  v64.receiver = self;
+  v64.super_class = PKTextureLoader;
+  v53 = objc_msgSendSuper2(&v64, sel_init);
   v54 = v53;
   if (v53)
   {
@@ -444,13 +444,12 @@ LABEL_87:
   selfCopy = self;
 LABEL_103:
 
-  v59 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (void)_decode:(uint64_t)_decode
 {
-  v119 = *MEMORY[0x277D85DE8];
+  v112 = *MEMORY[0x277D85DE8];
   if (_decode)
   {
     os_unfair_lock_lock((_decode + 8));
@@ -459,7 +458,7 @@ LABEL_103:
     {
 LABEL_59:
       os_unfair_lock_unlock((_decode + 8));
-      goto LABEL_60;
+      return;
     }
 
     if (a2)
@@ -479,12 +478,12 @@ LABEL_59:
 
     else
     {
-      v96 = PKLogFacilityTypeGetObject();
-      if (OUTLINED_FUNCTION_9(v96))
+      v89 = PKLogFacilityTypeGetObject();
+      if (OUTLINED_FUNCTION_9(v89))
       {
         OUTLINED_FUNCTION_3();
         OUTLINED_FUNCTION_5();
-        _os_log_impl(v97, v98, v99, v100, v101, v102);
+        _os_log_impl(v90, v91, v92, v93, v94, v95);
       }
 
       v6 = 0;
@@ -497,100 +496,96 @@ LABEL_59:
     address.height = Height;
     address.width = Width;
     address.rowBytes = 0;
-    v112.data = 0;
-    v112.height = Height;
-    v112.width = Width;
-    v112.rowBytes = 0;
-    v9 = &off_25E0D5000;
-    v10 = MEMORY[0x277D85F48];
+    v105.data = 0;
+    v105.height = Height;
+    v105.width = Width;
+    v105.rowBytes = 0;
+    v9 = MEMORY[0x277D85F48];
     if (!v6)
     {
-      v61 = 0;
-      v31 = 0;
+      v58 = 0;
+      v29 = 0;
       goto LABEL_45;
     }
 
-    v11 = Height;
-    memset(v118, 0, sizeof(v118));
-    v12 = *(_decode + 28);
+    v10 = Height;
+    memset(v111, 0, sizeof(v111));
     OUTLINED_FUNCTION_11();
-    v14 = MEMORY[0x277D85FA0];
-    if ((v13 & 0x8000000000000000) != 0)
+    v12 = MEMORY[0x277D85FA0];
+    if ((v11 & 0x8000000000000000) != 0)
     {
-      v23 = v13;
-      v24 = PKLogFacilityTypeGetObject();
-      if (OUTLINED_FUNCTION_9(v24))
+      v21 = v11;
+      v22 = PKLogFacilityTypeGetObject();
+      if (OUTLINED_FUNCTION_9(v22))
       {
-        v114 = 134217984;
-        v115 = v23;
+        v107 = 134217984;
+        v108 = v21;
         OUTLINED_FUNCTION_5();
-        _os_log_impl(v25, v26, v27, v28, v29, v30);
+        _os_log_impl(v23, v24, v25, v26, v27, v28);
       }
 
-      v15 = 0;
+      v13 = 0;
     }
 
     else
     {
-      v15 = *(&v118[1] + 1);
-      if (*(&v118[1] + 1))
+      v13 = *(&v111[1] + 1);
+      if (*(&v111[1] + 1))
       {
-        if (is_mul_ok(v11, *(&v118[1] + 1)))
+        if (is_mul_ok(v10, *(&v111[1] + 1)))
         {
-          v44 = *MEMORY[0x277D85FA0] - 1;
-          if (__CFADD__(v11 * *(&v118[1] + 1), v44))
+          v41 = *MEMORY[0x277D85FA0] - 1;
+          if (__CFADD__(v10 * *(&v111[1] + 1), v41))
           {
-            v45 = PKLogFacilityTypeGetObject();
-            if (OUTLINED_FUNCTION_9(v45))
+            v42 = PKLogFacilityTypeGetObject();
+            if (OUTLINED_FUNCTION_9(v42))
             {
-              v114 = 134218240;
-              v115 = v11 * *(&v118[1] + 1);
-              v116 = 2048;
-              v117 = v44;
+              v107 = 134218240;
+              v108 = v10 * *(&v111[1] + 1);
+              v109 = 2048;
+              v110 = v41;
               OUTLINED_FUNCTION_4();
-              _os_log_impl(v46, v47, v48, v49, v50, v51);
+              _os_log_impl(v43, v44, v45, v46, v47, v48);
             }
 
-            v31 = 0;
+            v29 = 0;
           }
 
           else
           {
-            v31 = ((v11 * *(&v118[1] + 1) + v44) & -*MEMORY[0x277D85FA0]);
+            v29 = ((v10 * *(&v111[1] + 1) + v41) & -*MEMORY[0x277D85FA0]);
           }
 
-          v9 = &off_25E0D5000;
-          v10 = MEMORY[0x277D85F48];
+          v9 = MEMORY[0x277D85F48];
 LABEL_21:
-          address.rowBytes = v15;
-          memset(v118, 0, sizeof(v118));
-          v32 = *(_decode + 76);
+          address.rowBytes = v13;
+          memset(v111, 0, sizeof(v111));
           OUTLINED_FUNCTION_11();
-          if ((v33 & 0x8000000000000000) != 0)
+          if ((v30 & 0x8000000000000000) != 0)
           {
-            v36 = v33;
-            v37 = PKLogFacilityTypeGetObject();
-            if (OUTLINED_FUNCTION_6(v37))
+            v33 = v30;
+            v34 = PKLogFacilityTypeGetObject();
+            if (OUTLINED_FUNCTION_6(v34))
             {
-              v114 = 134217984;
-              v115 = v36;
+              v107 = 134217984;
+              v108 = v33;
               OUTLINED_FUNCTION_5();
-              _os_log_impl(v38, v39, v40, v41, v42, v43);
+              _os_log_impl(v35, v36, v37, v38, v39, v40);
             }
 
-            v34 = 0;
+            v31 = 0;
             goto LABEL_39;
           }
 
-          v34 = *(&v118[1] + 1);
-          if (!*(&v118[1] + 1))
+          v31 = *(&v111[1] + 1);
+          if (!*(&v111[1] + 1))
           {
 LABEL_40:
-            v61 = 0;
-            v112.rowBytes = v34;
+            v58 = 0;
+            v105.rowBytes = v31;
 LABEL_41:
-            v62 = PKLogFacilityTypeGetObject();
-            if (!OUTLINED_FUNCTION_6(v62))
+            v59 = PKLogFacilityTypeGetObject();
+            if (!OUTLINED_FUNCTION_6(v59))
             {
 LABEL_44:
 
@@ -600,44 +595,43 @@ LABEL_45:
               goto LABEL_46;
             }
 
-            v63 = *(v9 + 449);
             OUTLINED_FUNCTION_1();
-            *(v118 + 14) = v31;
-            WORD3(v118[1]) = v64;
-            *(&v118[1] + 1) = v61;
+            *(v111 + 14) = v29;
+            WORD3(v111[1]) = v60;
+            *(&v111[1] + 1) = v58;
             OUTLINED_FUNCTION_2();
-            v70 = 32;
+            v66 = 32;
 LABEL_43:
-            _os_log_impl(v65, v66, v67, v68, v69, v70);
+            _os_log_impl(v61, v62, v63, v64, v65, v66);
             goto LABEL_44;
           }
 
-          if (!is_mul_ok(v11, *(&v118[1] + 1)))
+          if (!is_mul_ok(v10, *(&v111[1] + 1)))
           {
-            v35 = PKLogFacilityTypeGetObject();
-            if (OUTLINED_FUNCTION_6(v35))
+            v32 = PKLogFacilityTypeGetObject();
+            if (OUTLINED_FUNCTION_6(v32))
             {
               OUTLINED_FUNCTION_7();
 LABEL_38:
               OUTLINED_FUNCTION_4();
-              _os_log_impl(v55, v56, v57, v58, v59, v60);
+              _os_log_impl(v52, v53, v54, v55, v56, v57);
               goto LABEL_39;
             }
 
             goto LABEL_39;
           }
 
-          v52 = v11 * *(&v118[1] + 1);
-          v53 = *v14 - 1;
-          if (__CFADD__(v52, v53))
+          v49 = v10 * *(&v111[1] + 1);
+          v50 = *v12 - 1;
+          if (__CFADD__(v49, v50))
           {
-            v54 = PKLogFacilityTypeGetObject();
-            if (OUTLINED_FUNCTION_6(v54))
+            v51 = PKLogFacilityTypeGetObject();
+            if (OUTLINED_FUNCTION_6(v51))
             {
-              v114 = 134218240;
-              v115 = v52;
-              v116 = 2048;
-              v117 = v53;
+              v107 = 134218240;
+              v108 = v49;
+              v109 = 2048;
+              v110 = v50;
               goto LABEL_38;
             }
 
@@ -646,67 +640,67 @@ LABEL_39:
             goto LABEL_40;
           }
 
-          v61 = (v52 + v53) & -*v14;
-          v112.rowBytes = *(&v118[1] + 1);
-          if (!v31 || !v61)
+          v58 = (v49 + v50) & -*v12;
+          v105.rowBytes = *(&v111[1] + 1);
+          if (!v29 || !v58)
           {
             goto LABEL_41;
           }
 
-          v87 = vm_allocate(*v10, &address, v31, 1);
-          if (v87)
+          v81 = vm_allocate(*v9, &address, v29, 1);
+          if (v81)
           {
-            v103 = v87;
-            v104 = PKLogFacilityTypeGetObject();
-            if (!OUTLINED_FUNCTION_6(v104))
+            v96 = v81;
+            v97 = PKLogFacilityTypeGetObject();
+            if (!OUTLINED_FUNCTION_6(v97))
             {
               goto LABEL_44;
             }
 
             OUTLINED_FUNCTION_3();
-            WORD6(v118[0]) = 1024;
-            *(v118 + 14) = v103;
+            WORD6(v111[0]) = 1024;
+            *(v111 + 14) = v96;
             OUTLINED_FUNCTION_2();
-            v70 = 18;
+            v66 = 18;
             goto LABEL_43;
           }
 
-          v88 = MEMORY[0x25F8AB180](&address, _decode + 24, 0, *(_decode + 128), v5 | 0x200);
-          if (v88)
+          v82 = MEMORY[0x25F8AB180](&address, _decode + 24, 0, *(_decode + 128), v5 | 0x200);
+          if (v82)
           {
-            v89 = v88;
-            v90 = PKLogFacilityTypeGetObject();
-            if (!OUTLINED_FUNCTION_6(v90))
+            v83 = v82;
+            v84 = PKLogFacilityTypeGetObject();
+            if (!OUTLINED_FUNCTION_6(v84))
             {
               goto LABEL_44;
             }
 
             OUTLINED_FUNCTION_1();
-            *(v118 + 14) = v89;
+            *(v111 + 14) = v83;
             OUTLINED_FUNCTION_2();
-            v70 = 22;
+            v66 = 22;
             goto LABEL_43;
           }
 
           CFRelease(*(_decode + 128));
           *(_decode + 128) = 0;
-          if (v61 == v31 && (v112.data = address.data, vImageConverter_MustOperateOutOfPlace(*(_decode + 136), &address, &v112, v5)))
+          if (v58 == v29 && (v105.data = address.data, vImageConverter_MustOperateOutOfPlace(*(_decode + 136), &address, &v105, v5)))
           {
-            v112.data = 0;
+            v105.data = 0;
           }
 
-          else if (v112.data)
+          else if (v105.data)
           {
             goto LABEL_73;
           }
 
-          if (vm_allocate(*v10, &v112, v61, 1))
+          if (vm_allocate(*v9, &v105, v58, 1))
           {
-            v106 = PKLogFacilityTypeGetObject();
-            if (OUTLINED_FUNCTION_6(v106))
+            v99 = PKLogFacilityTypeGetObject();
+            if (OUTLINED_FUNCTION_6(v99))
             {
               OUTLINED_FUNCTION_1();
-              *(v118 + 14) = 0;
+              *(v111 + 14) = 0;
               goto LABEL_88;
             }
 
@@ -716,78 +710,76 @@ LABEL_89:
           }
 
 LABEL_73:
-          v91 = vImageConvert_AnyToAny(*(_decode + 136), &address, &v112, 0, v5);
-          v92 = v91;
-          if (address.data == v112.data)
+          v85 = vImageConvert_AnyToAny(*(_decode + 136), &address, &v105, 0, v5);
+          v86 = v85;
+          if (address.data == v105.data)
           {
             address.data = 0;
           }
 
-          if (!v91)
+          if (!v85)
           {
-            *(_decode + 168) = v112.rowBytes;
-            *(_decode + 152) = vextq_s8(*&v112.height, *&v112.height, 8uLL);
-            v93 = *(_decode + 16);
-            v94 = [*(_decode + 120) newBufferWithBytesNoCopy:? length:? options:? deallocator:?];
-            v95 = *(_decode + 144);
-            *(_decode + 144) = v94;
+            *(_decode + 168) = v105.rowBytes;
+            *(_decode + 152) = vextq_s8(*&v105.height, *&v105.height, 8uLL);
+            v87 = [*(_decode + 120) newBufferWithBytesNoCopy:? length:? options:? deallocator:?];
+            v88 = *(_decode + 144);
+            *(_decode + 144) = v87;
 
             if (*(_decode + 144))
             {
-              v112.data = 0;
+              v105.data = 0;
             }
 
 LABEL_46:
             if (address.data)
             {
-              MEMORY[0x25F8AB200](*v10, address.data, v31);
+              MEMORY[0x25F8AB200](*v9, address.data, v29);
             }
 
-            if (v112.data)
+            if (v105.data)
             {
-              MEMORY[0x25F8AB200](*v10, v112.data, v61);
+              MEMORY[0x25F8AB200](*v9, v105.data, v58);
             }
 
-            v71 = *(_decode + 136);
-            if (v71)
+            v67 = *(_decode + 136);
+            if (v67)
             {
-              vImageConverter_Release(v71);
+              vImageConverter_Release(v67);
               *(_decode + 136) = 0;
             }
 
-            v72 = *(_decode + 120);
+            v68 = *(_decode + 120);
             *(_decode + 120) = 0;
 
-            v73 = *(_decode + 144);
-            if (v73)
+            v69 = *(_decode + 144);
+            if (v69)
             {
-              v74 = *(_decode + 160);
-              v75 = *(_decode + 168);
-              v76 = PKLogFacilityTypeGetObject();
-              if (OUTLINED_FUNCTION_9(v76))
+              v70 = *(_decode + 160);
+              v71 = *(_decode + 168);
+              v72 = PKLogFacilityTypeGetObject();
+              if (OUTLINED_FUNCTION_9(v72))
               {
-                [v73 length];
-                v77 = *(v9 + 449);
+                [v69 length];
                 OUTLINED_FUNCTION_3();
-                WORD6(v118[0]) = 2048;
-                *(v118 + 14) = v75 * v74;
-                WORD3(v118[1]) = 2048;
-                *(&v118[1] + 1) = v78;
-                v79 = &dword_25E0A9000;
-                v80 = "PKTextureLoader (%p): decoded %zu + %zu bytes.";
-                v81 = v118;
-                v82 = v31;
-                v83 = OS_LOG_TYPE_DEFAULT;
-                v84 = 32;
+                WORD6(v111[0]) = 2048;
+                *(v111 + 14) = v71 * v70;
+                WORD3(v111[1]) = 2048;
+                *(&v111[1] + 1) = v73;
+                v74 = &dword_25E0A9000;
+                v75 = "PKTextureLoader (%p): decoded %zu + %zu bytes.";
+                v76 = v111;
+                v77 = v29;
+                v78 = OS_LOG_TYPE_DEFAULT;
+                v79 = 32;
 LABEL_57:
-                _os_log_impl(v79, v82, v83, v80, v81, v84);
+                _os_log_impl(v74, v77, v78, v75, v76, v79);
               }
             }
 
             else
             {
-              v85 = PKLogFacilityTypeGetObject();
-              if (OUTLINED_FUNCTION_9(v85))
+              v80 = PKLogFacilityTypeGetObject();
+              if (OUTLINED_FUNCTION_9(v80))
               {
                 OUTLINED_FUNCTION_3();
                 OUTLINED_FUNCTION_5();
@@ -798,36 +790,33 @@ LABEL_57:
             goto LABEL_59;
           }
 
-          v105 = PKLogFacilityTypeGetObject();
-          if (OUTLINED_FUNCTION_6(v105))
+          v98 = PKLogFacilityTypeGetObject();
+          if (OUTLINED_FUNCTION_6(v98))
           {
             OUTLINED_FUNCTION_1();
-            *(v118 + 14) = v92;
+            *(v111 + 14) = v86;
 LABEL_88:
             OUTLINED_FUNCTION_2();
-            _os_log_impl(v107, v108, v109, v110, v111, 0x16u);
+            _os_log_impl(v100, v101, v102, v103, v104, 0x16u);
             goto LABEL_89;
           }
 
           goto LABEL_89;
         }
 
-        v16 = PKLogFacilityTypeGetObject();
-        if (OUTLINED_FUNCTION_9(v16))
+        v14 = PKLogFacilityTypeGetObject();
+        if (OUTLINED_FUNCTION_9(v14))
         {
           OUTLINED_FUNCTION_7();
           OUTLINED_FUNCTION_4();
-          _os_log_impl(v17, v18, v19, v20, v21, v22);
+          _os_log_impl(v15, v16, v17, v18, v19, v20);
         }
       }
     }
 
-    v31 = 0;
+    v29 = 0;
     goto LABEL_21;
   }
-
-LABEL_60:
-  v86 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tiling:(void *)_tiling read:
@@ -865,17 +854,15 @@ LABEL_60:
 
 - (void)initForDevice:(vImageConverter *)a3 image:withStorageMode:premultiplyAlpha:colorSpace:renderingIntent:.cold.1(uint64_t a1, uint64_t a2, vImageConverter *a3)
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8();
-  v6 = PKLogFacilityTypeGetObject();
-  if (OUTLINED_FUNCTION_9(v6))
+  v5 = PKLogFacilityTypeGetObject();
+  if (OUTLINED_FUNCTION_9(v5))
   {
     OUTLINED_FUNCTION_4();
-    _os_log_impl(v7, v8, v9, v10, v11, v12);
+    _os_log_impl(v6, v7, v8, v9, v10, v11);
   }
 
   vImageConverter_Release(a3);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initForDevice:image:withStorageMode:premultiplyAlpha:colorSpace:renderingIntent:.cold.2()
@@ -900,30 +887,24 @@ LABEL_60:
 
 - (void)initForDevice:image:withStorageMode:premultiplyAlpha:colorSpace:renderingIntent:.cold.4()
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8();
-  v2 = PKLogFacilityTypeGetObject();
-  if (OUTLINED_FUNCTION_10(v2))
+  v1 = PKLogFacilityTypeGetObject();
+  if (OUTLINED_FUNCTION_10(v1))
   {
     OUTLINED_FUNCTION_0_0();
-    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initForDevice:image:withStorageMode:premultiplyAlpha:colorSpace:renderingIntent:.cold.5()
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8();
-  v2 = PKLogFacilityTypeGetObject();
-  if (OUTLINED_FUNCTION_10(v2))
+  v1 = PKLogFacilityTypeGetObject();
+  if (OUTLINED_FUNCTION_10(v1))
   {
     OUTLINED_FUNCTION_0_0();
-    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initForDevice:image:withStorageMode:premultiplyAlpha:colorSpace:renderingIntent:.cold.6()
@@ -938,30 +919,24 @@ LABEL_60:
 
 - (void)initForDevice:image:withStorageMode:premultiplyAlpha:colorSpace:renderingIntent:.cold.7()
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8();
-  v2 = PKLogFacilityTypeGetObject();
-  if (OUTLINED_FUNCTION_10(v2))
+  v1 = PKLogFacilityTypeGetObject();
+  if (OUTLINED_FUNCTION_10(v1))
   {
     OUTLINED_FUNCTION_0_0();
-    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initForDevice:image:withStorageMode:premultiplyAlpha:colorSpace:renderingIntent:.cold.8()
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8();
-  v2 = PKLogFacilityTypeGetObject();
-  if (OUTLINED_FUNCTION_10(v2))
+  v1 = PKLogFacilityTypeGetObject();
+  if (OUTLINED_FUNCTION_10(v1))
   {
     OUTLINED_FUNCTION_0_0();
-    _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
+    _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

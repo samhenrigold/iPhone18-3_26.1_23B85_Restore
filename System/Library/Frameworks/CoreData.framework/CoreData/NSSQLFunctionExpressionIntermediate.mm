@@ -1,17 +1,17 @@
 @interface NSSQLFunctionExpressionIntermediate
 + (BOOL)functionIsAcceptableAsAggregate:(uint64_t)aggregate;
+- (id)_generateNowStringInContext:(void *)context;
 - (id)_generateType4SQLForSymbol:(void *)symbol inContext:;
 - (id)generateSQLStringInContext:(id)context;
 - (id)generateType1SQLString:(void *)string inContext:;
 - (uint64_t)_generateCorrelatedSubqueryStringWithSymbol:(void *)symbol forExpression:(void *)expression inContext:;
-- (uint64_t)_generateNowStringInContext:(id *)context;
-- (uint64_t)_generateRtreeIndexStringInContext:(uint64_t)result;
 - (uint64_t)_generateSQLForCountInContext:(uint64_t)context;
 - (void)_generateArgumentStringForCollection:(void *)collection inContext:;
-- (void)_generateDistinctStringInContext:(id *)context;
-- (void)_generateGroupConcatInContext:(id *)context;
+- (void)_generateDistinctStringInContext:(void *)context;
+- (void)_generateGroupConcatInContext:(void *)context;
 - (void)_generateLengthStringInContext:(id *)context;
 - (void)_generateMathStringWithSymbol:(void *)symbol inContext:;
+- (void)_generateRtreeIndexStringInContext:(void *)result;
 - (void)_generateUncorrelatedSubqueryStringWithSymbol:(void *)symbol forAttribute:(void *)attribute inContext:;
 - (void)generateType2SQLString:(void *)string inContext:;
 - (void)generateType3SQLString:(int)string keypathOnly:(void *)only inContext:;
@@ -61,75 +61,70 @@
 
 - (void)_generateArgumentStringForCollection:(void *)collection inContext:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if ([collection objectForKey:@"NSUnderlyingException"])
   {
-LABEL_16:
-    v6 = 0;
+    return 0;
   }
 
-  else
+  v6 = [&stru_1EF3F1768 mutableCopy];
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v7 = [a2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v7)
   {
-    v6 = [&stru_1EF3F1768 mutableCopy];
-    v18 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v7 = [a2 countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v7)
+    v8 = v7;
+    v9 = 0;
+    v10 = *v18;
+    while (2)
     {
-      v8 = v7;
-      v9 = 0;
-      v10 = *v19;
-      while (2)
+      v11 = 0;
+      v16 = v9 + v8;
+      do
       {
-        v11 = 0;
-        v17 = v9 + v8;
-        do
+        if (*v18 != v10)
         {
-          if (*v19 != v10)
-          {
-            objc_enumerationMutation(a2);
-          }
-
-          v12 = *(*(&v18 + 1) + 8 * v11);
-          if (v9 >= 1)
-          {
-            [v6 appendString:{@", "}];
-          }
-
-          v13 = [(NSSQLIntermediate *)self _generateSQLForExpression:v12 allowToMany:1 inContext:collection];
-          if (!v13)
-          {
-            if (![collection objectForKey:@"NSUnderlyingException"])
-            {
-              [collection setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Unable to generate sql for %@ as part of  expression (%@)", v12, self[2]), 0), @"NSUnderlyingException"}];
-            }
-
-            goto LABEL_16;
-          }
-
-          v14 = v13;
-          [v6 appendString:v13];
-
-          ++v9;
-          ++v11;
+          objc_enumerationMutation(a2);
         }
 
-        while (v8 != v11);
-        v8 = [a2 countByEnumeratingWithState:&v18 objects:v22 count:16];
-        v9 = v17;
-        if (v8)
+        v12 = *(*(&v17 + 1) + 8 * v11);
+        if (v9 >= 1)
         {
-          continue;
+          [v6 appendString:{@", "}];
         }
 
-        break;
+        v13 = [(NSSQLIntermediate *)self _generateSQLForExpression:v12 allowToMany:1 inContext:collection];
+        if (!v13)
+        {
+          if (![collection objectForKey:@"NSUnderlyingException"])
+          {
+            [collection setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v12, self[2]), 0), @"NSUnderlyingException"}];
+          }
+
+          return 0;
+        }
+
+        v14 = v13;
+        [v6 appendString:v13];
+
+        ++v9;
+        ++v11;
       }
+
+      while (v8 != v11);
+      v8 = [a2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = v16;
+      if (v8)
+      {
+        continue;
+      }
+
+      break;
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -145,11 +140,9 @@ LABEL_16:
   {
     v11 = MEMORY[0x1E695DF30];
     v12 = *MEMORY[0x1E695D940];
-    v13 = MEMORY[0x1E696AEC0];
-    v17 = arguments;
-    v14 = @"Wrong number of arguments to function add:to: (%@)";
+    v13 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], arguments);
 LABEL_7:
-    [symbol setObject:objc_msgSend(v11 forKey:{"exceptionWithName:reason:userInfo:", v12, objc_msgSend(v13, "stringWithFormat:", v14, v17), 0), @"NSUnderlyingException"}];
+    [symbol setObject:objc_msgSend(v11 forKey:{"exceptionWithName:reason:userInfo:", v12, v13, 0), @"NSUnderlyingException"}];
     return 0;
   }
 
@@ -163,9 +156,8 @@ LABEL_7:
 
     v11 = MEMORY[0x1E695DF30];
     v12 = *MEMORY[0x1E695D940];
-    v16 = MEMORY[0x1E696AEC0];
-    v17 = [arguments objectAtIndex:0];
-    v14 = @"Unable to generate sql for add:to: argument 0(%@)";
+    v15 = MEMORY[0x1E696AEC0];
+    v16 = [arguments objectAtIndex:0];
     goto LABEL_14;
   }
 
@@ -183,11 +175,10 @@ LABEL_7:
 
     v11 = MEMORY[0x1E695DF30];
     v12 = *MEMORY[0x1E695D940];
-    v16 = MEMORY[0x1E696AEC0];
-    v17 = [arguments objectAtIndex:1];
-    v14 = @"Unable to generate sql for add:to: argument 1(%@)";
+    v15 = MEMORY[0x1E696AEC0];
+    v16 = [arguments objectAtIndex:1];
 LABEL_14:
-    v13 = v16;
+    v13 = objc_msgSend_stringWithFormat_(v15, v16);
     goto LABEL_7;
   }
 
@@ -200,29 +191,27 @@ LABEL_14:
 
 - (void)_generateUncorrelatedSubqueryStringWithSymbol:(void *)symbol forAttribute:(void *)attribute inContext:
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   if ([self isIndexScoped])
   {
     if ([attribute objectForKey:@"NSUnderlyingException"])
     {
-LABEL_15:
-      v18 = 0;
-      goto LABEL_16;
+      return 0;
     }
 
     v8 = MEMORY[0x1E695DF30];
     v9 = *MEMORY[0x1E695D940];
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported expression in index description (%@)", self[2]];
+    v10 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self[2]);
     v11 = self[2];
-    v33 = @"expression";
-    v34[0] = v11;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v32 = @"expression";
+    v33[0] = v11;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     v13 = v8;
     v14 = v9;
     v15 = v10;
 LABEL_14:
     [attribute setObject:objc_msgSend(v13 forKey:{"exceptionWithName:reason:userInfo:", v14, v15, v12), @"NSUnderlyingException"}];
-    goto LABEL_15;
+    return 0;
   }
 
   entity = [symbol entity];
@@ -304,30 +293,26 @@ LABEL_14:
 
 LABEL_12:
   [v18 appendString:@""]);
-LABEL_16:
-  v31 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (uint64_t)_generateCorrelatedSubqueryStringWithSymbol:(void *)symbol forExpression:(void *)expression inContext:
 {
-  v61[1] = *MEMORY[0x1E69E9840];
+  v59[1] = *MEMORY[0x1E69E9840];
   if ([self isIndexScoped])
   {
     if ([expression objectForKey:@"NSUnderlyingException"])
     {
-LABEL_9:
-      v21 = 0;
-      goto LABEL_10;
+      return 0;
     }
 
     v8 = MEMORY[0x1E695DF30];
     v9 = *MEMORY[0x1E695D940];
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported expression in index description (%@), '%@' not supported in this context", self[2], a2];
+    v10 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self[2], a2);
     v11 = self[2];
-    v60 = @"expression";
-    v61[0] = v11;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:&v60 count:1];
+    v58 = @"expression";
+    v59[0] = v11;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:&v58 count:1];
     v13 = v8;
     v14 = v9;
     v15 = v10;
@@ -336,104 +321,96 @@ LABEL_7:
     expressionCopy = expression;
 LABEL_8:
     [expressionCopy setObject:v19 forKey:@"NSUnderlyingException"];
-    goto LABEL_9;
+    return 0;
   }
 
   if ([self isUpdateScoped])
   {
     v16 = MEMORY[0x1E695DF30];
     v17 = *MEMORY[0x1E695D940];
-    symbol = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported join (min/max(key.path) not allowed in updates)", v52];
+    v18 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]);
 LABEL_6:
-    v15 = symbol;
+    v15 = v18;
     v13 = v16;
     v14 = v17;
     v12 = 0;
     goto LABEL_7;
   }
 
-  v57 = a2;
+  v55 = a2;
   selfCopy = self;
   destinationEntity = [self governingEntityForKeypathExpression:symbol];
-  v25 = [objc_msgSend(objc_msgSend(objc_msgSend(symbol "arguments")];
-  v26 = [v25 count];
-  if (v26)
+  v24 = [objc_msgSend(objc_msgSend(objc_msgSend(symbol "arguments")];
+  v25 = [v24 count];
+  if (v25)
   {
-    v27 = v26;
+    v26 = v25;
+    v27 = 0;
     v28 = 0;
     v29 = 0;
-    v30 = 0;
-    v58 = 0;
-    v59 = v26 - 1;
+    v56 = 0;
+    v57 = v25 - 1;
     expressionCopy2 = expression;
     symbolCopy = symbol;
     while (1)
     {
-      v53 = v29;
+      v51 = v28;
+      v30 = v28;
       v31 = v29;
-      v32 = v30;
       while (1)
       {
-        v33 = [v25 objectAtIndex:v32];
+        v32 = [v24 objectAtIndex:v31];
         if (!destinationEntity)
         {
-          v31 = v53;
+          v30 = v51;
 LABEL_56:
 
-          v40 = MEMORY[0x1E695DF30];
-          v41 = *MEMORY[0x1E695D940];
-          symbolCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid keypath element (not a relationship or attribute): %@", v33];
+          v39 = MEMORY[0x1E695DF30];
+          v40 = *MEMORY[0x1E695D940];
+          v41 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v32);
 LABEL_57:
-          v19 = [v40 exceptionWithName:v41 reason:symbolCopy userInfo:0];
+          v19 = [v39 exceptionWithName:v40 reason:v41 userInfo:0];
           expressionCopy = expressionCopy2;
           goto LABEL_8;
         }
 
-        v34 = [*(destinationEntity + 40) objectForKey:v33];
-        if (!v34)
+        v33 = [*(destinationEntity + 40) objectForKey:v32];
+        if (!v33)
         {
           goto LABEL_56;
         }
 
-        v35 = v34;
-        propertyType = [v34 propertyType];
+        v34 = v33;
+        propertyType = [v33 propertyType];
         if (propertyType != 1)
         {
           break;
         }
 
-        if (v30 < v59)
+        if (v29 < v57)
         {
-
-          v40 = MEMORY[0x1E695DF30];
-          v41 = *MEMORY[0x1E695D940];
-          symbolCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid keypath (continues after attribute name): %@", v33];
-          goto LABEL_57;
+          goto LABEL_56;
         }
 
-        if ((v28 & 1) == 0)
+        if ((v27 & 1) == 0)
         {
-
-          v40 = MEMORY[0x1E695DF30];
-          v41 = *MEMORY[0x1E695D940];
-          symbolCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid keypath (request for aggregate operation on a toOne-only keypath): %@", symbolCopy];
-          goto LABEL_57;
+          goto LABEL_48;
         }
 
-        if (v31)
+        if (v30)
         {
-          [v31 appendString:@"."];
+          [v30 appendString:@"."];
         }
 
         else
         {
-          v31 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v30 = objc_alloc_init(MEMORY[0x1E696AD60]);
         }
 
-        [v31 appendString:v33];
-        ++v32;
-        v28 = 1;
-        if (v27 == v32)
+        [v30 appendString:v32];
+        ++v31;
+        v27 = 1;
+        if (v26 == v31)
         {
           expression = expressionCopy2;
           symbol = symbolCopy;
@@ -443,41 +420,41 @@ LABEL_57:
 
       if (propertyType == 7)
       {
-        if (v28)
+        if (v27)
         {
-          if (v31)
+          if (v30)
           {
-            [v31 appendString:@"."];
-            v37 = v31;
+            [v30 appendString:@"."];
+            v36 = v30;
           }
 
           else
           {
-            v37 = objc_alloc_init(MEMORY[0x1E696AD60]);
-            v31 = v37;
+            v36 = objc_alloc_init(MEMORY[0x1E696AD60]);
+            v30 = v36;
           }
         }
 
-        else if (v58)
+        else if (v56)
         {
-          [v58 appendString:@"."];
-          v37 = v58;
+          [v56 appendString:@"."];
+          v36 = v56;
         }
 
         else
         {
-          v37 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v58 = v37;
+          v36 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v56 = v36;
         }
 
-        [v37 appendString:v33];
-        destinationEntity = [v35 destinationEntity];
-        v30 = v32 + 1;
-        v29 = v31;
-        v39 = v59 == v32;
+        [v36 appendString:v32];
+        destinationEntity = [v34 destinationEntity];
+        v29 = v31 + 1;
+        v28 = v30;
+        v38 = v57 == v31;
         expression = expressionCopy2;
         symbol = symbolCopy;
-        if (v39)
+        if (v38)
         {
           goto LABEL_45;
         }
@@ -487,38 +464,39 @@ LABEL_57:
       {
         if ((propertyType & 0xFE) == 8)
         {
-          if (v28)
+          if (v27)
           {
+LABEL_48:
 
-            v40 = MEMORY[0x1E695DF30];
-            v41 = *MEMORY[0x1E695D940];
-            symbolCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid keypath (too many toMany relationships): %@", symbolCopy];
+            v39 = MEMORY[0x1E695DF30];
+            v40 = *MEMORY[0x1E695D940];
+            v41 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], symbolCopy);
             goto LABEL_57;
           }
 
-          v38 = v58;
-          if (v58)
+          v37 = v56;
+          if (v56)
           {
-            [v58 appendString:@"."];
+            [v56 appendString:@"."];
           }
 
           else
           {
-            v38 = objc_alloc_init(MEMORY[0x1E696AD60]);
+            v37 = objc_alloc_init(MEMORY[0x1E696AD60]);
           }
 
-          v58 = v38;
-          [v38 appendString:v33];
-          destinationEntity = [v35 destinationEntity];
-          v28 = 1;
+          v56 = v37;
+          [v37 appendString:v32];
+          destinationEntity = [v34 destinationEntity];
+          v27 = 1;
         }
 
-        v30 = v32 + 1;
-        v29 = v31;
-        v39 = v59 == v32;
+        v29 = v31 + 1;
+        v28 = v30;
+        v38 = v57 == v31;
         expression = expressionCopy2;
         symbol = symbolCopy;
-        if (v39)
+        if (v38)
         {
           goto LABEL_45;
         }
@@ -526,64 +504,62 @@ LABEL_57:
     }
   }
 
-  v58 = 0;
-  v31 = 0;
+  v56 = 0;
+  v30 = 0;
 LABEL_45:
-  if (([@"count" isEqual:v57] & 1) == 0)
+  if (([@"count" isEqual:v55] & 1) == 0)
   {
 
     v16 = MEMORY[0x1E695DF30];
     v17 = *MEMORY[0x1E695D940];
-    symbol = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid keypath (no terminal attribute in call to math aggregate): %@", symbol];
+    v18 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], symbol);
     goto LABEL_6;
   }
 
 LABEL_49:
-  if (v31)
+  if (v30)
   {
-    [v31 appendString:@".@"];
-    v43 = v31;
+    [v30 appendString:@".@"];
+    v42 = v30;
   }
 
   else
   {
-    v43 = [@".@" mutableCopy];
-    v31 = v43;
+    v42 = [@".@" mutableCopy];
+    v30 = v42;
   }
 
-  [v43 appendString:v57];
+  [v42 appendString:v55];
   operand = [symbol operand];
-  v45 = [objc_opt_class() _newKeyPathExpressionForString:v58];
+  v44 = [objc_opt_class() _newKeyPathExpressionForString:v56];
 
-  v46 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{v45, 0}];
-  v47 = [MEMORY[0x1E696ABC8] expressionForFunction:operand selectorName:@"valueForKeyPath:" arguments:v46];
+  v45 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{v44, 0}];
+  v46 = [MEMORY[0x1E696ABC8] expressionForFunction:operand selectorName:@"valueForKeyPath:" arguments:v45];
 
-  v48 = [objc_msgSend(expression objectForKey:{@"aliasGenerator", "generateSubqueryVariableAlias"}];
-  v49 = [MEMORY[0x1E696ABC8] expressionForSubquery:v47 usingIteratorVariable:v48 predicate:{objc_msgSend(MEMORY[0x1E696AE18], "predicateWithValue:", 1)}];
-  v50 = [objc_opt_class() _newKeyPathExpressionForString:v31];
+  v47 = [objc_msgSend(expression objectForKey:{@"aliasGenerator", "generateSubqueryVariableAlias"}];
+  v48 = [MEMORY[0x1E696ABC8] expressionForSubquery:v46 usingIteratorVariable:v47 predicate:{objc_msgSend(MEMORY[0x1E696AE18], "predicateWithValue:", 1)}];
+  v49 = [objc_opt_class() _newKeyPathExpressionForString:v30];
 
-  v51 = [[NSSQLSubqueryExpressionIntermediate alloc] initWithExpression:v49 trailingKeypath:v50 inScope:selfCopy[1]];
-  v21 = [(NSSQLSubqueryExpressionIntermediate *)v51 generateSQLStringInContext:expression];
+  v50 = [[NSSQLSubqueryExpressionIntermediate alloc] initWithExpression:v48 trailingKeypath:v49 inScope:selfCopy[1]];
+  v21 = [(NSSQLSubqueryExpressionIntermediate *)v50 generateSQLStringInContext:expression];
 
   if (!v21)
   {
     v16 = MEMORY[0x1E695DF30];
     v17 = *MEMORY[0x1E695D940];
-    symbol = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to generate SQL for function expression: %@", symbol];
+    v18 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], symbol);
     goto LABEL_6;
   }
 
-LABEL_10:
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 - (id)generateType1SQLString:(void *)string inContext:
 {
-  v58[1] = *MEMORY[0x1E69E9840];
+  v54[1] = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_20;
+    return 0;
   }
 
   if ([self isIndexScoped])
@@ -592,13 +568,13 @@ LABEL_10:
     {
       v6 = MEMORY[0x1E695DF30];
       v7 = *MEMORY[0x1E695D940];
-      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported expression in index description (%@), aggregate operations not allowed here", *(self + 16)];
+      v8 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], *(self + 16));
       v9 = *(self + 16);
-      v55 = @"expression";
-      v56 = v9;
+      v51 = @"expression";
+      v52 = v9;
       v10 = MEMORY[0x1E695DF20];
-      v11 = &v56;
-      v12 = &v55;
+      v11 = &v52;
+      v12 = &v51;
 LABEL_5:
       v13 = [v10 dictionaryWithObjects:v11 forKeys:v12 count:1];
       v14 = v6;
@@ -606,10 +582,10 @@ LABEL_5:
       v16 = v8;
 LABEL_19:
       [string setObject:objc_msgSend(v14 forKey:{"exceptionWithName:reason:userInfo:", v15, v16, v13), @"NSUnderlyingException"}];
-      goto LABEL_20;
+      return 0;
     }
 
-    goto LABEL_20;
+    return 0;
   }
 
   v17 = [objc_msgSend(*(self + 16) "arguments")];
@@ -617,7 +593,7 @@ LABEL_19:
   {
     v24 = MEMORY[0x1E695DF30];
     v25 = *MEMORY[0x1E695D940];
-    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to generate sql for %@, empty %@ expression", *(self + 16), a2];
+    v16 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], *(self + 16), a2);
     v14 = v24;
 LABEL_17:
     v15 = v25;
@@ -634,7 +610,7 @@ LABEL_18:
 
     if (!v20)
     {
-      goto LABEL_20;
+      return 0;
     }
 
     v21 = [a2 mutableCopy];
@@ -658,36 +634,29 @@ LABEL_18:
     expressionType = [v22 expressionType];
     if (([objc_opt_class() isSimpleKeypath:v22] & 1) != 0 || -[NSSQLIntermediate isVariableBasedKeypathScopedBySubquery:](self, v22))
     {
-      v32 = [objc_msgSend(objc_msgSend(v22 "arguments")];
-      if ([v32 rangeOfString:@"."] != 0x7FFFFFFFFFFFFFFFLL)
+      v31 = [objc_msgSend(objc_msgSend(v22 "arguments")];
+      if ([v31 rangeOfString:@"."] != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v35 = [(NSSQLFunctionExpressionIntermediate *)self _generateCorrelatedSubqueryStringWithSymbol:a2 forExpression:v22 inContext:string];
-        goto LABEL_36;
+        return [(NSSQLFunctionExpressionIntermediate *)self _generateCorrelatedSubqueryStringWithSymbol:a2 forExpression:v22 inContext:string];
       }
 
-      v33 = [self governingEntityForKeypathExpression:v22];
-      if (v33)
+      v32 = [self governingEntityForKeypathExpression:v22];
+      if (v32)
       {
-        v34 = [*(v33 + 40) objectForKey:v32];
+        v33 = [*(v32 + 40) objectForKey:v31];
       }
 
       else
       {
-        v34 = 0;
+        v33 = 0;
       }
 
-      if ([v34 propertyType] == 1)
+      if ([v33 propertyType] == 1)
       {
-        v35 = [(NSSQLFunctionExpressionIntermediate *)self _generateUncorrelatedSubqueryStringWithSymbol:a2 forAttribute:v34 inContext:string];
-LABEL_36:
-        v21 = v35;
-        goto LABEL_21;
+        return [(NSSQLFunctionExpressionIntermediate *)self _generateUncorrelatedSubqueryStringWithSymbol:a2 forAttribute:v33 inContext:string];
       }
 
-      v38 = MEMORY[0x1E695DF30];
-      v39 = *MEMORY[0x1E695D940];
-      v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Non-attribute property passed to math function: %@", v22];
-      goto LABEL_47;
+      goto LABEL_46;
     }
 
     if (expressionType <= 12)
@@ -697,81 +666,71 @@ LABEL_36:
         constantValue = [v22 constantValue];
         if ([constantValue isNSSet] & 1) != 0 || (objc_msgSend(constantValue, "isNSArray") & 1) != 0 || (objc_msgSend(constantValue, "isNSOrderedSet"))
         {
-          v52 = *(self + 16);
           if (objc_opt_respondsToSelector())
           {
             [*(self + 16) allowEvaluation];
           }
 
-          v53 = [*(self + 16) expressionValueWithObject:0 context:0];
+          v49 = [*(self + 16) expressionValueWithObject:0 context:0];
           selfCopy3 = self;
         }
 
         else
         {
           selfCopy3 = self;
-          v53 = constantValue;
+          v49 = constantValue;
         }
 
-        v35 = [(NSSQLIntermediate *)selfCopy3 _generateSQLForConstantValue:v53 inContext:string];
-        goto LABEL_36;
+        return [(NSSQLIntermediate *)selfCopy3 _generateSQLForConstantValue:v49 inContext:string];
       }
 
       if (expressionType != 4 || ![(NSSQLIntermediate *)self _functionExpressionIsSubqueryFollowedByKeypath:v22])
       {
-        goto LABEL_53;
+        goto LABEL_52;
       }
 
-      v41 = -[NSSQLSubqueryExpressionIntermediate initWithExpression:trailingKeypath:inScope:]([NSSQLSubqueryExpressionIntermediate alloc], "initWithExpression:trailingKeypath:inScope:", [*(self + 16) operand], objc_msgSend(objc_msgSend(*(self + 16), "arguments"), "objectAtIndex:", 0), *(self + 8));
-      v42 = [(NSSQLSubqueryExpressionIntermediate *)v41 generateSQLStringInContext:string];
+      v39 = -[NSSQLSubqueryExpressionIntermediate initWithExpression:trailingKeypath:inScope:]([NSSQLSubqueryExpressionIntermediate alloc], "initWithExpression:trailingKeypath:inScope:", [*(self + 16) operand], objc_msgSend(objc_msgSend(*(self + 16), "arguments"), "objectAtIndex:", 0), *(self + 8));
+      v40 = [(NSSQLSubqueryExpressionIntermediate *)v39 generateSQLStringInContext:string];
 
-      if (v42)
+      if (v40)
       {
         v21 = [a2 mutableCopy];
-        [v21 appendString:v42];
+        [v21 appendString:v40];
 
-        goto LABEL_21;
+        return v21;
       }
 
       if ([string objectForKey:@"NSUnderlyingException"])
       {
-        goto LABEL_20;
+        return 0;
       }
 
-      v48 = MEMORY[0x1E695DF30];
-      v49 = *MEMORY[0x1E695D940];
-      v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported expression %@", *(self + 16)];
-LABEL_59:
-      v16 = v50;
-      v14 = v48;
-      v15 = v49;
-      goto LABEL_18;
+      goto LABEL_57;
     }
 
     if (expressionType == 13)
     {
-      v44 = [(NSSQLIntermediate *)self _generateSQLForSubqueryExpression:v22 trailingKeypath:0 inContext:string];
-      if (v44)
+      v42 = [(NSSQLIntermediate *)self _generateSQLForSubqueryExpression:v22 trailingKeypath:0 inContext:string];
+      if (v42)
       {
-        v45 = v44;
+        v43 = v42;
         v21 = [a2 mutableCopy];
-        [v21 appendString:v45];
+        [v21 appendString:v43];
 
-        goto LABEL_21;
+        return v21;
       }
 
       if ([string objectForKey:@"NSUnderlyingException"])
       {
-        goto LABEL_20;
+        return 0;
       }
 
-      v38 = MEMORY[0x1E695DF30];
-      v39 = *MEMORY[0x1E695D940];
-      v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to generate sql for subquery: %@", v22];
-LABEL_47:
-      v16 = v40;
-      v14 = v38;
-      v15 = v39;
+LABEL_46:
+      v37 = MEMORY[0x1E695DF30];
+      v38 = *MEMORY[0x1E695D940];
+      v16 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v22);
+      v14 = v37;
+      v15 = v38;
       goto LABEL_18;
     }
 
@@ -781,66 +740,66 @@ LABEL_47:
       {
         if ([objc_msgSend(*(self + 16) "arguments")] != 1 && !objc_msgSend(string, "objectForKey:", @"NSUnderlyingException"))
         {
-          [string setValue:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Invalid argument count for %@(%@)", a2, *(self + 16)), 0), @"NSUnderlyingException"}];
+          [string setValue:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, *(self + 16)), 0), @"NSUnderlyingException"}];
         }
 
-        v36 = -[NSSQLExpressionIntermediate initWithExpression:allowToMany:inScope:]([NSSQLTernaryExpressionIntermediate alloc], "initWithExpression:allowToMany:inScope:", [objc_msgSend(*(self + 16) "arguments")], 0, self);
-        v37 = [(NSSQLTernaryExpressionIntermediate *)v36 generateSQLStringInContext:string];
+        v35 = -[NSSQLExpressionIntermediate initWithExpression:allowToMany:inScope:]([NSSQLTernaryExpressionIntermediate alloc], "initWithExpression:allowToMany:inScope:", [objc_msgSend(*(self + 16) "arguments")], 0, self);
+        v36 = [(NSSQLTernaryExpressionIntermediate *)v35 generateSQLStringInContext:string];
 
-        if (!v37)
+        if (!v36)
         {
           if (![string objectForKey:@"NSUnderlyingException"])
           {
-            [string setValue:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Unable to generate SQL for ternary expression: %@", *(self + 16)), 0), @"NSUnderlyingException"}];
+            [string setValue:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], *(self + 16)), 0), @"NSUnderlyingException"}];
           }
 
-          goto LABEL_20;
+          return 0;
         }
 
         v21 = [a2 mutableCopy];
         objc_msgSend(v21, "appendString:", @"(");
-        [v21 appendString:v37];
+        [v21 appendString:v36];
 
 LABEL_26:
         [v21 appendString:@""]);
-        goto LABEL_21;
+        return v21;
       }
 
-LABEL_53:
-      v43 = MEMORY[0x1E695DF30];
+LABEL_52:
+      v41 = MEMORY[0x1E695DF30];
       v25 = *MEMORY[0x1E695D940];
-      v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to generate sql for %@() : argument (%@) not supported", a2, v22];
-      v14 = v43;
+      v16 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, v22);
+      v14 = v41;
       goto LABEL_17;
     }
 
     constantValue2 = [v22 constantValue];
-    v47 = [constantValue2 count];
-    if (v47 == 1)
+    v45 = [constantValue2 count];
+    if (v45 == 1)
     {
       v21 = -[NSSQLIntermediate _generateSQLForExpression:allowToMany:inContext:](self, [constantValue2 objectAtIndex:0], 1, string);
       if (v21)
       {
-        goto LABEL_21;
+        return v21;
       }
 
       if ([string objectForKey:@"NSUnderlyingException"])
       {
-        goto LABEL_20;
+        return 0;
       }
 
-      v48 = MEMORY[0x1E695DF30];
-      v49 = *MEMORY[0x1E695D940];
-      v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to generate sql for %@", *(self + 16)];
-      goto LABEL_59;
+      goto LABEL_57;
     }
 
-    if (!v47)
+    if (!v45)
     {
-      v48 = MEMORY[0x1E695DF30];
-      v49 = *MEMORY[0x1E695D940];
-      v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to generate sql for %@, empty max/etc expression", *(self + 16)];
-      goto LABEL_59;
+LABEL_57:
+      v46 = MEMORY[0x1E695DF30];
+      v47 = *MEMORY[0x1E695D940];
+      v16 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], *(self + 16));
+      v14 = v46;
+      v15 = v47;
+      goto LABEL_18;
     }
 
     v21 = [a2 mutableCopy];
@@ -848,14 +807,14 @@ LABEL_53:
     selfCopy4 = self;
     arguments = constantValue2;
 LABEL_23:
-    v30 = [(NSSQLFunctionExpressionIntermediate *)selfCopy4 _generateArgumentStringForCollection:arguments inContext:string];
-    if (!v30)
+    v29 = [(NSSQLFunctionExpressionIntermediate *)selfCopy4 _generateArgumentStringForCollection:arguments inContext:string];
+    if (!v29)
     {
 
-      goto LABEL_20;
+      return 0;
     }
 
-    v20 = v30;
+    v20 = v29;
 LABEL_25:
     [v21 appendString:v20];
 
@@ -866,21 +825,17 @@ LABEL_25:
   {
     v6 = MEMORY[0x1E695DF30];
     v7 = *MEMORY[0x1E695D940];
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported expression in index description (%@), aggregates not allowed here.", *(self + 16)];
+    v8 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], *(self + 16));
     v23 = *(self + 16);
-    v57 = @"expression";
-    v58[0] = v23;
+    v53 = @"expression";
+    v54[0] = v23;
     v10 = MEMORY[0x1E695DF20];
-    v11 = v58;
-    v12 = &v57;
+    v11 = v54;
+    v12 = &v53;
     goto LABEL_5;
   }
 
-LABEL_20:
-  v21 = 0;
-LABEL_21:
-  v26 = *MEMORY[0x1E69E9840];
-  return v21;
+  return 0;
 }
 
 - (void)generateType2SQLString:(void *)string inContext:
@@ -905,7 +860,7 @@ LABEL_21:
 
     else
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to generate sql for %@, empty expression", self[2]];
+      v9 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self[2]);
       v10 = v7;
       v11 = v8;
       v12 = 0;
@@ -919,7 +874,7 @@ LABEL_21:
   expressionType = [v13 expressionType];
   if (([objc_opt_class() isSimpleKeypath:v13] & 1) == 0 && (-[NSSQLIntermediate isVariableBasedKeypathScopedBySubquery:](self, v13) & 1) == 0 && (expressionType || !objc_msgSend(objc_msgSend(v13, "constantValue"), "isNSString")))
   {
-    [string setValue:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Bad argument to upper/lower function (needs to be a keypath or a string) : %@", v13), 0), @"NSUnderlyingException"}];
+    [string setValue:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v13), 0), @"NSUnderlyingException"}];
     return 0;
   }
 
@@ -951,7 +906,7 @@ LABEL_21:
     v10 = *MEMORY[0x1E695D940];
     if (v8)
     {
-      v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid number of parameters passed to function (%@)", self[2]];
+      v18 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self[2]);
       v14 = [MEMORY[0x1E695DF20] dictionaryWithObject:self[2] forKey:@"Bad value"];
       v12 = v9;
       v13 = v10;
@@ -960,7 +915,7 @@ LABEL_21:
 
     else
     {
-      v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to generate sql for %@, empty expression", self[2]];
+      v11 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self[2]);
       v12 = v9;
       v13 = v10;
       v14 = 0;
@@ -978,7 +933,7 @@ LABEL_21:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        [only setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Unable to generate sql for %@, can't drop index on non-keypath", self[2]), 0), @"NSUnderlyingException"}];
+        [only setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self[2]), 0), @"NSUnderlyingException"}];
       }
     }
   }
@@ -999,28 +954,26 @@ LABEL_21:
 
 - (uint64_t)_generateSQLForCountInContext:(uint64_t)context
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   if (!context)
   {
-    goto LABEL_32;
+    return 0;
   }
 
   if ([context isIndexScoped])
   {
     if ([a2 objectForKey:@"NSUnderlyingException"])
     {
-LABEL_32:
-      v16 = 0;
-      goto LABEL_33;
+      return 0;
     }
 
     v4 = MEMORY[0x1E695DF30];
     v5 = *MEMORY[0x1E695D940];
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported expression in index description (%@), 'count' not supported in this context", *(context + 16)];
+    v6 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], *(context + 16));
     v7 = *(context + 16);
-    v37 = @"expression";
-    v38[0] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+    v32 = @"expression";
+    v33[0] = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     goto LABEL_5;
   }
 
@@ -1031,9 +984,9 @@ LABEL_32:
     v10 = MEMORY[0x1E695DF30];
     v11 = *MEMORY[0x1E695D940];
     v12 = @"Invalid number of arguments to count (requires at least 1 argument)";
-LABEL_30:
+LABEL_29:
     v9 = 0;
-    goto LABEL_31;
+    goto LABEL_30;
   }
 
   if (v14 >= 2)
@@ -1041,45 +994,39 @@ LABEL_30:
     v15 = -[NSSQLIntermediate _generateSQLForConstantValue:inContext:](context, [MEMORY[0x1E696AD98] numberWithInteger:v14], a2);
     if (v15)
     {
-      v16 = v15;
-LABEL_33:
-      v28 = *MEMORY[0x1E69E9840];
-      return v16;
+      return v15;
     }
 
-    v25 = MEMORY[0x1E695DF30];
-    v26 = *MEMORY[0x1E695D940];
-    v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to generate SQL for count expression %@", *(context + 16)];
-LABEL_29:
-    v12 = v27;
-    v10 = v25;
-    v11 = v26;
-    goto LABEL_30;
+LABEL_28:
+    v23 = MEMORY[0x1E695DF30];
+    v24 = *MEMORY[0x1E695D940];
+    v12 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], *(context + 16));
+    v10 = v23;
+    v11 = v24;
+    goto LABEL_29;
   }
 
   v17 = [arguments objectAtIndex:0];
   expressionType = [v17 expressionType];
   if ([context isTargetColumnsScoped] && objc_msgSend(objc_msgSend(objc_msgSend(context, "fetchIntermediate"), "selectIntermediate"), "onlyFetchesAggregates") && objc_msgSend(MEMORY[0x1E696ABC8], "expressionForEvaluatedObject") == v17)
   {
-    v31 = *MEMORY[0x1E69E9840];
-    v22 = @"count(*)";
-    goto LABEL_39;
+    v21 = @"count(*)";
+    goto LABEL_38;
   }
 
   if ([context isTargetColumnsScoped] && objc_msgSend(objc_msgSend(objc_msgSend(context, "fetchIntermediate"), "selectIntermediate"), "onlyFetchesAggregates") && ((objc_msgSend(objc_opt_class(), "isSimpleKeypath:", v17) & 1) != 0 || -[NSSQLIntermediate isVariableBasedKeypathScopedBySubquery:](context, v17)) && objc_msgSend(objc_msgSend(v17, "keyPath"), "rangeOfString:", @".") == 0x7FFFFFFFFFFFFFFFLL)
   {
     v19 = [(NSSQLExpressionIntermediate *)[NSSQLKeypathExpressionIntermediate alloc] initWithExpression:v17 allowToMany:1 inScope:context];
     v20 = v19;
-    goto LABEL_44;
+    goto LABEL_43;
   }
 
   if (expressionType == 1 && [context isHavingScoped])
   {
-    v21 = *MEMORY[0x1E69E9840];
-    v22 = @"COUNT(*)";
-LABEL_39:
+    v21 = @"COUNT(*)";
+LABEL_38:
 
-    return [(__CFString *)v22 mutableCopy];
+    return [(__CFString *)v21 mutableCopy];
   }
 
   if (([objc_opt_class() isSimpleKeypath:v17] & 1) == 0 && !-[NSSQLIntermediate isVariableBasedKeypathScopedBySubquery:](context, v17))
@@ -1088,120 +1035,110 @@ LABEL_39:
     {
       if ([(NSSQLIntermediate *)context _functionExpressionIsSubqueryFollowedByKeypath:v17])
       {
-        v32 = [objc_msgSend(objc_msgSend(objc_msgSend(v17 "arguments")];
-        [v32 appendString:@".@count"];
-        v33 = [objc_opt_class() _newKeyPathExpressionForString:v32];
+        v27 = [objc_msgSend(objc_msgSend(objc_msgSend(v17 "arguments")];
+        [v27 appendString:@".@count"];
+        v28 = [objc_opt_class() _newKeyPathExpressionForString:v27];
 
-        v20 = -[NSSQLSubqueryExpressionIntermediate initWithExpression:trailingKeypath:inScope:]([NSSQLSubqueryExpressionIntermediate alloc], "initWithExpression:trailingKeypath:inScope:", [v17 operand], v33, *(context + 8));
+        v20 = -[NSSQLSubqueryExpressionIntermediate initWithExpression:trailingKeypath:inScope:]([NSSQLSubqueryExpressionIntermediate alloc], "initWithExpression:trailingKeypath:inScope:", [v17 operand], v28, *(context + 8));
         v19 = v20;
-LABEL_44:
-        v34 = [(NSSQLKeypathExpressionIntermediate *)v19 generateSQLStringInContext:a2];
+LABEL_43:
+        v29 = [(NSSQLKeypathExpressionIntermediate *)v19 generateSQLStringInContext:a2];
 
-        if (v34)
+        if (v29)
         {
-          v35 = CFSTR("COUNT(");
-          goto LABEL_46;
+          v30 = CFSTR("COUNT(");
+          goto LABEL_45;
         }
 
-LABEL_47:
+LABEL_46:
         if ([a2 objectForKey:@"NSUnderlyingException"])
         {
-          goto LABEL_32;
+          return 0;
         }
 
-        v25 = MEMORY[0x1E695DF30];
-        v26 = *MEMORY[0x1E695D940];
-        v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported expression %@", *(context + 16)];
-        goto LABEL_29;
+        goto LABEL_28;
       }
 
       if ([@"distinct:" isEqual:{objc_msgSend(v17, "function")}])
       {
-        v36 = [(NSSQLExpressionIntermediate *)[NSSQLFunctionExpressionIntermediate alloc] initWithExpression:v17 allowToMany:1 inScope:context];
-        v34 = [(NSSQLFunctionExpressionIntermediate *)v36 generateSQLStringInContext:a2];
+        v31 = [(NSSQLExpressionIntermediate *)[NSSQLFunctionExpressionIntermediate alloc] initWithExpression:v17 allowToMany:1 inScope:context];
+        v29 = [(NSSQLFunctionExpressionIntermediate *)v31 generateSQLStringInContext:a2];
 
-        if (!v34)
+        if (!v29)
         {
           if ([a2 objectForKey:@"NSUnderlyingException"])
           {
-            goto LABEL_32;
+            return 0;
           }
 
-          v25 = MEMORY[0x1E695DF30];
-          v26 = *MEMORY[0x1E695D940];
-          v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to generate SQL for expression: %@", *(context + 16)];
-          goto LABEL_29;
+          goto LABEL_28;
         }
 
-        v35 = CFSTR("COUNT (");
-LABEL_46:
-        v16 = [(__CFString *)v35 mutableCopy];
-        [v16 appendString:v34];
+        v30 = CFSTR("COUNT (");
+LABEL_45:
+        v16 = [(__CFString *)v30 mutableCopy];
+        [v16 appendString:v29];
 
         [v16 appendString:@""]);
-        goto LABEL_33;
+        return v16;
       }
     }
 
     else if (expressionType == 13)
     {
-      v29 = [objc_opt_class() _newKeyPathExpressionForString:@".@count"];
-      v30 = [[NSSQLSubqueryExpressionIntermediate alloc] initWithExpression:v17 trailingKeypath:v29 inScope:*(context + 8)];
+      v25 = [objc_opt_class() _newKeyPathExpressionForString:@".@count"];
+      v26 = [[NSSQLSubqueryExpressionIntermediate alloc] initWithExpression:v17 trailingKeypath:v25 inScope:*(context + 8)];
 
-      v16 = [(NSSQLSubqueryExpressionIntermediate *)v30 generateSQLStringInContext:a2];
+      v16 = [(NSSQLSubqueryExpressionIntermediate *)v26 generateSQLStringInContext:a2];
       if (v16)
       {
-        goto LABEL_33;
+        return v16;
       }
 
-      goto LABEL_47;
+      goto LABEL_46;
     }
 
     v4 = MEMORY[0x1E695DF30];
     v5 = *MEMORY[0x1E695D940];
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported function expression : %@", *(context + 16)];
+    v6 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], *(context + 16));
     v8 = [MEMORY[0x1E695DF20] dictionaryWithObject:*(context + 16) forKey:@"Bad value"];
 LABEL_5:
     v9 = v8;
     v10 = v4;
     v11 = v5;
     v12 = v6;
-LABEL_31:
+LABEL_30:
     [a2 setObject:objc_msgSend(v10 forKey:{"exceptionWithName:reason:userInfo:", v11, v12, v9), @"NSUnderlyingException"}];
-    goto LABEL_32;
+    return 0;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return [(NSSQLFunctionExpressionIntermediate *)context _generateCorrelatedSubqueryStringWithSymbol:v17 forExpression:a2 inContext:?];
 }
 
-- (void)_generateGroupConcatInContext:(id *)context
+- (void)_generateGroupConcatInContext:(void *)context
 {
-  v50[1] = *MEMORY[0x1E69E9840];
+  v49[1] = *MEMORY[0x1E69E9840];
   if (!context)
   {
-    goto LABEL_7;
+    return 0;
   }
 
   if ([context isIndexScoped])
   {
     if ([a2 objectForKey:@"NSUnderlyingException"])
     {
-LABEL_7:
-      v15 = 0;
-      goto LABEL_8;
+      return 0;
     }
 
     v4 = MEMORY[0x1E695DF30];
     v5 = *MEMORY[0x1E695D940];
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported expression in index description (%@), aggregate operations not allowed here", context[2]];
+    v6 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], context[2]);
     v7 = context[2];
-    v49 = @"expression";
-    v50[0] = v7;
+    v48 = @"expression";
+    v49[0] = v7;
     v8 = MEMORY[0x1E695DF20];
-    v9 = v50;
-    v10 = &v49;
+    v9 = v49;
+    v10 = &v48;
     goto LABEL_5;
   }
 
@@ -1209,18 +1146,18 @@ LABEL_7:
   {
     if ([a2 objectForKey:@"NSUnderlyingException"])
     {
-      goto LABEL_7;
+      return 0;
     }
 
     v4 = MEMORY[0x1E695DF30];
     v5 = *MEMORY[0x1E695D940];
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid number of arguments to groupConcat. (%lu given, 1 required)", objc_msgSend(objc_msgSend(context[2], "arguments"), "count")];
-    v27 = context[2];
-    v47 = @"expression";
-    v48 = v27;
+    v6 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [objc_msgSend(context[2] "arguments")]);
+    v26 = context[2];
+    v46 = @"expression";
+    v47 = v26;
     v8 = MEMORY[0x1E695DF20];
-    v9 = &v48;
-    v10 = &v47;
+    v9 = &v47;
+    v10 = &v46;
     goto LABEL_5;
   }
 
@@ -1230,18 +1167,18 @@ LABEL_7:
     {
       if ([a2 objectForKey:@"NSUnderlyingException"])
       {
-        goto LABEL_7;
+        return 0;
       }
 
       v4 = MEMORY[0x1E695DF30];
       v5 = *MEMORY[0x1E695D940];
-      v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid number of arguments to groupConcat. (%lu given, 2 required)", objc_msgSend(objc_msgSend(context[2], "arguments"), "count")];
-      v28 = context[2];
-      v45 = @"expression";
-      v46 = v28;
+      v6 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [objc_msgSend(context[2] "arguments")]);
+      v27 = context[2];
+      v44 = @"expression";
+      v45 = v27;
       v8 = MEMORY[0x1E695DF20];
-      v9 = &v46;
-      v10 = &v45;
+      v9 = &v45;
+      v10 = &v44;
       goto LABEL_5;
     }
 
@@ -1249,61 +1186,61 @@ LABEL_7:
     {
       if ([a2 objectForKey:@"NSUnderlyingException"])
       {
-        goto LABEL_7;
+        return 0;
       }
 
       v4 = MEMORY[0x1E695DF30];
       v5 = *MEMORY[0x1E695D940];
-      v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported separator for expression: %@. groupConcat:separator: separator must be a string", objc_msgSend(objc_msgSend(context[2], "arguments"), "lastObject")];
-      v21 = context[2];
-      v43 = @"expression";
-      v44 = v21;
+      v6 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [objc_msgSend(context[2] "arguments")]);
+      v20 = context[2];
+      v42 = @"expression";
+      v43 = v20;
       v8 = MEMORY[0x1E695DF20];
-      v9 = &v44;
-      v10 = &v43;
+      v9 = &v43;
+      v10 = &v42;
       goto LABEL_5;
     }
   }
 
-  v18 = [objc_msgSend(context[2] "arguments")];
-  if (![v18 expressionType])
+  v17 = [objc_msgSend(context[2] "arguments")];
+  if (![v17 expressionType])
   {
-    constantValue = [v18 constantValue];
+    constantValue = [v17 constantValue];
     if (([constantValue isNSArray] & 1) != 0 || (objc_msgSend(constantValue, "isNSSet") & 1) != 0 || objc_msgSend(constantValue, "isNSOrderedSet"))
     {
       if ([a2 objectForKey:@"NSUnderlyingException"])
       {
-        goto LABEL_7;
+        return 0;
       }
 
-      v23 = MEMORY[0x1E695DF30];
-      v24 = *MEMORY[0x1E695D940];
-      v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid constant value for group_concat. %@. Collections are not supported.", constantValue];
-      v26 = context[2];
-      v41 = @"expression";
-      v42 = v26;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-      v12 = v23;
-      v13 = v24;
-      v14 = v25;
+      v22 = MEMORY[0x1E695DF30];
+      v23 = *MEMORY[0x1E695D940];
+      v24 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], constantValue);
+      v25 = context[2];
+      v40 = @"expression";
+      v41 = v25;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+      v12 = v22;
+      v13 = v23;
+      v14 = v24;
       goto LABEL_6;
     }
 
     if (([constantValue isNSNumber] & 1) != 0 || objc_msgSend(constantValue, "isNSString"))
     {
-      v20 = [(NSSQLIntermediate *)context _generateSQLForConstantValue:constantValue inContext:a2];
+      v19 = [(NSSQLIntermediate *)context _generateSQLForConstantValue:constantValue inContext:a2];
       goto LABEL_19;
     }
 
     v4 = MEMORY[0x1E695DF30];
     v5 = *MEMORY[0x1E695D940];
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Bad argument to groupConcat (non-numeric, or non-string argument) : %@", objc_msgSend(context[2], "arguments")];
-    v34 = context[2];
-    v39 = @"expression";
-    v40 = v34;
+    v6 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [context[2] arguments]);
+    v33 = context[2];
+    v38 = @"expression";
+    v39 = v33;
     v8 = MEMORY[0x1E695DF20];
-    v9 = &v40;
-    v10 = &v39;
+    v9 = &v39;
+    v10 = &v38;
 LABEL_5:
     v11 = [v8 dictionaryWithObjects:v9 forKeys:v10 count:1];
     v12 = v4;
@@ -1311,50 +1248,50 @@ LABEL_5:
     v14 = v6;
 LABEL_6:
     [a2 setObject:objc_msgSend(v12 forKey:{"exceptionWithName:reason:userInfo:", v13, v14, v11), @"NSUnderlyingException"}];
-    goto LABEL_7;
+    return 0;
   }
 
   if ((![context isTargetColumnsScoped] || (objc_msgSend(objc_msgSend(objc_msgSend(context, "fetchIntermediate"), "selectIntermediate"), "onlyFetchesAggregates") & 1) == 0) && !objc_msgSend(context, "isHavingScoped"))
   {
-    goto LABEL_7;
+    return 0;
   }
 
-  if (([objc_opt_class() isSimpleKeypath:v18] & 1) == 0 && !-[NSSQLIntermediate isVariableBasedKeypathScopedBySubquery:](context, v18))
+  if (([objc_opt_class() isSimpleKeypath:v17] & 1) == 0 && !-[NSSQLIntermediate isVariableBasedKeypathScopedBySubquery:](context, v17))
   {
     v4 = MEMORY[0x1E695DF30];
     v5 = *MEMORY[0x1E695D940];
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Bad argument to aggregate group_concat in select (must be a keypath or constant value) : %@", objc_msgSend(context[2], "arguments")];
-    v33 = context[2];
-    v35 = @"expression";
-    v36 = v33;
+    v6 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [context[2] arguments]);
+    v32 = context[2];
+    v34 = @"expression";
+    v35 = v32;
     v8 = MEMORY[0x1E695DF20];
-    v9 = &v36;
-    v10 = &v35;
+    v9 = &v35;
+    v10 = &v34;
     goto LABEL_5;
   }
 
-  v19 = [(NSSQLExpressionIntermediate *)[NSSQLKeypathExpressionIntermediate alloc] initWithExpression:v18 allowToMany:1 inScope:context];
-  v20 = [(NSSQLKeypathExpressionIntermediate *)v19 generateSQLStringInContext:a2];
+  v18 = [(NSSQLExpressionIntermediate *)[NSSQLKeypathExpressionIntermediate alloc] initWithExpression:v17 allowToMany:1 inScope:context];
+  v19 = [(NSSQLKeypathExpressionIntermediate *)v18 generateSQLStringInContext:a2];
 
-  if (!v20)
+  if (!v19)
   {
     if (![a2 objectForKey:@"NSUnderlyingException"])
     {
-      v29 = MEMORY[0x1E695DF30];
-      v30 = *MEMORY[0x1E695D940];
-      v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to generate SQL for keypath: %@", context[2]];
-      v32 = context[2];
-      v37 = @"expression";
-      v38 = v32;
-      [a2 setValue:objc_msgSend(v29 forKey:{"exceptionWithName:reason:userInfo:", v30, v31, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v38, &v37, 1)), @"NSUnderlyingException"}];
+      v28 = MEMORY[0x1E695DF30];
+      v29 = *MEMORY[0x1E695D940];
+      v30 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], context[2]);
+      v31 = context[2];
+      v36 = @"expression";
+      v37 = v31;
+      [a2 setValue:objc_msgSend(v28 forKey:{"exceptionWithName:reason:userInfo:", v29, v30, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v37, &v36, 1)), @"NSUnderlyingException"}];
     }
 
-    goto LABEL_7;
+    return 0;
   }
 
 LABEL_19:
   v15 = objc_msgSend(@"group_concat("), "mutableCopy";
-  [v15 appendString:v20];
+  [v15 appendString:v19];
 
   if ([objc_msgSend(context[2] "arguments")] == 2)
   {
@@ -1363,17 +1300,15 @@ LABEL_19:
   }
 
   [v15 appendString:@""]);
-LABEL_8:
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (id)_generateType4SQLForSymbol:(void *)symbol inContext:
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_18;
+    return 0;
   }
 
   if ([self isIndexScoped])
@@ -1381,27 +1316,30 @@ LABEL_8:
     if (![symbol objectForKey:@"NSUnderlyingException"])
     {
       v6 = MEMORY[0x1E695DF30];
-      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported expression in index description (%@), aggregate operations not allowed here", *(self + 16)];
+      v7 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], *(self + 16));
       v8 = *(self + 16);
-      v47 = @"expression";
-      v48[0] = v8;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
+      v35 = @"expression";
+      v36[0] = v8;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
       [symbol setObject:objc_msgSend(v6 forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], v7, v9), @"NSUnderlyingException"}];
     }
 
-    goto LABEL_18;
+    return 0;
   }
 
   if ([objc_msgSend(*(self + 16) "arguments")] != 1)
   {
+LABEL_14:
     v16 = MEMORY[0x1E695DF30];
     v17 = *MEMORY[0x1E695D940];
-    v18 = MEMORY[0x1E696AEC0];
-    arguments = *(self + 16);
-    v19 = @"Invalid number of arguments to avg function : %@";
+    v18 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], *(self + 16));
 LABEL_15:
-    v20 = [v18 stringWithFormat:v19, arguments];
-    goto LABEL_16;
+    v19 = v18;
+    v20 = v16;
+    v21 = v17;
+LABEL_16:
+    [symbol setObject:objc_msgSend(v20 forKey:{"exceptionWithName:reason:userInfo:", v21, v19, 0), @"NSUnderlyingException"}];
+    return 0;
   }
 
   v10 = [objc_msgSend(*(self + 16) "arguments")];
@@ -1415,21 +1353,20 @@ LABEL_15:
       {
         if ([@"avg" isEqual:a2])
         {
-          v27 = [NSClassFromString(@"_NSPredicateUtilities") average:constantValue];
+          v24 = [NSClassFromString(@"_NSPredicateUtilities") average:constantValue];
         }
 
         else
         {
-          v27 = [NSClassFromString(@"_NSPredicateUtilities") sum:constantValue];
+          v24 = [NSClassFromString(@"_NSPredicateUtilities") sum:constantValue];
         }
       }
 
       else
       {
-        v27 = [MEMORY[0x1E696AD98] numberWithInt:0];
+        v24 = [MEMORY[0x1E696AD98] numberWithInt:0];
       }
 
-      v35 = *MEMORY[0x1E69E9840];
       selfCopy2 = self;
     }
 
@@ -1437,22 +1374,18 @@ LABEL_15:
     {
       if (![constantValue isNSNumber])
       {
+LABEL_61:
         v16 = MEMORY[0x1E695DF30];
         v17 = *MEMORY[0x1E695D940];
-        v45 = MEMORY[0x1E696AEC0];
-        arguments = [*(self + 16) arguments];
-        v19 = @"Bad argument to sum (non-numeric, non-collection argument) : %@";
-LABEL_65:
-        v18 = v45;
+        v18 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [*(self + 16) arguments]);
         goto LABEL_15;
       }
 
-      v43 = *MEMORY[0x1E69E9840];
       selfCopy2 = self;
-      v27 = constantValue;
+      v24 = constantValue;
     }
 
-    return [(NSSQLIntermediate *)selfCopy2 _generateSQLForConstantValue:v27 inContext:symbol];
+    return [(NSSQLIntermediate *)selfCopy2 _generateSQLForConstantValue:v24 inContext:symbol];
   }
 
   v12 = expressionType;
@@ -1471,184 +1404,149 @@ LABEL_13:
         [v15 appendString:v14];
 
         [v15 appendString:@""]);
-LABEL_19:
-        v24 = *MEMORY[0x1E69E9840];
         return v15;
       }
 
       if (![symbol objectForKey:@"NSUnderlyingException"])
       {
-        v32 = MEMORY[0x1E695DF30];
-        v33 = *MEMORY[0x1E695D940];
-        v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to generate SQL for keypath: %@", *(self + 16)];
-LABEL_62:
-        [symbol setValue:objc_msgSend(v32 forKey:{"exceptionWithName:reason:userInfo:", v33, v34, 0), @"NSUnderlyingException"}];
-        goto LABEL_18;
+        goto LABEL_60;
       }
 
-      goto LABEL_18;
+      return 0;
     }
 
     if (v12 != 20)
     {
-      v37 = MEMORY[0x1E695DF30];
-      v38 = *MEMORY[0x1E695D940];
-      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Bad argument to aggregate %@ in select (must be a keypath or constant value) : %@", a2, objc_msgSend(*(self + 16), "arguments")];
-      v22 = v37;
-      v23 = v38;
-      goto LABEL_17;
+      v29 = MEMORY[0x1E695DF30];
+      v30 = *MEMORY[0x1E695D940];
+      v19 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, [*(self + 16) arguments]);
+      v20 = v29;
+      v21 = v30;
+      goto LABEL_16;
     }
 
-LABEL_56:
-    [objc_msgSend(*(self + 16) "arguments")];
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v44 = -[NSSQLExpressionIntermediate initWithExpression:allowToMany:inScope:]([NSSQLTernaryExpressionIntermediate alloc], "initWithExpression:allowToMany:inScope:", [objc_msgSend(*(self + 16) "arguments")], 0, self);
-      v14 = [(NSSQLTernaryExpressionIntermediate *)v44 generateSQLStringInContext:symbol];
-
-      if (v14)
-      {
-        goto LABEL_13;
-      }
-
-      if (![symbol objectForKey:@"NSUnderlyingException"])
-      {
-        v32 = MEMORY[0x1E695DF30];
-        v33 = *MEMORY[0x1E695D940];
-        v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to generate SQL for ternary expression: %@", *(self + 16)];
-        goto LABEL_62;
-      }
-    }
-
-    else if (![symbol objectForKey:@"NSUnderlyingException"])
-    {
-      v32 = MEMORY[0x1E695DF30];
-      v33 = *MEMORY[0x1E695D940];
-      v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to generate SQL for expression: %@", *(self + 16)];
-      goto LABEL_62;
-    }
-
-LABEL_18:
-    v15 = 0;
-    goto LABEL_19;
+    goto LABEL_55;
   }
 
   if (([objc_opt_class() isSimpleKeypath:v10] & 1) == 0 && !-[NSSQLIntermediate isVariableBasedKeypathScopedBySubquery:](self, v10))
   {
     if ([v10 expressionType] == 13)
     {
-      v40 = [@".@" mutableCopy];
-      [v40 appendString:a2];
-      v41 = [objc_opt_class() _newKeyPathExpressionForString:v40];
+      v31 = [@".@" mutableCopy];
+      [v31 appendString:a2];
+      v32 = [objc_opt_class() _newKeyPathExpressionForString:v31];
 
-      v42 = [[NSSQLSubqueryExpressionIntermediate alloc] initWithExpression:v10 trailingKeypath:v41 inScope:*(self + 8)];
-      v15 = [(NSSQLSubqueryExpressionIntermediate *)v42 generateSQLStringInContext:symbol];
+      v33 = [[NSSQLSubqueryExpressionIntermediate alloc] initWithExpression:v10 trailingKeypath:v32 inScope:*(self + 8)];
+      v15 = [(NSSQLSubqueryExpressionIntermediate *)v33 generateSQLStringInContext:symbol];
 
       if (v15)
       {
-        goto LABEL_19;
+        return v15;
       }
 
       if ([symbol objectForKey:@"NSUnderlyingException"])
       {
-        goto LABEL_18;
+        return 0;
       }
 
-      v32 = MEMORY[0x1E695DF30];
-      v33 = *MEMORY[0x1E695D940];
-      v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to generate SQL for subquery: %@", *(self + 16)];
-      goto LABEL_62;
+      goto LABEL_60;
     }
 
     if (v12 == 20)
     {
-      goto LABEL_56;
+LABEL_55:
+      [objc_msgSend(*(self + 16) "arguments")];
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v34 = -[NSSQLExpressionIntermediate initWithExpression:allowToMany:inScope:]([NSSQLTernaryExpressionIntermediate alloc], "initWithExpression:allowToMany:inScope:", [objc_msgSend(*(self + 16) "arguments")], 0, self);
+        v14 = [(NSSQLTernaryExpressionIntermediate *)v34 generateSQLStringInContext:symbol];
+
+        if (v14)
+        {
+          goto LABEL_13;
+        }
+
+        if ([symbol objectForKey:@"NSUnderlyingException"])
+        {
+          return 0;
+        }
+      }
+
+      else if ([symbol objectForKey:@"NSUnderlyingException"])
+      {
+        return 0;
+      }
+
+LABEL_60:
+      [symbol setValue:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], *(self + 16)), 0), @"NSUnderlyingException"}];
+      return 0;
     }
 
-    v16 = MEMORY[0x1E695DF30];
-    v17 = *MEMORY[0x1E695D940];
-    v45 = MEMORY[0x1E696AEC0];
-    arguments = [*(self + 16) arguments];
-    v19 = @"Unsupported argument to sum : %@";
-    goto LABEL_65;
+    goto LABEL_61;
   }
 
-  v28 = [objc_msgSend(objc_msgSend(v10 "arguments")];
-  if ([v28 rangeOfString:@"."] == 0x7FFFFFFFFFFFFFFFLL)
+  v25 = [objc_msgSend(objc_msgSend(v10 "arguments")];
+  if ([v25 rangeOfString:@"."] == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v29 = [self governingEntityForKeypathExpression:v10];
-    if (v29)
+    v26 = [self governingEntityForKeypathExpression:v10];
+    if (v26)
     {
-      v30 = [*(v29 + 40) objectForKey:v28];
+      v27 = [*(v26 + 40) objectForKey:v25];
     }
 
     else
     {
-      v30 = 0;
+      v27 = 0;
     }
 
-    if ([v30 propertyType] == 1)
+    if ([v27 propertyType] == 1)
     {
-      v31 = *MEMORY[0x1E69E9840];
 
-      return [(NSSQLFunctionExpressionIntermediate *)self _generateUncorrelatedSubqueryStringWithSymbol:a2 forAttribute:v30 inContext:symbol];
+      return [(NSSQLFunctionExpressionIntermediate *)self _generateUncorrelatedSubqueryStringWithSymbol:a2 forAttribute:v27 inContext:symbol];
     }
 
-    v16 = MEMORY[0x1E695DF30];
-    v17 = *MEMORY[0x1E695D940];
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Non-attribute property passed to sum: %@", *(self + 16)];
-LABEL_16:
-    v21 = v20;
-    v22 = v16;
-    v23 = v17;
-LABEL_17:
-    [symbol setObject:objc_msgSend(v22 forKey:{"exceptionWithName:reason:userInfo:", v23, v21, 0), @"NSUnderlyingException"}];
-    goto LABEL_18;
+    goto LABEL_14;
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return [(NSSQLFunctionExpressionIntermediate *)self _generateCorrelatedSubqueryStringWithSymbol:a2 forExpression:v10 inContext:symbol];
 }
 
-- (void)_generateDistinctStringInContext:(id *)context
+- (void)_generateDistinctStringInContext:(void *)context
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   if (!context)
   {
-    goto LABEL_14;
+    return 0;
   }
 
   if ([context isIndexScoped])
   {
     if ([a2 objectForKey:@"NSUnderlyingException"])
     {
-LABEL_14:
-      v15 = 0;
-      goto LABEL_15;
+      return 0;
     }
 
     v4 = MEMORY[0x1E695DF30];
     v5 = *MEMORY[0x1E695D940];
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported expression in index description (%@), 'distinct' not allowed here", context[2]];
+    v6 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], context[2]);
     v7 = context[2];
-    v22 = @"expression";
-    v23[0] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v20 = @"expression";
+    v21[0] = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v9 = v4;
     v10 = v5;
     v11 = v6;
 LABEL_13:
     [a2 setObject:objc_msgSend(v9 forKey:{"exceptionWithName:reason:userInfo:", v10, v11, v8), @"NSUnderlyingException"}];
-    goto LABEL_14;
+    return 0;
   }
 
   if ([objc_msgSend(context[2] "arguments")] != 1)
   {
     v16 = MEMORY[0x1E695DF30];
     v17 = *MEMORY[0x1E695D940];
-    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid number of arguments to distinct : %@", context[2]];
+    v11 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], context[2]);
     v9 = v16;
 LABEL_12:
     v10 = v17;
@@ -1659,12 +1557,11 @@ LABEL_12:
   v12 = [objc_msgSend(context[2] "arguments")];
   if ([v12 expressionType] != 1 && (objc_msgSend(objc_opt_class(), "isSimpleKeypath:", v12) & 1) == 0 && (-[NSSQLIntermediate isVariableBasedKeypathScopedBySubquery:](context, v12) & 1) == 0)
   {
-    v20 = MEMORY[0x1E695DF30];
+LABEL_17:
+    v19 = MEMORY[0x1E695DF30];
     v17 = *MEMORY[0x1E695D940];
-    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid argument to distinct : %@", v12];
-LABEL_19:
-    v11 = v21;
-    v9 = v20;
+    v11 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v12);
+    v9 = v19;
     goto LABEL_12;
   }
 
@@ -1673,61 +1570,54 @@ LABEL_19:
   {
     if ([a2 objectForKey:@"NSUnderlyingException"])
     {
-      goto LABEL_14;
+      return 0;
     }
 
-    v20 = MEMORY[0x1E695DF30];
-    v17 = *MEMORY[0x1E695D940];
-    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to generate SQL for distinct : %@", v12];
-    goto LABEL_19;
+    goto LABEL_17;
   }
 
   v14 = v13;
   v15 = [@"DISTINCT " mutableCopy];
   [v15 appendString:v14];
 
-LABEL_15:
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
-- (uint64_t)_generateNowStringInContext:(id *)context
+- (id)_generateNowStringInContext:(void *)context
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   if (!context)
   {
-    goto LABEL_8;
+    return 0;
   }
 
   if ([context isIndexScoped])
   {
     if ([a2 objectForKey:@"NSUnderlyingException"])
     {
-LABEL_8:
-      v14 = *MEMORY[0x1E69E9840];
       return 0;
     }
 
     v4 = MEMORY[0x1E695DF30];
     v5 = *MEMORY[0x1E695D940];
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported expression in index description (%@), 'now' not allowed here", context[2]];
+    v6 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], context[2]);
     v7 = context[2];
-    v18 = @"expression";
-    v19[0] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v16 = @"expression";
+    v17[0] = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     v9 = v4;
     v10 = v5;
     v11 = v6;
 LABEL_7:
     [a2 setObject:objc_msgSend(v9 forKey:{"exceptionWithName:reason:userInfo:", v10, v11, v8), @"NSUnderlyingException"}];
-    goto LABEL_8;
+    return 0;
   }
 
   if ([objc_msgSend(context[2] "arguments")])
   {
     v12 = MEMORY[0x1E695DF30];
     v13 = *MEMORY[0x1E695D940];
-    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid number of arguments to now function : %@", context[2]];
+    v11 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], context[2]);
     v9 = v12;
     v10 = v13;
     v8 = 0;
@@ -1735,10 +1625,9 @@ LABEL_7:
   }
 
   [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
-  v16 = [MEMORY[0x1E696AD98] numberWithDouble:?];
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = [MEMORY[0x1E696AD98] numberWithDouble:?];
 
-  return [(NSSQLIntermediate *)context _generateSQLForConstantValue:v16 inContext:a2];
+  return [(NSSQLIntermediate *)context _generateSQLForConstantValue:v15 inContext:a2];
 }
 
 - (void)_generateLengthStringInContext:(id *)context
@@ -1752,9 +1641,9 @@ LABEL_7:
   {
     v8 = MEMORY[0x1E695DF30];
     v9 = *MEMORY[0x1E695D940];
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid number of arguments to length: function : %@", context[2]];
+    v10 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], context[2]);
     v11 = v8;
-LABEL_13:
+LABEL_11:
     [a2 setObject:objc_msgSend(v11 forKey:{"exceptionWithName:reason:userInfo:", v9, v10, 0), @"NSUnderlyingException"}];
     return 0;
   }
@@ -1762,13 +1651,12 @@ LABEL_13:
   v4 = [objc_msgSend(context[2] "arguments")];
   if ([v4 expressionType] && (objc_msgSend(objc_opt_class(), "isSimpleKeypath:", v4) & 1) == 0 && (-[NSSQLIntermediate isVariableBasedKeypathScopedBySubquery:](context, v4) & 1) == 0)
   {
+LABEL_10:
     v12 = MEMORY[0x1E695DF30];
     v9 = *MEMORY[0x1E695D940];
-    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid argument to length: : %@", v4];
-LABEL_12:
-    v10 = v13;
+    v10 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v4);
     v11 = v12;
-    goto LABEL_13;
+    goto LABEL_11;
   }
 
   v5 = [(NSSQLIntermediate *)context _generateSQLForExpression:v4 allowToMany:0 inContext:a2];
@@ -1779,10 +1667,7 @@ LABEL_12:
       return 0;
     }
 
-    v12 = MEMORY[0x1E695DF30];
-    v9 = *MEMORY[0x1E695D940];
-    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to generate SQL for length : %@", v4];
-    goto LABEL_12;
+    goto LABEL_10;
   }
 
   v6 = v5;
@@ -1793,11 +1678,11 @@ LABEL_12:
   return v7;
 }
 
-- (uint64_t)_generateRtreeIndexStringInContext:(uint64_t)result
+- (void)_generateRtreeIndexStringInContext:(void *)result
 {
   if (result)
   {
-    v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"You should not have made it here, scope failed at its job : %@", *(result + 16)), 0}];
+    v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{a2, @"You should not have made it here, scope failed at its job : %@", result[2]), 0}];
 
     return [a2 setObject:v3 forKey:@"NSUnderlyingException"];
   }

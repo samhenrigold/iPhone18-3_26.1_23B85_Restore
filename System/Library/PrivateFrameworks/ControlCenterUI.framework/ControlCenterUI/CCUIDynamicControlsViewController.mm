@@ -13,7 +13,7 @@
 {
   swift_unknownObjectWeakInit();
   v4 = OBJC_IVAR___CCUIDynamicControlsViewController_buttonViewModel;
-  type metadata accessor for DynamicControlsViewModel();
+  type metadata accessor for DynamicControlsViewModel(0);
   swift_allocObject();
   *(&self->super.super.super.isa + v4) = sub_21EA44E24();
   result = sub_21EAA94A0();
@@ -70,10 +70,10 @@ LABEL_7:
 
 - (void)sensorAttributionsChanged:(id)changed uniqueEntities:(id)entities
 {
-  sub_21E9F8880(0, &qword_28125B790);
+  sub_21E9F8880(0, &qword_28125B790, 0x277CFC9B8);
   sub_21E9F84D4();
   v5 = sub_21EAA8F60();
-  sub_21E9F8880(0, &unk_28125B750);
+  sub_21E9F8880(0, &unk_28125B750, 0x277CFC9C0);
   v6 = sub_21EAA8EC0();
   selfCopy = self;
   sub_21EA93008(v5, v6);

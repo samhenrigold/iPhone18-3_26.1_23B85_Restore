@@ -66,7 +66,7 @@
   v4 = [FxTexture alloc];
   if (self)
   {
-    [(FxImage *)self imageInfo];
+    objc_msgSend_imageInfo(self);
   }
 
   else

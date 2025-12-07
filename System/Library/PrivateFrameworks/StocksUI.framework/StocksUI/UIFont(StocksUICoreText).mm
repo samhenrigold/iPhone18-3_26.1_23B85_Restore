@@ -8,11 +8,11 @@
 {
   CTFontGetLanguageAwareOutsets();
   UICeilToScale();
-  v2 = -v0;
+  v4 = -v2;
   UICeilToScale();
   UICeilToScale();
   UICeilToScale();
-  return v2;
+  return v4;
 }
 
 @end

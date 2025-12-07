@@ -35,25 +35,26 @@
   v5 = sub_757640();
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_757590();
   v9 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider28GuidedSearchTokenPaletteView_onSelect);
   if (v9)
   {
+    v10 = *&self->onSelect[OBJC_IVAR____TtC18ASMessagesProvider28GuidedSearchTokenPaletteView_onSelect];
     selfCopy = self;
-    sub_F714(v9);
-    v11 = sub_7575A0();
-    v9(v11);
-    sub_F704(v9);
+    sub_F714(v9, v10);
+    v12 = sub_7575A0();
+    v9(v12);
+    sub_F704(v9, v10);
 
     (*(v6 + 8))(v8, v5);
   }
 
   else
   {
-    v12 = *(v6 + 8);
+    v13 = *(v6 + 8);
     selfCopy2 = self;
-    v12(v8, v5);
+    v13(v8, v5);
   }
 }
 
@@ -66,7 +67,7 @@
   sub_757590();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_1AD0E0(viewCopy);
+  v12 = sub_1AD0E0(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 
@@ -78,36 +79,36 @@
   v7 = sub_757640();
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
-  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_757590();
   viewCopy = view;
   selfCopy = self;
-  sub_1AD208(&v19);
-  if (*(&v20 + 1))
+  sub_1AD208(&v21);
+  if (*(&v22 + 1))
   {
-    v22 = v19;
-    v23 = v20;
     v24 = v21;
-    [viewCopy bounds];
-    v13 = sub_1ADB08(&v22, viewCopy);
-    v15 = v14;
     v25 = v22;
-    sub_10A2C(&v25, &qword_941BA0);
     v26 = v23;
-    sub_B2FFC(&v26);
+    [viewCopy bounds];
+    v15 = sub_1ADB08(&v24, viewCopy, v13, v14);
+    v17 = v16;
+    v27 = v24;
+    sub_10A2C(&v27, &qword_941BA0, &qword_7811C0);
+    v28 = v25;
+    sub_B2FFC(&v28);
   }
 
   else
   {
-    v13 = 0.0;
     v15 = 0.0;
+    v17 = 0.0;
   }
 
   (*(v8 + 8))(v10, v7);
-  v16 = v13;
-  v17 = v15;
-  result.height = v17;
-  result.width = v16;
+  v18 = v15;
+  v19 = v17;
+  result.height = v19;
+  result.width = v18;
   return result;
 }
 
@@ -155,7 +156,7 @@
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_1AF2C8(cellCopy);
+  sub_1AF2C8(cellCopy, v11);
 
   (*(v9 + 8))(v11, v8);
 }

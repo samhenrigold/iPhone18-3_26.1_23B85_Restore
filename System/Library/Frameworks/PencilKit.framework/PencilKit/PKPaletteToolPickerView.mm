@@ -1466,7 +1466,7 @@ LABEL_4:
 
 - (void)_updateUI
 {
-  v184 = *MEMORY[0x1E69E9840];
+  v186 = *MEMORY[0x1E69E9840];
   _stackViewAxis = [(PKPaletteToolPickerView *)self _stackViewAxis];
   stackView = [(PKPaletteToolPickerView *)self stackView];
   [stackView setAxis:_stackViewAxis];
@@ -1528,72 +1528,72 @@ LABEL_4:
   if ([(PKPaletteToolPickerView *)self _useCompactSize])
   {
     mutableToolViews = self->_mutableToolViews;
-    v175[0] = MEMORY[0x1E69E9820];
-    v175[1] = 3221225472;
-    v175[2] = __36__PKPaletteToolPickerView__updateUI__block_invoke;
-    v175[3] = &unk_1E82DCDA0;
-    v175[4] = self;
-    [(NSMutableArray *)mutableToolViews enumerateObjectsUsingBlock:v175];
+    v177[0] = MEMORY[0x1E69E9820];
+    v177[1] = 3221225472;
+    v177[2] = __36__PKPaletteToolPickerView__updateUI__block_invoke;
+    v177[3] = &unk_1E82DCDA0;
+    v177[4] = self;
+    [(NSMutableArray *)mutableToolViews enumerateObjectsUsingBlock:v177];
   }
 
   else
   {
+    v175 = 0u;
+    v176 = 0u;
     v173 = 0u;
     v174 = 0u;
-    v171 = 0u;
-    v172 = 0u;
     v27 = self->_mutableToolViews;
-    v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v171 objects:v183 count:16];
+    v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v173 objects:v185 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v172;
+      v30 = *v174;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v172 != v30)
+          if (*v174 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          v32 = *(*(&v171 + 1) + 8 * i);
+          v32 = *(*(&v173 + 1) + 8 * i);
           [(PKPaletteToolPickerView *)self scalingFactor];
           [v32 setScalingFactor:?];
         }
 
-        v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v171 objects:v183 count:16];
+        v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v173 objects:v185 count:16];
       }
 
       while (v29);
     }
   }
 
+  v171 = 0u;
+  v172 = 0u;
   v169 = 0u;
   v170 = 0u;
-  v167 = 0u;
-  v168 = 0u;
   v33 = self->_mutableToolViews;
-  v34 = [(NSMutableArray *)v33 countByEnumeratingWithState:&v167 objects:v182 count:16];
+  v34 = [(NSMutableArray *)v33 countByEnumeratingWithState:&v169 objects:v184 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v168;
+    v36 = *v170;
     do
     {
       for (j = 0; j != v35; ++j)
       {
-        if (*v168 != v36)
+        if (*v170 != v36)
         {
           objc_enumerationMutation(v33);
         }
 
-        v38 = *(*(&v167 + 1) + 8 * j);
+        v38 = *(*(&v169 + 1) + 8 * j);
         [v38 setEdgeLocation:{-[PKPaletteToolPickerView edgeLocation](self, "edgeLocation")}];
         [v38 setColorUserInterfaceStyle:{-[PKPaletteToolPickerView colorUserInterfaceStyle](self, "colorUserInterfaceStyle")}];
       }
 
-      v35 = [(NSMutableArray *)v33 countByEnumeratingWithState:&v167 objects:v182 count:16];
+      v35 = [(NSMutableArray *)v33 countByEnumeratingWithState:&v169 objects:v184 count:16];
     }
 
     while (v35);
@@ -1626,36 +1626,36 @@ LABEL_4:
   if ([(PKPaletteToolPickerView *)self _useCompactSize])
   {
     v51 = self->_mutableToolViews;
-    v166[0] = MEMORY[0x1E69E9820];
-    v166[1] = 3221225472;
-    v166[2] = __36__PKPaletteToolPickerView__updateUI__block_invoke_2;
-    v166[3] = &unk_1E82DCDA0;
-    v166[4] = self;
-    [(NSMutableArray *)v51 enumerateObjectsUsingBlock:v166];
+    v168[0] = MEMORY[0x1E69E9820];
+    v168[1] = 3221225472;
+    v168[2] = __36__PKPaletteToolPickerView__updateUI__block_invoke_2;
+    v168[3] = &unk_1E82DCDA0;
+    v168[4] = self;
+    [(NSMutableArray *)v51 enumerateObjectsUsingBlock:v168];
   }
 
   else
   {
+    v166 = 0u;
+    v167 = 0u;
     v164 = 0u;
     v165 = 0u;
-    v162 = 0u;
-    v163 = 0u;
     v52 = self->_mutableToolViews;
-    v53 = [(NSMutableArray *)v52 countByEnumeratingWithState:&v162 objects:v181 count:16];
+    v53 = [(NSMutableArray *)v52 countByEnumeratingWithState:&v164 objects:v183 count:16];
     if (v53)
     {
       v54 = v53;
-      v55 = *v163;
+      v55 = *v165;
       do
       {
         for (k = 0; k != v54; ++k)
         {
-          if (*v163 != v55)
+          if (*v165 != v55)
           {
             objc_enumerationMutation(v52);
           }
 
-          v57 = *(*(&v162 + 1) + 8 * k);
+          v57 = *(*(&v164 + 1) + 8 * k);
           toolsWidthConstraints2 = [(PKPaletteToolPickerView *)self toolsWidthConstraints];
           widthAnchor = [v57 widthAnchor];
           widthAnchor2 = [(PKPaletteToolPickerView *)self widthAnchor];
@@ -1669,66 +1669,66 @@ LABEL_4:
           [toolsHeightConstraints2 addObject:v65];
         }
 
-        v54 = [(NSMutableArray *)v52 countByEnumeratingWithState:&v162 objects:v181 count:16];
+        v54 = [(NSMutableArray *)v52 countByEnumeratingWithState:&v164 objects:v183 count:16];
       }
 
       while (v54);
     }
   }
 
+  v162 = 0u;
+  v163 = 0u;
   v160 = 0u;
   v161 = 0u;
-  v158 = 0u;
-  v159 = 0u;
   toolsWidthConstraints3 = [(PKPaletteToolPickerView *)self toolsWidthConstraints];
   toolsHeightConstraints3 = [(PKPaletteToolPickerView *)self toolsHeightConstraints];
   v68 = [toolsWidthConstraints3 arrayByAddingObjectsFromArray:toolsHeightConstraints3];
 
-  v69 = [v68 countByEnumeratingWithState:&v158 objects:v180 count:16];
+  v69 = [v68 countByEnumeratingWithState:&v160 objects:v182 count:16];
   if (v69)
   {
     v71 = v69;
-    v72 = *v159;
+    v72 = *v161;
     do
     {
       for (m = 0; m != v71; ++m)
       {
-        if (*v159 != v72)
+        if (*v161 != v72)
         {
           objc_enumerationMutation(v68);
         }
 
         LODWORD(v70) = 1148829696;
-        [*(*(&v158 + 1) + 8 * m) setPriority:v70];
+        [*(*(&v160 + 1) + 8 * m) setPriority:v70];
       }
 
-      v71 = [v68 countByEnumeratingWithState:&v158 objects:v180 count:16];
+      v71 = [v68 countByEnumeratingWithState:&v160 objects:v182 count:16];
     }
 
     while (v71);
   }
 
-  v155 = MEMORY[0x1E696ACD8];
+  v157 = MEMORY[0x1E696ACD8];
   stackViewCompactHeightConstraint = [(PKPaletteToolPickerView *)self stackViewCompactHeightConstraint];
-  v179[0] = stackViewCompactHeightConstraint;
+  v181[0] = stackViewCompactHeightConstraint;
   scrollViewTopConstraint2 = [(PKPaletteToolPickerView *)self scrollViewTopConstraint];
-  v179[1] = scrollViewTopConstraint2;
+  v181[1] = scrollViewTopConstraint2;
   scrollViewBottomConstraint2 = [(PKPaletteToolPickerView *)self scrollViewBottomConstraint];
-  v179[2] = scrollViewBottomConstraint2;
+  v181[2] = scrollViewBottomConstraint2;
   scrollViewLeadingConstraint2 = [(PKPaletteToolPickerView *)self scrollViewLeadingConstraint];
-  v179[3] = scrollViewLeadingConstraint2;
+  v181[3] = scrollViewLeadingConstraint2;
   scrollViewTrailingConstraint2 = [(PKPaletteToolPickerView *)self scrollViewTrailingConstraint];
-  v179[4] = scrollViewTrailingConstraint2;
+  v181[4] = scrollViewTrailingConstraint2;
   scrollViewCenterXConstraint = [(PKPaletteToolPickerView *)self scrollViewCenterXConstraint];
-  v179[5] = scrollViewCenterXConstraint;
+  v181[5] = scrollViewCenterXConstraint;
   scrollViewCenterYConstraint = [(PKPaletteToolPickerView *)self scrollViewCenterYConstraint];
-  v179[6] = scrollViewCenterYConstraint;
+  v181[6] = scrollViewCenterYConstraint;
   scrollViewWidthConstraint = [(PKPaletteToolPickerView *)self scrollViewWidthConstraint];
-  v179[7] = scrollViewWidthConstraint;
+  v181[7] = scrollViewWidthConstraint;
   scrollViewHeightConstraint = [(PKPaletteToolPickerView *)self scrollViewHeightConstraint];
-  v179[8] = scrollViewHeightConstraint;
-  v82 = [MEMORY[0x1E695DEC8] arrayWithObjects:v179 count:9];
-  [v155 deactivateConstraints:v82];
+  v181[8] = scrollViewHeightConstraint;
+  v82 = [MEMORY[0x1E695DEC8] arrayWithObjects:v181 count:9];
+  [v157 deactivateConstraints:v82];
 
   if ([(PKPaletteToolPickerView *)self isScrollingEnabled])
   {
@@ -1819,16 +1819,16 @@ LABEL_4:
     v105 = *(v90 + 3288);
     toolsWidthCompactConstraints2 = [(PKPaletteToolPickerView *)self toolsWidthCompactConstraints];
     scrollViewTopConstraint3 = [(PKPaletteToolPickerView *)self scrollViewTopConstraint];
-    v178[0] = scrollViewTopConstraint3;
+    v180[0] = scrollViewTopConstraint3;
     scrollViewBottomConstraint3 = [(PKPaletteToolPickerView *)self scrollViewBottomConstraint];
-    v178[1] = scrollViewBottomConstraint3;
+    v180[1] = scrollViewBottomConstraint3;
     scrollViewLeadingConstraint3 = [(PKPaletteToolPickerView *)self scrollViewLeadingConstraint];
-    v178[2] = scrollViewLeadingConstraint3;
+    v180[2] = scrollViewLeadingConstraint3;
     scrollViewTrailingConstraint3 = [(PKPaletteToolPickerView *)self scrollViewTrailingConstraint];
-    v178[3] = scrollViewTrailingConstraint3;
+    v180[3] = scrollViewTrailingConstraint3;
     stackViewCompactHeightConstraint2 = [(PKPaletteToolPickerView *)self stackViewCompactHeightConstraint];
-    v178[4] = stackViewCompactHeightConstraint2;
-    v112 = [MEMORY[0x1E695DEC8] arrayWithObjects:v178 count:5];
+    v180[4] = stackViewCompactHeightConstraint2;
+    v112 = [MEMORY[0x1E695DEC8] arrayWithObjects:v180 count:5];
     v113 = [toolsWidthCompactConstraints2 arrayByAddingObjectsFromArray:v112];
     [v105 activateConstraints:v113];
 
@@ -1900,15 +1900,15 @@ LABEL_4:
     {
       v133 = *(v90 + 3288);
       scrollViewCenterYConstraint2 = [(PKPaletteToolPickerView *)self scrollViewCenterYConstraint];
-      v177[0] = scrollViewCenterYConstraint2;
+      v179[0] = scrollViewCenterYConstraint2;
       scrollViewHeightConstraint2 = [(PKPaletteToolPickerView *)self scrollViewHeightConstraint];
-      v177[1] = scrollViewHeightConstraint2;
+      v179[1] = scrollViewHeightConstraint2;
       scrollViewLeadingConstraint5 = [(PKPaletteToolPickerView *)self scrollViewLeadingConstraint];
-      v177[2] = scrollViewLeadingConstraint5;
+      v179[2] = scrollViewLeadingConstraint5;
       scrollViewTrailingConstraint5 = [(PKPaletteToolPickerView *)self scrollViewTrailingConstraint];
-      v177[3] = scrollViewTrailingConstraint5;
+      v179[3] = scrollViewTrailingConstraint5;
       v138 = MEMORY[0x1E695DEC8];
-      v139 = v177;
+      v139 = v179;
 LABEL_67:
       v146 = [v138 arrayWithObjects:v139 count:4];
       [v133 activateConstraints:v146];
@@ -1939,15 +1939,15 @@ LABEL_67:
     {
       v133 = *(v90 + 3288);
       scrollViewCenterYConstraint2 = [(PKPaletteToolPickerView *)self scrollViewCenterXConstraint];
-      v176[0] = scrollViewCenterYConstraint2;
+      v178[0] = scrollViewCenterYConstraint2;
       scrollViewHeightConstraint2 = [(PKPaletteToolPickerView *)self scrollViewWidthConstraint];
-      v176[1] = scrollViewHeightConstraint2;
+      v178[1] = scrollViewHeightConstraint2;
       scrollViewLeadingConstraint5 = [(PKPaletteToolPickerView *)self scrollViewTopConstraint];
-      v176[2] = scrollViewLeadingConstraint5;
+      v178[2] = scrollViewLeadingConstraint5;
       scrollViewTrailingConstraint5 = [(PKPaletteToolPickerView *)self scrollViewBottomConstraint];
-      v176[3] = scrollViewTrailingConstraint5;
+      v178[3] = scrollViewTrailingConstraint5;
       v138 = MEMORY[0x1E695DEC8];
-      v139 = v176;
+      v139 = v178;
       goto LABEL_67;
     }
   }
@@ -1958,19 +1958,19 @@ LABEL_69:
   edgeLocation3 = [(PKPaletteToolPickerView *)self edgeLocation];
   v149 = edgeLocation3 == 2 || edgeLocation3 == 8;
   clippingView4 = [(PKPaletteToolPickerView *)self clippingView];
-  v151 = clippingView4;
+  v152 = clippingView4;
   if (clippingView4 && *(clippingView4 + 544) != v149)
   {
     *(clippingView4 + 544) = v149;
     [(PKPaletteToolPickerClippingView *)clippingView4 _updateUI];
   }
 
-  v152 = [(PKPaletteToolPickerView *)self edgeLocation]== 8;
+  v153 = [(PKPaletteToolPickerView *)self edgeLocation]== 8;
   clippingView5 = [(PKPaletteToolPickerView *)self clippingView];
-  v154 = clippingView5;
-  if (clippingView5 && *(clippingView5 + 520) != v152)
+  v156 = clippingView5;
+  if (clippingView5 && *(clippingView5 + 520) != v153)
   {
-    *(clippingView5 + 520) = v152;
+    *(clippingView5 + 520) = v153;
     [(PKPaletteToolPickerClippingView *)clippingView5 _updateUI];
   }
 
@@ -2043,7 +2043,7 @@ void __36__PKPaletteToolPickerView__updateUI__block_invoke_3(uint64_t a1)
   isScrollingEnabled = [(PKPaletteToolPickerView *)self isScrollingEnabled];
   v9 = v6 > 10.0 && isScrollingEnabled;
   clippingView = [(PKPaletteToolPickerView *)self clippingView];
-  v11 = clippingView;
+  v12 = clippingView;
   if (clippingView && *(clippingView + 521) != v9)
   {
     *(clippingView + 521) = v9;
@@ -2052,24 +2052,24 @@ void __36__PKPaletteToolPickerView__updateUI__block_invoke_3(uint64_t a1)
 
   scrollView2 = [(PKPaletteToolPickerView *)self scrollView];
   [scrollView2 _pk_maximumContentOffset];
-  v14 = v13;
-  v16 = v15;
+  v15 = v14;
+  v17 = v16;
 
   edgeLocation2 = [(PKPaletteToolPickerView *)self edgeLocation];
   if (edgeLocation2 == 8 || edgeLocation2 == 2)
   {
-    v14 = v16;
+    v15 = v17;
   }
 
   isScrollingEnabled2 = [(PKPaletteToolPickerView *)self isScrollingEnabled];
-  v20 = v6 < v14 + -10.0 && isScrollingEnabled2;
+  v21 = v6 < v15 + -10.0 && isScrollingEnabled2;
   clippingView2 = [(PKPaletteToolPickerView *)self clippingView];
-  if (clippingView2 && clippingView2[522] != v20)
+  if (clippingView2 && clippingView2[522] != v21)
   {
-    clippingView2[522] = v20;
-    v22 = clippingView2;
+    clippingView2[522] = v21;
+    v24 = clippingView2;
     [(PKPaletteToolPickerClippingView *)clippingView2 _updateUI];
-    clippingView2 = v22;
+    clippingView2 = v24;
   }
 }
 
@@ -2450,9 +2450,9 @@ uint64_t __63__PKPaletteToolPickerView_toggleSelectedToolAndEraserAnimated___blo
   if (clippingView && clippingView[523] != visibleCopy)
   {
     clippingView[523] = visibleCopy;
-    v5 = clippingView;
+    v6 = clippingView;
     [(PKPaletteToolPickerClippingView *)clippingView _updateUI];
-    clippingView = v5;
+    clippingView = v6;
   }
 }
 

@@ -7,14 +7,14 @@
 
 - (id)attributeDescriptions
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMBLocalSQLContextRowBlock blockRow](self, "blockRow")}];
   v5 = [v3 initWithName:@"Row" value:v4];
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMBLocalSQLContextRowBlock type](self, "type", v5)}];
   v8 = [v6 initWithName:@"Type" value:v7];
-  v16[1] = v8;
+  v15[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   optionsData = [(HMBLocalSQLContextRowBlock *)self optionsData];
   if (optionsData)
@@ -28,10 +28,8 @@
   }
 
   v12 = [v9 initWithName:@"Options Data" value:v11];
-  v16[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v15[2] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
 
   return v13;
 }

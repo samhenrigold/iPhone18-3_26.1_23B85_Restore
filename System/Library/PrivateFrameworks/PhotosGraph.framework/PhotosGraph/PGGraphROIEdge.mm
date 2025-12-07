@@ -4,6 +4,7 @@
 + (id)filterAboveConfidence:(double)confidence hasLegacyWeights:(BOOL)weights;
 - (BOOL)hasProperties:(id)properties;
 - (PGGraphROIEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties;
+- (PGGraphROIEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
 - (id)edgeDescription;
 - (id)initFromMomentNode:(id)node toROINode:(id)iNode confidence:(double)confidence;
 - (id)propertyDictionary;
@@ -24,13 +25,11 @@
 
 - (id)propertyDictionary
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"confidence";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"confidence";
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:self->_confidence];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -62,6 +61,30 @@
   return v9;
 }
 
+- (PGGraphROIEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  domainCopy = domain;
+  labelCopy = label;
+  nodeCopy = node;
+  targetNodeCopy = targetNode;
+  propertiesCopy = properties;
+  v18 = [propertiesCopy objectForKeyedSubscript:@"confidence"];
+
+  if (!v18)
+  {
+    v19 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:propertiesCopy];
+    *&v20 = weight;
+    v21 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
+    [v19 setObject:v21 forKeyedSubscript:@"confidence"];
+
+    propertiesCopy = v19;
+  }
+
+  v22 = [(PGGraphROIEdge *)self initWithLabel:labelCopy sourceNode:nodeCopy targetNode:targetNodeCopy domain:domainCopy properties:propertiesCopy];
+
+  return v22;
+}
+
 - (PGGraphROIEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties
 {
   targetNodeCopy = targetNode;
@@ -89,16 +112,16 @@
 
 + (id)filterAboveConfidence:(double)confidence hasLegacyWeights:(BOOL)weights
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if (weights)
   {
     filter = [self filter];
-    v13 = @"__weight";
+    v12 = @"__weight";
     v6 = objc_alloc(MEMORY[0x277D22B98]);
     v7 = [MEMORY[0x277CCABB0] numberWithDouble:confidence];
     v8 = [v6 initWithComparator:5 value:v7];
-    v14[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v13[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v10 = [filter filterBySettingProperties:v9];
   }
 
@@ -107,24 +130,20 @@
     v10 = [self filterAboveConfidence:confidence];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)filterAboveConfidence:(double)confidence
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   filter = [self filter];
-  v12 = @"confidence";
+  v11 = @"confidence";
   v5 = objc_alloc(MEMORY[0x277D22B98]);
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:confidence];
   v7 = [v5 initWithComparator:5 value:v6];
-  v13[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [filter filterBySettingProperties:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

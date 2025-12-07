@@ -12,26 +12,44 @@
 
 + (BOOL)isAvailable
 {
-  if (getBSAuditTokenClass() && getBSProcessHandleClass())
+  BSAuditTokenClass = getBSAuditTokenClass();
+  if (BSAuditTokenClass && (BSAuditTokenClass = getBSProcessHandleClass()) != 0)
   {
-    if (getSBSRemoteAlertConfigurationContextClass() && getSBSRemoteAlertDefinitionClass() && getSBSRemoteAlertHandleClass() && getSBSRemoteAlertPresentationTargetClass() && getSBSRemoteAlertActivationContextClass())
+    SBSRemoteAlertConfigurationContextClass = getSBSRemoteAlertConfigurationContextClass();
+    if (SBSRemoteAlertConfigurationContextClass)
     {
-      return 1;
+      SBSRemoteAlertConfigurationContextClass = getSBSRemoteAlertDefinitionClass();
+      if (SBSRemoteAlertConfigurationContextClass)
+      {
+        SBSRemoteAlertConfigurationContextClass = getSBSRemoteAlertHandleClass();
+        if (SBSRemoteAlertConfigurationContextClass)
+        {
+          SBSRemoteAlertConfigurationContextClass = getSBSRemoteAlertPresentationTargetClass();
+          if (SBSRemoteAlertConfigurationContextClass)
+          {
+            SBSRemoteAlertConfigurationContextClass = getSBSRemoteAlertActivationContextClass();
+            if (SBSRemoteAlertConfigurationContextClass)
+            {
+              return 1;
+            }
+          }
+        }
+      }
     }
 
-    v3 = TK_LOG_user_prompt();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v5 = TK_LOG_user_prompt(SBSRemoteAlertConfigurationContextClass);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      +[(TKTokenAccessUserPromptRemoteAlertSB *)v3];
+      +[(TKTokenAccessUserPromptRemoteAlertSB *)v5];
     }
   }
 
   else
   {
-    v3 = TK_LOG_user_prompt();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v5 = TK_LOG_user_prompt(BSAuditTokenClass);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      +[(TKTokenAccessUserPromptRemoteAlertSB *)v3];
+      +[(TKTokenAccessUserPromptRemoteAlertSB *)v5];
     }
   }
 
@@ -40,7 +58,7 @@
 
 - (int64_t)promptUserToEvaluateRequest:(id)request error:(id *)error
 {
-  v55[1] = *MEMORY[0x1E69E9840];
+  v54[1] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   self->_grantedAccess = 0;
   objc_storeStrong(&self->_accessRequest, request);
@@ -52,13 +70,13 @@
   anonymousListener = [MEMORY[0x1E696B0D8] anonymousListener];
   [anonymousListener setDelegate:self];
   [anonymousListener resume];
-  v43 = objc_alloc_init(getSBSRemoteAlertConfigurationContextClass());
+  v42 = objc_alloc_init(getSBSRemoteAlertConfigurationContextClass());
   endpoint = [anonymousListener endpoint];
   _endpoint = [endpoint _endpoint];
-  [v43 setXpcEndpoint:_endpoint];
+  [v42 setXpcEndpoint:_endpoint];
 
-  v39 = [objc_alloc(getSBSRemoteAlertDefinitionClass()) initWithServiceName:@"com.apple.ctkui" viewControllerClassName:@"TKUITokenAccessPromptVC"];
-  v10 = [getSBSRemoteAlertHandleClass() newHandleWithDefinition:v39 configurationContext:v43];
+  v38 = [objc_alloc(getSBSRemoteAlertDefinitionClass()) initWithServiceName:@"com.apple.ctkui" viewControllerClassName:@"TKUITokenAccessPromptVC"];
+  v10 = [getSBSRemoteAlertHandleClass() newHandleWithDefinition:v38 configurationContext:v42];
   remoteAlertHandle = self->_remoteAlertHandle;
   self->_remoteAlertHandle = v10;
 
@@ -68,49 +86,49 @@
   v14 = clientConnection;
   if (clientConnection)
   {
-    [clientConnection auditToken];
+    objc_msgSend_auditToken(clientConnection);
   }
 
   else
   {
     *location = 0u;
-    v46 = 0u;
+    v45 = 0u;
   }
 
-  v42 = [BSAuditTokenClass tokenFromAuditToken:location];
+  v41 = [BSAuditTokenClass tokenFromAuditToken:location];
 
-  v41 = [getBSProcessHandleClass() processHandleForAuditToken:v42];
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2050000000;
+  v40 = [getBSProcessHandleClass() processHandleForAuditToken:v41];
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2050000000;
   v15 = getSBSRemoteAlertPresentationTargetPredicateClass_softClass;
-  v51 = getSBSRemoteAlertPresentationTargetPredicateClass_softClass;
+  v50 = getSBSRemoteAlertPresentationTargetPredicateClass_softClass;
   if (!getSBSRemoteAlertPresentationTargetPredicateClass_softClass)
   {
     location[0] = MEMORY[0x1E69E9820];
     location[1] = 3221225472;
-    *&v46 = __getSBSRemoteAlertPresentationTargetPredicateClass_block_invoke;
-    *(&v46 + 1) = &unk_1E86B6FC0;
-    v47 = &v48;
+    *&v45 = __getSBSRemoteAlertPresentationTargetPredicateClass_block_invoke;
+    *(&v45 + 1) = &unk_1E86B6FC0;
+    v46 = &v47;
     SpringBoardServicesLibraryCore();
     Class = objc_getClass("SBSRemoteAlertPresentationTargetPredicate");
-    *(v47[1] + 24) = Class;
-    getSBSRemoteAlertPresentationTargetPredicateClass_softClass = *(v47[1] + 24);
-    v15 = v49[3];
+    *(v46[1] + 24) = Class;
+    getSBSRemoteAlertPresentationTargetPredicateClass_softClass = *(v46[1] + 24);
+    v15 = v48[3];
   }
 
   v17 = v15;
-  _Block_object_dispose(&v48, 8);
-  v18 = [v15 predicateForProcess:v41];
+  _Block_object_dispose(&v47, 8);
+  v18 = [v15 predicateForProcess:v40];
   v19 = [objc_alloc(getSBSRemoteAlertPresentationTargetClass()) initWithTargetPredicate:v18];
   [v19 setShouldDismissOnUILock:1];
   v20 = objc_alloc_init(getSBSRemoteAlertActivationContextClass());
   [v20 setPresentationTarget:v19];
   v21 = [[TKTokenAccessUserPromptInfo alloc] initWithTokenAccessRequest:requestCopy];
   v22 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v21 requiringSecureCoding:1 error:0];
-  v54 = @"kTKTokenAccessUserPromptInfo";
-  v55[0] = v22;
-  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:&v54 count:1];
+  v53 = @"kTKTokenAccessUserPromptInfo";
+  v54[0] = v22;
+  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:&v53 count:1];
   [v20 setUserInfo:v23];
 
   [(SBSRemoteAlertHandle *)self->_remoteAlertHandle activateWithContext:v20];
@@ -155,9 +173,9 @@
         }
 
         v34 = v33;
-        v52 = *MEMORY[0x1E696A278];
-        v53 = v34;
-        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+        v51 = *MEMORY[0x1E696A278];
+        v52 = v34;
+        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
         *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"CryptoTokenKit" code:-7 userInfo:v35];
       }
     }
@@ -169,7 +187,6 @@
 
   objc_destroyWeak(location);
 
-  v37 = *MEMORY[0x1E69E9840];
   return v36;
 }
 
@@ -294,7 +311,7 @@ __CFString *__74__TKTokenAccessUserPromptRemoteAlertSB_promptUserToEvaluateReque
   {
     self->_grantedAccess = access;
     v15 = [[TKTokenAccessUserPromptInfo alloc] initWithTokenAccessRequest:self->_accessRequest];
-    v16 = TK_LOG_user_prompt();
+    v16 = TK_LOG_user_prompt(v15);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       [TKTokenAccessUserPromptRemoteAlertSB registerTokenAccessRequestCorrelationID:v15 access:&self->_grantedAccess reply:v16];
@@ -343,7 +360,7 @@ __CFString *__74__TKTokenAccessUserPromptRemoteAlertSB_promptUserToEvaluateReque
 
 - (void)registerTokenAccessRequestCorrelationID:(void *)a1 access:(uint64_t *)a2 reply:(NSObject *)a3 .cold.2(void *a1, uint64_t *a2, NSObject *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v6 = [a1 clientDisplayName];
   v7 = [a1 providerDisplayName];
   v8 = v7;
@@ -354,20 +371,18 @@ __CFString *__74__TKTokenAccessUserPromptRemoteAlertSB_promptUserToEvaluateReque
     v9 = @"denied";
   }
 
-  v12 = 138412802;
-  v13 = v6;
-  v14 = 2112;
-  v15 = v7;
+  v11 = 138412802;
+  v12 = v6;
+  v13 = 2112;
+  v14 = v7;
   if (v10 == 1)
   {
     v9 = @"granted";
   }
 
-  v16 = 2112;
-  v17 = v9;
-  _os_log_debug_impl(&dword_1DF413000, a3, OS_LOG_TYPE_DEBUG, "Request to allow '%@' access to token provided by '%@' was '%@'", &v12, 0x20u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  v15 = 2112;
+  v16 = v9;
+  _os_log_debug_impl(&dword_1DF413000, a3, OS_LOG_TYPE_DEBUG, "Request to allow '%@' access to token provided by '%@' was '%@'", &v11, 0x20u);
 }
 
 @end

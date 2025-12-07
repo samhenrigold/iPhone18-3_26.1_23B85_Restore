@@ -5,6 +5,8 @@
 - (void)_runAction;
 - (void)_showCancelButtonIfNeeded;
 - (void)loadView;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 - (void)willPresentPageModel:(id)model appearance:(id)appearance;
 @end
@@ -24,12 +26,53 @@
   return v7;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v21 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = AMSUIWebErrorViewController;
+  [(AMSUIWebErrorViewController *)&v12 viewWillAppear:appear];
+  [(AMSUIWebErrorViewController *)self _applyAppearance];
+  mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
+  if (!mEMORY[0x1E698C968])
+  {
+    mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
+  }
+
+  oSLogObject = [mEMORY[0x1E698C968] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v6 = objc_opt_class();
+    context = self->_context;
+    v8 = v6;
+    logKey = [(AMSUIWebClientContext *)context logKey];
+    title = [(AMSUIErrorView *)self->_errorView title];
+    message = [(AMSUIErrorView *)self->_errorView message];
+    *buf = 138544130;
+    v14 = v6;
+    v15 = 2114;
+    v16 = logKey;
+    v17 = 2114;
+    v18 = title;
+    v19 = 2114;
+    v20 = message;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Error page displayed. Title: %{public}@, Message: %{public}@", buf, 0x2Au);
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = AMSUIWebErrorViewController;
+  [(AMSUIWebErrorViewController *)&v3 viewDidDisappear:disappear];
+}
+
 - (void)loadView
 {
-  v60[1] = *MEMORY[0x1E69E9840];
-  v58.receiver = self;
-  v58.super_class = AMSUIWebErrorViewController;
-  [(AMSUICommonViewController *)&v58 loadView];
+  v59[1] = *MEMORY[0x1E69E9840];
+  v57.receiver = self;
+  v57.super_class = AMSUIWebErrorViewController;
+  [(AMSUICommonViewController *)&v57 loadView];
   model = [(AMSUIWebErrorViewController *)self model];
   error = [model error];
   userInfo = [error userInfo];
@@ -69,11 +112,11 @@
     versionNumber = [context4 versionNumber];
     if (versionNumber)
     {
-      v59 = @"html";
+      v58 = @"html";
       context5 = [(AMSUIWebErrorViewController *)self context];
       versionNumber2 = [context5 versionNumber];
-      v60[0] = versionNumber2;
-      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:&v59 count:1];
+      v59[0] = versionNumber2;
+      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:&v58 count:1];
       [v12 setJsVersions:v26];
     }
 
@@ -165,26 +208,24 @@ LABEL_22:
 
   objc_initWeak(&location, self);
   errorView = self->_errorView;
-  v55[0] = MEMORY[0x1E69E9820];
-  v55[1] = 3221225472;
-  v55[2] = __39__AMSUIWebErrorViewController_loadView__block_invoke;
-  v55[3] = &unk_1E7F24968;
-  objc_copyWeak(&v56, &location);
-  [(AMSUIErrorView *)errorView setButtonAction:v55];
+  v54[0] = MEMORY[0x1E69E9820];
+  v54[1] = 3221225472;
+  v54[2] = __39__AMSUIWebErrorViewController_loadView__block_invoke;
+  v54[3] = &unk_1E7F24968;
+  objc_copyWeak(&v55, &location);
+  [(AMSUIErrorView *)errorView setButtonAction:v54];
   [(AMSUIWebErrorViewController *)self _enqueuePageEventIfNeeded];
   view = [(AMSUICommonViewController *)self view];
   errorView4 = [(AMSUIWebErrorViewController *)self errorView];
   [view addSubview:errorView4];
 
-  objc_destroyWeak(&v56);
+  objc_destroyWeak(&v55);
   objc_destroyWeak(&location);
-
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 void __39__AMSUIWebErrorViewController_loadView__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!v2)
@@ -198,15 +239,14 @@ void __39__AMSUIWebErrorViewController_loadView__block_invoke(uint64_t a1)
     v4 = objc_opt_class();
     v5 = [WeakRetained context];
     v6 = [v5 logKey];
-    v8 = 138543618;
-    v9 = v4;
-    v10 = 2114;
-    v11 = v6;
-    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Action button tapped", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v4;
+    v9 = 2114;
+    v10 = v6;
+    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Action button tapped", &v7, 0x16u);
   }
 
   [WeakRetained _runAction];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)viewWillLayoutSubviews
@@ -226,7 +266,7 @@ void __39__AMSUIWebErrorViewController_loadView__block_invoke(uint64_t a1)
 
 - (void)willPresentPageModel:(id)model appearance:(id)appearance
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   appearanceCopy = appearance;
   v8 = modelCopy;
@@ -262,17 +302,15 @@ void __39__AMSUIWebErrorViewController_loadView__block_invoke(uint64_t a1)
       v12 = objc_opt_class();
       context = [(AMSUIWebErrorViewController *)self context];
       logKey = [context logKey];
-      v16 = 138543874;
-      v17 = v12;
-      v18 = 2114;
-      v19 = logKey;
-      v20 = 2114;
-      v21 = v8;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Invalid error page model: %{public}@", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v12;
+      v17 = 2114;
+      v18 = logKey;
+      v19 = 2114;
+      v20 = v8;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Invalid error page model: %{public}@", &v15, 0x20u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_applyAppearance
@@ -314,7 +352,7 @@ void __39__AMSUIWebErrorViewController_loadView__block_invoke(uint64_t a1)
 
 - (void)_enqueuePageEventIfNeeded
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   context = [(AMSUIWebErrorViewController *)self context];
   metricsOverlay = [context metricsOverlay];
   v5 = [metricsOverlay objectForKeyedSubscript:@"engagementMetrics"];
@@ -330,21 +368,8 @@ void __39__AMSUIWebErrorViewController_loadView__block_invoke(uint64_t a1)
     v6 = 0;
   }
 
-  if (v6)
+  if (v6 || ((-[AMSUIWebErrorViewController context](self, "context"), v7 = objc_claimAutoreleasedReturnValue(), [v7 clientOptions], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "objectForKeyedSubscript:", @"engagementMetrics"), v9 = objc_claimAutoreleasedReturnValue(), v8, v7, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (v6 = 0) : (v6 = v9), v9, v6))
   {
-    goto LABEL_9;
-  }
-
-  context2 = [(AMSUIWebErrorViewController *)self context];
-  clientOptions = [context2 clientOptions];
-  v9 = [clientOptions objectForKeyedSubscript:@"engagementMetrics"];
-
-  objc_opt_class();
-  v6 = (objc_opt_isKindOfClass() & 1) != 0 ? v9 : 0;
-
-  if (v6)
-  {
-LABEL_9:
     mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
     if (!mEMORY[0x1E698C968])
     {
@@ -357,25 +382,23 @@ LABEL_9:
       v12 = objc_opt_class();
       v13 = AMSLogKey();
       *buf = 138543618;
-      v26 = v12;
-      v27 = 2114;
-      v28 = v13;
+      v25 = v12;
+      v26 = 2114;
+      v27 = v13;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Enqueueing engagement display event.", buf, 0x16u);
     }
 
     v14 = [(AMSUIWebErrorViewController *)self context:@"eventType"];
     v15 = [v14 URL];
-    v24[3] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:4];
+    v23[3] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:4];
 
     v17 = objc_alloc(MEMORY[0x1E698C8D8]);
-    context3 = [(AMSUIWebErrorViewController *)self context];
-    v19 = [context3 bag];
+    context2 = [(AMSUIWebErrorViewController *)self context];
+    v19 = [context2 bag];
     v20 = [v17 initWithBag:v19];
     v21 = [v20 enqueueData:v16];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_showCancelButtonIfNeeded

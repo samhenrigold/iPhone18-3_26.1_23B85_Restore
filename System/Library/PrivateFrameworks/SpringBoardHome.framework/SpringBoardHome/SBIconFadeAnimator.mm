@@ -13,9 +13,9 @@
 - (SBIconFadeAnimator)initWithAnimationContainer:(id)container crossfadeView:(id)view
 {
   viewCopy = view;
-  v16.receiver = self;
-  v16.super_class = SBIconFadeAnimator;
-  v8 = [(SBIconAnimator *)&v16 initWithAnimationContainer:container];
+  v17.receiver = self;
+  v17.super_class = SBIconFadeAnimator;
+  v8 = [(SBIconAnimator *)&v17 initWithAnimationContainer:container];
   v9 = v8;
   if (v8)
   {
@@ -38,10 +38,10 @@
 
       else if (viewCopy)
       {
-        v14 = SBLogCommon();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = SBLogCommon(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          [SBIconFadeAnimator initWithAnimationContainer:v14 crossfadeView:?];
+          [SBIconFadeAnimator initWithAnimationContainer:v15 crossfadeView:?];
         }
       }
     }

@@ -94,38 +94,38 @@ LABEL_10:
 
 - (uint64_t)removeAllSceneDataStores
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssertMain();
-  v11 = 0u;
   v12 = 0u;
-  v9 = 0u;
+  v13 = 0u;
   v10 = 0u;
+  v11 = 0u;
   _cachedSceneDataStores = [self _cachedSceneDataStores];
   objectEnumerator = [_cachedSceneDataStores objectEnumerator];
 
-  v4 = [objectEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v4)
+  v5 = [objectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v10;
+    v6 = v5;
+    v7 = *v11;
     do
     {
-      v7 = 0;
+      v8 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) _invalidate];
+        [*(*(&v10 + 1) + 8 * v8++) _invalidate];
       }
 
-      while (v5 != v7);
-      v5 = [objectEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
+      while (v6 != v8);
+      v6 = [objectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
 
   [self _setCachedSceneDataStores:0];

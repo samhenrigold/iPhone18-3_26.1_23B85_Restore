@@ -67,7 +67,7 @@
           v15 = v14;
           if (v14)
           {
-            [v14 ear_toString];
+            objc_msgSend_ear_toString(v14);
           }
 
           else
@@ -83,7 +83,7 @@
             operator delete(__p);
           }
 
-          std::__tree<quasar::language_detector::Locale>::__emplace_unique_key_args<quasar::language_detector::Locale,quasar::language_detector::Locale>(&v43, v44);
+          std::__tree<quasar::language_detector::Locale>::__emplace_unique_key_args<quasar::language_detector::Locale,quasar::language_detector::Locale>(&v43, v44, v44);
           if (SHIBYTE(v47) < 0)
           {
             operator delete(v46);
@@ -109,7 +109,7 @@
   v17 = currentDictationLanguage;
   if (currentDictationLanguage)
   {
-    [currentDictationLanguage ear_toString];
+    objc_msgSend_ear_toString(currentDictationLanguage);
     quasar::language_detector::Locale::Locale(&v55, v48);
     if (SBYTE7(v49) < 0)
     {
@@ -163,7 +163,7 @@
           v28 = v27;
           if (v27)
           {
-            [v27 ear_toString];
+            objc_msgSend_ear_toString(v27);
           }
 
           else
@@ -244,7 +244,7 @@
   v37 = previousMessageLanguage;
   if (previousMessageLanguage)
   {
-    [previousMessageLanguage ear_toString];
+    objc_msgSend_ear_toString(previousMessageLanguage);
     quasar::language_detector::Locale::Locale(&v55, v48);
     if (SBYTE7(v49) < 0)
     {
@@ -267,7 +267,7 @@
   v39 = globalLastKeyboardUsed;
   if (globalLastKeyboardUsed)
   {
-    [globalLastKeyboardUsed ear_toString];
+    objc_msgSend_ear_toString(globalLastKeyboardUsed);
     quasar::language_detector::Locale::Locale(&v55, v48);
     if (SBYTE7(v49) < 0)
     {
@@ -337,7 +337,7 @@
       do
       {
         v8 = MEMORY[0x1E696AEC0];
-        quasar::language_detector::Locale::getSiriLocaleStr(&v7[1].__words[1], &__p);
+        quasar::language_detector::Locale::getSiriLocaleStr(&__p, &v7[1].__words[1]);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           p_p = &__p;
@@ -409,7 +409,7 @@
   if (v48 == 1)
   {
     v16 = MEMORY[0x1E696AEC0];
-    quasar::language_detector::Locale::getSiriLocaleStr(&v46, &__p);
+    quasar::language_detector::Locale::getSiriLocaleStr(&__p, &v46);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v17 = &__p;
@@ -491,7 +491,7 @@
       }
 
       v27 = MEMORY[0x1E696AEC0];
-      quasar::language_detector::Locale::getSiriLocaleStr(&v46, &v49);
+      quasar::language_detector::Locale::getSiriLocaleStr(&v49, &v46);
       if ((v49.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         v28 = &v49;
@@ -569,7 +569,7 @@
   if (v48 == 1)
   {
     v34 = MEMORY[0x1E696AEC0];
-    quasar::language_detector::Locale::getSiriLocaleStr(&v46, &__p);
+    quasar::language_detector::Locale::getSiriLocaleStr(&__p, &v46);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v35 = &__p;
@@ -616,7 +616,7 @@
   if (v48 == 1)
   {
     v38 = MEMORY[0x1E696AEC0];
-    quasar::language_detector::Locale::getSiriLocaleStr(&v46, &__p);
+    quasar::language_detector::Locale::getSiriLocaleStr(&__p, &v46);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v39 = &__p;
@@ -686,7 +686,7 @@
     {
       v6 = [MEMORY[0x1E696AD98] numberWithDouble:v4[10]];
       v7 = MEMORY[0x1E696AEC0];
-      quasar::language_detector::Locale::getSiriLocaleStr((v4 + 4), &__p);
+      quasar::language_detector::Locale::getSiriLocaleStr(&__p, (v4 + 4));
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         p_p = &__p;

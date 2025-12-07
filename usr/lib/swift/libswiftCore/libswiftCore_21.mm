@@ -45,22 +45,22 @@ LABEL_15:
   *a4 = 0;
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
-  v11 = *(v5 + 12736);
-  v12 = *(v5 + 12740);
-  v13 = *(v5 + 12728);
+  v11 = *(v5 + 3184);
+  v12 = *(v5 + 3185);
+  v13 = v5[1591];
   if (v11 >= v12)
   {
-    v14 = *(v5 + 12744);
+    v14 = v5[1593];
     v15 = v14[1];
-    if (&v13[v12] == v15)
+    if ((v13 + v12) == v15)
     {
       v16 = v14[2];
-      if ((v15 + 1) <= v16)
+      if (v15 + 1 <= v16)
       {
         v14[1] = v15 + 1;
         LODWORD(v17) = 1;
 LABEL_34:
-        *(v5 + 12740) = v12 + v17;
+        *(v5 + 3185) = v12 + v17;
         goto LABEL_35;
       }
     }
@@ -83,7 +83,7 @@ LABEL_34:
     v18 = v17 + v12;
     if (v15)
     {
-      v19 = &v15[v17 + v12] > v16;
+      v19 = v15 + v17 + v12 > v16;
     }
 
     else
@@ -105,57 +105,57 @@ LABEL_34:
       this = malloc_type_malloc(v20 + 8, 0x2004093837F09uLL);
       v22 = this + v21;
       *this = v14[3];
-      v13 = (this + 1);
+      v13 = this + 1;
       v14[2] = v22;
       v14[3] = this;
     }
 
-    v14[1] = &v13[v18];
+    v14[1] = v13 + v18;
     if (v12)
     {
-      this = memcpy(v13, *(v5 + 12728), v12);
+      this = memcpy(v13, v5[1591], v12);
     }
 
-    *(v5 + 12728) = v13;
-    LODWORD(v12) = *(v5 + 12740);
-    v11 = *(v5 + 12736);
+    v5[1591] = v13;
+    LODWORD(v12) = *(v5 + 3185);
+    v11 = *(v5 + 3184);
     goto LABEL_34;
   }
 
 LABEL_35:
-  *(v5 + 12736) = v11 + 1;
-  v13[v11] = 95;
+  *(v5 + 3184) = v11 + 1;
+  *(v13 + v11) = 95;
   *a4 = 0;
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
   return this;
 }
 
-uint64_t anonymous namespace::Remangler::mangleTypeMangling@<X0>(uint64_t this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleTypeMangling@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
-  v6 = *(this + 12736);
-  v7 = *(this + 12740);
-  v8 = *(this + 12728);
+  v6 = *(this + 3184);
+  v7 = *(this + 3185);
+  v8 = this[1591];
   if (v6 >= v7)
   {
-    v9 = *(this + 12744);
-    v10 = v9[1];
+    v9 = this[1593];
+    v10 = *(v9 + 1);
     if (&v8[v7] == v10)
     {
-      v11 = v9[2];
+      v11 = *(v9 + 2);
       if ((v10 + 1) <= v11)
       {
-        v9[1] = v10 + 1;
+        *(v9 + 1) = v10 + 1;
         LODWORD(v12) = 1;
 LABEL_19:
-        *(this + 12740) = v7 + v12;
+        *(this + 3185) = v7 + v12;
         goto LABEL_20;
       }
     }
 
     else
     {
-      v11 = v9[2];
+      v11 = *(v9 + 2);
     }
 
     if ((2 * v7) <= 4)
@@ -179,16 +179,16 @@ LABEL_19:
       v14 = 1;
     }
 
-    v8 = v9[1];
+    v8 = *(v9 + 1);
     if (v14)
     {
-      v15 = 2 * v9[4];
+      v15 = 2 * *(v9 + 4);
       if (v15 <= v13 + 1)
       {
         v15 = v13 + 1;
       }
 
-      v9[4] = v15;
+      *(v9 + 4) = v15;
       v16 = v15 + 8;
       v17 = this;
       v18 = a4;
@@ -197,31 +197,31 @@ LABEL_19:
       v20 = v19;
       this = v17;
       v21 = v20 + v16;
-      *v20 = v9[3];
+      *v20 = *(v9 + 3);
       v8 = (v20 + 1);
-      v9[2] = v21;
-      v9[3] = v20;
+      *(v9 + 2) = v21;
+      *(v9 + 3) = v20;
     }
 
-    v9[1] = &v8[v13];
+    *(v9 + 1) = &v8[v13];
     if (v7)
     {
       v22 = this;
       v23 = v7;
       v24 = a4;
-      memcpy(v8, *(this + 12728), v23);
+      memcpy(v8, this[1591], v23);
       this = v22;
       a4 = v24;
     }
 
-    *(this + 12728) = v8;
-    LODWORD(v7) = *(this + 12740);
-    v6 = *(this + 12736);
+    this[1591] = v8;
+    LODWORD(v7) = *(this + 3185);
+    v6 = *(this + 3184);
     goto LABEL_19;
   }
 
 LABEL_20:
-  *(this + 12736) = v6 + 1;
+  *(this + 3184) = v6 + 1;
   v8[v6] = 116;
   v25 = *(a2 + 18);
   if (v25 != 1)
@@ -240,7 +240,7 @@ LABEL_20:
   v26 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleTypeMetadata@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleTypeMetadata@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "M", 1uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -260,7 +260,7 @@ void *anonymous namespace::Remangler::mangleTypeMetadata@<X0>(char **this@<X0>, 
   v10 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleTypeMetadataAccessFunction@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleTypeMetadataAccessFunction@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Ma", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -280,7 +280,7 @@ void *anonymous namespace::Remangler::mangleTypeMetadataAccessFunction@<X0>(char
   v10 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleTypeMetadataCompletionFunction@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleTypeMetadataCompletionFunction@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Mr", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -300,7 +300,7 @@ void *anonymous namespace::Remangler::mangleTypeMetadataCompletionFunction@<X0>(
   v10 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleTypeMetadataInstantiationCache@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleTypeMetadataInstantiationCache@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "MI", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -320,7 +320,7 @@ void *anonymous namespace::Remangler::mangleTypeMetadataInstantiationCache@<X0>(
   v10 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleTypeMetadataInstantiationFunction@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleTypeMetadataInstantiationFunction@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Mi", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -340,7 +340,7 @@ void *anonymous namespace::Remangler::mangleTypeMetadataInstantiationFunction@<X
   v10 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleTypeMetadataSingletonInitializationCache@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleTypeMetadataSingletonInitializationCache@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Ml", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -360,7 +360,7 @@ void *anonymous namespace::Remangler::mangleTypeMetadataSingletonInitializationC
   v10 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleTypeMetadataLazyCache@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleTypeMetadataLazyCache@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "ML", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -390,15 +390,15 @@ unsigned int *anonymous namespace::Remangler::mangleUncurriedFunctionType@<X0>(u
   {
     v11 = *(this + 1593);
     v12 = v11[1];
-    if (&v10[v9] == v12)
+    if ((v10 + v9) == v12)
     {
       v13 = v11[2];
-      if ((v12 + 1) <= v13)
+      if (v12 + 1 <= v13)
       {
         v11[1] = v12 + 1;
         LODWORD(v14) = 1;
 LABEL_19:
-        *(v6 + 12740) = v9 + v14;
+        v6[3185] = v9 + v14;
         goto LABEL_20;
       }
     }
@@ -421,7 +421,7 @@ LABEL_19:
     v15 = v14 + v9;
     if (v12)
     {
-      v16 = &v12[v14 + v9] > v13;
+      v16 = v12 + v14 + v9 > v13;
     }
 
     else
@@ -443,26 +443,26 @@ LABEL_19:
       this = malloc_type_malloc(v17 + 8, 0x2004093837F09uLL);
       v19 = this + v18;
       *this = v11[3];
-      v10 = (this + 2);
+      v10 = this + 2;
       v11[2] = v19;
       v11[3] = this;
     }
 
-    v11[1] = &v10[v15];
+    v11[1] = v10 + v15;
     if (v9)
     {
-      this = memcpy(v10, *(v6 + 12728), v9);
+      this = memcpy(v10, *(v6 + 1591), v9);
     }
 
-    *(v6 + 12728) = v10;
-    LODWORD(v9) = *(v6 + 12740);
-    v8 = *(v6 + 12736);
+    *(v6 + 1591) = v10;
+    LODWORD(v9) = v6[3185];
+    v8 = v6[3184];
     goto LABEL_19;
   }
 
 LABEL_20:
-  *(v6 + 12736) = v8 + 1;
-  v10[v8] = 102;
+  v6[3184] = v8 + 1;
+  *(v10 + v8) = 102;
   v20 = *(a2 + 18);
   v21 = a2;
   if ((v20 - 1) >= 2)
@@ -510,7 +510,7 @@ LABEL_34:
   return this;
 }
 
-void *anonymous namespace::Remangler::mangleWeak@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleWeak@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Xw", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -530,7 +530,7 @@ void *anonymous namespace::Remangler::mangleWeak@<X0>(char **this@<X0>, swift::D
   v10 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleUnowned@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleUnowned@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Xo", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -550,7 +550,7 @@ void *anonymous namespace::Remangler::mangleUnowned@<X0>(char **this@<X0>, swift
   v10 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleUnmanaged@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleUnmanaged@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Xu", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -570,63 +570,63 @@ void *anonymous namespace::Remangler::mangleUnmanaged@<X0>(char **this@<X0>, swi
   v10 = *a2;
 }
 
-void anonymous namespace::Remangler::mangleUnsafeAddressor(_anonymous_namespace_::Remangler *this@<X0>, swift::Demangle::__runtime::Node **a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+void anonymous namespace::Remangler::mangleUnsafeAddressor(_anonymous_namespace_::Remangler *this@<X0>, swift::Demangle::__runtime::Node ***a2@<X1>, int a3@<W2>, int a4@<W7>, uint64_t a5@<X8>)
 {
-  v6[0] = 0;
-  v8 = 0;
+  v7[0] = 0;
   v9 = 0;
+  v10 = 0;
   __p = 0;
-  v4 = *(a2 + 18);
-  if ((v4 - 1) < 2)
+  v5 = *(a2 + 18);
+  if ((v5 - 1) < 2)
   {
     goto LABEL_5;
   }
 
-  if (v4 == 5 && *(a2 + 2))
+  if (v5 == 5 && *(a2 + 2))
   {
     a2 = *a2;
 LABEL_5:
-    v5 = *a2;
+    v6 = *a2;
     goto LABEL_7;
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_7:
-  if (SHIBYTE(v9) < 0)
+  if (SHIBYTE(v10) < 0)
   {
     operator delete(__p);
   }
 }
 
-void anonymous namespace::Remangler::mangleUnsafeMutableAddressor(_anonymous_namespace_::Remangler *this@<X0>, swift::Demangle::__runtime::Node **a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+void anonymous namespace::Remangler::mangleUnsafeMutableAddressor(_anonymous_namespace_::Remangler *this@<X0>, swift::Demangle::__runtime::Node ***a2@<X1>, int a3@<W2>, int a4@<W7>, uint64_t a5@<X8>)
 {
-  v6[0] = 0;
-  v8 = 0;
+  v7[0] = 0;
   v9 = 0;
+  v10 = 0;
   __p = 0;
-  v4 = *(a2 + 18);
-  if ((v4 - 1) < 2)
+  v5 = *(a2 + 18);
+  if ((v5 - 1) < 2)
   {
     goto LABEL_5;
   }
 
-  if (v4 == 5 && *(a2 + 2))
+  if (v5 == 5 && *(a2 + 2))
   {
     a2 = *a2;
 LABEL_5:
-    v5 = *a2;
+    v6 = *a2;
     goto LABEL_7;
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_7:
-  if (SHIBYTE(v9) < 0)
+  if (SHIBYTE(v10) < 0)
   {
     operator delete(__p);
   }
 }
 
-unsigned int *anonymous namespace::Remangler::mangleValueWitness@<X0>(unsigned int *this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleValueWitness@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   v5 = a2;
   v6 = this;
@@ -646,29 +646,29 @@ unsigned int *anonymous namespace::Remangler::mangleValueWitness@<X0>(unsigned i
   }
 
   v10 = off_1E69EBDF8[v9];
-  v11 = this[3184];
-  v12 = this[3185];
-  v13 = *(this + 1591);
+  v11 = *(this + 3184);
+  v12 = *(this + 3185);
+  v13 = this[1591];
   if (v11 >= v12)
   {
-    v14 = *(this + 1593);
-    v15 = v14[1];
+    v14 = this[1593];
+    v15 = *(v14 + 1);
     if (&v13[v12] == v15)
     {
-      v16 = v14[2];
+      v16 = *(v14 + 2);
       if ((v15 + 1) <= v16)
       {
-        v14[1] = v15 + 1;
+        *(v14 + 1) = v15 + 1;
         LODWORD(v18) = 1;
 LABEL_20:
-        *(v6 + 12740) = v12 + v18;
+        *(v6 + 3185) = v12 + v18;
         goto LABEL_21;
       }
     }
 
     else
     {
-      v16 = v14[2];
+      v16 = *(v14 + 2);
     }
 
     if ((2 * v12) <= 4)
@@ -684,39 +684,39 @@ LABEL_20:
     v19 = v18 + v12;
     if (!v15 || &v15[v19] > v16)
     {
-      v20 = 2 * v14[4];
+      v20 = 2 * *(v14 + 4);
       if (v20 <= v19 + 1)
       {
         v20 = v19 + 1;
       }
 
-      v14[4] = v20;
+      *(v14 + 4) = v20;
       v21 = v20 + 8;
       v22 = malloc_type_malloc(v20 + 8, 0x2004093837F09uLL);
       v23 = v22 + v21;
-      *v22 = v14[3];
+      *v22 = *(v14 + 3);
       v15 = (v22 + 1);
-      v14[2] = v23;
-      v14[3] = v22;
+      *(v14 + 2) = v23;
+      *(v14 + 3) = v22;
     }
 
-    v14[1] = &v15[v19];
+    *(v14 + 1) = &v15[v19];
     if (v12)
     {
-      memcpy(v15, *(v6 + 12728), v12);
+      memcpy(v15, v6[1591], v12);
     }
 
-    *(v6 + 12728) = v15;
-    LODWORD(v12) = *(v6 + 12740);
+    v6[1591] = v15;
+    LODWORD(v12) = *(v6 + 3185);
     v13 = v15;
-    v11 = *(v6 + 12736);
+    v11 = *(v6 + 3184);
     goto LABEL_20;
   }
 
 LABEL_21:
-  *(v6 + 12736) = v11 + 1;
+  *(v6 + 3184) = v11 + 1;
   v13[v11] = 119;
-  this = swift::Demangle::__runtime::CharVector::append((v6 + 12728), v10, 2uLL, *(v6 + 12744));
+  this = swift::Demangle::__runtime::CharVector::append(v6 + 1591, v10, 2uLL, v6[1593]);
   v24 = *(v5 + 18);
   if (v24 != 2)
   {
@@ -738,7 +738,7 @@ LABEL_25:
   v25 = *(v5 + 1);
 }
 
-void *anonymous namespace::Remangler::mangleValueWitnessTable@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleValueWitnessTable@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "WV", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -758,13 +758,13 @@ void *anonymous namespace::Remangler::mangleValueWitnessTable@<X0>(char **this@<
   v10 = *a2;
 }
 
-void anonymous namespace::Remangler::mangleVariable(const void **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+void anonymous namespace::Remangler::mangleVariable(_anonymous_namespace_::Remangler *this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, int a4@<W7>, uint64_t a5@<X8>)
 {
-  v4[0] = 0;
-  v6 = 0;
+  v5[0] = 0;
   v7 = 0;
+  v8 = 0;
   __p = 0;
-  if (SHIBYTE(v7) < 0)
+  if (SHIBYTE(v8) < 0)
   {
     operator delete(__p);
   }
@@ -820,35 +820,35 @@ LABEL_15:
   return result;
 }
 
-void anonymous namespace::Remangler::mangleWillSet(_anonymous_namespace_::Remangler *this@<X0>, swift::Demangle::__runtime::Node **a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+void anonymous namespace::Remangler::mangleWillSet(_anonymous_namespace_::Remangler *this@<X0>, swift::Demangle::__runtime::Node ***a2@<X1>, int a3@<W2>, int a4@<W7>, uint64_t a5@<X8>)
 {
-  v6[0] = 0;
-  v8 = 0;
+  v7[0] = 0;
   v9 = 0;
+  v10 = 0;
   __p = 0;
-  v4 = *(a2 + 18);
-  if ((v4 - 1) < 2)
+  v5 = *(a2 + 18);
+  if ((v5 - 1) < 2)
   {
     goto LABEL_5;
   }
 
-  if (v4 == 5 && *(a2 + 2))
+  if (v5 == 5 && *(a2 + 2))
   {
     a2 = *a2;
 LABEL_5:
-    v5 = *a2;
+    v6 = *a2;
     goto LABEL_7;
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_7:
-  if (SHIBYTE(v9) < 0)
+  if (SHIBYTE(v10) < 0)
   {
     operator delete(__p);
   }
 }
 
-void *anonymous namespace::Remangler::mangleOutlinedBridgedMethod@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleOutlinedBridgedMethod@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   swift::Demangle::__runtime::CharVector::append(this + 1591, "Te", 2uLL, this[1593]);
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, *a2, *(a2 + 1), this[1593]);
@@ -969,7 +969,7 @@ LABEL_15:
   return result;
 }
 
-void *anonymous namespace::Remangler::mangleOutlinedRetain@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleOutlinedRetain@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Wr", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -989,7 +989,7 @@ void *anonymous namespace::Remangler::mangleOutlinedRetain@<X0>(char **this@<X0>
   v10 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleOutlinedRelease@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleOutlinedRelease@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Ws", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -1009,7 +1009,7 @@ void *anonymous namespace::Remangler::mangleOutlinedRelease@<X0>(char **this@<X0
   v10 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleOutlinedInitializeWithTake@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleOutlinedInitializeWithTake@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Wb", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -1029,7 +1029,7 @@ void *anonymous namespace::Remangler::mangleOutlinedInitializeWithTake@<X0>(char
   v10 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleOutlinedInitializeWithCopy@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleOutlinedInitializeWithCopy@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Wc", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -1049,7 +1049,7 @@ void *anonymous namespace::Remangler::mangleOutlinedInitializeWithCopy@<X0>(char
   v10 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleOutlinedAssignWithTake@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleOutlinedAssignWithTake@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Wd", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -1069,7 +1069,7 @@ void *anonymous namespace::Remangler::mangleOutlinedAssignWithTake@<X0>(char **t
   v10 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleOutlinedAssignWithCopy@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleOutlinedAssignWithCopy@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Wf", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -1089,7 +1089,7 @@ void *anonymous namespace::Remangler::mangleOutlinedAssignWithCopy@<X0>(char **t
   v10 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleOutlinedDestroy@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleOutlinedDestroy@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Wh", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -1130,7 +1130,7 @@ unsigned int *anonymous namespace::Remangler::mangleOutlinedVariable@<X0>(_anony
   v10 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleOutlinedReadOnlyObject@<X0>(_anonymous_namespace_::Remangler *this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleOutlinedReadOnlyObject@<X0>(_anonymous_namespace_::Remangler *this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   swift::Demangle::__runtime::CharVector::append(this + 1591, "Tv", 2uLL, *(this + 1593));
   result = swift::Demangle::__runtime::CharVector::append(this + 3182, *a2, *(this + 1593));
@@ -1141,10 +1141,10 @@ void *anonymous namespace::Remangler::mangleOutlinedReadOnlyObject@<X0>(_anonymo
   {
     v12 = *(this + 1593);
     v13 = v12[1];
-    if (&v11[v10] == v13)
+    if ((v11 + v10) == v13)
     {
       v14 = v12[2];
-      if ((v13 + 1) <= v14)
+      if (v13 + 1 <= v14)
       {
         v12[1] = v13 + 1;
         LODWORD(v15) = 1;
@@ -1172,7 +1172,7 @@ LABEL_19:
     v16 = v15 + v10;
     if (v13)
     {
-      v17 = &v13[v15 + v10] > v14;
+      v17 = v13 + v15 + v10 > v14;
     }
 
     else
@@ -1194,12 +1194,12 @@ LABEL_19:
       result = malloc_type_malloc(v18 + 8, 0x2004093837F09uLL);
       v20 = result + v19;
       *result = v12[3];
-      v11 = (result + 1);
+      v11 = result + 1;
       v12[2] = v20;
       v12[3] = result;
     }
 
-    v12[1] = &v11[v16];
+    v12[1] = v11 + v16;
     if (v10)
     {
       result = memcpy(v11, *(this + 1591), v10);
@@ -1213,7 +1213,7 @@ LABEL_19:
 
 LABEL_20:
   *(this + 3184) = v9 + 1;
-  v11[v9] = 114;
+  *(v11 + v9) = 114;
   v21 = *(a2 + 18);
   if (v21 != 1)
   {
@@ -1261,8 +1261,8 @@ unsigned int *anonymous namespace::Remangler::mangleLabelList@<X0>(unsigned int 
     if (v11 < v12)
     {
 LABEL_27:
-      *(v6 + 12736) = v11 + 1;
-      v13[v11] = 121;
+      v6[3184] = v11 + 1;
+      *(v13 + v11) = 121;
 LABEL_28:
       *a4 = 0;
       *(a4 + 8) = 0;
@@ -1272,15 +1272,15 @@ LABEL_28:
 
     v14 = *(this + 1593);
     v15 = v14[1];
-    if (&v13[v12] == v15)
+    if ((v13 + v12) == v15)
     {
       v16 = v14[2];
-      if ((v15 + 1) <= v16)
+      if (v15 + 1 <= v16)
       {
         v14[1] = v15 + 1;
         LODWORD(v17) = 1;
 LABEL_26:
-        *(v6 + 12740) = v12 + v17;
+        v6[3185] = v12 + v17;
         goto LABEL_27;
       }
     }
@@ -1301,7 +1301,7 @@ LABEL_26:
     }
 
     v18 = v17 + v12;
-    if (!v15 || &v15[v18] > v16)
+    if (!v15 || v15 + v18 > v16)
     {
       v19 = 2 * v14[4];
       if (v19 <= v18 + 1)
@@ -1314,21 +1314,21 @@ LABEL_26:
       this = malloc_type_malloc(v19 + 8, 0x2004093837F09uLL);
       v21 = this + v20;
       *this = v14[3];
-      v15 = (this + 2);
+      v15 = this + 2;
       v14[2] = v21;
       v14[3] = this;
     }
 
-    v14[1] = &v15[v18];
+    v14[1] = v15 + v18;
     if (v12)
     {
-      this = memcpy(v15, *(v6 + 12728), v12);
+      this = memcpy(v15, *(v6 + 1591), v12);
     }
 
-    *(v6 + 12728) = v15;
-    LODWORD(v12) = *(v6 + 12740);
+    *(v6 + 1591) = v15;
+    LODWORD(v12) = v6[3185];
     v13 = v15;
-    v11 = *(v6 + 12736);
+    v11 = v6[3184];
     goto LABEL_26;
   }
 
@@ -1348,7 +1348,7 @@ LABEL_11:
   }
 }
 
-_anonymous_namespace_::Remangler *anonymous namespace::Remangler::mangleCanonicalSpecializedGenericMetaclass@<X0>(_anonymous_namespace_::Remangler *this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleCanonicalSpecializedGenericMetaclass@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   v5 = *(a2 + 18);
   if (v5 != 1)
@@ -1369,7 +1369,7 @@ _anonymous_namespace_::Remangler *anonymous namespace::Remangler::mangleCanonica
     return this;
   }
 
-  this = swift::Demangle::__runtime::CharVector::append(v6 + 1591, "MM", 2uLL, *(v6 + 1593));
+  this = swift::Demangle::__runtime::CharVector::append(v6 + 1591, "MM", 2uLL, v6[1593]);
   v7 = 0;
   a2 = 0;
   v8 = 0;
@@ -1380,31 +1380,159 @@ LABEL_8:
   return this;
 }
 
-uint64_t anonymous namespace::Remangler::mangleNoDerivative@<X0>(uint64_t this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleCanonicalSpecializedGenericTypeMetadataAccessFunction@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
-  v6 = *(this + 12736);
-  v7 = *(this + 12740);
-  v8 = *(this + 12728);
+  v5 = *(a2 + 18);
+  if (v5 != 1)
+  {
+    if (v5 != 5 || *(a2 + 2) != 1)
+    {
+      v8 = 114;
+      v7 = 10;
+      goto LABEL_8;
+    }
+
+    a2 = *a2;
+  }
+
+  v6 = this;
+  if (*a4)
+  {
+    return this;
+  }
+
+  this = swift::Demangle::__runtime::CharVector::append(v6 + 1591, "Mb", 2uLL, v6[1593]);
+  v7 = 0;
+  a2 = 0;
+  v8 = 0;
+LABEL_8:
+  *a4 = v7;
+  *(a4 + 8) = a2;
+  *(a4 + 16) = v8;
+  return this;
+}
+
+char **anonymous namespace::Remangler::mangleNoncanonicalSpecializedGenericTypeMetadata@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+{
+  v5 = *(a2 + 18);
+  if (v5 != 1)
+  {
+    if (v5 != 5 || *(a2 + 2) != 1)
+    {
+      v8 = 114;
+      v7 = 10;
+      goto LABEL_8;
+    }
+
+    a2 = *a2;
+  }
+
+  v6 = this;
+  if (*a4)
+  {
+    return this;
+  }
+
+  this = swift::Demangle::__runtime::CharVector::append(v6 + 1591, "MN", 2uLL, v6[1593]);
+  v7 = 0;
+  a2 = 0;
+  v8 = 0;
+LABEL_8:
+  *a4 = v7;
+  *(a4 + 8) = a2;
+  *(a4 + 16) = v8;
+  return this;
+}
+
+char **anonymous namespace::Remangler::mangleNoncanonicalSpecializedGenericTypeMetadataCache@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+{
+  v5 = *(a2 + 18);
+  if (v5 != 1)
+  {
+    if (v5 != 5 || *(a2 + 2) != 1)
+    {
+      v8 = 114;
+      v7 = 10;
+      goto LABEL_8;
+    }
+
+    a2 = *a2;
+  }
+
+  v6 = this;
+  if (*a4)
+  {
+    return this;
+  }
+
+  this = swift::Demangle::__runtime::CharVector::append(v6 + 1591, "MJ", 2uLL, v6[1593]);
+  v7 = 0;
+  a2 = 0;
+  v8 = 0;
+LABEL_8:
+  *a4 = v7;
+  *(a4 + 8) = a2;
+  *(a4 + 16) = v8;
+  return this;
+}
+
+char **anonymous namespace::Remangler::mangleCanonicalPrespecializedGenericTypeCachingOnceToken@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+{
+  v5 = *(a2 + 18);
+  if (v5 != 1)
+  {
+    if (v5 != 5 || *(a2 + 2) != 1)
+    {
+      v8 = 114;
+      v7 = 10;
+      goto LABEL_8;
+    }
+
+    a2 = *a2;
+  }
+
+  v6 = this;
+  if (*a4)
+  {
+    return this;
+  }
+
+  this = swift::Demangle::__runtime::CharVector::append(v6 + 1591, "Mz", 2uLL, v6[1593]);
+  v7 = 0;
+  a2 = 0;
+  v8 = 0;
+LABEL_8:
+  *a4 = v7;
+  *(a4 + 8) = a2;
+  *(a4 + 16) = v8;
+  return this;
+}
+
+char **anonymous namespace::Remangler::mangleNoDerivative@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+{
+  v6 = *(this + 3184);
+  v7 = *(this + 3185);
+  v8 = this[1591];
   if (v6 >= v7)
   {
-    v9 = *(this + 12744);
-    v10 = v9[1];
+    v9 = this[1593];
+    v10 = *(v9 + 1);
     if (&v8[v7] == v10)
     {
-      v11 = v9[2];
+      v11 = *(v9 + 2);
       if ((v10 + 1) <= v11)
       {
-        v9[1] = v10 + 1;
+        *(v9 + 1) = v10 + 1;
         LODWORD(v12) = 1;
 LABEL_19:
-        *(this + 12740) = v7 + v12;
+        *(this + 3185) = v7 + v12;
         goto LABEL_20;
       }
     }
 
     else
     {
-      v11 = v9[2];
+      v11 = *(v9 + 2);
     }
 
     if ((2 * v7) <= 4)
@@ -1428,16 +1556,16 @@ LABEL_19:
       v14 = 1;
     }
 
-    v8 = v9[1];
+    v8 = *(v9 + 1);
     if (v14)
     {
-      v15 = 2 * v9[4];
+      v15 = 2 * *(v9 + 4);
       if (v15 <= v13 + 1)
       {
         v15 = v13 + 1;
       }
 
-      v9[4] = v15;
+      *(v9 + 4) = v15;
       v16 = v15 + 8;
       v17 = this;
       v18 = a4;
@@ -1446,31 +1574,31 @@ LABEL_19:
       v20 = v19;
       this = v17;
       v21 = v20 + v16;
-      *v20 = v9[3];
+      *v20 = *(v9 + 3);
       v8 = (v20 + 1);
-      v9[2] = v21;
-      v9[3] = v20;
+      *(v9 + 2) = v21;
+      *(v9 + 3) = v20;
     }
 
-    v9[1] = &v8[v13];
+    *(v9 + 1) = &v8[v13];
     if (v7)
     {
       v22 = this;
       v23 = v7;
       v24 = a4;
-      memcpy(v8, *(this + 12728), v23);
+      memcpy(v8, this[1591], v23);
       this = v22;
       a4 = v24;
     }
 
-    *(this + 12728) = v8;
-    LODWORD(v7) = *(this + 12740);
-    v6 = *(this + 12736);
+    this[1591] = v8;
+    LODWORD(v7) = *(this + 3185);
+    v6 = *(this + 3184);
     goto LABEL_19;
   }
 
 LABEL_20:
-  *(this + 12736) = v6 + 1;
+  *(this + 3184) = v6 + 1;
   v8[v6] = 107;
   v25 = *(a2 + 18);
   if (v25 != 1)
@@ -1489,7 +1617,7 @@ LABEL_20:
   v26 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleCompileTimeLiteral@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleCompileTimeLiteral@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Yt", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -1519,7 +1647,7 @@ unsigned int *anonymous namespace::Remangler::mangleDroppedArgument@<X0>(_anonym
   return result;
 }
 
-void *anonymous namespace::Remangler::mangleOutlinedEnumTagStore@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleOutlinedEnumTagStore@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Wi", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -1539,7 +1667,7 @@ void *anonymous namespace::Remangler::mangleOutlinedEnumTagStore@<X0>(char **thi
   v10 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleOutlinedEnumProjectDataForLoad@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleOutlinedEnumProjectDataForLoad@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Wj", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -1559,7 +1687,7 @@ void *anonymous namespace::Remangler::mangleOutlinedEnumProjectDataForLoad@<X0>(
   v10 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleOutlinedEnumGetTag@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleOutlinedEnumGetTag@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Wg", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -1579,7 +1707,7 @@ void *anonymous namespace::Remangler::mangleOutlinedEnumGetTag@<X0>(char **this@
   v10 = *a2;
 }
 
-char *anonymous namespace::Remangler::mangleDependentGenericInverseConformanceRequirement@<X0>(char *this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleDependentGenericInverseConformanceRequirement@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
 {
   v4 = a2;
   v6 = *(a2 + 18);
@@ -1661,7 +1789,7 @@ LABEL_24:
 LABEL_25:
 }
 
-void *anonymous namespace::Remangler::mangleConstValue@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleConstValue@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Yg", 2uLL, this[1593]);
   v9 = *(a2 + 18);
@@ -1681,152 +1809,152 @@ void *anonymous namespace::Remangler::mangleConstValue@<X0>(char **this@<X0>, sw
   v10 = *a2;
 }
 
-void anonymous namespace::Remangler::mangleTypedEntity(uint64_t a1@<X0>, uint64_t a2@<X1>, const void *a3@<X2>, size_t a4@<X3>, char *a5@<X4>, int a6@<W5>, uint64_t a7@<X8>)
+void anonymous namespace::Remangler::mangleTypedEntity(uint64_t result@<X0>, uint64_t **a2@<X1>, const void *a3@<X2>, size_t a4@<X3>, uint64_t a5@<X8>, char *a6@<X4>, int a7@<W5>, int a8@<W7>)
 {
-  v7 = a6;
-  v8 = a4;
-  v9 = a3;
-  v10 = a2;
-  v13 = *(a2 + 18);
-  if (v13 != 2 && (v13 != 5 || (*(a2 + 8) & 0xFFFFFFFE) != 2))
+  v8 = a7;
+  v9 = a4;
+  v10 = a3;
+  v11 = a2;
+  v14 = *(a2 + 18);
+  if (v14 != 2 && (v14 != 5 || (a2[1] & 0xFFFFFFFE) != 2))
   {
-    v20 = 1422;
-    v21 = 1;
+    v21 = 1422;
+    v22 = 1;
 LABEL_8:
-    *a7 = v21;
-    *(a7 + 8) = v10;
-    *(a7 + 16) = v20;
+    *a5 = v22;
+    *(a5 + 8) = v11;
+    *(a5 + 16) = v21;
     return;
   }
 
-  v14 = *(a1 + 12736);
-  v15 = *(a1 + 12740);
-  v16 = *(a1 + 12728);
-  if (v14 >= v15)
+  v15 = *(result + 12736);
+  v16 = *(result + 12740);
+  v17 = *(result + 12728);
+  if (v15 >= v16)
   {
-    v17 = *(a1 + 12744);
-    v18 = v17[1];
-    if (&v16[v15] == v18)
+    v18 = *(result + 12744);
+    v19 = v18[1];
+    if (&v17[v16] == v19)
     {
-      v19 = v17[2];
-      if ((v18 + 1) <= v19)
+      v20 = v18[2];
+      if ((v19 + 1) <= v20)
       {
-        v17[1] = v18 + 1;
-        v34 = 1;
+        v18[1] = v19 + 1;
+        v35 = 1;
 LABEL_24:
-        *(a1 + 12740) = v15 + v34;
+        *(result + 12740) = v16 + v35;
         goto LABEL_25;
       }
     }
 
     else
     {
-      v19 = v17[2];
+      v20 = v18[2];
     }
 
-    LODWORD(v22) = 2 * v15;
-    if ((2 * v15) <= 4)
+    LODWORD(v23) = 2 * v16;
+    if ((2 * v16) <= 4)
     {
-      v22 = 4;
-    }
-
-    else
-    {
-      v22 = v22;
-    }
-
-    v38 = v22;
-    v23 = v22 + v15;
-    v24 = &v18[v22 + v15];
-    if (v18)
-    {
-      v25 = v24 > v19;
+      v23 = 4;
     }
 
     else
     {
-      v25 = 1;
+      v23 = v23;
     }
 
-    v16 = v17[1];
-    if (v25)
+    v39 = v23;
+    v24 = v23 + v16;
+    v25 = &v19[v23 + v16];
+    if (v19)
     {
-      v26 = 2 * v17[4];
-      if (v26 <= v23 + 1)
+      v26 = v25 > v20;
+    }
+
+    else
+    {
+      v26 = 1;
+    }
+
+    v17 = v18[1];
+    if (v26)
+    {
+      v27 = 2 * v18[4];
+      if (v27 <= v24 + 1)
       {
-        v26 = v23 + 1;
+        v27 = v24 + 1;
       }
 
-      v17[4] = v26;
-      v27 = v26 + 8;
-      v30 = a5;
-      v31 = malloc_type_malloc(v26 + 8, 0x2004093837F09uLL);
-      a5 = v30;
-      v8 = a4;
-      v7 = a6;
-      v9 = a3;
-      v32 = v31 + v27;
-      *v31 = v17[3];
-      v16 = (v31 + 1);
-      v17[2] = v32;
-      v17[3] = v31;
+      v18[4] = v27;
+      v28 = v27 + 8;
+      v31 = a6;
+      v32 = malloc_type_malloc(v27 + 8, 0x2004093837F09uLL);
+      a6 = v31;
+      v9 = a4;
+      v8 = a7;
+      v10 = a3;
+      v33 = v32 + v28;
+      *v32 = v18[3];
+      v17 = (v32 + 1);
+      v18[2] = v33;
+      v18[3] = v32;
     }
 
-    v17[1] = &v16[v23];
-    if (v15)
+    v18[1] = &v17[v24];
+    if (v16)
     {
-      v33 = a5;
-      memcpy(v16, *(a1 + 12728), v15);
-      a5 = v33;
+      v34 = a6;
+      memcpy(v17, *(result + 12728), v16);
+      a6 = v34;
     }
 
-    *(a1 + 12728) = v16;
-    LODWORD(v15) = *(a1 + 12740);
-    v14 = *(a1 + 12736);
-    v34 = v38;
+    *(result + 12728) = v17;
+    LODWORD(v16) = *(result + 12740);
+    v15 = *(result + 12736);
+    v35 = v39;
     goto LABEL_24;
   }
 
 LABEL_25:
-  *(a1 + 12736) = v14 + 1;
-  v16[v14] = 70;
-  v35 = v10;
-  if (*(v10 + 18) - 1 >= 2)
+  *(result + 12736) = v15 + 1;
+  v17[v15] = 70;
+  v36 = v11;
+  if (*(v11 + 18) - 1 >= 2)
   {
-    v35 = *v10;
+    v36 = *v11;
   }
 
-  if (!*a7)
+  if (!*a5)
   {
-    swift::Demangle::__runtime::CharVector::append((a1 + 12728), v9, v8, *(a1 + 12744));
-    if (*(v10 + 18) - 1 > 1)
+    swift::Demangle::__runtime::CharVector::append((result + 12728), v10, v9, *(result + 12744));
+    if (*(v11 + 18) - 1 > 1)
     {
-      v10 = *v10;
+      v11 = *v11;
     }
 
-    v36 = *(*(v10 + 8) + 16) == 303 ? applyParamLabels(*(v10 + 8), *(v10 + 16), *a1) : *(v10 + 8);
-    v20 = *a7;
-    if (!*a7)
+    v37 = *(v11[1] + 8) == 303 ? applyParamLabels(v11[1], v11[2], *result) : v11[1];
+    v21 = *a5;
+    if (!*a5)
     {
-      v21 = 0;
-      v10 = 0;
+      v22 = 0;
+      v11 = 0;
       goto LABEL_8;
     }
   }
 }
 
-void anonymous namespace::Remangler::mangleEntityContext(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+void anonymous namespace::Remangler::mangleEntityContext(uint64_t result@<X0>, uint64_t a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v6 = *a3;
+  v7 = *a3;
   *a3 = 1;
-  v7 = *(a2 + 16);
-  if (v7 > 0x12 || ((1 << v7) & 0x6E000) == 0)
+  v8 = *(a2 + 16);
+  if (v8 > 0x12 || ((1 << v8) & 0x6E000) == 0)
   {
     switch(*(a2 + 16))
     {
       case 0:
-      case 0x1E:
-        break;
+        v16 = "C";
+        goto LABEL_43;
       case 1:
         break;
       case 2:
@@ -2151,65 +2279,69 @@ void anonymous namespace::Remangler::mangleEntityContext(uint64_t a1@<X0>, uint6
       case 0x173:
       case 0x174:
       case 0x175:
-        *a5 = 24;
-        *(a5 + 8) = a2;
-        v10 = 1483;
+        *a6 = 24;
+        *(a6 + 8) = a2;
+        v11 = 1483;
         goto LABEL_10;
       case 0x19:
       case 0x3F:
       case 0xB1:
       case 0xE6:
       case 0xF5:
-        v9 = a4 + 2;
+        v10 = a4 + 2;
         goto LABEL_6;
+      case 0x1E:
+        v16 = "c";
+LABEL_43:
+        break;
       case 0x20:
-        v13 = "D";
-        goto LABEL_58;
+        v14 = "D";
+        goto LABEL_60;
       case 0x22:
         break;
       case 0x34:
-        v13 = "d";
-        goto LABEL_58;
+        v14 = "d";
+        goto LABEL_60;
       case 0x35:
         break;
       case 0x48:
-        v17 = "U";
-        goto LABEL_53;
+        v19 = "U";
+        goto LABEL_55;
       case 0x49:
         break;
       case 0x4E:
-        v11 = a4 + 2;
-        v12 = 70;
-        goto LABEL_43;
+        v12 = a4 + 2;
+        v13 = 70;
+        goto LABEL_45;
       case 0x64:
         break;
       case 0x66:
         break;
       case 0x69:
-        v13 = "e";
-        goto LABEL_58;
+        v14 = "e";
+        goto LABEL_60;
       case 0x6A:
-        v13 = "E";
-        goto LABEL_58;
+        v14 = "E";
+        goto LABEL_60;
       case 0x7A:
-        v17 = "u";
-LABEL_53:
-        v11 = a4 + 2;
-        v12 = 70;
-        v18 = v17;
-        v19 = 1;
-        goto LABEL_54;
+        v19 = "u";
+LABEL_55:
+        v12 = a4 + 2;
+        v13 = 70;
+        v20 = v19;
+        v21 = 1;
+        goto LABEL_56;
       case 0x82:
-        v13 = "i";
-        goto LABEL_38;
+        v14 = "i";
+        goto LABEL_39;
       case 0x83:
         break;
       case 0x85:
-        v13 = "Z";
-LABEL_58:
-        v15 = a4 + 2;
-        v16 = 70;
-        goto LABEL_59;
+        v14 = "Z";
+LABEL_60:
+        v17 = a4 + 2;
+        v18 = 70;
+        goto LABEL_61;
       case 0x96:
         break;
       case 0xA1:
@@ -2231,21 +2363,21 @@ LABEL_58:
       case 0xB3:
         break;
       case 0xBC:
-        v13 = "P";
-        goto LABEL_38;
+        v14 = "P";
+        goto LABEL_39;
       case 0xBD:
-        v13 = "W";
-LABEL_38:
-        v15 = a4 + 2;
-        v16 = 73;
-LABEL_59:
+        v14 = "W";
+LABEL_39:
+        v17 = a4 + 2;
+        v18 = 73;
+LABEL_61:
         break;
       case 0xBE:
         break;
       case 0xBF:
-        *a5 = 7;
-        *(a5 + 8) = a2;
-        v10 = 2892;
+        *a6 = 7;
+        *(a6 + 8) = a2;
+        v11 = 2892;
         goto LABEL_10;
       case 0xD6:
         break;
@@ -2258,55 +2390,55 @@ LABEL_59:
       case 0xE7:
         break;
       case 0xF4:
-        *a5 = 7;
-        *(a5 + 8) = a2;
-        v10 = 2886;
+        *a6 = 7;
+        *(a6 + 8) = a2;
+        v11 = 2886;
         goto LABEL_10;
       case 0x106:
         break;
       case 0x107:
         break;
       case 0x10A:
-        v11 = a4 + 2;
-        v12 = 118;
-LABEL_43:
-        v18 = "";
-        v19 = 0;
-LABEL_54:
+        v12 = a4 + 2;
+        v13 = 118;
+LABEL_45:
+        v20 = "";
+        v21 = 0;
+LABEL_56:
         break;
       case 0x10D:
         break;
       case 0x143:
-        *a5 = 7;
-        *(a5 + 8) = a2;
-        v10 = 2941;
+        *a6 = 7;
+        *(a6 + 8) = a2;
+        v11 = 2941;
         goto LABEL_10;
       case 0x14E:
-        swift::Demangle::__runtime::CharVector::append((a1 + 12728), "<autodiff-function>", 0x13uLL, *(a1 + 12744));
-        *a5 = 0;
-        *(a5 + 8) = 0;
-        *(a5 + 16) = 0;
+        swift::Demangle::__runtime::CharVector::append((result + 12728), "<autodiff-function>", 0x13uLL, *(result + 12744));
+        *a6 = 0;
+        *(a6 + 8) = 0;
+        *(a6 + 16) = 0;
         break;
       default:
-        *a5 = 4;
-        *(a5 + 8) = a2;
-        v10 = 1492;
+        *a6 = 4;
+        *(a6 + 8) = a2;
+        v11 = 1492;
 LABEL_10:
-        *(a5 + 16) = v10;
+        *(a6 + 16) = v11;
         break;
     }
   }
 
   else
   {
-    v9 = a4 + 1;
+    v10 = a4 + 1;
 LABEL_6:
   }
 
-  *a3 = v6;
+  *a3 = v7;
 }
 
-void *anonymous namespace::Remangler::mangleEntityType@<X0>(void *this@<X0>, swift::Demangle::__runtime::Node **a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleEntityType@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node **a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
 {
   if (*(a2 + 8) != 243)
   {
@@ -2354,29 +2486,29 @@ LABEL_7:
     v11 = 102;
   }
 
-  v12 = *(v6 + 12736);
-  v13 = *(v6 + 12740);
-  v14 = *(v6 + 12728);
+  v12 = *(v6 + 3184);
+  v13 = *(v6 + 3185);
+  v14 = v6[1591];
   if (v12 >= v13)
   {
-    v15 = *(v6 + 12744);
-    v16 = v15[1];
-    if (&v14[v13] == v16)
+    v15 = v6[1593];
+    v16 = *(v15 + 1);
+    if ((v14 + v13) == v16)
     {
-      v17 = v15[2];
-      if ((v16 + 1) <= v17)
+      v17 = *(v15 + 2);
+      if (v16 + 1 <= v17)
       {
-        v15[1] = v16 + 1;
+        *(v15 + 1) = v16 + 1;
         LODWORD(v18) = 1;
 LABEL_31:
-        *(v6 + 12740) = v13 + v18;
+        *(v6 + 3185) = v13 + v18;
         goto LABEL_32;
       }
     }
 
     else
     {
-      v17 = v15[2];
+      v17 = *(v15 + 2);
     }
 
     if ((2 * v13) <= 4)
@@ -2390,40 +2522,40 @@ LABEL_31:
     }
 
     v19 = v18 + v13;
-    if (!v16 || &v16[v19] > v17)
+    if (!v16 || v16 + v19 > v17)
     {
-      v20 = 2 * v15[4];
+      v20 = 2 * *(v15 + 4);
       if (v20 <= v19 + 1)
       {
         v20 = v19 + 1;
       }
 
-      v15[4] = v20;
+      *(v15 + 4) = v20;
       v21 = v20 + 8;
       this = malloc_type_malloc(v20 + 8, 0x2004093837F09uLL);
       v22 = this + v21;
-      *this = v15[3];
-      v16 = (this + 1);
-      v15[2] = v22;
-      v15[3] = this;
+      *this = *(v15 + 3);
+      v16 = this + 1;
+      *(v15 + 2) = v22;
+      *(v15 + 3) = this;
     }
 
-    v15[1] = &v16[v19];
+    *(v15 + 1) = v16 + v19;
     if (v13)
     {
-      this = memcpy(v16, *(v6 + 12728), v13);
+      this = memcpy(v16, v6[1591], v13);
     }
 
-    *(v6 + 12728) = v16;
-    LODWORD(v13) = *(v6 + 12740);
+    v6[1591] = v16;
+    LODWORD(v13) = *(v6 + 3185);
     v14 = v16;
-    v12 = *(v6 + 12736);
+    v12 = *(v6 + 3184);
     goto LABEL_31;
   }
 
 LABEL_32:
-  *(v6 + 12736) = v12 + 1;
-  v14[v12] = v11;
+  *(v6 + 3184) = v12 + 1;
+  *(v14 + v12) = v11;
   v23 = *(v8 + 18);
   if (v23 != 2)
   {
@@ -2458,7 +2590,7 @@ LABEL_32:
         v8 = *v8;
       }
 
-      v26 = *(v8 + v23 - 1);
+      v26 = v8[v23 - 1];
       if (*(v26 + 8) != 218)
       {
         *a4 = 1;
@@ -2492,7 +2624,7 @@ LABEL_32:
   }
 }
 
-unsigned int *applyParamLabels(swift::Demangle::__runtime::Node *a1, swift::Demangle::__runtime::Node *a2, swift::Demangle::__runtime::NodeFactory *a3)
+swift::Demangle::__runtime::Node *applyParamLabels(swift::Demangle::__runtime::Node *a1, swift::Demangle::__runtime::Node *a2, swift::Demangle::__runtime::NodeFactory *a3)
 {
   v4 = a2;
   v6 = *(a1 + 18);
@@ -2604,7 +2736,7 @@ LABEL_43:
                         goto LABEL_48;
                       }
 
-                      if (v36 == 5 && v28[2])
+                      if (v36 == 5 && *(v28 + 2))
                       {
                         v28 = *v28;
 LABEL_48:
@@ -2827,7 +2959,7 @@ LABEL_18:
   return v4;
 }
 
-void anonymous namespace::Remangler::mangleAnyNominalType(uint64_t a1@<X0>, swift::Demangle::__runtime *a2@<X1>, uint64_t a3@<X2>, unsigned int a4@<W3>, uint64_t a5@<X8>)
+void anonymous namespace::Remangler::mangleAnyNominalType(unsigned int *result@<X0>, swift::Demangle::__runtime *a2@<X1>, uint64_t a3@<X2>, unsigned int a4@<W3>, uint64_t a5@<X8>)
 {
   v5 = a2;
   if (a4 >= 0x401)
@@ -2842,7 +2974,7 @@ LABEL_3:
 
   if (!swift::Demangle::__runtime::isSpecialized(a2, a2))
   {
-    v17 = *(v5 + 16);
+    v17 = *(v5 + 8);
     if (v17 <= 0xE5)
     {
       switch(v17)
@@ -2850,14 +2982,14 @@ LABEL_3:
         case 0x19u:
           v19 = a4 + 1;
           v20 = a5;
-          v21 = a1;
+          v21 = result;
           v22 = v5;
           v23 = 67;
           break;
         case 0x3Fu:
           v19 = a4 + 1;
           v20 = a5;
-          v21 = a1;
+          v21 = result;
           v22 = v5;
           v23 = 79;
           break;
@@ -2865,7 +2997,7 @@ LABEL_3:
           v18 = "_UnknownTypeKind";
           v19 = a4 + 1;
           v20 = a5;
-          v21 = a1;
+          v21 = result;
           v22 = v5;
           v23 = 86;
           v24 = a3;
@@ -2896,7 +3028,7 @@ LABEL_47:
     {
       v19 = a4 + 1;
       v20 = a5;
-      v21 = a1;
+      v21 = result;
       v22 = v5;
       v23 = 86;
       goto LABEL_46;
@@ -2906,7 +3038,7 @@ LABEL_47:
     {
       v19 = a4 + 1;
       v20 = a5;
-      v21 = a1;
+      v21 = result;
       v22 = v5;
       v23 = 97;
       goto LABEL_46;
@@ -2920,7 +3052,7 @@ LABEL_47:
     v26 = *(v5 + 18);
     if ((v26 - 1) >= 2)
     {
-      if (v26 != 5 || !*(v5 + 8))
+      if (v26 != 5 || !*(v5 + 2))
       {
         v27 = 0;
 LABEL_52:
@@ -2943,15 +3075,15 @@ LABEL_48:
     goto LABEL_52;
   }
 
-  v11 = *(a1 + 12736);
-  v12 = *(a1 + 12740);
-  v13 = *(a1 + 12728);
+  v11 = result[3184];
+  v12 = result[3185];
+  v13 = *(result + 1591);
   if (v11 < v12)
   {
     goto LABEL_37;
   }
 
-  v14 = *(a1 + 12744);
+  v14 = *(result + 1593);
   v15 = v14[1];
   if (&v13[v12] != v15)
   {
@@ -3000,12 +3132,12 @@ LABEL_22:
     v14[1] = &v13[v29];
     if (v12)
     {
-      memcpy(v13, *(a1 + 12728), v12);
+      memcpy(v13, *(result + 1591), v12);
     }
 
-    *(a1 + 12728) = v13;
-    LODWORD(v12) = *(a1 + 12740);
-    v11 = *(a1 + 12736);
+    *(result + 1591) = v13;
+    LODWORD(v12) = result[3185];
+    v11 = result[3184];
     goto LABEL_36;
   }
 
@@ -3018,11 +3150,11 @@ LABEL_22:
   v14[1] = v15 + 1;
   LODWORD(v28) = 1;
 LABEL_36:
-  *(a1 + 12740) = v12 + v28;
+  result[3185] = v12 + v28;
 LABEL_37:
-  *(a1 + 12736) = v11 + 1;
+  result[3184] = v11 + 1;
   v13[v11] = 71;
-  swift::Demangle::__runtime::getUnspecialized(v5, *a1, &v35);
+  swift::Demangle::__runtime::getUnspecialized(&v35, v5, *result);
   if (v35)
   {
     *a5 = v35;
@@ -3037,57 +3169,57 @@ LABEL_37:
   }
 }
 
-double anonymous namespace::Remangler::mangleAnonymousContext@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+double anonymous namespace::Remangler::mangleAnonymousContext@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v6 = a2;
-  v8 = *(a2 + 18);
-  v9 = a2;
-  if (v8 == 2)
+  v7 = a2;
+  v9 = *(a2 + 18);
+  v10 = a2;
+  if (v9 == 2)
   {
     goto LABEL_5;
   }
 
-  if (v8 == 5 && *(a2 + 8) >= 2u)
+  if (v9 == 5 && *(a2 + 8) >= 2u)
   {
-    v9 = *a2;
+    v10 = *a2;
 LABEL_5:
-    v10 = v9[1];
+    v11 = *(v10 + 8);
     goto LABEL_7;
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_7:
-  if (*a5)
+  if (*a6)
   {
     return result;
   }
 
-  if (*(v6 + 18) - 1 >= 2)
+  if (*(v7 + 18) - 1 >= 2)
   {
-    v6 = *v6;
+    v7 = *v7;
   }
 
-  v12 = **v6;
-  if (v12)
+  v13 = **v7;
+  if (v13)
   {
-    v13 = *(*v6 + 1);
-    if (v13 >= 0x7FFFFFFFFFFFFFF8)
+    v14 = *(*v7 + 1);
+    if (v14 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:nn200100]();
     }
 
-    if (v13 >= 0x17)
+    if (v14 >= 0x17)
     {
       operator new();
     }
 
-    HIBYTE(v15) = v13;
-    if (v13)
+    HIBYTE(v16) = v14;
+    if (v14)
     {
-      memmove(&__dst, v12, v13);
+      memmove(&__dst, v13, v14);
     }
 
-    *(&__dst + v13) = 0;
+    *(&__dst + v14) = 0;
     if ((*(a3 + 31) & 0x80000000) == 0)
     {
       goto LABEL_21;
@@ -3097,7 +3229,7 @@ LABEL_7:
   }
 
   __dst = 0uLL;
-  v15 = 0;
+  v16 = 0;
   if (*(a3 + 31) < 0)
   {
 LABEL_20:
@@ -3107,349 +3239,349 @@ LABEL_20:
 LABEL_21:
   result = *&__dst;
   *(a3 + 8) = __dst;
-  *(a3 + 24) = v15;
-  *a5 = 0;
-  *(a5 + 8) = 0;
-  *(a5 + 16) = 0;
+  *(a3 + 24) = v16;
+  *a6 = 0;
+  *(a6 + 8) = 0;
+  *(a6 + 16) = 0;
   return result;
 }
 
-void *anonymous namespace::Remangler::mangleDidSet@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleDidSet@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleExtension@<X0>(void *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleExtension@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v7 = a2;
-  v8 = result;
-  v10 = *(a2 + 18);
-  if (v10 == 2)
+  v8 = a2;
+  v9 = result;
+  v11 = *(a2 + 18);
+  if (v11 == 2)
   {
     goto LABEL_7;
   }
 
-  if (v10 != 5)
+  if (v11 != 5)
   {
 LABEL_10:
-    *a5 = 1;
-    *(a5 + 8) = a2;
-    *(a5 + 16) = 2196;
+    *a6 = 1;
+    *(a6 + 8) = a2;
+    *(a6 + 16) = 2196;
     return result;
   }
 
-  v11 = *(a2 + 2);
-  if (v11 == 2)
+  v12 = *(a2 + 8);
+  if (v12 == 2)
   {
 LABEL_7:
-    v12 = result + 1592;
-    v13 = *(result + 3184);
-    v17 = *(result + 3185);
-    v15 = result[1591];
-    if (v13 < v17)
+    v13 = (result + 12736);
+    v14 = *(result + 12736);
+    v18 = *(result + 12740);
+    v16 = *(result + 12728);
+    if (v14 < v18)
     {
 LABEL_27:
-      v16 = 69;
+      v17 = 69;
       goto LABEL_28;
     }
 
-    v18 = result[1593];
-    v19 = v18[1];
-    if (&v15[v17] == v19)
+    v19 = *(result + 12744);
+    v20 = v19[1];
+    if (&v16[v18] == v20)
     {
-      v20 = v18[2];
-      if ((v19 + 1) <= v20)
+      v21 = v19[2];
+      if ((v20 + 1) <= v21)
       {
-        v18[1] = v19 + 1;
-        LODWORD(v21) = 1;
+        v19[1] = v20 + 1;
+        LODWORD(v22) = 1;
 LABEL_26:
-        *(v8 + 3185) = v17 + v21;
+        *(v9 + 12740) = v18 + v22;
         goto LABEL_27;
       }
     }
 
     else
     {
-      v20 = v18[2];
+      v21 = v19[2];
     }
 
-    v41 = result + 1592;
-    if ((2 * v17) <= 4)
+    v43 = (result + 12736);
+    if ((2 * v18) <= 4)
     {
-      v21 = 4;
-    }
-
-    else
-    {
-      v21 = (2 * v17);
-    }
-
-    v22 = v21 + v17;
-    if (v19)
-    {
-      v23 = &v19[v21 + v17] > v20;
+      v22 = 4;
     }
 
     else
     {
-      v23 = 1;
+      v22 = (2 * v18);
     }
 
-    v15 = v18[1];
-    if (v23)
+    v23 = v22 + v18;
+    if (v20)
     {
-      v24 = 2 * v18[4];
-      if (v24 <= v22 + 1)
+      v24 = &v20[v22 + v18] > v21;
+    }
+
+    else
+    {
+      v24 = 1;
+    }
+
+    v16 = v19[1];
+    if (v24)
+    {
+      v25 = 2 * v19[4];
+      if (v25 <= v23 + 1)
       {
-        v24 = v22 + 1;
+        v25 = v23 + 1;
       }
 
-      v18[4] = v24;
-      v25 = v24 + 8;
-      v26 = malloc_type_malloc(v24 + 8, 0x2004093837F09uLL);
-      v27 = v26 + v25;
-      *v26 = v18[3];
-      v15 = (v26 + 1);
-      v18[2] = v27;
-      v18[3] = v26;
+      v19[4] = v25;
+      v26 = v25 + 8;
+      v27 = malloc_type_malloc(v25 + 8, 0x2004093837F09uLL);
+      v28 = v27 + v26;
+      *v27 = v19[3];
+      v16 = (v27 + 1);
+      v19[2] = v28;
+      v19[3] = v27;
     }
 
-    v18[1] = &v15[v22];
-    if (v17)
+    v19[1] = &v16[v23];
+    if (v18)
     {
-      memcpy(v15, v8[1591], v17);
+      memcpy(v16, *(v9 + 12728), v18);
     }
 
-    v8[1591] = v15;
-    LODWORD(v17) = *(v8 + 3185);
-    v13 = *(v8 + 3184);
-    v12 = v41;
+    *(v9 + 12728) = v16;
+    LODWORD(v18) = *(v9 + 12740);
+    v14 = *(v9 + 12736);
+    v13 = v43;
     goto LABEL_26;
   }
 
-  if (v11 != 3)
+  if (v12 != 3)
   {
     goto LABEL_10;
   }
 
-  v12 = result + 1592;
-  v13 = *(result + 3184);
-  v14 = *(result + 3185);
-  v15 = result[1591];
-  if (v13 < v14)
+  v13 = (result + 12736);
+  v14 = *(result + 12736);
+  v15 = *(result + 12740);
+  v16 = *(result + 12728);
+  if (v14 < v15)
   {
-    v16 = 101;
+    v17 = 101;
     goto LABEL_28;
   }
 
-  v31 = result[1593];
-  v32 = v31[1];
-  if (&v15[v14] != v32)
+  v33 = *(result + 12744);
+  v34 = v33[1];
+  if (&v16[v15] != v34)
   {
-    v33 = v31[2];
+    v35 = v33[2];
 LABEL_45:
-    LODWORD(v34) = 2 * v14;
-    if ((2 * v14) <= 4)
+    LODWORD(v36) = 2 * v15;
+    if ((2 * v15) <= 4)
     {
-      v34 = 4;
+      v36 = 4;
     }
 
     else
     {
-      v34 = v34;
+      v36 = v36;
     }
 
-    v42 = v34;
-    v35 = v34 + v14;
-    if (!v32 || &v32[v35] > v33)
+    v44 = v36;
+    v37 = v36 + v15;
+    if (!v34 || &v34[v37] > v35)
     {
-      v36 = 2 * v31[4];
-      if (v36 <= v35 + 1)
+      v38 = 2 * v33[4];
+      if (v38 <= v37 + 1)
       {
-        v36 = v35 + 1;
+        v38 = v37 + 1;
       }
 
-      v31[4] = v36;
-      v37 = v36 + 8;
-      v38 = malloc_type_malloc(v36 + 8, 0x2004093837F09uLL);
-      v39 = v38 + v37;
-      *v38 = v31[3];
-      v32 = (v38 + 1);
-      v31[2] = v39;
-      v31[3] = v38;
+      v33[4] = v38;
+      v39 = v38 + 8;
+      v40 = malloc_type_malloc(v38 + 8, 0x2004093837F09uLL);
+      v41 = v40 + v39;
+      *v40 = v33[3];
+      v34 = (v40 + 1);
+      v33[2] = v41;
+      v33[3] = v40;
     }
 
-    v31[1] = &v32[v35];
-    if (v14)
+    v33[1] = &v34[v37];
+    if (v15)
     {
-      memcpy(v32, v8[1591], v14);
+      memcpy(v34, *(v9 + 12728), v15);
     }
 
-    v8[1591] = v32;
-    LODWORD(v14) = *(v8 + 3185);
-    v15 = v32;
-    v13 = *(v8 + 3184);
-    v40 = v42;
+    *(v9 + 12728) = v34;
+    LODWORD(v15) = *(v9 + 12740);
+    v16 = v34;
+    v14 = *(v9 + 12736);
+    v42 = v44;
     goto LABEL_56;
   }
 
-  v33 = v31[2];
-  if ((v32 + 1) > v33)
+  v35 = v33[2];
+  if ((v34 + 1) > v35)
   {
     goto LABEL_45;
   }
 
-  v31[1] = v32 + 1;
-  v40 = 1;
+  v33[1] = v34 + 1;
+  v42 = 1;
 LABEL_56:
-  *(v8 + 3185) = v14 + v40;
-  v16 = 101;
+  *(v9 + 12740) = v15 + v42;
+  v17 = 101;
 LABEL_28:
-  *v12 = v13 + 1;
-  v15[v13] = v16;
-  v28 = v7;
-  if (*(v7 + 18) - 1 >= 2)
+  *v13 = v14 + 1;
+  v16[v14] = v17;
+  v29 = v8;
+  if (*(v8 + 18) - 1 >= 2)
   {
-    v28 = *v7;
+    v29 = *v8;
   }
 
-  if (!*a5)
+  if (!*a6)
   {
-    v29 = *(v7 + 18);
-    if (v29 == 5)
+    v31 = *(v8 + 18);
+    if (v31 == 5)
     {
-      if (*(v7 + 2) != 3)
+      if (*(v8 + 8) != 3)
       {
         goto LABEL_37;
       }
 
-      if (*a5)
+      if (*a6)
       {
         return result;
       }
 
-      v29 = *(v7 + 18);
+      v31 = *(v8 + 18);
     }
 
-    if ((v29 - 1) < 2)
+    if ((v31 - 1) < 2)
     {
 LABEL_38:
-      v30 = v7[1];
+      v32 = *(v8 + 8);
     }
 
 LABEL_37:
-    v7 = *v7;
+    v8 = *v8;
     goto LABEL_38;
   }
 
   return result;
 }
 
-void *anonymous namespace::Remangler::mangleGetter@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleGetter@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleGlobalGetter@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleGlobalGetter@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleInitAccessor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleInitAccessor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleMaterializeForSet@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleMaterializeForSet@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleModifyAccessor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleModifyAccessor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleModify2Accessor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleModify2Accessor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
 uint64_t anonymous namespace::Remangler::mangleModule@<X0>(uint64_t a1@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, _BYTE *a3@<X2>, uint64_t a4@<X8>)
@@ -3707,498 +3839,503 @@ LABEL_59:
   return result;
 }
 
-void *anonymous namespace::Remangler::mangleNativeOwningAddressor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleNativeOwningAddressor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleNativeOwningMutableAddressor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleNativeOwningMutableAddressor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleNativePinningAddressor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleNativePinningAddressor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleNativePinningMutableAddressor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleNativePinningMutableAddressor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleOwningAddressor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleOwningAddressor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleOwningMutableAddressor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleOwningMutableAddressor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleReadAccessor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleReadAccessor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleRead2Accessor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleRead2Accessor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleSetter@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleSetter@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
-uint64_t anonymous namespace::Remangler::mangleStatic(uint64_t a1, uint64_t *a2, uint64_t a3, int a4)
+uint64_t anonymous namespace::Remangler::mangleStatic@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v6 = *(a1 + 12736);
-  v7 = *(a1 + 12740);
-  v8 = *(a1 + 12728);
-  if (v6 >= v7)
+  v8 = *(a1 + 12736);
+  v9 = *(a1 + 12740);
+  v10 = *(a1 + 12728);
+  if (v8 >= v9)
   {
-    v9 = *(a1 + 12744);
-    v10 = v9[1];
-    if (&v8[v7] == v10)
+    v11 = *(a1 + 12744);
+    v12 = v11[1];
+    if (&v10[v9] == v12)
     {
-      v11 = v9[2];
-      if ((v10 + 1) <= v11)
+      v13 = v11[2];
+      if ((v12 + 1) <= v13)
       {
-        v9[1] = v10 + 1;
-        LODWORD(v12) = 1;
+        v11[1] = v12 + 1;
+        LODWORD(v14) = 1;
 LABEL_19:
-        *(a1 + 12740) = v7 + v12;
+        *(a1 + 12740) = v9 + v14;
         goto LABEL_20;
       }
     }
 
     else
     {
-      v11 = v9[2];
+      v13 = v11[2];
     }
 
-    if ((2 * v7) <= 4)
+    if ((2 * v9) <= 4)
     {
-      v12 = 4;
-    }
-
-    else
-    {
-      v12 = (2 * v7);
-    }
-
-    v13 = v12 + v7;
-    if (v10)
-    {
-      v14 = &v10[v12 + v7] > v11;
+      v14 = 4;
     }
 
     else
     {
-      v14 = 1;
+      v14 = (2 * v9);
     }
 
-    v8 = v9[1];
-    if (v14)
+    v15 = v14 + v9;
+    if (v12)
     {
-      v15 = 2 * v9[4];
-      if (v15 <= v13 + 1)
+      v16 = &v12[v14 + v9] > v13;
+    }
+
+    else
+    {
+      v16 = 1;
+    }
+
+    v10 = v11[1];
+    if (v16)
+    {
+      v17 = 2 * v11[4];
+      if (v17 <= v15 + 1)
       {
-        v15 = v13 + 1;
+        v17 = v15 + 1;
       }
 
-      v9[4] = v15;
-      v16 = v15 + 8;
-      v17 = a1;
-      v18 = a3;
-      v19 = malloc_type_malloc(v15 + 8, 0x2004093837F09uLL);
-      a3 = v18;
-      v20 = v19;
-      a1 = v17;
-      v21 = v20 + v16;
-      *v20 = v9[3];
-      v8 = (v20 + 1);
-      v9[2] = v21;
-      v9[3] = v20;
+      v11[4] = v17;
+      v18 = v17 + 8;
+      v19 = a1;
+      v20 = a3;
+      v21 = a6;
+      v22 = malloc_type_malloc(v17 + 8, 0x2004093837F09uLL);
+      a6 = v21;
+      a3 = v20;
+      v23 = v22;
+      a1 = v19;
+      v24 = v23 + v18;
+      *v23 = v11[3];
+      v10 = (v23 + 1);
+      v11[2] = v24;
+      v11[3] = v23;
     }
 
-    v9[1] = &v8[v13];
-    if (v7)
+    v11[1] = &v10[v15];
+    if (v9)
     {
-      v22 = a1;
-      v23 = a3;
-      memcpy(v8, *(a1 + 12728), v7);
-      a1 = v22;
-      a3 = v23;
+      v25 = a1;
+      v26 = a3;
+      v27 = v9;
+      v28 = a6;
+      memcpy(v10, *(a1 + 12728), v27);
+      a6 = v28;
+      a1 = v25;
+      a3 = v26;
     }
 
-    *(a1 + 12728) = v8;
-    LODWORD(v7) = *(a1 + 12740);
-    v6 = *(a1 + 12736);
+    *(a1 + 12728) = v10;
+    LODWORD(v9) = *(a1 + 12740);
+    v8 = *(a1 + 12736);
     goto LABEL_19;
   }
 
 LABEL_20:
-  *(a1 + 12736) = v6 + 1;
-  v8[v6] = 90;
-  v24 = *(a2 + 18);
-  if ((v24 - 1) < 2)
+  *(a1 + 12736) = v8 + 1;
+  v10[v8] = 90;
+  v29 = *(a2 + 18);
+  if ((v29 - 1) < 2)
   {
 LABEL_24:
-    v25 = *a2;
+    v30 = *a2;
     goto LABEL_26;
   }
 
-  if (v24 == 5 && *(a2 + 2))
+  if (v29 == 5 && *(a2 + 8))
   {
     a2 = *a2;
     goto LABEL_24;
   }
 
-  v25 = 0;
+  v30 = 0;
 LABEL_26:
 }
 
-void *anonymous namespace::Remangler::mangleSubscript@<X0>(void *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleSubscript@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v6 = a2;
-  v7 = result;
-  v9 = *(a2 + 18);
-  if (v9 != 2 && (v9 != 5 || *(a2 + 2) < 2u))
+  v7 = a2;
+  v8 = result;
+  v10 = *(a2 + 18);
+  if (v10 != 2 && (v10 != 5 || *(a2 + 8) < 2u))
   {
-    v16 = 1090;
-    v17 = 1;
+    v17 = 1090;
+    v18 = 1;
     goto LABEL_8;
   }
 
-  v10 = *(result + 3184);
-  v11 = *(result + 3185);
-  v12 = result[1591];
-  if (v10 >= v11)
+  v11 = *(result + 12736);
+  v12 = *(result + 12740);
+  v13 = *(result + 12728);
+  if (v11 >= v12)
   {
-    v13 = result[1593];
-    v14 = v13[1];
-    if (&v12[v11] == v14)
+    v14 = *(result + 12744);
+    v15 = v14[1];
+    if (&v13[v12] == v15)
     {
-      v15 = v13[2];
-      if ((v14 + 1) <= v15)
+      v16 = v14[2];
+      if ((v15 + 1) <= v16)
       {
-        v13[1] = v14 + 1;
-        LODWORD(v18) = 1;
+        v14[1] = v15 + 1;
+        LODWORD(v19) = 1;
 LABEL_24:
-        *(v7 + 3185) = v11 + v18;
+        *(v8 + 12740) = v12 + v19;
         goto LABEL_25;
       }
     }
 
     else
     {
-      v15 = v13[2];
+      v16 = v14[2];
     }
 
-    if ((2 * v11) <= 4)
+    if ((2 * v12) <= 4)
     {
-      v18 = 4;
-    }
-
-    else
-    {
-      v18 = (2 * v11);
-    }
-
-    v19 = v18 + v11;
-    if (v14)
-    {
-      v20 = &v14[v18 + v11] > v15;
+      v19 = 4;
     }
 
     else
     {
-      v20 = 1;
+      v19 = (2 * v12);
     }
 
-    v12 = v13[1];
-    if (v20)
+    v20 = v19 + v12;
+    if (v15)
     {
-      v21 = 2 * v13[4];
-      if (v21 <= v19 + 1)
+      v21 = &v15[v19 + v12] > v16;
+    }
+
+    else
+    {
+      v21 = 1;
+    }
+
+    v13 = v14[1];
+    if (v21)
+    {
+      v22 = 2 * v14[4];
+      if (v22 <= v20 + 1)
       {
-        v21 = v19 + 1;
+        v22 = v20 + 1;
       }
 
-      v13[4] = v21;
-      v22 = v21 + 8;
-      v23 = a3;
-      v24 = malloc_type_malloc(v21 + 8, 0x2004093837F09uLL);
-      a3 = v23;
-      v25 = v24 + v22;
-      *v24 = v13[3];
-      v12 = (v24 + 1);
-      v13[2] = v25;
-      v13[3] = v24;
+      v14[4] = v22;
+      v23 = v22 + 8;
+      v24 = a3;
+      v25 = malloc_type_malloc(v22 + 8, 0x2004093837F09uLL);
+      a3 = v24;
+      v26 = v25 + v23;
+      *v25 = v14[3];
+      v13 = (v25 + 1);
+      v14[2] = v26;
+      v14[3] = v25;
     }
 
-    v13[1] = &v12[v19];
-    if (v11)
+    v14[1] = &v13[v20];
+    if (v12)
     {
-      v26 = a3;
-      memcpy(v12, v7[1591], v11);
-      a3 = v26;
+      v27 = a3;
+      memcpy(v13, *(v8 + 12728), v12);
+      a3 = v27;
     }
 
-    v7[1591] = v12;
-    LODWORD(v11) = *(v7 + 3185);
-    v10 = *(v7 + 3184);
+    *(v8 + 12728) = v13;
+    LODWORD(v12) = *(v8 + 12740);
+    v11 = *(v8 + 12736);
     goto LABEL_24;
   }
 
 LABEL_25:
-  *(v7 + 3184) = v10 + 1;
-  v12[v10] = 105;
-  v27 = v6;
-  if (*(v6 + 18) - 1 >= 2)
+  *(v8 + 12736) = v11 + 1;
+  v13[v11] = 105;
+  v28 = v7;
+  if (*(v7 + 18) - 1 >= 2)
   {
-    v27 = *v6;
+    v28 = *v7;
   }
 
-  if (!*a5)
+  if (!*a6)
   {
-    v28 = *(v6 + 18);
-    if (v28 == 1)
+    v29 = *(v7 + 18);
+    if (v29 == 1)
     {
-      v29 = 0;
+      v30 = 0;
     }
 
     else
     {
-      if (v28 == 5)
+      if (v29 == 5)
       {
-        v29 = *(v6 + 2) - 1;
-        v30 = *v6;
+        v30 = *(v7 + 8) - 1;
+        v31 = *v7;
         goto LABEL_34;
       }
 
-      v29 = 1;
+      v30 = 1;
     }
 
-    v30 = v6;
+    v31 = v7;
 LABEL_34:
-    if (*(v30[v29] + 16) != 186)
+    if (*(*(v31 + 8 * v30) + 16) != 186)
     {
 LABEL_48:
-      if ((v28 - 1) >= 2 && (v35 = *(v6 + 2), v6 = *v6, v35 >= 3) && (v36 = v6[1], *(v36 + 8) == 303))
+      if ((v29 - 1) >= 2 && (v36 = *(v7 + 8), v7 = *v7, v36 >= 3) && (v37 = *(v7 + 8), *(v37 + 8) == 303))
       {
-        v37 = applyParamLabels(v36, v6[2], *v7);
+        v38 = applyParamLabels(v37, *(v7 + 16), *v8);
       }
 
       else
       {
-        v37 = v6[1];
+        v38 = *(v7 + 8);
       }
 
-      v16 = *a5;
-      if (*a5)
+      v17 = *a6;
+      if (*a6)
       {
         return result;
       }
 
-      v17 = 0;
-      v6 = 0;
+      v18 = 0;
+      v7 = 0;
 LABEL_8:
-      *a5 = v17;
-      *(a5 + 8) = v6;
-      *(a5 + 16) = v16;
+      *a6 = v18;
+      *(a6 + 8) = v7;
+      *(a6 + 16) = v17;
       return result;
     }
 
-    if (v28 != 1)
+    if (v29 != 1)
     {
-      if (v28 == 5)
+      if (v29 == 5)
       {
-        v32 = *(v6 + 2);
-        if (v32)
+        v33 = *(v7 + 8);
+        if (v33)
         {
-          v31 = v32 - 1;
-          v33 = *v6;
+          v32 = v33 - 1;
+          v34 = *v7;
 LABEL_45:
-          v34 = v33[v31];
+          v35 = *(v34 + 8 * v32);
           goto LABEL_46;
         }
       }
 
-      else if (v28 == 2)
+      else if (v29 == 2)
       {
-        v31 = 1;
+        v32 = 1;
 LABEL_44:
-        v33 = v6;
+        v34 = v7;
         goto LABEL_45;
       }
 
-      v34 = 0;
+      v35 = 0;
 LABEL_46:
-      if (*a5)
+      if (*a6)
       {
         return result;
       }
 
-      v28 = *(v6 + 18);
+      v29 = *(v7 + 18);
       goto LABEL_48;
     }
 
-    v31 = 0;
+    v32 = 0;
     goto LABEL_44;
   }
 
   return result;
 }
 
-void *anonymous namespace::Remangler::mangleUnsafeAddressor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleUnsafeAddressor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleUnsafeMutableAddressor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleUnsafeMutableAddressor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
-void *anonymous namespace::Remangler::mangleWillSet@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t anonymous namespace::Remangler::mangleWillSet@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, int a4@<W3>, int a5@<W7>, uint64_t a6@<X8>)
 {
-  v5 = *(a2 + 18);
-  if ((v5 - 1) >= 2)
+  v6 = *(a2 + 18);
+  if ((v6 - 1) >= 2)
   {
-    if (v5 != 5 || !*(a2 + 2))
+    if (v6 != 5 || !*(a2 + 2))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     a2 = *a2;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 }
 
 void *anonymous namespace::Remangler::mangleGenericArgs@<X0>(void *result@<X0>, uint64_t *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
@@ -4255,10 +4392,10 @@ LABEL_26:
 
         v21 = v5[1593];
         v22 = v21[1];
-        if (&v20[v19] == v22)
+        if ((v20 + v19) == v22)
         {
           v23 = v21[2];
-          if ((v22 + 1) <= v23)
+          if (v22 + 1 <= v23)
           {
             v21[1] = v22 + 1;
             v38 = v19 + 1;
@@ -4269,7 +4406,7 @@ LABEL_104:
             v7 = 0;
             v12 = 0;
             *v17 = v18 + 1;
-            v20[v18] = 95;
+            *(v20 + v18) = 95;
             goto LABEL_105;
           }
         }
@@ -4290,7 +4427,7 @@ LABEL_104:
         }
 
         v35 = v34 + v19;
-        if (!v22 || &v22[v35] > v23)
+        if (!v22 || v22 + v35 > v23)
         {
           v36 = 2 * v21[4];
           if (v36 <= v35 + 1)
@@ -4302,12 +4439,12 @@ LABEL_104:
           v37 = v36 + 8;
           result = malloc_type_malloc(v36 + 8, 0x2004093837F09uLL);
           *result = v21[3];
-          v22 = (result + 1);
+          v22 = result + 1;
           v21[2] = result + v37;
           v21[3] = result;
         }
 
-        v21[1] = &v22[v35];
+        v21[1] = v22 + v35;
         if (v19)
         {
           result = memcpy(v22, v5[1591], v19);
@@ -4376,12 +4513,12 @@ LABEL_39:
 
   v7 = *v11;
 LABEL_31:
-  if (*(v7 + 8) == 243)
+  if (*(v7 + 16) == 243)
   {
     v24 = *(v7 + 18);
     if ((v24 - 1) >= 2)
     {
-      if (v24 != 5 || !*(v7 + 2))
+      if (v24 != 5 || !*(v7 + 8))
       {
         v25 = 0;
 LABEL_42:
@@ -4460,10 +4597,10 @@ LABEL_83:
 
                 v41 = v5[1593];
                 v42 = v41[1];
-                if (&v20[v40] == v42)
+                if ((v20 + v40) == v42)
                 {
                   v43 = v41[2];
-                  if ((v42 + 1) <= v43)
+                  if (v42 + 1 <= v43)
                   {
                     v41[1] = v42 + 1;
                     LODWORD(v44) = 1;
@@ -4491,7 +4628,7 @@ LABEL_102:
                 v45 = v44 + v40;
                 if (v42)
                 {
-                  v46 = &v42[v44 + v40] > v43;
+                  v46 = v42 + v44 + v40 > v43;
                 }
 
                 else
@@ -4518,7 +4655,7 @@ LABEL_102:
                   v41[3] = result;
                 }
 
-                v41[1] = &v20[v45];
+                v41[1] = v20 + v45;
                 if (v40)
                 {
                   result = memcpy(v20, v5[1591], v40);
@@ -4590,161 +4727,161 @@ LABEL_6:
 
 LABEL_8:
   {
-    swift::Demangle::__runtime::RemanglerBase::entryForNode(&v46, this, v13, 0);
-    v44 = v46;
+    swift::Demangle::__runtime::RemanglerBase::entryForNode(&v47, this, v13, 0);
     v45 = v47;
-    Substitution = swift::Demangle::__runtime::RemanglerBase::findSubstitution(this, &v44);
+    v46 = v48;
+    Substitution = swift::Demangle::__runtime::RemanglerBase::findSubstitution(this, &v45);
     if ((Substitution & 0x80000000) == 0)
     {
-      v18 = *(this + 3184);
-      v19 = *(this + 3185);
-      v20 = *(this + 1591);
-      if (v18 < v19)
+      v19 = *(this + 3184);
+      v20 = *(this + 3185);
+      v21 = *(this + 1591);
+      if (v19 < v20)
       {
         goto LABEL_28;
       }
 
-      v21 = *(this + 1593);
-      v22 = v21[1];
-      if (&v20[v19] == v22)
+      v22 = *(this + 1593);
+      v23 = v22[1];
+      if (&v21[v20] == v23)
       {
-        v23 = v21[2];
-        if ((v22 + 1) <= v23)
+        v24 = v22[2];
+        if ((v23 + 1) <= v24)
         {
-          v21[1] = v22 + 1;
-          LODWORD(v24) = 1;
+          v22[1] = v23 + 1;
+          LODWORD(v25) = 1;
 LABEL_27:
-          *(this + 3185) = v19 + v24;
+          *(this + 3185) = v20 + v25;
 LABEL_28:
-          *(this + 3184) = v18 + 1;
-          v20[v18] = 83;
+          *(this + 3184) = v19 + 1;
+          v21[v19] = 83;
           if (Substitution)
           {
             swift::Demangle::__runtime::CharVector::append(this + 3182, Substitution - 1, *(this + 1593));
           }
 
-          v32 = *(this + 3184);
-          v33 = *(this + 3185);
-          v34 = *(this + 1591);
-          if (v32 < v33)
+          v33 = *(this + 3184);
+          v34 = *(this + 3185);
+          v35 = *(this + 1591);
+          if (v33 < v34)
           {
             goto LABEL_46;
           }
 
-          v35 = *(this + 1593);
-          v36 = v35[1];
-          if (&v34[v33] == v36)
+          v36 = *(this + 1593);
+          v37 = v36[1];
+          if (&v35[v34] == v37)
           {
-            v37 = v35[2];
-            if ((v36 + 1) <= v37)
+            v38 = v36[2];
+            if ((v37 + 1) <= v38)
             {
-              v35[1] = v36 + 1;
-              LODWORD(v38) = 1;
+              v36[1] = v37 + 1;
+              LODWORD(v39) = 1;
 LABEL_45:
-              *(this + 3185) = v33 + v38;
+              *(this + 3185) = v34 + v39;
 LABEL_46:
-              *(this + 3184) = v32 + 1;
-              v34[v32] = 95;
+              *(this + 3184) = v33 + 1;
+              v35[v33] = 95;
               goto LABEL_47;
             }
           }
 
           else
           {
-            v37 = v35[2];
+            v38 = v36[2];
           }
 
-          if ((2 * v33) <= 4)
+          if ((2 * v34) <= 4)
           {
-            v38 = 4;
+            v39 = 4;
           }
 
           else
           {
-            v38 = (2 * v33);
+            v39 = (2 * v34);
           }
 
-          v39 = v38 + v33;
-          if (!v36 || &v36[v39] > v37)
+          v40 = v39 + v34;
+          if (!v37 || &v37[v40] > v38)
           {
-            v40 = 2 * v35[4];
-            if (v40 <= v39 + 1)
+            v41 = 2 * v36[4];
+            if (v41 <= v40 + 1)
             {
-              v40 = v39 + 1;
+              v41 = v40 + 1;
             }
 
-            v35[4] = v40;
-            v41 = v40 + 8;
-            v42 = malloc_type_malloc(v40 + 8, 0x2004093837F09uLL);
-            v43 = v42 + v41;
-            *v42 = v35[3];
-            v36 = (v42 + 1);
-            v35[2] = v43;
-            v35[3] = v42;
+            v36[4] = v41;
+            v42 = v41 + 8;
+            v43 = malloc_type_malloc(v41 + 8, 0x2004093837F09uLL);
+            v44 = v43 + v42;
+            *v43 = v36[3];
+            v37 = (v43 + 1);
+            v36[2] = v44;
+            v36[3] = v43;
           }
 
-          v35[1] = &v36[v39];
-          if (v33)
+          v36[1] = &v37[v40];
+          if (v34)
           {
-            memcpy(v36, *(this + 1591), v33);
+            memcpy(v37, *(this + 1591), v34);
           }
 
-          *(this + 1591) = v36;
-          LODWORD(v33) = *(this + 3185);
-          v34 = v36;
-          v32 = *(this + 3184);
+          *(this + 1591) = v37;
+          LODWORD(v34) = *(this + 3185);
+          v35 = v37;
+          v33 = *(this + 3184);
           goto LABEL_45;
         }
       }
 
       else
       {
-        v23 = v21[2];
+        v24 = v22[2];
       }
 
-      if ((2 * v19) <= 4)
+      if ((2 * v20) <= 4)
       {
-        v24 = 4;
+        v25 = 4;
       }
 
       else
       {
-        v24 = (2 * v19);
+        v25 = (2 * v20);
       }
 
-      v25 = v24 + v19;
-      if (!v22 || &v22[v25] > v23)
+      v26 = v25 + v20;
+      if (!v23 || &v23[v26] > v24)
       {
-        v26 = 2 * v21[4];
-        if (v26 <= v25 + 1)
+        v27 = 2 * v22[4];
+        if (v27 <= v26 + 1)
         {
-          v26 = v25 + 1;
+          v27 = v26 + 1;
         }
 
-        v21[4] = v26;
-        v27 = v26 + 8;
-        v28 = Substitution;
-        v29 = malloc_type_malloc(v26 + 8, 0x2004093837F09uLL);
-        Substitution = v28;
-        v30 = v29 + v27;
-        *v29 = v21[3];
-        v22 = (v29 + 1);
-        v21[2] = v30;
-        v21[3] = v29;
+        v22[4] = v27;
+        v28 = v27 + 8;
+        v29 = Substitution;
+        v30 = malloc_type_malloc(v27 + 8, 0x2004093837F09uLL);
+        Substitution = v29;
+        v31 = v30 + v28;
+        *v30 = v22[3];
+        v23 = (v30 + 1);
+        v22[2] = v31;
+        v22[3] = v30;
       }
 
-      v21[1] = &v22[v25];
-      if (v19)
+      v22[1] = &v23[v26];
+      if (v20)
       {
-        v31 = Substitution;
-        memcpy(v22, *(this + 1591), v19);
-        Substitution = v31;
+        v32 = Substitution;
+        memcpy(v23, *(this + 1591), v20);
+        Substitution = v32;
       }
 
-      *(this + 1591) = v22;
-      LODWORD(v19) = *(this + 3185);
-      v20 = v22;
-      v18 = *(this + 3184);
+      *(this + 1591) = v23;
+      LODWORD(v20) = *(this + 3185);
+      v21 = v23;
+      v19 = *(this + 3184);
       goto LABEL_27;
     }
 
@@ -4753,7 +4890,7 @@ LABEL_46:
       return;
     }
 
-    swift::Demangle::__runtime::RemanglerBase::addSubstitution(this, &v44);
+    swift::Demangle::__runtime::RemanglerBase::addSubstitution(this, &v45);
   }
 
 LABEL_47:
@@ -4762,123 +4899,123 @@ LABEL_47:
   *(a8 + 16) = 0;
 }
 
-void anonymous namespace::Remangler::mangleNamedEntity(uint64_t a1@<X0>, uint64_t *a2@<X1>, int a3@<W2>, const void *a4@<X3>, size_t a5@<X4>, uint64_t a6@<X5>, int a7@<W6>, uint64_t a8@<X8>, std::string::value_type *__s, std::string::size_type a10)
+void anonymous namespace::Remangler::mangleNamedEntity(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, const void *a4@<X3>, size_t a5@<X4>, uint64_t a6@<X5>, int a7@<W6>, int a8@<W7>, uint64_t a9@<X8>, std::string::value_type *__s, std::string::size_type a11)
 {
-  v10 = a7;
-  v14 = a2;
-  v17 = *(a2 + 18);
-  if (v17 != 2 && (v17 != 5 || *(a2 + 2) != 2))
+  v11 = a7;
+  v15 = a2;
+  v18 = *(a2 + 18);
+  if (v18 != 2 && (v18 != 5 || *(a2 + 8) != 2))
   {
-    *a8 = 1;
-    *(a8 + 8) = a2;
-    *(a8 + 16) = 1394;
+    *a9 = 1;
+    *(a9 + 8) = a2;
+    *(a9 + 16) = 1394;
     return;
   }
 
   if (a3)
   {
-    v18 = *(a1 + 12736);
-    v19 = *(a1 + 12740);
-    v20 = *(a1 + 12728);
-    if (v18 < v19)
+    v19 = *(a1 + 12736);
+    v20 = *(a1 + 12740);
+    v21 = *(a1 + 12728);
+    if (v19 < v20)
     {
 LABEL_25:
-      *(a1 + 12736) = v18 + 1;
-      v20[v18] = a3;
-      v17 = *(v14 + 18);
+      *(a1 + 12736) = v19 + 1;
+      v21[v19] = a3;
+      v18 = *(v15 + 18);
       goto LABEL_26;
     }
 
-    v21 = *(a1 + 12744);
-    v22 = v21[1];
-    if (&v20[v19] == v22)
+    v22 = *(a1 + 12744);
+    v23 = v22[1];
+    if (&v21[v20] == v23)
     {
-      v23 = v21[2];
-      if ((v22 + 1) <= v23)
+      v24 = v22[2];
+      if ((v23 + 1) <= v24)
       {
-        v21[1] = v22 + 1;
-        v33 = 1;
+        v22[1] = v23 + 1;
+        v34 = 1;
 LABEL_24:
-        *(a1 + 12740) = v19 + v33;
+        *(a1 + 12740) = v20 + v34;
         goto LABEL_25;
       }
     }
 
     else
     {
-      v23 = v21[2];
+      v24 = v22[2];
     }
 
-    LODWORD(v24) = 2 * v19;
-    if ((2 * v19) <= 4)
+    LODWORD(v25) = 2 * v20;
+    if ((2 * v20) <= 4)
     {
-      v24 = 4;
-    }
-
-    else
-    {
-      v24 = v24;
-    }
-
-    v55 = v24;
-    v25 = v24 + v19;
-    v26 = &v22[v24 + v19];
-    if (v22)
-    {
-      v27 = v26 > v23;
+      v25 = 4;
     }
 
     else
     {
-      v27 = 1;
+      v25 = v25;
     }
 
-    v20 = v21[1];
-    if (v27)
+    v56 = v25;
+    v26 = v25 + v20;
+    v27 = &v23[v25 + v20];
+    if (v23)
     {
-      v28 = 2 * v21[4];
-      if (v28 <= v25 + 1)
+      v28 = v27 > v24;
+    }
+
+    else
+    {
+      v28 = 1;
+    }
+
+    v21 = v22[1];
+    if (v28)
+    {
+      v29 = 2 * v22[4];
+      if (v29 <= v26 + 1)
       {
-        v28 = v25 + 1;
+        v29 = v26 + 1;
       }
 
-      v21[4] = v28;
-      v29 = v28 + 8;
-      v54 = a3;
-      v30 = malloc_type_malloc(v28 + 8, 0x2004093837F09uLL);
-      LOBYTE(a3) = v54;
-      v31 = v30 + v29;
-      *v30 = v21[3];
-      v20 = v30 + 1;
-      v21[2] = v31;
-      v21[3] = v30;
+      v22[4] = v29;
+      v30 = v29 + 8;
+      v55 = a3;
+      v31 = malloc_type_malloc(v29 + 8, 0x2004093837F09uLL);
+      LOBYTE(a3) = v55;
+      v32 = v31 + v30;
+      *v31 = v22[3];
+      v21 = v31 + 1;
+      v22[2] = v32;
+      v22[3] = v31;
     }
 
-    v21[1] = &v20[v25];
-    if (v19)
+    v22[1] = &v21[v26];
+    if (v20)
     {
-      v32 = a3;
-      memcpy(v20, *(a1 + 12728), v19);
-      LOBYTE(a3) = v32;
+      v33 = a3;
+      memcpy(v21, *(a1 + 12728), v20);
+      LOBYTE(a3) = v33;
     }
 
-    *(a1 + 12728) = v20;
-    LODWORD(v19) = *(a1 + 12740);
-    v18 = *(a1 + 12736);
-    v10 = a7;
-    v33 = v55;
+    *(a1 + 12728) = v21;
+    LODWORD(v20) = *(a1 + 12740);
+    v19 = *(a1 + 12736);
+    v11 = a7;
+    v34 = v56;
     goto LABEL_24;
   }
 
 LABEL_26:
-  v34 = v17 - 1;
-  v35 = v14;
-  if (v34 >= 2)
+  v35 = v18 - 1;
+  v36 = v15;
+  if (v35 >= 2)
   {
-    v35 = *v14;
+    v36 = *v15;
   }
 
-  if (!*a8)
+  if (!*a9)
   {
     swift::Demangle::__runtime::CharVector::append((a1 + 12728), a4, a5, *(a1 + 12744));
     __p = *(a6 + 8);
@@ -4913,21 +5050,21 @@ LABEL_26:
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      __p = v57;
+      __p = v58;
     }
 
 LABEL_38:
-    if (a10)
+    if (a11)
     {
-      std::string::append(&__p, __s, a10);
+      std::string::append(&__p, __s, a11);
     }
 
-    v37 = *(v14 + 18);
-    if (v37 != 2)
+    v38 = *(v15 + 18);
+    if (v38 != 2)
     {
-      if (v37 != 5 || *(v14 + 2) < 2u)
+      if (v38 != 5 || *(v15 + 8) < 2u)
       {
-        v38 = 0;
+        v39 = 0;
 LABEL_46:
         size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
@@ -4935,44 +5072,44 @@ LABEL_46:
           size = __p.__r_.__value_.__l.__size_;
         }
 
-        if (!size || *(v38 + 8) != 103)
+        if (!size || *(v39 + 8) != 103)
         {
           goto LABEL_74;
         }
 
-        v40 = *(a1 + 12736);
-        v41 = *(a1 + 12740);
-        v42 = *(a1 + 12728);
-        if (v40 < v41)
+        v41 = *(a1 + 12736);
+        v42 = *(a1 + 12740);
+        v43 = *(a1 + 12728);
+        if (v41 < v42)
         {
 LABEL_67:
-          *(a1 + 12736) = v40 + 1;
-          v42[v40] = 80;
+          *(a1 + 12736) = v41 + 1;
+          v43[v41] = 80;
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v52 = &__p;
+            v53 = &__p;
           }
 
           else
           {
-            v52 = __p.__r_.__value_.__r.__words[0];
+            v53 = __p.__r_.__value_.__r.__words[0];
           }
 
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v53 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+            v54 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v53 = __p.__r_.__value_.__l.__size_;
+            v54 = __p.__r_.__value_.__l.__size_;
           }
 
-          swift::Demangle::__runtime::CharVector::append((a1 + 12728), v53, *(a1 + 12744));
-          swift::Demangle::__runtime::CharVector::append((a1 + 12728), v52, v53, *(a1 + 12744));
-          *a8 = 0;
-          *(a8 + 8) = 0;
-          *(a8 + 16) = 0;
+          swift::Demangle::__runtime::CharVector::append((a1 + 12728), v54, *(a1 + 12744));
+          swift::Demangle::__runtime::CharVector::append((a1 + 12728), v53, v54, *(a1 + 12744));
+          *a9 = 0;
+          *(a9 + 8) = 0;
+          *(a9 + 16) = 0;
 LABEL_74:
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
@@ -4982,72 +5119,72 @@ LABEL_74:
           return;
         }
 
-        v43 = *(a1 + 12744);
-        v44 = v43[1];
-        if (&v42[v41] == v44)
+        v44 = *(a1 + 12744);
+        v45 = v44[1];
+        if (&v43[v42] == v45)
         {
-          v45 = v43[2];
-          if ((v44 + 1) <= v45)
+          v46 = v44[2];
+          if ((v45 + 1) <= v46)
           {
-            v43[1] = v44 + 1;
-            LODWORD(v46) = 1;
+            v44[1] = v45 + 1;
+            LODWORD(v47) = 1;
 LABEL_66:
-            *(a1 + 12740) = v41 + v46;
+            *(a1 + 12740) = v42 + v47;
             goto LABEL_67;
           }
         }
 
         else
         {
-          v45 = v43[2];
+          v46 = v44[2];
         }
 
-        if ((2 * v41) <= 4)
+        if ((2 * v42) <= 4)
         {
-          v46 = 4;
+          v47 = 4;
         }
 
         else
         {
-          v46 = (2 * v41);
+          v47 = (2 * v42);
         }
 
-        v47 = v46 + v41;
-        if (!v44 || &v44[v47] > v45)
+        v48 = v47 + v42;
+        if (!v45 || &v45[v48] > v46)
         {
-          v48 = 2 * v43[4];
-          if (v48 <= v47 + 1)
+          v49 = 2 * v44[4];
+          if (v49 <= v48 + 1)
           {
-            v48 = v47 + 1;
+            v49 = v48 + 1;
           }
 
-          v43[4] = v48;
-          v49 = v48 + 8;
-          v50 = malloc_type_malloc(v48 + 8, 0x2004093837F09uLL);
-          v51 = v50 + v49;
-          *v50 = v43[3];
-          v44 = (v50 + 1);
-          v43[2] = v51;
-          v43[3] = v50;
+          v44[4] = v49;
+          v50 = v49 + 8;
+          v51 = malloc_type_malloc(v49 + 8, 0x2004093837F09uLL);
+          v52 = v51 + v50;
+          *v51 = v44[3];
+          v45 = (v51 + 1);
+          v44[2] = v52;
+          v44[3] = v51;
         }
 
-        v43[1] = &v44[v47];
-        if (v41)
+        v44[1] = &v45[v48];
+        if (v42)
         {
-          memcpy(v44, *(a1 + 12728), v41);
+          memcpy(v45, *(a1 + 12728), v42);
         }
 
-        *(a1 + 12728) = v44;
-        LODWORD(v41) = *(a1 + 12740);
-        v42 = v44;
-        v40 = *(a1 + 12736);
+        *(a1 + 12728) = v45;
+        LODWORD(v42) = *(a1 + 12740);
+        v43 = v45;
+        v41 = *(a1 + 12736);
         goto LABEL_66;
       }
 
-      v14 = *v14;
+      v15 = *v15;
     }
 
-    v38 = v14[1];
+    v39 = *(v15 + 8);
     goto LABEL_46;
   }
 }
@@ -5528,13 +5665,13 @@ LABEL_8:
 
       v16 = *(a1 + 12744);
       v17 = v16[1];
-      if (&v15[v12] != v17)
+      if ((v15 + v12) != v17)
       {
         break;
       }
 
       v18 = v16[2];
-      if ((v17 + 1) > v18)
+      if (v17 + 1 > v18)
       {
         goto LABEL_17;
       }
@@ -5545,7 +5682,7 @@ LABEL_11:
       *(a1 + 12740) = v12 + v19;
 LABEL_12:
       *(a1 + 12736) = v13 + 1;
-      v15[v13] = v14;
+      *(v15 + v13) = v14;
       ++a2;
       if (!--v6)
       {
@@ -5568,7 +5705,7 @@ LABEL_17:
     v20 = v19 + v12;
     if (v17)
     {
-      v21 = &v17[v19 + v12] > v18;
+      v21 = v17 + v19 + v12 > v18;
     }
 
     else
@@ -5595,7 +5732,7 @@ LABEL_17:
       v16[3] = result;
     }
 
-    v16[1] = &v15[v20];
+    v16[1] = v15 + v20;
     if (v12)
     {
       result = memcpy(v15, *(a1 + 12728), v12);
@@ -5622,189 +5759,65 @@ LABEL_31:
   return result;
 }
 
-const void **anonymous namespace::Remangler::mangleSimpleEntity@<X0>(const void **result@<X0>, uint64_t *a2@<X1>, char a3@<W2>, const void *a4@<X3>, size_t a5@<X4>, uint64_t a6@<X5>, int a7@<W6>, uint64_t a8@<X8>)
+uint64_t anonymous namespace::Remangler::mangleSimpleEntity@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, char a3@<W2>, const void *a4@<X3>, size_t a5@<X4>, char *a6@<X5>, int a7@<W6>, int a8@<W7>, uint64_t a9@<X8>)
 {
-  v8 = a5;
-  v9 = result;
-  v11 = *(a2 + 18);
-  if (v11 != 1 && (v11 != 5 || *(a2 + 2) != 1))
+  v9 = a5;
+  v10 = result;
+  v12 = *(a2 + 18);
+  if (v12 != 1 && (v12 != 5 || *(a2 + 8) != 1))
   {
-    v18 = 1383;
-    v19 = 1;
+    v19 = 1383;
+    v20 = 1;
 LABEL_28:
-    *a8 = v19;
-    *(a8 + 8) = a2;
-    *(a8 + 16) = v18;
+    *a9 = v20;
+    *(a9 + 8) = a2;
+    *(a9 + 16) = v19;
     return result;
   }
 
-  v12 = *(result + 3184);
-  v13 = *(result + 3185);
-  v14 = result[1591];
-  if (v12 >= v13)
+  v13 = *(result + 12736);
+  v14 = *(result + 12740);
+  v15 = *(result + 12728);
+  if (v13 >= v14)
   {
-    v15 = result[1593];
-    v16 = v15[1];
-    if (&v14[v13] == v16)
+    v16 = *(result + 12744);
+    v17 = v16[1];
+    if (&v15[v14] == v17)
     {
-      v17 = v15[2];
-      if ((v16 + 1) <= v17)
+      v18 = v16[2];
+      if ((v17 + 1) <= v18)
       {
-        v15[1] = v16 + 1;
-        v36 = 1;
+        v16[1] = v17 + 1;
+        v37 = 1;
 LABEL_23:
-        *(v9 + 3185) = v13 + v36;
+        *(v10 + 12740) = v14 + v37;
         goto LABEL_24;
       }
     }
 
     else
     {
-      v17 = v15[2];
+      v18 = v16[2];
     }
 
-    LODWORD(v20) = 2 * v13;
-    if ((2 * v13) <= 4)
+    LODWORD(v21) = 2 * v14;
+    if ((2 * v14) <= 4)
     {
-      v20 = 4;
-    }
-
-    else
-    {
-      v20 = v20;
-    }
-
-    v39 = v20;
-    v40 = a4;
-    v21 = v20 + v13;
-    v22 = &v16[v20 + v13];
-    if (v16)
-    {
-      v23 = v22 > v17;
+      v21 = 4;
     }
 
     else
     {
-      v23 = 1;
+      v21 = v21;
     }
 
-    v14 = v15[1];
-    if (v23)
+    v40 = v21;
+    v41 = a4;
+    v22 = v21 + v14;
+    v23 = &v17[v21 + v14];
+    if (v17)
     {
-      v24 = 2 * v15[4];
-      if (v24 <= v21 + 1)
-      {
-        v24 = v21 + 1;
-      }
-
-      v15[4] = v24;
-      v25 = v24 + 8;
-      v26 = a2;
-      v27 = a6;
-      v28 = a7;
-      v29 = a3;
-      v30 = malloc_type_malloc(v24 + 8, 0x2004093837F09uLL);
-      a3 = v29;
-      a7 = v28;
-      v8 = a5;
-      a6 = v27;
-      a2 = v26;
-      v31 = v30 + v25;
-      *v30 = v15[3];
-      v14 = (v30 + 1);
-      v15[2] = v31;
-      v15[3] = v30;
-    }
-
-    v15[1] = &v14[v21];
-    if (v13)
-    {
-      v32 = a2;
-      v33 = a3;
-      v34 = a6;
-      v35 = a7;
-      memcpy(v14, v9[1591], v13);
-      a3 = v33;
-      a7 = v35;
-      a6 = v34;
-      a2 = v32;
-    }
-
-    v9[1591] = v14;
-    LODWORD(v13) = *(v9 + 3185);
-    v12 = *(v9 + 3184);
-    v36 = v39;
-    a4 = v40;
-    goto LABEL_23;
-  }
-
-LABEL_24:
-  *(v9 + 3184) = v12 + 1;
-  v14[v12] = a3;
-  v37 = a4;
-  if (*(a2 + 18) - 1 >= 2)
-  {
-    a2 = *a2;
-  }
-
-  if (!*a8)
-  {
-    result = swift::Demangle::__runtime::CharVector::append(v9 + 1591, v37, v8, v9[1593]);
-    v19 = 0;
-    a2 = 0;
-    v18 = 0;
-    goto LABEL_28;
-  }
-
-  return result;
-}
-
-void *anonymous namespace::Remangler::mangleAccessor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, const void *a3@<X2>, size_t a4@<X3>, uint64_t a5@<X4>, int a6@<W5>, uint64_t a7@<X8>)
-{
-  v7 = a6;
-  v9 = a4;
-  v10 = a3;
-  v14 = *(a1 + 12736);
-  v15 = *(a1 + 12740);
-  v16 = *(a1 + 12728);
-  if (v14 >= v15)
-  {
-    v17 = *(a1 + 12744);
-    v18 = v17[1];
-    if (&v16[v15] == v18)
-    {
-      v19 = v17[2];
-      if ((v18 + 1) <= v19)
-      {
-        v17[1] = v18 + 1;
-        LODWORD(v22) = 1;
-LABEL_19:
-        *(a1 + 12740) = v15 + v22;
-        v10 = a3;
-        goto LABEL_20;
-      }
-    }
-
-    else
-    {
-      v19 = v17[2];
-    }
-
-    v50 = a7;
-    if ((2 * v15) <= 4)
-    {
-      v22 = 4;
-    }
-
-    else
-    {
-      v22 = (2 * v15);
-    }
-
-    v23 = v22 + v15;
-    if (v18)
-    {
-      v24 = &v18[v22 + v15] > v19;
+      v24 = v23 > v18;
     }
 
     else
@@ -5812,210 +5825,334 @@ LABEL_19:
       v24 = 1;
     }
 
-    v16 = v17[1];
+    v15 = v16[1];
     if (v24)
     {
-      v25 = 2 * v17[4];
-      if (v25 <= v23 + 1)
+      v25 = 2 * v16[4];
+      if (v25 <= v22 + 1)
       {
-        v25 = v23 + 1;
+        v25 = v22 + 1;
       }
 
-      v17[4] = v25;
+      v16[4] = v25;
       v26 = v25 + 8;
-      v27 = malloc_type_malloc(v25 + 8, 0x2004093837F09uLL);
-      v28 = v27 + v26;
-      *v27 = v17[3];
-      v16 = (v27 + 1);
-      v17[2] = v28;
-      v17[3] = v27;
+      v27 = a2;
+      v28 = a6;
+      v29 = a7;
+      v30 = a3;
+      v31 = malloc_type_malloc(v25 + 8, 0x2004093837F09uLL);
+      a3 = v30;
+      a7 = v29;
+      v9 = a5;
+      a6 = v28;
+      a2 = v27;
+      v32 = v31 + v26;
+      *v31 = v16[3];
+      v15 = (v31 + 1);
+      v16[2] = v32;
+      v16[3] = v31;
     }
 
-    v17[1] = &v16[v23];
-    if (v15)
+    v16[1] = &v15[v22];
+    if (v14)
     {
-      memcpy(v16, *(a1 + 12728), v15);
+      v33 = a2;
+      v34 = a3;
+      v35 = a6;
+      v36 = a7;
+      memcpy(v15, *(v10 + 12728), v14);
+      a3 = v34;
+      a7 = v36;
+      a6 = v35;
+      a2 = v33;
     }
 
-    *(a1 + 12728) = v16;
-    LODWORD(v15) = *(a1 + 12740);
-    v14 = *(a1 + 12736);
-    v7 = a6;
-    v9 = a4;
-    a7 = v50;
+    *(v10 + 12728) = v15;
+    LODWORD(v14) = *(v10 + 12740);
+    v13 = *(v10 + 12736);
+    v37 = v40;
+    a4 = v41;
+    goto LABEL_23;
+  }
+
+LABEL_24:
+  *(v10 + 12736) = v13 + 1;
+  v15[v13] = a3;
+  v38 = a4;
+  if (*(a2 + 18) - 1 >= 2)
+  {
+    a2 = *a2;
+  }
+
+  if (!*a9)
+  {
+    result = swift::Demangle::__runtime::CharVector::append((v10 + 12728), v38, v9, *(v10 + 12744));
+    v20 = 0;
+    a2 = 0;
+    v19 = 0;
+    goto LABEL_28;
+  }
+
+  return result;
+}
+
+uint64_t anonymous namespace::Remangler::mangleAccessor@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const void *a3@<X2>, size_t a4@<X3>, char *a5@<X4>, int a6@<W5>, int a7@<W7>, uint64_t a8@<X8>)
+{
+  v8 = a6;
+  v10 = a4;
+  v11 = a3;
+  v15 = *(a1 + 12736);
+  v16 = *(a1 + 12740);
+  v17 = *(a1 + 12728);
+  if (v15 >= v16)
+  {
+    v18 = *(a1 + 12744);
+    v19 = v18[1];
+    if (&v17[v16] == v19)
+    {
+      v20 = v18[2];
+      if ((v19 + 1) <= v20)
+      {
+        v18[1] = v19 + 1;
+        LODWORD(v23) = 1;
+LABEL_19:
+        *(a1 + 12740) = v16 + v23;
+        v11 = a3;
+        goto LABEL_20;
+      }
+    }
+
+    else
+    {
+      v20 = v18[2];
+    }
+
+    v51 = a8;
+    if ((2 * v16) <= 4)
+    {
+      v23 = 4;
+    }
+
+    else
+    {
+      v23 = (2 * v16);
+    }
+
+    v24 = v23 + v16;
+    if (v19)
+    {
+      v25 = &v19[v23 + v16] > v20;
+    }
+
+    else
+    {
+      v25 = 1;
+    }
+
+    v17 = v18[1];
+    if (v25)
+    {
+      v26 = 2 * v18[4];
+      if (v26 <= v24 + 1)
+      {
+        v26 = v24 + 1;
+      }
+
+      v18[4] = v26;
+      v27 = v26 + 8;
+      v28 = malloc_type_malloc(v26 + 8, 0x2004093837F09uLL);
+      v29 = v28 + v27;
+      *v28 = v18[3];
+      v17 = (v28 + 1);
+      v18[2] = v29;
+      v18[3] = v28;
+    }
+
+    v18[1] = &v17[v24];
+    if (v16)
+    {
+      memcpy(v17, *(a1 + 12728), v16);
+    }
+
+    *(a1 + 12728) = v17;
+    LODWORD(v16) = *(a1 + 12740);
+    v15 = *(a1 + 12736);
+    v8 = a6;
+    v10 = a4;
+    a8 = v51;
     goto LABEL_19;
   }
 
 LABEL_20:
-  *(a1 + 12736) = v14 + 1;
-  v16[v14] = 70;
-  v29 = *(a2 + 18);
-  v30 = a2;
-  if ((v29 - 1) < 2)
+  *(a1 + 12736) = v15 + 1;
+  v17[v15] = 70;
+  v30 = *(a2 + 18);
+  v31 = a2;
+  if ((v30 - 1) < 2)
   {
 LABEL_24:
-    v31 = *v30;
+    v32 = *v31;
     goto LABEL_26;
   }
 
-  if (v29 == 5 && *(a2 + 2))
+  if (v30 == 5 && *(a2 + 8))
   {
-    v30 = *a2;
+    v31 = *a2;
     goto LABEL_24;
   }
 
-  v31 = 0;
+  v32 = 0;
 LABEL_26:
-  if (*a7)
+  if (*a8)
   {
     return result;
   }
 
-  result = swift::Demangle::__runtime::CharVector::append((a1 + 12728), v10, v9, *(a1 + 12744));
-  v33 = *(a2 + 8);
-  if (v33 != 231)
+  result = swift::Demangle::__runtime::CharVector::append((a1 + 12728), v11, v10, *(a1 + 12744));
+  v34 = *(a2 + 16);
+  if (v34 != 231)
   {
-    if (v33 == 266)
+    if (v34 == 266)
     {
-      v34 = *(a2 + 18);
-      v35 = a2;
-      if (v34 == 2)
+      v35 = *(a2 + 18);
+      v36 = a2;
+      if (v35 == 2)
       {
         goto LABEL_33;
       }
 
-      if (v34 == 5 && *(a2 + 2) >= 2u)
+      if (v35 == 5 && *(a2 + 8) >= 2u)
       {
-        v35 = *a2;
+        v36 = *a2;
 LABEL_33:
-        if (*a7)
+        if (*a8)
         {
           return result;
         }
 
         if (*(a2 + 18) == 5)
         {
-          v36 = *(*a2 + 16);
-          if (*(v36 + 8) != 303)
+          v37 = *(*a2 + 16);
+          if (*(v37 + 8) != 303)
           {
 LABEL_71:
-            v42 = *a7;
-            if (*a7)
+            v43 = *a8;
+            if (*a8)
             {
               return result;
             }
 
-            v43 = 0;
+            v44 = 0;
             a2 = 0;
             goto LABEL_73;
           }
 
-          if (*(a2 + 2) < 4u)
+          if (*(a2 + 8) < 4u)
           {
-            v37 = 0;
+            v38 = 0;
           }
 
           else
           {
-            v37 = *(*a2 + 24);
+            v38 = *(*a2 + 24);
           }
 
-          v49 = *a1;
-          v47 = *(*a2 + 16);
-          v48 = v37;
+          v50 = *a1;
+          v48 = *(*a2 + 16);
+          v49 = v38;
 LABEL_66:
-          v36 = applyParamLabels(v47, v48, v49);
+          v37 = applyParamLabels(v48, v49, v50);
           goto LABEL_71;
         }
 
 LABEL_70:
-        v36 = 0;
+        v37 = 0;
         goto LABEL_71;
       }
 
-      v42 = 119;
-      v43 = 1;
+      v43 = 119;
+      v44 = 1;
     }
 
     else
     {
-      v42 = 1181;
-      v43 = 6;
+      v43 = 1181;
+      v44 = 6;
     }
 
 LABEL_73:
-    *a7 = v43;
-    *(a7 + 8) = a2;
-    *(a7 + 16) = v42;
+    *a8 = v44;
+    *(a8 + 8) = a2;
+    *(a8 + 16) = v43;
     return result;
   }
 
-  v38 = *(a2 + 18);
-  if (v38 == 1)
+  v39 = *(a2 + 18);
+  if (v39 == 1)
   {
-    v40 = 0;
+    v41 = 0;
 LABEL_47:
-    v41 = a2;
+    v42 = a2;
     goto LABEL_48;
   }
 
-  if (v38 != 5)
+  if (v39 != 5)
   {
-    v40 = 1;
+    v41 = 1;
     goto LABEL_47;
   }
 
-  v39 = *(a2 + 2);
-  if (v39 >= 5)
+  v40 = *(a2 + 8);
+  if (v40 >= 5)
   {
-    v42 = 1170;
-    v43 = 1;
+    v43 = 1170;
+    v44 = 1;
     goto LABEL_73;
   }
 
-  v40 = v39 - 1;
-  v41 = *a2;
+  v41 = v40 - 1;
+  v42 = *a2;
 LABEL_48:
-  v44 = v41[v40];
+  v45 = *(v42 + 8 * v41);
   {
     swift::Demangle::__runtime::CharVector::append((a1 + 12728), 9uLL, *(a1 + 12744));
     swift::Demangle::__runtime::CharVector::append((a1 + 12728), "subscript", 9uLL, *(a1 + 12744));
-    *a7 = 0;
-    *(a7 + 8) = 0;
-    *(a7 + 16) = 0;
-    v45 = *(a2 + 18);
-    v46 = a2;
-    if (v45 == 5)
+    *a8 = 0;
+    *(a8 + 8) = 0;
+    *(a8 + 16) = 0;
+    v46 = *(a2 + 18);
+    v47 = a2;
+    if (v46 == 5)
     {
-      if (*(a2 + 2) < 2u)
+      if (*(a2 + 8) < 2u)
       {
         if (MEMORY[0x10] == 303)
         {
-          v47 = 0;
+          v48 = 0;
 LABEL_62:
-          if (*(a2 + 2) >= 3u)
+          if (*(a2 + 8) >= 3u)
           {
-            v48 = *(*a2 + 16);
+            v49 = *(*a2 + 16);
 LABEL_65:
-            v49 = *a1;
+            v50 = *a1;
             goto LABEL_66;
           }
 
 LABEL_64:
-          v48 = 0;
+          v49 = 0;
           goto LABEL_65;
         }
 
         goto LABEL_67;
       }
 
-      v46 = *a2;
+      v47 = *a2;
     }
 
-    v47 = v46[1];
-    if (*(v47 + 8) == 303)
+    v48 = *(v47 + 8);
+    if (*(v48 + 8) == 303)
     {
-      if (v45 != 5)
+      if (v46 != 5)
       {
         goto LABEL_64;
       }
@@ -6023,20 +6160,20 @@ LABEL_64:
       goto LABEL_62;
     }
 
-    if (v45 == 2)
+    if (v46 == 2)
     {
 LABEL_69:
-      v36 = a2[1];
+      v37 = *(a2 + 8);
       goto LABEL_71;
     }
 
-    if (v45 != 5)
+    if (v46 != 5)
     {
       goto LABEL_70;
     }
 
 LABEL_67:
-    if (*(a2 + 2) < 2u)
+    if (*(a2 + 8) < 2u)
     {
       goto LABEL_70;
     }
@@ -6048,163 +6185,163 @@ LABEL_67:
   return result;
 }
 
-const void **anonymous namespace::Remangler::mangleNamedAndTypedEntity@<X0>(const void **result@<X0>, uint64_t *a2@<X1>, char a3@<W2>, const void *a4@<X3>, size_t a5@<X4>, uint64_t a6@<X5>, int a7@<W6>, uint64_t a8@<X8>)
+uint64_t anonymous namespace::Remangler::mangleNamedAndTypedEntity@<X0>(uint64_t result@<X0>, uint64_t *a2@<X1>, char a3@<W2>, const void *a4@<X3>, size_t a5@<X4>, char *a6@<X5>, int a7@<W6>, int a8@<W7>, uint64_t a9@<X8>)
 {
   if (*(a2 + 18) != 5 || (*(a2 + 2) - 3) > 1)
   {
-    v16 = 1443;
+    v17 = 1443;
     goto LABEL_7;
   }
 
-  v9 = result;
-  v10 = *(result + 3184);
-  v11 = *(result + 3185);
-  v12 = result[1591];
-  if (v10 >= v11)
+  v10 = result;
+  v11 = *(result + 12736);
+  v12 = *(result + 12740);
+  v13 = *(result + 12728);
+  if (v11 >= v12)
   {
-    v13 = result[1593];
-    v14 = v13[1];
-    if (&v12[v11] == v14)
+    v14 = *(result + 12744);
+    v15 = v14[1];
+    if (&v13[v12] == v15)
     {
-      v15 = v13[2];
-      if ((v14 + 1) <= v15)
+      v16 = v14[2];
+      if ((v15 + 1) <= v16)
       {
-        v13[1] = v14 + 1;
-        v35 = 1;
+        v14[1] = v15 + 1;
+        v36 = 1;
 LABEL_22:
-        *(v9 + 3185) = v11 + v35;
+        *(v10 + 12740) = v12 + v36;
         goto LABEL_23;
       }
     }
 
     else
     {
-      v15 = v13[2];
+      v16 = v14[2];
     }
 
-    LODWORD(v18) = 2 * v11;
-    if ((2 * v11) <= 4)
+    LODWORD(v19) = 2 * v12;
+    if ((2 * v12) <= 4)
     {
-      v18 = 4;
+      v19 = 4;
     }
 
     else
     {
-      v18 = v18;
+      v19 = v19;
     }
 
-    v46 = v18;
-    v19 = v18 + v11;
-    if (!v14 || &v14[v19] > v15)
+    v47 = v19;
+    v20 = v19 + v12;
+    if (!v15 || &v15[v20] > v16)
     {
-      v20 = 2 * v13[4];
-      if (v20 <= v19 + 1)
+      v21 = 2 * v14[4];
+      if (v21 <= v20 + 1)
       {
-        v20 = v19 + 1;
+        v21 = v20 + 1;
       }
 
-      v13[4] = v20;
-      v21 = v20 + 8;
-      v45 = a2;
-      v22 = a7;
-      v23 = a5;
-      v24 = a4;
-      v25 = a6;
-      v44 = a3;
-      v26 = malloc_type_malloc(v20 + 8, 0x2004093837F09uLL);
-      a3 = v44;
-      a6 = v25;
-      a4 = v24;
-      a5 = v23;
-      a7 = v22;
-      a2 = v45;
-      v27 = v26 + v21;
-      *v26 = v13[3];
-      v14 = (v26 + 1);
-      v13[2] = v27;
-      v13[3] = v26;
+      v14[4] = v21;
+      v22 = v21 + 8;
+      v46 = a2;
+      v23 = a7;
+      v24 = a5;
+      v25 = a4;
+      v26 = a6;
+      v45 = a3;
+      v27 = malloc_type_malloc(v21 + 8, 0x2004093837F09uLL);
+      a3 = v45;
+      a6 = v26;
+      a4 = v25;
+      a5 = v24;
+      a7 = v23;
+      a2 = v46;
+      v28 = v27 + v22;
+      *v27 = v14[3];
+      v15 = (v27 + 1);
+      v14[2] = v28;
+      v14[3] = v27;
     }
 
-    v13[1] = &v14[v19];
-    if (v11)
+    v14[1] = &v15[v20];
+    if (v12)
     {
-      v28 = a2;
-      v29 = a3;
-      v30 = v11;
-      v31 = a7;
-      v32 = a5;
-      v33 = a4;
-      v34 = a6;
-      memcpy(v14, v9[1591], v30);
-      a3 = v29;
-      a6 = v34;
-      a4 = v33;
-      a5 = v32;
-      a7 = v31;
-      a2 = v28;
+      v29 = a2;
+      v30 = a3;
+      v31 = v12;
+      v32 = a7;
+      v33 = a5;
+      v34 = a4;
+      v35 = a6;
+      memcpy(v15, *(v10 + 12728), v31);
+      a3 = v30;
+      a6 = v35;
+      a4 = v34;
+      a5 = v33;
+      a7 = v32;
+      a2 = v29;
     }
 
-    v9[1591] = v14;
-    LODWORD(v11) = *(v9 + 3185);
-    v12 = v14;
-    v10 = *(v9 + 3184);
-    v35 = v46;
+    *(v10 + 12728) = v15;
+    LODWORD(v12) = *(v10 + 12740);
+    v13 = v15;
+    v11 = *(v10 + 12736);
+    v36 = v47;
     goto LABEL_22;
   }
 
 LABEL_23:
-  v36 = a4;
-  v37 = a5;
-  *(v9 + 3184) = v10 + 1;
-  v12[v10] = a3;
-  v38 = a2;
+  v37 = a4;
+  v38 = a5;
+  *(v10 + 12736) = v11 + 1;
+  v13[v11] = a3;
+  v39 = a2;
   if (*(a2 + 18) - 1 >= 2)
   {
-    v38 = *a2;
+    v39 = *a2;
   }
 
-  v39 = a2;
-  v40 = a7;
-  if (*a8)
+  v40 = a2;
+  v41 = a7;
+  if (*a9)
   {
     return result;
   }
 
-  result = swift::Demangle::__runtime::CharVector::append(v9 + 1591, v36, v37, v9[1593]);
-  v41 = *(v39 + 18);
-  v42 = v39;
-  if (v41 != 2)
+  result = swift::Demangle::__runtime::CharVector::append((v10 + 12728), v37, v38, *(v10 + 12744));
+  v42 = *(v40 + 18);
+  v43 = v40;
+  if (v42 != 2)
   {
-    a2 = v39;
-    if (v41 == 5 && *(v39 + 2) >= 2u)
+    a2 = v40;
+    if (v42 == 5 && *(v40 + 2) >= 2u)
     {
-      v42 = *v39;
+      v43 = *v40;
       goto LABEL_30;
     }
 
-    v16 = 119;
+    v17 = 119;
 LABEL_7:
-    v17 = 1;
+    v18 = 1;
 LABEL_8:
-    *a8 = v17;
-    *(a8 + 8) = a2;
-    *(a8 + 16) = v16;
+    *a9 = v18;
+    *(a9 + 8) = a2;
+    *(a9 + 16) = v17;
     return result;
   }
 
 LABEL_30:
-  if (!*a8)
+  if (!*a9)
   {
-    if (*(v39 + 18) - 1 > 1)
+    if (*(v40 + 18) - 1 > 1)
     {
-      v39 = *v39;
+      v40 = *v40;
     }
 
-    v43 = *(v39[2] + 16) == 303 ? applyParamLabels(v39[2], v39[3], *v9) : v39[2];
-    v16 = *a8;
-    if (!*a8)
+    v44 = *(v40[2] + 16) == 303 ? applyParamLabels(v40[2], v40[3], *v10) : v40[2];
+    v17 = *a9;
+    if (!*a9)
     {
-      v17 = 0;
+      v18 = 0;
       a2 = 0;
       goto LABEL_8;
     }
@@ -6213,12 +6350,12 @@ LABEL_30:
   return result;
 }
 
-unsigned int *applyParamLabels(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::NodeFactory &)::$_0::operator() const(swift::Demangle::__runtime::Node *)::{lambda(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::Node *)#1}::operator()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+swift::Demangle::__runtime *applyParamLabels(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::NodeFactory &)::$_0::operator() const(swift::Demangle::__runtime::Node *)::{lambda(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::Node *)#1}::operator()(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  if (*(a2 + 16) != 288)
+  if (*(a2 + 8) != 288)
   {
     Node = swift::Demangle::__runtime::NodeFactory::createNode(*(a1 + 8), 235);
-    NodeWithAllocatedText = swift::Demangle::__runtime::NodeFactory::createNodeWithAllocatedText(*(a1 + 8), 236, *a2, *(a2 + 8));
+    NodeWithAllocatedText = swift::Demangle::__runtime::NodeFactory::createNodeWithAllocatedText(*(a1 + 8), 236, *a2, a2[1]);
     swift::Demangle::__runtime::Node::addChild(Node, NodeWithAllocatedText, *(a1 + 8), v13, v14);
     v15 = *(a3 + 18);
     v16 = a3;
@@ -6276,7 +6413,7 @@ LABEL_18:
   return swift::Demangle::__runtime::Node::addChild(v8, v9, v7, a4, a5);
 }
 
-_anonymous_namespace_::Remangler *anonymous namespace::Remangler::mangleSingleChildNode@<X0>(_anonymous_namespace_::Remangler *this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleSingleChildNode@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
 {
   v4 = *(a2 + 18);
   if (v4 == 1)
@@ -6294,7 +6431,7 @@ _anonymous_namespace_::Remangler *anonymous namespace::Remangler::mangleSingleCh
   return this;
 }
 
-void anonymous namespace::Remangler::mangleProtocolListWithoutPrefix(_anonymous_namespace_::Remangler *this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, swift::Demangle::__runtime::Node *a3@<X3>, int a4@<W2>, uint64_t a5@<X8>)
+void anonymous namespace::Remangler::mangleProtocolListWithoutPrefix(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, swift::Demangle::__runtime::Node *a3@<X3>, int a4@<W2>, uint64_t a5@<X8>)
 {
   if (*(a2 + 8) != 200)
   {
@@ -6374,7 +6511,7 @@ LABEL_23:
   {
     v16 = *(this + 3184);
     v17 = *(this + 3185);
-    v18 = *(this + 1591);
+    v18 = this[1591];
     if (v16 < v17)
     {
 LABEL_45:
@@ -6386,14 +6523,14 @@ LABEL_45:
       goto LABEL_46;
     }
 
-    v19 = *(this + 1593);
-    v20 = v19[1];
+    v19 = this[1593];
+    v20 = *(v19 + 1);
     if (&v18[v17] == v20)
     {
-      v21 = v19[2];
+      v21 = *(v19 + 2);
       if ((v20 + 1) <= v21)
       {
-        v19[1] = v20 + 1;
+        *(v19 + 1) = v20 + 1;
         LODWORD(v22) = 1;
 LABEL_44:
         *(this + 3185) = v17 + v22;
@@ -6403,7 +6540,7 @@ LABEL_44:
 
     else
     {
-      v21 = v19[2];
+      v21 = *(v19 + 2);
     }
 
     if ((2 * v17) <= 4)
@@ -6427,32 +6564,32 @@ LABEL_44:
       v24 = 1;
     }
 
-    v18 = v19[1];
+    v18 = *(v19 + 1);
     if (v24)
     {
-      v25 = 2 * v19[4];
+      v25 = 2 * *(v19 + 4);
       if (v25 <= v23 + 1)
       {
         v25 = v23 + 1;
       }
 
-      v19[4] = v25;
+      *(v19 + 4) = v25;
       v26 = v25 + 8;
       v27 = malloc_type_malloc(v25 + 8, 0x2004093837F09uLL);
       v28 = v27 + v26;
-      *v27 = v19[3];
-      v18 = v27 + 1;
-      v19[2] = v28;
-      v19[3] = v27;
+      *v27 = *(v19 + 3);
+      v18 = (v27 + 1);
+      *(v19 + 2) = v28;
+      *(v19 + 3) = v27;
     }
 
-    v19[1] = &v18[v23];
+    *(v19 + 1) = &v18[v23];
     if (v17)
     {
-      memcpy(v18, *(this + 1591), v17);
+      memcpy(v18, this[1591], v17);
     }
 
-    *(this + 1591) = v18;
+    this[1591] = v18;
     LODWORD(v17) = *(this + 3185);
     v16 = *(this + 3184);
     goto LABEL_44;
@@ -6510,7 +6647,7 @@ LABEL_14:
   }
 }
 
-_anonymous_namespace_::Remangler *anonymous namespace::Remangler::mangleChildNodes@<X0>(_anonymous_namespace_::Remangler *this@<X0>, swift::Demangle::__runtime::Node **a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
+char **anonymous namespace::Remangler::mangleChildNodes@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node **a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
 {
   v5 = this;
   v7 = *(a2 + 18);
@@ -6994,7 +7131,7 @@ void _swift_stdlib_reportFatalErrorInFile(const char *a1, int a2, const char *a3
     }
 
     v12 = v14;
-    _swift_reportToDebugger(1, v14, 0);
+    _swift_reportToDebugger();
     free(v12);
   }
 }
@@ -7020,7 +7157,7 @@ void _swift_stdlib_reportFatalError(const char *a1, int a2, const char *a3, int 
     }
 
     v8 = v10;
-    _swift_reportToDebugger(1, v10, 0);
+    _swift_reportToDebugger();
     free(v8);
   }
 }
@@ -7045,7 +7182,7 @@ void _swift_stdlib_reportUnimplementedInitializer(const char *a1, int a2, const 
   free(v6);
 }
 
-void *_swift_instantiateInertHeapObject(void *result, uint64_t a2)
+uint64_t *_swift_instantiateInertHeapObject(uint64_t *result, uint64_t a2)
 {
   if (a2)
   {
@@ -7090,7 +7227,7 @@ void _GLOBAL__sub_I_GlobalObjects_cpp()
   LOBYTE(qword_1ED42CFC8) = v0;
 }
 
-char *swift_int64ToString(unint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, char a5)
+char *swift_int64ToString(char *a1, unint64_t a2, uint64_t a3, uint64_t a4, char a5)
 {
   if (a2 <= 0x1F && a4 > 9 || a2 <= 0x40 && a4 <= 9)
   {
@@ -7175,7 +7312,7 @@ LABEL_27:
 
 LABEL_28:
   v11 = v6 - 1;
-  v12 = &v6[-a1];
+  v12 = (v6 - a1);
   if (v12)
   {
     v13 = v11 > a1;
@@ -7188,7 +7325,7 @@ LABEL_28:
 
   if (v13)
   {
-    v14 = a1 + 1;
+    v14 = (a1 + 1);
     do
     {
       v15 = *(v14 - 1);
@@ -7493,7 +7630,7 @@ LABEL_11:
   return v23;
 }
 
-uint64_t _swift_stdlib_getScalarBitArrayIdx(unsigned int a1, uint64_t *a2, uint64_t a3)
+unint64_t _swift_stdlib_getScalarBitArrayIdx(unsigned int a1, uint64_t *a2, uint64_t a3)
 {
   v3 = a1 / 0x4400uLL;
   v4 = *a2;
@@ -7517,7 +7654,7 @@ uint64_t _swift_stdlib_getScalarBitArrayIdx(unsigned int a1, uint64_t *a2, uint6
 
   v8 = 5 * v7;
   v9 = &a2[5 * v7 + 1 + v4];
-  v10 = *(v9 + 8 * ((a1 % 0x110) >> 6));
+  v10 = v9[(a1 % 0x110) >> 6];
   if (((v10 >> (a1 % 0x110)) & 1) == 0)
   {
     return 0x7FFFFFFFFFFFFFFFLL;
@@ -7531,7 +7668,7 @@ uint64_t _swift_stdlib_getScalarBitArrayIdx(unsigned int a1, uint64_t *a2, uint6
     v12 = v13;
   }
 
-  return (*(v9 + 32) >> 16) + v12;
+  return (v9[4] >> 16) + v12;
 }
 
 uint64_t _swift_stdlib_getGraphemeBreakProperty(unsigned int a1)
@@ -7778,7 +7915,7 @@ uint64_t _swift_stdlib_getMapping(unsigned int a1, int a2)
   return _swift_stdlib_mappings_data[v4];
 }
 
-uint64_t _swift_stdlib_getSpecialMapping(unsigned int a1, int a2, void *a3)
+unsigned __int8 *_swift_stdlib_getSpecialMapping(unsigned int a1, int a2, void *a3)
 {
   ScalarBitArrayIdx = _swift_stdlib_getScalarBitArrayIdx(a1, _swift_stdlib_special_mappings, &_swift_stdlib_special_mappings_ranks);
   if (ScalarBitArrayIdx == 0x7FFFFFFFFFFFFFFFLL)
@@ -7788,9 +7925,9 @@ uint64_t _swift_stdlib_getSpecialMapping(unsigned int a1, int a2, void *a3)
 
   v7 = &_swift_stdlib_special_mappings_data + _swift_stdlib_special_mappings_data_indices[ScalarBitArrayIdx];
   v9 = *v7;
-  result = (v7 + 1);
+  result = v7 + 1;
   v8 = v9;
-  v10 = (result + v9);
+  v10 = &result[v9];
   v13 = *v10;
   v11 = v10 + 1;
   v12 = v13;
@@ -8179,7 +8316,7 @@ uint64_t _swift_stdlib_NSStringLengthOfBytesInEncodingTrampoline(void *a1, uint6
   return (MethodImplementation)(a1, sel_lengthOfBytesUsingEncoding_, a2);
 }
 
-uint64_t _swift_stdlib_dyld_is_objc_constant_string()
+uint64_t _swift_stdlib_dyld_is_objc_constant_string(uint64_t a1)
 {
   if (MEMORY[0x1EEE9AC28])
   {
@@ -8340,7 +8477,7 @@ double swift::Lazy<anonymous namespace::SwiftNullSentinelCache>::defaultInitCall
   return result;
 }
 
-uint64_t anonymous namespace::getSentinelForDepth(unsigned int)::$_0::operator() const(void)::{lambda(void *)#1}::__invoke(uint64_t *a1)
+void *anonymous namespace::getSentinelForDepth(unsigned int)::$_0::operator() const(void)::{lambda(void *)#1}::__invoke(void *a1)
 {
   result = [(objc_class *)objc_getClass("NSNull") null];
   *a1 = result;
@@ -8414,7 +8551,7 @@ void std::vector<objc_object *>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-uint64_t _swift_stdlib_NSObject_isKindOfClass(int a1, char *name)
+uint64_t _swift_stdlib_NSObject_isKindOfClass(uint64_t a1, char *name)
 {
   objc_lookUpClass(name);
 
@@ -8552,106 +8689,106 @@ uint64_t min<A>(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>,
   return v10(a5, v11, a3);
 }
 
-Swift::Int min<A>(_:_:_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, char *a6@<X8>)
+Swift::Int min<A>(_:_:_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, unint64_t *a5@<X4>, char *a6@<X8>)
 {
-  v45 = a4;
-  v43 = a3;
+  v47 = a4;
+  v45 = a3;
   v10 = *(a5 - 1);
-  v11 = MEMORY[0x1EEE9AC00](a1);
-  v13 = &v37 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = MEMORY[0x1EEE9AC00](v11);
-  v16 = &v37 - v15;
-  v38 = v17;
-  MEMORY[0x1EEE9AC00](v14);
-  v19 = &v37 - v18;
-  v44 = v20;
-  v21 = v20 + 16;
-  v22 = *(v20 + 16);
-  if (v22(v23, a1, v24, v20))
+  v11 = MEMORY[0x1EEE9AC00](a1, a2);
+  v13 = &v39 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = MEMORY[0x1EEE9AC00](v11, v14);
+  v17 = &v39 - v16;
+  v40 = v18;
+  MEMORY[0x1EEE9AC00](v15, v19);
+  v21 = &v39 - v20;
+  v46 = v22;
+  v23 = v22 + 16;
+  v24 = *(v22 + 16);
+  if (v24(v25, a1, v26, v22))
   {
-    v25 = a2;
+    v27 = a2;
   }
 
   else
   {
-    v25 = a1;
+    v27 = a1;
   }
 
-  v26 = *(v10 + 16);
-  v26(v19, v25, a5);
-  v41 = v22;
-  v42 = v21;
-  v27 = v22(v43, v19, a5, v44);
-  v40 = v10 + 16;
-  if (v27)
+  v28 = *(v10 + 16);
+  v28(v21, v27, a5);
+  v43 = v24;
+  v44 = v23;
+  v29 = v24(v45, v21, a5, v46);
+  v42 = v10 + 16;
+  if (v29)
   {
-    (*(v10 + 8))(v19, a5);
-    v26(a6, v43, a5);
+    (*(v10 + 8))(v21, a5);
+    v28(a6, v45, a5);
   }
 
   else
   {
-    (*(v10 + 32))(a6, v19, a5);
+    (*(v10 + 32))(a6, v21, a5);
   }
 
-  v28 = v26;
+  v30 = v28;
   result = Array._getCount()();
-  v43 = result;
+  v45 = result;
   if (result)
   {
-    if (v43 < 1)
+    if (v45 < 1)
     {
       __break(1u);
 LABEL_21:
       _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
     }
 
-    v30 = 0;
-    v39 = v45 & 0xC000000000000001;
-    v31 = (v10 + 32);
+    v32 = 0;
+    v41 = v47 & 0xC000000000000001;
+    v33 = (v10 + 32);
     do
     {
-      if (_swift_isClassOrObjCExistentialType(a5, a5) && v39)
+      if (_swift_isClassOrObjCExistentialType(a5, a5) && v41)
       {
-        v36 = _ArrayBuffer._getElementSlowPath(_:)(v30, v45, a5);
-        if (v38 != 8)
+        v38 = _ArrayBuffer._getElementSlowPath(_:)(v32, v47, a5);
+        if (v40 != 8)
         {
           goto LABEL_21;
         }
 
-        v46 = v36;
-        v37 = v36;
-        v32 = v28;
-        v28(v16, &v46, a5);
-        swift_unknownObjectRelease(v37);
+        v48 = v38;
+        v39 = v38;
+        v34 = v30;
+        v30(v17, &v48, a5);
+        swift_unknownObjectRelease(v39);
       }
 
       else
       {
-        v32 = v28;
-        v28(v16, v45 + ((*(v10 + 80) + 32) & ~*(v10 + 80)) + *(v10 + 72) * v30, a5);
+        v34 = v30;
+        v30(v17, v47 + ((*(v10 + 80) + 32) & ~*(v10 + 80)) + *(v10 + 72) * v32, a5);
       }
 
-      v33 = *v31;
-      (*v31)(v13, v16, a5);
-      v34 = v41(v13, a6, a5, v44);
-      v35 = *(v10 + 8);
-      if (v34)
+      v35 = *v33;
+      (*v33)(v13, v17, a5);
+      v36 = v43(v13, a6, a5, v46);
+      v37 = *(v10 + 8);
+      if (v36)
       {
-        v35(a6, a5);
-        result = (v33)(a6, v13, a5);
+        v37(a6, a5);
+        result = (v35)(a6, v13, a5);
       }
 
       else
       {
-        result = (v35)(v13, a5);
+        result = (v37)(v13, a5);
       }
 
-      ++v30;
-      v28 = v32;
+      ++v32;
+      v30 = v34;
     }
 
-    while (v43 != v30);
+    while (v45 != v32);
   }
 
   return result;
@@ -8678,30 +8815,30 @@ uint64_t IndexingIterator.next()@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   swift_getAssociatedTypeWitness(0, v7, v6, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v9 = v8;
   v10 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8);
-  v12 = &v23[-v11];
-  v13 = *(v4 + 36);
+  MEMORY[0x1EEE9AC00](v8, v11);
+  v13 = &v24[-v12];
+  v14 = *(v4 + 36);
   (*(v7 + 72))(v6, v7);
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v7, v6, v9, &protocol requirements base descriptor for Collection, associated conformance descriptor for Collection.Collection.Index: Comparable);
-  LOBYTE(v4) = (*(*(AssociatedConformanceWitness + 8) + 8))(v3 + v13, v12, v9);
-  (*(v10 + 8))(v12, v9);
+  LOBYTE(v4) = (*(*(AssociatedConformanceWitness + 8) + 8))(v3 + v14, v13, v9);
+  (*(v10 + 8))(v13, v9);
   if (v4)
   {
     swift_getAssociatedTypeWitness(0, *(v7 + 8), v6, &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Element);
-    return (*(*(v15 - 8) + 56))(a2, 1, 1, v15);
+    return (*(*(v16 - 8) + 56))(a2, 1, 1, v16);
   }
 
   else
   {
-    v17 = (*(v7 + 80))(v23, v3 + v13, v6, v7);
-    v19 = v18;
+    v18 = (*(v7 + 80))(v24, v3 + v14, v6, v7);
+    v20 = v19;
     swift_getAssociatedTypeWitness(0, *(v7 + 8), v6, &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Element);
-    v21 = v20;
-    v22 = *(v20 - 8);
-    (*(v22 + 16))(a2, v19, v20);
-    v17(v23, 0);
-    (*(v7 + 192))(v3 + v13, v6, v7);
-    return (*(v22 + 56))(a2, 0, 1, v21);
+    v22 = v21;
+    v23 = *(v21 - 8);
+    (*(v23 + 16))(a2, v20, v21);
+    v18(v24, 0);
+    (*(v7 + 192))(v3 + v14, v6, v7);
+    return (*(v23 + 56))(a2, 0, 1, v22);
   }
 }
 
@@ -8722,106 +8859,106 @@ uint64_t max<A>(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>,
   return v10(a5, v11, a3);
 }
 
-Swift::Int max<A>(_:_:_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, char *a6@<X8>)
+Swift::Int max<A>(_:_:_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, unint64_t *a5@<X4>, char *a6@<X8>)
 {
-  v45 = a4;
-  v43 = a3;
+  v47 = a4;
+  v45 = a3;
   v10 = *(a5 - 1);
-  v11 = MEMORY[0x1EEE9AC00](a1);
-  v13 = &v37 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = MEMORY[0x1EEE9AC00](v11);
-  v16 = &v37 - v15;
-  v38 = v17;
-  MEMORY[0x1EEE9AC00](v14);
-  v19 = &v37 - v18;
-  v44 = v20;
-  v21 = v20 + 32;
-  v22 = *(v20 + 32);
-  if (v22(v23, a1, v24, v20))
+  v11 = MEMORY[0x1EEE9AC00](a1, a2);
+  v13 = &v39 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = MEMORY[0x1EEE9AC00](v11, v14);
+  v17 = &v39 - v16;
+  v40 = v18;
+  MEMORY[0x1EEE9AC00](v15, v19);
+  v21 = &v39 - v20;
+  v46 = v22;
+  v23 = v22 + 32;
+  v24 = *(v22 + 32);
+  if (v24(v25, a1, v26, v22))
   {
-    v25 = a2;
+    v27 = a2;
   }
 
   else
   {
-    v25 = a1;
+    v27 = a1;
   }
 
-  v26 = *(v10 + 16);
-  v26(v19, v25, a5);
-  v41 = v22;
-  v42 = v21;
-  v27 = v22(v43, v19, a5, v44);
-  v40 = v10 + 16;
-  if (v27)
+  v28 = *(v10 + 16);
+  v28(v21, v27, a5);
+  v43 = v24;
+  v44 = v23;
+  v29 = v24(v45, v21, a5, v46);
+  v42 = v10 + 16;
+  if (v29)
   {
-    (*(v10 + 8))(v19, a5);
-    v26(a6, v43, a5);
+    (*(v10 + 8))(v21, a5);
+    v28(a6, v45, a5);
   }
 
   else
   {
-    (*(v10 + 32))(a6, v19, a5);
+    (*(v10 + 32))(a6, v21, a5);
   }
 
-  v28 = v26;
+  v30 = v28;
   result = Array._getCount()();
-  v43 = result;
+  v45 = result;
   if (result)
   {
-    if (v43 < 1)
+    if (v45 < 1)
     {
       __break(1u);
 LABEL_21:
       _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
     }
 
-    v30 = 0;
-    v39 = v45 & 0xC000000000000001;
-    v31 = (v10 + 32);
+    v32 = 0;
+    v41 = v47 & 0xC000000000000001;
+    v33 = (v10 + 32);
     do
     {
-      if (_swift_isClassOrObjCExistentialType(a5, a5) && v39)
+      if (_swift_isClassOrObjCExistentialType(a5, a5) && v41)
       {
-        v36 = _ArrayBuffer._getElementSlowPath(_:)(v30, v45, a5);
-        if (v38 != 8)
+        v38 = _ArrayBuffer._getElementSlowPath(_:)(v32, v47, a5);
+        if (v40 != 8)
         {
           goto LABEL_21;
         }
 
-        v46 = v36;
-        v37 = v36;
-        v32 = v28;
-        v28(v16, &v46, a5);
-        swift_unknownObjectRelease(v37);
+        v48 = v38;
+        v39 = v38;
+        v34 = v30;
+        v30(v17, &v48, a5);
+        swift_unknownObjectRelease(v39);
       }
 
       else
       {
-        v32 = v28;
-        v28(v16, v45 + ((*(v10 + 80) + 32) & ~*(v10 + 80)) + *(v10 + 72) * v30, a5);
+        v34 = v30;
+        v30(v17, v47 + ((*(v10 + 80) + 32) & ~*(v10 + 80)) + *(v10 + 72) * v32, a5);
       }
 
-      v33 = *v31;
-      (*v31)(v13, v16, a5);
-      v34 = v41(v13, a6, a5, v44);
-      v35 = *(v10 + 8);
-      if (v34)
+      v35 = *v33;
+      (*v33)(v13, v17, a5);
+      v36 = v43(v13, a6, a5, v46);
+      v37 = *(v10 + 8);
+      if (v36)
       {
-        v35(a6, a5);
-        result = (v33)(a6, v13, a5);
+        v37(a6, a5);
+        result = (v35)(a6, v13, a5);
       }
 
       else
       {
-        result = (v35)(v13, a5);
+        result = (v37)(v13, a5);
       }
 
-      ++v30;
-      v28 = v32;
+      ++v32;
+      v30 = v34;
     }
 
-    while (v43 != v30);
+    while (v45 != v32);
   }
 
   return result;
@@ -8866,19 +9003,19 @@ uint64_t UInt.init(_builtinIntegerLiteral:)(uint64_t a1, unint64_t a2)
   return result;
 }
 
-uint64_t FixedWidthInteger.init<A>(truncatingIfNeeded:)@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+uint64_t FixedWidthInteger.init<A>(truncatingIfNeeded:)@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
   if ((*(a4 + 56))(a2, a4) <= 64)
   {
     v14 = (*(a5 + 120))(a3, a5);
-    (*(*(a3 - 1) + 8))(a1, a3);
+    (*(*(a3 - 1) + 1))(a1, a3);
     return (*(a4 + 136))(v14, a2, a4);
   }
 
   else
   {
     static FixedWidthInteger._truncatingInit<A>(_:)(a1, a2, a3, a4, a5, a6);
-    v12 = *(*(a3 - 1) + 8);
+    v12 = *(*(a3 - 1) + 1);
 
     return v12(a1, a3);
   }
@@ -8893,71 +9030,71 @@ Swift::_ArrayBody __swiftcall _ArrayBody.init()()
   return result;
 }
 
-uint64_t (*_ArrayBody.count.modify(void *a1))()
+uint64_t (*_ArrayBody.count.modify(void *a1))(uint64_t result)
 {
   *a1 = *v1;
   a1[1] = v1;
   return _ArrayBody.count.modify;
 }
 
-uint64_t SignedInteger<>.init<A>(_:)@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X5>, uint64_t a6@<X8>)
+uint64_t SignedInteger<>.init<A>(_:)@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X5>, uint64_t a6@<X8>)
 {
-  v129 = a6;
-  v132 = *(a4 + 8);
-  v11 = *(*(v132 + 24) + 16);
+  v135 = a6;
+  v138 = *(a4 + 8);
+  v11 = *(*(v138 + 24) + 16);
   swift_getAssociatedTypeWitness(0, v11, a2, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v121 = v12;
-  MEMORY[0x1EEE9AC00](v12);
-  v120 = &v117 - v13;
-  v119 = *(*(a5 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v119, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v118 = v14;
-  v15 = MEMORY[0x1EEE9AC00](v14);
-  v117 = &v117 - v16;
-  v127 = *(a3 - 1);
-  v17 = MEMORY[0x1EEE9AC00](v15);
-  v126 = &v117 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = *(a2 - 1);
-  v20 = MEMORY[0x1EEE9AC00](v17);
-  v128 = &v117 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = MEMORY[0x1EEE9AC00](v20);
-  v124 = &v117 - v23;
-  MEMORY[0x1EEE9AC00](v22);
-  v25 = &v117 - v24;
-  v130 = *(a5 + 64);
-  v131 = a5 + 64;
-  v26 = v130(a3, a5);
-  v27 = *(a5 + 128);
-  v133 = v27;
-  v134 = a5 + 128;
-  v125 = v19;
-  if (v26)
+  v127 = v12;
+  MEMORY[0x1EEE9AC00](v12, v13);
+  v126 = &v123 - v14;
+  v125 = *(*(a5 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v125, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v124 = v15;
+  v17 = MEMORY[0x1EEE9AC00](v15, v16);
+  v123 = &v123 - v18;
+  v133 = *(a3 - 1);
+  v20 = MEMORY[0x1EEE9AC00](v17, v19);
+  v132 = &v123 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = *(a2 - 1);
+  v24 = MEMORY[0x1EEE9AC00](v20, v23);
+  v134 = &v123 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = MEMORY[0x1EEE9AC00](v24, v26);
+  v130 = &v123 - v28;
+  MEMORY[0x1EEE9AC00](v27, v29);
+  v31 = &v123 - v30;
+  v136 = *(a5 + 64);
+  v137 = a5 + 64;
+  v32 = v136(a3, a5);
+  v33 = *(a5 + 128);
+  v139 = v33;
+  v140 = a5 + 128;
+  v131 = v22;
+  if (v32)
   {
-    v28 = v133(a3, a5);
-    v29 = (*(a4 + 56))(a2, a4);
-    v27 = v133;
-    if (v29 < v28)
+    v34 = v139(a3, a5);
+    v35 = (*(a4 + 56))(a2, a4);
+    v33 = v139;
+    if (v35 < v34)
     {
-      v122 = a1;
-      v123 = v11;
+      v128 = a1;
+      v129 = v11;
       (*(a4 + 72))(a2, a4);
-      v30 = v130;
-      v31 = v130(a3, a5);
-      v32 = v132;
-      if (((v31 ^ (*(v132 + 64))(a2, v132)) & 1) == 0)
+      v36 = v136;
+      v37 = v136(a3, a5);
+      v38 = v138;
+      if (((v37 ^ (*(v138 + 64))(a2, v138)) & 1) == 0)
       {
-        v39 = v122;
-        v40 = v133(a3, a5);
-        if (v40 >= (*(v32 + 128))(a2, v32))
+        v45 = v128;
+        v46 = v139(a3, a5);
+        if (v46 >= (*(v38 + 128))(a2, v38))
         {
-          v53 = v126;
-          (*(a5 + 96))(v25, a2, v32, a3, a5);
-          v54 = (*(*(*(a5 + 32) + 8) + 16))(v39, v53, a3);
-          (*(v127 + 8))(v53, a3);
-          a1 = v39;
-          v27 = v133;
-          v11 = v123;
-          if (v54)
+          v59 = v132;
+          (*(a5 + 96))(v31, a2, v38, a3, a5);
+          v60 = (*(*(*(a5 + 32) + 8) + 16))(v45, v59, a3);
+          (*(v133 + 8))(v59, a3);
+          a1 = v45;
+          v33 = v139;
+          v11 = v129;
+          if (v60)
           {
             goto LABEL_47;
           }
@@ -8965,117 +9102,117 @@ uint64_t SignedInteger<>.init<A>(_:)@<X0>(uint64_t a1@<X0>, const char *a2@<X1>,
           goto LABEL_19;
         }
 
-        v41 = v126;
-        (*(v127 + 16))(v126, v39, a3);
-        v42 = v124;
-        (*(v32 + 96))(v41, a3, a5, a2, v32);
-        v38 = (*(*(*(v32 + 32) + 8) + 16))(v42, v25, a2);
-        v43 = *(v125 + 8);
-        v44 = v42;
-        v11 = v123;
-        v43(v44, a2);
-        v43(v25, a2);
-        a1 = v122;
+        v47 = v132;
+        (*(v133 + 16))(v132, v45, a3);
+        v48 = v130;
+        (*(v38 + 96))(v47, a3, a5, a2, v38);
+        v44 = (*(*(*(v38 + 32) + 8) + 16))(v48, v31, a2);
+        v49 = *(v131 + 8);
+        v50 = v48;
+        v11 = v129;
+        v49(v50, a2);
+        v49(v31, a2);
+        a1 = v128;
         goto LABEL_18;
       }
 
-      v33 = v30(a3, a5);
-      v34 = v133(a3, a5);
-      v35 = (*(v32 + 128))(a2, v32);
-      if (v33)
+      v39 = v36(a3, a5);
+      v40 = v139(a3, a5);
+      v41 = (*(v38 + 128))(a2, v38);
+      if (v39)
       {
-        v36 = v125;
-        v11 = v123;
-        if (v35 < v34)
+        v42 = v131;
+        v11 = v129;
+        if (v41 < v40)
         {
-          v37 = v126;
-          (*(a5 + 96))(v25, a2, v132, a3, a5);
-          a1 = v122;
-          v38 = (*(*(*(a5 + 32) + 8) + 16))(v122, v37, a3);
-          (*(v127 + 8))(v37, a3);
+          v43 = v132;
+          (*(a5 + 96))(v31, a2, v138, a3, a5);
+          a1 = v128;
+          v44 = (*(*(*(a5 + 32) + 8) + 16))(v128, v43, a3);
+          (*(v133 + 8))(v43, a3);
           goto LABEL_18;
         }
 
-        v55 = v118;
-        v56 = v119;
-        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v119, a3, v118, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-        v58 = v117;
-        (*(AssociatedConformanceWitness + 8))(&unk_18071E0A8, 256, v55, AssociatedConformanceWitness);
-        v59 = v126;
-        (v56[3])(v58, a3, v56);
-        LOBYTE(v55) = (*(*(*(a5 + 32) + 8) + 16))(v122, v59, a3);
-        v60 = v127;
-        (*(v127 + 8))(v59, a3);
-        v61 = v132;
-        if (v55)
+        v61 = v124;
+        v62 = v125;
+        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v125, a3, v124, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+        v64 = v123;
+        (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v61, AssociatedConformanceWitness);
+        v65 = v132;
+        (v62[3])(v64, a3, v62);
+        LOBYTE(v61) = (*(*(*(a5 + 32) + 8) + 16))(v128, v65, a3);
+        v66 = v133;
+        (*(v133 + 8))(v65, a3);
+        v67 = v138;
+        if (v61)
         {
-          (*(v36 + 8))(v25, a2);
+          (*(v42 + 8))(v31, a2);
           goto LABEL_47;
         }
 
-        (*(v60 + 16))(v59, v122, a3);
-        v62 = v124;
-        (*(v61 + 96))(v59, a3, a5, a2, v61);
-        v38 = (*(*(*(v61 + 32) + 8) + 16))(v62, v25, a2);
-        v63 = *(v36 + 8);
-        v63(v62, a2);
-        v63(v25, a2);
-        a1 = v122;
+        (*(v66 + 16))(v65, v128, a3);
+        v68 = v130;
+        (*(v67 + 96))(v65, a3, a5, a2, v67);
+        v44 = (*(*(*(v67 + 32) + 8) + 16))(v68, v31, a2);
+        v69 = *(v42 + 8);
+        v69(v68, a2);
+        v69(v31, a2);
+        a1 = v128;
       }
 
       else
       {
-        v45 = v125;
-        v46 = v123;
-        if (v34 < v35)
+        v51 = v131;
+        v52 = v129;
+        if (v40 < v41)
         {
-          v47 = v126;
-          v48 = v122;
-          (*(v127 + 16))(v126, v122, a3);
-          v49 = v132;
-          v50 = v124;
-          (*(v132 + 96))(v47, a3, a5, a2, v132);
-          v38 = (*(*(*(v49 + 32) + 8) + 16))(v50, v25, a2);
-          v51 = *(v125 + 8);
-          v52 = v50;
-          v11 = v123;
-          v51(v52, a2);
-          v51(v25, a2);
-          a1 = v48;
+          v53 = v132;
+          v54 = v128;
+          (*(v133 + 16))(v132, v128, a3);
+          v55 = v138;
+          v56 = v130;
+          (*(v138 + 96))(v53, a3, a5, a2, v138);
+          v44 = (*(*(*(v55 + 32) + 8) + 16))(v56, v31, a2);
+          v57 = *(v131 + 8);
+          v58 = v56;
+          v11 = v129;
+          v57(v58, a2);
+          v57(v31, a2);
+          a1 = v54;
           goto LABEL_18;
         }
 
-        v64 = v121;
-        v65 = swift_getAssociatedConformanceWitness(v123, a2, v121, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-        v66 = v120;
-        (*(v65 + 8))(&unk_18071E0A8, 256, v64, v65);
-        v67 = *(v46 + 3);
-        v68 = v46;
-        v69 = v124;
-        v67(v66, a2, v68);
-        LOBYTE(v64) = (*(*(*(v132 + 32) + 8) + 40))(v25, v69, a2);
-        v70 = *(v45 + 8);
-        v70(v69, a2);
-        if ((v64 & 1) == 0)
+        v70 = v127;
+        v71 = swift_getAssociatedConformanceWitness(v129, a2, v127, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+        v72 = v126;
+        (*(v71 + 8))(&qword_18071E0A8, 256, v70, v71);
+        v73 = *(v52 + 3);
+        v74 = v52;
+        v75 = v130;
+        v73(v72, a2, v74);
+        LOBYTE(v70) = (*(*(*(v138 + 32) + 8) + 40))(v31, v75, a2);
+        v76 = *(v51 + 8);
+        v76(v75, a2);
+        if ((v70 & 1) == 0)
         {
-          v70(v25, a2);
-          a1 = v122;
-          v11 = v123;
-          v72 = v133(a3, a5);
+          v76(v31, a2);
+          a1 = v128;
+          v11 = v129;
+          v78 = v139(a3, a5);
           goto LABEL_20;
         }
 
-        v71 = v126;
-        (*(a5 + 96))(v25, a2, v132, a3, a5);
-        a1 = v122;
-        v38 = (*(*(*(a5 + 32) + 8) + 16))(v122, v71, a3);
-        (*(v127 + 8))(v71, a3);
+        v77 = v132;
+        (*(a5 + 96))(v31, a2, v138, a3, a5);
+        a1 = v128;
+        v44 = (*(*(*(a5 + 32) + 8) + 16))(v128, v77, a3);
+        (*(v133 + 8))(v77, a3);
       }
 
-      v11 = v123;
+      v11 = v129;
 LABEL_18:
-      v27 = v133;
-      if (v38)
+      v33 = v139;
+      if (v44)
       {
         goto LABEL_47;
       }
@@ -9083,65 +9220,65 @@ LABEL_18:
   }
 
 LABEL_19:
-  v72 = v27(a3, a5);
+  v78 = v33(a3, a5);
 LABEL_20:
-  v73 = a1;
-  v74 = *(a4 + 56);
-  if (v74(a2, a4) < v72 || (v88 = v133(a3, a5), v88 == v74(a2, a4)) && (v130(a3, a5) & 1) == 0)
+  v79 = a1;
+  v80 = *(a4 + 56);
+  if (v80(a2, a4) < v78 || (v94 = v139(a3, a5), v94 == v80(a2, a4)) && (v136(a3, a5) & 1) == 0)
   {
-    v123 = v11;
-    v75 = v128;
+    v129 = v11;
+    v81 = v134;
     (*(a4 + 64))(a2, a4);
-    v76 = v132;
-    v77 = *(v132 + 64);
-    v78 = v77(a2, v132);
-    if ((v78 ^ v130(a3, a5)))
+    v82 = v138;
+    v83 = *(v138 + 64);
+    v84 = v83(a2, v138);
+    if ((v84 ^ v136(a3, a5)))
     {
-      v79 = v77(a2, v76);
-      v80 = (*(v76 + 128))(a2, v76);
-      v81 = v73;
-      v82 = v133(a3, a5);
-      if (v79)
+      v85 = v83(a2, v82);
+      v86 = (*(v82 + 128))(a2, v82);
+      v87 = v79;
+      v88 = v139(a3, a5);
+      if (v85)
       {
-        v83 = v125;
-        v84 = v126;
-        v122 = v81;
-        if (v82 < v80)
+        v89 = v131;
+        v90 = v132;
+        v128 = v87;
+        if (v88 < v86)
         {
-          (*(v127 + 16))(v126, v81, a3);
-          v85 = v124;
-          (*(v76 + 96))(v84, a3, a5, a2, v76);
-          v86 = v128;
-          v87 = (*(*(*(v76 + 32) + 8) + 16))(v128, v85, a2);
+          (*(v133 + 16))(v132, v87, a3);
+          v91 = v130;
+          (*(v82 + 96))(v90, a3, a5, a2, v82);
+          v92 = v134;
+          v93 = (*(*(*(v82 + 32) + 8) + 16))(v134, v91, a2);
           goto LABEL_40;
         }
 
-        v96 = v123;
-        v97 = v121;
-        v98 = swift_getAssociatedConformanceWitness(v123, a2, v121, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-        v99 = v120;
-        (*(v98 + 8))(&unk_18071E0A8, 256, v97, v98);
-        v100 = v124;
-        (*(v96 + 3))(v99, a2, v96);
-        v101 = v128;
-        LOBYTE(v97) = (*(*(*(v76 + 32) + 8) + 16))(v128, v100, a2);
-        v102 = *(v83 + 8);
-        v102(v100, a2);
-        if (v97)
+        v102 = v129;
+        v103 = v127;
+        v104 = swift_getAssociatedConformanceWitness(v129, a2, v127, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+        v105 = v126;
+        (*(v104 + 8))(&qword_18071E0A8, 256, v103, v104);
+        v106 = v130;
+        (*(v102 + 3))(v105, a2, v102);
+        v107 = v134;
+        LOBYTE(v103) = (*(*(*(v82 + 32) + 8) + 16))(v134, v106, a2);
+        v108 = *(v89 + 8);
+        v108(v106, a2);
+        if (v103)
         {
-          v102(v101, a2);
+          v108(v107, a2);
         }
 
         else
         {
-          (*(a5 + 96))(v101, a2, v76, a3, a5);
-          v103 = v122;
-          v104 = (*(*(*(a5 + 32) + 8) + 16))(v84, v122, a3);
-          (*(v127 + 8))(v84, a3);
-          v73 = v103;
-          if ((v104 & 1) == 0)
+          (*(a5 + 96))(v107, a2, v82, a3, a5);
+          v109 = v128;
+          v110 = (*(*(*(a5 + 32) + 8) + 16))(v90, v128, a3);
+          (*(v133 + 8))(v90, a3);
+          v79 = v109;
+          if ((v110 & 1) == 0)
           {
-            return (*(v132 + 96))(v73, a3, a5, a2);
+            return (*(v138 + 96))(v79, a3, a5, a2);
           }
         }
 
@@ -9149,124 +9286,124 @@ LABEL_47:
         _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
       }
 
-      v83 = v125;
-      v92 = v126;
-      if (v80 >= v82)
+      v89 = v131;
+      v98 = v132;
+      if (v86 >= v88)
       {
-        v105 = v118;
-        v106 = v119;
-        v107 = swift_getAssociatedConformanceWitness(v119, a3, v118, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-        v108 = v81;
-        v109 = v117;
-        (*(v107 + 8))(&unk_18071E0A8, 256, v105, v107);
-        v110 = v109;
-        v111 = v108;
-        (v106[3])(v110, a3, v106);
-        LOBYTE(v105) = (*(*(*(a5 + 32) + 8) + 40))(v108, v92, a3);
-        v112 = v127;
-        (*(v127 + 8))(v92, a3);
-        v86 = v128;
-        if ((v105 & 1) == 0)
+        v111 = v124;
+        v112 = v125;
+        v113 = swift_getAssociatedConformanceWitness(v125, a3, v124, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+        v114 = v87;
+        v115 = v123;
+        (*(v113 + 8))(&qword_18071E0A8, 256, v111, v113);
+        v116 = v115;
+        v117 = v114;
+        (v112[3])(v116, a3, v112);
+        LOBYTE(v111) = (*(*(*(a5 + 32) + 8) + 40))(v114, v98, a3);
+        v118 = v133;
+        (*(v133 + 8))(v98, a3);
+        v92 = v134;
+        if ((v111 & 1) == 0)
         {
-          (*(v83 + 8))(v128, a2);
-          v73 = v111;
-          return (*(v132 + 96))(v73, a3, a5, a2);
+          (*(v89 + 8))(v134, a2);
+          v79 = v117;
+          return (*(v138 + 96))(v79, a3, a5, a2);
         }
 
-        (*(v112 + 16))(v92, v111, a3);
-        v113 = *(v76 + 96);
-        v122 = v111;
-        v85 = v124;
-        v113(v92, a3, a5, a2, v76);
-        v87 = (*(*(*(v76 + 32) + 8) + 16))(v86, v85, a2);
+        (*(v118 + 16))(v98, v117, a3);
+        v119 = *(v82 + 96);
+        v128 = v117;
+        v91 = v130;
+        v119(v98, a3, a5, a2, v82);
+        v93 = (*(*(*(v82 + 32) + 8) + 16))(v92, v91, a2);
 LABEL_40:
-        v114 = v87;
-        v115 = *(v83 + 8);
-        v115(v85, a2);
-        v115(v86, a2);
-        v73 = v122;
-        if ((v114 & 1) == 0)
+        v120 = v93;
+        v121 = *(v89 + 8);
+        v121(v91, a2);
+        v121(v92, a2);
+        v79 = v128;
+        if ((v120 & 1) == 0)
         {
-          return (*(v132 + 96))(v73, a3, a5, a2);
+          return (*(v138 + 96))(v79, a3, a5, a2);
         }
 
         goto LABEL_47;
       }
 
-      (*(a5 + 96))(v128, a2, v76, a3, a5);
-      v91 = (*(*(*(a5 + 32) + 8) + 16))(v92, v81, a3);
-      (*(v127 + 8))(v92, a3);
+      (*(a5 + 96))(v134, a2, v82, a3, a5);
+      v97 = (*(*(*(a5 + 32) + 8) + 16))(v98, v87, a3);
+      (*(v133 + 8))(v98, a3);
     }
 
     else
     {
-      v89 = (*(v76 + 128))(a2, v76);
-      v81 = v73;
-      if (v89 >= v133(a3, a5))
+      v95 = (*(v82 + 128))(a2, v82);
+      v87 = v79;
+      if (v95 >= v139(a3, a5))
       {
-        v93 = v126;
-        (*(v127 + 16))(v126, v73, a3);
-        v94 = v124;
-        (*(v76 + 96))(v93, a3, a5, a2, v76);
-        v91 = (*(*(*(v76 + 32) + 8) + 16))(v75, v94, a2);
-        v95 = *(v125 + 8);
-        v95(v94, a2);
-        v95(v75, a2);
+        v99 = v132;
+        (*(v133 + 16))(v132, v79, a3);
+        v100 = v130;
+        (*(v82 + 96))(v99, a3, a5, a2, v82);
+        v97 = (*(*(*(v82 + 32) + 8) + 16))(v81, v100, a2);
+        v101 = *(v131 + 8);
+        v101(v100, a2);
+        v101(v81, a2);
       }
 
       else
       {
-        v90 = v126;
-        (*(a5 + 96))(v75, a2, v76, a3, a5);
-        v91 = (*(*(*(a5 + 32) + 8) + 16))(v90, v73, a3);
-        (*(v127 + 8))(v90, a3);
+        v96 = v132;
+        (*(a5 + 96))(v81, a2, v82, a3, a5);
+        v97 = (*(*(*(a5 + 32) + 8) + 16))(v96, v79, a3);
+        (*(v133 + 8))(v96, a3);
       }
     }
 
-    v73 = v81;
-    if ((v91 & 1) == 0)
+    v79 = v87;
+    if ((v97 & 1) == 0)
     {
-      return (*(v132 + 96))(v73, a3, a5, a2);
+      return (*(v138 + 96))(v79, a3, a5, a2);
     }
 
     goto LABEL_47;
   }
 
-  return (*(v132 + 96))(v73, a3, a5, a2);
+  return (*(v138 + 96))(v79, a3, a5, a2);
 }
 
-uint64_t static FixedWidthInteger.~ prefix(_:)@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t static FixedWidthInteger.~ prefix(_:)@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v27 = a3;
-  v24 = a1;
-  v25 = a4;
+  v30 = a3;
+  v27 = a1;
+  v28 = a4;
   v5 = *(*(*(a3 + 8) + 24) + 16);
   swift_getAssociatedTypeWitness(0, v5, a2, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
   v7 = v6;
-  v8 = MEMORY[0x1EEE9AC00](v6);
-  v10 = &v19 - v9;
-  v28 = *(a2 - 1);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = &v19 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v26 = &v19 - v14;
+  v9 = MEMORY[0x1EEE9AC00](v6, v8);
+  v11 = &v22 - v10;
+  v31 = *(a2 - 1);
+  v13 = MEMORY[0x1EEE9AC00](v9, v12);
+  v15 = &v22 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13, v16);
+  v29 = &v22 - v17;
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v5, a2, v7, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-  v23 = *(AssociatedConformanceWitness + 8);
-  v23(&unk_18071E0A8, 256, v7, AssociatedConformanceWitness);
-  v22 = v5;
-  v21 = *(v5 + 24);
-  v21(v10, a2, v5);
-  v20 = *(v27 + 88);
-  v20(v26, v24, a2);
-  v16 = *(v28 + 8);
-  v28 += 8;
-  v16(v13, a2);
-  v23(&qword_1806729C0, 512, v7, AssociatedConformanceWitness);
-  v21(v10, a2, v22);
-  v17 = v26;
-  (v20)(v25, v13, a2, v27);
-  v16(v13, a2);
-  return (v16)(v17, a2);
+  v26 = *(AssociatedConformanceWitness + 8);
+  v26(&qword_18071E0A8, 256, v7, AssociatedConformanceWitness);
+  v25 = v5;
+  v24 = *(v5 + 24);
+  v24(v11, a2, v5);
+  v23 = *(v30 + 88);
+  v23(v29, v27, a2);
+  v19 = *(v31 + 8);
+  v31 += 8;
+  v19(v15, a2);
+  v26(&qword_1806729C0, 512, v7, AssociatedConformanceWitness);
+  v24(v11, a2, v25);
+  v20 = v29;
+  (v23)(v28, v15, a2, v30);
+  v19(v15, a2);
+  return (v19)(v20, a2);
 }
 
 uint64_t (*_ArrayBody.elementTypeIsBridgedVerbatim.modify(uint64_t a1))(uint64_t result)
@@ -9278,14 +9415,14 @@ uint64_t (*_ArrayBody.elementTypeIsBridgedVerbatim.modify(uint64_t a1))(uint64_t
   return _ArrayBody.elementTypeIsBridgedVerbatim.modify;
 }
 
-void *(*_ArrayBody._capacityAndFlags.modify(void *a1))(void *result)
+uint64_t (*_ArrayBody._capacityAndFlags.modify(void *a1))()
 {
   *a1 = *(v1 + 8);
   a1[1] = v1;
   return _ArrayBody._capacityAndFlags.modify;
 }
 
-uint64_t _ArrayBuffer.downcast<A>(toBufferWithDeferredTypeCheckOf:)(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t _ArrayBuffer.downcast<A>(toBufferWithDeferredTypeCheckOf:)(uint64_t a1, uint64_t a2, unint64_t *a3)
 {
   isClassOrObjCExistentialType = _swift_isClassOrObjCExistentialType(a3, a3);
   v5 = a2 & 0xFFFFFFFFFFFFFF8;
@@ -9297,13 +9434,13 @@ uint64_t _ArrayBuffer.downcast<A>(toBufferWithDeferredTypeCheckOf:)(uint64_t a1,
   return v5 | 1;
 }
 
-BOOL _ArrayBuffer.needsElementTypeCheck.getter(uint64_t a1, uint64_t *a2)
+BOOL _ArrayBuffer.needsElementTypeCheck.getter(uint64_t a1, unint64_t *a2)
 {
   isClassOrObjCExistentialType = _swift_isClassOrObjCExistentialType(a2, a2);
   result = 0;
   if (isClassOrObjCExistentialType && (a1 & 0xC000000000000001) != 0)
   {
-    return swift_dynamicCastMetatype(&unk_1EEEAC710, a2) == 0;
+    return swift_dynamicCastMetatype(qword_1EEEAC710, a2) == 0;
   }
 
   return result;
@@ -9322,18 +9459,11 @@ uint64_t static Bool.&& infix(_:_:)(char a1, uint64_t (*a2)(void))
   }
 }
 
-uint64_t protocol witness for _ArrayBufferProtocol.init(_buffer:shiftedToStartIndex:) in conformance _ArrayBuffer<A>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t *a3@<X8>)
-{
-  result = _swift_displayCrashMessage(a1, *(a2 + 16));
-  *a3 = result;
-  return result;
-}
-
-uint64_t _ArrayBufferProtocol.init(copying:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t _ArrayBufferProtocol.init(copying:)@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v31[1] = a4;
-  v7 = *(a2 - 8);
-  MEMORY[0x1EEE9AC00](a1);
+  v7 = *(a2 - 1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v31[0] = v31 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = *(*(v9 + 8) + 8);
   v11 = *(v10 + 112);
@@ -9385,12 +9515,12 @@ uint64_t _ArrayBufferProtocol.init(copying:)@<X0>(uint64_t a1@<X0>, unint64_t a2
   return (*(a3 + 32))(v21, v32[0], a2, a3);
 }
 
-uint64_t specialized _ArrayBuffer._copyContents(subRange:initializing:)(uint64_t result, uint64_t a2, char *a3, uint64_t a4)
+uint64_t specialized _ArrayBuffer._copyContents(subRange:initializing:)(uint64_t result, uint64_t a2, char *a3, unint64_t a4)
 {
   v4 = a4;
   if (a4 >> 62)
   {
-    if (a4 >= 0)
+    if ((a4 & 0x8000000000000000) == 0)
     {
       a4 &= 0xFFFFFFFFFFFFFF8uLL;
     }
@@ -9419,7 +9549,7 @@ uint64_t specialized _ArrayBuffer._copyContents(subRange:initializing:)(uint64_t
   return result;
 }
 
-char *_ArrayBuffer._copyContents(subRange:initializing:)(Swift::Int a1, Swift::Int a2, char *a3, uint64_t a4, uint64_t *a5)
+char *_ArrayBuffer._copyContents(subRange:initializing:)(Swift::Int a1, Swift::Int a2, char *a3, int64_t a4, unint64_t *a5)
 {
   v8 = a2;
   _ArrayBuffer._typeCheck(_:)(a1, a2, a4, a5);
@@ -9507,7 +9637,7 @@ uint64_t _ArrayBuffer.requestUniqueMutableBackingBuffer(minimumCapacity:)(uint64
   return v7;
 }
 
-uint64_t _ArrayBuffer.requestNativeBuffer()(unint64_t a1, uint64_t *a2)
+unint64_t _ArrayBuffer.requestNativeBuffer()(unint64_t a1, unint64_t *a2)
 {
   if (_swift_isClassOrObjCExistentialType(a2, a2))
   {
@@ -9545,55 +9675,55 @@ uint64_t _ArrayBuffer.requestNativeBuffer()(unint64_t a1, uint64_t *a2)
   return v4;
 }
 
-uint64_t _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6, uint64_t a7, int **a8)
+uint64_t _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, Class *a5, Class *a6, uint64_t a7, int **a8)
 {
-  v74 = a4;
-  v80 = a3;
-  v81 = a1;
-  v79 = *(*(a7 + 8) + 8);
-  swift_getAssociatedTypeWitness(0, v79[1], a5, &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Element);
+  v78 = a4;
+  v84 = a3;
+  v85 = a1;
+  v83 = *(*(a7 + 8) + 8);
+  swift_getAssociatedTypeWitness(0, v83[1], a5, &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Element);
   v14 = v13;
-  v67 = *(v13 - 1);
-  v15 = v67;
-  MEMORY[0x1EEE9AC00](v13);
-  v68 = &v66 - v16;
-  v83 = a8;
-  v73 = a6;
+  v71 = *(v13 - 1);
+  v15 = v71;
+  MEMORY[0x1EEE9AC00](v13, v16);
+  v72 = &v70 - v17;
+  v87 = a8;
+  v77 = a6;
   swift_getAssociatedTypeWitness(0, a8, a6, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
-  v70 = *(v17 - 8);
-  v71 = v17;
-  v18 = MEMORY[0x1EEE9AC00](v17);
-  v69 = &v66 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v82 = &v66 - v20;
-  v21 = a5;
-  v22 = a7;
-  v23 = (*(a7 + 160))(a5, a7);
-  v24 = *(v15 + 72);
-  v25 = a2 - v81;
-  if (__OFSUB__(a2, v81))
+  v74 = *(v18 - 8);
+  v75 = v18;
+  v20 = MEMORY[0x1EEE9AC00](v18, v19);
+  v73 = &v70 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v20, v22);
+  v86 = &v70 - v23;
+  v24 = a5;
+  v25 = a7;
+  v26 = (*(a7 + 160))(a5, a7);
+  v27 = *(v15 + 72);
+  v28 = a2 - v85;
+  if (__OFSUB__(a2, v85))
   {
     __break(1u);
 LABEL_19:
-    LODWORD(v64) = 0;
-    v63 = 1183;
-    LOBYTE(v62) = 2;
+    LODWORD(v68) = 0;
+    v67 = 1183;
+    LOBYTE(v66) = 2;
     _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  if (v25 < 0)
+  if (v28 < 0)
   {
     goto LABEL_19;
   }
 
-  v26 = v23;
-  v27 = a2;
-  v28 = v23 + v24 * v81;
-  swift_arrayDestroy(v28, a2 - v81, v14);
-  v30 = v24;
-  v31 = v80;
-  v32 = v80 - v25;
-  if (__OFSUB__(v80, v25))
+  v29 = v26;
+  v30 = a2;
+  v31 = v26 + v27 * v85;
+  swift_arrayDestroy(v31, a2 - v85, v14);
+  v34 = v27;
+  v35 = v84;
+  v36 = v84 - v28;
+  if (__OFSUB__(v84, v28))
   {
     __break(1u);
 LABEL_21:
@@ -9601,302 +9731,108 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v81 = v30;
-  v33 = v30 * v80;
-  v72 = (v28 + v30 * v80);
-  v34 = v14;
-  if (!v32)
+  v85 = v34;
+  v37 = v34 * v84;
+  v76 = (v31 + v34 * v84);
+  v38 = v14;
+  if (!v36)
   {
     goto LABEL_8;
   }
 
-  v35 = (v79[14])(v21);
-  if (__OFSUB__(v35, v27))
+  v39 = (v83[14])(v24);
+  if (__OFSUB__(v39, v30))
   {
     goto LABEL_21;
   }
 
-  UnsafeMutablePointer.moveInitialize(from:count:)((v26 + v81 * v27), v35 - v27, v72, v14);
-  v36 = (*(v22 + 136))(v84, v21, v22);
-  if (__OFADD__(*v37, v32))
+  UnsafeMutablePointer.moveInitialize(from:count:)((v29 + v85 * v30), v39 - v30, v76, v14);
+  v40 = (*(v25 + 136))(v88, v24, v25);
+  if (__OFADD__(*v41, v36))
   {
 LABEL_22:
     __break(1u);
     goto LABEL_23;
   }
 
-  *v37 += v32;
-  v29 = v36(v84, 0);
-  v31 = v80;
+  *v41 += v36;
+  v32 = v40(v88, 0);
+  v35 = v84;
 LABEL_8:
-  if (v31 < 1)
+  if (v35 < 1)
   {
-    return (*(*(v73 - 1) + 8))(v74);
+    return (*(*(v77 - 1) + 1))(v78);
   }
 
-  MEMORY[0x1EEE9AC00](v29);
-  v39 = v73;
-  v38 = v74;
-  *(&v66 - 6) = v21;
-  *(&v66 - 5) = v39;
-  v40 = v83;
-  v62 = v22;
-  v63 = v83;
-  v64 = v41;
-  v65 = v28;
-  (*(v83[1] + 9))(v84, partial apply for closure #1 in _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
-  if (v84[0])
+  MEMORY[0x1EEE9AC00](v32, v33);
+  v43 = v77;
+  v42 = v78;
+  *(&v70 - 6) = v24;
+  *(&v70 - 5) = v43;
+  v44 = v87;
+  v66 = v25;
+  v67 = v87;
+  v68 = v45;
+  v69 = v31;
+  (*(v87[1] + 9))(v88, partial apply for closure #1 in _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
+  if (v88[0])
   {
-    (v40[8])(v39, v40);
-    v42 = v33 < 1;
-    v43 = v38;
-    v80 = v34;
-    v44 = v68;
-    v45 = v72;
-    if (!v42)
+    (v44[8])(v43, v44);
+    v46 = v37 < 1;
+    v47 = v42;
+    v84 = v38;
+    v48 = v72;
+    v49 = v76;
+    if (!v46)
     {
-      v78 = v83[10];
-      v79 = v83 + 10;
-      v76 = v83[24];
-      v77 = v83 + 24;
-      v75 = (v67 + 16);
-      v46 = (v67 + 32);
+      v82 = v87[10];
+      v83 = v87 + 10;
+      v80 = v87[24];
+      v81 = v87 + 24;
+      v79 = (v71 + 16);
+      v50 = (v71 + 32);
       do
       {
-        v47 = v39;
-        v48 = v43;
-        v49 = v82;
-        v50 = v83;
-        v51 = (v78)(v84, v82, v47, v83);
-        v52 = v80;
-        (*v75)(v44);
-        v51(v84, 0);
-        (*v46)(v28, v44, v52);
-        v28 += v81;
-        v53 = v49;
-        v43 = v48;
-        v39 = v47;
-        (v76)(v53, v47, v50);
+        v51 = v43;
+        v52 = v47;
+        v53 = v86;
+        v54 = v87;
+        v55 = (v82)(v88, v86, v51, v87);
+        v56 = v84;
+        (*v79)(v48);
+        v55(v88, 0);
+        (*v50)(v31, v48, v56);
+        v31 += v85;
+        v57 = v53;
+        v47 = v52;
+        v43 = v51;
+        (v80)(v57, v51, v54);
       }
 
-      while (v28 < v45);
+      while (v31 < v49);
     }
 
-    v54 = v83;
-    v55 = v69;
-    (v83[9])(v39, v83);
-    v56 = v71;
-    AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v54, v39, v71, &protocol requirements base descriptor for Collection, associated conformance descriptor for Collection.Collection.Index: Comparable);
-    v58 = v82;
-    v59 = (*(*(AssociatedConformanceWitness + 8) + 8))(v82, v55, v56);
-    v60 = *(v70 + 8);
-    v60(v55, v56);
-    if (v59)
+    v58 = v87;
+    v59 = v73;
+    (v87[9])(v43, v87);
+    v60 = v75;
+    AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v58, v43, v75, &protocol requirements base descriptor for Collection, associated conformance descriptor for Collection.Collection.Index: Comparable);
+    v62 = v86;
+    v63 = (*(*(AssociatedConformanceWitness + 8) + 8))(v86, v59, v60);
+    v64 = *(v74 + 8);
+    v64(v59, v60);
+    if (v63)
     {
-      (*(*(v39 - 1) + 8))(v43, v39);
-      return (v60)(v58, v56);
+      (*(*(v43 - 1) + 8))(v47, v43);
+      return (v64)(v62, v60);
     }
 
 LABEL_23:
-    LODWORD(v64) = 0;
-    v63 = 173;
-    LOBYTE(v62) = 2;
+    LODWORD(v68) = 0;
+    v67 = 173;
+    LOBYTE(v66) = 2;
     _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  return (*(*(v39 - 1) + 8))(v38);
-}
-
-uint64_t _ArrayBuffer.subscript.getter(uint64_t a1, uint64_t a2, int64_t a3, uint64_t *a4)
-{
-  if (_swift_isClassOrObjCExistentialType(a4, a4) && _swift_isClassOrObjCExistentialType(a4, a4) && (a3 & 0xC000000000000001) != 0 && !swift_dynamicCastMetatype(qword_1EEEAC710, a4))
-  {
-    if (a2 < a1)
-    {
-      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
-    }
-
-    if (a1 != a2)
-    {
-      v11 = a1;
-      do
-      {
-        if (a2 == v11)
-        {
-          _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
-        }
-
-        v12 = v11 + 1;
-        _ArrayBuffer._typeCheckSlowPath(_:)(v11);
-        v11 = v12;
-      }
-
-      while (a2 != v12);
-    }
-  }
-
-  if (_swift_isClassOrObjCExistentialType(a4, a4) && (a3 < 0 || (a3 & 0x4000000000000000) != 0))
-  {
-    if (a3 >= 0)
-    {
-      a3 &= 0xFFFFFFFFFFFFFF8uLL;
-    }
-
-    swift_unknownObjectRetain(a3);
-    v9 = _CocoaArrayWrapper.subscript.getter(a1, a2, a3);
-    swift_unknownObjectRelease(a3);
-  }
-
-  else
-  {
-    isClassOrObjCExistentialType = _swift_isClassOrObjCExistentialType(a4, a4);
-    if (a2 < 0)
-    {
-      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
-    }
-
-    if (isClassOrObjCExistentialType)
-    {
-      v9 = a3 & 0xFFFFFFFFFFFFFF8;
-    }
-
-    else
-    {
-      v9 = a3;
-    }
-
-    a3;
-  }
-
-  return v9;
-}
-
-uint64_t _ss12_ArrayBufferV010withUnsafeB7Pointeryqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMggrzo_Tpq5(uint64_t (*a1)(char *, atomic_ullong, uint64_t *), uint64_t a2, uint64_t a3, uint64_t *a4)
-{
-  if (_swift_isClassOrObjCExistentialType(a4, a4) && (a3 < 0 || (a3 & 0x4000000000000000) != 0))
-  {
-    return _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMggrzo_Tpq5(a1, a2, a3, a4);
-  }
-
-  if (_swift_isClassOrObjCExistentialType(a4, a4))
-  {
-    v8 = ((*(*(a4 - 1) + 80) + 32) & ~*(*(a4 - 1) + 80)) + (a3 & 0xFFFFFFFFFFFFFF8);
-  }
-
-  else
-  {
-    v8 = a3 + ((*(*(a4 - 1) + 80) + 32) & ~*(*(a4 - 1) + 80));
-  }
-
-  if (_swift_isClassOrObjCExistentialType(a4, a4) && (a3 < 0 || (a3 & 0x4000000000000000) != 0))
-  {
-    if (a3 < 0)
-    {
-      v13 = a3;
-    }
-
-    else
-    {
-      v13 = (a3 & 0xFFFFFFFFFFFFFF8);
-    }
-
-    v14 = [v13 count];
-    if ((v14 & 0x8000000000000000) != 0)
-    {
-      _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
-    }
-
-    v11 = v14;
-  }
-
-  else
-  {
-    isClassOrObjCExistentialType = _swift_isClassOrObjCExistentialType(a4, a4);
-    v10 = a3 & 0xFFFFFFFFFFFFFF8;
-    if (!isClassOrObjCExistentialType)
-    {
-      v10 = a3;
-    }
-
-    v11 = *(v10 + 16);
-  }
-
-  return a1(v8, v11, &v15);
-}
-
-uint64_t _ss12_ArrayBufferV010withUnsafeB7Pointeryqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(uint64_t (*a1)(char *, __objc2_class *, char *), uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v30 = a8;
-  v31 = a2;
-  v32 = a1;
-  v13 = *(a6 - 8);
-  v14 = MEMORY[0x1EEE9AC00](a1);
-  v16 = &v29 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v18 = &v29 - v17;
-  if (_swift_isClassOrObjCExistentialType(v19, v19) && (a3 < 0 || (a3 & 0x4000000000000000) != 0))
-  {
-    v26 = v33;
-    result = _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(v32, v31, a3, a4, a5, a6, a7, v16);
-    v18 = v16;
-    if (v26)
-    {
-      return (*(v13 + 32))(v30, v18, a6);
-    }
-  }
-
-  else
-  {
-    if (_swift_isClassOrObjCExistentialType(a4, a4))
-    {
-      v20 = (((*(*(a4 - 1) + 80) + 32) & ~*(*(a4 - 1) + 80)) + (a3 & 0xFFFFFFFFFFFFFF8));
-    }
-
-    else
-    {
-      v20 = (a3 + ((*(*(a4 - 1) + 80) + 32) & ~*(*(a4 - 1) + 80)));
-    }
-
-    if (_swift_isClassOrObjCExistentialType(a4, a4) && (a3 < 0 || (a3 & 0x4000000000000000) != 0))
-    {
-      if (a3 < 0)
-      {
-        v27 = a3;
-      }
-
-      else
-      {
-        v27 = (a3 & 0xFFFFFFFFFFFFFF8);
-      }
-
-      v28 = [v27 count];
-      if ((v28 & 0x8000000000000000) != 0)
-      {
-        _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
-      }
-
-      v23 = v28;
-    }
-
-    else
-    {
-      isClassOrObjCExistentialType = _swift_isClassOrObjCExistentialType(a4, a4);
-      v22 = a3 & 0xFFFFFFFFFFFFFF8;
-      if (!isClassOrObjCExistentialType)
-      {
-        v22 = a3;
-      }
-
-      v23 = *(v22 + 16);
-    }
-
-    v24 = v33;
-    result = v32(v20, v23, v18);
-    if (v24)
-    {
-      return (*(v13 + 32))(v30, v18, a6);
-    }
-  }
-
-  return result;
+  return (*(*(v43 - 1) + 8))(v42);
 }

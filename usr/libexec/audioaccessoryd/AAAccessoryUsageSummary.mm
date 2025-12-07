@@ -2,11 +2,15 @@
 - (BOOL)updateWithPayload:(id)payload;
 - (void)_updateInEarState:(BOOL)state;
 - (void)_updateListeningMode:(BOOL)mode;
+- (void)_updatePairingError:(unsigned int)error;
 - (void)_updateVolumeChange:(int)change;
 - (void)_updateWithHfpPayload:(id)payload;
 - (void)addA2DPDuration:(unint64_t)duration audioCategory:(unint64_t)category;
 - (void)addA2DPPacketFlushRetx:(unsigned int)retx;
+- (void)addA2DPPacketFlushRssi:(int)rssi;
 - (void)addA2DPRetx:(unsigned int)retx;
+- (void)addA2DPRssi:(int)rssi;
+- (void)addConnectionError:(unsigned int)error;
 - (void)addDisconnectionErrors:(unint64_t)errors;
 - (void)adda2DPSnr:(unsigned int)snr;
 - (void)setAaDevice:(id)device;
@@ -100,9 +104,12 @@ LABEL_12:
   infoType = [payloadCopy infoType];
   if (!infoType)
   {
-    if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6998 <= 30)
     {
-      sub_1001EDED0();
+      if (dword_1002F6998 != -1 || (infoType = _LogCategory_Initialize(), infoType))
+      {
+        sub_1001EDED0(infoType, v6, v7);
+      }
     }
 
     goto LABEL_7;
@@ -111,21 +118,41 @@ LABEL_12:
   if (infoType != 2)
   {
 LABEL_7:
-    v6 = 0;
+    v8 = 0;
     goto LABEL_8;
   }
 
   [(AAAccessoryUsageSummary *)self _updateWithHfpPayload:payloadCopy];
-  v6 = 1;
+  v8 = 1;
 LABEL_8:
 
-  return v6;
+  return v8;
+}
+
+- (void)addConnectionError:(unsigned int)error
+{
+  if (error)
+  {
+    v3 = *&error;
+    connectionErrorList = self->_connectionErrorList;
+    if (!connectionErrorList)
+    {
+      v6 = objc_alloc_init(NSMutableArray);
+      v7 = self->_connectionErrorList;
+      self->_connectionErrorList = v6;
+
+      connectionErrorList = self->_connectionErrorList;
+    }
+
+    v8 = [NSNumber numberWithUnsignedInt:v3];
+    [(NSMutableArray *)connectionErrorList addObject:v8];
+  }
 }
 
 - (void)updateConnectionErrorReason:(id)reason
 {
   reasonCopy = reason;
-  v16 = reasonCopy;
+  v17 = reasonCopy;
   if (reasonCopy)
   {
     if (([reasonCopy isEqualToString:@"NA"] & 1) == 0)
@@ -133,35 +160,35 @@ LABEL_8:
       connectionErroReasonrMap = self->_connectionErroReasonrMap;
       if (!connectionErroReasonrMap)
       {
-        v6 = objc_alloc_init(NSMutableDictionary);
-        v7 = self->_connectionErroReasonrMap;
-        self->_connectionErroReasonrMap = v6;
+        v8 = objc_alloc_init(NSMutableDictionary);
+        v9 = self->_connectionErroReasonrMap;
+        self->_connectionErroReasonrMap = v8;
 
         connectionErroReasonrMap = self->_connectionErroReasonrMap;
       }
 
-      v8 = [(NSMutableDictionary *)connectionErroReasonrMap objectForKeyedSubscript:v16];
-      v9 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v8 intValue] + 1);
-      [(NSMutableDictionary *)self->_connectionErroReasonrMap setObject:v9 forKeyedSubscript:v16];
+      v10 = [(NSMutableDictionary *)connectionErroReasonrMap objectForKeyedSubscript:v17];
+      v11 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v10 intValue] + 1);
+      [(NSMutableDictionary *)self->_connectionErroReasonrMap setObject:v11 forKeyedSubscript:v17];
 
-      if (([v16 isEqualToString:@"ACL Connect Failed"] & 1) == 0 && (objc_msgSend(v16, "isEqualToString:", @"Magic Pairing failed due to OPERATION_TIMED_OUT") & 1) == 0 && (objc_msgSend(v16, "isEqualToString:", @"Peer device has no pairing keys BT_MAGIC_PAIRING_KEY_NOT_FOUND") & 1) == 0 && (objc_msgSend(v16, "isEqualToString:", @"HFP Connect Failed") & 1) == 0)
+      if (([v17 isEqualToString:@"ACL Connect Failed"] & 1) == 0 && (objc_msgSend(v17, "isEqualToString:", @"Magic Pairing failed due to OPERATION_TIMED_OUT") & 1) == 0 && (objc_msgSend(v17, "isEqualToString:", @"Peer device has no pairing keys BT_MAGIC_PAIRING_KEY_NOT_FOUND") & 1) == 0 && (objc_msgSend(v17, "isEqualToString:", @"HFP Connect Failed") & 1) == 0)
       {
         ++self->_connectionErrorGeneralCount;
       }
     }
 
-    ++self->_totalNumberOfConnections;
+    totalNumberOfConnections = self->_totalNumberOfConnections + 1;
+    self->_totalNumberOfConnections = totalNumberOfConnections;
     if (dword_1002F6998 <= 30)
     {
       if (dword_1002F6998 != -1)
       {
 LABEL_12:
-        v10 = [(NSMutableDictionary *)self->_connectionErroReasonrMap objectForKeyedSubscript:@"ACL Connect Failed"];
-        v11 = [(NSMutableDictionary *)self->_connectionErroReasonrMap objectForKeyedSubscript:@"Magic Pairing failed due to OPERATION_TIMED_OUT"];
-        v12 = [(NSMutableDictionary *)self->_connectionErroReasonrMap objectForKeyedSubscript:@"Peer device has no pairing keys BT_MAGIC_PAIRING_KEY_NOT_FOUND"];
-        v14 = [(NSMutableDictionary *)self->_connectionErroReasonrMap objectForKeyedSubscript:@"HFP Connect Failed"];
-        connectionErrorGeneralCount = self->_connectionErrorGeneralCount;
-        LogPrintF();
+        v13 = [(NSMutableDictionary *)self->_connectionErroReasonrMap objectForKeyedSubscript:@"ACL Connect Failed"];
+        v14 = [(NSMutableDictionary *)self->_connectionErroReasonrMap objectForKeyedSubscript:@"Magic Pairing failed due to OPERATION_TIMED_OUT"];
+        v15 = [(NSMutableDictionary *)self->_connectionErroReasonrMap objectForKeyedSubscript:@"Peer device has no pairing keys BT_MAGIC_PAIRING_KEY_NOT_FOUND"];
+        v16 = [(NSMutableDictionary *)self->_connectionErroReasonrMap objectForKeyedSubscript:@"HFP Connect Failed"];
+        LogPrintF(&dword_1002F6998, "[AAAccessoryUsageSummary updateConnectionErrorReason:]", 30, "UpdateConnectionErrorReason: connCount %d error1Count %@ error2Count %@ error3Count %@ error4Count %@ errorGeneralCount %d", totalNumberOfConnections, v13, v14, v15, v16, self->_connectionErrorGeneralCount);
 
         goto LABEL_14;
       }
@@ -176,7 +203,7 @@ LABEL_12:
 
   else
   {
-    sub_1001EDEEC();
+    sub_1001EDEEC(0, v5, v6);
   }
 
 LABEL_14:
@@ -229,6 +256,41 @@ LABEL_14:
   }
 }
 
+- (void)addA2DPRssi:(int)rssi
+{
+  v3 = *&rssi;
+  v5 = [(AAAccessoryUsageSummary *)self _isValidRssi:?];
+  if (v5)
+  {
+    avgA2dpRssi = self->_avgA2dpRssi;
+    v9 = [NSNumber numberWithInt:v3];
+    [(NSMutableArray *)avgA2dpRssi addObject:v9];
+
+    if (v3 > -71)
+    {
+      if (v3 < -60)
+      {
+        ++self->_a2dpRssiMidCount;
+      }
+
+      else
+      {
+        ++self->_a2dpRssiGoodCount;
+      }
+    }
+
+    else
+    {
+      ++self->_a2dpRssiPoorCount;
+    }
+  }
+
+  else
+  {
+    sub_1001EDF4C(v5, v6, v7);
+  }
+}
+
 - (void)addA2DPRetx:(unsigned int)retx
 {
   avgA2dpRetx = self->_avgA2dpRetx;
@@ -264,6 +326,41 @@ LABEL_14:
   ++*(&self->super.isa + v7);
 }
 
+- (void)addA2DPPacketFlushRssi:(int)rssi
+{
+  v3 = *&rssi;
+  v5 = [(AAAccessoryUsageSummary *)self _isValidRssi:?];
+  if (v5)
+  {
+    avgA2dpFlushRssi = self->_avgA2dpFlushRssi;
+    v9 = [NSNumber numberWithInt:v3];
+    [(NSMutableArray *)avgA2dpFlushRssi addObject:v9];
+
+    if (v3 > -71)
+    {
+      if (v3 < -60)
+      {
+        ++self->_a2dpPacketFlushMidRssiCount;
+      }
+
+      else
+      {
+        ++self->_a2dpPacketFlushGoodRssiCount;
+      }
+    }
+
+    else
+    {
+      ++self->_a2dpPacketFlushPoorRssiCount;
+    }
+  }
+
+  else
+  {
+    sub_1001EDFAC(v5, v6, v7);
+  }
+}
+
 - (void)addA2DPPacketFlushRetx:(unsigned int)retx
 {
   avgA2dpFlushRetx = self->_avgA2dpFlushRetx;
@@ -293,9 +390,12 @@ LABEL_14:
       ++self->_volumeChnagePhoneCallCount;
     }
 
-    else if (change == -1 && dword_1002F6998 <= 90 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
+    else if (change == -1 && dword_1002F6998 <= 90)
     {
-      sub_1001EE00C();
+      if (dword_1002F6998 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001EE00C(self, a2, *&change);
+      }
     }
   }
 
@@ -310,7 +410,7 @@ LABEL_14:
   aaDevice = self->_aaDevice;
   if (!aaDevice)
   {
-    sub_1001EE028();
+    sub_1001EE028(0, a2, state);
     return;
   }
 
@@ -329,8 +429,8 @@ LABEL_14:
   if (budState != v7 || stateCopy)
   {
     mach_absolute_time();
-    budStateChangeTick = self->_budStateChangeTick;
-    v9 = UpTicksToSeconds();
+    v8 = UpTicksToSeconds();
+    v9 = v8;
     if (budState == 1)
     {
       v10 = 108;
@@ -345,15 +445,23 @@ LABEL_18:
         self->_budStateChangeTick = mach_absolute_time();
         if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
         {
-          if (budState <= 2)
+          if (budState > 2)
+          {
+            v11 = "?";
+          }
+
+          else
           {
             v11 = off_1002B9408[budState];
           }
 
-          v12 = off_1002B9408[v7];
-          bothBudDuration = self->_bothBudDuration;
-          singleBudDuration = self->_singleBudDuration;
-          LogPrintF();
+          v12 = "no";
+          if (stateCopy)
+          {
+            v12 = "yes";
+          }
+
+          LogPrintF(&dword_1002F6998, "[AAAccessoryUsageSummary _updateInEarState:]", 30, "UpdateInEarState: OldBudState %s newBudState %s secondsSinceOldBudState %llus singleBudDuration %dm bothBudsDuration %dm force %s", v11, off_1002B9408[v7], v9, self->_singleBudDuration, self->_bothBudDuration, v12);
         }
 
         return;
@@ -362,7 +470,7 @@ LABEL_18:
       v10 = 112;
     }
 
-    *(&self->super.isa + v10) += v9 / 0x3C;
+    *(&self->super.isa + v10) += v8 / 0x3C;
     goto LABEL_18;
   }
 }
@@ -376,28 +484,59 @@ LABEL_18:
     listeningMode = self->_listeningMode;
     listeningMode = [(AudioAccessoryDevice *)aaDevice listeningMode];
     mach_absolute_time();
-    listeningModeStartTick = self->_listeningModeStartTick;
-    v9 = UpTicksToSeconds();
+    v8 = UpTicksToSeconds();
     if (listeningMode != listeningMode || modeCopy)
     {
+      v10 = v8;
       if (listeningMode - 2 <= 2)
       {
-        *(&self->_bothBudDuration + listeningMode) += v9 / 0x3C;
+        *(&self->_bothBudDuration + listeningMode) += v8 / 0x3C;
       }
 
       self->_listeningMode = listeningMode;
       self->_listeningModeStartTick = mach_absolute_time();
       if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001EE088(listeningMode, listeningMode, self);
+        sub_1001EE088(listeningMode, listeningMode, self, v10);
       }
     }
   }
 
   else
   {
-    sub_1001EE110();
+    sub_1001EE110(0, a2, mode);
   }
+}
+
+- (void)_updatePairingError:(unsigned int)error
+{
+  if (error)
+  {
+    v4 = *&error;
+    pairingErrorMap = self->_pairingErrorMap;
+    if (!pairingErrorMap)
+    {
+      v6 = objc_alloc_init(NSMutableDictionary);
+      v7 = self->_pairingErrorMap;
+      self->_pairingErrorMap = v6;
+
+      pairingErrorMap = self->_pairingErrorMap;
+    }
+
+    v8 = [NSNumber numberWithUnsignedInt:v4];
+    v9 = [(NSMutableDictionary *)pairingErrorMap objectForKeyedSubscript:v8];
+    v10 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v9 intValue] + 1);
+    v11 = self->_pairingErrorMap;
+    v12 = [NSNumber numberWithUnsignedInt:v4];
+    [(NSMutableDictionary *)v11 setObject:v10 forKeyedSubscript:v12];
+
+    if (((v4 - 158) > 4 || ((1 << (v4 + 98)) & 0x19) == 0) && v4 != 1)
+    {
+      ++self->_pairingGeneralErrorCount;
+    }
+  }
+
+  ++self->_pairingCount;
 }
 
 @end

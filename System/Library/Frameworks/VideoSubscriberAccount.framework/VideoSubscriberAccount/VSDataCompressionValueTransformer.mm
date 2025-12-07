@@ -14,7 +14,7 @@
   if (compression_stream_init(&v17, operation, COMPRESSION_ZLIB))
   {
     v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:*__error() userInfo:0];
-    v7 = VSErrorLogObject();
+    v7 = VSErrorLogObject(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [VSDataCompressionValueTransformer _dataByPerformingOperation:v6 onData:v7];
@@ -53,7 +53,7 @@
     if (v15 == COMPRESSION_STATUS_ERROR)
     {
       v6 = [MEMORY[0x277CCA9B8] errorWithDomain:v14 code:*__error() userInfo:{0, v17.dst_ptr}];
-      v16 = VSErrorLogObject();
+      v16 = VSErrorLogObject(v6);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;

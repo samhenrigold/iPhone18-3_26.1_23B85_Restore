@@ -6,27 +6,27 @@
 
 + (id)dumpTLVsFromJSONData:(id)data error:(id *)error
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v45 = [HMDNetworkRouterFirewallRuleManagerOverrideParser parseFromData:?];
-  if (v45)
+  v44 = [HMDNetworkRouterFirewallRuleManagerOverrideParser parseFromData:?];
+  if (v44)
   {
-    v54 = 0;
-    v55 = &v54;
-    v56 = 0x3032000000;
-    v57 = __Block_byref_object_copy__167559;
-    v58 = __Block_byref_object_dispose__167560;
-    v59 = 0;
+    v53 = 0;
+    v54 = &v53;
+    v55 = 0x3032000000;
+    v56 = __Block_byref_object_copy__167559;
+    v57 = __Block_byref_object_dispose__167560;
+    v58 = 0;
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __71__HMDNetworkRouterFirewallRuleManagerUtils_dumpTLVsFromJSONData_error___block_invoke;
-    v51[3] = &unk_27867C898;
-    v53 = &v54;
-    v42 = v4;
-    v52 = v42;
-    [v45 enumerateKeysAndObjectsUsingBlock:v51];
-    v5 = v55[5];
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __71__HMDNetworkRouterFirewallRuleManagerUtils_dumpTLVsFromJSONData_error___block_invoke;
+    v50[3] = &unk_27867C898;
+    v52 = &v53;
+    v41 = v4;
+    v51 = v41;
+    [v44 enumerateKeysAndObjectsUsingBlock:v50];
+    v5 = v54[5];
     if (v5)
     {
       if (error)
@@ -37,34 +37,34 @@ LABEL_12:
         *error = v6;
 LABEL_39:
 
-        _Block_object_dispose(&v54, 8);
+        _Block_object_dispose(&v53, 8);
         goto LABEL_40;
       }
     }
 
     else
     {
-      if (![v42 hmf_isEmpty])
+      if (![v41 hmf_isEmpty])
       {
-        if ([v42 count] >= 2)
+        if ([v41 count] >= 2)
         {
           v11 = objc_autoreleasePoolPush();
           v12 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
           {
             v13 = HMFGetLogIdentifier();
-            v14 = [v42 count];
+            v14 = [v41 count];
             *buf = 138543618;
-            v68 = v13;
-            v69 = 2048;
-            v70 = v14;
+            v67 = v13;
+            v68 = 2048;
+            v69 = v14;
             _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Multiple declarations (%lu) found, choosing the first", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v11);
         }
 
-        firstObject = [v42 firstObject];
+        firstObject = [v41 firstObject];
         ruleConfigurations = [firstObject ruleConfigurations];
         if ([ruleConfigurations hmf_isEmpty])
         {
@@ -74,7 +74,7 @@ LABEL_39:
           {
             v17 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v68 = v17;
+            v67 = v17;
             _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@No rule configurations were found", buf, 0xCu);
           }
 
@@ -93,30 +93,30 @@ LABEL_39:
 
         else
         {
-          v41 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(ruleConfigurations, "count")}];
-          v49 = 0u;
-          v50 = 0u;
-          v47 = 0u;
+          v40 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(ruleConfigurations, "count")}];
           v48 = 0u;
+          v49 = 0u;
+          v46 = 0u;
+          v47 = 0u;
           obj = ruleConfigurations;
-          v18 = [obj countByEnumeratingWithState:&v47 objects:v66 count:16];
+          v18 = [obj countByEnumeratingWithState:&v46 objects:v65 count:16];
           if (v18)
           {
-            v40 = *v48;
+            v39 = *v47;
             while (2)
             {
-              v39 = v18;
-              for (i = 0; i != v39; ++i)
+              v38 = v18;
+              for (i = 0; i != v38; ++i)
               {
-                if (*v48 != v40)
+                if (*v47 != v39)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v20 = *(*(&v47 + 1) + 8 * i);
-                v43 = [HMDNetworkRouterWANFirewallConfiguration configurationFromFirewallRuleConfiguration:v20];
+                v20 = *(*(&v46 + 1) + 8 * i);
+                v42 = [HMDNetworkRouterWANFirewallConfiguration configurationFromFirewallRuleConfiguration:v20];
                 v21 = [HMDNetworkRouterLANFirewallConfiguration configurationFromFirewallRuleConfiguration:v20];
-                v22 = [v43 serializeWithError:error];
+                v22 = [v42 serializeWithError:error];
                 if (!v22)
                 {
                   goto LABEL_36;
@@ -131,20 +131,20 @@ LABEL_36:
                   goto LABEL_37;
                 }
 
-                v64[0] = @"wan";
+                v63[0] = @"wan";
                 v24 = [v22 hmf_hexadecimalStringWithOptions:2];
-                v64[1] = @"lan";
-                v65[0] = v24;
+                v63[1] = @"lan";
+                v64[0] = v24;
                 v25 = [v23 hmf_hexadecimalStringWithOptions:2];
-                v65[1] = v25;
-                v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:2];
+                v64[1] = v25;
+                v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:2];
                 accessoryIdentifier = [v20 accessoryIdentifier];
                 firmwareVersion = [accessoryIdentifier firmwareVersion];
                 versionString = [firmwareVersion versionString];
-                [v41 setObject:v26 forKeyedSubscript:versionString];
+                [v40 setObject:v26 forKeyedSubscript:versionString];
               }
 
-              v18 = [obj countByEnumeratingWithState:&v47 objects:v66 count:16];
+              v18 = [obj countByEnumeratingWithState:&v46 objects:v65 count:16];
               if (v18)
               {
                 continue;
@@ -156,16 +156,16 @@ LABEL_36:
 
           obj = [firstObject baseAccessoryIdentifier];
           productGroup = [obj productGroup];
-          v62 = productGroup;
+          v61 = productGroup;
           productNumber = [obj productNumber];
-          v60 = productNumber;
-          v32 = [v41 copy];
-          v61 = v32;
-          v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-          v63 = v33;
-          v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+          v59 = productNumber;
+          v32 = objc_msgSend_copy(v40);
+          v60 = v32;
+          v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+          v62 = v33;
+          v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
 
-          v7 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v43 options:3 error:error];
+          v7 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v42 options:3 error:error];
 LABEL_37:
         }
 
@@ -178,7 +178,7 @@ LABEL_37:
       {
         v10 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v68 = v10;
+        v67 = v10;
         _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@No network declarations were found", buf, 0xCu);
       }
 
@@ -207,14 +207,12 @@ LABEL_37:
 
 LABEL_40:
 
-  v34 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 void __71__HMDNetworkRouterFirewallRuleManagerUtils_dumpTLVsFromJSONData_error___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = [v8 objectForKeyedSubscript:@"networkDeclarations"];
@@ -235,9 +233,9 @@ void __71__HMDNetworkRouterFirewallRuleManagerUtils_dumpTLVsFromJSONData_error__
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v14 = HMFGetLogIdentifier();
-        v19 = 138543362;
-        v20 = v14;
-        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Invalid declarations found", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = v14;
+        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Invalid declarations found", &v18, 0xCu);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -249,8 +247,6 @@ void __71__HMDNetworkRouterFirewallRuleManagerUtils_dumpTLVsFromJSONData_error__
       *a4 = 1;
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -5,16 +5,16 @@ NSBundle *TTRComplicationBundleGet()
   return [NSBundle bundleForClass:v0];
 }
 
-id TTRBundleGet()
+id TTRBundleGet(uint64_t a1)
 {
   if (qword_173E0 != -1)
   {
     sub_7CEC();
   }
 
-  v1 = qword_173D8;
+  v2 = qword_173D8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3FFC(id a1)
@@ -40,31 +40,22 @@ id TTRIComplicationSwitcherTimelineModelSource.init()()
   return objc_msgSendSuper2(&v2, "init");
 }
 
-uint64_t TTRIComplicationSwitcherTimelineModelSource.model.getter()
-{
-  v1 = OBJC_IVAR____TtC25NanoRemindersComplication43TTRIComplicationSwitcherTimelineModelSource_model;
-  swift_beginAccess();
-  v2 = *(v0 + v1);
-  return swift_unknownObjectRetain();
-}
-
 uint64_t TTRIComplicationSwitcherTimelineModelSource.model.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR____TtC25NanoRemindersComplication43TTRIComplicationSwitcherTimelineModelSource_model;
   swift_beginAccess();
-  v4 = *(v1 + v3);
   *(v1 + v3) = a1;
   return swift_unknownObjectRelease();
 }
 
-uint64_t TTRIComplicationSwitcherTimelineModelSource.delegate.setter()
+uint64_t TTRIComplicationSwitcherTimelineModelSource.delegate.setter(uint64_t a1)
 {
   swift_beginAccess();
   swift_unknownObjectWeakAssign();
   return swift_unknownObjectRelease();
 }
 
-void (*TTRIComplicationSwitcherTimelineModelSource.delegate.modify(uint64_t *a1))(uint64_t a1, char a2)
+void (*TTRIComplicationSwitcherTimelineModelSource.delegate.modify(uint64_t *a1))(void **a1, char a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -86,15 +77,12 @@ void (*TTRIComplicationSwitcherTimelineModelSource.delegate.modify(uint64_t *a1)
   return sub_67E4;
 }
 
-void sub_67E4(uint64_t a1, char a2)
+void sub_67E4(void **a1, char a2)
 {
   v3 = *a1;
-  v4 = *(*a1 + 24);
-  v5 = *(*a1 + 32) + *(*a1 + 40);
   swift_unknownObjectWeakAssign();
   if (a2)
   {
-    v6 = v3[3];
     swift_unknownObjectRelease();
     swift_endAccess();
   }
@@ -108,25 +96,24 @@ void sub_67E4(uint64_t a1, char a2)
   free(v3);
 }
 
-Class sub_6900()
+Class sub_6900(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = sub_7EA0();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin(v0);
-  v4 = &v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = sub_7EA0();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_7E80();
-  (*(v1 + 8))(v4, v0);
+  (*(v4 + 8))(v6, v3);
   sub_6A88();
-  v5.super.isa = sub_7FC0().super.isa;
+  v7.super.isa = sub_7FC0().super.isa;
 
-  return v5.super.isa;
+  return v7.super.isa;
 }
 
-id sub_6A50(uint64_t a1, uint64_t (*a2)(void))
+id sub_6A50(uint64_t a1, uint64_t (*a2)(uint64_t))
 {
   v4.receiver = v2;
-  v4.super_class = a2();
+  v4.super_class = a2(a1);
   return objc_msgSendSuper2(&v4, "dealloc");
 }
 
@@ -146,147 +133,140 @@ unint64_t sub_6A88()
 id sub_6AD4()
 {
   v0 = sub_7F40();
-  v77 = *(v0 - 8);
-  v78 = v0;
-  v1 = *(v77 + 64);
-  (__chkstk_darwin)();
-  v76 = &v69 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = sub_7E30();
-  v81 = *(v3 - 8);
-  v82 = v3;
-  v4 = *(v81 + 64);
-  (__chkstk_darwin)();
-  v85 = &v69 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v75 = sub_7EC0();
-  v71 = *(v75 - 8);
-  v6 = *(v71 + 64);
-  (__chkstk_darwin)();
-  v72 = &v69 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_7ED0();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  (__chkstk_darwin)();
-  v12 = &v69 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = sub_7EB0();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  (__chkstk_darwin)();
-  v17 = &v69 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = (*(*(sub_73AC(&qword_17248, qword_C9A8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (__chkstk_darwin)();
-  v20 = &v69 - v19;
-  v21 = sub_7EA0();
-  v22 = *(v21 - 8);
-  v73 = v21;
-  v74 = v22;
-  v23 = *(v22 + 64);
-  v24 = (__chkstk_darwin)();
-  v83 = &v69 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = __chkstk_darwin(v24);
-  v28 = &v69 - v27;
-  __chkstk_darwin(v26);
-  v84 = &v69 - v29;
-  v30 = sub_7F10();
-  v79 = *(v30 - 8);
-  v80 = v30;
-  v31 = *(v79 + 64);
-  __chkstk_darwin(v30);
-  v33 = &v69 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v34 = TTRComplicationCalendarCreate();
-  v86 = v33;
+  v70 = *(v0 - 8);
+  v71 = v0;
+  __chkstk_darwin(v0);
+  v69 = &v62 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = sub_7E30();
+  v74 = *(v2 - 8);
+  v75 = v2;
+  __chkstk_darwin(v2);
+  v78 = &v62 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v68 = sub_7EC0();
+  v64 = *(v68 - 8);
+  __chkstk_darwin(v68);
+  v65 = &v62 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_7ED0();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = &v62 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = sub_7EB0();
+  v10 = *(v9 - 8);
+  __chkstk_darwin(v9);
+  v12 = &v62 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = sub_73AC(&qword_17248, qword_C9A8);
+  __chkstk_darwin(v13 - 8);
+  v15 = &v62 - v14;
+  v16 = sub_7EA0();
+  v17 = *(v16 - 8);
+  v66 = v16;
+  v67 = v17;
+  v18 = __chkstk_darwin(v16);
+  v76 = &v62 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = __chkstk_darwin(v18);
+  v22 = &v62 - v21;
+  __chkstk_darwin(v20);
+  v77 = &v62 - v23;
+  v24 = sub_7F10();
+  v72 = *(v24 - 8);
+  v73 = v24;
+  __chkstk_darwin(v24);
+  v26 = &v62 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = TTRComplicationCalendarCreate();
+  v79 = v26;
   sub_7EF0();
 
   result = [objc_opt_self() unmodifiedDate];
   if (result)
   {
-    v36 = result;
-    v37 = v28;
+    v29 = result;
+    v30 = v22;
     sub_7E80();
 
-    v38 = *(v14 + 104);
-    v70 = v13;
-    v38(v17, enum case for Calendar.MatchingPolicy.nextTime(_:), v13);
-    v39 = *(v9 + 104);
-    v69 = v8;
-    v39(v12, enum case for Calendar.RepeatedTimePolicy.first(_:), v8);
-    v41 = v71;
-    v40 = v72;
-    v42 = v75;
-    (*(v71 + 104))(v72, enum case for Calendar.SearchDirection.forward(_:), v75);
+    v31 = *(v10 + 104);
+    v63 = v9;
+    v31(v12, enum case for Calendar.MatchingPolicy.nextTime(_:), v9);
+    v32 = *(v6 + 104);
+    v62 = v5;
+    v32(v8, enum case for Calendar.RepeatedTimePolicy.first(_:), v5);
+    v34 = v64;
+    v33 = v65;
+    v35 = v68;
+    (*(v64 + 104))(v65, enum case for Calendar.SearchDirection.forward(_:), v68);
     sub_7F00();
-    (*(v41 + 8))(v40, v42);
-    (*(v9 + 8))(v12, v69);
-    (*(v14 + 8))(v17, v70);
-    v43 = v73;
-    v44 = v74;
-    v45 = v37;
-    v46 = *(v74 + 8);
-    v46(v45, v73);
-    v47 = *(v44 + 48);
-    if (v47(v20, 1, v43) == 1)
+    (*(v34 + 8))(v33, v35);
+    (*(v6 + 8))(v8, v62);
+    (*(v10 + 8))(v12, v63);
+    v36 = v66;
+    v37 = v67;
+    v38 = v30;
+    v39 = *(v67 + 8);
+    v39(v38, v66);
+    v40 = *(v37 + 48);
+    if (v40(v15, 1, v36) == 1)
     {
       sub_7E90();
-      if (v47(v20, 1, v43) != 1)
+      if (v40(v15, 1, v36) != 1)
       {
-        sub_73F4(v20);
+        sub_73F4(v15);
       }
     }
 
     else
     {
-      (*(v44 + 32))(v84, v20, v43);
+      (*(v37 + 32))(v77, v15, v36);
     }
 
-    v48 = objc_opt_self();
+    v41 = objc_opt_self();
     isa = sub_7E70().super.isa;
-    v50 = v76;
+    v43 = v69;
     sub_7F20();
-    v51 = sub_7F30().super.isa;
-    (*(v77 + 8))(v50, v78);
-    v52 = [v48 rem_dateComponentsWithDate:isa timeZone:v51 isAllDay:0];
+    v44 = sub_7F30().super.isa;
+    (*(v70 + 8))(v43, v71);
+    v45 = [v41 rem_dateComponentsWithDate:isa timeZone:v44 isAllDay:0];
 
     sub_7E20();
-    v53 = objc_allocWithZone(TTRComplicationReminderDueDate);
-    v54 = sub_7E10().super.isa;
-    v55 = sub_7EE0().super.isa;
-    v56 = [v53 initWithDateComponents:v54 inCalendar:v55];
+    v46 = objc_allocWithZone(TTRComplicationReminderDueDate);
+    v47 = sub_7E10().super.isa;
+    v48 = sub_7EE0().super.isa;
+    v49 = [v46 initWithDateComponents:v47 inCalendar:v48];
 
-    if (!v56)
+    if (!v49)
     {
-      v57 = v83;
+      v50 = v76;
       sub_7E90();
-      v58 = objc_allocWithZone(TTRComplicationReminderDueDate);
-      v59 = sub_7E70().super.isa;
-      v56 = [v58 initWithDate:v59 precision:0];
+      v51 = objc_allocWithZone(TTRComplicationReminderDueDate);
+      v52 = sub_7E70().super.isa;
+      v49 = [v51 initWithDate:v52 precision:0];
 
-      v46(v57, v43);
+      v39(v50, v36);
     }
 
-    v87._countAndFlagsBits = 0x6D6163206B6F6F42;
-    v87._object = 0xEE00657469732070;
-    v88._object = 0x800000000000C7D0;
-    v88._countAndFlagsBits = 0xD000000000000049;
-    sub_7F50(v87, v88);
-    v60 = v83;
+    v80._countAndFlagsBits = 0x6D6163206B6F6F42;
+    v80._object = 0xEE00657469732070;
+    v81._object = 0x800000000000C7D0;
+    v81._countAndFlagsBits = 0xD000000000000049;
+    sub_7F50(v80, v81);
+    v53 = v76;
     sub_7E90();
-    v61 = objc_allocWithZone(TTRComplicationReminder);
-    v62 = v56;
-    v63 = sub_7E70().super.isa;
-    v64 = sub_7FB0();
+    v54 = objc_allocWithZone(TTRComplicationReminder);
+    v55 = v49;
+    v56 = sub_7E70().super.isa;
+    v57 = sub_7FB0();
 
-    v65 = [v61 initWithCreationDate:v63 dueDate:v62 title:v64];
+    v58 = [v54 initWithCreationDate:v56 dueDate:v55 title:v57];
 
-    v46(v60, v43);
+    v39(v53, v36);
     sub_7E60();
-    v66 = objc_allocWithZone(TTRComplicationTimelineModelEntry);
-    v67 = sub_7E70().super.isa;
-    v68 = [v66 initWithStartDate:v67 overdueCount:0 remainingDueTodayCount:1 representativeReminder:v65];
+    v59 = objc_allocWithZone(TTRComplicationTimelineModelEntry);
+    v60 = sub_7E70().super.isa;
+    v61 = [v59 initWithStartDate:v60 overdueCount:0 remainingDueTodayCount:1 representativeReminder:v58];
 
-    v46(v60, v43);
-    (*(v81 + 8))(v85, v82);
-    v46(v84, v43);
-    (*(v79 + 8))(v86, v80);
-    return v68;
+    v39(v53, v36);
+    (*(v74 + 8))(v78, v75);
+    v39(v77, v36);
+    (*(v72 + 8))(v79, v73);
+    return v61;
   }
 
   else
@@ -302,7 +282,6 @@ uint64_t sub_73AC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -334,73 +313,71 @@ id TTRComplicationRouter.__deallocating_deinit()
 uint64_t TTRComplicationRouter.launchURLForTimeline(withEntryCount:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = sub_73AC(&qword_172B0, qword_C9C0);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = __chkstk_darwin(v4 - 8);
-  v8 = &v32 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = &v32 - v9;
-  v11 = sub_7FA0();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  v14 = __chkstk_darwin(v11);
-  v16 = &v32 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v14);
-  v18 = &v32 - v17;
-  v19 = (v12 + 104);
+  v5 = __chkstk_darwin(v4 - 8);
+  v7 = &v30 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v9 = &v30 - v8;
+  v10 = sub_7FA0();
+  v11 = *(v10 - 8);
+  v12 = __chkstk_darwin(v10);
+  v14 = &v30 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v12);
+  v16 = &v30 - v15;
+  v17 = (v11 + 104);
   if (a1)
   {
-    v20 = enum case for REMNavigationSpecifier.SmartListPathSpecifier.showContents(_:);
-    v21 = sub_7F60();
-    (*(*(v21 - 8) + 104))(v16, v20, v21);
-    (*v19)(v16, enum case for REMNavigationSpecifier.today(_:), v11);
+    v18 = enum case for REMNavigationSpecifier.SmartListPathSpecifier.showContents(_:);
+    v19 = sub_7F60();
+    (*(*(v19 - 8) + 104))(v14, v18, v19);
+    (*v17)(v14, enum case for REMNavigationSpecifier.today(_:), v10);
     sub_7F80();
-    v22 = sub_7E50();
-    v23 = *(v22 - 8);
-    v24 = *(v23 + 48);
-    if (v24(v8, 1, v22) == 1)
+    v20 = sub_7E50();
+    v21 = *(v20 - 8);
+    v22 = *(v21 + 48);
+    if (v22(v7, 1, v20) == 1)
     {
       sub_7F90();
-      (*(v12 + 8))(v16, v11);
-      result = v24(v8, 1, v22);
+      (*(v11 + 8))(v14, v10);
+      result = v22(v7, 1, v20);
       if (result == 1)
       {
         return result;
       }
 
-      v26 = v8;
-      return sub_7958(v26);
+      v24 = v7;
+      return sub_7958(v24);
     }
 
-    (*(v12 + 8))(v16, v11);
-    return (*(v23 + 32))(a2, v8, v22);
+    (*(v11 + 8))(v14, v10);
+    return (*(v21 + 32))(a2, v7, v20);
   }
 
   else
   {
-    v27 = enum case for REMNavigationSpecifier.RootPathSpecifier.none(_:);
-    v28 = sub_7F70();
-    (*(*(v28 - 8) + 104))(v18, v27, v28);
-    (*v19)(v18, enum case for REMNavigationSpecifier.root(_:), v11);
+    v25 = enum case for REMNavigationSpecifier.RootPathSpecifier.none(_:);
+    v26 = sub_7F70();
+    (*(*(v26 - 8) + 104))(v16, v25, v26);
+    (*v17)(v16, enum case for REMNavigationSpecifier.root(_:), v10);
     sub_7F80();
-    v29 = sub_7E50();
-    v30 = *(v29 - 8);
-    v31 = *(v30 + 48);
-    if (v31(v10, 1, v29) == 1)
+    v27 = sub_7E50();
+    v28 = *(v27 - 8);
+    v29 = *(v28 + 48);
+    if (v29(v9, 1, v27) == 1)
     {
       sub_7F90();
-      (*(v12 + 8))(v18, v11);
-      result = v31(v10, 1, v29);
+      (*(v11 + 8))(v16, v10);
+      result = v29(v9, 1, v27);
       if (result == 1)
       {
         return result;
       }
 
-      v26 = v10;
-      return sub_7958(v26);
+      v24 = v9;
+      return sub_7958(v24);
     }
 
-    (*(v12 + 8))(v18, v11);
-    return (*(v30 + 32))(a2, v10, v29);
+    (*(v11 + 8))(v16, v10);
+    return (*(v28 + 32))(a2, v9, v27);
   }
 }
 

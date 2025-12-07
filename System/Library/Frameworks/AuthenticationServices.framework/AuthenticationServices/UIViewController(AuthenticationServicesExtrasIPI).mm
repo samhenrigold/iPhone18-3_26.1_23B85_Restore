@@ -6,10 +6,10 @@
 
 - (void)setAs_navigationItem:()AuthenticationServicesExtrasIPI
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization(self, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    [UIViewController(AuthenticationServicesExtrasIPI) setAs_navigationItem:v0];
+    [UIViewController(AuthenticationServicesExtrasIPI) setAs_navigationItem:v2];
   }
 }
 

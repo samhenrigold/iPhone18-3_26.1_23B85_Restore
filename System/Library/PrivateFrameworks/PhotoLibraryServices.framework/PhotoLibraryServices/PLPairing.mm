@@ -21,7 +21,7 @@
   v29 = &v28;
   v30 = 0x2020000000;
   v31 = 1;
-  if (dsCopy && ![dsCopy count])
+  if (dsCopy && !objc_msgSend_count(dsCopy))
   {
     v13 = 1;
   }
@@ -66,7 +66,7 @@
 void __55__PLPairing_processPairingForGroupIDs_inContext_error___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) objectForKeyedSubscript:&unk_1F0FBD1B0];
-  if ([v2 count])
+  if (objc_msgSend_count(v2))
   {
     v3 = objc_alloc_init(PLLivePhotoPairingProcessor);
     v4 = [(PLLivePhotoPairingProcessor *)v3 fetchRequestForSortedGroupIDs:v2];

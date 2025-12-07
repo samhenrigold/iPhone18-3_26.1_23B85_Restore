@@ -129,9 +129,7 @@
   motionHistogramsKernel = self->_motionHistogramsKernel;
   self->_motionHistogramsKernel = v7;
 
-  v9 = [(FRCMetalBase *)self createKernel:@"calcBackwarpStatistics"];
-  backwarpStatisticsKernel = self->_backwarpStatisticsKernel;
-  self->_backwarpStatisticsKernel = v9;
+  self->_backwarpStatisticsKernel = [(FRCMetalBase *)self createKernel:@"calcBackwarpStatistics"];
 
   MEMORY[0x2821F96F8]();
 }
@@ -540,23 +538,23 @@ LABEL_30:
 
 - (void)isSafeToInterpolateForConsistencyGatingWithFlowForward:(__CVBuffer *)forward flowBackward:(__CVBuffer *)backward flowResFrame:(__CVBuffer *)frame
 {
-  v55 = 0;
-  *v53 = 0u;
-  *v54 = 0u;
-  *v51 = 0u;
-  *v52 = 0u;
-  *v49 = 0u;
+  v52 = 0;
   *v50 = 0u;
-  *v47 = 0u;
+  *v51 = 0u;
   *v48 = 0u;
-  v45 = 0u;
+  *v49 = 0u;
   *v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  memset(v42, 0, sizeof(v42));
-  v9 = objc_autoreleasePoolPush();
-  [(OpticalFlowAnalyzer *)self analyzeOpticalFlowForward:forward backward:backward flowResFrame:frame];
-  objc_autoreleasePoolPop(v9);
+  *v47 = 0u;
+  *v44 = 0u;
+  *v45 = 0u;
+  v42 = 0u;
+  *v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  memset(v39, 0, sizeof(v39));
+  v6 = objc_autoreleasePoolPush();
+  objc_msgSend_analyzeOpticalFlowForward_backward_flowResFrame_(self);
+  objc_autoreleasePoolPop(v6);
   if (!self->_useCase && self->_isLargeRandomnessErr)
   {
     retimingRecipe = self->_retimingRecipe;
@@ -579,58 +577,58 @@ LABEL_30:
     }
   }
 
-  v11 = *(&v43 + 3);
-  v12 = *&v44;
+  v8 = *(&v40 + 3);
+  v9 = *&v41;
   p_timeGap = &self->_timeGap;
   opticalFlowDownsampling = self->_opticalFlowDownsampling;
   time2 = self->_timeGap;
   [(OpticalFlowAnalyzer *)self safeThresholdWithtimeGap:&time2 isDownsampled:opticalFlowDownsampling];
-  v19 = *&v15;
-  v20 = *&v16;
+  v16 = *&v12;
+  v17 = *&v13;
   useCase = self->_useCase;
   if (useCase == 1)
   {
-    v23 = *&v17;
-    v39 = v12;
-    *&v18 = self->jsonConsistencyAreaPercentageThreshold;
-    LODWORD(v15) = 0;
-    *&v16 = v19;
-    *&v17 = v11;
-    [(OpticalFlowAnalyzer *)self computeConsistencyConfidenceFromScore:v15 scoreThreshold:v16 areaRatio:v17 areaRatioThreshold:v18];
-    v25 = v24;
-    *&v26 = self->jsonConsistencyAreaPercentageThresholdOnDemand;
-    LODWORD(v27) = 0;
-    *&v28 = v23;
-    *&v29 = v11;
-    [(OpticalFlowAnalyzer *)self computeConsistencyConfidenceFromScore:v27 scoreThreshold:v28 areaRatio:v29 areaRatioThreshold:v26];
-    v32 = *&v34;
-    LODWORD(v33) = 1.0;
-    LODWORD(v34) = 1.0;
-    if (*(&v43 + 1) != *(&v43 + 2))
+    v20 = *&v14;
+    v36 = v9;
+    *&v15 = self->jsonConsistencyAreaPercentageThreshold;
+    LODWORD(v12) = 0;
+    *&v13 = v16;
+    *&v14 = v8;
+    [(OpticalFlowAnalyzer *)self computeConsistencyConfidenceFromScore:v12 scoreThreshold:v13 areaRatio:v14 areaRatioThreshold:v15];
+    v22 = v21;
+    *&v23 = self->jsonConsistencyAreaPercentageThresholdOnDemand;
+    LODWORD(v24) = 0;
+    *&v25 = v20;
+    *&v26 = v8;
+    [(OpticalFlowAnalyzer *)self computeConsistencyConfidenceFromScore:v24 scoreThreshold:v25 areaRatio:v26 areaRatioThreshold:v23];
+    v29 = *&v31;
+    LODWORD(v30) = 1.0;
+    LODWORD(v31) = 1.0;
+    if (*(&v40 + 1) != *(&v40 + 2))
     {
-      *&v31 = self->jsonConsistencyROIAreaPercentageThreshold;
-      LODWORD(v34) = 1120403456;
-      *&v30 = v20;
-      *&v33 = v11;
-      [(OpticalFlowAnalyzer *)self computeConsistencyConfidenceFromScore:v34 scoreThreshold:v30 areaRatio:v33 areaRatioThreshold:v31];
-      LODWORD(v33) = 1.0;
+      *&v28 = self->jsonConsistencyROIAreaPercentageThreshold;
+      LODWORD(v31) = 1120403456;
+      *&v27 = v17;
+      *&v30 = v8;
+      [(OpticalFlowAnalyzer *)self computeConsistencyConfidenceFromScore:v31 scoreThreshold:v27 areaRatio:v30 areaRatioThreshold:v28];
+      LODWORD(v30) = 1.0;
     }
 
-    v35 = fmin(fminf(v25, *&v34), 1.0);
-    if (v35 < *&v33)
+    v32 = fmin(fminf(v22, *&v31), 1.0);
+    if (v32 < *&v30)
     {
-      NSLog(&cfstr_Autobahnflowan.isa, v35);
+      NSLog(&cfstr_Autobahnflowan.isa, v32);
     }
 
-    self->_confidenceScore = fminf(v35, self->_confidenceScore);
-    v36 = fmin(v32, 1.0);
-    if (v36 < 1.0)
+    self->_confidenceScore = fminf(v32, self->_confidenceScore);
+    v33 = fmin(v29, 1.0);
+    if (v33 < 1.0)
     {
-      NSLog(&cfstr_Autobahnflowan_0.isa, v36);
+      NSLog(&cfstr_Autobahnflowan_0.isa, v33);
     }
 
-    self->_confidenceScoreOnDemand = fminf(v36, self->_confidenceScoreOnDemand);
-    if (v11 > self->jsonConsistencyAreaPercentageThreshold && v19 > 0.0)
+    self->_confidenceScoreOnDemand = fminf(v33, self->_confidenceScoreOnDemand);
+    if (v8 > self->jsonConsistencyAreaPercentageThreshold && v16 > 0.0)
     {
       self->_safeToInterpolate.consistency = 0;
       if (self->_framesToInterpolate < 4)
@@ -639,33 +637,33 @@ LABEL_30:
         goto LABEL_47;
       }
 
-      v22 = @"[AutobahnFlowAnalysis] Interpolation is gated (consistency) - frame for recommendation only";
-      if (v11 <= self->jsonConsistencyAreaPercentageThresholdOnDemand || v23 <= 0.0)
+      v19 = @"[AutobahnFlowAnalysis] Interpolation is gated (consistency) - frame for recommendation only";
+      if (v8 <= self->jsonConsistencyAreaPercentageThresholdOnDemand || v20 <= 0.0)
       {
         goto LABEL_46;
       }
 
-      v22 = @"[AutobahnFlowAnalysis] Interpolation is gated (consistency) - frame for both";
-      v37 = &OBJC_IVAR___OpticalFlowAnalyzer__isSafeToInterpolateForInteractiveMode;
+      v19 = @"[AutobahnFlowAnalysis] Interpolation is gated (consistency) - frame for both";
+      v34 = &OBJC_IVAR___OpticalFlowAnalyzer__isSafeToInterpolateForInteractiveMode;
 LABEL_45:
-      *(&self->super.super.isa + *v37) = 0;
+      *(&self->super.super.isa + *v34) = 0;
 LABEL_46:
-      NSLog(&v22->isa);
+      NSLog(&v19->isa);
       goto LABEL_47;
     }
 
     CMTimeMake(&time2, 40, 600);
     *&time1.value = *&p_timeGap->value;
     time1.epoch = self->_timeGap.epoch;
-    if (CMTimeCompare(&time1, &time2) >= 1 && ![(OpticalFlowAnalyzer *)self checkSafetyByStripConsistency:v42])
+    if (CMTimeCompare(&time1, &time2) >= 1 && ![(OpticalFlowAnalyzer *)self checkSafetyByStripConsistency:v39])
     {
-      v22 = @"[AutobahnFlowAnalysis] Interpolation is gated (consistency) - strip for recommendation only";
+      v19 = @"[AutobahnFlowAnalysis] Interpolation is gated (consistency) - strip for recommendation only";
       goto LABEL_44;
     }
 
-    if (v39 > self->jsonConsistencyROIAreaPercentageThreshold && v20 > 100.0)
+    if (v36 > self->jsonConsistencyROIAreaPercentageThreshold && v17 > 100.0)
     {
-      v22 = @"[AutobahnFlowAnalysis] Interpolation is gated (consistency) - roi for recommendation only";
+      v19 = @"[AutobahnFlowAnalysis] Interpolation is gated (consistency) - roi for recommendation only";
       goto LABEL_44;
     }
   }
@@ -677,30 +675,30 @@ LABEL_46:
       goto LABEL_47;
     }
 
-    if ((v11 > self->jsonConsistencyAreaPercentageThreshold || self->_retimingRecipe == 3) && *&v15 > 0.0)
+    if ((v8 > self->jsonConsistencyAreaPercentageThreshold || self->_retimingRecipe == 3) && *&v12 > 0.0)
     {
-      v22 = @"[FlowAnalysis] Interpolation is gated (consistency) - frame";
+      v19 = @"[FlowAnalysis] Interpolation is gated (consistency) - frame";
 LABEL_44:
-      v37 = &OBJC_IVAR___OpticalFlowAnalyzer__safeToInterpolate;
+      v34 = &OBJC_IVAR___OpticalFlowAnalyzer__safeToInterpolate;
       goto LABEL_45;
     }
 
     isSmallDrops = self->_isSmallDrops;
     if (isSmallDrops && ((self->consistencySafeThresholdsScale * 4.0) + 35.0) > 0.0)
     {
-      v22 = @"[FlowAnalysis] Interpolation is gated (consistency) - frameForSmallDrops";
+      v19 = @"[FlowAnalysis] Interpolation is gated (consistency) - frameForSmallDrops";
       goto LABEL_44;
     }
 
-    if (*&v16 > 100.0)
+    if (*&v13 > 100.0)
     {
-      v22 = @"[FlowAnalysis] Interpolation is gated (consistency) - roi";
+      v19 = @"[FlowAnalysis] Interpolation is gated (consistency) - roi";
       goto LABEL_44;
     }
 
     if (100.0 < 25.0 && isSmallDrops)
     {
-      v22 = @"[FlowAnalysis] Interpolation is gated (consistency) - roiForSmallDrops";
+      v19 = @"[FlowAnalysis] Interpolation is gated (consistency) - roiForSmallDrops";
       goto LABEL_44;
     }
 
@@ -711,26 +709,26 @@ LABEL_44:
       time1.epoch = self->_timeGap.epoch;
       if ((CMTimeCompare(&time1, &time2) & 0x80000000) == 0 || !self->_retimingRecipe)
       {
-        v22 = @"[FlowAnalysis] Interpolation is gated (consistency) - rotation";
+        v19 = @"[FlowAnalysis] Interpolation is gated (consistency) - rotation";
         goto LABEL_44;
       }
     }
 
-    if (![(OpticalFlowAnalyzer *)self checkSafetyByScoreAndArea:v42])
+    if (![(OpticalFlowAnalyzer *)self checkSafetyByScoreAndArea:v39])
     {
-      v22 = @"[FlowAnalysis] Interpolation is gated (consistency) - area";
+      v19 = @"[FlowAnalysis] Interpolation is gated (consistency) - area";
       goto LABEL_44;
     }
 
-    if (![(OpticalFlowAnalyzer *)self checkSafetyByStripConsistency:v42])
+    if (![(OpticalFlowAnalyzer *)self checkSafetyByStripConsistency:v39])
     {
-      v22 = @"[FlowAnalysis] Interpolation is gated (consistency) - strip";
+      v19 = @"[FlowAnalysis] Interpolation is gated (consistency) - strip";
       goto LABEL_44;
     }
 
-    if (![(OpticalFlowAnalyzer *)self checkSafetyByBlockConsistency:v42])
+    if (![(OpticalFlowAnalyzer *)self checkSafetyByBlockConsistency:v39])
     {
-      v22 = @"[FlowAnalysis] Interpolation is gated (consistency) - block";
+      v19 = @"[FlowAnalysis] Interpolation is gated (consistency) - block";
       goto LABEL_44;
     }
   }
@@ -738,6 +736,21 @@ LABEL_44:
 LABEL_47:
   self->_flowConsistencyFrameScore = 0.0;
   self->_flowConsistencyROIScore = 100.0;
+  if (v43[0])
+  {
+    free(v43[0]);
+  }
+
+  if (v44[0])
+  {
+    free(v44[0]);
+  }
+
+  if (v45[0])
+  {
+    free(v45[0]);
+  }
+
   if (v46[0])
   {
     free(v46[0]);
@@ -768,24 +781,9 @@ LABEL_47:
     free(v51[0]);
   }
 
-  if (v52[0])
+  if (v52)
   {
-    free(v52[0]);
-  }
-
-  if (v53[0])
-  {
-    free(v53[0]);
-  }
-
-  if (v54[0])
-  {
-    free(v54[0]);
-  }
-
-  if (v55)
-  {
-    free(v55);
+    free(v52);
   }
 }
 
@@ -896,42 +894,40 @@ LABEL_47:
 
 - (id)findFaceHandLegBlocksFromRectangles:(id)rectangles blockWidth:(unint64_t)width blockHeight:(unint64_t)height
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   rectanglesCopy = rectangles;
   array = [MEMORY[0x277CBEB18] array];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v9 = rectanglesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v26;
+    v12 = *v25;
     heightCopy = height;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v25 + 1) + 8 * i);
+        v15 = *(*(&v24 + 1) + 8 * i);
         [v15 boundingBox];
         v22 = +[FRCFaceHandLegBlock faceHandLegBlockWithRect:numberOfBlocks:category:](FRCFaceHandLegBlock, "faceHandLegBlockWithRect:numberOfBlocks:category:", ((v18 * width + 0.5) + 1) * ((v19 * heightCopy + 0.5) + 1), [v15 category], (v16 * width), ((1.0 - v17 - v19) * heightCopy), v20, v21);
         [array addObject:v22];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v11);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -1466,7 +1462,7 @@ LABEL_16:
 - (id)extractFaceHandLegInfoFromBuffer:(__CVBuffer *)buffer
 {
   bufferCopy = buffer;
-  v133 = *MEMORY[0x277D85DE8];
+  v132 = *MEMORY[0x277D85DE8];
   Width = CVPixelBufferGetWidth(buffer);
   Height = CVPixelBufferGetHeight(bufferCopy);
   v7 = Height;
@@ -1476,8 +1472,8 @@ LABEL_16:
     {
       if (self->_inputRotation != 3)
       {
-        v88 = Height;
-        v89 = Width;
+        v87 = Height;
+        v88 = Width;
         goto LABEL_9;
       }
     }
@@ -1502,8 +1498,8 @@ LABEL_16:
     self->_donwsampledSourceBuffer = donwsampledSourceBuffer;
   }
 
-  v88 = v7;
-  v89 = Width;
+  v87 = v7;
+  v88 = Width;
   WeakRetained = objc_loadWeakRetained(&self->_scaler);
   [WeakRetained downScaleFrameSource:bufferCopy destination:donwsampledSourceBuffer rotate:self->_inputRotation waitForCompletion:0];
 
@@ -1514,17 +1510,17 @@ LABEL_9:
   v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v14 = objc_alloc_init(MEMORY[0x277CE2C88]);
-  v126 = 0;
-  [v14 setRevision:3737841666 error:&v126];
-  v15 = v126;
-  v96 = v14;
+  v125 = 0;
+  [v14 setRevision:3737841666 error:&v125];
+  v15 = v125;
+  v95 = v14;
   [v13 addObject:v14];
   if (self->_handDetectionEnabled)
   {
     v16 = objc_alloc_init(MEMORY[0x277CE2C98]);
-    v125 = v15;
-    [v16 setRevision:1 error:&v125];
-    v17 = v125;
+    v124 = v15;
+    [v16 setRevision:1 error:&v124];
+    v17 = v124;
 
     NSLog(&cfstr_FlowanalysisHa.isa);
     [v13 addObject:v16];
@@ -1539,32 +1535,14 @@ LABEL_9:
   if (self->_bodyDetectionEnabled)
   {
     v18 = objc_alloc_init(MEMORY[0x277CE2C90]);
-    v124 = v15;
-    [v18 setRevision:1 error:&v124];
-    v19 = v124;
+    v123 = v15;
+    [v18 setRevision:1 error:&v123];
+    v19 = v123;
 
     NSLog(&cfstr_FlowanalysisBo.isa);
-    v95 = v18;
+    v94 = v18;
     [v13 addObject:v18];
     v15 = v19;
-  }
-
-  else
-  {
-    v95 = 0;
-  }
-
-  if (self->_humanDetectionEnabled)
-  {
-    v20 = objc_alloc_init(MEMORY[0x277CE2CA0]);
-    v123 = v15;
-    [v20 setRevision:3737841664 error:&v123];
-    v21 = v123;
-
-    NSLog(&cfstr_FlowanalysisHu.isa);
-    v94 = v20;
-    [v13 addObject:v20];
-    v15 = v21;
   }
 
   else
@@ -1572,16 +1550,17 @@ LABEL_9:
     v94 = 0;
   }
 
-  if (self->_animalFaceDetectionEnabled && self->_useCase == 1)
+  if (self->_humanDetectionEnabled)
   {
-    v22 = objc_alloc_init(MEMORY[0x277CE2DA8]);
+    v20 = objc_alloc_init(MEMORY[0x277CE2CA0]);
     v122 = v15;
-    [v22 setRevision:1 error:&v122];
-    v23 = v122;
+    [v20 setRevision:3737841664 error:&v122];
+    v21 = v122;
 
-    v93 = v22;
-    [v13 addObject:v22];
-    v15 = v23;
+    NSLog(&cfstr_FlowanalysisHu.isa);
+    v93 = v20;
+    [v13 addObject:v20];
+    v15 = v21;
   }
 
   else
@@ -1589,42 +1568,59 @@ LABEL_9:
     v93 = 0;
   }
 
-  v121 = v15;
-  v91 = v11;
-  v92 = v13;
-  v24 = [v11 performRequests:v13 error:&v121];
-  v90 = v121;
+  if (self->_animalFaceDetectionEnabled && self->_useCase == 1)
+  {
+    v22 = objc_alloc_init(MEMORY[0x277CE2DA8]);
+    v121 = v15;
+    [v22 setRevision:1 error:&v121];
+    v23 = v121;
+
+    v92 = v22;
+    [v13 addObject:v22];
+    v15 = v23;
+  }
+
+  else
+  {
+    v92 = 0;
+  }
+
+  v120 = v15;
+  v90 = v11;
+  v91 = v13;
+  v24 = [v11 performRequests:v13 error:&v120];
+  v89 = v120;
 
   if (v24)
   {
-    results = [v96 results];
+    results = [v95 results];
     v26 = [results count];
 
-    v86 = v16;
-    v87 = dictionary;
+    v85 = v16;
+    v86 = dictionary;
     if (v26)
     {
       selfCopy = self;
-      results2 = [v96 results];
+      results2 = [v95 results];
+      v116 = 0u;
       v117 = 0u;
       v118 = 0u;
       v119 = 0u;
-      v120 = 0u;
-      v29 = [results2 countByEnumeratingWithState:&v117 objects:v132 count:16];
+      v29 = [results2 countByEnumeratingWithState:&v116 objects:v131 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v118;
+        v31 = *v117;
         do
         {
           for (i = 0; i != v30; ++i)
           {
-            if (*v118 != v31)
+            if (*v117 != v31)
             {
               objc_enumerationMutation(results2);
             }
 
-            v33 = *(*(&v117 + 1) + 8 * i);
+            v33 = *(*(&v116 + 1) + 8 * i);
             [v33 boundingBox];
             v35 = v34;
             v37 = v36;
@@ -1637,15 +1633,15 @@ LABEL_9:
             [v12 addObject:v44];
           }
 
-          v30 = [results2 countByEnumeratingWithState:&v117 objects:v132 count:16];
+          v30 = [results2 countByEnumeratingWithState:&v116 objects:v131 count:16];
         }
 
         while (v30);
       }
 
       self = selfCopy;
-      v16 = v86;
-      dictionary = v87;
+      v16 = v85;
+      dictionary = v86;
     }
 
     results3 = [v16 results];
@@ -1654,168 +1650,168 @@ LABEL_9:
     if (v46)
     {
       results4 = [v16 results];
+      v112 = 0u;
       v113 = 0u;
       v114 = 0u;
       v115 = 0u;
-      v116 = 0u;
-      v48 = [results4 countByEnumeratingWithState:&v113 objects:v131 count:16];
+      v48 = [results4 countByEnumeratingWithState:&v112 objects:v130 count:16];
       if (v48)
       {
         v49 = v48;
-        v50 = *v114;
+        v50 = *v113;
         do
         {
           for (j = 0; j != v49; ++j)
           {
-            if (*v114 != v50)
+            if (*v113 != v50)
             {
               objc_enumerationMutation(results4);
             }
 
-            v52 = [FRCFaceHandLegRectangle handRectangleWithObservation:*(*(&v113 + 1) + 8 * j)];
+            v52 = [FRCFaceHandLegRectangle handRectangleWithObservation:*(*(&v112 + 1) + 8 * j)];
             [v12 addObject:v52];
           }
 
-          v49 = [results4 countByEnumeratingWithState:&v113 objects:v131 count:16];
+          v49 = [results4 countByEnumeratingWithState:&v112 objects:v130 count:16];
         }
 
         while (v49);
       }
     }
 
-    results5 = [v95 results];
+    results5 = [v94 results];
     v54 = [results5 count];
 
     if (v54)
     {
       selfCopy2 = self;
       v55 = objc_alloc_init(FRCBodyBoundingBoxDetector);
-      results6 = [v95 results];
+      results6 = [v94 results];
+      v108 = 0u;
       v109 = 0u;
       v110 = 0u;
       v111 = 0u;
-      v112 = 0u;
-      v57 = [results6 countByEnumeratingWithState:&v109 objects:v130 count:16];
+      v57 = [results6 countByEnumeratingWithState:&v108 objects:v129 count:16];
       if (v57)
       {
         v59 = v57;
-        v60 = *v110;
+        v60 = *v109;
         do
         {
           for (k = 0; k != v59; ++k)
           {
-            if (*v110 != v60)
+            if (*v109 != v60)
             {
               objc_enumerationMutation(results6);
             }
 
-            *&v58 = v89 / v88;
-            selfCopy2 = [(FRCBodyBoundingBoxDetector *)v55 createBodyRectanglesWithObservation:*(*(&v109 + 1) + 8 * k) frameAspectRatio:v58, selfCopy2];
+            *&v58 = v88 / v87;
+            selfCopy2 = [(FRCBodyBoundingBoxDetector *)v55 createBodyRectanglesWithObservation:*(*(&v108 + 1) + 8 * k) frameAspectRatio:v58, selfCopy2];
+            v104 = 0u;
             v105 = 0u;
             v106 = 0u;
             v107 = 0u;
-            v108 = 0u;
-            v63 = [selfCopy2 countByEnumeratingWithState:&v105 objects:v129 count:16];
+            v63 = [selfCopy2 countByEnumeratingWithState:&v104 objects:v128 count:16];
             if (v63)
             {
               v64 = v63;
-              v65 = *v106;
+              v65 = *v105;
               do
               {
                 for (m = 0; m != v64; ++m)
                 {
-                  if (*v106 != v65)
+                  if (*v105 != v65)
                   {
                     objc_enumerationMutation(selfCopy2);
                   }
 
-                  [v12 addObject:*(*(&v105 + 1) + 8 * m)];
+                  [v12 addObject:*(*(&v104 + 1) + 8 * m)];
                 }
 
-                v64 = [selfCopy2 countByEnumeratingWithState:&v105 objects:v129 count:16];
+                v64 = [selfCopy2 countByEnumeratingWithState:&v104 objects:v128 count:16];
               }
 
               while (v64);
             }
           }
 
-          v59 = [results6 countByEnumeratingWithState:&v109 objects:v130 count:16];
+          v59 = [results6 countByEnumeratingWithState:&v108 objects:v129 count:16];
         }
 
         while (v59);
       }
 
       self = selfCopy2;
-      v16 = v86;
-      dictionary = v87;
+      v16 = v85;
+      dictionary = v86;
     }
 
-    results7 = [v94 results];
+    results7 = [v93 results];
     v68 = [results7 count];
 
     if (v68)
     {
-      results8 = [v94 results];
+      results8 = [v93 results];
+      v100 = 0u;
       v101 = 0u;
       v102 = 0u;
       v103 = 0u;
-      v104 = 0u;
-      v70 = [results8 countByEnumeratingWithState:&v101 objects:v128 count:16];
+      v70 = [results8 countByEnumeratingWithState:&v100 objects:v127 count:16];
       if (v70)
       {
         v71 = v70;
-        v72 = *v102;
+        v72 = *v101;
         do
         {
           for (n = 0; n != v71; ++n)
           {
-            if (*v102 != v72)
+            if (*v101 != v72)
             {
               objc_enumerationMutation(results8);
             }
 
-            [*(*(&v101 + 1) + 8 * n) boundingBox];
+            [*(*(&v100 + 1) + 8 * n) boundingBox];
             v74 = [FRCFaceHandLegRectangle humanRectangleWithBoundingBox:?];
             [v12 addObject:v74];
           }
 
-          v71 = [results8 countByEnumeratingWithState:&v101 objects:v128 count:16];
+          v71 = [results8 countByEnumeratingWithState:&v100 objects:v127 count:16];
         }
 
         while (v71);
       }
     }
 
-    results9 = [v93 results];
+    results9 = [v92 results];
     v76 = [results9 count];
 
     if (v76)
     {
-      results10 = [v93 results];
+      results10 = [v92 results];
+      v96 = 0u;
       v97 = 0u;
       v98 = 0u;
       v99 = 0u;
-      v100 = 0u;
-      v78 = [results10 countByEnumeratingWithState:&v97 objects:v127 count:16];
+      v78 = [results10 countByEnumeratingWithState:&v96 objects:v126 count:16];
       if (v78)
       {
         v79 = v78;
-        v80 = *v98;
+        v80 = *v97;
         do
         {
           for (ii = 0; ii != v79; ++ii)
           {
-            if (*v98 != v80)
+            if (*v97 != v80)
             {
               objc_enumerationMutation(results10);
             }
 
-            [*(*(&v97 + 1) + 8 * ii) boundingBox];
+            [*(*(&v96 + 1) + 8 * ii) boundingBox];
             v82 = [FRCFaceHandLegRectangle animalFaceRectangleWithBoundingBox:?];
             [v12 addObject:v82];
           }
 
-          v79 = [results10 countByEnumeratingWithState:&v97 objects:v127 count:16];
+          v79 = [results10 countByEnumeratingWithState:&v96 objects:v126 count:16];
         }
 
         while (v79);
@@ -1824,49 +1820,47 @@ LABEL_9:
   }
 
   [(OpticalFlowAnalyzer *)self printFaceHandLegRectangles:v12];
-  v83 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (void)printFaceHandLegRectangles:(id)rectangles
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   rectanglesCopy = rectangles;
   NSLog(&cfstr_FlowanalysisFa.isa, [rectanglesCopy count]);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v4 = rectanglesCopy;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         [v10 boundingBox];
         printf("\tCount %d\tCategory %lu\t(%.3f,%.3f)\t%.3f x %.3f\n", v7++, [v10 category], v11, v12, v13, v14);
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
 
   fflush(*MEMORY[0x277D85E08]);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - ($E2C29196C7A5C696474C6955C5A9CE06)safeThresholdWithtimeGap:(id *)gap isDownsampled:(BOOL)downsampled
@@ -2355,49 +2349,49 @@ LABEL_65:
 
 - (void)processGPUOutputsHistograms:(id *)histograms blockWidth:(unint64_t)width blockHeight:(unint64_t)height
 {
-  v47 = *MEMORY[0x277D85DE8];
-  v46 = 0uLL;
+  v46 = *MEMORY[0x277D85DE8];
   v45 = 0uLL;
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
+  v44 = 0uLL;
   v42 = 0u;
-  v40 = 0uLL;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v39 = 0uLL;
-  v32 = 0u;
-  v33 = 0u;
+  v38 = 0uLL;
   v31 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v28 = 0u;
-  v27 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v35 = 0u;
+  v32 = 0u;
+  v30 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v27 = 0u;
+  v26 = 0u;
+  v24 = 0u;
+  v21 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v33 = 0u;
   if (height)
   {
     v7 = 0;
     v8 = width / 5uLL;
     v9 = height >> 1;
     v10 = width >> 1;
-    v26 = width - v8;
-    v33 = 0uLL;
-    v34 = 0uLL;
-    var1 = histograms->var1;
-    v23 = width << 6;
-    v31 = 0uLL;
+    v25 = width - v8;
     v32 = 0uLL;
-    v28 = 0uLL;
+    v33 = 0uLL;
+    var1 = histograms->var1;
+    v22 = width << 6;
+    v30 = 0uLL;
+    v31 = 0uLL;
     v27 = 0uLL;
-    v25 = 0uLL;
-    v22 = 0uLL;
+    v26 = 0uLL;
+    v24 = 0uLL;
+    v21 = 0uLL;
     while (!width)
     {
 LABEL_32:
       ++v7;
-      var1 = (var1 + v23);
+      var1 = (var1 + v22);
       if (v7 == height)
       {
         goto LABEL_33;
@@ -2408,15 +2402,15 @@ LABEL_32:
     v13 = var1;
     while (1)
     {
-      v48.x = v12;
-      v48.y = v7;
-      if (!CGRectContainsPoint(self->_cleanRectFlow8x8, v48))
+      v47.x = v12;
+      v47.y = v7;
+      if (!CGRectContainsPoint(self->_cleanRectFlow8x8, v47))
       {
         goto LABEL_31;
       }
 
-      v33 = vaddq_s32(v33, *(v13 - 2));
-      v34 = vaddq_s32(v34, *(v13 - 1));
+      v32 = vaddq_s32(v32, *(v13 - 2));
+      v33 = vaddq_s32(v33, *(v13 - 1));
       if (*(v13 - 8) > 57)
       {
         goto LABEL_31;
@@ -2430,67 +2424,67 @@ LABEL_32:
           {
             if (v9 <= v7 && v10 <= v12)
             {
-              v52 = vld2q_f32(v13);
-              v22 = vaddq_s32(vaddq_s32(v52.val[1], v52.val[0]), v22);
+              v51 = vld2q_f32(v13);
+              v21 = vaddq_s32(vaddq_s32(v51.val[1], v51.val[0]), v21);
             }
           }
 
           else
           {
-            v51 = vld2q_f32(v13);
-            v25 = vaddq_s32(vaddq_s32(v51.val[1], v51.val[0]), v25);
+            v50 = vld2q_f32(v13);
+            v24 = vaddq_s32(vaddq_s32(v50.val[1], v50.val[0]), v24);
           }
         }
 
         else
         {
-          v50 = vld2q_f32(v13);
-          v27 = vaddq_s32(vaddq_s32(v50.val[1], v50.val[0]), v27);
+          v49 = vld2q_f32(v13);
+          v26 = vaddq_s32(vaddq_s32(v49.val[1], v49.val[0]), v26);
         }
       }
 
       else
       {
-        v49 = vld2q_f32(v13);
-        v28 = vaddq_s32(vaddq_s32(v49.val[1], v49.val[0]), v28);
+        v48 = vld2q_f32(v13);
+        v27 = vaddq_s32(vaddq_s32(v48.val[1], v48.val[0]), v27);
       }
 
       v15 = *v13;
       v16 = *(v13 + 1);
       if (v12 >= v8)
       {
-        if (v26 >= v12)
+        if (v25 >= v12)
         {
           goto LABEL_26;
         }
 
-        v29 = *(v13 + 1);
-        v30 = *v13;
-        [(OpticalFlowAnalyzer *)self convertOctantDirectionHistogram:v13 toPerpendicularQuadrantHistogram:&v45];
-        v41 = vaddq_s32(v41, *(v13 - 2));
-        v17 = &v42;
+        v28 = *(v13 + 1);
+        v29 = *v13;
+        [(OpticalFlowAnalyzer *)self convertOctantDirectionHistogram:v13 toPerpendicularQuadrantHistogram:&v44];
+        v40 = vaddq_s32(v40, *(v13 - 2));
+        v17 = &v41;
       }
 
       else
       {
-        v29 = *(v13 + 1);
-        v30 = *v13;
-        [(OpticalFlowAnalyzer *)self convertOctantDirectionHistogram:v13 toPerpendicularQuadrantHistogram:&v46];
-        v43 = vaddq_s32(v43, *(v13 - 2));
-        v17 = &v44;
+        v28 = *(v13 + 1);
+        v29 = *v13;
+        [(OpticalFlowAnalyzer *)self convertOctantDirectionHistogram:v13 toPerpendicularQuadrantHistogram:&v45];
+        v42 = vaddq_s32(v42, *(v13 - 2));
+        v17 = &v43;
       }
 
       *v17 = vaddq_s32(*v17, *(v13 - 1));
-      v16 = v29;
-      v15 = v30;
+      v16 = v28;
+      v15 = v29;
 LABEL_26:
-      v31 = vaddq_s32(v31, v15);
-      v32 = vaddq_s32(v32, v16);
+      v30 = vaddq_s32(v30, v15);
+      v31 = vaddq_s32(v31, v16);
       if (v7 < height / 5uLL)
       {
-        [(OpticalFlowAnalyzer *)self convertOctantDirectionHistogram:v13 toPerpendicularQuadrantHistogram:&v40];
-        v37 = vaddq_s32(v37, *(v13 - 2));
-        v18 = &v38;
+        [(OpticalFlowAnalyzer *)self convertOctantDirectionHistogram:v13 toPerpendicularQuadrantHistogram:&v39];
+        v36 = vaddq_s32(v36, *(v13 - 2));
+        v18 = &v37;
 LABEL_30:
         *v18 = vaddq_s32(*v18, *(v13 - 1));
         goto LABEL_31;
@@ -2498,9 +2492,9 @@ LABEL_30:
 
       if (height - height / 5uLL < v7)
       {
-        [(OpticalFlowAnalyzer *)self convertOctantDirectionHistogram:v13 toPerpendicularQuadrantHistogram:&v39];
-        v35 = vaddq_s32(v35, *(v13 - 2));
-        v18 = &v36;
+        [(OpticalFlowAnalyzer *)self convertOctantDirectionHistogram:v13 toPerpendicularQuadrantHistogram:&v38];
+        v34 = vaddq_s32(v34, *(v13 - 2));
+        v18 = &v35;
         goto LABEL_30;
       }
 
@@ -2522,25 +2516,24 @@ LABEL_33:
   *&self->_motionHistograms.rightSideDirection[2] = v19;
   *self->_motionHistograms.topSideDirection = v19;
   *&self->_motionHistograms.topSideAverageMagnitude = -1;
-  *self->_motionHistograms.frameMagnitude = v33;
-  *&self->_motionHistograms.frameMagnitude[4] = v34;
-  *self->_motionHistograms.frameDirection = v31;
-  *&self->_motionHistograms.frameDirection[4] = v32;
-  *self->_motionHistograms.topLeftDirection = v28;
-  *self->_motionHistograms.topRightDirection = v27;
-  *self->_motionHistograms.bottomLeftDirection = v25;
-  *self->_motionHistograms.bottomRightDirection = v22;
-  v20 = v45;
-  *self->_motionHistograms.leftSideDirection = v46;
+  *self->_motionHistograms.frameMagnitude = v32;
+  *&self->_motionHistograms.frameMagnitude[4] = v33;
+  *self->_motionHistograms.frameDirection = v30;
+  *&self->_motionHistograms.frameDirection[4] = v31;
+  *self->_motionHistograms.topLeftDirection = v27;
+  *self->_motionHistograms.topRightDirection = v26;
+  *self->_motionHistograms.bottomLeftDirection = v24;
+  *self->_motionHistograms.bottomRightDirection = v21;
+  v20 = v44;
+  *self->_motionHistograms.leftSideDirection = v45;
   *self->_motionHistograms.rightSideDirection = v20;
-  *self->_motionHistograms.topSideDirection = v40;
+  *self->_motionHistograms.topSideDirection = v39;
   *self->_motionHistograms.bottomSideDirection = v19;
-  *self->_motionHistograms.bottomSideDirection = v39;
-  self->_motionHistograms.leftSideAverageMagnitude = [(OpticalFlowAnalyzer *)self averageMagnitude:&v43, width, *&v22];
-  self->_motionHistograms.rightSideAverageMagnitude = [(OpticalFlowAnalyzer *)self averageMagnitude:&v41];
-  self->_motionHistograms.topSideAverageMagnitude = [(OpticalFlowAnalyzer *)self averageMagnitude:&v37];
-  self->_motionHistograms.bottomSideAverageMagnitude = [(OpticalFlowAnalyzer *)self averageMagnitude:&v35];
-  v21 = *MEMORY[0x277D85DE8];
+  *self->_motionHistograms.bottomSideDirection = v38;
+  self->_motionHistograms.leftSideAverageMagnitude = [(OpticalFlowAnalyzer *)self averageMagnitude:&v42, width, *&v21];
+  self->_motionHistograms.rightSideAverageMagnitude = [(OpticalFlowAnalyzer *)self averageMagnitude:&v40];
+  self->_motionHistograms.topSideAverageMagnitude = [(OpticalFlowAnalyzer *)self averageMagnitude:&v36];
+  self->_motionHistograms.bottomSideAverageMagnitude = [(OpticalFlowAnalyzer *)self averageMagnitude:&v34];
 }
 
 - (void)processGPUOutputsHistogramsForDeformation:(id *)deformation blockWidth:(unint64_t)width blockHeight:(unint64_t)height
@@ -3194,35 +3187,34 @@ LABEL_11:
     v2 = !self->_prevMotionHistogramsAnalysis.hasStaticBackground && self->_prevMotionHistogramsAnalysis.dominantDirection >= 0;
     dominantDirection = self->_motionHistogramsAnalysis.dominantDirection;
     relativeDominantDirection = self->_motionHistogramsAnalysis.relativeDominantDirection;
-    v5 = self->_motionHistogramsAnalysis.hasStaticBackground || dominantDirection < 0;
-    v6 = self->_prevMotionHistogramsAnalysis.dominantDirection;
-    v7 = self->_prevMotionHistogramsAnalysis.relativeDominantDirection;
-    v8 = v7 - relativeDominantDirection;
-    if (v7 - relativeDominantDirection < 0)
+    v5 = self->_prevMotionHistogramsAnalysis.dominantDirection;
+    v6 = self->_prevMotionHistogramsAnalysis.relativeDominantDirection;
+    v7 = v6 - relativeDominantDirection;
+    if (v6 - relativeDominantDirection < 0)
     {
-      v8 = relativeDominantDirection - v7;
+      v7 = relativeDominantDirection - v6;
     }
 
-    if (!v2 || self->_motionHistogramsAnalysis.hasStaticBackground || dominantDirection < 0 || (v6 - dominantDirection >= 0 ? (v9 = v6 - dominantDirection) : (v9 = dominantDirection - v6), (v10 = 1, v15 = v9 > 7, v11 = (1 << v9) & 0x83, !v15) ? (v12 = v11 == 0) : (v12 = 1), v12))
+    if (!v2 || self->_motionHistogramsAnalysis.hasStaticBackground || dominantDirection < 0 || (v5 - dominantDirection >= 0 ? (v8 = v5 - dominantDirection) : (v8 = dominantDirection - v5), (v9 = 1, v14 = v8 > 7, v10 = (1 << v8) & 0x83, !v14) ? (v11 = v10 == 0) : (v11 = 1), v11))
     {
-      if (v2 && self->_motionHistogramsAnalysis.hasSpecialMotion > 0 || (v13 = self->_prevMotionHistogramsAnalysis.hasSpecialMotion, v13 >= 1 && !self->_motionHistogramsAnalysis.hasStaticBackground && dominantDirection >= 0))
+      if (v2 && self->_motionHistogramsAnalysis.hasSpecialMotion > 0 || (v12 = self->_prevMotionHistogramsAnalysis.hasSpecialMotion, v12 >= 1 && !self->_motionHistogramsAnalysis.hasStaticBackground && dominantDirection >= 0))
       {
-        v10 = 1;
+        v9 = 1;
       }
 
       else
       {
         hasSpecialMotion = self->_motionHistogramsAnalysis.hasSpecialMotion;
-        v15 = v13 != hasSpecialMotion || hasSpecialMotion <= 0;
-        v10 = !v15;
+        v14 = v12 != hasSpecialMotion || hasSpecialMotion <= 0;
+        v9 = !v14;
       }
     }
 
-    self->_hasCameraMotion = v10;
-    if (v7 < 0)
+    self->_hasCameraMotion = v9;
+    if (v6 < 0)
     {
-      v16 = 0;
-      v20 = 0;
+      v15 = 0;
+      v19 = 0;
       p_hasDominantMovingLargeObjects = &self->_hasDominantMovingLargeObjects;
       self->_hasDominantMovingLargeObjects = 0;
       if (relativeDominantDirection < 0)
@@ -3233,69 +3225,69 @@ LABEL_11:
 
     else if (relativeDominantDirection < 0)
     {
-      v16 = 0;
+      v15 = 0;
       p_hasDominantMovingLargeObjects = &self->_hasDominantMovingLargeObjects;
       self->_hasDominantMovingLargeObjects = 0;
     }
 
     else
     {
-      v16 = v8 < 2;
-      if (v8 == 7)
+      v15 = v7 < 2;
+      if (v7 == 7)
       {
-        v16 = 1;
+        v15 = 1;
       }
 
-      v17 = v8 > 7 || ((1 << v8) & 0x83) == 0;
-      v18 = (v6 | dominantDirection) >= 0;
-      if (v17)
+      v16 = v7 > 7 || ((1 << v7) & 0x83) == 0;
+      v17 = (v5 | dominantDirection) >= 0;
+      if (v16)
       {
-        v18 = 0;
+        v17 = 0;
       }
 
       p_hasDominantMovingLargeObjects = &self->_hasDominantMovingLargeObjects;
-      self->_hasDominantMovingLargeObjects = v18;
+      self->_hasDominantMovingLargeObjects = v17;
     }
 
-    v20 = (v6 & dominantDirection) == -1;
+    v19 = (v5 & dominantDirection) == -1;
 LABEL_46:
-    self->_hasDominantMovingSmallObjects = v20;
-    v21 = self->_prevMotionHistogramsAnalysis.hasStaticBackground && self->_motionHistogramsAnalysis.hasStaticBackground;
-    self->_hasStaticBackground = v21;
+    self->_hasDominantMovingSmallObjects = v19;
+    v20 = self->_prevMotionHistogramsAnalysis.hasStaticBackground && self->_motionHistogramsAnalysis.hasStaticBackground;
+    self->_hasStaticBackground = v20;
     jsonRandomnessAreaScale = 1.0;
-    if (v16)
+    if (v15)
     {
       jsonRandomnessAreaScale = self->jsonRandomnessAreaScale;
     }
 
     self->randomnessAreaScale = jsonRandomnessAreaScale;
     hasCameraMotion = self->_hasCameraMotion;
-    v24 = *p_hasDominantMovingLargeObjects;
-    v25 = -1.0;
-    if (hasCameraMotion || v24)
+    v23 = *p_hasDominantMovingLargeObjects;
+    v24 = -1.0;
+    if (hasCameraMotion || v23)
     {
-      v26 = &OBJC_IVAR___OpticalFlowAnalyzer_jsonRandomnessAreaChangeRatioThresholdForCameraMotion;
-      v27 = &OBJC_IVAR___OpticalFlowAnalyzer_jsonRandomnessErrorChangeRatioThresholdForCameraMotion;
+      v25 = &OBJC_IVAR___OpticalFlowAnalyzer_jsonRandomnessAreaChangeRatioThresholdForCameraMotion;
+      v26 = &OBJC_IVAR___OpticalFlowAnalyzer_jsonRandomnessErrorChangeRatioThresholdForCameraMotion;
     }
 
-    else if (v21 && self->_hasDominantMovingSmallObjects)
+    else if (v20 && self->_hasDominantMovingSmallObjects)
     {
-      v26 = &OBJC_IVAR___OpticalFlowAnalyzer_jsonRandomnessAreaChangeRatioThresholdForStatic;
-      v27 = &OBJC_IVAR___OpticalFlowAnalyzer_jsonRandomnessErrorChangeRatioThresholdForStatic;
-      v25 = 1.0;
+      v25 = &OBJC_IVAR___OpticalFlowAnalyzer_jsonRandomnessAreaChangeRatioThresholdForStatic;
+      v26 = &OBJC_IVAR___OpticalFlowAnalyzer_jsonRandomnessErrorChangeRatioThresholdForStatic;
+      v24 = 1.0;
     }
 
     else
     {
-      v26 = &OBJC_IVAR___OpticalFlowAnalyzer_jsonRandomnessAreaChangeRatioThreshold;
-      v27 = &OBJC_IVAR___OpticalFlowAnalyzer_jsonRandomnessErrorChangeRatioThreshold;
-      v25 = 0.0;
+      v25 = &OBJC_IVAR___OpticalFlowAnalyzer_jsonRandomnessAreaChangeRatioThreshold;
+      v26 = &OBJC_IVAR___OpticalFlowAnalyzer_jsonRandomnessErrorChangeRatioThreshold;
+      v24 = 0.0;
     }
 
-    self->consistencySafeThresholdsScale = v25;
-    self->randomnessErrorChangeRatioThreshold = *(&self->super.super.isa + *v27);
-    self->randomnessAreaChangeRatioThreshold = *(&self->super.super.isa + *v26);
-    printf("[MotionHistograms] has_camera_motion: %d, has_dominant_moving_large_objects: %d, has_dominant_moving_small_objects: %d, has_static_background: %d\n", hasCameraMotion, v24, self->_hasDominantMovingSmallObjects, v21);
+    self->consistencySafeThresholdsScale = v24;
+    self->randomnessErrorChangeRatioThreshold = *(&self->super.super.isa + *v26);
+    self->randomnessAreaChangeRatioThreshold = *(&self->super.super.isa + *v25);
+    printf("[MotionHistograms] has_camera_motion: %d, has_dominant_moving_large_objects: %d, has_dominant_moving_small_objects: %d, has_static_background: %d\n", hasCameraMotion, v23, self->_hasDominantMovingSmallObjects, v20);
     return;
   }
 
@@ -3543,75 +3535,75 @@ LABEL_46:
 {
   if (self->_shouldRunBackwarpGating)
   {
-    v11 = objc_autoreleasePoolPush();
-    [(OpticalFlowAnalyzer *)self analyzeBackwarpForward:forward backward:backward flowResFirst:first flowResSecond:second];
-    objc_autoreleasePoolPop(v11);
-    v18 = v37 == v38 ? 100.0 : v38;
+    v7 = objc_autoreleasePoolPush();
+    objc_msgSend_analyzeBackwarpForward_backward_flowResFirst_flowResSecond_(self);
+    objc_autoreleasePoolPop(v7);
+    v14 = v33 == v34 ? 100.0 : v34;
     if (self->_useCase == 1)
     {
-      *&v13 = self->jsonBackwarpFrameScoreThreshold;
-      *&v14 = self->jsonBackwarpScoreHighThreshold;
-      *&v16 = self->jsonBackwarpAreaPercentageThreshold;
-      *&v17 = self->jsonBackwarpAreaPercentageHighThreshold;
-      *&v12 = v37;
-      *&v15 = v39;
-      [(OpticalFlowAnalyzer *)self computeBackwarpConfidenceFromScore:v40 >= self->jsonBackwarpAreaThreshold scoreThreshold:v12 scoreHighThreshold:v13 areaRatio:v14 areaRatioThreshold:v15 areaRatioHighThreshold:v16 large_area:v17];
-      v20 = v19;
-      *&v21 = self->jsonBackwarpFrameScoreThresholdOnDemand;
-      *&v22 = self->jsonBackwarpScoreHighThreshold;
-      *&v23 = self->jsonBackwarpAreaPercentageThresholdOnDemand;
-      *&v24 = self->jsonBackwarpAreaPercentageHighThreshold;
-      *&v25 = v37;
-      *&v26 = v39;
-      [(OpticalFlowAnalyzer *)self computeBackwarpConfidenceFromScore:v40 >= self->jsonBackwarpAreaThreshold scoreThreshold:v25 scoreHighThreshold:v21 areaRatio:v22 areaRatioThreshold:v26 areaRatioHighThreshold:v23 large_area:v24];
-      v32 = *&v33;
-      LODWORD(v33) = 1.0;
-      if (v37 != v38)
+      *&v9 = self->jsonBackwarpFrameScoreThreshold;
+      *&v10 = self->jsonBackwarpScoreHighThreshold;
+      *&v12 = self->jsonBackwarpAreaPercentageThreshold;
+      *&v13 = self->jsonBackwarpAreaPercentageHighThreshold;
+      *&v8 = v33;
+      *&v11 = v35;
+      [(OpticalFlowAnalyzer *)self computeBackwarpConfidenceFromScore:v36 >= self->jsonBackwarpAreaThreshold scoreThreshold:v8 scoreHighThreshold:v9 areaRatio:v10 areaRatioThreshold:v11 areaRatioHighThreshold:v12 large_area:v13];
+      v16 = v15;
+      *&v17 = self->jsonBackwarpFrameScoreThresholdOnDemand;
+      *&v18 = self->jsonBackwarpScoreHighThreshold;
+      *&v19 = self->jsonBackwarpAreaPercentageThresholdOnDemand;
+      *&v20 = self->jsonBackwarpAreaPercentageHighThreshold;
+      *&v21 = v33;
+      *&v22 = v35;
+      [(OpticalFlowAnalyzer *)self computeBackwarpConfidenceFromScore:v36 >= self->jsonBackwarpAreaThreshold scoreThreshold:v21 scoreHighThreshold:v17 areaRatio:v18 areaRatioThreshold:v22 areaRatioHighThreshold:v19 large_area:v20];
+      v28 = *&v29;
+      LODWORD(v29) = 1.0;
+      if (v33 != v34)
       {
-        *&v27 = self->jsonBackwarpROIScoreThreshold;
-        *&v28 = self->jsonBackwarpScoreHighThreshold;
-        *&v30 = self->jsonBackwarpAreaPercentageThreshold;
-        *&v31 = self->jsonBackwarpAreaPercentageHighThreshold;
-        *&v33 = v38;
-        *&v29 = v39;
-        [(OpticalFlowAnalyzer *)self computeBackwarpConfidenceFromScore:v40 >= self->jsonBackwarpAreaThreshold scoreThreshold:v33 scoreHighThreshold:v27 areaRatio:v28 areaRatioThreshold:v29 areaRatioHighThreshold:v30 large_area:v31];
+        *&v23 = self->jsonBackwarpROIScoreThreshold;
+        *&v24 = self->jsonBackwarpScoreHighThreshold;
+        *&v26 = self->jsonBackwarpAreaPercentageThreshold;
+        *&v27 = self->jsonBackwarpAreaPercentageHighThreshold;
+        *&v29 = v34;
+        *&v25 = v35;
+        [(OpticalFlowAnalyzer *)self computeBackwarpConfidenceFromScore:v36 >= self->jsonBackwarpAreaThreshold scoreThreshold:v29 scoreHighThreshold:v23 areaRatio:v24 areaRatioThreshold:v25 areaRatioHighThreshold:v26 large_area:v27];
       }
 
-      v34 = fmin(fminf(v20, *&v33), 1.0);
-      if (v34 < 1.0)
+      v30 = fmin(fminf(v16, *&v29), 1.0);
+      if (v30 < 1.0)
       {
-        NSLog(&cfstr_Autobahnflowan_7.isa, v34);
+        NSLog(&cfstr_Autobahnflowan_7.isa, v30);
       }
 
-      self->_confidenceScore = fminf(v34, self->_confidenceScore);
-      v35 = fmin(v32, 1.0);
-      if (v35 < 1.0)
+      self->_confidenceScore = fminf(v30, self->_confidenceScore);
+      v31 = fmin(v28, 1.0);
+      if (v31 < 1.0)
       {
-        NSLog(&cfstr_Autobahnflowan_8.isa, v35);
+        NSLog(&cfstr_Autobahnflowan_8.isa, v31);
       }
 
-      self->_confidenceScoreOnDemand = fminf(v35, self->_confidenceScoreOnDemand);
-      if (v39 > self->jsonBackwarpAreaPercentageThreshold && (v37 < self->jsonBackwarpFrameScoreThreshold || v18 < self->jsonBackwarpROIScoreThreshold))
+      self->_confidenceScoreOnDemand = fminf(v31, self->_confidenceScoreOnDemand);
+      if (v35 > self->jsonBackwarpAreaPercentageThreshold && (v33 < self->jsonBackwarpFrameScoreThreshold || v14 < self->jsonBackwarpROIScoreThreshold))
       {
         self->_safeToInterpolate.backwarp = 0;
-        if (v39 <= self->jsonBackwarpAreaPercentageThresholdOnDemand || v37 >= self->jsonBackwarpFrameScoreThresholdOnDemand)
+        if (v35 <= self->jsonBackwarpAreaPercentageThresholdOnDemand || v33 >= self->jsonBackwarpFrameScoreThresholdOnDemand)
         {
-          if (v39 <= self->jsonBackwarpAreaPercentageHighThreshold || v37 >= self->jsonBackwarpScoreHighThreshold)
+          if (v35 <= self->jsonBackwarpAreaPercentageHighThreshold || v33 >= self->jsonBackwarpScoreHighThreshold)
           {
 LABEL_24:
             NSLog(&cfstr_Autobahnflowan_10.isa);
             return;
           }
 
-          v36 = v40 < self->jsonBackwarpAreaThreshold;
+          v32 = v36 < self->jsonBackwarpAreaThreshold;
         }
 
         else
         {
-          v36 = 0;
+          v32 = 0;
         }
 
-        if (self->_framesToInterpolate >= 4 && !v36)
+        if (self->_framesToInterpolate >= 4 && !v32)
         {
           self->_isSafeToInterpolateForInteractiveMode = 0;
           NSLog(&cfstr_Autobahnflowan_9.isa);

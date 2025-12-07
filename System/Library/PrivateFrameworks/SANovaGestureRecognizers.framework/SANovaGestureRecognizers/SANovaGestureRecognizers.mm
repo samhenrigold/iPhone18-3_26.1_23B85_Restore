@@ -40,22 +40,25 @@ uint64_t NovaHost::DoubleHalfPressRecognizer::update(double *a1, float *a2, uint
       *(a1 + 17) = 0;
     }
 
-    else if (v13 == 0.0 || *(a1 + 16) == 1)
+    else if (v13 && *(a1 + 16) != 1)
     {
-      *a1 = v12;
-      *(a1 + 16) = 0;
-    }
+      if (a1[3] < (v12 - v13) || a1[1] >= a1[5])
+      {
+        *a1 = v12;
+      }
 
-    else if (a1[3] < (v12 - *&v13) || a1[1] >= a1[5])
-    {
-      *a1 = v12;
+      else
+      {
+        *a1 = v12;
+        *(a1 + 16) = 1;
+        *a4 = 1;
+      }
     }
 
     else
     {
       *a1 = v12;
-      *(a1 + 16) = 1;
-      *a4 = 1;
+      *(a1 + 16) = 0;
     }
 
 LABEL_30:
@@ -73,7 +76,7 @@ LABEL_30:
     goto LABEL_30;
   }
 
-  if (*(a1 + 16) == 1 && a1[4] > (v12 - *&v13))
+  if (*(a1 + 16) == 1 && a1[4] > (v12 - v13))
   {
 LABEL_13:
     *(a1 + 8) = 0;

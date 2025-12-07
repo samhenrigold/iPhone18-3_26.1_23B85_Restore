@@ -1,8 +1,8 @@
 @interface PKPassThumbnailView
 - (CGSize)sizeThatFits:(CGSize)fits;
+- (id)_layoutWithBounds:(uint64_t)bounds@<X8> commit:(double)commit@<D0>;
 - (id)initWithPass:(void *)pass suppressedContent:(void *)content rendererState:(int)state options:;
-- (uint64_t)_layoutWithBounds:(uint64_t)bounds@<X8> commit:(double)commit@<D0>;
-- (uint64_t)sizeStateForSize:(double)size@<D0>;
+- (id)sizeStateForSize:(double)size@<D0>;
 - (void)_updateRasterizationScale;
 - (void)didMoveToWindow;
 - (void)layoutSubviews;
@@ -173,7 +173,7 @@ LABEL_20:
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKPassThumbnailView *)self _layoutWithBounds:v5 commit:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  [(PKPassThumbnailView *)&self->super.super.super.isa _layoutWithBounds:v5 commit:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
   v3 = *v5;
   v4 = *&v5[1];
   result.height = v4;
@@ -181,130 +181,153 @@ LABEL_20:
   return result;
 }
 
-- (uint64_t)_layoutWithBounds:(uint64_t)bounds@<X8> commit:(double)commit@<D0>
+- (id)_layoutWithBounds:(uint64_t)bounds@<X8> commit:(double)commit@<D0>
 {
   if (result)
   {
     v12 = result;
-    [*(result + 432) sizeOfFront];
+    [result[54] sizeOfFront];
     v14 = v13;
     v16 = v15;
-    style = [*(v12 + 464) style];
+    style = [v12[58] style];
     v18 = v16;
     if (style != 6)
     {
       v18 = v14 * 0.704081633;
       if (style == 7)
       {
-        v56 = a5;
-        v58 = a6;
-        [*(v12 + 464) thumbnailRect];
-        x = v63.origin.x;
-        y = v63.origin.y;
-        width = v63.size.width;
-        height = v63.size.height;
-        if (!CGRectIsEmpty(v63))
+        v72 = a5;
+        v74 = a6;
+        [v12[58] thumbnailRect];
+        x = v79.origin.x;
+        y = v79.origin.y;
+        width = v79.size.width;
+        height = v79.size.height;
+        if (!CGRectIsEmpty(v79))
         {
-          v64.origin.x = x;
-          v64.origin.y = y;
-          v64.size.width = width;
-          v64.size.height = height;
-          v18 = fmax(CGRectGetMaxY(v64) + 1.0, v18);
+          v80.origin.x = x;
+          v80.origin.y = y;
+          v80.size.width = width;
+          v80.size.height = height;
+          v18 = fmax(CGRectGetMaxY(v80) + 1.0, v18);
         }
 
-        a5 = v56;
-        a6 = v58;
+        a5 = v72;
+        a6 = v74;
       }
     }
 
     v23 = fmin(a6 / v14, a7 / v18);
-    result = PKSizeRoundToPixel();
-    v25 = v24;
-    v27 = v26;
-    v28 = v26;
+    result = PKSizeRoundToPixel(v14 * v23, v16 * v23);
+    v25 = v27.n128_f64[0];
+    v26 = v24.n128_f64[0];
+    v27.n128_u64[0] = v24.n128_u64[0];
     if (v16 != v18)
     {
-      result = PKFloatRoundToPixel();
+      v27.n128_f64[0] = v18 * v23;
+      result = PKFloatRoundToPixel(v27, v24);
     }
 
-    if (v27 <= a7)
+    if (v26 <= a7)
     {
-      v29 = v27;
+      v28 = v26;
     }
 
     else
     {
-      v29 = a7;
+      v28 = a7;
     }
 
-    if (*(v12 + 457) & 1 | (v28 >= a7))
+    if (*(v12 + 457) & 1 | (v27.n128_f64[0] >= a7))
     {
-      v30 = v28;
+      v29 = v27.n128_f64[0];
     }
 
     else
     {
-      v30 = v29;
+      v29 = v28;
     }
 
-    v31 = v27 != v30;
+    v30 = v26 != v29;
     if (a2)
     {
-      v32 = v23 < 1.0;
-      if (*(v12 + 412) != v32)
+      v31 = v23 < 1.0;
+      if (*(v12 + 412) != v31)
       {
-        *(v12 + 412) = v32;
-        layer = [*(v12 + 424) layer];
+        *(v12 + 412) = v31;
+        layer = [v12[53] layer];
         [layer setShouldRasterize:*(v12 + 412)];
       }
 
-      [*(v12 + 416) setFrame:{commit + -44.0, a5 + -44.0, a6 + 44.0 + 44.0, a7 + 44.0}];
-      [*(v12 + 416) setClipsToBounds:v31];
-      [*(v12 + 448) setAlpha:v31];
-      PKSizeAlignedInRect();
-      v35 = v34;
-      v37 = v36;
-      v39 = v38;
-      v41 = v40;
-      v42 = *(v12 + 448);
-      v57 = v30;
-      v59 = v25;
-      if (v42)
+      [v12[52] setFrame:{commit + -44.0, a5 + -44.0, a6 + 44.0 + 44.0, a7 + 44.0}];
+      [v12[52] setClipsToBounds:v30];
+      [v12[56] setAlpha:v30];
+      if (v26 == v29)
       {
-        [v42 pkui_alignmentRect];
-        PKSizeAlignedInRect();
-        [*(v12 + 448) pkui_setAlignmentRect:{v43 + 44.0, v44 + 44.0}];
+        v40 = 0x100000001;
       }
 
-      v65.origin.x = v35;
-      v65.origin.y = v37;
-      v65.size.width = v39;
-      v65.size.height = v41;
-      v66 = CGRectOffset(v65, 44.0, 44.0);
-      v61 = v66.size.width;
-      v45 = v66.size.height;
-      [*(v12 + 424) setFrame:{v66.origin.x, v66.origin.y}];
-      layer2 = [*(v12 + 432) layer];
-      [layer2 anchorPoint];
-      v48 = v47;
-      v50 = v49;
+      else
+      {
+        v40 = 0x200000001;
+      }
 
-      v52 = *MEMORY[0x1E695EFF8];
-      v51 = *(MEMORY[0x1E695EFF8] + 8);
-      v53 = *MEMORY[0x1E695EFF8] + v48 * v59;
-      v54 = *(v12 + 432);
-      CATransform3DMakeScale(&v62, v23, v23, 1.0);
-      [v54 setTransform3D:&v62];
-      [*(v12 + 432) setCenter:{v53, v51 + v50 * v27}];
-      v55 = v51;
-      v25 = v59;
-      result = [*(v12 + 440) setFrame:{v52, v55, v61, v45}];
-      v30 = v57;
+      v33.n128_f64[0] = v25;
+      v34.n128_f64[0] = v29;
+      v35.n128_f64[0] = commit;
+      v36.n128_f64[0] = a5;
+      v37.n128_f64[0] = a6;
+      v38.n128_f64[0] = a7;
+      PKSizeAlignedInRect(v40, v33, v34, v35, v36, v37, v38, v39);
+      v42 = v41;
+      v44 = v43;
+      v46 = v45;
+      v48 = v47;
+      v49 = v12[56];
+      v73 = v29;
+      v75 = v25;
+      if (v49)
+      {
+        [v49 pkui_alignmentRect];
+        v51.n128_u64[0] = v50;
+        v53.n128_u64[0] = v52;
+        v54.n128_f64[0] = v42;
+        v55.n128_f64[0] = v44;
+        v56.n128_f64[0] = v46;
+        v57.n128_f64[0] = v48;
+        PKSizeAlignedInRect(0x200000003, v51, v53, v54, v55, v56, v57, v58);
+        [v12[56] pkui_setAlignmentRect:{v59 + 44.0, v60 + 44.0}];
+      }
+
+      v81.origin.x = v42;
+      v81.origin.y = v44;
+      v81.size.width = v46;
+      v81.size.height = v48;
+      v82 = CGRectOffset(v81, 44.0, 44.0);
+      v77 = v82.size.width;
+      v61 = v82.size.height;
+      [v12[53] setFrame:{v82.origin.x, v82.origin.y}];
+      layer2 = [v12[54] layer];
+      [layer2 anchorPoint];
+      v64 = v63;
+      v66 = v65;
+
+      v68 = *MEMORY[0x1E695EFF8];
+      v67 = *(MEMORY[0x1E695EFF8] + 8);
+      v69 = *MEMORY[0x1E695EFF8] + v64 * v75;
+      v70 = v12[54];
+      CATransform3DMakeScale(&v78, v23, v23, 1.0);
+      [v70 setTransform3D:&v78];
+      [v12[54] setCenter:{v69, v67 + v66 * v26}];
+      v71 = v67;
+      v25 = v75;
+      result = [v12[55] setFrame:{v68, v71, v77, v61}];
+      v29 = v73;
     }
 
     *bounds = v25;
-    *(bounds + 8) = v30;
-    *(bounds + 16) = v31;
+    *(bounds + 8) = v29;
+    *(bounds + 16) = v30;
   }
 
   else
@@ -317,7 +340,7 @@ LABEL_20:
   return result;
 }
 
-- (uint64_t)sizeStateForSize:(double)size@<D0>
+- (id)sizeStateForSize:(double)size@<D0>
 {
   if (result)
   {
@@ -336,7 +359,7 @@ LABEL_20:
   v8.super_class = PKPassThumbnailView;
   [(PKPassThumbnailView *)&v8 layoutSubviews];
   [(PKPassThumbnailView *)self bounds];
-  [(PKPassThumbnailView *)self _layoutWithBounds:v7 commit:v3, v4, v5, v6];
+  [(PKPassThumbnailView *)&self->super.super.super.isa _layoutWithBounds:v7 commit:v3, v4, v5, v6];
 }
 
 - (void)setBrighten:(uint64_t)brighten

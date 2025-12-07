@@ -74,7 +74,7 @@
   mapCopy = map;
   errorCopy = error;
   selfCopy = self;
-  sub_100092524();
+  sub_100092524(errorCopy);
 }
 
 - (void)zoomReset:(id)reset

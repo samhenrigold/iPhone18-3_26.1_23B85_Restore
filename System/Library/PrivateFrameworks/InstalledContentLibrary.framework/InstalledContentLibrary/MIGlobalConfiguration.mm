@@ -180,7 +180,7 @@
   return v3;
 }
 
-uint64_t __39__MIGlobalConfiguration_sharedInstance__block_invoke()
+uint64_t __39__MIGlobalConfiguration_sharedInstance__block_invoke(uint64_t a1)
 {
   sharedInstance_instance = objc_alloc_init(objc_opt_class());
 

@@ -36,54 +36,50 @@
 
 + (id)entryAggregateDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = kPLAWDAggregateNameCameraMetrics;
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = kPLAWDAggregateNameCameraMetrics;
   entryAggregateDefinitionAwdCamera = [self entryAggregateDefinitionAwdCamera];
-  v7[0] = entryAggregateDefinitionAwdCamera;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = entryAggregateDefinitionAwdCamera;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryAggregateDefinitionAwdCamera
 {
-  v25[4] = *MEMORY[0x277D85DE8];
-  v24[0] = *MEMORY[0x277D3F4E8];
+  v24[4] = *MEMORY[0x277D85DE8];
+  v23[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v22[0] = *MEMORY[0x277D3F568];
-  v22[1] = v2;
-  v23[0] = &unk_2870FEEC0;
-  v23[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
-  v25[0] = v3;
-  v24[1] = *MEMORY[0x277D3F540];
-  v20[0] = kPLAWDCameraMetricsKey;
+  v21[0] = *MEMORY[0x277D3F568];
+  v21[1] = v2;
+  v22[0] = &unk_2870FEEC0;
+  v22[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+  v24[0] = v3;
+  v23[1] = *MEMORY[0x277D3F540];
+  v19[0] = kPLAWDCameraMetricsKey;
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v20[1] = kPLAWDCameraMetricsValue;
-  v21[0] = commonTypeDict_StringFormat;
+  v19[1] = kPLAWDCameraMetricsValue;
+  v20[0] = commonTypeDict_StringFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat_aggregateFunction_sum = [mEMORY[0x277D3F198]2 commonTypeDict_RealFormat_aggregateFunction_sum];
-  v21[1] = commonTypeDict_RealFormat_aggregateFunction_sum;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-  v25[1] = v8;
-  v24[2] = *MEMORY[0x277D3F478];
-  v18 = &unk_2870FEED0;
-  v16 = *MEMORY[0x277D3F470];
+  v20[1] = commonTypeDict_RealFormat_aggregateFunction_sum;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v24[1] = v8;
+  v23[2] = *MEMORY[0x277D3F478];
   v17 = &unk_2870FEED0;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v19 = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-  v25[2] = v10;
-  v24[3] = *MEMORY[0x277D3F488];
-  v15 = kPLAWDCameraMetricsValue;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
-  v25[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D3F470];
+  v16 = &unk_2870FEED0;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v18 = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v24[2] = v10;
+  v23[3] = *MEMORY[0x277D3F488];
+  v14 = kPLAWDCameraMetricsValue;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v24[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
 
   return v12;
 }
@@ -153,27 +149,27 @@
   }
 }
 
-uint64_t __37__PLAWDCamera_startMetricCollection___block_invoke(uint64_t result, uint64_t a2)
+id *__37__PLAWDCamera_startMetricCollection___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleCameraCallback:a2];
+    return [result[4] handleCameraCallback:a2];
   }
 
   return result;
 }
 
-uint64_t __37__PLAWDCamera_startMetricCollection___block_invoke_2(uint64_t result, uint64_t a2)
+id *__37__PLAWDCamera_startMetricCollection___block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleTorchCameraCallback:a2];
+    return [result[4] handleTorchCameraCallback:a2];
   }
 
   return result;
 }
 
-uint64_t __37__PLAWDCamera_startMetricCollection___block_invoke_3(uint64_t a1)
+void *__37__PLAWDCamera_startMetricCollection___block_invoke_3(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   startMetricCollection__classDebugEnabled_3 = result;
@@ -232,7 +228,7 @@ uint64_t __37__PLAWDCamera_startMetricCollection___block_invoke_3(uint64_t a1)
   }
 }
 
-uint64_t __36__PLAWDCamera_stopMetricCollection___block_invoke(uint64_t a1)
+void *__36__PLAWDCamera_stopMetricCollection___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   stopMetricCollection__classDebugEnabled_3 = result;
@@ -277,7 +273,7 @@ uint64_t __36__PLAWDCamera_stopMetricCollection___block_invoke(uint64_t a1)
   [(PLAWDCamera *)self resetCameraTable];
 }
 
-uint64_t __30__PLAWDCamera_initCameraStats__block_invoke(uint64_t a1)
+void *__30__PLAWDCamera_initCameraStats__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   initCameraStats_classDebugEnabled = result;
@@ -338,7 +334,7 @@ uint64_t __30__PLAWDCamera_initCameraStats__block_invoke(uint64_t a1)
   [(PLAWDCamera *)self resetCameraTable];
 }
 
-uint64_t __32__PLAWDCamera_reInitCameraStats__block_invoke(uint64_t a1)
+void *__32__PLAWDCamera_reInitCameraStats__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   reInitCameraStats_classDebugEnabled = result;
@@ -459,7 +455,7 @@ uint64_t __32__PLAWDCamera_reInitCameraStats__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __41__PLAWDCamera_handleFrontCameraCallback___block_invoke(uint64_t a1)
+void *__41__PLAWDCamera_handleFrontCameraCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleFrontCameraCallback__classDebugEnabled = result;
@@ -528,7 +524,7 @@ uint64_t __41__PLAWDCamera_handleFrontCameraCallback___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __40__PLAWDCamera_handleBackCameraCallback___block_invoke(uint64_t a1)
+void *__40__PLAWDCamera_handleBackCameraCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleBackCameraCallback__classDebugEnabled = result;
@@ -597,7 +593,7 @@ uint64_t __40__PLAWDCamera_handleBackCameraCallback___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __41__PLAWDCamera_handleTorchCameraCallback___block_invoke(uint64_t a1)
+void *__41__PLAWDCamera_handleTorchCameraCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleTorchCameraCallback__classDebugEnabled = result;
@@ -606,7 +602,7 @@ uint64_t __41__PLAWDCamera_handleTorchCameraCallback___block_invoke(uint64_t a1)
 
 - (BOOL)submitDataToAWDServer:(id)server withAwdConn:(id)conn
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   connCopy = conn;
   v8 = [connCopy newMetricContainerWithIdentifier:{objc_msgSend(serverCopy, "unsignedIntValue")}];
@@ -624,10 +620,10 @@ uint64_t __41__PLAWDCamera_handleTorchCameraCallback___block_invoke(uint64_t a1)
       v15 = [(PLOperator *)PLAWDMetricsService entryKeyForType:*MEMORY[0x277D3F5B8] andName:kPLAWDAggregateNameCameraMetrics];
       operator = [(PLAWDAuxMetrics *)self operator];
       storage = [operator storage];
-      v59 = v15;
+      v58 = v15;
       v18 = [storage aggregateEntriesForKey:v15 withBucketLength:86400.0 inTimeIntervalRange:{v12, v14 - v12}];
 
-      v58 = v18;
+      v57 = v18;
       v19 = [MEMORY[0x277D3F190] summarizeAggregateEntries:v18];
       v20 = objc_opt_new();
       if ([MEMORY[0x277D3F180] debugEnabled])
@@ -645,8 +641,8 @@ uint64_t __41__PLAWDCamera_handleTorchCameraCallback___block_invoke(uint64_t a1)
 
         if (submitDataToAWDServer_withAwdConn__classDebugEnabled_1 == 1)
         {
-          v60 = v20;
-          v56 = v19;
+          v59 = v20;
+          v55 = v19;
           v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"aggregatedResults=%@", v19];
           v23 = MEMORY[0x277D3F178];
           v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/AwdLibrary/PLAWDCamera.m"];
@@ -661,14 +657,14 @@ uint64_t __41__PLAWDCamera_handleTorchCameraCallback___block_invoke(uint64_t a1)
             [PLAWDDisplay startMetricCollection:];
           }
 
-          v19 = v56;
-          v20 = v60;
+          v19 = v55;
+          v20 = v59;
         }
       }
 
       if (v20)
       {
-        v55 = v8;
+        v54 = v8;
         [v20 setTimestamp:{objc_msgSend(connCopy, "getAWDTimestamp")}];
         monotonicDate2 = [MEMORY[0x277CBEAA8] monotonicDate];
         [monotonicDate2 timeIntervalSince1970];
@@ -677,27 +673,27 @@ uint64_t __41__PLAWDCamera_handleTorchCameraCallback___block_invoke(uint64_t a1)
         [v20 setCameraFrontOnDuration:0];
         [v20 setCameraBackOnDuration:0];
         [v20 setCameraTorchOnDuration:0];
-        v64 = 0u;
-        v65 = 0u;
-        v62 = 0u;
         v63 = 0u;
-        v57 = v19;
+        v64 = 0u;
+        v61 = 0u;
+        v62 = 0u;
+        v56 = v19;
         v32 = v19;
-        v33 = [v32 countByEnumeratingWithState:&v62 objects:v67 count:16];
+        v33 = [v32 countByEnumeratingWithState:&v61 objects:v66 count:16];
         if (v33)
         {
           v34 = v33;
-          v35 = *v63;
+          v35 = *v62;
           do
           {
             for (i = 0; i != v34; ++i)
             {
-              if (*v63 != v35)
+              if (*v62 != v35)
               {
                 objc_enumerationMutation(v32);
               }
 
-              v37 = *(*(&v62 + 1) + 8 * i);
+              v37 = *(*(&v61 + 1) + 8 * i);
               v38 = [v37 objectForKeyedSubscript:kPLAWDCameraMetricsKey];
               v39 = [v37 objectForKeyedSubscript:kPLAWDCameraMetricsValue];
               [v39 doubleValue];
@@ -740,25 +736,25 @@ uint64_t __41__PLAWDCamera_handleTorchCameraCallback___block_invoke(uint64_t a1)
               }
             }
 
-            v34 = [v32 countByEnumeratingWithState:&v62 objects:v67 count:16];
+            v34 = [v32 countByEnumeratingWithState:&v61 objects:v66 count:16];
           }
 
           while (v34);
         }
 
         [(PLAWDCamera *)self setCameraSubmitCnt:[(PLAWDCamera *)self cameraSubmitCnt]+ 1];
-        v8 = v55;
+        v8 = v54;
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v45 = objc_opt_class();
-          v61[0] = MEMORY[0x277D85DD0];
-          v61[1] = 3221225472;
-          v61[2] = __49__PLAWDCamera_submitDataToAWDServer_withAwdConn___block_invoke_75;
-          v61[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v61[4] = v45;
+          v60[0] = MEMORY[0x277D85DD0];
+          v60[1] = 3221225472;
+          v60[2] = __49__PLAWDCamera_submitDataToAWDServer_withAwdConn___block_invoke_75;
+          v60[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v60[4] = v45;
           if (submitDataToAWDServer_withAwdConn__defaultOnce_73 != -1)
           {
-            dispatch_once(&submitDataToAWDServer_withAwdConn__defaultOnce_73, v61);
+            dispatch_once(&submitDataToAWDServer_withAwdConn__defaultOnce_73, v60);
           }
 
           if (submitDataToAWDServer_withAwdConn__classDebugEnabled_74 == 1)
@@ -778,8 +774,8 @@ uint64_t __41__PLAWDCamera_handleTorchCameraCallback___block_invoke(uint64_t a1)
           }
         }
 
-        [v55 setMetric:v20];
-        v19 = v57;
+        [v54 setMetric:v20];
+        v19 = v56;
       }
     }
 
@@ -792,18 +788,17 @@ uint64_t __41__PLAWDCamera_handleTorchCameraCallback___block_invoke(uint64_t a1)
     v52 = 0;
   }
 
-  v53 = *MEMORY[0x277D85DE8];
   return v52;
 }
 
-uint64_t __49__PLAWDCamera_submitDataToAWDServer_withAwdConn___block_invoke(uint64_t a1)
+void *__49__PLAWDCamera_submitDataToAWDServer_withAwdConn___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitDataToAWDServer_withAwdConn__classDebugEnabled_1 = result;
   return result;
 }
 
-uint64_t __49__PLAWDCamera_submitDataToAWDServer_withAwdConn___block_invoke_75(uint64_t a1)
+void *__49__PLAWDCamera_submitDataToAWDServer_withAwdConn___block_invoke_75(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitDataToAWDServer_withAwdConn__classDebugEnabled_74 = result;

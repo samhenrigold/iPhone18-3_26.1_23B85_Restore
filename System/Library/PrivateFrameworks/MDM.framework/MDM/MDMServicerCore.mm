@@ -12,6 +12,7 @@
 - (void)depPushTokenWithCompletion:(id)completion;
 - (void)disablePushWakeWithCompletion:(id)completion;
 - (void)enablePushWakeWithCompletion:(id)completion;
+- (void)evaluateMigrationStatusWithPollFromServer:(BOOL)server completionHandler:(id)handler;
 - (void)generateAndSyncBootstrapTokenWithDevicePasscode:(id)passcode completionHandler:(id)handler;
 - (void)generateAndSyncBootstrapTokenWithDevicePasscodeContext:(id)context completionHandler:(id)handler;
 - (void)generateBootstrapTokenWithDevicePasscode:(id)passcode completionHandler:(id)handler;
@@ -20,17 +21,22 @@
 - (void)getOrgTokenForMAIDWithCompletionHandler:(id)handler;
 - (void)getWatchPairingTokenForPhoneID:(id)d watchID:(id)iD securityToken:(id)token completionHandler:(id)handler;
 - (void)isAwaitingUserConfiguredWithCompletion:(id)completion;
+- (void)migrateMDMWithContext:(int)context completion:(id)completion;
 - (void)monitorDEPPushTokenIfNeededWithCompletion:(id)completion;
 - (void)monitorDEPPushTokenWithCompletion:(id)completion;
 - (void)nagForMigrationWithHardCodedValuesWithCompletion:(id)completion;
 - (void)nagWithID:(id)d clientID:(id)iD schedule:(id)schedule title:(id)title message:(id)message notificationTitle:(id)notificationTitle notificationMessage:(id)notificationMessage actionTitle:(id)self0 actionURL:(id)self1 dismissTitle:(id)self2 dismissURL:(id)self3 deadlineURL:(id)self4 completion:(id)self5;
 - (void)notifyNewConfigurationWithCompletion:(id)completion;
 - (void)preserveAppsWithCompletion:(id)completion;
+- (void)processDeviceRequest:(id)request encodeResponse:(BOOL)response completion:(id)completion;
+- (void)processUserRequest:(id)request encodeResponse:(BOOL)response completion:(id)completion;
 - (void)pushTokenWithCompletion:(id)completion;
 - (void)reauthenticationCompleteWithCompletion:(id)completion;
 - (void)removeUnusedPreservedAppsWithCompletion:(id)completion;
+- (void)requestDeviceObliterationWithPreserveDataPlan:(BOOL)plan disallowProximitySetup:(BOOL)setup completionHandler:(id)handler;
 - (void)requestInstallOfAppsInRestoreWithCompletion:(id)completion;
 - (void)requestRRTSCheckInAndValidationWithCompletionHandler:(id)handler;
+- (void)requestReturnToServiceObliterationWithPreserveDataPlan:(BOOL)plan disallowProximitySetup:(BOOL)setup mdmProfileData:(id)data wifiProfileData:(id)profileData revertToSnapshotName:(id)name bootstrapToken:(id)token completionHandler:(id)handler;
 - (void)retryNotNowWithCompletion:(id)completion;
 - (void)scheduleTokenUpdateIfNecessaryWithCompletion:(id)completion;
 - (void)scheduleTokenUpdateWithCompletion:(id)completion;
@@ -71,7 +77,7 @@
     v16 = 0u;
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy, v15, v16);
     }
 
     v12 = [MEMORY[0x277D034C0] bundleIDFromAuditToken:&v15];
@@ -428,7 +434,7 @@ LABEL_6:
 
 - (void)blockMDMCommandsWithCompletion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = [(MDMServicerCore *)self _MDMAccessEntitlementForChannelType:[(MDMServicerCore *)self channelType]];
   xpcConnection = [(MDMServicerCore *)self xpcConnection];
@@ -439,29 +445,29 @@ LABEL_6:
 
     objc_initWeak(&location, self);
     invalidationHandler = [(MDMServicerCore *)self invalidationHandler];
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __50__MDMServicerCore_blockMDMCommandsWithCompletion___block_invoke;
-    v18 = &unk_27982D568;
-    objc_copyWeak(&v19, &location);
-    [invalidationHandler registerInvalidationHandlerForTask:@"Block MDM Command" handler:&v15];
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __50__MDMServicerCore_blockMDMCommandsWithCompletion___block_invoke;
+    v17 = &unk_27982D568;
+    objc_copyWeak(&v18, &location);
+    [invalidationHandler registerInvalidationHandlerForTask:@"Block MDM Command" handler:&v14];
 
     v9 = *(DMCLogObjects() + 8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [(MDMServicerCore *)self clientBundleID:v15];
+      v10 = [(MDMServicerCore *)self clientBundleID:v14];
       clientPID = [(MDMServicerCore *)self clientPID];
       *buf = 138543618;
-      v22 = v10;
-      v23 = 1024;
-      v24 = clientPID;
+      v21 = v10;
+      v22 = 1024;
+      v23 = clientPID;
       _os_log_impl(&dword_2561F5000, v9, OS_LOG_TYPE_DEFAULT, "Client %{public}@ (%d) is asking to block MDM commands", buf, 0x12u);
     }
 
     server = [(MDMServicerCore *)self server];
     [server blockMDMCommandsWithCompletion:completionCopy];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
 
@@ -470,8 +476,6 @@ LABEL_6:
     v13 = [(MDMServicerCore *)self _lacksEntitlementError:v5];
     completionCopy[2](completionCopy, v13);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __50__MDMServicerCore_blockMDMCommandsWithCompletion___block_invoke(uint64_t a1)
@@ -483,17 +487,15 @@ void __50__MDMServicerCore_blockMDMCommandsWithCompletion___block_invoke(uint64_
 
 void __50__MDMServicerCore_blockMDMCommandsWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *(DMCLogObjects() + 8);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_2561F5000, v3, OS_LOG_TYPE_ERROR, "Unblocked MDM commands due to NSXPCConnection invalidation. Unblock error: %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_2561F5000, v3, OS_LOG_TYPE_ERROR, "Unblocked MDM commands due to NSXPCConnection invalidation. Unblock error: %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unblockMDMCommandsWithCompletion:(id)completion
@@ -524,7 +526,7 @@ void __50__MDMServicerCore_blockMDMCommandsWithCompletion___block_invoke_2(uint6
 
 - (void)enablePushWakeWithCompletion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = [(MDMServicerCore *)self _MDMAccessEntitlementForChannelType:[(MDMServicerCore *)self channelType]];
   xpcConnection = [(MDMServicerCore *)self xpcConnection];
@@ -535,29 +537,29 @@ void __50__MDMServicerCore_blockMDMCommandsWithCompletion___block_invoke_2(uint6
 
     objc_initWeak(&location, self);
     invalidationHandler = [(MDMServicerCore *)self invalidationHandler];
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __48__MDMServicerCore_enablePushWakeWithCompletion___block_invoke;
-    v18 = &unk_27982D568;
-    objc_copyWeak(&v19, &location);
-    [invalidationHandler registerInvalidationHandlerForTask:@"Enable Push Wake" handler:&v15];
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __48__MDMServicerCore_enablePushWakeWithCompletion___block_invoke;
+    v17 = &unk_27982D568;
+    objc_copyWeak(&v18, &location);
+    [invalidationHandler registerInvalidationHandlerForTask:@"Enable Push Wake" handler:&v14];
 
     v9 = *(DMCLogObjects() + 8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [(MDMServicerCore *)self clientBundleID:v15];
+      v10 = [(MDMServicerCore *)self clientBundleID:v14];
       clientPID = [(MDMServicerCore *)self clientPID];
       *buf = 138543618;
-      v22 = v10;
-      v23 = 1024;
-      v24 = clientPID;
+      v21 = v10;
+      v22 = 1024;
+      v23 = clientPID;
       _os_log_impl(&dword_2561F5000, v9, OS_LOG_TYPE_DEFAULT, "Client %{public}@ (%d) is asking to enable push wake", buf, 0x12u);
     }
 
     server = [(MDMServicerCore *)self server];
     [server enablePushWakeWithCompletion:completionCopy];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
 
@@ -566,8 +568,6 @@ void __50__MDMServicerCore_blockMDMCommandsWithCompletion___block_invoke_2(uint6
     v13 = [(MDMServicerCore *)self _lacksEntitlementError:v5];
     completionCopy[2](completionCopy, v13);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __48__MDMServicerCore_enablePushWakeWithCompletion___block_invoke(uint64_t a1)
@@ -579,17 +579,15 @@ void __48__MDMServicerCore_enablePushWakeWithCompletion___block_invoke(uint64_t 
 
 void __48__MDMServicerCore_enablePushWakeWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *(DMCLogObjects() + 8);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_2561F5000, v3, OS_LOG_TYPE_ERROR, "Disabled Push Wake due to NSXPCConnection invalidation. Error: %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_2561F5000, v3, OS_LOG_TYPE_ERROR, "Disabled Push Wake due to NSXPCConnection invalidation. Error: %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disablePushWakeWithCompletion:(id)completion
@@ -662,6 +660,35 @@ void __48__MDMServicerCore_enablePushWakeWithCompletion___block_invoke_2(uint64_
 
     handlerCopy = v7;
   }
+}
+
+- (void)migrateMDMWithContext:(int)context completion:(id)completion
+{
+  v4 = *&context;
+  completionCopy = completion;
+  server = [(MDMServicerCore *)self _MDMAccessEntitlementForChannelType:[(MDMServicerCore *)self channelType]];
+  xpcConnection = [(MDMServicerCore *)self xpcConnection];
+  if ([(MDMServicerCore *)self _remoteProcess:xpcConnection hasEntitlement:server])
+  {
+
+LABEL_4:
+    server = [(MDMServicerCore *)self server];
+    [server migrateMDMWithContext:v4 completion:completionCopy];
+    goto LABEL_6;
+  }
+
+  xpcConnection2 = [(MDMServicerCore *)self xpcConnection];
+  v9 = [(MDMServicerCore *)self _remoteProcess:xpcConnection2 hasEntitlement:@"com.apple.managedconfiguration.profiled-access"];
+
+  if (v9)
+  {
+    goto LABEL_4;
+  }
+
+  v10 = [(MDMServicerCore *)self _lacksEntitlementError:server];
+  completionCopy[2](completionCopy, v10);
+
+LABEL_6:
 }
 
 - (void)preserveAppsWithCompletion:(id)completion
@@ -743,6 +770,31 @@ LABEL_6:
   }
 }
 
+- (void)processDeviceRequest:(id)request encodeResponse:(BOOL)response completion:(id)completion
+{
+  responseCopy = response;
+  requestCopy = request;
+  completionCopy = completion;
+  server = [(MDMServicerCore *)self _MDMAccessEntitlementForChannelType:[(MDMServicerCore *)self channelType]];
+  xpcConnection = [(MDMServicerCore *)self xpcConnection];
+  v11 = [(MDMServicerCore *)self _remoteProcess:xpcConnection hasEntitlement:server];
+
+  if (v11)
+  {
+
+    server = [(MDMServicerCore *)self server];
+    [server processDeviceRequest:requestCopy encodeResponse:responseCopy completion:completionCopy];
+  }
+
+  else
+  {
+    v12 = [(MDMServicerCore *)self _lacksEntitlementError:server];
+    (*(completionCopy + 2))(completionCopy, v12, 0, 0);
+
+    completionCopy = v12;
+  }
+}
+
 - (void)requestInstallOfAppsInRestoreWithCompletion:(id)completion
 {
   completionCopy = completion;
@@ -778,17 +830,15 @@ void __50__MDMServicerCore_blockAppInstallsWithCompletion___block_invoke(uint64_
 
 void __50__MDMServicerCore_blockAppInstallsWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *(DMCLogObjects() + 8);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_2561F5000, v3, OS_LOG_TYPE_DEFAULT, "MDMServicer, XPC connection invalidated, app installs unblocked, error = %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_2561F5000, v3, OS_LOG_TYPE_DEFAULT, "MDMServicer, XPC connection invalidated, app installs unblocked, error = %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unblockAppInstallsWithCompletion:(id)completion
@@ -913,6 +963,60 @@ void __50__MDMServicerCore_blockAppInstallsWithCompletion___block_invoke_2(uint6
     completionCopy[2](completionCopy, v7);
 
     completionCopy = v7;
+  }
+}
+
+- (void)requestDeviceObliterationWithPreserveDataPlan:(BOOL)plan disallowProximitySetup:(BOOL)setup completionHandler:(id)handler
+{
+  setupCopy = setup;
+  planCopy = plan;
+  handlerCopy = handler;
+  server = [(MDMServicerCore *)self _MDMAccessEntitlementForChannelType:[(MDMServicerCore *)self channelType]];
+  xpcConnection = [(MDMServicerCore *)self xpcConnection];
+  v10 = [(MDMServicerCore *)self _remoteProcess:xpcConnection hasEntitlement:server];
+
+  if (v10)
+  {
+
+    server = [(MDMServicerCore *)self server];
+    [server requestDeviceObliterationWithPreserveDataPlan:planCopy disallowProximitySetup:setupCopy completionHandler:handlerCopy];
+  }
+
+  else
+  {
+    v11 = [(MDMServicerCore *)self _lacksEntitlementError:server];
+    handlerCopy[2](handlerCopy, v11);
+
+    handlerCopy = v11;
+  }
+}
+
+- (void)requestReturnToServiceObliterationWithPreserveDataPlan:(BOOL)plan disallowProximitySetup:(BOOL)setup mdmProfileData:(id)data wifiProfileData:(id)profileData revertToSnapshotName:(id)name bootstrapToken:(id)token completionHandler:(id)handler
+{
+  setupCopy = setup;
+  planCopy = plan;
+  dataCopy = data;
+  profileDataCopy = profileData;
+  nameCopy = name;
+  tokenCopy = token;
+  handlerCopy = handler;
+  server = [(MDMServicerCore *)self _MDMAccessEntitlementForChannelType:[(MDMServicerCore *)self channelType]];
+  xpcConnection = [(MDMServicerCore *)self xpcConnection];
+  v21 = [(MDMServicerCore *)self _remoteProcess:xpcConnection hasEntitlement:server];
+
+  if (v21)
+  {
+
+    server = [(MDMServicerCore *)self server];
+    [server requestReturnToServiceObliterationWithPreserveDataPlan:planCopy disallowProximitySetup:setupCopy mdmProfileData:dataCopy wifiProfileData:profileDataCopy revertToSnapshotName:nameCopy bootstrapToken:tokenCopy completionHandler:handlerCopy];
+  }
+
+  else
+  {
+    v22 = [(MDMServicerCore *)self _lacksEntitlementError:server];
+    handlerCopy[2](handlerCopy, v22);
+
+    handlerCopy = v22;
   }
 }
 
@@ -1109,6 +1213,30 @@ void __50__MDMServicerCore_blockAppInstallsWithCompletion___block_invoke_2(uint6
   }
 }
 
+- (void)evaluateMigrationStatusWithPollFromServer:(BOOL)server completionHandler:(id)handler
+{
+  serverCopy = server;
+  handlerCopy = handler;
+  server = [(MDMServicerCore *)self _MDMAccessEntitlementForChannelType:[(MDMServicerCore *)self channelType]];
+  xpcConnection = [(MDMServicerCore *)self xpcConnection];
+  v8 = [(MDMServicerCore *)self _remoteProcess:xpcConnection hasEntitlement:server];
+
+  if (v8)
+  {
+
+    server = [(MDMServicerCore *)self server];
+    [server evaluateMigrationStatusWithPollFromServer:serverCopy completionHandler:handlerCopy];
+  }
+
+  else
+  {
+    v9 = [(MDMServicerCore *)self _lacksEntitlementError:server];
+    handlerCopy[2](handlerCopy, 0, v9);
+
+    handlerCopy = v9;
+  }
+}
+
 - (void)getWatchPairingTokenForPhoneID:(id)d watchID:(id)iD securityToken:(id)token completionHandler:(id)handler
 {
   dCopy = d;
@@ -1155,6 +1283,31 @@ void __50__MDMServicerCore_blockAppInstallsWithCompletion___block_invoke_2(uint6
     handlerCopy[2](handlerCopy, 0, v7);
 
     handlerCopy = v7;
+  }
+}
+
+- (void)processUserRequest:(id)request encodeResponse:(BOOL)response completion:(id)completion
+{
+  responseCopy = response;
+  requestCopy = request;
+  completionCopy = completion;
+  server = [(MDMServicerCore *)self _MDMAccessEntitlementForChannelType:[(MDMServicerCore *)self channelType]];
+  xpcConnection = [(MDMServicerCore *)self xpcConnection];
+  v11 = [(MDMServicerCore *)self _remoteProcess:xpcConnection hasEntitlement:server];
+
+  if (v11)
+  {
+
+    server = [(MDMServicerCore *)self server];
+    [server processUserRequest:requestCopy encodeResponse:responseCopy completion:completionCopy];
+  }
+
+  else
+  {
+    v12 = [(MDMServicerCore *)self _lacksEntitlementError:server];
+    (*(completionCopy + 2))(completionCopy, v12, 0, 0);
+
+    completionCopy = v12;
   }
 }
 

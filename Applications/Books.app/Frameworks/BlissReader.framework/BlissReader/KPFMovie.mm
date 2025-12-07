@@ -252,8 +252,8 @@
     if (currentItem)
     {
       v9 = currentItem;
-      [(AVPlayerItem *)currentItem currentTime];
-      [(AVPlayerItem *)v9 forwardPlaybackEndTime];
+      objc_msgSend_currentTime(currentItem);
+      objc_msgSend_forwardPlaybackEndTime(v9);
     }
 
     else
@@ -327,7 +327,7 @@ LABEL_12:
   asset = [(AVPlayerItem *)currentItem asset];
   if (currentItem)
   {
-    [(AVPlayerItem *)currentItem currentTime];
+    objc_msgSend_currentTime(currentItem);
   }
 
   else
@@ -349,7 +349,7 @@ LABEL_12:
   CMTimeMakeWithSeconds(&v25, v5, 90000);
   if (asset)
   {
-    [(AVAsset *)asset duration];
+    objc_msgSend_duration(asset);
   }
 
   else
@@ -373,7 +373,7 @@ LABEL_12:
     mPlayerLayer = self->mPlayerLayer;
     if (mPlayerLayer)
     {
-      [(AVPlayerLayer *)mPlayerLayer transform];
+      objc_msgSend_transform(mPlayerLayer);
     }
 
     else

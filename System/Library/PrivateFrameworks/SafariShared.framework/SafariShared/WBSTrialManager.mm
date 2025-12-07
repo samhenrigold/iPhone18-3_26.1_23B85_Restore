@@ -44,11 +44,11 @@
   return v2;
 }
 
-void __25__WBSTrialManager_shared__block_invoke()
+void __25__WBSTrialManager_shared__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = shared_shared;
-  shared_shared = v0;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = shared_shared;
+  shared_shared = v1;
 }
 
 - (WBSTrialManager)init

@@ -1,1099 +1,4 @@
-void ULScanService::startMonitoringSleepWakeState(id *this)
-{
-  aBlock[0] = MEMORY[0x277D85DD0];
-  aBlock[1] = 3221225472;
-  aBlock[2] = ___ZN13ULScanService29startMonitoringSleepWakeStateEv_block_invoke;
-  aBlock[3] = &__block_descriptor_40_e17_v16__0__ULEvent_8l;
-  aBlock[4] = this;
-  v2 = _Block_copy(aBlock);
-  v3 = [this[13] sleepWakeMonitor];
-  v4 = +[(ULEvent *)ULSleepWakeEvent];
-  [v3 addObserver:this eventName:v4 handler:v2];
-}
-
-void ULScanService::startMonitoringDisplayState(id *this)
-{
-  aBlock[0] = MEMORY[0x277D85DD0];
-  aBlock[1] = 3221225472;
-  aBlock[2] = ___ZN13ULScanService27startMonitoringDisplayStateEv_block_invoke;
-  aBlock[3] = &__block_descriptor_40_e17_v16__0__ULEvent_8l;
-  aBlock[4] = this;
-  v2 = _Block_copy(aBlock);
-  v3 = [this[13] displayMonitor];
-  v4 = +[(ULEvent *)ULDisplayMonitorEventDisplayState];
-  [v3 addObserver:this eventName:v4 handler:v2];
-}
-
-void ULScanService::startMonitoringBtPowerState(id *this)
-{
-  aBlock[0] = MEMORY[0x277D85DD0];
-  aBlock[1] = 3221225472;
-  aBlock[2] = ___ZN13ULScanService27startMonitoringBtPowerStateEv_block_invoke;
-  aBlock[3] = &__block_descriptor_40_e17_v16__0__ULEvent_8l;
-  aBlock[4] = this;
-  v2 = _Block_copy(aBlock);
-  v3 = [this[13] bluetoothMonitor];
-  v4 = +[(ULEvent *)ULBluetoothMonitorEventPowerOn];
-  [v3 addObserver:this eventName:v4 handler:v2];
-}
-
-void ULScanService::stopMonitoringSleepWakeState(id *this)
-{
-  v2 = [this[13] sleepWakeMonitor];
-  [v2 removeObserver:this];
-}
-
-void ULScanService::stopMonitoringDisplayState(id *this)
-{
-  v2 = [this[13] displayMonitor];
-  [v2 removeObserver:this];
-}
-
-uint64_t ULScanService::setTriggeringConfiguration(id *this, id *a2)
-{
-  v24 = *MEMORY[0x277D85DE8];
-  v4 = cl::chrono::CFAbsoluteTimeClock::now();
-  if (*(this + 122) != *(a2 + 2))
-  {
-    v5 = +[ULHomeSlamAnalytics shared];
-    [v5 logEventRequireIsLowLatencyChanged:*(a2 + 2) AtTimestamp:v4];
-  }
-
-  if (*(this + 121) != *(a2 + 1))
-  {
-    v6 = +[ULHomeSlamAnalytics shared];
-    [v6 logEventMiLoEnabled:*(a2 + 1) AtTimestamp:v4];
-  }
-
-  if (*(this + 123) != *(a2 + 3))
-  {
-    v7 = +[ULHomeSlamAnalytics shared];
-    [v7 logEventAcceleratedTriggerChanged:*(a2 + 3) AtTimestamp:v4];
-  }
-
-  ULScanService::clearAllProfiles(this);
-  v8 = *a2;
-  *(this + 128) = *(a2 + 8);
-  this[15] = v8;
-  if (this + 15 != a2)
-  {
-    std::vector<ULWiFiChannelHistogram>::__assign_with_size[abi:ne200100]<ULWiFiChannelHistogram*,ULWiFiChannelHistogram*>(this + 17, a2[2], a2[3], (a2[3] - a2[2]) >> 3);
-  }
-
-  objc_storeStrong(this + 20, a2[5]);
-  objc_storeStrong(this + 21, a2[6]);
-  if ((this[15] & 1) != 0 || *(this + 121) == 1)
-  {
-    ULScanService::setProfiles(this, (this + 15));
-  }
-
-  else
-  {
-    if (onceToken_MicroLocation_Default != -1)
-    {
-      ULScanService::setTriggeringConfiguration();
-    }
-
-    v13 = logObject_MicroLocation_Default;
-    if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
-    {
-      v14 = *(this + 121);
-      v15 = *(this + 120);
-      v16 = 68289538;
-      v17 = 0;
-      v18 = 2082;
-      v19 = "";
-      v20 = 1026;
-      v21 = v14;
-      v22 = 1026;
-      v23 = v15;
-      _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULScanService::setTriggeringConfiguration, no profiles available, allowedRecording:%{public}hhd, allowedLocalization:%{public}hhd}", &v16, 0x1Eu);
-    }
-  }
-
-  v9 = this[3];
-  LOBYTE(v16) = *(this + 121);
-  BYTE1(v16) = *(this + 120);
-  BYTE2(v16) = *(this + 123);
-  if (BYTE1(v16) == 1)
-  {
-    v10 = [MEMORY[0x277D28868] isMac];
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  HIBYTE(v16) = v10;
-  LOBYTE(v17) = *(this + 122);
-  result = (*(*v9 + 16))(v9, &v16);
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t ULScanService::clearAllProfiles(ULScanService *this)
-{
-  v2 = *(this + 22);
-  v3 = *(this + 23);
-  while (v2 != v3)
-  {
-    v4 = *v2++;
-    (*(**(this + 5) + 56))(*(this + 5), v4);
-  }
-
-  v5 = *(this + 25);
-  v6 = *(this + 26);
-  while (v5 != v6)
-  {
-    v7 = *v5++;
-    (*(**(this + 5) + 64))(*(this + 5), v7);
-    (*(**(this + 9) + 24))(*(this + 9), v7);
-  }
-
-  v8 = *(this + 28);
-  v9 = *(this + 29);
-  while (v8 != v9)
-  {
-    v10 = *v8++;
-    (*(**(this + 7) + 40))(*(this + 7), v10);
-  }
-
-  v11 = *(this + 31);
-  v12 = *(this + 32);
-  while (v11 != v12)
-  {
-    v13 = *v11++;
-    (*(**(this + 7) + 48))(*(this + 7), v13);
-  }
-
-  v14 = *(this + 34);
-  v15 = *(this + 35);
-  if (v14 != v15)
-  {
-    do
-    {
-      v16 = *v14++;
-      (*(**(this + 7) + 56))(*(this + 7), v16);
-    }
-
-    while (v14 != v15);
-    v14 = *(this + 34);
-  }
-
-  *(this + 23) = *(this + 22);
-  *(this + 26) = *(this + 25);
-  *(this + 29) = *(this + 28);
-  *(this + 32) = *(this + 31);
-  *(this + 35) = v14;
-  *(this + 37) = 0x500000005;
-  v17 = *(**(this + 9) + 32);
-
-  return v17();
-}
-
-void ULScanService::setProfiles(ULScanService *this, const ULScanParameters *a2)
-{
-  v51 = *MEMORY[0x277D85DE8];
-  if (onceToken_MicroLocation_Default != -1)
-  {
-    ULScanService::setTriggeringConfiguration();
-  }
-
-  v4 = logObject_MicroLocation_Default;
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    v24 = this;
-    v5 = *(a2 + 1);
-    v6 = *a2;
-    v7 = *(a2 + 2);
-    v8 = *(a2 + 3);
-    v9 = *(a2 + 4);
-    v10 = *(a2 + 5);
-    v22 = *(a2 + 6);
-    v23 = *(a2 + 7);
-    ULScanParameters::wifiChannelHistogramToString(a2, __p);
-    if (v26 >= 0)
-    {
-      v11 = __p;
-    }
-
-    else
-    {
-      v11 = __p[0];
-    }
-
-    v12 = [*(a2 + 6) count];
-    v13 = [*(a2 + 5) count];
-    *buf = 68291842;
-    *&buf[4] = 0;
-    *v28 = 2082;
-    *&v28[2] = "";
-    v29 = 1026;
-    v30 = v5;
-    v31 = 1026;
-    v32 = v6;
-    v33 = 1026;
-    v34 = v7;
-    v35 = 1026;
-    v36 = v8;
-    v37 = 1026;
-    v38 = v9;
-    v39 = 1026;
-    v40 = v10;
-    v41 = 1026;
-    v42 = v22;
-    v43 = 1026;
-    v44 = v23;
-    v45 = 2082;
-    v46 = v11;
-    v47 = 2050;
-    v48 = v12;
-    v49 = 2050;
-    v50 = v13;
-    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULScanService::setProfiles, create a new set of profiles from the triggering configuration: , isActiveRecord:%{public}hhd, isActiveLocalize:%{public}hhd, isLowLatency:%{public}hhd, isBoostMode:%{public}hhd, isBlueAtlasLocalizationScanType:%{public}hhd, isBlueAtlasRecordingScanType:%{public}hhd, isOffScreenStopMotionScanRequired:%{public}hhd, isInMotionScanRequired:%{public}hhd, wifiChannelHistogram:%{public, location:escape_only}s, num of same account ble identifiers:%{public}lu, num of entries in oobKeys:%{public}lu}", buf, 0x60u);
-    if (v26 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    this = v24;
-  }
-
-  v14 = +[ULDefaultsSingleton shared];
-  v15 = [v14 defaultsDictionary];
-
-  v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULDisableRFScanProfiles"];
-  v17 = [v15 objectForKey:v16];
-  if (v17 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-  {
-    v18 = [v17 BOOLValue];
-  }
-
-  else
-  {
-    v18 = [MEMORY[0x277CBEC28] BOOLValue];
-  }
-
-  v19 = v18;
-
-  if (v19)
-  {
-    if (onceToken_MicroLocation_Default != -1)
-    {
-      ULScanService::setProfiles();
-    }
-
-    v20 = logObject_MicroLocation_Default;
-    if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_258FE9000, v20, OS_LOG_TYPE_DEFAULT, "request trigger override - RF Scan profiles are disabled", buf, 2u);
-    }
-  }
-
-  else
-  {
-    getWifichannels(1, *(a2 + 5), a2 + 2, buf);
-    getWifichannels(0, *(a2 + 4), a2 + 2, __p);
-    ULScanService::configureTechnologyProfiles(this, a2, buf, __p);
-    ULScanService::configureScanningProfiles(this, a2, buf, __p);
-    ULScanService::configureSchedulingProfiles(this, a2);
-    if (__p[0])
-    {
-      __p[1] = __p[0];
-      operator delete(__p[0]);
-    }
-
-    if (*buf)
-    {
-      *v28 = *buf;
-      operator delete(*buf);
-    }
-  }
-
-  v21 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t ULScanService::requestLocalizationInternal(uint64_t a1, uint64_t a2)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 300) == 5)
-  {
-    if (onceToken_MicroLocation_Default != -1)
-    {
-      ULScanService::setTriggeringConfiguration();
-    }
-
-    v2 = logObject_MicroLocation_Default;
-    result = os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR);
-    if (result)
-    {
-      LOWORD(v8[0]) = 0;
-      _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_ERROR, "Failed to request localization - there is no localization scanning profile", v8, 2u);
-      result = 0;
-    }
-  }
-
-  else
-  {
-    if (onceToken_MicroLocationQE_Default != -1)
-    {
-      ULScanService::requestLocalizationInternal();
-    }
-
-    v6 = logObject_MicroLocationQE_Default;
-    if (os_log_type_enabled(logObject_MicroLocationQE_Default, OS_LOG_TYPE_DEFAULT))
-    {
-      v8[0] = 68289026;
-      v8[1] = 0;
-      v9 = 2082;
-      v10 = "";
-      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULScanService: requestLocalization}", v8, 0x12u);
-    }
-
-    result = (*(**(a1 + 40) + 88))(*(a1 + 40), *(a1 + 300), a2);
-  }
-
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t ULScanService::requestSystemLocalization(ULScanService *this)
-{
-  v4 = 0;
-  boost::uuids::detail::random_provider_base::random_provider_base(&v4);
-  boost::uuids::random_generator_pure::operator()(&v4);
-  v2 = ULScanService::requestLocalizationInternal(this, 6);
-  boost::uuids::detail::random_provider_base::destroy(&v4);
-  return v2;
-}
-
-void ULScanService::onScanServiceAnalyticsEvent(uint64_t a1, __int128 *a2)
-{
-  v9[1] = *MEMORY[0x277D85DE8];
-  *(a2 + 2) = *(a1 + 304);
-  v3 = (*(**(a1 + 112) + 216))(*(a1 + 112));
-  v8 = *a2;
-  v6 = 0;
-  v7 = 0;
-  __p = 0;
-  std::vector<ULScanningServiceAnalyticsDO>::__init_with_size[abi:ne200100]<ULScanningServiceAnalyticsDO const*,ULScanningServiceAnalyticsDO const*>(&__p, &v8, v9, 1uLL);
-  [v3 insertDataObjects:&__p];
-  if (__p)
-  {
-    v6 = __p;
-    operator delete(__p);
-  }
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void sub_25911A9A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void *ULScanService::onMotionEvent(void *result, unsigned __int16 a2)
-{
-  v2 = result;
-  v3 = a2;
-  for (i = result[22]; i != result[23]; ++i)
-  {
-    if (*i == 2)
-    {
-      if (a2 - 1 >= 2)
-      {
-        return result;
-      }
-
-      goto LABEL_12;
-    }
-  }
-
-  if (a2 == 3)
-  {
-    v5 = result[5] + *(*result[5] - 48);
-    result = (*(*v5 + 16))(v5, 1);
-  }
-
-  else
-  {
-    result = 0;
-  }
-
-  if (v3 == 1 || result)
-  {
-LABEL_12:
-    v6 = *(*v2[11] + 24);
-
-    return v6();
-  }
-
-  return result;
-}
-
-BOOL ULScanService::getIsScanAllowedWhenScreenOff(ULScanService *this)
-{
-  v2 = *(this + 22);
-  v1 = *(this + 23);
-  if (v2 == v1)
-  {
-    return 0;
-  }
-
-  v3 = v2 + 4;
-  do
-  {
-    v4 = *(v3 - 4);
-    result = v4 == 2;
-    v6 = v4 == 2 || v3 == v1;
-    v3 += 4;
-  }
-
-  while (!v6);
-  return result;
-}
-
-BOOL non-virtual thunk toULScanService::getIsScanAllowedWhenScreenOff(ULScanService *this)
-{
-  v2 = *(this + 20);
-  v1 = *(this + 21);
-  if (v2 == v1)
-  {
-    return 0;
-  }
-
-  v3 = v2 + 4;
-  do
-  {
-    v4 = *(v3 - 4);
-    result = v4 == 2;
-    v6 = v4 == 2 || v3 == v1;
-    v3 += 4;
-  }
-
-  while (!v6);
-  return result;
-}
-
-uint64_t ULScanService::onWiFiAssociationEvent(uint64_t a1, uint64_t a2, unsigned int a3, __int128 *a4)
-{
-  v4 = *(a1 + 88);
-  v6 = *a4;
-  v7 = *(a4 + 2);
-  return (*(*v4 + 32))(v4, a2, a3, &v6);
-}
-
-uint64_t non-virtual thunk toULScanService::onWiFiAssociationEvent(uint64_t a1, uint64_t a2, unsigned int a3, __int128 *a4)
-{
-  v4 = *(a1 + 72);
-  v6 = *a4;
-  v7 = *(a4 + 2);
-  return (*(*v4 + 32))(v4, a2, a3, &v6);
-}
-
-void ULScanService::setSchedulingProfile(uint64_t a1, unsigned int a2, int a3)
-{
-  v31 = *MEMORY[0x277D85DE8];
-  if (onceToken_MicroLocation_Default != -1)
-  {
-    ULScanService::setTriggeringConfiguration();
-  }
-
-  v6 = logObject_MicroLocation_Default;
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    ULProfileTypes::schedulingProfileTypeToString(a2, __p);
-    v7 = v24 >= 0 ? __p : __p[0];
-    *buf = 68289282;
-    v26 = 0;
-    v27 = 2082;
-    v28 = "";
-    v29 = 2082;
-    v30 = v7;
-    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULScanService::setSchedulingProfile, Scheduling Profile Type:%{public, location:escape_only}s}", buf, 0x1Cu);
-    if (v24 < 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-
-  ULProfileGenerator::generateSchedulingProfile(a2, a3, buf);
-  (*(**(a1 + 40) + 48))(*(a1 + 40), buf);
-  v9 = *(a1 + 184);
-  v8 = *(a1 + 192);
-  if (v9 >= v8)
-  {
-    v11 = *(a1 + 176);
-    v12 = v9 - v11;
-    v13 = (v9 - v11) >> 2;
-    v14 = v13 + 1;
-    if ((v13 + 1) >> 62)
-    {
-      std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
-    }
-
-    v15 = v8 - v11;
-    if (v15 >> 1 > v14)
-    {
-      v14 = v15 >> 1;
-    }
-
-    v16 = v15 >= 0x7FFFFFFFFFFFFFFCLL;
-    v17 = 0x3FFFFFFFFFFFFFFFLL;
-    if (!v16)
-    {
-      v17 = v14;
-    }
-
-    if (v17)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<CLMicroLocationProto::ConfidenceReason>>(a1 + 176, v17);
-    }
-
-    v18 = (v9 - v11) >> 2;
-    v19 = (4 * v13);
-    v20 = (4 * v13 - 4 * v18);
-    *v19 = a2;
-    v10 = v19 + 1;
-    memcpy(v20, v11, v12);
-    v21 = *(a1 + 176);
-    *(a1 + 176) = v20;
-    *(a1 + 184) = v10;
-    *(a1 + 192) = 0;
-    if (v21)
-    {
-      operator delete(v21);
-    }
-  }
-
-  else
-  {
-    *v9 = a2;
-    v10 = v9 + 1;
-  }
-
-  *(a1 + 184) = v10;
-  v22 = *MEMORY[0x277D85DE8];
-}
-
-void ULScanService::setScanningProfile(uint64_t a1, void *a2, void *a3)
-{
-  v32 = *MEMORY[0x277D85DE8];
-  if (onceToken_MicroLocation_Default != -1)
-  {
-    ULScanService::setTriggeringConfiguration();
-  }
-
-  v6 = logObject_MicroLocation_Default;
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    ULProfileTypes::scanningProfileTypeToString(a2, __p);
-    v7 = v25 >= 0 ? __p : __p[0];
-    *buf = 68289282;
-    v27 = 0;
-    v28 = 2082;
-    v29 = "";
-    v30 = 2082;
-    v31 = v7;
-    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULScanService::setScanningProfile, Scanning Profile Type:%{public, location:escape_only}s}", buf, 0x1Cu);
-    if (v25 < 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-
-  ScanningProfile = ULProfileGenerator::generateScanningProfile(a2, a3, buf);
-  (*(**(a1 + 40) + 40))(*(a1 + 40), buf, ScanningProfile);
-  v10 = *(a1 + 208);
-  v9 = *(a1 + 216);
-  if (v10 >= v9)
-  {
-    v12 = *(a1 + 200);
-    v13 = v10 - v12;
-    v14 = (v10 - v12) >> 2;
-    v15 = v14 + 1;
-    if ((v14 + 1) >> 62)
-    {
-      std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
-    }
-
-    v16 = v9 - v12;
-    if (v16 >> 1 > v15)
-    {
-      v15 = v16 >> 1;
-    }
-
-    v17 = v16 >= 0x7FFFFFFFFFFFFFFCLL;
-    v18 = 0x3FFFFFFFFFFFFFFFLL;
-    if (!v17)
-    {
-      v18 = v15;
-    }
-
-    if (v18)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<CLMicroLocationProto::ConfidenceReason>>(a1 + 200, v18);
-    }
-
-    v19 = (v10 - v12) >> 2;
-    v20 = (4 * v14);
-    v21 = (4 * v14 - 4 * v19);
-    *v20 = a2;
-    v11 = v20 + 1;
-    memcpy(v21, v12, v13);
-    v22 = *(a1 + 200);
-    *(a1 + 200) = v21;
-    *(a1 + 208) = v11;
-    *(a1 + 216) = 0;
-    if (v22)
-    {
-      operator delete(v22);
-    }
-  }
-
-  else
-  {
-    *v10 = a2;
-    v11 = v10 + 4;
-  }
-
-  *(a1 + 208) = v11;
-  v23 = *MEMORY[0x277D85DE8];
-}
-
-void ULScanService::setWifiTechnologyProfile(uint64_t a1, int a2, uint64_t *a3)
-{
-  v33 = *MEMORY[0x277D85DE8];
-  if (onceToken_MicroLocation_Default != -1)
-  {
-    ULScanService::setTriggeringConfiguration();
-  }
-
-  v6 = logObject_MicroLocation_Default;
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    ULProfileTypes::wifiTechnologyProfileTypeToString(a2, __p);
-    v7 = v24 >= 0 ? __p : __p[0];
-    *buf = 68289282;
-    v26 = 0;
-    v27 = 2082;
-    v28 = "";
-    v29 = 2082;
-    v30 = v7;
-    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULScanService::setWifiTechnologyProfile, Wifi Technology Profile Type:%{public, location:escape_only}s}", buf, 0x1Cu);
-    if (v24 < 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-
-  ULProfileGenerator::generateWifiTechnologyProfile(a2, a3, buf);
-  (*(**(a1 + 56) + 16))(*(a1 + 56), buf);
-  v9 = *(a1 + 232);
-  v8 = *(a1 + 240);
-  if (v9 >= v8)
-  {
-    v11 = *(a1 + 224);
-    v12 = v9 - v11;
-    v13 = (v9 - v11) >> 2;
-    v14 = v13 + 1;
-    if ((v13 + 1) >> 62)
-    {
-      std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
-    }
-
-    v15 = v8 - v11;
-    if (v15 >> 1 > v14)
-    {
-      v14 = v15 >> 1;
-    }
-
-    v16 = v15 >= 0x7FFFFFFFFFFFFFFCLL;
-    v17 = 0x3FFFFFFFFFFFFFFFLL;
-    if (!v16)
-    {
-      v17 = v14;
-    }
-
-    if (v17)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<CLMicroLocationProto::ConfidenceReason>>(a1 + 224, v17);
-    }
-
-    v18 = (v9 - v11) >> 2;
-    v19 = (4 * v13);
-    v20 = (4 * v13 - 4 * v18);
-    *v19 = a2;
-    v10 = v19 + 1;
-    memcpy(v20, v11, v12);
-    v21 = *(a1 + 224);
-    *(a1 + 224) = v20;
-    *(a1 + 232) = v10;
-    *(a1 + 240) = 0;
-    if (v21)
-    {
-      operator delete(v21);
-    }
-  }
-
-  else
-  {
-    *v9 = a2;
-    v10 = v9 + 1;
-  }
-
-  *(a1 + 232) = v10;
-  if (v31)
-  {
-    v32 = v31;
-    operator delete(v31);
-  }
-
-  v22 = *MEMORY[0x277D85DE8];
-}
-
-void ULScanService::setBleTechnologyProfile(uint64_t a1, int a2, void *a3, void *a4, int a5)
-{
-  *&v35[13] = *MEMORY[0x277D85DE8];
-  v9 = a3;
-  v10 = a4;
-  if (onceToken_MicroLocation_Default != -1)
-  {
-    ULScanService::setTriggeringConfiguration();
-  }
-
-  v11 = logObject_MicroLocation_Default;
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-  {
-    ULProfileTypes::bleTechnologyProfileTypeToString(a2, __p);
-    v12 = v29 >= 0 ? __p : __p[0];
-    *buf = 68289282;
-    v31 = 0;
-    v32 = 2082;
-    v33 = "";
-    v34 = 2082;
-    *v35 = v12;
-    _os_log_impl(&dword_258FE9000, v11, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULScanService::setBleTechnologyProfile, Ble Technology Profile Type:%{public, location:escape_only}s}", buf, 0x1Cu);
-    if (v29 < 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-
-  ULProfileGenerator::generateBleTechnologyProfile(a2, v9, v10, a5, buf);
-  (*(**(a1 + 56) + 24))(*(a1 + 56), buf);
-  v14 = *(a1 + 256);
-  v13 = *(a1 + 264);
-  if (v14 >= v13)
-  {
-    v16 = *(a1 + 248);
-    v17 = v14 - v16;
-    v18 = (v14 - v16) >> 2;
-    v19 = v18 + 1;
-    if ((v18 + 1) >> 62)
-    {
-      std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
-    }
-
-    v20 = v13 - v16;
-    if (v20 >> 1 > v19)
-    {
-      v19 = v20 >> 1;
-    }
-
-    v21 = v20 >= 0x7FFFFFFFFFFFFFFCLL;
-    v22 = 0x3FFFFFFFFFFFFFFFLL;
-    if (!v21)
-    {
-      v22 = v19;
-    }
-
-    if (v22)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<CLMicroLocationProto::ConfidenceReason>>(a1 + 248, v22);
-    }
-
-    v23 = (v14 - v16) >> 2;
-    v24 = (4 * v18);
-    v25 = (4 * v18 - 4 * v23);
-    *v24 = a2;
-    v15 = v24 + 1;
-    memcpy(v25, v16, v17);
-    v26 = *(a1 + 248);
-    *(a1 + 248) = v25;
-    *(a1 + 256) = v15;
-    *(a1 + 264) = 0;
-    if (v26)
-    {
-      operator delete(v26);
-    }
-  }
-
-  else
-  {
-    *v14 = a2;
-    v15 = v14 + 1;
-  }
-
-  *(a1 + 256) = v15;
-
-  v27 = *MEMORY[0x277D85DE8];
-}
-
-void ULScanService::setUwbTechnologyProfile(uint64_t a1, unsigned int a2)
-{
-  v31 = *MEMORY[0x277D85DE8];
-  if (onceToken_MicroLocation_Default != -1)
-  {
-    ULScanService::setTriggeringConfiguration();
-  }
-
-  v4 = logObject_MicroLocation_Default;
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    ULProfileTypes::uwbTechnologyProfileTypeToString(a2, __p);
-    v5 = v24 >= 0 ? __p : __p[0];
-    *buf = 68289282;
-    v26 = 0;
-    v27 = 2082;
-    v28 = "";
-    v29 = 2082;
-    v30 = v5;
-    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULScanService::setUwbTechnologyProfile, Uwb Technology Profile Type:%{public, location:escape_only}s}", buf, 0x1Cu);
-    if (v24 < 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-
-  ULProfileGenerator::generateUwbTechnologyProfile(a2);
-  *buf = v6;
-  LOBYTE(v26) = v7;
-  (*(**(a1 + 56) + 32))(*(a1 + 56), buf);
-  v9 = *(a1 + 280);
-  v8 = *(a1 + 288);
-  if (v9 >= v8)
-  {
-    v11 = *(a1 + 272);
-    v12 = v9 - v11;
-    v13 = (v9 - v11) >> 2;
-    v14 = v13 + 1;
-    if ((v13 + 1) >> 62)
-    {
-      std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
-    }
-
-    v15 = v8 - v11;
-    if (v15 >> 1 > v14)
-    {
-      v14 = v15 >> 1;
-    }
-
-    v16 = v15 >= 0x7FFFFFFFFFFFFFFCLL;
-    v17 = 0x3FFFFFFFFFFFFFFFLL;
-    if (!v16)
-    {
-      v17 = v14;
-    }
-
-    if (v17)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<CLMicroLocationProto::ConfidenceReason>>(a1 + 272, v17);
-    }
-
-    v18 = (v9 - v11) >> 2;
-    v19 = (4 * v13);
-    v20 = (4 * v13 - 4 * v18);
-    *v19 = a2;
-    v10 = v19 + 1;
-    memcpy(v20, v11, v12);
-    v21 = *(a1 + 272);
-    *(a1 + 272) = v20;
-    *(a1 + 280) = v10;
-    *(a1 + 288) = 0;
-    if (v21)
-    {
-      operator delete(v21);
-    }
-  }
-
-  else
-  {
-    *v9 = a2;
-    v10 = v9 + 1;
-  }
-
-  *(a1 + 280) = v10;
-  v22 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t ULScanParameters::wifiChannelHistogramToString@<X0>(unsigned int **this@<X0>, _BYTE *a2@<X8>)
-{
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v9);
-  std::for_each[abi:ne200100]<std::__wrap_iter<ULWiFiChannelHistogram const*>,ULScanParameters::wifiChannelHistogramToString(void)::{lambda(std::__wrap_iter<ULWiFiChannelHistogram const*> const&)#1}>(this[2], this[3], v9);
-  if ((v16 & 0x10) != 0)
-  {
-    v5 = v15;
-    if (v15 < v12)
-    {
-      v15 = v12;
-      v5 = v12;
-    }
-
-    locale = v11[4].__locale_;
-  }
-
-  else
-  {
-    if ((v16 & 8) == 0)
-    {
-      v4 = 0;
-      a2[23] = 0;
-      goto LABEL_14;
-    }
-
-    locale = v11[1].__locale_;
-    v5 = v11[3].__locale_;
-  }
-
-  v4 = v5 - locale;
-  if ((v5 - locale) >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  if (v4 >= 0x17)
-  {
-    operator new();
-  }
-
-  a2[23] = v4;
-  if (v4)
-  {
-    memmove(a2, locale, v4);
-  }
-
-LABEL_14:
-  a2[v4] = 0;
-  v9[0] = *MEMORY[0x277D82818];
-  v7 = *(MEMORY[0x277D82818] + 72);
-  *(v9 + *(v9[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v9[2] = v7;
-  v10 = MEMORY[0x277D82878] + 16;
-  if (v14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  v10 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v11);
-  std::iostream::~basic_iostream();
-  return MEMORY[0x259CA1EE0](&v17);
-}
-
-void sub_25911B9A8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va, MEMORY[0x277D82818]);
-  MEMORY[0x259CA1EE0](v2 + 128);
-  _Unwind_Resume(a1);
-}
-
-double getWifichannels@<D0>(int a1@<W0>, int a2@<W1>, void *a3@<X2>, void *a4@<X8>)
-{
-  *a4 = 0;
-  a4[1] = 0;
-  a4[2] = 0;
-  v8 = +[ULDefaultsSingleton shared];
-  v9 = v8;
-  if (!a1)
-  {
-    if (a2)
-    {
-      v10 = [v8 defaultsDictionary];
-
-      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULWifiBlueAtlasLocalizationChannels"];
-      v12 = [v10 objectForKey:v11];
-      if (!v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
-      {
-        v13 = [&unk_286A71E50 unsignedIntValue];
-        goto LABEL_20;
-      }
-    }
-
-    else
-    {
-      v10 = [v8 defaultsDictionary];
-
-      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULWifiLocalizationTopChannels"];
-      v12 = [v10 objectForKey:v11];
-      if (!v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
-      {
-        v13 = [&unk_286A71E38 unsignedIntValue];
-        goto LABEL_20;
-      }
-    }
-
-    goto LABEL_17;
-  }
-
-  if (a2)
-  {
-    v10 = [v8 defaultsDictionary];
-
-    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULWifiBlueAtlasRecordingChannels"];
-    v12 = [v10 objectForKey:v11];
-    if (v12)
-    {
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-LABEL_17:
-        v13 = [v12 unsignedIntValue];
-        goto LABEL_20;
-      }
-    }
-
-    v13 = [&unk_286A71E80 unsignedIntValue];
-  }
-
-  else
-  {
-    v10 = [v8 defaultsDictionary];
-
-    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULWifiRecordingChannels"];
-    v12 = [v10 objectForKey:v11];
-    if (v12)
-    {
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v13 = [&unk_286A71E68 unsignedIntValue];
-  }
-
-LABEL_20:
-  v14 = v13;
-
-  ULProfileGenerator::channelHistogramToScanChannels(a3, v14, &v17);
-  v15 = v18;
-  result = *&v17;
-  *a4 = v17;
-  a4[2] = v15;
-  return result;
-}
-
-void ULScanService::configureTechnologyProfiles(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+void ULScanService::configureTechnologyProfiles(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (*(a2 + 2) == 1)
   {
@@ -1113,7 +18,7 @@ void ULScanService::configureTechnologyProfiles(uint64_t a1, uint64_t a2, uint64
     ULScanService::setBleTechnologyProfile(a1, 1, *(a2 + 40), *(a2 + 48), v8);
     ULScanService::setUwbTechnologyProfile(a1, 0);
 
-    ULScanService::setUwbTechnologyProfile(a1, 1u);
+    ULScanService::setUwbTechnologyProfile(a1, 1);
   }
 }
 
@@ -1197,7 +102,7 @@ void ULScanService::configureSchedulingProfiles(ULScanService *this, const ULSca
     {
       if (*(a2 + 7) == 1)
       {
-        ULScanService::setSchedulingProfile(v2, 3u, 1);
+        ULScanService::setSchedulingProfile(v2, 3, 1);
       }
 
       this = v2;
@@ -1244,9 +149,9 @@ void ULScanService::handleBtPowerStateEvent(id *this, ULEvent *a2)
   dispatch_async(v7, v9);
 }
 
-uint64_t ___ZN13ULScanService23handleBtPowerStateEventEP7ULEvent_block_invoke(uint64_t a1)
+void *___ZN13ULScanService23handleBtPowerStateEventEP7ULEvent_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -1263,14 +168,13 @@ uint64_t ___ZN13ULScanService23handleBtPowerStateEventEP7ULEvent_block_invoke(ui
       v5 = @"YES";
     }
 
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "ScanService handlePowerStateEvent: powerOn: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "ScanService handlePowerStateEvent: powerOn: %@", &v7, 0xCu);
   }
 
   result = [*(a1 + 32) powerOn];
   *(v2 + 305) = result;
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1377,7 +281,7 @@ void ULScanService::handleSleepWakeStateEvent(ULScanService *this, ULEvent *a2)
 
 uint64_t ___ZN13ULScanService25handleSleepWakeStateEventEP7ULEvent_block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40);
   v2 = [*(a1 + 32) sleepWakeState];
   v3 = v2;
@@ -1392,23 +296,21 @@ uint64_t ___ZN13ULScanService25handleSleepWakeStateEventEP7ULEvent_block_invoke(
   {
     v7 = *(&_ZZZN13ULScanService25handleSleepWakeStateEventEP7ULEventEUb_E12YesNoStrings + (v3 == 10));
     v8 = *(&_ZZZN13ULScanService25handleSleepWakeStateEventEP7ULEventEUb_E12YesNoStrings + v5);
-    v11[0] = 68289538;
-    v11[1] = 0;
-    v12 = 2082;
-    v13 = "";
-    v14 = 2114;
-    v15 = v7;
-    v16 = 2114;
-    v17 = v8;
-    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ScanService handleSleepWakeStateEvent, is sleep?:%{public, location:escape_only}@, is wake?:%{public, location:escape_only}@}", v11, 0x26u);
+    v10[0] = 68289538;
+    v10[1] = 0;
+    v11 = 2082;
+    v12 = "";
+    v13 = 2114;
+    v14 = v7;
+    v15 = 2114;
+    v16 = v8;
+    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ScanService handleSleepWakeStateEvent, is sleep?:%{public, location:escape_only}@, is wake?:%{public, location:escape_only}@}", v10, 0x26u);
   }
 
-  result = ULScanService::applySleepWakePolicy(v1, v3 == 10, v5);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return ULScanService::applySleepWakePolicy(v1, v3 == 10, v5);
 }
 
-uint64_t ULScanService::applySleepWakePolicy(uint64_t this, int a2, int a3)
+uint64_t ULScanService::applySleepWakePolicy(uint64_t this, int a2, uint64_t a3)
 {
   v3 = this;
   if (a2)
@@ -1418,7 +320,7 @@ uint64_t ULScanService::applySleepWakePolicy(uint64_t this, int a2, int a3)
     while (v4 != v5)
     {
       v6 = *v4++;
-      (*(**(v3 + 40) + 72))(*(v3 + 40), v6);
+      (*(**(v3 + 40) + 72))(*(v3 + 40), v6, a3);
     }
 
     v10 = *(**(v3 + 96) + 16);
@@ -1496,7 +398,7 @@ uint64_t ULScanService::resumeHomeSlamMotionProfile(uint64_t this)
   return this;
 }
 
-void *std::vector<ULWiFiChannelHistogram>::__assign_with_size[abi:ne200100]<ULWiFiChannelHistogram*,ULWiFiChannelHistogram*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<ULWiFiChannelHistogram>::__assign_with_size[abi:ne200100]<ULWiFiChannelHistogram*,ULWiFiChannelHistogram*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -1585,7 +487,7 @@ void ___ZL47_CLLogObjectForCategory_MicroLocationQE_Defaultv_block_invoke_0()
   logObject_MicroLocationQE_Default = v0;
 }
 
-uint64_t std::vector<ULScanningServiceAnalyticsDO>::__init_with_size[abi:ne200100]<ULScanningServiceAnalyticsDO const*,ULScanningServiceAnalyticsDO const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ULScanningServiceAnalyticsDO>::__init_with_size[abi:ne200100]<ULScanningServiceAnalyticsDO const*,ULScanningServiceAnalyticsDO const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1628,15 +530,15 @@ uint64_t std::for_each[abi:ne200100]<std::__wrap_iter<ULWiFiChannelHistogram con
   return a3;
 }
 
-id scanProfileToScanType(unsigned int a1)
+id scanProfileToScanType(uint64_t a1, uint64_t a2)
 {
   if (a1 < 4)
   {
     return ((0x1000000010000uLL >> (16 * a1)) & 1);
   }
 
-  scanProfileToScanType();
-  return _CLLogObjectForCategory_MicroLocation_Default();
+  scanProfileToScanType(a1);
+  return _CLLogObjectForCategory_MicroLocation_Default(v3);
 }
 
 void ___ZL45_CLLogObjectForCategory_MicroLocation_Defaultv_block_invoke_89()
@@ -1715,34 +617,36 @@ uint64_t ULSchedulingProfileManager::ULSchedulingProfileManager(uint64_t a1, uin
 
 BOOL ULSchedulingProfileManager::addProfile(ULSchedulingProfileManager *this, const ULSchedulingProfile *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v4 = *ULHomeSlamModel::getTrajectoryPointCloud(a2);
-  v5 = *(a2 + 1);
-  *v15 = *a2;
-  *&v15[16] = v5;
-  v6 = ULStaticMap<int,ULSchedulingProfile,20ul>::updateOrInsert(this + 16, v4, v15);
+  v20 = *MEMORY[0x277D85DE8];
+  ULHomeSlamModel::getTrajectoryPointCloud(a2);
+  v5 = *v4;
+  v6 = *(a2 + 1);
+  *v17 = *a2;
+  *&v17[16] = v6;
+  v7 = ULStaticMap<int,ULSchedulingProfile,20ul>::updateOrInsert(this + 16, v5, v17);
   if (onceToken_MicroLocation_Default != -1)
   {
     ULSchedulingProfileManager::addProfile();
   }
 
-  v7 = logObject_MicroLocation_Default;
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *ULHomeSlamModel::getTrajectoryPointCloud(a2);
-    *v15 = 68289794;
-    *&v15[8] = 2082;
-    *&v15[10] = "";
-    *&v15[18] = 2082;
-    *&v15[20] = "addProfile";
-    *&v15[28] = 1026;
-    *&v15[30] = v6 != 2;
-    v16 = 1026;
-    v17 = v8;
-    _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:add scheduling profile, method:%{public, location:escape_only}s, added:%{public}hhd, index:%{public}d}", v15, 0x28u);
+    ULHomeSlamModel::getTrajectoryPointCloud(a2);
+    v10 = *v9;
+    *v17 = 68289794;
+    *&v17[8] = 2082;
+    *&v17[10] = "";
+    *&v17[18] = 2082;
+    *&v17[20] = "addProfile";
+    *&v17[28] = 1026;
+    *&v17[30] = v7 != 2;
+    v18 = 1026;
+    v19 = v10;
+    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:add scheduling profile, method:%{public, location:escape_only}s, added:%{public}hhd, index:%{public}d}", v17, 0x28u);
   }
 
-  if (v6 != 2)
+  if (v7 != 2)
   {
     if (ULSchedulingProfile::hasMotionSettingsEnabled(a2))
     {
@@ -1754,21 +658,19 @@ BOOL ULSchedulingProfileManager::addProfile(ULSchedulingProfileManager *this, co
 
     if (ULSchedulingProfile::hasPeriodicTriggerEnabled(a2))
     {
-      v10 = *(this + 1);
-      TrajectoryPointCloud = ULHomeSlamModel::getTrajectoryPointCloud(a2);
+      v12 = *(this + 1);
+      ULHomeSlamModel::getTrajectoryPointCloud(a2);
+      v14 = v13;
       SchedulingSettings = ULSchedulingProfile::getSchedulingSettings(a2);
-      (*(*v10 + 32))(v10, TrajectoryPointCloud, *(SchedulingSettings + 8));
+      (*(*v12 + 32))(v12, v14, *(SchedulingSettings + 8));
     }
   }
 
-  result = v6 != 2;
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return v7 != 2;
 }
 
 uint64_t ULStaticMap<int,ULSchedulingProfile,20ul>::updateOrInsert(uint64_t a1, int a2, _OWORD *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 800);
   if (v3)
   {
@@ -1782,7 +684,7 @@ uint64_t ULStaticMap<int,ULSchedulingProfile,20ul>::updateOrInsert(uint64_t a1, 
         v10 = a3[1];
         *v4 = *a3;
         v4[1] = v10;
-        goto LABEL_9;
+        return result;
       }
 
       v4 = (v4 + 40);
@@ -1795,7 +697,7 @@ uint64_t ULStaticMap<int,ULSchedulingProfile,20ul>::updateOrInsert(uint64_t a1, 
       goto LABEL_6;
     }
 
-    result = 2;
+    return 2;
   }
 
   else
@@ -1808,18 +710,14 @@ LABEL_6:
     *v8 = a2;
     *(v8 + 8) = v7;
     *(v8 + 24) = v6;
-    result = 1;
+    return 1;
   }
-
-LABEL_9:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 BOOL ULSchedulingProfileManager::removeProfile(ULSchedulingProfileManager *this, int a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v13 = a2;
+  v24 = *MEMORY[0x277D85DE8];
+  v12 = a2;
   v3 = *(this + 102);
   if (!v3)
   {
@@ -1833,7 +731,7 @@ LABEL_5:
     result = os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT);
     if (!result)
     {
-      goto LABEL_22;
+      return result;
     }
 
     *buf = 68289538;
@@ -1845,9 +743,7 @@ LABEL_5:
     *&buf[28] = 1026;
     *&buf[30] = a2;
     _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:remove scheduling profile, but profile hasn't been added, method:%{public, location:escape_only}s, index:%{public}d}", buf, 0x22u);
-LABEL_21:
-    result = 0;
-    goto LABEL_22;
+    return 0;
   }
 
   v5 = (this + 24);
@@ -1864,7 +760,7 @@ LABEL_21:
   *buf = *v5;
   *&buf[16] = v8;
   buf[32] = 1;
-  v9 = ULStaticMap<int,ULSchedulingProfile,20ul>::erase(this + 16, &v13);
+  v9 = ULStaticMap<int,ULSchedulingProfile,20ul>::erase(this + 16, &v12);
   if (onceToken_MicroLocation_Default != -1)
   {
     ULSchedulingProfileManager::addProfile();
@@ -1873,22 +769,22 @@ LABEL_21:
   v10 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    *v14 = 68289794;
-    v15 = 0;
-    v16 = 2082;
-    v17 = "";
-    v18 = 2082;
-    v19 = "removeProfile";
-    v20 = 1026;
-    v21 = v9;
-    v22 = 1026;
-    v23 = v13;
-    _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:remove scheduling profile, method:%{public, location:escape_only}s, removed:%{public}hhd, index:%{public}d}", v14, 0x28u);
+    *v13 = 68289794;
+    v14 = 0;
+    v15 = 2082;
+    v16 = "";
+    v17 = 2082;
+    v18 = "removeProfile";
+    v19 = 1026;
+    v20 = v9;
+    v21 = 1026;
+    v22 = v12;
+    _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:remove scheduling profile, method:%{public, location:escape_only}s, removed:%{public}hhd, index:%{public}d}", v13, 0x28u);
   }
 
   if (!v9)
   {
-    goto LABEL_21;
+    return 0;
   }
 
   if (ULSchedulingProfile::hasMotionSettingsEnabled(buf))
@@ -1904,10 +800,7 @@ LABEL_21:
     (*(**(this + 1) + 40))(*(this + 1));
   }
 
-  result = 1;
-LABEL_22:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 BOOL ULStaticMap<int,ULSchedulingProfile,20ul>::erase(uint64_t a1, _DWORD *a2)
@@ -1962,11 +855,11 @@ LABEL_8:
   return v4;
 }
 
-uint64_t ULSchedulingProfileManager::suspendProfile(ULSchedulingProfileManager *this, unsigned int a2)
+uint64_t ULSchedulingProfileManager::suspendProfile(ULSchedulingProfileManager *this, uint64_t a2)
 {
   if (a2 >= 0x14)
   {
-    v3 = ULSchedulingProfileManager::suspendProfile();
+    ULSchedulingProfileManager::suspendProfile(a2);
     return ULSchedulingProfileManager::resumeProfile(v3, v4);
   }
 
@@ -1977,12 +870,12 @@ uint64_t ULSchedulingProfileManager::suspendProfile(ULSchedulingProfileManager *
   }
 }
 
-uint64_t ULSchedulingProfileManager::resumeProfile(ULSchedulingProfileManager *this, unsigned int a2)
+ULSchedulingProfile *ULSchedulingProfileManager::resumeProfile(ULSchedulingProfileManager *this, uint64_t a2)
 {
   if (a2 >= 0x14)
   {
-    v3 = ULSchedulingProfileManager::resumeProfile();
-    return ULSchedulingProfileManager::getProfilesWithScanOnStartMotion(v3);
+    ULSchedulingProfileManager::resumeProfile(a2);
+    return ULSchedulingProfileManager::getProfilesWithScanOnStartMotion(v3, v4);
   }
 
   else
@@ -1992,7 +885,7 @@ uint64_t ULSchedulingProfileManager::resumeProfile(ULSchedulingProfileManager *t
   }
 }
 
-ULSchedulingProfile *ULSchedulingProfileManager::getProfilesWithScanOnStartMotion@<X0>(ULSchedulingProfileManager *this@<X0>, unint64_t *a2@<X8>)
+ULSchedulingProfile *ULSchedulingProfileManager::getProfilesWithScanOnStartMotion@<X0>(ULSchedulingProfileManager *this@<X0>, ULSchedulingProfile *a2@<X8>)
 {
   v4 = 640;
   result = a2;
@@ -2004,7 +897,7 @@ ULSchedulingProfile *ULSchedulingProfileManager::getProfilesWithScanOnStartMotio
   }
 
   while (v4);
-  a2[80] = 0;
+  *(a2 + 80) = 0;
   if (*(this + 102))
   {
     v7 = (this + 24);
@@ -2013,11 +906,11 @@ ULSchedulingProfile *ULSchedulingProfileManager::getProfilesWithScanOnStartMotio
       result = ULSchedulingProfile::getSchedulingSettings(v7);
       if (*result == 1)
       {
-        v8 = a2[80];
+        v8 = *(a2 + 80);
         if (v8 <= 0x13)
         {
-          a2[80] = v8 + 1;
-          v9 = &a2[4 * v8];
+          *(a2 + 80) = v8 + 1;
+          v9 = (a2 + 32 * v8);
           v10 = v7[1];
           *v9 = *v7;
           *(v9 + 1) = v10;
@@ -2034,7 +927,7 @@ ULSchedulingProfile *ULSchedulingProfileManager::getProfilesWithScanOnStartMotio
   return result;
 }
 
-ULSchedulingProfile *ULSchedulingProfileManager::getProfilesWithScanOnInMotion@<X0>(ULSchedulingProfileManager *this@<X0>, unint64_t *a2@<X8>)
+ULSchedulingProfile *ULSchedulingProfileManager::getProfilesWithScanOnInMotion@<X0>(ULSchedulingProfileManager *this@<X0>, ULSchedulingProfile *a2@<X8>)
 {
   v4 = 640;
   result = a2;
@@ -2046,7 +939,7 @@ ULSchedulingProfile *ULSchedulingProfileManager::getProfilesWithScanOnInMotion@<
   }
 
   while (v4);
-  a2[80] = 0;
+  *(a2 + 80) = 0;
   if (*(this + 102))
   {
     v7 = (this + 24);
@@ -2055,11 +948,11 @@ ULSchedulingProfile *ULSchedulingProfileManager::getProfilesWithScanOnInMotion@<
       result = ULSchedulingProfile::getSchedulingSettings(v7);
       if (*(result + 1) == 1)
       {
-        v8 = a2[80];
+        v8 = *(a2 + 80);
         if (v8 <= 0x13)
         {
-          a2[80] = v8 + 1;
-          v9 = &a2[4 * v8];
+          *(a2 + 80) = v8 + 1;
+          v9 = (a2 + 32 * v8);
           v10 = v7[1];
           *v9 = *v7;
           *(v9 + 1) = v10;
@@ -2076,7 +969,7 @@ ULSchedulingProfile *ULSchedulingProfileManager::getProfilesWithScanOnInMotion@<
   return result;
 }
 
-ULSchedulingProfile *ULSchedulingProfileManager::getProfilesWithScanOnStopMotion@<X0>(ULSchedulingProfileManager *this@<X0>, unint64_t *a2@<X8>)
+ULSchedulingProfile *ULSchedulingProfileManager::getProfilesWithScanOnStopMotion@<X0>(ULSchedulingProfileManager *this@<X0>, ULSchedulingProfile *a2@<X8>)
 {
   v4 = 640;
   result = a2;
@@ -2088,7 +981,7 @@ ULSchedulingProfile *ULSchedulingProfileManager::getProfilesWithScanOnStopMotion
   }
 
   while (v4);
-  a2[80] = 0;
+  *(a2 + 80) = 0;
   if (*(this + 102))
   {
     v7 = (this + 24);
@@ -2097,11 +990,11 @@ ULSchedulingProfile *ULSchedulingProfileManager::getProfilesWithScanOnStopMotion
       result = ULSchedulingProfile::getSchedulingSettings(v7);
       if (*(result + 2) == 1)
       {
-        v8 = a2[80];
+        v8 = *(a2 + 80);
         if (v8 <= 0x13)
         {
-          a2[80] = v8 + 1;
-          v9 = &a2[4 * v8];
+          *(a2 + 80) = v8 + 1;
+          v9 = (a2 + 32 * v8);
           v10 = v7[1];
           *v9 = *v7;
           *(v9 + 1) = v10;
@@ -2164,8 +1057,8 @@ uint64_t ULSchedulingProfileManager::activeMotionProfileExists(ULSchedulingProfi
     v5 = SchedulingSettings[2];
     v6 = SchedulingSettings[1];
     v7 = *SchedulingSettings;
-    TrajectoryPointCloud = ULHomeSlamModel::getTrajectoryPointCloud(i);
-    if ((v5 & 1) != 0 || (v6 & 1) != 0 || (v7) && !ULSchedulingProfileManager::isProfileSuspended(this, *TrajectoryPointCloud))
+    ULHomeSlamModel::getTrajectoryPointCloud(i);
+    if ((v5 & 1) != 0 || (v6 & 1) != 0 || (v7) && !ULSchedulingProfileManager::isProfileSuspended(this, *v8))
     {
       break;
     }
@@ -2187,27 +1080,30 @@ void ___ZL45_CLLogObjectForCategory_MicroLocation_Defaultv_block_invoke_90()
   logObject_MicroLocation_Default = v0;
 }
 
-void OUTLINED_FUNCTION_1_3(void *a1, int a2, int a3, int a4, const char *a5, const char *a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void OUTLINED_FUNCTION_1_3(void *a1, int a2, int a3, int a4, const char *a5, const char *a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_signpost_emit_with_name_impl(a1, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, a5, a6, &buf, 0x3Au);
+  _os_signpost_emit_with_name_impl(a1, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, a5, a6, va, 0x3Au);
 }
 
-void OUTLINED_FUNCTION_2_2(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void OUTLINED_FUNCTION_2_2(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_impl(a1, v13, OS_LOG_TYPE_INFO, a4, &buf, 0x3Au);
+  _os_log_impl(a1, v12, OS_LOG_TYPE_INFO, a4, va, 0x3Au);
 }
 
-void OUTLINED_FUNCTION_3_3(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void OUTLINED_FUNCTION_3_3(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_impl(a1, v13, OS_LOG_TYPE_FAULT, a4, &buf, 0x3Au);
+  _os_log_impl(a1, v12, OS_LOG_TYPE_FAULT, a4, va, 0x3Au);
 }
 
 uint64_t ULSensorsDataHandler::ULSensorsDataHandler(uint64_t a1, uint64_t a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   *a1 = &unk_286A5A718;
   *(a1 + 8) = &unk_286A5A7B0;
   *(a1 + 16) = &unk_286A5A7E8;
@@ -2279,11 +1175,11 @@ uint64_t ULSensorsDataHandler::ULSensorsDataHandler(uint64_t a1, uint64_t a2)
 
   v20 = v19;
 
-  std::string::basic_string[abi:ne200100]<0>(&v24, "BLE Scan Buffer");
-  CLEventsBuffer<ULBLEMeasurementDO,double,MeasDataObjectGetTime<ULBLEMeasurementDO>>::CLEventsBuffer(a1 + 176, v20, &v24);
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+  std::string::basic_string[abi:ne200100]<0>(&v23, "BLE Scan Buffer");
+  CLEventsBuffer<ULBLEMeasurementDO,double,MeasDataObjectGetTime<ULBLEMeasurementDO>>::CLEventsBuffer(a1 + 176, v20, &v23);
+  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v24.__r_.__value_.__l.__data_);
+    operator delete(v23.__r_.__value_.__l.__data_);
   }
 
   *(a1 + 240) = 0u;
@@ -2306,15 +1202,14 @@ uint64_t ULSensorsDataHandler::ULSensorsDataHandler(uint64_t a1, uint64_t a2)
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 68289282;
-    v28 = 0;
-    v29 = 2082;
-    v30 = "";
-    v31 = 2082;
-    v32 = "ULSensorsDataHandler";
+    v27 = 0;
+    v28 = 2082;
+    v29 = "";
+    v30 = 2082;
+    v31 = "ULSensorsDataHandler";
     _os_log_impl(&dword_258FE9000, v21, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Sensors Data Handler Initialization, method:%{public, location:escape_only}s}", buf, 0x1Cu);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -2351,14 +1246,14 @@ uint64_t ULSensorsDataHandler::configureValidChannelsForScanProfile(uint64_t a1,
   v7 = a3;
   std::unordered_set<ULWiFiScanChannel>::unordered_set<std::__wrap_iter<ULWiFiScanChannel const*>>(v6, *a2, a2[1]);
   v8 = &v7;
-  v4 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((a1 + 240), &v7);
+  v4 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((a1 + 240), &v7, &std::piecewise_construct, &v8);
   std::__hash_table<CLMicroLocationProto::DataType,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,std::allocator<CLMicroLocationProto::DataType>>::__move_assign((v4 + 3), v6);
   return std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v6);
 }
 
-void sub_25911DDE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25911DDE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -2366,7 +1261,7 @@ void sub_25911DDE0(_Unwind_Exception *a1, uint64_t a2, ...)
 void ULSensorsDataHandler::clearScanBuffers(ULSensorsDataHandler *this)
 {
   v1 = this;
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = (this + 64);
   std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(this + 56, *(this + 8));
   *(v1 + 7) = v2;
@@ -2390,29 +1285,27 @@ void ULSensorsDataHandler::clearScanBuffers(ULSensorsDataHandler *this)
   v4 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 68289282;
-    v6[1] = 0;
-    v7 = 2082;
-    v8 = "";
-    v9 = 2082;
-    v10 = "clearScanBuffers";
-    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Sensors Data Handler cleared all scan buffers, method:%{public, location:escape_only}s}", v6, 0x1Cu);
+    v5[0] = 68289282;
+    v5[1] = 0;
+    v6 = 2082;
+    v7 = "";
+    v8 = 2082;
+    v9 = "clearScanBuffers";
+    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Sensors Data Handler cleared all scan buffers, method:%{public, location:escape_only}s}", v5, 0x1Cu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ULSensorsDataHandler::onBleRssiMeasurement(uint64_t a1, double *a2)
 {
   v19 = *MEMORY[0x277D85DE8];
-  v3 = +[ULDefaultsSingleton shared];
-  v4 = [v3 defaultsDictionary];
+  v4 = +[ULDefaultsSingleton shared];
+  v5 = [v4 defaultsDictionary];
 
-  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBleScanMaximalAgeForValidity"];
-  v6 = [v4 objectForKey:v5];
-  if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBleScanMaximalAgeForValidity"];
+  v7 = [v5 objectForKey:v6];
+  if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    [v6 doubleValue];
+    [v7 doubleValue];
   }
 
   else
@@ -2420,9 +1313,9 @@ uint64_t ULSensorsDataHandler::onBleRssiMeasurement(uint64_t a1, double *a2)
     [&unk_286A71E98 doubleValue];
   }
 
-  v8 = v7;
+  v9 = v8;
 
-  v12 = v8;
+  v12 = v9;
   result = ULMeasurementFilters::isValidMeasurement(a2, a2, &v12);
   if (result)
   {
@@ -2431,7 +1324,7 @@ uint64_t ULSensorsDataHandler::onBleRssiMeasurement(uint64_t a1, double *a2)
       ULSensorsDataHandler::ULSensorsDataHandler();
     }
 
-    v10 = logObject_MicroLocation_Default;
+    v11 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEBUG))
     {
       *buf = 68289282;
@@ -2440,20 +1333,19 @@ uint64_t ULSensorsDataHandler::onBleRssiMeasurement(uint64_t a1, double *a2)
       v16 = "";
       v17 = 2082;
       v18 = "onBleRssiMeasurement";
-      _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Got BLE Measurements, method:%{public, location:escape_only}s}", buf, 0x1Cu);
+      _os_log_impl(&dword_258FE9000, v11, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Got BLE Measurements, method:%{public, location:escape_only}s}", buf, 0x1Cu);
     }
 
-    std::__tree<ULBLEMeasurementDO,CLEventsBuffer<ULBLEMeasurementDO,double,MeasDataObjectGetTime<ULBLEMeasurementDO>>::EventsComparator,std::allocator<ULBLEMeasurementDO>>::__emplace_multi<ULBLEMeasurementDO const&>();
+    std::__tree<ULBLEMeasurementDO,CLEventsBuffer<ULBLEMeasurementDO,double,MeasDataObjectGetTime<ULBLEMeasurementDO>>::EventsComparator,std::allocator<ULBLEMeasurementDO>>::__emplace_multi<ULBLEMeasurementDO const&>(a1 + 184, a2);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void ULSensorsDataHandler::onUwbRangeMeasurements(uint64_t a1, uint64_t *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v16 = ULSettings::get<ULSettings::UwbRangeMaximalAgeForValidityFromScanStart>();
+  v24 = *MEMORY[0x277D85DE8];
+  v15 = ULSettings::get<ULSettings::UwbRangeMaximalAgeForValidityFromScanStart>();
   if (onceToken_MicroLocation_Default != -1)
   {
     _CLLogObjectForCategory_MicroLocation_Default();
@@ -2464,18 +1356,18 @@ void ULSensorsDataHandler::onUwbRangeMeasurements(uint64_t a1, uint64_t *a2)
   {
     v5 = (a2[1] - *a2) >> 5;
     *buf = 68289538;
-    v18 = 0;
-    v19 = 2082;
-    v20 = "";
-    v21 = 2082;
-    v22 = "onUwbRangeMeasurements";
-    v23 = 1026;
-    LODWORD(v24) = v5;
+    v17 = 0;
+    v18 = 2082;
+    v19 = "";
+    v20 = 2082;
+    v21 = "onUwbRangeMeasurements";
+    v22 = 1026;
+    LODWORD(v23) = v5;
     _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Got UWB Measurements, method:%{public, location:escape_only}s, count::%{public}d}", buf, 0x22u);
   }
 
-  ULMeasurementFilters::filterInvalidMeasurements<ULUWBMeasurementDO>(a2, &v16);
-  CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMeasurementDO>>::ingestEvents((a1 + 112), a2);
+  ULMeasurementFilters::filterInvalidMeasurements<ULUWBMeasurementDO>(a2, &v15);
+  CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMeasurementDO>>::ingestEvents(a1 + 112, a2);
   v6 = *a2;
   v7 = a2[1];
   if (*a2 != v7)
@@ -2515,23 +1407,23 @@ LABEL_12:
       {
         v11 = *(v6 + 8);
         p_p = &__p;
-        if (v15 < 0)
+        if (v14 < 0)
         {
           p_p = __p;
         }
 
         *buf = 68289539;
-        v18 = 0;
-        v19 = 2082;
-        v20 = "";
-        v21 = 2050;
-        v22 = *&v11;
-        v23 = 2081;
-        v24 = p_p;
+        v17 = 0;
+        v18 = 2082;
+        v19 = "";
+        v20 = 2050;
+        v21 = *&v11;
+        v22 = 2081;
+        v23 = p_p;
         _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Ingested UWB range measurement, range:%{public}.3f, device ID:%{private, location:escape_only}s}", buf, 0x26u);
       }
 
-      if (SHIBYTE(v15) < 0)
+      if (SHIBYTE(v14) < 0)
       {
         operator delete(__p);
       }
@@ -2541,8 +1433,6 @@ LABEL_12:
 
     while (v6 != v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 double ULSettings::get<ULSettings::UwbRangeMaximalAgeForValidityFromScanStart>()
@@ -2567,15 +1457,15 @@ double ULSettings::get<ULSettings::UwbRangeMaximalAgeForValidityFromScanStart>()
   return v5;
 }
 
-uint64_t *CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMeasurementDO>>::ingestEvents(uint64_t *a1, uint64_t *a2)
+uint64_t *CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMeasurementDO>>::ingestEvents(uint64_t a1, uint64_t *a2)
 {
   v2 = *a2;
   v3 = a2[1];
-  v5[0] = (a1 + 1);
-  v5[1] = (a1 + 2);
+  v5[0] = (a1 + 8);
+  v5[1] = (a1 + 16);
   if (v2 != v3)
   {
-    std::insert_iterator<std::multiset<ULUWBMeasurementDO,CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMeasurementDO>>::EventsComparator,std::allocator<ULUWBMeasurementDO>>>::operator=[abi:ne200100](v5);
+    std::insert_iterator<std::multiset<ULUWBMeasurementDO,CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMeasurementDO>>::EventsComparator,std::allocator<ULUWBMeasurementDO>>>::operator=[abi:ne200100](v5, v2);
   }
 
   return CLEventsBuffer<ULBLEMeasurementDO,double,MeasDataObjectGetTime<ULBLEMeasurementDO>>::truncateBuffer(a1);
@@ -2583,7 +1473,7 @@ uint64_t *CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMe
 
 uint64_t ULSensorsDataHandler::onWiFiRssiMeasurements(uint64_t a1, uint64_t *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default == -1)
   {
     v2 = a2;
@@ -2603,25 +1493,25 @@ uint64_t ULSensorsDataHandler::onWiFiRssiMeasurements(uint64_t a1, uint64_t *a2)
     v5 = (v2[1] - *v2) >> 5;
     *buf = 68289538;
     *&buf[4] = 0;
-    v28 = 2082;
-    v29 = "";
-    v30 = 2082;
-    *v31 = "onWiFiRssiMeasurements";
-    *&v31[8] = 1026;
-    *&v31[10] = v5;
+    v27 = 2082;
+    v28 = "";
+    v29 = 2082;
+    *v30 = "onWiFiRssiMeasurements";
+    *&v30[8] = 1026;
+    *&v30[10] = v5;
     _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Got WiFi Measurements, method:%{public, location:escape_only}s, count::%{public}d}", buf, 0x22u);
   }
 
-  memset(v24, 0, sizeof(v24));
-  v25 = 1065353216;
+  memset(v23, 0, sizeof(v23));
+  v24 = 1065353216;
   *buf = *(v3 + 304);
   v6 = std::__hash_table<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>>>::find<int>((v3 + 240), buf);
   if (v6)
   {
-    if (v24 != (v6 + 3))
+    if (v23 != (v6 + 3))
     {
-      v25 = *(v6 + 14);
-      std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::equal_to<ULWiFiScanChannel>,std::allocator<ULWiFiScanChannel>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<ULWiFiScanChannel,void *> *>>(v24, v6[5], 0);
+      v24 = *(v6 + 14);
+      std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::equal_to<ULWiFiScanChannel>,std::allocator<ULWiFiScanChannel>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<ULWiFiScanChannel,void *> *>>(v23, v6[5], 0);
     }
   }
 
@@ -2640,12 +1530,12 @@ uint64_t ULSensorsDataHandler::onWiFiRssiMeasurements(uint64_t a1, uint64_t *a2)
       v8 = *(v3 + 304);
       *buf = 68289538;
       *&buf[4] = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 2082;
-      *v31 = "onWiFiRssiMeasurements";
-      *&v31[8] = 1026;
-      *&v31[10] = v8;
+      v27 = 2082;
+      v28 = "";
+      v29 = 2082;
+      *v30 = "onWiFiRssiMeasurements";
+      *&v30[8] = 1026;
+      *&v30[10] = v8;
       _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Valid channels not initialized for scan profile, method:%{public, location:escape_only}s, index::%{public}d}", buf, 0x22u);
     }
 
@@ -2662,17 +1552,17 @@ uint64_t ULSensorsDataHandler::onWiFiRssiMeasurements(uint64_t a1, uint64_t *a2)
       v10 = *(v3 + 304);
       *buf = 68289538;
       *&buf[4] = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 2082;
-      *v31 = "onWiFiRssiMeasurements";
-      *&v31[8] = 1026;
-      *&v31[10] = v10;
+      v27 = 2082;
+      v28 = "";
+      v29 = 2082;
+      *v30 = "onWiFiRssiMeasurements";
+      *&v30[8] = 1026;
+      *&v30[10] = v10;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Valid channels not initialized for scan profile", "{msg%{public}.0s:Valid channels not initialized for scan profile, method:%{public, location:escape_only}s, index::%{public}d}", buf, 0x22u);
     }
   }
 
-  ULMeasurementFilters::filterInvalidChannelMeasurements(v2, v24);
+  ULMeasurementFilters::filterInvalidChannelMeasurements(v2, v23);
   *buf = 0x7FEFFFFFFFFFFFFFLL;
   ULMeasurementFilters::filterInvalidMeasurements<ULWiFiMeasurementDO>(v2, buf);
   *buf = *(v3 + 296);
@@ -2715,18 +1605,18 @@ uint64_t ULSensorsDataHandler::onWiFiRssiMeasurements(uint64_t a1, uint64_t *a2)
           isRssiOffChannel = ULMeasurementFilters::isRssiOffChannel(*(v12 + 12));
           *buf = 68290307;
           *&buf[4] = 0;
-          v28 = 2082;
-          v29 = "";
-          v30 = 1025;
-          *v31 = v14;
-          *&v31[4] = 2081;
-          *&v31[6] = p_p;
-          v32 = 1025;
-          v33 = v16;
-          v34 = 1025;
-          v35 = isInvalidRssiFlag;
-          v36 = 1025;
-          v37 = isRssiOffChannel;
+          v27 = 2082;
+          v28 = "";
+          v29 = 1025;
+          *v30 = v14;
+          *&v30[4] = 2081;
+          *&v30[6] = p_p;
+          v31 = 1025;
+          v32 = v16;
+          v33 = 1025;
+          v34 = isInvalidRssiFlag;
+          v35 = 1025;
+          v36 = isRssiOffChannel;
           _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Wifi AP received, rssi:%{private}d, mac:%{private, location:escape_only}s, channel:%{private}d, isRssiInvalid:%{private}d, isRssiOffChannel:%{private}d}", buf, 0x34u);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
@@ -2742,30 +1632,28 @@ uint64_t ULSensorsDataHandler::onWiFiRssiMeasurements(uint64_t a1, uint64_t *a2)
     }
   }
 
-  CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasurementDO>>::ingestEvents((a1 + 48), a2);
-  result = std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v24);
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasurementDO>>::ingestEvents(a1 + 48, a2);
+  return std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v23);
 }
 
-uint64_t *CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasurementDO>>::ingestEvents(uint64_t *a1, uint64_t *a2)
+uint64_t *CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasurementDO>>::ingestEvents(uint64_t a1, uint64_t *a2)
 {
   v2 = *a2;
   v3 = a2[1];
-  v5[0] = (a1 + 1);
-  v5[1] = (a1 + 2);
+  v5[0] = (a1 + 8);
+  v5[1] = (a1 + 16);
   if (v2 != v3)
   {
-    std::insert_iterator<std::multiset<ULWiFiMeasurementDO,CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasurementDO>>::EventsComparator,std::allocator<ULWiFiMeasurementDO>>>::operator=[abi:ne200100](v5);
+    std::insert_iterator<std::multiset<ULWiFiMeasurementDO,CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasurementDO>>::EventsComparator,std::allocator<ULWiFiMeasurementDO>>>::operator=[abi:ne200100](v5, v2);
   }
 
   return CLEventsBuffer<ULBLEMeasurementDO,double,MeasDataObjectGetTime<ULBLEMeasurementDO>>::truncateBuffer(a1);
 }
 
-void ULSensorsDataHandler::onScanComplete(uint64_t a1, int a2, void **a3, void *a4)
+void ULSensorsDataHandler::onScanComplete(uint64_t a1, int a2, void ***a3, void *a4)
 {
-  v66[10] = *MEMORY[0x277D85DE8];
-  v32 = a4;
+  v67[10] = *MEMORY[0x277D85DE8];
+  v33 = a4;
   v6 = +[ULDefaultsSingleton shared];
   v7 = [v6 defaultsDictionary];
 
@@ -2784,7 +1672,7 @@ void ULSensorsDataHandler::onScanComplete(uint64_t a1, int a2, void **a3, void *
   v11 = v10;
 
   v14 = cl::chrono::CFAbsoluteTimeClock::now() - *(a1 + 344) < v11 / 1000.0 || *(a1 + 336) != 0;
-  ULPowerLog::logMetrics(@"ScanEvent", v32, v12);
+  ULPowerLog::logMetrics(@"ScanEvent", v33, v12);
   if (onceToken_MicroLocation_Default != -1)
   {
     _CLLogObjectForCategory_MicroLocation_Default();
@@ -2796,20 +1684,20 @@ void ULSensorsDataHandler::onScanComplete(uint64_t a1, int a2, void **a3, void *
     v16 = *a3;
     *buf = 68290050;
     *&buf[4] = 0;
-    v51 = 2082;
-    *v52 = "";
-    *&v52[8] = 2082;
-    *&v52[10] = "onScanComplete";
-    v53 = 2050;
-    v54 = v16;
-    v55 = 1026;
-    v56 = v14;
-    v57 = 1026;
-    v58 = a2;
+    v52 = 2082;
+    *v53 = "";
+    *&v53[8] = 2082;
+    *&v53[10] = "onScanComplete";
+    v54 = 2050;
+    v55 = v16;
+    v56 = 1026;
+    v57 = v14;
+    v58 = 1026;
+    v59 = a2;
     _os_log_impl(&dword_258FE9000, v15, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Scan Complete, method:%{public, location:escape_only}s, timestamp::%{public}.5f, isUWBSuspended::%{public}hhd, ScanResultCode::%{public}d}", buf, 0x32u);
   }
 
-  v31 = a3;
+  v32 = a3;
   v18 = *(a1 + 312);
   for (i = *(a1 + 320); v18 != i; v18 = (v18 + 40))
   {
@@ -2822,48 +1710,48 @@ void ULSensorsDataHandler::onScanComplete(uint64_t a1, int a2, void **a3, void *
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       ULScanningTrigger::description(v18, __p);
-      v20 = v49 >= 0 ? __p : __p[0];
+      v20 = v50 >= 0 ? __p : __p[0];
       *buf = 68289538;
       *&buf[4] = 0;
-      v51 = 2082;
-      *v52 = "";
-      *&v52[8] = 2082;
-      *&v52[10] = "onScanComplete";
-      v53 = 2082;
-      v54 = v20;
+      v52 = 2082;
+      *v53 = "";
+      *&v53[8] = 2082;
+      *&v53[10] = "onScanComplete";
+      v54 = 2082;
+      v55 = v20;
       _os_log_impl(&dword_258FE9000, v19, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:With Triggers, method:%{public, location:escape_only}s, trigger:%{public, location:escape_only}s}", buf, 0x26u);
-      if (v49 < 0)
+      if (v50 < 0)
       {
         operator delete(__p[0]);
       }
     }
   }
 
-  ULSensorsDataHandler::fetchWifiMeasurements(a1, v31, v45);
-  ULSensorsDataHandler::fetchBleMeasurements(a1, v31, v44);
-  ULSensorsDataHandler::fetchUwbMeasurements(a1, v31, v43);
-  memset(v42, 0, sizeof(v42));
+  ULSensorsDataHandler::fetchWifiMeasurements(a1, v32, v46);
+  ULSensorsDataHandler::fetchBleMeasurements(a1, v32, v45);
+  ULSensorsDataHandler::fetchUwbMeasurements(a1, v32, v44);
+  memset(v43, 0, sizeof(v43));
   v21 = (*(**(a1 + 32) + 56))(*(a1 + 32));
   if (((*(**(a1 + 32) + 48))(*(a1 + 32)) & 1) == 0)
   {
     v21 &= (*(**(a1 + 32) + 64))(*(a1 + 32));
   }
 
-  memset(v41, 0, sizeof(v41));
+  memset(v42, 0, sizeof(v42));
   v22 = +[ULMagnetometerProvider sharedInstance];
   v23 = v22;
   if (v22)
   {
-    [v22 fetchMagnetometerData];
+    objc_msgSend_fetchMagnetometerData(v22);
   }
 
   else
   {
-    memset(v40, 0, sizeof(v40));
+    memset(v41, 0, sizeof(v41));
   }
 
   {
-    v24 = TopPriorityScanningTrigger;
+    v25 = TopPriorityScanningTrigger;
     if ((TopPriorityScanningTrigger & 0x10000) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
@@ -2872,84 +1760,78 @@ void ULSensorsDataHandler::onScanComplete(uint64_t a1, int a2, void **a3, void *
 
   else
   {
-    v24 = 7;
+    v25 = 7;
   }
 
-  LOWORD(__p[0]) = scanProfileToScanType(*(a1 + 304));
+  LOWORD(__p[0]) = scanProfileToScanType(*(a1 + 304), v24);
   *buf = *(a1 + 296);
-  ULScanningServiceAnalyticsDO::ULScanningServiceAnalyticsDO(v39, __p, v24, 2, a2, buf);
-  v38 = 0;
-  boost::uuids::detail::random_provider_base::random_provider_base(&v38);
-  *&v47 = boost::uuids::random_generator_pure::operator()(&v38);
-  *(&v47 + 1) = v26;
-  v27 = [MEMORY[0x277D28868] deviceClass];
-  v28 = v27;
-  std::string::basic_string[abi:ne200100]<0>(__p, [v27 UTF8String]);
-  v37 = scanProfileToScanType(*(a1 + 304));
-  v36 = *(a1 + 296);
-  v35 = *(a1 + 288);
-  v46 = 0uLL;
-  (*(**(a1 + 40) + 16))(v34);
-  ULScanningEventDO::ULScanningEventDO(buf, &v47, __p, &v37, &v36, a2, v14, v21 ^ 1, 0, &v35, v42, v45, v44, v43, &v46, v34, v41, v40);
-  if (v49 < 0)
+  ULScanningServiceAnalyticsDO::ULScanningServiceAnalyticsDO(v40, __p, v25, 2, a2, buf);
+  v39 = 0;
+  boost::uuids::detail::random_provider_base::random_provider_base(&v39);
+  *&v48 = boost::uuids::random_generator_pure::operator()(&v39);
+  *(&v48 + 1) = v27;
+  v28 = [MEMORY[0x277D28868] deviceClass];
+  v29 = v28;
+  std::string::basic_string[abi:ne200100]<0>(__p, [v28 UTF8String]);
+  v38 = scanProfileToScanType(*(a1 + 304), v30);
+  v37 = *(a1 + 296);
+  v36 = *(a1 + 288);
+  v47 = 0uLL;
+  (*(**(a1 + 40) + 16))(v35);
+  ULScanningEventDO::ULScanningEventDO(buf, &v48, __p, &v38, &v37, a2, v14, v21 ^ 1, 0, &v36, v43, v46, v45, v44, &v47, v35, v42, v41);
+  if (v50 < 0)
   {
     operator delete(__p[0]);
   }
 
-  boost::uuids::detail::random_provider_base::destroy(&v38);
+  boost::uuids::detail::random_provider_base::destroy(&v39);
   if (onceToken_MicroLocation_Default != -1)
   {
     ULSensorsDataHandler::ULSensorsDataHandler();
   }
 
-  v29 = logObject_MicroLocation_Default;
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v31 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
     operator new();
   }
 
   (*(**(a1 + 32) + 16))(*(a1 + 32), buf);
-  (*(**(a1 + 32) + 24))(*(a1 + 32), v39);
+  (*(**(a1 + 32) + 24))(*(a1 + 32), v40);
   *(a1 + 308) = 0;
   *(a1 + 304) = 5;
   *(a1 + 320) = *(a1 + 312);
-  __p[0] = v66;
+  __p[0] = v67;
   std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](__p);
-  if (v64)
+  if (v65)
   {
-    v65 = v64;
-    operator delete(v64);
+    v66 = v65;
+    operator delete(v65);
   }
 
-  if (v62)
+  if (v63)
   {
-    v63 = v62;
-    operator delete(v62);
+    v64 = v63;
+    operator delete(v63);
   }
 
-  if (v60)
+  if (v61)
   {
-    v61 = v60;
-    operator delete(v60);
+    v62 = v61;
+    operator delete(v61);
   }
 
-  __p[0] = &v59;
+  __p[0] = &v60;
   std::vector<ULLabelDO>::__destroy_vector::operator()[abi:ne200100](__p);
-  if (SHIBYTE(v55) < 0)
+  if (SHIBYTE(v56) < 0)
   {
-    operator delete(*&v52[6]);
+    operator delete(*&v53[6]);
   }
 
-  *buf = v41;
-  std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](buf);
   *buf = v42;
+  std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](buf);
+  *buf = v43;
   std::vector<ULLabelDO>::__destroy_vector::operator()[abi:ne200100](buf);
-  if (v43[0])
-  {
-    v43[1] = v43[0];
-    operator delete(v43[0]);
-  }
-
   if (v44[0])
   {
     v44[1] = v44[0];
@@ -2962,12 +1844,16 @@ void ULSensorsDataHandler::onScanComplete(uint64_t a1, int a2, void **a3, void *
     operator delete(v45[0]);
   }
 
-  v30 = *MEMORY[0x277D85DE8];
+  if (v46[0])
+  {
+    v46[1] = v46[0];
+    operator delete(v46[0]);
+  }
 }
 
 void sub_25911F434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51, uint64_t a52, void *a53, void *a54, uint64_t a55, void *a56, void *a57, uint64_t a58, void *a59, void *a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (a70 < 0)
+  if (a66 < 0)
   {
     operator delete(__p);
   }
@@ -3003,7 +1889,7 @@ void sub_25911F434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void ULSensorsDataHandler::fetchWifiMeasurements(uint64_t a1@<X0>, void **a2@<X1>, void *a3@<X8>)
+void ULSensorsDataHandler::fetchWifiMeasurements(uint64_t a1@<X0>, void **a2@<X1>, uint64_t *a3@<X8>)
 {
   v16 = 0;
   v6 = *(a1 + 296);
@@ -3038,11 +1924,11 @@ void ULSensorsDataHandler::fetchWifiMeasurements(uint64_t a1@<X0>, void **a2@<X1
   }
 }
 
-void ULSensorsDataHandler::fetchBleMeasurements(uint64_t a1@<X0>, void *a2@<X1>, uint64_t *a3@<X8>)
+void ULSensorsDataHandler::fetchBleMeasurements(uint64_t a1@<X0>, void *a2@<X1>, uint64_t **a3@<X8>)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v30 = 0;
-  v29 = cl::chrono::CFAbsoluteTimeClock::now();
+  v41 = *MEMORY[0x277D85DE8];
+  v29 = 0;
+  v28 = cl::chrono::CFAbsoluteTimeClock::now();
   v5 = +[ULDefaultsSingleton shared];
   v6 = [v5 defaultsDictionary];
 
@@ -3061,9 +1947,9 @@ void ULSensorsDataHandler::fetchBleMeasurements(uint64_t a1@<X0>, void *a2@<X1>,
   v10 = v9;
 
   *buf = v10;
-  EarliestAllowedTime = ULSensorsDataHandler::getEarliestAllowedTime(a1, &v29, buf);
+  EarliestAllowedTime = ULSensorsDataHandler::getEarliestAllowedTime(a1, &v28, buf);
   *buf = *a2;
-  CLEventsBuffer<ULBLEMeasurementDO,double,MeasDataObjectGetTime<ULBLEMeasurementDO>>::getEvents(a1 + 176, &EarliestAllowedTime, buf, &v30, a3);
+  CLEventsBuffer<ULBLEMeasurementDO,double,MeasDataObjectGetTime<ULBLEMeasurementDO>>::getEvents(a1 + 176, &EarliestAllowedTime, buf, &v29, a3);
   ULMeasurementFilters::removeDuplicates<ULBLEMeasurementDO>(a3);
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -3100,7 +1986,7 @@ LABEL_10:
         }
 
 LABEL_15:
-        std::string::basic_string[abi:ne200100]<0>(&v26, "not available");
+        std::string::basic_string[abi:ne200100]<0>(&v25, "not available");
         if (onceToken_MicroLocationQE_Default != -1)
         {
           ULSensorsDataHandler::onUwbRangeMeasurements();
@@ -3109,14 +1995,14 @@ LABEL_15:
         v15 = logObject_MicroLocationQE_Default;
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
-          if (v27 >= 0)
+          if (v26 >= 0)
           {
-            v16 = &v26;
+            v16 = &v25;
           }
 
           else
           {
-            v16 = v26;
+            v16 = v25;
           }
 
           v17 = *(v11 + 28);
@@ -3129,7 +2015,7 @@ LABEL_15:
           v19 = *(v11 + 8);
           std::string::basic_string[abi:ne200100]<0>(__p, v18);
           v20 = __p;
-          if (v25 < 0)
+          if (v24 < 0)
           {
             v20 = __p[0];
           }
@@ -3137,26 +2023,26 @@ LABEL_15:
           v21 = *v11;
           *buf = 68290051;
           *&buf[4] = 0;
-          v32 = 2082;
-          v33 = "";
-          v34 = 1025;
-          v35 = v19;
-          v36 = 2081;
-          v37 = v16;
-          v38 = 2081;
-          v39 = v20;
-          v40 = 2050;
-          v41 = v21;
+          v31 = 2082;
+          v32 = "";
+          v33 = 1025;
+          v34 = v19;
+          v35 = 2081;
+          v36 = v16;
+          v37 = 2081;
+          v38 = v20;
+          v39 = 2050;
+          v40 = v21;
           _os_log_impl(&dword_258FE9000, v15, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:BLE cached scan, rssi:%{private}d, uuid:%{private, location:escape_only}s, model:%{private, location:escape_only}s, time_s:%{public}.09f}", buf, 0x36u);
-          if (v25 < 0)
+          if (v24 < 0)
           {
             operator delete(__p[0]);
           }
         }
 
-        if (SHIBYTE(v27) < 0)
+        if (SHIBYTE(v26) < 0)
         {
-          operator delete(v26);
+          operator delete(v25);
         }
 
         v11 += 32;
@@ -3166,33 +2052,31 @@ LABEL_15:
     }
   }
 
-  if (v30 == 1)
+  if (v29 == 1)
   {
     std::string::basic_string[abi:ne200100]<0>(buf, "BLE spyscan buffer overflow");
     CLMicroLocationErrorHandling::reportError(buf);
-    if (SHIBYTE(v35) < 0)
+    if (SHIBYTE(v34) < 0)
     {
       operator delete(*buf);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void ULSensorsDataHandler::fetchUwbMeasurements(uint64_t a1@<X0>, void *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v22 = 0;
-  v21 = cl::chrono::CFAbsoluteTimeClock::now();
+  v29 = *MEMORY[0x277D85DE8];
+  v21 = 0;
+  v20 = cl::chrono::CFAbsoluteTimeClock::now();
   *__p = ULSettings::get<ULSettings::UwbRangeMaximalAgeForValidityFromScanStart>();
-  EarliestAllowedTime = ULSensorsDataHandler::getEarliestAllowedTime(a1, &v21, __p);
+  EarliestAllowedTime = ULSensorsDataHandler::getEarliestAllowedTime(a1, &v20, __p);
   *__p = *a2;
-  CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMeasurementDO>>::getEvents(a1 + 112, &EarliestAllowedTime, __p, &v22, a3);
-  if (v22 == 1)
+  CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMeasurementDO>>::getEvents(a1 + 112, &EarliestAllowedTime, __p, &v21, a3);
+  if (v21 == 1)
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "UWB range buffer overflow");
     CLMicroLocationErrorHandling::reportError(__p);
-    if (SHIBYTE(v26) < 0)
+    if (SHIBYTE(v25) < 0)
     {
       operator delete(*__p);
     }
@@ -3248,7 +2132,7 @@ LABEL_14:
         }
 
 LABEL_19:
-        std::string::basic_string[abi:ne200100]<0>(&v18, "not available");
+        std::string::basic_string[abi:ne200100]<0>(&v17, "not available");
         if (onceToken_MicroLocationQE_Default != -1)
         {
           ULSensorsDataHandler::onUwbRangeMeasurements();
@@ -3257,29 +2141,29 @@ LABEL_19:
         v13 = logObject_MicroLocationQE_Default;
         if (os_log_type_enabled(logObject_MicroLocationQE_Default, OS_LOG_TYPE_DEBUG))
         {
-          v14 = &v18;
-          if (v19 < 0)
+          v14 = &v17;
+          if (v18 < 0)
           {
-            v14 = v18;
+            v14 = v17;
           }
 
           v15 = *(v8 + 8);
-          v16 = v21 - *v8;
+          v16 = v20 - *v8;
           *__p = 134218755;
           *&__p[4] = v10;
-          v24 = 2081;
-          v25 = v14;
-          v26 = 2049;
-          v27 = v15;
-          v28 = 2050;
-          v29 = v16;
+          v23 = 2081;
+          v24 = v14;
+          v25 = 2049;
+          v26 = v15;
+          v27 = 2050;
+          v28 = v16;
           _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_DEBUG, "meas index: %zu, deviceId: %{private}s, range: %{private}f, age: %{public}f", __p, 0x2Au);
           ++v10;
         }
 
-        if (SHIBYTE(v19) < 0)
+        if (SHIBYTE(v18) < 0)
         {
-          operator delete(v18);
+          operator delete(v17);
         }
 
         v8 += 32;
@@ -3288,8 +2172,6 @@ LABEL_19:
       while (v8 != v9);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25911FEEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -3311,55 +2193,50 @@ void sub_25911FEEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t anonymous namespace::getTopPriorityScanningTrigger(uint64_t *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (*a1 == a1[1])
   {
-    v7 = 0;
+    return 0;
+  }
+
+  v12 = xmmword_25921FB3C;
+  v13 = *algn_25921FB4C;
+  v14 = xmmword_25921FB5C;
+  v15 = unk_25921FB6C;
+  std::map<ULTriggerType,int>::map[abi:ne200100](v10, &v12, 8);
+  v9 = 7;
+  v2 = *a1;
+  v3 = a1[1];
+  if (*a1 == v3)
+  {
+    v7 = 65543;
   }
 
   else
   {
-    v13 = xmmword_25921FB3C;
-    v14 = *algn_25921FB4C;
-    v15 = xmmword_25921FB5C;
-    v16 = unk_25921FB6C;
-    std::map<ULTriggerType,int>::map[abi:ne200100](v11, &v13, 8);
-    v10 = 7;
-    v2 = *a1;
-    v3 = a1[1];
-    if (*a1 == v3)
+    do
     {
-      v7 = 65543;
-    }
-
-    else
-    {
-      do
+      v4 = *v2;
+      v5 = *(v2 + 16);
+      *&v14 = *(v2 + 32);
+      v12 = v4;
+      v13 = v5;
+      v11 = &v12 + 4;
+      v6 = *(std::__tree<std::__value_type<ULTriggerType,int>,std::__map_value_compare<ULTriggerType,std::__value_type<ULTriggerType,int>,std::less<ULTriggerType>,true>,std::allocator<std::__value_type<ULTriggerType,int>>>::__emplace_unique_key_args<ULTriggerType,std::piecewise_construct_t const&,std::tuple<ULTriggerType const&>,std::tuple<>>(v10, &v12 + 4, &std::piecewise_construct, &v11) + 8);
+      v11 = &v9;
+      if (v6 < *(std::__tree<std::__value_type<ULTriggerType,int>,std::__map_value_compare<ULTriggerType,std::__value_type<ULTriggerType,int>,std::less<ULTriggerType>,true>,std::allocator<std::__value_type<ULTriggerType,int>>>::__emplace_unique_key_args<ULTriggerType,std::piecewise_construct_t const&,std::tuple<ULTriggerType const&>,std::tuple<>>(v10, &v9, &std::piecewise_construct, &v11) + 8))
       {
-        v4 = *v2;
-        v5 = *(v2 + 16);
-        *&v15 = *(v2 + 32);
-        v13 = v4;
-        v14 = v5;
-        v12 = &v13 + 4;
-        v6 = *(std::__tree<std::__value_type<ULTriggerType,int>,std::__map_value_compare<ULTriggerType,std::__value_type<ULTriggerType,int>,std::less<ULTriggerType>,true>,std::allocator<std::__value_type<ULTriggerType,int>>>::__emplace_unique_key_args<ULTriggerType,std::piecewise_construct_t const&,std::tuple<ULTriggerType const&>,std::tuple<>>(v11, &v13 + 4) + 8);
-        v12 = &v10;
-        if (v6 < *(std::__tree<std::__value_type<ULTriggerType,int>,std::__map_value_compare<ULTriggerType,std::__value_type<ULTriggerType,int>,std::less<ULTriggerType>,true>,std::allocator<std::__value_type<ULTriggerType,int>>>::__emplace_unique_key_args<ULTriggerType,std::piecewise_construct_t const&,std::tuple<ULTriggerType const&>,std::tuple<>>(v11, &v10) + 8))
-        {
-          v10 = WORD4(v13);
-        }
-
-        v2 += 40;
+        v9 = WORD4(v12);
       }
 
-      while (v2 != v3);
-      v7 = v10 | 0x10000u;
+      v2 += 40;
     }
 
-    std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(v11, v11[1]);
+    while (v2 != v3);
+    v7 = v9 | 0x10000u;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
+  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(v10, v10[1]);
   return v7;
 }
 
@@ -3381,7 +2258,7 @@ uint64_t non-virtual thunk toULSensorsDataHandler::onWiFiAssociatedStateChange(u
 
 uint64_t ULSensorsDataHandler::onMotionEvent(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     _CLLogObjectForCategory_MicroLocation_Default();
@@ -3390,26 +2267,24 @@ uint64_t ULSensorsDataHandler::onMotionEvent(uint64_t a1, uint64_t a2)
   v4 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 68289538;
-    v7[1] = 0;
-    v8 = 2082;
-    v9 = "";
-    v10 = 2082;
-    v11 = "onMotionEvent";
-    v12 = 1026;
-    v13 = a2;
-    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Motion event, method:%{public, location:escape_only}s, MotionState::%{public}d}", v7, 0x22u);
+    v6[0] = 68289538;
+    v6[1] = 0;
+    v7 = 2082;
+    v8 = "";
+    v9 = 2082;
+    v10 = "onMotionEvent";
+    v11 = 1026;
+    v12 = a2;
+    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Motion event, method:%{public, location:escape_only}s, MotionState::%{public}d}", v6, 0x22u);
   }
 
   *(a1 + 288) = a2;
-  result = (*(**(a1 + 32) + 32))(*(a1 + 32), a2);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(**(a1 + 32) + 32))(*(a1 + 32), a2);
 }
 
 void ULSensorsDataHandler::appendScanTrigger(ULSensorsDataHandler *this, const ULScanningTrigger *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     _CLLogObjectForCategory_MicroLocation_Default();
@@ -3419,7 +2294,7 @@ void ULSensorsDataHandler::appendScanTrigger(ULSensorsDataHandler *this, const U
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     ULScanningTrigger::description(a2, __p);
-    if (v8 >= 0)
+    if (v7 >= 0)
     {
       v5 = __p;
     }
@@ -3430,27 +2305,26 @@ void ULSensorsDataHandler::appendScanTrigger(ULSensorsDataHandler *this, const U
     }
 
     *buf = 68289538;
-    v10 = 0;
-    v11 = 2082;
-    v12 = "";
-    v13 = 2082;
-    v14 = "appendScanTrigger";
-    v15 = 2082;
-    v16 = v5;
+    v9 = 0;
+    v10 = 2082;
+    v11 = "";
+    v12 = 2082;
+    v13 = "appendScanTrigger";
+    v14 = 2082;
+    v15 = v5;
     _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:append trigger, method:%{public, location:escape_only}s, description::%{public, location:escape_only}s}", buf, 0x26u);
-    if (v8 < 0)
+    if (v7 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
   ULSensorsDataHandler::State::addTriggerToScan((this + 280), a2);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ULSensorsDataHandler::startMotionDetected(ULSensorsDataHandler *this)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     _CLLogObjectForCategory_MicroLocation_Default();
@@ -3459,23 +2333,21 @@ uint64_t ULSensorsDataHandler::startMotionDetected(ULSensorsDataHandler *this)
   v2 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEBUG))
   {
-    v5[0] = 68289282;
-    v5[1] = 0;
-    v6 = 2082;
-    v7 = "";
-    v8 = 2082;
-    v9 = "startMotionDetected";
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Start motion detected, method:%{public, location:escape_only}s}", v5, 0x1Cu);
+    v4[0] = 68289282;
+    v4[1] = 0;
+    v5 = 2082;
+    v6 = "";
+    v7 = 2082;
+    v8 = "startMotionDetected";
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Start motion detected, method:%{public, location:escape_only}s}", v4, 0x1Cu);
   }
 
-  result = (*(*this + 56))(this, 1);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*this + 56))(this, 1);
 }
 
 uint64_t ULSensorsDataHandler::stopMotionDetected(ULSensorsDataHandler *this)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     _CLLogObjectForCategory_MicroLocation_Default();
@@ -3484,23 +2356,21 @@ uint64_t ULSensorsDataHandler::stopMotionDetected(ULSensorsDataHandler *this)
   v2 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEBUG))
   {
-    v5[0] = 68289282;
-    v5[1] = 0;
-    v6 = 2082;
-    v7 = "";
-    v8 = 2082;
-    v9 = "stopMotionDetected";
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Stop motion detected, method:%{public, location:escape_only}s}", v5, 0x1Cu);
+    v4[0] = 68289282;
+    v4[1] = 0;
+    v5 = 2082;
+    v6 = "";
+    v7 = 2082;
+    v8 = "stopMotionDetected";
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Stop motion detected, method:%{public, location:escape_only}s}", v4, 0x1Cu);
   }
 
-  result = (*(*this + 56))(this, 3);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*this + 56))(this, 3);
 }
 
 uint64_t ULSensorsDataHandler::ongoingMotionDetected(ULSensorsDataHandler *this)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     _CLLogObjectForCategory_MicroLocation_Default();
@@ -3509,23 +2379,21 @@ uint64_t ULSensorsDataHandler::ongoingMotionDetected(ULSensorsDataHandler *this)
   v2 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEBUG))
   {
-    v5[0] = 68289282;
-    v5[1] = 0;
-    v6 = 2082;
-    v7 = "";
-    v8 = 2082;
-    v9 = "ongoingMotionDetected";
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Ongoing motion detected, method:%{public, location:escape_only}s}", v5, 0x1Cu);
+    v4[0] = 68289282;
+    v4[1] = 0;
+    v5 = 2082;
+    v6 = "";
+    v7 = 2082;
+    v8 = "ongoingMotionDetected";
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Ongoing motion detected, method:%{public, location:escape_only}s}", v4, 0x1Cu);
   }
 
-  result = (*(*this + 56))(this, 2);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*this + 56))(this, 2);
 }
 
 uint64_t ULSensorsDataHandler::resumedInMotionDetected(ULSensorsDataHandler *this)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     _CLLogObjectForCategory_MicroLocation_Default();
@@ -3534,23 +2402,21 @@ uint64_t ULSensorsDataHandler::resumedInMotionDetected(ULSensorsDataHandler *thi
   v2 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEBUG))
   {
-    v5[0] = 68289282;
-    v5[1] = 0;
-    v6 = 2082;
-    v7 = "";
-    v8 = 2082;
-    v9 = "resumedInMotionDetected";
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Resumed InMotion detected, method:%{public, location:escape_only}s}", v5, 0x1Cu);
+    v4[0] = 68289282;
+    v4[1] = 0;
+    v5 = 2082;
+    v6 = "";
+    v7 = 2082;
+    v8 = "resumedInMotionDetected";
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Resumed InMotion detected, method:%{public, location:escape_only}s}", v4, 0x1Cu);
   }
 
-  result = (*(*this + 56))(this, 2);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*this + 56))(this, 2);
 }
 
 double ULSensorsDataHandler::getEarliestAllowedTime(uint64_t a1, double *a2, double *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 296);
   v7 = *a2;
   v8 = +[ULDefaultsSingleton shared];
@@ -3581,15 +2447,15 @@ double ULSensorsDataHandler::getEarliestAllowedTime(uint64_t a1, double *a2, dou
     v16 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
-      v21 = 68289538;
-      v22 = 0;
-      v23 = 2082;
-      v24 = "";
-      v25 = 2050;
-      v26 = v14;
-      v27 = 2050;
-      v28 = v13;
-      _os_log_impl(&dword_258FE9000, v16, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Scan duration is exceeded threshold, duration:%{public}.5f, threshold:%{public}.5f}", &v21, 0x26u);
+      v20 = 68289538;
+      v21 = 0;
+      v22 = 2082;
+      v23 = "";
+      v24 = 2050;
+      v25 = v14;
+      v26 = 2050;
+      v27 = v13;
+      _os_log_impl(&dword_258FE9000, v16, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Scan duration is exceeded threshold, duration:%{public}.5f, threshold:%{public}.5f}", &v20, 0x26u);
     }
 
     if (onceToken_MicroLocation_Default != -1)
@@ -3600,15 +2466,15 @@ double ULSensorsDataHandler::getEarliestAllowedTime(uint64_t a1, double *a2, dou
     v17 = logObject_MicroLocation_Default;
     if (os_signpost_enabled(logObject_MicroLocation_Default))
     {
-      v21 = 68289538;
-      v22 = 0;
-      v23 = 2082;
-      v24 = "";
-      v25 = 2050;
-      v26 = v14;
-      v27 = 2050;
-      v28 = v13;
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Scan duration is exceeded threshold", "{msg%{public}.0s:Scan duration is exceeded threshold, duration:%{public}.5f, threshold:%{public}.5f}", &v21, 0x26u);
+      v20 = 68289538;
+      v21 = 0;
+      v22 = 2082;
+      v23 = "";
+      v24 = 2050;
+      v25 = v14;
+      v26 = 2050;
+      v27 = v13;
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Scan duration is exceeded threshold", "{msg%{public}.0s:Scan duration is exceeded threshold, duration:%{public}.5f, threshold:%{public}.5f}", &v20, 0x26u);
     }
 
     v15 = *a2 - v13;
@@ -3627,32 +2493,31 @@ double ULSensorsDataHandler::getEarliestAllowedTime(uint64_t a1, double *a2, dou
   v18 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 68289794;
-    v22 = 0;
-    v23 = 2082;
-    v24 = "";
-    v25 = 2050;
-    v26 = v14;
-    v27 = 2050;
-    v28 = v13;
-    v29 = 2050;
-    v30 = v15;
-    _os_log_impl(&dword_258FE9000, v18, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:getEarliestAllowedTime, , duration:%{public}.5f, threshold:%{public}.5f, earliestAllowedTime:%{public}.5f}", &v21, 0x30u);
+    v20 = 68289794;
+    v21 = 0;
+    v22 = 2082;
+    v23 = "";
+    v24 = 2050;
+    v25 = v14;
+    v26 = 2050;
+    v27 = v13;
+    v28 = 2050;
+    v29 = v15;
+    _os_log_impl(&dword_258FE9000, v18, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:getEarliestAllowedTime, , duration:%{public}.5f, threshold:%{public}.5f, earliestAllowedTime:%{public}.5f}", &v20, 0x30u);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
-void CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasurementDO>>::getEvents(uint64_t a1@<X0>, double *a2@<X1>, double *a3@<X2>, _BYTE *a4@<X3>, void *a5@<X8>)
+void CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasurementDO>>::getEvents(uint64_t a1@<X0>, double *a2@<X1>, double *a3@<X2>, _BYTE *a4@<X3>, uint64_t *a5@<X8>)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (*a2 <= *a3)
   {
     *a4 = 0;
     v16 = *(a1 + 8);
-    *buf = v26;
-    v26[1] = 0;
+    *buf = v25;
+    v25[1] = 0;
     if (v16 == (a1 + 16))
     {
       v17 = 0;
@@ -3697,7 +2562,7 @@ void CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasu
 
     v22 = std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,std::__tree_const_iterator<ULWiFiMeasurementDO,std::__tree_node<ULWiFiMeasurementDO,void *> *,long>,double,std::__identity,CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasurementDO>>::getLatestEvents(double const&,BOOL &)::{lambda(std::_ClassicAlgPolicy const&,double const&)#1}>(v16, a2, v17);
     v23 = *(a1 + 8);
-    *buf = v26;
+    *buf = v25;
     v24 = std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasurementDO>>::getEvents(double const&,double const&,BOOL &)::{lambda(double const&,std::_ClassicAlgPolicy const&)#1},std::__tree_const_iterator<ULWiFiMeasurementDO,std::__tree_node<ULWiFiMeasurementDO,void *> *,long>,std::__tree_const_iterator<ULWiFiMeasurementDO,std::__tree_node<ULWiFiMeasurementDO,void *> *,long>,double,std::__identity>(v23, (a1 + 16), a3);
     if (*(a1 + 8) == v22 && *(a1 + 56) == 1)
     {
@@ -3721,12 +2586,12 @@ void CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasu
       v10 = *a3;
       *buf = 68289538;
       *&buf[4] = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 1026;
-      v31 = v9;
-      v32 = 1026;
-      v33 = v10;
+      v27 = 2082;
+      v28 = "";
+      v29 = 1026;
+      v30 = v9;
+      v31 = 1026;
+      v32 = v10;
       _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Error - events buffer getEvents with invalid timestamps, earliestAllowedTime:%{public}d, latestAllowedTime:%{public}d}", buf, 0x1Eu);
     }
 
@@ -3742,12 +2607,12 @@ void CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasu
       v13 = *a3;
       *buf = 68289538;
       *&buf[4] = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 1026;
-      v31 = v12;
-      v32 = 1026;
-      v33 = v13;
+      v27 = 2082;
+      v28 = "";
+      v29 = 1026;
+      v30 = v12;
+      v31 = 1026;
+      v32 = v13;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Error - events buffer getEvents with invalid timestamps", "{msg%{public}.0s:Error - events buffer getEvents with invalid timestamps, earliestAllowedTime:%{public}d, latestAllowedTime:%{public}d}", buf, 0x1Eu);
     }
 
@@ -3755,19 +2620,17 @@ void CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasu
     a5[1] = 0;
     a5[2] = 0;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
-void CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMeasurementDO>>::getEvents(uint64_t a1@<X0>, double *a2@<X1>, double *a3@<X2>, _BYTE *a4@<X3>, void *a5@<X8>)
+void CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMeasurementDO>>::getEvents(uint64_t a1@<X0>, double *a2@<X1>, double *a3@<X2>, _BYTE *a4@<X3>, uint64_t *a5@<X8>)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (*a2 <= *a3)
   {
     *a4 = 0;
     v16 = *(a1 + 8);
-    *buf = v26;
-    v26[1] = 0;
+    *buf = v25;
+    v25[1] = 0;
     if (v16 == (a1 + 16))
     {
       v17 = 0;
@@ -3812,7 +2675,7 @@ void CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMeasure
 
     v22 = std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,std::__tree_const_iterator<ULWiFiMeasurementDO,std::__tree_node<ULWiFiMeasurementDO,void *> *,long>,double,std::__identity,CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasurementDO>>::getLatestEvents(double const&,BOOL &)::{lambda(std::_ClassicAlgPolicy const&,double const&)#1}>(v16, a2, v17);
     v23 = *(a1 + 8);
-    *buf = v26;
+    *buf = v25;
     v24 = std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasurementDO>>::getEvents(double const&,double const&,BOOL &)::{lambda(double const&,std::_ClassicAlgPolicy const&)#1},std::__tree_const_iterator<ULWiFiMeasurementDO,std::__tree_node<ULWiFiMeasurementDO,void *> *,long>,std::__tree_const_iterator<ULWiFiMeasurementDO,std::__tree_node<ULWiFiMeasurementDO,void *> *,long>,double,std::__identity>(v23, (a1 + 16), a3);
     if (*(a1 + 8) == v22 && *(a1 + 56) == 1)
     {
@@ -3836,12 +2699,12 @@ void CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMeasure
       v10 = *a3;
       *buf = 68289538;
       *&buf[4] = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 1026;
-      v31 = v9;
-      v32 = 1026;
-      v33 = v10;
+      v27 = 2082;
+      v28 = "";
+      v29 = 1026;
+      v30 = v9;
+      v31 = 1026;
+      v32 = v10;
       _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Error - events buffer getEvents with invalid timestamps, earliestAllowedTime:%{public}d, latestAllowedTime:%{public}d}", buf, 0x1Eu);
     }
 
@@ -3857,12 +2720,12 @@ void CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMeasure
       v13 = *a3;
       *buf = 68289538;
       *&buf[4] = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 1026;
-      v31 = v12;
-      v32 = 1026;
-      v33 = v13;
+      v27 = 2082;
+      v28 = "";
+      v29 = 1026;
+      v30 = v12;
+      v31 = 1026;
+      v32 = v13;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Error - events buffer getEvents with invalid timestamps", "{msg%{public}.0s:Error - events buffer getEvents with invalid timestamps, earliestAllowedTime:%{public}d, latestAllowedTime:%{public}d}", buf, 0x1Eu);
     }
 
@@ -3870,19 +2733,17 @@ void CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMeasure
     a5[1] = 0;
     a5[2] = 0;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
-void CLEventsBuffer<ULBLEMeasurementDO,double,MeasDataObjectGetTime<ULBLEMeasurementDO>>::getEvents(uint64_t a1@<X0>, double *a2@<X1>, double *a3@<X2>, _BYTE *a4@<X3>, void *a5@<X8>)
+void CLEventsBuffer<ULBLEMeasurementDO,double,MeasDataObjectGetTime<ULBLEMeasurementDO>>::getEvents(uint64_t a1@<X0>, double *a2@<X1>, double *a3@<X2>, _BYTE *a4@<X3>, uint64_t *a5@<X8>)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (*a2 <= *a3)
   {
     *a4 = 0;
     v16 = *(a1 + 8);
-    *buf = v26;
-    v26[1] = 0;
+    *buf = v25;
+    v25[1] = 0;
     if (v16 == (a1 + 16))
     {
       v17 = 0;
@@ -3927,7 +2788,7 @@ void CLEventsBuffer<ULBLEMeasurementDO,double,MeasDataObjectGetTime<ULBLEMeasure
 
     v22 = std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,std::__tree_const_iterator<ULWiFiMeasurementDO,std::__tree_node<ULWiFiMeasurementDO,void *> *,long>,double,std::__identity,CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasurementDO>>::getLatestEvents(double const&,BOOL &)::{lambda(std::_ClassicAlgPolicy const&,double const&)#1}>(v16, a2, v17);
     v23 = *(a1 + 8);
-    *buf = v26;
+    *buf = v25;
     v24 = std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasurementDO>>::getEvents(double const&,double const&,BOOL &)::{lambda(double const&,std::_ClassicAlgPolicy const&)#1},std::__tree_const_iterator<ULWiFiMeasurementDO,std::__tree_node<ULWiFiMeasurementDO,void *> *,long>,std::__tree_const_iterator<ULWiFiMeasurementDO,std::__tree_node<ULWiFiMeasurementDO,void *> *,long>,double,std::__identity>(v23, (a1 + 16), a3);
     if (*(a1 + 8) == v22 && *(a1 + 56) == 1)
     {
@@ -3951,12 +2812,12 @@ void CLEventsBuffer<ULBLEMeasurementDO,double,MeasDataObjectGetTime<ULBLEMeasure
       v10 = *a3;
       *buf = 68289538;
       *&buf[4] = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 1026;
-      v31 = v9;
-      v32 = 1026;
-      v33 = v10;
+      v27 = 2082;
+      v28 = "";
+      v29 = 1026;
+      v30 = v9;
+      v31 = 1026;
+      v32 = v10;
       _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Error - events buffer getEvents with invalid timestamps, earliestAllowedTime:%{public}d, latestAllowedTime:%{public}d}", buf, 0x1Eu);
     }
 
@@ -3972,12 +2833,12 @@ void CLEventsBuffer<ULBLEMeasurementDO,double,MeasDataObjectGetTime<ULBLEMeasure
       v13 = *a3;
       *buf = 68289538;
       *&buf[4] = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 1026;
-      v31 = v12;
-      v32 = 1026;
-      v33 = v13;
+      v27 = 2082;
+      v28 = "";
+      v29 = 1026;
+      v30 = v12;
+      v31 = 1026;
+      v32 = v13;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Error - events buffer getEvents with invalid timestamps", "{msg%{public}.0s:Error - events buffer getEvents with invalid timestamps, earliestAllowedTime:%{public}d, latestAllowedTime:%{public}d}", buf, 0x1Eu);
     }
 
@@ -3985,13 +2846,11 @@ void CLEventsBuffer<ULBLEMeasurementDO,double,MeasDataObjectGetTime<ULBLEMeasure
     a5[1] = 0;
     a5[2] = 0;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void ULMeasurementFilters::removeDuplicates<ULBLEMeasurementDO>(uint64_t *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v2 = a1[1];
   v4 = std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<ULBLEMeasurementDO *>,std::__wrap_iter<ULBLEMeasurementDO *>,std::__equal_to &>(*a1, v2);
@@ -4005,14 +2864,12 @@ void ULMeasurementFilters::removeDuplicates<ULBLEMeasurementDO>(uint64_t *a1)
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
     v6 = (a1[1] - *a1) >> 5;
-    v8 = 134218240;
-    v9 = (v2 - v3) >> 5;
-    v10 = 2048;
-    v11 = v6;
-    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "Remove duplicates from buffer . read %lu measurements (%lu unique)", &v8, 0x16u);
+    v7 = 134218240;
+    v8 = (v2 - v3) >> 5;
+    v9 = 2048;
+    v10 = v6;
+    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "Remove duplicates from buffer . read %lu measurements (%lu unique)", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void ULSensorsDataHandler::~ULSensorsDataHandler(ULSensorsDataHandler *this)
@@ -4127,18 +2984,18 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<ULScanningTrigger>>(u
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::map<ULTriggerType,int>::map[abi:ne200100](void *a1, __int16 *a2, uint64_t a3)
+uint64_t **std::map<ULTriggerType,int>::map[abi:ne200100](uint64_t **a1, __int16 *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 8 * a3;
     do
     {
-      std::__tree<std::__value_type<ULTriggerType,int>,std::__map_value_compare<ULTriggerType,std::__value_type<ULTriggerType,int>,std::less<ULTriggerType>,true>,std::allocator<std::__value_type<ULTriggerType,int>>>::__emplace_hint_unique_key_args<ULTriggerType,std::pair<ULTriggerType const,int> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<ULTriggerType,int>,std::__map_value_compare<ULTriggerType,std::__value_type<ULTriggerType,int>,std::less<ULTriggerType>,true>,std::allocator<std::__value_type<ULTriggerType,int>>>::__emplace_hint_unique_key_args<ULTriggerType,std::pair<ULTriggerType const,int> const&>(a1, v4, a2, a2);
       a2 += 4;
       v6 -= 8;
     }
@@ -4149,20 +3006,20 @@ void *std::map<ULTriggerType,int>::map[abi:ne200100](void *a1, __int16 *a2, uint
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<ULTriggerType,int>,std::__map_value_compare<ULTriggerType,std::__value_type<ULTriggerType,int>,std::less<ULTriggerType>,true>,std::allocator<std::__value_type<ULTriggerType,int>>>::__emplace_hint_unique_key_args<ULTriggerType,std::pair<ULTriggerType const,int> const&>(void *a1, uint64_t *a2, __int16 *a3)
+void *std::__tree<std::__value_type<ULTriggerType,int>,std::__map_value_compare<ULTriggerType,std::__value_type<ULTriggerType,int>,std::less<ULTriggerType>,true>,std::allocator<std::__value_type<ULTriggerType,int>>>::__emplace_hint_unique_key_args<ULTriggerType,std::pair<ULTriggerType const,int> const&>(uint64_t **a1, uint64_t *a2, __int16 *a3, void *a4)
 {
-  v3 = *std::__tree<std::__value_type<ULTriggerType,int>,std::__map_value_compare<ULTriggerType,std::__value_type<ULTriggerType,int>,std::less<ULTriggerType>,true>,std::allocator<std::__value_type<ULTriggerType,int>>>::__find_equal<ULTriggerType>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<ULTriggerType,int>,std::__map_value_compare<ULTriggerType,std::__value_type<ULTriggerType,int>,std::less<ULTriggerType>,true>,std::allocator<std::__value_type<ULTriggerType,int>>>::__find_equal<ULTriggerType>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t *std::__tree<std::__value_type<ULTriggerType,int>,std::__map_value_compare<ULTriggerType,std::__value_type<ULTriggerType,int>,std::less<ULTriggerType>,true>,std::allocator<std::__value_type<ULTriggerType,int>>>::__find_equal<ULTriggerType>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, __int16 *a5)
+uint64_t *std::__tree<std::__value_type<ULTriggerType,int>,std::__map_value_compare<ULTriggerType,std::__value_type<ULTriggerType,int>,std::less<ULTriggerType>,true>,std::allocator<std::__value_type<ULTriggerType,int>>>::__find_equal<ULTriggerType>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, __int16 *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 14), v6 < v7))
   {
     v8 = *a2;
@@ -4189,7 +3046,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -4250,7 +3107,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -4329,7 +3186,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -4351,41 +3208,41 @@ LABEL_48:
   return a4;
 }
 
-uint64_t *std::__tree<std::__value_type<ULTriggerType,int>,std::__map_value_compare<ULTriggerType,std::__value_type<ULTriggerType,int>,std::less<ULTriggerType>,true>,std::allocator<std::__value_type<ULTriggerType,int>>>::__emplace_unique_key_args<ULTriggerType,std::piecewise_construct_t const&,std::tuple<ULTriggerType const&>,std::tuple<>>(uint64_t a1, __int16 *a2)
+uint64_t *std::__tree<std::__value_type<ULTriggerType,int>,std::__map_value_compare<ULTriggerType,std::__value_type<ULTriggerType,int>,std::less<ULTriggerType>,true>,std::allocator<std::__value_type<ULTriggerType,int>>>::__emplace_unique_key_args<ULTriggerType,std::piecewise_construct_t const&,std::tuple<ULTriggerType const&>,std::tuple<>>(uint64_t a1, __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 28);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -4394,7 +3251,7 @@ LABEL_8:
 
 uint64_t CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasurementDO>>::CLEventsBuffer(uint64_t a1, uint64_t a2, std::string *__str)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   *a1 = a2;
   *(a1 + 16) = 0;
   *(a1 + 8) = a1 + 16;
@@ -4418,18 +3275,17 @@ uint64_t CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiM
       v4 = *v4;
     }
 
-    v8 = 136315138;
-    v9 = v4;
-    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "Initialize EventsBuffer %s", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = v4;
+    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "Initialize EventsBuffer %s", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
 uint64_t CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMeasurementDO>>::CLEventsBuffer(uint64_t a1, uint64_t a2, std::string *__str)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   *a1 = a2;
   *(a1 + 16) = 0;
   *(a1 + 8) = a1 + 16;
@@ -4453,18 +3309,17 @@ uint64_t CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMea
       v4 = *v4;
     }
 
-    v8 = 136315138;
-    v9 = v4;
-    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "Initialize EventsBuffer %s", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = v4;
+    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "Initialize EventsBuffer %s", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
 uint64_t CLEventsBuffer<ULBLEMeasurementDO,double,MeasDataObjectGetTime<ULBLEMeasurementDO>>::CLEventsBuffer(uint64_t a1, uint64_t a2, std::string *__str)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   *a1 = a2;
   *(a1 + 16) = 0;
   *(a1 + 8) = a1 + 16;
@@ -4488,12 +3343,11 @@ uint64_t CLEventsBuffer<ULBLEMeasurementDO,double,MeasDataObjectGetTime<ULBLEMea
       v4 = *v4;
     }
 
-    v8 = 136315138;
-    v9 = v4;
-    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "Initialize EventsBuffer %s", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = v4;
+    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "Initialize EventsBuffer %s", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -4527,33 +3381,33 @@ void std::__hash_table<std::__hash_value_type<int,std::unordered_set<ULWiFiScanC
   }
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -4561,49 +3415,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_2591221DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2591221DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4635,7 +3489,7 @@ uint64_t std::unordered_set<ULWiFiScanChannel>::unordered_set<std::__wrap_iter<U
     v5 = a2;
     do
     {
-      std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::equal_to<ULWiFiScanChannel>,std::allocator<ULWiFiScanChannel>>::__emplace_unique_key_args<ULWiFiScanChannel,ULWiFiScanChannel const&>(a1, v5);
+      std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::equal_to<ULWiFiScanChannel>,std::allocator<ULWiFiScanChannel>>::__emplace_unique_key_args<ULWiFiScanChannel,ULWiFiScanChannel const&>(a1, v5, v5);
       v5 += 8;
     }
 
@@ -4645,35 +3499,35 @@ uint64_t std::unordered_set<ULWiFiScanChannel>::unordered_set<std::__wrap_iter<U
   return a1;
 }
 
-uint64_t *std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::equal_to<ULWiFiScanChannel>,std::allocator<ULWiFiScanChannel>>::__emplace_unique_key_args<ULWiFiScanChannel,ULWiFiScanChannel const&>(void *a1, unsigned __int8 *a2)
+uint64_t *std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::equal_to<ULWiFiScanChannel>,std::allocator<ULWiFiScanChannel>>::__emplace_unique_key_args<ULWiFiScanChannel,ULWiFiScanChannel const&>(void *a1, unsigned __int8 *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = *(a2 + 1);
-  v4 = v2 ^ (2 * v3);
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = *a2;
+  v4 = *(a2 + 1);
+  v5 = v3 ^ (2 * v4);
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_22;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = v2 ^ (2 * v3);
-    if (v4 >= *&v5)
+    v8 = v3 ^ (2 * v4);
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_22:
     operator new();
@@ -4681,44 +3535,44 @@ LABEL_22:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_22;
     }
   }
 
-  if (*(v9 + 16) != v2 || *(v9 + 5) != v3)
+  if (*(v10 + 16) != v3 || *(v10 + 5) != v4)
   {
     goto LABEL_21;
   }
 
-  return v9;
+  return v10;
 }
 
 uint64_t *std::__hash_table<std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<ULWiFiScanChannel>>>>::__erase_unique<int>(void *a1, int *a2)
@@ -4770,13 +3624,6 @@ uint64_t *std::__tree<ULBLEMeasurementDO,CLEventsBuffer<ULBLEMeasurementDO,doubl
   return a3;
 }
 
-void std::insert_iterator<std::multiset<ULUWBMeasurementDO,CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMeasurementDO>>::EventsComparator,std::allocator<ULUWBMeasurementDO>>>::operator=[abi:ne200100](uint64_t *a1)
-{
-  v2 = *a1;
-  v3 = a1[1];
-  std::__tree<ULUWBMeasurementDO,CLEventsBuffer<ULUWBMeasurementDO,double,MeasDataObjectGetTime<ULUWBMeasurementDO>>::EventsComparator,std::allocator<ULUWBMeasurementDO>>::__emplace_hint_multi<ULUWBMeasurementDO const&>();
-}
-
 void std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::equal_to<ULWiFiScanChannel>,std::allocator<ULWiFiScanChannel>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<ULWiFiScanChannel,void *> *>>(void *a1, void *a2, void *a3)
 {
   v6 = a1[1];
@@ -4819,7 +3666,7 @@ void std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::equal
 LABEL_11:
   if (a2 != a3)
   {
-    std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::equal_to<ULWiFiScanChannel>,std::allocator<ULWiFiScanChannel>>::__emplace_multi<ULWiFiScanChannel const&>();
+    std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::equal_to<ULWiFiScanChannel>,std::allocator<ULWiFiScanChannel>>::__emplace_multi<ULWiFiScanChannel const&>(a1, a2 + 2);
   }
 }
 
@@ -4944,7 +3791,7 @@ uint64_t std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::e
   return result;
 }
 
-void std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::equal_to<ULWiFiScanChannel>,std::allocator<ULWiFiScanChannel>>::__rehash<false>(uint64_t a1, size_t __n)
+void std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::equal_to<ULWiFiScanChannel>,std::allocator<ULWiFiScanChannel>>::__rehash<false>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -4960,7 +3807,7 @@ void std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::equal
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -4968,7 +3815,7 @@ void std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::equal
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -4992,7 +3839,7 @@ void std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::equal
     {
 LABEL_6:
 
-      std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::equal_to<ULWiFiScanChannel>,std::allocator<ULWiFiScanChannel>>::__do_rehash<false>(a1, prime);
+      std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::equal_to<ULWiFiScanChannel>,std::allocator<ULWiFiScanChannel>>::__do_rehash<false>(result, prime);
     }
   }
 }
@@ -5017,13 +3864,6 @@ void std::__hash_table<ULWiFiScanChannel,std::hash<ULWiFiScanChannel>,std::equal
   }
 
   *(a1 + 8) = 0;
-}
-
-void std::insert_iterator<std::multiset<ULWiFiMeasurementDO,CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasurementDO>>::EventsComparator,std::allocator<ULWiFiMeasurementDO>>>::operator=[abi:ne200100](uint64_t *a1)
-{
-  v2 = *a1;
-  v3 = a1[1];
-  std::__tree<ULWiFiMeasurementDO,CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasurementDO>>::EventsComparator,std::allocator<ULWiFiMeasurementDO>>::__emplace_hint_multi<ULWiFiMeasurementDO const&>();
 }
 
 double *std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,CLEventsBuffer<ULWiFiMeasurementDO,double,MeasDataObjectGetTime<ULWiFiMeasurementDO>>::getEvents(double const&,double const&,BOOL &)::{lambda(double const&,std::_ClassicAlgPolicy const&)#1},std::__tree_const_iterator<ULWiFiMeasurementDO,std::__tree_node<ULWiFiMeasurementDO,void *> *,long>,std::__tree_const_iterator<ULWiFiMeasurementDO,std::__tree_node<ULWiFiMeasurementDO,void *> *,long>,double,std::__identity>(double *a1, double *a2, double *a3)
@@ -5108,7 +3948,7 @@ double *std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,CLEventsBuffer<U
   return v3;
 }
 
-void *std::vector<ULUWBMeasurementDO>::vector[abi:ne200100]<std::__tree_const_iterator<ULUWBMeasurementDO,std::__tree_node<ULUWBMeasurementDO,void *> *,long>,0>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t *std::vector<ULUWBMeasurementDO>::vector[abi:ne200100]<std::__tree_const_iterator<ULUWBMeasurementDO,std::__tree_node<ULUWBMeasurementDO,void *> *,long>,0>(uint64_t *a1, void *a2, void *a3)
 {
   v4 = 0;
   *a1 = 0;
@@ -5155,7 +3995,7 @@ void *std::vector<ULUWBMeasurementDO>::vector[abi:ne200100]<std::__tree_const_it
   return a1;
 }
 
-uint64_t std::vector<ULUWBMeasurementDO>::__init_with_size[abi:ne200100]<std::__tree_const_iterator<ULUWBMeasurementDO,std::__tree_node<ULUWBMeasurementDO,void *> *,long>,std::__tree_const_iterator<ULUWBMeasurementDO,std::__tree_node<ULUWBMeasurementDO,void *> *,long>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ULUWBMeasurementDO>::__init_with_size[abi:ne200100]<std::__tree_const_iterator<ULUWBMeasurementDO,std::__tree_node<ULUWBMeasurementDO,void *> *,long>,std::__tree_const_iterator<ULUWBMeasurementDO,std::__tree_node<ULUWBMeasurementDO,void *> *,long>>(uint64_t *result, void *a2, void *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5177,7 +4017,7 @@ void sub_259123058(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<ULBLEMeasurementDO>::vector[abi:ne200100]<std::__tree_const_iterator<ULBLEMeasurementDO,std::__tree_node<ULBLEMeasurementDO,void *> *,long>,0>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t *std::vector<ULBLEMeasurementDO>::vector[abi:ne200100]<std::__tree_const_iterator<ULBLEMeasurementDO,std::__tree_node<ULBLEMeasurementDO,void *> *,long>,0>(uint64_t *a1, void *a2, void *a3)
 {
   v4 = 0;
   *a1 = 0;
@@ -5224,7 +4064,7 @@ void *std::vector<ULBLEMeasurementDO>::vector[abi:ne200100]<std::__tree_const_it
   return a1;
 }
 
-uint64_t std::vector<ULBLEMeasurementDO>::__init_with_size[abi:ne200100]<std::__tree_const_iterator<ULBLEMeasurementDO,std::__tree_node<ULBLEMeasurementDO,void *> *,long>,std::__tree_const_iterator<ULBLEMeasurementDO,std::__tree_node<ULBLEMeasurementDO,void *> *,long>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ULBLEMeasurementDO>::__init_with_size[abi:ne200100]<std::__tree_const_iterator<ULBLEMeasurementDO,std::__tree_node<ULBLEMeasurementDO,void *> *,long>,std::__tree_const_iterator<ULBLEMeasurementDO,std::__tree_node<ULBLEMeasurementDO,void *> *,long>>(uint64_t *result, void *a2, void *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5318,7 +4158,7 @@ void *ULSensorsDataProvider::ULSensorsDataProvider(void *result, uint64_t *a2, v
 
 uint64_t ULSensorsDataProvider::onBleRssiMeasurement(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULSensorsDataProvider::onBleRssiMeasurement();
@@ -5327,21 +4167,19 @@ uint64_t ULSensorsDataProvider::onBleRssiMeasurement(uint64_t a1, uint64_t a2)
   v4 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEBUG))
   {
-    v7[0] = 68289026;
-    v7[1] = 0;
-    v8 = 2082;
-    v9 = "";
-    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Got BLE Measurement}", v7, 0x12u);
+    v6[0] = 68289026;
+    v6[1] = 0;
+    v7 = 2082;
+    v8 = "";
+    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Got BLE Measurement}", v6, 0x12u);
   }
 
-  result = (*(**(a1 + 56) + 16))(*(a1 + 56), a2);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(**(a1 + 56) + 16))(*(a1 + 56), a2);
 }
 
 uint64_t ULSensorsDataProvider::onWiFiRssiMeasurements(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULSensorsDataProvider::onBleRssiMeasurement();
@@ -5351,25 +4189,23 @@ uint64_t ULSensorsDataProvider::onWiFiRssiMeasurements(uint64_t a1, void *a2)
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
     v5 = (a2[1] - *a2) >> 5;
-    v8[0] = 68289538;
-    v8[1] = 0;
-    v9 = 2082;
-    v10 = "";
-    v11 = 2082;
-    v12 = "onWiFiRssiMeasurements";
-    v13 = 1026;
-    v14 = v5;
-    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Got WiFi Measurements, method:%{public, location:escape_only}s, count::%{public}d}", v8, 0x22u);
+    v7[0] = 68289538;
+    v7[1] = 0;
+    v8 = 2082;
+    v9 = "";
+    v10 = 2082;
+    v11 = "onWiFiRssiMeasurements";
+    v12 = 1026;
+    v13 = v5;
+    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Got WiFi Measurements, method:%{public, location:escape_only}s, count::%{public}d}", v7, 0x22u);
   }
 
-  result = (*(**(a1 + 56) + 32))(*(a1 + 56), a2);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(**(a1 + 56) + 32))(*(a1 + 56), a2);
 }
 
 void ULSensorsDataProvider::onWiFiRssiScanCompletion(ULSensorsDataProvider *this, double a2, NSError *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -5379,25 +4215,23 @@ void ULSensorsDataProvider::onWiFiRssiScanCompletion(ULSensorsDataProvider *this
   v6 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 68289538;
-    v8[1] = 0;
-    v9 = 2082;
-    v10 = "";
-    v11 = 2082;
-    v12 = "onWiFiRssiScanCompletion";
-    v13 = 2114;
-    v14 = v5;
-    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:WiFi scan complete, method:%{public, location:escape_only}s, error::%{public, location:escape_only}@}", v8, 0x26u);
+    v7[0] = 68289538;
+    v7[1] = 0;
+    v8 = 2082;
+    v9 = "";
+    v10 = 2082;
+    v11 = "onWiFiRssiScanCompletion";
+    v12 = 2114;
+    v13 = v5;
+    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:WiFi scan complete, method:%{public, location:escape_only}s, error::%{public, location:escape_only}@}", v7, 0x26u);
   }
 
   (*(**(this + 5) + 96))(*(this + 5), v5, a2);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ULSensorsDataProvider::appendScanTrigger(ULSensorsDataProvider *this, const ULScanningTrigger *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULSensorsDataProvider::onBleRssiMeasurement();
@@ -5407,7 +4241,7 @@ uint64_t ULSensorsDataProvider::appendScanTrigger(ULSensorsDataProvider *this, c
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     ULScanningTrigger::description(a2, __p);
-    if (v9 >= 0)
+    if (v8 >= 0)
     {
       v5 = __p;
     }
@@ -5418,28 +4252,26 @@ uint64_t ULSensorsDataProvider::appendScanTrigger(ULSensorsDataProvider *this, c
     }
 
     *buf = 68289538;
-    v11 = 0;
-    v12 = 2082;
-    v13 = "";
-    v14 = 2082;
-    v15 = "appendScanTrigger";
-    v16 = 2082;
-    v17 = v5;
+    v10 = 0;
+    v11 = 2082;
+    v12 = "";
+    v13 = 2082;
+    v14 = "appendScanTrigger";
+    v15 = 2082;
+    v16 = v5;
     _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:append trigger, method:%{public, location:escape_only}s, description::%{public, location:escape_only}s}", buf, 0x26u);
-    if (v9 < 0)
+    if (v8 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  result = (*(**(this + 7) + 64))(*(this + 7), a2);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(**(this + 7) + 64))(*(this + 7), a2);
 }
 
 void ULSensorsDataProvider::onScanComplete(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v7 = a4;
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -5449,23 +4281,21 @@ void ULSensorsDataProvider::onScanComplete(uint64_t a1, uint64_t a2, uint64_t a3
   v8 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEBUG))
   {
-    v10[0] = 68289282;
-    v10[1] = 0;
-    v11 = 2082;
-    v12 = "";
-    v13 = 2082;
-    v14 = "onScanComplete";
-    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Scan Complete, method:%{public, location:escape_only}s}", v10, 0x1Cu);
+    v9[0] = 68289282;
+    v9[1] = 0;
+    v10 = 2082;
+    v11 = "";
+    v12 = 2082;
+    v13 = "onScanComplete";
+    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Scan Complete, method:%{public, location:escape_only}s}", v9, 0x1Cu);
   }
 
   (*(**(a1 + 56) + 48))(*(a1 + 56), a2, a3, v7);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void ULSensorsDataProvider::onInterfaceInvalidation(ULSensorsDataProvider *this)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULSensorsDataProvider::onBleRssiMeasurement();
@@ -5474,13 +4304,13 @@ void ULSensorsDataProvider::onInterfaceInvalidation(ULSensorsDataProvider *this)
   v1 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
   {
-    v4 = 68289282;
-    v5 = 0;
-    v6 = 2082;
-    v7 = "";
-    v8 = 2082;
-    v9 = "onInterfaceInvalidation";
-    _os_log_impl(&dword_258FE9000, v1, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Error: Unexpected WiFi Interface invalidation, method:%{public, location:escape_only}s}", &v4, 0x1Cu);
+    v3 = 68289282;
+    v4 = 0;
+    v5 = 2082;
+    v6 = "";
+    v7 = 2082;
+    v8 = "onInterfaceInvalidation";
+    _os_log_impl(&dword_258FE9000, v1, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Error: Unexpected WiFi Interface invalidation, method:%{public, location:escape_only}s}", &v3, 0x1Cu);
   }
 
   if (onceToken_MicroLocation_Default != -1)
@@ -5491,21 +4321,19 @@ void ULSensorsDataProvider::onInterfaceInvalidation(ULSensorsDataProvider *this)
   v2 = logObject_MicroLocation_Default;
   if (os_signpost_enabled(logObject_MicroLocation_Default))
   {
-    v4 = 68289282;
-    v5 = 0;
-    v6 = 2082;
-    v7 = "";
-    v8 = 2082;
-    v9 = "onInterfaceInvalidation";
-    _os_signpost_emit_with_name_impl(&dword_258FE9000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Error: Unexpected WiFi Interface invalidation", "{msg%{public}.0s:Error: Unexpected WiFi Interface invalidation, method:%{public, location:escape_only}s}", &v4, 0x1Cu);
+    v3 = 68289282;
+    v4 = 0;
+    v5 = 2082;
+    v6 = "";
+    v7 = 2082;
+    v8 = "onInterfaceInvalidation";
+    _os_signpost_emit_with_name_impl(&dword_258FE9000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Error: Unexpected WiFi Interface invalidation", "{msg%{public}.0s:Error: Unexpected WiFi Interface invalidation, method:%{public, location:escape_only}s}", &v3, 0x1Cu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void ULSensorsDataProvider::onHomeNearbySessionCreated(ULSensorsDataProvider *this)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   ULSensorsDataHandler::onHomeNearbyUpdate(*(this + 7), 0);
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -5515,21 +4343,19 @@ void ULSensorsDataProvider::onHomeNearbySessionCreated(ULSensorsDataProvider *th
   v1 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v3[0] = 68289282;
-    v3[1] = 0;
-    v4 = 2082;
-    v5 = "";
-    v6 = 2082;
-    v7 = "onHomeNearbySessionCreated";
-    _os_log_impl(&dword_258FE9000, v1, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Nearby session created, method:%{public, location:escape_only}s}", v3, 0x1Cu);
+    v2[0] = 68289282;
+    v2[1] = 0;
+    v3 = 2082;
+    v4 = "";
+    v5 = 2082;
+    v6 = "onHomeNearbySessionCreated";
+    _os_log_impl(&dword_258FE9000, v1, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Nearby session created, method:%{public, location:escape_only}s}", v2, 0x1Cu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void ULSensorsDataProvider::onHomeNearbySessionStopped(ULSensorsDataProvider *this)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   ULSensorsDataHandler::onHomeNearbyUpdate(*(this + 7), 2);
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -5539,21 +4365,19 @@ void ULSensorsDataProvider::onHomeNearbySessionStopped(ULSensorsDataProvider *th
   v1 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v3[0] = 68289282;
-    v3[1] = 0;
-    v4 = 2082;
-    v5 = "";
-    v6 = 2082;
-    v7 = "onHomeNearbySessionStopped";
-    _os_log_impl(&dword_258FE9000, v1, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Nearby session stopped, method:%{public, location:escape_only}s}", v3, 0x1Cu);
+    v2[0] = 68289282;
+    v2[1] = 0;
+    v3 = 2082;
+    v4 = "";
+    v5 = 2082;
+    v6 = "onHomeNearbySessionStopped";
+    _os_log_impl(&dword_258FE9000, v1, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Nearby session stopped, method:%{public, location:escape_only}s}", v2, 0x1Cu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void ULSensorsDataProvider::onHomeNearbySessionSuspended(ULSensorsDataProvider *this)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   ULSensorsDataHandler::onHomeNearbyUpdate(*(this + 7), 1);
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -5563,21 +4387,19 @@ void ULSensorsDataProvider::onHomeNearbySessionSuspended(ULSensorsDataProvider *
   v1 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v3[0] = 68289282;
-    v3[1] = 0;
-    v4 = 2082;
-    v5 = "";
-    v6 = 2082;
-    v7 = "onHomeNearbySessionSuspended";
-    _os_log_impl(&dword_258FE9000, v1, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Nearby session suspended, method:%{public, location:escape_only}s}", v3, 0x1Cu);
+    v2[0] = 68289282;
+    v2[1] = 0;
+    v3 = 2082;
+    v4 = "";
+    v5 = 2082;
+    v6 = "onHomeNearbySessionSuspended";
+    _os_log_impl(&dword_258FE9000, v1, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Nearby session suspended, method:%{public, location:escape_only}s}", v2, 0x1Cu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void ULSensorsDataProvider::onHomeNearbySessionResumed(ULSensorsDataProvider *this)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   ULSensorsDataHandler::onHomeNearbyUpdate(*(this + 7), 0);
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -5587,21 +4409,19 @@ void ULSensorsDataProvider::onHomeNearbySessionResumed(ULSensorsDataProvider *th
   v1 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v3[0] = 68289282;
-    v3[1] = 0;
-    v4 = 2082;
-    v5 = "";
-    v6 = 2082;
-    v7 = "onHomeNearbySessionResumed";
-    _os_log_impl(&dword_258FE9000, v1, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Nearby session resumed, method:%{public, location:escape_only}s}", v3, 0x1Cu);
+    v2[0] = 68289282;
+    v2[1] = 0;
+    v3 = 2082;
+    v4 = "";
+    v5 = 2082;
+    v6 = "onHomeNearbySessionResumed";
+    _os_log_impl(&dword_258FE9000, v1, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Nearby session resumed, method:%{public, location:escape_only}s}", v2, 0x1Cu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ULSensorsDataProvider::onUwbRangeMeasurements(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULSensorsDataProvider::onBleRssiMeasurement();
@@ -5610,18 +4430,16 @@ uint64_t ULSensorsDataProvider::onUwbRangeMeasurements(uint64_t a1, uint64_t a2)
   v4 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEBUG))
   {
-    v7[0] = 68289282;
-    v7[1] = 0;
-    v8 = 2082;
-    v9 = "";
-    v10 = 2082;
-    v11 = "onUwbRangeMeasurements";
-    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Got UWB Measurement, method:%{public, location:escape_only}s}", v7, 0x1Cu);
+    v6[0] = 68289282;
+    v6[1] = 0;
+    v7 = 2082;
+    v8 = "";
+    v9 = 2082;
+    v10 = "onUwbRangeMeasurements";
+    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Got UWB Measurement, method:%{public, location:escape_only}s}", v6, 0x1Cu);
   }
 
-  result = (*(**(a1 + 56) + 24))(*(a1 + 56), a2);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(**(a1 + 56) + 24))(*(a1 + 56), a2);
 }
 
 void ULSensorsDataProvider::~ULSensorsDataProvider(ULSensorsDataProvider *this)
@@ -5839,7 +4657,7 @@ void ___ZL45_CLLogObjectForCategory_MicroLocation_Defaultv_block_invoke_92()
 
 uint64_t ULSensorsManager::ULSensorsManager(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   *a1 = &unk_286A5AB48;
   *(a1 + 8) = 0u;
   *(a1 + 24) = 0u;
@@ -5885,16 +4703,15 @@ uint64_t ULSensorsManager::ULSensorsManager(uint64_t a1, void *a2)
   v5 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 68289282;
-    v8[1] = 0;
-    v9 = 2082;
-    v10 = "";
-    v11 = 2082;
-    v12 = "ULSensorsManager";
-    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Sensors Manager Initialization, method:%{public, location:escape_only}s}", v8, 0x1Cu);
+    v7[0] = 68289282;
+    v7[1] = 0;
+    v8 = 2082;
+    v9 = "";
+    v10 = 2082;
+    v11 = "ULSensorsManager";
+    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Sensors Manager Initialization, method:%{public, location:escape_only}s}", v7, 0x1Cu);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -5947,16 +4764,16 @@ void ULSensorsManager::setDependencies(uint64_t a1, uint64_t *a2, uint64_t *a3, 
 
 BOOL ULSensorsManager::addScanningProfile(ULSensorsManager *this, const ULScanningProfile *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   Index = ULScanningProfile::getIndex(a2);
   v5 = *(a2 + 3);
-  *&v15[32] = *(a2 + 2);
-  v16 = v5;
-  v17 = *(a2 + 4);
+  *&v14[32] = *(a2 + 2);
+  v15 = v5;
+  v16 = *(a2 + 4);
   v6 = *(a2 + 1);
-  *v15 = *a2;
-  *&v15[16] = v6;
-  v7 = ULStaticMap<int,ULScanningProfile,20ul>::updateOrInsert(this + 96, Index, v15);
+  *v14 = *a2;
+  *&v14[16] = v6;
+  v7 = ULStaticMap<int,ULScanningProfile,20ul>::updateOrInsert(this + 96, Index, v14);
   if (v7 == 2)
   {
     if (onceToken_MicroLocation_Default != -1)
@@ -5968,14 +4785,14 @@ BOOL ULSensorsManager::addScanningProfile(ULSensorsManager *this, const ULScanni
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = ULScanningProfile::getIndex(a2);
-      *v15 = 68289538;
-      *&v15[8] = 2082;
-      *&v15[10] = "";
-      *&v15[18] = 2082;
-      *&v15[20] = "addScanningProfile";
-      *&v15[28] = 1026;
-      *&v15[30] = v12;
-      _os_log_impl(&dword_258FE9000, v11, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:add scanning profile failed, method:%{public, location:escape_only}s, profile index:%{public}d}", v15, 0x22u);
+      *v14 = 68289538;
+      *&v14[8] = 2082;
+      *&v14[10] = "";
+      *&v14[18] = 2082;
+      *&v14[20] = "addScanningProfile";
+      *&v14[28] = 1026;
+      *&v14[30] = v12;
+      _os_log_impl(&dword_258FE9000, v11, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:add scanning profile failed, method:%{public, location:escape_only}s, profile index:%{public}d}", v14, 0x22u);
     }
   }
 
@@ -5997,38 +4814,35 @@ BOOL ULSensorsManager::addScanningProfile(ULSensorsManager *this, const ULScanni
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = ULScanningProfile::getIndex(a2);
-      *v15 = 68289538;
-      *&v15[8] = 2082;
-      *&v15[10] = "";
-      *&v15[18] = 2082;
-      *&v15[20] = "addScanningProfile";
-      *&v15[28] = 1026;
-      *&v15[30] = v10;
-      _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:add scanning profile, method:%{public, location:escape_only}s, profile index:%{public}d}", v15, 0x22u);
+      *v14 = 68289538;
+      *&v14[8] = 2082;
+      *&v14[10] = "";
+      *&v14[18] = 2082;
+      *&v14[20] = "addScanningProfile";
+      *&v14[28] = 1026;
+      *&v14[30] = v10;
+      _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:add scanning profile, method:%{public, location:escape_only}s, profile index:%{public}d}", v14, 0x22u);
     }
 
     if (ULScanningProfile::getIndex(a2) == 4)
     {
-      ULScanningProfile::getTechnologyConfig(a2, 1uLL, v15);
-      *(this + 1945) = v15[13];
-      ULScanningProfile::getTechnologyConfig(a2, 2uLL, v15);
-      *(this + 1946) = v15[13];
-      ULScanningProfile::getTechnologyConfig(a2, 1uLL, v15);
-      *(this + 487) = *&v15[8];
-      ULScanningProfile::getTechnologyConfig(a2, 2uLL, v15);
-      *(this + 488) = *&v15[8];
+      ULScanningProfile::getTechnologyConfig(a2, 1uLL, v14);
+      *(this + 1945) = v14[13];
+      ULScanningProfile::getTechnologyConfig(a2, 2uLL, v14);
+      *(this + 1946) = v14[13];
+      ULScanningProfile::getTechnologyConfig(a2, 1uLL, v14);
+      *(this + 487) = *&v14[8];
+      ULScanningProfile::getTechnologyConfig(a2, 2uLL, v14);
+      *(this + 488) = *&v14[8];
       ULSensorsManager::requestBackgroundScanIfNeeded(this);
     }
   }
 
-  result = v7 != 2;
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return v7 != 2;
 }
 
 uint64_t ULStaticMap<int,ULScanningProfile,20ul>::updateOrInsert(uint64_t a1, int a2, _OWORD *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 1760);
   if (v3)
   {
@@ -6047,7 +4861,7 @@ uint64_t ULStaticMap<int,ULScanningProfile,20ul>::updateOrInsert(uint64_t a1, in
         v4[4] = v15;
         v4[1] = v13;
         v4[2] = v14;
-        goto LABEL_9;
+        return result;
       }
 
       v4 = (v4 + 88);
@@ -6060,7 +4874,7 @@ uint64_t ULStaticMap<int,ULScanningProfile,20ul>::updateOrInsert(uint64_t a1, in
       goto LABEL_6;
     }
 
-    result = 2;
+    return 2;
   }
 
   else
@@ -6079,18 +4893,14 @@ LABEL_6:
     *(v11 + 56) = v7;
     *(v11 + 72) = v6;
     *(v11 + 8) = v10;
-    result = 1;
+    return 1;
   }
-
-LABEL_9:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 unsigned __int8 *ULSensorsManager::requestBackgroundScanIfNeeded(unsigned __int8 *this)
 {
   v1 = this;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = this[1945];
   if ((v2 & 1) != 0 || this[1946] == 1)
   {
@@ -6105,16 +4915,16 @@ unsigned __int8 *ULSensorsManager::requestBackgroundScanIfNeeded(unsigned __int8
       v6 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 68289282;
-        v14 = 0;
-        v15 = 2082;
-        v16 = "";
-        v17 = 2082;
-        v18 = "requestBackgroundScanIfNeeded";
-        _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Initiate BLE backgound scans, method:%{public, location:escape_only}s}", &v13, 0x1Cu);
+        v12 = 68289282;
+        v13 = 0;
+        v14 = 2082;
+        v15 = "";
+        v16 = 2082;
+        v17 = "requestBackgroundScanIfNeeded";
+        _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Initiate BLE backgound scans, method:%{public, location:escape_only}s}", &v12, 0x1Cu);
       }
 
-      this = (*(**(v1 + 72) + 16))(*(v1 + 72), *(v1 + 1948));
+      this = (*(**(v1 + 9) + 16))(*(v1 + 9), *(v1 + 487));
       if (this)
       {
         v7 = 5;
@@ -6125,12 +4935,12 @@ unsigned __int8 *ULSensorsManager::requestBackgroundScanIfNeeded(unsigned __int8
         v7 = 6;
       }
 
-      *(v1 + 2032) = v7;
+      v1[2032] = v7;
     }
 
-    v8 = *(v1 + 2056);
+    v8 = v1[2056];
     v9 = v8 == 4 || v8 == 1;
-    if (v9 && *(v1 + 1946) == 1)
+    if (v9 && v1[1946] == 1)
     {
       if (onceToken_MicroLocation_Default != -1)
       {
@@ -6140,16 +4950,16 @@ unsigned __int8 *ULSensorsManager::requestBackgroundScanIfNeeded(unsigned __int8
       v10 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 68289282;
-        v14 = 0;
-        v15 = 2082;
-        v16 = "";
-        v17 = 2082;
-        v18 = "requestBackgroundScanIfNeeded";
-        _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Initiate UWB backgound scans, method:%{public, location:escape_only}s}", &v13, 0x1Cu);
+        v12 = 68289282;
+        v13 = 0;
+        v14 = 2082;
+        v15 = "";
+        v16 = 2082;
+        v17 = "requestBackgroundScanIfNeeded";
+        _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Initiate UWB backgound scans, method:%{public, location:escape_only}s}", &v12, 0x1Cu);
       }
 
-      this = (*(**(v1 + 80) + 16))(*(v1 + 80), *(v1 + 1952));
+      this = (*(**(v1 + 10) + 16))(*(v1 + 10), *(v1 + 488));
       if (this)
       {
         v11 = 5;
@@ -6160,17 +4970,16 @@ unsigned __int8 *ULSensorsManager::requestBackgroundScanIfNeeded(unsigned __int8
         v11 = 6;
       }
 
-      *(v1 + 2056) = v11;
+      v1[2056] = v11;
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-void ULSensorsManager::addTechnologyProfile(uint64_t a1, int *a2)
+void ULSensorsManager::addTechnologyProfile(uint64_t a1, unsigned int *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   (*(**(a1 + 88) + 40))(*(a1 + 88));
   if (*a2 >= 0x20)
   {
@@ -6194,22 +5003,20 @@ void ULSensorsManager::addTechnologyProfile(uint64_t a1, int *a2)
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *a2;
-    v8[0] = 68289538;
-    v8[1] = 0;
-    v9 = 2082;
-    v10 = "";
-    v11 = 2082;
-    v12 = "addTechnologyProfile";
-    v13 = 1026;
-    v14 = v6;
-    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Add WiFi Profile, method:%{public, location:escape_only}s, index:%{public}d}", v8, 0x22u);
+    v7[0] = 68289538;
+    v7[1] = 0;
+    v8 = 2082;
+    v9 = "";
+    v10 = 2082;
+    v11 = "addTechnologyProfile";
+    v12 = 1026;
+    v13 = v6;
+    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Add WiFi Profile, method:%{public, location:escape_only}s, index:%{public}d}", v7, 0x22u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   (*(**(a1 + 80) + 40))(*(a1 + 80));
   if (*a2 >= 0x20)
   {
@@ -6233,23 +5040,21 @@ void ULSensorsManager::addTechnologyProfile(uint64_t a1, int *a2)
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *a2;
-    v8[0] = 68289538;
-    v8[1] = 0;
-    v9 = 2082;
-    v10 = "";
-    v11 = 2082;
-    v12 = "addTechnologyProfile";
-    v13 = 1026;
-    v14 = v6;
-    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Add UWB Profile, method:%{public, location:escape_only}s, index:%{public}d}", v8, 0x22u);
+    v7[0] = 68289538;
+    v7[1] = 0;
+    v8 = 2082;
+    v9 = "";
+    v10 = 2082;
+    v11 = "addTechnologyProfile";
+    v12 = 1026;
+    v13 = v6;
+    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Add UWB Profile, method:%{public, location:escape_only}s, index:%{public}d}", v7, 0x22u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void ULSensorsManager::addTechnologyProfile(ULSensorsManager *this, const ULBleTechnologyProfile *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   (*(**(this + 9) + 40))(*(this + 9));
   v4 = *a2;
   if (*a2)
@@ -6283,24 +5088,22 @@ void ULSensorsManager::addTechnologyProfile(ULSensorsManager *this, const ULBleT
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *a2;
-    v9[0] = 68289538;
-    v9[1] = 0;
-    v10 = 2082;
-    v11 = "";
-    v12 = 2082;
-    v13 = "addTechnologyProfile";
-    v14 = 1026;
-    v15 = v7;
-    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Add BLE Profile, method:%{public, location:escape_only}s, index:%{public}d}", v9, 0x22u);
+    v8[0] = 68289538;
+    v8[1] = 0;
+    v9 = 2082;
+    v10 = "";
+    v11 = 2082;
+    v12 = "addTechnologyProfile";
+    v13 = 1026;
+    v14 = v7;
+    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Add BLE Profile, method:%{public, location:escape_only}s, index:%{public}d}", v8, 0x22u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ULSensorsManager::removeScanningProfile(ULSensorsManager *this, unsigned int a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v16 = a2;
+  v24 = *MEMORY[0x277D85DE8];
+  v15 = a2;
   v3 = *(this + 232);
   if (v3)
   {
@@ -6344,29 +5147,29 @@ uint64_t ULSensorsManager::removeScanningProfile(ULSensorsManager *this, unsigne
         ULSensorsManager::ULSensorsManager();
       }
 
-      v14 = logObject_MicroLocation_Default;
+      v13 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68289538;
-        v18 = 0;
-        v19 = 2082;
-        v20 = "";
-        v21 = 2082;
-        v22 = "removeScanningProfile";
-        v23 = 1026;
-        v24 = a2;
-        _os_log_impl(&dword_258FE9000, v14, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:remove Scanning profile, method:%{public, location:escape_only}s, index:%{public}d}", buf, 0x22u);
+        v17 = 0;
+        v18 = 2082;
+        v19 = "";
+        v20 = 2082;
+        v21 = "removeScanningProfile";
+        v22 = 1026;
+        v23 = a2;
+        _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:remove Scanning profile, method:%{public, location:escape_only}s, index:%{public}d}", buf, 0x22u);
       }
 
-      ULStaticMap<int,ULScanningProfile,20ul>::erase(this + 96, &v16);
-      v15 = v16;
-      if (v16 >= 0x14)
+      ULStaticMap<int,ULScanningProfile,20ul>::erase(this + 96, &v15);
+      v14 = v15;
+      if (v15 >= 0x14)
       {
         std::__throw_out_of_range[abi:ne200100]("bitset reset argument out of range");
       }
 
-      *(this + 248) &= ~(1 << v16);
-      if (v15 == 4)
+      *(this + 248) &= ~(1 << v15);
+      if (v14 == 4)
       {
         *(this + 1945) = 0;
       }
@@ -6395,18 +5198,18 @@ LABEL_17:
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68289538;
-        v18 = 0;
-        v19 = 2082;
-        v20 = "";
-        v21 = 2082;
-        v22 = "removeScanningProfile";
-        v23 = 1026;
-        v24 = a2;
+        v17 = 0;
+        v18 = 2082;
+        v19 = "";
+        v20 = 2082;
+        v21 = "removeScanningProfile";
+        v22 = 1026;
+        v23 = a2;
         _os_log_impl(&dword_258FE9000, v12, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Scan profile is pending for removal , method:%{public, location:escape_only}s, index:%{public}d}", buf, 0x22u);
       }
     }
 
-    result = 1;
+    return 1;
   }
 
   else
@@ -6423,19 +5226,18 @@ LABEL_5:
     if (v7)
     {
       *buf = 68289538;
-      v18 = 0;
-      v19 = 2082;
-      v20 = "";
-      v21 = 2082;
-      v22 = "removeScanningProfile";
-      v23 = 1026;
-      v24 = a2;
+      v17 = 0;
+      v18 = 2082;
+      v19 = "";
+      v20 = 2082;
+      v21 = "removeScanningProfile";
+      v22 = 1026;
+      v23 = a2;
       _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:remove Scanning profile request failed, method:%{public, location:escape_only}s, index:%{public}d}", buf, 0x22u);
-      result = 0;
+      return 0;
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6497,7 +5299,7 @@ LABEL_8:
 
 void ULSensorsManager::removeTechnologyProfile(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (a2 == 2)
   {
     if ((*(a1 + 2056) & 0xFE) == 2)
@@ -6513,19 +5315,19 @@ void ULSensorsManager::removeTechnologyProfile(uint64_t a1, uint64_t a2, uint64_
         v5 = logObject_MicroLocation_Default;
         if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
         {
-          v9 = 68289538;
-          v10 = 0;
-          v11 = 2082;
-          v12 = "";
-          v13 = 2082;
-          v14 = "removeTechnologyProfile";
-          v15 = 1026;
-          v16 = a3;
+          v8 = 68289538;
+          v9 = 0;
+          v10 = 2082;
+          v11 = "";
+          v12 = 2082;
+          v13 = "removeTechnologyProfile";
+          v14 = 1026;
+          v15 = a3;
           v6 = "{msg%{public}.0s:UWB profile pending for removal , method:%{public, location:escape_only}s, index:%{public}d}";
           goto LABEL_39;
         }
 
-        goto LABEL_40;
+        return;
       }
 
       goto LABEL_41;
@@ -6543,19 +5345,19 @@ void ULSensorsManager::removeTechnologyProfile(uint64_t a1, uint64_t a2, uint64_
       v5 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 68289538;
-        v10 = 0;
-        v11 = 2082;
-        v12 = "";
-        v13 = 2082;
-        v14 = "removeTechnologyProfile";
-        v15 = 1026;
-        v16 = a3;
+        v8 = 68289538;
+        v9 = 0;
+        v10 = 2082;
+        v11 = "";
+        v12 = 2082;
+        v13 = "removeTechnologyProfile";
+        v14 = 1026;
+        v15 = a3;
         v6 = "{msg%{public}.0s:UWB profile Removed, method:%{public, location:escape_only}s, index:%{public}d}";
         goto LABEL_39;
       }
 
-      goto LABEL_40;
+      return;
     }
 
 LABEL_42:
@@ -6566,7 +5368,7 @@ LABEL_42:
   {
     if (a2)
     {
-      goto LABEL_40;
+      return;
     }
 
     if ((*(a1 + 2008) & 0xFE) == 2)
@@ -6582,21 +5384,21 @@ LABEL_42:
         v5 = logObject_MicroLocation_Default;
         if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
         {
-          v9 = 68289538;
-          v10 = 0;
-          v11 = 2082;
-          v12 = "";
-          v13 = 2082;
-          v14 = "removeTechnologyProfile";
-          v15 = 1026;
-          v16 = a3;
+          v8 = 68289538;
+          v9 = 0;
+          v10 = 2082;
+          v11 = "";
+          v12 = 2082;
+          v13 = "removeTechnologyProfile";
+          v14 = 1026;
+          v15 = a3;
           v6 = "{msg%{public}.0s:WiFi profile pending for removal , method:%{public, location:escape_only}s, index:%{public}d}";
 LABEL_39:
-          _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, v6, &v9, 0x22u);
-          goto LABEL_40;
+          _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, v6, &v8, 0x22u);
+          return;
         }
 
-        goto LABEL_40;
+        return;
       }
 
 LABEL_41:
@@ -6615,19 +5417,19 @@ LABEL_41:
       v5 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 68289538;
-        v10 = 0;
-        v11 = 2082;
-        v12 = "";
-        v13 = 2082;
-        v14 = "removeTechnologyProfile";
-        v15 = 1026;
-        v16 = a3;
+        v8 = 68289538;
+        v9 = 0;
+        v10 = 2082;
+        v11 = "";
+        v12 = 2082;
+        v13 = "removeTechnologyProfile";
+        v14 = 1026;
+        v15 = a3;
         v6 = "{msg%{public}.0s:WiFi profile Removed, method:%{public, location:escape_only}s, index:%{public}d}";
         goto LABEL_39;
       }
 
-      goto LABEL_40;
+      return;
     }
 
     goto LABEL_42;
@@ -6654,19 +5456,19 @@ LABEL_41:
       v5 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 68289538;
-        v10 = 0;
-        v11 = 2082;
-        v12 = "";
-        v13 = 2082;
-        v14 = "removeTechnologyProfile";
-        v15 = 1026;
-        v16 = a3;
+        v8 = 68289538;
+        v9 = 0;
+        v10 = 2082;
+        v11 = "";
+        v12 = 2082;
+        v13 = "removeTechnologyProfile";
+        v14 = 1026;
+        v15 = a3;
         v6 = "{msg%{public}.0s:BLE profile Removed, method:%{public, location:escape_only}s, index:%{public}d}";
         goto LABEL_39;
       }
 
-      goto LABEL_40;
+      return;
     }
 
     goto LABEL_42;
@@ -6686,25 +5488,22 @@ LABEL_41:
   v5 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 68289538;
-    v10 = 0;
-    v11 = 2082;
-    v12 = "";
-    v13 = 2082;
-    v14 = "removeTechnologyProfile";
-    v15 = 1026;
-    v16 = a3;
+    v8 = 68289538;
+    v9 = 0;
+    v10 = 2082;
+    v11 = "";
+    v12 = 2082;
+    v13 = "removeTechnologyProfile";
+    v14 = 1026;
+    v15 = a3;
     v6 = "{msg%{public}.0s:BLE profile pending for removal , method:%{public, location:escape_only}s, index:%{public}d}";
     goto LABEL_39;
   }
-
-LABEL_40:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void ULSensorsManager::resetAllTechnologyProfiles(ULSensorsManager *this)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULSensorsManager::ULSensorsManager();
@@ -6713,13 +5512,13 @@ void ULSensorsManager::resetAllTechnologyProfiles(ULSensorsManager *this)
   v2 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v16[0] = 68289282;
-    v16[1] = 0;
-    v17 = 2082;
-    v18 = "";
-    v19 = 2082;
-    v20 = "resetAllTechnologyProfiles";
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Rest All Profiles request, method:%{public, location:escape_only}s}", v16, 0x1Cu);
+    v15[0] = 68289282;
+    v15[1] = 0;
+    v16 = 2082;
+    v17 = "";
+    v18 = 2082;
+    v19 = "resetAllTechnologyProfiles";
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Rest All Profiles request, method:%{public, location:escape_only}s}", v15, 0x1Cu);
   }
 
   v3 = *(this + 249);
@@ -6815,13 +5614,11 @@ LABEL_27:
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void ULSensorsManager::handleScanComplete(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULSensorsManager::ULSensorsManager();
@@ -6830,21 +5627,21 @@ void ULSensorsManager::handleScanComplete(uint64_t a1, uint64_t a2)
   v4 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 68289538;
-    v8 = 2082;
-    v9 = "";
-    v10 = 2082;
-    v11 = "handleScanComplete";
-    v12 = 1026;
-    v13 = a2;
-    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Handle Scan Complete, method:%{public, location:escape_only}s, ScanResultCode:%{public}d}", &v7, 0x22u);
+    v6 = 68289538;
+    v7 = 2082;
+    v8 = "";
+    v9 = 2082;
+    v10 = "handleScanComplete";
+    v11 = 1026;
+    v12 = a2;
+    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Handle Scan Complete, method:%{public, location:escape_only}s, ScanResultCode:%{public}d}", &v6, 0x22u);
   }
 
   v5 = ULSensorsManager::buildPowerLogDict(a1);
   *(a1 + 1976) = 0;
-  v7 = cl::chrono::CFAbsoluteTimeClock::now();
+  v6 = cl::chrono::CFAbsoluteTimeClock::now();
   (*(**(a1 + 40) + 16))(*(a1 + 40), *(a1 + 1960), a2);
-  (*(**(a1 + 56) + 24))(*(a1 + 56), a2, &v7, v5);
+  (*(**(a1 + 56) + 24))(*(a1 + 56), a2, &v6, v5);
   if ((*(a1 + 1945) & 1) == 0)
   {
     *(a1 + 2032) = 1;
@@ -6858,71 +5655,69 @@ void ULSensorsManager::handleScanComplete(uint64_t a1, uint64_t a2)
   *(a1 + 2008) = 1;
   ULSensorsManager::removeScanProfilesIfNecessary(a1);
   *(a1 + 1968) = 0;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void ULSensorsManager::requestScanAbort(ULSensorsManager *this, int a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (*(this + 490) != a2)
   {
-    v10 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v9 = _CLLogObjectForCategory_MicroLocation_Default(this);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v11 = *(this + 490);
+      v10 = *(this + 490);
       *buf = 68290051;
-      v17 = 2082;
-      v18 = "";
-      v19 = 2050;
-      v20 = a2;
-      v21 = 2050;
-      *v22 = v11;
-      *&v22[8] = 2082;
-      v23 = "assert";
-      v24 = 2081;
-      v25 = "scanRequestId == fRunningScanRequestId";
-      _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Invalid scan request id, requested scanRequestId:%{public}lu, current scanRequestId:%{public}lu, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
+      v18 = 2082;
+      v19 = "";
+      v20 = 2050;
+      v21 = a2;
+      v22 = 2050;
+      *v23 = v10;
+      *&v23[8] = 2082;
+      v24 = "assert";
+      v25 = 2081;
+      v26 = "scanRequestId == fRunningScanRequestId";
+      _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Invalid scan request id, requested scanRequestId:%{public}lu, current scanRequestId:%{public}lu, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
     }
 
-    v12 = _CLLogObjectForCategory_MicroLocation_Default();
+    v12 = _CLLogObjectForCategory_MicroLocation_Default(v11);
     if (os_signpost_enabled(v12))
     {
       v13 = *(this + 490);
       *buf = 68290051;
-      v17 = 2082;
-      v18 = "";
-      v19 = 2050;
-      v20 = a2;
-      v21 = 2050;
-      *v22 = v13;
-      *&v22[8] = 2082;
-      v23 = "assert";
-      v24 = 2081;
-      v25 = "scanRequestId == fRunningScanRequestId";
+      v18 = 2082;
+      v19 = "";
+      v20 = 2050;
+      v21 = a2;
+      v22 = 2050;
+      *v23 = v13;
+      *&v23[8] = 2082;
+      v24 = "assert";
+      v25 = 2081;
+      v26 = "scanRequestId == fRunningScanRequestId";
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Invalid scan request id", "{msg%{public}.0s:Invalid scan request id, requested scanRequestId:%{public}lu, current scanRequestId:%{public}lu, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
     }
 
-    v14 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v15 = _CLLogObjectForCategory_MicroLocation_Default(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v15 = *(this + 490);
+      v16 = *(this + 490);
       *buf = 68290051;
       *&buf[4] = 0;
-      v17 = 2082;
-      v18 = "";
-      v19 = 2050;
-      v20 = a2;
-      v21 = 2050;
-      *v22 = v15;
-      *&v22[8] = 2082;
-      v23 = "assert";
-      v24 = 2081;
-      v25 = "scanRequestId == fRunningScanRequestId";
-      _os_log_impl(&dword_258FE9000, v14, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Invalid scan request id, requested scanRequestId:%{public}lu, current scanRequestId:%{public}lu, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
+      v18 = 2082;
+      v19 = "";
+      v20 = 2050;
+      v21 = a2;
+      v22 = 2050;
+      *v23 = v16;
+      *&v23[8] = 2082;
+      v24 = "assert";
+      v25 = 2081;
+      v26 = "scanRequestId == fRunningScanRequestId";
+      _os_log_impl(&dword_258FE9000, v15, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Invalid scan request id, requested scanRequestId:%{public}lu, current scanRequestId:%{public}lu, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/ScanService/ULSensorsManager.mm", 264, "requestScanAbort");
     __break(1u);
     goto LABEL_22;
   }
@@ -6967,18 +5762,16 @@ LABEL_22:
     v8 = *(this + 1976);
     *buf = 68289794;
     *&buf[4] = 0;
-    v17 = 2082;
-    v18 = "";
-    v19 = 2082;
-    v20 = "requestScanAbort";
-    v21 = 1026;
-    *v22 = v8;
-    *&v22[4] = 1026;
-    *&v22[6] = a2;
+    v18 = 2082;
+    v19 = "";
+    v20 = 2082;
+    v21 = "requestScanAbort";
+    v22 = 1026;
+    *v23 = v8;
+    *&v23[4] = 1026;
+    *&v23[6] = a2;
     _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Abort scan request, method:%{public, location:escape_only}s, is pending abort:%{public}hhd, scanRequestIndex:%{public}d}", buf, 0x28u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void ULSensorsManager::completeCurrentExecutionStep(ULSensorsManager *this, uint64_t a2)
@@ -7039,7 +5832,7 @@ void ULSensorsManager::completeCurrentExecutionStep(ULSensorsManager *this, uint
     }
 
     while (!v9);
-    if ((!v8 || ULSensorsManager::isConcurrentScanRunning(this)) && (ULSensorsManager::executeNextScanIteration(this) & 1) == 0)
+    if ((!v8 || ULSensorsManager::isConcurrentScanRunning(this)) && !ULSensorsManager::executeNextScanIteration(this))
     {
       ULSensorsManager::stopAllActiveScans(this);
       v2 = 1;
@@ -7052,7 +5845,7 @@ LABEL_24:
 
 uint64_t ULSensorsManager::appendScanTrigger(ULSensorsManager *this, const ULScanningTrigger *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULSensorsManager::ULSensorsManager();
@@ -7062,7 +5855,7 @@ uint64_t ULSensorsManager::appendScanTrigger(ULSensorsManager *this, const ULSca
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     ULScanningTrigger::description(a2, __p);
-    if (v10 >= 0)
+    if (v9 >= 0)
     {
       v5 = __p;
     }
@@ -7074,30 +5867,28 @@ uint64_t ULSensorsManager::appendScanTrigger(ULSensorsManager *this, const ULSca
 
     v6 = *(this + 490);
     *buf = 68289794;
-    v12 = 0;
-    v13 = 2082;
-    v14 = "";
-    v15 = 2082;
-    v16 = "appendScanTrigger";
-    v17 = 2082;
-    v18 = v5;
-    v19 = 1026;
-    v20 = v6;
+    v11 = 0;
+    v12 = 2082;
+    v13 = "";
+    v14 = 2082;
+    v15 = "appendScanTrigger";
+    v16 = 2082;
+    v17 = v5;
+    v18 = 1026;
+    v19 = v6;
     _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Append scan trigger to current scan, method:%{public, location:escape_only}s, trigger:%{public, location:escape_only}s, scanRequestIndex:%{public}d}", buf, 0x2Cu);
-    if (v10 < 0)
+    if (v9 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  result = (*(**(this + 7) + 16))(*(this + 7), a2);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(**(this + 7) + 16))(*(this + 7), a2);
 }
 
 void ULSensorsManager::onWiFiScanCompletion(ULSensorsManager *this, double a2, NSError *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -7112,12 +5903,12 @@ void ULSensorsManager::onWiFiScanCompletion(ULSensorsManager *this, double a2, N
     *&buf[4] = 0;
     *&buf[8] = 2082;
     *&buf[10] = "";
-    v15 = 2082;
-    v16 = "onWiFiScanCompletion";
-    v17 = 2113;
-    v18 = v5;
-    v19 = 1026;
-    v20 = v7;
+    v14 = 2082;
+    v15 = "onWiFiScanCompletion";
+    v16 = 2113;
+    v17 = v5;
+    v18 = 1026;
+    v19 = v7;
     _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:WiFi Scan Complete, method:%{public, location:escape_only}s, with error:%{private, location:escape_only}@, scanRequestIndex:%{public}d}", buf, 0x2Cu);
   }
 
@@ -7180,19 +5971,17 @@ LABEL_13:
 
       ULSensorsManager::onWiFiScanCompletion(buf);
 
-      abort_report_np();
+      abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/ScanService/ULSensorsManager.mm", 309, "onWiFiScanCompletion");
       __break(1u);
 LABEL_22:
       ULSensorsManager::addScanningProfile();
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 BOOL ULSensorsManager::issueNextWiFiScanIteration(ULSensorsManager *this)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = +[ULDefaultsSingleton shared];
   v3 = [v2 defaultsDictionary];
 
@@ -7246,9 +6035,9 @@ BOOL ULSensorsManager::issueNextWiFiScanIteration(ULSensorsManager *this)
       }
 
       v14 = v12[3];
-      v30 = v12[2];
-      v31 = v14;
-      v32 = v12[4];
+      v29 = v12[2];
+      v30 = v14;
+      v31 = v12[4];
       v15 = v12[1];
       *buf = *v12;
       *&buf[16] = v15;
@@ -7262,33 +6051,31 @@ LABEL_14:
       buf[0] = 0;
     }
 
-    v33 = v13;
-    ULScanningProfile::getTechnologyConfig(buf, 0, &v27);
-    if ((BYTE8(v28) & 1) == 0)
+    v32 = v13;
+    ULScanningProfile::getTechnologyConfig(buf, 0, &v26);
+    if ((BYTE8(v27) & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v16 = DWORD2(v27);
+    v16 = DWORD2(v26);
     (*(*this + 112))(this, 0);
     LODWORD(v17) = v7;
     v18 = [MEMORY[0x277CCABB0] numberWithFloat:v17];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v23 = v26;
+    v22[2] = ___ZN16ULSensorsManager26issueNextWiFiScanIterationEv_block_invoke;
+    v22[3] = &__block_descriptor_76_e5_v8__0l;
+    v22[4] = this;
     v24 = v27;
-    v23[2] = ___ZN16ULSensorsManager26issueNextWiFiScanIterationEv_block_invoke;
-    v23[3] = &__block_descriptor_76_e5_v8__0l;
-    v23[4] = this;
-    v25 = v28;
-    v26 = v16;
-    v19 = [ULTimerFactory timerOnPrimaryQueueWithInterval:v18 repeats:MEMORY[0x277CBEC28] block:v23];
+    v25 = v16;
+    v19 = [ULTimerFactory timerOnPrimaryQueueWithInterval:v18 repeats:MEMORY[0x277CBEC28] block:v22];
     v20 = *(this + 4);
     *(this + 4) = v19;
   }
 
-  result = v9 != 0;
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  return v9 != 0;
 }
 
 void ULSensorsManager::stopAllActiveScans(ULSensorsManager *this)
@@ -7312,7 +6099,7 @@ void ULSensorsManager::stopAllActiveScans(ULSensorsManager *this)
 
 uint64_t ___ZN16ULSensorsManager26issueNextWiFiScanIterationEv_block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -7322,19 +6109,17 @@ uint64_t ___ZN16ULSensorsManager26issueNextWiFiScanIterationEv_block_invoke(uint
   v3 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 68289282;
-    v6[1] = 0;
-    v7 = 2082;
-    v8 = "";
-    v9 = 2082;
-    v10 = "issueNextWiFiScanIteration_block_invoke";
-    _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:wifi delay timeout - issuing next wifi scan iteration, method:%{public, location:escape_only}s}", v6, 0x1Cu);
+    v5[0] = 68289282;
+    v5[1] = 0;
+    v6 = 2082;
+    v7 = "";
+    v8 = 2082;
+    v9 = "issueNextWiFiScanIteration_block_invoke";
+    _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:wifi delay timeout - issuing next wifi scan iteration, method:%{public, location:escape_only}s}", v5, 0x1Cu);
   }
 
   ((*v2)[13])(v2, 0, *(a1 + 56));
-  result = (*(*v2[11] + 16))(v2[11], *(a1 + 72));
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*v2[11] + 16))(v2[11], *(a1 + 72));
 }
 
 id ULSensorsManager::buildPowerLogDict(ULSensorsManager *this)
@@ -7353,16 +6138,16 @@ id ULSensorsManager::buildPowerLogDict(ULSensorsManager *this)
     }
 
     v6 = v3[3];
-    v13 = v3[2];
-    v14 = v6;
-    v15 = v3[4];
+    v14 = v3[2];
+    v15 = v6;
+    v16 = v3[4];
     v7 = v3[1];
     *buf = *v3;
-    v12 = v7;
-    v16 = 1;
-    ULScanningProfile::getTechnologyConfig(buf, 1uLL, v10);
-    v8 = scanProfileToScanType(*(this + 475));
-    v5 = ULPowerLog::buildPowerLogMetrics(*(this + 940), v8, *(this + 466), v10[2], *(this + 246));
+    v13 = v7;
+    v17 = 1;
+    ULScanningProfile::getTechnologyConfig(buf, 1uLL, v11);
+    v9 = scanProfileToScanType(*(this + 475), v8);
+    v5 = ULPowerLog::buildPowerLogMetrics(*(this + 940), v9, *(this + 466), v11[2], *(this + 246));
   }
 
   else
@@ -7388,7 +6173,7 @@ LABEL_5:
 
 _DWORD *ULSensorsManager::removeScanProfilesIfNecessary(_DWORD *this)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ((this[496] & 0xFFFFF) != 0)
   {
     v1 = this;
@@ -7403,11 +6188,11 @@ _DWORD *ULSensorsManager::removeScanProfilesIfNecessary(_DWORD *this)
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68289282;
-        v9 = 0;
-        v10 = 2082;
-        v11 = "";
-        v12 = 2082;
-        v13 = "removeScanProfilesIfNecessary";
+        v8 = 0;
+        v9 = 2082;
+        v10 = "";
+        v11 = 2082;
+        v12 = "removeScanProfilesIfNecessary";
         _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:handle pending scan profile removal, method:%{public, location:escape_only}s}", buf, 0x1Cu);
       }
 
@@ -7431,13 +6216,12 @@ _DWORD *ULSensorsManager::removeScanProfilesIfNecessary(_DWORD *this)
     while (v6);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return this;
 }
 
 uint64_t ULSensorsManager::removeTechnologyProfileIfNecessary(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (*(a3 + 8))
   {
     v5 = result;
@@ -7452,11 +6236,11 @@ uint64_t ULSensorsManager::removeTechnologyProfileIfNecessary(uint64_t result, u
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68289282;
-        v13 = 0;
-        v14 = 2082;
-        v15 = "";
-        v16 = 2082;
-        v17 = "removeTechnologyProfileIfNecessary";
+        v12 = 0;
+        v13 = 2082;
+        v14 = "";
+        v15 = 2082;
+        v16 = "removeTechnologyProfileIfNecessary";
         _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:handle pending profile removal, method:%{public, location:escape_only}s}", buf, 0x1Cu);
       }
 
@@ -7480,13 +6264,12 @@ uint64_t ULSensorsManager::removeTechnologyProfileIfNecessary(uint64_t result, u
     while (v10);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void ULSensorsManager::onScanTimeout(uint64_t a1, unint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULSensorsManager::ULSensorsManager();
@@ -7497,7 +6280,7 @@ void ULSensorsManager::onScanTimeout(uint64_t a1, unint64_t a2)
   {
     v5 = a2 > 2 ? "Unknown" : off_2798D4D40[a2];
     std::string::basic_string[abi:ne200100]<0>(__p, v5);
-    v6 = v15 >= 0 ? __p : __p[0];
+    v6 = v14 >= 0 ? __p : __p[0];
     *buf = 68289538;
     *&buf[4] = 0;
     *&buf[8] = 2082;
@@ -7507,7 +6290,7 @@ void ULSensorsManager::onScanTimeout(uint64_t a1, unint64_t a2)
     *&buf[28] = 2082;
     *&buf[30] = v6;
     _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Scan Duration Timeout, method:%{public, location:escape_only}s, Technology::%{public, location:escape_only}s}", buf, 0x26u);
-    if (SHIBYTE(v15) < 0)
+    if (SHIBYTE(v14) < 0)
     {
       operator delete(__p[0]);
     }
@@ -7542,8 +6325,8 @@ void ULSensorsManager::onScanTimeout(uint64_t a1, unint64_t a2)
 
       v11 = v9[3];
       *&buf[32] = v9[2];
-      v17 = v11;
-      v18 = v9[4];
+      v16 = v11;
+      v17 = v9[4];
       v12 = v9[1];
       *buf = *v9;
       *&buf[16] = v12;
@@ -7557,19 +6340,18 @@ LABEL_20:
       buf[0] = 0;
     }
 
-    v19 = v10;
+    v18 = v10;
     ULScanningProfile::getTechnologyConfig(buf, 0, __p);
-    *(a1 + 1968) = v15;
+    *(a1 + 1968) = v14;
     v7 = 2;
   }
 
   ULSensorsManager::completeCurrentExecutionStep(a1, v7);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ULSensorsManager::stopScan(uint64_t a1, unint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULSensorsManager::ULSensorsManager();
@@ -7580,17 +6362,17 @@ uint64_t ULSensorsManager::stopScan(uint64_t a1, unint64_t a2)
   {
     v5 = a2 > 2 ? "Unknown" : off_2798D4D40[a2];
     std::string::basic_string[abi:ne200100]<0>(__p, v5);
-    v6 = v10 >= 0 ? __p : __p[0];
+    v6 = v9 >= 0 ? __p : __p[0];
     *buf = 68289538;
-    v12 = 0;
-    v13 = 2082;
-    v14 = "";
-    v15 = 2082;
-    v16 = "stopScan";
-    v17 = 2082;
-    v18 = v6;
+    v11 = 0;
+    v12 = 2082;
+    v13 = "";
+    v14 = 2082;
+    v15 = "stopScan";
+    v16 = 2082;
+    v17 = v6;
     _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Stop Scan, method:%{public, location:escape_only}s, Technology::%{public, location:escape_only}s}", buf, 0x26u);
-    if (v10 < 0)
+    if (v9 < 0)
     {
       operator delete(__p[0]);
     }
@@ -7602,30 +6384,29 @@ uint64_t ULSensorsManager::stopScan(uint64_t a1, unint64_t a2)
     if (a2 == 2)
     {
       *(a1 + 2056) = 4;
-      result = ULSensorsManager::removeTechnologyProfileIfNecessary(a1, 2, a1 + 2040);
+      return ULSensorsManager::removeTechnologyProfileIfNecessary(a1, 2, a1 + 2040);
     }
 
     else if (a2 == 1)
     {
       (*(**(a1 + 72) + 24))(*(a1 + 72));
       *(a1 + 2032) = 4;
-      result = ULSensorsManager::removeTechnologyProfileIfNecessary(a1, 1, a1 + 2016);
+      return ULSensorsManager::removeTechnologyProfileIfNecessary(a1, 1, a1 + 2016);
     }
   }
 
   else
   {
     (*(**(a1 + 88) + 24))(*(a1 + 88));
-    result = ULSensorsManager::removeTechnologyProfileIfNecessary(a1, 0, a1 + 1992);
+    return ULSensorsManager::removeTechnologyProfileIfNecessary(a1, 0, a1 + 1992);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void ULSensorsManager::stopScanTimer(uint64_t a1, unint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULSensorsManager::ULSensorsManager();
@@ -7645,7 +6426,7 @@ void ULSensorsManager::stopScanTimer(uint64_t a1, unint64_t a2)
     }
 
     std::string::basic_string[abi:ne200100]<0>(__p, v5);
-    if (v12 >= 0)
+    if (v11 >= 0)
     {
       v6 = __p;
     }
@@ -7656,13 +6437,13 @@ void ULSensorsManager::stopScanTimer(uint64_t a1, unint64_t a2)
     }
 
     *buf = 68289282;
-    v14 = 0;
-    v15 = 2082;
-    v16 = "";
-    v17 = 2082;
-    v18 = v6;
+    v13 = 0;
+    v14 = 2082;
+    v15 = "";
+    v16 = 2082;
+    v17 = v6;
     _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULSensorsManager, stopScanTimer, Technology::%{public, location:escape_only}s}", buf, 0x1Cu);
-    if (v12 < 0)
+    if (v11 < 0)
     {
       operator delete(__p[0]);
     }
@@ -7674,13 +6455,11 @@ void ULSensorsManager::stopScanTimer(uint64_t a1, unint64_t a2)
   [v8 invalidate];
   v9 = *v7;
   *v7 = 0;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ULSensorsManager::isConcurrentScanRunning(ULSensorsManager *this)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = *(this + 232);
   if (v2)
   {
@@ -7696,14 +6475,14 @@ uint64_t ULSensorsManager::isConcurrentScanRunning(ULSensorsManager *this)
 
     LOBYTE(v2) = *(v3 - 1);
     v5 = v3[3];
-    v23 = v3[2];
-    v24[0] = v5;
-    *(v24 + 15) = *(v3 + 63);
+    v22 = v3[2];
+    v23[0] = v5;
+    *(v23 + 15) = *(v3 + 63);
     v7 = *v3;
     v6 = v3[1];
     v4 = 1;
-    v21 = v7;
-    v22 = v6;
+    v20 = v7;
+    v21 = v6;
   }
 
   else
@@ -7714,23 +6493,23 @@ LABEL_5:
 
   if ((*(this + 1976) & 1) == 0)
   {
-    v16 = v22;
-    v17 = v23;
-    *v18 = v24[0];
-    *&v18[15] = *(v24 + 15);
-    v13 = 0;
-    v14 = v2;
     v15 = v21;
+    v16 = v22;
+    *v17 = v23[0];
+    *&v17[15] = *(v23 + 15);
+    v12 = 0;
+    v13 = v2;
+    v14 = v20;
     v9 = 8;
-    v19 = v4;
+    v18 = v4;
     while (1)
     {
       v10 = *(this + v9);
-      v11 = v13++;
-      ULScanningProfile::getTechnologyConfig(&v14, v11, v20);
+      v11 = v12++;
+      ULScanningProfile::getTechnologyConfig(&v13, v11, v19);
       if (v10)
       {
-        if ((v20[24] & 1) == 0 || v20[12] != 1)
+        if ((v19[24] & 1) == 0 || v19[12] != 1)
         {
           break;
         }
@@ -7739,16 +6518,12 @@ LABEL_5:
       v9 += 8;
       if (v9 == 32)
       {
-        result = 1;
-        goto LABEL_15;
+        return 1;
       }
     }
   }
 
-  result = 0;
-LABEL_15:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 void ULSensorsManager::~ULSensorsManager(ULSensorsManager *this)
@@ -7897,7 +6672,7 @@ double ULSystemTriggerGenerator::recordingThrottleDuration(ULSystemTriggerGenera
 
 void ULSystemTriggerGenerator::startPeriodicTriggerTimer(ULSystemTriggerGenerator *this)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULSystemTriggerGenerator::startPeriodicTriggerTimer();
@@ -7907,82 +6682,24 @@ void ULSystemTriggerGenerator::startPeriodicTriggerTimer(ULSystemTriggerGenerato
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 68289026;
-    v9 = 0;
-    v10 = 2082;
-    v11 = "";
+    v8 = 0;
+    v9 = 2082;
+    v10 = "";
     _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULSystemTriggerGenerator, startPeriodicTriggerTimer}", buf, 0x12u);
   }
 
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:ULSystemTriggerGenerator::periodicTriggerDelay(this)];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = ___ZN24ULSystemTriggerGenerator25startPeriodicTriggerTimerEv_block_invoke;
-  v7[3] = &__block_descriptor_40_e5_v8__0l;
-  v7[4] = this;
-  v4 = [ULTimerFactory timerOnPrimaryQueueWithInterval:v3 repeats:MEMORY[0x277CBEC38] block:v7];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = ___ZN24ULSystemTriggerGenerator25startPeriodicTriggerTimerEv_block_invoke;
+  v6[3] = &__block_descriptor_40_e5_v8__0l;
+  v6[4] = this;
+  v4 = [ULTimerFactory timerOnPrimaryQueueWithInterval:v3 repeats:MEMORY[0x277CBEC38] block:v6];
   v5 = *(this + 8);
   *(this + 8) = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void ULSystemTriggerGenerator::stopPeriodicTriggerTimer(id *this)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (onceToken_MicroLocation_Default != -1)
-  {
-    ULSystemTriggerGenerator::startPeriodicTriggerTimer();
-  }
-
-  v2 = logObject_MicroLocation_Default;
-  if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
-  {
-    v5[0] = 68289026;
-    v5[1] = 0;
-    v6 = 2082;
-    v7 = "";
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULSystemTriggerGenerator, stopPeriodicTriggerTimer}", v5, 0x12u);
-  }
-
-  [this[8] invalidate];
-  v3 = this[8];
-  this[8] = 0;
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void ULSystemTriggerGenerator::onDisplayStateChange(ULSystemTriggerGenerator *this, int a2)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  if (onceToken_MicroLocation_Default != -1)
-  {
-    ULSystemTriggerGenerator::startPeriodicTriggerTimer();
-  }
-
-  v4 = logObject_MicroLocation_Default;
-  if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
-  {
-    v5 = @"Off";
-    if (a2)
-    {
-      v5 = @"On";
-    }
-
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "onDisplayStateChange: display: %@", &v7, 0xCu);
-  }
-
-  *(this + 56) = a2;
-  if ([MEMORY[0x277D28868] isMac] && *(this + 56) == 1)
-  {
-    ULSystemTriggerGenerator::requestRecordingIfPossible(this, 0, 0);
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void ULSystemTriggerGenerator::resetPeriodicTriggerTimer(id *this)
 {
   v7 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
@@ -7997,12 +6714,66 @@ void ULSystemTriggerGenerator::resetPeriodicTriggerTimer(id *this)
     v4[1] = 0;
     v5 = 2082;
     v6 = "";
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULSystemTriggerGenerator, resetPeriodicTriggerTimer}", v4, 0x12u);
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULSystemTriggerGenerator, stopPeriodicTriggerTimer}", v4, 0x12u);
+  }
+
+  [this[8] invalidate];
+  v3 = this[8];
+  this[8] = 0;
+}
+
+void ULSystemTriggerGenerator::onDisplayStateChange(ULSystemTriggerGenerator *this, int a2)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  if (onceToken_MicroLocation_Default != -1)
+  {
+    ULSystemTriggerGenerator::startPeriodicTriggerTimer();
+  }
+
+  v4 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = @"Off";
+    if (a2)
+    {
+      v5 = @"On";
+    }
+
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "onDisplayStateChange: display: %@", &v6, 0xCu);
+  }
+
+  *(this + 56) = a2;
+  if ([MEMORY[0x277D28868] isMac])
+  {
+    if (*(this + 56) == 1)
+    {
+      ULSystemTriggerGenerator::requestRecordingIfPossible(this, 0, 0);
+    }
+  }
+}
+
+void ULSystemTriggerGenerator::resetPeriodicTriggerTimer(id *this)
+{
+  v6 = *MEMORY[0x277D85DE8];
+  if (onceToken_MicroLocation_Default != -1)
+  {
+    ULSystemTriggerGenerator::startPeriodicTriggerTimer();
+  }
+
+  v2 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
+  {
+    v3[0] = 68289026;
+    v3[1] = 0;
+    v4 = 2082;
+    v5 = "";
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULSystemTriggerGenerator, resetPeriodicTriggerTimer}", v3, 0x12u);
   }
 
   ULSystemTriggerGenerator::stopPeriodicTriggerTimer(this);
   ULSystemTriggerGenerator::startPeriodicTriggerTimer(this);
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 double ULSystemTriggerGenerator::periodicTriggerDelay(ULSystemTriggerGenerator *this)
@@ -8043,15 +6814,13 @@ LABEL_10:
   return v8;
 }
 
-ULSystemTriggerGenerator *___ZN24ULSystemTriggerGenerator25startPeriodicTriggerTimerEv_block_invoke(uint64_t a1)
+void ___ZN24ULSystemTriggerGenerator25startPeriodicTriggerTimerEv_block_invoke(uint64_t a1)
 {
-  result = *(a1 + 32);
-  if (*(result + 56) == 1)
+  v1 = *(a1 + 32);
+  if (*(v1 + 56) == 1)
   {
-    return ULSystemTriggerGenerator::requestRecordingIfPossible(result, 0, 1);
+    ULSystemTriggerGenerator::requestRecordingIfPossible(v1, 0, 1);
   }
-
-  return result;
 }
 
 void ULSystemTriggerGenerator::~ULSystemTriggerGenerator(id *this)
@@ -8088,7 +6857,7 @@ void ULTriggerQueue::~ULTriggerQueue(ULTriggerQueue *this)
 
 void ULTriggerEngine::ULTriggerEngine(ULTriggerEngine *this)
 {
-  v8[4] = *MEMORY[0x277D85DE8];
+  v7[4] = *MEMORY[0x277D85DE8];
   v2 = this + 16;
   v3 = this + 24;
   *this = &unk_286A5AD20;
@@ -8102,24 +6871,24 @@ void ULTriggerEngine::ULTriggerEngine(ULTriggerEngine *this)
   *(this + 72) = 0u;
   *(this + 11) = 0;
   ULSchedulingProfileManager::ULSchedulingProfileManager(this + 96, this + 48);
-  v8[0] = &unk_286A5B378;
-  v8[1] = this;
-  v8[3] = v8;
-  v7[0] = &unk_286A5B408;
+  v7[0] = &unk_286A5B378;
   v7[1] = this;
   v7[3] = v7;
-  v6[0] = &unk_286A5B488;
-  v6[1] = ULTriggerQueue::defaultTimeProvider;
+  v6[0] = &unk_286A5B408;
+  v6[1] = this;
   v6[3] = v6;
-  ULTriggerQueue::ULTriggerQueue(this + 944, v8, v7, v6);
-  std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::~__value_func[abi:ne200100](v6);
-  std::__function::__value_func<BOOL ()(int)>::~__value_func[abi:ne200100](v7);
-  std::__function::__value_func<BOOL ()(int)>::~__value_func[abi:ne200100](v8);
   v5[0] = &unk_286A5B488;
-  v5[1] = ULTriggerEngineFSM::defaultTimeProvider;
+  v5[1] = ULTriggerQueue::defaultTimeProvider;
   v5[3] = v5;
-  ULTriggerEngineFSM::ULTriggerEngineFSM(this + 1952, v2, v3, v5);
+  ULTriggerQueue::ULTriggerQueue(this + 944, v7, v6, v5);
   std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::~__value_func[abi:ne200100](v5);
+  std::__function::__value_func<BOOL ()(int)>::~__value_func[abi:ne200100](v6);
+  std::__function::__value_func<BOOL ()(int)>::~__value_func[abi:ne200100](v7);
+  v4[0] = &unk_286A5B488;
+  v4[1] = ULTriggerEngineFSM::defaultTimeProvider;
+  v4[3] = v4;
+  ULTriggerEngineFSM::ULTriggerEngineFSM(this + 1952, v2, v3, v4);
+  std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::~__value_func[abi:ne200100](v4);
   *(this + 363) = 0;
   *(this + 2872) = 0u;
   *(this + 2888) = 0u;
@@ -8127,20 +6896,19 @@ void ULTriggerEngine::ULTriggerEngine(ULTriggerEngine *this)
   *(this + 2856) = 0u;
   *(this + 728) = -1;
   *(this + 365) = 0;
-  v4 = *MEMORY[0x277D85DE8];
 }
 
-void sub_259128AF4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_259128AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::~__value_func[abi:ne200100](va);
-  ULTriggerQueue::~ULTriggerQueue((v2 + 944));
+  ULTriggerQueue::~ULTriggerQueue((v3 + 944));
   _Unwind_Resume(a1);
 }
 
 void ULTriggerEngine::setDependencies(void *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v10 = *a2;
   v9 = a2[1];
   if (v9)
@@ -8209,21 +6977,19 @@ void ULTriggerEngine::setDependencies(void *a1, uint64_t *a2, uint64_t *a3, uint
   v21 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v23[0] = 68289282;
-    v23[1] = 0;
-    v24 = 2082;
-    v25 = "";
-    v26 = 2082;
-    v27 = "setDependencies";
-    _os_log_impl(&dword_258FE9000, v21, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULTriggerEngine initialized, method:%{public, location:escape_only}s}", v23, 0x1Cu);
+    v22[0] = 68289282;
+    v22[1] = 0;
+    v23 = 2082;
+    v24 = "";
+    v25 = 2082;
+    v26 = "setDependencies";
+    _os_log_impl(&dword_258FE9000, v21, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULTriggerEngine initialized, method:%{public, location:escape_only}s}", v22, 0x1Cu);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t ULTriggerEngine::addWiFiProfile(uint64_t a1, int *a2)
+uint64_t ULTriggerEngine::addWiFiProfile(uint64_t a1, unsigned int *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULTriggerEngine::setDependencies();
@@ -8233,15 +6999,15 @@ uint64_t ULTriggerEngine::addWiFiProfile(uint64_t a1, int *a2)
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *a2;
-    v8[0] = 68289538;
-    v8[1] = 0;
-    v9 = 2082;
-    v10 = "";
-    v11 = 2082;
-    v12 = "addWiFiProfile";
-    v13 = 1026;
-    v14 = v5;
-    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:add Wifi profile, method:%{public, location:escape_only}s, index:%{public}d}", v8, 0x22u);
+    v7[0] = 68289538;
+    v7[1] = 0;
+    v8 = 2082;
+    v9 = "";
+    v10 = 2082;
+    v11 = "addWiFiProfile";
+    v12 = 1026;
+    v13 = v5;
+    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:add Wifi profile, method:%{public, location:escape_only}s, index:%{public}d}", v7, 0x22u);
   }
 
   result = (*(**(a1 + 2888) + 24))(*(a1 + 2888), a2);
@@ -8251,13 +7017,12 @@ uint64_t ULTriggerEngine::addWiFiProfile(uint64_t a1, int *a2)
   }
 
   *(a1 + 64) |= 1 << *a2;
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t ULTriggerEngine::addBLEProfile(ULTriggerEngine *this, const ULBleTechnologyProfile *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULTriggerEngine::setDependencies();
@@ -8267,15 +7032,15 @@ uint64_t ULTriggerEngine::addBLEProfile(ULTriggerEngine *this, const ULBleTechno
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *a2;
-    v8[0] = 68289538;
-    v8[1] = 0;
-    v9 = 2082;
-    v10 = "";
-    v11 = 2082;
-    v12 = "addBLEProfile";
-    v13 = 1026;
-    v14 = v5;
-    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:add Ble profile, method:%{public, location:escape_only}s, index:%{public}d}", v8, 0x22u);
+    v7[0] = 68289538;
+    v7[1] = 0;
+    v8 = 2082;
+    v9 = "";
+    v10 = 2082;
+    v11 = "addBLEProfile";
+    v12 = 1026;
+    v13 = v5;
+    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:add Ble profile, method:%{public, location:escape_only}s, index:%{public}d}", v7, 0x22u);
   }
 
   result = (*(**(this + 361) + 32))(*(this + 361), a2);
@@ -8285,13 +7050,12 @@ uint64_t ULTriggerEngine::addBLEProfile(ULTriggerEngine *this, const ULBleTechno
   }
 
   *(this + 9) |= 1 << *a2;
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t ULTriggerEngine::addUWBProfile(uint64_t a1, int *a2)
+uint64_t ULTriggerEngine::addUWBProfile(uint64_t a1, unsigned int *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULTriggerEngine::setDependencies();
@@ -8301,15 +7065,15 @@ uint64_t ULTriggerEngine::addUWBProfile(uint64_t a1, int *a2)
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *a2;
-    v8[0] = 68289538;
-    v8[1] = 0;
-    v9 = 2082;
-    v10 = "";
-    v11 = 2082;
-    v12 = "addUWBProfile";
-    v13 = 1026;
-    v14 = v5;
-    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:add Uwb profile, method:%{public, location:escape_only}s, index:%{public}d}", v8, 0x22u);
+    v7[0] = 68289538;
+    v7[1] = 0;
+    v8 = 2082;
+    v9 = "";
+    v10 = 2082;
+    v11 = "addUWBProfile";
+    v12 = 1026;
+    v13 = v5;
+    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:add Uwb profile, method:%{public, location:escape_only}s, index:%{public}d}", v7, 0x22u);
   }
 
   result = (*(**(a1 + 2888) + 40))(*(a1 + 2888), a2);
@@ -8319,13 +7083,12 @@ uint64_t ULTriggerEngine::addUWBProfile(uint64_t a1, int *a2)
   }
 
   *(a1 + 80) |= 1 << *a2;
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 BOOL ULTriggerEngine::removeWiFiProfile(ULTriggerEngine *this, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (a2 >= 0x1E)
   {
     std::__throw_out_of_range[abi:ne200100]("bitset test argument out of range");
@@ -8343,15 +7106,15 @@ BOOL ULTriggerEngine::removeWiFiProfile(ULTriggerEngine *this, uint64_t a2)
     v6 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 68289538;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = "removeWiFiProfile";
-      v16 = 1026;
-      v17 = a2;
-      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:remove Wifi profile, method:%{public, location:escape_only}s, index:%{public}d}", &v10, 0x22u);
+      v9 = 68289538;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2082;
+      v14 = "removeWiFiProfile";
+      v15 = 1026;
+      v16 = a2;
+      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:remove Wifi profile, method:%{public, location:escape_only}s, index:%{public}d}", &v9, 0x22u);
     }
 
     (*(**(this + 361) + 56))(*(this + 361), 0, a2);
@@ -8368,26 +7131,24 @@ BOOL ULTriggerEngine::removeWiFiProfile(ULTriggerEngine *this, uint64_t a2)
     v7 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 68289538;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = "removeWiFiProfile";
-      v16 = 1026;
-      v17 = a2;
-      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:removeWiFiProfile, not added yet, method:%{public, location:escape_only}s, wifi profile index:%{public}d}", &v10, 0x22u);
+      v9 = 68289538;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2082;
+      v14 = "removeWiFiProfile";
+      v15 = 1026;
+      v16 = a2;
+      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:removeWiFiProfile, not added yet, method:%{public, location:escape_only}s, wifi profile index:%{public}d}", &v9, 0x22u);
     }
   }
 
-  result = v5 != 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5 != 0;
 }
 
 BOOL ULTriggerEngine::removeBLEProfile(ULTriggerEngine *this, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (a2 >= 0x1E)
   {
     std::__throw_out_of_range[abi:ne200100]("bitset test argument out of range");
@@ -8405,15 +7166,15 @@ BOOL ULTriggerEngine::removeBLEProfile(ULTriggerEngine *this, uint64_t a2)
     v6 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 68289538;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = "removeBLEProfile";
-      v16 = 1026;
-      v17 = a2;
-      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:remove Ble profile, method:%{public, location:escape_only}s, index:%{public}d}", &v10, 0x22u);
+      v9 = 68289538;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2082;
+      v14 = "removeBLEProfile";
+      v15 = 1026;
+      v16 = a2;
+      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:remove Ble profile, method:%{public, location:escape_only}s, index:%{public}d}", &v9, 0x22u);
     }
 
     (*(**(this + 361) + 56))(*(this + 361), 1, a2);
@@ -8430,26 +7191,24 @@ BOOL ULTriggerEngine::removeBLEProfile(ULTriggerEngine *this, uint64_t a2)
     v7 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 68289538;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = "removeBLEProfile";
-      v16 = 1026;
-      v17 = a2;
-      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:removeBleProfile, not added yet, method:%{public, location:escape_only}s, profile index:%{public}d}", &v10, 0x22u);
+      v9 = 68289538;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2082;
+      v14 = "removeBLEProfile";
+      v15 = 1026;
+      v16 = a2;
+      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:removeBleProfile, not added yet, method:%{public, location:escape_only}s, profile index:%{public}d}", &v9, 0x22u);
     }
   }
 
-  result = v5 != 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5 != 0;
 }
 
 BOOL ULTriggerEngine::removeUWBProfile(ULTriggerEngine *this, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (a2 >= 0x1E)
   {
     std::__throw_out_of_range[abi:ne200100]("bitset test argument out of range");
@@ -8467,15 +7226,15 @@ BOOL ULTriggerEngine::removeUWBProfile(ULTriggerEngine *this, uint64_t a2)
     v6 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 68289538;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = "removeUWBProfile";
-      v16 = 1026;
-      v17 = a2;
-      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:remove Uwb profile, method:%{public, location:escape_only}s, index:%{public}d}", &v10, 0x22u);
+      v9 = 68289538;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2082;
+      v14 = "removeUWBProfile";
+      v15 = 1026;
+      v16 = a2;
+      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:remove Uwb profile, method:%{public, location:escape_only}s, index:%{public}d}", &v9, 0x22u);
     }
 
     (*(**(this + 361) + 56))(*(this + 361), 2, a2);
@@ -8492,26 +7251,24 @@ BOOL ULTriggerEngine::removeUWBProfile(ULTriggerEngine *this, uint64_t a2)
     v7 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 68289538;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = "removeUWBProfile";
-      v16 = 1026;
-      v17 = a2;
-      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:removeUwbProfile, not added yet, method:%{public, location:escape_only}s, profile index:%{public}d}", &v10, 0x22u);
+      v9 = 68289538;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2082;
+      v14 = "removeUWBProfile";
+      v15 = 1026;
+      v16 = a2;
+      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:removeUwbProfile, not added yet, method:%{public, location:escape_only}s, profile index:%{public}d}", &v9, 0x22u);
     }
   }
 
-  result = v5 != 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5 != 0;
 }
 
 uint64_t ULTriggerEngine::addScanningProfile(ULTriggerEngine *this, const ULScanningProfile *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = ULScanningProfile::getScanConfigs(a2) + 8;
   v5 = 72;
   while ((ULTriggerEngine::isTechnologyProfileAvailable(this, *(v4 - 8), *v4) & 1) != 0 || *(v4 + 5) != 1)
@@ -8540,17 +7297,17 @@ uint64_t ULTriggerEngine::addScanningProfile(ULTriggerEngine *this, const ULScan
       v8 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 68289794;
-        v12 = 0;
-        v13 = 2082;
-        v14 = "";
-        v15 = 2082;
-        v16 = "addScanningProfile";
-        v17 = 1026;
-        v18 = v6;
-        v19 = 1026;
-        v20 = ULScanningProfile::getIndex(a2);
-        _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:add scanning profile, method:%{public, location:escape_only}s, added:%{public}hhd, profile index:%{public}d}", &v11, 0x28u);
+        v10 = 68289794;
+        v11 = 0;
+        v12 = 2082;
+        v13 = "";
+        v14 = 2082;
+        v15 = "addScanningProfile";
+        v16 = 1026;
+        v17 = v6;
+        v18 = 1026;
+        v19 = ULScanningProfile::getIndex(a2);
+        _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:add scanning profile, method:%{public, location:escape_only}s, added:%{public}hhd, profile index:%{public}d}", &v10, 0x28u);
       }
 
       goto LABEL_17;
@@ -8565,21 +7322,20 @@ uint64_t ULTriggerEngine::addScanningProfile(ULTriggerEngine *this, const ULScan
   v8 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 68289538;
-    v12 = 0;
-    v13 = 2082;
-    v14 = "";
-    v15 = 2082;
-    v16 = "addScanningProfile";
-    v17 = 1026;
-    v18 = ULScanningProfile::getIndex(a2);
-    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:add scanning profile, dependencies not met, method:%{public, location:escape_only}s, profile index:%{public}d}", &v11, 0x22u);
+    v10 = 68289538;
+    v11 = 0;
+    v12 = 2082;
+    v13 = "";
+    v14 = 2082;
+    v15 = "addScanningProfile";
+    v16 = 1026;
+    v17 = ULScanningProfile::getIndex(a2);
+    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:add scanning profile, dependencies not met, method:%{public, location:escape_only}s, profile index:%{public}d}", &v10, 0x22u);
   }
 
   v6 = 0;
 LABEL_17:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -8619,7 +7375,7 @@ LABEL_13:
 
 uint64_t ULTriggerEngine::removeScanningProfile(ULTriggerEngine *this, uint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (a2 >= 0x14)
   {
     std::__throw_out_of_range[abi:ne200100]("bitset test argument out of range");
@@ -8643,17 +7399,17 @@ uint64_t ULTriggerEngine::removeScanningProfile(ULTriggerEngine *this, uint64_t 
     v6 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 68289794;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = "removeScanningProfile";
-      v16 = 1026;
-      v17 = v5;
-      v18 = 1026;
-      v19 = v2;
-      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:remove scanning profile, method:%{public, location:escape_only}s, removed:%{public}hhd, profile index:%{public}d}", &v10, 0x28u);
+      v9 = 68289794;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2082;
+      v14 = "removeScanningProfile";
+      v15 = 1026;
+      v16 = v5;
+      v17 = 1026;
+      v18 = v2;
+      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:remove scanning profile, method:%{public, location:escape_only}s, removed:%{public}hhd, profile index:%{public}d}", &v9, 0x28u);
     }
   }
 
@@ -8668,35 +7424,34 @@ uint64_t ULTriggerEngine::removeScanningProfile(ULTriggerEngine *this, uint64_t 
     v5 = 0;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 68289538;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = "removeScanningProfile";
-      v16 = 1026;
-      v17 = v2;
-      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:remove scanning profile, but not added yet, method:%{public, location:escape_only}s, profile index:%{public}d}", &v10, 0x22u);
-      v5 = 0;
+      v9 = 68289538;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2082;
+      v14 = "removeScanningProfile";
+      v15 = 1026;
+      v16 = v2;
+      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:remove scanning profile, but not added yet, method:%{public, location:escape_only}s, profile index:%{public}d}", &v9, 0x22u);
+      return 0;
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 BOOL ULTriggerEngine::addSchedulingProfile(ULTriggerEngine *this, const ULSchedulingProfile *a2)
 {
   v17 = *MEMORY[0x277D85DE8];
-  v4 = *(ULHomeSlamModel::getTrajectoryPointCloud(a2) + 4);
-  if (v4 >= 0x14)
+  ULHomeSlamModel::getTrajectoryPointCloud(a2);
+  v5 = *(v4 + 4);
+  if (v5 >= 0x14)
   {
     std::__throw_out_of_range[abi:ne200100]("bitset test argument out of range");
   }
 
-  if ((*(this + 11) >> v4))
+  if ((*(this + 11) >> v5))
   {
-    v5 = *MEMORY[0x277D85DE8];
 
     return ULSchedulingProfileManager::addProfile((this + 96), a2);
   }
@@ -8711,7 +7466,8 @@ BOOL ULTriggerEngine::addSchedulingProfile(ULTriggerEngine *this, const ULSchedu
     v7 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *ULHomeSlamModel::getTrajectoryPointCloud(a2);
+      ULHomeSlamModel::getTrajectoryPointCloud(a2);
+      v9 = *v8;
       v10[0] = 68289538;
       v10[1] = 0;
       v11 = 2082;
@@ -8719,18 +7475,17 @@ BOOL ULTriggerEngine::addSchedulingProfile(ULTriggerEngine *this, const ULSchedu
       v13 = 2082;
       v14 = "addSchedulingProfile";
       v15 = 1026;
-      v16 = v8;
+      v16 = v9;
       _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:add scheduling profile, dependencies not met, method:%{public, location:escape_only}s, profile index:%{public}d}", v10, 0x22u);
     }
 
-    v9 = *MEMORY[0x277D85DE8];
     return 0;
   }
 }
 
-uint64_t ULTriggerEngine::suspendSchedulingProfile(ULTriggerEngine *this, unsigned int a2)
+uint64_t ULTriggerEngine::suspendSchedulingProfile(ULTriggerEngine *this, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULTriggerEngine::setDependencies();
@@ -8739,15 +7494,15 @@ uint64_t ULTriggerEngine::suspendSchedulingProfile(ULTriggerEngine *this, unsign
   v4 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 68289538;
-    v10 = 0;
-    v11 = 2082;
-    v12 = "";
-    v13 = 2082;
-    v14 = "suspendSchedulingProfile";
-    v15 = 1026;
-    v16 = a2;
-    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:suspending a scheduling profile, method:%{public, location:escape_only}s, profile index:%{public}d}", &v9, 0x22u);
+    v8 = 68289538;
+    v9 = 0;
+    v10 = 2082;
+    v11 = "";
+    v12 = 2082;
+    v13 = "suspendSchedulingProfile";
+    v14 = 1026;
+    v15 = a2;
+    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:suspending a scheduling profile, method:%{public, location:escape_only}s, profile index:%{public}d}", &v8, 0x22u);
   }
 
   if (a2)
@@ -8762,13 +7517,13 @@ uint64_t ULTriggerEngine::suspendSchedulingProfile(ULTriggerEngine *this, unsign
       v5 = logObject_MicroLocationQE_Default;
       if (os_log_type_enabled(logObject_MicroLocationQE_Default, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 68289026;
-        v10 = 0;
-        v11 = 2082;
-        v12 = "";
+        v8 = 68289026;
+        v9 = 0;
+        v10 = 2082;
+        v11 = "";
         v6 = "{msg%{public}.0s:Localizing profile suspended}";
 LABEL_15:
-        _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, v6, &v9, 0x12u);
+        _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, v6, &v8, 0x12u);
       }
     }
   }
@@ -8783,18 +7538,16 @@ LABEL_15:
     v5 = logObject_MicroLocationQE_Default;
     if (os_log_type_enabled(logObject_MicroLocationQE_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 68289026;
-      v10 = 0;
-      v11 = 2082;
-      v12 = "";
+      v8 = 68289026;
+      v9 = 0;
+      v10 = 2082;
+      v11 = "";
       v6 = "{msg%{public}.0s:Recording profile suspended}";
       goto LABEL_15;
     }
   }
 
-  result = ULSchedulingProfileManager::suspendProfile((this + 96), a2);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return ULSchedulingProfileManager::suspendProfile((this + 96), a2);
 }
 
 uint64_t ULTriggerEngine::handleScanAborted(ULTriggerEngine *this)
@@ -8812,11 +7565,11 @@ uint64_t ULTriggerEngine::handleScanAborted(ULTriggerEngine *this)
   return result;
 }
 
-void sub_25912A014(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t *a10)
+void sub_25912A014(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    ULTriggerEngine::handleScanAborted(a10);
+    ULTriggerEngine::handleScanAborted();
   }
 
   _Unwind_Resume(exception_object);
@@ -8824,7 +7577,7 @@ void sub_25912A014(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t ULTriggerEngine::requestAbortScan(ULTriggerEngine *this)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULTriggerEngine::setDependencies();
@@ -8834,25 +7587,23 @@ uint64_t ULTriggerEngine::requestAbortScan(ULTriggerEngine *this)
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(this + 728);
-    v6[0] = 68289538;
-    v6[1] = 0;
-    v7 = 2082;
-    v8 = "";
-    v9 = 2082;
-    v10 = "requestAbortScan";
-    v11 = 1026;
-    v12 = v3;
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:request abort scan, method:%{public, location:escape_only}s, scan request id:%{public}d}", v6, 0x22u);
+    v5[0] = 68289538;
+    v5[1] = 0;
+    v6 = 2082;
+    v7 = "";
+    v8 = 2082;
+    v9 = "requestAbortScan";
+    v10 = 1026;
+    v11 = v3;
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:request abort scan, method:%{public, location:escape_only}s, scan request id:%{public}d}", v5, 0x22u);
   }
 
-  result = (*(**(this + 361) + 80))(*(this + 361), *(this + 728));
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(**(this + 361) + 80))(*(this + 361), *(this + 728));
 }
 
 void ULTriggerEngine::scheduleMinScanIntervalTimer(uint64_t a1, double *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULTriggerEngine::setDependencies();
@@ -8863,32 +7614,30 @@ void ULTriggerEngine::scheduleMinScanIntervalTimer(uint64_t a1, double *a2)
   {
     v5 = *a2;
     *buf = 68289538;
-    v12 = 0;
-    v13 = 2082;
-    v14 = "";
-    v15 = 2082;
-    v16 = "scheduleMinScanIntervalTimer";
-    v17 = 1026;
-    v18 = v5;
+    v11 = 0;
+    v12 = 2082;
+    v13 = "";
+    v14 = 2082;
+    v15 = "scheduleMinScanIntervalTimer";
+    v16 = 1026;
+    v17 = v5;
     _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:schedule throttle timer between scans, method:%{public, location:escape_only}s, duration:%{public}d}", buf, 0x22u);
   }
 
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:*a2];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = ___ZN15ULTriggerEngine28scheduleMinScanIntervalTimerERKNSt3__16chrono8durationIeNS0_5ratioILl1ELl1EEEEE_block_invoke;
-  v10[3] = &__block_descriptor_40_e5_v8__0l;
-  v10[4] = a1;
-  v7 = [ULTimerFactory timerOnPrimaryQueueWithInterval:v6 repeats:MEMORY[0x277CBEC28] block:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = ___ZN15ULTriggerEngine28scheduleMinScanIntervalTimerERKNSt3__16chrono8durationIeNS0_5ratioILl1ELl1EEEEE_block_invoke;
+  v9[3] = &__block_descriptor_40_e5_v8__0l;
+  v9[4] = a1;
+  v7 = [ULTimerFactory timerOnPrimaryQueueWithInterval:v6 repeats:MEMORY[0x277CBEC28] block:v9];
   v8 = *(a1 + 2904);
   *(a1 + 2904) = v7;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ___ZN15ULTriggerEngine28scheduleMinScanIntervalTimerERKNSt3__16chrono8durationIeNS0_5ratioILl1ELl1EEEEE_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -8898,33 +7647,32 @@ uint64_t ___ZN15ULTriggerEngine28scheduleMinScanIntervalTimerERKNSt3__16chrono8d
   v2 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 68289282;
-    *v6 = 2082;
-    *&v6[2] = "";
-    v7 = 2082;
-    v8 = "scheduleMinScanIntervalTimer_block_invoke";
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Throttle Timer CB, method:%{public, location:escape_only}s}", &v5, 0x1Cu);
+    v4 = 68289282;
+    *v5 = 2082;
+    *&v5[2] = "";
+    v6 = 2082;
+    v7 = "scheduleMinScanIntervalTimer_block_invoke";
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Throttle Timer CB, method:%{public, location:escape_only}s}", &v4, 0x1Cu);
   }
 
-  v5 = 5;
-  *v6 = 0;
-  ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngineFSM>::handleEvent(v1 + 1952, &v5);
-  result = *v6;
-  *v6 = 0;
+  v4 = 5;
+  *v5 = 0;
+  ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngineFSM>::handleEvent(v1 + 1952, &v4);
+  result = *v5;
+  *v5 = 0;
   if (result)
   {
-    result = (*(*result + 8))(result);
+    return (*(*result + 8))(result);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_25912A41C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t *a10)
+void sub_25912A41C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    ULTriggerEngine::handleScanAborted(a10);
+    ULTriggerEngine::handleScanAborted();
   }
 
   _Unwind_Resume(exception_object);
@@ -8932,7 +7680,7 @@ void sub_25912A41C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t ULTriggerEngine::appendScanTrigger(ULTriggerEngine *this, const ULScanningTrigger *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULTriggerEngine::setDependencies();
@@ -8942,7 +7690,7 @@ uint64_t ULTriggerEngine::appendScanTrigger(ULTriggerEngine *this, const ULScann
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     ULScanningTrigger::description(a2, __p);
-    if (v9 >= 0)
+    if (v8 >= 0)
     {
       v5 = __p;
     }
@@ -8953,32 +7701,29 @@ uint64_t ULTriggerEngine::appendScanTrigger(ULTriggerEngine *this, const ULScann
     }
 
     *buf = 68289538;
-    v11 = 0;
-    v12 = 2082;
-    v13 = "";
-    v14 = 2082;
-    v15 = "appendScanTrigger";
-    v16 = 2082;
-    v17 = v5;
+    v10 = 0;
+    v11 = 2082;
+    v12 = "";
+    v13 = 2082;
+    v14 = "appendScanTrigger";
+    v15 = 2082;
+    v16 = v5;
     _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:appending scan trigger, method:%{public, location:escape_only}s, trigger:%{public, location:escape_only}s}", buf, 0x26u);
-    if (v9 < 0)
+    if (v8 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  result = (*(**(this + 361) + 88))(*(this + 361), a2);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(**(this + 361) + 88))(*(this + 361), a2);
 }
 
 void ULTriggerEngine::resetMotionFenceIfNeeded(ULTriggerEngine *this)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (ULSchedulingProfileManager::activeMotionProfileExists((this + 96)))
   {
     v2 = *(**(this + 355) + 40);
-    v3 = *MEMORY[0x277D85DE8];
 
     v2();
   }
@@ -8990,23 +7735,21 @@ void ULTriggerEngine::resetMotionFenceIfNeeded(ULTriggerEngine *this)
       ULTriggerEngine::setDependencies();
     }
 
-    v4 = logObject_MicroLocation_Default;
+    v3 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v6[0] = 68289282;
-      v6[1] = 0;
+      v4[0] = 68289282;
+      v4[1] = 0;
+      v5 = 2082;
+      v6 = "";
       v7 = 2082;
-      v8 = "";
-      v9 = 2082;
-      v10 = "resetMotionFenceIfNeeded";
-      _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:no active motion profile, will not reset motion fence, method:%{public, location:escape_only}s}", v6, 0x1Cu);
+      v8 = "resetMotionFenceIfNeeded";
+      _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:no active motion profile, will not reset motion fence, method:%{public, location:escape_only}s}", v4, 0x1Cu);
     }
-
-    v5 = *MEMORY[0x277D85DE8];
   }
 }
 
-uint64_t ULTriggerEngine::resumeSchedulingProfile(ULTriggerEngine *this, unsigned int a2)
+ULSchedulingProfile *ULTriggerEngine::resumeSchedulingProfile(ULTriggerEngine *this, uint64_t a2)
 {
   v22 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
@@ -9031,13 +7774,14 @@ uint64_t ULTriggerEngine::resumeSchedulingProfile(ULTriggerEngine *this, unsigne
   ULSchedulingProfileManager::schedulingProfileByIndex(this + 96, a2, buf);
   if (ULSchedulingProfile::hasPeriodicTriggerEnabled(buf))
   {
-    TrajectoryPointCloud = ULHomeSlamModel::getTrajectoryPointCloud(buf);
+    ULHomeSlamModel::getTrajectoryPointCloud(buf);
+    v6 = v5;
     SchedulingSettings = ULSchedulingProfile::getSchedulingSettings(buf);
-    (*(*this + 272))(this, TrajectoryPointCloud, *(SchedulingSettings + 8));
+    (*(*this + 272))(this, v6, *(SchedulingSettings + 8));
   }
 
   active = ULSchedulingProfileManager::activeMotionProfileExists((this + 96));
-  v8 = ULSchedulingProfileManager::resumeProfile((this + 96), a2);
+  v9 = ULSchedulingProfileManager::resumeProfile((this + 96), a2);
   if ((active & 1) == 0 && ULSchedulingProfileManager::activeMotionProfileExists((this + 96)))
   {
     (*(**(this + 355) + 32))(*(this + 355));
@@ -9046,22 +7790,21 @@ uint64_t ULTriggerEngine::resumeSchedulingProfile(ULTriggerEngine *this, unsigne
   v12 = 1;
   v13 = 0;
   ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngineFSM>::handleEvent(this + 1952, &v12);
-  v9 = v13;
+  v10 = v13;
   v13 = 0;
-  if (v9)
+  if (v10)
   {
-    (*(*v9 + 8))(v9);
+    (*(*v10 + 8))(v10);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
-void sub_25912A900(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t *a10)
+void sub_25912A900(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    ULTriggerEngine::handleScanAborted(a10);
+    ULTriggerEngine::handleScanAborted();
   }
 
   _Unwind_Resume(exception_object);
@@ -9077,16 +7820,16 @@ uint64_t ULTriggerEngine::isScanningProfileAvailable(ULTriggerEngine *this, unsi
   return (*(this + 11) >> a2) & 1;
 }
 
-void ULTriggerEngine::fetchAndDequeueTopPriorityActiveTriggers(ULTriggerEngine *this@<X0>, uint64_t a2@<X8>)
+void ULTriggerEngine::fetchAndDequeueTopPriorityActiveTriggers(ULTriggerEngine *this@<X0>, uint64_t a2@<X8>, uint64_t a3@<X1>)
 {
-  ULTriggerQueue::removeExpiredTriggers(this + 118);
+  ULTriggerQueue::removeExpiredTriggers((this + 944), a3);
 
   ULTriggerQueue::dequeueTopPriorityProfilesBatch((this + 944), a2);
 }
 
-uint64_t ULTriggerEngine::hasTopPriorityActiveTriggers(ULTriggerEngine *this)
+uint64_t ULTriggerEngine::hasTopPriorityActiveTriggers(ULTriggerEngine *this, uint64_t a2)
 {
-  ULTriggerQueue::removeExpiredTriggers(this + 118);
+  ULTriggerQueue::removeExpiredTriggers((this + 944), a2);
 
   return ULTriggerQueue::hasTopPriorityActiveTriggers((this + 944));
 }
@@ -9102,19 +7845,20 @@ ULSchedulingProfile *ULTriggerEngine::startMotionDetected(ULTriggerEngine *this)
   v2 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    buf = 68289282;
+    *buf = 68289282;
+    v21 = 0;
     v22 = 2082;
     v23 = "";
     v24 = 2082;
     v25 = "startMotionDetected";
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:start motion detected, method:%{public, location:escape_only}s}", &buf, 0x1Cu);
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:start motion detected, method:%{public, location:escape_only}s}", buf, 0x1Cu);
   }
 
-  result = ULSchedulingProfileManager::getProfilesWithScanOnStartMotion((this + 96), &buf);
+  result = ULSchedulingProfileManager::getProfilesWithScanOnStartMotion((this + 96), buf);
   if (v26)
   {
     v4 = 32 * v26;
-    p_buf = &buf;
+    v5 = buf;
     do
     {
       if (onceToken_MicroLocation_Default != -1)
@@ -9125,9 +7869,9 @@ ULSchedulingProfile *ULTriggerEngine::startMotionDetected(ULTriggerEngine *this)
       v6 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        TrajectoryPointCloud = ULHomeSlamModel::getTrajectoryPointCloud(p_buf);
-        ULScanTriggerSettings::description(TrajectoryPointCloud, __p);
-        if (v12 >= 0)
+        ULHomeSlamModel::getTrajectoryPointCloud(v5);
+        ULScanTriggerSettings::description(__p, v7);
+        if (v11 >= 0)
         {
           v8 = __p;
         }
@@ -9137,31 +7881,30 @@ ULSchedulingProfile *ULTriggerEngine::startMotionDetected(ULTriggerEngine *this)
           v8 = __p[0];
         }
 
-        *v13 = 68289538;
-        v14 = 0;
-        v15 = 2082;
-        v16 = "";
-        v17 = 2082;
-        v18 = "startMotionDetected";
-        v19 = 2082;
-        v20 = v8;
-        _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:start motion signal generating a trigger, method:%{public, location:escape_only}s, trigger scheduling settings:%{public, location:escape_only}s}", v13, 0x26u);
-        if (v12 < 0)
+        *v12 = 68289538;
+        v13 = 0;
+        v14 = 2082;
+        v15 = "";
+        v16 = 2082;
+        v17 = "startMotionDetected";
+        v18 = 2082;
+        v19 = v8;
+        _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:start motion signal generating a trigger, method:%{public, location:escape_only}s, trigger scheduling settings:%{public, location:escape_only}s}", v12, 0x26u);
+        if (v11 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
-      v9 = ULHomeSlamModel::getTrajectoryPointCloud(p_buf);
+      ULHomeSlamModel::getTrajectoryPointCloud(v5);
       result = (*(*this + 168))(this, 0, v9);
-      p_buf += 4;
+      v5 += 32;
       v4 -= 32;
     }
 
     while (v4);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9176,19 +7919,20 @@ ULSchedulingProfile *ULTriggerEngine::handleInMotionDetection(ULTriggerEngine *t
   v2 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    buf = 68289282;
+    *buf = 68289282;
+    v21 = 0;
     v22 = 2082;
     v23 = "";
     v24 = 2082;
     v25 = "handleInMotionDetection";
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:in motion detected, method:%{public, location:escape_only}s}", &buf, 0x1Cu);
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:in motion detected, method:%{public, location:escape_only}s}", buf, 0x1Cu);
   }
 
-  result = ULSchedulingProfileManager::getProfilesWithScanOnInMotion((this + 96), &buf);
+  result = ULSchedulingProfileManager::getProfilesWithScanOnInMotion((this + 96), buf);
   if (v26)
   {
     v4 = 32 * v26;
-    p_buf = &buf;
+    v5 = buf;
     do
     {
       if (onceToken_MicroLocation_Default != -1)
@@ -9199,9 +7943,9 @@ ULSchedulingProfile *ULTriggerEngine::handleInMotionDetection(ULTriggerEngine *t
       v6 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        TrajectoryPointCloud = ULHomeSlamModel::getTrajectoryPointCloud(p_buf);
-        ULScanTriggerSettings::description(TrajectoryPointCloud, __p);
-        if (v12 >= 0)
+        ULHomeSlamModel::getTrajectoryPointCloud(v5);
+        ULScanTriggerSettings::description(__p, v7);
+        if (v11 >= 0)
         {
           v8 = __p;
         }
@@ -9211,31 +7955,30 @@ ULSchedulingProfile *ULTriggerEngine::handleInMotionDetection(ULTriggerEngine *t
           v8 = __p[0];
         }
 
-        *v13 = 68289538;
-        v14 = 0;
-        v15 = 2082;
-        v16 = "";
-        v17 = 2082;
-        v18 = "handleInMotionDetection";
-        v19 = 2082;
-        v20 = v8;
-        _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:in motion signal generating a trigger, method:%{public, location:escape_only}s, trigger scheduling settings:%{public, location:escape_only}s}", v13, 0x26u);
-        if (v12 < 0)
+        *v12 = 68289538;
+        v13 = 0;
+        v14 = 2082;
+        v15 = "";
+        v16 = 2082;
+        v17 = "handleInMotionDetection";
+        v18 = 2082;
+        v19 = v8;
+        _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:in motion signal generating a trigger, method:%{public, location:escape_only}s, trigger scheduling settings:%{public, location:escape_only}s}", v12, 0x26u);
+        if (v11 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
-      v9 = ULHomeSlamModel::getTrajectoryPointCloud(p_buf);
+      ULHomeSlamModel::getTrajectoryPointCloud(v5);
       result = (*(*this + 168))(this, 1, v9);
-      p_buf += 4;
+      v5 += 32;
       v4 -= 32;
     }
 
     while (v4);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9250,19 +7993,20 @@ ULSchedulingProfile *ULTriggerEngine::stopMotionDetected(ULTriggerEngine *this)
   v2 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    buf = 68289282;
+    *buf = 68289282;
+    v21 = 0;
     v22 = 2082;
     v23 = "";
     v24 = 2082;
     v25 = "stopMotionDetected";
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:stop motion detected, method:%{public, location:escape_only}s}", &buf, 0x1Cu);
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:stop motion detected, method:%{public, location:escape_only}s}", buf, 0x1Cu);
   }
 
-  result = ULSchedulingProfileManager::getProfilesWithScanOnStopMotion((this + 96), &buf);
+  result = ULSchedulingProfileManager::getProfilesWithScanOnStopMotion((this + 96), buf);
   if (v26)
   {
     v4 = 32 * v26;
-    p_buf = &buf;
+    v5 = buf;
     do
     {
       if (onceToken_MicroLocation_Default != -1)
@@ -9273,9 +8017,9 @@ ULSchedulingProfile *ULTriggerEngine::stopMotionDetected(ULTriggerEngine *this)
       v6 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        TrajectoryPointCloud = ULHomeSlamModel::getTrajectoryPointCloud(p_buf);
-        ULScanTriggerSettings::description(TrajectoryPointCloud, __p);
-        if (v12 >= 0)
+        ULHomeSlamModel::getTrajectoryPointCloud(v5);
+        ULScanTriggerSettings::description(__p, v7);
+        if (v11 >= 0)
         {
           v8 = __p;
         }
@@ -9285,46 +8029,45 @@ ULSchedulingProfile *ULTriggerEngine::stopMotionDetected(ULTriggerEngine *this)
           v8 = __p[0];
         }
 
-        *v13 = 68289538;
-        v14 = 0;
-        v15 = 2082;
-        v16 = "";
-        v17 = 2082;
-        v18 = "stopMotionDetected";
-        v19 = 2082;
-        v20 = v8;
-        _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:stop motion signal generating a trigger, method:%{public, location:escape_only}s, trigger scheduling settings:%{public, location:escape_only}s}", v13, 0x26u);
-        if (v12 < 0)
+        *v12 = 68289538;
+        v13 = 0;
+        v14 = 2082;
+        v15 = "";
+        v16 = 2082;
+        v17 = "stopMotionDetected";
+        v18 = 2082;
+        v19 = v8;
+        _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:stop motion signal generating a trigger, method:%{public, location:escape_only}s, trigger scheduling settings:%{public, location:escape_only}s}", v12, 0x26u);
+        if (v11 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
-      v9 = ULHomeSlamModel::getTrajectoryPointCloud(p_buf);
+      ULHomeSlamModel::getTrajectoryPointCloud(v5);
       result = (*(*this + 168))(this, 2, v9);
-      p_buf += 4;
+      v5 += 32;
       v4 -= 32;
     }
 
     while (v4);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void ULTriggerEngine::onScanComplete(_DWORD *a1, int a2, int a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  ULTriggerEngineFSM::scanSessionContext((a1 + 488), &v11);
-  if ((v19 & 1) == 0)
+  v19 = *MEMORY[0x277D85DE8];
+  ULTriggerEngineFSM::scanSessionContext(&v11, (a1 + 488));
+  if ((v18 & 1) == 0)
   {
-    ULTriggerEngine::onScanComplete();
+    ULTriggerEngine::onScanComplete(v6);
   }
 
   if (a3 != 4)
   {
-    ULTriggerEngine::handleScanCompleted(a1);
+    ULTriggerEngine::handleScanCompleted(a1, a3 == 0);
   }
 
   ULTriggerEngine::handleScanAborted(a1);
@@ -9335,19 +8078,18 @@ void ULTriggerEngine::onScanComplete(_DWORD *a1, int a2, int a3)
       ULTriggerEngine::requestTrigger();
     }
 
-    v6 = logObject_MicroLocation_Default;
+    v7 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
-      v7 = a1[728];
+      v8 = a1[728];
       v11 = 68289538;
-      v12 = 0;
-      v13 = 2082;
-      v14 = "";
-      v15 = 1026;
-      v16 = v7;
-      v17 = 1026;
-      v18 = a2;
-      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:onScanComplete, scan request id doesn't match, requested scan id:%{public}d, returned scan id:%{public}d}", &v11, 0x1Eu);
+      v12 = 2082;
+      v13 = "";
+      v14 = 1026;
+      v15 = v8;
+      v16 = 1026;
+      v17 = a2;
+      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:onScanComplete, scan request id doesn't match, requested scan id:%{public}d, returned scan id:%{public}d}", &v11, 0x1Eu);
     }
 
     if (onceToken_MicroLocation_Default != -1)
@@ -9355,31 +8097,29 @@ void ULTriggerEngine::onScanComplete(_DWORD *a1, int a2, int a3)
       ULTriggerEngine::requestTrigger();
     }
 
-    v8 = logObject_MicroLocation_Default;
+    v9 = logObject_MicroLocation_Default;
     if (os_signpost_enabled(logObject_MicroLocation_Default))
     {
-      v9 = a1[728];
+      v10 = a1[728];
       v11 = 68289538;
-      v12 = 0;
-      v13 = 2082;
-      v14 = "";
-      v15 = 1026;
-      v16 = v9;
-      v17 = 1026;
-      v18 = a2;
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "onScanComplete, scan request id doesn't match", "{msg%{public}.0s:onScanComplete, scan request id doesn't match, requested scan id:%{public}d, returned scan id:%{public}d}", &v11, 0x1Eu);
+      v12 = 2082;
+      v13 = "";
+      v14 = 1026;
+      v15 = v10;
+      v16 = 1026;
+      v17 = a2;
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "onScanComplete, scan request id doesn't match", "{msg%{public}.0s:onScanComplete, scan request id doesn't match, requested scan id:%{public}d, returned scan id:%{public}d}", &v11, 0x1Eu);
     }
   }
 
   a1[728] = -1;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25912B3B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t *a10)
+void sub_25912B3B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    ULTriggerEngine::handleScanAborted(a10);
+    ULTriggerEngine::handleScanAborted();
   }
 
   _Unwind_Resume(exception_object);
@@ -9387,7 +8127,7 @@ void sub_25912B3B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t ULTriggerEngine::startMotionBasedTriggers(ULTriggerEngine *this)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULTriggerEngine::setDependencies();
@@ -9396,23 +8136,21 @@ uint64_t ULTriggerEngine::startMotionBasedTriggers(ULTriggerEngine *this)
   v2 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 68289282;
-    v5[1] = 0;
-    v6 = 2082;
-    v7 = "";
-    v8 = 2082;
-    v9 = "startMotionBasedTriggers";
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:start motion based triggers, method:%{public, location:escape_only}s}", v5, 0x1Cu);
+    v4[0] = 68289282;
+    v4[1] = 0;
+    v5 = 2082;
+    v6 = "";
+    v7 = 2082;
+    v8 = "startMotionBasedTriggers";
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:start motion based triggers, method:%{public, location:escape_only}s}", v4, 0x1Cu);
   }
 
-  result = (*(**(this + 355) + 16))(*(this + 355));
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(**(this + 355) + 16))(*(this + 355));
 }
 
 uint64_t ULTriggerEngine::stopMotionBasedTriggers(ULTriggerEngine *this)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULTriggerEngine::setDependencies();
@@ -9421,26 +8159,24 @@ uint64_t ULTriggerEngine::stopMotionBasedTriggers(ULTriggerEngine *this)
   v2 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 68289282;
-    v5[1] = 0;
-    v6 = 2082;
-    v7 = "";
-    v8 = 2082;
-    v9 = "stopMotionBasedTriggers";
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:stop motion based triggers, method:%{public, location:escape_only}s}", v5, 0x1Cu);
+    v4[0] = 68289282;
+    v4[1] = 0;
+    v5 = 2082;
+    v6 = "";
+    v7 = 2082;
+    v8 = "stopMotionBasedTriggers";
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:stop motion based triggers, method:%{public, location:escape_only}s}", v4, 0x1Cu);
   }
 
-  result = (*(**(this + 355) + 24))(*(this + 355));
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(**(this + 355) + 24))(*(this + 355));
 }
 
 void ULTriggerEngine::startPeriodicTriggers(ULTriggerEngine *this, const ULScanTriggerSettings *a2, double a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (*(this + 365))
   {
-    ULTriggerEngine::startPeriodicTriggers();
+    ULTriggerEngine::startPeriodicTriggers(this);
   }
 
   if (onceToken_MicroLocation_Default != -1)
@@ -9453,42 +8189,41 @@ void ULTriggerEngine::startPeriodicTriggers(ULTriggerEngine *this, const ULScanT
   {
     *buf = 68289538;
     *&buf[4] = 0;
-    *v13 = 2082;
-    *&v13[2] = "";
-    *&v13[10] = 2082;
-    *&v13[12] = "startPeriodicTriggers";
-    *&v13[20] = 1026;
-    *&v13[22] = a3;
+    *v12 = 2082;
+    *&v12[2] = "";
+    *&v12[10] = 2082;
+    *&v12[12] = "startPeriodicTriggers";
+    *&v12[20] = 1026;
+    *&v12[22] = a3;
     _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Start Periodic based triggers, method:%{public, location:escape_only}s, Interval:%{public}d}", buf, 0x22u);
   }
 
   (*(*this + 168))(this, 5, a2);
   *buf = 0;
-  *v13 = buf;
-  *&v13[8] = 0x4012000000;
-  *&v13[16] = __Block_byref_object_copy__31;
-  *&v13[24] = __Block_byref_object_dispose__31;
-  v14 = &unk_25929B3B7;
-  v15 = *a2;
-  v16 = *(a2 + 2);
+  *v12 = buf;
+  *&v12[8] = 0x4012000000;
+  *&v12[16] = __Block_byref_object_copy__31;
+  *&v12[24] = __Block_byref_object_dispose__31;
+  v13 = &unk_25929B3B7;
+  v14 = *a2;
+  v15 = *(a2 + 2);
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:a3];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = ___ZN15ULTriggerEngine21startPeriodicTriggersERK21ULScanTriggerSettingsd_block_invoke;
-  v11[3] = &unk_2798D4650;
-  v11[4] = buf;
-  v11[5] = this;
-  v8 = [ULTimerFactory timerOnPrimaryQueueWithInterval:v7 repeats:MEMORY[0x277CBEC38] block:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = ___ZN15ULTriggerEngine21startPeriodicTriggersERK21ULScanTriggerSettingsd_block_invoke;
+  v10[3] = &unk_2798D4650;
+  v10[4] = buf;
+  v10[5] = this;
+  v8 = [ULTimerFactory timerOnPrimaryQueueWithInterval:v7 repeats:MEMORY[0x277CBEC38] block:v10];
   v9 = *(this + 365);
   *(this + 365) = v8;
 
   _Block_object_dispose(buf, 8);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25912B82C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25912B82C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -9504,7 +8239,7 @@ uint64_t __Block_byref_object_copy__31(uint64_t result, uint64_t a2)
 
 uint64_t ___ZN15ULTriggerEngine21startPeriodicTriggersERK21ULScanTriggerSettingsd_block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -9514,29 +8249,28 @@ uint64_t ___ZN15ULTriggerEngine21startPeriodicTriggersERK21ULScanTriggerSettings
   v3 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 68289282;
-    v6[1] = 0;
-    v7 = 2082;
-    v8 = "";
-    v9 = 2082;
-    v10 = "startPeriodicTriggers_block_invoke";
-    _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Periodic trigger scheduling Timer CB, method:%{public, location:escape_only}s}", v6, 0x1Cu);
+    v5[0] = 68289282;
+    v5[1] = 0;
+    v6 = 2082;
+    v7 = "";
+    v8 = 2082;
+    v9 = "startPeriodicTriggers_block_invoke";
+    _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Periodic trigger scheduling Timer CB, method:%{public, location:escape_only}s}", v5, 0x1Cu);
   }
 
   (*(*v2 + 168))(v2, 5, *(*(a1 + 32) + 8) + 48);
   result = ULSchedulingProfileManager::isProfileSuspended((v2 + 96), *(*(*(a1 + 32) + 8) + 48));
   if (result)
   {
-    result = (*(*v2 + 280))(v2);
+    return (*(*v2 + 280))(v2);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void ULTriggerEngine::stopPeriodicTriggers(id *this)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULTriggerEngine::setDependencies();
@@ -9545,20 +8279,18 @@ void ULTriggerEngine::stopPeriodicTriggers(id *this)
   v2 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 68289282;
-    v5[1] = 0;
-    v6 = 2082;
-    v7 = "";
-    v8 = 2082;
-    v9 = "stopPeriodicTriggers";
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Stop Periodic based triggers, method:%{public, location:escape_only}s}", v5, 0x1Cu);
+    v4[0] = 68289282;
+    v4[1] = 0;
+    v5 = 2082;
+    v6 = "";
+    v7 = 2082;
+    v8 = "stopPeriodicTriggers";
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Stop Periodic based triggers, method:%{public, location:escape_only}s}", v4, 0x1Cu);
   }
 
   [this[365] invalidate];
   v3 = this[365];
   this[365] = 0;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void ULTriggerEngine::~ULTriggerEngine(ULTriggerEngine *this)
@@ -9738,4 +8470,1260 @@ uint64_t std::__function::__func<ULTriggerEngine::ULTriggerEngine(void)::$_0,std
   {
     return 0;
   }
+}
+
+uint64_t std::__function::__value_func<BOOL ()(int)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__func<ULTriggerEngine::ULTriggerEngine(void)::$_1,std::allocator<ULTriggerEngine::ULTriggerEngine(void)::$_1>,BOOL ()(int)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_286A5B408;
+  a2[1] = v2;
+  return result;
+}
+
+uint64_t std::__function::__func<ULTriggerEngine::ULTriggerEngine(void)::$_1,std::allocator<ULTriggerEngine::ULTriggerEngine(void)::$_1>,BOOL ()(int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> (*)(void),std::allocator<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> (*)(void)>,std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_286A5B488;
+  a2[1] = v2;
+  return result;
+}
+
+uint64_t std::__function::__func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> (*)(void),std::allocator<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> (*)(void)>,std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void ULFSMEventQueue<ULTriggerEngineEvent,10ul>::operator[](uint64_t a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+{
+  v17 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 176) <= a2)
+  {
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      ULTriggerEngine::setDependencies();
+    }
+
+    v9 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
+    {
+      v11 = 68289282;
+      v12 = 0;
+      v13 = 2082;
+      v14 = "";
+      v15 = 2082;
+      v16 = "operator[]";
+      _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Index out of boundst, method:%{public, location:escape_only}s}", &v11, 0x1Cu);
+    }
+
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      ULTriggerEngine::requestTrigger();
+    }
+
+    v10 = logObject_MicroLocation_Default;
+    if (os_signpost_enabled(logObject_MicroLocation_Default))
+    {
+      v11 = 68289282;
+      v12 = 0;
+      v13 = 2082;
+      v14 = "";
+      v15 = 2082;
+      v16 = "operator[]";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Index out of boundst", "{msg%{public}.0s:Index out of boundst, method:%{public, location:escape_only}s}", &v11, 0x1Cu);
+    }
+
+    v8 = 0;
+    *a3 = 0;
+  }
+
+  else
+  {
+    v4 = *(a1 + 160);
+    v5 = *(a1 + 16 * ((v4 + a2) % 0xAuLL));
+    v6 = a1 + 16 * v4;
+    v7 = *(v6 + 8);
+    *(v6 + 8) = 0;
+    *a3 = v5;
+    *(a3 + 8) = v7;
+    v8 = 1;
+  }
+
+  *(a3 + 16) = v8;
+}
+
+BOOL OUTLINED_FUNCTION_11(NSObject *a1)
+{
+
+  return os_log_type_enabled(a1, OS_LOG_TYPE_INFO);
+}
+
+double ULTriggerEngineFSM::getTransitionTable(ULTriggerEngineFSM *this)
+{
+  if ((atomic_load_explicit(_MergedGlobals, memory_order_acquire) & 1) == 0)
+  {
+    ULTriggerEngineFSM::getTransitionTable();
+  }
+
+  qword_281456590 = 0;
+  unk_281456598 = 0;
+  qword_281456580 = 0;
+  *algn_281456588 = ULTriggerEngineFSM::handleNewTriggerInIdle;
+  qword_2814565A0 = ULTriggerEngineFSM::handlePendingTriggersUnsuspended;
+  unk_2814565A8 = 0u;
+  unk_2814565B8 = 0u;
+  unk_2814565C8 = 0u;
+  qword_2814565D8 = 0;
+  unk_2814565E0 = 1;
+  unk_2814565E8 = 0u;
+  unk_2814565F8 = 0u;
+  qword_281456608 = 0;
+  unk_281456610 = 1;
+  qword_281456618 = ULTriggerEngineFSM::handleNewTriggerInScan;
+  xmmword_281456620 = xmmword_25921A970;
+  qword_281456630 = 0;
+  unk_281456638 = 0;
+  qword_281456640 = 2;
+  unk_281456648 = ULTriggerEngineFSM::handleScanComplete;
+  result = 0.0;
+  xmmword_281456650 = xmmword_2592201A0;
+  qword_281456660 = 0;
+  unk_281456668 = 0;
+  qword_281456670 = 1;
+  unk_281456678 = 0;
+  qword_281456680 = 0;
+  unk_281456688 = 1;
+  qword_281456690 = 0;
+  unk_281456698 = 0;
+  qword_2814566A0 = 2;
+  unk_2814566A8 = ULTriggerEngineFSM::handleNewTriggerInThrottle;
+  xmmword_2814566B0 = xmmword_2592201A0;
+  qword_2814566C0 = 0;
+  unk_2814566C8 = 0;
+  qword_2814566D0 = 2;
+  unk_2814566D8 = 0;
+  qword_2814566E0 = 0;
+  unk_2814566E8 = 2;
+  qword_2814566F0 = 0;
+  unk_2814566F8 = 0;
+  qword_281456700 = 2;
+  unk_281456708 = 0;
+  qword_281456710 = 0;
+  unk_281456718 = 0;
+  qword_281456720 = ULTriggerEngineFSM::handleThrottleCompleted;
+  unk_281456728 = 0;
+  return result;
+}
+
+void ULTriggerEngineFSM::handlePendingTriggersUnsuspended(uint64_t a1)
+{
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = (*(**(a1 + 768) + 32))(*(a1 + 768));
+  if (onceToken_MicroLocation_Default != -1)
+  {
+    ULTriggerEngineFSM::handleNewTriggerInIdle();
+  }
+
+  v3 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
+  {
+    v4[0] = 68289538;
+    v4[1] = 0;
+    v5 = 2082;
+    v6 = "";
+    v7 = 2082;
+    v8 = "handlePendingTriggersUnsuspended";
+    v9 = 1026;
+    v10 = v2;
+    _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:pendingTriggersUnsuspended, method:%{public, location:escape_only}s, hasValidTriggers:%{public}hhd}", v4, 0x22u);
+  }
+
+  if (v2)
+  {
+    (*(**(a1 + 776) + 80))(*(a1 + 776));
+  }
+}
+
+void ULTriggerEngineFSM::handleNewTriggerInScan(uint64_t a1, uint64_t a2)
+{
+  v33 = *MEMORY[0x277D85DE8];
+  v4 = *(a2 + 8);
+  if (v4 && (v5 = (*(*v4 + 16))(v4), v5 == 675588685))
+  {
+    v6 = *(a2 + 8);
+    v7 = *(v6 + 36);
+    if (v7 < 0)
+    {
+      if (onceToken_MicroLocation_Default != -1)
+      {
+        ULTriggerEngineFSM::handleNewTriggerInIdle();
+      }
+
+      v17 = logObject_MicroLocation_Default;
+      if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 68289538;
+        v24 = 0;
+        v25 = 2082;
+        v26 = "";
+        v27 = 2082;
+        v28 = "handleNewTriggerInScan";
+        v29 = 1026;
+        LODWORD(v30) = v7;
+        _os_log_impl(&dword_258FE9000, v17, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:handleNewTriggerInScan, invalid scanning profile, method:%{public, location:escape_only}s, arriving scanning profile:%{public}d}", buf, 0x22u);
+      }
+
+      if (onceToken_MicroLocation_Default != -1)
+      {
+        ULTriggerEngineFSM::handleNewTriggerInIdle();
+      }
+
+      v18 = logObject_MicroLocation_Default;
+      if (os_signpost_enabled(logObject_MicroLocation_Default))
+      {
+        *buf = 68289538;
+        v24 = 0;
+        v25 = 2082;
+        v26 = "";
+        v27 = 2082;
+        v28 = "handleNewTriggerInScan";
+        v29 = 1026;
+        LODWORD(v30) = v7;
+        _os_signpost_emit_with_name_impl(&dword_258FE9000, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "handleNewTriggerInScan, invalid scanning profile", "{msg%{public}.0s:handleNewTriggerInScan, invalid scanning profile, method:%{public, location:escape_only}s, arriving scanning profile:%{public}d}", buf, 0x22u);
+      }
+    }
+
+    else
+    {
+      if ((*(a1 + 840) & 1) == 0)
+      {
+        ULTriggerEngineFSM::handleNewTriggerInScan(v5);
+      }
+
+      if (onceToken_MicroLocation_Default != -1)
+      {
+        ULTriggerEngineFSM::handleNewTriggerInIdle();
+      }
+
+      v8 = logObject_MicroLocation_Default;
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        ULScanningTrigger::description((v6 + 8), v21);
+        v9 = v22;
+        v10 = v21[0];
+        ULScanningTrigger::description((a1 + 784), __p);
+        v11 = v21;
+        if (v9 < 0)
+        {
+          v11 = v10;
+        }
+
+        if (v20 >= 0)
+        {
+          v12 = __p;
+        }
+
+        else
+        {
+          v12 = __p[0];
+        }
+
+        *buf = 68289794;
+        v24 = 0;
+        v25 = 2082;
+        v26 = "";
+        v27 = 2082;
+        v28 = "handleNewTriggerInScan";
+        v29 = 2082;
+        v30 = v11;
+        v31 = 2082;
+        v32 = v12;
+        _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:handleNewTriggerInScan, method:%{public, location:escape_only}s, arriving trigger:%{public, location:escape_only}s, ongoing scan initiating trigger:%{public, location:escape_only}s}", buf, 0x30u);
+        if (v20 < 0)
+        {
+          operator delete(__p[0]);
+        }
+
+        if (v22 < 0)
+        {
+          operator delete(v21[0]);
+        }
+      }
+
+      if (*(a1 + 812) == v7)
+      {
+        (*(**(a1 + 776) + 56))(*(a1 + 776), v6 + 8);
+      }
+
+      else
+      {
+        if (*(v6 + 40) > *(a1 + 816))
+        {
+          (*(**(a1 + 776) + 40))(*(a1 + 776));
+        }
+
+        (*(**(a1 + 776) + 16))(*(a1 + 776), v6 + 8);
+      }
+    }
+  }
+
+  else
+  {
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      ULTriggerEngineFSM::handleNewTriggerInIdle();
+    }
+
+    v13 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      v14 = (*(**(a2 + 8) + 16))(*(a2 + 8));
+      *buf = 68289538;
+      v24 = 0;
+      v25 = 2082;
+      v26 = "";
+      v27 = 2082;
+      v28 = "handleNewTriggerInScan";
+      v29 = 2050;
+      v30 = v14;
+      _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:handleNewTriggerInScan, unexpected event data, method:%{public, location:escape_only}s, data type:%{public}lu}", buf, 0x26u);
+    }
+
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      ULTriggerEngineFSM::handleNewTriggerInIdle();
+    }
+
+    v15 = logObject_MicroLocation_Default;
+    if (os_signpost_enabled(v15))
+    {
+      v16 = (*(**(a2 + 8) + 16))(*(a2 + 8));
+      *buf = 68289538;
+      v24 = 0;
+      v25 = 2082;
+      v26 = "";
+      v27 = 2082;
+      v28 = "handleNewTriggerInScan";
+      v29 = 2050;
+      v30 = v16;
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "handleNewTriggerInScan, unexpected event data", "{msg%{public}.0s:handleNewTriggerInScan, unexpected event data, method:%{public, location:escape_only}s, data type:%{public}lu}", buf, 0x26u);
+    }
+  }
+}
+
+void sub_25912CEC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+{
+  if (a19 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ULTriggerEngineFSM::handleScanComplete(uint64_t a1, uint64_t a2)
+{
+  v22 = *MEMORY[0x277D85DE8];
+  v4 = *(a2 + 8);
+  if (v4 && (*(*v4 + 16))(v4) == -980164530)
+  {
+    v5 = *(a2 + 8);
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      ULTriggerEngineFSM::handleNewTriggerInIdle();
+    }
+
+    v6 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = *(v5 + 8);
+      v14 = 68289538;
+      v15 = 0;
+      v16 = 2082;
+      v17 = "";
+      v18 = 2082;
+      v19 = "handleScanComplete";
+      v20 = 1026;
+      LODWORD(v21) = v8;
+      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:scan completed, method:%{public, location:escape_only}s, scan succeeded?:%{public}hhd}", &v14, 0x22u);
+    }
+
+    *(a1 + 824) = *(v5 + 8) ^ 1;
+    if (scanProfileToScanType(*(a1 + 812), v7) == 1)
+    {
+      if (onceToken_MicroLocation_Default != -1)
+      {
+        ULTriggerEngineFSM::handleNewTriggerInIdle();
+      }
+
+      v9 = logObject_MicroLocation_Default;
+      if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
+      {
+        v14 = 68289282;
+        v15 = 0;
+        v16 = 2082;
+        v17 = "";
+        v18 = 2082;
+        v19 = "handleScanComplete";
+        _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:localization scan completed, reset Motion fence if needed, method:%{public, location:escape_only}s}", &v14, 0x1Cu);
+      }
+
+      (*(**(a1 + 776) + 72))(*(a1 + 776));
+    }
+  }
+
+  else
+  {
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      ULTriggerEngineFSM::handleNewTriggerInIdle();
+    }
+
+    v10 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v11 = (*(**(a2 + 8) + 16))(*(a2 + 8));
+      v14 = 68289538;
+      v15 = 0;
+      v16 = 2082;
+      v17 = "";
+      v18 = 2082;
+      v19 = "handleScanComplete";
+      v20 = 2050;
+      v21 = v11;
+      _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:handleScanComplete, unexpected event data, method:%{public, location:escape_only}s, data type:%{public}lu}", &v14, 0x26u);
+    }
+
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      ULTriggerEngineFSM::handleNewTriggerInIdle();
+    }
+
+    v12 = logObject_MicroLocation_Default;
+    if (os_signpost_enabled(v12))
+    {
+      v13 = (*(**(a2 + 8) + 16))(*(a2 + 8));
+      v14 = 68289538;
+      v15 = 0;
+      v16 = 2082;
+      v17 = "";
+      v18 = 2082;
+      v19 = "handleScanComplete";
+      v20 = 2050;
+      v21 = v13;
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "handleScanComplete, unexpected event data", "{msg%{public}.0s:handleScanComplete, unexpected event data, method:%{public, location:escape_only}s, data type:%{public}lu}", &v14, 0x26u);
+    }
+  }
+}
+
+void ULTriggerEngineFSM::handleNewTriggerInThrottle(uint64_t a1, uint64_t a2)
+{
+  v23 = *MEMORY[0x277D85DE8];
+  v4 = *(a2 + 8);
+  if (v4 && (*(*v4 + 16))(v4) == 675588685)
+  {
+    v5 = *(a2 + 8);
+    if (v5)
+    {
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      ULTriggerEngineFSM::handleNewTriggerInIdle();
+    }
+
+    v11 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      ULScanningTrigger::description((v6 + 8), __p);
+      if (v14 >= 0)
+      {
+        v12 = __p;
+      }
+
+      else
+      {
+        v12 = __p[0];
+      }
+
+      *buf = 68289538;
+      v16 = 0;
+      v17 = 2082;
+      v18 = "";
+      v19 = 2082;
+      v20 = "handleNewTriggerInThrottle";
+      v21 = 2082;
+      v22 = v12;
+      _os_log_impl(&dword_258FE9000, v11, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:handleNewTriggerInThrottle, method:%{public, location:escape_only}s, arriving trigger:%{public, location:escape_only}s}", buf, 0x26u);
+      if (v14 < 0)
+      {
+        operator delete(__p[0]);
+      }
+    }
+
+    (*(**(a1 + 776) + 16))(*(a1 + 776), v6 + 8);
+  }
+
+  else
+  {
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      ULTriggerEngineFSM::handleNewTriggerInIdle();
+    }
+
+    v7 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      v8 = (*(**(a2 + 8) + 16))(*(a2 + 8));
+      *buf = 68289538;
+      v16 = 0;
+      v17 = 2082;
+      v18 = "";
+      v19 = 2082;
+      v20 = "handleNewTriggerInThrottle";
+      v21 = 2050;
+      v22 = v8;
+      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:handleNewTriggerInThrottle, unexpected event data, method:%{public, location:escape_only}s, data type:%{public}lu}", buf, 0x26u);
+    }
+
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      ULTriggerEngineFSM::handleNewTriggerInIdle();
+    }
+
+    v9 = logObject_MicroLocation_Default;
+    if (os_signpost_enabled(v9))
+    {
+      v10 = (*(**(a2 + 8) + 16))(*(a2 + 8));
+      *buf = 68289538;
+      v16 = 0;
+      v17 = 2082;
+      v18 = "";
+      v19 = 2082;
+      v20 = "handleNewTriggerInThrottle";
+      v21 = 2050;
+      v22 = v10;
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "handleNewTriggerInThrottle, unexpected event data", "{msg%{public}.0s:handleNewTriggerInThrottle, unexpected event data, method:%{public, location:escape_only}s, data type:%{public}lu}", buf, 0x26u);
+    }
+  }
+}
+
+uint64_t ULTriggerEngineFSM::handleThrottleCompleted(uint64_t a1)
+{
+  v12 = *MEMORY[0x277D85DE8];
+  if (onceToken_MicroLocation_Default != -1)
+  {
+    ULTriggerEngineFSM::handleNewTriggerInIdle();
+  }
+
+  v2 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = (*(**(a1 + 768) + 32))(*(a1 + 768));
+    v5[0] = 68289538;
+    v5[1] = 0;
+    v6 = 2082;
+    v7 = "";
+    v8 = 2082;
+    v9 = "handleThrottleCompleted";
+    v10 = 1026;
+    v11 = v3;
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:throttle completed, method:%{public, location:escape_only}s, has more triggers to process ?:%{public}hhd}", v5, 0x22u);
+  }
+
+  result = (*(**(a1 + 768) + 32))(*(a1 + 768));
+  if (result)
+  {
+    return (*(**(a1 + 776) + 80))(*(a1 + 776));
+  }
+
+  return result;
+}
+
+uint64_t ULTriggerEngineFSM::enterThrottleState(ULTriggerEngineFSM *this)
+{
+  v13 = *MEMORY[0x277D85DE8];
+  if (*(this + 840))
+  {
+    v1 = this;
+    if (onceToken_MicroLocation_Default == -1)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    ULTriggerEngineFSM::enterThrottleState(this);
+  }
+
+  ULTriggerEngineFSM::handleNewTriggerInIdle();
+LABEL_3:
+  v2 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = v1[824];
+    v6[0] = 68289538;
+    v6[1] = 0;
+    v7 = 2082;
+    v8 = "";
+    v9 = 2082;
+    v10 = "enterThrottleState";
+    v11 = 1026;
+    v12 = v3;
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:enter throttle state, method:%{public, location:escape_only}s, should generate retry trigger?:%{public}hhd}", v6, 0x22u);
+  }
+
+  ULTriggerEngineFSM::retryScanIfNeeded(v1);
+  result = ULTriggerEngineFSM::scheduleThrottleTimer(v1, v4);
+  if (v1[840] == 1)
+  {
+    v1[840] = 0;
+  }
+
+  return result;
+}
+
+uint64_t ULTriggerEngineFSM::ULTriggerEngineFSM(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11 = *MEMORY[0x277D85DE8];
+  ULTriggerEngineFSM::getTransitionTable(a1);
+  memcpy(__dst, &qword_281456580, sizeof(__dst));
+  *a1 = &unk_286A5B328;
+  *(a1 + 8) = 0;
+  memcpy((a1 + 16), __dst, 0x1B0uLL);
+  v8 = *&off_286A5B5C8;
+  *(a1 + 448) = ULTriggerEngineFSM::getEnterActions(void)::enterActions;
+  *(a1 + 464) = v8;
+  *(a1 + 480) = xmmword_286A5B5D8;
+  *(a1 + 496) = 0u;
+  *(a1 + 512) = 0u;
+  *(a1 + 528) = 0u;
+  *(a1 + 544) = ULTriggerEngineFSM::printEvent;
+  *(a1 + 552) = 0;
+  *(a1 + 560) = ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngineFSM>::printState;
+  *(a1 + 568) = 0u;
+  *(a1 + 584) = 0u;
+  *(a1 + 600) = 0u;
+  *(a1 + 616) = 0u;
+  *(a1 + 632) = 0u;
+  *(a1 + 648) = 0u;
+  *(a1 + 664) = 0u;
+  *(a1 + 680) = 0u;
+  *(a1 + 696) = 0u;
+  *(a1 + 712) = 0u;
+  *(a1 + 728) = 0u;
+  *(a1 + 744) = 0u;
+  *(a1 + 760) = 0;
+  *a1 = &unk_286A5B5F8;
+  *(a1 + 768) = a2;
+  *(a1 + 776) = a3;
+  *(a1 + 784) = 0;
+  *(a1 + 840) = 0;
+  *(a1 + 848) = 0;
+  std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::__value_func[abi:ne200100](a1 + 856, a4);
+  return a1;
+}
+
+void ULTriggerEngineFSM::retryScanIfNeeded(ULTriggerEngineFSM *this)
+{
+  v17 = *MEMORY[0x277D85DE8];
+  if (*(this + 824) == 1)
+  {
+    if (*(this + 848) > 4u)
+    {
+      if (onceToken_MicroLocation_Default != -1)
+      {
+        ULTriggerEngineFSM::handleNewTriggerInIdle();
+      }
+
+      v6 = logObject_MicroLocation_Default;
+      if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
+      {
+        v7 = 68289538;
+        v8 = 0;
+        v9 = 2082;
+        v10 = "";
+        v11 = 2082;
+        v12 = "retryScanIfNeeded";
+        v13 = 1026;
+        v14 = 5;
+        _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:max number of retry attempt reached, method:%{public, location:escape_only}s, max retry count:%{public}d}", &v7, 0x22u);
+      }
+    }
+
+    else
+    {
+      if (onceToken_MicroLocation_Default != -1)
+      {
+        ULTriggerEngineFSM::handleNewTriggerInIdle();
+      }
+
+      v2 = logObject_MicroLocation_Default;
+      if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
+      {
+        v3 = *(this + 848);
+        v7 = 68289794;
+        v8 = 0;
+        v9 = 2082;
+        v10 = "";
+        v11 = 2082;
+        v12 = "retryScanIfNeeded";
+        v13 = 1026;
+        v14 = v3;
+        v15 = 1026;
+        v16 = 5;
+        _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:create and handle retry trigger, method:%{public, location:escape_only}s, retry count:%{public}d, max retry count:%{public}d}", &v7, 0x28u);
+      }
+
+      v4 = *(this + 97);
+      ULScanTriggerSettings::ULScanTriggerSettings(&v7, -1, *(this + 203), 1);
+      (*(*v4 + 24))(v4, 4, &v7);
+      ++*(this + 848);
+    }
+  }
+
+  else
+  {
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      ULTriggerEngineFSM::handleNewTriggerInIdle();
+    }
+
+    v5 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = 68289282;
+      v8 = 0;
+      v9 = 2082;
+      v10 = "";
+      v11 = 2082;
+      v12 = "retryScanIfNeeded";
+      _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:reset retry count, method:%{public, location:escape_only}s}", &v7, 0x1Cu);
+    }
+
+    *(this + 848) = 0;
+  }
+}
+
+uint64_t ULTriggerEngineFSM::scheduleThrottleTimer(ULTriggerEngineFSM *this, uint64_t a2)
+{
+  v19 = *MEMORY[0x277D85DE8];
+  v3 = 0.0;
+  if (*(this + 104) != -1.79769313e308)
+  {
+    std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::operator()[abi:ne200100](this + 856, a2);
+    v3 = v4 - *(this + 104);
+  }
+
+  if (v3 >= 5.0)
+  {
+    v5 = 0.1;
+  }
+
+  else
+  {
+    v5 = 5.0 - v3;
+  }
+
+  v8 = v5;
+  if (onceToken_MicroLocation_Default != -1)
+  {
+    ULTriggerEngineFSM::handleNewTriggerInIdle();
+  }
+
+  v6 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 68289794;
+    v10 = 0;
+    v11 = 2082;
+    v12 = "";
+    v13 = 2082;
+    v14 = "scheduleThrottleTimer";
+    v15 = 1026;
+    v16 = v5;
+    v17 = 1026;
+    v18 = v3;
+    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:setting throttle timer, method:%{public, location:escape_only}s, Throttle duration:%{public}d, Scan duration:%{public}d}", buf, 0x28u);
+  }
+
+  return (*(**(this + 97) + 48))(*(this + 97), &v8);
+}
+
+__n128 ULTriggerEngineFSM::scanSessionContext@<Q0>(uint64_t *__return_ptr a1@<X8>, ULTriggerEngineFSM *this@<X0>)
+{
+  v2 = *(this + 50);
+  *a1 = *(this + 49);
+  *(a1 + 1) = v2;
+  result = *(this + 51);
+  v4 = *(this + 52);
+  *(a1 + 2) = result;
+  *(a1 + 3) = v4;
+  return result;
+}
+
+void ULTriggerEngineFSM::~ULTriggerEngineFSM(ULTriggerEngineFSM *this)
+{
+  *this = &unk_286A5B5F8;
+  std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::~__value_func[abi:ne200100](this + 856);
+
+  ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngineFSM>::~ULStateMachine(this);
+}
+
+{
+  *this = &unk_286A5B5F8;
+  std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::~__value_func[abi:ne200100](this + 856);
+  ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngineFSM>::~ULStateMachine(this);
+
+  JUMPOUT(0x259CA1F90);
+}
+
+void ___ZL45_CLLogObjectForCategory_MicroLocation_Defaultv_block_invoke_96()
+{
+  v0 = os_log_create("com.apple.MicroLocation", "MicroLocation");
+  v1 = logObject_MicroLocation_Default;
+  logObject_MicroLocation_Default = v0;
+}
+
+uint64_t std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+uint64_t ULTriggerQueue::ULTriggerQueue(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  for (i = 0; i != 440; i += 40)
+  {
+    ULScanningTrigger::ULScanningTrigger((a1 + i));
+  }
+
+  do
+  {
+    ULScanningTrigger::ULScanningTrigger((a1 + i));
+    i += 40;
+  }
+
+  while (i != 880);
+  *(a1 + 880) = 0u;
+  *(a1 + 896) = 0u;
+  std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::__value_func[abi:ne200100](a1 + 912, a4);
+  std::__function::__value_func<BOOL ()(int)>::__value_func[abi:ne200100](a1 + 944, a2);
+  std::__function::__value_func<BOOL ()(int)>::__value_func[abi:ne200100](a1 + 976, a3);
+  return a1;
+}
+
+void sub_25912E144(_Unwind_Exception *a1)
+{
+  std::__function::__value_func<BOOL ()(int)>::~__value_func[abi:ne200100](v1 + 944);
+  std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::~__value_func[abi:ne200100](v1 + 912);
+  _Unwind_Resume(a1);
+}
+
+void ULTriggerQueue::logQueueFullError(uint64_t a1, int a2)
+{
+  v11 = *MEMORY[0x277D85DE8];
+  if (a2 == 1)
+  {
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      ULTriggerQueue::logQueueFullError();
+    }
+
+    v2 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 68289026;
+      v8 = 0;
+      v9 = 2082;
+      v10 = "";
+      _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:ULTriggerQueue, high priority queue is full}", &v7, 0x12u);
+    }
+
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      ULTriggerQueue::logQueueFullError();
+    }
+
+    v3 = logObject_MicroLocation_Default;
+    if (os_signpost_enabled(logObject_MicroLocation_Default))
+    {
+      v7 = 68289026;
+      v8 = 0;
+      v9 = 2082;
+      v10 = "";
+      v4 = "ULTriggerQueue, high priority queue is full";
+      v5 = "{msg%{public}.0s:ULTriggerQueue, high priority queue is full}";
+LABEL_18:
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v4, v5, &v7, 0x12u);
+    }
+  }
+
+  else
+  {
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      ULTriggerQueue::logQueueFullError();
+    }
+
+    v6 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 68289026;
+      v8 = 0;
+      v9 = 2082;
+      v10 = "";
+      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:ULTriggerQueue, low priority queue is full}", &v7, 0x12u);
+    }
+
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      ULTriggerQueue::logQueueFullError();
+    }
+
+    v3 = logObject_MicroLocation_Default;
+    if (os_signpost_enabled(logObject_MicroLocation_Default))
+    {
+      v7 = 68289026;
+      v8 = 0;
+      v9 = 2082;
+      v10 = "";
+      v4 = "ULTriggerQueue, low priority queue is full";
+      v5 = "{msg%{public}.0s:ULTriggerQueue, low priority queue is full}";
+      goto LABEL_18;
+    }
+  }
+}
+
+void ___ZL45_CLLogObjectForCategory_MicroLocation_Defaultv_block_invoke_97()
+{
+  v0 = os_log_create("com.apple.MicroLocation", "MicroLocation");
+  v1 = logObject_MicroLocation_Default;
+  logObject_MicroLocation_Default = v0;
+}
+
+uint64_t std::__function::__value_func<BOOL ()(int)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+void sub_25912E524(_Unwind_Exception *a1)
+{
+  v5 = v4;
+
+  _Unwind_Resume(a1);
+}
+
+void sub_25912E7B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
+  objc_destroyWeak(va);
+
+  objc_destroyWeak((v12 + 32));
+  objc_destroyWeak((v13 - 56));
+  _Unwind_Resume(a1);
+}
+
+void sub_25912E894(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+{
+  v12 = v11;
+
+  _Unwind_Resume(a1);
+}
+
+void sub_25912EA24(_Unwind_Exception *a1)
+{
+  v4 = v3;
+
+  _Unwind_Resume(a1);
+}
+
+void sub_25912EF88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, char a33, int a34, __int16 a35, char a36, char a37)
+{
+  if (a26 == 1 && a25 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a33 == 1 && a32 < 0)
+  {
+    operator delete(a27);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+BOOL ULBleIdentityItem::PredicateItem::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (*a2 != *a3 || *(a2 + 8) != *(a3 + 8))
+  {
+    return 0;
+  }
+
+  v5 = *(a3 + 40);
+  v6 = *(a2 + 40);
+  result = v6 == v5;
+  if (v6 == v5 && v6 != 0)
+  {
+    v8 = *(a2 + 39);
+    v9 = v8;
+    if ((v8 & 0x80u) != 0)
+    {
+      v8 = *(a2 + 24);
+    }
+
+    v10 = *(a3 + 39);
+    v11 = v10;
+    if ((v10 & 0x80u) != 0)
+    {
+      v10 = *(a3 + 24);
+    }
+
+    if (v8 != v10)
+    {
+      return 0;
+    }
+
+    if (v9 >= 0)
+    {
+      v12 = (a2 + 16);
+    }
+
+    else
+    {
+      v12 = *(a2 + 16);
+    }
+
+    if (v11 >= 0)
+    {
+      v13 = (a3 + 16);
+    }
+
+    else
+    {
+      v13 = *(a3 + 16);
+    }
+
+    return memcmp(v12, v13, v8) == 0;
+  }
+
+  return result;
+}
+
+unint64_t ULBleIdentityItem::HashItem::operator()(uint64_t a1, uint64_t a2)
+{
+  result = 0;
+  for (i = 0; i != 16; ++i)
+  {
+    result ^= (result << 6) + (result >> 2) + 2654435769u + *(a2 + i);
+  }
+
+  return result;
+}
+
+void ___ZL45_CLLogObjectForCategory_MicroLocation_Defaultv_block_invoke_98()
+{
+  v0 = os_log_create("com.apple.MicroLocation", "MicroLocation");
+  v1 = logObject_MicroLocation_Default;
+  logObject_MicroLocation_Default = v0;
+}
+
+void ___ZL47_CLLogObjectForCategory_MicroLocationQE_Defaultv_block_invoke_3()
+{
+  v0 = os_log_create("com.apple.MicroLocation", "MicroLocationQE");
+  v1 = logObject_MicroLocationQE_Default;
+  logObject_MicroLocationQE_Default = v0;
+}
+
+uint64_t ULBleIdentityItem::ULBleIdentityItem(uint64_t a1, _OWORD *a2, __int128 *a3, __int128 *a4, __int128 *a5, void *a6)
+{
+  *a1 = *a2;
+  std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100]((a1 + 16), a3);
+  std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100]((a1 + 48), a4);
+  std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100]((a1 + 80), a5);
+  *(a1 + 112) = *a6;
+  return a1;
+}
+
+void sub_25912F324(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 72) == 1 && *(v1 + 71) < 0)
+  {
+    operator delete(*(v1 + 48));
+  }
+
+  if (*(v1 + 40) == 1 && *(v1 + 39) < 0)
+  {
+    operator delete(*(v1 + 16));
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void ULBleIdentityItem::~ULBleIdentityItem(void **this)
+{
+  if (*(this + 104) == 1 && *(this + 103) < 0)
+  {
+    operator delete(this[10]);
+  }
+
+  if (*(this + 72) == 1 && *(this + 71) < 0)
+  {
+    operator delete(this[6]);
+  }
+
+  if (*(this + 40) == 1 && *(this + 39) < 0)
+  {
+    operator delete(this[2]);
+  }
+}
+
+void sub_25912F6B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v16 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_25912FBB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, uint64_t a17, char *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+{
+  __p = &a15;
+  std::vector<ULBluetoothIdentityDO>::__destroy_vector::operator()[abi:ne200100](&__p);
+  _Unwind_Resume(a1);
+}
+
+void sub_259130A48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, char a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, char a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49, char a50)
+{
+  if (a29 == 1 && a28 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a22 == 1 && a21 < 0)
+  {
+    operator delete(a16);
+  }
+
+  ULBleIdentityItem::~ULBleIdentityItem(&a35);
+  _Unwind_Resume(a1);
+}
+
+std::string *__copy_helper_block_ea8_40c23_ZTS17ULBleIdentityItem(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 40) = *(a2 + 40);
+  std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100]((a1 + 56), (a2 + 56));
+  std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100]((a1 + 88), (a2 + 88));
+  result = std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100]((a1 + 120), (a2 + 120));
+  *(a1 + 152) = *(a2 + 152);
+  return result;
+}
+
+void sub_259130BEC(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 112) == 1 && *(v1 + 111) < 0)
+  {
+    operator delete(*(v1 + 88));
+  }
+
+  if (*(v1 + 80) == 1 && *(v1 + 79) < 0)
+  {
+    operator delete(*(v1 + 56));
+  }
+
+  _Unwind_Resume(exception_object);
 }

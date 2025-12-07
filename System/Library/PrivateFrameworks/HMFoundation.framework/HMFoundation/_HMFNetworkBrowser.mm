@@ -72,23 +72,23 @@
 
 - (id)startBrowsing
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   nw_browser = [(_HMFNetworkBrowser *)self nw_browser];
 
   if (nw_browser)
   {
     v4 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = HMFGetOSLogHandle(selfCopy2, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = HMFGetLogIdentifier(selfCopy2);
+      v8 = HMFGetLogIdentifier(selfCopy2);
       serviceType = [(_HMFNetworkBrowser *)selfCopy2 serviceType];
       *buf = 138543618;
-      *&buf[4] = v7;
+      *&buf[4] = v8;
       *&buf[12] = 2112;
       *&buf[14] = serviceType;
-      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_INFO, "%{public}@Browser already started for %@", buf, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_INFO, "%{public}@Browser already started for %@", buf, 0x16u);
 
 LABEL_7:
       goto LABEL_8;
@@ -104,57 +104,56 @@ LABEL_7:
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = __browse_result_changed_handler_block_invoke;
-  v28 = &unk_2786E7860;
-  objc_copyWeak(v29, &location);
-  v12 = _Block_copy(buf);
-  objc_destroyWeak(v29);
+  v29 = &unk_2786E7860;
+  objc_copyWeak(v30, &location);
+  v13 = _Block_copy(buf);
+  objc_destroyWeak(v30);
   objc_destroyWeak(&location);
-  v13 = serviceType2;
-  v14 = domain;
-  v15 = workQueue;
-  v16 = v12;
+  v14 = serviceType2;
+  v15 = domain;
+  v16 = workQueue;
+  v17 = v13;
   uTF8String = [serviceType2 UTF8String];
-  uTF8String2 = [v14 UTF8String];
+  uTF8String2 = [v15 UTF8String];
 
   bonjour_service = nw_browse_descriptor_create_bonjour_service(uTF8String, uTF8String2);
   nw_browse_descriptor_set_include_txt_record(bonjour_service, 1);
-  v20 = nw_browser_create(bonjour_service, 0);
-  nw_browser_set_queue(v20, v15);
+  v21 = nw_browser_create(bonjour_service, 0);
+  nw_browser_set_queue(v21, v16);
 
-  nw_browser_set_browse_results_changed_handler(v20, v16);
-  nw_browser_start(v20);
+  nw_browser_set_browse_results_changed_handler(v21, v17);
+  nw_browser_start(v21);
 
-  [(_HMFNetworkBrowser *)self setNw_browser:v20];
+  [(_HMFNetworkBrowser *)self setNw_browser:v21];
   nw_browser2 = [(_HMFNetworkBrowser *)self nw_browser];
 
   if (nw_browser2)
   {
     v4 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = HMFGetOSLogHandle(selfCopy2, v23);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v7 = HMFGetLogIdentifier(selfCopy2);
+      v8 = HMFGetLogIdentifier(selfCopy2);
       *buf = 138543362;
-      *&buf[4] = v7;
-      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Browser started", buf, 0xCu);
+      *&buf[4] = v8;
+      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Browser started", buf, 0xCu);
       goto LABEL_7;
     }
 
 LABEL_8:
 
     objc_autoreleasePoolPop(v4);
-    v22 = +[HMFFuture futureWithNoValue];
+    v24 = +[HMFFuture futureWithNoValue];
     goto LABEL_9;
   }
 
-  v25 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:6];
-  v22 = [HMFFuture futureWithError:v25];
+  v26 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:6];
+  v24 = [HMFFuture futureWithError:v26];
 
 LABEL_9:
-  v23 = *MEMORY[0x277D85DE8];
 
-  return v22;
+  return v24;
 }
 
 - (void)stop
@@ -176,20 +175,19 @@ LABEL_9:
   [(_HMFNetworkBrowser *)self stop];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v5 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = HMFGetOSLogHandle(selfCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v6 = HMFGetLogIdentifier(selfCopy);
+    v7 = HMFGetLogIdentifier(selfCopy);
     v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Browser stopped", &v10, 0xCu);
+    v11 = v7;
+    _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Browser stopped", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v7 = +[HMFFuture futureWithNoValue];
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = +[HMFFuture futureWithNoValue];
 
-  return v7;
+  return v8;
 }
 
 + (id)logCategory

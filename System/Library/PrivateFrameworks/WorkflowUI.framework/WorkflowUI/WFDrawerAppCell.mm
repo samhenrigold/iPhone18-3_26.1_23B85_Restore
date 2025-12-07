@@ -14,7 +14,7 @@
 - (CGSize)sizeThatFits:(CGSize)fits
 {
   selfCopy = self;
-  sub_27484B558(selfCopy);
+  sub_27484B558();
   v5 = v4;
   v7 = v6;
 

@@ -7972,67 +7972,67 @@ uint64_t __92__UIApplicationAccessibility__axAuditCheckDynamicTextSupport_andCli
   objc_storeStrong(&location, a2);
   if (controllerCopy)
   {
-    v20 = 0;
+    v19 = 0;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v19 = MEMORY[0x29EDC9748](location);
-      visibleViewController = [v19 visibleViewController];
+      v18 = MEMORY[0x29EDC9748](location);
+      visibleViewController = [v18 visibleViewController];
       _accessibilityApplicationSemanticContext = [visibleViewController _accessibilityApplicationSemanticContext];
-      v3 = v20;
-      v20 = _accessibilityApplicationSemanticContext;
+      v3 = v19;
+      v19 = _accessibilityApplicationSemanticContext;
       MEMORY[0x29EDC9740](v3);
       objc_storeStrong(&visibleViewController, 0);
-      objc_storeStrong(&v19, 0);
+      objc_storeStrong(&v18, 0);
     }
 
-    if (!v20)
+    if (!v19)
     {
       _accessibilityApplicationSemanticContext2 = [location _accessibilityApplicationSemanticContext];
-      v5 = v20;
-      v20 = _accessibilityApplicationSemanticContext2;
+      v5 = v19;
+      v19 = _accessibilityApplicationSemanticContext2;
       MEMORY[0x29EDC9740](v5);
     }
 
-    if (!v20)
+    if (!v19)
     {
       childViewControllers = [location childViewControllers];
-      v14 = [childViewControllers count];
+      v13 = [childViewControllers count];
       *&v6 = MEMORY[0x29EDC9740](childViewControllers).n128_u64[0];
-      v17 = v14;
-      for (i = v14 - 1; (i & 0x8000000000000000) == 0; --i)
+      v16 = v13;
+      for (i = v13 - 1; (i & 0x8000000000000000) == 0; --i)
       {
         childViewControllers2 = [location childViewControllers];
-        v15 = [childViewControllers2 objectAtIndex:i];
-        v7 = MEMORY[0x29EDC9740](childViewControllers2);
-        v8 = [(UIApplicationAccessibility *)controllerCopy _accessibilityApplicationSemanticContextWithViewController:v15, v7];
-        v9 = v20;
-        v20 = v8;
-        MEMORY[0x29EDC9740](v9);
-        v21 = v20 ? 2 : 0;
-        objc_storeStrong(&v15, 0);
-        if (v21)
+        v14 = [childViewControllers2 objectAtIndex:i];
+        MEMORY[0x29EDC9740](childViewControllers2);
+        v7 = [(UIApplicationAccessibility *)controllerCopy _accessibilityApplicationSemanticContextWithViewController:v14];
+        v8 = v19;
+        v19 = v7;
+        MEMORY[0x29EDC9740](v8);
+        v20 = v19 ? 2 : 0;
+        objc_storeStrong(&v14, 0);
+        if (v20)
         {
           break;
         }
       }
     }
 
-    v24 = MEMORY[0x29EDC9748](v20);
-    v21 = 1;
-    objc_storeStrong(&v20, 0);
+    v23 = MEMORY[0x29EDC9748](v19);
+    v20 = 1;
+    objc_storeStrong(&v19, 0);
   }
 
   else
   {
-    v24 = 0;
-    v21 = 1;
+    v23 = 0;
+    v20 = 1;
   }
 
   objc_storeStrong(&location, 0);
-  v10 = v24;
+  v9 = v23;
 
-  return v10;
+  return v9;
 }
 
 - (id)_accessibilitySpeakThisViewController

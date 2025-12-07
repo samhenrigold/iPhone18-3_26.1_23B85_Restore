@@ -45,33 +45,33 @@ void __50___LTEtiquetteSanitizer_treeForReplacementTokens___block_invoke_35(uint
 
 void __42___LTEtiquetteSanitizer_matchesForString___block_invoke(uint64_t a1, void *a2, NSUInteger a3, NSUInteger a4)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v6 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v8 = WeakRetained;
   if (WeakRetained)
   {
-    v26 = WeakRetained;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
+    v25 = WeakRetained;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v9 = *(a1 + 32);
-    v10 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v29;
+      v12 = *v28;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v29 != v12)
+          if (*v28 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v28 + 1) + 8 * i);
+          v14 = *(*(&v27 + 1) + 8 * i);
           v15 = [v14 node];
           v16 = [v15 objectForKeyedSubscript:v6];
           v17 = *(*(a1 + 56) + 8);
@@ -80,10 +80,10 @@ void __42___LTEtiquetteSanitizer_matchesForString___block_invoke(uint64_t a1, vo
 
           if (*(*(*(a1 + 56) + 8) + 40))
           {
-            v34.location = [v14 range];
-            v35.location = a3;
-            v35.length = a4;
-            v19 = NSUnionRange(v34, v35);
+            v33.location = [v14 range];
+            v34.location = a3;
+            v34.length = a4;
+            v19 = NSUnionRange(v33, v34);
             [v14 setRange:{v19.location, v19.length}];
             [v14 setNode:*(*(*(a1 + 56) + 8) + 40)];
           }
@@ -103,14 +103,14 @@ void __42___LTEtiquetteSanitizer_matchesForString___block_invoke(uint64_t a1, vo
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v11);
     }
 
-    v8 = v26;
-    v22 = [v26[1] objectForKeyedSubscript:v6];
+    v8 = v25;
+    v22 = [v25[1] objectForKeyedSubscript:v6];
     if (v22)
     {
       v23 = *(a1 + 32);
@@ -118,14 +118,12 @@ void __42___LTEtiquetteSanitizer_matchesForString___block_invoke(uint64_t a1, vo
       [v23 addObject:v24];
     }
 
-    [*(a1 + 32) removeObjectsInArray:{*(a1 + 48), v26}];
+    [*(a1 + 32) removeObjectsInArray:{*(a1 + 48), v25}];
     [*(a1 + 48) removeAllObjects];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __61___LTEtiquetteSanitizer_replacementStringForString_forToken___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void *__61___LTEtiquetteSanitizer_replacementStringForString_forToken___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   result = [a2 isEqualToString:@"*"];
   if (result)

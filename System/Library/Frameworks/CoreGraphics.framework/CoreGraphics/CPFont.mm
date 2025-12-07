@@ -39,11 +39,11 @@
 
     if (for < 0x10000)
     {
-      v22 = v16;
-      v23 = *(*(v16 + 16) + 48);
-      if (v23)
+      v17 = v16;
+      v18 = *(*(v16 + 16) + 48);
+      if (v18)
       {
-        unichars = cmap_bf_set_get_unichars(*(v23 + 16), for, 0, v17, v18, v19, v20, v21);
+        unichars = cmap_bf_set_get_unichars(*(v18 + 16), for, 0);
         *count = unichars;
         if (unichars > v8)
         {
@@ -51,29 +51,29 @@
         }
 
         v8 = v8;
-        v30 = *(*(v22 + 16) + 48);
-        if (v30)
+        v20 = *(*(v17 + 16) + 48);
+        if (v20)
         {
-          v31 = cmap_bf_set_get_unichars(*(v30 + 16), for, array, v25, v26, v27, v28, v29);
-          *count = v31;
-          if (v31)
+          v21 = cmap_bf_set_get_unichars(*(v20 + 16), for, array);
+          *count = v21;
+          if (v21)
           {
             return;
           }
 
 LABEL_16:
-          v32 = CGPDFGetUnicharGuessForCID(for, 0);
-          *count = v32;
-          if (v32 <= v8)
+          v22 = CGPDFGetUnicharGuessForCID(for, 0);
+          *count = v22;
+          if (v22 <= v8)
           {
-            v33 = CGPDFGetUnicharGuessForCID(for, array);
+            v23 = CGPDFGetUnicharGuessForCID(for, array);
             goto LABEL_19;
           }
 
 LABEL_17:
-          v33 = 0;
+          v23 = 0;
 LABEL_19:
-          *count = v33;
+          *count = v23;
           return;
         }
 
@@ -514,25 +514,25 @@ LABEL_56:
 - (void)loadExternalFontInfoFor:(id)for
 {
   fontName = self->fontName;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v5 = getCTFontCreateWithNameSymbolLoc_ptr;
-  v59 = getCTFontCreateWithNameSymbolLoc_ptr;
+  v60 = getCTFontCreateWithNameSymbolLoc_ptr;
   if (!getCTFontCreateWithNameSymbolLoc_ptr)
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __getCTFontCreateWithNameSymbolLoc_block_invoke;
-    v54 = &unk_1E6E33138;
-    v55 = &v56;
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = __getCTFontCreateWithNameSymbolLoc_block_invoke;
+    v55 = &unk_1E6E33138;
+    v56 = &v57;
     v6 = CoreTextLibrary();
-    v57[3] = dlsym(v6, "CTFontCreateWithName");
-    getCTFontCreateWithNameSymbolLoc_ptr = *(v55[1] + 24);
-    v5 = v57[3];
+    v58[3] = dlsym(v6, "CTFontCreateWithName");
+    getCTFontCreateWithNameSymbolLoc_ptr = *(v56[1] + 24);
+    v5 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v5)
   {
     goto LABEL_51;
@@ -557,50 +557,50 @@ LABEL_56:
   }
 
   v8 = v7;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v9 = getCTFontGetWeightSymbolLoc_ptr;
-  v59 = getCTFontGetWeightSymbolLoc_ptr;
+  v60 = getCTFontGetWeightSymbolLoc_ptr;
   if (!getCTFontGetWeightSymbolLoc_ptr)
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __getCTFontGetWeightSymbolLoc_block_invoke;
-    v54 = &unk_1E6E33138;
-    v55 = &v56;
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = __getCTFontGetWeightSymbolLoc_block_invoke;
+    v55 = &unk_1E6E33138;
+    v56 = &v57;
     v10 = CoreTextLibrary();
-    v57[3] = dlsym(v10, "CTFontGetWeight");
-    getCTFontGetWeightSymbolLoc_ptr = *(v55[1] + 24);
-    v9 = v57[3];
+    v58[3] = dlsym(v10, "CTFontGetWeight");
+    getCTFontGetWeightSymbolLoc_ptr = *(v56[1] + 24);
+    v9 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v9)
   {
     goto LABEL_51;
   }
 
   self->descriptor.fontWeight = v9(v8);
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v11 = getCTFontGetBoundingBoxSymbolLoc_ptr;
-  v59 = getCTFontGetBoundingBoxSymbolLoc_ptr;
+  v60 = getCTFontGetBoundingBoxSymbolLoc_ptr;
   if (!getCTFontGetBoundingBoxSymbolLoc_ptr)
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __getCTFontGetBoundingBoxSymbolLoc_block_invoke;
-    v54 = &unk_1E6E33138;
-    v55 = &v56;
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = __getCTFontGetBoundingBoxSymbolLoc_block_invoke;
+    v55 = &unk_1E6E33138;
+    v56 = &v57;
     v12 = CoreTextLibrary();
-    v57[3] = dlsym(v12, "CTFontGetBoundingBox");
-    getCTFontGetBoundingBoxSymbolLoc_ptr = *(v55[1] + 24);
-    v11 = v57[3];
+    v58[3] = dlsym(v12, "CTFontGetBoundingBox");
+    getCTFontGetBoundingBoxSymbolLoc_ptr = *(v56[1] + 24);
+    v11 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v11)
   {
     goto LABEL_51;
@@ -610,314 +610,314 @@ LABEL_56:
   self->descriptor.fontBBox.origin.y = v13;
   self->descriptor.fontBBox.size.width = v14;
   self->descriptor.fontBBox.size.height = v15;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v16 = getCTFontGetSlantAngleSymbolLoc_ptr;
-  v59 = getCTFontGetSlantAngleSymbolLoc_ptr;
+  v60 = getCTFontGetSlantAngleSymbolLoc_ptr;
   if (!getCTFontGetSlantAngleSymbolLoc_ptr)
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __getCTFontGetSlantAngleSymbolLoc_block_invoke;
-    v54 = &unk_1E6E33138;
-    v55 = &v56;
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = __getCTFontGetSlantAngleSymbolLoc_block_invoke;
+    v55 = &unk_1E6E33138;
+    v56 = &v57;
     v17 = CoreTextLibrary();
-    v57[3] = dlsym(v17, "CTFontGetSlantAngle");
-    getCTFontGetSlantAngleSymbolLoc_ptr = *(v55[1] + 24);
-    v16 = v57[3];
+    v58[3] = dlsym(v17, "CTFontGetSlantAngle");
+    getCTFontGetSlantAngleSymbolLoc_ptr = *(v56[1] + 24);
+    v16 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v16)
   {
     goto LABEL_51;
   }
 
   self->descriptor.italicAngle = v16(v8);
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v18 = getCTFontGetAscentSymbolLoc_ptr;
-  v59 = getCTFontGetAscentSymbolLoc_ptr;
+  v60 = getCTFontGetAscentSymbolLoc_ptr;
   if (!getCTFontGetAscentSymbolLoc_ptr)
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __getCTFontGetAscentSymbolLoc_block_invoke;
-    v54 = &unk_1E6E33138;
-    v55 = &v56;
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = __getCTFontGetAscentSymbolLoc_block_invoke;
+    v55 = &unk_1E6E33138;
+    v56 = &v57;
     v19 = CoreTextLibrary();
-    v57[3] = dlsym(v19, "CTFontGetAscent");
-    getCTFontGetAscentSymbolLoc_ptr = *(v55[1] + 24);
-    v18 = v57[3];
+    v58[3] = dlsym(v19, "CTFontGetAscent");
+    getCTFontGetAscentSymbolLoc_ptr = *(v56[1] + 24);
+    v18 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v18)
   {
     goto LABEL_51;
   }
 
   self->descriptor.ascent = v18(v8);
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v20 = getCTFontGetDescentSymbolLoc_ptr;
-  v59 = getCTFontGetDescentSymbolLoc_ptr;
+  v60 = getCTFontGetDescentSymbolLoc_ptr;
   if (!getCTFontGetDescentSymbolLoc_ptr)
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __getCTFontGetDescentSymbolLoc_block_invoke;
-    v54 = &unk_1E6E33138;
-    v55 = &v56;
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = __getCTFontGetDescentSymbolLoc_block_invoke;
+    v55 = &unk_1E6E33138;
+    v56 = &v57;
     v21 = CoreTextLibrary();
-    v57[3] = dlsym(v21, "CTFontGetDescent");
-    getCTFontGetDescentSymbolLoc_ptr = *(v55[1] + 24);
-    v20 = v57[3];
+    v58[3] = dlsym(v21, "CTFontGetDescent");
+    getCTFontGetDescentSymbolLoc_ptr = *(v56[1] + 24);
+    v20 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v20)
   {
     goto LABEL_51;
   }
 
   self->descriptor.descent = v20(v8);
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v22 = getCTFontGetLeadingSymbolLoc_ptr;
-  v59 = getCTFontGetLeadingSymbolLoc_ptr;
+  v60 = getCTFontGetLeadingSymbolLoc_ptr;
   if (!getCTFontGetLeadingSymbolLoc_ptr)
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __getCTFontGetLeadingSymbolLoc_block_invoke;
-    v54 = &unk_1E6E33138;
-    v55 = &v56;
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = __getCTFontGetLeadingSymbolLoc_block_invoke;
+    v55 = &unk_1E6E33138;
+    v56 = &v57;
     v23 = CoreTextLibrary();
-    v57[3] = dlsym(v23, "CTFontGetLeading");
-    getCTFontGetLeadingSymbolLoc_ptr = *(v55[1] + 24);
-    v22 = v57[3];
+    v58[3] = dlsym(v23, "CTFontGetLeading");
+    getCTFontGetLeadingSymbolLoc_ptr = *(v56[1] + 24);
+    v22 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v22)
   {
     goto LABEL_51;
   }
 
   self->descriptor.leading = v22(v8);
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v24 = getCTFontGetCapHeightSymbolLoc_ptr;
-  v59 = getCTFontGetCapHeightSymbolLoc_ptr;
+  v60 = getCTFontGetCapHeightSymbolLoc_ptr;
   if (!getCTFontGetCapHeightSymbolLoc_ptr)
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __getCTFontGetCapHeightSymbolLoc_block_invoke;
-    v54 = &unk_1E6E33138;
-    v55 = &v56;
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = __getCTFontGetCapHeightSymbolLoc_block_invoke;
+    v55 = &unk_1E6E33138;
+    v56 = &v57;
     v25 = CoreTextLibrary();
-    v57[3] = dlsym(v25, "CTFontGetCapHeight");
-    getCTFontGetCapHeightSymbolLoc_ptr = *(v55[1] + 24);
-    v24 = v57[3];
+    v58[3] = dlsym(v25, "CTFontGetCapHeight");
+    getCTFontGetCapHeightSymbolLoc_ptr = *(v56[1] + 24);
+    v24 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v24)
   {
     goto LABEL_51;
   }
 
   self->descriptor.capHeight = v24(v8);
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v26 = getCTFontGetXHeightSymbolLoc_ptr;
-  v59 = getCTFontGetXHeightSymbolLoc_ptr;
+  v60 = getCTFontGetXHeightSymbolLoc_ptr;
   if (!getCTFontGetXHeightSymbolLoc_ptr)
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __getCTFontGetXHeightSymbolLoc_block_invoke;
-    v54 = &unk_1E6E33138;
-    v55 = &v56;
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = __getCTFontGetXHeightSymbolLoc_block_invoke;
+    v55 = &unk_1E6E33138;
+    v56 = &v57;
     v27 = CoreTextLibrary();
-    v57[3] = dlsym(v27, "CTFontGetXHeight");
-    getCTFontGetXHeightSymbolLoc_ptr = *(v55[1] + 24);
-    v26 = v57[3];
+    v58[3] = dlsym(v27, "CTFontGetXHeight");
+    getCTFontGetXHeightSymbolLoc_ptr = *(v56[1] + 24);
+    v26 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v26)
   {
     goto LABEL_51;
   }
 
   self->descriptor.xHeight = v26(v8);
-  v50 = 0;
-  v49 = 32;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
+  v51 = 0;
+  v50 = 32;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v28 = getCTFontGetGlyphsForCharactersSymbolLoc_ptr;
-  v59 = getCTFontGetGlyphsForCharactersSymbolLoc_ptr;
+  v60 = getCTFontGetGlyphsForCharactersSymbolLoc_ptr;
   if (!getCTFontGetGlyphsForCharactersSymbolLoc_ptr)
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __getCTFontGetGlyphsForCharactersSymbolLoc_block_invoke;
-    v54 = &unk_1E6E33138;
-    v55 = &v56;
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = __getCTFontGetGlyphsForCharactersSymbolLoc_block_invoke;
+    v55 = &unk_1E6E33138;
+    v56 = &v57;
     v29 = CoreTextLibrary();
-    v57[3] = dlsym(v29, "CTFontGetGlyphsForCharacters");
-    getCTFontGetGlyphsForCharactersSymbolLoc_ptr = *(v55[1] + 24);
-    v28 = v57[3];
+    v58[3] = dlsym(v29, "CTFontGetGlyphsForCharacters");
+    getCTFontGetGlyphsForCharactersSymbolLoc_ptr = *(v56[1] + 24);
+    v28 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v28)
   {
     goto LABEL_51;
   }
 
-  v28(v8, &v49, &v50, 1);
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
+  v28(v8, &v50, &v51, 1);
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v30 = getCTFontGetAdvancesForGlyphsSymbolLoc_ptr;
-  v59 = getCTFontGetAdvancesForGlyphsSymbolLoc_ptr;
+  v60 = getCTFontGetAdvancesForGlyphsSymbolLoc_ptr;
   if (!getCTFontGetAdvancesForGlyphsSymbolLoc_ptr)
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __getCTFontGetAdvancesForGlyphsSymbolLoc_block_invoke;
-    v54 = &unk_1E6E33138;
-    v55 = &v56;
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = __getCTFontGetAdvancesForGlyphsSymbolLoc_block_invoke;
+    v55 = &unk_1E6E33138;
+    v56 = &v57;
     v31 = CoreTextLibrary();
     v32 = dlsym(v31, "CTFontGetAdvancesForGlyphs");
-    *(v55[1] + 24) = v32;
-    getCTFontGetAdvancesForGlyphsSymbolLoc_ptr = *(v55[1] + 24);
-    v30 = v57[3];
+    *(v56[1] + 24) = v32;
+    getCTFontGetAdvancesForGlyphsSymbolLoc_ptr = *(v56[1] + 24);
+    v30 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v30)
   {
     goto LABEL_51;
   }
 
-  self->descriptor.spaceWidth = (v30)(v8, 0, &v50, 0, 1);
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
+  self->descriptor.spaceWidth = (v30)(v8, 0, &v51, 0, 1);
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v33 = getCTFontGetUnderlinePositionSymbolLoc_ptr;
-  v59 = getCTFontGetUnderlinePositionSymbolLoc_ptr;
+  v60 = getCTFontGetUnderlinePositionSymbolLoc_ptr;
   if (!getCTFontGetUnderlinePositionSymbolLoc_ptr)
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __getCTFontGetUnderlinePositionSymbolLoc_block_invoke;
-    v54 = &unk_1E6E33138;
-    v55 = &v56;
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = __getCTFontGetUnderlinePositionSymbolLoc_block_invoke;
+    v55 = &unk_1E6E33138;
+    v56 = &v57;
     v34 = CoreTextLibrary();
     v35 = dlsym(v34, "CTFontGetUnderlinePosition");
-    *(v55[1] + 24) = v35;
-    getCTFontGetUnderlinePositionSymbolLoc_ptr = *(v55[1] + 24);
-    v33 = v57[3];
+    *(v56[1] + 24) = v35;
+    getCTFontGetUnderlinePositionSymbolLoc_ptr = *(v56[1] + 24);
+    v33 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v33)
   {
     goto LABEL_51;
   }
 
   self->descriptor.underlinePosition = v33(v8);
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v36 = getCTFontGetUnderlineThicknessSymbolLoc_ptr;
-  v59 = getCTFontGetUnderlineThicknessSymbolLoc_ptr;
+  v60 = getCTFontGetUnderlineThicknessSymbolLoc_ptr;
   if (!getCTFontGetUnderlineThicknessSymbolLoc_ptr)
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __getCTFontGetUnderlineThicknessSymbolLoc_block_invoke;
-    v54 = &unk_1E6E33138;
-    v55 = &v56;
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = __getCTFontGetUnderlineThicknessSymbolLoc_block_invoke;
+    v55 = &unk_1E6E33138;
+    v56 = &v57;
     v37 = CoreTextLibrary();
     v38 = dlsym(v37, "CTFontGetUnderlineThickness");
-    *(v55[1] + 24) = v38;
-    getCTFontGetUnderlineThicknessSymbolLoc_ptr = *(v55[1] + 24);
-    v36 = v57[3];
+    *(v56[1] + 24) = v38;
+    getCTFontGetUnderlineThicknessSymbolLoc_ptr = *(v56[1] + 24);
+    v36 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v36)
   {
     goto LABEL_51;
   }
 
   self->descriptor.underlineThickness = v36(v8);
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v39 = getCTFontGetUnitsPerEmSymbolLoc_ptr;
-  v59 = getCTFontGetUnitsPerEmSymbolLoc_ptr;
+  v60 = getCTFontGetUnitsPerEmSymbolLoc_ptr;
   if (!getCTFontGetUnitsPerEmSymbolLoc_ptr)
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __getCTFontGetUnitsPerEmSymbolLoc_block_invoke;
-    v54 = &unk_1E6E33138;
-    v55 = &v56;
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = __getCTFontGetUnitsPerEmSymbolLoc_block_invoke;
+    v55 = &unk_1E6E33138;
+    v56 = &v57;
     v40 = CoreTextLibrary();
     v41 = dlsym(v40, "CTFontGetUnitsPerEm");
-    *(v55[1] + 24) = v41;
-    getCTFontGetUnitsPerEmSymbolLoc_ptr = *(v55[1] + 24);
-    v39 = v57[3];
+    *(v56[1] + 24) = v41;
+    getCTFontGetUnitsPerEmSymbolLoc_ptr = *(v56[1] + 24);
+    v39 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v39)
   {
     goto LABEL_51;
   }
 
   self->kernUnitsPerEm = v39(v8);
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v42 = getCTFontCopyTableSymbolLoc_ptr;
-  v59 = getCTFontCopyTableSymbolLoc_ptr;
+  v60 = getCTFontCopyTableSymbolLoc_ptr;
   if (!getCTFontCopyTableSymbolLoc_ptr)
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __getCTFontCopyTableSymbolLoc_block_invoke;
-    v54 = &unk_1E6E33138;
-    v55 = &v56;
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = __getCTFontCopyTableSymbolLoc_block_invoke;
+    v55 = &unk_1E6E33138;
+    v56 = &v57;
     v43 = CoreTextLibrary();
     v44 = dlsym(v43, "CTFontCopyTable");
-    *(v55[1] + 24) = v44;
-    getCTFontCopyTableSymbolLoc_ptr = *(v55[1] + 24);
-    v42 = v57[3];
+    *(v56[1] + 24) = v44;
+    getCTFontCopyTableSymbolLoc_ptr = *(v56[1] + 24);
+    v42 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v42)
   {
 LABEL_51:
-    dlerror();
-    v48 = abort_report_np();
-    _Block_object_dispose(&v56, 8);
-    _Unwind_Resume(v48);
+    v48 = dlerror();
+    v49 = abort_report_np("%s", v48);
+    _Block_object_dispose(&v57, 8);
+    _Unwind_Resume(v49);
   }
 
   v45 = v42(v8, 1801810542, 0);

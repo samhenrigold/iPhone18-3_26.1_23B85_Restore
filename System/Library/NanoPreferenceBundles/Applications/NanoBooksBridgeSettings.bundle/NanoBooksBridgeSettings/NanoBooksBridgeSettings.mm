@@ -1,6 +1,6 @@
 void sub_1ED4(id a1, BOOL a2)
 {
-  v2 = NBDefaultLog();
+  v2 = NBDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -46,16 +46,16 @@ void sub_2E88(uint64_t a1, void *a2)
   [v2 unionSet:v3];
 }
 
-id NBDefaultLog()
+id NBDefaultLog(uint64_t a1)
 {
   if (qword_27BE8 != -1)
   {
     sub_116D4();
   }
 
-  v1 = qword_27BE0;
+  v2 = qword_27BE0;
 
-  return v1;
+  return v2;
 }
 
 void sub_3218(id a1)
@@ -65,16 +65,16 @@ void sub_3218(id a1)
   _objc_release_x1();
 }
 
-id NBInternalSettingsLog()
+id NBInternalSettingsLog(uint64_t a1)
 {
   if (qword_27BF8 != -1)
   {
     sub_116E8();
   }
 
-  v1 = qword_27BF0;
+  v2 = qword_27BF0;
 
-  return v1;
+  return v2;
 }
 
 void sub_32A0(id a1)
@@ -84,16 +84,16 @@ void sub_32A0(id a1)
   _objc_release_x1();
 }
 
-id NBComplicationLog()
+id NBComplicationLog(uint64_t a1)
 {
   if (qword_27C08 != -1)
   {
     sub_116FC();
   }
 
-  v1 = qword_27C00;
+  v2 = qword_27C00;
 
-  return v1;
+  return v2;
 }
 
 void sub_3328(id a1)
@@ -103,16 +103,16 @@ void sub_3328(id a1)
   _objc_release_x1();
 }
 
-id NBCachingLog()
+id NBCachingLog(uint64_t a1)
 {
   if (qword_27C18 != -1)
   {
     sub_11710();
   }
 
-  v1 = qword_27C10;
+  v2 = qword_27C10;
 
-  return v1;
+  return v2;
 }
 
 void sub_33B0(id a1)
@@ -122,16 +122,16 @@ void sub_33B0(id a1)
   _objc_release_x1();
 }
 
-id NBPlaybackLog()
+id NBPlaybackLog(uint64_t a1)
 {
   if (qword_27C28 != -1)
   {
     sub_11724();
   }
 
-  v1 = qword_27C20;
+  v2 = qword_27C20;
 
-  return v1;
+  return v2;
 }
 
 void sub_3438(id a1)
@@ -141,16 +141,16 @@ void sub_3438(id a1)
   _objc_release_x1();
 }
 
-id NBStreamingLog()
+id NBStreamingLog(uint64_t a1)
 {
   if (qword_27C38 != -1)
   {
     sub_11738();
   }
 
-  v1 = qword_27C30;
+  v2 = qword_27C30;
 
-  return v1;
+  return v2;
 }
 
 void sub_34C0(id a1)
@@ -160,16 +160,16 @@ void sub_34C0(id a1)
   _objc_release_x1();
 }
 
-id NBBDSSyncLog()
+id NBBDSSyncLog(uint64_t a1)
 {
   if (qword_27C48 != -1)
   {
     sub_1174C();
   }
 
-  v1 = qword_27C40;
+  v2 = qword_27C40;
 
-  return v1;
+  return v2;
 }
 
 void sub_3548(id a1)
@@ -179,16 +179,16 @@ void sub_3548(id a1)
   _objc_release_x1();
 }
 
-id NBRecommendationsLog()
+id NBRecommendationsLog(uint64_t a1)
 {
   if (qword_27C58 != -1)
   {
     sub_11760();
   }
 
-  v1 = qword_27C50;
+  v2 = qword_27C50;
 
-  return v1;
+  return v2;
 }
 
 void sub_35D0(id a1)
@@ -198,16 +198,16 @@ void sub_35D0(id a1)
   _objc_release_x1();
 }
 
-id NBTesting()
+id NBTesting(uint64_t a1)
 {
   if (qword_27C68 != -1)
   {
     sub_11774();
   }
 
-  v1 = qword_27C60;
+  v2 = qword_27C60;
 
-  return v1;
+  return v2;
 }
 
 void sub_3658(id a1)
@@ -217,16 +217,16 @@ void sub_3658(id a1)
   _objc_release_x1();
 }
 
-id NBReachabilityLog()
+id NBReachabilityLog(uint64_t a1)
 {
   if (qword_27C78 != -1)
   {
     sub_11788();
   }
 
-  v1 = qword_27C70;
+  v2 = qword_27C70;
 
-  return v1;
+  return v2;
 }
 
 void sub_36E0(id a1)
@@ -236,16 +236,16 @@ void sub_36E0(id a1)
   _objc_release_x1();
 }
 
-id NBIntentsLog()
+id NBIntentsLog(uint64_t a1)
 {
   if (qword_27C88 != -1)
   {
     sub_1179C();
   }
 
-  v1 = qword_27C80;
+  v2 = qword_27C80;
 
-  return v1;
+  return v2;
 }
 
 void sub_3768(id a1)
@@ -262,9 +262,9 @@ uint64_t sub_3C40(uint64_t a1)
   return _objc_release_x1();
 }
 
-void sub_3DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_3DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -344,103 +344,105 @@ void sub_42C0(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v8 = objc_opt_new();
+  v9 = v8;
   if (v6)
   {
-    v9 = NBDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = NBDefaultLog(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_117B0(v6, v9);
+      sub_117B0(v6, v10);
     }
 
     goto LABEL_4;
   }
 
-  v11 = [v5 familyMembers];
-  v12 = [v11 count];
+  v12 = [v5 familyMembers];
+  v13 = [v12 count];
 
-  if (!v12)
+  if (!v13)
   {
-    v9 = NBDefaultLog();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = NBDefaultLog(v14);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_4;
     }
 
     *buf = 0;
-    v22 = "You are not part of a Family Circle.";
+    v26 = "You are not part of a Family Circle.";
 LABEL_23:
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, v22, buf, 2u);
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, v26, buf, 2u);
     goto LABEL_4;
   }
 
-  if (![v5 isHeadOfHouseholdSharingPayment])
+  v15 = [v5 isHeadOfHouseholdSharingPayment];
+  if (!v15)
   {
-    v9 = NBDefaultLog();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = NBDefaultLog(v15);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_4;
     }
 
     *buf = 0;
-    v22 = "Head of household disabled sharing. Hiding family members.";
+    v26 = "Head of household disabled sharing. Hiding family members.";
     goto LABEL_23;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v13 = [v5 familyMembers];
-  v14 = [v13 countByEnumeratingWithState:&v25 objects:v31 count:16];
-  if (v14)
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v16 = [v5 familyMembers];
+  v17 = [v16 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  if (v17)
   {
-    v15 = v14;
-    v16 = *v26;
+    v18 = v17;
+    v19 = *v30;
     do
     {
-      for (i = 0; i != v15; i = i + 1)
+      for (i = 0; i != v18; i = i + 1)
       {
-        if (*v26 != v16)
+        if (*v30 != v19)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v16);
         }
 
-        v18 = *(*(&v25 + 1) + 8 * i);
-        if (([v18 isCurrentSignedInUser] & 1) == 0 && objc_msgSend(v18, "isSharingPurchases"))
+        v21 = *(*(&v29 + 1) + 8 * i);
+        if (([v21 isCurrentSignedInUser] & 1) == 0 && objc_msgSend(v21, "isSharingPurchases"))
         {
-          v19 = [WeakRetained _profileImageForFamilyMember:v18];
-          [v18 setNb_profileImage:v19];
+          v22 = [WeakRetained _profileImageForFamilyMember:v21];
+          [v21 setNb_profileImage:v22];
 
-          [v8 addObject:v18];
+          [v9 addObject:v21];
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
-    while (v15);
+    while (v18);
   }
 
-  v9 = NBDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = NBDefaultLog(v23);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = [v5 familyMembers];
-    v21 = [v20 count];
+    v24 = [v5 familyMembers];
+    v25 = [v24 count];
     *buf = 134217984;
-    v30 = v21;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Retrieved Family Circle containing %lu members", buf, 0xCu);
+    v34 = v25;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Retrieved Family Circle containing %lu members", buf, 0xCu);
   }
 
 LABEL_4:
 
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_45E8;
-  v23[3] = &unk_20928;
-  v23[4] = WeakRetained;
-  v24 = v8;
-  v10 = v8;
-  dispatch_async(&_dispatch_main_q, v23);
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_45E8;
+  v27[3] = &unk_20928;
+  v27[4] = WeakRetained;
+  v28 = v9;
+  v11 = v9;
+  dispatch_async(&_dispatch_main_q, v27);
 }
 
 id sub_45E8(uint64_t a1)
@@ -464,59 +466,59 @@ void sub_52BC(uint64_t a1, void *a2, uint64_t a3, void *a4)
   v6 = a2;
   v7 = a4;
   os_unfair_lock_lock((*(a1 + 32) + 8));
-  if (v7 || ![v6 length])
+  if (v7 || (v8 = [v6 length]) == 0)
   {
-    v8 = NBDefaultLog();
-    if (os_log_type_enabled(&v8->super, OS_LOG_TYPE_ERROR))
+    v9 = NBDefaultLog(v8);
+    if (os_log_type_enabled(&v9->super, OS_LOG_TYPE_ERROR))
     {
-      sub_118B4(a1, v7, &v8->super);
+      sub_118B4(a1, v7, &v9->super);
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v10 = [UIImage imageWithData:v6];
-    v11 = *(a1 + 32);
+    v11 = [UIImage imageWithData:v6];
+    v12 = *(a1 + 32);
     [*(a1 + 40) scaledFittingSize];
-    v12 = [v11 _cacheKeyForSize:*(a1 + 48) withBaseKey:?];
+    v13 = [v12 _cacheKeyForSize:*(a1 + 48) withBaseKey:?];
     [*(a1 + 40) scaledFittingSize];
-    v8 = [v10 nb_scaleImageToSize:?];
+    v9 = [v11 nb_scaleImageToSize:?];
 
-    v13 = [*(a1 + 32) imageDirectoryPath];
-    v14 = [v13 stringByAppendingPathComponent:v12];
-    v15 = [NSURL fileURLWithPath:v14];
+    v14 = [*(a1 + 32) imageDirectoryPath];
+    v15 = [v14 stringByAppendingPathComponent:v13];
+    v16 = [NSURL fileURLWithPath:v15];
 
-    v16 = UIImagePNGRepresentation(v8);
-    v24 = 0;
-    v17 = [v16 writeToURL:v15 options:0 error:&v24];
-    v18 = v24;
+    v17 = UIImagePNGRepresentation(v9);
+    v26 = 0;
+    v18 = [v17 writeToURL:v16 options:0 error:&v26];
+    v19 = v26;
 
-    if (!v17 || v18)
+    if (!v18 || v19)
     {
-      v19 = NBDefaultLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = NBDefaultLog(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        sub_1183C(v15, v18, v19);
+        sub_1183C(v16, v19, v21);
       }
     }
 
     [*(a1 + 40) scaledFittingSize];
-    v9 = [MPArtworkRepresentation representationWithSize:v8 image:?];
-    v20 = [*(a1 + 40) cache];
-    [v20 setObject:v9 forKey:v12];
+    v10 = [MPArtworkRepresentation representationWithSize:v9 image:?];
+    v22 = [*(a1 + 40) cache];
+    [v22 setObject:v10 forKey:v13];
   }
 
-  v21 = [*(a1 + 32) pendingTasks];
-  [v21 removeObjectForKey:*(a1 + 48)];
+  v23 = [*(a1 + 32) pendingTasks];
+  [v23 removeObjectForKey:*(a1 + 48)];
 
   os_unfair_lock_unlock((*(a1 + 32) + 8));
-  v22 = objc_retainBlock(*(a1 + 56));
-  v23 = v22;
-  if (v22)
+  v24 = objc_retainBlock(*(a1 + 56));
+  v25 = v24;
+  if (v24)
   {
-    (*(v22 + 2))(v22, v9, v7);
+    (*(v24 + 2))(v24, v10, v7);
   }
 }
 
@@ -544,32 +546,19 @@ void sub_5A34(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
     v13 = [v9 items];
     v14 = [v13 firstObject];
 
-    if (v14)
+    if (v14 || (v15 = *(a1 + 32), [v8 stringValue], v16 = objc_claimAutoreleasedReturnValue(), +[NSSet setWithObject:](NSSet, "setWithObject:", v16), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "fetchItemsForStoreIDs:", v17), v18 = objc_claimAutoreleasedReturnValue(), v17, v16, objc_msgSend(v18, "firstObject"), v14 = objc_claimAutoreleasedReturnValue(), v18, v14))
     {
-      goto LABEL_4;
-    }
-
-    v15 = *(a1 + 32);
-    v16 = [v8 stringValue];
-    v17 = [NSSet setWithObject:v16];
-    v18 = [v15 fetchItemsForStoreIDs:v17];
-
-    v14 = [v18 firstObject];
-
-    if (v14)
-    {
-LABEL_4:
-      v19 = objc_retainBlock(*(a1 + 40));
-      v20 = v19;
-      if (v19)
+      v20 = objc_retainBlock(*(a1 + 40));
+      v21 = v20;
+      if (v20)
       {
-        (*(v19 + 2))(v19, v14, a3, a4);
+        (*(v20 + 2))(v20, v14, a3, a4);
       }
     }
 
     else
     {
-      v14 = NBDefaultLog();
+      v14 = NBDefaultLog(v19);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_11930(v8, v14);
@@ -580,15 +569,14 @@ LABEL_4:
 
 id sub_5F94(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 32);
-  v5 = [v4 adamIDs];
-  v6 = [v4 _artworkCatalogsForAdamIDs:v5];
+  v3 = *(a1 + 32);
+  v4 = [v3 adamIDs];
+  v5 = [v3 _artworkCatalogsForAdamIDs:v4];
 
-  v7 = *(a1 + 32);
-  [objc_opt_class() _fillArtworkMutableArray:v6 toCount:a2];
-  v8 = [v6 copy];
+  [objc_opt_class() _fillArtworkMutableArray:v5 toCount:a2];
+  v6 = [v5 copy];
 
-  return v8;
+  return v6;
 }
 
 void sub_62AC(uint64_t a1, void *a2)
@@ -598,19 +586,19 @@ void sub_62AC(uint64_t a1, void *a2)
 
   if (v4)
   {
-    v5 = *(a1 + 32);
-    v6 = [v3 artworkCatalog];
-    [v5 addObject:v6];
+    v6 = *(a1 + 32);
+    v7 = [v3 artworkCatalog];
+    [v6 addObject:v7];
   }
 
   else
   {
-    v7 = NBRecommendationsLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = NBRecommendationsLog(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412290;
-      v9 = v3;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "The recommended audiobook %@ is missing its artwork catalog.", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = v3;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "The recommended audiobook %@ is missing its artwork catalog.", &v9, 0xCu);
     }
   }
 }
@@ -636,10 +624,11 @@ id sub_6BDC(uint64_t a1)
   return [v4 reloadSpecifiers];
 }
 
-void sub_7344(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_7344(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 id NBBundle()
@@ -649,7 +638,7 @@ id NBBundle()
   return [NSBundle bundleForClass:v0];
 }
 
-uint64_t NBIsRunningInStoreDemoMode()
+uint64_t NBIsRunningInStoreDemoMode(uint64_t a1, uint64_t a2)
 {
   if (qword_27CC0 != -1)
   {
@@ -669,11 +658,11 @@ void sub_74BC(id a1)
 
     if (v2)
     {
-      v3 = NBDefaultLog();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      v4 = NBDefaultLog(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        *v4 = 0;
-        _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "Overriding store demo mode to ON.", v4, 2u);
+        *v5 = 0;
+        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "Overriding store demo mode to ON.", v5, 2u);
       }
 
       byte_27CB8 = 1;
@@ -681,7 +670,7 @@ void sub_74BC(id a1)
   }
 }
 
-uint64_t NBIsRunningInPPTMode()
+uint64_t NBIsRunningInPPTMode(uint64_t a1, uint64_t a2)
 {
   if (qword_27CD0 != -1)
   {
@@ -697,7 +686,7 @@ void sub_75B0(id a1)
   byte_27CC8 = [v1 BOOLForKey:@"PPTDevice"];
 }
 
-uint64_t NBModeIgnoresAccounts()
+uint64_t NBModeIgnoresAccounts(uint64_t a1, uint64_t a2)
 {
   if (qword_27CC0 != -1)
   {
@@ -706,7 +695,7 @@ uint64_t NBModeIgnoresAccounts()
 
   if (byte_27CB8)
   {
-    v0 = 1;
+    v2 = 1;
   }
 
   else
@@ -716,13 +705,13 @@ uint64_t NBModeIgnoresAccounts()
       sub_11AFC();
     }
 
-    v0 = byte_27CC8;
+    v2 = byte_27CC8;
   }
 
-  return v0 & 1;
+  return v2 & 1;
 }
 
-BOOL NBModeSupportsNetworking()
+BOOL NBModeSupportsNetworking(uint64_t a1, uint64_t a2)
 {
   if (qword_27CC0 != -1)
   {
@@ -732,7 +721,7 @@ BOOL NBModeSupportsNetworking()
   return (byte_27CB8 & 1) == 0;
 }
 
-uint64_t NBDemoCountrySupportsAudiobooks()
+uint64_t NBDemoCountrySupportsAudiobooks(uint64_t a1, uint64_t a2)
 {
   if (qword_27CE0 != -1)
   {
@@ -762,42 +751,43 @@ void sub_76E4(id a1)
 
     v4 = v3;
 
-    v5 = NBDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = NBDefaultLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v15 = v4;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Loading country allow list from %{public}@.", buf, 0xCu);
+      v18 = v4;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Loading country allow list from %{public}@.", buf, 0xCu);
     }
 
-    v6 = [NSURL fileURLWithPath:v4];
-    v13 = 0;
-    v7 = [NSArray arrayWithContentsOfURL:v6 error:&v13];
-    v8 = v13;
+    v7 = [NSURL fileURLWithPath:v4];
+    v16 = 0;
+    v8 = [NSArray arrayWithContentsOfURL:v7 error:&v16];
+    v9 = v16;
 
-    if (v7)
+    if (v8)
     {
-      v9 = +[NSLocale currentLocale];
-      v10 = [v9 objectForKey:NSLocaleCountryCode];
+      v11 = +[NSLocale currentLocale];
+      v12 = [v11 objectForKey:NSLocaleCountryCode];
 
-      byte_27CD8 = [v7 containsObject:v10];
-      v11 = NBDefaultLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = [v8 containsObject:v12];
+      byte_27CD8 = v13;
+      v14 = NBDefaultLog(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v15 = v10;
-        v16 = 1024;
-        v17 = byte_27CD8;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Current country is %{public}@. In allow list? %u", buf, 0x12u);
+        v18 = v12;
+        v19 = 1024;
+        v20 = byte_27CD8;
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Current country is %{public}@. In allow list? %u", buf, 0x12u);
       }
     }
 
     else
     {
-      v12 = NBDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v15 = NBDefaultLog(v10);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_11B24(v12);
+        sub_11B24(v15);
       }
 
       byte_27CD8 = 1;
@@ -817,36 +807,37 @@ void sub_7F14(uint64_t a1, void *a2, void *a3)
   v7 = v6;
   if (!v5 || v6)
   {
-    v11 = NBDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = NBDefaultLog(v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      sub_11B68(v7, v11);
+      sub_11B68(v7, v12);
     }
   }
 
   else
   {
     v8 = [*(a1 + 32) isStoreAvailable];
-    if (v8 != [v5 BOOLValue])
+    v9 = [v5 BOOLValue];
+    if (v8 != v9)
     {
-      v9 = NBDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = NBDefaultLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        sub_11BE0(v5, v9);
+        sub_11BE0(v5, v10);
       }
 
-      v10 = +[NSUserDefaults standardUserDefaults];
-      [v10 setBool:objc_msgSend(v5 forKey:{"BOOLValue") ^ 1, @"NBAudiobookStoreDisabled"}];
+      v11 = +[NSUserDefaults standardUserDefaults];
+      [v11 setBool:objc_msgSend(v5 forKey:{"BOOLValue") ^ 1, @"NBAudiobookStoreDisabled"}];
 
       [*(a1 + 32) setStoreAvailable:{objc_msgSend(v5, "BOOLValue")}];
       objc_initWeak(&location, *(a1 + 32));
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_80A4;
-      v12[3] = &unk_206D8;
-      objc_copyWeak(&v13, &location);
-      dispatch_async(&_dispatch_main_q, v12);
-      objc_destroyWeak(&v13);
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_80A4;
+      v13[3] = &unk_206D8;
+      objc_copyWeak(&v14, &location);
+      dispatch_async(&_dispatch_main_q, v13);
+      objc_destroyWeak(&v14);
       objc_destroyWeak(&location);
     }
   }
@@ -934,10 +925,10 @@ void sub_9D58(uint64_t a1, void *a2)
     }
   }
 
-  [v5 setProperty:&__kCFBooleanTrue forKey:@"kNanoBooksCellIsEditable"];
+  v9 = [v5 setProperty:&__kCFBooleanTrue forKey:@"kNanoBooksCellIsEditable"];
   if (v5)
   {
-    [*(a1 + 40) addObject:v5];
+    v9 = [*(a1 + 40) addObject:v5];
   }
 
   if (v6)
@@ -947,8 +938,8 @@ void sub_9D58(uint64_t a1, void *a2)
 
   else
   {
-    v9 = NBDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = NBDefaultLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_11CD4();
     }
@@ -1058,10 +1049,11 @@ const __CFString *sub_BA48(unint64_t a1)
   }
 }
 
-void sub_D5BC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_D5BC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_E334(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location)
@@ -1078,25 +1070,26 @@ void sub_E358(uint64_t a1)
   if (WeakRetained)
   {
     [WeakRetained _combineSearchResults];
-    if (([v3 _isSearchCancelled] & 1) == 0)
+    v4 = [v3 _isSearchCancelled];
+    if ((v4 & 1) == 0)
     {
-      v4 = objc_retainBlock(*(a1 + 40));
-      v5 = v4;
-      if (v4)
+      v5 = objc_retainBlock(*(a1 + 40));
+      v6 = v5;
+      if (v5)
       {
-        (*(v4 + 2))(v4);
+        (*(v5 + 2))(v5);
       }
     }
 
-    v6 = NBDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = NBDefaultLog(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = *(a1 + 32);
-      v8 = 138412546;
-      v9 = v7;
-      v10 = 1024;
-      v11 = [v3 _isSearchCancelled];
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "Completed search for term '%@' (cancelled? %d)", &v8, 0x12u);
+      v8 = *(a1 + 32);
+      v9 = 138412546;
+      v10 = v8;
+      v11 = 1024;
+      v12 = [v3 _isSearchCancelled];
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "Completed search for term '%@' (cancelled? %d)", &v9, 0x12u);
     }
   }
 }
@@ -1144,7 +1137,7 @@ void sub_F88C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 void sub_F8B0(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = NBRecommendationsLog();
+  v4 = NBRecommendationsLog(v3);
   WeakRetained = v4;
   if (v3)
   {
@@ -1199,12 +1192,13 @@ void sub_FBA4(uint64_t a1, int a2)
 void sub_FCD0(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = NBRecommendationsLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = NBRecommendationsLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_12304(a1, v3, v4);
+      sub_12304(a1, v4, v5);
     }
   }
 }
@@ -1223,45 +1217,46 @@ void sub_FED0(uint64_t a1)
   }
 
   v4 = v3;
-  if ([*(a1 + 40) hasFetchedInitialRecommendations])
+  v5 = [*(a1 + 40) hasFetchedInitialRecommendations];
+  if (v5)
   {
-    v5 = NBRecommendationsLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = NBRecommendationsLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = *(a1 + 48);
+      v7 = *(a1 + 48);
       *buf = 138412290;
-      v21 = v6;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "Will return existing recommendations for request: %@", buf, 0xCu);
+      v22 = v7;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "Will return existing recommendations for request: %@", buf, 0xCu);
     }
 
-    v7 = [*(a1 + 40) recommendations];
+    v8 = [*(a1 + 40) recommendations];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10130;
     block[3] = &unk_20D18;
-    v17 = *(a1 + 48);
-    v8 = *(a1 + 56);
-    v18 = v7;
+    v18 = *(a1 + 48);
+    v9 = *(a1 + 56);
     v19 = v8;
-    v9 = v7;
+    v20 = v9;
+    v10 = v8;
     dispatch_async(v4, block);
   }
 
   else
   {
     objc_initWeak(buf, *(a1 + 40));
-    v10 = *(a1 + 40);
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_10200;
-    v11[3] = &unk_20D40;
-    v12 = *(a1 + 48);
-    objc_copyWeak(&v15, buf);
-    v13 = v4;
-    v14 = *(a1 + 56);
-    [v10 _reloadRecommendationsFromDefaultsWithCompletion:v11];
+    v11 = *(a1 + 40);
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10200;
+    v12[3] = &unk_20D40;
+    v13 = *(a1 + 48);
+    objc_copyWeak(&v16, buf);
+    v14 = v4;
+    v15 = *(a1 + 56);
+    [v11 _reloadRecommendationsFromDefaultsWithCompletion:v12];
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(buf);
   }
 }
@@ -1275,7 +1270,7 @@ void sub_1010C(_Unwind_Exception *a1)
 
 void sub_10130(uint64_t a1)
 {
-  v2 = NBRecommendationsLog();
+  v2 = NBRecommendationsLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -1294,7 +1289,7 @@ void sub_10130(uint64_t a1)
 
 void sub_10200(uint64_t a1)
 {
-  v2 = NBRecommendationsLog();
+  v2 = NBRecommendationsLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -1325,7 +1320,7 @@ void sub_10200(uint64_t a1)
 
 void sub_1036C(uint64_t a1)
 {
-  v2 = NBRecommendationsLog();
+  v2 = NBRecommendationsLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -1377,9 +1372,20 @@ void sub_11930(uint64_t a1, NSObject *a2)
 void sub_119A8(void *a1, void *a2)
 {
   v3 = [a1 searchResults];
-  [v3 count];
-  [a2 row];
-  sub_7344(&dword_0, v4, v5, "Attempted to select search audiobook outside of range %lu (%lu).", v6, v7, v8, v9, 0);
+  *v10 = 134218240;
+  *&v10[4] = [v3 count];
+  *&v10[12] = 2048;
+  *&v10[14] = [a2 row];
+  sub_7344(&dword_0, v4, v5, "Attempted to select search audiobook outside of range %lu (%lu).", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
+}
+
+void sub_11A58(uint64_t a1, void *a2)
+{
+  *v8 = 138412546;
+  *&v8[4] = a1;
+  *&v8[12] = 2048;
+  *&v8[14] = [a2 row];
+  sub_7344(&dword_0, v2, v3, "Invalid audiobook selected from search (%@) at index %lu.", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16]);
 }
 
 void sub_11B68(uint64_t a1, NSObject *a2)

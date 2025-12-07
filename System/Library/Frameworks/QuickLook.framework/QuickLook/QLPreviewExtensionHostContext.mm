@@ -10,6 +10,11 @@
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
 - (void)previewControllerDidUpdatePreferredContentSize:(id)size;
 - (void)previewControllerDidUpdateTitle:(id)title;
+- (void)previewDidAppear:(BOOL)appear;
+- (void)previewDidDisappear:(BOOL)disappear;
+- (void)previewWillAppear:(BOOL)appear;
+- (void)previewWillDisappear:(BOOL)disappear;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
 - (void)setHostViewControllerProxy:(id)proxy;
 @end
 
@@ -32,7 +37,7 @@
 
 void __65__QLPreviewExtensionHostContext_protocolServiceWithErrorHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x277D43EF8];
   v5 = *MEMORY[0x277D43EF8];
@@ -46,9 +51,9 @@ void __65__QLPreviewExtensionHostContext_protocolServiceWithErrorHandler___block
   {
     v6 = v5;
     v7 = [v3 localizedDescription];
-    v10 = 138412290;
-    v11 = v7;
-    _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_ERROR, "Error calling service: %@ #Remote", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v7;
+    _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_ERROR, "Error calling service: %@ #Remote", &v9, 0xCu);
   }
 
   v8 = *(a1 + 32);
@@ -56,8 +61,6 @@ void __65__QLPreviewExtensionHostContext_protocolServiceWithErrorHandler___block
   {
     (*(v8 + 16))(v8, v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __66__QLPreviewExtensionHostContext_previewControllerWantsFullScreen___block_invoke(uint64_t a1)
@@ -90,6 +93,42 @@ void __80__QLPreviewExtensionHostContext_previewControllerDidUpdatePreferredCont
 {
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
   [WeakRetained previewControllerDidUpdatePreferredContentSize:*(a1 + 40)];
+}
+
+- (void)previewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  protocolService = [(QLPreviewExtensionHostContext *)self protocolService];
+  [protocolService previewWillAppear:appearCopy];
+}
+
+- (void)previewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  protocolService = [(QLPreviewExtensionHostContext *)self protocolService];
+  [protocolService previewDidAppear:appearCopy];
+}
+
+- (void)previewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  protocolService = [(QLPreviewExtensionHostContext *)self protocolService];
+  [protocolService previewWillDisappear:disappearCopy];
+}
+
+- (void)previewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  protocolService = [(QLPreviewExtensionHostContext *)self protocolService];
+  [protocolService previewDidDisappear:disappearCopy];
+}
+
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  appearanceCopy = appearance;
+  protocolService = [(QLPreviewExtensionHostContext *)self protocolService];
+  [protocolService setAppearance:appearanceCopy animated:animatedCopy];
 }
 
 - (void)setHostViewControllerProxy:(id)proxy

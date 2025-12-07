@@ -36,7 +36,7 @@ void __27__DNDSDevice_currentDevice__block_invoke(uint64_t a1)
   v6 = [v2 deviceCapabilities];
   if (v2)
   {
-    [v2 frameworkVersion];
+    objc_msgSend_frameworkVersion(v2);
   }
 
   else
@@ -152,7 +152,7 @@ void __27__DNDSDevice_currentDevice__block_invoke(uint64_t a1)
   [(DNDDevice *)self deviceCapabilities];
   v6 = DNDStringFromDeviceCapabilities();
   identifier = [(DNDSDevice *)self identifier];
-  [(DNDDevice *)self frameworkVersion];
+  objc_msgSend_frameworkVersion(self);
   v8 = DNDStringFromOperatingSystemVersion();
   v9 = [v3 stringWithFormat:@"<%@: %p deviceClass: %@; deviceCapabilities: %@; identifier: %@; frameworkVersion: %@>", v4, self, v5, v6, identifier, v8];;
 

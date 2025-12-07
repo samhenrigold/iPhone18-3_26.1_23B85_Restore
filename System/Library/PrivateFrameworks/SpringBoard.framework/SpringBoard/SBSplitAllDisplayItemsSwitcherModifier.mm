@@ -17,19 +17,19 @@
   {
     self->_hasInvalidatedAppLayoutsForInsertion = 1;
     v6 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-    v5 = SBAppendSwitcherModifierResponse(v6, 0);
+    v5 = SBAppendSwitcherModifierResponse();
   }
 
   v12.receiver = self;
   v12.super_class = SBSplitAllDisplayItemsSwitcherModifier;
   v7 = [(SBChainableModifier *)&v12 handleEvent:eventCopy];
-  v8 = SBAppendSwitcherModifierResponse(v7, v5);
+  v8 = SBAppendSwitcherModifierResponse();
 
   if (!self->_hasInvalidatedAppLayoutsForRemoval && [(SBChainableModifier *)self state]== 1)
   {
     self->_hasInvalidatedAppLayoutsForRemoval = 1;
     v9 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-    v10 = SBAppendSwitcherModifierResponse(v9, v8);
+    v10 = SBAppendSwitcherModifierResponse();
 
     v8 = v10;
   }

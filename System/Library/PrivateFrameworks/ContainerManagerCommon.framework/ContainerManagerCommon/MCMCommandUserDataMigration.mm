@@ -1,6 +1,5 @@
 @interface MCMCommandUserDataMigration
 + (Class)incomingMessageClass;
-+ (unint64_t)command;
 - (BOOL)_bundleContainerExistsForDataContainer:(id)container error:(id *)error;
 - (BOOL)_repairTmpDirWithMigrationStatus:(id)status error:(id *)error;
 - (BOOL)preflightClientAllowed;
@@ -13,24 +12,15 @@
 
 + (Class)incomingMessageClass
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
 
   return objc_opt_class();
 }
 
-+ (unint64_t)command
-{
-  v2 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return 30;
-}
-
 - (BOOL)_bundleContainerExistsForDataContainer:(id)container error:(id *)error
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   containerCopy = container;
-  v48 = 1;
+  v47 = 1;
   if ([containerCopy containerClass] == 2)
   {
     v7 = containermanager_copy_global_configuration();
@@ -69,13 +59,13 @@
     identifier2 = [containerCopy identifier];
     context2 = [(MCMCommand *)self context];
     userIdentityCache = [context2 userIdentityCache];
-    v28 = [MCMContainerIdentity containerIdentityWithUserIdentity:userIdentity identifier:identifier2 containerConfig:v16 platform:0 userIdentityCache:userIdentityCache error:&v48];
+    v28 = [MCMContainerIdentity containerIdentityWithUserIdentity:userIdentity identifier:identifier2 containerConfig:v16 platform:0 userIdentityCache:userIdentityCache error:&v47];
 
     if (v28)
     {
-      v47 = 0;
-      v29 = [gContainerCache entryForContainerIdentity:v28 error:&v47];
-      v30 = v47;
+      v46 = 0;
+      v29 = [gContainerCache entryForContainerIdentity:v28 error:&v46];
+      v30 = v46;
       v13 = v30;
       if (v29)
       {
@@ -101,15 +91,15 @@ LABEL_39:
     else
     {
       v32 = [MCMError alloc];
-      v13 = [(MCMError *)v32 initWithErrorType:v48];
+      v13 = [(MCMError *)v32 initWithErrorType:v47];
       v29 = container_log_handle_for_category();
       if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         identifier3 = [containerCopy identifier];
         *buf = 138412546;
         containerClass = identifier3;
-        v51 = 2112;
-        v52 = v13;
+        v50 = 2112;
+        v51 = v13;
         _os_log_error_impl(&dword_1DF2C3000, v29, OS_LOG_TYPE_ERROR, "Could not create container identity from [%@]: %@", buf, 0x16u);
       }
     }
@@ -167,13 +157,13 @@ LABEL_40:
     userIdentity2 = [containerCopy userIdentity];
     context4 = [(MCMCommand *)self context];
     userIdentityCache2 = [context4 userIdentityCache];
-    v29 = [MCMContainerIdentity containerIdentityWithUserIdentity:userIdentity2 identifier:v16 containerConfig:v28 platform:0 userIdentityCache:userIdentityCache2 error:&v48];
+    v29 = [MCMContainerIdentity containerIdentityWithUserIdentity:userIdentity2 identifier:v16 containerConfig:v28 platform:0 userIdentityCache:userIdentityCache2 error:&v47];
 
     if (v29)
     {
-      v46 = 0;
-      v40 = [gContainerCache entryForContainerIdentity:v29 error:&v46];
-      v41 = v46;
+      v45 = 0;
+      v40 = [gContainerCache entryForContainerIdentity:v29 error:&v45];
+      v41 = v45;
       v13 = v41;
       if (v40)
       {
@@ -199,14 +189,14 @@ LABEL_38:
     else
     {
       v42 = [MCMError alloc];
-      v13 = [(MCMError *)v42 initWithErrorType:v48];
+      v13 = [(MCMError *)v42 initWithErrorType:v47];
       v40 = container_log_handle_for_category();
       if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
         containerClass = v16;
-        v51 = 2112;
-        v52 = v13;
+        v50 = 2112;
+        v51 = v13;
         _os_log_error_impl(&dword_1DF2C3000, v40, OS_LOG_TYPE_ERROR, "Could not create container identity from [%@]: %@", buf, 0x16u);
       }
     }
@@ -232,13 +222,11 @@ LABEL_41:
     *error = v13;
   }
 
-  v44 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (int)_intendedDataProtectionClassBasedOnEntitlementsForIdentifier:(id)identifier
 {
-  v8 = *MEMORY[0x1E69E9840];
   v3 = [gCodeSigningMapping entitlementsForIdentifier:identifier];
   v4 = v3;
   if (v3)
@@ -251,13 +239,12 @@ LABEL_41:
     intendedDataProtectionClass = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return intendedDataProtectionClass;
 }
 
 - (void)_setDataProtectionIfNecessaryOnContainer:(id)container
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   containerCopy = container;
   containerPath = [containerCopy containerPath];
   containerClassPath = [containerPath containerClassPath];
@@ -265,9 +252,9 @@ LABEL_41:
 
   if (supportsDataProtection)
   {
-    v22 = 0;
-    v8 = [(MCMCommandUserDataMigration *)self _bundleContainerExistsForDataContainer:containerCopy error:&v22];
-    v9 = v22;
+    v21 = 0;
+    v8 = [(MCMCommandUserDataMigration *)self _bundleContainerExistsForDataContainer:containerCopy error:&v21];
+    v9 = v21;
     identifier = [containerCopy identifier];
     if (v9)
     {
@@ -275,9 +262,9 @@ LABEL_41:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v24 = identifier;
-        v25 = 2112;
-        v26 = v9;
+        v23 = identifier;
+        v24 = 2112;
+        v25 = v9;
         _os_log_error_impl(&dword_1DF2C3000, v11, OS_LOG_TYPE_ERROR, "Error looking up bundle container for %@ : %@", buf, 0x16u);
       }
     }
@@ -293,32 +280,30 @@ LABEL_8:
 
       v12 = [(MCMCommandUserDataMigration *)self _intendedDataProtectionClassBasedOnEntitlementsForIdentifier:identifier];
       v13 = [MCMResultPromise alloc];
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __72__MCMCommandUserDataMigration__setDataProtectionIfNecessaryOnContainer___block_invoke;
-      v20[3] = &unk_1E86AFE80;
-      v21 = identifier;
-      v14 = [(MCMResultPromise *)v13 initWithCompletion:v20];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __72__MCMCommandUserDataMigration__setDataProtectionIfNecessaryOnContainer___block_invoke;
+      v19[3] = &unk_1E86AFE80;
+      v20 = identifier;
+      v14 = [(MCMResultPromise *)v13 initWithCompletion:v19];
       v15 = [MCMCommandSetDataProtection alloc];
       containerIdentity = [containerCopy containerIdentity];
       context = [(MCMCommand *)self context];
       v18 = [(MCMCommandSetDataProtection *)v15 initWithContainerIdentity:containerIdentity thirdParty:0 dataProtectionClass:v12 retryIfLocked:0 skipIfUnchanged:1 context:context resultPromise:v14];
 
       [(MCMCommandSetDataProtection *)v18 execute];
-      v11 = v21;
+      v11 = v20;
     }
 
     goto LABEL_8;
   }
 
 LABEL_9:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 id __72__MCMCommandUserDataMigration__setDataProtectionIfNecessaryOnContainer___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 error];
 
@@ -327,24 +312,22 @@ id __72__MCMCommandUserDataMigration__setDataProtectionIfNecessaryOnContainer___
     v5 = container_log_handle_for_category();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = [v3 error];
-      v10 = 138412546;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v9;
-      _os_log_error_impl(&dword_1DF2C3000, v5, OS_LOG_TYPE_ERROR, "Error processing restored system container %@: %@", &v10, 0x16u);
+      v7 = *(a1 + 32);
+      v8 = [v3 error];
+      v9 = 138412546;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      _os_log_error_impl(&dword_1DF2C3000, v5, OS_LOG_TYPE_ERROR, "Error processing restored system container %@: %@", &v9, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BOOL)_repairTmpDirWithMigrationStatus:(id)status error:(id *)error
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   statusCopy = status;
   if ([statusCopy hasMigrationOccurredForType:@"RepairTmpDir2"])
   {
@@ -357,26 +340,26 @@ id __72__MCMCommandUserDataMigration__setDataProtectionIfNecessaryOnContainer___
   {
     v9 = +[MCMMigrationStatus currentBuildVersion];
     *buf = 138412290;
-    v60 = v9;
+    v59 = v9;
     _os_log_impl(&dword_1DF2C3000, v8, OS_LOG_TYPE_DEFAULT, "Performing Tmp Dir Repair Migration on %@", buf, 0xCu);
   }
 
-  v50 = +[MCMFileManager defaultManager];
+  v49 = +[MCMFileManager defaultManager];
   v10 = +[MCMUserIdentitySharedCache sharedInstance];
   allAccessibleUserIdentities = [v10 allAccessibleUserIdentities];
 
-  v53 = 0;
-  v12 = [gContainerCache entriesForUserIdentities:allAccessibleUserIdentities contentClass:2 transient:0 error:&v53];
-  v6 = v53;
+  v52 = 0;
+  v12 = [gContainerCache entriesForUserIdentities:allAccessibleUserIdentities contentClass:2 transient:0 error:&v52];
+  v6 = v52;
   if (!v12)
   {
     obj = container_log_handle_for_category();
     if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v60 = allAccessibleUserIdentities;
-      v61 = 2112;
-      v62 = v6;
+      v59 = allAccessibleUserIdentities;
+      v60 = 2112;
+      v61 = v6;
       _os_log_error_impl(&dword_1DF2C3000, obj, OS_LOG_TYPE_ERROR, "Failed to fetch list of app data containers tmp repair migration: userIdentities = %@, error = %@", buf, 0x16u);
     }
 
@@ -397,43 +380,43 @@ LABEL_33:
     goto LABEL_36;
   }
 
-  v45 = v12;
+  v44 = v12;
   errorCopy = error;
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   obj = v12;
-  v13 = [obj countByEnumeratingWithState:&v55 objects:v54 count:16];
+  v13 = [obj countByEnumeratingWithState:&v54 objects:v53 count:16];
   if (!v13)
   {
     goto LABEL_21;
   }
 
   v14 = v13;
-  v49 = *v56;
-  v43 = allAccessibleUserIdentities;
-  v44 = statusCopy;
-  v42 = v6;
+  v48 = *v55;
+  v42 = allAccessibleUserIdentities;
+  v43 = statusCopy;
+  v41 = v6;
   while (2)
   {
     for (i = 0; i != v14; ++i)
     {
-      if (*v56 != v49)
+      if (*v55 != v48)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v55 + 1) + 8 * i);
+      v16 = *(*(&v54 + 1) + 8 * i);
       v17 = objc_autoreleasePoolPush();
-      v52 = 0;
+      v51 = 0;
       containerPath = [v16 containerPath];
       containerDataURL = [containerPath containerDataURL];
       v20 = [containerDataURL URLByAppendingPathComponent:@"tmp" isDirectory:1];
 
-      v51 = 0;
-      LOBYTE(containerPath) = [v50 itemAtURL:v20 exists:&v52 + 1 isDirectory:&v52 error:&v51];
-      v21 = v51;
+      v50 = 0;
+      LOBYTE(containerPath) = [v49 itemAtURL:v20 exists:&v51 + 1 isDirectory:&v51 error:&v50];
+      v21 = v50;
       if ((containerPath & 1) == 0)
       {
         v33 = container_log_handle_for_category();
@@ -441,9 +424,9 @@ LABEL_33:
         {
           path = [v20 path];
           *buf = 138412546;
-          v60 = path;
-          v61 = 2112;
-          v62 = v21;
+          v59 = path;
+          v60 = 2112;
+          v61 = v21;
           _os_log_fault_impl(&dword_1DF2C3000, v33, OS_LOG_TYPE_FAULT, "Unable to check for existence of <tmp> dir in container repair migration; path = [%@], error = %@", buf, 0x16u);
         }
 
@@ -451,7 +434,7 @@ LABEL_33:
         goto LABEL_32;
       }
 
-      if (HIBYTE(v52) == 1 && v52 == 1)
+      if (HIBYTE(v51) == 1 && v51 == 1)
       {
         goto LABEL_19;
       }
@@ -476,16 +459,16 @@ LABEL_33:
         {
           path2 = [v20 path];
           *buf = 138412546;
-          v60 = path2;
-          v61 = 2112;
-          v62 = error2;
+          v59 = path2;
+          v60 = 2112;
+          v61 = error2;
           _os_log_fault_impl(&dword_1DF2C3000, v36, OS_LOG_TYPE_FAULT, "Failed to swap in <tmp> dir in container repair migration; path = [%@], error = %@", buf, 0x16u);
         }
 
 LABEL_32:
-        allAccessibleUserIdentities = v43;
-        statusCopy = v44;
-        v12 = v45;
+        allAccessibleUserIdentities = v42;
+        statusCopy = v43;
+        v12 = v44;
         error = errorCopy;
         objc_autoreleasePoolPop(v17);
         v6 = error2;
@@ -497,7 +480,7 @@ LABEL_32:
       {
         path3 = [v20 path];
         *buf = 138412290;
-        v60 = path3;
+        v59 = path3;
         _os_log_impl(&dword_1DF2C3000, v29, OS_LOG_TYPE_DEFAULT, "Repaired [%@]", buf, 0xCu);
       }
 
@@ -505,10 +488,10 @@ LABEL_19:
       objc_autoreleasePoolPop(v17);
     }
 
-    v14 = [obj countByEnumeratingWithState:&v55 objects:v54 count:16];
-    allAccessibleUserIdentities = v43;
-    statusCopy = v44;
-    v6 = v42;
+    v14 = [obj countByEnumeratingWithState:&v54 objects:v53 count:16];
+    allAccessibleUserIdentities = v42;
+    statusCopy = v43;
+    v6 = v41;
     if (v14)
     {
       continue;
@@ -524,9 +507,9 @@ LABEL_21:
   {
     v32 = +[MCMMigrationStatus currentBuildVersion];
     *buf = 138412546;
-    v60 = v32;
-    v61 = 1024;
-    LODWORD(v62) = 78;
+    v59 = v32;
+    v60 = 1024;
+    LODWORD(v61) = 78;
     _os_log_impl(&dword_1DF2C3000, v31, OS_LOG_TYPE_DEFAULT, "Completed Tmp Dir Repair Migration on %@ : Success: %c", buf, 0x12u);
   }
 
@@ -535,28 +518,27 @@ LABEL_3:
   v7 = 1;
 LABEL_36:
 
-  v38 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)execute
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
-  v75 = 0;
-  v76 = &v75;
-  v77 = 0x3032000000;
-  v78 = __Block_byref_object_copy__2545;
-  v79 = __Block_byref_object_dispose__2546;
-  v80 = 0;
-  v71 = 0;
-  v72 = &v71;
-  v73 = 0x2020000000;
-  v74 = 1;
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x2020000000;
-  v70 = 1;
+  v74 = 0;
+  v75 = &v74;
+  v76 = 0x3032000000;
+  v77 = __Block_byref_object_copy__2545;
+  v78 = __Block_byref_object_dispose__2546;
+  v79 = 0;
+  v70 = 0;
+  v71 = &v70;
+  v72 = 0x2020000000;
+  v73 = 1;
+  v66 = 0;
+  v67 = &v66;
+  v68 = 0x2020000000;
+  v69 = 1;
   v2 = container_log_handle_for_category();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -565,9 +547,9 @@ LABEL_36:
     v5 = containermanager_copy_global_configuration();
     defaultUser = [v5 defaultUser];
     *buf = 138412546;
-    *v82 = clientIdentity;
-    *&v82[8] = 2112;
-    *&v82[10] = defaultUser;
+    *v81 = clientIdentity;
+    *&v81[8] = 2112;
+    *&v81[10] = defaultUser;
     _os_log_impl(&dword_1DF2C3000, v2, OS_LOG_TYPE_DEFAULT, "Container data migration requested by %@ for default user: %@", buf, 0x16u);
   }
 
@@ -580,16 +562,16 @@ LABEL_36:
   {
     context3 = [(MCMCommand *)self context];
     userIdentityCache = [context3 userIdentityCache];
-    v66[0] = MEMORY[0x1E69E9820];
-    v66[1] = 3221225472;
-    v66[2] = __38__MCMCommandUserDataMigration_execute__block_invoke;
-    v66[3] = &unk_1E86AFFE8;
-    v66[4] = self;
-    v66[5] = &v75;
-    v66[6] = &v71;
-    [userIdentityCache forEachAccessibleUserIdentitySynchronouslyExecuteBlock:v66];
+    v65[0] = MEMORY[0x1E69E9820];
+    v65[1] = 3221225472;
+    v65[2] = __38__MCMCommandUserDataMigration_execute__block_invoke;
+    v65[3] = &unk_1E86AFFE8;
+    v65[4] = self;
+    v65[5] = &v74;
+    v65[6] = &v70;
+    [userIdentityCache forEachAccessibleUserIdentitySynchronouslyExecuteBlock:v65];
 
-    if (*(v72 + 24) == 1)
+    if (*(v71 + 24) == 1)
     {
       [initForMobileUserMigration setMigrationCompleteForType:@"SubdirectoryMigration"];
     }
@@ -597,40 +579,40 @@ LABEL_36:
 
   context4 = [(MCMCommand *)self context];
   userIdentityCache2 = [context4 userIdentityCache];
-  v65[0] = MEMORY[0x1E69E9820];
-  v65[1] = 3221225472;
-  v65[2] = __38__MCMCommandUserDataMigration_execute__block_invoke_8;
-  v65[3] = &unk_1E86AFFE8;
-  v65[4] = self;
-  v65[5] = &v75;
-  v65[6] = &v67;
-  [userIdentityCache2 forEachAccessibleUserIdentitySynchronouslyExecuteBlock:v65];
+  v64[0] = MEMORY[0x1E69E9820];
+  v64[1] = 3221225472;
+  v64[2] = __38__MCMCommandUserDataMigration_execute__block_invoke_8;
+  v64[3] = &unk_1E86AFFE8;
+  v64[4] = self;
+  v64[5] = &v74;
+  v64[6] = &v66;
+  [userIdentityCache2 forEachAccessibleUserIdentitySynchronouslyExecuteBlock:v64];
 
-  v64 = 1;
-  v58 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(&unk_1F5A75AA0, "count")}];
-  v90 = 0u;
-  v91 = 0u;
-  v88 = 0u;
+  v63 = 1;
+  v57 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(&unk_1F5A75AA0, "count")}];
   v89 = 0u;
-  v13 = [&unk_1F5A75AA0 countByEnumeratingWithState:&v88 objects:v87 count:16];
+  v90 = 0u;
+  v87 = 0u;
+  v88 = 0u;
+  v13 = [&unk_1F5A75AA0 countByEnumeratingWithState:&v87 objects:v86 count:16];
   if (v13)
   {
-    v59 = *v89;
+    v58 = *v88;
     do
     {
-      v60 = v13;
-      for (i = 0; i != v60; ++i)
+      v59 = v13;
+      for (i = 0; i != v59; ++i)
       {
-        if (*v89 != v59)
+        if (*v88 != v58)
         {
           objc_enumerationMutation(&unk_1F5A75AA0);
         }
 
-        v15 = *(*(&v88 + 1) + 8 * i);
+        v15 = *(*(&v87 + 1) + 8 * i);
         v16 = [&unk_1F5A75AA0 objectForKeyedSubscript:v15];
         unsignedLongLongValue = [v16 unsignedLongLongValue];
 
-        v64 = 1;
+        v63 = 1;
         context5 = [(MCMCommand *)self context];
         globalConfiguration = [context5 globalConfiguration];
         staticConfig = [globalConfiguration staticConfig];
@@ -645,26 +627,26 @@ LABEL_36:
 
         context8 = [(MCMCommand *)self context];
         userIdentityCache4 = [context8 userIdentityCache];
-        v30 = [MCMContainerIdentity containerIdentityWithUserIdentity:v27 identifier:v15 containerConfig:v21 platform:0 userIdentityCache:userIdentityCache4 error:&v64];
+        v30 = [MCMContainerIdentity containerIdentityWithUserIdentity:v27 identifier:v15 containerConfig:v21 platform:0 userIdentityCache:userIdentityCache4 error:&v63];
 
         if (v30)
         {
-          v31 = (v76 + 5);
-          obj = v76[5];
+          v31 = (v75 + 5);
+          obj = v75[5];
           v32 = [gContainerCache entryForContainerIdentity:v30 error:&obj];
           objc_storeStrong(v31, obj);
           metadataMinimal = [v32 metadataMinimal];
           if (metadataMinimal)
           {
-            [v58 addObject:v30];
+            [v57 addObject:v30];
           }
 
           else
           {
-            if ([v76[5] type] == 21)
+            if ([v75[5] type] == 21)
             {
-              v36 = v76[5];
-              v76[5] = 0;
+              v36 = v75[5];
+              v75[5] = 0;
             }
 
             else
@@ -672,13 +654,13 @@ LABEL_36:
               v36 = container_log_handle_for_category();
               if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
               {
-                v37 = v76[5];
+                v37 = v75[5];
                 *buf = 134218498;
-                *v82 = unsignedLongLongValue;
-                *&v82[8] = 2112;
-                *&v82[10] = v15;
-                v83 = 2112;
-                v84 = v37;
+                *v81 = unsignedLongLongValue;
+                *&v81[8] = 2112;
+                *&v81[10] = v15;
+                v82 = 2112;
+                v83 = v37;
                 _os_log_error_impl(&dword_1DF2C3000, v36, OS_LOG_TYPE_ERROR, "Failed lookup when trying to remove deprecated [%llu:%@]: %@", buf, 0x20u);
               }
             }
@@ -690,31 +672,31 @@ LABEL_36:
           v32 = container_log_handle_for_category();
           if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
-            v34 = v64;
+            v34 = v63;
             error_description = container_get_error_description();
             *buf = 134218754;
-            *v82 = unsignedLongLongValue;
-            *&v82[8] = 2112;
-            *&v82[10] = v15;
-            v83 = 2048;
-            v84 = v34;
-            v85 = 2080;
-            v86 = error_description;
+            *v81 = unsignedLongLongValue;
+            *&v81[8] = 2112;
+            *&v81[10] = v15;
+            v82 = 2048;
+            v83 = v34;
+            v84 = 2080;
+            v85 = error_description;
             _os_log_error_impl(&dword_1DF2C3000, v32, OS_LOG_TYPE_ERROR, "Could not create container identity when trying to remove deprecated [%llu:%@]: (%llu) %s", buf, 0x2Au);
           }
         }
       }
 
-      v13 = [&unk_1F5A75AA0 countByEnumeratingWithState:&v88 objects:v87 count:16];
+      v13 = [&unk_1F5A75AA0 countByEnumeratingWithState:&v87 objects:v86 count:16];
     }
 
     while (v13);
   }
 
-  if ([v58 count])
+  if ([v57 count])
   {
     v38 = objc_alloc_init(MCMResultPromise);
-    v39 = [v58 copy];
+    v39 = [v57 copy];
     context9 = [(MCMCommand *)self context];
     v41 = [MCMCommandOperationDelete commandForOperationDeleteWithContainerIdentities:v39 removeAllCodeSignInfo:1 context:context9 resultPromise:v38];
 
@@ -728,19 +710,19 @@ LABEL_36:
       if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *v82 = error;
+        *v81 = error;
         _os_log_error_impl(&dword_1DF2C3000, v44, OS_LOG_TYPE_ERROR, "Failed to destroy container(s) during user data migration; error = %@", buf, 0xCu);
       }
     }
   }
 
-  v45 = (v76 + 5);
-  v62 = v76[5];
-  v46 = [(MCMCommandUserDataMigration *)self _repairTmpDirWithMigrationStatus:initForMobileUserMigration error:&v62];
-  objc_storeStrong(v45, v62);
-  if (*(v72 + 24) == 1)
+  v45 = (v75 + 5);
+  v61 = v75[5];
+  v46 = [(MCMCommandUserDataMigration *)self _repairTmpDirWithMigrationStatus:initForMobileUserMigration error:&v61];
+  objc_storeStrong(v45, v61);
+  if (*(v71 + 24) == 1)
   {
-    v47 = v68[3] & v46;
+    v47 = v67[3] & v46;
   }
 
   else
@@ -751,11 +733,11 @@ LABEL_36:
   v48 = container_log_handle_for_category();
   if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
   {
-    v49 = v76[5];
+    v49 = v75[5];
     *buf = 67109378;
-    *v82 = v47 & 1;
-    *&v82[4] = 2112;
-    *&v82[6] = v49;
+    *v81 = v47 & 1;
+    *&v81[4] = 2112;
+    *&v81[6] = v49;
     _os_log_impl(&dword_1DF2C3000, v48, OS_LOG_TYPE_DEFAULT, "Per user data migration result: %d, error = %@", buf, 0x12u);
   }
 
@@ -767,24 +749,23 @@ LABEL_36:
   else
   {
     v51 = [MCMResultBase alloc];
-    v50 = [(MCMResultBase *)v51 initWithError:v76[5]];
+    v50 = [(MCMResultBase *)v51 initWithError:v75[5]];
   }
 
   v52 = v50;
   resultPromise = [(MCMCommand *)self resultPromise];
   [resultPromise completeWithResult:v52];
 
-  _Block_object_dispose(&v67, 8);
-  _Block_object_dispose(&v71, 8);
+  _Block_object_dispose(&v66, 8);
+  _Block_object_dispose(&v70, 8);
 
-  _Block_object_dispose(&v75, 8);
+  _Block_object_dispose(&v74, 8);
   objc_autoreleasePoolPop(contexta);
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 void __38__MCMCommandUserDataMigration_execute__block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) context];
   v5 = [v4 userIdentityCache];
@@ -795,29 +776,29 @@ void __38__MCMCommandUserDataMigration_execute__block_invoke(uint64_t a1, void *
   {
     v8 = +[MCMMigrationStatus currentBuildVersion];
     *buf = 138412546;
-    v26 = v3;
-    v27 = 2112;
-    v28 = v8;
+    v25 = v3;
+    v26 = 2112;
+    v27 = v8;
     _os_log_impl(&dword_1DF2C3000, v7, OS_LOG_TYPE_DEFAULT, "Performing Per User Subdirectory Migration for %@ on %@", buf, 0x16u);
   }
 
   v9 = [*(a1 + 32) context];
   v10 = [v9 classIterator];
-  v18 = MEMORY[0x1E69E9820];
-  v19 = 3221225472;
-  v20 = __38__MCMCommandUserDataMigration_execute__block_invoke_3;
-  v21 = &unk_1E86AFE58;
+  v17 = MEMORY[0x1E69E9820];
+  v18 = 3221225472;
+  v19 = __38__MCMCommandUserDataMigration_execute__block_invoke_3;
+  v20 = &unk_1E86AFE58;
   v11 = v6;
-  v22 = v11;
+  v21 = v11;
   v12 = v3;
-  v23 = v12;
-  v24 = *(a1 + 40);
-  [v10 selectUserWithIterator:&v18];
+  v22 = v12;
+  v23 = *(a1 + 40);
+  [v10 selectUserWithIterator:&v17];
 
   v13 = container_log_handle_for_category();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = [MCMMigrationStatus currentBuildVersion:v18];
+    v14 = [MCMMigrationStatus currentBuildVersion:v17];
     v15 = v14;
     if (*(*(*(a1 + 48) + 8) + 24))
     {
@@ -830,48 +811,46 @@ void __38__MCMCommandUserDataMigration_execute__block_invoke(uint64_t a1, void *
     }
 
     *buf = 138412802;
-    v26 = v12;
-    v27 = 2112;
-    v28 = v14;
-    v29 = 1024;
-    v30 = v16;
+    v25 = v12;
+    v26 = 2112;
+    v27 = v14;
+    v28 = 1024;
+    v29 = v16;
     _os_log_impl(&dword_1DF2C3000, v13, OS_LOG_TYPE_DEFAULT, "Completed Per User Subdirectory Migration for %@ on %@ : Success: %c", buf, 0x1Cu);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __38__MCMCommandUserDataMigration_execute__block_invoke_8(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = container_log_handle_for_category();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = +[MCMMigrationStatus currentBuildVersion];
     *buf = 138412546;
-    v22 = v3;
-    v23 = 2112;
-    v24 = v5;
+    v21 = v3;
+    v22 = 2112;
+    v23 = v5;
     _os_log_impl(&dword_1DF2C3000, v4, OS_LOG_TYPE_DEFAULT, "Performing User Data Protection Migration for %@ on %@", buf, 0x16u);
   }
 
   v6 = [*(a1 + 32) context];
   v7 = [v6 classIterator];
-  v14 = MEMORY[0x1E69E9820];
-  v15 = 3221225472;
-  v16 = __38__MCMCommandUserDataMigration_execute__block_invoke_9;
-  v17 = &unk_1E86AFE58;
-  v18 = *(a1 + 32);
+  v13 = MEMORY[0x1E69E9820];
+  v14 = 3221225472;
+  v15 = __38__MCMCommandUserDataMigration_execute__block_invoke_9;
+  v16 = &unk_1E86AFE58;
+  v17 = *(a1 + 32);
   v8 = v3;
-  v19 = v8;
-  v20 = *(a1 + 40);
-  [v7 selectDataProtectedWithIterator:&v14];
+  v18 = v8;
+  v19 = *(a1 + 40);
+  [v7 selectDataProtectedWithIterator:&v13];
 
   v9 = container_log_handle_for_category();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [MCMMigrationStatus currentBuildVersion:v14];
+    v10 = [MCMMigrationStatus currentBuildVersion:v13];
     v11 = v10;
     if (*(*(*(a1 + 48) + 8) + 24))
     {
@@ -884,20 +863,18 @@ void __38__MCMCommandUserDataMigration_execute__block_invoke_8(uint64_t a1, void
     }
 
     *buf = 138412802;
-    v22 = v8;
-    v23 = 2112;
-    v24 = v10;
-    v25 = 1024;
-    v26 = v12;
+    v21 = v8;
+    v22 = 2112;
+    v23 = v10;
+    v24 = 1024;
+    v25 = v12;
     _os_log_impl(&dword_1DF2C3000, v9, OS_LOG_TYPE_DEFAULT, "Completed User Data Protection Migration for %@ on %@ : Success: %c", buf, 0x1Cu);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __38__MCMCommandUserDataMigration_execute__block_invoke_9(uint64_t a1, void *a2)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) context];
   v5 = [v4 containerCache];
@@ -910,32 +887,32 @@ void __38__MCMCommandUserDataMigration_execute__block_invoke_9(uint64_t a1, void
 
   if (v9)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v27 objects:v26 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v26 objects:v25 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v28;
+      v13 = *v27;
       do
       {
         v14 = 0;
         do
         {
-          if (*v28 != v13)
+          if (*v27 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v27 + 1) + 8 * v14);
+          v15 = *(*(&v26 + 1) + 8 * v14);
           v16 = objc_autoreleasePoolPush();
           v17 = *(*(a1 + 48) + 8);
-          v24 = *(v17 + 40);
-          v18 = [v15 metadataWithError:&v24];
-          objc_storeStrong((v17 + 40), v24);
+          v23 = *(v17 + 40);
+          v18 = [v15 metadataWithError:&v23];
+          objc_storeStrong((v17 + 40), v23);
           if (v18)
           {
             [*(a1 + 32) _setDataProtectionIfNecessaryOnContainer:v18];
@@ -946,7 +923,7 @@ void __38__MCMCommandUserDataMigration_execute__block_invoke_9(uint64_t a1, void
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v27 objects:v26 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v26 objects:v25 count:16];
       }
 
       while (v12);
@@ -958,31 +935,29 @@ void __38__MCMCommandUserDataMigration_execute__block_invoke_9(uint64_t a1, void
     v19 = container_log_handle_for_category();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = *(a1 + 40);
-      v22 = [v3 containerClass];
-      v23 = *(*(*(a1 + 48) + 8) + 40);
+      v20 = *(a1 + 40);
+      v21 = [v3 containerClass];
+      v22 = *(*(*(a1 + 48) + 8) + 40);
       *buf = 138412802;
-      v32 = v21;
-      v33 = 2048;
-      v34 = v22;
-      v35 = 2112;
-      v36 = v23;
+      v31 = v20;
+      v32 = 2048;
+      v33 = v21;
+      v34 = 2112;
+      v35 = v22;
       _os_log_error_impl(&dword_1DF2C3000, v19, OS_LOG_TYPE_ERROR, "Failed to fetch list of data containers for userIdentity: %@, class: %ld: %@", buf, 0x20u);
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 0;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __38__MCMCommandUserDataMigration_execute__block_invoke_3(uint64_t a1, void *a2)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) containerCache];
   v5 = [MEMORY[0x1E695DFD8] setWithObject:*(a1 + 40)];
-  v34 = v3;
+  v33 = v3;
   v6 = [v3 containerClass];
   v7 = *(*(a1 + 48) + 8);
   obj = *(v7 + 40);
@@ -991,28 +966,28 @@ void __38__MCMCommandUserDataMigration_execute__block_invoke_3(uint64_t a1, void
 
   if (v8)
   {
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
-    v33 = v8;
-    v39 = v8;
-    v9 = [v39 countByEnumeratingWithState:&v50 objects:v49 count:16];
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v32 = v8;
+    v38 = v8;
+    v9 = [v38 countByEnumeratingWithState:&v49 objects:v48 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v51;
+      v11 = *v50;
       do
       {
         v12 = 0;
         do
         {
-          if (*v51 != v11)
+          if (*v50 != v11)
           {
-            objc_enumerationMutation(v39);
+            objc_enumerationMutation(v38);
           }
 
-          v13 = *(*(&v50 + 1) + 8 * v12);
+          v13 = *(*(&v49 + 1) + 8 * v12);
           v14 = objc_autoreleasePoolPush();
           v15 = [v13 metadataMinimal];
           v16 = objc_alloc_init(MCMResultPromise);
@@ -1035,19 +1010,19 @@ void __38__MCMCommandUserDataMigration_execute__block_invoke_3(uint64_t a1, void
             v26 = container_log_handle_for_category();
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
-              v38 = [v15 userIdentity];
-              v35 = [v34 containerClass];
-              v36 = [v15 identifier];
-              v37 = [(MCMResultPromise *)v16 result];
-              v27 = [v37 error];
+              v37 = [v15 userIdentity];
+              v34 = [v33 containerClass];
+              v35 = [v15 identifier];
+              v36 = [(MCMResultPromise *)v16 result];
+              v27 = [v36 error];
               *buf = 138413058;
-              v42 = v38;
-              v43 = 2048;
-              v44 = v35;
-              v45 = 2112;
-              v46 = v36;
-              v47 = 2112;
-              v48 = v27;
+              v41 = v37;
+              v42 = 2048;
+              v43 = v34;
+              v44 = 2112;
+              v45 = v35;
+              v46 = 2112;
+              v47 = v27;
               v28 = v27;
               _os_log_error_impl(&dword_1DF2C3000, v26, OS_LOG_TYPE_ERROR, "Failed to recreate container directory structure for %@:%ld:%@ : %@", buf, 0x2Au);
             }
@@ -1060,13 +1035,13 @@ void __38__MCMCommandUserDataMigration_execute__block_invoke_3(uint64_t a1, void
         }
 
         while (v10 != v12);
-        v10 = [v39 countByEnumeratingWithState:&v50 objects:v49 count:16];
+        v10 = [v38 countByEnumeratingWithState:&v49 objects:v48 count:16];
       }
 
       while (v10);
     }
 
-    v8 = v33;
+    v8 = v32;
   }
 
   else
@@ -1074,31 +1049,27 @@ void __38__MCMCommandUserDataMigration_execute__block_invoke_3(uint64_t a1, void
     v29 = container_log_handle_for_category();
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v31 = *(a1 + 40);
-      v32 = *(*(*(a1 + 48) + 8) + 40);
+      v30 = *(a1 + 40);
+      v31 = *(*(*(a1 + 48) + 8) + 40);
       *buf = 138412802;
-      v42 = v31;
-      v43 = 2048;
-      v44 = 0;
-      v45 = 2112;
-      v46 = v32;
+      v41 = v30;
+      v42 = 2048;
+      v43 = 0;
+      v44 = 2112;
+      v45 = v31;
       _os_log_error_impl(&dword_1DF2C3000, v29, OS_LOG_TYPE_ERROR, "Failed to fetch list of containers for userIdentity: %@, class %ld : %@", buf, 0x20u);
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 0;
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)preflightClientAllowed
 {
-  v7 = *MEMORY[0x1E69E9840];
   context = [(MCMCommand *)self context];
   clientIdentity = [context clientIdentity];
   isAllowedToStartUserDataMigration = [clientIdentity isAllowedToStartUserDataMigration];
 
-  v5 = *MEMORY[0x1E69E9840];
   return isAllowedToStartUserDataMigration;
 }
 

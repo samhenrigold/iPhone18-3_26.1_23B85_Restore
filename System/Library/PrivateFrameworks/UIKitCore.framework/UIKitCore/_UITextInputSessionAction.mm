@@ -565,25 +565,25 @@ LABEL_9:
   {
     inputModeUniqueString = [(_UITextInputSessionAction *)self inputModeUniqueString];
     inputModeUniqueString2 = [withCopy inputModeUniqueString];
-    if ([inputModeUniqueString isEqualToString:inputModeUniqueString2])
+    if (objc_msgSend_isEqualToString_(inputModeUniqueString))
     {
       appBundleId = [(_UITextInputSessionAction *)self appBundleId];
       appBundleId2 = [withCopy appBundleId];
-      v13 = [appBundleId isEqualToString:appBundleId2];
+      isEqualToString = objc_msgSend_isEqualToString_(appBundleId);
     }
 
     else
     {
-      v13 = 0;
+      isEqualToString = 0;
     }
   }
 
   else
   {
-    v13 = 0;
+    isEqualToString = 0;
   }
 
-  return v13;
+  return isEqualToString;
 }
 
 - (_NSRange)relativeRangeBefore

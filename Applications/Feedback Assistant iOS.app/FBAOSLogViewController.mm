@@ -8,7 +8,10 @@
 - (void)setLoading:(BOOL)loading;
 - (void)setOSLogURL:(id)l;
 - (void)shareArchive:(id)archive;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation FBAOSLogViewController
@@ -78,6 +81,42 @@
 
   tableView2 = [(FBAOSLogViewController *)self tableView];
   [tableView2 setEstimatedRowHeight:80.0];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = FBAOSLogViewController;
+  [(FBAOSLogViewController *)&v5 viewWillDisappear:disappear];
+  navigationController = [(FBAOSLogViewController *)self navigationController];
+  [navigationController setToolbarHidden:{-[FBAOSLogViewController previousToolbarHidden](self, "previousToolbarHidden")}];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  navigationController = [(FBAOSLogViewController *)self navigationController];
+  -[FBAOSLogViewController setPreviousToolbarHidden:](self, "setPreviousToolbarHidden:", [navigationController isToolbarHidden]);
+
+  v7.receiver = self;
+  v7.super_class = FBAOSLogViewController;
+  [(FBAOSLogViewController *)&v7 viewWillAppear:appearCopy];
+  navigationController2 = [(FBAOSLogViewController *)self navigationController];
+  [navigationController2 setToolbarHidden:0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = FBAOSLogViewController;
+  [(FBAOSLogViewController *)&v6 viewDidAppear:appear];
+  logSource = [(FBAOSLogViewController *)self logSource];
+  foundCorruptDate = [logSource foundCorruptDate];
+
+  if ((foundCorruptDate & 1) == 0)
+  {
+    [(FBAOSLogViewController *)self nextPage];
+  }
 }
 
 - (void)shareArchive:(id)archive

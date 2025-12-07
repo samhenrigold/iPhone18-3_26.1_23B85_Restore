@@ -2,6 +2,7 @@
 - (NSString)description;
 - (WFPerformQueryDialogResponse)initWithBSXPCCoder:(id)coder;
 - (WFPerformQueryDialogResponse)initWithCoder:(id)coder;
+- (WFPerformQueryDialogResponse)initWithQueryResults:(id)results cancelled:(BOOL)cancelled;
 - (void)encodeWithBSXPCCoder:(id)coder;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -80,6 +81,23 @@
   v8 = [v3 stringWithFormat:@"<%@: %p, queryResults: %@, cancelled: %@>", v5, self, queryResults, v7];
 
   return v8;
+}
+
+- (WFPerformQueryDialogResponse)initWithQueryResults:(id)results cancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  resultsCopy = results;
+  v12.receiver = self;
+  v12.super_class = WFPerformQueryDialogResponse;
+  v8 = [(WFDialogResponse *)&v12 initWithCancelled:cancelledCopy];
+  v9 = v8;
+  if (v8)
+  {
+    objc_storeStrong(&v8->_queryResults, results);
+    v10 = v9;
+  }
+
+  return v9;
 }
 
 @end

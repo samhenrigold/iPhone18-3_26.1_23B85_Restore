@@ -68,7 +68,7 @@
   return 1;
 }
 
-uint64_t __58__NSProgressRegistrar_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
+void *__58__NSProgressRegistrar_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
   v26 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 32);
@@ -133,7 +133,8 @@ uint64_t __58__NSProgressRegistrar_listener_shouldAcceptNewConnection___block_in
           objc_enumerationMutation(v5);
         }
 
-        [*(a1 + 32) removePublisherForID:*(*(&v17 + 1) + 8 * v13++)];
+        [*(a1 + 32) removePublisherForID:*(*(&v17 + 1) + 8 * v13)];
+        v13 = v13 + 1;
       }
 
       while (v11 != v13);
@@ -219,9 +220,9 @@ uint64_t __58__NSProgressRegistrar_listener_shouldAcceptNewConnection___block_in
   (*(handler + 2))(handler, v21);
 }
 
-uint64_t __119__NSProgressRegistrar_addPublisher_forID_acknowledgementAppBundleIDs_category_fileURL_initialValues_completionHandler___block_invoke(void *a1, uint64_t a2, void *a3)
+void *__119__NSProgressRegistrar_addPublisher_forID_acknowledgementAppBundleIDs_category_fileURL_initialValues_completionHandler___block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  result = [objc_msgSend(a3 "category")];
+  result = objc_msgSend_isEqualToString_([a3 category]);
   if (result)
   {
     [a3 addPublisher:a1[5] forID:a1[6] withValues:a1[7] isOld:0];
@@ -238,7 +239,7 @@ uint64_t __119__NSProgressRegistrar_addPublisher_forID_acknowledgementAppBundleI
   return result;
 }
 
-uint64_t __119__NSProgressRegistrar_addPublisher_forID_acknowledgementAppBundleIDs_category_fileURL_initialValues_completionHandler___block_invoke_2(void *a1, void *a2)
+void *__119__NSProgressRegistrar_addPublisher_forID_acknowledgementAppBundleIDs_category_fileURL_initialValues_completionHandler___block_invoke_2(void *a1, void *a2)
 {
   [a2 addPublisher:a1[4] forID:a1[5] withValues:a1[6] isOld:0];
   result = [objc_msgSend(a2 "appBundleID")];
@@ -288,9 +289,9 @@ uint64_t __119__NSProgressRegistrar_addPublisher_forID_acknowledgementAppBundleI
   }
 }
 
-uint64_t __66__NSProgressRegistrar_observePublisherUserInfoForID_value_forKey___block_invoke(void *a1, uint64_t a2, void *a3)
+void *__66__NSProgressRegistrar_observePublisherUserInfoForID_value_forKey___block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  result = [objc_msgSend(a3 "category")];
+  result = objc_msgSend_isEqualToString_([a3 category]);
   if (result)
   {
     v6 = a1[5];
@@ -338,9 +339,9 @@ uint64_t __66__NSProgressRegistrar_observePublisherUserInfoForID_value_forKey___
   }
 }
 
-uint64_t __60__NSProgressRegistrar_observePublisherForID_values_forKeys___block_invoke(void *a1, uint64_t a2, void *a3)
+void *__60__NSProgressRegistrar_observePublisherForID_values_forKeys___block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  result = [objc_msgSend(a3 "category")];
+  result = objc_msgSend_isEqualToString_([a3 category]);
   if (result)
   {
     v6 = a1[5];
@@ -393,9 +394,9 @@ uint64_t __60__NSProgressRegistrar_observePublisherForID_values_forKeys___block_
   }
 }
 
-uint64_t __44__NSProgressRegistrar_removePublisherForID___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__44__NSProgressRegistrar_removePublisherForID___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  result = [objc_msgSend(a3 "category")];
+  result = objc_msgSend_isEqualToString_([a3 category]);
   if (result)
   {
     v6 = *(a1 + 40);
@@ -432,7 +433,7 @@ uint64_t __44__NSProgressRegistrar_removePublisherForID___block_invoke(uint64_t 
   memset(v24, 0, sizeof(v24));
   if (v16)
   {
-    [(NSXPCConnection *)v16 auditToken];
+    objc_msgSend_auditToken(v16);
   }
 
   *buf = *v24;
@@ -475,9 +476,9 @@ uint64_t __44__NSProgressRegistrar_removePublisherForID___block_invoke(uint64_t 
   (*(handler + 2))(handler);
 }
 
-uint64_t __82__NSProgressRegistrar_addSubscriber_forID_appBundleID_category_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__82__NSProgressRegistrar_addSubscriber_forID_appBundleID_category_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  result = [objc_msgSend(a3 "category")];
+  result = objc_msgSend_isEqualToString_([a3 category]);
   if (result)
   {
     v6 = *(a1 + 40);
@@ -502,12 +503,12 @@ uint64_t __82__NSProgressRegistrar_addSubscriber_forID_appBundleID_category_comp
   v35 = *token->var0;
   v36 = v10;
   v11 = sandbox_check_by_audit_token();
-  v12 = [objc_msgSend(l "lastPathComponent")];
-  if (!((v11 != 0) | v12 & 1))
+  isEqualToString = objc_msgSend_isEqualToString_([l lastPathComponent]);
+  if (!((v11 != 0) | isEqualToString & 1))
   {
     *(v25 + 24) = 1;
 LABEL_19:
-    (*(handler + 2))(handler, (*(v25 + 24) != 0) | (v12 & 1));
+    (*(handler + 2))(handler, (*(v25 + 24) != 0) | (isEqualToString & 1));
     goto LABEL_20;
   }
 
@@ -555,7 +556,7 @@ LABEL_19:
   }
 
 LABEL_13:
-  if (!((*(v25 + 24) == 0) | v12 & 1))
+  if (!((*(v25 + 24) == 0) | isEqualToString & 1))
   {
     _Block_object_dispose(&v35, 8);
     goto LABEL_19;
@@ -577,7 +578,7 @@ LABEL_13:
     v30 = v22;
     v31 = v9;
     v28[4] = handler;
-    v32 = v12;
+    v32 = isEqualToString;
     [itemProvider providePhysicalURLForURL:l completionHandler:v28];
   }
 
@@ -643,7 +644,7 @@ uint64_t __90__NSProgressRegistrar__getRemoteProcessWithAuditToken_canReadItemAt
     v18 = os_transaction_create();
     if (v17)
     {
-      [(NSXPCConnection *)v17 auditToken];
+      objc_msgSend_auditToken(v17);
     }
 
     else

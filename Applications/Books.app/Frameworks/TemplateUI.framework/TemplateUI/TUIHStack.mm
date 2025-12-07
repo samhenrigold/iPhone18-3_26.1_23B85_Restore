@@ -48,8 +48,8 @@
   v136 = 0u;
   v133 = 0u;
   v134 = 0u;
-  children = [(TUIHStack *)self children];
-  v6 = [children countByEnumeratingWithState:&v133 objects:v142 count:16];
+  layouts = objc_msgSend_children(self);
+  v6 = [layouts countByEnumeratingWithState:&v133 objects:v142 count:16];
   if (v6)
   {
     v7 = v6;
@@ -62,19 +62,19 @@
       {
         if (*v134 != v8)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(layouts);
         }
 
         v11 = *(*(&v133 + 1) + 8 * i);
         [v11 setFlexedWidth:NAN];
         [v11 setFlexedHeight:self->_computedHeight];
         [v11 setContainingMaxWidth:self->_containingMaxWidth];
-        [v11 validateLayout];
-        [v11 computedTransformedSize];
+        objc_msgSend_validateLayout(v11);
+        objc_msgSend_computedTransformedSize(v11);
         v13 = v12;
         computedWidth = [v11 computedWidth];
         v16 = v15;
-        if ((v15 & 0x8000000000000) != 0 || !self->_prefersEqualWidth && ([v11 box], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "hcompressed"), v17, v18))
+        if ((v15 & 0x8000000000000) != 0 || !self->_prefersEqualWidth && (objc_msgSend_box(v11), v17 = objc_claimAutoreleasedReturnValue(), v18 = [v17 hcompressed], v17, v18))
         {
           v19 = v112;
           if (!v112)
@@ -100,7 +100,7 @@
             v19 = v20;
           }
 
-          v21 = [v11 box];
+          v21 = objc_msgSend_box(v11);
           v112 = v19;
           [v19 addLayout:v11 length:computedWidth compressed:{v16, objc_msgSend(v21, "hcompressed")}];
         }
@@ -108,7 +108,7 @@
         v9 = v9 + v13;
       }
 
-      v7 = [children countByEnumeratingWithState:&v133 objects:v142 count:16];
+      v7 = [layouts countByEnumeratingWithState:&v133 objects:v142 count:16];
     }
 
     while (v7);
@@ -117,7 +117,7 @@
     {
       if (v9 != computedWidth || self->_prefersEqualWidth)
       {
-        specifiedWidth = [(TUIHStack *)self specifiedWidth];
+        v22 = objc_msgSend_specifiedWidth(self);
         if (computedWidth <= -3.40282347e38)
         {
           v24 = 4286578687;
@@ -133,15 +133,15 @@
           }
         }
 
-        [v112 computeWithMeasured:v24 | specifiedWidth & 0xFFFFFFFF00000000 desired:{v23 & 0xFFE8FFFFFFFFFFFFLL, v9}];
+        [v112 computeWithMeasured:v24 | v22 & 0xFFFFFFFF00000000 desired:{v23 & 0xFFE8FFFFFFFFFFFFLL, v9}];
         [v112 adjustedNaturalLengthWithMeasured:v9 computed:computedWidth];
         v129 = 0u;
         v130 = 0u;
         v109 = v26;
         v131 = 0u;
         v132 = 0u;
-        children = [v112 layouts];
-        v27 = [children countByEnumeratingWithState:&v129 objects:v141 count:16];
+        layouts = [v112 layouts];
+        v27 = [layouts countByEnumeratingWithState:&v129 objects:v141 count:16];
         if (v27)
         {
           v28 = v27;
@@ -152,7 +152,7 @@
             {
               if (*v130 != v29)
               {
-                objc_enumerationMutation(children);
+                objc_enumerationMutation(layouts);
               }
 
               v31 = *(*(&v129 + 1) + 8 * j);
@@ -160,11 +160,11 @@
               {
                 [v112 adjustedLengthForLayout:v31];
                 [v31 setFlexedWidth:?];
-                [v31 validateLayout];
+                objc_msgSend_validateLayout(v31);
               }
             }
 
-            v28 = [children countByEnumeratingWithState:&v129 objects:v141 count:16];
+            v28 = [layouts countByEnumeratingWithState:&v129 objects:v141 count:16];
           }
 
           while (v28);
@@ -200,8 +200,8 @@ LABEL_40:
   v128 = 0u;
   v125 = 0u;
   v126 = 0u;
-  children2 = [(TUIHStack *)self children];
-  v38 = [children2 countByEnumeratingWithState:&v125 objects:v140 count:16];
+  v37 = objc_msgSend_children(self);
+  v38 = [v37 countByEnumeratingWithState:&v125 objects:v140 count:16];
   if (v38)
   {
     v39 = v38;
@@ -215,13 +215,13 @@ LABEL_40:
       {
         if (*v126 != v40)
         {
-          objc_enumerationMutation(children2);
+          objc_enumerationMutation(v37);
         }
 
         v45 = *(*(&v125 + 1) + 8 * k);
         if (([v45 hidden] & 1) == 0)
         {
-          [v45 computedTransformedSize];
+          objc_msgSend_computedTransformedSize(v45);
           v48 = v47;
           if (self->_guideLayoutController)
           {
@@ -250,7 +250,7 @@ LABEL_40:
         }
       }
 
-      v39 = [children2 countByEnumeratingWithState:&v125 objects:v140 count:16];
+      v39 = [v37 countByEnumeratingWithState:&v125 objects:v140 count:16];
     }
 
     while (v39);
@@ -271,18 +271,18 @@ LABEL_40:
 LABEL_69:
     if (v41 == 0.0)
     {
-      [(TUIHStack *)self specifiedHeight];
+      objc_msgSend_specifiedHeight(self);
       if ((HIWORD(v62) & 7) - 5 <= 1u)
       {
-        [(TUIHStack *)self specifiedHeight];
+        objc_msgSend_specifiedHeight(self);
         if ((v63 & 0x8000000000000) != 0)
         {
           v119 = 0u;
           v120 = 0u;
           v117 = 0u;
           v118 = 0u;
-          children3 = [(TUIHStack *)self children];
-          v65 = [children3 countByEnumeratingWithState:&v117 objects:v138 count:16];
+          v64 = objc_msgSend_children(self);
+          v65 = [v64 countByEnumeratingWithState:&v117 objects:v138 count:16];
           if (v65)
           {
             v66 = v65;
@@ -293,15 +293,15 @@ LABEL_69:
               {
                 if (*v118 != v67)
                 {
-                  objc_enumerationMutation(children3);
+                  objc_enumerationMutation(v64);
                 }
 
                 v69 = *(*(&v117 + 1) + 8 * m);
                 [v69 setFlexedHeight:v55];
-                [v69 validateLayout];
+                objc_msgSend_validateLayout(v69);
               }
 
-              v66 = [children3 countByEnumeratingWithState:&v117 objects:v138 count:16];
+              v66 = [v64 countByEnumeratingWithState:&v117 objects:v138 count:16];
             }
 
             while (v66);
@@ -322,8 +322,8 @@ LABEL_69:
   v122 = 0u;
   v123 = 0u;
   v124 = 0u;
-  children4 = [(TUIHStack *)self children];
-  v57 = [children4 countByEnumeratingWithState:&v121 objects:v139 count:16];
+  v56 = objc_msgSend_children(self);
+  v57 = [v56 countByEnumeratingWithState:&v121 objects:v139 count:16];
   if (v57)
   {
     v58 = v57;
@@ -334,13 +334,13 @@ LABEL_69:
       {
         if (*v122 != v59)
         {
-          objc_enumerationMutation(children4);
+          objc_enumerationMutation(v56);
         }
 
-        [*(*(&v121 + 1) + 8 * n) validateLayout];
+        objc_msgSend_validateLayout(*(*(&v121 + 1) + 8 * n));
       }
 
-      v58 = [children4 countByEnumeratingWithState:&v121 objects:v139 count:16];
+      v58 = [v56 countByEnumeratingWithState:&v121 objects:v139 count:16];
     }
 
     while (v58);
@@ -355,16 +355,16 @@ LABEL_69:
 LABEL_81:
   if (!v61)
   {
-    LODWORD(v70) = [(TUIHStack *)self specifiedHeight];
-    v71 = COERCE_FLOAT([(TUIHStack *)self specifiedHeight]);
-    [(TUIHStack *)self specifiedHeight];
+    LODWORD(v70) = objc_msgSend_specifiedHeight(self);
+    v71 = COERCE_FLOAT(objc_msgSend_specifiedHeight(self, v70));
+    objc_msgSend_specifiedHeight(self);
     if ((v72 & 0x8000000000000) != 0)
     {
-      LODWORD(v73) = [(TUIHStack *)self specifiedHeight]>> 32;
-      v74 = fmax(fmin(v71, v55), COERCE_FLOAT([(TUIHStack *)self specifiedHeight]>> 32));
-      [(TUIHStack *)self specifiedHeight];
+      LODWORD(v73) = objc_msgSend_specifiedHeight(self) >> 32;
+      v74 = fmax(fmin(v71, v55), COERCE_FLOAT(objc_msgSend_specifiedHeight(self, v73) >> 32));
+      objc_msgSend_specifiedHeight(self);
       LODWORD(v76) = v75;
-      [(TUIHStack *)self specifiedHeight];
+      objc_msgSend_specifiedHeight(self, v76);
       v55 = fmin(fmax(v74, v55), v77);
     }
 
@@ -394,7 +394,7 @@ LABEL_81:
   if ((isHorizontallyAligningChildren & 1) == 0)
   {
     v84 = objc_loadWeakRetained(&self->_layout);
-    v85 = [v84 box];
+    v85 = objc_msgSend_box(v84);
     halign = [v85 halign];
 
     if (halign == &dword_0 + 3)
@@ -428,8 +428,8 @@ LABEL_81:
   v116 = 0u;
   v113 = 0u;
   v114 = 0u;
-  children5 = [(TUIHStack *)self children];
-  v88 = [children5 countByEnumeratingWithState:&v113 objects:v137 count:16];
+  v87 = objc_msgSend_children(self);
+  v88 = [v87 countByEnumeratingWithState:&v113 objects:v137 count:16];
   if (v88)
   {
     v89 = v88;
@@ -440,13 +440,13 @@ LABEL_81:
       {
         if (*v114 != v90)
         {
-          objc_enumerationMutation(children5);
+          objc_enumerationMutation(v87);
         }
 
         v92 = *(*(&v113 + 1) + 8 * ii);
         if (([v92 hidden] & 1) == 0)
         {
-          [v92 computedTransformedSize];
+          objc_msgSend_computedTransformedSize(v92);
           v94 = v93;
           v96 = v95;
           [v92 computedHeightAbovePivot];
@@ -486,7 +486,7 @@ LABEL_111:
           else
           {
 LABEL_112:
-            v106 = [v92 box];
+            v106 = objc_msgSend_box(v92);
             valign = [v106 valign];
 
             if (valign < 2)
@@ -529,7 +529,7 @@ LABEL_112:
         }
       }
 
-      v89 = [children5 countByEnumeratingWithState:&v113 objects:v137 count:16];
+      v89 = [v87 countByEnumeratingWithState:&v113 objects:v137 count:16];
     }
 
     while (v89);

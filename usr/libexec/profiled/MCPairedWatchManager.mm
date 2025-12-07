@@ -1,4 +1,5 @@
 @interface MCPairedWatchManager
+- (BOOL)_updateSupervision:(BOOL)supervision cloudConfigReader:(id)reader cloudConfigWriter:(id)writer outError:(id *)error;
 - (id)_derCertificatesFromPersistentRefArray:(id)array;
 - (id)_errorBadProfile;
 - (id)_errorEnrollmentCannotBeStaged;
@@ -10,16 +11,113 @@
 - (id)_organizationNameFromProfile:(id)profile payload:(id)payload;
 - (id)_serviceURLFromEnrollmentDictionary:(id)dictionary outError:(id *)error;
 - (id)detailsFromMDMProfile:(id)profile error:(id *)error;
+- (id)getMachineInfoForEnrollmentType:(unint64_t)type enrollmentMethod:(unint64_t)method canRequestSoftwareUpdate:(BOOL)update;
 - (void)applyPairingWatchMDMEnrollmentData:(id)data source:(id)source usingProfileInstaller:(id)installer cloudConfigReader:(id)reader cloudConfigWriter:(id)writer completion:(id)completion;
 - (void)fetchStagedMDMEnrollmentDataForPairingWatchWithCompletion:(id)completion;
 - (void)fetchStagedMDMEnrollmentDataForPairingWatchWithPairingToken:(id)token completion:(id)completion;
 - (void)fetchStagedMDMEnrollmentDeclarationKeysForPairingWatchWithCompletion:(id)completion;
 - (void)installEnrollmentProfile:(id)profile devicePasscode:(id)passcode devicePasscodeContext:(id)context passcodeContextExtractable:(BOOL)extractable personaID:(id)d rmAccountIdentifier:(id)identifier isESSO:(BOOL)o essoAppITunesStoreID:(id)self0 managedProfileIdentifiers:(id)self1 installationSource:(id)self2 completionHandler:(id)self3;
+- (void)stageMDMEnrollmentInfoForPairingWatchWithProfileData:(id)data orServiceURL:(id)l anchorCertificates:(id)certificates supervised:(BOOL)supervised declarationKeys:(id)keys declarationConfiguration:(id)configuration completion:(id)completion;
 - (void)unstageMDMEnrollmentInfoForPairingWatchWithCompletion:(id)completion;
 - (void)updateMDMEnrollmentInfoForPairingWatch:(id)watch completion:(id)completion;
 @end
 
 @implementation MCPairedWatchManager
+
+- (void)stageMDMEnrollmentInfoForPairingWatchWithProfileData:(id)data orServiceURL:(id)l anchorCertificates:(id)certificates supervised:(BOOL)supervised declarationKeys:(id)keys declarationConfiguration:(id)configuration completion:(id)completion
+{
+  supervisedCopy = supervised;
+  dataCopy = data;
+  lCopy = l;
+  certificatesCopy = certificates;
+  keysCopy = keys;
+  configurationCopy = configuration;
+  completionCopy = completion;
+  v20 = _MCLogObjects[0];
+  if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "MCPairedWatchManager.stageMDMEnrollmentInfoForPairingWatchWithProfileData", buf, 2u);
+  }
+
+  v21 = +[MDMCloudConfiguration sharedConfiguration];
+  isSupervised = [v21 isSupervised];
+
+  if ((isSupervised & 1) != 0 || (+[MCFeatureOverrides allowUnsupervisedWatchEnrollment]& 1) != 0)
+  {
+    _errorPhoneUnsupervised = objc_opt_new();
+    v24 = [NSNumber numberWithBool:supervisedCopy];
+    [_errorPhoneUnsupervised setObject:v24 forKeyedSubscript:kMCWatchEnrollmentSupervisionKey];
+
+    v25 = +[DMCFeatureOverrides watchEnrollmentAllowLocalProfile];
+    if (dataCopy && v25)
+    {
+      [_errorPhoneUnsupervised setObject:dataCopy forKeyedSubscript:kMCWatchEnrollmentProfileDataKey];
+    }
+
+    if (lCopy)
+    {
+      [_errorPhoneUnsupervised setObject:lCopy forKeyedSubscript:kMCWatchEnrollmentServiceURLKey];
+    }
+
+    if (certificatesCopy)
+    {
+      v26 = [(MCPairedWatchManager *)self _derCertificatesFromPersistentRefArray:certificatesCopy];
+      [_errorPhoneUnsupervised setObject:v26 forKeyedSubscript:kMCWatchEnrollmentAnchorCertificatesKey];
+    }
+
+    if (keysCopy)
+    {
+      allObjects = [keysCopy allObjects];
+      [_errorPhoneUnsupervised setObject:allObjects forKeyedSubscript:kMCWatchEnrollmentDeclarationKeysKey];
+    }
+
+    if (configurationCopy)
+    {
+      [_errorPhoneUnsupervised setObject:configurationCopy forKeyedSubscript:kMCWatchEnrollmentDeclarationConfigurationKey];
+    }
+
+    v28 = MCSystemWatchEnrollmentDataFilePath();
+    v29 = [_errorPhoneUnsupervised DMCWriteToBinaryFile:v28];
+
+    v30 = _MCLogObjects[0];
+    if (v29)
+    {
+      if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEFAULT))
+      {
+        *v35 = 0;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Watch enrollment successfully staged", v35, 2u);
+      }
+
+      completionCopy[2](completionCopy, 0);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
+      {
+        *v34 = 0;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Watch enrollment could not be staged", v34, 2u);
+      }
+
+      _errorEnrollmentCannotBeStaged = [(MCPairedWatchManager *)self _errorEnrollmentCannotBeStaged];
+      (completionCopy)[2](completionCopy, _errorEnrollmentCannotBeStaged);
+    }
+  }
+
+  else
+  {
+    v32 = _MCLogObjects[0];
+    if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
+    {
+      *v36 = 0;
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Watch enrollment could not be staged because phone is unsupervised", v36, 2u);
+    }
+
+    _errorPhoneUnsupervised = [(MCPairedWatchManager *)self _errorPhoneUnsupervised];
+    (completionCopy)[2](completionCopy, _errorPhoneUnsupervised);
+  }
+}
 
 - (void)unstageMDMEnrollmentInfoForPairingWatchWithCompletion:(id)completion
 {
@@ -387,6 +485,36 @@ LABEL_12:
   [MDMConfiguration getWatchPairingTokenForPhoneID:v9 watchID:v10 securityToken:v8 completionHandler:completionCopy];
 }
 
+- (id)getMachineInfoForEnrollmentType:(unint64_t)type enrollmentMethod:(unint64_t)method canRequestSoftwareUpdate:(BOOL)update
+{
+  v6 = [MCProfileServiceServer sharedServer:type];
+  pairingToken = [(MCPairedWatchManager *)self pairingToken];
+
+  if (pairingToken)
+  {
+    v14 = @"PAIRING_TOKEN";
+    pairingToken2 = [(MCPairedWatchManager *)self pairingToken];
+    v15 = pairingToken2;
+    v9 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+
+    cloudConfigurationMachineInfo = [v6 cloudConfigurationMachineInfoDataWithAdditionalInfo:v9];
+  }
+
+  else
+  {
+    v11 = _MCLogObjects[0];
+    if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEBUG))
+    {
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "MCPairedWatchManager.getMachineIfoForEnrollmentType self.pairingToken==nil", v13, 2u);
+    }
+
+    cloudConfigurationMachineInfo = [v6 cloudConfigurationMachineInfo];
+  }
+
+  return cloudConfigurationMachineInfo;
+}
+
 - (id)detailsFromMDMProfile:(id)profile error:(id *)error
 {
   v6 = [MCProfile profileWithData:profile outError:?];
@@ -633,6 +761,48 @@ LABEL_6:
   }
 
   return v9;
+}
+
+- (BOOL)_updateSupervision:(BOOL)supervision cloudConfigReader:(id)reader cloudConfigWriter:(id)writer outError:(id *)error
+{
+  supervisionCopy = supervision;
+  readerCopy = reader;
+  writerCopy = writer;
+  [readerCopy refreshDetailsFromDisk];
+  details = [readerCopy details];
+  v12 = [details mutableCopy];
+
+  if (v12)
+  {
+    v13 = [NSNumber numberWithBool:supervisionCopy];
+    [v12 setObject:v13 forKeyedSubscript:kMCCCIsSupervisedKey];
+  }
+
+  else
+  {
+    v12 = [objc_opt_class() canonicalConfigurationWithSupervision:supervisionCopy];
+  }
+
+  [v12 setObject:&off_100127108 forKeyedSubscript:kCCConfigurationSourceKey];
+  v14 = [writerCopy saveCloudConfigurationDetails:v12 outError:error];
+  if (v14)
+  {
+    [writerCopy finalizeCloudConfigurationOutError:0];
+  }
+
+  else
+  {
+    v15 = _MCLogObjects[0];
+    if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
+    {
+      v16 = *error;
+      v18 = 138543362;
+      v19 = v16;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Watch enrollment failed to apply supervision state: %{public}@", &v18, 0xCu);
+    }
+  }
+
+  return v14;
 }
 
 - (id)_errorEnrollmentCannotBeStaged

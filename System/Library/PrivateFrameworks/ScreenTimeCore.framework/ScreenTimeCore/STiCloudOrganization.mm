@@ -12,7 +12,7 @@
 
 + (id)fetchWithContext:(id)context error:(id *)error
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   fetchRequest = [self fetchRequest];
   v8 = [contextCopy executeFetchRequest:fetchRequest error:error];
@@ -38,17 +38,17 @@
       {
         v17 = MEMORY[0x1E696ABC0];
         v18 = *MEMORY[0x1E696A578];
-        v27 = *MEMORY[0x1E696A578];
-        v28 = @"There must be one Cloud Organization.";
-        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+        v26 = *MEMORY[0x1E696A578];
+        v27 = @"There must be one Cloud Organization.";
+        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
         v20 = [v17 errorWithDomain:@"STErrorDomain" code:505 userInfo:v19];
 
         if (v20)
         {
           v21 = MEMORY[0x1E696ABC0];
-          v25 = v18;
-          v26 = @"There must be one Cloud Organization.";
-          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+          v24 = v18;
+          v25 = @"There must be one Cloud Organization.";
+          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
           *error = [v21 errorWithDomain:@"STErrorDomain" code:505 userInfo:v22];
         }
       }
@@ -59,19 +59,7 @@
     goto LABEL_13;
   }
 
-  if (!error)
-  {
-    goto LABEL_6;
-  }
-
-  v9 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A578];
-  v31 = *MEMORY[0x1E696A578];
-  v32[0] = @"There must be one and only one Cloud Organization object.";
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
-  v12 = [v9 errorWithDomain:@"STErrorDomain" code:504 userInfo:v11];
-
-  if (!v12)
+  if (!error || (v9 = MEMORY[0x1E696ABC0], v10 = *MEMORY[0x1E696A578], v30 = *MEMORY[0x1E696A578], v31[0] = @"There must be one and only one Cloud Organization object.", [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "errorWithDomain:code:userInfo:", @"STErrorDomain", 504, v11), v12 = objc_claimAutoreleasedReturnValue(), v12, v11, !v12))
   {
 LABEL_6:
     v15 = 0;
@@ -79,15 +67,14 @@ LABEL_6:
   }
 
   v13 = MEMORY[0x1E696ABC0];
-  v29 = v10;
-  v30 = @"There must be one and only one Cloud Organization object.";
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+  v28 = v10;
+  v29 = @"There must be one and only one Cloud Organization object.";
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
   [v13 errorWithDomain:@"STErrorDomain" code:504 userInfo:v14];
   *error = v15 = 0;
 LABEL_13:
 
 LABEL_14:
-  v23 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -142,24 +129,24 @@ LABEL_14:
 
 - (BOOL)validateForUpdate:(id *)update
 {
-  v7.receiver = self;
-  v7.super_class = STiCloudOrganization;
-  v4 = [(STiCloudOrganization *)&v7 validateForUpdate:?];
-  if (v4)
+  v6.receiver = self;
+  v6.super_class = STiCloudOrganization;
+  v3 = [(STiCloudOrganization *)&v6 validateForUpdate:?];
+  if (v3)
   {
     _os_feature_enabled_impl();
   }
 
   else
   {
-    v5 = +[STLog coreDataValidation];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v4 = +[STLog coreDataValidation];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      [STiCloudOrganization validateForUpdate:update];
+      [STiCloudOrganization validateForUpdate:];
     }
   }
 
-  return v4;
+  return v3;
 }
 
 - (BOOL)validateForInsert:(id *)insert
@@ -194,7 +181,7 @@ LABEL_14:
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STiCloudOrganization validateForInsert:insert];
+      [STiCloudOrganization validateForInsert:];
     }
 
     v7 = 0;
@@ -235,7 +222,7 @@ LABEL_14:
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STiCloudOrganization validateForDelete:delete];
+      [STiCloudOrganization validateForDelete:];
     }
 
     v7 = 0;
@@ -246,12 +233,12 @@ LABEL_14:
 
 - (BOOL)_validateNumberOfObjects:(id)objects
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   v4 = +[STiCloudOrganization fetchRequest];
-  v13 = 0;
-  v5 = [v4 execute:&v13];
-  v6 = v13;
+  v12 = 0;
+  v5 = [v4 execute:&v12];
+  v6 = v12;
   if (v5)
   {
     if ([v5 count] < 2)
@@ -261,9 +248,9 @@ LABEL_14:
     }
 
     v7 = MEMORY[0x1E696ABC0];
-    v14 = *MEMORY[0x1E696A578];
-    v15[0] = @"There must be one and only one Cloud Organization object.";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x1E696A578];
+    v14[0] = @"There must be one and only one Cloud Organization object.";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v9 = [v7 errorWithDomain:@"STErrorDomain" code:504 userInfo:v8];
     [objectsCopy addObject:v9];
   }
@@ -276,60 +263,52 @@ LABEL_14:
   v10 = 0;
 LABEL_7:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (void)fetchOrCreateiCloudOrganizationWithContext:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_6();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)validateForUpdate:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForUpdate:.cold.1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_0_6();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-- (void)validateForInsert:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForInsert:.cold.1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_0_6();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)validateForInsert:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_3_5(&dword_1B831F000, v0, v1, "%{public}s Validate for insert on iCloudOrganization failed with error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_5(&dword_1B831F000, v0, v1, "%{public}s Validate for insert on iCloudOrganization failed with error: %{public}@", v2, v3, v4, v5, v6);
 }
 
-- (void)validateForDelete:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForDelete:.cold.1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_0_6();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)validateForDelete:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_3_5(&dword_1B831F000, v0, v1, "%{public}s Validate for delete on iCloudOrganization failed with error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_5(&dword_1B831F000, v0, v1, "%{public}s Validate for delete on iCloudOrganization failed with error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

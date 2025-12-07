@@ -19,7 +19,22 @@
 - (id)portNumberObject;
 - (id)usesSSLObject;
 - (int64_t)daysBetweenSyncs;
+- (void)setCompactWhenClosingMailboxes:(BOOL)mailboxes;
 - (void)setDaysBetweenSyncs:(int64_t)syncs;
+- (void)setHasServerDefinedAllMailMailbox:(BOOL)mailbox;
+- (void)setHasServerDefinedArchiveMailbox:(BOOL)mailbox;
+- (void)setHasServerDefinedDraftsMailbox:(BOOL)mailbox;
+- (void)setHasServerDefinedJunkMailbox:(BOOL)mailbox;
+- (void)setHasServerDefinedSentMailbox:(BOOL)mailbox;
+- (void)setHasServerDefinedTrashMailbox:(BOOL)mailbox;
+- (void)setIgnoreServerDefinedArchiveMailbox:(BOOL)mailbox;
+- (void)setIgnoreServerDefinedDraftsMailbox:(BOOL)mailbox;
+- (void)setIgnoreServerDefinedJunkMailbox:(BOOL)mailbox;
+- (void)setIgnoreServerDefinedSentMailbox:(BOOL)mailbox;
+- (void)setIgnoreServerDefinedTrashMailbox:(BOOL)mailbox;
+- (void)setNeedsGmailLablesCleanup:(BOOL)cleanup;
+- (void)setQueriedUserToSetPathPrefix:(BOOL)prefix;
+- (void)setShouldUseGmailLabelStores:(BOOL)stores;
 @end
 
 @implementation ECIMAPAccount
@@ -31,6 +46,12 @@
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setCompactWhenClosingMailboxes:(BOOL)mailboxes
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:mailboxes];
+  [ECAccount setDataClassProperty:"setDataClassProperty:forKey:" forKey:?];
 }
 
 - (int64_t)daysBetweenSyncs
@@ -57,6 +78,12 @@
   return bOOLValue;
 }
 
+- (void)setQueriedUserToSetPathPrefix:(BOOL)prefix
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:prefix];
+  [ECAccount setDataClassProperty:"setDataClassProperty:forKey:" forKey:?];
+}
+
 - (BOOL)shouldUseGmailLabelStores
 {
   dataclassProperties = [(ECAccount *)self dataclassProperties];
@@ -64,6 +91,12 @@
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setShouldUseGmailLabelStores:(BOOL)stores
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:stores];
+  [ECAccount setDataClassProperty:"setDataClassProperty:forKey:" forKey:?];
 }
 
 - (BOOL)shouldUseGmailLabelStoresIsSet
@@ -84,6 +117,12 @@
   return bOOLValue;
 }
 
+- (void)setNeedsGmailLablesCleanup:(BOOL)cleanup
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:cleanup];
+  [ECAccount setDataClassProperty:"setDataClassProperty:forKey:" forKey:?];
+}
+
 - (BOOL)hasServerDefinedAllMailMailbox
 {
   dataclassProperties = [(ECAccount *)self dataclassProperties];
@@ -91,6 +130,12 @@
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setHasServerDefinedAllMailMailbox:(BOOL)mailbox
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:mailbox];
+  [ECAccount setDataClassProperty:"setDataClassProperty:forKey:" forKey:?];
 }
 
 - (BOOL)hasServerDefinedArchiveMailbox
@@ -102,6 +147,12 @@
   return bOOLValue;
 }
 
+- (void)setHasServerDefinedArchiveMailbox:(BOOL)mailbox
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:mailbox];
+  [ECAccount setDataClassProperty:"setDataClassProperty:forKey:" forKey:?];
+}
+
 - (BOOL)hasServerDefinedDraftsMailbox
 {
   dataclassProperties = [(ECAccount *)self dataclassProperties];
@@ -109,6 +160,12 @@
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setHasServerDefinedDraftsMailbox:(BOOL)mailbox
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:mailbox];
+  [ECAccount setDataClassProperty:"setDataClassProperty:forKey:" forKey:?];
 }
 
 - (BOOL)hasServerDefinedJunkMailbox
@@ -120,6 +177,12 @@
   return bOOLValue;
 }
 
+- (void)setHasServerDefinedJunkMailbox:(BOOL)mailbox
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:mailbox];
+  [ECAccount setDataClassProperty:"setDataClassProperty:forKey:" forKey:?];
+}
+
 - (BOOL)hasServerDefinedSentMailbox
 {
   dataclassProperties = [(ECAccount *)self dataclassProperties];
@@ -127,6 +190,12 @@
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setHasServerDefinedSentMailbox:(BOOL)mailbox
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:mailbox];
+  [ECAccount setDataClassProperty:"setDataClassProperty:forKey:" forKey:?];
 }
 
 - (BOOL)hasServerDefinedTrashMailbox
@@ -138,6 +207,12 @@
   return bOOLValue;
 }
 
+- (void)setHasServerDefinedTrashMailbox:(BOOL)mailbox
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:mailbox];
+  [ECAccount setDataClassProperty:"setDataClassProperty:forKey:" forKey:?];
+}
+
 - (BOOL)ignoreServerDefinedArchiveMailbox
 {
   dataclassProperties = [(ECAccount *)self dataclassProperties];
@@ -145,6 +220,12 @@
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setIgnoreServerDefinedArchiveMailbox:(BOOL)mailbox
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:mailbox];
+  [ECAccount setDataClassProperty:"setDataClassProperty:forKey:" forKey:?];
 }
 
 - (BOOL)ignoreServerDefinedDraftsMailbox
@@ -156,6 +237,12 @@
   return bOOLValue;
 }
 
+- (void)setIgnoreServerDefinedDraftsMailbox:(BOOL)mailbox
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:mailbox];
+  [ECAccount setDataClassProperty:"setDataClassProperty:forKey:" forKey:?];
+}
+
 - (BOOL)ignoreServerDefinedJunkMailbox
 {
   dataclassProperties = [(ECAccount *)self dataclassProperties];
@@ -163,6 +250,12 @@
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setIgnoreServerDefinedJunkMailbox:(BOOL)mailbox
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:mailbox];
+  [ECAccount setDataClassProperty:"setDataClassProperty:forKey:" forKey:?];
 }
 
 - (BOOL)ignoreServerDefinedSentMailbox
@@ -174,6 +267,12 @@
   return bOOLValue;
 }
 
+- (void)setIgnoreServerDefinedSentMailbox:(BOOL)mailbox
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:mailbox];
+  [ECAccount setDataClassProperty:"setDataClassProperty:forKey:" forKey:?];
+}
+
 - (BOOL)ignoreServerDefinedTrashMailbox
 {
   dataclassProperties = [(ECAccount *)self dataclassProperties];
@@ -181,6 +280,12 @@
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setIgnoreServerDefinedTrashMailbox:(BOOL)mailbox
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:mailbox];
+  [ECAccount setDataClassProperty:"setDataClassProperty:forKey:" forKey:?];
 }
 
 - (id)_hostnameFromParentAccount:(id)account

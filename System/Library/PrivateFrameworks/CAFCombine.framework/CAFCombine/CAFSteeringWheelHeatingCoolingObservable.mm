@@ -24,14 +24,14 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFSteeringWheelHeatingCoolingObservable.steeringWheelHeatingCoolingService(_:didUpdateHeatingCoolingLevel:)();
+  CAFSteeringWheelHeatingCoolingObservable.steeringWheelHeatingCoolingService(_:didUpdateHeatingCoolingLevel:)(selfCopy, level);
 }
 
 - (void)steeringWheelHeatingCoolingService:(id)service didUpdateAutoMode:(BOOL)mode
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFSteeringWheelHeatingCoolingObservable.steeringWheelHeatingCoolingService(_:didUpdateAutoMode:)();
+  CAFSteeringWheelHeatingCoolingObservable.steeringWheelHeatingCoolingService(_:didUpdateAutoMode:)(selfCopy, mode);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

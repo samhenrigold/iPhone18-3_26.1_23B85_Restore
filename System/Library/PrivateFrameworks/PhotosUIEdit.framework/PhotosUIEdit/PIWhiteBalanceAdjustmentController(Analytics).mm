@@ -51,9 +51,9 @@
           if (([analyticsKeysBlocklist containsObject:v14] & 1) == 0)
           {
             colorTypeKey = [MEMORY[0x277D3A9B0] colorTypeKey];
-            v16 = [v14 isEqualToString:colorTypeKey];
+            isEqualToString = objc_msgSend_isEqualToString_(v14);
 
-            if (v16)
+            if (isEqualToString)
             {
               v17 = [MEMORY[0x277D3A9B0] stringForColorType:colorType];
               [v2 setObject:v17 forKeyedSubscript:@"whiteBalanceType"];
@@ -63,7 +63,7 @@ LABEL_36:
             }
 
             warmTintKey = [MEMORY[0x277D3A9B0] warmTintKey];
-            if ([v14 isEqualToString:warmTintKey])
+            if (objc_msgSend_isEqualToString_(v14))
             {
               [selfCopy warmTint];
               v20 = v19;
@@ -95,7 +95,7 @@ LABEL_35:
             }
 
             warmTempKey = [MEMORY[0x277D3A9B0] warmTempKey];
-            if ([v14 isEqualToString:warmTempKey])
+            if (objc_msgSend_isEqualToString_(v14))
             {
               [selfCopy warmTemp];
               v28 = v27;
@@ -124,7 +124,7 @@ LABEL_30:
             }
 
             faceWarmthKey = [MEMORY[0x277D3A9B0] faceWarmthKey];
-            if ([v14 isEqualToString:faceWarmthKey])
+            if (objc_msgSend_isEqualToString_(v14))
             {
               [selfCopy faceWarmth];
               v32 = v31;
@@ -147,7 +147,7 @@ LABEL_30:
             }
 
             grayWarmthKey = [MEMORY[0x277D3A9B0] grayWarmthKey];
-            if ([v14 isEqualToString:grayWarmthKey])
+            if (objc_msgSend_isEqualToString_(v14))
             {
               [selfCopy faceWarmth];
               v35 = v34;

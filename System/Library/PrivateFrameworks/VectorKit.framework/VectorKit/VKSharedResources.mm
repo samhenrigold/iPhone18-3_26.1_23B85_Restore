@@ -324,7 +324,7 @@ LABEL_11:
 
 - (id)_initWithDevice:(void *)device standardLibrary:(const void *)library
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11[34] = *MEMORY[0x1E69E9840];
   v10.receiver = self;
   v10.super_class = VKSharedResources;
   v5 = [(VKSharedResources *)&v10 init];
@@ -333,11 +333,11 @@ LABEL_11:
   {
     std::unique_ptr<md::Device>::reset[abi:nn200100](v5 + 18, device);
     v7 = objc_alloc_init(VKResourceManager);
-    v11.__r_.__value_.__r.__words[0] = &unk_1F2A2FC10;
-    v11.__r_.__value_.__l.__size_ = v7;
+    v11[0] = &unk_1F2A2FC10;
+    v11[1] = v7;
     v8 = v7;
-    geo::_retain_ptr<VKResourceManager * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::operator=(v6 + 72, &v11);
-    v11.__r_.__value_.__r.__words[0] = &unk_1F2A2FC10;
+    geo::_retain_ptr<VKResourceManager * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::operator=(v6 + 72, v11);
+    v11[0] = &unk_1F2A2FC10;
 
     operator new();
   }

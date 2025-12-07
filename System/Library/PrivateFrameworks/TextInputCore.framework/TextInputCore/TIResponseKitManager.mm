@@ -15,7 +15,7 @@
 
 - (id)cannedResponsesForString:(id)string withLanguageID:(id)d withClientID:(id)iD withRecipientID:(id)recipientID withAdditionalPredictions:(id)predictions desiredCandidateCount:(unint64_t)count shouldDisableAutoCaps:(BOOL)caps isBlocklisted:(BOOL)self0
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   dCopy = d;
   iDCopy = iD;
@@ -36,38 +36,37 @@
 
   selfCopy = self;
   countCopy = count;
-  v52 = predictionsCopy;
-  v53 = recipientIDCopy;
-  v54 = iDCopy;
-  v55 = stringCopy;
+  v51 = predictionsCopy;
+  v52 = recipientIDCopy;
+  v53 = iDCopy;
+  v54 = stringCopy;
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v57 = 0u;
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
-  v62 = 0u;
-  v51 = v21;
+  v50 = v21;
   v22 = v21;
-  v23 = [v22 countByEnumeratingWithState:&v59 objects:v65 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v57 objects:v63 count:16];
   if (!v23)
   {
     goto LABEL_27;
   }
 
   v24 = v23;
-  v25 = *v60;
-  v57 = *MEMORY[0x277D46C00];
+  v25 = *v58;
   do
   {
     v26 = 0;
     do
     {
-      if (*v60 != v25)
+      if (*v58 != v25)
       {
         objc_enumerationMutation(v22);
       }
 
-      v27 = *(*(&v59 + 1) + 8 * v26);
+      v27 = *(*(&v57 + 1) + 8 * v26);
       attributes = [v27 attributes];
 
       if (attributes)
@@ -84,20 +83,20 @@
           {
             v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s DEBUG:ProactiveQuickType:TI: Response Kit has returned an attributed response.", "-[TIResponseKitManager cannedResponsesForString:withLanguageID:withClientID:withRecipientID:withAdditionalPredictions:desiredCandidateCount:shouldDisableAutoCaps:isBlocklisted:]"];
             *buf = 138412290;
-            v64 = v42;
+            v62 = v42;
             _os_log_debug_impl(&dword_22CA55000, v29, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
 
         category = [v27 category];
-        v31 = [category isEqualToString:@"QueryPhotoSharing"];
+        isEqualToString = objc_msgSend_isEqualToString_(category);
 
-        if (!v31 || !blocklisted)
+        if (!isEqualToString || !blocklisted)
         {
           attributes2 = [v27 attributes];
           category2 = [attributes2 objectForKey:*MEMORY[0x277D23050]];
 
-          if ([category2 isEqualToString:v57])
+          if (objc_msgSend_isEqualToString_(category2))
           {
             attributes3 = [v27 attributes];
             attributes4 = [TIResponseKitManager rewriteMoneyAttributes:attributes3];
@@ -112,23 +111,23 @@
             v36 = v41;
           }
 
-          string2 = [(TIProactiveTrigger *)v36 initWithSourceType:1 attributes:attributes4];
+          v39 = [(TIProactiveTrigger *)v36 initWithSourceType:1 attributes:attributes4];
 
-          [array2 addObject:string2];
+          [array2 addObject:v39];
           goto LABEL_24;
         }
       }
 
       else
       {
-        string = [v27 string];
+        v37 = objc_msgSend_string(v27);
 
-        if (string && !blocklisted)
+        if (v37 && !blocklisted)
         {
           v38 = objc_alloc(MEMORY[0x277D6F568]);
-          string2 = [v27 string];
+          v39 = objc_msgSend_string(v27);
           category2 = [v27 category];
-          v40 = [v38 initWithCandidate:string2 responseKitCategory:category2];
+          v40 = [v38 initWithCandidate:v39 responseKitCategory:category2];
           [array addObject:v40];
 
 LABEL_24:
@@ -139,35 +138,34 @@ LABEL_24:
     }
 
     while (v24 != v26);
-    v24 = [v22 countByEnumeratingWithState:&v59 objects:v65 count:16];
+    v24 = [v22 countByEnumeratingWithState:&v57 objects:v63 count:16];
   }
 
   while (v24);
 LABEL_27:
 
-  predictionsCopy = v52;
+  predictionsCopy = v51;
   if ([array count] < countCopy)
   {
-    predictions = [v52 predictions];
+    predictions = [v51 predictions];
     [array addObjectsFromArray:predictions];
 
     v44 = [(TIResponseKitManager *)selfCopy indexesOfDuplicatesInCandidates:array];
     [array removeObjectsAtIndexes:v44];
 
-    proactiveTriggers = [v52 proactiveTriggers];
+    proactiveTriggers = [v51 proactiveTriggers];
     [array2 addObjectsFromArray:proactiveTriggers];
   }
 
   v46 = [MEMORY[0x277D6F328] listWithPredictions:array proactiveTriggers:array2];
 
-  stringCopy = v55;
-  recipientIDCopy = v53;
-  iDCopy = v54;
-  v21 = v51;
+  stringCopy = v54;
+  recipientIDCopy = v52;
+  iDCopy = v53;
+  v21 = v50;
 LABEL_32:
 
 LABEL_33:
-  v47 = *MEMORY[0x277D85DE8];
 
   return v46;
 }
@@ -279,13 +277,9 @@ void __40__TIResponseKitManager_resetResponseKit__block_invoke()
   messageCopy = message;
   dCopy = d;
   timestampCopy = timestamp;
-  queue = self->_queue;
-  v15 = messageCopy;
-  v16 = dCopy;
-  v17 = timestampCopy;
-  v12 = timestampCopy;
-  v13 = dCopy;
-  v14 = messageCopy;
+  v7 = timestampCopy;
+  v8 = dCopy;
+  v9 = messageCopy;
   TIDispatchAsync();
 }
 
@@ -305,22 +299,19 @@ void __99__TIResponseKitManager_updateResponseKitConversationHistoryWithMessage_
   languageCopy = language;
   dCopy = d;
   iDCopy = iD;
+  v27 = dCopy;
   recipientIDCopy = recipientID;
+  v29 = responseCopy;
+  v30 = messageCopy;
+  v31 = languageCopy;
   timestampCopy = timestamp;
-  queue = self->_queue;
-  v31 = dCopy;
-  v32 = recipientIDCopy;
-  v33 = responseCopy;
-  v34 = messageCopy;
-  v35 = languageCopy;
-  v36 = timestampCopy;
-  v24 = timestampCopy;
-  v25 = iDCopy;
-  v26 = languageCopy;
-  v27 = messageCopy;
-  v28 = responseCopy;
-  v29 = recipientIDCopy;
-  v30 = dCopy;
+  v20 = timestampCopy;
+  v21 = iDCopy;
+  v22 = languageCopy;
+  v23 = messageCopy;
+  v24 = responseCopy;
+  v25 = recipientIDCopy;
+  v26 = dCopy;
   TIDispatchAsync();
 }
 
@@ -350,45 +341,43 @@ void __164__TIResponseKitManager_registerResponseKitResponse_forMessage_withLang
   handlerCopy = handler;
   if (async)
   {
-    queue = self->_queue;
-    v38 = MEMORY[0x277D85DD0];
-    v39 = 3221225472;
-    v40 = __220__TIResponseKitManager_generateResponseKitSuggestionsForString_withLanguage_withClientID_withRecipientID_withAdditionalPredictions_desiredCandidateCount_shouldDisableAutoCaps_stringIsBlocklisted_async_completionHandler___block_invoke;
-    v41 = &unk_278732E58;
+    v36 = MEMORY[0x277D85DD0];
+    v37 = 3221225472;
+    v38 = __220__TIResponseKitManager_generateResponseKitSuggestionsForString_withLanguage_withClientID_withRecipientID_withAdditionalPredictions_desiredCandidateCount_shouldDisableAutoCaps_stringIsBlocklisted_async_completionHandler___block_invoke;
+    v39 = &unk_278732E58;
     selfCopy = self;
-    v43 = stringCopy;
-    v44 = languageCopy;
-    v45 = dCopy;
-    v46 = iDCopy;
-    v47 = predictionsCopy;
+    v41 = stringCopy;
+    v42 = languageCopy;
+    v43 = dCopy;
+    v44 = iDCopy;
+    v45 = predictionsCopy;
     countCopy = count;
     capsCopy = caps;
     blocklistedCopy = blocklisted;
-    v48 = handlerCopy;
+    v46 = handlerCopy;
     TIDispatchAsync();
 
-    v24 = v43;
+    v23 = v41;
   }
 
   else
   {
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x3032000000;
-    v35 = __Block_byref_object_copy__19501;
-    v36 = __Block_byref_object_dispose__19502;
-    v37 = 0;
-    v25 = self->_queue;
-    v27 = stringCopy;
-    v28 = languageCopy;
-    v29 = dCopy;
-    v30 = iDCopy;
-    v31 = predictionsCopy;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x3032000000;
+    v33 = __Block_byref_object_copy__19501;
+    v34 = __Block_byref_object_dispose__19502;
+    v35 = 0;
+    v25 = stringCopy;
+    v26 = languageCopy;
+    v27 = dCopy;
+    v28 = iDCopy;
+    v29 = predictionsCopy;
     TIDispatchSync();
-    (*(handlerCopy + 2))(handlerCopy, v33[5]);
+    (*(handlerCopy + 2))(handlerCopy, v31[5]);
 
-    _Block_object_dispose(&v32, 8);
-    v24 = v37;
+    _Block_object_dispose(&v30, 8);
+    v23 = v35;
   }
 }
 
@@ -430,38 +419,38 @@ uint64_t __220__TIResponseKitManager_generateResponseKitSuggestionsForString_wit
 
 + (id)rewriteMoneyAttributes:(id)attributes
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D22FF8];
-  v26 = [attributes objectForKey:*MEMORY[0x277D22FF8]];
-  v4 = [v26 objectForKey:*MEMORY[0x277D46C08]];
+  v25 = [attributes objectForKey:*MEMORY[0x277D22FF8]];
+  v4 = [v25 objectForKey:*MEMORY[0x277D46C08]];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   [dictionary setValue:*MEMORY[0x277D46C00] forKey:*MEMORY[0x277D23050]];
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
   array = [MEMORY[0x277CBEB18] array];
   [dictionary2 setValue:array forKey:@"Currency"];
-  v24 = dictionary;
-  v25 = dictionary2;
+  v23 = dictionary;
+  v24 = dictionary2;
   [dictionary setValue:dictionary2 forKey:*v3];
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v8 = v4;
-  v9 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v28;
+    v11 = *v27;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v28 != v11)
+        if (*v27 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v27 + 1) + 8 * i);
+        v13 = *(*(&v26 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -482,15 +471,13 @@ uint64_t __220__TIResponseKitManager_generateResponseKitSuggestionsForString_wit
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v10);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v23;
 }
 
 + (id)singletonInstance

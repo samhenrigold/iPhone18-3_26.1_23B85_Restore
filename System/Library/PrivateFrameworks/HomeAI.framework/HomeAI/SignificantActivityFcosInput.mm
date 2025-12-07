@@ -41,29 +41,30 @@
   }
 
   selfCopy = self;
-  v7 = objc_autoreleasePoolPush();
-  v13 = 0;
-  v8 = [MEMORY[0x277CBFEF8] featureValueWithCGImage:image pixelsWide:384 pixelsHigh:384 pixelFormatType:32 options:0 error:&v13];
-  v9 = v13;
-  if (v8)
+  v6 = objc_autoreleasePoolPush();
+  v12 = 0;
+  v7 = [MEMORY[0x277CBFEF8] featureValueWithCGImage:? pixelsWide:? pixelsHigh:? pixelFormatType:? options:? error:?];
+  v8 = v12;
+  if (v7)
   {
-    selfCopy = -[SignificantActivityFcosInput initWithImage_Placeholder:](selfCopy, "initWithImage_Placeholder:", [v8 imageBufferValue]);
-    v10 = selfCopy;
+    [v7 imageBufferValue];
+    selfCopy = [(SignificantActivityFcosInput *)selfCopy initWithImage_Placeholder:?];
+    v9 = selfCopy;
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  objc_autoreleasePoolPop(v7);
+  objc_autoreleasePoolPop(v6);
   if (error)
   {
-    v11 = v9;
-    *error = v9;
+    v10 = v8;
+    *error = v8;
   }
 
-  return v10;
+  return v9;
 }
 
 - (SignificantActivityFcosInput)initWithImage_PlaceholderAtURL:(id)l error:(id *)error
@@ -73,11 +74,12 @@
   {
     v7 = objc_autoreleasePoolPush();
     v13 = 0;
-    v8 = [MEMORY[0x277CBFEF8] featureValueWithImageAtURL:lCopy pixelsWide:384 pixelsHigh:384 pixelFormatType:32 options:0 error:&v13];
+    v8 = [MEMORY[0x277CBFEF8] featureValueWithImageAtURL:? pixelsWide:? pixelsHigh:? pixelFormatType:? options:? error:?];
     v9 = v13;
     if (v8)
     {
-      self = -[SignificantActivityFcosInput initWithImage_Placeholder:](self, "initWithImage_Placeholder:", [v8 imageBufferValue]);
+      [v8 imageBufferValue];
+      self = [(SignificantActivityFcosInput *)self initWithImage_Placeholder:?];
       selfCopy = self;
     }
 
@@ -104,25 +106,26 @@
 
 - (BOOL)setImage_PlaceholderWithCGImage:(CGImage *)image error:(id *)error
 {
-  v7 = objc_autoreleasePoolPush();
-  v12 = 0;
-  v8 = [MEMORY[0x277CBFEF8] featureValueWithCGImage:image pixelsWide:384 pixelsHigh:384 pixelFormatType:32 options:0 error:&v12];
-  v9 = v12;
-  if (v8)
+  v6 = objc_autoreleasePoolPush();
+  v11 = 0;
+  v7 = [MEMORY[0x277CBFEF8] featureValueWithCGImage:? pixelsWide:? pixelsHigh:? pixelFormatType:? options:? error:?];
+  v8 = v11;
+  if (v7)
   {
     CVPixelBufferRelease([(SignificantActivityFcosInput *)self image_Placeholder]);
-    -[SignificantActivityFcosInput setImage_Placeholder:](self, "setImage_Placeholder:", [v8 imageBufferValue]);
+    [v7 imageBufferValue];
+    [(SignificantActivityFcosInput *)self setImage_Placeholder:?];
     CVPixelBufferRetain([(SignificantActivityFcosInput *)self image_Placeholder]);
   }
 
-  objc_autoreleasePoolPop(v7);
+  objc_autoreleasePoolPop(v6);
   if (error)
   {
-    v10 = v9;
-    *error = v9;
+    v9 = v8;
+    *error = v8;
   }
 
-  return v8 != 0;
+  return v7 != 0;
 }
 
 - (BOOL)setImage_PlaceholderWithURL:(id)l error:(id *)error
@@ -130,12 +133,13 @@
   lCopy = l;
   v7 = objc_autoreleasePoolPush();
   v12 = 0;
-  v8 = [MEMORY[0x277CBFEF8] featureValueWithImageAtURL:lCopy pixelsWide:384 pixelsHigh:384 pixelFormatType:32 options:0 error:&v12];
+  v8 = [MEMORY[0x277CBFEF8] featureValueWithImageAtURL:? pixelsWide:? pixelsHigh:? pixelFormatType:? options:? error:?];
   v9 = v12;
   if (v8)
   {
     CVPixelBufferRelease([(SignificantActivityFcosInput *)self image_Placeholder]);
-    -[SignificantActivityFcosInput setImage_Placeholder:](self, "setImage_Placeholder:", [v8 imageBufferValue]);
+    [v8 imageBufferValue];
+    [(SignificantActivityFcosInput *)self setImage_Placeholder:?];
     CVPixelBufferRetain([(SignificantActivityFcosInput *)self image_Placeholder]);
   }
 
@@ -151,17 +155,19 @@
 
 - (id)featureValueForName:(id)name
 {
-  if ([name isEqualToString:@"image_Placeholder"])
+  if ([name isEqualToString:?])
   {
-    v4 = [MEMORY[0x277CBFEF8] featureValueWithPixelBuffer:{-[SignificantActivityFcosInput image_Placeholder](self, "image_Placeholder")}];
+    v4 = MEMORY[0x277CBFEF8];
+    [(SignificantActivityFcosInput *)self image_Placeholder];
+    v5 = [v4 featureValueWithPixelBuffer:?];
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 @end

@@ -20,7 +20,7 @@
 
 + (BOOL)isSupportedKeyPath:(id)path
 {
-  v20[4] = *MEMORY[0x1E69E9840];
+  v19[4] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if ([pathCopy isEqualToString:@"duration"] & 1) != 0 || (objc_msgSend(pathCopy, "isEqualToString:", @"totalDistance") & 1) != 0 || (objc_msgSend(pathCopy, "isEqualToString:", @"totalEnergyBurned") & 1) != 0 || (objc_msgSend(pathCopy, "isEqualToString:", @"totalFlightsClimbed") & 1) != 0 || (objc_msgSend(pathCopy, "isEqualToString:", @"totalSwimmingStrokeCount") & 1) != 0 || (objc_msgSend(pathCopy, "isEqualToString:", @"workoutType") & 1) != 0 || (objc_msgSend(pathCopy, "isEqualToString:", @"goal") & 1) != 0 || (objc_msgSend(pathCopy, "isEqualToString:", @"goalType") & 1) != 0 || (objc_msgSend(pathCopy, "isEqualToString:", @"workoutActivity"))
   {
@@ -29,41 +29,41 @@
 
   else
   {
-    v20[0] = @"sumQuantity.";
-    v20[1] = @"minimumQuantity.";
-    v20[2] = @"maximumQuantity.";
-    v20[3] = @"averageQuantity.";
-    [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:4];
+    v19[0] = @"sumQuantity.";
+    v19[1] = @"minimumQuantity.";
+    v19[2] = @"maximumQuantity.";
+    v19[3] = @"averageQuantity.";
+    [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:4];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v8 = v18 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v9)
+    v7 = v17 = 0u;
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v8)
     {
-      v10 = v9;
-      v11 = *v16;
+      v9 = v8;
+      v10 = *v15;
       while (2)
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v11)
+          if (*v15 != v10)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v15 + 1) + 8 * i);
-          if ([pathCopy hasPrefix:{v13, v15}])
+          v12 = *(*(&v14 + 1) + 8 * i);
+          if ([pathCopy hasPrefix:{v12, v14}])
           {
-            v14 = [self _quantityTypeFromKeyPath:pathCopy prefix:v13];
-            v5 = v14 != 0;
+            v13 = [self _quantityTypeFromKeyPath:pathCopy prefix:v12];
+            v5 = v13 != 0;
 
             goto LABEL_22;
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
-        if (v10)
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        if (v9)
         {
           continue;
         }
@@ -76,7 +76,6 @@
 LABEL_22:
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -543,34 +542,34 @@ LABEL_22:
 
 - (BOOL)_acceptsWorkoutWithActivities:(id)activities
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   activitiesCopy = activities;
-  v5 = [activitiesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [activitiesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(activitiesCopy);
         }
 
-        if ([(_HKFilter *)self->_subFilter acceptsWorkoutActivity:*(*(&v12 + 1) + 8 * i), v12])
+        if ([(_HKFilter *)self->_subFilter acceptsWorkoutActivity:*(*(&v11 + 1) + 8 * i), v11])
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [activitiesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [activitiesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -583,7 +582,6 @@ LABEL_22:
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

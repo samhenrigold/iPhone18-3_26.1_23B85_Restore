@@ -513,13 +513,14 @@ LABEL_67:
 
 + (void)_gatherMethodMetadataForRequired:(void *)required onProtocol:(void *)protocol toMethods:(void *)methods andErrors:
 {
+  v7 = a2;
   v22 = *MEMORY[0x1E69E9840];
   requiredCopy = required;
   protocolCopy = protocol;
   methodsCopy = methods;
   objc_opt_self();
   outCount = 0;
-  v9 = protocol_copyMethodDescriptionList(requiredCopy, a2, 1, &outCount);
+  v9 = protocol_copyMethodDescriptionList(requiredCopy, v7, 1, &outCount);
   if (v9)
   {
     v17 = v9;
@@ -534,7 +535,7 @@ LABEL_67:
         MethodTypeEncoding = _protocol_getMethodTypeEncoding();
         if (!MethodTypeEncoding)
         {
-          MethodTypeEncoding = protocol_getMethodDescription(requiredCopy, v13, a2, 1).types;
+          MethodTypeEncoding = protocol_getMethodDescription(requiredCopy, v13, v7, 1).types;
         }
 
         v20 = 0;
@@ -542,7 +543,7 @@ LABEL_67:
         v16 = v20;
         if (v15)
         {
-          v15[1] = a2;
+          v15[1] = v7;
           [protocolCopy addObject:v15];
         }
 

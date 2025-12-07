@@ -179,7 +179,7 @@ LABEL_29:
 
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   tensorsCopy = tensors;
   tensorCopy = tensor;
@@ -212,11 +212,11 @@ LABEL_29:
     {
       v69 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v78 = v69;
-      v79 = 1024;
-      v80 = dataType;
-      v81 = 2112;
-      v82 = deviceCopy;
+      v77 = v69;
+      v78 = 1024;
+      v79 = dataType;
+      v80 = 2112;
+      v81 = deviceCopy;
       _os_log_error_impl(&dword_238C1D000, v66, OS_LOG_TYPE_ERROR, "%@: slice layer with data type = %d is not supported on a device = %@", buf, 0x1Cu);
     }
 
@@ -226,7 +226,7 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v73 = deviceCopy;
+  v72 = deviceCopy;
   v19 = [tensorsCopy objectAtIndexedSubscript:0];
   descriptor3 = [v19 descriptor];
   dimensionCount2 = [descriptor3 dimensionCount];
@@ -262,7 +262,7 @@ LABEL_24:
     }
 
     v66 = +[MLCLog framework];
-    deviceCopy = v73;
+    deviceCopy = v72;
     if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
       [MLCSliceLayer compileForDevice:sourceTensors:resultTensor:];
@@ -287,7 +287,7 @@ LABEL_11:
     if (dimensionCount5 < 2)
     {
 LABEL_15:
-      computeEngine = [v73 computeEngine];
+      computeEngine = [v72 computeEngine];
       start2 = [(MLCSliceLayer *)selfCopy start];
       v64 = [(MLCSliceLayer *)selfCopy end];
       stride = [(MLCSliceLayer *)selfCopy stride];
@@ -295,18 +295,18 @@ LABEL_15:
 
       if (v66 && [v66 count])
       {
-        deviceCopy = v73;
-        computeEngine2 = [v73 computeEngine];
+        deviceCopy = v72;
+        computeEngine2 = [v72 computeEngine];
         v68 = [computeEngine2 compileLayerDeviceOps:v66 sourceTensors:tensorsCopy resultTensor:tensorCopy];
 
-        v76.receiver = selfCopy;
-        v76.super_class = MLCSliceLayer;
-        [(MLCLayer *)&v76 bindDevice:v73 deviceOps:v66];
+        v75.receiver = selfCopy;
+        v75.super_class = MLCSliceLayer;
+        [(MLCLayer *)&v75 bindDevice:v72 deviceOps:v66];
         goto LABEL_25;
       }
 
-      v72 = +[MLCLog framework];
-      if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+      v71 = +[MLCLog framework];
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
       {
         [MLCBatchNormalizationLayer compileForDevice:sourceTensors:resultTensor:];
       }
@@ -347,7 +347,7 @@ LABEL_15:
     }
 
     v68 = 0;
-    deviceCopy = v73;
+    deviceCopy = v72;
     goto LABEL_25;
   }
 
@@ -380,7 +380,7 @@ LABEL_15:
   }
 
   v66 = +[MLCLog framework];
-  deviceCopy = v73;
+  deviceCopy = v72;
   v52 = tensorCopy;
   if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
   {
@@ -390,7 +390,6 @@ LABEL_15:
   v68 = 0;
 LABEL_25:
 
-  v70 = *MEMORY[0x277D85DE8];
   return v68;
 }
 
@@ -530,93 +529,69 @@ LABEL_25:
 
 - (void)initSliceLayerWithStart:(const char *)a1 end:stride:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initSliceLayerWithStart:(const char *)a1 end:stride:.cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initSliceLayerWithStart:(const char *)a1 end:stride:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initSliceLayerWithStart:(const char *)a1 end:stride:.cold.4(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:sourceTensors:resultTensor:.cold.2()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:sourceTensors:resultTensor:.cold.4()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:sourceTensors:resultTensor:.cold.5()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

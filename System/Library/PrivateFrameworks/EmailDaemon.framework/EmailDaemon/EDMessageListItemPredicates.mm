@@ -32,65 +32,65 @@
 
 + (id)predicateForMessagesFromVIPs:(id)ps
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   psCopy = ps;
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = psCopy;
-  v4 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v4 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v4)
   {
-    v21 = *v28;
+    v20 = *v27;
     do
     {
-      v22 = v4;
-      for (i = 0; i != v22; ++i)
+      v21 = v4;
+      for (i = 0; i != v21; ++i)
       {
-        if (*v28 != v21)
+        if (*v27 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v27 + 1) + 8 * i);
+        v6 = *(*(&v26 + 1) + 8 * i);
         v7 = MEMORY[0x1E696AE18];
         displayName = [v6 displayName];
         psCopy = [v7 predicateWithFormat:@"%K = %@", @"senderAddress.emailAddressValue.displayName", displayName, psCopy];
         [v3 addObject:psCopy];
 
         emailAddresses = [v6 emailAddresses];
-        v25 = 0u;
-        v26 = 0u;
-        v23 = 0u;
         v24 = 0u;
+        v25 = 0u;
+        v22 = 0u;
+        v23 = 0u;
         v11 = emailAddresses;
-        v12 = [v11 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v12)
         {
-          v13 = *v24;
+          v13 = *v23;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v24 != v13)
+              if (*v23 != v13)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v15 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K = %@", @"senderAddress.emailAddressValue.simpleAddress", *(*(&v23 + 1) + 8 * j)];
+              v15 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K = %@", @"senderAddress.emailAddressValue.simpleAddress", *(*(&v22 + 1) + 8 * j)];
               [v3 addObject:v15];
             }
 
-            v12 = [v11 countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v12 = [v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
           }
 
           while (v12);
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v4 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v4);
@@ -106,8 +106,6 @@
     [MEMORY[0x1E696AE18] predicateWithValue:0];
   }
   v16 = ;
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -261,7 +259,7 @@ id __83__EDMessageListItemPredicates_predicateForMailboxTypePredicate_mailboxPer
 
 + (id)expandedPredicateForFollowUpIsActivePredicate:(id)predicate
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   rightExpression = [predicateCopy rightExpression];
   constantValue = [rightExpression constantValue];
@@ -307,30 +305,28 @@ id __83__EDMessageListItemPredicates_predicateForMailboxTypePredicate_mailboxPer
   v19 = MEMORY[0x1E696AB28];
   if (constantValue)
   {
-    v27[0] = v13;
-    v27[1] = v18;
-    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
+    v26[0] = v13;
+    v26[1] = v18;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
     v21 = [v19 andPredicateWithSubpredicates:v20];
   }
 
   else
   {
-    v26[0] = v13;
-    v26[1] = v18;
-    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+    v25[0] = v13;
+    v25[1] = v18;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
     v21 = [v19 orPredicateWithSubpredicates:v20];
   }
 
   v22 = v21;
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
 
 + (id)expandedPredicateForCategoryTypePredicate:(id)predicate
 {
-  v44[2] = *MEMORY[0x1E69E9840];
+  v43[2] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   rightExpression = [predicateCopy rightExpression];
   constantValue = [rightExpression constantValue];
@@ -358,7 +354,7 @@ LABEL_12:
   v13 = MEMORY[0x1E696AB18];
   v14 = [MEMORY[0x1E696ABC8] expressionForKeyPath:@"category.senderCategory"];
   rightExpression2 = [predicateCopy rightExpression];
-  v40 = [v13 predicateWithLeftExpression:v14 rightExpression:rightExpression2 modifier:0 type:v9 options:0];
+  v39 = [v13 predicateWithLeftExpression:v14 rightExpression:rightExpression2 modifier:0 type:v9 options:0];
 
   v16 = MEMORY[0x1E696AB18];
   v17 = [MEMORY[0x1E696ABC8] expressionForKeyPath:@"category.senderCategory"];
@@ -378,10 +374,10 @@ LABEL_12:
     v27 = [v24 predicateWithLeftExpression:v25 rightExpression:v26 modifier:0 type:4 options:0];
 
     v28 = MEMORY[0x1E696AB28];
-    v44[0] = v23;
-    v44[1] = v27;
-    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
-    v30 = v40;
+    v43[0] = v23;
+    v43[1] = v27;
+    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
+    v30 = v39;
     v31 = [v28 orPredicateWithSubpredicates:v29];
 
     v23 = v31;
@@ -389,22 +385,20 @@ LABEL_12:
 
   else
   {
-    v30 = v40;
+    v30 = v39;
   }
 
   v32 = MEMORY[0x1E696AB28];
-  v43[0] = v19;
-  v43[1] = v23;
-  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
+  v42[0] = v19;
+  v42[1] = v23;
+  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
   v34 = [v32 andPredicateWithSubpredicates:v33];
 
   v35 = MEMORY[0x1E696AB28];
-  v42[0] = v30;
-  v42[1] = v34;
-  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
+  v41[0] = v30;
+  v41[1] = v34;
+  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
   v37 = [v35 orPredicateWithSubpredicates:v36];
-
-  v38 = *MEMORY[0x1E69E9840];
 
   return v37;
 }

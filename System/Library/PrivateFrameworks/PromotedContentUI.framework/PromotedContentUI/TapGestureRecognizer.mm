@@ -8,21 +8,22 @@
 
 - (void)reset
 {
-  v9.receiver = self;
-  v9.super_class = type metadata accessor for TapGestureRecognizer();
-  v2 = v9.receiver;
-  [(TapGestureRecognizer *)&v9 reset];
+  v10.receiver = self;
+  v10.super_class = type metadata accessor for TapGestureRecognizer();
+  v2 = v10.receiver;
+  [(TapGestureRecognizer *)&v10 reset];
   v3 = *&v2[OBJC_IVAR____TtC17PromotedContentUI20TapGestureRecognizer_touchUpHandler];
   if (v3)
   {
+    v4 = *&v2[OBJC_IVAR____TtC17PromotedContentUI20TapGestureRecognizer_touchUpHandler + 8];
 
     view = [v2 view];
     [v2 locationInView_];
-    v6 = v5;
-    v8 = v7;
+    v7 = v6;
+    v9 = v8;
 
-    v3(v2, 0, v6, v8);
-    sub_1C19A504C(v3);
+    v3(v2, 0, v7, v9);
+    sub_1C19A504C(v3, v4);
   }
 
   else

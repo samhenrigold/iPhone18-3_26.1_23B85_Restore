@@ -35,7 +35,7 @@ id __ICLogDateString()
   return v8;
 }
 
-void __ICOSLogCreate()
+void __ICOSLogCreate(uint64_t result, uint64_t a2)
 {
   if (__ICOSLogCreate_onceToken != -1)
   {
@@ -69,470 +69,464 @@ void __ICReadPrefs()
 
 id __ICLongValueToErrorString(int a1)
 {
-  v9[72] = *MEMORY[0x29EDCA608];
-  v8[0] = &unk_2A2546520;
-  v8[1] = &unk_2A2546538;
-  v9[0] = &unk_2A2546BE0;
-  v9[1] = &unk_2A2546C08;
-  v8[2] = &unk_2A2546550;
-  v8[3] = &unk_2A2546568;
-  v9[2] = &unk_2A2546C30;
-  v9[3] = &unk_2A2546C58;
-  v8[4] = &unk_2A2546580;
-  v8[5] = &unk_2A2546598;
-  v9[4] = &unk_2A2546C80;
-  v9[5] = &unk_2A2546CA8;
-  v8[6] = &unk_2A25465B0;
-  v8[7] = &unk_2A25465C8;
-  v9[6] = &unk_2A2546CD0;
-  v9[7] = &unk_2A2546CF8;
-  v8[8] = &unk_2A25465E0;
-  v8[9] = &unk_2A25465F8;
-  v9[8] = &unk_2A2546D20;
-  v9[9] = &unk_2A2546D48;
-  v8[10] = &unk_2A2546610;
-  v8[11] = &unk_2A2546628;
-  v9[10] = &unk_2A2546D70;
-  v9[11] = &unk_2A2546D98;
-  v8[12] = &unk_2A2546640;
-  v8[13] = &unk_2A2546658;
-  v9[12] = &unk_2A2546DC0;
-  v9[13] = &unk_2A2546DE8;
-  v8[14] = &unk_2A2546670;
-  v8[15] = &unk_2A2546688;
-  v9[14] = &unk_2A2546E10;
-  v9[15] = &unk_2A2546E38;
-  v8[16] = &unk_2A25466A0;
-  v8[17] = &unk_2A25466B8;
-  v9[16] = &unk_2A2546E60;
-  v9[17] = &unk_2A2546E88;
-  v8[18] = &unk_2A25466D0;
-  v8[19] = &unk_2A25466E8;
-  v9[18] = &unk_2A2546EB0;
-  v9[19] = &unk_2A2546ED8;
-  v8[20] = &unk_2A2546700;
-  v8[21] = &unk_2A2546718;
-  v9[20] = &unk_2A2546F00;
-  v9[21] = &unk_2A2546F28;
-  v8[22] = &unk_2A2546730;
-  v8[23] = &unk_2A2546748;
-  v9[22] = &unk_2A2546F50;
-  v9[23] = &unk_2A2546F78;
-  v8[24] = &unk_2A2546760;
-  v8[25] = &unk_2A2546778;
-  v9[24] = &unk_2A2546FA0;
-  v9[25] = &unk_2A2546FC8;
-  v8[26] = &unk_2A2546790;
-  v8[27] = &unk_2A25467A8;
-  v9[26] = &unk_2A2546FF0;
-  v9[27] = &unk_2A2547018;
-  v8[28] = &unk_2A25467C0;
-  v8[29] = &unk_2A25467D8;
-  v9[28] = &unk_2A2547040;
-  v9[29] = &unk_2A2547068;
-  v8[30] = &unk_2A25467F0;
-  v8[31] = &unk_2A2546808;
-  v9[30] = &unk_2A2547090;
-  v9[31] = &unk_2A25470B8;
-  v8[32] = &unk_2A2546820;
-  v8[33] = &unk_2A2546838;
-  v9[32] = &unk_2A25470E0;
-  v9[33] = &unk_2A2547108;
-  v8[34] = &unk_2A2546850;
-  v8[35] = &unk_2A2546868;
-  v9[34] = &unk_2A2547130;
-  v9[35] = &unk_2A2547158;
-  v8[36] = &unk_2A2546880;
-  v8[37] = &unk_2A2546898;
-  v9[36] = &unk_2A2547180;
-  v9[37] = &unk_2A25471A8;
-  v8[38] = &unk_2A25468B0;
-  v8[39] = &unk_2A25468C8;
-  v9[38] = &unk_2A25471D0;
-  v9[39] = &unk_2A25471F8;
-  v8[40] = &unk_2A25468E0;
-  v8[41] = &unk_2A25468F8;
-  v9[40] = &unk_2A2547220;
-  v9[41] = &unk_2A2547248;
-  v8[42] = &unk_2A2546910;
-  v8[43] = &unk_2A2546928;
-  v9[42] = &unk_2A2547270;
-  v9[43] = &unk_2A2547298;
-  v8[44] = &unk_2A2546940;
-  v8[45] = &unk_2A2546958;
-  v9[44] = &unk_2A25472C0;
-  v9[45] = &unk_2A25472E8;
-  v8[46] = &unk_2A2546970;
-  v8[47] = &unk_2A2546988;
-  v9[46] = &unk_2A2547310;
-  v9[47] = &unk_2A2547338;
-  v8[48] = &unk_2A25469A0;
-  v8[49] = &unk_2A25469B8;
-  v9[48] = &unk_2A2547360;
-  v9[49] = &unk_2A2547388;
-  v8[50] = &unk_2A25469D0;
-  v8[51] = &unk_2A25469E8;
-  v9[50] = &unk_2A25473B0;
-  v9[51] = &unk_2A25473D8;
-  v8[52] = &unk_2A2546A00;
-  v8[53] = &unk_2A2546A18;
-  v9[52] = &unk_2A2547400;
-  v9[53] = &unk_2A2547428;
-  v8[54] = &unk_2A2546A30;
-  v8[55] = &unk_2A2546A48;
-  v9[54] = &unk_2A2547450;
-  v9[55] = &unk_2A2547478;
-  v8[56] = &unk_2A2546A60;
-  v8[57] = &unk_2A2546A78;
-  v9[56] = &unk_2A25474A0;
-  v9[57] = &unk_2A25474C8;
-  v8[58] = &unk_2A2546A90;
-  v8[59] = &unk_2A2546AA8;
-  v9[58] = &unk_2A25474F0;
-  v9[59] = &unk_2A2547518;
-  v8[60] = &unk_2A2546AC0;
-  v8[61] = &unk_2A2546AD8;
-  v9[60] = &unk_2A2547540;
-  v9[61] = &unk_2A2547568;
-  v8[62] = &unk_2A2546AF0;
-  v8[63] = &unk_2A2546B08;
-  v9[62] = &unk_2A2547590;
-  v9[63] = &unk_2A25475B8;
-  v8[64] = &unk_2A2546B20;
-  v9[64] = &unk_2A25475E0;
-  v8[65] = &unk_2A2546B38;
-  v9[65] = &unk_2A2547608;
-  v8[66] = &unk_2A2546B50;
-  v9[66] = &unk_2A2547630;
-  v8[67] = &unk_2A2546B68;
-  v9[67] = &unk_2A2547658;
-  v8[68] = &unk_2A2546B80;
-  v9[68] = &unk_2A2547680;
-  v8[69] = &unk_2A2546B98;
-  v9[69] = &unk_2A25476A8;
-  v8[70] = &unk_2A2546BB0;
-  v9[70] = &unk_2A25476D0;
-  v8[71] = &unk_2A2546BC8;
-  v9[71] = &unk_2A25476F8;
-  v2 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:72];
+  v8[72] = *MEMORY[0x29EDCA608];
+  v7[0] = &unk_2A2546520;
+  v7[1] = &unk_2A2546538;
+  v8[0] = &unk_2A2546BE0;
+  v8[1] = &unk_2A2546C08;
+  v7[2] = &unk_2A2546550;
+  v7[3] = &unk_2A2546568;
+  v8[2] = &unk_2A2546C30;
+  v8[3] = &unk_2A2546C58;
+  v7[4] = &unk_2A2546580;
+  v7[5] = &unk_2A2546598;
+  v8[4] = &unk_2A2546C80;
+  v8[5] = &unk_2A2546CA8;
+  v7[6] = &unk_2A25465B0;
+  v7[7] = &unk_2A25465C8;
+  v8[6] = &unk_2A2546CD0;
+  v8[7] = &unk_2A2546CF8;
+  v7[8] = &unk_2A25465E0;
+  v7[9] = &unk_2A25465F8;
+  v8[8] = &unk_2A2546D20;
+  v8[9] = &unk_2A2546D48;
+  v7[10] = &unk_2A2546610;
+  v7[11] = &unk_2A2546628;
+  v8[10] = &unk_2A2546D70;
+  v8[11] = &unk_2A2546D98;
+  v7[12] = &unk_2A2546640;
+  v7[13] = &unk_2A2546658;
+  v8[12] = &unk_2A2546DC0;
+  v8[13] = &unk_2A2546DE8;
+  v7[14] = &unk_2A2546670;
+  v7[15] = &unk_2A2546688;
+  v8[14] = &unk_2A2546E10;
+  v8[15] = &unk_2A2546E38;
+  v7[16] = &unk_2A25466A0;
+  v7[17] = &unk_2A25466B8;
+  v8[16] = &unk_2A2546E60;
+  v8[17] = &unk_2A2546E88;
+  v7[18] = &unk_2A25466D0;
+  v7[19] = &unk_2A25466E8;
+  v8[18] = &unk_2A2546EB0;
+  v8[19] = &unk_2A2546ED8;
+  v7[20] = &unk_2A2546700;
+  v7[21] = &unk_2A2546718;
+  v8[20] = &unk_2A2546F00;
+  v8[21] = &unk_2A2546F28;
+  v7[22] = &unk_2A2546730;
+  v7[23] = &unk_2A2546748;
+  v8[22] = &unk_2A2546F50;
+  v8[23] = &unk_2A2546F78;
+  v7[24] = &unk_2A2546760;
+  v7[25] = &unk_2A2546778;
+  v8[24] = &unk_2A2546FA0;
+  v8[25] = &unk_2A2546FC8;
+  v7[26] = &unk_2A2546790;
+  v7[27] = &unk_2A25467A8;
+  v8[26] = &unk_2A2546FF0;
+  v8[27] = &unk_2A2547018;
+  v7[28] = &unk_2A25467C0;
+  v7[29] = &unk_2A25467D8;
+  v8[28] = &unk_2A2547040;
+  v8[29] = &unk_2A2547068;
+  v7[30] = &unk_2A25467F0;
+  v7[31] = &unk_2A2546808;
+  v8[30] = &unk_2A2547090;
+  v8[31] = &unk_2A25470B8;
+  v7[32] = &unk_2A2546820;
+  v7[33] = &unk_2A2546838;
+  v8[32] = &unk_2A25470E0;
+  v8[33] = &unk_2A2547108;
+  v7[34] = &unk_2A2546850;
+  v7[35] = &unk_2A2546868;
+  v8[34] = &unk_2A2547130;
+  v8[35] = &unk_2A2547158;
+  v7[36] = &unk_2A2546880;
+  v7[37] = &unk_2A2546898;
+  v8[36] = &unk_2A2547180;
+  v8[37] = &unk_2A25471A8;
+  v7[38] = &unk_2A25468B0;
+  v7[39] = &unk_2A25468C8;
+  v8[38] = &unk_2A25471D0;
+  v8[39] = &unk_2A25471F8;
+  v7[40] = &unk_2A25468E0;
+  v7[41] = &unk_2A25468F8;
+  v8[40] = &unk_2A2547220;
+  v8[41] = &unk_2A2547248;
+  v7[42] = &unk_2A2546910;
+  v7[43] = &unk_2A2546928;
+  v8[42] = &unk_2A2547270;
+  v8[43] = &unk_2A2547298;
+  v7[44] = &unk_2A2546940;
+  v7[45] = &unk_2A2546958;
+  v8[44] = &unk_2A25472C0;
+  v8[45] = &unk_2A25472E8;
+  v7[46] = &unk_2A2546970;
+  v7[47] = &unk_2A2546988;
+  v8[46] = &unk_2A2547310;
+  v8[47] = &unk_2A2547338;
+  v7[48] = &unk_2A25469A0;
+  v7[49] = &unk_2A25469B8;
+  v8[48] = &unk_2A2547360;
+  v8[49] = &unk_2A2547388;
+  v7[50] = &unk_2A25469D0;
+  v7[51] = &unk_2A25469E8;
+  v8[50] = &unk_2A25473B0;
+  v8[51] = &unk_2A25473D8;
+  v7[52] = &unk_2A2546A00;
+  v7[53] = &unk_2A2546A18;
+  v8[52] = &unk_2A2547400;
+  v8[53] = &unk_2A2547428;
+  v7[54] = &unk_2A2546A30;
+  v7[55] = &unk_2A2546A48;
+  v8[54] = &unk_2A2547450;
+  v8[55] = &unk_2A2547478;
+  v7[56] = &unk_2A2546A60;
+  v7[57] = &unk_2A2546A78;
+  v8[56] = &unk_2A25474A0;
+  v8[57] = &unk_2A25474C8;
+  v7[58] = &unk_2A2546A90;
+  v7[59] = &unk_2A2546AA8;
+  v8[58] = &unk_2A25474F0;
+  v8[59] = &unk_2A2547518;
+  v7[60] = &unk_2A2546AC0;
+  v7[61] = &unk_2A2546AD8;
+  v8[60] = &unk_2A2547540;
+  v8[61] = &unk_2A2547568;
+  v7[62] = &unk_2A2546AF0;
+  v7[63] = &unk_2A2546B08;
+  v8[62] = &unk_2A2547590;
+  v8[63] = &unk_2A25475B8;
+  v7[64] = &unk_2A2546B20;
+  v8[64] = &unk_2A25475E0;
+  v7[65] = &unk_2A2546B38;
+  v8[65] = &unk_2A2547608;
+  v7[66] = &unk_2A2546B50;
+  v8[66] = &unk_2A2547630;
+  v7[67] = &unk_2A2546B68;
+  v8[67] = &unk_2A2547658;
+  v7[68] = &unk_2A2546B80;
+  v8[68] = &unk_2A2547680;
+  v7[69] = &unk_2A2546B98;
+  v8[69] = &unk_2A25476A8;
+  v7[70] = &unk_2A2546BB0;
+  v8[70] = &unk_2A25476D0;
+  v7[71] = &unk_2A2546BC8;
+  v8[71] = &unk_2A25476F8;
+  v2 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:72];
   v3 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:~a1];
   v4 = [v2 objectForKeyedSubscript:v3];
   v5 = [v4 objectForKeyedSubscript:@"text"];
-
-  v6 = *MEMORY[0x29EDCA608];
 
   return v5;
 }
 
 id __ICValueToErrorString(uint64_t a1)
 {
-  v9[72] = *MEMORY[0x29EDCA608];
-  v8[0] = &unk_2A2546520;
-  v8[1] = &unk_2A2546538;
-  v9[0] = &unk_2A2547720;
-  v9[1] = &unk_2A2547748;
-  v8[2] = &unk_2A2546550;
-  v8[3] = &unk_2A2546568;
-  v9[2] = &unk_2A2547770;
-  v9[3] = &unk_2A2547798;
-  v8[4] = &unk_2A2546580;
-  v8[5] = &unk_2A2546598;
-  v9[4] = &unk_2A25477C0;
-  v9[5] = &unk_2A25477E8;
-  v8[6] = &unk_2A25465B0;
-  v8[7] = &unk_2A25465C8;
-  v9[6] = &unk_2A2547810;
-  v9[7] = &unk_2A2547838;
-  v8[8] = &unk_2A25465E0;
-  v8[9] = &unk_2A25465F8;
-  v9[8] = &unk_2A2547860;
-  v9[9] = &unk_2A2547888;
-  v8[10] = &unk_2A2546610;
-  v8[11] = &unk_2A2546628;
-  v9[10] = &unk_2A25478B0;
-  v9[11] = &unk_2A25478D8;
-  v8[12] = &unk_2A2546640;
-  v8[13] = &unk_2A2546658;
-  v9[12] = &unk_2A2547900;
-  v9[13] = &unk_2A2547928;
-  v8[14] = &unk_2A2546670;
-  v8[15] = &unk_2A2546688;
-  v9[14] = &unk_2A2547950;
-  v9[15] = &unk_2A2547978;
-  v8[16] = &unk_2A25466A0;
-  v8[17] = &unk_2A25466B8;
-  v9[16] = &unk_2A25479A0;
-  v9[17] = &unk_2A25479C8;
-  v8[18] = &unk_2A25466D0;
-  v8[19] = &unk_2A25466E8;
-  v9[18] = &unk_2A25479F0;
-  v9[19] = &unk_2A2547A18;
-  v8[20] = &unk_2A2546700;
-  v8[21] = &unk_2A2546718;
-  v9[20] = &unk_2A2547A40;
-  v9[21] = &unk_2A2547A68;
-  v8[22] = &unk_2A2546730;
-  v8[23] = &unk_2A2546748;
-  v9[22] = &unk_2A2547A90;
-  v9[23] = &unk_2A2547AB8;
-  v8[24] = &unk_2A2546760;
-  v8[25] = &unk_2A2546778;
-  v9[24] = &unk_2A2547AE0;
-  v9[25] = &unk_2A2547B08;
-  v8[26] = &unk_2A2546790;
-  v8[27] = &unk_2A25467A8;
-  v9[26] = &unk_2A2547B30;
-  v9[27] = &unk_2A2547B58;
-  v8[28] = &unk_2A25467C0;
-  v8[29] = &unk_2A25467D8;
-  v9[28] = &unk_2A2547B80;
-  v9[29] = &unk_2A2547BA8;
-  v8[30] = &unk_2A25467F0;
-  v8[31] = &unk_2A2546808;
-  v9[30] = &unk_2A2547BD0;
-  v9[31] = &unk_2A2547BF8;
-  v8[32] = &unk_2A2546820;
-  v8[33] = &unk_2A2546838;
-  v9[32] = &unk_2A2547C20;
-  v9[33] = &unk_2A2547C48;
-  v8[34] = &unk_2A2546850;
-  v8[35] = &unk_2A2546868;
-  v9[34] = &unk_2A2547C70;
-  v9[35] = &unk_2A2547C98;
-  v8[36] = &unk_2A2546880;
-  v8[37] = &unk_2A2546898;
-  v9[36] = &unk_2A2547CC0;
-  v9[37] = &unk_2A2547CE8;
-  v8[38] = &unk_2A25468B0;
-  v8[39] = &unk_2A25468C8;
-  v9[38] = &unk_2A2547D10;
-  v9[39] = &unk_2A2547D38;
-  v8[40] = &unk_2A25468E0;
-  v8[41] = &unk_2A25468F8;
-  v9[40] = &unk_2A2547D60;
-  v9[41] = &unk_2A2547D88;
-  v8[42] = &unk_2A2546910;
-  v8[43] = &unk_2A2546928;
-  v9[42] = &unk_2A2547DB0;
-  v9[43] = &unk_2A2547DD8;
-  v8[44] = &unk_2A2546940;
-  v8[45] = &unk_2A2546958;
-  v9[44] = &unk_2A2547E00;
-  v9[45] = &unk_2A2547E28;
-  v8[46] = &unk_2A2546970;
-  v8[47] = &unk_2A2546988;
-  v9[46] = &unk_2A2547E50;
-  v9[47] = &unk_2A2547E78;
-  v8[48] = &unk_2A25469A0;
-  v8[49] = &unk_2A25469B8;
-  v9[48] = &unk_2A2547EA0;
-  v9[49] = &unk_2A2547EC8;
-  v8[50] = &unk_2A25469D0;
-  v8[51] = &unk_2A25469E8;
-  v9[50] = &unk_2A2547EF0;
-  v9[51] = &unk_2A2547F18;
-  v8[52] = &unk_2A2546A00;
-  v8[53] = &unk_2A2546A18;
-  v9[52] = &unk_2A2547F40;
-  v9[53] = &unk_2A2547F68;
-  v8[54] = &unk_2A2546A30;
-  v8[55] = &unk_2A2546A48;
-  v9[54] = &unk_2A2547F90;
-  v9[55] = &unk_2A2547FB8;
-  v8[56] = &unk_2A2546A60;
-  v8[57] = &unk_2A2546A78;
-  v9[56] = &unk_2A2547FE0;
-  v9[57] = &unk_2A2548008;
-  v8[58] = &unk_2A2546A90;
-  v8[59] = &unk_2A2546AA8;
-  v9[58] = &unk_2A2548030;
-  v9[59] = &unk_2A2548058;
-  v8[60] = &unk_2A2546AC0;
-  v8[61] = &unk_2A2546AD8;
-  v9[60] = &unk_2A2548080;
-  v9[61] = &unk_2A25480A8;
-  v8[62] = &unk_2A2546AF0;
-  v8[63] = &unk_2A2546B08;
-  v9[62] = &unk_2A25480D0;
-  v9[63] = &unk_2A25480F8;
-  v8[64] = &unk_2A2546B20;
-  v9[64] = &unk_2A2548120;
-  v8[65] = &unk_2A2546B38;
-  v9[65] = &unk_2A2548148;
-  v8[66] = &unk_2A2546B50;
-  v9[66] = &unk_2A2548170;
-  v8[67] = &unk_2A2546B68;
-  v9[67] = &unk_2A2548198;
-  v8[68] = &unk_2A2546B80;
-  v9[68] = &unk_2A25481C0;
-  v8[69] = &unk_2A2546B98;
-  v9[69] = &unk_2A25481E8;
-  v8[70] = &unk_2A2546BB0;
-  v9[70] = &unk_2A2548210;
-  v8[71] = &unk_2A2546BC8;
-  v9[71] = &unk_2A2548238;
-  v2 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:72];
+  v8[72] = *MEMORY[0x29EDCA608];
+  v7[0] = &unk_2A2546520;
+  v7[1] = &unk_2A2546538;
+  v8[0] = &unk_2A2547720;
+  v8[1] = &unk_2A2547748;
+  v7[2] = &unk_2A2546550;
+  v7[3] = &unk_2A2546568;
+  v8[2] = &unk_2A2547770;
+  v8[3] = &unk_2A2547798;
+  v7[4] = &unk_2A2546580;
+  v7[5] = &unk_2A2546598;
+  v8[4] = &unk_2A25477C0;
+  v8[5] = &unk_2A25477E8;
+  v7[6] = &unk_2A25465B0;
+  v7[7] = &unk_2A25465C8;
+  v8[6] = &unk_2A2547810;
+  v8[7] = &unk_2A2547838;
+  v7[8] = &unk_2A25465E0;
+  v7[9] = &unk_2A25465F8;
+  v8[8] = &unk_2A2547860;
+  v8[9] = &unk_2A2547888;
+  v7[10] = &unk_2A2546610;
+  v7[11] = &unk_2A2546628;
+  v8[10] = &unk_2A25478B0;
+  v8[11] = &unk_2A25478D8;
+  v7[12] = &unk_2A2546640;
+  v7[13] = &unk_2A2546658;
+  v8[12] = &unk_2A2547900;
+  v8[13] = &unk_2A2547928;
+  v7[14] = &unk_2A2546670;
+  v7[15] = &unk_2A2546688;
+  v8[14] = &unk_2A2547950;
+  v8[15] = &unk_2A2547978;
+  v7[16] = &unk_2A25466A0;
+  v7[17] = &unk_2A25466B8;
+  v8[16] = &unk_2A25479A0;
+  v8[17] = &unk_2A25479C8;
+  v7[18] = &unk_2A25466D0;
+  v7[19] = &unk_2A25466E8;
+  v8[18] = &unk_2A25479F0;
+  v8[19] = &unk_2A2547A18;
+  v7[20] = &unk_2A2546700;
+  v7[21] = &unk_2A2546718;
+  v8[20] = &unk_2A2547A40;
+  v8[21] = &unk_2A2547A68;
+  v7[22] = &unk_2A2546730;
+  v7[23] = &unk_2A2546748;
+  v8[22] = &unk_2A2547A90;
+  v8[23] = &unk_2A2547AB8;
+  v7[24] = &unk_2A2546760;
+  v7[25] = &unk_2A2546778;
+  v8[24] = &unk_2A2547AE0;
+  v8[25] = &unk_2A2547B08;
+  v7[26] = &unk_2A2546790;
+  v7[27] = &unk_2A25467A8;
+  v8[26] = &unk_2A2547B30;
+  v8[27] = &unk_2A2547B58;
+  v7[28] = &unk_2A25467C0;
+  v7[29] = &unk_2A25467D8;
+  v8[28] = &unk_2A2547B80;
+  v8[29] = &unk_2A2547BA8;
+  v7[30] = &unk_2A25467F0;
+  v7[31] = &unk_2A2546808;
+  v8[30] = &unk_2A2547BD0;
+  v8[31] = &unk_2A2547BF8;
+  v7[32] = &unk_2A2546820;
+  v7[33] = &unk_2A2546838;
+  v8[32] = &unk_2A2547C20;
+  v8[33] = &unk_2A2547C48;
+  v7[34] = &unk_2A2546850;
+  v7[35] = &unk_2A2546868;
+  v8[34] = &unk_2A2547C70;
+  v8[35] = &unk_2A2547C98;
+  v7[36] = &unk_2A2546880;
+  v7[37] = &unk_2A2546898;
+  v8[36] = &unk_2A2547CC0;
+  v8[37] = &unk_2A2547CE8;
+  v7[38] = &unk_2A25468B0;
+  v7[39] = &unk_2A25468C8;
+  v8[38] = &unk_2A2547D10;
+  v8[39] = &unk_2A2547D38;
+  v7[40] = &unk_2A25468E0;
+  v7[41] = &unk_2A25468F8;
+  v8[40] = &unk_2A2547D60;
+  v8[41] = &unk_2A2547D88;
+  v7[42] = &unk_2A2546910;
+  v7[43] = &unk_2A2546928;
+  v8[42] = &unk_2A2547DB0;
+  v8[43] = &unk_2A2547DD8;
+  v7[44] = &unk_2A2546940;
+  v7[45] = &unk_2A2546958;
+  v8[44] = &unk_2A2547E00;
+  v8[45] = &unk_2A2547E28;
+  v7[46] = &unk_2A2546970;
+  v7[47] = &unk_2A2546988;
+  v8[46] = &unk_2A2547E50;
+  v8[47] = &unk_2A2547E78;
+  v7[48] = &unk_2A25469A0;
+  v7[49] = &unk_2A25469B8;
+  v8[48] = &unk_2A2547EA0;
+  v8[49] = &unk_2A2547EC8;
+  v7[50] = &unk_2A25469D0;
+  v7[51] = &unk_2A25469E8;
+  v8[50] = &unk_2A2547EF0;
+  v8[51] = &unk_2A2547F18;
+  v7[52] = &unk_2A2546A00;
+  v7[53] = &unk_2A2546A18;
+  v8[52] = &unk_2A2547F40;
+  v8[53] = &unk_2A2547F68;
+  v7[54] = &unk_2A2546A30;
+  v7[55] = &unk_2A2546A48;
+  v8[54] = &unk_2A2547F90;
+  v8[55] = &unk_2A2547FB8;
+  v7[56] = &unk_2A2546A60;
+  v7[57] = &unk_2A2546A78;
+  v8[56] = &unk_2A2547FE0;
+  v8[57] = &unk_2A2548008;
+  v7[58] = &unk_2A2546A90;
+  v7[59] = &unk_2A2546AA8;
+  v8[58] = &unk_2A2548030;
+  v8[59] = &unk_2A2548058;
+  v7[60] = &unk_2A2546AC0;
+  v7[61] = &unk_2A2546AD8;
+  v8[60] = &unk_2A2548080;
+  v8[61] = &unk_2A25480A8;
+  v7[62] = &unk_2A2546AF0;
+  v7[63] = &unk_2A2546B08;
+  v8[62] = &unk_2A25480D0;
+  v8[63] = &unk_2A25480F8;
+  v7[64] = &unk_2A2546B20;
+  v8[64] = &unk_2A2548120;
+  v7[65] = &unk_2A2546B38;
+  v8[65] = &unk_2A2548148;
+  v7[66] = &unk_2A2546B50;
+  v8[66] = &unk_2A2548170;
+  v7[67] = &unk_2A2546B68;
+  v8[67] = &unk_2A2548198;
+  v7[68] = &unk_2A2546B80;
+  v8[68] = &unk_2A25481C0;
+  v7[69] = &unk_2A2546B98;
+  v8[69] = &unk_2A25481E8;
+  v7[70] = &unk_2A2546BB0;
+  v8[70] = &unk_2A2548210;
+  v7[71] = &unk_2A2546BC8;
+  v8[71] = &unk_2A2548238;
+  v2 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:72];
   v3 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:a1];
   v4 = [v2 objectForKeyedSubscript:v3];
   v5 = [v4 objectForKeyedSubscript:@"text"];
-
-  v6 = *MEMORY[0x29EDCA608];
 
   return v5;
 }
 
 id __ICErrorValueDict(uint64_t a1)
 {
-  v8[72] = *MEMORY[0x29EDCA608];
-  v7[0] = &unk_2A2546520;
-  v7[1] = &unk_2A2546538;
-  v8[0] = &unk_2A2548260;
-  v8[1] = &unk_2A2548288;
-  v7[2] = &unk_2A2546550;
-  v7[3] = &unk_2A2546568;
-  v8[2] = &unk_2A25482B0;
-  v8[3] = &unk_2A25482D8;
-  v7[4] = &unk_2A2546580;
-  v7[5] = &unk_2A2546598;
-  v8[4] = &unk_2A2548300;
-  v8[5] = &unk_2A2548328;
-  v7[6] = &unk_2A25465B0;
-  v7[7] = &unk_2A25465C8;
-  v8[6] = &unk_2A2548350;
-  v8[7] = &unk_2A2548378;
-  v7[8] = &unk_2A25465E0;
-  v7[9] = &unk_2A25465F8;
-  v8[8] = &unk_2A25483A0;
-  v8[9] = &unk_2A25483C8;
-  v7[10] = &unk_2A2546610;
-  v7[11] = &unk_2A2546628;
-  v8[10] = &unk_2A25483F0;
-  v8[11] = &unk_2A2548418;
-  v7[12] = &unk_2A2546640;
-  v7[13] = &unk_2A2546658;
-  v8[12] = &unk_2A2548440;
-  v8[13] = &unk_2A2548468;
-  v7[14] = &unk_2A2546670;
-  v7[15] = &unk_2A2546688;
-  v8[14] = &unk_2A2548490;
-  v8[15] = &unk_2A25484B8;
-  v7[16] = &unk_2A25466A0;
-  v7[17] = &unk_2A25466B8;
-  v8[16] = &unk_2A25484E0;
-  v8[17] = &unk_2A2548508;
-  v7[18] = &unk_2A25466D0;
-  v7[19] = &unk_2A25466E8;
-  v8[18] = &unk_2A2548530;
-  v8[19] = &unk_2A2548558;
-  v7[20] = &unk_2A2546700;
-  v7[21] = &unk_2A2546718;
-  v8[20] = &unk_2A2548580;
-  v8[21] = &unk_2A25485A8;
-  v7[22] = &unk_2A2546730;
-  v7[23] = &unk_2A2546748;
-  v8[22] = &unk_2A25485D0;
-  v8[23] = &unk_2A25485F8;
-  v7[24] = &unk_2A2546760;
-  v7[25] = &unk_2A2546778;
-  v8[24] = &unk_2A2548620;
-  v8[25] = &unk_2A2548648;
-  v7[26] = &unk_2A2546790;
-  v7[27] = &unk_2A25467A8;
-  v8[26] = &unk_2A2548670;
-  v8[27] = &unk_2A2548698;
-  v7[28] = &unk_2A25467C0;
-  v7[29] = &unk_2A25467D8;
-  v8[28] = &unk_2A25486C0;
-  v8[29] = &unk_2A25486E8;
-  v7[30] = &unk_2A25467F0;
-  v7[31] = &unk_2A2546808;
-  v8[30] = &unk_2A2548710;
-  v8[31] = &unk_2A2548738;
-  v7[32] = &unk_2A2546820;
-  v7[33] = &unk_2A2546838;
-  v8[32] = &unk_2A2548760;
-  v8[33] = &unk_2A2548788;
-  v7[34] = &unk_2A2546850;
-  v7[35] = &unk_2A2546868;
-  v8[34] = &unk_2A25487B0;
-  v8[35] = &unk_2A25487D8;
-  v7[36] = &unk_2A2546880;
-  v7[37] = &unk_2A2546898;
-  v8[36] = &unk_2A2548800;
-  v8[37] = &unk_2A2548828;
-  v7[38] = &unk_2A25468B0;
-  v7[39] = &unk_2A25468C8;
-  v8[38] = &unk_2A2548850;
-  v8[39] = &unk_2A2548878;
-  v7[40] = &unk_2A25468E0;
-  v7[41] = &unk_2A25468F8;
-  v8[40] = &unk_2A25488A0;
-  v8[41] = &unk_2A25488C8;
-  v7[42] = &unk_2A2546910;
-  v7[43] = &unk_2A2546928;
-  v8[42] = &unk_2A25488F0;
-  v8[43] = &unk_2A2548918;
-  v7[44] = &unk_2A2546940;
-  v7[45] = &unk_2A2546958;
-  v8[44] = &unk_2A2548940;
-  v8[45] = &unk_2A2548968;
-  v7[46] = &unk_2A2546970;
-  v7[47] = &unk_2A2546988;
-  v8[46] = &unk_2A2548990;
-  v8[47] = &unk_2A25489B8;
-  v7[48] = &unk_2A25469A0;
-  v7[49] = &unk_2A25469B8;
-  v8[48] = &unk_2A25489E0;
-  v8[49] = &unk_2A2548A08;
-  v7[50] = &unk_2A25469D0;
-  v7[51] = &unk_2A25469E8;
-  v8[50] = &unk_2A2548A30;
-  v8[51] = &unk_2A2548A58;
-  v7[52] = &unk_2A2546A00;
-  v7[53] = &unk_2A2546A18;
-  v8[52] = &unk_2A2548A80;
-  v8[53] = &unk_2A2548AA8;
-  v7[54] = &unk_2A2546A30;
-  v7[55] = &unk_2A2546A48;
-  v8[54] = &unk_2A2548AD0;
-  v8[55] = &unk_2A2548AF8;
-  v7[56] = &unk_2A2546A60;
-  v7[57] = &unk_2A2546A78;
-  v8[56] = &unk_2A2548B20;
-  v8[57] = &unk_2A2548B48;
-  v7[58] = &unk_2A2546A90;
-  v7[59] = &unk_2A2546AA8;
-  v8[58] = &unk_2A2548B70;
-  v8[59] = &unk_2A2548B98;
-  v7[60] = &unk_2A2546AC0;
-  v7[61] = &unk_2A2546AD8;
-  v8[60] = &unk_2A2548BC0;
-  v8[61] = &unk_2A2548BE8;
-  v7[62] = &unk_2A2546AF0;
-  v7[63] = &unk_2A2546B08;
-  v8[62] = &unk_2A2548C10;
-  v8[63] = &unk_2A2548C38;
-  v7[64] = &unk_2A2546B20;
-  v8[64] = &unk_2A2548C60;
-  v7[65] = &unk_2A2546B38;
-  v8[65] = &unk_2A2548C88;
-  v7[66] = &unk_2A2546B50;
-  v8[66] = &unk_2A2548CB0;
-  v7[67] = &unk_2A2546B68;
-  v8[67] = &unk_2A2548CD8;
-  v7[68] = &unk_2A2546B80;
-  v8[68] = &unk_2A2548D00;
-  v7[69] = &unk_2A2546B98;
-  v8[69] = &unk_2A2548D28;
-  v7[70] = &unk_2A2546BB0;
-  v8[70] = &unk_2A2548D50;
-  v7[71] = &unk_2A2546BC8;
-  v8[71] = &unk_2A2548D78;
-  v2 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:72];
+  v7[72] = *MEMORY[0x29EDCA608];
+  v6[0] = &unk_2A2546520;
+  v6[1] = &unk_2A2546538;
+  v7[0] = &unk_2A2548260;
+  v7[1] = &unk_2A2548288;
+  v6[2] = &unk_2A2546550;
+  v6[3] = &unk_2A2546568;
+  v7[2] = &unk_2A25482B0;
+  v7[3] = &unk_2A25482D8;
+  v6[4] = &unk_2A2546580;
+  v6[5] = &unk_2A2546598;
+  v7[4] = &unk_2A2548300;
+  v7[5] = &unk_2A2548328;
+  v6[6] = &unk_2A25465B0;
+  v6[7] = &unk_2A25465C8;
+  v7[6] = &unk_2A2548350;
+  v7[7] = &unk_2A2548378;
+  v6[8] = &unk_2A25465E0;
+  v6[9] = &unk_2A25465F8;
+  v7[8] = &unk_2A25483A0;
+  v7[9] = &unk_2A25483C8;
+  v6[10] = &unk_2A2546610;
+  v6[11] = &unk_2A2546628;
+  v7[10] = &unk_2A25483F0;
+  v7[11] = &unk_2A2548418;
+  v6[12] = &unk_2A2546640;
+  v6[13] = &unk_2A2546658;
+  v7[12] = &unk_2A2548440;
+  v7[13] = &unk_2A2548468;
+  v6[14] = &unk_2A2546670;
+  v6[15] = &unk_2A2546688;
+  v7[14] = &unk_2A2548490;
+  v7[15] = &unk_2A25484B8;
+  v6[16] = &unk_2A25466A0;
+  v6[17] = &unk_2A25466B8;
+  v7[16] = &unk_2A25484E0;
+  v7[17] = &unk_2A2548508;
+  v6[18] = &unk_2A25466D0;
+  v6[19] = &unk_2A25466E8;
+  v7[18] = &unk_2A2548530;
+  v7[19] = &unk_2A2548558;
+  v6[20] = &unk_2A2546700;
+  v6[21] = &unk_2A2546718;
+  v7[20] = &unk_2A2548580;
+  v7[21] = &unk_2A25485A8;
+  v6[22] = &unk_2A2546730;
+  v6[23] = &unk_2A2546748;
+  v7[22] = &unk_2A25485D0;
+  v7[23] = &unk_2A25485F8;
+  v6[24] = &unk_2A2546760;
+  v6[25] = &unk_2A2546778;
+  v7[24] = &unk_2A2548620;
+  v7[25] = &unk_2A2548648;
+  v6[26] = &unk_2A2546790;
+  v6[27] = &unk_2A25467A8;
+  v7[26] = &unk_2A2548670;
+  v7[27] = &unk_2A2548698;
+  v6[28] = &unk_2A25467C0;
+  v6[29] = &unk_2A25467D8;
+  v7[28] = &unk_2A25486C0;
+  v7[29] = &unk_2A25486E8;
+  v6[30] = &unk_2A25467F0;
+  v6[31] = &unk_2A2546808;
+  v7[30] = &unk_2A2548710;
+  v7[31] = &unk_2A2548738;
+  v6[32] = &unk_2A2546820;
+  v6[33] = &unk_2A2546838;
+  v7[32] = &unk_2A2548760;
+  v7[33] = &unk_2A2548788;
+  v6[34] = &unk_2A2546850;
+  v6[35] = &unk_2A2546868;
+  v7[34] = &unk_2A25487B0;
+  v7[35] = &unk_2A25487D8;
+  v6[36] = &unk_2A2546880;
+  v6[37] = &unk_2A2546898;
+  v7[36] = &unk_2A2548800;
+  v7[37] = &unk_2A2548828;
+  v6[38] = &unk_2A25468B0;
+  v6[39] = &unk_2A25468C8;
+  v7[38] = &unk_2A2548850;
+  v7[39] = &unk_2A2548878;
+  v6[40] = &unk_2A25468E0;
+  v6[41] = &unk_2A25468F8;
+  v7[40] = &unk_2A25488A0;
+  v7[41] = &unk_2A25488C8;
+  v6[42] = &unk_2A2546910;
+  v6[43] = &unk_2A2546928;
+  v7[42] = &unk_2A25488F0;
+  v7[43] = &unk_2A2548918;
+  v6[44] = &unk_2A2546940;
+  v6[45] = &unk_2A2546958;
+  v7[44] = &unk_2A2548940;
+  v7[45] = &unk_2A2548968;
+  v6[46] = &unk_2A2546970;
+  v6[47] = &unk_2A2546988;
+  v7[46] = &unk_2A2548990;
+  v7[47] = &unk_2A25489B8;
+  v6[48] = &unk_2A25469A0;
+  v6[49] = &unk_2A25469B8;
+  v7[48] = &unk_2A25489E0;
+  v7[49] = &unk_2A2548A08;
+  v6[50] = &unk_2A25469D0;
+  v6[51] = &unk_2A25469E8;
+  v7[50] = &unk_2A2548A30;
+  v7[51] = &unk_2A2548A58;
+  v6[52] = &unk_2A2546A00;
+  v6[53] = &unk_2A2546A18;
+  v7[52] = &unk_2A2548A80;
+  v7[53] = &unk_2A2548AA8;
+  v6[54] = &unk_2A2546A30;
+  v6[55] = &unk_2A2546A48;
+  v7[54] = &unk_2A2548AD0;
+  v7[55] = &unk_2A2548AF8;
+  v6[56] = &unk_2A2546A60;
+  v6[57] = &unk_2A2546A78;
+  v7[56] = &unk_2A2548B20;
+  v7[57] = &unk_2A2548B48;
+  v6[58] = &unk_2A2546A90;
+  v6[59] = &unk_2A2546AA8;
+  v7[58] = &unk_2A2548B70;
+  v7[59] = &unk_2A2548B98;
+  v6[60] = &unk_2A2546AC0;
+  v6[61] = &unk_2A2546AD8;
+  v7[60] = &unk_2A2548BC0;
+  v7[61] = &unk_2A2548BE8;
+  v6[62] = &unk_2A2546AF0;
+  v6[63] = &unk_2A2546B08;
+  v7[62] = &unk_2A2548C10;
+  v7[63] = &unk_2A2548C38;
+  v6[64] = &unk_2A2546B20;
+  v7[64] = &unk_2A2548C60;
+  v6[65] = &unk_2A2546B38;
+  v7[65] = &unk_2A2548C88;
+  v6[66] = &unk_2A2546B50;
+  v7[66] = &unk_2A2548CB0;
+  v6[67] = &unk_2A2546B68;
+  v7[67] = &unk_2A2548CD8;
+  v6[68] = &unk_2A2546B80;
+  v7[68] = &unk_2A2548D00;
+  v6[69] = &unk_2A2546B98;
+  v7[69] = &unk_2A2548D28;
+  v6[70] = &unk_2A2546BB0;
+  v7[70] = &unk_2A2548D50;
+  v6[71] = &unk_2A2546BC8;
+  v7[71] = &unk_2A2548D78;
+  v2 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v7 forKeys:v6 count:72];
   v3 = [MEMORY[0x29EDBA070] numberWithInteger:a1];
   v4 = [v2 objectForKeyedSubscript:v3];
-
-  v5 = *MEMORY[0x29EDCA608];
 
   return v4;
 }
@@ -570,46 +564,45 @@ BOOL __ICAddDecodedErrorToDict(void *a1, uint64_t a2)
 
 uint64_t ICEvaluatePrivateEntitlement(void *a1)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   v1 = [a1 valueForEntitlement:@"com.apple.private.imagecapturecore.authorization_bypass"];
-  if (v1 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v1 BOOLValue])
+  if (v1 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (v2 = [v1 BOOLValue], v2))
   {
-    __ICOSLogCreate();
-    v2 = @"privateBypass";
+    __ICOSLogCreate(v2, v3);
+    v4 = @"privateBypass";
     if ([@"privateBypass" length] >= 0x15)
     {
-      v3 = [@"privateBypass" substringWithRange:{0, 18}];
-      v2 = [v3 stringByAppendingString:@".."];
+      v5 = [@"privateBypass" substringWithRange:{0, 18}];
+      v4 = [v5 stringByAppendingString:@".."];
     }
 
-    v4 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"ICAuthorizationBypassEntitlement found"];
-    v5 = _gICOSLog;
+    v6 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"ICAuthorizationBypassEntitlement found"];
+    v7 = _gICOSLog;
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = v2;
-      v7 = v5;
-      v11 = 136446466;
-      v12 = [(__CFString *)v2 UTF8String];
-      v13 = 2114;
-      v14 = v4;
-      _os_log_impl(&dword_29EB58000, v7, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v11, 0x16u);
+      v8 = v4;
+      v9 = v7;
+      v12 = 136446466;
+      v13 = [(__CFString *)v4 UTF8String];
+      v14 = 2114;
+      v15 = v6;
+      _os_log_impl(&dword_29EB58000, v9, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v12, 0x16u);
     }
 
-    v8 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v8 = 0;
+    v10 = 0;
   }
 
-  v9 = *MEMORY[0x29EDCA608];
-  return v8;
+  return v10;
 }
 
-void sub_29EB6225C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_29EB6225C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -817,7 +810,7 @@ void WriteUnicodeStringWithLengthByteToBuffer(_BYTE **a1, void *a2)
     v7 = *a1;
     do
     {
-      v7 += 2;
+      ++v7;
       --v3;
     }
 
@@ -928,13 +921,13 @@ id CopyArrayOfUnsignedShortsFromBufferMaxSize(unsigned __int16 **a1, unint64_t a
   return v3;
 }
 
-void WriteArrayOfUnsignedShortsToBuffer(unsigned int **a1, void *a2)
+void WriteArrayOfUnsignedShortsToBuffer(unsigned __int16 **a1, void *a2)
 {
   v10 = a2;
   v3 = [v10 count];
   v4 = *a1;
   *v4 = v3;
-  *a1 = v4 + 1;
+  *a1 = v4 + 2;
   if (v3)
   {
     v5 = 0;
@@ -946,7 +939,7 @@ void WriteArrayOfUnsignedShortsToBuffer(unsigned int **a1, void *a2)
 
       v9 = *a1;
       *v9 = v8;
-      *a1 = (v9 + 2);
+      *a1 = v9 + 1;
       ++v5;
     }
 
@@ -3507,16 +3500,16 @@ uint64_t __ICLocalizedString_block_invoke()
   return MEMORY[0x2A1C71028](v0, v1);
 }
 
-void sub_29EB6B31C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_29EB6B31C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_29EB6BAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_29EB6BAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3528,71 +3521,78 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_29EB6C62C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_29EB6C62C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_29EB6D77C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_29EB6D1EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  va_start(va, a9);
+  va_start(va, a38);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t ICAcessQuery(void *a1, int a2, void *a3)
+void sub_29EB6D77C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t ICAcessQuery(void *a1, unsigned int a2, void *a3)
+{
+  v22 = *MEMORY[0x29EDCA608];
   v5 = a1;
+  v7 = v5;
   if (a2 >= 1)
   {
-    v6 = a2;
+    v8 = a2;
     do
     {
       if (*a3)
       {
-        v7 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:?];
-        [v5 addObject:v7];
+        v9 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:?];
+        [v7 addObject:v9];
       }
 
-      __ICOSLogCreate();
-      v8 = @"adding";
+      __ICOSLogCreate(v5, v6);
+      v10 = @"adding";
       if ([@"adding" length] >= 0x15)
       {
-        v9 = [@"adding" substringWithRange:{0, 18}];
-        v8 = [v9 stringByAppendingString:@".."];
+        v11 = [@"adding" substringWithRange:{0, 18}];
+        v10 = [v11 stringByAppendingString:@".."];
       }
 
-      v10 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s", *a3];
-      v11 = _gICOSLog;
+      v12 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s", *a3];
+      v13 = _gICOSLog;
       if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = v8;
-        v13 = v11;
-        v14 = [(__CFString *)v8 UTF8String];
+        v14 = v10;
+        v15 = v13;
+        v16 = [(__CFString *)v10 UTF8String];
         *buf = 136446466;
-        v18 = v14;
-        v19 = 2114;
-        v20 = v10;
-        _os_log_impl(&dword_29EB58000, v13, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+        v19 = v16;
+        v20 = 2114;
+        v21 = v12;
+        _os_log_impl(&dword_29EB58000, v15, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
 
       ++a3;
-      --v6;
+      --v8;
     }
 
-    while (v6);
+    while (v8);
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
-void sub_29EB6E614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_29EB6E614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3658,30 +3658,39 @@ LABEL_17:
   return 0;
 }
 
-void sub_29EB6F610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29EB6F29C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  va_start(va, a7);
+  va_start(va, a28);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_29EB6F7FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29EB6F610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_29EB6F7FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
+}
+
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t OUTLINED_FUNCTION_4()

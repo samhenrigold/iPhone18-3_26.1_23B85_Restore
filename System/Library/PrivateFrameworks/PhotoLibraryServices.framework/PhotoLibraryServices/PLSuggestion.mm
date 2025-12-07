@@ -238,7 +238,7 @@
   v35 = changeCopy;
   recordList = [changeCopy recordList];
   assets = [recordList assets];
-  v17 = [assets count];
+  v17 = objc_msgSend_count(assets);
   v31 = [assets valueForKey:@"assetIdentifier"];
   v34 = libraryCopy;
   v18 = [PLManagedAsset assetsByCloudAssetUUID:"assetsByCloudAssetUUID:inLibrary:" inLibrary:?];
@@ -321,7 +321,7 @@
 - (BOOL)isEmpty
 {
   keyAssets = [(PLSuggestion *)self keyAssets];
-  if ([keyAssets count])
+  if (objc_msgSend_count(keyAssets))
   {
     v4 = 0;
   }
@@ -329,7 +329,7 @@
   else
   {
     representativeSuggestionAssets = [(PLSuggestion *)self representativeSuggestionAssets];
-    v4 = [representativeSuggestionAssets count] == 0;
+    v4 = objc_msgSend_count(representativeSuggestionAssets) == 0;
   }
 
   return v4;
@@ -367,7 +367,7 @@
   if (objc_opt_isKindOfClass())
   {
     keyAssets = [(PLSuggestion *)self keyAssets];
-    v7 = [keyAssets count];
+    v7 = objc_msgSend_count(keyAssets);
 
     if (v7 == 1)
     {
@@ -688,14 +688,14 @@ LABEL_18:
     if (([(PLSuggestion *)self isDeleted]& 1) == 0)
     {
       keyAssets = [(PLSuggestion *)self keyAssets];
-      if ([keyAssets count])
+      if (objc_msgSend_count(keyAssets))
       {
       }
 
       else
       {
         representativeSuggestionAssets = [(PLSuggestion *)self representativeSuggestionAssets];
-        v6 = [representativeSuggestionAssets count];
+        v6 = objc_msgSend_count(representativeSuggestionAssets);
 
         if (!v6)
         {
@@ -950,14 +950,14 @@ LABEL_15:
   v17 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   contextCopy = context;
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     if ((*MEMORY[0x1E6994D48] & 1) == 0)
     {
       v8 = __CPLAssetsdOSLogDomain();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(dsCopy, "count")}];
+        v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:objc_msgSend_count(dsCopy)];
         *buf = 138412290;
         v16 = v9;
         _os_log_impl(&dword_19BF1F000, v8, OS_LOG_TYPE_DEFAULT, "Removing %@ suggestions", buf, 0xCu);
@@ -1003,10 +1003,10 @@ LABEL_15:
 
   v14 = 0x1E696A000uLL;
   v15 = 0x1E696A000;
-  if ([typesCopy count])
+  if (objc_msgSend_count(typesCopy))
   {
     typesCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K in %@", @"type", typesCopy];
-    if (![typeCopy count])
+    if (!objc_msgSend_count(typeCopy))
     {
       v17 = 0;
       goto LABEL_20;
@@ -1015,7 +1015,7 @@ LABEL_15:
 
   else
   {
-    v18 = [typeCopy count];
+    v18 = objc_msgSend_count(typeCopy);
     typesCopy = 0;
     v17 = 0;
     v19 = 0;

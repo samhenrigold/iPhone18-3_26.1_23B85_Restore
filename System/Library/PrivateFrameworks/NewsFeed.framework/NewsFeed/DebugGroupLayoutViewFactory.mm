@@ -18,10 +18,10 @@
   interactionCopy = interaction;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1D7070A6C();
+  sub_1D7070A6C(interactionCopy);
 
   swift_unknownObjectRelease();
-  sub_1D5B5A498(0, &qword_1EC899B10);
+  sub_1D5B5A498(0, &qword_1EC899B10, 0x1E69DC990);
   v7 = sub_1D726265C();
 
   return v7;

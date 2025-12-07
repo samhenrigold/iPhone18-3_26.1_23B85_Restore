@@ -36,7 +36,7 @@
   data = [heartbeat data];
   v7 = 0;
   v4 = [NSJSONSerialization JSONObjectWithData:data options:0 error:&v7];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -48,9 +48,9 @@
 {
   responseCopy = response;
   data = [responseCopy data];
-  v17 = 0;
-  v6 = [NSJSONSerialization JSONObjectWithData:data options:0 error:&v17];
-  v7 = v17;
+  v18 = 0;
+  v6 = [NSJSONSerialization JSONObjectWithData:data options:0 error:&v18];
+  v7 = v18;
   type = [responseCopy type];
   v9 = [v6 objectForKey:@"RequestResult"];
   bOOLValue = [v9 BOOLValue];
@@ -62,16 +62,16 @@
   responseHandlers = [(MSDIDSHandler *)self responseHandlers];
   v14 = [responseHandlers objectForKey:incomingResponseIdentifier];
 
-  responseHandlers2 = sub_100063A54();
-  v16 = os_log_type_enabled(responseHandlers2, OS_LOG_TYPE_DEFAULT);
+  responseHandlers2 = sub_100063A54(v15);
+  v17 = os_log_type_enabled(responseHandlers2, OS_LOG_TYPE_DEFAULT);
   if (v14)
   {
-    if (v16)
+    if (v17)
     {
       *buf = 134218242;
-      v19 = type;
-      v20 = 2114;
-      v21 = incomingResponseIdentifier;
+      v20 = type;
+      v21 = 2114;
+      v22 = incomingResponseIdentifier;
       _os_log_impl(&_mh_execute_header, responseHandlers2, OS_LOG_TYPE_DEFAULT, "Received ACK for type: %ld identifier: %{public}@", buf, 0x16u);
     }
 
@@ -80,10 +80,10 @@
     [responseHandlers2 removeObjectForKey:incomingResponseIdentifier];
   }
 
-  else if (v16)
+  else if (v17)
   {
     *buf = 138543362;
-    v19 = incomingResponseIdentifier;
+    v20 = incomingResponseIdentifier;
     _os_log_impl(&_mh_execute_header, responseHandlers2, OS_LOG_TYPE_DEFAULT, "Received ACK for unknown request identifier: %{public}@", buf, 0xCu);
   }
 }

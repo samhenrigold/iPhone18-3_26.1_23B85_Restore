@@ -48,18 +48,18 @@
 
 void __89__WFHealthFeatureAvailability_featureAvailabilityProvidingDidUpdateOnboardingCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = getWFGeneralLogObject();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315394;
-      v9 = "[WFHealthFeatureAvailability featureAvailabilityProvidingDidUpdateOnboardingCompletion:]_block_invoke";
-      v10 = 2114;
-      v11 = v5;
-      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s Got notified that sleep onboarding status has changed, but encountered error in retrieving new value: %{public}@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[WFHealthFeatureAvailability featureAvailabilityProvidingDidUpdateOnboardingCompletion:]_block_invoke";
+      v9 = 2114;
+      v10 = v5;
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s Got notified that sleep onboarding status has changed, but encountered error in retrieving new value: %{public}@", &v7, 0x16u);
     }
   }
 
@@ -67,8 +67,6 @@ void __89__WFHealthFeatureAvailability_featureAvailabilityProvidingDidUpdateOnbo
   {
     [*(a1 + 32) setSleepOnboardingStatus:a2];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getSleepOnboardingStatus:(id)status
@@ -207,77 +205,76 @@ LABEL_12:
 
 void __52__WFHealthFeatureAvailability_initWithSleepFeature___block_invoke(uint64_t a1)
 {
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2050000000;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2050000000;
   v2 = getHKSPSleepStoreClass_softClass;
-  v25 = getHKSPSleepStoreClass_softClass;
+  v24 = getHKSPSleepStoreClass_softClass;
   if (!getHKSPSleepStoreClass_softClass)
   {
-    v17 = MEMORY[0x1E69E9820];
-    v18 = 3221225472;
-    v19 = __getHKSPSleepStoreClass_block_invoke;
-    v20 = &unk_1E837FAC0;
-    v21 = &v22;
-    __getHKSPSleepStoreClass_block_invoke(&v17);
-    v2 = v23[3];
+    v16 = MEMORY[0x1E69E9820];
+    v17 = 3221225472;
+    v18 = __getHKSPSleepStoreClass_block_invoke;
+    v19 = &unk_1E837FAC0;
+    v20 = &v21;
+    __getHKSPSleepStoreClass_block_invoke(&v16);
+    v2 = v22[3];
   }
 
   v3 = v2;
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v21, 8);
   v4 = [v2 alloc];
-  v5 = *(a1 + 32);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [v4 initWithIdentifier:v7];
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v7 = [v4 initWithIdentifier:v6];
 
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2050000000;
-  v9 = getHKSPFeatureAvailabilityStoreClass_softClass;
-  v25 = getHKSPFeatureAvailabilityStoreClass_softClass;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2050000000;
+  v8 = getHKSPFeatureAvailabilityStoreClass_softClass;
+  v24 = getHKSPFeatureAvailabilityStoreClass_softClass;
   if (!getHKSPFeatureAvailabilityStoreClass_softClass)
   {
-    v17 = MEMORY[0x1E69E9820];
-    v18 = 3221225472;
-    v19 = __getHKSPFeatureAvailabilityStoreClass_block_invoke;
-    v20 = &unk_1E837FAC0;
-    v21 = &v22;
-    __getHKSPFeatureAvailabilityStoreClass_block_invoke(&v17);
-    v9 = v23[3];
+    v16 = MEMORY[0x1E69E9820];
+    v17 = 3221225472;
+    v18 = __getHKSPFeatureAvailabilityStoreClass_block_invoke;
+    v19 = &unk_1E837FAC0;
+    v20 = &v21;
+    __getHKSPFeatureAvailabilityStoreClass_block_invoke(&v16);
+    v8 = v22[3];
   }
 
-  v10 = v9;
-  _Block_object_dispose(&v22, 8);
-  v11 = [[v9 alloc] initWithFeatureIdentifier:*(a1 + 40) sleepStore:v8];
-  v12 = *(a1 + 32);
-  v13 = *(v12 + 16);
-  *(v12 + 16) = v11;
+  v9 = v8;
+  _Block_object_dispose(&v21, 8);
+  v10 = [[v8 alloc] initWithFeatureIdentifier:*(a1 + 40) sleepStore:v7];
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 16);
+  *(v11 + 16) = v10;
 
   [*(*(a1 + 32) + 16) registerObserver:*(a1 + 32) queue:*(*(a1 + 32) + 24)];
-  v14 = *(a1 + 32);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __52__WFHealthFeatureAvailability_initWithSleepFeature___block_invoke_2;
-  v15[3] = &unk_1E8379DE8;
-  v16 = v14;
-  [v16 getSleepOnboardingStatus:v15];
+  v13 = *(a1 + 32);
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __52__WFHealthFeatureAvailability_initWithSleepFeature___block_invoke_2;
+  v14[3] = &unk_1E8379DE8;
+  v15 = v13;
+  [v15 getSleepOnboardingStatus:v14];
 }
 
 void __52__WFHealthFeatureAvailability_initWithSleepFeature___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = getWFGeneralLogObject();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315394;
-      v9 = "[WFHealthFeatureAvailability initWithSleepFeature:]_block_invoke_2";
-      v10 = 2114;
-      v11 = v5;
-      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s Encountered error in retrieving sleep onboarding status from HealthKit: %{public}@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[WFHealthFeatureAvailability initWithSleepFeature:]_block_invoke_2";
+      v9 = 2114;
+      v10 = v5;
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s Encountered error in retrieving sleep onboarding status from HealthKit: %{public}@", &v7, 0x16u);
     }
   }
 
@@ -285,8 +282,6 @@ void __52__WFHealthFeatureAvailability_initWithSleepFeature___block_invoke_2(uin
   {
     [*(a1 + 32) setSleepOnboardingStatus:a2];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

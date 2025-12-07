@@ -179,30 +179,31 @@ void __58__HULiveListenTranscriptionController_startTranscribingV2__block_invoke
   [*(a1 + 32) setLiveCaptionsService:v2];
 
   v3 = MEMORY[0x1E695DF58];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
   v4 = getAXLCLiveCaptionsSelectedLocaleIdentifierSymbolLoc_ptr;
-  v24 = getAXLCLiveCaptionsSelectedLocaleIdentifierSymbolLoc_ptr;
+  v25 = getAXLCLiveCaptionsSelectedLocaleIdentifierSymbolLoc_ptr;
   if (!getAXLCLiveCaptionsSelectedLocaleIdentifierSymbolLoc_ptr)
   {
     *buf = MEMORY[0x1E69E9820];
-    v17 = 3221225472;
-    v18 = __getAXLCLiveCaptionsSelectedLocaleIdentifierSymbolLoc_block_invoke;
-    v19 = &unk_1E85C9FB0;
-    v20 = &v21;
+    v18 = 3221225472;
+    v19 = __getAXLCLiveCaptionsSelectedLocaleIdentifierSymbolLoc_block_invoke;
+    v20 = &unk_1E85C9FB0;
+    v21 = &v22;
     v5 = LiveTranscriptionLibrary();
-    v22[3] = dlsym(v5, "AXLCLiveCaptionsSelectedLocaleIdentifier");
-    getAXLCLiveCaptionsSelectedLocaleIdentifierSymbolLoc_ptr = *(v20[1] + 24);
-    v4 = v22[3];
+    v23[3] = dlsym(v5, "AXLCLiveCaptionsSelectedLocaleIdentifier");
+    getAXLCLiveCaptionsSelectedLocaleIdentifierSymbolLoc_ptr = *(v21[1] + 24);
+    v4 = v23[3];
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v22, 8);
   if (!v4)
   {
-    ADAFMetadataKeyHAEDataForGauge_cold_1 = getADAFMetadataKeyHAEDataForGauge_cold_1();
-    _Block_object_dispose(&v21, 8);
-    _Unwind_Resume(ADAFMetadataKeyHAEDataForGauge_cold_1);
+    getADAFMetadataKeyHAEDataForGauge_cold_1();
+    v14 = v13;
+    _Block_object_dispose(&v22, 8);
+    _Unwind_Resume(v14);
   }
 
   v6 = v4();
@@ -210,14 +211,14 @@ void __58__HULiveListenTranscriptionController_startTranscribingV2__block_invoke
 
   v8 = [*(a1 + 32) liveCaptionsService];
   v9 = +[HULiveCaptionsObjC sourceTypeSystem];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __58__HULiveListenTranscriptionController_startTranscribingV2__block_invoke_2;
-  v14[3] = &unk_1E85CC460;
-  v14[4] = *(a1 + 32);
-  v15 = 0;
-  [v8 startWithSource:v9 locale:v7 sharedRoute:0 excludePIDs:0 error:&v15 transcriptionResult:v14];
-  v10 = v15;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __58__HULiveListenTranscriptionController_startTranscribingV2__block_invoke_2;
+  v15[3] = &unk_1E85CC460;
+  v15[4] = *(a1 + 32);
+  v16 = 0;
+  [v8 startWithSource:v9 locale:v7 sharedRoute:0 excludePIDs:0 error:&v16 transcriptionResult:v15];
+  v10 = v16;
 
   v11 = HCLogHearingAids();
   v12 = v11;
@@ -317,38 +318,6 @@ void __57__HULiveListenTranscriptionController_stopTranscribingV2__block_invoke(
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-void __56__HULiveListenTranscriptionController_startTranscribing__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1DA5E2000, v0, v1, "Failed to start transcribing: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __55__HULiveListenTranscriptionController_stopTranscribing__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1DA5E2000, v0, v1, "Failed to stop transcribing: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __58__HULiveListenTranscriptionController_startTranscribingV2__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1DA5E2000, v0, v1, "Failed to start transcribing V2: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __57__HULiveListenTranscriptionController_stopTranscribingV2__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1DA5E2000, v0, v1, "Failed to stop transcribing V2: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

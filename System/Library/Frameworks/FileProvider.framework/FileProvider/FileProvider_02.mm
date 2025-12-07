@@ -1,183 +1,3 @@
-uint64_t _materialize_partial(unsigned int a1, int a2, uint64_t a3, uint64_t a4, int a5, _BYTE *a6)
-{
-  if (a3 < 0 || a4 <= 0)
-  {
-    v9 = fpfs_current_or_default_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-LABEL_8:
-      _materialize_partial_cold_4();
-    }
-
-LABEL_9:
-
-LABEL_10:
-    *__error() = 22;
-    return 0xFFFFFFFFLL;
-  }
-
-  v8 = a3 + a4;
-  if (__OFADD__(a3, a4))
-  {
-    v9 = fpfs_current_or_default_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_8;
-    }
-
-    goto LABEL_9;
-  }
-
-  v21 = xmmword_1AAC26688;
-  v22 = 512;
-  DWORD2(v24) = 0;
-  *&v24 = 0;
-  if (fgetattrlist(a1, &v21, &v24, 0xCuLL, 0) < 0)
-  {
-    v15 = -1;
-  }
-
-  else
-  {
-    v15 = *(&v24 + 4);
-  }
-
-  if (v15 < 0)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (v8 > v15)
-  {
-    v16 = fpfs_current_or_default_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-    {
-      _materialize_partial_cold_3();
-    }
-
-LABEL_31:
-
-    goto LABEL_10;
-  }
-
-  if (v15 != v8)
-  {
-    v16 = fpfs_current_or_default_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-    {
-      _materialize_partial_cold_1();
-    }
-
-    goto LABEL_31;
-  }
-
-  *&v24 = 0;
-  *(&v24 + 1) = a3;
-  v25 = a4;
-  if (fcntl(a2, 99, &v24) < 0)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  *(&v21 + 1) = a3;
-  *&v21 = a1;
-  v22 = a3;
-  v23 = a4;
-  if (ffsctl(a2, 0x80204A4CuLL, &v21, 0) < 0)
-  {
-    v20 = fpfs_current_or_default_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-    {
-      _materialize_partial_cold_2();
-    }
-
-    return 0xFFFFFFFFLL;
-  }
-
-  v17 = fgetsize(a2);
-  if (v17 < 0)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  v18 = v17;
-  v19 = lseek(a2, 0, 3);
-  if (v19 < 0)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (v19 == v18 || !a3 && a5 && a4 == v18)
-  {
-    result = 0;
-    *a6 = 1;
-  }
-
-  else
-  {
-    result = 0;
-    *a6 = 0;
-  }
-
-  return result;
-}
-
-uint64_t __fpfs_materialize_block_invoke(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 20);
-  v3 = *(a1 + 40);
-  *(*(*(a1 + 32) + 8) + 24) = v2;
-  if (v3)
-  {
-    v4 = *(a2 + 16);
-    *v3 = *a2;
-    *(v3 + 16) = v4;
-    *(v3 + 20) = v2;
-  }
-
-  return 0;
-}
-
-uint64_t fpfs_purge_single_file(int a1, int a2)
-{
-  v7 = 0u;
-  v8 = 0u;
-  LODWORD(v7) = a2;
-  memset(&v6, 0, sizeof(v6));
-  if (ffsctl(a1, 0xC0204A5FuLL, &v7, 0) < 0)
-  {
-    v4 = *__error();
-    v5 = fpfs_current_or_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      fpfs_purge_single_file_cold_1();
-    }
-
-    goto LABEL_8;
-  }
-
-  if (*(&v8 + 1))
-  {
-    return 0;
-  }
-
-  result = fstat(a1, &v6);
-  if (result)
-  {
-    return 0;
-  }
-
-  if ((v6.st_mode & 0xF000) == 0x8000 && v6.st_size >= 1 && v6.st_nlink >= 2u)
-  {
-    v4 = 31;
-LABEL_8:
-    *__error() = v4;
-    return 0xFFFFFFFFLL;
-  }
-
-  return result;
-}
-
 uint64_t fpfs_revoke_children(int a1, uint64_t *a2)
 {
   v4 = 1;
@@ -200,12 +20,12 @@ uint64_t fpfs_revoke_children(int a1, uint64_t *a2)
   return 0;
 }
 
-uint64_t fpfs_evict(int a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, unsigned int a6, int a7, void *a8)
+uint64_t fpfs_evict(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t *a4, uint64_t *a5, unsigned int a6, int a7, void *a8)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v15 = a8;
   v16 = v15;
-  v39 = -1;
+  v38 = -1;
   if (a4)
   {
     v17 = a4;
@@ -213,7 +33,7 @@ uint64_t fpfs_evict(int a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5,
 
   else
   {
-    v17 = &v39;
+    v17 = &v38;
   }
 
   if (((*a2 - 1) & 0xFFFFFFFD) != 0)
@@ -221,11 +41,11 @@ uint64_t fpfs_evict(int a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5,
     if (*a2 == 2)
     {
       v18 = v15;
-      memset(&v53, 0, sizeof(v53));
-      if ((fstat(a1, &v53) & 0x80000000) == 0)
+      memset(&v52, 0, sizeof(v52));
+      if ((fstat(a1, &v52) & 0x80000000) == 0)
       {
-        st_flags = v53.st_flags;
-        if ((v53.st_flags & 0x40000000) != 0 || (_fset_dataless_cmpfs_xattr(a1, *a2, *(a2 + 16), *(a2 + 104), *(a2 + 208)) & 0x80000000) == 0)
+        st_flags = v52.st_flags;
+        if ((v52.st_flags & 0x40000000) != 0 || (_fset_dataless_cmpfs_xattr(a1, *a2, *(a2 + 16), *(a2 + 104), *(a2 + 208)) & 0x80000000) == 0)
         {
           if ((fpfs_revoke_children(a1, v17) & 0x80000000) != 0 && *v17 != a3)
           {
@@ -241,34 +61,34 @@ uint64_t fpfs_evict(int a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5,
           {
             if ((fpfs_femptydir(a1, a3, 0, v17, 0) & 0x80000000) == 0 || *__error() != 66)
             {
-              v47 = 0;
-              v48 = &v47;
-              v49 = 0x2020000000;
-              LODWORD(v50) = 0;
-              v40 = MEMORY[0x1E69E9820];
-              v41 = 3221225472;
-              v42 = __evict_dir_block_invoke;
-              v43 = &unk_1E793C060;
-              v46 = a1;
-              v44 = &v47;
-              v45 = a3;
-              fpfs_fopendir(a1, &v40);
-              if (*(v48 + 24) >= 1)
+              v46 = 0;
+              v47 = &v46;
+              v48 = 0x2020000000;
+              LODWORD(v49) = 0;
+              v39 = MEMORY[0x1E69E9820];
+              v40 = 3221225472;
+              v41 = __evict_dir_block_invoke;
+              v42 = &unk_1E793C060;
+              v45 = a1;
+              v43 = &v46;
+              v44 = a3;
+              fpfs_fopendir(a1, &v39);
+              if (*(v47 + 24) >= 1)
               {
-                bzero(&v53, 0x400uLL);
+                bzero(&v52, 0x400uLL);
                 v30 = *__error();
-                fpfs_fgetpath(a1, &v53);
+                fpfs_fgetpath(a1, &v52);
                 *__error() = v30;
                 v31 = fpfs_current_or_default_log();
                 if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
                 {
                   v32 = __error();
                   v33 = strerror(*v32);
-                  fpfs_evict_cold_1(v33, buf, &v53, v31);
+                  fpfs_evict_cold_1(v33, buf, &v52, v31);
                 }
               }
 
-              _Block_object_dispose(&v47, 8);
+              _Block_object_dispose(&v46, 8);
               v27 = 0;
               goto LABEL_62;
             }
@@ -296,15 +116,15 @@ uint64_t fpfs_evict(int a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5,
     }
 
     v18 = v15;
-    memset(&v53, 0, sizeof(v53));
-    if (fstat(a1, &v53) < 0 || (_fset_dataless_cmpfs_xattr(a1, *a2, *(a2 + 16), *(a2 + 104), *(a2 + 208)) & 0x80000000) != 0)
+    memset(&v52, 0, sizeof(v52));
+    if (fstat(a1, &v52) < 0 || (_fset_dataless_cmpfs_xattr(a1, *a2, *(a2 + 16), *(a2 + 104), *(a2 + 208)) & 0x80000000) != 0)
     {
 LABEL_37:
       v27 = 0xFFFFFFFFLL;
       goto LABEL_62;
     }
 
-    if ((v53.st_mode & 0xF000) == 0x8000 && v53.st_nlink != 1)
+    if ((v52.st_mode & 0xF000) == 0x8000 && v52.st_nlink != 1)
     {
       fpfs_unset_dataless_cmpfs_attrs(a1, (a2 + 40));
       v25 = __error();
@@ -314,7 +134,7 @@ LABEL_36:
       goto LABEL_37;
     }
 
-    if (!a6 || (v40 = MEMORY[0x1E69E9820], v41 = 3221225472, v42 = ___fpfs_evict_legacy_block_invoke, v43 = &__block_descriptor_48_e34_i16__0__fpfs_item_handle_QQII_iI_8l, v45 = __PAIR64__(a1, a6), v44 = a5, (fpfs_fgethandle(a1, &v40) & 0x80000000) == 0))
+    if (!a6 || (v39 = MEMORY[0x1E69E9820], v40 = 3221225472, v41 = ___fpfs_evict_legacy_block_invoke, v42 = &__block_descriptor_48_e34_i16__0__fpfs_item_handle_QQII_iI_8l, v44 = __PAIR64__(a1, a6), v43 = a5, (fpfs_fgethandle(a1, &v39) & 0x80000000) == 0))
     {
       v34 = *a2;
       if (*a2 != 3)
@@ -350,20 +170,20 @@ LABEL_68:
         goto LABEL_62;
       }
 
-      v47 = MEMORY[0x1E69E9820];
-      v48 = 3221225472;
-      v49 = ___femptypkg_block_invoke;
-      v50 = &__block_descriptor_36_e29_i16__0__dirent_QQSSC_1024c__8l;
-      v51 = a1;
-      if ((fpfs_fopendir(a1, &v47) & 0x80000000) == 0)
+      v46 = MEMORY[0x1E69E9820];
+      v47 = 3221225472;
+      v48 = ___femptypkg_block_invoke;
+      v49 = &__block_descriptor_36_e29_i16__0__dirent_QQSSC_1024c__8l;
+      v50 = a1;
+      if ((fpfs_fopendir(a1, &v46) & 0x80000000) == 0)
       {
         goto LABEL_68;
       }
     }
 
-    v38 = *__error();
+    v37 = *__error();
     fpfs_unset_dataless_cmpfs_attrs(a1, (a2 + 40));
-    *__error() = v38;
+    *__error() = v37;
     goto LABEL_37;
   }
 
@@ -375,7 +195,7 @@ LABEL_68:
     v24 = fpfs_current_or_default_log();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      fpfs_evict_cold_4(&v53, &v53.st_dev + 1, v24);
+      fpfs_evict_cold_4(&v52, &v52.st_dev + 1, v24);
     }
 
     *__error() = v23;
@@ -428,13 +248,12 @@ LABEL_38:
 
 LABEL_62:
 
-  v36 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
-void sub_1AAB7B30C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1AAB7B30C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -506,58 +325,54 @@ uint64_t ___get_current_user_uuid_block_invoke()
 
 uint64_t ___fpfs_prune_fault_confirm_block_invoke(uint64_t a1, int a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v8 = xmmword_1AAC26670;
-  v9 = 0;
-  v12 = 0;
-  v11 = 0u;
-  memset(v10, 0, sizeof(v10));
-  if (fgetattrlist(a2, &v8, v10, 0x48uLL, 0x20u))
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = xmmword_1AAC26670;
+  v8 = 0;
+  v11 = 0;
+  v10 = 0u;
+  memset(v9, 0, sizeof(v9));
+  if (fgetattrlist(a2, &v7, v9, 0x48uLL, 0x20u))
   {
-    goto LABEL_2;
+    return 0xFFFFFFFFLL;
   }
 
   _fpfs_remove_sharing_xattrs(a2);
-  v5 = DWORD2(v11);
-  if (DWORD1(v10[0]) == 2)
+  v5 = DWORD2(v10);
+  if (DWORD1(v9[0]) == 2)
   {
     fpfs_fset_syncroot(a2, 0);
     if ((v5 & 0x40000000) != 0)
     {
-      v7 = *(v10 + 8);
-      fpfs_unset_dataless_cmpfs_attrs(a2, &v7);
+      v6 = *(v9 + 8);
+      fpfs_unset_dataless_cmpfs_attrs(a2, &v6);
     }
 
-    goto LABEL_12;
+    return 0;
   }
 
-  if (*(a1 + 40))
+  if ((*(a1 + 40) & 1) == 0)
   {
-    result = _fpfs_is_meaningful_item(v10, *(a1 + 32), 3);
-    if (!result)
+    if ((DWORD2(v10) & 0x40000000) != 0)
     {
-      goto LABEL_13;
+      return 0;
     }
 
-    *&v7 = 0;
-    if (!fpfs_eviction_urgency_with_validation(a2, &v7, 0, 1) && v7)
-    {
-LABEL_12:
-      result = 0;
-      goto LABEL_13;
-    }
+    return 0xFFFFFFFFLL;
   }
 
-  else if ((DWORD2(v11) & 0x40000000) != 0)
+  result = _fpfs_is_meaningful_item(v9, *(a1 + 32), 3);
+  if (!result)
   {
-    goto LABEL_12;
+    return result;
   }
 
-LABEL_2:
-  result = 0xFFFFFFFFLL;
-LABEL_13:
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  *&v6 = 0;
+  if (fpfs_eviction_urgency_with_validation(a2, &v6, 0, 1) || !v6)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  return 0;
 }
 
 uint64_t _validate_file_types@<X0>(__int16 a1@<W0>, int a2@<W1>, uint64_t a3@<X8>)
@@ -662,45 +477,39 @@ uint64_t __evict_dir_block_invoke(uint64_t a1, uint64_t a2)
 
 uint64_t ___fpfs_evict_legacy_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (*(a2 + 20) == *(a1 + 40))
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  *__error() = 70;
+  v5 = fpfs_current_or_default_log();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    *__error() = 70;
-    v5 = fpfs_current_or_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      v7 = *(a1 + 32);
-      v8 = *(a2 + 20);
-      v10 = *(a1 + 40);
-      v9 = *(a1 + 44);
-      v11[0] = 67109888;
-      v11[1] = v9;
-      v12 = 2048;
-      v13 = v7;
-      v14 = 1024;
-      v15 = v8;
-      v16 = 1024;
-      v17 = v10;
-      _os_log_error_impl(&dword_1AAAE1000, v5, OS_LOG_TYPE_ERROR, "ESTALE: item gen_count changed during _fpfs_evict_legacy [%d, %llu, %u, %u]", v11, 0x1Eu);
-    }
-
-    result = 0xFFFFFFFFLL;
+    v6 = *(a1 + 32);
+    v7 = *(a2 + 20);
+    v9 = *(a1 + 40);
+    v8 = *(a1 + 44);
+    v10[0] = 67109888;
+    v10[1] = v8;
+    v11 = 2048;
+    v12 = v6;
+    v13 = 1024;
+    v14 = v7;
+    v15 = 1024;
+    v16 = v9;
+    _os_log_error_impl(&dword_1AAAE1000, v5, OS_LOG_TYPE_ERROR, "ESTALE: item gen_count changed during _fpfs_evict_legacy [%d, %llu, %u, %u]", v10, 0x1Eu);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0xFFFFFFFFLL;
 }
 
-void sub_1AAB7D6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AAB7D6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -711,81 +520,81 @@ void sub_1AAB7E0C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB7FE50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AAB7FE50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB803A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1AAB803A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB805C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AAB805C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB80D5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1AAB80D5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _FPRestorePersona(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB86880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AAB86880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB86C2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AAB86C2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB86E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AAB86E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB870C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AAB870C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB87494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AAB87494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -821,31 +630,41 @@ void sub_1AAB89DCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB8DE50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_1AAB8D920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a43, 8);
-  _Block_object_dispose(&a49, 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB8E260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1AAB8DE50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
-  va_start(va, a11);
+  va_start(va, a48);
+  _Block_object_dispose(&a43, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AAB8E260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __FPLocalizationBundle_block_invoke()
 {
-  FPLocalizationBundle_bundle = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v0 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v1 = FPLocalizationBundle_bundle;
+  FPLocalizationBundle_bundle = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id FPLocalizedErrorStringForKey(void *a1)
 {
   v1 = a1;
-  v2 = FPLocalizationBundle();
+  v2 = FPLocalizationBundle(v1);
   v3 = [v2 localizedStringForKey:v1 value:@"X" table:@"Errors"];
 
   if ([v3 isEqualToString:@"X"])
@@ -1027,43 +846,52 @@ void sub_1AAB91F7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB92F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AAB92F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB93740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1AAB93740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   __fp_leave_section_Debug(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB93D20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AAB93D20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB96E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+void sub_1AAB96900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose(&a36, 8);
+  va_start(va, a25);
+  __fp_leave_section_Debug(va);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_8_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1AAB96E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
 {
-
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  va_start(va, a35);
+  _Block_object_dispose(&a32, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
-void sub_1AAB985E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void OUTLINED_FUNCTION_8_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  va_start(va, a7);
+  va_start(va, a8);
+
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
+}
+
+void sub_1AAB985E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1076,25 +904,27 @@ void sub_1AAB98AAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id knownFolderLocationConcreteClasses()
+id knownFolderLocationConcreteClasses(uint64_t a1)
 {
   if (knownFolderLocationConcreteClasses_onceToken != -1)
   {
     knownFolderLocationConcreteClasses_cold_1();
   }
 
-  v1 = knownFolderLocationConcreteClasses_classes;
+  v2 = knownFolderLocationConcreteClasses_classes;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __knownFolderLocationConcreteClasses_block_invoke()
 {
   v0 = MEMORY[0x1E695DFD8];
   v1 = objc_opt_class();
-  knownFolderLocationConcreteClasses_classes = [v0 setWithObjects:{v1, objc_opt_class(), 0}];
+  v2 = [v0 setWithObjects:{v1, objc_opt_class(), 0}];
+  v3 = knownFolderLocationConcreteClasses_classes;
+  knownFolderLocationConcreteClasses_classes = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 Class __getCSSearchableItemAttributeSetClass_block_invoke_0(uint64_t a1)
@@ -1113,11 +943,8 @@ Class __getCSSearchableItemAttributeSetClass_block_invoke_0(uint64_t a1)
 
 uint64_t __CoreSpotlightLibraryCore_block_invoke_3(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreSpotlightLibraryCore_frameworkLibrary_3 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1146,11 +973,8 @@ void *__getMDPropertyCreateUserTagStringsSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t __MetadataUtilitiesLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MetadataUtilitiesLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1438,23 +1262,23 @@ void *__getMDItemDownloadErrorSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_1AAB9CEA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1AAB9CEA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _FPRestorePersona(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB9D360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1AAB9D360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _FPRestorePersona(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB9D4D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AAB9D4D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __fp_leave_section_Debug(va);
   _Unwind_Resume(a1);
 }
@@ -1488,95 +1312,91 @@ id getCSIndexErrorDomain()
   return v1;
 }
 
-void sub_1AAB9DB08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AAB9DB08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB9DFB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1AAB9DFB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _FPRestorePersona(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AAB9E384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AAB9E384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _FPRestorePersona(va);
   _Unwind_Resume(a1);
 }
 
 void *__getCSIndexErrorDomainSymbolLoc_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!CoreSpotlightLibraryCore_frameworkLibrary_4)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __CoreSpotlightLibraryCore_block_invoke_4;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E793D0F8;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __CoreSpotlightLibraryCore_block_invoke_4;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E793D0F8;
+    v6 = 0;
     CoreSpotlightLibraryCore_frameworkLibrary_4 = _sl_dlopen();
   }
 
   v2 = CoreSpotlightLibraryCore_frameworkLibrary_4;
   if (!CoreSpotlightLibraryCore_frameworkLibrary_4)
   {
-    __getCSIndexErrorDomainSymbolLoc_block_invoke_cold_1(v5);
-  }
-
-  if (v5[0])
-  {
-    free(v5[0]);
-  }
-
-  result = dlsym(v2, "CSIndexErrorDomain");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getCSIndexErrorDomainSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t __CoreSpotlightLibraryCore_block_invoke_4(uint64_t a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  result = _sl_dlopen();
-  CoreSpotlightLibraryCore_frameworkLibrary_4 = result;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-Class __getFBSSystemServiceClass_block_invoke(uint64_t a1)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  if (!FrontBoardServicesLibraryCore_frameworkLibrary)
-  {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __FrontBoardServicesLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E793D188;
-    v6 = 0;
-    FrontBoardServicesLibraryCore_frameworkLibrary = _sl_dlopen();
-  }
-
-  if (!FrontBoardServicesLibraryCore_frameworkLibrary)
-  {
-    __getFBSSystemServiceClass_block_invoke_cold_2(v4);
+    __getCSIndexErrorDomainSymbolLoc_block_invoke_cold_1(v4);
   }
 
   if (v4[0])
   {
     free(v4[0]);
+  }
+
+  result = dlsym(v2, "CSIndexErrorDomain");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getCSIndexErrorDomainSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t __CoreSpotlightLibraryCore_block_invoke_4(uint64_t a1)
+{
+  result = _sl_dlopen();
+  CoreSpotlightLibraryCore_frameworkLibrary_4 = result;
+  return result;
+}
+
+Class __getFBSSystemServiceClass_block_invoke(uint64_t a1)
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  if (!FrontBoardServicesLibraryCore_frameworkLibrary)
+  {
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __FrontBoardServicesLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E793D188;
+    v5 = 0;
+    FrontBoardServicesLibraryCore_frameworkLibrary = _sl_dlopen();
+  }
+
+  if (!FrontBoardServicesLibraryCore_frameworkLibrary)
+  {
+    __getFBSSystemServiceClass_block_invoke_cold_2(v3);
+  }
+
+  if (v3[0])
+  {
+    free(v3[0]);
   }
 
   result = objc_getClass("FBSSystemService");
@@ -1587,134 +1407,126 @@ Class __getFBSSystemServiceClass_block_invoke(uint64_t a1)
   }
 
   getFBSSystemServiceClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __FrontBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   FrontBoardServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1AABA05EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1AABA05EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _FPRestorePersona(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABA0E48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1AABA0E48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _FPRestorePersona(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABA1340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1AABA1340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _FPRestorePersona(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABA16DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1AABA16DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   _FPRestorePersona(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABA1B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1AABA1B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _FPRestorePersona(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABA2AB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AABA2AB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _FPRestorePersona(va);
   _Unwind_Resume(a1);
 }
 
 void *__getCSIndexErrorDomainSymbolLoc_block_invoke_0(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!CoreSpotlightLibraryCore_frameworkLibrary_5)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __CoreSpotlightLibraryCore_block_invoke_5;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E793D348;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __CoreSpotlightLibraryCore_block_invoke_5;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E793D348;
+    v6 = 0;
     CoreSpotlightLibraryCore_frameworkLibrary_5 = _sl_dlopen();
   }
 
   v2 = CoreSpotlightLibraryCore_frameworkLibrary_5;
   if (!CoreSpotlightLibraryCore_frameworkLibrary_5)
   {
-    __getCSIndexErrorDomainSymbolLoc_block_invoke_cold_1_0(v5);
+    __getCSIndexErrorDomainSymbolLoc_block_invoke_cold_1_0(v4);
   }
 
-  if (v5[0])
+  if (v4[0])
   {
-    free(v5[0]);
+    free(v4[0]);
   }
 
   result = dlsym(v2, "CSIndexErrorDomain");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCSIndexErrorDomainSymbolLoc_ptr_0 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __CoreSpotlightLibraryCore_block_invoke_5(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreSpotlightLibraryCore_frameworkLibrary_5 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1AABA3020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AABA3020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABA3628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AABA3628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   __fp_leave_section_Debug(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABA39B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AABA39B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1740,10 +1552,11 @@ id comparablePathFromURL(void *a1)
   return v6;
 }
 
-BOOL fpfs_path_is_ignored(const char *a1, int a2)
+BOOL fpfs_path_is_ignored(const char *a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = strdup(a1);
-  v4 = fpfs_path_is_safe_save_temp_file_ext(v3, a2) != 0;
+  v4 = fpfs_path_is_safe_save_temp_file_ext(v3, v2) != 0;
   free(v3);
   return v4;
 }
@@ -1809,32 +1622,28 @@ BOOL is_adobe_after_effect_safe_save(unint64_t a1, char *__s1)
   return v9 > 1;
 }
 
-char *is_adobe_illustrator_safe_save(uint64_t a1)
+char *is_adobe_illustrator_safe_save(char *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  if (!strncmp(a1, "~ai-", 4uLL))
+  v7 = *MEMORY[0x1E69E9840];
+  if (strncmp(a1, "~ai-", 4uLL))
   {
-    result = strrchr(a1, 95);
-    if (result)
+    return 0;
+  }
+
+  result = strrchr(a1, 95);
+  if (result)
+  {
+    v3 = result;
+    v4 = strcmp(result, "_.tmp");
+    result = 0;
+    if (!v4 && v3 - a1 == 40)
     {
-      v4 = result;
-      v5 = strcmp(result, "_.tmp");
-      result = 0;
-      if (!v5 && &v4[-a1] == 40)
-      {
-        v6 = strndup((a1 + 4), 0x24uLL);
-        memset(uu, 0, sizeof(uu));
-        result = (uuid_parse(v6, uu) == 0);
-      }
+      v5 = strndup(a1 + 4, 0x24uLL);
+      memset(uu, 0, sizeof(uu));
+      return (uuid_parse(v5, uu) == 0);
     }
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1981,38 +1790,46 @@ void FPProviderForShareURL(void *a1, void *a2, void *a3)
   [v8 fetchProviderForShareURL:v7 fallbackIdentifier:v6 completionHandler:v5];
 }
 
-void sub_1AABA9C50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AABA9670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
-  va_start(va, a2);
+  va_start(va, a37);
   __fp_leave_section_Debug(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABAF410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AABA9C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a7);
+  va_start(va, a3);
+  __fp_leave_section_Debug(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AABAF410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABAF6E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AABAF6E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABAF888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AABAF888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABAFD64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1AABAFD64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2049,9 +1866,9 @@ id FPCrossDeviceItemIDExtendedForReceivingApplication(void *a1, void *a2)
   return v9;
 }
 
-void sub_1AABAFF9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AABAFF9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2087,9 +1904,9 @@ id FPCreateCrossDeviceItemIDForItemAtURLOnBehalfOfApplication(void *a1, void *a2
   return v5;
 }
 
-void sub_1AABB029C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AABB029C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2234,9 +2051,9 @@ uint64_t isFolderContentType(void *a1)
   return v2;
 }
 
-void sub_1AABB3698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1AABB3698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2270,65 +2087,61 @@ const void *_FPItemAttributeValueFunction(uint64_t a1, void *a2, uint64_t a3)
   return v5;
 }
 
-void sub_1AABB5808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AABB5808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t MobileSpotlightIndexLibrary()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3[0] = 0;
+  v5 = *MEMORY[0x1E69E9840];
+  v2[0] = 0;
   if (!MobileSpotlightIndexLibraryCore_frameworkLibrary)
   {
-    v3[1] = MEMORY[0x1E69E9820];
-    v3[2] = 3221225472;
-    v3[3] = __MobileSpotlightIndexLibraryCore_block_invoke;
-    v3[4] = &__block_descriptor_40_e5_v8__0l;
-    v3[5] = v3;
-    v4 = xmmword_1E793DA48;
-    v5 = 0;
+    v2[1] = MEMORY[0x1E69E9820];
+    v2[2] = 3221225472;
+    v2[3] = __MobileSpotlightIndexLibraryCore_block_invoke;
+    v2[4] = &__block_descriptor_40_e5_v8__0l;
+    v2[5] = v2;
+    v3 = xmmword_1E793DA48;
+    v4 = 0;
     MobileSpotlightIndexLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = MobileSpotlightIndexLibraryCore_frameworkLibrary;
   if (!MobileSpotlightIndexLibraryCore_frameworkLibrary)
   {
-    MobileSpotlightIndexLibrary_cold_1(v3);
+    MobileSpotlightIndexLibrary_cold_1(v2);
   }
 
-  if (v3[0])
+  if (v2[0])
   {
-    free(v3[0]);
+    free(v2[0]);
   }
 
-  v1 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
 uint64_t __MobileSpotlightIndexLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MobileSpotlightIndexLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1AABB71FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1AABB71FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v10 + 40));
+  objc_destroyWeak((v17 + 40));
   _Unwind_Resume(a1);
 }
 
-void sub_1AABB7398(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AABB7398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __fp_pop_log(va);
   _Unwind_Resume(a1);
 }
@@ -2340,38 +2153,38 @@ void sub_1AABB754C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t _fpfs_fgethandle(int a1, int a2, void *a3)
+uint64_t _fpfs_fgethandle(uint64_t a1, int a2, void *a3)
 {
-  v16[96] = *MEMORY[0x1E69E9840];
+  v15[96] = *MEMORY[0x1E69E9840];
   v5 = a3;
-  bzero(&v13, 0x328uLL);
-  v9 = xmmword_1AAC267C0;
-  v10 = 0;
-  if (fgetattrlist(a1, &v9, &v13, 0x328uLL, 0x20u))
+  bzero(&v12, 0x328uLL);
+  v8 = xmmword_1AAC267C0;
+  v9 = 0;
+  if (fgetattrlist(a1, &v8, &v12, 0x328uLL, 0x20u))
   {
     goto LABEL_2;
   }
 
-  v11 = v13;
-  *v12 = v14;
-  *&v12[16] = v15;
-  if (HIDWORD(v13) != 1)
+  v10 = v12;
+  *v11 = v13;
+  *&v11[16] = v14;
+  if (HIDWORD(v12) != 1)
   {
-    if (HIDWORD(v13) != 2)
+    if (HIDWORD(v12) != 2)
     {
-      *&v12[4] = 0;
+      *&v11[4] = 0;
       goto LABEL_11;
     }
 
     if (a2)
     {
-      if ((fpfs_get_dirstat(a1, 0, v12, 0) & 0x80000000) == 0)
+      if ((fpfs_get_dirstat(a1, 0, v11, 0) & 0x80000000) == 0)
       {
         goto LABEL_11;
       }
     }
 
-    else if ((fpfs_pkg_dirstat(a1, 0, v12) & 0x80000000) == 0)
+    else if ((fpfs_pkg_dirstat(a1, 0, v11) & 0x80000000) == 0)
     {
       goto LABEL_11;
     }
@@ -2385,19 +2198,18 @@ LABEL_2:
   }
 
 LABEL_11:
-  v15 = 0;
-  v14 = vrev64_s32(*v12);
-  v13 = *&v12[8];
-  if (DWORD2(v11) <= 0x300)
+  v14 = 0;
+  v13 = vrev64_s32(*v11);
+  v12 = *&v11[8];
+  if (DWORD2(v10) <= 0x300)
   {
-    *(&v14 + 1) = v16;
+    *(&v13 + 1) = v15;
     __memmove_chk();
   }
 
-  v6 = v5[2](v5, &v13);
+  v6 = v5[2](v5, &v12);
 LABEL_14:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -2455,7 +2267,7 @@ uint64_t fpfs_fgetdirentries()
   v2 = v1;
   v4 = v3;
   v5 = v0;
-  v49[1118] = *MEMORY[0x1E69E9840];
+  v48[1118] = *MEMORY[0x1E69E9840];
   v7 = v6;
   if (*(v4 + 8))
   {
@@ -2495,10 +2307,10 @@ LABEL_46:
   do
   {
     v12 = v11;
-    v47 = xmmword_1AAC267D8;
-    v48 = 0x20000000205;
-    DWORD1(v47) = -971061749;
-    v13 = getattrlistbulk(v5, &v47, v10, 0x8000uLL, 8uLL);
+    v46 = xmmword_1AAC267D8;
+    v47 = 0x20000000205;
+    DWORD1(v46) = -971061749;
+    v13 = getattrlistbulk(v5, &v46, v10, 0x8000uLL, 8uLL);
     v11 = v13;
     if (!v13)
     {
@@ -2520,7 +2332,7 @@ LABEL_46:
   }
 
   while (v11 <= v8);
-  v38 = *v4;
+  v37 = *v4;
   v15 = v7;
   if (!v11)
   {
@@ -2528,9 +2340,9 @@ LABEL_46:
     goto LABEL_40;
   }
 
-  v37 = v2;
-  v30 = v7;
-  v36 = v15;
+  v36 = v2;
+  v29 = v7;
+  v35 = v15;
   v16 = 1;
   v17 = 1;
   v18 = v10;
@@ -2542,24 +2354,24 @@ LABEL_46:
       goto LABEL_20;
     }
 
-    bzero(&v47, 0x2400uLL);
-    if ((_parse_fileattrs(v18, v10 + 0x8000 - v18, &v47) & 0x80000000) != 0)
+    bzero(&v46, 0x2400uLL);
+    if ((_parse_fileattrs(v18, v10 + 0x8000 - v18, &v46) & 0x80000000) != 0)
     {
       break;
     }
 
-    if ((fpfs_pkg_fileattrs_update_on(v38, &v47, v37) & 0x80000000) != 0)
+    if ((fpfs_pkg_fileattrs_update_on(v37, &v46, v36) & 0x80000000) != 0)
     {
-      v31 = v48;
-      v33 = *__error();
-      v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v49];
-      v35 = [v19 fp_prettyPath];
+      v30 = v47;
+      v32 = *__error();
+      v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v48];
+      v34 = [v19 fp_prettyPath];
 
-      *__error() = v33;
+      *__error() = v32;
       v20 = fp_current_or_default_log();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        if (v31)
+        if (v30)
         {
           v21 = "docID";
         }
@@ -2569,34 +2381,34 @@ LABEL_46:
           v21 = "fileID";
         }
 
-        v22 = v48;
-        if (!v31)
+        v22 = v47;
+        if (!v30)
         {
-          v22 = v47;
+          v22 = v46;
         }
 
-        v32 = v22;
-        v34 = v21;
+        v31 = v22;
+        v33 = v21;
         v23 = *__error();
         *buf = 136315906;
-        v40 = v34;
-        v41 = 2048;
-        v42 = v32;
-        v43 = 2114;
-        v44 = v35;
-        v45 = 1024;
-        v46 = v23;
+        v39 = v33;
+        v40 = 2048;
+        v41 = v31;
+        v42 = 2114;
+        v43 = v34;
+        v44 = 1024;
+        v45 = v23;
         _os_log_error_impl(&dword_1AAAE1000, v20, OS_LOG_TYPE_ERROR, "[ERROR] Failed to list item %s(%llu) %{public}@, errno %{errno}d", buf, 0x26u);
       }
     }
 
-    else if (((v36)[2](v36, &v47) & 0x80000000) != 0)
+    else if (((v35)[2](v35, &v46) & 0x80000000) != 0)
     {
       goto LABEL_37;
     }
 
 LABEL_20:
-    v18 += *v18;
+    v18 = (v18 + *v18);
     v17 = v16++ < v11;
     if (v16 - v11 == 1)
     {
@@ -2611,7 +2423,7 @@ LABEL_20:
 
 LABEL_37:
 
-  v7 = v30;
+  v7 = v29;
   if (v17)
   {
 LABEL_45:
@@ -2650,7 +2462,6 @@ LABEL_48:
   free(v10);
 LABEL_49:
 
-  v28 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -2889,7 +2700,7 @@ uint64_t _openbyparentidandname_retry(uint64_t a1, unsigned int a2, char a3, uin
   return 0xFFFFFFFFLL;
 }
 
-uint64_t fpfs_openbyid_ext(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
+uint64_t fpfs_openbyid_ext(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v9 = a5;
   v10 = fpfs_openfdbyhandle(a1, a2, a3, a4, 0);
@@ -2906,7 +2717,7 @@ uint64_t fpfs_openbyid_ext(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, v
   return v12;
 }
 
-uint64_t fpfs_track_document(int a1, _DWORD *a2)
+uint64_t fpfs_track_document(uint64_t a1, _DWORD *a2)
 {
   if ((fpfs_fchflags(a1, 0, 64) & 0x80000000) != 0)
   {
@@ -3035,65 +2846,59 @@ uint64_t _pagetoken_init(int a1, uint64_t a2)
 
 uint64_t _pagetoken_validate(int a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  if ((_pagetoken_init(a1, &v11) & 0x80000000) != 0)
+  if ((_pagetoken_init(a1, &v10) & 0x80000000) == 0)
   {
-LABEL_9:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_10;
-  }
+    if (!v10)
+    {
+      _pagetoken_validate_cold_1();
+    }
 
-  if (!v11)
-  {
-    _pagetoken_validate_cold_1();
-  }
+    v4 = *(&v10 + 1);
+    if (*(&v10 + 1) == *(a2 + 8) && v11 == *(a2 + 16))
+    {
+      return 0;
+    }
 
-  v4 = *(&v11 + 1);
-  if (*(&v11 + 1) != *(a2 + 8) || v12 != *(a2 + 16))
-  {
     *__error() = 70;
     v6 = *__error();
     v7 = fpfs_current_or_default_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a2 + 8);
-      v10 = *(a2 + 16);
+      v8 = *(a2 + 8);
+      v9 = *(a2 + 16);
       *buf = 67110144;
-      v14 = a1;
-      v15 = 2048;
-      v16 = v4;
-      v17 = 2048;
-      v18 = v9;
-      v19 = 1024;
-      v20 = v12;
-      v21 = 1024;
-      v22 = v10;
+      v13 = a1;
+      v14 = 2048;
+      v15 = v4;
+      v16 = 2048;
+      v17 = v8;
+      v18 = 1024;
+      v19 = v11;
+      v20 = 1024;
+      v21 = v9;
       _os_log_error_impl(&dword_1AAAE1000, v7, OS_LOG_TYPE_ERROR, "ESTALE: directory changed during _pagetoken_validate [%d, %llu, %llu, %u, %u]", buf, 0x28u);
     }
 
     *__error() = v6;
-    goto LABEL_9;
   }
 
-  result = 0;
-LABEL_10:
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t _validate_file_openbyid(int a1, char a2, uint64_t *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (*(a3 + 4))
   {
-    v13[0] = 0;
-    v14 = xmmword_1AAC26808;
-    v15 = 0;
-    if ((fgetattrlist(a1, &v14, v13, 8uLL, 0x20u) & 0x80000000) == 0)
+    v12[0] = 0;
+    v13 = xmmword_1AAC26808;
+    v14 = 0;
+    if ((fgetattrlist(a1, &v13, v12, 8uLL, 0x20u) & 0x80000000) == 0)
     {
-      if (HIDWORD(v13[0]) != *(a3 + 4))
+      if (HIDWORD(v12[0]) != *(a3 + 4))
       {
         *__error() = 70;
         v5 = fpfs_current_or_default_log();
@@ -3101,13 +2906,13 @@ uint64_t _validate_file_openbyid(int a1, char a2, uint64_t *a3)
         {
           v6 = *(a3 + 4);
           *buf = 136315906;
-          v17 = "_validate_file_openbyid";
-          v18 = 1024;
-          v19 = a1;
-          v20 = 1024;
-          *v21 = v6;
-          *&v21[4] = 1024;
-          *&v21[6] = HIDWORD(v13[0]);
+          v16 = "_validate_file_openbyid";
+          v17 = 1024;
+          v18 = a1;
+          v19 = 1024;
+          *v20 = v6;
+          *&v20[4] = 1024;
+          *&v20[6] = HIDWORD(v12[0]);
           v7 = "ESTALE: opened wrong doc_id in %s [%d, %u, %u]";
           v8 = v5;
           v9 = 30;
@@ -3119,23 +2924,21 @@ LABEL_13:
         goto LABEL_14;
       }
 
-LABEL_10:
-      result = 0;
-      goto LABEL_16;
+      return 0;
     }
 
-    goto LABEL_15;
+    return 0xFFFFFFFFLL;
   }
 
   result = 0;
   if (*a3 && (a2 & 1) == 0)
   {
-    memset(v13, 0, 12);
-    v14 = xmmword_1AAC26820;
-    v15 = 0;
-    if ((fgetattrlist(a1, &v14, v13, 0xCuLL, 0) & 0x80000000) == 0)
+    memset(v12, 0, 12);
+    v13 = xmmword_1AAC26820;
+    v14 = 0;
+    if ((fgetattrlist(a1, &v13, v12, 0xCuLL, 0) & 0x80000000) == 0)
     {
-      if (*a3 != *(v13 + 4))
+      if (*a3 != *(v12 + 4))
       {
         *__error() = 70;
         v5 = fpfs_current_or_default_log();
@@ -3143,13 +2946,13 @@ LABEL_10:
         {
           v11 = *a3;
           *buf = 136315906;
-          v17 = "_validate_file_openbyid";
-          v18 = 1024;
-          v19 = a1;
-          v20 = 2048;
-          *v21 = v11;
-          *&v21[8] = 2048;
-          v22 = *(v13 + 4);
+          v16 = "_validate_file_openbyid";
+          v17 = 1024;
+          v18 = a1;
+          v19 = 2048;
+          *v20 = v11;
+          *&v20[8] = 2048;
+          v21 = *(v12 + 4);
           v7 = "ESTALE: opened wrong file_id in %s [%d, %llu, %llu]";
           v8 = v5;
           v9 = 38;
@@ -3158,34 +2961,28 @@ LABEL_10:
 
 LABEL_14:
 
-        goto LABEL_15;
+        return 0xFFFFFFFFLL;
       }
 
-      goto LABEL_10;
+      return 0;
     }
 
-LABEL_15:
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
-LABEL_16:
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __DesktopServicesPrivLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   DesktopServicesPrivLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1AABB9600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1AABB9600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   __fp_leave_section_Debug(va);
   _Unwind_Resume(a1);
 }
@@ -3243,8 +3040,9 @@ uint64_t fpfs_pathpkg_check(char *a1)
   return v2;
 }
 
-uint64_t fpfs_pkg_dirstat(int a1, void *a2, _DWORD *a3)
+uint64_t fpfs_pkg_dirstat(uint64_t a1, void *a2, _DWORD *a3)
 {
+  v5 = a1;
   v7 = 0;
   if ((fpfs_pkg_is_demoted(a1, &v7) & 0x80000000) != 0)
   {
@@ -3257,7 +3055,7 @@ uint64_t fpfs_pkg_dirstat(int a1, void *a2, _DWORD *a3)
     return 0xFFFFFFFFLL;
   }
 
-  return fpfs_get_dirstat(a1, a2, a3, 0);
+  return fpfs_get_dirstat(v5, a2, a3, 0);
 }
 
 uint64_t fpfs_get_dirstat(int a1, void *a2, _DWORD *a3, void *a4)
@@ -3313,8 +3111,9 @@ uint64_t fpfs_pkg_demote(int a1)
   return v2;
 }
 
-uint64_t fpfs_pkg_promote(int a1)
+uint64_t fpfs_pkg_promote(uint64_t a1)
 {
+  v1 = a1;
   if ((fpfs_pkg_remove_demotion_xattr(a1) & 0x80000000) != 0)
   {
     goto LABEL_6;
@@ -3322,20 +3121,20 @@ uint64_t fpfs_pkg_promote(int a1)
 
   v7 = xmmword_1AAC26840;
   value = xmmword_1AAC26840;
-  if ((fpfs_set_finder_info(a1, &value, &v7) & 0x80000000) != 0)
+  if ((fpfs_set_finder_info(v1, &value, &v7) & 0x80000000) != 0)
   {
     goto LABEL_6;
   }
 
   LODWORD(value) = 0;
-  if (!fpfs_pkg_getflags(a1, &value) && (value & 1) != 0)
+  if (!fpfs_pkg_getflags(v1, &value) && (value & 1) != 0)
   {
     return 0;
   }
 
   v2 = 1;
   LODWORD(value) = 1;
-  if (fsetxattr(a1, "com.apple.fileprovider.fpfs#P", &value, 4uLL, 0, 0) < 0)
+  if (fsetxattr(v1, "com.apple.fileprovider.fpfs#P", &value, 4uLL, 0, 0) < 0)
   {
 LABEL_6:
     v3 = *__error();
@@ -3359,7 +3158,7 @@ uint64_t fpfs_pkg_remove_demotion_xattr(int a1)
   }
 }
 
-uint64_t fpfs_pkg_set_bundle_bit(int a1, int a2)
+uint64_t fpfs_pkg_set_bundle_bit(uint64_t a1, int a2)
 {
   v5 = xmmword_1AAC26840;
   if (a2)
@@ -3561,79 +3360,71 @@ id FPProviderNotFoundError(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, 
 
 id FPProviderOlderVersionRunningError(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   if (a1)
   {
-    v24[0] = *MEMORY[0x1E696A368];
+    v23[0] = *MEMORY[0x1E696A368];
     v8 = [a1 path];
-    v25[0] = v8;
-    v24[1] = *MEMORY[0x1E696A578];
-    v16 = FPLoc(@"ProviderVersionOlderVersionRunning", v9, v10, v11, v12, v13, v14, v15, v21);
-    v25[1] = v16;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
+    v24[0] = v8;
+    v23[1] = *MEMORY[0x1E696A578];
+    v16 = FPLoc(@"ProviderVersionOlderVersionRunning", v9, v10, v11, v12, v13, v14, v15, v20);
+    v24[1] = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
   }
 
   else
   {
-    v22 = *MEMORY[0x1E696A578];
-    v8 = FPLoc(@"ProviderVersionOlderVersionRunning", a2, a3, a4, a5, a6, a7, a8, v21);
-    v23 = v8;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v21 = *MEMORY[0x1E696A578];
+    v8 = FPLoc(@"ProviderVersionOlderVersionRunning", a2, a3, a4, a5, a6, a7, a8, v20);
+    v22 = v8;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
   }
 
   v18 = [MEMORY[0x1E696ABC0] errorWithDomain:@"NSFileProviderErrorDomain" code:-2003 userInfo:v17];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 id FPProviderNewerVersionFoundError(void *a1)
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696ABC0];
-  v16[0] = *MEMORY[0x1E696A368];
+  v15[0] = *MEMORY[0x1E696A368];
   v2 = [a1 path];
-  v17[0] = v2;
-  v16[1] = *MEMORY[0x1E696A578];
-  v10 = FPLoc(@"ProviderVersionNewerVersionFound", v3, v4, v5, v6, v7, v8, v9, v15);
-  v17[1] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v16[0] = v2;
+  v15[1] = *MEMORY[0x1E696A578];
+  v10 = FPLoc(@"ProviderVersionNewerVersionFound", v3, v4, v5, v6, v7, v8, v9, v14);
+  v16[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
   v12 = [v1 errorWithDomain:@"NSFileProviderErrorDomain" code:-2004 userInfo:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 id FPProviderXPCInvalidError(void *a1)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696ABC0];
   v2 = *MEMORY[0x1E696A250];
-  v9 = *MEMORY[0x1E696A278];
-  v10[0] = a1;
+  v8 = *MEMORY[0x1E696A278];
+  v9[0] = a1;
   v3 = MEMORY[0x1E695DF20];
   v4 = a1;
-  v5 = [v3 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v5 = [v3 dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v1 errorWithDomain:v2 code:4099 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 id FPProviderNotFoundErrorForURL(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E696ABC0];
-  v14 = *MEMORY[0x1E696A578];
+  v13 = *MEMORY[0x1E696A578];
   v9 = FPLoc(@"NoValidProviderFound_url_%@", a2, a3, a4, a5, a6, a7, a8, a1);
-  v15[0] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v14[0] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v11 = [v8 errorWithDomain:@"NSFileProviderInternalErrorDomain" code:0 userInfo:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -3658,14 +3449,14 @@ id FPProviderNotFoundErrorForURLWithReason(void *a1, unint64_t a2)
 
 id FPItemNotFoundErrorAtURL(void *a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = v1;
   if (v1)
   {
-    v7 = *MEMORY[0x1E696A998];
-    v8[0] = v1;
-    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v6 = *MEMORY[0x1E696A998];
+    v7[0] = v1;
+    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   }
 
   else
@@ -3675,108 +3466,97 @@ id FPItemNotFoundErrorAtURL(void *a1)
 
   v4 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:4 userInfo:v3];
 
-  v5 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 id FPExpensiveRequestWithContinuationTokenError(void *a1, uint64_t a2)
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
-  v11[0] = @"NSFileProviderErrorExpensiveRequestContinuationTokenKey";
-  v11[1] = @"NSFileProviderErrorExpensiveRequestIsRecursiveKey";
-  v12[0] = a1;
+  v10[0] = @"NSFileProviderErrorExpensiveRequestContinuationTokenKey";
+  v10[1] = @"NSFileProviderErrorExpensiveRequestIsRecursiveKey";
+  v11[0] = a1;
   v4 = MEMORY[0x1E696AD98];
   v5 = a1;
   v6 = [v4 numberWithBool:a2];
-  v12[1] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   v8 = [v3 errorWithDomain:@"NSFileProviderErrorDomain" code:-5011 userInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 id FPUnrevivableItemError(void *a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696ABC0];
-  v8 = @"NSFileProviderErrorRecoveryLocationItemIdentifierKey";
-  v9[0] = a1;
+  v7 = @"NSFileProviderErrorRecoveryLocationItemIdentifierKey";
+  v8[0] = a1;
   v2 = MEMORY[0x1E695DF20];
   v3 = a1;
-  v4 = [v2 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v4 = [v2 dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v1 errorWithDomain:@"NSFileProviderErrorDomain" code:-5012 userInfo:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 id FPInvalidParameterError(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696A578];
   if (a2)
   {
-    v20 = *MEMORY[0x1E696A578];
-    v10 = FPLoc(@"InvalidParameter_Parameter_Value_%@_%@", a2, a3, a4, a5, a6, a7, a8, a2);
-    v21[0] = v10;
-    v11 = MEMORY[0x1E695DF20];
-    v12 = v21;
-    v13 = &v20;
+    v18 = *MEMORY[0x1E696A578];
+    v9 = FPLoc(@"InvalidParameter_Parameter_Value_%@_%@", a2, a3, a4, a5, a6, a7, a8, a2);
+    v19[0] = v9;
+    v10 = MEMORY[0x1E695DF20];
+    v11 = v19;
+    v12 = &v18;
   }
 
   else
   {
-    v18 = *MEMORY[0x1E696A578];
-    v10 = FPLoc(@"InvalidParameter_Parameter_%@", 0, a3, a4, a5, a6, a7, a8, a1);
-    v19 = v10;
-    v11 = MEMORY[0x1E695DF20];
-    v12 = &v19;
-    v13 = &v18;
+    v16 = *MEMORY[0x1E696A578];
+    v9 = FPLoc(@"InvalidParameter_Parameter_%@", 0, a3, a4, a5, a6, a7, a8, a1);
+    v17 = v9;
+    v10 = MEMORY[0x1E695DF20];
+    v11 = &v17;
+    v12 = &v16;
   }
 
-  v14 = [v11 dictionaryWithObjects:v12 forKeys:v13 count:1];
-  v15 = [v8 errorWithDomain:@"NSFileProviderInternalErrorDomain" code:3 userInfo:v14];
+  v13 = [v10 dictionaryWithObjects:v11 forKeys:v12 count:1];
+  v14 = [v8 errorWithDomain:@"NSFileProviderInternalErrorDomain" code:3 userInfo:v13];
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v14;
 }
 
 id FPInvalidParameterErrorWithExpectation(void *a1, void *a2, void *a3)
 {
-  v17[4] = *MEMORY[0x1E69E9840];
+  v16[4] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696AEC0];
   v6 = a3;
   v7 = a2;
   v8 = a1;
   v9 = [v5 stringWithFormat:@"Invalid value for %@: expected %@, actual %@", v8, v6, v7];
   v10 = MEMORY[0x1E696ABC0];
-  v16[0] = @"parameter";
-  v16[1] = @"actual";
-  v17[0] = v8;
-  v17[1] = v7;
+  v15[0] = @"parameter";
+  v15[1] = @"actual";
+  v16[0] = v8;
+  v16[1] = v7;
   v11 = *MEMORY[0x1E696A278];
-  v16[2] = @"expected";
-  v16[3] = v11;
-  v17[2] = v6;
-  v17[3] = v9;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v15[2] = @"expected";
+  v15[3] = v11;
+  v16[2] = v6;
+  v16[3] = v9;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
   v13 = [v10 errorWithDomain:@"NSFileProviderInternalErrorDomain" code:3 userInfo:v12];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 id FPPluginOperationFailedError(void *a1)
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [v1 domain];
   v3 = *MEMORY[0x1E696A250];
@@ -3796,34 +3576,33 @@ id FPPluginOperationFailedError(void *a1)
 
       if (!v7)
       {
-        v18 = MEMORY[0x1E696ABC0];
-        v19 = *MEMORY[0x1E696A578];
+        v17 = MEMORY[0x1E696ABC0];
         if (v1)
         {
-          v29[0] = *MEMORY[0x1E696A578];
-          v20 = FPLoc(@"PluginOperationFailed", v8, v9, v10, v11, v12, v13, v14, v26);
-          v29[1] = *MEMORY[0x1E696AA08];
-          v30[0] = v20;
-          v30[1] = v1;
-          v21 = MEMORY[0x1E695DF20];
-          v22 = v30;
-          v23 = v29;
-          v24 = 2;
+          v27[0] = *MEMORY[0x1E696A578];
+          v18 = FPLoc(@"PluginOperationFailed", v8, v9, v10, v11, v12, v13, v14, v24);
+          v27[1] = *MEMORY[0x1E696AA08];
+          v28[0] = v18;
+          v28[1] = v1;
+          v19 = MEMORY[0x1E695DF20];
+          v20 = v28;
+          v21 = v27;
+          v22 = 2;
         }
 
         else
         {
-          v27 = *MEMORY[0x1E696A578];
-          v20 = FPLoc(@"PluginOperationFailed", v8, v9, v10, v11, v12, v13, v14, v26);
-          v28 = v20;
-          v21 = MEMORY[0x1E695DF20];
-          v22 = &v28;
-          v23 = &v27;
-          v24 = 1;
+          v25 = *MEMORY[0x1E696A578];
+          v18 = FPLoc(@"PluginOperationFailed", v8, v9, v10, v11, v12, v13, v14, v24);
+          v26 = v18;
+          v19 = MEMORY[0x1E695DF20];
+          v20 = &v26;
+          v21 = &v25;
+          v22 = 1;
         }
 
-        v25 = [v21 dictionaryWithObjects:v22 forKeys:v23 count:v24];
-        v15 = [v18 errorWithDomain:v3 code:4101 userInfo:v25];
+        v23 = [v19 dictionaryWithObjects:v20 forKeys:v21 count:v22];
+        v15 = [v17 errorWithDomain:v3 code:4101 userInfo:v23];
 
         goto LABEL_6;
       }
@@ -3833,35 +3612,31 @@ id FPPluginOperationFailedError(void *a1)
   v15 = v1;
 LABEL_6:
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 id FPInvalidBookmarkableStringError(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E696ABC0];
-  v15 = *MEMORY[0x1E696A578];
-  v9 = FPLoc(@"InvalidBookmark", a2, a3, a4, a5, a6, a7, a8, v14);
-  v16[0] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v14 = *MEMORY[0x1E696A578];
+  v9 = FPLoc(@"InvalidBookmark", a2, a3, a4, a5, a6, a7, a8, v13);
+  v15[0] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v11 = [v8 errorWithDomain:@"NSFileProviderInternalErrorDomain" code:5 userInfo:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 id FPInvalidURLError(void *a1)
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696ABC0];
-  v18[0] = *MEMORY[0x1E696A578];
+  v17[0] = *MEMORY[0x1E696A578];
   v2 = a1;
-  v10 = FPLoc(@"InvalidURL", v3, v4, v5, v6, v7, v8, v9, v17);
-  v19[0] = v10;
-  v18[1] = *MEMORY[0x1E696A368];
+  v10 = FPLoc(@"InvalidURL", v3, v4, v5, v6, v7, v8, v9, v16);
+  v18[0] = v10;
+  v17[1] = *MEMORY[0x1E696A368];
   v11 = [v2 path];
 
   v12 = @"(null)";
@@ -3870,92 +3645,84 @@ id FPInvalidURLError(void *a1)
     v12 = v11;
   }
 
-  v19[1] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v18[1] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
   v14 = [v1 errorWithDomain:@"NSFileProviderInternalErrorDomain" code:6 userInfo:v13];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 id FPProxyNotFoundError(uint64_t a1, void *a2)
 {
-  v34[2] = *MEMORY[0x1E69E9840];
+  v32[2] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696ABC0];
-  v5 = *MEMORY[0x1E696A578];
   if (a2)
   {
-    v33[0] = *MEMORY[0x1E696A578];
-    v6 = a2;
-    v14 = FPLoc(@"ProxyNotFound_%@", v7, v8, v9, v10, v11, v12, v13, a1);
-    v33[1] = *MEMORY[0x1E696AA08];
-    v34[0] = v14;
-    v34[1] = v6;
-    v15 = MEMORY[0x1E695DF20];
-    v16 = v34;
-    v17 = v33;
-    v18 = 2;
+    v31[0] = *MEMORY[0x1E696A578];
+    v5 = a2;
+    v13 = FPLoc(@"ProxyNotFound_%@", v6, v7, v8, v9, v10, v11, v12, a1);
+    v31[1] = *MEMORY[0x1E696AA08];
+    v32[0] = v13;
+    v32[1] = v5;
+    v14 = MEMORY[0x1E695DF20];
+    v15 = v32;
+    v16 = v31;
+    v17 = 2;
   }
 
   else
   {
-    v31 = *MEMORY[0x1E696A578];
-    v19 = 0;
-    v14 = FPLoc(@"ProxyNotFound_%@", v20, v21, v22, v23, v24, v25, v26, a1);
-    v32 = v14;
-    v15 = MEMORY[0x1E695DF20];
-    v16 = &v32;
-    v17 = &v31;
-    v18 = 1;
+    v29 = *MEMORY[0x1E696A578];
+    v18 = 0;
+    v13 = FPLoc(@"ProxyNotFound_%@", v19, v20, v21, v22, v23, v24, v25, a1);
+    v30 = v13;
+    v14 = MEMORY[0x1E695DF20];
+    v15 = &v30;
+    v16 = &v29;
+    v17 = 1;
   }
 
-  v27 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:v18];
-  v28 = [v4 errorWithDomain:@"NSFileProviderInternalErrorDomain" code:7 userInfo:v27];
+  v26 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
+  v27 = [v4 errorWithDomain:@"NSFileProviderInternalErrorDomain" code:7 userInfo:v26];
 
-  v29 = *MEMORY[0x1E69E9840];
-
-  return v28;
+  return v27;
 }
 
 id FPNotImplementedError(uint64_t a1, SEL aSelector)
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ABC0];
-  v3 = *MEMORY[0x1E696A578];
   if (a1)
   {
-    v30 = *MEMORY[0x1E696A578];
-    v5 = NSStringFromSelector(aSelector);
-    v13 = FPLoc(@"NotImplementedWithClass_%@_%@", v6, v7, v8, v9, v10, v11, v12, a1);
-    v31[0] = v13;
-    v14 = MEMORY[0x1E695DF20];
-    v15 = v31;
-    v16 = &v30;
+    v28 = *MEMORY[0x1E696A578];
+    v4 = NSStringFromSelector(aSelector);
+    v12 = FPLoc(@"NotImplementedWithClass_%@_%@", v5, v6, v7, v8, v9, v10, v11, a1);
+    v29[0] = v12;
+    v13 = MEMORY[0x1E695DF20];
+    v14 = v29;
+    v15 = &v28;
   }
 
   else
   {
-    v28 = *MEMORY[0x1E696A578];
-    v5 = NSStringFromSelector(aSelector);
-    v13 = FPLoc(@"NotImplemented_%@", v17, v18, v19, v20, v21, v22, v23, v5);
-    v29 = v13;
-    v14 = MEMORY[0x1E695DF20];
-    v15 = &v29;
-    v16 = &v28;
+    v26 = *MEMORY[0x1E696A578];
+    v4 = NSStringFromSelector(aSelector);
+    v12 = FPLoc(@"NotImplemented_%@", v16, v17, v18, v19, v20, v21, v22, v4);
+    v27 = v12;
+    v13 = MEMORY[0x1E695DF20];
+    v14 = &v27;
+    v15 = &v26;
   }
 
-  v24 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:1];
-  v25 = [v2 errorWithDomain:@"NSFileProviderInternalErrorDomain" code:9 userInfo:v24];
+  v23 = [v13 dictionaryWithObjects:v14 forKeys:v15 count:1];
+  v24 = [v2 errorWithDomain:@"NSFileProviderInternalErrorDomain" code:9 userInfo:v23];
 
-  v26 = *MEMORY[0x1E69E9840];
-
-  return v25;
+  return v24;
 }
 
 id FPInvalidProtocolError(__CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E696ABC0];
   v9 = &stru_1F1F94B20;
   if (a1)
@@ -3963,13 +3730,11 @@ id FPInvalidProtocolError(__CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     v9 = a1;
   }
 
-  v15 = *MEMORY[0x1E696A578];
+  v14 = *MEMORY[0x1E696A578];
   v10 = FPLoc(@"InvalidProtocol %@", a2, a3, a4, a5, a6, a7, a8, v9);
-  v16[0] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v15[0] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v12 = [v8 errorWithDomain:@"NSFileProviderInternalErrorDomain" code:9 userInfo:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -3993,46 +3758,42 @@ id FPClientLacksEntitlement(void *a1)
 
 id FPPartialErrorsByItemIdentifiers(void *a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696ABC0];
-  v8 = @"NSFileProviderPartialErrorsByItemIdentifierKey";
-  v9[0] = a1;
+  v7 = @"NSFileProviderPartialErrorsByItemIdentifierKey";
+  v8[0] = a1;
   v2 = MEMORY[0x1E695DF20];
   v3 = a1;
-  v4 = [v2 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v4 = [v2 dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v1 errorWithDomain:@"NSFileProviderInternalErrorDomain" code:10 userInfo:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 id FPPartialErrorsByURL(void *a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696ABC0];
-  v8 = @"NSFileProviderPartialErrorsByURLKey";
-  v9[0] = a1;
+  v7 = @"NSFileProviderPartialErrorsByURLKey";
+  v8[0] = a1;
   v2 = MEMORY[0x1E695DF20];
   v3 = a1;
-  v4 = [v2 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v4 = [v2 dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v1 errorWithDomain:@"NSFileProviderInternalErrorDomain" code:10 userInfo:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 id FPDomainUnavailableErrorWithUnderlyingError(void *a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = v1;
   if (v1)
   {
-    v7 = *MEMORY[0x1E696AA08];
-    v8[0] = v1;
-    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v6 = *MEMORY[0x1E696AA08];
+    v7[0] = v1;
+    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   }
 
   else
@@ -4042,92 +3803,82 @@ id FPDomainUnavailableErrorWithUnderlyingError(void *a1)
 
   v4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"NSFileProviderInternalErrorDomain" code:12 userInfo:v3];
 
-  v5 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 id FPFileSystemNotSupportedError()
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E696ABC0];
   v1 = *MEMORY[0x1E696A250];
-  v7 = *MEMORY[0x1E696AA08];
+  v6 = *MEMORY[0x1E696AA08];
   v2 = [MEMORY[0x1E696ABC0] fp_errorWithPOSIXCode:19];
-  v8[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [v0 errorWithDomain:v1 code:3328 userInfo:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 id FPNonEvictableChildrenError(void *a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696ABC0];
-  v8 = *MEMORY[0x1E696A750];
-  v9[0] = a1;
+  v7 = *MEMORY[0x1E696A750];
+  v8[0] = a1;
   v2 = MEMORY[0x1E695DF20];
   v3 = a1;
-  v4 = [v2 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v4 = [v2 dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v1 errorWithDomain:@"NSFileProviderErrorDomain" code:-2006 userInfo:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 id FPEvictionWithUnsyncedEditsError(void *a1)
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [v1 lastPathComponent];
   v10 = FPLoc(@"DirtyNotEvictable_%@", v3, v4, v5, v6, v7, v8, v9, v2);
 
   v11 = MEMORY[0x1E696ABC0];
   v12 = *MEMORY[0x1E696A578];
-  v17[0] = *MEMORY[0x1E696A998];
-  v17[1] = v12;
-  v18[0] = v1;
-  v18[1] = v10;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v16[0] = *MEMORY[0x1E696A998];
+  v16[1] = v12;
+  v17[0] = v1;
+  v17[1] = v10;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
   v14 = [v11 errorWithDomain:@"NSFileProviderErrorDomain" code:-2007 userInfo:v13];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 id FPEvictionOnBusyItemError(void *a1)
 {
-  v28[3] = *MEMORY[0x1E69E9840];
+  v27[3] = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v9 = FPLoc(@"BusyNotEvictableTitle", v2, v3, v4, v5, v6, v7, v8, v26);
+  v9 = FPLoc(@"BusyNotEvictableTitle", v2, v3, v4, v5, v6, v7, v8, v25);
   v10 = [v1 lastPathComponent];
   v18 = FPLoc(@"BusyNotEvictableSubtitle_%@", v11, v12, v13, v14, v15, v16, v17, v10);
 
   v19 = MEMORY[0x1E696ABC0];
   v20 = *MEMORY[0x1E696A798];
   v21 = *MEMORY[0x1E696A578];
-  v27[0] = *MEMORY[0x1E696A998];
-  v27[1] = v21;
-  v28[0] = v1;
-  v28[1] = v9;
-  v27[2] = *MEMORY[0x1E696A580];
-  v28[2] = v18;
-  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:3];
+  v26[0] = *MEMORY[0x1E696A998];
+  v26[1] = v21;
+  v27[0] = v1;
+  v27[1] = v9;
+  v26[2] = *MEMORY[0x1E696A580];
+  v27[2] = v18;
+  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:3];
   v23 = [v19 errorWithDomain:v20 code:16 userInfo:v22];
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
 
 id FPEvictionOnItemWithHardlinkError(void *a1)
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [v1 lastPathComponent];
   v10 = FPLoc(@"MLinkNotEvictable_%@", v3, v4, v5, v6, v7, v8, v9, v2);
@@ -4135,21 +3886,19 @@ id FPEvictionOnItemWithHardlinkError(void *a1)
   v11 = MEMORY[0x1E696ABC0];
   v12 = *MEMORY[0x1E696A798];
   v13 = *MEMORY[0x1E696A578];
-  v18[0] = *MEMORY[0x1E696A998];
-  v18[1] = v13;
-  v19[0] = v1;
-  v19[1] = v10;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v17[0] = *MEMORY[0x1E696A998];
+  v17[1] = v13;
+  v18[0] = v1;
+  v18[1] = v10;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
   v15 = [v11 errorWithDomain:v12 code:31 userInfo:v14];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 id FPMissingAllowsEvictingCapabilitiesError(void *a1)
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [v1 hasDirectoryPath];
   v10 = [v1 lastPathComponent];
@@ -4167,69 +3916,61 @@ id FPMissingAllowsEvictingCapabilitiesError(void *a1)
 
   v13 = MEMORY[0x1E696ABC0];
   v14 = *MEMORY[0x1E696A578];
-  v19[0] = *MEMORY[0x1E696A998];
-  v19[1] = v14;
-  v20[0] = v1;
-  v20[1] = v12;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v18[0] = *MEMORY[0x1E696A998];
+  v18[1] = v14;
+  v19[0] = v1;
+  v19[1] = v12;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
   v16 = [v13 errorWithDomain:@"NSFileProviderErrorDomain" code:-2008 userInfo:v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 id FPFileIsAlreadyPausedError(void *a1)
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696ABC0];
   v2 = *MEMORY[0x1E696A250];
   v3 = *MEMORY[0x1E696A278];
-  v10[0] = *MEMORY[0x1E696A998];
-  v10[1] = v3;
-  v11[0] = a1;
-  v11[1] = @"Sync is already paused.";
+  v9[0] = *MEMORY[0x1E696A998];
+  v9[1] = v3;
+  v10[0] = a1;
+  v10[1] = @"Sync is already paused.";
   v4 = MEMORY[0x1E695DF20];
   v5 = a1;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:v9 count:2];
   v7 = [v1 errorWithDomain:v2 code:3328 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 id FPFileNotPausedError(void *a1)
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696ABC0];
   v2 = *MEMORY[0x1E696A250];
   v3 = *MEMORY[0x1E696A278];
-  v10[0] = *MEMORY[0x1E696A998];
-  v10[1] = v3;
-  v11[0] = a1;
-  v11[1] = @"Sync is not paused.";
+  v9[0] = *MEMORY[0x1E696A998];
+  v9[1] = v3;
+  v10[0] = a1;
+  v10[1] = @"Sync is not paused.";
   v4 = MEMORY[0x1E695DF20];
   v5 = a1;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:v9 count:2];
   v7 = [v1 errorWithDomain:v2 code:3328 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 id FPFilePausedWithNoFilePresenter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E696ABC0];
-  v15 = *MEMORY[0x1E696A578];
-  v9 = FPLoc(@"FilePausedWithNoFilePresenter", a2, a3, a4, a5, a6, a7, a8, v14);
-  v16[0] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v14 = *MEMORY[0x1E696A578];
+  v9 = FPLoc(@"FilePausedWithNoFilePresenter", a2, a3, a4, a5, a6, a7, a8, v13);
+  v15[0] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v11 = [v8 errorWithDomain:@"NSFileProviderInternalErrorDomain" code:27 userInfo:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -4343,40 +4084,38 @@ id FPTelemetryParsedError(void *a1)
 
 id FPFileSizeAttributes()
 {
-  v12[1] = *MEMORY[0x1E69E9840];
-  v11 = @"size";
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
+  v11[1] = *MEMORY[0x1E69E9840];
+  v10 = @"size";
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getMDItemFileSizeSymbolLoc_ptr_0;
-  v10 = getMDItemFileSizeSymbolLoc_ptr_0;
+  v9 = getMDItemFileSizeSymbolLoc_ptr_0;
   if (!getMDItemFileSizeSymbolLoc_ptr_0)
   {
     v1 = CoreSpotlightLibrary_3();
-    v8[3] = dlsym(v1, "MDItemFileSize");
-    getMDItemFileSizeSymbolLoc_ptr_0 = v8[3];
-    v0 = v8[3];
+    v7[3] = dlsym(v1, "MDItemFileSize");
+    getMDItemFileSizeSymbolLoc_ptr_0 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
     FPFileSizeAttributes_cold_1();
   }
 
-  v12[0] = *v0;
+  v11[0] = *v0;
   v2 = MEMORY[0x1E695DF20];
-  v3 = v12[0];
-  v4 = [v2 dictionaryWithObjects:v12 forKeys:&v11 count:1];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = v11[0];
+  v4 = [v2 dictionaryWithObjects:v11 forKeys:&v10 count:1];
 
   return v4;
 }
 
-void sub_1AABBE388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AABBE388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4534,16 +4273,16 @@ id __FPSpotlightQueryStringForSearchQuery_block_invoke(uint64_t a1, void *a2)
   return v5;
 }
 
-id FPCacheForAnyDocumentRecentlyUsed()
+id FPCacheForAnyDocumentRecentlyUsed(uint64_t a1)
 {
   if (FPCacheForAnyDocumentRecentlyUsed_onceToken != -1)
   {
     FPCacheForAnyDocumentRecentlyUsed_cold_1();
   }
 
-  v1 = FPCacheForAnyDocumentRecentlyUsed_cache;
+  v2 = FPCacheForAnyDocumentRecentlyUsed_cache;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __FPCacheForAnyDocumentRecentlyUsed_block_invoke()
@@ -4658,19 +4397,25 @@ uint64_t FPIsAnyDocumentRecentlyUsed(void *a1, void *a2, void *a3)
       _os_log_error_impl(&dword_1AAAE1000, v22, OS_LOG_TYPE_ERROR, "[ERROR] Time-out occurred while testing if there are any recent documents with allowed file types %@ and excluded file types %@ and allowed FileProvider identifiers %@.", buf, 0x20u);
     }
 
-    v23 = FPCacheForAnyDocumentRecentlyUsed();
-    v24 = [v23 objectForKey:v19];
-    v25 = [v24 BOOLValue];
-    *(v39 + 24) = v25;
+    v24 = FPCacheForAnyDocumentRecentlyUsed(v23);
+    v25 = [v24 objectForKey:v19];
+    v26 = [v25 BOOLValue];
+    *(v39 + 24) = v26;
   }
 
-  v26 = *(v39 + 24);
+  v27 = *(v39 + 24);
 
   _Block_object_dispose(&v43, 8);
   _Block_object_dispose(&v38, 8);
 
-  v27 = *MEMORY[0x1E69E9840];
-  return v26 & 1;
+  return v27 & 1;
+}
+
+void sub_1AABBEEB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __FPIsAnyDocumentRecentlyUsed_block_invoke(uint64_t a1, void *a2)
@@ -4683,7 +4428,7 @@ uint64_t __FPIsAnyDocumentRecentlyUsed_block_invoke(uint64_t a1, void *a2)
 intptr_t __FPIsAnyDocumentRecentlyUsed_block_invoke_2(void *a1)
 {
   *(*(a1[6] + 8) + 24) = *(*(a1[7] + 8) + 24) != 0;
-  v2 = FPCacheForAnyDocumentRecentlyUsed();
+  v2 = FPCacheForAnyDocumentRecentlyUsed(a1);
   v3 = [MEMORY[0x1E696AD98] numberWithBool:*(*(a1[6] + 8) + 24)];
   [v2 setObject:v3 forKey:a1[4]];
 
@@ -4703,11 +4448,8 @@ void *__getMDItemExpirationDateSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t __CoreSpotlightLibraryCore_block_invoke_6(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreSpotlightLibraryCore_frameworkLibrary_6 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4738,10 +4480,11 @@ void *__getMDItemFileSizeSymbolLoc_block_invoke_0(uint64_t a1)
   return result;
 }
 
-void sub_1AABC0840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1AABC0840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4801,48 +4544,46 @@ void sub_1AABC1AD0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1AABC1C9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AABC1C9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __fp_leave_section_Debug(va);
   _Unwind_Resume(a1);
 }
 
 void emitFinalSignPost(os_signpost_id_t a1, void *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if (v5 && ([v5 timeIntervalSinceNow], v7 < -1.0))
   {
     QoSValueForThread = getQoSValueForThread(1);
-    v9 = telemetry_default_log();
+    v9 = telemetry_default_log(QoSValueForThread);
     v10 = v9;
     if (a1 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
     {
-      v15 = 134349056;
-      v16 = QoSValueForThread | a3;
+      v14 = 134349056;
+      v15 = QoSValueForThread | a3;
       v11 = "xpcInfo=%{public,signpost.telemetry:number1,name=xpcInfo}ld enableTelemetry=YES ";
 LABEL_9:
-      _os_signpost_emit_with_name_impl(&dword_1AAAE1000, v10, OS_SIGNPOST_INTERVAL_END, a1, "ClientXPC", v11, &v15, 0xCu);
+      _os_signpost_emit_with_name_impl(&dword_1AAAE1000, v10, OS_SIGNPOST_INTERVAL_END, a1, "ClientXPC", v11, &v14, 0xCu);
     }
   }
 
   else
   {
     v12 = getQoSValueForThread(1);
-    v13 = telemetry_default_log();
+    v13 = telemetry_default_log(v12);
     v10 = v13;
     if (a1 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
     {
-      v15 = 134349056;
-      v16 = v12 | a3;
+      v14 = 134349056;
+      v15 = v12 | a3;
       v11 = "xpcInfo=%{public,signpost.telemetry:number1,name=xpcInfo}ld";
       goto LABEL_9;
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t getQoSValueForThread(int a1)
@@ -4867,23 +4608,30 @@ void sub_1AABC2840(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1AABC3158(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AABC2FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  va_start(va, a2);
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AABC3158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
   __fp_leave_section_Debug(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABC3C6C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AABC3C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __fp_leave_section_Debug(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABC43A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1AABC43A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   __fp_leave_section_Debug(va);
   _Unwind_Resume(a1);
 }
@@ -4909,9 +4657,30 @@ id FPAbbreviatedArrayDescription(void *a1)
   return v5;
 }
 
-void sub_1AABC8644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AABC69D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  va_start(va, a7);
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AABC71F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AABC77DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AABC8644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4934,8 +4703,8 @@ uint64_t fpfs_enable_fault_handling(int a1)
 
 uint64_t fpfs_enable_vnode_rapid_aging(int a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  *v5 = 0x4400000001;
+  v5 = *MEMORY[0x1E69E9840];
+  *v4 = 0x4400000001;
   if (a1)
   {
     v1 = 1;
@@ -4946,10 +4715,8 @@ uint64_t fpfs_enable_vnode_rapid_aging(int a1)
     v1 = 3;
   }
 
-  v4 = v1;
-  result = sysctl(v5, 2u, 0, 0, &v4, 4uLL);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3 = v1;
+  return sysctl(v4, 2u, 0, 0, &v3, 4uLL);
 }
 
 void fpfs_allow_operation(int a1)
@@ -4982,95 +4749,80 @@ uint64_t fpfs_unload_hierarchy(const char *a1)
   return fpfs_chdir(a1, v2);
 }
 
-uint64_t __fpfs_unload_hierarchy_block_invoke(uint64_t a1)
+FTSENT *__fpfs_unload_hierarchy_block_invoke(uint64_t a1)
 {
-  v3[2] = *MEMORY[0x1E69E9840];
-  v3[0] = *(a1 + 32);
-  v3[1] = 0;
-  result = _recycle_recursive(v3);
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  v2[2] = *MEMORY[0x1E69E9840];
+  v2[0] = *(a1 + 32);
+  v2[1] = 0;
+  return _recycle_recursive(v2);
 }
 
-uint64_t _recycle_recursive(char *const *a1)
+FTSENT *_recycle_recursive(char *const *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v1 = fts_open(a1, 2132, 0);
-  if (v1)
+  if (!v1)
   {
-    v2 = v1;
-    v3 = 0;
-    do
+    return 0xFFFFFFFFLL;
+  }
+
+  v2 = v1;
+  v3 = 0;
+  do
+  {
+    v4 = fts_read(v2);
+    if (!v4)
     {
-      v4 = fts_read(v2);
-      if (!v4)
-      {
-        break;
-      }
-
-      if ((v3 & 1) == 0)
-      {
-        v5 = fp_current_or_default_log();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
-        {
-          v6 = *(v4 + 72);
-          *buf = 134217984;
-          v14 = v6;
-          _os_log_impl(&dword_1AAAE1000, v5, OS_LOG_TYPE_INFO, "[INFO] Recursively calling F_RECYCLE below ino #%llu", buf, 0xCu);
-        }
-      }
-
-      v7 = *(v4 + 88);
-      v8 = v7 > 0xC;
-      v9 = (1 << v7) & 0x1140;
-      v10 = v8 || v9 == 0;
-      v4 = v10 ? 0 : fpfs_openat(4294967294, *(v4 + 48), 0, 0, 0, &__block_literal_global_9_0);
-      v3 = 1;
+      break;
     }
 
-    while (!v4);
-    fts_close(v2);
+    if ((v3 & 1) == 0)
+    {
+      v5 = fp_current_or_default_log();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      {
+        fts_ino = v4->fts_ino;
+        *buf = 134217984;
+        v13 = fts_ino;
+        _os_log_impl(&dword_1AAAE1000, v5, OS_LOG_TYPE_INFO, "[INFO] Recursively calling F_RECYCLE below ino #%llu", buf, 0xCu);
+      }
+    }
+
+    fts_info = v4->fts_info;
+    v8 = fts_info > 0xC;
+    v9 = (1 << fts_info) & 0x1140;
+    v10 = v8 || v9 == 0;
+    v4 = v10 ? 0 : fpfs_openat(4294967294, v4->fts_path, 0, 0, 0, &__block_literal_global_9_0);
+    v3 = 1;
   }
 
-  else
-  {
-    v4 = 0xFFFFFFFFLL;
-  }
-
-  v11 = *MEMORY[0x1E69E9840];
+  while (!v4);
+  fts_close(v2);
   return v4;
 }
 
-uint64_t __fpfs_funload_hierarchy_block_invoke()
+FTSENT *__fpfs_funload_hierarchy_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2 = xmmword_1E793E2A0;
-  result = _recycle_recursive(&v2);
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  v2 = *MEMORY[0x1E69E9840];
+  v1 = xmmword_1E793E2A0;
+  return _recycle_recursive(&v1);
 }
 
-uint64_t fpfs_funload_file(int a1)
+FTSENT *fpfs_funload_file(int a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  bzero(v5, 0x400uLL);
-  if ((fpfs_fgetpath(a1, v5) & 0x80000000) != 0)
+  v5 = *MEMORY[0x1E69E9840];
+  bzero(v4, 0x400uLL);
+  if ((fpfs_fgetpath(a1, v4) & 0x80000000) != 0)
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
-  else
-  {
-    v4[0] = v5;
-    v4[1] = 0;
-    result = _recycle_recursive(v4);
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3[0] = v4;
+  v3[1] = 0;
+  return _recycle_recursive(v3);
 }
 
-uint64_t fpfs_get_materialization_alignment()
+uint64_t fpfs_get_materialization_alignment(uint64_t a1, uint64_t a2)
 {
   if (fpfs_get_materialization_alignment_once != -1)
   {
@@ -5082,9 +4834,9 @@ uint64_t fpfs_get_materialization_alignment()
 
 void __fpfs_get_materialization_alignment_block_invoke()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  bzero(&v4, 0x878uLL);
-  if (statfs(".", &v4) < 0)
+  v4 = *MEMORY[0x1E69E9840];
+  bzero(&v3, 0x878uLL);
+  if (statfs(".", &v3) < 0)
   {
     fpfs_get_materialization_alignment_alignment = 0x10000;
     v2 = fp_current_or_default_log();
@@ -5108,18 +4860,16 @@ void __fpfs_get_materialization_alignment_block_invoke()
 
 LABEL_10:
 
-    goto LABEL_11;
+    return;
   }
 
-  f_bsize = v4.f_bsize;
-  if (v0 > v4.f_bsize)
+  f_bsize = v3.f_bsize;
+  if (v0 > v3.f_bsize)
   {
     f_bsize = v0;
   }
 
   fpfs_get_materialization_alignment_alignment = f_bsize;
-LABEL_11:
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t fpfs_is_vfs_ignore_permissions_iopolicy_set()
@@ -5148,18 +4898,15 @@ uint64_t fpfs_unset_vfs_ignore_permissions_iopolicy()
 
 uint64_t fpfs_speculative_download_hierarchy_unset(const char *a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  memset(v3, 0, sizeof(v3));
-  DWORD1(v3[0]) = 3;
-  result = fsctl(a1, 0xC1104A71uLL, v3, 0);
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  v3 = *MEMORY[0x1E69E9840];
+  memset(v2, 0, sizeof(v2));
+  DWORD1(v2[0]) = 3;
+  return fsctl(a1, 0xC1104A71uLL, v2, 0);
 }
 
 uint64_t fpfs_speculative_download_hierarchy_set(const char *a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v19 = 0u;
+  v19 = *MEMORY[0x1E69E9840];
   v18 = 0u;
   v17 = 0u;
   v16 = 0u;
@@ -5175,11 +4922,10 @@ uint64_t fpfs_speculative_download_hierarchy_set(const char *a1)
   v6 = 0u;
   v5 = 0u;
   v4 = 0u;
-  v3[0] = 0x100000001;
-  v3[1] = 260;
-  result = fsctl(a1, 0xC1104A71uLL, v3, 0);
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  v3 = 0u;
+  v2[0] = 0x100000001;
+  v2[1] = 260;
+  return fsctl(a1, 0xC1104A71uLL, v2, 0);
 }
 
 void sub_1AABCFB48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -5192,78 +4938,80 @@ void sub_1AABCFB48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1AABD1C88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
+void sub_1AABD1C88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  objc_sync_exit(v23);
+  va_start(va, a22);
+  objc_sync_exit(v22);
   _Block_object_dispose(&a17, 8);
-  _Block_object_dispose(&a23, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1AABD2C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABD3314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AABD2C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AABD3314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 112), 8);
+  _Block_object_dispose((v16 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABD3F64(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AABD3F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _FPRestorePersona(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABD4984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AABD4984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABD6DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AABD6DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABD76D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AABD76D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABD7B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_1AABD7B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a26, 8);
-  _Block_object_dispose(&a32, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -5292,46 +5040,44 @@ uint64_t __createCaches_block_invoke()
   return MEMORY[0x1EEE66BB8](v8, v9);
 }
 
-id FPXSearchEnumeratorObserverXPCInterface()
+id FPXSearchEnumeratorObserverXPCInterface(uint64_t a1)
 {
   if (FPXSearchEnumeratorObserverXPCInterface_once != -1)
   {
     FPXSearchEnumeratorObserverXPCInterface_cold_1();
   }
 
-  v1 = FPXSearchEnumeratorObserverXPCInterface_interface;
+  v2 = FPXSearchEnumeratorObserverXPCInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 void __FPXSearchEnumeratorObserverXPCInterface_block_invoke()
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F1FD78F8];
   v1 = FPXSearchEnumeratorObserverXPCInterface_interface;
   FPXSearchEnumeratorObserverXPCInterface_interface = v0;
 
   v2 = FPXSearchEnumeratorObserverXPCInterface_interface;
   v3 = MEMORY[0x1E695DFD8];
-  v7[0] = objc_opt_class();
-  v7[1] = objc_opt_class();
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_didEnumerateSearchResults_ argumentIndex:0 ofReply:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-id FPXSearchEnumeratorXPCInterface()
+id FPXSearchEnumeratorXPCInterface(uint64_t a1)
 {
   if (FPXSearchEnumeratorXPCInterface_once != -1)
   {
     FPXSearchEnumeratorXPCInterface_cold_1();
   }
 
-  v1 = FPXSearchEnumeratorXPCInterface_interface;
+  v2 = FPXSearchEnumeratorXPCInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 void __FPXSearchEnumeratorXPCInterface_block_invoke()
@@ -5341,13 +5087,13 @@ void __FPXSearchEnumeratorXPCInterface_block_invoke()
   FPXSearchEnumeratorXPCInterface_interface = v0;
 
   v2 = FPXSearchEnumeratorXPCInterface_interface;
-  v3 = FPXSearchEnumeratorObserverXPCInterface();
-  [v2 setInterface:v3 forSelector:sel_enumerateSearchResultsForObserver_startingAtPage_ argumentIndex:0 ofReply:0];
+  v4 = FPXSearchEnumeratorObserverXPCInterface(v3);
+  [v2 setInterface:v4 forSelector:sel_enumerateSearchResultsForObserver_startingAtPage_ argumentIndex:0 ofReply:0];
 }
 
 void __FPXVendorXPCInterface_block_invoke()
 {
-  v40[2] = *MEMORY[0x1E69E9840];
+  v41[2] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F1FCC598];
   v1 = FPXVendorXPCInterface_interface;
   FPXVendorXPCInterface_interface = v0;
@@ -5366,67 +5112,65 @@ void __FPXVendorXPCInterface_block_invoke()
   v7 = FPXEnumeratorXPCInterface();
   [v3 setInterface:v7 forSelector:sel_listRemoteVersionsWithSettings_observer_request_completionHandler_ argumentIndex:0 ofReply:1];
 
-  v8 = FPXSearchEnumeratorXPCInterface();
-  [v3 setInterface:v8 forSelector:? argumentIndex:? ofReply:?];
+  v9 = FPXSearchEnumeratorXPCInterface(v8);
+  [v3 setInterface:v9 forSelector:? argumentIndex:? ofReply:?];
 
   FPXSetOperationServiceOnXPCInterface(FPXVendorXPCInterface_interface);
-  v9 = MEMORY[0x1E695DFD8];
-  v10 = objc_opt_class();
+  v10 = MEMORY[0x1E695DFD8];
   v11 = objc_opt_class();
   v12 = objc_opt_class();
   v13 = objc_opt_class();
   v14 = objc_opt_class();
   v15 = objc_opt_class();
   v16 = objc_opt_class();
-  v17 = [v9 setWithObjects:{v10, v11, v12, v13, v14, v15, v16, objc_opt_class(), 0}];
-  v40[0] = objc_opt_class();
-  v40[1] = objc_opt_class();
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
-  v19 = FPXVendorXPCInterface_interface;
-  v20 = [v17 setByAddingObjectsFromArray:v18];
-  [v19 setClasses:v20 forSelector:sel_valuesForAttributes_forItemID_completionHandler_ argumentIndex:0 ofReply:1];
+  v17 = objc_opt_class();
+  v18 = [v10 setWithObjects:{v11, v12, v13, v14, v15, v16, v17, objc_opt_class(), 0}];
+  v41[0] = objc_opt_class();
+  v41[1] = objc_opt_class();
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
+  v20 = FPXVendorXPCInterface_interface;
+  v21 = [v18 setByAddingObjectsFromArray:v19];
+  [v20 setClasses:v21 forSelector:sel_valuesForAttributes_forItemID_completionHandler_ argumentIndex:0 ofReply:1];
 
-  v21 = FPXVendorXPCInterface_interface;
-  v22 = MEMORY[0x1E695DFD8];
-  v23 = objc_opt_class();
-  v24 = [v22 setWithObjects:{v23, objc_opt_class(), 0}];
-  [v21 setClasses:v24 forSelector:sel_bulkEvictItemsWithItemIDs_completionHandler_ argumentIndex:0 ofReply:0];
+  v22 = FPXVendorXPCInterface_interface;
+  v23 = MEMORY[0x1E695DFD8];
+  v24 = objc_opt_class();
+  v25 = [v23 setWithObjects:{v24, objc_opt_class(), 0}];
+  [v22 setClasses:v25 forSelector:sel_bulkEvictItemsWithItemIDs_completionHandler_ argumentIndex:0 ofReply:0];
 
-  v25 = FPXVendorXPCInterface_interface;
-  v26 = MEMORY[0x1E695DFD8];
-  v27 = objc_opt_class();
+  v26 = FPXVendorXPCInterface_interface;
+  v27 = MEMORY[0x1E695DFD8];
   v28 = objc_opt_class();
   v29 = objc_opt_class();
-  v30 = [v26 setWithObjects:{v27, v28, v29, objc_opt_class(), 0}];
-  [v25 setClasses:v30 forSelector:sel_beginRequestWithDomain_alternateContentsDictionary_domainServicer_providerDomain_domainVersion_completionHandler_ argumentIndex:1 ofReply:0];
+  v30 = objc_opt_class();
+  v31 = [v27 setWithObjects:{v28, v29, v30, objc_opt_class(), 0}];
+  [v26 setClasses:v31 forSelector:sel_beginRequestWithDomain_alternateContentsDictionary_domainServicer_providerDomain_domainVersion_completionHandler_ argumentIndex:1 ofReply:0];
 
-  v31 = FPXVendorXPCInterface_interface;
-  v32 = FPDDomainServicingXPCInterface();
-  [v31 setInterface:v32 forSelector:sel_beginRequestWithDomain_alternateContentsDictionary_domainServicer_providerDomain_domainVersion_completionHandler_ argumentIndex:2 ofReply:0];
+  v32 = FPXVendorXPCInterface_interface;
+  v33 = FPDDomainServicingXPCInterface();
+  [v32 setInterface:v33 forSelector:sel_beginRequestWithDomain_alternateContentsDictionary_domainServicer_providerDomain_domainVersion_completionHandler_ argumentIndex:2 ofReply:0];
 
-  v33 = FPXVendorXPCInterface_interface;
-  v34 = MEMORY[0x1E695DFD8];
-  v35 = objc_opt_class();
-  v36 = [v34 setWithObjects:{v35, objc_opt_class(), 0}];
-  [v33 setClasses:v36 forSelector:sel_fetchServicesForItemID_allowRestrictedSources_completionHandler_ argumentIndex:1 ofReply:1];
+  v34 = FPXVendorXPCInterface_interface;
+  v35 = MEMORY[0x1E695DFD8];
+  v36 = objc_opt_class();
+  v37 = [v35 setWithObjects:{v36, objc_opt_class(), 0}];
+  [v34 setClasses:v37 forSelector:sel_fetchServicesForItemID_allowRestrictedSources_completionHandler_ argumentIndex:1 ofReply:1];
 
-  v37 = FPXVendorXPCInterface_interface;
-  v38 = FPXSearchEnumeratorXPCInterface();
-  [v37 setInterface:v38 forSelector:sel_enumerateSearchResultForRequest_completionHandler_ argumentIndex:0 ofReply:1];
-
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = FPXVendorXPCInterface_interface;
+  v40 = FPXSearchEnumeratorXPCInterface(v39);
+  [v38 setInterface:v40 forSelector:sel_enumerateSearchResultForRequest_completionHandler_ argumentIndex:0 ofReply:1];
 }
 
-id FPSimulatorSupportInterface()
+id FPSimulatorSupportInterface(uint64_t a1)
 {
   if (FPSimulatorSupportInterface_once != -1)
   {
     FPSimulatorSupportInterface_cold_1();
   }
 
-  v1 = FPSimulatorSupportInterface_interface;
+  v2 = FPSimulatorSupportInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 void __FPSimulatorSupportInterface_block_invoke()
@@ -5541,7 +5285,7 @@ uint64_t fpfs_serialize_tags(uint64_t a1, void *a2)
 
 uint64_t fpfs_deserialize_tags(void *a1, void *a2)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:*a1 length:a1[1] freeWhenDone:0];
@@ -5569,28 +5313,28 @@ uint64_t fpfs_deserialize_tags(void *a1, void *a2)
         v15 = [v12 objectForKeyedSubscript:@"t"];
         if (v15 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
-          v49 = 0u;
-          v50 = 0u;
-          v47 = 0u;
           v48 = 0u;
+          v49 = 0u;
+          v46 = 0u;
+          v47 = 0u;
           obj = v15;
-          v40 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
-          if (v40)
+          v39 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+          if (v39)
           {
-            v41 = *v48;
-            v43 = v13;
-            v37 = v15;
-            v38 = v12;
+            v40 = *v47;
+            v42 = v13;
+            v36 = v15;
+            v37 = v12;
             while (2)
             {
-              for (i = 0; i != v40; ++i)
+              for (i = 0; i != v39; ++i)
               {
-                if (*v48 != v41)
+                if (*v47 != v40)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v17 = *(*(&v47 + 1) + 8 * i);
+                v17 = *(*(&v46 + 1) + 8 * i);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
@@ -5611,20 +5355,20 @@ uint64_t fpfs_deserialize_tags(void *a1, void *a2)
                 }
 
                 v21 = [v20 intValue];
+                v44 = 0;
                 v45 = 0;
-                v46 = 0;
-                v45 = [v19 UTF8String];
-                LOBYTE(v46) = v21;
-                if ((v43[2](v43, &v45) & 1) == 0)
+                v44 = [v19 UTF8String];
+                LOBYTE(v45) = v21;
+                if ((v42[2](v42, &v44) & 1) == 0)
                 {
                   v22 = 0;
 LABEL_55:
 
                   v4 = v18;
 LABEL_56:
-                  v15 = v37;
-                  v12 = v38;
-                  v13 = v43;
+                  v15 = v36;
+                  v12 = v37;
+                  v13 = v42;
                   goto LABEL_57;
                 }
 
@@ -5632,11 +5376,11 @@ LABEL_56:
               }
 
               v22 = 0;
-              v15 = v37;
-              v12 = v38;
-              v13 = v43;
-              v40 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
-              if (v40)
+              v15 = v36;
+              v12 = v37;
+              v13 = v42;
+              v39 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+              if (v39)
               {
                 continue;
               }
@@ -5674,36 +5418,36 @@ LABEL_57:
       {
         v23 = v11;
         v24 = v3;
+        v46 = 0u;
         v47 = 0u;
         v48 = 0u;
         v49 = 0u;
-        v50 = 0u;
         v25 = v23;
-        v26 = [v25 countByEnumeratingWithState:&v47 objects:v51 count:16];
+        v26 = [v25 countByEnumeratingWithState:&v46 objects:v50 count:16];
         if (v26)
         {
           v27 = v26;
-          v42 = v4;
-          v44 = v3;
-          v28 = *v48;
+          v41 = v4;
+          v43 = v3;
+          v28 = *v47;
           while (2)
           {
             for (j = 0; j != v27; ++j)
             {
-              if (*v48 != v28)
+              if (*v47 != v28)
               {
                 objc_enumerationMutation(v25);
               }
 
-              v30 = *(*(&v47 + 1) + 8 * j);
+              v30 = *(*(&v46 + 1) + 8 * j);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
+                v44 = 0;
                 v45 = 0;
-                v46 = 0;
                 v31 = [v30 UTF8String];
                 v32 = v31;
-                v45 = v31;
+                v44 = v31;
                 if (!v31)
                 {
                   *__error() = 22;
@@ -5721,7 +5465,7 @@ LABEL_43:
                   goto LABEL_46;
                 }
 
-                LOBYTE(v46) = 1;
+                LOBYTE(v45) = 1;
                 v33 = strrchr(v31, 10);
                 if (v33)
                 {
@@ -5729,18 +5473,18 @@ LABEL_43:
                   v34 = v33[1];
                   if ((v34 - 49) <= 6)
                   {
-                    LOBYTE(v46) = v34 - 48;
+                    LOBYTE(v45) = v34 - 48;
                   }
                 }
 
-                if ((v24[2](v24, &v45) & 1) == 0)
+                if ((v24[2](v24, &v44) & 1) == 0)
                 {
                   goto LABEL_43;
                 }
               }
             }
 
-            v27 = [v25 countByEnumeratingWithState:&v47 objects:v51 count:16];
+            v27 = [v25 countByEnumeratingWithState:&v46 objects:v50 count:16];
             if (v27)
             {
               continue;
@@ -5751,8 +5495,8 @@ LABEL_43:
 
           v22 = 0;
 LABEL_46:
-          v4 = v42;
-          v3 = v44;
+          v4 = v41;
+          v3 = v43;
         }
 
         else
@@ -5775,7 +5519,6 @@ LABEL_46:
   }
 
   objc_autoreleasePoolPop(v4);
-  v35 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -5816,9 +5559,11 @@ uint64_t __fpfs_user_package_extension_list_init_block_invoke(uint64_t a1)
   v7 = remotePackageExtensions;
   remotePackageExtensions = v6;
 
-  userPackageExtensions = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v8 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v9 = userPackageExtensions;
+  userPackageExtensions = v8;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v8, v9);
 }
 
 void fpfs_icd_package_extension_list_reload()
@@ -5835,7 +5580,7 @@ void fpfs_icd_package_extension_list_reload()
   os_unfair_lock_unlock(&iCDPackageExtensionsLock);
 }
 
-void fpfs_icd_package_extension_list_init()
+void fpfs_icd_package_extension_list_init(uint64_t result, uint64_t a2)
 {
   if (fpfs_icd_package_extension_list_init_once != -1)
   {
@@ -6036,19 +5781,19 @@ BOOL FPFileMetadataSetLastUsedDate(int a1, void *a2, void *a3)
 
 void FPSetLastUsedDateAtURL(void *a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   v5 = [v3 fileSystemRepresentation];
-  v13 = MEMORY[0x1E69E9820];
-  v14 = 3221225472;
-  v15 = __FPSetLastUsedDateAtURL_block_invoke;
-  v16 = &unk_1E793E888;
-  v17 = v4;
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __FPSetLastUsedDateAtURL_block_invoke;
+  v15 = &unk_1E793E888;
+  v16 = v4;
   v6 = v3;
-  v18 = v6;
+  v17 = v6;
   v7 = v4;
-  if ((fpfs_open(v5, 0x200002u, 0, 2, &v13) & 0x80000000) != 0)
+  if ((fpfs_open(v5, 2097154, 0, 2, &v12) & 0x80000000) != 0)
   {
     v8 = fp_current_or_default_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -6057,14 +5802,12 @@ void FPSetLastUsedDateAtURL(void *a1, void *a2)
       v10 = __error();
       v11 = strerror(*v10);
       *buf = 138412546;
-      v20 = v9;
-      v21 = 2080;
-      v22 = v11;
+      v19 = v9;
+      v20 = 2080;
+      v21 = v11;
       _os_log_impl(&dword_1AAAE1000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] can't set last used date on %@: %s", buf, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __FPSetLastUsedDateAtURL_block_invoke(uint64_t a1, int a2)
@@ -6092,7 +5835,7 @@ uint64_t __FPSetLastUsedDateAtURL_block_invoke(uint64_t a1, int a2)
   return v7;
 }
 
-id FPFileMetadataCopyFavoriteRank(int a1, void *a2)
+id FPFileMetadataCopyFavoriteRank(uint64_t a1, void *a2)
 {
   v7 = 0;
   if ((fpfs_get_favorite_rank(a1, &v7) & 0x80000000) != 0)
@@ -6141,7 +5884,7 @@ BOOL FPFileMetadataSetFavoriteRank(int a1, void *a2, void *a3)
   return v5 >= 0;
 }
 
-id FPFileMetadataCopyTagData(int a1, void *a2)
+id FPFileMetadataCopyTagData(uint64_t a1, void *a2)
 {
   v12 = 0;
   v13 = 0;
@@ -6210,8 +5953,9 @@ uint64_t __FPFileMetadataCopyTagData_block_invoke(uint64_t a1, uint64_t a2)
   return 1;
 }
 
-BOOL FPFileMetadataSetTagData(int a1, void *a2, void *a3)
+BOOL FPFileMetadataSetTagData(uint64_t a1, void *a2, void *a3)
 {
+  v4 = a1;
   v5 = a2;
   memset(v18, 0, sizeof(v18));
   v6 = FPGetTagsFromTagsData(v5);
@@ -6221,7 +5965,7 @@ BOOL FPFileMetadataSetTagData(int a1, void *a2, void *a3)
   v16[1] = 0;
   if (![v6 count])
   {
-    if ((fpfs_set_tag_data(a1, 0, v17, v16) & 0x80000000) == 0)
+    if ((fpfs_set_tag_data(v4, 0, v17, v16) & 0x80000000) == 0)
     {
       goto LABEL_7;
     }
@@ -6251,7 +5995,7 @@ LABEL_10:
   v8 = fpfs_serialize_tags(v18, v11);
   if ((v8 & 0x80000000) == 0)
   {
-    v8 = fpfs_set_tag_data(a1, v18, v17, v16);
+    v8 = fpfs_set_tag_data(v4, v18, v17, v16);
   }
 
   if (v18[0])
@@ -6266,7 +6010,7 @@ LABEL_10:
   }
 
 LABEL_7:
-  v9 = fpfs_set_finder_info(a1, v17, v16) >= 0;
+  v9 = fpfs_set_finder_info(v4, v17, v16) >= 0;
   if (!a3)
   {
     goto LABEL_13;
@@ -6283,9 +6027,9 @@ LABEL_13:
   return v9;
 }
 
-void sub_1AABDB2FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1AABDB2FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6444,7 +6188,7 @@ void __FPFileProviderServiceEndpointCreatingForItemAtURLSynchronously_block_invo
     {
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        __FPFileProviderServiceEndpointCreatingForItemAtURLSynchronously_block_invoke_2_cold_2(v9, a1);
+        __FPFileProviderServiceEndpointCreatingForItemAtURLSynchronously_block_invoke_2_cold_2();
       }
     }
 
@@ -6478,15 +6222,15 @@ void FPFetchServiceEndpointCreatorForItemAtURL(void *a1, int a2, void *a3)
 
 void FPFetchServiceEndpointCreatorByNameForItemAtURL(void *a1, void *a2, uint64_t a3, void *a4)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v7 = a1;
   v8 = a2;
   v9 = a4;
-  v33 = 0;
   v32 = 0;
-  [v7 getResourceValue:&v33 forKey:@"FPOriginalDocumentURL" error:&v32];
-  v10 = v33;
-  v11 = v32;
+  v31 = 0;
+  [v7 getResourceValue:&v32 forKey:@"FPOriginalDocumentURL" error:&v31];
+  v10 = v32;
+  v11 = v31;
   if (v11)
   {
     v12 = fp_current_or_default_log();
@@ -6502,9 +6246,9 @@ void FPFetchServiceEndpointCreatorByNameForItemAtURL(void *a1, void *a2, uint64_
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v35 = v10;
-      v36 = 2112;
-      v37 = v7;
+      v34 = v10;
+      v35 = 2112;
+      v36 = v7;
       _os_log_impl(&dword_1AAAE1000, v13, OS_LOG_TYPE_INFO, "[INFO] FPFetchServiceEndpointCreatorByNameForItemAtURL substituting %@ as original URL to %@", buf, 0x16u);
     }
 
@@ -6512,31 +6256,29 @@ void FPFetchServiceEndpointCreatorByNameForItemAtURL(void *a1, void *a2, uint64_
     v7 = v14;
   }
 
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __FPFetchServiceEndpointCreatorByNameForItemAtURL_block_invoke;
-  v27[3] = &unk_1E793E960;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __FPFetchServiceEndpointCreatorByNameForItemAtURL_block_invoke;
+  v26[3] = &unk_1E793E960;
   v15 = v7;
-  v28 = v15;
-  v31 = a3;
+  v27 = v15;
+  v30 = a3;
   v16 = v9;
-  v29 = v8;
-  v30 = v16;
+  v28 = v8;
+  v29 = v16;
   v17 = v8;
-  v18 = [FPFrameworkOverridesIterator newIteratorWithNotFoundHandler:v27];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __FPFetchServiceEndpointCreatorByNameForItemAtURL_block_invoke_3;
-  v23[3] = &unk_1E793E988;
-  v24 = v18;
-  v25 = v15;
-  v26 = v16;
+  v18 = [FPFrameworkOverridesIterator newIteratorWithNotFoundHandler:v26];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __FPFetchServiceEndpointCreatorByNameForItemAtURL_block_invoke_3;
+  v22[3] = &unk_1E793E988;
+  v23 = v18;
+  v24 = v15;
+  v25 = v16;
   v19 = v16;
   v20 = v15;
   v21 = v18;
-  [v21 FPFileProviderServiceEndpointCreatingWithName:v17 itemAtURL:v20 synchronously:a3 completionHandler:v23];
-
-  v22 = *MEMORY[0x1E69E9840];
+  [v21 FPFileProviderServiceEndpointCreatingWithName:v17 itemAtURL:v20 synchronously:a3 completionHandler:v22];
 }
 
 void __FPFetchServiceEndpointCreatorByNameForItemAtURL_block_invoke(uint64_t a1)
@@ -6562,7 +6304,7 @@ void __FPFetchServiceEndpointCreatorByNameForItemAtURL_block_invoke(uint64_t a1)
 
 void __FPFetchServiceEndpointCreatorByNameForItemAtURL_block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -6573,27 +6315,27 @@ void __FPFetchServiceEndpointCreatorByNameForItemAtURL_block_invoke_2(uint64_t a
 
   else
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v12 = v10;
-    v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v20;
+      v15 = *v19;
       while (2)
       {
         v16 = 0;
         do
         {
-          if (*v20 != v15)
+          if (*v19 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          if ([*(*(&v19 + 1) + 8 * v16) isEqualToString:{*(a1 + 32), v19}])
+          if ([*(*(&v18 + 1) + 8 * v16) isEqualToString:{*(a1 + 32), v18}])
           {
             (*(*(a1 + 40) + 16))(*(a1 + 40), v9, v11, 0);
             goto LABEL_13;
@@ -6603,7 +6345,7 @@ void __FPFetchServiceEndpointCreatorByNameForItemAtURL_block_invoke_2(uint64_t a
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v14)
         {
           continue;
@@ -6619,8 +6361,6 @@ void __FPFetchServiceEndpointCreatorByNameForItemAtURL_block_invoke_2(uint64_t a
     (*(v17 + 16))(v17, 0, 0, v12);
 LABEL_13:
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __FPFetchServiceEndpointCreatorByNameForItemAtURL_block_invoke_3(uint64_t a1, void *a2, void *a3, void *a4)
@@ -6636,7 +6376,7 @@ void __FPFetchServiceEndpointCreatorByNameForItemAtURL_block_invoke_3(uint64_t a
     {
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        __FPFileProviderServiceEndpointCreatingForItemAtURLSynchronously_block_invoke_2_cold_2(v7, a1);
+        __FPFileProviderServiceEndpointCreatingForItemAtURLSynchronously_block_invoke_2_cold_2();
       }
     }
 
@@ -6657,7 +6397,7 @@ void __FPFetchServiceEndpointCreatorByNameForItemAtURL_block_invoke_3(uint64_t a
 
 void __FILEPROVIDER_BAD_DOMAIN_VERSION__(void *a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v14 = a3;
@@ -6668,45 +6408,40 @@ void __FILEPROVIDER_BAD_DOMAIN_VERSION__(void *a1, void *a2, void *a3)
     if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412802;
-      v18 = v5;
-      v19 = 2112;
-      v20 = v14;
-      v21 = 2112;
-      v22 = v6;
+      v17 = v5;
+      v18 = 2112;
+      v19 = v14;
+      v20 = 2112;
+      v21 = v6;
       _os_log_fault_impl(&dword_1AAAE1000, v15, OS_LOG_TYPE_FAULT, "[SIMCRASH] Domain %@ returned an inconsistent domain version %@, previously known version was %@", buf, 0x20u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1AABDDBC4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AABDDBC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __fp_leave_section_Debug(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t __AppleAccountLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppleAccountLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-id fp_extension_log()
+id fp_extension_log(uint64_t a1)
 {
   if (fp_extension_log_once != -1)
   {
     fp_extension_log_cold_1();
   }
 
-  v1 = fp_extension_log_logger;
+  v2 = fp_extension_log_logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __fp_extension_log_block_invoke()
@@ -6718,51 +6453,53 @@ uint64_t __fp_extension_log_block_invoke()
   return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
-void sub_1AABE04A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AABE04A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABE1340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AABE1340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABE2F20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AABE2F20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __fp_leave_section_Debug(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABE3DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+void sub_1AABE3DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
 {
+  va_start(va, a42);
   _Block_object_dispose(&a31, 8);
   _Block_object_dispose(&a37, 8);
-  _Block_object_dispose(&a43, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_3_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
-void sub_1AABE4408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1AABE4408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -6770,25 +6507,23 @@ void sub_1AABE4408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void __FILEPROVIDER_UNSUPPORTED_ERROR__(void *a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = fp_current_or_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
-    v6 = +[FPXPCSanitizer permittedErrorDomains];
-    v7 = [v6 componentsJoinedByString:{@", "}];
-    v8 = 134218754;
-    v9 = a2;
-    v10 = 2114;
-    v11 = v3;
-    v12 = 2114;
-    v13 = v7;
-    v14 = 2082;
-    v15 = "__FILEPROVIDER_UNSUPPORTED_ERROR__";
-    _os_log_fault_impl(&dword_1AAAE1000, v4, OS_LOG_TYPE_FAULT, "[CRIT] Provider returned error %ld from domain %{public}@ which is unsupported. Supported error domains are %{public}@. Break on %{public}s to find this.", &v8, 0x2Au);
+    v5 = +[FPXPCSanitizer permittedErrorDomains];
+    v6 = [v5 componentsJoinedByString:{@", "}];
+    v7 = 134218754;
+    v8 = a2;
+    v9 = 2114;
+    v10 = v3;
+    v11 = 2114;
+    v12 = v6;
+    v13 = 2082;
+    v14 = "__FILEPROVIDER_UNSUPPORTED_ERROR__";
+    _os_log_fault_impl(&dword_1AAAE1000, v4, OS_LOG_TYPE_FAULT, "[CRIT] Provider returned error %ld from domain %{public}@ which is unsupported. Supported error domains are %{public}@. Break on %{public}s to find this.", &v7, 0x2Au);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 id FPLocalizedStringWithKeyAndVariant(void *a1, void *a2, void *a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -6922,62 +6657,60 @@ id _FPLocalizedStringWithKeyAndVariant(void *a1, void *a2, void *a3)
 
 id FPGetTagsDataForTags(void *a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if ([v1 count])
   {
     v2 = objc_opt_new();
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v16 = v1;
+    v15 = v1;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v17 objects:v24 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v16 objects:v23 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v18;
+      v6 = *v17;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v18 != v6)
+          if (*v17 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v17 + 1) + 8 * i);
+          v8 = *(*(&v16 + 1) + 8 * i);
           v9 = [v8 label];
-          v23[0] = v9;
+          v22[0] = v9;
           v10 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v8, "color")}];
-          v23[1] = v10;
-          v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+          v22[1] = v10;
+          v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
           [v2 addObject:v11];
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v17 objects:v24 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v16 objects:v23 count:16];
       }
 
       while (v5);
     }
 
-    v21[0] = @"v";
-    v21[1] = @"t";
-    v22[0] = &unk_1F1FC9AD0;
-    v22[1] = v2;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
+    v20[0] = @"v";
+    v20[1] = @"t";
+    v21[0] = &unk_1F1FC9AD0;
+    v21[1] = v2;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
     v13 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v12 requiringSecureCoding:1 error:0];
 
-    v1 = v16;
+    v1 = v15;
   }
 
   else
   {
     v13 = [MEMORY[0x1E695DEF0] data];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -7070,30 +6803,30 @@ uint64_t __FPGetTagsFromTagsData_block_invoke(uint64_t a1, uint64_t a2)
 
 void FPFilterActionsForDroppingItems(void *a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = a3;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v8 = +[FPFrameworkOverridesIterator allOverrides];
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v16 != v11)
+      if (*v15 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v15 + 1) + 8 * v12);
+      v13 = *(*(&v14 + 1) + 8 * v12);
       if (objc_opt_respondsToSelector() & 1) != 0 && ([v13 FPFilterActions:v7 forDroppingItems:v5 underItem:v6])
       {
         break;
@@ -7101,7 +6834,7 @@ LABEL_3:
 
       if (v10 == ++v12)
       {
-        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -7111,36 +6844,34 @@ LABEL_3:
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t FPAreUTIsImportable(void *a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = +[FPFrameworkOverridesIterator allOverrides];
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
+        v10 = *(*(&v13 + 1) + 8 * v9);
         if ((objc_opt_respondsToSelector() & 1) != 0 && ![v10 FPAreUTIsImportable:v3 toFolderItem:v4])
         {
           v11 = 0;
@@ -7151,7 +6882,7 @@ uint64_t FPAreUTIsImportable(void *a1, void *a2)
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -7164,32 +6895,31 @@ uint64_t FPAreUTIsImportable(void *a1, void *a2)
   v11 = 1;
 LABEL_12:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 id FPServerPackageExtensions()
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v0 = +[FPFrameworkOverridesIterator allOverrides];
-  v1 = [v0 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v1 = [v0 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v1)
   {
-    v2 = *v8;
+    v2 = *v7;
     while (2)
     {
       for (i = 0; i != v1; i = i + 1)
       {
-        if (*v8 != v2)
+        if (*v7 != v2)
         {
           objc_enumerationMutation(v0);
         }
 
-        v4 = *(*(&v7 + 1) + 8 * i);
+        v4 = *(*(&v6 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           v1 = [v4 FPServerPackageExtensions];
@@ -7197,7 +6927,7 @@ id FPServerPackageExtensions()
         }
       }
 
-      v1 = [v0 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v1 = [v0 countByEnumeratingWithState:&v6 objects:v10 count:16];
       if (v1)
       {
         continue;
@@ -7208,8 +6938,6 @@ id FPServerPackageExtensions()
   }
 
 LABEL_11:
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v1;
 }
@@ -7257,9 +6985,9 @@ void __fp_dispatch_group_async_with_logs_block_invoke(uint64_t a1)
   __fp_pop_log(&v5);
 }
 
-void sub_1AABE7EB8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AABE7EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __fp_pop_log(va);
   _Unwind_Resume(a1);
 }
@@ -7307,9 +7035,9 @@ FPTag *__FPGetTagsFromTagsDataInOnDiskEncoding_block_invoke(uint64_t a1, void *a
   return v7;
 }
 
-void sub_1AABE8028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AABE8028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7325,11 +7053,8 @@ void *__getMDPropertyCopyDecodedUserTagsSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t __MetadataUtilitiesLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MetadataUtilitiesLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7349,50 +7074,51 @@ void sub_1AABE8564(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1AABE9454(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *aBlock, uint8_t buf)
+void sub_1AABE9454(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *aBlock, ...)
 {
+  va_start(va, aBlock);
   if (a2 == 1)
   {
-    v13 = objc_begin_catch(exception_object);
-    v14 = [v12 errorFromException:v13 whileSendingToSelector:{objc_msgSend(v11, "selector")}];
+    v12 = objc_begin_catch(exception_object);
+    v13 = [v11 errorFromException:v12 whileSendingToSelector:{objc_msgSend(v10, "selector")}];
     if (forwardInvocation__onceToken != -1)
     {
       [FPExceptionToErrorProxy forwardInvocation:];
     }
 
-    v15 = fpfs_adopt_log(forwardInvocation__exceptionLog);
-    v16 = fp_current_or_default_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v14 = fpfs_adopt_log(forwardInvocation__exceptionLog);
+    v15 = fp_current_or_default_log();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      v17 = [v14 debugDescription];
-      [(FPExceptionToErrorProxy *)v17 forwardInvocation:v16];
+      v16 = [v13 debugDescription];
+      [(FPExceptionToErrorProxy *)v16 forwardInvocation:v15];
     }
 
-    v18 = fpfs_adopt_log(v15);
-    v19 = [v11 methodSignature];
-    v20 = [v19 fp_indexOfLastArgumentWithType:"@?"];
-    if (v20 == 0x7FFFFFFFFFFFFFFFLL)
+    v17 = fpfs_adopt_log(v14);
+    v18 = [v10 methodSignature];
+    v19 = [v18 fp_indexOfLastArgumentWithType:"@?"];
+    if (v19 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v21 = v12[2];
-      if (!v21)
+      v20 = v11[2];
+      if (!v20)
       {
-        v26 = v13;
-        objc_exception_throw(v13);
+        v25 = v12;
+        objc_exception_throw(v12);
       }
 
-      (*(v21 + 16))(v21, v14);
+      (*(v20 + 16))(v20, v13);
     }
 
     else
     {
       aBlock = 0;
-      [v11 getArgument:&aBlock atIndex:v20];
-      v22 = _Block_copy(aBlock);
-      v23 = [MEMORY[0x1E695DF68] signatureWithObjCTypes:_Block_signature(v22)];
-      v24 = [MEMORY[0x1E695DF50] invocationWithMethodSignature:v23];
-      [v24 fp_zeroOutReplyBlockArgumentsWithError:v14];
-      v25 = _Block_copy(v22);
-      [v24 invokeWithTarget:v25];
+      [v10 getArgument:&aBlock atIndex:v19];
+      v21 = _Block_copy(aBlock);
+      v22 = [MEMORY[0x1E695DF68] signatureWithObjCTypes:_Block_signature(v21)];
+      v23 = [MEMORY[0x1E695DF50] invocationWithMethodSignature:v22];
+      [v23 fp_zeroOutReplyBlockArgumentsWithError:v13];
+      v24 = _Block_copy(v21);
+      [v23 invokeWithTarget:v24];
     }
 
     objc_end_catch();
@@ -7409,20 +7135,17 @@ void sub_1AABEB64C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1AABEBB84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AABEBB84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __CoreSpotlightLibraryCore_block_invoke_7(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreSpotlightLibraryCore_frameworkLibrary_7 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7459,225 +7182,221 @@ uint64_t _supportedSyncControlsForVendorItem(void *a1)
   return v2;
 }
 
-id FPItemPropertyNamesByURLResourceKey()
+id FPItemPropertyNamesByURLResourceKey(uint64_t a1)
 {
   if (FPItemPropertyNamesByURLResourceKey_once != -1)
   {
     FPItemPropertyNamesByURLResourceKey_cold_1();
   }
 
-  v1 = FPItemPropertyNamesByURLResourceKey_itemPropertyNamesByURLKey;
+  v2 = FPItemPropertyNamesByURLResourceKey_itemPropertyNamesByURLKey;
 
-  return v1;
+  return v2;
 }
 
 void __FPItemPropertyNamesByURLResourceKey_block_invoke()
 {
-  v17[28] = *MEMORY[0x1E69E9840];
+  v16[28] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E695DC10];
-  v16[0] = *MEMORY[0x1E695DC30];
-  v16[1] = v0;
-  v17[0] = @"filename";
-  v17[1] = @"displayName";
+  v15[0] = *MEMORY[0x1E695DC30];
+  v15[1] = v0;
+  v16[0] = @"filename";
+  v16[1] = @"displayName";
   v1 = *MEMORY[0x1E695DAA8];
-  v16[2] = *MEMORY[0x1E695DB50];
-  v16[3] = v1;
-  v17[2] = @"documentSize";
-  v17[3] = @"creationDate";
+  v15[2] = *MEMORY[0x1E695DB50];
+  v15[3] = v1;
+  v16[2] = @"documentSize";
+  v16[3] = @"creationDate";
   v2 = *MEMORY[0x1E695DA90];
-  v16[4] = *MEMORY[0x1E695DA98];
-  v16[5] = v2;
-  v17[4] = @"contentModificationDate";
-  v17[5] = @"lastUsedDate";
+  v15[4] = *MEMORY[0x1E695DA98];
+  v15[5] = v2;
+  v16[4] = @"contentModificationDate";
+  v16[5] = @"lastUsedDate";
   v3 = *MEMORY[0x1E695DBF0];
-  v16[6] = *MEMORY[0x1E695DBB0];
-  v16[7] = v3;
-  v17[6] = @"fp_isReadable";
-  v17[7] = @"fp_isWritable";
+  v15[6] = *MEMORY[0x1E695DBB0];
+  v15[7] = v3;
+  v16[6] = @"fp_isReadable";
+  v16[7] = @"fp_isWritable";
   v4 = *MEMORY[0x1E695DCE0];
-  v16[8] = *MEMORY[0x1E695DCD8];
-  v16[9] = v4;
-  v17[8] = @"isUploaded";
-  v17[9] = @"isUploading";
+  v15[8] = *MEMORY[0x1E695DCD8];
+  v15[9] = v4;
+  v16[8] = @"isUploaded";
+  v16[9] = @"isUploading";
   v5 = *MEMORY[0x1E695DC98];
-  v16[10] = *MEMORY[0x1E695DCF0];
-  v16[11] = v5;
-  v17[10] = @"uploadingError";
-  v17[11] = @"fp_downloadingStatus";
+  v15[10] = *MEMORY[0x1E695DCF0];
+  v15[11] = v5;
+  v16[10] = @"uploadingError";
+  v16[11] = @"fp_downloadingStatus";
   v6 = *MEMORY[0x1E695DC80];
-  v16[12] = *MEMORY[0x1E695DCB8];
-  v16[13] = v6;
-  v17[12] = @"isDownloading";
-  v17[13] = @"downloadingError";
+  v15[12] = *MEMORY[0x1E695DCB8];
+  v15[13] = v6;
+  v16[12] = @"isDownloading";
+  v16[13] = @"downloadingError";
   v7 = *MEMORY[0x1E695DD00];
-  v16[14] = *MEMORY[0x1E695DCC8];
-  v16[15] = v7;
-  v17[14] = @"isShared";
-  v17[15] = @"fp_sharingCurrentUserRole";
+  v15[14] = *MEMORY[0x1E695DCC8];
+  v15[15] = v7;
+  v16[14] = @"isShared";
+  v16[15] = @"fp_sharingCurrentUserRole";
   v8 = *MEMORY[0x1E695DD20];
-  v16[16] = *MEMORY[0x1E695DCF8];
-  v16[17] = v8;
-  v17[16] = @"fp_sharingCurrentUserPermissions";
-  v17[17] = @"sharingPermissions";
+  v15[16] = *MEMORY[0x1E695DCF8];
+  v15[17] = v8;
+  v16[16] = @"fp_sharingCurrentUserPermissions";
+  v16[17] = @"sharingPermissions";
   v9 = *MEMORY[0x1E695DD08];
-  v16[18] = *MEMORY[0x1E695DD10];
-  v16[19] = v9;
-  v17[18] = @"ownerNameComponents";
-  v17[19] = @"mostRecentEditorNameComponents";
+  v15[18] = *MEMORY[0x1E695DD10];
+  v15[19] = v9;
+  v16[18] = @"ownerNameComponents";
+  v16[19] = @"mostRecentEditorNameComponents";
   v10 = *MEMORY[0x1E695DCA8];
-  v16[20] = *MEMORY[0x1E695DBD8];
-  v16[21] = v10;
-  v17[20] = @"fp_isUbiquitous";
-  v17[21] = @"hasUnresolvedConflicts";
+  v15[20] = *MEMORY[0x1E695DBD8];
+  v15[21] = v10;
+  v16[20] = @"fp_isUbiquitous";
+  v16[21] = @"hasUnresolvedConflicts";
   v11 = *MEMORY[0x1E695DC78];
-  v16[22] = *MEMORY[0x1E695DC70];
-  v16[23] = v11;
-  v17[22] = @"containerDisplayName";
-  v17[23] = @"isDownloadRequested";
-  v16[24] = *MEMORY[0x1E695DCC0];
-  v16[25] = @"NSFileProviderDomainIdentifierKey";
-  v17[24] = @"isExcludedFromSync";
-  v17[25] = @"providerDomainID";
+  v15[22] = *MEMORY[0x1E695DC70];
+  v15[23] = v11;
+  v16[22] = @"containerDisplayName";
+  v16[23] = @"isDownloadRequested";
+  v15[24] = *MEMORY[0x1E695DCC0];
+  v15[25] = @"NSFileProviderDomainIdentifierKey";
+  v16[24] = @"isExcludedFromSync";
+  v16[25] = @"providerDomainID";
   v12 = *MEMORY[0x1E695DCE8];
-  v16[26] = *MEMORY[0x1E695DCD0];
-  v16[27] = v12;
-  v17[26] = @"isSyncPaused";
-  v17[27] = @"fp_supportedSyncControls";
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:28];
+  v15[26] = *MEMORY[0x1E695DCD0];
+  v15[27] = v12;
+  v16[26] = @"isSyncPaused";
+  v16[27] = @"fp_supportedSyncControls";
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:28];
   v14 = FPItemPropertyNamesByURLResourceKey_itemPropertyNamesByURLKey;
   FPItemPropertyNamesByURLResourceKey_itemPropertyNamesByURLKey = v13;
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
-id FPURLResourceKeysByItemPropertyNames()
+id FPURLResourceKeysByItemPropertyNames(uint64_t a1)
 {
   if (FPURLResourceKeysByItemPropertyNames_once != -1)
   {
     FPURLResourceKeysByItemPropertyNames_cold_1();
   }
 
-  v1 = FPURLResourceKeysByItemPropertyNames_urlResourceKeysByItemPropertyNames;
+  v2 = FPURLResourceKeysByItemPropertyNames_urlResourceKeysByItemPropertyNames;
 
-  return v1;
+  return v2;
 }
 
-void __FPURLResourceKeysByItemPropertyNames_block_invoke()
+void __FPURLResourceKeysByItemPropertyNames_block_invoke(uint64_t a1)
 {
   v16 = *MEMORY[0x1E69E9840];
-  v0 = FPItemPropertyNamesByURLResourceKey();
-  v1 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v0, "count")}];
+  v1 = FPItemPropertyNamesByURLResourceKey(a1);
+  v2 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v1, "count")}];
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v2 = v0;
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v3)
+  v3 = v1;
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v4)
   {
-    v4 = v3;
-    v5 = *v12;
+    v5 = v4;
+    v6 = *v12;
     do
     {
-      for (i = 0; i != v4; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v5)
+        if (*v12 != v6)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
-        v8 = [v2 objectForKeyedSubscript:{v7, v11}];
-        [v1 setObject:v7 forKeyedSubscript:v8];
+        v8 = *(*(&v11 + 1) + 8 * i);
+        v9 = [v3 objectForKeyedSubscript:{v8, v11}];
+        [v2 setObject:v8 forKeyedSubscript:v9];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v4);
+    while (v5);
   }
 
-  v9 = FPURLResourceKeysByItemPropertyNames_urlResourceKeysByItemPropertyNames;
-  FPURLResourceKeysByItemPropertyNames_urlResourceKeysByItemPropertyNames = v1;
-
-  v10 = *MEMORY[0x1E69E9840];
+  v10 = FPURLResourceKeysByItemPropertyNames_urlResourceKeysByItemPropertyNames;
+  FPURLResourceKeysByItemPropertyNames_urlResourceKeysByItemPropertyNames = v2;
 }
 
-id FPMatchingDictionaryKeys()
+id FPMatchingDictionaryKeys(uint64_t a1)
 {
   if (FPMatchingDictionaryKeys_once != -1)
   {
     FPMatchingDictionaryKeys_cold_1();
   }
 
-  v1 = FPMatchingDictionaryKeys_fpMatchingDictionary;
+  v2 = FPMatchingDictionaryKeys_fpMatchingDictionary;
 
-  return v1;
+  return v2;
 }
 
-void __FPMatchingDictionaryKeys_block_invoke()
+void __FPMatchingDictionaryKeys_block_invoke(uint64_t a1)
 {
-  v0 = FPURLResourceKeysByItemPropertyNames();
-  v1 = [v0 keysOfEntriesPassingTest:&__block_literal_global_295];
-  v2 = [v1 mutableCopy];
+  v1 = FPURLResourceKeysByItemPropertyNames(a1);
+  v2 = [v1 keysOfEntriesPassingTest:&__block_literal_global_295];
+  v3 = [v2 mutableCopy];
 
-  [v2 addObject:@"userInfo"];
-  [v2 addObject:@"itemIdentifier"];
-  [v2 addObject:@"parentItemIdentifier"];
-  [v2 addObject:@"contentType"];
-  [v2 addObject:@"typeIdentifier"];
-  [v2 addObject:@"isTrashed"];
-  [v2 addObject:@"filename"];
-  [v2 addObject:@"capabilities"];
-  [v2 addObject:@"documentSize"];
-  [v2 addObject:@"childItemCount"];
-  [v2 addObject:@"creationDate"];
-  [v2 addObject:@"contentModificationDate"];
-  [v2 addObject:@"lastUsedDate"];
-  [v2 addObject:@"tagData"];
-  [v2 addObject:@"favoriteRank"];
-  [v2 addObject:@"isUploaded"];
-  [v2 addObject:@"isUploading"];
-  [v2 addObject:@"uploadingError"];
-  [v2 addObject:@"isDownloaded"];
-  [v2 addObject:@"isDownloading"];
-  [v2 addObject:@"downloadingError"];
-  [v2 addObject:@"isMostRecentVersionDownloaded"];
-  [v2 addObject:@"isShared"];
-  [v2 addObject:@"isSharedByCurrentUser"];
-  [v2 addObject:@"ownerNameComponents"];
-  [v2 addObject:@"mostRecentEditorNameComponents"];
-  [v2 addObject:@"versionIdentifier"];
-  [v2 addObject:@"inheritedUserInfo"];
-  [v2 addObject:@"resolvedUserInfo"];
-  [v2 addObject:@"collaborationIdentifier"];
-  [v2 addObject:@"isRecursivelyDownloaded"];
-  [v2 addObject:@"isKeepDownloaded"];
-  [v2 addObject:@"isSyncPaused"];
-  [v2 addObject:@"isFolder"];
-  [v2 removeObject:@"containerDisplayName"];
-  [v2 removeObject:@"providerDomainID"];
-  v3 = FPMatchingDictionaryKeys_fpMatchingDictionary;
-  FPMatchingDictionaryKeys_fpMatchingDictionary = v2;
+  [v3 addObject:@"userInfo"];
+  [v3 addObject:@"itemIdentifier"];
+  [v3 addObject:@"parentItemIdentifier"];
+  [v3 addObject:@"contentType"];
+  [v3 addObject:@"typeIdentifier"];
+  [v3 addObject:@"isTrashed"];
+  [v3 addObject:@"filename"];
+  [v3 addObject:@"capabilities"];
+  [v3 addObject:@"documentSize"];
+  [v3 addObject:@"childItemCount"];
+  [v3 addObject:@"creationDate"];
+  [v3 addObject:@"contentModificationDate"];
+  [v3 addObject:@"lastUsedDate"];
+  [v3 addObject:@"tagData"];
+  [v3 addObject:@"favoriteRank"];
+  [v3 addObject:@"isUploaded"];
+  [v3 addObject:@"isUploading"];
+  [v3 addObject:@"uploadingError"];
+  [v3 addObject:@"isDownloaded"];
+  [v3 addObject:@"isDownloading"];
+  [v3 addObject:@"downloadingError"];
+  [v3 addObject:@"isMostRecentVersionDownloaded"];
+  [v3 addObject:@"isShared"];
+  [v3 addObject:@"isSharedByCurrentUser"];
+  [v3 addObject:@"ownerNameComponents"];
+  [v3 addObject:@"mostRecentEditorNameComponents"];
+  [v3 addObject:@"versionIdentifier"];
+  [v3 addObject:@"inheritedUserInfo"];
+  [v3 addObject:@"resolvedUserInfo"];
+  [v3 addObject:@"collaborationIdentifier"];
+  [v3 addObject:@"isRecursivelyDownloaded"];
+  [v3 addObject:@"isKeepDownloaded"];
+  [v3 addObject:@"isSyncPaused"];
+  [v3 addObject:@"isFolder"];
+  [v3 removeObject:@"containerDisplayName"];
+  [v3 removeObject:@"providerDomainID"];
+  v4 = FPMatchingDictionaryKeys_fpMatchingDictionary;
+  FPMatchingDictionaryKeys_fpMatchingDictionary = v3;
 }
 
-void sub_1AABEC9FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AABEC9FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __fp_leave_section_Debug(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABECDA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1AABECDA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   __fp_leave_section_Debug(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AABED9C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AABED9C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7705,69 +7424,68 @@ id FPExtensionMatchingDictionaryForItem(void *a1, void *a2)
   v28 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
-  context = objc_autoreleasePoolPush();
+  v5 = objc_autoreleasePoolPush();
+  context = v5;
   if (v4)
   {
-    v5 = v4;
+    v6 = v4;
   }
 
   else
   {
-    v5 = FPMatchingDictionaryKeys();
+    v6 = FPMatchingDictionaryKeys(v5);
   }
 
-  v6 = v5;
-  v7 = [MEMORY[0x1E695DF90] dictionary];
+  v7 = v6;
+  v8 = [MEMORY[0x1E695DF90] dictionary];
   v25 = 0u;
   v26 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (v9)
+  v9 = v7;
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (v10)
   {
-    v10 = *v24;
+    v11 = *v24;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v24 != v10)
+        if (*v24 != v11)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v9);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * i);
-        v13 = [v12 isEqualToString:@"itemIdentifier"];
-        v14 = @"providerItemIdentifier";
-        if ((v13 & 1) != 0 || (v15 = [v12 isEqualToString:@"parentItemIdentifier"], v14 = @"providerParentItemIdentifier", v15))
+        v13 = *(*(&v23 + 1) + 8 * i);
+        v14 = [v13 isEqualToString:@"itemIdentifier"];
+        v15 = @"providerItemIdentifier";
+        if ((v14 & 1) != 0 || (v16 = [v13 isEqualToString:@"parentItemIdentifier"], v15 = @"providerParentItemIdentifier", v16))
         {
-          v16 = getValueForKey(v3, v14);
+          v17 = getValueForKey(v3, v15);
         }
 
         else
         {
-          v16 = getValueForKey(v3, v12);
+          v17 = getValueForKey(v3, v13);
         }
 
-        v17 = v16;
-        if (v16)
+        v18 = v17;
+        if (v17)
         {
-          [v7 setObject:v16 forKey:v12];
+          [v8 setObject:v17 forKey:v13];
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
-    while (v9);
+    while (v10);
   }
 
-  v18 = [v7 copy];
+  v19 = [v8 copy];
   objc_autoreleasePoolPop(context);
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v19;
 }
 
 unsigned __int8 *fpfs_finder_info_serialize(unsigned __int8 *result, uint64_t a2)
@@ -7796,7 +7514,7 @@ uint64_t fpfs_set_finder_info_buffer(int a1, void *a2)
   return fsetattrlist(a1, &v3, a2, 0x20uLL, 0);
 }
 
-uint64_t fpfs_get_finder_info(int a1, uint64_t a2)
+uint64_t fpfs_get_finder_info(uint64_t a1, uint64_t a2)
 {
   v3[0] = MEMORY[0x1E69E9820];
   v3[1] = 0x40000000;
@@ -7808,48 +7526,40 @@ uint64_t fpfs_get_finder_info(int a1, uint64_t a2)
 
 uint64_t _fchfiflags(int a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  memset(v16, 0, sizeof(v16));
-  if ((fpfs_get_finder_info_buffer(a1, v16) & 0x80000000) != 0)
+  v18 = *MEMORY[0x1E69E9840];
+  memset(v17, 0, sizeof(v17));
+  finder_info_buffer = fpfs_get_finder_info_buffer(a1, v17);
+  if (v5 < 0)
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
+  }
+
+  v6 = bswap32(WORD4(v17[0]));
+  v14 = bswap64(*&v17[0]);
+  v13 = (v6 >> 17) & 8 | ((v6 & 0x80000000) != 0) | (v6 >> 22) & 0x10 | (v6 >> 28) & 6;
+  *(&v13 + 1) = (v6 >> 17) & 7;
+  v7 = (*(a2 + 16))(a2, v13, finder_info_buffer);
+  if (v7 == v13 && v8 == v14)
+  {
+    return 0;
+  }
+
+  v10 = bswap32(WORD4(v17[0]) & 0xE11B);
+  if (v7)
+  {
+    v11 = -32768;
   }
 
   else
   {
-    v4 = bswap32(WORD4(v16[0]));
-    v13 = bswap64(*&v16[0]);
-    v12 = (v4 >> 17) & 8 | ((v4 & 0x80000000) != 0) | (v4 >> 22) & 0x10 | (v4 >> 28) & 6;
-    *(&v12 + 1) = (v4 >> 17) & 7;
-    v5 = (*(a2 + 16))(a2, v12);
-    if (v5 == v12 && v6 == v13)
-    {
-      result = 0;
-    }
-
-    else
-    {
-      v8 = bswap32(WORD4(v16[0]) & 0xE11B);
-      if (v5)
-      {
-        v9 = -32768;
-      }
-
-      else
-      {
-        v9 = 0;
-      }
-
-      WORD4(v16[0]) = bswap32((v9 | HIWORD(v8)) & 0xFFFF9BEF | ((((v5 & 6) >> 1) & 3) << 13) | (16 * ((v5 >> 3) & 1)) & 0xFFFFFBFF | ((((v5 & 0x10) >> 4) & 1) << 10) | (v5 >> 7) & 0xE) >> 16;
-      *&v16[0] = bswap64(v6);
-      v14 = xmmword_1AAC26938;
-      v15 = 0;
-      result = fsetattrlist(a1, &v14, v16, 0x20uLL, 0);
-    }
+    v11 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  WORD4(v17[0]) = bswap32((v11 | HIWORD(v10)) & 0xFFFF9BEF | ((((v7 & 6) >> 1) & 3) << 13) | (16 * ((v7 >> 3) & 1)) & 0xFFFFFBFF | ((((v7 & 0x10) >> 4) & 1) << 10) | (v7 >> 7) & 0xE) >> 16;
+  *&v17[0] = bswap64(v8);
+  v15 = xmmword_1AAC26938;
+  v16 = 0;
+  return fsetattrlist(a1, &v15, v17, 0x20uLL, 0);
 }
 
 uint64_t __fpfs_get_finder_info_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7860,18 +7570,17 @@ uint64_t __fpfs_get_finder_info_block_invoke(uint64_t a1, uint64_t a2, uint64_t 
   return a2;
 }
 
-BOOL fpfs_finder_info_update_with_mask(__int128 *a1, char *a2, uint64_t a3)
+BOOL fpfs_finder_info_update_with_mask(uint64_t a1, char *a2, uint64_t a3)
 {
-  v3 = *a1;
-  v4 = *a2;
+  v3 = *a2;
   if (*a2)
   {
     *a1 = *a1 & 0xFE | *a3 & 1;
-    v4 = *a2;
+    v3 = *a2;
     if ((*a2 & 2) == 0)
     {
 LABEL_3:
-      if ((v4 & 4) == 0)
+      if ((v3 & 4) == 0)
       {
         goto LABEL_4;
       }
@@ -7886,11 +7595,11 @@ LABEL_3:
   }
 
   *a1 = *a1 & 0xFD | *a3 & 2;
-  v4 = *a2;
+  v3 = *a2;
   if ((*a2 & 4) == 0)
   {
 LABEL_4:
-    if ((v4 & 8) == 0)
+    if ((v3 & 8) == 0)
     {
       goto LABEL_5;
     }
@@ -7900,11 +7609,11 @@ LABEL_4:
 
 LABEL_19:
   *a1 = *a1 & 0xFB | *a3 & 4;
-  v4 = *a2;
+  v3 = *a2;
   if ((*a2 & 8) == 0)
   {
 LABEL_5:
-    if ((v4 & 0x10) == 0)
+    if ((v3 & 0x10) == 0)
     {
       goto LABEL_7;
     }
@@ -7928,10 +7637,10 @@ LABEL_7:
 
   if (*(a2 + 1))
   {
-    *(a1 + 1) = *(a3 + 8);
+    *(a1 + 8) = *(a3 + 8);
   }
 
-  return *a1 != v7 || *(a1 + 1) != v8;
+  return *a1 != v6 || *(a1 + 8) != v7;
 }
 
 uint64_t fpfs_set_finder_info(int a1, uint64_t a2, uint64_t a3)
@@ -7947,10 +7656,10 @@ uint64_t fpfs_set_finder_info(int a1, uint64_t a2, uint64_t a3)
 
 uint64_t __fpfs_set_finder_info_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  *&v4 = a2;
-  *(&v4 + 1) = a3;
-  fpfs_finder_info_update_with_mask(&v4, *(a1 + 32), *(a1 + 40));
-  return v4;
+  v4[0] = a2;
+  v4[1] = a3;
+  fpfs_finder_info_update_with_mask(v4, *(a1 + 32), *(a1 + 40));
+  return v4[0];
 }
 
 uint64_t fpfs_is_finder_alias_at(uint64_t a1, const char *a2, uint64_t a3)
@@ -8173,11 +7882,10 @@ void NSFileProviderManager.requestDownloadForItem(withIdentifier:requestedRange:
 
 void sub_1AABF2B1C(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4(a2);
+  v4 = a2;
+  v3(a2);
 }
 
 uint64_t NSFileProviderManager.requestDownloadForItem(withIdentifier:requestedRange:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
@@ -8222,30 +7930,27 @@ uint64_t sub_1AABF2BB0()
 
 uint64_t sub_1AABF2D00()
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 176) = v2;
-  if (v2)
+  v1 = *(*v0 + 48);
+  *(*v0 + 176) = v1;
+  if (v1)
   {
-    v3 = sub_1AABF2E28;
+    v2 = sub_1AABF2E28;
   }
 
   else
   {
-    v3 = sub_1AABF2E10;
+    v2 = sub_1AABF2E10;
   }
 
-  return MEMORY[0x1EEE6DFA0](v3, 0, 0);
+  return MEMORY[0x1EEE6DFA0](v2, 0, 0);
 }
 
 uint64_t sub_1AABF2E28()
 {
-  v1 = *(v0 + 176);
   swift_willThrow();
-  v2 = *(v0 + 8);
-  v3 = *(v0 + 176);
+  v1 = *(v0 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_1AABF2E94(uint64_t a1, void *a2)
@@ -8272,7 +7977,6 @@ uint64_t sub_1AABF2E94(uint64_t a1, void *a2)
 
 BOOL static NSFileProviderManager.EligibilityResult.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a2 + 8);
   if (*(a1 + 8) == 1)
   {
     return (*(a2 + 8) & 1) != 0;
@@ -8288,7 +7992,6 @@ BOOL static NSFileProviderManager.EligibilityResult.== infix(_:_:)(uint64_t a1, 
 
 BOOL sub_1AABF2F7C(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a2 + 8);
   if (*(a1 + 8) == 1)
   {
     return (*(a2 + 8) & 1) != 0;
@@ -8304,39 +8007,36 @@ BOOL sub_1AABF2F7C(uint64_t a1, uint64_t a2)
 
 id static NSFileProviderManager.checkDomainsCanBeStoredOnVolume(at:)@<X0>(uint64_t a1@<X8>)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v12 = 0;
+  v12 = *MEMORY[0x1E69E9840];
   v11 = 0;
+  v10 = 0;
   v2 = objc_opt_self();
   v3 = sub_1AAC160D4();
-  v10 = 0;
-  LODWORD(v2) = [v2 checkDomainsCanBeStored:&v12 onVolumeAtURL:v3 unsupportedReason:&v11 error:&v10];
+  v9 = 0;
+  LODWORD(v2) = [v2 checkDomainsCanBeStored:&v11 onVolumeAtURL:v3 unsupportedReason:&v10 error:&v9];
 
-  v4 = v10;
+  v4 = v9;
   if (v2)
   {
-    v5 = v12;
-    v6 = v11;
-    if (v12)
+    v5 = v11;
+    v6 = v10;
+    if (v11)
     {
       v6 = 0;
     }
 
     *a1 = v6;
     *(a1 + 8) = v5;
-    result = v4;
+    return v4;
   }
 
   else
   {
-    v8 = v10;
+    v8 = v9;
     sub_1AAC160C4();
 
-    result = swift_willThrow();
+    return swift_willThrow();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
@@ -8351,7 +8051,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -8367,15 +8066,17 @@ uint64_t sub_1AABF3124(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 void *sub_1AABF31D4@<X0>(void *result@<X0>, uint64_t a2@<X8>)
@@ -8534,7 +8235,7 @@ void type metadata accessor for NSFileProviderVolumeUnsupportedReason()
   }
 }
 
-uint64_t sub_1AABF3684(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1AABF3684(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8586,92 +8287,73 @@ void *__swift_project_boxed_opaque_existential_0(void *result, uint64_t a2)
 
 void CheckAndWarn_cold_1(int a1, SEL aSelector)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = NSStringFromSelector(aSelector);
+  v7 = NSStringFromSelector(aSelector);
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void fpfs_fset_acl_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_35(&dword_1AAAE1000, MEMORY[0x1E69E9C10], v1, "Unable to apply ACL on domain root: %s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_35(&dword_1AAAE1000, MEMORY[0x1E69E9C10], v1, "Unable to apply ACL on domain root: %s", v2, v3, v4, v5);
 }
 
 void fpfs_fset_acl_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_35(&dword_1AAAE1000, MEMORY[0x1E69E9C10], v1, "Unable to set permission set for ACL on domain root: %s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_35(&dword_1AAAE1000, MEMORY[0x1E69E9C10], v1, "Unable to set permission set for ACL on domain root: %s", v2, v3, v4, v5);
 }
 
 void fpfs_fset_acl_cold_3()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_35(&dword_1AAAE1000, MEMORY[0x1E69E9C10], v1, "Unable to set qualifier for ACL on domain root: %s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_35(&dword_1AAAE1000, MEMORY[0x1E69E9C10], v1, "Unable to set qualifier for ACL on domain root: %s", v2, v3, v4, v5);
 }
 
 void fpfs_fset_acl_cold_4()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_35(&dword_1AAAE1000, MEMORY[0x1E69E9C10], v1, "Unable to add permission for ACL on domain root: %s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_35(&dword_1AAAE1000, MEMORY[0x1E69E9C10], v1, "Unable to add permission for ACL on domain root: %s", v2, v3, v4, v5);
 }
 
 void fpfs_fset_acl_cold_5()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_35(&dword_1AAAE1000, MEMORY[0x1E69E9C10], v1, "Unable to clear permission set for ACL on domain root: %s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_35(&dword_1AAAE1000, MEMORY[0x1E69E9C10], v1, "Unable to clear permission set for ACL on domain root: %s", v2, v3, v4, v5);
 }
 
 void fpfs_fset_acl_cold_6()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_35(&dword_1AAAE1000, MEMORY[0x1E69E9C10], v1, "Unable to get permission set for ACL on domain root: %s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_35(&dword_1AAAE1000, MEMORY[0x1E69E9C10], v1, "Unable to get permission set for ACL on domain root: %s", v2, v3, v4, v5);
 }
 
 void fpfs_fset_acl_cold_7()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_35(&dword_1AAAE1000, MEMORY[0x1E69E9C10], v1, "Unable to set tag type for ACL on domain root: %s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_35(&dword_1AAAE1000, MEMORY[0x1E69E9C10], v1, "Unable to set tag type for ACL on domain root: %s", v2, v3, v4, v5);
 }
 
 void fpfs_fset_acl_cold_8()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_35(&dword_1AAAE1000, MEMORY[0x1E69E9C10], v1, "Unable to create ACL on domain root: %s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_35(&dword_1AAAE1000, MEMORY[0x1E69E9C10], v1, "Unable to create ACL on domain root: %s", v2, v3, v4, v5);
 }
 
 void __cachedFrameworkOverridingObjects_block_invoke_cold_1(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -8719,12 +8401,11 @@ void fpfs_deserialize_favorite_rank_cold_1()
 
 void fpfs_set_bplist_xattr_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "Cannot format data with CFPropertyListCreateData %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "Cannot format data with CFPropertyListCreateData %@", &v3, 0xCu);
 }
 
 void _MDPropertyCopyEncodedData_cold_1()
@@ -8828,38 +8509,30 @@ void __getCSSearchableIndexClass_block_invoke_cold_2(void *a1)
 
 void _FPPerformWithPersona_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_12_1();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void copyHomeDirectoryCompat_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10_2();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void copyHomeDirectoryCompat_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10_2();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void copyHomeDirectoryCompat_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10_2();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __getGSStorageManagerClass_block_invoke_cold_1()
@@ -8900,23 +8573,21 @@ void __getQLThumbnailAdditionClass_block_invoke_cold_2(void *a1)
 
 void FPStatFSFromPath_cold_1(uint64_t a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = *__error();
-  v6 = 138412546;
-  v7 = a1;
-  v8 = 1024;
-  v9 = v4;
-  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] statfs(%@) failed %{errno}d", &v6, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412546;
+  v6 = a1;
+  v7 = 1024;
+  v8 = v4;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] statfs(%@) failed %{errno}d", &v5, 0x12u);
 }
 
 void FPLocalizedFileSystemTypeName_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] Failed to get NSURLVolumeLocalizedFormatDescription: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] Failed to get NSURLVolumeLocalizedFormatDescription: %@", &v2, 0xCu);
 }
 
 void CoreSpotlightLibrary_cold_1_0(void *a1)
@@ -9056,39 +8727,28 @@ void __getBRFieldContentSignatureClass_block_invoke_cold_2(void *a1)
 
 void __FPBookmarkableStringFromDocumentURL_block_invoke_2_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __FPDocumentURLFromBookmarkableString_block_invoke_2_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __FPExtendBookmarkForDocumentURL_block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_14();
-  v2 = v1;
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = [*(v1 + 40) fp_scopeDescription];
-  v4 = *(v2 + 48);
-  v5 = [v0 fp_prettyDescription];
+  v2 = [*(v1 + 40) fp_scopeDescription];
+  v3 = [v0 fp_prettyDescription];
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x20u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
 }
 
 void FPRegisterFileProvidersForUser_cold_1()
@@ -9107,69 +8767,56 @@ void __FPRegisterFileProvidersForUser_block_invoke_cold_1()
 
 void FPFetchDatalessFileResolverUIDAtURL_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void FPFetchDatalessFileResolverUIDAtURL_cold_2()
 {
-  v7 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void FPFetchDatalessFileResolverUIDAtURL_cold_3()
 {
-  v7 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __FPCFCopyAttributeValuesForItem_block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_14();
-  v9 = *MEMORY[0x1E69E9840];
   [*(v1 + 40) fp_scopeDescription];
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_13() fp_prettyDescription];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __FPEvictItem_block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_14();
-  v1 = *MEMORY[0x1E69E9840];
-  [OUTLINED_FUNCTION_12_2(v2) fp_shortDescription];
+  [OUTLINED_FUNCTION_12_2(v1) fp_shortDescription];
   objc_claimAutoreleasedReturnValue();
-  v3 = [OUTLINED_FUNCTION_13() fp_prettyDescription];
+  v2 = [OUTLINED_FUNCTION_13() fp_prettyDescription];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __FPSetAlternateContentsURLOnDocumentURL_block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_14();
   v1 = v0;
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [v0[4] fp_shortDescription];
   [v1[5] fp_scopeDescription];
   objc_claimAutoreleasedReturnValue();
@@ -9177,59 +8824,44 @@ void __FPSetAlternateContentsURLOnDocumentURL_block_invoke_cold_1()
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __FPSetAlternateContentsURLOnDocumentURL_block_invoke_cold_2(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_12_2(a1) fp_shortDescription];
-  v4 = [*(a1 + 40) fp_shortDescription];
+  v2 = [OUTLINED_FUNCTION_12_2(a1) fp_shortDescription];
+  v3 = [*(a1 + 40) fp_shortDescription];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_20();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void __FPFetchAlternateContentsURLForDocumentURL_block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_14();
-  v1 = *MEMORY[0x1E69E9840];
-  [OUTLINED_FUNCTION_12_2(v2) fp_scopeDescription];
+  [OUTLINED_FUNCTION_12_2(v1) fp_scopeDescription];
   objc_claimAutoreleasedReturnValue();
-  v3 = [OUTLINED_FUNCTION_13() fp_prettyDescription];
+  v2 = [OUTLINED_FUNCTION_13() fp_prettyDescription];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __FPFetchAlternateContentsURLForDocumentURL_block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_14();
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [v1 fp_shortDescription];
   v3 = [*(v0 + 32) fp_shortDescription];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __FPAppHasNonUploadedFiles_block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = [a2 fp_prettyDescription];
+  v2 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __FPAppHasNonUploadedFiles_block_invoke_cold_2(uint64_t a1, uint64_t a2, NSObject *a3)
@@ -9240,184 +8872,859 @@ void __FPAppHasNonUploadedFiles_block_invoke_cold_2(uint64_t a1, uint64_t a2, NS
     v3 = @"YES";
   }
 
-  *v5 = 138412546;
-  *&v5[4] = *(a1 + 32);
-  *&v5[12] = 2112;
-  *&v5[14] = v3;
-  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, a2, a3, "[DEBUG] did check if app %@ is uploading files, result was %@", *v5, *&v5[8], *&v5[16], *MEMORY[0x1E69E9840]);
-  v4 = *MEMORY[0x1E69E9840];
+  *v4 = 138412546;
+  *&v4[4] = *(a1 + 32);
+  *&v4[12] = 2112;
+  *&v4[14] = v3;
+  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, a2, a3, "[DEBUG] did check if app %@ is uploading files, result was %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
 }
 
 void __FPDidUpdateAlternateContentsDocumentForDocumentAtURL_block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_14();
-  v1 = *MEMORY[0x1E69E9840];
-  [OUTLINED_FUNCTION_12_2(v2) fp_scopeDescription];
+  [OUTLINED_FUNCTION_12_2(v1) fp_scopeDescription];
   objc_claimAutoreleasedReturnValue();
-  v3 = [OUTLINED_FUNCTION_13() fp_prettyDescription];
+  v2 = [OUTLINED_FUNCTION_13() fp_prettyDescription];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __FPDidUpdateAlternateContentsDocumentForDocumentAtURL_block_invoke_cold_2(uint64_t a1)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_12_2(a1) fp_shortDescription];
+  v1 = [OUTLINED_FUNCTION_12_2(a1) fp_shortDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_20();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __FPFetchLatestVersionForFileAtURL_block_invoke_cold_2()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_3();
-  v4 = v0;
-  _os_log_error_impl(&dword_1AAAE1000, v1, OS_LOG_TYPE_ERROR, "[ERROR] Couldn't find addition with name %@ - %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_error_impl(&dword_1AAAE1000, v1, OS_LOG_TYPE_ERROR, "[ERROR] Couldn't find addition with name %@ - %@", v2, 0x16u);
 }
 
 void __FPFetchLatestVersionForFileAtURL_block_invoke_cold_3()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_1AAAE1000, v0, OS_LOG_TYPE_ERROR, "[ERROR] Couldn't get storage after received version - %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1AAAE1000, v0, OS_LOG_TYPE_ERROR, "[ERROR] Couldn't get storage after received version - %@", v1, 0xCu);
 }
 
 void FPCrossDeviceItemIDForItemAtURL_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_27();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __FPCreateCrossDeviceItemIDForItemAtURL_block_invoke_cold_1(uint64_t a1)
+void __FPCreateCrossDeviceItemIDForItemAtURL_block_invoke_cold_1()
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = OUTLINED_FUNCTION_13_1(a1);
-  v4 = [OUTLINED_FUNCTION_6_4(v2 v3)];
+  OUTLINED_FUNCTION_13_1();
+  v2 = [OUTLINED_FUNCTION_6_4(v0 v1)];
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void FPCrossDeviceItemIDForItemID_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_27();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __FPCreateCrossDeviceItemIDForItemID_block_invoke_cold_1(uint64_t a1)
+void __FPCreateCrossDeviceItemIDForItemID_block_invoke_cold_1()
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = OUTLINED_FUNCTION_13_1(a1);
-  v4 = [OUTLINED_FUNCTION_6_4(v2 v3)];
+  OUTLINED_FUNCTION_13_1();
+  v2 = [OUTLINED_FUNCTION_6_4(v0 v1)];
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void __FPCrossDeviceItemIDForItemID_block_invoke_cold_1(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = *(a1 + 32);
+  v5 = *MEMORY[0x1E69E9840];
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = *(a1 + 32);
   OUTLINED_FUNCTION_3_3();
-  *v5 = v1;
-  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v1, v2, "[DEBUG]  %@ => %@", v4, DWORD2(v4), *&v5[2], v6);
-  v3 = *MEMORY[0x1E69E9840];
+  *v4 = v1;
+  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v1, v2, "[DEBUG]  %@ => %@", v3, DWORD2(v3), *&v4[2], v5);
 }
 
 void FPItemURLForCrossDeviceItemID_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_27();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __FPGetItemURLForCrossDeviceItemID_block_invoke_cold_1(uint64_t a1)
+void __FPGetItemURLForCrossDeviceItemID_block_invoke_cold_1()
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = OUTLINED_FUNCTION_13_1(a1);
-  v4 = [OUTLINED_FUNCTION_6_4(v2 v3)];
+  OUTLINED_FUNCTION_13_1();
+  v2 = [OUTLINED_FUNCTION_6_4(v0 v1)];
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void __FPItemURLForCrossDeviceItemID_block_invoke_85_cold_1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  v3 = [a2 path];
+  v2 = [a2 path];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_20();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __FPItemURLForCrossDeviceItemID_block_invoke_90_cold_1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 48);
-  v3 = [a2 path];
+  v2 = [a2 path];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_20();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void FPItemIDFromCrossDeviceItemID_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_27();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __FPGetItemIDFromCrossDeviceItemID_block_invoke_cold_1(uint64_t a1)
+void __FPGetItemIDFromCrossDeviceItemID_block_invoke_cold_1()
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = OUTLINED_FUNCTION_13_1(a1);
-  v4 = [OUTLINED_FUNCTION_6_4(v2 v3)];
+  OUTLINED_FUNCTION_13_1();
+  v2 = [OUTLINED_FUNCTION_6_4(v0 v1)];
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void __FPItemIDFromCrossDeviceItemID_block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  v3 = [a2 itemID];
+  v2 = [a2 itemID];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_20();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
+}
 
+void __FPNumberOfNonMaterializedFilesForProviderDomainID_block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_27();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void FPWriteImportCookieForDomainURL_cold_1(void *a1)
+{
+  v1 = [a1 fp_shortDescription];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_9(&dword_1AAAE1000, v2, v3, "[DEBUG] writing import cookie for domain url %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
+}
+
+void FPClearImportCookieForDomainURL_cold_1(void *a1)
+{
+  v1 = [a1 fp_shortDescription];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_9(&dword_1AAAE1000, v2, v3, "[DEBUG] clearing import cookie for domain url %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
+}
+
+void __FPOSVersion_block_invoke_cold_1(NSObject *a1)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = *__error();
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_1AAAE1000, a1, OS_LOG_TYPE_ERROR, "[ERROR] sysctl(kern.osversion) failed %{errno}d", v3, 8u);
+}
+
+void __getCSSearchableItemAttributeSetClass_block_invoke_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCSSearchableItemAttributeSetClass(void)_block_invoke"];
+  [v0 handleFailureInFunction:v1 file:@"FPSearchOnServerResult.m" lineNumber:21 description:{@"Unable to find class %s", "CSSearchableItemAttributeSet"}];
+
+  __break(1u);
+}
+
+void CoreSpotlightLibrary_cold_1_1(void *a1)
+{
+  v2 = [MEMORY[0x1E696AAA8] currentHandler];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreSpotlightLibrary(void)"];
+  [v2 handleFailureInFunction:v3 file:@"FPSearchOnServerResult.m" lineNumber:19 description:{@"%s", *a1}];
+
+  __break(1u);
+}
+
+void __getCSSearchableItemClass_block_invoke_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCSSearchableItemClass(void)_block_invoke"];
+  [v0 handleFailureInFunction:v1 file:@"FPSearchOnServerResult.m" lineNumber:20 description:{@"Unable to find class %s", "CSSearchableItem"}];
+
+  __break(1u);
+}
+
+void abc_report_assert_with_signature_cold_1(uint64_t a1, NSObject *a2)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] Failed to send snapshot for signature %@", &v2, 0xCu);
+}
+
+void __fp_leave_section_Error_cold_1(uint64_t *a1, NSObject *a2)
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = *a1;
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] ┗%llx ", &v3, 0xCu);
+}
+
+void fpfs_update_purgency_cold_2()
+{
+  __error();
+  OUTLINED_FUNCTION_3_5();
+  OUTLINED_FUNCTION_15();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+void fpfs_set_evictable_cold_1()
+{
+  OUTLINED_FUNCTION_3_5();
+  OUTLINED_FUNCTION_2_8();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
+}
+
+void fpfs_get_purgeable_stats_cold_1()
+{
+  __error();
+  OUTLINED_FUNCTION_15();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void fpfs_unset_dataless_cmpfs_attrs_cold_1()
+{
+  __error();
+  OUTLINED_FUNCTION_3_5();
+  OUTLINED_FUNCTION_15();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+void fpfs_unset_dataless_cmpfs_attrs_cold_2()
+{
+  __error();
+  OUTLINED_FUNCTION_3_5();
+  OUTLINED_FUNCTION_15();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+void _fpfs_remove_sharing_xattrs_cold_1()
+{
+  __error();
+  OUTLINED_FUNCTION_3_5();
+  OUTLINED_FUNCTION_15();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+void _fpfs_remove_sharing_xattrs_cold_2()
+{
+  __error();
+  OUTLINED_FUNCTION_3_5();
+  OUTLINED_FUNCTION_15();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+void _fpfs_remove_sharing_xattrs_cold_3()
+{
+  __error();
+  OUTLINED_FUNCTION_3_5();
+  OUTLINED_FUNCTION_15();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+void _fpfs_remove_sharing_xattrs_cold_4()
+{
+  __error();
+  OUTLINED_FUNCTION_3_5();
+  OUTLINED_FUNCTION_15();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+void _fpfs_prune_fault_error_cold_1()
+{
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_2_8();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void _fpfs_prune_fault_status_cold_1()
+{
+  v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2();
+  _os_log_debug_impl(&dword_1AAAE1000, v0, OS_LOG_TYPE_DEBUG, "prune dataless: removed %s", v1, 0xCu);
+}
+
+void fpfs_materialize_cold_1()
+{
+  __error();
+  OUTLINED_FUNCTION_5_5();
+  OUTLINED_FUNCTION_15();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x14u);
+}
+
+void fpfs_materialize_cold_2()
+{
+  __error();
+  OUTLINED_FUNCTION_5_5();
+  OUTLINED_FUNCTION_15();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x14u);
+}
+
+void fpfs_materialize_cold_3(uint64_t a1, uint8_t *buf, os_log_t log)
+{
+  *buf = 136315138;
+  *(buf + 4) = a1;
+  _os_log_error_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_ERROR, "failed to remove content dpendent xattrs during materialization [%s]", buf, 0xCu);
+}
+
+void _materialize_partial_cold_1()
+{
+  OUTLINED_FUNCTION_1_9();
+  OUTLINED_FUNCTION_2_8();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void _materialize_partial_cold_2()
+{
+  v0 = __error();
+  strerror(*v0);
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_15();
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+}
+
+void _materialize_partial_cold_3()
+{
+  OUTLINED_FUNCTION_1_9();
+  OUTLINED_FUNCTION_2_8();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void _materialize_partial_cold_4()
+{
+  OUTLINED_FUNCTION_1_9();
+  OUTLINED_FUNCTION_2_8();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void fpfs_purge_single_file_cold_1()
+{
+  v0 = __error();
+  strerror(*v0);
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_15();
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+}
+
+void fpfs_evict_cold_1(uint64_t a1, uint8_t *buf, uint64_t a3, os_log_t log)
+{
+  *buf = 136315394;
+  *(buf + 4) = a3;
+  *(buf + 6) = 2080;
+  *(buf + 14) = a1;
+  _os_log_error_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_ERROR, "Unable to fully empty directory at '%s' during eviction: %s (leaving in state)", buf, 0x16u);
+}
+
+void fpfs_evict_cold_2(uint64_t *a1, NSObject *a2)
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = *a1;
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_fault_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_FAULT, "APFSIOC_REVOKE_CHILDREN is allowing the eviction of folder, but FP heuristics identified %llu is busy", &v3, 0xCu);
+}
+
+void fpfs_evict_cold_3()
+{
+  v0 = __error();
+  strerror(*v0);
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_15();
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+}
+
+void fpfs_evict_cold_4(uint8_t *buf, _BYTE *a2, os_log_t log)
+{
+  *buf = 0;
+  *a2 = 0;
+  _os_log_error_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_ERROR, "Unable to update cmpfs_attrs", buf, 2u);
+}
+
+void FPLocvImpl_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  v6 = FPLocalizationBundle(a1);
+  v7 = [v6 bundlePath];
+  v8 = 138412802;
+  v9 = a1;
+  v10 = 2112;
+  v11 = a2;
+  v12 = 2112;
+  v13 = v7;
+  _os_log_fault_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_FAULT, "[CRIT] Localized key '%@' missing from table '%@' (bundlePath:%@)", &v8, 0x20u);
+}
+
+void FPLocalizedErrorStringForKey_cold_1(uint64_t a1, NSObject *a2)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  v4 = FPLocalizationBundle(a1);
+  v5 = [v4 bundlePath];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_fault_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_FAULT, "[CRIT] Localized key '%@' missing from table 'Errors' (bundlePath:%@)", &v6, 0x16u);
+}
+
+void copyfile_status_cb_cold_5(uint64_t a1, NSObject *a2)
+{
   v9 = *MEMORY[0x1E69E9840];
+  v4 = *__error();
+  v5 = 136315394;
+  v6 = a1;
+  v7 = 1024;
+  v8 = v4;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] copyfile: failed while copying (%s): %d", &v5, 0x12u);
+}
+
+void getMDItemFileProviderDomainIdentifier_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getMDItemFileProviderDomainIdentifier(void)"];
+  [v0 handleFailureInFunction:v1 file:@"FPItem+CSSearchableItem.m" lineNumber:61 description:{@"%s", dlerror()}];
+
+  __break(1u);
+}
+
+void getMDItemLastUsedDate_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getMDItemLastUsedDate(void)"];
+  [v0 handleFailureInFunction:v1 file:@"FPItem+CSSearchableItem.m" lineNumber:41 description:{@"%s", dlerror()}];
+
+  __break(1u);
+}
+
+void getMDItemFileSize_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getMDItemFileSize(void)"];
+  [v0 handleFailureInFunction:v1 file:@"FPItem+CSSearchableItem.m" lineNumber:49 description:{@"%s", dlerror()}];
+
+  __break(1u);
+}
+
+void getMDItemFileItemID_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getMDItemFileItemID(void)"];
+  [v0 handleFailureInFunction:v1 file:@"FPItem+CSSearchableItem.m" lineNumber:56 description:{@"%s", dlerror()}];
+
+  __break(1u);
+}
+
+void getMDItemFileProviderID_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getMDItemFileProviderID(void)"];
+  [v0 handleFailureInFunction:v1 file:@"FPItem+CSSearchableItem.m" lineNumber:57 description:{@"%s", dlerror()}];
+
+  __break(1u);
+}
+
+void __getCSSearchableItemAttributeSetClass_block_invoke_cold_1_0()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCSSearchableItemAttributeSetClass(void)_block_invoke"];
+  [v0 handleFailureInFunction:v1 file:@"FPItem+CSSearchableItem.m" lineNumber:71 description:{@"Unable to find class %s", "CSSearchableItemAttributeSet"}];
+
+  __break(1u);
+}
+
+void CoreSpotlightLibrary_cold_1_2(void *a1)
+{
+  v2 = [MEMORY[0x1E696AAA8] currentHandler];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreSpotlightLibrary(void)"];
+  [v2 handleFailureInFunction:v3 file:@"FPItem+CSSearchableItem.m" lineNumber:34 description:{@"%s", *a1}];
+
+  __break(1u);
+}
+
+void __getCSLocalizedStringClass_block_invoke_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCSLocalizedStringClass(void)_block_invoke"];
+  [v0 handleFailureInFunction:v1 file:@"FPItem+CSSearchableItem.m" lineNumber:72 description:{@"Unable to find class %s", "CSLocalizedString"}];
+
+  __break(1u);
+}
+
+void MetadataUtilitiesLibrary_cold_1_0(void *a1)
+{
+  v2 = [MEMORY[0x1E696AAA8] currentHandler];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *MetadataUtilitiesLibrary(void)"];
+  [v2 handleFailureInFunction:v3 file:@"FPItem+CSSearchableItem.m" lineNumber:74 description:{@"%s", *a1}];
+
+  __break(1u);
+}
+
+void __getCSSearchableItemClass_block_invoke_cold_1_0()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCSSearchableItemClass(void)_block_invoke"];
+  [v0 handleFailureInFunction:v1 file:@"FPItem+CSSearchableItem.m" lineNumber:70 description:{@"Unable to find class %s", "CSSearchableItem"}];
+
+  __break(1u);
+}
+
+void getCSIndexErrorDomain_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getCSIndexErrorDomain(void)"];
+  [v0 handleFailureInFunction:v1 file:@"FPSpotlightFetchClientStateOperation.m" lineNumber:23 description:{@"%s", dlerror()}];
+
+  __break(1u);
+}
+
+void __getCSIndexErrorDomainSymbolLoc_block_invoke_cold_1(void *a1)
+{
+  v2 = [MEMORY[0x1E696AAA8] currentHandler];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreSpotlightLibrary(void)"];
+  [v2 handleFailureInFunction:v3 file:@"FPSpotlightFetchClientStateOperation.m" lineNumber:22 description:{@"%s", *a1}];
+
+  __break(1u);
+}
+
+void __getFBSSystemServiceClass_block_invoke_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getFBSSystemServiceClass(void)_block_invoke"];
+  [v0 handleFailureInFunction:v1 file:@"FPAccessControlManager.m" lineNumber:21 description:{@"Unable to find class %s", "FBSSystemService"}];
+
+  __break(1u);
+}
+
+void __getFBSSystemServiceClass_block_invoke_cold_2(void *a1)
+{
+  v2 = [MEMORY[0x1E696AAA8] currentHandler];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *FrontBoardServicesLibrary(void)"];
+  [v2 handleFailureInFunction:v3 file:@"FPAccessControlManager.m" lineNumber:20 description:{@"%s", *a1}];
+
+  __break(1u);
+}
+
+void __getCSIndexErrorDomainSymbolLoc_block_invoke_cold_1_0(void *a1)
+{
+  v2 = [MEMORY[0x1E696AAA8] currentHandler];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreSpotlightLibrary(void)"];
+  [v2 handleFailureInFunction:v3 file:@"FPSpotlightIndexOneBatchOperation.m" lineNumber:29 description:{@"%s", *a1}];
+
+  __break(1u);
+}
+
+void FPCreateCrossDeviceItemIDForItemAtURLOnBehalfOfApplication_cold_1(uint64_t a1, void *a2, NSObject *a3)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  v5 = [a2 fp_shortDescription];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_ERROR, "[ERROR] Connection %@ doesn't have access to file %@", &v6, 0x16u);
+}
+
+void hasConflictingVersion_cold_1(void *a1)
+{
+  v6 = [a1 itemIdentifier];
+  OUTLINED_FUNCTION_15();
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+}
+
+void _FPItemAttributeValueFunction_cold_1()
+{
+  v1 = [MEMORY[0x1E696AAA8] currentHandler];
+  v0 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"CFTypeRef _FPItemAttributeValueFunction(MDSimpleQueryEvaluator *, void *, CFStringRef)"}];
+  [v1 handleFailureInFunction:v0 file:@"NSFileProviderSearchQuery.m" lineNumber:44 description:@"Unexpected kind of object for evaluation"];
+}
+
+void _FPItemAttributeValueFunction_cold_2(uint64_t a1)
+{
+  v3 = [MEMORY[0x1E696AAA8] currentHandler];
+  v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"CFTypeRef _FPItemAttributeValueFunction(MDSimpleQueryEvaluator *, void *, CFStringRef)"}];
+  [v3 handleFailureInFunction:v2 file:@"NSFileProviderSearchQuery.m" lineNumber:47 description:{@"Unable to obtain value for key '%@'", a1}];
+}
+
+void MobileSpotlightIndexLibrary_cold_1(void *a1)
+{
+  v2 = [MEMORY[0x1E696AAA8] currentHandler];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *MobileSpotlightIndexLibrary(void)"];
+  [v2 handleFailureInFunction:v3 file:@"NSFileProviderSearchQuery.m" lineNumber:27 description:{@"%s", *a1}];
+
+  __break(1u);
+}
+
+void __getDSFileOperationClass_block_invoke_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getDSFileOperationClass(void)_block_invoke"];
+  [v0 handleFailureInFunction:v1 file:@"fpfs_document_tracking.m" lineNumber:37 description:{@"Unable to find class %s", "DSFileOperation"}];
+
+  __break(1u);
+}
+
+void __getDSFileOperationClass_block_invoke_cold_2(void *a1)
+{
+  v2 = [MEMORY[0x1E696AAA8] currentHandler];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *DesktopServicesPrivLibrary(void)"];
+  [v2 handleFailureInFunction:v3 file:@"fpfs_document_tracking.m" lineNumber:36 description:{@"%s", *a1}];
+
+  __break(1u);
+}
+
+void FPDefaultFetchedAttributes_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getMDQueryResultRelevance(void)"];
+  [v0 handleFailureInFunction:v1 file:@"FPSpotlightQueryHelpers.m" lineNumber:28 description:{@"%s", dlerror()}];
+
+  __break(1u);
+}
+
+void FPDefaultFetchedAttributes_cold_2()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getMDItemExpirationDate(void)"];
+  [v0 handleFailureInFunction:v1 file:@"FPSpotlightQueryHelpers.m" lineNumber:26 description:{@"%s", dlerror()}];
+
+  __break(1u);
+}
+
+void FPRecencyQualifyingAttributes_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getMDItemLastUsedDate(void)"];
+  [v0 handleFailureInFunction:v1 file:@"FPSpotlightQueryHelpers.m" lineNumber:27 description:{@"%s", dlerror()}];
+
+  __break(1u);
+}
+
+void FPFileSizeAttributes_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getMDItemFileSize(void)"];
+  [v0 handleFailureInFunction:v1 file:@"FPSpotlightQueryHelpers.m" lineNumber:29 description:{@"%s", dlerror()}];
+
+  __break(1u);
+}
+
+void FPIsAnyDocumentRecentlyUsed_cold_1()
+{
+  v1 = [MEMORY[0x1E696AAA8] currentHandler];
+  v0 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL FPIsAnyDocumentRecentlyUsed(NSArray<NSString *> *__strong, NSArray<NSString *> *__strong, NSArray<NSString *> *__strong)"}];
+  [v1 handleFailureInFunction:v0 file:@"FPSpotlightQueryHelpers.m" lineNumber:357 description:{@"allowedFileTypes is empty, which is illegal."}];
+}
+
+void CoreSpotlightLibrary_cold_1_3(void *a1)
+{
+  v2 = [MEMORY[0x1E696AAA8] currentHandler];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreSpotlightLibrary(void)"];
+  [v2 handleFailureInFunction:v3 file:@"FPSpotlightQueryHelpers.m" lineNumber:25 description:{@"%s", *a1}];
+
+  __break(1u);
+}
+
+void __getCSSearchQueryContextClass_block_invoke_cold_1_0()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCSSearchQueryContextClass(void)_block_invoke"];
+  [v0 handleFailureInFunction:v1 file:@"FPSpotlightQueryHelpers.m" lineNumber:32 description:{@"Unable to find class %s", "CSSearchQueryContext"}];
+
+  __break(1u);
+}
+
+void __getCSSearchQueryClass_block_invoke_cold_1_0()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCSSearchQueryClass(void)_block_invoke"];
+  [v0 handleFailureInFunction:v1 file:@"FPSpotlightQueryHelpers.m" lineNumber:31 description:{@"Unable to find class %s", "CSSearchQuery"}];
+
+  __break(1u);
+}
+
+void __fpfs_get_materialization_alignment_block_invoke_cold_1()
+{
+  __error();
+  OUTLINED_FUNCTION_0_15();
+  OUTLINED_FUNCTION_1_13(&dword_1AAAE1000, v0, v1, "[CRIT] Unable to resolve VM page size (%{errno}d). Defaulting to %lu", v2, v3, v4, v5);
+}
+
+void __fpfs_get_materialization_alignment_block_invoke_cold_2()
+{
+  __error();
+  OUTLINED_FUNCTION_0_15();
+  OUTLINED_FUNCTION_1_13(&dword_1AAAE1000, v0, v1, "[CRIT] Unable to resolve FS block size (%{errno}d). Defaulting to %lu", v2, v3, v4, v5);
+}
+
+void __FPSetLastUsedDateAtURL_block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  v5 = [*(a1 + 40) path];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_ERROR, "[ERROR] Failed to set last used date on %@: %@", &v6, 0x16u);
+}
+
+void __FPFileProviderServiceEndpointCreatingForItemAtURL_block_invoke_2_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  v5 = [*(a1 + 40) fp_shortDescription];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_ERROR, "[ERROR] failed to get services for for item at URL %@: %@", &v6, 0x16u);
+}
+
+void __FPFileProviderServiceEndpointCreatingForItemAtURL_block_invoke_2_cold_2(void *a1, uint64_t a2, NSObject *a3)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  v5 = [a1 componentsJoinedByString:{@", "}];
+  v6 = [*(a2 + 40) fp_shortDescription];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] got services [%@] for item at URL %@", &v7, 0x16u);
+}
+
+void __FPFileProviderServiceEndpointCreatingForItemAtURLSynchronously_block_invoke_2_cold_1(uint64_t a1)
+{
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = *(a1 + 40);
+  OUTLINED_FUNCTION_17();
+  OUTLINED_FUNCTION_37(&dword_1AAAE1000, v1, v2, "[ERROR] failed to get service endpoint creating for for item at URL %@: %@", v3, DWORD2(v3));
+}
+
+void FPFetchServiceEndpointCreatorByNameForItemAtURL_cold_1(uint64_t a1)
+{
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = a1;
+  OUTLINED_FUNCTION_17();
+  OUTLINED_FUNCTION_37(&dword_1AAAE1000, v1, v2, "[ERROR] Error fetching FPOriginalDocumentURL from url: %@ error: %@", v3, DWORD2(v3));
+}
+
+void fp_reachability_callback_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] Network reachability changed to %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void FPGetTagsFromTagsData_cold_2()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CFArrayRef _MDPropertyCopyDecodedUserTags(CFDataRef)"];
+  [v0 handleFailureInFunction:v1 file:@"FPTools.m" lineNumber:29 description:{@"%s", dlerror()}];
+
+  __break(1u);
+}
+
+void FPGetSharedDomainCachingPath_cold_1(uint64_t a1, NSObject *a2)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  v4 = *__error();
+  v5[0] = 67109376;
+  v5[1] = v4;
+  v6 = 2048;
+  v7 = a1;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] Failed getting sandbox extension: %d (handle: %lld)", v5, 0x12u);
+}
+
+void FPGetSharedDomainCachingPath_cold_2(uint64_t a1, NSObject *a2)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] Failed querying shared cache: %s", &v2, 0xCu);
+}
+
+void __FPGetTagsFromTagsDataInOnDiskEncoding_block_invoke_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"CFStringRef _MDPropertyCopyUserTagName(CFStringRef, uint8_t *)"}];
+  [v0 handleFailureInFunction:v1 file:@"FPTools.m" lineNumber:28 description:{@"%s", dlerror()}];
+
+  __break(1u);
+}
+
+void MetadataUtilitiesLibrary_cold_1_1(void *a1)
+{
+  v2 = [MEMORY[0x1E696AAA8] currentHandler];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *MetadataUtilitiesLibrary(void)"];
+  [v2 handleFailureInFunction:v3 file:@"FPTools.m" lineNumber:27 description:{@"%s", *a1}];
+
+  __break(1u);
+}
+
+void __getCSSearchQueryContextClass_block_invoke_cold_1_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCSSearchQueryContextClass(void)_block_invoke"];
+  [v0 handleFailureInFunction:v1 file:@"FPSearchQueryEnumerator.m" lineNumber:25 description:{@"Unable to find class %s", "CSSearchQueryContext"}];
+
+  __break(1u);
+}
+
+void CoreSpotlightLibrary_cold_1_4(void *a1)
+{
+  v2 = [MEMORY[0x1E696AAA8] currentHandler];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreSpotlightLibrary(void)"];
+  [v2 handleFailureInFunction:v3 file:@"FPSearchQueryEnumerator.m" lineNumber:22 description:{@"%s", *a1}];
+
+  __break(1u);
+}
+
+void __getCSSearchQueryClass_block_invoke_cold_1_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCSSearchQueryClass(void)_block_invoke"];
+  [v0 handleFailureInFunction:v1 file:@"FPSearchQueryEnumerator.m" lineNumber:24 description:{@"Unable to find class %s", "CSSearchQuery"}];
+
+  __break(1u);
+}
+
+CFRange CFStringTokenizerGetCurrentTokenRange(CFStringTokenizerRef tokenizer)
+{
+  v1 = MEMORY[0x1EEDB7B38](tokenizer);
+  result.length = v2;
+  result.location = v1;
+  return result;
+}
+
+objc_method_description protocol_getMethodDescription(Protocol *p, SEL aSel, BOOL isRequiredMethod, BOOL isInstanceMethod)
+{
+  v4 = MEMORY[0x1EEE66EC8](p, aSel, isRequiredMethod, isInstanceMethod);
+  result.types = v5;
+  result.name = v4;
+  return result;
 }

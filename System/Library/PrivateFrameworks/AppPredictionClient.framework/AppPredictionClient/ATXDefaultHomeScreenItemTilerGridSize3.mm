@@ -49,56 +49,57 @@
 - (NSArray)tiledHomeScreenItems
 {
   v3 = objc_opt_new();
+  v4 = v3;
   p_widgetFamilyMask = &self->_widgetFamilyMask;
   widgetFamilyMask = self->_widgetFamilyMask;
-  v6 = widgetFamilyMask & 6;
-  if (v6 == 6)
+  v7 = widgetFamilyMask & 6;
+  if (v7 == 6)
   {
     if (self->_defaultStack)
     {
-      v7 = [(ATXDefaultHomeScreenItemTilerGridSize3 *)self _addFirstRow:v3];
+      v8 = [(ATXDefaultHomeScreenItemTilerGridSize3 *)self _addFirstRow:v3];
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
-    v9 = &unk_1F3E60930;
+    v10 = &unk_1F3E60930;
     goto LABEL_11;
   }
 
   if ((widgetFamilyMask & 2) != 0)
   {
-    v7 = 0;
-    v9 = &unk_1F3E60948;
+    v8 = 0;
+    v10 = &unk_1F3E60948;
     do
     {
 LABEL_11:
-      if ([v3 count] >= self->_targetNumberOfSuggestions)
+      if ([v4 count] >= self->_targetNumberOfSuggestions)
       {
         break;
       }
 
-      v10 = [v9 objectAtIndexedSubscript:{v7 % objc_msgSend(v9, "count")}];
-      integerValue = [v10 integerValue];
+      v11 = [v10 objectAtIndexedSubscript:{v8 % objc_msgSend(v10, "count")}];
+      integerValue = [v11 integerValue];
 
-      ++v7;
+      ++v8;
     }
 
-    while ([(ATXDefaultHomeScreenItemTilerGridSize3 *)self _addRow:v3 rowSizePreference:integerValue allowAlternateRowSizeAsBackup:v6 == 6]);
+    while ([(ATXDefaultHomeScreenItemTilerGridSize3 *)self _addRow:v4 rowSizePreference:integerValue allowAlternateRowSizeAsBackup:v7 == 6]);
     goto LABEL_13;
   }
 
-  v8 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = __atxlog_handle_modes(v3);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     [(ATXDefaultHomeScreenItemTilerGridSize2 *)p_widgetFamilyMask tiledHomeScreenItems];
   }
 
 LABEL_13:
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)_addFirstRow:(id)row

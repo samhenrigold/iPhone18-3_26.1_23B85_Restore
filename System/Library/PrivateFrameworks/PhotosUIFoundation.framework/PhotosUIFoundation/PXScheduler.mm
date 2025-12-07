@@ -31,9 +31,11 @@
 
 uint64_t __30__PXScheduler_sharedScheduler__block_invoke()
 {
-  sharedScheduler_scheduler_15042 = objc_alloc_init(PXScheduler);
+  v0 = objc_alloc_init(PXScheduler);
+  v1 = sharedScheduler_scheduler_15042;
+  sharedScheduler_scheduler_15042 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (PXScheduler)init

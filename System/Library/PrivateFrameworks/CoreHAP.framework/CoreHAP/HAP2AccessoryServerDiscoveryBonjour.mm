@@ -79,71 +79,51 @@
 
 void __60__HAP2AccessoryServerDiscoveryBonjour__handleBrowseResults___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 currentResult];
 
-  if (v4)
+  if (v4 && ([v3 currentResult], v5 = objc_claimAutoreleasedReturnValue(), accessoryInfoForBrowseResult(v5), v6 = objc_claimAutoreleasedReturnValue(), v5, v6) || (objc_msgSend(v3, "previousResult"), v7 = objc_claimAutoreleasedReturnValue(), v7, v7) && (objc_msgSend(v3, "previousResult"), v8 = objc_claimAutoreleasedReturnValue(), accessoryInfoForBrowseResult(v8), v6 = objc_claimAutoreleasedReturnValue(), v8, v6))
   {
-    v5 = [v3 currentResult];
-    v6 = accessoryInfoForBrowseResult(v5);
-
-    if (v6)
+    v9 = [v6 deviceID];
+    if (([v3 changes] & 2) != 0 || (objc_msgSend(v3, "changes") & 0x20) != 0)
     {
-      goto LABEL_5;
-    }
-  }
-
-  v7 = [v3 previousResult];
-
-  if (v7)
-  {
-    v8 = [v3 previousResult];
-    v6 = accessoryInfoForBrowseResult(v8);
-
-    if (v6)
-    {
-LABEL_5:
-      v9 = [v6 deviceID];
-      if (([v3 changes] & 2) != 0 || (objc_msgSend(v3, "changes") & 0x20) != 0)
+      v10 = a1 + 32;
+      v11 = *(*(*(a1 + 32) + 8) + 40);
+      v12 = 40;
+      if (!v11)
       {
-        v10 = a1 + 32;
-        v11 = *(*(*(a1 + 32) + 8) + 40);
-        v12 = 40;
-        if (!v11)
-        {
 LABEL_11:
-          v13 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:1];
-          v14 = *(*v10 + 8);
-          v15 = *(v14 + 40);
-          *(v14 + 40) = v13;
+        v13 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:1];
+        v14 = *(*v10 + 8);
+        v15 = *(v14 + 40);
+        *(v14 + 40) = v13;
 
-          v11 = *(*(*v10 + 8) + 40);
-        }
+        v11 = *(*(*v10 + 8) + 40);
       }
+    }
 
-      else
+    else
+    {
+      if (([v3 changes] & 4) == 0)
       {
-        if (([v3 changes] & 4) == 0)
-        {
 LABEL_13:
 
-          goto LABEL_18;
-        }
-
-        v10 = a1 + 40;
-        v11 = *(*(*(a1 + 40) + 8) + 40);
-        v12 = 32;
-        if (!v11)
-        {
-          goto LABEL_11;
-        }
+        goto LABEL_18;
       }
 
-      [v11 setObject:v6 forKeyedSubscript:v9];
-      [*(*(*(a1 + v12) + 8) + 40) setObject:0 forKeyedSubscript:v9];
-      goto LABEL_13;
+      v10 = a1 + 40;
+      v11 = *(*(*(a1 + 40) + 8) + 40);
+      v12 = 32;
+      if (!v11)
+      {
+        goto LABEL_11;
+      }
     }
+
+    [v11 setObject:v6 forKeyedSubscript:v9];
+    [*(*(*(a1 + v12) + 8) + 40) setObject:0 forKeyedSubscript:v9];
+    goto LABEL_13;
   }
 
   if (hap2LogInitialize_onceToken != -1)
@@ -154,24 +134,22 @@ LABEL_13:
   v16 = hap2Log_browser;
   if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_ERROR))
   {
-    v18 = v16;
-    v19 = [v3 previousResult];
-    v20 = [v3 currentResult];
-    v21 = 138412546;
-    v22 = v19;
-    v23 = 2112;
-    v24 = v20;
-    _os_log_error_impl(&dword_22AADC000, v18, OS_LOG_TYPE_ERROR, "Failed to parse previous and current browse results: previous = %@, current = %@", &v21, 0x16u);
+    v17 = v16;
+    v18 = [v3 previousResult];
+    v19 = [v3 currentResult];
+    v20 = 138412546;
+    v21 = v18;
+    v22 = 2112;
+    v23 = v19;
+    _os_log_error_impl(&dword_22AADC000, v17, OS_LOG_TYPE_ERROR, "Failed to parse previous and current browse results: previous = %@, current = %@", &v20, 0x16u);
   }
 
 LABEL_18:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleBrowseResultsChange:(id)change current:(id)current batchComplete:(BOOL)complete
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   currentCopy = current;
   workQueue = [(HAP2AccessoryServerDiscoveryBonjour *)self workQueue];
@@ -217,8 +195,8 @@ LABEL_18:
 
           else
           {
-            v24 = v12;
-            browseResults5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+            v23 = v12;
+            browseResults5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
           }
 
           [(HAP2AccessoryServerDiscoveryBonjour *)self _handleBrowseResults:browseResults5];
@@ -263,9 +241,9 @@ LABEL_18:
       if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v26 = changeCopy;
-        v27 = 2112;
-        v28 = currentCopy;
+        v25 = changeCopy;
+        v26 = 2112;
+        v27 = currentCopy;
         _os_log_error_impl(&dword_22AADC000, v18, OS_LOG_TYPE_ERROR, "Failed to compare results: previous = %@ current = %@", buf, 0x16u);
       }
     }
@@ -282,17 +260,15 @@ LABEL_18:
     if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v26 = currentCopy;
+      v25 = currentCopy;
       _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_INFO, "Ignoring result change while not discovering: %@", buf, 0xCu);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleStateChange:(int)change error:(id)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   workQueue = [(HAP2AccessoryServerDiscoveryBonjour *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -311,8 +287,8 @@ LABEL_18:
       v10 = hap2Log_browser;
       if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v25) = 0;
-        _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_INFO, "Received redundant ready message", &v25, 2u);
+        LOWORD(v24) = 0;
+        _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_INFO, "Received redundant ready message", &v24, 2u);
       }
 
       goto LABEL_33;
@@ -329,9 +305,9 @@ LABEL_18:
     {
       v16 = v15;
       type = [(HAP2AccessoryServerDiscoveryBonjour *)self type];
-      v25 = 138412290;
-      v26 = type;
-      _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_DEFAULT, "Now discovering services with type '%@'", &v25, 0xCu);
+      v24 = 138412290;
+      v25 = type;
+      _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_DEFAULT, "Now discovering services with type '%@'", &v24, 0xCu);
     }
 
     if (objc_opt_respondsToSelector())
@@ -368,9 +344,9 @@ LABEL_32:
 
     v13 = v21;
     type2 = [(HAP2AccessoryServerDiscoveryBonjour *)self type];
-    v25 = 138412290;
-    v26 = type2;
-    _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_DEFAULT, "No longer discovering services with type '%@'", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = type2;
+    _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_DEFAULT, "No longer discovering services with type '%@'", &v24, 0xCu);
     goto LABEL_25;
   }
 
@@ -395,11 +371,11 @@ LABEL_32:
 
     v13 = v11;
     type2 = [(HAP2AccessoryServerDiscoveryBonjour *)self type];
-    v25 = 138412546;
-    v26 = type2;
-    v27 = 2112;
-    v28 = errorCopy;
-    _os_log_error_impl(&dword_22AADC000, v13, OS_LOG_TYPE_ERROR, "Browser failed while discovering services with type '%@': %@", &v25, 0x16u);
+    v24 = 138412546;
+    v25 = type2;
+    v26 = 2112;
+    v27 = errorCopy;
+    _os_log_error_impl(&dword_22AADC000, v13, OS_LOG_TYPE_ERROR, "Browser failed while discovering services with type '%@': %@", &v24, 0x16u);
 LABEL_25:
 
 LABEL_26:
@@ -413,13 +389,13 @@ LABEL_26:
 
   if (v12)
   {
-    v23 = v11;
+    v22 = v11;
     type3 = [(HAP2AccessoryServerDiscoveryBonjour *)self type];
-    v25 = 138412546;
-    v26 = type3;
-    v27 = 2112;
-    v28 = errorCopy;
-    _os_log_error_impl(&dword_22AADC000, v23, OS_LOG_TYPE_ERROR, "Browser failed to start discovering services with type '%@': %@", &v25, 0x16u);
+    v24 = 138412546;
+    v25 = type3;
+    v26 = 2112;
+    v27 = errorCopy;
+    _os_log_error_impl(&dword_22AADC000, v22, OS_LOG_TYPE_ERROR, "Browser failed to start discovering services with type '%@': %@", &v24, 0x16u);
   }
 
   if (objc_opt_respondsToSelector())
@@ -431,8 +407,6 @@ LABEL_26:
   }
 
 LABEL_33:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopBrowser
@@ -526,7 +500,7 @@ void __52__HAP2AccessoryServerDiscoveryBonjour__startBrowser__block_invoke_2(uin
 
 - (void)_stopDiscovering
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   workQueue = [(HAP2AccessoryServerDiscoveryBonjour *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -540,18 +514,17 @@ void __52__HAP2AccessoryServerDiscoveryBonjour__startBrowser__block_invoke_2(uin
   {
     v5 = v4;
     type = [(HAP2AccessoryServerDiscoveryBonjour *)self type];
-    v8 = 138412290;
-    v9 = type;
-    _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_DEFAULT, "Stopping discovery of services with type '%@'", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = type;
+    _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_DEFAULT, "Stopping discovery of services with type '%@'", &v7, 0xCu);
   }
 
   [(HAP2AccessoryServerDiscoveryBonjour *)self _stopBrowser];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startDiscovering
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   workQueue = [(HAP2AccessoryServerDiscoveryBonjour *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -565,13 +538,12 @@ void __52__HAP2AccessoryServerDiscoveryBonjour__startBrowser__block_invoke_2(uin
   {
     v5 = v4;
     type = [(HAP2AccessoryServerDiscoveryBonjour *)self type];
-    v8 = 138412290;
-    v9 = type;
-    _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_DEFAULT, "Starting to discover services with type '%@'", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = type;
+    _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_DEFAULT, "Starting to discover services with type '%@'", &v7, 0xCu);
   }
 
   [(HAP2AccessoryServerDiscoveryBonjour *)self _startBrowser];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reconfirmAccessory:(id)accessory
@@ -702,10 +674,7 @@ void __52__HAP2AccessoryServerDiscoveryBonjour__startBrowser__block_invoke_2(uin
 
 uint64_t __47__HAP2AccessoryServerDiscoveryBonjour_delegate__block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 16));
 
   return MEMORY[0x2821F96F8]();
 }

@@ -30,62 +30,63 @@
   task_info_outCnt = 93;
   if (task_info(*MEMORY[0x277D85F48], 0x16u, task_info_out, &task_info_outCnt))
   {
-    objc_msgSend_numberWithUnsignedLongLong_(MEMORY[0x277CCABB0], v4, 0, v5);
+    v4 = 0;
   }
 
   else if (usageCopy)
   {
-    objc_msgSend_numberWithUnsignedLongLong_(MEMORY[0x277CCABB0], v4, v12, v5);
+    v4 = v11;
   }
 
   else
   {
-    objc_msgSend_numberWithUnsignedLongLong_(MEMORY[0x277CCABB0], v4, v11 + v10, v5);
+    v4 = v10 + v9;
   }
-  v6 = ;
 
-  return v6;
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v4];
+
+  return v5;
 }
 
 - (void)_postPageLoadEnd
 {
-  v4 = objc_msgSend_objectForKey_(self->super._loadData, a2, @"PageMemoryBeforeWarning", v2);
+  v3 = [(NSMutableDictionary *)self->super._loadData objectForKey:@"PageMemoryBeforeWarning"];
 
-  if (!v4)
+  if (!v3)
   {
-    v31 = objc_msgSend_objectAtIndex_(self->_pagesNeedingMemoryWarningSent, v5, self->_currentPageIndex, v6);
-    v10 = objc_msgSend_BOOLValue(v31, v7, v8, v9);
+    v10 = [(NSArray *)self->_pagesNeedingMemoryWarningSent objectAtIndex:self->_currentPageIndex];
+    bOOLValue = [v10 BOOLValue];
 
-    if (v10)
+    if (bOOLValue)
     {
-      v32 = objc_msgSend__memoryUsage_(self, v11, 1, v13);
-      objc_msgSend_setValue_forKey_(self->super._loadData, v14, v32, @"PageMemoryBeforeWarning");
+      v11 = [(PageMemoryMeasurementController *)self _memoryUsage:1];
+      [NSMutableDictionary setValue:"setValue:forKey:" forKey:?];
       notify_post("org.WebKit.lowMemory");
-      v15 = objc_alloc(MEMORY[0x277CBEBB8]);
-      v19 = objc_msgSend_dateWithTimeIntervalSinceNow_(MEMORY[0x277CBEAA8], v16, v17, v18, 2.0);
-      v21 = objc_msgSend_initWithFireDate_interval_target_selector_userInfo_repeats_(v15, v20, v19, self, sel__waitForMemoryPressureHandlerTimerFired_, 0, 0, 0.0);
+      v5 = objc_alloc(MEMORY[0x277CBEBB8]);
+      v6 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:2.0];
+      v7 = [v5 initWithFireDate:v6 interval:self target:sel__waitForMemoryPressureHandlerTimerFired_ selector:0 userInfo:0 repeats:0.0];
       waitForMemoryPressureHandler = self->_waitForMemoryPressureHandler;
-      self->_waitForMemoryPressureHandler = v21;
+      self->_waitForMemoryPressureHandler = v7;
 
-      v26 = objc_msgSend_currentRunLoop(MEMORY[0x277CBEB88], v23, v24, v25);
-      objc_msgSend_addTimer_forMode_(v26, v27, self->_waitForMemoryPressureHandler, *MEMORY[0x277CBE640]);
+      currentRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
+      [currentRunLoop addTimer:self->_waitForMemoryPressureHandler forMode:*MEMORY[0x277CBE640]];
     }
 
     else
     {
-      objc_msgSend__sendPageLoadFinishedEvent(self, v11, v12, v13);
+      [(MeasurementControllerBase *)self _sendPageLoadFinishedEvent];
 
-      objc_msgSend__clearPageLoadState(self, v28, v29, v30);
+      [(MeasurementControllerBase *)self _clearPageLoadState];
     }
   }
 }
 
 - (void)_waitForMemoryPressureHandlerTimerFired:(id)fired
 {
-  v12 = objc_msgSend__memoryUsage_(self, a2, 0, v3);
-  objc_msgSend_setValue_forKey_(self->super._loadData, v5, v12, @"PageMemoryAfterWarning");
-  objc_msgSend__sendPageLoadFinishedEvent(self, v6, v7, v8);
-  objc_msgSend__clearPageLoadState(self, v9, v10, v11);
+  v4 = [(PageMemoryMeasurementController *)self _memoryUsage:0];
+  [NSMutableDictionary setValue:"setValue:forKey:" forKey:?];
+  [(MeasurementControllerBase *)self _sendPageLoadFinishedEvent];
+  [(MeasurementControllerBase *)self _clearPageLoadState];
 }
 
 @end

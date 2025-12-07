@@ -17,6 +17,7 @@
 - (void)dealloc;
 - (void)setPreferenceValue:(id)value specifier:(id)specifier undoActionName:(id)name associatedDeepLinkFragment:(id)fragment;
 - (void)showPrivacyPane;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation SUStocksSettingsController
@@ -43,6 +44,16 @@
   v4.receiver = self;
   v4.super_class = SUStocksSettingsController;
   [(SUStocksSettingsController *)&v4 dealloc];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = SUStocksSettingsController;
+  [(SUStocksSettingsController *)&v6 viewDidAppear:appear];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.stocks"];
+  v5 = [(SUStocksSettingsController *)self localizedStringResourceWithKey:@"Stocks Settings Title"];
+  [(SUStocksSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.stocks" title:v5 localizedNavigationComponents:&__NSArray0__struct deepLink:v4];
 }
 
 - (id)localizedStringResourceWithKey:(id)key

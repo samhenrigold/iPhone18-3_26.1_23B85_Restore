@@ -4,11 +4,15 @@
 - (BOOL)isTwoAxisInputIdle:(GCGamepadHIDServicePlugin *)self prevInput:(SEL)input noiseBuffer:;
 - (BOOL)setProperty:(id)property forKey:(id)key client:(id)client;
 - (BOOL)updateHapticMotor:(id)motor;
+- (GCGamepadHIDServicePlugin)initWithService:(unsigned int)service;
 - (HIDConnection)client;
 - (HIDEventDispatcher)dispatcher;
+- (id)createEvent:(unsigned int)event timestamp:(unint64_t)timestamp;
+- (id)createHIDDeviceForService:(unsigned int)service;
 - (id)eventMatching:(id)matching forClient:(id)client;
 - (id)propertyForKey:(id)key client:(id)client;
 - (void)activate;
+- (void)applyDeadzone:(float)deadzone axisSnapRadius:(float)radius input:;
 - (void)cancel;
 - (void)clientNotification:(id)notification added:(BOOL)added;
 - (void)connectToBatteryServiceWithClient:(id)client reply:(id)reply;
@@ -84,9 +88,149 @@
   objc_destroyWeak(&location);
 }
 
+- (GCGamepadHIDServicePlugin)initWithService:(unsigned int)service
+{
+  v3 = *&service;
+  v50.receiver = self;
+  v50.super_class = GCGamepadHIDServicePlugin;
+  v4 = [(GCGamepadHIDServicePlugin *)&v50 init];
+  if (v4)
+  {
+    v5 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, 0);
+    v6 = dispatch_queue_create("com.apple.gamecontroller.serviceplugin", v5);
+    internalQueue = v4->_internalQueue;
+    v4->_internalQueue = v6;
+
+    v4->_service = v3;
+    IOObjectRetain(v3);
+    p_regID = &v4->_regID;
+    IORegistryEntryGetRegistryEntryID(v4->_service, &v4->_regID);
+    CFProperty = IORegistryEntryCreateCFProperty(v4->_service, @"VendorID", kCFAllocatorDefault, 0);
+    v9 = IORegistryEntryCreateCFProperty(v4->_service, @"ProductID", kCFAllocatorDefault, 0);
+    v10 = IORegistryEntryCreateCFProperty(v4->_service, @"VersionNumber", kCFAllocatorDefault, 0);
+    v11 = IORegistryEntryCreateCFProperty(v4->_service, @"Manufacturer", kCFAllocatorDefault, 0);
+    v49 = IORegistryEntryCreateCFProperty(v4->_service, @"Product", kCFAllocatorDefault, 0);
+    v48 = IORegistryEntryCreateCFProperty(v4->_service, @"Transport", kCFAllocatorDefault, 0);
+    obj = IORegistryEntryCreateCFProperty(v4->_service, @"SerialNumber", kCFAllocatorDefault, 0);
+    v12 = sub_10A8(obj);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = IOObjectCopyClass(v4->_service);
+      v45 = v11;
+      regID = v4->_regID;
+      unsignedIntegerValue = [CFProperty unsignedIntegerValue];
+      v44 = CFProperty;
+      v15 = v5;
+      v16 = unsignedIntegerValue;
+      v17 = v3;
+      v18 = v9;
+      unsignedIntegerValue2 = [v9 unsignedIntegerValue];
+      unsignedIntegerValue3 = [v10 unsignedIntegerValue];
+      *buf = 138545411;
+      v52 = v13;
+      v53 = 2048;
+      v54 = regID;
+      v55 = 2048;
+      v56 = v16;
+      v5 = v15;
+      CFProperty = v44;
+      v57 = 2048;
+      v58 = unsignedIntegerValue2;
+      v9 = v18;
+      v3 = v17;
+      v59 = 2048;
+      v60 = unsignedIntegerValue3;
+      v61 = 2114;
+      v11 = v45;
+      v62 = v45;
+      v63 = 2114;
+      v64 = v49;
+      v65 = 2113;
+      v66 = obj;
+      v67 = 2114;
+      v68 = v48;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Initialize <%{public}@ %#010llx> {\nvendorID = %zu,\nproductID = %zu,\nversion = %zu,\nmanufacturer = '%{public}@',\nproduct = '%{public}@',\nserial = '%{private}@',\ntransport = '%{public}@',\n}", buf, 0x5Cu);
+    }
+
+    v21 = IORegistryEntryCreateCFProperty(v4->_service, @"isVirtual", kCFAllocatorDefault, 0);
+    v4->_virtualDevice = [v21 BOOLValue];
+
+    v4->_bluetoothClassic = [v48 isEqualToString:@"Bluetooth"];
+    v4->_usb = [v48 isEqualToString:@"USB"];
+    v4->_bluetoothLE = [v48 isEqualToString:@"BluetoothLowEnergy"];
+    [(GCGamepadHIDServicePlugin *)v4 defaultIdleTimeoutDuration];
+    v4->_idleTimeoutDuration = v22;
+    v4->_lastEventTime = mach_absolute_time();
+    v23 = malloc_type_calloc(3uLL, 1uLL, 0x100004033FC2DF1uLL);
+    v4->_batteryReport = v23;
+    *&v23->var0 = 25700;
+    objc_storeStrong(&v4->_uniqueIdentifier, obj);
+    [(GCGamepadHIDServicePlugin *)v4 defaultLeftThumbstickNoiseBuffer];
+    v4->_leftThumbstickNoiseBuffer = v24;
+    [(GCGamepadHIDServicePlugin *)v4 defaultRightThumbstickNoiseBuffer];
+    v4->_rightThumbstickNoiseBuffer = v25;
+    [(GCGamepadHIDServicePlugin *)v4 defaultHapticDispatchFrequency];
+    v4->_hapticDispatchFrequency = v26;
+    defaultHapticMotors = [(GCGamepadHIDServicePlugin *)v4 defaultHapticMotors];
+    hapticMotors = v4->_hapticMotors;
+    v4->_hapticMotors = defaultHapticMotors;
+
+    [(GCGamepadHIDServicePlugin *)v4 defaultLeftThumbstickDeadzoneRadius];
+    v4->_leftThumbstickDeadzoneRadius = v29;
+    [(GCGamepadHIDServicePlugin *)v4 defaultLeftAxisSnapRadius];
+    v4->_leftThumbstickAxisSnapRadius = v30;
+    [(GCGamepadHIDServicePlugin *)v4 defaultRightThumbstickDeadzoneRadius];
+    v4->_rightThumbstickDeadzoneRadius = v31;
+    defaultRightAxisSnapRadius = [(GCGamepadHIDServicePlugin *)v4 defaultRightAxisSnapRadius];
+    v4->_rightThumbstickAxisSnapRadius = v33;
+    v34 = sub_10A8(defaultRightAxisSnapRadius);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    {
+      v35 = *p_regID;
+      *buf = 134217984;
+      v52 = v35;
+      _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "[%#010llx] Creating HIDDevice.", buf, 0xCu);
+    }
+
+    v36 = [(GCGamepadHIDServicePlugin *)v4 createHIDDeviceForService:v3];
+    device = v4->_device;
+    v4->_device = v36;
+
+    if (v4->_device)
+    {
+      v39 = sub_10A8(v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+      {
+        v40 = *p_regID;
+        *buf = 134217984;
+        v52 = v40;
+        _os_log_impl(&dword_0, v39, OS_LOG_TYPE_DEFAULT, "[%#010llx] Opening HIDDevice", buf, 0xCu);
+      }
+
+      [(HIDDevice *)v4->_device open];
+      [(GCGamepadHIDServicePlugin *)v4 isBluetoothClassic];
+      [(GCGamepadHIDServicePlugin *)v4 createVirtualHIDDeviceForBattery];
+      [(GCGamepadHIDServicePlugin *)v4 setupRawReportHandling];
+      v41 = v4;
+    }
+
+    else
+    {
+      v41 = 0;
+    }
+  }
+
+  else
+  {
+    v41 = 0;
+  }
+
+  return v41;
+}
+
 - (void)dealloc
 {
-  v3 = sub_10A8();
+  v3 = sub_10A8(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     regID = self->_regID;
@@ -230,7 +374,7 @@ LABEL_6:
 {
   propertyCopy = property;
   keyCopy = key;
-  if (sub_DE8())
+  if (sub_DE8(keyCopy, v9))
   {
     sub_6A24(self, propertyCopy, keyCopy);
   }
@@ -240,7 +384,7 @@ LABEL_6:
     if (([keyCopy isEqualToString:@"IOHIDDeviceSuspend"] & 1) == 0 && (objc_msgSend(keyCopy, "isEqualToString:", @"ReportBufferEntrySize") & 1) == 0 && (objc_msgSend(keyCopy, "isEqualToString:", @"MaxReportBufferCount") & 1) == 0 && (objc_msgSend(keyCopy, "isEqualToString:", @"IOHIDDeviceForceInterfaceRematch") & 1) == 0)
     {
       device = [(GCGamepadHIDServicePlugin *)self device];
-      v10 = [device setProperty:propertyCopy forKey:keyCopy];
+      v11 = [device setProperty:propertyCopy forKey:keyCopy];
 
       goto LABEL_11;
     }
@@ -252,67 +396,68 @@ LABEL_6:
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 LABEL_10:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_11;
   }
 
   [propertyCopy doubleValue];
-  self->_inputEventDelay = v9;
-  v10 = 1;
+  self->_inputEventDelay = v10;
+  v11 = 1;
 LABEL_11:
 
-  return v10;
+  return v11;
 }
 
 - (id)eventMatching:(id)matching forClient:(id)client
 {
   matchingCopy = matching;
   clientCopy = client;
+  v8 = clientCopy;
   if (matchingCopy)
   {
-    v8 = sub_10A8();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = sub_10A8(clientCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       regID = self->_regID;
-      v14 = 134218498;
-      v15 = regID;
-      v16 = 2112;
-      v17 = matchingCopy;
-      v18 = 2112;
-      v19 = clientCopy;
-      _os_log_debug_impl(&dword_0, v8, OS_LOG_TYPE_DEBUG, "[%#010llx] eventMatching: %@ client: %@", &v14, 0x20u);
+      v15 = 134218498;
+      v16 = regID;
+      v17 = 2112;
+      v18 = matchingCopy;
+      v19 = 2112;
+      v20 = v8;
+      _os_log_debug_impl(&dword_0, v9, OS_LOG_TYPE_DEBUG, "[%#010llx] eventMatching: %@ client: %@", &v15, 0x20u);
     }
 
-    v9 = [matchingCopy objectForKeyedSubscript:@"EventType"];
-    v10 = v9;
-    if (v9)
+    v10 = [matchingCopy objectForKeyedSubscript:@"EventType"];
+    v11 = v10;
+    if (v10)
     {
-      if ([v9 unsignedIntValue] == 3)
+      if ([v10 unsignedIntValue] == 3)
       {
-        v9 = [[HIDEvent alloc] initWithType:3 timestamp:1234 senderID:5678];
+        v10 = [[HIDEvent alloc] initWithType:3 timestamp:1234 senderID:5678];
       }
 
       else
       {
-        v9 = 0;
+        v10 = 0;
       }
     }
 
-    v11 = v9;
+    v12 = v10;
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (void)setEventDispatcher:(id)dispatcher
 {
   dispatcherCopy = dispatcher;
-  v5 = sub_10A8();
+  v5 = sub_10A8(dispatcherCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     regID = self->_regID;
@@ -327,7 +472,7 @@ LABEL_11:
 - (void)setCancelHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = sub_10A8();
+  v5 = sub_10A8(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     regID = self->_regID;
@@ -354,7 +499,7 @@ LABEL_11:
 
 - (void)activate
 {
-  v3 = sub_10A8();
+  v3 = sub_10A8(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     regID = self->_regID;
@@ -371,7 +516,7 @@ LABEL_11:
 
 - (void)cancel
 {
-  v3 = sub_10A8();
+  v3 = sub_10A8(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     regID = self->_regID;
@@ -395,7 +540,7 @@ LABEL_11:
 - (void)setDispatchQueue:(id)queue
 {
   queueCopy = queue;
-  v5 = sub_10A8();
+  v5 = sub_10A8(queueCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     regID = self->_regID;
@@ -415,7 +560,7 @@ LABEL_11:
 {
   addedCopy = added;
   notificationCopy = notification;
-  v7 = sub_10A8();
+  v7 = sub_10A8(notificationCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     regID = self->_regID;
@@ -442,6 +587,13 @@ LABEL_11:
   objc_storeWeak(&self->_client, v9);
 }
 
+- (id)createHIDDeviceForService:(unsigned int)service
+{
+  v3 = [[HIDDevice alloc] initWithService:*&service];
+
+  return v3;
+}
+
 - (void)disconnect
 {
   if ([(GCGamepadHIDServicePlugin *)self isBluetoothClassic])
@@ -453,52 +605,53 @@ LABEL_11:
 
 - (void)createVirtualHIDDeviceForBattery
 {
-  if ([(GCGamepadHIDServicePlugin *)self shouldCreateBatteryDevice])
+  shouldCreateBatteryDevice = [(GCGamepadHIDServicePlugin *)self shouldCreateBatteryDevice];
+  if (shouldCreateBatteryDevice)
   {
-    v3 = sub_10A8();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_10A8(shouldCreateBatteryDevice);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       regID = self->_regID;
-      v17 = 134217984;
-      v18 = regID;
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "[%#010llx] creating battery device", &v17, 0xCu);
+      v19 = 134217984;
+      v20 = regID;
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "[%#010llx] creating battery device", &v19, 0xCu);
     }
 
-    v5 = +[NSMutableDictionary dictionary];
-    v6 = sub_12D0();
-    [v5 setObject:v6 forKeyedSubscript:@"ReportDescriptor"];
-    v7 = [NSNumber numberWithUnsignedLongLong:self->_regID];
-    [v5 setObject:v7 forKeyedSubscript:@"PhysicalDeviceUniqueID"];
-
+    v6 = +[NSMutableDictionary dictionary];
+    v7 = sub_12D0();
+    [v6 setObject:v7 forKeyedSubscript:@"ReportDescriptor"];
     v8 = [NSNumber numberWithUnsignedLongLong:self->_regID];
-    [v5 setObject:v8 forKeyedSubscript:@"SerialNumber"];
+    [v6 setObject:v8 forKeyedSubscript:@"PhysicalDeviceUniqueID"];
+
+    v9 = [NSNumber numberWithUnsignedLongLong:self->_regID];
+    [v6 setObject:v9 forKeyedSubscript:@"SerialNumber"];
 
     CFProperty = IORegistryEntryCreateCFProperty(self->_service, @"Transport", kCFAllocatorDefault, 0);
-    [v5 setObject:CFProperty forKeyedSubscript:@"Transport"];
+    [v6 setObject:CFProperty forKeyedSubscript:@"Transport"];
 
-    v10 = IORegistryEntryCreateCFProperty(self->_service, @"ProductID", kCFAllocatorDefault, 0);
-    [v5 setObject:v10 forKeyedSubscript:@"ProductID"];
+    v11 = IORegistryEntryCreateCFProperty(self->_service, @"ProductID", kCFAllocatorDefault, 0);
+    [v6 setObject:v11 forKeyedSubscript:@"ProductID"];
 
-    v11 = IORegistryEntryCreateCFProperty(self->_service, @"VendorID", kCFAllocatorDefault, 0);
-    [v5 setObject:v11 forKeyedSubscript:@"VendorID"];
+    v12 = IORegistryEntryCreateCFProperty(self->_service, @"VendorID", kCFAllocatorDefault, 0);
+    [v6 setObject:v12 forKeyedSubscript:@"VendorID"];
 
-    v12 = IORegistryEntryCreateCFProperty(self->_service, @"Product", kCFAllocatorDefault, 0);
-    [v5 setObject:v12 forKeyedSubscript:@"Product"];
+    v13 = IORegistryEntryCreateCFProperty(self->_service, @"Product", kCFAllocatorDefault, 0);
+    [v6 setObject:v13 forKeyedSubscript:@"Product"];
 
-    [v5 setObject:&off_10E90 forKeyedSubscript:@"GameControllerType"];
-    v13 = [[HIDUserDevice alloc] initWithProperties:v5];
+    [v6 setObject:&off_10E90 forKeyedSubscript:@"GameControllerType"];
+    v14 = [[HIDUserDevice alloc] initWithProperties:v6];
     batteryUserDevice = self->_batteryUserDevice;
-    self->_batteryUserDevice = v13;
+    self->_batteryUserDevice = v14;
 
-    v15 = sub_10A8();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_10A8(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = self->_batteryUserDevice;
-      v17 = 138412546;
-      v18 = v16;
-      v19 = 2112;
-      v20 = v5;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "created battery device %@ with properties %@", &v17, 0x16u);
+      v18 = self->_batteryUserDevice;
+      v19 = 138412546;
+      v20 = v18;
+      v21 = 2112;
+      v22 = v6;
+      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "created battery device %@ with properties %@", &v19, 0x16u);
     }
   }
 }
@@ -507,7 +660,7 @@ LABEL_11:
 {
   if (self->_batteryReport)
   {
-    v3 = sub_10A8();
+    v3 = sub_10A8(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       regID = self->_regID;
@@ -525,29 +678,29 @@ LABEL_11:
 
 - (void)sendBatteryReport
 {
-  [(GCGamepadHIDServicePlugin *)self updateClientBattery];
+  updateClientBattery = [(GCGamepadHIDServicePlugin *)self updateClientBattery];
   if (self->_batteryUserDevice)
   {
-    v3 = sub_10A8();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_10A8(updateClientBattery);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       regID = self->_regID;
       var0 = self->_batteryReport->var0;
-      v7 = 134218240;
-      v8 = regID;
-      v9 = 1024;
-      v10 = var0;
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "[%#010llx] updateBatteryStats reporting battery level %d%%", &v7, 0x12u);
+      v8 = 134218240;
+      v9 = regID;
+      v10 = 1024;
+      v11 = var0;
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "[%#010llx] updateBatteryStats reporting battery level %d%%", &v8, 0x12u);
     }
 
-    v6 = [NSData dataWithBytesNoCopy:self->_batteryReport length:3 freeWhenDone:0];
-    [(HIDUserDevice *)self->_batteryUserDevice handleReport:v6 error:0];
+    v7 = [NSData dataWithBytesNoCopy:self->_batteryReport length:3 freeWhenDone:0];
+    [(HIDUserDevice *)self->_batteryUserDevice handleReport:v7 error:0];
   }
 }
 
 - (void)scheduleIdleTimer
 {
-  v3 = sub_10A8();
+  v3 = sub_10A8(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     regID = self->_regID;
@@ -567,56 +720,68 @@ LABEL_11:
 
 - (void)updateIdleState
 {
-  if ([(GCGamepadHIDServicePlugin *)self isIdle]&& [(GCGamepadHIDServicePlugin *)self shouldDisconnectWhenIdle])
+  if ([(GCGamepadHIDServicePlugin *)self isIdle])
   {
-    v3 = sub_10A8();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    shouldDisconnectWhenIdle = [(GCGamepadHIDServicePlugin *)self shouldDisconnectWhenIdle];
+    if (shouldDisconnectWhenIdle)
     {
-      regID = self->_regID;
-      v5 = 134217984;
-      v6 = regID;
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "[%#010llx] disconnectIfIdle disconnecting...", &v5, 0xCu);
-    }
+      v4 = sub_10A8(shouldDisconnectWhenIdle);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      {
+        regID = self->_regID;
+        v6 = 134217984;
+        v7 = regID;
+        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "[%#010llx] disconnectIfIdle disconnecting...", &v6, 0xCu);
+      }
 
-    [(GCGamepadHIDServicePlugin *)self disconnect];
+      [(GCGamepadHIDServicePlugin *)self disconnect];
+    }
   }
 }
 
 - (BOOL)isIdle
 {
   lastEventTime = [(GCGamepadHIDServicePlugin *)self lastEventTime];
-  v4 = mach_absolute_time() - lastEventTime;
+  v4 = mach_absolute_time();
+  v5 = v4 - lastEventTime;
   if (qword_16A70 != -1)
   {
     sub_6AF4();
   }
 
-  v5 = (v4 * dword_16A78 / *algn_16A7C) / 1000000000.0;
+  v6 = (v5 * dword_16A78 / *algn_16A7C) / 1000000000.0;
   idleTimeoutDuration = self->_idleTimeoutDuration;
-  v7 = sub_10A8();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_10A8(v4);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     regID = self->_regID;
-    v11 = 134218498;
-    v12 = regID;
-    if (v5 <= idleTimeoutDuration)
+    v12 = 134218498;
+    v13 = regID;
+    if (v6 <= idleTimeoutDuration)
     {
-      v9 = &stru_10818;
+      v10 = &stru_10818;
     }
 
     else
     {
-      v9 = @" - will disconnect if permitted";
+      v10 = @" - will disconnect if permitted";
     }
 
-    v13 = 2048;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v9;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "[%#010llx] isIdle for %.2f seconds%@", &v11, 0x20u);
+    v14 = 2048;
+    v15 = v6;
+    v16 = 2112;
+    v17 = v10;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "[%#010llx] isIdle for %.2f seconds%@", &v12, 0x20u);
   }
 
-  return v5 > idleTimeoutDuration;
+  return v6 > idleTimeoutDuration;
+}
+
+- (id)createEvent:(unsigned int)event timestamp:(unint64_t)timestamp
+{
+  v4 = [[HIDEvent alloc] initWithType:*&event timestamp:timestamp senderID:self->_regID];
+
+  return v4;
 }
 
 - (void)dispatchEvent:(id)event withInputDelay:(BOOL)delay
@@ -649,6 +814,37 @@ LABEL_11:
   }
 }
 
+- (void)applyDeadzone:(float)deadzone axisSnapRadius:(float)radius input:
+{
+  v5.f32[0] = fabsf(COERCE_FLOAT(*v4));
+  v6 = vdup_lane_s32(vcgt_f32(*&radius, v5), 0);
+  v7.i32[1] = HIDWORD(*v4);
+  v7.i32[0] = 0;
+  v8 = vbsl_s8(v6, v7, *v4);
+  v6.f32[0] = fabsf(*&v8.i32[1]);
+  v9 = vbsl_s8(vdup_lane_s32(vcgt_f32(*&radius, v6), 0), v8.u32[0], v8);
+  v10 = vmul_f32(v9, v9);
+  v11 = sqrtf(vaddv_f32(v10));
+  v12 = 0;
+  if (v11 > deadzone)
+  {
+    v13 = vadd_f32(v10, vdup_lane_s32(v10, 1)).u32[0];
+    v14 = v11 - deadzone;
+    v15 = vrsqrte_f32(v13);
+    v16 = vmul_f32(v15, vrsqrts_f32(v13, vmul_f32(v15, v15)));
+    *v17.i32 = 1.0 - deadzone;
+    v18 = vdiv_f32(vmul_n_f32(vmul_n_f32(v9, vmul_f32(v16, vrsqrts_f32(v13, vmul_f32(v16, v16))).f32[0]), v14), vdup_lane_s32(v17, 0));
+    __asm { FMOV            V1.2S, #1.0 }
+
+    v24 = vminnm_f32(v18, _D1);
+    __asm { FMOV            V1.2S, #-1.0 }
+
+    v12 = vmaxnm_f32(v24, _D1);
+  }
+
+  *v4 = v12;
+}
+
 - (BOOL)isTwoAxisInputIdle:(GCGamepadHIDServicePlugin *)self prevInput:(SEL)input noiseBuffer:
 {
   v5 = *v2;
@@ -672,10 +868,10 @@ LABEL_11:
 {
   if (state->var0 || state->var4 || state->var8)
   {
-    v14 = [(GCGamepadHIDServicePlugin *)self createEvent:1 timestamp:timestamp];
-    [v14 setIntegerValue:65280 forField:0x10000];
-    [v14 setIntegerValue:59 forField:65537];
-    [v14 setIntegerValue:1 forField:65538];
+    v10 = [(GCGamepadHIDServicePlugin *)self createEvent:1 timestamp:timestamp];
+    [v10 setIntegerValue:65280 forField:0x10000];
+    [v10 setIntegerValue:59 forField:65537];
+    [v10 setIntegerValue:1 forField:65538];
     if (state->var0)
     {
       v7 = [(GCGamepadHIDServicePlugin *)self createEvent:20 timestamp:timestamp];
@@ -701,16 +897,12 @@ LABEL_11:
     if (state->var8)
     {
       mach_absolute_time();
-      var9 = state->var9;
-      var10 = state->var10;
-      var11 = state->var11;
-      var12 = state->var12;
       QuaternionOrientationEvent = IOHIDEventCreateQuaternionOrientationEvent();
       IOHIDEventAppendEvent();
     }
 
     ++self->_motionSequenceNumber;
-    [(GCGamepadHIDServicePlugin *)self dispatchIdleEvent:v14 withInputDelay:1];
+    [(GCGamepadHIDServicePlugin *)self dispatchIdleEvent:v10 withInputDelay:1];
   }
 }
 
@@ -886,7 +1078,7 @@ LABEL_11:
 
   else
   {
-    sub_6C68(self);
+    sub_6C68(self, timestamp);
   }
 }
 
@@ -1194,17 +1386,17 @@ LABEL_15:
   replyCopy = reply;
   if ([(GCGamepadHIDServicePlugin *)self batteryReport]&& *[(GCGamepadHIDServicePlugin *)self batteryReport])
   {
-    v4 = *[(GCGamepadHIDServicePlugin *)self batteryReport];
-    v5 = *([(GCGamepadHIDServicePlugin *)self batteryReport]+ 2) != 0;
-    v6 = replyCopy[2];
+    [(GCGamepadHIDServicePlugin *)self batteryReport];
+    [(GCGamepadHIDServicePlugin *)self batteryReport];
+    v4 = replyCopy[2];
   }
 
   else
   {
-    v6 = replyCopy[2];
+    v4 = replyCopy[2];
   }
 
-  v6();
+  v4();
 }
 
 - (HIDConnection)client

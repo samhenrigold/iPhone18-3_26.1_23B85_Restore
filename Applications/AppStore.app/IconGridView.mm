@@ -8,7 +8,7 @@
 
 - (_TtC8AppStore12IconGridView)initWithCoder:(id)coder
 {
-  v4 = sub_10002849C(&qword_100975330);
+  v4 = sub_10002849C(&qword_100975330, &unk_1007B7440);
   __chkstk_darwin(v4);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC8AppStore12IconGridView_artworkViews) = _swiftEmptyArrayStorage;
   type metadata accessor for ArtworkView();

@@ -4,6 +4,7 @@
 - (BOOL)hasTransactionType:(id)type;
 - (BOOL)idle;
 - (BOOL)isCurrentRunningTransactionOfType:(id)type;
+- (BOOL)requestSetResumable:(BOOL)resumable userInfo:(id)info forRunningOperationType:(id)type;
 - (BOOL)saveTransactions;
 - (EPDynamicSequentialTransactionCoordinator)initWithServiceRegistry:(id)registry;
 - (NSSet)allPairingIDs;
@@ -31,6 +32,7 @@
 - (void)runPendingResumableRequest;
 - (void)runTransaction;
 - (void)setBusy:(BOOL)busy;
+- (void)startTransaction:(id)transaction rollback:(BOOL)rollback;
 - (void)string:(id)string routingSlipEntryErrors:(id)errors indent:(int64_t)indent;
 - (void)string:(id)string routingSlipEntryOperands:(id)operands indent:(int64_t)indent;
 - (void)string:(id)string routingSlipRecursive:(id)recursive indent:(int64_t)indent;
@@ -289,7 +291,7 @@ LABEL_7:
     osTransaction = self->_osTransaction;
     self->_osTransaction = v5;
 
-    _objc_release_x1();
+    _objc_release_x1(v5, osTransaction);
   }
 }
 
@@ -609,6 +611,98 @@ LABEL_11:
   objc_autoreleasePoolPop(context);
 
   return v26;
+}
+
+- (BOOL)requestSetResumable:(BOOL)resumable userInfo:(id)info forRunningOperationType:(id)type
+{
+  resumableCopy = resumable;
+  infoCopy = info;
+  typeCopy = type;
+  current = [(EPDynamicTransactionListContainer *)self->_list current];
+  operationType = [current operationType];
+  if ([typeCopy isEqual:operationType])
+  {
+    current2 = [(EPDynamicTransactionListContainer *)self->_list current];
+    userInfo = [current2 userInfo];
+
+    if (resumableCopy)
+    {
+      if (userInfo == infoCopy)
+      {
+        goto LABEL_11;
+      }
+    }
+
+    else if (!userInfo)
+    {
+LABEL_11:
+      v18 = nr_daemon_log();
+      v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+
+      if (v19)
+      {
+        v20 = nr_daemon_log();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        {
+          v21 = "NO";
+          if (resumableCopy)
+          {
+            v21 = "YES";
+          }
+
+          v26 = 136315394;
+          v27 = v21;
+          v28 = 2114;
+          v29 = typeCopy;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "EPDTC: setting resumable to %s for running operation %{public}@", &v26, 0x16u);
+        }
+      }
+
+      current3 = [(EPDynamicTransactionListContainer *)self->_list current];
+      [current3 setResumeEnabled:resumableCopy];
+
+      if (resumableCopy)
+      {
+        v23 = 0;
+      }
+
+      else
+      {
+        v23 = infoCopy;
+      }
+
+      current4 = [(EPDynamicTransactionListContainer *)self->_list current];
+      [current4 setUserInfo:v23];
+
+      [(EPDynamicSequentialTransactionCoordinator *)self saveTransactions];
+      v16 = 1;
+      goto LABEL_21;
+    }
+  }
+
+  else
+  {
+  }
+
+  v14 = nr_daemon_log();
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+
+  v16 = 0;
+  if (v15)
+  {
+    v17 = nr_daemon_log();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v26) = 0;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "EPDTC: bogus resumable request", &v26, 2u);
+    }
+
+    v16 = 0;
+  }
+
+LABEL_21:
+
+  return v16;
 }
 
 - (id)getResumableForRunningOperationType:(id)type
@@ -1144,6 +1238,74 @@ LABEL_30:
 LABEL_31:
 }
 
+- (void)startTransaction:(id)transaction rollback:(BOOL)rollback
+{
+  rollbackCopy = rollback;
+  transactionCopy = transaction;
+  v7 = nr_daemon_log();
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+
+  if (transactionCopy)
+  {
+    if (v8)
+    {
+      v9 = nr_daemon_log();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        transactionName = [transactionCopy transactionName];
+        v22 = 138543362;
+        v23 = transactionName;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "EPDTC: Starting transaction %{public}@", &v22, 0xCu);
+      }
+    }
+
+    [(EPDynamicSequentialTransactionCoordinator *)self dumpTransactionRecursive:transactionCopy];
+    willBegin = [transactionCopy willBegin];
+
+    if (willBegin)
+    {
+      willBegin2 = [transactionCopy willBegin];
+      routingSlip = [transactionCopy routingSlip];
+      (willBegin2)[2](willBegin2, routingSlip);
+    }
+
+    routingSlip2 = [transactionCopy routingSlip];
+    [routingSlip2 setRoutingSlipDelegate:self];
+    [(EPDynamicSequentialTransactionCoordinator *)self setBusy:1];
+    v15 = +[EPNanoRegistryStatusCodeElection sharedInstance];
+    v16 = [v15 newStatusCodeVote:{objc_msgSend(transactionCopy, "runningStatusCode")}];
+    statusCodeVote = self->_statusCodeVote;
+    self->_statusCodeVote = v16;
+
+    [routingSlip2 resumeWithServiceRegistry:self->_serviceRegistry rollback:rollbackCopy];
+  }
+
+  else
+  {
+    if (v8)
+    {
+      v18 = nr_daemon_log();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(v22) = 0;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "EPDTC: Empty transaction list", &v22, 2u);
+      }
+    }
+
+    [(EPDynamicSequentialTransactionCoordinator *)self suspend];
+    routingSlip2 = [(EPServiceRegistry *)self->_serviceRegistry serviceFromClass:objc_opt_class()];
+    [routingSlip2 transactionCoordinatorHasBecomeIdle];
+    v19 = +[EPNanoRegistryStatusCodeElection sharedInstance];
+    v20 = [v19 newStatusCodeVote:2];
+    v21 = self->_statusCodeVote;
+    self->_statusCodeVote = v20;
+
+    [(EPDynamicSequentialTransactionCoordinator *)self setBusy:0];
+  }
+
+  [(EPDynamicSequentialTransactionCoordinator *)self runPendingResumableRequest];
+}
+
 - (void)runTransaction
 {
   if (!self->_running)
@@ -1304,17 +1466,7 @@ LABEL_26:
     [transactions4 removeObject:firstObject];
 
     targetPairingID = [firstObject targetPairingID];
-    if (!targetPairingID)
-    {
-      goto LABEL_33;
-    }
-
-    v36 = targetPairingID;
-    allPairingIDs = [(EPDynamicSequentialTransactionCoordinator *)self allPairingIDs];
-    targetPairingID2 = [firstObject targetPairingID];
-    v39 = [allPairingIDs containsObject:targetPairingID2];
-
-    if (!v39)
+    if (targetPairingID && (v36 = targetPairingID, -[EPDynamicSequentialTransactionCoordinator allPairingIDs](self, "allPairingIDs"), v37 = objc_claimAutoreleasedReturnValue(), [firstObject targetPairingID], v38 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend(v37, "containsObject:", v38), v38, v37, v36, !v39))
     {
       v46 = nr_daemon_log();
       v47 = os_log_type_enabled(v46, OS_LOG_TYPE_ERROR);
@@ -1333,7 +1485,6 @@ LABEL_26:
 
     else
     {
-LABEL_33:
       [(EPDynamicTransactionListContainer *)self->_list setCurrent:firstObject];
       [(EPDynamicSequentialTransactionCoordinator *)self saveTransactions];
       v40 = nr_daemon_log();
@@ -1507,22 +1658,22 @@ LABEL_11:
 - (void)routingSlip:(id)slip entryDidCompleteRollback:(id)rollback
 {
   rollbackCopy = rollback;
-  v6 = sub_1000034AC();
+  v6 = sub_1000034AC(rollbackCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = sub_1000034AC();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_1000034AC(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       name = [rollbackCopy name];
       current = [(EPDynamicTransactionListContainer *)self->_list current];
       transactionName = [current transactionName];
-      v12 = 138543618;
-      v13 = name;
-      v14 = 2114;
-      v15 = transactionName;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "EPDTC: Transaction %{public}@ rolled back in transaction %{public}@", &v12, 0x16u);
+      v13 = 138543618;
+      v14 = name;
+      v15 = 2114;
+      v16 = transactionName;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "EPDTC: Transaction %{public}@ rolled back in transaction %{public}@", &v13, 0x16u);
     }
   }
 }
@@ -1530,22 +1681,22 @@ LABEL_11:
 - (void)routingSlip:(id)slip entryDidCompleteTransaction:(id)transaction
 {
   transactionCopy = transaction;
-  v6 = sub_1000034AC();
+  v6 = sub_1000034AC(transactionCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = sub_1000034AC();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_1000034AC(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       name = [transactionCopy name];
       current = [(EPDynamicTransactionListContainer *)self->_list current];
       transactionName = [current transactionName];
-      v12 = 138543618;
-      v13 = name;
-      v14 = 2114;
-      v15 = transactionName;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "EPDTC: Transaction %{public}@ completed in transaction %{public}@", &v12, 0x16u);
+      v13 = 138543618;
+      v14 = name;
+      v15 = 2114;
+      v16 = transactionName;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "EPDTC: Transaction %{public}@ completed in transaction %{public}@", &v13, 0x16u);
     }
   }
 }
@@ -1571,19 +1722,19 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v9 = sub_1000034AC();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v10 = sub_1000034AC(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-  if (v10)
+  if (v11)
   {
-    v11 = sub_1000034AC();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_1000034AC(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       current2 = [(EPDynamicTransactionListContainer *)self->_list current];
       transactionName = [current2 transactionName];
-      v23 = 138543362;
-      v24 = transactionName;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "EPDTC: Transaction %{public}@ completed", &v23, 0xCu);
+      v25 = 138543362;
+      v26 = transactionName;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "EPDTC: Transaction %{public}@ completed", &v25, 0xCu);
     }
   }
 

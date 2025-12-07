@@ -48,7 +48,7 @@
 
   if (v3)
   {
-    sub_100003540(0, &unk_10076BAB0);
+    sub_100003540(0, &unk_10076BAB0, UIKeyCommand_ptr);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -140,13 +140,13 @@
 
 - (NSArray)preferredFocusEnvironments
 {
-  sub_100058000(&qword_10076B780);
+  sub_100058000(&qword_10076B780, &qword_10062D7C0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_10062D420;
   v4 = *&self->TTRIContentUnavailableHostableViewController_opaque[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_contentViewController];
   *(v3 + 32) = v4;
   v5 = v4;
-  sub_100058000(&qword_100780A40);
+  sub_100058000(&qword_100780A40, &unk_10063B460);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;
@@ -170,7 +170,7 @@
 
   v8 = sub_100380378(action, v10);
 
-  sub_1000079B4(v10, &qword_10076AE40);
+  sub_1000079B4(v10, &qword_10076AE40, &qword_10062EE50);
   return v8 & 1;
 }
 
@@ -194,7 +194,7 @@
 {
   stateCopy = state;
   selfCopy = self;
-  sub_1003908F8();
+  sub_1003908F8(v5);
 }
 
 - (id)contentScrollViewForEdge:(unint64_t)edge
@@ -208,13 +208,13 @@
 
 - (void)deleteReminderAction:(id)action
 {
-  v5 = sub_100058000(&qword_100772140);
+  v5 = sub_100058000(&qword_100772140, &qword_10062D9F0);
   __chkstk_darwin(v5 - 8);
-  v7 = v18 - v6;
+  v7 = v19 - v6;
   v8 = type metadata accessor for TTRRemindersListViewModel.Item();
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
-  v11 = v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (action)
   {
     selfCopy = self;
@@ -225,7 +225,7 @@
 
   else
   {
-    memset(v18, 0, sizeof(v18));
+    memset(v19, 0, sizeof(v19));
     selfCopy2 = self;
   }
 
@@ -233,25 +233,27 @@
   if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
 
-    sub_1000079B4(v18, &qword_10076AE40);
+    sub_1000079B4(v19, &qword_10076AE40, &qword_10062EE50);
     v14 = &qword_100772140;
-    v15 = v7;
+    v15 = &qword_10062D9F0;
+    v16 = v7;
   }
 
   else
   {
     (*(v9 + 32))(v11, v7, v8);
-    v16 = *&self->toolbarBottomConstraint[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter];
-    v17 = *&self->keyboardAppearState[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter];
-    sub_10000C36C(&self->TTRIContentUnavailableHostableViewController_opaque[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter], v16);
-    (*(v17 + 88))(v11, TTRReminderIDsWithMatchingHashtagsProvider.init(reminders:), 0, v16, v17);
+    v17 = *&self->toolbarBottomConstraint[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter];
+    v18 = *&self->keyboardAppearState[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter];
+    sub_10000C36C(&self->TTRIContentUnavailableHostableViewController_opaque[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter], v17);
+    (*(v18 + 88))(v11, TTRReminderIDsWithMatchingHashtagsProvider.init(reminders:), 0, v17, v18);
 
     (*(v9 + 8))(v11, v8);
     v14 = &qword_10076AE40;
-    v15 = v18;
+    v15 = &qword_10062EE50;
+    v16 = v19;
   }
 
-  sub_1000079B4(v15, v14);
+  sub_1000079B4(v16, v14, v15);
 }
 
 - (void)endEditingReminderAction:(id)action
@@ -275,7 +277,7 @@
   sub_10000C36C(&self->TTRIContentUnavailableHostableViewController_opaque[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter], v6);
   (*(v7 + 456))(v6, v7);
 
-  sub_1000079B4(v8, &qword_10076AE40);
+  sub_1000079B4(v8, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)createCustomSmartList:(id)list
@@ -299,7 +301,7 @@
   sub_10000C36C(&self->TTRIContentUnavailableHostableViewController_opaque[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter], v6);
   (*(v7 + 256))(v6, v7);
 
-  sub_1000079B4(v8, &qword_10076AE40);
+  sub_1000079B4(v8, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)expandAllItemsAction:(id)action
@@ -329,7 +331,7 @@
   v13 = v9;
   v12(v8, ObjectType, v10);
 
-  sub_1000079B4(v14, &qword_10076AE40);
+  sub_1000079B4(v14, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)collapseAllItemsAction:(id)action
@@ -359,7 +361,7 @@
   v13 = v9;
   v12(v8, ObjectType, v10);
 
-  sub_1000079B4(v14, &qword_10076AE40);
+  sub_1000079B4(v14, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)setPriorityAction:(id)action
@@ -380,18 +382,18 @@
 
   sub_100388C5C(v6);
 
-  sub_1000079B4(v6, &qword_10076AE40);
+  sub_1000079B4(v6, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)addStructuredHashtagForSelectedReminderAction:(id)action
 {
-  v5 = sub_100058000(&qword_100772140);
+  v5 = sub_100058000(&qword_100772140, &qword_10062D9F0);
   __chkstk_darwin(v5 - 8);
-  v7 = v18 - v6;
+  v7 = v19 - v6;
   v8 = type metadata accessor for TTRRemindersListViewModel.Item();
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
-  v11 = v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (action)
   {
     selfCopy = self;
@@ -402,7 +404,7 @@
 
   else
   {
-    memset(v18, 0, sizeof(v18));
+    memset(v19, 0, sizeof(v19));
     selfCopy2 = self;
   }
 
@@ -410,25 +412,27 @@
   if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
 
-    sub_1000079B4(v18, &qword_10076AE40);
+    sub_1000079B4(v19, &qword_10076AE40, &qword_10062EE50);
     v14 = &qword_100772140;
-    v15 = v7;
+    v15 = &qword_10062D9F0;
+    v16 = v7;
   }
 
   else
   {
     (*(v9 + 32))(v11, v7, v8);
-    v16 = *&self->toolbarBottomConstraint[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter];
-    v17 = *&self->keyboardAppearState[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter];
-    sub_10000C36C(&self->TTRIContentUnavailableHostableViewController_opaque[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter], v16);
-    (*(v17 + 232))(v11, v16, v17);
+    v17 = *&self->toolbarBottomConstraint[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter];
+    v18 = *&self->keyboardAppearState[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter];
+    sub_10000C36C(&self->TTRIContentUnavailableHostableViewController_opaque[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter], v17);
+    (*(v18 + 232))(v11, v17, v18);
 
     (*(v9 + 8))(v11, v8);
     v14 = &qword_10076AE40;
-    v15 = v18;
+    v15 = &qword_10062EE50;
+    v16 = v19;
   }
 
-  sub_1000079B4(v15, v14);
+  sub_1000079B4(v16, v14, v15);
 }
 
 - (void)postponeAllOverdueToTodayAction:(id)action
@@ -458,7 +462,7 @@
   (*(v12 + 720))(v8, v11, v12);
 
   (*(v6 + 8))(v8, v5);
-  sub_1000079B4(v13, &qword_10076AE40);
+  sub_1000079B4(v13, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)printListAction:(id)action
@@ -482,7 +486,7 @@
   sub_10000C36C(&self->TTRIContentUnavailableHostableViewController_opaque[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter], v6);
   (*(v7 + 952))(v6, v7);
 
-  sub_1000079B4(v8, &qword_10076AE40);
+  sub_1000079B4(v8, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)toggleShowCompletedAction:(id)action
@@ -506,7 +510,7 @@
   v7 = static TTRITipKitSignalContext.RemindersList.keyboardShortcut.getter();
   (*(v6 + 968))(v7);
 
-  sub_1000079B4(v8, &qword_10076AE40);
+  sub_1000079B4(v8, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)toggleAutoCategorizeListAction:(id)action
@@ -530,7 +534,7 @@
   sub_10000C36C(&self->TTRIContentUnavailableHostableViewController_opaque[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter], v6);
   (*(v7 + 944))(v6, v7);
 
-  sub_1000079B4(v8, &qword_10076AE40);
+  sub_1000079B4(v8, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)newSectionAction:(id)action
@@ -554,7 +558,7 @@
   sub_10000C36C(&self->TTRIContentUnavailableHostableViewController_opaque[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter], v6);
   (*(v7 + 1016))(v6, v7);
 
-  sub_1000079B4(v8, &qword_10076AE40);
+  sub_1000079B4(v8, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)editSectionsAction:(id)action
@@ -578,7 +582,7 @@
   sub_10000C36C(&self->TTRIContentUnavailableHostableViewController_opaque[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter], v6);
   (*(v7 + 1080))(v6, v7);
 
-  sub_1000079B4(v8, &qword_10076AE40);
+  sub_1000079B4(v8, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)placeholderAction:(id)action
@@ -595,7 +599,7 @@
     memset(v3, 0, sizeof(v3));
   }
 
-  sub_1000079B4(v3, &qword_10076AE40);
+  sub_1000079B4(v3, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)viewTemplatesAction:(id)action
@@ -619,7 +623,7 @@
   sub_10000C36C(&self->TTRIContentUnavailableHostableViewController_opaque[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter], v6);
   (*(v7 + 888))(v6, v7);
 
-  sub_1000079B4(v8, &qword_10076AE40);
+  sub_1000079B4(v8, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)saveAsTemplateAction:(id)action
@@ -643,7 +647,7 @@
   sub_10000C36C(&self->TTRIContentUnavailableHostableViewController_opaque[OBJC_IVAR____TtC9Reminders31TTRIShowRemindersViewController_presenter], v6);
   (*(v7 + 896))(v6, v7);
 
-  sub_1000079B4(v8, &qword_10076AE40);
+  sub_1000079B4(v8, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)groupByTimeAction:(id)action
@@ -678,7 +682,7 @@
     (*(*(v10 + 8) + 24))((v13 & 1) == 0, v9);
   }
 
-  sub_1000079B4(v14, &qword_10076AE40);
+  sub_1000079B4(v14, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (BOOL)accessibilityPerformMagicTap
@@ -718,7 +722,7 @@
   else
   {
 
-    sub_1000079B4(v12, &unk_100780A18);
+    sub_1000079B4(v12, &unk_100780A18, &unk_10063C788);
     v10 = 1;
   }
 

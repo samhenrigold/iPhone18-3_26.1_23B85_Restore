@@ -70,7 +70,7 @@
   if (_os_feature_enabled_impl() && self->_canShowSensitiveUI || self->_alternateCalendarIdentifier || [(CSProminentSubtitleDateView *)self _wantsCompactForOrientation])
   {
     v6 = [MEMORY[0x1E696AB78] dateFormatFromTemplate:@"EEE MMM d" options:0 locale:preferredLocale];
-    v7 = CSFrameworkBundle();
+    v7 = CSFrameworkBundle(v6);
     v8 = [v7 localizedStringForKey:@"DATE_FORMAT_CHARACTERS_TO_OMIT" value:&stru_1F158DED0 table:0];
 
     if ([v8 length])

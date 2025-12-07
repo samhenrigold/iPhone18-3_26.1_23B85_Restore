@@ -45,7 +45,7 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -57,7 +57,7 @@
   memset(&buf, 0, sizeof(buf));
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   token = buf;
@@ -113,11 +113,11 @@ LABEL_24:
           }
 
           connections = [(ViewServiceHelper *)selfCopy connections];
-          v27[0] = @"NSXPCConnection";
-          v27[1] = @"bundleIdentifier";
-          v28[0] = connectionCopy;
-          v28[1] = &stru_2884B5B68;
-          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
+          v26[0] = @"NSXPCConnection";
+          v26[1] = @"bundleIdentifier";
+          v27[0] = connectionCopy;
+          v27[1] = &stru_2884B5B68;
+          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
           [connections addObject:v21];
 
           objc_sync_exit(selfCopy);
@@ -193,13 +193,12 @@ LABEL_24:
 
 LABEL_33:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 - (void)handleStatusBarTap
 {
-  v25[5] = *MEMORY[0x277D85DE8];
+  v24[5] = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -248,33 +247,31 @@ LABEL_33:
   v11 = ;
 
   v12 = *MEMORY[0x277D671C0];
-  v24[0] = *MEMORY[0x277D67208];
-  v24[1] = v12;
+  v23[0] = *MEMORY[0x277D67208];
+  v23[1] = v12;
   v13 = MEMORY[0x277CBEC38];
-  v25[0] = @"SSActiveViewController";
-  v25[1] = MEMORY[0x277CBEC38];
-  v24[2] = *MEMORY[0x277D671E8];
+  v24[0] = @"SSActiveViewController";
+  v24[1] = MEMORY[0x277CBEC38];
+  v23[2] = *MEMORY[0x277D671E8];
   v14 = [MEMORY[0x277CCABB0] numberWithInteger:0];
   v15 = *MEMORY[0x277D671B8];
-  v25[2] = v14;
-  v25[3] = v13;
+  v24[2] = v14;
+  v24[3] = v13;
   v16 = *MEMORY[0x277D67200];
-  v24[3] = v15;
-  v24[4] = v16;
-  v22[0] = @"isPaused";
-  v22[1] = @"isScreenLocked";
-  v23[0] = v9;
-  v23[1] = v11;
-  v22[2] = @"viewerName";
-  v23[2] = v7;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
-  v25[4] = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:5];
+  v23[3] = v15;
+  v23[4] = v16;
+  v21[0] = @"isPaused";
+  v21[1] = @"isScreenLocked";
+  v22[0] = v9;
+  v22[1] = v11;
+  v21[2] = @"viewerName";
+  v22[2] = v7;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v24[4] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:5];
 
   v19 = SBSUIActivateRemoteAlertWithLifecycleNotifications();
   syslog(5, "RemoteAlert: %d", v19);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)termsAndConditionsResponse:(id)response

@@ -59,7 +59,7 @@
     [SYFileTransferInfo writeTo:];
   }
 
-  v6 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteSubmessage();
   if (self->_startAnchor)
   {
@@ -71,7 +71,6 @@
     PBDataWriterWriteStringField();
   }
 
-  decompressedFileSize = self->_decompressedFileSize;
   PBDataWriterWriteUint64Field();
 }
 
@@ -139,7 +138,7 @@
       goto LABEL_7;
     }
 
-    [(SYMessageHeader *)header mergeFrom:?];
+    header = [(SYMessageHeader *)header mergeFrom:?];
   }
 
   else
@@ -149,26 +148,26 @@
       goto LABEL_7;
     }
 
-    [(SYFileTransferInfo *)self setHeader:?];
+    header = [(SYFileTransferInfo *)self setHeader:?];
   }
 
   fromCopy = v7;
 LABEL_7:
   if (fromCopy[4])
   {
-    [(SYFileTransferInfo *)self setStartAnchor:?];
+    header = [(SYFileTransferInfo *)self setStartAnchor:?];
     fromCopy = v7;
   }
 
   if (fromCopy[2])
   {
-    [(SYFileTransferInfo *)self setEndAnchor:?];
+    header = [(SYFileTransferInfo *)self setEndAnchor:?];
     fromCopy = v7;
   }
 
   self->_decompressedFileSize = fromCopy[1];
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](header, fromCopy);
 }
 
 @end

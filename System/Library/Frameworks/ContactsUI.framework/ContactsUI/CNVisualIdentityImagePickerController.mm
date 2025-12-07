@@ -391,17 +391,17 @@ void __85__CNVisualIdentityImagePickerController_imageDataFromPickerResult_compl
 + (id)photoPickerForEditingImageData:(id)data withCropRect:(CGRect)rect backgroundColor:(id)color isMeContact:(BOOL)contact
 {
   contactCopy = contact;
-  v19 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v7 = [CNPhotoLibraryProvider photoLibraryWithError:&v16, color, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
-  v8 = v16;
+  v20 = *MEMORY[0x1E69E9840];
+  v17 = 0;
+  v7 = [CNPhotoLibraryProvider photoLibraryWithError:&v17, color, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
+  v8 = v17;
   if (!v7)
   {
     v9 = [objc_opt_class() log];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v8;
+      v19 = v8;
       _os_log_error_impl(&dword_199A75000, v9, OS_LOG_TYPE_ERROR, "Unable to pick photos from photo library %@", buf, 0xCu);
     }
   }
@@ -410,23 +410,23 @@ void __85__CNVisualIdentityImagePickerController_imageDataFromPickerResult_compl
   imagesFilter = [(objc_class *)getPHPickerFilterClass() imagesFilter];
   [v10 setFilter:imagesFilter];
 
-  [v10 _setDisabledPrivateCapabilities:8];
-  PHPickerSuggestionGroupClass = get_PHPickerSuggestionGroupClass();
+  v12 = [v10 _setDisabledPrivateCapabilities:8];
+  PHPickerSuggestionGroupClass = get_PHPickerSuggestionGroupClass(v12);
   if (contactCopy)
   {
-    [(objc_class *)PHPickerSuggestionGroupClass deviceOwnerSuggestionGroup];
+    [PHPickerSuggestionGroupClass deviceOwnerSuggestionGroup];
   }
 
   else
   {
-    [(objc_class *)PHPickerSuggestionGroupClass wallpaperLikeSuggestionGroup];
+    [PHPickerSuggestionGroupClass wallpaperLikeSuggestionGroup];
   }
-  v13 = ;
-  [v10 set_suggestionGroup:v13];
+  v14 = ;
+  [v10 set_suggestionGroup:v14];
 
-  v14 = [objc_alloc(getPHPickerViewControllerClass_44843()) initWithConfiguration:v10];
+  v15 = [objc_alloc(getPHPickerViewControllerClass_44843()) initWithConfiguration:v10];
 
-  return v14;
+  return v15;
 }
 
 + (id)photoPickerForEditingImageData:(id)data withCropRect:(CGRect)rect isMeContact:(BOOL)contact

@@ -315,19 +315,19 @@ LABEL_8:
   width = size.width;
   [AKGeometryHelper adjustOriginalExifOrientationOnAnnotation:self flatteningOriginalModelExif:orientation];
   [(AKRectangularShapeAnnotation *)self rectangle];
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
-  v15 = v14;
-  memset(&v16[1], 0, sizeof(CGAffineTransform));
-  [AKGeometryHelper affineTransformFlatteningOriginalModelExif:orientation withOriginalModelSize:width, height];
-  v16[0] = v16[1];
-  v17.origin.x = v9;
-  v17.origin.y = v11;
-  v17.size.width = v13;
-  v17.size.height = v15;
-  v18 = CGRectApplyAffineTransform(v17, v16);
-  [(AKRectangularShapeAnnotation *)self setRectangle:v18.origin.x, v18.origin.y, v18.size.width, v18.size.height];
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
+  memset(&v15[1], 0, sizeof(CGAffineTransform));
+  objc_msgSend_affineTransformFlatteningOriginalModelExif_withOriginalModelSize_(AKGeometryHelper, width, height);
+  v15[0] = v15[1];
+  v16.origin.x = v8;
+  v16.origin.y = v10;
+  v16.size.width = v12;
+  v16.size.height = v14;
+  v17 = CGRectApplyAffineTransform(v16, v15);
+  [(AKRectangularShapeAnnotation *)self setRectangle:v17.origin.x, v17.origin.y, v17.size.width, v17.size.height];
 }
 
 - (void)translateBy:(CGPoint)by

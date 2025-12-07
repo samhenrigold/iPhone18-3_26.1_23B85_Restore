@@ -60,7 +60,7 @@ uint64_t __51__VUIApplicationNotificationManager_sharedInstance__block_invoke()
 
 - (void)_applicationDidBecomeActiveNotification:(id)notification
 {
-  v3 = VUICDefaultLogObject();
+  v3 = VUICDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -73,7 +73,7 @@ uint64_t __51__VUIApplicationNotificationManager_sharedInstance__block_invoke()
 
 - (void)_applicationDidEnterBackgroundNotification:(id)notification
 {
-  v3 = VUICDefaultLogObject();
+  v3 = VUICDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -86,7 +86,7 @@ uint64_t __51__VUIApplicationNotificationManager_sharedInstance__block_invoke()
 
 - (void)_applicationWillResignActiveNotification:(id)notification
 {
-  v3 = VUICDefaultLogObject();
+  v3 = VUICDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -99,7 +99,7 @@ uint64_t __51__VUIApplicationNotificationManager_sharedInstance__block_invoke()
 
 - (void)_applicationWillTerminateNotification:(id)notification
 {
-  v3 = VUICDefaultLogObject();
+  v3 = VUICDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -112,7 +112,7 @@ uint64_t __51__VUIApplicationNotificationManager_sharedInstance__block_invoke()
 
 - (void)_applicationWillEnterForegroundNotification:(id)notification
 {
-  v3 = VUICDefaultLogObject();
+  v3 = VUICDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

@@ -40,11 +40,11 @@
 
 - (GCGenericDeviceDataConstantExpressionModelBuilder)initWithDictionaryRepresentation:(id)representation error:(id *)error
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   representationCopy = representation;
-  v18.receiver = self;
-  v18.super_class = GCGenericDeviceDataConstantExpressionModelBuilder;
-  v7 = [(GCGenericDeviceDataProcessorExpressionModelBuilder *)&v18 initWithDictionaryRepresentation:representationCopy error:error];
+  v17.receiver = self;
+  v17.super_class = GCGenericDeviceDataConstantExpressionModelBuilder;
+  v7 = [(GCGenericDeviceDataProcessorExpressionModelBuilder *)&v17 initWithDictionaryRepresentation:representationCopy error:error];
   if (!v7)
   {
 LABEL_8:
@@ -52,22 +52,22 @@ LABEL_8:
     goto LABEL_4;
   }
 
-  v17 = 0;
-  v8 = [representationCopy gc_requiredObjectForKey:@"Value" ofClass:objc_opt_class() error:&v17];
-  v9 = v17;
+  v16 = 0;
+  v8 = [representationCopy gc_requiredObjectForKey:@"Value" ofClass:objc_opt_class() error:&v16];
+  v9 = v16;
   if (!v8)
   {
     if (error)
     {
-      v13 = MEMORY[0x1E696ABC0];
-      v19[0] = *MEMORY[0x1E696A578];
-      v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", objc_msgSend(objc_opt_class(), "modelClass")];
-      v20[0] = v14;
-      v19[1] = *MEMORY[0x1E696A588];
+      v12 = MEMORY[0x1E696ABC0];
+      v18[0] = *MEMORY[0x1E696A578];
+      v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", objc_msgSend(objc_opt_class(), "modelClass")];
+      v19[0] = v13;
+      v18[1] = *MEMORY[0x1E696A588];
       localizedFailureReason = [v9 localizedFailureReason];
-      v20[1] = localizedFailureReason;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
-      *error = [(NSError *)v13 gc_modelError:v16 userInfo:?];
+      v19[1] = localizedFailureReason;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+      *error = [(NSError *)v12 gc_modelError:v15 userInfo:?];
     }
 
     goto LABEL_8;
@@ -79,7 +79,6 @@ LABEL_8:
   v10 = v7;
 LABEL_4:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

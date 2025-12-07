@@ -38,22 +38,20 @@
 
 - (id)remoteInterface
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2875DBAE0];
   v3 = MEMORY[0x277CBEB98];
-  v8[0] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_stateInfoWithCompletion_ argumentIndex:0 ofReply:1];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 - (void)start
 {
-  v3 = LogCategory_Unspecified();
+  v3 = LogCategory_Unspecified(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -68,7 +66,7 @@
 - (void)enableFinderModeWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = LogCategory_Unspecified();
+  v5 = LogCategory_Unspecified(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -107,7 +105,7 @@ void __55__SPFinderStateManager_enableFinderModeWithCompletion___block_invoke_2(
 - (void)disableFinderModeWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = LogCategory_Unspecified();
+  v5 = LogCategory_Unspecified(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -190,10 +188,10 @@ void __50__SPFinderStateManager_setActiveCache_completion___block_invoke_2(uint6
 
 void __40__SPFinderStateManager_updateStateBlock__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = LogCategory_Unspecified();
+  v7 = LogCategory_Unspecified(v6);
   v8 = v7;
   if (v6)
   {
@@ -208,7 +206,7 @@ void __40__SPFinderStateManager_updateStateBlock__block_invoke(uint64_t a1, void
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v17 = [v5 state];
+      v16 = [v5 state];
       _os_log_impl(&dword_2643BF000, v8, OS_LOG_TYPE_DEFAULT, "Fetched latest finder state %i:", buf, 8u);
     }
 
@@ -221,7 +219,7 @@ void __40__SPFinderStateManager_updateStateBlock__block_invoke(uint64_t a1, void
       activity_block[2] = __40__SPFinderStateManager_updateStateBlock__block_invoke_65;
       activity_block[3] = &unk_279B57840;
       activity_block[4] = *(a1 + 32);
-      v15 = v5;
+      v14 = v5;
       _os_activity_initiate(&dword_2643BF000, "SPFinderStateManager stateChangedBlock", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
     }
 
@@ -229,17 +227,15 @@ void __40__SPFinderStateManager_updateStateBlock__block_invoke(uint64_t a1, void
 
     if (v10)
     {
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __40__SPFinderStateManager_updateStateBlock__block_invoke_2;
-      v12[3] = &unk_279B57840;
-      v12[4] = *(a1 + 32);
-      v13 = v5;
-      _os_activity_initiate(&dword_2643BF000, "SPFinderStateManager stateInfoChangedBlock", OS_ACTIVITY_FLAG_DEFAULT, v12);
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __40__SPFinderStateManager_updateStateBlock__block_invoke_2;
+      v11[3] = &unk_279B57840;
+      v11[4] = *(a1 + 32);
+      v12 = v5;
+      _os_activity_initiate(&dword_2643BF000, "SPFinderStateManager stateInfoChangedBlock", OS_ACTIVITY_FLAG_DEFAULT, v11);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __40__SPFinderStateManager_updateStateBlock__block_invoke_65(uint64_t a1)
@@ -256,8 +252,8 @@ void __40__SPFinderStateManager_updateStateBlock__block_invoke_2(uint64_t a1)
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = LogCategory_Unspecified();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = LogCategory_Unspecified(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -271,10 +267,9 @@ void __40__SPFinderStateManager_updateStateBlock__block_invoke_2(uint64_t a1)
   [(SPFinderStateManager *)self setSession:0];
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterRemoveObserver(DarwinNotifyCenter, self, @"SPFinderStateChangedNotification", 0);
-  v7.receiver = self;
-  v7.super_class = SPFinderStateManager;
-  [(SPFinderStateManager *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = SPFinderStateManager;
+  [(SPFinderStateManager *)&v6 dealloc];
 }
 
 - (SPFinderStateXPCProtocol)proxy
@@ -292,14 +287,14 @@ void __40__SPFinderStateManager_updateStateBlock__block_invoke_2(uint64_t a1)
     v7 = [v5 initWithServiceDescription:serviceDescription];
     [(SPFinderStateManager *)self setSession:v7];
 
-    v8 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = LogCategory_Unspecified(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       serviceDescription2 = [(SPFinderStateManager *)self serviceDescription];
       machService = [serviceDescription2 machService];
       v16 = 138412290;
       v17 = machService;
-      _os_log_impl(&dword_2643BF000, v8, OS_LOG_TYPE_DEFAULT, "SPFinderStateManager: Establishing XPC connection to %@", &v16, 0xCu);
+      _os_log_impl(&dword_2643BF000, v9, OS_LOG_TYPE_DEFAULT, "SPFinderStateManager: Establishing XPC connection to %@", &v16, 0xCu);
     }
 
     session2 = [(SPFinderStateManager *)self session];
@@ -309,15 +304,13 @@ void __40__SPFinderStateManager_updateStateBlock__block_invoke_2(uint64_t a1)
   session3 = [(SPFinderStateManager *)self session];
   proxy = [session3 proxy];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return proxy;
 }
 
 - (void)fetchFinderState:(id)state
 {
   stateCopy = state;
-  v5 = LogCategory_Unspecified();
+  v5 = LogCategory_Unspecified(stateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -387,11 +380,10 @@ void __48__SPFinderStateManager_stateInfoWithCompletion___block_invoke_2(uint64_
 
 void __40__SPFinderStateManager_updateStateBlock__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2643BF000, a2, OS_LOG_TYPE_ERROR, "Error fetching latest state change: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2643BF000, a2, OS_LOG_TYPE_ERROR, "Error fetching latest state change: %@", &v2, 0xCu);
 }
 
 @end

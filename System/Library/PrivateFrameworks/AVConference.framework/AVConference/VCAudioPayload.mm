@@ -75,11 +75,11 @@
     v9 = [VCPayloadUtils codecSamplesPerFrameForPayload:[(VCAudioPayloadConfig *)self->_config payload] blockSize:a4->format.mSampleRate sampleRate:v8];
   }
 
-  format = [(VCAudioPayloadConfig *)self->_config format];
+  v10 = objc_msgSend_format(self->_config);
   mChannelsPerFrame = a4->format.mChannelsPerFrame;
   flags = [(VCAudioPayloadConfig *)self->_config flags];
 
-  return SoundDec_FormatASBD(format, retstr, v9, mChannelsPerFrame, flags, v8);
+  return SoundDec_FormatASBD(v10, retstr, v9, mChannelsPerFrame, flags, v8);
 }
 
 - (BOOL)is5MSRestrictedLowDelayOpusConfig
@@ -114,7 +114,7 @@
   *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
   *&v33[8] = v7;
   *&v33[24] = v7;
-  [(VCAudioPayload *)self encoderFormatWithInternalFormat:?];
+  objc_msgSend_encoderFormatWithInternalFormat_(self, a2);
   *v31 = xmmword_1DBD50638;
   memset(&v31[16], 170, 32);
   v8 = *&format->format.mBytesPerPacket;
@@ -601,54 +601,55 @@ LABEL_3:
 - (void)setShortREDEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v25 = *MEMORY[0x1E69E9840];
-  if (VCPayloadUtils_SupportsShortREDForPayload([(VCAudioPayloadConfig *)self->_config payload]))
+  v27 = *MEMORY[0x1E69E9840];
+  payload = [(VCAudioPayloadConfig *)self->_config payload];
+  if (VCPayloadUtils_SupportsShortREDForPayload(payload, v6))
   {
-    v5 = VCPayloadUtils_ShortREDBitrateForPayload([(VCAudioPayloadConfig *)self->_config payload], enabledCopy);
-    self->_shortREDBitrate = v5;
+    v7 = VCPayloadUtils_ShortREDBitrateForPayload([(VCAudioPayloadConfig *)self->_config payload], enabledCopy);
+    self->_shortREDBitrate = v7;
     if (enabledCopy)
     {
       [VCPayloadUtils blockSizeForPayload:[(VCAudioPayloadConfig *)self->_config payload] sampleRate:[(VCAudioPayloadConfig *)self->_config codecSampleRate]];
       shortREDBitrate = self->_shortREDBitrate;
-      *&v7 = v7;
-      v8 = ((*&v7 * shortREDBitrate) * 0.125);
+      *&v9 = v9;
+      v10 = ((*&v9 * shortREDBitrate) * 0.125);
     }
 
     else
     {
-      shortREDBitrate = v5;
-      v8 = 0;
+      shortREDBitrate = v7;
+      v10 = 0;
     }
 
     encoder = self->_encoder;
-    if (encoder && (v10 = SoundDec_EnableShortRED(encoder, enabledCopy, v8, shortREDBitrate), v10 < 0))
+    if (encoder && (v12 = SoundDec_EnableShortRED(encoder, enabledCopy, v10, shortREDBitrate), v12 < 0))
     {
-      v11 = v10;
+      v13 = v12;
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v12 = VRTraceErrorLogLevelToCSTR();
-        v13 = *MEMORY[0x1E6986650];
+        v14 = VRTraceErrorLogLevelToCSTR();
+        v15 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
-          payload = [(VCAudioPayloadConfig *)self->_config payload];
-          v15 = 136316162;
-          v16 = v12;
-          v17 = 2080;
-          v18 = "[VCAudioPayload setShortREDEnabled:]";
-          v19 = 1024;
-          v20 = 344;
+          payload2 = [(VCAudioPayloadConfig *)self->_config payload];
+          v17 = 136316162;
+          v18 = v14;
+          v19 = 2080;
+          v20 = "[VCAudioPayload setShortREDEnabled:]";
           v21 = 1024;
-          v22 = payload;
+          v22 = 344;
           v23 = 1024;
-          v24 = v11;
-          _os_log_error_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_ERROR, " [%s] %s:%d Failed to enable short RED for payload=%d. result=%x", &v15, 0x28u);
+          v24 = payload2;
+          v25 = 1024;
+          v26 = v13;
+          _os_log_error_impl(&dword_1DB56E000, v15, OS_LOG_TYPE_ERROR, " [%s] %s:%d Failed to enable short RED for payload=%d. result=%x", &v17, 0x28u);
         }
       }
     }
 
     else
     {
-      self->_shortREDBytesPerFrame = v8;
+      self->_shortREDBytesPerFrame = v10;
       self->_shortREDEnabled = enabledCopy;
     }
   }
@@ -807,11 +808,13 @@ LABEL_8:
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v0 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315650;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d SoundDec_SetAACELDSBRInterval failed", v2, v3, v4, v5, 2u);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v1, v2, " [%s] %s:%d SoundDec_SetAACELDSBRInterval failed", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
 }
@@ -820,11 +823,13 @@ LABEL_8:
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v0 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315650;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d SoundDec_Create failed!", v2, v3, v4, v5, 2u);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v1, v2, " [%s] %s:%d SoundDec_Create failed!", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
 }

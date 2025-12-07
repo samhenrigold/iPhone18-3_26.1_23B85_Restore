@@ -6,7 +6,7 @@
 
 - (void)rankWithDedupedItems:(NSArray *)items autocompleteRequest:(GEOMIFAutocompleteRequest *)request completionHandler:(id)handler
 {
-  v9 = sub_1000CE6B8(&unk_10190BA50);
+  v9 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);

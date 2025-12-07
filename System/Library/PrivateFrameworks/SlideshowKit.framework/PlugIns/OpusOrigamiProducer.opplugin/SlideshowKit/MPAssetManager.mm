@@ -93,7 +93,7 @@
           {
             v39 = v15;
             v40 = v14;
-            [v13 preferredTransform];
+            objc_msgSend_preferredTransform(v13);
             v15 = v39;
             v14 = v40;
             v16 = v42;

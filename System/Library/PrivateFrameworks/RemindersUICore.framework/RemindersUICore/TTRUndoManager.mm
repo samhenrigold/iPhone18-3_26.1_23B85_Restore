@@ -163,7 +163,7 @@ LABEL_7:
     }
   }
 
-  [v3 _registerLogUserAction:{*(a1 + 32), *v8}];
+  [v3 _registerLogUserAction:{*(a1 + 32), *v8, *&v8[8]}];
 }
 
 - (id)description

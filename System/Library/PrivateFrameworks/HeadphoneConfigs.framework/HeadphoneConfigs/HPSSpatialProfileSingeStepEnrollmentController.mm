@@ -50,6 +50,7 @@
 - (void)stopTutorialResumeEnrollTimer;
 - (void)stopWelcomeSpinner;
 - (void)syncProfile;
+- (void)translateEarBoundingBox:(CGRect)box previewLayerBoundingBox:(CGRect)boundingBox;
 - (void)triggerFaceInFrameHandlerTimeout;
 - (void)triggerPostProcessTimeout;
 - (void)updateBoundingBoxHiddenStatus;
@@ -70,9 +71,9 @@
     return 0;
   }
 
-  v23.receiver = self;
-  v23.super_class = HPSSpatialProfileSingeStepEnrollmentController;
-  v2 = [(HPSSpatialProfileSingeStepEnrollmentController *)&v23 init];
+  v24.receiver = self;
+  v24.super_class = HPSSpatialProfileSingeStepEnrollmentController;
+  v2 = [(HPSSpatialProfileSingeStepEnrollmentController *)&v24 init];
   mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
   btManager = v2->_btManager;
   v2->_btManager = mEMORY[0x277CF3248];
@@ -146,11 +147,11 @@
   cachedTransitionStates = v2->_cachedTransitionStates;
   v2->_cachedTransitionStates = array;
 
-  v20 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v21 = sharedBluetoothSettingsLogComponent(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v22[0] = 0;
-    _os_log_impl(&dword_251143000, v20, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Single step enrollment started.", v22, 2u);
+    v23[0] = 0;
+    _os_log_impl(&dword_251143000, v21, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Single step enrollment started.", v23, 2u);
   }
 
   return v2;
@@ -193,7 +194,7 @@
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
-  v4 = sharedBluetoothSettingsLogComponent();
+  v4 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -205,7 +206,7 @@
 
 - (void)setupEnrollController
 {
-  v97[8] = *MEMORY[0x277D85DE8];
+  v96[8] = *MEMORY[0x277D85DE8];
   if (!self->_enrollmentSession)
   {
     v3 = objc_alloc_init(MEMORY[0x277D0F968]);
@@ -215,9 +216,9 @@
     [(HRTFEnrollmentSession *)self->_enrollmentSession setDelegate:self];
   }
 
-  v93 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:self action:sel_userCancelEnrollment];
+  v92 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:self action:sel_userCancelEnrollment];
   navigationItem = [(HPSSpatialProfileSingeStepEnrollmentController *)self navigationItem];
-  [navigationItem setLeftBarButtonItem:v93];
+  [navigationItem setLeftBarButtonItem:v92];
 
   systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
   view = [(HPSSpatialProfileSingeStepEnrollmentController *)self view];
@@ -231,12 +232,12 @@
   [(UIView *)self->_enrollContentView setTranslatesAutoresizingMaskIntoConstraints:0];
   objc_initWeak(&location, self);
   v11 = [_TtC16HeadphoneConfigs42HPSSpatialProfileSingleStepBottomContainer alloc];
-  v94[0] = MEMORY[0x277D85DD0];
-  v94[1] = 3221225472;
-  v94[2] = __71__HPSSpatialProfileSingeStepEnrollmentController_setupEnrollController__block_invoke;
-  v94[3] = &unk_2796ADC98;
-  objc_copyWeak(&v95, &location);
-  v12 = [(HPSSpatialProfileSingleStepBottomContainer *)v11 initWithBudsInEarString:v94];
+  v93[0] = MEMORY[0x277D85DD0];
+  v93[1] = 3221225472;
+  v93[2] = __71__HPSSpatialProfileSingeStepEnrollmentController_setupEnrollController__block_invoke;
+  v93[3] = &unk_2796ADC98;
+  objc_copyWeak(&v94, &location);
+  v12 = [(HPSSpatialProfileSingleStepBottomContainer *)v11 initWithBudsInEarString:v93];
   bottomContainerView = self->_bottomContainerView;
   self->_bottomContainerView = v12;
 
@@ -321,54 +322,52 @@
   view3 = [(HPSSpatialProfileSingeStepEnrollmentController *)self view];
   [view3 addSubview:self->_bottomContainerView];
 
-  v70 = MEMORY[0x277CCAAD0];
+  v69 = MEMORY[0x277CCAAD0];
   topAnchor = [(UIView *)self->_enrollContentView topAnchor];
   view4 = [(HPSSpatialProfileSingeStepEnrollmentController *)self view];
   safeAreaLayoutGuide = [view4 safeAreaLayoutGuide];
   topAnchor2 = [safeAreaLayoutGuide topAnchor];
-  v88 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v97[0] = v88;
+  v87 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v96[0] = v87;
   heightAnchor = [(UIView *)self->_enrollContentView heightAnchor];
   view5 = [(HPSSpatialProfileSingeStepEnrollmentController *)self view];
   [view5 frame];
-  v85 = [heightAnchor constraintEqualToConstant:v58];
-  v97[1] = v85;
+  v84 = [heightAnchor constraintEqualToConstant:v58];
+  v96[1] = v84;
   leadingAnchor = [(UIView *)self->_enrollContentView leadingAnchor];
   view6 = [(HPSSpatialProfileSingeStepEnrollmentController *)self view];
   leadingAnchor2 = [view6 leadingAnchor];
-  v81 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v97[2] = v81;
+  v80 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v96[2] = v80;
   trailingAnchor = [(UIView *)self->_enrollContentView trailingAnchor];
   view7 = [(HPSSpatialProfileSingeStepEnrollmentController *)self view];
   trailingAnchor2 = [view7 trailingAnchor];
-  v77 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v97[3] = v77;
+  v76 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v96[3] = v76;
   topAnchor3 = [(HPSSpatialProfileSingleStepBottomContainer *)self->_bottomContainerView topAnchor];
   bottomAnchor = [(UIView *)self->_enrollContentView bottomAnchor];
-  v74 = [topAnchor3 constraintEqualToAnchor:bottomAnchor];
-  v97[4] = v74;
+  v73 = [topAnchor3 constraintEqualToAnchor:bottomAnchor];
+  v96[4] = v73;
   leadingAnchor3 = [(HPSSpatialProfileSingleStepBottomContainer *)self->_bottomContainerView leadingAnchor];
   view8 = [(HPSSpatialProfileSingeStepEnrollmentController *)self view];
   leadingAnchor4 = [view8 leadingAnchor];
   v59 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v97[5] = v59;
+  v96[5] = v59;
   trailingAnchor3 = [(HPSSpatialProfileSingleStepBottomContainer *)self->_bottomContainerView trailingAnchor];
   view9 = [(HPSSpatialProfileSingeStepEnrollmentController *)self view];
   trailingAnchor4 = [view9 trailingAnchor];
   v63 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  v97[6] = v63;
+  v96[6] = v63;
   bottomAnchor2 = [(HPSSpatialProfileSingleStepBottomContainer *)self->_bottomContainerView bottomAnchor];
   view10 = [(HPSSpatialProfileSingeStepEnrollmentController *)self view];
   bottomAnchor3 = [view10 bottomAnchor];
   v67 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
-  v97[7] = v67;
-  v68 = [MEMORY[0x277CBEA60] arrayWithObjects:v97 count:8];
-  [v70 activateConstraints:v68];
+  v96[7] = v67;
+  v68 = [MEMORY[0x277CBEA60] arrayWithObjects:v96 count:8];
+  [v69 activateConstraints:v68];
 
-  objc_destroyWeak(&v95);
+  objc_destroyWeak(&v94);
   objc_destroyWeak(&location);
-
-  v69 = *MEMORY[0x277D85DE8];
 }
 
 id __71__HPSSpatialProfileSingeStepEnrollmentController_setupEnrollController__block_invoke(uint64_t a1)
@@ -381,7 +380,7 @@ id __71__HPSSpatialProfileSingeStepEnrollmentController_setupEnrollController__b
 
 - (void)setupWelcomeContentView
 {
-  v35[8] = *MEMORY[0x277D85DE8];
+  v34[8] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D75D18]);
   welcomeContentView = self->_welcomeContentView;
   self->_welcomeContentView = v3;
@@ -390,50 +389,48 @@ id __71__HPSSpatialProfileSingeStepEnrollmentController_setupEnrollController__b
   [(UIView *)self->_enrollContentView addSubview:self->_welcomeContentView];
   v5 = MEMORY[0x277D755B8];
   v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v34 = [v5 imageNamed:@"SpatialProfileIcon" inBundle:v6 compatibleWithTraitCollection:0];
+  v33 = [v5 imageNamed:@"SpatialProfileIcon" inBundle:v6 compatibleWithTraitCollection:0];
 
-  v7 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v34];
+  v7 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v33];
   welcomeImageView = self->_welcomeImageView;
   self->_welcomeImageView = v7;
 
   [(UIImageView *)self->_welcomeImageView setContentMode:1];
   [(UIImageView *)self->_welcomeImageView setTranslatesAutoresizingMaskIntoConstraints:0];
   [(UIView *)self->_welcomeContentView addSubview:self->_welcomeImageView];
-  v24 = MEMORY[0x277CCAAD0];
+  v23 = MEMORY[0x277CCAAD0];
   leadingAnchor = [(UIView *)self->_welcomeContentView leadingAnchor];
   leadingAnchor2 = [(UIView *)self->_enrollContentView leadingAnchor];
-  v31 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v35[0] = v31;
+  v30 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v34[0] = v30;
   trailingAnchor = [(UIView *)self->_welcomeContentView trailingAnchor];
   trailingAnchor2 = [(UIView *)self->_enrollContentView trailingAnchor];
-  v28 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v35[1] = v28;
+  v27 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v34[1] = v27;
   topAnchor = [(UIView *)self->_welcomeContentView topAnchor];
   topAnchor2 = [(UIView *)self->_enrollContentView topAnchor];
-  v25 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v35[2] = v25;
+  v24 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v34[2] = v24;
   bottomAnchor = [(UIView *)self->_welcomeContentView bottomAnchor];
   bottomAnchor2 = [(UIView *)self->_enrollContentView bottomAnchor];
-  v21 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v35[3] = v21;
+  v20 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v34[3] = v20;
   widthAnchor = [(UIImageView *)self->_welcomeImageView widthAnchor];
   v9 = [widthAnchor constraintEqualToConstant:240.0];
-  v35[4] = v9;
+  v34[4] = v9;
   heightAnchor = [(UIImageView *)self->_welcomeImageView heightAnchor];
   v11 = [heightAnchor constraintEqualToConstant:240.0];
-  v35[5] = v11;
+  v34[5] = v11;
   centerXAnchor = [(UIImageView *)self->_welcomeImageView centerXAnchor];
   centerXAnchor2 = [(UIView *)self->_welcomeContentView centerXAnchor];
   v14 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v35[6] = v14;
+  v34[6] = v14;
   centerYAnchor = [(UIImageView *)self->_welcomeImageView centerYAnchor];
   centerYAnchor2 = [(UIView *)self->_welcomeContentView centerYAnchor];
   v17 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v35[7] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:8];
-  [v24 activateConstraints:v18];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v34[7] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:8];
+  [v23 activateConstraints:v18];
 }
 
 - (void)setupAudioVideo
@@ -452,36 +449,36 @@ id __71__HPSSpatialProfileSingeStepEnrollmentController_setupEnrollController__b
 
 - (void)checkVolume
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D26E58] = [MEMORY[0x277D26E58] sharedAVSystemController];
   p_initialVolume = &self->_initialVolume;
   v5 = [mEMORY[0x277D26E58] getVolume:&self->_initialVolume forCategory:@"Audio/Video"];
 
-  v6 = sharedBluetoothSettingsLogComponent();
-  v7 = v6;
+  v7 = sharedBluetoothSettingsLogComponent(v6);
+  v8 = v7;
   if (v5)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *p_initialVolume;
-      v13 = 134217984;
-      v14 = v8;
-      _os_log_impl(&dword_251143000, v7, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Initial Volume: %f", &v13, 0xCu);
+      v9 = *p_initialVolume;
+      v14 = 134217984;
+      v15 = v9;
+      _os_log_impl(&dword_251143000, v8, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Initial Volume: %f", &v14, 0xCu);
     }
 
     if (*p_initialVolume < 0.5)
     {
-      v9 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sharedBluetoothSettingsLogComponent(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 134217984;
-        v14 = 0.5;
-        _os_log_impl(&dword_251143000, v9, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Initial Volume Too Low, Changing to Min Volume: %f", &v13, 0xCu);
+        v14 = 134217984;
+        v15 = 0.5;
+        _os_log_impl(&dword_251143000, v11, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Initial Volume Too Low, Changing to Min Volume: %f", &v14, 0xCu);
       }
 
       mEMORY[0x277D26E58]2 = [MEMORY[0x277D26E58] sharedAVSystemController];
-      LODWORD(v11) = 0.5;
-      [mEMORY[0x277D26E58]2 setVolumeTo:@"Audio/Video" forCategory:v11];
+      LODWORD(v13) = 0.5;
+      [mEMORY[0x277D26E58]2 setVolumeTo:@"Audio/Video" forCategory:v13];
 
       self->_volumeChanged = 1;
     }
@@ -489,41 +486,37 @@ id __71__HPSSpatialProfileSingeStepEnrollmentController_setupEnrollController__b
 
   else
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [HPSSpatialProfileSingeStepEnrollmentController checkVolume];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetVolume
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self->_volumeChanged)
   {
-    v3 = sharedBluetoothSettingsLogComponent();
+    v3 = sharedBluetoothSettingsLogComponent(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       initialVolume = self->_initialVolume;
-      v8 = 134217984;
-      v9 = initialVolume;
-      _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Volume Changed, Reset to Initial Volume: %f", &v8, 0xCu);
+      v7 = 134217984;
+      v8 = initialVolume;
+      _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Volume Changed, Reset to Initial Volume: %f", &v7, 0xCu);
     }
 
     mEMORY[0x277D26E58] = [MEMORY[0x277D26E58] sharedAVSystemController];
     *&v6 = self->_initialVolume;
     [mEMORY[0x277D26E58] setVolumeTo:@"Audio/Video" forCategory:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupEnrollViewUI
 {
-  v53[12] = *MEMORY[0x277D85DE8];
-  v3 = sharedBluetoothSettingsLogComponent();
+  v52[12] = *MEMORY[0x277D85DE8];
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -577,53 +570,53 @@ id __71__HPSSpatialProfileSingeStepEnrollmentController_setupEnrollController__b
   [(UIView *)self->_enrollContentView addSubview:self->_enrollView];
   [(UIView *)self->_enrollContentView addSubview:self->_pillContainerView];
   [(UIView *)self->_enrollContentView addSubview:self->_earDotsMovieView];
-  v38 = MEMORY[0x277CCAAD0];
+  v37 = MEMORY[0x277CCAAD0];
   leadingAnchor = [(HPSSpatialProfileSingleStepPearlEnrollView *)self->_enrollView leadingAnchor];
   leadingAnchor2 = [(UIView *)self->_enrollContentView leadingAnchor];
-  v49 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v53[0] = v49;
+  v48 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v52[0] = v48;
   trailingAnchor = [(HPSSpatialProfileSingleStepPearlEnrollView *)self->_enrollView trailingAnchor];
   trailingAnchor2 = [(UIView *)self->_enrollContentView trailingAnchor];
-  v46 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v53[1] = v46;
+  v45 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v52[1] = v45;
   topAnchor = [(HPSSpatialProfileSingleStepPearlEnrollView *)self->_enrollView topAnchor];
   topAnchor2 = [(UIView *)self->_enrollContentView topAnchor];
-  v43 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v53[2] = v43;
+  v42 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v52[2] = v42;
   bottomAnchor = [(HPSSpatialProfileSingleStepPearlEnrollView *)self->_enrollView bottomAnchor];
   bottomAnchor2 = [(UIView *)self->_enrollContentView bottomAnchor];
-  v40 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v53[3] = v40;
+  v39 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v52[3] = v39;
   widthAnchor = [(HPSSpatialProfileEarDotsMovieView *)self->_earDotsMovieView widthAnchor];
-  v37 = [widthAnchor constraintEqualToConstant:345.0];
-  v53[4] = v37;
+  v36 = [widthAnchor constraintEqualToConstant:345.0];
+  v52[4] = v36;
   heightAnchor = [(HPSSpatialProfileEarDotsMovieView *)self->_earDotsMovieView heightAnchor];
-  v35 = [heightAnchor constraintEqualToConstant:v13];
-  v53[5] = v35;
+  v34 = [heightAnchor constraintEqualToConstant:v13];
+  v52[5] = v34;
   centerXAnchor = [(HPSSpatialProfileEarDotsMovieView *)self->_earDotsMovieView centerXAnchor];
   centerXAnchor2 = [(UIView *)self->_enrollContentView centerXAnchor];
-  v32 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v53[6] = v32;
+  v31 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v52[6] = v31;
   bottomAnchor3 = [(HPSSpatialProfileEarDotsMovieView *)self->_earDotsMovieView bottomAnchor];
   bottomAnchor4 = [(UIView *)self->_enrollContentView bottomAnchor];
-  v29 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-  v53[7] = v29;
+  v28 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
+  v52[7] = v28;
   widthAnchor2 = [(HPSSpatialProfileSingleStepPillContainerView *)self->_pillContainerView widthAnchor];
-  v27 = [widthAnchor2 constraintEqualToConstant:345.0];
-  v53[8] = v27;
+  v26 = [widthAnchor2 constraintEqualToConstant:345.0];
+  v52[8] = v26;
   heightAnchor2 = [(HPSSpatialProfileSingleStepPillContainerView *)self->_pillContainerView heightAnchor];
   v16 = [heightAnchor2 constraintEqualToConstant:100.0];
-  v53[9] = v16;
+  v52[9] = v16;
   centerXAnchor3 = [(HPSSpatialProfileSingleStepPillContainerView *)self->_pillContainerView centerXAnchor];
   centerXAnchor4 = [(UIView *)self->_enrollContentView centerXAnchor];
   v19 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-  v53[10] = v19;
+  v52[10] = v19;
   bottomAnchor5 = [(HPSSpatialProfileSingleStepPillContainerView *)self->_pillContainerView bottomAnchor];
   bottomAnchor6 = [(UIView *)self->_enrollContentView bottomAnchor];
   v22 = [bottomAnchor5 constraintEqualToAnchor:bottomAnchor6 constant:v12];
-  v53[11] = v22;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:12];
-  [v38 activateConstraints:v23];
+  v52[11] = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:12];
+  [v37 activateConstraints:v23];
 
   [(BKUIPearlEnrollView *)self->_enrollView setState:0 completion:&__block_literal_global_6];
   self->_enrollViewState = 0;
@@ -634,14 +627,12 @@ id __71__HPSSpatialProfileSingeStepEnrollmentController_setupEnrollController__b
 
   view2 = [(HPSSpatialProfileSingeStepEnrollmentController *)self view];
   [view2 setNeedsLayout];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupEarTutorialView
 {
-  v34[8] = *MEMORY[0x277D85DE8];
-  v3 = sharedBluetoothSettingsLogComponent();
+  v33[8] = *MEMORY[0x277D85DE8];
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -660,49 +651,48 @@ id __71__HPSSpatialProfileSingeStepEnrollmentController_setupEnrollController__b
 
   [(HPSSpatialProfileEarTutorialView *)self->_earTutorialView setTranslatesAutoresizingMaskIntoConstraints:0];
   [(UIView *)self->_tutorialContentView addSubview:self->_earTutorialView];
-  v23 = MEMORY[0x277CCAAD0];
+  v22 = MEMORY[0x277CCAAD0];
   leadingAnchor = [(UIView *)self->_tutorialContentView leadingAnchor];
   leadingAnchor2 = [(UIView *)self->_enrollContentView leadingAnchor];
-  v30 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v34[0] = v30;
+  v29 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v33[0] = v29;
   trailingAnchor = [(UIView *)self->_tutorialContentView trailingAnchor];
   trailingAnchor2 = [(UIView *)self->_enrollContentView trailingAnchor];
-  v27 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v34[1] = v27;
+  v26 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v33[1] = v26;
   topAnchor = [(UIView *)self->_tutorialContentView topAnchor];
   topAnchor2 = [(UIView *)self->_enrollContentView topAnchor];
-  v24 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v34[2] = v24;
+  v23 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v33[2] = v23;
   bottomAnchor = [(UIView *)self->_tutorialContentView bottomAnchor];
   bottomAnchor2 = [(UIView *)self->_enrollContentView bottomAnchor];
-  v20 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v34[3] = v20;
+  v19 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v33[3] = v19;
   widthAnchor = [(HPSSpatialProfileEarTutorialView *)self->_earTutorialView widthAnchor];
-  v18 = [widthAnchor constraintEqualToConstant:240.0];
-  v34[4] = v18;
+  v17 = [widthAnchor constraintEqualToConstant:240.0];
+  v33[4] = v17;
   heightAnchor = [(HPSSpatialProfileEarTutorialView *)self->_earTutorialView heightAnchor];
   v8 = [heightAnchor constraintEqualToConstant:106.666664];
-  v34[5] = v8;
+  v33[5] = v8;
   centerXAnchor = [(HPSSpatialProfileEarTutorialView *)self->_earTutorialView centerXAnchor];
   centerXAnchor2 = [(UIView *)self->_tutorialContentView centerXAnchor];
   v11 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v34[6] = v11;
+  v33[6] = v11;
   centerYAnchor = [(HPSSpatialProfileEarTutorialView *)self->_earTutorialView centerYAnchor];
   centerYAnchor2 = [(UIView *)self->_tutorialContentView centerYAnchor];
   v14 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v34[7] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:8];
-  [v23 activateConstraints:v15];
+  v33[7] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:8];
+  [v22 activateConstraints:v15];
 
   [(UIView *)self->_tutorialContentView setHidden:1];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startEnrollment
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   enrollmentStarted = self->_enrollmentStarted;
-  v4 = sharedBluetoothSettingsLogComponent();
+  v4 = sharedBluetoothSettingsLogComponent(self);
   v5 = v4;
   if (enrollmentStarted)
   {
@@ -717,26 +707,24 @@ id __71__HPSSpatialProfileSingeStepEnrollmentController_setupEnrollController__b
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       downloadAssetPath = self->_downloadAssetPath;
-      v8 = 138412290;
-      v9 = downloadAssetPath;
-      _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Starting Enrollment downloadAssetPath %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = downloadAssetPath;
+      _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Starting Enrollment downloadAssetPath %@", &v7, 0xCu);
     }
 
     self->_enrollmentStarted = 1;
     [(HRTFEnrollmentSession *)self->_enrollmentSession startSession:1 withAssetPath:self->_downloadAssetPath then:&__block_literal_global_58];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void __65__HPSSpatialProfileSingeStepEnrollmentController_startEnrollment__block_invoke(uint64_t a1, char a2)
+void __65__HPSSpatialProfileSingeStepEnrollmentController_startEnrollment__block_invoke(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
     __65__HPSSpatialProfileSingeStepEnrollmentController_startEnrollment__block_invoke_cold_1();
   }
 
-  v2 = sharedBluetoothSettingsLogComponent();
+  v2 = sharedBluetoothSettingsLogComponent(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -747,7 +735,7 @@ void __65__HPSSpatialProfileSingeStepEnrollmentController_startEnrollment__block
 - (void)stopEnrollment
 {
   enrollmentStarted = self->_enrollmentStarted;
-  v4 = sharedBluetoothSettingsLogComponent();
+  v4 = sharedBluetoothSettingsLogComponent(self);
   v5 = v4;
   if (enrollmentStarted)
   {
@@ -770,13 +758,13 @@ void __65__HPSSpatialProfileSingeStepEnrollmentController_startEnrollment__block
   }
 }
 
-void __64__HPSSpatialProfileSingeStepEnrollmentController_stopEnrollment__block_invoke()
+void __64__HPSSpatialProfileSingeStepEnrollmentController_stopEnrollment__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = sharedBluetoothSettingsLogComponent(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_251143000, v0, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Enrollment Stopped", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_251143000, v2, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Enrollment Stopped", v3, 2u);
   }
 }
 
@@ -786,7 +774,7 @@ void __64__HPSSpatialProfileSingeStepEnrollmentController_stopEnrollment__block_
   {
     if (self->_enrollmentPaused)
     {
-      v3 = sharedBluetoothSettingsLogComponent();
+      v3 = sharedBluetoothSettingsLogComponent(self);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         [HPSSpatialProfileSingeStepEnrollmentController pauseEnrollment];
@@ -795,20 +783,20 @@ void __64__HPSSpatialProfileSingeStepEnrollmentController_stopEnrollment__block_
 
     else
     {
-      [(HRTFEnrollmentSession *)self->_enrollmentSession pauseSession];
+      pauseSession = [(HRTFEnrollmentSession *)self->_enrollmentSession pauseSession];
       self->_enrollmentPaused = 1;
-      v3 = sharedBluetoothSettingsLogComponent();
+      v3 = sharedBluetoothSettingsLogComponent(pauseSession);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        *v4 = 0;
-        _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Enrollment Paused", v4, 2u);
+        *v5 = 0;
+        _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Enrollment Paused", v5, 2u);
       }
     }
   }
 
   else
   {
-    v3 = sharedBluetoothSettingsLogComponent();
+    v3 = sharedBluetoothSettingsLogComponent(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [HPSSpatialProfileSingeStepEnrollmentController pauseEnrollment];
@@ -822,23 +810,23 @@ void __64__HPSSpatialProfileSingeStepEnrollmentController_stopEnrollment__block_
   {
     if (self->_enrollmentPaused)
     {
-      [(HRTFEnrollmentSession *)self->_enrollmentSession resumeSession];
+      resumeSession = [(HRTFEnrollmentSession *)self->_enrollmentSession resumeSession];
       self->_enrollmentPaused = 0;
-      v3 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = sharedBluetoothSettingsLogComponent(resumeSession);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = 0;
-        v4 = "Spatial Profile: Enrollment Resumed";
-        v5 = &v6;
+        v7 = 0;
+        v5 = "Spatial Profile: Enrollment Resumed";
+        v6 = &v7;
 LABEL_7:
-        _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, v4, v5, 2u);
+        _os_log_impl(&dword_251143000, v4, OS_LOG_TYPE_DEFAULT, v5, v6, 2u);
       }
     }
 
     else
     {
-      v3 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v4 = sharedBluetoothSettingsLogComponent(self);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         [HPSSpatialProfileSingeStepEnrollmentController resumeEnrollment];
       }
@@ -847,12 +835,12 @@ LABEL_7:
 
   else
   {
-    v3 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sharedBluetoothSettingsLogComponent(self);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v4 = "Spatial Profile: Cannot Resume Enrollment, NOT Started";
-      v5 = buf;
+      v5 = "Spatial Profile: Cannot Resume Enrollment, NOT Started";
+      v6 = buf;
       goto LABEL_7;
     }
   }
@@ -886,151 +874,150 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_inv
   block[3] = &unk_2796AD618;
   block[4] = *(a1 + 32);
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 1148);
-  if (v7 > 5)
+  v7 = *(a1 + 32);
+  v8 = *(v7 + 1148);
+  if (v8 > 5)
   {
-    if (v7 > 9)
+    if (v8 > 9)
     {
-      switch(v7)
+      switch(v8)
       {
         case 10:
-          v38 = sharedBluetoothSettingsLogComponent();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          v39 = sharedBluetoothSettingsLogComponent(v6);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_251143000, v38, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> RetrieveProfile", buf, 2u);
+            _os_log_impl(&dword_251143000, v39, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> RetrieveProfile", buf, 2u);
           }
 
           [*(a1 + 32) retrieveProfile];
           goto LABEL_53;
         case 11:
-          v43 = sharedBluetoothSettingsLogComponent();
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+          v44 = sharedBluetoothSettingsLogComponent(v6);
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_251143000, v43, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> SyncProfile", buf, 2u);
+            _os_log_impl(&dword_251143000, v44, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> SyncProfile", buf, 2u);
           }
 
           [*(a1 + 32) syncProfile];
           goto LABEL_53;
         case 12:
-          [*(v6 + 1184) updateStatus:1 EnrollmentResult:@"Success"];
-          v23 = sharedBluetoothSettingsLogComponent();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v24 = sharedBluetoothSettingsLogComponent([*(v7 + 1184) updateStatus:1 EnrollmentResult:@"Success"]);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_251143000, v23, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> Completed", buf, 2u);
+            _os_log_impl(&dword_251143000, v24, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> Completed", buf, 2u);
           }
 
-          v65[0] = MEMORY[0x277D85DD0];
-          v65[1] = 3221225472;
-          v65[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_85;
-          v65[3] = &unk_2796ADCE0;
-          v65[4] = *(a1 + 32);
-          v24 = v3;
-          v66 = v24;
-          v67 = v5;
-          v25 = MEMORY[0x277D85CD0];
-          dispatch_async(MEMORY[0x277D85CD0], v65);
+          v66[0] = MEMORY[0x277D85DD0];
+          v66[1] = 3221225472;
+          v66[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_85;
+          v66[3] = &unk_2796ADCE0;
+          v66[4] = *(a1 + 32);
+          v25 = v3;
+          v67 = v25;
+          v68 = v5;
+          v26 = MEMORY[0x277D85CD0];
+          dispatch_async(MEMORY[0x277D85CD0], v66);
 
-          v63[0] = MEMORY[0x277D85DD0];
-          v63[1] = 3221225472;
-          v63[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_5_89;
-          v63[3] = &unk_2796AD618;
-          v64 = v2;
-          dispatch_group_notify(v24, v25, v63);
+          v64[0] = MEMORY[0x277D85DD0];
+          v64[1] = 3221225472;
+          v64[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_5_89;
+          v64[3] = &unk_2796AD618;
+          v65 = v2;
+          dispatch_group_notify(v25, v26, v64);
 
-          v12 = v66;
+          v13 = v67;
           goto LABEL_46;
       }
     }
 
     else
     {
-      switch(v7)
+      switch(v8)
       {
         case 6:
-          v30 = sharedBluetoothSettingsLogComponent();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+          v31 = sharedBluetoothSettingsLogComponent(v6);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_251143000, v30, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> FrontViewCapturePositionFace", buf, 2u);
+            _os_log_impl(&dword_251143000, v31, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> FrontViewCapturePositionFace", buf, 2u);
           }
 
           [*(*(a1 + 32) + 1184) initFrameRateDetection];
           [*(*(a1 + 32) + 1184) updateFaceEnrollStart];
-          v80[0] = MEMORY[0x277D85DD0];
-          v80[1] = 3221225472;
-          v80[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_71;
-          v80[3] = &unk_2796ADD08;
-          v31 = v3;
-          v32 = *(a1 + 32);
-          v81 = v31;
+          v81[0] = MEMORY[0x277D85DD0];
+          v81[1] = 3221225472;
+          v81[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_71;
+          v81[3] = &unk_2796ADD08;
+          v32 = v3;
+          v33 = *(a1 + 32);
           v82 = v32;
-          v84 = v5;
-          v83 = v2;
-          v33 = MEMORY[0x277D85CD0];
-          dispatch_async(MEMORY[0x277D85CD0], v80);
+          v83 = v33;
+          v85 = v5;
+          v84 = v2;
+          v34 = MEMORY[0x277D85CD0];
+          dispatch_async(MEMORY[0x277D85CD0], v81);
 
-          v12 = v81;
+          v13 = v82;
           goto LABEL_46;
         case 7:
-          v39 = sharedBluetoothSettingsLogComponent();
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+          v40 = sharedBluetoothSettingsLogComponent(v6);
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_251143000, v39, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> FrontViewCaptureMoveHead", buf, 2u);
+            _os_log_impl(&dword_251143000, v40, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> FrontViewCaptureMoveHead", buf, 2u);
           }
 
-          v74[0] = MEMORY[0x277D85DD0];
-          v74[1] = 3221225472;
-          v74[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_74;
-          v74[3] = &unk_2796ADD58;
-          v75 = v3;
-          objc_copyWeak(&v78, &location);
-          v79 = v5;
-          v76 = *(a1 + 32);
-          v77 = v2;
-          v40 = MEMORY[0x277D85CD0];
-          dispatch_async(MEMORY[0x277D85CD0], v74);
+          v75[0] = MEMORY[0x277D85DD0];
+          v75[1] = 3221225472;
+          v75[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_74;
+          v75[3] = &unk_2796ADD58;
+          v76 = v3;
+          objc_copyWeak(&v79, &location);
+          v80 = v5;
+          v77 = *(a1 + 32);
+          v78 = v2;
+          v41 = MEMORY[0x277D85CD0];
+          dispatch_async(MEMORY[0x277D85CD0], v75);
 
-          objc_destroyWeak(&v78);
-          v12 = v75;
+          objc_destroyWeak(&v79);
+          v13 = v76;
           goto LABEL_46;
         case 8:
-          *(v6 + 1242) = 1;
-          v13 = sharedBluetoothSettingsLogComponent();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          *(v7 + 1242) = 1;
+          v14 = sharedBluetoothSettingsLogComponent(v6);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_251143000, v13, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> FrontViewCaptureCompleted", buf, 2u);
+            _os_log_impl(&dword_251143000, v14, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> FrontViewCaptureCompleted", buf, 2u);
           }
 
           [*(*(a1 + 32) + 1184) updateFaceEnrollDuration];
-          v68[0] = MEMORY[0x277D85DD0];
-          v68[1] = 3221225472;
-          v68[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_78;
-          v68[3] = &unk_2796ADDA8;
-          v14 = v3;
-          v15 = *(a1 + 32);
-          v69 = v14;
+          v69[0] = MEMORY[0x277D85DD0];
+          v69[1] = 3221225472;
+          v69[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_78;
+          v69[3] = &unk_2796ADDA8;
+          v15 = v3;
+          v16 = *(a1 + 32);
           v70 = v15;
-          v73 = v5;
-          objc_copyWeak(&v72, &location);
-          v71 = v2;
-          v16 = MEMORY[0x277D85CD0];
-          dispatch_async(MEMORY[0x277D85CD0], v68);
+          v71 = v16;
+          v74 = v5;
+          objc_copyWeak(&v73, &location);
+          v72 = v2;
+          v17 = MEMORY[0x277D85CD0];
+          dispatch_async(MEMORY[0x277D85CD0], v69);
 
-          objc_destroyWeak(&v72);
-          v12 = v69;
+          objc_destroyWeak(&v73);
+          v13 = v70;
           goto LABEL_46;
       }
     }
 
 LABEL_50:
-    v44 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v45 = sharedBluetoothSettingsLogComponent(v6);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
       __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_cold_1();
     }
@@ -1040,172 +1027,171 @@ LABEL_53:
     goto LABEL_54;
   }
 
-  if (v7 > 2)
+  if (v8 > 2)
   {
-    if (v7 == 3)
+    if (v8 == 3)
     {
-      v34 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v35 = sharedBluetoothSettingsLogComponent(v6);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_251143000, v34, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> GeneralFailure", buf, 2u);
+        _os_log_impl(&dword_251143000, v35, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> GeneralFailure", buf, 2u);
       }
 
       [*(*(a1 + 32) + 1184) updateStatus:0 EnrollmentResult:@"Failed"];
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_97;
-      v48[3] = &unk_2796AD750;
-      v35 = v3;
-      v36 = *(a1 + 32);
-      v49 = v35;
+      v49[0] = MEMORY[0x277D85DD0];
+      v49[1] = 3221225472;
+      v49[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_97;
+      v49[3] = &unk_2796AD750;
+      v36 = v3;
+      v37 = *(a1 + 32);
       v50 = v36;
-      v37 = MEMORY[0x277D85CD0];
-      dispatch_async(MEMORY[0x277D85CD0], v48);
+      v51 = v37;
+      v38 = MEMORY[0x277D85CD0];
+      dispatch_async(MEMORY[0x277D85CD0], v49);
 
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_3_108;
-      v46[3] = &unk_2796AD618;
-      v47 = v2;
-      dispatch_group_notify(v35, v37, v46);
+      v47[0] = MEMORY[0x277D85DD0];
+      v47[1] = 3221225472;
+      v47[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_3_108;
+      v47[3] = &unk_2796AD618;
+      v48 = v2;
+      dispatch_group_notify(v36, v38, v47);
 
-      v12 = v49;
+      v13 = v50;
     }
 
-    else if (v7 == 4)
+    else if (v8 == 4)
     {
-      v41 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+      v42 = sharedBluetoothSettingsLogComponent(v6);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_251143000, v41, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> Welcome", buf, 2u);
+        _os_log_impl(&dword_251143000, v42, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> Welcome", buf, 2u);
       }
 
-      v89[0] = MEMORY[0x277D85DD0];
-      v89[1] = 3221225472;
-      v89[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_66;
-      v89[3] = &unk_2796ADCE0;
-      v89[4] = *(a1 + 32);
-      v91 = v5;
-      v90 = v2;
-      v42 = MEMORY[0x277D85CD0];
-      dispatch_async(MEMORY[0x277D85CD0], v89);
+      v90[0] = MEMORY[0x277D85DD0];
+      v90[1] = 3221225472;
+      v90[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_66;
+      v90[3] = &unk_2796ADCE0;
+      v90[4] = *(a1 + 32);
+      v92 = v5;
+      v91 = v2;
+      v43 = MEMORY[0x277D85CD0];
+      dispatch_async(MEMORY[0x277D85CD0], v90);
 
-      v12 = v90;
+      v13 = v91;
     }
 
     else
     {
-      v17 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = sharedBluetoothSettingsLogComponent(v6);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_251143000, v17, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> FrontView", buf, 2u);
+        _os_log_impl(&dword_251143000, v18, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> FrontView", buf, 2u);
       }
 
-      v18 = *(a1 + 32);
-      if (!*(v18 + 1184))
+      v19 = *(a1 + 32);
+      if (!*(v19 + 1184))
       {
-        v19 = objc_alloc_init(HPSSpatialProfileAnalytics);
-        v20 = *(a1 + 32);
-        v21 = *(v20 + 1184);
-        *(v20 + 1184) = v19;
+        v20 = objc_alloc_init(HPSSpatialProfileAnalytics);
+        v21 = *(a1 + 32);
+        v22 = *(v21 + 1184);
+        *(v21 + 1184) = v20;
 
-        v18 = *(a1 + 32);
+        v19 = *(a1 + 32);
       }
 
-      v85[0] = MEMORY[0x277D85DD0];
-      v85[1] = 3221225472;
-      v85[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_69;
-      v85[3] = &unk_2796ADD08;
-      v85[4] = v18;
-      v88 = v5;
-      v86 = v3;
-      v87 = v2;
-      v22 = MEMORY[0x277D85CD0];
-      dispatch_async(MEMORY[0x277D85CD0], v85);
+      v86[0] = MEMORY[0x277D85DD0];
+      v86[1] = 3221225472;
+      v86[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_69;
+      v86[3] = &unk_2796ADD08;
+      v86[4] = v19;
+      v89 = v5;
+      v87 = v3;
+      v88 = v2;
+      v23 = MEMORY[0x277D85CD0];
+      dispatch_async(MEMORY[0x277D85CD0], v86);
 
-      v12 = v86;
+      v13 = v87;
     }
 
     goto LABEL_46;
   }
 
-  if ((v7 - 1) >= 2)
+  if ((v8 - 1) >= 2)
   {
-    if (!v7)
+    if (!v8)
     {
-      v26 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v27 = sharedBluetoothSettingsLogComponent(v6);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_251143000, v26, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> CouldntScanEar", buf, 2u);
+        _os_log_impl(&dword_251143000, v27, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> CouldntScanEar", buf, 2u);
       }
 
       [*(*(a1 + 32) + 1184) updateStatus:0 EnrollmentResult:@"Failed"];
-      v59[0] = MEMORY[0x277D85DD0];
-      v59[1] = 3221225472;
-      v59[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_93;
-      v59[3] = &unk_2796ADCE0;
-      v27 = v3;
-      v28 = *(a1 + 32);
-      v60 = v27;
+      v60[0] = MEMORY[0x277D85DD0];
+      v60[1] = 3221225472;
+      v60[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_93;
+      v60[3] = &unk_2796ADCE0;
+      v28 = v3;
+      v29 = *(a1 + 32);
       v61 = v28;
-      v62 = v5;
-      v29 = MEMORY[0x277D85CD0];
-      dispatch_async(MEMORY[0x277D85CD0], v59);
+      v62 = v29;
+      v63 = v5;
+      v30 = MEMORY[0x277D85CD0];
+      dispatch_async(MEMORY[0x277D85CD0], v60);
 
-      v57[0] = MEMORY[0x277D85DD0];
-      v57[1] = 3221225472;
-      v57[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_2_94;
-      v57[3] = &unk_2796AD618;
-      v58 = v2;
-      dispatch_group_notify(v27, v29, v57);
+      v58[0] = MEMORY[0x277D85DD0];
+      v58[1] = 3221225472;
+      v58[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_2_94;
+      v58[3] = &unk_2796AD618;
+      v59 = v2;
+      dispatch_group_notify(v28, v30, v58);
 
-      v12 = v60;
+      v13 = v61;
       goto LABEL_46;
     }
 
     goto LABEL_50;
   }
 
-  [*(v6 + 1184) incrementRightEarOcclusionCount];
-  [*(*(a1 + 32) + 1184) incrementLeftEarOcclusionCount];
-  v8 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  [*(v7 + 1184) incrementRightEarOcclusionCount];
+  v9 = sharedBluetoothSettingsLogComponent([*(*(a1 + 32) + 1184) incrementLeftEarOcclusionCount]);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_251143000, v8, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> HairCoveringEar", buf, 2u);
+    _os_log_impl(&dword_251143000, v9, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> HairCoveringEar", buf, 2u);
   }
 
   [*(*(a1 + 32) + 1184) updateStatus:0 EnrollmentResult:@"Failed"];
   [*(a1 + 32) forceBlur];
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_95;
-  v53[3] = &unk_2796ADCE0;
-  v9 = v3;
-  v10 = *(a1 + 32);
-  v54 = v9;
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_95;
+  v54[3] = &unk_2796ADCE0;
+  v10 = v3;
+  v11 = *(a1 + 32);
   v55 = v10;
-  v56 = v5;
-  v11 = MEMORY[0x277D85CD0];
-  dispatch_async(MEMORY[0x277D85CD0], v53);
+  v56 = v11;
+  v57 = v5;
+  v12 = MEMORY[0x277D85CD0];
+  dispatch_async(MEMORY[0x277D85CD0], v54);
 
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_2_96;
-  v51[3] = &unk_2796AD618;
-  v52 = v2;
-  dispatch_group_notify(v9, v11, v51);
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_2_96;
+  v52[3] = &unk_2796AD618;
+  v53 = v2;
+  dispatch_group_notify(v10, v12, v52);
 
-  v12 = v54;
+  v13 = v55;
 LABEL_46:
 
 LABEL_54:
-  v45 = dispatch_time(0, 3000000000);
-  dispatch_group_wait(v2, v45);
+  v46 = dispatch_time(0, 3000000000);
+  dispatch_group_wait(v2, v46);
   objc_destroyWeak(&location);
 }
 
@@ -1268,13 +1254,13 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_inv
   [v2 play];
 }
 
-void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_3(uint64_t a1)
+void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sharedBluetoothSettingsLogComponent(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_251143000, v2, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> FrontView Done", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> FrontView Done", v4, 2u);
   }
 
   dispatch_group_leave(*(a1 + 32));
@@ -1343,13 +1329,13 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_inv
   [v5 setState:3 completion:v6];
 }
 
-void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_5(uint64_t a1)
+void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_5(uint64_t a1, uint64_t a2)
 {
-  v2 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sharedBluetoothSettingsLogComponent(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_251143000, v2, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> FrontViewCapturePositionFace Done", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> FrontViewCapturePositionFace Done", v4, 2u);
   }
 
   dispatch_group_leave(*(a1 + 32));
@@ -1414,13 +1400,13 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_inv
   dispatch_group_leave(*(a1 + 40));
 }
 
-void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_4_77(uint64_t a1)
+void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_4_77(uint64_t a1, uint64_t a2)
 {
-  v2 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sharedBluetoothSettingsLogComponent(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_251143000, v2, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> FrontViewCaptureMoveHead Done", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> FrontViewCaptureMoveHead Done", v4, 2u);
   }
 
   dispatch_group_leave(*(a1 + 32));
@@ -1480,13 +1466,13 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_inv
   dispatch_group_leave(*(a1 + 40));
 }
 
-void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_4_81(uint64_t a1)
+void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_4_81(uint64_t a1, uint64_t a2)
 {
-  v2 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sharedBluetoothSettingsLogComponent(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_251143000, v2, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> FrontViewCaptureCompleted Done", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> FrontViewCaptureCompleted Done", v4, 2u);
   }
 
   dispatch_group_leave(*(a1 + 32));
@@ -1546,13 +1532,13 @@ uint64_t __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block
   return [v2 stopPostProcessTimer];
 }
 
-void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_5_89(uint64_t a1)
+void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_5_89(uint64_t a1, uint64_t a2)
 {
-  v2 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sharedBluetoothSettingsLogComponent(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_251143000, v2, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> Completed Done", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> Completed Done", v4, 2u);
   }
 
   dispatch_group_leave(*(a1 + 32));
@@ -1569,13 +1555,13 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_inv
   dispatch_group_leave(v2);
 }
 
-void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_2_94(uint64_t a1)
+void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_2_94(uint64_t a1, uint64_t a2)
 {
-  v2 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sharedBluetoothSettingsLogComponent(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_251143000, v2, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> CouldntScanEar Done", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> CouldntScanEar Done", v4, 2u);
   }
 
   dispatch_group_leave(*(a1 + 32));
@@ -1590,13 +1576,13 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_inv
   dispatch_group_leave(v2);
 }
 
-void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_2_96(uint64_t a1)
+void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_2_96(uint64_t a1, uint64_t a2)
 {
-  v2 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sharedBluetoothSettingsLogComponent(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_251143000, v2, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> HairCoveringEar Done", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> HairCoveringEar Done", v4, 2u);
   }
 
   dispatch_group_leave(*(a1 + 32));
@@ -1606,36 +1592,34 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_inv
 {
   dispatch_group_enter(*(a1 + 32));
   v2 = [*(*(a1 + 40) + 1408) infoView];
-  v3 = *(a1 + 40);
-  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v5 = [v4 localizedStringForKey:@"GENERAL_FAILURE" value:&stru_286339F58 table:@"SpatialAudioProfile"];
-  [v2 setTitle:v5];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = [v3 localizedStringForKey:@"GENERAL_FAILURE" value:&stru_286339F58 table:@"SpatialAudioProfile"];
+  [v2 setTitle:v4];
 
-  v6 = [*(*(a1 + 40) + 1408) infoView];
-  v7 = *(a1 + 40);
-  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v9 = [v8 localizedStringForKey:@"GENERAL_FAILURE_DETAIL" value:&stru_286339F58 table:@"SpatialAudioProfile"];
-  [v6 setDetailText:v9];
+  v5 = [*(*(a1 + 40) + 1408) infoView];
+  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v7 = [v6 localizedStringForKey:@"GENERAL_FAILURE_DETAIL" value:&stru_286339F58 table:@"SpatialAudioProfile"];
+  [v5 setDetailText:v7];
 
-  v10 = *(*(a1 + 40) + 1408);
-  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v12 = [v11 localizedStringForKey:@"DONE" value:&stru_286339F58 table:@"SpatialAudioProfile"];
-  [v10 updateContinueButtonTitleWithTitle:v12];
+  v8 = *(*(a1 + 40) + 1408);
+  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v10 = [v9 localizedStringForKey:@"DONE" value:&stru_286339F58 table:@"SpatialAudioProfile"];
+  [v8 updateContinueButtonTitleWithTitle:v10];
 
-  v13 = *(a1 + 40);
-  if (*(v13 + 1192))
+  v11 = *(a1 + 40);
+  if (*(v11 + 1192))
   {
-    [v13 cleanUpSpinner];
-    v13 = *(a1 + 40);
+    [v11 cleanUpSpinner];
+    v11 = *(a1 + 40);
   }
 
-  if (*(v13 + 1129) == 1)
+  if (*(v11 + 1129) == 1)
   {
-    [v13 stopPostProcessSpinner];
-    v13 = *(a1 + 40);
+    [v11 stopPostProcessSpinner];
+    v11 = *(a1 + 40);
   }
 
-  [v13 stopPostProcessTimer];
+  [v11 stopPostProcessTimer];
   [*(*(a1 + 40) + 1400) setAlpha:0.0];
   [*(*(a1 + 40) + 1056) setHidden:1];
   [*(a1 + 40) stopEnrollment];
@@ -1643,22 +1627,22 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_inv
   [*(*(a1 + 40) + 1408) updateContinueButtonActionWithTarget:*(a1 + 40) selector:sel_cancelSpatialAudioProfile];
   dispatch_group_leave(*(a1 + 32));
   dispatch_group_enter(*(a1 + 32));
-  v14 = *(*(a1 + 40) + 1048);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_2_107;
-  v15[3] = &unk_2796AD618;
-  v16 = *(a1 + 32);
-  [v14 triggerSoundHapticForEnrollmentState:3 completion:v15];
+  v12 = *(*(a1 + 40) + 1048);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_2_107;
+  v13[3] = &unk_2796AD618;
+  v14 = *(a1 + 32);
+  [v12 triggerSoundHapticForEnrollmentState:3 completion:v13];
 }
 
-void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_3_108(uint64_t a1)
+void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_invoke_3_108(uint64_t a1, uint64_t a2)
 {
-  v2 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sharedBluetoothSettingsLogComponent(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_251143000, v2, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> GeneralFailure Done", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Move to Step -> GeneralFailure Done", v4, 2u);
   }
 
   dispatch_group_leave(*(a1 + 32));
@@ -1666,42 +1650,43 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_inv
 
 - (void)continueButtonTapped
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = sharedBluetoothSettingsLogComponent();
+  v14 = *MEMORY[0x277D85DE8];
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     currentStep = self->_currentStep;
     sessionState = self->_sessionState;
-    v10[0] = 67109376;
-    v10[1] = currentStep;
-    v11 = 1024;
-    v12 = sessionState;
-    _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: ContinueButton Tapped Current Step %d, Currente Session %d ", v10, 0xEu);
+    v11[0] = 67109376;
+    v11[1] = currentStep;
+    v12 = 1024;
+    v13 = sessionState;
+    _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: ContinueButton Tapped Current Step %d, Currente Session %d ", v11, 0xEu);
   }
 
   if (self->_currentStep == 4)
   {
     if ([(HPSSpatialProfileSingeStepEnrollmentController *)self checkAndShowInEarPopup])
     {
-      goto LABEL_17;
+      return;
     }
 
-    if (([(BluetoothManager *)self->_btManager available]& 1) == 0)
+    available = [(BluetoothManager *)self->_btManager available];
+    if ((available & 1) == 0)
     {
-      v6 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = sharedBluetoothSettingsLogComponent(available);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v10[0]) = 0;
-        _os_log_impl(&dword_251143000, v6, OS_LOG_TYPE_DEFAULT, "Spatial Profile: btManager is not available", v10, 2u);
+        LOWORD(v11[0]) = 0;
+        _os_log_impl(&dword_251143000, v7, OS_LOG_TYPE_DEFAULT, "Spatial Profile: btManager is not available", v11, 2u);
       }
 
       if (!self->_welcomeSpinnerOn)
       {
-        v7 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v9 = sharedBluetoothSettingsLogComponent(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v10[0]) = 0;
-          _os_log_impl(&dword_251143000, v7, OS_LOG_TYPE_DEFAULT, "Spatial Profile: btManager is not available starting welcome spinner", v10, 2u);
+          LOWORD(v11[0]) = 0;
+          _os_log_impl(&dword_251143000, v9, OS_LOG_TYPE_DEFAULT, "Spatial Profile: btManager is not available starting welcome spinner", v11, 2u);
         }
 
         [(HPSSpatialProfileSingeStepEnrollmentController *)self startWelcomeSpinner];
@@ -1711,10 +1696,10 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_inv
 
   if (self->_enrollmentReady)
   {
-    v8 = self->_currentStep;
-    if (v8 <= 9)
+    v10 = self->_currentStep;
+    if (v10 <= 9)
     {
-      [(HPSSpatialProfileSingeStepEnrollmentController *)self moveToStep:(v8 + 1)];
+      [(HPSSpatialProfileSingeStepEnrollmentController *)self moveToStep:(v10 + 1)];
     }
   }
 
@@ -1722,14 +1707,11 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_moveToStep___block_inv
   {
     [(HPSSpatialProfileSingeStepEnrollmentController *)self startWelcomeSpinner];
   }
-
-LABEL_17:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userCancelEnrollment
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1750,7 +1732,7 @@ LABEL_17:
 
 - (void)cancelSpatialAudioProfile
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1766,7 +1748,7 @@ LABEL_17:
   [(HPSSpatialProfileSingleStepSoundHapticManager *)self->_soundHapticManager stop];
   [(HPSSpatialProfileSingeStepEnrollmentController *)self resetVolume];
   [(HPSSpatialProfileEarTutorialView *)self->_earTutorialView stopPlayers];
-  [(HPSSpatialProfileSingeStepEnrollmentController *)self dismissViewControllerAnimated:1 completion:&__block_literal_global_113];
+  v4 = [(HPSSpatialProfileSingeStepEnrollmentController *)self dismissViewControllerAnimated:1 completion:&__block_literal_global_113];
   if (self->_enrollmentCompleted)
   {
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -1775,11 +1757,11 @@ LABEL_17:
 
   if (self->dismissalHandler)
   {
-    v5 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sharedBluetoothSettingsLogComponent(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Executing : Dismiss handler", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_251143000, v6, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Executing : Dismiss handler", v7, 2u);
     }
 
     (*(self->dismissalHandler + 2))();
@@ -1799,124 +1781,116 @@ LABEL_17:
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __77__HPSSpatialProfileSingeStepEnrollmentController_bluetoothDidBecomeAvailable__block_invoke(uint64_t result)
+void *__77__HPSSpatialProfileSingeStepEnrollmentController_bluetoothDidBecomeAvailable__block_invoke(void *result, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
-  if (*(*(result + 32) + 1128) == 1)
+  if (*(result[4] + 1128) == 1)
   {
-    v1 = result;
-    v2 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v2 = result;
+    v3 = sharedBluetoothSettingsLogComponent(result);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(v1 + 32);
-      v4 = *(v3 + 1206);
-      v5 = [*(v3 + 1280) available];
+      v4 = v2[4];
+      v5 = *(v4 + 1206);
+      v6 = [*(v4 + 1280) available];
       v7[0] = 67109376;
-      v7[1] = v4;
+      v7[1] = v5;
       v8 = 1024;
-      v9 = v5;
-      _os_log_impl(&dword_251143000, v2, OS_LOG_TYPE_DEFAULT, "Spatial Profile: bluetoothDidBecomeAvailable -> stopWelcomeSpinner, _enrollmentReady %d [_btManager available] %d", v7, 0xEu);
+      v9 = v6;
+      _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: bluetoothDidBecomeAvailable -> stopWelcomeSpinner, _enrollmentReady %d [_btManager available] %d", v7, 0xEu);
     }
 
-    result = [*(v1 + 32) stopWelcomeSpinner];
+    return [v2[4] stopWelcomeSpinner];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)retrieveProfile
 {
-  v7 = *MEMORY[0x277D85DE8];
   [self code];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HPSSpatialProfileSingeStepEnrollmentController_retrieveProfile__block_invoke_120(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = sharedBluetoothSettingsLogComponent();
+  v4 = sharedBluetoothSettingsLogComponent(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[6];
     v6 = a1[7];
-    v8 = 134218240;
-    v9 = v5;
-    v10 = 2048;
-    v11 = v6;
-    _os_log_impl(&dword_251143000, v4, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Retrive completion : requestedSize = %lu profileSize = %lu", &v8, 0x16u);
+    v7 = 134218240;
+    v8 = v5;
+    v9 = 2048;
+    v10 = v6;
+    _os_log_impl(&dword_251143000, v4, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Retrive completion : requestedSize = %lu profileSize = %lu", &v7, 0x16u);
   }
 
   [*(a1[4] + 1176) appendData:v3];
   dispatch_group_leave(*(*(a1[5] + 8) + 40));
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __65__HPSSpatialProfileSingeStepEnrollmentController_retrieveProfile__block_invoke_122(uint64_t a1)
+uint64_t __65__HPSSpatialProfileSingeStepEnrollmentController_retrieveProfile__block_invoke_122(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sharedBluetoothSettingsLogComponent(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(*(a1 + 32) + 1176) length];
+    v4 = [*(*(a1 + 32) + 1176) length];
     v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&dword_251143000, v2, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Retrieved Profile Size: %lu", &v6, 0xCu);
+    v7 = v4;
+    _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Retrieved Profile Size: %lu", &v6, 0xCu);
   }
 
-  result = [*(a1 + 32) moveToStep:11];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) moveToStep:11];
 }
 
 - (void)syncProfile
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   profileData = self->_profileData;
-  if (profileData && [(NSMutableData *)profileData length])
+  if (profileData && (profileData = [(NSMutableData *)profileData length]) != 0)
   {
-    v4 = sharedBluetoothSettingsLogComponent();
+    v4 = sharedBluetoothSettingsLogComponent(profileData);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [(NSMutableData *)self->_profileData length];
       *buf = 134217984;
-      v13 = v5;
+      v12 = v5;
       _os_log_impl(&dword_251143000, v4, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Syncing Profile, Size: %lu", buf, 0xCu);
     }
 
     v6 = [MEMORY[0x277CF3268] soundProfileRecordWithCustomData:self->_profileData];
     v7 = objc_alloc_init(MEMORY[0x277CF3260]);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_syncProfile__block_invoke;
-    v10[3] = &unk_2796ADE20;
-    v10[4] = self;
-    v11 = v7;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __61__HPSSpatialProfileSingeStepEnrollmentController_syncProfile__block_invoke;
+    v9[3] = &unk_2796ADE20;
+    v9[4] = self;
+    v10 = v7;
     v8 = v7;
-    [v8 createSoundProfileRecord:v6 completion:v10];
+    [v8 createSoundProfileRecord:v6 completion:v9];
   }
 
   else
   {
-    v6 = sharedBluetoothSettingsLogComponent();
+    v6 = sharedBluetoothSettingsLogComponent(profileData);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_251143000, v6, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Cannot Sync Profile, Invalid Profile Data", buf, 2u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HPSSpatialProfileSingeStepEnrollmentController_syncProfile__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sharedBluetoothSettingsLogComponent();
+  v4 = sharedBluetoothSettingsLogComponent(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
   if (v3)
   {
@@ -1937,30 +1911,30 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_syncProfile__block_inv
 
 - (id)angleArrayToBinaryString:(id)string
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   stringCopy = string;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [stringCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [stringCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = &stru_286339F58;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       v9 = v6;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(stringCopy);
         }
 
-        if ([*(*(&v13 + 1) + 8 * v8) captured])
+        if ([*(*(&v12 + 1) + 8 * v8) captured])
         {
           v10 = @"1%@";
         }
@@ -1977,7 +1951,7 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_syncProfile__block_inv
       }
 
       while (v5 != v8);
-      v5 = [stringCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [stringCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -1988,14 +1962,12 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_syncProfile__block_inv
     v6 = &stru_286339F58;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)startTutorialResumeEnrollTimer
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2004,31 +1976,31 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_syncProfile__block_inv
 
   if (self->_tutorialResumeEnrollTimer)
   {
-    v4 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sharedBluetoothSettingsLogComponent(stopTutorialResumeEnrollTimer);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_251143000, v4, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Stopping Tutorial automatic Delay Transition timer…", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Stopping Tutorial automatic Delay Transition timer…", v10, 2u);
     }
 
-    [(HPSSpatialProfileSingeStepEnrollmentController *)self stopTutorialResumeEnrollTimer];
+    stopTutorialResumeEnrollTimer = [(HPSSpatialProfileSingeStepEnrollmentController *)self stopTutorialResumeEnrollTimer];
   }
 
-  v5 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sharedBluetoothSettingsLogComponent(stopTutorialResumeEnrollTimer);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Starting Tutorial automatic Delay Transition timer", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_251143000, v6, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Starting Tutorial automatic Delay Transition timer", v9, 2u);
   }
 
-  v6 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel_tutorialResumeEnrollTimerDidFire selector:0 userInfo:0 repeats:3.0];
+  v7 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel_tutorialResumeEnrollTimerDidFire selector:0 userInfo:0 repeats:3.0];
   tutorialResumeEnrollTimer = self->_tutorialResumeEnrollTimer;
-  self->_tutorialResumeEnrollTimer = v6;
+  self->_tutorialResumeEnrollTimer = v7;
 }
 
 - (void)stopTutorialResumeEnrollTimer
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -2042,7 +2014,7 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_syncProfile__block_inv
 
 - (void)startCaptureViewTimer
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2051,31 +2023,31 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_syncProfile__block_inv
 
   if (self->_captureViewTimer)
   {
-    v4 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sharedBluetoothSettingsLogComponent(stopCaptureViewTimer);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_251143000, v4, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Stopping capture view timer…", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Stopping capture view timer…", v10, 2u);
     }
 
-    [(HPSSpatialProfileSingeStepEnrollmentController *)self stopCaptureViewTimer];
+    stopCaptureViewTimer = [(HPSSpatialProfileSingeStepEnrollmentController *)self stopCaptureViewTimer];
   }
 
-  v5 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sharedBluetoothSettingsLogComponent(stopCaptureViewTimer);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Starting capture view timer", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_251143000, v6, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Starting capture view timer", v9, 2u);
   }
 
-  v6 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel_captureViewTimerDidFire selector:0 userInfo:0 repeats:180.0];
+  v7 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel_captureViewTimerDidFire selector:0 userInfo:0 repeats:180.0];
   captureViewTimer = self->_captureViewTimer;
-  self->_captureViewTimer = v6;
+  self->_captureViewTimer = v7;
 }
 
 - (void)stopCaptureViewTimer
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -2089,7 +2061,7 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_syncProfile__block_inv
 
 - (void)captureViewTimerDidFire
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2117,54 +2089,55 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_syncProfile__block_inv
 
 - (id)getBudsInEarString
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   [(BluetoothManager *)self->_btManager connectedDevices];
-  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v2 = v40 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v37 objects:v43 count:16];
+  v40 = 0u;
+  v2 = v41 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v38;
+    v5 = *v39;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v38 != v5)
+        if (*v39 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v37 + 1) + 8 * i);
+        v7 = *(*(&v38 + 1) + 8 * i);
         if (+[HPSProductUtils isAppleHeadphone:](HPSProductUtils, "isAppleHeadphone:", v7) && ([v7 isTemporaryPaired] & 1) == 0)
         {
-          if ([v7 isGenuineAirPods])
+          isGenuineAirPods = [v7 isGenuineAirPods];
+          if (isGenuineAirPods)
           {
-            v8 = [BTSDeviceClassic deviceWithDevice:v7];
-            v9 = v8;
-            if (v8)
+            v9 = [BTSDeviceClassic deviceWithDevice:v7];
+            v10 = v9;
+            if (v9)
             {
-              v33 = 3;
               v34 = 3;
-              classicDevice = [v8 classicDevice];
-              [classicDevice inEarStatusPrimary:&v34 secondary:&v33];
+              v35 = 3;
+              classicDevice = [v9 classicDevice];
+              [classicDevice inEarStatusPrimary:&v35 secondary:&v34];
 
-              if (!v34 || !v33)
+              if (!v35 || !v34)
               {
-                classicDevice2 = [v9 classicDevice];
+                classicDevice2 = [v10 classicDevice];
                 productId = [classicDevice2 productId];
 
                 0x2000 = [MEMORY[0x277CCACA8] stringWithFormat:@"ACCESSORY_MODEL_NAME_%d", productId - 0x2000];
-                v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-                v16 = [v15 localizedStringForKey:0x2000 value:&stru_286339F58 table:@"SpatialAudioProfile"];
-                if ([v16 length] && productId >= 0x200A)
+                v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+                v17 = [v16 localizedStringForKey:0x2000 value:&stru_286339F58 table:@"SpatialAudioProfile"];
+                if ([v17 length] && productId >= 0x200A)
                 {
 
                   if (productId >> 4 <= 0x200)
                   {
-                    v17 = 0;
+                    v19 = 0;
                     goto LABEL_31;
                   }
                 }
@@ -2176,18 +2149,18 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_syncProfile__block_inv
                 if (productId == 8239)
                 {
                   0x2000 = @"ACCESSORY_MODEL_NAME_180";
-                  v17 = 1;
+                  v19 = 1;
                 }
 
                 else if (productId == 8223)
                 {
-                  v17 = 0;
+                  v19 = 0;
                   0x2000 = @"ACCESSORY_MODEL_NAME_10";
                 }
 
                 else
                 {
-                  v17 = 0;
+                  v19 = 0;
                   if (productId == 8210)
                   {
                     0x2000 = @"ACCESSORY_MODEL_NAME_18";
@@ -2200,58 +2173,58 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_syncProfile__block_inv
                 }
 
 LABEL_31:
-                v18 = sharedBluetoothSettingsLogComponent();
-                if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+                v20 = sharedBluetoothSettingsLogComponent(v18);
+                if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
                 {
-                  classicDevice3 = [v9 classicDevice];
+                  classicDevice3 = [v10 classicDevice];
                   name = [classicDevice3 name];
                   *buf = 138412290;
-                  v42 = name;
-                  _os_log_impl(&dword_251143000, v18, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Device %@, bud in ear", buf, 0xCu);
+                  v43 = name;
+                  _os_log_impl(&dword_251143000, v20, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Device %@, bud in ear", buf, 0xCu);
                 }
 
                 uppercaseString = [MGGetStringAnswer() uppercaseString];
-                v22 = [@"SPATIAL_AUDIO_PROFILE_IED_WARN_" stringByAppendingFormat:@"%@_%@", uppercaseString, 0x2000];
+                v24 = [@"SPATIAL_AUDIO_PROFILE_IED_WARN_" stringByAppendingFormat:@"%@_%@", uppercaseString, 0x2000];
 
-                v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-                v11 = [v23 localizedStringForKey:v22 value:&stru_286339F58 table:@"SpatialAudioProfile"];
+                v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+                v12 = [v25 localizedStringForKey:v24 value:&stru_286339F58 table:@"SpatialAudioProfile"];
 
                 switch(productId)
                 {
                   case 0x2025u:
-                    v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-                    v25 = v24;
-                    v26 = @"SPATIAL_AUDIO_PROFILE_IED_WARN_IPHONE_ACCESSORY_MODEL_NAME_24";
-                    v27 = @"DeviceConfig-B465";
+                    v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+                    v27 = v26;
+                    v28 = @"SPATIAL_AUDIO_PROFILE_IED_WARN_IPHONE_ACCESSORY_MODEL_NAME_24";
+                    v29 = @"DeviceConfig-B465";
                     break;
                   case 0x201Du:
-                    v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-                    v25 = v24;
-                    v26 = @"SPATIAL_AUDIO_PROFILE_IED_WARN_IPHONE_ACCESSORY_MODEL_NAME_42";
-                    v27 = @"DeviceConfig-B498-v2";
+                    v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+                    v27 = v26;
+                    v28 = @"SPATIAL_AUDIO_PROFILE_IED_WARN_IPHONE_ACCESSORY_MODEL_NAME_42";
+                    v29 = @"DeviceConfig-B498-v2";
                     break;
                   case 0x2017u:
-                    v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-                    v25 = v24;
-                    v26 = @"SPATIAL_AUDIO_PROFILE_IED_WARN_IPHONE_ACCESSORY_MODEL_NAME_23";
-                    v27 = @"DeviceConfig-B453";
+                    v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+                    v27 = v26;
+                    v28 = @"SPATIAL_AUDIO_PROFILE_IED_WARN_IPHONE_ACCESSORY_MODEL_NAME_23";
+                    v29 = @"DeviceConfig-B453";
                     break;
                   default:
 LABEL_40:
-                    if (v17)
+                    if (v19)
                     {
-                      v29 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-                      v30 = [v29 localizedStringForKey:@"SPATIAL_AUDIO_PROFILE_IED_WARN_IPHONE_ACCESSORY_MODEL_NAME_180" value:&stru_286339F58 table:@"DeviceConfig-B494b"];
+                      v31 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+                      v32 = [v31 localizedStringForKey:@"SPATIAL_AUDIO_PROFILE_IED_WARN_IPHONE_ACCESSORY_MODEL_NAME_180" value:&stru_286339F58 table:@"DeviceConfig-B494b"];
 
-                      v11 = v30;
+                      v12 = v32;
                     }
 
                     goto LABEL_43;
                 }
 
-                v28 = [v24 localizedStringForKey:v26 value:&stru_286339F58 table:v27];
+                v30 = [v26 localizedStringForKey:v28 value:&stru_286339F58 table:v29];
 
-                v11 = v28;
+                v12 = v30;
                 goto LABEL_40;
               }
             }
@@ -2259,16 +2232,16 @@ LABEL_40:
 
           else
           {
-            v9 = sharedBluetoothSettingsLogComponent();
-            if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+            v10 = sharedBluetoothSettingsLogComponent(isGenuineAirPods);
+            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
             {
-              [(HPSSpatialProfileSingeStepEnrollmentController *)&v35 getBudsInEarString];
+              [(HPSSpatialProfileSingeStepEnrollmentController *)&v36 getBudsInEarString];
             }
           }
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v38 objects:v44 count:16];
       if (v4)
       {
         continue;
@@ -2278,94 +2251,90 @@ LABEL_40:
     }
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_43:
 
-  v31 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v12;
 }
 
 - (void)triggerFaceInFrameHandlerTimeout
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = sharedBluetoothSettingsLogComponent();
+  v13 = *MEMORY[0x277D85DE8];
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     faceBoundingBoxStatus = self->_faceBoundingBoxStatus;
     *buf = 67109120;
-    v13 = faceBoundingBoxStatus;
+    v12 = faceBoundingBoxStatus;
     _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Update Face Capture %d ", buf, 8u);
   }
 
-  if ((self->_currentStep & 0xFFFFFFFE) == 6)
+  if ((self->_currentStep & 0xFFFFFFFE) != 6)
   {
-    if (self->_faceBoundingBoxStatus == 1 && !self->_faceCaptured)
-    {
-      self->_faceTooCloseErrorShowing = 1;
-      block[0] = MEMORY[0x277D85DD0];
-      block[1] = 3221225472;
-      block[2] = __82__HPSSpatialProfileSingeStepEnrollmentController_triggerFaceInFrameHandlerTimeout__block_invoke;
-      block[3] = &unk_2796AD618;
-      block[4] = self;
-      dispatch_async(MEMORY[0x277D85CD0], block);
-      v5 = MEMORY[0x277CBEBB8];
-      v6 = 1.0;
-      goto LABEL_10;
-    }
-
-    if (self->_faceTooCloseErrorShowing)
-    {
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __82__HPSSpatialProfileSingeStepEnrollmentController_triggerFaceInFrameHandlerTimeout__block_invoke_2;
-      v10[3] = &unk_2796AD618;
-      v10[4] = self;
-      dispatch_async(MEMORY[0x277D85CD0], v10);
-      v5 = MEMORY[0x277CBEBB8];
-      v6 = 3.0;
-LABEL_10:
-      v7 = [v5 scheduledTimerWithTimeInterval:self target:sel_triggerFaceInFrameHandlerTimeout selector:0 userInfo:0 repeats:v6];
-      faceInFrameHandlerTimer = self->_faceInFrameHandlerTimer;
-      self->_faceInFrameHandlerTimer = v7;
-
-      goto LABEL_11;
-    }
+    goto LABEL_8;
   }
 
-  [(HPSSpatialProfileSingeStepEnrollmentController *)self stopFaceInFrameHandlerTimer];
-LABEL_11:
-  v9 = *MEMORY[0x277D85DE8];
+  if (self->_faceBoundingBoxStatus == 1 && !self->_faceCaptured)
+  {
+    self->_faceTooCloseErrorShowing = 1;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __82__HPSSpatialProfileSingeStepEnrollmentController_triggerFaceInFrameHandlerTimeout__block_invoke;
+    block[3] = &unk_2796AD618;
+    block[4] = self;
+    dispatch_async(MEMORY[0x277D85CD0], block);
+    v5 = MEMORY[0x277CBEBB8];
+    v6 = 1.0;
+    goto LABEL_10;
+  }
+
+  if (!self->_faceTooCloseErrorShowing)
+  {
+LABEL_8:
+    [(HPSSpatialProfileSingeStepEnrollmentController *)self stopFaceInFrameHandlerTimer];
+    return;
+  }
+
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __82__HPSSpatialProfileSingeStepEnrollmentController_triggerFaceInFrameHandlerTimeout__block_invoke_2;
+  v9[3] = &unk_2796AD618;
+  v9[4] = self;
+  dispatch_async(MEMORY[0x277D85CD0], v9);
+  v5 = MEMORY[0x277CBEBB8];
+  v6 = 3.0;
+LABEL_10:
+  v7 = [v5 scheduledTimerWithTimeInterval:self target:sel_triggerFaceInFrameHandlerTimeout selector:0 userInfo:0 repeats:v6];
+  faceInFrameHandlerTimer = self->_faceInFrameHandlerTimer;
+  self->_faceInFrameHandlerTimer = v7;
 }
 
 void __82__HPSSpatialProfileSingeStepEnrollmentController_triggerFaceInFrameHandlerTimeout__block_invoke(uint64_t a1)
 {
-  v14 = [MEMORY[0x277CBEAF8] currentLocale];
-  v2 = [v14 objectForKey:*MEMORY[0x277CBE718]];
+  v12 = [MEMORY[0x277CBEAF8] currentLocale];
+  v2 = [v12 objectForKey:*MEMORY[0x277CBE718]];
   v3 = [v2 BOOLValue];
 
   v4 = [*(*(a1 + 32) + 1408) infoView];
-  v5 = *(a1 + 32);
-  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v7 = [v6 localizedStringForKey:@"FACE_TOO_CLOSE_TITLE" value:&stru_286339F58 table:@"SpatialAudioProfile"];
-  [v4 setTitle:v7];
+  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v6 = [v5 localizedStringForKey:@"FACE_TOO_CLOSE_TITLE" value:&stru_286339F58 table:@"SpatialAudioProfile"];
+  [v4 setTitle:v6];
 
-  v8 = [*(*(a1 + 32) + 1408) infoView];
-  v9 = *(a1 + 32);
-  v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v11 = v10;
+  v7 = [*(*(a1 + 32) + 1408) infoView];
+  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v9 = v8;
   if (v3)
   {
-    v12 = @"FACE_TOO_CLOSE_DETAIL_METRICS";
+    v10 = @"FACE_TOO_CLOSE_DETAIL_METRICS";
   }
 
   else
   {
-    v12 = @"FACE_TOO_CLOSE_DETAIL_IMPERIAL";
+    v10 = @"FACE_TOO_CLOSE_DETAIL_IMPERIAL";
   }
 
-  v13 = [v10 localizedStringForKey:v12 value:&stru_286339F58 table:@"SpatialAudioProfile"];
-  [v8 setDetailText:v13];
+  v11 = [v8 localizedStringForKey:v10 value:&stru_286339F58 table:@"SpatialAudioProfile"];
+  [v7 setDetailText:v11];
 }
 
 void __82__HPSSpatialProfileSingeStepEnrollmentController_triggerFaceInFrameHandlerTimeout__block_invoke_2(uint64_t a1)
@@ -2374,16 +2343,14 @@ void __82__HPSSpatialProfileSingeStepEnrollmentController_triggerFaceInFrameHand
   if (*(v1 + 1243) == 1)
   {
     v3 = [*(v1 + 1408) infoView];
-    v4 = *(a1 + 32);
-    v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v6 = [v5 localizedStringForKey:@"SINGLE_STEP_FRONT_VIEW_CAPTURE" value:&stru_286339F58 table:@"SpatialAudioProfile"];
-    [v3 setTitle:v6];
+    v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v5 = [v4 localizedStringForKey:@"SINGLE_STEP_FRONT_VIEW_CAPTURE" value:&stru_286339F58 table:@"SpatialAudioProfile"];
+    [v3 setTitle:v5];
 
-    v7 = [*(*(a1 + 32) + 1408) infoView];
-    v8 = *(a1 + 32);
-    v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v10 = [v9 localizedStringForKey:@"SINGLE_STEP_FRONT_VIEW_CAPTURE_DETAIL" value:&stru_286339F58 table:@"SpatialAudioProfile"];
-    [v7 setDetailText:v10];
+    v6 = [*(*(a1 + 32) + 1408) infoView];
+    v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v8 = [v7 localizedStringForKey:@"SINGLE_STEP_FRONT_VIEW_CAPTURE_DETAIL" value:&stru_286339F58 table:@"SpatialAudioProfile"];
+    [v6 setDetailText:v8];
 
     v1 = *(a1 + 32);
   }
@@ -2393,33 +2360,34 @@ void __82__HPSSpatialProfileSingeStepEnrollmentController_triggerFaceInFrameHand
 
 - (void)startFaceInFrameHandlerTimer
 {
+  selfCopy = self;
   if (self->_faceInFrameHandlerTimer)
   {
-    v3 = sharedBluetoothSettingsLogComponent();
+    v3 = sharedBluetoothSettingsLogComponent(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Face Tracker Timer already started, stopping it first", buf, 2u);
     }
 
-    [(HPSSpatialProfileSingeStepEnrollmentController *)self stopFaceInFrameHandlerTimer];
+    self = [(HPSSpatialProfileSingeStepEnrollmentController *)selfCopy stopFaceInFrameHandlerTimer];
   }
 
-  v4 = sharedBluetoothSettingsLogComponent();
+  v4 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
     _os_log_impl(&dword_251143000, v4, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Face Tracker Timer", v7, 2u);
   }
 
-  v5 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel_triggerFaceInFrameHandlerTimeout selector:0 userInfo:0 repeats:3.0];
-  faceInFrameHandlerTimer = self->_faceInFrameHandlerTimer;
-  self->_faceInFrameHandlerTimer = v5;
+  v5 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:selfCopy target:sel_triggerFaceInFrameHandlerTimeout selector:0 userInfo:0 repeats:3.0];
+  faceInFrameHandlerTimer = selfCopy->_faceInFrameHandlerTimer;
+  selfCopy->_faceInFrameHandlerTimer = v5;
 }
 
 - (void)stopFaceInFrameHandlerTimer
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -2436,7 +2404,7 @@ void __82__HPSSpatialProfileSingeStepEnrollmentController_triggerFaceInFrameHand
   v13 = *MEMORY[0x277D85DE8];
   if (self->_postProcessTimer)
   {
-    v3 = sharedBluetoothSettingsLogComponent();
+    v3 = sharedBluetoothSettingsLogComponent(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v11) = 0;
@@ -2446,38 +2414,37 @@ void __82__HPSSpatialProfileSingeStepEnrollmentController_triggerFaceInFrameHand
     [(HPSSpatialProfileSingeStepEnrollmentController *)self stopPostProcessTimer];
   }
 
-  if (MGGetBoolAnswer())
+  v4 = MGGetBoolAnswer();
+  if (v4)
   {
-    v4 = 120.0;
+    v5 = 120.0;
   }
 
   else
   {
-    v4 = 240.0;
+    v5 = 240.0;
   }
 
-  v5 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sharedBluetoothSettingsLogComponent(v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 134217984;
-    v12 = v4;
-    _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Starting Post Process Timer %f", &v11, 0xCu);
+    v12 = v5;
+    _os_log_impl(&dword_251143000, v6, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Starting Post Process Timer %f", &v11, 0xCu);
   }
 
-  v6 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel_triggerPostProcessTimeout selector:0 userInfo:0 repeats:v4];
+  v7 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel_triggerPostProcessTimeout selector:0 userInfo:0 repeats:v5];
   postProcessTimer = self->_postProcessTimer;
-  self->_postProcessTimer = v6;
+  self->_postProcessTimer = v7;
 
-  v8 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel_startPostProcessSpinner selector:0 userInfo:0 repeats:2.0];
+  v9 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel_startPostProcessSpinner selector:0 userInfo:0 repeats:2.0];
   postProcessSpinnerTimer = self->_postProcessSpinnerTimer;
-  self->_postProcessSpinnerTimer = v8;
-
-  v10 = *MEMORY[0x277D85DE8];
+  self->_postProcessSpinnerTimer = v9;
 }
 
 - (void)stopPostProcessTimer
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -2495,7 +2462,7 @@ void __82__HPSSpatialProfileSingeStepEnrollmentController_triggerFaceInFrameHand
 
 - (void)triggerPostProcessTimeout
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -2507,7 +2474,7 @@ void __82__HPSSpatialProfileSingeStepEnrollmentController_triggerFaceInFrameHand
 
 - (void)didReceiveStateUpdateForSession:(id)session stateInfo:(id)info
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   infoCopy = info;
   v8 = MEMORY[0x277D0F9A0];
@@ -2525,40 +2492,39 @@ void __82__HPSSpatialProfileSingeStepEnrollmentController_triggerFaceInFrameHand
 
   if (v15)
   {
-    v16 = [infoCopy objectForKeyedSubscript:*v14];
-    v17 = v16;
-    if (v16)
+    v17 = [infoCopy objectForKeyedSubscript:*v14];
+    v18 = v17;
+    if (v17)
     {
-      [v16 code];
-      v18 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = sharedBluetoothSettingsLogComponent([v17 code]);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v73 = v17;
-        _os_log_impl(&dword_251143000, v18, OS_LOG_TYPE_DEFAULT, "Spatial Profile: didReceiveStateUpdateForSession  ERROR: %@ ", buf, 0xCu);
+        v76 = v18;
+        _os_log_impl(&dword_251143000, v19, OS_LOG_TYPE_DEFAULT, "Spatial Profile: didReceiveStateUpdateForSession  ERROR: %@ ", buf, 0xCu);
       }
 
       if (self->_currentStep != 3)
       {
-        [(HPSSpatialProfileSingeStepEnrollmentController *)self moveToStep:3];
+        v20 = [(HPSSpatialProfileSingeStepEnrollmentController *)self moveToStep:3];
       }
 
-      v19 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = sharedBluetoothSettingsLogComponent(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [HPSSpatialProfileSingeStepEnrollmentController didReceiveStateUpdateForSession:v17 stateInfo:?];
+        [HPSSpatialProfileSingeStepEnrollmentController didReceiveStateUpdateForSession:v18 stateInfo:?];
       }
     }
   }
 
   if (self->_sessionState != integerValue)
   {
-    v20 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v22 = sharedBluetoothSettingsLogComponent(v16);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v73 = integerValue;
-      _os_log_impl(&dword_251143000, v20, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Frame Rate : Update Session %lu", buf, 0xCu);
+      v76 = integerValue;
+      _os_log_impl(&dword_251143000, v22, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Frame Rate : Update Session %lu", buf, 0xCu);
     }
 
     self->_sessionState = integerValue;
@@ -2569,39 +2535,39 @@ void __82__HPSSpatialProfileSingeStepEnrollmentController_triggerFaceInFrameHand
     [(HPSSpatialProfileAnalytics *)self->_enrollmentAnalytics incrementFrameCount];
   }
 
-  v21 = MEMORY[0x277D0F990];
-  v22 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D0F990]];
+  v23 = MEMORY[0x277D0F990];
+  v24 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D0F990]];
 
-  if (v22)
+  if (v24)
   {
-    v23 = [infoCopy objectForKeyedSubscript:*v21];
+    v26 = [infoCopy objectForKeyedSubscript:*v23];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       [HPSSpatialProfileSingeStepEnrollmentController didReceiveStateUpdateForSession:stateInfo:];
     }
 
-    v24 = [infoCopy objectForKeyedSubscript:*v21];
-    [v24 doubleValue];
-    v26 = v25;
+    v27 = [infoCopy objectForKeyedSubscript:*v23];
+    [v27 doubleValue];
+    v29 = v28;
   }
 
   else
   {
-    v26 = 0.0;
+    v29 = 0.0;
   }
 
   if (integerValue <= 2)
   {
     if (!integerValue)
     {
-      v28 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v31 = sharedBluetoothSettingsLogComponent(v25);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v60 = "Spatial Profile: State Update: Idle";
-        v61 = v28;
-        v62 = 2;
+        v64 = "Spatial Profile: State Update: Idle";
+        v65 = v31;
+        v66 = 2;
         goto LABEL_65;
       }
 
@@ -2615,38 +2581,38 @@ LABEL_74:
       goto LABEL_75;
     }
 
-    v28 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D0F980]];
-    yawAngles = [v28 yawAngles];
-    v30 = [yawAngles count];
+    v31 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D0F980]];
+    yawAngles = [v31 yawAngles];
+    v33 = [yawAngles count];
 
-    v31 = MEMORY[0x277CBF3A0];
-    if (v28)
+    v34 = MEMORY[0x277CBF3A0];
+    if (v31)
     {
-      v68 = v30 >> 1;
-      [v28 faceBoundingBox];
-      if (!CGRectEqualToRect(v77, *v31) && !self->_faceCaptured)
+      v71 = v33 >> 1;
+      [v31 faceBoundingBox];
+      if (!CGRectEqualToRect(v80, *v34) && !self->_faceCaptured)
       {
-        [v28 faceBoundingBox];
+        [v31 faceBoundingBox];
         [(HPSSpatialProfileSingeStepEnrollmentController *)self updateFaceTrackingStatus:?];
       }
 
       if (!self->_faceStraightZeroAngleCaptured)
       {
-        yawAngles2 = [v28 yawAngles];
-        v33 = [yawAngles2 objectAtIndexedSubscript:v68];
-        captured = [v33 captured];
+        yawAngles2 = [v31 yawAngles];
+        v36 = [yawAngles2 objectAtIndexedSubscript:v71];
+        captured = [v36 captured];
 
         if (captured)
         {
           self->_faceStraightZeroAngleCaptured = 1;
-          v35 = sharedBluetoothSettingsLogComponent();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+          v39 = sharedBluetoothSettingsLogComponent(v38);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218240;
-            v73 = 0;
-            v74 = 1024;
-            v75 = 1;
-            _os_log_impl(&dword_251143000, v35, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Captured straight face angle %f ->  %d", buf, 0x12u);
+            v76 = 0;
+            v77 = 1024;
+            v78 = 1;
+            _os_log_impl(&dword_251143000, v39, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Captured straight face angle %f ->  %d", buf, 0x12u);
           }
         }
       }
@@ -2654,12 +2620,11 @@ LABEL_74:
       if (self->_faceStraightZeroAngleCaptured && self->_currentStep == 6)
       {
         self->_faceDetected = 1;
-        [(HPSSpatialProfileSingleStepPillContainerView *)self->_pillContainerView fillPill:v68 updatePillsForPoseStatus:v28 withCompletion:&__block_literal_global_226];
-        v36 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v40 = sharedBluetoothSettingsLogComponent([(HPSSpatialProfileSingleStepPillContainerView *)self->_pillContainerView fillPill:v71 updatePillsForPoseStatus:v31 withCompletion:&__block_literal_global_226]);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_251143000, v36, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Fill up Straight angle: Transition to View CaptureMoveHead", buf, 2u);
+          _os_log_impl(&dword_251143000, v40, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Fill up Straight angle: Transition to View CaptureMoveHead", buf, 2u);
         }
 
         if (self->_currentStep <= 6)
@@ -2673,67 +2638,67 @@ LABEL_74:
       {
         [(HPSSpatialProfileSingleStepSoundHapticManager *)self->_soundHapticManager startEnrollLoop];
         pillContainerView = self->_pillContainerView;
-        v71[0] = MEMORY[0x277D85DD0];
-        v71[1] = 3221225472;
-        v71[2] = __92__HPSSpatialProfileSingeStepEnrollmentController_didReceiveStateUpdateForSession_stateInfo___block_invoke_227;
-        v71[3] = &unk_2796ADE48;
-        v71[4] = self;
-        [(HPSSpatialProfileSingleStepPillContainerView *)pillContainerView updatePillsForPoseStatus:v28 pillCount:&self->_completedPosesCount alongSideAction:v71];
+        v74[0] = MEMORY[0x277D85DD0];
+        v74[1] = 3221225472;
+        v74[2] = __92__HPSSpatialProfileSingeStepEnrollmentController_didReceiveStateUpdateForSession_stateInfo___block_invoke_227;
+        v74[3] = &unk_2796ADE48;
+        v74[4] = self;
+        [(HPSSpatialProfileSingleStepPillContainerView *)pillContainerView updatePillsForPoseStatus:v31 pillCount:&self->_completedPosesCount alongSideAction:v74];
       }
     }
 
-    v39 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D0F970]];
-    v40 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D0F988]];
-    v41 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D0F998]];
-    earCaptureStatus = [v39 earCaptureStatus];
-    [v39 earBoundingBox];
-    v44 = v43;
-    v46 = v45;
+    v43 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D0F970]];
+    v44 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D0F988]];
+    v45 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D0F998]];
+    earCaptureStatus = [v43 earCaptureStatus];
+    [v43 earBoundingBox];
     v48 = v47;
     v50 = v49;
-    [(HPSSpatialProfileSingeStepEnrollmentController *)self updateCurrentTrackingEar:v40 rightEarPoseStatus:v41 earBoundingBox:earCaptureStatus earStatus:?];
+    v52 = v51;
+    v54 = v53;
+    [(HPSSpatialProfileSingeStepEnrollmentController *)self updateCurrentTrackingEar:v44 rightEarPoseStatus:v45 earBoundingBox:earCaptureStatus earStatus:?];
     if (!self->_enrollmentPaused)
     {
-      v78.origin.x = v44;
-      v78.origin.y = v46;
-      v78.size.width = v48;
-      v78.size.height = v50;
-      if (!CGRectEqualToRect(v78, *v31))
+      v81.origin.x = v48;
+      v81.origin.y = v50;
+      v81.size.width = v52;
+      v81.size.height = v54;
+      if (!CGRectEqualToRect(v81, *v34))
       {
         previewLayer = [(HPSSpatialProfileVideoCaptureSession *)self->videoCaptureSession previewLayer];
         [previewLayer frame];
-        [(HPSSpatialProfileSingeStepEnrollmentController *)self translateEarBoundingBox:v44 previewLayerBoundingBox:v46, v48, v50, v52, v53, v54, v55];
+        [(HPSSpatialProfileSingeStepEnrollmentController *)self translateEarBoundingBox:v48 previewLayerBoundingBox:v50, v52, v54, v56, v57, v58, v59];
       }
 
       [(HPSSpatialProfileSingeStepEnrollmentController *)self updateBoundingBoxHiddenStatus];
       isEarOccluded = [(HPSSpatialProfileSingeStepEnrollmentController *)self isEarOccluded];
-      v57 = self->_currentStep;
+      v61 = self->_currentStep;
       if (isEarOccluded)
       {
-        if (v57 != 7)
+        if (v61 != 7)
         {
           goto LABEL_69;
         }
 
-        v58 = 2;
+        v62 = 2;
       }
 
       else
       {
-        if (v57 != 2)
+        if (v61 != 2)
         {
           goto LABEL_69;
         }
 
-        v58 = 7;
+        v62 = 7;
       }
 
-      [(HPSSpatialProfileSingeStepEnrollmentController *)self moveToStep:v58];
+      [(HPSSpatialProfileSingeStepEnrollmentController *)self moveToStep:v62];
     }
 
 LABEL_69:
     completedPosesCount = self->_completedPosesCount;
-    yawAngles3 = [v28 yawAngles];
+    yawAngles3 = [v31 yawAngles];
     if ([yawAngles3 count]<= completedPosesCount)
     {
       faceCaptured = self->_faceCaptured;
@@ -2747,12 +2712,12 @@ LABEL_73:
 
       self->_currentProgress = 0.0;
       yawAngles3 = dispatch_get_global_queue(21, 0);
-      v70[0] = MEMORY[0x277D85DD0];
-      v70[1] = 3221225472;
-      v70[2] = __92__HPSSpatialProfileSingeStepEnrollmentController_didReceiveStateUpdateForSession_stateInfo___block_invoke_231;
-      v70[3] = &unk_2796AD618;
-      v70[4] = self;
-      dispatch_async(yawAngles3, v70);
+      v73[0] = MEMORY[0x277D85DD0];
+      v73[1] = 3221225472;
+      v73[2] = __92__HPSSpatialProfileSingeStepEnrollmentController_didReceiveStateUpdateForSession_stateInfo___block_invoke_231;
+      v73[3] = &unk_2796AD618;
+      v73[4] = self;
+      dispatch_async(yawAngles3, v73);
     }
 
     goto LABEL_73;
@@ -2761,18 +2726,17 @@ LABEL_73:
   switch(integerValue)
   {
     case 3:
-      [(HPSSpatialProfileAnalytics *)self->_enrollmentAnalytics updateSoundProfileCreationDurationStart];
-      v28 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v31 = sharedBluetoothSettingsLogComponent([(HPSSpatialProfileAnalytics *)self->_enrollmentAnalytics updateSoundProfileCreationDurationStart]);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
-        v59 = self->_currentStep;
+        v63 = self->_currentStep;
         *buf = 67109120;
-        LODWORD(v73) = v59;
-        v60 = "Spatial Profile: State Update: Post Process : %d";
-        v61 = v28;
-        v62 = 8;
+        LODWORD(v76) = v63;
+        v64 = "Spatial Profile: State Update: Post Process : %d";
+        v65 = v31;
+        v66 = 8;
 LABEL_65:
-        _os_log_impl(&dword_251143000, v61, OS_LOG_TYPE_DEFAULT, v60, buf, v62);
+        _os_log_impl(&dword_251143000, v65, OS_LOG_TYPE_DEFAULT, v64, buf, v66);
         goto LABEL_74;
       }
 
@@ -2780,22 +2744,22 @@ LABEL_65:
     case 4:
       if (self->_currentStep <= 7)
       {
-        [(HPSSpatialProfileSingeStepEnrollmentController *)self moveToStep:8];
+        v25 = [(HPSSpatialProfileSingeStepEnrollmentController *)self moveToStep:8];
       }
 
-      v63 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+      v67 = sharedBluetoothSettingsLogComponent(v25);
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_251143000, v63, OS_LOG_TYPE_DEFAULT, "Spatial Profile: State Update: Retrieve Profile", buf, 2u);
+        _os_log_impl(&dword_251143000, v67, OS_LOG_TYPE_DEFAULT, "Spatial Profile: State Update: Retrieve Profile", buf, 2u);
       }
 
       [(HPSSpatialProfileSingeStepEnrollmentController *)self moveToStep:10];
       [(HPSSpatialProfileAnalytics *)self->_enrollmentAnalytics updateSoundProfileCreationDuration];
       break;
     case 5:
-      v27 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v30 = sharedBluetoothSettingsLogComponent(v25);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         [HPSSpatialProfileSingeStepEnrollmentController didReceiveStateUpdateForSession:stateInfo:];
       }
@@ -2811,17 +2775,15 @@ LABEL_65:
   }
 
 LABEL_75:
-  if (self->_currentProgress != v26)
+  if (self->_currentProgress != v29)
   {
-    self->_currentProgress = v26;
+    self->_currentProgress = v29;
   }
-
-  v67 = *MEMORY[0x277D85DE8];
 }
 
 int *__92__HPSSpatialProfileSingeStepEnrollmentController_didReceiveStateUpdateForSession_stateInfo___block_invoke_227(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 1248) = 0;
   v2 = [*(*(a1 + 32) + 1400) leftSectionCompleted];
   v3 = [*(*(a1 + 32) + 1400) rightSectionCompleted];
@@ -2832,22 +2794,22 @@ int *__92__HPSSpatialProfileSingeStepEnrollmentController_didReceiveStateUpdateF
     if ((*(v5 + 1208) & 1) == 0)
     {
       *(v5 + 1208) = 1;
-      [*(*(a1 + 32) + 1048) triggerSoundHapticForEarCaptureState:0 completion:&__block_literal_global_229];
+      v3 = [*(*(a1 + 32) + 1048) triggerSoundHapticForEarCaptureState:0 completion:&__block_literal_global_229];
     }
   }
 
-  v6 = sharedBluetoothSettingsLogComponent();
+  v6 = sharedBluetoothSettingsLogComponent(v3);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [*(*(a1 + 32) + 1400) leftSectionCompleted];
     v8 = *(*(a1 + 32) + 1428);
-    v12[0] = 67109632;
-    v12[1] = v7;
-    v13 = 1024;
-    v14 = v4;
-    v15 = 1024;
-    v16 = v8;
-    _os_log_impl(&dword_251143000, v6, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Phase 2 -> End, L%i R%i _enrollmentUICompletionStepComplete:%i", v12, 0x14u);
+    v11[0] = 67109632;
+    v11[1] = v7;
+    v12 = 1024;
+    v13 = v4;
+    v14 = 1024;
+    v15 = v8;
+    _os_log_impl(&dword_251143000, v6, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Phase 2 -> End, L%i R%i _enrollmentUICompletionStepComplete:%i", v11, 0x14u);
   }
 
   result = [*(*(a1 + 32) + 1400) leftSectionCompleted];
@@ -2858,11 +2820,11 @@ int *__92__HPSSpatialProfileSingeStepEnrollmentController_didReceiveStateUpdateF
     {
       if ((*(*(a1 + 32) + 1428) & 1) == 0)
       {
-        v10 = sharedBluetoothSettingsLogComponent();
+        v10 = sharedBluetoothSettingsLogComponent(result);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v12[0]) = 0;
-          _os_log_impl(&dword_251143000, v10, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Phase 2 -> End UI complete", v12, 2u);
+          LOWORD(v11[0]) = 0;
+          _os_log_impl(&dword_251143000, v10, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Phase 2 -> End UI complete", v11, 2u);
         }
 
         *(*(a1 + 32) + 1428) = 1;
@@ -2871,23 +2833,22 @@ int *__92__HPSSpatialProfileSingeStepEnrollmentController_didReceiveStateUpdateF
         result = *(a1 + 32);
         if (result[287] <= 7)
         {
-          result = [result moveToStep:8];
+          return [result moveToStep:8];
         }
       }
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void __92__HPSSpatialProfileSingeStepEnrollmentController_didReceiveStateUpdateForSession_stateInfo___block_invoke_2()
+void __92__HPSSpatialProfileSingeStepEnrollmentController_didReceiveStateUpdateForSession_stateInfo___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v0 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = sharedBluetoothSettingsLogComponent(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_251143000, v0, OS_LOG_TYPE_DEFAULT, "Spatial Profile: HPSSpatialProfileEarCaptureStep_First complete sound played", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_251143000, v2, OS_LOG_TYPE_DEFAULT, "Spatial Profile: HPSSpatialProfileEarCaptureStep_First complete sound played", v3, 2u);
   }
 }
 
@@ -2923,99 +2884,99 @@ void __92__HPSSpatialProfileSingeStepEnrollmentController_didReceiveStateUpdateF
   }
 }
 
-void __106__HPSSpatialProfileSingeStepEnrollmentController_didReceiveCaptureVideo_colorImage_depthImage_faceObject___block_invoke(uint64_t a1)
+void __106__HPSSpatialProfileSingeStepEnrollmentController_didReceiveCaptureVideo_colorImage_depthImage_faceObject___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v36[1] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = sharedBluetoothSettingsLogComponent();
-  v4 = v3;
-  if (v2)
+  v38[1] = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 32);
+  v4 = sharedBluetoothSettingsLogComponent(a1);
+  v5 = v4;
+  if (v3)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v32) = 0;
-      _os_log_impl(&dword_251143000, v4, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Update Preview Layer", &v32, 2u);
+      LOWORD(v34) = 0;
+      _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Update Preview Layer", &v34, 2u);
     }
 
     *(*(a1 + 40) + 1210) = 1;
     [*(*(a1 + 40) + 1160) setPreviewLayer:*(a1 + 32)];
-    v5 = [MEMORY[0x277CBF740] contextWithOptions:0];
-    v6 = *(a1 + 40);
-    v7 = *(v6 + 1384);
-    *(v6 + 1384) = v5;
+    v6 = [MEMORY[0x277CBF740] contextWithOptions:0];
+    v7 = *(a1 + 40);
+    v8 = *(v7 + 1384);
+    *(v7 + 1384) = v6;
 
-    v8 = MEMORY[0x277CBF748];
-    v9 = *MEMORY[0x277CBF710];
-    v10 = *(*(a1 + 40) + 1384);
-    v35 = *MEMORY[0x277CBF6E0];
-    v36[0] = *MEMORY[0x277CBF6D8];
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
-    v12 = [v8 detectorOfType:v9 context:v10 options:v11];
-    v13 = *(a1 + 40);
-    v14 = *(v13 + 1392);
-    *(v13 + 1392) = v12;
+    v9 = MEMORY[0x277CBF748];
+    v10 = *MEMORY[0x277CBF710];
+    v11 = *(*(a1 + 40) + 1384);
+    v37 = *MEMORY[0x277CBF6E0];
+    v38[0] = *MEMORY[0x277CBF6D8];
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+    v13 = [v9 detectorOfType:v10 context:v11 options:v12];
+    v14 = *(a1 + 40);
+    v15 = *(v14 + 1392);
+    *(v14 + 1392) = v13;
 
-    v15 = [*(*(a1 + 40) + 1160) previewLayer];
-    [v15 setOpacity:0.0];
+    v16 = [*(*(a1 + 40) + 1160) previewLayer];
+    [v16 setOpacity:0.0];
 
-    v16 = [[HPSSpatialProfileSingleStepPearlEnrollView alloc] initWithVideoCaptureSession:*(*(a1 + 40) + 1160) inSheet:0 squareNeedsPositionLayout:0];
-    v17 = *(a1 + 40);
-    v18 = *(v17 + 1056);
-    *(v17 + 1056) = v16;
+    v17 = [[HPSSpatialProfileSingleStepPearlEnrollView alloc] initWithVideoCaptureSession:*(*(a1 + 40) + 1160) inSheet:0 squareNeedsPositionLayout:0];
+    v18 = *(a1 + 40);
+    v19 = *(v18 + 1056);
+    *(v18 + 1056) = v17;
 
     [*(a1 + 40) setupEnrollViewUI];
     [*(a1 + 40) pauseEnrollment];
-    v19 = *(a1 + 40) + 1016;
+    v20 = *(a1 + 40) + 1016;
     Width = CVPixelBufferGetWidth([*(a1 + 48) pixelBuffer]);
     Height = CVPixelBufferGetHeight([*(a1 + 48) pixelBuffer]);
-    *v19 = 0;
-    *(v19 + 8) = 0;
-    *(v19 + 16) = Width;
-    *(v19 + 24) = Height;
-    v22 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    *v20 = 0;
+    *(v20 + 8) = 0;
+    *(v20 + 16) = Width;
+    *(v20 + 24) = Height;
+    v23 = sharedBluetoothSettingsLogComponent(Height);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = *(*(a1 + 40) + 1032);
-      v23 = *(*(a1 + 40) + 1040);
-      v32 = 134218240;
-      *v33 = v24;
-      *&v33[8] = 2048;
-      v34 = v23;
-      _os_log_impl(&dword_251143000, v22, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Frame Size  %f %f", &v32, 0x16u);
+      v25 = *(*(a1 + 40) + 1032);
+      v24 = *(*(a1 + 40) + 1040);
+      v34 = 134218240;
+      *v35 = v25;
+      *&v35[8] = 2048;
+      v36 = v24;
+      _os_log_impl(&dword_251143000, v23, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Frame Size  %f %f", &v34, 0x16u);
     }
 
-    v25 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v27 = sharedBluetoothSettingsLogComponent(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       if (*(*(a1 + 40) + 1128))
       {
-        v26 = @"YES";
+        v28 = @"YES";
       }
 
       else
       {
-        v26 = @"NO";
+        v28 = @"NO";
       }
 
-      v32 = 138412290;
-      *v33 = v26;
-      _os_log_impl(&dword_251143000, v25, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Checking enrollment viewer Spinner %@", &v32, 0xCu);
+      v34 = 138412290;
+      *v35 = v28;
+      _os_log_impl(&dword_251143000, v27, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Checking enrollment viewer Spinner %@", &v34, 0xCu);
     }
 
     *(*(a1 + 40) + 1206) = 1;
     if (*(*(a1 + 40) + 1128) == 1)
     {
-      v27 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v30 = sharedBluetoothSettingsLogComponent(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = *(a1 + 40);
-        v29 = *(v28 + 1206);
-        v30 = [*(v28 + 1280) available];
-        v32 = 67109376;
-        *v33 = v29;
-        *&v33[4] = 1024;
-        *&v33[6] = v30;
-        _os_log_impl(&dword_251143000, v27, OS_LOG_TYPE_DEFAULT, "Spatial Profile: didReceiveCaptureVideo -> stopWelcomeSpinner, _enrollmentReady %d [_btManager available] %d", &v32, 0xEu);
+        v31 = *(a1 + 40);
+        v32 = *(v31 + 1206);
+        v33 = [*(v31 + 1280) available];
+        v34 = 67109376;
+        *v35 = v32;
+        *&v35[4] = 1024;
+        *&v35[6] = v33;
+        _os_log_impl(&dword_251143000, v30, OS_LOG_TYPE_DEFAULT, "Spatial Profile: didReceiveCaptureVideo -> stopWelcomeSpinner, _enrollmentReady %d [_btManager available] %d", &v34, 0xEu);
       }
 
       [*(a1 + 40) stopWelcomeSpinner];
@@ -3024,18 +2985,16 @@ void __106__HPSSpatialProfileSingeStepEnrollmentController_didReceiveCaptureVide
 
   else
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __106__HPSSpatialProfileSingeStepEnrollmentController_didReceiveCaptureVideo_colorImage_depthImage_faceObject___block_invoke_cold_1();
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __106__HPSSpatialProfileSingeStepEnrollmentController_didReceiveCaptureVideo_colorImage_depthImage_faceObject___block_invoke_243(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = *(*(a1 + 40) + 1378);
@@ -3044,44 +3003,48 @@ void __106__HPSSpatialProfileSingeStepEnrollmentController_didReceiveCaptureVide
     v5 = [v3 dictionaryWithObject:v4 forKey:*MEMORY[0x277CBF700]];
 
     v6 = [*(*(a1 + 40) + 1392) featuresInImage:*(a1 + 32) options:v5];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
     if (!v7)
     {
       goto LABEL_12;
     }
 
     v8 = v7;
-    v24 = v2;
-    v25 = v5;
+    v23 = v2;
+    v24 = v5;
     v9 = 0;
     v10 = 0;
     v11 = 0;
-    v12 = *v27;
+    v12 = *v26;
     do
     {
-      for (i = 0; i != v8; ++i)
+      v13 = 0;
+      do
       {
-        if (*v27 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * i);
+        v14 = *(*(&v25 + 1) + 8 * v13);
         v11 |= [v14 hasLeftEyePosition];
         v10 |= [v14 hasRightEyePosition];
         v9 |= [v14 hasMouthPosition];
+        ++v13;
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      while (v8 != v13);
+      v7 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v8 = v7;
     }
 
-    while (v8);
-    v5 = v25;
-    v2 = v24;
+    while (v7);
+    v5 = v24;
+    v2 = v23;
     if (v11 & v10 & v9)
     {
       v15 = *(a1 + 40);
@@ -3101,7 +3064,7 @@ LABEL_12:
     *(*(a1 + 40) + 1378) = *(*(a1 + 40) + 1379) > 0x63u;
     if (v2 != *(*(a1 + 40) + 1378))
     {
-      v17 = sharedBluetoothSettingsLogComponent();
+      v17 = sharedBluetoothSettingsLogComponent(v7);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         v18 = *(a1 + 40);
@@ -3118,9 +3081,9 @@ LABEL_12:
         }
 
         *buf = 138412546;
-        v31 = v21;
-        v32 = 1024;
-        v33 = v20;
+        v30 = v21;
+        v31 = 1024;
+        v32 = v20;
         _os_log_impl(&dword_251143000, v17, OS_LOG_TYPE_DEFAULT, "Spatial Profile: 2 User attention status %@ Count %d", buf, 0x12u);
       }
 
@@ -3132,8 +3095,6 @@ LABEL_12:
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateCurrentTrackingEar:(id)ear rightEarPoseStatus:(id)status earBoundingBox:(CGRect)box earStatus:(int)earStatus
@@ -3142,29 +3103,29 @@ LABEL_12:
   width = box.size.width;
   y = box.origin.y;
   x = box.origin.x;
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   earCopy = ear;
   statusCopy = status;
-  v15 = sharedBluetoothSettingsLogComponent();
+  v15 = sharedBluetoothSettingsLogComponent(statusCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v46.origin.x = x;
-    v46.origin.y = y;
-    v46.size.width = width;
-    v46.size.height = height;
-    v16 = NSStringFromRect(v46);
+    v45.origin.x = x;
+    v45.origin.y = y;
+    v45.size.width = width;
+    v45.size.height = height;
+    v16 = NSStringFromRect(v45);
     earOcclusionDetectTracker = self->_earOcclusionDetectTracker;
-    v35 = 138413314;
-    v36 = earCopy;
-    v37 = 2112;
-    v38 = statusCopy;
-    v39 = 2112;
-    v40 = v16;
-    v41 = 1024;
+    v34 = 138413314;
+    v35 = earCopy;
+    v36 = 2112;
+    v37 = statusCopy;
+    v38 = 2112;
+    v39 = v16;
+    v40 = 1024;
     earStatusCopy = earStatus;
-    v43 = 2048;
-    v44 = earOcclusionDetectTracker;
-    _os_log_impl(&dword_251143000, v15, OS_LOG_TYPE_DEFAULT, "Spatial Profile: updateCurrentTrackingEar left:%@  right: %@  box: %@  status:%i tracker:%lu", &v35, 0x30u);
+    v42 = 2048;
+    v43 = earOcclusionDetectTracker;
+    _os_log_impl(&dword_251143000, v15, OS_LOG_TYPE_DEFAULT, "Spatial Profile: updateCurrentTrackingEar left:%@  right: %@  box: %@  status:%i tracker:%lu", &v34, 0x30u);
   }
 
   if (self->_currentStep >= 7)
@@ -3244,11 +3205,11 @@ LABEL_36:
       if (!self->_earTooFar)
       {
 LABEL_38:
-        v47.origin.x = x;
-        v47.origin.y = y;
-        v47.size.width = width;
-        v47.size.height = height;
-        v26 = CGRectEqualToRect(v47, *MEMORY[0x277CBF3A0]);
+        v46.origin.x = x;
+        v46.origin.y = y;
+        v46.size.width = width;
+        v46.size.height = height;
+        v26 = CGRectEqualToRect(v46, *MEMORY[0x277CBF3A0]);
         earBoundingBoxDetectTracker = self->_earBoundingBoxDetectTracker;
         if (v26)
         {
@@ -3281,7 +3242,7 @@ LABEL_38:
         self->_earBoundingBoxDetected = v29 != 0;
         if (isEarOccluded != self->_isEarOccluded)
         {
-          v30 = sharedBluetoothSettingsLogComponent();
+          v30 = sharedBluetoothSettingsLogComponent(v26);
           if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
             v31 = self->_earOcclusionDetectTracker;
@@ -3296,13 +3257,13 @@ LABEL_38:
               v33 = "NO";
             }
 
-            v35 = 136315650;
-            v36 = v33;
-            v37 = 2048;
-            v38 = v31;
-            v39 = 1024;
-            LODWORD(v40) = supressEarOcclusionWarning;
-            _os_log_impl(&dword_251143000, v30, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Ear Occlusion changed to %s current number of entries %lu UI supressed = %d", &v35, 0x1Cu);
+            v34 = 136315650;
+            v35 = v33;
+            v36 = 2048;
+            v37 = v31;
+            v38 = 1024;
+            LODWORD(v39) = supressEarOcclusionWarning;
+            _os_log_impl(&dword_251143000, v30, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Ear Occlusion changed to %s current number of entries %lu UI supressed = %d", &v34, 0x1Cu);
           }
         }
 
@@ -3355,8 +3316,29 @@ LABEL_24:
   }
 
 LABEL_52:
+}
 
-  v34 = *MEMORY[0x277D85DE8];
+- (void)translateEarBoundingBox:(CGRect)box previewLayerBoundingBox:(CGRect)boundingBox
+{
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __98__HPSSpatialProfileSingeStepEnrollmentController_translateEarBoundingBox_previewLayerBoundingBox___block_invoke;
+  block[3] = &unk_2796ADE98;
+  block[4] = self;
+  v4.f64[0] = boundingBox.size.width;
+  v4.f64[1] = boundingBox.size.height;
+  _Q7 = vcvtq_f64_f32(vcvt_f32_f64(vdivq_f64(v4, self->_visageFrame.size)));
+  height = box.size.height;
+  v7 = vcvt_f32_f64(vmulq_f64(vcvtq_f64_f32(vcvt_f32_f64(vmulq_f64(box.size, _Q7))), xmmword_251217C60));
+  v8 = (0.5 * v7.f32[0]) + _Q7.f64[0] * box.origin.x;
+  __asm { FMLA            D3, D1, V7.D[1] }
+
+  v14.f64[0] = boundingBox.size.width - v8;
+  v14.f64[1] = _D3;
+  y = boundingBox.origin.y;
+  block[5] = v7;
+  block[6] = vcvt_f32_f64(vaddq_f64(boundingBox.origin, vcvtq_f64_f32(vcvt_f32_f64(v14))));
+  dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
 uint64_t __98__HPSSpatialProfileSingeStepEnrollmentController_translateEarBoundingBox_previewLayerBoundingBox___block_invoke(uint64_t a1)
@@ -3382,21 +3364,22 @@ uint64_t __98__HPSSpatialProfileSingeStepEnrollmentController_translateEarBoundi
 
 - (void)updateBoundingBoxHiddenStatus
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   isHidden = [(CEKSubjectIndicatorView *)self->_earBoundingBoxView isHidden];
   if (self->_currentStep == 7)
   {
     if (isHidden != self->_earBoundingBoxDetected)
     {
-      goto LABEL_13;
+      return;
     }
 
     if (self->_earBoundingBoxDetected)
     {
       [(CEKSubjectIndicatorView *)self->_earBoundingBoxView bounds];
-      if (CGRectEqualToRect(v13, *MEMORY[0x277CBF3A0]))
+      isHidden = CGRectEqualToRect(v12, *MEMORY[0x277CBF3A0]);
+      if (isHidden)
       {
-        goto LABEL_13;
+        return;
       }
 
       v4 = 0;
@@ -3406,12 +3389,12 @@ uint64_t __98__HPSSpatialProfileSingeStepEnrollmentController_translateEarBoundi
 
   else if (isHidden)
   {
-    goto LABEL_13;
+    return;
   }
 
   v4 = 1;
 LABEL_8:
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent(isHidden);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"Showing";
@@ -3421,19 +3404,17 @@ LABEL_8:
     }
 
     *buf = 138412290;
-    v11 = v6;
+    v10 = v6;
     _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Bouding Box Updated : %@", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __79__HPSSpatialProfileSingeStepEnrollmentController_updateBoundingBoxHiddenStatus__block_invoke;
-  v8[3] = &unk_2796ADEC0;
-  v8[4] = self;
-  v9 = v4;
-  dispatch_async(MEMORY[0x277D85CD0], v8);
-LABEL_13:
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __79__HPSSpatialProfileSingeStepEnrollmentController_updateBoundingBoxHiddenStatus__block_invoke;
+  v7[3] = &unk_2796ADEC0;
+  v7[4] = self;
+  v8 = v4;
+  dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
 uint64_t __79__HPSSpatialProfileSingeStepEnrollmentController_updateBoundingBoxHiddenStatus__block_invoke(uint64_t a1)
@@ -3574,7 +3555,7 @@ void __69__HPSSpatialProfileSingeStepEnrollmentController_pulseEarBoundingBox__b
 
     if (productId >> 4 <= 0x200)
     {
-      v11 = 0;
+      v12 = 0;
       goto LABEL_15;
     }
   }
@@ -3586,18 +3567,18 @@ void __69__HPSSpatialProfileSingeStepEnrollmentController_pulseEarBoundingBox__b
   if (productId == 8239)
   {
     0x2000 = @"ACCESSORY_MODEL_NAME_180";
-    v11 = 1;
+    v12 = 1;
   }
 
   else if (productId == 8223)
   {
-    v11 = 0;
+    v12 = 0;
     0x2000 = @"ACCESSORY_MODEL_NAME_10";
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
     if (productId == 8210)
     {
       0x2000 = @"ACCESSORY_MODEL_NAME_18";
@@ -3610,115 +3591,116 @@ void __69__HPSSpatialProfileSingeStepEnrollmentController_pulseEarBoundingBox__b
   }
 
 LABEL_15:
-  v12 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sharedBluetoothSettingsLogComponent(v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     classicDevice2 = [upCopy classicDevice];
     name = [classicDevice2 name];
     *buf = 138412290;
     v36 = name;
-    _os_log_impl(&dword_251143000, v12, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Device %@, bud in ear", buf, 0xCu);
+    _os_log_impl(&dword_251143000, v13, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Device %@, bud in ear", buf, 0xCu);
   }
 
   uppercaseString = [MGGetStringAnswer() uppercaseString];
-  v16 = [@"SPATIAL_AUDIO_PROFILE_IED_WARN_" stringByAppendingFormat:@"%@_%@", uppercaseString, 0x2000];
+  v17 = [@"SPATIAL_AUDIO_PROFILE_IED_WARN_" stringByAppendingFormat:@"%@_%@", uppercaseString, 0x2000];
 
-  v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v18 = [v17 localizedStringForKey:v16 value:&stru_286339F58 table:@"SpatialAudioProfile"];
+  v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v19 = [v18 localizedStringForKey:v17 value:&stru_286339F58 table:@"SpatialAudioProfile"];
 
   switch(productId)
   {
     case 0x2025u:
-      v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v20 = v19;
-      v21 = @"SPATIAL_AUDIO_PROFILE_IED_WARN_IPHONE_ACCESSORY_MODEL_NAME_24";
-      v22 = @"DeviceConfig-B465";
+      v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v21 = v20;
+      v22 = @"SPATIAL_AUDIO_PROFILE_IED_WARN_IPHONE_ACCESSORY_MODEL_NAME_24";
+      v23 = @"DeviceConfig-B465";
       break;
     case 0x201Du:
-      v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v20 = v19;
-      v21 = @"SPATIAL_AUDIO_PROFILE_IED_WARN_IPHONE_ACCESSORY_MODEL_NAME_42";
-      v22 = @"DeviceConfig-B498-v2";
+      v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v21 = v20;
+      v22 = @"SPATIAL_AUDIO_PROFILE_IED_WARN_IPHONE_ACCESSORY_MODEL_NAME_42";
+      v23 = @"DeviceConfig-B498-v2";
       break;
     case 0x2017u:
-      v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v20 = v19;
-      v21 = @"SPATIAL_AUDIO_PROFILE_IED_WARN_IPHONE_ACCESSORY_MODEL_NAME_23";
-      v22 = @"DeviceConfig-B453";
+      v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v21 = v20;
+      v22 = @"SPATIAL_AUDIO_PROFILE_IED_WARN_IPHONE_ACCESSORY_MODEL_NAME_23";
+      v23 = @"DeviceConfig-B453";
       break;
     default:
       goto LABEL_24;
   }
 
-  v23 = [v19 localizedStringForKey:v21 value:&stru_286339F58 table:v22];
+  v24 = [v20 localizedStringForKey:v22 value:&stru_286339F58 table:v23];
 
-  v18 = v23;
+  v19 = v24;
 LABEL_24:
-  if (v11)
+  if (v12)
   {
-    v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v25 = [v24 localizedStringForKey:@"SPATIAL_AUDIO_PROFILE_IED_WARN_IPHONE_ACCESSORY_MODEL_NAME_180" value:&stru_286339F58 table:@"DeviceConfig-B494b"];
+    v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v26 = [v25 localizedStringForKey:@"SPATIAL_AUDIO_PROFILE_IED_WARN_IPHONE_ACCESSORY_MODEL_NAME_180" value:&stru_286339F58 table:@"DeviceConfig-B494b"];
 
-    v18 = v25;
+    v19 = v26;
   }
 
-  v26 = MEMORY[0x277D75110];
-  v27 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v28 = [v27 localizedStringForKey:@"SPATIAL_AUDIO_PROFILE_IN_EAR_TEXT" value:&stru_286339F58 table:@"SpatialAudioProfile"];
-  v29 = [v26 alertControllerWithTitle:v18 message:v28 preferredStyle:1];
+  v27 = MEMORY[0x277D75110];
+  v28 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v29 = [v28 localizedStringForKey:@"SPATIAL_AUDIO_PROFILE_IN_EAR_TEXT" value:&stru_286339F58 table:@"SpatialAudioProfile"];
+  v30 = [v27 alertControllerWithTitle:v19 message:v29 preferredStyle:1];
 
-  v30 = MEMORY[0x277D750F8];
-  v31 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v32 = [v31 localizedStringForKey:@"OK" value:&stru_286339F58 table:@"SpatialAudioProfile"];
-  v33 = [v30 actionWithTitle:v32 style:0 handler:&__block_literal_global_266];
-  [v29 addAction:v33];
+  v31 = MEMORY[0x277D750F8];
+  v32 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v33 = [v32 localizedStringForKey:@"OK" value:&stru_286339F58 table:@"SpatialAudioProfile"];
+  v34 = [v31 actionWithTitle:v33 style:0 handler:&__block_literal_global_266];
+  [v30 addAction:v34];
 
-  [(HPSSpatialProfileSingeStepEnrollmentController *)self presentViewController:v29 animated:1 completion:0];
-  v34 = *MEMORY[0x277D85DE8];
+  [(HPSSpatialProfileSingeStepEnrollmentController *)self presentViewController:v30 animated:1 completion:0];
 }
 
 - (BOOL)checkAndShowInEarPopup
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   [(BluetoothManager *)self->_btManager connectedDevices];
-  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v3 = v24 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v24 = 0u;
+  v3 = v25 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v4)
   {
     v5 = v4;
     selfCopy = self;
-    v6 = *v22;
+    v6 = *v23;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v22 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v21 + 1) + 8 * i);
+        v8 = *(*(&v22 + 1) + 8 * i);
         if (+[HPSProductUtils isAppleHeadphone:](HPSProductUtils, "isAppleHeadphone:", v8, selfCopy) && ([v8 isTemporaryPaired] & 1) == 0)
         {
-          if ([v8 isGenuineAirPods])
+          isGenuineAirPods = [v8 isGenuineAirPods];
+          if (isGenuineAirPods)
           {
-            v9 = [BTSDeviceClassic deviceWithDevice:v8];
-            if ([v8 inEarDetectEnabled])
+            v10 = [BTSDeviceClassic deviceWithDevice:v8];
+            inEarDetectEnabled = [v8 inEarDetectEnabled];
+            if (inEarDetectEnabled)
             {
-              if (v9)
+              if (v10)
               {
-                v17 = 3;
+                v18 = 3;
                 *buf = 3;
-                classicDevice = [v9 classicDevice];
-                [classicDevice inEarStatusPrimary:buf secondary:&v17];
+                classicDevice = [v10 classicDevice];
+                [classicDevice inEarStatusPrimary:buf secondary:&v18];
 
-                if (!*buf || !v17)
+                if (!*buf || !v18)
                 {
-                  [(HPSSpatialProfileSingeStepEnrollmentController *)selfCopy showBudsInEarPopUp:v9];
-                  v12 = 1;
+                  [(HPSSpatialProfileSingeStepEnrollmentController *)selfCopy showBudsInEarPopUp:v10];
+                  v14 = 1;
 LABEL_27:
 
                   goto LABEL_28;
@@ -3728,23 +3710,23 @@ LABEL_27:
 
             else
             {
-              v11 = sharedBluetoothSettingsLogComponent();
-              if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+              v13 = sharedBluetoothSettingsLogComponent(inEarDetectEnabled);
+              if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_251143000, v11, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Please enable the Automatic Ear Detection in Bluetooth Settings", buf, 2u);
+                _os_log_impl(&dword_251143000, v13, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Please enable the Automatic Ear Detection in Bluetooth Settings", buf, 2u);
               }
 
-              if (v9)
+              if (v10)
               {
                 inEarDetectDisabledPopUpShown = selfCopy->_inEarDetectDisabledPopUpShown;
                 if (!inEarDetectDisabledPopUpShown)
                 {
                   selfCopy->_inEarDetectDisabledPopUpShown = 1;
-                  [(HPSSpatialProfileSingeStepEnrollmentController *)selfCopy showBudsInEarPopUp:v9];
+                  [(HPSSpatialProfileSingeStepEnrollmentController *)selfCopy showBudsInEarPopUp:v10];
                 }
 
-                v12 = !inEarDetectDisabledPopUpShown;
+                v14 = !inEarDetectDisabledPopUpShown;
                 goto LABEL_27;
               }
             }
@@ -3752,16 +3734,16 @@ LABEL_27:
 
           else
           {
-            v9 = sharedBluetoothSettingsLogComponent();
-            if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+            v10 = sharedBluetoothSettingsLogComponent(isGenuineAirPods);
+            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
             {
-              [(HPSSpatialProfileSingeStepEnrollmentController *)&v19 getBudsInEarString];
+              [(HPSSpatialProfileSingeStepEnrollmentController *)&v20 getBudsInEarString];
             }
           }
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v5)
       {
         continue;
@@ -3771,16 +3753,15 @@ LABEL_27:
     }
   }
 
-  v12 = 0;
+  v14 = 0;
 LABEL_28:
 
-  v14 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v14;
 }
 
 - (void)showLandscapeAlert
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3865,7 +3846,7 @@ LABEL_28:
 
 - (void)startWelcomeSpinner
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -3888,26 +3869,27 @@ LABEL_28:
 
 - (void)stopWelcomeSpinner
 {
-  v15 = *MEMORY[0x277D85DE8];
-  if (!self->_enrollmentReady || ![(BluetoothManager *)self->_btManager available])
+  selfCopy = self;
+  v14 = *MEMORY[0x277D85DE8];
+  if (!self->_enrollmentReady || (self = [(BluetoothManager *)self->_btManager available], !self))
   {
-    v5 = sharedBluetoothSettingsLogComponent();
+    v5 = sharedBluetoothSettingsLogComponent(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      enrollmentReady = self->_enrollmentReady;
-      available = [(BluetoothManager *)self->_btManager available];
-      v12[0] = 67109376;
-      v12[1] = enrollmentReady;
-      v13 = 1024;
-      v14 = available;
-      _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Spatial Profile: stopWelcomeSpinner failed _enrollmentReady %d [_btManager available] %d", v12, 0xEu);
+      enrollmentReady = selfCopy->_enrollmentReady;
+      available = [(BluetoothManager *)selfCopy->_btManager available];
+      v11[0] = 67109376;
+      v11[1] = enrollmentReady;
+      v12 = 1024;
+      v13 = available;
+      _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Spatial Profile: stopWelcomeSpinner failed _enrollmentReady %d [_btManager available] %d", v11, 0xEu);
     }
 
     goto LABEL_11;
   }
 
-  welcomeSpinnerOn = self->_welcomeSpinnerOn;
-  v4 = sharedBluetoothSettingsLogComponent();
+  welcomeSpinnerOn = selfCopy->_welcomeSpinnerOn;
+  v4 = sharedBluetoothSettingsLogComponent(self);
   v5 = v4;
   if (!welcomeSpinnerOn)
   {
@@ -3918,32 +3900,30 @@ LABEL_28:
 
 LABEL_11:
 
-    goto LABEL_12;
+    return;
   }
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v12[0]) = 0;
-    _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Stop Welcome Spinner", v12, 2u);
+    LOWORD(v11[0]) = 0;
+    _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Stop Welcome Spinner", v11, 2u);
   }
 
-  self->_welcomeSpinnerOn = 0;
-  continueButton = [(HPSSpatialProfileSingleStepBottomContainer *)self->_bottomContainerView continueButton];
+  selfCopy->_welcomeSpinnerOn = 0;
+  continueButton = [(HPSSpatialProfileSingleStepBottomContainer *)selfCopy->_bottomContainerView continueButton];
   titleLabel = [continueButton titleLabel];
   [titleLabel setHidden:0];
 
-  continueButton2 = [(HPSSpatialProfileSingleStepBottomContainer *)self->_bottomContainerView continueButton];
+  continueButton2 = [(HPSSpatialProfileSingleStepBottomContainer *)selfCopy->_bottomContainerView continueButton];
   [continueButton2 setUserInteractionEnabled:1];
 
-  [(HPSSpatialProfileSingeStepEnrollmentController *)self cleanUpSpinner];
-  [(HPSSpatialProfileSingeStepEnrollmentController *)self continueButtonTapped];
-LABEL_12:
-  v11 = *MEMORY[0x277D85DE8];
+  [(HPSSpatialProfileSingeStepEnrollmentController *)selfCopy cleanUpSpinner];
+  [(HPSSpatialProfileSingeStepEnrollmentController *)selfCopy continueButtonTapped];
 }
 
 - (void)startPostProcessSpinner
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v14 = 0;
@@ -3979,7 +3959,7 @@ LABEL_12:
 - (void)stopPostProcessSpinner
 {
   postProcessSpinnerOn = self->_postProcessSpinnerOn;
-  v4 = sharedBluetoothSettingsLogComponent();
+  v4 = sharedBluetoothSettingsLogComponent(self);
   v5 = v4;
   if (postProcessSpinnerOn)
   {
@@ -4019,7 +3999,7 @@ LABEL_12:
   width = status.size.width;
   y = status.origin.y;
   x = status.origin.x;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   faceBoundingBoxStatus = self->_faceBoundingBoxStatus;
   v9 = self->_visageFrame.size.height;
   v10 = status.size.width / self->_visageFrame.size.width;
@@ -4027,7 +4007,7 @@ LABEL_12:
   {
     if (v10 >= 0.45)
     {
-      goto LABEL_10;
+      return;
     }
 
     v11 = 5;
@@ -4037,39 +4017,36 @@ LABEL_12:
   {
     if (faceBoundingBoxStatus != 5 || v10 <= 0.55)
     {
-      goto LABEL_10;
+      return;
     }
 
     v11 = 1;
   }
 
   self->_faceBoundingBoxStatus = v11;
-  v12 = sharedBluetoothSettingsLogComponent();
+  v12 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = height / v9;
     v14 = self->_faceBoundingBoxStatus;
-    v16[0] = 67110912;
-    v16[1] = faceBoundingBoxStatus;
-    v17 = 1024;
-    v18 = v14;
-    v19 = 2048;
-    v20 = (v10 * 100.0);
-    v21 = 2048;
-    v22 = (v13 * 100.0);
-    v23 = 2048;
-    v24 = width;
-    v25 = 2048;
-    v26 = height;
-    v27 = 2048;
-    v28 = x;
-    v29 = 2048;
-    v30 = y;
-    _os_log_impl(&dword_251143000, v12, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Face Status changed from %d -> %d Status Ratio [ %f %f ] Face BB [ %f %f , %f %f]", v16, 0x4Au);
+    v15[0] = 67110912;
+    v15[1] = faceBoundingBoxStatus;
+    v16 = 1024;
+    v17 = v14;
+    v18 = 2048;
+    v19 = (v10 * 100.0);
+    v20 = 2048;
+    v21 = (v13 * 100.0);
+    v22 = 2048;
+    v23 = width;
+    v24 = 2048;
+    v25 = height;
+    v26 = 2048;
+    v27 = x;
+    v28 = 2048;
+    v29 = y;
+    _os_log_impl(&dword_251143000, v12, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Face Status changed from %d -> %d Status Ratio [ %f %f ] Face BB [ %f %f , %f %f]", v15, 0x4Au);
   }
-
-LABEL_10:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelBlur
@@ -4099,8 +4076,7 @@ LABEL_10:
   bundleIdentifier = [mainBundle bundleIdentifier];
   v7 = [v4 initWithIdentifier:@"com.apple.HeadphoneSettings.spatial-profile-enrollment-triggered" bundleID:bundleIdentifier context:0];
 
-  [source sendEvent:v7];
-  v8 = sharedBluetoothSettingsLogComponent();
+  v8 = sharedBluetoothSettingsLogComponent([source sendEvent:v7]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -4110,11 +4086,10 @@ LABEL_10:
 
 void __61__HPSSpatialProfileSingeStepEnrollmentController_syncProfile__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_251143000, a2, OS_LOG_TYPE_ERROR, "Spatial Profile: Profile NOT Synced, Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_251143000, a2, OS_LOG_TYPE_ERROR, "Spatial Profile: Profile NOT Synced, Error: %@", &v2, 0xCu);
 }
 
 - (void)getBudsInEarString
@@ -4126,12 +4101,10 @@ void __61__HPSSpatialProfileSingeStepEnrollmentController_syncProfile__block_inv
 
 - (void)didReceiveStateUpdateForSession:(void *)a1 stateInfo:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

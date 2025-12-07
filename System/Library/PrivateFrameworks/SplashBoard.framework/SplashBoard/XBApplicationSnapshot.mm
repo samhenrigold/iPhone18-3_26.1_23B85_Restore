@@ -147,12 +147,12 @@
 
 - (BOOL)fileExists
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   path = [(XBApplicationSnapshot *)self path];
   if (!path)
   {
 LABEL_7:
-    v6 = 0;
+    v7 = 0;
     goto LABEL_8;
   }
 
@@ -161,24 +161,24 @@ LABEL_7:
 
   if ((v5 & 1) == 0)
   {
-    v7 = XBLogSnapshot();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = XBLogSnapshot(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       logIdentifier = [(XBApplicationSnapshot *)self logIdentifier];
-      v10 = 138543618;
-      v11 = logIdentifier;
-      v12 = 2114;
-      v13 = path;
-      _os_log_impl(&dword_26B5EF000, v7, OS_LOG_TYPE_INFO, "%{public}@ we have a path but it doesn't exist: %{public}@", &v10, 0x16u);
+      v11 = 138543618;
+      v12 = logIdentifier;
+      v13 = 2114;
+      v14 = path;
+      _os_log_impl(&dword_26B5EF000, v8, OS_LOG_TYPE_INFO, "%{public}@ we have a path but it doesn't exist: %{public}@", &v11, 0x16u);
     }
 
     goto LABEL_7;
   }
 
-  v6 = 1;
+  v7 = 1;
 LABEL_8:
 
-  return v6;
+  return v7;
 }
 
 - (NSString)path
@@ -202,7 +202,7 @@ LABEL_8:
 
   else
   {
-    v4 = FAKE_NIL_PTR();
+    v4 = FAKE_NIL_PTR(0);
   }
 
   v5 = v4;
@@ -221,7 +221,7 @@ LABEL_8:
 
   else
   {
-    v4 = FAKE_NIL_PTR();
+    v4 = FAKE_NIL_PTR(0);
   }
 
   v5 = v4;
@@ -273,8 +273,12 @@ LABEL_8:
 {
   OUTLINED_FUNCTION_4_0();
   logIdentifier = [v1 logIdentifier];
-  v9 = [v0 description];
-  OUTLINED_FUNCTION_5(&dword_26B5EF000, v3, v4, "Loading image failed file load for %{public}@ : %{public}@", v5, v6, v7, v8, 2u);
+  v3 = [v0 description];
+  *v10 = 138543618;
+  *&v10[4] = logIdentifier;
+  *&v10[12] = 2114;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_5(&dword_26B5EF000, v4, v5, "Loading image failed file load for %{public}@ : %{public}@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 - (void)clearImageGenerator
@@ -419,7 +423,7 @@ LABEL_8:
 
   else
   {
-    v4 = FAKE_NIL_PTR();
+    v4 = FAKE_NIL_PTR(0);
   }
 
   v5 = v4;
@@ -691,35 +695,35 @@ uint64_t __33__XBApplicationSnapshot_isEqual___block_invoke_3(uint64_t a1)
 
 - (void)setExpirationDate:(id)date
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v7 = objc_sync_enter(selfCopy);
   if (selfCopy->_expirationDate != dateCopy)
   {
     if (dateCopy)
     {
-      v7 = XBLogSnapshot();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = XBLogSnapshot(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         logIdentifier = [(XBApplicationSnapshot *)selfCopy logIdentifier];
-        v10 = 138543618;
-        v11 = logIdentifier;
-        v12 = 2114;
-        v13 = dateCopy;
-        _os_log_impl(&dword_26B5EF000, v7, OS_LOG_TYPE_INFO, "%{public}@ Set expiration date to %{public}@", &v10, 0x16u);
+        v11 = 138543618;
+        v12 = logIdentifier;
+        v13 = 2114;
+        v14 = dateCopy;
+        _os_log_impl(&dword_26B5EF000, v8, OS_LOG_TYPE_INFO, "%{public}@ Set expiration date to %{public}@", &v11, 0x16u);
       }
     }
 
     else
     {
-      v7 = XBLogSnapshot();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = XBLogSnapshot(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         logIdentifier2 = [(XBApplicationSnapshot *)selfCopy logIdentifier];
-        v10 = 138543362;
-        v11 = logIdentifier2;
-        _os_log_impl(&dword_26B5EF000, v7, OS_LOG_TYPE_INFO, "%{public}@ Clearing expiration date", &v10, 0xCu);
+        v11 = 138543362;
+        v12 = logIdentifier2;
+        _os_log_impl(&dword_26B5EF000, v8, OS_LOG_TYPE_INFO, "%{public}@ Clearing expiration date", &v11, 0xCu);
       }
     }
 
@@ -754,7 +758,7 @@ uint64_t __33__XBApplicationSnapshot_isEqual___block_invoke_3(uint64_t a1)
 
   else
   {
-    v8 = XBLogSnapshot();
+    v8 = XBLogSnapshot(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       logIdentifier = [(XBApplicationSnapshot *)self logIdentifier];
@@ -775,26 +779,27 @@ uint64_t __33__XBApplicationSnapshot_isEqual___block_invoke_3(uint64_t a1)
 
 - (void)_setPath:(id)path
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  if (![(NSString *)selfCopy->_path isEqualToString:pathCopy])
+  v6 = [(NSString *)selfCopy->_path isEqualToString:pathCopy];
+  if ((v6 & 1) == 0)
   {
-    v6 = XBLogSnapshot();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = XBLogSnapshot(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       logIdentifier = [(XBApplicationSnapshot *)selfCopy logIdentifier];
-      v10 = 138543618;
-      v11 = logIdentifier;
-      v12 = 2114;
-      v13 = pathCopy;
-      _os_log_impl(&dword_26B5EF000, v6, OS_LOG_TYPE_INFO, "%{public}@ Sanitizing new path before set %{public}@", &v10, 0x16u);
+      v11 = 138543618;
+      v12 = logIdentifier;
+      v13 = 2114;
+      v14 = pathCopy;
+      _os_log_impl(&dword_26B5EF000, v7, OS_LOG_TYPE_INFO, "%{public}@ Sanitizing new path before set %{public}@", &v11, 0x16u);
     }
 
-    v8 = [(XBApplicationSnapshot *)selfCopy _sanitizedPathForPath:pathCopy];
+    v9 = [(XBApplicationSnapshot *)selfCopy _sanitizedPathForPath:pathCopy];
     path = selfCopy->_path;
-    selfCopy->_path = v8;
+    selfCopy->_path = v9;
   }
 
   objc_sync_exit(selfCopy);
@@ -802,26 +807,27 @@ uint64_t __33__XBApplicationSnapshot_isEqual___block_invoke_3(uint64_t a1)
 
 - (void)_setRelativePath:(id)path
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  if (![(NSString *)selfCopy->_relativePath isEqualToString:pathCopy])
+  v6 = [(NSString *)selfCopy->_relativePath isEqualToString:pathCopy];
+  if ((v6 & 1) == 0)
   {
-    v6 = XBLogSnapshot();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = XBLogSnapshot(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       logIdentifier = [(XBApplicationSnapshot *)selfCopy logIdentifier];
-      v10 = 138543618;
-      v11 = logIdentifier;
-      v12 = 2114;
-      v13 = pathCopy;
-      _os_log_impl(&dword_26B5EF000, v6, OS_LOG_TYPE_INFO, "%{public}@ Sanitizing new relativePath before set %{public}@", &v10, 0x16u);
+      v11 = 138543618;
+      v12 = logIdentifier;
+      v13 = 2114;
+      v14 = pathCopy;
+      _os_log_impl(&dword_26B5EF000, v7, OS_LOG_TYPE_INFO, "%{public}@ Sanitizing new relativePath before set %{public}@", &v11, 0x16u);
     }
 
-    v8 = [(XBApplicationSnapshot *)selfCopy _sanitizedPathForPath:pathCopy];
+    v9 = [(XBApplicationSnapshot *)selfCopy _sanitizedPathForPath:pathCopy];
     relativePath = selfCopy->_relativePath;
-    selfCopy->_relativePath = v8;
+    selfCopy->_relativePath = v9;
   }
 
   objc_sync_exit(selfCopy);
@@ -959,41 +965,41 @@ uint64_t __33__XBApplicationSnapshot_isEqual___block_invoke_3(uint64_t a1)
 - (void)_locked_loadImageViaGenerationContext:(id)context options:(unint64_t)options
 {
   optionsCopy = options;
-  v29 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   os_unfair_lock_assert_owner(&self->_loadImageLock);
-  v7 = XBLogSnapshot();
-  if (os_signpost_enabled(v7))
+  v8 = XBLogSnapshot(v7);
+  if (os_signpost_enabled(v8))
   {
     containerIdentity = [(XBApplicationSnapshot *)self containerIdentity];
     bundleIdentifier = [containerIdentity bundleIdentifier];
     *buf = 138543618;
-    v26 = bundleIdentifier;
-    v27 = 2114;
-    v28 = @"generationContext";
-    _os_signpost_emit_with_name_impl(&dword_26B5EF000, v7, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SnapshotImageLoading", "BundleIdOverride=%{public, signpost.description:attribute}@ imageSource=%{public, signpost.telemetry:string2}@ enableTelemetry=YES ", buf, 0x16u);
+    v30 = bundleIdentifier;
+    v31 = 2114;
+    v32 = @"generationContext";
+    _os_signpost_emit_with_name_impl(&dword_26B5EF000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SnapshotImageLoading", "BundleIdOverride=%{public, signpost.description:attribute}@ imageSource=%{public, signpost.telemetry:string2}@ enableTelemetry=YES ", buf, 0x16u);
   }
 
-  v10 = +[XBLaunchImageProvider sharedInstance];
-  v24 = 0;
-  v11 = [v10 createLaunchImageGeneratorWithContext:contextCopy asyncImageData:optionsCopy & 1 error:&v24];
-  v12 = v24;
+  v11 = +[XBLaunchImageProvider sharedInstance];
+  v28 = 0;
+  v12 = [v11 createLaunchImageGeneratorWithContext:contextCopy asyncImageData:optionsCopy & 1 error:&v28];
+  v13 = v28;
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  if (v11)
+  if (v12)
   {
     [(XBApplicationSnapshot *)selfCopy setExpirationDate:0];
     objc_sync_exit(selfCopy);
 
-    v14 = XBLogCapture();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v16 = XBLogCapture(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       [XBApplicationSnapshot _locked_loadImageViaGenerationContext:selfCopy options:?];
     }
 
-    (v11)[2](v11, selfCopy);
-    p_super = XBLogCapture();
+    v17 = (v12)[2](v12, selfCopy);
+    p_super = XBLogCapture(v17);
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEBUG))
     {
       [XBApplicationSnapshot _locked_loadImageViaGenerationContext:selfCopy options:?];
@@ -1012,59 +1018,60 @@ uint64_t __33__XBApplicationSnapshot_isEqual___block_invoke_3(uint64_t a1)
     p_super = &selfCopy->super;
   }
 
-  v18 = selfCopy;
-  objc_sync_enter(v18);
-  v19 = v18->_generationContext;
-  v18->_generationContext = 0;
+  v21 = selfCopy;
+  objc_sync_enter(v21);
+  v22 = v21->_generationContext;
+  v21->_generationContext = 0;
 
-  [(XBApplicationSnapshot *)v18 clearImageGenerator];
-  objc_sync_exit(v18);
+  [(XBApplicationSnapshot *)v21 clearImageGenerator];
+  objc_sync_exit(v21);
 
-  if (v12 && ([v12 domain], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "isEqualToString:", @"XBLaunchStoryboardErrorDomain"), v20, v21))
+  if (v13 && ([v13 domain], v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "isEqualToString:", @"XBLaunchStoryboardErrorDomain"), v24, v25))
   {
-    code = [v12 code];
+    code = [v13 code];
+    v26 = code;
   }
 
   else
   {
-    code = 0;
+    v26 = 0;
   }
 
-  v23 = XBLogSnapshot();
-  if (os_signpost_enabled(v23))
+  v27 = XBLogSnapshot(code);
+  if (os_signpost_enabled(v27))
   {
     *buf = 134349056;
-    v26 = code;
-    _os_signpost_emit_with_name_impl(&dword_26B5EF000, v23, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SnapshotImageLoading", "error=%{public, signpost.telemetry:number1}zu enableTelemetry=YES ", buf, 0xCu);
+    v30 = v26;
+    _os_signpost_emit_with_name_impl(&dword_26B5EF000, v27, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SnapshotImageLoading", "error=%{public, signpost.telemetry:number1}zu enableTelemetry=YES ", buf, 0xCu);
   }
 }
 
 - (void)_locked_loadImageViaGeneratorFunction:(id)function
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   functionCopy = function;
   os_unfair_lock_assert_owner(&self->_loadImageLock);
-  v5 = XBLogSnapshot();
-  if (os_signpost_enabled(v5))
+  v6 = XBLogSnapshot(v5);
+  if (os_signpost_enabled(v6))
   {
     containerIdentity = [(XBApplicationSnapshot *)self containerIdentity];
     bundleIdentifier = [containerIdentity bundleIdentifier];
-    v13 = 138543618;
-    v14 = bundleIdentifier;
-    v15 = 2114;
-    v16 = @"generatorFunction";
-    _os_signpost_emit_with_name_impl(&dword_26B5EF000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SnapshotImageLoading", "BundleIdOverride=%{public, signpost.description:attribute}@ imageSource=%{public, signpost.telemetry:string2}@ enableTelemetry=YES ", &v13, 0x16u);
+    v17 = 138543618;
+    v18 = bundleIdentifier;
+    v19 = 2114;
+    v20 = @"generatorFunction";
+    _os_signpost_emit_with_name_impl(&dword_26B5EF000, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SnapshotImageLoading", "BundleIdOverride=%{public, signpost.description:attribute}@ imageSource=%{public, signpost.telemetry:string2}@ enableTelemetry=YES ", &v17, 0x16u);
   }
 
-  v8 = XBLogCapture();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v10 = XBLogCapture(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [XBApplicationSnapshot _locked_loadImageViaGeneratorFunction:?];
   }
 
-  functionCopy[2](functionCopy, self);
-  v9 = XBLogCapture();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v11 = functionCopy[2](functionCopy, self);
+  v12 = XBLogCapture(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [XBApplicationSnapshot _locked_loadImageViaGeneratorFunction:?];
   }
@@ -1077,12 +1084,12 @@ uint64_t __33__XBApplicationSnapshot_isEqual___block_invoke_3(uint64_t a1)
   [(XBApplicationSnapshot *)selfCopy clearImageGenerator];
   objc_sync_exit(selfCopy);
 
-  v12 = XBLogSnapshot();
-  if (os_signpost_enabled(v12))
+  v16 = XBLogSnapshot(v15);
+  if (os_signpost_enabled(v16))
   {
-    v13 = 134349056;
-    v14 = 0;
-    _os_signpost_emit_with_name_impl(&dword_26B5EF000, v12, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SnapshotImageLoading", "error=%{public, signpost.telemetry:number1}zu enableTelemetry=YES ", &v13, 0xCu);
+    v17 = 134349056;
+    v18 = 0;
+    _os_signpost_emit_with_name_impl(&dword_26B5EF000, v16, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SnapshotImageLoading", "error=%{public, signpost.telemetry:number1}zu enableTelemetry=YES ", &v17, 0xCu);
   }
 }
 
@@ -1215,18 +1222,19 @@ LABEL_6:
 - (void)_synchronized_evaluateImageAccessUntilExpirationEnablingIfNecessary:(BOOL)necessary
 {
   necessaryCopy = necessary;
-  v11 = *MEMORY[0x277D85DE8];
-  if ([(XBApplicationSnapshot *)self _synchronized_isExpired])
+  v12 = *MEMORY[0x277D85DE8];
+  _synchronized_isExpired = [(XBApplicationSnapshot *)self _synchronized_isExpired];
+  if (_synchronized_isExpired)
   {
     if (self->_keepImageAccessUntilExpiration)
     {
-      v5 = XBLogSnapshot();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v6 = XBLogSnapshot(_synchronized_isExpired);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         logIdentifier = [(XBApplicationSnapshot *)self logIdentifier];
-        v9 = 138543362;
-        v10 = logIdentifier;
-        _os_log_impl(&dword_26B5EF000, v5, OS_LOG_TYPE_INFO, "%{public}@ Dropping image access until expiration because the expiration has already occurred", &v9, 0xCu);
+        v10 = 138543362;
+        v11 = logIdentifier;
+        _os_log_impl(&dword_26B5EF000, v6, OS_LOG_TYPE_INFO, "%{public}@ Dropping image access until expiration because the expiration has already occurred", &v10, 0xCu);
       }
 
       self->_keepImageAccessUntilExpiration = 0;
@@ -1236,13 +1244,13 @@ LABEL_6:
 
   else if (necessaryCopy)
   {
-    v7 = XBLogSnapshot();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = XBLogSnapshot(_synchronized_isExpired);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       logIdentifier2 = [(XBApplicationSnapshot *)self logIdentifier];
-      v9 = 138543362;
-      v10 = logIdentifier2;
-      _os_log_impl(&dword_26B5EF000, v7, OS_LOG_TYPE_INFO, "%{public}@ Keeping image access on until expiration", &v9, 0xCu);
+      v10 = 138543362;
+      v11 = logIdentifier2;
+      _os_log_impl(&dword_26B5EF000, v8, OS_LOG_TYPE_INFO, "%{public}@ Keeping image access on until expiration", &v10, 0xCu);
     }
 
     self->_keepImageAccessUntilExpiration = 1;
@@ -1504,7 +1512,7 @@ LABEL_15:
 
 - (BOOL)_validateWithContainerIdentity:(id)identity
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   if (!identityCopy)
   {
@@ -1516,33 +1524,33 @@ LABEL_15:
 
   if ((v6 & 1) == 0)
   {
-    [(XBApplicationSnapshot *)self setContainerIdentity:identityCopy];
+    v7 = [(XBApplicationSnapshot *)self setContainerIdentity:identityCopy];
     self->_logContainerIdentifierDirty = 1;
   }
 
   if (self->_contentType == 1 && !self->_launchInterfaceIdentifier)
   {
-    v14 = XBLogFileManifest();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = XBLogFileManifest(v7);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       logIdentifier = [(XBApplicationSnapshot *)self logIdentifier];
       logIdentifier9 = logIdentifier;
       contentType = self->_contentType;
       if (contentType > 2)
       {
-        v18 = @"{!InvalidType!}";
+        v20 = @"{!InvalidType!}";
       }
 
       else
       {
-        v18 = off_279CF9730[contentType];
+        v20 = off_279CF9730[contentType];
       }
 
       *buf = 138543618;
-      v72 = logIdentifier;
-      v73 = 2114;
-      v74 = v18;
-      v22 = "%{public}@ we're invalid because we don't have a launchInterfaceIdentifier and our content type is: %{public}@";
+      v78 = logIdentifier;
+      v79 = 2114;
+      v80 = v20;
+      v24 = "%{public}@ we're invalid because we don't have a launchInterfaceIdentifier and our content type is: %{public}@";
       goto LABEL_55;
     }
   }
@@ -1551,64 +1559,64 @@ LABEL_15:
   {
     if (self->_path && !self->_relativePath)
     {
-      v7 = [XBApplicationSnapshot _determineRelativePathForPath:"_determineRelativePathForPath:location:" location:?];
-      [(XBApplicationSnapshot *)self _setRelativePath:v7];
+      v8 = [XBApplicationSnapshot _determineRelativePathForPath:"_determineRelativePathForPath:location:" location:?];
+      [(XBApplicationSnapshot *)self _setRelativePath:v8];
 
-      v8 = XBLogFileManifest();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v10 = XBLogFileManifest(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         logIdentifier2 = [(XBApplicationSnapshot *)self logIdentifier];
-        v10 = logIdentifier2;
+        v12 = logIdentifier2;
         relativePath = self->_relativePath;
         fileLocation = self->_fileLocation;
         if (fileLocation > 4)
         {
-          v13 = @"(unknown)";
+          v15 = @"(unknown)";
         }
 
         else
         {
-          v13 = off_279CF9748[fileLocation];
+          v15 = off_279CF9748[fileLocation];
         }
 
         *buf = 138543874;
-        v72 = logIdentifier2;
-        v73 = 2114;
-        v74 = relativePath;
-        v75 = 2114;
-        v76 = v13;
-        _os_log_impl(&dword_26B5EF000, v8, OS_LOG_TYPE_INFO, "%{public}@ Snapshot migrated snapshot path to %{public}@, relative to %{public}@", buf, 0x20u);
+        v78 = logIdentifier2;
+        v79 = 2114;
+        v80 = relativePath;
+        v81 = 2114;
+        v82 = v15;
+        _os_log_impl(&dword_26B5EF000, v10, OS_LOG_TYPE_INFO, "%{public}@ Snapshot migrated snapshot path to %{public}@, relative to %{public}@", buf, 0x20u);
       }
     }
 
     if (self->_relativePath)
     {
-      v14 = 0;
-      v19 = self->_fileLocation;
-      if (v19 <= 1)
+      v16 = 0;
+      v21 = self->_fileLocation;
+      if (v21 <= 1)
       {
-        if (!v19)
+        if (!v21)
         {
-          v28 = XBLogFileManifest();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+          v30 = XBLogFileManifest(v7);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
           {
             logIdentifier3 = [(XBApplicationSnapshot *)self logIdentifier];
-            v31 = self->_relativePath;
-            v30 = self->_fileLocation;
+            v33 = self->_relativePath;
+            v32 = self->_fileLocation;
             *buf = 138543874;
-            v72 = logIdentifier3;
-            v73 = 2048;
-            v74 = v30;
-            v75 = 2114;
-            v76 = v31;
-            _os_log_impl(&dword_26B5EF000, v28, OS_LOG_TYPE_INFO, "%{public}@ has fileLocation of %ld\nsetting to newPath: %{public}@", buf, 0x20u);
+            v78 = logIdentifier3;
+            v79 = 2048;
+            v80 = v32;
+            v81 = 2114;
+            v82 = v33;
+            _os_log_impl(&dword_26B5EF000, v30, OS_LOG_TYPE_INFO, "%{public}@ has fileLocation of %ld\nsetting to newPath: %{public}@", buf, 0x20u);
           }
 
-          v14 = self->_relativePath;
+          v16 = self->_relativePath;
           goto LABEL_39;
         }
 
-        if (v19 != 1)
+        if (v21 != 1)
         {
           goto LABEL_39;
         }
@@ -1618,7 +1626,7 @@ LABEL_15:
 
       else
       {
-        switch(v19)
+        switch(v21)
         {
           case 2:
             dataContainerPath = [identityCopy dataContainerPath];
@@ -1633,19 +1641,19 @@ LABEL_15:
 LABEL_39:
             if ((BSEqualStrings() & 1) == 0)
             {
-              [(XBApplicationSnapshot *)self _setPath:v14];
+              v34 = [(XBApplicationSnapshot *)self _setPath:v16];
               if (self->_path)
               {
-                v32 = XBLogFileManifest();
-                if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+                v35 = XBLogFileManifest(v34);
+                if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
                 {
                   logIdentifier4 = [(XBApplicationSnapshot *)self logIdentifier];
                   path = self->_path;
                   *buf = 138543618;
-                  v72 = logIdentifier4;
-                  v73 = 2114;
-                  v74 = path;
-                  _os_log_impl(&dword_26B5EF000, v32, OS_LOG_TYPE_INFO, "%{public}@ Snapshot rebuilt absolute path to: %{public}@", buf, 0x16u);
+                  v78 = logIdentifier4;
+                  v79 = 2114;
+                  v80 = path;
+                  _os_log_impl(&dword_26B5EF000, v35, OS_LOG_TYPE_INFO, "%{public}@ Snapshot rebuilt absolute path to: %{public}@", buf, 0x16u);
                 }
               }
             }
@@ -1654,9 +1662,9 @@ LABEL_39:
             if (!filename)
             {
               lastPathComponent = [(NSString *)self->_relativePath lastPathComponent];
-              v37 = [lastPathComponent copy];
-              v38 = self->_filename;
-              self->_filename = v37;
+              v40 = [lastPathComponent copy];
+              v41 = self->_filename;
+              self->_filename = v40;
 
               filename = self->_filename;
             }
@@ -1679,40 +1687,41 @@ LABEL_39:
 LABEL_64:
               if (self->_path)
               {
-                v69 = 0;
-                LODWORD(v44) = [(XBApplicationSnapshot *)self _shouldDeleteFileOnPurge:&v69];
-                v43 = v69;
-                if (!v44)
+                v75 = 0;
+                LODWORD(v48) = [(XBApplicationSnapshot *)self _shouldDeleteFileOnPurge:&v75];
+                v56 = v75;
+                v47 = v56;
+                if (!v48)
                 {
                   goto LABEL_78;
                 }
 
-                v52 = XBLogFileManifest();
-                if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+                v57 = XBLogFileManifest(v56);
+                if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
                 {
                   logIdentifier5 = [(XBApplicationSnapshot *)self logIdentifier];
-                  v54 = self->_path;
+                  v59 = self->_path;
                   *buf = 138543874;
-                  v72 = logIdentifier5;
-                  v73 = 2114;
-                  v74 = v43;
-                  v75 = 2114;
-                  v76 = v54;
-                  _os_log_impl(&dword_26B5EF000, v52, OS_LOG_TYPE_DEFAULT, "%{public}@ deleting file on purge because we're invalid.\n\tdeleteReason: %{public}@;\n\tpath: %{public}@", buf, 0x20u);
+                  v78 = logIdentifier5;
+                  v79 = 2114;
+                  v80 = v47;
+                  v81 = 2114;
+                  v82 = v59;
+                  _os_log_impl(&dword_26B5EF000, v57, OS_LOG_TYPE_DEFAULT, "%{public}@ deleting file on purge because we're invalid.\n\tdeleteReason: %{public}@;\n\tpath: %{public}@", buf, 0x20u);
                 }
 
                 defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-                v56 = self->_path;
-                v68 = 0;
-                v57 = [defaultManager removeItemAtPath:v56 error:&v68];
-                v44 = v68;
+                v61 = self->_path;
+                v74 = 0;
+                v62 = [defaultManager removeItemAtPath:v61 error:&v74];
+                v48 = v74;
 
-                if ((v57 & 1) == 0)
+                if ((v62 & 1) == 0)
                 {
-                  domain = [(__CFString *)v44 domain];
+                  domain = [(__CFString *)v48 domain];
                   if ([domain isEqualToString:*MEMORY[0x277CCA050]])
                   {
-                    code = [(__CFString *)v44 code];
+                    code = [(__CFString *)v48 code];
 
                     if (code == 4)
                     {
@@ -1724,83 +1733,83 @@ LABEL_64:
                   {
                   }
 
-                  v60 = XBLogFileManifest();
-                  if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+                  v66 = XBLogFileManifest(v65);
+                  if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
                   {
                     logIdentifier6 = [(XBApplicationSnapshot *)self logIdentifier];
-                    v64 = self->_path;
+                    v70 = self->_path;
                     *buf = 138543874;
-                    v72 = logIdentifier6;
-                    v73 = 2114;
-                    v74 = v64;
-                    v75 = 2114;
-                    v76 = v44;
-                    _os_log_error_impl(&dword_26B5EF000, v60, OS_LOG_TYPE_ERROR, "%{public}@ Error deleting file on purge at %{public}@: %{public}@", buf, 0x20u);
+                    v78 = logIdentifier6;
+                    v79 = 2114;
+                    v80 = v70;
+                    v81 = 2114;
+                    v82 = v48;
+                    _os_log_error_impl(&dword_26B5EF000, v66, OS_LOG_TYPE_ERROR, "%{public}@ Error deleting file on purge at %{public}@: %{public}@", buf, 0x20u);
                   }
                 }
 
 LABEL_77:
 
-                LOBYTE(v44) = 0;
+                LOBYTE(v48) = 0;
                 goto LABEL_78;
               }
 
 LABEL_72:
-              LOBYTE(v44) = 0;
-              v43 = 0;
+              LOBYTE(v48) = 0;
+              v47 = 0;
               goto LABEL_78;
             }
 
-            v70 = 0;
+            v76 = 0;
             defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-            v41 = [defaultManager2 fileExistsAtPath:self->_path isDirectory:&v70];
-            v42 = v70;
+            v44 = [defaultManager2 fileExistsAtPath:self->_path isDirectory:&v76];
+            v45 = v76;
 
-            if (v41 && (v42 & 1) == 0)
+            if (v44 && (v45 & 1) == 0)
             {
-              v43 = 0;
-              LOBYTE(v44) = 1;
+              v47 = 0;
+              LOBYTE(v48) = 1;
 LABEL_78:
-              v61 = [(NSMutableDictionary *)self->_variantsByID copy];
-              v65[0] = MEMORY[0x277D85DD0];
-              v65[1] = 3221225472;
-              v65[2] = __56__XBApplicationSnapshot__validateWithContainerIdentity___block_invoke;
-              v65[3] = &unk_279CF96C0;
-              v66 = identityCopy;
+              v67 = [(NSMutableDictionary *)self->_variantsByID copy];
+              v71[0] = MEMORY[0x277D85DD0];
+              v71[1] = 3221225472;
+              v71[2] = __56__XBApplicationSnapshot__validateWithContainerIdentity___block_invoke;
+              v71[3] = &unk_279CF96C0;
+              v72 = identityCopy;
               selfCopy = self;
-              [v61 enumerateKeysAndObjectsUsingBlock:v65];
+              [v67 enumerateKeysAndObjectsUsingBlock:v71];
 
               goto LABEL_79;
             }
 
-            v45 = v70;
-            v46 = XBLogFileManifest();
-            v47 = os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT);
-            if (v45 == 1)
+            v49 = v76;
+            v50 = XBLogFileManifest(v46);
+            v51 = os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT);
+            if (v49 == 1)
             {
-              if (v47)
+              if (v51)
               {
                 logIdentifier7 = [(XBApplicationSnapshot *)self logIdentifier];
-                v49 = self->_path;
+                v53 = self->_path;
                 *buf = 138543618;
-                v72 = logIdentifier7;
-                v73 = 2114;
-                v74 = v49;
-                v50 = "%{public}@ we're invalid because _path is a directory: %{public}@";
+                v78 = logIdentifier7;
+                v79 = 2114;
+                v80 = v53;
+                v54 = "%{public}@ we're invalid because _path is a directory: %{public}@";
 LABEL_62:
-                _os_log_impl(&dword_26B5EF000, v46, OS_LOG_TYPE_DEFAULT, v50, buf, 0x16u);
+                _os_log_impl(&dword_26B5EF000, v50, OS_LOG_TYPE_DEFAULT, v54, buf, 0x16u);
               }
             }
 
-            else if (v47)
+            else if (v51)
             {
               logIdentifier7 = [(XBApplicationSnapshot *)self logIdentifier];
-              v51 = self->_path;
+              v55 = self->_path;
               *buf = 138543618;
-              v72 = logIdentifier7;
-              v73 = 2114;
-              v74 = v51;
-              v50 = "%{public}@ we're invalid because _path doesn't exist: %{public}@";
+              v78 = logIdentifier7;
+              v79 = 2114;
+              v80 = v55;
+              v54 = "%{public}@ we're invalid because _path doesn't exist: %{public}@";
               goto LABEL_62;
             }
 
@@ -1808,78 +1817,79 @@ LABEL_62:
         }
       }
 
-      v23 = dataContainerPath;
+      v25 = dataContainerPath;
       if (dataContainerPath)
       {
-        v14 = [(__CFString *)dataContainerPath stringByAppendingPathComponent:self->_relativePath];
-        v24 = XBLogFileManifest();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+        v16 = [(__CFString *)dataContainerPath stringByAppendingPathComponent:self->_relativePath];
+        v26 = XBLogFileManifest(v16);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
           logIdentifier8 = [(XBApplicationSnapshot *)self logIdentifier];
-          v27 = self->_relativePath;
-          v26 = self->_fileLocation;
+          v29 = self->_relativePath;
+          v28 = self->_fileLocation;
           *buf = 138544386;
-          v72 = logIdentifier8;
-          v73 = 2048;
-          v74 = v26;
-          v75 = 2114;
-          v76 = v23;
-          v77 = 2114;
-          v78 = v27;
-          v79 = 2114;
-          v80 = v14;
-          _os_log_impl(&dword_26B5EF000, v24, OS_LOG_TYPE_INFO, "%{public}@ has fileLocation of %ld\ncalculated rootPath of %{public}@\nrelativePath: %{public}@\nsetting to newPath: %{public}@", buf, 0x34u);
+          v78 = logIdentifier8;
+          v79 = 2048;
+          v80 = v28;
+          v81 = 2114;
+          v82 = v25;
+          v83 = 2114;
+          v84 = v29;
+          v85 = 2114;
+          v86 = v16;
+          _os_log_impl(&dword_26B5EF000, v26, OS_LOG_TYPE_INFO, "%{public}@ has fileLocation of %ld\ncalculated rootPath of %{public}@\nrelativePath: %{public}@\nsetting to newPath: %{public}@", buf, 0x34u);
         }
       }
 
       else
       {
-        v14 = 0;
+        v16 = 0;
       }
 
       goto LABEL_39;
     }
 
-    v14 = XBLogFileManifest();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = XBLogFileManifest(v7);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       logIdentifier9 = [(XBApplicationSnapshot *)self logIdentifier];
-      v21 = self->_path;
+      v23 = self->_path;
       *buf = 138543618;
-      v72 = logIdentifier9;
-      v73 = 2114;
-      v74 = v21;
-      v22 = "%{public}@ we're invalid because we don't have a relativePath. path: %{public}@";
+      v78 = logIdentifier9;
+      v79 = 2114;
+      v80 = v23;
+      v24 = "%{public}@ we're invalid because we don't have a relativePath. path: %{public}@";
 LABEL_55:
-      _os_log_impl(&dword_26B5EF000, v14, OS_LOG_TYPE_DEFAULT, v22, buf, 0x16u);
+      _os_log_impl(&dword_26B5EF000, v16, OS_LOG_TYPE_DEFAULT, v24, buf, 0x16u);
     }
   }
 
-  LOBYTE(v44) = 0;
+  LOBYTE(v48) = 0;
 LABEL_79:
 
-  return v44;
+  return v48;
 }
 
 void __56__XBApplicationSnapshot__validateWithContainerIdentity___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  if (![v6 _validateWithContainerIdentity:*(a1 + 32)] || (objc_msgSend(v6, "variantID"), v7 = objc_claimAutoreleasedReturnValue(), v8 = BSEqualObjects(), v7, (v8 & 1) == 0))
+  v7 = [v6 _validateWithContainerIdentity:*(a1 + 32)];
+  if (!v7 || ([v6 variantID], v8 = objc_claimAutoreleasedReturnValue(), v9 = BSEqualObjects(), v8, (v9 & 1) == 0))
   {
-    v9 = XBLogFileManifest();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = XBLogFileManifest(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v10 = [*(a1 + 40) logIdentifier];
-      v11 = [v6 succinctDescription];
-      v12 = 138543874;
-      v13 = v10;
-      v14 = 2114;
-      v15 = v5;
-      v16 = 2114;
-      v17 = v11;
-      _os_log_error_impl(&dword_26B5EF000, v9, OS_LOG_TYPE_ERROR, "%{public}@ Found invalid variant. Removing. variantID: %{public}@; variant: %{public}@", &v12, 0x20u);
+      v11 = [*(a1 + 40) logIdentifier];
+      v12 = [v6 succinctDescription];
+      v13 = 138543874;
+      v14 = v11;
+      v15 = 2114;
+      v16 = v5;
+      v17 = 2114;
+      v18 = v12;
+      _os_log_error_impl(&dword_26B5EF000, v10, OS_LOG_TYPE_ERROR, "%{public}@ Found invalid variant. Removing. variantID: %{public}@; variant: %{public}@", &v13, 0x20u);
     }
 
     [*(*(a1 + 40) + 24) removeObjectForKey:v5];
@@ -1888,19 +1898,19 @@ void __56__XBApplicationSnapshot__validateWithContainerIdentity___block_invoke(u
 
 - (void)_invalidate
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v3 = objc_sync_enter(selfCopy);
   if (!selfCopy->_invalidated)
   {
     selfCopy->_invalidated = 1;
-    v3 = XBLogSnapshot();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = XBLogSnapshot(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       logIdentifier = [(XBApplicationSnapshot *)selfCopy logIdentifier];
-      v5 = 138543362;
-      v6 = logIdentifier;
-      _os_log_impl(&dword_26B5EF000, v3, OS_LOG_TYPE_INFO, "%{public}@ Invalidating snapshot", &v5, 0xCu);
+      v6 = 138543362;
+      v7 = logIdentifier;
+      _os_log_impl(&dword_26B5EF000, v4, OS_LOG_TYPE_INFO, "%{public}@ Invalidating snapshot", &v6, 0xCu);
     }
   }
 
@@ -1922,99 +1932,101 @@ void __56__XBApplicationSnapshot__validateWithContainerIdentity___block_invoke(u
 
 - (id)_createVariantWithIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (!identifierCopy)
   {
     [XBApplicationSnapshot _createVariantWithIdentifier:];
   }
 
-  if (![(XBApplicationSnapshot *)self _isInvalidated])
+  _isInvalidated = [(XBApplicationSnapshot *)self _isInvalidated];
+  if (!_isInvalidated)
   {
-    v7 = [(XBApplicationSnapshot *)self variantWithIdentifier:identifierCopy];
-    v5 = v7;
-    if (v7)
+    v8 = [(XBApplicationSnapshot *)self variantWithIdentifier:identifierCopy];
+    v6 = v8;
+    if (v8)
     {
-      if ([v7 isValid])
+      isValid = [v8 isValid];
+      if (isValid)
       {
         [XBApplicationSnapshot _createVariantWithIdentifier:];
       }
 
-      v8 = XBLogFileManifest();
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v10 = XBLogFileManifest(isValid);
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         goto LABEL_15;
       }
 
       logIdentifier = [(XBApplicationSnapshot *)self logIdentifier];
-      v14 = 138543874;
-      v15 = logIdentifier;
-      v16 = 2114;
-      v17 = identifierCopy;
+      v16 = 138543874;
+      v17 = logIdentifier;
       v18 = 2114;
-      v19 = v5;
-      v10 = "[%{public}@] had invalid variant -- overwriting. variantID: %{public}@\n old variant: %{public}@";
-      v11 = v8;
-      v12 = 32;
+      v19 = identifierCopy;
+      v20 = 2114;
+      v21 = v6;
+      v12 = "[%{public}@] had invalid variant -- overwriting. variantID: %{public}@\n old variant: %{public}@";
+      v13 = v10;
+      v14 = 32;
     }
 
     else
     {
-      v8 = XBLogFileManifest();
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v10 = XBLogFileManifest(0);
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
 LABEL_15:
 
-        v6 = [[XBApplicationSnapshot alloc] _initWithContainerIdentity:self->_containerIdentity store:self->_store groupID:self->_groupID generationContext:0];
-        [v6 setName:self->_name];
-        [v6 setScheme:self->_scheme];
-        [v6 setVariantID:identifierCopy];
-        [v6 setRequiredOSVersion:self->_requiredOSVersion];
-        [v6 setExpirationDate:0];
-        [v6 setContentType:self->_contentType];
-        [v6 setLaunchInterfaceIdentifier:self->_launchInterfaceIdentifier];
-        [v6 setFullScreen:self->_fullScreen];
-        [v6 setReferenceSize:{self->_referenceSize.width, self->_referenceSize.height}];
-        [v6 setContentFrame:{self->_contentFrame.origin.x, self->_contentFrame.origin.y, self->_contentFrame.size.width, self->_contentFrame.size.height}];
-        [v6 setInterfaceOrientation:self->_interfaceOrientation];
-        [v6 setUserInterfaceStyle:self->_userInterfaceStyle];
-        [v6 setCustomSafeAreaInsets:self->_customSafeAreaInsets];
-        [v6 setStatusBarSettings:self->_statusBarSettings];
-        [v6 setClassicMode:self->_classicMode];
-        [v6 setCompatibilityMode:self->_compatibilityMode];
-        [v6 setBackgroundStyle:self->_backgroundStyle];
-        [v6 setImageOpaque:self->_imageOpaque];
-        [v6 setImageScale:self->_imageScale];
-        [v6 setImageOrientation:self->_imageOrientation];
-        [(NSMutableDictionary *)self->_variantsByID setObject:v6 forKey:identifierCopy];
+        v7 = [[XBApplicationSnapshot alloc] _initWithContainerIdentity:self->_containerIdentity store:self->_store groupID:self->_groupID generationContext:0];
+        [v7 setName:self->_name];
+        [v7 setScheme:self->_scheme];
+        [v7 setVariantID:identifierCopy];
+        [v7 setRequiredOSVersion:self->_requiredOSVersion];
+        [v7 setExpirationDate:0];
+        [v7 setContentType:self->_contentType];
+        [v7 setLaunchInterfaceIdentifier:self->_launchInterfaceIdentifier];
+        [v7 setFullScreen:self->_fullScreen];
+        [v7 setReferenceSize:{self->_referenceSize.width, self->_referenceSize.height}];
+        [v7 setContentFrame:{self->_contentFrame.origin.x, self->_contentFrame.origin.y, self->_contentFrame.size.width, self->_contentFrame.size.height}];
+        [v7 setInterfaceOrientation:self->_interfaceOrientation];
+        [v7 setUserInterfaceStyle:self->_userInterfaceStyle];
+        [v7 setCustomSafeAreaInsets:self->_customSafeAreaInsets];
+        [v7 setStatusBarSettings:self->_statusBarSettings];
+        [v7 setClassicMode:self->_classicMode];
+        [v7 setCompatibilityMode:self->_compatibilityMode];
+        [v7 setBackgroundStyle:self->_backgroundStyle];
+        [v7 setImageOpaque:self->_imageOpaque];
+        [v7 setImageScale:self->_imageScale];
+        [v7 setImageOrientation:self->_imageOrientation];
+        [(NSMutableDictionary *)self->_variantsByID setObject:v7 forKey:identifierCopy];
         goto LABEL_16;
       }
 
       logIdentifier = [(XBApplicationSnapshot *)self logIdentifier];
-      v14 = 138543618;
-      v15 = logIdentifier;
-      v16 = 2114;
-      v17 = identifierCopy;
-      v10 = "[%{public}@] creating new variant. variantID: %{public}@";
-      v11 = v8;
-      v12 = 22;
+      v16 = 138543618;
+      v17 = logIdentifier;
+      v18 = 2114;
+      v19 = identifierCopy;
+      v12 = "[%{public}@] creating new variant. variantID: %{public}@";
+      v13 = v10;
+      v14 = 22;
     }
 
-    _os_log_impl(&dword_26B5EF000, v11, OS_LOG_TYPE_INFO, v10, &v14, v12);
+    _os_log_impl(&dword_26B5EF000, v13, OS_LOG_TYPE_INFO, v12, &v16, v14);
 
     goto LABEL_15;
   }
 
-  v5 = XBLogFileManifest();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = XBLogFileManifest(_isInvalidated);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [XBApplicationSnapshot _createVariantWithIdentifier:];
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_16:
 
-  return v6;
+  return v7;
 }
 
 - (id)_configureDefaultPathWithinGroupForFormat:(int64_t)format
@@ -2204,14 +2216,14 @@ LABEL_16:
 - (void)_purgeCachedImageIfAppropriate:(BOOL)appropriate
 {
   appropriateCopy = appropriate;
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  if (!appropriateCopy && (selfCopy->_imageAccessCount || selfCopy->_keepImageAccessUntilExpiration || ([(BSAtomicFlag *)selfCopy->_hasProtectedContent getFlag]& 1) != 0 || selfCopy->_keepImageAccessForPreHeat))
+  v5 = objc_sync_enter(selfCopy);
+  if (!appropriateCopy && (selfCopy->_imageAccessCount || selfCopy->_keepImageAccessUntilExpiration || (v5 = [(BSAtomicFlag *)selfCopy->_hasProtectedContent getFlag], (v5 & 1) != 0) || selfCopy->_keepImageAccessForPreHeat))
   {
     if (selfCopy->_cachedImage)
     {
-      cachedImageTransaction = XBLogSnapshot();
+      cachedImageTransaction = XBLogSnapshot(v5);
       if (os_log_type_enabled(cachedImageTransaction, OS_LOG_TYPE_INFO))
       {
         logIdentifier = [(XBApplicationSnapshot *)selfCopy logIdentifier];
@@ -2219,19 +2231,19 @@ LABEL_16:
         keepImageAccessUntilExpiration = selfCopy->_keepImageAccessUntilExpiration;
         getFlag = [(BSAtomicFlag *)selfCopy->_hasProtectedContent getFlag];
         keepImageAccessForPreHeat = selfCopy->_keepImageAccessForPreHeat;
-        v18 = 138544642;
-        v19 = logIdentifier;
-        v20 = 1024;
-        v21 = 0;
-        v22 = 2048;
-        v23 = imageAccessCount;
-        v24 = 1024;
-        v25 = keepImageAccessUntilExpiration;
-        v26 = 1024;
-        v27 = getFlag;
-        v28 = 1024;
-        v29 = keepImageAccessForPreHeat;
-        _os_log_impl(&dword_26B5EF000, cachedImageTransaction, OS_LOG_TYPE_INFO, "%{public}@ not purging the cached image; force: %d; _imageAccessCount: %lu; _keepImageAccessUntilExpiration: %d; _hasProtectedContent: %d; _keepImageAccessForPreheat: %d", &v18, 0x2Eu);
+        v19 = 138544642;
+        v20 = logIdentifier;
+        v21 = 1024;
+        v22 = 0;
+        v23 = 2048;
+        v24 = imageAccessCount;
+        v25 = 1024;
+        v26 = keepImageAccessUntilExpiration;
+        v27 = 1024;
+        v28 = getFlag;
+        v29 = 1024;
+        v30 = keepImageAccessForPreHeat;
+        _os_log_impl(&dword_26B5EF000, cachedImageTransaction, OS_LOG_TYPE_INFO, "%{public}@ not purging the cached image; force: %d; _imageAccessCount: %lu; _keepImageAccessUntilExpiration: %d; _hasProtectedContent: %d; _keepImageAccessForPreheat: %d", &v19, 0x2Eu);
       }
 
 LABEL_13:
@@ -2240,27 +2252,27 @@ LABEL_13:
 
   else if (selfCopy->_cachedImage)
   {
-    v5 = XBLogSnapshot();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = XBLogSnapshot(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       logIdentifier2 = [(XBApplicationSnapshot *)selfCopy logIdentifier];
-      v7 = selfCopy->_imageAccessCount;
-      v8 = selfCopy->_keepImageAccessUntilExpiration;
+      v8 = selfCopy->_imageAccessCount;
+      v9 = selfCopy->_keepImageAccessUntilExpiration;
       getFlag2 = [(BSAtomicFlag *)selfCopy->_hasProtectedContent getFlag];
-      v10 = selfCopy->_keepImageAccessForPreHeat;
-      v18 = 138544642;
-      v19 = logIdentifier2;
-      v20 = 1024;
-      v21 = appropriateCopy;
-      v22 = 2048;
-      v23 = v7;
-      v24 = 1024;
-      v25 = v8;
-      v26 = 1024;
-      v27 = getFlag2;
-      v28 = 1024;
-      v29 = v10;
-      _os_log_impl(&dword_26B5EF000, v5, OS_LOG_TYPE_INFO, "%{public}@ Purging the cached image; force: %d; _imageAccessCount: %lu; _keepImageAccessUntilExpiration: %d; _hasProtectedContent: %d; _keepImageAccessForPreheat: %d", &v18, 0x2Eu);
+      v11 = selfCopy->_keepImageAccessForPreHeat;
+      v19 = 138544642;
+      v20 = logIdentifier2;
+      v21 = 1024;
+      v22 = appropriateCopy;
+      v23 = 2048;
+      v24 = v8;
+      v25 = 1024;
+      v26 = v9;
+      v27 = 1024;
+      v28 = getFlag2;
+      v29 = 1024;
+      v30 = v11;
+      _os_log_impl(&dword_26B5EF000, v6, OS_LOG_TYPE_INFO, "%{public}@ Purging the cached image; force: %d; _imageAccessCount: %lu; _keepImageAccessUntilExpiration: %d; _hasProtectedContent: %d; _keepImageAccessForPreheat: %d", &v19, 0x2Eu);
     }
 
     cachedImage = selfCopy->_cachedImage;
@@ -2356,7 +2368,7 @@ LABEL_11:
     v25 = CGImageDestinationCreateWithData(Mutable, @"com.apple.atx", 1uLL, 0);
     if (!v25 || (v26 = v25, CGImageDestinationAddImage(v25, v13, v24), v27 = CGImageDestinationFinalize(v26), CFRelease(v26), !v27))
     {
-      v28 = XBLogSnapshot();
+      v28 = XBLogSnapshot(v25);
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         +[XBApplicationSnapshot dataForImage:withFormat:];
@@ -2950,7 +2962,7 @@ id __80__XBApplicationSnapshot__descriptionBuilderWithMultilinePrefix_includeVar
 
   else
   {
-    v4 = FAKE_NIL_PTR();
+    v4 = FAKE_NIL_PTR(0);
   }
 
   v5 = v4;
@@ -2969,7 +2981,7 @@ id __80__XBApplicationSnapshot__descriptionBuilderWithMultilinePrefix_includeVar
 
   else
   {
-    v4 = FAKE_NIL_PTR();
+    v4 = FAKE_NIL_PTR(0);
   }
 
   v5 = v4;
@@ -3046,28 +3058,28 @@ id __80__XBApplicationSnapshot__descriptionBuilderWithMultilinePrefix_includeVar
 {
   v1 = [a1 logIdentifier];
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_2(&dword_26B5EF000, v2, v3, "%{public}@ calling imageGenerator", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2(&dword_26B5EF000, v2, v3, "%{public}@ calling imageGenerator", v4, v5, v6, v7);
 }
 
 - (void)_locked_loadImageViaGenerationContext:(void *)a1 options:.cold.2(void *a1)
 {
   v1 = [a1 logIdentifier];
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_2(&dword_26B5EF000, v2, v3, "%{public}@ finished calling imageGenerator", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2(&dword_26B5EF000, v2, v3, "%{public}@ finished calling imageGenerator", v4, v5, v6, v7);
 }
 
 - (void)_locked_loadImageViaGeneratorFunction:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 logIdentifier];
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_2(&dword_26B5EF000, v2, v3, "%{public}@ calling generatorFunction", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2(&dword_26B5EF000, v2, v3, "%{public}@ calling generatorFunction", v4, v5, v6, v7);
 }
 
 - (void)_locked_loadImageViaGeneratorFunction:(void *)a1 .cold.2(void *a1)
 {
   v1 = [a1 logIdentifier];
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_2(&dword_26B5EF000, v2, v3, "%{public}@ finished calling generatorFunction", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2(&dword_26B5EF000, v2, v3, "%{public}@ finished calling generatorFunction", v4, v5, v6, v7);
 }
 
 - (void)_validateWithContainerIdentity:.cold.1()
@@ -3099,7 +3111,7 @@ id __80__XBApplicationSnapshot__descriptionBuilderWithMultilinePrefix_includeVar
   OUTLINED_FUNCTION_4_0();
   v1 = [v0 logIdentifier];
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_5(&dword_26B5EF000, v2, v3, "[%{public}@] asked to create variant but we're invalidated. variantID: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_5(&dword_26B5EF000, v2, v3, "[%{public}@] asked to create variant but we're invalidated. variantID: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)_configureDefaultPathWithinGroupForFormat:.cold.1()

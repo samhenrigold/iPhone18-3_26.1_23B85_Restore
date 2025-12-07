@@ -87,21 +87,21 @@ void __92__GKExtensionRemoteViewController_setupCallbackBlocksForExtension_withP
   objc_destroyWeak(&v6);
 }
 
-void __92__GKExtensionRemoteViewController_setupCallbackBlocksForExtension_withParentViewController___block_invoke_2(uint64_t a1)
+void __92__GKExtensionRemoteViewController_setupCallbackBlocksForExtension_withParentViewController___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (!*MEMORY[0x277D0C2A0])
   {
-    v2 = GKOSLoggers();
+    v3 = GKOSLoggers();
   }
 
-  v3 = *MEMORY[0x277D0C290];
+  v4 = *MEMORY[0x277D0C290];
   if (os_log_type_enabled(*MEMORY[0x277D0C290], OS_LOG_TYPE_ERROR))
   {
-    __92__GKExtensionRemoteViewController_setupCallbackBlocksForExtension_withParentViewController___block_invoke_2_cold_1(a1, v3);
+    __92__GKExtensionRemoteViewController_setupCallbackBlocksForExtension_withParentViewController___block_invoke_2_cold_1(a1, v4);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = WeakRetained;
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained extensionDidFinishWithError:*(a1 + 32)];
@@ -429,7 +429,7 @@ void __55__GKExtensionRemoteViewController_extensionObjectProxy__block_invoke(ui
 {
   v4 = MEMORY[0x277CCAAC8];
   extensionCopy = extension;
-  v6 = GKExtensionProtocolSecureCodedClasses();
+  v6 = GKExtensionProtocolSecureCodedClasses(extensionCopy);
   v14 = 0;
   v7 = [v4 unarchivedObjectOfClasses:v6 fromData:extensionCopy error:&v14];
 

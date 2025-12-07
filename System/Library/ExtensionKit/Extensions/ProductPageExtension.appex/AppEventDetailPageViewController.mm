@@ -163,7 +163,7 @@
 
   sub_100669D2C();
 
-  sub_10000CFBC(v6, &unk_1009434C0);
+  sub_10000CFBC(v6, &unk_1009434C0, &qword_100783F60);
 }
 
 - (BOOL)accessibilityPerformEscape
@@ -174,7 +174,7 @@
   v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v4 + 104))(v7, enum case for StoreViewControllerLifecycleEvent.dismissedByBackButton(_:), v3, v5);
   sub_10075F07C();
-  sub_10066B6D0(&qword_100962BD0, 255, &type metadata accessor for AppEventDetailPagePresenter);
+  sub_10066B6D0(&qword_100962BD0, 255, &type metadata accessor for AppEventDetailPagePresenter, &protocol conformance descriptor for BasePresenter);
   selfCopy = self;
   sub_1007657FC();
   (*(v4 + 8))(v7, v3);

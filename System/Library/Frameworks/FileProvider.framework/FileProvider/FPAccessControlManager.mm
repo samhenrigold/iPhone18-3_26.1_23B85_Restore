@@ -32,20 +32,19 @@ void __80__FPAccessControlManager_bundleIdentifiersWithAccessToAnyItemCompletion
 {
   if (!a2 || a3)
   {
-    v6 = *(a1 + 32);
-    v7 = *(*(a1 + 32) + 16);
+    v6 = *(*(a1 + 32) + 16);
 
-    v7();
+    v6();
   }
 
   else
   {
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __80__FPAccessControlManager_bundleIdentifiersWithAccessToAnyItemCompletionHandler___block_invoke_2;
-    v8[3] = &unk_1E7939100;
-    v9 = *(a1 + 32);
-    v5 = [a2 remoteObjectProxyWithErrorHandler:v8];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __80__FPAccessControlManager_bundleIdentifiersWithAccessToAnyItemCompletionHandler___block_invoke_2;
+    v7[3] = &unk_1E7939100;
+    v8 = *(a1 + 32);
+    v5 = [a2 remoteObjectProxyWithErrorHandler:v7];
     [v5 bundleIdentifiersWithAccessToAnyItemCompletionHandler:*(a1 + 32)];
   }
 }
@@ -133,30 +132,29 @@ void __76__FPAccessControlManager_revokeAccessToAllItemsForBundle_completionHand
 {
   if (!a2 || a3)
   {
-    v8 = *(a1 + 48);
-    v9 = *(*(a1 + 48) + 16);
+    v8 = *(*(a1 + 48) + 16);
 
-    v9();
+    v8();
   }
 
   else
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __76__FPAccessControlManager_revokeAccessToAllItemsForBundle_completionHandler___block_invoke_2;
-    v14[3] = &unk_1E7939100;
-    v15 = *(a1 + 48);
-    v5 = [a2 remoteObjectProxyWithErrorHandler:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __76__FPAccessControlManager_revokeAccessToAllItemsForBundle_completionHandler___block_invoke_2;
+    v13[3] = &unk_1E7939100;
+    v14 = *(a1 + 48);
+    v5 = [a2 remoteObjectProxyWithErrorHandler:v13];
     v6 = *(a1 + 32);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __76__FPAccessControlManager_revokeAccessToAllItemsForBundle_completionHandler___block_invoke_3;
-    v11[3] = &unk_1E793D140;
-    v13 = *(a1 + 48);
-    v10 = *(a1 + 32);
-    v7 = v10.i64[0];
-    v12 = vextq_s8(v10, v10, 8uLL);
-    [v5 revokeAccessToAllItemsForBundle:v6 completionHandler:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __76__FPAccessControlManager_revokeAccessToAllItemsForBundle_completionHandler___block_invoke_3;
+    v10[3] = &unk_1E793D140;
+    v12 = *(a1 + 48);
+    v9 = *(a1 + 32);
+    v7 = v9.i64[0];
+    v11 = vextq_s8(v9, v9, 8uLL);
+    [v5 revokeAccessToAllItemsForBundle:v6 completionHandler:v10];
   }
 }
 
@@ -188,14 +186,13 @@ uint64_t __76__FPAccessControlManager_revokeAccessToAllItemsForBundle_completion
 
 void __56__FPAccessControlManager__killBundle_completionHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 32);
-  v5 = 138543618;
-  v6 = a1;
-  v7 = 2114;
-  v8 = v3;
-  _os_log_error_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_ERROR, "[ERROR] Encountered an error [%{public}@] while terminating application with bundle ID [%{public}@] using FrontBoardServices", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = a1;
+  v6 = 2114;
+  v7 = v3;
+  _os_log_error_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_ERROR, "[ERROR] Encountered an error [%{public}@] while terminating application with bundle ID [%{public}@] using FrontBoardServices", &v4, 0x16u);
 }
 
 @end

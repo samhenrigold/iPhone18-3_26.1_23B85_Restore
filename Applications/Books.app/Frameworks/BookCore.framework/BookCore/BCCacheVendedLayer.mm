@@ -69,8 +69,7 @@
 - (void)dealloc
 {
   [(BICDescribedImage *)self->_describedImageRequested setPriority:1];
-  [BICCacheStats logOperation:BICCacheStatsOperationCancelled[0] forRequest:self->_describedImageRequested];
-  v3 = BCImageCacheLog();
+  v3 = BCImageCacheLog([BICCacheStats logOperation:BICCacheStatsOperationCancelled[0] forRequest:self->_describedImageRequested]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     describedImageRequested = self->_describedImageRequested;
@@ -122,34 +121,34 @@
   imageLayer = [(BCCacheVendedLayer *)self imageLayer];
   [imageLayer setContents:cGImage];
 
-  v7 = mainScreenScaleFactor();
-  v8 = CGImageGetWidth(cGImage) / v7;
-  v9 = CGImageGetHeight(cGImage) / v7;
+  v9 = mainScreenScaleFactor(v7, v8);
+  v10 = CGImageGetWidth(cGImage) / v9;
+  v11 = CGImageGetHeight(cGImage) / v9;
   [imageCopy nonShadowArea];
-  v30.origin.x = CGRectZero.origin.x;
-  v30.origin.y = CGRectZero.origin.y;
-  v30.size.width = CGRectZero.size.width;
-  v30.size.height = CGRectZero.size.height;
-  v10 = 0.0;
-  v11 = v9;
-  v12 = v8;
-  v13 = 0.0;
-  if (!CGRectEqualToRect(v29, v30))
+  v32.origin.x = CGRectZero.origin.x;
+  v32.origin.y = CGRectZero.origin.y;
+  v32.size.width = CGRectZero.size.width;
+  v32.size.height = CGRectZero.size.height;
+  v12 = 0.0;
+  v13 = v11;
+  v14 = v10;
+  v15 = 0.0;
+  if (!CGRectEqualToRect(v31, v32))
   {
     [imageCopy nonShadowArea];
-    v13 = v14;
-    v10 = v15;
-    v12 = v16;
-    v11 = v17;
+    v15 = v16;
+    v12 = v17;
+    v14 = v18;
+    v13 = v19;
   }
 
   imageLayer2 = [(BCCacheVendedLayer *)self imageLayer];
-  [imageLayer2 setBounds:{0.0, 0.0, v8, v9}];
+  [imageLayer2 setBounds:{0.0, 0.0, v10, v11}];
 
   imageLayer3 = [(BCCacheVendedLayer *)self imageLayer];
-  [imageLayer3 setPosition:{-v13, -v10}];
+  [imageLayer3 setPosition:{-v15, -v12}];
 
-  [(BCCacheVendedLayer *)self setBounds:CGPointZero.x, CGPointZero.y, v12, v11];
+  [(BCCacheVendedLayer *)self setBounds:CGPointZero.x, CGPointZero.y, v14, v13];
   stackLayer = [(BCCacheVendedLayer *)self stackLayer];
 
   if (stackLayer)

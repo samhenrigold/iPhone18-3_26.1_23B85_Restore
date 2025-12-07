@@ -561,7 +561,7 @@ void __47__PKBillingAddressViewController__loadUserInfo__block_invoke_2_171(uint
 
 - (void)_didSelectChangeAddress
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   peerPaymentAccount = self->_peerPaymentAccount;
   if (peerPaymentAccount && (v4 = [(PKPeerPaymentAccount *)peerPaymentAccount isEligibleForUserInfoUpdates], !self->_accountService) && (v4 & 1) != 0)
   {
@@ -591,54 +591,58 @@ void __47__PKBillingAddressViewController__loadUserInfo__block_invoke_2_171(uint
     self->_updateUserInfoCoordinator = v11;
 
     v13 = self->_updateUserInfoCoordinator;
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __57__PKBillingAddressViewController__didSelectChangeAddress__block_invoke;
-    v32[3] = &unk_1E8011338;
-    objc_copyWeak(&v33, &location);
-    [(PKPeerPaymentUpdateUserInfoCoordinator *)v13 presentUpdateUserInfoFlowFromPresentingViewController:self completion:v32];
-    objc_destroyWeak(&v33);
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __57__PKBillingAddressViewController__didSelectChangeAddress__block_invoke;
+    v35[3] = &unk_1E8011338;
+    objc_copyWeak(&v36, &location);
+    [(PKPeerPaymentUpdateUserInfoCoordinator *)v13 presentUpdateUserInfoFlowFromPresentingViewController:self completion:v35];
+    objc_destroyWeak(&v36);
     objc_destroyWeak(&location);
-  }
-
-  else if (PKStoreDemoModeEnabled())
-  {
-    v31 = PKUIStoreDemoGatewayViewController();
-    [(PKBillingAddressViewController *)self presentViewController:v31 animated:1 completion:0];
   }
 
   else
   {
-    v14 = objc_alloc_init(MEMORY[0x1E695CF30]);
-    creditDetails = [(PKAccount *)self->_account creditDetails];
-    countryCode = [creditDetails countryCode];
-    [v14 setISOCountryCode:countryCode];
+    v14 = PKStoreDemoModeEnabled();
+    if (v14)
+    {
+      v34 = PKUIStoreDemoGatewayViewController(v14, v15, v16);
+      [(PKBillingAddressViewController *)self presentViewController:v34 animated:1 completion:0];
+    }
 
-    v17 = objc_alloc_init(MEMORY[0x1E695CF18]);
-    v18 = MEMORY[0x1E695CEE0];
-    v19 = *MEMORY[0x1E695CB60];
-    v20 = [v14 copy];
-    v21 = [v18 labeledValueWithLabel:v19 value:v20];
+    else
+    {
+      v17 = objc_alloc_init(MEMORY[0x1E695CF30]);
+      creditDetails = [(PKAccount *)self->_account creditDetails];
+      countryCode = [creditDetails countryCode];
+      [v17 setISOCountryCode:countryCode];
 
-    v35[0] = v21;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
-    [v17 setPostalAddresses:v22];
+      v20 = objc_alloc_init(MEMORY[0x1E695CF18]);
+      v21 = MEMORY[0x1E695CEE0];
+      v22 = *MEMORY[0x1E695CB60];
+      v23 = [v17 copy];
+      v24 = [v21 labeledValueWithLabel:v22 value:v23];
 
-    v23 = [PKAddressEditorViewController alloc];
-    v24 = [v17 copy];
-    requiredBillingAddressKeys = [(PKBillingAddressViewController *)self requiredBillingAddressKeys];
-    v26 = [(PKAddressEditorViewController *)v23 initWithContact:v24 requiredKeys:requiredBillingAddressKeys highlightedKeys:MEMORY[0x1E695E0F0] errors:MEMORY[0x1E695E0F0] style:1];
+      v38[0] = v24;
+      v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
+      [v20 setPostalAddresses:v25];
 
-    [(PKAddressEditorViewController *)v26 setDelegate:self];
-    [(PKAddressEditorViewController *)v26 setCountryIsEditable:0];
-    [(PKAddressEditorViewController *)v26 setModalPresentationStyle:[(PKBillingAddressViewController *)self modalPresentationStyle]];
-    view = [(PKAddressEditorViewController *)v26 view];
-    systemBackgroundColor = [MEMORY[0x1E69DC888] systemBackgroundColor];
-    [view setBackgroundColor:systemBackgroundColor];
+      v26 = [PKAddressEditorViewController alloc];
+      v27 = [v20 copy];
+      requiredBillingAddressKeys = [(PKBillingAddressViewController *)self requiredBillingAddressKeys];
+      v29 = [(PKAddressEditorViewController *)v26 initWithContact:v27 requiredKeys:requiredBillingAddressKeys highlightedKeys:MEMORY[0x1E695E0F0] errors:MEMORY[0x1E695E0F0] style:1];
 
-    v29 = [objc_alloc(MEMORY[0x1E69DCCD8]) initWithRootViewController:v26];
-    navigationController = [(PKBillingAddressViewController *)self navigationController];
-    [navigationController presentViewController:v29 animated:1 completion:0];
+      [(PKAddressEditorViewController *)v29 setDelegate:self];
+      [(PKAddressEditorViewController *)v29 setCountryIsEditable:0];
+      [(PKAddressEditorViewController *)v29 setModalPresentationStyle:[(PKBillingAddressViewController *)self modalPresentationStyle]];
+      view = [(PKAddressEditorViewController *)v29 view];
+      systemBackgroundColor = [MEMORY[0x1E69DC888] systemBackgroundColor];
+      [view setBackgroundColor:systemBackgroundColor];
+
+      v32 = [objc_alloc(MEMORY[0x1E69DCCD8]) initWithRootViewController:v29];
+      navigationController = [(PKBillingAddressViewController *)self navigationController];
+      [navigationController presentViewController:v32 animated:1 completion:0];
+    }
   }
 }
 

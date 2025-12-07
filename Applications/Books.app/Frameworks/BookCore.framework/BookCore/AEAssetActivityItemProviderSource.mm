@@ -103,15 +103,15 @@
   location = range.location;
   providerCopy = provider;
   lCopy = l;
-  v60[0] = _NSConcreteStackBlock;
-  v60[1] = 3221225472;
-  v60[2] = sub_7E69C;
-  v60[3] = &unk_2CB1A0;
+  v62[0] = _NSConcreteStackBlock;
+  v62[1] = 3221225472;
+  v62[2] = sub_7E69C;
+  v62[3] = &unk_2CB1A0;
   v8 = objc_alloc_init(NSMutableArray);
-  v61 = v8;
-  v9 = objc_retainBlock(v60);
+  v63 = v8;
+  v9 = objc_retainBlock(v62);
   author = [providerCopy author];
-  v57 = v8;
+  v59 = v8;
   if ([author length])
   {
     v11 = +[NSCharacterSet punctuationCharacterSet];
@@ -121,16 +121,16 @@
     {
       v13 = objc_alloc_init(NSMutableArray);
       v14 = [author length];
-      v58[0] = _NSConcreteStackBlock;
-      v58[1] = 3221225472;
-      v58[2] = sub_7E778;
-      v58[3] = &unk_2CB1C8;
+      v60[0] = _NSConcreteStackBlock;
+      v60[1] = 3221225472;
+      v60[2] = sub_7E778;
+      v60[3] = &unk_2CB1C8;
       v15 = v13;
-      v59 = v15;
-      [author enumerateSubstringsInRange:0 options:v14 usingBlock:{3, v58}];
+      v61 = v15;
+      [author enumerateSubstringsInRange:0 options:v14 usingBlock:{3, v60}];
       if ([v15 count] == &dword_0 + 2)
       {
-        v16 = IMCommonCoreBundle();
+        v16 = IMCommonCoreBundle(2);
         v17 = [v16 localizedStringForKey:@"%@ value:%@" table:{&stru_2D2930, @"BCCommonCoreLocalizable"}];
         v18 = [v15 objectAtIndex:1];
         [v15 objectAtIndex:0];
@@ -138,7 +138,7 @@
         v21 = [NSString stringWithFormat:v17, v18, v20];
 
         lCopy = v19;
-        v8 = v57;
+        v8 = v59;
 
         author = v21;
       }
@@ -174,99 +174,101 @@
     [v8 addObject:v28];
   }
 
-  v52 = title;
-  v53 = author;
-  v54 = lCopy;
+  v54 = title;
+  v55 = author;
+  v56 = lCopy;
   version = [providerCopy version];
-  if ([version length])
+  v30 = [version length];
+  if (v30)
   {
-    v30 = IMCommonCoreBundle();
-    v31 = [v30 localizedStringForKey:@"v%@. " value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
-    v32 = [NSString stringWithFormat:v31, version];
+    v31 = IMCommonCoreBundle(v30);
+    v32 = [v31 localizedStringForKey:@"v%@. " value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+    v33 = [NSString stringWithFormat:v32, version];
 
-    [v8 addObject:v32];
-    version = v32;
+    [v8 addObject:v33];
+    version = v33;
   }
 
-  v33 = location;
+  v34 = location;
   publisherLocation = [providerCopy publisherLocation];
   publisherName = [providerCopy publisherName];
   if ([publisherLocation length])
   {
-    v36 = publisherLocation;
+    v37 = publisherLocation;
   }
 
   else
   {
-    v36 = 0;
+    v37 = 0;
   }
 
   if ([publisherName length])
   {
-    if ([v36 length])
+    if ([v37 length])
     {
-      v37 = [v36 stringByAppendingFormat:@", %@", publisherName];
+      v38 = [v37 stringByAppendingFormat:@", %@", publisherName];
     }
 
     else
     {
-      v37 = publisherName;
+      v38 = publisherName;
     }
 
-    v38 = v37;
+    v39 = v38;
 
-    v36 = v38;
+    v37 = v39;
   }
 
-  if ([v36 length])
+  if ([v37 length])
   {
     publisherYear = [providerCopy publisherYear];
     if ([publisherYear length])
     {
-      v40 = [v36 stringByAppendingFormat:@", %@", publisherYear];
+      v41 = [v37 stringByAppendingFormat:@", %@", publisherYear];
 
-      v36 = v40;
+      v37 = v41;
     }
 
-    (v9[2])(v9, v36);
+    (v9[2])(v9, v37);
   }
 
-  v56 = providerCopy;
-  if (v33 == 0x7FFFFFFFFFFFFFFFLL)
+  v58 = providerCopy;
+  if (v34 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v41 = 0;
+    v42 = 0;
   }
 
   else
   {
-    v42 = [NSString stringWithFormat:@"%lull", v33];
-    v43 = v42;
+    v43 = [NSString stringWithFormat:@"%lull", v34];
+    v44 = v43;
     if (length)
     {
-      v44 = [NSString stringWithFormat:@"%lull", v33 + length];
-      v45 = [v43 commonPrefixWithString:v44 options:1];
-      v46 = [v44 substringFromIndex:{objc_msgSend(v45, "length")}];
-      v41 = [NSString stringWithFormat:@"%@-%@", v43, v46];
+      v45 = [NSString stringWithFormat:@"%lull", v34 + length];
+      v46 = [v44 commonPrefixWithString:v45 options:1];
+      v47 = [v45 substringFromIndex:{objc_msgSend(v46, "length")}];
+      v42 = [NSString stringWithFormat:@"%@-%@", v44, v47];
     }
 
     else
     {
-      v41 = v42;
+      v42 = v43;
     }
   }
 
-  if ([v41 length])
+  v48 = [v42 length];
+  if (v48)
   {
-    (v9[2])(v9, v41);
+    v48 = (v9[2])(v9, v42);
   }
 
-  v47 = IMCommonCoreBundle();
-  v48 = [v47 localizedStringForKey:@"Apple Books" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+  v49 = IMCommonCoreBundle(v48);
+  v50 = [v49 localizedStringForKey:@"Apple Books" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
-  (v9[2])(v9, v48);
-  v49 = [v57 componentsJoinedByString:&stru_2D2930];
+  (v9[2])(v9, v50);
+  v51 = [v59 componentsJoinedByString:&stru_2D2930];
 
-  return v49;
+  return v51;
 }
 
 - (id)citation
@@ -312,11 +314,11 @@
   propertyProvider = [(AEAssetActivityItemProviderSource *)self propertyProvider];
   v8 = [v6 citationWithPropertyProvider:propertyProvider storeURL:lCopy pageRange:{0x7FFFFFFFFFFFFFFFLL, 0}];
 
-  v9 = IMCommonCoreBundle();
-  v10 = [v9 localizedStringForKey:@"This material may be protected by copyright." value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
-  v11 = [v8 stringByAppendingFormat:@"\n%@", v10];
+  v10 = IMCommonCoreBundle(v9);
+  v11 = [v10 localizedStringForKey:@"This material may be protected by copyright." value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+  v12 = [v8 stringByAppendingFormat:@"\n%@", v11];
 
-  return v11;
+  return v12;
 }
 
 @end

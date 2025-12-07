@@ -28,7 +28,7 @@
 
 + (BOOL)setManagedPreferences:(id)preferences forDomain:(id)domain
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   preferencesCopy = preferences;
   domainCopy = domain;
   if (![preferencesCopy count])
@@ -36,15 +36,14 @@
     v7 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = domainCopy;
-      _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_DEFAULT, "MCManagedPreferencesManager removing managed preferences for domain: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = domainCopy;
+      _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_DEFAULT, "MCManagedPreferencesManager removing managed preferences for domain: %{public}@", &v10, 0xCu);
     }
   }
 
   v8 = _CFPreferencesWriteManagedDomain() != 0;
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -106,7 +105,7 @@
 
 + (void)updateGlobalManagedPreferencesByAddingPreferences:(id)preferences removingPreferences:(id)removingPreferences
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   preferencesCopy = preferences;
   removingPreferencesCopy = removingPreferences;
   if ([preferencesCopy count])
@@ -130,12 +129,10 @@ LABEL_5:
 
 LABEL_6:
     globalManagedPreferencesDomain3 = [self globalManagedPreferencesDomain];
-    v13[0] = globalManagedPreferencesDomain3;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v12[0] = globalManagedPreferencesDomain3;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
     [self sendManagedPreferencesChangedNotificationForDomains:v11];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

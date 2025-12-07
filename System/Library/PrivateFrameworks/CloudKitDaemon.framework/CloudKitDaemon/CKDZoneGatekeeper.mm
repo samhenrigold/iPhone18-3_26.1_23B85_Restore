@@ -4,6 +4,7 @@
 - (id)CKStatusReportArray;
 - (id)initInternal;
 - (void)registerWaiter:(id)waiter forZoneIDs:(id)ds expectDelayBeforeRequestBegins:(BOOL)begins completionHandler:(id)handler;
+- (void)relinquishLocksForWaiter:(id)waiter deferRelinquish:(BOOL)relinquish;
 @end
 
 @implementation CKDZoneGatekeeper
@@ -68,6 +69,17 @@
   }
 
   objc_msgSend_registerWaiter_forZoneIDs_completionHandler_(v16, v14, waiterCopy, dsCopy, handlerCopy);
+}
+
+- (void)relinquishLocksForWaiter:(id)waiter deferRelinquish:(BOOL)relinquish
+{
+  relinquishCopy = relinquish;
+  waiterCopy = waiter;
+  v9 = objc_msgSend_foreground(self, v7, v8);
+  objc_msgSend_relinquishLocksForWaiter_deferRelinquish_(v9, v10, waiterCopy, relinquishCopy);
+
+  v14 = objc_msgSend_background(self, v11, v12);
+  objc_msgSend_relinquishLocksForWaiter_deferRelinquish_(v14, v13, waiterCopy, relinquishCopy);
 }
 
 - (BOOL)hasStatusToReport

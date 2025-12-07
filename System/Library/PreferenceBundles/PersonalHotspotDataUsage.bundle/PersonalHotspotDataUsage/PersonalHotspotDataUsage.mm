@@ -1,6 +1,6 @@
-void sub_1160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -14,10 +14,7 @@ uint64_t sub_1178(uint64_t result, uint64_t a2)
 
 uint64_t sub_1190(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _specifiersWithMainSpecifier:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _specifiersWithMainSpecifier:*(a1 + 40)];
 
   return _objc_release_x1();
 }
@@ -193,16 +190,16 @@ id PHocalizedStringWithFormat(void *a1, void *a2, uint64_t a3, uint64_t a4, uint
   return v16;
 }
 
-id logger()
+id logger(uint64_t a1)
 {
   if (qword_11560 != -1)
   {
     sub_59F0();
   }
 
-  v1 = qword_11568;
+  v2 = qword_11568;
 
-  return v1;
+  return v2;
 }
 
 void sub_3E40(id a1)
@@ -223,8 +220,7 @@ void sub_41E8(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  [*(a1 + 32) setRefreshInProgress:0];
-  v7 = logger();
+  v7 = logger([*(a1 + 32) setRefreshInProgress:0]);
   v8 = v7;
   if (v6)
   {
@@ -238,9 +234,9 @@ void sub_41E8(uint64_t a1, void *a2, void *a3)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138543362;
-      v15 = v5;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Fetch succeeded: %{public}@", &v14, 0xCu);
+      v15 = 138543362;
+      v16 = v5;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Fetch succeeded: %{public}@", &v15, 0xCu);
     }
 
     [*(a1 + 32) setCachedDeviceDataUsage:v5];
@@ -249,34 +245,34 @@ void sub_41E8(uint64_t a1, void *a2, void *a3)
 
     if (v9)
     {
-      v10 = [*(a1 + 32) refreshCompletionHandler];
-      v10[2]();
+      v11 = [*(a1 + 32) refreshCompletionHandler];
+      v11[2]();
 
       [*(a1 + 32) setRefreshCompletionHandler:0];
     }
 
     else
     {
-      v11 = logger();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = logger(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_5A90(v11);
+        sub_5A90(v12);
       }
     }
 
     v8 = [NSNotification notificationWithName:@"PSWirelessDataUsageCacheRefreshedNotification" object:0];
-    v12 = logger();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = logger(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315394;
-      v15 = "[PersonalHotspotDataUsageCache fetchDeviceDataUsage]_block_invoke";
-      v16 = 2112;
-      v17 = @"PSWirelessDataUsageCacheRefreshedNotification";
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v14, 0x16u);
+      v15 = 136315394;
+      v16 = "[PersonalHotspotDataUsageCache fetchDeviceDataUsage]_block_invoke";
+      v17 = 2112;
+      v18 = @"PSWirelessDataUsageCacheRefreshedNotification";
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v15, 0x16u);
     }
 
-    v13 = +[NSNotificationCenter defaultCenter];
-    [v13 performSelectorOnMainThread:"postNotification:" withObject:v8 waitUntilDone:0];
+    v14 = +[NSNotificationCenter defaultCenter];
+    [v14 performSelectorOnMainThread:"postNotification:" withObject:v8 waitUntilDone:0];
   }
 }
 

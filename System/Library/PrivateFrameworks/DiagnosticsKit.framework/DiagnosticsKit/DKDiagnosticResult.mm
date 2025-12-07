@@ -68,7 +68,7 @@
 
 - (DKDiagnosticResult)initWithCoder:(id)coder
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(DKDiagnosticResult *)self init];
   if (v5)
@@ -100,19 +100,18 @@
     v20 = DiagnosticsKitLogHandleForCategory(4);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 138412290;
-      v24 = v5;
-      _os_log_impl(&dword_248B9D000, v20, OS_LOG_TYPE_DEFAULT, "Doing decode of DKDiagnosticResult: %@", &v23, 0xCu);
+      v22 = 138412290;
+      v23 = v5;
+      _os_log_impl(&dword_248B9D000, v20, OS_LOG_TYPE_DEFAULT, "Doing decode of DKDiagnosticResult: %@", &v22, 0xCu);
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -126,27 +125,27 @@
   [coderCopy encodeObject:statusCode forKey:@"statusCode"];
 
   data = [(DKDiagnosticResult *)self data];
-  v25 = 0;
-  v8 = [data dropNonSerializableDataWithError:&v25];
-  v9 = v25;
+  v24 = 0;
+  v8 = [data dropNonSerializableDataWithError:&v24];
+  v9 = v24;
   [coderCopy encodeObject:v8 forKey:@"data"];
 
   files = [(DKDiagnosticResult *)self files];
-  v24 = v9;
-  v11 = [files dropNonSerializableDataWithError:&v24];
-  v12 = v24;
+  v23 = v9;
+  v11 = [files dropNonSerializableDataWithError:&v23];
+  v12 = v23;
 
   [coderCopy encodeObject:v11 forKey:@"files"];
   fileSandboxTokens = [(DKDiagnosticResult *)self fileSandboxTokens];
-  v23 = v12;
-  v14 = [fileSandboxTokens dropNonSerializableDataWithError:&v23];
-  v15 = v23;
+  v22 = v12;
+  v14 = [fileSandboxTokens dropNonSerializableDataWithError:&v22];
+  v15 = v22;
 
   [coderCopy encodeObject:v14 forKey:@"fileSandboxTokens"];
   uploadStatus = [(DKDiagnosticResult *)self uploadStatus];
-  v22 = v15;
-  v17 = [uploadStatus dropNonSerializableDataWithError:&v22];
-  v18 = v22;
+  v21 = v15;
+  v17 = [uploadStatus dropNonSerializableDataWithError:&v21];
+  v18 = v21;
 
   [coderCopy encodeObject:v17 forKey:@"uploadStatus"];
   if (v18)
@@ -160,8 +159,6 @@
       _os_log_impl(&dword_248B9D000, v19, OS_LOG_TYPE_DEFAULT, "DKDiagnosticResult decoding error encountered: %@", buf, 0xCu);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -179,7 +176,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSNumber *)self->_statusCode copyWithZone:zone];
   v7 = v5[1];
@@ -204,14 +201,13 @@
   v16 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412546;
+    v18 = 138412546;
     selfCopy = self;
-    v21 = 2112;
-    v22 = v5;
-    _os_log_impl(&dword_248B9D000, v16, OS_LOG_TYPE_DEFAULT, "Copied DKDiagnosticResult: %@ -> %@", &v19, 0x16u);
+    v20 = 2112;
+    v21 = v5;
+    _os_log_impl(&dword_248B9D000, v16, OS_LOG_TYPE_DEFAULT, "Copied DKDiagnosticResult: %@ -> %@", &v18, 0x16u);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -27,6 +27,7 @@
 - (void)_setSmudgeDetectionEnabled:(id)enabled specifier:(id)specifier;
 - (void)cameraCaptureButtonAppConfigurationCoordinator:(id)coordinator didChangeAssociatedAppBundleID:(id)d;
 - (void)emitNavigationEvent;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -1559,6 +1560,15 @@ LABEL_214:
   [(CameraSettingsBaseController *)&v4 viewDidLoad];
   v3 = sub_11414(@"CAMERA_SETTINGS_TITLE");
   [(CameraSettingsController *)self setTitle:v3];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CameraSettingsController;
+  [(CameraSettingsController *)&v4 viewDidAppear:appear];
+  [(CameraSettingsController *)self _writeLastViewedDate];
+  [(CameraSettingsController *)self emitNavigationEvent];
 }
 
 - (void)emitNavigationEvent

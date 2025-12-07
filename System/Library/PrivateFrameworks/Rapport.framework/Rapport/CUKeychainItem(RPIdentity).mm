@@ -15,8 +15,8 @@
   accessGroups = [v7 accessGroups];
   v12 = v10;
   v13 = v12;
-  v261 = v12;
-  v242 = a5;
+  v275 = v12;
+  v256 = a5;
   if (accessGroups == v12)
   {
 
@@ -57,8 +57,8 @@ LABEL_12:
   CFStringGetTypeID();
   v19 = CFDictionaryGetTypedValue();
   accountAltDSID = [v7 accountAltDSID];
-  v262 = v19;
-  v260 = accountAltDSID;
+  v276 = v19;
+  v274 = accountAltDSID;
   if (![accountAltDSID length])
   {
     goto LABEL_25;
@@ -113,8 +113,8 @@ LABEL_25:
   CFStringGetTypeID();
   v27 = CFDictionaryGetTypedValue();
   accountID = [v7 accountID];
-  v258 = accountID;
-  v259 = v27;
+  v272 = accountID;
+  v273 = v27;
   if (![accountID length])
   {
     goto LABEL_38;
@@ -169,8 +169,8 @@ LABEL_38:
   CFStringGetTypeID();
   v35 = CFDictionaryGetTypedValue();
   contactID = [v7 contactID];
-  v256 = contactID;
-  v257 = v35;
+  v270 = contactID;
+  v271 = v35;
   if (![contactID length])
   {
     goto LABEL_51;
@@ -228,7 +228,7 @@ LABEL_51:
   v45 = dateAcknowledged;
   v46 = v44;
   v47 = v45;
-  v254 = v46;
+  v268 = v46;
   if (v45 == v46)
   {
 
@@ -274,8 +274,8 @@ LABEL_62:
   v16 = v16 | 2;
 LABEL_63:
   dateAdded = [v7 dateAdded];
-  v263 = dateAdded;
-  v255 = v47;
+  v277 = dateAdded;
+  v269 = v47;
   if (!dateAdded)
   {
     goto LABEL_77;
@@ -340,8 +340,8 @@ LABEL_77:
   v63 = dateRemoved;
   v64 = v62;
   v65 = v64;
-  v252 = v64;
-  v253 = v63;
+  v266 = v64;
+  v267 = v63;
   if (v63 == v64)
   {
 
@@ -351,8 +351,8 @@ LABEL_77:
     }
 
 LABEL_83:
-    v264 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    [v264 addObject:@"dateRemoved"];
+    v278 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    [v278 addObject:@"dateRemoved"];
     goto LABEL_94;
   }
 
@@ -365,7 +365,7 @@ LABEL_83:
       if (v63)
       {
 LABEL_81:
-        v264 = 0;
+        v278 = 0;
         goto LABEL_94;
       }
 
@@ -395,13 +395,13 @@ LABEL_81:
     }
 
     [v15 setObject:v63 forKeyedSubscript:@"dateRemoved"];
-    v264 = 0;
+    v278 = 0;
   }
 
   else
   {
-    v264 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    [v264 addObject:@"dateRemoved"];
+    v278 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    [v278 addObject:@"dateRemoved"];
   }
 
   v16 = v16 | 2;
@@ -411,7 +411,7 @@ LABEL_94:
   v70 = CFDictionaryGetTypedValue();
   v71 = dateRequested;
   v72 = v70;
-  v251 = v72;
+  v265 = v72;
   if (v71 == v72)
   {
 
@@ -436,13 +436,13 @@ LABEL_94:
       }
 
 LABEL_100:
-      v75 = v264;
-      if (!v264)
+      v75 = v278;
+      if (!v278)
       {
         v75 = objc_alloc_init(MEMORY[0x1E695DF70]);
       }
 
-      v264 = v75;
+      v278 = v75;
       [v75 addObject:@"dateReq"];
       goto LABEL_115;
     }
@@ -474,23 +474,23 @@ LABEL_100:
 
   else
   {
-    v78 = v264;
-    if (!v264)
+    v78 = v278;
+    if (!v278)
     {
       v78 = objc_alloc_init(MEMORY[0x1E695DF70]);
     }
 
-    v264 = v78;
+    v278 = v78;
     [v78 addObject:@"dateReq"];
   }
 
   v16 = v16 | 2;
 LABEL_115:
   deviceIRKData = [v7 deviceIRKData];
-  v250 = deviceIRKData;
+  v264 = deviceIRKData;
   if ([deviceIRKData length] != 16)
   {
-    v266 = 0;
+    v280 = 0;
     goto LABEL_129;
   }
 
@@ -501,7 +501,7 @@ LABEL_115:
   v83 = v82;
   if (v81 != v82)
   {
-    v244 = v7;
+    v258 = v7;
     v84 = v15;
     v85 = v71;
     v86 = accessGroups;
@@ -511,12 +511,12 @@ LABEL_115:
 
       if (v87)
       {
-        v266 = 0;
+        v280 = 0;
 LABEL_127:
         accessGroups = v86;
         v71 = v85;
         v15 = v84;
-        v7 = v244;
+        v7 = v258;
         goto LABEL_128;
       }
     }
@@ -538,19 +538,19 @@ LABEL_127:
       v91 = objc_alloc_init(MEMORY[0x1E695DF90]);
     }
 
-    v266 = v91;
+    v280 = v91;
     [v91 setObject:v81 forKeyedSubscript:@"dIRK"];
     v16 = v16 | 4;
     secrets = v88;
     goto LABEL_127;
   }
 
-  v266 = 0;
+  v280 = 0;
 LABEL_128:
 
 LABEL_129:
   edPKData = [v7 edPKData];
-  v249 = edPKData;
+  v263 = edPKData;
   if ([edPKData length] == 32)
   {
     CFDataGetTypeID();
@@ -574,10 +574,10 @@ LABEL_129:
       {
       }
 
-      v98 = v266;
-      if (!v266)
+      v98 = v280;
+      if (!v280)
       {
-        v245 = v7;
+        v259 = v7;
         v99 = metadata;
         v100 = v15;
         v101 = v16;
@@ -603,10 +603,10 @@ LABEL_129:
         LODWORD(v16) = v101;
         v15 = v100;
         metadata = v99;
-        v7 = v245;
+        v7 = v259;
       }
 
-      v266 = v98;
+      v280 = v98;
       [v98 setObject:v94 forKeyedSubscript:@"edPK"];
       v16 = v16 | 8;
       goto LABEL_142;
@@ -616,7 +616,7 @@ LABEL_142:
   }
 
   edSKData = [v7 edSKData];
-  v248 = edSKData;
+  v262 = edSKData;
   if ([edSKData length] == 32 || !edSKData && +[RPIdentity _sepBackedIdentityEnabled](RPIdentity, "_sepBackedIdentityEnabled"))
   {
     CFDataGetTypeID();
@@ -640,10 +640,10 @@ LABEL_142:
       {
       }
 
-      v113 = v266;
-      if (!v266)
+      v113 = v280;
+      if (!v280)
       {
-        v246 = v7;
+        v260 = v7;
         v114 = metadata;
         v115 = v15;
         v116 = v16;
@@ -669,10 +669,10 @@ LABEL_142:
         LODWORD(v16) = v116;
         v15 = v115;
         metadata = v114;
-        v7 = v246;
+        v7 = v260;
       }
 
-      v266 = v113;
+      v280 = v113;
       [v113 setObject:v109 forKeyedSubscript:@"edSK"];
       v16 = v16 | 0x10;
       goto LABEL_159;
@@ -685,12 +685,12 @@ LABEL_159:
   featureFlags = [v7 featureFlags];
   if (!featureFlags || (v124 = featureFlags, featureFlags == Int64))
   {
-    v125 = v263;
+    v125 = v277;
   }
 
   else
   {
-    v125 = v263;
+    v125 = v277;
     if (!v15)
     {
       v126 = [metadata mutableCopy];
@@ -705,7 +705,7 @@ LABEL_159:
         v15 = objc_alloc_init(MEMORY[0x1E695DF90]);
       }
 
-      v125 = v263;
+      v125 = v277;
     }
 
     v128 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v124];
@@ -715,57 +715,57 @@ LABEL_159:
   }
 
   identifier = [v7 identifier];
-  v247 = identifier;
+  v261 = identifier;
   if (identifier)
   {
-    v130 = identifier;
+    v136 = identifier;
     identifier2 = [selfCopy identifier];
-    v132 = v130;
-    v133 = identifier2;
-    v134 = v133;
-    if (v132 == v133)
+    v138 = v136;
+    v139 = identifier2;
+    v140 = v139;
+    if (v138 == v139)
     {
 
       goto LABEL_180;
     }
 
-    if (v133)
+    if (v139)
     {
-      v135 = [v132 isEqual:v133];
+      v141 = [v138 isEqual:v139];
 
-      if (v135)
+      if (v141)
       {
 LABEL_180:
         idsDeviceID = [v7 idsDeviceID];
-        v241 = idsDeviceID;
+        v255 = idsDeviceID;
         if (!idsDeviceID)
         {
           goto LABEL_197;
         }
 
-        v138 = idsDeviceID;
-        v139 = v132;
-        if (v138 != v139)
+        v144 = idsDeviceID;
+        v145 = v138;
+        if (v144 != v145)
         {
-          v140 = [v138 isEqual:v139];
+          v146 = [v144 isEqual:v145];
 
-          if (v140)
+          if (v146)
           {
             goto LABEL_197;
           }
 
           CFStringGetTypeID();
-          v141 = CFDictionaryGetTypedValue();
-          v139 = v138;
-          v142 = v141;
-          v138 = v142;
-          if (v139 != v142)
+          v147 = CFDictionaryGetTypedValue();
+          v145 = v144;
+          v148 = v147;
+          v144 = v148;
+          if (v145 != v148)
           {
-            if (v142)
+            if (v148)
             {
-              v143 = [v139 isEqual:v142];
+              v149 = [v145 isEqual:v148];
 
-              if (v143)
+              if (v149)
               {
                 goto LABEL_196;
               }
@@ -777,11 +777,11 @@ LABEL_180:
 
             if (!v15)
             {
-              v144 = [metadata mutableCopy];
-              v145 = v144;
-              if (v144)
+              v150 = [metadata mutableCopy];
+              v151 = v150;
+              if (v150)
               {
-                v15 = v144;
+                v15 = v150;
               }
 
               else
@@ -790,7 +790,7 @@ LABEL_180:
               }
             }
 
-            [v15 setObject:v139 forKeyedSubscript:@"idsDeviceID"];
+            [v15 setObject:v145 forKeyedSubscript:@"idsDeviceID"];
             v16 = v16 | 0x40;
             goto LABEL_196;
           }
@@ -799,29 +799,29 @@ LABEL_180:
 LABEL_196:
 LABEL_197:
         CFStringGetTypeID();
-        v146 = CFDictionaryGetTypedValue();
+        v152 = CFDictionaryGetTypedValue();
         mediaRemoteID = [v7 mediaRemoteID];
-        v239 = mediaRemoteID;
-        v240 = v146;
+        v253 = mediaRemoteID;
+        v254 = v152;
         if (![mediaRemoteID length])
         {
           goto LABEL_210;
         }
 
-        v148 = mediaRemoteID;
-        v149 = v146;
-        v150 = v149;
-        if (v148 == v149)
+        v154 = mediaRemoteID;
+        v155 = v152;
+        v156 = v155;
+        if (v154 == v155)
         {
 
           goto LABEL_210;
         }
 
-        if ((v149 == 0) != (v148 != 0))
+        if ((v155 == 0) != (v154 != 0))
         {
-          v151 = [v148 isEqual:v149];
+          v157 = [v154 isEqual:v155];
 
-          if (v151)
+          if (v157)
           {
             goto LABEL_210;
           }
@@ -838,33 +838,33 @@ LABEL_197:
           if (v15)
           {
 LABEL_209:
-            [v15 setObject:v148 forKeyedSubscript:@"mediaRemoteID"];
+            [v15 setObject:v154 forKeyedSubscript:@"mediaRemoteID"];
             v16 = v16 | 0x10000;
 LABEL_210:
             CFStringGetTypeID();
-            v154 = CFDictionaryGetTypedValue();
+            v160 = CFDictionaryGetTypedValue();
             mediaRouteID = [v7 mediaRouteID];
-            v237 = mediaRouteID;
-            v238 = v154;
+            v251 = mediaRouteID;
+            v252 = v160;
             if (![mediaRouteID length])
             {
               goto LABEL_223;
             }
 
-            v156 = mediaRouteID;
-            v157 = v154;
-            v158 = v157;
-            if (v156 == v157)
+            v162 = mediaRouteID;
+            v163 = v160;
+            v164 = v163;
+            if (v162 == v163)
             {
 
               goto LABEL_223;
             }
 
-            if ((v157 == 0) != (v156 != 0))
+            if ((v163 == 0) != (v162 != 0))
             {
-              v159 = [v156 isEqual:v157];
+              v165 = [v162 isEqual:v163];
 
-              if (v159)
+              if (v165)
               {
                 goto LABEL_223;
               }
@@ -881,33 +881,33 @@ LABEL_210:
               if (v15)
               {
 LABEL_222:
-                [v15 setObject:v156 forKeyedSubscript:@"mediaRouteID"];
+                [v15 setObject:v162 forKeyedSubscript:@"mediaRouteID"];
                 v16 = v16 | 0x20000;
 LABEL_223:
                 CFStringGetTypeID();
-                v162 = CFDictionaryGetTypedValue();
+                v168 = CFDictionaryGetTypedValue();
                 model = [v7 model];
-                v235 = model;
-                v236 = v162;
+                v249 = model;
+                v250 = v168;
                 if (![model length])
                 {
                   goto LABEL_236;
                 }
 
-                v164 = model;
-                v165 = v162;
-                v166 = v165;
-                if (v164 == v165)
+                v170 = model;
+                v171 = v168;
+                v172 = v171;
+                if (v170 == v171)
                 {
 
                   goto LABEL_236;
                 }
 
-                if ((v165 == 0) != (v164 != 0))
+                if ((v171 == 0) != (v170 != 0))
                 {
-                  v167 = [v164 isEqual:v165];
+                  v173 = [v170 isEqual:v171];
 
-                  if (v167)
+                  if (v173)
                   {
                     goto LABEL_236;
                   }
@@ -924,58 +924,58 @@ LABEL_223:
                   if (v15)
                   {
 LABEL_235:
-                    [v15 setObject:v164 forKeyedSubscript:@"model"];
+                    [v15 setObject:v170 forKeyedSubscript:@"model"];
                     v16 = v16 | 0x80;
 LABEL_236:
                     name = [selfCopy name];
                     name2 = [v7 name];
-                    v233 = name2;
-                    v234 = name;
+                    v247 = name2;
+                    v248 = name;
                     if (![name2 length])
                     {
                       goto LABEL_244;
                     }
 
-                    v172 = name2;
-                    v173 = name;
-                    v174 = v173;
-                    if (v172 == v173)
+                    v178 = name2;
+                    v179 = name;
+                    v180 = v179;
+                    if (v178 == v179)
                     {
 
                       goto LABEL_244;
                     }
 
-                    if ((v173 == 0) != (v172 != 0))
+                    if ((v179 == 0) != (v178 != 0))
                     {
-                      v175 = [v172 isEqual:v173];
+                      v181 = [v178 isEqual:v179];
 
-                      if (v175)
+                      if (v181)
                       {
 LABEL_244:
                         CFStringGetTypeID();
-                        v176 = CFDictionaryGetTypedValue();
+                        v182 = CFDictionaryGetTypedValue();
                         sendersKnownAlias = [v7 sendersKnownAlias];
-                        v231 = sendersKnownAlias;
-                        v232 = v176;
+                        v245 = sendersKnownAlias;
+                        v246 = v182;
                         if (![sendersKnownAlias length])
                         {
                           goto LABEL_257;
                         }
 
-                        v178 = sendersKnownAlias;
-                        v179 = v176;
-                        v180 = v179;
-                        if (v178 == v179)
+                        v184 = sendersKnownAlias;
+                        v185 = v182;
+                        v186 = v185;
+                        if (v184 == v185)
                         {
 
                           goto LABEL_257;
                         }
 
-                        if ((v179 == 0) != (v178 != 0))
+                        if ((v185 == 0) != (v184 != 0))
                         {
-                          v181 = [v178 isEqual:v179];
+                          v187 = [v184 isEqual:v185];
 
-                          if (v181)
+                          if (v187)
                           {
                             goto LABEL_257;
                           }
@@ -992,31 +992,31 @@ LABEL_244:
                           if (v15)
                           {
 LABEL_256:
-                            [v15 setObject:v178 forKeyedSubscript:@"ska"];
+                            [v15 setObject:v184 forKeyedSubscript:@"ska"];
                             v16 = v16 | 0x40000;
 LABEL_257:
                             objc_opt_class();
-                            v184 = NSDictionaryGetNSArrayOfClass();
+                            v190 = NSDictionaryGetNSArrayOfClass();
                             allUsedSendersKnownAliases = [v7 allUsedSendersKnownAliases];
-                            v186 = v184;
-                            v187 = v186;
-                            if (allUsedSendersKnownAliases == v186)
+                            v192 = v190;
+                            v193 = v192;
+                            if (allUsedSendersKnownAliases == v192)
                             {
                             }
 
                             else
                             {
-                              if ((v186 == 0) == (allUsedSendersKnownAliases != 0))
+                              if ((v192 == 0) == (allUsedSendersKnownAliases != 0))
                               {
 
                                 if (!v15)
                                 {
 LABEL_264:
-                                  v189 = [metadata mutableCopy];
-                                  v190 = v189;
-                                  if (v189)
+                                  v195 = [metadata mutableCopy];
+                                  v196 = v195;
+                                  if (v195)
                                   {
-                                    v15 = v189;
+                                    v15 = v195;
                                   }
 
                                   else
@@ -1031,9 +1031,9 @@ LABEL_268:
                                 goto LABEL_269;
                               }
 
-                              v188 = [allUsedSendersKnownAliases isEqual:v186];
+                              v194 = [allUsedSendersKnownAliases isEqual:v192];
 
-                              if ((v188 & 1) == 0)
+                              if ((v194 & 1) == 0)
                               {
                                 if (!v15)
                                 {
@@ -1045,48 +1045,48 @@ LABEL_268:
                             }
 
 LABEL_269:
-                            v191 = [v7 type] - 1;
-                            v136 = v262;
-                            if (v191 >= 0xF || ((0x48FFu >> v191) & 1) == 0)
+                            v197 = [v7 type] - 1;
+                            v142 = v276;
+                            if (v197 >= 0xF || ((0x48FFu >> v197) & 1) == 0)
                             {
-                              if (v242)
+                              if (v256)
                               {
-                                [v7 type];
-                                *v242 = RPErrorF();
+                                type = [v7 type];
+                                *v256 = RPErrorF(4294960540, "Unknown identity type (%d)", v203, v204, v205, v206, v207, v208, type);
                               }
 
                               v16 = 1;
                               goto LABEL_332;
                             }
 
-                            v229 = accessGroups;
-                            v243 = secrets;
-                            v192 = off_1E7C947F0[v191];
-                            type = [selfCopy type];
-                            v194 = type;
-                            if (v192 == type)
+                            v243 = accessGroups;
+                            v257 = secrets;
+                            v198 = off_1E7C947F0[v197];
+                            type2 = [selfCopy type];
+                            v200 = type2;
+                            if (v198 == type2)
                             {
                             }
 
-                            else if (!type || (v195 = [(__CFString *)v192 isEqual:type], v194, v194, (v195 & 1) == 0))
+                            else if (!type2 || (v201 = [(__CFString *)v198 isEqual:type2], v200, v200, (v201 & 1) == 0))
                             {
-                              [selfCopy setType:v192];
+                              [selfCopy setType:v198];
                               v16 = v16 | 0x200;
                             }
 
-                            v196 = CFDictionaryGetInt64();
+                            v209 = CFDictionaryGetInt64();
                             userAdded = [v7 userAdded];
-                            secrets = v243;
-                            if (((userAdded ^ (v196 == 0)) & 1) == 0)
+                            secrets = v257;
+                            if (((userAdded ^ (v209 == 0)) & 1) == 0)
                             {
-                              v198 = userAdded;
+                              v211 = userAdded;
                               if (!v15)
                               {
-                                v199 = [metadata mutableCopy];
-                                v200 = v199;
-                                if (v199)
+                                v212 = [metadata mutableCopy];
+                                v213 = v212;
+                                if (v212)
                                 {
-                                  v15 = v199;
+                                  v15 = v212;
                                 }
 
                                 else
@@ -1094,39 +1094,39 @@ LABEL_269:
                                   v15 = objc_alloc_init(MEMORY[0x1E695DF90]);
                                 }
 
-                                secrets = v243;
+                                secrets = v257;
                               }
 
-                              v201 = [MEMORY[0x1E696AD98] numberWithBool:v198];
-                              [v15 setObject:v201 forKeyedSubscript:@"userAdded"];
+                              v214 = [MEMORY[0x1E696AD98] numberWithBool:v211];
+                              [v15 setObject:v214 forKeyedSubscript:@"userAdded"];
 
                               v16 = v16 | 0x4000;
                             }
 
                             btIRKData = [v7 btIRKData];
-                            v228 = btIRKData;
+                            v242 = btIRKData;
                             if ([btIRKData length] != 16)
                             {
 LABEL_300:
                               btAddress = [v7 btAddress];
-                              v227 = btAddress;
+                              v241 = btAddress;
                               if ([btAddress length] != 7)
                               {
                                 goto LABEL_314;
                               }
 
                               CFDataGetTypeID();
-                              v212 = CFDictionaryGetTypedValue();
-                              v213 = btAddress;
-                              v214 = v212;
-                              v215 = v214;
-                              if (v213 != v214)
+                              v225 = CFDictionaryGetTypedValue();
+                              v226 = btAddress;
+                              v227 = v225;
+                              v228 = v227;
+                              if (v226 != v227)
                               {
-                                if ((v213 != 0) != (v214 == 0))
+                                if ((v226 != 0) != (v227 == 0))
                                 {
-                                  v216 = [v213 isEqual:v214];
+                                  v229 = [v226 isEqual:v227];
 
-                                  if (v216)
+                                  if (v229)
                                   {
                                     goto LABEL_313;
                                   }
@@ -1136,32 +1136,32 @@ LABEL_300:
                                 {
                                 }
 
-                                v217 = v266;
-                                if (!v266)
+                                v230 = v280;
+                                if (!v280)
                                 {
-                                  v218 = [v243 mutableCopy];
-                                  v268 = v218;
-                                  if (v218)
+                                  v231 = [v257 mutableCopy];
+                                  v282 = v231;
+                                  if (v231)
                                   {
-                                    v219 = v218;
+                                    v232 = v231;
                                   }
 
                                   else
                                   {
-                                    v219 = objc_alloc_init(MEMORY[0x1E695DF90]);
+                                    v232 = objc_alloc_init(MEMORY[0x1E695DF90]);
                                   }
 
-                                  v217 = v219;
+                                  v230 = v232;
                                 }
 
-                                v266 = v217;
-                                [v217 setObject:v213 forKeyedSubscript:@"bAdd"];
+                                v280 = v230;
+                                [v230 setObject:v226 forKeyedSubscript:@"bAdd"];
                                 v16 = v16 | 0x800000;
                                 goto LABEL_313;
                               }
 
 LABEL_313:
-                              secrets = v243;
+                              secrets = v257;
 LABEL_314:
                               if (a4 && v16)
                               {
@@ -1172,20 +1172,20 @@ LABEL_314:
                               revisionID = [v7 revisionID];
                               if (revisionID == Int64Ranged)
                               {
-                                accessGroups = v229;
+                                accessGroups = v243;
                               }
 
                               else
                               {
-                                v222 = revisionID;
-                                accessGroups = v229;
+                                v235 = revisionID;
+                                accessGroups = v243;
                                 if (!v15)
                                 {
-                                  v223 = [metadata mutableCopy];
-                                  v224 = v223;
-                                  if (v223)
+                                  v236 = [metadata mutableCopy];
+                                  v237 = v236;
+                                  if (v236)
                                   {
-                                    v15 = v223;
+                                    v15 = v236;
                                   }
 
                                   else
@@ -1193,46 +1193,46 @@ LABEL_314:
                                     v15 = objc_alloc_init(MEMORY[0x1E695DF90]);
                                   }
 
-                                  secrets = v243;
+                                  secrets = v257;
                                 }
 
-                                v225 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v222];
-                                [v15 setObject:v225 forKeyedSubscript:@"revisionID"];
+                                v238 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v235];
+                                [v15 setObject:v238 forKeyedSubscript:@"revisionID"];
                               }
 
-                              v136 = v262;
+                              v142 = v276;
                               if (v15)
                               {
                                 [selfCopy setMetadata:v15];
                               }
 
-                              if (v264)
+                              if (v278)
                               {
                                 [selfCopy setRemovedMetadata:?];
                               }
 
-                              if (v266)
+                              if (v280)
                               {
                                 [selfCopy setSecrets:?];
                               }
 
 LABEL_332:
-                              v125 = v263;
+                              v125 = v277;
                               goto LABEL_333;
                             }
 
                             CFDataGetTypeID();
-                            v203 = CFDictionaryGetTypedValue();
-                            v204 = btIRKData;
-                            v205 = v203;
-                            v206 = v205;
-                            if (v204 != v205)
+                            v216 = CFDictionaryGetTypedValue();
+                            v217 = btIRKData;
+                            v218 = v216;
+                            v219 = v218;
+                            if (v217 != v218)
                             {
-                              if ((v204 != 0) != (v205 == 0))
+                              if ((v217 != 0) != (v218 == 0))
                               {
-                                v207 = [v204 isEqual:v205];
+                                v220 = [v217 isEqual:v218];
 
-                                if (v207)
+                                if (v220)
                                 {
                                   goto LABEL_299;
                                 }
@@ -1242,41 +1242,41 @@ LABEL_332:
                               {
                               }
 
-                              v208 = v266;
-                              if (!v266)
+                              v221 = v280;
+                              if (!v280)
                               {
-                                v209 = [v243 mutableCopy];
-                                v267 = v209;
-                                if (v209)
+                                v222 = [v257 mutableCopy];
+                                v281 = v222;
+                                if (v222)
                                 {
-                                  v210 = v209;
+                                  v223 = v222;
                                 }
 
                                 else
                                 {
-                                  v210 = objc_alloc_init(MEMORY[0x1E695DF90]);
+                                  v223 = objc_alloc_init(MEMORY[0x1E695DF90]);
                                 }
 
-                                v208 = v210;
+                                v221 = v223;
                               }
 
-                              v266 = v208;
-                              [v208 setObject:v204 forKeyedSubscript:@"bIRK"];
+                              v280 = v221;
+                              [v221 setObject:v217 forKeyedSubscript:@"bIRK"];
                               v16 = v16 | 0x400000;
                               goto LABEL_299;
                             }
 
 LABEL_299:
-                            secrets = v243;
+                            secrets = v257;
                             goto LABEL_300;
                           }
                         }
 
-                        v182 = [metadata mutableCopy];
-                        v183 = v182;
-                        if (v182)
+                        v188 = [metadata mutableCopy];
+                        v189 = v188;
+                        if (v188)
                         {
-                          v15 = v182;
+                          v15 = v188;
                         }
 
                         else
@@ -1292,17 +1292,17 @@ LABEL_299:
                     {
                     }
 
-                    [selfCopy setName:v172];
+                    [selfCopy setName:v178];
                     v16 = v16 | 0x100;
                     goto LABEL_244;
                   }
                 }
 
-                v168 = [metadata mutableCopy];
-                v169 = v168;
-                if (v168)
+                v174 = [metadata mutableCopy];
+                v175 = v174;
+                if (v174)
                 {
-                  v15 = v168;
+                  v15 = v174;
                 }
 
                 else
@@ -1314,11 +1314,11 @@ LABEL_299:
               }
             }
 
-            v160 = [metadata mutableCopy];
-            v161 = v160;
-            if (v160)
+            v166 = [metadata mutableCopy];
+            v167 = v166;
+            if (v166)
             {
-              v15 = v160;
+              v15 = v166;
             }
 
             else
@@ -1330,11 +1330,11 @@ LABEL_299:
           }
         }
 
-        v152 = [metadata mutableCopy];
-        v153 = v152;
-        if (v152)
+        v158 = [metadata mutableCopy];
+        v159 = v158;
+        if (v158)
         {
-          v15 = v152;
+          v15 = v158;
         }
 
         else
@@ -1350,18 +1350,18 @@ LABEL_299:
     {
     }
 
-    [selfCopy setIdentifier:v132];
+    [selfCopy setIdentifier:v138];
     v16 = v16 | 0x20;
     goto LABEL_180;
   }
 
-  if (v242)
+  if (v256)
   {
-    *v242 = RPErrorF();
+    *v256 = RPErrorF(4294960588, "No identifier", v130, v131, v132, v133, v134, v135, v240);
   }
 
   v16 = 1;
-  v136 = v262;
+  v142 = v276;
 LABEL_333:
 
   return v16;

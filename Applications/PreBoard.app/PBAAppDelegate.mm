@@ -20,6 +20,7 @@
 - (void)presentLAPasscodeVerification;
 - (void)sceneManager:(id)manager didAddScene:(id)scene;
 - (void)setMainViewController:(id)controller;
+- (void)setMainViewController:(id)controller animated:(BOOL)animated;
 - (void)tapToWake:(id)wake;
 @end
 
@@ -87,11 +88,11 @@
   v29 = +[LAPreboard sharedInstance];
   isRequired = [v29 isRequired];
 
-  v38 = _NSConcreteStackBlock;
-  v39 = 3221225472;
-  v40 = sub_10000B024;
-  v41 = &unk_10001CBE0;
-  v43 = isRequired;
+  v39 = _NSConcreteStackBlock;
+  v40 = 3221225472;
+  v41 = sub_10000B024;
+  v42 = &unk_10001CBE0;
+  v44 = isRequired;
   selfCopy = self;
   AnalyticsSendEventLazy();
   if (isRequired)
@@ -125,11 +126,11 @@
   [v34 addObserver:self selector:"displayWillUnblank:" name:@"PBAScreenWillUnblankNotification" object:0];
 
   dispatch_async(&_dispatch_main_q, &stru_10001CC00);
-  v35 = sub_10000A054();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  v36 = sub_10000A054(v35);
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
-    *v37 = 0;
-    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "now running", v37, 2u);
+    *v38 = 0;
+    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "now running", v38, 2u);
   }
 
   return 1;
@@ -237,10 +238,24 @@
   [(PBAAppDelegate *)self setMainViewController:controllerCopy animated:v6];
 }
 
+- (void)setMainViewController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  if (self->_mainViewController != controllerCopy)
+  {
+    objc_storeStrong(&self->_mainViewController, controller);
+    stackViewController = self->_stackViewController;
+    mainViewController = self->_mainViewController;
+    v9 = [NSArray arrayWithObjects:&mainViewController count:1];
+    [(PBAStackViewController *)stackViewController setViewControllers:v9 animated:animatedCopy];
+  }
+}
+
 - (void)_reconfigureHomeButton
 {
   v2 = _AXSTripleClickCopyOptions();
-  v3 = sub_10000A054();
+  v3 = sub_10000A054(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10000D3D4(v2, v3);
@@ -266,63 +281,62 @@
     v4 = 1;
   }
 
-  _AXSHomeClickSpeed();
-  v6 = 0.100000001;
-  if (v5 <= 0.0)
+  v5 = _AXSHomeClickSpeed();
+  v7 = 0.100000001;
+  if (v6 <= 0.0)
   {
-    v7 = 0.3;
+    v8 = 0.3;
   }
 
   else
   {
-    v7 = v5;
-    v8 = sub_10000A054();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v8 = v6;
+    v9 = sub_10000A054(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v16 = v7;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "maximumMultiplePressInterval override from AX is:%g", buf, 0xCu);
+      v18 = v8;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "maximumMultiplePressInterval override from AX is:%g", buf, 0xCu);
     }
 
-    if (v7 < 0.1)
+    if (v8 < 0.1)
     {
-      v9 = sub_10000A054();
-      v6 = v7;
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v11 = sub_10000A054(v10);
+      v7 = v8;
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 134218496;
-        v16 = v7;
-        v17 = 2048;
-        v18 = v7;
+        v18 = v8;
         v19 = 2048;
-        v20 = v7;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "multiplePressInterval: minimum > maximum, using maximum(%g): %g > %g", buf, 0x20u);
+        v20 = v8;
+        v21 = 2048;
+        v22 = v8;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "multiplePressInterval: minimum > maximum, using maximum(%g): %g > %g", buf, 0x20u);
       }
     }
   }
 
-  v10 = +[BKSButtonHapticsDefinition definitionForHomeButton];
-  [v10 setMaximumPressCount:v4];
-  [v10 setMinimumMultiplePressTimeInterval:v6];
-  [v10 setMaximumMultiplePressTimeInterval:v7];
-  v11 = sub_10000A054();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = +[BKSButtonHapticsDefinition definitionForHomeButton];
+  [v12 setMaximumPressCount:v4];
+  [v12 setMinimumMultiplePressTimeInterval:v7];
+  v13 = sub_10000A054([v12 setMaximumMultiplePressTimeInterval:v8]);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v16 = *&v10;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "new button definition:%{public}@", buf, 0xCu);
+    v18 = *&v12;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "new button definition:%{public}@", buf, 0xCu);
   }
 
-  v12 = +[BKSButtonHapticsController sharedInstance];
-  v14 = v10;
-  v13 = [NSArray arrayWithObjects:&v14 count:1];
-  [v12 applyDefinitions:v13];
+  v14 = +[BKSButtonHapticsController sharedInstance];
+  v16 = v12;
+  v15 = [NSArray arrayWithObjects:&v16 count:1];
+  [v14 applyDefinitions:v15];
 }
 
 - (void)_resetIdleTimerForReason:(id)reason
 {
   reasonCopy = reason;
-  v4 = sub_10000A054();
+  v4 = sub_10000A054(reasonCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v6 = 138543362;
@@ -350,7 +364,7 @@
 {
   if ([up state] == 3)
   {
-    v3 = sub_10000A054();
+    v3 = sub_10000A054(3);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *v4 = 0;
@@ -469,7 +483,7 @@
 
       else
       {
-        v8 = sub_10000A054();
+        v8 = sub_10000A054(0);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           sub_10000D44C(v8);
@@ -481,7 +495,7 @@
 
     else
     {
-      v9 = sub_10000A054();
+      v9 = sub_10000A054(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_10000D490(v9);

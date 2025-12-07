@@ -1,95 +1,24 @@
-void sub_24742A9C4(_Unwind_Exception *a1)
+void happly::TypedListProperty<unsigned short>::reserve(void *a1, uint64_t a2)
 {
-  v3 = *(v1 + 56);
-  if (v3)
-  {
-    *(v1 + 64) = v3;
-    operator delete(v3);
-  }
-
-  happly::TypedListProperty<unsigned char>::TypedListProperty(v1 + 32);
-  _Unwind_Resume(a1);
-}
-
-uint64_t happly::TypedListProperty<unsigned short>::~TypedListProperty(uint64_t a1)
-{
-  *a1 = &unk_28593D248;
-  v2 = *(a1 + 56);
-  if (v2)
-  {
-    *(a1 + 64) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 32);
-  if (v3)
-  {
-    *(a1 + 40) = v3;
-    operator delete(v3);
-  }
-
-  *a1 = &unk_28593D150;
-  if (*(a1 + 31) < 0)
-  {
-    operator delete(*(a1 + 8));
-  }
-
-  return a1;
-}
-
-void happly::TypedListProperty<unsigned short>::~TypedListProperty(uint64_t a1)
-{
-  *a1 = &unk_28593D248;
-  v2 = *(a1 + 56);
-  if (v2)
-  {
-    *(a1 + 64) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 32);
-  if (v3)
-  {
-    *(a1 + 40) = v3;
-    operator delete(v3);
-  }
-
-  *a1 = &unk_28593D150;
-  if (*(a1 + 31) < 0)
-  {
-    operator delete(*(a1 + 8));
-  }
-
-  JUMPOUT(0x24C1A2010);
-}
-
-void *happly::TypedListProperty<unsigned short>::reserve(void *result, uint64_t a2)
-{
-  v2 = result[4];
-  if (3 * a2 > ((result[6] - v2) >> 1))
+  if (3 * a2 > ((a1[6] - a1[4]) >> 1))
   {
     if (((3 * a2) & 0x8000000000000000) == 0)
     {
-      v3 = result[5] - v2;
       operator new();
     }
 
     std::vector<char>::__throw_length_error[abi:ne200100]();
   }
 
-  v4 = result[7];
-  if (a2 + 1 > ((result[9] - v4) >> 3))
+  if (a2 + 1 > ((a1[9] - a1[7]) >> 3))
   {
     if (!((a2 + 1) >> 61))
     {
-      v5 = result[8] - v4;
       operator new();
     }
 
     std::vector<char>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t happly::TypedListProperty<unsigned short>::parseNext(void *a1, void *a2, void *a3)
@@ -224,23 +153,30 @@ uint64_t happly::TypedListProperty<unsigned short>::parseNext(void *a1, void *a2
   return MEMORY[0x24C1A1F80](&v42);
 }
 
-void sub_24742B0A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
+void sub_24742B08C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
 {
-  std::istringstream::~istringstream(&a13);
-  std::istringstream::~istringstream(&a48);
+  va_start(va, a47);
+  std::istringstream::~istringstream(va);
   _Unwind_Resume(a1);
 }
 
-void happly::TypedListProperty<unsigned short>::readNext(uint64_t a1)
+void sub_24742B0A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
 {
-  v2 = *(a1 + 80);
+  va_start(va, a47);
+  std::istringstream::~istringstream(&a13);
+  std::istringstream::~istringstream(va);
+  _Unwind_Resume(a1);
+}
+
+void happly::TypedListProperty<unsigned short>::readNext(void *a1, uint64_t a2)
+{
   std::istream::read();
-  v3 = (*(a1 + 40) - *(a1 + 32)) >> 1;
-  v5 = *(a1 + 64);
-  v4 = *(a1 + 72);
+  v3 = (a1[5] - a1[4]) >> 1;
+  v5 = a1[8];
+  v4 = a1[9];
   if (v5 >= v4)
   {
-    v7 = *(a1 + 56);
+    v7 = a1[7];
     v8 = v5 - v7;
     v9 = (v5 - v7) >> 3;
     v10 = v9 + 1;
@@ -281,9 +217,9 @@ void happly::TypedListProperty<unsigned short>::readNext(uint64_t a1)
     *v14 = v3;
     v6 = v14 + 1;
     memcpy(v15, v7, v8);
-    *(a1 + 56) = v15;
-    *(a1 + 64) = v6;
-    *(a1 + 72) = 0;
+    a1[7] = v15;
+    a1[8] = v6;
+    a1[9] = 0;
     if (v7)
     {
       operator delete(v7);
@@ -296,13 +232,12 @@ void happly::TypedListProperty<unsigned short>::readNext(uint64_t a1)
     v6 = v5 + 1;
   }
 
-  *(a1 + 64) = v6;
+  a1[8] = v6;
 }
 
-void happly::TypedListProperty<unsigned short>::readNextBigEndian(uint64_t a1)
+void happly::TypedListProperty<unsigned short>::readNextBigEndian(uint64_t a1, uint64_t a2)
 {
-  v37 = 0;
-  v2 = *(a1 + 80);
+  v35 = 0;
   std::istream::read();
   v3 = *(a1 + 80);
   v4 = 0;
@@ -321,70 +256,68 @@ void happly::TypedListProperty<unsigned short>::readNextBigEndian(uint64_t a1)
       goto LABEL_8;
   }
 
-  v37 = v4;
+  v35 = v4;
 LABEL_8:
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  v5 = (a1 + 32);
-  v8 = v7 - v6;
-  v9 = (v7 - v6) >> 1;
-  v10 = v9 + v4;
-  if (v9 >= v9 + v4)
+  v5 = *(a1 + 32);
+  v6 = *(a1 + 40);
+  v7 = v6 - v5;
+  v8 = (v6 - v5) >> 1;
+  v9 = v8 + v4;
+  if (v8 >= v8 + v4)
   {
-    v11 = v4;
-    if (v9 > v9 + v4)
+    v10 = v4;
+    if (v8 > v8 + v4)
     {
-      *(a1 + 40) = v6 + 2 * v10;
-      v11 = v4;
+      *(a1 + 40) = v5 + 2 * v9;
+      v10 = v4;
     }
   }
 
   else
   {
     std::vector<unsigned short>::__append(a1 + 32, v4);
-    v11 = v37;
+    v10 = v35;
   }
 
-  if (v11)
+  if (v10)
   {
-    v12 = *v5;
     std::istream::read();
   }
 
-  v14 = *(a1 + 64);
-  v13 = *(a1 + 72);
-  if (v14 >= v13)
+  v12 = *(a1 + 64);
+  v11 = *(a1 + 72);
+  if (v12 >= v11)
   {
-    v35 = v7;
-    v36 = v6;
-    v15 = *(a1 + 56);
-    v16 = v14 - v15;
-    v17 = (v14 - v15) >> 3;
-    v18 = v17 + 1;
-    if ((v17 + 1) >> 61)
+    v33 = v6;
+    v34 = v5;
+    v13 = *(a1 + 56);
+    v14 = v12 - v13;
+    v15 = (v12 - v13) >> 3;
+    v16 = v15 + 1;
+    if ((v15 + 1) >> 61)
     {
       std::vector<char>::__throw_length_error[abi:ne200100]();
     }
 
-    v19 = v13 - v15;
-    if (v19 >> 2 > v18)
+    v17 = v11 - v13;
+    if (v17 >> 2 > v16)
     {
-      v18 = v19 >> 2;
+      v16 = v17 >> 2;
     }
 
-    if (v19 >= 0x7FFFFFFFFFFFFFF8)
+    if (v17 >= 0x7FFFFFFFFFFFFFF8)
     {
-      v20 = 0x1FFFFFFFFFFFFFFFLL;
+      v18 = 0x1FFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v20 = v18;
+      v18 = v16;
     }
 
-    if (v20)
+    if (v18)
     {
-      if (!(v20 >> 61))
+      if (!(v18 >> 61))
       {
         operator new();
       }
@@ -392,24 +325,24 @@ LABEL_8:
       std::__throw_bad_array_new_length[abi:ne200100]();
     }
 
-    v21 = (v14 - v15) >> 3;
-    v22 = (8 * v17);
-    v23 = (8 * v17 - 8 * v21);
-    *v22 = v10;
-    v24 = v22 + 1;
-    memcpy(v23, v15, v16);
-    *(a1 + 56) = v23;
-    *(a1 + 64) = v24;
+    v19 = (v12 - v13) >> 3;
+    v20 = (8 * v15);
+    v21 = (8 * v15 - 8 * v19);
+    *v20 = v9;
+    v22 = v20 + 1;
+    memcpy(v21, v13, v14);
+    *(a1 + 56) = v21;
+    *(a1 + 64) = v22;
     *(a1 + 72) = 0;
-    if (v15)
+    if (v13)
     {
-      operator delete(v15);
+      operator delete(v13);
     }
 
-    v7 = v35;
-    v6 = v36;
-    *(a1 + 64) = v24;
-    if (v9 >= v10)
+    v6 = v33;
+    v5 = v34;
+    *(a1 + 64) = v22;
+    if (v8 >= v9)
     {
       return;
     }
@@ -417,16 +350,16 @@ LABEL_8:
 
   else
   {
-    *v14 = v10;
-    *(a1 + 64) = v14 + 8;
-    if (v9 >= v10)
+    *v12 = v9;
+    *(a1 + 64) = v12 + 8;
+    if (v8 >= v9)
     {
       return;
     }
   }
 
-  v25 = *v5;
-  v26 = v9;
+  v23 = *(a1 + 32);
+  v24 = v8;
   if (v4 < 4)
   {
     goto LABEL_41;
@@ -434,59 +367,59 @@ LABEL_8:
 
   if (v4 < 0x10)
   {
-    v27 = 0;
+    v25 = 0;
     goto LABEL_36;
   }
 
+  v25 = v4 & 0xFFFFFFFFFFFFFFF0;
+  v26 = (v7 + v23 + 16);
   v27 = v4 & 0xFFFFFFFFFFFFFFF0;
-  v28 = (v8 + v25 + 16);
-  v29 = v4 & 0xFFFFFFFFFFFFFFF0;
   do
   {
-    v30 = vrev16q_s8(*v28);
-    v28[-1] = vrev16q_s8(v28[-1]);
-    *v28 = v30;
-    v28 += 2;
-    v29 -= 16;
+    v28 = vrev16q_s8(*v26);
+    v26[-1] = vrev16q_s8(v26[-1]);
+    *v26 = v28;
+    v26 += 2;
+    v27 -= 16;
   }
 
-  while (v29);
-  if (v4 != v27)
+  while (v27);
+  if (v4 != v25)
   {
     if ((v4 & 0xC) == 0)
     {
-      v26 = v9 + v27;
+      v24 = v8 + v25;
       goto LABEL_41;
     }
 
 LABEL_36:
-    v26 = v9 + (v4 & 0xFFFFFFFFFFFFFFFCLL);
-    v31 = (v25 + v7 + 2 * v27 - v6);
-    v32 = v27 - (v4 & 0xFFFFFFFFFFFFFFFCLL);
+    v24 = v8 + (v4 & 0xFFFFFFFFFFFFFFFCLL);
+    v29 = (v23 + v6 + 2 * v25 - v5);
+    v30 = v25 - (v4 & 0xFFFFFFFFFFFFFFFCLL);
     do
     {
-      *v31 = vrev16_s8(*v31);
-      ++v31;
-      v32 += 4;
+      *v29 = vrev16_s8(*v29);
+      ++v29;
+      v30 += 4;
     }
 
-    while (v32);
+    while (v30);
     if (v4 == (v4 & 0xFFFFFFFFFFFFFFFCLL))
     {
       return;
     }
 
 LABEL_41:
-    v33 = v4 + v9 - v26;
-    v34 = (v25 + 2 * v26);
+    v31 = v4 + v8 - v24;
+    v32 = (v23 + 2 * v24);
     do
     {
-      *v34 = bswap32(*v34) >> 16;
-      ++v34;
-      --v33;
+      *v32 = bswap32(*v32) >> 16;
+      ++v32;
+      --v31;
     }
 
-    while (v33);
+    while (v31);
   }
 }
 
@@ -569,9 +502,7 @@ uint64_t happly::TypedListProperty<unsigned short>::writeDataASCII(uint64_t a1, 
 
 uint64_t happly::TypedListProperty<unsigned short>::writeDataBinary(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = (*(a1 + 56) + 8 * a3);
-  v4 = *v3;
-  if ((v3[1] - *v3) >= 0x100)
+  if (*(*(a1 + 56) + 8 * a3 + 8) - *(*(a1 + 56) + 8 * a3) >= 0x100uLL)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x24C1A1B40](exception, "List property has an element with more entries than fit in a uchar. See note in README.");
@@ -579,7 +510,6 @@ uint64_t happly::TypedListProperty<unsigned short>::writeDataBinary(uint64_t a1,
   }
 
   std::ostream::write();
-  v6 = *(a1 + 32) + 2 * v4;
   return std::ostream::write();
 }
 
@@ -600,7 +530,6 @@ uint64_t happly::TypedListProperty<unsigned short>::writeDataBinaryBigEndian(uin
   {
     do
     {
-      v9 = bswap32(*(*(a1 + 32) + 2 * v4)) >> 16;
       result = std::ostream::write();
       ++v4;
     }
@@ -716,21 +645,17 @@ void happly::TypedProperty<unsigned short>::~TypedProperty(uint64_t a1)
   JUMPOUT(0x24C1A2010);
 }
 
-void *happly::TypedProperty<unsigned short>::reserve(void *result, unint64_t a2)
+void happly::TypedProperty<unsigned short>::reserve(void *a1, unint64_t a2)
 {
-  v2 = result[4];
-  if (a2 > (result[6] - v2) >> 1)
+  if (a2 > (a1[6] - a1[4]) >> 1)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      v3 = result[5] - v2;
       operator new();
     }
 
     std::vector<char>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t happly::TypedProperty<unsigned short>::parseNext(void *a1, void *a2, void *a3)
@@ -819,41 +744,31 @@ uint64_t happly::TypedProperty<unsigned short>::parseNext(void *a1, void *a2, vo
   return MEMORY[0x24C1A1F80](&v24);
 }
 
-void sub_24742BDE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_24742BDE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::istringstream::~istringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t happly::TypedProperty<unsigned short>::readNext(void *a1)
+uint64_t happly::TypedProperty<unsigned short>::readNext(void *a1, uint64_t a2)
 {
-  v3 = a1[5];
-  v2 = a1[6];
-  if (v3 >= v2)
+  v4 = a1[5];
+  v3 = a1[6];
+  if (v4 >= v3)
   {
-    v5 = a1[4];
-    v6 = v3 - v5;
-    v7 = (v3 - v5) >> 1;
-    if (v7 <= -2)
+    v6 = a1[4];
+    v7 = v4 - v6;
+    v8 = (v4 - v6) >> 1;
+    if (v8 <= -2)
     {
       std::vector<char>::__throw_length_error[abi:ne200100]();
     }
 
-    v8 = v2 - v5;
-    if (v8 <= v7 + 1)
+    v9 = v3 - v6;
+    if (v9 <= v8 + 1)
     {
-      v9 = v7 + 1;
-    }
-
-    else
-    {
-      v9 = v8;
-    }
-
-    if (v8 >= 0x7FFFFFFFFFFFFFFELL)
-    {
-      v10 = 0x7FFFFFFFFFFFFFFFLL;
+      v10 = v8 + 1;
     }
 
     else
@@ -861,9 +776,19 @@ uint64_t happly::TypedProperty<unsigned short>::readNext(void *a1)
       v10 = v9;
     }
 
-    if (v10)
+    if (v9 >= 0x7FFFFFFFFFFFFFFELL)
     {
-      if ((v10 & 0x8000000000000000) == 0)
+      v11 = 0x7FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v11 = v10;
+    }
+
+    if (v11)
+    {
+      if ((v11 & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -871,60 +796,50 @@ uint64_t happly::TypedProperty<unsigned short>::readNext(void *a1)
       std::__throw_bad_array_new_length[abi:ne200100]();
     }
 
-    v11 = (v3 - v5) >> 1;
-    v12 = (2 * v7);
-    v13 = (2 * v7 - 2 * v11);
-    *v12 = 0;
-    v4 = v12 + 1;
-    memcpy(v13, v5, v6);
-    a1[4] = v13;
-    a1[5] = v4;
+    v12 = (v4 - v6) >> 1;
+    v13 = (2 * v8);
+    v14 = (2 * v8 - 2 * v12);
+    *v13 = 0;
+    v5 = v13 + 1;
+    memcpy(v14, v6, v7);
+    a1[4] = v14;
+    a1[5] = v5;
     a1[6] = 0;
-    if (v5)
+    if (v6)
     {
-      operator delete(v5);
+      operator delete(v6);
     }
   }
 
   else
   {
-    *v3 = 0;
-    v4 = v3 + 2;
+    *v4 = 0;
+    v5 = v4 + 2;
   }
 
-  a1[5] = v4;
+  a1[5] = v5;
 
   return std::istream::read();
 }
 
-uint64_t happly::TypedProperty<unsigned short>::readNextBigEndian(void *a1)
+uint64_t happly::TypedProperty<unsigned short>::readNextBigEndian(void *a1, uint64_t a2)
 {
-  v3 = a1[5];
-  v2 = a1[6];
-  if (v3 >= v2)
+  v4 = a1[5];
+  v3 = a1[6];
+  if (v4 >= v3)
   {
-    v5 = a1[4];
-    v6 = v3 - v5;
-    v7 = (v3 - v5) >> 1;
-    if (v7 <= -2)
+    v6 = a1[4];
+    v7 = v4 - v6;
+    v8 = (v4 - v6) >> 1;
+    if (v8 <= -2)
     {
       std::vector<char>::__throw_length_error[abi:ne200100]();
     }
 
-    v8 = v2 - v5;
-    if (v8 <= v7 + 1)
+    v9 = v3 - v6;
+    if (v9 <= v8 + 1)
     {
-      v9 = v7 + 1;
-    }
-
-    else
-    {
-      v9 = v8;
-    }
-
-    if (v8 >= 0x7FFFFFFFFFFFFFFELL)
-    {
-      v10 = 0x7FFFFFFFFFFFFFFFLL;
+      v10 = v8 + 1;
     }
 
     else
@@ -932,9 +847,19 @@ uint64_t happly::TypedProperty<unsigned short>::readNextBigEndian(void *a1)
       v10 = v9;
     }
 
-    if (v10)
+    if (v9 >= 0x7FFFFFFFFFFFFFFELL)
     {
-      if ((v10 & 0x8000000000000000) == 0)
+      v11 = 0x7FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v11 = v10;
+    }
+
+    if (v11)
+    {
+      if ((v11 & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -942,28 +867,28 @@ uint64_t happly::TypedProperty<unsigned short>::readNextBigEndian(void *a1)
       std::__throw_bad_array_new_length[abi:ne200100]();
     }
 
-    v11 = (v3 - v5) >> 1;
-    v12 = (2 * v7);
-    v13 = (2 * v7 - 2 * v11);
-    *v12 = 0;
-    v4 = v12 + 1;
-    memcpy(v13, v5, v6);
-    a1[4] = v13;
-    a1[5] = v4;
+    v12 = (v4 - v6) >> 1;
+    v13 = (2 * v8);
+    v14 = (2 * v8 - 2 * v12);
+    *v13 = 0;
+    v5 = v13 + 1;
+    memcpy(v14, v6, v7);
+    a1[4] = v14;
+    a1[5] = v5;
     a1[6] = 0;
-    if (v5)
+    if (v6)
     {
-      operator delete(v5);
+      operator delete(v6);
     }
   }
 
   else
   {
-    *v3 = 0;
-    v4 = v3 + 2;
+    *v4 = 0;
+    v5 = v4 + 2;
   }
 
-  a1[5] = v4;
+  a1[5] = v5;
   result = std::istream::read();
   *(a1[5] - 2) = bswap32(*(a1[5] - 2)) >> 16;
   return result;
@@ -1016,13 +941,6 @@ void sub_24742C0E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
-}
-
-void happly::TypedProperty<unsigned short>::writeDataASCII(uint64_t a1, void *a2, uint64_t a3)
-{
-  *(a2 + *(*a2 - 24) + 16) = 0;
-  v3 = *(*(a1 + 32) + 2 * a3);
-  JUMPOUT(0x24C1A1DD0);
 }
 
 uint64_t happly::TypedListProperty<unsigned int>::TypedListProperty(uint64_t a1, __int128 *a2, int a3)
@@ -1116,33 +1034,27 @@ void happly::TypedListProperty<unsigned int>::~TypedListProperty(uint64_t a1)
   JUMPOUT(0x24C1A2010);
 }
 
-void *happly::TypedListProperty<unsigned int>::reserve(void *result, uint64_t a2)
+void happly::TypedListProperty<unsigned int>::reserve(void *a1, uint64_t a2)
 {
-  v2 = result[4];
-  if (3 * a2 > ((result[6] - v2) >> 2))
+  if (3 * a2 > ((a1[6] - a1[4]) >> 2))
   {
     if (!((3 * a2) >> 62))
     {
-      v3 = result[5] - v2;
       operator new();
     }
 
     std::vector<char>::__throw_length_error[abi:ne200100]();
   }
 
-  v4 = result[7];
-  if (a2 + 1 > ((result[9] - v4) >> 3))
+  if (a2 + 1 > ((a1[9] - a1[7]) >> 3))
   {
     if (!((a2 + 1) >> 61))
     {
-      v5 = result[8] - v4;
       operator new();
     }
 
     std::vector<char>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t happly::TypedListProperty<unsigned int>::parseNext(uint64_t a1, void *a2, void *a3)
@@ -1277,23 +1189,30 @@ uint64_t happly::TypedListProperty<unsigned int>::parseNext(uint64_t a1, void *a
   return MEMORY[0x24C1A1F80](&v42);
 }
 
-void sub_24742C93C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
+void sub_24742C920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
 {
-  std::istringstream::~istringstream(&a13);
-  std::istringstream::~istringstream(&a48);
+  va_start(va, a47);
+  std::istringstream::~istringstream(va);
   _Unwind_Resume(a1);
 }
 
-void happly::TypedListProperty<unsigned int>::readNext(uint64_t a1)
+void sub_24742C93C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
 {
-  v2 = *(a1 + 80);
+  va_start(va, a47);
+  std::istringstream::~istringstream(&a13);
+  std::istringstream::~istringstream(va);
+  _Unwind_Resume(a1);
+}
+
+void happly::TypedListProperty<unsigned int>::readNext(void *a1, uint64_t a2)
+{
   std::istream::read();
-  v3 = (*(a1 + 40) - *(a1 + 32)) >> 2;
-  v5 = *(a1 + 64);
-  v4 = *(a1 + 72);
+  v3 = (a1[5] - a1[4]) >> 2;
+  v5 = a1[8];
+  v4 = a1[9];
   if (v5 >= v4)
   {
-    v7 = *(a1 + 56);
+    v7 = a1[7];
     v8 = v5 - v7;
     v9 = (v5 - v7) >> 3;
     v10 = v9 + 1;
@@ -1334,9 +1253,9 @@ void happly::TypedListProperty<unsigned int>::readNext(uint64_t a1)
     *v14 = v3;
     v6 = v14 + 1;
     memcpy(v15, v7, v8);
-    *(a1 + 56) = v15;
-    *(a1 + 64) = v6;
-    *(a1 + 72) = 0;
+    a1[7] = v15;
+    a1[8] = v6;
+    a1[9] = 0;
     if (v7)
     {
       operator delete(v7);
@@ -1349,13 +1268,12 @@ void happly::TypedListProperty<unsigned int>::readNext(uint64_t a1)
     v6 = v5 + 1;
   }
 
-  *(a1 + 64) = v6;
+  a1[8] = v6;
 }
 
-void happly::TypedListProperty<unsigned int>::readNextBigEndian(uint64_t a1)
+void happly::TypedListProperty<unsigned int>::readNextBigEndian(uint64_t a1, uint64_t a2)
 {
   __n = 0;
-  v2 = *(a1 + 80);
   std::istream::read();
   v3 = *(a1 + 80);
   v4 = 0;
@@ -1377,64 +1295,62 @@ void happly::TypedListProperty<unsigned int>::readNextBigEndian(uint64_t a1)
   __n = v4;
 LABEL_8:
   v5 = *(a1 + 32);
-  v6 = (a1 + 32);
-  v7 = *(a1 + 40) - v5;
-  v8 = v7 >> 2;
-  v9 = (v7 >> 2) + v4;
-  if (v8 >= v8 + v4)
+  v6 = *(a1 + 40) - v5;
+  v7 = v6 >> 2;
+  v8 = (v6 >> 2) + v4;
+  if (v7 >= v7 + v4)
   {
-    v10 = v4;
-    if (v8 > v8 + v4)
+    v9 = v4;
+    if (v7 > v7 + v4)
     {
-      *(a1 + 40) = v5 + 4 * v9;
-      v10 = v4;
+      *(a1 + 40) = v5 + 4 * v8;
+      v9 = v4;
     }
   }
 
   else
   {
     std::vector<float>::__append((a1 + 32), v4);
-    v10 = __n;
+    v9 = __n;
   }
 
-  if (v10)
+  if (v9)
   {
-    v11 = *v6;
     std::istream::read();
   }
 
-  v13 = *(a1 + 64);
-  v12 = *(a1 + 72);
-  if (v13 >= v12)
+  v11 = *(a1 + 64);
+  v10 = *(a1 + 72);
+  if (v11 >= v10)
   {
-    v15 = *(a1 + 56);
-    v16 = v13 - v15;
-    v17 = (v13 - v15) >> 3;
-    v18 = v17 + 1;
-    if ((v17 + 1) >> 61)
+    v13 = *(a1 + 56);
+    v14 = v11 - v13;
+    v15 = (v11 - v13) >> 3;
+    v16 = v15 + 1;
+    if ((v15 + 1) >> 61)
     {
       std::vector<char>::__throw_length_error[abi:ne200100]();
     }
 
-    v19 = v12 - v15;
-    if (v19 >> 2 > v18)
+    v17 = v10 - v13;
+    if (v17 >> 2 > v16)
     {
-      v18 = v19 >> 2;
+      v16 = v17 >> 2;
     }
 
-    if (v19 >= 0x7FFFFFFFFFFFFFF8)
+    if (v17 >= 0x7FFFFFFFFFFFFFF8)
     {
-      v20 = 0x1FFFFFFFFFFFFFFFLL;
+      v18 = 0x1FFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v20 = v18;
+      v18 = v16;
     }
 
-    if (v20)
+    if (v18)
     {
-      if (!(v20 >> 61))
+      if (!(v18 >> 61))
       {
         operator new();
       }
@@ -1442,63 +1358,63 @@ LABEL_8:
       std::__throw_bad_array_new_length[abi:ne200100]();
     }
 
-    v21 = (v13 - v15) >> 3;
-    v22 = (8 * v17);
-    v23 = (8 * v17 - 8 * v21);
-    *v22 = v9;
-    v14 = v22 + 1;
-    memcpy(v23, v15, v16);
-    *(a1 + 56) = v23;
-    *(a1 + 64) = v14;
+    v19 = (v11 - v13) >> 3;
+    v20 = (8 * v15);
+    v21 = (8 * v15 - 8 * v19);
+    *v20 = v8;
+    v12 = v20 + 1;
+    memcpy(v21, v13, v14);
+    *(a1 + 56) = v21;
+    *(a1 + 64) = v12;
     *(a1 + 72) = 0;
-    if (v15)
+    if (v13)
     {
-      operator delete(v15);
+      operator delete(v13);
     }
   }
 
   else
   {
-    *v13 = v9;
-    v14 = v13 + 8;
+    *v11 = v8;
+    v12 = v11 + 8;
   }
 
-  *(a1 + 64) = v14;
-  if (v8 < v9)
+  *(a1 + 64) = v12;
+  if (v7 < v8)
   {
-    v24 = *v6;
-    v25 = v7 >> 2;
+    v22 = *(a1 + 32);
+    v23 = v6 >> 2;
     if (v4 <= 7)
     {
       goto LABEL_32;
     }
 
-    v25 = v8 + (v4 & 0xFFFFFFFFFFFFFFF8);
-    v26 = (v7 + v24 + 16);
-    v27 = v4 & 0xFFFFFFFFFFFFFFF8;
+    v23 = v7 + (v4 & 0xFFFFFFFFFFFFFFF8);
+    v24 = (v6 + v22 + 16);
+    v25 = v4 & 0xFFFFFFFFFFFFFFF8;
     do
     {
-      v28 = vrev32q_s8(*v26);
-      v26[-1] = vrev32q_s8(v26[-1]);
-      *v26 = v28;
-      v26 += 2;
-      v27 -= 8;
+      v26 = vrev32q_s8(*v24);
+      v24[-1] = vrev32q_s8(v24[-1]);
+      *v24 = v26;
+      v24 += 2;
+      v25 -= 8;
     }
 
-    while (v27);
+    while (v25);
     if (v4 != (v4 & 0xFFFFFFFFFFFFFFF8))
     {
 LABEL_32:
-      v29 = v4 + v8 - v25;
-      v30 = (v24 + 4 * v25);
+      v27 = v4 + v7 - v23;
+      v28 = (v22 + 4 * v23);
       do
       {
-        *v30 = bswap32(*v30);
-        ++v30;
-        --v29;
+        *v28 = bswap32(*v28);
+        ++v28;
+        --v27;
       }
 
-      while (v29);
+      while (v27);
     }
   }
 }
@@ -1582,9 +1498,7 @@ uint64_t happly::TypedListProperty<unsigned int>::writeDataASCII(uint64_t a1, vo
 
 uint64_t happly::TypedListProperty<unsigned int>::writeDataBinary(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = (*(a1 + 56) + 8 * a3);
-  v4 = *v3;
-  if ((v3[1] - *v3) >= 0x100)
+  if (*(*(a1 + 56) + 8 * a3 + 8) - *(*(a1 + 56) + 8 * a3) >= 0x100uLL)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x24C1A1B40](exception, "List property has an element with more entries than fit in a uchar. See note in README.");
@@ -1592,7 +1506,6 @@ uint64_t happly::TypedListProperty<unsigned int>::writeDataBinary(uint64_t a1, u
   }
 
   std::ostream::write();
-  v6 = *(a1 + 32) + 4 * v4;
   return std::ostream::write();
 }
 
@@ -1613,7 +1526,6 @@ uint64_t happly::TypedListProperty<unsigned int>::writeDataBinaryBigEndian(uint6
   {
     do
     {
-      v9 = bswap32(*(*(a1 + 32) + 4 * v4));
       result = std::ostream::write();
       ++v4;
     }
@@ -1662,21 +1574,17 @@ void happly::TypedProperty<unsigned int>::~TypedProperty(uint64_t a1)
   JUMPOUT(0x24C1A2010);
 }
 
-void *happly::TypedProperty<unsigned int>::reserve(void *result, unint64_t a2)
+void happly::TypedProperty<unsigned int>::reserve(void *a1, unint64_t a2)
 {
-  v2 = result[4];
-  if (a2 > (result[6] - v2) >> 2)
+  if (a2 > (a1[6] - a1[4]) >> 2)
   {
     if (!(a2 >> 62))
     {
-      v3 = result[5] - v2;
       operator new();
     }
 
     std::vector<char>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t happly::TypedProperty<unsigned int>::parseNext(void *a1, void *a2, void *a3)
@@ -1761,47 +1669,47 @@ uint64_t happly::TypedProperty<unsigned int>::parseNext(void *a1, void *a2, void
   return MEMORY[0x24C1A1F80](&v24);
 }
 
-void sub_24742D4BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_24742D4BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::istringstream::~istringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t happly::TypedProperty<unsigned int>::readNext(void *a1)
+uint64_t happly::TypedProperty<unsigned int>::readNext(void *a1, uint64_t a2)
 {
-  v3 = a1[5];
-  v2 = a1[6];
-  if (v3 >= v2)
+  v4 = a1[5];
+  v3 = a1[6];
+  if (v4 >= v3)
   {
-    v5 = a1[4];
-    v6 = v3 - v5;
-    v7 = (v3 - v5) >> 2;
-    v8 = v7 + 1;
-    if ((v7 + 1) >> 62)
+    v6 = a1[4];
+    v7 = v4 - v6;
+    v8 = (v4 - v6) >> 2;
+    v9 = v8 + 1;
+    if ((v8 + 1) >> 62)
     {
       std::vector<char>::__throw_length_error[abi:ne200100]();
     }
 
-    v9 = v2 - v5;
-    if (v9 >> 1 > v8)
+    v10 = v3 - v6;
+    if (v10 >> 1 > v9)
     {
-      v8 = v9 >> 1;
+      v9 = v10 >> 1;
     }
 
-    if (v9 >= 0x7FFFFFFFFFFFFFFCLL)
+    if (v10 >= 0x7FFFFFFFFFFFFFFCLL)
     {
-      v10 = 0x3FFFFFFFFFFFFFFFLL;
+      v11 = 0x3FFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v10 = v8;
+      v11 = v9;
     }
 
-    if (v10)
+    if (v11)
     {
-      if (!(v10 >> 62))
+      if (!(v11 >> 62))
       {
         operator new();
       }
@@ -1809,66 +1717,66 @@ uint64_t happly::TypedProperty<unsigned int>::readNext(void *a1)
       std::__throw_bad_array_new_length[abi:ne200100]();
     }
 
-    v11 = (v3 - v5) >> 2;
-    v12 = (4 * v7);
-    v13 = (4 * v7 - 4 * v11);
-    *v12 = 0;
-    v4 = v12 + 1;
-    memcpy(v13, v5, v6);
-    a1[4] = v13;
-    a1[5] = v4;
+    v12 = (v4 - v6) >> 2;
+    v13 = (4 * v8);
+    v14 = (4 * v8 - 4 * v12);
+    *v13 = 0;
+    v5 = v13 + 1;
+    memcpy(v14, v6, v7);
+    a1[4] = v14;
+    a1[5] = v5;
     a1[6] = 0;
-    if (v5)
+    if (v6)
     {
-      operator delete(v5);
+      operator delete(v6);
     }
   }
 
   else
   {
-    *v3 = 0;
-    v4 = v3 + 4;
+    *v4 = 0;
+    v5 = v4 + 4;
   }
 
-  a1[5] = v4;
+  a1[5] = v5;
 
   return std::istream::read();
 }
 
-uint64_t happly::TypedProperty<unsigned int>::readNextBigEndian(void *a1)
+uint64_t happly::TypedProperty<unsigned int>::readNextBigEndian(void *a1, uint64_t a2)
 {
-  v3 = a1[5];
-  v2 = a1[6];
-  if (v3 >= v2)
+  v4 = a1[5];
+  v3 = a1[6];
+  if (v4 >= v3)
   {
-    v5 = a1[4];
-    v6 = v3 - v5;
-    v7 = (v3 - v5) >> 2;
-    v8 = v7 + 1;
-    if ((v7 + 1) >> 62)
+    v6 = a1[4];
+    v7 = v4 - v6;
+    v8 = (v4 - v6) >> 2;
+    v9 = v8 + 1;
+    if ((v8 + 1) >> 62)
     {
       std::vector<char>::__throw_length_error[abi:ne200100]();
     }
 
-    v9 = v2 - v5;
-    if (v9 >> 1 > v8)
+    v10 = v3 - v6;
+    if (v10 >> 1 > v9)
     {
-      v8 = v9 >> 1;
+      v9 = v10 >> 1;
     }
 
-    if (v9 >= 0x7FFFFFFFFFFFFFFCLL)
+    if (v10 >= 0x7FFFFFFFFFFFFFFCLL)
     {
-      v10 = 0x3FFFFFFFFFFFFFFFLL;
+      v11 = 0x3FFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v10 = v8;
+      v11 = v9;
     }
 
-    if (v10)
+    if (v11)
     {
-      if (!(v10 >> 62))
+      if (!(v11 >> 62))
       {
         operator new();
       }
@@ -1876,28 +1784,28 @@ uint64_t happly::TypedProperty<unsigned int>::readNextBigEndian(void *a1)
       std::__throw_bad_array_new_length[abi:ne200100]();
     }
 
-    v11 = (v3 - v5) >> 2;
-    v12 = (4 * v7);
-    v13 = (4 * v7 - 4 * v11);
-    *v12 = 0;
-    v4 = v12 + 1;
-    memcpy(v13, v5, v6);
-    a1[4] = v13;
-    a1[5] = v4;
+    v12 = (v4 - v6) >> 2;
+    v13 = (4 * v8);
+    v14 = (4 * v8 - 4 * v12);
+    *v13 = 0;
+    v5 = v13 + 1;
+    memcpy(v14, v6, v7);
+    a1[4] = v14;
+    a1[5] = v5;
     a1[6] = 0;
-    if (v5)
+    if (v6)
     {
-      operator delete(v5);
+      operator delete(v6);
     }
   }
 
   else
   {
-    *v3 = 0;
-    v4 = v3 + 4;
+    *v4 = 0;
+    v5 = v4 + 4;
   }
 
-  a1[5] = v4;
+  a1[5] = v5;
   result = std::istream::read();
   *(a1[5] - 4) = bswap32(*(a1[5] - 4));
   return result;
@@ -1950,13 +1858,6 @@ void sub_24742D7C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
-}
-
-void happly::TypedProperty<unsigned int>::writeDataASCII(uint64_t a1, void *a2, uint64_t a3)
-{
-  *(a2 + *(*a2 - 24) + 16) = 0;
-  v3 = *(*(a1 + 32) + 4 * a3);
-  JUMPOUT(0x24C1A1DA0);
 }
 
 uint64_t happly::TypedListProperty<signed char>::TypedListProperty(uint64_t a1, __int128 *a2, int a3)
@@ -2214,13 +2115,6 @@ void sub_24742DE84(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void happly::TypedProperty<signed char>::writeDataASCII(uint64_t a1, void *a2, uint64_t a3)
-{
-  *(a2 + *(*a2 - 24) + 16) = 0;
-  v3 = *(*(a1 + 32) + a3);
-  JUMPOUT(0x24C1A1D90);
-}
-
 uint64_t happly::TypedListProperty<short>::TypedListProperty(uint64_t a1, __int128 *a2, int a3)
 {
   *a1 = &unk_28593D150;
@@ -2444,10 +2338,18 @@ uint64_t happly::TypedListProperty<short>::parseNext(void *a1, void *a2, void *a
   return MEMORY[0x24C1A1F80](&v42);
 }
 
-void sub_24742E52C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
+void sub_24742E510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
 {
+  va_start(va, a47);
+  std::istringstream::~istringstream(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_24742E52C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
+{
+  va_start(va, a47);
   std::istringstream::~istringstream(&a13);
-  std::istringstream::~istringstream(&a48);
+  std::istringstream::~istringstream(va);
   _Unwind_Resume(a1);
 }
 
@@ -2652,9 +2554,9 @@ uint64_t happly::TypedProperty<short>::parseNext(void *a1, void *a2, void *a3)
   return MEMORY[0x24C1A1F80](&v24);
 }
 
-void sub_24742EAAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_24742EAAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::istringstream::~istringstream(va);
   _Unwind_Resume(a1);
 }
@@ -2706,13 +2608,6 @@ void sub_24742EB88(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
-}
-
-void happly::TypedProperty<short>::writeDataASCII(uint64_t a1, void *a2, uint64_t a3)
-{
-  *(a2 + *(*a2 - 24) + 16) = 0;
-  v3 = *(*(a1 + 32) + 2 * a3);
-  JUMPOUT(0x24C1A1DC0);
 }
 
 uint64_t happly::TypedListProperty<int>::TypedListProperty(uint64_t a1, __int128 *a2, int a3)
@@ -2938,10 +2833,18 @@ uint64_t happly::TypedListProperty<int>::parseNext(uint64_t a1, void *a2, void *
   return MEMORY[0x24C1A1F80](&v42);
 }
 
-void sub_24742F230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
+void sub_24742F214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
 {
+  va_start(va, a47);
+  std::istringstream::~istringstream(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_24742F230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
+{
+  va_start(va, a47);
   std::istringstream::~istringstream(&a13);
-  std::istringstream::~istringstream(&a48);
+  std::istringstream::~istringstream(va);
   _Unwind_Resume(a1);
 }
 
@@ -3142,9 +3045,9 @@ uint64_t happly::TypedProperty<int>::parseNext(void *a1, void *a2, void *a3)
   return MEMORY[0x24C1A1F80](&v24);
 }
 
-void sub_24742F7A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_24742F7A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::istringstream::~istringstream(va);
   _Unwind_Resume(a1);
 }
@@ -3196,13 +3099,6 @@ void sub_24742F87C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
-}
-
-void happly::TypedProperty<int>::writeDataASCII(uint64_t a1, void *a2, uint64_t a3)
-{
-  *(a2 + *(*a2 - 24) + 16) = 0;
-  v3 = *(*(a1 + 32) + 4 * a3);
-  JUMPOUT(0x24C1A1D90);
 }
 
 uint64_t happly::TypedListProperty<float>::TypedListProperty(uint64_t a1, __int128 *a2, int a3)
@@ -3428,10 +3324,18 @@ uint64_t happly::TypedListProperty<float>::parseNext(uint64_t a1, void *a2, void
   return MEMORY[0x24C1A1F80](&v42);
 }
 
-void sub_24742FF24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
+void sub_24742FF08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
 {
+  va_start(va, a47);
+  std::istringstream::~istringstream(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_24742FF24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
+{
+  va_start(va, a47);
   std::istringstream::~istringstream(&a13);
-  std::istringstream::~istringstream(&a48);
+  std::istringstream::~istringstream(va);
   _Unwind_Resume(a1);
 }
 
@@ -3503,7 +3407,6 @@ uint64_t happly::TypedListProperty<float>::writeDataASCII(uint64_t a1, void *a2,
     do
     {
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, " ", 1);
-      v9 = *(*(a1 + 32) + 4 * v5);
       result = std::ostream::operator<<();
       ++v5;
     }
@@ -3634,9 +3537,9 @@ uint64_t happly::TypedProperty<float>::parseNext(void *a1, void *a2, void *a3)
   return MEMORY[0x24C1A1F80](&v24);
 }
 
-void sub_2474304B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2474304B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::istringstream::~istringstream(va);
   _Unwind_Resume(a1);
 }
@@ -3688,13 +3591,6 @@ void sub_24743058C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
-}
-
-uint64_t happly::TypedProperty<float>::writeDataASCII(uint64_t a1, void *a2, uint64_t a3)
-{
-  *(a2 + *(*a2 - 24) + 16) = 9;
-  v3 = *(*(a1 + 32) + 4 * a3);
-  return std::ostream::operator<<();
 }
 
 uint64_t happly::TypedListProperty<double>::TypedListProperty(uint64_t a1, __int128 *a2, int a3)
@@ -3788,33 +3684,27 @@ void happly::TypedListProperty<double>::~TypedListProperty(uint64_t a1)
   JUMPOUT(0x24C1A2010);
 }
 
-void *happly::TypedListProperty<double>::reserve(void *result, uint64_t a2)
+void happly::TypedListProperty<double>::reserve(void *a1, uint64_t a2)
 {
-  v2 = result[4];
-  if (3 * a2 > ((result[6] - v2) >> 3))
+  if (3 * a2 > ((a1[6] - a1[4]) >> 3))
   {
     if (!((3 * a2) >> 61))
     {
-      v3 = result[5] - v2;
       operator new();
     }
 
     std::vector<char>::__throw_length_error[abi:ne200100]();
   }
 
-  v4 = result[7];
-  if (a2 + 1 > ((result[9] - v4) >> 3))
+  if (a2 + 1 > ((a1[9] - a1[7]) >> 3))
   {
     if (!((a2 + 1) >> 61))
     {
-      v5 = result[8] - v4;
       operator new();
     }
 
     std::vector<char>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t happly::TypedListProperty<double>::parseNext(void *a1, void *a2, void *a3)
@@ -3949,23 +3839,30 @@ uint64_t happly::TypedListProperty<double>::parseNext(void *a1, void *a2, void *
   return MEMORY[0x24C1A1F80](&v42);
 }
 
-void sub_247430D70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
+void sub_247430D54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
 {
-  std::istringstream::~istringstream(&a13);
-  std::istringstream::~istringstream(&a48);
+  va_start(va, a47);
+  std::istringstream::~istringstream(va);
   _Unwind_Resume(a1);
 }
 
-void happly::TypedListProperty<double>::readNext(uint64_t a1)
+void sub_247430D70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
 {
-  v2 = *(a1 + 80);
+  va_start(va, a47);
+  std::istringstream::~istringstream(&a13);
+  std::istringstream::~istringstream(va);
+  _Unwind_Resume(a1);
+}
+
+void happly::TypedListProperty<double>::readNext(void *a1, uint64_t a2)
+{
   std::istream::read();
-  v3 = (*(a1 + 40) - *(a1 + 32)) >> 3;
-  v5 = *(a1 + 64);
-  v4 = *(a1 + 72);
+  v3 = (a1[5] - a1[4]) >> 3;
+  v5 = a1[8];
+  v4 = a1[9];
   if (v5 >= v4)
   {
-    v7 = *(a1 + 56);
+    v7 = a1[7];
     v8 = v5 - v7;
     v9 = (v5 - v7) >> 3;
     v10 = v9 + 1;
@@ -4006,9 +3903,9 @@ void happly::TypedListProperty<double>::readNext(uint64_t a1)
     *v14 = v3;
     v6 = v14 + 1;
     memcpy(v15, v7, v8);
-    *(a1 + 56) = v15;
-    *(a1 + 64) = v6;
-    *(a1 + 72) = 0;
+    a1[7] = v15;
+    a1[8] = v6;
+    a1[9] = 0;
     if (v7)
     {
       operator delete(v7);
@@ -4021,13 +3918,12 @@ void happly::TypedListProperty<double>::readNext(uint64_t a1)
     v6 = v5 + 1;
   }
 
-  *(a1 + 64) = v6;
+  a1[8] = v6;
 }
 
-void happly::TypedListProperty<double>::readNextBigEndian(uint64_t a1)
+void happly::TypedListProperty<double>::readNextBigEndian(uint64_t a1, uint64_t a2)
 {
-  v31 = 0;
-  v2 = *(a1 + 80);
+  v29 = 0;
   std::istream::read();
   v3 = *(a1 + 80);
   v4 = 0;
@@ -4046,67 +3942,65 @@ void happly::TypedListProperty<double>::readNextBigEndian(uint64_t a1)
       goto LABEL_8;
   }
 
-  v31 = v4;
+  v29 = v4;
 LABEL_8:
   v5 = *(a1 + 32);
-  v6 = (a1 + 32);
-  v7 = *(a1 + 40) - v5;
-  v8 = v7 >> 3;
-  v9 = (v7 >> 3) + v4;
-  if (v8 >= v8 + v4)
+  v6 = *(a1 + 40) - v5;
+  v7 = v6 >> 3;
+  v8 = (v6 >> 3) + v4;
+  if (v7 >= v7 + v4)
   {
-    v10 = v4;
-    if (v8 > v8 + v4)
+    v9 = v4;
+    if (v7 > v7 + v4)
     {
-      *(a1 + 40) = v5 + 8 * v9;
-      v10 = v4;
+      *(a1 + 40) = v5 + 8 * v8;
+      v9 = v4;
     }
   }
 
   else
   {
     _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE8__appendEm(a1 + 32, v4);
-    v10 = v31;
+    v9 = v29;
   }
 
-  if (v10)
+  if (v9)
   {
-    v11 = *v6;
     std::istream::read();
   }
 
-  v13 = *(a1 + 64);
-  v12 = *(a1 + 72);
-  if (v13 >= v12)
+  v11 = *(a1 + 64);
+  v10 = *(a1 + 72);
+  if (v11 >= v10)
   {
-    v15 = *(a1 + 56);
-    v16 = v13 - v15;
-    v17 = (v13 - v15) >> 3;
-    v18 = v17 + 1;
-    if ((v17 + 1) >> 61)
+    v13 = *(a1 + 56);
+    v14 = v11 - v13;
+    v15 = (v11 - v13) >> 3;
+    v16 = v15 + 1;
+    if ((v15 + 1) >> 61)
     {
       std::vector<char>::__throw_length_error[abi:ne200100]();
     }
 
-    v19 = v12 - v15;
-    if (v19 >> 2 > v18)
+    v17 = v10 - v13;
+    if (v17 >> 2 > v16)
     {
-      v18 = v19 >> 2;
+      v16 = v17 >> 2;
     }
 
-    if (v19 >= 0x7FFFFFFFFFFFFFF8)
+    if (v17 >= 0x7FFFFFFFFFFFFFF8)
     {
-      v20 = 0x1FFFFFFFFFFFFFFFLL;
+      v18 = 0x1FFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v20 = v18;
+      v18 = v16;
     }
 
-    if (v20)
+    if (v18)
     {
-      if (!(v20 >> 61))
+      if (!(v18 >> 61))
       {
         operator new();
       }
@@ -4114,63 +4008,63 @@ LABEL_8:
       std::__throw_bad_array_new_length[abi:ne200100]();
     }
 
-    v21 = (v13 - v15) >> 3;
-    v22 = (8 * v17);
-    v23 = (8 * v17 - 8 * v21);
-    *v22 = v9;
-    v14 = v22 + 1;
-    memcpy(v23, v15, v16);
-    *(a1 + 56) = v23;
-    *(a1 + 64) = v14;
+    v19 = (v11 - v13) >> 3;
+    v20 = (8 * v15);
+    v21 = (8 * v15 - 8 * v19);
+    *v20 = v8;
+    v12 = v20 + 1;
+    memcpy(v21, v13, v14);
+    *(a1 + 56) = v21;
+    *(a1 + 64) = v12;
     *(a1 + 72) = 0;
-    if (v15)
+    if (v13)
     {
-      operator delete(v15);
+      operator delete(v13);
     }
   }
 
   else
   {
-    *v13 = v9;
-    v14 = v13 + 8;
+    *v11 = v8;
+    v12 = v11 + 8;
   }
 
-  *(a1 + 64) = v14;
-  if (v8 < v9)
+  *(a1 + 64) = v12;
+  if (v7 < v8)
   {
-    v24 = *v6;
-    v25 = v7 >> 3;
+    v22 = *(a1 + 32);
+    v23 = v6 >> 3;
     if (v4 <= 3)
     {
       goto LABEL_32;
     }
 
-    v25 = v8 + (v4 & 0xFFFFFFFFFFFFFFFCLL);
-    v26 = (v7 + v24 + 16);
-    v27 = v4 & 0xFFFFFFFFFFFFFFFCLL;
+    v23 = v7 + (v4 & 0xFFFFFFFFFFFFFFFCLL);
+    v24 = (v6 + v22 + 16);
+    v25 = v4 & 0xFFFFFFFFFFFFFFFCLL;
     do
     {
-      v28 = vrev64q_s8(*v26);
-      v26[-1] = vrev64q_s8(v26[-1]);
-      *v26 = v28;
-      v26 += 2;
-      v27 -= 4;
+      v26 = vrev64q_s8(*v24);
+      v24[-1] = vrev64q_s8(v24[-1]);
+      *v24 = v26;
+      v24 += 2;
+      v25 -= 4;
     }
 
-    while (v27);
+    while (v25);
     if (v4 != (v4 & 0xFFFFFFFFFFFFFFFCLL))
     {
 LABEL_32:
-      v29 = v4 + v8 - v25;
-      v30 = (v24 + 8 * v25);
+      v27 = v4 + v7 - v23;
+      v28 = (v22 + 8 * v23);
       do
       {
-        *v30 = bswap64(*v30);
-        ++v30;
-        --v29;
+        *v28 = bswap64(*v28);
+        ++v28;
+        --v27;
       }
 
-      while (v29);
+      while (v27);
     }
   }
 }
@@ -4254,9 +4148,7 @@ uint64_t happly::TypedListProperty<double>::writeDataASCII(uint64_t a1, void *a2
 
 uint64_t happly::TypedListProperty<double>::writeDataBinary(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = (*(a1 + 56) + 8 * a3);
-  v4 = *v3;
-  if ((v3[1] - *v3) >= 0x100)
+  if (*(*(a1 + 56) + 8 * a3 + 8) - *(*(a1 + 56) + 8 * a3) >= 0x100uLL)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x24C1A1B40](exception, "List property has an element with more entries than fit in a uchar. See note in README.");
@@ -4264,7 +4156,6 @@ uint64_t happly::TypedListProperty<double>::writeDataBinary(uint64_t a1, uint64_
   }
 
   std::ostream::write();
-  v6 = *(a1 + 32) + 8 * v4;
   return std::ostream::write();
 }
 
@@ -4285,7 +4176,6 @@ uint64_t happly::TypedListProperty<double>::writeDataBinaryBigEndian(uint64_t a1
   {
     do
     {
-      v9 = bswap64(*(*(a1 + 32) + 8 * v4));
       result = std::ostream::write();
       ++v4;
     }
@@ -4334,21 +4224,17 @@ void happly::TypedProperty<double>::~TypedProperty(uint64_t a1)
   JUMPOUT(0x24C1A2010);
 }
 
-void *happly::TypedProperty<double>::reserve(void *result, unint64_t a2)
+void happly::TypedProperty<double>::reserve(void *a1, unint64_t a2)
 {
-  v2 = result[4];
-  if (a2 > (result[6] - v2) >> 3)
+  if (a2 > (a1[6] - a1[4]) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v3 = result[5] - v2;
       operator new();
     }
 
     std::vector<char>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t happly::TypedProperty<double>::parseNext(void *a1, void *a2, void *a3)
@@ -4433,47 +4319,47 @@ uint64_t happly::TypedProperty<double>::parseNext(void *a1, void *a2, void *a3)
   return MEMORY[0x24C1A1F80](&v24);
 }
 
-void sub_247431904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_247431904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::istringstream::~istringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t happly::TypedProperty<double>::readNext(void *a1)
+uint64_t happly::TypedProperty<double>::readNext(void *a1, uint64_t a2)
 {
-  v3 = a1[5];
-  v2 = a1[6];
-  if (v3 >= v2)
+  v4 = a1[5];
+  v3 = a1[6];
+  if (v4 >= v3)
   {
-    v5 = a1[4];
-    v6 = v3 - v5;
-    v7 = (v3 - v5) >> 3;
-    v8 = v7 + 1;
-    if ((v7 + 1) >> 61)
+    v6 = a1[4];
+    v7 = v4 - v6;
+    v8 = (v4 - v6) >> 3;
+    v9 = v8 + 1;
+    if ((v8 + 1) >> 61)
     {
       std::vector<char>::__throw_length_error[abi:ne200100]();
     }
 
-    v9 = v2 - v5;
-    if (v9 >> 2 > v8)
+    v10 = v3 - v6;
+    if (v10 >> 2 > v9)
     {
-      v8 = v9 >> 2;
+      v9 = v10 >> 2;
     }
 
-    if (v9 >= 0x7FFFFFFFFFFFFFF8)
+    if (v10 >= 0x7FFFFFFFFFFFFFF8)
     {
-      v10 = 0x1FFFFFFFFFFFFFFFLL;
+      v11 = 0x1FFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v10 = v8;
+      v11 = v9;
     }
 
-    if (v10)
+    if (v11)
     {
-      if (!(v10 >> 61))
+      if (!(v11 >> 61))
       {
         operator new();
       }
@@ -4481,66 +4367,66 @@ uint64_t happly::TypedProperty<double>::readNext(void *a1)
       std::__throw_bad_array_new_length[abi:ne200100]();
     }
 
-    v11 = (v3 - v5) >> 3;
-    v12 = (8 * v7);
-    v13 = (8 * v7 - 8 * v11);
-    *v12 = 0;
-    v4 = v12 + 1;
-    memcpy(v13, v5, v6);
-    a1[4] = v13;
-    a1[5] = v4;
+    v12 = (v4 - v6) >> 3;
+    v13 = (8 * v8);
+    v14 = (8 * v8 - 8 * v12);
+    *v13 = 0;
+    v5 = v13 + 1;
+    memcpy(v14, v6, v7);
+    a1[4] = v14;
+    a1[5] = v5;
     a1[6] = 0;
-    if (v5)
+    if (v6)
     {
-      operator delete(v5);
+      operator delete(v6);
     }
   }
 
   else
   {
-    *v3 = 0;
-    v4 = v3 + 8;
+    *v4 = 0;
+    v5 = v4 + 8;
   }
 
-  a1[5] = v4;
+  a1[5] = v5;
 
   return std::istream::read();
 }
 
-uint64_t happly::TypedProperty<double>::readNextBigEndian(void *a1)
+uint64_t happly::TypedProperty<double>::readNextBigEndian(void *a1, uint64_t a2)
 {
-  v3 = a1[5];
-  v2 = a1[6];
-  if (v3 >= v2)
+  v4 = a1[5];
+  v3 = a1[6];
+  if (v4 >= v3)
   {
-    v5 = a1[4];
-    v6 = v3 - v5;
-    v7 = (v3 - v5) >> 3;
-    v8 = v7 + 1;
-    if ((v7 + 1) >> 61)
+    v6 = a1[4];
+    v7 = v4 - v6;
+    v8 = (v4 - v6) >> 3;
+    v9 = v8 + 1;
+    if ((v8 + 1) >> 61)
     {
       std::vector<char>::__throw_length_error[abi:ne200100]();
     }
 
-    v9 = v2 - v5;
-    if (v9 >> 2 > v8)
+    v10 = v3 - v6;
+    if (v10 >> 2 > v9)
     {
-      v8 = v9 >> 2;
+      v9 = v10 >> 2;
     }
 
-    if (v9 >= 0x7FFFFFFFFFFFFFF8)
+    if (v10 >= 0x7FFFFFFFFFFFFFF8)
     {
-      v10 = 0x1FFFFFFFFFFFFFFFLL;
+      v11 = 0x1FFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v10 = v8;
+      v11 = v9;
     }
 
-    if (v10)
+    if (v11)
     {
-      if (!(v10 >> 61))
+      if (!(v11 >> 61))
       {
         operator new();
       }
@@ -4548,28 +4434,28 @@ uint64_t happly::TypedProperty<double>::readNextBigEndian(void *a1)
       std::__throw_bad_array_new_length[abi:ne200100]();
     }
 
-    v11 = (v3 - v5) >> 3;
-    v12 = (8 * v7);
-    v13 = (8 * v7 - 8 * v11);
-    *v12 = 0;
-    v4 = v12 + 1;
-    memcpy(v13, v5, v6);
-    a1[4] = v13;
-    a1[5] = v4;
+    v12 = (v4 - v6) >> 3;
+    v13 = (8 * v8);
+    v14 = (8 * v8 - 8 * v12);
+    *v13 = 0;
+    v5 = v13 + 1;
+    memcpy(v14, v6, v7);
+    a1[4] = v14;
+    a1[5] = v5;
     a1[6] = 0;
-    if (v5)
+    if (v6)
     {
-      operator delete(v5);
+      operator delete(v6);
     }
   }
 
   else
   {
-    *v3 = 0;
-    v4 = v3 + 8;
+    *v4 = 0;
+    v5 = v4 + 8;
   }
 
-  a1[5] = v4;
+  a1[5] = v5;
   result = std::istream::read();
   *(a1[5] - 8) = bswap64(*(a1[5] - 8));
   return result;
@@ -4622,13 +4508,6 @@ void sub_247431C10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
-}
-
-void happly::TypedProperty<double>::writeDataASCII(uint64_t a1, void *a2, uint64_t a3)
-{
-  *(a2 + *(*a2 - 24) + 16) = 17;
-  v3 = *(*(a1 + 32) + 8 * a3);
-  JUMPOUT(0x24C1A1D70);
 }
 
 void ****std::__exception_guard_exceptions<std::vector<std::string>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](void ****a1)
@@ -4770,11 +4649,11 @@ void happly::PLYData::~PLYData(happly::PLYData *this)
   }
 }
 
-void *std::vector<std::vector<float>>::vector[abi:ne200100](void *result, unint64_t a2)
+void *std::vector<std::vector<float>>::vector[abi:ne200100](void *a1, unint64_t a2, uint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
     if (a2 < 0xAAAAAAAAAAAAAABLL)
@@ -4785,10 +4664,10 @@ void *std::vector<std::vector<float>>::vector[abi:ne200100](void *result, unint6
     std::vector<char>::__throw_length_error[abi:ne200100]();
   }
 
-  return result;
+  return a1;
 }
 
-void sub_24743202C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_24743202C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v12 = *v10;
   if (*v10)
@@ -4845,7 +4724,7 @@ uint64_t happly::PLYData::validate(uint64_t this)
 {
   v1 = *(this + 48);
   v2 = *(this + 56);
-  v26 = this;
+  v24 = this;
   if (v2 != v1)
   {
     v3 = 0;
@@ -4881,9 +4760,8 @@ LABEL_11:
               {
 LABEL_43:
                 exception = __cxa_allocate_exception(0x10uLL);
-                v25 = *(v26 + 48) + 56 * v3;
                 std::operator+<char>();
-                MEMORY[0x24C1A1B50](exception, v28);
+                MEMORY[0x24C1A1B50](exception, v26);
                 __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
               }
             }
@@ -4893,8 +4771,8 @@ LABEL_43:
           }
 
           while (v7);
-          v1 = *(v26 + 48);
-          v2 = *(v26 + 56);
+          v1 = *(v24 + 48);
+          v2 = *(v24 + 56);
         }
       }
 
@@ -4953,9 +4831,8 @@ LABEL_43:
 
 LABEL_39:
         v22 = __cxa_allocate_exception(0x10uLL);
-        v23 = *(v26 + 48) + 56 * v3;
         std::operator+<char>();
-        MEMORY[0x24C1A1B50](v22, v28);
+        MEMORY[0x24C1A1B50](v22, v26);
         __cxa_throw(v22, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
@@ -5014,7 +4891,7 @@ void sub_24743239C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2)
+uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2, int a3)
 {
   a1[58] = 0;
   v4 = MEMORY[0x277D82860] + 64;
@@ -5031,11 +4908,6 @@ uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2)
   *a1 = v8;
   a1[52] = v4;
   MEMORY[0x24C1A1C10](a1 + 1);
-  if (*(a2 + 23) < 0)
-  {
-    v9 = *a2;
-  }
-
   if (!std::filebuf::open())
   {
     std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
@@ -5067,10 +4939,10 @@ uint64_t happly::Element::validate(uint64_t this)
 {
   v1 = this;
   v2 = *(this + 32);
-  v41 = *(this + 40);
-  if (v41 != v2)
+  v38 = *(this + 40);
+  if (v38 != v2)
   {
-    v40 = this;
+    v37 = this;
     v3 = 0;
     v4 = -1;
     v5 = 8;
@@ -5105,9 +4977,8 @@ LABEL_11:
               {
 LABEL_46:
                 exception = __cxa_allocate_exception(0x10uLL);
-                v36 = *(*(v40 + 32) + 8 * v3) + 8;
                 std::operator+<char>();
-                MEMORY[0x24C1A1B50](exception, &v43);
+                MEMORY[0x24C1A1B50](exception, &v40);
                 __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
               }
             }
@@ -5117,8 +4988,8 @@ LABEL_46:
           }
 
           while (v8);
-          v2 = *(v40 + 32);
-          v41 = *(v40 + 40);
+          v2 = *(v37 + 32);
+          v38 = *(v37 + 40);
         }
       }
 
@@ -5128,7 +4999,7 @@ LABEL_46:
         goto LABEL_11;
       }
 
-      v11 = (v41 - v2) >> 3;
+      v11 = (v38 - v2) >> 3;
       if (v3 + 1 >= v11)
       {
         break;
@@ -5182,9 +5053,8 @@ LABEL_46:
 
 LABEL_39:
         v32 = __cxa_allocate_exception(0x10uLL);
-        v33 = *(*(v40 + 32) + 8 * v3) + 8;
         std::operator+<char>();
-        MEMORY[0x24C1A1B50](v32, &v43);
+        MEMORY[0x24C1A1B50](v32, &v40);
         __cxa_throw(v32, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
@@ -5223,30 +5093,29 @@ LABEL_3:
       ++v3;
     }
 
-    v1 = v40;
+    v1 = v37;
   }
 
-  if (v41 != v2)
+  if (v38 != v2)
   {
-    v34 = 0;
+    v33 = 0;
     do
     {
-      this = (*(**(v2 + 8 * v34) + 80))(*(v2 + 8 * v34));
+      this = (*(**(v2 + 8 * v33) + 80))(*(v2 + 8 * v33));
       if (this != v1[3])
       {
-        v37 = __cxa_allocate_exception(0x10uLL);
-        v38 = *(v1[4] + 8 * v34) + 8;
+        v35 = __cxa_allocate_exception(0x10uLL);
         std::operator+<char>();
-        v39 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(" does not match element size.", &v42, &v43);
-        MEMORY[0x24C1A1B50](v37, &v43, v39);
-        __cxa_throw(v37, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v36 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v40, " does not match element size.", &v39);
+        MEMORY[0x24C1A1B50](v35, &v40, v36);
+        __cxa_throw(v35, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      ++v34;
+      ++v33;
       v2 = v1[4];
     }
 
-    while (v34 < (v1[5] - v2) >> 3);
+    while (v33 < (v1[5] - v2) >> 3);
   }
 
   return this;
@@ -5272,11 +5141,11 @@ void sub_247432C34(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void happly::PLYData::writeHeader(unsigned int *a1, void *a2)
+void happly::PLYData::writeHeader(uint64_t **a1, void *a2)
 {
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, "ply\n", 4);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, "format ", 7);
-  v4 = a1[21];
+  v4 = *(a1 + 21);
   if (v4)
   {
     if (v4 == 2)
@@ -5308,14 +5177,14 @@ void happly::PLYData::writeHeader(unsigned int *a1, void *a2)
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, v5, v7);
 LABEL_8:
-  v8 = MEMORY[0x24C1A1D90](a2, a1[18]);
+  v8 = MEMORY[0x24C1A1D90](a2, *(a1 + 18));
   v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ".", 1);
-  v10 = MEMORY[0x24C1A1D90](v9, a1[19]);
+  v10 = MEMORY[0x24C1A1D90](v9, *(a1 + 19));
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "\n", 1);
   operator new();
 }
 
-void *happly::Element::writeHeader(uint64_t a1, void *a2)
+void *happly::Element::writeHeader(uint64_t **a1, void *a2)
 {
   v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, "element ", 8);
   v5 = *(a1 + 23);
@@ -5336,15 +5205,15 @@ void *happly::Element::writeHeader(uint64_t a1, void *a2)
 
   else
   {
-    v7 = *(a1 + 8);
+    v7 = a1[1];
   }
 
   v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, v6, v7);
   v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, " ", 1);
-  v10 = MEMORY[0x24C1A1DB0](v9, *(a1 + 24));
+  v10 = MEMORY[0x24C1A1DB0](v9, a1[3]);
   result = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "\n", 1);
-  v13 = *(a1 + 32);
-  for (i = *(a1 + 40); v13 != i; result = (*(*v14 + 48))(v14, a2))
+  v13 = a1[4];
+  for (i = a1[5]; v13 != i; result = (*(*v14 + 48))(v14, a2))
   {
     v14 = *v13++;
   }
@@ -5371,7 +5240,7 @@ LABEL_17:
     v16 = a2;
     exception = __cxa_allocate_exception(0x10uLL);
     std::operator+<char>();
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(" does not have property ", &v23, &v24);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v24, " does not have property ", &v23);
     v18 = *(v16 + 23);
     if (v18 >= 0)
     {
@@ -5501,62 +5370,62 @@ LABEL_8:
   goto LABEL_9;
 }
 
-void *happly::Element::getDataFromPropertyRecursive<unsigned char,unsigned char>@<X0>(char **lpsrc@<X1>, void *a2@<X8>)
+void happly::Element::getDataFromPropertyRecursive<unsigned char,unsigned char>(uint64_t *__return_ptr a1@<X8>, char *lpsrc@<X1>)
 {
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::operator+<char>();
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(" cannot be coerced to requested type ", &v19, &v20);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v19, " cannot be coerced to requested type ", &v18);
     __s[23] = 5;
     strcpy(__s, "uchar");
-    v9 = std::string::append(&v20, __s, 5uLL);
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    v21.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
-    *&v21.__r_.__value_.__l.__data_ = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
-    v11 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(". Has type ", &v21, &v22);
-    (*(*lpsrc + 11))(v16, lpsrc, v11);
-    if ((v17 & 0x80u) == 0)
+    v8 = std::string::append(&v19, __s, 5uLL);
+    v9 = *&v8->__r_.__value_.__l.__data_;
+    v20.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
+    *&v20.__r_.__value_.__l.__data_ = v9;
+    v8->__r_.__value_.__l.__size_ = 0;
+    v8->__r_.__value_.__r.__words[2] = 0;
+    v8->__r_.__value_.__r.__words[0] = 0;
+    v10 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v21, ". Has type ", &v20);
+    (*(*lpsrc + 88))(v15, lpsrc, v10);
+    if ((v16 & 0x80u) == 0)
+    {
+      v11 = v15;
+    }
+
+    else
+    {
+      v11 = v15[0];
+    }
+
+    if ((v16 & 0x80u) == 0)
     {
       v12 = v16;
     }
 
     else
     {
-      v12 = v16[0];
+      v12 = v15[1];
     }
 
-    if ((v17 & 0x80u) == 0)
-    {
-      v13 = v17;
-    }
-
-    else
-    {
-      v13 = v16[1];
-    }
-
-    v14 = std::string::append(&v22, v12, v13);
-    v15 = *&v14->__r_.__value_.__l.__data_;
-    v24 = v14->__r_.__value_.__r.__words[2];
-    v23 = v15;
-    v14->__r_.__value_.__l.__size_ = 0;
-    v14->__r_.__value_.__r.__words[2] = 0;
-    v14->__r_.__value_.__r.__words[0] = 0;
-    MEMORY[0x24C1A1B50](exception, &v23);
+    v13 = std::string::append(&v21, v11, v12);
+    v14 = *&v13->__r_.__value_.__l.__data_;
+    v23 = v13->__r_.__value_.__r.__words[2];
+    v22 = v14;
+    v13->__r_.__value_.__l.__size_ = 0;
+    v13->__r_.__value_.__r.__words[2] = 0;
+    v13->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x24C1A1B50](exception, &v22);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v6 = result[4];
-  v7 = result[5];
-  if (v7 != v6)
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v5 = v4[4];
+  v6 = v4[5];
+  if (v6 != v5)
   {
-    if (((v7 - v6) & 0x8000000000000000) == 0)
+    if (((v6 - v5) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -5564,9 +5433,8 @@ void *happly::Element::getDataFromPropertyRecursive<unsigned char,unsigned char>
     std::vector<char>::__throw_length_error[abi:ne200100]();
   }
 
-  a2[2] = 0;
-  *a2 = 0;
-  return result;
+  a1[2] = 0;
+  *a1 = 0;
 }
 
 void sub_2474335E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44)
@@ -5806,62 +5674,62 @@ uint64_t std::__function::__func<apple3dgs::loadTv(std::__fs::filesystem::path c
   return 0;
 }
 
-void happly::Element::getDataFromPropertyRecursive<float,float>(char **lpsrc@<X1>, void *a2@<X8>)
+void happly::Element::getDataFromPropertyRecursive<float,float>(uint64_t *__return_ptr a1@<X8>, char *lpsrc@<X1>)
 {
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::operator+<char>();
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(" cannot be coerced to requested type ", &v19, &v20);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v19, " cannot be coerced to requested type ", &v18);
     __s[23] = 5;
     strcpy(__s, "float");
-    v9 = std::string::append(&v20, __s, 5uLL);
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    v21.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
-    *&v21.__r_.__value_.__l.__data_ = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
-    v11 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(". Has type ", &v21, &v22);
-    (*(*lpsrc + 11))(v16, lpsrc, v11);
-    if ((v17 & 0x80u) == 0)
+    v8 = std::string::append(&v19, __s, 5uLL);
+    v9 = *&v8->__r_.__value_.__l.__data_;
+    v20.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
+    *&v20.__r_.__value_.__l.__data_ = v9;
+    v8->__r_.__value_.__l.__size_ = 0;
+    v8->__r_.__value_.__r.__words[2] = 0;
+    v8->__r_.__value_.__r.__words[0] = 0;
+    v10 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v21, ". Has type ", &v20);
+    (*(*lpsrc + 88))(v15, lpsrc, v10);
+    if ((v16 & 0x80u) == 0)
+    {
+      v11 = v15;
+    }
+
+    else
+    {
+      v11 = v15[0];
+    }
+
+    if ((v16 & 0x80u) == 0)
     {
       v12 = v16;
     }
 
     else
     {
-      v12 = v16[0];
+      v12 = v15[1];
     }
 
-    if ((v17 & 0x80u) == 0)
-    {
-      v13 = v17;
-    }
-
-    else
-    {
-      v13 = v16[1];
-    }
-
-    v14 = std::string::append(&v22, v12, v13);
-    v15 = *&v14->__r_.__value_.__l.__data_;
-    v24 = v14->__r_.__value_.__r.__words[2];
-    v23 = v15;
-    v14->__r_.__value_.__l.__size_ = 0;
-    v14->__r_.__value_.__r.__words[2] = 0;
-    v14->__r_.__value_.__r.__words[0] = 0;
-    MEMORY[0x24C1A1B50](exception, &v23);
+    v13 = std::string::append(&v21, v11, v12);
+    v14 = *&v13->__r_.__value_.__l.__data_;
+    v23 = v13->__r_.__value_.__r.__words[2];
+    v22 = v14;
+    v13->__r_.__value_.__l.__size_ = 0;
+    v13->__r_.__value_.__r.__words[2] = 0;
+    v13->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x24C1A1B50](exception, &v22);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v6 = v5[4];
-  v7 = v5[5];
-  if (v7 != v6)
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v5 = v4[4];
+  v6 = v4[5];
+  if (v6 != v5)
   {
-    if (((v7 - v6) & 0x8000000000000000) == 0)
+    if (((v6 - v5) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -5869,11 +5737,11 @@ void happly::Element::getDataFromPropertyRecursive<float,float>(char **lpsrc@<X1
     std::vector<char>::__throw_length_error[abi:ne200100]();
   }
 
-  while (v6 != v7)
+  while (v5 != v6)
   {
-    LODWORD(v23) = *v6;
-    std::vector<float>::push_back[abi:ne200100](a2, &v23);
-    v6 += 4;
+    LODWORD(v22) = *v5;
+    std::vector<float>::push_back[abi:ne200100](a1, &v22);
+    v5 += 4;
   }
 }
 
@@ -5976,12 +5844,12 @@ LABEL_16:
   goto LABEL_17;
 }
 
-void happly::Element::getDataFromPropertyRecursive<unsigned int,unsigned int>(char **lpsrc@<X1>, void *a2@<X8>)
+void happly::Element::getDataFromPropertyRecursive<unsigned int,unsigned int>(void **__return_ptr a1@<X8>, char *lpsrc@<X1>)
 {
   {
-    *a2 = 0;
-    a2[1] = 0;
-    a2[2] = 0;
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
     v7 = v5[4];
     v6 = v5[5];
     if (v6 != v7)
@@ -5998,14 +5866,14 @@ void happly::Element::getDataFromPropertyRecursive<unsigned int,unsigned int>(ch
     for (i = v5[5]; v9 != i; ++v9)
     {
       v10 = *v9;
-      std::vector<unsigned int>::push_back[abi:ne200100](a2, &v10);
+      std::vector<unsigned int>::push_back[abi:ne200100](a1, &v10);
     }
   }
 
   else
   {
 
-    happly::Element::getDataFromPropertyRecursive<unsigned int,unsigned short>(lpsrc, a2);
+    happly::Element::getDataFromPropertyRecursive<unsigned int,unsigned short>(lpsrc, a1);
   }
 }
 
@@ -6084,12 +5952,12 @@ LABEL_3:
   *(a1 + 8) = v5;
 }
 
-void happly::Element::getDataFromPropertyRecursive<unsigned int,unsigned short>(char **lpsrc@<X1>, void *a2@<X8>)
+void happly::Element::getDataFromPropertyRecursive<unsigned int,unsigned short>(char *lpsrc@<X1>, uint64_t *a3@<X8>)
 {
   {
-    *a2 = 0;
-    a2[1] = 0;
-    a2[2] = 0;
+    *a3 = 0;
+    a3[1] = 0;
+    a3[2] = 0;
     v6 = v5[5] - v5[4];
     if (v6)
     {
@@ -6105,14 +5973,14 @@ void happly::Element::getDataFromPropertyRecursive<unsigned int,unsigned short>(
     for (i = v5[5]; v8 != i; ++v8)
     {
       v9 = *v8;
-      std::vector<unsigned int>::push_back[abi:ne200100](a2, &v9);
+      std::vector<unsigned int>::push_back[abi:ne200100](a3, &v9);
     }
   }
 
   else
   {
 
-    happly::Element::getDataFromPropertyRecursive<unsigned int,unsigned char>(lpsrc, a2);
+    happly::Element::getDataFromPropertyRecursive<unsigned int,unsigned char>(lpsrc, a3);
   }
 }
 
@@ -6128,62 +5996,62 @@ void sub_2474341E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void happly::Element::getDataFromPropertyRecursive<unsigned int,unsigned char>(char **lpsrc@<X1>, void *a2@<X8>)
+void happly::Element::getDataFromPropertyRecursive<unsigned int,unsigned char>(char *lpsrc@<X1>, uint64_t *a2@<X8>)
 {
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::operator+<char>();
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(" cannot be coerced to requested type ", &v19, &v20);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v19, " cannot be coerced to requested type ", &v18);
     __s[23] = 4;
     strcpy(__s, "uint");
-    v9 = std::string::append(&v20, __s, 4uLL);
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    v21.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
-    *&v21.__r_.__value_.__l.__data_ = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
-    v11 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(". Has type ", &v21, &v22);
-    (*(*lpsrc + 11))(v16, lpsrc, v11);
-    if ((v17 & 0x80u) == 0)
+    v8 = std::string::append(&v19, __s, 4uLL);
+    v9 = *&v8->__r_.__value_.__l.__data_;
+    v20.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
+    *&v20.__r_.__value_.__l.__data_ = v9;
+    v8->__r_.__value_.__l.__size_ = 0;
+    v8->__r_.__value_.__r.__words[2] = 0;
+    v8->__r_.__value_.__r.__words[0] = 0;
+    v10 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v21, ". Has type ", &v20);
+    (*(*lpsrc + 88))(v15, lpsrc, v10);
+    if ((v16 & 0x80u) == 0)
+    {
+      v11 = v15;
+    }
+
+    else
+    {
+      v11 = v15[0];
+    }
+
+    if ((v16 & 0x80u) == 0)
     {
       v12 = v16;
     }
 
     else
     {
-      v12 = v16[0];
+      v12 = v15[1];
     }
 
-    if ((v17 & 0x80u) == 0)
-    {
-      v13 = v17;
-    }
-
-    else
-    {
-      v13 = v16[1];
-    }
-
-    v14 = std::string::append(&v22, v12, v13);
-    v15 = *&v14->__r_.__value_.__l.__data_;
-    v24 = v14->__r_.__value_.__r.__words[2];
-    v23 = v15;
-    v14->__r_.__value_.__l.__size_ = 0;
-    v14->__r_.__value_.__r.__words[2] = 0;
-    v14->__r_.__value_.__r.__words[0] = 0;
-    MEMORY[0x24C1A1B50](exception, &v23);
+    v13 = std::string::append(&v21, v11, v12);
+    v14 = *&v13->__r_.__value_.__l.__data_;
+    v23 = v13->__r_.__value_.__r.__words[2];
+    v22 = v14;
+    v13->__r_.__value_.__l.__size_ = 0;
+    v13->__r_.__value_.__r.__words[2] = 0;
+    v13->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x24C1A1B50](exception, &v22);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  v6 = v5[4];
-  v7 = v5[5];
-  if (v7 != v6)
+  v5 = v4[4];
+  v6 = v4[5];
+  if (v6 != v5)
   {
-    if (!((v7 - v6) >> 62))
+    if (!((v6 - v5) >> 62))
     {
       operator new();
     }
@@ -6191,11 +6059,11 @@ void happly::Element::getDataFromPropertyRecursive<unsigned int,unsigned char>(c
     std::vector<char>::__throw_length_error[abi:ne200100]();
   }
 
-  while (v6 != v7)
+  while (v5 != v6)
   {
-    LODWORD(v23) = *v6;
-    std::vector<unsigned int>::push_back[abi:ne200100](a2, &v23);
-    ++v6;
+    LODWORD(v22) = *v5;
+    std::vector<unsigned int>::push_back[abi:ne200100](a2, &v22);
+    ++v5;
   }
 }
 
@@ -6298,62 +6166,62 @@ LABEL_16:
   goto LABEL_17;
 }
 
-void *happly::Element::getDataFromPropertyRecursive<char,char>@<X0>(char **lpsrc@<X1>, void *a2@<X8>)
+void happly::Element::getDataFromPropertyRecursive<char,char>(uint64_t *__return_ptr a1@<X8>, char *lpsrc@<X1>)
 {
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::operator+<char>();
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(" cannot be coerced to requested type ", &v19, &v20);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v19, " cannot be coerced to requested type ", &v18);
     __s[23] = 7;
     strcpy(__s, "unknown");
-    v9 = std::string::append(&v20, __s, 7uLL);
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    v21.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
-    *&v21.__r_.__value_.__l.__data_ = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
-    v11 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(". Has type ", &v21, &v22);
-    (*(*lpsrc + 11))(v16, lpsrc, v11);
-    if ((v17 & 0x80u) == 0)
+    v8 = std::string::append(&v19, __s, 7uLL);
+    v9 = *&v8->__r_.__value_.__l.__data_;
+    v20.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
+    *&v20.__r_.__value_.__l.__data_ = v9;
+    v8->__r_.__value_.__l.__size_ = 0;
+    v8->__r_.__value_.__r.__words[2] = 0;
+    v8->__r_.__value_.__r.__words[0] = 0;
+    v10 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v21, ". Has type ", &v20);
+    (*(*lpsrc + 88))(v15, lpsrc, v10);
+    if ((v16 & 0x80u) == 0)
+    {
+      v11 = v15;
+    }
+
+    else
+    {
+      v11 = v15[0];
+    }
+
+    if ((v16 & 0x80u) == 0)
     {
       v12 = v16;
     }
 
     else
     {
-      v12 = v16[0];
+      v12 = v15[1];
     }
 
-    if ((v17 & 0x80u) == 0)
-    {
-      v13 = v17;
-    }
-
-    else
-    {
-      v13 = v16[1];
-    }
-
-    v14 = std::string::append(&v22, v12, v13);
-    v15 = *&v14->__r_.__value_.__l.__data_;
-    v24 = v14->__r_.__value_.__r.__words[2];
-    v23 = v15;
-    v14->__r_.__value_.__l.__size_ = 0;
-    v14->__r_.__value_.__r.__words[2] = 0;
-    v14->__r_.__value_.__r.__words[0] = 0;
-    MEMORY[0x24C1A1B50](exception, &v23);
+    v13 = std::string::append(&v21, v11, v12);
+    v14 = *&v13->__r_.__value_.__l.__data_;
+    v23 = v13->__r_.__value_.__r.__words[2];
+    v22 = v14;
+    v13->__r_.__value_.__l.__size_ = 0;
+    v13->__r_.__value_.__r.__words[2] = 0;
+    v13->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x24C1A1B50](exception, &v22);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v6 = result[4];
-  v7 = result[5];
-  if (v7 != v6)
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v5 = v4[4];
+  v6 = v4[5];
+  if (v6 != v5)
   {
-    if (((v7 - v6) & 0x8000000000000000) == 0)
+    if (((v6 - v5) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -6361,9 +6229,8 @@ void *happly::Element::getDataFromPropertyRecursive<char,char>@<X0>(char **lpsrc
     std::vector<char>::__throw_length_error[abi:ne200100]();
   }
 
-  a2[2] = 0;
-  *a2 = 0;
-  return result;
+  a1[2] = 0;
+  *a1 = 0;
 }
 
 void sub_247434880(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44)
@@ -6465,58 +6332,58 @@ LABEL_16:
   goto LABEL_17;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::vector<float>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<float>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<float>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<float>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::vector<float>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<float>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<float>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<float>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_23;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_23:
     operator new();
   }
 
-  if (v4.u32[0] < 2uLL)
+  if (v6.u32[0] < 2uLL)
   {
     while (1)
     {
-      v9 = v7[1];
-      if (v9 == v2)
+      v11 = v9[1];
+      if (v11 == v4)
       {
-        if (*(v7 + 4) == v2)
+        if (*(v9 + 4) == v4)
         {
-          return v7;
+          return v9;
         }
       }
 
-      else if ((v9 & (*&v3 - 1)) != v5)
+      else if ((v11 & (*&v5 - 1)) != v7)
       {
         goto LABEL_23;
       }
 
-      v7 = *v7;
-      if (!v7)
+      v9 = *v9;
+      if (!v9)
       {
         goto LABEL_23;
       }
@@ -6525,41 +6392,41 @@ LABEL_23:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v8 >= *&v3)
+    if (v10 >= *&v5)
     {
-      v8 %= *&v3;
+      v10 %= *&v5;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_23;
     }
 
 LABEL_12:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_23;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_12;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_247434D1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_247434D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,std::vector<float>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,std::vector<float>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6591,12 +6458,12 @@ void **std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,std:
   return v1;
 }
 
-void happly::Element::getDataFromPropertyRecursive<int,int>(char **lpsrc@<X1>, void *a2@<X8>)
+void happly::Element::getDataFromPropertyRecursive<int,int>(void **__return_ptr a1@<X8>, char *lpsrc@<X1>)
 {
   {
-    *a2 = 0;
-    a2[1] = 0;
-    a2[2] = 0;
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
     v7 = v5[4];
     v6 = v5[5];
     if (v6 != v7)
@@ -6613,14 +6480,14 @@ void happly::Element::getDataFromPropertyRecursive<int,int>(char **lpsrc@<X1>, v
     for (i = v5[5]; v9 != i; ++v9)
     {
       v10 = *v9;
-      std::vector<unsigned int>::push_back[abi:ne200100](a2, &v10);
+      std::vector<unsigned int>::push_back[abi:ne200100](a1, &v10);
     }
   }
 
   else
   {
 
-    happly::Element::getDataFromPropertyRecursive<int,short>(lpsrc, a2);
+    happly::Element::getDataFromPropertyRecursive<int,short>(lpsrc, a1);
   }
 }
 
@@ -6636,12 +6503,12 @@ void sub_247434EF4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void happly::Element::getDataFromPropertyRecursive<int,short>(char **lpsrc@<X1>, void *a2@<X8>)
+void happly::Element::getDataFromPropertyRecursive<int,short>(char *lpsrc@<X1>, uint64_t *a3@<X8>)
 {
   {
-    *a2 = 0;
-    a2[1] = 0;
-    a2[2] = 0;
+    *a3 = 0;
+    a3[1] = 0;
+    a3[2] = 0;
     v6 = v5[5] - v5[4];
     if (v6)
     {
@@ -6657,14 +6524,14 @@ void happly::Element::getDataFromPropertyRecursive<int,short>(char **lpsrc@<X1>,
     for (i = v5[5]; v8 != i; ++v8)
     {
       v9 = *v8;
-      std::vector<unsigned int>::push_back[abi:ne200100](a2, &v9);
+      std::vector<unsigned int>::push_back[abi:ne200100](a3, &v9);
     }
   }
 
   else
   {
 
-    happly::Element::getDataFromPropertyRecursive<int,signed char>(lpsrc, a2);
+    happly::Element::getDataFromPropertyRecursive<int,signed char>(lpsrc, a3);
   }
 }
 
@@ -6680,62 +6547,62 @@ void sub_247435078(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void happly::Element::getDataFromPropertyRecursive<int,signed char>(char **lpsrc@<X1>, void *a2@<X8>)
+void happly::Element::getDataFromPropertyRecursive<int,signed char>(char *lpsrc@<X1>, uint64_t *a2@<X8>)
 {
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::operator+<char>();
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(" cannot be coerced to requested type ", &v20, &v21);
-    v19 = 3;
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v20, " cannot be coerced to requested type ", &v19);
+    v18 = 3;
     strcpy(__s, "int");
-    v9 = std::string::append(&v21, __s, 3uLL);
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    v22.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
-    *&v22.__r_.__value_.__l.__data_ = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
-    v11 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(". Has type ", &v22, &v23);
-    (*(*lpsrc + 11))(v16, lpsrc, v11);
-    if ((v17 & 0x80u) == 0)
+    v8 = std::string::append(&v20, __s, 3uLL);
+    v9 = *&v8->__r_.__value_.__l.__data_;
+    v21.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
+    *&v21.__r_.__value_.__l.__data_ = v9;
+    v8->__r_.__value_.__l.__size_ = 0;
+    v8->__r_.__value_.__r.__words[2] = 0;
+    v8->__r_.__value_.__r.__words[0] = 0;
+    v10 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v22, ". Has type ", &v21);
+    (*(*lpsrc + 88))(v15, lpsrc, v10);
+    if ((v16 & 0x80u) == 0)
+    {
+      v11 = v15;
+    }
+
+    else
+    {
+      v11 = v15[0];
+    }
+
+    if ((v16 & 0x80u) == 0)
     {
       v12 = v16;
     }
 
     else
     {
-      v12 = v16[0];
+      v12 = v15[1];
     }
 
-    if ((v17 & 0x80u) == 0)
-    {
-      v13 = v17;
-    }
-
-    else
-    {
-      v13 = v16[1];
-    }
-
-    v14 = std::string::append(&v23, v12, v13);
-    v15 = *&v14->__r_.__value_.__l.__data_;
-    v25 = v14->__r_.__value_.__r.__words[2];
-    v24 = v15;
-    v14->__r_.__value_.__l.__size_ = 0;
-    v14->__r_.__value_.__r.__words[2] = 0;
-    v14->__r_.__value_.__r.__words[0] = 0;
-    MEMORY[0x24C1A1B50](exception, &v24);
+    v13 = std::string::append(&v22, v11, v12);
+    v14 = *&v13->__r_.__value_.__l.__data_;
+    v24 = v13->__r_.__value_.__r.__words[2];
+    v23 = v14;
+    v13->__r_.__value_.__l.__size_ = 0;
+    v13->__r_.__value_.__r.__words[2] = 0;
+    v13->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x24C1A1B50](exception, &v23);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  v6 = v5[4];
-  v7 = v5[5];
-  if (v7 != v6)
+  v5 = v4[4];
+  v6 = v4[5];
+  if (v6 != v5)
   {
-    if (!((v7 - v6) >> 62))
+    if (!((v6 - v5) >> 62))
     {
       operator new();
     }
@@ -6743,11 +6610,11 @@ void happly::Element::getDataFromPropertyRecursive<int,signed char>(char **lpsrc
     std::vector<char>::__throw_length_error[abi:ne200100]();
   }
 
-  while (v6 != v7)
+  while (v5 != v6)
   {
-    LODWORD(v24) = *v6;
-    std::vector<unsigned int>::push_back[abi:ne200100](a2, &v24);
-    ++v6;
+    LODWORD(v23) = *v5;
+    std::vector<unsigned int>::push_back[abi:ne200100](a2, &v23);
+    ++v5;
   }
 }
 
@@ -6979,15 +6846,15 @@ uint64_t *std::__function::__func<apple3dgs::loadPly(std::__fs::filesystem::path
     v40 = v3[6];
     v80 = v34 - 1;
     v81 = &v80;
-    _S8 = *(std::__hash_table<std::__hash_value_type<unsigned int,std::vector<float>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<float>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<float>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<float>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v40, &v80)[3] + 4 * v4);
+    _S8 = *(std::__hash_table<std::__hash_value_type<unsigned int,std::vector<float>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<float>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<float>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<float>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v40, &v80, &std::piecewise_construct, &v81)[3] + 4 * v4);
     v42 = v3[6];
     v79 = v34;
     v81 = &v79;
-    _S9 = *(std::__hash_table<std::__hash_value_type<unsigned int,std::vector<float>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<float>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<float>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<float>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v42, &v79)[3] + 4 * v4);
+    _S9 = *(std::__hash_table<std::__hash_value_type<unsigned int,std::vector<float>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<float>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<float>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<float>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v42, &v79, &std::piecewise_construct, &v81)[3] + 4 * v4);
     v44 = v3[6];
     v78 = v34;
     v81 = &v78;
-    result = std::__hash_table<std::__hash_value_type<unsigned int,std::vector<float>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<float>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<float>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<float>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v44, &v78);
+    result = std::__hash_table<std::__hash_value_type<unsigned int,std::vector<float>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<float>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<float>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<float>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v44, &v78, &std::piecewise_construct, &v81);
     _D0.i32[0] = *(result[3] + 4 * v4);
     v45 = *(v29 + 184);
     v46 = *(v29 + 176) + *(v29 + 192) * v4 + *(v29 + 200) + *(v3[1] + 192) * v35 / *(v3[1] + 560);
@@ -7882,39 +7749,39 @@ void sub_247436684(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void avir::CDSPFracFilterBankLin<float>::createAllFilters(uint64_t a1, __n128 a2)
+void avir::CDSPFracFilterBankLin<float>::createAllFilters(uint64_t result, __n128 a2)
 {
-  if (*(a1 + 24) >= 1)
+  if (*(result + 24) >= 1)
   {
-    for (i = 0; i < *(a1 + 24); ++i)
+    for (i = 0; i < *(result + 24); ++i)
     {
-      if ((*(a1 + 184) & 1) == 0)
+      if ((*(result + 184) & 1) == 0)
       {
-        avir::CDSPFracFilterBankLin<float>::buildSrcTable(a1);
+        avir::CDSPFracFilterBankLin<float>::buildSrcTable(result);
       }
 
-      if ((*(*(a1 + 88) + i) & 2) != 0)
-      {
-        continue;
-      }
-
-      v4 = *(a1 + 64);
-      v5 = *(a1 + 44);
-      a2.n128_f32[0] = avir::CDSPFracFilterBankLin<float>::createFilter(a1, i, a2);
-      *(*(a1 + 88) + i) |= 2u;
-      if (*(a1 + 28) < 1)
+      if ((*(*(result + 88) + i) & 2) != 0)
       {
         continue;
       }
 
-      a2.n128_f32[0] = avir::CDSPFracFilterBankLin<float>::createFilter(a1, i + 1, a2);
-      v6 = *(a1 + 40);
+      v4 = *(result + 64);
+      v5 = *(result + 44);
+      a2.n128_f32[0] = avir::CDSPFracFilterBankLin<float>::createFilter(result, i, a2);
+      *(*(result + 88) + i) |= 2u;
+      if (*(result + 28) < 1)
+      {
+        continue;
+      }
+
+      a2.n128_f32[0] = avir::CDSPFracFilterBankLin<float>::createFilter(result, i + 1, a2);
+      v6 = *(result + 40);
       if (v6 < 1)
       {
         continue;
       }
 
-      v7 = *(a1 + 44);
+      v7 = *(result + 44);
       if (v6 >= 8 && ((v6 - v7) & 0x3FFFFFFFFFFFFFF8) != 0)
       {
         v8 = v6 & 0x7FFFFFF8;
@@ -8056,18 +7923,18 @@ void avir::CDSPFracFilterBankLin<float>::buildSrcTable(uint64_t a1)
   bzero(&v10[8 * v9 + 8 * v5], 8 * (v8 - (v9 + v5)));
   v11 = 1.0 / v3;
   v12 = 1.57079633 / v3;
-  v61 = cos(v12);
+  v60 = cos(v12);
   v13 = cos(v2);
   v14 = 0.0;
-  v63 = v11;
-  v64 = v4;
+  v62 = v11;
+  v63 = v4;
   *&v10[8 * (v9 - (v5 - 1)) - 8 + 8 * v5] = v2 * (1.0 - pow(v11 * 0.0, v4));
   if (v5 >= 2)
   {
-    v60 = v13 + v13;
+    v59 = v13 + v13;
     v15 = -(sin(0.0 - v2) - (v13 + v13) * 0.0);
-    v62 = v61 + v61;
-    v16 = v62 - sin(1.57079633 - v12);
+    v61 = v60 + v60;
+    v16 = v61 - sin(1.57079633 - v12);
     v17 = &v10[8 * v9];
     v18 = (v17 + 8);
     v19 = (v17 - 8);
@@ -8077,13 +7944,13 @@ void avir::CDSPFracFilterBankLin<float>::buildSrcTable(uint64_t a1)
     do
     {
       v23 = v15;
-      v15 = -(v14 - v60 * v15);
-      v24 = pow(v63 * v22, v64);
+      v15 = -(v14 - v59 * v15);
+      v24 = pow(v62 * v22, v63);
       v22 = v22 + 1.0;
       v25 = v23 * (v16 * (1.0 - v24)) / v20;
       *v18++ = v25;
       *v19-- = v25;
-      v26 = -(v21 - v62 * v16);
+      v26 = -(v21 - v61 * v16);
       v20 = v20 + 1.0;
       v14 = v23;
       v21 = v16;
@@ -8147,9 +8014,8 @@ void avir::CDSPFracFilterBankLin<float>::buildSrcTable(uint64_t a1)
         v46 = v40;
         do
         {
-          v47 = *v46;
-          v42 = v42 + v46[-1].f64[0] + v46[-1].f64[1] + v46->f64[0] + v46->f64[1];
-          v46 += 2;
+          v42 = v42 + *(v46 - 2) + *(v46 - 1) + *v46 + v46[1];
+          v46 += 4;
           v45 -= 4;
         }
 
@@ -8157,49 +8023,49 @@ void avir::CDSPFracFilterBankLin<float>::buildSrcTable(uint64_t a1)
         if ((v34 & 0x7FFFFFFC) != v34)
         {
 LABEL_14:
-          v48 = v43 + 1;
+          v47 = v43 + 1;
           do
           {
-            v49 = *v44++;
-            v42 = v42 + v49;
-            --v48;
+            v48 = *v44++;
+            v42 = v42 + v48;
+            --v47;
           }
 
-          while (v48 > 1);
+          while (v47 > 1);
         }
 
-        v50 = 1.0 / v42;
+        v49 = 1.0 / v42;
         if (v34 < 4)
         {
           goto LABEL_20;
         }
 
-        v51 = v34 & 0x7FFFFFFC;
+        v50 = v34 & 0x7FFFFFFC;
         LODWORD(v34) = v34 - (v34 & 0x7FFFFFFC);
         v41 += v36 & 0x7FFFFFFC;
-        v52 = v36 & 0x7FFFFFFC;
+        v51 = v36 & 0x7FFFFFFC;
         do
         {
-          v53 = vmulq_n_f64(*v40, v50);
-          v40[-1] = vmulq_n_f64(v40[-1], v50);
-          *v40 = v53;
+          v52 = vmulq_n_f64(*v40, v49);
+          v40[-1] = vmulq_n_f64(v40[-1], v49);
+          *v40 = v52;
           v40 += 2;
-          v52 -= 4;
+          v51 -= 4;
         }
 
-        while (v52);
-        if (v51 != v36)
+        while (v51);
+        if (v50 != v36)
         {
 LABEL_20:
-          v54 = v34 + 1;
+          v53 = v34 + 1;
           do
           {
-            *v41 = v50 * *v41;
+            *v41 = v49 * *v41;
             ++v41;
-            --v54;
+            --v53;
           }
 
-          while (v54 > 1);
+          while (v53 > 1);
         }
       }
     }
@@ -8208,26 +8074,26 @@ LABEL_20:
     LODWORD(v31) = *(a1 + 24);
   }
 
-  v55 = *(a1 + 44) + *(a1 + 44) * v31;
-  v56 = *(a1 + 32);
+  v54 = *(a1 + 44) + *(a1 + 44) * v31;
+  v55 = *(a1 + 32);
   free(*(a1 + 56));
-  v57 = 4 * v55;
-  if (v56)
+  v56 = 4 * v54;
+  if (v55)
   {
-    v58 = malloc_type_malloc(v57 + v56, 0x100004052888210uLL);
-    v59 = v58 + v56 - ((v56 - 1) & v58);
+    v57 = malloc_type_malloc(v56 + v55, 0x100004052888210uLL);
+    v58 = v57 + v55 - ((v55 - 1) & v57);
   }
 
   else
   {
-    v58 = malloc_type_malloc(v57, 0x100004052888210uLL);
-    v59 = v58;
+    v57 = malloc_type_malloc(v56, 0x100004052888210uLL);
+    v58 = v57;
   }
 
-  *(a1 + 56) = v58;
-  *(a1 + 64) = v59;
-  *(a1 + 72) = v55;
-  *(a1 + 76) = v56;
+  *(a1 + 56) = v57;
+  *(a1 + 64) = v58;
+  *(a1 + 72) = v54;
+  *(a1 + 76) = v55;
 
   free(v10);
 }
@@ -8565,43 +8431,43 @@ LABEL_15:
   }
 }
 
-void avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDithererDefINL<float>>>::buildFilterSteps(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
+void avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDithererDefINL<float>>>::buildFilterSteps(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6, double a7)
 {
-  v8 = *a2;
+  v10 = *a2;
   if (*a2 >= 1)
   {
     do
     {
-      *a2 = --v8;
-      v9 = *(*(a2 + 16) + 8 * v8);
-      if (v9)
+      *a2 = --v10;
+      v11 = *(*(a2 + 16) + 8 * v10);
+      if (v11)
       {
-        free(v9[22]);
-        free(v9[19]);
-        free(v9[4]);
-        free(v9[1]);
-        MEMORY[0x24C1A2010](v9, 0x10E0C4001F3B57ALL);
-        v8 = *a2;
+        free(v11[22]);
+        free(v11[19]);
+        free(v11[4]);
+        free(v11[1]);
+        MEMORY[0x24C1A2010](v11, 0x10E0C4001F3B57ALL);
+        v10 = *a2;
       }
     }
 
-    while (v8 > 0);
+    while (v10 > 0);
   }
 
-  v10 = *(a3 + 40);
-  v11 = vcvtmd_s64_f64(v10);
-  if (v10 <= 1.0)
+  v12 = *(a3 + 40);
+  v13 = vcvtmd_s64_f64(v12);
+  if (v12 <= 1.0)
   {
     avir::CStructArray<avir::CImageResizerFilterStepINL<float,float>>::add(a2);
   }
 
-  if (v11 < 2)
+  if (v13 < 2)
   {
     avir::CStructArray<avir::CImageResizerFilterStepINL<float,float>>::add(a2);
   }
 
-  v12 = vcvtmd_s64_f64(0.5 / (1.0 / v10));
-  if ((a5 & 4) != 0 && v12 >= 2)
+  v14 = vcvtmd_s64_f64(0.5 / (1.0 / v12));
+  if ((a5 & 4) != 0 && v14 >= 2)
   {
     avir::CStructArray<avir::CImageResizerFilterStepINL<float,float>>::add(a2);
   }
@@ -8609,12 +8475,12 @@ void avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDither
   avir::CStructArray<avir::CImageResizerFilterStepINL<float,float>>::add(a2);
 }
 
-void avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDithererDefINL<float>>>::updateFilterStepBuffers(uint64_t a1, uint64_t a2, unsigned int *a3, int a4, int a5)
+void avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDithererDefINL<float>>>::updateFilterStepBuffers(uint64_t result, uint64_t a2, unsigned int *a3, int a4, int a5)
 {
-  v7 = *a1;
-  if (*a1 <= 0)
+  v7 = *result;
+  if (*result <= 0)
   {
-    *(*(*(a1 + 16) + 8 * v7 - 8) + 136) = 2;
+    *(*(*(result + 16) + 8 * v7 - 8) + 136) = 2;
     *(a2 + 60) = 0;
   }
 
@@ -8626,7 +8492,7 @@ void avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDither
     v13 = -1;
     do
     {
-      v14 = *(*(a1 + 16) + 8 * v10);
+      v14 = *(*(result + 16) + 8 * v10);
       *(v14 + 104) = a2;
       *(v14 + 112) = a4;
       *(v14 + 116) = v11;
@@ -8728,14 +8594,14 @@ LABEL_25:
         avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDithererDefINL<float>>>::fillRPosBuf(v14, a2, v39);
         a4 = *(v14 + 132);
         v11 = *(v14 + 136);
-        v7 = *a1;
+        v7 = *result;
       }
 
       ++v10;
     }
 
     while (v10 < v7);
-    v42 = *(a1 + 16);
+    v42 = *(result + 16);
     *(*(v42 + 8 * v7 - 8) + 136) = 2;
     *(a2 + 60) = 0;
     if (v13 != -1)
@@ -8763,7 +8629,7 @@ LABEL_25:
 
 uint64_t avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDithererDefINL<float>>>::calcComplexity(unsigned int *a1, int *a2, uint64_t a3, int a4)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v4 = a2[5];
   if (v4)
   {
@@ -8821,7 +8687,7 @@ uint64_t avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDi
 LABEL_11:
       if (++v7 == v6)
       {
-        goto LABEL_35;
+        return (v8 / a4 + v9);
       }
     }
 
@@ -8842,8 +8708,8 @@ LABEL_11:
     v25 = *(v19 + 24);
     v24 = *(v19 + 28);
     v26 = *(v19 + 120);
-    v40[0] = 0;
-    v40[1] = v24 * v22 + v26 * v23;
+    v39[0] = 0;
+    v39[1] = v24 * v22 + v26 * v23;
     if ((*(v19 + 48) & 1) == 0)
     {
       if (v25 < 1)
@@ -8859,7 +8725,7 @@ LABEL_11:
         {
           if (*(v16 + v29))
           {
-            v27 += v40[*(*(v19 + 88) + v29) == 0];
+            v27 += v39[*(*(v19 + 88) + v29) == 0];
           }
 
           ++v29;
@@ -8890,8 +8756,8 @@ LABEL_11:
           v33 = *(v32 - 1);
           v34 = *v32;
           v32 += 2;
-          v27 += v40[v33];
-          v30 += v40[v34];
+          v27 += v39[v33];
+          v30 += v39[v34];
           v31 -= 2;
         }
 
@@ -8908,7 +8774,7 @@ LABEL_11:
       do
       {
         v37 = *v36++;
-        v27 += v40[v37];
+        v27 += v39[v37];
         --v35;
       }
 
@@ -8923,16 +8789,14 @@ LABEL_33:
 
   v9 = 0;
   v8 = 0;
-LABEL_35:
-  v38 = *MEMORY[0x277D85DE8];
   return (v8 / a4 + v9);
 }
 
 void avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDithererDefINL<float>>>::updateBufLenAndRPosPtrs(unsigned int *a1, unsigned int *a2, int a3, __n128 a4)
 {
-  v70[1] = *MEMORY[0x277D85DE8];
-  v69 = 0;
-  v70[0] = 0;
+  v69[1] = *MEMORY[0x277D85DE8];
+  v68 = 0;
+  v69[0] = 0;
   v4 = *a1;
   if (v4 >= 1)
   {
@@ -8943,7 +8807,7 @@ void avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDither
       v8 = *v5;
       v9 = *(*v5 + 112);
       v10 = *(*v5 + 116);
-      v11 = *(v70 + v10);
+      v11 = *(v69 + v10);
       v13 = *(*v5 + 120);
       v12 = *(*v5 + 124);
       if (v13 > v11)
@@ -8951,15 +8815,15 @@ void avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDither
         v11 = *(*v5 + 120);
       }
 
-      *(v70 + v10) = v11;
+      *(v69 + v10) = v11;
       v14 = v12 + v9;
-      v15 = *(&v70[-1] + v10);
+      v15 = *(&v69[-1] + v10);
       if (v14 > v15)
       {
         v15 = v14;
       }
 
-      *(&v70[-1] + v10) = v15;
+      *(&v69[-1] + v10) = v15;
       *(v8 + 128) = v14 + v13;
       v16 = *(v8 + 136);
       if (v16 == 2)
@@ -8969,14 +8833,14 @@ void avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDither
 
       if (*v8 == 1)
       {
-        v17 = *(v70 + v16);
+        v17 = *(v69 + v16);
         v18 = *(v8 + 144);
         if (*(v8 + 140) > v17)
         {
           v17 = *(v8 + 140);
         }
 
-        *(v70 + v16) = v17;
+        *(v69 + v16) = v17;
         v7 = v18 + *(v8 + 132);
       }
 
@@ -8985,12 +8849,12 @@ void avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDither
         v7 = *(v8 + 132);
       }
 
-      if (v7 <= *(&v70[-1] + v16))
+      if (v7 <= *(&v69[-1] + v16))
       {
-        v7 = *(&v70[-1] + v16);
+        v7 = *(&v69[-1] + v16);
       }
 
-      *(&v70[-1] + v16) = v7;
+      *(&v69[-1] + v16) = v7;
       ++v5;
       --v6;
     }
@@ -9039,21 +8903,21 @@ void avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDither
 
 LABEL_25:
   v24 = *a2;
-  v25 = v70[0];
-  v26 = v69 + LODWORD(v70[0]);
+  v25 = v69[0];
+  v26 = v68 + LODWORD(v69[0]);
   if (a2[5])
   {
     a2[6] = v26 * v24;
-    v27 = HIDWORD(v70[0]);
-    v28 = HIDWORD(v69) + HIDWORD(v70[0]);
+    v27 = HIDWORD(v69[0]);
+    v28 = HIDWORD(v68) + HIDWORD(v69[0]);
   }
 
   else
   {
-    v25 = v24 * LODWORD(v70[0]);
+    v25 = v24 * LODWORD(v69[0]);
     a2[6] = v26 * v24;
-    v28 = HIDWORD(v69) + HIDWORD(v70[0]);
-    v27 = v24 * HIDWORD(v70[0]);
+    v28 = HIDWORD(v68) + HIDWORD(v69[0]);
+    v27 = v24 * HIDWORD(v69[0]);
   }
 
   a2[8] = v25;
@@ -9061,14 +8925,14 @@ LABEL_25:
   a2[7] = v28 * v24;
   v29 = *(*(a1 + 2) + 8 * a2[14]);
   v30 = *(*(v29 + 208) + 8);
-  v68 = *(*(v29 + 216) + 40);
-  v31 = (v68 / 2 - 1);
+  v67 = *(*(v29 + 216) + 40);
+  v31 = (v67 / 2 - 1);
   v32 = *(v29 + 132);
   if ((a2[15] & 1) == 0)
   {
     if (v32 < 1)
     {
-      goto LABEL_65;
+      return;
     }
 
     v52 = 0;
@@ -9151,7 +9015,7 @@ LABEL_49:
       v30 += 32;
       if (++v52 >= *(v29 + 132))
       {
-        goto LABEL_65;
+        return;
       }
     }
   }
@@ -9239,7 +9103,7 @@ LABEL_49:
       while (v50);
 LABEL_31:
       *(v30 + 8) = v40 + 4 * v41 + 4 * v37;
-      *(v30 + 24) = v68 - v37;
+      *(v30 + 24) = v67 - v37;
       v30 += 32;
       ++v33;
       v31 = v35;
@@ -9248,34 +9112,31 @@ LABEL_31:
 
     while (v33 < *(v29 + 132));
   }
-
-LABEL_65:
-  v67 = *MEMORY[0x277D85DE8];
 }
 
-void avir::CStructArray<avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDithererDefINL<float>>>::CThreadData<unsigned char,unsigned char>>::setItemCount(uint64_t a1, int a2)
+void avir::CStructArray<avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDithererDefINL<float>>>::CThreadData<unsigned char,unsigned char>>::setItemCount(int *a1, int a2)
 {
   v4 = *a1;
   if (*a1 < a2)
   {
-    v5 = *(a1 + 24);
+    v5 = a1[6];
     if (v5 > a2)
     {
       goto LABEL_7;
     }
 
-    v6 = *(a1 + 8);
-    v7 = *(a1 + 16);
+    v6 = *(a1 + 1);
+    v7 = *(a1 + 2);
     v8 = 8 * a2;
-    v9 = *(a1 + 28);
+    v9 = a1[7];
     if (v9)
     {
       v10 = malloc_type_malloc(v8 + v9, 0x2004093837F09uLL);
       v11 = (v10 + v9 - ((v9 - 1) & v10));
-      *(a1 + 8) = v10;
-      *(a1 + 16) = v11;
-      *(a1 + 24) = a2;
-      *(a1 + 28) = v9;
+      *(a1 + 1) = v10;
+      *(a1 + 2) = v11;
+      a1[6] = a2;
+      a1[7] = v9;
       if (v5 < 1)
       {
 LABEL_6:
@@ -9294,10 +9155,10 @@ LABEL_7:
     else
     {
       v11 = malloc_type_malloc(v8, 0x2004093837F09uLL);
-      *(a1 + 8) = v11;
-      *(a1 + 16) = v11;
-      *(a1 + 24) = a2;
-      *(a1 + 28) = 0;
+      *(a1 + 1) = v11;
+      *(a1 + 2) = v11;
+      a1[6] = a2;
+      a1[7] = 0;
       if (v5 < 1)
       {
         goto LABEL_6;
@@ -9311,7 +9172,7 @@ LABEL_7:
   while (v4 > a2)
   {
     *a1 = --v4;
-    v12 = *(*(a1 + 16) + 8 * v4);
+    v12 = *(*(a1 + 2) + 8 * v4);
     if (v12)
     {
       (*(*v12 + 8))(v12);
@@ -9410,40 +9271,40 @@ uint64_t avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDi
   return result;
 }
 
-void avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDithererDefINL<float>>>::CThreadData<unsigned char,unsigned char>::processScanlineQueue(uint64_t a1, __n128 a2, double a3, float32x2_t a4)
+void avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDithererDefINL<float>>>::CThreadData<unsigned char,unsigned char>::processScanlineQueue(uint64_t result, __n128 a2, double a3, float32x2_t a4)
 {
-  v5 = *(a1 + 104);
+  v5 = *(result + 104);
   if (v5 <= 1)
   {
     if (v5)
     {
-      if (v5 == 1 && *(a1 + 184) >= 1)
+      if (v5 == 1 && *(result + 184) >= 1)
       {
         v6 = 0;
         v7 = 0;
         do
         {
-          avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDithererDefINL<float>>>::CThreadData<unsigned char,unsigned char>::resizeScanlineV(a1, *(*(a1 + 168) + v6), *(*(a1 + 168) + v6 + 8), a2, a3, a4);
+          avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDithererDefINL<float>>>::CThreadData<unsigned char,unsigned char>::resizeScanlineV(result, *(*(result + 168) + v6), *(*(result + 168) + v6 + 8), a2, a3, a4);
           ++v7;
           v6 += 16;
         }
 
-        while (v7 < *(a1 + 184));
+        while (v7 < *(result + 184));
       }
     }
 
-    else if (*(a1 + 184) >= 1)
+    else if (*(result + 184) >= 1)
     {
       v11 = 0;
       v12 = 0;
       do
       {
-        avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDithererDefINL<float>>>::CThreadData<unsigned char,unsigned char>::resizeScanlineH(a1, *(*(a1 + 168) + v11), *(*(a1 + 168) + v11 + 8), a2.n128_f32[0]);
+        avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDithererDefINL<float>>>::CThreadData<unsigned char,unsigned char>::resizeScanlineH(result, *(*(result + 168) + v11), *(*(result + 168) + v11 + 8), a2.n128_f32[0]);
         ++v12;
         v11 += 16;
       }
 
-      while (v12 < *(a1 + 184));
+      while (v12 < *(result + 184));
     }
 
     return;
@@ -9451,8 +9312,8 @@ void avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDither
 
   if (v5 == 2)
   {
-    v13 = *(a1 + 184);
-    if (*(*(a1 + 24) + 104))
+    v13 = *(result + 184);
+    if (*(*(result + 24) + 104))
     {
       if (v13 < 1)
       {
@@ -9462,15 +9323,15 @@ void avir::CImageResizer<avir::fpclass_def<float,float,avir::CImageResizerDither
       v14 = 0;
       while (1)
       {
-        avir::CImageResizerFilterStepINL<float,float>::applySRGBGamma(*(*(a1 + 168) + 16 * v14), *(a1 + 108), *(a1 + 24));
-        v15 = *(a1 + 168);
+        avir::CImageResizerFilterStepINL<float,float>::applySRGBGamma(*(*(result + 168) + 16 * v14), *(result + 108), *(result + 24));
+        v15 = *(result + 168);
         v16 = *(v15 + 16 * v14);
-        v17 = *(a1 + 144);
-        v18 = *(a1 + 152);
+        v17 = *(result + 144);
+        v18 = *(result + 152);
         *&v18 = v18;
         if (v17 == 1.0)
         {
-          v19 = *(a1 + 136);
+          v19 = *(result + 136);
           if (v19 >= 1)
           {
             if (v19 < 8)
@@ -9541,7 +9402,7 @@ LABEL_33:
 
         else
         {
-          v21 = *(a1 + 136);
+          v21 = *(result + 136);
           if (v21 >= 1)
           {
             *&v17 = v17;
@@ -9615,8 +9476,8 @@ LABEL_47:
         }
 
 LABEL_22:
-        avir::CImageResizerFilterStepINL<float,float>::unpackScanline<unsigned char>(v16, *(v15 + 16 * v14++ + 8), *(a1 + 108), *(a1 + 24));
-        if (v14 >= *(a1 + 184))
+        avir::CImageResizerFilterStepINL<float,float>::unpackScanline<unsigned char>(v16, *(v15 + 16 * v14++ + 8), *(result + 108), *(result + 24));
+        if (v14 >= *(result + 184))
         {
           return;
         }
@@ -9631,14 +9492,14 @@ LABEL_22:
     v52 = 0;
     while (1)
     {
-      v53 = *(a1 + 168);
+      v53 = *(result + 168);
       v54 = *(v53 + 16 * v52);
-      v55 = *(a1 + 144);
-      v56 = *(a1 + 152);
+      v55 = *(result + 144);
+      v56 = *(result + 152);
       *&v56 = v56;
       if (v55 == 1.0)
       {
-        v57 = *(a1 + 136);
+        v57 = *(result + 136);
         if (v57 >= 1)
         {
           if (v57 < 8)
@@ -9709,7 +9570,7 @@ LABEL_75:
 
       else
       {
-        v59 = *(a1 + 136);
+        v59 = *(result + 136);
         if (v59 >= 1)
         {
           *&v55 = v55;
@@ -9783,8 +9644,8 @@ LABEL_89:
       }
 
 LABEL_64:
-      avir::CImageResizerFilterStepINL<float,float>::unpackScanline<unsigned char>(v54, *(v53 + 16 * v52++ + 8), *(a1 + 108), *(a1 + 24));
-      if (v52 >= *(a1 + 184))
+      avir::CImageResizerFilterStepINL<float,float>::unpackScanline<unsigned char>(v54, *(v53 + 16 * v52++ + 8), *(result + 108), *(result + 24));
+      if (v52 >= *(result + 184))
       {
         return;
       }
@@ -9793,8 +9654,8 @@ LABEL_64:
 
   if (v5 == 3)
   {
-    v8 = *(a1 + 184);
-    if (*(*(a1 + 24) + 104))
+    v8 = *(result + 184);
+    if (*(*(result + 24) + 104))
     {
       if (v8 >= 1)
       {
@@ -9802,13 +9663,13 @@ LABEL_64:
         v10 = 0;
         do
         {
-          avir::CImageResizerFilterStepINL<float,float>::applySRGBGamma(*(*(a1 + 168) + v9), *(a1 + 108), *(a1 + 24));
-          avir::CImageResizerFilterStepINL<float,float>::unpackScanline<unsigned char>(*(*(a1 + 168) + v9), *(*(a1 + 168) + v9 + 8), *(a1 + 108), *(a1 + 24));
+          avir::CImageResizerFilterStepINL<float,float>::applySRGBGamma(*(*(result + 168) + v9), *(result + 108), *(result + 24));
+          avir::CImageResizerFilterStepINL<float,float>::unpackScanline<unsigned char>(*(*(result + 168) + v9), *(*(result + 168) + v9 + 8), *(result + 108), *(result + 24));
           ++v10;
           v9 += 16;
         }
 
-        while (v10 < *(a1 + 184));
+        while (v10 < *(result + 184));
       }
     }
 
@@ -9818,12 +9679,12 @@ LABEL_64:
       v51 = 0;
       do
       {
-        avir::CImageResizerFilterStepINL<float,float>::unpackScanline<unsigned char>(*(*(a1 + 168) + v50), *(*(a1 + 168) + v50 + 8), *(a1 + 108), *(a1 + 24));
+        avir::CImageResizerFilterStepINL<float,float>::unpackScanline<unsigned char>(*(*(result + 168) + v50), *(*(result + 168) + v50 + 8), *(result + 108), *(result + 24));
         ++v51;
         v50 += 16;
       }
 
-      while (v51 < *(a1 + 184));
+      while (v51 < *(result + 184));
     }
   }
 }
@@ -9885,6 +9746,266 @@ LABEL_4:
     }
 
     while (v11 < *(a1 + 96));
+  }
+
+  return result;
+}
+
+float *avir::CImageResizerFilterStepINL<float,float>::applySRGBGamma(float *result, int a2, double *a3)
+{
+  v3 = *(a3 + 1);
+  v4 = *a3;
+  v5 = a3[9];
+  if (v3 == 1)
+  {
+    if (a2 >= 1)
+    {
+      v42 = a2 + 1;
+      do
+      {
+        v47 = *result;
+        if (*result > 0.0031308)
+        {
+          v43 = v47;
+          v44 = sqrt(v43);
+          v45 = sqrt(v44);
+          *&v43 = v43 * 0.0149409239 + 0.000213364515 + v44 * 0.433973413 + v45 * (sqrt(v45) * 0.659628182 + -0.0380957909 + v44 * -0.0706476137);
+          v46 = (*&v43 * 1.055) + -0.055;
+        }
+
+        else
+        {
+          v46 = v47 * 12.92;
+        }
+
+        *result = v46 * v5;
+        result += v4;
+        --v42;
+      }
+
+      while (v42 > 1);
+    }
+
+    return result;
+  }
+
+  if (v3 == 4)
+  {
+    if (a2 < 1)
+    {
+      return result;
+    }
+
+    v22 = result + 2;
+    v23 = 4 * v4;
+    v24 = a2 + 1;
+    while (1)
+    {
+      v29 = *(v22 - 2);
+      if (v29 <= 0.0031308)
+      {
+        *(v22 - 2) = (v29 * 12.92) * v5;
+        v33 = *(v22 - 1);
+        if (v33 <= 0.0031308)
+        {
+LABEL_21:
+          *(v22 - 1) = (v33 * 12.92) * v5;
+          v34 = *v22;
+          if (*v22 <= 0.0031308)
+          {
+            goto LABEL_22;
+          }
+
+          goto LABEL_26;
+        }
+      }
+
+      else
+      {
+        v30 = v29;
+        v31 = sqrt(v30);
+        v32 = sqrt(v31);
+        *&v30 = v30 * 0.0149409239 + 0.000213364515 + v31 * 0.433973413 + v32 * (sqrt(v32) * 0.659628182 + -0.0380957909 + v31 * -0.0706476137);
+        *(v22 - 2) = ((*&v30 * 1.055) + -0.055) * v5;
+        v33 = *(v22 - 1);
+        if (v33 <= 0.0031308)
+        {
+          goto LABEL_21;
+        }
+      }
+
+      v36 = v33;
+      v37 = sqrt(v36);
+      v38 = sqrt(v37);
+      *&v36 = v36 * 0.0149409239 + 0.000213364515 + v37 * 0.433973413 + v38 * (sqrt(v38) * 0.659628182 + -0.0380957909 + v37 * -0.0706476137);
+      *(v22 - 1) = ((*&v36 * 1.055) + -0.055) * v5;
+      v34 = *v22;
+      if (*v22 <= 0.0031308)
+      {
+LABEL_22:
+        *v22 = (v34 * 12.92) * v5;
+        v35 = v22[1];
+        if (v35 <= 0.0031308)
+        {
+          goto LABEL_27;
+        }
+
+        goto LABEL_17;
+      }
+
+LABEL_26:
+      v39 = v34;
+      v40 = sqrt(v39);
+      v41 = sqrt(v40);
+      *&v39 = v39 * 0.0149409239 + 0.000213364515 + v40 * 0.433973413 + v41 * (sqrt(v41) * 0.659628182 + -0.0380957909 + v40 * -0.0706476137);
+      *v22 = ((*&v39 * 1.055) + -0.055) * v5;
+      v35 = v22[1];
+      if (v35 <= 0.0031308)
+      {
+LABEL_27:
+        v28 = v35 * 12.92;
+        goto LABEL_18;
+      }
+
+LABEL_17:
+      v25 = v35;
+      v26 = sqrt(v25);
+      v27 = sqrt(v26);
+      *&v25 = v25 * 0.0149409239 + 0.000213364515 + v26 * 0.433973413 + v27 * (sqrt(v27) * 0.659628182 + -0.0380957909 + v26 * -0.0706476137);
+      v28 = (*&v25 * 1.055) + -0.055;
+LABEL_18:
+      v22[1] = v28 * v5;
+      v22 = (v22 + v23);
+      if (--v24 <= 1)
+      {
+        return result;
+      }
+    }
+  }
+
+  if (v3 != 3)
+  {
+    if (a2 < 1 || v3 != 2)
+    {
+      return result;
+    }
+
+    v48 = a2 + 1;
+    v49 = result + 1;
+    v50 = 4 * v4;
+    while (1)
+    {
+      v54 = *(v49 - 1);
+      if (v54 <= 0.0031308)
+      {
+        *(v49 - 1) = (v54 * 12.92) * v5;
+        v58 = *v49;
+        if (*v49 > 0.0031308)
+        {
+          goto LABEL_37;
+        }
+
+LABEL_42:
+        *v49 = (v58 * 12.92) * v5;
+        --v48;
+        v49 = (v49 + v50);
+        if (v48 <= 1)
+        {
+          return result;
+        }
+      }
+
+      else
+      {
+        v55 = v54;
+        v56 = sqrt(v55);
+        v57 = sqrt(v56);
+        *&v55 = v55 * 0.0149409239 + 0.000213364515 + v56 * 0.433973413 + v57 * (sqrt(v57) * 0.659628182 + -0.0380957909 + v56 * -0.0706476137);
+        *(v49 - 1) = ((*&v55 * 1.055) + -0.055) * v5;
+        v58 = *v49;
+        if (*v49 <= 0.0031308)
+        {
+          goto LABEL_42;
+        }
+
+LABEL_37:
+        v51 = v58;
+        v52 = sqrt(v51);
+        v53 = sqrt(v52);
+        *&v51 = v51 * 0.0149409239 + 0.000213364515 + v52 * 0.433973413 + v53 * (sqrt(v53) * 0.659628182 + -0.0380957909 + v52 * -0.0706476137);
+        *v49 = ((*&v51 * 1.055) + -0.055) * v5;
+        --v48;
+        v49 = (v49 + v50);
+        if (v48 <= 1)
+        {
+          return result;
+        }
+      }
+    }
+  }
+
+  if (a2 >= 1)
+  {
+    v6 = result + 2;
+    v7 = 4 * v4;
+    for (i = a2 + 1; i > 1; --i)
+    {
+      v13 = *(v6 - 2);
+      if (v13 <= 0.0031308)
+      {
+        *(v6 - 2) = (v13 * 12.92) * v5;
+        v17 = *(v6 - 1);
+        if (v17 <= 0.0031308)
+        {
+LABEL_10:
+          *(v6 - 1) = (v17 * 12.92) * v5;
+          v18 = *v6;
+          if (*v6 <= 0.0031308)
+          {
+            goto LABEL_14;
+          }
+
+          goto LABEL_6;
+        }
+      }
+
+      else
+      {
+        v14 = v13;
+        v15 = sqrt(v14);
+        v16 = sqrt(v15);
+        *&v14 = v14 * 0.0149409239 + 0.000213364515 + v15 * 0.433973413 + v16 * (sqrt(v16) * 0.659628182 + -0.0380957909 + v15 * -0.0706476137);
+        *(v6 - 2) = ((*&v14 * 1.055) + -0.055) * v5;
+        v17 = *(v6 - 1);
+        if (v17 <= 0.0031308)
+        {
+          goto LABEL_10;
+        }
+      }
+
+      v19 = v17;
+      v20 = sqrt(v19);
+      v21 = sqrt(v20);
+      *&v19 = v19 * 0.0149409239 + 0.000213364515 + v20 * 0.433973413 + v21 * (sqrt(v21) * 0.659628182 + -0.0380957909 + v20 * -0.0706476137);
+      *(v6 - 1) = ((*&v19 * 1.055) + -0.055) * v5;
+      v18 = *v6;
+      if (*v6 <= 0.0031308)
+      {
+LABEL_14:
+        v12 = v18 * 12.92;
+        goto LABEL_7;
+      }
+
+LABEL_6:
+      v9 = v18;
+      v10 = sqrt(v9);
+      v11 = sqrt(v10);
+      *&v9 = v9 * 0.0149409239 + 0.000213364515 + v10 * 0.433973413 + v11 * (sqrt(v11) * 0.659628182 + -0.0380957909 + v10 * -0.0706476137);
+      v12 = (*&v9 * 1.055) + -0.055;
+LABEL_7:
+      *v6 = v12 * v5;
+      v6 = (v6 + v7);
+    }
   }
 
   return result;

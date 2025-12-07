@@ -8,45 +8,45 @@
 
 - (BOOL)enumerateItemsWithError:(id *)error usingBlock:(id)block
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if ([(KMIntentVocabularyAuthorization *)self->_authorization isAuthorizedApp:self->_appId])
   {
     v6 = KVAdditionalFieldTypeToNumber();
     intentSlot = self->_intentSlot;
-    v38 = v6;
-    v39[0] = intentSlot;
+    v37 = v6;
+    v38[0] = intentSlot;
     v8 = 1;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obj = [(KMIntentVocabularyStoreManager *)self->_storeManager storedVocabularyForApp:self->_appId intentSlot:self->_intentSlot];
-    v9 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+    v9 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
     if (v9)
     {
       v10 = v9;
       v11 = 0;
-      v12 = *v28;
+      v12 = *v27;
       while (2)
       {
         v13 = 0;
         v14 = v11;
         do
         {
-          if (*v28 != v12)
+          if (*v27 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v27 + 1) + 8 * v13);
+          v15 = *(*(&v26 + 1) + 8 * v13);
           v16 = objc_autoreleasePoolPush();
           itemMapper = self->_itemMapper;
-          v26 = v14;
-          v18 = [(KVItemMapper *)itemMapper mapObject:v15 additionalFields:v25 error:&v26];
-          v11 = v26;
+          v25 = v14;
+          v18 = [(KVItemMapper *)itemMapper mapObject:v15 additionalFields:v24 error:&v25];
+          v11 = v25;
 
           if ([v18 count] != 1)
           {
@@ -54,11 +54,11 @@
             if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315650;
-              v32 = "[KMIntentVocabularyDatasetBridge enumerateItemsWithError:usingBlock:]";
-              v33 = 2112;
-              v34 = v18;
-              v35 = 2112;
-              v36 = v11;
+              v31 = "[KMIntentVocabularyDatasetBridge enumerateItemsWithError:usingBlock:]";
+              v32 = 2112;
+              v33 = v18;
+              v34 = 2112;
+              v35 = v11;
               _os_log_error_impl(&dword_2559DF000, v21, OS_LOG_TYPE_ERROR, "%s Unexepected items: %@ error: %@", buf, 0x20u);
             }
 
@@ -84,7 +84,7 @@ LABEL_16:
         }
 
         while (v10 != v13);
-        v10 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+        v10 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
         if (v10)
         {
           continue;
@@ -103,13 +103,12 @@ LABEL_17:
     v8 = 1;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)_resolveCascadeItemType
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   switch([KMMapper_INVocabularyItem fieldTypeForIntentSlotName:self->_intentSlot])
   {
     case 0:
@@ -119,17 +118,17 @@ LABEL_17:
       {
         appId = self->_appId;
         intentSlot = self->_intentSlot;
-        v15 = 136315650;
-        v16 = "[KMIntentVocabularyDatasetBridge _resolveCascadeItemType]";
-        v17 = 2112;
-        v18 = intentSlot;
-        v19 = 2112;
-        v20 = appId;
-        _os_log_impl(&dword_2559DF000, v3, OS_LOG_TYPE_INFO, "%s Skipping unrecognized intent slot: %@ while enumerating data set from app: %@", &v15, 0x20u);
+        v14 = 136315650;
+        v15 = "[KMIntentVocabularyDatasetBridge _resolveCascadeItemType]";
+        v16 = 2112;
+        v17 = intentSlot;
+        v18 = 2112;
+        v19 = appId;
+        _os_log_impl(&dword_2559DF000, v3, OS_LOG_TYPE_INFO, "%s Skipping unrecognized intent slot: %@ while enumerating data set from app: %@", &v14, 0x20u);
         goto LABEL_4;
       }
 
-      break;
+      return v4;
     case 1:
       v7 = -4184;
       goto LABEL_24;
@@ -193,15 +192,15 @@ LABEL_24:
         v9 = self->_intentSlot;
         v11 = v8;
         v12 = KVFieldTypeDescription();
-        v15 = 136315906;
-        v16 = "[KMIntentVocabularyDatasetBridge _resolveCascadeItemType]";
-        v17 = 2112;
-        v18 = v9;
-        v19 = 2112;
-        v20 = v10;
-        v21 = 2112;
-        v22 = v12;
-        _os_log_error_impl(&dword_2559DF000, v11, OS_LOG_TYPE_ERROR, "%s Skipping intent slot: %@ from app: %@ mapped to fieldType: %@ not supported by Cascade", &v15, 0x2Au);
+        v14 = 136315906;
+        v15 = "[KMIntentVocabularyDatasetBridge _resolveCascadeItemType]";
+        v16 = 2112;
+        v17 = v9;
+        v18 = 2112;
+        v19 = v10;
+        v20 = 2112;
+        v21 = v12;
+        _os_log_error_impl(&dword_2559DF000, v11, OS_LOG_TYPE_ERROR, "%s Skipping intent slot: %@ from app: %@ mapped to fieldType: %@ not supported by Cascade", &v14, 0x2Au);
 
 LABEL_4:
         LOBYTE(v4) = 0;
@@ -210,21 +209,20 @@ LABEL_4:
       break;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (KMIntentVocabularyDatasetBridge)initWithAppId:(id)id intentSlot:(id)slot storeManager:(id)manager authorization:(id)authorization itemMapper:(id)mapper
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   idCopy = id;
   slotCopy = slot;
   managerCopy = manager;
   authorizationCopy = authorization;
   mapperCopy = mapper;
-  v29.receiver = self;
-  v29.super_class = KMIntentVocabularyDatasetBridge;
-  v17 = [(KMIntentVocabularyDatasetBridge *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = KMIntentVocabularyDatasetBridge;
+  v17 = [(KMIntentVocabularyDatasetBridge *)&v28 init];
   v18 = v17;
   if (!v17)
   {
@@ -247,17 +245,17 @@ LABEL_4:
       authorization = v18->_authorization;
       itemMapper = v18->_itemMapper;
       *buf = 136316418;
-      v31 = "[KMIntentVocabularyDatasetBridge initWithAppId:intentSlot:storeManager:authorization:itemMapper:]";
-      v32 = 2112;
-      v33 = appId;
-      v34 = 2112;
-      v35 = intentSlot;
-      v36 = 2112;
-      v37 = storeManager;
-      v38 = 2112;
+      v30 = "[KMIntentVocabularyDatasetBridge initWithAppId:intentSlot:storeManager:authorization:itemMapper:]";
+      v31 = 2112;
+      v32 = appId;
+      v33 = 2112;
+      v34 = intentSlot;
+      v35 = 2112;
+      v36 = storeManager;
+      v37 = 2112;
       authorizationCopy2 = authorization;
-      v40 = 2112;
-      v41 = itemMapper;
+      v39 = 2112;
+      v40 = itemMapper;
       _os_log_error_impl(&dword_2559DF000, v21, OS_LOG_TYPE_ERROR, "%s Cannot initialize with appId: %@ intentSlot: %@ storeManager: %@ authorization: %@ itemMapper: %@", buf, 0x3Eu);
     }
 
@@ -275,7 +273,6 @@ LABEL_8:
   v20 = v18;
 LABEL_12:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

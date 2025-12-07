@@ -5,19 +5,19 @@
 - (id)_allVisibleAppBundleIds;
 - (id)visibleApps;
 - (id)visibleBundleIds;
-- (uint64_t)_allVisibleAppBundleIds;
+- (void)_allVisibleAppBundleIds;
 @end
 
 @implementation ASFAvailableSuggestionAppsController
 
 + (id)sharedController
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "+[ASFAvailableSuggestionAppsController sharedController]";
+    v8 = "+[ASFAvailableSuggestionAppsController sharedController]";
     _os_log_impl(&dword_2413AE000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -32,7 +32,6 @@
   }
 
   v4 = sharedController_sharedController;
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -69,42 +68,40 @@ uint64_t __56__ASFAvailableSuggestionAppsController_sharedController__block_invo
 
 - (id)visibleApps
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   visibleBundleIds = [(ASFAvailableSuggestionAppsController *)self visibleBundleIds];
   v4 = [MEMORY[0x277CBEB58] set];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = visibleBundleIds;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [(ASFApplicationSupplier *)self->_applicationSupplier applicationForBundleId:*(*(&v13 + 1) + 8 * i), v13];
+        v10 = [(ASFApplicationSupplier *)self->_applicationSupplier applicationForBundleId:*(*(&v12 + 1) + 8 * i), v12];
         if (v10)
         {
           [v4 addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -120,28 +117,29 @@ uint64_t __56__ASFAvailableSuggestionAppsController_sharedController__block_invo
 
 - (id)_allVisibleAppBundleIds
 {
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v2 = getSBSCopyDisplayIdentifiersSymbolLoc_ptr;
-  v10 = getSBSCopyDisplayIdentifiersSymbolLoc_ptr;
+  v11 = getSBSCopyDisplayIdentifiersSymbolLoc_ptr;
   if (!getSBSCopyDisplayIdentifiersSymbolLoc_ptr)
   {
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __getSBSCopyDisplayIdentifiersSymbolLoc_block_invoke;
-    v6[3] = &unk_278CD0368;
-    v6[4] = &v7;
-    __getSBSCopyDisplayIdentifiersSymbolLoc_block_invoke(v6);
-    v2 = v8[3];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __getSBSCopyDisplayIdentifiersSymbolLoc_block_invoke;
+    v7[3] = &unk_278CD0368;
+    v7[4] = &v8;
+    __getSBSCopyDisplayIdentifiersSymbolLoc_block_invoke(v7);
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
   if (!v2)
   {
-    _allVisibleAppBundleIds = [ASFAvailableSuggestionAppsController _allVisibleAppBundleIds];
-    _Block_object_dispose(&v7, 8);
-    _Unwind_Resume(_allVisibleAppBundleIds);
+    [ASFAvailableSuggestionAppsController _allVisibleAppBundleIds];
+    v6 = v5;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v6);
   }
 
   v3 = v2();
@@ -149,11 +147,11 @@ uint64_t __56__ASFAvailableSuggestionAppsController_sharedController__block_invo
   return v3;
 }
 
-- (uint64_t)_allVisibleAppBundleIds
+- (void)_allVisibleAppBundleIds
 {
-  dlerror();
-  v0 = abort_report_np();
-  return +[(ASFAssistantMetrics *)v0];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  +[ASFAssistantMetrics sharedMetrics];
 }
 
 @end

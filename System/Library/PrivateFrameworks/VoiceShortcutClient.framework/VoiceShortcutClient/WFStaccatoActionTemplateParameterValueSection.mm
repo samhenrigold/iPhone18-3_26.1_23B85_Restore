@@ -205,15 +205,15 @@ LABEL_33:
 
 - (WFStaccatoActionTemplateParameterValueSection)initWithCoder:(id)coder
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"title"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"subtitle"];
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"image"];
   v8 = MEMORY[0x1E695DFD8];
-  v15[0] = objc_opt_class();
-  v15[1] = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[0] = objc_opt_class();
+  v14[1] = objc_opt_class();
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   v10 = [v8 setWithArray:v9];
   v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"values"];
 
@@ -228,7 +228,6 @@ LABEL_33:
     selfCopy = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

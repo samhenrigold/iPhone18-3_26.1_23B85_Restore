@@ -180,7 +180,7 @@
 
 - (id)_fetchDeviceContextAnalytics
 {
-  v32[4] = *MEMORY[0x277D85DE8];
+  v31[4] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   deviceContextManager = [WeakRetained deviceContextManager];
   v4 = [deviceContextManager numberOfDeviceContextsPerDeviceType:0];
@@ -244,33 +244,31 @@
     v20 = v19;
 
     v21 = *MEMORY[0x277CCB7E8];
-    v27[0] = *MEMORY[0x277CCB7D8];
-    v27[1] = v21;
-    v30[0] = v8;
-    v30[1] = v16;
-    v28 = *MEMORY[0x277CCB7F0];
-    v29 = v28;
-    v30[2] = v12;
-    v30[3] = v20;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v27 count:4];
+    v26[0] = *MEMORY[0x277CCB7D8];
+    v26[1] = v21;
+    v29[0] = v8;
+    v29[1] = v16;
+    v27 = *MEMORY[0x277CCB7F0];
+    v28 = v27;
+    v29[2] = v12;
+    v29[3] = v20;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v26 count:4];
   }
 
   else
   {
     v23 = *MEMORY[0x277CCB7E8];
-    v31[0] = *MEMORY[0x277CCB7D8];
-    v31[1] = v23;
-    v32[0] = &unk_2869D07D8;
-    v32[1] = &unk_2869D07D8;
+    v30[0] = *MEMORY[0x277CCB7D8];
+    v30[1] = v23;
+    v31[0] = &unk_2869D07D8;
+    v31[1] = &unk_2869D07D8;
     v24 = *MEMORY[0x277CCB7E0];
-    v31[2] = *MEMORY[0x277CCB7F0];
-    v31[3] = v24;
-    v32[2] = &unk_2869D07D8;
-    v32[3] = &unk_2869D07D8;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:4];
+    v30[2] = *MEMORY[0x277CCB7F0];
+    v30[3] = v24;
+    v31[2] = &unk_2869D07D8;
+    v31[3] = &unk_2869D07D8;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:4];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -440,51 +438,49 @@
 
 - (id)_numDaysStateOfMindLoggedInPast14DaysWithDataSource:(id)source
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v5 = [(HDMHMentalHealthDailyAnalyticsEvent *)self _stateOfMindDaySummaryEnumeratorForPastNDays:14 withDataSource:sourceCopy];
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
   v19 = 0;
-  v14[5] = &v16;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
   v15 = 0;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __91__HDMHMentalHealthDailyAnalyticsEvent__numDaysStateOfMindLoggedInPast14DaysWithDataSource___block_invoke;
-  v14[3] = &unk_2798AAEF0;
-  v14[4] = &v20;
-  v6 = [v5 enumerateWithError:&v15 handler:v14];
-  v7 = v15;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
+  v13[5] = &v15;
+  v14 = 0;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __91__HDMHMentalHealthDailyAnalyticsEvent__numDaysStateOfMindLoggedInPast14DaysWithDataSource___block_invoke;
+  v13[3] = &unk_2798AAEF0;
+  v13[4] = &v19;
+  v6 = [v5 enumerateWithError:&v14 handler:v13];
+  v7 = v14;
   if (v6)
   {
-    v24[0] = @"numDaysDailyStateOfMindLoggedPast2Weeks";
-    v8 = [MEMORY[0x277CCABB0] numberWithInteger:v21[3]];
-    v25[0] = v8;
-    v24[1] = @"numDaysMomentaryStateOfMindLoggedPast2Weeks";
-    v9 = [MEMORY[0x277CCABB0] numberWithInteger:v17[3]];
-    v25[1] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+    v23[0] = @"numDaysDailyStateOfMindLoggedPast2Weeks";
+    v8 = [MEMORY[0x277CCABB0] numberWithInteger:v20[3]];
+    v24[0] = v8;
+    v23[1] = @"numDaysMomentaryStateOfMindLoggedPast2Weeks";
+    v9 = [MEMORY[0x277CCABB0] numberWithInteger:v16[3]];
+    v24[1] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
   }
 
   else
   {
     v11 = *MEMORY[0x277CCB7A0];
-    v26[0] = @"numDaysDailyStateOfMindLoggedPast2Weeks";
-    v26[1] = @"numDaysMomentaryStateOfMindLoggedPast2Weeks";
-    v27[0] = v11;
-    v27[1] = v11;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+    v25[0] = @"numDaysDailyStateOfMindLoggedPast2Weeks";
+    v25[1] = @"numDaysMomentaryStateOfMindLoggedPast2Weeks";
+    v26[0] = v11;
+    v26[1] = v11;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
   }
 
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v20, 8);
-
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v19, 8);
 
   return v10;
 }
@@ -510,84 +506,82 @@ void __91__HDMHMentalHealthDailyAnalyticsEvent__numDaysStateOfMindLoggedInPast14
 
 - (id)_numDaysStateOfMindLoggedInPast30DaysWithDataSource:(id)source
 {
-  v41[4] = *MEMORY[0x277D85DE8];
+  v40[4] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v5 = [(HDMHMentalHealthDailyAnalyticsEvent *)self _stateOfMindDaySummaryEnumeratorForPastNDays:30 withDataSource:sourceCopy];
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
-  v37 = 0;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
   v33 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
   v29 = 0;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0x7FFFFFFFFFFFFFFFLL;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
   v21 = 0;
-  v16[8] = &v22;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0x7FFFFFFFFFFFFFFFLL;
   v17 = 0;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __91__HDMHMentalHealthDailyAnalyticsEvent__numDaysStateOfMindLoggedInPast30DaysWithDataSource___block_invoke;
-  v16[3] = &unk_2798AAF18;
-  v16[4] = &v18;
-  v16[5] = &v34;
-  v16[6] = &v30;
-  v16[7] = &v26;
-  v6 = [v5 enumerateWithError:&v17 handler:v16];
-  v7 = v17;
-  if (v19[3] <= 29)
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
+  v15[8] = &v21;
+  v16 = 0;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __91__HDMHMentalHealthDailyAnalyticsEvent__numDaysStateOfMindLoggedInPast30DaysWithDataSource___block_invoke;
+  v15[3] = &unk_2798AAF18;
+  v15[4] = &v17;
+  v15[5] = &v33;
+  v15[6] = &v29;
+  v15[7] = &v25;
+  v6 = [v5 enumerateWithError:&v16 handler:v15];
+  v7 = v16;
+  if (v18[3] <= 29)
   {
-    v23[3] = 0;
+    v22[3] = 0;
   }
 
   if (v6)
   {
-    v38[0] = @"numDaysDailyStateOfMindLoggedPast30Days";
-    v8 = [MEMORY[0x277CCABB0] numberWithInteger:v35[3]];
-    v39[0] = v8;
-    v38[1] = @"numDaysMomentaryStateOfMindLoggedPast30Days";
-    v9 = [MEMORY[0x277CCABB0] numberWithInteger:v31[3]];
-    v39[1] = v9;
-    v38[2] = @"numMomentaryStateOfMindLogsPerDayPast30DaysMax";
-    v10 = [MEMORY[0x277CCABB0] numberWithInteger:v27[3]];
-    v39[2] = v10;
-    v38[3] = @"numMomentaryStateOfMindLogsPerDayPast30DaysMin";
-    v11 = [MEMORY[0x277CCABB0] numberWithInteger:v23[3]];
-    v39[3] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:4];
+    v37[0] = @"numDaysDailyStateOfMindLoggedPast30Days";
+    v8 = [MEMORY[0x277CCABB0] numberWithInteger:v34[3]];
+    v38[0] = v8;
+    v37[1] = @"numDaysMomentaryStateOfMindLoggedPast30Days";
+    v9 = [MEMORY[0x277CCABB0] numberWithInteger:v30[3]];
+    v38[1] = v9;
+    v37[2] = @"numMomentaryStateOfMindLogsPerDayPast30DaysMax";
+    v10 = [MEMORY[0x277CCABB0] numberWithInteger:v26[3]];
+    v38[2] = v10;
+    v37[3] = @"numMomentaryStateOfMindLogsPerDayPast30DaysMin";
+    v11 = [MEMORY[0x277CCABB0] numberWithInteger:v22[3]];
+    v38[3] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:4];
   }
 
   else
   {
     v13 = *MEMORY[0x277CCB7A0];
-    v40[0] = @"numDaysDailyStateOfMindLoggedPast30Days";
-    v40[1] = @"numDaysMomentaryStateOfMindLoggedPast30Days";
-    v41[0] = v13;
-    v41[1] = v13;
-    v40[2] = @"numMomentaryStateOfMindLogsPerDayPast30DaysMax";
-    v40[3] = @"numMomentaryStateOfMindLogsPerDayPast30DaysMin";
-    v41[2] = v13;
-    v41[3] = v13;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:4];
+    v39[0] = @"numDaysDailyStateOfMindLoggedPast30Days";
+    v39[1] = @"numDaysMomentaryStateOfMindLoggedPast30Days";
+    v40[0] = v13;
+    v40[1] = v13;
+    v39[2] = @"numMomentaryStateOfMindLogsPerDayPast30DaysMax";
+    v39[3] = @"numMomentaryStateOfMindLogsPerDayPast30DaysMin";
+    v40[2] = v13;
+    v40[3] = v13;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:4];
   }
 
-  _Block_object_dispose(&v18, 8);
-  _Block_object_dispose(&v22, 8);
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v30, 8);
-  _Block_object_dispose(&v34, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v33, 8);
 
   return v12;
 }
@@ -631,44 +625,43 @@ void __91__HDMHMentalHealthDailyAnalyticsEvent__numDaysStateOfMindLoggedInPast30
 
 - (id)_numDaysStateOfMindLoggedInPastDayWithDataSource:(id)source
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v5 = [(HDMHMentalHealthDailyAnalyticsEvent *)self _stateOfMindDaySummaryEnumeratorForPastNDays:1 withDataSource:sourceCopy];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
-  v14[4] = &v16;
   v15 = 0;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __88__HDMHMentalHealthDailyAnalyticsEvent__numDaysStateOfMindLoggedInPastDayWithDataSource___block_invoke;
-  v14[3] = &unk_2798AAF40;
-  v6 = [v5 enumerateWithError:&v15 handler:v14];
-  v7 = v15;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
+  v13[4] = &v15;
+  v14 = 0;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __88__HDMHMentalHealthDailyAnalyticsEvent__numDaysStateOfMindLoggedInPastDayWithDataSource___block_invoke;
+  v13[3] = &unk_2798AAF40;
+  v6 = [v5 enumerateWithError:&v14 handler:v13];
+  v7 = v14;
   v8 = [(HDMHMentalHealthDailyAnalyticsEvent *)self _numDailyStateOfMindLogsInPastNDays:1 withDataSource:sourceCopy];
   if (v6)
   {
-    v20[0] = @"numMomentaryStateOfMindLogsPastDay";
-    v9 = [MEMORY[0x277CCABB0] numberWithInteger:v17[3]];
-    v20[1] = @"numDailyStateOfMindLogsPastDay";
-    v21[0] = v9;
-    v21[1] = v8;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+    v19[0] = @"numMomentaryStateOfMindLogsPastDay";
+    v9 = [MEMORY[0x277CCABB0] numberWithInteger:v16[3]];
+    v19[1] = @"numDailyStateOfMindLogsPastDay";
+    v20[0] = v9;
+    v20[1] = v8;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
   }
 
   else
   {
     v11 = *MEMORY[0x277CCB7A0];
-    v22[0] = @"numMomentaryStateOfMindLogsPastDay";
-    v22[1] = @"numDailyStateOfMindLogsPastDay";
-    v23[0] = v11;
-    v23[1] = v11;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+    v21[0] = @"numMomentaryStateOfMindLogsPastDay";
+    v21[1] = @"numDailyStateOfMindLogsPastDay";
+    v22[0] = v11;
+    v22[1] = v11;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
   }
 
-  _Block_object_dispose(&v16, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
 
   return v10;
 }
@@ -767,48 +760,46 @@ LABEL_5:
 
 - (id)_numAssessmentsInPastNDays:(int64_t)days withDataSource:(id)source
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v7 = [MEMORY[0x277CCD8F0] scoredAssessmentTypeForIdentifier:*MEMORY[0x277CCCD68]];
   v8 = [(HDMHMentalHealthDailyAnalyticsEvent *)self _enumeratorForPastNDays:days withDataSource:sourceCopy forSampleType:v7 withExtraPredicate:0];
 
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
   v20 = 0;
-  v15[5] = &v17;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   v16 = 0;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __81__HDMHMentalHealthDailyAnalyticsEvent__numAssessmentsInPastNDays_withDataSource___block_invoke;
-  v15[3] = &unk_2798AAF68;
-  v15[4] = &v21;
-  LOBYTE(v7) = [v8 enumerateWithError:&v16 handler:v15];
-  v9 = v16;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
+  v14[5] = &v16;
+  v15 = 0;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __81__HDMHMentalHealthDailyAnalyticsEvent__numAssessmentsInPastNDays_withDataSource___block_invoke;
+  v14[3] = &unk_2798AAF68;
+  v14[4] = &v20;
+  LOBYTE(v7) = [v8 enumerateWithError:&v15 handler:v14];
+  v9 = v15;
   if (v7)
   {
-    v10 = [MEMORY[0x277CCABB0] numberWithInteger:v22[3]];
-    v25[0] = v10;
-    v11 = [MEMORY[0x277CCABB0] numberWithInteger:v18[3]];
-    v25[1] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+    v10 = [MEMORY[0x277CCABB0] numberWithInteger:v21[3]];
+    v24[0] = v10;
+    v11 = [MEMORY[0x277CCABB0] numberWithInteger:v17[3]];
+    v24[1] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
   }
 
   else
   {
-    v26[0] = *MEMORY[0x277CCB7A0];
-    v26[1] = v26[0];
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+    v25[0] = *MEMORY[0x277CCB7A0];
+    v25[1] = v25[0];
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
   }
 
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v21, 8);
-
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v20, 8);
 
   return v12;
 }
@@ -833,50 +824,48 @@ uint64_t __81__HDMHMentalHealthDailyAnalyticsEvent__numAssessmentsInPastNDays_wi
 
 - (id)_numAssessmentsCompletedWithDataSource:(id)source
 {
-  v15[4] = *MEMORY[0x277D85DE8];
+  v14[4] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v5 = [(HDMHMentalHealthDailyAnalyticsEvent *)self _numAssessmentsInPastNDays:30 withDataSource:sourceCopy];
   v6 = [(HDMHMentalHealthDailyAnalyticsEvent *)self _numAssessmentsInPastNDays:180 withDataSource:sourceCopy];
 
-  v14[0] = @"numDepressionAssessmentsCompletedPast30Days";
+  v13[0] = @"numDepressionAssessmentsCompletedPast30Days";
   v7 = [v5 objectAtIndexedSubscript:0];
-  v15[0] = v7;
-  v14[1] = @"numAnxietyAssessmentsCompletedPast30Days";
+  v14[0] = v7;
+  v13[1] = @"numAnxietyAssessmentsCompletedPast30Days";
   v8 = [v5 objectAtIndexedSubscript:1];
-  v15[1] = v8;
-  v14[2] = @"numDepressionAssessmentsCompletedPast180Days";
+  v14[1] = v8;
+  v13[2] = @"numDepressionAssessmentsCompletedPast180Days";
   v9 = [v6 objectAtIndexedSubscript:0];
-  v15[2] = v9;
-  v14[3] = @"numAnxietyAssessmentsCompletedPast180Days";
+  v14[2] = v9;
+  v13[3] = @"numAnxietyAssessmentsCompletedPast180Days";
   v10 = [v6 objectAtIndexedSubscript:1];
-  v15[3] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[3] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
 
   return v11;
 }
 
 - (id)_numDailyStateOfMindLogsInPastNDays:(int64_t)days withDataSource:(id)source
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v7 = [MEMORY[0x277D10880] predicateForReflectiveInterval:2 equals:1];
   stateOfMindType = [MEMORY[0x277CCD8D8] stateOfMindType];
   v9 = [(HDMHMentalHealthDailyAnalyticsEvent *)self _enumeratorForPastNDays:days withDataSource:sourceCopy forSampleType:stateOfMindType withExtraPredicate:v7];
 
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
-  v18[4] = &v20;
   v19 = 0;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __90__HDMHMentalHealthDailyAnalyticsEvent__numDailyStateOfMindLogsInPastNDays_withDataSource___block_invoke;
-  v18[3] = &unk_2798AAF90;
-  v10 = [v9 enumerateWithError:&v19 handler:v18];
-  v11 = v19;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
+  v17[4] = &v19;
+  v18 = 0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __90__HDMHMentalHealthDailyAnalyticsEvent__numDailyStateOfMindLogsInPastNDays_withDataSource___block_invoke;
+  v17[3] = &unk_2798AAF90;
+  v10 = [v9 enumerateWithError:&v18 handler:v17];
+  v11 = v18;
   if (v11)
   {
     _HKInitializeLogging();
@@ -884,13 +873,13 @@ uint64_t __81__HDMHMentalHealthDailyAnalyticsEvent__numAssessmentsInPastNDays_wi
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = objc_opt_class();
-      [(HDMHMentalHealthDailyAnalyticsEvent *)v13 _numDailyStateOfMindLogsInPastNDays:v11 withDataSource:v24, v12];
+      [(HDMHMentalHealthDailyAnalyticsEvent *)v13 _numDailyStateOfMindLogsInPastNDays:v11 withDataSource:v23, v12];
     }
   }
 
   if (v10)
   {
-    v14 = [MEMORY[0x277CCABB0] numberWithInteger:v21[3]];
+    v14 = [MEMORY[0x277CCABB0] numberWithInteger:v20[3]];
   }
 
   else
@@ -900,8 +889,7 @@ uint64_t __81__HDMHMentalHealthDailyAnalyticsEvent__numAssessmentsInPastNDays_wi
 
   v15 = v14;
 
-  _Block_object_dispose(&v20, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
 
   return v15;
 }
@@ -936,7 +924,7 @@ uint64_t __90__HDMHMentalHealthDailyAnalyticsEvent__numDailyStateOfMindLogsInPas
   v16 = v22;
   if (v16 && (_HKInitializeLogging(), v17 = *MEMORY[0x277CCC2F0], os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_ERROR)))
   {
-    [HDMHMentalHealthDailyAnalyticsEvent _determineDaysSinceLastSampleWithSampleType:v17 dataSource:?];
+    [(HDMHMentalHealthDailyAnalyticsEvent *)v17 _determineDaysSinceLastSampleWithSampleType:v16 dataSource:?];
     if (v15)
     {
       goto LABEL_4;
@@ -969,36 +957,32 @@ LABEL_7:
 
 - (id)_mostRecentAssessmentCategories
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCD8F0] scoredAssessmentTypeForIdentifier:*MEMORY[0x277CCCD68]];
   v4 = [(HDMHMentalHealthDailyAnalyticsEvent *)self _mostRecentAssessmentCategoryWithSampleType:v3];
 
   v5 = [MEMORY[0x277CCD8F0] scoredAssessmentTypeForIdentifier:*MEMORY[0x277CCCD60]];
   v6 = [(HDMHMentalHealthDailyAnalyticsEvent *)self _mostRecentAssessmentCategoryWithSampleType:v5];
 
-  v10[0] = @"mostRecentDepressionsAssessmentCategory";
-  v10[1] = @"mostRecentAnxietyAssessmentCategory";
-  v11[0] = v4;
-  v11[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = @"mostRecentDepressionsAssessmentCategory";
+  v9[1] = @"mostRecentAnxietyAssessmentCategory";
+  v10[0] = v4;
+  v10[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   return v7;
 }
 
 - (id)_mostRecentStateOfMindPleasantnessRatings
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v3 = [(HDMHMentalHealthDailyAnalyticsEvent *)self _mostRecentStateOfMindWithReflectiveInterval:2];
   v4 = [(HDMHMentalHealthDailyAnalyticsEvent *)self _mostRecentStateOfMindWithReflectiveInterval:1];
-  v8[0] = @"mostRecentDailyPleasantnessRating";
-  v8[1] = @"mostRecentMomentaryPleasantnessRating";
-  v9[0] = v3;
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[0] = @"mostRecentDailyPleasantnessRating";
+  v7[1] = @"mostRecentMomentaryPleasantnessRating";
+  v8[0] = v3;
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -1053,13 +1037,13 @@ LABEL_7:
 
 - (id)_mostRecentAssessmentCategoryWithSampleType:(id)type
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v5 = MEMORY[0x277D10848];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
-  v18 = 0;
-  v7 = [v5 mostRecentSampleWithType:typeCopy profile:WeakRetained encodingOptions:0 predicate:0 anchor:0 error:&v18];
-  v8 = v18;
+  v17 = 0;
+  v7 = [v5 mostRecentSampleWithType:typeCopy profile:WeakRetained encodingOptions:0 predicate:0 anchor:0 error:&v17];
+  v8 = v17;
 
   if (v8)
   {
@@ -1067,16 +1051,16 @@ LABEL_7:
     v9 = *MEMORY[0x277CCC2F0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_ERROR))
     {
-      v15 = v9;
-      v16 = objc_opt_class();
+      v14 = v9;
+      v15 = objc_opt_class();
       *buf = 138543874;
-      v20 = v16;
-      v21 = 2112;
-      v22 = typeCopy;
-      v23 = 2112;
-      v24 = v8;
-      v17 = v16;
-      _os_log_error_impl(&dword_258977000, v15, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving last sample %@: %@", buf, 0x20u);
+      v19 = v15;
+      v20 = 2112;
+      v21 = typeCopy;
+      v22 = 2112;
+      v23 = v8;
+      v16 = v15;
+      _os_log_error_impl(&dword_258977000, v14, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving last sample %@: %@", buf, 0x20u);
     }
 
 LABEL_4:
@@ -1097,10 +1081,10 @@ LABEL_4:
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       _HKInitializeLogging();
-      v14 = *MEMORY[0x277CCC2F0];
+      v13 = *MEMORY[0x277CCC2F0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_ERROR))
       {
-        [HDMHMentalHealthDailyAnalyticsEvent _mostRecentAssessmentCategoryWithSampleType:v14];
+        [(HDMHMentalHealthDailyAnalyticsEvent *)v13 _mostRecentAssessmentCategoryWithSampleType:?];
       }
 
       goto LABEL_4;
@@ -1113,21 +1097,19 @@ LABEL_4:
   v10 = v11;
 LABEL_10:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)_mostRecentStateOfMindWithReflectiveInterval:(int64_t)interval
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277D10880] predicateForReflectiveInterval:?];
   v5 = MEMORY[0x277D10848];
   stateOfMindType = [MEMORY[0x277CCD8D8] stateOfMindType];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
-  v19 = 0;
-  v8 = [v5 mostRecentSampleWithType:stateOfMindType profile:WeakRetained encodingOptions:0 predicate:v4 anchor:0 error:&v19];
-  v9 = v19;
+  v18 = 0;
+  v8 = [v5 mostRecentSampleWithType:stateOfMindType profile:WeakRetained encodingOptions:0 predicate:v4 anchor:0 error:&v18];
+  v9 = v18;
 
   if (v9)
   {
@@ -1140,11 +1122,11 @@ LABEL_10:
       v13 = v12;
       v14 = NSStringFromHKStateOfMindReflectiveInterval();
       *buf = 138543874;
-      v21 = v12;
-      v22 = 2112;
-      v23 = v14;
-      v24 = 2112;
-      v25 = v9;
+      v20 = v12;
+      v21 = 2112;
+      v22 = v14;
+      v23 = 2112;
+      v24 = v9;
       _os_log_error_impl(&dword_258977000, v11, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving last state of mind sample %@: %@", buf, 0x20u);
     }
   }
@@ -1163,14 +1145,12 @@ LABEL_10:
     v16 = *MEMORY[0x277CCC2F0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_ERROR))
     {
-      [HDMHMentalHealthDailyAnalyticsEvent _mostRecentAssessmentCategoryWithSampleType:v16];
+      [(HDMHMentalHealthDailyAnalyticsEvent *)v16 _mostRecentAssessmentCategoryWithSampleType:?];
     }
   }
 
   v15 = &stru_2869CE0C8;
 LABEL_9:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -1185,25 +1165,23 @@ LABEL_9:
   _os_log_error_impl(&dword_258977000, a4, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving daily state of mind logs: %@", a3, 0x16u);
 }
 
-- (void)_determineDaysSinceLastSampleWithSampleType:(void *)a1 dataSource:.cold.1(void *a1)
+- (void)_determineDaysSinceLastSampleWithSampleType:(uint64_t)a3 dataSource:.cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  OUTLINED_FUNCTION_0(&dword_258977000, v3, v4, "[%{public}@] Error retrieving days since last sample: %@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v4 = a1;
+  *v12 = 138543618;
+  *&v12[4] = objc_opt_class();
+  *&v12[12] = 2112;
+  *&v12[14] = a3;
+  v5 = *&v12[4];
+  OUTLINED_FUNCTION_0(&dword_258977000, v6, v7, "[%{public}@] Error retrieving days since last sample: %@", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16]);
 }
 
-- (void)_mostRecentAssessmentCategoryWithSampleType:(void *)a1 .cold.1(void *a1)
+- (void)_mostRecentAssessmentCategoryWithSampleType:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_1_0(v2);
-  OUTLINED_FUNCTION_0(&dword_258977000, v4, v5, "[%{public}@] Retrieved sample of unexpected type: %{private}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_1_0(v3);
+  OUTLINED_FUNCTION_0(&dword_258977000, v5, v6, "[%{public}@] Retrieved sample of unexpected type: %{private}@", v7, v8, v9, v10);
 }
 
 @end

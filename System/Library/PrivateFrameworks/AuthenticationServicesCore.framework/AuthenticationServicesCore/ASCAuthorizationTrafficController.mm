@@ -106,99 +106,96 @@ uint64_t __51__ASCAuthorizationTrafficController_sharedInstance__block_invoke()
   _Block_object_dispose(v21, 8);
 }
 
-void __107__ASCAuthorizationTrafficController_beginAuthorizationForApplicationIdentifier_token_withClearanceHandler___block_invoke(uint64_t a1)
+void __107__ASCAuthorizationTrafficController_beginAuthorizationForApplicationIdentifier_token_withClearanceHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   v34[1] = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     if (([MEMORY[0x1E696AAE8] safari_isSafariFamilyBundleIdentifier:?] & 1) != 0 || +[ASCAuthorizationTrafficController _appWithAppIdentifierIsWebBrowser:](ASCAuthorizationTrafficController, "_appWithAppIdentifierIsWebBrowser:", *(a1 + 32)))
     {
-      v2 = 0;
+      v3 = 0;
     }
 
     else
     {
-      v14 = [*(*(a1 + 40) + 8) objectForKeyedSubscript:*(a1 + 32)];
-      v15 = [v14 count];
+      v15 = [*(*(a1 + 40) + 8) objectForKeyedSubscript:*(a1 + 32)];
+      v16 = [v15 count];
 
-      if (v15)
+      if (v16)
       {
-        v16 = MEMORY[0x1E696ABC0];
+        v17 = MEMORY[0x1E696ABC0];
         v31 = *MEMORY[0x1E696A588];
         v32 = @"Request already in progress for specified application identifier.";
-        v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-        v18 = [v16 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v17];
-        v19 = *(*(a1 + 64) + 8);
-        v20 = *(v19 + 40);
-        *(v19 + 40) = v18;
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+        v19 = [v17 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v18];
+        v20 = *(*(a1 + 64) + 8);
+        v21 = *(v20 + 40);
+        *(v20 + 40) = v19;
 
-        v4 = 0;
+        v5 = 0;
         goto LABEL_15;
       }
 
-      v2 = 1;
+      v3 = 1;
     }
 
-    v3 = [*(*(a1 + 40) + 8) objectForKeyedSubscript:*(a1 + 32)];
+    v4 = [*(*(a1 + 40) + 8) objectForKeyedSubscript:*(a1 + 32)];
+    if (!v4)
+    {
+      v4 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      [*(*(a1 + 40) + 8) setObject:v4 forKeyedSubscript:*(a1 + 32)];
+    }
+
+    [v4 addObject:*(a1 + 48)];
+
     if (!v3)
     {
-      v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-      [*(*(a1 + 40) + 8) setObject:v3 forKeyedSubscript:*(a1 + 32)];
-    }
-
-    [v3 addObject:*(a1 + 48)];
-
-    if (!v2)
-    {
-      v11 = *(a1 + 32);
-      v10 = *(a1 + 40);
-      v12 = *(v10 + 32);
+      v12 = *(a1 + 32);
+      v11 = *(a1 + 40);
+      v13 = *(v11 + 32);
       v25[0] = MEMORY[0x1E69E9820];
       v25[1] = 3221225472;
       v25[2] = __107__ASCAuthorizationTrafficController_beginAuthorizationForApplicationIdentifier_token_withClearanceHandler___block_invoke_2;
       v25[3] = &unk_1E8160138;
-      v25[4] = v10;
+      v25[4] = v11;
       v26 = *(a1 + 56);
-      [v12 performAfterBackoffForContext:v11 completionHandler:v25];
-      v13 = v26;
+      [v13 performAfterBackoffForContext:v12 completionHandler:v25];
+      v14 = v26;
 LABEL_16:
 
-      goto LABEL_17;
+      return;
     }
 
-    v4 = 1;
+    v5 = 1;
 LABEL_15:
-    v21 = *(*(a1 + 40) + 16);
+    v22 = *(*(a1 + 40) + 16);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __107__ASCAuthorizationTrafficController_beginAuthorizationForApplicationIdentifier_token_withClearanceHandler___block_invoke_24;
     block[3] = &unk_1E81601A8;
-    v22 = *(a1 + 56);
-    v30 = v4;
-    v23 = *(a1 + 64);
-    v28 = v22;
-    v29 = v23;
-    dispatch_async(v21, block);
-    v13 = v28;
+    v23 = *(a1 + 56);
+    v30 = v5;
+    v24 = *(a1 + 64);
+    v28 = v23;
+    v29 = v24;
+    dispatch_async(v22, block);
+    v14 = v28;
     goto LABEL_16;
   }
 
-  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  v6 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
-    __107__ASCAuthorizationTrafficController_beginAuthorizationForApplicationIdentifier_token_withClearanceHandler___block_invoke_cold_1(v5);
+    __107__ASCAuthorizationTrafficController_beginAuthorizationForApplicationIdentifier_token_withClearanceHandler___block_invoke_cold_1(v6);
   }
 
-  v6 = *(a1 + 56);
-  v7 = MEMORY[0x1E696ABC0];
+  v7 = *(a1 + 56);
+  v8 = MEMORY[0x1E696ABC0];
   v33 = *MEMORY[0x1E696A588];
   v34[0] = @"No application identifier specified for authorization request.";
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
-  v9 = [v7 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v8];
-  (*(v6 + 16))(v6, 0, v9);
-
-LABEL_17:
-  v24 = *MEMORY[0x1E69E9840];
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+  v10 = [v8 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v9];
+  (*(v7 + 16))(v7, 0, v10);
 }
 
 void __107__ASCAuthorizationTrafficController_beginAuthorizationForApplicationIdentifier_token_withClearanceHandler___block_invoke_2(uint64_t a1)

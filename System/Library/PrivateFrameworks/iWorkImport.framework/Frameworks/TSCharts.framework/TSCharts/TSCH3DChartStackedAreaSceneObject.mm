@@ -8,8 +8,8 @@
 {
   pipelineCopy = pipeline;
   selfCopy = self;
-  v156 = pipelineCopy;
-  v11 = objc_msgSend_processor(v156, v6, v7, v8, v9);
+  v155 = pipelineCopy;
+  v11 = objc_msgSend_processor(v155, v6, v7, v8, v9);
   if (!v11)
   {
     v15 = MEMORY[0x277D81150];
@@ -20,17 +20,17 @@
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28, v29);
   }
 
-  v30 = objc_msgSend_scene(v156, v10, v12, v13, v14);
+  v30 = objc_msgSend_scene(v155, v10, v12, v13, v14);
   v35 = objc_msgSend_nonNilAccessorWithScene_(TSCH3DChartScenePropertyAccessor, v31, v32, v33, v34, v30);
 
   v36 = *elements;
   __src = 0;
+  v165 = 0;
   v166 = 0;
-  v167 = 0;
   v41 = objc_msgSend_count(v36, v37, v38, v39, v40);
   sub_276182010(&__src, v41);
   v46 = 0;
-  v157 = v35;
+  v156 = v35;
   while (v46 < objc_msgSend_count(v36, v42, v43, v44, v45))
   {
     v51 = objc_msgSend_objectAtIndexedSubscript_(v36, v47, v48, v49, v50, v46);
@@ -39,140 +39,140 @@
     v66 = objc_msgSend_series(v51, v61, v62, v63, v64);
     if (v51)
     {
-      objc_msgSend_index(v51, v65, v67, v68, v69);
+      objc_msgSend_index(v51, v67, v68, v69);
     }
 
     else
     {
-      *v158 = 0;
+      *v157 = 0;
     }
 
-    objc_msgSend_applyElementTransformToProcessor_series_index_propertyAccessor_(v60, v65, v67, v68, v69, v11, v66, v158, v35);
+    objc_msgSend_applyElementTransformToProcessor_series_index_propertyAccessor_(v60, v65, v67, v68, v69, v11, v66, v157, v35);
 
-    *&v158[3] = 0;
-    *&v158[1] = 0;
-    v158[0] = 1065353216;
-    v158[5] = 1065353216;
+    *&v157[3] = 0;
+    *&v157[1] = 0;
+    v157[0] = 1065353216;
+    v157[5] = 1065353216;
+    v158 = 0;
     v159 = 0;
-    v160 = 0;
-    v163 = 0;
     v162 = 0;
-    v161 = 1065353216;
-    v164 = 1065353216;
-    objc_msgSend_copyTransformInto_(v11, v70, v71, v72, v73, v158);
+    v161 = 0;
+    v160 = 1065353216;
+    v163 = 1065353216;
+    objc_msgSend_copyTransformInto_(v11, v70, v71, v72, v73, v157);
     v74 = v51;
-    v79 = v74;
+    v78 = v74;
     if (v51)
     {
-      objc_msgSend_index(v74, v75, v76, v77, v78);
-      v80 = v168;
+      objc_msgSend_index(v74, v75, v76, v77);
+      v79 = v167;
     }
 
     else
     {
-      v80 = 0.0;
+      v79 = 0.0;
     }
 
-    v85 = v166;
-    if (v166 >= v167)
+    v84 = v165;
+    if (v165 >= v166)
     {
-      v87 = __src;
-      v88 = v166 - __src;
-      v89 = (v166 - __src) >> 4;
-      v90 = v89 + 1;
-      if ((v89 + 1) >> 60)
+      v86 = __src;
+      v87 = v165 - __src;
+      v88 = (v165 - __src) >> 4;
+      v89 = v88 + 1;
+      if ((v88 + 1) >> 60)
       {
         sub_276161760();
       }
 
-      v91 = v167 - __src;
-      if ((v167 - __src) >> 3 > v90)
+      v90 = v166 - __src;
+      if ((v166 - __src) >> 3 > v89)
       {
-        v90 = v91 >> 3;
+        v89 = v90 >> 3;
       }
 
-      v92 = v91 >= 0x7FFFFFFFFFFFFFF0;
-      v93 = 0xFFFFFFFFFFFFFFFLL;
-      if (!v92)
+      v91 = v90 >= 0x7FFFFFFFFFFFFFF0;
+      v92 = 0xFFFFFFFFFFFFFFFLL;
+      if (!v91)
       {
-        v93 = v90;
+        v92 = v89;
       }
 
-      if (v93)
+      if (v92)
       {
-        sub_2761820B0(&__src, v93);
+        sub_2761820B0(&__src, v92);
       }
 
-      v94 = 16 * v89;
-      *v94 = v80;
-      *(v94 + 8) = v46;
-      v86 = (16 * v89 + 16);
-      memcpy(0, v87, v88);
-      v95 = __src;
+      v93 = 16 * v88;
+      *v93 = v79;
+      *(v93 + 8) = v46;
+      v85 = (16 * v88 + 16);
+      memcpy(0, v86, v87);
+      v94 = __src;
       __src = 0;
-      v166 = v86;
-      v167 = 0;
-      if (v95)
+      v165 = v85;
+      v166 = 0;
+      if (v94)
       {
-        operator delete(v95);
+        operator delete(v94);
       }
 
-      v35 = v157;
+      v35 = v156;
     }
 
     else
     {
-      *v166 = v80;
-      *(v85 + 1) = v46;
-      v86 = v85 + 4;
+      *v165 = v79;
+      *(v84 + 1) = v46;
+      v85 = v84 + 4;
     }
 
-    v166 = v86;
-    objc_msgSend_popMatrix(v11, v81, v82, v83, v84);
+    v165 = v85;
+    objc_msgSend_popMatrix(v11, v80, v81, v82, v83);
 
     ++v46;
   }
 
-  v96 = 126 - 2 * __clz((v166 - __src) >> 4);
-  if (v166 == __src)
+  v95 = 126 - 2 * __clz((v165 - __src) >> 4);
+  if (v165 == __src)
   {
-    v97 = 0;
+    v96 = 0;
   }
 
   else
   {
-    v97 = v96;
+    v96 = v95;
   }
 
-  sub_2761820F8(__src, v166, v158, v97, 1);
-  v98 = MEMORY[0x277CBEB18];
-  v103 = objc_msgSend_count(v36, v99, v100, v101, v102);
-  v109 = objc_msgSend_arrayWithCapacity_(v98, v104, v105, v106, v107, v103);
-  for (i = __src; i != v166; i += 4)
+  sub_2761820F8(__src, v165, v157, v96, 1);
+  v97 = MEMORY[0x277CBEB18];
+  v102 = objc_msgSend_count(v36, v98, v99, v100, v101);
+  v108 = objc_msgSend_arrayWithCapacity_(v97, v103, v104, v105, v106, v102);
+  for (i = __src; i != v165; i += 4)
   {
-    v114 = objc_msgSend_objectAtIndexedSubscript_(v36, v108, v110, v111, v112, *(i + 1));
-    objc_msgSend_addObject_(v109, v115, v116, v117, v118, v114);
+    v113 = objc_msgSend_objectAtIndexedSubscript_(v36, v107, v109, v110, v111, *(i + 1));
+    objc_msgSend_addObject_(v108, v114, v115, v116, v117, v113);
   }
 
-  v119 = objc_msgSend_count(v36, v108, v110, v111, v112);
-  if (v119 != objc_msgSend_count(v109, v120, v121, v122, v123))
+  v118 = objc_msgSend_count(v36, v107, v109, v110, v111);
+  if (v118 != objc_msgSend_count(v108, v119, v120, v121, v122))
   {
-    v128 = MEMORY[0x277D81150];
-    v129 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v124, v125, v126, v127, "void TSCH3D::SortElements(TSCH3DChartElementSceneObject *__strong, SEL, NSMutableArray<TSCH3DRenderElementInfo *> *__autoreleasing *, TSCH3DSceneRenderPipeline *__strong, MakeSortData) [SortData = float, MakeSortData = (anonymous namespace)::MakeSortData]");
-    v134 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v130, v131, v132, v133, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartElementSceneObject_SortElements.h");
-    v139 = objc_msgSend_count(v36, v135, v136, v137, v138);
-    v144 = objc_msgSend_count(v109, v140, v141, v142, v143);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v128, v145, v146, v147, v148, v129, v134, 59, 0, "size mismatch between elements and sorted %lu, %lu", v139, v144);
+    v127 = MEMORY[0x277D81150];
+    v128 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v123, v124, v125, v126, "void TSCH3D::SortElements(TSCH3DChartElementSceneObject *__strong, SEL, NSMutableArray<TSCH3DRenderElementInfo *> *__autoreleasing *, TSCH3DSceneRenderPipeline *__strong, MakeSortData) [SortData = float, MakeSortData = (anonymous namespace)::MakeSortData]");
+    v133 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v129, v130, v131, v132, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartElementSceneObject_SortElements.h");
+    v138 = objc_msgSend_count(v36, v134, v135, v136, v137);
+    v143 = objc_msgSend_count(v108, v139, v140, v141, v142);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v127, v144, v145, v146, v147, v128, v133, 59, 0, "size mismatch between elements and sorted %lu, %lu", v138, v143);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v149, v150, v151, v152);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v148, v149, v150, v151);
   }
 
-  v153 = v109;
-  *elements = v109;
+  v152 = v108;
+  *elements = v108;
 
   if (__src)
   {
-    v166 = __src;
+    v165 = __src;
     operator delete(__src);
   }
 }

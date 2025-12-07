@@ -75,7 +75,7 @@
 
 - (id)dictionaryEncoding
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   if (self->_keywords)
   {
     keywords = self->_keywords;
@@ -86,10 +86,9 @@
     keywords = MEMORY[0x277CBEBF8];
   }
 
-  v6 = @"keywords";
-  v7[0] = keywords;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = @"keywords";
+  v6[0] = keywords;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -140,31 +139,31 @@
 
 - (unint64_t)_hash
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = self->_keywords;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v5 ^= [*(*(&v10 + 1) + 8 * i) hash];
+        v5 ^= [*(*(&v9 + 1) + 8 * i) hash];
       }
 
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -175,7 +174,6 @@
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

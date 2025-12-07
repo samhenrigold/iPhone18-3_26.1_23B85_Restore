@@ -3,6 +3,7 @@
 - (_INPBValueMetadata)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)requiredEntitlementsAsString:(int)string;
 - (int)StringAsRequiredEntitlements:(id)entitlements;
 - (unint64_t)hash;
 - (void)addRequiredEntitlement:(int)entitlement;
@@ -385,7 +386,6 @@ LABEL_38:
 
   if (canonicalValue)
   {
-    canonicalValue = self->_canonicalValue;
     PBDataWriterWriteStringField();
   }
 
@@ -399,7 +399,6 @@ LABEL_38:
 
   if ([(_INPBValueMetadata *)self hasConfirmed])
   {
-    confirmed = self->_confirmed;
     PBDataWriterWriteBOOLField();
   }
 
@@ -407,28 +406,25 @@ LABEL_38:
 
   if (input)
   {
-    input = self->_input;
     PBDataWriterWriteStringField();
   }
 
   if (self->_requiredEntitlements.count)
   {
-    v11 = 0;
+    v8 = 0;
     do
     {
-      v12 = self->_requiredEntitlements.list[v11];
       PBDataWriterWriteInt32Field();
-      ++v11;
+      ++v8;
     }
 
-    while (v11 < self->_requiredEntitlements.count);
+    while (v8 < self->_requiredEntitlements.count);
   }
 
   source = [(_INPBValueMetadata *)self source];
 
   if (source)
   {
-    source = self->_source;
     PBDataWriterWriteStringField();
   }
 
@@ -436,18 +432,16 @@ LABEL_38:
 
   if (sourceAppBundleIdentifier)
   {
-    sourceAppBundleIdentifier = self->_sourceAppBundleIdentifier;
     PBDataWriterWriteStringField();
   }
 
   uuid = [(_INPBValueMetadata *)self uuid];
 
-  v18 = toCopy;
+  v12 = toCopy;
   if (uuid)
   {
-    uuid = self->_uuid;
     PBDataWriterWriteStringField();
-    v18 = toCopy;
+    v12 = toCopy;
   }
 }
 
@@ -493,6 +487,26 @@ LABEL_38:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)requiredEntitlementsAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"CONTACTS";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"LOCATION";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

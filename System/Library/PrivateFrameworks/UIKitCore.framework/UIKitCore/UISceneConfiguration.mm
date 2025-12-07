@@ -76,10 +76,10 @@
       goto LABEL_59;
     }
 
-    v15 = [roleCopy isEqualToString:@"UIWindowSceneSessionRoleExternalDisplayNonInteractive"];
+    isEqualToString = objc_msgSend_isEqualToString_(roleCopy);
     v16 = [_infoPlistSceneConfigurations objectForKey:roleCopy];
     v17 = v16;
-    if (v15 && (!v16 || ![v16 count]))
+    if (isEqualToString && (!v16 || ![v16 count]))
     {
       v18 = [_infoPlistSceneConfigurations objectForKey:@"UIWindowSceneSessionRoleExternalDisplay"];
 
@@ -326,19 +326,19 @@ LABEL_60:
 
 uint64_t __65__UISceneConfiguration__initWithName_sessionRole_includingPlist___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 objectForKey:@"UISceneConfigurationName"];
-  v4 = v3;
-  if (v3)
+  v2 = [a2 objectForKey:@"UISceneConfigurationName"];
+  v3 = v2;
+  if (v2)
   {
-    v5 = [v3 isEqualToString:*(a1 + 32)];
+    isEqualToString = objc_msgSend_isEqualToString_(v2);
   }
 
   else
   {
-    v5 = 0;
+    isEqualToString = 0;
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (id)_initWithLoadErrorForSessionRole:(id)role
@@ -505,7 +505,7 @@ uint64_t __65__UISceneConfiguration__initWithName_sessionRole_includingPlist___b
 {
   p_storyboard = &self->_storyboard;
   v8 = storyboard;
-  if (([(UIStoryboard *)v8 isEqual:*p_storyboard]& 1) == 0)
+  if ((objc_msgSend_isEqual_(v8) & 1) == 0)
   {
     name = self->_name;
     self->_name = 0;
@@ -766,7 +766,7 @@ id __62__UISceneConfiguration_descriptionBuilderWithMultilinePrefix___block_invo
 
     bundle = [(UIStoryboard *)self->_storyboard bundle];
     mainBundle2 = [MEMORY[0x1E696AAE8] mainBundle];
-    if ([bundle isEqual:mainBundle2])
+    if (objc_msgSend_isEqual_(bundle))
     {
       bundleIdentifier = 0;
     }

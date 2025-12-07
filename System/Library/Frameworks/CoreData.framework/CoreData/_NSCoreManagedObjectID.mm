@@ -20,7 +20,7 @@
 
 - (id)URIRepresentation
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -40,11 +40,11 @@
 
       v6 = [(__CFString *)v5 length];
       qmemcpy(relativeURLBytes, "x-coredata://", 13);
-      if (v6 && (v7 = v6, [(__CFString *)v5 getCharacters:v26 range:0, v6], v7 >= 1))
+      if (v6 && (v7 = v6, [(__CFString *)v5 getCharacters:v25 range:0, v6], v7 >= 1))
       {
         for (i = 0; i != v7; ++i)
         {
-          relativeURLBytes[i + 13] = v26[i];
+          relativeURLBytes[i + 13] = v25[i];
         }
 
         v9 = i + 13;
@@ -59,9 +59,9 @@
       relativeURLBytes[v9] = 47;
       entityName = [(_NSCoreManagedObjectID *)self entityName];
       v14 = [entityName length];
-      if (v14 && (v15 = v14, [entityName getCharacters:v26 range:{0, v14}], v15 >= 1))
+      if (v14 && (v15 = v14, [entityName getCharacters:v25 range:{0, v14}], v15 >= 1))
       {
-        v16 = v26;
+        v16 = v25;
         do
         {
           v17 = *v16;
@@ -103,9 +103,7 @@
 
   v22 = v11;
   objc_autoreleasePoolPop(v3);
-  result = v11;
-  v24 = *MEMORY[0x1E69E9840];
-  return result;
+  return v11;
 }
 
 + (void)initialize
@@ -123,23 +121,23 @@
 
 + (Class)classWithStore:(id)store andEntity:(id)entity
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v7 = [objc_msgSend(entity "name")];
   if (!v7 || !*v7)
   {
-    v41 = MEMORY[0x1E695DF30];
-    v42 = *MEMORY[0x1E695D940];
-    v43 = @"Entity name must not be nil.";
+    v40 = MEMORY[0x1E695DF30];
+    v41 = *MEMORY[0x1E695D940];
+    v42 = @"Entity name must not be nil.";
     goto LABEL_46;
   }
 
   if (!store)
   {
-    v41 = MEMORY[0x1E695DF30];
-    v42 = *MEMORY[0x1E695D940];
-    v43 = @"Store must not be nil.";
+    v40 = MEMORY[0x1E695DF30];
+    v41 = *MEMORY[0x1E695D940];
+    v42 = @"Store must not be nil.";
 LABEL_46:
-    objc_exception_throw([v41 exceptionWithName:v42 reason:v43 userInfo:0]);
+    objc_exception_throw([v40 exceptionWithName:v41 reason:v42 userInfo:0]);
   }
 
   generatedNameSuffix = [self generatedNameSuffix];
@@ -157,27 +155,27 @@ LABEL_46:
 
   snprintf(__str, 0x100uLL, "_NSObjectID_%s_%x", generatedNameSuffix, 0);
   os_unfair_lock_lock(&_MergedGlobals_69);
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
-  v44 = &_MergedGlobals_69 + 8 * v11;
-  v12 = *(v44 + 3);
-  v13 = [v12 countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v43 = &_MergedGlobals_69 + 8 * v11;
+  v12 = *(v43 + 3);
+  v13 = [v12 countByEnumeratingWithState:&v44 objects:v48 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v46;
+    v15 = *v45;
 LABEL_9:
     v16 = 0;
     while (1)
     {
-      if (*v46 != v15)
+      if (*v45 != v15)
       {
         objc_enumerationMutation(v12);
       }
 
-      v17 = *(*(&v45 + 1) + 8 * v16);
+      v17 = *(*(&v44 + 1) + 8 * v16);
       IndexedIvars = object_getIndexedIvars(v17);
       if (IndexedIvars)
       {
@@ -195,7 +193,7 @@ LABEL_9:
 
       if (v14 == ++v16)
       {
-        v14 = [v12 countByEnumeratingWithState:&v45 objects:v49 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v44 objects:v48 count:16];
         if (v14)
         {
           goto LABEL_9;
@@ -266,7 +264,7 @@ LABEL_29:
     v32 = method_getTypeEncoding(v30);
     class_addMethod(v26, sel_release, v31, v32);
     objc_registerClassPair(v17);
-    CFArrayAppendValue(*(v44 + 3), v17);
+    CFArrayAppendValue(*(v43 + 3), v17);
   }
 
   v33 = object_getIndexedIvars(v17);
@@ -317,7 +315,6 @@ LABEL_29:
   }
 
   os_unfair_lock_unlock(&_MergedGlobals_69);
-  v39 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

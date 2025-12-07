@@ -60,21 +60,22 @@
 
 - (void)textViewDidChangeSelection:(id)selection
 {
-  type metadata accessor for ExclusivelyAccessible<AttributedTextStorage<PlatformTextViewEditorStorage>>(0, &lazy cache variable for type metadata for ExclusivelyAccessible<AttributedTextStorage<PlatformTextViewEditorStorage>>, type metadata accessor for ExclusivelyAccessible);
-  MEMORY[0x1EEE9AC00](v5 - 8);
-  v7 = &v14 - v6;
-  v8 = OBJC_IVAR____TtC7SwiftUI30UIKitRichTextEditorCoordinator__storage;
+  type metadata accessor for ExclusivelyAccessible<AttributedTextStorage<PlatformTextViewEditorStorage>>(0, &lazy cache variable for type metadata for ExclusivelyAccessible<AttributedTextStorage<PlatformTextViewEditorStorage>>, type metadata accessor for ExclusivelyAccessible, v3);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v8 = &v20 - v7;
+  v9 = OBJC_IVAR____TtC7SwiftUI30UIKitRichTextEditorCoordinator__storage;
   swift_beginAccess();
-  _s7SwiftUI21ExclusivelyAccessibleVyAA21AttributedTextStorageVyAA08Platformf10ViewEditorG0VGGWOcTm_0(self + v8, v7, &lazy cache variable for type metadata for ExclusivelyAccessible<AttributedTextStorage<PlatformTextViewEditorStorage>>, type metadata accessor for ExclusivelyAccessible);
+  _s7SwiftUI21ExclusivelyAccessibleVyAA21AttributedTextStorageVyAA08Platformf10ViewEditorG0VGGWOcTm_0(self + v9, v8, &lazy cache variable for type metadata for ExclusivelyAccessible<AttributedTextStorage<PlatformTextViewEditorStorage>>, type metadata accessor for ExclusivelyAccessible, v10);
   selfCopy = self;
   selectionCopy = selection;
-  v11 = _s7SwiftUI21ExclusivelyAccessibleV19withExclusiveAccessyAC10CompletionVyx_qd__qd_0_Gqd__xzqd_0_YKXEs5ErrorRd_0_r0_lFAA21AttributedTextStorageVyAA08Platformk10ViewEditorL0VG_yts5NeverOTg503_s7a13UI30UIKitRichko18CoordinatorC26textn40DidChangeSelectionyySo06UITextI0CFyAA010j2E7L27VyAA08PlatformeifO0VGzXEfU_AA0stkoU0CSo06UITextN0CTf1cn_nTf4ngg_n(v7, selfCopy, selectionCopy);
-  v13 = v12;
+  _s7SwiftUI21ExclusivelyAccessibleV19withExclusiveAccessyAC10CompletionVyx_qd__qd_0_Gqd__xzqd_0_YKXEs5ErrorRd_0_r0_lFAA21AttributedTextStorageVyAA08Platformk10ViewEditorL0VG_yts5NeverOTg503_s7a13UI30UIKitRichko18CoordinatorC26textn40DidChangeSelectionyySo06UITextI0CFyAA010j2E7L27VyAA08PlatformeifO0VGzXEfU_AA0stkoU0CSo06UITextN0CTf1cn_nTf4ngg_n(v8, selfCopy, selectionCopy, v13);
+  v15 = v14;
+  v17 = v16;
   swift_beginAccess();
-  outlined destroy of AttributedTextStorage<PlatformTextViewEditorStorage>?(self + v8, &lazy cache variable for type metadata for ExclusivelyAccessible<AttributedTextStorage<PlatformTextViewEditorStorage>>, type metadata accessor for ExclusivelyAccessible);
-  outlined init with take of ExclusivelyAccessible<AttributedTextStorage<PlatformTextViewEditorStorage>>(v7, self + v8);
+  v19 = outlined destroy of AttributedTextStorage<PlatformTextViewEditorStorage>?(self + v9, &lazy cache variable for type metadata for ExclusivelyAccessible<AttributedTextStorage<PlatformTextViewEditorStorage>>, type metadata accessor for ExclusivelyAccessible, v18);
+  outlined init with take of ExclusivelyAccessible<AttributedTextStorage<PlatformTextViewEditorStorage>>(v8, self + v9, v19);
   swift_endAccess();
-  _s7SwiftUI21ExclusivelyAccessibleV10CompletionV14callAsFunctionqd__Sgyqd_0_YKFAA21AttributedTextStorageVyAA08Platformj10ViewEditorK0VG_yts5NeverOTg5(v11, v13);
+  _s7SwiftUI21ExclusivelyAccessibleV10CompletionV14callAsFunctionqd__Sgyqd_0_YKFAA21AttributedTextStorageVyAA08Platformj10ViewEditorK0VG_yts5NeverOTg5(v15, v17);
 }
 
 - (void)textViewDidChange:(id)change
@@ -86,7 +87,7 @@
 
 - (id)textView:(id)view editMenuForTextInRange:(_NSRange)range suggestedActions:(id)actions
 {
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIMenuElement);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIMenuElement, 0x1E69DCC78);
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;

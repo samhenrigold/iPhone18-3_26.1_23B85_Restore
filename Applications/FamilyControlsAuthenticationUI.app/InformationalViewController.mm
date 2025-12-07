@@ -1,9 +1,24 @@
 @interface InformationalViewController
 - (_TtC30FamilyControlsAuthenticationUI27InformationalViewController)initWithTitle:(id)title detailText:(id)text icon:(id)icon contentLayout:(int64_t)layout;
 - (_TtC30FamilyControlsAuthenticationUI27InformationalViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation InformationalViewController
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for InformationalViewController();
+  v4 = v5.receiver;
+  [(InformationalViewController *)&v5 viewDidDisappear:disappearCopy];
+  if (swift_unknownObjectWeakLoadStrong())
+  {
+    sub_10000EDBC();
+    swift_unknownObjectRelease();
+  }
+}
 
 - (_TtC30FamilyControlsAuthenticationUI27InformationalViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout
 {

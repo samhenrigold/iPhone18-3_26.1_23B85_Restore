@@ -24,19 +24,17 @@
   return v3;
 }
 
-void __67__HFAccessoryCategoryStatusItemProvider__categoryStatusItemClasses__block_invoke_2()
+void __67__HFAccessoryCategoryStatusItemProvider__categoryStatusItemClasses__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v3[5] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:5];
-  v1 = qword_280E02618;
-  qword_280E02618 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[5] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:5];
+  v3 = qword_280E02618;
+  qword_280E02618 = v2;
 }
 
 - (HFAccessoryCategoryStatusItemProvider)initWithItems:(id)items
@@ -84,10 +82,10 @@ void __67__HFAccessoryCategoryStatusItemProvider__categoryStatusItemClasses__blo
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFAccessoryCategoryStatusItemProvider *)self home];
+  v5 = objc_msgSend_home(self);
   room = [(HFAccessoryCategoryStatusItemProvider *)self room];
   valueSource = [(HFAccessoryCategoryStatusItemProvider *)self valueSource];
-  v8 = [v4 initWithHome:home room:room valueSource:valueSource];
+  v8 = [v4 initWithHome:v5 room:room valueSource:valueSource];
 
   return v8;
 }
@@ -157,15 +155,15 @@ void __67__HFAccessoryCategoryStatusItemProvider__categoryStatusItemClasses__blo
   [statusItemClasses na_each:v7];
 }
 
-void __79__HFAccessoryCategoryStatusItemProvider__buildStatusItemsForGroupedStatusItem___block_invoke(uint64_t a1, uint64_t a2)
+void __79__HFAccessoryCategoryStatusItemProvider__buildStatusItemsForGroupedStatusItem___block_invoke(uint64_t a1, const char *a2)
 {
-  v4 = *(a1 + 32);
-  v5 = [*(a1 + 40) home];
-  v6 = [*(a1 + 40) room];
-  v7 = [*(a1 + 40) valueSource];
-  v8 = [v4 _buildStatusItemWithClass:a2 home:v5 room:v6 valueSource:v7];
+  v5 = *(a1 + 32);
+  v6 = objc_msgSend_home(*(a1 + 40));
+  v7 = [*(a1 + 40) room];
+  v8 = [*(a1 + 40) valueSource];
+  v9 = [v5 _buildStatusItemWithClass:a2 home:v6 room:v7 valueSource:v8];
 
-  [*(a1 + 40) addItem:v8];
+  [*(a1 + 40) addItem:v9];
 }
 
 - (id)invalidationReasons

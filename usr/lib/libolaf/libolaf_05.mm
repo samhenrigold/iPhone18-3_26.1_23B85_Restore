@@ -1,1478 +1,13 @@
-void *sprintf_sgR8(void *a1, double a2)
-{
-  v24 = *MEMORY[0x29EDCA608];
-  v2 = fabs(a2);
-  v3 = (*a1)++;
-  *v3 = 32;
-  if (*a1 >= a1[3])
-  {
-    *a1 = a1[2];
-  }
-
-  if (v2 < 99.0)
-  {
-    v4 = a2 * 1000.0;
-    v5 = -0.5;
-    if (v4 > 0.0)
-    {
-      v5 = 0.5;
-    }
-
-    v6 = v4 + v5;
-    if (v6 <= 2147483650.0)
-    {
-      if (v6 >= -2147483650.0)
-      {
-        v7 = v6;
-      }
-
-      else
-      {
-        v7 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v7 = 0x7FFFFFFF;
-    }
-
-    v14 = *MEMORY[0x29EDCA608];
-    v15 = 4;
-LABEL_40:
-
-    return sprintf_6f(a1, v7, v15);
-  }
-
-  if (v2 < 999.0)
-  {
-    v8 = a2 * 100.0;
-    v9 = -0.5;
-    if (v8 > 0.0)
-    {
-      v9 = 0.5;
-    }
-
-    v10 = v8 + v9;
-    if (v10 <= 2147483650.0)
-    {
-      if (v10 >= -2147483650.0)
-      {
-        v7 = v10;
-      }
-
-      else
-      {
-        v7 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v7 = 0x7FFFFFFF;
-    }
-
-    v19 = *MEMORY[0x29EDCA608];
-    v15 = 3;
-    goto LABEL_40;
-  }
-
-  if (v2 < 9999.0)
-  {
-    v11 = a2 * 10.0;
-    v12 = -0.5;
-    if (v11 > 0.0)
-    {
-      v12 = 0.5;
-    }
-
-    v13 = v11 + v12;
-    if (v13 <= 2147483650.0)
-    {
-      if (v13 >= -2147483650.0)
-      {
-        v7 = v13;
-      }
-
-      else
-      {
-        v7 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v7 = 0x7FFFFFFF;
-    }
-
-    v22 = *MEMORY[0x29EDCA608];
-    v15 = 2;
-    goto LABEL_40;
-  }
-
-  if (v2 >= 99999.0)
-  {
-    v20 = *MEMORY[0x29EDCA608];
-
-    return sprintf_seR8(a1, a2);
-  }
-
-  else
-  {
-    v16 = -0.5;
-    if (a2 > 0.0)
-    {
-      v16 = 0.5;
-    }
-
-    v17 = v16 + a2;
-    if (v17 <= 2147483650.0)
-    {
-      if (v17 >= -2147483650.0)
-      {
-        v18 = v17;
-      }
-
-      else
-      {
-        v18 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v18 = 0x7FFFFFFF;
-    }
-
-    v23 = *MEMORY[0x29EDCA608];
-
-    return sprintf_7d(a1, v18);
-  }
-}
-
-void *sprintf_sgR8F(void *a1, double a2)
-{
-  v24 = *MEMORY[0x29EDCA608];
-  v2 = fabs(a2);
-  v3 = (*a1)++;
-  *v3 = 32;
-  if (*a1 >= a1[3])
-  {
-    *a1 = a1[2];
-  }
-
-  if (v2 < 99.0)
-  {
-    v4 = a2 * 1000.0;
-    v5 = -0.5;
-    if (v4 > 0.0)
-    {
-      v5 = 0.5;
-    }
-
-    v6 = v4 + v5;
-    if (v6 <= 2147483650.0)
-    {
-      if (v6 >= -2147483650.0)
-      {
-        v7 = v6;
-      }
-
-      else
-      {
-        v7 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v7 = 0x7FFFFFFF;
-    }
-
-    v14 = *MEMORY[0x29EDCA608];
-    v15 = 4;
-LABEL_40:
-
-    return sprintf_8f(a1, v7, v15);
-  }
-
-  if (v2 < 999.0)
-  {
-    v8 = a2 * 100.0;
-    v9 = -0.5;
-    if (v8 > 0.0)
-    {
-      v9 = 0.5;
-    }
-
-    v10 = v8 + v9;
-    if (v10 <= 2147483650.0)
-    {
-      if (v10 >= -2147483650.0)
-      {
-        v7 = v10;
-      }
-
-      else
-      {
-        v7 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v7 = 0x7FFFFFFF;
-    }
-
-    v19 = *MEMORY[0x29EDCA608];
-    v15 = 3;
-    goto LABEL_40;
-  }
-
-  if (v2 < 9999.0)
-  {
-    v11 = a2 * 10.0;
-    v12 = -0.5;
-    if (v11 > 0.0)
-    {
-      v12 = 0.5;
-    }
-
-    v13 = v11 + v12;
-    if (v13 <= 2147483650.0)
-    {
-      if (v13 >= -2147483650.0)
-      {
-        v7 = v13;
-      }
-
-      else
-      {
-        v7 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v7 = 0x7FFFFFFF;
-    }
-
-    v22 = *MEMORY[0x29EDCA608];
-    v15 = 2;
-    goto LABEL_40;
-  }
-
-  if (v2 >= 99999.0)
-  {
-    v20 = *MEMORY[0x29EDCA608];
-
-    return sprintf_seR8(a1, a2);
-  }
-
-  else
-  {
-    v16 = -0.5;
-    if (a2 > 0.0)
-    {
-      v16 = 0.5;
-    }
-
-    v17 = v16 + a2;
-    if (v17 <= 2147483650.0)
-    {
-      if (v17 >= -2147483650.0)
-      {
-        v18 = v17;
-      }
-
-      else
-      {
-        v18 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v18 = 0x7FFFFFFF;
-    }
-
-    v23 = *MEMORY[0x29EDCA608];
-
-    return sprintf_9d(a1, v18);
-  }
-}
-
-char **sprintf_ACC(char **result, double a2)
-{
-  v26 = *MEMORY[0x29EDCA608];
-  if (a2 <= 99999.0)
-  {
-    if (a2 <= 9.9)
-    {
-      if (a2 <= 0.99)
-      {
-        if (a2 <= 0.099)
-        {
-          v16 = a2 * 1000.0;
-          v17 = -0.5;
-          if (v16 > 0.0)
-          {
-            v17 = 0.5;
-          }
-
-          v18 = v16 + v17;
-          if (v18 <= 2147483650.0)
-          {
-            if (v18 >= -2147483650.0)
-            {
-              v12 = v18;
-            }
-
-            else
-            {
-              v12 = 0x80000000;
-            }
-          }
-
-          else
-          {
-            v12 = 0x7FFFFFFF;
-          }
-
-          v24 = *MEMORY[0x29EDCA608];
-          v25 = *MEMORY[0x29EDCA608];
-          v21 = 4;
-        }
-
-        else
-        {
-          v13 = a2 * 100.0;
-          v14 = -0.5;
-          if (v13 > 0.0)
-          {
-            v14 = 0.5;
-          }
-
-          v15 = v13 + v14;
-          if (v15 <= 2147483650.0)
-          {
-            if (v15 >= -2147483650.0)
-            {
-              v12 = v15;
-            }
-
-            else
-            {
-              v12 = 0x80000000;
-            }
-          }
-
-          else
-          {
-            v12 = 0x7FFFFFFF;
-          }
-
-          v22 = *MEMORY[0x29EDCA608];
-          v23 = *MEMORY[0x29EDCA608];
-          v21 = 3;
-        }
-      }
-
-      else
-      {
-        v9 = a2 * 10.0;
-        v10 = -0.5;
-        if (v9 > 0.0)
-        {
-          v10 = 0.5;
-        }
-
-        v11 = v9 + v10;
-        if (v11 <= 2147483650.0)
-        {
-          if (v11 >= -2147483650.0)
-          {
-            v12 = v11;
-          }
-
-          else
-          {
-            v12 = 0x80000000;
-          }
-        }
-
-        else
-        {
-          v12 = 0x7FFFFFFF;
-        }
-
-        v19 = *MEMORY[0x29EDCA608];
-        v20 = *MEMORY[0x29EDCA608];
-        v21 = 2;
-      }
-
-      return sprintf_4f(result, v12, v21);
-    }
-
-    else
-    {
-      v6 = a2 + 0.5;
-      if (v6 >= 2147483650.0)
-      {
-        v6 = 2147483650.0;
-      }
-
-      v7 = *MEMORY[0x29EDCA608];
-      v8 = *MEMORY[0x29EDCA608];
-
-      return sprintf_5d(result, v6);
-    }
-  }
-
-  else
-  {
-    v2 = *result;
-    v3 = 57;
-    v4 = 1u;
-    do
-    {
-      *result = v2 + 1;
-      *v2 = v3;
-      v2 = *result;
-      if (*result >= result[3])
-      {
-        v2 = result[2];
-        *result = v2;
-      }
-
-      v3 = str_10[v4++];
-    }
-
-    while (v4 != 6);
-    v5 = *MEMORY[0x29EDCA608];
-  }
-
-  return result;
-}
-
-uint64_t sprintf_v(uint64_t result, char *a2, int *a3)
-{
-  v3 = result;
-  v33 = *MEMORY[0x29EDCA608];
-  v4 = *a2;
-  if (*a2)
-  {
-    v5 = a2;
-    v6 = 0;
-    do
-    {
-      if (v4 != 37 && (v6 & 1) == 0)
-      {
-        goto LABEL_5;
-      }
-
-      if ((v6 & 1) == 0)
-      {
-        v8 = *++v5;
-        v4 = v8;
-        if (!v8)
-        {
-          goto LABEL_50;
-        }
-      }
-
-      if (v4 <= 101)
-      {
-        if (v4 > 99)
-        {
-          if (v4 == 100)
-          {
-            v15 = a3;
-            a3 += 2;
-            v16 = *v15;
-            if (v16 >= 0)
-            {
-              v17 = v16;
-            }
-
-            else
-            {
-              v17 = -v16;
-            }
-
-            result = sprintf1da(v3, v17, v32, 0, v16 >> 31);
-          }
-
-          else
-          {
-            v12 = a3;
-            a3 += 2;
-            result = sprintf_eR8(v3, *v12);
-          }
-
-          goto LABEL_7;
-        }
-
-        if (v4 == 88)
-        {
-          v14 = a3;
-          a3 += 2;
-          result = sprintf_1X(v3, *v14);
-          goto LABEL_7;
-        }
-
-        if (v4 == 99)
-        {
-          v11 = a3;
-          a3 += 2;
-          v4 = *v11;
-LABEL_5:
-          v7 = (*v3)++;
-          *v7 = v4;
-          goto LABEL_6;
-        }
-      }
-
-      else if (v4 <= 114)
-      {
-        if (v4 == 102)
-        {
-          v24 = a3;
-          a3 += 2;
-          result = sprintf_sgR8(v3, *v24);
-          goto LABEL_7;
-        }
-
-        if (v4 == 103)
-        {
-          v13 = a3;
-          a3 += 2;
-          result = sprintf_gR8(v3, *v13);
-          goto LABEL_7;
-        }
-      }
-
-      else
-      {
-        switch(v4)
-        {
-          case 's':
-            v18 = a3;
-            a3 += 2;
-            v19 = *v18;
-            v20 = *v19;
-            if (*v19)
-            {
-              v21 = *v3;
-              v22 = v19 + 1;
-              do
-              {
-                *v3 = v21 + 1;
-                *v21 = v20;
-                v21 = *v3;
-                if (*v3 >= v3[3])
-                {
-                  v21 = v3[2];
-                  *v3 = v21;
-                }
-
-                v23 = *v22++;
-                v20 = v23;
-              }
-
-              while (v23);
-            }
-
-            goto LABEL_7;
-          case 'u':
-            v25 = a3;
-            a3 += 2;
-            result = sprintf_1u(v3, *v25);
-            goto LABEL_7;
-          case 'x':
-            v9 = a3;
-            a3 += 2;
-            result = sprintf_1x(v3, *v9);
-            goto LABEL_7;
-        }
-      }
-
-      if ((v4 - 48) < 0xA || v4 <= 0x2E && ((1 << v4) & 0x680800000000) != 0)
-      {
-        v6 = 1;
-        goto LABEL_17;
-      }
-
-      v26 = (*v3)++;
-      *v26 = 37;
-      v27 = *v3;
-      if (*v3 >= v3[3])
-      {
-        v27 = v3[2];
-        *v3 = v27;
-      }
-
-      v28 = *v5;
-      *v3 = v27 + 1;
-      *v27 = v28;
-LABEL_6:
-      if (*v3 >= v3[3])
-      {
-        v6 = 0;
-        *v3 = v3[2];
-        goto LABEL_17;
-      }
-
-LABEL_7:
-      v6 = 0;
-LABEL_17:
-      v10 = *++v5;
-      v4 = v10;
-    }
-
-    while (v10);
-  }
-
-  v29 = (*v3)++;
-  *v29 = 10;
-  if (*v3 >= v3[3])
-  {
-    *v3 = v3[2];
-  }
-
-LABEL_50:
-  v30 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t GncP04_05HandlePosEventInd(uint64_t a1)
-{
-  v57 = *MEMORY[0x29EDCA608];
-  if (!a1)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(8u, 0, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v13 = mach_continuous_time();
-      v14 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v13), "GNC", 69, "GncP04_05HandlePosEventInd", 517);
-      v15 = 0;
-LABEL_16:
-      LbsOsaTrace_WriteLog(8u, __str, v14, v15, 1);
-      goto LABEL_68;
-    }
-
-    goto LABEL_68;
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(8u, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v2 = mach_continuous_time();
-    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNCS_POS_EVENT SMClient,%hhu,Ses,%u,PosOp,%u\n", (*&g_MacClockTicksToMsRelation * v2), "GNC", 73, "GncP04_05HandlePosEventInd", *(a1 + 12), *(a1 + 14), *(a1 + 16));
-    LbsOsaTrace_WriteLog(8u, __str, v3, 4, 1);
-  }
-
-  v4 = *(a1 + 12);
-  v5 = *(a1 + 14);
-  if (!*(a1 + 16))
-  {
-    v16 = 0;
-    v17 = 1;
-    while (1)
-    {
-      v18 = v17;
-      v19 = &g_GncPCntxtInfo + 36 * v16;
-      if (v19[8] == 1 && v19[4] == v4 && *(v19 + 3) == v5)
-      {
-        break;
-      }
-
-      v17 = 0;
-      v16 = 1;
-      if ((v18 & 1) == 0)
-      {
-        if (!LbsOsaTrace_IsLoggingAllowed(8u, 2, 0, 0))
-        {
-          goto LABEL_49;
-        }
-
-        bzero(__str, 0x410uLL);
-        v10 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-        v54 = *(a1 + 14);
-        v55 = *(a1 + 16);
-        v50 = 2050;
-        v52 = *(a1 + 12);
-        v11 = "GncP04_06HandleStopPosEvent";
-        v12 = "%10u %s%c %s: #%04hx Client,%hhu,Ses,%u,PosOp,%u\n";
-LABEL_24:
-        v20 = snprintf(__str, 0x40FuLL, v12, v10, "GNC", 87, v11, v50, v52, v54, v55);
-        goto LABEL_48;
-      }
-    }
-
-    if (v4 != 1)
-    {
-      if (!LbsOsaTrace_IsLoggingAllowed(8u, 2, 0, 0))
-      {
-        goto LABEL_49;
-      }
-
-      bzero(__str, 0x410uLL);
-      v40 = mach_continuous_time();
-      v53 = *(a1 + 12);
-      v20 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx ClientID,%hhu\n", (*&g_MacClockTicksToMsRelation * v40));
-      goto LABEL_48;
-    }
-
-    *(v19 + 35) = 0;
-    *(v19 + 20) = 0u;
-    *(v19 + 4) = 0u;
-    if ((BYTE2(g_GncPCntxtInfo) - 3) > 0xFDu)
-    {
-      --BYTE2(g_GncPCntxtInfo);
-      if (!LbsOsaTrace_IsLoggingAllowed(8u, 4, 0, 0))
-      {
-        goto LABEL_78;
-      }
-
-      bzero(__str, 0x410uLL);
-      v41 = mach_continuous_time();
-      v38 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Instance,%u\n", (*&g_MacClockTicksToMsRelation * v41), "GNC", 73, "GncP04_04DecreaseInstnCount", BYTE2(g_GncPCntxtInfo));
-      v39 = 4;
-    }
-
-    else
-    {
-      if (!LbsOsaTrace_IsLoggingAllowed(8u, 2, 0, 0))
-      {
-        goto LABEL_78;
-      }
-
-      bzero(__str, 0x410uLL);
-      v37 = mach_continuous_time();
-      v38 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Count,%u\n", (*&g_MacClockTicksToMsRelation * v37), "GNC", 87, "GncP04_04DecreaseInstnCount", 770, BYTE2(g_GncPCntxtInfo));
-      v39 = 2;
-    }
-
-    LbsOsaTrace_WriteLog(8u, __str, v38, v39, 1);
-LABEL_78:
-    v42 = 0;
-    v43 = 1;
-    while (1)
-    {
-      v44 = v43;
-      v45 = &g_GncPCntxtInfo + 36 * v42;
-      if (v45[8] == 1 && !v45[36])
-      {
-        break;
-      }
-
-      v43 = 0;
-      v42 = 1;
-      if ((v44 & 1) == 0)
-      {
-        GncP16_23UpdateStateFGSession(0);
-        break;
-      }
-    }
-
-    v46 = 0;
-    v47 = 1;
-    while (1)
-    {
-      v48 = v47;
-      v49 = &g_GncPCntxtInfo + 36 * v46;
-      if (v49[8] == 1 && (v49[9] & 8) != 0)
-      {
-        goto LABEL_49;
-      }
-
-      v47 = 0;
-      v46 = 1;
-      if ((v48 & 1) == 0)
-      {
-        if (qword_2A191FD10)
-        {
-          free(qword_2A191FD10);
-        }
-
-        qword_2A191FD10 = 0;
-        goto LABEL_49;
-      }
-    }
-  }
-
-  v6 = 0;
-  v7 = 1;
-  do
-  {
-    v8 = v7;
-    v9 = &g_GncPCntxtInfo + 36 * v6;
-    if (v9[8] == 1 && v9[4] == v4 && *(v9 + 3) == v5)
-    {
-      v21 = 1;
-      goto LABEL_35;
-    }
-
-    v7 = 0;
-    v6 = 1;
-  }
-
-  while ((v8 & 1) != 0);
-  if (BYTE8(g_GncPCntxtInfo))
-  {
-    if (byte_2A1939EAC)
-    {
-      if (!LbsOsaTrace_IsLoggingAllowed(8u, 2, 0, 0))
-      {
-        goto LABEL_49;
-      }
-
-      bzero(__str, 0x410uLL);
-      v10 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-      v54 = *(a1 + 14);
-      v55 = *(a1 + 16);
-      v50 = 2054;
-      v52 = *(a1 + 12);
-      v11 = "GncP04_07ProcessPosEvent";
-      v12 = "%10u %s%c %s: #%04hx Client,%hhu,ID,%u,PosOp,%u\n";
-      goto LABEL_24;
-    }
-
-    LOBYTE(v6) = 1;
-  }
-
-  else
-  {
-    LOBYTE(v6) = 0;
-  }
-
-  if (BYTE2(g_GncPCntxtInfo) < 2u)
-  {
-    ++BYTE2(g_GncPCntxtInfo);
-    if (LbsOsaTrace_IsLoggingAllowed(8u, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v25 = mach_continuous_time();
-      v23 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Instance,%u\n", (*&g_MacClockTicksToMsRelation * v25), "GNC", 73, "GncP04_03IncreaseInstnCount", BYTE2(g_GncPCntxtInfo));
-      v24 = 4;
-      goto LABEL_33;
-    }
-  }
-
-  else if (LbsOsaTrace_IsLoggingAllowed(8u, 2, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v22 = mach_continuous_time();
-    v23 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Count,%u\n", (*&g_MacClockTicksToMsRelation * v22), "GNC", 87, "GncP04_03IncreaseInstnCount", 770, BYTE2(g_GncPCntxtInfo));
-    v24 = 2;
-LABEL_33:
-    LbsOsaTrace_WriteLog(8u, __str, v23, v24, 1);
-  }
-
-  v21 = 0;
-LABEL_35:
-  v26 = &g_GncPCntxtInfo + 36 * v6;
-  v26[4] = *(a1 + 12);
-  v27 = (v26 + 4);
-  v27[4] = 1;
-  *(v27 + 1) = *(a1 + 14);
-  v27[5] = *(a1 + 16);
-  *(v27 + 8) = *(a1 + 20);
-  *(v27 + 12) = *(a1 + 36);
-  *(v27 + 26) = *(a1 + 38);
-  *(v27 + 30) = *(a1 + 42);
-  v27[34] = *(a1 + 46);
-  if (LbsOsaTrace_IsLoggingAllowed(8u, 3, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v28 = mach_continuous_time();
-    v29 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Client,%hhu,ID,%u,Output,%u,ReqRcvd,%u,Deadline,%u,Emergency,%u\n", (*&g_MacClockTicksToMsRelation * v28), "GNC", 77, "GncP04_07ProcessPosEvent", 2057, *v27, *(v27 + 1), v27[5], *(v27 + 2), *(v27 + 3), v27[33]);
-    LbsOsaTrace_WriteLog(8u, __str, v29, 3, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(8u, 3, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v30 = mach_continuous_time();
-    v31 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx StartTime,%u,Int,%u,HAcc,%u,Vacc,%u,ConstMask,%u,PrefFtaMeasTime,%u\n", (*&g_MacClockTicksToMsRelation * v30), "GNC", 77, "GncP04_07ProcessPosEvent", 2057, *(v27 + 4), *(v27 + 5), *(v27 + 12), *(v27 + 13), v27[30], v27[34]);
-    LbsOsaTrace_WriteLog(8u, __str, v31, 3, 1);
-  }
-
-  if (*v27 == 1)
-  {
-    GncP16_23UpdateStateFGSession(1);
-    if ((*(a1 + 16) & 4) != 0)
-    {
-      v32 = v21;
-    }
-
-    else
-    {
-      v32 = 1;
-    }
-
-    if ((v32 & 1) == 0)
-    {
-      GncP12_10ClearPeRtiInfo();
-    }
-
-    goto LABEL_49;
-  }
-
-  if (!LbsOsaTrace_IsLoggingAllowed(8u, 2, 0, 0))
-  {
-    goto LABEL_49;
-  }
-
-  bzero(__str, 0x410uLL);
-  mach_continuous_time();
-  v51 = *v27;
-  v20 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Invalid ClientID,%hhu\n");
-LABEL_48:
-  LbsOsaTrace_WriteLog(8u, __str, v20, 2, 1);
-LABEL_49:
-  if (g_GncPStateInfo <= 2u)
-  {
-    if (!g_GncPStateInfo)
-    {
-      goto LABEL_68;
-    }
-
-    if (g_GncPStateInfo != 1)
-    {
-      if (g_GncPStateInfo != 2)
-      {
-LABEL_63:
-        if (!LbsOsaTrace_IsLoggingAllowed(8u, 2, 0, 0))
-        {
-          goto LABEL_68;
-        }
-
-        bzero(__str, 0x410uLL);
-        v34 = mach_continuous_time();
-        v14 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v34), "GNC", 87, "GncP04_05HandlePosEventInd", 770);
-        v15 = 2;
-        goto LABEL_16;
-      }
-
-LABEL_58:
-      v33 = 3;
-      goto LABEL_67;
-    }
-
-LABEL_65:
-    v33 = 2;
-    goto LABEL_67;
-  }
-
-  if (g_GncPStateInfo > 0x10u)
-  {
-LABEL_61:
-    if (g_GncPStateInfo != 3)
-    {
-      if (g_GncPStateInfo != 4)
-      {
-        goto LABEL_63;
-      }
-
-      goto LABEL_58;
-    }
-
-    goto LABEL_65;
-  }
-
-  if (((1 << g_GncPStateInfo) & 0xC380) != 0)
-  {
-    if (*(a1 + 16))
-    {
-      v33 = 6;
-    }
-
-    else
-    {
-      v33 = 1;
-    }
-
-    goto LABEL_67;
-  }
-
-  if (((1 << g_GncPStateInfo) & 0x10C20) == 0)
-  {
-    if (g_GncPStateInfo == 6)
-    {
-      v33 = 7;
-LABEL_67:
-      GncP04_19SendPosEvntResp(v33);
-      goto LABEL_68;
-    }
-
-    goto LABEL_61;
-  }
-
-LABEL_68:
-  v35 = *MEMORY[0x29EDCA608];
-  return 0;
-}
-
-void GncP04_19SendPosEvntResp(char a1)
-{
-  v8 = *MEMORY[0x29EDCA608];
-  v2 = gnssOsa_Calloc("GncP04_19SendPosEvntResp", 496, 1, 0x10uLL);
-  if (v2)
-  {
-    v3 = v2;
-    v2[12] = a1;
-    if (LbsOsaTrace_IsLoggingAllowed(8u, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v4 = mach_continuous_time();
-      v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNCS_POS_EVENT_RSP =>GNCS Status,%hhu\n", (*&g_MacClockTicksToMsRelation * v4), "GNC", 73, "GncP04_19SendPosEvntResp", v3[12]);
-      LbsOsaTrace_WriteLog(8u, __str, v5, 4, 1);
-    }
-
-    AgpsSendFsmMsg(134, 130, 8784387, v3);
-  }
-
-  v6 = *MEMORY[0x29EDCA608];
-}
-
-uint64_t GncP04_08GetNextSessInstn(unsigned int a1, void *a2, unsigned __int8 a3)
-{
-  v15 = *MEMORY[0x29EDCA608];
-  if (a2)
-  {
-    v3 = 0;
-    v4 = 0;
-    v5 = 1;
-    while (1)
-    {
-      v6 = v5;
-      v7 = &g_GncPCntxtInfo + 36 * v3;
-      if (v7[8] == 1 && (v7[9] & a3) != 0 && a1 < ++v4)
-      {
-        break;
-      }
-
-      v5 = 0;
-      v8 = 0;
-      v3 = 1;
-      if ((v6 & 1) == 0)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    memcpy_s("GncP04_08GetNextSessInstn", 391, a2, 0x24u, v7 + 4, 0x24uLL);
-    v8 = 1;
-  }
-
-  else
-  {
-    IsLoggingAllowed = LbsOsaTrace_IsLoggingAllowed(8u, 2, 0, 0);
-    v8 = 0;
-    if (IsLoggingAllowed)
-    {
-      bzero(__str, 0x410uLL);
-      v10 = mach_continuous_time();
-      v11 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v10), "GNC", 87, "GncP04_08GetNextSessInstn", 513);
-      LbsOsaTrace_WriteLog(8u, __str, v11, 2, 1);
-      v8 = 0;
-    }
-  }
-
-LABEL_11:
-  v12 = *MEMORY[0x29EDCA608];
-  return v8;
-}
-
-uint64_t GncP04_18ChkAnyFGSessQualMet(void)
-{
-  v0 = 0;
-  v10 = *MEMORY[0x29EDCA608];
-  v1 = 1;
-  while (1)
-  {
-    v2 = v1;
-    v3 = &g_GncPCntxtInfo + 36 * v0;
-    if (v3[8] == 1 && v3[4] == 1 && GncP01_33CheckSessionQualMet((v3 + 4)))
-    {
-      break;
-    }
-
-    v1 = 0;
-    v4 = 0;
-    v0 = 1;
-    if ((v2 & 1) == 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(8u, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v7 = mach_continuous_time();
-    v8 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SesId,%u,Output,%u\n", (*&g_MacClockTicksToMsRelation * v7), "GNC", 73, "GncP04_18ChkAnyFGSessQualMet", *(v3 + 3), v3[9]);
-    v4 = 1;
-    LbsOsaTrace_WriteLog(8u, __str, v8, 4, 1);
-  }
-
-  else
-  {
-    v4 = 1;
-  }
-
-LABEL_6:
-  v5 = *MEMORY[0x29EDCA608];
-  return v4;
-}
-
-void GncP04_21SendClearGnssAck(char a1)
-{
-  v9 = *MEMORY[0x29EDCA608];
-  v1 = g_GnssDataClrMask;
-  if (g_GnssDataClrMask)
-  {
-    v3 = gnssOsa_Calloc("GncP04_21SendClearGnssAck", 524, 1, 0x14uLL);
-    if (v3)
-    {
-      v4 = v3;
-      v3[12] = a1;
-      *(v3 + 4) = v1;
-      if (LbsOsaTrace_IsLoggingAllowed(8u, 4, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v5 = mach_continuous_time();
-        v6 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNCP_CLEAR_GNSS_RSP =>GNM Status,%u\n", (*&g_MacClockTicksToMsRelation * v5), "GNC", 73, "GncP04_21SendClearGnssAck", v4[12]);
-        LbsOsaTrace_WriteLog(8u, __str, v6, 4, 1);
-      }
-
-      AgpsSendFsmMsg(134, 128, 8786436, v4);
-      g_GnssDataClrMask = 0;
-    }
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-}
-
-uint64_t GncP04_30HandleNmeaDataReq(uint64_t a1)
-{
-  v12 = *MEMORY[0x29EDCA608];
-  if (a1)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(8u, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v2 = mach_continuous_time();
-      v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNCP_NMEA_DATA_REQ Req,%u,Mask,%u\n", (*&g_MacClockTicksToMsRelation * v2), "GNC", 73, "GncP04_30HandleNmeaDataReq", *(a1 + 12), *(a1 + 14));
-      LbsOsaTrace_WriteLog(8u, __str, v3, 4, 1);
-    }
-
-    if (*(a1 + 12) == 1)
-    {
-      v4 = *(a1 + 14);
-      if (!v4)
-      {
-        if (LbsOsaTrace_IsLoggingAllowed(8u, 2, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v5 = mach_continuous_time();
-          v6 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v5), "GNC", 87, "GncP04_30HandleNmeaDataReq", 515);
-          v7 = 2;
-LABEL_10:
-          LbsOsaTrace_WriteLog(8u, __str, v6, v7, 1);
-          goto LABEL_13;
-        }
-
-        goto LABEL_13;
-      }
-    }
-
-    else
-    {
-      v4 = 0;
-    }
-
-    LOWORD(g_GncPCntxtInfo) = v4;
-    GncP03_12SendUpdtCfg(&g_GncPCntxtInfo, 0);
-    goto LABEL_13;
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(8u, 0, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v8 = mach_continuous_time();
-    v6 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v8), "GNC", 69, "GncP04_30HandleNmeaDataReq", 517);
-    v7 = 0;
-    goto LABEL_10;
-  }
-
-LABEL_13:
-  v9 = *MEMORY[0x29EDCA608];
-  return 0;
-}
-
-uint64_t NK_IntConstel_TO_IntMeas(uint64_t result, uint64_t a2, uint64_t a3)
-{
-  v27 = *MEMORY[0x29EDCA608];
-  v4 = (a2 + 23264);
-  v26 = 0;
-  v25 = 0u;
-  memset(v24, 0, sizeof(v24));
-  v5 = *(a2 + 23264);
-  if (v5 != 4)
-  {
-    if (v5 != 2 || *(a3 + 16296) != 1)
-    {
-      goto LABEL_47;
-    }
-
-    v6 = vcvtd_n_f64_s32(*(a3 + 16236), 0x1EuLL) * 299792458.0;
-    if (v6 >= 0)
-    {
-      v7 = v6;
-    }
-
-    else
-    {
-      v7 = -v6;
-    }
-
-    if (v7 >= 0x12D)
-    {
-      result = EvLog_v(" NK_IntConstel_TO_IntMeas: Large GGTO: %d");
-      goto LABEL_47;
-    }
-
-    *(result + 7288) = v6;
-    *(result + 7296) = 0x4024000000000000;
-    v13 = *(a2 + 23268);
-    if (v13 != 1)
-    {
-      goto LABEL_47;
-    }
-
-    v11 = 0;
-    v12 = 10.0;
-    v14 = 10992;
-    v15 = 736;
-    v16 = 744;
-    goto LABEL_36;
-  }
-
-  if (*(a3 + 33548) >= 1 && *(a3 + 33556) && *(a3 + 33564))
-  {
-    v8 = *(a2 + 23268);
-    if (v8 == 5)
-    {
-      v17 = *(a2 + 24) + -14.0;
-      if (v17 < 0.0)
-      {
-        v17 = v17 + 604800.0;
-      }
-
-      v6 = (*(a3 + 33564) * 0.1 + *(a3 + 33566) * 0.1 * v17) * 0.000000001 * 299792458.0;
-      if (v6 >= 0)
-      {
-        v18 = v6;
-      }
-
-      else
-      {
-        v18 = -v6;
-      }
-
-      if (v18 >= 0x12D)
-      {
-        result = EvLog_v(" NK_IntConstel_TO_IntMeas: Large BDS-GLO Tim Off: %d");
-        goto LABEL_47;
-      }
-
-      v11 = 1;
-      v12 = 10.0;
-      v13 = 2;
-      v14 = 10996;
-      v15 = 744;
-      goto LABEL_35;
-    }
-
-    if (v8 != 4)
-    {
-      goto LABEL_47;
-    }
-
-    v9 = *(a2 + 24) + -14.0;
-    if (v9 < 0.0)
-    {
-      v9 = v9 + 604800.0;
-    }
-
-    v6 = (*(a3 + 33556) * 0.1 + *(a3 + 33558) * 0.1 * v9) * 0.000000001 * 299792458.0;
-    if (v6 >= 0)
-    {
-      v10 = v6;
-    }
-
-    else
-    {
-      v10 = -v6;
-    }
-
-    if (v10 >= 0x1F)
-    {
-      result = EvLog_v(" NK_IntConstel_TO_IntMeas: Large BDS-GPS Tim Off: %d");
-      goto LABEL_47;
-    }
-
-    v11 = 0;
-    *(result + 7320) = v6;
-    *(result + 7328) = 0x4024000000000000;
-    v12 = 10.0;
-  }
-
-  else
-  {
-    if (*(result + 11048) || *(a2 + 23268) != 4)
-    {
-      goto LABEL_47;
-    }
-
-    v11 = 0;
-    v12 = 30.0;
-    v6 = 0.0;
-  }
-
-  v13 = 2;
-  v14 = 10994;
-  v15 = 736;
-LABEL_35:
-  v16 = 752;
-LABEL_36:
-  v19 = (*(a2 + v16) - *(a2 + v15)) * 299792458.0;
-  *(&v24[1] + 1) = v6;
-  *&v24[2] = v12 * v12;
-  LOBYTE(v24[0]) = 1;
-  DWORD1(v24[0]) = 2;
-  *(&v25 + 1) = 0x4415AF1D78B58C40;
-  result = KFSt_DMeas_Update(v13, v11, 0xBu, v24, (result + 872), (result + v14), v19);
-  if (result)
-  {
-    v20 = *v4;
-    if (v20 == 4)
-    {
-      *(v4 + 387) = DWORD1(v24[0]);
-      v21 = *(v4 + 1);
-      if (v21 == 5)
-      {
-        v4[1608] = 1;
-      }
-
-      else if (v21 == 4)
-      {
-        v4[1607] = 1;
-        v4[32] = 1;
-        *(v4 + 40) = *(&v24[1] + 8);
-      }
-    }
-
-    else if (v20 == 2)
-    {
-      *(v4 + 386) = DWORD1(v24[0]);
-      v4[1606] = 1;
-      v4[8] = 1;
-      *(a2 + 23280) = *(&v24[1] + 8);
-    }
-
-    if (g_Enable_Event_Log >= 6u)
-    {
-      v23 = *(v4 + 1);
-      result = EvLog_v(" NK_IntConstel_TO_IntMeas: Time Offset applied: %d %d ");
-    }
-  }
-
-LABEL_47:
-  v22 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-unsigned __int16 *Gnm02_11ReqNewInstn(void)
-{
-  v13 = *MEMORY[0x29EDCA608];
-  v0 = 2u;
-  while (*&g_GnmInstances[v0])
-  {
-    v0 += 2;
-    if (v0 == 8)
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v1 = mach_continuous_time();
-        v2 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v1), "GNM", 87, "Gnm02_11ReqNewInstn", 2054);
-        LbsOsaTrace_WriteLog(0xBu, __str, v2, 2, 1);
-      }
-
-      v3 = 0;
-      goto LABEL_18;
-    }
-  }
-
-  v4 = gnssOsa_Calloc("Gnm02_11ReqNewInstn", 186, 1, 0x10uLL);
-  v3 = v4;
-  *&g_GnmInstances[v0] = v4;
-  if (v4)
-  {
-    v5 = LOWORD(g_GnmInstances[0]);
-LABEL_9:
-    if (v5 >> 2 < 0xFFF)
-    {
-      ++v5;
-    }
-
-    else
-    {
-      v5 = 1;
-    }
-
-    v6 = 2u;
-    do
-    {
-      v7 = *&g_GnmInstances[v6];
-      if (v7 && *v7 == v5)
-      {
-        goto LABEL_9;
-      }
-
-      v6 += 2;
-    }
-
-    while (v6 != 8);
-    g_GnmInstances[0] = __PAIR32__(HIWORD(g_GnmInstances[0]), v5) + 0x10000;
-    *v4 = v5;
-    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v8 = mach_continuous_time();
-      v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx InstnId,%u\n", (*&g_MacClockTicksToMsRelation * v8), "GNM", 73, "Gnm02_11ReqNewInstn", 2057, *v3);
-      LbsOsaTrace_WriteLog(0xBu, __str, v9, 4, 1);
-    }
-  }
-
-LABEL_18:
-  v10 = *MEMORY[0x29EDCA608];
-  return v3;
-}
-
-unsigned __int16 *Gnm02_12ReqAssistInstn(int a1, const char *a2, int a3, _BYTE *a4)
+unsigned __int16 *Gnm02_12ReqAssistInstn(uint64_t a1, const char *a2, uint64_t a3, _BYTE *a4)
 {
   v5 = a3;
-  v25 = *MEMORY[0x29EDCA608];
+  v7 = a1;
+  v24 = *MEMORY[0x29EDCA608];
   InstnFromAssistId = Gnm02_33GetInstnFromAssistId(a1, a3);
   if (InstnFromAssistId)
   {
     v9 = InstnFromAssistId;
-    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4, 0, 0))
+    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
     {
       bzero(__str, 0x410uLL);
       v10 = mach_continuous_time();
@@ -1485,7 +20,7 @@ unsigned __int16 *Gnm02_12ReqAssistInstn(int a1, const char *a2, int a3, _BYTE *
       *a4 = 1;
     }
 
-    goto LABEL_25;
+    return v9;
   }
 
   v12 = Gnm02_11ReqNewInstn();
@@ -1498,7 +33,7 @@ unsigned __int16 *Gnm02_12ReqAssistInstn(int a1, const char *a2, int a3, _BYTE *
       v13 += 2;
       if (v13 == 8)
       {
-        if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+        if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
         {
           bzero(__str, 0x410uLL);
           mach_continuous_time();
@@ -1507,7 +42,7 @@ unsigned __int16 *Gnm02_12ReqAssistInstn(int a1, const char *a2, int a3, _BYTE *
         }
 
 LABEL_21:
-        if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+        if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
         {
           bzero(__str, 0x410uLL);
           v17 = mach_continuous_time();
@@ -1516,13 +51,13 @@ LABEL_21:
         }
 
         Gnm02_21DeleteInstn(v9);
-        goto LABEL_24;
+        return 0;
       }
     }
 
     if (*(v12 + 2))
     {
-      if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+      if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
       {
         goto LABEL_21;
       }
@@ -1537,7 +72,7 @@ LABEL_20:
 
     if (*(v12 + 1))
     {
-      if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+      if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
       {
         goto LABEL_21;
       }
@@ -1548,22 +83,22 @@ LABEL_20:
       goto LABEL_20;
     }
 
-    v21 = gnssOsa_Calloc("Gnm02_03AddAssistParams", 107, 1, 0x50uLL);
-    *(v9 + 1) = v21;
-    if (!v21)
+    v20 = gnssOsa_Calloc("Gnm02_03AddAssistParams", 107, 1, 0x50uLL);
+    *(v9 + 1) = v20;
+    if (!v20)
     {
       goto LABEL_21;
     }
 
     *(v9 + 2) = 2;
-    *v21 = a1;
+    *v20 = v7;
     *(*(v9 + 1) + 5) = v5;
-    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4, 0, 0))
+    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
     {
       bzero(__str, 0x410uLL);
-      v22 = mach_continuous_time();
-      v23 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SETUP %s GNMInstn,%u,AssistInstn,%u\n", (*&g_MacClockTicksToMsRelation * v22), "GNM", 73, "Gnm02_12ReqAssistInstn", 2057, a2, *v9, **(v9 + 1));
-      LbsOsaTrace_WriteLog(0xBu, __str, v23, 4, 1);
+      v21 = mach_continuous_time();
+      v22 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SETUP %s GNMInstn,%u,AssistInstn,%u\n", (*&g_MacClockTicksToMsRelation * v21), "GNM", 73, "Gnm02_12ReqAssistInstn", 2057, a2, *v9, **(v9 + 1));
+      LbsOsaTrace_WriteLog(0xBu, __str, v22, 4, 1);
     }
 
     if (a4)
@@ -1574,7 +109,7 @@ LABEL_20:
 
   else
   {
-    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
     {
       bzero(__str, 0x410uLL);
       v15 = mach_continuous_time();
@@ -1582,18 +117,15 @@ LABEL_20:
       LbsOsaTrace_WriteLog(0xBu, __str, v16, 2, 1);
     }
 
-LABEL_24:
-    v9 = 0;
+    return 0;
   }
 
-LABEL_25:
-  v19 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
 uint64_t Gnm02_33GetInstnFromAssistId(int a1, int a2)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   v3 = 2u;
   while (1)
   {
@@ -1613,7 +145,7 @@ uint64_t Gnm02_33GetInstnFromAssistId(int a1, int a2)
     v3 += 2;
     if (v3 == 8)
     {
-      if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+      if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
       {
         bzero(__str, 0x410uLL);
         v6 = mach_continuous_time();
@@ -1621,42 +153,38 @@ uint64_t Gnm02_33GetInstnFromAssistId(int a1, int a2)
         LbsOsaTrace_WriteLog(0xBu, __str, v7, 2, 1);
       }
 
-      result = 0;
-      goto LABEL_11;
+      return 0;
     }
   }
 
-  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4, 0, 0))
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
   {
     bzero(__str, 0x410uLL);
-    v10 = mach_continuous_time();
-    v11 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GNMInstn,%u,AsstId,%u found\n", (*&g_MacClockTicksToMsRelation * v10), "GNM", 73, "Gnm02_33GetInstnFromAssistId", **&g_GnmInstances[v3], a1);
-    LbsOsaTrace_WriteLog(0xBu, __str, v11, 4, 1);
+    v9 = mach_continuous_time();
+    v10 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GNMInstn,%u,AsstId,%u found\n", (*&g_MacClockTicksToMsRelation * v9), "GNM", 73, "Gnm02_33GetInstnFromAssistId", **&g_GnmInstances[v3], a1);
+    LbsOsaTrace_WriteLog(0xBu, __str, v10, 4, 1);
   }
 
-  result = *&g_GnmInstances[v3];
-LABEL_11:
-  v9 = *MEMORY[0x29EDCA608];
-  return result;
+  return *&g_GnmInstances[v3];
 }
 
 BOOL Gnm02_21DeleteInstn(unsigned __int16 *a1)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   if (!a1)
   {
 LABEL_5:
     v3 = 0;
-    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
     {
       bzero(__str, 0x410uLL);
       v4 = mach_continuous_time();
       v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Instn\n", (*&g_MacClockTicksToMsRelation * v4), "GNM", 87, "Gnm02_21DeleteInstn", 2050);
       LbsOsaTrace_WriteLog(0xBu, __str, v5, 2, 1);
-      v3 = 0;
+      return 0;
     }
 
-    goto LABEL_29;
+    return v3;
   }
 
   v2 = 2u;
@@ -1669,7 +197,7 @@ LABEL_5:
     }
   }
 
-  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4, 0, 0))
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
   {
     bzero(__str, 0x410uLL);
     v6 = mach_continuous_time();
@@ -1698,7 +226,7 @@ LABEL_5:
       else
       {
         v3 = 0;
-        if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+        if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
         {
           bzero(__str, 0x410uLL);
           v13 = mach_continuous_time();
@@ -1728,7 +256,7 @@ LABEL_22:
   }
 
   v3 = 0;
-  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
   {
     bzero(__str, 0x410uLL);
     v10 = mach_continuous_time();
@@ -1744,7 +272,7 @@ LABEL_23:
     v15 += 2;
     if (v15 == 8)
     {
-      goto LABEL_29;
+      return v3;
     }
   }
 
@@ -1755,42 +283,38 @@ LABEL_23:
     --HIWORD(g_GnmInstances[0]);
   }
 
-LABEL_29:
-  v16 = *MEMORY[0x29EDCA608];
   return v3;
 }
 
 unsigned __int16 *Gnm02_13ReqNewNafInstn(int a1, const char *a2)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   if (Gnm02_32GetInstnFromNafId(a1))
   {
-    if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+    if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
     {
-LABEL_23:
-      v6 = 0;
-      goto LABEL_24;
+      return 0;
     }
 
     bzero(__str, 0x410uLL);
-    v16 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-    v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx %s\n", v16);
+    v15 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
+    v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx %s\n", v15);
 LABEL_4:
     LbsOsaTrace_WriteLog(0xBu, __str, v4, 2, 1);
-    goto LABEL_23;
+    return 0;
   }
 
   v5 = Gnm02_11ReqNewInstn();
   if (!v5)
   {
-    if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+    if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
     {
-      goto LABEL_23;
+      return 0;
     }
 
     bzero(__str, 0x410uLL);
-    v17 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-    v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx NewInstn %s\n", v17);
+    v16 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
+    v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx NewInstn %s\n", v16);
     goto LABEL_4;
   }
 
@@ -1801,7 +325,7 @@ LABEL_4:
     v7 += 2;
     if (v7 == 8)
     {
-      if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+      if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
       {
         bzero(__str, 0x410uLL);
         mach_continuous_time();
@@ -1810,7 +334,7 @@ LABEL_4:
       }
 
 LABEL_20:
-      if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+      if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
       {
         bzero(__str, 0x410uLL);
         v9 = mach_continuous_time();
@@ -1819,13 +343,13 @@ LABEL_20:
       }
 
       Gnm02_21DeleteInstn(v6);
-      goto LABEL_23;
+      return 0;
     }
   }
 
   if (*(v5 + 2))
   {
-    if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+    if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
     {
       goto LABEL_20;
     }
@@ -1840,7 +364,7 @@ LABEL_19:
 
   if (*(v5 + 1))
   {
-    if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+    if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
     {
       goto LABEL_20;
     }
@@ -1851,31 +375,29 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v13 = gnssOsa_Calloc("Gnm02_04AddNafParams", 147, 1, 0x50uLL);
-  *(v6 + 1) = v13;
-  if (!v13)
+  v12 = gnssOsa_Calloc("Gnm02_04AddNafParams", 147, 1, 0x50uLL);
+  *(v6 + 1) = v12;
+  if (!v12)
   {
     goto LABEL_20;
   }
 
   *(v6 + 2) = 1;
-  *v13 = a1;
-  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4, 0, 0))
+  *v12 = a1;
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
   {
     bzero(__str, 0x410uLL);
-    v14 = mach_continuous_time();
-    v15 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx %s GNMInstn,%u,NaftInstn,%u\n", (*&g_MacClockTicksToMsRelation * v14), "GNM", 73, "Gnm02_13ReqNewNafInstn", 2057, a2, *v6, a1);
-    LbsOsaTrace_WriteLog(0xBu, __str, v15, 4, 1);
+    v13 = mach_continuous_time();
+    v14 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx %s GNMInstn,%u,NaftInstn,%u\n", (*&g_MacClockTicksToMsRelation * v13), "GNM", 73, "Gnm02_13ReqNewNafInstn", 2057, a2, *v6, a1);
+    LbsOsaTrace_WriteLog(0xBu, __str, v14, 4, 1);
   }
 
-LABEL_24:
-  v11 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
 uint64_t Gnm02_32GetInstnFromNafId(int a1)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v2 = 2u;
   while (1)
   {
@@ -1895,7 +417,7 @@ uint64_t Gnm02_32GetInstnFromNafId(int a1)
     v2 += 2;
     if (v2 == 8)
     {
-      if (LbsOsaTrace_IsLoggingAllowed(0xBu, 5, 0, 0))
+      if (LbsOsaTrace_IsLoggingAllowed(0xBu, 5u, 0, 0))
       {
         bzero(__str, 0x410uLL);
         v5 = mach_continuous_time();
@@ -1903,32 +425,28 @@ uint64_t Gnm02_32GetInstnFromNafId(int a1)
         LbsOsaTrace_WriteLog(0xBu, __str, v6, 5, 1);
       }
 
-      result = 0;
-      goto LABEL_10;
+      return 0;
     }
   }
 
-  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4, 0, 0))
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
   {
     bzero(__str, 0x410uLL);
-    v9 = mach_continuous_time();
-    v10 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GNMInstn,%u,NafInstn,%u found\n", (*&g_MacClockTicksToMsRelation * v9), "GNM", 73, "Gnm02_32GetInstnFromNafId", **&g_GnmInstances[v2], a1);
-    LbsOsaTrace_WriteLog(0xBu, __str, v10, 4, 1);
+    v8 = mach_continuous_time();
+    v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GNMInstn,%u,NafInstn,%u found\n", (*&g_MacClockTicksToMsRelation * v8), "GNM", 73, "Gnm02_32GetInstnFromNafId", **&g_GnmInstances[v2], a1);
+    LbsOsaTrace_WriteLog(0xBu, __str, v9, 4, 1);
   }
 
-  result = *&g_GnmInstances[v2];
-LABEL_10:
-  v8 = *MEMORY[0x29EDCA608];
-  return result;
+  return *&g_GnmInstances[v2];
 }
 
 uint64_t Gnm02_15AddEarlyStartParams(unsigned __int16 *a1)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   if (!a1)
   {
 LABEL_5:
-    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
     {
       bzero(__str, 0x410uLL);
       mach_continuous_time();
@@ -1937,9 +455,7 @@ LABEL_13:
       LbsOsaTrace_WriteLog(0xBu, __str, v3, 2, 1);
     }
 
-LABEL_14:
-    v4 = 0;
-    goto LABEL_15;
+    return 0;
   }
 
   v2 = 2u;
@@ -1954,7 +470,7 @@ LABEL_14:
 
   if (*(a1 + 2))
   {
-    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
     {
       bzero(__str, 0x410uLL);
       mach_continuous_time();
@@ -1962,12 +478,12 @@ LABEL_14:
       goto LABEL_13;
     }
 
-    goto LABEL_14;
+    return 0;
   }
 
   if (*(a1 + 1))
   {
-    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
     {
       bzero(__str, 0x410uLL);
       mach_continuous_time();
@@ -1975,50 +491,44 @@ LABEL_14:
       goto LABEL_13;
     }
 
-    goto LABEL_14;
+    return 0;
   }
 
-  v7 = gnssOsa_Calloc("Gnm02_15AddEarlyStartParams", 361, 1, 0x50uLL);
-  *(a1 + 1) = v7;
-  if (!v7)
+  v6 = gnssOsa_Calloc("Gnm02_15AddEarlyStartParams", 361, 1, 0x50uLL);
+  *(a1 + 1) = v6;
+  if (!v6)
   {
-    goto LABEL_14;
+    return 0;
   }
 
   *(a1 + 2) = 3;
-  *v7 = *a1;
-  v8 = byte_2A192082E;
+  *v6 = *a1;
+  v7 = byte_2A192082E;
   if ((dword_2A1920820 & 0x400) == 0)
   {
-    v8 = 30;
+    v7 = 30;
   }
 
-  *(*(a1 + 1) + 4) = v8;
+  *(*(a1 + 1) + 4) = v7;
   *(*(a1 + 1) + 5) = 0;
-  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4, 0, 0))
+  if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
   {
-    bzero(__str, 0x410uLL);
-    v9 = mach_continuous_time();
-    v10 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GNMInstn,%u,EarlyStartInstn,%u,Timeout,%u\n", (*&g_MacClockTicksToMsRelation * v9), "GNM", 73, "Gnm02_15AddEarlyStartParams", *a1, **(a1 + 1), *(*(a1 + 1) + 4));
-    v4 = 1;
-    LbsOsaTrace_WriteLog(0xBu, __str, v10, 4, 1);
+    return 1;
   }
 
-  else
-  {
-    v4 = 1;
-  }
-
-LABEL_15:
-  v5 = *MEMORY[0x29EDCA608];
+  bzero(__str, 0x410uLL);
+  v8 = mach_continuous_time();
+  v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GNMInstn,%u,EarlyStartInstn,%u,Timeout,%u\n", (*&g_MacClockTicksToMsRelation * v8), "GNM", 73, "Gnm02_15AddEarlyStartParams", *a1, **(a1 + 1), *(*(a1 + 1) + 4));
+  v4 = 1;
+  LbsOsaTrace_WriteLog(0xBu, __str, v9, 4, 1);
   return v4;
 }
 
 BOOL Gnm02_23StopNafSession(uint64_t a1)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 8);
-  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4, 0, 0))
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
   {
     bzero(__str, 0x410uLL);
     v3 = mach_continuous_time();
@@ -2029,33 +539,29 @@ BOOL Gnm02_23StopNafSession(uint64_t a1)
   v5 = *(v2 + 4);
   v6 = v5 > 4;
   v7 = (1 << v5) & 0x16;
-  if (v6 || v7 == 0)
+  if (!v6 && v7 != 0)
   {
-    IsLoggingAllowed = LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0);
-    result = 0;
-    if (IsLoggingAllowed)
-    {
-      bzero(__str, 0x410uLL);
-      v12 = mach_continuous_time();
-      v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx PosnType,%u\n", (*&g_MacClockTicksToMsRelation * v12), "GNM", 87, "Gnm02_23StopNafSession", 770, *(v2 + 4));
-      LbsOsaTrace_WriteLog(0xBu, __str, v13, 2, 1);
-      result = 0;
-    }
+    return Gnm10_28StopPositioning(a1);
   }
 
-  else
+  IsLoggingAllowed = LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0);
+  result = 0;
+  if (IsLoggingAllowed)
   {
-    result = Gnm10_28StopPositioning(a1);
+    bzero(__str, 0x410uLL);
+    v11 = mach_continuous_time();
+    v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx PosnType,%u\n", (*&g_MacClockTicksToMsRelation * v11), "GNM", 87, "Gnm02_23StopNafSession", 770, *(v2 + 4));
+    LbsOsaTrace_WriteLog(0xBu, __str, v12, 2, 1);
+    return 0;
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t Gnm02_24AbortAllNafSessions(uint64_t a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4, 0, 0))
+  v13 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
   {
     bzero(__str, 0x410uLL);
     v2 = mach_continuous_time();
@@ -2079,9 +585,9 @@ uint64_t Gnm02_24AbortAllNafSessions(uint64_t a1)
             v7 = *(v6 + 7);
             v8 = *v6;
             *__str = 0;
+            v10 = 0;
             v11 = 0;
-            v12 = 0;
-            v13 = 1;
+            v12 = 1;
             v7(a1, v8, __str);
             result = *&g_GnmInstances[v4];
           }
@@ -2096,14 +602,13 @@ uint64_t Gnm02_24AbortAllNafSessions(uint64_t a1)
   }
 
   while (v4 != 8);
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t Gnm02_26AbortAllAssistSessions(void)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4, 0, 0))
+  v8 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
   {
     bzero(__str, 0x410uLL);
     v0 = mach_continuous_time();
@@ -2134,7 +639,7 @@ uint64_t Gnm02_26AbortAllAssistSessions(void)
 
           else
           {
-            result = LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0);
+            result = LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0);
             if (result)
             {
               bzero(__str, 0x410uLL);
@@ -2151,13 +656,12 @@ uint64_t Gnm02_26AbortAllAssistSessions(void)
   }
 
   while (v2 != 8);
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 unsigned __int16 *Gnm02_31GetInstnFromInstnId(int a1)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v2 = 2u;
   while (1)
   {
@@ -2173,7 +677,7 @@ unsigned __int16 *Gnm02_31GetInstnFromInstnId(int a1)
     v2 += 2;
     if (v2 == 8)
     {
-      if (LbsOsaTrace_IsLoggingAllowed(0xBu, 5, 0, 0))
+      if (LbsOsaTrace_IsLoggingAllowed(0xBu, 5u, 0, 0))
       {
         bzero(__str, 0x410uLL);
         v4 = mach_continuous_time();
@@ -2181,19 +685,17 @@ unsigned __int16 *Gnm02_31GetInstnFromInstnId(int a1)
         LbsOsaTrace_WriteLog(0xBu, __str, v5, 5, 1);
       }
 
-      result = 0;
-      break;
+      return 0;
     }
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t Gnm02_37GetInstnAssistReq(void)
 {
   v0 = 2u;
-  v22 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   do
   {
     v1 = *&g_GnmInstances[v0];
@@ -2209,17 +711,14 @@ uint64_t Gnm02_37GetInstnAssistReq(void)
           {
             if (*(v2 + 59) == 1)
             {
-              if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 4, 0, 0))
+              if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
               {
-                goto LABEL_23;
+                return *&g_GnmInstances[v0];
               }
 
               bzero(__str, 0x410uLL);
-              v15 = mach_continuous_time();
-              v16 = *&g_GnmInstances[v0];
-              v18 = *v16;
-              v20 = **(v16 + 1);
-              v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GNMInstn,%u,AsstInstn,%u found requiring Asst\n", (*&g_MacClockTicksToMsRelation * v15));
+              v13 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
+              v10 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GNMInstn,%u,AsstInstn,%u found requiring Asst\n", v13);
               goto LABEL_22;
             }
           }
@@ -2228,26 +727,21 @@ uint64_t Gnm02_37GetInstnAssistReq(void)
           {
             if (*(v2 + 5) == 1)
             {
-              if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 4, 0, 0))
+              if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
               {
-                goto LABEL_23;
+                return *&g_GnmInstances[v0];
               }
 
               bzero(__str, 0x410uLL);
-              v11 = mach_continuous_time();
-              v12 = *&g_GnmInstances[v0];
-              v17 = *v12;
-              v19 = **(v12 + 1);
-              v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GNMInstn,%u,NafInstn,%u found requiring Asst\n", (*&g_MacClockTicksToMsRelation * v11));
+              v12 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
+              v10 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GNMInstn,%u,NafInstn,%u found requiring Asst\n", v12);
 LABEL_22:
-              LbsOsaTrace_WriteLog(0xBu, __str, v13, 4, 1);
-LABEL_23:
-              result = *&g_GnmInstances[v0];
-              goto LABEL_17;
+              LbsOsaTrace_WriteLog(0xBu, __str, v10, 4, 1);
+              return *&g_GnmInstances[v0];
             }
           }
 
-          else if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+          else if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
           {
             bzero(__str, 0x410uLL);
             v4 = mach_continuous_time();
@@ -2262,7 +756,7 @@ LABEL_23:
   }
 
   while (v0 != 8);
-  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2, 0, 0))
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
   {
     bzero(__str, 0x410uLL);
     v6 = mach_continuous_time();
@@ -2270,15 +764,12 @@ LABEL_23:
     LbsOsaTrace_WriteLog(0xBu, __str, v7, 2, 1);
   }
 
-  result = 0;
-LABEL_17:
-  v9 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
 uint64_t Gnm02_39GetEarlyStartInstn(void)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   v0 = 2u;
   while (1)
   {
@@ -2294,7 +785,7 @@ uint64_t Gnm02_39GetEarlyStartInstn(void)
     v0 += 2;
     if (v0 == 8)
     {
-      if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4, 0, 0))
+      if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
       {
         bzero(__str, 0x410uLL);
         v2 = mach_continuous_time();
@@ -2302,12 +793,11 @@ uint64_t Gnm02_39GetEarlyStartInstn(void)
         LbsOsaTrace_WriteLog(0xBu, __str, v3, 4, 1);
       }
 
-      result = 0;
-      goto LABEL_12;
+      return 0;
     }
   }
 
-  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4, 0, 0))
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
   {
     bzero(__str, 0x410uLL);
     v5 = mach_continuous_time();
@@ -2315,21 +805,14 @@ uint64_t Gnm02_39GetEarlyStartInstn(void)
     LbsOsaTrace_WriteLog(0xBu, __str, v6, 4, 1);
   }
 
-  result = *&g_GnmInstances[v0];
-LABEL_12:
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  return *&g_GnmInstances[v0];
 }
 
 uint64_t BaseBufInitBufWithMemory(uint64_t a1, int a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x29EDCA608];
   if (!a3)
   {
-    v8 = 6;
-LABEL_14:
-    v13 = *MEMORY[0x29EDCA608];
-    return v8;
+    return 6;
   }
 
   v6 = gnssOsa_Calloc("posp_alloc", 18, 1, 0x470uLL);
@@ -2340,7 +823,7 @@ LABEL_14:
     v9 = 1;
 LABEL_13:
     CUCFErrorHandler(v6, v9);
-    goto LABEL_14;
+    return v8;
   }
 
   if (a2 == 1)
@@ -2361,14 +844,12 @@ LABEL_13:
 LABEL_9:
   memcpy(v6 + 752, v7, 0x120uLL);
   v10 = *(*a1 + 824);
-  v11 = *MEMORY[0x29EDCA608];
 
   return v10(a1, a3);
 }
 
 double GAL_EphReal2Kep(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x29EDCA608];
   *a2 = *a1;
   *(a2 + 8) = 3;
   *(a2 + 12) = *(a1 + 14);
@@ -2539,44 +1020,43 @@ LABEL_42:
   v8 = *(a1 + 72);
   *(a2 + 200) = result;
   *(a2 + 208) = v8;
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-double *NK_Comp_DOPS(uint64_t a1, uint64_t a2)
+double *NK_Comp_DOPS(uint64_t a1, _DWORD *a2)
 {
-  v43 = *MEMORY[0x29EDCA608];
+  v42 = *MEMORY[0x29EDCA608];
+  v33 = 0u;
+  v35 = 0;
+  memset(&v32[1], 0, 32);
   v34 = 0u;
-  v36 = 0;
-  memset(&v33[1], 0, 32);
-  v35 = 0u;
+  v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v33[0] = 20000.0;
-  *&v34 = 0x40D3880000000000;
-  v37 = 0x40D3880000000000;
-  v40 = 0x40D3880000000000;
-  memset(&v26[1], 0, 32);
+  v32[0] = 20000.0;
+  *&v33 = 0x40D3880000000000;
+  v36 = 0x40D3880000000000;
+  v39 = 0x40D3880000000000;
+  memset(&v25[1], 0, 32);
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v4 = 1.99960002e14;
   if (*(a1 + 7174) == 1)
   {
     v4 = *(a1 + 7200) + fabs((*a2 - *(a1 + 7192)) * 0.001);
   }
 
-  *&v27 = v4;
-  v26[0] = v4;
+  *&v26 = v4;
+  v25[0] = v4;
   v5 = 1.99960002e14;
   if (*(a1 + 7175) == 1)
   {
     v5 = *(a1 + 7216) + fabs((*a2 - *(a1 + 7208)) * 0.001);
   }
 
-  *(&v29 + 1) = v5;
+  *(&v28 + 1) = v5;
   v6 = 1.99960002e14;
   if (*(a1 + 7173) == 1)
   {
@@ -2584,19 +1064,19 @@ double *NK_Comp_DOPS(uint64_t a1, uint64_t a2)
   }
 
   v7 = 0;
-  v32 = v6;
+  v31 = v6;
   do
   {
-    if (v26[v7] > 1.99960002e14)
+    if (v25[v7] > 1.99960002e14)
     {
-      v26[v7] = 1.99960002e14;
+      v25[v7] = 1.99960002e14;
     }
 
     v7 += 5;
   }
 
   while (v7 != 20);
-  v25 = a1 + 4096;
+  v24 = a1 + 4096;
   v8 = 0;
   v9 = 0;
   v10 = 0;
@@ -2608,18 +1088,18 @@ double *NK_Comp_DOPS(uint64_t a1, uint64_t a2)
     {
       v13 = v12->f64[0];
       v14 = vmulq_n_f64(v12[120], v12->f64[1]);
-      v41 = vextq_s8(v14, v14, 8uLL);
-      v42 = v13;
-      v15 = *(a2 + v8 + 1176) ? a2 + 1656 : a1 + 6312;
-      v16 = *(v15 + 8 * v8) >= 0.0001 ? *(v15 + 8 * v8) : 0.0001;
-      DOP4_Upd_W_Meas(v41.i64, v16, v26);
+      v40 = vextq_s8(v14, v14, 8uLL);
+      v41 = v13;
+      v15 = *(a2 + v8 + 1176) ? a2 + 414 : (a1 + 6312);
+      v16 = *&v15[2 * v8] >= 0.0001 ? *&v15[2 * v8] : 0.0001;
+      DOP4_Upd_W_Meas(v40.i64, v16, v25);
       if (v16 < 800000.0)
       {
         ++v9;
         v11 = v11 + v16;
         if (*(a2 + v8 + 2960) == 1)
         {
-          DOP4_Upd_U_Meas(&v41, v33);
+          DOP4_Upd_U_Meas(&v40, v32);
           ++v10;
         }
       }
@@ -2632,10 +1112,10 @@ double *NK_Comp_DOPS(uint64_t a1, uint64_t a2)
   while (v8 != 48);
   if (v10 <= 3)
   {
-    DOP4_Upd_U_Elem(2, v33);
+    DOP4_Upd_U_Elem(2, v32);
   }
 
-  result = DOP4_Calc_U(v33, (a2 + 24600));
+  result = DOP4_Calc_U(v32, a2 + 3075);
   if (v9)
   {
     v18 = v11 / v9;
@@ -2647,16 +1127,16 @@ double *NK_Comp_DOPS(uint64_t a1, uint64_t a2)
   }
 
   *(a1 + 6744) = v18;
-  v19 = v32 * 8.0;
-  *(a1 + 7248) = v32 * 8.0;
-  v20.f64[0] = *(&v29 + 1);
-  v21 = *&v27;
-  v22 = v26[0] + v26[0];
-  *(a1 + 7256) = v26[0] + v26[0];
+  v19 = v31 * 8.0;
+  *(a1 + 7248) = v31 * 8.0;
+  v20.f64[0] = *(&v28 + 1);
+  v21 = *&v26;
+  v22 = v25[0] + v25[0];
+  *(a1 + 7256) = v25[0] + v25[0];
   *(a1 + 7264) = v21 + v21;
-  v20.f64[1] = v26[1];
+  v20.f64[1] = v25[1];
   v23 = vmulq_f64(v20, xmmword_2997290E0);
-  *(v25 + 3176) = v23;
+  *(v24 + 3176) = v23;
   if (v19 > 3600.0)
   {
     *(a1 + 7248) = 0x40AC200000000000;
@@ -2664,22 +1144,21 @@ double *NK_Comp_DOPS(uint64_t a1, uint64_t a2)
 
   if (v23.f64[0] > 3600.0)
   {
-    *(v25 + 3176) = 0x40AC200000000000;
+    *(v24 + 3176) = 0x40AC200000000000;
   }
 
   if (v22 > 900.0 || v21 + v21 > 900.0)
   {
-    *(v25 + 3160) = vdupq_n_s64(0x408C200000000000uLL);
+    *(v24 + 3160) = vdupq_n_s64(0x408C200000000000uLL);
     *(a1 + 7280) = 0;
   }
 
-  v24 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 BOOL NK_Get_Ext_Time(_BOOL8 result, uint64_t a2, uint64_t a3)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   v3 = a2 + 20480;
   *(a2 + 22776) = 0;
   *(a2 + 22792) = 0;
@@ -2689,8 +1168,8 @@ BOOL NK_Get_Ext_Time(_BOOL8 result, uint64_t a2, uint64_t a3)
   if (v4 > 3.0 && v4 < 604797.0)
   {
     v7 = result;
-    v24 = 0;
-    result = Get_FSP_Time(result, (a2 + 22758), (a2 + 22760), (a2 + 22768), &v24);
+    v23 = 0;
+    result = Get_FSP_Time(result, (a2 + 22758), (a2 + 22760), (a2 + 22768), &v23);
     if (result)
     {
       v8 = *(a2 + 22760);
@@ -2732,8 +1211,8 @@ BOOL NK_Get_Ext_Time(_BOOL8 result, uint64_t a2, uint64_t a3)
         }
 
         *(a2 + 22832) = v18;
-        v19 = v24;
-        *(v3 + 2308) = v24;
+        v19 = v23;
+        *(v3 + 2308) = v23;
         if (v11 <= 0.00000025 || v12 <= 8)
         {
           *(v3 + 2368) = 1;
@@ -2770,34 +1249,30 @@ BOOL NK_Get_Ext_Time(_BOOL8 result, uint64_t a2, uint64_t a3)
     }
   }
 
-  v23 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t NK_Prop_Cov_Mat(double a1, double *a2)
 {
-  v11[11] = *MEMORY[0x29EDCA608];
-  v4 = 1;
-  v11[0] = a1;
-  v11[1] = a1;
-  v5 = 16843009;
-  v6 = 1;
-  v11[2] = a1;
-  v11[3] = a1;
-  *v7 = 100860417;
-  *v9 = 151258116;
-  v8 = 2055;
-  v10 = 2826;
-  v11[4] = a1;
-  v11[5] = a1;
-  result = stphiu(a2, 0xBu, v11, v9, 6, v7, &v4);
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
+  v10[11] = *MEMORY[0x29EDCA608];
+  v3 = 1;
+  v10[0] = a1;
+  v10[1] = a1;
+  v4 = 16843009;
+  v5 = 1;
+  v10[2] = a1;
+  v10[3] = a1;
+  *v6 = 100860417;
+  *v8 = 151258116;
+  v7 = 2055;
+  v9 = 2826;
+  v10[4] = a1;
+  v10[5] = a1;
+  return stphiu(a2, 0xBu, v10, v8, 6, v6, &v3);
 }
 
 void *Cyc_Record_Write(uint64_t a1, const void *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
   result = memcpy(*a1, a2, *(a1 + 72));
   v4 = *a1 + *(a1 + 72);
   *a1 = v4;
@@ -2812,13 +1287,11 @@ void *Cyc_Record_Write(uint64_t a1, const void *a2)
     *(a1 + 84 + i) = v4 == *(a1 + 84 + 8 * i - 76);
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void *Cyc_Record_Read(uint64_t a1, unsigned int a2, void *__dst)
 {
-  v10 = *MEMORY[0x29EDCA608];
   if (a2 >= 6)
   {
     __assert_rtn("Cyc_Record_Read", "cyc_record_buf.cpp", 144, "Consumer_Idx < MAX_READER_NUM");
@@ -2841,7 +1314,6 @@ void *Cyc_Record_Read(uint64_t a1, unsigned int a2, void *__dst)
     *(v4 + 8 * v5) = *(a1 + 56);
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -2877,13 +1349,10 @@ void *Cyc_Record_Peek(uint64_t a1, unsigned int a2, int a3, void *__dst)
     __assert_rtn("Cyc_Record_Peek", "cyc_record_buf.cpp", 202, "p_Rec_Peek >= p_CRB->Start_Buf && p_Rec_Peek <= p_CRB->End_Buf");
   }
 
-  v11 = *MEMORY[0x29EDCA608];
-  v12 = *MEMORY[0x29EDCA608];
-
   return memcpy(__dst, v7, v6);
 }
 
-uint64_t Cyc_Record_IsEmpty(uint64_t *a1, unsigned int a2)
+uint64_t Cyc_Record_IsEmpty(void *a1, unsigned int a2)
 {
   if (a2 >= 6)
   {
@@ -2892,16 +1361,12 @@ uint64_t Cyc_Record_IsEmpty(uint64_t *a1, unsigned int a2)
 
   v2 = a1[a2 + 1];
   v3 = *a1;
-  v4 = *(a1 + a2 + 84) ^ 1;
-  if ((v4 & 1) == 0 && v2 != v3)
+  if (((*(a1 + a2 + 84) ^ 1) & 1) == 0 && v2 != v3)
   {
     __assert_rtn("Cyc_Record_IsEmpty", "cyc_record_buf.cpp", 231, "p_CRB->Next_Read[Consumer_Idx] == p_CRB->Next_Write");
   }
 
-  v5 = v2 == v3;
-  v6 = *MEMORY[0x29EDCA608];
-  v7 = *MEMORY[0x29EDCA608];
-  return v4 & v5;
+  return (*(a1 + a2 + 84) ^ 1u) & (v2 == v3);
 }
 
 uint64_t Cyc_Record_Count_Occupied(_DWORD *a1, unsigned int a2)
@@ -2917,8 +1382,7 @@ uint64_t Cyc_Record_Count_Occupied(_DWORD *a1, unsigned int a2)
   {
     if ((*(a1 + a2 + 84) & 1) == 0)
     {
-      result = 0;
-      goto LABEL_9;
+      return 0;
     }
   }
 
@@ -2949,15 +1413,11 @@ LABEL_11:
     __assert_rtn("Cyc_Record_Count_Occupied", "cyc_record_buf.cpp", 293, "( Diff % p_CRB->Rec_Size) == 0");
   }
 
-LABEL_9:
-  v7 = *MEMORY[0x29EDCA608];
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t Cyc_Record_Count_Free(_DWORD *a1, unsigned int a2)
 {
-  v8 = *MEMORY[0x29EDCA608];
   if (a2 >= 6)
   {
     __assert_rtn("Cyc_Record_Count_Free", "cyc_record_buf.cpp", 311, "Consumer_Idx < MAX_READER_NUM");
@@ -2972,37 +1432,36 @@ uint64_t Cyc_Record_Count_Free(_DWORD *a1, unsigned int a2)
     __assert_rtn("Cyc_Record_Count_Free", "cyc_record_buf.cpp", 317, "Occupied_Records <= p_CRB->Rec_Num");
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 float *ltl_least_squares_polynom(uint64_t a1, int a2, uint64_t a3, int a4)
 {
   v6 = 0;
-  v136 = *MEMORY[0x29EDCA608];
-  memset(v135, 0, 100);
-  v133[0] = 0;
-  v133[1] = 0;
-  v134 = 0;
-  v132[0] = 0x100000001;
-  v130[0] = 0;
-  v130[1] = 0;
-  v127[0] = xmmword_299729130;
-  v127[1] = xmmword_299729140;
-  v128 = 0x2000000D3;
-  v131 = 0;
+  v135 = *MEMORY[0x29EDCA608];
+  memset(v134, 0, 100);
+  v132[0] = 0;
+  v132[1] = 0;
+  v133 = 0;
+  v131[0] = 0x100000001;
+  v129[0] = 0;
+  v129[1] = 0;
+  v126[0] = xmmword_299729130;
+  v126[1] = xmmword_299729140;
+  v127 = 0x2000000D3;
+  v130 = 0;
   do
   {
-    *(v130 + v6) = *(v127 + v6) * 0.000061035;
+    *(v129 + v6) = *(v126 + v6) * 0.000061035;
     v6 += 4;
   }
 
   while (v6 != 20);
-  memset_pattern16(&v132[1], &unk_299729150, 0xCuLL);
+  memset_pattern16(&v131[1], &unk_299729150, 0xCuLL);
   if (a2)
   {
     v7 = 0;
-    v8 = vcvtq_f32_s32(*(v132 + 4));
+    v8 = vcvtq_f32_s32(*(v131 + 4));
     do
     {
       v9 = (vcvts_n_f32_u32(v7, 1uLL) + -30.0) + -30.0;
@@ -3019,9 +1478,9 @@ float *ltl_least_squares_polynom(uint64_t a1, int a2, uint64_t a3, int a4)
 
       v15 = 0;
       v16 = v12;
-      v122 = vmulq_f32(v122, v8);
+      v121 = vmulq_f32(v121, v8);
       v17 = v11 * 0.000005421;
-      v18 = v135;
+      v18 = v134;
       v19 = 1;
       do
       {
@@ -3034,7 +1493,7 @@ float *ltl_least_squares_polynom(uint64_t a1, int a2, uint64_t a3, int a4)
         }
 
         while (v19 != v20);
-        *(v133 + v15) = *(v133 + v15) + ((v17 * v21) * v16);
+        *(v132 + v15) = *(v132 + v15) + ((v17 * v21) * v16);
         ++v15;
         ++v19;
         v18 += 5;
@@ -3048,41 +1507,41 @@ float *ltl_least_squares_polynom(uint64_t a1, int a2, uint64_t a3, int a4)
   }
 
   v22 = 0;
-  v23 = v135;
+  v23 = v134;
   do
   {
-    v24 = *(&v127[1] + v22 + 4) * 0.000061035;
+    v24 = *(&v126[1] + v22 + 4) * 0.000061035;
     v25 = 1.0 / (v24 * v24);
     *v23 = *v23 + v25;
     v23 += 6;
-    *(v133 + v22) = *(v133 + v22) + (v25 * *(v130 + v22));
+    *(v132 + v22) = *(v132 + v22) + (v25 * *(v129 + v22));
     v22 += 4;
   }
 
   while (v22 != 20);
   v26 = 0;
-  v27 = v135;
+  v27 = v134;
   do
   {
     v28 = *v27;
     v27 += 6;
     v29 = 1.0 / sqrtf(v28);
-    v129[v26] = v29;
-    *(v133 + v26 * 4) = *(v133 + v26 * 4) * v29;
+    v128[v26] = v29;
+    *(v132 + v26 * 4) = *(v132 + v26 * 4) * v29;
     ++v26;
   }
 
   while (v26 != 5);
   v30 = 0;
-  v31 = v135;
+  v31 = v134;
   v32 = 1;
   do
   {
     v33 = 0;
-    v34 = v129[v30];
+    v34 = v128[v30];
     do
     {
-      *&v31[v33] = *&v31[v33] * (v34 * v129[v33]);
+      *&v31[v33] = *&v31[v33] * (v34 * v128[v33]);
       ++v33;
     }
 
@@ -3094,8 +1553,8 @@ float *ltl_least_squares_polynom(uint64_t a1, int a2, uint64_t a3, int a4)
 
   while (v30 != 5);
   v35 = 0;
-  v36 = &v135[1];
-  v37 = &v135[5];
+  v36 = &v134[1];
+  v37 = &v134[5];
   v38 = 4;
   do
   {
@@ -3124,28 +1583,28 @@ float *ltl_least_squares_polynom(uint64_t a1, int a2, uint64_t a3, int a4)
   while (v35 != 5);
   memset_s(&__s, 0x64uLL, 0, 0x64uLL);
   __s = 1065353216;
+  v122 = 1065353216;
   v123 = 1065353216;
   v124 = 1065353216;
-  v125 = 1065353216;
   v43 = 1;
-  v126 = 1065353216;
+  v125 = 1065353216;
   do
   {
     v44 = 0;
     v45 = 0;
-    result = v135;
+    result = v134;
     p_s = &__s;
-    v48 = &v122;
-    v49 = &v135[2];
-    v51 = &v135[7];
-    v50 = &v135[6];
-    v52 = &v135[1];
-    v53 = &v135[1];
+    v48 = &v121;
+    v49 = &v134[2];
+    v51 = &v134[7];
+    v50 = &v134[6];
+    v52 = &v134[1];
+    v53 = &v134[1];
     v54 = 1;
     do
     {
       v55 = 0;
-      v56 = &v135[5 * v44 + v44];
+      v56 = &v134[5 * v44 + v44];
       v57 = v48;
       v58 = v49;
       v59 = v51;
@@ -3155,11 +1614,11 @@ float *ltl_least_squares_polynom(uint64_t a1, int a2, uint64_t a3, int a4)
       v63 = v54;
       do
       {
-        v64 = &v135[5 * v44 + v63];
+        v64 = &v134[5 * v44 + v63];
         v65 = *v64;
         if (*v64 != 0.0)
         {
-          v66 = &v135[5 * v63];
+          v66 = &v134[5 * v63];
           v67 = *&v66[v63];
           v68 = *v56;
           v69 = (v67 - *v56) / (v65 + v65);
@@ -3288,12 +1747,12 @@ float *ltl_least_squares_polynom(uint64_t a1, int a2, uint64_t a3, int a4)
   while (v43 != 11);
   v96 = 0;
   v97 = 0.0;
-  v98 = v135;
+  v98 = v134;
   do
   {
     v99 = *v98;
     v98 += 6;
-    *&v120[v96 + 20] = v99;
+    *&v119[v96 + 20] = v99;
     v100 = fabsf(v99);
     if (v100 > v97)
     {
@@ -3308,7 +1767,7 @@ float *ltl_least_squares_polynom(uint64_t a1, int a2, uint64_t a3, int a4)
   v102 = v97 * 0.000001;
   do
   {
-    v103 = *&v120[v101 + 20];
+    v103 = *&v119[v101 + 20];
     v104 = fabsf(v103);
     v105 = 1.0 / v103;
     if (v104 < v102)
@@ -3316,7 +1775,7 @@ float *ltl_least_squares_polynom(uint64_t a1, int a2, uint64_t a3, int a4)
       v105 = 0.0;
     }
 
-    *&v120[v101 + 20] = v105;
+    *&v119[v101 + 20] = v105;
     v101 += 4;
   }
 
@@ -3332,19 +1791,19 @@ float *ltl_least_squares_polynom(uint64_t a1, int a2, uint64_t a3, int a4)
     {
       v111 = *v110;
       v110 += 5;
-      v109 = v109 + (v111 * *(v133 + v108));
+      v109 = v109 + (v111 * *(v132 + v108));
       v108 += 4;
     }
 
     while (v108 != 20);
-    *&v120[4 * v106++] = v109;
+    *&v119[4 * v106++] = v109;
     ++v107;
   }
 
   while (v106 != 5);
   for (m = 0; m != 20; m += 4)
   {
-    *&v120[m] = *&v120[m + 20] * *&v120[m];
+    *&v119[m] = *&v119[m + 20] * *&v119[m];
   }
 
   if (a4)
@@ -3357,12 +1816,12 @@ float *ltl_least_squares_polynom(uint64_t a1, int a2, uint64_t a3, int a4)
       v116 = 0.0;
       do
       {
-        v116 = v116 + (*&v114[v115] * *&v120[v115 * 4]);
+        v116 = v116 + (*&v114[v115] * *&v119[v115 * 4]);
         ++v115;
       }
 
       while (v115 != 5);
-      *(a3 + 4 * v113) = vcvtms_s32_f32(((v116 * v129[v113]) * 16384.0) + 0.5);
+      *(a3 + 4 * v113) = vcvtms_s32_f32(((v116 * v128[v113]) * 16384.0) + 0.5);
       ++v113;
       v114 += 5;
     }
@@ -3370,13 +1829,11 @@ float *ltl_least_squares_polynom(uint64_t a1, int a2, uint64_t a3, int a4)
     while (v113 != a4);
   }
 
-  v117 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t ltl_least_squares_set(uint64_t result, int a2, int *a3, unsigned int a4)
 {
-  v12 = *MEMORY[0x29EDCA608];
   if (a2)
   {
     for (i = 0; i != a2; *(result + 8 * i++) = vcvtms_s32_f32((v6 * 0.000061035) + 0.5))
@@ -3401,13 +1858,12 @@ uint64_t ltl_least_squares_set(uint64_t result, int a2, int *a3, unsigned int a4
     }
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void PEREncVal(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
+void PEREncVal(uint64_t a1, unsigned __int8 *a2, unsigned int *a3)
 {
-  v41 = *MEMORY[0x29EDCA608];
+  v40 = *MEMORY[0x29EDCA608];
   if (a3)
   {
     v5 = *(a1 + 1040);
@@ -3464,7 +1920,7 @@ void PEREncVal(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
         case 0x17u:
         case 0x18u:
         case 0x1Au:
-          *(&v36 + 1) = 0;
+          *(&v35 + 1) = 0;
           if (v6 <= 0x1A && ((1 << v6) & 0x5CC0000) != 0)
           {
             v8 = *a3;
@@ -3474,19 +1930,7 @@ void PEREncVal(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
               v10 = v9 - 1;
               if (v9 == 1)
               {
-LABEL_90:
-                if ((*(a1 + 1056) & 0x40) != 0)
-                {
-                  v26 = *(a1 + 1105);
-                  if (v26 != 7)
-                  {
-                    *(*(a1 + 1096))++ &= 510 << v26;
-                    *(a1 + 1105) = 7;
-                  }
-                }
-
-                PERPutByte(a1, 0);
-                goto LABEL_108;
+                goto LABEL_90;
               }
             }
 
@@ -3495,8 +1939,8 @@ LABEL_90:
               v10 = -2;
             }
 
-            *&v35 = v8 + 1;
-            *(&v35 + 1) = v10;
+            *&v34 = v8 + 1;
+            *(&v34 + 1) = v10;
             if (v6 == 18)
             {
               v16 = 4;
@@ -3521,17 +1965,29 @@ LABEL_90:
               }
             }
 
-            BYTE9(v36) = v17;
-            *&v37 = v19;
-            *(&v37 + 1) = v18;
-            BYTE8(v36) = v16;
-            *&v36 = PEREncodePrimCHARACTER_STRING;
-            PERConstructedEncode(a1, &v35);
+            BYTE9(v35) = v17;
+            *&v36 = v19;
+            *(&v36 + 1) = v18;
+            BYTE8(v35) = v16;
+            *&v35 = PEREncodePrimCHARACTER_STRING;
+            PERConstructedEncode(a1, &v34);
             goto LABEL_108;
           }
 
           CUCFErrorHandler(a1, 15);
-          goto LABEL_90;
+LABEL_90:
+          if ((*(a1 + 1056) & 0x40) != 0)
+          {
+            v26 = *(a1 + 1105);
+            if (v26 != 7)
+            {
+              *(*(a1 + 1096))++ &= 510 << v26;
+              *(a1 + 1105) = 7;
+            }
+          }
+
+          PERPutByte(a1, 0);
+          goto LABEL_108;
         case 0x20u:
           PEREncodeCHOICE(a1, a2, a3);
           goto LABEL_108;
@@ -3559,7 +2015,7 @@ LABEL_90:
 
           else
           {
-            PEREncodeConstrainedBIT_STRING(a1, a2, *a3, *(a3 + 8));
+            PEREncodeConstrainedBIT_STRING(a1, a2, *a3, *(a3 + 1));
           }
 
           goto LABEL_108;
@@ -3576,7 +2032,7 @@ LABEL_90:
           PEREncodeOPEN(a1, a2, a3);
 LABEL_108:
           *(a1 + 1040) = v5;
-          goto LABEL_109;
+          return;
         }
 
         goto LABEL_81;
@@ -3586,7 +2042,7 @@ LABEL_108:
       {
         if (v6 == 68)
         {
-          PEREncodeConstrainedOCTET_STRING(a1, a2, *a3, *(a3 + 8));
+          PEREncodeConstrainedOCTET_STRING(a1, a2, *a3, *(a3 + 1));
           goto LABEL_108;
         }
 
@@ -3597,12 +2053,12 @@ LABEL_108:
       }
 
 LABEL_30:
+      v37 = 0;
       v38 = 0;
       v39 = 0;
-      v40 = 0;
-      v36 = 0u;
-      v37 = 0u;
       v35 = 0u;
+      v36 = 0u;
+      v34 = 0u;
       v11 = v6 & 0x1F;
       v12 = a2[40];
       if (v11 > 22)
@@ -3624,7 +2080,7 @@ LABEL_119:
 
       v13 = *a3;
       v14 = (*a3 + 1);
-      v38 = v14;
+      v37 = v14;
       if (v13)
       {
         v15 = strnlen(v13, 0x400uLL) - 1;
@@ -3635,8 +2091,8 @@ LABEL_119:
         v15 = -2;
       }
 
-      v39 = v15;
-      LOBYTE(v40) = 1;
+      v38 = v15;
+      LOBYTE(v39) = 1;
 LABEL_56:
       if (a2[41] == 1)
       {
@@ -3644,8 +2100,8 @@ LABEL_56:
         {
           PERPutBit(a1, 1);
           v12 = 0;
-          *&v35 = v14;
-          *(&v35 + 1) = v15;
+          *&v34 = v14;
+          *(&v34 + 1) = v15;
           goto LABEL_77;
         }
 
@@ -3654,23 +2110,23 @@ LABEL_56:
 
       else
       {
-        CUCFCheckCHARACTER_STRINGConstraint(a1, a2, &v38);
-        v14 = v38;
-        v15 = v39;
+        CUCFCheckCHARACTER_STRINGConstraint(a1, a2, &v37);
+        v14 = v37;
+        v15 = v38;
       }
 
-      *&v35 = v14;
-      *(&v35 + 1) = v15;
+      *&v34 = v14;
+      *(&v34 + 1) = v15;
       v20 = *(a2 + 4);
       if (v20)
       {
         v21 = *(a2 + 3);
-        *&v37 = v21;
-        *(&v37 + 1) = v20;
+        *&v36 = v21;
+        *(&v36 + 1) = v20;
         v22 = v20 - 1;
         if (v20 == 1)
         {
-          BYTE8(v36) = 0;
+          BYTE8(v35) = 0;
           if ((*(a1 + 1056) & 0x40) == 0)
           {
             goto LABEL_99;
@@ -3683,7 +2139,7 @@ LABEL_56:
         else
         {
           LOBYTE(v23) = 64 - __clz(v22);
-          BYTE8(v36) = v23;
+          BYTE8(v35) = v23;
           LOBYTE(v22) = v23;
           if ((*(a1 + 1056) & 0x40) == 0)
           {
@@ -3709,26 +2165,26 @@ LABEL_56:
           LOBYTE(v22) = v22 >> 1;
         }
 
-        BYTE8(v36) = v22;
+        BYTE8(v35) = v22;
 LABEL_99:
         if (*(v21 + v20 - 1) > ~(-1 << v22))
         {
-          BYTE9(v36) = 1;
+          BYTE9(v35) = 1;
           goto LABEL_102;
         }
 
 LABEL_101:
-        BYTE9(v36) = 0;
+        BYTE9(v35) = 0;
 LABEL_102:
         if ((v12 & 0x80) == 0)
         {
 LABEL_103:
-          *&v36 = PEREncodePrimCHARACTER_STRING;
-          PERConstructedEncode(a1, &v35);
+          *&v35 = PEREncodePrimCHARACTER_STRING;
+          PERConstructedEncode(a1, &v34);
 LABEL_104:
-          if (!v40 && v39 && v38)
+          if (!v39 && v38 && v37)
           {
-            free(v38);
+            free(v37);
           }
 
           goto LABEL_108;
@@ -3736,27 +2192,27 @@ LABEL_104:
 
         if ((v12 & 2) != 0)
         {
-          v31 = *(a2 + 6);
-          if (!v31)
+          v30 = *(a2 + 6);
+          if (!v30)
           {
             goto LABEL_104;
           }
 
-          if (v31 > 2)
+          if (v30 > 2)
           {
-            if (v31 >> 16)
+            if (v30 >> 16)
             {
               goto LABEL_103;
             }
 
-            if ((*(a1 + 1056) & 0x40) != 0 && v31 * v22 >= 0x11)
+            if ((*(a1 + 1056) & 0x40) != 0 && v30 * v22 >= 0x11)
             {
-              v32 = *(a1 + 1105);
-              if (v32 != 7)
+              v31 = *(a1 + 1105);
+              if (v31 != 7)
               {
-                *(*(a1 + 1096))++ &= 510 << v32;
+                *(*(a1 + 1096))++ &= 510 << v31;
                 *(a1 + 1105) = 7;
-                v31 = *(a2 + 6);
+                v30 = *(a2 + 6);
               }
             }
           }
@@ -3764,44 +2220,44 @@ LABEL_104:
 
         else
         {
-          v28 = *(a2 + 6);
-          v29 = *(a2 + 7) - v28;
-          if ((v29 + 1) >> 16)
+          v27 = *(a2 + 6);
+          v28 = *(a2 + 7) - v27;
+          if ((v28 + 1) >> 16)
           {
             goto LABEL_103;
           }
 
-          v33 = v15 - v28;
-          v34 = v29;
-          PEREncodeConstrainedWholeNumberFunc(a1, &v34, &v33);
+          v32 = v15 - v27;
+          v33 = v28;
+          PEREncodeConstrainedWholeNumberFunc(a1, &v33, &v32);
           if ((*(a1 + 1056) & 0x40) != 0)
           {
-            v30 = *(a1 + 1105);
-            if (v30 != 7)
+            v29 = *(a1 + 1105);
+            if (v29 != 7)
             {
-              *(*(a1 + 1096))++ &= 510 << v30;
+              *(*(a1 + 1096))++ &= 510 << v29;
               *(a1 + 1105) = 7;
             }
           }
 
-          v31 = v39;
+          v30 = v38;
         }
 
-        PEREncodePrimCHARACTER_STRING(a1, v31, &v35);
+        PEREncodePrimCHARACTER_STRING(a1, v30, &v34);
         goto LABEL_104;
       }
 
       if ((*a2 & 0x1F) == 0x12)
       {
-        *&v37 = " 0123456789";
-        *(&v37 + 1) = 11;
-        WORD4(v36) = 260;
+        *&v36 = " 0123456789";
+        *(&v36 + 1) = 11;
+        WORD4(v35) = 260;
         LOBYTE(v22) = 4;
         goto LABEL_102;
       }
 
 LABEL_77:
-      v37 = 0uLL;
+      v36 = 0uLL;
       if ((*(a1 + 1056) & 0x40) != 0)
       {
         LOBYTE(v22) = 8;
@@ -3812,7 +2268,7 @@ LABEL_77:
         LOBYTE(v22) = 7;
       }
 
-      BYTE8(v36) = v22;
+      BYTE8(v35) = v22;
       goto LABEL_101;
     }
 
@@ -3868,14 +2324,11 @@ LABEL_81:
     PEREncVal(a1, *(a2 + 3), a3);
     goto LABEL_108;
   }
-
-LABEL_109:
-  v27 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t PEREncodeINTEGER(uint64_t a1, uint64_t a2, int *a3)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v3 = *a3;
   if ((*(a1 + 1056) & 0x40) != 0)
   {
@@ -3887,23 +2340,20 @@ uint64_t PEREncodeINTEGER(uint64_t a1, uint64_t a2, int *a3)
     }
   }
 
-  v7[0] = v3 < 0;
-  v7[1] = v3 ^ (v3 >> 31);
-  result = PEREncodeUnconstrainedWholeNumberFunc(a1, v7);
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  v6[0] = v3 < 0;
+  v6[1] = v3 ^ (v3 >> 31);
+  return PEREncodeUnconstrainedWholeNumberFunc(a1, v6);
 }
 
 uint64_t PEREncodeConstrainedINTEGER(uint64_t a1, uint64_t a2, int *a3)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v5 = *(a2 + 24);
-  v6 = *(*(a2 + 8) + 8);
-  v7 = *a3;
-  v14 = *a3;
+  v6 = *a3;
+  v12 = *a3;
   if (*(a2 + 25) != 1)
   {
-    CUCFCheckINTEGERConstraint(a1, a2, &v14);
+    CUCFCheckINTEGERConstraint(a1, a2, &v12);
     if ((v5 & 0x20) == 0)
     {
       goto LABEL_11;
@@ -3912,55 +2362,49 @@ uint64_t PEREncodeConstrainedINTEGER(uint64_t a1, uint64_t a2, int *a3)
 LABEL_8:
     if (v5 < 0)
     {
-      v10 = *(a2 + 32);
-      v13 = v14 - v10;
-      v12[0] = *(a2 + 40) - v10;
-      result = PEREncodeConstrainedWholeNumberFunc(a1, v12, &v13);
+      v9 = *(a2 + 32);
+      v11 = v12 - v9;
+      v10[0] = *(a2 + 40) - v9;
+      return PEREncodeConstrainedWholeNumberFunc(a1, v10, &v11);
     }
 
     else
     {
-      v12[0] = v14 - *(a2 + 32);
-      result = PEREncodeSemiConstrainedWholeNumberFunc(a1, v12);
+      v10[0] = v12 - *(a2 + 32);
+      return PEREncodeSemiConstrainedWholeNumberFunc(a1, v10);
+    }
+  }
+
+  if (((v5 & 0x20) == 0 || *(a2 + 32) <= v6) && ((v5 & 8) == 0 || *(a2 + 40) >= v6))
+  {
+    PERPutBit(a1, 0);
+    if ((v5 & 0x20) == 0)
+    {
+      goto LABEL_11;
     }
 
-    goto LABEL_16;
-  }
-
-  if ((v5 & 0x20) != 0 && *(a2 + 32) > v7 || (v5 & 8) != 0 && *(a2 + 40) < v7)
-  {
-    PERPutBit(a1, 1);
-    goto LABEL_11;
-  }
-
-  PERPutBit(a1, 0);
-  if ((v5 & 0x20) != 0)
-  {
     goto LABEL_8;
   }
 
+  PERPutBit(a1, 1);
 LABEL_11:
   if ((*(a1 + 1056) & 0x40) != 0)
   {
-    v9 = *(a1 + 1105);
-    if (v9 != 7)
+    v8 = *(a1 + 1105);
+    if (v8 != 7)
     {
-      *(*(a1 + 1096))++ &= 510 << v9;
+      *(*(a1 + 1096))++ &= 510 << v8;
       *(a1 + 1105) = 7;
     }
   }
 
-  v12[0] = v14 < 0;
-  v12[1] = v14 ^ (v14 >> 31);
-  result = PEREncodeUnconstrainedWholeNumberFunc(a1, v12);
-LABEL_16:
-  v11 = *MEMORY[0x29EDCA608];
-  return result;
+  v10[0] = v12 < 0;
+  v10[1] = v12 ^ (v12 >> 31);
+  return PEREncodeUnconstrainedWholeNumberFunc(a1, v10);
 }
 
 uint64_t PEREncodeSizeConstrainedINTEGER(uint64_t a1, unsigned __int8 a2, int *a3)
 {
-  v22 = *MEMORY[0x29EDCA608];
   if (a2 == 3)
   {
     v6 = *a3;
@@ -4000,10 +2444,9 @@ uint64_t PEREncodeSizeConstrainedINTEGER(uint64_t a1, unsigned __int8 a2, int *a
     if (a2 < 3u)
     {
 LABEL_23:
-      v8 = *MEMORY[0x29EDCA608];
-      v9 = a1;
-      v10 = v5;
-      v11 = 32;
+      v8 = a1;
+      v9 = v5;
+      v10 = 32;
       goto LABEL_40;
     }
 
@@ -4032,102 +2475,216 @@ LABEL_6:
 LABEL_24:
   if (a2 < 3u)
   {
-    v12 = 2;
+    v11 = 2;
   }
 
   else
   {
-    v12 = 3;
+    v11 = 3;
   }
 
   if (v5 < 1)
   {
-    v18 = 0;
-    v17 = 1;
+    v17 = 0;
+    v16 = 1;
   }
 
   else
   {
-    v13 = 0;
-    v14 = v5;
+    v12 = 0;
+    v13 = v5;
     do
     {
-      v15 = v13++;
-      v16 = v14 > 1;
-      v14 >>= 1;
+      v14 = v12++;
+      v15 = v13 > 1;
+      v13 >>= 1;
     }
 
-    while (v16);
-    if ((v13 & 7) != 0)
+    while (v15);
+    if ((v12 & 7) != 0)
     {
-      v17 = (v13 >> 3) + 1;
+      v16 = (v12 >> 3) + 1;
     }
 
     else
     {
-      v17 = v13 >> 3;
+      v16 = v12 >> 3;
     }
 
-    v18 = v15 > 0x1Fu;
+    v17 = v14 > 0x1Fu;
   }
 
-  PERPutBits(a1, v17 - 1, v12);
-  v19 = *(a1 + 1105);
-  if (v19 != 7)
+  PERPutBits(a1, v16 - 1, v11);
+  v18 = *(a1 + 1105);
+  if (v18 != 7)
   {
-    *(*(a1 + 1096))++ &= 510 << v19;
+    *(*(a1 + 1096))++ &= 510 << v18;
     *(a1 + 1105) = 7;
   }
 
-  if (v18)
+  if (v17)
   {
     PERPutBits(a1, v5 >> 32, 8u);
-    --v17;
+    --v16;
   }
 
-  v20 = *MEMORY[0x29EDCA608];
-  v11 = 8 * (v17 & 0x1F);
-  v9 = a1;
-  v10 = v5;
+  v10 = 8 * (v16 & 0x1F);
+  v8 = a1;
+  v9 = v5;
 LABEL_40:
 
-  return PERPutBits(v9, v10, v11);
+  return PERPutBits(v8, v9, v10);
 }
 
 uint64_t PEREncodeBIT_STRING(uint64_t a1, unsigned int *a2)
 {
-  v7[3] = *MEMORY[0x29EDCA608];
+  v5[3] = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (v2)
   {
-    v7[0] = *(a2 + 1);
-    v7[1] = v2;
-    v7[2] = PEREncodePrimBIT_STRING;
-    result = PERConstructedEncode(a1, v7);
-    v4 = *MEMORY[0x29EDCA608];
+    v5[0] = *(a2 + 1);
+    v5[1] = v2;
+    v5[2] = PEREncodePrimBIT_STRING;
+    return PERConstructedEncode(a1, v5);
   }
 
   else
   {
     if ((*(a1 + 1056) & 0x40) != 0)
     {
-      v5 = *(a1 + 1105);
-      if (v5 != 7)
+      v4 = *(a1 + 1105);
+      if (v4 != 7)
       {
-        *(*(a1 + 1096))++ &= 510 << v5;
+        *(*(a1 + 1096))++ &= 510 << v4;
         *(a1 + 1105) = 7;
       }
     }
 
-    v6 = *MEMORY[0x29EDCA608];
-
     return PERPutByte(a1, 0);
   }
-
-  return result;
 }
 
 void PEREncodeConstrainedBIT_STRING(uint64_t a1, uint64_t a2, unsigned int a3, unsigned __int8 *a4)
+{
+  v21 = *MEMORY[0x29EDCA608];
+  v18 = 0;
+  v19 = 0;
+  v20 = 0;
+  v8 = *(a2 + 24);
+  v9 = a3;
+  if (*(a2 + 25) == 1)
+  {
+    if (*(a2 + 32) > a3 || (*(a2 + 24) & 0x80) != 0 && *(a2 + 40) < a3)
+    {
+      PERPutBit(a1, 1);
+      v18 = a4;
+      v19 = v9;
+LABEL_9:
+      v20 = PEREncodePrimBIT_STRING;
+      PERConstructedEncode(a1, &v18);
+      return;
+    }
+
+    PERPutBit(a1, 0);
+  }
+
+  else
+  {
+    CUCFCheckStringConstraint(a1, a2, a3);
+  }
+
+  v18 = a4;
+  v19 = v9;
+  if ((v8 & 0x80) == 0)
+  {
+    goto LABEL_9;
+  }
+
+  if ((v8 & 2) == 0)
+  {
+    v10 = *(a2 + 40);
+    if (v10 >> 16)
+    {
+      goto LABEL_9;
+    }
+
+    v11 = *(a2 + 32);
+    v16 = a3 - v11;
+    v17 = v10 - v11;
+    PEREncodeConstrainedWholeNumberFunc(a1, &v17, &v16);
+    if ((*(a1 + 1056) & 0x40) != 0)
+    {
+      v12 = *(a1 + 1105);
+      if (v12 != 7)
+      {
+        *(*(a1 + 1096))++ &= 510 << v12;
+        *(a1 + 1105) = 7;
+      }
+    }
+
+    v13 = a1;
+    v14 = v9;
+LABEL_20:
+    PEREncodePrimBIT_STRING(v13, v14, &v18);
+    return;
+  }
+
+  v14 = *(a2 + 32);
+  if (v14)
+  {
+    if (v14 > 0x10)
+    {
+      if (v14 >> 16)
+      {
+        goto LABEL_9;
+      }
+
+      if ((*(a1 + 1056) & 0x40) != 0)
+      {
+        v15 = *(a1 + 1105);
+        if (v15 != 7)
+        {
+          *(*(a1 + 1096))++ &= 510 << v15;
+          *(a1 + 1105) = 7;
+          v14 = *(a2 + 32);
+        }
+      }
+    }
+
+    v13 = a1;
+    goto LABEL_20;
+  }
+}
+
+uint64_t PEREncodeOCTET_STRING(uint64_t a1, unsigned int *a2)
+{
+  v5[3] = *MEMORY[0x29EDCA608];
+  v2 = *a2;
+  if (v2)
+  {
+    v5[0] = *(a2 + 1);
+    v5[1] = v2;
+    v5[2] = PEREncodePrimOCTET_STRING;
+    return PERConstructedEncode(a1, v5);
+  }
+
+  else
+  {
+    if ((*(a1 + 1056) & 0x40) != 0)
+    {
+      v4 = *(a1 + 1105);
+      if (v4 != 7)
+      {
+        *(*(a1 + 1096))++ &= 510 << v4;
+        *(a1 + 1105) = 7;
+      }
+    }
+
+    return PERPutByte(a1, 0);
+  }
+}
+
+void PEREncodeConstrainedOCTET_STRING(uint64_t a1, uint64_t a2, unsigned int a3, unsigned __int8 *a4)
 {
   v22 = *MEMORY[0x29EDCA608];
   v19 = 0;
@@ -4142,7 +2699,10 @@ void PEREncodeConstrainedBIT_STRING(uint64_t a1, uint64_t a2, unsigned int a3, u
       PERPutBit(a1, 1);
       v19 = a4;
       v20 = v9;
-      goto LABEL_9;
+LABEL_9:
+      v21 = PEREncodePrimOCTET_STRING;
+      PERConstructedEncode(a1, &v19);
+      return;
     }
 
     PERPutBit(a1, 0);
@@ -4155,141 +2715,6 @@ void PEREncodeConstrainedBIT_STRING(uint64_t a1, uint64_t a2, unsigned int a3, u
 
   v19 = a4;
   v20 = v9;
-  if (v8 < 0)
-  {
-    if ((v8 & 2) != 0)
-    {
-      v15 = *(a2 + 32);
-      if (!v15)
-      {
-        goto LABEL_10;
-      }
-
-      if (v15 > 0x10)
-      {
-        if (v15 >> 16)
-        {
-          goto LABEL_9;
-        }
-
-        if ((*(a1 + 1056) & 0x40) != 0)
-        {
-          v16 = *(a1 + 1105);
-          if (v16 != 7)
-          {
-            *(*(a1 + 1096))++ &= 510 << v16;
-            *(a1 + 1105) = 7;
-            v15 = *(a2 + 32);
-          }
-        }
-      }
-
-      v14 = a1;
-    }
-
-    else
-    {
-      v11 = *(a2 + 40);
-      if (v11 >> 16)
-      {
-        goto LABEL_9;
-      }
-
-      v12 = *(a2 + 32);
-      v17 = a3 - v12;
-      v18 = v11 - v12;
-      PEREncodeConstrainedWholeNumberFunc(a1, &v18, &v17);
-      if ((*(a1 + 1056) & 0x40) != 0)
-      {
-        v13 = *(a1 + 1105);
-        if (v13 != 7)
-        {
-          *(*(a1 + 1096))++ &= 510 << v13;
-          *(a1 + 1105) = 7;
-        }
-      }
-
-      v14 = a1;
-      v15 = v9;
-    }
-
-    PEREncodePrimBIT_STRING(v14, v15, &v19);
-    goto LABEL_10;
-  }
-
-LABEL_9:
-  v21 = PEREncodePrimBIT_STRING;
-  PERConstructedEncode(a1, &v19);
-LABEL_10:
-  v10 = *MEMORY[0x29EDCA608];
-}
-
-uint64_t PEREncodeOCTET_STRING(uint64_t a1, unsigned int *a2)
-{
-  v7[3] = *MEMORY[0x29EDCA608];
-  v2 = *a2;
-  if (v2)
-  {
-    v7[0] = *(a2 + 1);
-    v7[1] = v2;
-    v7[2] = PEREncodePrimOCTET_STRING;
-    result = PERConstructedEncode(a1, v7);
-    v4 = *MEMORY[0x29EDCA608];
-  }
-
-  else
-  {
-    if ((*(a1 + 1056) & 0x40) != 0)
-    {
-      v5 = *(a1 + 1105);
-      if (v5 != 7)
-      {
-        *(*(a1 + 1096))++ &= 510 << v5;
-        *(a1 + 1105) = 7;
-      }
-    }
-
-    v6 = *MEMORY[0x29EDCA608];
-
-    return PERPutByte(a1, 0);
-  }
-
-  return result;
-}
-
-void PEREncodeConstrainedOCTET_STRING(uint64_t a1, uint64_t a2, unsigned int a3, unsigned __int8 *a4)
-{
-  v25 = *MEMORY[0x29EDCA608];
-  v22 = 0;
-  v23 = 0;
-  v24 = 0;
-  v8 = *(a2 + 24);
-  v9 = a3;
-  if (*(a2 + 25) == 1)
-  {
-    if (*(a2 + 32) > a3 || (*(a2 + 24) & 0x80) != 0 && *(a2 + 40) < a3)
-    {
-      PERPutBit(a1, 1);
-      v22 = a4;
-      v23 = v9;
-LABEL_9:
-      v24 = PEREncodePrimOCTET_STRING;
-      PERConstructedEncode(a1, &v22);
-LABEL_10:
-      v10 = *MEMORY[0x29EDCA608];
-      return;
-    }
-
-    PERPutBit(a1, 0);
-  }
-
-  else
-  {
-    CUCFCheckStringConstraint(a1, a2, a3);
-  }
-
-  v22 = a4;
-  v23 = v9;
   if ((v8 & 0x80) == 0)
   {
     goto LABEL_9;
@@ -4297,71 +2722,68 @@ LABEL_10:
 
   if ((v8 & 2) != 0)
   {
-    v15 = *(a2 + 32);
-    if (!v15)
+    v14 = *(a2 + 32);
+    if (!v14)
     {
-      goto LABEL_10;
+      return;
     }
 
-    if (v15 > 2)
+    if (v14 > 2)
     {
-      if (v15 >> 16)
+      if (v14 >> 16)
       {
         goto LABEL_9;
       }
 
       if ((*(a1 + 1056) & 0x40) != 0)
       {
-        v19 = *(a1 + 1105);
-        if (v19 != 7)
+        v16 = *(a1 + 1105);
+        if (v16 != 7)
         {
-          *(*(a1 + 1096))++ &= 510 << v19;
+          *(*(a1 + 1096))++ &= 510 << v16;
           *(a1 + 1105) = 7;
-          v15 = *(a2 + 32);
-          a4 = v22;
+          v14 = *(a2 + 32);
+          a4 = v19;
         }
       }
     }
 
-    v18 = *MEMORY[0x29EDCA608];
-    v17 = a1;
-    v14 = a4;
+    v15 = a1;
+    v13 = a4;
   }
 
   else
   {
-    v11 = *(a2 + 40);
-    if (v11 >> 16)
+    v10 = *(a2 + 40);
+    if (v10 >> 16)
     {
       goto LABEL_9;
     }
 
-    v12 = *(a2 + 32);
-    v20 = a3 - v12;
-    v21 = v11 - v12;
-    PEREncodeConstrainedWholeNumberFunc(a1, &v21, &v20);
+    v11 = *(a2 + 32);
+    v17 = a3 - v11;
+    v18 = v10 - v11;
+    PEREncodeConstrainedWholeNumberFunc(a1, &v18, &v17);
     if ((*(a1 + 1056) & 0x40) != 0)
     {
-      v13 = *(a1 + 1105);
-      if (v13 != 7)
+      v12 = *(a1 + 1105);
+      if (v12 != 7)
       {
-        *(*(a1 + 1096))++ &= 510 << v13;
+        *(*(a1 + 1096))++ &= 510 << v12;
         *(a1 + 1105) = 7;
       }
     }
 
-    v14 = v22;
-    v15 = v23;
-    v16 = *MEMORY[0x29EDCA608];
-    v17 = a1;
+    v13 = v19;
+    v14 = v20;
+    v15 = a1;
   }
 
-  PERPutSeg(v17, v14, v15);
+  PERPutSeg(v15, v13, v14);
 }
 
 void *PEREncodeOBJECT_IDENTIFIER(uint64_t a1, uint64_t *a2)
 {
-  v31 = *MEMORY[0x29EDCA608];
   if ((*(a1 + 1056) & 0x40) != 0)
   {
     v4 = *(a1 + 1105);
@@ -4429,7 +2851,7 @@ void *PEREncodeOBJECT_IDENTIFIER(uint64_t a1, uint64_t *a2)
           }
         }
 
-        v14 = *(v18 + 2);
+        v14 = *(v18 + 8);
       }
 
 LABEL_19:
@@ -4472,14 +2894,12 @@ LABEL_19:
   {
     if (*(a1 + 1105) == 7)
     {
-      v28 = *MEMORY[0x29EDCA608];
 
       return PEROctetsFragmentation(a1, v25);
     }
 
     else
     {
-      v30 = *MEMORY[0x29EDCA608];
 
       return PEROctetsFragmentationWithOffset(a1, v25);
     }
@@ -4499,16 +2919,14 @@ LABEL_19:
       *v26 |= v25 >> (7 - v27);
       v26[1] |= v25 << (*(a1 + 1105) + 1);
     }
-
-    v29 = *MEMORY[0x29EDCA608];
   }
 
   return result;
 }
 
-uint64_t PEREncodeENUMERATED(uint64_t a1, uint64_t a2, signed int a3)
+uint64_t PEREncodeENUMERATED(uint64_t a1, uint64_t a2, int a3)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   if (*(a2 + 40) <= a3)
   {
     EPErrorHandler(a1, 21);
@@ -4517,7 +2935,7 @@ uint64_t PEREncodeENUMERATED(uint64_t a1, uint64_t a2, signed int a3)
   v6 = *(a2 + 24);
   if (v6 == -1)
   {
-    v12 = a3;
+    v10 = a3;
     v7 = *(a2 + 40);
     goto LABEL_7;
   }
@@ -4525,51 +2943,50 @@ uint64_t PEREncodeENUMERATED(uint64_t a1, uint64_t a2, signed int a3)
   if (v6 > a3)
   {
     PERPutBit(a1, 0);
-    v12 = a3;
+    v10 = a3;
     v7 = *(a2 + 24);
 LABEL_7:
-    v13 = v7 - 1;
-    result = PEREncodeConstrainedWholeNumberFunc(a1, &v13, &v12);
-    v9 = *MEMORY[0x29EDCA608];
-    return result;
+    v11 = v7 - 1;
+    return PEREncodeConstrainedWholeNumberFunc(a1, &v11, &v10);
   }
 
   PERPutBit(a1, 1);
-  v10 = *MEMORY[0x29EDCA608];
-  v11 = a3 - *(a2 + 24);
+  v9 = a3 - *(a2 + 24);
 
-  return PEREncodeNormallySmallNonNegativeWholeNumber(a1, v11);
+  return PEREncodeNormallySmallNonNegativeWholeNumber(a1, v9);
 }
 
 void PEREncodeStruct(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = a2;
-  v77 = *MEMORY[0x29EDCA608];
+  v75 = *MEMORY[0x29EDCA608];
   if ((*(a2 + 48) & 1) == 0)
   {
     v6 = *(a2 + 80);
     if (v6)
     {
+      v72 = 0;
+      v73 = 0;
       v74 = 0;
-      v75 = 0;
-      v76 = 0;
       if (v6 >> 16)
       {
-        PERSkipConsBitField(a1, &v74, v6);
+        PERSkipConsBitField(a1, &v72, v6);
       }
 
       else
       {
-        PERSkipPrimBitField(a1, &v74, v6);
+        PERSkipPrimBitField(a1, &v72, v6);
       }
 
-      PEREncodeStructRootWithOptDef(a1, &v74, v4, a3);
-      goto LABEL_101;
+      PEREncodeStructRootWithOptDef(a1, &v72, v4, a3);
     }
 
-    v11 = *MEMORY[0x29EDCA608];
+    else
+    {
 
-    PEREncodeStructRoot(a1, a2, a3);
+      PEREncodeStructRoot(a1, a2, a3);
+    }
+
     return;
   }
 
@@ -4580,20 +2997,20 @@ void PEREncodeStruct(uint64_t a1, uint64_t a2, uint64_t a3)
   v10 = v4[10];
   if (v10)
   {
+    v72 = 0;
+    v73 = 0;
     v74 = 0;
-    v75 = 0;
-    v76 = 0;
     if (v10 >> 16)
     {
-      PERSkipConsBitField(a1, &v74, v10);
+      PERSkipConsBitField(a1, &v72, v10);
     }
 
     else
     {
-      PERSkipPrimBitField(a1, &v74, v10);
+      PERSkipPrimBitField(a1, &v72, v10);
     }
 
-    PEREncodeStructRootWithOptDef(a1, &v74, v4, a3);
+    PEREncodeStructRootWithOptDef(a1, &v72, v4, a3);
   }
 
   else
@@ -4601,90 +3018,90 @@ void PEREncodeStruct(uint64_t a1, uint64_t a2, uint64_t a3)
     PEREncodeStructRoot(a1, v4, a3);
   }
 
-  v12 = v4[11];
-  if (!v12)
+  v11 = v4[11];
+  if (!v11)
   {
-    goto LABEL_101;
+    return;
   }
 
-  memset(v73, 0, sizeof(v73));
-  v13 = *(a1 + 1096);
-  v14 = *(a1 + 1105);
-  v66 = *(a1 + 1088);
-  if (v12 < 0x41)
+  memset(v71, 0, sizeof(v71));
+  v12 = *(a1 + 1096);
+  v13 = *(a1 + 1105);
+  v64 = *(a1 + 1088);
+  if (v11 < 0x41)
   {
-    PERPutBits(a1, v12 - 1, 7u);
-    PERSkipPrimBitField(a1, v73, v4[11]);
+    PERPutBits(a1, v11 - 1, 7u);
+    PERSkipPrimBitField(a1, v71, v4[11]);
   }
 
   else
   {
     PERPutBit(a1, 1);
-    PERSkipConsBitField(a1, v73, v4[11]);
+    PERSkipConsBitField(a1, v71, v4[11]);
   }
 
-  v15 = v4[8];
-  if (!v15)
+  v14 = v4[8];
+  if (!v14)
   {
 LABEL_99:
-    v60 = *(a1 + 1088);
-    *(a1 + 1096) = v60 + v13 - v66;
-    *(a1 + 1105) = v14;
-    *(v60 + v13 - v66) &= -2 << v14;
-    goto LABEL_101;
+    v59 = *(a1 + 1088);
+    *(a1 + 1096) = v59 + v12 - v64;
+    *(a1 + 1105) = v13;
+    *(v59 + v12 - v64) &= -2 << v13;
+    return;
   }
 
-  v64 = v14;
-  v65 = v9;
+  v62 = v13;
+  v63 = v9;
+  v15 = 0;
   v16 = 0;
-  v17 = 0;
-  v62 = v7 - v8;
-  v63 = v13;
-  v18 = v4[4];
-  v71 = a1 + 200;
-  v72 = v4;
+  v60 = v7 - v8;
+  v61 = v12;
+  v17 = v4[4];
+  v69 = a1 + 200;
+  v70 = v4;
   do
   {
-    v19 = *(v18 + 16);
-    if (v19 <= 2)
+    v18 = *(v17 + 16);
+    if (v18 <= 2)
     {
-      if (v19 < 2)
+      if (v18 < 2)
       {
-        v20 = *(v4[1] + 24) + 24 * v18[3];
-        if (*(a3 + **(v20 + 16)) == 1)
+        v19 = *(v4[1] + 24) + 24 * *(v17 + 24);
+        if (*(a3 + **(v19 + 16)) == 1)
         {
-          v21 = *(v20 + 8);
-          PERSetBitToBitField(a1, v73, 1);
-          v22 = *(a1 + 712);
-          if (v22 >= 0x40)
+          v20 = *(v19 + 8);
+          PERSetBitToBitField(a1, v71, 1);
+          v21 = *(a1 + 712);
+          if (v21 >= 0x40)
           {
             CUCFErrorHandler(a1, 15);
-            v22 = *(a1 + 712);
+            v21 = *(a1 + 712);
           }
 
-          *(v71 + 8 * v22) = v18;
-          *(a1 + 712) = v22 + 1;
-          PEREncodeOPENTypeField(a1, *v18, a3 + v21);
+          *(v69 + 8 * v21) = v17;
+          *(a1 + 712) = v21 + 1;
+          PEREncodeOPENTypeField(a1, *v17, (a3 + v20));
           --*(a1 + 712);
-          ++v16;
+          ++v15;
           goto LABEL_39;
         }
 
 LABEL_40:
-        PERSetBitToBitField(a1, v73, 0);
+        PERSetBitToBitField(a1, v71, 0);
         goto LABEL_97;
       }
 
-      v23 = *(v4[1] + 24) + 24 * v18[3];
-      if (*(a3 + **(v23 + 16)) != 1)
+      v22 = *(v4[1] + 24) + 24 * *(v17 + 24);
+      if (*(a3 + **(v22 + 16)) != 1)
       {
         goto LABEL_40;
       }
 
-      v24 = *(v23 + 8);
-      PERSetBitToBitField(a1, v73, 1);
-      v25 = *(a1 + 712);
-      if (v25 >= 0x40)
+      v23 = *(v22 + 8);
+      PERSetBitToBitField(a1, v71, 1);
+      v24 = *(a1 + 712);
+      if (v24 >= 0x40)
       {
         goto LABEL_37;
       }
@@ -4692,38 +3109,38 @@ LABEL_40:
       goto LABEL_38;
     }
 
-    if (v19 == 3)
+    if (v18 == 3)
     {
-      v26 = *(v4[1] + 24) + 24 * v18[3];
-      if (*(a3 + **(v26 + 16)) != 1)
+      v25 = *(v4[1] + 24) + 24 * *(v17 + 24);
+      if (*(a3 + **(v25 + 16)) != 1)
       {
         goto LABEL_40;
       }
 
-      v24 = *(v26 + 8);
-      PERSetBitToBitField(a1, v73, 1);
-      v25 = *(a1 + 712);
-      if (v25 >= 0x40)
+      v23 = *(v25 + 8);
+      PERSetBitToBitField(a1, v71, 1);
+      v24 = *(a1 + 712);
+      if (v24 >= 0x40)
       {
 LABEL_37:
         CUCFErrorHandler(a1, 15);
-        v25 = *(a1 + 712);
+        v24 = *(a1 + 712);
       }
 
 LABEL_38:
-      *(v71 + 8 * v25) = v18;
-      *(a1 + 712) = v25 + 1;
-      PEREncodeOPENTypeField(a1, *v18, a3 + v24);
+      *(v69 + 8 * v24) = v17;
+      *(a1 + 712) = v24 + 1;
+      PEREncodeOPENTypeField(a1, *v17, (a3 + v23));
       --*(a1 + 712);
-      ++v17;
+      ++v16;
 LABEL_39:
-      v4 = v72;
+      v4 = v70;
       goto LABEL_97;
     }
 
-    if (v19 != 4)
+    if (v18 != 4)
     {
-      if (v19 != 5)
+      if (v18 != 5)
       {
         CUCFErrorHandler(a1, 15);
         goto LABEL_97;
@@ -4732,100 +3149,100 @@ LABEL_39:
       goto LABEL_40;
     }
 
-    v27 = v18[3];
+    v26 = *(v17 + 24);
+    v72 = 0;
+    v73 = 0;
     v74 = 0;
-    v75 = 0;
-    v76 = 0;
-    v28 = 0;
-    if (v27)
+    v27 = 0;
+    if (v26)
     {
-      v29 = (v18 + 6);
-      v30 = v27;
+      v28 = (v17 + 48);
+      v29 = v26;
       do
       {
-        v31 = *v29;
-        v29 += 32;
-        if (v31)
+        v30 = *v28;
+        v28 += 32;
+        if (v30)
         {
-          ++v28;
+          ++v27;
         }
 
-        --v30;
+        --v29;
       }
 
-      while (v30);
+      while (v29);
     }
 
     if ((*(a1 + 1056) & 0x40) != 0)
     {
-      v33 = *(a1 + 1105);
-      v32 = *(a1 + 1096);
-      v70 = 7;
-      if (v33 != 7)
+      v32 = *(a1 + 1105);
+      v31 = *(a1 + 1096);
+      v68 = 7;
+      if (v32 != 7)
       {
-        *v32 &= 510 << v33;
-        v32 = (*(a1 + 1096) + 1);
-        *(a1 + 1096) = v32;
+        *v31 &= 510 << v32;
+        v31 = (*(a1 + 1096) + 1);
+        *(a1 + 1096) = v31;
         *(a1 + 1105) = 7;
       }
     }
 
     else
     {
-      v32 = *(a1 + 1096);
-      v70 = *(a1 + 1105);
+      v31 = *(a1 + 1096);
+      v68 = *(a1 + 1105);
     }
 
-    v34 = *(a1 + 1088);
+    v33 = *(a1 + 1088);
     PERSkipBytes(a1, 1uLL);
-    v69 = v17;
-    if (v28 >> 16)
+    v67 = v16;
+    if (v27 >> 16)
     {
-      PERSkipConsBitField(a1, &v74, v28);
+      PERSkipConsBitField(a1, &v72, v27);
     }
 
     else
     {
-      PERSkipPrimBitField(a1, &v74, v28);
+      PERSkipPrimBitField(a1, &v72, v27);
     }
 
-    v15 -= v27;
-    v35 = &v32[-v34];
-    if (!v18[3])
+    v14 -= v26;
+    v34 = &v31[-v33];
+    if (!*(v17 + 24))
     {
-      v4 = v72;
+      v4 = v70;
 LABEL_85:
-      v17 = v69;
-      v56 = *(a1 + 1088);
-      *(a1 + 1096) = v56 + v35;
-      *(a1 + 1105) = v70;
-      *(v56 + v35) &= -2 << v70;
-      PERSetBitToBitField(a1, v73, 0);
+      v16 = v67;
+      v55 = *(a1 + 1088);
+      *(a1 + 1096) = v55 + v34;
+      *(a1 + 1105) = v68;
+      *(v55 + v34) &= -2 << v68;
+      PERSetBitToBitField(a1, v71, 0);
       goto LABEL_97;
     }
 
-    v67 = &v32[-v34];
-    v68 = v16;
+    v65 = &v31[-v33];
+    v66 = v15;
+    v35 = 0;
     v36 = 0;
     v37 = 0;
     v38 = 0;
-    v39 = 0;
-    v40 = v18 + 4;
-    v4 = v72;
+    v39 = v17 + 32;
+    v4 = v70;
     do
     {
-      v41 = *(v40 + 16);
-      if (v41 > 2)
+      v40 = *(v39 + 16);
+      if (v40 > 2)
       {
-        if (v41 == 3)
+        if (v40 == 3)
         {
-          v48 = *(v4[1] + 24) + 24 * v40[3];
-          if (*(a3 + **(v48 + 16)) == 1)
+          v47 = *(v4[1] + 24) + 24 * *(v39 + 24);
+          if (*(a3 + **(v47 + 16)) == 1)
           {
-            v46 = *(v48 + 8);
-            PERSetBitToBitField(a1, &v74, 1);
-            v47 = *(a1 + 712);
-            if (v47 >= 0x40)
+            v45 = *(v47 + 8);
+            PERSetBitToBitField(a1, &v72, 1);
+            v46 = *(a1 + 712);
+            if (v46 >= 0x40)
             {
               goto LABEL_72;
             }
@@ -4834,7 +3251,7 @@ LABEL_85:
           }
         }
 
-        else if (v41 != 5)
+        else if (v40 != 5)
         {
           CUCFErrorHandler(a1, 15);
           goto LABEL_76;
@@ -4843,175 +3260,173 @@ LABEL_85:
 
       else
       {
-        if (v41 < 2)
+        if (v40 < 2)
         {
-          v42 = *(v4[1] + 24) + 24 * v40[3];
-          if (*(a3 + **(v42 + 16)) != 1)
+          v41 = *(v4[1] + 24) + 24 * *(v39 + 24);
+          if (*(a3 + **(v41 + 16)) != 1)
           {
-            ++v38;
+            ++v37;
             goto LABEL_76;
           }
 
-          v43 = *(v42 + 8);
-          v44 = *(a1 + 712);
-          if (v44 >= 0x40)
+          v42 = *(v41 + 8);
+          v43 = *(a1 + 712);
+          if (v43 >= 0x40)
           {
             CUCFErrorHandler(a1, 15);
-            v44 = *(a1 + 712);
+            v43 = *(a1 + 712);
           }
 
-          *(v71 + 8 * v44) = v40;
-          *(a1 + 712) = v44 + 1;
-          PEREncVal(a1, *v40, a3 + v43);
+          *(v69 + 8 * v43) = v39;
+          *(a1 + 712) = v43 + 1;
+          PEREncVal(a1, *v39, (a3 + v42));
           --*(a1 + 712);
-          if (*(v40 + 16) == 1)
+          if (*(v39 + 16) == 1)
           {
-            PERSetBitToBitField(a1, &v74, 1);
+            PERSetBitToBitField(a1, &v72, 1);
           }
 
-          ++v37;
+          ++v36;
           goto LABEL_74;
         }
 
-        v45 = *(v4[1] + 24) + 24 * v40[3];
-        if (*(a3 + **(v45 + 16)) == 1)
+        v44 = *(v4[1] + 24) + 24 * *(v39 + 24);
+        if (*(a3 + **(v44 + 16)) == 1)
         {
-          v46 = *(v45 + 8);
-          PERSetBitToBitField(a1, &v74, 1);
-          v47 = *(a1 + 712);
-          if (v47 >= 0x40)
+          v45 = *(v44 + 8);
+          PERSetBitToBitField(a1, &v72, 1);
+          v46 = *(a1 + 712);
+          if (v46 >= 0x40)
           {
 LABEL_72:
             CUCFErrorHandler(a1, 15);
-            v47 = *(a1 + 712);
+            v46 = *(a1 + 712);
           }
 
 LABEL_73:
-          *(v71 + 8 * v47) = v40;
-          *(a1 + 712) = v47 + 1;
-          PEREncVal(a1, *v40, a3 + v46);
+          *(v69 + 8 * v46) = v39;
+          *(a1 + 712) = v46 + 1;
+          PEREncVal(a1, *v39, (a3 + v45));
           --*(a1 + 712);
-          ++v36;
+          ++v35;
 LABEL_74:
-          v4 = v72;
+          v4 = v70;
           goto LABEL_76;
         }
       }
 
-      PERSetBitToBitField(a1, &v74, 0);
+      PERSetBitToBitField(a1, &v72, 0);
 LABEL_76:
-      ++v39;
-      v40 += 4;
+      ++v38;
+      v39 += 32;
     }
 
-    while (v39 < v18[3]);
-    v18 = v40 - 4;
-    if (v38 && v36)
+    while (v38 < *(v17 + 24));
+    v17 = v39 - 32;
+    if (v37 && v35)
     {
       EPErrorHandler(a1, 33);
-      v35 = v67;
-      v16 = v68;
+      v34 = v65;
+      v15 = v66;
       goto LABEL_82;
     }
 
-    v49 = v37 | v36;
-    v35 = v67;
-    v16 = v68;
-    if (!v49)
+    v48 = v36 | v35;
+    v34 = v65;
+    v15 = v66;
+    if (!v48)
     {
       goto LABEL_85;
     }
 
 LABEL_82:
-    v50 = *(a1 + 1096);
-    v51 = (v50 - *(a1 + 1088));
-    v52 = *(a1 + 1105);
-    v53 = v52 >= v70;
-    v54 = v52 - v70;
-    if (v53)
+    v49 = *(a1 + 1096);
+    v50 = (v49 - *(a1 + 1088));
+    v51 = *(a1 + 1105);
+    v52 = v51 >= v68;
+    v53 = v51 - v68;
+    if (v52)
     {
-      v55 = &v51[~v35];
-      if (v55)
+      v54 = &v50[~v34];
+      if (v54)
       {
-        PERPutBits(a1, 0, v54);
+        PERPutBits(a1, 0, v53);
         goto LABEL_88;
       }
 
 LABEL_91:
-      v4 = v72;
-      *(a1 + 1096) = v50 - 1;
+      v4 = v70;
+      *(a1 + 1096) = v49 - 1;
       PERPutBits(a1, 0x100uLL, 0x10u);
     }
 
     else
     {
-      PERPutBits(a1, 0, (v54 + 8));
-      v55 = &v51[-v35];
-      if (v51 == v35)
+      PERPutBits(a1, 0, (v53 + 8));
+      v54 = &v50[-v34];
+      if (v50 == v34)
       {
-        v50 = *(a1 + 1096);
+        v49 = *(a1 + 1096);
         goto LABEL_91;
       }
 
 LABEL_88:
-      v4 = v72;
-      if (v55 > 0x7F)
+      v4 = v70;
+      if (v54 > 0x7F)
       {
         if (*(a1 + 1105) == 7)
         {
-          PEROctetsFragmentation(a1, v55);
+          PEROctetsFragmentation(a1, v54);
         }
 
         else
         {
-          PEROctetsFragmentationWithOffset(a1, v55);
+          PEROctetsFragmentationWithOffset(a1, v54);
         }
       }
 
       else
       {
-        v57 = (*(a1 + 1088) + v35);
-        v58 = *(a1 + 1105);
-        if (v58 == 7)
+        v56 = (*(a1 + 1088) + v34);
+        v57 = *(a1 + 1105);
+        if (v57 == 7)
         {
-          *v57 = v55;
+          *v56 = v54;
         }
 
         else
         {
-          *v57 |= v55 >> (7 - v58);
-          v57[1] |= v55 << (*(a1 + 1105) + 1);
+          *v56 |= v54 >> (7 - v57);
+          v56[1] |= v54 << (*(a1 + 1105) + 1);
         }
       }
     }
 
-    PERSetBitToBitField(a1, v73, 1);
-    v17 = v69 + 1;
+    PERSetBitToBitField(a1, v71, 1);
+    v16 = v67 + 1;
 LABEL_97:
-    v18 += 4;
-    --v15;
+    v17 += 32;
+    --v14;
   }
 
-  while (v15);
-  v59 = v16 | v17;
-  v14 = v64;
-  v13 = v63;
-  if (!v59)
+  while (v14);
+  v58 = v15 | v16;
+  v13 = v62;
+  v12 = v61;
+  if (!v58)
   {
     goto LABEL_99;
   }
 
-  *(*(a1 + 1088) + v62) |= 1 << v65;
-LABEL_101:
-  v61 = *MEMORY[0x29EDCA608];
+  *(*(a1 + 1088) + v60) |= 1 << v63;
 }
 
 uint64_t PEREncodeSEQUENCE_OF(uint64_t a1, uint64_t a2, int *a3)
 {
-  v15 = *MEMORY[0x29EDCA608];
-  v14 = 0;
+  v14 = *MEMORY[0x29EDCA608];
+  v13 = 0;
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v6 = **(a2 + 8);
   if (v6 == 181)
   {
@@ -5023,15 +3438,15 @@ uint64_t PEREncodeSEQUENCE_OF(uint64_t a1, uint64_t a2, int *a3)
   {
     v7 = *a3;
 LABEL_5:
-    *&v12 = v7;
+    *&v11 = v7;
     goto LABEL_7;
   }
 
   CUCFErrorHandler(a1, 15);
 LABEL_7:
-  v11 = a3;
-  *&v13 = 0;
-  *(&v13 + 1) = a2;
+  v10 = a3;
+  *&v12 = 0;
+  *(&v12 + 1) = a2;
   v8 = *(a1 + 712);
   if (v8 >= 0x40)
   {
@@ -5039,21 +3454,20 @@ LABEL_7:
     v8 = *(a1 + 712);
   }
 
-  *(a1 + 8 * v8 + 200) = &v13;
+  *(a1 + 8 * v8 + 200) = &v12;
   *(a1 + 712) = v8 + 1;
-  *(&v12 + 1) = PEREncodePrimSEQUENCE_OF;
-  result = PERConstructedEncode(a1, &v11);
+  *(&v11 + 1) = PEREncodePrimSEQUENCE_OF;
+  result = PERConstructedEncode(a1, &v10);
   --*(a1 + 712);
-  v10 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void PEREncodeConstrainedSEQUENCE_OF(uint64_t a1, uint64_t a2, int *a3)
 {
-  v20 = *MEMORY[0x29EDCA608];
-  v19 = 0;
+  v19 = *MEMORY[0x29EDCA608];
+  v18 = 0;
+  v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = *(a2 + 32);
   v7 = **(a2 + 8);
   if (v7 == 181)
@@ -5066,16 +3480,16 @@ void PEREncodeConstrainedSEQUENCE_OF(uint64_t a1, uint64_t a2, int *a3)
   {
     v8 = *a3;
 LABEL_5:
-    *&v17 = v8;
+    *&v16 = v8;
     goto LABEL_7;
   }
 
   CUCFErrorHandler(a1, 15);
   v8 = 0;
 LABEL_7:
-  v16 = a3;
-  *&v18 = 0;
-  *(&v18 + 1) = a2;
+  v15 = a3;
+  *&v17 = 0;
+  *(&v17 + 1) = a2;
   if (*(a2 + 33) == 1)
   {
     if (v8 < *(a2 + 40) || *(a2 + 32) < 0 && *(a2 + 48) < v8)
@@ -5102,7 +3516,7 @@ LABEL_7:
     v9 = *(a1 + 712);
   }
 
-  *(a1 + 200 + 8 * v9) = &v18;
+  *(a1 + 200 + 8 * v9) = &v17;
   *(a1 + 712) = v9 + 1;
   if ((v6 & 0x80) == 0)
   {
@@ -5111,51 +3525,50 @@ LABEL_7:
 
   if ((v6 & 2) != 0)
   {
-    v13 = *(a2 + 40);
-    if (!v13)
+    v12 = *(a2 + 40);
+    if (!v12)
     {
       goto LABEL_18;
     }
 
-    if (!(v13 >> 16))
+    if (!(v12 >> 16))
     {
 LABEL_24:
-      PEREncodePrimSEQUENCE_OF(a1, v13, &v16);
+      PEREncodePrimSEQUENCE_OF(a1, v12, &v15);
       goto LABEL_18;
     }
   }
 
   else
   {
-    v11 = *(a2 + 48);
-    if (!(v11 >> 16))
+    v10 = *(a2 + 48);
+    if (!(v10 >> 16))
     {
-      v12 = *(a2 + 40);
-      v14 = v8 - v12;
-      v15 = v11 - v12;
-      PEREncodeConstrainedWholeNumberFunc(a1, &v15, &v14);
-      v13 = v17;
+      v11 = *(a2 + 40);
+      v13 = v8 - v11;
+      v14 = v10 - v11;
+      PEREncodeConstrainedWholeNumberFunc(a1, &v14, &v13);
+      v12 = v16;
       goto LABEL_24;
     }
   }
 
 LABEL_17:
-  *(&v17 + 1) = PEREncodePrimSEQUENCE_OF;
-  PERConstructedEncode(a1, &v16);
+  *(&v16 + 1) = PEREncodePrimSEQUENCE_OF;
+  PERConstructedEncode(a1, &v15);
 LABEL_18:
   --*(a1 + 712);
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t PEREncodeSET_OF(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9[3] = *MEMORY[0x29EDCA608];
-  v9[1] = a2;
-  v9[2] = 0;
+  v8[3] = *MEMORY[0x29EDCA608];
+  v8[1] = a2;
+  v8[2] = 0;
   v4 = *(a3 + 16);
-  v8[0] = a3;
-  v8[1] = v4;
-  v9[0] = 0;
+  v7[0] = a3;
+  v7[1] = v4;
+  v8[0] = 0;
   v5 = *(a1 + 712);
   if (v5 >= 0x40)
   {
@@ -5163,25 +3576,24 @@ uint64_t PEREncodeSET_OF(uint64_t a1, uint64_t a2, uint64_t a3)
     v5 = *(a1 + 712);
   }
 
-  *(a1 + 8 * v5 + 200) = v9;
+  *(a1 + 8 * v5 + 200) = v8;
   *(a1 + 712) = v5 + 1;
-  v8[2] = PEREncodePrimSET_OF;
-  result = PERConstructedEncode(a1, v8);
+  v7[2] = PEREncodePrimSET_OF;
+  result = PERConstructedEncode(a1, v7);
   --*(a1 + 712);
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t PEREncodeConstrainedSET_OF(uint64_t a1, uint64_t a2, uint64_t a3)
+void PEREncodeConstrainedSET_OF(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x29EDCA608];
-  v18 = 0u;
-  v17 = 0u;
+  v17 = *MEMORY[0x29EDCA608];
+  v16 = 0u;
+  v15 = 0u;
   v5 = *(a2 + 32);
   v6 = *(a3 + 16);
-  v15 = a3;
-  v16 = v6;
-  *&v18 = a2;
+  v13 = a3;
+  v14 = v6;
+  *&v16 = a2;
   if (*(a2 + 33) == 1)
   {
     if (*(a2 + 40) > v6 || v5 < 0 && *(a2 + 48) < v6)
@@ -5208,7 +3620,7 @@ uint64_t PEREncodeConstrainedSET_OF(uint64_t a1, uint64_t a2, uint64_t a3)
     v7 = *(a1 + 712);
   }
 
-  *(a1 + 200 + 8 * v7) = &v17 + 8;
+  *(a1 + 200 + 8 * v7) = &v15 + 8;
   *(a1 + 712) = v7 + 1;
   if ((v5 & 0x80) == 0)
   {
@@ -5217,8 +3629,8 @@ uint64_t PEREncodeConstrainedSET_OF(uint64_t a1, uint64_t a2, uint64_t a3)
 
   if ((v5 & 2) != 0)
   {
-    v12 = *(a2 + 40);
-    if (!(v12 >> 16))
+    v10 = *(a2 + 40);
+    if (!(v10 >> 16))
     {
       goto LABEL_17;
     }
@@ -5226,32 +3638,30 @@ uint64_t PEREncodeConstrainedSET_OF(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v10 = *(a2 + 48);
-    if (!(v10 >> 16))
+    v8 = *(a2 + 48);
+    if (!(v8 >> 16))
     {
-      v11 = *(a2 + 40);
-      v13 = v6 - v11;
-      v14 = v10 - v11;
-      PEREncodeConstrainedWholeNumberFunc(a1, &v14, &v13);
-      v12 = v16;
+      v9 = *(a2 + 40);
+      v11 = v6 - v9;
+      v12 = v8 - v9;
+      PEREncodeConstrainedWholeNumberFunc(a1, &v12, &v11);
+      v10 = v14;
 LABEL_17:
-      result = PEREncodePrimSET_OF(a1, v12, &v15);
+      PEREncodePrimSET_OF(a1, v10, &v13);
       goto LABEL_12;
     }
   }
 
 LABEL_11:
-  *&v17 = PEREncodePrimSET_OF;
-  result = PERConstructedEncode(a1, &v15);
+  *&v15 = PEREncodePrimSET_OF;
+  PERConstructedEncode(a1, &v13);
 LABEL_12:
   --*(a1 + 712);
-  v9 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
-void *PEREncodeCHOICE(uint64_t a1, void *a2, __int16 *a3)
+void PEREncodeCHOICE(uint64_t a1, void *a2, __int16 *a3)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v5 = a2[1];
   v6 = *(v5 + 40);
   if (v6 > 3)
@@ -5279,9 +3689,9 @@ LABEL_7:
   {
     v9 = a2[5];
     v10 = a2[4];
-    while (*(v10 + 16) == 5 || v10[3] != v7)
+    while (*(v10 + 16) == 5 || *(v10 + 24) != v7)
     {
-      v10 += 4;
+      v10 += 32;
       if (!--v9)
       {
         v10 = a2[4];
@@ -5289,7 +3699,7 @@ LABEL_7:
       }
     }
 
-    v11 = a3 + *(v5 + 36);
+    v11 = (a3 + *(v5 + 36));
     v12 = v10 - a2[4];
     v14 = a2 + 3;
     v13 = a2[3];
@@ -5297,23 +3707,23 @@ LABEL_7:
     {
       if (v8 != 1)
       {
-        v22 = v12 >> 5;
+        v20 = v12 >> 5;
         v16 = v8 - 1;
         goto LABEL_27;
       }
 
 LABEL_29:
       v17 = (a1 + 712);
-      v20 = *(a1 + 712);
-      if (v20 >= 0x40)
+      v19 = *(a1 + 712);
+      if (v19 >= 0x40)
       {
         CUCFErrorHandler(a1, 15);
-        v20 = *(a1 + 712);
+        v19 = *(a1 + 712);
       }
 
-      *(a1 + 200 + 8 * v20) = v10;
-      *(a1 + 712) = v20 + 1;
-      result = PEREncVal(a1, *v10, v11);
+      *(a1 + 200 + 8 * v19) = v10;
+      *(a1 + 712) = v19 + 1;
+      PEREncVal(a1, *v10, v11);
       goto LABEL_32;
     }
 
@@ -5322,7 +3732,7 @@ LABEL_29:
 
   else
   {
-    v11 = a3 + *(v5 + 36);
+    v11 = (a3 + *(v5 + 36));
     v14 = a2 + 3;
     v13 = a2[3];
     if (v13 == -1)
@@ -5340,11 +3750,11 @@ LABEL_29:
     PERPutBit(a1, 0);
     if (a2[5] >= 2uLL)
     {
-      v22 = v15;
+      v20 = v15;
       v16 = *v14 - 1;
 LABEL_27:
-      v23 = v16;
-      PEREncodeConstrainedWholeNumberFunc(a1, &v23, &v22);
+      v21 = v16;
+      PEREncodeConstrainedWholeNumberFunc(a1, &v21, &v20);
       goto LABEL_29;
     }
 
@@ -5367,17 +3777,14 @@ LABEL_27:
 
   *(a1 + 200 + 8 * v18) = v10;
   *(a1 + 712) = v18 + 1;
-  result = PEREncodeOPENTypeField(a1, *v10, v11);
+  PEREncodeOPENTypeField(a1, *v10, v11);
 LABEL_32:
   --*v17;
-  v21 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t PEREncodeOPEN(uint64_t result, void *a2, __int16 *a3)
 {
   v4 = result;
-  v13 = *MEMORY[0x29EDCA608];
   v5 = a2[1];
   v6 = a2[5];
   v7 = *(v5 + 40);
@@ -5419,9 +3826,9 @@ LABEL_12:
 
 LABEL_9:
   v9 = a2[4];
-  while (v9[3] != v8)
+  while (*(v9 + 24) != v8)
   {
-    v9 += 4;
+    v9 += 32;
     if (!--v6)
     {
       goto LABEL_12;
@@ -5441,18 +3848,17 @@ LABEL_13:
   *(v4 + 712) = v11 + 1;
   if (v9)
   {
-    result = PEREncodeOPENTypeField(v4, *v9, a3 + v10);
+    result = PEREncodeOPENTypeField(v4, *v9, (a3 + v10));
     v11 = *(v4 + 712) - 1;
   }
 
   *(v4 + 712) = v11;
-  v12 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void PERDecVal(unint64_t a1, unsigned __int8 *a2, _DWORD *a3, void **a4)
 {
-  v45 = *MEMORY[0x29EDCA608];
+  v44 = *MEMORY[0x29EDCA608];
   if (a3)
   {
     v8 = *(a1 + 1040);
@@ -5512,18 +3918,18 @@ void PERDecVal(unint64_t a1, unsigned __int8 *a2, _DWORD *a3, void **a4)
         case 0x17u:
         case 0x18u:
         case 0x1Au:
-          v41 = 0u;
-          v42 = 0u;
           v40 = 0u;
+          v41 = 0u;
+          v39 = 0u;
           if (v9 == 18)
           {
-            BYTE8(v41) = 4;
-            *&v41 = PERDecodePrimCHARACTER_STRING;
-            PERConstructedDecode(a1, &v40);
-            v10 = *(&v40 + 1);
-            if (*(&v40 + 1))
+            BYTE8(v40) = 4;
+            *&v40 = PERDecodePrimCHARACTER_STRING;
+            PERConstructedDecode(a1, &v39);
+            v10 = *(&v39 + 1);
+            if (*(&v39 + 1))
             {
-              v11 = v40;
+              v11 = v39;
               do
               {
                 if (*v11)
@@ -5556,12 +3962,12 @@ void PERDecVal(unint64_t a1, unsigned __int8 *a2, _DWORD *a3, void **a4)
               v19 = 7;
             }
 
-            BYTE8(v41) = v19;
-            *&v41 = PERDecodePrimCHARACTER_STRING;
-            PERConstructedDecode(a1, &v40);
+            BYTE8(v40) = v19;
+            *&v40 = PERDecodePrimCHARACTER_STRING;
+            PERConstructedDecode(a1, &v39);
           }
 
-          v20 = v40;
+          v20 = v39;
           *(a1 + 1112) = 0;
           v21 = *a2 & 0x1F;
           if (v21 > 0x16)
@@ -5700,7 +4106,7 @@ LABEL_74:
           PERDecodeOPEN(a1, a2, a3, a4);
 LABEL_125:
           *(a1 + 1040) = v8;
-          goto LABEL_126;
+          return;
         }
 
         goto LABEL_74;
@@ -5721,13 +4127,13 @@ LABEL_125:
       }
     }
 
-    v44 = 0;
-    v41 = 0u;
-    v42 = 0u;
+    v43 = 0;
     v40 = 0u;
+    v41 = 0u;
+    v39 = 0u;
     if (a2[41] == 1 && PERGetBit(a1))
     {
-      *(&v42 + 1) = 0;
+      *(&v41 + 1) = 0;
       if ((*(a1 + 1056) & 0x40) != 0)
       {
         v13 = 8;
@@ -5738,20 +4144,20 @@ LABEL_125:
         v13 = 7;
       }
 
-      BYTE8(v41) = v13;
+      BYTE8(v40) = v13;
       goto LABEL_96;
     }
 
     v14 = *(a2 + 4);
     if (v14)
     {
-      *&v42 = *(a2 + 3);
-      *(&v42 + 1) = v14;
+      *&v41 = *(a2 + 3);
+      *(&v41 + 1) = v14;
       v15 = v14 - 1;
       if (v15)
       {
         LOBYTE(v15) = 64 - __clz(v15);
-        BYTE8(v41) = v15;
+        BYTE8(v40) = v15;
         if ((*(a1 + 1056) & 0x40) == 0)
         {
           goto LABEL_95;
@@ -5773,7 +4179,7 @@ LABEL_125:
 
       else
       {
-        BYTE8(v41) = 0;
+        BYTE8(v40) = 0;
         if ((*(a1 + 1056) & 0x40) == 0)
         {
           goto LABEL_95;
@@ -5796,14 +4202,14 @@ LABEL_125:
 
     else if ((*a2 & 0x1F) == 0x12)
     {
-      *&v42 = " 0123456789";
-      *(&v42 + 1) = 11;
+      *&v41 = " 0123456789";
+      *(&v41 + 1) = 11;
       LOBYTE(v15) = 4;
     }
 
     else
     {
-      *(&v42 + 1) = 0;
+      *(&v41 + 1) = 0;
       if ((*(a1 + 1056) & 0x40) != 0)
       {
         LOBYTE(v15) = 8;
@@ -5815,26 +4221,26 @@ LABEL_125:
       }
     }
 
-    BYTE8(v41) = v15;
+    BYTE8(v40) = v15;
 LABEL_95:
     v25 = a2[40];
     if ((v25 & 0x80000000) == 0)
     {
 LABEL_96:
-      *&v41 = PERDecodePrimCHARACTER_STRING;
-      PERConstructedDecode(a1, &v40);
+      *&v40 = PERDecodePrimCHARACTER_STRING;
+      PERConstructedDecode(a1, &v39);
 LABEL_97:
-      if (*(&v42 + 1))
+      if (*(&v41 + 1))
       {
-        if (*(v42 + *(&v42 + 1) - 1) > ~(-1 << SBYTE8(v41)))
+        if (*(v41 + *(&v41 + 1) - 1) > ~(-1 << SBYTE8(v40)))
         {
-          v26 = *(&v40 + 1);
-          if (*(&v40 + 1))
+          v26 = *(&v39 + 1);
+          if (*(&v39 + 1))
           {
-            v27 = v40;
+            v27 = v39;
             do
             {
-              *v27 = *(v42 + *v27);
+              *v27 = *(v41 + *v27);
               ++v27;
               --v26;
             }
@@ -5844,9 +4250,9 @@ LABEL_97:
         }
       }
 
-      v29 = *(&v40 + 1);
-      v28 = v40;
-      v43 = v40;
+      v29 = *(&v39 + 1);
+      v28 = v39;
+      v42 = v39;
       *(a1 + 1112) = 0;
       v30 = *a2 & 0x1F;
       if (v30 > 0x16)
@@ -5865,17 +4271,17 @@ LABEL_118:
 LABEL_119:
         if (!a2[41])
         {
-          CUCFCheckCHARACTER_STRINGConstraint(a1, a2, &v43);
-          v31 = v44;
-          v29 = *(&v43 + 1);
+          CUCFCheckCHARACTER_STRINGConstraint(a1, a2, &v42);
+          v31 = v43;
+          v29 = *(&v42 + 1);
         }
 
         if (!v31)
         {
           if (v29)
           {
-            v24 = v43;
-            if (v43)
+            v24 = v42;
+            if (v42)
             {
 LABEL_124:
               free(v24);
@@ -5891,7 +4297,7 @@ LABEL_124:
         *(v28 + v29) = 0;
         *a3 = v28 - 1;
         v31 = 1;
-        LOBYTE(v44) = 1;
+        LOBYTE(v43) = 1;
       }
 
       else
@@ -5901,7 +4307,7 @@ LABEL_124:
         *a3 = v32;
         *v32 = 86;
         *(*a3 + 1) = 0;
-        LOBYTE(v44) = 0;
+        LOBYTE(v43) = 0;
       }
 
       goto LABEL_119;
@@ -5924,10 +4330,10 @@ LABEL_124:
 
         if ((*(a1 + 1056) & 0x40) != 0 && v34 * v15 >= 0x11)
         {
-          v37 = *(a1 + 1105);
-          if (v37 != 7)
+          v36 = *(a1 + 1105);
+          if (v36 != 7)
           {
-            *(*(a1 + 1096))++ &= 510 << v37;
+            *(*(a1 + 1096))++ &= 510 << v36;
             *(a1 + 1105) = 7;
             v34 = *(a2 + 6);
           }
@@ -5943,11 +4349,11 @@ LABEL_124:
         goto LABEL_96;
       }
 
-      v38 = 0;
-      v39 = v33;
-      PERDecodeConstrainedWholeNumberFunc(a1, &v39, &v38);
-      v34 = (v38 + *(a2 + 12));
-      *(&v40 + 1) = v34;
+      v37 = 0;
+      v38 = v33;
+      PERDecodeConstrainedWholeNumberFunc(a1, &v38, &v37);
+      v34 = (v37 + *(a2 + 12));
+      *(&v39 + 1) = v34;
       if ((*(a1 + 1056) & 0x40) != 0)
       {
         v35 = *(a1 + 1105);
@@ -5955,22 +4361,19 @@ LABEL_124:
         {
           *(*(a1 + 1096))++ &= 510 << v35;
           *(a1 + 1105) = 7;
-          v34 = *(&v40 + 1);
+          v34 = *(&v39 + 1);
         }
       }
     }
 
-    PERDecodePrimCHARACTER_STRING(a1, v34, &v40);
+    PERDecodePrimCHARACTER_STRING(a1, v34, &v39);
     goto LABEL_97;
   }
-
-LABEL_126:
-  v36 = *MEMORY[0x29EDCA608];
 }
 
 unint64_t PERDecodeINTEGER(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
-  v8[1] = *MEMORY[0x29EDCA608];
+  v7[1] = *MEMORY[0x29EDCA608];
   if ((*(a1 + 1056) & 0x40) != 0)
   {
     v5 = *(a1 + 1105);
@@ -5981,25 +4384,24 @@ unint64_t PERDecodeINTEGER(uint64_t a1, uint64_t a2, _DWORD *a3)
     }
   }
 
-  v8[0] = 0;
-  result = PERDecodeUnconstrainedWholeNumberFunc(a1, v8);
+  v7[0] = 0;
+  result = PERDecodeUnconstrainedWholeNumberFunc(a1, v7);
   if (*(*(a2 + 8) + 8) == 4)
   {
-    *a3 = HIDWORD(v8[0]);
+    *a3 = HIDWORD(v7[0]);
   }
 
   else
   {
-    *a3 = SHIDWORD(v8[0]);
+    *a3 = SHIDWORD(v7[0]);
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void PERDecodeConstrainedINTEGER(uint64_t a1, uint64_t a2, int *a3)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v6 = *(a2 + 24);
   v7 = v6;
   if (*(a2 + 25) == 1)
@@ -6017,19 +4419,19 @@ void PERDecodeConstrainedINTEGER(uint64_t a1, uint64_t a2, int *a3)
     if (v7 < 0)
     {
       v12 = *(a2 + 40) - *(a2 + 32);
-      v15 = 0;
-      v16[0] = v12;
-      PERDecodeConstrainedWholeNumberFunc(a1, v16, &v15);
+      v14 = 0;
+      v15[0] = v12;
+      PERDecodeConstrainedWholeNumberFunc(a1, v15, &v14);
       v10 = *(a2 + 32);
-      v11 = v15;
+      v11 = v14;
     }
 
     else
     {
-      v16[0] = 0;
-      PERDecodeSemiConstrainedWholeNumberFunc(a1, v16);
+      v15[0] = 0;
+      PERDecodeSemiConstrainedWholeNumberFunc(a1, v15);
       v10 = *(a2 + 32);
-      v11 = v16[0];
+      v11 = v15[0];
     }
 
     v9 = v11 + v10;
@@ -6047,11 +4449,11 @@ LABEL_5:
     }
   }
 
-  *v16 = 0;
-  PERDecodeUnconstrainedWholeNumberFunc(a1, v16);
-  v9 = v16[1];
+  *v15 = 0;
+  PERDecodeUnconstrainedWholeNumberFunc(a1, v15);
+  v9 = v15[1];
 LABEL_13:
-  v17 = v9;
+  v16 = v9;
   v13 = *(*(a2 + 8) + 8);
   if ((v6 & 1) == 0)
   {
@@ -6075,15 +4477,12 @@ LABEL_18:
 LABEL_19:
   if (!*(a2 + 25))
   {
-    CUCFCheckINTEGERConstraint(a1, a2, &v17);
+    CUCFCheckINTEGERConstraint(a1, a2, &v16);
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 void PERDecodeSizeConstrainedINTEGER(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
-  v17 = *MEMORY[0x29EDCA608];
   v6 = *(a2 + 24);
   if ((*(a1 + 1056) & 0x40) != 0)
   {
@@ -6162,43 +4561,36 @@ void PERDecodeSizeConstrainedINTEGER(uint64_t a1, uint64_t a2, _DWORD *a3)
   {
     EPErrorHandler(a1, 18);
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
-uint64_t PERDecodeBIT_STRING(uint64_t a1, void *a2)
+uint64_t PERDecodeBIT_STRING(uint64_t a1, _DWORD *a2)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
+  v7 = 0;
   v8 = 0;
-  v9 = 0;
-  v10 = PERDecodePrimBIT_STRING;
-  result = PERConstructedDecode(a1, &v8);
-  v6 = v8;
-  v5 = v9;
+  v9 = PERDecodePrimBIT_STRING;
+  result = PERConstructedDecode(a1, &v7);
+  v6 = v7;
+  v5 = v8;
   *(a1 + 1112) = 0;
-  if (v5)
+  if (!v5)
   {
-    a2[1] = v6;
-    *a2 = v5;
-    *(a2 + 4) = 8;
+    return memset_s(a2, 0x10uLL, 0, 0x10uLL);
   }
 
-  else
-  {
-    result = memset_s(a2, 0x10uLL, 0, 0x10uLL);
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
+  *(a2 + 1) = v6;
+  *a2 = v5;
+  *(a2 + 4) = 8;
   return result;
 }
 
-void PERDecodeConstrainedBIT_STRING(uint64_t a1, uint64_t a2, void *a3)
+void PERDecodeConstrainedBIT_STRING(uint64_t result, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
+  v16 = 0;
   v17 = 0;
   v18 = 0;
-  v19 = 0;
-  if (*(a2 + 25) == 1 && PERGetBit(a1))
+  if (*(a2 + 25) == 1 && PERGetBit(result))
   {
     goto LABEL_4;
   }
@@ -6211,23 +4603,23 @@ void PERDecodeConstrainedBIT_STRING(uint64_t a1, uint64_t a2, void *a3)
 
   if ((v6 & 2) == 0)
   {
-    v10 = *(a2 + 40);
-    if (!(v10 >> 16))
+    v9 = *(a2 + 40);
+    if (!(v9 >> 16))
     {
-      v11 = v10 - *(a2 + 32);
-      v15 = 0;
-      v16 = v11;
-      PERDecodeConstrainedWholeNumberFunc(a1, &v16, &v15);
-      v12 = (v15 + *(a2 + 32));
-      v18 = v12;
-      if ((*(a1 + 1056) & 0x40) != 0)
+      v10 = v9 - *(a2 + 32);
+      v14 = 0;
+      v15 = v10;
+      PERDecodeConstrainedWholeNumberFunc(result, &v15, &v14);
+      v11 = (v14 + *(a2 + 32));
+      v17 = v11;
+      if ((*(result + 1056) & 0x40) != 0)
       {
-        v13 = *(a1 + 1105);
-        if (v13 != 7)
+        v12 = *(result + 1105);
+        if (v12 != 7)
         {
-          *(*(a1 + 1096))++ &= 510 << v13;
-          *(a1 + 1105) = 7;
-          v12 = v18;
+          *(*(result + 1096))++ &= 510 << v12;
+          *(result + 1105) = 7;
+          v11 = v17;
         }
       }
 
@@ -6235,29 +4627,29 @@ void PERDecodeConstrainedBIT_STRING(uint64_t a1, uint64_t a2, void *a3)
     }
 
 LABEL_4:
-    v19 = PERDecodePrimBIT_STRING;
-    PERConstructedDecode(a1, &v17);
+    v18 = PERDecodePrimBIT_STRING;
+    PERConstructedDecode(result, &v16);
     goto LABEL_5;
   }
 
-  v12 = *(a2 + 32);
-  if (!v12)
+  v11 = *(a2 + 32);
+  if (!v11)
   {
     goto LABEL_5;
   }
 
-  if (v12 > 0x10)
+  if (v11 > 0x10)
   {
-    if (!(v12 >> 16))
+    if (!(v11 >> 16))
     {
-      if ((*(a1 + 1056) & 0x40) != 0)
+      if ((*(result + 1056) & 0x40) != 0)
       {
-        v14 = *(a1 + 1105);
-        if (v14 != 7)
+        v13 = *(result + 1105);
+        if (v13 != 7)
         {
-          *(*(a1 + 1096))++ &= 510 << v14;
-          *(a1 + 1105) = 7;
-          v12 = *(a2 + 32);
+          *(*(result + 1096))++ &= 510 << v13;
+          *(result + 1105) = 7;
+          v11 = *(a2 + 32);
         }
       }
 
@@ -6268,11 +4660,11 @@ LABEL_4:
   }
 
 LABEL_18:
-  PERDecodePrimBIT_STRING(a1, v12, &v17);
+  PERDecodePrimBIT_STRING(result, v11, &v16);
 LABEL_5:
-  v7 = v17;
-  v8 = v18;
-  *(a1 + 1112) = 0;
+  v7 = v16;
+  v8 = v17;
+  *(result + 1112) = 0;
   if (v8)
   {
     a3[1] = v7;
@@ -6287,45 +4679,38 @@ LABEL_5:
 
   if (!*(a2 + 25))
   {
-    CUCFCheckStringConstraint(a1, a2, v8);
+    CUCFCheckStringConstraint(result, a2, v8);
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
-uint64_t PERDecodeOCTET_STRING(uint64_t a1, void *a2)
+uint64_t PERDecodeOCTET_STRING(uint64_t a1, _DWORD *a2)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
+  v7 = 0;
   v8 = 0;
-  v9 = 0;
-  v10 = PERDecodePrimOCTET_STRING;
-  result = PERConstructedDecode(a1, &v8);
-  v6 = v8;
-  v5 = v9;
+  v9 = PERDecodePrimOCTET_STRING;
+  result = PERConstructedDecode(a1, &v7);
+  v6 = v7;
+  v5 = v8;
   *(a1 + 1112) = 0;
-  if (v5)
+  if (!v5)
   {
-    a2[1] = v6;
-    *a2 = v5;
-    *(a2 + 4) = 8;
+    return memset_s(a2, 0x10uLL, 0, 0x10uLL);
   }
 
-  else
-  {
-    result = memset_s(a2, 0x10uLL, 0, 0x10uLL);
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
+  *(a2 + 1) = v6;
+  *a2 = v5;
+  *(a2 + 4) = 8;
   return result;
 }
 
-void PERDecodeConstrainedOCTET_STRING(uint64_t a1, uint64_t a2, void *a3)
+void PERDecodeConstrainedOCTET_STRING(uint64_t result, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
+  v16 = 0;
   v17 = 0;
   v18 = 0;
-  v19 = 0;
-  if (*(a2 + 25) == 1 && PERGetBit(a1))
+  if (*(a2 + 25) == 1 && PERGetBit(result))
   {
     goto LABEL_4;
   }
@@ -6338,23 +4723,23 @@ void PERDecodeConstrainedOCTET_STRING(uint64_t a1, uint64_t a2, void *a3)
 
   if ((v6 & 2) == 0)
   {
-    v10 = *(a2 + 40);
-    if (!(v10 >> 16))
+    v9 = *(a2 + 40);
+    if (!(v9 >> 16))
     {
-      v11 = v10 - *(a2 + 32);
-      v15 = 0;
-      v16 = v11;
-      PERDecodeConstrainedWholeNumberFunc(a1, &v16, &v15);
-      v12 = (v15 + *(a2 + 32));
-      v18 = v12;
-      if ((*(a1 + 1056) & 0x40) != 0)
+      v10 = v9 - *(a2 + 32);
+      v14 = 0;
+      v15 = v10;
+      PERDecodeConstrainedWholeNumberFunc(result, &v15, &v14);
+      v11 = (v14 + *(a2 + 32));
+      v17 = v11;
+      if ((*(result + 1056) & 0x40) != 0)
       {
-        v13 = *(a1 + 1105);
-        if (v13 != 7)
+        v12 = *(result + 1105);
+        if (v12 != 7)
         {
-          *(*(a1 + 1096))++ &= 510 << v13;
-          *(a1 + 1105) = 7;
-          v12 = v18;
+          *(*(result + 1096))++ &= 510 << v12;
+          *(result + 1105) = 7;
+          v11 = v17;
         }
       }
 
@@ -6362,29 +4747,29 @@ void PERDecodeConstrainedOCTET_STRING(uint64_t a1, uint64_t a2, void *a3)
     }
 
 LABEL_4:
-    v19 = PERDecodePrimOCTET_STRING;
-    PERConstructedDecode(a1, &v17);
+    v18 = PERDecodePrimOCTET_STRING;
+    PERConstructedDecode(result, &v16);
     goto LABEL_5;
   }
 
-  v12 = *(a2 + 32);
-  if (!v12)
+  v11 = *(a2 + 32);
+  if (!v11)
   {
     goto LABEL_5;
   }
 
-  if (v12 > 2)
+  if (v11 > 2)
   {
-    if (!(v12 >> 16))
+    if (!(v11 >> 16))
     {
-      if ((*(a1 + 1056) & 0x40) != 0)
+      if ((*(result + 1056) & 0x40) != 0)
       {
-        v14 = *(a1 + 1105);
-        if (v14 != 7)
+        v13 = *(result + 1105);
+        if (v13 != 7)
         {
-          *(*(a1 + 1096))++ &= 510 << v14;
-          *(a1 + 1105) = 7;
-          v12 = *(a2 + 32);
+          *(*(result + 1096))++ &= 510 << v13;
+          *(result + 1105) = 7;
+          v11 = *(a2 + 32);
         }
       }
 
@@ -6395,11 +4780,11 @@ LABEL_4:
   }
 
 LABEL_18:
-  PERDecodePrimOCTET_STRING(a1, v12, &v17);
+  PERDecodePrimOCTET_STRING(result, v11, &v16);
 LABEL_5:
-  v7 = v17;
-  v8 = v18;
-  *(a1 + 1112) = 0;
+  v7 = v16;
+  v8 = v17;
+  *(result + 1112) = 0;
   if (v8)
   {
     a3[1] = v7;
@@ -6414,15 +4799,12 @@ LABEL_5:
 
   if (!*(a2 + 25))
   {
-    CUCFCheckStringConstraint(a1, a2, v8);
+    CUCFCheckStringConstraint(result, a2, v8);
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 void PERDecodeOBJECT_IDENTIFIER(uint64_t a1, void *__s)
 {
-  v17 = *MEMORY[0x29EDCA608];
   memset_s(__s, 0x18uLL, 0, 0x18uLL);
   if ((*(a1 + 1056) & 0x40) != 0)
   {
@@ -6449,38 +4831,33 @@ void PERDecodeOBJECT_IDENTIFIER(uint64_t a1, void *__s)
         *(a1 + 1105) = 7;
       }
 
-      v8 = *MEMORY[0x29EDCA608];
-
       PEROctetsFragmentation(a1, v7);
     }
 
     else
     {
-      v13 = PEROctetsDefragmentationWithOffset(a1);
-      PERDecodeOBJECT_IDENTIFIERComps(a1, v13, __s);
+      v10 = PEROctetsDefragmentationWithOffset(a1);
+      PERDecodeOBJECT_IDENTIFIERComps(a1, v10, __s);
       if (*(a1 + 1105) < v6)
       {
         ++*(a1 + 1096);
       }
 
       *(a1 + 1105) = v6;
-      v14 = *MEMORY[0x29EDCA608];
 
-      PEROctetsFragmentationWithOffset(a1, v13);
+      PEROctetsFragmentationWithOffset(a1, v10);
     }
 
     return;
   }
 
-  v9 = v5;
+  v8 = v5;
   if ((v5 & 0xC0) == 0x80)
   {
-    v10 = PERGetByte(a1);
-    v11 = *MEMORY[0x29EDCA608];
-    v12 = v10 & 0xFFFFC0FF | ((v9 & 0x3F) << 8);
+    v9 = PERGetByte(a1) & 0xFFFFC0FF | ((v5 & 0x3F) << 8);
 LABEL_22:
 
-    PERDecodeOBJECT_IDENTIFIERComps(a1, v12, __s);
+    PERDecodeOBJECT_IDENTIFIERComps(a1, v9, __s);
     return;
   }
 
@@ -6491,27 +4868,24 @@ LABEL_22:
       EPErrorHandler(a1, 26);
     }
 
-    v15 = *MEMORY[0x29EDCA608];
-    v12 = v9;
+    v9 = v8;
     goto LABEL_22;
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 
   EPErrorHandler(a1, 26);
 }
 
 void PERDecodeENUMERATED(uint64_t a1, uint64_t a2, unsigned int *a3)
 {
-  v11 = *MEMORY[0x29EDCA608];
-  v9 = 0;
+  v10 = *MEMORY[0x29EDCA608];
+  v8 = 0;
   if (*(a2 + 24) == -1)
   {
-    v8 = 0;
-    v10 = *(a2 + 40) - 1;
-    PERDecodeConstrainedWholeNumberFunc(a1, &v10, &v8);
-    v6 = v8;
-    if (*(a2 + 40) <= v8)
+    v7 = 0;
+    v9 = *(a2 + 40) - 1;
+    PERDecodeConstrainedWholeNumberFunc(a1, &v9, &v7);
+    v6 = v7;
+    if (*(a2 + 40) <= v7)
     {
       EPErrorHandler(a1, 21);
     }
@@ -6519,60 +4893,59 @@ void PERDecodeENUMERATED(uint64_t a1, uint64_t a2, unsigned int *a3)
 
   else if (PERGetBit(a1))
   {
-    PERDecodeNormallySmallNonNegativeWholeNumber(a1, &v9);
-    v6 = v9 + *(a2 + 24);
+    PERDecodeNormallySmallNonNegativeWholeNumber(a1, &v8);
+    v6 = v8 + *(a2 + 24);
   }
 
   else
   {
-    v8 = 0;
-    v10 = *(a2 + 24) - 1;
-    PERDecodeConstrainedWholeNumberFunc(a1, &v10, &v8);
-    v6 = v8;
-    if (*(a2 + 40) <= v8)
+    v7 = 0;
+    v9 = *(a2 + 24) - 1;
+    PERDecodeConstrainedWholeNumberFunc(a1, &v9, &v7);
+    v6 = v7;
+    if (*(a2 + 40) <= v7)
     {
       EPErrorHandler(a1, 21);
     }
   }
 
   *a3 = v6;
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void PERDecodeStruct(uint64_t a1, uint64_t a2, uint64_t a3, void **a4)
 {
-  v179 = *MEMORY[0x29EDCA608];
+  v178 = *MEMORY[0x29EDCA608];
+  v173 = 0;
   v174 = 0;
-  v175 = 0;
   v7 = *(a2 + 48);
   v8 = a4;
   if ((v7 & 0x10) != 0)
   {
     if (a4)
     {
-      v174 = *a4;
+      v173 = *a4;
     }
 
-    v8 = &v174;
+    v8 = &v173;
   }
 
-  v169 = (v7 & 1) != 0 && PERGetBit(a1) != 0;
+  v168 = (v7 & 1) != 0 && PERGetBit(a1) != 0;
   v9 = *(a2 + 80);
   if (v9)
   {
+    v175 = 0;
     v176 = 0;
     v177 = 0;
-    v178 = 0;
     if (v9 >> 16)
     {
-      PERGetConsBitField(a1, &v176);
+      PERGetConsBitField(a1, &v175);
     }
 
     else
     {
-      v176 = *(a1 + 1096);
-      LOWORD(v177) = *(a1 + 1105);
-      v178 = v9 + 1;
+      v175 = *(a1 + 1096);
+      LOWORD(v176) = *(a1 + 1105);
+      v177 = v9 + 1;
       PERGetSkipBytes(a1, v9 >> 3);
       PERGetBits(a1, v9 & 7);
     }
@@ -6591,21 +4964,21 @@ void PERDecodeStruct(uint64_t a1, uint64_t a2, uint64_t a3, void **a4)
 
         if (v26 == 2)
         {
-          v29 = *v176;
-          v30 = v177;
-          if (v177)
+          v29 = *v175;
+          v30 = v176;
+          if (v176)
           {
-            v31 = v177 - 1;
+            v31 = v176 - 1;
           }
 
           else
           {
-            ++v176;
+            ++v175;
             v31 = 7;
           }
 
-          LOBYTE(v177) = v31;
-          --v178;
+          LOBYTE(v176) = v31;
+          --v177;
           v35 = *(*(a2 + 8) + 24);
           v36 = *(v25 + 24);
           if (((v29 >> v30) & 1) == 0)
@@ -6633,39 +5006,39 @@ LABEL_54:
         {
           if (v26 == 5)
           {
-            if (v177)
+            if (v176)
             {
-              v27 = v177 - 1;
+              v27 = v176 - 1;
             }
 
             else
             {
-              ++v176;
+              ++v175;
               v27 = 7;
             }
 
-            LOBYTE(v177) = v27;
-            --v178;
+            LOBYTE(v176) = v27;
+            --v177;
           }
 
           goto LABEL_56;
         }
 
-        v32 = *v176;
-        v33 = v177;
-        if (v177)
+        v32 = *v175;
+        v33 = v176;
+        if (v176)
         {
-          v34 = v177 - 1;
+          v34 = v176 - 1;
         }
 
         else
         {
-          ++v176;
+          ++v175;
           v34 = 7;
         }
 
-        LOBYTE(v177) = v34;
-        --v178;
+        LOBYTE(v176) = v34;
+        --v177;
         v40 = *(a2 + 8);
         v41 = *(v40 + 24);
         v42 = *(v25 + 24);
@@ -6689,12 +5062,12 @@ LABEL_54:
 LABEL_55:
         *(a1 + 200 + 8 * v39) = v25;
         *(a1 + 712) = v39 + 1;
-        PERDecVal(a1, *v25, a3 + v38, v8);
+        PERDecVal(a1, *v25, (a3 + v38), v8);
         --*(a1 + 712);
 LABEL_56:
-        if (!v178 && BYTE1(v177) == 1)
+        if (!v177 && BYTE1(v176) == 1)
         {
-          PERSetBitFieldLength(&v176);
+          PERSetBitFieldLength(&v175);
         }
 
         v25 += 32;
@@ -6711,19 +5084,19 @@ LABEL_56:
           goto LABEL_56;
         }
 
-        if (v177)
+        if (v176)
         {
-          v28 = v177 - 1;
+          v28 = v176 - 1;
         }
 
         else
         {
-          ++v176;
+          ++v175;
           v28 = 7;
         }
 
-        LOBYTE(v177) = v28;
-        --v178;
+        LOBYTE(v176) = v28;
+        --v177;
       }
 
       v38 = *(*(*(a2 + 8) + 24) + 24 * *(v25 + 24) + 8);
@@ -6751,21 +5124,21 @@ LABEL_60:
 
         if (v47 == 2)
         {
-          v50 = *v176;
-          v51 = v177;
-          if (v177)
+          v50 = *v175;
+          v51 = v176;
+          if (v176)
           {
-            v52 = v177 - 1;
+            v52 = v176 - 1;
           }
 
           else
           {
-            ++v176;
+            ++v175;
             v52 = 7;
           }
 
-          LOBYTE(v177) = v52;
-          --v178;
+          LOBYTE(v176) = v52;
+          --v177;
           v56 = *(*(a2 + 8) + 24);
           v57 = *(v46 + 24);
           if (((v50 >> v51) & 1) == 0)
@@ -6793,39 +5166,39 @@ LABEL_91:
         {
           if (v47 == 5)
           {
-            if (v177)
+            if (v176)
             {
-              v48 = v177 - 1;
+              v48 = v176 - 1;
             }
 
             else
             {
-              ++v176;
+              ++v175;
               v48 = 7;
             }
 
-            LOBYTE(v177) = v48;
-            --v178;
+            LOBYTE(v176) = v48;
+            --v177;
           }
 
           goto LABEL_93;
         }
 
-        v53 = *v176;
-        v54 = v177;
-        if (v177)
+        v53 = *v175;
+        v54 = v176;
+        if (v176)
         {
-          v55 = v177 - 1;
+          v55 = v176 - 1;
         }
 
         else
         {
-          ++v176;
+          ++v175;
           v55 = 7;
         }
 
-        LOBYTE(v177) = v55;
-        --v178;
+        LOBYTE(v176) = v55;
+        --v177;
         v61 = *(a2 + 8);
         v62 = *(v61 + 24);
         v63 = *(v46 + 24);
@@ -6849,12 +5222,12 @@ LABEL_91:
 LABEL_92:
         *(a1 + 200 + 8 * v60) = v46;
         *(a1 + 712) = v60 + 1;
-        PERDecVal(a1, *v46, a3 + v59, v8);
+        PERDecVal(a1, *v46, (a3 + v59), v8);
         --*(a1 + 712);
 LABEL_93:
-        if (!v178 && BYTE1(v177) == 1)
+        if (!v177 && BYTE1(v176) == 1)
         {
-          PERSetBitFieldLength(&v176);
+          PERSetBitFieldLength(&v175);
         }
 
         v46 += 32;
@@ -6871,19 +5244,19 @@ LABEL_93:
           goto LABEL_93;
         }
 
-        if (v177)
+        if (v176)
         {
-          v49 = v177 - 1;
+          v49 = v176 - 1;
         }
 
         else
         {
-          ++v176;
+          ++v175;
           v49 = 7;
         }
 
-        LOBYTE(v177) = v49;
-        --v178;
+        LOBYTE(v176) = v49;
+        --v177;
       }
 
       v59 = *(*(*(a2 + 8) + 24) + 24 * *(v46 + 24) + 8);
@@ -6911,7 +5284,7 @@ LABEL_97:
       v14 = *(a1 + 712);
       do
       {
-        v15 = *(*(*(v10 + 8) + 24) + 24 * v13[3] + 8);
+        v15 = *(*(*(v10 + 8) + 24) + 24 * *(v13 + 24) + 8);
         if (v14 >= 0x40)
         {
           CUCFErrorHandler(a1, 15);
@@ -6921,8 +5294,8 @@ LABEL_97:
         *(a1 + 200 + 8 * v14) = v13;
         *(a1 + 712) = v14 + 1;
         v16 = *v13;
-        v13 += 4;
-        v17 = a3 + v15;
+        v13 += 32;
+        v17 = (a3 + v15);
         v8 = v12;
         PERDecVal(a1, v16, v17, v12);
         v14 = *(a1 + 712) - 1;
@@ -6940,7 +5313,7 @@ LABEL_97:
       v20 = *(a1 + 712);
       do
       {
-        v21 = *(*(*(v10 + 8) + 24) + 24 * v19[3] + 8);
+        v21 = *(*(*(v10 + 8) + 24) + 24 * *(v19 + 24) + 8);
         if (v20 >= 0x40)
         {
           CUCFErrorHandler(a1, 15);
@@ -6950,8 +5323,8 @@ LABEL_97:
         *(a1 + 200 + 8 * v20) = v19;
         *(a1 + 712) = v20 + 1;
         v22 = *v19;
-        v19 += 4;
-        v23 = a3 + v21;
+        v19 += 32;
+        v23 = (a3 + v21);
         v8 = v12;
         PERDecVal(a1, v22, v23, v12);
         v20 = *(a1 + 712) - 1;
@@ -6963,7 +5336,7 @@ LABEL_97:
     }
   }
 
-  if (!v169)
+  if (!v168)
   {
     v66 = *(v10 + 64);
     v67 = a4;
@@ -6975,22 +5348,22 @@ LABEL_97:
     goto LABEL_242;
   }
 
+  v170 = 0;
   v171 = 0;
   v172 = 0;
-  v173 = 0;
   if (PERGetBit(a1))
   {
-    PERGetConsBitField(a1, &v171);
+    PERGetConsBitField(a1, &v170);
   }
 
   else
   {
     v68 = PERGetBits(a1, 6u);
-    v171 = *(a1 + 1096);
-    LOWORD(v172) = *(a1 + 1105);
-    v173 = v68 + 1;
-    PERGetSkipBytes(a1, v173 >> 3);
-    PERGetBits(a1, v173 & 7);
+    v170 = *(a1 + 1096);
+    LOWORD(v171) = *(a1 + 1105);
+    v172 = v68 + 1;
+    PERGetSkipBytes(a1, v172 >> 3);
+    PERGetBits(a1, v172 & 7);
   }
 
   if (!*(v10 + 88))
@@ -7004,10 +5377,10 @@ LABEL_97:
     goto LABEL_228;
   }
 
-  v166 = 0;
+  v165 = 0;
   v70 = *(v10 + 32);
-  v168 = 0;
-  v170 = a1 + 200;
+  v167 = 0;
+  v169 = a1 + 200;
   while (2)
   {
     v71 = *(v70 + 16);
@@ -7015,22 +5388,22 @@ LABEL_97:
     {
       if (v71 < 2)
       {
-        v72 = v171;
-        v73 = v172;
-        if (v172)
+        v72 = v170;
+        v73 = v171;
+        if (v171)
         {
-          v74 = v172 - 1;
+          v74 = v171 - 1;
         }
 
         else
         {
-          ++v171;
+          ++v170;
           v74 = 7;
         }
 
         v86 = *v72;
-        LOBYTE(v172) = v74;
-        v82 = --v173;
+        LOBYTE(v171) = v74;
+        v82 = --v172;
         v87 = *(*(v10 + 8) + 24);
         v88 = *(v70 + 24);
         if ((v86 >> v73))
@@ -7045,37 +5418,37 @@ LABEL_97:
             v91 = *(a1 + 712);
           }
 
-          *(v170 + 8 * v91) = v70;
+          *(v169 + 8 * v91) = v70;
           *(a1 + 712) = v91 + 1;
-          PERDecodeOPENTypeField(a1, *v70, a3 + v90, v8);
+          PERDecodeOPENTypeField(a1, *v70, (a3 + v90), v8);
           --*(a1 + 712);
         }
 
         else
         {
           *(a3 + **(v87 + 24 * v88 + 16)) = 0;
-          ++v166;
+          ++v165;
         }
 
         goto LABEL_217;
       }
 
-      v76 = v171;
-      v77 = v172;
-      if (v172)
+      v76 = v170;
+      v77 = v171;
+      if (v171)
       {
-        v78 = v172 - 1;
+        v78 = v171 - 1;
       }
 
       else
       {
-        ++v171;
+        ++v170;
         v78 = 7;
       }
 
       v100 = *v76;
-      LOBYTE(v172) = v78;
-      v82 = --v173;
+      LOBYTE(v171) = v78;
+      v82 = --v172;
       v101 = *(*(v10 + 8) + 24);
       v102 = *(v70 + 24);
       if (((v100 >> v77) & 1) == 0)
@@ -7098,22 +5471,22 @@ LABEL_97:
 
     if (v71 == 3)
     {
-      v79 = v171;
-      v80 = v172;
-      if (v172)
+      v79 = v170;
+      v80 = v171;
+      if (v171)
       {
-        v81 = v172 - 1;
+        v81 = v171 - 1;
       }
 
       else
       {
-        ++v171;
+        ++v170;
         v81 = 7;
       }
 
       v92 = *v79;
-      LOBYTE(v172) = v81;
-      v82 = --v173;
+      LOBYTE(v171) = v81;
+      v82 = --v172;
       v93 = *(v10 + 8);
       v94 = *(v93 + 24);
       v95 = *(v70 + 24);
@@ -7137,9 +5510,9 @@ LABEL_137:
       }
 
 LABEL_138:
-      *(v170 + 8 * v98) = v70;
+      *(v169 + 8 * v98) = v70;
       *(a1 + 712) = v98 + 1;
-      PERDecodeOPENTypeField(a1, *v70, a3 + v97, v8);
+      PERDecodeOPENTypeField(a1, *v70, (a3 + v97), v8);
       --*(a1 + 712);
       goto LABEL_216;
     }
@@ -7148,48 +5521,48 @@ LABEL_138:
     {
       if (v71 == 5)
       {
-        if (v172)
+        if (v171)
         {
-          v75 = v172 - 1;
+          v75 = v171 - 1;
         }
 
         else
         {
-          ++v171;
+          ++v170;
           v75 = 7;
         }
 
-        LOBYTE(v172) = v75;
-        v82 = --v173;
+        LOBYTE(v171) = v75;
+        v82 = --v172;
       }
 
       else
       {
         CUCFErrorHandler(a1, 15);
-        v82 = v173;
+        v82 = v172;
       }
 
       goto LABEL_217;
     }
 
-    v83 = v171;
-    v84 = v172;
-    if (v172)
+    v83 = v170;
+    v84 = v171;
+    if (v171)
     {
-      v85 = v172 - 1;
+      v85 = v171 - 1;
     }
 
     else
     {
-      ++v171;
+      ++v170;
       v85 = 7;
     }
 
     v104 = *(v70 + 24);
     v69 -= v104;
     v105 = *v83;
-    LOBYTE(v172) = v85;
-    v82 = --v173;
+    LOBYTE(v171) = v85;
+    v82 = --v172;
     if (((v105 >> v84) & 1) == 0)
     {
       for (; v104; --v104)
@@ -7222,9 +5595,9 @@ LABEL_138:
       goto LABEL_217;
     }
 
+    v175 = 0;
     v176 = 0;
     v177 = 0;
-    v178 = 0;
     v106 = 0;
     if (v104)
     {
@@ -7259,62 +5632,62 @@ LABEL_138:
     {
       if ((v110 & 0xC0) == 0x80)
       {
-        v165 = 0;
-        v163 = PERGetByte(a1) & 0xFFFFC0FF | ((v110 & 0x3F) << 8);
-        v114 = *(a1 + 1096) + v163;
+        v164 = 0;
+        v162 = PERGetByte(a1) & 0xFFFFC0FF | ((v110 & 0x3F) << 8);
+        v114 = *(a1 + 1096) + v162;
       }
 
       else
       {
         if ((v110 & 0x80) != 0)
         {
-          v164 = v110;
+          v163 = v110;
           EPErrorHandler(a1, 26);
-          v165 = 0;
+          v164 = 0;
+          v161 = 0;
           v162 = 0;
-          v163 = 0;
           goto LABEL_170;
         }
 
-        v165 = 0;
-        v163 = v110;
+        v164 = 0;
+        v162 = v110;
         v114 = *(a1 + 1096) + v110;
       }
 
-      v162 = v114;
-      v164 = *(a1 + 1105);
+      v161 = v114;
+      v163 = *(a1 + 1105);
     }
 
     else
     {
       --*(a1 + 1096);
-      v164 = v110;
-      v165 = *(a1 + 1105);
-      if (v165 == 7)
+      v163 = v110;
+      v164 = *(a1 + 1105);
+      if (v164 == 7)
       {
-        v162 = 0;
-        v163 = PEROctetsDefragmentation(a1);
-        v165 = 255;
+        v161 = 0;
+        v162 = PEROctetsDefragmentation(a1);
+        v164 = 255;
       }
 
       else
       {
-        v162 = 0;
-        v163 = PEROctetsDefragmentationWithOffset(a1);
+        v161 = 0;
+        v162 = PEROctetsDefragmentationWithOffset(a1);
       }
     }
 
 LABEL_170:
     if (v106 >> 16)
     {
-      PERGetConsBitField(a1, &v176);
+      PERGetConsBitField(a1, &v175);
     }
 
     else
     {
-      v176 = *(a1 + 1096);
-      LOWORD(v177) = *(a1 + 1105);
-      v178 = v106 + 1;
+      v175 = *(a1 + 1096);
+      LOWORD(v176) = *(a1 + 1105);
+      v177 = v106 + 1;
       PERGetSkipBytes(a1, v106 >> 3);
       PERGetBits(a1, v106 & 7);
     }
@@ -7338,19 +5711,19 @@ LABEL_170:
 
         if (v117 == 1)
         {
-          if (v177)
+          if (v176)
           {
-            v119 = v177 - 1;
+            v119 = v176 - 1;
           }
 
           else
           {
-            ++v176;
+            ++v175;
             v119 = 7;
           }
 
-          LOBYTE(v177) = v119;
-          --v178;
+          LOBYTE(v176) = v119;
+          --v177;
 LABEL_203:
           v136 = *(*(v10 + 8) + 24) + 24 * *(v116 + 24);
           v129 = *(v136 + 8);
@@ -7364,9 +5737,9 @@ LABEL_204:
           }
 
 LABEL_205:
-          *(v170 + 8 * v130) = v116;
+          *(v169 + 8 * v130) = v116;
           *(a1 + 712) = v130 + 1;
-          PERDecVal(a1, *v116, a3 + v129, v8);
+          PERDecVal(a1, *v116, (a3 + v129), v8);
           --*(a1 + 712);
         }
       }
@@ -7376,21 +5749,21 @@ LABEL_205:
         switch(v117)
         {
           case 2u:
-            v120 = *v176;
-            v121 = v177;
-            if (v177)
+            v120 = *v175;
+            v121 = v176;
+            if (v176)
             {
-              v122 = v177 - 1;
+              v122 = v176 - 1;
             }
 
             else
             {
-              ++v176;
+              ++v175;
               v122 = 7;
             }
 
-            LOBYTE(v177) = v122;
-            --v178;
+            LOBYTE(v176) = v122;
+            --v177;
             v126 = *(*(v10 + 8) + 24);
             v127 = *(v116 + 24);
             if ((v120 >> v121))
@@ -7410,21 +5783,21 @@ LABEL_205:
             *(a3 + **(v126 + 24 * v127 + 16)) = 0;
             break;
           case 3u:
-            v123 = *v176;
-            v124 = v177;
-            if (v177)
+            v123 = *v175;
+            v124 = v176;
+            if (v176)
             {
-              v125 = v177 - 1;
+              v125 = v176 - 1;
             }
 
             else
             {
-              ++v176;
+              ++v175;
               v125 = 7;
             }
 
-            LOBYTE(v177) = v125;
-            --v178;
+            LOBYTE(v176) = v125;
+            --v177;
             v131 = *(v10 + 8);
             v132 = *(v131 + 24);
             v133 = *(v116 + 24);
@@ -7447,26 +5820,26 @@ LABEL_205:
             GenericAssignSort((a3 + *(v135 + 8)), *(*(v135 + 16) + 8), 10, *v135);
             break;
           case 5u:
-            if (v177)
+            if (v176)
             {
-              v118 = v177 - 1;
+              v118 = v176 - 1;
             }
 
             else
             {
-              ++v176;
+              ++v175;
               v118 = 7;
             }
 
-            LOBYTE(v177) = v118;
-            --v178;
+            LOBYTE(v176) = v118;
+            --v177;
             break;
         }
       }
 
-      if (!v178 && BYTE1(v177) == 1)
+      if (!v177 && BYTE1(v176) == 1)
       {
-        PERSetBitFieldLength(&v176);
+        PERSetBitFieldLength(&v175);
       }
 
       v116 += 32;
@@ -7476,25 +5849,25 @@ LABEL_205:
     while (v115);
     v70 = v116 - 32;
 LABEL_211:
-    if (v165)
+    if (v164)
     {
-      if (*(a1 + 1105) < v165)
+      if (*(a1 + 1105) < v164)
       {
         ++*(a1 + 1096);
       }
 
-      *(a1 + 1105) = v165;
-      PEROctetsFragmentationWithOffset(a1, v163);
+      *(a1 + 1105) = v164;
+      PEROctetsFragmentationWithOffset(a1, v162);
     }
 
     else
     {
-      *(a1 + 1096) = v162;
-      *(a1 + 1105) = v164;
+      *(a1 + 1096) = v161;
+      *(a1 + 1105) = v163;
     }
 
 LABEL_216:
-    ++v168;
+    ++v167;
 LABEL_217:
     --v69;
     if (v82)
@@ -7512,14 +5885,14 @@ LABEL_220:
     break;
   }
 
-  if (BYTE1(v172) == 1)
+  if (BYTE1(v171) == 1)
   {
-    PERSetBitFieldLength(&v171);
+    PERSetBitFieldLength(&v170);
     goto LABEL_220;
   }
 
 LABEL_223:
-  if (v166 && v168)
+  if (v165 && v167)
   {
     EPErrorHandler(a1, 33);
   }
@@ -7531,14 +5904,14 @@ LABEL_223:
   }
 
 LABEL_228:
-  v137 = v173;
-  if (v173)
+  v137 = v172;
+  if (v172)
   {
-    if (!BYTE1(v172))
+    if (!BYTE1(v171))
     {
 LABEL_230:
-      v138 = v171;
-      v139 = v172;
+      v138 = v170;
+      v139 = v171;
       do
       {
         v140 = *v138;
@@ -7566,13 +5939,13 @@ LABEL_230:
     }
   }
 
-  else if (BYTE1(v172) == 1)
+  else if (BYTE1(v171) == 1)
   {
-    PERSetBitFieldLength(&v171);
-    v137 = v173;
-    if (v173)
+    PERSetBitFieldLength(&v170);
+    v137 = v172;
+    if (v172)
     {
-      if (!BYTE1(v172))
+      if (!BYTE1(v171))
       {
         goto LABEL_230;
       }
@@ -7584,11 +5957,11 @@ LABEL_241:
 LABEL_242:
   if ((*(v10 + 48) & 0x10) == 0)
   {
-    goto LABEL_286;
+    return;
   }
 
-  v142 = v175;
-  if (!v175)
+  v142 = v174;
+  if (!v174)
   {
     if (v67)
     {
@@ -7599,13 +5972,13 @@ LABEL_242:
   }
 
   v143 = 0;
-  v144 = v175;
+  v144 = v174;
   do
   {
     do
     {
 LABEL_245:
-      v145 = v174;
+      v145 = v173;
       v146 = v142[2];
       do
       {
@@ -7613,7 +5986,7 @@ LABEL_245:
       }
 
       while (*v146 == 128);
-      if (!v174)
+      if (!v173)
       {
         goto LABEL_264;
       }
@@ -7628,8 +6001,8 @@ LABEL_251:
         }
       }
 
-      v176 = 0;
-      v147 = CUCFGetOpenTypeObject(a1, v142[2], *(v145 + 1), &v176);
+      v175 = 0;
+      v147 = CUCFGetOpenTypeObject(a1, v142[2], *(v145 + 1), &v175);
       if (!v147)
       {
         EPErrorHandler(a1, 39);
@@ -7702,7 +6075,7 @@ LABEL_264:
         goto LABEL_245;
       }
 
-      if (v142 != v175)
+      if (v142 != v174)
       {
         *(v144 + 4) = v142[4];
         MMSFree(a1, v142, 0x28);
@@ -7716,29 +6089,29 @@ LABEL_264:
         goto LABEL_245;
       }
 
-      v175 = v142[4];
+      v174 = v142[4];
       MMSFree(a1, v142, 0x28);
       v143 = 1;
-      v144 = v175;
-      v142 = v175;
+      v144 = v174;
+      v142 = v174;
     }
 
-    while (v175);
-    v142 = v175;
+    while (v174);
+    v142 = v174;
     if (!v143)
     {
       break;
     }
 
     v143 = 0;
-    v144 = v175;
+    v144 = v174;
   }
 
-  while (v175);
+  while (v174);
   v67 = a4;
   if (!a4)
   {
-    if (v175)
+    if (v174)
     {
       EPErrorHandler(a1, 38);
     }
@@ -7746,20 +6119,20 @@ LABEL_264:
 LABEL_285:
     while (1)
     {
-      v160 = v174;
-      if (!v174)
+      v160 = v173;
+      if (!v173)
       {
         break;
       }
 
-      v174 = *(v174 + 2);
+      v173 = *(v173 + 2);
       MMSFree(a1, v160, 0x18);
     }
 
-    goto LABEL_286;
+    return;
   }
 
-  if (v175)
+  if (v174)
   {
     v157 = a4 + 1;
     v158 = a4[1];
@@ -7775,29 +6148,26 @@ LABEL_285:
       v157 = (v159 + 4);
     }
 
-    *v157 = v175;
+    *v157 = v174;
   }
 
 LABEL_280:
   if (!*v67)
   {
-    *v67 = v174;
+    *v67 = v173;
   }
-
-LABEL_286:
-  v161 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t PERDecodeSEQUENCE_OF(uint64_t a1, uint64_t a2, void *__s, uint64_t a4)
 {
-  v13[3] = *MEMORY[0x29EDCA608];
-  v12[1] = 0;
+  v12[3] = *MEMORY[0x29EDCA608];
+  v11[1] = 0;
   v8 = *(*(a2 + 8) + 8);
   memset_s(__s, v8, 0, v8);
-  v12[0] = __s;
-  v13[0] = 0;
-  v13[1] = a2;
-  v13[2] = a4;
+  v11[0] = __s;
+  v12[0] = 0;
+  v12[1] = a2;
+  v12[2] = a4;
   v9 = *(a1 + 712);
   if (v9 >= 0x40)
   {
@@ -7805,26 +6175,25 @@ uint64_t PERDecodeSEQUENCE_OF(uint64_t a1, uint64_t a2, void *__s, uint64_t a4)
     v9 = *(a1 + 712);
   }
 
-  *(a1 + 8 * v9 + 200) = v13;
+  *(a1 + 8 * v9 + 200) = v12;
   *(a1 + 712) = v9 + 1;
-  v12[2] = PERDecodePrimSEQUENCE_OF;
-  result = PERConstructedDecode(a1, v12);
+  v11[2] = PERDecodePrimSEQUENCE_OF;
+  result = PERConstructedDecode(a1, v11);
   --*(a1 + 712);
-  v11 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void PERDecodeConstrainedSEQUENCE_OF(uint64_t a1, uint64_t a2, void *__s, unint64_t a4)
 {
-  v20[3] = *MEMORY[0x29EDCA608];
+  v19[3] = *MEMORY[0x29EDCA608];
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
   v8 = *(*(a2 + 8) + 8);
   memset_s(__s, v8, 0, v8);
-  v17 = __s;
-  v20[0] = 0;
-  v20[1] = a2;
-  v20[2] = a4;
+  v16 = __s;
+  v19[0] = 0;
+  v19[1] = a2;
+  v19[2] = a4;
   v9 = *(a1 + 712);
   if (v9 >= 0x40)
   {
@@ -7832,7 +6201,7 @@ void PERDecodeConstrainedSEQUENCE_OF(uint64_t a1, uint64_t a2, void *__s, unint6
     v9 = *(a1 + 712);
   }
 
-  *(a1 + 200 + 8 * v9) = v20;
+  *(a1 + 200 + 8 * v9) = v19;
   *(a1 + 712) = v9 + 1;
   if (*(a2 + 33) == 1 && PERGetBit(a1))
   {
@@ -7847,104 +6216,6 @@ void PERDecodeConstrainedSEQUENCE_OF(uint64_t a1, uint64_t a2, void *__s, unint6
 
   if ((v10 & 2) == 0)
   {
-    v12 = *(a2 + 48);
-    if (!(v12 >> 16))
-    {
-      v13 = v12 - *(a2 + 40);
-      v15 = 0;
-      v16 = v13;
-      PERDecodeConstrainedWholeNumberFunc(a1, &v16, &v15);
-      v14 = (v15 + *(a2 + 40));
-      v18 = v14;
-      goto LABEL_15;
-    }
-
-LABEL_6:
-    v19 = PERDecodePrimSEQUENCE_OF;
-    PERConstructedDecode(a1, &v17);
-    goto LABEL_7;
-  }
-
-  v14 = *(a2 + 40);
-  if (!v14)
-  {
-    goto LABEL_7;
-  }
-
-  if (v14 >> 16)
-  {
-    goto LABEL_6;
-  }
-
-LABEL_15:
-  PERDecodePrimSEQUENCE_OF(a1, v14, &v17);
-LABEL_7:
-  --*(a1 + 712);
-  if (!*(a2 + 33))
-  {
-    CUCFCheckStructOfConstraint(a1, a2, v20[0]);
-  }
-
-  v11 = *MEMORY[0x29EDCA608];
-}
-
-uint64_t PERDecodeSET_OF(uint64_t a1, uint64_t a2, void *__s, uint64_t a4)
-{
-  v12[3] = *MEMORY[0x29EDCA608];
-  v11[1] = 0;
-  memset_s(__s, 0x18uLL, 0, 0x18uLL);
-  v11[0] = __s;
-  v12[0] = 0;
-  v12[1] = a2;
-  v12[2] = a4;
-  v8 = *(a1 + 712);
-  if (v8 >= 0x40)
-  {
-    CUCFErrorHandler(a1, 15);
-    v8 = *(a1 + 712);
-  }
-
-  *(a1 + 8 * v8 + 200) = v12;
-  *(a1 + 712) = v8 + 1;
-  v11[2] = PERDecodePrimSET_OF;
-  result = PERConstructedDecode(a1, v11);
-  --*(a1 + 712);
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-void PERDecodeConstrainedSET_OF(uint64_t a1, uint64_t a2, void *__s, unint64_t a4)
-{
-  v19[3] = *MEMORY[0x29EDCA608];
-  v17 = 0;
-  v18 = 0;
-  memset_s(__s, 0x18uLL, 0, 0x18uLL);
-  v16 = __s;
-  v19[0] = 0;
-  v19[1] = a2;
-  v19[2] = a4;
-  v8 = *(a1 + 712);
-  if (v8 >= 0x40)
-  {
-    CUCFErrorHandler(a1, 15);
-    v8 = *(a1 + 712);
-  }
-
-  *(a1 + 200 + 8 * v8) = v19;
-  *(a1 + 712) = v8 + 1;
-  if (*(a2 + 33) == 1 && PERGetBit(a1))
-  {
-    goto LABEL_6;
-  }
-
-  v9 = *(a2 + 32);
-  if ((v9 & 0x80000000) == 0)
-  {
-    goto LABEL_6;
-  }
-
-  if ((v9 & 2) == 0)
-  {
     v11 = *(a2 + 48);
     if (!(v11 >> 16))
     {
@@ -7958,7 +6229,7 @@ void PERDecodeConstrainedSET_OF(uint64_t a1, uint64_t a2, void *__s, unint64_t a
     }
 
 LABEL_6:
-    v18 = PERDecodePrimSET_OF;
+    v18 = PERDecodePrimSEQUENCE_OF;
     PERConstructedDecode(a1, &v16);
     goto LABEL_7;
   }
@@ -7975,22 +6246,115 @@ LABEL_6:
   }
 
 LABEL_15:
-  PERDecodePrimSET_OF(a1, v13, &v16);
+  PERDecodePrimSEQUENCE_OF(a1, v13, &v16);
 LABEL_7:
   --*(a1 + 712);
   if (!*(a2 + 33))
   {
     CUCFCheckStructOfConstraint(a1, a2, v19[0]);
   }
+}
 
-  v10 = *MEMORY[0x29EDCA608];
+uint64_t PERDecodeSET_OF(uint64_t a1, uint64_t a2, void *__s, uint64_t a4)
+{
+  v11[3] = *MEMORY[0x29EDCA608];
+  v10[1] = 0;
+  memset_s(__s, 0x18uLL, 0, 0x18uLL);
+  v10[0] = __s;
+  v11[0] = 0;
+  v11[1] = a2;
+  v11[2] = a4;
+  v8 = *(a1 + 712);
+  if (v8 >= 0x40)
+  {
+    CUCFErrorHandler(a1, 15);
+    v8 = *(a1 + 712);
+  }
+
+  *(a1 + 8 * v8 + 200) = v11;
+  *(a1 + 712) = v8 + 1;
+  v10[2] = PERDecodePrimSET_OF;
+  result = PERConstructedDecode(a1, v10);
+  --*(a1 + 712);
+  return result;
+}
+
+void PERDecodeConstrainedSET_OF(uint64_t a1, uint64_t a2, void *__s, unint64_t a4)
+{
+  v18[3] = *MEMORY[0x29EDCA608];
+  v16 = 0;
+  v17 = 0;
+  memset_s(__s, 0x18uLL, 0, 0x18uLL);
+  v15 = __s;
+  v18[0] = 0;
+  v18[1] = a2;
+  v18[2] = a4;
+  v8 = *(a1 + 712);
+  if (v8 >= 0x40)
+  {
+    CUCFErrorHandler(a1, 15);
+    v8 = *(a1 + 712);
+  }
+
+  *(a1 + 200 + 8 * v8) = v18;
+  *(a1 + 712) = v8 + 1;
+  if (*(a2 + 33) == 1 && PERGetBit(a1))
+  {
+    goto LABEL_6;
+  }
+
+  v9 = *(a2 + 32);
+  if ((v9 & 0x80000000) == 0)
+  {
+    goto LABEL_6;
+  }
+
+  if ((v9 & 2) == 0)
+  {
+    v10 = *(a2 + 48);
+    if (!(v10 >> 16))
+    {
+      v11 = v10 - *(a2 + 40);
+      v13 = 0;
+      v14 = v11;
+      PERDecodeConstrainedWholeNumberFunc(a1, &v14, &v13);
+      v12 = (v13 + *(a2 + 40));
+      v16 = v12;
+      goto LABEL_15;
+    }
+
+LABEL_6:
+    v17 = PERDecodePrimSET_OF;
+    PERConstructedDecode(a1, &v15);
+    goto LABEL_7;
+  }
+
+  v12 = *(a2 + 40);
+  if (!v12)
+  {
+    goto LABEL_7;
+  }
+
+  if (v12 >> 16)
+  {
+    goto LABEL_6;
+  }
+
+LABEL_15:
+  PERDecodePrimSET_OF(a1, v12, &v15);
+LABEL_7:
+  --*(a1 + 712);
+  if (!*(a2 + 33))
+  {
+    CUCFCheckStructOfConstraint(a1, a2, v18[0]);
+  }
 }
 
 void PERDecodeCHOICE(uint64_t a1, void *a2, char *__s, uint64_t a4)
 {
-  v35[1] = *MEMORY[0x29EDCA608];
+  v32[1] = *MEMORY[0x29EDCA608];
   v8 = a2[4];
-  v35[0] = 0;
+  v32[0] = 0;
   v9 = *(a2[1] + 8);
   memset_s(__s, v9, 0, v9);
   if (a2[3] == -1)
@@ -7998,12 +6362,12 @@ void PERDecodeCHOICE(uint64_t a1, void *a2, char *__s, uint64_t a4)
     v13 = a2[5];
     if (v13 >= 2)
     {
-      v33 = 0;
+      v30 = 0;
       v14 = v13 - 1;
 LABEL_9:
-      v34 = v14;
-      PERDecodeConstrainedWholeNumberFunc(a1, &v34, &v33);
-      v15 = v33;
+      v31 = v14;
+      PERDecodeConstrainedWholeNumberFunc(a1, &v31, &v30);
+      v15 = v30;
       goto LABEL_11;
     }
 
@@ -8046,17 +6410,17 @@ LABEL_11:
       {
         *__s = v20;
 LABEL_37:
-        v28 = *(v18 + 36);
-        v29 = *(a1 + 712);
-        if (v29 >= 0x40)
+        v26 = *(v18 + 36);
+        v27 = *(a1 + 712);
+        if (v27 >= 0x40)
         {
           CUCFErrorHandler(a1, 15);
-          v29 = *(a1 + 712);
+          v27 = *(a1 + 712);
         }
 
-        *(a1 + 200 + 8 * v29) = v17;
-        *(a1 + 712) = v29 + 1;
-        PERDecVal(a1, *v17, &__s[v28], a4);
+        *(a1 + 200 + 8 * v27) = v17;
+        *(a1 + 712) = v27 + 1;
+        PERDecVal(a1, *v17, &__s[v26], a4);
         goto LABEL_47;
       }
     }
@@ -8071,7 +6435,7 @@ LABEL_37:
   {
     if (v11 >= 2)
     {
-      v33 = 0;
+      v30 = 0;
       v14 = *(a2 + 6) - 1;
       goto LABEL_9;
     }
@@ -8086,9 +6450,9 @@ LABEL_37:
 
   else
   {
-    PERDecodeNormallySmallNonNegativeWholeNumber(a1, v35);
+    PERDecodeNormallySmallNonNegativeWholeNumber(a1, v32);
     v11 = a2[5];
-    v12 = v35[0];
+    v12 = v32[0];
   }
 
   v21 = a2[3] + v12;
@@ -8098,184 +6462,170 @@ LABEL_37:
     if (*(v22 + 16) == 5)
     {
 LABEL_21:
-      v23 = *MEMORY[0x29EDCA608];
 
       EPErrorHandler(a1, 37);
       return;
     }
 
-    v25 = a2[1];
-    v26 = *(v25 + 40);
-    v27 = *(v22 + 24);
-    if (v26 > 3)
+    v23 = a2[1];
+    v24 = *(v23 + 40);
+    v25 = *(v22 + 24);
+    if (v24 > 3)
     {
-      if (v26 == 8)
+      if (v24 == 8)
       {
-        *__s = v27;
+        *__s = v25;
         goto LABEL_44;
       }
     }
 
     else
     {
-      if (v26 == 1)
+      if (v24 == 1)
       {
-        *__s = v27;
+        *__s = v25;
         goto LABEL_44;
       }
 
-      if (v26 == 2)
+      if (v24 == 2)
       {
-        *__s = v27;
+        *__s = v25;
 LABEL_44:
-        v30 = *(v25 + 36);
-        v31 = *(a1 + 712);
-        if (v31 >= 0x40)
+        v28 = *(v23 + 36);
+        v29 = *(a1 + 712);
+        if (v29 >= 0x40)
         {
           CUCFErrorHandler(a1, 15);
-          v31 = *(a1 + 712);
+          v29 = *(a1 + 712);
         }
 
-        *(a1 + 200 + 8 * v31) = v22;
-        *(a1 + 712) = v31 + 1;
-        PERDecodeOPENTypeField(a1, *v22, &__s[v30], a4);
+        *(a1 + 200 + 8 * v29) = v22;
+        *(a1 + 712) = v29 + 1;
+        PERDecodeOPENTypeField(a1, *v22, &__s[v28], a4);
 LABEL_47:
         --*(a1 + 712);
-        v32 = *MEMORY[0x29EDCA608];
         return;
       }
     }
 
-    *__s = v27;
+    *__s = v25;
     goto LABEL_44;
   }
 
   if (v11 == 1)
   {
-    PERDecodeNormallySmallNonNegativeWholeNumber(a1, v35);
+    PERDecodeNormallySmallNonNegativeWholeNumber(a1, v32);
   }
-
-  v24 = *MEMORY[0x29EDCA608];
 
   PERSkipOPENTypeField(a1);
 }
 
-void *PERDecodeOPEN_ID(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void *PERDecodeOPEN_ID(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v10 = *MEMORY[0x29EDCA608];
   PERDecVal(a1, *(a2 + 24), a3, 0);
   result = MMSAlloc(a1, 0x18uLL);
   *result = a2;
   result[1] = a3;
   result[2] = *a4;
   *a4 = result;
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void PERDecodeOPEN(uint64_t a1, unsigned __int8 *a2, void *a3, uint64_t *a4)
 {
-  v22[1] = *MEMORY[0x29EDCA608];
-  if (a4)
+  v20[1] = *MEMORY[0x29EDCA608];
+  if (!a4 || (v8 = *a4) == 0)
   {
-    v8 = *a4;
-    if (*a4)
+LABEL_7:
+    v10 = *(a1 + 1096);
+    v11 = *(a1 + 1105);
+    v12 = MMSAlloc(a1, 0x28uLL);
+    *v12 = v10;
+    v12[8] = v11;
+    *(v12 + 2) = a2;
+    *(v12 + 3) = a3;
+    *(v12 + 4) = a4[1];
+    a4[1] = v12;
+
+    PERSkipOPENTypeField(a1);
+    return;
+  }
+
+  while (1)
+  {
+    v9 = a2;
+    do
     {
-      while (1)
-      {
-        v9 = a2;
-        do
-        {
-          v9 = *(v9 + 3);
-        }
+      v9 = *(v9 + 3);
+    }
 
-        while (*v9 == 128);
-        if (v9 == *v8)
-        {
-          break;
-        }
+    while (*v9 == 128);
+    if (v9 == *v8)
+    {
+      break;
+    }
 
-        v8 = *(v8 + 16);
-        if (!v8)
-        {
-          goto LABEL_7;
-        }
-      }
-
-      v22[0] = 0;
-      v14 = CUCFGetOpenTypeObject(a1, a2, *(v8 + 8), v22);
-      if (!v14)
-      {
-        EPErrorHandler(a1, 39);
-LABEL_23:
-        v21 = *MEMORY[0x29EDCA608];
-        return;
-      }
-
-      v15 = v14;
-      v16 = *(a2 + 1);
-      v17 = *(v16 + 40);
-      v18 = *(v14 + 24);
-      if (v17 > 3)
-      {
-        if (v17 == 8)
-        {
-          *a3 = v18;
-          goto LABEL_20;
-        }
-      }
-
-      else
-      {
-        if (v17 == 1)
-        {
-          *a3 = v18;
-          goto LABEL_20;
-        }
-
-        if (v17 == 2)
-        {
-          *a3 = v18;
-LABEL_20:
-          v19 = *(v16 + 36);
-          v20 = *(a1 + 712);
-          if (v20 >= 0x40)
-          {
-            CUCFErrorHandler(a1, 15);
-            v20 = *(a1 + 712);
-          }
-
-          *(a1 + 200 + 8 * v20) = v15;
-          *(a1 + 712) = v20 + 1;
-          PERDecodeOPENTypeField(a1, *v15, a3 + v19, 0);
-          --*(a1 + 712);
-          goto LABEL_23;
-        }
-      }
-
-      *a3 = v18;
-      goto LABEL_20;
+    v8 = *(v8 + 16);
+    if (!v8)
+    {
+      goto LABEL_7;
     }
   }
 
-LABEL_7:
-  v10 = *(a1 + 1096);
-  v11 = *(a1 + 1105);
-  v12 = MMSAlloc(a1, 0x28uLL);
-  *v12 = v10;
-  v12[8] = v11;
-  *(v12 + 2) = a2;
-  *(v12 + 3) = a3;
-  *(v12 + 4) = a4[1];
-  a4[1] = v12;
-  v13 = *MEMORY[0x29EDCA608];
+  v20[0] = 0;
+  v13 = CUCFGetOpenTypeObject(a1, a2, *(v8 + 8), v20);
+  if (!v13)
+  {
+    EPErrorHandler(a1, 39);
+    return;
+  }
 
-  PERSkipOPENTypeField(a1);
+  v14 = v13;
+  v15 = *(a2 + 1);
+  v16 = *(v15 + 40);
+  v17 = *(v13 + 24);
+  if (v16 > 3)
+  {
+    if (v16 == 8)
+    {
+      *a3 = v17;
+      goto LABEL_20;
+    }
+
+LABEL_18:
+    *a3 = v17;
+    goto LABEL_20;
+  }
+
+  if (v16 == 1)
+  {
+    *a3 = v17;
+    goto LABEL_20;
+  }
+
+  if (v16 != 2)
+  {
+    goto LABEL_18;
+  }
+
+  *a3 = v17;
+LABEL_20:
+  v18 = *(v15 + 36);
+  v19 = *(a1 + 712);
+  if (v19 >= 0x40)
+  {
+    CUCFErrorHandler(a1, 15);
+    v19 = *(a1 + 712);
+  }
+
+  *(a1 + 200 + 8 * v19) = v14;
+  *(a1 + 712) = v19 + 1;
+  PERDecodeOPENTypeField(a1, *v14, a3 + v18, 0);
+  --*(a1 + 712);
 }
 
 uint64_t PEREncodeUnconstrainedWholeNumberFunc(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
   v4 = *(a2 + 4);
   if (v4 >= 0x80)
   {
@@ -8331,14 +6681,11 @@ uint64_t PEREncodeUnconstrainedWholeNumberFunc(uint64_t a1, uint64_t a2)
     v6 = 16;
   }
 
-  v7 = *MEMORY[0x29EDCA608];
-
   return PERPutBits(a1, v5, v6);
 }
 
 unint64_t PERDecodeUnconstrainedWholeNumberFunc(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x29EDCA608];
   v4 = PERGetByte(a1);
   if ((v4 - 5) <= 0xFFFFFFFB)
   {
@@ -8353,16 +6700,166 @@ unint64_t PERDecodeUnconstrainedWholeNumberFunc(uint64_t a1, uint64_t a2)
     *(a2 + 4) = (-1 << v5) | result;
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t PEREncodeConstrainedWholeNumberFunc(uint64_t result, unsigned int *a2, unsigned int *a3)
 {
   v4 = result;
-  v41 = *MEMORY[0x29EDCA608];
   v5 = *a2;
-  if ((*(result + 1056) & 0x40) == 0)
+  if ((*(result + 1056) & 0x40) != 0)
+  {
+    if (!v5)
+    {
+      return result;
+    }
+
+    if (v5 > 0xFE)
+    {
+      if (v5 == 255)
+      {
+        v13 = *(result + 1105);
+        if (v13 == 7)
+        {
+          v14 = *(result + 1096);
+        }
+
+        else
+        {
+          **(result + 1096) &= 510 << v13;
+          v14 = (*(result + 1096) + 1);
+          *(result + 1096) = v14;
+          *(result + 1105) = 7;
+        }
+
+        if (v14 == *(result + 1080))
+        {
+          v17 = *(result + 1072);
+          v18 = *(result + 1088) - v17;
+          v19 = &v14[-v17];
+          result = (*(result + 856))(result, 1);
+          *(v4 + 1072) = result;
+          v14 = &v19[result];
+          *(v4 + 1080) = &v19[result + 1];
+          *(v4 + 1088) = result + v18;
+          *(v4 + 1096) = &v19[result];
+        }
+
+        *v14 = *a3;
+      }
+
+      else
+      {
+        if (HIWORD(v5))
+        {
+          v20 = *a3;
+          v21 = __clz(v5);
+          v22 = 32 - v21;
+          v23 = v21 - 32;
+          do
+          {
+            v5 >>= 1;
+            v9 = __CFADD__(v23++, 1);
+          }
+
+          while (!v9);
+          *a2 = v5;
+          v24 = v22 >> 3;
+          if ((v22 & 7) != 0)
+          {
+            ++v24;
+          }
+
+          v25 = 8 - __clz((v24 << 24) - 0x1000000);
+          v26 = 32 - __clz(v20);
+          if ((v26 & 7) != 0)
+          {
+            v27 = (v26 >> 3) + 1;
+          }
+
+          else
+          {
+            v27 = v26 >> 3;
+          }
+
+          if (v20)
+          {
+            v28 = v27;
+          }
+
+          else
+          {
+            v28 = 1;
+          }
+
+          PERPutBits(result, v28 - 1, v25);
+          v29 = *(v4 + 1105);
+          if (v29 != 7)
+          {
+            *(*(v4 + 1096))++ &= 510 << v29;
+            *(v4 + 1105) = 7;
+          }
+
+          v12 = *a3;
+          v7 = 8 * (v28 & 0x1F);
+          goto LABEL_14;
+        }
+
+        v15 = *(result + 1105);
+        if (v15 == 7)
+        {
+          v16 = *(result + 1096);
+        }
+
+        else
+        {
+          **(result + 1096) &= 510 << v15;
+          v16 = (*(result + 1096) + 1);
+          *(result + 1096) = v16;
+          *(result + 1105) = 7;
+        }
+
+        v30 = *(result + 1080);
+        if (v30 - v16 <= 1)
+        {
+          v31 = 2 - (v30 - v16);
+          v32 = *(result + 1072);
+          v33 = *(result + 1088) - v32;
+          v34 = &v16[-v32];
+          v35 = v30 - v32;
+          result = (*(result + 856))(result, v31);
+          *(v4 + 1072) = result;
+          *(v4 + 1080) = result + v35 + v31;
+          *(v4 + 1088) = result + v33;
+          v16 = &v34[result];
+          *(v4 + 1096) = &v34[result];
+        }
+
+        *v16 = BYTE1(*a3);
+        v36 = *(v4 + 1096);
+        *(v4 + 1096) = v36 + 1;
+        *(v36 + 1) = *a3;
+      }
+
+      ++*(v4 + 1096);
+      return result;
+    }
+
+    v10 = 0;
+    do
+    {
+      v11 = v5;
+      ++v10;
+      v5 >>= 1;
+    }
+
+    while (v11 > 1);
+    *a2 = v5;
+    v12 = *a3;
+    v7 = v10;
+  }
+
+  else
   {
     if (v5)
     {
@@ -8385,162 +6882,8 @@ uint64_t PEREncodeConstrainedWholeNumberFunc(uint64_t result, unsigned int *a2, 
     }
 
     v12 = *a3;
-    v14 = *MEMORY[0x29EDCA608];
-    goto LABEL_14;
   }
 
-  if (!v5)
-  {
-LABEL_46:
-    v40 = *MEMORY[0x29EDCA608];
-    return result;
-  }
-
-  if (v5 > 0xFE)
-  {
-    if (v5 == 255)
-    {
-      v15 = *(result + 1105);
-      if (v15 == 7)
-      {
-        v16 = *(result + 1096);
-      }
-
-      else
-      {
-        **(result + 1096) &= 510 << v15;
-        v16 = (*(result + 1096) + 1);
-        *(result + 1096) = v16;
-        *(result + 1105) = 7;
-      }
-
-      if (v16 == *(result + 1080))
-      {
-        v19 = *(result + 1072);
-        v20 = *(result + 1088) - v19;
-        v21 = &v16[-v19];
-        result = (*(result + 856))(result, 1);
-        *(v4 + 1072) = result;
-        v16 = &v21[result];
-        *(v4 + 1080) = &v21[result + 1];
-        *(v4 + 1088) = result + v20;
-        *(v4 + 1096) = &v21[result];
-      }
-
-      *v16 = *a3;
-    }
-
-    else
-    {
-      if (HIWORD(v5))
-      {
-        v22 = *a3;
-        v23 = __clz(v5);
-        v24 = 32 - v23;
-        v25 = v23 - 32;
-        do
-        {
-          v5 >>= 1;
-          v9 = __CFADD__(v25++, 1);
-        }
-
-        while (!v9);
-        *a2 = v5;
-        v26 = v24 >> 3;
-        if ((v24 & 7) != 0)
-        {
-          ++v26;
-        }
-
-        v27 = 8 - __clz((v26 << 24) - 0x1000000);
-        v28 = 32 - __clz(v22);
-        if ((v28 & 7) != 0)
-        {
-          v29 = (v28 >> 3) + 1;
-        }
-
-        else
-        {
-          v29 = v28 >> 3;
-        }
-
-        if (v22)
-        {
-          v30 = v29;
-        }
-
-        else
-        {
-          v30 = 1;
-        }
-
-        PERPutBits(result, v30 - 1, v27);
-        v31 = *(v4 + 1105);
-        if (v31 != 7)
-        {
-          *(*(v4 + 1096))++ &= 510 << v31;
-          *(v4 + 1105) = 7;
-        }
-
-        v12 = *a3;
-        v32 = *MEMORY[0x29EDCA608];
-        v7 = 8 * (v30 & 0x1F);
-        goto LABEL_14;
-      }
-
-      v17 = *(result + 1105);
-      if (v17 == 7)
-      {
-        v18 = *(result + 1096);
-      }
-
-      else
-      {
-        **(result + 1096) &= 510 << v17;
-        v18 = (*(result + 1096) + 1);
-        *(result + 1096) = v18;
-        *(result + 1105) = 7;
-      }
-
-      v33 = *(result + 1080);
-      if (v33 - v18 <= 1)
-      {
-        v34 = 2 - (v33 - v18);
-        v35 = *(result + 1072);
-        v36 = *(result + 1088) - v35;
-        v37 = &v18[-v35];
-        v38 = v33 - v35;
-        result = (*(result + 856))(result, v34);
-        *(v4 + 1072) = result;
-        *(v4 + 1080) = result + v38 + v34;
-        *(v4 + 1088) = result + v36;
-        v18 = &v37[result];
-        *(v4 + 1096) = &v37[result];
-      }
-
-      *v18 = BYTE1(*a3);
-      v39 = *(v4 + 1096);
-      *(v4 + 1096) = v39 + 1;
-      *(v39 + 1) = *a3;
-    }
-
-    ++*(v4 + 1096);
-    goto LABEL_46;
-  }
-
-  v10 = 0;
-  do
-  {
-    v11 = v5;
-    ++v10;
-    v5 >>= 1;
-  }
-
-  while (v11 > 1);
-  *a2 = v5;
-  v12 = *a3;
-  v13 = *MEMORY[0x29EDCA608];
-  v7 = v10;
 LABEL_14:
 
   return PERPutBits(v4, v12, v7);
@@ -8548,7 +6891,6 @@ LABEL_14:
 
 uint64_t PEREncodeSemiConstrainedWholeNumberFunc(uint64_t a1, unsigned int *a2)
 {
-  v10 = *MEMORY[0x29EDCA608];
   if ((*(a1 + 1056) & 0x40) != 0)
   {
     v4 = *(a1 + 1105);
@@ -8591,17 +6933,14 @@ uint64_t PEREncodeSemiConstrainedWholeNumberFunc(uint64_t a1, unsigned int *a2)
     v7 = 16;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
-
   return PERPutBits(a1, v6, v7);
 }
 
-void PERDecodeConstrainedWholeNumberFunc(uint64_t a1, unsigned int *a2, int *a3)
+void PERDecodeConstrainedWholeNumberFunc(uint64_t result, unsigned int *a2, int *a3)
 {
-  v4 = a1;
-  v28 = *MEMORY[0x29EDCA608];
+  v4 = result;
   v5 = *a2;
-  if ((*(a1 + 1056) & 0x40) == 0)
+  if ((*(result + 1056) & 0x40) == 0)
   {
     if (v5)
     {
@@ -8627,33 +6966,47 @@ void PERDecodeConstrainedWholeNumberFunc(uint64_t a1, unsigned int *a2, int *a3)
     goto LABEL_15;
   }
 
-  if (!v5)
+  if (v5)
   {
-    *a3 = 0;
-    goto LABEL_41;
-  }
+    if (v5 <= 0xFE)
+    {
+      v10 = 0;
+      do
+      {
+        v11 = v5;
+        ++v10;
+        v5 >>= 1;
+      }
 
-  if (v5 > 0xFE)
-  {
+      while (v11 > 1);
+      *a2 = v5;
+      v12 = v10;
+LABEL_12:
+      result = v4;
+LABEL_15:
+      *a3 = PERGetBits(result, v12);
+      return;
+    }
+
     if (v5 == 255)
     {
-      v13 = *(a1 + 1105);
+      v13 = *(result + 1105);
       if (v13 == 7)
       {
-        v14 = *(a1 + 1096);
+        v14 = *(result + 1096);
       }
 
       else
       {
-        **(a1 + 1096) &= 510 << v13;
-        v14 = (*(a1 + 1096) + 1);
-        *(a1 + 1096) = v14;
-        *(a1 + 1105) = 7;
+        **(result + 1096) &= 510 << v13;
+        v14 = (*(result + 1096) + 1);
+        *(result + 1096) = v14;
+        *(result + 1105) = 7;
       }
 
-      if (v14 == *(a1 + 1088))
+      if (v14 == *(result + 1088))
       {
-        PERAppendData(a1, 1uLL);
+        PERAppendData(result, 1uLL);
         v14 = *(v4 + 1096);
       }
 
@@ -8687,7 +7040,7 @@ void PERDecodeConstrainedWholeNumberFunc(uint64_t a1, unsigned int *a2, int *a3)
           v22 = v20 >> 3;
         }
 
-        v23 = PERGetBits(a1, (8 - __clz((v22 << 24) - 0x1000000)));
+        v23 = PERGetBits(result, (8 - __clz((v22 << 24) - 0x1000000)));
         *a3 = v23;
         v24 = *(v4 + 1105);
         if (v24 != 7)
@@ -8701,24 +7054,24 @@ void PERDecodeConstrainedWholeNumberFunc(uint64_t a1, unsigned int *a2, int *a3)
         goto LABEL_12;
       }
 
-      v15 = *(a1 + 1105);
+      v15 = *(result + 1105);
       if (v15 == 7)
       {
-        v16 = *(a1 + 1096);
+        v16 = *(result + 1096);
       }
 
       else
       {
-        **(a1 + 1096) &= 510 << v15;
-        v16 = (*(a1 + 1096) + 1);
-        *(a1 + 1096) = v16;
-        *(a1 + 1105) = 7;
+        **(result + 1096) &= 510 << v15;
+        v16 = (*(result + 1096) + 1);
+        *(result + 1096) = v16;
+        *(result + 1105) = 7;
       }
 
-      v25 = *(a1 + 1088) - v16;
+      v25 = *(result + 1088) - v16;
       if (v25 <= 1)
       {
-        PERAppendData(a1, 2 - v25);
+        PERAppendData(result, 2 - v25);
         v16 = *(v4 + 1096);
       }
 
@@ -8730,31 +7083,16 @@ void PERDecodeConstrainedWholeNumberFunc(uint64_t a1, unsigned int *a2, int *a3)
     }
 
     *(v4 + 1096) = v17;
-    goto LABEL_41;
   }
 
-  v10 = 0;
-  do
+  else
   {
-    v11 = v5;
-    ++v10;
-    v5 >>= 1;
+    *a3 = 0;
   }
-
-  while (v11 > 1);
-  *a2 = v5;
-  v12 = v10;
-LABEL_12:
-  a1 = v4;
-LABEL_15:
-  *a3 = PERGetBits(a1, v12);
-LABEL_41:
-  v27 = *MEMORY[0x29EDCA608];
 }
 
 unint64_t PERDecodeSemiConstrainedWholeNumberFunc(uint64_t a1, _DWORD *a2)
 {
-  v8 = *MEMORY[0x29EDCA608];
   if ((*(a1 + 1056) & 0x40) != 0)
   {
     v4 = *(a1 + 1105);
@@ -8773,14 +7111,12 @@ unint64_t PERDecodeSemiConstrainedWholeNumberFunc(uint64_t a1, _DWORD *a2)
 
   result = PERGetBits(a1, 8 * (v5 & 0x1Fu));
   *a2 = result;
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t PEREncodePrimBIT_STRING(uint64_t result, unint64_t a2, unsigned __int8 **a3)
 {
   v4 = result;
-  v44 = *MEMORY[0x29EDCA608];
   v5 = a2 & 7;
   v6 = *a3;
   v7 = *a3;
@@ -8847,14 +7183,14 @@ uint64_t PEREncodePrimBIT_STRING(uint64_t result, unint64_t a2, unsigned __int8 
         v23 = &v11[v9 - v22 + 1];
         v24 = *(result + 1072);
         v25 = *(result + 1088) - v24;
-        v43 = &v11[-v24];
+        v41 = &v11[-v24];
         v26 = v22 - v24;
         result = (*(result + 856))(result, v23);
         *(v4 + 1072) = result;
         *(v4 + 1080) = result + v26 + v23;
         *(v4 + 1088) = result + v25;
-        v11 = &v43[result];
-        *(v4 + 1096) = &v43[result];
+        v11 = &v41[result];
+        *(v4 + 1096) = &v41[result];
         v10 = *(v4 + 1105);
       }
 
@@ -8933,14 +7269,7 @@ uint64_t PEREncodePrimBIT_STRING(uint64_t result, unint64_t a2, unsigned __int8 
       while (v38);
     }
 
-    v41 = *MEMORY[0x29EDCA608];
-
     return PERPutBits(v4, v37 >> (8 - v5), v5);
-  }
-
-  else
-  {
-    v42 = *MEMORY[0x29EDCA608];
   }
 
   return result;
@@ -8948,7 +7277,6 @@ uint64_t PEREncodePrimBIT_STRING(uint64_t result, unint64_t a2, unsigned __int8 
 
 uint64_t PERDecodePrimBIT_STRING(uint64_t result, size_t a2, uint64_t a3)
 {
-  v32 = *MEMORY[0x29EDCA608];
   if (a2)
   {
     v5 = result;
@@ -9117,26 +7445,31 @@ uint64_t PERDecodePrimBIT_STRING(uint64_t result, size_t a2, uint64_t a3)
     }
   }
 
-  v31 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t PEREncodePrimOCTET_STRING(uint64_t a1, size_t a2, uint64_t a3)
+unint64_t *PEREncodePrimOCTET_STRING(unint64_t *a1, size_t a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x29EDCA608];
   result = PERPutSeg(a1, *a3, a2);
   v6 = *(a3 + 8) - a2;
   *a3 += a2;
   *(a3 + 8) = v6;
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void PERDecodePrimOCTET_STRING(uint64_t a1, size_t a2, uint64_t a3)
 {
   v3 = a2;
-  v16 = *MEMORY[0x29EDCA608];
-  if (a2 - 1 <= 0x1FFE)
+  if (a2 - 1 > 0x1FFE)
+  {
+    if (a2 > 0x2000)
+    {
+
+      EPErrorHandler(a1, 28);
+    }
+  }
+
+  else
   {
     if (*a3)
     {
@@ -9162,59 +7495,45 @@ void PERDecodePrimOCTET_STRING(uint64_t a1, size_t a2, uint64_t a3)
     }
 
     *(a1 + 1112) = v6;
-    v10 = *(a1 + 1096);
-    v11 = *(a1 + 1088) - v10;
+    v9 = *(a1 + 1096);
+    v10 = *(a1 + 1088) - v9;
     if (*(a1 + 1105) == 7)
     {
-      if (v3 > v11)
+      if (v3 > v10)
       {
-        PERAppendData(a1, v3 - v11);
-        v10 = *(a1 + 1096);
+        PERAppendData(a1, v3 - v10);
+        v9 = *(a1 + 1096);
       }
 
-      memcpy_s("posp_memcpy", 29, v8, v3, v10, v3);
+      memcpy_s("posp_memcpy", 29, v8, v3, v9, v3);
       *(a1 + 1096) += v3;
     }
 
     else
     {
-      v12 = v3 >= v11;
-      v13 = v3 - v11;
-      if (v12)
+      v11 = v3 >= v10;
+      v12 = v3 - v10;
+      if (v11)
       {
-        PERAppendData(a1, v13 + 1);
+        PERAppendData(a1, v12 + 1);
       }
 
       do
       {
         *v8 = **(a1 + 1096) << (7 - *(a1 + 1105));
-        v14 = (*(a1 + 1096) + 1);
-        *(a1 + 1096) = v14;
-        *v8++ |= *v14 >> (*(a1 + 1105) + 1);
+        v13 = (*(a1 + 1096) + 1);
+        *(a1 + 1096) = v13;
+        *v8++ |= *v13 >> (*(a1 + 1105) + 1);
         --v3;
       }
 
       while (v3);
     }
-
-    goto LABEL_19;
   }
-
-  if (a2 <= 0x2000)
-  {
-LABEL_19:
-    v15 = *MEMORY[0x29EDCA608];
-    return;
-  }
-
-  v9 = *MEMORY[0x29EDCA608];
-
-  EPErrorHandler(a1, 28);
 }
 
 _DWORD *PERDecodeOBJECT_IDENTIFIERComps(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x29EDCA608];
   v6 = PERGetByte(a1);
   if ((v6 & 0x80) != 0)
   {
@@ -9308,7 +7627,6 @@ _DWORD *PERDecodeOBJECT_IDENTIFIERComps(uint64_t a1, uint64_t a2, uint64_t a3)
     while (v8);
   }
 
-  v17 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -9316,7 +7634,6 @@ uint64_t PEREncodePrimCHARACTER_STRING(uint64_t result, uint64_t a2, char **a3)
 {
   v4 = a2;
   v5 = result;
-  v15 = *MEMORY[0x29EDCA608];
   if (*(a3 + 25) == 1)
   {
     if (a2)
@@ -9334,10 +7651,10 @@ uint64_t PEREncodePrimCHARACTER_STRING(uint64_t result, uint64_t a2, char **a3)
         else
         {
           v10 = 0;
-          v11 = (v7 + 1);
+          v11 = v7 + 1;
           while (a3[5] != v10)
           {
-            v9 = (v10 + 1);
+            v9 = v10 + 1;
             v12 = (v10++)[v11];
             if (v12 == v8)
             {
@@ -9373,13 +7690,11 @@ LABEL_11:
     while (v4);
   }
 
-  v14 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 unint64_t PERDecodePrimCHARACTER_STRING(unint64_t result, uint64_t a2, uint64_t *a3)
 {
-  v14 = *MEMORY[0x29EDCA608];
   if (a2)
   {
     v4 = a2;
@@ -9421,40 +7736,35 @@ unint64_t PERDecodePrimCHARACTER_STRING(unint64_t result, uint64_t a2, uint64_t 
     while (v4);
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t PEREncodeNormallySmallNonNegativeWholeNumber(uint64_t a1, unint64_t a2)
 {
   v2 = a2;
-  v8 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   if (a2 > 0x3E)
   {
     PERPutBit(a1, 1);
-    v7 = v2;
-    result = PEREncodeSemiConstrainedWholeNumberFunc(a1, &v7);
-    v6 = *MEMORY[0x29EDCA608];
+    v5 = v2;
+    return PEREncodeSemiConstrainedWholeNumberFunc(a1, &v5);
   }
 
   else
   {
-    v4 = *MEMORY[0x29EDCA608];
 
     return PERPutBits(a1, a2, 7u);
   }
-
-  return result;
 }
 
 unint64_t PERDecodeNormallySmallNonNegativeWholeNumber(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   if (PERGetBit(a1))
   {
-    v7 = 0;
-    result = PERDecodeSemiConstrainedWholeNumberFunc(a1, &v7);
-    v5 = v7;
+    v6 = 0;
+    result = PERDecodeSemiConstrainedWholeNumberFunc(a1, &v6);
+    v5 = v6;
   }
 
   else
@@ -9464,19 +7774,16 @@ unint64_t PERDecodeNormallySmallNonNegativeWholeNumber(uint64_t a1, void *a2)
   }
 
   *a2 = v5;
-  v6 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t PERSkipPrimBitField(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   v3 = a3;
-  v7 = *MEMORY[0x29EDCA608];
   *a2 = *(a1 + 1096) - *(a1 + 1088);
   *(a2 + 8) = *(a1 + 1105);
   *(a2 + 16) = a3 + 1;
   PERSkipBytes(a1, a3 >> 3);
-  v5 = *MEMORY[0x29EDCA608];
 
   return PERPutBits(a1, 0, v3 & 7);
 }
@@ -9484,7 +7791,6 @@ uint64_t PERSkipPrimBitField(uint64_t a1, uint64_t a2, unint64_t a3)
 uint64_t PERSkipConsBitField(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   v3 = a3;
-  v12 = *MEMORY[0x29EDCA608];
   if ((*(a1 + 1056) & 0x40) != 0)
   {
     v6 = *(a1 + 1105);
@@ -9583,14 +7889,12 @@ LABEL_21:
   }
 
   PERSkipBytes(a1, v3 >> 3);
-  v10 = *MEMORY[0x29EDCA608];
 
   return PERPutBits(a1, 0, v3 & 7);
 }
 
 void PEREncodeStructRootWithOptDef(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v23 = *MEMORY[0x29EDCA608];
   v8 = a3[7];
   if (v8)
   {
@@ -9624,7 +7928,7 @@ LABEL_12:
 LABEL_13:
         *(a1 + 200 + 8 * v12) = v9;
         *(a1 + 712) = v12 + 1;
-        PEREncVal(a1, *v9, a4 + v11);
+        PEREncVal(a1, *v9, (a4 + v11));
         --*(a1 + 712);
       }
 
@@ -9685,16 +7989,15 @@ LABEL_22:
   v15 = a3[9];
   if (v15)
   {
-    v16 = a3[5];
-    while (1)
+    for (i = a3[5]; ; i += 32)
     {
-      v17 = *(v16 + 16);
+      v17 = *(i + 16);
       if (v17 > 1)
       {
         break;
       }
 
-      if (!*(v16 + 16))
+      if (!*(i + 16))
       {
         goto LABEL_32;
       }
@@ -9703,7 +8006,7 @@ LABEL_22:
       {
         PERSetBitToBitField(a1, a2, 1);
 LABEL_32:
-        v18 = *(*(a3[1] + 24) + 24 * *(v16 + 24) + 8);
+        v18 = *(*(a3[1] + 24) + 24 * *(i + 24) + 8);
         v19 = *(a1 + 712);
         if (v19 >= 0x40)
         {
@@ -9713,24 +8016,23 @@ LABEL_33:
         }
 
 LABEL_34:
-        *(a1 + 200 + 8 * v19) = v16;
+        *(a1 + 200 + 8 * v19) = i;
         *(a1 + 712) = v19 + 1;
-        PEREncVal(a1, *v16, a4 + v18);
+        PEREncVal(a1, *i, (a4 + v18));
         --*(a1 + 712);
       }
 
 LABEL_42:
-      v16 += 32;
       if (!--v15)
       {
-        goto LABEL_43;
+        return;
       }
     }
 
     switch(v17)
     {
       case 2u:
-        v20 = *(a3[1] + 24) + 24 * *(v16 + 24);
+        v20 = *(a3[1] + 24) + 24 * *(i + 24);
         if (*(a4 + **(v20 + 16)) != 1)
         {
           goto LABEL_41;
@@ -9746,7 +8048,7 @@ LABEL_42:
 
         break;
       case 3u:
-        v21 = *(a3[1] + 24) + 24 * *(v16 + 24);
+        v21 = *(a3[1] + 24) + 24 * *(i + 24);
         if (*(a4 + **(v21 + 16)) != 1)
         {
           goto LABEL_41;
@@ -9771,36 +8073,31 @@ LABEL_41:
 
     goto LABEL_34;
   }
-
-LABEL_43:
-  v22 = *MEMORY[0x29EDCA608];
 }
 
-uint64_t PEREncodeStructRoot(uint64_t result, void *a2, uint64_t a3)
+void PEREncodeStructRoot(uint64_t a1, void *a2, uint64_t a3)
 {
-  v5 = result;
-  v17 = *MEMORY[0x29EDCA608];
   v6 = a2[7];
   if (v6)
   {
     v7 = a2[3];
-    v8 = *(result + 712);
+    v8 = *(a1 + 712);
     do
     {
-      v9 = *(*(a2[1] + 24) + 24 * v7[3] + 8);
+      v9 = *(*(a2[1] + 24) + 24 * *(v7 + 24) + 8);
       if (v8 >= 0x40)
       {
-        CUCFErrorHandler(v5, 15);
-        v8 = *(v5 + 712);
+        CUCFErrorHandler(a1, 15);
+        v8 = *(a1 + 712);
       }
 
-      *(v5 + 200 + 8 * v8) = v7;
-      *(v5 + 712) = v8 + 1;
+      *(a1 + 200 + 8 * v8) = v7;
+      *(a1 + 712) = v8 + 1;
       v10 = *v7;
-      v7 += 4;
-      result = PEREncVal(v5, v10, a3 + v9);
-      v8 = *(v5 + 712) - 1;
-      *(v5 + 712) = v8;
+      v7 += 32;
+      PEREncVal(a1, v10, (a3 + v9));
+      v8 = *(a1 + 712) - 1;
+      *(a1 + 712) = v8;
       --v6;
     }
 
@@ -9811,29 +8108,1724 @@ uint64_t PEREncodeStructRoot(uint64_t result, void *a2, uint64_t a3)
   if (v11)
   {
     v12 = a2[5];
-    v13 = *(v5 + 712);
+    v13 = *(a1 + 712);
     do
     {
-      v14 = *(*(a2[1] + 24) + 24 * v12[3] + 8);
+      v14 = *(*(a2[1] + 24) + 24 * *(v12 + 24) + 8);
       if (v13 >= 0x40)
       {
-        CUCFErrorHandler(v5, 15);
-        v13 = *(v5 + 712);
+        CUCFErrorHandler(a1, 15);
+        v13 = *(a1 + 712);
       }
 
-      *(v5 + 200 + 8 * v13) = v12;
-      *(v5 + 712) = v13 + 1;
+      *(a1 + 200 + 8 * v13) = v12;
+      *(a1 + 712) = v13 + 1;
       v15 = *v12;
-      v12 += 4;
-      result = PEREncVal(v5, v15, a3 + v14);
-      v13 = *(v5 + 712) - 1;
-      *(v5 + 712) = v13;
+      v12 += 32;
+      PEREncVal(a1, v15, (a3 + v14));
+      v13 = *(a1 + 712) - 1;
+      *(a1 + 712) = v13;
       --v11;
     }
 
     while (v11);
   }
+}
 
-  v16 = *MEMORY[0x29EDCA608];
+void PERSetBitToBitField(uint64_t result, uint64_t a2, char a3)
+{
+  *(*(result + 1088) + *a2) |= a3 << *(a2 + 8);
+  v3 = *(a2 + 8);
+  if (v3)
+  {
+    v4 = (a2 + 16);
+    v5 = *(a2 + 16);
+    *(a2 + 8) = v3 - 1;
+    *(a2 + 16) = --v5;
+    if (v5)
+    {
+      return;
+    }
+
+    v6 = (v3 - 1);
+    v7 = *a2;
+    if ((v3 - 1) != 7)
+    {
+      v8 = 0;
+      v9 = *(result + 1088);
+      v10 = *(v9 + v7) << (8 - v3);
+      v11 = v7 + 1;
+      *a2 = v11;
+      v12 = (*(v9 + v11) >> v3) | v10;
+      goto LABEL_7;
+    }
+  }
+
+  else
+  {
+    v7 = *a2 + 1;
+    *a2 = v7;
+    *(a2 + 8) = 7;
+    v4 = (a2 + 16);
+    v13 = *(a2 + 16) - 1;
+    *(a2 + 16) = v13;
+    if (v13)
+    {
+      return;
+    }
+  }
+
+  v9 = *(result + 1088);
+  LOBYTE(v12) = *(v9 + v7);
+  v11 = v7 + 1;
+  *a2 = v11;
+  LOBYTE(v6) = 7;
+  v8 = 1;
+LABEL_7:
+  if (v12 > 0xC2u)
+  {
+    if (v12 == 195)
+    {
+      v14 = 49152;
+      goto LABEL_23;
+    }
+
+    if (v12 == 196)
+    {
+      v14 = 0x10000;
+      goto LABEL_23;
+    }
+  }
+
+  else
+  {
+    if (v12 == 193)
+    {
+      v14 = 0x4000;
+      goto LABEL_23;
+    }
+
+    if (v12 == 194)
+    {
+      v14 = 0x8000;
+LABEL_23:
+      *v4 = v14;
+      return;
+    }
+  }
+
+  if ((v12 & 0xC0) == 0x80)
+  {
+    v15 = (v12 & 0x3F) << 8;
+    *v4 = v15;
+    v16 = *(v9 + v11);
+    if (v8)
+    {
+      *a2 = v11 + 1;
+    }
+
+    else
+    {
+      v17 = v11 + 1;
+      *a2 = v17;
+      v16 = (*(v9 + v17) >> (v6 + 1)) | (v16 << (7 - v6));
+    }
+
+    v14 = v16 | v15;
+    goto LABEL_23;
+  }
+
+  if ((v12 & 0x80) != 0)
+  {
+
+    EPErrorHandler(result, 26);
+  }
+
+  else
+  {
+    *v4 = v12;
+  }
+}
+
+void *PEREncodeOPENTypeField(uint64_t a1, unsigned __int8 *a2, unsigned int *a3)
+{
+  v6 = *(a1 + 1105);
+  v7 = v6;
+  if ((*(a1 + 1056) & 0x40) != 0)
+  {
+    v7 = 7;
+    if (v6 != 7)
+    {
+      *(*(a1 + 1096))++ &= 510 << v6;
+      *(a1 + 1105) = 7;
+    }
+  }
+
+  v8 = *(a1 + 1096) - *(a1 + 1088);
+  PERSkipBytes(a1, 1uLL);
+  PEREncVal(a1, a2, a3);
+  v9 = *(a1 + 1096);
+  v10 = v9 - *(a1 + 1088);
+  v11 = *(a1 + 1105);
+  v12 = v11 >= v7;
+  v13 = v11 - v7;
+  if (v12)
+  {
+    v15 = v10 + ~v8;
+    if (!v15)
+    {
+      goto LABEL_12;
+    }
+
+    result = PERPutBits(a1, 0, v13);
+  }
+
+  else
+  {
+    result = PERPutBits(a1, 0, (v13 + 8));
+    v15 = v10 - v8;
+    if (!v15)
+    {
+      v9 = *(a1 + 1096);
+LABEL_12:
+      *(a1 + 1096) = v9 - 1;
+
+      return PERPutBits(a1, 0x100uLL, 0x10u);
+    }
+  }
+
+  if (v15 > 0x7F)
+  {
+    if (*(a1 + 1105) == 7)
+    {
+
+      return PEROctetsFragmentation(a1, v15);
+    }
+
+    else
+    {
+
+      return PEROctetsFragmentationWithOffset(a1, v15);
+    }
+  }
+
+  else
+  {
+    v16 = (*(a1 + 1088) + v8);
+    v17 = *(a1 + 1105);
+    if (v17 == 7)
+    {
+      *v16 = v15;
+    }
+
+    else
+    {
+      *v16 |= v15 >> (7 - v17);
+      v16[1] |= v15 << (*(a1 + 1105) + 1);
+    }
+  }
+
   return result;
+}
+
+void PERGetConsBitField(uint64_t a1, uint64_t a2)
+{
+  if ((*(a1 + 1056) & 0x40) != 0)
+  {
+    v4 = *(a1 + 1105);
+    if (v4 != 7)
+    {
+      *(*(a1 + 1096))++ &= 510 << v4;
+      *(a1 + 1105) = 7;
+    }
+  }
+
+  v5 = 0;
+  *(a2 + 16) = 0;
+  do
+  {
+    v6 = PERGetByte(a1);
+    if ((v6 + 63) >= 4u)
+    {
+      v7 = v6;
+      if ((v6 & 0xC0) == 0x80)
+      {
+        v8 = PERGetByte(a1);
+        v5 = v8 & 0xFFFFC0FF | ((v7 & 0x3F) << 8);
+        if (!*(a2 + 16))
+        {
+          *a2 = *(a1 + 1096);
+          *(a2 + 8) = *(a1 + 1105);
+          *(a2 + 16) = v5;
+        }
+
+        PERGetBits(a1, v8 & 7);
+      }
+
+      else if ((v6 & 0x80) != 0)
+      {
+        EPErrorHandler(a1, 26);
+      }
+
+      else
+      {
+        if (!*(a2 + 16))
+        {
+          *a2 = *(a1 + 1096);
+          *(a2 + 8) = *(a1 + 1105);
+          *(a2 + 16) = v6;
+        }
+
+        PERGetBits(a1, v6 & 7);
+        v5 = v7 >> 3;
+      }
+    }
+
+    else
+    {
+      v5 = ((v6 + 63) << 11) + 2048;
+    }
+
+    if (!*(a2 + 16))
+    {
+      *a2 = *(a1 + 1096);
+      *(a2 + 8) = *(a1 + 1105);
+      *(a2 + 9) = 1;
+      *(a2 + 16) = 8 * v5;
+    }
+
+    PERGetSkipBytes(a1, v5);
+  }
+
+  while (v5 > 0x7FF);
+}
+
+uint64_t PERInitAbsentStructExtAdd(uint64_t result, void *a2, uint64_t a3, uint64_t a4)
+{
+  v5 = a3;
+  v7 = result;
+  v8 = (a2[4] - 32 * a3 + 32 * a2[8] + 24);
+  do
+  {
+    v9 = *(v8 - 8);
+    if (v9 < 3)
+    {
+      *(a4 + **(*(a2[1] + 24) + 24 * *v8 + 16)) = 0;
+    }
+
+    else if (v9 - 4 >= 2)
+    {
+      if (v9 == 3)
+      {
+        v10 = a2[1];
+        *(a4 + **(*(v10 + 24) + 24 * *v8 + 16)) = 0;
+        v11 = *(v10 + 24) + 24 * *v8;
+        result = GenericAssignSort((a4 + *(v11 + 8)), *(*(v11 + 16) + 8), 10, *v11);
+      }
+
+      else
+      {
+        result = CUCFErrorHandler(v7, 15);
+      }
+    }
+
+    v8 += 4;
+    --v5;
+  }
+
+  while (v5);
+  return result;
+}
+
+unsigned __int8 **PERSetBitFieldLength(unsigned __int8 **result)
+{
+  v1 = *(result + 8);
+  if (v1 == 7)
+  {
+    v2 = *result + 1;
+    LOBYTE(v3) = **result;
+    *result = v2;
+  }
+
+  else
+  {
+    v4 = **result << (7 - v1);
+    v2 = *result + 1;
+    *result = v2;
+    v3 = (*v2 >> (v1 + 1)) | v4;
+  }
+
+  if (v3 > 0xC2u)
+  {
+    if (v3 == 195)
+    {
+      v5 = 49152;
+      goto LABEL_16;
+    }
+
+    if (v3 == 196)
+    {
+      v5 = 0x10000;
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+    if (v3 == 193)
+    {
+      v5 = 0x4000;
+      goto LABEL_16;
+    }
+
+    if (v3 == 194)
+    {
+      v5 = 0x8000;
+LABEL_16:
+      result[2] = v5;
+      return result;
+    }
+  }
+
+  if ((v3 & 0xC0) == 0x80)
+  {
+    v6 = (v3 & 0x3F) << 8;
+    result[2] = v6;
+    if (v1 == 7)
+    {
+      LOBYTE(v7) = *v2;
+      *result = v2 + 1;
+    }
+
+    else
+    {
+      v9 = *v2 << (7 - v1);
+      *result = v2 + 1;
+      v7 = (v2[1] >> (v1 + 1)) | v9;
+    }
+
+    v8 = (v7 | v6);
+  }
+
+  else
+  {
+    v8 = (v3 & 0x7F);
+  }
+
+  result[2] = v8;
+  *(result + 9) = 0;
+  return result;
+}
+
+void PERDecodeOPENTypeField(uint64_t a1, unsigned __int8 *a2, void *a3, uint64_t a4)
+{
+  if ((*(a1 + 1056) & 0x40) != 0)
+  {
+    v8 = *(a1 + 1105);
+    if (v8 != 7)
+    {
+      *(*(a1 + 1096))++ &= 510 << v8;
+      *(a1 + 1105) = 7;
+    }
+  }
+
+  v9 = PERGetByte(a1);
+  if (v9 >= 0xC1)
+  {
+    --*(a1 + 1096);
+    v10 = *(a1 + 1105);
+    if (v10 == 7)
+    {
+      v11 = PEROctetsDefragmentation(a1);
+      PERDecVal(a1, a2, a3, a4);
+      if (*(a1 + 1105) <= 6u)
+      {
+        ++*(a1 + 1096);
+        *(a1 + 1105) = 7;
+      }
+
+      PEROctetsFragmentation(a1, v11);
+    }
+
+    else
+    {
+      v13 = PEROctetsDefragmentationWithOffset(a1);
+      PERDecVal(a1, a2, a3, a4);
+      if (*(a1 + 1105) < v10)
+      {
+        ++*(a1 + 1096);
+      }
+
+      *(a1 + 1105) = v10;
+
+      PEROctetsFragmentationWithOffset(a1, v13);
+    }
+
+    return;
+  }
+
+  if ((v9 & 0xC0) == 0x80)
+  {
+    v12 = *(a1 + 1096) + (PERGetByte(a1) & 0xFFFFC0FF | ((v9 & 0x3F) << 8));
+LABEL_20:
+    v14 = *(a1 + 1105);
+    PERDecVal(a1, a2, a3, a4);
+    *(a1 + 1096) = v12;
+    *(a1 + 1105) = v14;
+    return;
+  }
+
+  if ((v9 & 0x80) == 0)
+  {
+    v12 = *(a1 + 1096) + v9;
+    goto LABEL_20;
+  }
+
+  EPErrorHandler(a1, 26);
+}
+
+void PERSkipOPENTypeField(uint64_t a1)
+{
+  v2 = 0;
+  while (1)
+  {
+    if ((*(a1 + 1056) & 0x40) != 0)
+    {
+      v3 = *(a1 + 1105);
+      if (v3 != 7)
+      {
+        *(*(a1 + 1096))++ &= 510 << v3;
+        *(a1 + 1105) = 7;
+      }
+    }
+
+    v4 = PERGetByte(a1);
+    if ((v4 + 63) >= 4u)
+    {
+      break;
+    }
+
+    v2 = ((v4 + 63) << 14) + 0x4000;
+LABEL_10:
+    PERGetSkipBytes(a1, v2);
+    if (!(v2 >> 14))
+    {
+      return;
+    }
+  }
+
+  if ((v4 & 0xC0) == 0x80)
+  {
+    v5 = PERGetByte(a1) & 0xFFFFC0FF | ((v4 & 0x3F) << 8);
+    goto LABEL_14;
+  }
+
+  if (v4 < 0)
+  {
+    EPErrorHandler(a1, 26);
+    goto LABEL_10;
+  }
+
+  v5 = v4;
+LABEL_14:
+
+  PERGetSkipBytes(a1, v5);
+}
+
+void PEREncodePrimSEQUENCE_OF(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *(a3 + 24);
+  for (i = v5 + a2; v5 < i; *(a3 + 24) = v5)
+  {
+    v8 = *(a3 + 32);
+    v9 = *(v8 + 8);
+    if (*v9 == 181)
+    {
+      v11 = **a3;
+      if (v11)
+      {
+        v12 = v5 + 1;
+        while (--v12)
+        {
+          v11 = *v11;
+          if (!v11)
+          {
+            goto LABEL_9;
+          }
+        }
+
+        v10 = (v11 + *(v9 + 36));
+      }
+
+      else
+      {
+LABEL_9:
+        v10 = 0;
+      }
+    }
+
+    else if (*v9 == 182)
+    {
+      v10 = (*a3 + *(v9 + 36) + v5 * *(*(v9 + 24) + 8));
+    }
+
+    else
+    {
+      CUCFErrorHandler(a1, 15);
+      v10 = 0;
+      v8 = *(a3 + 32);
+    }
+
+    PEREncVal(a1, *(v8 + 24), v10);
+    v5 = *(a3 + 24) + 1;
+  }
+
+  *(a3 + 8) -= a2;
+}
+
+void PERDecodePrimSEQUENCE_OF(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v28 = *MEMORY[0x29EDCA608];
+  v5 = *(a3 + 24);
+  v6 = v5 + a2;
+  v7 = *(a3 + 40);
+  if (v7)
+  {
+    v27 = 0;
+    v26 = *v7;
+    if (v5 < v6)
+    {
+      do
+      {
+        v8 = *(*(a3 + 32) + 8);
+        if (*v8 == 181)
+        {
+          v11 = gnssOsa_Calloc("posp_alloc", 18, 1, *(v8 + 32));
+          *v11 = 0;
+          v12 = *(*(v8 + 24) + 8);
+          memset_s(v11 + *(v8 + 36), v12, 0, v12);
+          v13 = *a3;
+          if (**a3)
+          {
+            *v13[1] = v11;
+            ++*(v13 + 4);
+          }
+
+          else
+          {
+            *v13 = v11;
+            *(v13 + 4) = 1;
+          }
+
+          v13[1] = v11;
+          v10 = v11 + *(v8 + 36);
+          *(v13 + 20) = 8;
+        }
+
+        else if (*v8 == 182)
+        {
+          v9 = *a3;
+          *v9 = **a3 + 1;
+          v10 = v9 + *(v8 + 36) + v5 * *(*(v8 + 24) + 8);
+        }
+
+        else
+        {
+          CUCFErrorHandler(a1, 15);
+          v10 = 0;
+        }
+
+        PERDecVal(a1, *(*(a3 + 32) + 24), v10, &v26);
+        while (1)
+        {
+          v14 = v26;
+          v15 = *(a3 + 40);
+          if (v26 == *v15)
+          {
+            break;
+          }
+
+          v26 = *(v26 + 2);
+          MMSFree(a1, v14, 0x18);
+        }
+
+        v5 = *(a3 + 24) + 1;
+        *(a3 + 24) = v5;
+      }
+
+      while (v5 < v6);
+      if (v27)
+      {
+        v18 = *(v15 + 8);
+        v16 = (v15 + 8);
+        v17 = v18;
+        if (v18)
+        {
+          do
+          {
+            v19 = v17;
+            v17 = *(v17 + 32);
+          }
+
+          while (v17);
+          v16 = (v19 + 32);
+        }
+
+        *v16 = v27;
+      }
+    }
+  }
+
+  else
+  {
+    for (; v5 < v6; *(a3 + 24) = v5)
+    {
+      v20 = *(*(a3 + 32) + 8);
+      if (*v20 == 181)
+      {
+        v23 = gnssOsa_Calloc("posp_alloc", 18, 1, *(v20 + 32));
+        *v23 = 0;
+        v24 = *(*(v20 + 24) + 8);
+        memset_s(v23 + *(v20 + 36), v24, 0, v24);
+        v25 = *a3;
+        if (**a3)
+        {
+          *v25[1] = v23;
+          ++*(v25 + 4);
+        }
+
+        else
+        {
+          *v25 = v23;
+          *(v25 + 4) = 1;
+        }
+
+        v25[1] = v23;
+        v22 = v23 + *(v20 + 36);
+        *(v25 + 20) = 8;
+      }
+
+      else if (*v20 == 182)
+      {
+        v21 = *a3;
+        *v21 = **a3 + 1;
+        v22 = v21 + *(v20 + 36) + v5 * *(*(v20 + 24) + 8);
+      }
+
+      else
+      {
+        CUCFErrorHandler(a1, 15);
+        v22 = 0;
+      }
+
+      PERDecVal(a1, *(*(a3 + 32) + 24), v22, 0);
+      v5 = *(a3 + 24) + 1;
+    }
+  }
+}
+
+void PEREncodePrimSET_OF(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *(a3 + 24);
+  for (i = v5 + a2; v5 < i; *(a3 + 24) = v5)
+  {
+    v8 = *(a3 + 32);
+    v9 = **a3;
+    if (v9)
+    {
+      v10 = 0;
+      while (1)
+      {
+        v11 = v9[1];
+        if (v11 >= 1)
+        {
+          break;
+        }
+
+LABEL_9:
+        v9 = *v9;
+        if (!v9)
+        {
+          goto LABEL_10;
+        }
+      }
+
+      v12 = v11 + v10;
+      v13 = v5 - v10;
+      while (v13)
+      {
+        --v13;
+        if (!--v11)
+        {
+          v10 = v12;
+          goto LABEL_9;
+        }
+      }
+
+      v14 = (v9 + *(*(v8 + 8) + 36));
+    }
+
+    else
+    {
+LABEL_10:
+      v14 = 0;
+    }
+
+    PEREncVal(a1, *(v8 + 24), v14);
+    v5 = *(a3 + 24) + 1;
+  }
+
+  *(a3 + 8) -= a2;
+}
+
+void PERDecodePrimSET_OF(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v26 = *MEMORY[0x29EDCA608];
+  v5 = *(a3 + 24);
+  v6 = v5 + a2;
+  v7 = *(a3 + 40);
+  if (v7)
+  {
+    v25 = 0;
+    v24 = *v7;
+    if (v5 < v6)
+    {
+      do
+      {
+        v8 = *(*(a3 + 32) + 8);
+        v9 = gnssOsa_Calloc("posp_alloc", 18, 1, *(*(v8 + 24) + 8) + 20);
+        *v9 = 0;
+        v9[1] = 1;
+        v10 = *(*(v8 + 24) + 8);
+        memset_s(v9 + *(v8 + 36), v10, 0, v10);
+        v11 = *a3;
+        if (**a3)
+        {
+          *v11[1] = v9;
+          ++*(v11 + 4);
+        }
+
+        else
+        {
+          *v11 = v9;
+          *(v11 + 4) = 1;
+        }
+
+        v11[1] = v9;
+        PERDecVal(a1, *(*(a3 + 32) + 24), v9 + *(v8 + 36), &v24);
+        while (1)
+        {
+          v12 = v24;
+          v13 = *(a3 + 40);
+          if (v24 == *v13)
+          {
+            break;
+          }
+
+          v24 = *(v24 + 2);
+          MMSFree(a1, v12, 0x18);
+        }
+
+        v14 = *(a3 + 24) + 1;
+        *(a3 + 24) = v14;
+      }
+
+      while (v14 < v6);
+      if (v25)
+      {
+        v17 = *(v13 + 8);
+        v15 = (v13 + 8);
+        v16 = v17;
+        if (v17)
+        {
+          do
+          {
+            v18 = v16;
+            v16 = *(v16 + 32);
+          }
+
+          while (v16);
+          v15 = (v18 + 32);
+        }
+
+        *v15 = v25;
+      }
+    }
+  }
+
+  else if (v5 < v6)
+  {
+    do
+    {
+      v19 = *(*(a3 + 32) + 8);
+      v20 = gnssOsa_Calloc("posp_alloc", 18, 1, *(*(v19 + 24) + 8) + 20);
+      *v20 = 0;
+      v20[1] = 1;
+      v21 = *(*(v19 + 24) + 8);
+      memset_s(v20 + *(v19 + 36), v21, 0, v21);
+      v22 = *a3;
+      if (**a3)
+      {
+        *v22[1] = v20;
+        ++*(v22 + 4);
+      }
+
+      else
+      {
+        *v22 = v20;
+        *(v22 + 4) = 1;
+      }
+
+      v22[1] = v20;
+      PERDecVal(a1, *(*(a3 + 32) + 24), v20 + *(v19 + 36), 0);
+      v23 = *(a3 + 24) + 1;
+      *(a3 + 24) = v23;
+    }
+
+    while (v23 < v6);
+  }
+}
+
+void Gnm14_03SendPosEstimateReq(void)
+{
+  v5 = *MEMORY[0x29EDCA608];
+  v0 = gnssOsa_Calloc("Gnm14_03SendPosEstimateReq", 64, 1, 0xCuLL);
+  if (v0)
+  {
+    v1 = v0;
+    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
+    {
+      bzero(__str, 0x410uLL);
+      v2 = mach_continuous_time();
+      v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNCS_NO_COST_POS_REQ =>GNCS\n", (*&g_MacClockTicksToMsRelation * v2), "GNM", 73, "Gnm14_03SendPosEstimateReq");
+      LbsOsaTrace_WriteLog(0xBu, __str, v3, 4, 1);
+    }
+
+    AgpsSendFsmMsg(128, 130, 8521216, v1);
+  }
+}
+
+uint64_t Gnm14_11HandleStartPosResp(uint64_t a1)
+{
+  v20 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v2 = mach_continuous_time();
+    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNCS_START_POS_RSP\n", (*&g_MacClockTicksToMsRelation * v2), "GNM", 73, "Gnm14_11HandleStartPosResp");
+    LbsOsaTrace_WriteLog(0xBu, __str, v3, 4, 1);
+  }
+
+  if (!a1)
+  {
+    if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 0, 0, 0))
+    {
+      return 0;
+    }
+
+    bzero(__str, 0x410uLL);
+    v11 = mach_continuous_time();
+    v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v11), "GNM", 69, "Gnm14_11HandleStartPosResp", 517);
+    v13 = 0;
+LABEL_16:
+    LbsOsaTrace_WriteLog(0xBu, __str, v12, v13, 1);
+    return 0;
+  }
+
+  v4 = *(a1 + 14);
+  v5 = *(a1 + 12);
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v6 = mach_continuous_time();
+    v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SessId,%u,RespCode,%hhu\n", (*&g_MacClockTicksToMsRelation * v6), "GNM", 73, "Gnm14_11HandleStartPosResp", v5, *(a1 + 14));
+    LbsOsaTrace_WriteLog(0xBu, __str, v7, 4, 1);
+  }
+
+  InstnFromInstnId = Gnm02_31GetInstnFromInstnId(v5);
+  if (!InstnFromInstnId)
+  {
+    if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
+    {
+      return 0;
+    }
+
+    bzero(__str, 0x410uLL);
+    v14 = mach_continuous_time();
+    v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Instn SessId,%u\n", (*&g_MacClockTicksToMsRelation * v14), "GNM", 87, "Gnm14_11HandleStartPosResp", 2052, v5);
+    v13 = 2;
+    goto LABEL_16;
+  }
+
+  v9 = InstnFromInstnId;
+  if (!*(InstnFromInstnId + 1))
+  {
+    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
+    {
+      bzero(__str, 0x410uLL);
+      v17 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
+      v15 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx InstnInfo SessId,%u\n", v17);
+LABEL_23:
+      LbsOsaTrace_WriteLog(0xBu, __str, v15, 2, 1);
+    }
+
+LABEL_24:
+    Gnm02_21DeleteInstn(v9);
+    return 0;
+  }
+
+  v10 = *(InstnFromInstnId + 2);
+  if (v10 == 1)
+  {
+    Gnm11_07StartPosResp(InstnFromInstnId, v4 == 255);
+    return 0;
+  }
+
+  if (v10 == 3)
+  {
+    Gnm51_05StartPosResp(InstnFromInstnId, v4 == 255);
+    return 0;
+  }
+
+  if (v10 != 2)
+  {
+    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
+    {
+      bzero(__str, 0x410uLL);
+      v18 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
+      v15 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx InstnType,%hhu\n", v18);
+      goto LABEL_23;
+    }
+
+    goto LABEL_24;
+  }
+
+  Gnm13_15StartPosResp(InstnFromInstnId, v4 == 255);
+  return 0;
+}
+
+uint64_t Gnm14_12HandleStopPosResp(uint64_t a1)
+{
+  v21 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v2 = mach_continuous_time();
+    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNCS_STOP_POS_RSP\n", (*&g_MacClockTicksToMsRelation * v2), "GNM", 73, "Gnm14_12HandleStopPosResp");
+    LbsOsaTrace_WriteLog(0xBu, __str, v3, 4, 1);
+  }
+
+  if (!a1)
+  {
+    if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 0, 0, 0))
+    {
+      return 0;
+    }
+
+    bzero(__str, 0x410uLL);
+    v11 = mach_continuous_time();
+    v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v11), "GNM", 69, "Gnm14_12HandleStopPosResp", 517);
+    v13 = 0;
+LABEL_16:
+    LbsOsaTrace_WriteLog(0xBu, __str, v12, v13, 1);
+    return 0;
+  }
+
+  v4 = *(a1 + 14);
+  v5 = *(a1 + 12);
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v6 = mach_continuous_time();
+    v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SessId,%u,RespCode,%hhu\n", (*&g_MacClockTicksToMsRelation * v6), "GNM", 73, "Gnm14_12HandleStopPosResp", v5, *(a1 + 14));
+    LbsOsaTrace_WriteLog(0xBu, __str, v7, 4, 1);
+  }
+
+  InstnFromInstnId = Gnm02_31GetInstnFromInstnId(v5);
+  if (!InstnFromInstnId)
+  {
+    if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
+    {
+      return 0;
+    }
+
+    bzero(__str, 0x410uLL);
+    v14 = mach_continuous_time();
+    v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Instn SessId,%u\n", (*&g_MacClockTicksToMsRelation * v14), "GNM", 87, "Gnm14_12HandleStopPosResp", 2052, v5);
+    v13 = 2;
+    goto LABEL_16;
+  }
+
+  v9 = InstnFromInstnId;
+  if (*(InstnFromInstnId + 1))
+  {
+    v10 = *(InstnFromInstnId + 2);
+    switch(v10)
+    {
+      case 1:
+        Gnm11_08StopPosResp(InstnFromInstnId, v4 == 255);
+        break;
+      case 3:
+        Gnm51_06StopPosResp(InstnFromInstnId, v4 == 255);
+        break;
+      case 2:
+        Gnm13_16StopPosResp(InstnFromInstnId, v4 == 255);
+        break;
+      default:
+        if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
+        {
+          bzero(__str, 0x410uLL);
+          v17 = mach_continuous_time();
+          v18 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx InstnType,%hhu\n", (*&g_MacClockTicksToMsRelation * v17), "GNM", 87, "Gnm14_12HandleStopPosResp", 770, *(v9 + 2));
+          LbsOsaTrace_WriteLog(0xBu, __str, v18, 2, 1);
+        }
+
+        Gnm02_21DeleteInstn(v9);
+        break;
+    }
+
+    gnssOsa_flushNv();
+  }
+
+  else
+  {
+    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
+    {
+      bzero(__str, 0x410uLL);
+      v15 = mach_continuous_time();
+      v16 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx InstnInfo SessId,%u\n", (*&g_MacClockTicksToMsRelation * v15), "GNM", 87, "Gnm14_12HandleStopPosResp", 2052, v5);
+      LbsOsaTrace_WriteLog(0xBu, __str, v16, 2, 1);
+    }
+
+    Gnm02_21DeleteInstn(v9);
+  }
+
+  return 0;
+}
+
+uint64_t Gnm14_13HandleClearGNSSRsp(uint64_t a1)
+{
+  v13 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v2 = mach_continuous_time();
+    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNCP_CLEAR_GNSS_RSP\n", (*&g_MacClockTicksToMsRelation * v2), "GNM", 73, "Gnm14_13HandleClearGNSSRsp");
+    LbsOsaTrace_WriteLog(0xBu, __str, v3, 4, 1);
+  }
+
+  if (a1)
+  {
+    v4 = *(a1 + 12);
+    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
+    {
+      bzero(__str, 0x410uLL);
+      v5 = *&g_MacClockTicksToMsRelation * mach_continuous_time();
+      v6 = 78;
+      if (v4)
+      {
+        v6 = 89;
+      }
+
+      v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Status,%c,Mask0x%X\n", v5, "GNM", 73, "Gnm14_13HandleClearGNSSRsp", v6, *(a1 + 16));
+      LbsOsaTrace_WriteLog(0xBu, __str, v7, 4, 1);
+    }
+
+    if (v4 && ((Gnm13_17SendClearCacheInd(*(a1 + 16)), (*(a1 + 17) & 0x401) == 0) || (Gnm53_26ClearVarMENv() & 1) != 0))
+    {
+      if (byte_2A1938EB9 == 1)
+      {
+        byte_2A1938EB9 = 0;
+        v8 = 0;
+LABEL_15:
+        Gnm11_00ApiStatusCB(v8, 0, 0, 16);
+      }
+    }
+
+    else if (byte_2A1938EB9 == 1)
+    {
+      byte_2A1938EB9 = 0;
+      v8 = 11;
+      goto LABEL_15;
+    }
+  }
+
+  else if (LbsOsaTrace_IsLoggingAllowed(0xBu, 0, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v9 = mach_continuous_time();
+    v10 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v9), "GNM", 69, "Gnm14_13HandleClearGNSSRsp", 517);
+    LbsOsaTrace_WriteLog(0xBu, __str, v10, 0, 1);
+  }
+
+  return 0;
+}
+
+uint64_t gnssdbg_GetLogSeverityCP(int a1, int a2)
+{
+  if (a2 != 1)
+  {
+    return 2;
+  }
+
+  result = 0;
+  if (a1 > 1791)
+  {
+    if (a1 > 1900)
+    {
+      if ((a1 - 1901) <= 0x16 && ((1 << (a1 - 109)) & 0x620001) != 0 || a1 == 2048 || a1 == 2057)
+      {
+        return result;
+      }
+    }
+
+    else if ((a1 - 1792) < 0x54)
+    {
+      return result;
+    }
+
+    return 2;
+  }
+
+  if (a1 <= 1051)
+  {
+    if ((a1 - 768) <= 0x31)
+    {
+      if (((1 << a1) & 0x287A00404FFFFLL) != 0)
+      {
+        return result;
+      }
+
+      if (((1 << a1) & 0x404188000000) != 0)
+      {
+        return 1;
+      }
+    }
+
+    v5 = (a1 - 258);
+    if (v5 <= 0x27)
+    {
+      if (((1 << (a1 - 2)) & 0x363FA6A8F7) != 0)
+      {
+        return result;
+      }
+
+      if (v5 == 39)
+      {
+        return 1;
+      }
+    }
+
+    v6 = a1 - 512;
+    if (v6 <= 0xA)
+    {
+      v7 = 1 << v6;
+      if ((v7 & 0x7C6) != 0)
+      {
+        return result;
+      }
+
+      if ((v7 & 0x11) != 0)
+      {
+        return 1;
+      }
+    }
+
+    return 2;
+  }
+
+  if ((a1 - 1280) <= 0x19)
+  {
+    if (((1 << a1) & 0x22C01F7) != 0)
+    {
+      return result;
+    }
+
+    if (a1 == 1283)
+    {
+      return 1;
+    }
+  }
+
+  v4 = a1 - 7;
+  if ((a1 - 1543) > 0x34)
+  {
+    goto LABEL_26;
+  }
+
+  if (((1 << v4) & 0xCC0400000101) != 0)
+  {
+    return 1;
+  }
+
+  if (((1 << v4) & 0x18204000C00000) == 0)
+  {
+LABEL_26:
+    v8 = a1 - 1052;
+    if (v8 <= 0x1E)
+    {
+      if (((1 << v8) & 0x70020081) != 0)
+      {
+        return result;
+      }
+
+      if (v8 == 19)
+      {
+        return 1;
+      }
+    }
+
+    return 2;
+  }
+
+  return result;
+}
+
+double Comp_AzEl(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4, _WORD *a5, void *a6, void *a7)
+{
+  v35[3] = *MEMORY[0x29EDCA608];
+  v31 = 0;
+  result = 0.0;
+  v32 = 0u;
+  v33 = 0u;
+  v28 = 0;
+  v29 = 0u;
+  v30 = 0u;
+  if (*(a3 + 120))
+  {
+    for (i = 0; i != 3; ++i)
+    {
+      *&v35[i] = *(a3 + 8 + i * 8) - *(a1 + i * 8);
+    }
+
+    v13 = 0.0;
+    v14 = 2;
+    do
+    {
+      v13 = v13 + *&v35[v14] * *&v35[v14];
+      v15 = v14-- + 1;
+    }
+
+    while (v15 > 1);
+    v16 = 0;
+    v17 = sqrt(v13);
+    do
+    {
+      *&v35[v16] = *&v35[v16] / v17;
+      ++v16;
+    }
+
+    while (v16 != 3);
+    v18 = 0;
+    v19 = *v35;
+    v20 = *&v35[1];
+    v21 = (a2 + 16);
+    v22 = *&v35[2];
+    do
+    {
+      v23 = *(v21 - 1) * v20 + *(v21 - 2) * v19;
+      v24 = *v21;
+      v21 += 3;
+      v34[v18++] = v23 + v24 * v22;
+    }
+
+    while (v18 != 3);
+    AzEl_SinCos(v34, &v28, &v31);
+    AzEl_RadDeg(&v28, &v31);
+    v25 = v28;
+    if ((v28 & 0x80000000) != 0)
+    {
+      v26 = -360 - v28;
+      if (v28 > 0xFFFFFE98)
+      {
+        v26 = 0;
+      }
+
+      v27 = ((__PAIR64__(v26, v28) - 4294966936u) >> 32) / 0x168;
+      if (v28 < 0xFFFFFE98)
+      {
+        LOWORD(v27) = v27 + 1;
+      }
+
+      v25 = v28 + 360 * v27 + 360;
+    }
+
+    *a4 = v31;
+    *a5 = v25;
+    *a6 = v33;
+    result = *&v30;
+    *a7 = v30;
+  }
+
+  return result;
+}
+
+int8x8_t Decode_GPS_Health_From_AS_Subfr(const unsigned int *a1, int8x8_t *a2)
+{
+  v2 = a1[8];
+  v3 = a1[9];
+  v4.i8[0] = a1[7] & 0x1F;
+  v4.i8[1] = (v2 >> 18) & 0x1F;
+  v4.i8[2] = (v2 >> 12) & 0x1F;
+  v4.i8[3] = (v2 >> 6) & 0x1F;
+  v4.i8[4] = v2 & 0x1F;
+  v4.i8[5] = (v3 >> 18) & 0x1F;
+  v4.i8[6] = (v3 >> 12) & 0x1F;
+  v4.i8[7] = (v3 >> 6) & 0x1F;
+  v5 = vmovl_u8(v4);
+  v6 = vmovl_high_u16(v5);
+  v7.i64[0] = v6.u32[0];
+  v7.i64[1] = v6.u32[1];
+  v8 = v7;
+  v9 = vmovl_u16(*v5.i8);
+  v7.i64[0] = v9.u32[0];
+  v7.i64[1] = v9.u32[1];
+  v10 = vdupq_n_s64(0xE4FE7F3uLL);
+  result = vand_s8(vmovn_s16(vuzp1q_s16(vuzp1q_s32(vshlq_u64(v10, vnegq_s64(v7)), vshlq_u64(v10, vsubw_high_u32(0, v9))), vuzp1q_s32(vshlq_u64(v10, vnegq_s64(v8)), vshlq_u64(v10, vsubw_high_u32(0, v6))))), 0x101010101010101);
+  *a2 = result;
+  return result;
+}
+
+uint64_t Comp_AGNSS_PR_Sigma(unsigned int a1)
+{
+  if (a1 <= 0x1116FF)
+  {
+    if (a1 >> 3 < 0x271)
+    {
+      LOBYTE(v1) = 0;
+    }
+
+    else
+    {
+      v2 = 9375;
+      if (a1 >= 0x249F)
+      {
+        v3 = 0;
+        do
+        {
+          v2 *= 2;
+          ++v3;
+        }
+
+        while (v2 <= a1);
+      }
+
+      else
+      {
+        v3 = 0;
+      }
+
+      return (8 * v3 - (v2 - a1) / (625 << v3) + 7);
+    }
+  }
+
+  else
+  {
+    LOBYTE(v1) = 63;
+  }
+
+  return v1;
+}
+
+double *Comp_Track_velLOS(double a1, double a2, double *result, double *a4)
+{
+  if (fabs(a1) > 0.0001 || fabs(a2) > 0.0001)
+  {
+    v10 = 57.2957795 / (a1 * a1 + a2 * a2);
+    *a4 = v10 * (result[3] * a1 - *result * a2);
+    a4[1] = v10 * (result[4] * a1 - result[1] * a2);
+    v9 = v10 * -(result[2] * a2);
+  }
+
+  else
+  {
+    __asm { FMOV            V0.2D, #1.0 }
+
+    *a4 = _Q0;
+    v9 = 1.0;
+  }
+
+  a4[2] = v9;
+  return result;
+}
+
+uint64_t GN_ABDS_Set_Eph_El(unsigned __int16 *a1)
+{
+  if (!Is_GN_API_Set_Allowed("GN_ABDS_Set_Eph_El"))
+  {
+    return 0;
+  }
+
+  if (g_Enable_Event_Log >= 5u)
+  {
+    EvLog_ABDS_Eph_El(a1);
+  }
+
+  v2 = *a1;
+  if (v2 >= 0x2000)
+  {
+    EvCrt_v("GN_ABDS_Set_Eph: FAILED: Week = %d >=8191, Out of range!");
+    return 0;
+  }
+
+  v3 = *(a1 + 1);
+  if (v3 > 0x1274F)
+  {
+    EvCrt_v("GN_ABDS_Set_Eph: FAILED: toc = %d > 75599, Out of range!");
+    return 0;
+  }
+
+  v4 = *(a1 + 2);
+  if (v4 > 0x1274F)
+  {
+    EvCrt_v("GN_ABDS_Set_Eph: FAILED: toe = %d > 75599, Out of range!");
+    return 0;
+  }
+
+  v5 = *(a1 + 12);
+  if (v5 >= 0x20)
+  {
+    EvCrt_v("GN_ABDS_Set_Eph: FAILED: AODE = %d >31, Out of range!");
+    return 0;
+  }
+
+  v6 = *(a1 + 13);
+  if (v6 >= 0x20)
+  {
+    EvCrt_v("GN_ABDS_Set_Eph: FAILED: AODC = %d >31, Out of range!");
+    return 0;
+  }
+
+  if (*(a1 + 14) - 38 <= 0xFFFFFFDA)
+  {
+    EvCrt_v("GN_ABDS_Set_Eph: FAILED: SVid = %d < 1 or >37, Out of range!");
+    return 0;
+  }
+
+  v7 = *(a1 + 15);
+  if (v7 >= 0x10)
+  {
+    EvCrt_v("GN_ABDS_Set_Eph: FAILED: URA = %d >15, Out of range!");
+    return 0;
+  }
+
+  v8 = a1[22];
+  if (((v8 - 0x2000) >> 14) <= 2u)
+  {
+    EvCrt_v("GN_ABDS_Set_Eph: FAILED: IDot = %d < -2^13 or >= 2^13, Out of range!");
+    return 0;
+  }
+
+  v9 = *(a1 + 12);
+  if ((v9 - 0x800000) >> 24 != 255)
+  {
+    EvCrt_v("GN_ABDS_Set_Eph: FAILED: OmegaDot = %d <-2^23 or >=2^23, Out of range!");
+    return 0;
+  }
+
+  v10 = *(a1 + 19);
+  if ((v10 - 0x800000) >> 24 != 255)
+  {
+    EvCrt_v("GN_ABDS_Set_Eph: FAILED: af0 = %d <-2^23 or >=2^23, Out of range!");
+    return 0;
+  }
+
+  v11 = *(a1 + 20);
+  if ((v11 - 0x200000) >> 22 != 1023)
+  {
+    EvCrt_v("GN_ABDS_Set_Eph: FAILED: af1 = %d <-2^21 or >=2^21, Out of range!");
+    return 0;
+  }
+
+  v12 = a1[42];
+  if (((v12 - 1024) >> 11) <= 0x1Eu)
+  {
+    EvCrt_v("GN_ABDS_Set_Eph: FAILED: af2 = %d <-2^10 or >=2^10, Out of range!");
+    return 0;
+  }
+
+  v13 = a1[43];
+  if (((v13 - 512) >> 10) <= 0x3Eu)
+  {
+    EvCrt_v("GN_ABDS_Set_Eph: FAILED: TGD1 = %d <-2^9 or >=2^9, Out of range!");
+    return 0;
+  }
+
+  v27 = *(a1 + 14);
+  v14 = a1[44];
+  if (((v14 - 512) >> 10) <= 0x3Eu)
+  {
+    EvCrt_v("GN_ABDS_Set_Eph: FAILED: TGD2 = %d <-2^9 or >=2^9, Out of range!");
+    return 0;
+  }
+
+  v17 = (v27 - 1);
+  v18 = p_NA;
+  v19 = p_NA + 9884;
+  if (*(a1 + 90))
+  {
+    v20 = 5;
+  }
+
+  else
+  {
+    v20 = 3;
+  }
+
+  v21 = v19 + 100 * v17;
+  *(v21 + 8) = v3;
+  *(v21 + 12) = v4;
+  *(v21 + 16) = v2;
+  *(v21 + 18) = v5;
+  *(v21 + 19) = v6;
+  *(v21 + 20) = v27;
+  *(v21 + 21) = v7;
+  *(v21 + 22) = *(a1 + 16);
+  *(v21 + 24) = *(a1 + 10);
+  *(v21 + 40) = *(a1 + 18);
+  *(v21 + 48) = v8;
+  *(v21 + 50) = a1[23];
+  *(v21 + 52) = v9;
+  *(v21 + 56) = *(a1 + 26);
+  *(v21 + 72) = *(a1 + 34);
+  *(v21 + 80) = v10;
+  *(v21 + 84) = v11;
+  *(v21 + 88) = v12;
+  *(v21 + 90) = v13;
+  *(v21 + 92) = v14;
+  *(v21 + 4) = v20;
+  if (v27 <= 5)
+  {
+    v22 = -1;
+  }
+
+  else
+  {
+    v22 = 0x7FFFFFF;
+  }
+
+  *(v21 + 96) = v22;
+  *(v18 + v17 + 223) = 1;
+  v23 = *(p_api + 48);
+  if (*(v23 + 5) == 1 && *v23 >= 3)
+  {
+    v24 = *(v23 + 24) + 604800 * *(v23 + 16);
+  }
+
+  else
+  {
+    v24 = 0;
+  }
+
+  v25 = (v19 + 100 * v17);
+  *v25 = v24;
+  v15 = 1;
+  Debug_Log_BDS_Eph(1, v25);
+  if (g_Enable_Event_Log >= 3u)
+  {
+    EvLog_nd("GN_ABDS_Set_Eph: ", 2, v26, v27, *(p_NA + 100 * v17 + 9884));
+  }
+
+  return v15;
+}
+
+uint64_t GN_ABDS_Set_BGTO(__int16 *a1)
+{
+  if (!Is_GN_API_Set_Allowed("GN_ABDS_Set_BGTO"))
+  {
+    return 0;
+  }
+
+  v3 = *a1;
+  if (v3 != 0x7FFF && ((*a1 - 0x2000) >> 14) <= 2u)
+  {
+    EvCrt_v("GN_ABDS_Set_BGTO: FAILED: A0G = %d < -2^13 or >= 2^13, Out of range!");
+    return 0;
+  }
+
+  LODWORD(v5) = a1[4];
+  if (v5 != 0x7FFF && ((v5 - 0x2000) >> 14) <= 2u)
+  {
+    EvCrt_v("GN_ABDS_Set_BGTO: FAILED: A0R = %d < -2^13 or >= 2^13, Out of range!");
+    return 0;
+  }
+
+  v8 = a1[2];
+  if (v8 != 0x7FFF && ((v8 - 0x2000) >> 14) <= 2u)
+  {
+    EvCrt_v("GN_ABDS_Set_BGTO: FAILED: A0E = %d < -2^13 or >= 2^13, Out of range!");
+    return 0;
+  }
+
+  v9 = *a1;
+  v10 = *(p_api + 48);
+  if (*(v10 + 5) == 1 && *v10 >= 3)
+  {
+    v11 = *(v10 + 24) + 604800 * *(v10 + 16);
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v12 = p_NA;
+  v13 = (p_NA + 0x2000);
+  *(p_NA + 9864) = v11;
+  if (v9 != 0x7FFF)
+  {
+    v14 = a1[1];
+    if (v14 != 0x7FFF)
+    {
+      v13[840] = v3;
+      v5 = 9874;
+      goto LABEL_29;
+    }
+  }
+
+  if (v8 != 0x7FFF)
+  {
+    v14 = a1[3];
+    if (v14 != 0x7FFF)
+    {
+      v13[842] = v8;
+      v5 = 9878;
+      goto LABEL_29;
+    }
+  }
+
+  if (v5 != 0x7FFF)
+  {
+    v14 = a1[5];
+    if (v14 == 0x7FFF)
+    {
+      goto LABEL_30;
+    }
+
+    v13[844] = v5;
+    v5 = 9882;
+LABEL_29:
+    *(v12 + v5) = v14;
+    LOWORD(v8) = a1[2];
+    LOWORD(v5) = a1[4];
+    goto LABEL_30;
+  }
+
+  LOWORD(v5) = 0x7FFF;
+LABEL_30:
+  if (*(a1 + 12))
+  {
+    v15 = 5;
+  }
+
+  else
+  {
+    v15 = 3;
+  }
+
+  *(v12 + 9868) = v15;
+  v6 = 1;
+  *(v12 + 222) = 1;
+  EvLog_nd("GN_ABDS_Set_BGTO: ", 6, v2, v3, a1[1], v8, a1[3], v5, a1[5]);
+  return v6;
 }

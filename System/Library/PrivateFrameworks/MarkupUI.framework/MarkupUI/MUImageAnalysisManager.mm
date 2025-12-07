@@ -97,20 +97,20 @@
 
 - (void)_setupNotificationsObservation
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
   v3 = getDDDetectionControllerWillPresentActionNotificationSymbolLoc_ptr;
-  v16 = getDDDetectionControllerWillPresentActionNotificationSymbolLoc_ptr;
+  v17 = getDDDetectionControllerWillPresentActionNotificationSymbolLoc_ptr;
   if (!getDDDetectionControllerWillPresentActionNotificationSymbolLoc_ptr)
   {
     v4 = DataDetectorsUILibrary();
-    v14[3] = dlsym(v4, "DDDetectionControllerWillPresentActionNotification");
-    getDDDetectionControllerWillPresentActionNotificationSymbolLoc_ptr = v14[3];
-    v3 = v14[3];
+    v15[3] = dlsym(v4, "DDDetectionControllerWillPresentActionNotification");
+    getDDDetectionControllerWillPresentActionNotificationSymbolLoc_ptr = v15[3];
+    v3 = v15[3];
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v14, 8);
   if (!v3)
   {
     +[MUImageReader imageDescriptionFromSourceContent:];
@@ -124,26 +124,27 @@
     [defaultCenter addObserver:self selector:sel_dataDetectorDetectionControllerWillPresentAction_ name:v5 object:0];
   }
 
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
   v7 = getDDDetectionControllerDidDismissActionNotificationSymbolLoc_ptr;
-  v16 = getDDDetectionControllerDidDismissActionNotificationSymbolLoc_ptr;
+  v17 = getDDDetectionControllerDidDismissActionNotificationSymbolLoc_ptr;
   if (!getDDDetectionControllerDidDismissActionNotificationSymbolLoc_ptr)
   {
     v8 = DataDetectorsUILibrary();
-    v14[3] = dlsym(v8, "DDDetectionControllerDidDismissActionNotification");
-    getDDDetectionControllerDidDismissActionNotificationSymbolLoc_ptr = v14[3];
-    v7 = v14[3];
+    v15[3] = dlsym(v8, "DDDetectionControllerDidDismissActionNotification");
+    getDDDetectionControllerDidDismissActionNotificationSymbolLoc_ptr = v15[3];
+    v7 = v15[3];
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v14, 8);
   if (!v7)
   {
 LABEL_13:
-    v12 = +[MUImageReader imageDescriptionFromSourceContent:];
-    _Block_object_dispose(&v13, 8);
-    _Unwind_Resume(v12);
+    +[MUImageReader imageDescriptionFromSourceContent:];
+    v13 = v12;
+    _Block_object_dispose(&v14, 8);
+    _Unwind_Resume(v13);
   }
 
   if (*v7)
@@ -517,12 +518,15 @@ void __70__MUImageAnalysisManager__updateAnalysisButtonContainerWithAnimation___
   if ((_os_feature_enabled_impl() & 1) == 0)
   {
     presentingView = [(MUImageAnalysisManager *)self presentingView];
+    v4 = presentingView;
     if (presentingView)
     {
-      [(MUImageAnalysisManager *)self _setupAnalysisButtonsContainerInView:presentingView];
+      v5 = presentingView;
+      presentingView = [(MUImageAnalysisManager *)self _setupAnalysisButtonsContainerInView:presentingView];
+      v4 = v5;
     }
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](presentingView, v4);
   }
 }
 

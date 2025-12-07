@@ -358,7 +358,7 @@ LABEL_80:
     v13 = parent2;
     if (parent2)
     {
-      [parent2 transformInRoot];
+      objc_msgSend_transformInRoot(parent2);
     }
 
     else

@@ -138,25 +138,21 @@ LABEL_24:
   to;
   if ([(_CPUsageSinceLookback *)self collectionStartTimestamp])
   {
-    collectionStartTimestamp = self->_collectionStartTimestamp;
     PBDataWriterWriteInt64Field();
   }
 
   if ([(_CPUsageSinceLookback *)self collectionEndTimestamp])
   {
-    collectionEndTimestamp = self->_collectionEndTimestamp;
     PBDataWriterWriteInt64Field();
   }
 
   if ([(_CPUsageSinceLookback *)self client])
   {
-    client = self->_client;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPUsageSinceLookback *)self totalUsagesInCollectionPeriod])
   {
-    totalUsagesInCollectionPeriod = self->_totalUsagesInCollectionPeriod;
     PBDataWriterWriteInt32Field();
   }
 
@@ -170,67 +166,56 @@ LABEL_24:
 
   if ([(_CPUsageSinceLookback *)self configuredLookbackTimeInDays])
   {
-    configuredLookbackTimeInDays = self->_configuredLookbackTimeInDays;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPUsageSinceLookback *)self activeDaysInCollectionPeriod])
   {
-    activeDaysInCollectionPeriod = self->_activeDaysInCollectionPeriod;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPUsageSinceLookback *)self totalEngagements])
   {
-    totalEngagements = self->_totalEngagements;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPUsageSinceLookback *)self isDiagnosticsAndUsageEnabled])
   {
-    isDiagnosticsAndUsageEnabled = self->_isDiagnosticsAndUsageEnabled;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPUsageSinceLookback *)self invokedDays])
   {
-    invokedDays = self->_invokedDays;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPUsageSinceLookback *)self zkwEngagedDays])
   {
-    zkwEngagedDays = self->_zkwEngagedDays;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPUsageSinceLookback *)self searchedDays])
   {
-    searchedDays = self->_searchedDays;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPUsageSinceLookback *)self suggestionOrAppleResultEngagedDays])
   {
-    suggestionOrAppleResultEngagedDays = self->_suggestionOrAppleResultEngagedDays;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPUsageSinceLookback *)self webEngagedDays])
   {
-    webEngagedDays = self->_webEngagedDays;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPUsageSinceLookback *)self voiceSearchDays])
   {
-    voiceSearchDays = self->_voiceSearchDays;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPUsageSinceLookback *)self numSearchEngagements])
   {
-    numSearchEngagements = self->_numSearchEngagements;
     PBDataWriterWriteInt32Field();
   }
 

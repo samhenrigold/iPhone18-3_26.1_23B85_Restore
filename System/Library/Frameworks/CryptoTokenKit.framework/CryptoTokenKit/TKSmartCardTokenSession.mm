@@ -56,7 +56,7 @@
 - (id)getSmartCardWithError:(id *)error
 {
   token = [(TKTokenSession *)self token];
-  v6 = TK_LOG_token_1();
+  v6 = TK_LOG_token_1(token);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [(TKSmartCardTokenSession *)self getSmartCardWithError:v6];
@@ -80,15 +80,16 @@ LABEL_6:
   }
 
   smartCard = self->_smartCard;
-  v23 = 0;
-  v13 = [(TKSmartCard *)smartCard beginSessionWithError:&v23];
-  v14 = v23;
+  v25 = 0;
+  v13 = [(TKSmartCard *)smartCard beginSessionWithError:&v25];
+  v14 = v25;
+  v15 = v14;
   if (!v13)
   {
-    v19 = TK_LOG_token_1();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = TK_LOG_token_1(v14);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [(TKSmartCardTokenSession *)v14 getSmartCardWithError:v19];
+      [(TKSmartCardTokenSession *)v15 getSmartCardWithError:v21];
     }
 
     if (!error)
@@ -99,32 +100,32 @@ LABEL_6:
     goto LABEL_17;
   }
 
-  v15 = self->_smartCard;
-  v16 = [token AID];
-  v22 = v14;
-  v17 = [(TKSmartCard *)v15 selectApplication:v16 error:&v22];
-  v18 = v22;
+  v16 = self->_smartCard;
+  v17 = [token AID];
+  v24 = v15;
+  v18 = [(TKSmartCard *)v16 selectApplication:v17 error:&v24];
+  v19 = v24;
 
-  if (v17)
+  if (v18)
   {
     self->_hasSession = 1;
 
     goto LABEL_6;
   }
 
-  v21 = TK_LOG_token_1();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v23 = TK_LOG_token_1(v20);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
-    [(TKSmartCardTokenSession *)v18 getSmartCardWithError:v21];
+    [(TKSmartCardTokenSession *)v19 getSmartCardWithError:v23];
   }
 
   [(TKSmartCard *)self->_smartCard endSession];
-  v14 = v18;
+  v15 = v19;
   if (error)
   {
 LABEL_17:
-    v20 = v14;
-    *error = v14;
+    v22 = v15;
+    *error = v15;
   }
 
 LABEL_18:
@@ -158,30 +159,27 @@ LABEL_7:
 
 - (void)getSmartCardWithError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 112);
-  v4[0] = 67240192;
-  v4[1] = v2;
-  _os_log_debug_impl(&dword_1DF413000, a2, OS_LOG_TYPE_DEBUG, "token session persists: %{public}d", v4, 8u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = 67240192;
+  v3[1] = v2;
+  _os_log_debug_impl(&dword_1DF413000, a2, OS_LOG_TYPE_DEBUG, "token session persists: %{public}d", v3, 8u);
 }
 
 - (void)getSmartCardWithError:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF413000, a2, OS_LOG_TYPE_ERROR, "attempt to begin session failed: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF413000, a2, OS_LOG_TYPE_ERROR, "attempt to begin session failed: %{public}@", &v2, 0xCu);
 }
 
 - (void)getSmartCardWithError:(uint64_t)a1 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF413000, a2, OS_LOG_TYPE_ERROR, "attempt to select AID failed: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF413000, a2, OS_LOG_TYPE_ERROR, "attempt to select AID failed: %{public}@", &v2, 0xCu);
 }
 
 @end

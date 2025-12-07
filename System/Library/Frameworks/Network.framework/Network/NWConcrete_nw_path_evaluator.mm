@@ -23,7 +23,7 @@
   v6 = __nwlog_obj();
   *buf = 136446210;
   v18 = "[NWConcrete_nw_path_evaluator init]";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v14 = 0;
@@ -96,18 +96,18 @@ LABEL_3:
 
 - (void)dealloc
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
   networkd_settings_init();
   v3 = gLogObj;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136446722;
-    v22 = "[NWConcrete_nw_path_evaluator dealloc]";
-    v23 = 1042;
-    v24 = 16;
-    v25 = 2098;
-    v26 = self + 80;
+    v20 = "[NWConcrete_nw_path_evaluator dealloc]";
+    v21 = 1042;
+    v22 = 16;
+    v23 = 2098;
+    v24 = self + 80;
     _os_log_impl(&dword_181A37000, v3, OS_LOG_TYPE_DEBUG, "%{public}s %{public,uuid}.16P", buf, 0x1Cu);
   }
 
@@ -126,9 +126,9 @@ LABEL_3:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136446466;
-        v22 = "[NWConcrete_nw_path_evaluator dealloc]";
-        v23 = 1024;
-        v24 = 2;
+        v20 = "[NWConcrete_nw_path_evaluator dealloc]";
+        v21 = 1024;
+        v22 = 2;
         _os_log_impl(&dword_181A37000, v8, OS_LOG_TYPE_DEBUG, "%{public}s NECP_CLIENT_ACTION_REMOVE error %{darwin.errno}d", buf, 0x12u);
       }
 
@@ -136,16 +136,14 @@ LABEL_3:
     }
 
     *buf = 136446466;
-    v22 = "[NWConcrete_nw_path_evaluator dealloc]";
-    v23 = 1024;
-    v24 = v6;
-    v17 = 18;
-    v16 = buf;
-    v9 = _os_log_send_and_compose_impl();
+    v20 = "[NWConcrete_nw_path_evaluator dealloc]";
+    v21 = 1024;
+    v22 = v6;
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s NECP_CLIENT_ACTION_REMOVE error %{darwin.errno}d", buf, 18);
 
     type = OS_LOG_TYPE_ERROR;
-    v19 = 0;
-    if (!__nwlog_fault(v9, &type, &v19))
+    v17 = 0;
+    if (!__nwlog_fault(v9, &type, &v17))
     {
       goto LABEL_16;
     }
@@ -159,9 +157,9 @@ LABEL_3:
       if (os_log_type_enabled(v10, type))
       {
         *buf = 136446466;
-        v22 = "[NWConcrete_nw_path_evaluator dealloc]";
-        v23 = 1024;
-        v24 = v6;
+        v20 = "[NWConcrete_nw_path_evaluator dealloc]";
+        v21 = 1024;
+        v22 = v6;
         _os_log_impl(&dword_181A37000, v10, v11, "%{public}s NECP_CLIENT_ACTION_REMOVE error %{darwin.errno}d", buf, 0x12u);
       }
 
@@ -178,16 +176,16 @@ LABEL_17:
       goto LABEL_5;
     }
 
-    if (v19 != 1)
+    if (v17 != 1)
     {
       v10 = __nwlog_obj();
       v15 = type;
       if (os_log_type_enabled(v10, type))
       {
         *buf = 136446466;
-        v22 = "[NWConcrete_nw_path_evaluator dealloc]";
-        v23 = 1024;
-        v24 = v6;
+        v20 = "[NWConcrete_nw_path_evaluator dealloc]";
+        v21 = 1024;
+        v22 = v6;
         _os_log_impl(&dword_181A37000, v10, v15, "%{public}s NECP_CLIENT_ACTION_REMOVE error %{darwin.errno}d, backtrace limit exceeded", buf, 0x12u);
       }
 
@@ -203,9 +201,9 @@ LABEL_17:
       if (v14)
       {
         *buf = 136446466;
-        v22 = "[NWConcrete_nw_path_evaluator dealloc]";
-        v23 = 1024;
-        v24 = v6;
+        v20 = "[NWConcrete_nw_path_evaluator dealloc]";
+        v21 = 1024;
+        v22 = v6;
         _os_log_impl(&dword_181A37000, v10, v13, "%{public}s NECP_CLIENT_ACTION_REMOVE error %{darwin.errno}d, no backtrace", buf, 0x12u);
       }
 
@@ -215,11 +213,11 @@ LABEL_17:
     if (v14)
     {
       *buf = 136446722;
-      v22 = "[NWConcrete_nw_path_evaluator dealloc]";
-      v23 = 1024;
-      v24 = v6;
-      v25 = 2082;
-      v26 = backtrace_string;
+      v20 = "[NWConcrete_nw_path_evaluator dealloc]";
+      v21 = 1024;
+      v22 = v6;
+      v23 = 2082;
+      v24 = backtrace_string;
       _os_log_impl(&dword_181A37000, v10, v13, "%{public}s NECP_CLIENT_ACTION_REMOVE error %{darwin.errno}d, dumping backtrace:%{public}s", buf, 0x1Cu);
     }
 
@@ -231,9 +229,9 @@ LABEL_17:
   }
 
 LABEL_5:
-  v18.receiver = self;
-  v18.super_class = NWConcrete_nw_path_evaluator;
-  [(NWConcrete_nw_path_evaluator *)&v18 dealloc:v16];
+  v16.receiver = self;
+  v16.super_class = NWConcrete_nw_path_evaluator;
+  [(NWConcrete_nw_path_evaluator *)&v16 dealloc];
 }
 
 - (id)redactedDescription

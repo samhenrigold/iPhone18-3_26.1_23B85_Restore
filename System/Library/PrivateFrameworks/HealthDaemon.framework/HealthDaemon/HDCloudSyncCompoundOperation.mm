@@ -1,4 +1,5 @@
 @interface HDCloudSyncCompoundOperation
+- (BOOL)finishWithSuccess:(BOOL)success error:(id)error;
 - (BOOL)hasEncounteredSubOperationError;
 - (HDCloudSyncCompoundOperation)initWithConfiguration:(id)configuration cloudState:(id)state;
 - (HDCloudSyncCompoundOperation)initWithConfiguration:(id)configuration cloudState:(id)state name:(id)name continueOnSubOperationError:(BOOL)error;
@@ -37,7 +38,7 @@
   v11 = [(HDCloudSyncOperation *)&v17 initWithConfiguration:configuration cloudState:state];
   if (v11)
   {
-    v12 = [nameCopy copy];
+    v12 = objc_msgSend_copy(nameCopy);
     name = v11->_name;
     v11->_name = v12;
 
@@ -66,39 +67,48 @@
   [(HDCloudSyncOperation *)&v5 start];
 }
 
+- (BOOL)finishWithSuccess:(BOOL)success error:(id)error
+{
+  v7.receiver = self;
+  v7.super_class = HDCloudSyncCompoundOperation;
+  v5 = [(HDCloudSyncOperation *)&v7 finishWithSuccess:success error:error];
+  [(HDCloudSyncCompoundOperation *)self _invalidate];
+  return v5;
+}
+
 - (void)_invalidate
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self)
   {
     os_unfair_lock_lock((self + 112));
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v2 = *(self + 104);
-    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v12;
+      v5 = *v11;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v12 != v5)
+          if (*v11 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v11 + 1) + 8 * i);
+          v7 = *(*(&v10 + 1) + 8 * i);
           if (![v7 status])
           {
             [v7 skip];
           }
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v4);
@@ -113,76 +123,72 @@
 
     os_unfair_lock_unlock((self + 112));
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)main
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if ([(NSMutableArray *)self->_operations count])
   {
     v3 = 100 * [(NSMutableArray *)self->_operations count];
     progress = [(HDCloudSyncOperation *)self progress];
     [progress setTotalUnitCount:v3];
 
-    v25 = 0u;
-    v26 = 0u;
     v23 = 0u;
     v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v5 = self->_operations;
-    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v24;
+      v8 = *v22;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v24 != v8)
+          if (*v22 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v23 + 1) + 8 * i);
+          v10 = *(*(&v21 + 1) + 8 * i);
           progress2 = [(HDCloudSyncOperation *)self progress];
           progress3 = [v10 progress];
           [progress2 addChild:progress3 withPendingUnitCount:100];
         }
 
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v7);
     }
 
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __36__HDCloudSyncCompoundOperation_main__block_invoke;
-    v22[3] = &unk_278613088;
-    v22[4] = self;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __36__HDCloudSyncCompoundOperation_main__block_invoke;
+    v20[3] = &unk_278613088;
+    v20[4] = self;
     lastObject = [(NSMutableArray *)self->_operations lastObject];
-    [lastObject setOnError:v22];
+    [lastObject setOnError:v20];
 
     v14 = [(NSMutableArray *)self->_operations lastObject:MEMORY[0x277D85DD0]];
-    [v14 setOnSuccess:&v21];
+    [v14 setOnSuccess:&v19];
 
     cloudState = [(HDCloudSyncOperation *)self cloudState];
     firstObject = [(NSMutableArray *)self->_operations firstObject];
     [firstObject setCloudState:cloudState];
 
-    v17 = [(NSMutableArray *)self->_operations copy];
+    v17 = objc_msgSend_copy(self->_operations);
     remainingOperations = self->_remainingOperations;
     self->_remainingOperations = v17;
 
     [(HDCloudSyncCompoundOperation *)self _runRemainingOperations];
-    v19 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v20 = *MEMORY[0x277D85DE8];
 
     [(HDCloudSyncCompoundOperation *)self finishWithSuccess:1 error:0];
   }
@@ -230,7 +236,7 @@ void __36__HDCloudSyncCompoundOperation_main__block_invoke(uint64_t a1, uint64_t
 
 - (id)_compoundError
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (self)
   {
     os_unfair_lock_lock((self + 112));
@@ -250,10 +256,10 @@ void __36__HDCloudSyncCompoundOperation_main__block_invoke(uint64_t a1, uint64_t
     {
       v5 = MEMORY[0x277CCA9B8];
       v6 = *MEMORY[0x277CCBDB0];
-      v11 = @"HDCloudSyncCompoundOperationUnderlyingErrorsKey";
-      v7 = [*(self + 144) copy];
-      v12[0] = v7;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+      v10 = @"HDCloudSyncCompoundOperationUnderlyingErrorsKey";
+      v7 = objc_msgSend_copy(*(self + 144));
+      v11[0] = v7;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
       firstObject = [v5 errorWithDomain:v6 code:711 userInfo:v8];
     }
 
@@ -264,8 +270,6 @@ void __36__HDCloudSyncCompoundOperation_main__block_invoke(uint64_t a1, uint64_t
   {
     firstObject = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -361,7 +365,7 @@ LABEL_13:
 - (NSArray)operations
 {
   os_unfair_lock_lock(&self->_lock);
-  v3 = [(NSMutableArray *)self->_operations copy];
+  v3 = objc_msgSend_copy(self->_operations);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -528,53 +532,52 @@ void __63__HDCloudSyncCompoundOperation_addOperation_transitionHandler___block_i
   return v12;
 }
 
-NSString *__43__HDCloudSyncCompoundOperation_description__block_invoke()
+NSString *__43__HDCloudSyncCompoundOperation_description__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v2);
 }
 
 - (id)operationsOfType:(Class)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (objc_opt_isKindOfClass())
   {
     [v5 addObject:self];
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   operations = [(HDCloudSyncCompoundOperation *)self operations];
-  v7 = [operations countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [operations countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(operations);
         }
 
-        v11 = [*(*(&v15 + 1) + 8 * i) operationsOfType:type];
+        v11 = [*(*(&v14 + 1) + 8 * i) operationsOfType:type];
         [v5 addObjectsFromArray:v11];
       }
 
-      v8 = [operations countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [operations countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
-  v12 = [v5 copy];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = objc_msgSend_copy(v5);
 
   return v12;
 }

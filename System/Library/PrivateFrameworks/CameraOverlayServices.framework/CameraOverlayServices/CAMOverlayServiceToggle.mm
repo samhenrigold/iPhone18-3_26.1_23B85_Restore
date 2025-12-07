@@ -3,6 +3,7 @@
 - (CAMOverlayServiceToggle)initWithCoder:(id)coder;
 - (CAMOverlayServiceToggle)initWithIdentifier:(id)identifier title:(id)title imageName:(id)name onImageName:(id)imageName offImageName:(id)offImageName;
 - (CAMOverlayServiceToggle)initWithIdentifier:(id)identifier toggleType:(int64_t)type;
+- (id)updateWithBooleanValue:(BOOL)value;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -257,6 +258,16 @@ LABEL_13:
   }
 
   return self;
+}
+
+- (id)updateWithBooleanValue:(BOOL)value
+{
+  valueCopy = value;
+  v5 = [CAMOverlayServiceControlUpdate alloc];
+  identifier = [(CAMAbstractOverlayServiceControl *)self identifier];
+  v7 = [(CAMOverlayServiceControlUpdate *)v5 _initWithControlIdentifier:identifier BOOLeanValue:valueCopy];
+
+  return v7;
 }
 
 @end

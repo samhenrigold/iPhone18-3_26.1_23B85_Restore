@@ -10,9 +10,9 @@ LABEL_70:
     return;
   }
 
-  v42 = *(a1 + 48);
-  v10 = &v54;
-  v46 = v6[1];
+  v41 = *(a1 + 48);
+  v10 = &v53;
+  v45 = v6[1];
   while (1)
   {
     v11 = *v7;
@@ -51,7 +51,7 @@ LABEL_5:
     operator new();
   }
 
-  v57 = v17;
+  v56 = v17;
   if (v17)
   {
     memmove(__dst, (v15 + v14), v17);
@@ -59,10 +59,10 @@ LABEL_5:
 
   v10 = v13;
   *(__dst + v18) = 0;
-  v19 = v57;
+  v19 = v56;
   v21 = __dst[0];
   v20 = __dst[1];
-  if (v57 >= 0)
+  if (v56 >= 0)
   {
     v22 = __dst;
   }
@@ -72,9 +72,9 @@ LABEL_5:
     v22 = __dst[0];
   }
 
-  if (v57 >= 0)
+  if (v56 >= 0)
   {
-    v20 = v57;
+    v20 = v56;
   }
 
   a3 = v12;
@@ -87,39 +87,39 @@ LABEL_5:
   v24 = *(a1 + 32);
   v23 = *(a1 + 40);
   v25 = *(v11 + 2) + *v24;
-  v26 = v43 & 0xFFFFFFFFFFFFFF00 | *(v24 + 8);
+  v26 = v42 & 0xFFFFFFFFFFFFFF00 | *(v24 + 8);
   v27 = *(v11 + 4);
-  v53 = 0;
-  v55 = 0;
-  v43 = v26;
+  v52 = 0;
+  v54 = 0;
+  v42 = v26;
   if (*(v23 + 24) != 1)
   {
-    v41 = v25;
-    (*(**(v42 + 2800) + 24))(&v50);
-    std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](&v53, &v50);
-    v31 = v50;
-    v50 = 0;
+    v40 = v25;
+    (*(**(v41 + 2800) + 24))(&v49);
+    std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](&v52, &v49);
+    v31 = v49;
+    v49 = 0;
     if (v31)
     {
-      v48[0] = v31;
-      if (!v52)
+      v47[0] = v31;
+      if (!v51)
       {
         goto LABEL_72;
       }
 
-      (*(*v52 + 48))(v52, v48);
+      (*(*v51 + 48))(v51, v47);
     }
 
-    if (v52 == v51)
+    if (v51 == v50)
     {
-      (*(*v52 + 32))(v52);
+      (*(*v51 + 32))(v51);
     }
 
-    else if (v52)
+    else if (v51)
     {
-      (*(*v52 + 40))();
-      v32 = v53;
-      if (v53)
+      (*(*v51 + 40))();
+      v32 = v52;
+      if (v52)
       {
         goto LABEL_44;
       }
@@ -130,14 +130,14 @@ LABEL_55:
       *(a5 + 16) = 0;
       *(a5 + 24) = 0;
       v30 = 1;
-      v29 = v55;
+      v29 = v54;
       v10 = v13;
-      v53 = 0;
+      v52 = 0;
       goto LABEL_64;
     }
 
-    v32 = v53;
-    if (v53)
+    v32 = v52;
+    if (v52)
     {
       goto LABEL_44;
     }
@@ -151,83 +151,83 @@ LABEL_55:
     v29 = 0;
     **a1 = 1;
     v30 = 2;
-    v53 = 0;
+    v52 = 0;
     goto LABEL_64;
   }
 
-  v41 = v25;
+  v40 = v25;
   v33 = malloc_type_malloc(v27, 0xFC2F0DA2uLL);
-  v48[0] = off_E0D90;
-  v49 = v48;
-  v50 = v33;
-  v40 = v33;
-  v52 = v51;
-  v51[0] = off_E0D90;
-  std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](&v53, &v50);
-  v34 = v50;
-  v50 = 0;
+  v47[0] = off_E0D90;
+  v48 = v47;
+  v49 = v33;
+  v39 = v33;
+  v51 = v50;
+  v50[0] = off_E0D90;
+  std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](&v52, &v49);
+  v34 = v49;
+  v49 = 0;
   if (v34)
   {
-    v58 = v34;
-    if (!v52)
+    v57 = v34;
+    if (!v51)
     {
       goto LABEL_72;
     }
 
-    (*(*v52 + 48))(v52, &v58);
+    (*(*v51 + 48))(v51, &v57);
   }
 
-  if (v52 == v51)
+  if (v51 == v50)
   {
-    (*(*v52 + 32))(v52);
+    (*(*v51 + 32))(v51);
   }
 
-  else if (v52)
+  else if (v51)
   {
-    (*(*v52 + 40))(v52);
+    (*(*v51 + 40))(v51);
   }
 
-  if (v49 == v48)
+  if (v48 == v47)
   {
-    (*(*v49 + 32))(v49);
+    (*(*v48 + 32))(v48);
   }
 
-  else if (v49)
+  else if (v48)
   {
-    (*(*v49 + 40))(v49);
+    (*(*v48 + 40))(v48);
   }
 
-  memcpy(v40, (v28 + **(a1 + 40)), v27);
-  v32 = v53;
-  if (!v53)
+  memcpy(v39, (v28 + **(a1 + 40)), v27);
+  v32 = v52;
+  if (!v52)
   {
     goto LABEL_55;
   }
 
 LABEL_44:
-  v35 = v42;
-  v36 = *(v42 + 2856);
-  if (v36 >= *(v42 + 2864))
+  v35 = v41;
+  v36 = *(v41 + 2856);
+  if (v36 >= *(v41 + 2864))
   {
-    v37 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v42 + 2848, &v53);
+    v37 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v41 + 2848), &v52);
   }
 
   else
   {
-    v53 = 0;
+    v52 = 0;
     *v36 = v32;
-    if (v55)
+    if (v54)
     {
-      if (v55 == v13)
+      if (v54 == v13)
       {
         v36[4] = (v36 + 1);
-        (*(*v55 + 24))(v55);
+        (*(*v54 + 24))(v54);
       }
 
       else
       {
-        v36[4] = v55;
-        v55 = 0;
+        v36[4] = v54;
+        v54 = 0;
       }
     }
 
@@ -237,34 +237,34 @@ LABEL_44:
     }
 
     v37 = v36 + 5;
-    v35 = v42;
+    v35 = v41;
   }
 
   v10 = v13;
   *(v35 + 2856) = v37;
-  *a5 = v41;
-  *(a5 + 8) = v43;
+  *a5 = v40;
+  *(a5 + 8) = v42;
   *(a5 + 16) = v32;
   *(a5 + 24) = v27;
-  v38 = v53;
-  v29 = v55;
-  v53 = 0;
+  v38 = v52;
+  v29 = v54;
+  v52 = 0;
   if (v38)
   {
-    v50 = v38;
-    v8 = v46;
-    if (!v55)
+    v49 = v38;
+    v8 = v45;
+    if (!v54)
     {
 LABEL_72:
-      v39 = std::__throw_bad_function_call[abi:nn200100]();
+      std::__throw_bad_function_call[abi:nn200100]();
       return;
     }
 
     a3 = v12;
-    (*(*v55 + 48))();
+    (*(*v54 + 48))();
     v30 = 1;
-    v29 = v55;
-    if (v55 != v13)
+    v29 = v54;
+    if (v54 != v13)
     {
       goto LABEL_65;
     }
@@ -276,7 +276,7 @@ LABEL_62:
 
   v30 = 1;
 LABEL_64:
-  v8 = v46;
+  v8 = v45;
   a3 = v12;
   if (v29 == v10)
   {
@@ -318,9 +318,9 @@ LABEL_71:
     return;
   }
 
-  v42 = *(a1 + 48);
-  v10 = &v54;
-  v46 = v6[1];
+  v41 = *(a1 + 48);
+  v10 = &v53;
+  v45 = v6[1];
   while (1)
   {
     v12 = *v7;
@@ -347,7 +347,7 @@ LABEL_71:
       operator new();
     }
 
-    v57 = v18;
+    v56 = v18;
     if (v18)
     {
       memmove(__dst, (v16 + v15), v18);
@@ -355,10 +355,10 @@ LABEL_71:
 
     v10 = v14;
     *(__dst + v19) = 0;
-    v20 = v57;
+    v20 = v56;
     v22 = __dst[0];
     v21 = __dst[1];
-    if (v57 >= 0)
+    if (v56 >= 0)
     {
       v23 = __dst;
     }
@@ -368,9 +368,9 @@ LABEL_71:
       v23 = __dst[0];
     }
 
-    if (v57 >= 0)
+    if (v56 >= 0)
     {
-      v21 = v57;
+      v21 = v56;
     }
 
     a3 = v13;
@@ -388,11 +388,11 @@ LABEL_71:
     v25 = *(a1 + 32);
     v24 = *(a1 + 40);
     v26 = *v25 + v12[3];
-    v27 = v43 & 0xFFFFFFFFFFFFFF00 | *(v25 + 8);
+    v27 = v42 & 0xFFFFFFFFFFFFFF00 | *(v25 + 8);
     v28 = v12[5];
-    v53 = 0;
-    v55 = 0;
-    v43 = v27;
+    v52 = 0;
+    v54 = 0;
+    v42 = v27;
     if (*(v24 + 24) == 1)
     {
       v29 = v12[4];
@@ -402,57 +402,57 @@ LABEL_71:
         **a1 = 1;
         v11 = 2;
 LABEL_53:
-        v53 = 0;
-        v8 = v46;
+        v52 = 0;
+        v8 = v45;
         v10 = v14;
         goto LABEL_63;
       }
 
-      v41 = v26;
+      v40 = v26;
       v33 = malloc_type_malloc(v28, 0xFC2F0DA2uLL);
-      v48[0] = off_E0DD8;
-      v49 = v48;
-      v50 = v33;
-      v40 = v33;
-      v52 = v51;
-      v51[0] = off_E0DD8;
-      std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](&v53, &v50);
-      v34 = v50;
-      v50 = 0;
+      v47[0] = off_E0DD8;
+      v48 = v47;
+      v49 = v33;
+      v39 = v33;
+      v51 = v50;
+      v50[0] = off_E0DD8;
+      std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](&v52, &v49);
+      v34 = v49;
+      v49 = 0;
       if (v34)
       {
-        v58 = v34;
-        if (!v52)
+        v57 = v34;
+        if (!v51)
         {
           goto LABEL_72;
         }
 
-        (*(*v52 + 48))(v52, &v58);
+        (*(*v51 + 48))(v51, &v57);
       }
 
-      if (v52 == v51)
+      if (v51 == v50)
       {
-        (*(*v52 + 32))(v52);
+        (*(*v51 + 32))(v51);
       }
 
-      else if (v52)
+      else if (v51)
       {
-        (*(*v52 + 40))(v52);
+        (*(*v51 + 40))(v51);
       }
 
-      if (v49 == v48)
+      if (v48 == v47)
       {
-        (*(*v49 + 32))(v49);
+        (*(*v48 + 32))(v48);
       }
 
-      else if (v49)
+      else if (v48)
       {
-        (*(*v49 + 40))(v49);
+        (*(*v48 + 40))(v48);
       }
 
-      memcpy(v40, (**(a1 + 40) + v29), v28);
-      v32 = v53;
-      if (!v53)
+      memcpy(v39, (**(a1 + 40) + v29), v28);
+      v32 = v52;
+      if (!v52)
       {
 LABEL_52:
         *a5 = 0;
@@ -460,39 +460,39 @@ LABEL_52:
         *(a5 + 16) = 0;
         *(a5 + 24) = 0;
         v11 = 1;
-        v30 = v55;
+        v30 = v54;
         goto LABEL_53;
       }
     }
 
     else
     {
-      v41 = v26;
-      (*(**(v42 + 2800) + 24))(&v50);
-      std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](&v53, &v50);
-      v31 = v50;
-      v50 = 0;
+      v40 = v26;
+      (*(**(v41 + 2800) + 24))(&v49);
+      std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](&v52, &v49);
+      v31 = v49;
+      v49 = 0;
       if (v31)
       {
-        v48[0] = v31;
-        if (!v52)
+        v47[0] = v31;
+        if (!v51)
         {
           goto LABEL_72;
         }
 
-        (*(*v52 + 48))(v52, v48);
+        (*(*v51 + 48))(v51, v47);
       }
 
-      if (v52 == v51)
+      if (v51 == v50)
       {
-        (*(*v52 + 32))(v52);
+        (*(*v51 + 32))(v51);
       }
 
-      else if (v52)
+      else if (v51)
       {
-        (*(*v52 + 40))();
-        v32 = v53;
-        if (!v53)
+        (*(*v51 + 40))();
+        v32 = v52;
+        if (!v52)
         {
           goto LABEL_52;
         }
@@ -500,37 +500,37 @@ LABEL_52:
         goto LABEL_41;
       }
 
-      v32 = v53;
-      if (!v53)
+      v32 = v52;
+      if (!v52)
       {
         goto LABEL_52;
       }
     }
 
 LABEL_41:
-    v35 = v42;
-    v36 = *(v42 + 2856);
-    if (v36 >= *(v42 + 2864))
+    v35 = v41;
+    v36 = *(v41 + 2856);
+    if (v36 >= *(v41 + 2864))
     {
-      v37 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v42 + 2848, &v53);
+      v37 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v41 + 2848), &v52);
     }
 
     else
     {
-      v53 = 0;
+      v52 = 0;
       *v36 = v32;
-      if (v55)
+      if (v54)
       {
-        if (v55 == v14)
+        if (v54 == v14)
         {
           v36[4] = (v36 + 1);
-          (*(*v55 + 24))(v55);
+          (*(*v54 + 24))(v54);
         }
 
         else
         {
-          v36[4] = v55;
-          v55 = 0;
+          v36[4] = v54;
+          v54 = 0;
         }
       }
 
@@ -540,22 +540,22 @@ LABEL_41:
       }
 
       v37 = v36 + 5;
-      v35 = v42;
+      v35 = v41;
     }
 
     v10 = v14;
     *(v35 + 2856) = v37;
-    *a5 = v41;
-    *(a5 + 8) = v43;
+    *a5 = v40;
+    *(a5 + 8) = v42;
     *(a5 + 16) = v32;
     *(a5 + 24) = v28;
-    v38 = v53;
-    v30 = v55;
-    v53 = 0;
+    v38 = v52;
+    v30 = v54;
+    v52 = 0;
     if (!v38)
     {
       v11 = 1;
-      v8 = v46;
+      v8 = v45;
 LABEL_63:
       a3 = v13;
       if (v30 == v10)
@@ -566,20 +566,20 @@ LABEL_63:
       goto LABEL_64;
     }
 
-    v50 = v38;
-    v8 = v46;
-    if (!v55)
+    v49 = v38;
+    v8 = v45;
+    if (!v54)
     {
 LABEL_72:
-      v39 = std::__throw_bad_function_call[abi:nn200100]();
+      std::__throw_bad_function_call[abi:nn200100]();
       return;
     }
 
     a3 = v13;
-    (*(*v55 + 48))();
+    (*(*v54 + 48))();
     v11 = 1;
-    v30 = v55;
-    if (v55 == v14)
+    v30 = v54;
+    if (v54 == v14)
     {
 LABEL_60:
       (*(*v30 + 32))(v30);
@@ -687,14 +687,13 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<sw
   result = *(a1 + 96);
   if (!result)
   {
-    v3 = *(a1 + 2800);
     operator new();
   }
 
   return result;
 }
 
-_BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:nn200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -708,141 +707,142 @@ _BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-char *swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(unint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, int a5)
+void **swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  *&v196 = a2;
-  *(&v196 + 1) = a3;
-  LOBYTE(v197) = a4;
+  v8 = a5;
+  *&v246 = a2;
+  *(&v246 + 1) = a3;
+  LOBYTE(v247) = a4;
   __src[0] = 0;
-  if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, &v196, __src) && __src[0] != (*a1 + 32 * *(a1 + 16)))
+  if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, &v246, __src, a4, a5, a6, a7, a8) && __src[0] != (*a1 + 32 * *(a1 + 16)))
   {
     return *(__src[0] + 3);
   }
 
-  v11 = __OFSUB__(a5, 1);
-  v12 = (a5 - 1);
-  if (v12 < 0 != v11)
+  v19 = __OFSUB__(v8, 1);
+  v20 = (v8 - 1);
+  if (v20 < 0 != v19)
   {
     return 0;
   }
 
-  *__src = v196;
-  v154 = v197;
-  v155 = 0;
-  v114.__r_.__value_.__r.__words[0] = 0;
-  if ((__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, __src, &v114) & 1) == 0)
+  *__src = v246;
+  v204 = v247;
+  v205 = 0;
+  v164.__r_.__value_.__r.__words[0] = 0;
+  if ((__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, __src, &v164, v13, v14, v15, v16, v17) & 1) == 0)
   {
-    v13 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::InsertIntoBucketImpl<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, __src, __src, v114.__r_.__value_.__l.__data_);
-    v14 = __src[1];
-    *v13 = __src[0];
-    *(v13 + 8) = v14;
-    *(v13 + 16) = v154;
-    v13[3] = v155;
+    v21 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::InsertIntoBucketImpl<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, __src, __src, v164.__r_.__value_.__l.__data_);
+    v22 = __src[1];
+    *v21 = __src[0];
+    *(v21 + 8) = v22;
+    *(v21 + 16) = v204;
+    v21[3] = v205;
   }
 
-  Metadata = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(a1, a2, a3, &v194);
-  v16 = v195;
-  if (!v195)
+  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(a1, a2, a3, &v244);
+  v24 = v245;
+  if (!v245)
   {
     return 0;
   }
 
-  v17 = *v195;
-  if (*v195 > 0x7FFuLL)
+  v25 = *v245;
+  if (*v245 > 0x7FF)
   {
-    LODWORD(v17) = 0;
+    LODWORD(v25) = 0;
   }
 
-  if (v17 <= 770)
+  if (v25 <= 770)
   {
-    if (v17 <= 514)
+    if (v25 <= 514)
     {
-      if ((v17 - 512) < 3)
+      if ((v25 - 512) < 3)
       {
-        *__src = v194;
-        v154 = v195;
-        return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readNominalTypeFromMetadata(a1, __src, v12, 0);
+        *__src = v244;
+        v204 = v245;
+        return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readNominalTypeFromMetadata(a1, __src, v20, 0);
       }
 
-      if (!v17)
+      if (!v25)
       {
-        *__src = v194;
-        v154 = v195;
-        return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readNominalTypeFromClassMetadata(a1, __src, v12, a4);
+        *__src = v244;
+        v204 = v245;
+        return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readNominalTypeFromClassMetadata(a1, __src, v20, a4);
       }
 
       goto LABEL_46;
     }
 
-    if ((v17 - 515) >= 2)
+    if ((v25 - 515) >= 2)
     {
-      if (v17 == 769)
+      if (v25 == 769)
       {
-        v154 = 0;
+        v204 = 0;
         __src[1] = 0;
         __src[0] = 0;
-        std::vector<swift::reflection::TypeRef const*>::reserve(__src, v195[1]);
-        v31 = *(v16 + 8);
-        if (*(v16 + 8))
+        std::vector<swift::reflection::TypeRef const*>::reserve(__src, v245[1]);
+        v45 = *(v24 + 8);
+        if (*(v24 + 8))
         {
-          v32 = (v16 + 24);
+          v46 = (v24 + 24);
           do
           {
-            v34 = *v32;
-            v32 += 2;
-            result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v34, a3, 0, v12);
+            v48 = *v46;
+            v46 += 2;
+            result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v48, a3, 0, v20);
             if (!result)
             {
               goto LABEL_157;
             }
 
-            v35 = __src[1];
-            if (__src[1] < v154)
+            v49 = __src[1];
+            if (__src[1] < v204)
             {
               *__src[1] = result;
-              v33 = v35 + 8;
+              v47 = v49 + 8;
             }
 
             else
             {
-              v36 = __src[0];
-              v37 = __src[1] - __src[0];
-              v38 = (__src[1] - __src[0]) >> 3;
-              v39 = v38 + 1;
-              if ((v38 + 1) >> 61)
+              v50 = __src[0];
+              v51 = __src[1] - __src[0];
+              v52 = (__src[1] - __src[0]) >> 3;
+              v53 = v52 + 1;
+              if ((v52 + 1) >> 61)
               {
                 std::string::__throw_length_error[abi:nn200100]();
               }
 
-              v40 = v154 - __src[0];
-              if ((v154 - __src[0]) >> 2 > v39)
+              v54 = v204 - __src[0];
+              if ((v204 - __src[0]) >> 2 > v53)
               {
-                v39 = v40 >> 2;
+                v53 = v54 >> 2;
               }
 
-              if (v40 >= 0x7FFFFFFFFFFFFFF8)
+              if (v54 >= 0x7FFFFFFFFFFFFFF8)
               {
-                v41 = 0x1FFFFFFFFFFFFFFFLL;
+                v55 = 0x1FFFFFFFFFFFFFFFLL;
               }
 
               else
               {
-                v41 = v39;
+                v55 = v53;
               }
 
-              if (v41)
+              if (v55)
               {
-                if (!(v41 >> 61))
+                if (!(v55 >> 61))
                 {
                   operator new();
                 }
@@ -850,109 +850,109 @@ char *swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift
                 goto LABEL_224;
               }
 
-              *(8 * v38) = result;
-              v33 = (8 * v38 + 8);
-              memcpy(0, v36, v37);
+              *(8 * v52) = result;
+              v47 = (8 * v52 + 8);
+              memcpy(0, v50, v51);
               __src[0] = 0;
-              __src[1] = v33;
-              v154 = 0;
-              if (v36)
+              __src[1] = v47;
+              v204 = 0;
+              if (v50)
               {
-                operator delete(v36);
+                operator delete(v50);
               }
             }
 
-            __src[1] = v33;
-            --v31;
+            __src[1] = v47;
+            --v45;
           }
 
-          while (v31);
+          while (v45);
         }
 
-        v49 = *(v16 + 16);
-        memset(&v114, 0, sizeof(v114));
-        if (v49 && !(*(**(a1 + 2800) + 16))(*(a1 + 2800), v49, a3, &v114))
+        v69 = *(v24 + 16);
+        memset(&v164, 0, sizeof(v164));
+        if (v69 && !(*(**(a1 + 2800) + 16))(*(a1 + 2800), v69, a3, &v164))
         {
           result = 0;
         }
 
         else
         {
-          memset(&v193, 0, sizeof(v193));
-          v50 = std::string::find(&v114, 32, 0);
-          if (v50 == -1)
+          memset(&v243, 0, sizeof(v243));
+          v70 = std::string::find(&v164, 32, 0);
+          if (v70 == -1)
           {
-            v54 = 0;
+            v74 = 0;
             size = 0;
           }
 
           else
           {
-            v51 = v50;
-            v52 = 0;
+            v71 = v70;
+            v72 = 0;
             do
             {
-              if ((v114.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              if ((v164.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v53 = &v114;
+                v73 = &v164;
               }
 
               else
               {
-                v53 = v114.__r_.__value_.__r.__words[0];
+                v73 = v164.__r_.__value_.__r.__words[0];
               }
 
-              v152.__r_.__value_.__r.__words[0] = v53 + v52;
-              v152.__r_.__value_.__l.__size_ = v51 - v52;
-              std::vector<__swift::__runtime::llvm::StringRef>::push_back[abi:nn200100](&v193, &v152);
-              v52 = v51 + 1;
-              v51 = std::string::find(&v114, 32, v51 + 1);
+              v202.__r_.__value_.__r.__words[0] = v73 + v72;
+              v202.__r_.__value_.__l.__size_ = v71 - v72;
+              std::vector<__swift::__runtime::llvm::StringRef>::push_back[abi:nn200100](&v243, &v202);
+              v72 = v71 + 1;
+              v71 = std::string::find(&v164, 32, v71 + 1);
             }
 
-            while (v51 != -1);
-            size = v193.__r_.__value_.__l.__size_;
-            v54 = v193.__r_.__value_.__r.__words[0];
+            while (v71 != -1);
+            size = v243.__r_.__value_.__l.__size_;
+            v74 = v243.__r_.__value_.__r.__words[0];
           }
 
-          v84 = (size - v54) >> 4;
-          v85 = __src[0];
-          v86 = (__src[1] - __src[0]) >> 3;
-          if (v86 > v84)
+          v110 = (size - v74) >> 4;
+          v111 = __src[0];
+          v112 = (__src[1] - __src[0]) >> 3;
+          if (v112 > v110)
           {
-            v87 = v84 + 1;
+            v113 = v110 + 1;
             do
             {
-              *&v152.__r_.__value_.__l.__data_ = 0uLL;
-              std::vector<__swift::__runtime::llvm::StringRef>::push_back[abi:nn200100](&v193, &v152);
-              v85 = __src[0];
-              v86 = (__src[1] - __src[0]) >> 3;
+              *&v202.__r_.__value_.__l.__data_ = 0uLL;
+              std::vector<__swift::__runtime::llvm::StringRef>::push_back[abi:nn200100](&v243, &v202);
+              v111 = __src[0];
+              v112 = (__src[1] - __src[0]) >> 3;
             }
 
-            while (v86 > v87++);
-            v54 = v193.__r_.__value_.__r.__words[0];
+            while (v112 > v113++);
+            v74 = v243.__r_.__value_.__r.__words[0];
           }
 
-          TupleType = swift::reflection::TypeRefBuilder::createTupleType(a1 + 328, v85, v86, v54, (v193.__r_.__value_.__l.__size_ - v54) >> 4);
-          v90 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v196);
+          TupleType = swift::reflection::TypeRefBuilder::createTupleType(a1 + 328, v111, v112, v74, (v243.__r_.__value_.__l.__size_ - v74) >> 4);
+          v122 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v246, v116, v117, v118, v119, v120, v121);
           result = TupleType;
-          *v90 = TupleType;
-          if (v193.__r_.__value_.__r.__words[0])
+          *v122 = TupleType;
+          if (v243.__r_.__value_.__r.__words[0])
           {
-            v193.__r_.__value_.__l.__size_ = v193.__r_.__value_.__r.__words[0];
-            operator delete(v193.__r_.__value_.__l.__data_);
+            v243.__r_.__value_.__l.__size_ = v243.__r_.__value_.__r.__words[0];
+            operator delete(v243.__r_.__value_.__l.__data_);
             result = TupleType;
           }
         }
 
-        if (SHIBYTE(v114.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v164.__r_.__value_.__r.__words[2]) < 0)
         {
-          v91 = result;
-          operator delete(v114.__r_.__value_.__l.__data_);
-          result = v91;
+          v123 = result;
+          operator delete(v164.__r_.__value_.__l.__data_);
+          result = v123;
         }
 
 LABEL_157:
-        v25 = __src[0];
+        v39 = __src[0];
         if (!__src[0])
         {
           return result;
@@ -962,19 +962,19 @@ LABEL_157:
         goto LABEL_169;
       }
 
-      if (v17 == 770)
+      if (v25 == 770)
       {
-        memset(&v114, 0, sizeof(v114));
-        v19 = *(v195 + 4);
-        if (*(v195 + 4))
+        memset(&v164, 0, sizeof(v164));
+        v33 = *(v245 + 4);
+        if (*(v245 + 4))
         {
-          v20 = v195 + 3;
-          v21 = a3;
-          v22 = v195 + 3;
+          v34 = v245 + 3;
+          v35 = a3;
+          v36 = v245 + 3;
           while (1)
           {
-            v24 = *v22++;
-            result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v24, v21, 0, v12);
+            v38 = *v36++;
+            result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v38, v35, 0, v20);
             if (!result)
             {
               goto LABEL_167;
@@ -982,40 +982,40 @@ LABEL_157:
 
             __src[1] = 0;
             __src[0] = 0;
-            v154 = result;
-            if ((*(v16 + 8) & 0x2000000) != 0)
+            v204 = result;
+            if ((*(v24 + 8) & 0x2000000) != 0)
             {
-              v23 = v20[*(v16 + 8)];
+              v37 = v34[*(v24 + 8)];
             }
 
             else
             {
-              v23 = 0;
+              v37 = 0;
             }
 
-            LODWORD(v155) = v23;
-            std::vector<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>>::push_back[abi:nn200100](&v114, __src);
-            v20 = (v20 + 4);
-            if (!--v19)
+            LODWORD(v205) = v37;
+            std::vector<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>>::push_back[abi:nn200100](&v164, __src);
+            v34 = (v34 + 4);
+            if (!--v33)
             {
               goto LABEL_132;
             }
           }
         }
 
-        v21 = a3;
+        v35 = a3;
 LABEL_132:
-        result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, *(v16 + 16), v21, 0, v12);
+        result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, *(v24 + 16), v35, 0, v20);
         if (!result)
         {
           goto LABEL_167;
         }
 
-        v74 = result;
-        v75 = *(v16 + 8);
-        if ((v75 & 0x80000000) != 0)
+        v94 = result;
+        v95 = *(v24 + 8);
+        if ((v95 & 0x80000000) != 0)
         {
-          ExtendedFlags = swift::TargetFunctionTypeMetadata<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getExtendedFlags(v16);
+          ExtendedFlags = swift::TargetFunctionTypeMetadata<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getExtendedFlags(v24);
         }
 
         else
@@ -1023,47 +1023,47 @@ LABEL_132:
           ExtendedFlags = 0;
         }
 
-        v77 = *(v16 + 8);
-        if ((v77 & 0x10000000) != 0)
+        v97 = *(v24 + 8);
+        if ((v97 & 0x10000000) != 0)
         {
-          result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, *(((v16 + 8 * *(v16 + 8) + 4 * (*(v16 + 8) & ((*(v16 + 8) << 38) >> 63)) + 31) & 0xFFFFFFFFFFFFFFF8) + 8 * ((*(v16 + 8) >> 27) & 1)), v21, 0, v12);
+          result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, *(((v24 + 8 * *(v24 + 8) + 4 * (*(v24 + 8) & ((*(v24 + 8) << 38) >> 63)) + 31) & 0xFFFFFFFFFFFFFFF8) + 8 * ((*(v24 + 8) >> 27) & 1)), v35, 0, v20);
           if (!result)
           {
             goto LABEL_167;
           }
 
-          v82 = result;
-          v77 = *(v16 + 8);
+          v108 = result;
+          v97 = *(v24 + 8);
         }
 
         else
         {
-          v82 = 0;
+          v108 = 0;
         }
 
-        if ((v77 & 0x8000000) != 0)
+        if ((v97 & 0x8000000) != 0)
         {
-          v92 = *((v16 + 8 * v77 + 4 * (v77 & (v77 << 38 >> 63)) + 31) & 0xFFFFFFFFFFFFFFF8);
-          if ((v92 - 1) >= 4)
+          v124 = *((v24 + 8 * v97 + 4 * (v97 & (v97 << 38 >> 63)) + 31) & 0xFFFFFFFFFFFFFFF8);
+          if ((v124 - 1) >= 4)
           {
-            v83 = 0;
+            v109 = 0;
           }
 
           else
           {
-            v83 = v92;
+            v109 = v124;
           }
         }
 
         else
         {
-          v83 = 0;
+          v109 = 0;
         }
 
-        if (swift::TargetFunctionTypeMetadata<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::hasThrownError(v16))
+        if (swift::TargetFunctionTypeMetadata<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::hasThrownError(v24))
         {
-          ThrownError = swift::TargetFunctionTypeMetadata<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getThrownError(v16);
-          result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, ThrownError, v21, 0, v12);
+          ThrownError = swift::TargetFunctionTypeMetadata<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getThrownError(v24);
+          result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, ThrownError, v35, 0, v20);
           if (!result)
           {
             goto LABEL_167;
@@ -1075,103 +1075,103 @@ LABEL_132:
           result = 0;
         }
 
-        FunctionType = swift::reflection::TypeRefBuilder::createFunctionType(a1 + 328, v114.__r_.__value_.__l.__data_, (v114.__r_.__value_.__l.__size_ - v114.__r_.__value_.__r.__words[0]) >> 5, v74, v75, ExtendedFlags, v83, v82, result);
-        v95 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v196);
+        FunctionType = swift::reflection::TypeRefBuilder::createFunctionType(a1 + 328, v164.__r_.__value_.__l.__data_, (v164.__r_.__value_.__l.__size_ - v164.__r_.__value_.__r.__words[0]) >> 5, v94, v95, ExtendedFlags, v109, v108, result);
+        v133 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v246, v127, v128, v129, v130, v131, v132);
         result = FunctionType;
-        *v95 = FunctionType;
+        *v133 = FunctionType;
 LABEL_167:
-        v25 = v114.__r_.__value_.__r.__words[0];
-        if (!v114.__r_.__value_.__r.__words[0])
+        v39 = v164.__r_.__value_.__r.__words[0];
+        if (!v164.__r_.__value_.__r.__words[0])
         {
           return result;
         }
 
-        v114.__r_.__value_.__l.__size_ = v114.__r_.__value_.__r.__words[0];
+        v164.__r_.__value_.__l.__size_ = v164.__r_.__value_.__r.__words[0];
         goto LABEL_169;
       }
 
 LABEL_46:
-      v18 = swift::reflection::OpaqueTypeRef::get(Metadata);
+      v26 = swift::reflection::OpaqueTypeRef::get(v23);
       goto LABEL_47;
     }
 
-    result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readAddressOfNominalTypeDescriptor(a1, &v194, 0);
+    result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readAddressOfNominalTypeDescriptor(a1, &v244, 0);
     if (!result)
     {
       return result;
     }
 
-    swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(a1, result, v26, &v193);
-    if (v193.__r_.__value_.__r.__words[2])
+    swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(a1, result, v40, &v243);
+    if (v243.__r_.__value_.__r.__words[2])
     {
-      v154 = 0;
+      v204 = 0;
       __src[1] = 0;
-      v155 = 0;
-      v156 = 2400;
-      v157 = 0;
-      v158 = 0;
-      v192 = 0;
+      v205 = 0;
+      v206 = 2400;
+      v207 = 0;
+      v208 = 0;
+      v242 = 0;
       __src[0] = off_E13E8;
-      v159 = 0;
-      v161 = 0;
-      v160 = 0;
-      v162 = 0;
-      v174 = 0u;
-      v175 = 0u;
-      v176 = 0u;
-      v177 = 0u;
-      v178 = 0u;
-      v179 = 0u;
-      v180 = 0u;
-      v181 = 0u;
-      v182 = 0u;
-      v183 = 0u;
-      v184 = 0u;
-      v185 = 0u;
-      v186 = 0u;
-      v187 = 0u;
-      v188 = 0u;
-      v189 = 0u;
-      v190 = 0u;
-      v163 = 0u;
-      v164 = 0u;
-      v165 = 0u;
-      v166 = 0u;
-      v167 = 0u;
-      v168 = 0u;
-      v169 = 0u;
-      v170 = 0u;
-      v171 = 0u;
-      v172 = 0u;
-      v173 = 0u;
-      v191 = 0;
-      v114 = v193;
-      v27 = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextMangling(a1, &v114, __src);
-      if (v27 && *(v27 + 16) == 243)
+      v209 = 0;
+      v211 = 0;
+      v210 = 0;
+      v212 = 0;
+      v224 = 0u;
+      v225 = 0u;
+      v226 = 0u;
+      v227 = 0u;
+      v228 = 0u;
+      v229 = 0u;
+      v230 = 0u;
+      v231 = 0u;
+      v232 = 0u;
+      v233 = 0u;
+      v234 = 0u;
+      v235 = 0u;
+      v236 = 0u;
+      v237 = 0u;
+      v238 = 0u;
+      v239 = 0u;
+      v240 = 0u;
+      v213 = 0u;
+      v214 = 0u;
+      v215 = 0u;
+      v216 = 0u;
+      v217 = 0u;
+      v218 = 0u;
+      v219 = 0u;
+      v220 = 0u;
+      v221 = 0u;
+      v222 = 0u;
+      v223 = 0u;
+      v241 = 0;
+      v164 = v243;
+      v41 = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextMangling(a1, &v164, __src);
+      if (v41 && *(v41 + 8) == 243)
       {
-        swift::Demangle::__runtime::mangleNode();
-        if (LODWORD(v114.__r_.__value_.__l.__data_))
+        swift::Demangle::__runtime::mangleNode(v41, 0);
+        if (LODWORD(v164.__r_.__value_.__l.__data_))
         {
-          v28 = 0;
+          v42 = 0;
         }
 
         else
         {
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
-            std::string::__init_copy_ctor_external(&v152, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+            std::string::__init_copy_ctor_external(&v202, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
           }
 
           else
           {
-            v152 = __p;
+            v202 = __p;
           }
 
-          v28 = swift::reflection::ForeignClassTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, &v152);
-          *__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v196) = v28;
-          if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
+          v42 = swift::reflection::ForeignClassTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, &v202);
+          *__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v246, v134, v135, v136, v137, v138, v139) = v42;
+          if (SHIBYTE(v202.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v152.__r_.__value_.__l.__data_);
+            operator delete(v202.__r_.__value_.__l.__data_);
           }
         }
 
@@ -1183,131 +1183,131 @@ LABEL_46:
 
       else
       {
-        v28 = 0;
+        v42 = 0;
       }
 
       swift::Demangle::__runtime::Demangler::~Demangler(__src);
-      return v28;
+      return v42;
     }
 
     return 0;
   }
 
-  if (v17 <= 774)
+  if (v25 <= 774)
   {
-    if (v17 <= 772)
+    if (v25 <= 772)
     {
-      if (v17 == 771)
+      if (v25 == 771)
       {
-        v42 = *(v195 + 2);
-        if ((v42 & 0x40000000) != 0)
+        v56 = *(v245 + 2);
+        if ((v56 & 0x40000000) != 0)
         {
-          result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v195[2], a3, 0, v12);
+          result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v245[2], a3, 0, v20);
           if (!result)
           {
             return result;
           }
 
-          v43 = result;
-          v44 = 1;
+          v57 = result;
+          v58 = 1;
         }
 
         else
         {
-          v43 = 0;
-          v44 = v42 >= 0;
+          v57 = 0;
+          v58 = v56 >= 0;
         }
 
-        v154 = 0;
+        v204 = 0;
         __src[1] = 0;
-        v155 = 0;
-        v156 = 2400;
-        v157 = 0;
-        v158 = 0;
-        v192 = 0;
+        v205 = 0;
+        v206 = 2400;
+        v207 = 0;
+        v208 = 0;
+        v242 = 0;
         __src[0] = off_E13E8;
-        v159 = 0;
-        v161 = 0;
-        v160 = 0;
-        v162 = 0;
-        v174 = 0u;
-        v175 = 0u;
-        v176 = 0u;
-        v177 = 0u;
-        v178 = 0u;
-        v179 = 0u;
-        v180 = 0u;
-        v181 = 0u;
-        v182 = 0u;
-        v183 = 0u;
-        v184 = 0u;
-        v185 = 0u;
-        v186 = 0u;
-        v187 = 0u;
-        v188 = 0u;
-        v189 = 0u;
-        v190 = 0u;
-        v163 = 0u;
-        v164 = 0u;
-        v165 = 0u;
-        v166 = 0u;
-        v167 = 0u;
-        v168 = 0u;
-        v169 = 0u;
-        v170 = 0u;
-        v171 = 0u;
-        v172 = 0u;
-        v173 = 0u;
-        v191 = 0;
-        memset(&v193, 0, sizeof(v193));
-        v56 = *(v16 + 12);
-        if (v56)
+        v209 = 0;
+        v211 = 0;
+        v210 = 0;
+        v212 = 0;
+        v224 = 0u;
+        v225 = 0u;
+        v226 = 0u;
+        v227 = 0u;
+        v228 = 0u;
+        v229 = 0u;
+        v230 = 0u;
+        v231 = 0u;
+        v232 = 0u;
+        v233 = 0u;
+        v234 = 0u;
+        v235 = 0u;
+        v236 = 0u;
+        v237 = 0u;
+        v238 = 0u;
+        v239 = 0u;
+        v240 = 0u;
+        v213 = 0u;
+        v214 = 0u;
+        v215 = 0u;
+        v216 = 0u;
+        v217 = 0u;
+        v218 = 0u;
+        v219 = 0u;
+        v220 = 0u;
+        v221 = 0u;
+        v222 = 0u;
+        v223 = 0u;
+        v241 = 0;
+        memset(&v243, 0, sizeof(v243));
+        v76 = *(v24 + 12);
+        if (v76)
         {
-          v112 = v44;
-          v57 = 0;
-          v58 = (v16 + 8 * ((*(v16 + 8) >> 30) & 1) + 16);
-          v59 = 8 * v56;
-          v113 = v43;
+          v162 = v58;
+          v77 = 0;
+          v78 = (v24 + 8 * ((*(v24 + 8) >> 30) & 1) + 16);
+          v79 = 8 * v76;
+          v163 = v57;
           do
           {
-            v152.__r_.__value_.__r.__words[0] = *v58;
-            v152.__r_.__value_.__l.__size_ = v152.__r_.__value_.__r.__words[0];
-            v152.__r_.__value_.__r.__words[2] = a3;
-            swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readProtocol<swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(swift::remote::RemoteAddress,BOOL,int)::ProtocolResolver>(a1, &v152, __src, a1 + 328, &v114);
+            v202.__r_.__value_.__r.__words[0] = *v78;
+            v202.__r_.__value_.__l.__size_ = v202.__r_.__value_.__r.__words[0];
+            v202.__r_.__value_.__r.__words[2] = a3;
+            swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readProtocol<swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(swift::remote::RemoteAddress,BOOL,int)::ProtocolResolver>(a1, &v202, __src, a1 + 328, &v164);
             if (__p.__r_.__value_.__s.__data_[8] != 1)
             {
-              v79 = 0;
+              v99 = 0;
               goto LABEL_139;
             }
 
-            if (v57 >= v193.__r_.__value_.__r.__words[2])
+            if (v77 >= v243.__r_.__value_.__r.__words[2])
             {
-              v61 = v193.__r_.__value_.__r.__words[0];
-              v62 = (v57 - v193.__r_.__value_.__r.__words[0]);
-              v63 = 1 - 0x3333333333333333 * ((v57 - v193.__r_.__value_.__r.__words[0]) >> 3);
-              if (v63 > 0x666666666666666)
+              v81 = v243.__r_.__value_.__r.__words[0];
+              v82 = (v77 - v243.__r_.__value_.__r.__words[0]);
+              v83 = 1 - 0x3333333333333333 * ((v77 - v243.__r_.__value_.__r.__words[0]) >> 3);
+              if (v83 > 0x666666666666666)
               {
                 std::string::__throw_length_error[abi:nn200100]();
               }
 
-              if (0x999999999999999ALL * ((v193.__r_.__value_.__r.__words[2] - v193.__r_.__value_.__r.__words[0]) >> 3) > v63)
+              if (0x999999999999999ALL * ((v243.__r_.__value_.__r.__words[2] - v243.__r_.__value_.__r.__words[0]) >> 3) > v83)
               {
-                v63 = 0x999999999999999ALL * ((v193.__r_.__value_.__r.__words[2] - v193.__r_.__value_.__r.__words[0]) >> 3);
+                v83 = 0x999999999999999ALL * ((v243.__r_.__value_.__r.__words[2] - v243.__r_.__value_.__r.__words[0]) >> 3);
               }
 
-              if (0xCCCCCCCCCCCCCCCDLL * ((v193.__r_.__value_.__r.__words[2] - v193.__r_.__value_.__r.__words[0]) >> 3) >= 0x333333333333333)
+              if (0xCCCCCCCCCCCCCCCDLL * ((v243.__r_.__value_.__r.__words[2] - v243.__r_.__value_.__r.__words[0]) >> 3) >= 0x333333333333333)
               {
-                v64 = 0x666666666666666;
+                v84 = 0x666666666666666;
               }
 
               else
               {
-                v64 = v63;
+                v84 = v83;
               }
 
-              if (v64)
+              if (v84)
               {
-                if (v64 <= 0x666666666666666)
+                if (v84 <= 0x666666666666666)
                 {
                   operator new();
                 }
@@ -1316,157 +1316,157 @@ LABEL_224:
                 std::string::__throw_length_error[abi:nn200100]();
               }
 
-              v62[1].__r_.__value_.__s.__data_[8] = 0;
-              v65 = &v62[1].__r_.__value_.__s.__data_[8];
-              v66 = v62;
-              if (SHIBYTE(v114.__r_.__value_.__r.__words[2]) < 0)
+              v82[1].__r_.__value_.__s.__data_[8] = 0;
+              v85 = &v82[1].__r_.__value_.__s.__data_[8];
+              v86 = v82;
+              if (SHIBYTE(v164.__r_.__value_.__r.__words[2]) < 0)
               {
-                std::string::__init_copy_ctor_external(v62, v114.__r_.__value_.__l.__data_, v114.__r_.__value_.__l.__size_);
-                v61 = v193.__r_.__value_.__r.__words[0];
-                v62 = (v193.__r_.__value_.__l.__size_ - v193.__r_.__value_.__r.__words[0]);
+                std::string::__init_copy_ctor_external(v82, v164.__r_.__value_.__l.__data_, v164.__r_.__value_.__l.__size_);
+                v81 = v243.__r_.__value_.__r.__words[0];
+                v82 = (v243.__r_.__value_.__l.__size_ - v243.__r_.__value_.__r.__words[0]);
               }
 
               else
               {
-                *v62 = v114;
+                *v82 = v164;
               }
 
-              v66[1].__r_.__value_.__s.__data_[0] = __p.__r_.__value_.__s.__data_[0];
-              *v65 = 1;
-              v57 = (v66 + 40);
-              v67 = (v66 - v62);
-              memcpy(v67, v61, v62);
-              v193.__r_.__value_.__r.__words[0] = v67;
-              *&v193.__r_.__value_.__r.__words[1] = v57;
-              if (v61)
+              v86[1].__r_.__value_.__s.__data_[0] = __p.__r_.__value_.__s.__data_[0];
+              *v85 = 1;
+              v77 = (v86 + 40);
+              v87 = (v86 - v82);
+              memcpy(v87, v81, v82);
+              v243.__r_.__value_.__r.__words[0] = v87;
+              *&v243.__r_.__value_.__r.__words[1] = v77;
+              if (v81)
               {
-                operator delete(v61);
+                operator delete(v81);
               }
             }
 
             else
             {
-              v57->__r_.__value_.__s.__data_[0] = 0;
-              v57[1].__r_.__value_.__s.__data_[8] = 0;
+              v77->__r_.__value_.__s.__data_[0] = 0;
+              v77[1].__r_.__value_.__s.__data_[8] = 0;
               if (__p.__r_.__value_.__s.__data_[8] == 1)
               {
-                if (SHIBYTE(v114.__r_.__value_.__r.__words[2]) < 0)
+                if (SHIBYTE(v164.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  std::string::__init_copy_ctor_external(v57, v114.__r_.__value_.__l.__data_, v114.__r_.__value_.__l.__size_);
+                  std::string::__init_copy_ctor_external(v77, v164.__r_.__value_.__l.__data_, v164.__r_.__value_.__l.__size_);
                 }
 
                 else
                 {
-                  v60 = *&v114.__r_.__value_.__l.__data_;
-                  v57->__r_.__value_.__r.__words[2] = v114.__r_.__value_.__r.__words[2];
-                  *&v57->__r_.__value_.__l.__data_ = v60;
+                  v80 = *&v164.__r_.__value_.__l.__data_;
+                  v77->__r_.__value_.__r.__words[2] = v164.__r_.__value_.__r.__words[2];
+                  *&v77->__r_.__value_.__l.__data_ = v80;
                 }
 
-                v57[1].__r_.__value_.__s.__data_[0] = __p.__r_.__value_.__s.__data_[0];
-                v57[1].__r_.__value_.__s.__data_[8] = 1;
+                v77[1].__r_.__value_.__s.__data_[0] = __p.__r_.__value_.__s.__data_[0];
+                v77[1].__r_.__value_.__s.__data_[8] = 1;
               }
 
-              v57 = (v57 + 40);
+              v77 = (v77 + 40);
             }
 
-            v193.__r_.__value_.__l.__size_ = v57;
-            if (__p.__r_.__value_.__s.__data_[8] == 1 && SHIBYTE(v114.__r_.__value_.__r.__words[2]) < 0)
+            v243.__r_.__value_.__l.__size_ = v77;
+            if (__p.__r_.__value_.__s.__data_[8] == 1 && SHIBYTE(v164.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v114.__r_.__value_.__l.__data_);
+              operator delete(v164.__r_.__value_.__l.__data_);
             }
 
-            ++v58;
-            v59 -= 8;
+            ++v78;
+            v79 -= 8;
           }
 
-          while (v59);
-          v78 = v193.__r_.__value_.__r.__words[0];
-          v43 = v113;
-          v44 = v112;
+          while (v79);
+          v98 = v243.__r_.__value_.__r.__words[0];
+          v57 = v163;
+          v58 = v162;
         }
 
         else
         {
-          v57 = 0;
-          v78 = 0;
+          v77 = 0;
+          v98 = 0;
         }
 
-        ProtocolCompositionType = swift::reflection::TypeRefBuilder::createProtocolCompositionType(a1 + 328, v78, 0xCCCCCCCCCCCCCCCDLL * ((v57 - v78) >> 3), v43, v44);
-        v81 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v196);
-        v79 = ProtocolCompositionType;
-        *v81 = ProtocolCompositionType;
+        ProtocolCompositionType = swift::reflection::TypeRefBuilder::createProtocolCompositionType(a1 + 328, v98, 0xCCCCCCCCCCCCCCCDLL * ((v77 - v98) >> 3), v57, v58);
+        v107 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v246, v101, v102, v103, v104, v105, v106);
+        v99 = ProtocolCompositionType;
+        *v107 = ProtocolCompositionType;
 LABEL_139:
-        std::vector<std::optional<std::pair<std::string,BOOL>>>::~vector[abi:nn200100](&v193);
+        std::vector<std::optional<std::pair<std::string,BOOL>>>::~vector[abi:nn200100](&v243);
         swift::Demangle::__runtime::Demangler::~Demangler(__src);
-        return v79;
+        return v99;
       }
 
-      result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v195[1], a3, 0, v12);
+      result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v245[1], a3, 0, v20);
       if (!result)
       {
         return result;
       }
 
-      v18 = swift::reflection::MetatypeTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, result, 0);
+      v26 = swift::reflection::MetatypeTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, result, 0);
 LABEL_47:
-      v29 = v18;
-      v30 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v196);
-      result = v29;
-      *v30 = v29;
+      v43 = v26;
+      v44 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v246, v27, v28, v29, v30, v31, v32);
+      result = v43;
+      *v44 = v43;
       return result;
     }
 
-    if (v17 != 773)
+    if (v25 != 773)
     {
-      result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v195[1], a3, 0, v12);
+      result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v245[1], a3, 0, v20);
       if (!result)
       {
         return result;
       }
 
-      v18 = swift::reflection::ExistentialMetatypeTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, result);
+      v26 = swift::reflection::ExistentialMetatypeTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, result);
       goto LABEL_47;
     }
 
-    v45 = v195[1];
+    v59 = v245[1];
     __src[1] = 0;
     __src[0] = 0;
-    v154 = 0;
-    ObjCClassName = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readObjCClassName(a1, v45, a3, __src);
+    v204 = 0;
+    ObjCClassName = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readObjCClassName(a1, v59, a3, __src);
     result = 0;
     if (ObjCClassName)
     {
-      v47 = swift::reflection::ObjCClassTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, __src);
-      v48 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v196);
-      result = v47;
-      *v48 = v47;
+      v61 = swift::reflection::ObjCClassTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, __src);
+      v68 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v246, v62, v63, v64, v65, v66, v67);
+      result = v61;
+      *v68 = v61;
     }
 
 LABEL_33:
-    if ((SHIBYTE(v154) & 0x80000000) == 0)
+    if ((SHIBYTE(v204) & 0x80000000) == 0)
     {
       return result;
     }
 
-    v25 = __src[0];
+    v39 = __src[0];
 LABEL_169:
-    v79 = result;
-    operator delete(v25);
-    return v79;
+    v99 = result;
+    operator delete(v39);
+    return v99;
   }
 
-  if ((v17 - 1280) < 2)
+  if ((v25 - 1280) < 2)
   {
 LABEL_32:
     strcpy(__src, "Bo");
-    HIBYTE(v154) = 2;
+    HIBYTE(v204) = 2;
     result = swift::reflection::BuiltinTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, __src);
     goto LABEL_33;
   }
 
-  if (v17 != 775)
+  if (v25 != 775)
   {
-    if (v17 != 1024)
+    if (v25 != 1024)
     {
       goto LABEL_46;
     }
@@ -1474,15 +1474,15 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readShape(a1, *(a1 + 2816) & v195[1], 0, &v193);
-  if (!v193.__r_.__value_.__r.__words[2])
+  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readShape(a1, *(a1 + 2816) & v245[1], 0, &v243);
+  if (!v243.__r_.__value_.__r.__words[2])
   {
     return 0;
   }
 
-  if ((*(v193.__r_.__value_.__r.__words[2] + 1) & 1) != 0 && *(v193.__r_.__value_.__r.__words[2] + 20))
+  if ((*(v243.__r_.__value_.__r.__words[2] + 1) & 1) != 0 && *(v243.__r_.__value_.__r.__words[2] + 20))
   {
-    result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, *(v16 + 16), a3, 0, v12);
+    result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, *(v24 + 16), a3, 0, v20);
     if (result)
     {
       operator new();
@@ -1491,26 +1491,141 @@ LABEL_32:
     return result;
   }
 
-  v154 = 0;
+  v204 = 0;
   __src[1] = 0;
-  v155 = 0;
-  v156 = 2400;
-  v157 = 0;
-  v158 = 0;
-  v192 = 0;
+  v205 = 0;
+  v206 = 2400;
+  v207 = 0;
+  v208 = 0;
+  v242 = 0;
   __src[0] = off_E13E8;
-  v159 = 0;
-  v161 = 0;
-  v160 = 0;
-  v162 = 0;
-  v174 = 0u;
-  v175 = 0u;
-  v176 = 0u;
-  v177 = 0u;
-  v178 = 0u;
-  v179 = 0u;
-  v180 = 0u;
-  v181 = 0u;
+  v209 = 0;
+  v211 = 0;
+  v210 = 0;
+  v212 = 0;
+  v224 = 0u;
+  v225 = 0u;
+  v226 = 0u;
+  v227 = 0u;
+  v228 = 0u;
+  v229 = 0u;
+  v230 = 0u;
+  v231 = 0u;
+  v232 = 0u;
+  v233 = 0u;
+  v234 = 0u;
+  v235 = 0u;
+  v236 = 0u;
+  v237 = 0u;
+  v238 = 0u;
+  v239 = 0u;
+  v240 = 0u;
+  v213 = 0u;
+  v214 = 0u;
+  v215 = 0u;
+  v216 = 0u;
+  v217 = 0u;
+  v218 = 0u;
+  v219 = 0u;
+  v220 = 0u;
+  v221 = 0u;
+  v222 = 0u;
+  v223 = 0u;
+  v241 = 0;
+  v88 = *(v243.__r_.__value_.__r.__words[2] + 4);
+  if (v88)
+  {
+    v89 = (v243.__r_.__value_.__r.__words[0] + v88 + 4);
+  }
+
+  else
+  {
+    v89 = 0;
+  }
+
+  if (v88)
+  {
+    v90 = v243.__r_.__value_.__s.__data_[8];
+  }
+
+  else
+  {
+    v90 = 0;
+  }
+
+  MangledName = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMangledName(a1, v89, v90, 0, __src);
+  if (!MangledName)
+  {
+    goto LABEL_128;
+  }
+
+  v202.__r_.__value_.__r.__words[0] = a1 + 328;
+  swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v202, MangledName, 0, 0, &v164, v92);
+  if (LOWORD(v164.__r_.__value_.__r.__words[2]))
+  {
+    if (LOWORD(v164.__r_.__value_.__r.__words[2]) == 1)
+    {
+      (v164.__r_.__value_.__l.__size_)(v164.__r_.__value_.__r.__words[0], 3, 0);
+    }
+
+    goto LABEL_128;
+  }
+
+  v93 = v164.__r_.__value_.__r.__words[0];
+  if (!v164.__r_.__value_.__r.__words[0])
+  {
+    goto LABEL_129;
+  }
+
+  v201 = v243;
+  swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getGeneralizationSignature(v243.__r_.__value_.__r.__words[2], &v164);
+  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(a1, &v201, &v164, &v202);
+  if (LOWORD(v202.__r_.__value_.__r.__words[2]))
+  {
+    if (LOWORD(v202.__r_.__value_.__r.__words[2]) == 1)
+    {
+      (v202.__r_.__value_.__l.__size_)(v202.__r_.__value_.__r.__words[0], 3, 0);
+    }
+
+    goto LABEL_128;
+  }
+
+  if (!v202.__r_.__value_.__r.__words[0])
+  {
+LABEL_128:
+    v93 = 0;
+    goto LABEL_129;
+  }
+
+  swift::reflection::TypeRefBuilder::createSubstitutionMap(v202.__r_.__value_.__l.__data_, 0, 0, &v202);
+  if (!LODWORD(v202.__r_.__value_.__r.__words[1]))
+  {
+    v93 = 0;
+    goto LABEL_222;
+  }
+
+  v93 = swift::reflection::TypeRef::subst(v93, a1 + 328, &v202);
+  if (!v93)
+  {
+    goto LABEL_222;
+  }
+
+  v146 = *v243.__r_.__value_.__r.__words[2];
+  if ((v146 & 0x200) == 0)
+  {
+    goto LABEL_221;
+  }
+
+  *&v164.__r_.__value_.__r.__words[1] = 0uLL;
+  __p.__r_.__value_.__r.__words[0] = 0;
+  *&__p.__r_.__value_.__r.__words[1] = 0x960uLL;
+  v166 = 0;
+  v200 = 0;
+  v164.__r_.__value_.__r.__words[0] = off_E13E8;
+  v167 = 0;
+  v168 = 0;
+  v169 = 0;
+  v170 = 0;
   v182 = 0u;
   v183 = 0u;
   v184 = 0u;
@@ -1520,326 +1635,208 @@ LABEL_32:
   v188 = 0u;
   v189 = 0u;
   v190 = 0u;
-  v163 = 0u;
-  v164 = 0u;
-  v165 = 0u;
-  v166 = 0u;
-  v167 = 0u;
-  v168 = 0u;
-  v169 = 0u;
-  v170 = 0u;
+  v191 = 0u;
+  v192 = 0u;
+  v193 = 0u;
+  v194 = 0u;
+  v195 = 0u;
+  v196 = 0u;
+  v197 = 0u;
+  v198 = 0u;
   v171 = 0u;
   v172 = 0u;
   v173 = 0u;
-  v191 = 0;
-  v68 = *(v193.__r_.__value_.__r.__words[2] + 4);
-  if (v68)
+  v174 = 0u;
+  v175 = 0u;
+  v176 = 0u;
+  v177 = 0u;
+  v178 = 0u;
+  v179 = 0u;
+  v180 = 0u;
+  v181 = 0u;
+  v147 = ((v243.__r_.__value_.__r.__words[2] + 8 * ((v146 >> 8) & 1) + 19) & 0xFFFFFFFFFFFFFFFCLL);
+  v148 = v147 + v243.__r_.__value_.__r.__words[0] - v243.__r_.__value_.__r.__words[2];
+  v199 = 0;
+  v149 = *v147;
+  v150 = (v148 + v149);
+  if (v149)
   {
-    v69 = (v193.__r_.__value_.__r.__words[0] + v68 + 4);
+    v151 = v150;
   }
 
   else
   {
-    v69 = 0;
+    v151 = 0;
   }
 
-  if (v68)
+  if (v149)
   {
-    v70 = v193.__r_.__value_.__s.__data_[8];
+    v152 = v243.__r_.__value_.__s.__data_[8];
   }
 
   else
   {
-    v70 = 0;
+    v152 = 0;
   }
 
-  MangledName = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMangledName(a1, v69, v70, 0, __src);
-  if (!MangledName)
+  v153 = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMangledName(a1, v151, v152, 0, &v164);
+  if (!v153)
   {
-    goto LABEL_128;
-  }
-
-  v152.__r_.__value_.__r.__words[0] = a1 + 328;
-  swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v152, MangledName, 0, 0, v72, &v114);
-  if (LOWORD(v114.__r_.__value_.__r.__words[2]))
-  {
-    if (LOWORD(v114.__r_.__value_.__r.__words[2]) == 1)
-    {
-      (v114.__r_.__value_.__l.__size_)(v114.__r_.__value_.__r.__words[0], 3, 0);
-    }
-
-    goto LABEL_128;
-  }
-
-  v73 = v114.__r_.__value_.__r.__words[0];
-  if (!v114.__r_.__value_.__r.__words[0])
-  {
-    goto LABEL_129;
-  }
-
-  v151 = v193;
-  swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getGeneralizationSignature(v193.__r_.__value_.__r.__words[2], &v114);
-  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(a1, &v151, &v114, &v152);
-  if (LOWORD(v152.__r_.__value_.__r.__words[2]))
-  {
-    if (LOWORD(v152.__r_.__value_.__r.__words[2]) == 1)
-    {
-      (v152.__r_.__value_.__l.__size_)(v152.__r_.__value_.__r.__words[0], 3, 0);
-    }
-
-    goto LABEL_128;
-  }
-
-  if (!v152.__r_.__value_.__r.__words[0])
-  {
-LABEL_128:
-    v73 = 0;
-    goto LABEL_129;
-  }
-
-  swift::reflection::TypeRefBuilder::createSubstitutionMap(v152.__r_.__value_.__l.__data_, 0, 0, &v152);
-  if (!LODWORD(v152.__r_.__value_.__r.__words[1]))
-  {
-    v73 = 0;
+    swift::Demangle::__runtime::Demangler::~Demangler(&v164);
+    v93 = 0;
     goto LABEL_222;
   }
 
-  v73 = swift::reflection::TypeRef::subst(v73, a1 + 328, &v152);
-  if (!v73)
+  for (i = v153; *(i + 16) == 243; i = *v161)
   {
-    goto LABEL_222;
-  }
-
-  v96 = *v193.__r_.__value_.__r.__words[2];
-  if ((v96 & 0x200) == 0)
-  {
-    goto LABEL_221;
-  }
-
-  *&v114.__r_.__value_.__r.__words[1] = 0uLL;
-  __p.__r_.__value_.__r.__words[0] = 0;
-  *&__p.__r_.__value_.__r.__words[1] = 0x960uLL;
-  v116 = 0;
-  v150 = 0;
-  v114.__r_.__value_.__r.__words[0] = off_E13E8;
-  v117 = 0;
-  v118 = 0;
-  v119 = 0;
-  v120 = 0;
-  v132 = 0u;
-  v133 = 0u;
-  v134 = 0u;
-  v135 = 0u;
-  v136 = 0u;
-  v137 = 0u;
-  v138 = 0u;
-  v139 = 0u;
-  v140 = 0u;
-  v141 = 0u;
-  v142 = 0u;
-  v143 = 0u;
-  v144 = 0u;
-  v145 = 0u;
-  v146 = 0u;
-  v147 = 0u;
-  v148 = 0u;
-  v121 = 0u;
-  v122 = 0u;
-  v123 = 0u;
-  v124 = 0u;
-  v125 = 0u;
-  v126 = 0u;
-  v127 = 0u;
-  v128 = 0u;
-  v129 = 0u;
-  v130 = 0u;
-  v131 = 0u;
-  v97 = ((v193.__r_.__value_.__r.__words[2] + 8 * ((v96 >> 8) & 1) + 19) & 0xFFFFFFFFFFFFFFFCLL);
-  v98 = v97 + v193.__r_.__value_.__r.__words[0] - v193.__r_.__value_.__r.__words[2];
-  v149 = 0;
-  v99 = *v97;
-  v100 = (v98 + v99);
-  if (v99)
-  {
-    v101 = v100;
-  }
-
-  else
-  {
-    v101 = 0;
-  }
-
-  if (v99)
-  {
-    v102 = v193.__r_.__value_.__s.__data_[8];
-  }
-
-  else
-  {
-    v102 = 0;
-  }
-
-  v103 = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMangledName(a1, v101, v102, 0, &v114);
-  if (!v103)
-  {
-    swift::Demangle::__runtime::Demangler::~Demangler(&v114);
-    v73 = 0;
-    goto LABEL_222;
-  }
-
-  for (i = v103; *(i + 16) == 243; i = *v111)
-  {
-    v105 = *(i + 18);
-    v106 = i;
-    if ((v105 - 1) >= 2)
+    v155 = *(i + 18);
+    v156 = i;
+    if ((v155 - 1) >= 2)
     {
-      if (v105 != 5 || !*(i + 8))
+      if (v155 != 5 || !*(i + 8))
       {
         break;
       }
 
-      v106 = *i;
+      v156 = *i;
     }
 
-    if (*(*v106 + 16) != 154)
+    if (*(*v156 + 16) != 154)
     {
       break;
     }
 
-    v107 = i;
-    if ((v105 - 1) >= 2)
+    v157 = i;
+    if ((v155 - 1) >= 2)
     {
-      if (v105 != 5 || !*(i + 8))
+      if (v155 != 5 || !*(i + 8))
       {
-        v108 = 0;
+        v158 = 0;
         goto LABEL_208;
       }
 
-      v107 = *i;
+      v157 = *i;
     }
 
-    v108 = *v107;
+    v158 = *v157;
 LABEL_208:
-    v109 = *(v108 + 18);
-    if ((v109 - 1) >= 2 && (v109 != 5 || !*(v108 + 8)))
+    v159 = *(v158 + 18);
+    if ((v159 - 1) >= 2 && (v159 != 5 || !*(v158 + 8)))
     {
       break;
     }
 
-    v73 = swift::reflection::ExistentialMetatypeTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, v73);
-    v110 = *(i + 18);
-    if ((v110 - 1) < 2)
+    v93 = swift::reflection::ExistentialMetatypeTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, v93);
+    v160 = *(i + 18);
+    if ((v160 - 1) < 2)
     {
       goto LABEL_215;
     }
 
-    if (v110 == 5 && *(i + 8))
+    if (v160 == 5 && *(i + 8))
     {
       i = *i;
 LABEL_215:
-      v111 = *i;
+      v161 = *i;
       goto LABEL_217;
     }
 
-    v111 = 0;
+    v161 = 0;
 LABEL_217:
-    if (*(v111 + 18) - 1 >= 2)
+    if (*(v161 + 18) - 1 >= 2)
     {
-      v111 = *v111;
+      v161 = *v161;
     }
   }
 
-  swift::Demangle::__runtime::Demangler::~Demangler(&v114);
+  swift::Demangle::__runtime::Demangler::~Demangler(&v164);
 LABEL_221:
-  *__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v196) = v73;
+  *__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v246, v140, v141, v142, v143, v144, v145) = v93;
 LABEL_222:
-  __swift::__runtime::llvm::deallocate_buffer(v152.__r_.__value_.__l.__data_, (16 * LODWORD(v152.__r_.__value_.__r.__words[2])), 8uLL);
+  __swift::__runtime::llvm::deallocate_buffer(v202.__r_.__value_.__l.__data_, (16 * LODWORD(v202.__r_.__value_.__r.__words[2])), 8uLL);
 LABEL_129:
   swift::Demangle::__runtime::Demangler::~Demangler(__src);
-  return v73;
+  return v93;
 }
 
-unint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata@<X0>(unint64_t result@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t *a4@<X8>)
+int32x2_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata@<D0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
 {
-  v6 = result;
   v8 = *(result + 24);
   v9 = *(result + 40);
   if (!v9)
   {
-    v18 = 0;
+    v19 = 0;
 LABEL_15:
-    v11 = (v8 + 56 * v18);
+    v12 = (v8 + 56 * v19);
     goto LABEL_16;
   }
 
-  v33 = a2;
-  v34[0] = a3;
-  result = __swift::__runtime::llvm::hash_combine<unsigned long long,unsigned char>(&v33, v34);
-  v10 = (v9 - 1) & result;
-  v11 = (v8 + 56 * v10);
-  v12 = *v11;
-  v13 = *(v11 + 8);
-  if (a2 != *v11 || a3 != v13)
+  v34 = a2;
+  v35[0] = a3;
+  v10 = (v9 - 1) & __swift::__runtime::llvm::hash_combine<unsigned long long,unsigned char>(&v34, v35);
+  v12 = (v8 + 56 * v10);
+  v13 = *v12;
+  v14 = *(v12 + 8);
+  if (a2 != *v12 || a3 != v14)
   {
-    v15 = 1;
-    while (v12 != -1 || v13)
+    v16 = 1;
+    while (v13 != -1 || v14)
     {
-      v16 = v10 + v15++;
-      v10 = v16 & (v9 - 1);
-      v11 = (v8 + 56 * v10);
-      v12 = *v11;
-      v13 = *(v11 + 8);
-      if (a2 == *v11 && a3 == v13)
+      v17 = v10 + v16++;
+      v10 = v17 & (v9 - 1);
+      v12 = (v8 + 56 * v10);
+      v13 = *v12;
+      v14 = *(v12 + 8);
+      if (a2 == *v12 && a3 == v14)
       {
         goto LABEL_16;
       }
     }
 
-    v8 = *(v6 + 24);
-    v18 = *(v6 + 40);
+    v8 = *(result + 24);
+    v19 = *(result + 40);
     goto LABEL_15;
   }
 
 LABEL_16:
-  if (v11 != (*(v6 + 24) + 56 * *(v6 + 40)))
+  if (v12 != (*(result + 24) + 56 * *(result + 40)))
   {
-    v19 = v11[2];
+    v20 = v12[2];
     *a4 = a2;
     a4[1] = a3;
-    a4[2] = v19;
-    return result;
+    a4[2] = v20;
+    return v11;
   }
 
-  v39 = 0;
-  result = (*(**(v6 + 2800) + 32))(*(v6 + 2800), a2, a3, &v39, 8);
-  if ((result & 1) == 0)
+  v40 = 0;
+  if (((*(**(result + 2800) + 32))(*(result + 2800), a2, a3, &v40, 8) & 1) == 0)
   {
     goto LABEL_67;
   }
 
-  v20 = v39;
-  if (v39 > 0x7FF)
+  v21 = v40;
+  if (v40 > 0x7FF)
   {
-    v20 = 0;
+    v21 = 0;
   }
 
-  if (v20 <= 770)
+  if (v21 <= 770)
   {
-    if (v20 <= 514)
+    if (v21 <= 514)
     {
-      if (v20 <= 512)
+      if (v21 <= 512)
       {
-        if (!v20)
+        if (!v21)
         {
-          v27 = a4;
-          v28 = v6;
-          v29 = a2;
-          v30 = a3;
-          v26 = 80;
-          return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v28, v29, v30, v26, v27);
+          v28 = a4;
+          v29 = result;
+          v30 = a2;
+          v31 = a3;
+          v27 = 80;
+          return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v29, v30, v31, v27, v28);
         }
 
-        if (v20 != 512)
+        if (v21 != 512)
         {
           goto LABEL_68;
         }
@@ -1848,19 +1845,19 @@ LABEL_16:
       goto LABEL_52;
     }
 
-    if (v20 <= 768)
+    if (v21 <= 768)
     {
-      if (v20 == 515)
+      if (v21 == 515)
       {
-        v27 = a4;
-        v28 = v6;
-        v29 = a2;
-        v30 = a3;
-        v26 = 32;
-        return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v28, v29, v30, v26, v27);
+        v28 = a4;
+        v29 = result;
+        v30 = a2;
+        v31 = a3;
+        v27 = 32;
+        return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v29, v30, v31, v27, v28);
       }
 
-      if (v20 != 516)
+      if (v21 != 516)
       {
         goto LABEL_68;
       }
@@ -1868,32 +1865,31 @@ LABEL_16:
       goto LABEL_53;
     }
 
-    if (v20 != 769)
+    if (v21 != 769)
     {
-      v33 = 0;
-      result = (*(**(v6 + 2800) + 32))(*(v6 + 2800), a2 + 8, a3, &v33, 8);
-      if (result)
+      v34 = 0;
+      if ((*(**(result + 2800) + 32))(*(result + 2800), a2 + 8, a3, &v34, 8))
       {
-        v21 = 4 * v33;
-        if ((v33 & 0x2000000) == 0)
+        v22 = 4 * v34;
+        if ((v34 & 0x2000000) == 0)
         {
-          v21 = 0;
+          v22 = 0;
         }
 
-        v22 = v21 + 8 * v33;
-        v23 = v22 + 24;
-        v24 = ((v22 + 31) & 0x1FFFF8) + 8;
-        if ((v33 & 0x8000000) != 0)
+        v23 = v22 + 8 * v34;
+        v24 = v23 + 24;
+        v25 = ((v23 + 31) & 0x1FFFF8) + 8;
+        if ((v34 & 0x8000000) != 0)
         {
-          v25 = v24;
+          v26 = v25;
         }
 
         else
         {
-          v25 = v23;
+          v26 = v24;
         }
 
-        v26 = (v25 + 7) & 0xFFFFF8;
+        v27 = (v26 + 7) & 0xFFFFF8;
         goto LABEL_70;
       }
 
@@ -1901,40 +1897,39 @@ LABEL_67:
       *a4 = 0;
       *(a4 + 8) = 0;
       a4[2] = 0;
-      return result;
+      return v11;
     }
 
-    v33 = 0;
-    result = (*(**(v6 + 2800) + 32))(*(v6 + 2800), a2 + 8, a3, &v33, 8);
-    if ((result & 1) == 0 || v33 >= 0x100)
+    v34 = 0;
+    if (((*(**(result + 2800) + 32))(*(result + 2800), a2 + 8, a3, &v34, 8) & 1) == 0 || v34 >= 0x100)
     {
       goto LABEL_67;
     }
 
-    v26 = 16 * v33 + 24;
+    v27 = 16 * v34 + 24;
 LABEL_70:
-    v27 = a4;
-    v28 = v6;
-    v29 = a2;
-    v30 = a3;
-    return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v28, v29, v30, v26, v27);
+    v28 = a4;
+    v29 = result;
+    v30 = a2;
+    v31 = a3;
+    return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v29, v30, v31, v27, v28);
   }
 
-  if (v20 > 774)
+  if (v21 > 774)
   {
-    if (v20 > 1279)
+    if (v21 > 1279)
     {
-      if (v20 != 1280)
+      if (v21 != 1280)
       {
-        if (v20 != 1281)
+        if (v21 != 1281)
         {
 LABEL_68:
-          v27 = a4;
-          v28 = v6;
-          v29 = a2;
-          v30 = a3;
-          v26 = 8;
-          return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v28, v29, v30, v26, v27);
+          v28 = a4;
+          v29 = result;
+          v30 = a2;
+          v31 = a3;
+          v27 = 8;
+          return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v29, v30, v31, v27, v28);
         }
 
         goto LABEL_52;
@@ -1943,35 +1938,33 @@ LABEL_68:
 
     else
     {
-      if (v20 == 775)
+      if (v21 == 775)
       {
-        v37 = 0;
         v38 = 0;
-        result = (*(**(v6 + 2800) + 96))(*(v6 + 2800), a2 + 8, a3, &v37, 8);
-        if ((result & 1) == 0)
+        v39 = 0;
+        if (((*(**(result + 2800) + 96))(*(result + 2800), a2 + 8, a3, &v38, 8) & 1) == 0)
         {
           goto LABEL_67;
         }
 
-        v32 = v37;
-        if (!v38)
+        v33 = v38;
+        if (!v39)
         {
-          v32 = *(v6 + 2816) & v37;
+          v33 = *(result + 2816) & v38;
         }
 
-        swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readShape(v6, v32, v38, v35);
-        result = v36;
-        if (!v36)
+        swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readShape(result, v33, v39, v36);
+        if (!v37)
         {
           goto LABEL_67;
         }
 
-        swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getGeneralizationSignature(v36, &v33);
-        v26 = 8 * WORD2(v33) + 16;
+        swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getGeneralizationSignature(v37, &v34);
+        v27 = 8 * WORD2(v34) + 16;
         goto LABEL_70;
       }
 
-      if (v20 != 1024)
+      if (v21 != 1024)
       {
         goto LABEL_68;
       }
@@ -1980,104 +1973,103 @@ LABEL_68:
     goto LABEL_53;
   }
 
-  if (v20 > 772)
+  if (v21 > 772)
   {
-    if (v20 == 773)
+    if (v21 == 773)
     {
       goto LABEL_52;
     }
 
 LABEL_53:
-    v27 = a4;
-    v28 = v6;
-    v29 = a2;
-    v30 = a3;
-    v26 = 24;
-    return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v28, v29, v30, v26, v27);
+    v28 = a4;
+    v29 = result;
+    v30 = a2;
+    v31 = a3;
+    v27 = 24;
+    return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v29, v30, v31, v27, v28);
   }
 
-  if (v20 == 771)
+  if (v21 == 771)
   {
-    LODWORD(v33) = 0;
-    result = (*(**(v6 + 2800) + 32))(*(v6 + 2800), a2 + 8, a3, &v33, 4);
-    if ((result & 1) == 0)
+    LODWORD(v34) = 0;
+    if (((*(**(result + 2800) + 32))(*(result + 2800), a2 + 8, a3, &v34, 4) & 1) == 0)
     {
       goto LABEL_67;
     }
 
-    v31 = v33;
-    v35[0] = 0;
-    result = (*(**(v6 + 2800) + 32))(*(v6 + 2800), a2 + 12, a3, v35, 4);
-    if ((result & 1) == 0 || v35[0] >= 0x100u)
+    v32 = v34;
+    v36[0] = 0;
+    if (((*(**(result + 2800) + 32))(*(result + 2800), a2 + 12, a3, v36, 4) & 1) == 0 || v36[0] >= 0x100u)
     {
       goto LABEL_67;
     }
 
-    v26 = ((v31 >> 27) & 8) + 8 * v35[0] + 16;
+    v27 = ((v32 >> 27) & 8) + 8 * v36[0] + 16;
     goto LABEL_70;
   }
 
 LABEL_52:
-  v27 = a4;
-  v28 = v6;
-  v29 = a2;
-  v30 = a3;
-  v26 = 16;
-  return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v28, v29, v30, v26, v27);
+  v28 = a4;
+  v29 = result;
+  v30 = a2;
+  v31 = a3;
+  v27 = 16;
+  return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v29, v30, v31, v27, v28);
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readNominalTypeFromClassMetadata(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readNominalTypeFromClassMetadata(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *(a2 + 16);
+  v4 = a2[2];
   if ((swift_reflection_classIsSwiftMask & *(v4 + 32)) != 0)
   {
     *__p = *a2;
-    v23 = v4;
+    v28 = v4;
     return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readNominalTypeFromMetadata(a1, __p, a3, a4);
   }
 
+  v6 = a3;
   __p[0] = 0;
   __p[1] = 0;
-  v23 = 0;
+  v28 = 0;
   v8 = *a2;
   v9 = *(a2 + 8);
   result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readObjCRODataPtr(a1, *a2, v9);
   if (result)
   {
-    v19 = 0;
-    LOBYTE(v20) = 0;
-    if ((*(**(a1 + 2800) + 96))(*(a1 + 2800), result + 24, v11, &v19, 8) && v19 && (*(**(a1 + 2800) + 16))(*(a1 + 2800), v19, v20, __p))
+    v24 = 0;
+    LOBYTE(v25) = 0;
+    if ((*(**(a1 + 2800) + 96))(*(a1 + 2800), result + 24, v11, &v24, 8) && v24 && (*(**(a1 + 2800) + 16))(*(a1 + 2800), v24, v25, __p))
     {
       TypeFromMetadata = swift::reflection::ObjCClassTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, __p);
       if (TypeFromMetadata)
       {
 LABEL_10:
-        v14 = TypeFromMetadata;
-        v19 = v8;
-        v20 = v9;
-        v21 = a4;
-        v24 = 0;
-        v15 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, &v19, &v24);
-        v16 = v24;
-        if ((v15 & 1) == 0)
+        v19 = TypeFromMetadata;
+        v24 = v8;
+        v25 = v9;
+        v26 = a4;
+        v29 = 0;
+        v20 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, &v24, &v29, v13, v14, v15, v16, v17);
+        v21 = v29;
+        if ((v20 & 1) == 0)
         {
-          v16 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::InsertIntoBucketImpl<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, &v19, &v19, v24);
-          v17 = v20;
-          *v16 = v19;
-          *(v16 + 8) = v17;
-          *(v16 + 16) = v21;
-          v16[3] = 0;
+          v21 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::InsertIntoBucketImpl<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, &v24, &v24, v29);
+          v22 = v25;
+          *v21 = v24;
+          *(v21 + 8) = v22;
+          *(v21 + 16) = v26;
+          v21[3] = 0;
         }
 
-        result = v14;
-        v16[3] = v14;
+        result = v19;
+        v21[3] = v19;
         goto LABEL_14;
       }
 
-      v13 = *(a1 + 2816) & *(v4 + 8);
-      if (v13)
+      v18 = *(a1 + 2816) & *(v4 + 8);
+      if (v18)
       {
-        TypeFromMetadata = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v13, 0, a4, a3);
+        TypeFromMetadata = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v18, 0, a4, v6);
         goto LABEL_10;
       }
     }
@@ -2086,93 +2078,95 @@ LABEL_10:
   }
 
 LABEL_14:
-  if (SHIBYTE(v23) < 0)
+  if (SHIBYTE(v28) < 0)
   {
-    v18 = result;
+    v23 = result;
     operator delete(__p[0]);
-    return v18;
+    return v23;
   }
 
   return result;
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readNominalTypeFromMetadata(unint64_t a1, __int128 *a2, uint64_t a3, int a4)
+uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readNominalTypeFromMetadata(int32x2_t *a1, __int128 *a2, uint64_t a3, uint64_t a4)
 {
-  v43 = *a2;
-  v44 = *(a2 + 2);
-  result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readAddressOfNominalTypeDescriptor(a1, &v43, a4);
+  v4 = a4;
+  v5 = a3;
+  v63 = *a2;
+  v64 = *(a2 + 2);
+  result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readAddressOfNominalTypeDescriptor(a1, &v63, a4);
   if (!result)
   {
     return result;
   }
 
-  v10 = result;
-  if (a4 && (v43 != *a2 || BYTE8(v43) != *(a2 + 8)))
+  v15 = result;
+  if (v4 && (v63 != *a2 || BYTE8(v63) != *(a2 + 8)))
   {
-    v33 = v43;
-    v34 = BYTE8(v43);
-    v35 = a4;
-    *&v41 = 0;
-    v11 = v9;
-    v12 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, &v33, &v41);
-    v9 = v11;
-    if (v12)
+    v53 = v63;
+    v54 = BYTE8(v63);
+    v55 = v4;
+    *&v61 = 0;
+    v21 = v9;
+    v22 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, &v53, &v61, v10, v11, v12, v13, v14);
+    v9 = v21;
+    if (v22)
     {
-      v13 = v41;
-      if (v41 != *a1 + 32 * *(a1 + 16))
+      v28 = v61;
+      if (v61 != *a1 + 32 * a1[2].u32[0])
       {
-        v14 = *(a2 + 1);
-        v33 = *a2;
-        v34 = v14;
-        v35 = a4;
-        *&v41 = 0;
-        if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, &v33, &v41))
+        v29 = *(a2 + 1);
+        v53 = *a2;
+        v54 = v29;
+        v55 = v4;
+        *&v61 = 0;
+        if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, &v53, &v61, v23, v24, v25, v26, v27))
         {
-          v15 = v41;
-          *v41 = -2;
-          *(v15 + 8) = 0;
-          *(v15 + 16) = 0;
-          *(a1 + 8) = vadd_s32(*(a1 + 8), 0x1FFFFFFFFLL);
+          v30 = v61;
+          *v61 = -2;
+          *(v30 + 8) = 0;
+          *(v30 + 16) = 0;
+          a1[1] = vadd_s32(a1[1], 0x1FFFFFFFFLL);
         }
 
-        return *(v13 + 24);
+        return *(v28 + 24);
       }
     }
   }
 
-  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(a1, v10, v9, &v41);
-  if (!v42)
+  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(a1, v15, v9, &v61);
+  if (!v62)
   {
     return 0;
   }
 
-  *__p = v41;
-  v32 = v42;
-  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildNominalTypeDecl<swift::reflection::TypeRefBuilder,true>(a1, __p, &v33);
-  if (v40 != 1)
+  *__p = v61;
+  v52 = v62;
+  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildNominalTypeDecl<swift::reflection::TypeRefBuilder,true>(a1, __p, &v53);
+  if (v60 != 1)
   {
     goto LABEL_26;
   }
 
-  if ((*v42 & 0x80) == 0)
+  if ((*v62 & 0x80) == 0)
   {
-    result = swift::reflection::NominalTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, &v33, 0);
+    result = swift::reflection::NominalTypeRef::create<swift::reflection::TypeRefBuilder>(&a1[41], &v53, 0);
     goto LABEL_19;
   }
 
-  v29 = v43;
-  v30 = v44;
-  v27 = v41;
-  v28 = v42;
-  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::getGenericSubst(a1, &v29, &v27, a3, __p);
-  v16 = __p[0];
-  v17 = __p[1];
+  v49 = v63;
+  v50 = v64;
+  v47 = v61;
+  v48 = v62;
+  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::getGenericSubst(a1, &v49, &v47, v5, __p);
+  v31 = __p[0];
+  v32 = __p[1];
   if (__p[0] != __p[1])
   {
-    *&v29 = __p[0];
-    *(&v29 + 1) = (__p[1] - __p[0]) >> 3;
-    result = swift::reflection::TypeRefBuilder::createBoundGenericType(a1 + 328, &v33, &v29);
-    v18 = __p[0];
+    *&v49 = __p[0];
+    *(&v49 + 1) = (__p[1] - __p[0]) >> 3;
+    result = swift::reflection::TypeRefBuilder::createBoundGenericType(&a1[41], &v53, &v49);
+    v33 = __p[0];
     if (!__p[0])
     {
       goto LABEL_18;
@@ -2182,51 +2176,51 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<sw
   }
 
   result = 0;
-  v18 = __p[0];
+  v33 = __p[0];
   if (__p[0])
   {
 LABEL_17:
-    __p[1] = v18;
-    v19 = result;
-    operator delete(v18);
-    result = v19;
+    __p[1] = v33;
+    v34 = result;
+    operator delete(v33);
+    result = v34;
   }
 
 LABEL_18:
-  if (v16 != v17)
+  if (v31 != v32)
   {
 LABEL_19:
     if (result)
     {
-      v20 = result;
-      __p[0] = v43;
-      LOBYTE(__p[1]) = BYTE8(v43);
-      LOBYTE(v32) = a4;
-      *&v29 = 0;
-      v21 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, __p, &v29);
-      v22 = v29;
-      if ((v21 & 1) == 0)
+      v35 = result;
+      __p[0] = v63;
+      LOBYTE(__p[1]) = BYTE8(v63);
+      LOBYTE(v52) = v4;
+      *&v49 = 0;
+      v36 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, __p, &v49, v16, v17, v18, v19, v20);
+      v42 = v49;
+      if ((v36 & 1) == 0)
       {
-        v22 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::InsertIntoBucketImpl<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, __p, __p, v29);
-        v23 = __p[1];
-        *v22 = __p[0];
-        *(v22 + 8) = v23;
-        *(v22 + 16) = v32;
-        v22[3] = 0;
+        v42 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::InsertIntoBucketImpl<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, __p, __p, v49);
+        v43 = __p[1];
+        *v42 = __p[0];
+        *(v42 + 8) = v43;
+        *(v42 + 16) = v52;
+        v42[3] = 0;
       }
 
-      result = v20;
-      v22[3] = v20;
-      if (a4)
+      result = v35;
+      v42[3] = v35;
+      if (v4)
       {
-        v24 = *(a2 + 8);
-        if (v43 != *a2 || BYTE8(v43) != v24)
+        v44 = *(a2 + 8);
+        if (v63 != *a2 || BYTE8(v63) != v44)
         {
           __p[0] = *a2;
-          LOBYTE(__p[1]) = v24;
-          LOBYTE(v32) = a4;
-          __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::erase(a1, __p);
-          result = v20;
+          LOBYTE(__p[1]) = v44;
+          LOBYTE(v52) = v4;
+          __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::erase(a1, __p, v37, v42, v38, v39, v40, v41);
+          result = v35;
         }
       }
     }
@@ -2237,41 +2231,38 @@ LABEL_19:
 LABEL_26:
   result = 0;
 LABEL_27:
-  if (v40 == 1)
+  if (v60 == 1)
   {
-    if (v39 == 1 && v37)
+    if (v59 == 1 && v57)
     {
-      v38 = v37;
-      v25 = result;
-      operator delete(v37);
-      result = v25;
+      v58 = v57;
+      v45 = result;
+      operator delete(v57);
+      result = v45;
     }
 
-    if (v36 < 0)
+    if (v56 < 0)
     {
-      v26 = result;
-      operator delete(v33);
-      return v26;
+      v46 = result;
+      operator delete(v53);
+      return v46;
     }
   }
 
   return result;
 }
 
-void *std::vector<swift::reflection::TypeRef const*>::reserve(void *result, unint64_t a2)
+void std::vector<swift::reflection::TypeRef const*>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
       operator new();
     }
 
     std::string::__throw_length_error[abi:nn200100]();
   }
-
-  return result;
 }
 
 void std::vector<__swift::__runtime::llvm::StringRef>::push_back[abi:nn200100](uint64_t a1, _OWORD *a2)
@@ -2336,22 +2327,22 @@ void std::vector<__swift::__runtime::llvm::StringRef>::push_back[abi:nn200100](u
   *(a1 + 8) = v5;
 }
 
-uint64_t *__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](uint64_t *a1, uint64_t a2)
+uint64_t *__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8 = 0;
-  v4 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, a2, &v8);
-  v5 = v8;
-  if ((v4 & 1) == 0)
+  v14 = 0;
+  v10 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, a2, &v14, a4, a5, a6, a7, a8);
+  v11 = v14;
+  if ((v10 & 1) == 0)
   {
-    v5 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::InsertIntoBucketImpl<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, a2, a2, v8);
-    v6 = *(a2 + 8);
-    *v5 = *a2;
-    *(v5 + 8) = v6;
-    *(v5 + 16) = *(a2 + 16);
-    v5[3] = 0;
+    v11 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::InsertIntoBucketImpl<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, a2, a2, v14);
+    v12 = *(a2 + 8);
+    *v11 = *a2;
+    *(v11 + 8) = v12;
+    *(v11 + 16) = *(a2 + 16);
+    v11[3] = 0;
   }
 
-  return v5 + 3;
+  return v11 + 3;
 }
 
 void std::vector<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>>::push_back[abi:nn200100](uint64_t a1, _OWORD *a2)
@@ -2463,7 +2454,7 @@ uint64_t swift::TargetFunctionTypeMetadata<swift::External<swift::WithObjCIntero
   }
 }
 
-void swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readProtocol<swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(swift::remote::RemoteAddress,BOOL,int)::ProtocolResolver>(uint64_t a1@<X0>, uint64_t a2@<X1>, swift::Demangle::__runtime::NodeFactory *a3@<X2>, uint64_t a4@<X3>, std::string *a5@<X8>)
+void swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readProtocol<swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(swift::remote::RemoteAddress,BOOL,int)::ProtocolResolver>(uint64_t *a1@<X0>, uint64_t a2@<X1>, swift::Demangle::__runtime::NodeFactory *a3@<X2>, uint64_t a4@<X3>, std::string *a5@<X8>)
 {
   v25 = a4;
   v8 = *a2;
@@ -2536,7 +2527,7 @@ LABEL_34:
             v19 = *v19;
           }
 
-          swift::reflection::TypeRefBuilder::createProtocolDecl(a5);
+          swift::reflection::TypeRefBuilder::createProtocolDecl(v19, a5);
           goto LABEL_21;
         }
       }
@@ -2563,19 +2554,19 @@ LABEL_21:
 
   if (!*(a2 + 16))
   {
-    v8 &= *(a1 + 2816);
+    v8 &= a1[352];
   }
 
   swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(a1, v8, *(a2 + 16), &v26);
   v10 = v26.__r_.__value_.__r.__words[2];
-  if (!v26.__r_.__value_.__r.__words[2] || (v27 = v26, (v11 = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(a1, &v27, a3, 50)) == 0) || ((*v10 & 0x10) != 0 || (*v10 & 0x1F) == 3) && (v12 = v11, Node = swift::Demangle::__runtime::NodeFactory::createNode(a3, 243), swift::Demangle::__runtime::Node::addChild(Node, v12, a3, v14, v15), !Node))
+  if (!v26.__r_.__value_.__r.__words[2] || (v27 = v26, (v11 = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(a1, &v27, a3, 50)) == 0) || ((*v10 & 0x10) != 0 || (*v10 & 0x1F) == 3) && (v12 = v11, Node = swift::Demangle::__runtime::NodeFactory::createNode(a3, 243), swift::Demangle::__runtime::Node::addChild(Node, v12, a3, v14, v15), (v11 = Node) == 0))
   {
     a5->__r_.__value_.__s.__data_[0] = 0;
     a5[1].__r_.__value_.__s.__data_[8] = 0;
     return;
   }
 
-  swift::Demangle::__runtime::mangleNode();
+  swift::Demangle::__runtime::mangleNode(v11, 0);
   if (LODWORD(v27.__r_.__value_.__l.__data_))
   {
     a5->__r_.__value_.__s.__data_[0] = 0;
@@ -2640,7 +2631,7 @@ void ***std::vector<std::optional<std::pair<std::string,BOOL>>>::~vector[abi:nn2
   return a1;
 }
 
-unint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readShape@<X0>(unint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+void swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readShape(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   if (!a2)
   {
@@ -2648,11 +2639,10 @@ LABEL_25:
     *a4 = 0;
     *(a4 + 8) = 0;
     *(a4 + 16) = 0;
-    return result;
+    return;
   }
 
-  v7 = result;
-  v8 = result + 72;
+  v8 = (result + 72);
   v9 = *(result + 72);
   v10 = *(result + 88);
   if (!v10)
@@ -2663,10 +2653,9 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v26 = a2;
-  v27 = a3;
-  result = __swift::__runtime::llvm::hash_combine<unsigned long long,unsigned char>(&v26, &v27);
-  v11 = (v10 - 1) & result;
+  *&v29 = a2;
+  *(&v29 + 1) = a3;
+  v11 = (v10 - 1) & __swift::__runtime::llvm::hash_combine<unsigned long long,unsigned char>(&v29, &v29 + 8);
   v12 = (v9 + 56 * v11);
   v13 = *v12;
   v14 = *(v12 + 8);
@@ -2686,38 +2675,36 @@ LABEL_16:
       }
     }
 
-    v9 = *(v7 + 72);
-    v19 = *(v7 + 88);
+    v9 = *(result + 72);
+    v19 = *(result + 88);
     goto LABEL_16;
   }
 
 LABEL_17:
-  if (v12 != (*(v7 + 72) + 56 * *(v7 + 88)))
+  if (v12 != (*(result + 72) + 56 * *(result + 88)))
   {
     v20 = v12[2];
     *a4 = a2;
     *(a4 + 8) = a3;
     *(a4 + 16) = v20;
-    return result;
+    return;
   }
 
-  v34 = 0;
-  result = (*(**(v7 + 2800) + 32))(*(v7 + 2800), a2, a3, &v34, 4);
-  if ((result & 1) == 0)
+  v36 = 0;
+  if (((*(**(result + 2800) + 32))(*(result + 2800), a2, a3, &v36, 4) & 1) == 0)
   {
     goto LABEL_25;
   }
 
-  HIWORD(v26) = 0;
-  result = (*(**(v7 + 2800) + 32))(*(v7 + 2800), a2 + 4, a3, &v26, 8);
-  if ((result & 1) == 0)
+  WORD3(v29) = 0;
+  if (((*(**(result + 2800) + 32))(*(result + 2800), a2 + 4, a3, &v29, 8) & 1) == 0)
   {
     goto LABEL_25;
   }
 
-  (*(**(v7 + 2800) + 24))(&v31);
-  v21 = v31;
-  if (!v31)
+  (*(**(result + 2800) + 24))(&v33);
+  v21 = v33;
+  if (!v33)
   {
     *a4 = 0;
     *(a4 + 8) = 0;
@@ -2725,89 +2712,87 @@ LABEL_17:
     goto LABEL_40;
   }
 
-  v26 = a2;
-  v27 = a3;
-  v31 = 0;
-  v28 = v21;
-  if (v33)
+  *&v29 = a2;
+  *(&v29 + 1) = a3;
+  v33 = 0;
+  v30 = v21;
+  if (v35)
   {
-    if (v33 == v32)
+    if (v35 == v34)
     {
-      v30 = v29;
-      (*(*v33 + 24))();
+      v32 = v31;
+      (*(*v35 + 24))();
     }
 
     else
     {
-      v30 = v33;
-      v33 = 0;
+      v32 = v35;
+      v35 = 0;
     }
   }
 
   else
   {
-    v30 = 0;
+    v32 = 0;
   }
 
-  __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>,__swift::__runtime::llvm::DenseMapInfo<swift::remote::RemoteAddress>,__swift::__runtime::llvm::detail::DenseMapPair<swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>>>,swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>,__swift::__runtime::llvm::DenseMapInfo<swift::remote::RemoteAddress>,__swift::__runtime::llvm::detail::DenseMapPair<swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>>>::try_emplace<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v8, &v26, &v28, v25);
-  v22 = v28;
-  v28 = 0;
+  __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>,__swift::__runtime::llvm::DenseMapInfo<swift::remote::RemoteAddress>,__swift::__runtime::llvm::detail::DenseMapPair<swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>>>,swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>,__swift::__runtime::llvm::DenseMapInfo<swift::remote::RemoteAddress>,__swift::__runtime::llvm::detail::DenseMapPair<swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>>>::try_emplace<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v8, &v29, &v30, v28);
+  v22 = v30;
+  v30 = 0;
   if (v22)
   {
-    v25[0] = v22;
-    if (!v30)
+    v28[0] = v22;
+    if (!v32)
     {
       goto LABEL_45;
     }
 
-    (*(*v30 + 48))(v30, v25);
+    (*(*v32 + 48))(v32, v28);
   }
 
-  if (v30 == v29)
+  if (v32 == v31)
   {
-    (*(*v30 + 32))(v30);
+    (*(*v32 + 32))(v32);
   }
 
-  else if (v30)
+  else if (v32)
   {
-    (*(*v30 + 40))(v30);
+    (*(*v32 + 40))(v32);
   }
 
   *a4 = a2;
   *(a4 + 8) = a3;
   *(a4 + 16) = v21;
-  v23 = v31;
-  v31 = 0;
+  v23 = v33;
+  v33 = 0;
   if (!v23)
   {
     goto LABEL_40;
   }
 
-  v26 = v23;
-  if (!v33)
+  *&v29 = v23;
+  if (!v35)
   {
 LABEL_45:
-    v24 = std::__throw_bad_function_call[abi:nn200100]();
-    return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(v24);
+    std::__throw_bad_function_call[abi:nn200100]();
+    swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(v24, v25, v26, v27);
+    return;
   }
 
-  (*(*v33 + 48))(v33, &v26);
+  (*(*v35 + 48))(v35, &v29);
 LABEL_40:
-  result = v33;
-  if (v33 == v32)
+  if (v35 == v34)
   {
-    return (*(*v33 + 32))(v33);
+    (*(*v35 + 32))(v35);
   }
 
-  if (v33)
+  else if (v35)
   {
-    return (*(*v33 + 40))(v33);
+    (*(*v35 + 40))(v35);
   }
-
-  return result;
 }
 
-void swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(uint64_t a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+void swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(uint64_t a1@<X0>, const char *a2@<X1>, unsigned __int16 *a3@<X2>, uint64_t a4@<X8>)
 {
   v4 = a1;
   if (*a3)
@@ -2824,13 +2809,15 @@ void swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift:
   }
 
   v5 = a4;
-  v137 = 0;
-  v138 = 0;
   v139 = 0;
-  if (!*(a3 + 2))
+  v140 = 0;
+  v141 = 0;
+  v6 = a3[1];
+  if (!a3[1])
   {
-LABEL_66:
-    GenericSignature = swift::reflection::TypeRefBuilder::createGenericSignature(v4 + 328, 0, 0);
+    v39 = 0;
+LABEL_67:
+    GenericSignature = swift::reflection::TypeRefBuilder::createGenericSignature(v4 + 328, 0, 0, v39, (v6 - v39) >> 4);
     *(v5 + 16) = 0;
     *v5 = GenericSignature;
     if (!GenericSignature)
@@ -2840,43 +2827,41 @@ LABEL_66:
       *(v5 + 16) = 1;
     }
 
-LABEL_68:
-    v39 = v137;
-    if (v137)
+LABEL_69:
+    v41 = v139;
+    if (v139)
     {
-      goto LABEL_69;
+      goto LABEL_70;
     }
 
     return;
   }
 
-  v6 = 0;
-  v7 = *(a3 + 16);
-  v47 = a1 + 328;
-  v49 = 12 * *(a3 + 2);
-  v50 = v7 + 8;
+  v7 = 0;
+  v8 = *(a3 + 2);
+  v49 = a1 + 328;
+  v51 = 12 * v6;
+  v52 = v8 + 8;
   while (1)
   {
-    v8 = v50 + v6;
-    if ((*(v50 + v6 - 8) & 0x1Fu) >= 6 && (*(v50 + v6 - 8) & 0x1F) != 31)
+    v9 = v52 + v7;
+    if ((*(v52 + v7 - 8) & 0x1Fu) >= 6 && (*(v52 + v7 - 8) & 0x1F) != 31)
     {
       break;
     }
 
-    v97[1] = 0;
-    v97[2] = 0;
-    v98 = 0;
-    v99 = 2400;
+    v99[1] = 0;
+    v99[2] = 0;
     v100 = 0;
-    v101 = 0;
-    v97[0] = off_E13E8;
-    v136 = 0;
-    v103 = 0;
-    v104 = 0;
+    v101 = 2400;
     v102 = 0;
+    v103 = 0;
+    v99[0] = off_E13E8;
+    v138 = 0;
     v105 = 0;
-    v106 = 0u;
-    v107 = 0u;
+    v106 = 0;
+    v104 = 0;
+    v107 = 0;
     v108 = 0u;
     v109 = 0u;
     v110 = 0u;
@@ -2903,14 +2888,16 @@ LABEL_68:
     v131 = 0u;
     v132 = 0u;
     v133 = 0u;
-    v134 = 0;
-    SymbolicMangledNameStringRef = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v7 + v6 + *(v8 - 4) + 4), a2);
-    v96 = 0;
-    v13 = swift::Demangle::__runtime::Demangler::demangleType(v97, SymbolicMangledNameStringRef, v11, v95);
-    if (v96 == v95)
+    v134 = 0u;
+    v135 = 0u;
+    v136 = 0;
+    SymbolicMangledNameStringRef = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v8 + v7 + *(v9 - 4) + 4), a2);
+    v98 = 0;
+    v14 = swift::Demangle::__runtime::Demangler::demangleType(v99, SymbolicMangledNameStringRef, v12, v97);
+    if (v98 == v97)
     {
-      (*(*v96 + 32))(v96);
-      if (!v13)
+      (*(*v98 + 32))(v98);
+      if (!v14)
       {
         goto LABEL_29;
       }
@@ -2918,62 +2905,60 @@ LABEL_68:
 
     else
     {
-      if (v96)
+      if (v98)
       {
-        (*(*v96 + 40))();
+        (*(*v98 + 40))();
       }
 
-      if (!v13)
+      if (!v14)
       {
         goto LABEL_29;
       }
     }
 
-    v140 = v47;
-    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v140, v13, 0, 0, v12, &v53);
-    if (v55)
+    v142 = v49;
+    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v142, v14, 0, 0, &v55, v13);
+    if (v57)
     {
-      if (v55 == 1)
+      if (v57 == 1)
       {
-        v54(v53, 3, 0);
+        v56(v55, 3, 0);
       }
 
 LABEL_28:
-      LOBYTE(v13) = 0;
+      LOBYTE(v14) = 0;
 LABEL_29:
       *(v5 + 16) = 1;
       *(v5 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
-      v16 = "Failed to read subject type in requirement of runtime generic signature.";
+      v17 = "Failed to read subject type in requirement of runtime generic signature.";
       goto LABEL_30;
     }
 
-    if (!v53)
+    if (!v55)
     {
       goto LABEL_28;
     }
 
-    v15 = *(v8 - 8) & 0x1F;
-    if (v15 <= 2)
+    v16 = *(v9 - 8) & 0x1F;
+    if (v16 <= 2)
     {
-      v44 = v7;
-      if (v15)
+      v46 = v8;
+      if (v16)
       {
-        if (v15 != 1)
+        if (v16 != 1)
         {
-          v54 = 0;
-          v55 = 0;
           v56 = 0;
-          v57 = 2400;
+          v57 = 0;
           v58 = 0;
-          v59 = 0;
-          v53 = off_E13E8;
-          v94 = 0;
-          v61 = 0;
-          v62 = 0;
+          v59 = 2400;
           v60 = 0;
+          v61 = 0;
+          v55 = off_E13E8;
+          v96 = 0;
           v63 = 0;
-          v64 = 0u;
-          v65 = 0u;
+          v64 = 0;
+          v62 = 0;
+          v65 = 0;
           v66 = 0u;
           v67 = 0u;
           v68 = 0u;
@@ -3000,31 +2985,31 @@ LABEL_29:
           v89 = 0u;
           v90 = 0u;
           v91 = 0u;
-          v92 = 0;
-          v17 = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v7 + v6 + *(v50 + v6) + 8), v14);
-          v19 = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v7 + v6 + *(v50 + v6) + 8), v18);
-          *&v51 = v17;
-          *(&v51 + 1) = v40 & 0xFFFFFFFFFFFFFF00;
-          v52 = v19;
-          v143 = 0;
-          swift::Demangle::__runtime::makeSymbolicMangledNameStringRef(v19, v20);
+          v92 = 0u;
+          v93 = 0u;
+          v94 = 0;
+          v18 = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v8 + v7 + *(v52 + v7) + 8), v15);
+          v20 = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v8 + v7 + *(v52 + v7) + 8), v19);
+          *&v53 = v18;
+          *(&v53 + 1) = v42 & 0xFFFFFFFFFFFFFF00;
+          v54 = v20;
+          v145 = 0;
+          swift::Demangle::__runtime::makeSymbolicMangledNameStringRef(v20, v21);
           operator new();
         }
 
-        v54 = 0;
-        v55 = 0;
         v56 = 0;
-        v57 = 2400;
+        v57 = 0;
         v58 = 0;
-        v59 = 0;
-        v53 = off_E13E8;
-        v94 = 0;
-        v61 = 0;
-        v62 = 0;
+        v59 = 2400;
         v60 = 0;
+        v61 = 0;
+        v55 = off_E13E8;
+        v96 = 0;
         v63 = 0;
-        v64 = 0u;
-        v65 = 0u;
+        v64 = 0;
+        v62 = 0;
+        v65 = 0;
         v66 = 0u;
         v67 = 0u;
         v68 = 0u;
@@ -3051,32 +3036,32 @@ LABEL_29:
         v89 = 0u;
         v90 = 0u;
         v91 = 0u;
-        v92 = 0;
-        v33 = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v7 + v6 + *(v50 + v6) + 8), v14);
-        v35 = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v7 + v6 + *(v50 + v6) + 8), v34);
-        *&v51 = v33;
-        *(&v51 + 1) = v41 & 0xFFFFFFFFFFFFFF00;
-        v52 = v35;
-        v143 = 0;
-        swift::Demangle::__runtime::makeSymbolicMangledNameStringRef(v35, v36);
+        v92 = 0u;
+        v93 = 0u;
+        v94 = 0;
+        v34 = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v8 + v7 + *(v52 + v7) + 8), v15);
+        v36 = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v8 + v7 + *(v52 + v7) + 8), v35);
+        *&v53 = v34;
+        *(&v53 + 1) = v43 & 0xFFFFFFFFFFFFFF00;
+        v54 = v36;
+        v145 = 0;
+        swift::Demangle::__runtime::makeSymbolicMangledNameStringRef(v36, v37);
         operator new();
       }
 
-      v43 = v53;
-      v54 = 0;
-      v55 = 0;
+      v45 = v55;
       v56 = 0;
-      v57 = 2400;
+      v57 = 0;
       v58 = 0;
-      v59 = 0;
-      v53 = off_E13E8;
-      v94 = 0;
-      v61 = 0;
-      v62 = 0;
+      v59 = 2400;
       v60 = 0;
+      v61 = 0;
+      v55 = off_E13E8;
+      v96 = 0;
       v63 = 0;
-      v64 = 0u;
-      v65 = 0u;
+      v64 = 0;
+      v62 = 0;
+      v65 = 0;
       v66 = 0u;
       v67 = 0u;
       v68 = 0u;
@@ -3103,59 +3088,61 @@ LABEL_29:
       v89 = 0u;
       v90 = 0u;
       v91 = 0u;
-      v92 = 0;
-      v21 = *a2;
-      v22 = *(a2 + 8);
-      v23 = *(a2 + 2);
-      v24 = v44 + v6 + *a2 - v23;
-      LODWORD(v51) = 0;
-      v25 = (*(**(a1 + 2800) + 32))(*(a1 + 2800), v24 + 8, v22, &v51, 4);
-      v26 = 0;
+      v92 = 0u;
+      v93 = 0u;
+      v94 = 0;
+      v22 = *a2;
+      v23 = *(a2 + 8);
+      v24 = *(a2 + 2);
+      v25 = v46 + v7 + *a2 - v24;
+      LODWORD(v53) = 0;
+      v26 = (*(**(a1 + 2800) + 32))(*(a1 + 2800), v25 + 8, v23, &v53, 4);
       v27 = 0;
-      v28 = v42;
-      if (v25)
+      v28 = 0;
+      v29 = v44;
+      if (v26)
       {
-        v29 = v51;
-        v30 = v51 & 0xFFFFFFFFFFFFFFFCLL;
-        LODWORD(v51) = v51 & 0xFFFFFFFC;
-        v31 = v44 + v6 + v21 + v30 - v23 + 8;
-        v140 = v31;
-        LOBYTE(v141) = v22;
-        if ((v29 & 1) == 0)
+        v30 = v53;
+        v31 = v53 & 0xFFFFFFFFFFFFFFFCLL;
+        LODWORD(v53) = v53 & 0xFFFFFFFC;
+        v32 = v46 + v7 + v22 + v31 - v24 + 8;
+        v142 = v32;
+        LOBYTE(v143) = v23;
+        if ((v30 & 1) == 0)
         {
           goto LABEL_50;
         }
 
-        v32 = v29;
+        v33 = v30;
         if ((*(**(a1 + 2800) + 96))(*(a1 + 2800)))
         {
-          v31 = v140;
-          v28 = v42;
-          v29 = v32;
+          v32 = v142;
+          v29 = v44;
+          v30 = v33;
 LABEL_50:
-          v26 = v31 | (v29 >> 1) & 1;
-          v27 = v141;
+          v27 = v32 | (v30 >> 1) & 1;
+          v28 = v143;
         }
 
         else
         {
-          v26 = 0;
           v27 = 0;
-          v28 = v42;
+          v28 = 0;
+          v29 = v44;
         }
       }
 
-      v140 = v26;
-      v141 = v26;
-      v42 = v27 | v28 & 0xFFFFFFFFFFFFFF00;
-      v142 = v42;
-      v37 = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readProtocol<swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(swift::remote::RemoteRef<swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::RuntimeGenericSignature<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const&)::ProtocolReferenceResolver>(a1, &v140, &v53, v47);
-      v13 = v37;
-      if (v37)
+      v142 = v27;
+      v143 = v27;
+      v44 = v28 | v29 & 0xFFFFFFFFFFFFFF00;
+      v144 = v44;
+      v38 = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readProtocol<swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(swift::remote::RemoteRef<swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::RuntimeGenericSignature<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const&)::ProtocolReferenceResolver>(a1, &v142, &v55, v49);
+      v14 = v38;
+      if (v38)
       {
-        *&v51 = v43 & 0xFFFFFFFFFFFFFFF8;
-        *(&v51 + 1) = v37;
-        std::vector<swift::reflection::TypeRefRequirement>::push_back[abi:nn200100](&v137, &v51);
+        *&v53 = v45 & 0xFFFFFFFFFFFFFFF8;
+        *(&v53 + 1) = v38;
+        std::vector<swift::reflection::TypeRefRequirement>::push_back[abi:nn200100](&v139, &v53);
         v5 = a4;
       }
 
@@ -3167,126 +3154,128 @@ LABEL_50:
         *(a4 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
       }
 
-      v7 = v44;
-      v53 = off_E13E8;
-      if (v94 == &v93)
+      v8 = v46;
+      v55 = off_E13E8;
+      if (v96 == &v95)
       {
-        (*(*v94 + 32))(v94);
+        (*(*v96 + 32))(v96);
       }
 
-      else if (v94)
+      else if (v96)
       {
-        (*(*v94 + 40))();
+        (*(*v96 + 40))();
       }
 
-      v53 = off_E13C0;
-      swift::Demangle::__runtime::NodeFactory::freeSlabs(v56);
-      if (v58)
+      v55 = off_E13C0;
+      swift::Demangle::__runtime::NodeFactory::freeSlabs(v58);
+      if (v60)
       {
-        *(v58 + 48) = 0;
+        *(v60 + 48) = 0;
       }
 
-      if (!v13)
+      if (!v14)
       {
         goto LABEL_31;
       }
 
 LABEL_65:
-      LOBYTE(v13) = 1;
+      LOBYTE(v14) = 1;
       goto LABEL_31;
     }
 
-    if ((*(v8 - 8) & 0x1Fu) > 4)
+    if ((*(v9 - 8) & 0x1Fu) > 4)
     {
-      if (v15 == 5)
+      if (v16 == 5)
       {
-        LOBYTE(v13) = 0;
+        LOBYTE(v14) = 0;
         *(v5 + 16) = 1;
         *(v5 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
-        v16 = "Unexpected invertible protocol in runtime generic signature";
+        v17 = "Unexpected invertible protocol in runtime generic signature";
       }
 
       else
       {
-        if (v15 != 31)
+        if (v16 != 31)
         {
           goto LABEL_65;
         }
 
-        LOBYTE(v13) = 0;
+        LOBYTE(v14) = 0;
         *(v5 + 16) = 1;
         *(v5 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
-        v16 = "Unexpected layout requirement in runtime generic signature";
+        v17 = "Unexpected layout requirement in runtime generic signature";
       }
     }
 
-    else if (v15 == 3)
+    else if (v16 == 3)
     {
-      LOBYTE(v13) = 0;
+      LOBYTE(v14) = 0;
       *(v5 + 16) = 1;
       *(v5 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
-      v16 = "Unexpected same conformance requirement in runtime generic signature";
+      v17 = "Unexpected same conformance requirement in runtime generic signature";
     }
 
     else
     {
-      if (v15 != 4)
+      if (v16 != 4)
       {
         goto LABEL_65;
       }
 
-      LOBYTE(v13) = 0;
+      LOBYTE(v14) = 0;
       *(v5 + 16) = 1;
       *(v5 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
-      v16 = "Unexpected same-shape requirement in runtime generic signature";
+      v17 = "Unexpected same-shape requirement in runtime generic signature";
     }
 
 LABEL_30:
-    *v5 = v16;
+    *v5 = v17;
 LABEL_31:
-    v97[0] = off_E13E8;
-    if (v136 == &v135)
+    v99[0] = off_E13E8;
+    if (v138 == &v137)
     {
-      (*(*v136 + 32))(v136);
+      (*(*v138 + 32))(v138);
     }
 
-    else if (v136)
+    else if (v138)
     {
-      (*(*v136 + 40))();
+      (*(*v138 + 40))();
     }
 
-    v97[0] = off_E13C0;
-    swift::Demangle::__runtime::NodeFactory::freeSlabs(v98);
-    if (v100)
+    v99[0] = off_E13C0;
+    swift::Demangle::__runtime::NodeFactory::freeSlabs(v100);
+    if (v102)
     {
-      *(v100 + 48) = 0;
+      *(v102 + 48) = 0;
     }
 
-    if ((v13 & 1) == 0)
+    if ((v14 & 1) == 0)
     {
-      goto LABEL_68;
+      goto LABEL_69;
     }
 
-    v6 += 12;
-    if (v49 == v6)
+    v7 += 12;
+    if (v51 == v7)
     {
+      v39 = v139;
+      v6 = v140;
       v4 = a1;
-      goto LABEL_66;
+      goto LABEL_67;
     }
   }
 
   *(v5 + 16) = 1;
   *v5 = "unknown kind";
   *(v5 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
-  v39 = v137;
-  if (!v137)
+  v41 = v139;
+  if (!v139)
   {
     return;
   }
 
-LABEL_69:
-  v138 = v39;
-  operator delete(v39);
+LABEL_70:
+  v140 = v41;
+  operator delete(v41);
 }
 
 unsigned int *swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getGeneralizationSignature@<X0>(unsigned int *result@<X0>, uint64_t a2@<X8>)
@@ -3439,7 +3428,7 @@ void swift::reflection::TypeRefBuilder::createSubstitutionMap(uint64_t *a1@<X1>,
   }
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readObjCClassName(uint64_t a1, uint64_t a2, unsigned __int8 a3, uint64_t a4)
+uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readObjCClassName(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readObjCRODataPtr(a1, a2, a3);
   if (result)
@@ -3464,7 +3453,7 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<sw
   return result;
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readAddressOfNominalTypeDescriptor(unint64_t a1, uint64_t a2, int a3)
+uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readAddressOfNominalTypeDescriptor(uint64_t a1, uint64_t a2, int a3)
 {
   result = 0;
   v5 = *(a2 + 16);
@@ -3533,109 +3522,109 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<sw
   return result;
 }
 
-uint64_t __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(uint64_t *a1, uint64_t a2, uint64_t **a3)
+uint64_t __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(uint64_t *a1, uint64_t a2, uint64_t **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v4 = *(a1 + 4);
-  if (v4)
+  v9 = *(a1 + 4);
+  if (v9)
   {
-    v5 = *a1;
-    v28 = 0;
-    memset(v27, 0, sizeof(v27));
-    memset(v26, 0, sizeof(v26));
+    v10 = *a1;
+    v33 = 0;
+    memset(v32, 0, sizeof(v32));
+    memset(v31, 0, sizeof(v31));
     {
-      v25 = a2;
+      v30 = a2;
       __swift::__runtime::llvm::hash_combine<unsigned long long,unsigned char>();
-      a2 = v25;
+      a2 = v30;
     }
 
-    v29 = __swift::__runtime::llvm::hashing::detail::get_execution_seed(void)::seed;
-    v6 = a2;
-    v7 = (v4 - 1) & __swift::__runtime::llvm::hashing::detail::hash_combine_recursive_helper::combine<swift::remote::RemoteAddress,BOOL>(v26, 0, v26, v27, a2, (a2 + 16));
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 16);
-    v10 = (v5 + 32 * v7);
-    v11 = *v10;
-    v12 = *(v10 + 8);
-    v13 = *(v10 + 16);
-    if (*v6 == *v10 && v8 == v12 && v9 == v13)
+    v34 = __swift::__runtime::llvm::hashing::detail::get_execution_seed(void)::seed;
+    v11 = a2;
+    v12 = (v9 - 1) & __swift::__runtime::llvm::hashing::detail::hash_combine_recursive_helper::combine<swift::remote::RemoteAddress,BOOL>(v31, 0, v31, v32, a2, (a2 + 16), a7, a8);
+    v13 = *(v11 + 8);
+    v14 = *(v11 + 16);
+    v15 = v10 + 32 * v12;
+    v16 = *v15;
+    v17 = *(v15 + 8);
+    v18 = *(v15 + 16);
+    if (*v11 == *v15 && v13 == v17 && v14 == v18)
     {
       result = 1;
     }
 
     else
     {
-      v16 = 0;
-      v17 = 1;
+      v21 = 0;
+      v22 = 1;
       result = 1;
-      while (v11 != -1 || v12 || v13)
+      while (v16 != -1 || v17 || v18)
       {
-        if (v16)
+        if (v21)
         {
-          v19 = 0;
+          v24 = 0;
         }
 
         else
         {
-          v19 = v13 == 0;
+          v24 = v18 == 0;
         }
 
-        if (v19 && v12 == 0 && v11 == -2)
+        if (v24 && v17 == 0 && v16 == -2)
         {
-          v16 = v10;
+          v21 = v15;
         }
 
-        v22 = v7 + v17++;
-        v7 = v22 & (v4 - 1);
-        v10 = (v5 + 32 * v7);
-        v11 = *v10;
-        v12 = *(v10 + 8);
-        v13 = *(v10 + 16);
-        if (*v6 == *v10 && v8 == v12 && v9 == v13)
+        v27 = v12 + v22++;
+        v12 = v27 & (v9 - 1);
+        v15 = v10 + 32 * v12;
+        v16 = *v15;
+        v17 = *(v15 + 8);
+        v18 = *(v15 + 16);
+        if (*v11 == *v15 && v13 == v17 && v14 == v18)
         {
           goto LABEL_14;
         }
       }
 
       result = 0;
-      if (v16)
+      if (v21)
       {
-        v10 = v16;
+        v15 = v21;
       }
     }
   }
 
   else
   {
-    v10 = 0;
+    v15 = 0;
     result = 0;
   }
 
 LABEL_14:
-  *a3 = v10;
+  *a3 = v15;
   return result;
 }
 
-unint64_t __swift::__runtime::llvm::hashing::detail::hash_combine_recursive_helper::combine<swift::remote::RemoteAddress,BOOL>(uint64_t a1, unint64_t a2, void *a3, char *a4, unint64_t *a5, char *a6)
+unint64_t __swift::__runtime::llvm::hashing::detail::hash_combine_recursive_helper::combine<swift::remote::RemoteAddress,BOOL>(__swift::__runtime::llvm::hashing::detail::hash_combine_recursive_helper *a1, unint64_t a2, void *a3, char *a4, unint64_t *a5, char *a6, uint64_t a7, uint64_t a8)
 {
-  v7 = a4;
-  v18 = a2;
-  v8 = *a5;
+  v9 = a4;
+  v20 = a2;
+  v10 = *a5;
   {
-    v17 = a3;
-    v15 = a1;
+    v19 = a3;
+    v17 = a1;
     __swift::__runtime::llvm::hash_combine<unsigned long long,unsigned char>();
-    a1 = v15;
-    v7 = a4;
-    a3 = v17;
+    a1 = v17;
+    v9 = a4;
+    a3 = v19;
   }
 
-  v9 = 0x9DDFEA08EB382D69 * ((__swift::__runtime::llvm::hashing::detail::get_execution_seed(void)::seed + 8 * v8) ^ HIDWORD(v8));
-  v10 = 0x9DDFEA08EB382D69 * (HIDWORD(v8) ^ (v9 >> 47) ^ v9);
-  v11 = a1;
-  v12 = __swift::__runtime::llvm::hashing::detail::hash_combine_recursive_helper::combine_data<unsigned long>(a1, &v18, a3, v7, 0x9DDFEA08EB382D69 * (v10 ^ (v10 >> 47)));
-  v19 = v18;
-  v13 = __swift::__runtime::llvm::hashing::detail::hash_combine_recursive_helper::combine_data<unsigned char>(v11, &v19, v12, v7, *a6);
-  return __swift::__runtime::llvm::hashing::detail::hash_combine_recursive_helper::combine(v11, v19, v13, v7);
+  v11 = 0x9DDFEA08EB382D69 * ((__swift::__runtime::llvm::hashing::detail::get_execution_seed(void)::seed + 8 * v10) ^ HIDWORD(v10));
+  v12 = 0x9DDFEA08EB382D69 * (HIDWORD(v10) ^ (v11 >> 47) ^ v11);
+  v13 = a1;
+  v14 = __swift::__runtime::llvm::hashing::detail::hash_combine_recursive_helper::combine_data<unsigned long>(a1, &v20, a3, v9, 0x9DDFEA08EB382D69 * (v12 ^ (v12 >> 47)));
+  v21 = v20;
+  v15 = __swift::__runtime::llvm::hashing::detail::hash_combine_recursive_helper::combine_data<unsigned char>(v13, &v21, v14, v9, *a6);
+  return __swift::__runtime::llvm::hashing::detail::hash_combine_recursive_helper::combine(v13, v21, v15, v9);
 }
 
 void *__swift::__runtime::llvm::hashing::detail::hash_combine_recursive_helper::combine_data<unsigned long>(uint64_t a1, uint64_t *a2, void *__dst, unint64_t a4, uint64_t a5)
@@ -3716,10 +3705,10 @@ uint64_t *__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::Dense
 
   v9 = a1;
   __swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::grow(a1, v5);
-  v11 = 0;
-  __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(v9, a3, &v11);
+  v16 = 0;
+  __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(v9, a3, &v16, v11, v12, v13, v14, v15);
   a1 = v9;
-  a4 = v11;
+  a4 = v16;
 LABEL_3:
   ++*(a1 + 2);
   if (*a4 != -1 || *(a4 + 8) != 0 || *(a4 + 16) != 0)
@@ -3753,10 +3742,10 @@ void __swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,B
   if (v4)
   {
     *(a1 + 8) = 0;
-    v10 = *(a1 + 16);
-    if (v10)
+    v15 = *(a1 + 16);
+    if (v15)
     {
-      v11 = &buffer[32 * v10];
+      v16 = &buffer[32 * v15];
       do
       {
         *buffer = -1;
@@ -3765,48 +3754,48 @@ void __swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,B
         buffer += 32;
       }
 
-      while (buffer != v11);
+      while (buffer != v16);
     }
 
-    v12 = (32 * v3);
+    v17 = (32 * v3);
     if (v3)
     {
-      v13 = 32 * v3;
-      v14 = v4;
+      v18 = 32 * v3;
+      v19 = v4;
       do
       {
-        v15 = *(v14 + 8);
-        v16 = *(v14 + 16);
-        if ((*v14 != -1 || v15 != 0 || v16 != 0) && (*v14 != -2 || v15 != 0 || v16 != 0))
+        v20 = *(v19 + 8);
+        v21 = *(v19 + 16);
+        if ((*v19 != -1 || v20 != 0 || v21 != 0) && (*v19 != -2 || v20 != 0 || v21 != 0))
         {
-          v25 = 0;
-          __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, v14, &v25);
-          v21 = v25;
-          v22 = *v14;
-          *(v25 + 8) = *(v14 + 8);
-          *v21 = v22;
-          *(v21 + 16) = *(v14 + 16);
-          v21[3] = *(v14 + 24);
+          v30 = 0;
+          __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, v19, &v30, v10, v11, v12, v13, v14);
+          v26 = v30;
+          v27 = *v19;
+          *(v30 + 8) = *(v19 + 8);
+          *v26 = v27;
+          *(v26 + 16) = *(v19 + 16);
+          v26[3] = *(v19 + 24);
           ++*(a1 + 8);
         }
 
-        v14 += 32;
-        v13 -= 32;
+        v19 += 32;
+        v18 -= 32;
       }
 
-      while (v13);
+      while (v18);
     }
 
-    __swift::__runtime::llvm::deallocate_buffer(v4, v12, 8uLL);
+    __swift::__runtime::llvm::deallocate_buffer(v4, v17, 8uLL);
   }
 
   else
   {
     *(a1 + 8) = 0;
-    v23 = *(a1 + 16);
-    if (v23)
+    v28 = *(a1 + 16);
+    if (v28)
     {
-      v24 = &buffer[32 * v23];
+      v29 = &buffer[32 * v28];
       do
       {
         *buffer = -1;
@@ -3815,25 +3804,24 @@ void __swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,B
         buffer += 32;
       }
 
-      while (buffer != v24);
+      while (buffer != v29);
     }
   }
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
+int32x2_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata@<D0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   if (a4 > 0x100000)
   {
     *a5 = 0;
     *(a5 + 8) = 0;
     *(a5 + 16) = 0;
-    return result;
+    return v9;
   }
 
-  v8 = result;
-  (*(**(result + 2800) + 24))(&v18);
-  v9 = v18;
-  if (!v18)
+  (*(**(result + 2800) + 24))(&v26);
+  v10 = v26;
+  if (!v26)
   {
     *a5 = 0;
     *(a5 + 8) = 0;
@@ -3841,97 +3829,96 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<sw
     goto LABEL_20;
   }
 
-  v14[0] = a2;
-  v14[1] = a3;
-  v18 = 0;
-  v15 = v9;
-  if (v20)
+  *&v22 = a2;
+  *(&v22 + 1) = a3;
+  v26 = 0;
+  v23 = v10;
+  if (v28)
   {
-    if (v20 == v19)
+    if (v28 == v27)
     {
-      v17 = v16;
-      (*(*v20 + 24))();
+      v25 = v24;
+      (*(*v28 + 24))();
     }
 
     else
     {
-      v17 = v20;
-      v20 = 0;
+      v25 = v28;
+      v28 = 0;
     }
   }
 
   else
   {
-    v17 = 0;
+    v25 = 0;
   }
 
-  __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>,__swift::__runtime::llvm::DenseMapInfo<swift::remote::RemoteAddress>,__swift::__runtime::llvm::detail::DenseMapPair<swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>>>,swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>,__swift::__runtime::llvm::DenseMapInfo<swift::remote::RemoteAddress>,__swift::__runtime::llvm::detail::DenseMapPair<swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>>>::try_emplace<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v8 + 24, v14, &v15, v13);
-  v10 = v15;
-  v15 = 0;
-  if (v10)
+  __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>,__swift::__runtime::llvm::DenseMapInfo<swift::remote::RemoteAddress>,__swift::__runtime::llvm::detail::DenseMapPair<swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>>>,swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>,__swift::__runtime::llvm::DenseMapInfo<swift::remote::RemoteAddress>,__swift::__runtime::llvm::detail::DenseMapPair<swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>>>::try_emplace<std::unique_ptr<void const,std::function<void ()(void const*)>>>((result + 24), &v22, &v23, v21);
+  v11 = v23;
+  v23 = 0;
+  if (v11)
   {
-    v13[0] = v10;
-    if (!v17)
+    v21[0] = v11;
+    if (!v25)
     {
       goto LABEL_25;
     }
 
-    (*(*v17 + 48))(v17, v13);
+    (*(*v25 + 48))(v25, v21);
   }
 
-  if (v17 == v16)
+  if (v25 == v24)
   {
-    (*(*v17 + 32))(v17);
+    (*(*v25 + 32))(v25);
   }
 
-  else if (v17)
+  else if (v25)
   {
-    (*(*v17 + 40))();
+    (*(*v25 + 40))();
   }
 
   *a5 = a2;
   *(a5 + 8) = a3;
-  *(a5 + 16) = v9;
-  v11 = v18;
-  v18 = 0;
-  if (!v11)
+  *(a5 + 16) = v10;
+  v12 = v26;
+  v26 = 0;
+  if (!v12)
   {
     goto LABEL_20;
   }
 
-  v14[0] = v11;
-  if (!v20)
+  *&v22 = v12;
+  if (!v28)
   {
 LABEL_25:
-    v12 = std::__throw_bad_function_call[abi:nn200100]();
-    return __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::erase(v12);
+    std::__throw_bad_function_call[abi:nn200100]();
+    return __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::erase(v13, v14, v15, v16, v17, v18, v19, v20);
   }
 
-  (*(*v20 + 48))(v20, v14);
+  (*(*v28 + 48))(v28, &v22);
 LABEL_20:
-  result = v20;
-  if (v20 == v19)
+  if (v28 == v27)
   {
-    return (*(*v20 + 32))(v20);
+    (*(*v28 + 32))(v28);
   }
 
-  if (v20)
+  else if (v28)
   {
-    return (*(*v20 + 40))();
+    (*(*v28 + 40))();
   }
 
-  return result;
+  return v9;
 }
 
-int32x2_t __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::erase(uint64_t a1, uint64_t a2)
+int32x2_t __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::erase(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v5 = 0;
-  if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, a2, &v5))
+  v11 = 0;
+  if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, a2, &v11, a4, a5, a6, a7, a8))
   {
-    v4 = v5;
-    *v5 = -2;
-    *(v4 + 8) = 0;
-    *(v4 + 16) = 0;
+    v10 = v11;
+    *v11 = -2;
+    *(v10 + 8) = 0;
+    *(v10 + 16) = 0;
     result = vadd_s32(*(a1 + 8), 0x1FFFFFFFFLL);
     *(a1 + 8) = result;
   }
@@ -4024,7 +4011,7 @@ void *swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift
   return result;
 }
 
-void swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::getGenericSubst(uint64_t a1@<X0>, uint64_t a2@<X1>, __int128 *a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+void swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::getGenericSubst(uint64_t a1@<X0>, uint64_t a2@<X1>, __int128 *a3@<X2>, int a4@<W3>, void *a5@<X8>)
 {
   GenericContext = swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getGenericContext(*(a3 + 2));
   if (!GenericContext)
@@ -4134,13 +4121,13 @@ LABEL_4:
   }
 }
 
-void swift::reflection::TypeRefBuilder::createTypeDecl(void *a1@<X2>, uint64_t a2@<X8>)
+void swift::reflection::TypeRefBuilder::createTypeDecl(uint64_t a1@<X1>, void *a2@<X2>, uint64_t a3@<X8>)
 {
-  swift::Demangle::__runtime::mangleNode();
-  if (v13)
+  swift::Demangle::__runtime::mangleNode(a1, 0);
+  if (LODWORD(v13[0]))
   {
-    *a2 = 0;
-    *(a2 + 56) = 0;
+    *a3 = 0;
+    *(a3 + 56) = 0;
     if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       return;
@@ -4159,12 +4146,11 @@ void swift::reflection::TypeRefBuilder::createTypeDecl(void *a1@<X2>, uint64_t a
     v7 = __p;
   }
 
-  v4 = a1[1];
-  if (v4 != *a1)
+  v5 = a2[1];
+  if (v5 != *a2)
   {
-    if (((v4 - *a1) & 0x8000000000000000) == 0)
+    if (((v5 - *a2) & 0x8000000000000000) == 0)
     {
-      v5 = v4 - *a1;
       operator new();
     }
 
@@ -4182,18 +4168,18 @@ void swift::reflection::TypeRefBuilder::createTypeDecl(void *a1@<X2>, uint64_t a
   }
 
   v12 = 1;
-  *a2 = *&v8.__r_.__value_.__l.__data_;
+  *a3 = *&v8.__r_.__value_.__l.__data_;
   v6 = v8.__r_.__value_.__r.__words[2];
   memset(&v8, 0, sizeof(v8));
-  *(a2 + 16) = v6;
-  *(a2 + 24) = 0;
-  *(a2 + 32) = 0;
-  *(a2 + 40) = 0;
+  *(a3 + 16) = v6;
+  *(a3 + 24) = 0;
+  *(a3 + 32) = 0;
+  *(a3 + 40) = 0;
   v10 = 0;
   v11 = 0;
   v9 = 0;
-  *(a2 + 48) = 1;
-  *(a2 + 56) = 1;
+  *(a3 + 48) = 1;
+  *(a3 + 56) = 1;
   if ((SHIBYTE(v7.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
@@ -4221,14 +4207,14 @@ __n128 std::__function::__func<std::optional<swift::reflection::TypeRefDecl> swi
   return result;
 }
 
-void std::__function::__func<std::optional<swift::reflection::TypeRefDecl> swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildNominalTypeDecl<swift::reflection::TypeRefBuilder,true>(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,unsigned long &)#1},std::allocator<std::optional<swift::reflection::TypeRefDecl> swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildNominalTypeDecl<swift::reflection::TypeRefBuilder,true>(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,unsigned long &)#1}>,void ()(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,unsigned long &)>::operator()(uint64_t a1, uint64_t a2, void *a3)
+void std::__function::__func<std::optional<swift::reflection::TypeRefDecl> swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildNominalTypeDecl<swift::reflection::TypeRefBuilder,true>(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,unsigned long &)#1},std::allocator<std::optional<swift::reflection::TypeRefDecl> swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildNominalTypeDecl<swift::reflection::TypeRefBuilder,true>(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,unsigned long &)#1}>,void ()(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,unsigned long &)>::operator()(uint64_t a1, __int128 *a2, void *a3)
 {
   v3 = *a2;
-  v4 = *(a2 + 16);
+  v4 = *(a2 + 2);
   swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildNominalTypeDecl<swift::reflection::TypeRefBuilder,true>(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,unsigned long &)#1}::operator()((a1 + 8), &v3, a3);
 }
 
-void swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildNominalTypeDecl<swift::reflection::TypeRefBuilder,true>(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,unsigned long &)#1}::operator()(uint64_t *a1, __int128 *a2, void *a3)
+void swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildNominalTypeDecl<swift::reflection::TypeRefBuilder,true>(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,unsigned long &)#1}::operator()(uint64_t **a1, __int128 *a2, void *a3)
 {
   v6 = *a1;
   v21 = *a2;
@@ -4275,7 +4261,7 @@ LABEL_7:
       v14 = (v13 + 1);
 LABEL_24:
       *(v10 + 8) = v14;
-      *a3 += *(*(a1[2] + 8) - 8);
+      *a3 += *(a1[2][1] - 8);
       return;
     }
 
@@ -4507,22 +4493,22 @@ _BYTE *swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swi
   return result;
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v5 = a2[2];
   if (v5)
   {
-    result = a2[2];
+    v6 = a2[2];
   }
 
   else
   {
-    result = 0;
+    v6 = 0;
   }
 
-  v7 = result;
-  v8 = *result;
-  if ((*result & 0x20000000) == 0)
+  v7 = v6;
+  v8 = *v6;
+  if ((*v6 & 0x20000000) == 0)
   {
     LODWORD(v9) = 0;
     v10 = 1;
@@ -4533,9 +4519,9 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<sw
 
   v19 = *a2;
   v20 = *(a2 + 8);
-  if (result)
+  if (v6)
   {
-    v21 = result;
+    v21 = v6;
   }
 
   else
@@ -4587,41 +4573,39 @@ LABEL_24:
     v27 = 0;
   }
 
-  v29 = TrailingObjectsImpl + 12 * v25 + 4 * v27;
-  result = swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>::callNumTrailingObjects<swift::GenericValueDescriptor>(v21);
-  v30 = (v29 + 4 * result);
+  v29 = (TrailingObjectsImpl + 12 * v25 + 4 * v27 + 4 * swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>::callNumTrailingObjects<swift::GenericValueDescriptor>(v21));
   if (v5)
   {
-    v31 = v5;
+    v30 = v5;
   }
 
   else
   {
-    v31 = 0;
+    v30 = 0;
   }
 
-  v32 = *v30;
-  v33 = v30 + v19 - v31 + v32;
-  if (v32)
+  v31 = *v29;
+  v32 = v29 + v19 - v30 + v31;
+  if (v31)
   {
-    v34 = v33 == 0;
+    v33 = v32 == 0;
   }
 
   else
   {
-    v34 = 1;
+    v33 = 1;
   }
 
-  if (v34 || (v35 = (*v7 >> 25) & 7, v36 = a1, result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::forTypeReference<swift::TargetClassMetadataBounds<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)#1},swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetMetadata<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)#1},swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteAddress)#1}>(a1, v35, v33, v20, &v36, &v37), v10 = v38, (v38 & 1) == 0))
+  if (v33 || (v34 = (*v7 >> 25) & 7, v35 = a1, swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::forTypeReference<swift::TargetClassMetadataBounds<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)#1},swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetMetadata<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)#1},swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteAddress)#1}>(a1, v34, v32, v20, &v35, &v36), v10 = v37, (v37 & 1) == 0))
   {
     v10 = 0;
     *a3 = 0;
     goto LABEL_40;
   }
 
-  v12 = v37;
-  v11 = HIDWORD(v37);
-  LODWORD(v9) = v37 >> 8;
+  v12 = v36;
+  v11 = HIDWORD(v36);
+  LODWORD(v9) = v36 >> 8;
   v8 = *v7;
 LABEL_6:
   v13 = v7[8];
@@ -4663,10 +4647,9 @@ LABEL_6:
   *(a3 + 8) = v18;
 LABEL_40:
   *(a3 + 16) = v10;
-  return result;
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::forTypeReference<swift::TargetClassMetadataBounds<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)#1},swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetMetadata<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)#1},swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteAddress)#1}>@<X0>(uint64_t result@<X0>, int a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, uint64_t a6@<X8>)
+void swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::forTypeReference<swift::TargetClassMetadataBounds<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)#1},swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetMetadata<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)#1},swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteAddress)#1}>(uint64_t result@<X0>, int a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, uint64_t a6@<X8>)
 {
   if (a2 > 1)
   {
@@ -4675,10 +4658,9 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<sw
       *&v24 = 0;
       BYTE8(v24) = 0;
       v12 = result;
-      result = (*(**(result + 2800) + 96))(*(result + 2800), a3, a4, &v24, 8);
-      if (result)
+      if ((*(**(result + 2800) + 96))(*(result + 2800), a3, a4, &v24, 8))
       {
-        result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(v12, v24, *(&v24 + 1), &v26);
+        swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(v12, v24, *(&v24 + 1), &v26);
         if (v27)
         {
           if ((*v27 - 1) > 0x7FE)
@@ -4729,8 +4711,7 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<sw
 
     v8 = a5;
     v9 = result;
-    result = (*(**(result + 2800) + 32))(*(result + 2800), a3, a4, &v26, 8);
-    if (!result)
+    if (!(*(**(result + 2800) + 32))(*(result + 2800), a3, a4, &v26, 8))
     {
       goto LABEL_23;
     }
@@ -4747,13 +4728,13 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<sw
     v10 = a4;
   }
 
-  result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(result, v11, v10 | a4 & 0xFFFFFFFFFFFFFF00, &v24);
+  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(result, v11, v10 | a4 & 0xFFFFFFFFFFFFFF00, &v24);
   if (!v25 || (v20 = *v25, (*v25 & 0x1F) != 0x10))
   {
 LABEL_23:
     *a6 = 0;
     *(a6 + 16) = 0;
-    return result;
+    return;
   }
 
   if ((v20 & 0x20000000) != 0)
@@ -4761,7 +4742,8 @@ LABEL_23:
     v23 = *v8;
     v26 = v24;
     v27 = v25;
-    return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(v23, &v26);
+    swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(v23, &v26, a6);
+    return;
   }
 
   v21 = *(v25 + 3);
@@ -4780,7 +4762,6 @@ LABEL_23:
 LABEL_29:
   *(a6 + 8) = v14;
   *(a6 + 16) = 1;
-  return result;
 }
 
 void swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(swift::remote::RemoteAddress,BOOL,int)::ProtocolResolver::objcProtocol(size_t __len@<X2>, const void *a2@<X1>, std::string *a3@<X8>)
@@ -4889,7 +4870,7 @@ void std::vector<swift::reflection::TypeRefRequirement>::push_back[abi:nn200100]
   *(a1 + 8) = v5;
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readProtocol<swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(swift::remote::RemoteRef<swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::RuntimeGenericSignature<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const&)::ProtocolReferenceResolver>(uint64_t a1, uint64_t a2, swift::Demangle::__runtime::NodeFactory *a3, uint64_t a4)
+void *swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readProtocol<swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(swift::remote::RemoteRef<swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::RuntimeGenericSignature<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const&)::ProtocolReferenceResolver>(uint64_t *a1, uint64_t a2, swift::Demangle::__runtime::NodeFactory *a3, uint64_t a4)
 {
   v24 = a4;
   v6 = *a2;
@@ -4897,14 +4878,14 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<sw
   {
     if (!*(a2 + 16))
     {
-      v6 &= *(a1 + 2816);
+      v6 &= a1[352];
     }
 
     swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(a1, v6, *(a2 + 16), &v25);
     v8 = v26;
-    if (v26 && (*__p = v25, v28 = v26, (v9 = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(a1, __p, a3, 50)) != 0) && ((v10 = v9, (*v8 & 0x10) == 0) && (*v8 & 0x1F) != 3 || (Node = swift::Demangle::__runtime::NodeFactory::createNode(a3, 243), swift::Demangle::__runtime::Node::addChild(Node, v10, a3, v12, v13), Node)))
+    if (v26 && (*__p = v25, v28 = v26, (v9 = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(a1, __p, a3, 50)) != 0) && ((v10 = v9, (*v8 & 0x10) == 0) && (*v8 & 0x1F) != 3 || (Node = swift::Demangle::__runtime::NodeFactory::createNode(a3, 243), swift::Demangle::__runtime::Node::addChild(Node, v10, a3, v12, v13), (v10 = Node) != 0)))
     {
-      return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(swift::remote::RemoteRef<swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::RuntimeGenericSignature<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const&)::ProtocolReferenceResolver::swiftProtocol(&v24);
+      return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(swift::remote::RemoteRef<swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::RuntimeGenericSignature<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const&)::ProtocolReferenceResolver::swiftProtocol(&v24, v10);
     }
 
     else
@@ -4980,7 +4961,7 @@ LABEL_31:
           v18 = *v18;
         }
 
-        result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(swift::remote::RemoteRef<swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::RuntimeGenericSignature<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const&)::ProtocolReferenceResolver::swiftProtocol(&v24);
+        result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(swift::remote::RemoteRef<swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::RuntimeGenericSignature<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const&)::ProtocolReferenceResolver::swiftProtocol(&v24, v18);
         goto LABEL_19;
       }
     }
@@ -5005,24 +4986,24 @@ LABEL_19:
   return result;
 }
 
-uint64_t swift::reflection::TypeRefBuilder::createGenericSignature(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t swift::reflection::TypeRefBuilder::createGenericSignature(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!a3)
   {
-    swift::reflection::TypeRefBuilder::makeGenericSignatureRef<llvm::ArrayRef<swift::reflection::GenericTypeParameterTypeRef const*>,llvm::ArrayRef<swift::reflection::TypeRefRequirement>>();
+    swift::reflection::TypeRefBuilder::makeGenericSignatureRef<llvm::ArrayRef<swift::reflection::GenericTypeParameterTypeRef const*>,llvm::ArrayRef<swift::reflection::TypeRefRequirement>>(a1, 0, 0, a4, a5);
   }
 
   if (*a2)
   {
-    v3 = *(*a2 + 8) == 9;
+    v5 = *(*a2 + 8) == 9;
   }
 
   else
   {
-    v3 = 0;
+    v5 = 0;
   }
 
-  if (v3)
+  if (v5)
   {
     operator new();
   }
@@ -5030,13 +5011,13 @@ uint64_t swift::reflection::TypeRefBuilder::createGenericSignature(uint64_t a1, 
   return 0;
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(swift::remote::RemoteRef<swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::RuntimeGenericSignature<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const&)::ProtocolReferenceResolver::swiftProtocol(uint64_t *a1)
+void *swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(swift::remote::RemoteRef<swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::RuntimeGenericSignature<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const&)::ProtocolReferenceResolver::swiftProtocol(uint64_t *a1, uint64_t a2)
 {
-  swift::Demangle::__runtime::mangleNode();
-  v4 = v15;
-  if (v15)
+  swift::Demangle::__runtime::mangleNode(a2, 0);
+  v5 = v16[0];
+  if (LODWORD(v16[0]))
   {
-    v5 = 0;
+    v6 = 0;
     if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_3;
@@ -5044,7 +5025,7 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<sw
 
 LABEL_9:
     operator delete(__p.__r_.__value_.__l.__data_);
-    if (v4)
+    if (v5)
     {
       return 0;
     }
@@ -5054,69 +5035,69 @@ LABEL_9:
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v14, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v15, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v14 = __p;
+    v15 = __p;
   }
 
-  size = v14.__r_.__value_.__l.__size_;
-  v5 = v14.__r_.__value_.__r.__words[0];
-  v13[0] = v14.__r_.__value_.__r.__words[2];
-  *(v13 + 3) = *(&v14.__r_.__value_.__r.__words[2] + 3);
-  v2 = HIBYTE(v14.__r_.__value_.__r.__words[2]);
+  size = v15.__r_.__value_.__l.__size_;
+  v6 = v15.__r_.__value_.__r.__words[0];
+  v14[0] = v15.__r_.__value_.__r.__words[2];
+  *(v14 + 3) = *(&v15.__r_.__value_.__r.__words[2] + 3);
+  v3 = HIBYTE(v15.__r_.__value_.__r.__words[2]);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_9;
   }
 
 LABEL_3:
-  if (v4)
+  if (v5)
   {
     return 0;
   }
 
 LABEL_10:
-  v7 = *a1;
-  v10.__r_.__value_.__s.__data_[0] = 0;
-  v12 = 0;
-  if (v2 < 0)
+  v8 = *a1;
+  v11.__r_.__value_.__s.__data_[0] = 0;
+  v13 = 0;
+  if (v3 < 0)
   {
-    std::string::__init_copy_ctor_external(&v10, v5, size);
+    std::string::__init_copy_ctor_external(&v11, v6, size);
   }
 
   else
   {
-    v10.__r_.__value_.__r.__words[0] = v5;
-    v10.__r_.__value_.__l.__size_ = size;
-    LODWORD(v10.__r_.__value_.__r.__words[2]) = v13[0];
-    *(&v10.__r_.__value_.__r.__words[2] + 3) = *(v13 + 3);
-    *(&v10.__r_.__value_.__s + 23) = v2;
+    v11.__r_.__value_.__r.__words[0] = v6;
+    v11.__r_.__value_.__l.__size_ = size;
+    LODWORD(v11.__r_.__value_.__r.__words[2]) = v14[0];
+    *(&v11.__r_.__value_.__r.__words[2] + 3) = *(v14 + 3);
+    *(&v11.__r_.__value_.__s + 23) = v3;
   }
 
-  v11 = 0;
-  v12 = 1;
-  result = swift::reflection::TypeRefBuilder::createProtocolTypeFromDecl(v7, &v10);
-  if (v12 == 1 && SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
-  {
-    v8 = result;
-    operator delete(v10.__r_.__value_.__l.__data_);
-    result = v8;
-  }
-
-  if (v2 < 0)
+  v12 = 0;
+  v13 = 1;
+  result = swift::reflection::TypeRefBuilder::createProtocolTypeFromDecl(v8, &v11);
+  if (v13 == 1 && SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
   {
     v9 = result;
-    operator delete(v5);
-    return v9;
+    operator delete(v11.__r_.__value_.__l.__data_);
+    result = v9;
+  }
+
+  if (v3 < 0)
+  {
+    v10 = result;
+    operator delete(v6);
+    return v10;
   }
 
   return result;
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(swift::remote::RemoteRef<swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::RuntimeGenericSignature<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const&)::ProtocolReferenceResolver::objcProtocol(uint64_t *a1, const void *a2, size_t __len)
+void *swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(swift::remote::RemoteRef<swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::RuntimeGenericSignature<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const&)::ProtocolReferenceResolver::objcProtocol(uint64_t *a1, const void *a2, size_t __len)
 {
   if (!a2)
   {
@@ -5195,11 +5176,11 @@ LABEL_12:
   return ProtocolTypeFromDecl;
 }
 
-void *swift::reflection::GenericSignatureRef::GenericSignatureRef(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *swift::reflection::GenericSignatureRef::GenericSignatureRef(void *a1, const void *a2, uint64_t a3, const void *a4, uint64_t a5)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3)
   {
     if (((8 * a3) & 0x8000000000000000) == 0)
@@ -5210,9 +5191,9 @@ void *swift::reflection::GenericSignatureRef::GenericSignatureRef(void *result, 
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  result[3] = 0;
-  result[4] = 0;
-  result[5] = 0;
+  a1[3] = 0;
+  a1[4] = 0;
+  a1[5] = 0;
   if (a5)
   {
     if (((16 * a5) & 0x8000000000000000) == 0)
@@ -5223,7 +5204,7 @@ void *swift::reflection::GenericSignatureRef::GenericSignatureRef(void *result, 
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readObjCRODataPtr(uint64_t a1, uint64_t a2, unsigned __int8 a3)
@@ -5293,9 +5274,9 @@ uint64_t swift::reflection::ForeignClassTypeRef::create<swift::reflection::TypeR
   v7 = std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>>>::find<swift::reflection::TypeRefID>((a1 + 1296), &v11);
   if (!v7)
   {
-    if (*(v2 + 23) < 0)
+    if (v2[23] < 0)
     {
-      std::string::__init_copy_ctor_external(&v10, *v2, v2[1]);
+      std::string::__init_copy_ctor_external(&v10, *v2, *(v2 + 1));
     }
 
     else
@@ -5334,132 +5315,133 @@ void swift::reflection::ForeignClassTypeRef::~ForeignClassTypeRef(void **this)
   operator delete();
 }
 
-char *swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(unint64_t a1, unint64_t a2, uint64_t a3, int a4, int a5)
+void **swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  *&v207 = a2;
-  *(&v207 + 1) = a3;
-  LOBYTE(v208) = a4;
+  v9 = a5;
+  *&v272 = a2;
+  *(&v272 + 1) = a3;
+  LOBYTE(v273) = a4;
   __src[0] = 0;
-  if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, &v207, __src) && __src[0] != (*a1 + 32 * *(a1 + 16)))
+  if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, &v272, __src, a4, a5, a6, a7, a8) && __src[0] != (*a1 + 32 * *(a1 + 16)))
   {
     return *(__src[0] + 3);
   }
 
-  v12 = __OFSUB__(a5, 1);
-  v13 = (a5 - 1);
-  if (v13 < 0 != v12)
+  v20 = __OFSUB__(v9, 1);
+  v21 = (v9 - 1);
+  if (v21 < 0 != v20)
   {
     return 0;
   }
 
-  *__src = v207;
-  v166 = v208;
-  v167 = 0;
-  v126.__r_.__value_.__r.__words[0] = 0;
-  if ((__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, __src, &v126) & 1) == 0)
+  *__src = v272;
+  v231 = v273;
+  v232 = 0;
+  v191.__r_.__value_.__r.__words[0] = 0;
+  if ((__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, __src, &v191, v14, v15, v16, v17, v18) & 1) == 0)
   {
-    v14 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::InsertIntoBucketImpl<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, __src, __src, v126.__r_.__value_.__l.__data_);
-    v15 = __src[1];
-    *v14 = __src[0];
-    *(v14 + 8) = v15;
-    *(v14 + 16) = v166;
-    v14[3] = v167;
+    v22 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::InsertIntoBucketImpl<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, __src, __src, v191.__r_.__value_.__l.__data_);
+    v23 = __src[1];
+    *v22 = __src[0];
+    *(v22 + 8) = v23;
+    *(v22 + 16) = v231;
+    v22[3] = v232;
   }
 
-  Metadata = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(a1, a2, a3, &v205);
-  v17 = v206;
-  if (!v206)
+  swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(a1, a2, a3, &v270);
+  v28 = v271;
+  if (!v271)
   {
     return 0;
   }
 
-  v18 = __src;
-  v19 = *v206;
-  if (*v206 > 0x7FFuLL)
+  v29 = __src;
+  v30 = *v271;
+  if (*v271 > 0x7FF)
   {
-    LODWORD(v19) = 0;
+    LODWORD(v30) = 0;
   }
 
-  if (v19 <= 770)
+  if (v30 <= 770)
   {
-    if (v19 <= 514)
+    if (v30 <= 514)
     {
-      if ((v19 - 512) < 3)
+      if ((v30 - 512) < 3)
       {
-        *__src = v205;
-        v166 = v206;
-        return swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readNominalTypeFromMetadata(a1, __src, v13, 0);
+        *__src = v270;
+        v231 = v271;
+        return swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readNominalTypeFromMetadata(a1, __src, v21, 0);
       }
 
-      if (!v19)
+      if (!v30)
       {
-        *__src = v205;
-        v166 = v206;
-        return swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readNominalTypeFromClassMetadata(a1, __src, v13, a4);
+        *__src = v270;
+        v231 = v271;
+        return swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readNominalTypeFromClassMetadata(a1, __src, v21, a4);
       }
 
       goto LABEL_46;
     }
 
-    if ((v19 - 515) >= 2)
+    if ((v30 - 515) >= 2)
     {
-      if (v19 == 769)
+      if (v30 == 769)
       {
-        v166 = 0;
+        v231 = 0;
         __src[1] = 0;
         __src[0] = 0;
-        std::vector<swift::reflection::TypeRef const*>::reserve(__src, v206[1]);
-        v33 = *(v17 + 8);
-        if (*(v17 + 8))
+        std::vector<swift::reflection::TypeRef const*>::reserve(__src, v271[1]);
+        v53 = *(v28 + 8);
+        if (*(v28 + 8))
         {
-          v34 = (v17 + 24);
+          v54 = (v28 + 24);
           do
           {
-            v36 = *v34;
-            v34 += 2;
-            result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v36, a3, 0, v13);
+            v56 = *v54;
+            v54 += 2;
+            result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v56, a3, 0, v21, v50, v51, v52);
             if (!result)
             {
               goto LABEL_166;
             }
 
-            v37 = __src[1];
-            if (__src[1] < v166)
+            v57 = __src[1];
+            if (__src[1] < v231)
             {
               *__src[1] = result;
-              v35 = v37 + 8;
+              v55 = v57 + 8;
             }
 
             else
             {
-              v38 = __src[0];
-              v39 = __src[1] - __src[0];
-              v40 = (__src[1] - __src[0]) >> 3;
-              v41 = v40 + 1;
-              if ((v40 + 1) >> 61)
+              v58 = __src[0];
+              v59 = __src[1] - __src[0];
+              v60 = (__src[1] - __src[0]) >> 3;
+              v61 = v60 + 1;
+              if ((v60 + 1) >> 61)
               {
                 std::string::__throw_length_error[abi:nn200100]();
               }
 
-              v42 = v166 - __src[0];
-              if ((v166 - __src[0]) >> 2 > v41)
+              v62 = v231 - __src[0];
+              if ((v231 - __src[0]) >> 2 > v61)
               {
-                v41 = v42 >> 2;
+                v61 = v62 >> 2;
               }
 
-              if (v42 >= 0x7FFFFFFFFFFFFFF8)
+              if (v62 >= 0x7FFFFFFFFFFFFFF8)
               {
-                v43 = 0x1FFFFFFFFFFFFFFFLL;
+                v63 = 0x1FFFFFFFFFFFFFFFLL;
               }
 
               else
               {
-                v43 = v41;
+                v63 = v61;
               }
 
-              if (v43)
+              if (v63)
               {
-                if (!(v43 >> 61))
+                if (!(v63 >> 61))
                 {
                   operator new();
                 }
@@ -5467,109 +5449,109 @@ char *swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::
                 goto LABEL_236;
               }
 
-              *(8 * v40) = result;
-              v35 = (8 * v40 + 8);
-              memcpy(0, v38, v39);
+              *(8 * v60) = result;
+              v55 = (8 * v60 + 8);
+              memcpy(0, v58, v59);
               __src[0] = 0;
-              __src[1] = v35;
-              v166 = 0;
-              if (v38)
+              __src[1] = v55;
+              v231 = 0;
+              if (v58)
               {
-                operator delete(v38);
+                operator delete(v58);
               }
             }
 
-            __src[1] = v35;
-            --v33;
+            __src[1] = v55;
+            --v53;
           }
 
-          while (v33);
+          while (v53);
         }
 
-        v51 = *(v17 + 16);
-        memset(&v126, 0, sizeof(v126));
-        if (v51 && !(*(**(a1 + 2800) + 16))(*(a1 + 2800), v51, a3, &v126))
+        v80 = *(v28 + 16);
+        memset(&v191, 0, sizeof(v191));
+        if (v80 && !(*(**(a1 + 2800) + 16))(*(a1 + 2800), v80, a3, &v191))
         {
           result = 0;
         }
 
         else
         {
-          memset(&v209, 0, sizeof(v209));
-          v52 = std::string::find(&v126, 32, 0);
-          if (v52 == -1)
+          memset(&v274, 0, sizeof(v274));
+          v81 = std::string::find(&v191, 32, 0);
+          if (v81 == -1)
           {
-            v56 = 0;
+            v85 = 0;
             size = 0;
           }
 
           else
           {
-            v53 = v52;
-            v54 = 0;
+            v82 = v81;
+            v83 = 0;
             do
             {
-              if ((v126.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              if ((v191.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v55 = &v126;
+                v84 = &v191;
               }
 
               else
               {
-                v55 = v126.__r_.__value_.__r.__words[0];
+                v84 = v191.__r_.__value_.__r.__words[0];
               }
 
-              v164.__r_.__value_.__r.__words[0] = v55 + v54;
-              v164.__r_.__value_.__l.__size_ = v53 - v54;
-              std::vector<__swift::__runtime::llvm::StringRef>::push_back[abi:nn200100](&v209, &v164);
-              v54 = v53 + 1;
-              v53 = std::string::find(&v126, 32, v53 + 1);
+              v229.__r_.__value_.__r.__words[0] = v84 + v83;
+              v229.__r_.__value_.__l.__size_ = v82 - v83;
+              std::vector<__swift::__runtime::llvm::StringRef>::push_back[abi:nn200100](&v274, &v229);
+              v83 = v82 + 1;
+              v82 = std::string::find(&v191, 32, v82 + 1);
             }
 
-            while (v53 != -1);
-            size = v209.__r_.__value_.__l.__size_;
-            v56 = v209.__r_.__value_.__r.__words[0];
+            while (v82 != -1);
+            size = v274.__r_.__value_.__l.__size_;
+            v85 = v274.__r_.__value_.__r.__words[0];
           }
 
-          v91 = (size - v56) >> 4;
-          v92 = __src[0];
-          v93 = (__src[1] - __src[0]) >> 3;
-          if (v93 > v91)
+          v123 = (size - v85) >> 4;
+          v124 = __src[0];
+          v125 = (__src[1] - __src[0]) >> 3;
+          if (v125 > v123)
           {
-            v94 = v91 + 1;
+            v126 = v123 + 1;
             do
             {
-              *&v164.__r_.__value_.__l.__data_ = 0uLL;
-              std::vector<__swift::__runtime::llvm::StringRef>::push_back[abi:nn200100](&v209, &v164);
-              v92 = __src[0];
-              v93 = (__src[1] - __src[0]) >> 3;
+              *&v229.__r_.__value_.__l.__data_ = 0uLL;
+              std::vector<__swift::__runtime::llvm::StringRef>::push_back[abi:nn200100](&v274, &v229);
+              v124 = __src[0];
+              v125 = (__src[1] - __src[0]) >> 3;
             }
 
-            while (v93 > v94++);
-            v56 = v209.__r_.__value_.__r.__words[0];
+            while (v125 > v126++);
+            v85 = v274.__r_.__value_.__r.__words[0];
           }
 
-          TupleType = swift::reflection::TypeRefBuilder::createTupleType(a1 + 328, v92, v93, v56, (v209.__r_.__value_.__l.__size_ - v56) >> 4);
-          v97 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v207);
+          TupleType = swift::reflection::TypeRefBuilder::createTupleType(a1 + 328, v124, v125, v85, (v274.__r_.__value_.__l.__size_ - v85) >> 4);
+          v135 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v272, v129, v130, v131, v132, v133, v134);
           result = TupleType;
-          *v97 = TupleType;
-          if (v209.__r_.__value_.__r.__words[0])
+          *v135 = TupleType;
+          if (v274.__r_.__value_.__r.__words[0])
           {
-            v209.__r_.__value_.__l.__size_ = v209.__r_.__value_.__r.__words[0];
-            operator delete(v209.__r_.__value_.__l.__data_);
+            v274.__r_.__value_.__l.__size_ = v274.__r_.__value_.__r.__words[0];
+            operator delete(v274.__r_.__value_.__l.__data_);
             result = TupleType;
           }
         }
 
-        if (SHIBYTE(v126.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v191.__r_.__value_.__r.__words[2]) < 0)
         {
-          v98 = result;
-          operator delete(v126.__r_.__value_.__l.__data_);
-          result = v98;
+          v136 = result;
+          operator delete(v191.__r_.__value_.__l.__data_);
+          result = v136;
         }
 
 LABEL_166:
-        v27 = __src[0];
+        v44 = __src[0];
         if (!__src[0])
         {
           return result;
@@ -5577,24 +5559,24 @@ LABEL_166:
 
         __src[1] = __src[0];
 LABEL_178:
-        v103 = result;
-        operator delete(v27);
-        return v103;
+        v150 = result;
+        operator delete(v44);
+        return v150;
       }
 
-      if (v19 == 770)
+      if (v30 == 770)
       {
-        memset(&v126, 0, sizeof(v126));
-        v21 = *(v206 + 4);
-        if (*(v206 + 4))
+        memset(&v191, 0, sizeof(v191));
+        v38 = *(v271 + 4);
+        if (*(v271 + 4))
         {
-          v22 = v206 + 3;
-          v23 = a3;
-          v24 = v206 + 3;
+          v39 = v271 + 3;
+          v40 = a3;
+          v41 = v271 + 3;
           while (1)
           {
-            v26 = *v24++;
-            result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v26, v23, 0, v13);
+            v43 = *v41++;
+            result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v43, v40, 0, v21, v25, v26, v27);
             if (!result)
             {
               goto LABEL_176;
@@ -5602,40 +5584,40 @@ LABEL_178:
 
             __src[1] = 0;
             __src[0] = 0;
-            v166 = result;
-            if ((*(v17 + 8) & 0x2000000) != 0)
+            v231 = result;
+            if ((*(v28 + 8) & 0x2000000) != 0)
             {
-              v25 = v22[*(v17 + 8)];
+              v42 = v39[*(v28 + 8)];
             }
 
             else
             {
-              v25 = 0;
+              v42 = 0;
             }
 
-            LODWORD(v167) = v25;
-            std::vector<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>>::push_back[abi:nn200100](&v126, __src);
-            v22 = (v22 + 4);
-            if (!--v21)
+            LODWORD(v232) = v42;
+            std::vector<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>>::push_back[abi:nn200100](&v191, __src);
+            v39 = (v39 + 4);
+            if (!--v38)
             {
               goto LABEL_145;
             }
           }
         }
 
-        v23 = a3;
+        v40 = a3;
 LABEL_145:
-        result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, *(v17 + 16), v23, 0, v13);
+        result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, *(v28 + 16), v40, 0, v21, v25, v26, v27);
         if (!result)
         {
           goto LABEL_176;
         }
 
-        v84 = result;
-        v85 = *(v17 + 8);
-        if ((v85 & 0x80000000) != 0)
+        v116 = result;
+        v117 = *(v28 + 8);
+        if ((v117 & 0x80000000) != 0)
         {
-          ExtendedFlags = swift::TargetFunctionTypeMetadata<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getExtendedFlags(v17);
+          ExtendedFlags = swift::TargetFunctionTypeMetadata<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getExtendedFlags(v28);
         }
 
         else
@@ -5643,47 +5625,47 @@ LABEL_145:
           ExtendedFlags = 0;
         }
 
-        v87 = *(v17 + 8);
-        if ((v87 & 0x10000000) != 0)
+        v119 = *(v28 + 8);
+        if ((v119 & 0x10000000) != 0)
         {
-          result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, *(((v17 + 8 * *(v17 + 8) + 4 * (*(v17 + 8) & ((*(v17 + 8) << 38) >> 63)) + 31) & 0xFFFFFFFFFFFFFFF8) + 8 * ((*(v17 + 8) >> 27) & 1)), v23, 0, v13);
+          result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, *(((v28 + 8 * *(v28 + 8) + 4 * (*(v28 + 8) & ((*(v28 + 8) << 38) >> 63)) + 31) & 0xFFFFFFFFFFFFFFF8) + 8 * ((*(v28 + 8) >> 27) & 1)), v40, 0, v21, v113, v114, v115);
           if (!result)
           {
             goto LABEL_176;
           }
 
-          v89 = result;
-          v87 = *(v17 + 8);
+          v121 = result;
+          v119 = *(v28 + 8);
         }
 
         else
         {
-          v89 = 0;
+          v121 = 0;
         }
 
-        if ((v87 & 0x8000000) != 0)
+        if ((v119 & 0x8000000) != 0)
         {
-          v99 = *((v17 + 8 * v87 + 4 * (v87 & (v87 << 38 >> 63)) + 31) & 0xFFFFFFFFFFFFFFF8);
-          if ((v99 - 1) >= 4)
+          v137 = *((v28 + 8 * v119 + 4 * (v119 & (v119 << 38 >> 63)) + 31) & 0xFFFFFFFFFFFFFFF8);
+          if ((v137 - 1) >= 4)
           {
-            v90 = 0;
+            v122 = 0;
           }
 
           else
           {
-            v90 = v99;
+            v122 = v137;
           }
         }
 
         else
         {
-          v90 = 0;
+          v122 = 0;
         }
 
-        if (swift::TargetFunctionTypeMetadata<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::hasThrownError(v17))
+        if (swift::TargetFunctionTypeMetadata<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::hasThrownError(v28))
         {
-          ThrownError = swift::TargetFunctionTypeMetadata<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getThrownError(v17);
-          result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, ThrownError, v23, 0, v13);
+          ThrownError = swift::TargetFunctionTypeMetadata<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getThrownError(v28);
+          result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, ThrownError, v40, 0, v21, v139, v140, v141);
           if (!result)
           {
             goto LABEL_176;
@@ -5695,103 +5677,103 @@ LABEL_145:
           result = 0;
         }
 
-        FunctionType = swift::reflection::TypeRefBuilder::createFunctionType(a1 + 328, v126.__r_.__value_.__l.__data_, (v126.__r_.__value_.__l.__size_ - v126.__r_.__value_.__r.__words[0]) >> 5, v84, v85, ExtendedFlags, v90, v89, result);
-        v102 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v207);
+        FunctionType = swift::reflection::TypeRefBuilder::createFunctionType(a1 + 328, v191.__r_.__value_.__l.__data_, (v191.__r_.__value_.__l.__size_ - v191.__r_.__value_.__r.__words[0]) >> 5, v116, v117, ExtendedFlags, v122, v121, result);
+        v149 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v272, v143, v144, v145, v146, v147, v148);
         result = FunctionType;
-        *v102 = FunctionType;
+        *v149 = FunctionType;
 LABEL_176:
-        v27 = v126.__r_.__value_.__r.__words[0];
-        if (!v126.__r_.__value_.__r.__words[0])
+        v44 = v191.__r_.__value_.__r.__words[0];
+        if (!v191.__r_.__value_.__r.__words[0])
         {
           return result;
         }
 
-        v126.__r_.__value_.__l.__size_ = v126.__r_.__value_.__r.__words[0];
+        v191.__r_.__value_.__l.__size_ = v191.__r_.__value_.__r.__words[0];
         goto LABEL_178;
       }
 
 LABEL_46:
-      v20 = swift::reflection::OpaqueTypeRef::get(Metadata);
+      v31 = swift::reflection::OpaqueTypeRef::get(v24);
       goto LABEL_47;
     }
 
-    result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readAddressOfNominalTypeDescriptor(a1, &v205, 0);
+    result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readAddressOfNominalTypeDescriptor(a1, &v270, 0);
     if (!result)
     {
       return result;
     }
 
-    swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(a1, result, v28, &v209);
-    if (v209.__r_.__value_.__r.__words[2])
+    swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(a1, result, v45, &v274);
+    if (v274.__r_.__value_.__r.__words[2])
     {
-      v166 = 0;
+      v231 = 0;
       __src[1] = 0;
-      v167 = 0;
-      v168 = 2400;
-      v169 = 0;
-      v170 = 0;
-      v204 = 0;
+      v232 = 0;
+      v233 = 2400;
+      v234 = 0;
+      v235 = 0;
+      v269 = 0;
       __src[0] = off_E13E8;
-      v171 = 0;
-      v173 = 0;
-      v172 = 0;
-      v174 = 0;
-      v186 = 0u;
-      v187 = 0u;
-      v188 = 0u;
-      v189 = 0u;
-      v190 = 0u;
-      v191 = 0u;
-      v192 = 0u;
-      v193 = 0u;
-      v194 = 0u;
-      v195 = 0u;
-      v196 = 0u;
-      v197 = 0u;
-      v198 = 0u;
-      v199 = 0u;
-      v200 = 0u;
-      v201 = 0u;
-      v202 = 0u;
-      v175 = 0u;
-      v176 = 0u;
-      v177 = 0u;
-      v178 = 0u;
-      v179 = 0u;
-      v180 = 0u;
-      v181 = 0u;
-      v182 = 0u;
-      v183 = 0u;
-      v184 = 0u;
-      v185 = 0u;
-      v203 = 0;
-      v126 = v209;
-      v29 = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextMangling(a1, &v126, __src);
-      if (v29 && *(v29 + 16) == 243)
+      v236 = 0;
+      v238 = 0;
+      v237 = 0;
+      v239 = 0;
+      v251 = 0u;
+      v252 = 0u;
+      v253 = 0u;
+      v254 = 0u;
+      v255 = 0u;
+      v256 = 0u;
+      v257 = 0u;
+      v258 = 0u;
+      v259 = 0u;
+      v260 = 0u;
+      v261 = 0u;
+      v262 = 0u;
+      v263 = 0u;
+      v264 = 0u;
+      v265 = 0u;
+      v266 = 0u;
+      v267 = 0u;
+      v240 = 0u;
+      v241 = 0u;
+      v242 = 0u;
+      v243 = 0u;
+      v244 = 0u;
+      v245 = 0u;
+      v246 = 0u;
+      v247 = 0u;
+      v248 = 0u;
+      v249 = 0u;
+      v250 = 0u;
+      v268 = 0;
+      v191 = v274;
+      v46 = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextMangling(a1, &v191, __src);
+      if (v46 && *(v46 + 8) == 243)
       {
-        swift::Demangle::__runtime::mangleNode();
-        if (LODWORD(v126.__r_.__value_.__l.__data_))
+        swift::Demangle::__runtime::mangleNode(v46, 0);
+        if (LODWORD(v191.__r_.__value_.__l.__data_))
         {
-          v30 = 0;
+          v47 = 0;
         }
 
         else
         {
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
-            std::string::__init_copy_ctor_external(&v164, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+            std::string::__init_copy_ctor_external(&v229, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
           }
 
           else
           {
-            v164 = __p;
+            v229 = __p;
           }
 
-          v30 = swift::reflection::ForeignClassTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, &v164);
-          *__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v207) = v30;
-          if (SHIBYTE(v164.__r_.__value_.__r.__words[2]) < 0)
+          v47 = swift::reflection::ForeignClassTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, &v229);
+          *__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v272, v159, v160, v161, v162, v163, v164) = v47;
+          if (SHIBYTE(v229.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v164.__r_.__value_.__l.__data_);
+            operator delete(v229.__r_.__value_.__l.__data_);
           }
         }
 
@@ -5803,30 +5785,30 @@ LABEL_46:
 
       else
       {
-        v30 = 0;
+        v47 = 0;
       }
 
       swift::Demangle::__runtime::Demangler::~Demangler(__src);
-      return v30;
+      return v47;
     }
 
     return 0;
   }
 
-  if (v19 > 774)
+  if (v30 > 774)
   {
-    if ((v19 - 1280) < 2)
+    if ((v30 - 1280) < 2)
     {
 LABEL_32:
       strcpy(__src, "Bo");
-      HIBYTE(v166) = 2;
+      HIBYTE(v231) = 2;
       result = swift::reflection::BuiltinTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, __src);
       goto LABEL_33;
     }
 
-    if (v19 != 775)
+    if (v30 != 775)
     {
-      if (v19 != 1024)
+      if (v30 != 1024)
       {
         goto LABEL_46;
       }
@@ -5834,15 +5816,15 @@ LABEL_32:
       goto LABEL_32;
     }
 
-    swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readShape(a1, *(a1 + 2816) & v206[1], 0, &v209);
-    if (!v209.__r_.__value_.__r.__words[2])
+    swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readShape(a1, *(a1 + 2816) & v271[1], 0, &v274);
+    if (!v274.__r_.__value_.__r.__words[2])
     {
       return 0;
     }
 
-    if ((*(v209.__r_.__value_.__r.__words[2] + 1) & 1) != 0 && *(v209.__r_.__value_.__r.__words[2] + 20))
+    if ((*(v274.__r_.__value_.__r.__words[2] + 1) & 1) != 0 && *(v274.__r_.__value_.__r.__words[2] + 20))
     {
-      result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, *(v17 + 16), a3, 0, v13);
+      result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, *(v28 + 16), a3, 0, v21, v64, v65, v66);
       if (result)
       {
         operator new();
@@ -5851,461 +5833,462 @@ LABEL_32:
       return result;
     }
 
-    v166 = 0;
+    v231 = 0;
     __src[1] = 0;
-    v167 = 0;
-    v168 = 2400;
-    v169 = 0;
-    v170 = 0;
-    v204 = 0;
+    v232 = 0;
+    v233 = 2400;
+    v234 = 0;
+    v235 = 0;
+    v269 = 0;
     __src[0] = off_E13E8;
-    v171 = 0;
-    v173 = 0;
-    v172 = 0;
-    v174 = 0;
-    v186 = 0u;
-    v187 = 0u;
-    v188 = 0u;
-    v189 = 0u;
-    v190 = 0u;
-    v191 = 0u;
-    v192 = 0u;
-    v193 = 0u;
-    v194 = 0u;
-    v195 = 0u;
-    v196 = 0u;
-    v197 = 0u;
-    v198 = 0u;
-    v199 = 0u;
-    v200 = 0u;
-    v201 = 0u;
-    v202 = 0u;
-    v175 = 0u;
-    v176 = 0u;
-    v177 = 0u;
-    v178 = 0u;
-    v179 = 0u;
-    v180 = 0u;
-    v181 = 0u;
-    v182 = 0u;
-    v183 = 0u;
-    v184 = 0u;
-    v185 = 0u;
-    v203 = 0;
-    v77 = *(v209.__r_.__value_.__r.__words[2] + 4);
-    if (v77)
+    v236 = 0;
+    v238 = 0;
+    v237 = 0;
+    v239 = 0;
+    v251 = 0u;
+    v252 = 0u;
+    v253 = 0u;
+    v254 = 0u;
+    v255 = 0u;
+    v256 = 0u;
+    v257 = 0u;
+    v258 = 0u;
+    v259 = 0u;
+    v260 = 0u;
+    v261 = 0u;
+    v262 = 0u;
+    v263 = 0u;
+    v264 = 0u;
+    v265 = 0u;
+    v266 = 0u;
+    v267 = 0u;
+    v240 = 0u;
+    v241 = 0u;
+    v242 = 0u;
+    v243 = 0u;
+    v244 = 0u;
+    v245 = 0u;
+    v246 = 0u;
+    v247 = 0u;
+    v248 = 0u;
+    v249 = 0u;
+    v250 = 0u;
+    v268 = 0;
+    v106 = *(v274.__r_.__value_.__r.__words[2] + 4);
+    if (v106)
     {
-      v78 = (v209.__r_.__value_.__r.__words[0] + v77 + 4);
+      v107 = (v274.__r_.__value_.__r.__words[0] + v106 + 4);
     }
 
     else
     {
-      v78 = 0;
+      v107 = 0;
     }
 
-    if (v77)
+    if (v106)
     {
-      v79 = v209.__r_.__value_.__s.__data_[8];
+      v108 = v274.__r_.__value_.__s.__data_[8];
     }
 
     else
     {
-      v79 = 0;
+      v108 = 0;
     }
 
-    MangledName = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMangledName(a1, v78, v79, 0, __src);
+    MangledName = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMangledName(a1, v107, v108, 0, __src);
     if (!MangledName)
     {
       goto LABEL_140;
     }
 
-    v164.__r_.__value_.__r.__words[0] = a1 + 328;
-    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v164, MangledName, 0, 0, v81, &v126);
-    if (LOWORD(v126.__r_.__value_.__r.__words[2]))
+    v229.__r_.__value_.__r.__words[0] = a1 + 328;
+    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v229, MangledName, 0, 0, &v191, v110);
+    if (LOWORD(v191.__r_.__value_.__r.__words[2]))
     {
-      if (LOWORD(v126.__r_.__value_.__r.__words[2]) == 1)
+      if (LOWORD(v191.__r_.__value_.__r.__words[2]) == 1)
       {
-        (v126.__r_.__value_.__l.__size_)(v126.__r_.__value_.__r.__words[0], 3, 0);
+        (v191.__r_.__value_.__l.__size_)(v191.__r_.__value_.__r.__words[0], 3, 0);
       }
 
       goto LABEL_140;
     }
 
-    v82 = v126.__r_.__value_.__r.__words[0];
-    if (!v126.__r_.__value_.__r.__words[0])
+    v111 = v191.__r_.__value_.__r.__words[0];
+    if (!v191.__r_.__value_.__r.__words[0])
     {
       goto LABEL_141;
     }
 
-    v163 = v209;
-    swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getGeneralizationSignature(v209.__r_.__value_.__r.__words[2], &v126);
-    swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(a1, &v163, &v126, &v164);
-    if (LOWORD(v164.__r_.__value_.__r.__words[2]))
+    v228 = v274;
+    swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getGeneralizationSignature(v274.__r_.__value_.__r.__words[2], &v191);
+    swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(a1, &v228, &v191, &v229);
+    if (LOWORD(v229.__r_.__value_.__r.__words[2]))
     {
-      if (LOWORD(v164.__r_.__value_.__r.__words[2]) == 1)
+      if (LOWORD(v229.__r_.__value_.__r.__words[2]) == 1)
       {
-        (v164.__r_.__value_.__l.__size_)(v164.__r_.__value_.__r.__words[0], 3, 0);
+        (v229.__r_.__value_.__l.__size_)(v229.__r_.__value_.__r.__words[0], 3, 0);
       }
 
       goto LABEL_140;
     }
 
-    if (!v164.__r_.__value_.__r.__words[0])
+    if (!v229.__r_.__value_.__r.__words[0])
     {
 LABEL_140:
-      v82 = 0;
+      v111 = 0;
       goto LABEL_141;
     }
 
-    swift::reflection::TypeRefBuilder::createSubstitutionMap(v164.__r_.__value_.__l.__data_, 0, 0, &v164);
-    if (!LODWORD(v164.__r_.__value_.__r.__words[1]))
+    swift::reflection::TypeRefBuilder::createSubstitutionMap(v229.__r_.__value_.__l.__data_, 0, 0, &v229);
+    if (!LODWORD(v229.__r_.__value_.__r.__words[1]))
     {
-      v82 = 0;
+      v111 = 0;
       goto LABEL_233;
     }
 
-    v82 = swift::reflection::TypeRef::subst(v82, a1 + 328, &v164);
-    if (!v82)
+    v111 = swift::reflection::TypeRef::subst(v111, a1 + 328, &v229);
+    if (!v111)
     {
       goto LABEL_233;
     }
 
-    v106 = *v209.__r_.__value_.__r.__words[2];
-    if ((v106 & 0x200) == 0)
+    v171 = *v274.__r_.__value_.__r.__words[2];
+    if ((v171 & 0x200) == 0)
     {
       goto LABEL_232;
     }
 
-    *&v126.__r_.__value_.__r.__words[1] = 0uLL;
+    *&v191.__r_.__value_.__r.__words[1] = 0uLL;
     __p.__r_.__value_.__r.__words[0] = 0;
     *&__p.__r_.__value_.__r.__words[1] = 0x960uLL;
-    v128 = 0;
-    v162 = 0;
-    v126.__r_.__value_.__r.__words[0] = off_E13E8;
-    v129 = 0;
-    v130 = 0;
-    v131 = 0;
-    v132 = 0;
-    v144 = 0u;
-    v145 = 0u;
-    v146 = 0u;
-    v147 = 0u;
-    v148 = 0u;
-    v149 = 0u;
-    v150 = 0u;
-    v151 = 0u;
-    v152 = 0u;
-    v153 = 0u;
-    v154 = 0u;
-    v155 = 0u;
-    v156 = 0u;
-    v157 = 0u;
-    v158 = 0u;
-    v159 = 0u;
-    v160 = 0u;
-    v133 = 0u;
-    v134 = 0u;
-    v135 = 0u;
-    v136 = 0u;
-    v137 = 0u;
-    v138 = 0u;
-    v139 = 0u;
-    v140 = 0u;
-    v141 = 0u;
-    v142 = 0u;
-    v143 = 0u;
-    v107 = ((v209.__r_.__value_.__r.__words[2] + 8 * ((v106 >> 8) & 1) + 19) & 0xFFFFFFFFFFFFFFFCLL);
-    v108 = v107 + v209.__r_.__value_.__r.__words[0] - v209.__r_.__value_.__r.__words[2];
-    v161 = 0;
-    v109 = *v107;
-    v110 = (v108 + v109);
-    if (v109)
+    v193 = 0;
+    v227 = 0;
+    v191.__r_.__value_.__r.__words[0] = off_E13E8;
+    v194 = 0;
+    v195 = 0;
+    v196 = 0;
+    v197 = 0;
+    v209 = 0u;
+    v210 = 0u;
+    v211 = 0u;
+    v212 = 0u;
+    v213 = 0u;
+    v214 = 0u;
+    v215 = 0u;
+    v216 = 0u;
+    v217 = 0u;
+    v218 = 0u;
+    v219 = 0u;
+    v220 = 0u;
+    v221 = 0u;
+    v222 = 0u;
+    v223 = 0u;
+    v224 = 0u;
+    v225 = 0u;
+    v198 = 0u;
+    v199 = 0u;
+    v200 = 0u;
+    v201 = 0u;
+    v202 = 0u;
+    v203 = 0u;
+    v204 = 0u;
+    v205 = 0u;
+    v206 = 0u;
+    v207 = 0u;
+    v208 = 0u;
+    v172 = ((v274.__r_.__value_.__r.__words[2] + 8 * ((v171 >> 8) & 1) + 19) & 0xFFFFFFFFFFFFFFFCLL);
+    v173 = v172 + v274.__r_.__value_.__r.__words[0] - v274.__r_.__value_.__r.__words[2];
+    v226 = 0;
+    v174 = *v172;
+    v175 = (v173 + v174);
+    if (v174)
     {
-      v111 = v110;
+      v176 = v175;
     }
 
     else
     {
+      v176 = 0;
+    }
+
+    if (v174)
+    {
+      v177 = v274.__r_.__value_.__s.__data_[8];
+    }
+
+    else
+    {
+      v177 = 0;
+    }
+
+    v178 = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMangledName(a1, v176, v177, 0, &v191);
+    if (!v178)
+    {
+      swift::Demangle::__runtime::Demangler::~Demangler(&v191);
       v111 = 0;
-    }
-
-    if (v109)
-    {
-      v112 = v209.__r_.__value_.__s.__data_[8];
-    }
-
-    else
-    {
-      v112 = 0;
-    }
-
-    v113 = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMangledName(a1, v111, v112, 0, &v126);
-    if (!v113)
-    {
-      swift::Demangle::__runtime::Demangler::~Demangler(&v126);
-      v82 = 0;
       goto LABEL_233;
     }
 
-    for (i = v113; ; i = *v121)
+    for (i = v178; ; i = *v186)
     {
       if (*(i + 16) != 243)
       {
 LABEL_231:
-        swift::Demangle::__runtime::Demangler::~Demangler(&v126);
+        swift::Demangle::__runtime::Demangler::~Demangler(&v191);
 LABEL_232:
-        *__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v207) = v82;
+        *__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v272, v165, v166, v167, v168, v169, v170) = v111;
 LABEL_233:
-        __swift::__runtime::llvm::deallocate_buffer(v164.__r_.__value_.__l.__data_, (16 * LODWORD(v164.__r_.__value_.__r.__words[2])), 8uLL);
+        __swift::__runtime::llvm::deallocate_buffer(v229.__r_.__value_.__l.__data_, (16 * LODWORD(v229.__r_.__value_.__r.__words[2])), 8uLL);
 LABEL_141:
         swift::Demangle::__runtime::Demangler::~Demangler(__src);
-        return v82;
+        return v111;
       }
 
-      v115 = *(i + 18);
-      v116 = i;
-      if ((v115 - 1) >= 2)
+      v180 = *(i + 18);
+      v181 = i;
+      if ((v180 - 1) >= 2)
       {
-        if (v115 != 5 || !*(i + 8))
+        if (v180 != 5 || !*(i + 8))
         {
           goto LABEL_231;
         }
 
-        v116 = *i;
+        v181 = *i;
       }
 
-      if (*(*v116 + 16) != 154)
+      if (*(*v181 + 16) != 154)
       {
         goto LABEL_231;
       }
 
-      v117 = i;
-      if ((v115 - 1) >= 2)
+      v182 = i;
+      if ((v180 - 1) >= 2)
       {
-        if (v115 != 5 || !*(i + 8))
+        if (v180 != 5 || !*(i + 8))
         {
-          v118 = 0;
+          v183 = 0;
           goto LABEL_219;
         }
 
-        v117 = *i;
+        v182 = *i;
       }
 
-      v118 = *v117;
+      v183 = *v182;
 LABEL_219:
-      v119 = *(v118 + 18);
-      if ((v119 - 1) >= 2 && (v119 != 5 || !*(v118 + 8)))
+      v184 = *(v183 + 18);
+      if ((v184 - 1) >= 2 && (v184 != 5 || !*(v183 + 8)))
       {
         goto LABEL_231;
       }
 
-      v82 = swift::reflection::ExistentialMetatypeTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, v82);
-      v120 = *(i + 18);
-      if ((v120 - 1) < 2)
+      v111 = swift::reflection::ExistentialMetatypeTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, v111);
+      v185 = *(i + 18);
+      if ((v185 - 1) < 2)
       {
         goto LABEL_226;
       }
 
-      if (v120 == 5 && *(i + 8))
+      if (v185 == 5 && *(i + 8))
       {
         i = *i;
 LABEL_226:
-        v121 = *i;
+        v186 = *i;
         goto LABEL_228;
       }
 
-      v121 = 0;
+      v186 = 0;
 LABEL_228:
-      if (*(v121 + 18) - 1 >= 2)
+      if (*(v186 + 18) - 1 >= 2)
       {
-        v121 = *v121;
+        v186 = *v186;
       }
     }
   }
 
-  if (v19 > 772)
+  if (v30 > 772)
   {
-    if (v19 != 773)
+    if (v30 != 773)
     {
-      result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v206[1], a3, 0, v13);
+      result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v271[1], a3, 0, v21, v25, v26, v27);
       if (!result)
       {
         return result;
       }
 
-      v20 = swift::reflection::ExistentialMetatypeTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, result);
+      v31 = swift::reflection::ExistentialMetatypeTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, result);
 LABEL_47:
-      v31 = v20;
-      v32 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v207);
-      result = v31;
-      *v32 = v31;
+      v48 = v31;
+      v49 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v272, v32, v33, v34, v35, v36, v37);
+      result = v48;
+      *v49 = v48;
       return result;
     }
 
-    v47 = v206[1];
+    v70 = v271[1];
     __src[1] = 0;
     __src[0] = 0;
-    v166 = 0;
-    ObjCClassName = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readObjCClassName(a1, v47, a3, __src);
+    v231 = 0;
+    ObjCClassName = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readObjCClassName(a1, v70, a3, __src);
     result = 0;
     if (ObjCClassName)
     {
-      v49 = swift::reflection::ObjCClassTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, __src);
-      v50 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v207);
-      result = v49;
-      *v50 = v49;
+      v72 = swift::reflection::ObjCClassTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, __src);
+      v79 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v272, v73, v74, v75, v76, v77, v78);
+      result = v72;
+      *v79 = v72;
     }
 
 LABEL_33:
-    if ((SHIBYTE(v166) & 0x80000000) == 0)
+    if ((SHIBYTE(v231) & 0x80000000) == 0)
     {
       return result;
     }
 
-    v27 = __src[0];
+    v44 = __src[0];
     goto LABEL_178;
   }
 
-  if (v19 != 771)
+  if (v30 != 771)
   {
-    result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v206[1], a3, 0, v13);
+    result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v271[1], a3, 0, v21, v25, v26, v27);
     if (!result)
     {
       return result;
     }
 
-    v20 = swift::reflection::MetatypeTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, result, 0);
+    v31 = swift::reflection::MetatypeTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, result, 0);
     goto LABEL_47;
   }
 
-  v44 = *(v206 + 2);
-  if ((v44 & 0x40000000) != 0)
+  v67 = *(v271 + 2);
+  if ((v67 & 0x40000000) != 0)
   {
-    result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v206[2], a3, 0, v13);
+    result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v271[2], a3, 0, v21, v25, v26, v27);
     if (!result)
     {
       return result;
     }
 
-    v45 = result;
-    v46 = 1;
+    v68 = result;
+    v69 = 1;
   }
 
   else
   {
-    v45 = 0;
-    v46 = v44 >= 0;
+    v68 = 0;
+    v69 = v67 >= 0;
   }
 
-  v166 = 0;
+  v231 = 0;
   __src[1] = 0;
-  v167 = 0;
-  v168 = 2400;
-  v169 = 0;
-  v170 = 0;
-  v204 = 0;
+  v232 = 0;
+  v233 = 2400;
+  v234 = 0;
+  v235 = 0;
+  v269 = 0;
   __src[0] = off_E13E8;
-  v171 = 0;
-  v173 = 0;
-  v172 = 0;
-  v174 = 0;
-  v186 = 0u;
-  v187 = 0u;
-  v188 = 0u;
-  v189 = 0u;
-  v190 = 0u;
-  v191 = 0u;
-  v192 = 0u;
-  v193 = 0u;
-  v194 = 0u;
-  v195 = 0u;
-  v196 = 0u;
-  v197 = 0u;
-  v198 = 0u;
-  v199 = 0u;
-  v200 = 0u;
-  v201 = 0u;
-  v202 = 0u;
-  v175 = 0u;
-  v176 = 0u;
-  v177 = 0u;
-  v178 = 0u;
-  v179 = 0u;
-  v180 = 0u;
-  v181 = 0u;
-  v182 = 0u;
-  v183 = 0u;
-  v184 = 0u;
-  v185 = 0u;
-  v203 = 0;
-  memset(&v164, 0, sizeof(v164));
-  v58 = *(v17 + 12);
-  if (v58)
+  v236 = 0;
+  v238 = 0;
+  v237 = 0;
+  v239 = 0;
+  v251 = 0u;
+  v252 = 0u;
+  v253 = 0u;
+  v254 = 0u;
+  v255 = 0u;
+  v256 = 0u;
+  v257 = 0u;
+  v258 = 0u;
+  v259 = 0u;
+  v260 = 0u;
+  v261 = 0u;
+  v262 = 0u;
+  v263 = 0u;
+  v264 = 0u;
+  v265 = 0u;
+  v266 = 0u;
+  v267 = 0u;
+  v240 = 0u;
+  v241 = 0u;
+  v242 = 0u;
+  v243 = 0u;
+  v244 = 0u;
+  v245 = 0u;
+  v246 = 0u;
+  v247 = 0u;
+  v248 = 0u;
+  v249 = 0u;
+  v250 = 0u;
+  v268 = 0;
+  memset(&v229, 0, sizeof(v229));
+  v87 = *(v28 + 12);
+  if (v87)
   {
-    v122 = v46;
-    v59 = 0;
-    v60 = (v17 + 8 * ((*(v17 + 8) >> 30) & 1) + 16);
-    v61 = a3;
-    v62 = 8 * v58;
-    v123 = v45;
-    v124 = a3;
+    v187 = v69;
+    v88 = 0;
+    v89 = (v28 + 8 * ((*(v28 + 8) >> 30) & 1) + 16);
+    v90 = a3;
+    v91 = 8 * v87;
+    v188 = v68;
+    v189 = a3;
     do
     {
-      v63 = *v60 & 0xFFFFFFFFFFFFFFFELL;
-      if (!v61)
+      v92 = *v89 & 0xFFFFFFFFFFFFFFFELL;
+      if (!v90)
       {
-        v63 &= *(a1 + 2816);
+        v92 &= *(a1 + 2816);
       }
 
-      swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(a1, v63, v61, &v209);
-      v64 = v209.__r_.__value_.__r.__words[2];
-      if (!v209.__r_.__value_.__r.__words[2])
+      swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(a1, v92, v90, &v274);
+      v93 = v274.__r_.__value_.__r.__words[2];
+      if (!v274.__r_.__value_.__r.__words[2])
       {
         goto LABEL_143;
       }
 
-      v126 = v209;
-      v65 = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(a1, &v126, __src, 50);
-      if (!v65)
+      v191 = v274;
+      v94 = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(a1, &v191, __src, 50);
+      if (!v94)
       {
         goto LABEL_143;
       }
 
-      if ((*v64 & 0x10) != 0 || (*v64 & 0x1F) == 3)
+      if ((*v93 & 0x10) != 0 || (*v93 & 0x1F) == 3)
       {
-        v66 = v65;
+        v95 = v94;
         Node = swift::Demangle::__runtime::NodeFactory::createNode(__src, 243);
-        swift::Demangle::__runtime::Node::addChild(Node, v66, __src, v68, v69);
+        swift::Demangle::__runtime::Node::addChild(Node, v95, __src, v97, v98);
+        v94 = Node;
         if (!Node)
         {
           goto LABEL_143;
         }
       }
 
-      swift::Demangle::__runtime::mangleNode();
-      data = v126.__r_.__value_.__l.__data_;
-      if (LODWORD(v126.__r_.__value_.__l.__data_))
+      swift::Demangle::__runtime::mangleNode(v94, 0);
+      data = v191.__r_.__value_.__l.__data_;
+      if (LODWORD(v191.__r_.__value_.__l.__data_))
       {
-        v18 &= 0xFFFFFFFFFFFFFF00;
+        v29 &= 0xFFFFFFFFFFFFFF00;
       }
 
       else
       {
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&v209, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(&v274, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v209 = __p;
+          v274 = __p;
         }
 
-        __sz = v209.__r_.__value_.__l.__size_;
-        v18 = v209.__r_.__value_.__r.__words[0];
-        LODWORD(v163.__r_.__value_.__l.__data_) = v209.__r_.__value_.__r.__words[2];
-        *(v163.__r_.__value_.__r.__words + 3) = *(&v209.__r_.__value_.__r.__words[2] + 3);
-        v5 = HIBYTE(v209.__r_.__value_.__r.__words[2]);
+        __sz = v274.__r_.__value_.__l.__size_;
+        v29 = v274.__r_.__value_.__r.__words[0];
+        LODWORD(v228.__r_.__value_.__l.__data_) = v274.__r_.__value_.__r.__words[2];
+        *(v228.__r_.__value_.__r.__words + 3) = *(&v274.__r_.__value_.__r.__words[2] + 3);
+        v8 = HIBYTE(v274.__r_.__value_.__r.__words[2]);
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -6316,38 +6299,38 @@ LABEL_33:
       if (data)
       {
 LABEL_143:
-        v83 = 0;
+        v112 = 0;
         goto LABEL_185;
       }
 
-      if (v59 >= v164.__r_.__value_.__r.__words[2])
+      if (v88 >= v229.__r_.__value_.__r.__words[2])
       {
-        v71 = v164.__r_.__value_.__r.__words[0];
-        v72 = v59 - v164.__r_.__value_.__r.__words[0];
-        v73 = 0xCCCCCCCCCCCCCCCDLL * ((v59 - v164.__r_.__value_.__r.__words[0]) >> 3) + 1;
-        if (v73 > 0x666666666666666)
+        v100 = v229.__r_.__value_.__r.__words[0];
+        v101 = v88 - v229.__r_.__value_.__r.__words[0];
+        v102 = 0xCCCCCCCCCCCCCCCDLL * ((v88 - v229.__r_.__value_.__r.__words[0]) >> 3) + 1;
+        if (v102 > 0x666666666666666)
         {
           std::string::__throw_length_error[abi:nn200100]();
         }
 
-        if (0x999999999999999ALL * ((v164.__r_.__value_.__r.__words[2] - v164.__r_.__value_.__r.__words[0]) >> 3) > v73)
+        if (0x999999999999999ALL * ((v229.__r_.__value_.__r.__words[2] - v229.__r_.__value_.__r.__words[0]) >> 3) > v102)
         {
-          v73 = 0x999999999999999ALL * ((v164.__r_.__value_.__r.__words[2] - v164.__r_.__value_.__r.__words[0]) >> 3);
+          v102 = 0x999999999999999ALL * ((v229.__r_.__value_.__r.__words[2] - v229.__r_.__value_.__r.__words[0]) >> 3);
         }
 
-        if (0xCCCCCCCCCCCCCCCDLL * ((v164.__r_.__value_.__r.__words[2] - v164.__r_.__value_.__r.__words[0]) >> 3) >= 0x333333333333333)
+        if (0xCCCCCCCCCCCCCCCDLL * ((v229.__r_.__value_.__r.__words[2] - v229.__r_.__value_.__r.__words[0]) >> 3) >= 0x333333333333333)
         {
-          v74 = 0x666666666666666;
+          v103 = 0x666666666666666;
         }
 
         else
         {
-          v74 = v73;
+          v103 = v102;
         }
 
-        if (v74)
+        if (v103)
         {
-          if (v74 <= 0x666666666666666)
+          if (v103 <= 0x666666666666666)
           {
             operator new();
           }
@@ -6356,176 +6339,173 @@ LABEL_236:
           std::string::__throw_length_error[abi:nn200100]();
         }
 
-        v75 = 8 * ((v59 - v164.__r_.__value_.__r.__words[0]) >> 3);
-        *v75 = 0;
-        *(v75 + 32) = 0;
-        if (v5 < 0)
+        v104 = 8 * ((v88 - v229.__r_.__value_.__r.__words[0]) >> 3);
+        *v104 = 0;
+        *(v104 + 32) = 0;
+        if (v8 < 0)
         {
-          std::string::__init_copy_ctor_external(v75, v18, __sz);
-          v71 = v164.__r_.__value_.__r.__words[0];
-          v72 = v164.__r_.__value_.__l.__size_ - v164.__r_.__value_.__r.__words[0];
+          std::string::__init_copy_ctor_external(v104, v29, __sz);
+          v100 = v229.__r_.__value_.__r.__words[0];
+          v101 = v229.__r_.__value_.__l.__size_ - v229.__r_.__value_.__r.__words[0];
         }
 
         else
         {
-          *v75 = v18;
-          *(v75 + 8) = __sz;
-          *(v75 + 16) = v163.__r_.__value_.__l.__data_;
-          *(v75 + 19) = *(v163.__r_.__value_.__r.__words + 3);
-          *(v75 + 23) = v5;
+          *v104 = v29;
+          *(v104 + 8) = __sz;
+          *(v104 + 16) = v228.__r_.__value_.__l.__data_;
+          *(v104 + 19) = *(v228.__r_.__value_.__r.__words + 3);
+          *(v104 + 23) = v8;
         }
 
-        *(v75 + 24) = 0;
-        *(v75 + 32) = 1;
-        v59 = v75 + 40;
-        v76 = (v75 - v72);
-        memcpy(v76, v71, v72);
-        v164.__r_.__value_.__r.__words[0] = v76;
-        v164.__r_.__value_.__r.__words[2] = 0;
-        if (v71)
+        *(v104 + 24) = 0;
+        *(v104 + 32) = 1;
+        v88 = v104 + 40;
+        v105 = (v104 - v101);
+        memcpy(v105, v100, v101);
+        v229.__r_.__value_.__r.__words[0] = v105;
+        v229.__r_.__value_.__r.__words[2] = 0;
+        if (v100)
         {
-          operator delete(v71);
+          operator delete(v100);
         }
 
-        v61 = v124;
+        v90 = v189;
       }
 
       else
       {
-        *v59 = 0;
-        *(v59 + 32) = 0;
-        if (v5 < 0)
+        *v88 = 0;
+        *(v88 + 32) = 0;
+        if (v8 < 0)
         {
-          std::string::__init_copy_ctor_external(v59, v18, __sz);
+          std::string::__init_copy_ctor_external(v88, v29, __sz);
         }
 
         else
         {
-          *v59 = v18;
-          *(v59 + 8) = __sz;
-          *(v59 + 16) = v163.__r_.__value_.__l.__data_;
-          *(v59 + 19) = *(v163.__r_.__value_.__r.__words + 3);
-          *(v59 + 23) = v5;
+          *v88 = v29;
+          *(v88 + 8) = __sz;
+          *(v88 + 16) = v228.__r_.__value_.__l.__data_;
+          *(v88 + 19) = *(v228.__r_.__value_.__r.__words + 3);
+          *(v88 + 23) = v8;
         }
 
-        *(v59 + 24) = 0;
-        *(v59 + 32) = 1;
-        v59 += 40;
+        *(v88 + 24) = 0;
+        *(v88 + 32) = 1;
+        v88 += 40;
       }
 
-      v164.__r_.__value_.__l.__size_ = v59;
-      if (v5 < 0)
+      v229.__r_.__value_.__l.__size_ = v88;
+      if (v8 < 0)
       {
-        operator delete(v18);
+        operator delete(v29);
       }
 
-      ++v60;
-      v62 -= 8;
+      ++v89;
+      v91 -= 8;
     }
 
-    while (v62);
-    v88 = v164.__r_.__value_.__r.__words[0];
-    v45 = v123;
-    v46 = v122;
+    while (v91);
+    v120 = v229.__r_.__value_.__r.__words[0];
+    v68 = v188;
+    v69 = v187;
   }
 
   else
   {
-    v59 = 0;
     v88 = 0;
+    v120 = 0;
   }
 
-  ProtocolCompositionType = swift::reflection::TypeRefBuilder::createProtocolCompositionType(a1 + 328, v88, 0xCCCCCCCCCCCCCCCDLL * ((v59 - v88) >> 3), v45, v46);
-  v105 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v207);
-  v83 = ProtocolCompositionType;
-  *v105 = ProtocolCompositionType;
+  ProtocolCompositionType = swift::reflection::TypeRefBuilder::createProtocolCompositionType(a1 + 328, v120, 0xCCCCCCCCCCCCCCCDLL * ((v88 - v120) >> 3), v68, v69);
+  v158 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::operator[](a1, &v272, v152, v153, v154, v155, v156, v157);
+  v112 = ProtocolCompositionType;
+  *v158 = ProtocolCompositionType;
 LABEL_185:
-  std::vector<std::optional<std::pair<std::string,BOOL>>>::~vector[abi:nn200100](&v164);
+  std::vector<std::optional<std::pair<std::string,BOOL>>>::~vector[abi:nn200100](&v229);
   swift::Demangle::__runtime::Demangler::~Demangler(__src);
-  return v83;
+  return v112;
 }
 
-unint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata@<X0>(unint64_t result@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t *a4@<X8>)
+int32x2_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata@<D0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
-  v6 = result;
   v8 = *(result + 24);
   v9 = *(result + 40);
   if (!v9)
   {
-    v18 = 0;
+    v19 = 0;
 LABEL_15:
-    v11 = (v8 + 56 * v18);
+    v12 = (v8 + 56 * v19);
     goto LABEL_16;
   }
 
-  v33 = a2;
-  v34[0] = a3;
-  result = __swift::__runtime::llvm::hash_combine<unsigned long long,unsigned char>(&v33, v34);
-  v10 = (v9 - 1) & result;
-  v11 = (v8 + 56 * v10);
-  v12 = *v11;
-  v13 = *(v11 + 8);
-  if (a2 != *v11 || a3 != v13)
+  v34 = a2;
+  v35[0] = a3;
+  v10 = (v9 - 1) & __swift::__runtime::llvm::hash_combine<unsigned long long,unsigned char>(&v34, v35);
+  v12 = (v8 + 56 * v10);
+  v13 = *v12;
+  v14 = *(v12 + 8);
+  if (a2 != *v12 || a3 != v14)
   {
-    v15 = 1;
-    while (v12 != -1 || v13)
+    v16 = 1;
+    while (v13 != -1 || v14)
     {
-      v16 = v10 + v15++;
-      v10 = v16 & (v9 - 1);
-      v11 = (v8 + 56 * v10);
-      v12 = *v11;
-      v13 = *(v11 + 8);
-      if (a2 == *v11 && a3 == v13)
+      v17 = v10 + v16++;
+      v10 = v17 & (v9 - 1);
+      v12 = (v8 + 56 * v10);
+      v13 = *v12;
+      v14 = *(v12 + 8);
+      if (a2 == *v12 && a3 == v14)
       {
         goto LABEL_16;
       }
     }
 
-    v8 = *(v6 + 24);
-    v18 = *(v6 + 40);
+    v8 = *(result + 24);
+    v19 = *(result + 40);
     goto LABEL_15;
   }
 
 LABEL_16:
-  if (v11 != (*(v6 + 24) + 56 * *(v6 + 40)))
+  if (v12 != (*(result + 24) + 56 * *(result + 40)))
   {
-    v19 = v11[2];
+    v20 = v12[2];
     *a4 = a2;
     a4[1] = a3;
-    a4[2] = v19;
-    return result;
+    a4[2] = v20;
+    return v11;
   }
 
-  v39 = 0;
-  result = (*(**(v6 + 2800) + 32))(*(v6 + 2800), a2, a3, &v39, 8);
-  if ((result & 1) == 0)
+  v40 = 0;
+  if (((*(**(result + 2800) + 32))(*(result + 2800), a2, a3, &v40, 8) & 1) == 0)
   {
     goto LABEL_67;
   }
 
-  v20 = v39;
-  if (v39 > 0x7FF)
+  v21 = v40;
+  if (v40 > 0x7FF)
   {
-    v20 = 0;
+    v21 = 0;
   }
 
-  if (v20 <= 770)
+  if (v21 <= 770)
   {
-    if (v20 <= 514)
+    if (v21 <= 514)
     {
-      if (v20 <= 512)
+      if (v21 <= 512)
       {
-        if (!v20)
+        if (!v21)
         {
-          v27 = a4;
-          v28 = v6;
-          v29 = a2;
-          v30 = a3;
-          v26 = 56;
-          return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v28, v29, v30, v26, v27);
+          v28 = a4;
+          v29 = result;
+          v30 = a2;
+          v31 = a3;
+          v27 = 56;
+          return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v29, v30, v31, v27, v28);
         }
 
-        if (v20 != 512)
+        if (v21 != 512)
         {
           goto LABEL_68;
         }
@@ -6534,19 +6514,19 @@ LABEL_16:
       goto LABEL_52;
     }
 
-    if (v20 <= 768)
+    if (v21 <= 768)
     {
-      if (v20 == 515)
+      if (v21 == 515)
       {
-        v27 = a4;
-        v28 = v6;
-        v29 = a2;
-        v30 = a3;
-        v26 = 32;
-        return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v28, v29, v30, v26, v27);
+        v28 = a4;
+        v29 = result;
+        v30 = a2;
+        v31 = a3;
+        v27 = 32;
+        return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v29, v30, v31, v27, v28);
       }
 
-      if (v20 != 516)
+      if (v21 != 516)
       {
         goto LABEL_68;
       }
@@ -6554,32 +6534,31 @@ LABEL_16:
       goto LABEL_53;
     }
 
-    if (v20 != 769)
+    if (v21 != 769)
     {
-      v33 = 0;
-      result = (*(**(v6 + 2800) + 32))(*(v6 + 2800), a2 + 8, a3, &v33, 8);
-      if (result)
+      v34 = 0;
+      if ((*(**(result + 2800) + 32))(*(result + 2800), a2 + 8, a3, &v34, 8))
       {
-        v21 = 4 * v33;
-        if ((v33 & 0x2000000) == 0)
+        v22 = 4 * v34;
+        if ((v34 & 0x2000000) == 0)
         {
-          v21 = 0;
+          v22 = 0;
         }
 
-        v22 = v21 + 8 * v33;
-        v23 = v22 + 24;
-        v24 = ((v22 + 31) & 0x1FFFF8) + 8;
-        if ((v33 & 0x8000000) != 0)
+        v23 = v22 + 8 * v34;
+        v24 = v23 + 24;
+        v25 = ((v23 + 31) & 0x1FFFF8) + 8;
+        if ((v34 & 0x8000000) != 0)
         {
-          v25 = v24;
+          v26 = v25;
         }
 
         else
         {
-          v25 = v23;
+          v26 = v24;
         }
 
-        v26 = (v25 + 7) & 0xFFFFF8;
+        v27 = (v26 + 7) & 0xFFFFF8;
         goto LABEL_70;
       }
 
@@ -6587,40 +6566,39 @@ LABEL_67:
       *a4 = 0;
       *(a4 + 8) = 0;
       a4[2] = 0;
-      return result;
+      return v11;
     }
 
-    v33 = 0;
-    result = (*(**(v6 + 2800) + 32))(*(v6 + 2800), a2 + 8, a3, &v33, 8);
-    if ((result & 1) == 0 || v33 >= 0x100)
+    v34 = 0;
+    if (((*(**(result + 2800) + 32))(*(result + 2800), a2 + 8, a3, &v34, 8) & 1) == 0 || v34 >= 0x100)
     {
       goto LABEL_67;
     }
 
-    v26 = 16 * v33 + 24;
+    v27 = 16 * v34 + 24;
 LABEL_70:
-    v27 = a4;
-    v28 = v6;
-    v29 = a2;
-    v30 = a3;
-    return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v28, v29, v30, v26, v27);
+    v28 = a4;
+    v29 = result;
+    v30 = a2;
+    v31 = a3;
+    return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v29, v30, v31, v27, v28);
   }
 
-  if (v20 > 774)
+  if (v21 > 774)
   {
-    if (v20 > 1279)
+    if (v21 > 1279)
     {
-      if (v20 != 1280)
+      if (v21 != 1280)
       {
-        if (v20 != 1281)
+        if (v21 != 1281)
         {
 LABEL_68:
-          v27 = a4;
-          v28 = v6;
-          v29 = a2;
-          v30 = a3;
-          v26 = 8;
-          return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v28, v29, v30, v26, v27);
+          v28 = a4;
+          v29 = result;
+          v30 = a2;
+          v31 = a3;
+          v27 = 8;
+          return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v29, v30, v31, v27, v28);
         }
 
         goto LABEL_52;
@@ -6629,35 +6607,33 @@ LABEL_68:
 
     else
     {
-      if (v20 == 775)
+      if (v21 == 775)
       {
-        v37 = 0;
         v38 = 0;
-        result = (*(**(v6 + 2800) + 96))(*(v6 + 2800), a2 + 8, a3, &v37, 8);
-        if ((result & 1) == 0)
+        v39 = 0;
+        if (((*(**(result + 2800) + 96))(*(result + 2800), a2 + 8, a3, &v38, 8) & 1) == 0)
         {
           goto LABEL_67;
         }
 
-        v32 = v37;
-        if (!v38)
+        v33 = v38;
+        if (!v39)
         {
-          v32 = *(v6 + 2816) & v37;
+          v33 = *(result + 2816) & v38;
         }
 
-        swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readShape(v6, v32, v38, v35);
-        result = v36;
-        if (!v36)
+        swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readShape(result, v33, v39, v36);
+        if (!v37)
         {
           goto LABEL_67;
         }
 
-        swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getGeneralizationSignature(v36, &v33);
-        v26 = 8 * WORD2(v33) + 16;
+        swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getGeneralizationSignature(v37, &v34);
+        v27 = 8 * WORD2(v34) + 16;
         goto LABEL_70;
       }
 
-      if (v20 != 1024)
+      if (v21 != 1024)
       {
         goto LABEL_68;
       }
@@ -6666,137 +6642,136 @@ LABEL_68:
     goto LABEL_53;
   }
 
-  if (v20 > 772)
+  if (v21 > 772)
   {
-    if (v20 == 773)
+    if (v21 == 773)
     {
       goto LABEL_52;
     }
 
 LABEL_53:
-    v27 = a4;
-    v28 = v6;
-    v29 = a2;
-    v30 = a3;
-    v26 = 24;
-    return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v28, v29, v30, v26, v27);
+    v28 = a4;
+    v29 = result;
+    v30 = a2;
+    v31 = a3;
+    v27 = 24;
+    return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v29, v30, v31, v27, v28);
   }
 
-  if (v20 == 771)
+  if (v21 == 771)
   {
-    LODWORD(v33) = 0;
-    result = (*(**(v6 + 2800) + 32))(*(v6 + 2800), a2 + 8, a3, &v33, 4);
-    if ((result & 1) == 0)
+    LODWORD(v34) = 0;
+    if (((*(**(result + 2800) + 32))(*(result + 2800), a2 + 8, a3, &v34, 4) & 1) == 0)
     {
       goto LABEL_67;
     }
 
-    v31 = v33;
-    v35[0] = 0;
-    result = (*(**(v6 + 2800) + 32))(*(v6 + 2800), a2 + 12, a3, v35, 4);
-    if ((result & 1) == 0 || v35[0] >= 0x100u)
+    v32 = v34;
+    v36[0] = 0;
+    if (((*(**(result + 2800) + 32))(*(result + 2800), a2 + 12, a3, v36, 4) & 1) == 0 || v36[0] >= 0x100u)
     {
       goto LABEL_67;
     }
 
-    v26 = ((v31 >> 27) & 8) + 8 * v35[0] + 16;
+    v27 = ((v32 >> 27) & 8) + 8 * v36[0] + 16;
     goto LABEL_70;
   }
 
 LABEL_52:
-  v27 = a4;
-  v28 = v6;
-  v29 = a2;
-  v30 = a3;
-  v26 = 16;
-  return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v28, v29, v30, v26, v27);
+  v28 = a4;
+  v29 = result;
+  v30 = a2;
+  v31 = a3;
+  v27 = 16;
+  return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::_readMetadata(v29, v30, v31, v27, v28);
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readNominalTypeFromClassMetadata(unint64_t a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readNominalTypeFromClassMetadata(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *(a2 + 16);
+  v4 = *(a2 + 2);
   v6 = *a2;
   v7 = v4;
   return swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readNominalTypeFromMetadata(a1, &v6, a3, a4);
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readNominalTypeFromMetadata(unint64_t a1, __int128 *a2, uint64_t a3, int a4)
+uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readNominalTypeFromMetadata(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4)
 {
-  v43 = *a2;
-  v44 = *(a2 + 2);
-  result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readAddressOfNominalTypeDescriptor(a1, &v43, a4);
+  v4 = a4;
+  v63 = *a2;
+  v64 = *(a2 + 2);
+  result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readAddressOfNominalTypeDescriptor(a1, &v63, a4);
   if (!result)
   {
     return result;
   }
 
-  v10 = result;
-  if (a4 && (v43 != *a2 || BYTE8(v43) != *(a2 + 8)))
+  v15 = result;
+  if (v4 && (v63 != *a2 || BYTE8(v63) != *(a2 + 8)))
   {
-    v33 = v43;
-    v34 = BYTE8(v43);
-    v35 = a4;
-    *&v41 = 0;
-    v11 = v9;
-    v12 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, &v33, &v41);
-    v9 = v11;
-    if (v12)
+    v53 = v63;
+    v54 = BYTE8(v63);
+    v55 = v4;
+    *&v61 = 0;
+    v21 = v9;
+    v22 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, &v53, &v61, v10, v11, v12, v13, v14);
+    v9 = v21;
+    if (v22)
     {
-      v13 = v41;
-      if (v41 != *a1 + 32 * *(a1 + 16))
+      v28 = v61;
+      if (v61 != *a1 + 32 * *(a1 + 16))
       {
-        v14 = *(a2 + 1);
-        v33 = *a2;
-        v34 = v14;
-        v35 = a4;
-        *&v41 = 0;
-        if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, &v33, &v41))
+        v29 = *(a2 + 1);
+        v53 = *a2;
+        v54 = v29;
+        v55 = v4;
+        *&v61 = 0;
+        if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, &v53, &v61, v23, v24, v25, v26, v27))
         {
-          v15 = v41;
-          *v41 = -2;
-          *(v15 + 8) = 0;
-          *(v15 + 16) = 0;
+          v30 = v61;
+          *v61 = -2;
+          *(v30 + 8) = 0;
+          *(v30 + 16) = 0;
           *(a1 + 8) = vadd_s32(*(a1 + 8), 0x1FFFFFFFFLL);
         }
 
-        return *(v13 + 24);
+        return *(v28 + 24);
       }
     }
   }
 
-  swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(a1, v10, v9, &v41);
-  if (!v42)
+  swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(a1, v15, v9, &v61);
+  if (!v62)
   {
     return 0;
   }
 
-  *__p = v41;
-  v32 = v42;
-  swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildNominalTypeDecl<swift::reflection::TypeRefBuilder,true>(a1, __p, &v33);
-  if (v40 != 1)
+  *__p = v61;
+  v52 = v62;
+  swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildNominalTypeDecl<swift::reflection::TypeRefBuilder,true>(a1, __p, &v53);
+  if (v60 != 1)
   {
     goto LABEL_26;
   }
 
-  if ((*v42 & 0x80) == 0)
+  if ((*v62 & 0x80) == 0)
   {
-    result = swift::reflection::NominalTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, &v33, 0);
+    result = swift::reflection::NominalTypeRef::create<swift::reflection::TypeRefBuilder>(a1 + 328, &v53, 0);
     goto LABEL_19;
   }
 
-  v29 = v43;
-  v30 = v44;
-  v27 = v41;
-  v28 = v42;
-  swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::getGenericSubst(a1, &v29, &v27, a3, __p);
-  v16 = __p[0];
-  v17 = __p[1];
+  v49 = v63;
+  v50 = v64;
+  v47 = v61;
+  v48 = v62;
+  swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::getGenericSubst(a1, &v49, &v47, a3, __p);
+  v31 = __p[0];
+  v32 = __p[1];
   if (__p[0] != __p[1])
   {
-    *&v29 = __p[0];
-    *(&v29 + 1) = (__p[1] - __p[0]) >> 3;
-    result = swift::reflection::TypeRefBuilder::createBoundGenericType(a1 + 328, &v33, &v29);
-    v18 = __p[0];
+    *&v49 = __p[0];
+    *(&v49 + 1) = (__p[1] - __p[0]) >> 3;
+    result = swift::reflection::TypeRefBuilder::createBoundGenericType(a1 + 328, &v53, &v49);
+    v33 = __p[0];
     if (!__p[0])
     {
       goto LABEL_18;
@@ -6806,51 +6781,51 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swif
   }
 
   result = 0;
-  v18 = __p[0];
+  v33 = __p[0];
   if (__p[0])
   {
 LABEL_17:
-    __p[1] = v18;
-    v19 = result;
-    operator delete(v18);
-    result = v19;
+    __p[1] = v33;
+    v34 = result;
+    operator delete(v33);
+    result = v34;
   }
 
 LABEL_18:
-  if (v16 != v17)
+  if (v31 != v32)
   {
 LABEL_19:
     if (result)
     {
-      v20 = result;
-      __p[0] = v43;
-      LOBYTE(__p[1]) = BYTE8(v43);
-      LOBYTE(v32) = a4;
-      *&v29 = 0;
-      v21 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, __p, &v29);
-      v22 = v29;
-      if ((v21 & 1) == 0)
+      v35 = result;
+      __p[0] = v63;
+      LOBYTE(__p[1]) = BYTE8(v63);
+      LOBYTE(v52) = v4;
+      *&v49 = 0;
+      v36 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, __p, &v49, v16, v17, v18, v19, v20);
+      v42 = v49;
+      if ((v36 & 1) == 0)
       {
-        v22 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::InsertIntoBucketImpl<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, __p, __p, v29);
-        v23 = __p[1];
-        *v22 = __p[0];
-        *(v22 + 8) = v23;
-        *(v22 + 16) = v32;
-        v22[3] = 0;
+        v42 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::InsertIntoBucketImpl<std::pair<swift::remote::RemoteAddress,BOOL>>(a1, __p, __p, v49);
+        v43 = __p[1];
+        *v42 = __p[0];
+        *(v42 + 8) = v43;
+        *(v42 + 16) = v52;
+        v42[3] = 0;
       }
 
-      result = v20;
-      v22[3] = v20;
-      if (a4)
+      result = v35;
+      v42[3] = v35;
+      if (v4)
       {
-        v24 = *(a2 + 8);
-        if (v43 != *a2 || BYTE8(v43) != v24)
+        v44 = *(a2 + 8);
+        if (v63 != *a2 || BYTE8(v63) != v44)
         {
           __p[0] = *a2;
-          LOBYTE(__p[1]) = v24;
-          LOBYTE(v32) = a4;
-          __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::erase(a1, __p);
-          result = v20;
+          LOBYTE(__p[1]) = v44;
+          LOBYTE(v52) = v4;
+          __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>,std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*,swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::DenseMapInfoTypeCacheKey,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,BOOL>,swift::reflection::TypeRef const*>>::erase(a1, __p, v37, v42, v38, v39, v40, v41);
+          result = v35;
         }
       }
     }
@@ -6861,28 +6836,28 @@ LABEL_19:
 LABEL_26:
   result = 0;
 LABEL_27:
-  if (v40 == 1)
+  if (v60 == 1)
   {
-    if (v39 == 1 && v37)
+    if (v59 == 1 && v57)
     {
-      v38 = v37;
-      v25 = result;
-      operator delete(v37);
-      result = v25;
+      v58 = v57;
+      v45 = result;
+      operator delete(v57);
+      result = v45;
     }
 
-    if (v36 < 0)
+    if (v56 < 0)
     {
-      v26 = result;
-      operator delete(v33);
-      return v26;
+      v46 = result;
+      operator delete(v53);
+      return v46;
     }
   }
 
   return result;
 }
 
-void swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(uint64_t a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+void swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(uint64_t a1@<X0>, const char *a2@<X1>, unsigned __int16 *a3@<X2>, uint64_t a4@<X8>)
 {
   v4 = a1;
   v5 = a4;
@@ -6899,13 +6874,15 @@ void swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::R
     return;
   }
 
-  v142 = 0;
-  v143 = 0;
   v144 = 0;
-  if (!*(a3 + 2))
+  v145 = 0;
+  v146 = 0;
+  v6 = a3[1];
+  if (!a3[1])
   {
-LABEL_77:
-    GenericSignature = swift::reflection::TypeRefBuilder::createGenericSignature(v4 + 328, 0, 0);
+    v45 = 0;
+LABEL_78:
+    GenericSignature = swift::reflection::TypeRefBuilder::createGenericSignature(v4 + 328, 0, 0, v45, (v6 - v45) >> 4);
     *(v5 + 16) = 0;
     *v5 = GenericSignature;
     if (!GenericSignature)
@@ -6915,42 +6892,40 @@ LABEL_77:
       *(v5 + 16) = 1;
     }
 
-LABEL_79:
-    v45 = v142;
-    if (v142)
+LABEL_80:
+    v47 = v144;
+    if (v144)
     {
-      goto LABEL_80;
+      goto LABEL_81;
     }
 
     return;
   }
 
-  v6 = 0;
-  v7 = *(a3 + 16);
-  v56 = 12 * *(a3 + 2);
-  v57 = v7 + 8;
+  v7 = 0;
+  v8 = *(a3 + 2);
+  v58 = 12 * v6;
+  v59 = v8 + 8;
   while (1)
   {
-    v8 = v57 + v6;
-    if ((*(v57 + v6 - 8) & 0x1Fu) >= 6 && (*(v57 + v6 - 8) & 0x1F) != 31)
+    v9 = v59 + v7;
+    if ((*(v59 + v7 - 8) & 0x1Fu) >= 6 && (*(v59 + v7 - 8) & 0x1F) != 31)
     {
       break;
     }
 
-    v102[1] = 0;
-    v102[2] = 0;
-    v103 = 0;
-    v104 = 2400;
+    v104[1] = 0;
+    v104[2] = 0;
     v105 = 0;
-    v106 = 0;
-    v102[0] = off_E13E8;
-    v141 = 0;
-    v108 = 0;
-    v109 = 0;
+    v106 = 2400;
     v107 = 0;
+    v108 = 0;
+    v104[0] = off_E13E8;
+    v143 = 0;
     v110 = 0;
-    v111 = 0u;
-    v112 = 0u;
+    v111 = 0;
+    v109 = 0;
+    v112 = 0;
     v113 = 0u;
     v114 = 0u;
     v115 = 0u;
@@ -6977,14 +6952,16 @@ LABEL_79:
     v136 = 0u;
     v137 = 0u;
     v138 = 0u;
-    v139 = 0;
-    SymbolicMangledNameStringRef = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v7 + v6 + *(v8 - 4) + 4), a2);
-    v101 = 0;
-    v13 = swift::Demangle::__runtime::Demangler::demangleType(v102, SymbolicMangledNameStringRef, v11, v100);
-    if (v101 == v100)
+    v139 = 0u;
+    v140 = 0u;
+    v141 = 0;
+    SymbolicMangledNameStringRef = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v8 + v7 + *(v9 - 4) + 4), a2);
+    v103 = 0;
+    v14 = swift::Demangle::__runtime::Demangler::demangleType(v104, SymbolicMangledNameStringRef, v12, v102);
+    if (v103 == v102)
     {
-      (*(*v101 + 32))(v101);
-      if (!v13)
+      (*(*v103 + 32))(v103);
+      if (!v14)
       {
         goto LABEL_29;
       }
@@ -6992,111 +6969,109 @@ LABEL_79:
 
     else
     {
-      if (v101)
+      if (v103)
       {
-        (*(*v101 + 40))();
+        (*(*v103 + 40))();
       }
 
-      if (!v13)
+      if (!v14)
       {
         goto LABEL_29;
       }
     }
 
-    *&v146 = v4 + 328;
-    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v146, v13, 0, 0, v12, &v58);
-    if (v60)
+    *&v148 = v4 + 328;
+    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v148, v14, 0, 0, &v60, v13);
+    if (v62)
     {
-      if (v60 == 1)
+      if (v62 == 1)
       {
-        v59(v58, 3, 0);
+        v61(v60, 3, 0);
       }
 
 LABEL_28:
-      LOBYTE(v13) = 0;
+      LOBYTE(v14) = 0;
 LABEL_29:
       *(v5 + 16) = 1;
       *(v5 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
-      v16 = "Failed to read subject type in requirement of runtime generic signature.";
+      v17 = "Failed to read subject type in requirement of runtime generic signature.";
 LABEL_30:
-      *v5 = v16;
+      *v5 = v17;
       goto LABEL_31;
     }
 
-    if (!v58)
+    if (!v60)
     {
       goto LABEL_28;
     }
 
-    v15 = *(v8 - 8) & 0x1F;
-    if (v15 > 2)
+    v16 = *(v9 - 8) & 0x1F;
+    if (v16 > 2)
     {
-      if ((*(v8 - 8) & 0x1Fu) > 4)
+      if ((*(v9 - 8) & 0x1Fu) > 4)
       {
-        if (v15 == 5)
+        if (v16 == 5)
         {
-          LOBYTE(v13) = 0;
+          LOBYTE(v14) = 0;
           *(v5 + 16) = 1;
           *(v5 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
-          v16 = "Unexpected invertible protocol in runtime generic signature";
+          v17 = "Unexpected invertible protocol in runtime generic signature";
         }
 
         else
         {
-          if (v15 != 31)
+          if (v16 != 31)
           {
             goto LABEL_76;
           }
 
-          LOBYTE(v13) = 0;
+          LOBYTE(v14) = 0;
           *(v5 + 16) = 1;
           *(v5 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
-          v16 = "Unexpected layout requirement in runtime generic signature";
+          v17 = "Unexpected layout requirement in runtime generic signature";
         }
       }
 
-      else if (v15 == 3)
+      else if (v16 == 3)
       {
-        LOBYTE(v13) = 0;
+        LOBYTE(v14) = 0;
         *(v5 + 16) = 1;
         *(v5 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
-        v16 = "Unexpected same conformance requirement in runtime generic signature";
+        v17 = "Unexpected same conformance requirement in runtime generic signature";
       }
 
       else
       {
-        if (v15 != 4)
+        if (v16 != 4)
         {
           goto LABEL_76;
         }
 
-        LOBYTE(v13) = 0;
+        LOBYTE(v14) = 0;
         *(v5 + 16) = 1;
         *(v5 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
-        v16 = "Unexpected same-shape requirement in runtime generic signature";
+        v17 = "Unexpected same-shape requirement in runtime generic signature";
       }
 
       goto LABEL_30;
     }
 
-    if (v15)
+    if (v16)
     {
-      if (v15 != 1)
+      if (v16 != 1)
       {
-        v59 = 0;
-        v60 = 0;
         v61 = 0;
-        v62 = 2400;
+        v62 = 0;
         v63 = 0;
-        v64 = 0;
-        v58 = off_E13E8;
-        v99 = 0;
-        v66 = 0;
-        v67 = 0;
+        v64 = 2400;
         v65 = 0;
+        v66 = 0;
+        v60 = off_E13E8;
+        v101 = 0;
         v68 = 0;
-        v69 = 0u;
-        v70 = 0u;
+        v69 = 0;
+        v67 = 0;
+        v70 = 0;
         v71 = 0u;
         v72 = 0u;
         v73 = 0u;
@@ -7123,32 +7098,32 @@ LABEL_30:
         v94 = 0u;
         v95 = 0u;
         v96 = 0u;
-        v17 = v7 + v6;
-        v97 = 0;
-        v46 = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v17 + *(v57 + v6) + 8), v14);
-        v19 = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v17 + *(v57 + v6) + 8), v18);
-        *&v148 = v46;
-        *(&v148 + 1) = v48 & 0xFFFFFFFFFFFFFF00;
-        v149 = v19;
-        LOBYTE(v145) = 0;
-        swift::Demangle::__runtime::makeSymbolicMangledNameStringRef(v19, v20);
+        v97 = 0u;
+        v98 = 0u;
+        v18 = v8 + v7;
+        v99 = 0;
+        v48 = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v18 + *(v59 + v7) + 8), v15);
+        v20 = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v18 + *(v59 + v7) + 8), v19);
+        *&v150 = v48;
+        *(&v150 + 1) = v50 & 0xFFFFFFFFFFFFFF00;
+        v151 = v20;
+        LOBYTE(v147) = 0;
+        swift::Demangle::__runtime::makeSymbolicMangledNameStringRef(v20, v21);
         operator new();
       }
 
-      v59 = 0;
-      v60 = 0;
       v61 = 0;
-      v62 = 2400;
+      v62 = 0;
       v63 = 0;
-      v64 = 0;
-      v58 = off_E13E8;
-      v99 = 0;
-      v66 = 0;
-      v67 = 0;
+      v64 = 2400;
       v65 = 0;
+      v66 = 0;
+      v60 = off_E13E8;
+      v101 = 0;
       v68 = 0;
-      v69 = 0u;
-      v70 = 0u;
+      v69 = 0;
+      v67 = 0;
+      v70 = 0;
       v71 = 0u;
       v72 = 0u;
       v73 = 0u;
@@ -7175,34 +7150,34 @@ LABEL_30:
       v94 = 0u;
       v95 = 0u;
       v96 = 0u;
-      v29 = v7 + v6;
-      v97 = 0;
-      v47 = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v29 + *(v57 + v6) + 8), v14);
-      v31 = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v29 + *(v57 + v6) + 8), v30);
-      *&v148 = v47;
-      *(&v148 + 1) = v49 & 0xFFFFFFFFFFFFFF00;
-      v149 = v31;
-      LOBYTE(v145) = 0;
-      swift::Demangle::__runtime::makeSymbolicMangledNameStringRef(v31, v32);
+      v97 = 0u;
+      v98 = 0u;
+      v30 = v8 + v7;
+      v99 = 0;
+      v49 = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v30 + *(v59 + v7) + 8), v15);
+      v32 = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef((v30 + *(v59 + v7) + 8), v31);
+      *&v150 = v49;
+      *(&v150 + 1) = v51 & 0xFFFFFFFFFFFFFF00;
+      v151 = v32;
+      LOBYTE(v147) = 0;
+      swift::Demangle::__runtime::makeSymbolicMangledNameStringRef(v32, v33);
       operator new();
     }
 
-    v50 = v58;
-    v54 = v5;
-    v59 = 0;
-    v60 = 0;
+    v52 = v60;
+    v56 = v5;
     v61 = 0;
-    v62 = 2400;
+    v62 = 0;
     v63 = 0;
-    v64 = 0;
-    v58 = off_E13E8;
-    v99 = 0;
-    v66 = 0;
-    v67 = 0;
+    v64 = 2400;
     v65 = 0;
+    v66 = 0;
+    v60 = off_E13E8;
+    v101 = 0;
     v68 = 0;
-    v69 = 0u;
-    v70 = 0u;
+    v69 = 0;
+    v67 = 0;
+    v70 = 0;
     v71 = 0u;
     v72 = 0u;
     v73 = 0u;
@@ -7229,38 +7204,40 @@ LABEL_30:
     v94 = 0u;
     v95 = 0u;
     v96 = 0u;
-    v97 = 0;
-    v21 = v7;
-    v22 = *a2;
-    v23 = *(a2 + 8);
-    v24 = *(a2 + 2);
-    v51 = v21;
-    v25 = v21 + v6;
-    v26 = v21 + v6 + *a2 - v24;
-    LODWORD(v148) = 0;
-    if ((*(**(a1 + 2800) + 32))(*(a1 + 2800), v26 + 8, v23, &v148, 4))
+    v97 = 0u;
+    v98 = 0u;
+    v99 = 0;
+    v22 = v8;
+    v23 = *a2;
+    v24 = *(a2 + 8);
+    v25 = *(a2 + 2);
+    v53 = v22;
+    v26 = v22 + v7;
+    v27 = v22 + v7 + *a2 - v25;
+    LODWORD(v150) = 0;
+    if ((*(**(a1 + 2800) + 32))(*(a1 + 2800), v27 + 8, v24, &v150, 4))
     {
-      v27 = v148;
-      LODWORD(v148) = v148 & 0xFFFFFFFC;
-      v28 = v25 + v22 + (v27 & 0xFFFFFFFFFFFFFFFCLL) - v24 + 8;
-      *&v146 = v28;
-      BYTE8(v146) = v23;
-      if ((v27 & 1) == 0)
+      v28 = v150;
+      LODWORD(v150) = v150 & 0xFFFFFFFC;
+      v29 = v26 + v23 + (v28 & 0xFFFFFFFFFFFFFFFCLL) - v25 + 8;
+      *&v148 = v29;
+      BYTE8(v148) = v24;
+      if ((v28 & 1) == 0)
       {
-        v5 = v54;
+        v5 = v56;
         goto LABEL_55;
       }
 
-      v5 = v54;
+      v5 = v56;
       if ((*(**(a1 + 2800) + 96))(*(a1 + 2800)))
       {
-        v28 = v146;
+        v29 = v148;
 LABEL_55:
-        v35 = BYTE8(v146);
-        v33 = v28 & 0xFFFFFFFFFFFFFFFELL;
-        v34 = a1;
-        v145 = v4 + 328;
-        if (BYTE8(v146))
+        v36 = BYTE8(v148);
+        v34 = v29 & 0xFFFFFFFFFFFFFFFELL;
+        v35 = a1;
+        v147 = v4 + 328;
+        if (BYTE8(v148))
         {
           goto LABEL_59;
         }
@@ -7268,116 +7245,118 @@ LABEL_55:
         goto LABEL_58;
       }
 
-      v33 = 0;
-      v34 = a1;
-      v145 = v4 + 328;
+      v34 = 0;
+      v35 = a1;
+      v147 = v4 + 328;
     }
 
     else
     {
-      v33 = 0;
-      v34 = a1;
-      v145 = v4 + 328;
-      v5 = v54;
+      v34 = 0;
+      v35 = a1;
+      v147 = v4 + 328;
+      v5 = v56;
     }
 
 LABEL_58:
-    v35 = 0;
-    v33 &= *(v34 + 2816);
+    v36 = 0;
+    v34 &= *(v35 + 2816);
 LABEL_59:
-    swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(v34, v33, v35, &v148);
-    v36 = v149;
-    if (v149 && (v146 = v148, v147 = v149, (v37 = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(v34, &v146, &v58, 50)) != 0) && ((v38 = v37, (*v36 & 0x10) == 0) && (*v36 & 0x1F) != 3 || (v39 = swift::Demangle::__runtime::NodeFactory::createNode(&v58, 243), swift::Demangle::__runtime::Node::addChild(v39, v38, &v58, v40, v41), v39)) && (v42 = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(swift::remote::RemoteRef<swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::RuntimeGenericSignature<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const&)::ProtocolReferenceResolver::swiftProtocol(&v145)) != 0)
+    swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(v35, v34, v36, &v150);
+    v37 = v151;
+    if (v151 && (v148 = v150, v149 = v151, (v38 = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(v35, &v148, &v60, 50)) != 0) && ((v39 = v38, (*v37 & 0x10) == 0) && (*v37 & 0x1F) != 3 || (v40 = swift::Demangle::__runtime::NodeFactory::createNode(&v60, 243), swift::Demangle::__runtime::Node::addChild(v40, v39, &v60, v41, v42), (v39 = v40) != 0)) && (v43 = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::decodeRuntimeGenericSignature(swift::remote::RemoteRef<swift::TargetExtendedExistentialTypeShape<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::RuntimeGenericSignature<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const&)::ProtocolReferenceResolver::swiftProtocol(&v147, v39)) != 0)
     {
-      *&v146 = v50 & 0xFFFFFFFFFFFFFFF8;
-      *(&v146 + 1) = v42;
-      std::vector<swift::reflection::TypeRefRequirement>::push_back[abi:nn200100](&v142, &v146);
-      v43 = 0;
+      *&v148 = v52 & 0xFFFFFFFFFFFFFFF8;
+      *(&v148 + 1) = v43;
+      std::vector<swift::reflection::TypeRefRequirement>::push_back[abi:nn200100](&v144, &v148);
+      v44 = 0;
     }
 
     else
     {
-      v43 = 1;
+      v44 = 1;
       *(v5 + 16) = 1;
       *v5 = "Failed to read protocol type in conformance requirement of runtime generic signature.";
       *(v5 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
     }
 
-    v58 = off_E13E8;
-    if (v99 == &v98)
+    v60 = off_E13E8;
+    if (v101 == &v100)
     {
-      (*(*v99 + 32))(v99);
+      (*(*v101 + 32))(v101);
     }
 
-    else if (v99)
+    else if (v101)
     {
-      (*(*v99 + 40))();
+      (*(*v101 + 40))();
     }
 
-    v58 = off_E13C0;
-    swift::Demangle::__runtime::NodeFactory::freeSlabs(v61);
-    if (v63)
+    v60 = off_E13C0;
+    swift::Demangle::__runtime::NodeFactory::freeSlabs(v63);
+    if (v65)
     {
-      *(v63 + 48) = 0;
+      *(v65 + 48) = 0;
     }
 
-    if ((v43 & 1) == 0)
+    if ((v44 & 1) == 0)
     {
-      v7 = v51;
+      v8 = v53;
 LABEL_76:
-      LOBYTE(v13) = 1;
+      LOBYTE(v14) = 1;
       goto LABEL_31;
     }
 
-    LOBYTE(v13) = 0;
-    v7 = v51;
+    LOBYTE(v14) = 0;
+    v8 = v53;
 LABEL_31:
-    v102[0] = off_E13E8;
-    if (v141 == &v140)
+    v104[0] = off_E13E8;
+    if (v143 == &v142)
     {
-      (*(*v141 + 32))(v141);
+      (*(*v143 + 32))(v143);
     }
 
-    else if (v141)
+    else if (v143)
     {
-      (*(*v141 + 40))();
+      (*(*v143 + 40))();
     }
 
-    v102[0] = off_E13C0;
-    swift::Demangle::__runtime::NodeFactory::freeSlabs(v103);
-    if (v105)
+    v104[0] = off_E13C0;
+    swift::Demangle::__runtime::NodeFactory::freeSlabs(v105);
+    if (v107)
     {
-      *(v105 + 48) = 0;
+      *(v107 + 48) = 0;
     }
 
-    if ((v13 & 1) == 0)
+    if ((v14 & 1) == 0)
     {
-      goto LABEL_79;
+      goto LABEL_80;
     }
 
-    v6 += 12;
-    if (v56 == v6)
+    v7 += 12;
+    if (v58 == v7)
     {
+      v45 = v144;
+      v6 = v145;
       v4 = a1;
-      goto LABEL_77;
+      goto LABEL_78;
     }
   }
 
   *(v5 + 16) = 1;
   *v5 = "unknown kind";
   *(v5 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
-  v45 = v142;
-  if (!v142)
+  v47 = v144;
+  if (!v144)
   {
     return;
   }
 
-LABEL_80:
-  v143 = v45;
-  operator delete(v45);
+LABEL_81:
+  v145 = v47;
+  operator delete(v47);
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readAddressOfNominalTypeDescriptor(unint64_t a1, uint64_t a2, int a3)
+uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readAddressOfNominalTypeDescriptor(uint64_t a1, uint64_t a2, int a3)
 {
   result = 0;
   v5 = *(a2 + 16);
@@ -7555,32 +7534,32 @@ LABEL_23:
 
   if (v12)
   {
-    v17 = *(a3 + 2);
+    v20 = *(a3 + 2);
   }
 
   else
   {
-    v17 = 0;
+    v20 = 0;
   }
 
-  if ((*v17 & 0x20000000) != 0)
+  if ((*v20 & 0x20000000) != 0)
   {
-    v22 = *a3;
-    v23 = v12;
-    v19 = a5;
-    v20 = GenericContext;
-    swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(a1, &v22, &v24);
-    GenericContext = v20;
-    a5 = v19;
-    v15 = v25 >> 3;
-    v14 = (v25 >> 3) & 0xFFFFFF00;
-    if (!v26)
+    v25 = *a3;
+    v26 = v12;
+    v22 = a5;
+    v23 = GenericContext;
+    swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(a1, &v25, &v27);
+    GenericContext = v23;
+    a5 = v22;
+    v15 = v28 >> 3;
+    v14 = (v28 >> 3) & 0xFFFFFF00;
+    if (!v29)
     {
       LOBYTE(v15) = 0;
       LODWORD(v14) = 0;
     }
 
-    if (v26)
+    if (v29)
     {
       goto LABEL_4;
     }
@@ -7588,34 +7567,34 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  if ((*v17 & 0x10000000) != 0)
+  if ((*v20 & 0x10000000) != 0)
   {
-    v18 = 0;
+    v21 = 0;
     v14 = 24;
   }
 
   else
   {
-    v18 = v17[7];
+    v21 = v20[7];
     v14 = 32;
   }
 
-  LODWORD(v15) = v18 - *(v17 + v14);
+  LODWORD(v15) = v21 - *(v20 + v14);
   LODWORD(v14) = v15 & 0xFFFFFF00;
 LABEL_4:
   if (*(GenericContext + 2))
   {
-    v21 = *(a2 + 8);
+    v24 = *(a2 + 8);
     v16 = *a2 + 8 * (v14 | v15);
     if ((GenericContext[12] & 0x3F) == 0 && GenericContext[12] < 0)
     {
       if (v11)
       {
-        v24 = 0;
-        LOBYTE(v25) = 0;
-        if ((*(**(a1 + 2800) + 96))(*(a1 + 2800), v16, v21, &v24, 8))
+        v27 = 0;
+        LOBYTE(v28) = 0;
+        if ((*(**(a1 + 2800) + 96))(*(a1 + 2800), v16, v24, &v27, 8))
         {
-          if (swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v24, v25, 0, a4))
+          if (swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v27, v28, 0, a4, v17, v18, v19))
           {
             operator new();
           }
@@ -7645,10 +7624,10 @@ __n128 std::__function::__func<std::optional<swift::reflection::TypeRefDecl> swi
   return result;
 }
 
-void std::__function::__func<std::optional<swift::reflection::TypeRefDecl> swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildNominalTypeDecl<swift::reflection::TypeRefBuilder,true>(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>,unsigned long &)#1},std::allocator<std::optional<swift::reflection::TypeRefDecl> swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildNominalTypeDecl<swift::reflection::TypeRefBuilder,true>(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>,unsigned long &)#1}>,void ()(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>,unsigned long &)>::operator()(uint64_t a1, uint64_t a2, void *a3)
+void std::__function::__func<std::optional<swift::reflection::TypeRefDecl> swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildNominalTypeDecl<swift::reflection::TypeRefBuilder,true>(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>,unsigned long &)#1},std::allocator<std::optional<swift::reflection::TypeRefDecl> swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildNominalTypeDecl<swift::reflection::TypeRefBuilder,true>(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>,unsigned long &)#1}>,void ()(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>,unsigned long &)>::operator()(uint64_t a1, __int128 *a2, void *a3)
 {
   v3 = *a2;
-  v4 = *(a2 + 16);
+  v4 = *(a2 + 2);
   swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildNominalTypeDecl<swift::reflection::TypeRefBuilder,true>(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>,unsigned long &)#1}::operator()((a1 + 8), &v3, a3);
 }
 
@@ -7754,22 +7733,22 @@ LABEL_27:
   }
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v5 = a2[2];
   if (v5)
   {
-    result = a2[2];
+    v6 = a2[2];
   }
 
   else
   {
-    result = 0;
+    v6 = 0;
   }
 
-  v7 = result;
-  v8 = *result;
-  if ((*result & 0x20000000) == 0)
+  v7 = v6;
+  v8 = *v6;
+  if ((*v6 & 0x20000000) == 0)
   {
     LODWORD(v9) = 0;
     v10 = 1;
@@ -7780,9 +7759,9 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swif
 
   v19 = *a2;
   v20 = *(a2 + 8);
-  if (result)
+  if (v6)
   {
-    v21 = result;
+    v21 = v6;
   }
 
   else
@@ -7834,41 +7813,39 @@ LABEL_24:
     v27 = 0;
   }
 
-  v29 = TrailingObjectsImpl + 12 * v25 + 4 * v27;
-  result = swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>::callNumTrailingObjects<swift::GenericValueDescriptor>(v21);
-  v30 = (v29 + 4 * result);
+  v29 = (TrailingObjectsImpl + 12 * v25 + 4 * v27 + 4 * swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>::callNumTrailingObjects<swift::GenericValueDescriptor>(v21));
   if (v5)
   {
-    v31 = v5;
+    v30 = v5;
   }
 
   else
   {
-    v31 = 0;
+    v30 = 0;
   }
 
-  v32 = *v30;
-  v33 = v30 + v19 - v31 + v32;
-  if (v32)
+  v31 = *v29;
+  v32 = v29 + v19 - v30 + v31;
+  if (v31)
   {
-    v34 = v33 == 0;
+    v33 = v32 == 0;
   }
 
   else
   {
-    v34 = 1;
+    v33 = 1;
   }
 
-  if (v34 || (v35 = (*v7 >> 25) & 7, v36 = a1, result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::forTypeReference<swift::TargetClassMetadataBounds<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)#1},swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetMetadata<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)#1},swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteAddress)#1}>(a1, v35, v33, v20, &v36, &v37), v10 = v38, (v38 & 1) == 0))
+  if (v33 || (v34 = (*v7 >> 25) & 7, v35 = a1, swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::forTypeReference<swift::TargetClassMetadataBounds<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)#1},swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetMetadata<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)#1},swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteAddress)#1}>(a1, v34, v32, v20, &v35, &v36), v10 = v37, (v37 & 1) == 0))
   {
     v10 = 0;
     *a3 = 0;
     goto LABEL_40;
   }
 
-  v12 = v37;
-  v11 = HIDWORD(v37);
-  LODWORD(v9) = v37 >> 8;
+  v12 = v36;
+  v11 = HIDWORD(v36);
+  LODWORD(v9) = v36 >> 8;
   v8 = *v7;
 LABEL_6:
   v13 = v7[8];
@@ -7910,10 +7887,9 @@ LABEL_6:
   *(a3 + 8) = v18;
 LABEL_40:
   *(a3 + 16) = v10;
-  return result;
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::forTypeReference<swift::TargetClassMetadataBounds<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)#1},swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetMetadata<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)#1},swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteAddress)#1}>@<X0>(uint64_t result@<X0>, int a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, uint64_t a6@<X8>)
+void swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::forTypeReference<swift::TargetClassMetadataBounds<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)#1},swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteRef<swift::TargetMetadata<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)#1},swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>)::{lambda(swift::remote::RemoteAddress)#1}>(uint64_t result@<X0>, int a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, uint64_t a6@<X8>)
 {
   if (a2 > 1)
   {
@@ -7922,10 +7898,9 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swif
       *&v23 = 0;
       BYTE8(v23) = 0;
       v12 = result;
-      result = (*(**(result + 2800) + 96))(*(result + 2800), a3, a4, &v23, 8);
-      if (result)
+      if ((*(**(result + 2800) + 96))(*(result + 2800), a3, a4, &v23, 8))
       {
-        result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(v12, v23, *(&v23 + 1), &v25);
+        swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(v12, v23, *(&v23 + 1), &v25);
         if (v26)
         {
           if ((*v26 - 1) > 0x7FE)
@@ -7965,8 +7940,7 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swif
 
     v8 = a5;
     v9 = result;
-    result = (*(**(result + 2800) + 32))(*(result + 2800), a3, a4, &v25, 8);
-    if (!result)
+    if (!(*(**(result + 2800) + 32))(*(result + 2800), a3, a4, &v25, 8))
     {
       goto LABEL_22;
     }
@@ -7983,13 +7957,13 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swif
     v10 = a4;
   }
 
-  result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(result, v11, v10 | a4 & 0xFFFFFFFFFFFFFF00, &v23);
+  swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(result, v11, v10 | a4 & 0xFFFFFFFFFFFFFF00, &v23);
   if (!v24 || (v19 = *v24, (*v24 & 0x1F) != 0x10))
   {
 LABEL_22:
     *a6 = 0;
     *(a6 + 16) = 0;
-    return result;
+    return;
   }
 
   if ((v19 & 0x20000000) != 0)
@@ -7997,7 +7971,8 @@ LABEL_22:
     v22 = *v8;
     v25 = v23;
     v26 = v24;
-    return swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(v22, &v25);
+    swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::computeMetadataBoundsFromSuperclass(v22, &v25, a6);
+    return;
   }
 
   v20 = *(v24 + 3);
@@ -8016,7 +7991,6 @@ LABEL_22:
 LABEL_26:
   *(a6 + 8) = v14;
   *(a6 + 16) = 1;
-  return result;
 }
 
 uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<int SwiftReflectionContext::withContext<int,swift_reflection_ownsObject::$_0>(swift_reflection_ownsObject::$_0 const&)::{lambda(int&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(unint64_t ****a1, uint64_t *a2)
@@ -8274,7 +8248,6 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<sw
   result = *(a1 + 176);
   if (!result)
   {
-    v3 = *(a1 + 2800);
     operator new();
   }
 
@@ -8503,7 +8476,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispa
   }
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<unsigned long long SwiftReflectionContext::withContext<unsigned long long,swift_reflection_metadataNominalTypeDescriptor::$_0>(swift_reflection_metadataNominalTypeDescriptor::$_0 const&)::{lambda(unsigned long long&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(unint64_t ****a1, unint64_t *a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<unsigned long long SwiftReflectionContext::withContext<unsigned long long,swift_reflection_metadataNominalTypeDescriptor::$_0>(swift_reflection_metadataNominalTypeDescriptor::$_0 const&)::{lambda(unsigned long long&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(uint64_t ****a1, uint64_t *a2)
 {
   v2 = *a2;
   swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(*a2, ****a1, 0, v4);
@@ -8518,7 +8491,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispa
   }
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<unsigned long long SwiftReflectionContext::withContext<unsigned long long,swift_reflection_metadataNominalTypeDescriptor::$_0>(swift_reflection_metadataNominalTypeDescriptor::$_0 const&)::{lambda(unsigned long long&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(unint64_t ****a1, unint64_t *a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<unsigned long long SwiftReflectionContext::withContext<unsigned long long,swift_reflection_metadataNominalTypeDescriptor::$_0>(swift_reflection_metadataNominalTypeDescriptor::$_0 const&)::{lambda(unsigned long long&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(uint64_t ****a1, uint64_t *a2)
 {
   v2 = *a2;
   swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(*a2, ****a1, 0, v4);
@@ -8533,190 +8506,190 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispa
   }
 }
 
-uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::metadataIsActor(unint64_t a1, unint64_t a2, uint64_t a3)
+uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::metadataIsActor(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(a1, a2, a3, &v18);
-  if (!v19)
+  v4.n128_u64[0] = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(a1, a2, a3, &v21);
+  if (!v22)
   {
     return 0;
   }
 
-  if ((*v19 - 2048) > 0xFFFFFFFFFFFFF800)
+  if ((*v22 - 2048) > 0xFFFFFFFFFFFFF800)
   {
     return 0;
   }
 
-  if ((swift_reflection_classIsSwiftMask & v19[4]) == 0)
+  if ((swift_reflection_classIsSwiftMask & v22[4]) == 0)
   {
     return 0;
   }
 
-  v4 = *(a1 + 2816) & v19[8];
-  if (!v4)
+  v5 = *(a1 + 2816) & v22[8];
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = *(a1 + 2872);
-  v6 = *(a1 + 2880);
-  if (v5 == v6)
+  v6 = *(a1 + 2872);
+  v7 = *(a1 + 2880);
+  if (v6 == v7)
   {
     return 0;
   }
 
-  for (i = v5 + 2; ; i += 4)
+  for (i = v6 + 2; ; i += 4)
   {
-    v8 = i - 2;
-    v9 = *(i - 8) || *(i - 2) > v4;
-    if (!v9 && v4 < *i)
+    v9 = i - 2;
+    v10 = *(i - 8) || *(i - 2) > v5;
+    if (!v10 && v5 < *i)
     {
       break;
     }
 
-    if (v8 + 4 == v6)
+    if (v9 + 4 == v7)
     {
       return 0;
     }
   }
 
-  (*(**(a1 + 2800) + 24))(&v15);
-  v10 = v15;
-  if (v15)
+  (*(**(a1 + 2800) + 24))(&v18, v4);
+  v11 = v18;
+  if (v18)
   {
-    v11 = *v15;
-    v15 = 0;
-    v20 = v10;
-    if (!v17)
+    v12 = *v18;
+    v18 = 0;
+    v23 = v11;
+    if (!v20)
     {
-      v14 = std::__throw_bad_function_call[abi:nn200100]();
-      return swift::reflection::ReflectionContext<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>::metadataIsActor(v14);
+      std::__throw_bad_function_call[abi:nn200100]();
+      return swift::reflection::ReflectionContext<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>::metadataIsActor(v15, v16, v17);
     }
 
-    v12 = (v11 >> 23) & 1;
-    (*(*v17 + 48))(v17, &v20);
+    v13 = (v12 >> 23) & 1;
+    (*(*v20 + 48))(v20, &v23);
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  if (v17 == &v16)
+  if (v20 == &v19)
   {
-    (*(*v17 + 32))(v17);
+    (*(*v20 + 32))(v20);
   }
 
-  else if (v17)
+  else if (v20)
   {
-    (*(*v17 + 40))();
+    (*(*v20 + 40))();
   }
 
-  return v12;
+  return v13;
 }
 
-uint64_t swift::reflection::ReflectionContext<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>::metadataIsActor(unint64_t a1, unint64_t a2, uint64_t a3)
+void *swift::reflection::ReflectionContext<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>::metadataIsActor(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(a1, a2, a3, &v18);
-  if (!v19)
+  v4.n128_u64[0] = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(a1, a2, a3, &v20);
+  if (!v21)
   {
     return 0;
   }
 
-  if ((*v19 - 2048) > 0xFFFFFFFFFFFFF800)
+  if ((*v21 - 2048) > 0xFFFFFFFFFFFFF800)
   {
     return 0;
   }
 
-  v4 = *(a1 + 2816) & v19[5];
-  if (!v4)
+  v5 = *(a1 + 2816) & v21[5];
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = *(a1 + 2872);
-  v6 = *(a1 + 2880);
-  if (v5 == v6)
+  v6 = *(a1 + 2872);
+  v7 = *(a1 + 2880);
+  if (v6 == v7)
   {
     return 0;
   }
 
-  for (i = v5 + 2; ; i += 4)
+  for (i = v6 + 2; ; i += 4)
   {
-    v8 = i - 2;
-    v9 = *(i - 8) || *(i - 2) > v4;
-    if (!v9 && v4 < *i)
+    v9 = i - 2;
+    v10 = *(i - 8) || *(i - 2) > v5;
+    if (!v10 && v5 < *i)
     {
       break;
     }
 
-    if (v8 + 4 == v6)
+    if (v9 + 4 == v7)
     {
       return 0;
     }
   }
 
-  (*(**(a1 + 2800) + 24))(&v15);
-  v10 = v15;
-  if (v15)
+  (*(**(a1 + 2800) + 24))(&v17, v4);
+  v11 = v17;
+  if (v17)
   {
-    v11 = *v15;
-    v15 = 0;
-    v20 = v10;
-    if (!v17)
+    v12 = *v17;
+    v17 = 0;
+    v22 = v11;
+    if (!v19)
     {
-      v14 = std::__throw_bad_function_call[abi:nn200100]();
-      return std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<unsigned long long SwiftReflectionContext::withContext<unsigned long long,swift_reflection_typeRefForInstance::$_0>(swift_reflection_typeRefForInstance::$_0 const&)::{lambda(unsigned long long&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(v14);
+      std::__throw_bad_function_call[abi:nn200100]();
+      return std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<unsigned long long SwiftReflectionContext::withContext<unsigned long long,swift_reflection_typeRefForInstance::$_0>(swift_reflection_typeRefForInstance::$_0 const&)::{lambda(unsigned long long&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(v15, v16);
     }
 
-    v12 = (v11 >> 23) & 1;
-    (*(*v17 + 48))(v17, &v20);
+    v13 = (v12 >> 23) & 1;
+    (*(*v19 + 48))(v19, &v22);
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  if (v17 == &v16)
+  if (v19 == &v18)
   {
-    (*(*v17 + 32))(v17);
+    (*(*v19 + 32))(v19);
   }
 
-  else if (v17)
+  else if (v19)
   {
-    (*(*v17 + 40))();
+    (*(*v19 + 40))();
   }
 
-  return v12;
+  return v13;
 }
 
-char *std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<unsigned long long SwiftReflectionContext::withContext<unsigned long long,swift_reflection_typeRefForInstance::$_0>(swift_reflection_typeRefForInstance::$_0 const&)::{lambda(unsigned long long&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(unint64_t ****a1, uint64_t *a2)
+void **std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<unsigned long long SwiftReflectionContext::withContext<unsigned long long,swift_reflection_typeRefForInstance::$_0>(swift_reflection_typeRefForInstance::$_0 const&)::{lambda(unsigned long long&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(unint64_t ****a1, uint64_t *a2)
 {
   v2 = *a2;
-  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadataFromInstance(*a2, ****a1, 0, v4);
+  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadataFromInstance(*a2, ****a1, 0, v7);
   result = 0;
-  if (v5 == 1)
+  if (v8 == 1)
   {
-    return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(v2, v4[0], v4[1], 0, 50);
+    return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(v2, v7[0], v7[1], 0, 50, v3, v4, v5);
   }
 
   return result;
 }
 
-char *std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<unsigned long long SwiftReflectionContext::withContext<unsigned long long,swift_reflection_typeRefForInstance::$_0>(swift_reflection_typeRefForInstance::$_0 const&)::{lambda(unsigned long long&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(unint64_t ****a1, uint64_t *a2)
+void **std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<unsigned long long SwiftReflectionContext::withContext<unsigned long long,swift_reflection_typeRefForInstance::$_0>(swift_reflection_typeRefForInstance::$_0 const&)::{lambda(unsigned long long&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(unint64_t ****a1, uint64_t *a2)
 {
   v2 = *a2;
-  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadataFromInstance(*a2, ****a1, 0, v4);
+  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadataFromInstance(*a2, ****a1, 0, v7);
   result = 0;
-  if (v5 == 1)
+  if (v8 == 1)
   {
-    return swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(v2, v4[0], v4[1], 0, 50);
+    return swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(v2, v7[0], v7[1], 0, 50, v3, v4, v5);
   }
 
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<unsigned long long SwiftReflectionContext::withContext<unsigned long long,swift_reflection_typeRefForMangledTypeName::$_0>(swift_reflection_typeRefForMangledTypeName::$_0 const&)::{lambda(unsigned long long&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(_WORD *****a1, uint64_t *a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<unsigned long long SwiftReflectionContext::withContext<unsigned long long,swift_reflection_typeRefForMangledTypeName::$_0>(swift_reflection_typeRefForMangledTypeName::$_0 const&)::{lambda(unsigned long long&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(void ****a1, uint64_t *a2)
 {
   swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMangledName(*a2, ****a1, *(**a1)[1], v3);
   if (v4 == 1)
@@ -8732,7 +8705,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispa
   return 0;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<unsigned long long SwiftReflectionContext::withContext<unsigned long long,swift_reflection_typeRefForMangledTypeName::$_0>(swift_reflection_typeRefForMangledTypeName::$_0 const&)::{lambda(unsigned long long&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(_WORD *****a1, uint64_t *a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<unsigned long long SwiftReflectionContext::withContext<unsigned long long,swift_reflection_typeRefForMangledTypeName::$_0>(swift_reflection_typeRefForMangledTypeName::$_0 const&)::{lambda(unsigned long long&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(void ****a1, uint64_t *a2)
 {
   swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMangledName(*a2, ****a1, *(**a1)[1], v3);
   if (v4 == 1)
@@ -8804,7 +8777,7 @@ void *swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift
   }
 
   v51 = a1 + 328;
-  swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v51, v7, 0, 0, v6, a4);
+  swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v51, v7, 0, 0, a4, v6);
   v11[0] = off_E13E8;
   if (v50 == &v49)
   {
@@ -8826,7 +8799,7 @@ void *swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift
   return result;
 }
 
-char *std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<char * SwiftReflectionContext::withContext<char *,swift_reflection_copyDemangledNameForProtocolDescriptor::$_0>(swift_reflection_copyDemangledNameForProtocolDescriptor::$_0 const&)::{lambda(char *&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(uint64_t ****a1, uint64_t *a2)
+char *std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<char * SwiftReflectionContext::withContext<char *,swift_reflection_copyDemangledNameForProtocolDescriptor::$_0>(swift_reflection_copyDemangledNameForProtocolDescriptor::$_0 const&)::{lambda(char *&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(uint64_t ****a1, uint64_t **a2)
 {
   v2 = **a1;
   v3 = *a2;
@@ -8904,7 +8877,7 @@ char *std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch
   v17[0] = off_E0BC8;
   v17[1] = swift::Demangle::__runtime::genericParameterName;
   v18 = v17;
-  swift::Demangle::__runtime::nodeToString(v6, v14, v4, &__s1);
+  swift::Demangle::__runtime::nodeToString(&__s1, v6, v14, v4);
   if (v18 == v17)
   {
     (*(*v18 + 32))(v18);
@@ -9032,7 +9005,7 @@ char *std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch
   v17[0] = off_E0BC8;
   v17[1] = swift::Demangle::__runtime::genericParameterName;
   v18 = v17;
-  swift::Demangle::__runtime::nodeToString(v6, v14, v4, &__s1);
+  swift::Demangle::__runtime::nodeToString(&__s1, v6, v14, v4);
   if (v18 == v17)
   {
     (*(*v18 + 32))(v18);
@@ -9150,15 +9123,15 @@ double std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatc
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<swift_childinfo SwiftReflectionContext::withContext<swift_childinfo,swift_reflection_childOfTypeRef::$_0>(swift_reflection_childOfTypeRef::$_0 const&)::{lambda(swift_childinfo&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>@<X0>(uint64_t result@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+uint64_t **std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<swift_childinfo SwiftReflectionContext::withContext<swift_childinfo,swift_reflection_childOfTypeRef::$_0>(swift_reflection_childOfTypeRef::$_0 const&)::{lambda(swift_childinfo&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>@<X0>(uint64_t **result@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = **result;
   if (**v4 && (result = swift::reflection::TypeConverter::getTypeInfo(*a2 + 976, **v4, 0)) != 0)
   {
-    v5 = *(result + 8);
+    v5 = *(result + 2);
     if (v5 == 1 || v5 == 4)
     {
-      v7 = *(result + 40) + 48 * **(v4 + 8);
+      v7 = &result[5][6 * **(v4 + 8)];
       v8 = v7;
       if (*(v7 + 23) < 0)
       {
@@ -9190,15 +9163,15 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispa
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<swift_childinfo SwiftReflectionContext::withContext<swift_childinfo,swift_reflection_childOfTypeRef::$_0>(swift_reflection_childOfTypeRef::$_0 const&)::{lambda(swift_childinfo&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>@<X0>(uint64_t result@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+uint64_t **std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<swift_childinfo SwiftReflectionContext::withContext<swift_childinfo,swift_reflection_childOfTypeRef::$_0>(swift_reflection_childOfTypeRef::$_0 const&)::{lambda(swift_childinfo&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>@<X0>(uint64_t **result@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = **result;
   if (**v4 && (result = swift::reflection::TypeConverter::getTypeInfo(*a2 + 976, **v4, 0)) != 0)
   {
-    v5 = *(result + 8);
+    v5 = *(result + 2);
     if (v5 == 1 || v5 == 4)
     {
-      v7 = *(result + 40) + 48 * **(v4 + 8);
+      v7 = &result[5][6 * **(v4 + 8)];
       v8 = v7;
       if (*(v7 + 23) < 0)
       {
@@ -9230,7 +9203,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispa
   return result;
 }
 
-double std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<swift_typeinfo SwiftReflectionContext::withContext<swift_typeinfo,swift_reflection_infoForMetadata::$_0>(swift_reflection_infoForMetadata::$_0 const&)::{lambda(swift_typeinfo&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>@<D0>(unint64_t ****a1@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+double std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<swift_typeinfo SwiftReflectionContext::withContext<swift_typeinfo,swift_reflection_infoForMetadata::$_0>(swift_reflection_infoForMetadata::$_0 const&)::{lambda(swift_typeinfo&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>@<D0>(uint64_t ****a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   MetadataTypeInfo = swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getMetadataTypeInfo(*a2, ****a1, 0, 0);
   if (MetadataTypeInfo)
@@ -9264,7 +9237,7 @@ double std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatc
   return result;
 }
 
-double std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<swift_typeinfo SwiftReflectionContext::withContext<swift_typeinfo,swift_reflection_infoForMetadata::$_0>(swift_reflection_infoForMetadata::$_0 const&)::{lambda(swift_typeinfo&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>@<D0>(unint64_t ****a1@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+double std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<swift_typeinfo SwiftReflectionContext::withContext<swift_typeinfo,swift_reflection_infoForMetadata::$_0>(swift_reflection_infoForMetadata::$_0 const&)::{lambda(swift_typeinfo&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>@<D0>(uint64_t ****a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   MetadataTypeInfo = swift::reflection::ReflectionContext<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>::getMetadataTypeInfo(*a2, ****a1, 0, 0);
   if (MetadataTypeInfo)
@@ -9298,7 +9271,7 @@ double std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatc
   return result;
 }
 
-uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getMetadataTypeInfo(unint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getMetadataTypeInfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9310,39 +9283,39 @@ uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInt
     v8 = 0;
   }
 
-  *&v20 = a2;
-  *(&v20 + 1) = a3;
-  v21 = v8;
-  v22 = 0;
-  if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>,std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,void *>>((a1 + 2824), &v20, &v22) && v22 != (*(a1 + 2824) + 32 * *(a1 + 2840)))
+  *&v23 = a2;
+  *(&v23 + 1) = a3;
+  v24 = v8;
+  v25 = 0;
+  if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>,std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,void *>>((a1 + 2824), &v23, &v25) && v25 != (*(a1 + 2824) + 32 * *(a1 + 2840)))
   {
-    return v22[3];
+    return v25[3];
   }
 
-  TypeFromMetadata = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, a2, a3, 0, 50);
-  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(a1, a2, a3, &v20);
-  if (!v21)
+  TypeFromMetadata = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, a2, a3, 0, 50, v9, v10, v11);
+  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(a1, a2, a3, &v23);
+  if (!v24)
   {
     goto LABEL_21;
   }
 
-  v9 = 0;
-  v12 = *v21 < 0x800uLL && *v21 != 0;
-  if (TypeFromMetadata && !v12)
+  v12 = 0;
+  v15 = *v24 < 0x800uLL && *v24 != 0;
+  if (TypeFromMetadata && !v15)
   {
-    swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(a1, a2, a3, &v20);
-    if (v21)
+    swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(a1, a2, a3, &v23);
+    if (v24)
     {
-      if ((*v21 - 2048) <= 0xFFFFFFFFFFFFF800)
+      if ((*v24 - 2048) <= 0xFFFFFFFFFFFFF800)
       {
         ObjCRODataPtr = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readObjCRODataPtr(a1, a2, a3);
         if (ObjCRODataPtr)
         {
-          LODWORD(v22) = 0;
-          if ((*(**(a1 + 2800) + 32))(*(a1 + 2800), ObjCRODataPtr + 4, v14, &v22, 4))
+          LODWORD(v25) = 0;
+          if ((*(**(a1 + 2800) + 32))(*(a1 + 2800), ObjCRODataPtr + 4, v17, &v25, 4))
           {
-            swift::reflection::TypeConverter::getClassInstanceTypeInfo((a1 + 976), TypeFromMetadata, v22, a4);
-            v9 = v15;
+            swift::reflection::TypeConverter::getClassInstanceTypeInfo((a1 + 976), TypeFromMetadata, v25, a4);
+            v12 = v18;
             goto LABEL_22;
           }
         }
@@ -9350,28 +9323,28 @@ uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInt
     }
 
 LABEL_21:
-    v9 = 0;
+    v12 = 0;
   }
 
 LABEL_22:
-  *&v20 = a2;
-  *(&v20 + 1) = a3;
-  v21 = v8;
-  v22 = 0;
-  v16 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>,std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,void *>>((a1 + 2824), &v20, &v22);
-  v17 = v22;
-  if ((v16 & 1) == 0)
+  *&v23 = a2;
+  *(&v23 + 1) = a3;
+  v24 = v8;
+  v25 = 0;
+  v19 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>,std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,void *>>((a1 + 2824), &v23, &v25);
+  v20 = v25;
+  if ((v19 & 1) == 0)
   {
-    v17 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>,std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>::InsertIntoBucketImpl<std::pair<swift::remote::RemoteAddress,void *>>((a1 + 2824), &v20, &v20, v22);
-    v18 = BYTE8(v20);
-    *v17 = v20;
-    *(v17 + 8) = v18;
-    v17[2] = v21;
-    v17[3] = 0;
+    v20 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>,std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>::InsertIntoBucketImpl<std::pair<swift::remote::RemoteAddress,void *>>((a1 + 2824), &v23, &v23, v25);
+    v21 = BYTE8(v23);
+    *v20 = v23;
+    *(v20 + 8) = v21;
+    v20[2] = v24;
+    v20[3] = 0;
   }
 
-  v17[3] = v9;
-  return v9;
+  v20[3] = v12;
+  return v12;
 }
 
 uint64_t __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>,std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,void *>>(uint64_t *a1, __int128 *a2, uint64_t **a3)
@@ -9395,11 +9368,11 @@ uint64_t __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseM
   v13 = (v4 - 1) & (((v12 + ~(v12 << 27)) >> 31) ^ (v12 + ~(v12 << 27)));
   for (i = 1; ; ++i)
   {
-    v15 = (v5 + 32 * v13);
+    v15 = v5 + 32 * v13;
     v16 = *v15;
     v17 = *(v15 + 8);
     v18 = *a2 == *v15 && *(a2 + 8) == v17;
-    if (v18 && v9 == v15[2])
+    if (v18 && v9 == *(v15 + 16))
     {
       result = 1;
       goto LABEL_27;
@@ -9415,18 +9388,18 @@ uint64_t __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseM
       goto LABEL_20;
     }
 
-    v21 = v15[2] == -8192;
+    v21 = *(v15 + 16) == -8192;
 LABEL_22:
     if (v21 && v8 == 0)
     {
-      v8 = (v5 + 32 * v13);
+      v8 = v5 + 32 * v13;
     }
 
     v22 = v13 + i;
     v13 = v22 & (v4 - 1);
   }
 
-  if (v15[2] != -4096)
+  if (*(v15 + 16) != -4096)
   {
 LABEL_20:
     v21 = 0;
@@ -9466,17 +9439,7 @@ uint64_t *__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::Dense
   a4 = v10;
 LABEL_3:
   ++*(a1 + 2);
-  if (*a4 == -1)
-  {
-    v6 = *(a4 + 8) == 0;
-    *(a4 + 8);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
+  v6 = *a4 == -1 && *(a4 + 8) == 0;
   if (!v6 || a4[2] != -4096)
   {
     --*(a1 + 3);
@@ -9531,18 +9494,7 @@ void __swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,v
       while (1)
       {
         v17 = *(v14 + 8);
-        if (*v14 == -1)
-        {
-          v18 = v17 == 0;
-          *(v14 + 8);
-        }
-
-        else
-        {
-          v18 = 0;
-        }
-
-        if (!v18)
+        if (*v14 != -1 || v17 != 0)
         {
           break;
         }
@@ -9561,17 +9513,7 @@ LABEL_12:
         }
       }
 
-      if (*v14 == -2)
-      {
-        v19 = v17 == 0;
-        *(v14 + 8);
-      }
-
-      else
-      {
-        v19 = 0;
-      }
-
+      v19 = *v14 == -2 && v17 == 0;
       if (v19 && *(v14 + 2) == -8192)
       {
         goto LABEL_12;
@@ -9614,7 +9556,7 @@ LABEL_24:
   }
 }
 
-uint64_t swift::reflection::ReflectionContext<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>::getMetadataTypeInfo(unint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t swift::reflection::ReflectionContext<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>::getMetadataTypeInfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9626,33 +9568,33 @@ uint64_t swift::reflection::ReflectionContext<swift::External<swift::NoObjCInter
     v8 = 0;
   }
 
-  *&v19 = a2;
-  *(&v19 + 1) = a3;
-  v20 = v8;
-  v21 = 0;
-  if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>,std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,void *>>((a1 + 2824), &v19, &v21) && v21 != (*(a1 + 2824) + 32 * *(a1 + 2840)))
+  *&v22 = a2;
+  *(&v22 + 1) = a3;
+  v23 = v8;
+  v24 = 0;
+  if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>,std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,void *>>((a1 + 2824), &v22, &v24) && v24 != (*(a1 + 2824) + 32 * *(a1 + 2840)))
   {
-    return v21[3];
+    return v24[3];
   }
 
-  TypeFromMetadata = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, a2, a3, 0, 50);
-  swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(a1, a2, a3, &v19);
-  if (!v20)
+  TypeFromMetadata = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, a2, a3, 0, 50, v9, v10, v11);
+  swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(a1, a2, a3, &v22);
+  if (!v23)
   {
 LABEL_17:
-    v9 = 0;
+    v12 = 0;
     goto LABEL_19;
   }
 
-  v9 = 0;
-  v12 = *v20 < 0x800uLL && *v20 != 0;
-  if (TypeFromMetadata && !v12)
+  v12 = 0;
+  v15 = *v23 < 0x800uLL && *v23 != 0;
+  if (TypeFromMetadata && !v15)
   {
     InstanceStartFromClassMetadata = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readInstanceStartFromClassMetadata(a1, a2, a3);
     if ((InstanceStartFromClassMetadata & 0x100000000) != 0)
     {
       swift::reflection::TypeConverter::getClassInstanceTypeInfo((a1 + 976), TypeFromMetadata, InstanceStartFromClassMetadata, a4);
-      v9 = v14;
+      v12 = v17;
       goto LABEL_19;
     }
 
@@ -9660,27 +9602,27 @@ LABEL_17:
   }
 
 LABEL_19:
-  *&v19 = a2;
-  *(&v19 + 1) = a3;
-  v20 = v8;
-  v21 = 0;
-  v15 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>,std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,void *>>((a1 + 2824), &v19, &v21);
-  v16 = v21;
-  if ((v15 & 1) == 0)
+  *&v22 = a2;
+  *(&v22 + 1) = a3;
+  v23 = v8;
+  v24 = 0;
+  v18 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>,std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>::LookupBucketFor<std::pair<swift::remote::RemoteAddress,void *>>((a1 + 2824), &v22, &v24);
+  v19 = v24;
+  if ((v18 & 1) == 0)
   {
-    v16 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>,std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>::InsertIntoBucketImpl<std::pair<swift::remote::RemoteAddress,void *>>((a1 + 2824), &v19, &v19, v21);
-    v17 = BYTE8(v19);
-    *v16 = v19;
-    *(v16 + 8) = v17;
-    v16[2] = v20;
-    v16[3] = 0;
+    v19 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>,std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::remote::RemoteAddress,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::remote::RemoteAddress,void *>,swift::reflection::RecordTypeInfo const*>>::InsertIntoBucketImpl<std::pair<swift::remote::RemoteAddress,void *>>((a1 + 2824), &v22, &v22, v24);
+    v20 = BYTE8(v22);
+    *v19 = v22;
+    *(v19 + 8) = v20;
+    v19[2] = v23;
+    v19[3] = 0;
   }
 
-  v16[3] = v9;
-  return v9;
+  v19[3] = v12;
+  return v12;
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readInstanceStartFromClassMetadata(unint64_t a1, unint64_t a2, uint64_t a3)
+uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readInstanceStartFromClassMetadata(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(a1, a2, a3, &v14);
   v4 = v16;
@@ -9728,7 +9670,7 @@ LABEL_9:
   return v9 | v4 | v8;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<swift_childinfo SwiftReflectionContext::withContext<swift_childinfo,swift_reflection_childOfMetadata::$_0>(swift_reflection_childOfMetadata::$_0 const&)::{lambda(swift_childinfo&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>@<X0>(uint64_t **a1@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<swift_childinfo SwiftReflectionContext::withContext<swift_childinfo,swift_reflection_childOfMetadata::$_0>(swift_reflection_childOfMetadata::$_0 const&)::{lambda(swift_childinfo&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>@<X0>(uint64_t **a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = **a1;
   result = swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getMetadataTypeInfo(*a2, **v4, 0, 0);
@@ -9769,7 +9711,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispa
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<swift_childinfo SwiftReflectionContext::withContext<swift_childinfo,swift_reflection_childOfMetadata::$_0>(swift_reflection_childOfMetadata::$_0 const&)::{lambda(swift_childinfo&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>@<X0>(uint64_t **a1@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<swift_childinfo SwiftReflectionContext::withContext<swift_childinfo,swift_reflection_childOfMetadata::$_0>(swift_reflection_childOfMetadata::$_0 const&)::{lambda(swift_childinfo&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>@<X0>(uint64_t **a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = **a1;
   result = swift::reflection::ReflectionContext<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>::getMetadataTypeInfo(*a2, **v4, 0, 0);
@@ -9810,7 +9752,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispa
   return result;
 }
 
-double std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<swift_typeinfo SwiftReflectionContext::withContext<swift_typeinfo,swift_reflection_infoForInstance::$_0>(swift_reflection_infoForInstance::$_0 const&)::{lambda(swift_typeinfo&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>@<D0>(unint64_t ****a1@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+double std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<swift_typeinfo SwiftReflectionContext::withContext<swift_typeinfo,swift_reflection_infoForInstance::$_0>(swift_reflection_infoForInstance::$_0 const&)::{lambda(swift_typeinfo&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>@<D0>(unint64_t ****a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   InstanceTypeInfo = swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getInstanceTypeInfo(*a2, ****a1, 0, 0);
   if (InstanceTypeInfo)
@@ -9839,6 +9781,121 @@ double std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatc
     *a3 = 0;
     *(a3 + 8) = 0;
     *(a3 + 16) = 0;
+  }
+
+  return result;
+}
+
+double std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<swift_typeinfo SwiftReflectionContext::withContext<swift_typeinfo,swift_reflection_infoForInstance::$_0>(swift_reflection_infoForInstance::$_0 const&)::{lambda(swift_typeinfo&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>@<D0>(unint64_t ****a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+{
+  InstanceTypeInfo = swift::reflection::ReflectionContext<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>::getInstanceTypeInfo(*a2, ****a1, 0, 0);
+  if (InstanceTypeInfo)
+  {
+    v6 = *(InstanceTypeInfo + 2);
+    if (v6 == 4 || v6 == 1)
+    {
+      v8 = -1431655765 * ((InstanceTypeInfo[6] - InstanceTypeInfo[5]) >> 4);
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    v9 = InstanceTypeInfo;
+    *a3 = getTypeInfoKind(InstanceTypeInfo);
+    result = *(v9 + 12);
+    *(a3 + 4) = result;
+    *(a3 + 12) = *(v9 + 5);
+    *(a3 + 16) = v8;
+  }
+
+  else
+  {
+    *a3 = 0;
+    *(a3 + 8) = 0;
+    *(a3 + 16) = 0;
+  }
+
+  return result;
+}
+
+uint64_t *swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getInstanceTypeInfo(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadataFromInstance(a1, a2, a3, &v24);
+  if (v26 != 1)
+  {
+    return 0;
+  }
+
+  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(a1, v24, v25, __p);
+  if (!v19)
+  {
+    return 0;
+  }
+
+  v8 = *v19;
+  if (*v19 > 0x7FF)
+  {
+    LODWORD(v8) = 0;
+  }
+
+  if (v8 != 1280)
+  {
+    if (v8 != 1024)
+    {
+      if (!v8)
+      {
+        return swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getMetadataTypeInfo(a1, v24, v25, a4);
+      }
+
+      return 0;
+    }
+
+    *&v10 = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(a1, v24, v25, &v27);
+    if (v28 && *v28 == 1024)
+    {
+      (*(**(a1 + 2800) + 40))(__p, v10);
+      v11 = __p[0];
+      v12 = SHIBYTE(v19);
+      if (v20 && ((swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getCaptureDescriptor((a1 + 2216), v20, v21, &v22), v22) || BYTE8(v22)))
+      {
+        v27 = v22;
+        v28 = v23;
+        swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getClosureContextInfo((a1 + 2216), &v27, __p);
+        ClosureContextInfo = swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::getClosureContextInfo(a1, a2, a3, __p, a4);
+        swift::reflection::ClosureContextInfo::~ClosureContextInfo(__p);
+        result = ClosureContextInfo;
+      }
+
+      else
+      {
+        result = 0;
+      }
+
+      if (v12 < 0)
+      {
+        v17 = result;
+        operator delete(v11);
+        return v17;
+      }
+
+      return result;
+    }
+
+    return 0;
+  }
+
+  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMetadata(a1, v24, v25, __p);
+  if (!v19)
+  {
+    return 0;
+  }
+
+  result = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readTypeFromMetadata(a1, v19[2], a3, 0, 50, v13, v14, v15);
+  if (result)
+  {
+    return swift::reflection::TypeConverter::getTypeInfo(a1 + 976, result, a4);
   }
 
   return result;

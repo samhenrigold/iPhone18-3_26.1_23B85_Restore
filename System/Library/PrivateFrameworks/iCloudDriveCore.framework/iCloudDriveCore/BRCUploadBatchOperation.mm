@@ -58,7 +58,7 @@
 
 - (void)sendTransferCompletionCallBack:(id)back error:(id)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   backCopy = back;
   errorCopy = error;
   perUploadCompletionBlock = [(BRCUploadBatchOperation *)self perUploadCompletionBlock];
@@ -70,12 +70,12 @@
     block[1] = 3221225472;
     block[2] = __64__BRCUploadBatchOperation_sendTransferCompletionCallBack_error___block_invoke;
     block[3] = &unk_2784FFBF0;
-    v17 = perUploadCompletionBlock;
-    v15 = backCopy;
-    v16 = errorCopy;
+    v16 = perUploadCompletionBlock;
+    v14 = backCopy;
+    v15 = errorCopy;
     dispatch_sync(serialQueue, block);
 
-    v11 = v17;
+    v11 = v16;
   }
 
   else
@@ -85,21 +85,19 @@
     if (os_log_type_enabled(v12, 0x90u))
     {
       *buf = 138412802;
-      v19 = backCopy;
-      v20 = 2112;
-      v21 = errorCopy;
-      v22 = 2112;
-      v23 = v11;
+      v18 = backCopy;
+      v19 = 2112;
+      v20 = errorCopy;
+      v21 = 2112;
+      v22 = v11;
       _os_log_error_impl(&dword_223E7A000, v12, 0x90u, "[ERROR] No per upload completion block for %@, error %@%@", buf, 0x20u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_publishUploadProgress:(id)progress
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   progress = [progressCopy progress];
   v6 = progress;
@@ -121,19 +119,19 @@
           objc_initWeak(location, v6);
           objc_initWeak(&from, progressCopy);
           defaultManager = [MEMORY[0x277CC6408] defaultManager];
-          v16[0] = MEMORY[0x277D85DD0];
-          v16[1] = 3221225472;
-          v16[2] = __50__BRCUploadBatchOperation__publishUploadProgress___block_invoke;
-          v16[3] = &unk_278502840;
-          v17 = v10;
+          v15[0] = MEMORY[0x277D85DD0];
+          v15[1] = 3221225472;
+          v15[2] = __50__BRCUploadBatchOperation__publishUploadProgress___block_invoke;
+          v15[3] = &unk_278502840;
+          v16 = v10;
           selfCopy = self;
-          objc_copyWeak(&v20, location);
-          v19 = progressCopy;
-          objc_copyWeak(&v21, &from);
-          [defaultManager fetchURLForItemID:v11 completionHandler:v16];
+          objc_copyWeak(&v19, location);
+          v18 = progressCopy;
+          objc_copyWeak(&v20, &from);
+          [defaultManager fetchURLForItemID:v11 completionHandler:v15];
 
-          objc_destroyWeak(&v21);
           objc_destroyWeak(&v20);
+          objc_destroyWeak(&v19);
 
           objc_destroyWeak(&from);
           objc_destroyWeak(location);
@@ -147,23 +145,21 @@
           {
             *location = 138412802;
             *&location[4] = self;
-            v24 = 2112;
-            v25 = v10;
-            v26 = 2112;
-            v27 = v13;
+            v23 = 2112;
+            v24 = v10;
+            v25 = 2112;
+            v26 = v13;
             _os_log_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] %@ - Can't find a file provider item ID for %@%@", location, 0x20u);
           }
         }
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __50__BRCUploadBatchOperation__publishUploadProgress___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -172,13 +168,13 @@ void __50__BRCUploadBatchOperation__publishUploadProgress___block_invoke(uint64_
     v8 = brc_default_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v11 = *(a1 + 32);
+      v10 = *(a1 + 32);
       *buf = 138412802;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v6;
-      v21 = 2112;
-      v22 = v7;
+      v17 = v10;
+      v18 = 2112;
+      v19 = v6;
+      v20 = 2112;
+      v21 = v7;
       _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Got an error while fetching the URL of %@ - %@%@", buf, 0x20u);
     }
   }
@@ -191,21 +187,19 @@ void __50__BRCUploadBatchOperation__publishUploadProgress___block_invoke(uint64_
     }
 
     v9 = [*(a1 + 40) queue];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __50__BRCUploadBatchOperation__publishUploadProgress___block_invoke_103;
-    v12[3] = &unk_278502818;
-    objc_copyWeak(&v15, (a1 + 56));
-    v13 = *(a1 + 48);
-    v14 = v5;
-    objc_copyWeak(&v16, (a1 + 64));
-    dispatch_async(v9, v12);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __50__BRCUploadBatchOperation__publishUploadProgress___block_invoke_103;
+    v11[3] = &unk_278502818;
+    objc_copyWeak(&v14, (a1 + 56));
+    v12 = *(a1 + 48);
+    v13 = v5;
+    objc_copyWeak(&v15, (a1 + 64));
+    dispatch_async(v9, v11);
 
-    objc_destroyWeak(&v16);
     objc_destroyWeak(&v15);
+    objc_destroyWeak(&v14);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __50__BRCUploadBatchOperation__publishUploadProgress___block_invoke_103(uint64_t a1)
@@ -226,7 +220,7 @@ void __50__BRCUploadBatchOperation__publishUploadProgress___block_invoke_103(uin
         v8 = brc_default_log();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          __50__BRCUploadBatchOperation__publishUploadProgress___block_invoke_103_cold_1(a1);
+          __50__BRCUploadBatchOperation__publishUploadProgress___block_invoke_103_cold_1();
         }
 
         [v3 setUserInfoObject:*(a1 + 40) forKey:v5];
@@ -256,7 +250,6 @@ void __50__BRCUploadBatchOperation__publishUploadProgress___block_invoke_103(uin
 
 - (void)_registerForDocumentReparentNotifications
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -264,10 +257,8 @@ void __50__BRCUploadBatchOperation__publishUploadProgress___block_invoke_103(uin
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: !_documentReparentNotificationToken we are already registered for document reparent notifications%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: !_documentReparentNotificationToken we are already registered for document reparent notifications%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __68__BRCUploadBatchOperation__registerForDocumentReparentNotifications__block_invoke(uint64_t a1, void *a2)
@@ -303,7 +294,7 @@ void __68__BRCUploadBatchOperation__registerForDocumentReparentNotifications__bl
 
 - (void)mainWithTransfers:(id)transfers
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   transfersCopy = transfers;
   v5 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{-[BRCTransferBatchOperation itemsCount](self, "itemsCount")}];
   [(BRCUploadBatchOperation *)self _registerForDocumentReparentNotifications];
@@ -314,37 +305,37 @@ void __68__BRCUploadBatchOperation__registerForDocumentReparentNotifications__bl
     [BRCUploadBatchOperation mainWithTransfers:?];
   }
 
-  v34 = 0u;
-  v32 = 0u;
   v33 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v30 = 0u;
   obj = transfersCopy;
-  v8 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v8 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v32;
+    v11 = *v31;
     *&v9 = 138412546;
-    v26 = v9;
+    v25 = v9;
     do
     {
       v12 = 0;
       do
       {
-        if (*v32 != v11)
+        if (*v31 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v31 + 1) + 8 * v12);
+        v13 = *(*(&v30 + 1) + 8 * v12);
         v14 = brc_bread_crumbs();
         v15 = brc_default_log();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v26;
-          v36 = v13;
-          v37 = 2112;
-          v38 = v14;
+          *buf = v25;
+          v35 = v13;
+          v36 = 2112;
+          v37 = v14;
           _os_log_debug_impl(&dword_223E7A000, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] %@%@", buf, 0x16u);
         }
 
@@ -356,18 +347,18 @@ void __68__BRCUploadBatchOperation__registerForDocumentReparentNotifications__bl
         [(BRCUploadBatchOperation *)self _publishUploadProgress:v13];
         analyticsReporter = [(BRCSessionContext *)self->super.super._sessionContext analyticsReporter];
         itemID = [v13 itemID];
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __45__BRCUploadBatchOperation_mainWithTransfers___block_invoke;
-        v30[3] = &unk_278502890;
-        v30[4] = self;
-        [analyticsReporter lookupFSEventToSyncUpEventByItemID:itemID accessor:v30];
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __45__BRCUploadBatchOperation_mainWithTransfers___block_invoke;
+        v29[3] = &unk_278502890;
+        v29[4] = self;
+        [analyticsReporter lookupFSEventToSyncUpEventByItemID:itemID accessor:v29];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v10 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v10);
@@ -380,7 +371,7 @@ void __68__BRCUploadBatchOperation__registerForDocumentReparentNotifications__bl
   {
 
 LABEL_16:
-    [(BRCUploadBatchOperation *)self _uploadRecordsByID:v5, v26];
+    [(BRCUploadBatchOperation *)self _uploadRecordsByID:v5, v25];
     goto LABEL_17;
   }
 
@@ -393,16 +384,15 @@ LABEL_16:
 
   asPrivateClientZone = [(BRCClientZone *)self->_clientZone asPrivateClientZone];
   group = [(_BRCOperation *)self group];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __45__BRCUploadBatchOperation_mainWithTransfers___block_invoke_2;
-  v28[3] = &unk_2784FFFA8;
-  v28[4] = self;
-  v29 = v5;
-  [asPrivateClientZone createCloudKitZoneWithGroup:group completion:v28];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __45__BRCUploadBatchOperation_mainWithTransfers___block_invoke_2;
+  v27[3] = &unk_2784FFFA8;
+  v27[4] = self;
+  v28 = v5;
+  [asPrivateClientZone createCloudKitZoneWithGroup:group completion:v27];
 
 LABEL_17:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__BRCUploadBatchOperation_mainWithTransfers___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -507,7 +497,7 @@ uint64_t __45__BRCUploadBatchOperation_mainWithTransfers___block_invoke_2(uint64
 
 void __46__BRCUploadBatchOperation__uploadRecordsByID___block_invoke(uint64_t a1, void *a2, double a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (a3 < 0.0)
   {
@@ -515,19 +505,17 @@ void __46__BRCUploadBatchOperation__uploadRecordsByID___block_invoke(uint64_t a1
     v7 = brc_default_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 134218242;
-      v12 = a3;
-      v13 = 2112;
-      v14 = v6;
-      _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] Upload: Received negative progress from CK. progress [%f]%@", &v11, 0x16u);
+      v10 = 134218242;
+      v11 = a3;
+      v12 = 2112;
+      v13 = v6;
+      _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] Upload: Received negative progress from CK. progress [%f]%@", &v10, 0x16u);
     }
   }
 
   v8 = *(a1 + 32);
   v9 = [v5 recordID];
   [v8 setProgress:v9 forRecordID:a3];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __46__BRCUploadBatchOperation__uploadRecordsByID___block_invoke_116(void *a1, void *a2, void *a3)
@@ -668,7 +656,6 @@ void __46__BRCUploadBatchOperation__uploadRecordsByID___block_invoke_119(uint64_
 
 void __50__BRCUploadBatchOperation__publishUploadProgress___block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -676,48 +663,35 @@ void __50__BRCUploadBatchOperation__publishUploadProgress___block_invoke_cold_1(
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: fpURL%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: fpURL%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-void __50__BRCUploadBatchOperation__publishUploadProgress___block_invoke_103_cold_1(uint64_t a1)
+void __50__BRCUploadBatchOperation__publishUploadProgress___block_invoke_103_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void __68__BRCUploadBatchOperation__registerForDocumentReparentNotifications__block_invoke_2_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) name];
-  v9 = [*(a1 + 32) userInfo];
+  v8 = [*(a1 + 32) userInfo];
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mainWithTransfers:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 operationID];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_publishProgressIfNecessaryForTransfer:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -725,15 +699,12 @@ void __68__BRCUploadBatchOperation__registerForDocumentReparentNotifications__bl
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: [transfer isKindOfClass:[BRCUpload class]]%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: [transfer isKindOfClass:[BRCUpload class]]%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_publishProgressIfNecessaryForTransfer:.cold.2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -741,39 +712,32 @@ void __68__BRCUploadBatchOperation__registerForDocumentReparentNotifications__bl
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: self.queue%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: self.queue%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __46__BRCUploadBatchOperation__uploadRecordsByID___block_invoke_116_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 recordID];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __46__BRCUploadBatchOperation__uploadRecordsByID___block_invoke_118_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: modifyError%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: modifyError%@", &v2, 0xCu);
 }
 
 void __46__BRCUploadBatchOperation__uploadRecordsByID___block_invoke_119_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] zone was recreated, reuploading records%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] zone was recreated, reuploading records%@", &v2, 0xCu);
 }
 
 @end

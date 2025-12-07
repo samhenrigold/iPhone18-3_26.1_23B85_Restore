@@ -44,7 +44,7 @@
 
 - (int)dumpCameraStreamsToFile
 {
-  v61[1] = *MEMORY[0x277D85DE8];
+  v60[1] = *MEMORY[0x277D85DE8];
   providerName = self->_providerName;
   self->_providerName = @"get_camera_streams";
 
@@ -57,7 +57,7 @@
   aBlock[2] = __47__PSDiagnosticSysGraph_dumpCameraStreamsToFile__block_invoke;
   aBlock[3] = &unk_279A48078;
   aBlock[4] = self;
-  v47 = _Block_copy(aBlock);
+  v46 = _Block_copy(aBlock);
   [PSExecutionSession registerSessionCallback:"registerSessionCallback:withContext:" withContext:?];
   [(PSExecutionSession *)self->_currSession waitForContextFromExecutionSession:0];
   context = [(PSExecutionSession *)self->_currSession context];
@@ -70,36 +70,36 @@
 
   v11 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"key" ascending:1 selector:sel_caseInsensitiveCompare_];
   allObjects = [v10 allObjects];
-  v46 = v11;
-  v61[0] = v11;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:1];
+  v45 = v11;
+  v60[0] = v11;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:1];
   v14 = [allObjects sortedArrayUsingDescriptors:v13];
 
   v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Number of streams published by CameraProvider: %lu\n", objc_msgSend(v10, "count")];
   selfCopy = self;
   [(PSDiagnosticSysGraph *)self logToFile:v15];
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   v16 = v10;
-  v17 = [v16 countByEnumeratingWithState:&v54 objects:v60 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v53 objects:v59 count:16];
   if (v17)
   {
     v18 = v17;
     v19 = 0;
-    v20 = *v55;
+    v20 = *v54;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v55 != v20)
+        if (*v54 != v20)
         {
           objc_enumerationMutation(v16);
         }
 
-        v22 = *(*(&v54 + 1) + 8 * i);
+        v22 = *(*(&v53 + 1) + 8 * i);
         v23 = [v22 key];
         v24 = [v23 length];
 
@@ -110,7 +110,7 @@
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v54 objects:v60 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v53 objects:v59 count:16];
     }
 
     while (v18);
@@ -121,31 +121,31 @@
     v19 = 0;
   }
 
-  v45 = v16;
+  v44 = v16;
 
   v26 = [MEMORY[0x277CCACA8] stringWithFormat:@" %-*s    %-11s    %4s    %5s    %6s    %-6s\n", v19, "Name", "Type", "FPS", "Width", "Height", "Format"];
   [(PSDiagnosticSysGraph *)selfCopy logToFile:v26];
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   obj = v14;
-  v27 = [obj countByEnumeratingWithState:&v50 objects:v59 count:16];
+  v27 = [obj countByEnumeratingWithState:&v49 objects:v58 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v51;
+    v29 = *v50;
     do
     {
       for (j = 0; j != v28; ++j)
       {
-        if (*v51 != v29)
+        if (*v50 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v31 = *(*(&v50 + 1) + 8 * j);
+        v31 = *(*(&v49 + 1) + 8 * j);
         v32 = MEMORY[0x277CCAB68];
         v33 = [v31 key];
         uTF8String = [v33 UTF8String];
@@ -169,7 +169,7 @@
         [(PSDiagnosticSysGraph *)selfCopy logToFile:v35];
       }
 
-      v28 = [obj countByEnumeratingWithState:&v50 objects:v59 count:16];
+      v28 = [obj countByEnumeratingWithState:&v49 objects:v58 count:16];
     }
 
     while (v28);
@@ -178,15 +178,14 @@
   [(PSDiagnosticSysGraph *)selfCopy logToFile:@"\n"];
   [(NSFileHandle *)selfCopy->_file synchronizeFile];
 
-  v43 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-uint64_t __47__PSDiagnosticSysGraph_dumpCameraStreamsToFile__block_invoke(uint64_t result, unint64_t a2)
+id *__47__PSDiagnosticSysGraph_dumpCameraStreamsToFile__block_invoke(id *result, unint64_t a2)
 {
   if (a2 <= 2)
   {
-    return [*(result + 32) logToFile:off_279A48098[a2]];
+    return [result[4] logToFile:off_279A48098[a2]];
   }
 
   return result;

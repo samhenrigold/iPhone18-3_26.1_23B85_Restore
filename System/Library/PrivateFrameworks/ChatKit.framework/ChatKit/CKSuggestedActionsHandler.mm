@@ -20,11 +20,16 @@
 {
   if (string)
   {
-    sub_190D56F10();
+    v4 = sub_190D56F10();
+  }
+
+  else
+  {
+    v4 = 0;
   }
 
   selfCopy = self;
-  sub_190B3AA78();
+  sub_190B3AA78(v4);
 }
 
 - (void)performChipAction:(id)action

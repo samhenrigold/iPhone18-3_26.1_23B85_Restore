@@ -514,7 +514,7 @@
   if (layer)
   {
     v6 = layer;
-    [layer affineTransform];
+    objc_msgSend_affineTransform(layer);
     layer = v6;
   }
 

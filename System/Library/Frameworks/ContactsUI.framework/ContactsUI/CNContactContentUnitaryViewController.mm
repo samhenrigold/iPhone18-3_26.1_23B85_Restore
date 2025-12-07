@@ -9352,13 +9352,13 @@ LABEL_7:
 LABEL_8:
 }
 
-uint64_t __96__CNContactContentUnitaryViewController_addEditingItem_atIndexPath_forTableView_shouldSetFocus___block_invoke_2(uint64_t result, int a2)
+id *__96__CNContactContentUnitaryViewController_addEditingItem_atIndexPath_forTableView_shouldSetFocus___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
     if (*(result + 48) == 1)
     {
-      return [*(result + 32) focusOnLastEditingItemInGroup:*(result + 40)];
+      return [result[4] focusOnLastEditingItemInGroup:result[5]];
     }
   }
 

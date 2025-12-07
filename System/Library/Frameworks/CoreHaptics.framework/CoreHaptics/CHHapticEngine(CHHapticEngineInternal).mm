@@ -7,7 +7,11 @@
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_0(&dword_21569A000, MEMORY[0x277D86220], v0, "%25s:%-5d ASSERTION FAILURE [(!in_dispatch_sync) != 0 is false]: ", v1, v2, v3, v4, 2u);
+    *v5 = 136315394;
+    *&v5[4] = "CHHapticEngine.mm";
+    *&v5[12] = 1024;
+    *&v5[14] = 1999;
+    OUTLINED_FUNCTION_0(&dword_21569A000, MEMORY[0x277D86220], v0, "%25s:%-5d ASSERTION FAILURE [(!in_dispatch_sync) != 0 is false]: ", v1, v2, v3, v4, *v5, *&v5[8], *&v5[16]);
   }
 
   __break(1u);
@@ -17,7 +21,11 @@
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_0(&dword_21569A000, MEMORY[0x277D86220], v0, "%25s:%-5d ASSERTION FAILURE [(resourceEntries.emplace(copiedResourceID, resource, resource->url(), options, refCountKey) == true) != 0 is false]: ", v1, v2, v3, v4, 2u);
+    *v5 = 136315394;
+    *&v5[4] = "CHHapticEngine.mm";
+    *&v5[12] = 1024;
+    *&v5[14] = 2163;
+    OUTLINED_FUNCTION_0(&dword_21569A000, MEMORY[0x277D86220], v0, "%25s:%-5d ASSERTION FAILURE [(resourceEntries.emplace(copiedResourceID, resource, resource->url(), options, refCountKey) == true) != 0 is false]: ", v1, v2, v3, v4, *v5, *&v5[8], *&v5[16]);
   }
 
   __break(1u);
@@ -27,7 +35,11 @@
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_0(&dword_21569A000, MEMORY[0x277D86220], v0, "%25s:%-5d ASSERTION FAILURE [(resourceEntries.emplace(resourceID, resource, resource->url(), options, refCountKey) == true) != 0 is false]: ", v1, v2, v3, v4, 2u);
+    *v5 = 136315394;
+    *&v5[4] = "CHHapticEngine.mm";
+    *&v5[12] = 1024;
+    *&v5[14] = 2224;
+    OUTLINED_FUNCTION_0(&dword_21569A000, MEMORY[0x277D86220], v0, "%25s:%-5d ASSERTION FAILURE [(resourceEntries.emplace(resourceID, resource, resource->url(), options, refCountKey) == true) != 0 is false]: ", v1, v2, v3, v4, *v5, *&v5[8], *&v5[16]);
   }
 
   __break(1u);

@@ -101,7 +101,7 @@
 
 - (id)jsonRawData
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   suggestionUUIDs = self->_suggestionUUIDs;
   if (suggestionUUIDs)
   {
@@ -113,10 +113,10 @@
     v4 = @"nil";
   }
 
-  v9[0] = @"deliveryUI";
+  v8[0] = @"deliveryUI";
   if (self->_deliveryUI >= 8)
   {
-    v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_deliveryUI, v9[0]];
+    v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_deliveryUI, v8[0]];
   }
 
   else
@@ -124,12 +124,10 @@
     v5 = off_27859F690[self->_deliveryUI & 7];
   }
 
-  v9[1] = @"suggestionUUIDs";
-  v10[0] = v5;
-  v10[1] = v4;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[1] = @"suggestionUUIDs";
+  v9[0] = v5;
+  v9[1] = v4;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }
@@ -173,23 +171,24 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v10 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = __atxlog_handle_notification_management(isKindOfClass);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      [(ATXMinimalAction *)self initWithProto:v10];
+      [(ATXMinimalAction *)self initWithProto:v11];
     }
 
     goto LABEL_7;
   }
 
-  v5 = protoCopy;
-  deliveryUI = [v5 deliveryUI];
-  suggestionUUIDs = [v5 suggestionUUIDs];
+  v6 = protoCopy;
+  deliveryUI = [v6 deliveryUI];
+  suggestionUUIDs = [v6 suggestionUUIDs];
 
-  v8 = [suggestionUUIDs _pas_mappedArrayWithTransform:&__block_literal_global_177];
-  self = [(ATXNotificationDeliveryEvent *)self initWithDeliveryUI:deliveryUI suggestionUUIDs:v8];
+  v9 = [suggestionUUIDs _pas_mappedArrayWithTransform:&__block_literal_global_177];
+  self = [(ATXNotificationDeliveryEvent *)self initWithDeliveryUI:deliveryUI suggestionUUIDs:v9];
 
   selfCopy = self;
 LABEL_8:

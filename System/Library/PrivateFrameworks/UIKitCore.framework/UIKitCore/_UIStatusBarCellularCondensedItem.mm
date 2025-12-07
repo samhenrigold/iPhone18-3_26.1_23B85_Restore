@@ -145,7 +145,7 @@ LABEL_20:
       statusBar2 = [currentAggregatedData secondaryCellularEntry];
       v44 = v175(v174, statusBar2, &v178);
 
-      if ((v180[3] & 1) == 0 && [(__CFString *)v45 length]&& [(__CFString *)v44 length]&& ([(__CFString *)v45 isEqualToString:v44]& 1) == 0)
+      if ((v180[3] & 1) == 0 && [(__CFString *)v45 length]&& [(__CFString *)v44 length]&& (objc_msgSend_isEqualToString_(v45) & 1) == 0)
       {
         *(v180 + 24) = 1;
       }

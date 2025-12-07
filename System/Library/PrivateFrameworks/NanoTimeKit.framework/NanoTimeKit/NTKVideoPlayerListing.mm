@@ -100,7 +100,7 @@
     v4 = MEMORY[0x277CBBBC0];
     filename = self->_filename;
     device = self->_device;
-    v7 = NTKAssetsBundle();
+    v7 = NTKAssetsBundle(0);
     v8 = [v4 videoNamed:filename forDevice:device inBundle:v7];
     v9 = self->_video;
     self->_video = v8;

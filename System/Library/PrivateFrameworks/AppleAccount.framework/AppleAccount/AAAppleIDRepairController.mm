@@ -70,23 +70,22 @@
 
 uint64_t __71__AAAppleIDRepairController_primaryAppleIDRepairNeedsRepairCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = _AALogSystem();
+  v9 = *MEMORY[0x1E69E9840];
+  v4 = _AALogSystem(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2];
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1B6F6A000, v4, OS_LOG_TYPE_DEFAULT, "Final repair state %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_1B6F6A000, v4, OS_LOG_TYPE_DEFAULT, "Final repair state %@", &v7, 0xCu);
   }
 
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))(result, (a2 & 0xFFFFFFFFFFFFFFFELL) == 2);
+    return (*(result + 16))(result, (a2 & 0xFFFFFFFFFFFFFFFELL) == 2);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -120,10 +119,10 @@ uint64_t __71__AAAppleIDRepairController_primaryAppleIDRepairNeedsRepairCompleti
 
 void __77__AAAppleIDRepairController__forceFetchUpdatedUserInformationWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = _AALogSystem();
+  v7 = _AALogSystem(v6);
   v8 = v7;
   if (v6)
   {
@@ -140,9 +139,9 @@ void __77__AAAppleIDRepairController__forceFetchUpdatedUserInformationWithComple
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v5, "repairState")}];
-      v13 = 138412290;
-      v14 = v10;
-      _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "User information returned state: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v10;
+      _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "User information returned state: %@", &v12, 0xCu);
     }
 
     v11 = *(a1 + 32);
@@ -151,17 +150,14 @@ void __77__AAAppleIDRepairController__forceFetchUpdatedUserInformationWithComple
   }
 
   v9();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __77__AAAppleIDRepairController__forceFetchUpdatedUserInformationWithCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "Error fetching user information: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "Error fetching user information: %@", &v2, 0xCu);
 }
 
 @end

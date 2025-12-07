@@ -11,8 +11,10 @@
 - (BOOL)_shouldAllowAction:(id)action forChannelSource:(id)source shouldValidateUserIntent:(BOOL)intent error:(id *)error;
 - (BOOL)_shouldAllowRequestedAction:(id)action forCallSource:(id)source shouldValidateUserIntent:(BOOL)intent error:(id *)error;
 - (BOOL)_shouldAllowRequestedTransaction:(id)transaction forCallSource:(id)source error:(id *)error;
+- (BOOL)_shouldAllowTransaction:(id)transaction forChannelSource:(id)source shouldValidateUserIntent:(BOOL)intent error:(id *)error;
 - (BOOL)_shouldBlockIfScreenSharing;
 - (BOOL)callSource:(id)source shouldProcessAction:(id)action error:(id *)error;
+- (BOOL)shouldRestrictAddresses:(id)addresses forBundleIdentifier:(id)identifier performSynchronously:(BOOL)synchronously;
 - (BOOL)transactionContainsChannelActions:(id)actions;
 - (CSDBluetoothHangupCommandObserver)btHangupObserver;
 - (CSDProcessObserverProtocol)processObserver;
@@ -49,6 +51,7 @@
 - (void)_performTransaction:(id)transaction onChannelSource:(id)source;
 - (void)_processCompletedCallAction:(id)action forCall:(id)call allowRevertingState:(BOOL)state isOnenessActive:(BOOL)active;
 - (void)_processCompletedChannelAction:(id)action forCall:(id)call;
+- (void)_processPushToTalkAppStateChangedForCall:(id)call withPID:(int)d processState:(int64_t)state;
 - (void)_processRequestedTransaction:(id)transaction fromCallSource:(id)source completion:(id)completion;
 - (void)_processRequestedTransaction:(id)transaction fromProviderSource:(id)source completionHandler:(id)handler;
 - (void)_startMonitoringAppForCall:(id)call;
@@ -272,78 +275,79 @@ LABEL_14:
   transactionCopy = transaction;
   sourceCopy = source;
   callStateController = [(CSDCallDataSource *)self callStateController];
-  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v25 = transactionCopy;
+  v34 = 0u;
+  v26 = transactionCopy;
   actions = [transactionCopy actions];
-  v10 = [actions countByEnumeratingWithState:&v30 objects:v37 count:16];
+  v10 = [actions countByEnumeratingWithState:&v31 objects:v38 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v31;
+    v12 = *v32;
     do
     {
       for (i = 0; i != v11; i = i + 1)
       {
-        if (*v31 != v12)
+        if (*v32 != v12)
         {
           objc_enumerationMutation(actions);
         }
 
-        v14 = *(*(&v30 + 1) + 8 * i);
+        v14 = *(*(&v31 + 1) + 8 * i);
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v15 = sub_100004778();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v16 = sub_100004778(isKindOfClass);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v36 = v14;
-            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Creating new call due to requested action: %@", buf, 0xCu);
+            v37 = v14;
+            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Creating new call due to requested action: %@", buf, 0xCu);
           }
 
-          v16 = [CSDProviderBargeCall callForChannelSource:sourceCopy joinAction:v14];
-          [callStateController setCallDelegatesIfNeeded:v16];
-          [callStateController propertiesChangedForCall:v16];
+          v17 = [CSDProviderBargeCall callForChannelSource:sourceCopy joinAction:v14];
+          [callStateController setCallDelegatesIfNeeded:v17];
+          [callStateController propertiesChangedForCall:v17];
         }
       }
 
-      v11 = [actions countByEnumeratingWithState:&v30 objects:v37 count:16];
+      v11 = [actions countByEnumeratingWithState:&v31 objects:v38 count:16];
     }
 
     while (v11);
   }
 
-  v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  actions2 = [v25 actions];
-  v18 = [actions2 countByEnumeratingWithState:&v26 objects:v34 count:16];
-  if (v18)
+  v28 = 0u;
+  actions2 = [v26 actions];
+  v19 = [actions2 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  if (v19)
   {
-    v19 = v18;
-    v20 = *v27;
+    v20 = v19;
+    v21 = *v28;
     do
     {
-      for (j = 0; j != v19; j = j + 1)
+      for (j = 0; j != v20; j = j + 1)
       {
-        if (*v27 != v20)
+        if (*v28 != v21)
         {
           objc_enumerationMutation(actions2);
         }
 
-        v22 = *(*(&v26 + 1) + 8 * j);
+        v23 = *(*(&v27 + 1) + 8 * j);
         channelSourceManager = [(CSDProviderCallDataSource *)self channelSourceManager];
-        [channelSourceManager addAction:v22 toUncommittedTransactionForChannelSource:sourceCopy];
+        [channelSourceManager addAction:v23 toUncommittedTransactionForChannelSource:sourceCopy];
       }
 
-      v19 = [actions2 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v20 = [actions2 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
-    while (v19);
+    while (v20);
   }
 
   channelSourceManager2 = [(CSDProviderCallDataSource *)self channelSourceManager];
@@ -355,57 +359,58 @@ LABEL_14:
   actionCopy = action;
   callCopy = call;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v14 = sub_100004778();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = sub_100004778(isKindOfClass);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      sub_100475204();
+      sub_100475204(actionCopy, callCopy);
     }
 
-    v8 = 0;
+    v9 = 0;
     goto LABEL_61;
   }
 
-  v8 = callCopy;
+  v9 = callCopy;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     state = [actionCopy state];
-    v10 = sub_100004778();
-    v11 = v10;
+    v11 = sub_100004778(state);
+    v12 = v11;
     if (state == 1)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v38 = 138412290;
-        v39 = actionCopy;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Fulfilled channel connect action %@", &v38, 0xCu);
+        v39 = 138412290;
+        v40 = actionCopy;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Fulfilled channel connect action %@", &v39, 0xCu);
       }
 
-      v12 = +[CSDPersistedChannelRegistry sharedInstance];
-      [v12 notePushToTalkChannelConnectedForCall:v8];
+      v13 = +[CSDPersistedChannelRegistry sharedInstance];
+      [v13 notePushToTalkChannelConnectedForCall:v9];
 
-      [v8 setTransmissionState:1];
-      v13 = +[NSDate date];
-      [v8 setDateConnected:v13];
+      [v9 setTransmissionState:1];
+      v14 = +[NSDate date];
+      [v9 setDateConnected:v14];
 
-      [v8 setHeld:1];
+      [v9 setHeld:1];
       [(CSDProviderCallDataSource *)self startObservingBluetoothHangupCommands];
-      [(CSDProviderCallDataSource *)self _startMonitoringAppForCall:v8];
-      [v8 playSoundForSoundType:18 completion:0];
+      [(CSDProviderCallDataSource *)self _startMonitoringAppForCall:v9];
+      [v9 playSoundForSoundType:18 completion:0];
     }
 
     else
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_100475470();
       }
 
-      [v8 setTransmissionState:0];
-      v21 = +[NSDate date];
-      [v8 setDateEnded:v21];
+      [v9 setTransmissionState:0];
+      v22 = +[NSDate date];
+      [v9 setDateEnded:v22];
     }
 
     goto LABEL_59;
@@ -414,45 +419,45 @@ LABEL_14:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v15 = actionCopy;
-    state2 = [v15 state];
-    v17 = sub_100004778();
-    v18 = v17;
+    v16 = actionCopy;
+    state2 = [v16 state];
+    v18 = sub_100004778(state2);
+    v19 = v18;
     if (state2 == 1)
     {
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v38 = 138412290;
-        v39 = v15;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Fulfilled channel leave action %@", &v38, 0xCu);
+        v39 = 138412290;
+        v40 = v16;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Fulfilled channel leave action %@", &v39, 0xCu);
       }
 
       [(CSDProviderCallDataSource *)self stopObservingBluetoothHangupCommands];
       [(CSDProviderCallDataSource *)self _stopMonitoringPushToTalkAppProcess];
-      [v8 setTransmissionState:0];
-      leaveDate = [v15 leaveDate];
-      [v8 setDateEnded:leaveDate];
+      [v9 setTransmissionState:0];
+      leaveDate = [v16 leaveDate];
+      [v9 setDateEnded:leaveDate];
 
-      v20 = +[CSDPersistedChannelRegistry sharedInstance];
-      [v20 tearDownPersistedChannelForCall:v8 teardownType:1];
+      v21 = +[CSDPersistedChannelRegistry sharedInstance];
+      [v21 tearDownPersistedChannelForCall:v9 teardownType:1];
 
-      [v8 playSoundForSoundType:19 completion:0];
+      [v9 playSoundForSoundType:19 completion:0];
     }
 
     else
     {
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         sub_100475408();
       }
 
-      [v8 setTransmissionState:0];
-      v26 = +[NSDate date];
-      [v8 setDateEnded:v26];
+      [v9 setTransmissionState:0];
+      v27 = +[NSDate date];
+      [v9 setDateEnded:v27];
 
-      [v8 setEndedReason:1];
-      v27 = +[CSDPersistedChannelRegistry sharedInstance];
-      [v27 tearDownPersistedChannelForCall:v8 teardownType:3];
+      [v9 setEndedReason:1];
+      v28 = +[CSDPersistedChannelRegistry sharedInstance];
+      [v28 tearDownPersistedChannelForCall:v9 teardownType:3];
     }
 
 LABEL_27:
@@ -464,89 +469,89 @@ LABEL_27:
   if (objc_opt_isKindOfClass())
   {
     state3 = [actionCopy state];
-    v23 = sub_100004778();
-    v24 = v23;
+    v24 = sub_100004778(state3);
+    v25 = v24;
     if (state3 == 1)
     {
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v38 = 138412290;
-        v39 = actionCopy;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Fufilled channel transmit start action %@", &v38, 0xCu);
+        v39 = 138412290;
+        v40 = actionCopy;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Fufilled channel transmit start action %@", &v39, 0xCu);
       }
 
-      if ([v8 transmissionState] == 2)
+      if ([v9 transmissionState] == 2)
       {
-        v25 = [v8 transmissionState] | 0xC;
+        v26 = [v9 transmissionState] | 0xC;
       }
 
       else
       {
-        v25 = 12;
+        v26 = 12;
       }
 
-      [v8 setTransmissionState:v25];
+      [v9 setTransmissionState:v26];
       featureFlags = [(CSDProviderCallDataSource *)self featureFlags];
       sessionBasedMutingEnabled = [featureFlags sessionBasedMutingEnabled];
 
       if (sessionBasedMutingEnabled)
       {
-        [v8 setUplinkMuted:1];
+        [v9 setUplinkMuted:1];
       }
 
       else
       {
-        [v8 setUnderlyingUplinkMuted:1];
+        [v9 setUnderlyingUplinkMuted:1];
       }
 
-      [v8 setHeld:0];
+      [v9 setHeld:0];
     }
 
     else
     {
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         sub_1004753A0();
       }
 
-      if (([v8 transmissionState] & 2) != 0)
+      if (([v9 transmissionState] & 2) != 0)
       {
-        [v8 setTransmissionState:2];
+        [v9 setTransmissionState:2];
       }
 
       else
       {
-        [v8 setTransmissionState:1];
-        [v8 setHeld:1];
+        [v9 setTransmissionState:1];
+        [v9 setHeld:1];
       }
 
-      [(CSDProviderCallDataSource *)self invalidateIndefiniteProcessAssertionForCall:v8];
-      [v8 playSoundForSoundType:22 completion:0];
+      [(CSDProviderCallDataSource *)self invalidateIndefiniteProcessAssertionForCall:v9];
+      [v9 playSoundForSoundType:22 completion:0];
     }
 
-    [v8 setDeferredTransmitStartAction:0];
+    [v9 setDeferredTransmitStartAction:0];
   }
 
   else
   {
     objc_opt_class();
-    isKindOfClass = objc_opt_isKindOfClass();
+    v29 = objc_opt_isKindOfClass();
     state4 = [actionCopy state];
-    v30 = sub_100004778();
-    v15 = v30;
-    if ((isKindOfClass & 1) == 0)
+    v31 = sub_100004778(state4);
+    v16 = v31;
+    if ((v29 & 1) == 0)
     {
       if (state4 == 1)
       {
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
-          v38 = 138412290;
-          v39 = actionCopy;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Fulfilled action %@", &v38, 0xCu);
+          v39 = 138412290;
+          v40 = actionCopy;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Fulfilled action %@", &v39, 0xCu);
         }
       }
 
-      else if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         sub_1004752D0();
       }
@@ -556,49 +561,49 @@ LABEL_27:
 
     if (state4 == 1)
     {
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
-        v38 = 138412290;
-        v39 = actionCopy;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Fufilled channel transmit stop action %@", &v38, 0xCu);
+        v39 = 138412290;
+        v40 = actionCopy;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Fufilled channel transmit stop action %@", &v39, 0xCu);
       }
 
-      transmissionState = [v8 transmissionState];
-      v32 = (transmissionState & 2) == 0;
+      transmissionState = [v9 transmissionState];
+      v33 = (transmissionState & 2) == 0;
       if ((transmissionState & 2) != 0)
       {
-        v33 = 10;
+        v34 = 10;
       }
 
       else
       {
-        v33 = 9;
+        v34 = 9;
       }
 
-      [v8 setTransmissionState:v33];
-      [v8 playSoundForTransmissionState:objc_msgSend(v8 completion:{"transmissionState"), 0}];
-      [v8 setTransmissionState:{objc_msgSend(v8, "transmissionState") & 0xFFFFFFFFFFFFFFF7}];
-      [v8 setHeld:v32];
+      [v9 setTransmissionState:v34];
+      [v9 playSoundForTransmissionState:objc_msgSend(v9 completion:{"transmissionState"), 0}];
+      [v9 setTransmissionState:{objc_msgSend(v9, "transmissionState") & 0xFFFFFFFFFFFFFFF7}];
+      [v9 setHeld:v33];
     }
 
     else
     {
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         sub_100475338();
       }
 
-      [v8 disconnectWithReason:14];
+      [v9 disconnectWithReason:14];
     }
 
-    [(CSDProviderCallDataSource *)self invalidateIndefiniteProcessAssertionForCall:v8];
+    [(CSDProviderCallDataSource *)self invalidateIndefiniteProcessAssertionForCall:v9];
   }
 
 LABEL_59:
   if ([actionCopy state]== 2)
   {
-    v14 = +[CSDReportingController sharedInstance];
-    [v14 reportProviderFailedWithAction:actionCopy forCall:v8];
+    v15 = +[CSDReportingController sharedInstance];
+    [v15 reportProviderFailedWithAction:actionCopy forCall:v9];
 LABEL_61:
   }
 }
@@ -615,7 +620,7 @@ LABEL_61:
     v16 = 0;
     v12 = [(CSDProviderCallDataSource *)self _shouldAllowTransaction:transactionCopy forChannelSource:v11 shouldValidateUserIntent:1 error:&v16];
     v13 = v16;
-    v14 = sub_100004778();
+    v14 = sub_100004778(v13);
     v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
     if (v12)
     {
@@ -654,66 +659,68 @@ LABEL_61:
   actionCopy = action;
   sourceCopy = source;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v12 = actionCopy;
-    channelUUID = [v12 channelUUID];
+    v13 = actionCopy;
+    channelUUID = [v13 channelUUID];
     identifier = [sourceCopy identifier];
-    v15 = [(CSDProviderCallDataSource *)self _callWithUUID:channelUUID providerIdentifier:identifier];
+    v16 = [(CSDProviderCallDataSource *)self _callWithUUID:channelUUID providerIdentifier:identifier];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v16 = +[CSDPersistedChannelRegistry sharedInstance];
-      activePersistedChannelIdentity = [v16 activePersistedChannelIdentity];
+      v17 = +[CSDPersistedChannelRegistry sharedInstance];
+      activePersistedChannelIdentity = [v17 activePersistedChannelIdentity];
 
-      v18 = [(CSDProviderCallDataSource *)self _isChannelSourceAppForeground:sourceCopy];
+      v19 = [(CSDProviderCallDataSource *)self _isChannelSourceAppForeground:sourceCopy];
+      v20 = v19;
       if (activePersistedChannelIdentity)
       {
         errorCopy = error;
-        v19 = v15;
-        v20 = channelUUID;
+        v21 = v16;
+        v22 = channelUUID;
         bundleIdentifier = [activePersistedChannelIdentity bundleIdentifier];
         bundleIdentifier2 = [sourceCopy bundleIdentifier];
-        v23 = [bundleIdentifier isEqualToString:bundleIdentifier2];
+        v25 = [bundleIdentifier isEqualToString:bundleIdentifier2];
 
-        v24 = sub_100004778();
-        v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-        channelUUID = v20;
-        if (v23)
+        v27 = sub_100004778(v26);
+        v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+        channelUUID = v22;
+        if (v25)
         {
-          if (v25)
+          if (v28)
           {
             *buf = 138412290;
-            v54 = v20;
-            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Allowing join action to proceed for UUID %@. App has a persisted channel on file.", buf, 0xCu);
+            v64 = v22;
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Allowing join action to proceed for UUID %@. App has a persisted channel on file.", buf, 0xCu);
           }
 
-          v26 = 0;
-          v15 = v19;
+          v29 = 0;
+          v16 = v21;
         }
 
         else
         {
-          if (v25)
+          if (v28)
           {
             *buf = 138412290;
-            v54 = v20;
-            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "[WARN] Denying join action for UUID %@. There is some other app with the channel.", buf, 0xCu);
+            v64 = v22;
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "[WARN] Denying join action for UUID %@. There is some other app with the channel.", buf, 0xCu);
           }
 
-          v15 = v19;
-          if (v18)
+          v16 = v21;
+          if (v20)
           {
-            v33 = 3;
+            v38 = 3;
           }
 
           else
           {
-            v33 = 11;
+            v38 = 11;
           }
 
-          v26 = [NSError cx_channelErrorWithCode:v33];
+          v29 = [NSError cx_channelErrorWithCode:v38];
         }
 
         error = errorCopy;
@@ -721,142 +728,152 @@ LABEL_61:
 
       else
       {
-        v31 = sub_100004778();
-        v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
-        if (v18)
+        v36 = sub_100004778(v19);
+        v37 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
+        if (v20)
         {
-          if (v32)
+          if (v37)
           {
             *buf = 138412290;
-            v54 = channelUUID;
-            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Allowing join action to proceed for UUID %@. No persisted channel on file and app is FG", buf, 0xCu);
+            v64 = channelUUID;
+            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Allowing join action to proceed for UUID %@. No persisted channel on file and app is FG", buf, 0xCu);
           }
 
-          v26 = 0;
+          v29 = 0;
         }
 
         else
         {
-          if (v32)
+          if (v37)
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Denying channel join because app not foreground.", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Denying channel join because app not foreground.", buf, 2u);
           }
 
-          v26 = [NSError cx_channelErrorWithCode:11];
+          v29 = [NSError cx_channelErrorWithCode:11];
         }
       }
 
-      dateConnected = [v15 dateConnected];
+      dateConnected = [v16 dateConnected];
 
       if (dateConnected)
       {
-        v36 = sub_100004778();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v43 = sub_100004778(v42);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v54 = channelUUID;
-          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "[WARN] Denying join action; found existing joined channel with UUID %@", buf, 0xCu);
+          v64 = channelUUID;
+          _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "[WARN] Denying join action; found existing joined channel with UUID %@", buf, 0xCu);
         }
 
-        v37 = [NSError cx_channelErrorWithCode:3];
+        v44 = [NSError cx_channelErrorWithCode:3];
 
-        v26 = v37;
+        v29 = v44;
       }
 
       goto LABEL_46;
     }
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v31 = objc_opt_isKindOfClass();
+    if (v31)
     {
-      if (!v15 || ([v15 dateConnected], v28 = objc_claimAutoreleasedReturnValue(), v28, !v28))
+      if (!v16 || ([v16 dateConnected], v32 = objc_claimAutoreleasedReturnValue(), v32, !v32))
       {
-        v29 = sub_100004778();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v33 = sub_100004778(v31);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v54 = channelUUID;
-          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "[WARN] Denying leave action; could not find a joined channel with UUID %@", buf, 0xCu);
+          v64 = channelUUID;
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[WARN] Denying leave action; could not find a joined channel with UUID %@", buf, 0xCu);
         }
 
-        v26 = [NSError cx_channelErrorWithCode:4];
+        v29 = [NSError cx_channelErrorWithCode:4];
         goto LABEL_46;
       }
 
 LABEL_34:
-      v26 = 0;
+      v29 = 0;
       goto LABEL_46;
     }
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v34 = objc_opt_isKindOfClass();
+    if (v34)
     {
-      if (v15 && ([v15 dateConnected], v30 = objc_claimAutoreleasedReturnValue(), v30, v30))
+      if (v16 && ([v16 dateConnected], v35 = objc_claimAutoreleasedReturnValue(), v35, v35))
       {
-        v26 = 0;
+        v29 = 0;
       }
 
       else
       {
-        v40 = sub_100004778();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+        v47 = sub_100004778(v34);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v54 = channelUUID;
-          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "[WARN] Denying transmit start action; could not find a joined channel with UUID %@", buf, 0xCu);
+          v64 = channelUUID;
+          _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "[WARN] Denying transmit start action; could not find a joined channel with UUID %@", buf, 0xCu);
         }
 
-        v26 = [NSError cx_channelErrorWithCode:4];
+        v29 = [NSError cx_channelErrorWithCode:4];
       }
 
-      if ([v15 transmissionMode] == 2)
+      if ([v16 transmissionMode] == 2)
       {
-        v51 = channelUUID;
-        v41 = sub_100004778();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v61 = channelUUID;
+        v48 = sub_100004778(2);
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "[WARN] Denying transmit start action; channel is is in listen only mode.", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "[WARN] Denying transmit start action; channel is is in listen only mode.", buf, 2u);
         }
 
-        v42 = [NSError cx_channelErrorWithCode:12];
+        v49 = [NSError cx_channelErrorWithCode:12];
 
-        v26 = v42;
-        channelUUID = v51;
+        v29 = v49;
+        channelUUID = v61;
       }
 
-      if ([v15 isReceivingTransmission] && objc_msgSend(v15, "transmissionMode"))
+      if ([v16 isReceivingTransmission])
       {
-        v52 = channelUUID;
-        v43 = sub_100004778();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+        transmissionMode = [v16 transmissionMode];
+        if (transmissionMode)
         {
-          *buf = 0;
-          _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "[WARN] Denying transmit start action; channel is already receiving transmission and mode is not full-duplex.", buf, 2u);
+          v62 = channelUUID;
+          v51 = sub_100004778(transmissionMode);
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "[WARN] Denying transmit start action; channel is already receiving transmission and mode is not full-duplex.", buf, 2u);
+          }
+
+          v52 = [NSError cx_channelErrorWithCode:6];
+
+          v29 = v52;
+          channelUUID = v62;
         }
-
-        v44 = [NSError cx_channelErrorWithCode:6];
-
-        v26 = v44;
-        channelUUID = v52;
       }
 
-      if (intentCopy && ![(CSDProviderCallDataSource *)self _meetsRequirementsToBeginTransmitting:sourceCopy])
+      if (intentCopy)
       {
-        v45 = sub_100004778();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        v53 = [(CSDProviderCallDataSource *)self _meetsRequirementsToBeginTransmitting:sourceCopy];
+        if ((v53 & 1) == 0)
         {
-          *buf = 138412290;
-          v54 = channelUUID;
-          _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "[WARN] Denying transmit start action; app not foreground %@", buf, 0xCu);
-        }
+          v54 = sub_100004778(v53);
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v64 = channelUUID;
+            _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "[WARN] Denying transmit start action; app not foreground %@", buf, 0xCu);
+          }
 
-        v46 = 11;
+          v55 = 11;
 LABEL_74:
-        v49 = [NSError cx_channelErrorWithCode:v46];
+          v59 = [NSError cx_channelErrorWithCode:v55];
 
-        v26 = v49;
+          v29 = v59;
+        }
       }
 
 LABEL_46:
@@ -870,72 +887,159 @@ LABEL_46:
     }
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    v39 = objc_opt_isKindOfClass();
+    if ((v39 & 1) == 0)
     {
       goto LABEL_34;
     }
 
-    if (v15 && ([v15 dateConnected], v34 = objc_claimAutoreleasedReturnValue(), v34, v34))
+    if (v16 && ([v16 dateConnected], v40 = objc_claimAutoreleasedReturnValue(), v40, v40))
     {
-      v26 = 0;
+      v29 = 0;
     }
 
     else
     {
-      v47 = sub_100004778();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+      v56 = sub_100004778(v39);
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v54 = channelUUID;
-        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "[WARN] Denying transmit start action; could not find a joined channel with UUID %@", buf, 0xCu);
+        v64 = channelUUID;
+        _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "[WARN] Denying transmit start action; could not find a joined channel with UUID %@", buf, 0xCu);
       }
 
-      v26 = [NSError cx_channelErrorWithCode:4];
-      if (!v15)
+      v29 = [NSError cx_channelErrorWithCode:4];
+      if (!v16)
       {
         goto LABEL_46;
       }
     }
 
-    if ([v15 isSendingTransmission])
+    isSendingTransmission = [v16 isSendingTransmission];
+    if (isSendingTransmission)
     {
       goto LABEL_46;
     }
 
-    v48 = sub_100004778();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+    v58 = sub_100004778(isSendingTransmission);
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v54 = channelUUID;
-      _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "[WARN] Denying transmit stop action; channel was not in a transmitting state %@", buf, 0xCu);
+      v64 = channelUUID;
+      _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "[WARN] Denying transmit stop action; channel was not in a transmitting state %@", buf, 0xCu);
     }
 
-    v46 = 7;
+    v55 = 7;
     goto LABEL_74;
   }
 
-  v27 = sub_100004778();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v30 = sub_100004778(isKindOfClass);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v54 = actionCopy;
-    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "[WARN] Denying invalid action %@", buf, 0xCu);
+    v64 = actionCopy;
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "[WARN] Denying invalid action %@", buf, 0xCu);
   }
 
-  v26 = [NSError cx_requestTransactionErrorWithCode:6];
+  v29 = [NSError cx_requestTransactionErrorWithCode:6];
   if (error)
   {
 LABEL_47:
-    if (v26)
+    if (v29)
     {
-      v38 = v26;
-      *error = v26;
+      v45 = v29;
+      *error = v29;
     }
   }
 
 LABEL_49:
 
-  return v26 == 0;
+  return v29 == 0;
+}
+
+- (BOOL)_shouldAllowTransaction:(id)transaction forChannelSource:(id)source shouldValidateUserIntent:(BOOL)intent error:(id *)error
+{
+  intentCopy = intent;
+  transactionCopy = transaction;
+  sourceCopy = source;
+  actions = [transactionCopy actions];
+  v13 = [actions count];
+
+  if (v13)
+  {
+    v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    actions2 = [transactionCopy actions];
+    v16 = [actions2 countByEnumeratingWithState:&v27 objects:v33 count:16];
+    if (v16)
+    {
+      v17 = v16;
+      v18 = *v28;
+      while (2)
+      {
+        v19 = 0;
+        do
+        {
+          if (*v28 != v18)
+          {
+            objc_enumerationMutation(actions2);
+          }
+
+          v20 = *(*(&v27 + 1) + 8 * v19);
+          v26 = 0;
+          [(CSDProviderCallDataSource *)self _shouldAllowAction:v20 forChannelSource:sourceCopy shouldValidateUserIntent:intentCopy error:&v26];
+          v21 = v26;
+          if (v21)
+          {
+            v22 = v21;
+            goto LABEL_12;
+          }
+
+          v19 = v19 + 1;
+        }
+
+        while (v17 != v19);
+        v17 = [actions2 countByEnumeratingWithState:&v27 objects:v33 count:16];
+        if (v17)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    v22 = 0;
+LABEL_12:
+
+    if (error)
+    {
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+    v25 = sub_100004778(v14);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v32 = transactionCopy;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "[WARN] Not allowing requested transaction because it is empty: %@", buf, 0xCu);
+    }
+
+    v22 = [NSError cx_requestTransactionErrorWithCode:3];
+    if (error)
+    {
+LABEL_13:
+      v23 = v22;
+      *error = v22;
+    }
+  }
+
+  return v22 == 0;
 }
 
 - (void)restorePersistedBargeCallsIfNecessary
@@ -946,124 +1050,124 @@ LABEL_49:
   if (activePersistedChannelIdentity)
   {
     channelUUID = [activePersistedChannelIdentity channelUUID];
-    v6 = [(CSDProviderCallDataSource *)self _callWithUUID:channelUUID];
+    v7 = [(CSDProviderCallDataSource *)self _callWithUUID:channelUUID];
 
-    v7 = sub_100004778();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-    if (v6)
+    v9 = sub_100004778(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    if (v7)
     {
-      if (v8)
+      if (v10)
       {
         uniqueProxyIdentifier = [0 uniqueProxyIdentifier];
-        v27 = 138412546;
-        v28 = uniqueProxyIdentifier;
-        v29 = 2112;
-        v30 = activePersistedChannelIdentity;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Found existing call with identifier %@; will not attempt to restore a call from persisted channel identity %@", &v27, 0x16u);
+        v31 = 138412546;
+        v32 = uniqueProxyIdentifier;
+        v33 = 2112;
+        v34 = activePersistedChannelIdentity;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Found existing call with identifier %@; will not attempt to restore a call from persisted channel identity %@", &v31, 0x16u);
       }
     }
 
     else
     {
-      if (v8)
+      if (v10)
       {
-        v27 = 138412290;
-        v28 = activePersistedChannelIdentity;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Attempting to restore a call from persisted channel identity %@", &v27, 0xCu);
+        v31 = 138412290;
+        v32 = activePersistedChannelIdentity;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Attempting to restore a call from persisted channel identity %@", &v31, 0xCu);
       }
 
-      v7 = [CSDProviderBargeCall callForChannelIdentity:activePersistedChannelIdentity];
-      applicationRecord = [v7 applicationRecord];
-      v11 = sub_100004778();
-      v12 = v11;
+      v9 = [CSDProviderBargeCall callForChannelIdentity:activePersistedChannelIdentity];
+      applicationRecord = [v9 applicationRecord];
+      v13 = sub_100004778(applicationRecord);
+      v14 = v13;
       if (applicationRecord)
       {
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          uniqueProxyIdentifier2 = [v7 uniqueProxyIdentifier];
-          v27 = 138412546;
-          v28 = uniqueProxyIdentifier2;
-          v29 = 2112;
-          v30 = activePersistedChannelIdentity;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Restoring call with identifier %@ from persisted channel identity %@", &v27, 0x16u);
+          uniqueProxyIdentifier2 = [v9 uniqueProxyIdentifier];
+          v31 = 138412546;
+          v32 = uniqueProxyIdentifier2;
+          v33 = 2112;
+          v34 = activePersistedChannelIdentity;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Restoring call with identifier %@ from persisted channel identity %@", &v31, 0x16u);
         }
 
         channelSourceManager = [(CSDProviderCallDataSource *)self channelSourceManager];
-        providerIdentifier = [v7 providerIdentifier];
-        v16 = [channelSourceManager channelSourceForIdentifier:providerIdentifier];
+        providerIdentifier = [v9 providerIdentifier];
+        v18 = [channelSourceManager channelSourceForIdentifier:providerIdentifier];
 
-        provider = [v7 provider];
-        v18 = provider | v16;
+        provider = [v9 provider];
+        v20 = provider | v18;
 
-        if (v18)
+        if (v20)
         {
-          provider2 = [v7 provider];
+          provider2 = [v9 provider];
 
-          if (!provider2 && v16)
+          if (!provider2 && v18)
           {
-            v20 = sub_100004778();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+            v24 = sub_100004778(v23);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
-              uniqueProxyIdentifierUUID = [v7 uniqueProxyIdentifierUUID];
-              v27 = 138412546;
-              v28 = uniqueProxyIdentifierUUID;
-              v29 = 2112;
-              v30 = v16;
-              _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Adding channel source %@ to restored channel with UUID %@", &v27, 0x16u);
+              uniqueProxyIdentifierUUID = [v9 uniqueProxyIdentifierUUID];
+              v31 = 138412546;
+              v32 = uniqueProxyIdentifierUUID;
+              v33 = 2112;
+              v34 = v18;
+              _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Adding channel source %@ to restored channel with UUID %@", &v31, 0x16u);
             }
 
-            [v7 setProviderSource:v16];
+            [v9 setProviderSource:v18];
           }
         }
 
         else
         {
-          v23 = sub_100004778();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v27 = sub_100004778(v21);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
-            v27 = 138412290;
-            v28 = activePersistedChannelIdentity;
-            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Synthesizing and registering persisted barge call's provider %@", &v27, 0xCu);
+            v31 = 138412290;
+            v32 = activePersistedChannelIdentity;
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Synthesizing and registering persisted barge call's provider %@", &v31, 0xCu);
           }
 
-          v24 = [[CSDChannelProvider alloc] initWithApplicationRecord:applicationRecord];
+          v28 = [[CSDChannelProvider alloc] initWithApplicationRecord:applicationRecord];
           channelProviderManager = [(CSDProviderCallDataSource *)self channelProviderManager];
-          [channelProviderManager registerProvider:v24];
+          [channelProviderManager registerProvider:v28];
         }
 
         callStateController = [(CSDCallDataSource *)self callStateController];
-        [callStateController setCallDelegatesIfNeeded:v7];
-        [callStateController propertiesChangedForCall:v7];
-        [v7 setTransmissionState:1];
-        v26 = +[NSDate date];
-        [v7 setDateConnected:v26];
+        [callStateController setCallDelegatesIfNeeded:v9];
+        [callStateController propertiesChangedForCall:v9];
+        [v9 setTransmissionState:1];
+        v30 = +[NSDate date];
+        [v9 setDateConnected:v30];
 
-        [v7 setHeld:1];
+        [v9 setHeld:1];
         [(CSDProviderCallDataSource *)self startObservingBluetoothHangupCommands];
-        [(CSDProviderCallDataSource *)self _startMonitoringAppForCall:v7];
+        [(CSDProviderCallDataSource *)self _startMonitoringAppForCall:v9];
       }
 
       else
       {
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           sub_1004754D8();
         }
 
-        v16 = +[CSDPersistedChannelRegistry sharedInstance];
+        v18 = +[CSDPersistedChannelRegistry sharedInstance];
         callStateController = [activePersistedChannelIdentity bundleIdentifier];
-        [v16 tearDownPersistedChannelForBundleIdentifier:callStateController teardownType:2];
+        [v18 tearDownPersistedChannelForBundleIdentifier:callStateController teardownType:2];
       }
     }
   }
 
   else
   {
-    v6 = sub_100004778();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004778(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v27) = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "A persisted channel identity was not found, no call restoration will be attempted", &v27, 2u);
+      LOWORD(v31) = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "A persisted channel identity was not found, no call restoration will be attempted", &v31, 2u);
     }
   }
 }
@@ -1073,22 +1177,20 @@ LABEL_49:
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   actions = [actions actions];
-  v4 = [actions countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [actions countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
-      for (i = 0; i != v4; i = i + 1)
+      for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(actions);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1097,7 +1199,7 @@ LABEL_49:
         }
       }
 
-      v4 = [actions countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [actions countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -1148,7 +1250,7 @@ LABEL_11:
   sourceCopy = source;
   transactionCopy = transaction;
   handlerCopy = handler;
-  v11 = sub_100004778();
+  v11 = sub_100004778(handlerCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412546;
@@ -1165,14 +1267,14 @@ LABEL_11:
 {
   sourceCopy = source;
   configurationCopy = configuration;
-  v8 = sub_100004778();
+  v8 = sub_100004778(configurationCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412546;
-    v22 = sourceCopy;
-    v23 = 2112;
-    v24 = configurationCopy;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Channel source %@ registered with configuration %@", &v21, 0x16u);
+    v22 = 138412546;
+    v23 = sourceCopy;
+    v24 = 2112;
+    v25 = configurationCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Channel source %@ registered with configuration %@", &v22, 0x16u);
   }
 
   v9 = [[CSDChannelProvider alloc] initWithSource:sourceCopy configuration:configurationCopy];
@@ -1193,27 +1295,27 @@ LABEL_11:
     applicationIdentifier2 = [activePersistedChannelIdentity applicationIdentifier];
     v18 = [(CSDProviderCallDataSource *)self _callWithUUID:channelUUID providerIdentifier:applicationIdentifier2];
 
-    callStateController = sub_100004778();
-    v20 = os_log_type_enabled(callStateController, OS_LOG_TYPE_DEFAULT);
+    callStateController = sub_100004778(v19);
+    v21 = os_log_type_enabled(callStateController, OS_LOG_TYPE_DEFAULT);
     if (v18)
     {
-      if (v20)
+      if (v21)
       {
-        v21 = 138412546;
-        v22 = sourceCopy;
-        v23 = 2112;
-        v24 = v18;
-        _os_log_impl(&_mh_execute_header, callStateController, OS_LOG_TYPE_DEFAULT, "Channel source flushing properties %@ for restored call %@", &v21, 0x16u);
+        v22 = 138412546;
+        v23 = sourceCopy;
+        v24 = 2112;
+        v25 = v18;
+        _os_log_impl(&_mh_execute_header, callStateController, OS_LOG_TYPE_DEFAULT, "Channel source flushing properties %@ for restored call %@", &v22, 0x16u);
       }
 
       callStateController = [(CSDCallDataSource *)self callStateController];
       [callStateController propertiesChangedForCall:v18];
     }
 
-    else if (v20)
+    else if (v21)
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&_mh_execute_header, callStateController, OS_LOG_TYPE_DEFAULT, "Channel source couldn't find call to flush properties", &v21, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&_mh_execute_header, callStateController, OS_LOG_TYPE_DEFAULT, "Channel source couldn't find call to flush properties", &v22, 2u);
     }
   }
 }
@@ -1223,16 +1325,16 @@ LABEL_11:
   sourceCopy = source;
   dCopy = d;
   dateCopy = date;
-  v11 = sub_100004778();
+  v11 = sub_100004778(dateCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412802;
-    v18 = sourceCopy;
-    v19 = 2112;
-    v20 = dCopy;
+    v19 = 138412802;
+    v20 = sourceCopy;
     v21 = 2112;
-    v22 = dateCopy;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Channel source %@ started connecting channel with UUID %@ at date %@", &v17, 0x20u);
+    v22 = dCopy;
+    v23 = 2112;
+    v24 = dateCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Channel source %@ started connecting channel with UUID %@ at date %@", &v19, 0x20u);
   }
 
   identifier = [sourceCopy identifier];
@@ -1240,14 +1342,14 @@ LABEL_11:
 
   if (!v13)
   {
-    v15 = sub_100004778();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100004778(v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412546;
-      v18 = sourceCopy;
-      v19 = 2112;
-      v20 = dCopy;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for channel source %@ and UUID %@", &v17, 0x16u);
+      v19 = 138412546;
+      v20 = sourceCopy;
+      v21 = 2112;
+      v22 = dCopy;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for channel source %@ and UUID %@", &v19, 0x16u);
     }
 
     goto LABEL_12;
@@ -1257,13 +1359,13 @@ LABEL_11:
 
   if (dateStartedConnecting)
   {
-    v15 = sub_100004778();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100004778(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       uniqueProxyIdentifier = [v13 uniqueProxyIdentifier];
-      v17 = 138412290;
-      v18 = uniqueProxyIdentifier;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[WARN] Call with UUID %@ already has a started connecting date.", &v17, 0xCu);
+      v19 = 138412290;
+      v20 = uniqueProxyIdentifier;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[WARN] Call with UUID %@ already has a started connecting date.", &v19, 0xCu);
     }
 
     goto LABEL_12;
@@ -1271,8 +1373,8 @@ LABEL_11:
 
   if (!dateCopy)
   {
-    v15 = +[NSDate date];
-    [v13 setDateStartedConnecting:v15];
+    v17 = +[NSDate date];
+    [v13 setDateStartedConnecting:v17];
 LABEL_12:
 
     goto LABEL_13;
@@ -1287,16 +1389,16 @@ LABEL_13:
   sourceCopy = source;
   dCopy = d;
   dateCopy = date;
-  v11 = sub_100004778();
+  v11 = sub_100004778(dateCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412802;
-    v18 = sourceCopy;
-    v19 = 2112;
-    v20 = dCopy;
+    v19 = 138412802;
+    v20 = sourceCopy;
     v21 = 2112;
-    v22 = dateCopy;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Channel source %@ connected channel with UUID %@ at date %@", &v17, 0x20u);
+    v22 = dCopy;
+    v23 = 2112;
+    v24 = dateCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Channel source %@ connected channel with UUID %@ at date %@", &v19, 0x20u);
   }
 
   identifier = [sourceCopy identifier];
@@ -1304,14 +1406,14 @@ LABEL_13:
 
   if (!v13)
   {
-    v15 = sub_100004778();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100004778(v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412546;
-      v18 = sourceCopy;
-      v19 = 2112;
-      v20 = dCopy;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for channel source %@ and UUID %@", &v17, 0x16u);
+      v19 = 138412546;
+      v20 = sourceCopy;
+      v21 = 2112;
+      v22 = dCopy;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for channel source %@ and UUID %@", &v19, 0x16u);
     }
 
     goto LABEL_12;
@@ -1321,13 +1423,13 @@ LABEL_13:
 
   if (dateConnected)
   {
-    v15 = sub_100004778();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100004778(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       uniqueProxyIdentifier = [v13 uniqueProxyIdentifier];
-      v17 = 138412290;
-      v18 = uniqueProxyIdentifier;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[WARN] Call with UUID %@ already has a connected date.", &v17, 0xCu);
+      v19 = 138412290;
+      v20 = uniqueProxyIdentifier;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[WARN] Call with UUID %@ already has a connected date.", &v19, 0xCu);
     }
 
     goto LABEL_12;
@@ -1335,8 +1437,8 @@ LABEL_13:
 
   if (!dateCopy)
   {
-    v15 = +[NSDate date];
-    [v13 setDateConnected:v15];
+    v17 = +[NSDate date];
+    [v13 setDateConnected:v17];
 LABEL_12:
 
     goto LABEL_13;
@@ -1351,18 +1453,18 @@ LABEL_13:
   sourceCopy = source;
   dCopy = d;
   dateCopy = date;
-  v13 = sub_100004778();
+  v13 = sub_100004778(dateCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138413058;
-    v21 = sourceCopy;
-    v22 = 2112;
-    v23 = dCopy;
-    v24 = 2048;
+    v22 = 138413058;
+    v23 = sourceCopy;
+    v24 = 2112;
+    v25 = dCopy;
+    v26 = 2048;
     reasonCopy = reason;
-    v26 = 2112;
-    v27 = dateCopy;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Channel source %@ disconnected channel with UUID %@ with reason %ld at date %@", &v20, 0x2Au);
+    v28 = 2112;
+    v29 = dateCopy;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Channel source %@ disconnected channel with UUID %@ with reason %ld at date %@", &v22, 0x2Au);
   }
 
   identifier = [sourceCopy identifier];
@@ -1370,14 +1472,14 @@ LABEL_13:
 
   if (!v15)
   {
-    v17 = sub_100004778();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_100004778(v16);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412546;
-      v21 = sourceCopy;
-      v22 = 2112;
-      v23 = dCopy;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for channel source %@ and UUID %@", &v20, 0x16u);
+      v22 = 138412546;
+      v23 = sourceCopy;
+      v24 = 2112;
+      v25 = dCopy;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for channel source %@ and UUID %@", &v22, 0x16u);
     }
 
     goto LABEL_9;
@@ -1387,13 +1489,13 @@ LABEL_13:
 
   if (dateEnded)
   {
-    v17 = sub_100004778();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_100004778(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       uniqueProxyIdentifier = [v15 uniqueProxyIdentifier];
-      v20 = 138412290;
-      v21 = uniqueProxyIdentifier;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[WARN] Call with UUID %@ already has a disconnected date.", &v20, 0xCu);
+      v22 = 138412290;
+      v23 = uniqueProxyIdentifier;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[WARN] Call with UUID %@ already has a disconnected date.", &v22, 0xCu);
     }
 
 LABEL_9:
@@ -1413,8 +1515,8 @@ LABEL_9:
 
   else
   {
-    v19 = +[NSDate date];
-    [v15 setDateEnded:v19];
+    v21 = +[NSDate date];
+    [v15 setDateEnded:v21];
   }
 
   [v15 setEndedReason:reason];
@@ -1426,27 +1528,32 @@ LABEL_16:
   sourceCopy = source;
   dCopy = d;
   updatedCopy = updated;
-  v11 = sub_100004778();
+  v11 = sub_100004778(updatedCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412802;
-    v18 = sourceCopy;
-    v19 = 2112;
-    v20 = dCopy;
-    v21 = 2112;
-    v22 = updatedCopy;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Channel source %@ updated channel with UUID %@ with update %@", &v17, 0x20u);
+    v18 = 138412802;
+    v19 = sourceCopy;
+    v20 = 2112;
+    v21 = dCopy;
+    v22 = 2112;
+    v23 = updatedCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Channel source %@ updated channel with UUID %@ with update %@", &v18, 0x20u);
   }
 
   identifier = [sourceCopy identifier];
   v13 = [(CSDProviderCallDataSource *)self _callWithUUID:dCopy providerIdentifier:identifier];
 
-  if ([v13 isSendingTransmission] && (objc_msgSend(updatedCopy, "hasSet") & 0x200) != 0)
+  isSendingTransmission = [v13 isSendingTransmission];
+  if (isSendingTransmission)
   {
-    v14 = v13;
-    if ([updatedCopy transmissionMode] == 2 || objc_msgSend(v14, "isReceivingTransmission") && objc_msgSend(updatedCopy, "transmissionMode") == 1)
+    isSendingTransmission = [updatedCopy hasSet];
+    if ((isSendingTransmission & 0x200) != 0)
     {
-      [v14 stopTransmissionWithOriginator:2];
+      v15 = v13;
+      if ([updatedCopy transmissionMode] == 2 || objc_msgSend(v15, "isReceivingTransmission") && objc_msgSend(updatedCopy, "transmissionMode") == 1)
+      {
+        [v15 stopTransmissionWithOriginator:2];
+      }
     }
   }
 
@@ -1467,14 +1574,14 @@ LABEL_16:
 
   else
   {
-    csd_callUpdate = sub_100004778();
+    csd_callUpdate = sub_100004778(isSendingTransmission);
     if (os_log_type_enabled(csd_callUpdate, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412546;
-      v18 = sourceCopy;
-      v19 = 2112;
-      v20 = dCopy;
-      _os_log_impl(&_mh_execute_header, csd_callUpdate, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for channel source %@ and UUID %@", &v17, 0x16u);
+      v18 = 138412546;
+      v19 = sourceCopy;
+      v20 = 2112;
+      v21 = dCopy;
+      _os_log_impl(&_mh_execute_header, csd_callUpdate, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for channel source %@ and UUID %@", &v18, 0x16u);
     }
   }
 }
@@ -1484,17 +1591,17 @@ LABEL_16:
   sourceCopy = source;
   dCopy = d;
   handlerCopy = handler;
-  v13 = sub_100004778();
+  v13 = sub_100004778(handlerCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
-    v20 = 138412802;
-    v21 = sourceCopy;
-    v22 = 2112;
-    v23 = uUIDString;
-    v24 = 2048;
+    v21 = 138412802;
+    v22 = sourceCopy;
+    v23 = 2112;
+    v24 = uUIDString;
+    v25 = 2048;
     reasonCopy = reason;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Channel source %@ reported a channel with UUID %@ ended an incoming transmission with reason %ld", &v20, 0x20u);
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Channel source %@ reported a channel with UUID %@ ended an incoming transmission with reason %ld", &v21, 0x20u);
   }
 
   identifier = [sourceCopy identifier];
@@ -1517,7 +1624,7 @@ LABEL_16:
         [v16 setHeld:1];
       }
 
-      v19 = 0;
+      v20 = 0;
       if (handlerCopy)
       {
         goto LABEL_10;
@@ -1526,29 +1633,29 @@ LABEL_16:
       goto LABEL_11;
     }
 
-    v17 = 7;
+    v18 = 7;
   }
 
   else
   {
-    v18 = sub_100004778();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_100004778(v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412546;
-      v21 = sourceCopy;
-      v22 = 2112;
-      v23 = dCopy;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for channel source %@ and UUID %@", &v20, 0x16u);
+      v21 = 138412546;
+      v22 = sourceCopy;
+      v23 = 2112;
+      v24 = dCopy;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for channel source %@ and UUID %@", &v21, 0x16u);
     }
 
-    v17 = 4;
+    v18 = 4;
   }
 
-  v19 = [NSError cx_channelErrorWithCode:v17];
+  v20 = [NSError cx_channelErrorWithCode:v18];
   if (handlerCopy)
   {
 LABEL_10:
-    handlerCopy[2](handlerCopy, v19);
+    handlerCopy[2](handlerCopy, v20);
   }
 
 LABEL_11:
@@ -1561,17 +1668,17 @@ LABEL_11:
   dCopy = d;
   updateCopy = update;
   handlerCopy = handler;
-  v16 = sub_100004778();
+  v16 = sub_100004778(handlerCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
-    v37 = 138412802;
-    v38 = sourceCopy;
-    v39 = 2112;
-    v40 = uUIDString;
+    v39 = 138412802;
+    v40 = sourceCopy;
     v41 = 2112;
-    v42 = updateCopy;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Channel source %@ reported a channel with UUID %@ started an incoming transmission with update %@", &v37, 0x20u);
+    v42 = uUIDString;
+    v43 = 2112;
+    v44 = updateCopy;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Channel source %@ reported a channel with UUID %@ started an incoming transmission with update %@", &v39, 0x20u);
   }
 
   identifier = [sourceCopy identifier];
@@ -1587,9 +1694,10 @@ LABEL_11:
     [v23 postNotificationName:@"CSDBargeCallSetValidActiveRemoteParticipantNameNotification" object:v19];
   }
 
-  if ([(CSDProviderCallDataSource *)self _activeStandardCallExists])
+  _activeStandardCallExists = [(CSDProviderCallDataSource *)self _activeStandardCallExists];
+  if (_activeStandardCallExists)
   {
-    v24 = 2;
+    v25 = 2;
     goto LABEL_29;
   }
 
@@ -1614,34 +1722,38 @@ LABEL_11:
       goto LABEL_24;
     }
 
-    if ([v19 transmissionMode] == 1 && (objc_msgSend(v19, "transmissionState") & 4) != 0 && transmissionCopy)
+    if ([v19 transmissionMode] == 1)
     {
-      v25 = sub_100004778();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      transmissionState = [v19 transmissionState];
+      if ((transmissionState & 4) != 0 && transmissionCopy)
       {
-        LOWORD(v37) = 0;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Replacing outgoing PTT transmission with incoming active remote speaker.", &v37, 2u);
+        v27 = sub_100004778(transmissionState);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(v39) = 0;
+          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Replacing outgoing PTT transmission with incoming active remote speaker.", &v39, 2u);
+        }
+
+        [v19 setTransmissionState:{objc_msgSend(v19, "transmissionState") | 2}];
+        csd_callUpdate3 = [updateCopy csd_callUpdate];
+        [v19 updateWithCallUpdate:csd_callUpdate3 notifyDelegate:0];
+
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+          goto LABEL_21;
+        }
+
+        v29 = v19;
+        v30 = [CXChannelTransmitStopAction alloc];
+        uniqueProxyIdentifierUUID = [v29 uniqueProxyIdentifierUUID];
+        csd_callUpdate4 = [v30 initWithChannelUUID:uniqueProxyIdentifierUUID];
+
+        [csd_callUpdate4 setOriginator:2];
+        [(CSDProviderCallDataSource *)self performChannelAction:csd_callUpdate4 forCall:v29];
+
+        goto LABEL_33;
       }
-
-      [v19 setTransmissionState:{objc_msgSend(v19, "transmissionState") | 2}];
-      csd_callUpdate3 = [updateCopy csd_callUpdate];
-      [v19 updateWithCallUpdate:csd_callUpdate3 notifyDelegate:0];
-
-      objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
-      {
-        goto LABEL_21;
-      }
-
-      v27 = v19;
-      v28 = [CXChannelTransmitStopAction alloc];
-      uniqueProxyIdentifierUUID = [v27 uniqueProxyIdentifierUUID];
-      csd_callUpdate4 = [v28 initWithChannelUUID:uniqueProxyIdentifierUUID];
-
-      [csd_callUpdate4 setOriginator:2];
-      [(CSDProviderCallDataSource *)self performChannelAction:csd_callUpdate4 forCall:v27];
-
-      goto LABEL_33;
     }
 
     if (![v19 transmissionMode] && (objc_msgSend(v19, "transmissionState") & 4) != 0)
@@ -1661,7 +1773,7 @@ LABEL_21:
       }
 
 LABEL_24:
-      v36 = 0;
+      v38 = 0;
       if (!handlerCopy)
       {
         goto LABEL_31;
@@ -1670,30 +1782,30 @@ LABEL_24:
       goto LABEL_30;
     }
 
-    v24 = 6;
+    v25 = 6;
   }
 
   else
   {
-    v31 = sub_100004778();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_100004778(_activeStandardCallExists);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = 138412546;
-      v38 = sourceCopy;
-      v39 = 2112;
-      v40 = dCopy;
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for channel source %@ and UUID %@", &v37, 0x16u);
+      v39 = 138412546;
+      v40 = sourceCopy;
+      v41 = 2112;
+      v42 = dCopy;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for channel source %@ and UUID %@", &v39, 0x16u);
     }
 
-    v24 = 4;
+    v25 = 4;
   }
 
 LABEL_29:
-  v36 = [NSError cx_channelErrorWithCode:v24];
+  v38 = [NSError cx_channelErrorWithCode:v25];
   if (handlerCopy)
   {
 LABEL_30:
-    handlerCopy[2](handlerCopy, v36);
+    handlerCopy[2](handlerCopy, v38);
   }
 
 LABEL_31:
@@ -1753,18 +1865,19 @@ LABEL_31:
   bundleIdentifier = [intent bundleIdentifier];
   v5 = [RBSProcessPredicate predicateMatchingBundleIdentifier:bundleIdentifier];
 
-  v14 = 0;
-  v6 = [RBSProcessHandle handleForPredicate:v5 error:&v14];
-  v7 = v14;
+  v16 = 0;
+  v6 = [RBSProcessHandle handleForPredicate:v5 error:&v16];
+  v7 = v16;
+  v8 = v7;
   if (v7)
   {
-    assertions = sub_100004778();
+    assertions = sub_100004778(v7);
     if (os_log_type_enabled(assertions, OS_LOG_TYPE_ERROR))
     {
       sub_1004755B0();
     }
 
-    LOBYTE(v9) = 0;
+    LOBYTE(v10) = 0;
   }
 
   else
@@ -1774,25 +1887,25 @@ LABEL_31:
 
     if (assertions)
     {
-      v11 = [assertions valueForKey:@"domain"];
-      v9 = [(CSDProviderCallDataSource *)self _channelSourceAssertionsContainsPTTTransmissionIntent:v11];
+      v13 = [assertions valueForKey:@"domain"];
+      v10 = [(CSDProviderCallDataSource *)self _channelSourceAssertionsContainsPTTTransmissionIntent:v13];
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
-    v12 = sub_100004778();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100004778(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v16 = v9;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "ChannelSource has PushToTalkTransmissionIntent assertion: %d", buf, 8u);
+      v18 = v10;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "ChannelSource has PushToTalkTransmissionIntent assertion: %d", buf, 8u);
     }
   }
 
-  return v9;
+  return v10;
 }
 
 - (BOOL)_channelSourceAssertionsContainsPTTTransmissionIntent:(id)intent
@@ -1864,35 +1977,36 @@ LABEL_31:
   bundleIdentifier = [applicationRecord bundleIdentifier];
   v7 = [CSDVoIPProcessAssertion processAssertionWithBundleIdentifier:bundleIdentifier];
 
-  LODWORD(bundleIdentifier) = [v7 acquire];
-  v8 = sub_100004778();
-  v9 = v8;
+  acquire = [v7 acquire];
+  LODWORD(bundleIdentifier) = acquire;
+  v9 = sub_100004778(acquire);
+  v10 = v9;
   if (bundleIdentifier)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       uniqueProxyIdentifier = [callCopy uniqueProxyIdentifier];
       *buf = 134218242;
-      v17 = v7;
-      v18 = 2112;
-      v19 = uniqueProxyIdentifier;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Taking temporary process assertion %p for barge call with identifier %@", buf, 0x16u);
+      v18 = v7;
+      v19 = 2112;
+      v20 = uniqueProxyIdentifier;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Taking temporary process assertion %p for barge call with identifier %@", buf, 0x16u);
     }
 
-    v11 = dispatch_time(0, 15000000000);
+    v12 = dispatch_time(0, 15000000000);
     queue = [(CSDCallDataSource *)self queue];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_10011592C;
-    v13[3] = &unk_100619D88;
-    v14 = v7;
-    v15 = callCopy;
-    dispatch_after(v11, queue, v13);
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_10011592C;
+    v14[3] = &unk_100619D88;
+    v15 = v7;
+    v16 = callCopy;
+    dispatch_after(v12, queue, v14);
 
-    v9 = v14;
+    v10 = v15;
   }
 
-  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     sub_100475618(v7, callCopy);
   }
@@ -1912,7 +2026,7 @@ LABEL_31:
 
   else
   {
-    processAssertionManager = sub_100004778();
+    processAssertionManager = sub_100004778(0);
     if (os_log_type_enabled(processAssertionManager, OS_LOG_TYPE_DEFAULT))
     {
       uniqueProxyIdentifier = [callCopy uniqueProxyIdentifier];
@@ -1954,13 +2068,13 @@ LABEL_31:
 {
   actionCopy = action;
   callCopy = call;
-  v8 = sub_100004778();
+  v8 = sub_100004778(callCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v31 = actionCopy;
-    v32 = 2112;
-    v33 = callCopy;
+    v33 = actionCopy;
+    v34 = 2112;
+    v35 = callCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Asked to perform action %@ for call %@", buf, 0x16u);
   }
 
@@ -1990,13 +2104,13 @@ LABEL_23:
       goto LABEL_24;
     }
 
-    v15 = sub_100004778();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100004778(v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       providerSource4 = [callCopy providerSource];
       *buf = 138412290;
-      v31 = providerSource4;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[WARN] Provider source was not of type CXChannelSource: %@", buf, 0xCu);
+      v33 = providerSource4;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[WARN] Provider source was not of type CXChannelSource: %@", buf, 0xCu);
     }
 
 LABEL_18:
@@ -2008,41 +2122,42 @@ LABEL_18:
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v18 = objc_opt_isKindOfClass();
+    if (v18)
     {
       providerSource3 = actionCopy;
-      v17 = objc_alloc_init(_LSOpenConfiguration);
-      v28 = FBSOpenApplicationOptionKeyActivateSuspended;
-      v29 = &__kCFBooleanTrue;
-      v18 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-      [v17 setFrontBoardOptions:v18];
+      v19 = objc_alloc_init(_LSOpenConfiguration);
+      v30 = FBSOpenApplicationOptionKeyActivateSuspended;
+      v31 = &__kCFBooleanTrue;
+      v20 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      [v19 setFrontBoardOptions:v20];
 
       applicationRecord = [callCopy applicationRecord];
       bundleIdentifier = [applicationRecord bundleIdentifier];
 
       if ([bundleIdentifier length])
       {
-        v21 = +[LSApplicationWorkspace defaultWorkspace];
-        v23[0] = _NSConcreteStackBlock;
-        v23[1] = 3221225472;
-        v23[2] = sub_100116050;
-        v23[3] = &unk_10061BCD8;
-        v23[4] = self;
-        v24 = callCopy;
-        v25 = providerSource3;
-        v26 = bundleIdentifier;
-        v27 = v25;
-        [v21 openApplicationWithBundleIdentifier:v26 configuration:v17 completionHandler:v23];
+        v23 = +[LSApplicationWorkspace defaultWorkspace];
+        v25[0] = _NSConcreteStackBlock;
+        v25[1] = 3221225472;
+        v25[2] = sub_100116050;
+        v25[3] = &unk_10061BCD8;
+        v25[4] = self;
+        v26 = callCopy;
+        v27 = providerSource3;
+        v28 = bundleIdentifier;
+        v29 = v27;
+        [v23 openApplicationWithBundleIdentifier:v28 configuration:v19 completionHandler:v25];
       }
 
       else
       {
-        v22 = sub_100004778();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v24 = sub_100004778(0);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v31 = providerSource3;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Could not obtain bundle identifier; cannot process action %@", buf, 0xCu);
+          v33 = providerSource3;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Could not obtain bundle identifier; cannot process action %@", buf, 0xCu);
         }
 
         [(CSDProviderCallDataSource *)self invalidateIndefiniteProcessAssertionForCall:callCopy];
@@ -2051,14 +2166,14 @@ LABEL_18:
       goto LABEL_23;
     }
 
-    v15 = sub_100004778();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100004778(v18);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v31 = actionCopy;
-      v32 = 2112;
-      v33 = callCopy;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring action %@ until a provider source connects to call %@", buf, 0x16u);
+      v33 = actionCopy;
+      v34 = 2112;
+      v35 = callCopy;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring action %@ until a provider source connects to call %@", buf, 0x16u);
     }
 
     goto LABEL_18;
@@ -2089,17 +2204,17 @@ LABEL_24:
       block[2] = sub_100116424;
       block[3] = &unk_100619D88;
       block[4] = self;
-      v12 = callCopy;
-      v20 = v12;
+      v13 = callCopy;
+      v21 = v13;
       dispatch_async(processObserverQueue, block);
 
       objc_initWeak(location, self);
-      objc_copyWeak(&v17, location);
-      v16 = v12;
-      v13 = [(CSDProviderCallDataSource *)self processObserver:_NSConcreteStackBlock];
-      [v13 setProcessStateChanged:&v15];
+      objc_copyWeak(&v18, location);
+      v17 = v13;
+      v14 = [(CSDProviderCallDataSource *)self processObserver:_NSConcreteStackBlock];
+      [v14 setProcessStateChanged:&v16];
 
-      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v18);
       objc_destroyWeak(location);
 
       goto LABEL_8;
@@ -2110,14 +2225,77 @@ LABEL_24:
   {
   }
 
-  v14 = sub_100004778();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_100004778(v11);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(location[0]) = 0;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "BargeCall provider bundle identifier was empty so we are not able to start monitoring the process.", location, 2u);
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "BargeCall provider bundle identifier was empty so we are not able to start monitoring the process.", location, 2u);
   }
 
 LABEL_8:
+}
+
+- (void)_processPushToTalkAppStateChangedForCall:(id)call withPID:(int)d processState:(int64_t)state
+{
+  v6 = *&d;
+  callCopy = call;
+  processObserver = [(CSDProviderCallDataSource *)self processObserver];
+  providerSource = [callCopy providerSource];
+  bundleIdentifier = [providerSource bundleIdentifier];
+  v12 = [processObserver processIdentifiersForBundleIdentifier:bundleIdentifier];
+
+  v13 = [v12 count];
+  if (v13 >= 2)
+  {
+    v14 = sub_100004778(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      stateCopy = v12;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[WARN] BargeCall provider source has multiple process identifiers: %@", buf, 0xCu);
+    }
+  }
+
+  v15 = [NSNumber numberWithInt:v6];
+  if (![v12 containsObject:v15])
+  {
+    goto LABEL_12;
+  }
+
+  if ([callCopy isSendingTransmission])
+  {
+
+LABEL_9:
+    v18 = sub_100004778(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134217984;
+      stateCopy = state;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "BargeCall provider source has changed process state to: %ld", buf, 0xCu);
+    }
+
+    queue = [(CSDCallDataSource *)self queue];
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100116758;
+    block[3] = &unk_100619D38;
+    v21 = callCopy;
+    dispatch_async(queue, block);
+
+    v15 = v21;
+LABEL_12:
+
+    goto LABEL_13;
+  }
+
+  isReceivingTransmission = [callCopy isReceivingTransmission];
+
+  if (isReceivingTransmission)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_13:
 }
 
 - (void)_stopMonitoringPushToTalkAppProcess
@@ -2133,7 +2311,7 @@ LABEL_8:
   obj = observer;
   observerCopy = observer;
   v21 = queueCopy;
-  v119 = observerCopy;
+  v117 = observerCopy;
   clientCopy = client;
   managerCopy = manager;
   sourceManagerCopy = sourceManager;
@@ -2142,14 +2320,14 @@ LABEL_8:
   providerCopy = provider;
   supportCopy = support;
   flagsCopy = flags;
-  v146.receiver = self;
-  v146.super_class = CSDProviderCallDataSource;
-  v123 = controllerCopy;
-  v26 = [(CSDCallDataSource *)&v146 initWithCallStateController:controllerCopy queue:queueCopy];
+  v144.receiver = self;
+  v144.super_class = CSDProviderCallDataSource;
+  v121 = controllerCopy;
+  v26 = [(CSDCallDataSource *)&v144 initWithCallStateController:controllerCopy queue:queueCopy];
   v27 = v26;
   if (v26)
   {
-    v118 = providerCopy;
+    v116 = providerCopy;
     objc_storeStrong(&v26->_assistantServicesObserver, obj);
     v28 = clientCopy;
     if (!clientCopy)
@@ -2170,56 +2348,56 @@ LABEL_8:
     incomingCallFilterQueryResult = v27->_incomingCallFilterQueryResult;
     v27->_incomingCallFilterQueryResult = &stru_10061FB80;
 
-    v144[0] = _NSConcreteStackBlock;
-    v144[1] = 3221225472;
-    v144[2] = sub_1002530E4;
-    v144[3] = &unk_10061FBA8;
-    v32 = v123;
-    v145 = v32;
-    v33 = objc_retainBlock(v144);
+    v142[0] = _NSConcreteStackBlock;
+    v142[1] = 3221225472;
+    v142[2] = sub_1002530E4;
+    v142[3] = &unk_10061FBA8;
+    v32 = v121;
+    v143 = v32;
+    v33 = objc_retainBlock(v142);
     systemAllowsCall = v27->_systemAllowsCall;
     v27->_systemAllowsCall = v33;
 
-    v142[0] = _NSConcreteStackBlock;
-    v142[1] = 3221225472;
-    v142[2] = sub_100253168;
-    v142[3] = &unk_10061FBD0;
+    v140[0] = _NSConcreteStackBlock;
+    v140[1] = 3221225472;
+    v140[2] = sub_100253168;
+    v140[3] = &unk_10061FBD0;
     v35 = v32;
-    v143 = v35;
-    v36 = objc_retainBlock(v142);
+    v141 = v35;
+    v36 = objc_retainBlock(v140);
     callDirectoryAllowsCallFromSourceAddress = v27->_callDirectoryAllowsCallFromSourceAddress;
     v27->_callDirectoryAllowsCallFromSourceAddress = v36;
 
-    v140[0] = _NSConcreteStackBlock;
-    v140[1] = 3221225472;
-    v140[2] = sub_1002531D0;
-    v140[3] = &unk_10061FBD0;
+    v138[0] = _NSConcreteStackBlock;
+    v138[1] = 3221225472;
+    v138[2] = sub_1002531D0;
+    v138[3] = &unk_10061FBD0;
     v38 = v35;
-    v141 = v38;
-    v39 = objc_retainBlock(v140);
+    v139 = v38;
+    v39 = objc_retainBlock(v138);
     liveLookupExtensionsAllowCallsFromHandle = v27->_liveLookupExtensionsAllowCallsFromHandle;
     v27->_liveLookupExtensionsAllowCallsFromHandle = v39;
 
-    v138[0] = _NSConcreteStackBlock;
-    v138[1] = 3221225472;
-    v138[2] = sub_100253238;
-    v138[3] = &unk_10061FBF8;
+    v136[0] = _NSConcreteStackBlock;
+    v136[1] = 3221225472;
+    v136[2] = sub_100253238;
+    v136[3] = &unk_10061FBF8;
     v41 = v38;
-    v139 = v41;
-    v42 = objc_retainBlock(v138);
+    v137 = v41;
+    v42 = objc_retainBlock(v136);
     blockedByExtension = v27->_blockedByExtension;
     v27->_blockedByExtension = v42;
 
     supportsPrimaryCalling = v27->_supportsPrimaryCalling;
     v27->_supportsPrimaryCalling = &stru_10061FC18;
 
-    v136[0] = _NSConcreteStackBlock;
-    v136[1] = 3221225472;
-    v136[2] = sub_1002532C0;
-    v136[3] = &unk_10061FC40;
+    v134[0] = _NSConcreteStackBlock;
+    v134[1] = 3221225472;
+    v134[2] = sub_1002532C0;
+    v134[3] = &unk_10061FC40;
     v45 = v41;
-    v137 = v45;
-    v46 = objc_retainBlock(v136);
+    v135 = v45;
+    v46 = objc_retainBlock(v134);
     shouldPreferRelayOverDirectSecondaryCalling = v27->_shouldPreferRelayOverDirectSecondaryCalling;
     v27->_shouldPreferRelayOverDirectSecondaryCalling = v46;
 
@@ -2267,33 +2445,33 @@ LABEL_8:
 
     [(CSDCallFilterController *)v27->_callFilterController addCallFilter:v27->_screenTimeCallFilter];
     objc_initWeak(&location, v27);
-    v133[0] = _NSConcreteStackBlock;
-    v133[1] = 3221225472;
-    v133[2] = sub_100253320;
-    v133[3] = &unk_10061FC68;
-    objc_copyWeak(&v134, &location);
-    v67 = objc_retainBlock(v133);
+    v131[0] = _NSConcreteStackBlock;
+    v131[1] = 3221225472;
+    v131[2] = sub_100253320;
+    v131[3] = &unk_10061FC68;
+    objc_copyWeak(&v132, &location);
+    v67 = objc_retainBlock(v131);
     shouldFilterCall = v27->_shouldFilterCall;
     v27->_shouldFilterCall = v67;
 
     isAutoAnswerDeviceBlock = v27->_isAutoAnswerDeviceBlock;
     v27->_isAutoAnswerDeviceBlock = &stru_10061FC88;
 
-    v131[0] = _NSConcreteStackBlock;
-    v131[1] = 3221225472;
-    v131[2] = sub_1002536FC;
-    v131[3] = &unk_10061FC68;
-    objc_copyWeak(&v132, &location);
-    v70 = objc_retainBlock(v131);
+    v129[0] = _NSConcreteStackBlock;
+    v129[1] = 3221225472;
+    v129[2] = sub_1002536FC;
+    v129[3] = &unk_10061FC68;
+    objc_copyWeak(&v130, &location);
+    v70 = objc_retainBlock(v129);
     focusAllowsCall = v27->_focusAllowsCall;
     v27->_focusAllowsCall = v70;
 
-    v129[0] = _NSConcreteStackBlock;
-    v129[1] = 3221225472;
-    v129[2] = sub_10025378C;
-    v129[3] = &unk_10061FCB0;
-    objc_copyWeak(&v130, &location);
-    v72 = objc_retainBlock(v129);
+    v127[0] = _NSConcreteStackBlock;
+    v127[1] = 3221225472;
+    v127[2] = sub_10025378C;
+    v127[3] = &unk_10061FCB0;
+    objc_copyWeak(&v128, &location);
+    v72 = objc_retainBlock(v127);
     isEligibleBlock = v27->_isEligibleBlock;
     v27->_isEligibleBlock = v72;
 
@@ -2360,9 +2538,9 @@ LABEL_8:
     block[2] = sub_100253884;
     block[3] = &unk_100619D88;
     v98 = v27;
-    v127 = v98;
-    v128 = v21;
-    dispatch_async(v128, block);
+    v125 = v98;
+    v126 = v21;
+    dispatch_async(v126, block);
     if (TUShouldCreateSuperboxProvider())
     {
       v99 = [[CXInProcessCallSource alloc] initWithIdentifier:@"com.apple.Superbox" bundleIdentifier:@"com.apple.Superbox" fallbackLocalizedName:@"Superbox"];
@@ -2407,31 +2585,29 @@ LABEL_8:
     {
     }
 
-    v111 = v98[14];
-    v112 = v98[51];
     if (TUCommunicationTrustEnabled())
     {
-      v113 = v118;
-      v114 = v118;
-      if (!v118)
+      v111 = v116;
+      v112 = v116;
+      if (!v116)
       {
-        v114 = objc_alloc_init(CSDCommunicationTrustScoreDataProvider);
-        v113 = 0;
+        v112 = objc_alloc_init(CSDCommunicationTrustScoreDataProvider);
+        v111 = 0;
       }
 
-      objc_storeStrong(v98 + 49, v114);
-      if (!v113)
+      objc_storeStrong(v98 + 49, v112);
+      if (!v111)
       {
       }
     }
 
+    objc_destroyWeak(&v128);
     objc_destroyWeak(&v130);
     objc_destroyWeak(&v132);
-    objc_destroyWeak(&v134);
     objc_destroyWeak(&location);
 
     clientCopy = obja;
-    providerCopy = v118;
+    providerCopy = v116;
   }
 
   return v27;
@@ -2466,7 +2642,7 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  callControllerHost = sub_100004778();
+  callControllerHost = sub_100004778(isPTT);
   if (os_log_type_enabled(callControllerHost, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
@@ -3046,7 +3222,7 @@ LABEL_12:
 - (void)_endCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uniqueProxyIdentifier = [callCopy uniqueProxyIdentifier];
@@ -3065,52 +3241,53 @@ LABEL_12:
 - (id)_endMutuallyExclusiveCalls:(id)calls
 {
   callsCopy = calls;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = callsCopy;
+    v26 = callsCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "_endMutuallyExclusiveCalls: update=%@", buf, 0xCu);
   }
 
-  v20 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
+  v22 = 0u;
   calls = [(CSDCallDataSource *)self calls];
-  v7 = [calls countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v7 = [calls countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (!v7)
   {
 
     v9 = 0;
 LABEL_24:
-    v15 = 0;
+    v18 = 0;
     goto LABEL_25;
   }
 
   v8 = v7;
   v9 = 0;
-  v10 = *v19;
+  v10 = *v22;
   do
   {
     for (i = 0; i != v8; i = i + 1)
     {
-      if (*v19 != v10)
+      if (*v22 != v10)
       {
         objc_enumerationMutation(calls);
       }
 
-      v12 = *(*(&v18 + 1) + 8 * i);
-      if ([v12 isMutuallyExclusiveCall])
+      v12 = *(*(&v21 + 1) + 8 * i);
+      isMutuallyExclusiveCall = [v12 isMutuallyExclusiveCall];
+      if (isMutuallyExclusiveCall)
       {
         if (v9)
         {
-          v13 = sub_100004778();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v14 = sub_100004778(isMutuallyExclusiveCall);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v23 = v12;
-            _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Found multiple existing mutually exclusive calls.  Ending call %@", buf, 0xCu);
+            v26 = v12;
+            _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Found multiple existing mutually exclusive calls.  Ending call %@", buf, 0xCu);
           }
 
           [(CSDProviderCallDataSource *)self _endCall:v12];
@@ -3123,43 +3300,45 @@ LABEL_24:
       }
     }
 
-    v8 = [calls countByEnumeratingWithState:&v18 objects:v26 count:16];
+    v8 = [calls countByEnumeratingWithState:&v21 objects:v29 count:16];
   }
 
   while (v8);
 
   if (!v9)
   {
-    v15 = 0;
+    v18 = 0;
     goto LABEL_25;
   }
 
-  if (![callsCopy isMutuallyExclusiveCall])
+  isMutuallyExclusiveCall2 = [callsCopy isMutuallyExclusiveCall];
+  if (!isMutuallyExclusiveCall2)
   {
-    [(CSDProviderCallDataSource *)self _endCall:v9];
+    v15 = [(CSDProviderCallDataSource *)self _endCall:v9];
     goto LABEL_24;
   }
 
-  v14 = sub_100004778();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_100004778(isMutuallyExclusiveCall2);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Ignoring mutually exclusive update", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Ignoring mutually exclusive update", buf, 2u);
   }
 
   v15 = [NSError cx_incomingCallErrorWithCode:102];
+  v18 = v15;
 LABEL_25:
-  v16 = sub_100004778();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v19 = sub_100004778(v15);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v23 = v9;
-    v24 = 2112;
-    v25 = v15;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "_endMutuallyExclusiveCalls: mutuallyExclusiveCall=%@, error=%@", buf, 0x16u);
+    v26 = v9;
+    v27 = 2112;
+    v28 = v18;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "_endMutuallyExclusiveCalls: mutuallyExclusiveCall=%@, error=%@", buf, 0x16u);
   }
 
-  return v15;
+  return v18;
 }
 
 - (void)_processCompletedCallAction:(id)action forCall:(id)call allowRevertingState:(BOOL)state isOnenessActive:(BOOL)active
@@ -3174,7 +3353,7 @@ LABEL_25:
   {
     v13 = actionCopy;
     state = [v13 state];
-    v15 = sub_100004778();
+    v15 = sub_100004778(state);
     v16 = v15;
     if (state != 1)
     {
@@ -3197,7 +3376,7 @@ LABEL_25:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v89 = v13;
+      v95 = v13;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Start call action fulfilled: %@", buf, 0xCu);
     }
 
@@ -3212,11 +3391,11 @@ LABEL_25:
     v24 = actionCopy;
     if ([v24 state]== 1)
     {
-      v25 = sub_100004778();
+      v25 = sub_100004778(1);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v89 = v24;
+        v95 = v24;
         _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Join call action fulfilled: %@", buf, 0xCu);
       }
 
@@ -3226,34 +3405,35 @@ LABEL_25:
     }
 
     faceTimeIDStatus = [callCopy faceTimeIDStatus];
-    v32 = sub_100004778();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v32 = faceTimeIDStatus;
+    v33 = sub_100004778(faceTimeIDStatus);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       sub_10047EF9C();
     }
 
-    if (faceTimeIDStatus == 1)
+    if (v32 == 1)
     {
-      v33 = 531;
+      v34 = 531;
     }
 
     else
     {
-      v33 = 508;
+      v34 = 508;
     }
 
-    [callCopy setProviderFailureReasonIfNecessary:v33];
-    v34 = callCopy;
+    [callCopy setProviderFailureReasonIfNecessary:v34];
+    v35 = callCopy;
     if (activeCopy)
     {
-      v35 = 51;
+      v36 = 51;
 LABEL_74:
-      [v34 disconnectWithReason:v35];
+      [v35 disconnectWithReason:v36];
       goto LABEL_75;
     }
 
 LABEL_73:
-    v35 = 14;
+    v36 = 14;
     goto LABEL_74;
   }
 
@@ -3262,14 +3442,14 @@ LABEL_73:
   {
     v13 = actionCopy;
     state2 = [v13 state];
-    v29 = sub_100004778();
+    v29 = sub_100004778(state2);
     v30 = v29;
     if (state2 == 1)
     {
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v89 = v13;
+        v95 = v13;
         _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Answer call action fulfilled: %@", buf, 0xCu);
       }
 
@@ -3308,10 +3488,10 @@ LABEL_129:
       sub_10047EF34();
     }
 
-    v39 = callCopy;
-    v40 = 509;
+    v40 = callCopy;
+    v41 = 509;
 LABEL_40:
-    [v39 setProviderFailureReasonIfNecessary:v40];
+    [v40 setProviderFailureReasonIfNecessary:v41];
     [callCopy disconnectWithReason:14];
     goto LABEL_130;
   }
@@ -3321,28 +3501,28 @@ LABEL_40:
   {
     v24 = actionCopy;
     state3 = [v24 state];
-    v37 = sub_100004778();
-    v38 = v37;
+    v38 = sub_100004778(state3);
+    v39 = v38;
     if (state3 != 1)
     {
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
         sub_10047EECC();
       }
 
       [callCopy setEndedReason:1];
-      v44 = +[NSDate date];
-      [callCopy setDateEnded:v44];
+      v45 = +[NSDate date];
+      [callCopy setDateEnded:v45];
 
       [callCopy setProviderFailureReasonIfNecessary:520];
       goto LABEL_75;
     }
 
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v89 = v24;
-      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "End call action fulfilled: %@", buf, 0xCu);
+      v95 = v24;
+      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "End call action fulfilled: %@", buf, 0xCu);
     }
 
     dateStarted2 = [v24 dateEnded];
@@ -3355,15 +3535,15 @@ LABEL_40:
   {
     v24 = actionCopy;
     state4 = [v24 state];
-    v42 = sub_100004778();
-    v43 = v42;
+    v43 = sub_100004778(state4);
+    v44 = v43;
     if (state4 == 1)
     {
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v89 = v24;
-        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Set held call action fulfilled: %@", buf, 0xCu);
+        v95 = v24;
+        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Set held call action fulfilled: %@", buf, 0xCu);
       }
 
       [callCopy setHeld:{-[NSObject isOnHold](v24, "isOnHold")}];
@@ -3372,24 +3552,24 @@ LABEL_40:
 
     if (stateCopy)
     {
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v89 = v24;
-        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "[WARN] Set held call action failed but reverting state is allowed: %@", buf, 0xCu);
+        v95 = v24;
+        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "[WARN] Set held call action failed but reverting state is allowed: %@", buf, 0xCu);
       }
 
       [callStateController resetClientCallProvisionalStates];
       goto LABEL_75;
     }
 
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       sub_10047EDC0();
     }
 
     [callCopy setProviderFailureReasonIfNecessary:512];
-    v34 = callCopy;
+    v35 = callCopy;
     goto LABEL_73;
   }
 
@@ -3397,39 +3577,40 @@ LABEL_40:
   if (objc_opt_isKindOfClass())
   {
     v13 = actionCopy;
-    if ([v13 state]== 1)
+    state5 = [v13 state];
+    if (state5 == 1)
     {
       callUUIDToGroupWith = [v13 callUUIDToGroupWith];
 
       if (callUUIDToGroupWith)
       {
         callUUIDToGroupWith2 = [v13 callUUIDToGroupWith];
-        v47 = [(CSDProviderCallDataSource *)self _callWithUUID:callUUIDToGroupWith2];
+        v49 = [(CSDProviderCallDataSource *)self _callWithUUID:callUUIDToGroupWith2];
 
-        v48 = sub_100004778();
-        callGroupUUID2 = v48;
-        if (v47)
+        v51 = sub_100004778(v50);
+        callGroupUUID2 = v51;
+        if (v49)
         {
-          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v89 = v13;
+            v95 = v13;
             _os_log_impl(&_mh_execute_header, callGroupUUID2, OS_LOG_TYPE_DEFAULT, "Set group call action fulfilled: %@", buf, 0xCu);
           }
 
-          callGroupUUID = [v47 callGroupUUID];
+          callGroupUUID = [v49 callGroupUUID];
 
           if (!callGroupUUID)
           {
-            v51 = +[NSUUID UUID];
-            [v47 setCallGroupUUID:v51];
+            v54 = +[NSUUID UUID];
+            [v49 setCallGroupUUID:v54];
           }
 
-          callGroupUUID2 = [v47 callGroupUUID];
+          callGroupUUID2 = [v49 callGroupUUID];
           [callCopy setCallGroupUUID:callGroupUUID2];
         }
 
-        else if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        else if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
         {
           sub_10047EE28(v13, self);
         }
@@ -3443,28 +3624,28 @@ LABEL_40:
       goto LABEL_130;
     }
 
-    v55 = sub_100004778();
-    v56 = v55;
+    v58 = sub_100004778(state5);
+    v59 = v58;
     if (stateCopy)
     {
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v89 = v13;
-        _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "[WARN] Set group call action failed but reverting state is allowed: %@", buf, 0xCu);
+        v95 = v13;
+        _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "[WARN] Set group call action failed but reverting state is allowed: %@", buf, 0xCu);
       }
 
       [callStateController resetClientCallProvisionalStates];
       goto LABEL_130;
     }
 
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
     {
       sub_10047EDC0();
     }
 
-    v39 = callCopy;
-    v40 = 513;
+    v40 = callCopy;
+    v41 = 513;
     goto LABEL_40;
   }
 
@@ -3472,20 +3653,20 @@ LABEL_40:
   if (objc_opt_isKindOfClass())
   {
     v24 = actionCopy;
-    state5 = [v24 state];
-    v53 = sub_100004778();
-    v54 = v53;
-    if (state5 == 1)
+    state6 = [v24 state];
+    v56 = sub_100004778(state6);
+    v57 = v56;
+    if (state6 == 1)
     {
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v89 = v24;
-        _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "Play DTMF call action fulfilled: %@", buf, 0xCu);
+        v95 = v24;
+        _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "Play DTMF call action fulfilled: %@", buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
       sub_10047ED58();
     }
@@ -3502,15 +3683,15 @@ LABEL_40:
   if (objc_opt_isKindOfClass())
   {
     v24 = actionCopy;
-    state6 = [v24 state];
-    v58 = sub_100004778();
-    dateStarted2 = v58;
-    if (state6 == 1)
+    state7 = [v24 state];
+    v61 = sub_100004778(state7);
+    dateStarted2 = v61;
+    if (state7 == 1)
     {
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v89 = v24;
+        v95 = v24;
         _os_log_impl(&_mh_execute_header, dateStarted2, OS_LOG_TYPE_DEFAULT, "Set sending video call action fulfilled: %@", buf, 0xCu);
       }
 
@@ -3518,7 +3699,7 @@ LABEL_40:
       goto LABEL_75;
     }
 
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
     {
       sub_10047ECF0();
     }
@@ -3535,11 +3716,11 @@ LABEL_40:
       featureFlags2 = [(CSDProviderCallDataSource *)self featureFlags];
       sessionBasedMutingEnabled2 = [featureFlags2 sessionBasedMutingEnabled];
 
-      v66 = sub_100004778();
-      v67 = os_log_type_enabled(v66, OS_LOG_TYPE_ERROR);
+      v70 = sub_100004778(v69);
+      v71 = os_log_type_enabled(v70, OS_LOG_TYPE_ERROR);
       if (sessionBasedMutingEnabled2)
       {
-        if (v67)
+        if (v71)
         {
           sub_10047EC88();
         }
@@ -3548,9 +3729,9 @@ LABEL_40:
         goto LABEL_130;
       }
 
-      if (v67)
+      if (v71)
       {
-        sub_10047EBC4();
+        sub_10047EBC4(v13);
       }
 
       if (([v13 isBottomUpMute]& 1) != 0)
@@ -3563,12 +3744,12 @@ LABEL_40:
       goto LABEL_129;
     }
 
-    v59 = sub_100004778();
-    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+    v62 = sub_100004778(1);
+    if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v89 = v13;
-      _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "Set muted call action fulfilled: %@", buf, 0xCu);
+      v95 = v13;
+      _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "Set muted call action fulfilled: %@", buf, 0xCu);
     }
 
     featureFlags3 = [(CSDProviderCallDataSource *)self featureFlags];
@@ -3601,15 +3782,15 @@ LABEL_121:
   if (objc_opt_isKindOfClass())
   {
     v24 = actionCopy;
-    state7 = [v24 state];
-    v63 = sub_100004778();
-    dateStarted2 = v63;
-    if (state7 == 1)
+    state8 = [v24 state];
+    v66 = sub_100004778(state8);
+    dateStarted2 = v66;
+    if (state8 == 1)
     {
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v89 = v24;
+        v95 = v24;
         _os_log_impl(&_mh_execute_header, dateStarted2, OS_LOG_TYPE_DEFAULT, "Set tty call action fulfilled: %@", buf, 0xCu);
       }
 
@@ -3617,7 +3798,7 @@ LABEL_121:
       goto LABEL_75;
     }
 
-    if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
       sub_10047EB5C();
     }
@@ -3632,15 +3813,15 @@ LABEL_121:
     if (objc_opt_isKindOfClass())
     {
       v24 = actionCopy;
-      state8 = [v24 state];
-      v74 = sub_100004778();
-      dateStarted2 = v74;
-      if (state8 == 1)
+      state9 = [v24 state];
+      v79 = sub_100004778(state9);
+      dateStarted2 = v79;
+      if (state9 == 1)
       {
-        if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v89 = v24;
+          v95 = v24;
           _os_log_impl(&_mh_execute_header, dateStarted2, OS_LOG_TYPE_DEFAULT, "Set screening call action fulfilled: %@", buf, 0xCu);
         }
 
@@ -3648,7 +3829,7 @@ LABEL_121:
         goto LABEL_75;
       }
 
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
       {
         sub_10047EAF4();
       }
@@ -3660,15 +3841,15 @@ LABEL_121:
       if (objc_opt_isKindOfClass())
       {
         v24 = actionCopy;
-        state9 = [v24 state];
-        v76 = sub_100004778();
-        dateStarted2 = v76;
-        if (state9 == 1)
+        state10 = [v24 state];
+        v81 = sub_100004778(state10);
+        dateStarted2 = v81;
+        if (state10 == 1)
         {
-          if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v89 = v24;
+            v95 = v24;
             _os_log_impl(&_mh_execute_header, dateStarted2, OS_LOG_TYPE_DEFAULT, "Allow audio injection action fulfilled: %@", buf, 0xCu);
           }
 
@@ -3676,7 +3857,7 @@ LABEL_121:
           goto LABEL_75;
         }
 
-        if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
         {
           sub_10047EA8C();
         }
@@ -3687,20 +3868,20 @@ LABEL_121:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          state10 = [actionCopy state];
-          v83 = sub_100004778();
-          v24 = v83;
-          if (state10 == 1)
+          state11 = [actionCopy state];
+          v89 = sub_100004778(state11);
+          v24 = v89;
+          if (state11 == 1)
           {
-            if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v89 = actionCopy;
+              v95 = actionCopy;
               _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Action fulfilled: %@", buf, 0xCu);
             }
           }
 
-          else if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
+          else if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
           {
             sub_10047EA24();
           }
@@ -3719,35 +3900,36 @@ LABEL_75:
         if ([v24 isTranslating])
         {
           localLanguage = [v24 localLanguage];
-          v78 = [NSLocale localeWithLocaleIdentifier:localLanguage];
+          v83 = [NSLocale localeWithLocaleIdentifier:localLanguage];
 
           remoteLanguage = [v24 remoteLanguage];
-          v80 = [NSLocale localeWithLocaleIdentifier:remoteLanguage];
+          v85 = [NSLocale localeWithLocaleIdentifier:remoteLanguage];
 
-          v81 = [[TUCallTranslationStartRequest alloc] initWithCall:callCopy localLocale:v78 remoteLocale:v80 translationLinks:3 remoteAudioMode:0 translationMode:0];
+          v86 = [[TUCallTranslationStartRequest alloc] initWithCall:callCopy localLocale:v83 remoteLocale:v85 translationLinks:3 remoteAudioMode:0 translationMode:0];
         }
 
         else
         {
-          v81 = [[TUCallTranslationStopRequest alloc] initWithCall:callCopy];
+          v87 = [[TUCallTranslationStopRequest alloc] initWithCall:callCopy];
+          v86 = v87;
         }
 
-        v84 = sub_100004778();
-        if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+        v90 = sub_100004778(v87);
+        if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v89 = v81;
-          _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEFAULT, "perform TUCallTranslationRequest for CXSetTranslatingCallAction %@", buf, 0xCu);
+          v95 = v86;
+          _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEFAULT, "perform TUCallTranslationRequest for CXSetTranslatingCallAction %@", buf, 0xCu);
         }
 
         callTranslationController = [callStateController callTranslationController];
-        v86[0] = _NSConcreteStackBlock;
-        v86[1] = 3221225472;
-        v86[2] = sub_100256150;
-        v86[3] = &unk_10061A4C0;
-        v87 = v81;
-        dateStarted2 = v81;
-        [callTranslationController performRequest:dateStarted2 forCall:callCopy completion:v86];
+        v92[0] = _NSConcreteStackBlock;
+        v92[1] = 3221225472;
+        v92[2] = sub_100256150;
+        v92[3] = &unk_10061A4C0;
+        v93 = v86;
+        dateStarted2 = v86;
+        [callTranslationController performRequest:dateStarted2 forCall:callCopy completion:v92];
       }
     }
 
@@ -3758,12 +3940,12 @@ LABEL_14:
 
   if ([actionCopy state]== 2)
   {
-    v68 = sub_100004778();
-    if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+    v72 = sub_100004778(2);
+    if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v89 = actionCopy;
-      _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, "Set relaying call action failed: %@", buf, 0xCu);
+      v95 = actionCopy;
+      _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEFAULT, "Set relaying call action failed: %@", buf, 0xCu);
     }
 
     provider2 = [callCopy provider];
@@ -3771,12 +3953,12 @@ LABEL_14:
 
     if (isTinCanProvider2)
     {
-      v71 = sub_100004778();
-      if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+      v76 = sub_100004778(v75);
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v89 = actionCopy;
-        _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "[WARN] Set relaying call action failed: %@", buf, 0xCu);
+        v95 = actionCopy;
+        _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "[WARN] Set relaying call action failed: %@", buf, 0xCu);
       }
 
       [callCopy setProviderFailureReasonIfNecessary:514];
@@ -3787,8 +3969,8 @@ LABEL_14:
 LABEL_131:
   if ([actionCopy state]== 2)
   {
-    v72 = +[CSDReportingController sharedInstance];
-    [v72 reportProviderFailedWithAction:actionCopy forCall:callCopy];
+    v77 = +[CSDReportingController sharedInstance];
+    [v77 reportProviderFailedWithAction:actionCopy forCall:callCopy];
   }
 }
 
@@ -3817,28 +3999,28 @@ LABEL_131:
     v15 = [(CSDProviderCallDataSource *)self _callWithUUID:callUUID controllableByCallSource:sourceCopy];
 
     callUUID2 = [v13 callUUID];
-    v53 = [(CSDProviderCallDataSource *)self _callWithUUID:callUUID2];
+    v59 = [(CSDProviderCallDataSource *)self _callWithUUID:callUUID2];
 
     callUUID3 = [v13 callUUID];
-    v54 = [(CSDProviderCallDataSource *)self _relayCallWithUUID:callUUID3];
+    v60 = [(CSDProviderCallDataSource *)self _relayCallWithUUID:callUUID3];
 
     if (-[CSDProviderCallDataSource _actionRequiresReasonableUserIntent:](self, "_actionRequiresReasonableUserIntent:", v13) && intentCopy && (-[CSDProviderCallDataSource callProviderManager](self, "callProviderManager"), v18 = objc_claimAutoreleasedReturnValue(), v19 = [v18 validateUserIntentForCallSource:sourceCopy], v18, (v19 & 1) == 0))
     {
-      v38 = sub_100004778();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      v43 = sub_100004778(v20);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
-        v39 = objc_opt_class();
+        v44 = objc_opt_class();
         identifier = [sourceCopy identifier];
         *buf = 138412546;
-        v56 = v39;
-        v57 = 2112;
-        maximumCallGroups = identifier;
-        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "[WARN] Not allowing requested %@ because user intent could not be validated for call source with identifier: %@", buf, 0x16u);
+        v62 = v44;
+        v63 = 2112;
+        maximumCallGroups2 = identifier;
+        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "[WARN] Not allowing requested %@ because user intent could not be validated for call source with identifier: %@", buf, 0x16u);
       }
 
       +[CSDCrashReporter simulateCrashReportFromPID:withKillCode:usingReasonWithFormat:](CSDCrashReporter, "simulateCrashReportFromPID:withKillCode:usingReasonWithFormat:", [sourceCopy processIdentifier], 3735931409, @"Not allowing requested %@ because user intent could not be reasonably validated to gain access to the microphone while in the background.", objc_opt_class());
-      v32 = [NSError cx_requestTransactionErrorWithCode:6];
-      v27 = v53;
+      v35 = [NSError cx_requestTransactionErrorWithCode:6];
+      v29 = v59;
     }
 
     else
@@ -3846,31 +4028,31 @@ LABEL_131:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v51 = v15;
-        v52 = [(CSDProviderCallDataSource *)self _callGroupsWithBackingCallSource:sourceCopy];
+        v57 = v15;
+        v58 = [(CSDProviderCallDataSource *)self _callGroupsWithBackingCallSource:sourceCopy];
         callStateController = [(CSDCallDataSource *)self callStateController];
         featureFlags = [callStateController featureFlags];
         if ([featureFlags appProtectionEnabled])
         {
           protectedAppsUtilities = [(CSDProviderCallDataSource *)self protectedAppsUtilities];
           bundleIdentifier = [v12 bundleIdentifier];
-          v24 = [protectedAppsUtilities shouldBlockCallWithBundleIdentifier:bundleIdentifier];
+          v25 = [protectedAppsUtilities shouldBlockCallWithBundleIdentifier:bundleIdentifier];
 
-          v25 = v54;
-          if (v24)
+          v27 = v60;
+          if (v25)
           {
-            v26 = sub_100004778();
-            v27 = v53;
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            v28 = sub_100004778(v26);
+            v29 = v59;
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
               bundleIdentifier2 = [v12 bundleIdentifier];
               *buf = 138412290;
-              v56 = bundleIdentifier2;
-              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "[WARN] Blocking outgoing call because the originating app [Bundle Identifier: %@] responsible for the call is hidden and currently not foregrounded", buf, 0xCu);
+              v62 = bundleIdentifier2;
+              _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "[WARN] Blocking outgoing call because the originating app [Bundle Identifier: %@] responsible for the call is hidden and currently not foregrounded", buf, 0xCu);
             }
 
-            v29 = 8;
-            v15 = v51;
+            v31 = 8;
+            v15 = v57;
             goto LABEL_43;
           }
         }
@@ -3878,107 +4060,109 @@ LABEL_131:
         else
         {
 
-          v25 = v54;
+          v27 = v60;
         }
 
-        v27 = v53;
-        if (v53 | v25)
+        v29 = v59;
+        if (v59 | v27)
         {
-          v26 = sub_100004778();
-          v15 = v51;
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v28 = sub_100004778(v26);
+          v15 = v57;
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
             callUUID4 = [v13 callUUID];
             *buf = 138412290;
-            v56 = callUUID4;
-            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "[WARN] Not allowing requested start call action because a call with same UUID (%@) already exists", buf, 0xCu);
+            v62 = callUUID4;
+            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "[WARN] Not allowing requested start call action because a call with same UUID (%@) already exists", buf, 0xCu);
           }
 
-          v29 = 5;
+          v31 = 5;
         }
 
         else
         {
-          v42 = [v52 count];
-          v15 = v51;
-          if (v42 < [v12 maximumCallGroups])
+          v47 = [v58 count];
+          maximumCallGroups = [v12 maximumCallGroups];
+          v15 = v57;
+          if (v47 < maximumCallGroups)
           {
-            v32 = 0;
+            v35 = 0;
 LABEL_44:
 
             goto LABEL_53;
           }
 
-          v26 = sub_100004778();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v28 = sub_100004778(maximumCallGroups);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v56 = sourceCopy;
-            v57 = 2048;
-            maximumCallGroups = [v12 maximumCallGroups];
-            v59 = 2112;
-            v60 = v52;
-            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "[WARN] Not allowing requested start call action because call source %@ is at the maximum call group count of %lu: %@", buf, 0x20u);
+            v62 = sourceCopy;
+            v63 = 2048;
+            maximumCallGroups2 = [v12 maximumCallGroups];
+            v65 = 2112;
+            v66 = v58;
+            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "[WARN] Not allowing requested start call action because call source %@ is at the maximum call group count of %lu: %@", buf, 0x20u);
           }
 
-          v29 = 7;
+          v31 = 7;
         }
 
 LABEL_43:
 
-        v32 = [NSError cx_requestTransactionErrorWithCode:v29];
+        v35 = [NSError cx_requestTransactionErrorWithCode:v31];
         goto LABEL_44;
       }
 
       objc_opt_class();
-      v25 = v54;
-      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v13 callUUIDToGroupWith], v34 = objc_claimAutoreleasedReturnValue(), v34, v34))
+      v27 = v60;
+      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v13 callUUIDToGroupWith], v37 = objc_claimAutoreleasedReturnValue(), v37, v37))
       {
         callUUIDToGroupWith = [v13 callUUIDToGroupWith];
-        v36 = [(CSDProviderCallDataSource *)self _callWithUUID:callUUIDToGroupWith controllableByCallSource:sourceCopy];
+        v39 = [(CSDProviderCallDataSource *)self _callWithUUID:callUUIDToGroupWith controllableByCallSource:sourceCopy];
 
-        v27 = v53;
-        if (v36)
+        v29 = v59;
+        if (v39)
         {
-          v32 = 0;
+          v35 = 0;
         }
 
         else
         {
-          v47 = sub_100004778();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+          v53 = sub_100004778(v40);
+          if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
           {
             calls = [(CSDCallDataSource *)self calls];
             *buf = 138412802;
-            v56 = v13;
-            v57 = 2112;
-            maximumCallGroups = sourceCopy;
-            v59 = 2112;
-            v60 = calls;
-            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "[WARN] Not allowing requested action because no call was found to group with for action %@ and call source %@. All calls: %@", buf, 0x20u);
+            v62 = v13;
+            v63 = 2112;
+            maximumCallGroups2 = sourceCopy;
+            v65 = 2112;
+            v66 = calls;
+            _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "[WARN] Not allowing requested action because no call was found to group with for action %@ and call source %@. All calls: %@", buf, 0x20u);
 
-            v27 = v53;
+            v29 = v59;
           }
 
-          v32 = [NSError cx_requestTransactionErrorWithCode:4];
+          v35 = [NSError cx_requestTransactionErrorWithCode:4];
         }
       }
 
       else
       {
         objc_opt_class();
-        v27 = v53;
-        if ((objc_opt_isKindOfClass() & 1) != 0 && v54)
+        isKindOfClass = objc_opt_isKindOfClass();
+        v29 = v59;
+        if ((isKindOfClass & 1) != 0 && v60)
         {
-          v37 = sub_100004778();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+          v42 = sub_100004778(isKindOfClass);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v56 = v53;
-            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "[WARN] Not allowing requested answer call action because a relay call with same UUID already exists: %@", buf, 0xCu);
+            v62 = v59;
+            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "[WARN] Not allowing requested answer call action because a relay call with same UUID already exists: %@", buf, 0xCu);
           }
 
-          v32 = [NSError cx_requestTransactionErrorWithCode:5];
+          v35 = [NSError cx_requestTransactionErrorWithCode:5];
 LABEL_53:
 
           if (error)
@@ -3991,45 +4175,46 @@ LABEL_53:
 
         if (v15)
         {
-          v32 = 0;
+          v35 = 0;
           goto LABEL_53;
         }
 
-        v43 = sub_100004778();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+        v49 = sub_100004778(isKindOfClass);
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
         {
           callUUID5 = [v13 callUUID];
           uUIDString = [callUUID5 UUIDString];
           calls2 = [(CSDCallDataSource *)self calls];
           *buf = 138412802;
-          v56 = uUIDString;
-          v57 = 2112;
-          maximumCallGroups = sourceCopy;
-          v59 = 2112;
-          v60 = calls2;
-          _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "[WARN] Not allowing requested action because no call was found for call UUID %@ and call source %@. All calls: %@", buf, 0x20u);
+          v62 = uUIDString;
+          v63 = 2112;
+          maximumCallGroups2 = sourceCopy;
+          v65 = 2112;
+          v66 = calls2;
+          _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "[WARN] Not allowing requested action because no call was found for call UUID %@ and call source %@. All calls: %@", buf, 0x20u);
 
           v15 = 0;
-          v27 = v53;
+          v29 = v59;
         }
 
-        v32 = [NSError cx_requestTransactionErrorWithCode:4];
+        v35 = [NSError cx_requestTransactionErrorWithCode:4];
       }
     }
 
-    v25 = v54;
+    v27 = v60;
     goto LABEL_53;
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v32 = objc_opt_isKindOfClass();
+  if (v32)
   {
     identifier2 = [sourceCopy identifier];
-    v31 = [identifier2 isEqualToString:@"com.apple.coretelephony"];
+    v34 = [identifier2 isEqualToString:@"com.apple.coretelephony"];
 
-    if (v31)
+    if (v34)
     {
-      v32 = 0;
+      v35 = 0;
       if (!error)
       {
         goto LABEL_55;
@@ -4039,25 +4224,25 @@ LABEL_53:
     }
   }
 
-  v33 = sub_100004778();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v36 = sub_100004778(v32);
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v56 = actionCopy;
-    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[WARN] Not allowing requested action because action is not allowed to be requested: %@", buf, 0xCu);
+    v62 = actionCopy;
+    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "[WARN] Not allowing requested action because action is not allowed to be requested: %@", buf, 0xCu);
   }
 
-  v32 = [NSError cx_requestTransactionErrorWithCode:6];
+  v35 = [NSError cx_requestTransactionErrorWithCode:6];
   if (error)
   {
 LABEL_54:
-    v49 = v32;
-    *error = v32;
+    v55 = v35;
+    *error = v35;
   }
 
 LABEL_55:
 
-  return v32 == 0;
+  return v35 == 0;
 }
 
 - (BOOL)_shouldAllowRequestedTransaction:(id)transaction forCallSource:(id)source error:(id *)error
@@ -4069,42 +4254,42 @@ LABEL_55:
 
   if (v11)
   {
-    v26 = 0u;
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
+    v26 = 0u;
     actions2 = [transactionCopy actions];
-    v13 = [actions2 countByEnumeratingWithState:&v24 objects:v30 count:16];
-    if (v13)
+    v14 = [actions2 countByEnumeratingWithState:&v25 objects:v31 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v15 = *v25;
+      v15 = v14;
+      v16 = *v26;
       while (2)
       {
-        v16 = 0;
+        v17 = 0;
         do
         {
-          if (*v25 != v15)
+          if (*v26 != v16)
           {
             objc_enumerationMutation(actions2);
           }
 
-          v17 = *(*(&v24 + 1) + 8 * v16);
-          v23 = 0;
-          [(CSDProviderCallDataSource *)self _shouldAllowRequestedAction:v17 forCallSource:sourceCopy shouldValidateUserIntent:1 error:&v23];
-          v18 = v23;
-          if (v18)
+          v18 = *(*(&v25 + 1) + 8 * v17);
+          v24 = 0;
+          [(CSDProviderCallDataSource *)self _shouldAllowRequestedAction:v18 forCallSource:sourceCopy shouldValidateUserIntent:1 error:&v24];
+          v19 = v24;
+          if (v19)
           {
-            v19 = v18;
+            v20 = v19;
             goto LABEL_12;
           }
 
-          v16 = v16 + 1;
+          v17 = v17 + 1;
         }
 
-        while (v14 != v16);
-        v14 = [actions2 countByEnumeratingWithState:&v24 objects:v30 count:16];
-        if (v14)
+        while (v15 != v17);
+        v15 = [actions2 countByEnumeratingWithState:&v25 objects:v31 count:16];
+        if (v15)
         {
           continue;
         }
@@ -4113,7 +4298,7 @@ LABEL_55:
       }
     }
 
-    v19 = 0;
+    v20 = 0;
 LABEL_12:
 
     if (error)
@@ -4124,24 +4309,24 @@ LABEL_12:
 
   else
   {
-    v22 = sub_100004778();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = sub_100004778(v12);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = transactionCopy;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "[WARN] Not allowing requested transaction because it is empty: %@", buf, 0xCu);
+      v30 = transactionCopy;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "[WARN] Not allowing requested transaction because it is empty: %@", buf, 0xCu);
     }
 
-    v19 = [NSError cx_requestTransactionErrorWithCode:3];
+    v20 = [NSError cx_requestTransactionErrorWithCode:3];
     if (error)
     {
 LABEL_13:
-      v20 = v19;
-      *error = v19;
+      v21 = v20;
+      *error = v20;
     }
   }
 
-  return v19 == 0;
+  return v20 == 0;
 }
 
 - (void)_processRequestedTransaction:(id)transaction fromCallSource:(id)source completion:(id)completion
@@ -4152,7 +4337,7 @@ LABEL_13:
   completionCopy = completion;
   v11 = [(CSDProviderCallDataSource *)self _shouldAllowRequestedTransaction:transactionCopy forCallSource:sourceCopy error:&v15];
   v12 = v15;
-  v13 = sub_100004778();
+  v13 = sub_100004778(v12);
   v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
   if (v11)
   {
@@ -4209,56 +4394,57 @@ LABEL_13:
   transactionCopy = transaction;
   sourceCopy = source;
   callStateController = [(CSDCallDataSource *)self callStateController];
-  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v31 = transactionCopy;
+  v41 = 0u;
+  v32 = transactionCopy;
   obj = [transactionCopy actions];
-  v9 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
+  v9 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
   v10 = sourceCopy;
   if (v9)
   {
     v11 = v9;
-    v12 = *v38;
+    v12 = *v39;
     v10 = sourceCopy;
     do
     {
       for (i = 0; i != v11; i = i + 1)
       {
-        if (*v38 != v12)
+        if (*v39 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v37 + 1) + 8 * i);
+        v14 = *(*(&v38 + 1) + 8 * i);
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v15 = sub_100004778();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v16 = sub_100004778(isKindOfClass);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v43 = v14;
-            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Dialing new call due to requested start call action: %@", buf, 0xCu);
+            v44 = v14;
+            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Dialing new call due to requested start call action: %@", buf, 0xCu);
           }
 
-          v16 = v14;
-          v17 = [[CSDProviderCall alloc] initOutgoingWithRequestedStartCallAction:v16 backingCallSource:sourceCopy];
+          v17 = v14;
+          v18 = [[CSDProviderCall alloc] initOutgoingWithRequestedStartCallAction:v17 backingCallSource:sourceCopy];
 
           if ([(CSDProviderCallDataSource *)self _isRequestingCallSourceAppBackgroundRunning:sourceCopy])
           {
             callProviderManager = [(CSDProviderCallDataSource *)self callProviderManager];
-            v19 = [callProviderManager validateBackgroundCallIntentForCallSource:sourceCopy];
+            v20 = [callProviderManager validateBackgroundCallIntentForCallSource:sourceCopy];
 
-            if (v19)
+            if (v20)
             {
-              [v17 setLaunchInBackground:1];
+              [v18 setLaunchInBackground:1];
             }
           }
 
-          [callStateController setCallDelegatesIfNeeded:v17];
-          [callStateController propertiesChangedForCall:v17];
+          [callStateController setCallDelegatesIfNeeded:v18];
+          [callStateController propertiesChangedForCall:v18];
         }
 
         else
@@ -4269,90 +4455,88 @@ LABEL_13:
             continue;
           }
 
-          v20 = v14;
-          callUUID = [v20 callUUID];
-          v17 = [(CSDProviderCallDataSource *)self _callWithUUID:callUUID backingCallSource:sourceCopy];
+          v21 = v14;
+          callUUID = [v21 callUUID];
+          v18 = [(CSDProviderCallDataSource *)self _callWithUUID:callUUID backingCallSource:sourceCopy];
 
-          backingCallSource = [v17 backingCallSource];
+          backingCallSource = [v18 backingCallSource];
 
           v10 = backingCallSource;
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
+      v11 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
     }
 
     while (v11);
   }
 
-  v35 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  actions = [v31 actions];
-  v24 = [actions countByEnumeratingWithState:&v33 objects:v41 count:16];
-  if (v24)
+  v35 = 0u;
+  actions = [v32 actions];
+  v25 = [actions countByEnumeratingWithState:&v34 objects:v42 count:16];
+  if (v25)
   {
-    v25 = v24;
-    v26 = *v34;
+    v26 = v25;
+    v27 = *v35;
     do
     {
-      for (j = 0; j != v25; j = j + 1)
+      for (j = 0; j != v26; j = j + 1)
       {
-        if (*v34 != v26)
+        if (*v35 != v27)
         {
           objc_enumerationMutation(actions);
         }
 
-        v28 = *(*(&v33 + 1) + 8 * j);
+        v29 = *(*(&v34 + 1) + 8 * j);
         callSourceManager = [(CSDProviderCallDataSource *)self callSourceManager];
-        [callSourceManager addAction:v28 toUncommittedTransactionForCallSource:v10];
+        [callSourceManager addAction:v29 toUncommittedTransactionForCallSource:v10];
       }
 
-      v25 = [actions countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v26 = [actions countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
-    while (v25);
+    while (v26);
   }
 
-  [(CSDProviderCallDataSource *)self _addSupplementalActionsForRequestedTransaction:v31 onCallSource:v10];
+  [(CSDProviderCallDataSource *)self _addSupplementalActionsForRequestedTransaction:v32 onCallSource:v10];
   callSourceManager2 = [(CSDProviderCallDataSource *)self callSourceManager];
   [callSourceManager2 commitUncommittedTransactions];
 }
 
 - (void)_addSupplementalActionsForRequestedTransaction:(id)transaction onCallSource:(id)source
 {
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = [transaction actions];
-  v4 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
+  v4 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v39;
-    v7 = &swift_cvw_initEnumMetadataSinglePayloadWithLayoutString_ptr;
-    v29 = *v39;
+    v6 = *v38;
+    v28 = *v38;
     do
     {
-      v8 = 0;
-      v30 = v5;
+      v7 = 0;
+      v29 = v5;
       do
       {
-        if (*v39 != v6)
+        if (*v38 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v38 + 1) + 8 * v8);
-        v10 = v7[352];
+        v8 = *(*(&v37 + 1) + 8 * v7);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v11 = v9;
-          callUUID = [v11 callUUID];
-          v13 = [(CSDProviderCallDataSource *)self _callWithUUID:callUUID];
+          v9 = v8;
+          callUUID = [v9 callUUID];
+          v11 = [(CSDProviderCallDataSource *)self _callWithUUID:callUUID];
 
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -4361,7 +4545,7 @@ LABEL_13:
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
               objc_opt_class();
-              if (objc_opt_isKindOfClass() & 1) == 0 || ([v11 isOnHold])
+              if (objc_opt_isKindOfClass() & 1) == 0 || ([v9 isOnHold])
               {
 LABEL_27:
 
@@ -4370,88 +4554,87 @@ LABEL_27:
             }
           }
 
-          v32 = v8;
-          v36 = 0u;
-          v37 = 0u;
-          v34 = 0u;
+          v31 = v7;
           v35 = 0u;
+          v36 = 0u;
+          v33 = 0u;
+          v34 = 0u;
           calls = [(CSDCallDataSource *)self calls];
-          v15 = [calls countByEnumeratingWithState:&v34 objects:v44 count:16];
-          if (!v15)
+          v13 = [calls countByEnumeratingWithState:&v33 objects:v43 count:16];
+          if (!v13)
           {
             goto LABEL_26;
           }
 
-          v16 = v15;
-          v17 = *v35;
+          v14 = v13;
+          v15 = *v34;
           while (2)
           {
-            v18 = 0;
+            v16 = 0;
 LABEL_12:
-            if (*v35 != v17)
+            if (*v34 != v15)
             {
               objc_enumerationMutation(calls);
             }
 
-            v19 = *(*(&v34 + 1) + 8 * v18);
-            if (v19 != v13)
+            v17 = *(*(&v33 + 1) + 8 * v16);
+            if (v17 != v11)
             {
-              provider = [*(*(&v34 + 1) + 8 * v18) provider];
-              provider2 = [v13 provider];
+              provider = [*(*(&v33 + 1) + 8 * v16) provider];
+              provider2 = [v11 provider];
               if ([provider isEqualToCallProvider:provider2])
               {
                 goto LABEL_23;
               }
 
-              if ([v19 isOnHold])
+              if ([v17 isOnHold])
               {
                 goto LABEL_23;
               }
 
               objc_opt_class();
-              if (objc_opt_isKindOfClass() & 1) != 0 && ([v13 isVideoUpgradeFromCall:v19])
+              if (objc_opt_isKindOfClass() & 1) != 0 && ([v11 isVideoUpgradeFromCall:v17])
               {
                 goto LABEL_23;
               }
 
-              isPTT = [v19 isPTT];
+              isPTT = [v17 isPTT];
 
               if ((isPTT & 1) == 0)
               {
-                v23 = [CXSetHeldCallAction alloc];
-                uniqueProxyIdentifierUUID = [v19 uniqueProxyIdentifierUUID];
-                provider = [v23 initWithCallUUID:uniqueProxyIdentifierUUID onHold:1];
+                v21 = [CXSetHeldCallAction alloc];
+                uniqueProxyIdentifierUUID = [v17 uniqueProxyIdentifierUUID];
+                provider = [v21 initWithCallUUID:uniqueProxyIdentifierUUID onHold:1];
 
-                v25 = sub_100004778();
-                if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+                v24 = sub_100004778(v23);
+                if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v43 = v19;
-                  _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Adding supplemental set held call action for existing call %@", buf, 0xCu);
+                  v42 = v17;
+                  _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Adding supplemental set held call action for existing call %@", buf, 0xCu);
                 }
 
                 provider2 = [(CSDProviderCallDataSource *)self callSourceManager];
-                backingCallSource = [v19 backingCallSource];
+                backingCallSource = [v17 backingCallSource];
                 [provider2 addAction:provider toUncommittedTransactionForCallSource:backingCallSource];
 
 LABEL_23:
               }
             }
 
-            if (v16 == ++v18)
+            if (v14 == ++v16)
             {
-              v16 = [calls countByEnumeratingWithState:&v34 objects:v44 count:16];
-              if (!v16)
+              v14 = [calls countByEnumeratingWithState:&v33 objects:v43 count:16];
+              if (!v14)
               {
 LABEL_26:
 
                 callStateController = [(CSDCallDataSource *)self callStateController];
                 [callStateController deactivatePTTBargeCalls];
 
-                v6 = v29;
-                v5 = v30;
-                v7 = &swift_cvw_initEnumMetadataSinglePayloadWithLayoutString_ptr;
-                v8 = v32;
+                v6 = v28;
+                v5 = v29;
+                v7 = v31;
                 goto LABEL_27;
               }
 
@@ -4463,15 +4646,15 @@ LABEL_26:
         }
 
 LABEL_28:
-        v8 = v8 + 1;
+        v7 = v7 + 1;
       }
 
-      while (v8 != v5);
-      v28 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
-      v5 = v28;
+      while (v7 != v5);
+      v27 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
+      v5 = v27;
     }
 
-    while (v28);
+    while (v27);
   }
 }
 
@@ -4616,7 +4799,7 @@ LABEL_28:
   {
     telephonyCallSource = [(CSDProviderCallDataSource *)self telephonyCallSource];
 LABEL_9:
-    v14 = telephonyCallSource;
+    v15 = telephonyCallSource;
     goto LABEL_10;
   }
 
@@ -4647,22 +4830,22 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v16 = sub_100004778();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_100004778(v14);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     callSourceManager = [(CSDProviderCallDataSource *)self callSourceManager];
     callSources = [callSourceManager callSources];
-    v19 = 138412546;
-    v20 = requestCopy;
-    v21 = 2112;
-    v22 = callSources;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[WARN] Could not determine call source for dial request: %@. All call sources: %@", &v19, 0x16u);
+    v20 = 138412546;
+    v21 = requestCopy;
+    v22 = 2112;
+    v23 = callSources;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[WARN] Could not determine call source for dial request: %@. All call sources: %@", &v20, 0x16u);
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_10:
 
-  return v14;
+  return v15;
 }
 
 - (id)providerWithIdentifier:(id)identifier
@@ -4679,14 +4862,14 @@ LABEL_10:
 {
   actionCopy = action;
   callCopy = call;
-  v8 = sub_100004778();
+  v8 = sub_100004778(callCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 138412546;
-    v23 = actionCopy;
-    v24 = 2112;
-    v25 = callCopy;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Asked to perform action %@ for call %@", &v22, 0x16u);
+    v25 = 138412546;
+    v26 = actionCopy;
+    v27 = 2112;
+    v28 = callCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Asked to perform action %@ for call %@", &v25, 0x16u);
   }
 
   objc_opt_class();
@@ -4707,12 +4890,12 @@ LABEL_10:
 
       if (v12)
       {
-        v13 = sub_100004778();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v14 = sub_100004778(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = 138412290;
-          v23 = actionCopy;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Failing join call action %@ since device has active oneness session", &v22, 0xCu);
+          v25 = 138412290;
+          v26 = actionCopy;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Failing join call action %@ since device has active oneness session", &v25, 0xCu);
         }
 
         [actionCopy fail];
@@ -4741,11 +4924,11 @@ LABEL_17:
   {
 
 LABEL_25:
-    v21 = sub_100004778();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v24 = sub_100004778(v17);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Action is handled by CSDConversationCallCoordinator, not notifying backing call source.", &v22, 2u);
+      LOWORD(v25) = 0;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Action is handled by CSDConversationCallCoordinator, not notifying backing call source.", &v25, 2u);
     }
 
     [actionCopy fulfill];
@@ -4777,11 +4960,11 @@ LABEL_18:
 
   else
   {
-    v19 = sub_100004778();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_100004778(v19);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[WARN] Dropping to add action since there is no backing call source", &v22, 2u);
+      LOWORD(v25) = 0;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "[WARN] Dropping to add action since there is no backing call source", &v25, 2u);
     }
   }
 
@@ -4806,27 +4989,27 @@ LABEL_28:
 {
   outgoingCopy = outgoing;
   [outgoingCopy callCenter];
-  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v39 = v51 = 0u;
-  obj = [v39 currentCallGroups];
-  v4 = [obj countByEnumeratingWithState:&v48 objects:v61 count:16];
+  v51 = 0u;
+  v40 = v52 = 0u;
+  obj = [v40 currentCallGroups];
+  v4 = [obj countByEnumeratingWithState:&v49 objects:v62 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v49;
+    v7 = *v50;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v49 != v7)
+        if (*v50 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        calls = [*(*(&v48 + 1) + 8 * i) calls];
+        calls = [*(*(&v49 + 1) + 8 * i) calls];
         firstObject = [calls firstObject];
         provider = [firstObject provider];
         provider2 = [outgoingCopy provider];
@@ -4835,7 +5018,7 @@ LABEL_28:
         v6 += v13;
       }
 
-      v5 = [obj countByEnumeratingWithState:&v48 objects:v61 count:16];
+      v5 = [obj countByEnumeratingWithState:&v49 objects:v62 count:16];
     }
 
     while (v5);
@@ -4846,28 +5029,28 @@ LABEL_28:
     v6 = 0;
   }
 
-  v46 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
+  v46 = 0u;
   calls2 = [(CSDCallDataSource *)self calls];
-  v15 = [calls2 countByEnumeratingWithState:&v44 objects:v60 count:16];
+  v15 = [calls2 countByEnumeratingWithState:&v45 objects:v61 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v45;
-    v40 = calls2;
+    v17 = *v46;
+    v41 = calls2;
     do
     {
       for (j = 0; j != v16; j = j + 1)
       {
-        if (*v45 != v17)
+        if (*v46 != v17)
         {
           objc_enumerationMutation(calls2);
         }
 
-        v19 = *(*(&v44 + 1) + 8 * j);
-        if (v19 != outgoingCopy && ([*(*(&v44 + 1) + 8 * j) isOnHold] & 1) == 0 && objc_msgSend(v19, "status") == 1 && (objc_msgSend(outgoingCopy, "isVideoUpgradeFromCall:", v19) & 1) == 0 && (objc_msgSend(v19, "isPTT") & 1) == 0)
+        v19 = *(*(&v45 + 1) + 8 * j);
+        if (v19 != outgoingCopy && ([*(*(&v45 + 1) + 8 * j) isOnHold] & 1) == 0 && objc_msgSend(v19, "status") == 1 && (objc_msgSend(outgoingCopy, "isVideoUpgradeFromCall:", v19) & 1) == 0 && (objc_msgSend(v19, "isPTT") & 1) == 0)
         {
           provider3 = [v19 provider];
           provider4 = [outgoingCopy provider];
@@ -4900,23 +5083,23 @@ LABEL_28:
 
           v31 = v29;
 
-          v32 = sub_100004778();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          v33 = sub_100004778(v32);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
             [v19 uniqueProxyIdentifierUUID];
-            v33 = obja = v31;
+            v34 = obja = v31;
             [v19 model];
-            v35 = v34 = v24;
-            supportsHolding = [v35 supportsHolding];
+            v36 = v35 = v24;
+            supportsHolding = [v36 supportsHolding];
             *buf = 138413058;
-            v53 = obja;
-            v54 = 2112;
-            v55 = v33;
-            v56 = 1024;
-            v57 = v34;
-            v58 = 1024;
-            v59 = supportsHolding;
-            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Sending action %@ for existing call with uniqueProxyIdentifierUUID=%@ maximumCallGroupsReachedForProvider=%d supportsHolding=%d", buf, 0x22u);
+            v54 = obja;
+            v55 = 2112;
+            v56 = v34;
+            v57 = 1024;
+            v58 = v35;
+            v59 = 1024;
+            v60 = supportsHolding;
+            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Sending action %@ for existing call with uniqueProxyIdentifierUUID=%@ maximumCallGroupsReachedForProvider=%d supportsHolding=%d", buf, 0x22u);
 
             v31 = obja;
           }
@@ -4925,11 +5108,11 @@ LABEL_28:
           backingCallSource = [v19 backingCallSource];
           [callSourceManager addAction:v31 toUncommittedTransactionForCallSource:backingCallSource];
 
-          calls2 = v40;
+          calls2 = v41;
         }
       }
 
-      v16 = [calls2 countByEnumeratingWithState:&v44 objects:v60 count:16];
+      v16 = [calls2 countByEnumeratingWithState:&v45 objects:v61 count:16];
     }
 
     while (v16);
@@ -4948,23 +5131,23 @@ LABEL_28:
 
   if (!isoCountryCode)
   {
-    v10 = [(CSDProviderCallDataSource *)self _ISOCountryCodeForCall:callCopy];
-    if ([v10 length])
+    v11 = [(CSDProviderCallDataSource *)self _ISOCountryCodeForCall:callCopy];
+    if ([v11 length])
     {
-      v11 = objc_alloc_init(CXCallUpdate);
-      [v11 setISOCountryCode:v10];
-      [callCopy updateWithCallUpdate:v11];
+      v12 = objc_alloc_init(CXCallUpdate);
+      [v12 setISOCountryCode:v11];
+      [callCopy updateWithCallUpdate:v12];
     }
   }
 
-  v12 = sub_100004778();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100004778(v10);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412546;
-    v14 = actionCopy;
-    v15 = 2112;
-    v16 = callCopy;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Asked to perform start call action %@ for call %@", &v13, 0x16u);
+    v14 = 138412546;
+    v15 = actionCopy;
+    v16 = 2112;
+    v17 = callCopy;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Asked to perform start call action %@ for call %@", &v14, 0x16u);
   }
 
   [(CSDProviderCallDataSource *)self performCallAction:actionCopy forCall:callCopy];
@@ -4974,7 +5157,7 @@ LABEL_28:
 {
   sourceCopy = source;
   configurationCopy = configuration;
-  v8 = sub_100004778();
+  v8 = sub_100004778(configurationCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v19 = 138412546;
@@ -5022,13 +5205,14 @@ LABEL_28:
 {
   sourceCopy = source;
   actionCopy = action;
-  v15 = 0;
-  v10 = [(CSDProviderCallDataSource *)self _shouldAllowRequestedAction:actionCopy forCallSource:sourceCopy shouldValidateUserIntent:0 error:&v15];
-  v11 = v15;
+  v16 = 0;
+  v10 = [(CSDProviderCallDataSource *)self _shouldAllowRequestedAction:actionCopy forCallSource:sourceCopy shouldValidateUserIntent:0 error:&v16];
+  v11 = v16;
+  v12 = v11;
   if (v11)
   {
-    v12 = sub_100004778();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100004778(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10047F168();
     }
@@ -5036,8 +5220,8 @@ LABEL_28:
 
   if (error)
   {
-    v13 = v11;
-    *error = v11;
+    v14 = v12;
+    *error = v12;
   }
 
   return v10;
@@ -5055,12 +5239,13 @@ LABEL_28:
 
   if ([errorCopy code] == 4)
   {
-    if (![callCopy filteredOutReason])
+    filteredOutReason = [callCopy filteredOutReason];
+    if (!filteredOutReason)
     {
-      v9 = callCopy;
-      v10 = 1;
+      v10 = callCopy;
+      v11 = 1;
 LABEL_17:
-      [v9 setFilteredOutReason:v10];
+      filteredOutReason = [v10 setFilteredOutReason:v11];
       goto LABEL_18;
     }
 
@@ -5069,13 +5254,12 @@ LABEL_17:
 
   if ([v8 code] == 3)
   {
-    if ([callCopy filteredOutReason])
+    filteredOutReason = [callCopy filteredOutReason];
+    if (filteredOutReason)
     {
       goto LABEL_18;
     }
 
-    featureFlags = self->_featureFlags;
-    deviceSupport = self->_deviceSupport;
     if (TUCommunicationTrustEnabled())
     {
       if ([callCopy commTrustScore] == 2)
@@ -5091,15 +5275,15 @@ LABEL_17:
       liveLookupExtensionsAllowCallsFromHandle = [(CSDProviderCallDataSource *)self callDirectoryAllowsCallFromSourceAddress];
     }
 
-    v14 = liveLookupExtensionsAllowCallsFromHandle;
+    v13 = liveLookupExtensionsAllowCallsFromHandle;
     handle = [callCopy handle];
     value = [handle value];
-    v17 = (v14)[2](v14, value);
+    v16 = (v13)[2](v13, value);
 
-    if (v17)
+    if (v16)
     {
-      v9 = callCopy;
-      v10 = 6;
+      v10 = callCopy;
+      v11 = 6;
       goto LABEL_17;
     }
 
@@ -5108,33 +5292,34 @@ LABEL_22:
     blockedByExtension = [(CSDProviderCallDataSource *)self blockedByExtension];
     handle2 = [callCopy handle];
     value2 = [handle2 value];
-    v22 = (blockedByExtension)[2](blockedByExtension, value2);
-    [callCopy setBlockedByExtension:v22];
+    v21 = (blockedByExtension)[2](blockedByExtension, value2);
+    [callCopy setBlockedByExtension:v21];
 
     goto LABEL_18;
   }
 
   if ([v8 code] == 104)
   {
-    v9 = callCopy;
-    v10 = 7;
+    v10 = callCopy;
+    v11 = 7;
     goto LABEL_17;
   }
 
-  if ([v8 code] == 105)
+  filteredOutReason = [v8 code];
+  if (filteredOutReason == 105)
   {
-    v9 = callCopy;
-    v10 = 8;
+    v10 = callCopy;
+    v11 = 8;
     goto LABEL_17;
   }
 
 LABEL_18:
-  v18 = sub_100004778();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_100004778(filteredOutReason);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v23[0] = 67109120;
-    v23[1] = [callCopy filteredOutReason];
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Updated filtered out reason to %d", v23, 8u);
+    v22[0] = 67109120;
+    v22[1] = [callCopy filteredOutReason];
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Updated filtered out reason to %d", v22, 8u);
   }
 
 LABEL_21:
@@ -5147,15 +5332,15 @@ LABEL_21:
   updateCopy = update;
   completionCopy = completion;
   selfCopy = self;
-  v238 = sourceCopy;
-  v241 = [(CSDProviderCallDataSource *)self _providerForCallSource:sourceCopy];
+  v252 = sourceCopy;
+  v255 = [(CSDProviderCallDataSource *)self _providerForCallSource:sourceCopy];
   callStateController = [(CSDCallDataSource *)self callStateController];
-  v269 = 0;
-  v270 = &v269;
-  v271 = 0x3032000000;
-  v272 = sub_100028750;
-  v273 = sub_100032924;
-  v274 = 0;
+  v283 = 0;
+  v284 = &v283;
+  v285 = 0x3032000000;
+  v286 = sub_100028750;
+  v287 = sub_100032924;
+  v288 = 0;
   answeringMachineController = [callStateController answeringMachineController];
   isAvailable = [answeringMachineController isAvailable];
 
@@ -5170,7 +5355,7 @@ LABEL_21:
     goto LABEL_19;
   }
 
-  v15 = [v241 senderIdentityForUUID:localSenderIdentityUUID];
+  v15 = [v255 senderIdentityForUUID:localSenderIdentityUUID];
   v16 = v15;
   if (v15)
   {
@@ -5221,7 +5406,7 @@ LABEL_17:
 LABEL_18:
 
 LABEL_19:
-  isTelephonyProvider = [v241 isTelephonyProvider];
+  isTelephonyProvider = [v255 isTelephonyProvider];
   if (localSenderIdentityUUID)
   {
     v30 = isTelephonyProvider;
@@ -5235,14 +5420,14 @@ LABEL_19:
   if (v30 == 1)
   {
     coreTelephonyClient2 = [(CSDProviderCallDataSource *)selfCopy coreTelephonyClient];
-    v233 = [coreTelephonyClient2 isInHomeCountryForSubscriptionUUID:localSenderIdentityUUID];
+    v247 = [coreTelephonyClient2 isInHomeCountryForSubscriptionUUID:localSenderIdentityUUID];
 
     localizedCallerName = [updateCopy localizedCallerName];
     v33 = [localizedCallerName length] == 0;
 
     if (v33)
     {
-      v232 = 0;
+      v246 = 0;
     }
 
     else
@@ -5250,36 +5435,36 @@ LABEL_19:
       coreTelephonyClient3 = [(CSDProviderCallDataSource *)selfCopy coreTelephonyClient];
       v35 = [coreTelephonyClient3 spamIdentifiersForSubscriptionUUID:localSenderIdentityUUID];
 
-      v267 = 0u;
-      v268 = 0u;
-      v265 = 0u;
-      v266 = 0u;
+      v281 = 0u;
+      v282 = 0u;
+      v279 = 0u;
+      v280 = 0u;
       v36 = v35;
-      v37 = [v36 countByEnumeratingWithState:&v265 objects:v292 count:16];
+      v37 = [v36 countByEnumeratingWithState:&v279 objects:v306 count:16];
       if (v37)
       {
-        v38 = *v266;
+        v38 = *v280;
         while (2)
         {
           for (i = 0; i != v37; i = i + 1)
           {
-            if (*v266 != v38)
+            if (*v280 != v38)
             {
               objc_enumerationMutation(v36);
             }
 
-            v40 = *(*(&v265 + 1) + 8 * i);
+            v40 = *(*(&v279 + 1) + 8 * i);
             localizedCallerName2 = [updateCopy localizedCallerName];
             LOBYTE(v40) = [localizedCallerName2 rangeOfString:v40 options:1] == 0x7FFFFFFFFFFFFFFFLL;
 
             if ((v40 & 1) == 0)
             {
-              v232 = 1;
+              v246 = 1;
               goto LABEL_35;
             }
           }
 
-          v37 = [v36 countByEnumeratingWithState:&v265 objects:v292 count:16];
+          v37 = [v36 countByEnumeratingWithState:&v279 objects:v306 count:16];
           if (v37)
           {
             continue;
@@ -5289,15 +5474,15 @@ LABEL_19:
         }
       }
 
-      v232 = 0;
+      v246 = 0;
 LABEL_35:
     }
   }
 
   else
   {
-    v232 = 0;
-    v233 = 0;
+    v246 = 0;
+    v247 = 0;
   }
 
   localMemberHandleValue = [updateCopy localMemberHandleValue];
@@ -5311,25 +5496,25 @@ LABEL_35:
       coreTelephonyClient4 = [(CSDProviderCallDataSource *)selfCopy coreTelephonyClient];
       telephonySubscriptions = [coreTelephonyClient4 telephonySubscriptions];
 
-      v263 = 0u;
-      v264 = 0u;
-      v261 = 0u;
-      v262 = 0u;
+      v277 = 0u;
+      v278 = 0u;
+      v275 = 0u;
+      v276 = 0u;
       v47 = telephonySubscriptions;
-      v48 = [v47 countByEnumeratingWithState:&v261 objects:v291 count:16];
+      v48 = [v47 countByEnumeratingWithState:&v275 objects:v305 count:16];
       if (v48)
       {
-        v49 = *v262;
+        v49 = *v276;
         do
         {
           for (j = 0; j != v48; j = j + 1)
           {
-            if (*v262 != v49)
+            if (*v276 != v49)
             {
               objc_enumerationMutation(v47);
             }
 
-            v51 = *(*(&v261 + 1) + 8 * j);
+            v51 = *(*(&v275 + 1) + 8 * j);
             phoneNumber = [v51 phoneNumber];
             if (phoneNumber)
             {
@@ -5344,7 +5529,7 @@ LABEL_35:
             }
           }
 
-          v48 = [v47 countByEnumeratingWithState:&v261 objects:v291 count:16];
+          v48 = [v47 countByEnumeratingWithState:&v275 objects:v305 count:16];
         }
 
         while (v48);
@@ -5355,14 +5540,14 @@ LABEL_35:
   iSOCountryCode2 = [updateCopy ISOCountryCode];
   if (!iSOCountryCode2)
   {
-    iSOCountryCode2 = [(CSDProviderCallDataSource *)selfCopy _ISOCountryCodeForCallWithUUID:dCopy provider:v241 callUpdate:updateCopy];
+    iSOCountryCode2 = [(CSDProviderCallDataSource *)selfCopy _ISOCountryCodeForCallWithUUID:dCopy provider:v255 callUpdate:updateCopy];
     if (iSOCountryCode2)
     {
       [updateCopy setISOCountryCode:iSOCountryCode2];
     }
   }
 
-  v230 = iSOCountryCode2;
+  v244 = iSOCountryCode2;
   callContainer = [callStateController callContainer];
   _allCalls = [callContainer _allCalls];
   if ([_allCalls count])
@@ -5370,230 +5555,231 @@ LABEL_35:
     goto LABEL_54;
   }
 
-  if (![v241 isTelephonyProvider])
+  if (![v255 isTelephonyProvider])
   {
     if (!isAvailable)
     {
 LABEL_54:
-      v231 = 0;
+      v245 = 0;
       goto LABEL_61;
     }
 
     goto LABEL_60;
   }
 
-  v231 = 0;
-  if (((v232 | v233 ^ 1) & 1) == 0 && ((isAvailable ^ 1) & 1) == 0)
+  v245 = 0;
+  if (((v246 | v247 ^ 1) & 1) == 0 && ((isAvailable ^ 1) & 1) == 0)
   {
 LABEL_60:
     lowPowerModeEnabledBlock = [(CSDProviderCallDataSource *)selfCopy lowPowerModeEnabledBlock];
     v60 = lowPowerModeEnabledBlock[2]();
 
-    v231 = v60 ^ 1;
+    v245 = v60 ^ 1;
   }
 
 LABEL_61:
 
-  if (+[SOSUtilities shouldBlockNonEmergencyCalls])
+  v61 = +[SOSUtilities shouldBlockNonEmergencyCalls];
+  if (v61)
   {
-    v61 = sub_100004778();
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+    v62 = sub_100004778(v61);
+    if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "[WARN] Returning error for add incoming call request because SOS is active", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "[WARN] Returning error for add incoming call request because SOS is active", buf, 2u);
     }
 
-    v62 = [NSError cx_incomingCallErrorWithCode:3];
-    v63 = 0;
+    v63 = [NSError cx_incomingCallErrorWithCode:3];
     v64 = 0;
-    v65 = v270[5];
-    v270[5] = v62;
-    v66 = 1;
+    v65 = 0;
+    v66 = v284[5];
+    v284[5] = v63;
+    v67 = 1;
     goto LABEL_155;
   }
 
-  if ([updateCopy priority] == 2 && objc_msgSend(v241, "isTelephonyProvider"))
+  if ([updateCopy priority] == 2 && objc_msgSend(v255, "isTelephonyProvider"))
   {
-    v67 = [(CSDProviderCallDataSource *)selfCopy _endMutuallyExclusiveCalls:updateCopy];
-    v68 = v270[5];
-    v270[5] = v67;
+    v68 = [(CSDProviderCallDataSource *)selfCopy _endMutuallyExclusiveCalls:updateCopy];
+    v69 = v284[5];
+    v284[5] = v68;
 
-    if (v270[5])
+    if (v284[5])
     {
-      v63 = 0;
       v64 = 0;
-      v66 = 0;
+      v65 = 0;
+      v67 = 0;
 LABEL_156:
-      v243[0] = _NSConcreteStackBlock;
-      v243[1] = 3221225472;
-      v243[2] = sub_10025B54C;
-      v243[3] = &unk_10061FD20;
-      v148 = callStateController;
-      v244 = v148;
-      v251 = v64;
-      v229 = dCopy;
-      v245 = v229;
-      v246 = selfCopy;
-      v250 = &v269;
-      v249 = completionCopy;
-      v252 = v66;
-      v227 = v238;
-      v247 = v227;
-      v225 = updateCopy;
-      v248 = v225;
-      v253 = v66;
-      v254 = v233;
-      v255 = isAvailable;
-      v256 = v232;
-      v149 = objc_retainBlock(v243);
+      v257[0] = _NSConcreteStackBlock;
+      v257[1] = 3221225472;
+      v257[2] = sub_10025B54C;
+      v257[3] = &unk_10061FD20;
+      v159 = callStateController;
+      v258 = v159;
+      v265 = v65;
+      v243 = dCopy;
+      v259 = v243;
+      v260 = selfCopy;
+      v264 = &v283;
+      v263 = completionCopy;
+      v266 = v67;
+      v241 = v252;
+      v261 = v241;
+      v239 = updateCopy;
+      v262 = v239;
+      v267 = v67;
+      v268 = v247;
+      v269 = isAvailable;
+      v270 = v246;
+      v160 = objc_retainBlock(v257);
       isAutoAnswerDeviceBlock = [(CSDProviderCallDataSource *)selfCopy isAutoAnswerDeviceBlock];
-      v151 = isAutoAnswerDeviceBlock[2]();
+      v162 = isAutoAnswerDeviceBlock[2]();
 
-      v152 = sub_100004778();
-      if (os_log_type_enabled(v152, OS_LOG_TYPE_DEFAULT))
+      v164 = sub_100004778(v163);
+      if (os_log_type_enabled(v164, OS_LOG_TYPE_DEFAULT))
       {
-        v221 = v149;
-        v153 = v148;
+        v235 = v160;
+        v165 = v159;
+        if (v65)
+        {
+          v166 = @"YES";
+        }
+
+        else
+        {
+          v166 = @"NO";
+        }
+
         if (v64)
         {
-          v154 = @"YES";
+          v167 = @"YES";
         }
 
         else
         {
-          v154 = @"NO";
+          v167 = @"NO";
         }
 
-        if (v63)
-        {
-          v155 = @"YES";
-        }
-
-        else
-        {
-          v155 = @"NO";
-        }
-
-        callContainer2 = [v153 callContainer];
+        callContainer2 = [v165 callContainer];
         _allCalls2 = [callContainer2 _allCalls];
         if ([_allCalls2 count])
         {
-          v158 = @"NO";
+          v170 = @"NO";
         }
 
         else
         {
-          v158 = @"YES";
+          v170 = @"YES";
         }
 
         *buf = 138413826;
-        if (v233)
+        if (v247)
         {
-          v159 = @"YES";
+          v171 = @"YES";
         }
 
         else
         {
-          v159 = @"NO";
+          v171 = @"NO";
         }
 
-        *v276 = v154;
-        *&v276[8] = 2112;
-        if (v232)
+        *v290 = v166;
+        *&v290[8] = 2112;
+        if (v246)
         {
-          v160 = @"YES";
+          v172 = @"YES";
         }
 
         else
         {
-          v160 = @"NO";
+          v172 = @"NO";
         }
 
-        v277 = v155;
+        v291 = v167;
         if (isAvailable)
         {
-          v161 = @"YES";
+          v173 = @"YES";
         }
 
         else
         {
-          v161 = @"NO";
+          v173 = @"NO";
         }
 
-        v278 = 2112;
-        if (v151)
+        v292 = 2112;
+        if (v162)
         {
-          v162 = @"YES";
+          v174 = @"YES";
         }
 
         else
         {
-          v162 = @"NO";
+          v174 = @"NO";
         }
 
-        v279 = v158;
-        v280 = 2112;
-        v281 = v159;
-        v282 = 2112;
-        v283 = v160;
-        v284 = 2112;
-        v285 = v161;
-        v286 = 2112;
-        v287 = v162;
-        _os_log_impl(&_mh_execute_header, v152, OS_LOG_TYPE_DEFAULT, "Should we send to AnsweringMachine? shouldSendToLVM=%@ shouldSendToReceptionist=%@ noOtherCalls=%@ homeCountry=%@ hasSpamIdentifierInCarrierName=%@ isAnsweringMachineAvailable=%@ isAutoAnswerDevice=%@", buf, 0x48u);
+        v293 = v170;
+        v294 = 2112;
+        v295 = v171;
+        v296 = 2112;
+        v297 = v172;
+        v298 = 2112;
+        v299 = v173;
+        v300 = 2112;
+        v301 = v174;
+        _os_log_impl(&_mh_execute_header, v164, OS_LOG_TYPE_DEFAULT, "Should we send to AnsweringMachine? shouldSendToLVM=%@ shouldSendToReceptionist=%@ noOtherCalls=%@ homeCountry=%@ hasSpamIdentifierInCarrierName=%@ isAnsweringMachineAvailable=%@ isAutoAnswerDevice=%@", buf, 0x48u);
 
-        v148 = v220;
-        v149 = v221;
+        v159 = v234;
+        v160 = v235;
       }
 
-      featureFlags = [v148 featureFlags];
+      featureFlags = [v159 featureFlags];
       callScreeningEnabledM3 = [featureFlags callScreeningEnabledM3];
 
-      if ((callScreeningEnabledM3 & v64 & v231 & v151) != 0)
+      if ((callScreeningEnabledM3 & v65 & v245 & v162) != 0)
       {
-        v165 = 1;
+        v178 = 1;
       }
 
       else
       {
-        v165 = 2;
+        v178 = 2;
       }
 
-      if (((v63 | callScreeningEnabledM3 & v64) & v231 & v151) == 1)
+      if (((v64 | callScreeningEnabledM3 & v65) & v245 & v162) == 1)
       {
-        v166 = sub_100004778();
-        if (os_log_type_enabled(v166, OS_LOG_TYPE_DEFAULT))
+        v179 = sub_100004778(v177);
+        if (os_log_type_enabled(v179, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          *v276 = v165;
-          _os_log_impl(&_mh_execute_header, v166, OS_LOG_TYPE_DEFAULT, "Sending update to see if it should be screened with type %ld", buf, 0xCu);
+          *v290 = v178;
+          _os_log_impl(&_mh_execute_header, v179, OS_LOG_TYPE_DEFAULT, "Sending update to see if it should be screened with type %ld", buf, 0xCu);
         }
 
-        [v148 screenUpdate:v225 withProvider:v241 callSource:v227 callUUID:v229 screeningType:v165];
+        [v159 screenUpdate:v239 withProvider:v255 callSource:v241 callUUID:v243 screeningType:v178];
         [(CSDProviderCallDataSource *)selfCopy dispatchDelay];
-        v168 = dispatch_time(0, (v167 * 1000000000.0));
+        v181 = dispatch_time(0, (v180 * 1000000000.0));
         queue = [(CSDCallDataSource *)selfCopy queue];
-        dispatch_after(v168, queue, v149);
+        dispatch_after(v181, queue, v160);
       }
 
       else
       {
-        (v149[2])(v149);
+        (v160[2])(v160);
       }
 
-      v133 = v244;
+      v143 = v258;
       goto LABEL_188;
     }
 
-    v65 = [[CSDProviderCall alloc] initIncomingWithBackingCallSource:v238 UUID:dCopy update:updateCopy originatingUIType:45];
-    [v65 setLocalUserInHomeCountry:v233];
-    [v65 setAnsweringMachineAvailable:isAvailable];
-    [v65 setIdentifiedSpamInCallerName:v232];
-    [callStateController setCallDelegatesIfNeeded:v65];
-    [callStateController propertiesChangedForCall:v65];
-    v63 = 0;
+    v66 = [[CSDProviderCall alloc] initIncomingWithBackingCallSource:v252 UUID:dCopy update:updateCopy originatingUIType:45];
+    [v66 setLocalUserInHomeCountry:v247];
+    [v66 setAnsweringMachineAvailable:isAvailable];
+    [v66 setIdentifiedSpamInCallerName:v246];
+    [callStateController setCallDelegatesIfNeeded:v66];
+    [callStateController propertiesChangedForCall:v66];
     v64 = 0;
-    v66 = 0;
+    v65 = 0;
+    v67 = 0;
 LABEL_155:
 
     goto LABEL_156;
@@ -5603,32 +5789,30 @@ LABEL_155:
   incomingCallFilterQueryResult = [(CSDProviderCallDataSource *)selfCopy incomingCallFilterQueryResult];
   remoteHandle = [updateCopy remoteHandle];
   value = [remoteHandle value];
-  identifier = [v238 identifier];
-  v226 = (incomingCallFilterQueryResult)[2](incomingCallFilterQueryResult, value, identifier);
+  identifier = [v252 identifier];
+  v240 = (incomingCallFilterQueryResult)[2](incomingCallFilterQueryResult, value, identifier);
 
-  v73 = sub_100004778();
-  if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+  v75 = sub_100004778(v74);
+  if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
   {
     remoteHandle2 = [updateCopy remoteHandle];
     value2 = [remoteHandle2 value];
-    v76 = TULoggableStringForHandle();
-    identifier2 = [v238 identifier];
+    v78 = TULoggableStringForHandle();
+    identifier2 = [v252 identifier];
     *buf = 138412802;
-    *v276 = v226;
-    *&v276[8] = 2112;
-    v277 = v76;
-    v278 = 2112;
-    v279 = identifier2;
-    _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "Query result: %@ for handle: %@ callSource: %@", buf, 0x20u);
+    *v290 = v240;
+    *&v290[8] = 2112;
+    v291 = v78;
+    v292 = 2112;
+    v293 = identifier2;
+    _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "Query result: %@ for handle: %@ callSource: %@", buf, 0x20u);
   }
 
-  featureFlags = selfCopy->_featureFlags;
-  deviceSupport = selfCopy->_deviceSupport;
   if (TUCommunicationTrustEnabled())
   {
-    if ([updateCopy commTrustScore] == 2 || !objc_msgSend(v226, "allowCallForDestinationID"))
+    if ([updateCopy commTrustScore] == 2 || !objc_msgSend(v240, "allowCallForDestinationID"))
     {
-      v224 = 1;
+      v238 = 1;
     }
 
     else
@@ -5641,10 +5825,10 @@ LABEL_155:
         systemAllowsCall = [(CSDProviderCallDataSource *)selfCopy systemAllowsCall];
         remoteHandle4 = [updateCopy remoteHandle];
         value4 = [remoteHandle4 value];
-        identifier3 = [v238 identifier];
-        v223 = (systemAllowsCall)[2](systemAllowsCall, value4, identifier3);
+        identifier3 = [v252 identifier];
+        v237 = (systemAllowsCall)[2](systemAllowsCall, value4, identifier3);
 
-        v87 = v223 ^ 1;
+        v87 = v237 ^ 1;
       }
 
       else
@@ -5652,12 +5836,14 @@ LABEL_155:
         v87 = 1;
       }
 
-      v224 = v87;
+      v238 = v87;
     }
 
-    if ([updateCopy commTrustScore])
+    commTrustScore = [updateCopy commTrustScore];
+    if (commTrustScore)
     {
-      isFromBlockList = [v226 isFromBlockList];
+      commTrustScore = [v240 isFromBlockList];
+      isFromBlockList = commTrustScore;
     }
 
     else
@@ -5671,39 +5857,39 @@ LABEL_155:
     incomingCallFilterQueryResult2 = [(CSDProviderCallDataSource *)selfCopy incomingCallFilterQueryResult];
     remoteHandle5 = [updateCopy remoteHandle];
     value5 = [remoteHandle5 value];
-    identifier4 = [v238 identifier];
+    identifier4 = [v252 identifier];
     v92 = (*(incomingCallFilterQueryResult2 + 16))(incomingCallFilterQueryResult2, value5, identifier4);
 
     LODWORD(incomingCallFilterQueryResult2) = [v92 allowCallForDestinationID];
     isFromBlockList = [v92 isFromBlockList];
 
-    v224 = incomingCallFilterQueryResult2 ^ 1;
+    v238 = incomingCallFilterQueryResult2 ^ 1;
   }
 
-  v93 = sub_100004778();
-  if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
+  v94 = sub_100004778(commTrustScore);
+  if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
   {
-    v94 = @"NO";
+    v95 = @"NO";
     if (isFromBlockList)
     {
-      v95 = @"YES";
+      v96 = @"YES";
     }
 
     else
     {
-      v95 = @"NO";
+      v96 = @"NO";
     }
 
-    if (v224)
+    if (v238)
     {
-      v94 = @"YES";
+      v95 = @"YES";
     }
 
     *buf = 138412546;
-    *v276 = v95;
-    *&v276[8] = 2112;
-    v277 = v94;
-    _os_log_impl(&_mh_execute_header, v93, OS_LOG_TYPE_DEFAULT, "shouldBlock: %@ shouldSilence %@", buf, 0x16u);
+    *v290 = v96;
+    *&v290[8] = 2112;
+    v291 = v95;
+    _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_DEFAULT, "shouldBlock: %@ shouldSilence %@", buf, 0x16u);
   }
 
   featureFlags2 = [(CSDProviderCallDataSource *)selfCopy featureFlags];
@@ -5711,48 +5897,50 @@ LABEL_155:
 
   if (isFocusBasedSimSilencingEnabled)
   {
-    v98 = sub_100004778();
-    if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
+    v100 = sub_100004778(v99);
+    if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
     {
-      isTelephonyProvider2 = [v241 isTelephonyProvider];
+      isTelephonyProvider2 = [v255 isTelephonyProvider];
       *buf = 67109376;
-      *v276 = v224;
-      *&v276[4] = 1024;
-      *&v276[6] = isTelephonyProvider2;
-      _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_DEFAULT, "simFocus: shouldSilence:%d, isTelephonyProvider: %d", buf, 0xEu);
+      *v290 = v238;
+      *&v290[4] = 1024;
+      *&v290[6] = isTelephonyProvider2;
+      _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_DEFAULT, "simFocus: shouldSilence:%d, isTelephonyProvider: %d", buf, 0xEu);
     }
 
-    if ([v241 isTelephonyProvider])
+    if ([v255 isTelephonyProvider])
     {
       focusAllowsCall = [(CSDProviderCallDataSource *)selfCopy focusAllowsCall];
-      v101 = (focusAllowsCall)[2](focusAllowsCall, updateCopy, v241);
+      v103 = (focusAllowsCall)[2](focusAllowsCall, updateCopy, v255);
 
-      v102 = sub_100004778();
-      if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
+      v105 = sub_100004778(v104);
+      if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        *v276 = v101;
-        _os_log_impl(&_mh_execute_header, v102, OS_LOG_TYPE_DEFAULT, "simFocus: focusAllowsCall result: %d", buf, 8u);
+        *v290 = v103;
+        _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_DEFAULT, "simFocus: focusAllowsCall result: %d", buf, 8u);
       }
 
-      LOBYTE(v224) = v224 | v101 ^ 1;
+      LOBYTE(v238) = v238 | v103 ^ 1;
     }
   }
 
   isCarModeActive = [routeManager isCarModeActive];
-  if ([routeManager isAnyVehicleRouteAvailableForAnyCall])
+  isAnyVehicleRouteAvailableForAnyCall = [routeManager isAnyVehicleRouteAvailableForAnyCall];
+  if (isAnyVehicleRouteAvailableForAnyCall)
   {
-    isAnyBluetoothHeadphoneRouteAvailableForAnyCall = 1;
+    v108 = 1;
   }
 
   else
   {
-    isAnyBluetoothHeadphoneRouteAvailableForAnyCall = [routeManager isAnyBluetoothHeadphoneRouteAvailableForAnyCall];
+    isAnyVehicleRouteAvailableForAnyCall = [routeManager isAnyBluetoothHeadphoneRouteAvailableForAnyCall];
+    v108 = isAnyVehicleRouteAvailableForAnyCall;
   }
 
-  if (isCarModeActive & isAnyBluetoothHeadphoneRouteAvailableForAnyCall & 1) != 0 || isCarModeActive && ([routeManager isCarPlayRouteAvailable])
+  if (isCarModeActive & v108 & 1) != 0 || isCarModeActive && (isAnyVehicleRouteAvailableForAnyCall = [routeManager isCarPlayRouteAvailable], (isAnyVehicleRouteAvailableForAnyCall))
   {
-    v105 = 1;
+    v109 = 1;
   }
 
   else
@@ -5760,38 +5948,38 @@ LABEL_155:
     featureFlags3 = [(CSDProviderCallDataSource *)selfCopy featureFlags];
     if ([featureFlags3 nearbyFaceTimeEnabled])
     {
-      v105 = [updateCopy nearbyMode] != 0;
+      v109 = [updateCopy nearbyMode] != 0;
     }
 
     else
     {
-      v105 = 0;
+      v109 = 0;
     }
   }
 
-  v107 = sub_100004778();
-  if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
+  v111 = sub_100004778(isAnyVehicleRouteAvailableForAnyCall);
+  if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    *v276 = isCarModeActive;
-    _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_DEFAULT, "carModeActive=%d", buf, 8u);
+    *v290 = isCarModeActive;
+    _os_log_impl(&_mh_execute_header, v111, OS_LOG_TYPE_DEFAULT, "carModeActive=%d", buf, 8u);
   }
 
-  v108 = sub_100004778();
-  if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
+  v113 = sub_100004778(v112);
+  if (os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
   {
     isCarPlayRouteAvailable = [routeManager isCarPlayRouteAvailable];
     *buf = 67109120;
-    *v276 = isCarPlayRouteAvailable;
-    _os_log_impl(&_mh_execute_header, v108, OS_LOG_TYPE_DEFAULT, "routeManager.isCarPlayRouteAvailable=%d", buf, 8u);
+    *v290 = isCarPlayRouteAvailable;
+    _os_log_impl(&_mh_execute_header, v113, OS_LOG_TYPE_DEFAULT, "routeManager.isCarPlayRouteAvailable=%d", buf, 8u);
   }
 
-  v110 = sub_100004778();
-  if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
+  v116 = sub_100004778(v115);
+  if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    *v276 = v105;
-    _os_log_impl(&_mh_execute_header, v110, OS_LOG_TYPE_DEFAULT, "shouldIgnoreDND=%d", buf, 8u);
+    *v290 = v109;
+    _os_log_impl(&_mh_execute_header, v116, OS_LOG_TYPE_DEFAULT, "shouldIgnoreDND=%d", buf, 8u);
   }
 
   supportsPrimaryCalling = [(CSDProviderCallDataSource *)selfCopy supportsPrimaryCalling];
@@ -5802,107 +5990,108 @@ LABEL_155:
 
   else
   {
-    isTelephonyProvider3 = [v241 isTelephonyProvider];
+    isTelephonyProvider3 = [v255 isTelephonyProvider];
   }
 
-  v113 = sub_100004778();
-  if (os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
+  v120 = sub_100004778(v119);
+  if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    *v276 = isTelephonyProvider3;
-    _os_log_impl(&_mh_execute_header, v113, OS_LOG_TYPE_DEFAULT, "isThumperCall=%d", buf, 8u);
+    *v290 = isTelephonyProvider3;
+    _os_log_impl(&_mh_execute_header, v120, OS_LOG_TYPE_DEFAULT, "isThumperCall=%d", buf, 8u);
   }
 
-  if (!v241 || ([v241 isSystemProvider] & 1) != 0)
+  if (!v255 || ([v255 isSystemProvider] & 1) != 0)
   {
 LABEL_124:
     protectedAppsUtilities = [(CSDProviderCallDataSource *)selfCopy protectedAppsUtilities];
-    bundleIdentifier = [v238 bundleIdentifier];
-    v120 = [protectedAppsUtilities shouldBlockCallWithBundleIdentifier:bundleIdentifier];
+    bundleIdentifier = [v252 bundleIdentifier];
+    v128 = [protectedAppsUtilities shouldBlockCallWithBundleIdentifier:bundleIdentifier];
 
-    if (v120)
+    if (v128)
     {
-      v121 = sub_100004778();
-      if (os_log_type_enabled(v121, OS_LOG_TYPE_DEFAULT))
+      v130 = sub_100004778(v129);
+      if (os_log_type_enabled(v130, OS_LOG_TYPE_DEFAULT))
       {
-        bundleIdentifier2 = [v238 bundleIdentifier];
+        bundleIdentifier2 = [v252 bundleIdentifier];
         *buf = 138412290;
-        *v276 = bundleIdentifier2;
-        _os_log_impl(&_mh_execute_header, v121, OS_LOG_TYPE_DEFAULT, "[WARN] Blocking incoming call UI because the originating app [Bundle Identifier: %@] responsible for the call is hidden and currently not foregrounded", buf, 0xCu);
+        *v290 = bundleIdentifier2;
+        _os_log_impl(&_mh_execute_header, v130, OS_LOG_TYPE_DEFAULT, "[WARN] Blocking incoming call UI because the originating app [Bundle Identifier: %@] responsible for the call is hidden and currently not foregrounded", buf, 0xCu);
       }
 
-      v123 = [NSError cx_incomingCallErrorWithCode:6];
-      v124 = v270[5];
-      v270[5] = v123;
+      v132 = [NSError cx_incomingCallErrorWithCode:6];
+      v133 = v284[5];
+      v284[5] = v132;
 
 LABEL_132:
-      v63 = 0;
       v64 = 0;
-      v66 = 0;
+      v65 = 0;
+      v67 = 0;
 LABEL_154:
 
-      v65 = routeManager;
+      v66 = routeManager;
       goto LABEL_155;
     }
 
     if (isFromBlockList)
     {
-      v125 = sub_100004778();
-      if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
+      v134 = sub_100004778(v129);
+      if (os_log_type_enabled(v134, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v125, OS_LOG_TYPE_DEFAULT, "[WARN] Returning error for add incoming call request because it was on the block list", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v134, OS_LOG_TYPE_DEFAULT, "[WARN] Returning error for add incoming call request because it was on the block list", buf, 2u);
       }
 
-      v126 = [NSError cx_incomingCallErrorWithCode:4];
-      v127 = v270[5];
-      v270[5] = v126;
+      v135 = [NSError cx_incomingCallErrorWithCode:4];
+      v136 = v284[5];
+      v284[5] = v135;
 
       goto LABEL_132;
     }
 
-    if ([(CSDProviderCallDataSource *)selfCopy _shouldBlockIfScreenSharing])
+    _shouldBlockIfScreenSharing = [(CSDProviderCallDataSource *)selfCopy _shouldBlockIfScreenSharing];
+    if (_shouldBlockIfScreenSharing)
     {
-      v128 = sub_100004778();
-      if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
+      v138 = sub_100004778(_shouldBlockIfScreenSharing);
+      if (os_log_type_enabled(v138, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v128, OS_LOG_TYPE_DEFAULT, "[WARN] Blocking call because we are screen sharing and don't want to let that notification come through", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v138, OS_LOG_TYPE_DEFAULT, "[WARN] Blocking call because we are screen sharing and don't want to let that notification come through", buf, 2u);
       }
 
-      v129 = [NSError cx_incomingCallErrorWithCode:104];
-      v130 = v270[5];
-      v270[5] = v129;
+      v139 = [NSError cx_incomingCallErrorWithCode:104];
+      v140 = v284[5];
+      v284[5] = v139;
 
 LABEL_137:
-      v63 = 0;
       v64 = 0;
+      v65 = 0;
 LABEL_153:
-      v66 = 1;
+      v67 = 1;
       goto LABEL_154;
     }
 
-    if (!v105 && (v224 & 1) != 0)
+    if (!v109 && (v238 & 1) != 0)
     {
-      v135 = sub_100004778();
-      if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
+      v145 = sub_100004778(_shouldBlockIfScreenSharing);
+      if (os_log_type_enabled(v145, OS_LOG_TYPE_DEFAULT))
       {
         isCarPlayRouteAvailable2 = [routeManager isCarPlayRouteAvailable];
         *buf = 67109632;
-        *v276 = isCarModeActive;
-        *&v276[4] = 1024;
-        *&v276[6] = isAnyBluetoothHeadphoneRouteAvailableForAnyCall;
-        LOWORD(v277) = 1024;
-        *(&v277 + 2) = isCarPlayRouteAvailable2;
-        _os_log_impl(&_mh_execute_header, v135, OS_LOG_TYPE_DEFAULT, "[WARN] Returning error for add incoming call request because call did not pass DND filter. CarMode (%d) BT Audio Route (%d), CarPlay (%d)", buf, 0x14u);
+        *v290 = isCarModeActive;
+        *&v290[4] = 1024;
+        *&v290[6] = v108;
+        LOWORD(v291) = 1024;
+        *(&v291 + 2) = isCarPlayRouteAvailable2;
+        _os_log_impl(&_mh_execute_header, v145, OS_LOG_TYPE_DEFAULT, "[WARN] Returning error for add incoming call request because call did not pass DND filter. CarMode (%d) BT Audio Route (%d), CarPlay (%d)", buf, 0x14u);
       }
 
-      v137 = [NSError cx_incomingCallErrorWithCode:3];
-      v138 = v270[5];
-      v270[5] = v137;
+      v147 = [NSError cx_incomingCallErrorWithCode:3];
+      v148 = v284[5];
+      v284[5] = v147;
 
-      v63 = 0;
-      v64 = 1;
+      v64 = 0;
+      v65 = 1;
       goto LABEL_153;
     }
 
@@ -5914,81 +6103,73 @@ LABEL_153:
     else
     {
       shouldPreferRelayOverDirectSecondaryCalling = [(CSDProviderCallDataSource *)selfCopy shouldPreferRelayOverDirectSecondaryCalling];
-      v140 = (shouldPreferRelayOverDirectSecondaryCalling)[2](shouldPreferRelayOverDirectSecondaryCalling, v241, [updateCopy hasVideo]);
+      v150 = (shouldPreferRelayOverDirectSecondaryCalling)[2](shouldPreferRelayOverDirectSecondaryCalling, v255, [updateCopy hasVideo]);
 
-      if (v140)
+      if (v150)
       {
-        v141 = sub_100004778();
-        if (os_log_type_enabled(v141, OS_LOG_TYPE_DEFAULT))
+        v152 = sub_100004778(v151);
+        if (os_log_type_enabled(v152, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v141, OS_LOG_TYPE_DEFAULT, "[WARN] Returning error for add incoming call request because it is a direct call to a secondary device and relay calling is preferred over direct calling", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v152, OS_LOG_TYPE_DEFAULT, "[WARN] Returning error for add incoming call request because it is a direct call to a secondary device and relay calling is preferred over direct calling", buf, 2u);
         }
 
-        v142 = [NSError cx_incomingCallErrorWithCode:100];
-        v143 = v270[5];
-        v270[5] = v142;
+        v153 = [NSError cx_incomingCallErrorWithCode:100];
+        v154 = v284[5];
+        v284[5] = v153;
 
         goto LABEL_132;
       }
     }
 
     shouldFilterCall = [(CSDProviderCallDataSource *)selfCopy shouldFilterCall];
-    v145 = (shouldFilterCall)[2](shouldFilterCall, updateCopy, v241);
+    v156 = (shouldFilterCall)[2](shouldFilterCall, updateCopy, v255);
 
-    if (v145)
+    if (v156)
     {
-      v146 = [NSError cx_incomingCallErrorWithCode:4];
-      v147 = v270[5];
-      v270[5] = v146;
+      v157 = [NSError cx_incomingCallErrorWithCode:4];
+      v158 = v284[5];
+      v284[5] = v157;
 
-      v63 = 0;
-      v64 = [updateCopy filteredOutReason] != 5;
+      v64 = 0;
+      v65 = [updateCopy filteredOutReason] != 5;
       goto LABEL_153;
     }
 
-    if (!([routeManager isCarPlayRouteAvailable] & 1 | ((v231 & 1) == 0)) && ((isAvailable ^ 1) & 1) == 0)
+    if (!([routeManager isCarPlayRouteAvailable] & 1 | ((v245 & 1) == 0)) && ((isAvailable ^ 1) & 1) == 0 && TUCommunicationTrustEnabled() && objc_msgSend(updateCopy, "commTrustScore") <= 4)
     {
-      v170 = selfCopy->_featureFlags;
-      v171 = selfCopy->_deviceSupport;
-      if (TUCommunicationTrustEnabled())
+      featureFlags4 = [(CSDProviderCallDataSource *)selfCopy featureFlags];
+      if (!TUReceptionistAvailable())
       {
-        if ([updateCopy commTrustScore] <= 4)
-        {
-          featureFlags4 = [(CSDProviderCallDataSource *)selfCopy featureFlags];
-          if (!TUReceptionistAvailable())
-          {
 LABEL_196:
 
-            goto LABEL_197;
-          }
+        goto LABEL_197;
+      }
 
-          remoteHandle6 = [updateCopy remoteHandle];
-          value6 = [remoteHandle6 value];
-          serverBag = [(CSDProviderCallDataSource *)selfCopy serverBag];
-          if (isTelephonyProvider3 & 1 | ((TUCheckReceptionistDisclosed() & 1) == 0))
-          {
+      remoteHandle6 = [updateCopy remoteHandle];
+      value6 = [remoteHandle6 value];
+      serverBag = [(CSDProviderCallDataSource *)selfCopy serverBag];
+      if (isTelephonyProvider3 & 1 | ((TUCheckReceptionistDisclosed() & 1) == 0))
+      {
 
-            goto LABEL_196;
-          }
+        goto LABEL_196;
+      }
 
-          isEligibleBlock = [(CSDProviderCallDataSource *)selfCopy isEligibleBlock];
-          v218 = (isEligibleBlock)[2](isEligibleBlock, updateCopy, v241, 1);
+      isEligibleBlock = [(CSDProviderCallDataSource *)selfCopy isEligibleBlock];
+      v231 = (isEligibleBlock)[2](isEligibleBlock, updateCopy, v255, 1);
 
-          if (v218)
-          {
-            v219 = sub_100004778();
-            if (os_log_type_enabled(v219, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 0;
-              _os_log_impl(&_mh_execute_header, v219, OS_LOG_TYPE_DEFAULT, "Call has commTrustScore of unknown or less and we're not sending to LVM, send to Receptionist", buf, 2u);
-            }
-
-            v64 = 0;
-            v63 = 1;
-            goto LABEL_153;
-          }
+      if (v231)
+      {
+        v233 = sub_100004778(v232);
+        if (os_log_type_enabled(v233, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v233, OS_LOG_TYPE_DEFAULT, "Call has commTrustScore of unknown or less and we're not sending to LVM, send to Receptionist", buf, 2u);
         }
+
+        v65 = 0;
+        v64 = 1;
+        goto LABEL_153;
       }
     }
 
@@ -5997,31 +6178,31 @@ LABEL_197:
     if ([featureFlags5 nudityDetectionEnabled] && (objc_opt_respondsToSelector() & 1) != 0)
     {
       remoteParticipantHandles = [updateCopy remoteParticipantHandles];
-      v178 = [(CSDProviderCallDataSource *)selfCopy remoteScaParticipants:remoteParticipantHandles];
+      v189 = [(CSDProviderCallDataSource *)selfCopy remoteScaParticipants:remoteParticipantHandles];
       if ([updateCopy hasVideo])
       {
-        v179 = 1;
+        v190 = 1;
       }
 
       else
       {
-        v179 = 2;
+        v190 = 2;
       }
 
-      v180 = [SCAnalysisHistory shouldDeclineIncomingCallFromParticipants:v178 callType:v179];
+      v191 = [SCAnalysisHistory shouldDeclineIncomingCallFromParticipants:v189 callType:v190];
 
-      if (v180)
+      if (v191)
       {
-        v181 = sub_100004778();
-        if (os_log_type_enabled(v181, OS_LOG_TYPE_DEFAULT))
+        v193 = sub_100004778(v192);
+        if (os_log_type_enabled(v193, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v181, OS_LOG_TYPE_DEFAULT, "[WARN] Returning error for add incoming call request because it was on the sensitive content shared list", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v193, OS_LOG_TYPE_DEFAULT, "[WARN] Returning error for add incoming call request because it was on the sensitive content shared list", buf, 2u);
         }
 
-        v182 = [NSError cx_incomingCallErrorWithCode:7];
-        v183 = v270[5];
-        v270[5] = v182;
+        v194 = [NSError cx_incomingCallErrorWithCode:7];
+        v195 = v284[5];
+        v284[5] = v194;
 
         goto LABEL_137;
       }
@@ -6031,26 +6212,27 @@ LABEL_197:
     {
     }
 
-    if ([updateCopy requiresAuthentication])
+    requiresAuthentication = [updateCopy requiresAuthentication];
+    if (requiresAuthentication)
     {
-      v184 = sub_100004778();
-      if (os_log_type_enabled(v184, OS_LOG_TYPE_DEFAULT))
+      v197 = sub_100004778(requiresAuthentication);
+      if (os_log_type_enabled(v197, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v184, OS_LOG_TYPE_DEFAULT, "[WARN] Update requires additional authentication before it can be answered", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v197, OS_LOG_TYPE_DEFAULT, "[WARN] Update requires additional authentication before it can be answered", buf, 2u);
       }
 
-      v185 = [CSDIDSPendingChat alloc];
+      v198 = [CSDIDSPendingChat alloc];
       uUID = [updateCopy UUID];
       hasVideo = [updateCopy hasVideo];
       remoteHandle7 = [updateCopy remoteHandle];
       tuHandle = [remoteHandle7 tuHandle];
-      v190 = [(CSDIDSPendingChat *)v185 initWithUUID:uUID isVideo:hasVideo handle:tuHandle];
+      v203 = [(CSDIDSPendingChat *)v198 initWithUUID:uUID isVideo:hasVideo handle:tuHandle];
 
-      v191 = [[CSDProviderCall alloc] initIncomingWithBackingCallSource:v238 UUID:dCopy update:updateCopy originatingUIType:45];
-      [v191 setLocalUserInHomeCountry:v233];
-      [v191 setAnsweringMachineAvailable:isAvailable];
-      [v191 setIdentifiedSpamInCallerName:v232];
+      v204 = [[CSDProviderCall alloc] initIncomingWithBackingCallSource:v252 UUID:dCopy update:updateCopy originatingUIType:45];
+      [v204 setLocalUserInHomeCountry:v247];
+      [v204 setAnsweringMachineAvailable:isAvailable];
+      [v204 setIdentifiedSpamInCallerName:v246];
       answeringMachineController2 = [callStateController answeringMachineController];
       LODWORD(remoteHandle7) = answeringMachineController2 == 0;
 
@@ -6058,33 +6240,33 @@ LABEL_197:
       {
         if ((TUCallScreeningEnabled() & 1) == 0)
         {
-          [v191 setLiveVoicemailUnavailableReason:5];
+          [v204 setLiveVoicemailUnavailableReason:5];
         }
       }
 
       else
       {
         answeringMachineController3 = [callStateController answeringMachineController];
-        [v191 setLiveVoicemailUnavailableReason:{objc_msgSend(answeringMachineController3, "liveVoicemailUnavailableReason")}];
+        [v204 setLiveVoicemailUnavailableReason:{objc_msgSend(answeringMachineController3, "liveVoicemailUnavailableReason")}];
       }
 
-      [callStateController setCallDelegatesIfNeeded:v191];
+      [callStateController setCallDelegatesIfNeeded:v204];
       pendingCallsToChatUUIDs = [(CSDProviderCallDataSource *)selfCopy pendingCallsToChatUUIDs];
-      uuid = [(CSDIDSPendingChat *)v190 uuid];
-      [pendingCallsToChatUUIDs setObject:v191 forKeyedSubscript:uuid];
+      uuid = [(CSDIDSPendingChat *)v203 uuid];
+      [pendingCallsToChatUUIDs setObject:v204 forKeyedSubscript:uuid];
 
-      v209 = +[NSNotificationCenter defaultCenter];
-      v289 = @"CSDIDSPendingChatKey";
-      v290 = v190;
-      v210 = [NSDictionary dictionaryWithObjects:&v290 forKeys:&v289 count:1];
-      [v209 postNotificationName:@"CSDIDSPendingMessageDidReceiveInviteNotification" object:0 userInfo:v210];
+      v222 = +[NSNotificationCenter defaultCenter];
+      v303 = @"CSDIDSPendingChatKey";
+      v304 = v203;
+      v223 = [NSDictionary dictionaryWithObjects:&v304 forKeys:&v303 count:1];
+      [v222 postNotificationName:@"CSDIDSPendingMessageDidReceiveInviteNotification" object:0 userInfo:v223];
 
       goto LABEL_132;
     }
 
-    v193 = [(CSDProviderCallDataSource *)selfCopy _endMutuallyExclusiveCalls:updateCopy];
-    v194 = v270[5];
-    v270[5] = v193;
+    v206 = [(CSDProviderCallDataSource *)selfCopy _endMutuallyExclusiveCalls:updateCopy];
+    v207 = v284[5];
+    v284[5] = v206;
 
     featureFlags6 = [(CSDProviderCallDataSource *)selfCopy featureFlags];
     if ([featureFlags6 uplevelFTAEnabled])
@@ -6093,78 +6275,78 @@ LABEL_197:
 
       if (!isUpgradeToVideo)
       {
-        v198 = 0;
+        v211 = 0;
 LABEL_230:
-        if (!v270[5])
+        if (!v284[5])
         {
-          v213 = [[CSDProviderCall alloc] initIncomingWithBackingCallSource:v238 UUID:dCopy update:updateCopy originatingUIType:45];
-          [v213 setLocalUserInHomeCountry:v233];
-          [v213 setUpgradedFromCallUUID:v198];
-          [v213 setAnsweringMachineAvailable:isAvailable];
-          [v213 setIdentifiedSpamInCallerName:v232];
+          v226 = [[CSDProviderCall alloc] initIncomingWithBackingCallSource:v252 UUID:dCopy update:updateCopy originatingUIType:45];
+          [v226 setLocalUserInHomeCountry:v247];
+          [v226 setUpgradedFromCallUUID:v211];
+          [v226 setAnsweringMachineAvailable:isAvailable];
+          [v226 setIdentifiedSpamInCallerName:v246];
           answeringMachineController4 = [callStateController answeringMachineController];
-          v215 = answeringMachineController4 == 0;
+          v228 = answeringMachineController4 == 0;
 
-          if ((v215 | isAvailable))
+          if ((v228 | isAvailable))
           {
             if ((TUCallScreeningEnabled() & 1) == 0)
             {
-              [v213 setLiveVoicemailUnavailableReason:5];
+              [v226 setLiveVoicemailUnavailableReason:5];
             }
           }
 
           else
           {
             answeringMachineController5 = [callStateController answeringMachineController];
-            [v213 setLiveVoicemailUnavailableReason:{objc_msgSend(answeringMachineController5, "liveVoicemailUnavailableReason")}];
+            [v226 setLiveVoicemailUnavailableReason:{objc_msgSend(answeringMachineController5, "liveVoicemailUnavailableReason")}];
           }
 
-          [callStateController setCallDelegatesIfNeeded:v213];
-          [callStateController propertiesChangedForCall:v213];
+          [callStateController setCallDelegatesIfNeeded:v226];
+          [callStateController propertiesChangedForCall:v226];
         }
 
         goto LABEL_132;
       }
 
-      v259 = 0u;
-      v260 = 0u;
-      v257 = 0u;
-      v258 = 0u;
+      v273 = 0u;
+      v274 = 0u;
+      v271 = 0u;
+      v272 = 0u;
       callCenter = [callStateController callCenter];
       featureFlags6 = [callCenter currentCalls];
 
-      v198 = [featureFlags6 countByEnumeratingWithState:&v257 objects:v288 count:16];
-      if (v198)
+      v211 = [featureFlags6 countByEnumeratingWithState:&v271 objects:v302 count:16];
+      if (v211)
       {
-        v199 = *v258;
+        v212 = *v272;
         while (2)
         {
-          for (k = 0; k != v198; k = k + 1)
+          for (k = 0; k != v211; k = k + 1)
           {
-            if (*v258 != v199)
+            if (*v272 != v212)
             {
               objc_enumerationMutation(featureFlags6);
             }
 
-            v201 = *(*(&v257 + 1) + 8 * k);
-            handle2 = [v201 handle];
-            v203 = [CXHandle handleWithTUHandle:handle2];
+            v214 = *(*(&v271 + 1) + 8 * k);
+            handle2 = [v214 handle];
+            v216 = [CXHandle handleWithTUHandle:handle2];
 
             remoteHandle8 = [updateCopy remoteHandle];
-            v205 = [v203 isEqual:remoteHandle8];
+            v218 = [v216 isEqual:remoteHandle8];
 
-            if (v205)
+            if (v218)
             {
-              v211 = [NSUUID alloc];
-              callUUID = [v201 callUUID];
-              v198 = [v211 initWithUUIDString:callUUID];
+              v224 = [NSUUID alloc];
+              callUUID = [v214 callUUID];
+              v211 = [v224 initWithUUIDString:callUUID];
 
               goto LABEL_229;
             }
           }
 
-          v198 = [featureFlags6 countByEnumeratingWithState:&v257 objects:v288 count:16];
-          if (v198)
+          v211 = [featureFlags6 countByEnumeratingWithState:&v271 objects:v302 count:16];
+          if (v211)
           {
             continue;
           }
@@ -6176,7 +6358,7 @@ LABEL_230:
 
     else
     {
-      v198 = 0;
+      v211 = 0;
     }
 
 LABEL_229:
@@ -6184,11 +6366,11 @@ LABEL_229:
     goto LABEL_230;
   }
 
-  bundleIdentifier3 = [v241 bundleIdentifier];
+  bundleIdentifier3 = [v255 bundleIdentifier];
   voipApplicationController = [callStateController voipApplicationController];
-  v116 = [voipApplicationController shouldAllowIncomingCall:bundleIdentifier3];
+  v123 = [voipApplicationController shouldAllowIncomingCall:bundleIdentifier3];
 
-  if (v116)
+  if (v123)
   {
     voipApplicationController2 = [callStateController voipApplicationController];
     [voipApplicationController2 noteReportedNewIncomingVoIPCallForBundleIdentifier:bundleIdentifier3];
@@ -6196,20 +6378,20 @@ LABEL_229:
     goto LABEL_124;
   }
 
-  v131 = sub_100004778();
-  if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
+  v141 = sub_100004778(v124);
+  if (os_log_type_enabled(v141, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v131, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring add incoming call request because we are not allowing the app to receive calls: ", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v141, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring add incoming call request because we are not allowing the app to receive calls: ", buf, 2u);
   }
 
-  v132 = [NSError cx_incomingCallErrorWithCode:106];
-  (*(completionCopy + 2))(completionCopy, v132);
+  v142 = [NSError cx_incomingCallErrorWithCode:106];
+  (*(completionCopy + 2))(completionCopy, v142);
 
-  v133 = routeManager;
+  v143 = routeManager;
 LABEL_188:
 
-  _Block_object_dispose(&v269, 8);
+  _Block_object_dispose(&v283, 8);
 }
 
 - (void)callSource:(id)source _reportedNewIncomingCallWithUUIDSilently:(id)silently update:(id)update
@@ -6229,7 +6411,7 @@ LABEL_188:
     }
   }
 
-  v22 = v11;
+  v23 = v11;
   incomingCallFilterQueryResult = [(CSDProviderCallDataSource *)self incomingCallFilterQueryResult];
   remoteHandle = [updateCopy remoteHandle];
   value = [remoteHandle value];
@@ -6237,21 +6419,22 @@ LABEL_188:
   v18 = (incomingCallFilterQueryResult)[2](incomingCallFilterQueryResult, value, identifier);
 
   isFromBlockList = [v18 isFromBlockList];
-  v20 = sub_100004778();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v20 = isFromBlockList;
+  v21 = sub_100004778(isFromBlockList);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "creating protected call", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "creating protected call", buf, 2u);
   }
 
-  v21 = [[CSDProviderCall alloc] initIncomingWithBackingCallSource:sourceCopy UUID:silentlyCopy update:updateCopy originatingUIType:45];
-  [v21 setDisconnectedReason:21];
-  [v21 setSupportsRecents:isFromBlockList ^ 1];
-  [v21 setLocalUserInHomeCountry:0];
-  [v21 setAnsweringMachineAvailable:0];
-  [v21 setFilteredOutReason:10];
-  [callStateController setCallDelegatesIfNeeded:v21];
-  [callStateController propertiesChangedForCall:v21];
+  v22 = [[CSDProviderCall alloc] initIncomingWithBackingCallSource:sourceCopy UUID:silentlyCopy update:updateCopy originatingUIType:45];
+  [v22 setDisconnectedReason:21];
+  [v22 setSupportsRecents:v20 ^ 1u];
+  [v22 setLocalUserInHomeCountry:0];
+  [v22 setAnsweringMachineAvailable:0];
+  [v22 setFilteredOutReason:10];
+  [callStateController setCallDelegatesIfNeeded:v22];
+  [callStateController propertiesChangedForCall:v22];
 }
 
 - (void)callSource:(id)source reportedNewIncomingCallWithUUID:(id)d update:(id)update completion:(id)completion
@@ -6260,22 +6443,23 @@ LABEL_188:
   dCopy = d;
   updateCopy = update;
   completionCopy = completion;
-  v14 = sub_100004778();
+  v14 = sub_100004778(completionCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 138412802;
-    v47 = sourceCopy;
-    v48 = 2112;
-    v49 = uUIDString;
-    v50 = 2112;
-    v51 = updateCopy;
+    v51 = sourceCopy;
+    v52 = 2112;
+    v53 = uUIDString;
+    v54 = 2112;
+    v55 = updateCopy;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Received add incoming call request from call source %@ with UUID %@ update %@", buf, 0x20u);
   }
 
   [CSDSignposts trace:4];
   v16 = [(CSDProviderCallDataSource *)self _callWithUUID:dCopy];
   v17 = [(CSDProviderCallDataSource *)self _relayCallWithUUID:dCopy];
+  v18 = v17;
   if (!(v16 | v17))
   {
     if ([updateCopy shouldSilentlyRegisterIMAVCall])
@@ -6285,9 +6469,7 @@ LABEL_188:
       goto LABEL_39;
     }
 
-    v20 = [(CSDProviderCallDataSource *)self _providerForCallSource:sourceCopy];
-    featureFlags = self->_featureFlags;
-    deviceSupport = self->_deviceSupport;
+    v21 = [(CSDProviderCallDataSource *)self _providerForCallSource:sourceCopy];
     if (!TUCommunicationTrustEnabled())
     {
 LABEL_38:
@@ -6296,131 +6478,117 @@ LABEL_38:
       goto LABEL_39;
     }
 
-    v23 = [(CSDCommunicationTrustScoreDataProviderProtocol *)self->_communicationTrustScoreDataProvider getTrustScoreFor:updateCopy callProvider:v20];
-    v24 = v23;
-    [updateCopy setCommTrustScore:v23];
-    [updateCopy setIsKnownCaller:v24 > 4];
+    v22 = [(CSDCommunicationTrustScoreDataProviderProtocol *)self->_communicationTrustScoreDataProvider getTrustScoreFor:updateCopy callProvider:v21];
+    v23 = v22;
+    [updateCopy setCommTrustScore:v22];
+    [updateCopy setIsKnownCaller:v23 > 4];
     serverBag = [(CSDProviderCallDataSource *)self serverBag];
-    v26 = [serverBag objectForKey:@"disable-receptionist-disclosure-checks"];
+    v25 = [serverBag objectForKey:@"disable-receptionist-disclosure-checks"];
 
-    v45 = v26;
-    if (v26)
+    v49 = v25;
+    if (v25)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        LODWORD(v26) = [v26 BOOLValue];
+        isKindOfClass = [v25 BOOLValue];
+        LODWORD(v25) = isKindOfClass;
       }
 
       else
       {
-        LODWORD(v26) = 0;
+        LODWORD(v25) = 0;
       }
     }
 
-    v27 = sub_100004778();
+    v27 = sub_100004778(isKindOfClass);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       v28 = @"NO";
-      if (v26)
+      if (v25)
       {
         v28 = @"YES";
       }
 
       *buf = 138412290;
-      v47 = v28;
+      v51 = v28;
       _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "specialUnknown: disclosureChecksEnabled=%@", buf, 0xCu);
     }
 
-    if (v26 & 1 | (([v20 isTelephonyProvider] & 1) == 0))
-    {
-      goto LABEL_37;
-    }
-
-    if (![updateCopy isKnownCaller])
-    {
-      goto LABEL_37;
-    }
-
-    remoteHandle = [updateCopy remoteHandle];
-    value = [remoteHandle value];
-    [(CSDProviderCallDataSource *)self serverBag];
-    v31 = v44 = v20;
-    v43 = TUCheckReceptionistDisclosed();
-
-    v20 = v44;
-    if (!v43)
+    if (v25 & 1 | (([v21 isTelephonyProvider] & 1) == 0) || !objc_msgSend(updateCopy, "isKnownCaller") || (objc_msgSend(updateCopy, "remoteHandle"), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v29, "value"), v30 = objc_claimAutoreleasedReturnValue(), -[CSDProviderCallDataSource serverBag](self, "serverBag"), v48 = v21, v31 = objc_claimAutoreleasedReturnValue(), v47 = TUCheckReceptionistDisclosed(), v31, v21 = v48, v30, v29, !v47))
     {
 LABEL_37:
 
       goto LABEL_38;
     }
 
-    v32 = sub_100004778();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_100004778(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "We have a known caller, might force it to specialUnknown", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "We have a known caller, might force it to specialUnknown", buf, 2u);
     }
 
-    v33 = +[NSUserDefaults tu_defaults];
-    v34 = [v33 objectForKey:@"specialUnknownValue"];
+    v34 = +[NSUserDefaults tu_defaults];
+    v35 = [v34 objectForKey:@"specialUnknownValue"];
 
-    if (v34)
+    if (v35)
     {
-      v35 = +[NSUserDefaults tu_defaults];
-      [updateCopy setSpecialUnknown:{objc_msgSend(v35, "BOOLForKey:", @"specialUnknownValue"}];
+      v36 = +[NSUserDefaults tu_defaults];
+      [updateCopy setSpecialUnknown:{objc_msgSend(v36, "BOOLForKey:", @"specialUnknownValue"}];
 
-      v36 = sub_100004778();
-      if (!os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      v38 = sub_100004778(v37);
+      if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_33;
       }
 
       specialUnknown = [updateCopy specialUnknown];
-      v38 = @"NO";
+      v40 = @"NO";
       if (specialUnknown)
       {
-        v38 = @"YES";
+        v40 = @"YES";
       }
 
       *buf = 138412290;
-      v47 = v38;
-      v39 = "Default set, set specialUnknown: %@";
+      v51 = v40;
+      v41 = "Default set, set specialUnknown: %@";
     }
 
     else
     {
-      [updateCopy setSpecialUnknown:arc4random_uniform(0x64u) < 0x32];
-      v36 = sub_100004778();
-      if (!os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      0x32 = [updateCopy setSpecialUnknown:arc4random_uniform(0x64u) < 0x32];
+      v38 = sub_100004778(0x32);
+      if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_33;
       }
 
       specialUnknown2 = [updateCopy specialUnknown];
-      v41 = @"NO";
+      v44 = @"NO";
       if (specialUnknown2)
       {
-        v41 = @"YES";
+        v44 = @"YES";
       }
 
       *buf = 138412290;
-      v47 = v41;
-      v39 = "Default not set, calculated specialUnknown: %@";
+      v51 = v44;
+      v41 = "Default not set, calculated specialUnknown: %@";
     }
 
-    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, v39, buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, v41, buf, 0xCu);
 LABEL_33:
-    v20 = v44;
+    v21 = v48;
 
-    if ([updateCopy specialUnknown])
+    specialUnknown3 = [updateCopy specialUnknown];
+    if (specialUnknown3)
     {
-      v42 = sub_100004778();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      v46 = sub_100004778(specialUnknown3);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "We are forcing a known caller to be specialUnknown", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "We are forcing a known caller to be specialUnknown", buf, 2u);
       }
 
       [updateCopy setCommTrustScore:4];
@@ -6430,18 +6598,18 @@ LABEL_33:
     goto LABEL_37;
   }
 
-  v18 = sub_100004778();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = sub_100004778(v17);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v47 = v16;
-    v48 = 2112;
-    v49 = v17;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring add incoming call request because a call already exists with the same UUID: existingCall: %@, relayCallWithUUID: %@", buf, 0x16u);
+    v51 = v16;
+    v52 = 2112;
+    v53 = v18;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring add incoming call request because a call already exists with the same UUID: existingCall: %@, relayCallWithUUID: %@", buf, 0x16u);
   }
 
-  v19 = [NSError cx_incomingCallErrorWithCode:2];
-  (completionCopy)[2](completionCopy, v19);
+  v20 = [NSError cx_incomingCallErrorWithCode:2];
+  (completionCopy)[2](completionCopy, v20);
 
 LABEL_39:
 }
@@ -6451,81 +6619,81 @@ LABEL_39:
   sourceCopy = source;
   dCopy = d;
   updatedCopy = updated;
-  v11 = sub_100004778();
+  v11 = sub_100004778(updatedCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 138412802;
-    v44 = sourceCopy;
-    v45 = 2112;
-    v46 = uUIDString;
+    v46 = sourceCopy;
     v47 = 2112;
-    v48 = updatedCopy;
+    v48 = uUIDString;
+    v49 = 2112;
+    v50 = updatedCopy;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Call source %@ updated call with UUID %@ with update %@", buf, 0x20u);
   }
 
-  v13 = sub_100004778();
-  if (os_signpost_enabled(v13))
+  v14 = sub_100004778(v13);
+  if (os_signpost_enabled(v14))
   {
     uUID = [updatedCopy UUID];
     uUIDString2 = [uUID UUIDString];
     *buf = 138543362;
-    v44 = uUIDString2;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CSDProviderCallDataSource", "callSourceUpdated-%{public}@", buf, 0xCu);
+    v46 = uUIDString2;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CSDProviderCallDataSource", "callSourceUpdated-%{public}@", buf, 0xCu);
   }
 
-  call = [(CSDProviderCallDataSource *)self _callWithUUID:dCopy controllableByCallSource:sourceCopy];
-  if ((-[NSObject isMutuallyExclusiveCall](call, "isMutuallyExclusiveCall") & 1) != 0 || [updatedCopy isMutuallyExclusiveCall])
+  v17 = [(CSDProviderCallDataSource *)self _callWithUUID:dCopy controllableByCallSource:sourceCopy];
+  if ((-[NSObject isMutuallyExclusiveCall](v17, "isMutuallyExclusiveCall") & 1) != 0 || [updatedCopy isMutuallyExclusiveCall])
   {
+    v43 = 0u;
+    v44 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v39 = 0u;
-    v40 = 0u;
     calls = [(CSDCallDataSource *)self calls];
-    v18 = [calls countByEnumeratingWithState:&v39 objects:v51 count:16];
-    if (v18)
+    v19 = [calls countByEnumeratingWithState:&v41 objects:v53 count:16];
+    if (v19)
     {
-      v19 = v18;
+      v20 = v19;
       selfCopy = self;
-      v38 = sourceCopy;
-      v20 = *v40;
+      v40 = sourceCopy;
+      v21 = *v42;
       while (2)
       {
-        for (i = 0; i != v19; i = i + 1)
+        for (i = 0; i != v20; i = i + 1)
         {
-          if (*v40 != v20)
+          if (*v42 != v21)
           {
             objc_enumerationMutation(calls);
           }
 
-          v22 = *(*(&v39 + 1) + 8 * i);
-          uniqueProxyIdentifierUUID = [call uniqueProxyIdentifierUUID];
-          uniqueProxyIdentifierUUID2 = [v22 uniqueProxyIdentifierUUID];
-          v25 = [uniqueProxyIdentifierUUID isEqual:uniqueProxyIdentifierUUID2];
+          v23 = *(*(&v41 + 1) + 8 * i);
+          uniqueProxyIdentifierUUID = [v17 uniqueProxyIdentifierUUID];
+          uniqueProxyIdentifierUUID2 = [v23 uniqueProxyIdentifierUUID];
+          v26 = [uniqueProxyIdentifierUUID isEqual:uniqueProxyIdentifierUUID2];
 
-          if (!v25)
+          if (!v26)
           {
 
             calls = [[CXEndCallAction alloc] initWithCallUUID:dCopy];
-            v26 = sub_100004778();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            v27 = sub_100004778(calls);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v44 = calls;
-              v45 = 2112;
-              v46 = dCopy;
-              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "[WARN] Sending %@ for existing call with uniqueProxyIdentifierUUID=%@ since it cannot co-exist with ongoing calls.", buf, 0x16u);
+              v46 = calls;
+              v47 = 2112;
+              v48 = dCopy;
+              _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "[WARN] Sending %@ for existing call with uniqueProxyIdentifierUUID=%@ since it cannot co-exist with ongoing calls.", buf, 0x16u);
             }
 
             self = selfCopy;
-            [(CSDProviderCallDataSource *)selfCopy performCallAction:calls forCall:call];
-            sourceCopy = v38;
+            [(CSDProviderCallDataSource *)selfCopy performCallAction:calls forCall:v17];
+            sourceCopy = v40;
             goto LABEL_19;
           }
         }
 
-        v19 = [calls countByEnumeratingWithState:&v39 objects:v51 count:16];
-        if (v19)
+        v20 = [calls countByEnumeratingWithState:&v41 objects:v53 count:16];
+        if (v20)
         {
           continue;
         }
@@ -6534,26 +6702,15 @@ LABEL_39:
       }
 
       self = selfCopy;
-      sourceCopy = v38;
+      sourceCopy = v40;
     }
 
 LABEL_19:
   }
 
-  if (call)
+  if (v17 || (-[CSDProviderCallDataSource pendingPulledCallContexts](self, "pendingPulledCallContexts"), v28 = objc_claimAutoreleasedReturnValue(), [v28 objectForKeyedSubscript:dCopy], v29 = objc_claimAutoreleasedReturnValue(), v28, objc_msgSend(v29, "call"), v17 = objc_claimAutoreleasedReturnValue(), v29, v17))
   {
-    goto LABEL_22;
-  }
-
-  pendingPulledCallContexts = [(CSDProviderCallDataSource *)self pendingPulledCallContexts];
-  v28 = [pendingPulledCallContexts objectForKeyedSubscript:dCopy];
-
-  call = [v28 call];
-
-  if (call)
-  {
-LABEL_22:
-    isoCountryCode = [call isoCountryCode];
+    isoCountryCode = [v17 isoCountryCode];
     if (!isoCountryCode)
     {
       iSOCountryCode = [updatedCopy ISOCountryCode];
@@ -6563,48 +6720,47 @@ LABEL_22:
         goto LABEL_25;
       }
 
-      isoCountryCode = [(CSDProviderCallDataSource *)self _ISOCountryCodeForCall:call];
+      isoCountryCode = [(CSDProviderCallDataSource *)self _ISOCountryCodeForCall:v17];
       iSOCountryCode2 = [updatedCopy ISOCountryCode];
-      v36 = TUStringsAreEqualOrNil();
+      v38 = TUStringsAreEqualOrNil();
 
-      if ((v36 & 1) == 0)
+      if ((v38 & 1) == 0)
       {
         [updatedCopy setISOCountryCode:isoCountryCode];
       }
     }
 
 LABEL_25:
-    [call updateWithCallUpdate:updatedCopy];
-    v31 = sub_100004778();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_100004778([v17 updateWithCallUpdate:updatedCopy]);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       uUIDString3 = [dCopy UUIDString];
       *buf = 138413058;
-      v44 = sourceCopy;
-      v45 = 2112;
-      v46 = uUIDString3;
+      v46 = sourceCopy;
       v47 = 2112;
-      v48 = updatedCopy;
+      v48 = uUIDString3;
       v49 = 2112;
-      v50 = call;
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Call source %@ updated call with UUID %@ with update %@ => %@", buf, 0x2Au);
+      v50 = updatedCopy;
+      v51 = 2112;
+      v52 = v17;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Call source %@ updated call with UUID %@ with update %@ => %@", buf, 0x2Au);
     }
 
     goto LABEL_28;
   }
 
-  call = sub_100004778();
-  if (os_log_type_enabled(call, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_100004778(v30);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString4 = [dCopy UUIDString];
     calls2 = [(CSDCallDataSource *)self calls];
     *buf = 138412802;
-    v44 = sourceCopy;
-    v45 = 2112;
-    v46 = uUIDString4;
+    v46 = sourceCopy;
     v47 = 2112;
-    v48 = calls2;
-    _os_log_impl(&_mh_execute_header, call, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for call source %@ and UUID %@. All calls: %@", buf, 0x20u);
+    v48 = uUIDString4;
+    v49 = 2112;
+    v50 = calls2;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for call source %@ and UUID %@. All calls: %@", buf, 0x20u);
   }
 
 LABEL_28:
@@ -6615,41 +6771,42 @@ LABEL_28:
   sourceCopy = source;
   dCopy = d;
   updateCopy = update;
-  v11 = sub_100004778();
+  v11 = sub_100004778(updateCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
-    v20 = 138412802;
-    v21 = sourceCopy;
-    v22 = 2112;
-    v23 = uUIDString;
-    v24 = 2112;
-    v25 = updateCopy;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Call source %@ updated call with UUID %@ with DTMFUpdate %@", &v20, 0x20u);
+    v21 = 138412802;
+    v22 = sourceCopy;
+    v23 = 2112;
+    v24 = uUIDString;
+    v25 = 2112;
+    v26 = updateCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Call source %@ updated call with UUID %@ with DTMFUpdate %@", &v21, 0x20u);
   }
 
   v13 = [(CSDProviderCallDataSource *)self _callWithUUID:dCopy controllableByCallSource:sourceCopy];
-  if (v13 && ([updateCopy digits], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "length"), v14, v15))
+  v14 = v13;
+  if (v13 && ([updateCopy digits], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "length"), v15, v16))
   {
     callStateController = [(CSDCallDataSource *)self callStateController];
     tuCallDTMFUpdate = [updateCopy tuCallDTMFUpdate];
-    [callStateController handleReceivedCallDTMFUpdate:tuCallDTMFUpdate forCall:v13];
+    [callStateController handleReceivedCallDTMFUpdate:tuCallDTMFUpdate forCall:v14];
   }
 
   else
   {
-    callStateController = sub_100004778();
+    callStateController = sub_100004778(v13);
     if (os_log_type_enabled(callStateController, OS_LOG_TYPE_DEFAULT))
     {
       uUIDString2 = [dCopy UUIDString];
       calls = [(CSDCallDataSource *)self calls];
-      v20 = 138412802;
-      v21 = sourceCopy;
-      v22 = 2112;
-      v23 = uUIDString2;
-      v24 = 2112;
-      v25 = calls;
-      _os_log_impl(&_mh_execute_header, callStateController, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for call source %@ and UUID %@. All calls: %@", &v20, 0x20u);
+      v21 = 138412802;
+      v22 = sourceCopy;
+      v23 = 2112;
+      v24 = uUIDString2;
+      v25 = 2112;
+      v26 = calls;
+      _os_log_impl(&_mh_execute_header, callStateController, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for call source %@ and UUID %@. All calls: %@", &v21, 0x20u);
     }
   }
 }
@@ -6660,60 +6817,60 @@ LABEL_28:
   dCopy = d;
   dateCopy = date;
   contextCopy = context;
-  v16 = sub_100004778();
+  v16 = sub_100004778(contextCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 138413314;
-    v76 = sourceCopy;
-    v77 = 2112;
-    v78 = uUIDString;
-    v79 = 2112;
-    v80 = dateCopy;
-    v81 = 2048;
+    v79 = sourceCopy;
+    v80 = 2112;
+    v81 = uUIDString;
+    v82 = 2112;
+    v83 = dateCopy;
+    v84 = 2048;
     reasonCopy = reason;
-    v83 = 2112;
-    v84 = contextCopy;
+    v86 = 2112;
+    v87 = contextCopy;
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Call source %@ ended call with UUID %@ with ended at date %@ with reason %ld failure context %@", buf, 0x34u);
   }
 
   v18 = [(CSDProviderCallDataSource *)self _callWithUUID:dCopy backingCallSource:sourceCopy];
   v19 = [(CSDProviderCallDataSource *)self _providerForCallSource:sourceCopy];
-  v61 = contextCopy;
+  v64 = contextCopy;
   if (!v18)
   {
     pendingCallsToChatUUIDs = [(CSDProviderCallDataSource *)self pendingCallsToChatUUIDs];
-    v28 = [pendingCallsToChatUUIDs objectForKeyedSubscript:dCopy];
+    v30 = [pendingCallsToChatUUIDs objectForKeyedSubscript:dCopy];
 
-    if (v28)
+    if (v30)
     {
-      v29 = +[NSNotificationCenter defaultCenter];
-      v72[0] = @"CSDIDSPendingChatUUIDKey";
-      v72[1] = @"CSDIDSPendingCallKey";
-      v73[0] = dCopy;
-      v73[1] = v28;
-      [NSDictionary dictionaryWithObjects:v73 forKeys:v72 count:2];
-      v31 = v30 = v19;
-      [v29 postNotificationName:@"CSDIDSPendingMessageDidReceiveCancelNotification" object:0 userInfo:v31];
+      v32 = +[NSNotificationCenter defaultCenter];
+      v75[0] = @"CSDIDSPendingChatUUIDKey";
+      v75[1] = @"CSDIDSPendingCallKey";
+      v76[0] = dCopy;
+      v76[1] = v30;
+      [NSDictionary dictionaryWithObjects:v76 forKeys:v75 count:2];
+      v34 = v33 = v19;
+      [v32 postNotificationName:@"CSDIDSPendingMessageDidReceiveCancelNotification" object:0 userInfo:v34];
 
-      v19 = v30;
+      v19 = v33;
       pendingCallsToChatUUIDs2 = [(CSDProviderCallDataSource *)self pendingCallsToChatUUIDs];
       [pendingCallsToChatUUIDs2 setObject:0 forKeyedSubscript:dCopy];
     }
 
     else
     {
-      pendingCallsToChatUUIDs2 = sub_100004778();
+      pendingCallsToChatUUIDs2 = sub_100004778(v31);
       if (os_log_type_enabled(pendingCallsToChatUUIDs2, OS_LOG_TYPE_DEFAULT))
       {
         uUIDString2 = [dCopy UUIDString];
         calls = [(CSDCallDataSource *)self calls];
         *buf = 138412802;
-        v76 = sourceCopy;
-        v77 = 2112;
-        v78 = uUIDString2;
-        v79 = 2112;
-        v80 = calls;
+        v79 = sourceCopy;
+        v80 = 2112;
+        v81 = uUIDString2;
+        v82 = 2112;
+        v83 = calls;
         _os_log_impl(&_mh_execute_header, pendingCallsToChatUUIDs2, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for call source %@ and UUID %@. All calls: %@", buf, 0x20u);
       }
     }
@@ -6723,32 +6880,32 @@ LABEL_28:
 
   if ([v18 isIncoming] && v19 && (objc_msgSend(v19, "isSystemProvider") & 1) == 0 && (+[NSDate timeIntervalSinceReferenceDate](NSDate, "timeIntervalSinceReferenceDate"), v21 = v20, objc_msgSend(v18, "dateCreated"), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "timeIntervalSinceReferenceDate"), v24 = v21 - v23, v22, v24 < 2.0))
   {
-    v36 = dateCopy;
-    v37 = sub_100004778();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v39 = dateCopy;
+    v40 = sub_100004778(v25);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       uUIDString3 = [dCopy UUIDString];
       *buf = 138412290;
-      v76 = uUIDString3;
-      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "[WARN] Deferring acknowledgement of VoIP call with UUID %@ ended until minimum ring duration has passed", buf, 0xCu);
+      v79 = uUIDString3;
+      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "[WARN] Deferring acknowledgement of VoIP call with UUID %@ ended until minimum ring duration has passed", buf, 0xCu);
     }
 
-    v39 = dispatch_time(0, ((2.0 - v24 + 0.01) * 1000000000.0));
+    v42 = dispatch_time(0, ((2.0 - v24 + 0.01) * 1000000000.0));
     queue = [(CSDCallDataSource *)self queue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10025CDD4;
     block[3] = &unk_10061D378;
     block[4] = self;
-    v67 = sourceCopy;
-    v68 = dCopy;
-    v69 = v36;
+    v70 = sourceCopy;
+    v71 = dCopy;
+    v72 = v39;
     reasonCopy2 = reason;
-    v33 = v61;
-    v70 = v61;
-    v41 = v39;
-    dateCopy = v36;
-    dispatch_after(v41, queue, block);
+    v36 = v64;
+    v73 = v64;
+    v44 = v42;
+    dateCopy = v39;
+    dispatch_after(v44, queue, block);
   }
 
   else
@@ -6757,21 +6914,21 @@ LABEL_28:
 
     if (dateEnded)
     {
-      v26 = sub_100004778();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v28 = sub_100004778(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v76 = v18;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "[WARN] Call %@ already has a date ended", buf, 0xCu);
+        v79 = v18;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "[WARN] Call %@ already has a date ended", buf, 0xCu);
       }
 
 LABEL_19:
-      v33 = v61;
+      v36 = v64;
       goto LABEL_20;
     }
 
     [v18 setEndedReason:reason];
-    v33 = contextCopy;
+    v36 = contextCopy;
     [v18 setFailureContext:contextCopy];
     if (dateCopy)
     {
@@ -6780,75 +6937,75 @@ LABEL_19:
 
     else
     {
-      v42 = +[NSDate date];
-      [v18 setDateEnded:v42];
+      v45 = +[NSDate date];
+      [v18 setDateEnded:v45];
     }
 
     callGroupUUID = [v18 callGroupUUID];
 
     if (callGroupUUID)
     {
-      v57 = v19;
-      v58 = dateCopy;
-      v59 = dCopy;
-      v60 = sourceCopy;
-      v44 = +[NSMutableArray array];
-      v62 = 0u;
-      v63 = 0u;
-      v64 = 0u;
+      v60 = v19;
+      v61 = dateCopy;
+      v62 = dCopy;
+      v63 = sourceCopy;
+      v47 = +[NSMutableArray array];
       v65 = 0u;
+      v66 = 0u;
+      v67 = 0u;
+      v68 = 0u;
       calls2 = [(CSDCallDataSource *)self calls];
-      v46 = [calls2 countByEnumeratingWithState:&v62 objects:v74 count:16];
-      if (v46)
+      v49 = [calls2 countByEnumeratingWithState:&v65 objects:v77 count:16];
+      if (v49)
       {
-        v47 = v46;
-        v48 = *v63;
+        v50 = v49;
+        v51 = *v66;
         do
         {
-          for (i = 0; i != v47; i = i + 1)
+          for (i = 0; i != v50; i = i + 1)
           {
-            if (*v63 != v48)
+            if (*v66 != v51)
             {
               objc_enumerationMutation(calls2);
             }
 
-            v50 = *(*(&v62 + 1) + 8 * i);
-            if (v50 != v18)
+            v53 = *(*(&v65 + 1) + 8 * i);
+            if (v53 != v18)
             {
-              callGroupUUID2 = [*(*(&v62 + 1) + 8 * i) callGroupUUID];
+              callGroupUUID2 = [*(*(&v65 + 1) + 8 * i) callGroupUUID];
               callGroupUUID3 = [v18 callGroupUUID];
-              v53 = [callGroupUUID2 isEqual:callGroupUUID3];
+              v56 = [callGroupUUID2 isEqual:callGroupUUID3];
 
-              if (v53)
+              if (v56)
               {
-                [v44 addObject:v50];
+                [v47 addObject:v53];
               }
             }
           }
 
-          v47 = [calls2 countByEnumeratingWithState:&v62 objects:v74 count:16];
+          v50 = [calls2 countByEnumeratingWithState:&v65 objects:v77 count:16];
         }
 
-        while (v47);
+        while (v50);
       }
 
-      dCopy = v59;
-      sourceCopy = v60;
-      v19 = v57;
-      dateCopy = v58;
-      v33 = v61;
-      if ([v44 count] == 1)
+      dCopy = v62;
+      sourceCopy = v63;
+      v19 = v60;
+      dateCopy = v61;
+      v36 = v64;
+      if ([v47 count] == 1)
       {
-        v54 = sub_100004778();
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+        v57 = sub_100004778(1);
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
         {
-          firstObject = [v44 firstObject];
+          firstObject = [v47 firstObject];
           *buf = 138412290;
-          v76 = firstObject;
-          _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "Setting callGroupUUID to nil for orphaned grouped call %@", buf, 0xCu);
+          v79 = firstObject;
+          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "Setting callGroupUUID to nil for orphaned grouped call %@", buf, 0xCu);
         }
 
-        firstObject2 = [v44 firstObject];
+        firstObject2 = [v47 firstObject];
         [firstObject2 setCallGroupUUID:0];
       }
     }
@@ -6862,23 +7019,24 @@ LABEL_20:
   sourceCopy = source;
   dCopy = d;
   dateCopy = date;
-  v11 = sub_100004778();
+  v11 = sub_100004778(dateCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412802;
-    v22 = sourceCopy;
-    v23 = 2112;
-    v24 = dCopy;
+    v23 = 138412802;
+    v24 = sourceCopy;
     v25 = 2112;
-    v26 = dateCopy;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Call source %@ sent invitation for outgoing call with UUID %@ at date %@", &v21, 0x20u);
+    v26 = dCopy;
+    v27 = 2112;
+    v28 = dateCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Call source %@ sent invitation for outgoing call with UUID %@ at date %@", &v23, 0x20u);
   }
 
   v12 = [(CSDProviderCallDataSource *)self _callWithUUID:dCopy backingCallSource:sourceCopy];
   v13 = v12;
   if (v12)
   {
-    if ([v12 isOutgoing])
+    isOutgoing = [v12 isOutgoing];
+    if (isOutgoing)
     {
       dateSentInvitation = [v13 dateSentInvitation];
 
@@ -6890,32 +7048,32 @@ LABEL_20:
           goto LABEL_15;
         }
 
-        v15 = +[NSDate date];
-        [v13 setDateSentInvitation:v15];
+        v17 = +[NSDate date];
+        [v13 setDateSentInvitation:v17];
         goto LABEL_14;
       }
 
-      v15 = sub_100004778();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = sub_100004778(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         uniqueProxyIdentifier = [v13 uniqueProxyIdentifier];
-        v21 = 138412290;
-        v22 = uniqueProxyIdentifier;
-        v17 = "[WARN] Call with UUID %@ already has a date started outgoing";
+        v23 = 138412290;
+        v24 = uniqueProxyIdentifier;
+        v19 = "[WARN] Call with UUID %@ already has a date started outgoing";
 LABEL_13:
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v17, &v21, 0xCu);
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v19, &v23, 0xCu);
       }
     }
 
     else
     {
-      v15 = sub_100004778();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = sub_100004778(isOutgoing);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         uniqueProxyIdentifier = [v13 uniqueProxyIdentifier];
-        v21 = 138412290;
-        v22 = uniqueProxyIdentifier;
-        v17 = "[WARN] Call with UUID %@ is not outgoing";
+        v23 = 138412290;
+        v24 = uniqueProxyIdentifier;
+        v19 = "[WARN] Call with UUID %@ is not outgoing";
         goto LABEL_13;
       }
     }
@@ -6925,18 +7083,18 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v18 = sub_100004778();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v20 = sub_100004778(0);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     calls = [(CSDCallDataSource *)self calls];
-    v20 = [(CSDProviderCallDataSource *)self _identifiersForCalls:calls];
-    v21 = 138412802;
-    v22 = sourceCopy;
-    v23 = 2112;
-    v24 = dCopy;
+    v22 = [(CSDProviderCallDataSource *)self _identifiersForCalls:calls];
+    v23 = 138412802;
+    v24 = sourceCopy;
     v25 = 2112;
-    v26 = v20;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for call source %@ and UUID %@. All calls: %@", &v21, 0x20u);
+    v26 = dCopy;
+    v27 = 2112;
+    v28 = v22;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for call source %@ and UUID %@. All calls: %@", &v23, 0x20u);
   }
 
 LABEL_15:
@@ -6947,23 +7105,24 @@ LABEL_15:
   sourceCopy = source;
   dCopy = d;
   dateCopy = date;
-  v11 = sub_100004778();
+  v11 = sub_100004778(dateCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412802;
-    v22 = sourceCopy;
-    v23 = 2112;
-    v24 = dCopy;
+    v23 = 138412802;
+    v24 = sourceCopy;
     v25 = 2112;
-    v26 = dateCopy;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Call source %@ started connecting call with UUID %@ at date %@", &v21, 0x20u);
+    v26 = dCopy;
+    v27 = 2112;
+    v28 = dateCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Call source %@ started connecting call with UUID %@ at date %@", &v23, 0x20u);
   }
 
   v12 = [(CSDProviderCallDataSource *)self _callWithUUID:dCopy backingCallSource:sourceCopy];
   v13 = v12;
   if (v12)
   {
-    if ([v12 isOutgoing])
+    isOutgoing = [v12 isOutgoing];
+    if (isOutgoing)
     {
       dateStartedConnecting = [v13 dateStartedConnecting];
 
@@ -6975,32 +7134,32 @@ LABEL_15:
           goto LABEL_15;
         }
 
-        v15 = +[NSDate date];
-        [v13 setDateStartedConnecting:v15];
+        v17 = +[NSDate date];
+        [v13 setDateStartedConnecting:v17];
         goto LABEL_14;
       }
 
-      v15 = sub_100004778();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = sub_100004778(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         uniqueProxyIdentifier = [v13 uniqueProxyIdentifier];
-        v21 = 138412290;
-        v22 = uniqueProxyIdentifier;
-        v17 = "[WARN] Call with UUID %@ already has a date started connecting";
+        v23 = 138412290;
+        v24 = uniqueProxyIdentifier;
+        v19 = "[WARN] Call with UUID %@ already has a date started connecting";
 LABEL_13:
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v17, &v21, 0xCu);
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v19, &v23, 0xCu);
       }
     }
 
     else
     {
-      v15 = sub_100004778();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = sub_100004778(isOutgoing);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         uniqueProxyIdentifier = [v13 uniqueProxyIdentifier];
-        v21 = 138412290;
-        v22 = uniqueProxyIdentifier;
-        v17 = "[WARN] Call with UUID %@ is not outgoing";
+        v23 = 138412290;
+        v24 = uniqueProxyIdentifier;
+        v19 = "[WARN] Call with UUID %@ is not outgoing";
         goto LABEL_13;
       }
     }
@@ -7010,18 +7169,18 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v18 = sub_100004778();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v20 = sub_100004778(0);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     calls = [(CSDCallDataSource *)self calls];
-    v20 = [(CSDProviderCallDataSource *)self _identifiersForCalls:calls];
-    v21 = 138412802;
-    v22 = sourceCopy;
-    v23 = 2112;
-    v24 = dCopy;
+    v22 = [(CSDProviderCallDataSource *)self _identifiersForCalls:calls];
+    v23 = 138412802;
+    v24 = sourceCopy;
     v25 = 2112;
-    v26 = v20;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for call source %@ and UUID %@. All calls: %@", &v21, 0x20u);
+    v26 = dCopy;
+    v27 = 2112;
+    v28 = v22;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for call source %@ and UUID %@. All calls: %@", &v23, 0x20u);
   }
 
 LABEL_15:
@@ -7032,52 +7191,56 @@ LABEL_15:
   sourceCopy = source;
   dCopy = d;
   dateCopy = date;
-  v11 = sub_100004778();
+  v11 = sub_100004778(dateCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412802;
-    v22 = sourceCopy;
-    v23 = 2112;
-    v24 = dCopy;
+    v23 = 138412802;
+    v24 = sourceCopy;
     v25 = 2112;
-    v26 = dateCopy;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Call source %@ connected outgoing call with UUID %@ at date %@", &v21, 0x20u);
+    v26 = dCopy;
+    v27 = 2112;
+    v28 = dateCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Call source %@ connected outgoing call with UUID %@ at date %@", &v23, 0x20u);
   }
 
   v12 = [(CSDProviderCallDataSource *)self _callWithUUID:dCopy backingCallSource:sourceCopy];
   v13 = v12;
   if (v12)
   {
-    if (([v12 isOutgoing] & 1) == 0 && !objc_msgSend(v13, "shouldAcceptDateConnectedProviderUpdates"))
+    if (([v12 isOutgoing] & 1) == 0)
     {
-      v15 = sub_100004778();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      shouldAcceptDateConnectedProviderUpdates = [v13 shouldAcceptDateConnectedProviderUpdates];
+      if (!shouldAcceptDateConnectedProviderUpdates)
       {
-        uniqueProxyIdentifier = [v13 uniqueProxyIdentifier];
-        v21 = 138412290;
-        v22 = uniqueProxyIdentifier;
-        v17 = "[WARN] Call with %@ is not outgoing";
-        goto LABEL_16;
-      }
+        v17 = sub_100004778(shouldAcceptDateConnectedProviderUpdates);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        {
+          uniqueProxyIdentifier = [v13 uniqueProxyIdentifier];
+          v23 = 138412290;
+          v24 = uniqueProxyIdentifier;
+          v19 = "[WARN] Call with %@ is not outgoing";
+          goto LABEL_16;
+        }
 
 LABEL_18:
 
-      goto LABEL_19;
+        goto LABEL_19;
+      }
     }
 
     dateConnected = [v13 dateConnected];
 
     if (dateConnected)
     {
-      v15 = sub_100004778();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = sub_100004778(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         uniqueProxyIdentifier = [v13 uniqueProxyIdentifier];
-        v21 = 138412290;
-        v22 = uniqueProxyIdentifier;
-        v17 = "[WARN] Call with UUID %@ already has a date connected";
+        v23 = 138412290;
+        v24 = uniqueProxyIdentifier;
+        v19 = "[WARN] Call with UUID %@ already has a date connected";
 LABEL_16:
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v17, &v21, 0xCu);
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v19, &v23, 0xCu);
 
         goto LABEL_18;
       }
@@ -7087,8 +7250,8 @@ LABEL_16:
 
     if (!dateCopy)
     {
-      v15 = +[NSDate date];
-      [v13 setDateConnected:v15];
+      v17 = +[NSDate date];
+      [v13 setDateConnected:v17];
       goto LABEL_18;
     }
 
@@ -7097,18 +7260,18 @@ LABEL_16:
 
   else
   {
-    v18 = sub_100004778();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100004778(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       calls = [(CSDCallDataSource *)self calls];
-      v20 = [(CSDProviderCallDataSource *)self _identifiersForCalls:calls];
-      v21 = 138412802;
-      v22 = sourceCopy;
-      v23 = 2112;
-      v24 = dCopy;
+      v22 = [(CSDProviderCallDataSource *)self _identifiersForCalls:calls];
+      v23 = 138412802;
+      v24 = sourceCopy;
       v25 = 2112;
-      v26 = v20;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for call source %@ and UUID %@. All calls: %@", &v21, 0x20u);
+      v26 = dCopy;
+      v27 = 2112;
+      v28 = v22;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "[WARN] No call found for call source %@ and UUID %@. All calls: %@", &v23, 0x20u);
     }
   }
 
@@ -7134,7 +7297,7 @@ LABEL_19:
 {
   sourceCopy = source;
   dCopy = d;
-  v8 = sub_100004778();
+  v8 = sub_100004778(dCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
@@ -7146,7 +7309,7 @@ LABEL_19:
   }
 
   v10 = [(CSDProviderCallDataSource *)self _callWithUUID:dCopy backingCallSource:sourceCopy];
-  v11 = sub_100004778();
+  v11 = sub_100004778(v10);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
   if (v10)
   {
@@ -7234,7 +7397,7 @@ LABEL_6:
   sourceCopy = source;
   dCopy = d;
   identifierCopy = identifier;
-  v13 = sub_100004778();
+  v13 = sub_100004778(identifierCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
@@ -7258,7 +7421,7 @@ LABEL_6:
   sourceCopy = source;
   transactionCopy = transaction;
   completionCopy = completion;
-  v11 = sub_100004778();
+  v11 = sub_100004778(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412546;
@@ -7305,7 +7468,7 @@ LABEL_6:
   identifierCopy = identifier;
   transactionCopy = transaction;
   completionCopy = completion;
-  v14 = sub_100004778();
+  v14 = sub_100004778(completionCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
@@ -7341,7 +7504,7 @@ LABEL_6:
 
 - (void)providersChangedForProviderManager:(id)manager withValidKeychain:(BOOL)keychain
 {
-  v5 = sub_100004778();
+  v5 = sub_100004778(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -7397,24 +7560,25 @@ LABEL_6:
   v6 = [identifierCopy isEqualToString:@"com.apple.Superbox"];
   v7 = [identifierCopy isEqualToString:@"com.apple.telephonyutilities.callservicesd.TinCan"];
 
-  if (_TUIsInternalInstall() && v6)
+  v8 = _TUIsInternalInstall();
+  if (v8 && v6)
   {
-    v8 = sub_100004778();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004778(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Because this is an internal install, com.apple.Superbox (aka Speakerbox) is acting as a system provider", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Because this is an internal install, com.apple.Superbox (aka Speakerbox) is acting as a system provider", v12, 2u);
     }
 
-    v9 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v9 = v4 | v5 | v7;
+    v10 = v4 | v5 | v7;
   }
 
-  return v9 & 1;
+  return v10 & 1;
 }
 
 - (id)policyForAddresses:(id)addresses forBundleIdentifier:(id)identifier
@@ -7427,6 +7591,18 @@ LABEL_6:
   return v9;
 }
 
+- (BOOL)shouldRestrictAddresses:(id)addresses forBundleIdentifier:(id)identifier performSynchronously:(BOOL)synchronously
+{
+  synchronouslyCopy = synchronously;
+  identifierCopy = identifier;
+  addressesCopy = addresses;
+  screenTimeCallFilter = [(CSDProviderCallDataSource *)self screenTimeCallFilter];
+  allObjects = [addressesCopy allObjects];
+
+  LOBYTE(synchronouslyCopy) = [screenTimeCallFilter shouldRestrictAddresses:allObjects forBundleIdentifier:identifierCopy performSynchronously:synchronouslyCopy];
+  return synchronouslyCopy;
+}
+
 - (void)screenTimeCallFilter:(id)filter didChangeAllowed:(BOOL)allowed forCallUUID:(id)d
 {
   allowedCopy = allowed;
@@ -7434,64 +7610,64 @@ LABEL_6:
   queue = [(CSDCallDataSource *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004778(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    *v27 = allowedCopy;
-    *&v27[4] = 2112;
-    *&v27[6] = dCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Changed ScreenTime allowed %d for call with UUID %@", buf, 0x12u);
+    *v29 = allowedCopy;
+    *&v29[4] = 2112;
+    *&v29[6] = dCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Changed ScreenTime allowed %d for call with UUID %@", buf, 0x12u);
   }
 
   if (!allowedCopy)
   {
+    v25 = 0u;
+    v26 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v21 = 0u;
-    v22 = 0u;
     calls = [(CSDCallDataSource *)self calls];
-    v11 = [calls countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v11)
+    v12 = [calls countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v12)
     {
-      v13 = v11;
-      v14 = *v22;
-      *&v12 = 138412290;
-      v20 = v12;
+      v14 = v12;
+      v15 = *v24;
+      *&v13 = 138412290;
+      v22 = v13;
       do
       {
-        for (i = 0; i != v13; i = i + 1)
+        for (i = 0; i != v14; i = i + 1)
         {
-          if (*v22 != v14)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(calls);
           }
 
-          v16 = *(*(&v21 + 1) + 8 * i);
-          if (([v16 isEmergency] & 1) == 0)
+          v17 = *(*(&v23 + 1) + 8 * i);
+          if (([v17 isEmergency] & 1) == 0)
           {
-            uniqueProxyIdentifierUUID = [v16 uniqueProxyIdentifierUUID];
-            v18 = [uniqueProxyIdentifierUUID isEqual:dCopy];
+            uniqueProxyIdentifierUUID = [v17 uniqueProxyIdentifierUUID];
+            v19 = [uniqueProxyIdentifierUUID isEqual:dCopy];
 
-            if (v18)
+            if (v19)
             {
-              v19 = sub_100004778();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+              v21 = sub_100004778(v20);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
               {
-                *buf = v20;
-                *v27 = dCopy;
-                _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Call is not allowed by ScreenTime; disconnecting call with UUID: %@", buf, 0xCu);
+                *buf = v22;
+                *v29 = dCopy;
+                _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Call is not allowed by ScreenTime; disconnecting call with UUID: %@", buf, 0xCu);
               }
 
-              [v16 disconnectWithReason:25];
+              [v17 disconnectWithReason:25];
             }
           }
         }
 
-        v13 = [calls countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v14 = [calls countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
   }
 }

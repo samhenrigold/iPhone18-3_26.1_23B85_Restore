@@ -88,13 +88,6 @@
   return v11;
 }
 
-void __62__HMDAccessorySettingsEventHelper_allTopicsForHome_accessory___block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  JUMPOUT(0x259C01CC0);
-}
-
 - (unint64_t)remoteDeviceAccessControlForTopic:(id)topic
 {
   v4 = HMImmutableSettingChangeEventComponentsFromTopic();

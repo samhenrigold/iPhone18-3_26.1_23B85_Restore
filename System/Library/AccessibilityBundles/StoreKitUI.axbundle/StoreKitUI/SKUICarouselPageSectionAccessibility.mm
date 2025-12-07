@@ -117,7 +117,7 @@
   return v13;
 }
 
-uint64_t __90__SKUICarouselPageSectionAccessibility__accessibilityDescendantElementAtIndexPathIsValid___block_invoke(uint64_t a1)
+void *__90__SKUICarouselPageSectionAccessibility__accessibilityDescendantElementAtIndexPathIsValid___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) count];
   *(*(*(a1 + 40) + 8) + 24) = result;

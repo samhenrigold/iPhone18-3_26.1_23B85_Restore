@@ -74,10 +74,10 @@ void __99__SFAppAutoFillPasskeyProvider_getAvailablePasskeysForWebPageIdentifier
   v23 = *MEMORY[0x277D85DE8];
   passkeyCopy = passkey;
   contextCopy = context;
-  v8 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = WBS_LOG_CHANNEL_PREFIXAutoFill(contextCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = v8;
+    v10 = v9;
     identifier = [passkeyCopy identifier];
     corePasskey = [passkeyCopy corePasskey];
     operationUUID = [corePasskey operationUUID];
@@ -87,15 +87,13 @@ void __99__SFAppAutoFillPasskeyProvider_getAvailablePasskeysForWebPageIdentifier
     v20 = operationUUID;
     v21 = 2113;
     v22 = contextCopy;
-    _os_log_impl(&dword_26450F000, v9, OS_LOG_TYPE_DEFAULT, "User completed passkey AutoFill with identifier %{private}@ for operation %{public}@, didAuthenticate: %{private}@", &v17, 0x20u);
+    _os_log_impl(&dword_26450F000, v10, OS_LOG_TYPE_DEFAULT, "User completed passkey AutoFill with identifier %{private}@ for operation %{public}@, didAuthenticate: %{private}@", &v17, 0x20u);
   }
 
   proxy = self->_proxy;
   corePasskey2 = [passkeyCopy corePasskey];
   defaultContext = [MEMORY[0x277D49B30] defaultContext];
   [(WBSAuthenticationServicesAgentProxy *)proxy userSelectedAutoFillPasskey:corePasskey2 authenticatedLAContext:contextCopy savedAccountContext:defaultContext completionHandler:&__block_literal_global_1];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -21,7 +21,7 @@
   contextCopy = context;
   layerCopy = layer;
   strokeLayerCopy = strokeLayer;
-  v15 = strokeLayerCopy;
+  v14 = strokeLayerCopy;
   if (layerCopy)
   {
     if (strokeLayerCopy)
@@ -32,55 +32,55 @@
 
   else
   {
-    v20 = MEMORY[0x277D81150];
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTStrokeOrderedLayer initWithContext:majorStrokeLayer:minorStrokeLayer:]", v13, v14);
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStrokeOrderedLayer.m", v23, v24);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v26, v21, v25, 93, 0, "invalid nil value for '%{public}s'", "majorStrokeLayer");
+    v19 = MEMORY[0x277D81150];
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTStrokeOrderedLayer initWithContext:majorStrokeLayer:minorStrokeLayer:]", v13);
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStrokeOrderedLayer.m", v22);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v24, v20, v23, 93, 0, "invalid nil value for '%{public}s'", "majorStrokeLayer");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29, v30);
-    if (v15)
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27);
+    if (v14)
     {
       goto LABEL_3;
     }
   }
 
-  v31 = MEMORY[0x277D81150];
-  v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTStrokeOrderedLayer initWithContext:majorStrokeLayer:minorStrokeLayer:]", v13, v14);
-  v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStrokeOrderedLayer.m", v34, v35);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v37, v32, v36, 94, 0, "invalid nil value for '%{public}s'", "minorStrokeLayer");
+  v28 = MEMORY[0x277D81150];
+  v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTStrokeOrderedLayer initWithContext:majorStrokeLayer:minorStrokeLayer:]", v13);
+  v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStrokeOrderedLayer.m", v31);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v28, v33, v29, v32, 94, 0, "invalid nil value for '%{public}s'", "minorStrokeLayer");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v38, v39, v40, v41);
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35, v36);
 LABEL_3:
-  v16 = objc_msgSend_columnOrRowIndex(layerCopy, v11, v12, v13, v14);
-  v42.receiver = self;
-  v42.super_class = TSTStrokeOrderedLayer;
-  v17 = [(TSTStrokeLayer *)&v42 initWithContext:contextCopy columnOrRowIndex:v16];
-  v18 = v17;
-  if (v17)
+  v15 = objc_msgSend_columnOrRowIndex(layerCopy, v11, v12, v13);
+  v37.receiver = self;
+  v37.super_class = TSTStrokeOrderedLayer;
+  v16 = [(TSTStrokeLayer *)&v37 initWithContext:contextCopy columnOrRowIndex:v15];
+  v17 = v16;
+  if (v16)
   {
-    objc_storeStrong(&v17->_majorStrokeLayer, layer);
-    objc_storeStrong(&v18->_minorStrokeLayer, strokeLayer);
+    objc_storeStrong(&v16->_majorStrokeLayer, layer);
+    objc_storeStrong(&v17->_minorStrokeLayer, strokeLayer);
   }
 
-  return v18;
+  return v17;
 }
 
 - (int64_t)startingIndex
 {
-  v6 = objc_msgSend_majorStrokeLayer(self, a2, v2, v3, v4);
-  v11 = objc_msgSend_startingIndex(v6, v7, v8, v9, v10);
+  v5 = objc_msgSend_majorStrokeLayer(self, a2, v2, v3);
+  v9 = objc_msgSend_startingIndex(v5, v6, v7, v8);
 
-  v16 = objc_msgSend_minorStrokeLayer(self, v12, v13, v14, v15);
-  v21 = objc_msgSend_startingIndex(v16, v17, v18, v19, v20);
+  v13 = objc_msgSend_minorStrokeLayer(self, v10, v11, v12);
+  v17 = objc_msgSend_startingIndex(v13, v14, v15, v16);
 
-  if (v11 >= v21)
+  if (v9 >= v17)
   {
-    return v21;
+    return v17;
   }
 
   else
   {
-    return v11;
+    return v9;
   }
 }
 
@@ -99,39 +99,39 @@ LABEL_3:
   }
 
   v12 = v11;
-  if (objc_msgSend_range(tokenCopy, v13, v14, v15, v16) <= index || (v21 = objc_msgSend_range(tokenCopy, v17, v18, v19, v20), v21 <= objc_msgSend_range(v12, v22, v23, v24, v25)))
+  if (objc_msgSend_range(tokenCopy, v13, v14, v15) <= index || (v19 = objc_msgSend_range(tokenCopy, v16, v17, v18), v19 <= objc_msgSend_range(v12, v20, v21, v22)))
   {
-    v50 = objc_msgSend_range(v12, v17, v18, v19, v20);
-    if (v50 <= index)
+    v43 = objc_msgSend_range(v12, v16, v17, v18);
+    if (v43 <= index)
     {
-      v55 = 0;
+      v47 = 0;
       indexCopy = 0x7FFFFFFFFFFFFFFFLL;
       if (index != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v87 = &v51[v50];
-        if (&v51[v50] != 0x7FFFFFFFFFFFFFFFLL)
+        v74 = &v44[v43];
+        if (&v44[v43] != 0x7FFFFFFFFFFFFFFFLL)
         {
-          v55 = (v87 - index);
-          if (v87 <= index)
+          v47 = (v74 - index);
+          if (v74 <= index)
           {
-            if (index <= v87)
+            if (index <= v74)
             {
               indexCopy = 0x7FFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              indexCopy = &v51[v50];
+              indexCopy = &v44[v43];
             }
 
-            if (index <= v87)
+            if (index <= v74)
             {
-              v55 = 0;
+              v47 = 0;
             }
 
             else
             {
-              v55 = (index - v87);
+              v47 = (index - v74);
             }
           }
 
@@ -145,58 +145,58 @@ LABEL_3:
 
     else
     {
-      v55 = v51;
-      indexCopy = v50;
+      v47 = v44;
+      indexCopy = v43;
     }
 
     if (v12)
     {
       while (1)
       {
-        v57 = objc_msgSend_range(tokenCopy, v51, v52, v53, v54);
-        if (v57 > indexCopy)
+        v49 = objc_msgSend_range(tokenCopy, v44, v45, v46);
+        if (v49 > indexCopy)
         {
           break;
         }
 
-        if (&v58[v57 - 1] < &v55[indexCopy - 1])
+        if (&v50[v49 - 1] < &v47[indexCopy - 1])
         {
           break;
         }
 
-        v62 = objc_msgSend_order(tokenCopy, v58, v59, v60, v61);
-        if (v62 < objc_msgSend_order(v12, v63, v64, v65, v66))
+        v53 = objc_msgSend_order(tokenCopy, v50, v51, v52);
+        if (v53 < objc_msgSend_order(v12, v54, v55, v56))
         {
           break;
         }
 
-        v67 = objc_msgSend_nextStrokeAndRange_(layerCopy, v58, v12, v60, v61);
+        v57 = objc_msgSend_nextStrokeAndRange_(layerCopy, v50, v12, v52);
 
-        indexCopy = objc_msgSend_range(v67, v68, v69, v70, v71);
-        v55 = v51;
-        v12 = v67;
-        if (!v67)
+        indexCopy = objc_msgSend_range(v57, v58, v59, v60);
+        v47 = v44;
+        v12 = v57;
+        if (!v57)
         {
           goto LABEL_18;
         }
       }
 
-      v76 = objc_msgSend_range(tokenCopy, v58, v59, v60, v61);
-      v77 = v88;
-      v92 = objc_msgSend_range(tokenCopy, v88, v89, v90, v91);
-      v94 = v93;
-      v98 = objc_msgSend_range(v12, v93, v95, v96, v97);
-      if (v98 != 0x7FFFFFFFFFFFFFFFLL)
+      v64 = objc_msgSend_range(tokenCopy, v50, v51, v52);
+      v65 = v75;
+      v78 = objc_msgSend_range(tokenCopy, v75, v76, v77);
+      v80 = v79;
+      v83 = objc_msgSend_range(v12, v79, v81, v82);
+      if (v83 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        if (v94)
+        if (v80)
         {
-          if (v92 <= v98 && &v94[v92 - 1] >= v98)
+          if (v78 <= v83 && &v80[v78 - 1] >= v83)
           {
-            v99 = objc_msgSend_order(tokenCopy, v72, v73, v74, v75);
-            if (v99 < objc_msgSend_order(v12, v100, v101, v102, v103))
+            v84 = objc_msgSend_order(tokenCopy, v61, v62, v63);
+            if (v84 < objc_msgSend_order(v12, v85, v86, v87))
             {
-              v104 = objc_msgSend_range(v12, v72, v73, v74, v75);
-              v77 = v104 - objc_msgSend_range(tokenCopy, v105, v106, v107, v108);
+              v88 = objc_msgSend_range(v12, v61, v62, v63);
+              v65 = (v88 - objc_msgSend_range(tokenCopy, v89, v90, v91));
             }
           }
         }
@@ -206,136 +206,136 @@ LABEL_3:
     else
     {
 LABEL_18:
-      v76 = objc_msgSend_range(tokenCopy, v51, v52, v53, v54);
-      v77 = v72;
+      v64 = objc_msgSend_range(tokenCopy, v44, v45, v46);
+      v65 = v61;
       v12 = 0;
     }
 
-    v37 = objc_msgSend_stroke(tokenCopy, v72, v73, v74, v75);
-    v82 = objc_msgSend_order(tokenCopy, v78, v79, v80, v81);
+    v32 = objc_msgSend_stroke(tokenCopy, v61, v62, v63);
+    v69 = objc_msgSend_order(tokenCopy, v66, v67, v68);
   }
 
   else
   {
-    v26 = objc_msgSend_range(v12, v17, v18, v19, v20);
-    v28 = v27;
-    v32 = objc_msgSend_range(tokenCopy, v27, v29, v30, v31);
-    if (v32 == 0x7FFFFFFFFFFFFFFFLL || !v28 || v26 > v32 || &v28[v26 - 1] < v32)
+    v23 = objc_msgSend_range(v12, v16, v17, v18);
+    v25 = v24;
+    v28 = objc_msgSend_range(tokenCopy, v24, v26, v27);
+    if (v28 == 0x7FFFFFFFFFFFFFFFLL || !v25 || v23 > v28 || &v25[v23 - 1] < v28)
     {
-      v37 = objc_msgSend_stroke(v12, v33, v34, v35, v36);
-      v42 = objc_msgSend_range(v12, v38, v39, v40, v41);
-      v44 = v43;
-      v48 = objc_msgSend_order(v12, v43, v45, v46, v47);
-      objc_msgSend_tokenWithStroke_range_order_majorStrokeLayerToken_minorStrokeLayerToken_(TSTStrokeOrderedLayerToken, v49, v37, v42, v44, v48, 0, 0);
+      v32 = objc_msgSend_stroke(v12, v29, v30, v31);
+      v36 = objc_msgSend_range(v12, v33, v34, v35);
+      v38 = v37;
+      v41 = objc_msgSend_order(v12, v37, v39, v40);
+      objc_msgSend_tokenWithStroke_range_order_majorStrokeLayerToken_minorStrokeLayerToken_(TSTStrokeOrderedLayerToken, v42, v32, v36, v38, v41, 0, 0);
       goto LABEL_21;
     }
 
-    v76 = objc_msgSend_range(v12, v33, v34, v35, v36);
-    v113 = objc_msgSend_range(tokenCopy, v109, v110, v111, v112);
-    v77 = v113 - objc_msgSend_range(v12, v114, v115, v116, v117);
-    v37 = objc_msgSend_stroke(v12, v118, v119, v120, v121);
-    v82 = objc_msgSend_order(v12, v122, v123, v124, v125);
+    v64 = objc_msgSend_range(v12, v29, v30, v31);
+    v95 = objc_msgSend_range(tokenCopy, v92, v93, v94);
+    v65 = (v95 - objc_msgSend_range(v12, v96, v97, v98));
+    v32 = objc_msgSend_stroke(v12, v99, v100, v101);
+    v69 = objc_msgSend_order(v12, v102, v103, v104);
   }
 
-  objc_msgSend_tokenWithStroke_range_order_majorStrokeLayerToken_minorStrokeLayerToken_(TSTStrokeOrderedLayerToken, v83, v37, v76, v77, v82, 0, 0);
-  v84 = LABEL_21:;
+  objc_msgSend_tokenWithStroke_range_order_majorStrokeLayerToken_minorStrokeLayerToken_(TSTStrokeOrderedLayerToken, v70, v32, v64, v65, v69, 0, 0);
+  v71 = LABEL_21:;
 
   if (orderToken)
   {
-    v85 = v12;
+    v72 = v12;
     *orderToken = v12;
   }
 
-  return v84;
+  return v71;
 }
 
 - (id)findStrokeAndRangeAtIndex:(int64_t)index
 {
-  v7 = objc_msgSend_majorStrokeLayer(self, a2, index, v3, v4);
-  v11 = objc_msgSend_findStrokeAndRangeAtIndex_(v7, v8, index, v9, v10);
+  v6 = objc_msgSend_majorStrokeLayer(self, a2, index, v3);
+  v9 = objc_msgSend_findStrokeAndRangeAtIndex_(v6, v7, index, v8);
 
-  v16 = objc_msgSend_minorStrokeLayer(self, v12, v13, v14, v15);
-  v20 = objc_msgSend_findStrokeAndRangeAtIndex_(v16, v17, index, v18, v19);
+  v13 = objc_msgSend_minorStrokeLayer(self, v10, v11, v12);
+  v16 = objc_msgSend_findStrokeAndRangeAtIndex_(v13, v14, index, v15);
 
-  if (v11 && v20)
+  if (v9 && v16)
   {
-    v25 = objc_msgSend_order(v11, v21, v22, v23, v24);
-    if (v25 >= objc_msgSend_order(v20, v26, v27, v28, v29))
+    v20 = objc_msgSend_order(v9, v17, v18, v19);
+    if (v20 >= objc_msgSend_order(v16, v21, v22, v23))
     {
-      v76 = v20;
-      v34 = objc_msgSend_minorStrokeLayer(self, v30, v31, v32, v33);
-      v36 = objc_msgSend_p_findStrokeAndRangeAtIndex_highOrderToken_updatingLowOrderToken_lowOrderLayer_(self, v52, index, v11, &v76, v34);
-      v37 = v76;
-      v38 = v20;
-      v20 = v76;
+      v63 = v16;
+      v27 = objc_msgSend_minorStrokeLayer(self, v24, v25, v26);
+      v29 = objc_msgSend_p_findStrokeAndRangeAtIndex_highOrderToken_updatingLowOrderToken_lowOrderLayer_(self, v43, index, v9, &v63, v27);
+      v30 = v63;
+      v31 = v16;
+      v16 = v63;
     }
 
     else
     {
-      v75 = v11;
-      v34 = objc_msgSend_majorStrokeLayer(self, v30, v31, v32, v33);
-      v36 = objc_msgSend_p_findStrokeAndRangeAtIndex_highOrderToken_updatingLowOrderToken_lowOrderLayer_(self, v35, index, v20, &v75, v34);
-      v37 = v75;
-      v38 = v11;
-      v11 = v75;
+      v62 = v9;
+      v27 = objc_msgSend_majorStrokeLayer(self, v24, v25, v26);
+      v29 = objc_msgSend_p_findStrokeAndRangeAtIndex_highOrderToken_updatingLowOrderToken_lowOrderLayer_(self, v28, index, v16, &v62, v27);
+      v30 = v62;
+      v31 = v9;
+      v9 = v62;
     }
 
-    v53 = v37;
+    v44 = v30;
 
-    objc_msgSend_setMajorStrokeLayerToken_(v36, v54, v11, v55, v56);
-    objc_msgSend_setMinorStrokeLayerToken_(v36, v57, v20, v58, v59);
+    objc_msgSend_setMajorStrokeLayerToken_(v29, v45, v9, v46);
+    objc_msgSend_setMinorStrokeLayerToken_(v29, v47, v16, v48);
   }
 
-  else if (v11)
+  else if (v9)
   {
-    v39 = objc_msgSend_stroke(v11, v21, v22, v23, v24);
-    v44 = objc_msgSend_range(v11, v40, v41, v42, v43);
-    v46 = v45;
-    v50 = objc_msgSend_order(v11, v45, v47, v48, v49);
-    v36 = objc_msgSend_tokenWithStroke_range_order_majorStrokeLayerToken_minorStrokeLayerToken_(TSTStrokeOrderedLayerToken, v51, v39, v44, v46, v50, v11, 0);
+    v32 = objc_msgSend_stroke(v9, v17, v18, v19);
+    v36 = objc_msgSend_range(v9, v33, v34, v35);
+    v38 = v37;
+    v41 = objc_msgSend_order(v9, v37, v39, v40);
+    v29 = objc_msgSend_tokenWithStroke_range_order_majorStrokeLayerToken_minorStrokeLayerToken_(TSTStrokeOrderedLayerToken, v42, v32, v36, v38, v41, v9, 0);
   }
 
-  else if (v20)
+  else if (v16)
   {
-    v62 = objc_msgSend_stroke(v20, v21, v22, v23, v24);
-    v67 = objc_msgSend_range(v20, v63, v64, v65, v66);
-    v69 = v68;
-    v73 = objc_msgSend_order(v20, v68, v70, v71, v72);
-    v36 = objc_msgSend_tokenWithStroke_range_order_majorStrokeLayerToken_minorStrokeLayerToken_(TSTStrokeOrderedLayerToken, v74, v62, v67, v69, v73, 0, v20);
+    v51 = objc_msgSend_stroke(v16, v17, v18, v19);
+    v55 = objc_msgSend_range(v16, v52, v53, v54);
+    v57 = v56;
+    v60 = objc_msgSend_order(v16, v56, v58, v59);
+    v29 = objc_msgSend_tokenWithStroke_range_order_majorStrokeLayerToken_minorStrokeLayerToken_(TSTStrokeOrderedLayerToken, v61, v51, v55, v57, v60, 0, v16);
 
-    v11 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v11 = 0;
-    v36 = 0;
+    v9 = 0;
+    v29 = 0;
   }
 
-  v60 = v36;
+  v49 = v29;
 
-  return v36;
+  return v29;
 }
 
 - ($DE50B600744B7521845B4CEF3C5064D2)findWidthAndRangeAtIndex:(SEL)index
 {
-  v33 = objc_msgSend_findStrokeAndRangeAtIndex_(self, index, a4, v4, v5);
+  v27 = objc_msgSend_findStrokeAndRangeAtIndex_(self, index, a4, v4);
   objc_opt_class();
-  v7 = TSUCheckedDynamicCast();
-  v12 = v7;
+  v6 = TSUCheckedDynamicCast();
+  v10 = v6;
   *&retstr->var0 = xmmword_2217E1B70;
   *&retstr->var1.length = xmmword_2217E1B80;
-  if (v7)
+  if (v6)
   {
-    v13 = objc_msgSend_stroke(v7, v8, v9, v10, v11);
-    objc_msgSend_width(v13, v14, v15, v16, v17);
-    retstr->var0 = v18;
+    v11 = objc_msgSend_stroke(v6, v7, v8, v9);
+    objc_msgSend_width(v11, v12, v13, v14);
+    retstr->var0 = v15;
 
     retstr->var3 = 0x7FFFFFFFFFFFFFFFLL;
-    retstr->var1.origin = objc_msgSend_range(v12, v19, v20, v21, v22);
-    retstr->var1.length = v23;
-    v27 = objc_msgSend_stroke(v12, v23, v24, v25, v26);
-    retstr->var2 = objc_msgSend_isPortalStroke(v27, v28, v29, v30, v31);
+    retstr->var1.origin = objc_msgSend_range(v10, v16, v17, v18);
+    retstr->var1.length = v19;
+    v22 = objc_msgSend_stroke(v10, v19, v20, v21);
+    retstr->var2 = objc_msgSend_isPortalStroke(v22, v23, v24, v25);
   }
 
   else
@@ -352,43 +352,43 @@ LABEL_18:
   objc_opt_class();
   v5 = TSUCheckedDynamicCast();
 
-  v10 = objc_msgSend_majorStrokeLayerToken(v5, v6, v7, v8, v9);
-  v15 = objc_msgSend_minorStrokeLayerToken(v5, v11, v12, v13, v14);
-  v20 = objc_msgSend_range(v5, v16, v17, v18, v19);
-  if (&v21[v20] >= v20)
+  v9 = objc_msgSend_majorStrokeLayerToken(v5, v6, v7, v8);
+  v13 = objc_msgSend_minorStrokeLayerToken(v5, v10, v11, v12);
+  v17 = objc_msgSend_range(v5, v14, v15, v16);
+  if (&v18[v17] >= v17)
   {
-    v25 = &v21[v20];
+    v21 = &v18[v17];
   }
 
   else
   {
-    v25 = 0x7FFFFFFFFFFFFFFFLL;
+    v21 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  if (!v10)
+  if (!v9)
   {
-    v34 = 0;
-    v33 = 0;
-    v35 = 0;
-    if (!v15)
+    v29 = 0;
+    v28 = 0;
+    v30 = 0;
+    if (!v13)
     {
       goto LABEL_27;
     }
 
 LABEL_13:
-    v36 = objc_msgSend_range(v15, v21, v22, v23, v24);
-    v37 = &v21[v36];
-    if (&v21[v36] < v36)
+    v31 = objc_msgSend_range(v13, v18, v19, v20);
+    v32 = &v18[v31];
+    if (&v18[v31] < v31)
     {
-      v37 = 0x7FFFFFFFFFFFFFFFLL;
+      v32 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    if (v25 >= v37)
+    if (v21 >= v32)
     {
-      v38 = objc_msgSend_minorStrokeLayer(self, v21, v22, v23, v24);
-      v33 = objc_msgSend_nextStrokeAndRange_(v38, v39, v15, v40, v41);
+      v33 = objc_msgSend_minorStrokeLayer(self, v18, v19, v20);
+      v28 = objc_msgSend_nextStrokeAndRange_(v33, v34, v13, v35);
 
-      if (!v10)
+      if (!v9)
       {
         goto LABEL_22;
       }
@@ -396,27 +396,27 @@ LABEL_13:
 
     else
     {
-      v33 = v15;
-      if (!v10)
+      v28 = v13;
+      if (!v9)
       {
 LABEL_22:
-        if (!v10)
+        if (!v9)
         {
-          if (v33)
+          if (v28)
           {
-            v77 = objc_msgSend_stroke(v33, v21, v22, v23, v24);
-            v82 = objc_msgSend_range(v33, v78, v79, v80, v81);
-            v84 = v83;
-            v88 = objc_msgSend_order(v33, v83, v85, v86, v87);
-            v34 = objc_msgSend_tokenWithStroke_range_order_majorStrokeLayerToken_minorStrokeLayerToken_(TSTStrokeOrderedLayerToken, v89, v77, v82, v84, v88, 0, v33);
+            v65 = objc_msgSend_stroke(v28, v18, v19, v20);
+            v69 = objc_msgSend_range(v28, v66, v67, v68);
+            v71 = v70;
+            v74 = objc_msgSend_order(v28, v70, v72, v73);
+            v29 = objc_msgSend_tokenWithStroke_range_order_majorStrokeLayerToken_minorStrokeLayerToken_(TSTStrokeOrderedLayerToken, v75, v65, v69, v71, v74, 0, v28);
           }
 
           else
           {
-            v34 = 0;
+            v29 = 0;
           }
 
-          v35 = 0;
+          v30 = 0;
           goto LABEL_27;
         }
 
@@ -424,124 +424,124 @@ LABEL_22:
       }
     }
 
-    if (v33)
+    if (v28)
     {
-      v42 = objc_msgSend_order(v10, v21, v22, v23, v24);
-      if (v42 >= objc_msgSend_order(v33, v43, v44, v45, v46))
+      v36 = objc_msgSend_order(v9, v18, v19, v20);
+      if (v36 >= objc_msgSend_order(v28, v37, v38, v39))
       {
-        v91 = v33;
-        v51 = objc_msgSend_minorStrokeLayer(self, v47, v48, v49, v50);
-        v34 = objc_msgSend_p_findStrokeAndRangeAtIndex_highOrderToken_updatingLowOrderToken_lowOrderLayer_(self, v68, v25, v10, &v91, v51);
-        v53 = v91;
-        v54 = v33;
-        v33 = v91;
+        v77 = v28;
+        v43 = objc_msgSend_minorStrokeLayer(self, v40, v41, v42);
+        v29 = objc_msgSend_p_findStrokeAndRangeAtIndex_highOrderToken_updatingLowOrderToken_lowOrderLayer_(self, v58, v21, v9, &v77, v43);
+        v45 = v77;
+        v46 = v28;
+        v28 = v77;
       }
 
       else
       {
-        v90 = v10;
-        v51 = objc_msgSend_majorStrokeLayer(self, v47, v48, v49, v50);
-        v34 = objc_msgSend_p_findStrokeAndRangeAtIndex_highOrderToken_updatingLowOrderToken_lowOrderLayer_(self, v52, v25, v33, &v90, v51);
-        v53 = v90;
-        v54 = v10;
-        v10 = v90;
+        v76 = v9;
+        v43 = objc_msgSend_majorStrokeLayer(self, v40, v41, v42);
+        v29 = objc_msgSend_p_findStrokeAndRangeAtIndex_highOrderToken_updatingLowOrderToken_lowOrderLayer_(self, v44, v21, v28, &v76, v43);
+        v45 = v76;
+        v46 = v9;
+        v9 = v76;
       }
 
-      v69 = v53;
+      v59 = v45;
 
-      objc_msgSend_setMajorStrokeLayerToken_(v34, v70, v10, v71, v72);
-      objc_msgSend_setMinorStrokeLayerToken_(v34, v73, v33, v74, v75);
+      objc_msgSend_setMajorStrokeLayerToken_(v29, v60, v9, v61);
+      objc_msgSend_setMinorStrokeLayerToken_(v29, v62, v28, v63);
       goto LABEL_26;
     }
 
     goto LABEL_22;
   }
 
-  v26 = objc_msgSend_range(v10, v21, v22, v23, v24);
-  v27 = &v21[v26];
-  if (&v21[v26] < v26)
+  v22 = objc_msgSend_range(v9, v18, v19, v20);
+  v23 = &v18[v22];
+  if (&v18[v22] < v22)
   {
-    v27 = 0x7FFFFFFFFFFFFFFFLL;
+    v23 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  if (v25 >= v27)
+  if (v21 >= v23)
   {
-    v28 = objc_msgSend_majorStrokeLayer(self, v21, v22, v23, v24);
-    v32 = objc_msgSend_nextStrokeAndRange_(v28, v29, v10, v30, v31);
+    v24 = objc_msgSend_majorStrokeLayer(self, v18, v19, v20);
+    v27 = objc_msgSend_nextStrokeAndRange_(v24, v25, v9, v26);
 
-    v10 = v32;
+    v9 = v27;
   }
 
-  if (v15)
+  if (v13)
   {
     goto LABEL_13;
   }
 
-  v33 = 0;
-  v34 = 0;
-  v35 = 0;
-  if (v10)
+  v28 = 0;
+  v29 = 0;
+  v30 = 0;
+  if (v9)
   {
 LABEL_23:
-    v55 = objc_msgSend_stroke(v10, v21, v22, v23, v24);
-    v60 = objc_msgSend_range(v10, v56, v57, v58, v59);
-    v62 = v61;
-    v66 = objc_msgSend_order(v10, v61, v63, v64, v65);
-    v34 = objc_msgSend_tokenWithStroke_range_order_majorStrokeLayerToken_minorStrokeLayerToken_(TSTStrokeOrderedLayerToken, v67, v55, v60, v62, v66, v10, 0);
+    v47 = objc_msgSend_stroke(v9, v18, v19, v20);
+    v51 = objc_msgSend_range(v9, v48, v49, v50);
+    v53 = v52;
+    v56 = objc_msgSend_order(v9, v52, v54, v55);
+    v29 = objc_msgSend_tokenWithStroke_range_order_majorStrokeLayerToken_minorStrokeLayerToken_(TSTStrokeOrderedLayerToken, v57, v47, v51, v53, v56, v9, 0);
 
 LABEL_26:
-    v35 = v10;
+    v30 = v9;
   }
 
 LABEL_27:
 
-  return v34;
+  return v29;
 }
 
 - ($DE50B600744B7521845B4CEF3C5064D2)nextWidthAndRange:(SEL)range
 {
   origin = a4->var1.origin;
-  v7 = a4->var1.length + origin;
-  if (v7 >= origin)
+  v6 = a4->var1.length + origin;
+  if (v6 >= origin)
   {
-    return objc_msgSend_findWidthAndRangeAtIndex_(self, range, v7, v4, v5);
+    return objc_msgSend_findWidthAndRangeAtIndex_(self, range, v6, v4);
   }
 
   else
   {
-    return objc_msgSend_findWidthAndRangeAtIndex_(self, range, 0x7FFFFFFFFFFFFFFFLL, v4, v5);
+    return objc_msgSend_findWidthAndRangeAtIndex_(self, range, 0x7FFFFFFFFFFFFFFFLL, v4);
   }
 }
 
 - (void)enumerateStrokesUsingBlock:(id)block
 {
   blockCopy = block;
-  v34 = 0;
-  v9 = objc_msgSend_startingIndex(self, v5, v6, v7, v8);
-  v17 = objc_msgSend_findStrokeAndRangeAtIndex_(self, v10, v9, v11, v12);
+  v28 = 0;
+  v8 = objc_msgSend_startingIndex(self, v5, v6, v7);
+  v14 = objc_msgSend_findStrokeAndRangeAtIndex_(self, v9, v8, v10);
   while (1)
   {
-    v18 = objc_msgSend_stroke(v17, v13, v14, v15, v16);
-    v23 = objc_msgSend_range(v17, v19, v20, v21, v22);
-    v25 = v24;
-    v29 = objc_msgSend_order(v17, v24, v26, v27, v28);
-    blockCopy[2](blockCopy, v18, v23, v25, v29, &v34);
+    v15 = objc_msgSend_stroke(v14, v11, v12, v13);
+    v19 = objc_msgSend_range(v14, v16, v17, v18);
+    v21 = v20;
+    v24 = objc_msgSend_order(v14, v20, v22, v23);
+    blockCopy[2](blockCopy, v15, v19, v21, v24, &v28);
 
-    if (v34)
+    if (v28)
     {
       break;
     }
 
-    v33 = objc_msgSend_nextStrokeAndRange_(self, v30, v17, v31, v32);
+    v27 = objc_msgSend_nextStrokeAndRange_(self, v25, v14, v26);
 
-    v17 = v33;
-    if (v34 == 1)
+    v14 = v27;
+    if (v28 == 1)
     {
       goto LABEL_6;
     }
   }
 
-  v33 = v17;
+  v27 = v14;
 LABEL_6:
 }
 
@@ -549,103 +549,103 @@ LABEL_6:
 {
   strokeCopy = stroke;
   v6 = MEMORY[0x277D81150];
-  v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSTStrokeOrderedLayer appendStroke:inRange:order:]", v8, v9);
-  v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStrokeOrderedLayer.m", v12, v13);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v15, v10, v14, 270, 0, "Do not call method");
+  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSTStrokeOrderedLayer appendStroke:inRange:order:]", v8);
+  v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStrokeOrderedLayer.m", v11);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v13, v9, v12, 270, 0, "Do not call method");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18, v19);
-  v20 = MEMORY[0x277CBEAD8];
-  v21 = *MEMORY[0x277CBE658];
-  v25 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v22, @"%s: %s", v23, v24, "Do not call method", "[TSTStrokeOrderedLayer appendStroke:inRange:order:]");
-  v27 = objc_msgSend_exceptionWithName_reason_userInfo_(v20, v26, v21, v25, 0);
-  v28 = v27;
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
+  v17 = MEMORY[0x277CBEAD8];
+  v18 = *MEMORY[0x277CBE658];
+  v21 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v19, @"%s: %s", v20, "Do not call method", "[TSTStrokeOrderedLayer appendStroke:inRange:order:]");
+  v23 = objc_msgSend_exceptionWithName_reason_userInfo_(v17, v22, v18, v21, 0);
+  v24 = v23;
 
-  objc_exception_throw(v27);
+  objc_exception_throw(v23);
 }
 
 - (void)insertStroke:(id)stroke inRange:(TSTSimpleRange)range order:(int)order
 {
   strokeCopy = stroke;
   v6 = MEMORY[0x277D81150];
-  v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSTStrokeOrderedLayer insertStroke:inRange:order:]", v8, v9);
-  v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStrokeOrderedLayer.m", v12, v13);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v15, v10, v14, 274, 0, "Do not call method");
+  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSTStrokeOrderedLayer insertStroke:inRange:order:]", v8);
+  v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStrokeOrderedLayer.m", v11);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v13, v9, v12, 274, 0, "Do not call method");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18, v19);
-  v20 = MEMORY[0x277CBEAD8];
-  v21 = *MEMORY[0x277CBE658];
-  v25 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v22, @"%s: %s", v23, v24, "Do not call method", "[TSTStrokeOrderedLayer insertStroke:inRange:order:]");
-  v27 = objc_msgSend_exceptionWithName_reason_userInfo_(v20, v26, v21, v25, 0);
-  v28 = v27;
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
+  v17 = MEMORY[0x277CBEAD8];
+  v18 = *MEMORY[0x277CBE658];
+  v21 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v19, @"%s: %s", v20, "Do not call method", "[TSTStrokeOrderedLayer insertStroke:inRange:order:]");
+  v23 = objc_msgSend_exceptionWithName_reason_userInfo_(v17, v22, v18, v21, 0);
+  v24 = v23;
 
-  objc_exception_throw(v27);
+  objc_exception_throw(v23);
 }
 
 - (void)invalidate
 {
-  v4 = MEMORY[0x277D81150];
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTStrokeOrderedLayer invalidate]", v2, v3);
-  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStrokeOrderedLayer.m", v7, v8);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v10, v5, v9, 278, 0, "Do not call method");
+  v3 = MEMORY[0x277D81150];
+  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTStrokeOrderedLayer invalidate]", v2);
+  v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStrokeOrderedLayer.m", v6);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v3, v8, v4, v7, 278, 0, "Do not call method");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12, v13, v14);
-  v15 = MEMORY[0x277CBEAD8];
-  v16 = *MEMORY[0x277CBE658];
-  v20 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v17, @"%s: %s", v18, v19, "Do not call method", "[TSTStrokeOrderedLayer invalidate]");
-  v22 = objc_msgSend_exceptionWithName_reason_userInfo_(v15, v21, v16, v20, 0);
-  v23 = v22;
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10, v11);
+  v12 = MEMORY[0x277CBEAD8];
+  v13 = *MEMORY[0x277CBE658];
+  v16 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v14, @"%s: %s", v15, "Do not call method", "[TSTStrokeOrderedLayer invalidate]");
+  v18 = objc_msgSend_exceptionWithName_reason_userInfo_(v12, v17, v13, v16, 0);
+  v19 = v18;
 
-  objc_exception_throw(v22);
+  objc_exception_throw(v18);
 }
 
 - (void)invalidateRange:(TSTSimpleRange)range
 {
-  v4 = MEMORY[0x277D81150];
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTStrokeOrderedLayer invalidateRange:]", range.length, v3);
-  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStrokeOrderedLayer.m", v7, v8);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v10, v5, v9, 282, 0, "Do not call method");
+  v3 = MEMORY[0x277D81150];
+  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTStrokeOrderedLayer invalidateRange:]", range.length);
+  v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStrokeOrderedLayer.m", v6);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v3, v8, v4, v7, 282, 0, "Do not call method");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12, v13, v14);
-  v15 = MEMORY[0x277CBEAD8];
-  v16 = *MEMORY[0x277CBE658];
-  v20 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v17, @"%s: %s", v18, v19, "Do not call method", "[TSTStrokeOrderedLayer invalidateRange:]");
-  v22 = objc_msgSend_exceptionWithName_reason_userInfo_(v15, v21, v16, v20, 0);
-  v23 = v22;
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10, v11);
+  v12 = MEMORY[0x277CBEAD8];
+  v13 = *MEMORY[0x277CBE658];
+  v16 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v14, @"%s: %s", v15, "Do not call method", "[TSTStrokeOrderedLayer invalidateRange:]");
+  v18 = objc_msgSend_exceptionWithName_reason_userInfo_(v12, v17, v13, v16, 0);
+  v19 = v18;
 
-  objc_exception_throw(v22);
+  objc_exception_throw(v18);
 }
 
 - (void)enumerateRawStrokesSegmentsUsingBlock:(id)block
 {
   blockCopy = block;
-  v8 = objc_msgSend_startingIndex(self, v4, v5, v6, v7);
-  v13 = objc_msgSend_majorStrokeLayer(self, v9, v10, v11, v12);
-  v17 = objc_msgSend_findStrokeAndRangeAtIndex_(v13, v14, v8, v15, v16);
+  v7 = objc_msgSend_startingIndex(self, v4, v5, v6);
+  v11 = objc_msgSend_majorStrokeLayer(self, v8, v9, v10);
+  v14 = objc_msgSend_findStrokeAndRangeAtIndex_(v11, v12, v7, v13);
 
-  v22 = objc_msgSend_minorStrokeLayer(self, v18, v19, v20, v21);
-  v26 = objc_msgSend_findStrokeAndRangeAtIndex_(v22, v23, v8, v24, v25);
+  v18 = objc_msgSend_minorStrokeLayer(self, v15, v16, v17);
+  v21 = objc_msgSend_findStrokeAndRangeAtIndex_(v18, v19, v7, v20);
 
-  v99 = 0;
-  v31 = v17 != 0;
-  v32 = v26 != 0;
-  if (v17 | v26)
+  v82 = 0;
+  v25 = v14 != 0;
+  v26 = v21 != 0;
+  if (v14 | v21)
   {
     while (1)
     {
-      v33 = objc_msgSend_range(v17, v27, v28, v29, v30);
-      if (v8 == 0x7FFFFFFFFFFFFFFFLL || !v34 || v33 > v8 || &v34[v33 - 1] < v8)
+      v27 = objc_msgSend_range(v14, v22, v23, v24);
+      if (v7 == 0x7FFFFFFFFFFFFFFFLL || !v28 || v27 > v7 || &v28[v27 - 1] < v7)
       {
         break;
       }
 
-      v39 = v8;
-      if (!v31)
+      v32 = v7;
+      if (!v25)
       {
 LABEL_24:
-        v46 = 0;
-        v47 = 0;
-        v8 = 0x7FFFFFFFFFFFFFFFLL;
-        if (!v32)
+        v38 = 0;
+        v39 = 0;
+        v7 = 0x7FFFFFFFFFFFFFFFLL;
+        if (!v26)
         {
           goto LABEL_33;
         }
@@ -654,129 +654,129 @@ LABEL_24:
       }
 
 LABEL_17:
-      v41 = objc_msgSend_range(v17, v34, v35, v36, v37);
-      if (v39 != 0x7FFFFFFFFFFFFFFFLL && v42 && v41 <= v39 && &v42[v41 - 1] >= v39)
+      v34 = objc_msgSend_range(v14, v28, v29, v30);
+      if (v32 != 0x7FFFFFFFFFFFFFFFLL && v35 && v34 <= v32 && &v35[v34 - 1] >= v32)
       {
-        v56 = objc_msgSend_range(v17, v42, v43, v44, v45);
-        v8 = &v57[v56];
-        v47 = objc_msgSend_stroke(v17, v57, v58, v59, v60);
-        v46 = objc_msgSend_order(v17, v61, v62, v63, v64);
-        if (!v32)
+        v47 = objc_msgSend_range(v14, v35, v36, v37);
+        v7 = &v48[v47];
+        v39 = objc_msgSend_stroke(v14, v48, v49, v50);
+        v38 = objc_msgSend_order(v14, v51, v52, v53);
+        if (!v26)
         {
 LABEL_33:
-          v54 = 0;
-          v55 = 0;
+          v45 = 0;
+          v46 = 0;
           goto LABEL_34;
         }
       }
 
       else
       {
-        v8 = objc_msgSend_range(v17, v42, v43, v44, v45);
-        v46 = 0;
-        v47 = 0;
-        if (!v32)
+        v7 = objc_msgSend_range(v14, v35, v36, v37);
+        v38 = 0;
+        v39 = 0;
+        if (!v26)
         {
           goto LABEL_33;
         }
       }
 
 LABEL_25:
-      v48 = objc_msgSend_range(v26, v34, v35, v36, v37);
-      if (v39 != 0x7FFFFFFFFFFFFFFFLL && v49 && v48 <= v39 && &v49[v48 - 1] >= v39)
+      v40 = objc_msgSend_range(v21, v28, v29, v30);
+      if (v32 != 0x7FFFFFFFFFFFFFFFLL && v41 && v40 <= v32 && &v41[v40 - 1] >= v32)
       {
-        v89 = objc_msgSend_range(v26, v49, v50, v51, v52);
-        if (v8 >= &v90[v89])
+        v74 = objc_msgSend_range(v21, v41, v42, v43);
+        if (v7 >= &v75[v74])
         {
-          v8 = &v90[v89];
+          v7 = &v75[v74];
         }
 
-        v55 = objc_msgSend_stroke(v26, v90, v91, v92, v93);
-        v54 = objc_msgSend_order(v26, v94, v95, v96, v97);
+        v46 = objc_msgSend_stroke(v21, v75, v76, v77);
+        v45 = objc_msgSend_order(v21, v78, v79, v80);
       }
 
       else
       {
-        v53 = objc_msgSend_range(v26, v49, v50, v51, v52);
-        v54 = 0;
-        v55 = 0;
-        if (v8 >= v53)
+        v44 = objc_msgSend_range(v21, v41, v42, v43);
+        v45 = 0;
+        v46 = 0;
+        if (v7 >= v44)
         {
-          v8 = v53;
+          v7 = v44;
         }
       }
 
 LABEL_34:
-      v65 = v39 - v8;
-      if (v39 <= v8)
+      v54 = v32 - v7;
+      if (v32 <= v7)
       {
-        v66 = 0x7FFFFFFFFFFFFFFFLL;
+        v55 = 0x7FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v66 = v8;
+        v55 = v7;
       }
 
-      if (v39 <= v8)
+      if (v32 <= v7)
       {
-        v65 = 0;
+        v54 = 0;
       }
 
-      if (v39 < v8)
+      if (v32 < v7)
       {
-        v66 = v39;
-        v65 = v8 - v39;
+        v55 = v32;
+        v54 = v7 - v32;
       }
 
-      if (v8 == 0x7FFFFFFFFFFFFFFFLL)
+      if (v7 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v66 = 0x7FFFFFFFFFFFFFFFLL;
-        v65 = 0;
+        v55 = 0x7FFFFFFFFFFFFFFFLL;
+        v54 = 0;
       }
 
-      if (v39 == 0x7FFFFFFFFFFFFFFFLL)
+      if (v32 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v67 = 0x7FFFFFFFFFFFFFFFLL;
-      }
-
-      else
-      {
-        v67 = v66;
-      }
-
-      if (v39 == 0x7FFFFFFFFFFFFFFFLL)
-      {
-        v68 = 0;
+        v56 = 0x7FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v68 = v65;
+        v56 = v55;
       }
 
-      blockCopy[2](blockCopy, v67, v68, v47, v46, v55, v54, &v99);
-      if (v31)
+      if (v32 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v73 = objc_msgSend_range(v17, v69, v70, v71, v72);
-        if (v8 >= &v69[v73])
+        v57 = 0;
+      }
+
+      else
+      {
+        v57 = v54;
+      }
+
+      blockCopy[2](blockCopy, v56, v57, v39, v38, v46, v45, &v82);
+      if (v25)
+      {
+        v61 = objc_msgSend_range(v14, v58, v59, v60);
+        if (v7 >= &v58[v61])
         {
-          v74 = objc_msgSend_majorStrokeLayer(self, v69, v70, v71, v72);
-          v78 = objc_msgSend_nextStrokeAndRange_(v74, v75, v17, v76, v77);
+          v62 = objc_msgSend_majorStrokeLayer(self, v58, v59, v60);
+          v65 = objc_msgSend_nextStrokeAndRange_(v62, v63, v14, v64);
 
-          v17 = v78;
+          v14 = v65;
         }
 
-        if (v32)
+        if (v26)
         {
 LABEL_53:
-          v79 = objc_msgSend_range(v26, v69, v70, v71, v72);
-          if (v8 >= &v80[v79])
+          v66 = objc_msgSend_range(v21, v58, v59, v60);
+          if (v7 >= &v67[v66])
           {
-            v84 = objc_msgSend_minorStrokeLayer(self, v80, v81, v82, v83);
-            v88 = objc_msgSend_nextStrokeAndRange_(v84, v85, v26, v86, v87);
+            v70 = objc_msgSend_minorStrokeLayer(self, v67, v68, v69);
+            v73 = objc_msgSend_nextStrokeAndRange_(v70, v71, v21, v72);
 
-            v26 = v88;
+            v21 = v73;
           }
 
           goto LABEL_57;
@@ -785,31 +785,31 @@ LABEL_53:
 
       else
       {
-        v17 = 0;
-        if (v32)
+        v14 = 0;
+        if (v26)
         {
           goto LABEL_53;
         }
       }
 
-      v26 = 0;
+      v21 = 0;
 LABEL_57:
 
-      v31 = v17 != 0;
-      v32 = v26 != 0;
-      if (!(v17 | v26))
+      v25 = v14 != 0;
+      v26 = v21 != 0;
+      if (!(v14 | v21))
       {
         goto LABEL_62;
       }
     }
 
-    v38 = objc_msgSend_range(v26, v34, v35, v36, v37);
-    if (v8 == 0x7FFFFFFFFFFFFFFFLL || !v34 || v38 > v8 || (v39 = v8, &v34[v38 - 1] < v8))
+    v31 = objc_msgSend_range(v21, v28, v29, v30);
+    if (v7 == 0x7FFFFFFFFFFFFFFFLL || !v28 || v31 > v7 || (v32 = v7, &v28[v31 - 1] < v7))
     {
-      if (v31)
+      if (v25)
       {
-        v39 = objc_msgSend_range(v17, v34, v35, v36, v37);
-        if (!v32)
+        v32 = objc_msgSend_range(v14, v28, v29, v30);
+        if (!v26)
         {
           goto LABEL_16;
         }
@@ -817,22 +817,22 @@ LABEL_57:
 
       else
       {
-        v39 = 0x7FFFFFFFFFFFFFFFLL;
-        if (!v32)
+        v32 = 0x7FFFFFFFFFFFFFFFLL;
+        if (!v26)
         {
           goto LABEL_16;
         }
       }
 
-      v40 = objc_msgSend_range(v26, v34, v35, v36, v37);
-      if (v39 >= v40)
+      v33 = objc_msgSend_range(v21, v28, v29, v30);
+      if (v32 >= v33)
       {
-        v39 = v40;
+        v32 = v33;
       }
     }
 
 LABEL_16:
-    if (!v31)
+    if (!v25)
     {
       goto LABEL_24;
     }

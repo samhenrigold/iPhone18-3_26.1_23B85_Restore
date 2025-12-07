@@ -25,7 +25,7 @@
 {
   strokeCopy = stroke;
   [strokeCopy radius];
-  if (v5 == self->_radius && ([strokeCopy softness], v6 == self->_softness) && (objc_msgSend(strokeCopy, "opacity"), v7 == self->_opacity) && (!strokeCopy ? (v12 = 0, v10 = 0, v11 = 0, v16 = 0u, v17 = 0u) : (objc_msgSend(strokeCopy, "extent"), v10 = *(&v16 + 1), v11 = v16, v12 = v17), self->_extent.origin.x == v11 && self->_extent.origin.y == v10 && *&self->_extent.size == __PAIR128__(*(&v17 + 1), v12) && (!strokeCopy ? (v15 = 0, v13 = 0, v14 = 0, v17 = 0u) : (objc_msgSend(strokeCopy, "clipRect"), v13 = *(&v16 + 1), v14 = v16, v15 = v17), self->_clipRect.origin.x == v14 && self->_clipRect.origin.y == v13 && *&self->_clipRect.size == __PAIR128__(*(&v17 + 1), v15))))
+  if (v5 == self->_radius && ([strokeCopy softness], v6 == self->_softness) && (objc_msgSend(strokeCopy, "opacity"), v7 == self->_opacity) && (!strokeCopy ? (v12 = 0, v10 = 0, v11 = 0, v16 = 0u, v17 = 0u) : (objc_msgSend_extent(strokeCopy), v10 = *(&v16 + 1), v11 = v16, v12 = v17), self->_extent.origin.x == v11 && self->_extent.origin.y == v10 && *&self->_extent.size == __PAIR128__(*(&v17 + 1), v12) && (!strokeCopy ? (v15 = 0, v13 = 0, v14 = 0, v17 = 0u) : (objc_msgSend_clipRect(strokeCopy), v13 = *(&v16 + 1), v14 = v16, v15 = v17), self->_clipRect.origin.x == v14 && self->_clipRect.origin.y == v13 && *&self->_clipRect.size == __PAIR128__(*(&v17 + 1), v15))))
   {
     v8 = [strokeCopy[12] isEqualToData:self->_data];
   }
@@ -508,7 +508,7 @@
   closedCopy = closed;
   pathCopy = path;
   v9 = [(NUBrushStroke *)self ciImageTiled:1 closed:closedCopy pressureMode:mode];
-  [v9 extent];
+  objc_msgSend_extent(v9);
   x = v18.origin.x;
   y = v18.origin.y;
   width = v18.size.width;
@@ -527,7 +527,7 @@
 
 - (id)ciImageTiled:(BOOL)tiled closed:(BOOL)closed pressureMode:(int64_t)mode filled:(BOOL)filled
 {
-  [(NUBrushStroke *)self extent];
+  objc_msgSend_extent(self, a2);
 
   return 0;
 }

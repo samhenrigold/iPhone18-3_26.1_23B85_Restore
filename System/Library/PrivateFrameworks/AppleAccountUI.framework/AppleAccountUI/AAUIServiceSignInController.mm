@@ -70,13 +70,14 @@
   navigationBar = [navigationController navigationBar];
   [navigationBar setAccessibilityIdentifier:@"sign-in-nav-bar"];
 
-  if ([(AAUIServiceSignInController *)self _shouldShieldSignInUI])
+  _shouldShieldSignInUI = [(AAUIServiceSignInController *)self _shouldShieldSignInUI];
+  if (_shouldShieldSignInUI)
   {
-    v5 = _AAUILogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AAUILogSystem(_shouldShieldSignInUI);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "Invoking shield UI.", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Invoking shield UI.", buf, 2u);
     }
 
     signInConfig = [(AAUIServiceSignInController *)self signInConfig];
@@ -86,24 +87,24 @@
     objc_initWeak(buf, self);
     signInConfig2 = [(AAUIServiceSignInController *)self signInConfig];
     navigationController3 = [signInConfig2 navigationController];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __64__AAUIServiceSignInController_loadViewControllerForPresentation__block_invoke;
-    v19[3] = &unk_1E820DE68;
-    objc_copyWeak(&v20, buf);
-    [(AAUIServiceSignInController *)self _invokeShieldUIWithViewController:navigationController3 completion:v19];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __64__AAUIServiceSignInController_loadViewControllerForPresentation__block_invoke;
+    v22[3] = &unk_1E820DE68;
+    objc_copyWeak(&v23, buf);
+    [(AAUIServiceSignInController *)self _invokeShieldUIWithViewController:navigationController3 completion:v22];
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(buf);
   }
 
-  else if ([(AAUIServiceSignInConfiguration *)self->_signInConfig newSignInReauth]&& ([(AAUIServiceSignInConfiguration *)self->_signInConfig username], v10 = objc_claimAutoreleasedReturnValue(), v10, v10))
+  else if ([(AAUIServiceSignInConfiguration *)self->_signInConfig newSignInReauth]&& ([(AAUIServiceSignInConfiguration *)self->_signInConfig username], v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
   {
-    v11 = _AAUILogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = _AAUILogSystem(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_1C5355000, v11, OS_LOG_TYPE_DEFAULT, "Service sign in configuration signaled for reauth.", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v13, OS_LOG_TYPE_DEFAULT, "Service sign in configuration signaled for reauth.", buf, 2u);
     }
 
     _spinnerViewController = [(AAUIServiceSignInController *)self _spinnerViewController];
@@ -116,14 +117,14 @@
   {
     authenticationResults = [(AAUIServiceSignInConfiguration *)self->_signInConfig authenticationResults];
 
-    v14 = _AAUILogSystem();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v17 = _AAUILogSystem(v16);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
     if (authenticationResults)
     {
-      if (v15)
+      if (v18)
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "Continuing sign in with authentication results...", buf, 2u);
+        _os_log_impl(&dword_1C5355000, v17, OS_LOG_TYPE_DEFAULT, "Continuing sign in with authentication results...", buf, 2u);
       }
 
       _spinnerViewController2 = [(AAUIServiceSignInController *)self _spinnerViewController];
@@ -136,10 +137,10 @@
 
     else
     {
-      if (v15)
+      if (v18)
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "No authentication results found, displaying sign in...", buf, 2u);
+        _os_log_impl(&dword_1C5355000, v17, OS_LOG_TYPE_DEFAULT, "No authentication results found, displaying sign in...", buf, 2u);
       }
 
       authenticationResults2 = [(AAUIServiceSignInController *)self signInViewController];
@@ -151,7 +152,7 @@
 void __64__AAUIServiceSignInController_loadViewControllerForPresentation__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(v4);
   v6 = v5;
   if (v4)
   {
@@ -273,7 +274,7 @@ void __64__AAUIServiceSignInController_loadViewControllerForPresentation__block_
 
 - (void)_attemptReauthAndSignInToServices
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __64__AAUIServiceSignInController__attemptReauthAndSignInToServices__block_invoke;
@@ -281,52 +282,52 @@ void __64__AAUIServiceSignInController_loadViewControllerForPresentation__block_
   aBlock[4] = self;
   v3 = _Block_copy(aBlock);
   _serviceOwnersManager = [(AAUIServiceSignInController *)self _serviceOwnersManager];
-  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
   obj = [objc_opt_class() supportedServices];
-  v5 = [obj countByEnumeratingWithState:&v18 objects:v25 count:16];
+  v5 = [obj countByEnumeratingWithState:&v19 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
-    v16 = v3;
+    v7 = *v20;
+    v17 = v3;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
-        v10 = [_serviceOwnersManager accountForService:{v9, v16}];
+        v9 = *(*(&v19 + 1) + 8 * i);
+        v10 = [_serviceOwnersManager accountForService:{v9, v17}];
         username = [v10 username];
         username2 = [(AAUIServiceSignInConfiguration *)self->_signInConfig username];
         v13 = [username isEqualToString:username2];
 
         if (v13)
         {
-          v14 = _AAUILogSystem();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v15 = _AAUILogSystem(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v24 = v9;
-            _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "Found account for service %{public}@, prompting for sign in...", buf, 0xCu);
+            v25 = v9;
+            _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "Found account for service %{public}@, prompting for sign in...", buf, 0xCu);
           }
 
           navigationController = [(AAUIServiceSignInConfiguration *)self->_signInConfig navigationController];
-          v3 = v16;
-          [(AAUIServiceSignInController *)self _authenticateExistingAccount:v10 serviceType:v9 inViewController:navigationController completion:v16];
+          v3 = v17;
+          [(AAUIServiceSignInController *)self _authenticateExistingAccount:v10 serviceType:v9 inViewController:navigationController completion:v17];
 
           goto LABEL_13;
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v18 objects:v25 count:16];
-      v3 = v16;
+      v6 = [obj countByEnumeratingWithState:&v19 objects:v26 count:16];
+      v3 = v17;
       if (v6)
       {
         continue;
@@ -345,24 +346,24 @@ void __64__AAUIServiceSignInController__attemptReauthAndSignInToServices__block_
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   if (a3)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _AAUILogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __64__AAUIServiceSignInController__attemptReauthAndSignInToServices__block_invoke_cold_1();
     }
 
-    v7 = [*(*(a1 + 32) + 88) navigationController];
-    v8 = [*(a1 + 32) signInViewController];
-    [v7 pushViewController:v8 animated:1];
+    v8 = [*(*(a1 + 32) + 88) navigationController];
+    v9 = [*(a1 + 32) signInViewController];
+    [v8 pushViewController:v9 animated:1];
   }
 
   else
   {
     [*(*(a1 + 32) + 88) setAuthenticationResults:v5];
-    v9 = *(a1 + 32);
-    v10 = [v9[11] authenticationResults];
-    v11 = [*(*(a1 + 32) + 88) navigationController];
-    [v9 _mainQueue_continueSignInWithAuthenticationResults:v10 parentViewController:v11];
+    v10 = *(a1 + 32);
+    v11 = [v10[11] authenticationResults];
+    v12 = [*(*(a1 + 32) + 88) navigationController];
+    [v10 _mainQueue_continueSignInWithAuthenticationResults:v11 parentViewController:v12];
   }
 }
 
@@ -436,7 +437,8 @@ void __64__AAUIServiceSignInController__attemptReauthAndSignInToServices__block_
       goto LABEL_16;
     }
 
-    if ([v4 isEqualToString:*MEMORY[0x1E698C228]])
+    v8 = [v4 isEqualToString:*MEMORY[0x1E698C228]];
+    if (v8)
     {
       v5 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
       v6 = v5;
@@ -444,8 +446,8 @@ void __64__AAUIServiceSignInController__attemptReauthAndSignInToServices__block_
       goto LABEL_16;
     }
 
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _AAUILogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [AAUIServiceSignInController _spinnerMessageForService:];
     }
@@ -455,9 +457,9 @@ void __64__AAUIServiceSignInController__attemptReauthAndSignInToServices__block_
   v6 = v5;
   v7 = @"SIGN_IN_SPINNER_LABEL_REBRAND";
 LABEL_16:
-  v9 = [v5 localizedStringForKey:v7 value:&stru_1F447F790 table:@"Localizable"];
+  v10 = [v5 localizedStringForKey:v7 value:&stru_1F447F790 table:@"Localizable"];
 
-  return v9;
+  return v10;
 }
 
 - (id)_spinnerViewController
@@ -552,41 +554,41 @@ LABEL_16:
 
   if (serviceContext && (-[AAUIServiceSignInConfiguration serviceContext](self->_signInConfig, "serviceContext"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v10 mutableCopy], v10, v11))
   {
-    v12 = _AAUILogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = _AAUILogSystem(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [AAUIServiceSignInController _serviceContextWithResults:parentViewController:];
     }
 
-    v13 = 1;
+    v14 = 1;
   }
 
   else
   {
     v11 = objc_alloc_init(MEMORY[0x1E698C258]);
     [v11 setShouldForceOperation:{-[AAUIServiceSignInConfiguration shouldForceOperation](self->_signInConfig, "shouldForceOperation")}];
-    v13 = 0;
+    v14 = 0;
   }
 
   [v11 setAuthenticationResults:resultsCopy];
   [v11 setOperationUIPermissions:{-[AAUIServiceSignInConfiguration aidaOperationUIPermissions](self->_signInConfig, "aidaOperationUIPermissions")}];
   [v11 setViewController:controllerCopy];
 
-  v14 = objc_alloc(MEMORY[0x1E6997858]);
+  v15 = objc_alloc(MEMORY[0x1E6997858]);
   viewController = [v11 viewController];
-  v16 = [v14 initWithPresentingViewController:viewController];
+  v17 = [v15 initWithPresentingViewController:viewController];
   cdpUIController = self->_cdpUIController;
-  self->_cdpUIController = v16;
+  self->_cdpUIController = v17;
 
   [(CDPUIController *)self->_cdpUIController setForceInlinePresentation:1];
   [v11 setCdpUiProvider:self->_cdpUIController];
   signInContexts = [v11 signInContexts];
-  v19 = signInContexts;
-  if (v13)
+  v20 = signInContexts;
+  if (v14)
   {
-    v20 = [signInContexts objectForKeyedSubscript:*MEMORY[0x1E698C218]];
+    v21 = [signInContexts objectForKeyedSubscript:*MEMORY[0x1E698C218]];
     flowControllerDelegate = self->_flowControllerDelegate;
-    self->_flowControllerDelegate = v20;
+    self->_flowControllerDelegate = v21;
 
     viewController2 = [v11 viewController];
     [(AAUISignInFlowControllerDelegate *)self->_flowControllerDelegate setPresentingViewController:viewController2];
@@ -594,25 +596,25 @@ LABEL_16:
 
   else
   {
-    v23 = [signInContexts mutableCopy];
-    v24 = v23;
-    if (v23)
+    v24 = [signInContexts mutableCopy];
+    v25 = v24;
+    if (v24)
     {
-      v25 = v23;
+      v26 = v24;
     }
 
     else
     {
-      v25 = objc_opt_new();
+      v26 = objc_opt_new();
     }
 
-    viewController2 = v25;
+    viewController2 = v26;
 
-    v26 = [AAUISignInFlowControllerDelegate alloc];
+    v27 = [AAUISignInFlowControllerDelegate alloc];
     viewController3 = [v11 viewController];
-    v28 = [(AAUISignInFlowControllerDelegate *)v26 initWithPresentingViewController:viewController3];
-    v29 = self->_flowControllerDelegate;
-    self->_flowControllerDelegate = v28;
+    v29 = [(AAUISignInFlowControllerDelegate *)v27 initWithPresentingViewController:viewController3];
+    v30 = self->_flowControllerDelegate;
+    self->_flowControllerDelegate = v29;
 
     [(AAUISignInFlowControllerDelegate *)self->_flowControllerDelegate setProgressViewAlreadyPresented:self->_spinnerViewController != 0];
     [viewController2 setObject:self->_flowControllerDelegate forKeyedSubscript:*MEMORY[0x1E698C218]];
@@ -629,21 +631,21 @@ LABEL_16:
     goto LABEL_19;
   }
 
-  v31 = [objc_alloc(MEMORY[0x1E69977E8]) initWithAuthenticationResults:resultsCopy];
-  [v31 setIsAttemptingBackupRestore:{-[AAUIServiceSignInConfiguration isAttemptingBackupRestore](self->_signInConfig, "isAttemptingBackupRestore")}];
+  v32 = [objc_alloc(MEMORY[0x1E69977E8]) initWithAuthenticationResults:resultsCopy];
+  [v32 setIsAttemptingBackupRestore:{-[AAUIServiceSignInConfiguration isAttemptingBackupRestore](self->_signInConfig, "isAttemptingBackupRestore")}];
   localSecret2 = [(AAUIServiceSignInConfiguration *)self->_signInConfig localSecret];
 
   if (localSecret2)
   {
     localSecret3 = [(AAUIServiceSignInConfiguration *)self->_signInConfig localSecret];
     validatedSecret = [localSecret3 validatedSecret];
-    [v31 setCachedLocalSecret:validatedSecret];
+    [v32 setCachedLocalSecret:validatedSecret];
 
     localSecret4 = [(AAUIServiceSignInConfiguration *)self->_signInConfig localSecret];
-    [v31 setCachedLocalSecretType:{objc_msgSend(localSecret4, "secretType")}];
+    [v32 setCachedLocalSecretType:{objc_msgSend(localSecret4, "secretType")}];
   }
 
-  [(AAUISignInFlowControllerDelegate *)self->_flowControllerDelegate setCdpContext:v31];
+  [(AAUISignInFlowControllerDelegate *)self->_flowControllerDelegate setCdpContext:v32];
 
 LABEL_19:
 
@@ -833,7 +835,7 @@ LABEL_16:
 
 uint64_t __105__AAUIServiceSignInController__alertControllerForReusingAccount_serviceType_inViewController_completion___block_invoke(uint64_t a1)
 {
-  v2 = _AAUILogSystem();
+  v2 = _AAUILogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -845,7 +847,7 @@ uint64_t __105__AAUIServiceSignInController__alertControllerForReusingAccount_se
 
 uint64_t __105__AAUIServiceSignInController__alertControllerForReusingAccount_serviceType_inViewController_completion___block_invoke_105(uint64_t a1)
 {
-  v2 = _AAUILogSystem();
+  v2 = _AAUILogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -857,7 +859,7 @@ uint64_t __105__AAUIServiceSignInController__alertControllerForReusingAccount_se
 
 void __105__AAUIServiceSignInController__alertControllerForReusingAccount_serviceType_inViewController_completion___block_invoke_109(uint64_t a1)
 {
-  v2 = _AAUILogSystem();
+  v2 = _AAUILogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -871,7 +873,7 @@ void __105__AAUIServiceSignInController__alertControllerForReusingAccount_servic
 
 - (void)prepareInViewController:(id)controller completion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   completionCopy = completion;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
@@ -880,53 +882,53 @@ void __105__AAUIServiceSignInController__alertControllerForReusingAccount_servic
   aBlock[2] = __66__AAUIServiceSignInController_prepareInViewController_completion___block_invoke;
   aBlock[3] = &unk_1E820D1E0;
   aBlock[4] = self;
-  v22 = completionCopy;
-  v29 = v22;
-  v21 = _Block_copy(aBlock);
+  v24 = completionCopy;
+  v31 = v24;
+  v23 = _Block_copy(aBlock);
   _serviceOwnersManager = [(AAUIServiceSignInController *)self _serviceOwnersManager];
-  v24 = 0u;
-  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   supportedServices = [objc_opt_class() supportedServices];
-  v9 = [supportedServices countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v9 = [supportedServices countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v25;
+    v11 = *v27;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v27 != v11)
         {
           objc_enumerationMutation(supportedServices);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v26 + 1) + 8 * i);
         v14 = [_serviceOwnersManager accountForService:v13];
         username = [v14 username];
         v16 = [username length];
 
         if (v16)
         {
-          v20 = _AAUILogSystem();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v22 = _AAUILogSystem(v17);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v31 = v13;
-            _os_log_impl(&dword_1C5355000, v20, OS_LOG_TYPE_DEFAULT, "Found account for service %{public}@, prompting for sign in...", buf, 0xCu);
+            v33 = v13;
+            _os_log_impl(&dword_1C5355000, v22, OS_LOG_TYPE_DEFAULT, "Found account for service %{public}@, prompting for sign in...", buf, 0xCu);
           }
 
-          v19 = controllerCopy;
-          v18 = v21;
-          [(AAUIServiceSignInController *)self _mainQueue_presentContinueUsingInViewController:controllerCopy account:v14 serviceType:v13 completion:v21];
+          v21 = controllerCopy;
+          v20 = v23;
+          [(AAUIServiceSignInController *)self _mainQueue_presentContinueUsingInViewController:controllerCopy account:v14 serviceType:v13 completion:v23];
 
           goto LABEL_15;
         }
       }
 
-      v10 = [supportedServices countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v10 = [supportedServices countByEnumeratingWithState:&v26 objects:v34 count:16];
       if (v10)
       {
         continue;
@@ -936,16 +938,16 @@ void __105__AAUIServiceSignInController__alertControllerForReusingAccount_servic
     }
   }
 
-  v17 = _AAUILogSystem();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v19 = _AAUILogSystem(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C5355000, v17, OS_LOG_TYPE_DEFAULT, "No primary account to attempt continuation against, bailing...", buf, 2u);
+    _os_log_impl(&dword_1C5355000, v19, OS_LOG_TYPE_DEFAULT, "No primary account to attempt continuation against, bailing...", buf, 2u);
   }
 
-  v18 = v21;
-  (*(v21 + 2))(v21, 0, 0);
-  v19 = controllerCopy;
+  v20 = v23;
+  (*(v23 + 2))(v23, 0, 0);
+  v21 = controllerCopy;
 LABEL_15:
 }
 
@@ -1076,7 +1078,7 @@ void __76__AAUIServiceSignInController__invokeShieldUIWithViewController_complet
 
 - (void)_authenticateExistingAccount:(id)account serviceType:(id)type inViewController:(id)controller completion:(id)completion
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   typeCopy = type;
   controllerCopy = controller;
@@ -1101,18 +1103,19 @@ void __76__AAUIServiceSignInController__invokeShieldUIWithViewController_complet
   username2 = [accountCopy username];
   [v14 setUsername:username2];
 
-  LODWORD(v18) = [(AAUIServiceSignInController *)self _isAuthenticatingPrimary:*MEMORY[0x1E698C218]];
-  v22 = _AAUILogSystem();
-  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+  v22 = [(AAUIServiceSignInController *)self _isAuthenticatingPrimary:*MEMORY[0x1E698C218]];
+  LODWORD(v18) = v22;
+  v23 = _AAUILogSystem(v22);
+  v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
   if (v18)
   {
-    if (v23)
+    if (v24)
     {
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v25;
-      _os_log_impl(&dword_1C5355000, v22, OS_LOG_TYPE_DEFAULT, "%@ detected primary iCloud sign in.", &buf, 0xCu);
+      *(&buf + 4) = v26;
+      _os_log_impl(&dword_1C5355000, v23, OS_LOG_TYPE_DEFAULT, "%@ detected primary iCloud sign in.", &buf, 0xCu);
     }
 
     [v14 setAnticipateEscrowAttempt:1];
@@ -1124,31 +1127,31 @@ void __76__AAUIServiceSignInController__invokeShieldUIWithViewController_complet
 
   else
   {
-    if (v23)
+    if (v24)
     {
-      v26 = objc_opt_class();
-      v27 = NSStringFromClass(v26);
+      v27 = objc_opt_class();
+      v28 = NSStringFromClass(v27);
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v27;
-      _os_log_impl(&dword_1C5355000, v22, OS_LOG_TYPE_DEFAULT, "%@ detected non-primary iCloud sign in.", &buf, 0xCu);
+      *(&buf + 4) = v28;
+      _os_log_impl(&dword_1C5355000, v23, OS_LOG_TYPE_DEFAULT, "%@ detected non-primary iCloud sign in.", &buf, 0xCu);
     }
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__14;
-  v36 = __Block_byref_object_dispose__14;
+  v35 = 0x3032000000;
+  v36 = __Block_byref_object_copy__14;
+  v37 = __Block_byref_object_dispose__14;
   authenticationController = [(AAUIServiceSignInController *)self authenticationController];
-  v28 = *(*(&buf + 1) + 40);
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __100__AAUIServiceSignInController__authenticateExistingAccount_serviceType_inViewController_completion___block_invoke;
-  v30[3] = &unk_1E820B730;
+  v29 = *(*(&buf + 1) + 40);
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __100__AAUIServiceSignInController__authenticateExistingAccount_serviceType_inViewController_completion___block_invoke;
+  v31[3] = &unk_1E820B730;
   p_buf = &buf;
-  v29 = completionCopy;
-  v31 = v29;
-  [v28 authenticateWithContext:v14 completion:v30];
+  v30 = completionCopy;
+  v32 = v30;
+  [v29 authenticateWithContext:v14 completion:v31];
 
   _Block_object_dispose(&buf, 8);
 }
@@ -1176,7 +1179,7 @@ void __100__AAUIServiceSignInController__authenticateExistingAccount_serviceType
 
 - (void)_mainQueue_continueSignInWithAuthenticationResults:(id)results parentViewController:(id)controller
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   resultsCopy = results;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
@@ -1189,16 +1192,16 @@ void __100__AAUIServiceSignInController__authenticateExistingAccount_serviceType
   serviceTypes = [(AAUIServiceSignInConfiguration *)self->_signInConfig serviceTypes];
   v10 = [serviceTypes count];
 
-  v11 = _AAUILogSystem();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  v12 = _AAUILogSystem(v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
   if (v10)
   {
-    if (v12)
+    if (v13)
     {
       serviceTypes2 = [(AAUIServiceSignInConfiguration *)self->_signInConfig serviceTypes];
       *buf = 138543362;
-      v17 = serviceTypes2;
-      _os_log_impl(&dword_1C5355000, v11, OS_LOG_TYPE_DEFAULT, "Client opted to sign in %{public}@, attempting sign in now...", buf, 0xCu);
+      v18 = serviceTypes2;
+      _os_log_impl(&dword_1C5355000, v12, OS_LOG_TYPE_DEFAULT, "Client opted to sign in %{public}@, attempting sign in now...", buf, 0xCu);
     }
 
     serviceTypes3 = [(AAUIServiceSignInConfiguration *)self->_signInConfig serviceTypes];
@@ -1210,10 +1213,10 @@ void __100__AAUIServiceSignInController__authenticateExistingAccount_serviceType
 
   else
   {
-    if (v12)
+    if (v13)
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v11, OS_LOG_TYPE_DEFAULT, "No service specified by client, attempting sign in for all...", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v12, OS_LOG_TYPE_DEFAULT, "No service specified by client, attempting sign in for all...", buf, 2u);
     }
 
     [(AAUIServiceSignInController *)self continueSignInWithAuthenticationResults:resultsCopy viewController:controllerCopy completion:v8];
@@ -1223,7 +1226,7 @@ void __100__AAUIServiceSignInController__authenticateExistingAccount_serviceType
 void __103__AAUIServiceSignInController__mainQueue_continueSignInWithAuthenticationResults_parentViewController___block_invoke(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   v7 = v6;
   if (a2)
   {
@@ -1262,18 +1265,18 @@ void __103__AAUIServiceSignInController__mainQueue_continueSignInWithAuthenticat
   if (isKindOfClass)
   {
     _serviceOwnersManager2 = [(AAUIServiceSignInController *)self _serviceOwnersManager];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __97__AAUIServiceSignInController_continueSignInWithAuthenticationResults_viewController_completion___block_invoke;
-    v14[3] = &unk_1E820C308;
-    v15 = completionCopy;
-    [_serviceOwnersManager2 signInToAllServicesInBackgroundUsingContext:v9 completion:v14];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __97__AAUIServiceSignInController_continueSignInWithAuthenticationResults_viewController_completion___block_invoke;
+    v15[3] = &unk_1E820C308;
+    v16 = completionCopy;
+    [_serviceOwnersManager2 signInToAllServicesInBackgroundUsingContext:v9 completion:v15];
   }
 
   else
   {
-    v13 = _AAUILogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = _AAUILogSystem(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [AAUIServiceSignInController continueSignInWithAuthenticationResults:viewController:completion:];
     }
@@ -1287,29 +1290,30 @@ void __103__AAUIServiceSignInController__mainQueue_continueSignInWithAuthenticat
 
 void __97__AAUIServiceSignInController_continueSignInWithAuthenticationResults_viewController_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __97__AAUIServiceSignInController_continueSignInWithAuthenticationResults_viewController_completion___block_invoke_2;
   aBlock[3] = &unk_1E820D140;
-  v11 = *(a1 + 32);
-  v12 = a2;
+  v12 = *(a1 + 32);
+  v13 = a2;
   v6 = v5;
-  v10 = v6;
+  v11 = v6;
   v7 = _Block_copy(aBlock);
+  v8 = v7;
   if ((a2 & 1) == 0)
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _AAUILogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v14 = v6;
-      _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "Sign in attempt for iCloud failed, error: %{public}@", buf, 0xCu);
+      v15 = v6;
+      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Sign in attempt for iCloud failed, error: %{public}@", buf, 0xCu);
     }
   }
 
-  v7[2](v7);
+  v8[2](v8);
 }
 
 void __97__AAUIServiceSignInController_continueSignInWithAuthenticationResults_viewController_completion___block_invoke_2(uint64_t a1)
@@ -1340,11 +1344,11 @@ uint64_t __97__AAUIServiceSignInController_continueSignInWithAuthenticationResul
   successCopy = success;
   errorCopy = error;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
-  v23[0] = 0;
-  v23[1] = v23;
-  v23[2] = 0x3032000000;
-  v23[3] = __Block_byref_object_copy__14;
-  v23[4] = __Block_byref_object_dispose__14;
+  v24[0] = 0;
+  v24[1] = v24;
+  v24[2] = 0x3032000000;
+  v24[3] = __Block_byref_object_copy__14;
+  v24[4] = __Block_byref_object_dispose__14;
   serviceType = [(AAUIServiceSignInConfiguration *)self->_signInConfig serviceType];
   v8 = serviceType;
   v9 = *MEMORY[0x1E698C218];
@@ -1353,14 +1357,14 @@ uint64_t __97__AAUIServiceSignInController_continueSignInWithAuthenticationResul
     v9 = serviceType;
   }
 
-  v24 = v9;
+  v25 = v9;
 
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __86__AAUIServiceSignInController__delegate_signInControllerDidCompleteWithSuccess_error___block_invoke;
   aBlock[3] = &unk_1E820DEE0;
   aBlock[4] = self;
-  aBlock[5] = v23;
+  aBlock[5] = v24;
   v10 = _Block_copy(aBlock);
   v11 = v10;
   if (!errorCopy)
@@ -1375,38 +1379,47 @@ uint64_t __97__AAUIServiceSignInController_continueSignInWithAuthenticationResul
 
   if (v14)
   {
-    if ([errorCopy shouldDisplayToUser])
+    shouldDisplayToUser = [errorCopy shouldDisplayToUser];
+    if (shouldDisplayToUser)
     {
 LABEL_13:
-      v16 = _AAUILogSystem();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = _AAUILogSystem(shouldDisplayToUser);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [AAUIServiceSignInController _delegate_signInControllerDidCompleteWithSuccess:error:];
       }
 
       navigationController = [(AAUIServiceSignInConfiguration *)self->_signInConfig navigationController];
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __86__AAUIServiceSignInController__delegate_signInControllerDidCompleteWithSuccess_error___block_invoke_122;
-      v18[3] = &unk_1E820DF08;
-      v19 = errorCopy;
-      v20 = v11;
-      v21 = successCopy;
-      [(AAUIServiceSignInController *)self _mainQueue_presentAlertForError:v19 inViewController:navigationController completion:v18];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __86__AAUIServiceSignInController__delegate_signInControllerDidCompleteWithSuccess_error___block_invoke_122;
+      v19[3] = &unk_1E820DF08;
+      v20 = errorCopy;
+      v21 = v11;
+      v22 = successCopy;
+      [(AAUIServiceSignInController *)self _mainQueue_presentAlertForError:v20 inViewController:navigationController completion:v19];
 
       goto LABEL_19;
     }
   }
 
-  else if (([errorCopy aa_isAASignInErrorWithCode:-8006] & 1) == 0 && ((objc_msgSend(errorCopy, "ak_isUserCancelError") | v12) & 1) == 0)
+  else
   {
-    goto LABEL_13;
+    shouldDisplayToUser = [errorCopy aa_isAASignInErrorWithCode:-8006];
+    if ((shouldDisplayToUser & 1) == 0)
+    {
+      shouldDisplayToUser = [errorCopy ak_isUserCancelError];
+      if (((shouldDisplayToUser | v12) & 1) == 0)
+      {
+        goto LABEL_13;
+      }
+    }
   }
 
   if (v12)
   {
-    v15 = _AAUILogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _AAUILogSystem(shouldDisplayToUser);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [AAUIServiceSignInController _delegate_signInControllerDidCompleteWithSuccess:error:];
     }
@@ -1414,8 +1427,8 @@ LABEL_13:
 
   else
   {
-    v15 = _AAUILogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _AAUILogSystem(shouldDisplayToUser);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [AAUIServiceSignInController _delegate_signInControllerDidCompleteWithSuccess:error:];
     }
@@ -1424,52 +1437,53 @@ LABEL_13:
   (v11)[2](v11, successCopy, errorCopy);
 LABEL_19:
 
-  _Block_object_dispose(v23, 8);
+  _Block_object_dispose(v24, 8);
 }
 
 void __86__AAUIServiceSignInController__delegate_signInControllerDidCompleteWithSuccess_error___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [*(*(a1 + 32) + 88) serviceDelegate];
-  if ([v5 aa_isAAErrorWithCode:-1])
+  v7 = [v5 aa_isAAErrorWithCode:-1];
+  if (v7)
   {
-    v7 = _AAUILogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _AAUILogSystem(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = v5;
-      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "AAUIServiceSignInController calling delegate call serviceSignInControllerDidCancel for error: %@", &v14, 0xCu);
+      v15 = 138412290;
+      v16 = v5;
+      _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "AAUIServiceSignInController calling delegate call serviceSignInControllerDidCancel for error: %@", &v15, 0xCu);
     }
 
-    v8 = [*(*(a1 + 32) + 88) navigationController];
-    [v6 serviceSignInControllerDidCancel:v8];
+    v9 = [*(*(a1 + 32) + 88) navigationController];
+    [v6 serviceSignInControllerDidCancel:v9];
   }
 
   else
   {
     if (objc_opt_respondsToSelector())
     {
-      v9 = [*(*(a1 + 32) + 88) navigationController];
-      [v6 serviceSignInController:v9 didCompleteWithSuccess:a2 error:v5];
+      v10 = [*(*(a1 + 32) + 88) navigationController];
+      [v6 serviceSignInController:v10 didCompleteWithSuccess:a2 error:v5];
     }
 
     if (objc_opt_respondsToSelector())
     {
-      v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v11 = [objc_alloc(MEMORY[0x1E698C260]) initWithSuccess:a2 error:v5 type:*(*(*(a1 + 40) + 8) + 40)];
-      [v10 setObject:v11 forKeyedSubscript:*(*(*(a1 + 40) + 8) + 40)];
+      v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v12 = [objc_alloc(MEMORY[0x1E698C260]) initWithSuccess:a2 error:v5 type:*(*(*(a1 + 40) + 8) + 40)];
+      [v11 setObject:v12 forKeyedSubscript:*(*(*(a1 + 40) + 8) + 40)];
 
-      v12 = [*(*(a1 + 32) + 88) navigationController];
-      v13 = [v10 copy];
-      [v6 serviceSignInController:v12 didCompleteWithOperationsResults:v13];
+      v13 = [*(*(a1 + 32) + 88) navigationController];
+      v14 = [v11 copy];
+      [v6 serviceSignInController:v13 didCompleteWithOperationsResults:v14];
     }
   }
 }
 
 uint64_t __86__AAUIServiceSignInController__delegate_signInControllerDidCompleteWithSuccess_error___block_invoke_122(uint64_t a1)
 {
-  v2 = _AAUILogSystem();
+  v2 = _AAUILogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __86__AAUIServiceSignInController__delegate_signInControllerDidCompleteWithSuccess_error___block_invoke_122_cold_1();
@@ -1507,20 +1521,21 @@ uint64_t __86__AAUIServiceSignInController__delegate_signInControllerDidComplete
 
       if (v15)
       {
-        if (![error2 shouldDisplayToUser])
+        shouldDisplayToUser = [error2 shouldDisplayToUser];
+        if (!shouldDisplayToUser)
         {
 LABEL_5:
-          v16 = _AAUILogSystem();
-          v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+          v17 = _AAUILogSystem(shouldDisplayToUser);
+          v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
           if (v13)
           {
-            if (v17)
+            if (v18)
             {
               [AAUIServiceSignInController controllerFinishedWithAIDAResults:];
             }
           }
 
-          else if (v17)
+          else if (v18)
           {
             [AAUIServiceSignInController _delegate_signInControllerDidCompleteWithSuccess:error:];
           }
@@ -1532,26 +1547,30 @@ LABEL_16:
         }
       }
 
-      else if (([error2 aa_isAASignInErrorWithCode:-8006] | v13))
+      else
       {
-        goto LABEL_5;
+        shouldDisplayToUser = [error2 aa_isAASignInErrorWithCode:-8006];
+        if ((shouldDisplayToUser | v13))
+        {
+          goto LABEL_5;
+        }
       }
 
-      v18 = _AAUILogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = _AAUILogSystem(shouldDisplayToUser);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [AAUIServiceSignInController _delegate_signInControllerDidCompleteWithSuccess:error:];
       }
 
       navigationController = [(AAUIServiceSignInConfiguration *)self->_signInConfig navigationController];
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __65__AAUIServiceSignInController_controllerFinishedWithAIDAResults___block_invoke_126;
-      v20[3] = &unk_1E820BAD0;
-      v21 = error2;
-      v23 = v5;
-      v22 = resultsCopy;
-      [(AAUIServiceSignInController *)self _mainQueue_presentAlertForError:v21 inViewController:navigationController completion:v20];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __65__AAUIServiceSignInController_controllerFinishedWithAIDAResults___block_invoke_126;
+      v21[3] = &unk_1E820BAD0;
+      v22 = error2;
+      v24 = v5;
+      v23 = resultsCopy;
+      [(AAUIServiceSignInController *)self _mainQueue_presentAlertForError:v22 inViewController:navigationController completion:v21];
 
       goto LABEL_16;
     }
@@ -1563,7 +1582,7 @@ LABEL_17:
 
 void __65__AAUIServiceSignInController_controllerFinishedWithAIDAResults___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(*(a1 + 32) + 88) serviceDelegate];
   v5 = [v3 objectForKey:*MEMORY[0x1E698C218]];
@@ -1572,17 +1591,17 @@ void __65__AAUIServiceSignInController_controllerFinishedWithAIDAResults___block
 
   if (v7)
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _AAUILogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [v5 error];
-      v22 = 138412290;
-      v23 = v9;
-      _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "AAUIServiceSignInController calling delegate call serviceSignInControllerDidCancel for error: %@", &v22, 0xCu);
+      v10 = [v5 error];
+      v24 = 138412290;
+      v25 = v10;
+      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "AAUIServiceSignInController calling delegate call serviceSignInControllerDidCancel for error: %@", &v24, 0xCu);
     }
 
-    v10 = [*(*(a1 + 32) + 88) navigationController];
-    [v4 serviceSignInControllerDidCancel:v10];
+    v11 = [*(*(a1 + 32) + 88) navigationController];
+    [v4 serviceSignInControllerDidCancel:v11];
 LABEL_20:
 
     goto LABEL_21;
@@ -1590,59 +1609,60 @@ LABEL_20:
 
   if (objc_opt_respondsToSelector())
   {
-    v11 = [*(*(a1 + 32) + 88) navigationController];
-    [v4 serviceSignInController:v11 didCompleteWithOperationsResults:v3];
+    v12 = [*(*(a1 + 32) + 88) navigationController];
+    [v4 serviceSignInController:v12 didCompleteWithOperationsResults:v3];
   }
 
-  if (objc_opt_respondsToSelector())
+  v13 = objc_opt_respondsToSelector();
+  if (v13)
   {
     if (v5)
     {
-      v12 = _AAUILogSystem();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = _AAUILogSystem(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = [v5 error];
-        v22 = 138412290;
-        v23 = v13;
-        _os_log_impl(&dword_1C5355000, v12, OS_LOG_TYPE_DEFAULT, "AAUIServiceSignInController calling deprecated delegate callback for cloud service type %@", &v22, 0xCu);
+        v15 = [v5 error];
+        v24 = 138412290;
+        v25 = v15;
+        _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "AAUIServiceSignInController calling deprecated delegate callback for cloud service type %@", &v24, 0xCu);
       }
 
-      v10 = [*(*(a1 + 32) + 88) navigationController];
-      v14 = [v5 error];
-      v15 = [v5 error];
-      [v4 serviceSignInController:v10 didCompleteWithSuccess:v14 == 0 error:v15];
+      v11 = [*(*(a1 + 32) + 88) navigationController];
+      v16 = [v5 error];
+      v17 = [v5 error];
+      [v4 serviceSignInController:v11 didCompleteWithSuccess:v16 == 0 error:v17];
     }
 
     else
     {
-      v16 = [v3 allValues];
-      v10 = [v16 aaf_filter:&__block_literal_global_25];
+      v18 = [v3 allValues];
+      v11 = [v18 aaf_filter:&__block_literal_global_25];
 
-      if ([v10 count])
+      if ([v11 count])
       {
-        v17 = [v10 firstObject];
-        v18 = _AAUILogSystem();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v19 = [v11 firstObject];
+        v20 = _AAUILogSystem(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          __65__AAUIServiceSignInController_controllerFinishedWithAIDAResults___block_invoke_cold_1(v17, v18);
+          __65__AAUIServiceSignInController_controllerFinishedWithAIDAResults___block_invoke_cold_1(v19, v20);
         }
 
-        v19 = [*(*(a1 + 32) + 88) navigationController];
-        v20 = [v17 error];
-        [v4 serviceSignInController:v19 didCompleteWithSuccess:0 error:v20];
+        v21 = [*(*(a1 + 32) + 88) navigationController];
+        v22 = [v19 error];
+        [v4 serviceSignInController:v21 didCompleteWithSuccess:0 error:v22];
       }
 
       else
       {
-        v21 = _AAUILogSystem();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v23 = _AAUILogSystem(0);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v22) = 0;
-          _os_log_impl(&dword_1C5355000, v21, OS_LOG_TYPE_DEFAULT, "AAUIServiceSignInController calling deprecated delegate callback for success", &v22, 2u);
+          LOWORD(v24) = 0;
+          _os_log_impl(&dword_1C5355000, v23, OS_LOG_TYPE_DEFAULT, "AAUIServiceSignInController calling deprecated delegate callback for success", &v24, 2u);
         }
 
-        v17 = [*(*(a1 + 32) + 88) navigationController];
-        [v4 serviceSignInController:v17 didCompleteWithSuccess:1 error:0];
+        v19 = [*(*(a1 + 32) + 88) navigationController];
+        [v4 serviceSignInController:v19 didCompleteWithSuccess:1 error:0];
       }
     }
 
@@ -1654,7 +1674,7 @@ LABEL_21:
 
 uint64_t __65__AAUIServiceSignInController_controllerFinishedWithAIDAResults___block_invoke_126(uint64_t a1)
 {
-  v2 = _AAUILogSystem();
+  v2 = _AAUILogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __86__AAUIServiceSignInController__delegate_signInControllerDidCompleteWithSuccess_error___block_invoke_122_cold_1();
@@ -1665,34 +1685,34 @@ uint64_t __65__AAUIServiceSignInController_controllerFinishedWithAIDAResults___b
 
 - (void)_prepareToSignInForServices:(id)services withAuthenticationResults:(id)results parentViewController:(id)controller
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   servicesCopy = services;
   resultsCopy = results;
   controllerCopy = controller;
   if ([servicesCopy count] == 1 && (objc_msgSend(servicesCopy, "objectAtIndexedSubscript:", 0), v11 = objc_claimAutoreleasedReturnValue(), v12 = *MEMORY[0x1E698C218], v11, v11 == v12))
   {
-    v14 = _AAUILogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = _AAUILogSystem(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "Detected cloud only service sign in.", v17, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "Detected cloud only service sign in.", v18, 2u);
     }
 
-    v13 = [(AAUIServiceSignInController *)self _serviceContextForCloudAndInactiveStoreWithAuthResults:resultsCopy parentViewController:controllerCopy];
-    v15 = *MEMORY[0x1E698C238];
-    v18[0] = v12;
-    v18[1] = v15;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+    v14 = [(AAUIServiceSignInController *)self _serviceContextForCloudAndInactiveStoreWithAuthResults:resultsCopy parentViewController:controllerCopy];
+    v16 = *MEMORY[0x1E698C238];
+    v19[0] = v12;
+    v19[1] = v16;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
 
-    servicesCopy = v16;
+    servicesCopy = v17;
   }
 
   else
   {
-    v13 = [(AAUIServiceSignInController *)self _serviceContextWithResults:resultsCopy parentViewController:controllerCopy];
+    v14 = [(AAUIServiceSignInController *)self _serviceContextWithResults:resultsCopy parentViewController:controllerCopy];
   }
 
-  [(AAUIServiceSignInController *)self _attemptSignInForServices:servicesCopy serviceContext:v13];
+  [(AAUIServiceSignInController *)self _attemptSignInForServices:servicesCopy serviceContext:v14];
 }
 
 - (void)_attemptSignInForServices:(id)services serviceContext:(id)context
@@ -1700,14 +1720,13 @@ uint64_t __65__AAUIServiceSignInController_controllerFinishedWithAIDAResults___b
   v23 = *MEMORY[0x1E69E9840];
   servicesCopy = services;
   contextCopy = context;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(contextCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [AAUIServiceSignInController _attemptSignInForServices:v8 serviceContext:?];
   }
 
-  [MEMORY[0x1E698B940] verifyAndFixPersonaIfNeeded:self->_originalPersona desiredContext:self->_originalPersonaContext];
-  v9 = _AAUILogSystem();
+  v9 = _AAUILogSystem([MEMORY[0x1E698B940] verifyAndFixPersonaIfNeeded:self->_originalPersona desiredContext:self->_originalPersonaContext]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -1752,27 +1771,28 @@ uint64_t __65__AAUIServiceSignInController_controllerFinishedWithAIDAResults___b
 
 void __72__AAUIServiceSignInController__attemptSignInForServices_serviceContext___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _AAUILogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "AAUISignInController sign in for services completed successfully! %@ ", buf, 0xCu);
+      v12 = v6;
+      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "AAUISignInController sign in for services completed successfully! %@ ", buf, 0xCu);
     }
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __72__AAUIServiceSignInController__attemptSignInForServices_serviceContext___block_invoke_127;
-  v8[3] = &unk_1E820BEB8;
-  v8[4] = *(a1 + 32);
-  v9 = v5;
-  v7 = v5;
-  dispatch_async(MEMORY[0x1E69E96A0], v8);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __72__AAUIServiceSignInController__attemptSignInForServices_serviceContext___block_invoke_127;
+  v9[3] = &unk_1E820BEB8;
+  v9[4] = *(a1 + 32);
+  v10 = v6;
+  v8 = v6;
+  dispatch_async(MEMORY[0x1E69E96A0], v9);
 }
 
 - (id)_serviceContextForCloudAndInactiveStoreWithAuthResults:(id)results parentViewController:(id)controller
@@ -1796,7 +1816,7 @@ void __72__AAUIServiceSignInController__attemptSignInForServices_serviceContext_
 {
   resultsCopy = results;
   controllerCopy = controller;
-  v10 = _AAUILogSystem();
+  v10 = _AAUILogSystem(controllerCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1811,9 +1831,9 @@ void __72__AAUIServiceSignInController__attemptSignInForServices_serviceContext_
   aBlock[3] = &unk_1E820BF58;
   aBlock[4] = self;
   v12 = resultsCopy;
-  v25 = v12;
+  v26 = v12;
   v13 = parentViewController;
-  v26 = v13;
+  v27 = v13;
   v14 = _Block_copy(aBlock);
   if (!+[AAUIFeatureFlags isNewSignInProgressEnabled])
   {
@@ -1856,8 +1876,8 @@ LABEL_6:
 
   if ((v19 & 1) == 0)
   {
-    v20 = _AAUILogSystem();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v21 = _AAUILogSystem(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       [AAUIServiceSignInController signInViewController:didCompleteWithAuthenticationResults:];
     }
@@ -1868,8 +1888,8 @@ LABEL_12:
   }
 
 LABEL_17:
-  v23 = _AAUILogSystem();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  v24 = _AAUILogSystem(v20);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
     [AAUIServiceSignInController signInViewController:didCompleteWithAuthenticationResults:];
   }
@@ -1880,11 +1900,11 @@ LABEL_20:
 
 - (void)signInViewControllerDidCancel:(id)cancel
 {
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&dword_1C5355000, v4, OS_LOG_TYPE_DEFAULT, "Sign in view controller canceled!", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&dword_1C5355000, v4, OS_LOG_TYPE_DEFAULT, "Sign in view controller canceled!", v12, 2u);
   }
 
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
@@ -1898,12 +1918,12 @@ LABEL_20:
     if (isKindOfClass)
     {
       navigationController2 = [(AAUIServiceSignInConfiguration *)self->_signInConfig navigationController];
-      v9 = [navigationController2 popViewControllerAnimated:1];
+      v10 = [navigationController2 popViewControllerAnimated:1];
     }
 
     else
     {
-      navigationController2 = _AAUILogSystem();
+      navigationController2 = _AAUILogSystem(v8);
       if (os_log_type_enabled(navigationController2, OS_LOG_TYPE_ERROR))
       {
         [AAUIServiceSignInController signInViewControllerDidCancel:];
@@ -1932,7 +1952,7 @@ LABEL_20:
 
 - (void)signInViewControllerDidSkip:(id)skip
 {
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -1950,7 +1970,7 @@ LABEL_20:
 
 - (void)signInViewControllerDidSelectChildSignIn:(id)in
 {
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -1968,37 +1988,38 @@ LABEL_20:
 
 - (void)signInViewControllerDidSelectOtherOptions:(id)options
 {
-  if (-[AAUIServiceSignInConfiguration offeriCloudAMSSplitSignIn](self->_signInConfig, "offeriCloudAMSSplitSignIn", options) && (-[AAUIServiceSignInConfiguration serviceTypes](self->_signInConfig, "serviceTypes"), v4 = objc_claimAutoreleasedReturnValue(), v5 = [v4 count], v4, !v5))
+  offeriCloudAMSSplitSignIn = [(AAUIServiceSignInConfiguration *)self->_signInConfig offeriCloudAMSSplitSignIn];
+  if (offeriCloudAMSSplitSignIn && (-[AAUIServiceSignInConfiguration serviceTypes](self->_signInConfig, "serviceTypes"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 count], v5, !v6))
   {
-    v7 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v6 = [v7 localizedStringForKey:@"SIGN_IN_OTHER_SIGN_IN_OPTIONS" value:&stru_1F447F790 table:@"Localizable"];
-
     v8 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v9 = [v8 localizedStringForKey:@"SIGN_IN_OTHER_SIGN_IN_OPTIONS_USE_MULTIPLE" value:&stru_1F447F790 table:@"Localizable"];
+    v7 = [v8 localizedStringForKey:@"SIGN_IN_OTHER_SIGN_IN_OPTIONS" value:&stru_1F447F790 table:@"Localizable"];
 
-    v10 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v11 = [v10 localizedStringForKey:@"CANCEL" value:&stru_1F447F790 table:@"Localizable"];
+    v9 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v10 = [v9 localizedStringForKey:@"SIGN_IN_OTHER_SIGN_IN_OPTIONS_USE_MULTIPLE" value:&stru_1F447F790 table:@"Localizable"];
 
-    v12 = [MEMORY[0x1E69DC650] alertWithTitle:v6 message:0];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __73__AAUIServiceSignInController_signInViewControllerDidSelectOtherOptions___block_invoke;
-    v16[3] = &unk_1E820BFA8;
-    v16[4] = self;
-    v13 = [MEMORY[0x1E69DC648] actionWithTitle:v9 style:0 handler:v16];
-    [v12 addAction:v13];
+    v11 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v12 = [v11 localizedStringForKey:@"CANCEL" value:&stru_1F447F790 table:@"Localizable"];
 
-    v14 = [MEMORY[0x1E69DC648] actionWithTitle:v11 style:1 handler:0];
-    [v12 addAction:v14];
+    v13 = [MEMORY[0x1E69DC650] alertWithTitle:v7 message:0];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __73__AAUIServiceSignInController_signInViewControllerDidSelectOtherOptions___block_invoke;
+    v17[3] = &unk_1E820BFA8;
+    v17[4] = self;
+    v14 = [MEMORY[0x1E69DC648] actionWithTitle:v10 style:0 handler:v17];
+    [v13 addAction:v14];
+
+    v15 = [MEMORY[0x1E69DC648] actionWithTitle:v12 style:1 handler:0];
+    [v13 addAction:v15];
 
     navigationController = [(AAUIServiceSignInConfiguration *)self->_signInConfig navigationController];
-    [navigationController presentViewController:v12 animated:1 completion:0];
+    [navigationController presentViewController:v13 animated:1 completion:0];
   }
 
   else
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _AAUILogSystem(offeriCloudAMSSplitSignIn);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [AAUIServiceSignInController signInViewControllerDidSelectOtherOptions:];
     }

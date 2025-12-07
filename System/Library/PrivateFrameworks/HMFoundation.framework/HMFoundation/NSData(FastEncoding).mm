@@ -1,4 +1,5 @@
 @interface NSData(FastEncoding)
+- (char)hmf_bytesAtOffset:()FastEncoding length:;
 - (id)hmf_keysForDictionaryAtOffset:()FastEncoding;
 - (id)hmf_member:()FastEncoding forSetAtOffset:;
 - (id)hmf_objectAtIndex:()FastEncoding forArrayAtOffset:;
@@ -14,9 +15,7 @@
 - (id)hmf_readStringAtOffset:()FastEncoding;
 - (id)hmf_valuesForDictionaryAtOffset:()FastEncoding;
 - (objc_class)hmf_readFastEncodableObjectAtOffset:()FastEncoding;
-- (uint64_t)hmf_bytesAtOffset:()FastEncoding length:;
 - (uint64_t)hmf_offsetForKeyValue:()FastEncoding forDictionaryAtOffset:;
-- (uint64_t)hmf_readBytesAtOffset:()FastEncoding length:;
 - (uint64_t)hmf_tableLookupWithIndex:()FastEncoding offset:;
 - (unint64_t)hmf_containsObject:()FastEncoding forSetAtOffset:;
 - (unsigned)hmf_readAndCheckTag:()FastEncoding offset:;
@@ -24,15 +23,16 @@
 - (unsigned)hmf_readShortLengthAtOffset:()FastEncoding;
 - (unsigned)hmf_readTableAtOffset:()FastEncoding length:;
 - (void)hmf_enumerateObjectsForSetAtOffset:()FastEncoding usingBlock:;
+- (void)hmf_readBytesAtOffset:()FastEncoding length:;
 @end
 
 @implementation NSData(FastEncoding)
 
-- (uint64_t)hmf_bytesAtOffset:()FastEncoding length:
+- (char)hmf_bytesAtOffset:()FastEncoding length:
 {
   if (a4 + a3 <= [self length])
   {
-    return [self bytes] + a3;
+    return ([self bytes] + a3);
   }
 
   else
@@ -41,7 +41,7 @@
   }
 }
 
-- (uint64_t)hmf_readBytesAtOffset:()FastEncoding length:
+- (void)hmf_readBytesAtOffset:()FastEncoding length:
 {
   result = [self hmf_bytesAtOffset:*a3 length:?];
   if (result)

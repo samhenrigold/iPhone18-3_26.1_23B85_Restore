@@ -1,360 +1,3 @@
-uint64_t sub_10000CAC4(char *a1, unint64_t a2, char *a3, unsigned int *a4, unsigned int *a5, unint64_t *a6, unint64_t *a7, char *a8, uint64_t a9, int a10)
-{
-  v10 = bswap64(*a4 | (*(a4 + 2) << 32));
-  v11 = bswap64(*a5 | (*(a5 + 2) << 32));
-  v12 = v10 >= v11;
-  if (v10 >= v11)
-  {
-    v13 = a5;
-  }
-
-  else
-  {
-    v13 = a4;
-  }
-
-  if (v12)
-  {
-    v14 = a4;
-  }
-
-  else
-  {
-    v14 = a5;
-  }
-
-  v46 = *v13;
-  v47 = *(v13 + 2);
-  v48 = *v14;
-  v49 = *(v14 + 2);
-  v20 = bswap64(*a6);
-  v21 = bswap64(*a7);
-  if (v20 == v21 && (v20 = bswap64(a6[1]), v21 = bswap64(a7[1]), v20 == v21) && (v20 = bswap64(a6[2]), v21 = bswap64(a7[2]), v20 == v21) && (v20 = bswap64(a6[3]), v21 = bswap64(a7[3]), v20 == v21))
-  {
-    v22 = 0;
-  }
-
-  else if (v20 < v21)
-  {
-    v22 = -1;
-  }
-
-  else
-  {
-    v22 = 1;
-  }
-
-  v23 = v22 < 0;
-  if (v22 >= 0)
-  {
-    v24 = a7;
-  }
-
-  else
-  {
-    v24 = a6;
-  }
-
-  if (v23)
-  {
-    v25 = a7;
-  }
-
-  else
-  {
-    v25 = a6;
-  }
-
-  v26 = *(v24 + 1);
-  v50 = *v24;
-  v51 = v26;
-  v27 = *(v25 + 1);
-  v52 = *v25;
-  v53 = v27;
-  if (a10)
-  {
-    sub_10000F628(a1, a2, a3, &v46, 76, a8, a9);
-  }
-
-  else
-  {
-    sub_10000EE1C(a1, a2, a3, &v46, 76, a8, a9);
-  }
-
-  v44 = *(a5 + 4);
-  v45 = *(a5 + 5);
-  v42 = *(a5 + 2);
-  v43 = *(a5 + 3);
-  v40 = *a5;
-  v41 = *(a5 + 1);
-  v38 = *(a4 + 4);
-  v39 = *(a4 + 5);
-  v36 = *(a4 + 2);
-  v37 = *(a4 + 3);
-  v35 = *(a4 + 1);
-  sub_100016A20(1, "WPA: PTK derivation - A1=%02x:%02x:%02x:%02x:%02x:%02x A2=%02x:%02x:%02x:%02x:%02x:%02x", v28, v29, v30, v31, v32, v33, *a4);
-  sub_100016B64(1, "WPA: PMK", a1, a2);
-  return sub_100016B64(1, "WPA: PTK", a8, a9);
-}
-
-uint64_t sub_10000CCDC(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  *(a3 + 16) = 0u;
-  *(a3 + 32) = 0u;
-  *a3 = xmmword_10002BBE0;
-  *(a3 + 16) = 0;
-  *(a3 + 24) = 0;
-  v8 = (a3 + 24);
-  *(a3 + 32) = 0;
-  *(a3 + 40) = 32;
-  if (!a2)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  v9 = a2;
-  if (a2 <= 3)
-  {
-    sub_100016A20(1, "%s: ie len too short %lu", a3, a4, a5, a6, a7, a8, "wpa_parse_wpa_ie_rsn");
-    return 0xFFFFFFFFLL;
-  }
-
-  if (*a1 != 48 || a2 - 2 != *(a1 + 1) || *(a1 + 2) != 1)
-  {
-    sub_100016A20(1, "%s: malformed ie or unknown version", a3, a4, a5, a6, a7, a8, "wpa_parse_wpa_ie_rsn");
-    return 4294967294;
-  }
-
-  if ((a2 - 4) < 4)
-  {
-    if (a2 != 4)
-    {
-      sub_100016A20(1, "%s: ie length mismatch, %u too much", a3, a4, a5, a6, a7, a8, "wpa_parse_wpa_ie_rsn");
-      return 4294967293;
-    }
-
-    return 0;
-  }
-
-  v13 = sub_10000D108((a1 + 4));
-  *(a3 + 8) = v13;
-  if (v13 == 32)
-  {
-    sub_100016A20(1, "%s: AES-128-CMAC used as group cipher", v14, v15, v16, v17, v18, v19, "wpa_parse_wpa_ie_rsn");
-    return 0xFFFFFFFFLL;
-  }
-
-  if ((v9 - 8) < 2)
-  {
-    if (v9 == 9)
-    {
-      sub_100016A20(1, "%s: ie too short (for key mgmt)", v14, v15, v16, v17, v18, v19, "wpa_parse_wpa_ie_rsn");
-      return 4294967291;
-    }
-
-    return 0;
-  }
-
-  *(a3 + 4) = 0;
-  v20 = *(a1 + 9);
-  v21 = *(a1 + 8);
-  v22 = v21 | (v20 << 8);
-  if (!v22 || v9 - 10 < (4 * v22))
-  {
-    sub_100016A20(1, "%s: ie count botch (pairwise), count %u left %u", v14, v15, v16, v17, v18, v19, "wpa_parse_wpa_ie_rsn");
-    return 4294967292;
-  }
-
-  v23 = 0;
-  v24 = 0;
-  v25 = a1 + 10;
-  v26 = (4 * v21) | (v20 << 10);
-  do
-  {
-    v24 |= sub_10000D108((v25 + v23));
-    *(a3 + 4) = v24;
-    v23 += 4;
-  }
-
-  while (v26 != v23);
-  if ((v24 & 0x20) != 0)
-  {
-    sub_100016A20(1, "%s: AES-128-CMAC used as pairwise cipher", v27, v28, v29, v30, v31, v32, "wpa_parse_wpa_ie_rsn");
-    return 0xFFFFFFFFLL;
-  }
-
-  if (v9 - 6 - v23 < 6)
-  {
-    if (v9 - 11 == v23)
-    {
-      sub_100016A20(1, "%s: ie too short (for capabilities)", v27, v28, v29, v30, v31, v32, "wpa_parse_wpa_ie_rsn");
-      return 4294967289;
-    }
-
-    return 0;
-  }
-
-  *(a3 + 12) = 0;
-  v33 = *(v25 + v23);
-  v34 = v9 - 12;
-  if (!*(v25 + v23) || v34 - v23 < (4 * v33))
-  {
-    v45 = *(v25 + v23);
-    sub_100016A20(1, "%s: ie count botch (key mgmt), count %u left %u", v27, v28, v29, v30, v31, v32, "wpa_parse_wpa_ie_rsn");
-    return 4294967290;
-  }
-
-  v35 = 0;
-  do
-  {
-    v36 = bswap32(*(a1 + v23 + 12)) - 1027073;
-    if (v36 > 7)
-    {
-      v37 = 0;
-    }
-
-    else
-    {
-      v37 = dword_10002BC08[v36];
-    }
-
-    v35 |= v37;
-    *(a3 + 12) = v35;
-    v23 += 4;
-    --v33;
-  }
-
-  while (v33);
-  if (v9 - 8 - v23 <= 5)
-  {
-    v38 = v34 - v23;
-    goto LABEL_44;
-  }
-
-  *(a3 + 16) = *(a1 + v23 + 12) | (*(a1 + v23 + 13) << 8);
-  v38 = v9 - 14 - v23;
-  if (v38 <= 1)
-  {
-    goto LABEL_44;
-  }
-
-  v39 = *(a1 + v23 + 15);
-  v40 = *(a1 + v23 + 14);
-  v41 = v40 | (v39 << 8);
-  *v8 = v41;
-  v42 = v9 - 16;
-  if (v9 - 16 - v23 < (16 * v41))
-  {
-    sub_100016A20(1, "%s: PMKID underflow (num_pmkid=%lu left=%d)", v27, v28, v29, v30, v31, v32, "wpa_parse_wpa_ie_rsn");
-    *v8 = 0;
-    return 4294967287;
-  }
-
-  *(a3 + 32) = a1 + v23 + 16;
-  v43 = (v39 << 12) | (16 * v40);
-  if (v42 - v43 - v23 <= 3)
-  {
-    v38 = v42 - v43 - v23;
-LABEL_44:
-    if (v38 >= 1)
-    {
-      sub_100016A20(1, "%s: ie has %u trailing bytes - ignored", v27, v28, v29, v30, v31, v32, "wpa_parse_wpa_ie_rsn");
-    }
-
-    return 0;
-  }
-
-  v44 = sub_10000D108((a1 + 16 * v41 + v23 + 16));
-  *(a3 + 40) = v44;
-  if (v44 == 32)
-  {
-    v38 = v9 - v43 - v23 - 20;
-    goto LABEL_44;
-  }
-
-  sub_100016A20(1, "%s: Unsupported management group cipher 0x%x", v27, v28, v29, v30, v31, v32, "wpa_parse_wpa_ie_rsn");
-  return 4294967286;
-}
-
-uint64_t sub_10000D108(unsigned int *a1)
-{
-  v1 = bswap32(*a1) - 1027072;
-  if (v1 > 6)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return dword_10002BC28[v1];
-  }
-}
-
-double sub_10000D138(char *a1, unint64_t a2, uint64_t a3, uint64_t a4, _OWORD *a5, int a6)
-{
-  v9 = xmmword_10002BBF0;
-  v10 = 6;
-  v11[0] = "PMK Name";
-  v11[1] = a3;
-  v11[2] = a4;
-  if (a6)
-  {
-    sub_10000F43C(a1, a2, 3uLL, v11, &v9, v8);
-  }
-
-  else
-  {
-    sub_10000EC1C(a1, a2, 3uLL, v11, &v9, v8);
-  }
-
-  result = v8[0];
-  *a5 = *v8;
-  return result;
-}
-
-const char *sub_10000D1E4(int a1)
-{
-  if (a1 > 7)
-  {
-    if (a1 == 8)
-    {
-      return "TKIP";
-    }
-
-    if (a1 != 16)
-    {
-      if (a1 == 24)
-      {
-        return "CCMP+TKIP";
-      }
-
-      return "UNKNOWN";
-    }
-
-    return "CCMP";
-  }
-
-  else
-  {
-    if (a1 == 1)
-    {
-      return "NONE";
-    }
-
-    if (a1 != 2)
-    {
-      if (a1 == 4)
-      {
-        return "WEP-104";
-      }
-
-      return "UNKNOWN";
-    }
-
-    return "WEP-40";
-  }
-}
-
 const char *sub_10000D270(int a1, int a2)
 {
   if (a1 <= 7)
@@ -557,7 +200,7 @@ uint64_t sub_10000D408(int a1)
   return 0;
 }
 
-uint64_t sub_10000D4B8(int a1)
+BOOL sub_10000D4B8(int a1)
 {
   v1 = a1 == 0x2000;
   if (a1 == 4096)
@@ -810,7 +453,7 @@ uint64_t sub_10000DA48(__int128 *a1, unint64_t a2, uint64_t a3, uint64_t a4, _OW
   return sub_10000D878(a1, a2, 1uLL, &v7, &v6, a5);
 }
 
-uint64_t sub_10000DA7C(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unsigned __int8 *sub_10000DA7C(unsigned __int8 *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = ++dword_100040328;
   if (dword_10004032C < 0x3E9 || (v8 & 0x3FF) == 0)
@@ -876,7 +519,7 @@ uint64_t sub_10000DB6C(unsigned __int8 *a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_10000DC68(void *a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10000DC68(_BYTE *a1, size_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   sub_100016A20(0, "Get randomness: len=%u entropy=%u", a3, a4, a5, a6, a7, a8, a2);
   v20 = sub_1000164A4(a1, a2);
@@ -902,9 +545,9 @@ uint64_t sub_10000DC68(void *a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_
       while (v12 != 64);
       sub_10000EDE8(byte_1000403C8, 0x14uLL, v23, 64, &v24);
       LODWORD(v24) = v24 ^ v25;
-      *v22 = v24;
-      v14 = v22;
-      sub_100016B64(1, "random from internal pool", v22, 16);
+      v22 = v24;
+      v14 = &v22;
+      sub_100016B64(1, "random from internal pool", &v22, 16);
       if (v10 >= 0x10)
       {
         v15 = 16;
@@ -927,7 +570,8 @@ uint64_t sub_10000DC68(void *a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_
 
       do
       {
-        v17 = *v14++;
+        v17 = *v14;
+        v14 = (v14 + 1);
         *v11++ ^= v17;
         --v16;
       }
@@ -1013,7 +657,7 @@ void sub_10000DFDC(const char *a1)
         if (v17 == 21)
         {
           dword_1000403B4 = *v2;
-          sub_10000DA7C((v2 + 1), 20, v4, v5, v6, v7, v8, v9);
+          sub_10000DA7C(v2 + 1, 20, v4, v5, v6, v7, v8, v9);
           free(v10);
           v2 = sub_100016A20(1, "random: Added entropy from %s (own_pool_ready=%u)", v11, v12, v13, v14, v15, v16, qword_1000403B8);
         }
@@ -1695,7 +1339,7 @@ int32x4_t sub_10000F1B4(uint64_t a1, const char *a2)
   return result;
 }
 
-uint64_t sub_10000F43C(uint64_t result, unint64_t a2, unint64_t a3, const void *a4, const void *a5, uint64_t a6)
+_BYTE *sub_10000F43C(_BYTE *result, unint64_t a2, unint64_t a3, const void *a4, const void *a5, uint64_t a6)
 {
   v15 = a2;
   v16 = result;
@@ -1760,14 +1404,14 @@ uint64_t sub_10000F43C(uint64_t result, unint64_t a2, unint64_t a3, const void *
   return result;
 }
 
-uint64_t sub_10000F5F4(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+_BYTE *sub_10000F5F4(_BYTE *a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v6 = a4;
   v7 = a3;
   return sub_10000F43C(a1, a2, 1uLL, &v7, &v6, a5);
 }
 
-void *sub_10000F628(uint64_t a1, unint64_t a2, char *__s, uint64_t a4, uint64_t a5, char *a6, size_t a7)
+void *sub_10000F628(_BYTE *a1, unint64_t a2, char *__s, uint64_t a4, uint64_t a5, char *a6, size_t a7)
 {
   v19[0] = 2;
   v20[0] = &v18;
@@ -1997,7 +1641,7 @@ uint64_t sub_10000F9C8(uint64_t a1, int *a2, unsigned int a3, u_char *a4, size_t
   return pcap_sendpacket(v8, a4, a5);
 }
 
-uint64_t sub_10000FACC(unint64_t a1, int *a2, int a3, uint64_t a4, uint64_t a5, int a6)
+uint64_t sub_10000FACC(unsigned __int8 *a1, int *a2, int a3, uint64_t a4, uint64_t a5, int a6)
 {
   v12 = sub_100016754(0x90uLL);
   v13 = v12;
@@ -2082,7 +1726,7 @@ LABEL_18:
   return v13;
 }
 
-void sub_10000FDFC(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_10000FDFC(pcap_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a1)
   {
@@ -2187,9 +1831,9 @@ LABEL_14:
   return v18;
 }
 
-uint64_t sub_100010018(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100010018(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  *(a1 + 8) = 150;
+  *(a1 + 2) = 150;
   sub_10002662C(sub_10000FE60, a1, *a1, a4, a5, a6, a7, a8);
   v9 = *a1;
 
@@ -2274,12 +1918,12 @@ char *sub_1000101C0(char a1, char a2)
   return v4;
 }
 
-void sub_100010254(uint64_t a1)
+void sub_100010254(void ***a1)
 {
   if (a1)
   {
     sub_1000171F8(*a1);
-    free(*(a1 + 16));
+    free(a1[2]);
 
     free(a1);
   }
@@ -2316,7 +1960,6 @@ uint64_t sub_1000102A0(void *a1)
         v10 += 6;
         if (!--v11)
         {
-          v21 = v8[1];
           result = printf("   Attribute %d (%s) length=%d\n");
           goto LABEL_28;
         }
@@ -2353,7 +1996,6 @@ uint64_t sub_1000102A0(void *a1)
         case 4:
           if (v12 == 6)
           {
-            v20 = bswap32(*(v8 + 2));
             result = printf("      Value: %u\n");
           }
 
@@ -2428,7 +2070,7 @@ LABEL_25:
   return result;
 }
 
-uint64_t sub_10001051C(void *a1, __int128 *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10001051C(unint64_t **a1, __int128 *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a2)
   {
@@ -2442,10 +2084,10 @@ uint64_t sub_10001051C(void *a1, __int128 *a2, unint64_t a3, uint64_t a4, uint64
     }
 
     v18 = *a1;
-    v19 = *(*a1 + 8);
-    v20 = *(*a1 + 16);
-    *(a1[1] + 2) = bswap32(v19) >> 16;
-    v21 = v18 + 24;
+    v19 = (*a1)[1];
+    v20 = (*a1)[2];
+    *(a1[1] + 1) = bswap32(v19) >> 16;
+    v21 = v18 + 3;
     if (v20)
     {
       v22 = v20;
@@ -2457,13 +2099,13 @@ uint64_t sub_10001051C(void *a1, __int128 *a2, unint64_t a3, uint64_t a4, uint64
     }
 
     sub_10000DA48(a2, a3, v22, v19, v11 + 2);
-    v23 = *(*a1 + 8);
+    v23 = (*a1)[1];
   }
 
   else
   {
-    v23 = *(*a1 + 8);
-    *(a1[1] + 2) = bswap32(v23) >> 16;
+    v23 = (*a1)[1];
+    *(a1[1] + 1) = bswap32(v23) >> 16;
   }
 
   if (v23 < 0x10000)
@@ -2475,7 +2117,7 @@ uint64_t sub_10001051C(void *a1, __int128 *a2, unint64_t a3, uint64_t a4, uint64
   return 0xFFFFFFFFLL;
 }
 
-char *sub_100010624(uint64_t a1, char a2, const void *a3, size_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *sub_100010624(unint64_t **a1, char a2, const void *a3, size_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a4 >= 0xFE)
   {
@@ -2493,13 +2135,13 @@ char *sub_100010624(uint64_t a1, char a2, const void *a3, size_t a4, uint64_t a5
     }
 
     v14 = *a1;
-    v15 = *(*a1 + 16);
+    v15 = (*a1)[2];
     if (!v15)
     {
-      v15 = *a1 + 24;
+      v15 = (*a1 + 3);
     }
 
-    *(a1 + 8) = v15;
+    a1[1] = v15;
   }
 
   v22 = sub_10001723C(v14, 2, a3, a4, a5, a6, a7, a8);
@@ -2522,7 +2164,7 @@ char *sub_100010624(uint64_t a1, char a2, const void *a3, size_t a4, uint64_t a5
   }
 }
 
-uint64_t sub_10001070C(void *a1, __int128 *a2, unint64_t a3, __int128 *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10001070C(unint64_t **a1, __int128 *a2, unint64_t a3, __int128 *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v32[0] = 0;
   v32[1] = 0;
@@ -2534,28 +2176,28 @@ uint64_t sub_10001070C(void *a1, __int128 *a2, unint64_t a3, __int128 *a4, uint6
   }
 
   v13 = a1[1];
-  *(v13 + 2) = bswap32(*(*a1 + 8)) >> 16;
+  *(v13 + 1) = bswap32(*(*a1 + 4)) >> 16;
   *(v13 + 4) = *a4;
-  if (*(*a1 + 16))
+  if ((*a1)[2])
   {
-    v14 = *(*a1 + 16);
+    v14 = (*a1)[2];
   }
 
   else
   {
-    v14 = *a1 + 24;
+    v14 = (*a1 + 3);
   }
 
-  sub_10000DA48(a2, a3, v14, *(*a1 + 8), v12 + 2);
+  sub_10000DA48(a2, a3, v14, (*a1)[1], v12 + 2);
   v16 = *a1;
   v15 = a1[1];
   v31[0] = v15;
   v31[1] = a4;
   v28 = xmmword_10002BF00;
-  v17 = v16 + 24;
-  v20 = v16 + 8;
-  v18 = *(v16 + 8);
-  v19 = *(v20 + 8);
+  v17 = v16 + 3;
+  v20 = v16 + 1;
+  v18 = v16[1];
+  v19 = v20[1];
   if (v19)
   {
     v17 = v19;
@@ -2566,9 +2208,9 @@ uint64_t sub_10001070C(void *a1, __int128 *a2, unint64_t a3, __int128 *a4, uint6
   v29 = v18 - 20;
   v30 = a3;
   sub_1000276B4(4, v31, &v28, (v15 + 4));
-  if (*(*a1 + 8) >= 0x10000uLL)
+  if ((*a1)[1] >= 0x10000)
   {
-    sub_100016A20(3, "RADIUS: Too long message (%lu)", v21, v22, v23, v24, v25, v26, *(*a1 + 8));
+    sub_100016A20(3, "RADIUS: Too long message (%lu)", v21, v22, v23, v24, v25, v26, (*a1)[1]);
     return 0xFFFFFFFFLL;
   }
 
@@ -2637,7 +2279,7 @@ uint64_t sub_100010918(uint64_t a1, uint64_t a2)
   return v8;
 }
 
-char *sub_1000109BC(unsigned __int16 *a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *sub_1000109BC(unsigned __int16 *a1, size_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = 0;
   if (a1 && a2 >= 0x14)
@@ -2703,7 +2345,7 @@ LABEL_25:
   return v8;
 }
 
-char *sub_100010B00(uint64_t a1, char *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100010B00(unint64_t **a1, char *a2, size_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   while (a3)
   {
@@ -2958,7 +2600,7 @@ uint64_t sub_100010E50(uint64_t *a1, __int128 *a2, unint64_t a3, uint64_t a4, in
   return 1;
 }
 
-uint64_t sub_100010F6C(uint64_t a1, void *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100010F6C(unint64_t **a1, void *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = a2[4];
   if (v8)
@@ -3227,7 +2869,7 @@ void *sub_1000114B4(void *a1, uint64_t a2, __int128 *a3, uint64_t a4)
   return v4;
 }
 
-_BYTE *sub_1000115AC(uint64_t a1, _BYTE *a2, __int128 *a3, uint64_t a4, const void *a5, size_t a6, const void *a7, uint64_t a8)
+char *sub_1000115AC(unint64_t **a1, _BYTE *a2, __int128 *a3, uint64_t a4, const void *a5, size_t a6, const void *a7, uint64_t a8)
 {
   result = malloc_type_malloc(a6 + 24, 0x8FE1EA6EuLL);
   if (result)
@@ -3275,7 +2917,7 @@ _BYTE *sub_1000115AC(uint64_t a1, _BYTE *a2, __int128 *a3, uint64_t a4, const vo
   return result;
 }
 
-uint64_t sub_100011738(const void *a1, size_t a2, unsigned int a3, _BYTE *a4, __int128 *a5, uint64_t a6, _BYTE *a7, void *a8)
+void *sub_100011738(const void *a1, size_t a2, unsigned int a3, _BYTE *a4, __int128 *a5, uint64_t a6, _BYTE *a7, void *a8)
 {
   v9 = a7;
   v23 = __rev16(a3);
@@ -3339,7 +2981,7 @@ uint64_t sub_100011738(const void *a1, size_t a2, unsigned int a3, _BYTE *a4, __
   return result;
 }
 
-char *sub_100011898(uint64_t a1, uint64_t a2, unint64_t a3, __int128 *a4, uint64_t a5)
+char *sub_100011898(unint64_t **a1, uint64_t a2, size_t a3, __int128 *a4, uint64_t a5)
 {
   if (a3 > 0x80)
   {
@@ -3355,7 +2997,7 @@ char *sub_100011898(uint64_t a1, uint64_t a2, unint64_t a3, __int128 *a4, uint64
     v8 += v10;
   }
 
-  v11 = *(a1 + 8) + 4;
+  v11 = a1[1] + 4;
   v22 = a4;
   v23 = v11;
   v20 = a5;
@@ -3647,7 +3289,7 @@ void sub_100011DA0(uint64_t a1)
   }
 }
 
-uint64_t sub_100011E0C(void *a1, uint64_t *a2)
+uint64_t sub_100011E0C(uint64_t *a1, uint64_t *a2)
 {
   if (!*a2)
   {
@@ -3695,7 +3337,7 @@ uint64_t sub_100011E0C(void *a1, uint64_t *a2)
   return result;
 }
 
-void sub_100011EE8(uint64_t a1, char *a2, uint64_t a3, unsigned __int8 *a4, uint64_t a5, char *a6, uint64_t a7, _OWORD *a8)
+void sub_100011EE8(uint64_t a1, char *a2, uint64_t a3, unsigned __int8 *a4, uint64_t a5, char *a6, uint64_t a7, __int128 *a8)
 {
   v12 = a4;
   if (a4[1] | *a4 | a4[2] | a4[3] | a4[4] | a4[5] || *(a1 + 625) | *(a1 + 624) | *(a1 + 626) | *(a1 + 627) | *(a1 + 628) | *(a1 + 629))
@@ -3711,11 +3353,6 @@ LABEL_5:
 
   if (((*(*(a1 + 496) + 64))(**(a1 + 496), a1 + 624) & 0x80000000) == 0)
   {
-    v32 = *(a1 + 628);
-    v33 = *(a1 + 629);
-    v30 = *(a1 + 626);
-    v31 = *(a1 + 627);
-    v29 = *(a1 + 625);
     sub_100016A20(1, "WPA: Use BSSID (%02x:%02x:%02x:%02x:%02x:%02x) as the destination for EAPOL-Key", v16, v17, v18, v19, v20, v21, *(a1 + 624));
     v12 = (a1 + 624);
     goto LABEL_5;
@@ -3780,16 +3417,16 @@ LABEL_28:
   }
 
 LABEL_9:
+  v30 = 0;
   v31 = 0;
-  v32 = 0;
-  if (((*(*(a1 + 496) + 64))(**(a1 + 496), v30) & 0x80000000) != 0)
+  if (((*(*(a1 + 496) + 64))(**(a1 + 496), v29) & 0x80000000) != 0)
   {
     sub_100016A20(3, "Failed to read BSSID for EAPOL-Key request", v8, v9, v10, v11, v12, v13, v28);
   }
 
   else
   {
-    v14 = (*(*(a1 + 496) + 96))(**(a1 + 496), 3, 0, 95, &v32, &v31);
+    v14 = (*(*(a1 + 496) + 96))(**(a1 + 496), 3, 0, 95, &v31, &v30);
     if (v14)
     {
       v15 = v14;
@@ -3803,8 +3440,8 @@ LABEL_9:
         v16 = -2;
       }
 
-      v17 = v31;
-      *v31 = v16;
+      v17 = v30;
+      *v30 = v16;
       if (*(a1 + 168))
       {
         v18 = 2304;
@@ -3832,17 +3469,16 @@ LABEL_9:
       }
 
       *(v17 + 1) = HIBYTE(v20);
-      *(v31 + 2) = v20;
-      *(v31 + 3) = 0;
-      *(v31 + 4) = 0;
-      *(v31 + 5) = *(a1 + 256);
+      *(v30 + 2) = v20;
+      *(v30 + 3) = 0;
+      *(v30 + 4) = 0;
+      *(v30 + 5) = *(a1 + 256);
       sub_100015F04(a1 + 256, 8);
-      *(v31 + 93) = 0;
-      v29 = *(a1 + 168);
+      *(v30 + 93) = 0;
       sub_100016A20(2, "WPA: Sending EAPOL-Key Request (error=%d pairwise=%d ptk_set=%d len=%lu)", v21, v22, v23, v24, v25, v26, a2);
       if ((v20 & 0x100) != 0)
       {
-        v27 = (v31 + 77);
+        v27 = (v30 + 77);
       }
 
       else
@@ -3850,7 +3486,7 @@ LABEL_9:
         v27 = 0;
       }
 
-      sub_100011EE8(a1, (a1 + 40), v7, v30, 34958, v15, v32, v27);
+      sub_100011EE8(a1, (a1 + 40), v7, v29, 34958, v15, v31, v27);
     }
   }
 }
@@ -3992,7 +3628,6 @@ uint64_t sub_1000125B4(uint64_t a1, unsigned __int8 *a2, const void *a3, size_t 
     v14 = v13;
     memcpy(v13, a3, size);
     v15 = bswap32(*(v14 + 1)) >> 16;
-    v68 = v14[1];
     sub_100016A20(1, "IEEE 802.1X RX: version=%d type=%d length=%lu", v16, v17, v18, v19, v20, v21, *v14);
     if (v14[1] != 3)
     {
@@ -4022,7 +3657,6 @@ LABEL_13:
     v32 = v14[6];
     sub_100016A20(1, "  EAPOL-Key type=%d", v22, v23, v24, v25, v26, v27, v14[4]);
     sub_100016A20(1, "  key_info 0x%x (ver=%d keyidx=%d rsvd=%d %s%s%s%s%s%s%s%s)", v33, v34, v35, v36, v37, v38, v32 | (v31 << 8));
-    v69 = __rev16(*(v14 + 97));
     sub_100016A20(1, "  key_length=%u key_data_length=%u", v39, v40, v41, v42, v43, v44, __rev16(*(v14 + 7)));
     sub_100016A94(1, "  replay_counter", v14 + 9, 8);
     sub_100016A94(1, "  key_nonce", v14 + 17, 32);
@@ -4108,7 +3742,7 @@ LABEL_48:
       v46 = __rev16(*(v14 + 97));
       if (v15 - 95 < v46)
       {
-        sub_100016D3C(*(*(a1 + 496) + 8), 2, "WPA: Invalid EAPOL-Key frame - key_data overflow (%d > %lu)", v46, v47, v48, v49, v50, v46);
+        sub_100016D3C(*(*(a1 + 496) + 8), 2, "WPA: Invalid EAPOL-Key frame - key_data overflow (%d > %lu)", v46, v15 - 95);
 LABEL_49:
         v9 = 0xFFFFFFFFLL;
         goto LABEL_13;
@@ -4303,50 +3937,45 @@ LABEL_18:
 
 uint64_t sub_100012E50(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v90 = 0;
-  v88 = 0u;
-  v89 = 0u;
+  v68 = 0;
+  v66 = 0u;
+  v67 = 0u;
   *__s2 = 0u;
-  v87 = 0u;
+  v65 = 0u;
   *__n = 0u;
   (*(*(a1 + 496) + 16))(**(a1 + 496), 6);
-  v79 = *(a1 + 629);
-  v71 = *(a1 + 627);
-  v75 = *(a1 + 628);
-  v65 = *(a1 + 625);
-  v67 = *(a1 + 626);
   sub_100016A20(1, "WPA: RX message 3 of 4-Way Handshake from %02x:%02x:%02x:%02x:%02x:%02x (ver=%d)", v6, v7, v8, v9, v10, v11, *(a1 + 624));
   v12 = *(a2 + 1);
   v13 = *(a2 + 2);
   v14 = __rev16(*(a2 + 93));
   sub_100016A94(1, "WPA: IE KeyData", (a2 + 95), v14);
   sub_1000159B8((a2 + 95), v14, __n, v15, v16, v17, v18, v19);
-  if (*(&v87 + 1) && (v12 & 0x10) == 0)
+  if (*(&v65 + 1) && (v12 & 0x10) == 0)
   {
     v26 = "WPA: GTK IE in unencrypted key data";
 LABEL_10:
     v27 = 3;
 LABEL_11:
-    sub_100016A20(v27, v26, v20, v21, v22, v23, v24, v25, v63);
+    sub_100016A20(v27, v26, v20, v21, v22, v23, v24, v25, v61);
     return (*(*(a1 + 496) + 32))(**(a1 + 496), 1);
   }
 
-  if (*(&v89 + 1) && (v12 & 0x10) == 0)
+  if (*(&v67 + 1) && (v12 & 0x10) == 0)
   {
     v26 = "WPA: IGTK KDE in unencrypted key data";
     goto LABEL_10;
   }
 
-  if (*(&v89 + 1) && v90 != 40)
+  if (*(&v67 + 1) && v68 != 40)
   {
-    v63 = v90;
+    v61 = v68;
     v26 = "WPA: Invalid IGTK KDE length %lu";
     goto LABEL_10;
   }
 
   if (!*(a1 + 696) && !*(a1 + 704))
   {
-    sub_100016A20(1, "WPA: No WPA/RSN IE for this AP known. Trying to get from scan results", v20, v21, v22, v23, v24, v25, v63);
+    sub_100016A20(1, "WPA: No WPA/RSN IE for this AP known. Trying to get from scan results", v20, v21, v22, v23, v24, v25, v61);
     if (((*(*(a1 + 496) + 80))(**(a1 + 496)) & 0x80000000) != 0)
     {
       v35 = "WPA: Could not find AP from the scan results";
@@ -4359,7 +3988,7 @@ LABEL_11:
       v36 = 1;
     }
 
-    sub_100016A20(v36, v35, v29, v30, v31, v32, v33, v34, v64);
+    sub_100016A20(v36, v35, v29, v30, v31, v32, v33, v34, v62);
   }
 
   v37 = __n[0];
@@ -4410,7 +4039,7 @@ LABEL_36:
         v48 = v37;
         v49 = v39;
 LABEL_60:
-        sub_100014DF0(v47, v45, v46, v48, v49, v23, v44, v25);
+        sub_100014DF0(v47, v45, v46, v48, v49, v23, v44);
         return (*(*(a1 + 496) + 32))(**(a1 + 496), 1);
       }
     }
@@ -4436,12 +4065,7 @@ LABEL_60:
 
   if (*(a1 + 208) != *(a2 + 13) || *(a1 + 216) != *(a2 + 21) || *(a1 + 224) != *(a2 + 29) || *(a1 + 232) != *(a2 + 37))
   {
-    v76 = *(a1 + 628);
-    v80 = *(a1 + 629);
-    v68 = *(a1 + 626);
-    v72 = *(a1 + 627);
-    v63 = *(a1 + 624);
-    v66 = *(a1 + 625);
+    v61 = *(a1 + 624);
     v26 = "WPA: ANonce from message 1 of 4-Way Handshake differs from 3 of 4-Way Handshake - drop packet (src=%02x:%02x:%02x:%02x:%02x:%02x)";
     goto LABEL_10;
   }
@@ -4452,12 +4076,6 @@ LABEL_60:
   {
     if (v53 != 32)
     {
-      v62 = *(a1 + 624);
-      v82 = *(a1 + 628);
-      v84 = *(a1 + 629);
-      v74 = *(a1 + 626);
-      v78 = *(a1 + 627);
-      v70 = *(a1 + 625);
       v26 = "WPA: Invalid TKIP key length %d (src=%02x:%02x:%02x:%02x:%02x:%02x)";
       goto LABEL_72;
     }
@@ -4465,15 +4083,9 @@ LABEL_60:
 
   else if (v54 == 16 && v53 != 16)
   {
-    v55 = *(a1 + 624);
-    v81 = *(a1 + 628);
-    v83 = *(a1 + 629);
-    v73 = *(a1 + 626);
-    v77 = *(a1 + 627);
-    v69 = *(a1 + 625);
     v26 = "WPA: Invalid CCMP key length %d (src=%02x:%02x:%02x:%02x:%02x:%02x)";
 LABEL_72:
-    v63 = v53;
+    v61 = v53;
     goto LABEL_10;
   }
 
@@ -4485,7 +4097,7 @@ LABEL_72:
   *(a1 + 240) = 1;
   if ((v13 & 0x40) != 0)
   {
-    if (sub_10001492C(a1, a2, v56, v57, v58, v59, v60, v61))
+    if (sub_10001492C(a1, a2, v55, v56, v57, v58, v59, v60))
     {
       return (*(*(a1 + 496) + 32))(**(a1 + 496), 1);
     }
@@ -4497,7 +4109,7 @@ LABEL_72:
   }
 
   (*(*(a1 + 496) + 16))(**(a1 + 496), 7);
-  if (*(&v87 + 1) && (sub_100014ADC(a1, a2, *(&v87 + 1), v88, v13 | (v12 << 8)) & 0x80000000) != 0)
+  if (*(&v65 + 1) && (sub_100014ADC(a1, a2, *(&v65 + 1), v66, v13 | (v12 << 8)) & 0x80000000) != 0)
   {
     v26 = "RSN: Failed to configure GTK";
     goto LABEL_74;
@@ -4525,19 +4137,14 @@ __n128 sub_1000132B0(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4,
   }
 
   (*(*(a1 + 496) + 16))(**(a1 + 496), 6);
-  v71 = a2[5];
-  v69 = a2[3];
-  v70 = a2[4];
-  *v67 = a2[1];
-  v68 = a2[2];
   v19 = 1;
   sub_100016A20(1, "WPA: RX message 1 of 4-Way Handshake from %02x:%02x:%02x:%02x:%02x:%02x (ver=%d)", v20, v21, v22, v23, v24, v25, *a2);
-  v76 = 0;
-  v74 = 0u;
-  v75 = 0u;
-  v73 = 0u;
-  memset(v72, 0, sizeof(v72));
-  if (*(a1 + 648) != 2 || (v32 = __rev16(*(a3 + 93)), sub_100016A94(1, "RSN: msg 1/4 key data", (a3 + 95), v32), sub_1000159B8((a3 + 95), v32, v72, v33, v34, v35, v36, v37), (v26 = v73) == 0) || (sub_100016A94(1, "RSN: PMKID from Authenticator", v73, 16), (v38 = v73) == 0))
+  v60 = 0;
+  v58 = 0u;
+  v59 = 0u;
+  v57 = 0u;
+  memset(v56, 0, sizeof(v56));
+  if (*(a1 + 648) != 2 || (v32 = __rev16(*(a3 + 93)), sub_100016A94(1, "RSN: msg 1/4 key data", (a3 + 95), v32), sub_1000159B8((a3 + 95), v32, v56, v33, v34, v35, v36, v37), (v26 = v57) == 0) || (sub_100016A94(1, "RSN: PMKID from Authenticator", v57, 16), (v38 = v57) == 0))
   {
     v40 = 0;
     goto LABEL_8;
@@ -4553,7 +4160,7 @@ __n128 sub_1000132B0(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4,
   else
   {
     v40 = 1;
-    sub_100016A20(1, "RSN: no matching PMKID found", v26, v27, v28, v29, v30, v31, v65);
+    sub_100016A20(1, "RSN: no matching PMKID found", v26, v27, v28, v29, v30, v31, v55);
     v39 = *(a1 + 440);
     if (!v39)
     {
@@ -4562,9 +4169,9 @@ __n128 sub_1000132B0(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4,
     }
   }
 
-  v49 = *(v39 + 8);
-  v48 = *(v39 + 16);
-  if (*v38 == v49 && *(v38 + 8) == v48)
+  v44 = *(v39 + 8);
+  v43 = *(v39 + 16);
+  if (*v38 == v44 && *(v38 + 8) == v43)
   {
     sub_100016A94(1, "RSN: matched PMKID", v38, 16);
     sub_100014220(a1);
@@ -4576,11 +4183,11 @@ LABEL_8:
   v41 = *(a1 + 660);
   if ((v41 == 1 || v41 == 128 || v41 == 32) && *(a1 + 424))
   {
-    sub_100016D3C(*(*(a1 + 496) + 8), 3, "WPA: Failed to get master session key from EAPOL state machines", v27, v28, v29, v30, v31, v65);
-    sub_100016D3C(*(*(a1 + 496) + 8), 3, "WPA: Key handshake aborted", v42, v43, v44, v45, v46, v66);
+    sub_100016D3C(*(*(a1 + 496) + 8), 3, "WPA: Failed to get master session key from EAPOL state machines");
+    sub_100016D3C(*(*(a1 + 496) + 8), 3, "WPA: Key handshake aborted");
     if (*(a1 + 440))
     {
-      sub_100016A20(1, "RSN: Cancelled PMKSA caching attempt", v26, v27, v28, v29, v30, v31, v65);
+      sub_100016A20(1, "RSN: Cancelled PMKSA caching attempt", v26, v27, v28, v29, v30, v31, v55);
       *(a1 + 440) = 0;
     }
 
@@ -4596,17 +4203,17 @@ LABEL_26:
   if (v40)
   {
 LABEL_27:
-    v51 = *(a1 + 660);
-    if (v51 == 1 || v51 == 128 || v51 == 32)
+    v46 = *(a1 + 660);
+    if (v46 == 1 || v46 == 128 || v46 == 32)
     {
-      v77 = 0;
-      sub_100016A20(1, "RSN: no PMKSA entry found - trigger full EAP authentication", v26, v27, v28, v29, v30, v31, v65);
-      v52 = (*(*(a1 + 496) + 96))(**(a1 + 496), 1, 0, 0, &v77, 0);
-      if (v52)
+      v61 = 0;
+      sub_100016A20(1, "RSN: no PMKSA entry found - trigger full EAP authentication", v26, v27, v28, v29, v30, v31, v55);
+      v47 = (*(*(a1 + 496) + 96))(**(a1 + 496), 1, 0, 0, &v61, 0);
+      if (v47)
       {
-        v53 = v52;
-        (*(*(a1 + 496) + 72))(**(a1 + 496), a1 + 624, 34958, v52, v77);
-        free(v53);
+        v48 = v47;
+        (*(*(a1 + 496) + 72))(**(a1 + 496), a1 + 624, 34958, v47, v61);
+        free(v48);
       }
 
       goto LABEL_48;
@@ -4617,7 +4224,7 @@ LABEL_27:
   {
     if (sub_1000164A4((a1 + 176), 0x20uLL))
     {
-      sub_100016D3C(*(*(a1 + 496) + 8), 3, "WPA: Failed to get random data for SNonce", v54, v55, v56, v57, v58, v65);
+      sub_100016D3C(*(*(a1 + 496) + 8), 3, "WPA: Failed to get random data for SNonce");
 LABEL_48:
       (*(*(a1 + 496) + 32))(**(a1 + 496), 1);
       return result;
@@ -4627,15 +4234,15 @@ LABEL_48:
     sub_100016A94(1, "WPA: Renewed SNonce", (a1 + 176), 32);
   }
 
-  v59 = 64;
+  v49 = 64;
   if (*(a1 + 652) == 16)
   {
-    v59 = 48;
+    v49 = 48;
   }
 
-  v60 = *(a1 + 660);
-  v63 = v60 == 128 || v60 == 1024 || v60 == 256;
-  sub_10000CAC4(a1, *(a1 + 32), "Pairwise key expansion", (a1 + 596), (a1 + 624), (a1 + 176), (a3 + 13), (a1 + 104), v59, v63);
+  v50 = *(a1 + 660);
+  v53 = v50 == 128 || v50 == 1024 || v50 == 256;
+  sub_10000CAC4(a1, *(a1 + 32), "Pairwise key expansion", (a1 + 596), (a1 + 624), (a1 + 176), (a3 + 13), (a1 + 104), v49, v53);
   *(a1 + 152) = vextq_s8(*(a1 + 152), *(a1 + 152), 8uLL);
   *(a1 + 172) = 1;
   if (sub_100012258(a1, (a1 + 624), a3, a4, (a1 + 176), *(a1 + 680), *(a1 + 688), (a1 + 104)))
@@ -4644,23 +4251,18 @@ LABEL_48:
   }
 
   result = *(a3 + 13);
-  v64 = *(a3 + 29);
+  v54 = *(a3 + 29);
   *(a1 + 208) = result;
-  *(a1 + 224) = v64;
+  *(a1 + 224) = v54;
   return result;
 }
 
 uint64_t sub_1000136A4(uint64_t a1, unsigned __int8 *a2, uint64_t a3, unsigned int a4, uint64_t a5)
 {
-  v79 = 0;
-  memset(v78, 0, sizeof(v78));
-  v77 = 0u;
+  v70 = 0;
+  memset(v69, 0, sizeof(v69));
+  v68 = 0u;
   v10 = (*(*(a1 + 496) + 24))(**(a1 + 496));
-  v74 = a2[5];
-  v72 = a2[3];
-  v73 = a2[4];
-  v70 = a2[1];
-  v71 = a2[2];
   sub_100016A20(1, "WPA: RX message 1 of Group Key Handshake from %02x:%02x:%02x:%02x:%02x:%02x (ver=%d)", v11, v12, v13, v14, v15, v16, *a2);
   v23 = *(a3 + 1);
   v24 = v23 << 8;
@@ -4669,10 +4271,10 @@ uint64_t sub_1000136A4(uint64_t a1, unsigned __int8 *a2, uint64_t a3, unsigned i
   if (*(a1 + 648) != 2)
   {
     v34 = __rev16(*(a3 + 3));
-    v79 = v34;
+    v70 = v34;
     if (v26 > a4)
     {
-      v69 = v26;
+      v66 = v26;
       v32 = "WPA: Truncated EAPOL-Key packet: key_data_length=%lu > extra_len=%lu";
 LABEL_20:
       v33 = 2;
@@ -4684,7 +4286,7 @@ LABEL_20:
     {
       if (v26 <= 7)
       {
-        v69 = v26;
+        v66 = v26;
         v32 = "WPA: Too short maxkeylen (%lu)";
         goto LABEL_20;
       }
@@ -4692,26 +4294,26 @@ LABEL_20:
       v37 = v26 - 8;
     }
 
-    if (sub_100014F38(*(a1 + 656), v34, v37, &v77.i32[2], v77.i32, v20, v21, v22))
+    if (sub_100014F38(*(a1 + 656), v34, v37, &v68.i32[2], v68.i32, v20, v21, v22))
     {
       goto LABEL_22;
     }
 
-    v77.i32[3] = ((v24 | v25) >> 4) & 3;
+    v68.i32[3] = ((v24 | v25) >> 4) & 3;
     if (a5 == 1)
     {
       v50 = *(a1 + 56);
-      v80 = *(a3 + 45);
-      v81 = v50;
+      v71 = *(a3 + 45);
+      v72 = v50;
       if (v26 >= 0x21)
       {
-        v69 = v26;
+        v66 = v26;
         v32 = "WPA: RC4 key data too long (%lu)";
         goto LABEL_5;
       }
 
       __memcpy_chk();
-      if (sub_100026D64(&v80, 0x20uLL, 0x100uLL, v78, v26))
+      if (sub_100026D64(&v71, 0x20uLL, 0x100uLL, v69, v26))
       {
         v32 = "WPA: RC4 failed";
         v33 = 4;
@@ -4723,26 +4325,26 @@ LABEL_20:
     {
       if (a5 != 2)
       {
-        v69 = a5;
+        v66 = a5;
         v32 = "WPA: Unsupported key_info type %d";
         goto LABEL_5;
       }
 
       if ((v26 & 7) != 0)
       {
-        v69 = v26;
+        v66 = v26;
         v32 = "WPA: Unsupported AES-WRAP len %lu";
         goto LABEL_5;
       }
 
       if (v37 >= 0x21)
       {
-        v69 = v26;
+        v66 = v26;
         v32 = "WPA: AES-WRAP key data too long (keydatalen=%lu maxkeylen=%lu)";
         goto LABEL_5;
       }
 
-      if (sub_10000D5EC((a1 + 56), v37 >> 3, (a3 + 95), v78))
+      if (sub_10000D5EC((a1 + 56), v37 >> 3, (a3 + 95), v69))
       {
         v32 = "WPA: AES unwrap failed - could not decrypt GTK";
         goto LABEL_5;
@@ -4751,57 +4353,57 @@ LABEL_20:
 
     if ((v25 & 0x40) != 0)
     {
-      v68 = *(a1 + 652);
-      if (v68 == 1)
+      v65 = *(a1 + 652);
+      if (v65 == 1)
       {
 LABEL_59:
         v38 = 0;
-        v77.i32[1] = v68;
+        v68.i32[1] = v65;
         goto LABEL_23;
       }
 
-      sub_100016A20(2, "WPA: Tx bit set for GTK, but pairwise keys are used - ignore Tx bit", v17, v18, v19, v20, v21, v22, v69);
+      sub_100016A20(2, "WPA: Tx bit set for GTK, but pairwise keys are used - ignore Tx bit", v17, v18, v19, v20, v21, v22, v66);
     }
 
-    v68 = 0;
+    v65 = 0;
     goto LABEL_59;
   }
 
-  v85 = 0;
-  v83 = 0u;
-  v84 = 0u;
-  v81 = 0u;
-  v82 = 0u;
-  v80 = 0u;
+  v76 = 0;
+  v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
+  v71 = 0u;
   sub_100016A94(1, "RSN: msg 1/2 key data", (a3 + 95), v26);
-  sub_1000159B8((a3 + 95), v26, &v80, v27, v28, v29, v30, v31);
-  if ((v23 & 0x10) == 0 && *(&v82 + 1))
+  sub_1000159B8((a3 + 95), v26, &v71, v27, v28, v29, v30, v31);
+  if ((v23 & 0x10) == 0 && *(&v73 + 1))
   {
     v32 = "WPA: GTK IE in unencrypted key data";
 LABEL_5:
     v33 = 3;
 LABEL_21:
-    sub_100016A20(v33, v32, v17, v18, v19, v20, v21, v22, v69);
+    sub_100016A20(v33, v32, v17, v18, v19, v20, v21, v22, v66);
     goto LABEL_22;
   }
 
-  if (!*(&v82 + 1))
+  if (!*(&v73 + 1))
   {
     v32 = "WPA: No GTK IE in Group Key msg 1/2";
     goto LABEL_20;
   }
 
-  v79 = v83 - 2;
-  if (sub_100014F38(*(a1 + 656), v83 - 2, (v83 - 2), &v77.i32[2], v77.i32, v20, v21, v22))
+  v70 = v74 - 2;
+  if (sub_100014F38(*(a1 + 656), v74 - 2, (v74 - 2), &v68.i32[2], v68.i32, v20, v21, v22))
   {
 LABEL_22:
     v38 = -1;
     goto LABEL_23;
   }
 
-  sub_100016A94(1, "RSN: received GTK in group key handshake", *(&v82 + 1), v83);
-  v77.i32[3] = **(&v82 + 1) & 3;
-  if ((**(&v82 + 1) & 4) != 0)
+  sub_100016A94(1, "RSN: received GTK in group key handshake", *(&v73 + 1), v74);
+  v68.i32[3] = **(&v73 + 1) & 3;
+  if ((**(&v73 + 1) & 4) != 0)
   {
     v36 = *(a1 + 652);
     if (v36 == 1)
@@ -4809,24 +4411,24 @@ LABEL_22:
       goto LABEL_14;
     }
 
-    sub_100016A20(2, "WPA: Tx bit set for GTK, but pairwise keys are used - ignore Tx bit", v35, v18, v19, v20, v21, v22, v69);
+    sub_100016A20(2, "WPA: Tx bit set for GTK, but pairwise keys are used - ignore Tx bit", v35, v18, v19, v20, v21, v22, v66);
   }
 
   v36 = 0;
 LABEL_14:
-  v77.i32[1] = v36;
-  v17 = v83 - 2;
-  if ((v83 - 2) >= 0x21)
+  v68.i32[1] = v36;
+  v17 = v74 - 2;
+  if ((v74 - 2) >= 0x21)
   {
-    v69 = v83 - 2;
+    v66 = v74 - 2;
     v32 = "RSN: Too long GTK in GTK IE (len=%lu)";
     goto LABEL_20;
   }
 
   __memcpy_chk();
-  if ((sub_100014C28(a1, &v80) & 0x80000000) != 0)
+  if ((sub_100014C28(a1, &v71) & 0x80000000) != 0)
   {
-    sub_100016A20(2, "RSN: Failed to configure IGTK", v62, v63, v64, v65, v66, v67, v69);
+    sub_100016A20(2, "RSN: Failed to configure IGTK", v59, v60, v61, v62, v63, v64, v66);
   }
 
   v38 = 0;
@@ -4837,14 +4439,14 @@ LABEL_23:
     return (*(*(a1 + 496) + 32))(**(a1 + 496), 1);
   }
 
-  if (sub_100015040(a1, &v77, (a3 + 61)))
+  if (sub_100015040(a1, &v68, (a3 + 61)))
   {
     return (*(*(a1 + 496) + 32))(**(a1 + 496), 1);
   }
 
-  *&v80 = 0;
-  v76 = 0;
-  v40 = (*(*(a1 + 496) + 96))(**(a1 + 496), 3, 0, 95, &v80, &v76);
+  *&v71 = 0;
+  v67 = 0;
+  v40 = (*(*(a1 + 496) + 96))(**(a1 + 496), 3, 0, 95, &v71, &v67);
   if (!v40)
   {
     return (*(*(a1 + 496) + 32))(**(a1 + 496), 1);
@@ -4861,25 +4463,25 @@ LABEL_23:
     v48 = -2;
   }
 
-  v49 = v76;
-  *v76 = v48;
+  v49 = v67;
+  *v67 = v48;
   *(v49 + 1) = 3;
-  *(v76 + 2) = v25 & 0x30 | a5;
+  *(v67 + 2) = v25 & 0x30 | a5;
   if (*(a1 + 648) == 2)
   {
-    *(v76 + 3) = 0;
-    *(v76 + 4) = 0;
+    *(v67 + 3) = 0;
+    *(v67 + 4) = 0;
   }
 
   else
   {
-    *(v76 + 3) = *(a3 + 3);
+    *(v67 + 3) = *(a3 + 3);
   }
 
-  *(v76 + 5) = *(a3 + 5);
-  *(v76 + 93) = 0;
-  sub_100016A20(1, "WPA: Sending EAPOL-Key 2/2", v41, v42, v43, v44, v45, v46, v69);
-  sub_100011EE8(a1, (a1 + 40), a5, (a1 + 624), 34958, v47, v80, (v76 + 77));
+  *(v67 + 5) = *(a3 + 5);
+  *(v67 + 93) = 0;
+  sub_100016A20(1, "WPA: Sending EAPOL-Key 2/2", v41, v42, v43, v44, v45, v46, v66);
+  sub_100011EE8(a1, (a1 + 40), a5, (a1 + 624), 34958, v47, v71, (v67 + 77));
   if (v10 != 8)
   {
     return sub_100015250(a1, (a1 + 624), v24 & 0x200);
@@ -4891,9 +4493,9 @@ LABEL_23:
   v54 = *(a1 + 626);
   v55 = *(a1 + 627);
   v56 = *(a1 + 628);
-  v75 = *(a1 + 629);
-  sub_10000D1E4(*(a1 + 656));
-  sub_100016D3C(v51, 2, "WPA: Group rekeying completed with %02x:%02x:%02x:%02x:%02x:%02x [GTK=%s]", v57, v58, v59, v60, v61, v52);
+  v57 = *(a1 + 629);
+  v58 = sub_10000D1E4(*(a1 + 656));
+  sub_100016D3C(v51, 2, "WPA: Group rekeying completed with %02x:%02x:%02x:%02x:%02x:%02x [GTK=%s]", v52, v53, v54, v55, v56, v57, v58);
   (*(*(a1 + 496) + 88))(**(a1 + 496));
   return (*(*(a1 + 496) + 16))(**(a1 + 496), 8);
 }
@@ -5505,7 +5107,7 @@ uint64_t sub_1000144D4(int *a1, char *a2, int64_t a3)
   }
 }
 
-uint64_t sub_100014564(uint64_t a1, unsigned __int8 *a2, unint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100014564(uint64_t a1, unsigned __int8 *a2, size_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (!a1)
   {
@@ -5702,7 +5304,7 @@ uint64_t sub_100014920(uint64_t result)
 
 uint64_t sub_10001492C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v34 = 0;
+  v28 = 0;
   sub_100016A20(1, "WPA: Installing PTK to the driver.", a3, a4, a5, a6, a7, a8, v26);
   v16 = *(a1 + 652);
   switch(v16)
@@ -5724,7 +5326,7 @@ uint64_t sub_10001492C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
   if (*(a1 + 648) == 2)
   {
-    v18 = &v34;
+    v18 = &v28;
   }
 
   else
@@ -5744,17 +5346,11 @@ uint64_t sub_10001492C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return 0;
   }
 
-  v32 = *(a1 + 628);
-  v33 = *(a1 + 629);
-  v30 = *(a1 + 626);
-  v31 = *(a1 + 627);
-  v28 = *(a1 + 624);
-  v29 = *(a1 + 625);
   sub_100016A20(3, "WPA: Failed to set PTK to the driver (alg=%d keylen=%d bssid=%02x:%02x:%02x:%02x:%02x:%02x)", v19, v20, v21, v22, v23, v24, v17);
   return 0xFFFFFFFFLL;
 }
 
-uint64_t sub_100014ADC(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unint64_t a4, __int16 a5)
+uint64_t sub_100014ADC(uint64_t a1, uint64_t a2, char *a3, unint64_t a4, __int16 a5)
 {
   memset(&v30, 0, 48);
   sub_100016B64(1, "RSN: received GTK in pairwise handshake", a3, a4);
@@ -5818,23 +5414,24 @@ uint64_t sub_100014C28(uint64_t a1, uint64_t a2)
       {
         v16 = v5[2];
         v15 = v5 + 2;
-        v31 = v15[4];
-        v32 = v15[5];
-        v29 = v15[2];
-        v30 = v15[3];
-        v28 = v15[1];
+        v22 = v15[4];
+        v23 = v15[5];
+        v20 = v15[2];
+        v21 = v15[3];
+        v18 = v16;
+        v19 = v15[1];
         sub_100016A20(1, "WPA: IGTK keyid %d pn %02x%02x%02x%02x%02x%02x", v6, v7, v8, v9, v10, v11, v14);
         sub_100016B64(1, "WPA: IGTK", v15 + 6, v12);
         if (v13 >= 0x10)
         {
-          sub_100016D3C(*(*(a1 + 496) + 8), 3, "WPA: Invalid IGTK KeyID %d", v17, v18, v19, v20, v21, v14);
+          sub_100016D3C(*(*(a1 + 496) + 8), 3, "WPA: Invalid IGTK KeyID %d");
           return 0xFFFFFFFFLL;
         }
 
-        v22 = sub_10000D408(*(a1 + 664));
-        if (((*(*(a1 + 496) + 48))(**(a1 + 496), v22, "\xFF\xFF\xFF\xFF\xFF\xFF", v14, 0, v15, 6, v15 + 6) & 0x80000000) != 0)
+        v17 = sub_10000D408(*(a1 + 664));
+        if (((*(*(a1 + 496) + 48))(**(a1 + 496), v17, "\xFF\xFF\xFF\xFF\xFF\xFF", v14, 0, v15, 6, v15 + 6, v12, v18, v19, v20, v21, v22, v23) & 0x80000000) != 0)
         {
-          sub_100016D3C(*(*(a1 + 496) + 8), 3, "WPA: Failed to configure IGTK to the driver", v23, v24, v25, v26, v27, v12);
+          sub_100016D3C(*(*(a1 + 496) + 8), 3, "WPA: Failed to configure IGTK to the driver");
           return 0xFFFFFFFFLL;
         }
 
@@ -5849,52 +5446,46 @@ uint64_t sub_100014C28(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100014DF0(void *a1, uint64_t a2, unsigned __int8 *a3, unsigned __int8 *a4, uint64_t a5, unsigned __int8 *a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100014DF0(void *a1, const char *a2, unsigned __int8 *a3, unsigned __int8 *a4, uint64_t a5, unsigned __int8 *a6, uint64_t a7)
 {
-  v29 = a3[4];
-  v30 = a3[5];
-  v27 = a3[2];
-  v28 = a3[3];
-  v25 = *a3;
-  v26 = a3[1];
-  sub_100016D3C(*(a1[62] + 8), 3, "WPA: %s (src=%02x:%02x:%02x:%02x:%02x:%02x)", a4, a5, a6, a7, a8, a2);
-  v18 = a1[87];
-  if (v18)
+  sub_100016D3C(*(a1[62] + 8), 3, "WPA: %s (src=%02x:%02x:%02x:%02x:%02x:%02x)", a2, *a3, a3[1], a3[2], a3[3], a3[4], a3[5]);
+  v17 = a1[87];
+  if (v17)
   {
-    sub_100016A94(2, "WPA: WPA IE in Beacon/ProbeResp", v18, a1[89]);
+    sub_100016A94(2, "WPA: WPA IE in Beacon/ProbeResp", v17, a1[89]);
   }
 
   if (a4)
   {
     if (!a1[87])
     {
-      sub_100016A20(2, "WPA: No WPA IE in Beacon/ProbeResp", v18, v13, v14, v15, v16, v17, v24);
+      sub_100016A20(2, "WPA: No WPA IE in Beacon/ProbeResp", v17, v12, v13, v14, v15, v16, v23);
     }
 
     sub_100016A94(2, "WPA: WPA IE in 3/4 msg", a4, a5);
   }
 
-  v19 = a1[88];
-  if (v19)
+  v18 = a1[88];
+  if (v18)
   {
-    sub_100016A94(2, "WPA: RSN IE in Beacon/ProbeResp", v19, a1[90]);
+    sub_100016A94(2, "WPA: RSN IE in Beacon/ProbeResp", v18, a1[90]);
   }
 
   if (a6)
   {
     if (!a1[88])
     {
-      sub_100016A20(2, "WPA: No RSN IE in Beacon/ProbeResp", v19, v13, v14, v15, v16, v17, v24);
+      sub_100016A20(2, "WPA: No RSN IE in Beacon/ProbeResp", v18, v12, v13, v14, v15, v16, v23);
     }
 
     sub_100016A94(2, "WPA: RSN IE in 3/4 msg", a6, a7);
   }
 
-  v20 = a1[62];
-  v21 = v20[5];
-  v22 = *v20;
+  v19 = a1[62];
+  v20 = v19[5];
+  v21 = *v19;
 
-  return v21(v22, 17);
+  return v20(v21, 17);
 }
 
 uint64_t sub_100014F38(uint64_t a1, int a2, uint64_t a3, _DWORD *a4, int *a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -5977,33 +5568,30 @@ uint64_t sub_100015040(uint64_t a1, int8x16_t *a2, unsigned __int8 *a3)
   v8 = a2[3].i32[0];
   if (v7 == v8 && !memcmp((a1 + 264), &a2[1], v7) || *(a1 + 336) == v8 && !memcmp((a1 + 304), v6, v8))
   {
-    v36 = a2->u32[1];
     sub_100016A20(1, "WPA: Not reinstalling already in-use GTK to the driver (keyidx=%d tx=%d len=%d)", v9, v10, v11, v12, v13, v14, a2->u32[3]);
     return 0;
   }
 
   sub_100016B64(1, "WPA: Group Key", v6, v8);
   v35 = a2->u32[1];
-  v38 = a2[3].u32[0];
+  v36 = a2[3].u32[0];
   sub_100016A20(1, "WPA: Installing GTK to the driver (keyidx=%d tx=%d len=%d).", v15, v16, v17, v18, v19, v20, a2->u32[3]);
   sub_100016A94(1, "WPA: RSC", a3, a2->i32[2]);
   v21 = v6;
   if (*(a1 + 656) == 8)
   {
     v22 = vextq_s8(a2[2], a2[2], 8uLL);
-    v40[0] = *v6;
-    v40[1] = v22;
-    v21 = v40;
+    v37[0] = *v6;
+    v37[1] = v22;
+    v21 = v37;
   }
 
   v23 = a2->u32[0];
   v24 = a2->u32[3];
   if (*(a1 + 652) != 1)
   {
-    if (((*(*(a1 + 496) + 48))(**(a1 + 496), v23, "\xFF\xFF\xFF\xFF\xFF\xFF", v24, a2->u32[1], a3, a2->i32[2], v21, a2[3].i32[0], v35, v38) & 0x80000000) != 0)
+    if (((*(*(a1 + 496) + 48))(**(a1 + 496), v23, "\xFF\xFF\xFF\xFF\xFF\xFF", v24, a2->u32[1], a3, a2->i32[2], v21, a2[3].i32[0], v35, v36) & 0x80000000) != 0)
     {
-      v37 = a2[3].u32[0];
-      v39 = a2->u32[3];
       v34 = a2->u32[0];
       v31 = "WPA: Failed to set GTK to the driver (alg=%d keylen=%d keyidx=%d)";
       goto LABEL_15;
@@ -6037,9 +5625,9 @@ uint64_t sub_100015250(uint64_t a1, unsigned __int8 *a2, int a3)
   v9 = a2[3];
   v10 = a2[4];
   v11 = a2[5];
-  sub_10000D1E4(*(a1 + 652));
-  sub_10000D1E4(*(a1 + 656));
-  sub_100016D3C(v5, 2, "WPA: Key negotiation completed with %02x:%02x:%02x:%02x:%02x:%02x [PTK=%s GTK=%s]", v12, v13, v14, v15, v16, v6);
+  v12 = sub_10000D1E4(*(a1 + 652));
+  v13 = sub_10000D1E4(*(a1 + 656));
+  sub_100016D3C(v5, 2, "WPA: Key negotiation completed with %02x:%02x:%02x:%02x:%02x:%02x [PTK=%s GTK=%s]", v6, v7, v8, v9, v10, v11, v12, v13);
   (*(*(a1 + 496) + 88))(**(a1 + 496));
   result = (*(*(a1 + 496) + 16))(**(a1 + 496), 8);
   if (a3)
@@ -6048,12 +5636,12 @@ uint64_t sub_100015250(uint64_t a1, unsigned __int8 *a2, int a3)
     result = sub_100026404(1u, 0, nullsub_1, a1, 0);
   }
 
-  v24 = *(a1 + 440);
-  if (v24)
+  v21 = *(a1 + 440);
+  if (v21)
   {
-    if (*(v24 + 104))
+    if (*(v21 + 104))
     {
-      result = sub_100016A20(1, "RSN: Authenticator accepted opportunistic PMKSA entry - marking it valid", v18, v19, v20, v21, v22, v23, v25);
+      result = sub_100016A20(1, "RSN: Authenticator accepted opportunistic PMKSA entry - marking it valid", v15, v16, v17, v18, v19, v20, v22);
       *(*(a1 + 440) + 104) = 0;
     }
   }
@@ -6152,7 +5740,6 @@ uint64_t sub_10001538C(unsigned __int8 *a1, unint64_t a2, uint64_t a3, uint64_t 
 
               if (!v31)
               {
-                v37 = a1[v21 + 14] | (a1[v21 + 15] << 8);
                 sub_100016A20(1, "%s: ie count botch (key mgmt), count %u left %u", v24, v25, v26, v27, v28, v29, "wpa_parse_wpa_ie_wpa");
                 return 0xFFFFFFFFLL;
               }
@@ -7270,7 +6857,7 @@ void *sub_100016690(const char *a1, size_t *a2)
   return v6;
 }
 
-unsigned __int8 *sub_100016768(_BYTE *a1, unint64_t a2, uint64_t a3)
+unsigned __int8 *sub_100016768(_BYTE *a1, unsigned __int8 *a2, uint64_t a3)
 {
   v3 = a2;
   if (a3)
@@ -7311,7 +6898,7 @@ uint64_t sub_1000167A8(const char *a1, const char *a2, int a3)
     v8 = 0;
     if (!v6)
     {
-      sub_100029778(&v9, a1, a2);
+      sub_100029778(v9, a1, a2);
     }
 
     if (a3)
@@ -7564,26 +7151,29 @@ uint64_t sub_100016B78(uint64_t result, const char *a2, unsigned __int8 *a3, uni
   return result;
 }
 
-void sub_100016D3C(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void sub_100016D3C(uint64_t a1, uint64_t a2, const char *a3, ...)
 {
-  v12 = malloc_type_malloc(0x800uLL, 0xF3829AAEuLL);
-  if (v12)
+  va_start(va1, a3);
+  va_start(va, a3);
+  v22 = va_arg(va1, void);
+  v6 = malloc_type_malloc(0x800uLL, 0xF3829AAEuLL);
+  if (v6)
   {
-    v19 = v12;
-    v20 = vsnprintf(v12, 0x800uLL, a3, &a9);
-    sub_100016A20(a2, "%s", v21, v22, v23, v24, v25, v26, v19);
+    v13 = v6;
+    v14 = vsnprintf(v6, 0x800uLL, a3, va);
+    sub_100016A20(a2, "%s", v15, v16, v17, v18, v19, v20, v13);
     if (off_100040400)
     {
-      off_100040400(a1, a2, v19, v20);
+      off_100040400(a1, a2, v13, v14);
     }
 
-    free(v19);
+    free(v13);
   }
 
   else
   {
 
-    sub_100016A20(4, "wpa_msg: Failed to allocate message buffer", v13, v14, v15, v16, v17, v18, a9);
+    sub_100016A20(4, "wpa_msg: Failed to allocate message buffer", v7, v8, v9, v10, v11, v12, v22);
   }
 }
 
@@ -7608,35 +7198,33 @@ void sub_100016E14(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4, uint64
   }
 }
 
-void sub_100016EE4(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void sub_100016EE4(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, const char *a5, ...)
 {
-  v11 = malloc_type_malloc(0x800uLL, 0x246AAE48uLL);
-  if (v11)
+  va_start(va1, a5);
+  va_start(va, a5);
+  v22 = va_arg(va1, void);
+  v7 = malloc_type_malloc(0x800uLL, 0x246AAE48uLL);
+  if (v7)
   {
-    v18 = v11;
-    vsnprintf(v11, 0x800uLL, a5, &a9);
+    v14 = v7;
+    vsnprintf(v7, 0x800uLL, a5, va);
     if (a2)
     {
-      v29 = a2[5];
-      v27 = a2[3];
-      v28 = a2[4];
-      v25 = a2[1];
-      v26 = a2[2];
-      sub_100016A20(1, "hostapd_logger: STA %02x:%02x:%02x:%02x:%02x:%02x - %s", v19, v20, v21, v22, v23, v24, *a2);
+      sub_100016A20(1, "hostapd_logger: STA %02x:%02x:%02x:%02x:%02x:%02x - %s", v15, v16, v17, v18, v19, v20, *a2);
     }
 
     else
     {
-      sub_100016A20(1, "hostapd_logger: %s", v19, v20, v21, v22, v23, v24, v18);
+      sub_100016A20(1, "hostapd_logger: %s", v15, v16, v17, v18, v19, v20, v14);
     }
 
-    free(v18);
+    free(v14);
   }
 
   else
   {
 
-    sub_100016A20(4, "hostapd_logger: Failed to allocate message buffer", v12, v13, v14, v15, v16, v17, a9);
+    sub_100016A20(4, "hostapd_logger: Failed to allocate message buffer", v8, v9, v10, v11, v12, v13, v22);
   }
 }
 
@@ -7920,8 +7508,6 @@ uint64_t sub_100017420(void *a1, char *__format, ...)
   v11 = a1[1];
   if ((result & 0x80000000) != 0 || *a1 - v11 <= result)
   {
-    v12 = *a1;
-    v13 = a1[1];
     sub_100016A20(4, "wpabuf %p (size=%lu used=%lu) overflow len=%lu", v5, v6, v7, v8, v9, v10, a1);
     abort();
   }
@@ -8045,7 +7631,7 @@ LABEL_492:
 
       v34 = v27;
       *v27 = 0;
-      v35 = v27 + 1;
+      v35 = (v27 + 1);
       if (*__s == 0x6361667265746E69 && *&__s[8] == 101)
       {
         v118 = *v18;
@@ -8945,14 +8531,8 @@ LABEL_537:
         {
           if (!sub_100000D70((v365 + 736), (v361 + 736)))
           {
-            v375 = *v18 + v363;
-            v373 = *(v361 + 740);
-            v374 = *(v361 + 741);
-            v371 = *(v361 + 738);
-            v372 = *(v361 + 739);
             v366 = "Duplicate BSSID %02x:%02x:%02x:%02x:%02x:%02x on interface '%s' and '%s'.";
             v369 = *(v361 + 736);
-            v370 = *(v361 + 737);
             goto LABEL_543;
           }
 
@@ -9647,7 +9227,7 @@ LABEL_15:
   return result;
 }
 
-uint64_t sub_100019DB4(uint64_t a1, _BYTE *a2)
+uint64_t sub_100019DB4(uint64_t a1, unsigned __int8 *a2)
 {
   if (!*a2)
   {
@@ -9697,7 +9277,7 @@ uint64_t sub_100019EA8(unsigned int *a1, unsigned int *a2)
   return (v5 - v6);
 }
 
-BOOL sub_100019EDC(int a1)
+BOOL sub_100019EDC(unsigned int a1)
 {
   result = 1;
   if (a1 <= 126)
@@ -9839,5 +9419,370 @@ LABEL_25:
     return 0xFFFFFFFFLL;
   }
 
+  return result;
+}
+
+char *sub_10001A22C(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  v3 = *(v2 + 552);
+  if (!v3)
+  {
+    return 0;
+  }
+
+  v4 = strlen(v3);
+  v5 = strlen(v2) + v4;
+  v6 = malloc_type_malloc(v5 + 2, 0xBB6D0DDAuLL);
+  v7 = v6;
+  if (v6)
+  {
+    snprintf(v6, v5 + 2, "%s/%s", *(*(a1 + 16) + 552), *(a1 + 16));
+    v7[v5 + 1] = 0;
+  }
+
+  return v7;
+}
+
+void sub_10001A2C8(int a1, uint64_t a2)
+{
+  v37 = 0u;
+  memset(v38, 0, 26);
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0;
+  v34 = 0u;
+  v32 = 106;
+  v4 = recvfrom(a1, v39, 0xFFuLL, 0, &v33, &v32);
+  if (v4 < 0)
+  {
+    perror("recvfrom(ctrl_iface)");
+    return;
+  }
+
+  v39[v4 & 0x7FFFFFFF] = 0;
+  sub_100016B70(1, "RX ctrl_iface", v39, v4 & 0x7FFFFFFF);
+  v5 = malloc_type_malloc(0x1000uLL, 0xAC4DA316uLL);
+  if (!v5)
+  {
+    sendto(a1, "FAIL\n", 5uLL, 0, &v33, v32);
+    return;
+  }
+
+  v12 = v5;
+  v5[2] = 10;
+  *v5 = 19279;
+  if (!(*v39 ^ 0x474E4950 | v39[4]))
+  {
+    v5[4] = 10;
+    v21 = 1196314448;
+LABEL_47:
+    *v12 = v21;
+    v20 = 5;
+    goto LABEL_48;
+  }
+
+  if (*v39 == 4344141)
+  {
+    v22 = sub_100008CAC(*(a2 + 2624), v5, 0x1000uLL);
+    if (v22 < 0 || (v23 = v22, v24 = sub_100003C4C(), v24 < 0))
+    {
+LABEL_46:
+      v12[4] = 10;
+      v21 = 1279869254;
+      goto LABEL_47;
+    }
+
+    v20 = v24 + v23;
+LABEL_45:
+    if ((v20 & 0x80000000) == 0)
+    {
+      goto LABEL_48;
+    }
+
+    goto LABEL_46;
+  }
+
+  if (*v39 == 0x535249462D415453 && *&v39[8] == 84)
+  {
+    v20 = sub_100002148(a2, v5, 0x1000uLL);
+    goto LABEL_45;
+  }
+
+  if (*v39 == 541152339)
+  {
+    v20 = sub_100002250(a2, &v39[4], v5, 0x1000uLL);
+    goto LABEL_45;
+  }
+
+  if (*v39 == 0x5458454E2D415453 && v39[8] == 32)
+  {
+    v20 = sub_1000022E4(a2, &v39[9], v5, 0x1000uLL);
+    goto LABEL_45;
+  }
+
+  if (*v39 == 1096045633 && *&v39[3] == 4735809)
+  {
+    v25 = v32;
+    v26 = sub_100016754(0x80uLL);
+    if (v26)
+    {
+      v27 = v33;
+      v28 = v34;
+      *(v26 + 40) = v35;
+      *(v26 + 24) = v28;
+      *(v26 + 8) = v27;
+      v29 = v36;
+      v30 = v37;
+      v31 = v38[0];
+      *(v26 + 98) = *(v38 + 10);
+      *(v26 + 88) = v31;
+      *(v26 + 72) = v30;
+      *(v26 + 56) = v29;
+      *(v26 + 29) = v25;
+      *(v26 + 30) = 2;
+      *v26 = *(a2 + 2672);
+      *(a2 + 2672) = v26;
+      sub_100016A94(1, "CTRL_IFACE monitor attached", v33.sa_data, v25 - 2);
+LABEL_60:
+      v20 = 3;
+      goto LABEL_48;
+    }
+
+    goto LABEL_46;
+  }
+
+  if (*v39 == 1096041796 && *&v39[3] == 4735809)
+  {
+    if (!sub_10001A9A4(a2, &v33, v32))
+    {
+      goto LABEL_60;
+    }
+
+    goto LABEL_46;
+  }
+
+  if (*v39 == 1163281740 && *&v39[4] == 8268)
+  {
+    if (!sub_10001AA68(a2, &v33, v32, &v39[6], v8, v9, v10, v11))
+    {
+      goto LABEL_60;
+    }
+
+    goto LABEL_46;
+  }
+
+  if (*v39 == 0x204154535F57454ELL)
+  {
+    if (!sub_10001AB2C(a2, &v39[8], v6, v7, v8, v9, v10, v11))
+    {
+      goto LABEL_60;
+    }
+
+    goto LABEL_46;
+  }
+
+  if (*v39 == 0x4E45485455414544 && *&v39[7] == 0x204554414349544ELL)
+  {
+    if (!sub_10001ABEC(a2, v40, v6, v7, v8, v9, v10, v11))
+    {
+      goto LABEL_60;
+    }
+
+    goto LABEL_46;
+  }
+
+  if (*v39 == 0x434F535341534944 && *&v39[5] == 0x2045544149434F53)
+  {
+    if (!sub_10001AD34(a2, &v39[13], v6, v7, v8, v9, v10, v11))
+    {
+      goto LABEL_60;
+    }
+
+    goto LABEL_46;
+  }
+
+  *v5 = *"UNKNOWN COMMAND\n";
+  v20 = 16;
+LABEL_48:
+  sendto(a1, v12, v20, 0, &v33, v32);
+  free(v12);
+}
+
+uint64_t sub_10001A73C(uint64_t result, signed int a2, uint64_t a3, uint64_t a4)
+{
+  if (result)
+  {
+    v4 = result;
+    if ((*(result + 2664) & 0x80000000) == 0)
+    {
+      v5 = *(result + 2672);
+      if (v5)
+      {
+        snprintf(__str, 0xAuLL, "<%d>", a2);
+        v22[0] = __str;
+        result = strlen(__str);
+        v9 = 0;
+        v22[1] = result;
+        v22[2] = a3;
+        v22[3] = a4;
+        *&v20.msg_name = 0u;
+        memset(&v20.msg_iovlen + 1, 0, 20);
+        v20.msg_iov = v22;
+        v20.msg_iovlen = 2;
+        do
+        {
+          v10 = v5;
+          v5 = *v5;
+          if (*(v10 + 30) <= a2)
+          {
+            sub_100016A94(1, "CTRL_IFACE monitor send", v10 + 10, *(v10 + 29) - 2);
+            v20.msg_name = v10 + 1;
+            v20.msg_namelen = *(v10 + 29);
+            result = sendmsg(*(v4 + 2664), &v20, 0);
+            if (result < 0)
+            {
+              v11 = *__error();
+              __error();
+              v12 = __error();
+              strerror(*v12);
+              result = sub_100016A20(2, "CTRL_IFACE monitor[%d]: %d - %s", v13, v14, v15, v16, v17, v18, v9);
+              v19 = *(v10 + 31);
+              *(v10 + 31) = v19 + 1;
+              if (v19 > 9 || v11 == 2)
+              {
+                result = sub_10001A9A4(v4, (v10 + 1), *(v10 + 29));
+              }
+            }
+
+            else
+            {
+              *(v10 + 31) = 0;
+            }
+          }
+
+          v9 = (v9 + 1);
+        }
+
+        while (v5);
+      }
+    }
+  }
+
+  return result;
+}
+
+void *sub_10001A8EC(uint64_t a1)
+{
+  if ((*(a1 + 2664) & 0x80000000) == 0)
+  {
+    sub_100026130();
+    close(*(a1 + 2664));
+    *(a1 + 2664) = -1;
+    v2 = sub_10001A22C(a1);
+    v3 = v2;
+    if (v2)
+    {
+      unlink(v2);
+    }
+
+    free(v3);
+    v4 = *(*(a1 + 16) + 552);
+    if (v4 && rmdir(v4) < 0)
+    {
+      if (*__error() == 66)
+      {
+        sub_100016A20(1, "Control interface directory not empty - leaving it behind", v5, v6, v7, v8, v9, v10, v13);
+      }
+
+      else
+      {
+        perror("rmdir[ctrl_interface]");
+      }
+    }
+  }
+
+  result = *(a1 + 2672);
+  if (result)
+  {
+    do
+    {
+      v12 = *result;
+      free(result);
+      result = v12;
+    }
+
+    while (v12);
+  }
+
+  return result;
+}
+
+uint64_t sub_10001A9A4(uint64_t a1, uint64_t a2, unsigned int a3)
+{
+  v3 = *(a1 + 2672);
+  if (!v3)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v6 = 0;
+  v7 = (a1 + 2672);
+  v8 = a3 - 2;
+  while (1)
+  {
+    v9 = v3;
+    if (*(v3 + 116) == a3 && !memcmp((a2 + 2), (v3 + 10), v8))
+    {
+      break;
+    }
+
+    v3 = *v9;
+    v6 = v9;
+    if (!*v9)
+    {
+      return 0xFFFFFFFFLL;
+    }
+  }
+
+  if (v6)
+  {
+    v11 = v6;
+  }
+
+  else
+  {
+    v11 = v7;
+  }
+
+  *v11 = *v9;
+  free(v9);
+  sub_100016A94(1, "CTRL_IFACE monitor detached", (a2 + 2), v8);
+  return 0;
+}
+
+uint64_t sub_10001AA68(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v9 = a3;
+  sub_100016A20(1, "CTRL_IFACE LEVEL %s", a3, a4, a5, a6, a7, a8, a4);
+  v12 = *(a1 + 2672);
+  if (!v12)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  while (*(v12 + 29) != v9 || memcmp((a2 + 2), v12 + 10, v9 - 2))
+  {
+    v12 = *v12;
+    if (!v12)
+    {
+      return 0xFFFFFFFFLL;
+    }
+  }
+
+  sub_100016A94(1, "CTRL_IFACE changed monitor level", (a2 + 2), v9 - 2);
+  v14 = atoi(a4);
+  result = 0;
+  *(v12 + 30) = v14;
   return result;
 }

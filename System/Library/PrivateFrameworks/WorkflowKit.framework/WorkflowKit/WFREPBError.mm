@@ -114,9 +114,8 @@
     __assert_rtn("[WFREPBError writeTo:]", "WFREPBError.m", 109, "nil != self->_domain");
   }
 
-  v6 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteStringField();
-  code = self->_code;
   PBDataWriterWriteInt64Field();
   if (self->_localizedDescription)
   {

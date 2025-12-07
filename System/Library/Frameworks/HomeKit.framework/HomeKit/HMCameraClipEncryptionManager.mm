@@ -8,7 +8,7 @@
 
 - (id)encryptedDataContextFromData:(id)data
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = [MEMORY[0x1E695DF88] dataWithLength:{objc_msgSend(dataCopy, "length")}];
   v6 = [MEMORY[0x1E695DF88] dataWithLength:16];
@@ -26,9 +26,9 @@
     v10 = [dataCopy length];
     mutableBytes = [v5 mutableBytes];
     mutableBytes2 = [v6 mutableBytes];
-    v28 = [v6 length];
-    v25 = v10;
-    v26 = mutableBytes;
+    v27 = [v6 length];
+    v24 = v10;
+    v25 = mutableBytes;
     v12 = CCCryptorGCMOneshotEncrypt();
 
     if (v12)
@@ -41,11 +41,11 @@
       {
         v17 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v31 = v17;
-        v32 = 2048;
-        v33 = [dataCopy length];
-        v34 = 1024;
-        v35 = v12;
+        v30 = v17;
+        v31 = 2048;
+        v32 = [dataCopy length];
+        v33 = 1024;
+        v34 = v12;
         _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to encrypt %lu bytes: %d", buf, 0x1Cu);
       }
 
@@ -56,7 +56,7 @@
 
     else
     {
-      v18 = [[HMCameraClipEncryptedDataContext alloc] initWithInitializationVector:v7 ciphertext:v5 tag:v6, v25, mutableBytes, mutableBytes2, v28];
+      v18 = [[HMCameraClipEncryptedDataContext alloc] initWithInitializationVector:v7 ciphertext:v5 tag:v6, v24, mutableBytes, mutableBytes2, v27];
     }
   }
 
@@ -69,15 +69,13 @@
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v22;
+      v30 = v22;
       _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_INFO, "%{public}@Failed to generate initialization vector", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v19);
     v18 = 0;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

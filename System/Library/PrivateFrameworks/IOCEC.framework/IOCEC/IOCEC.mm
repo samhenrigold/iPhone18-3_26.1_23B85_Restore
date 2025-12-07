@@ -113,7 +113,7 @@ uint64_t IOCECInterfaceOpenReceiveQueue(uint64_t a1, unsigned int a2, unsigned i
   input[0] = a2;
   input[1] = a3;
   v4 = IOConnectCallMethod(*(a1 + 20), 2u, input, 2u, 0, 0, 0, 0, 0, 0);
-  if (v4 || (v4 = MEMORY[0x259C1EF20](*(a1 + 20), 1, *(a1 + 24), 0), v4) || (v9 = 0, input[0] = 0, v4 = MEMORY[0x259C1EF10](*(a1 + 20), 1, *MEMORY[0x277D85F48], input, &v9, 1), v4))
+  if (v4 || (v4 = MEMORY[0x259C1EF20](*(a1 + 20), 1, *(a1 + 24), 0), v4) || (v8 = 0, input[0] = 0, v4 = MEMORY[0x259C1EF10](*(a1 + 20), 1, *MEMORY[0x277D85F48], input, &v8, 1), v4))
   {
     v5 = v4;
   }
@@ -124,8 +124,7 @@ uint64_t IOCECInterfaceOpenReceiveQueue(uint64_t a1, unsigned int a2, unsigned i
     *(a1 + 32) = input[0];
     if (v6)
     {
-      v5 = 0;
-      goto LABEL_9;
+      return 0;
     }
 
     v5 = 3758097097;
@@ -136,8 +135,6 @@ uint64_t IOCECInterfaceOpenReceiveQueue(uint64_t a1, unsigned int a2, unsigned i
     MEMORY[0x259C1EF20](*(a1 + 20), 1, 0, 0);
   }
 
-LABEL_9:
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -163,9 +160,7 @@ uint64_t IOCECInterfaceCloseReceiveQueue(uint64_t a1, unsigned int a2)
 
   v5 = *(a1 + 20);
   input[0] = a2;
-  result = IOConnectCallMethod(v5, 3u, input, 1u, 0, 0, 0, 0, 0, 0);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(v5, 3u, input, 1u, 0, 0, 0, 0, 0, 0);
 }
 
 uint64_t IOCECInterfaceSetLogicalAddressMask(uint64_t a1, unsigned int a2)
@@ -173,9 +168,7 @@ uint64_t IOCECInterfaceSetLogicalAddressMask(uint64_t a1, unsigned int a2)
   input[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 20);
   input[0] = a2;
-  result = IOConnectCallMethod(v2, 4u, input, 1u, 0, 0, 0, 0, 0, 0);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(v2, 4u, input, 1u, 0, 0, 0, 0, 0, 0);
 }
 
 uint64_t IOCECInterfaceSendFrame(uint64_t a1, void *inputStruct, unsigned int a3)
@@ -183,9 +176,7 @@ uint64_t IOCECInterfaceSendFrame(uint64_t a1, void *inputStruct, unsigned int a3
   input[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 20);
   input[0] = a3;
-  result = IOConnectCallMethod(v3, 5u, input, 1u, inputStruct, 0x11uLL, 0, 0, 0, 0);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(v3, 5u, input, 1u, inputStruct, 0x11uLL, 0, 0, 0, 0);
 }
 
 uint64_t IOCECInterfaceRegisterStatusCallback(uint64_t result, uint64_t a2, uint64_t a3)
@@ -252,7 +243,7 @@ uint64_t __IOCECInterfaceFree(uint64_t a1)
 
 uint64_t IOCECPhysicalAddressStringWithAddress(unsigned int a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   *__str = 0;
   v1 = snprintf(__str, 8uLL, "%x.%x.%x.%x", a1 >> 12, (a1 >> 8) & 0xF, a1 >> 4, a1 & 0xF);
   if (v1 <= 0)
@@ -265,9 +256,7 @@ uint64_t IOCECPhysicalAddressStringWithAddress(unsigned int a1)
     IOCECPhysicalAddressStringWithAddress_cold_1();
   }
 
-  result = *__str;
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return *__str;
 }
 
 uint64_t IOCECFrameStringWithFrame@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -290,7 +279,7 @@ uint64_t IOCECFrameStringWithFrame@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-void *IOCECInterfaceListenerCreate()
+void *IOCECInterfaceListenerCreate(uint64_t a1)
 {
   if (!__kIOCECInterfaceListenerTypeID)
   {
@@ -298,21 +287,21 @@ void *IOCECInterfaceListenerCreate()
   }
 
   Instance = _CFRuntimeCreateInstance();
-  v1 = Instance;
+  v2 = Instance;
   if (Instance)
   {
     *(Instance + 16) = 0u;
     *(Instance + 32) = 0u;
-    v2 = IONotificationPortCreate(*MEMORY[0x277CD2898]);
-    v1[4] = v2;
-    if (!v2)
+    v3 = IONotificationPortCreate(*MEMORY[0x277CD2898]);
+    v2[4] = v3;
+    if (!v3)
     {
-      CFRelease(v1);
+      CFRelease(v2);
       return 0;
     }
   }
 
-  return v1;
+  return v2;
 }
 
 uint64_t IOCECInterfaceListenerScheduleWithDispatchQueue(uint64_t a1, NSObject *a2)
@@ -335,7 +324,7 @@ uint64_t IOCECInterfaceListenerScheduleWithDispatchQueue(uint64_t a1, NSObject *
   return __IOCECInterfaceListenerPublishNotification(a1, v3);
 }
 
-uint64_t IOCECInterfaceCreate(int a1)
+uint64_t IOCECInterfaceCreate(uint64_t a1)
 {
   v2 = IOServiceMatching("IOCECService");
   if (!v2)
@@ -355,7 +344,7 @@ uint64_t IOCECInterfaceCreate(int a1)
   return v5;
 }
 
-uint64_t IOCECInterfaceCreateWithService(int a1, io_object_t object)
+uint64_t IOCECInterfaceCreateWithService(uint64_t a1, io_object_t object)
 {
   if (!object || !IOObjectConformsTo(object, "IOCECService"))
   {
@@ -380,7 +369,7 @@ uint64_t IOCECInterfaceCreateWithService(int a1, io_object_t object)
     *(Instance + 32) = 0u;
     NotificationPort = IODataQueueAllocateNotificationPort();
     *(v4 + 24) = NotificationPort;
-    if (!NotificationPort || (*(v4 + 16) = object, IOObjectRetain(object), v6 = IONotificationPortCreate(*MEMORY[0x277CD2898]), (*(v4 + 72) = v6) == 0) || IOServiceAddInterestNotification(v6, object, "IOGeneralInterest", __IOCECInterfaceGeneralInterestNotification, v4, (v4 + 80)) || IOServiceOpen(*(v4 + 16), *MEMORY[0x277D85F48], 0, (v4 + 20)) || (v7 = *(v4 + 20), OUTLINED_FUNCTION_0(), IOConnectCallScalarMethod(v8, v9, v10, v11, v12, v13)))
+    if (!NotificationPort || (*(v4 + 16) = object, IOObjectRetain(object), v6 = IONotificationPortCreate(*MEMORY[0x277CD2898]), (*(v4 + 72) = v6) == 0) || IOServiceAddInterestNotification(v6, object, "IOGeneralInterest", __IOCECInterfaceGeneralInterestNotification, v4, (v4 + 80)) || IOServiceOpen(*(v4 + 16), *MEMORY[0x277D85F48], 0, (v4 + 20)) || (OUTLINED_FUNCTION_0(), IOConnectCallScalarMethod(v7, v8, v9, v10, v11, v12)))
     {
       CFRelease(v4);
       return 0;
@@ -408,16 +397,14 @@ void IOCECInterfaceUnscheduleFromDispatchQueue(uint64_t a1, uint64_t a2)
 
 uint64_t IOCECInterfaceGetCECSnoopingEnabled(uint64_t a1, _BYTE *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
   v2 = 3758097090;
   if (a2)
   {
-    v4 = *(a1 + 20);
     OUTLINED_FUNCTION_0();
-    v13 = IOConnectCallMethod(v5, v6, v7, v8, v9, v10, v11, v12, 0, 0);
-    if (v13)
+    v12 = IOConnectCallMethod(v4, v5, v6, v7, v8, v9, v10, v11, 0, 0);
+    if (v12)
     {
-      v2 = v13;
+      return v12;
     }
 
     else
@@ -427,7 +414,6 @@ uint64_t IOCECInterfaceGetCECSnoopingEnabled(uint64_t a1, _BYTE *a2)
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -452,7 +438,7 @@ void IOCECInterfaceScheduleWithDispatchQueue(uint64_t a1, NSObject *a2)
 
 intptr_t __IOCECInterfaceReceiveNotification(intptr_t result)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   memset(msg, 0, sizeof(msg));
   if (result)
   {
@@ -501,7 +487,6 @@ intptr_t __IOCECInterfaceReceiveNotification(intptr_t result)
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 

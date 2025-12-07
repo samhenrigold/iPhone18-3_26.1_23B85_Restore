@@ -1736,14 +1736,14 @@ LABEL_7:
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void __66__GKSignInViewController_showPasswordResetAlertWithTitle_message___block_invoke(void *a1)
+void __66__GKSignInViewController_showPasswordResetAlertWithTitle_message___block_invoke(void *a1, uint64_t a2)
 {
-  v1 = a1[4];
-  v2 = a1[5];
-  v3 = a1[6];
-  v6 = GKGameCenterUIFrameworkBundle();
-  v4 = GKGetLocalizedStringFromTableInBundle();
-  v5 = [v1 _gkPresentConfirmationAlertWithTitle:v2 message:v3 buttonTitle:v4 block:&__block_literal_global_386 cancelAction:0];
+  v2 = a1[4];
+  v3 = a1[5];
+  v4 = a1[6];
+  v7 = GKGameCenterUIFrameworkBundle();
+  v5 = GKGetLocalizedStringFromTableInBundle();
+  v6 = [v2 _gkPresentConfirmationAlertWithTitle:v3 message:v4 buttonTitle:v5 block:&__block_literal_global_386 cancelAction:0];
 }
 
 void __66__GKSignInViewController_showPasswordResetAlertWithTitle_message___block_invoke_2()
@@ -1769,14 +1769,14 @@ void __66__GKSignInViewController_showPasswordResetAlertWithTitle_message___bloc
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void __61__GKSignInViewController_showPasswordAlertWithTitle_message___block_invoke(void *a1)
+void __61__GKSignInViewController_showPasswordAlertWithTitle_message___block_invoke(void *a1, uint64_t a2)
 {
-  v1 = a1[4];
-  v2 = a1[5];
-  v3 = a1[6];
-  v6 = GKGameCenterUIFrameworkBundle();
-  v4 = GKGetLocalizedStringFromTableInBundle();
-  v5 = [v1 _gkPresentAlertWithTitle:v2 message:v3 buttonTitle:v4];
+  v2 = a1[4];
+  v3 = a1[5];
+  v4 = a1[6];
+  v7 = GKGameCenterUIFrameworkBundle();
+  v5 = GKGetLocalizedStringFromTableInBundle();
+  v6 = [v2 _gkPresentAlertWithTitle:v3 message:v4 buttonTitle:v5];
 }
 
 - (void)showLoginFailedAlert
@@ -1812,14 +1812,14 @@ void __61__GKSignInViewController_showPasswordAlertWithTitle_message___block_inv
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void __51__GKSignInViewController_showConnectionFailedAlert__block_invoke(uint64_t a1)
+void __51__GKSignInViewController_showConnectionFailedAlert__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v6 = GKGameCenterUIFrameworkBundle();
-  v2 = GKGetLocalizedStringFromTableInBundle();
-  v3 = GKGameCenterUIFrameworkBundle();
-  v4 = GKGetLocalizedStringFromTableInBundle();
-  v5 = [v1 _gkPresentAlertWithTitle:v2 message:0 buttonTitle:v4];
+  v2 = *(a1 + 32);
+  v7 = GKGameCenterUIFrameworkBundle();
+  v3 = GKGetLocalizedStringFromTableInBundle();
+  v4 = GKGameCenterUIFrameworkBundle();
+  v5 = GKGetLocalizedStringFromTableInBundle();
+  v6 = [v2 _gkPresentAlertWithTitle:v3 message:0 buttonTitle:v5];
 }
 
 - (void)createAppleID

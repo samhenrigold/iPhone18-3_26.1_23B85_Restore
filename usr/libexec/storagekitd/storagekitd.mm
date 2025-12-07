@@ -1494,25 +1494,24 @@ void sub_100012730(id a1)
 
 void sub_100012E5C(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = +[SKDaemonManager sharedManager];
-    [v3 removeListener:*(a1 + 32)];
+    v2 = +[SKDaemonManager sharedManager];
+    [v2 removeListener:*(a1 + 32)];
   }
 
   [*(a1 + 40) setNumConnectedClients:{objc_msgSend(*(a1 + 40), "numConnectedClients") - 1}];
-  v4 = sub_10000BFD0();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_10000BFD0();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = [*(a1 + 40) numConnectedClients];
-    v7 = 138412546;
-    v8 = v5;
-    v9 = 1024;
-    v10 = v6;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ removed. There are now %u client(s) connected to storagekitd", &v7, 0x12u);
+    v4 = *(a1 + 32);
+    v5 = [*(a1 + 40) numConnectedClients];
+    v6 = 138412546;
+    v7 = v4;
+    v8 = 1024;
+    v9 = v5;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ removed. There are now %u client(s) connected to storagekitd", &v6, 0x12u);
   }
 }
 
@@ -1536,30 +1535,29 @@ id sub_10001458C(uint64_t a1, uint64_t a2)
 
   if (v7)
   {
-    v8 = *(a1 + 32);
-    v9 = objc_opt_class();
-    v10 = [*(a1 + 32) disk];
-    v11 = [*(a1 + 32) descriptor];
-    v12 = [v11 filesystem];
-    [v9 reProbeWithDisk:v10 isEncrypted:{objc_msgSend(v12, "isEncrypted")}];
+    v8 = objc_opt_class();
+    v9 = [*(a1 + 32) disk];
+    v10 = [*(a1 + 32) descriptor];
+    v11 = [v10 filesystem];
+    [v8 reProbeWithDisk:v9 isEncrypted:{objc_msgSend(v11, "isEncrypted")}];
 
-    v13 = *(a1 + 40);
+    v12 = *(a1 + 40);
   }
 
   else
   {
-    v14 = sub_10000BFD0();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = sub_10000BFD0();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v16 = 136315138;
-      v17 = "[SKEraseVolume(Daemon) createStateMachineWithError:]_block_invoke";
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%s: Failed to sync disk from Daemon", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "[SKEraseVolume(Daemon) createStateMachineWithError:]_block_invoke";
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%s: Failed to sync disk from Daemon", &v15, 0xCu);
     }
 
-    v13 = 0;
+    v12 = 0;
   }
 
-  return v13;
+  return v12;
 }
 
 void *sub_10001471C(uint64_t a1)
@@ -1978,11 +1976,12 @@ id sub_100017B5C(uint64_t a1, uint64_t a2, void *a3)
   return [a3 diskArbCallbackWithDissenter:a2];
 }
 
-void sub_100017EF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, uint64_t a16, char a17)
+void sub_100017EF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, uint64_t a16, ...)
 {
-  objc_destroyWeak((v17 + 40));
+  va_start(va, a16);
+  objc_destroyWeak((v16 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2265,10 +2264,7 @@ LABEL_6:
 
 uint64_t sub_10001B02C(uint64_t a1)
 {
-  v2 = +[NSDate date];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 48);
-  *(v3 + 48) = v2;
+  *(*(a1 + 32) + 48) = +[NSDate date];
 
   return _objc_release_x1();
 }
@@ -2284,6 +2280,13 @@ id sub_10001B080(uint64_t a1)
   return [v1 dispatchToWorkThread:v3];
 }
 
+void sub_10001B498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 double sub_10001B4E0(uint64_t a1)
 {
   [*(*(a1 + 32) + 48) timeIntervalSinceNow];
@@ -2292,9 +2295,9 @@ double sub_10001B4E0(uint64_t a1)
   return result;
 }
 
-void sub_10001BAA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_10001BAA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2308,20 +2311,21 @@ uint64_t sub_10001BACC(uint64_t result, uint64_t a2)
 
 uint64_t sub_10001BAE4(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _processDiskNotificationsForMap:*(a1 + 40) isCompleteDiskList:0];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _processDiskNotificationsForMap:*(a1 + 40) isCompleteDiskList:0];
 
   return _objc_release_x1();
 }
 
+void sub_10001C7EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_10001C824(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _processDiskNotificationsForMap:*(a1 + 40) isCompleteDiskList:0];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _processDiskNotificationsForMap:*(a1 + 40) isCompleteDiskList:0];
 
   return _objc_release_x1();
 }
@@ -2534,17 +2538,16 @@ void sub_10001DF44(uint64_t a1)
 
 void sub_10001E76C(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 88);
   if (objc_opt_respondsToSelector())
   {
     [*(*(a1 + 32) + 88) dmAsyncFinishedForDisk:*(a1 + 48) mainError:*(a1 + 56) detailError:*(a1 + 60) dictionary:*(a1 + 40)];
   }
 
-  v3 = *(a1 + 48);
-  if (v3)
+  v2 = *(a1 + 48);
+  if (v2)
   {
 
-    CFRelease(v3);
+    CFRelease(v2);
   }
 }
 
@@ -2568,17 +2571,16 @@ void sub_10001E898(uint64_t a1)
 void sub_10001E970(uint64_t a1)
 {
   v2 = [*(a1 + 32) notificationsSyncQueue];
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_10001EA54;
-  v5[3] = &unk_100048F38;
+  v4[0] = _NSConcreteStackBlock;
+  v4[1] = 3221225472;
+  v4[2] = sub_10001EA54;
+  v4[3] = &unk_100048F38;
   v3 = *(a1 + 40);
-  v5[4] = *(a1 + 32);
-  v6 = v3;
-  dispatch_async(v2, v5);
+  v4[4] = *(a1 + 32);
+  v5 = v3;
+  dispatch_async(v2, v4);
 
   DAUnregisterCallback(*(*(a1 + 32) + 72), j__objc_msgSend__idleCallback, *(a1 + 32));
-  v4 = *(*(a1 + 32) + 72);
   DARegisterIdleCallback();
 }
 
@@ -2768,10 +2770,11 @@ void sub_100024214(id a1)
   }
 }
 
-void sub_100024560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_100024560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2832,9 +2835,9 @@ id sub_1000253B4(void *a1, uint64_t a2, void *a3)
   return v6;
 }
 
-void sub_1000254E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1000254E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2855,6 +2858,13 @@ void sub_1000254F8(uint64_t a1, void *a2)
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
+}
+
+void sub_100026080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 Block_layout *sub_100026098(uint64_t a1, void *a2)
@@ -2999,9 +3009,9 @@ NSArray *__cdecl sub_1000271E8(id a1, SKDisk *a2, id *a3)
   return v8;
 }
 
-void sub_1000275F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000275F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

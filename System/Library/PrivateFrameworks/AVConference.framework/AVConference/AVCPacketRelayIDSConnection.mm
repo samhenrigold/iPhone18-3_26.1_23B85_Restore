@@ -194,8 +194,9 @@ LABEL_9:
   return v11;
 }
 
-void __36__AVCPacketRelayIDSConnection_start__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, void *a6)
+void __36__AVCPacketRelayIDSConnection_start__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
+  v6 = a4;
   v32 = *MEMORY[0x1E69E9840];
   if (a6)
   {
@@ -212,7 +213,7 @@ void __36__AVCPacketRelayIDSConnection_start__block_invoke(uint64_t a1, uint64_t
         v26 = 1024;
         v27 = 316;
         v28 = 1024;
-        v29 = a4;
+        v29 = v6;
         v30 = 2080;
         v31 = [objc_msgSend(a6 "description")];
         _os_log_error_impl(&dword_1DB56E000, v9, OS_LOG_TYPE_ERROR, " [%s] %s:%d AVCPacketRelayIDSConnection: Datagram channel link %d failed to read with error %s", &v22, 0x2Cu);
@@ -523,13 +524,15 @@ void __51__AVCPacketRelayIDSConnection_sendData_size_error___block_invoke(uint64
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v3 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v10) = 136315906;
+      *(&v10 + 4) = v3;
       OUTLINED_FUNCTION_6_5();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_21();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v3, v4, " [%s] %s:%d AVCPacketRelayIDSConnection: init error %08X", v5, v6, v7, v8, 2u);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v4, v5, " [%s] %s:%d AVCPacketRelayIDSConnection: init error %08X", v6, v7, v8, v9, v10, DWORD2(v10));
     }
   }
 }
@@ -538,13 +541,15 @@ void __51__AVCPacketRelayIDSConnection_sendData_size_error___block_invoke(uint64
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v3 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v10) = 136315906;
+      *(&v10 + 4) = v3;
       OUTLINED_FUNCTION_6_5();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_21();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v3, v4, " [%s] %s:%d AVCPacketRelayIDSConnection: init error %08X", v5, v6, v7, v8, 2u);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v4, v5, " [%s] %s:%d AVCPacketRelayIDSConnection: init error %08X", v6, v7, v8, v9, v10, DWORD2(v10));
     }
   }
 }
@@ -553,7 +558,7 @@ void __51__AVCPacketRelayIDSConnection_sendData_size_error___block_invoke(uint64
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCPacketRelayIDSConnection: cannot start without setting read handler", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCPacketRelayIDSConnection: cannot start without setting read handler", v2, v3, v4, v5);
 }
 
 void __36__AVCPacketRelayIDSConnection_start__block_invoke_cold_1()
@@ -578,14 +583,14 @@ void __36__AVCPacketRelayIDSConnection_start__block_invoke_78_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCPacketRelayIDSConnection: IDS eventHandler called without event type", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCPacketRelayIDSConnection: IDS eventHandler called without event type", v2, v3, v4, v5);
 }
 
 - (void)sendData:size:error:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCPacketRelayIDSConnection: resume the connection and wait to be connected before sending data", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCPacketRelayIDSConnection: resume the connection and wait to be connected before sending data", v2, v3, v4, v5);
 }
 
 void __51__AVCPacketRelayIDSConnection_sendData_size_error___block_invoke_cold_1()

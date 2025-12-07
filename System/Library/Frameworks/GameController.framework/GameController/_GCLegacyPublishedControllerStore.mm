@@ -15,9 +15,9 @@
     +[_GCLegacyPublishedControllerStore sharedInstance];
   }
 
-  v0 = sharedInstance_Shared_2;
+  v1 = sharedInstance_Shared_2;
 
-  return v0;
+  return v1;
 }
 
 - (_GCLegacyPublishedControllerStore)init
@@ -35,7 +35,6 @@
 
 - (uint64_t)_publishCustomController:(uint64_t)controller
 {
-  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   v5 = 0;
@@ -46,11 +45,13 @@
 
     if (v6)
     {
-      os_unfair_recursive_lock_unlock();
-      v7 = _gc_log_session();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v7 = os_unfair_recursive_lock_unlock();
+      v8 = _gc_log_session(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        OUTLINED_FUNCTION_3_8(&dword_1D2CD5000, v8, v9, "#BUG IN CLIENT - Custom controller is already published: %@", v10, v11, v12, v13, 2u);
+        LODWORD(v19) = 138412290;
+        *(&v19 + 4) = v4;
+        OUTLINED_FUNCTION_3_8(&dword_1D2CD5000, v9, v10, "#BUG IN CLIENT - Custom controller is already published: %@", v11, v12, v13, v14, v19, DWORD2(v19));
       }
 
       v5 = 0;
@@ -58,25 +59,23 @@
 
     else
     {
-      v14 = [MEMORY[0x1E695DFD8] setWithObject:v4];
+      v15 = [MEMORY[0x1E695DFD8] setWithObject:v4];
       v5 = 1;
       [OUTLINED_FUNCTION_1_20() willChangeValueForKey:? withSetMutation:? usingObjects:?];
-      v15 = [OUTLINED_FUNCTION_2_14() setByAddingObject:?];
-      v16 = *(controller + 16);
-      *(controller + 16) = v15;
+      v16 = [OUTLINED_FUNCTION_2_14() setByAddingObject:?];
+      v17 = *(controller + 16);
+      *(controller + 16) = v16;
 
       [OUTLINED_FUNCTION_1_20() didChangeValueForKey:? withSetMutation:? usingObjects:?];
       os_unfair_recursive_lock_unlock();
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (uint64_t)_unpublishCustomController:(uint64_t)controller
 {
-  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   v5 = 0;
@@ -101,18 +100,19 @@
 
     else
     {
-      os_unfair_recursive_lock_unlock();
-      v10 = _gc_log_session();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v10 = os_unfair_recursive_lock_unlock();
+      v11 = _gc_log_session(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        OUTLINED_FUNCTION_3_8(&dword_1D2CD5000, v11, v12, "#BUG IN CLIENT - Controller is not custom or has not been published: %@", v13, v14, v15, v16, 2u);
+        LODWORD(v19) = 138412290;
+        HIDWORD(v19) = v4;
+        OUTLINED_FUNCTION_3_8(&dword_1D2CD5000, v12, v13, "#BUG IN CLIENT - Controller is not custom or has not been published: %@", v14, v15, v16, v17, v19, HIDWORD(v4));
       }
 
       v5 = 0;
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

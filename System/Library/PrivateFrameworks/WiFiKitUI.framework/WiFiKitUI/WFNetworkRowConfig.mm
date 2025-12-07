@@ -246,7 +246,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_2740368EC(v7);
+  sub_2740368EC(v7, v8);
 }
 
 + (id)settingsNetworkRowConfig

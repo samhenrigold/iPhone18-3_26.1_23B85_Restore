@@ -8,6 +8,7 @@
 - (CKReference)initWithRecord:(CKRecord *)record action:(CKReferenceAction)action;
 - (CKReference)initWithRecordID:(CKRecordID *)recordID action:(CKReferenceAction)action;
 - (NSString)debugDescription;
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand;
 - (id)ckShortDescription;
 - (id)initInternal;
 - (unint64_t)hash;
@@ -215,6 +216,39 @@
   v6 = objc_msgSend_ckShortDescription(v3, v4, v5);
 
   return v6;
+}
+
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand
+{
+  v15[2] = *MEMORY[0x1E69E9840];
+  if (private)
+  {
+    if (expand)
+    {
+      v14[0] = @"type";
+      v14[1] = @"recordID";
+      v15[0] = @"reference";
+      v5 = objc_msgSend_recordID(self, a2, public);
+      v7 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(v5, v6, 1, 1, 1);
+      v15[1] = v7;
+      v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v8, v15, v14, 2);
+    }
+
+    else
+    {
+      v12 = @"recordID";
+      v5 = objc_msgSend_recordID(self, a2, public);
+      v13 = v5;
+      v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v10, &v13, &v12, 1);
+    }
+  }
+
+  else
+  {
+    v9 = MEMORY[0x1E695E0F8];
+  }
+
+  return v9;
 }
 
 - (void)encodeWithCoder:(id)coder

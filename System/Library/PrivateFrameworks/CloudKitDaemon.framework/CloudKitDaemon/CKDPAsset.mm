@@ -222,132 +222,127 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v11 = toCopy;
+  v6 = toCopy;
   if (self->_owner)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_signature)
   {
     PBDataWriterWriteDataField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 0x10) != 0)
   {
-    size = self->_size;
     PBDataWriterWriteInt64Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_downloadToken)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_downloadRequest)
   {
     PBDataWriterWriteDataField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_contentBaseURL)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_requestor)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_recordId)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_uploadReceipt)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_downloadBaseURL)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    downloadURLExpiration = self->_downloadURLExpiration;
     PBDataWriterWriteInt64Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_protectionInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_referenceSignature)
   {
     PBDataWriterWriteDataField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    downloadTokenExpiration = self->_downloadTokenExpiration;
     PBDataWriterWriteInt64Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_clearAssetKey)
   {
     PBDataWriterWriteDataField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_assetAuthorizationResponseUUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_constructedAssetDownloadURL)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    constructedAssetDownloadURLExpiration = self->_constructedAssetDownloadURLExpiration;
     PBDataWriterWriteInt64Field();
-    toCopy = v11;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    constructedAssetDownloadEstimatedSize = self->_constructedAssetDownloadEstimatedSize;
     PBDataWriterWriteInt64Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_constructedAssetDownloadParameters)
   {
     PBDataWriterWriteDataField();
-    toCopy = v11;
+    toCopy = v6;
   }
 }
 
@@ -622,7 +617,6 @@
     }
   }
 
-  v12 = *(equalCopy + 168);
   if ((*&self->_has & 0x10) != 0)
   {
     if ((equalCopy[21] & 0x10) == 0 || self->_size != equalCopy[5])
@@ -639,73 +633,72 @@ LABEL_57:
   }
 
   downloadToken = self->_downloadToken;
-  v14 = equalCopy[13];
-  if (downloadToken | v14 && !objc_msgSend_isEqual_(downloadToken, v7, v14))
+  v13 = equalCopy[13];
+  if (downloadToken | v13 && !objc_msgSend_isEqual_(downloadToken, v7, v13))
   {
     goto LABEL_57;
   }
 
   downloadRequest = self->_downloadRequest;
-  v16 = equalCopy[12];
-  if (downloadRequest | v16)
+  v15 = equalCopy[12];
+  if (downloadRequest | v15)
   {
-    if (!objc_msgSend_isEqual_(downloadRequest, v7, v16))
+    if (!objc_msgSend_isEqual_(downloadRequest, v7, v15))
     {
       goto LABEL_57;
     }
   }
 
   contentBaseURL = self->_contentBaseURL;
-  v18 = equalCopy[10];
-  if (contentBaseURL | v18)
+  v17 = equalCopy[10];
+  if (contentBaseURL | v17)
   {
-    if (!objc_msgSend_isEqual_(contentBaseURL, v7, v18))
+    if (!objc_msgSend_isEqual_(contentBaseURL, v7, v17))
     {
       goto LABEL_57;
     }
   }
 
   requestor = self->_requestor;
-  v20 = equalCopy[18];
-  if (requestor | v20)
+  v19 = equalCopy[18];
+  if (requestor | v19)
   {
-    if (!objc_msgSend_isEqual_(requestor, v7, v20))
+    if (!objc_msgSend_isEqual_(requestor, v7, v19))
     {
       goto LABEL_57;
     }
   }
 
   recordId = self->_recordId;
-  v22 = equalCopy[16];
-  if (recordId | v22)
+  v21 = equalCopy[16];
+  if (recordId | v21)
   {
-    if (!objc_msgSend_isEqual_(recordId, v7, v22))
+    if (!objc_msgSend_isEqual_(recordId, v7, v21))
     {
       goto LABEL_57;
     }
   }
 
   uploadReceipt = self->_uploadReceipt;
-  v24 = equalCopy[20];
-  if (uploadReceipt | v24)
+  v23 = equalCopy[20];
+  if (uploadReceipt | v23)
   {
-    if (!objc_msgSend_isEqual_(uploadReceipt, v7, v24))
+    if (!objc_msgSend_isEqual_(uploadReceipt, v7, v23))
     {
       goto LABEL_57;
     }
   }
 
   downloadBaseURL = self->_downloadBaseURL;
-  v26 = equalCopy[11];
-  if (downloadBaseURL | v26)
+  v25 = equalCopy[11];
+  if (downloadBaseURL | v25)
   {
-    if (!objc_msgSend_isEqual_(downloadBaseURL, v7, v26))
+    if (!objc_msgSend_isEqual_(downloadBaseURL, v7, v25))
     {
       goto LABEL_57;
     }
   }
 
-  v27 = *(equalCopy + 168);
   if ((*&self->_has & 8) != 0)
   {
     if ((equalCopy[21] & 8) == 0 || self->_downloadURLExpiration != equalCopy[4])
@@ -720,23 +713,22 @@ LABEL_57:
   }
 
   protectionInfo = self->_protectionInfo;
-  v29 = equalCopy[15];
-  if (protectionInfo | v29 && !objc_msgSend_isEqual_(protectionInfo, v7, v29))
+  v27 = equalCopy[15];
+  if (protectionInfo | v27 && !objc_msgSend_isEqual_(protectionInfo, v7, v27))
   {
     goto LABEL_57;
   }
 
   referenceSignature = self->_referenceSignature;
-  v31 = equalCopy[17];
-  if (referenceSignature | v31)
+  v29 = equalCopy[17];
+  if (referenceSignature | v29)
   {
-    if (!objc_msgSend_isEqual_(referenceSignature, v7, v31))
+    if (!objc_msgSend_isEqual_(referenceSignature, v7, v29))
     {
       goto LABEL_57;
     }
   }
 
-  v32 = *(equalCopy + 168);
   if ((*&self->_has & 4) != 0)
   {
     if ((equalCopy[21] & 4) == 0 || self->_downloadTokenExpiration != equalCopy[3])
@@ -751,33 +743,32 @@ LABEL_57:
   }
 
   clearAssetKey = self->_clearAssetKey;
-  v34 = equalCopy[7];
-  if (clearAssetKey | v34 && !objc_msgSend_isEqual_(clearAssetKey, v7, v34))
+  v31 = equalCopy[7];
+  if (clearAssetKey | v31 && !objc_msgSend_isEqual_(clearAssetKey, v7, v31))
   {
     goto LABEL_57;
   }
 
   assetAuthorizationResponseUUID = self->_assetAuthorizationResponseUUID;
-  v36 = equalCopy[6];
-  if (assetAuthorizationResponseUUID | v36)
+  v33 = equalCopy[6];
+  if (assetAuthorizationResponseUUID | v33)
   {
-    if (!objc_msgSend_isEqual_(assetAuthorizationResponseUUID, v7, v36))
+    if (!objc_msgSend_isEqual_(assetAuthorizationResponseUUID, v7, v33))
     {
       goto LABEL_57;
     }
   }
 
   constructedAssetDownloadURL = self->_constructedAssetDownloadURL;
-  v38 = equalCopy[9];
-  if (constructedAssetDownloadURL | v38)
+  v35 = equalCopy[9];
+  if (constructedAssetDownloadURL | v35)
   {
-    if (!objc_msgSend_isEqual_(constructedAssetDownloadURL, v7, v38))
+    if (!objc_msgSend_isEqual_(constructedAssetDownloadURL, v7, v35))
     {
       goto LABEL_57;
     }
   }
 
-  v39 = *(equalCopy + 168);
   if ((*&self->_has & 2) != 0)
   {
     if ((equalCopy[21] & 2) == 0 || self->_constructedAssetDownloadURLExpiration != equalCopy[2])
@@ -805,10 +796,10 @@ LABEL_57:
   }
 
   constructedAssetDownloadParameters = self->_constructedAssetDownloadParameters;
-  v41 = equalCopy[8];
-  if (constructedAssetDownloadParameters | v41)
+  v37 = equalCopy[8];
+  if (constructedAssetDownloadParameters | v37)
   {
-    isEqual = objc_msgSend_isEqual_(constructedAssetDownloadParameters, v7, v41);
+    isEqual = objc_msgSend_isEqual_(constructedAssetDownloadParameters, v7, v37);
   }
 
   else

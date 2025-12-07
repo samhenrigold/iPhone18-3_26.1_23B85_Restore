@@ -77,28 +77,28 @@
 - (id)bottomBackdropInfoForPage:(id)page
 {
   WeakRetained = objc_loadWeakRetained(&self->_container);
-  [WeakRetained safeAreaInsets];
-  v6 = v5 + 44.0 + SFCapsuleBottomBarPaddingForTopLayoutStyle();
+  safeAreaInsets = [WeakRetained safeAreaInsets];
+  v8 = v6 + 44.0 + SFCapsuleBottomBarPaddingForTopLayoutStyle(safeAreaInsets, v7);
 
-  v7 = objc_loadWeakRetained(&self->_container);
-  [v7 bounds];
-  v9 = v8;
+  v9 = objc_loadWeakRetained(&self->_container);
+  [v9 bounds];
   v11 = v10;
   v13 = v12;
   v15 = v14;
-  v16 = objc_alloc_init(_TtC12MobileSafari23SFCapsulePageLayoutInfo);
-  v20.origin.x = v9;
-  v20.origin.y = v11;
-  v20.size.width = v13;
-  v20.size.height = v15;
-  v17 = CGRectGetHeight(v20) - v6;
-  v21.origin.x = v9;
-  v21.origin.y = v11;
-  v21.size.width = v13;
-  v21.size.height = v15;
-  [(SFCapsulePageLayoutInfo *)v16 setFrame:0.0, v17, CGRectGetWidth(v21), v6];
+  v17 = v16;
+  v18 = objc_alloc_init(_TtC12MobileSafari23SFCapsulePageLayoutInfo);
+  v22.origin.x = v11;
+  v22.origin.y = v13;
+  v22.size.width = v15;
+  v22.size.height = v17;
+  v19 = CGRectGetHeight(v22) - v8;
+  v23.origin.x = v11;
+  v23.origin.y = v13;
+  v23.size.width = v15;
+  v23.size.height = v17;
+  [(SFCapsulePageLayoutInfo *)v18 setFrame:0.0, v19, CGRectGetWidth(v23), v8];
 
-  return v16;
+  return v18;
 }
 
 - (id)topBackdropInfoForPage:(id)page
@@ -193,22 +193,22 @@
   v11 = v10;
 
   v12 = objc_alloc_init(_TtC12MobileSafari23SFCapsulePageLayoutInfo);
-  v18.origin.x = v5;
-  v18.origin.y = v7;
-  v18.size.width = v9;
-  v18.size.height = v11;
-  MinX = CGRectGetMinX(v18);
-  v19.origin.x = v5;
-  v19.origin.y = v7;
-  v19.size.width = v9;
-  v19.size.height = v11;
-  MinY = CGRectGetMinY(v19);
-  v15 = MinY + SFCapsuleBottomBarPaddingForTopLayoutStyle();
   v20.origin.x = v5;
   v20.origin.y = v7;
   v20.size.width = v9;
   v20.size.height = v11;
-  [(SFCapsulePageLayoutInfo *)v12 setFrame:MinX, v15, CGRectGetWidth(v20), 44.0];
+  MinX = CGRectGetMinX(v20);
+  v21.origin.x = v5;
+  v21.origin.y = v7;
+  v21.size.width = v9;
+  v21.size.height = v11;
+  MinY = CGRectGetMinY(v21);
+  v17 = MinY + SFCapsuleBottomBarPaddingForTopLayoutStyle(v15, v16);
+  v22.origin.x = v5;
+  v22.origin.y = v7;
+  v22.size.width = v9;
+  v22.size.height = v11;
+  [(SFCapsulePageLayoutInfo *)v12 setFrame:MinX, v17, CGRectGetWidth(v22), 44.0];
 
   return v12;
 }

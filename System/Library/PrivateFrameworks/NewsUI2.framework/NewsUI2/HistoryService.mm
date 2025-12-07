@@ -17,7 +17,7 @@
 {
   if (articles)
   {
-    sub_2186C6148(0, &qword_280E8DA20);
+    sub_2186C6148(0, &qword_280E8DA20, 0x277CCABB0);
     sub_219BF5214();
     selfCopy = self;
 

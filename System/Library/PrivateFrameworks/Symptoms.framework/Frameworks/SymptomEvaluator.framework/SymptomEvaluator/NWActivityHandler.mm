@@ -9,6 +9,7 @@
 - (BOOL)writesToDBAllowed;
 - (NSString)description;
 - (NWActivityHandler)init;
+- (id)_convertQueueStats:(id)stats forInterfaceType:(int)type;
 - (id)_createDeviceReportForActivityType:(int)type andDomain:(unsigned int)domain;
 - (id)_createSFL2Report;
 - (id)_getBundleNameFromPid:(int)pid;
@@ -29,11 +30,14 @@
 - (void)_handleEpilogue:(id)epilogue;
 - (void)_handleL2Start:(id)start;
 - (void)_handleL2Stop:(id)stop;
+- (void)_handleNWConnectionStatistics:(id)statistics effectivePid:(int)pid;
 - (void)_handleStartActivity:(id)activity;
 - (void)_handleWiFiItem:(id)item;
 - (void)_pruneActivityLists;
 - (void)_pruneOldMappings;
 - (void)_sendCAEvent:(id)event forReport:(id)report;
+- (void)_sendDictionaryMetric:(id)metric ofType:(int)type forActivities:(id)activities parentActivity:(id)activity additionalItems:(id)items;
+- (void)_sendMetric:(id)metric ofType:(int)type forActivities:(id)activities parentActivity:(id)activity additionalItems:(id)items;
 - (void)_startL2Streaming;
 - (void)_stopL2Streaming;
 - (void)_triggerCellMetric;
@@ -49,6 +53,7 @@
 - (void)powerStateChanged:(BOOL)changed;
 - (void)processSymptom:(id)symptom;
 - (void)setUpBatteryAccumulator;
+- (void)streamAWDMetric:(id)metric withIdentifier:(unsigned int)identifier additionalDictionaryItems:(id)items;
 - (void)streamDictionaryMetric:(id)metric additionalDictionaryItems:(id)items;
 - (void)traverseObject:(id)object atPath:(id)path;
 @end
@@ -84,7 +89,7 @@ __CFString *__44__NWActivityHandler_setUpBatteryAccumulator__block_invoke_3(uint
 
 - (id)_createSFL2Report
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(SFL2Report);
   if (v3)
   {
@@ -92,9 +97,9 @@ __CFString *__44__NWActivityHandler_setUpBatteryAccumulator__block_invoke_3(uint
     v5 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v30 = 138412290;
-      v31 = v4;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "NWACT: Got Cell state relay: %@", &v30, 0xCu);
+      v29 = 138412290;
+      v30 = v4;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "NWACT: Got Cell state relay: %@", &v29, 0xCu);
     }
 
     [(SFL2Report *)v3 setCellularLQM:[(SFL2Report *)v4 linkQuality]];
@@ -146,9 +151,9 @@ __CFString *__44__NWActivityHandler_setUpBatteryAccumulator__block_invoke_3(uint
     v13 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
     {
-      v30 = 138412290;
-      v31 = queueStatistics;
-      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_INFO, "Got queue statistics for cellular: %@", &v30, 0xCu);
+      v29 = 138412290;
+      v30 = queueStatistics;
+      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_INFO, "Got queue statistics for cellular: %@", &v29, 0xCu);
     }
 
     v14 = [(NWActivityHandler *)self _convertQueueStats:queueStatistics forInterfaceType:2];
@@ -160,9 +165,9 @@ __CFString *__44__NWActivityHandler_setUpBatteryAccumulator__block_invoke_3(uint
     v17 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v30 = 138412290;
-      v31 = v16;
-      _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "NWACT: Got Wi-Fi state relay: %@", &v30, 0xCu);
+      v29 = 138412290;
+      v30 = v16;
+      _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "NWACT: Got Wi-Fi state relay: %@", &v29, 0xCu);
     }
 
     [(SFL2Report *)v3 setWifiLQM:[(SFL2Report *)v16 linkQuality]];
@@ -176,9 +181,9 @@ __CFString *__44__NWActivityHandler_setUpBatteryAccumulator__block_invoke_3(uint
     v19 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
     {
-      v30 = 138412290;
-      v31 = queueStatistics2;
-      _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_INFO, "Got queue statistics for wifi: %@", &v30, 0xCu);
+      v29 = 138412290;
+      v30 = queueStatistics2;
+      _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_INFO, "Got queue statistics for wifi: %@", &v29, 0xCu);
     }
 
     v20 = [(NWActivityHandler *)self _convertQueueStats:queueStatistics2 forInterfaceType:1];
@@ -213,9 +218,9 @@ __CFString *__44__NWActivityHandler_setUpBatteryAccumulator__block_invoke_3(uint
     v26 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v30 = 138412290;
-      v31 = v3;
-      _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEBUG, "Created SFL2Report: %@", &v30, 0xCu);
+      v29 = 138412290;
+      v30 = v3;
+      _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEBUG, "Created SFL2Report: %@", &v29, 0xCu);
     }
 
     v27 = v3;
@@ -226,19 +231,17 @@ __CFString *__44__NWActivityHandler_setUpBatteryAccumulator__block_invoke_3(uint
     v7 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v30) = 0;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "NWACT: Failed to create SFL2Report", &v30, 2u);
+      LOWORD(v29) = 0;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "NWACT: Failed to create SFL2Report", &v29, 2u);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)_getBundleNameFromPid:(int)pid
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (_getBundleNameFromPid__hot_pid == pid)
   {
     date = [MEMORY[0x277CBEAA8] date];
@@ -285,13 +288,13 @@ LABEL_20:
         {
           v19 = v18;
           bundleIdentifier2 = [v12 bundleIdentifier];
-          v24 = 67109632;
+          v23 = 67109632;
           pidCopy3 = pid;
-          v26 = 2048;
-          v27 = v12;
-          v28 = 2048;
-          v29 = bundleIdentifier2;
-          _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_INFO, "NWACT: No bundle for delegating client %d: bundle %p, bundle.bundleIdentifier %p", &v24, 0x1Cu);
+          v25 = 2048;
+          v26 = v12;
+          v27 = 2048;
+          v28 = bundleIdentifier2;
+          _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_INFO, "NWACT: No bundle for delegating client %d: bundle %p, bundle.bundleIdentifier %p", &v23, 0x1Cu);
         }
 
         bundleIdentifier = 0;
@@ -303,9 +306,9 @@ LABEL_20:
       v21 = metricsLogHandle;
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
       {
-        v24 = 67109120;
+        v23 = 67109120;
         pidCopy3 = pid;
-        _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_INFO, "NWACT: No bundle for delegating client %d: no executable URL", &v24, 8u);
+        _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_INFO, "NWACT: No bundle for delegating client %d: no executable URL", &v23, 8u);
       }
 
       bundleIdentifier = 0;
@@ -317,16 +320,15 @@ LABEL_20:
   v17 = metricsLogHandle;
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
   {
-    v24 = 67109376;
+    v23 = 67109376;
     pidCopy3 = pid;
-    v26 = 1024;
-    LODWORD(v27) = v7;
-    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_INFO, "NWACT: No bundle for delegating client %d: pid_path returned invalid length %d", &v24, 0xEu);
+    v25 = 1024;
+    LODWORD(v26) = v7;
+    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_INFO, "NWACT: No bundle for delegating client %d: pid_path returned invalid length %d", &v23, 0xEu);
   }
 
   bundleIdentifier = 0;
 LABEL_21:
-  v22 = *MEMORY[0x277D85DE8];
 
   return bundleIdentifier;
 }
@@ -343,24 +345,24 @@ LABEL_21:
 
 - (void)_dumpState:(int)state
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (state == 1)
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     mappedMetrics = [(NWActivityHandler *)self mappedMetrics];
-    v5 = [mappedMetrics countByEnumeratingWithState:&v24 objects:v38 count:16];
+    v5 = [mappedMetrics countByEnumeratingWithState:&v23 objects:v37 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v25;
+      v7 = *v24;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v25 != v7)
+          if (*v24 != v7)
           {
             objc_enumerationMutation(mappedMetrics);
           }
@@ -368,19 +370,19 @@ LABEL_21:
           v9 = metricsLogHandle;
           if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
           {
-            v10 = *(*(&v24 + 1) + 8 * i);
+            v10 = *(*(&v23 + 1) + 8 * i);
             v11 = v9;
             mappedMetrics2 = [(NWActivityHandler *)self mappedMetrics];
             v13 = [mappedMetrics2 objectForKeyedSubscript:v10];
             *buf = 138412546;
-            v29 = v10;
-            v30 = 2112;
-            v31 = v13;
+            v28 = v10;
+            v29 = 2112;
+            v30 = v13;
             _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "NWACT: mapper for %@ is %@", buf, 0x16u);
           }
         }
 
-        v6 = [mappedMetrics countByEnumeratingWithState:&v24 objects:v38 count:16];
+        v6 = [mappedMetrics countByEnumeratingWithState:&v23 objects:v37 count:16];
       }
 
       while (v6);
@@ -391,13 +393,13 @@ LABEL_21:
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218752;
-    v29 = numHitLookupsNWActivity;
-    v30 = 2048;
-    v31 = numHitLookupsNWActivityParent;
-    v32 = 2048;
-    v33 = numHitLookupsNWActivityEpilogue;
-    v34 = 2048;
-    v35 = numHitLookupsNWActivityEpilogueParent;
+    v28 = numHitLookupsNWActivity;
+    v29 = 2048;
+    v30 = numHitLookupsNWActivityParent;
+    v31 = 2048;
+    v32 = numHitLookupsNWActivityEpilogue;
+    v33 = 2048;
+    v34 = numHitLookupsNWActivityEpilogueParent;
     _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "NWACT Cache hits Activity %lld (parent %lld) Epilogue %lld (parent %lld)", buf, 0x2Au);
   }
 
@@ -405,13 +407,13 @@ LABEL_21:
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218752;
-    v29 = numHitLookupsNWActivityFromCFNetwork;
-    v30 = 2048;
-    v31 = numHitLookupsConnectionFromCFNetworkArray;
-    v32 = 2048;
-    v33 = numHitLookupsNWActivityFromLibnetcoreArray;
-    v34 = 2048;
-    v35 = numHitLookupsConnectionFromLibnetcore;
+    v28 = numHitLookupsNWActivityFromCFNetwork;
+    v29 = 2048;
+    v30 = numHitLookupsConnectionFromCFNetworkArray;
+    v31 = 2048;
+    v32 = numHitLookupsNWActivityFromLibnetcoreArray;
+    v33 = 2048;
+    v34 = numHitLookupsConnectionFromLibnetcore;
     _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEFAULT, "NWACT Cache hits CFNet activity %lld CFNet connection %lld  NWConnection activity %lld NWConnection connection %lld", buf, 0x2Au);
   }
 
@@ -419,7 +421,7 @@ LABEL_21:
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v29 = numHitLookupsNWActivityFromWiFiArray;
+    v28 = numHitLookupsNWActivityFromWiFiArray;
     _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "NWACT Cache hits WiFi activity %lld", buf, 0xCu);
   }
 
@@ -427,7 +429,7 @@ LABEL_21:
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v29 = numHitLookupsNWActivityFromCellArray;
+    v28 = numHitLookupsNWActivityFromCellArray;
     _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "NWACT Cache hits Cell activity %lld", buf, 0xCu);
   }
 
@@ -435,13 +437,13 @@ LABEL_21:
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218752;
-    v29 = numMissedLookupsNWActivity;
-    v30 = 2048;
-    v31 = numMissedLookupsNWActivityParent;
-    v32 = 2048;
-    v33 = numMissedLookupsNWActivityEpilogue;
-    v34 = 2048;
-    v35 = numMissedLookupsNWActivityEpilogueParent;
+    v28 = numMissedLookupsNWActivity;
+    v29 = 2048;
+    v30 = numMissedLookupsNWActivityParent;
+    v31 = 2048;
+    v32 = numMissedLookupsNWActivityEpilogue;
+    v33 = 2048;
+    v34 = numMissedLookupsNWActivityEpilogueParent;
     _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEFAULT, "NWACT Cache misses Activity %lld (parent %lld) Epilogue %lld (parent %lld)", buf, 0x2Au);
   }
 
@@ -449,13 +451,13 @@ LABEL_21:
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218752;
-    v29 = numMissedLookupsNWActivityFromCFNetwork;
-    v30 = 2048;
-    v31 = numMissedLookupsConnectionFromCFNetworkArray;
-    v32 = 2048;
-    v33 = numMissedLookupsNWActivityFromLibnetcoreArray;
-    v34 = 2048;
-    v35 = numMissedLookupsConnectionFromLibnetcore;
+    v28 = numMissedLookupsNWActivityFromCFNetwork;
+    v29 = 2048;
+    v30 = numMissedLookupsConnectionFromCFNetworkArray;
+    v31 = 2048;
+    v32 = numMissedLookupsNWActivityFromLibnetcoreArray;
+    v33 = 2048;
+    v34 = numMissedLookupsConnectionFromLibnetcore;
     _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "NWACT Cache misses CFNet activity %lld CFNet connection %lld  NWConnection activity %lld NWConnection connection %lld", buf, 0x2Au);
   }
 
@@ -463,7 +465,7 @@ LABEL_21:
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v29 = numMissedLookupsNWActivityFromWiFiArray;
+    v28 = numMissedLookupsNWActivityFromWiFiArray;
     _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "NWACT Cache misses WiFi activity %lld", buf, 0xCu);
   }
 
@@ -471,7 +473,7 @@ LABEL_21:
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v29 = numMissedLookupsNWActivityFromCellArray;
+    v28 = numMissedLookupsNWActivityFromCellArray;
     _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "NWACT Cache misses Cell activity %lld", buf, 0xCu);
   }
 
@@ -479,46 +481,42 @@ LABEL_21:
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134219008;
-    v29 = numPrunes;
-    v30 = 2048;
-    v31 = numEvictionsConnection;
-    v32 = 2048;
-    v33 = numEvictionsNWActivity;
-    v34 = 2048;
-    *&v35 = *&totalAgeAtEviction / (numEvictionsNWActivity + numEvictionsConnection);
-    v36 = 2048;
-    v37 = minAgeAtEviction;
+    v28 = numPrunes;
+    v29 = 2048;
+    v30 = numEvictionsConnection;
+    v31 = 2048;
+    v32 = numEvictionsNWActivity;
+    v33 = 2048;
+    *&v34 = *&totalAgeAtEviction / (numEvictionsNWActivity + numEvictionsConnection);
+    v35 = 2048;
+    v36 = minAgeAtEviction;
     _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEFAULT, "NWACT Cache prunes %lld evictions: connection %lld activity %lld (average age %.3f minimum age %.3f)", buf, 0x34u);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateInfoForId:(unint64_t)id context:(const char *)context uuid:(id)uuid completionBlock:(id)block
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   metricsQueue = self->_metricsQueue;
-  v13 = MEMORY[0x277D85DD0];
-  v14 = 3221225472;
-  v15 = __68__NWActivityHandler_generateInfoForId_context_uuid_completionBlock___block_invoke;
-  v16 = &unk_27898A0C8;
+  v12 = MEMORY[0x277D85DD0];
+  v13 = 3221225472;
+  v14 = __68__NWActivityHandler_generateInfoForId_context_uuid_completionBlock___block_invoke;
+  v15 = &unk_27898A0C8;
   selfCopy = self;
   blockCopy = block;
-  dispatch_async(metricsQueue, &v13);
+  dispatch_async(metricsQueue, &v12);
   date = [MEMORY[0x277CBEAA8] date];
-  v18 = @"Handler";
+  v17 = @"Handler";
   v9 = objc_opt_class();
   v10 = NSStringFromClass(v9);
-  v19[0] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v18[0] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
   (*(blockCopy + 2))(blockCopy, 0, "Check syslog for more", date, "collected on demand", 0, v11);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mapperForUUID:(id)d reason:(int)reason
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
   mappedMetrics = [(NWActivityHandler *)self mappedMetrics];
   nullUUIDMapper = [mappedMetrics objectForKeyedSubscript:dCopy];
@@ -615,8 +613,8 @@ LABEL_21:
       v11 = metricsLogHandle;
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "NWACT: Use null mapper for unknown libnetcore activity uuid", &v20, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "NWACT: Use null mapper for unknown libnetcore activity uuid", &v19, 2u);
       }
     }
 
@@ -634,11 +632,11 @@ LABEL_21:
       {
         v15 = v14;
         mappedMetrics4 = [(NWActivityHandler *)self mappedMetrics];
-        v20 = 134218242;
-        v21 = nullUUIDMapper;
-        v22 = 2112;
-        v23 = mappedMetrics4;
-        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "NWACT: Add mapper %p to dictionary %@", &v20, 0x16u);
+        v19 = 134218242;
+        v20 = nullUUIDMapper;
+        v21 = 2112;
+        v22 = mappedMetrics4;
+        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "NWACT: Add mapper %p to dictionary %@", &v19, 0x16u);
       }
     }
   }
@@ -648,14 +646,12 @@ LABEL_21:
   [date timeIntervalSince1970];
   [(NWUUIDMapper *)nullUUIDMapper setLastAccessDate:?];
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return nullUUIDMapper;
 }
 
 - (void)_pruneOldMappings
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   mappedMetrics = [(NWActivityHandler *)self mappedMetrics];
   v3 = [mappedMetrics count];
 
@@ -666,39 +662,39 @@ LABEL_21:
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v34 = numPrunes;
+      v33 = numPrunes;
       _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "NWACT: Prune cache, invocation %lld", buf, 0xCu);
     }
 
     mappedMetrics2 = [(NWActivityHandler *)self mappedMetrics];
     v6 = [mappedMetrics2 keysSortedByValueUsingComparator:&__block_literal_global_49];
 
-    v26 = v6;
+    v25 = v6;
     v7 = [v6 subarrayWithRange:{0, 20}];
     date = [MEMORY[0x277CBEAA8] date];
     [date timeIntervalSince1970];
     v10 = v9;
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v11 = v7;
-    v12 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v29;
+      v14 = *v28;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v29 != v14)
+          if (*v28 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v28 + 1) + 8 * i);
+          v16 = *(*(&v27 + 1) + 8 * i);
           mappedMetrics3 = [(NWActivityHandler *)self mappedMetrics];
           v18 = [mappedMetrics3 objectForKeyedSubscript:v16];
 
@@ -722,7 +718,7 @@ LABEL_21:
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v13);
@@ -733,8 +729,6 @@ LABEL_21:
     mappedMetrics4 = [(NWActivityHandler *)self mappedMetrics];
     [mappedMetrics4 removeObjectsForKeys:v23];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __38__NWActivityHandler__pruneOldMappings__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -804,20 +798,16 @@ uint64_t __39__NWActivityHandler_powerStateChanged___block_invoke(uint64_t a1)
     v7 = *(v5 + 200);
     *(v5 + 200) = v6;
 
-    v8 = *(*(a1 + 32) + 80);
     nw_activity_complete_with_reason();
-    v9 = *(a1 + 32);
-    v10 = *(v9 + 80);
-    *(v9 + 80) = 0;
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 80);
+    *(v8 + 80) = 0;
   }
 
-  *(a1 + 40);
-  v11 = nw_activity_create();
-  v12 = *(a1 + 32);
-  v13 = *(v12 + 80);
-  *(v12 + 80) = v11;
-
-  v14 = *(*(a1 + 32) + 80);
+  v10 = nw_activity_create();
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 80);
+  *(v11 + 80) = v10;
 
   return nw_activity_activate();
 }
@@ -833,7 +823,7 @@ uint64_t __39__NWActivityHandler_powerStateChanged___block_invoke(uint64_t a1)
     {
       if (personalHotspotActivityState == 1)
       {
-        v38 = softAPClientActivity;
+        v32 = softAPClientActivity;
         v11 = [softAPClientActivity isEqualToString:@"wifiNanClientCount"];
         if (newValue && !value && v11)
         {
@@ -843,36 +833,34 @@ uint64_t __39__NWActivityHandler_powerStateChanged___block_invoke(uint64_t a1)
             softAPAndWiFiNanClientActivity = self->_softAPAndWiFiNanClientActivity;
             self->_softAPAndWiFiNanClientActivity = v12;
 
-            v14 = self->_softAPAndWiFiNanClientActivity;
             nw_activity_activate();
           }
 
           if (!self->_wifiNanClientActivity)
           {
-            v15 = nw_activity_create();
+            v14 = nw_activity_create();
             wifiNanClientActivity = self->_wifiNanClientActivity;
-            self->_wifiNanClientActivity = v15;
+            self->_wifiNanClientActivity = v14;
 
-            v17 = self->_wifiNanClientActivity;
             nw_activity_activate();
           }
 
           self->_personalHotspotActivityState = 3;
         }
 
-        softAPClientActivity = [v38 isEqualToString:@"softAPClientCount"];
-        v9 = v38;
+        softAPClientActivity = [v32 isEqualToString:@"softAPClientCount"];
+        v9 = v32;
         if (!newValue && value && softAPClientActivity)
         {
           softAPClientActivity = self->_softAPClientActivity;
           if (softAPClientActivity)
           {
             nw_activity_complete_with_reason();
-            v18 = self->_softAPClientActivity;
+            v16 = self->_softAPClientActivity;
             self->_softAPClientActivity = 0;
 LABEL_49:
 
-            v9 = v38;
+            v9 = v32;
             goto LABEL_50;
           }
 
@@ -888,28 +876,26 @@ LABEL_49:
       goto LABEL_62;
     }
 
-    v39 = softAPClientActivity;
+    v33 = softAPClientActivity;
     softAPClientActivity = [softAPClientActivity isEqualToString:@"softAPClientCount"];
     if (softAPClientActivity)
     {
       if (self->_softAPClientActivity)
       {
-        v22 = 1;
+        v20 = 1;
         goto LABEL_60;
       }
 
-      v22 = 1;
-      v32 = nw_activity_create();
-      v33 = self->_softAPClientActivity;
-      self->_softAPClientActivity = v32;
-
-      v34 = self->_softAPClientActivity;
+      v20 = 1;
+      v28 = nw_activity_create();
+      v29 = self->_softAPClientActivity;
+      self->_softAPClientActivity = v28;
     }
 
     else
     {
-      softAPClientActivity = [v39 isEqualToString:@"wifiNanClientCount"];
-      v9 = v39;
+      softAPClientActivity = [v33 isEqualToString:@"wifiNanClientCount"];
+      v9 = v33;
       if (!softAPClientActivity)
       {
         goto LABEL_62;
@@ -917,16 +903,14 @@ LABEL_49:
 
       if (self->_wifiNanClientActivity)
       {
-        v22 = 2;
+        v20 = 2;
         goto LABEL_61;
       }
 
-      v22 = 2;
-      v35 = nw_activity_create();
-      v36 = self->_wifiNanClientActivity;
-      self->_wifiNanClientActivity = v35;
-
-      v37 = self->_wifiNanClientActivity;
+      v20 = 2;
+      v30 = nw_activity_create();
+      v31 = self->_wifiNanClientActivity;
+      self->_wifiNanClientActivity = v30;
     }
 
     softAPClientActivity = nw_activity_activate();
@@ -940,31 +924,31 @@ LABEL_49:
       goto LABEL_62;
     }
 
-    v39 = softAPClientActivity;
+    v33 = softAPClientActivity;
     if (self->_softAPAndWiFiNanClientActivity)
     {
       nw_activity_complete_with_reason();
-      v21 = self->_softAPAndWiFiNanClientActivity;
+      v19 = self->_softAPAndWiFiNanClientActivity;
       self->_softAPAndWiFiNanClientActivity = 0;
 
-      v9 = v39;
+      v9 = v33;
     }
 
     if (![v9 isEqualToString:@"softAPClientCount"] || !self->_softAPClientActivity)
     {
-      softAPClientActivity = [v39 isEqualToString:@"wifiNanClientCount"];
-      v9 = v39;
+      softAPClientActivity = [v33 isEqualToString:@"wifiNanClientCount"];
+      v9 = v33;
       if (softAPClientActivity)
       {
         softAPClientActivity = self->_wifiNanClientActivity;
         if (softAPClientActivity)
         {
           nw_activity_complete_with_reason();
-          v31 = self->_wifiNanClientActivity;
+          v27 = self->_wifiNanClientActivity;
           self->_wifiNanClientActivity = 0;
 
-          v9 = v39;
-          v22 = 1;
+          v9 = v33;
+          v20 = 1;
           goto LABEL_61;
         }
       }
@@ -972,60 +956,58 @@ LABEL_49:
       goto LABEL_62;
     }
 
-    v22 = 2;
+    v20 = 2;
     nw_activity_complete_with_reason();
-    v23 = self->_softAPClientActivity;
+    v21 = self->_softAPClientActivity;
     self->_softAPClientActivity = 0;
 
 LABEL_60:
-    v9 = v39;
+    v9 = v33;
     goto LABEL_61;
   }
 
-  v38 = softAPClientActivity;
-  v24 = [softAPClientActivity isEqualToString:@"softAPClientCount"];
-  if (newValue && !value && v24)
+  v32 = softAPClientActivity;
+  v22 = [softAPClientActivity isEqualToString:@"softAPClientCount"];
+  if (newValue && !value && v22)
   {
     if (!self->_softAPAndWiFiNanClientActivity)
     {
-      v25 = nw_activity_create();
-      v26 = self->_softAPAndWiFiNanClientActivity;
-      self->_softAPAndWiFiNanClientActivity = v25;
+      v23 = nw_activity_create();
+      v24 = self->_softAPAndWiFiNanClientActivity;
+      self->_softAPAndWiFiNanClientActivity = v23;
 
-      v27 = self->_softAPAndWiFiNanClientActivity;
       nw_activity_activate();
     }
 
     if (!self->_softAPClientActivity)
     {
-      v28 = nw_activity_create();
-      v29 = self->_softAPClientActivity;
-      self->_softAPClientActivity = v28;
+      v25 = nw_activity_create();
+      v26 = self->_softAPClientActivity;
+      self->_softAPClientActivity = v25;
 
-      v30 = self->_softAPClientActivity;
       nw_activity_activate();
     }
 
     self->_personalHotspotActivityState = 3;
   }
 
-  softAPClientActivity = [v38 isEqualToString:@"wifiNanClientCount"];
-  v9 = v38;
+  softAPClientActivity = [v32 isEqualToString:@"wifiNanClientCount"];
+  v9 = v32;
   if (!newValue && value && softAPClientActivity)
   {
     softAPClientActivity = self->_wifiNanClientActivity;
     if (softAPClientActivity)
     {
       nw_activity_complete_with_reason();
-      v18 = self->_wifiNanClientActivity;
+      v16 = self->_wifiNanClientActivity;
       self->_wifiNanClientActivity = 0;
       goto LABEL_49;
     }
 
 LABEL_50:
-    v22 = 0;
+    v20 = 0;
 LABEL_61:
-    self->_personalHotspotActivityState = v22;
+    self->_personalHotspotActivityState = v20;
   }
 
 LABEL_62:
@@ -1035,7 +1017,7 @@ LABEL_62:
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -1046,9 +1028,9 @@ LABEL_62:
     if (v13)
     {
       *buf = 138412546;
-      v38 = pathCopy;
-      v39 = 2112;
-      v40 = objectCopy;
+      v37 = pathCopy;
+      v38 = 2112;
+      v39 = objectCopy;
       _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "Update for keypath %@ of object %@", buf, 0x16u);
     }
 
@@ -1060,11 +1042,11 @@ LABEL_62:
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412802;
-        v38 = v15;
-        v39 = 2112;
-        v40 = pathCopy;
-        v41 = 2112;
-        v42 = objectCopy;
+        v37 = v15;
+        v38 = 2112;
+        v39 = pathCopy;
+        v40 = 2112;
+        v41 = objectCopy;
         _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEBUG, "Update to value %@ for keypath %@ of object %@", buf, 0x20u);
       }
 
@@ -1076,9 +1058,9 @@ LABEL_62:
         if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v38 = @"pluggedIn";
-          v39 = 1024;
-          LODWORD(v40) = bOOLValue;
+          v37 = @"pluggedIn";
+          v38 = 1024;
+          LODWORD(v39) = bOOLValue;
           _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_INFO, "%@ state changed: %u", buf, 0x12u);
         }
 
@@ -1090,9 +1072,9 @@ LABEL_62:
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v38 = pathCopy;
-        v39 = 2112;
-        v40 = objectCopy;
+        v37 = pathCopy;
+        v38 = 2112;
+        v39 = objectCopy;
         _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "Ignoring null value for keypath %@ of object %@", buf, 0x16u);
       }
     }
@@ -1111,27 +1093,27 @@ LABEL_21:
         goto LABEL_27;
       }
 
-      v32 = v19;
-      v31 = *MEMORY[0x277CCA2F0];
+      v31 = v19;
+      v30 = *MEMORY[0x277CCA2F0];
       v21 = [changeCopy objectForKeyedSubscript:?];
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
 
       if ((isKindOfClass & 1) == 0)
       {
-        v23 = [changeCopy objectForKeyedSubscript:v32];
-        v24 = [changeCopy objectForKeyedSubscript:v31];
+        v23 = [changeCopy objectForKeyedSubscript:v31];
+        v24 = [changeCopy objectForKeyedSubscript:v30];
         v25 = metricsLogHandle;
         if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138413058;
-          v38 = v23;
-          v39 = 2112;
-          v40 = v24;
-          v41 = 2112;
-          v42 = pathCopy;
-          v43 = 2112;
-          v44 = objectCopy;
+          v37 = v23;
+          v38 = 2112;
+          v39 = v24;
+          v40 = 2112;
+          v41 = pathCopy;
+          v42 = 2112;
+          v43 = objectCopy;
           _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_DEFAULT, "Update of value %@ to value %@ for keypath %@ of object %@", buf, 0x2Au);
         }
 
@@ -1141,9 +1123,9 @@ LABEL_21:
         block[2] = __68__NWActivityHandler_observeValueForKeyPath_ofObject_change_context___block_invoke;
         block[3] = &unk_27898FC40;
         block[4] = self;
-        v34 = pathCopy;
-        v35 = v23;
-        v36 = v24;
+        v33 = pathCopy;
+        v34 = v23;
+        v35 = v24;
         v27 = v24;
         v20 = v23;
         dispatch_async(metricsQueue, block);
@@ -1164,8 +1146,6 @@ LABEL_27:
   }
 
 LABEL_28:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __68__NWActivityHandler_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
@@ -1316,7 +1296,7 @@ __CFString *__44__NWActivityHandler_setUpBatteryAccumulator__block_invoke_14(uin
 
 - (BOOL)_saveMetricWithUUIDS:(id)s parentUUID:(id)d withData:(id)data ofType:(int)type
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   sCopy = s;
   dCopy = d;
   dataCopy = data;
@@ -1329,7 +1309,7 @@ __CFString *__44__NWActivityHandler_setUpBatteryAccumulator__block_invoke_14(uin
       v47 = v45;
       v48 = [(NWActivityHandler *)self dbWriteStateToString:dbWriteState];
       *buf = 138412290;
-      v67 = v48;
+      v66 = v48;
       _os_log_impl(&dword_23255B000, v47, OS_LOG_TYPE_DEFAULT, "NWACT: Current DB state: %@, writes throttled.", buf, 0xCu);
     }
 
@@ -1348,21 +1328,21 @@ __CFString *__44__NWActivityHandler_setUpBatteryAccumulator__block_invoke_14(uin
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v67 = sCopy;
+    v66 = sCopy;
     _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "NWACT: Saving metric data for UUIDS:%@", buf, 0xCu);
   }
 
   analyticsWorkspace = [(NWActivityHandler *)self analyticsWorkspace];
   mainObjectContext = [analyticsWorkspace mainObjectContext];
 
-  v59 = mainObjectContext;
+  v58 = mainObjectContext;
   if (!mainObjectContext)
   {
     v49 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v67 = sCopy;
+      v66 = sCopy;
       _os_log_impl(&dword_23255B000, v49, OS_LOG_TYPE_ERROR, "NWACT: Cannot save metric data without context for UUIDS:%@", buf, 0xCu);
     }
 
@@ -1377,9 +1357,9 @@ __CFString *__44__NWActivityHandler_setUpBatteryAccumulator__block_invoke_14(uin
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v67 = dCopy;
-      v68 = 2112;
-      v69[0] = sCopy;
+      v66 = dCopy;
+      v67 = 2112;
+      v68[0] = sCopy;
       _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "NWACT: Parent UUID (%@) provided for more than one activity UUID, ignoring: %@", buf, 0x16u);
     }
 
@@ -1388,7 +1368,7 @@ __CFString *__44__NWActivityHandler_setUpBatteryAccumulator__block_invoke_14(uin
 
   v17 = MEMORY[0x277CBE408];
   entityName = [MEMORY[0x277D6B530] entityName];
-  v19 = [v17 insertNewObjectForEntityForName:entityName inManagedObjectContext:v59];
+  v19 = [v17 insertNewObjectForEntityForName:entityName inManagedObjectContext:v58];
 
   if (!v19)
   {
@@ -1396,7 +1376,7 @@ __CFString *__44__NWActivityHandler_setUpBatteryAccumulator__block_invoke_14(uin
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v67 = sCopy;
+      v66 = sCopy;
       _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_ERROR, "NWACT: Failed insertNewObjectForEntityForName for metricData for UUIDS:%@", buf, 0xCu);
     }
 
@@ -1405,44 +1385,44 @@ __CFString *__44__NWActivityHandler_setUpBatteryAccumulator__block_invoke_14(uin
   }
 
   selfCopy = self;
-  v55 = v11;
-  v57 = v19;
+  v54 = v11;
+  v56 = v19;
   [v19 setData:dataCopy];
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
-  v56 = sCopy;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  v55 = sCopy;
   v20 = sCopy;
-  v21 = [v20 countByEnumeratingWithState:&v62 objects:v70 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v61 objects:v69 count:16];
   if (!v21)
   {
     goto LABEL_28;
   }
 
   v22 = v21;
-  v23 = *v63;
+  v23 = *v62;
   do
   {
     for (i = 0; i != v22; ++i)
     {
-      if (*v63 != v23)
+      if (*v62 != v23)
       {
         objc_enumerationMutation(v20);
       }
 
-      v25 = *(*(&v62 + 1) + 8 * i);
+      v25 = *(*(&v61 + 1) + 8 * i);
       v26 = metricsLogHandle;
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v67 = v25;
+        v66 = v25;
         _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_INFO, "NWACT: Saving metric with UUID %@", buf, 0xCu);
       }
 
       v27 = MEMORY[0x277CBE408];
       entityName2 = [MEMORY[0x277D6B528] entityName];
-      v29 = [v27 insertNewObjectForEntityForName:entityName2 inManagedObjectContext:v59];
+      v29 = [v27 insertNewObjectForEntityForName:entityName2 inManagedObjectContext:v58];
 
       if (!v29)
       {
@@ -1453,7 +1433,7 @@ __CFString *__44__NWActivityHandler_setUpBatteryAccumulator__block_invoke_14(uin
         }
 
         *buf = 138412290;
-        v67 = v20;
+        v66 = v20;
         v33 = v37;
         v34 = OS_LOG_TYPE_ERROR;
         v35 = "NWACT: Failed insertNewObjectForEntityForName for fragment for UUIDS:%@";
@@ -1468,7 +1448,7 @@ __CFString *__44__NWActivityHandler_setUpBatteryAccumulator__block_invoke_14(uin
       v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:type];
       [v29 setType:v31];
 
-      [v29 setMetricData:v57];
+      [v29 setMetricData:v56];
       if (dCopy)
       {
         [v29 setParentUUID:dCopy];
@@ -1476,9 +1456,9 @@ __CFString *__44__NWActivityHandler_setUpBatteryAccumulator__block_invoke_14(uin
         if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v67 = v25;
-          v68 = 2112;
-          v69[0] = dCopy;
+          v66 = v25;
+          v67 = 2112;
+          v68[0] = dCopy;
           v33 = v32;
           v34 = OS_LOG_TYPE_DEBUG;
           v35 = "NWACT: Relating activity %@ to parent %@";
@@ -1491,30 +1471,30 @@ LABEL_25:
 LABEL_26:
     }
 
-    v22 = [v20 countByEnumeratingWithState:&v62 objects:v70 count:16];
+    v22 = [v20 countByEnumeratingWithState:&v61 objects:v69 count:16];
   }
 
   while (v22);
 LABEL_28:
 
-  v61 = 0;
-  v38 = [v59 save:&v61];
-  v39 = v61;
+  v60 = 0;
+  v38 = [v58 save:&v60];
+  v39 = v60;
   if (v38)
   {
     [(NWActivityHandler *)selfCopy handleDBEvent:1];
     v40 = metricsLogHandle;
-    sCopy = v56;
-    v11 = v55;
+    sCopy = v55;
+    v11 = v54;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       metricsDataWritesBudget = selfCopy->_metricsDataWritesBudget;
       *buf = 138412802;
-      v67 = v20;
-      v68 = 1024;
-      LODWORD(v69[0]) = type;
-      WORD2(v69[0]) = 2048;
-      *(v69 + 6) = metricsDataWritesBudget;
+      v66 = v20;
+      v67 = 1024;
+      LODWORD(v68[0]) = type;
+      WORD2(v68[0]) = 2048;
+      *(v68 + 6) = metricsDataWritesBudget;
       v42 = "NWACT: Successfully saved metric with activity UUIDS: %@ and type: %d, writes budget remaining: %llu";
       v43 = v40;
       v44 = OS_LOG_TYPE_DEFAULT;
@@ -1525,16 +1505,16 @@ LABEL_28:
   else
   {
     v51 = metricsLogHandle;
-    sCopy = v56;
-    v11 = v55;
+    sCopy = v55;
+    v11 = v54;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v67 = v20;
-      v68 = 1024;
-      LODWORD(v69[0]) = type;
-      WORD2(v69[0]) = 2112;
-      *(v69 + 6) = v39;
+      v66 = v20;
+      v67 = 1024;
+      LODWORD(v68[0]) = type;
+      WORD2(v68[0]) = 2112;
+      *(v68 + 6) = v39;
       v42 = "NWACT: Failed to save metric with activity UUIDS:%@ and type:%d (error %@)";
       v43 = v51;
       v44 = OS_LOG_TYPE_ERROR;
@@ -1543,9 +1523,9 @@ LABEL_43:
     }
   }
 
-  [v59 reset];
+  [v58 reset];
 
-  v19 = v57;
+  v19 = v56;
 LABEL_45:
 
 LABEL_46:
@@ -1553,13 +1533,12 @@ LABEL_47:
   objc_autoreleasePoolPop(v11);
 LABEL_48:
 
-  v52 = *MEMORY[0x277D85DE8];
   return v38;
 }
 
 - (id)_createDeviceReportForActivityType:(int)type andDomain:(unsigned int)domain
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v7 = objc_alloc_init(SFDeviceReport);
   if (v7)
   {
@@ -1790,28 +1769,28 @@ LABEL_48:
       v44 = v36;
       v45 = objc_alloc_init(MEMORY[0x277CBEB18]);
       networks2 = [v40 networks];
+      v66 = 0u;
       v67 = 0u;
       v68 = 0u;
       v69 = 0u;
-      v70 = 0u;
-      v47 = [networks2 countByEnumeratingWithState:&v67 objects:v73 count:16];
+      v47 = [networks2 countByEnumeratingWithState:&v66 objects:v72 count:16];
       if (v47)
       {
         v48 = v47;
-        v49 = *v68;
+        v49 = *v67;
         do
         {
           for (i = 0; i != v48; ++i)
           {
-            if (*v68 != v49)
+            if (*v67 != v49)
             {
               objc_enumerationMutation(networks2);
             }
 
-            [v45 addObject:*(*(&v67 + 1) + 8 * i)];
+            [v45 addObject:*(*(&v66 + 1) + 8 * i)];
           }
 
-          v48 = [networks2 countByEnumeratingWithState:&v67 objects:v73 count:16];
+          v48 = [networks2 countByEnumeratingWithState:&v66 objects:v72 count:16];
         }
 
         while (v48);
@@ -1865,7 +1844,7 @@ LABEL_48:
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v72 = v7;
+      v71 = v7;
       _os_log_impl(&dword_23255B000, v62, OS_LOG_TYPE_DEBUG, "Created SFDeviceReport: %@", buf, 0xCu);
     }
 
@@ -1881,8 +1860,6 @@ LABEL_48:
       _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "NWACT: Failed to create SFDeviceReport", buf, 2u);
     }
   }
-
-  v64 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1920,9 +1897,56 @@ LABEL_48:
   return v4;
 }
 
+- (id)_convertQueueStats:(id)stats forInterfaceType:(int)type
+{
+  v4 = *&type;
+  v21 = *MEMORY[0x277D85DE8];
+  statsCopy = stats;
+  v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  obj = [statsCopy slots];
+  v7 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v17;
+    do
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v17 != v9)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v11 = *(*(&v16 + 1) + 8 * i);
+        v12 = objc_alloc_init(SFL2InterfaceQueueStats);
+        interfaceName = [statsCopy interfaceName];
+        [(SFL2InterfaceQueueStats *)v12 setInterfaceName:interfaceName];
+
+        [(SFL2InterfaceQueueStats *)v12 setInterfaceType:v4];
+        -[SFL2InterfaceQueueStats setSlot:](v12, "setSlot:", [v11 slot]);
+        -[SFL2InterfaceQueueStats setAverageQueueDelay:](v12, "setAverageQueueDelay:", [v11 averageQueueDelay]);
+        -[SFL2InterfaceQueueStats setMinimumQueueDelay:](v12, "setMinimumQueueDelay:", [v11 minimumQueueDelay]);
+        -[SFL2InterfaceQueueStats setMaximumQueueDelay:](v12, "setMaximumQueueDelay:", [v11 maximumQueueDelay]);
+        [v6 addObject:v12];
+      }
+
+      v8 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v8);
+  }
+
+  return v6;
+}
+
 - (void)_handleL2Start:(id)start
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   startCopy = start;
   activityUUID = [startCopy activityUUID];
   parentUUID = [startCopy parentUUID];
@@ -1936,12 +1960,12 @@ LABEL_48:
     {
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v25 = 138412290;
-        v26 = startCopy;
+        v24 = 138412290;
+        v25 = startCopy;
         v10 = "NWACT: null UUID found on activityStats %@";
         v11 = v9;
 LABEL_7:
-        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, v10, &v25, 0xCu);
+        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, v10, &v24, 0xCu);
       }
     }
 
@@ -1949,11 +1973,11 @@ LABEL_7:
     {
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138412546;
-        v26 = activityUUID;
-        v27 = 2112;
-        v28 = startCopy;
-        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "NWACT: L2 start activity UUID %@ from activityStats %@", &v25, 0x16u);
+        v24 = 138412546;
+        v25 = activityUUID;
+        v26 = 2112;
+        v27 = startCopy;
+        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "NWACT: L2 start activity UUID %@ from activityStats %@", &v24, 0x16u);
       }
 
       if (parentUUID)
@@ -1966,9 +1990,9 @@ LABEL_7:
         {
           if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
           {
-            v25 = 138412290;
-            v26 = startCopy;
-            _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "NWACT: null UUID found for parent UUID for activityStats %@", &v25, 0xCu);
+            v24 = 138412290;
+            v25 = startCopy;
+            _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "NWACT: null UUID found for parent UUID for activityStats %@", &v24, 0xCu);
           }
         }
 
@@ -1976,11 +2000,11 @@ LABEL_7:
         {
           if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
           {
-            v25 = 138412546;
-            v26 = activityUUID;
-            v27 = 2112;
-            v28 = parentUUID;
-            _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "NWACT: L2 start activity UUID %@ has parent, moving parent UUID %@ to end of list", &v25, 0x16u);
+            v24 = 138412546;
+            v25 = activityUUID;
+            v26 = 2112;
+            v27 = parentUUID;
+            _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "NWACT: L2 start activity UUID %@ has parent, moving parent UUID %@ to end of list", &v24, 0x16u);
           }
 
           currentActivities = [(NWActivityHandler *)self currentActivities];
@@ -2000,9 +2024,9 @@ LABEL_7:
       {
         if (v21)
         {
-          v25 = 138412290;
-          v26 = activityUUID;
-          _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "NWACT: L2 activity UUID %@ is already in the list, moving to end", &v25, 0xCu);
+          v24 = 138412290;
+          v25 = activityUUID;
+          _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "NWACT: L2 activity UUID %@ is already in the list, moving to end", &v24, 0xCu);
         }
 
         currentActivities4 = [(NWActivityHandler *)self currentActivities];
@@ -2011,9 +2035,9 @@ LABEL_7:
 
       else if (v21)
       {
-        v25 = 138412290;
-        v26 = activityUUID;
-        _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "NWACT: L2 activity UUID %@ not in list, adding", &v25, 0xCu);
+        v24 = 138412290;
+        v25 = activityUUID;
+        _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "NWACT: L2 activity UUID %@ not in list, adding", &v24, 0xCu);
       }
 
       currentActivities5 = [(NWActivityHandler *)self currentActivities];
@@ -2031,20 +2055,18 @@ LABEL_7:
     v12 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v25 = 138412290;
-      v26 = startCopy;
+      v24 = 138412290;
+      v25 = startCopy;
       v10 = "NWACT: no activity UUID found on activityStats %@";
       v11 = v12;
       goto LABEL_7;
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleL2Stop:(id)stop
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   stopCopy = stop;
   activityUUID = [stopCopy activityUUID];
   parentUUID = [stopCopy parentUUID];
@@ -2058,12 +2080,12 @@ LABEL_7:
     {
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v21 = 138412290;
-        v22 = stopCopy;
+        v20 = 138412290;
+        v21 = stopCopy;
         v10 = "NWACT: null UUID found on activityStats %@";
         v11 = v9;
 LABEL_7:
-        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, v10, &v21, 0xCu);
+        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, v10, &v20, 0xCu);
       }
     }
 
@@ -2071,11 +2093,11 @@ LABEL_7:
     {
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 138412546;
-        v22 = activityUUID;
-        v23 = 2112;
-        v24 = stopCopy;
-        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "NWACT: L2 stop activity UUID %@ from activityStats %@", &v21, 0x16u);
+        v20 = 138412546;
+        v21 = activityUUID;
+        v22 = 2112;
+        v23 = stopCopy;
+        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "NWACT: L2 stop activity UUID %@ from activityStats %@", &v20, 0x16u);
       }
 
       if (parentUUID)
@@ -2088,9 +2110,9 @@ LABEL_7:
         {
           if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
           {
-            v21 = 138412290;
-            v22 = stopCopy;
-            _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "NWACT: null UUID found for parent UUID for activityStats %@", &v21, 0xCu);
+            v20 = 138412290;
+            v21 = stopCopy;
+            _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "NWACT: null UUID found for parent UUID for activityStats %@", &v20, 0xCu);
           }
         }
 
@@ -2098,11 +2120,11 @@ LABEL_7:
         {
           if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
           {
-            v21 = 138412546;
-            v22 = activityUUID;
-            v23 = 2112;
-            v24 = parentUUID;
-            _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "NWACT: L2 stop activity UUID %@ has parent, removing %@", &v21, 0x16u);
+            v20 = 138412546;
+            v21 = activityUUID;
+            v22 = 2112;
+            v23 = parentUUID;
+            _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "NWACT: L2 stop activity UUID %@ has parent, removing %@", &v20, 0x16u);
           }
 
           currentActivities = [(NWActivityHandler *)self currentActivities];
@@ -2131,28 +2153,26 @@ LABEL_7:
     v12 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v21 = 138412290;
-      v22 = stopCopy;
+      v20 = 138412290;
+      v21 = stopCopy;
       v10 = "NWACT: no activity UUID found on activityStats %@";
       v11 = v12;
       goto LABEL_7;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pruneActivityLists
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = metricsLogHandle;
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v4 = v3;
     currentActivities = [(NWActivityHandler *)self currentActivities];
-    v33 = 134217984;
-    v34 = [currentActivities count];
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "NWACT: L2 pruning current activity list, started with %lu items", &v33, 0xCu);
+    v32 = 134217984;
+    v33 = [currentActivities count];
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "NWACT: L2 pruning current activity list, started with %lu items", &v32, 0xCu);
   }
 
   currentActivities2 = [(NWActivityHandler *)self currentActivities];
@@ -2166,9 +2186,9 @@ LABEL_7:
     v10 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v33 = 134217984;
-      v34 = v9;
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "NWACT: L2 pruning current activity list, removing %lu items", &v33, 0xCu);
+      v32 = 134217984;
+      v33 = v9;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "NWACT: L2 pruning current activity list, removing %lu items", &v32, 0xCu);
     }
 
     v11 = [MEMORY[0x277CCAA78] indexSetWithIndexesInRange:{0, v9}];
@@ -2182,9 +2202,9 @@ LABEL_7:
     v14 = v13;
     currentActivities5 = [(NWActivityHandler *)self currentActivities];
     v16 = [currentActivities5 count];
-    v33 = 134217984;
-    v34 = v16;
-    _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_INFO, "NWACT: L2 pruning current activity list, finished with %lu items", &v33, 0xCu);
+    v32 = 134217984;
+    v33 = v16;
+    _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_INFO, "NWACT: L2 pruning current activity list, finished with %lu items", &v32, 0xCu);
   }
 
   v17 = metricsLogHandle;
@@ -2193,9 +2213,9 @@ LABEL_7:
     v18 = v17;
     completeActivities = [(NWActivityHandler *)self completeActivities];
     v20 = [completeActivities count];
-    v33 = 134217984;
-    v34 = v20;
-    _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEBUG, "NWACT: L2 pruning complete activity list, started with %lu items", &v33, 0xCu);
+    v32 = 134217984;
+    v33 = v20;
+    _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEBUG, "NWACT: L2 pruning complete activity list, started with %lu items", &v32, 0xCu);
   }
 
   completeActivities2 = [(NWActivityHandler *)self completeActivities];
@@ -2209,9 +2229,9 @@ LABEL_7:
     v25 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v33 = 134217984;
-      v34 = v24;
-      _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_DEBUG, "NWACT: L2 pruning complete activity list, removing %lu items", &v33, 0xCu);
+      v32 = 134217984;
+      v33 = v24;
+      _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_DEBUG, "NWACT: L2 pruning complete activity list, removing %lu items", &v32, 0xCu);
     }
 
     v26 = [MEMORY[0x277CCAA78] indexSetWithIndexesInRange:{0, v24}];
@@ -2225,17 +2245,15 @@ LABEL_7:
     v29 = v28;
     completeActivities5 = [(NWActivityHandler *)self completeActivities];
     v31 = [completeActivities5 count];
-    v33 = 134217984;
-    v34 = v31;
-    _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_INFO, "NWACT: L2 pruning complete activity list, finished with %lu items", &v33, 0xCu);
+    v32 = 134217984;
+    v33 = v31;
+    _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_INFO, "NWACT: L2 pruning complete activity list, finished with %lu items", &v32, 0xCu);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateL2MetricLoggingRequests
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = metricsLogHandle;
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -2243,11 +2261,11 @@ LABEL_7:
     currentActivities = [(NWActivityHandler *)self currentActivities];
     v6 = [currentActivities count];
     completeActivities = [(NWActivityHandler *)self completeActivities];
-    v11 = 134218240;
-    v12 = v6;
-    v13 = 2048;
-    v14 = [completeActivities count];
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "NWACT: L2 update metric logging requests with %lu items in current activities, %lu items in complete activities", &v11, 0x16u);
+    v10 = 134218240;
+    v11 = v6;
+    v12 = 2048;
+    v13 = [completeActivities count];
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "NWACT: L2 update metric logging requests with %lu items in current activities, %lu items in complete activities", &v10, 0x16u);
   }
 
   currentActivities2 = [(NWActivityHandler *)self currentActivities];
@@ -2262,8 +2280,6 @@ LABEL_7:
   {
     [(NWActivityHandler *)self _stopL2Streaming];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_collectCellularFragment
@@ -2363,7 +2379,7 @@ LABEL_23:
 
 - (void)_startL2Streaming
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   currentActivities = [(NWActivityHandler *)self currentActivities];
   v4 = [currentActivities count];
 
@@ -2376,7 +2392,7 @@ LABEL_23:
       currentActivities2 = [(NWActivityHandler *)self currentActivities];
       lastObject = [currentActivities2 lastObject];
       *buf = 138412290;
-      v21 = lastObject;
+      v20 = lastObject;
       _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "NWACT: L2 triggered initial Wi-Fi fragment for activity UUID %@", buf, 0xCu);
     }
 
@@ -2387,55 +2403,52 @@ LABEL_23:
   v9 = metricsLogHandle;
   if (self->_metricCollectionTimer)
   {
-    if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
+    if (!os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      *buf = 0;
-      v10 = "NWACT: L2 collection timer already exists, don't need a new one";
-      v11 = v9;
-LABEL_12:
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, v10, buf, 2u);
+      return;
     }
+
+    *buf = 0;
+    v10 = "NWACT: L2 collection timer already exists, don't need a new one";
+    v11 = v9;
+    goto LABEL_12;
   }
 
-  else
+  if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "NWACT: L2 starting L2 metrics", buf, 2u);
-    }
-
-    v12 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->_metricsQueue);
-    metricCollectionTimer = self->_metricCollectionTimer;
-    self->_metricCollectionTimer = v12;
-
-    v14 = self->_metricCollectionTimer;
-    handler[0] = MEMORY[0x277D85DD0];
-    handler[1] = 3221225472;
-    handler[2] = __38__NWActivityHandler__startL2Streaming__block_invoke;
-    handler[3] = &unk_27898A0C8;
-    handler[4] = self;
-    dispatch_source_set_event_handler(v14, handler);
-    v15 = self->_metricCollectionTimer;
-    v16 = dispatch_time(0, 6000000000);
-    dispatch_source_set_timer(v15, v16, 0x165A0BC00uLL, 0x5F5E100uLL);
-    dispatch_resume(self->_metricCollectionTimer);
-    v17 = metricsLogHandle;
-    if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 0;
-      v10 = "NWACT: L2 collection timer created and started";
-      v11 = v17;
-      goto LABEL_12;
-    }
+    *buf = 0;
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "NWACT: L2 starting L2 metrics", buf, 2u);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
+  v12 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->_metricsQueue);
+  metricCollectionTimer = self->_metricCollectionTimer;
+  self->_metricCollectionTimer = v12;
+
+  v14 = self->_metricCollectionTimer;
+  handler[0] = MEMORY[0x277D85DD0];
+  handler[1] = 3221225472;
+  handler[2] = __38__NWActivityHandler__startL2Streaming__block_invoke;
+  handler[3] = &unk_27898A0C8;
+  handler[4] = self;
+  dispatch_source_set_event_handler(v14, handler);
+  v15 = self->_metricCollectionTimer;
+  v16 = dispatch_time(0, 6000000000);
+  dispatch_source_set_timer(v15, v16, 0x165A0BC00uLL, 0x5F5E100uLL);
+  dispatch_resume(self->_metricCollectionTimer);
+  v17 = metricsLogHandle;
+  if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 0;
+    v10 = "NWACT: L2 collection timer created and started";
+    v11 = v17;
+LABEL_12:
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, v10, buf, 2u);
+  }
 }
 
 uint64_t __38__NWActivityHandler__startL2Streaming__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) currentActivities];
   v3 = [v2 count];
 
@@ -2450,11 +2463,11 @@ uint64_t __38__NWActivityHandler__startL2Streaming__block_invoke(uint64_t a1)
       v7 = [v5 currentActivities];
       v8 = [v7 count];
       v9 = *(*(a1 + 32) + 44);
-      v19 = 134218240;
-      v20 = v8;
-      v21 = 1024;
-      v22 = v9;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "NWACT: L2 collection timer fired, %lu activities in list, metric %u", &v19, 0x12u);
+      v18 = 134218240;
+      v19 = v8;
+      v20 = 1024;
+      v21 = v9;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "NWACT: L2 collection timer fired, %lu activities in list, metric %u", &v18, 0x12u);
     }
 
     v10 = *(a1 + 32);
@@ -2464,9 +2477,9 @@ uint64_t __38__NWActivityHandler__startL2Streaming__block_invoke(uint64_t a1)
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         v12 = *(*(a1 + 32) + 44);
-        v19 = 67109120;
-        LODWORD(v20) = v12;
-        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "NWACT: L2 collection hit max sample count (%u), stopping", &v19, 8u);
+        v18 = 67109120;
+        LODWORD(v19) = v12;
+        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "NWACT: L2 collection hit max sample count (%u), stopping", &v18, 8u);
       }
 
       *(*(a1 + 32) + 44) = 0;
@@ -2481,7 +2494,7 @@ uint64_t __38__NWActivityHandler__startL2Streaming__block_invoke(uint64_t a1)
       v10 = *(a1 + 32);
     }
 
-    result = [v10 _triggerWiFiMetric];
+    return [v10 _triggerWiFiMetric];
   }
 
   else
@@ -2489,15 +2502,12 @@ uint64_t __38__NWActivityHandler__startL2Streaming__block_invoke(uint64_t a1)
     v17 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "NWACT: L2 collection timer fired, 0 activities in list, stopping", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "NWACT: L2 collection timer fired, 0 activities in list, stopping", &v18, 2u);
     }
 
-    result = [*(a1 + 32) _updateL2MetricLoggingRequests];
+    return [*(a1 + 32) _updateL2MetricLoggingRequests];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)_stopL2Streaming
@@ -2521,7 +2531,7 @@ uint64_t __38__NWActivityHandler__startL2Streaming__block_invoke(uint64_t a1)
 
 - (void)_triggerWiFiMetric
 {
-  *&v23[5] = *MEMORY[0x277D85DE8];
+  *&v22[5] = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   [date timeIntervalSince1970];
   v5 = v4;
@@ -2537,87 +2547,84 @@ uint64_t __38__NWActivityHandler__startL2Streaming__block_invoke(uint64_t a1)
     v7 = v5 - lastWiFiTriggerTime;
   }
 
-  if (self->_outstandingWiFiFragments < 0xA)
+  if (self->_outstandingWiFiFragments >= 0xA)
   {
-    goto LABEL_9;
-  }
+    v8 = metricsLogHandle;
+    v9 = os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO);
+    if (v7 <= 60.0)
+    {
+      if (!v9)
+      {
+        return;
+      }
 
-  v8 = metricsLogHandle;
-  v9 = os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO);
-  if (v7 > 60.0)
-  {
+      outstandingWiFiFragments = self->_outstandingWiFiFragments;
+      v21 = 67109120;
+      v22[0] = outstandingWiFiFragments;
+      v12 = "NWACT: Wi-Fi fragment limit reached (%u outstanding requests), skipping";
+      v13 = v8;
+      v14 = 8;
+      goto LABEL_19;
+    }
+
     if (v9)
     {
-      outstandingWiFiFragments = self->_outstandingWiFiFragments;
-      v22 = 67109376;
-      v23[0] = outstandingWiFiFragments;
-      LOWORD(v23[1]) = 2048;
-      *(&v23[1] + 2) = v7;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "NWACT: Wi-Fi fragments exceeded maximum pending interval (%u outstanding requests, %f elapsed), resetting outstanding requests", &v22, 0x12u);
+      v10 = self->_outstandingWiFiFragments;
+      v21 = 67109376;
+      v22[0] = v10;
+      LOWORD(v22[1]) = 2048;
+      *(&v22[1] + 2) = v7;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "NWACT: Wi-Fi fragments exceeded maximum pending interval (%u outstanding requests, %f elapsed), resetting outstanding requests", &v21, 0x12u);
     }
 
     self->_outstandingWiFiFragments = 0;
-LABEL_9:
-    v11 = metricsLogHandle;
-    if (v7 >= 1.0)
-    {
-      if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
-      {
-        v22 = 134217984;
-        *v23 = v7;
-        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "NWACT: Wi-Fi fragment allowed to proceed, last requested %f seconds ago", &v22, 0xCu);
-      }
-
-      ++self->_outstandingWiFiFragments;
-      v15 = metricsLogHandle;
-      if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
-      {
-        v16 = self->_outstandingWiFiFragments;
-        v22 = 67109120;
-        v23[0] = v16;
-        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "NWACT: Wi-Fi fragment requested, there are now %u outstanding Wi-Fi fragment requests", &v22, 8u);
-      }
-
-      date2 = [MEMORY[0x277CBEAA8] date];
-      [date2 timeIntervalSince1970];
-      self->_lastWiFiTriggerTime = v18;
-
-      mEMORY[0x277D7B938] = [MEMORY[0x277D7B938] sharedClient];
-      [mEMORY[0x277D7B938] triggerQueryForNWActivity:0 andReply:&__block_literal_global_211_0];
-    }
-
-    else if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
-    {
-      LOWORD(v22) = 0;
-      v12 = "NWACT: Wi-Fi fragment requested too recently, suppressing";
-      v13 = v11;
-      v14 = 2;
-LABEL_19:
-      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_INFO, v12, &v22, v14);
-      goto LABEL_20;
-    }
-
-    goto LABEL_20;
   }
 
-  if (v9)
+  v11 = metricsLogHandle;
+  if (v7 < 1.0)
   {
-    v20 = self->_outstandingWiFiFragments;
-    v22 = 67109120;
-    v23[0] = v20;
-    v12 = "NWACT: Wi-Fi fragment limit reached (%u outstanding requests), skipping";
-    v13 = v8;
-    v14 = 8;
-    goto LABEL_19;
+    if (!os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
+    {
+      return;
+    }
+
+    LOWORD(v21) = 0;
+    v12 = "NWACT: Wi-Fi fragment requested too recently, suppressing";
+    v13 = v11;
+    v14 = 2;
+LABEL_19:
+    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_INFO, v12, &v21, v14);
+    return;
   }
 
-LABEL_20:
-  v21 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    v21 = 134217984;
+    *v22 = v7;
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "NWACT: Wi-Fi fragment allowed to proceed, last requested %f seconds ago", &v21, 0xCu);
+  }
+
+  ++self->_outstandingWiFiFragments;
+  v15 = metricsLogHandle;
+  if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    v16 = self->_outstandingWiFiFragments;
+    v21 = 67109120;
+    v22[0] = v16;
+    _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "NWACT: Wi-Fi fragment requested, there are now %u outstanding Wi-Fi fragment requests", &v21, 8u);
+  }
+
+  date2 = [MEMORY[0x277CBEAA8] date];
+  [date2 timeIntervalSince1970];
+  self->_lastWiFiTriggerTime = v18;
+
+  mEMORY[0x277D7B938] = [MEMORY[0x277D7B938] sharedClient];
+  [mEMORY[0x277D7B938] triggerQueryForNWActivity:0 andReply:&__block_literal_global_211_0];
 }
 
 void __39__NWActivityHandler__triggerWiFiMetric__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   if (v5)
@@ -2625,18 +2632,16 @@ void __39__NWActivityHandler__triggerWiFiMetric__block_invoke(uint64_t a1, void 
     v6 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "NWACT: L2 Received error from Wi-Fi analytics trigger: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "NWACT: L2 Received error from Wi-Fi analytics trigger: %@", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_triggerCellMetric
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = metricsLogHandle;
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -2648,12 +2653,12 @@ void __39__NWActivityHandler__triggerWiFiMetric__block_invoke(uint64_t a1, void 
   {
     v4 = +[SymptomsCAObserver sharedInstance];
     metricsQueue = self->_metricsQueue;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __39__NWActivityHandler__triggerCellMetric__block_invoke;
-    v16[3] = &unk_27898FC88;
-    v16[4] = self;
-    [v4 addDelegate:self forEvents:&unk_2847EEC40 withQueue:metricsQueue completion:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __39__NWActivityHandler__triggerCellMetric__block_invoke;
+    v15[3] = &unk_27898FC88;
+    v15[4] = self;
+    [v4 addDelegate:self forEvents:&unk_2847EEC40 withQueue:metricsQueue completion:v15];
   }
 
   v6 = [objc_alloc(MEMORY[0x277CE3F30]) initWithComponentId:41];
@@ -2665,7 +2670,7 @@ void __39__NWActivityHandler__triggerWiFiMetric__block_invoke(uint64_t a1, void 
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      v18 = 2686991;
+      v17 = 2686991;
       v9 = "NWACT: Posted cellular metric empty trigger to WirelessInsights: %u";
       v10 = v8;
       v11 = 8;
@@ -2692,12 +2697,11 @@ LABEL_10:
   self->_lastCellularTriggerTime = v14;
 
   self->_cellFragmentRequestOutstanding = 1;
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __39__NWActivityHandler__triggerCellMetric__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   *(*(a1 + 32) + 57) = a2;
   v6 = metricsLogHandle;
@@ -2705,43 +2709,41 @@ void __39__NWActivityHandler__triggerCellMetric__block_invoke(uint64_t a1, char 
   {
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
+      LOWORD(v11) = 0;
       v7 = "NWACT: Successfully registered with CAEventObserver";
       v8 = v6;
       v9 = OS_LOG_TYPE_DEFAULT;
       v10 = 2;
 LABEL_6:
-      _os_log_impl(&dword_23255B000, v8, v9, v7, &v12, v10);
+      _os_log_impl(&dword_23255B000, v8, v9, v7, &v11, v10);
     }
   }
 
   else if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v12 = 138412290;
-    v13 = v5;
+    v11 = 138412290;
+    v12 = v5;
     v7 = "NWACT: Failed to register with CAEventObserver, error: %@";
     v8 = v6;
     v9 = OS_LOG_TYPE_ERROR;
     v10 = 12;
     goto LABEL_6;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleEvent:(id)event forEventName:(id)name
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   nameCopy = name;
   v8 = metricsLogHandle;
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412546;
-    v13 = nameCopy;
-    v14 = 2112;
-    v15 = eventCopy;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "NWACT: Got AWD event: name %@, %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = nameCopy;
+    v13 = 2112;
+    v14 = eventCopy;
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "NWACT: Got AWD event: name %@, %@", &v11, 0x16u);
   }
 
   if (([nameCopy isEqualToString:@"com.apple.Baseband.kCellularLteSuperMetric"] & 1) != 0 || (objc_msgSend(nameCopy, "isEqualToString:", @"com.apple.Baseband.cellularLteConnectionStats") & 1) != 0 || (objc_msgSend(nameCopy, "isEqualToString:", @"com.apple.Baseband.cellularNrConnectionStats") & 1) != 0 || (objc_msgSend(nameCopy, "isEqualToString:", @"com.apple.Baseband.cellularPowerLogPowerEstimator") & 1) != 0 || (objc_msgSend(nameCopy, "isEqualToString:", @"com.apple.Baseband.cellularPowerLogBasebandPowerConsumption") & 1) != 0 || objc_msgSend(nameCopy, "isEqualToString:", @"com.apple.Baseband.cellularLteNrConnectionStats"))
@@ -2749,11 +2751,11 @@ LABEL_6:
     v9 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
     {
-      v12 = 138412546;
-      v13 = nameCopy;
-      v14 = 2112;
-      v15 = eventCopy;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_INFO, "NWACT: Got cellular fragment AWD event: name %@, %@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = nameCopy;
+      v13 = 2112;
+      v14 = eventCopy;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_INFO, "NWACT: Got cellular fragment AWD event: name %@, %@", &v11, 0x16u);
     }
 
     self->_cellFragmentRequestOutstanding = 0;
@@ -2762,15 +2764,13 @@ LABEL_6:
 
   else
   {
-    v11 = metricsLogHandle;
+    v10 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_INFO, "NWACT: Ignoring AWD event that isn't the cellular fragment", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_INFO, "NWACT: Ignoring AWD event that isn't the cellular fragment", &v11, 2u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deliverCellularFragment:(id)fragment
@@ -2802,9 +2802,169 @@ LABEL_6:
   }
 }
 
+- (void)_sendMetric:(id)metric ofType:(int)type forActivities:(id)activities parentActivity:(id)activity additionalItems:(id)items
+{
+  v10 = *&type;
+  v23 = *MEMORY[0x277D85DE8];
+  metricCopy = metric;
+  activitiesCopy = activities;
+  activityCopy = activity;
+  itemsCopy = items;
+  awdReport = [metricCopy awdReport];
+  if (awdReport)
+  {
+    v17 = metricsLogHandle;
+    if ((v10 - 1) > 1)
+    {
+      if (!os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_10;
+      }
+
+      *v22 = 138477827;
+      *&v22[4] = awdReport;
+      v18 = v17;
+      v19 = OS_LOG_TYPE_DEBUG;
+    }
+
+    else
+    {
+      if (!os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
+      {
+        goto LABEL_10;
+      }
+
+      *v22 = 138477827;
+      *&v22[4] = awdReport;
+      v18 = v17;
+      v19 = OS_LOG_TYPE_INFO;
+    }
+
+    _os_log_impl(&dword_23255B000, v18, v19, "NWACT: Created report: %{private}@", v22, 0xCu);
+LABEL_10:
+    data = [awdReport data];
+    [(NWActivityHandler *)self _saveMetricWithUUIDS:activitiesCopy parentUUID:activityCopy withData:data ofType:v10];
+
+    if ([(NWActivityHandler *)self configuredForMetricStreaming])
+    {
+      -[NWActivityHandler streamAWDMetric:withIdentifier:additionalDictionaryItems:](self, "streamAWDMetric:withIdentifier:additionalDictionaryItems:", awdReport, [metricCopy awdMetricID], itemsCopy);
+    }
+
+    goto LABEL_12;
+  }
+
+  v20 = metricsLogHandle;
+  if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    *v22 = 138412290;
+    *&v22[4] = metricCopy;
+    _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_ERROR, "NWACT: No report in %@", v22, 0xCu);
+  }
+
+LABEL_12:
+}
+
+- (void)_sendDictionaryMetric:(id)metric ofType:(int)type forActivities:(id)activities parentActivity:(id)activity additionalItems:(id)items
+{
+  v10 = *&type;
+  v31 = *MEMORY[0x277D85DE8];
+  metricCopy = metric;
+  activitiesCopy = activities;
+  activityCopy = activity;
+  itemsCopy = items;
+  dictionaryReport = [metricCopy dictionaryReport];
+  if (!dictionaryReport)
+  {
+    v20 = metricsLogHandle;
+    if (!os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_23;
+    }
+
+    *buf = 138412290;
+    v30 = metricCopy;
+    v21 = "NWACT: No report in %@";
+    v22 = v20;
+    v23 = 12;
+LABEL_18:
+    _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, v21, buf, v23);
+    goto LABEL_23;
+  }
+
+  v17 = metricsLogHandle;
+  if ((v10 - 1) > 1)
+  {
+    if (!os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_10;
+    }
+
+    *buf = 138477827;
+    v30 = dictionaryReport;
+    v18 = v17;
+    v19 = OS_LOG_TYPE_DEBUG;
+  }
+
+  else
+  {
+    if (!os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
+    {
+      goto LABEL_10;
+    }
+
+    *buf = 138477827;
+    v30 = dictionaryReport;
+    v18 = v17;
+    v19 = OS_LOG_TYPE_INFO;
+  }
+
+  _os_log_impl(&dword_23255B000, v18, v19, "NWACT: Created report: %{private}@", buf, 0xCu);
+LABEL_10:
+  if (![MEMORY[0x277CCAAA0] isValidJSONObject:dictionaryReport])
+  {
+    v26 = metricsLogHandle;
+    if (!os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_23;
+    }
+
+    *buf = 0;
+    v21 = "NWACT: Activity Reports are not valid JSON, dropping";
+    v22 = v26;
+    v23 = 2;
+    goto LABEL_18;
+  }
+
+  v28 = 0;
+  v24 = [MEMORY[0x277CCAAA0] dataWithJSONObject:dictionaryReport options:0 error:&v28];
+  v25 = v28;
+  if (v25 || !v24)
+  {
+    v27 = metricsLogHandle;
+    if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v30 = v25;
+      _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_ERROR, "NWACT: Failed to create JSON data from activity report, dropping: %@", buf, 0xCu);
+    }
+  }
+
+  else
+  {
+    if ([(NWActivityHandler *)self configuredForMetricStreaming])
+    {
+      [(NWActivityHandler *)self streamDictionaryMetric:dictionaryReport additionalDictionaryItems:itemsCopy];
+    }
+
+    [(NWActivityHandler *)self _saveMetricWithUUIDS:activitiesCopy parentUUID:activityCopy withData:v24 ofType:v10];
+  }
+
+LABEL_23:
+}
+
 - (void)_handleStartActivity:(id)activity
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   activityUUID = [activityCopy activityUUID];
   if (activityUUID)
@@ -2818,7 +2978,7 @@ LABEL_6:
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v33 = activityCopy;
+        v32 = activityCopy;
         v9 = "NWACT: null UUID in activityStats  %@";
 LABEL_7:
         _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, v9, buf, 0xCu);
@@ -2846,9 +3006,9 @@ LABEL_7:
             v14 = v13;
             externallyVisibleActivityUUID = [activityCopy externallyVisibleActivityUUID];
             *buf = 138412547;
-            v33 = activityUUID;
-            v34 = 2113;
-            v35 = externallyVisibleActivityUUID;
+            v32 = activityUUID;
+            v33 = 2113;
+            v34 = externallyVisibleActivityUUID;
             _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "NWACT: swap internal activity UUID %@ to external %{private}@", buf, 0x16u);
           }
         }
@@ -2878,9 +3038,9 @@ LABEL_7:
                 v20 = v19;
                 externallyVisibleParentUUID = [activityCopy externallyVisibleParentUUID];
                 *buf = 138412547;
-                v33 = parentUUID;
-                v34 = 2113;
-                v35 = externallyVisibleParentUUID;
+                v32 = parentUUID;
+                v33 = 2113;
+                v34 = externallyVisibleParentUUID;
                 _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "NWACT: swap internal parent UUID %@ to external %{private}@", buf, 0x16u);
               }
             }
@@ -2903,8 +3063,8 @@ LABEL_7:
           [activityCopy setLayer2Report:dictionaryReport];
         }
 
-        v30 = activityUUID;
-        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+        v29 = activityUUID;
+        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
         [(NWActivityHandler *)self _sendDictionaryMetric:activityCopy ofType:1 forActivities:v28 parentActivity:parentUUID additionalItems:0];
       }
 
@@ -2914,7 +3074,7 @@ LABEL_7:
         if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v33 = activityCopy;
+          v32 = activityCopy;
           _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "NWACT: no activity mapper for activityStats %@", buf, 0xCu);
         }
       }
@@ -2927,18 +3087,16 @@ LABEL_7:
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v33 = activityCopy;
+      v32 = activityCopy;
       v9 = "NWACT: no activity UUID found on activityStats %@";
       goto LABEL_7;
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleEpilogue:(id)epilogue
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   epilogueCopy = epilogue;
   activityUUID = [epilogueCopy activityUUID];
   if (activityUUID)
@@ -2952,7 +3110,7 @@ LABEL_7:
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v33 = epilogueCopy;
+        v32 = epilogueCopy;
         v9 = "NWACT: null activity UUID in epilogue  %@";
 LABEL_7:
         _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, v9, buf, 0xCu);
@@ -2980,9 +3138,9 @@ LABEL_7:
             v14 = v13;
             externallyVisibleActivityUUID = [epilogueCopy externallyVisibleActivityUUID];
             *buf = 138412547;
-            v33 = activityUUID;
-            v34 = 2113;
-            v35 = externallyVisibleActivityUUID;
+            v32 = activityUUID;
+            v33 = 2113;
+            v34 = externallyVisibleActivityUUID;
             _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "NWACT: swap epilogue internal activity UUID %@ to external %{private}@", buf, 0x16u);
           }
         }
@@ -3012,9 +3170,9 @@ LABEL_7:
                 v20 = v19;
                 externallyVisibleParentUUID = [epilogueCopy externallyVisibleParentUUID];
                 *buf = 138412547;
-                v33 = parentUUID;
-                v34 = 2113;
-                v35 = externallyVisibleParentUUID;
+                v32 = parentUUID;
+                v33 = 2113;
+                v34 = externallyVisibleParentUUID;
                 _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "NWACT: swap epilogue internal parent UUID %@ to external %{private}@", buf, 0x16u);
               }
             }
@@ -3037,8 +3195,8 @@ LABEL_7:
           [epilogueCopy setLayer2Report:dictionaryReport];
         }
 
-        v30 = activityUUID;
-        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+        v29 = activityUUID;
+        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
         [(NWActivityHandler *)self _sendDictionaryMetric:epilogueCopy ofType:2 forActivities:v28 parentActivity:parentUUID additionalItems:0];
       }
 
@@ -3048,7 +3206,7 @@ LABEL_7:
         if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v33 = epilogueCopy;
+          v32 = epilogueCopy;
           _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "NWACT: no activity mapper for epilogue %@", buf, 0xCu);
         }
       }
@@ -3061,18 +3219,16 @@ LABEL_7:
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v33 = epilogueCopy;
+      v32 = epilogueCopy;
       v9 = "NWACT: no activity UUID found on epilogue %@";
       goto LABEL_7;
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCFNetworkItem:(id)item
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   nwActivity = [itemCopy nwActivity];
   if (!nwActivity)
@@ -3081,7 +3237,7 @@ LABEL_7:
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v49 = itemCopy;
+      v48 = itemCopy;
       _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "NWACT: no UUID found on session stats %@", buf, 0xCu);
     }
 
@@ -3093,7 +3249,7 @@ LABEL_7:
     }
 
     *buf = 138477827;
-    v49 = dictionaryReport;
+    v48 = dictionaryReport;
     v12 = "NWACT: dictionaryReport is %{private}@";
     goto LABEL_14;
   }
@@ -3122,9 +3278,9 @@ LABEL_7:
           v15 = v14;
           externalUUID2 = [dictionaryReport externalUUID];
           *buf = 138412547;
-          v49 = nwActivity;
-          v50 = 2113;
-          v51 = externalUUID2;
+          v48 = nwActivity;
+          v49 = 2113;
+          v50 = externalUUID2;
           _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "NWACT: Replaced activity UUID %@ with externally visible %{private}@", buf, 0x16u);
         }
       }
@@ -3133,30 +3289,30 @@ LABEL_7:
       v18 = connectionUUIDS;
       if (connectionUUIDS && [connectionUUIDS count])
       {
-        v40 = dictionaryReport;
+        v39 = dictionaryReport;
         array = [MEMORY[0x277CBEB18] array];
+        v41 = 0u;
         v42 = 0u;
         v43 = 0u;
         v44 = 0u;
-        v45 = 0u;
-        v39 = v18;
+        v38 = v18;
         v20 = v18;
-        v21 = [v20 countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v41 objects:v46 count:16];
         if (v21)
         {
           v22 = v21;
-          v23 = *v43;
+          v23 = *v42;
           obj = v20;
           while (2)
           {
             for (i = 0; i != v22; ++i)
             {
-              if (*v43 != v23)
+              if (*v42 != v23)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v25 = *(*(&v42 + 1) + 8 * i);
+              v25 = *(*(&v41 + 1) + 8 * i);
               nullUUID2 = [(NWActivityHandler *)self nullUUID];
               v27 = [v25 isEqual:nullUUID2];
 
@@ -3166,7 +3322,7 @@ LABEL_7:
                 if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v49 = nwActivity;
+                  v48 = nwActivity;
                   _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_ERROR, "NWACT: CFNetwork supplies null UUID for a connection %@", buf, 0xCu);
                 }
               }
@@ -3178,12 +3334,12 @@ LABEL_7:
                 if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v49 = v25;
+                  v48 = v25;
                   _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_ERROR, "NWACT: no activity mapper for connection uuid %@", buf, 0xCu);
                 }
 
-                v18 = v39;
-                dictionaryReport = v40;
+                v18 = v38;
+                dictionaryReport = v39;
                 v34 = obj;
                 goto LABEL_41;
               }
@@ -3194,7 +3350,7 @@ LABEL_7:
             }
 
             v20 = obj;
-            v22 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+            v22 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
             if (v22)
             {
               continue;
@@ -3207,22 +3363,22 @@ LABEL_7:
         if ([(NWActivityHandler *)self configuredForMetricStreaming])
         {
           [itemCopy setExternallyVisibleConnectionUUIDs:v20];
-          v18 = v39;
-          dictionaryReport = v40;
+          v18 = v38;
+          dictionaryReport = v39;
         }
 
         else
         {
           [itemCopy setExternallyVisibleConnectionUUIDs:array];
           v35 = metricsLogHandle;
-          v18 = v39;
-          dictionaryReport = v40;
+          v18 = v38;
+          dictionaryReport = v39;
           if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412547;
-            v49 = v20;
-            v50 = 2113;
-            v51 = array;
+            v48 = v20;
+            v49 = 2113;
+            v50 = array;
             _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_DEBUG, "NWACT: Replaced connection statistics UUID array %@ with externally visible %{private}@", buf, 0x16u);
           }
         }
@@ -3234,7 +3390,7 @@ LABEL_7:
         if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v49 = itemCopy;
+          v48 = itemCopy;
           _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_DEBUG, "NWACT: No connection statistics UUID array on sessionStats %@", buf, 0xCu);
         }
       }
@@ -3244,8 +3400,8 @@ LABEL_7:
       uUIDString = [taskUUID UUIDString];
       [array setObject:uUIDString forKeyedSubscript:@"taskUUID"];
 
-      v46 = nwActivity;
-      v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
+      v45 = nwActivity;
+      v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
       [(NWActivityHandler *)self _sendDictionaryMetric:itemCopy ofType:3 forActivities:v34 parentActivity:0 additionalItems:array];
 LABEL_41:
 
@@ -3261,7 +3417,7 @@ LABEL_42:
     }
 
     *buf = 138412290;
-    v49 = itemCopy;
+    v48 = itemCopy;
     v12 = "NWACT: no activity mapper for session stats %@";
 LABEL_14:
     _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, v12, buf, 0xCu);
@@ -3272,13 +3428,385 @@ LABEL_14:
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v49 = itemCopy;
+    v48 = itemCopy;
     _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "NWACT: CFNetwork supplies null UUID in session stats %@", buf, 0xCu);
   }
 
 LABEL_43:
+}
 
-  v38 = *MEMORY[0x277D85DE8];
+- (void)_handleNWConnectionStatistics:(id)statistics effectivePid:(int)pid
+{
+  v4 = *&pid;
+  v86 = *MEMORY[0x277D85DE8];
+  statisticsCopy = statistics;
+  if (v4)
+  {
+    v7 = [(NWActivityHandler *)self _getBundleNameFromPid:v4];
+    [statisticsCopy setSourceIdentifier:v7];
+
+    v8 = metricsLogHandle;
+    if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
+    {
+      v9 = v8;
+      sourceIdentifier = [statisticsCopy sourceIdentifier];
+      *buf = 138412546;
+      v82 = sourceIdentifier;
+      v83 = 1024;
+      LODWORD(v84) = v4;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "NWACT: Report gets new sourceIdentifier: %@ given effective pid %d", buf, 0x12u);
+    }
+  }
+
+  activities = [statisticsCopy activities];
+  v12 = activities;
+  if (activities && [activities count])
+  {
+    v76 = statisticsCopy;
+    array = [MEMORY[0x277CBEB18] array];
+    v77 = 0u;
+    v78 = 0u;
+    v79 = 0u;
+    v80 = 0u;
+    v75 = v12;
+    v14 = v12;
+    v15 = [v14 countByEnumeratingWithState:&v77 objects:v85 count:16];
+    if (v15)
+    {
+      v16 = v15;
+      v17 = *v78;
+      while (2)
+      {
+        for (i = 0; i != v16; ++i)
+        {
+          if (*v78 != v17)
+          {
+            objc_enumerationMutation(v14);
+          }
+
+          v19 = *(*(&v77 + 1) + 8 * i);
+          nullUUID = [(NWActivityHandler *)self nullUUID];
+          v21 = [v19 isEqual:nullUUID];
+
+          if (v21)
+          {
+            v22 = metricsLogHandle;
+            if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 0;
+              _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "NWACT: libnetcore supplied a null UUID in the activities array, ignoring", buf, 2u);
+            }
+          }
+
+          else
+          {
+            v23 = [(NWActivityHandler *)self mapperForUUID:v19 reason:5];
+            if (!v23)
+            {
+              v27 = metricsLogHandle;
+              if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 138412290;
+                v82 = v19;
+                _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_ERROR, "NWACT: no activity mapper for activity uuid %@", buf, 0xCu);
+              }
+
+              v12 = v75;
+              statisticsCopy = v76;
+              goto LABEL_84;
+            }
+
+            v24 = v23;
+            externalUUID = [v23 externalUUID];
+            [array addObject:externalUUID];
+          }
+        }
+
+        v16 = [v14 countByEnumeratingWithState:&v77 objects:v85 count:16];
+        if (v16)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    if ([(NWActivityHandler *)self configuredForMetricStreaming])
+    {
+      statisticsCopy = v76;
+      [v76 setExternallyVisibleActivityUUIDs:v14];
+      v12 = v75;
+    }
+
+    else
+    {
+      statisticsCopy = v76;
+      [v76 setExternallyVisibleActivityUUIDs:array];
+      v28 = metricsLogHandle;
+      v12 = v75;
+      if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412547;
+        v82 = v14;
+        v83 = 2113;
+        v84 = array;
+        _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEBUG, "NWACT: Replaced connection statistics UUID array %@ with externally visible %{private}@", buf, 0x16u);
+      }
+    }
+  }
+
+  else
+  {
+    v26 = metricsLogHandle;
+    if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 138412290;
+      v82 = statisticsCopy;
+      _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEBUG, "NWACT: No activity UUID array on %@", buf, 0xCu);
+    }
+  }
+
+  connectionUUID = [statisticsCopy connectionUUID];
+
+  if (connectionUUID)
+  {
+    connectionUUID2 = [statisticsCopy connectionUUID];
+    nullUUID2 = [(NWActivityHandler *)self nullUUID];
+    v32 = [connectionUUID2 isEqual:nullUUID2];
+
+    if (v32)
+    {
+      v33 = metricsLogHandle;
+      if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_ERROR, "NWACT: libnetcore supplied a null connection UUID", buf, 2u);
+      }
+    }
+
+    connectionUUID3 = [statisticsCopy connectionUUID];
+    v35 = [(NWActivityHandler *)self mapperForUUID:connectionUUID3 reason:8];
+
+    if (!v35)
+    {
+      v37 = metricsLogHandle;
+      if (!os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_84;
+      }
+
+      v38 = v37;
+      connectionUUID4 = [statisticsCopy connectionUUID];
+      *buf = 138412290;
+      v82 = connectionUUID4;
+      v40 = "NWACT: no activity mapper for connection uuid %@";
+      goto LABEL_50;
+    }
+
+    if ([(NWActivityHandler *)self configuredForMetricStreaming])
+    {
+      connectionUUID5 = [statisticsCopy connectionUUID];
+      [statisticsCopy setExternallyVisibleConnectionUUID:connectionUUID5];
+    }
+
+    else
+    {
+      externalUUID2 = [v35 externalUUID];
+      [statisticsCopy setExternallyVisibleConnectionUUID:externalUUID2];
+
+      v42 = metricsLogHandle;
+      if (!os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
+      {
+LABEL_40:
+
+        goto LABEL_41;
+      }
+
+      connectionUUID5 = v42;
+      connectionUUID6 = [statisticsCopy connectionUUID];
+      externalUUID3 = [v35 externalUUID];
+      *buf = 138412547;
+      v82 = connectionUUID6;
+      v83 = 2113;
+      v84 = externalUUID3;
+      _os_log_impl(&dword_23255B000, connectionUUID5, OS_LOG_TYPE_DEBUG, "NWACT: Replaced connection statistics connection uuid %@ with externally visible %{private}@", buf, 0x16u);
+    }
+
+    goto LABEL_40;
+  }
+
+LABEL_41:
+  parentUUID = [statisticsCopy parentUUID];
+
+  if (parentUUID)
+  {
+    parentUUID2 = [statisticsCopy parentUUID];
+    nullUUID3 = [(NWActivityHandler *)self nullUUID];
+    v48 = [parentUUID2 isEqual:nullUUID3];
+
+    if (v48)
+    {
+      v49 = metricsLogHandle;
+      if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_23255B000, v49, OS_LOG_TYPE_ERROR, "NWACT: libnetcore supplied a null parent connection UUID", buf, 2u);
+      }
+    }
+
+    parentUUID3 = [statisticsCopy parentUUID];
+    v51 = [(NWActivityHandler *)self mapperForUUID:parentUUID3 reason:8];
+
+    if (v51)
+    {
+      if ([(NWActivityHandler *)self configuredForMetricStreaming])
+      {
+        parentUUID4 = [statisticsCopy parentUUID];
+        [statisticsCopy setExternallyVisibleParentUUID:parentUUID4];
+      }
+
+      else
+      {
+        externalUUID4 = [v51 externalUUID];
+        [statisticsCopy setExternallyVisibleParentUUID:externalUUID4];
+
+        v55 = metricsLogHandle;
+        if (!os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
+        {
+LABEL_54:
+
+          goto LABEL_55;
+        }
+
+        parentUUID4 = v55;
+        parentUUID5 = [statisticsCopy parentUUID];
+        externalUUID5 = [v51 externalUUID];
+        *buf = 138412547;
+        v82 = parentUUID5;
+        v83 = 2113;
+        v84 = externalUUID5;
+        _os_log_impl(&dword_23255B000, parentUUID4, OS_LOG_TYPE_DEBUG, "NWACT: Replaced connection statistics parent connection uuid %@ with externally visible %{private}@", buf, 0x16u);
+      }
+
+      goto LABEL_54;
+    }
+
+    v53 = metricsLogHandle;
+    if (!os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_84;
+    }
+
+    v38 = v53;
+    connectionUUID4 = [statisticsCopy parentUUID];
+    *buf = 138412290;
+    v82 = connectionUUID4;
+    v40 = "NWACT: no activity mapper for parent connection uuid %@";
+LABEL_50:
+    _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_ERROR, v40, buf, 0xCu);
+
+    goto LABEL_84;
+  }
+
+LABEL_55:
+  v58 = [(NWActivityHandler *)self _createDeviceReportForActivityType:4 andDomain:0];
+  v59 = v58;
+  if (v58)
+  {
+    v60 = [v58 dictionaryReport:0];
+    [statisticsCopy setDeviceReport:v60];
+  }
+
+  _createSFL2Report = [(NWActivityHandler *)self _createSFL2Report];
+  v62 = _createSFL2Report;
+  if (_createSFL2Report)
+  {
+    dictionaryReport = [_createSFL2Report dictionaryReport];
+    [statisticsCopy setLayer2Report:dictionaryReport];
+  }
+
+  dictionaryReport2 = [statisticsCopy dictionaryReport];
+  metricType = [statisticsCopy metricType];
+  if (metricType == 1)
+  {
+    if ([(NWActivityHandler *)self configuredForMetricStreaming])
+    {
+      [(NWActivityHandler *)self streamDictionaryMetric:dictionaryReport2 additionalDictionaryItems:0];
+    }
+
+    else
+    {
+      v74 = metricsLogHandle;
+      if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_23255B000, v74, OS_LOG_TYPE_DEBUG, "Sending legacy TCP report directly to CA", buf, 2u);
+      }
+
+      [(NWActivityHandler *)self _sendCAEvent:@"com.apple.network.Libnetcore_TCPConnectionReport" forReportDictionary:dictionaryReport2];
+    }
+  }
+
+  else if (metricType == 2)
+  {
+    v66 = dictionaryReport2;
+    v67 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    [NWActivitySuperMetric flattenObject:v66 intoDictionary:v67 atPath:&stru_2847966D8];
+    if (v66 && v67)
+    {
+      if (nw_activity_should_report_to_destination())
+      {
+        v68 = v12;
+        v69 = metricsLogHandle;
+        if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_23255B000, v69, OS_LOG_TYPE_DEBUG, "Sending report to destination two", buf, 2u);
+        }
+
+        AnalyticsSendEvent();
+        v12 = v68;
+      }
+
+      if (nw_activity_should_report_to_destination())
+      {
+        v70 = v12;
+        v71 = metricsLogHandle;
+        if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_23255B000, v71, OS_LOG_TYPE_DEBUG, "Sending report to destination three", buf, 2u);
+        }
+
+        v72 = _CFXPCCreateXPCObjectFromCFObject();
+        v73 = metricsLogHandle;
+        if (v72)
+        {
+          if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 138412290;
+            v82 = v72;
+            _os_log_impl(&dword_23255B000, v73, OS_LOG_TYPE_DEBUG, "Generated report for STAnalytics: %@", buf, 0xCu);
+          }
+
+          SecTrustReportNetworkingAnalytics();
+        }
+
+        else if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_23255B000, v73, OS_LOG_TYPE_ERROR, "Failed to generate report for STAnalytics", buf, 2u);
+        }
+
+        v12 = v70;
+      }
+    }
+
+    [(NWActivityHandler *)self _sendDictionaryMetric:statisticsCopy ofType:4 forActivities:v12 parentActivity:0 additionalItems:0];
+  }
+
+LABEL_84:
 }
 
 - (void)_sendCAEvent:(id)event forReport:(id)report
@@ -3295,7 +3823,7 @@ LABEL_43:
 
 - (void)_handleWiFiItem:(id)item
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if (!itemCopy)
   {
@@ -3321,7 +3849,7 @@ LABEL_43:
     {
       v7 = self->_outstandingWiFiFragments;
       *buf = 67109120;
-      LODWORD(v52) = v7;
+      LODWORD(v51) = v7;
       _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "NWACT: Wi-Fi fragment arrived, there are now %u outstanding Wi-Fi fragment requests", buf, 8u);
     }
   }
@@ -3342,7 +3870,7 @@ LABEL_43:
         v22 = v20;
         lastWiFiActivity2 = [(NWActivityHandler *)self lastWiFiActivity];
         *buf = 138412290;
-        v52 = lastWiFiActivity2;
+        v51 = lastWiFiActivity2;
         _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_INFO, "NWACT: Using last activity for Wi-Fi fragment: %@", buf, 0xCu);
       }
 
@@ -3374,7 +3902,7 @@ LABEL_11:
     v11 = v10;
     currentActivities2 = [(NWActivityHandler *)self currentActivities];
     *buf = 138412290;
-    v52 = currentActivities2;
+    v51 = currentActivities2;
     _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "NWACT: Using current activities for Wi-Fi fragment: %@", buf, 0xCu);
   }
 
@@ -3387,29 +3915,29 @@ LABEL_16:
   v27 = activityUUIDs;
   if (activityUUIDs && [activityUUIDs count])
   {
-    v46 = v14;
+    v45 = v14;
     array = [MEMORY[0x277CBEB18] array];
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
-    v45 = v27;
+    v44 = v27;
     v29 = v27;
-    v30 = [v29 countByEnumeratingWithState:&v47 objects:v55 count:16];
+    v30 = [v29 countByEnumeratingWithState:&v46 objects:v54 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v48;
+      v32 = *v47;
       while (2)
       {
         for (i = 0; i != v31; ++i)
         {
-          if (*v48 != v32)
+          if (*v47 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          v34 = *(*(&v47 + 1) + 8 * i);
+          v34 = *(*(&v46 + 1) + 8 * i);
           nullUUID = [(NWActivityHandler *)self nullUUID];
           v36 = [v34 isEqual:nullUUID];
 
@@ -3432,12 +3960,12 @@ LABEL_16:
               if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v52 = v34;
+                v51 = v34;
                 _os_log_impl(&dword_23255B000, v42, OS_LOG_TYPE_ERROR, "NWACT: no activity mapper for activity uuid %@", buf, 0xCu);
               }
 
-              v27 = v45;
-              v14 = v46;
+              v27 = v44;
+              v14 = v45;
               goto LABEL_43;
             }
 
@@ -3447,7 +3975,7 @@ LABEL_16:
           }
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v46 objects:v54 count:16];
         if (v31)
         {
           continue;
@@ -3460,25 +3988,25 @@ LABEL_16:
     if ([(NWActivityHandler *)self configuredForMetricStreaming])
     {
       [itemCopy setExternallyVisibleActivityUUIDs:v29];
-      v27 = v45;
+      v27 = v44;
     }
 
     else
     {
       [itemCopy setExternallyVisibleActivityUUIDs:array];
       v43 = metricsLogHandle;
-      v27 = v45;
+      v27 = v44;
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412547;
-        v52 = v29;
-        v53 = 2113;
-        v54 = array;
+        v51 = v29;
+        v52 = 2113;
+        v53 = array;
         _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_DEBUG, "NWACT: Replaced Wi-Fi activity UUID array %@ with externally visible %{private}@", buf, 0x16u);
       }
     }
 
-    v14 = v46;
+    v14 = v45;
   }
 
   else
@@ -3487,7 +4015,7 @@ LABEL_16:
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v52 = itemCopy;
+      v51 = itemCopy;
       _os_log_impl(&dword_23255B000, v41, OS_LOG_TYPE_DEBUG, "NWACT: No Wi-Fi activity UUID array on %@", buf, 0xCu);
     }
   }
@@ -3497,39 +4025,38 @@ LABEL_16:
 LABEL_43:
 
 LABEL_44:
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)traverseObject:(id)object atPath:(id)path
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   pathCopy = path;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v27 = objectCopy;
+    v26 = objectCopy;
     v8 = objectCopy;
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     obj = [v8 allKeys];
-    v9 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
+    v9 = [obj countByEnumeratingWithState:&v33 objects:v42 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v35;
+      v11 = *v34;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v35 != v11)
+          if (*v34 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v34 + 1) + 8 * i);
+          v13 = *(*(&v33 + 1) + 8 * i);
           v14 = [v8 objectForKey:v13];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -3538,9 +4065,9 @@ LABEL_44:
             if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v40 = v13;
-              v41 = 2112;
-              v42 = pathCopy;
+              v39 = v13;
+              v40 = 2112;
+              v41 = pathCopy;
               _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_INFO, "Bad key %@ at path %@", buf, 0x16u);
             }
           }
@@ -3549,44 +4076,44 @@ LABEL_44:
           [(NWActivityHandler *)self traverseObject:v14 atPath:v16];
         }
 
-        v10 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
+        v10 = [obj countByEnumeratingWithState:&v33 objects:v42 count:16];
       }
 
       while (v10);
     }
 
 LABEL_22:
-    objectCopy = v27;
+    objectCopy = v26;
     goto LABEL_23;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v27 = objectCopy;
+    v26 = objectCopy;
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     obja = objectCopy;
-    v17 = [obja countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v17 = [obja countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v17)
     {
       v18 = v17;
       v19 = 0;
-      v20 = *v31;
+      v20 = *v30;
       do
       {
         v21 = 0;
         v22 = v19;
         do
         {
-          if (*v31 != v20)
+          if (*v30 != v20)
           {
             objc_enumerationMutation(obja);
           }
 
-          v23 = *(*(&v30 + 1) + 8 * v21);
+          v23 = *(*(&v29 + 1) + 8 * v21);
           v19 = v22 + 1;
           v24 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@/%zu", pathCopy, v22];
           [(NWActivityHandler *)self traverseObject:v23 atPath:v24];
@@ -3596,7 +4123,7 @@ LABEL_22:
         }
 
         while (v18 != v21);
-        v18 = [obja countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v18 = [obja countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v18);
@@ -3611,61 +4138,59 @@ LABEL_22:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v26 = metricsLogHandle;
+      v25 = metricsLogHandle;
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v40 = objectCopy;
-        v41 = 2112;
-        v42 = pathCopy;
-        _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_INFO, "Bad value %@ at path %@", buf, 0x16u);
+        v39 = objectCopy;
+        v40 = 2112;
+        v41 = pathCopy;
+        _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_INFO, "Bad value %@ at path %@", buf, 0x16u);
       }
     }
   }
 
 LABEL_23:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createValidJSONObject:(id)object atPath:(id)path
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   pathCopy = path;
   v6 = objectCopy;
   if (!v6)
   {
-    v34 = 0;
+    v33 = 0;
     goto LABEL_34;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v34 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v33 = v6;
+    v33 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v32 = v6;
     v7 = v6;
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
     allKeys = [v7 allKeys];
-    v9 = [allKeys countByEnumeratingWithState:&v41 objects:v52 count:16];
+    v9 = [allKeys countByEnumeratingWithState:&v40 objects:v51 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v42;
+      v11 = *v41;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v42 != v11)
+          if (*v41 != v11)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v13 = *(*(&v41 + 1) + 8 * i);
+          v13 = *(*(&v40 + 1) + 8 * i);
           v14 = [v7 objectForKey:v13];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
@@ -3674,7 +4199,7 @@ LABEL_23:
             v16 = [(NWActivityHandler *)self createValidJSONObject:v14 atPath:v15];
             if (v16)
             {
-              [v34 setObject:v16 forKey:v13];
+              [v33 setObject:v16 forKey:v13];
             }
 
             else
@@ -3683,9 +4208,9 @@ LABEL_23:
               if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412546;
-                v46 = v14;
-                v47 = 2112;
-                v48 = v15;
+                v45 = v14;
+                v46 = 2112;
+                v47 = v15;
                 _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_INFO, "Bad object %@ at path %@, skipping", buf, 0x16u);
               }
             }
@@ -3697,22 +4222,22 @@ LABEL_23:
             if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v46 = v13;
-              v47 = 2112;
-              v48 = pathCopy;
+              v45 = v13;
+              v46 = 2112;
+              v47 = pathCopy;
               _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_INFO, "Bad key %@ at path %@, skipping", buf, 0x16u);
             }
           }
         }
 
-        v10 = [allKeys countByEnumeratingWithState:&v41 objects:v52 count:16];
+        v10 = [allKeys countByEnumeratingWithState:&v40 objects:v51 count:16];
       }
 
       while (v10);
     }
 
 LABEL_32:
-    v6 = v33;
+    v6 = v32;
 LABEL_33:
 
     goto LABEL_34;
@@ -3721,34 +4246,34 @@ LABEL_33:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v33 = v6;
+    v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v32 = v6;
     v7 = v6;
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v19 = [v7 countByEnumeratingWithState:&v37 objects:v51 count:16];
+    v19 = [v7 countByEnumeratingWithState:&v36 objects:v50 count:16];
     if (v19)
     {
       v20 = v19;
       v21 = 0;
-      v22 = *v38;
+      v22 = *v37;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v38 != v22)
+          if (*v37 != v22)
           {
             objc_enumerationMutation(v7);
           }
 
-          v24 = *(*(&v37 + 1) + 8 * j);
+          v24 = *(*(&v36 + 1) + 8 * j);
           v25 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@/%zu", pathCopy, v21];
           v26 = [(NWActivityHandler *)self createValidJSONObject:v24 atPath:v25];
           if (v26)
           {
-            [v34 addObject:v26];
+            [v33 addObject:v26];
           }
 
           else
@@ -3757,9 +4282,9 @@ LABEL_33:
             if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v46 = v24;
-              v47 = 2112;
-              v48 = v25;
+              v45 = v24;
+              v46 = 2112;
+              v47 = v25;
               _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_INFO, "Bad object %@ at path %@, skipping", buf, 0x16u);
             }
           }
@@ -3767,7 +4292,7 @@ LABEL_33:
           ++v21;
         }
 
-        v20 = [v7 countByEnumeratingWithState:&v37 objects:v51 count:16];
+        v20 = [v7 countByEnumeratingWithState:&v36 objects:v50 count:16];
       }
 
       while (v20);
@@ -3777,28 +4302,28 @@ LABEL_33:
   }
 
   objc_opt_class();
-  v34 = v6;
+  v33 = v6;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     objc_opt_class();
-    v34 = v6;
+    v33 = v6;
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v30 = metricsLogHandle;
+      v29 = metricsLogHandle;
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
       {
-        v31 = v30;
+        v30 = v29;
         *buf = 138412802;
-        v46 = v6;
-        v47 = 2112;
-        v48 = objc_opt_class();
-        v49 = 2112;
-        v50 = pathCopy;
-        v32 = v48;
-        _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_INFO, "Bad value %@ of type %@ at path %@", buf, 0x20u);
+        v45 = v6;
+        v46 = 2112;
+        v47 = objc_opt_class();
+        v48 = 2112;
+        v49 = pathCopy;
+        v31 = v47;
+        _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_INFO, "Bad value %@ of type %@ at path %@", buf, 0x20u);
       }
 
-      v34 = 0;
+      v33 = 0;
       v7 = v6;
       goto LABEL_33;
     }
@@ -3806,14 +4331,12 @@ LABEL_33:
 
 LABEL_34:
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v34;
+  return v33;
 }
 
 - (void)_convertPLMNToDecimal:(id)decimal mcc:(int *)mcc mnc:(int *)mnc
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   decimalCopy = decimal;
   v8 = decimalCopy;
   if (!decimalCopy || [decimalCopy length] != 3)
@@ -3824,8 +4347,8 @@ LABEL_34:
       goto LABEL_11;
     }
 
-    v20 = 138412290;
-    v21 = v8;
+    v19 = 138412290;
+    v20 = v8;
     v15 = "Invalid NSData passed, should be 3 bytes: %@";
     v16 = v14;
     v17 = 12;
@@ -3835,7 +4358,7 @@ LABEL_34:
   bytes = [v8 bytes];
   if (!bytes)
   {
-    v19 = metricsLogHandle;
+    v18 = metricsLogHandle;
     if (!os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
     {
 LABEL_11:
@@ -3849,12 +4372,12 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    LOWORD(v20) = 0;
+    LOWORD(v19) = 0;
     v15 = "Failed to extract inner data";
-    v16 = v19;
+    v16 = v18;
     v17 = 2;
 LABEL_10:
-    _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, v15, &v20, v17);
+    _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, v15, &v19, v17);
     goto LABEL_11;
   }
 
@@ -3878,13 +4401,11 @@ LABEL_13:
   {
     *mnc = v13;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCellularItem:(id)item
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if (itemCopy)
   {
@@ -3893,36 +4414,36 @@ LABEL_13:
     {
 
 LABEL_8:
-      v70 = [itemCopy mutableCopy];
+      v69 = [itemCopy mutableCopy];
       currentActivities2 = [(NWActivityHandler *)self currentActivities];
-      v68 = [currentActivities2 mutableCopy];
+      v67 = [currentActivities2 mutableCopy];
 
       completeActivities = [(NWActivityHandler *)self completeActivities];
-      v13 = v68;
-      [v68 addObjectsFromArray:completeActivities];
+      v13 = v67;
+      [v67 addObjectsFromArray:completeActivities];
 
-      if (v68 && [v68 count])
+      if (v67 && [v67 count])
       {
-        v14 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v68, "count")}];
+        v14 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v67, "count")}];
+        v80 = 0u;
         v81 = 0u;
         v82 = 0u;
         v83 = 0u;
-        v84 = 0u;
-        v15 = v68;
-        v16 = [v15 countByEnumeratingWithState:&v81 objects:v91 count:16];
+        v15 = v67;
+        v16 = [v15 countByEnumeratingWithState:&v80 objects:v90 count:16];
         if (v16)
         {
-          v17 = *v82;
+          v17 = *v81;
           while (2)
           {
             for (i = 0; i != v16; ++i)
             {
-              if (*v82 != v17)
+              if (*v81 != v17)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v19 = *(*(&v81 + 1) + 8 * i);
+              v19 = *(*(&v80 + 1) + 8 * i);
               nullUUID = [(NWActivityHandler *)self nullUUID];
               v21 = [v19 isEqual:nullUUID];
 
@@ -3946,7 +4467,7 @@ LABEL_8:
                   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v86 = v19;
+                    v85 = v19;
                     _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_ERROR, "NWACT: no activity mapper for activity uuid %@", buf, 0xCu);
                   }
 
@@ -3958,7 +4479,7 @@ LABEL_8:
               }
             }
 
-            v16 = [v15 countByEnumeratingWithState:&v81 objects:v91 count:16];
+            v16 = [v15 countByEnumeratingWithState:&v80 objects:v90 count:16];
             if (v16)
             {
               continue;
@@ -3971,29 +4492,29 @@ LABEL_8:
         v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
         if ([(NWActivityHandler *)self configuredForMetricStreaming])
         {
-          v79 = 0uLL;
-          v80 = 0uLL;
-          v77 = 0uLL;
           v78 = 0uLL;
+          v79 = 0uLL;
+          v76 = 0uLL;
+          v77 = 0uLL;
           v27 = v15;
-          v28 = [v27 countByEnumeratingWithState:&v77 objects:v90 count:16];
+          v28 = [v27 countByEnumeratingWithState:&v76 objects:v89 count:16];
           if (v28)
           {
-            v29 = *v78;
+            v29 = *v77;
             do
             {
               for (j = 0; j != v28; ++j)
               {
-                if (*v78 != v29)
+                if (*v77 != v29)
                 {
                   objc_enumerationMutation(v27);
                 }
 
-                uUIDString = [*(*(&v77 + 1) + 8 * j) UUIDString];
+                uUIDString = [*(*(&v76 + 1) + 8 * j) UUIDString];
                 [v26 addObject:uUIDString];
               }
 
-              v28 = [v27 countByEnumeratingWithState:&v77 objects:v90 count:16];
+              v28 = [v27 countByEnumeratingWithState:&v76 objects:v89 count:16];
             }
 
             while (v28);
@@ -4002,29 +4523,29 @@ LABEL_8:
 
         else
         {
-          v75 = 0uLL;
-          v76 = 0uLL;
-          v73 = 0uLL;
           v74 = 0uLL;
+          v75 = 0uLL;
+          v72 = 0uLL;
+          v73 = 0uLL;
           v34 = v14;
-          v35 = [v34 countByEnumeratingWithState:&v73 objects:v89 count:16];
+          v35 = [v34 countByEnumeratingWithState:&v72 objects:v88 count:16];
           if (v35)
           {
-            v36 = *v74;
+            v36 = *v73;
             do
             {
               for (k = 0; k != v35; ++k)
               {
-                if (*v74 != v36)
+                if (*v73 != v36)
                 {
                   objc_enumerationMutation(v34);
                 }
 
-                uUIDString2 = [*(*(&v73 + 1) + 8 * k) UUIDString];
+                uUIDString2 = [*(*(&v72 + 1) + 8 * k) UUIDString];
                 [v26 addObject:uUIDString2];
               }
 
-              v35 = [v34 countByEnumeratingWithState:&v73 objects:v89 count:16];
+              v35 = [v34 countByEnumeratingWithState:&v72 objects:v88 count:16];
             }
 
             while (v35);
@@ -4034,23 +4555,23 @@ LABEL_8:
           if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412547;
-            v86 = v15;
-            v87 = 2113;
-            *v88 = v34;
+            v85 = v15;
+            v86 = 2113;
+            *v87 = v34;
             _os_log_impl(&dword_23255B000, v39, OS_LOG_TYPE_DEBUG, "NWACT: Replaced Cell activity UUID array %@ with externally visible %{private}@", buf, 0x16u);
           }
         }
 
-        [v70 setObject:v26 forKeyedSubscript:@"activityUUIDs"];
+        [v69 setObject:v26 forKeyedSubscript:@"activityUUIDs"];
 
-        v13 = v68;
-        if (!v70)
+        v13 = v67;
+        if (!v69)
         {
           goto LABEL_82;
         }
       }
 
-      else if (!v70)
+      else if (!v69)
       {
         goto LABEL_82;
       }
@@ -4059,70 +4580,70 @@ LABEL_8:
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138477827;
-        v86 = v70;
+        v85 = v69;
         _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_DEBUG, "NWACT: Cellular fragment: %{private}@", buf, 0xCu);
       }
 
-      [(NWActivityHandler *)self traverseObject:v70 atPath:@"/"];
-      v41 = [v70 objectForKeyedSubscript:@"sim_hplmn"];
+      [(NWActivityHandler *)self traverseObject:v69 atPath:@"/"];
+      v41 = [v69 objectForKeyedSubscript:@"sim_hplmn"];
       if (v41)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v72 = 0;
-          [(NWActivityHandler *)self _convertPLMNToDecimal:v41 mcc:&v72 + 4 mnc:&v72];
-          [v70 setObject:0 forKeyedSubscript:@"sim_hplmn"];
-          v42 = [MEMORY[0x277CCABB0] numberWithInt:HIDWORD(v72)];
-          [v70 setObject:v42 forKeyedSubscript:@"converted_sim_mcc"];
+          v71 = 0;
+          [(NWActivityHandler *)self _convertPLMNToDecimal:v41 mcc:&v71 + 4 mnc:&v71];
+          [v69 setObject:0 forKeyedSubscript:@"sim_hplmn"];
+          v42 = [MEMORY[0x277CCABB0] numberWithInt:HIDWORD(v71)];
+          [v69 setObject:v42 forKeyedSubscript:@"converted_sim_mcc"];
 
-          v43 = [MEMORY[0x277CCABB0] numberWithInt:v72];
-          [v70 setObject:v43 forKeyedSubscript:@"converted_sim_mnc"];
+          v43 = [MEMORY[0x277CCABB0] numberWithInt:v71];
+          [v69 setObject:v43 forKeyedSubscript:@"converted_sim_mnc"];
 
           v44 = metricsLogHandle;
           if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412802;
-            v86 = v41;
-            v87 = 1024;
-            *v88 = HIDWORD(v72);
-            *&v88[4] = 1024;
-            *&v88[6] = v72;
+            v85 = v41;
+            v86 = 1024;
+            *v87 = HIDWORD(v71);
+            *&v87[4] = 1024;
+            *&v87[6] = v71;
             _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_DEBUG, "Converted sim_hplmn %@ to MCC: %d and MNC: %d", buf, 0x18u);
           }
         }
       }
 
-      v45 = [v70 objectForKeyedSubscript:@"plmn"];
+      v45 = [v69 objectForKeyedSubscript:@"plmn"];
       if (v45)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v72 = 0;
-          [(NWActivityHandler *)self _convertPLMNToDecimal:v45 mcc:&v72 + 4 mnc:&v72];
-          [v70 setObject:0 forKeyedSubscript:@"plmn"];
-          v46 = [MEMORY[0x277CCABB0] numberWithInt:HIDWORD(v72)];
-          [v70 setObject:v46 forKeyedSubscript:@"converted_mcc"];
+          v71 = 0;
+          [(NWActivityHandler *)self _convertPLMNToDecimal:v45 mcc:&v71 + 4 mnc:&v71];
+          [v69 setObject:0 forKeyedSubscript:@"plmn"];
+          v46 = [MEMORY[0x277CCABB0] numberWithInt:HIDWORD(v71)];
+          [v69 setObject:v46 forKeyedSubscript:@"converted_mcc"];
 
-          v47 = [MEMORY[0x277CCABB0] numberWithInt:v72];
-          [v70 setObject:v47 forKeyedSubscript:@"converted_mnc"];
+          v47 = [MEMORY[0x277CCABB0] numberWithInt:v71];
+          [v69 setObject:v47 forKeyedSubscript:@"converted_mnc"];
 
           v48 = metricsLogHandle;
           if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412802;
-            v86 = v45;
-            v87 = 1024;
-            *v88 = HIDWORD(v72);
-            *&v88[4] = 1024;
-            *&v88[6] = v72;
+            v85 = v45;
+            v86 = 1024;
+            *v87 = HIDWORD(v71);
+            *&v87[4] = 1024;
+            *&v87[6] = v71;
             _os_log_impl(&dword_23255B000, v48, OS_LOG_TYPE_DEBUG, "Converted plmn %@ to MCC: %d and MNC: %d", buf, 0x18u);
           }
         }
       }
 
-      v49 = [v70 objectForKeyedSubscript:@"srv_cell_info"];
+      v49 = [v69 objectForKeyedSubscript:@"srv_cell_info"];
       v50 = v49;
       if (v49)
       {
@@ -4132,50 +4653,50 @@ LABEL_8:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v72 = 0;
-            [(NWActivityHandler *)self _convertPLMNToDecimal:v51 mcc:&v72 + 4 mnc:&v72];
+            v71 = 0;
+            [(NWActivityHandler *)self _convertPLMNToDecimal:v51 mcc:&v71 + 4 mnc:&v71];
             v52 = [v50 mutableCopy];
             [v52 setObject:0 forKeyedSubscript:@"hplmn"];
-            v53 = [MEMORY[0x277CCABB0] numberWithInt:HIDWORD(v72)];
+            v53 = [MEMORY[0x277CCABB0] numberWithInt:HIDWORD(v71)];
             [v52 setObject:v53 forKeyedSubscript:@"converted_mcc"];
 
-            v54 = [MEMORY[0x277CCABB0] numberWithInt:v72];
+            v54 = [MEMORY[0x277CCABB0] numberWithInt:v71];
             [v52 setObject:v54 forKeyedSubscript:@"converted_mnc"];
 
             v55 = metricsLogHandle;
             if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412802;
-              v86 = v51;
-              v87 = 1024;
-              *v88 = HIDWORD(v72);
-              *&v88[4] = 1024;
-              *&v88[6] = v72;
+              v85 = v51;
+              v86 = 1024;
+              *v87 = HIDWORD(v71);
+              *&v87[4] = 1024;
+              *&v87[6] = v71;
               _os_log_impl(&dword_23255B000, v55, OS_LOG_TYPE_DEBUG, "Converted hplmn %@ to MCC: %d and MNC: %d", buf, 0x18u);
             }
 
             v56 = [v52 copy];
-            [v70 setObject:v56 forKeyedSubscript:@"srv_cell_info"];
+            [v69 setObject:v56 forKeyedSubscript:@"srv_cell_info"];
           }
         }
       }
 
-      [v70 setObject:0 forKeyedSubscript:@"timestamp"];
+      [v69 setObject:0 forKeyedSubscript:@"timestamp"];
 
       v57 = metricsLogHandle;
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138477827;
-        v86 = v70;
+        v85 = v69;
         _os_log_impl(&dword_23255B000, v57, OS_LOG_TYPE_DEBUG, "NWACT: Cellular fragment after conversion: %{private}@", buf, 0xCu);
       }
 
-      v14 = [(NWActivityHandler *)self createValidJSONObject:v70 atPath:@"/"];
+      v14 = [(NWActivityHandler *)self createValidJSONObject:v69 atPath:@"/"];
       v58 = metricsLogHandle;
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v86 = v14;
+        v85 = v14;
         _os_log_impl(&dword_23255B000, v58, OS_LOG_TYPE_DEBUG, "NWACT: Cellular fragment converted and cleaned: %@", buf, 0xCu);
       }
 
@@ -4191,16 +4712,16 @@ LABEL_8:
         goto LABEL_81;
       }
 
-      v71 = 0;
-      v59 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v14 options:0 error:&v71];
-      v60 = v71;
+      v70 = 0;
+      v59 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v14 options:0 error:&v70];
+      v60 = v70;
       if (v60 || !v59)
       {
         v66 = metricsLogHandle;
         if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v86 = v60;
+          v85 = v60;
           _os_log_impl(&dword_23255B000, v66, OS_LOG_TYPE_ERROR, "NWACT: Failed to create JSON data from metric, dropping: %@", buf, 0xCu);
         }
 
@@ -4219,15 +4740,15 @@ LABEL_8:
           v63 = v61;
           v64 = [[v62 alloc] initWithData:v59 encoding:4];
           *buf = 138412290;
-          v86 = v64;
+          v85 = v64;
           _os_log_impl(&dword_23255B000, v63, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
         }
       }
 
-      [(NWActivityHandler *)self _saveMetricWithUUIDS:v68 parentUUID:0 withData:v59 ofType:6];
+      [(NWActivityHandler *)self _saveMetricWithUUIDS:v67 parentUUID:0 withData:v59 ofType:6];
 
 LABEL_81:
-      v13 = v68;
+      v13 = v67;
 LABEL_82:
 
       goto LABEL_83;
@@ -4267,13 +4788,11 @@ LABEL_6:
   }
 
 LABEL_83:
-
-  v67 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleClientMetric:(id)metric forBundleID:(id)d
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   dCopy = d;
   activityUUID = [metricCopy activityUUID];
@@ -4288,7 +4807,7 @@ LABEL_83:
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v29 = metricCopy;
+        v28 = metricCopy;
         v12 = "NWACT: null activity UUID in client metric %@";
 LABEL_7:
         _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, v12, buf, 0xCu);
@@ -4316,9 +4835,9 @@ LABEL_7:
             v17 = v16;
             externallyVisibleActivityUUID = [metricCopy externallyVisibleActivityUUID];
             *buf = 138412547;
-            v29 = activityUUID;
-            v30 = 2113;
-            v31 = externallyVisibleActivityUUID;
+            v28 = activityUUID;
+            v29 = 2113;
+            v30 = externallyVisibleActivityUUID;
             _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "NWACT: swap client metric internal activity UUID %@ to external %{private}@", buf, 0x16u);
           }
         }
@@ -4340,13 +4859,13 @@ LABEL_7:
               v22 = v20;
               v23 = [[v21 alloc] initWithData:metricData encoding:4];
               *buf = 138412290;
-              v29 = v23;
+              v28 = v23;
               _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
             }
           }
 
-          v27 = activityUUID;
-          v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+          v26 = activityUUID;
+          v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
           [(NWActivityHandler *)self _saveMetricWithUUIDS:v24 parentUUID:0 withData:metricData ofType:7];
         }
 
@@ -4356,7 +4875,7 @@ LABEL_7:
           if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v29 = metricCopy;
+            v28 = metricCopy;
             _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_ERROR, "NWACT: Failed to create JSON data from client metric, dropping: %@", buf, 0xCu);
           }
         }
@@ -4368,7 +4887,7 @@ LABEL_7:
         if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v29 = metricCopy;
+          v28 = metricCopy;
           _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "NWACT: no activity mapper for client metric %@", buf, 0xCu);
         }
       }
@@ -4381,13 +4900,11 @@ LABEL_7:
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v29 = metricCopy;
+      v28 = metricCopy;
       v12 = "NWACT: no activity UUID found on client metric %@";
       goto LABEL_7;
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)noteSymptom:(id)symptom
@@ -4408,34 +4925,31 @@ LABEL_7:
 
 void __33__NWActivityHandler_noteSymptom___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2[128] == 1)
   {
     v3 = *(a1 + 40);
-    v4 = *MEMORY[0x277D85DE8];
 
     [v2 processSymptom:v3];
   }
 
   else
   {
-    v5 = metricsLogHandle;
+    v4 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "NWACT: Not ready, dropping received event %{public}@", &v8, 0xCu);
+      v5 = *(a1 + 40);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "NWACT: Not ready, dropping received event %{public}@", &v6, 0xCu);
     }
-
-    v7 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (BOOL)_isDBSizeWithinThreshold
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   analyticsWorkspace = [(NWActivityHandler *)self analyticsWorkspace];
   currentDBSizeInBytes = [analyticsWorkspace currentDBSizeInBytes];
 
@@ -4452,16 +4966,14 @@ void __33__NWActivityHandler_noteSymptom___block_invoke(uint64_t a1)
   v9 = metricsLogHandle;
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 134218240;
-    v13 = currentDBSizeInBytes;
-    v14 = 2048;
-    v15 = v8;
-    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "NWACT: Current DB size = %llu, DB size threshold = %llu", &v12, 0x16u);
+    v11 = 134218240;
+    v12 = currentDBSizeInBytes;
+    v13 = 2048;
+    v14 = v8;
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "NWACT: Current DB size = %llu, DB size threshold = %llu", &v11, 0x16u);
   }
 
-  result = currentDBSizeInBytes <= v8;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return currentDBSizeInBytes <= v8;
 }
 
 - (void)handleDBEvent:(unsigned __int8)event
@@ -4616,7 +5128,7 @@ LABEL_6:
 
 - (void)processSymptom:(id)symptom
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   symptomCopy = symptom;
   v5 = objc_autoreleasePoolPush();
   eventData = [symptomCopy eventData];
@@ -4625,8 +5137,8 @@ LABEL_6:
   {
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v49 = 138412290;
-      v50 = symptomCopy;
+      v48 = 138412290;
+      v49 = symptomCopy;
       v10 = "NWACT: No sym_basic passed in event %@";
       v11 = v7;
       goto LABEL_10;
@@ -4638,9 +5150,9 @@ LABEL_6:
   v8 = eventData;
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v49 = 138543362;
-    v50 = symptomCopy;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "NWACT: handler received event %{public}@", &v49, 0xCu);
+    v48 = 138543362;
+    v49 = symptomCopy;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "NWACT: handler received event %{public}@", &v48, 0xCu);
   }
 
   if (*(v8 + 4))
@@ -4649,9 +5161,9 @@ LABEL_6:
     v14 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v49 = 134217984;
-      v50 = v13;
-      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "NWACT: subtype is %lld", &v49, 0xCu);
+      v48 = 134217984;
+      v49 = v13;
+      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "NWACT: subtype is %lld", &v48, 0xCu);
     }
 
     if (v13 <= 3)
@@ -4670,8 +5182,8 @@ LABEL_6:
               goto LABEL_97;
             }
 
-            v49 = 138412290;
-            v50 = symptomCopy;
+            v48 = 138412290;
+            v49 = symptomCopy;
             v10 = "NWACT: no start activity data passed for event %@";
             goto LABEL_7;
           }
@@ -4691,11 +5203,11 @@ LABEL_6:
             goto LABEL_95;
           }
 
-          v49 = 138412290;
-          v50 = symptomCopy;
+          v48 = 138412290;
+          v49 = symptomCopy;
           v38 = "NWACT: Couldn't create start actitivty from event %@";
 LABEL_88:
-          _os_log_impl(&dword_23255B000, v37, OS_LOG_TYPE_ERROR, v38, &v49, 0xCu);
+          _os_log_impl(&dword_23255B000, v37, OS_LOG_TYPE_ERROR, v38, &v48, 0xCu);
           goto LABEL_95;
         case 2:
           eventQualifiers2 = [symptomCopy eventQualifiers];
@@ -4709,8 +5221,8 @@ LABEL_88:
               goto LABEL_97;
             }
 
-            v49 = 138412290;
-            v50 = symptomCopy;
+            v48 = 138412290;
+            v49 = symptomCopy;
             v10 = "NWACT: no epilogue data passed for event %@";
             goto LABEL_7;
           }
@@ -4730,8 +5242,8 @@ LABEL_88:
             goto LABEL_95;
           }
 
-          v49 = 138412290;
-          v50 = symptomCopy;
+          v48 = 138412290;
+          v49 = symptomCopy;
           v38 = "NWACT: Couldn't create epilogue from event %@";
           goto LABEL_88;
         case 3:
@@ -4746,8 +5258,8 @@ LABEL_88:
               goto LABEL_97;
             }
 
-            v49 = 138412290;
-            v50 = symptomCopy;
+            v48 = 138412290;
+            v49 = symptomCopy;
             v10 = "NWACT: No CF data subtype passed in event %@";
             goto LABEL_7;
           }
@@ -4771,8 +5283,8 @@ LABEL_96:
             goto LABEL_95;
           }
 
-          v49 = 138412290;
-          v50 = symptomCopy;
+          v48 = 138412290;
+          v49 = symptomCopy;
           v38 = "NWACT: Couldn't create sessions stats from event %@";
           goto LABEL_88;
       }
@@ -4784,10 +5296,10 @@ LABEL_36:
         goto LABEL_97;
       }
 
-      v49 = 134218242;
-      v50 = v13;
-      v51 = 2112;
-      v52 = symptomCopy;
+      v48 = 134218242;
+      v49 = v13;
+      v50 = 2112;
+      v51 = symptomCopy;
       v10 = "NWACT: Event has unknown subtype (%llu): %@";
       v11 = v27;
       v12 = 22;
@@ -4801,9 +5313,9 @@ LABEL_36:
         v29 = metricsLogHandle;
         if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
         {
-          v49 = 138412290;
-          v50 = symptomCopy;
-          _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_DEBUG, "NWACT: handle Wi-Fi fragment for event %@", &v49, 0xCu);
+          v48 = 138412290;
+          v49 = symptomCopy;
+          _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_DEBUG, "NWACT: handle Wi-Fi fragment for event %@", &v48, 0xCu);
         }
 
         eventQualifiers4 = [symptomCopy eventQualifiers];
@@ -4817,8 +5329,8 @@ LABEL_36:
             goto LABEL_97;
           }
 
-          v49 = 138412290;
-          v50 = symptomCopy;
+          v48 = 138412290;
+          v49 = symptomCopy;
           v10 = "NWACT: No Wi-Fi data subtype passed in event %@";
           goto LABEL_7;
         }
@@ -4837,8 +5349,8 @@ LABEL_36:
           goto LABEL_95;
         }
 
-        v49 = 138412290;
-        v50 = symptomCopy;
+        v48 = 138412290;
+        v49 = symptomCopy;
         v38 = "NWACT: Couldn't create Wi-Fi stats from event %@";
         goto LABEL_88;
       }
@@ -4851,9 +5363,9 @@ LABEL_36:
       v19 = metricsLogHandle;
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
       {
-        v49 = 138412290;
-        v50 = symptomCopy;
-        _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "NWACT: handle client metric fragment for event %@", &v49, 0xCu);
+        v48 = 138412290;
+        v49 = symptomCopy;
+        _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "NWACT: handle client metric fragment for event %@", &v48, 0xCu);
       }
 
       if ([symptomCopy bundleId])
@@ -4894,9 +5406,9 @@ LABEL_56:
           v45 = metricsLogHandle;
           if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
           {
-            v49 = 138412290;
-            v50 = symptomCopy;
-            _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_ERROR, "NWACT: Couldn't create client metric from event %@", &v49, 0xCu);
+            v48 = 138412290;
+            v49 = symptomCopy;
+            _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_ERROR, "NWACT: Couldn't create client metric from event %@", &v48, 0xCu);
           }
         }
       }
@@ -4906,9 +5418,9 @@ LABEL_56:
         v36 = metricsLogHandle;
         if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
         {
-          v49 = 138412290;
-          v50 = symptomCopy;
-          _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_ERROR, "NWACT: No client metric data passed for event %@", &v49, 0xCu);
+          v48 = 138412290;
+          v49 = symptomCopy;
+          _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_ERROR, "NWACT: No client metric data passed for event %@", &v48, 0xCu);
         }
       }
 
@@ -4918,9 +5430,9 @@ LABEL_56:
     v23 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
     {
-      v49 = 138412290;
-      v50 = symptomCopy;
-      _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_INFO, "NWACT: handle libnetcore fragment for event %@", &v49, 0xCu);
+      v48 = 138412290;
+      v49 = symptomCopy;
+      _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_INFO, "NWACT: handle libnetcore fragment for event %@", &v48, 0xCu);
     }
 
     eventQualifiers6 = [symptomCopy eventQualifiers];
@@ -4934,8 +5446,8 @@ LABEL_56:
         goto LABEL_97;
       }
 
-      v49 = 138412290;
-      v50 = symptomCopy;
+      v48 = 138412290;
+      v49 = symptomCopy;
       v10 = "NWACT: No stats data passed in event %@";
       goto LABEL_7;
     }
@@ -4968,9 +5480,9 @@ LABEL_56:
         v46 = metricsLogHandle;
         if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
         {
-          v49 = 138412290;
-          v50 = symptomCopy;
-          _os_log_impl(&dword_23255B000, v46, OS_LOG_TYPE_ERROR, "NWACT: Unable to create NWConnectionStatistics from event %@", &v49, 0xCu);
+          v48 = 138412290;
+          v49 = symptomCopy;
+          _os_log_impl(&dword_23255B000, v46, OS_LOG_TYPE_ERROR, "NWACT: Unable to create NWConnectionStatistics from event %@", &v48, 0xCu);
         }
 
         goto LABEL_94;
@@ -5012,9 +5524,9 @@ LABEL_76:
     v44 = metricsLogHandle;
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v49 = 138412290;
-      v50 = symptomCopy;
-      _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_ERROR, "NWACT: No client information found in event %@", &v49, 0xCu);
+      v48 = 138412290;
+      v49 = symptomCopy;
+      _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_ERROR, "NWACT: No client information found in event %@", &v48, 0xCu);
     }
 
     goto LABEL_96;
@@ -5023,29 +5535,27 @@ LABEL_76:
   v9 = metricsLogHandle;
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v49 = 138412290;
-    v50 = symptomCopy;
+    v48 = 138412290;
+    v49 = symptomCopy;
     v10 = "NWACT: No symptom subtype passed in event %@";
 LABEL_7:
     v11 = v9;
 LABEL_10:
     v12 = 12;
 LABEL_11:
-    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, v10, &v49, v12);
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, v10, &v48, v12);
   }
 
 LABEL_97:
   objc_autoreleasePoolPop(v5);
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (NWActivityHandler)init
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v38.receiver = self;
-  v38.super_class = NWActivityHandler;
-  v2 = [(NWActivityHandler *)&v38 init];
+  v38 = *MEMORY[0x277D85DE8];
+  v36.receiver = self;
+  v36.super_class = NWActivityHandler;
+  v2 = [(NWActivityHandler *)&v36 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_BACKGROUND, 0);
@@ -5087,46 +5597,44 @@ LABEL_97:
 
     v2->_metricsDataWritesBudget = 0;
     v2->_dbWriteState = 0;
-    v19 = v2->_metricsQueue;
-    v33 = MEMORY[0x277D85DD0];
-    v34 = 3221225472;
-    v35 = __25__NWActivityHandler_init__block_invoke;
-    v36 = &unk_27898A820;
-    v37 = v2;
+    v31 = MEMORY[0x277D85DD0];
+    v32 = 3221225472;
+    v33 = __25__NWActivityHandler_init__block_invoke;
+    v34 = &unk_27898A820;
+    v35 = v2;
     os_state_add_handler();
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __25__NWActivityHandler_init__block_invoke_2;
-    v31[3] = &unk_27898A690;
-    v21 = v37;
-    v32 = v21;
-    v22 = [defaultCenter addObserverForName:@"stateRelay" object:0 queue:0 usingBlock:v31];
-    relayReadyObserver = v21->_relayReadyObserver;
-    v21->_relayReadyObserver = v22;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __25__NWActivityHandler_init__block_invoke_2;
+    v29[3] = &unk_27898A690;
+    v20 = v35;
+    v30 = v20;
+    v21 = [defaultCenter addObserverForName:@"stateRelay" object:0 queue:0 usingBlock:v29];
+    relayReadyObserver = v20->_relayReadyObserver;
+    v20->_relayReadyObserver = v21;
 
-    v24 = +[SystemProperties sharedInstance];
-    if ([v24 internalBuild] & 1) != 0 || (objc_msgSend(v24, "seedBuild"))
+    v23 = +[SystemProperties sharedInstance];
+    if ([v23 internalBuild] & 1) != 0 || (objc_msgSend(v23, "seedBuild"))
     {
       carrierBuild = 1;
     }
 
     else
     {
-      carrierBuild = [v24 carrierBuild];
+      carrierBuild = [v23 carrierBuild];
     }
 
-    v21->_includeTrialTreatmentID = carrierBuild;
-    v26 = v2->_metricsQueue;
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __25__NWActivityHandler_init__block_invoke_4;
-    v29[3] = &unk_27898A0C8;
-    v30 = v21;
-    dispatch_async(v26, v29);
+    v20->_includeTrialTreatmentID = carrierBuild;
+    v25 = v2->_metricsQueue;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __25__NWActivityHandler_init__block_invoke_4;
+    v27[3] = &unk_27898A0C8;
+    v28 = v20;
+    dispatch_async(v25, v27);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -5203,9 +5711,52 @@ void __25__NWActivityHandler_init__block_invoke_4(uint64_t a1)
   return workspace;
 }
 
+- (void)streamAWDMetric:(id)metric withIdentifier:(unsigned int)identifier additionalDictionaryItems:(id)items
+{
+  v6 = *&identifier;
+  v21 = *MEMORY[0x277D85DE8];
+  metricCopy = metric;
+  itemsCopy = items;
+  dictionaryRepresentation = [metricCopy dictionaryRepresentation];
+  v10 = [dictionaryRepresentation mutableCopy];
+
+  if (v10)
+  {
+    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6];
+    [v10 setObject:v11 forKeyedSubscript:@"identifier"];
+
+    if (itemsCopy)
+    {
+      [v10 addEntriesFromDictionary:itemsCopy];
+    }
+  }
+
+  if ([MEMORY[0x277CCAAA0] isValidJSONObject:v10])
+  {
+    v18 = 0;
+    v12 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v10 options:0 error:&v18];
+    v13 = v18;
+    if (!v13 && v12)
+    {
+      v14 = metricStreamLogHandle;
+      if (os_log_type_enabled(metricStreamLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        v15 = MEMORY[0x277CCACA8];
+        v16 = v14;
+        v17 = [[v15 alloc] initWithData:v12 encoding:4];
+        *buf = 138412290;
+        v20 = v17;
+        _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+      }
+
+      v13 = 0;
+    }
+  }
+}
+
 - (void)streamDictionaryMetric:(id)metric additionalDictionaryItems:(id)items
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   itemsCopy = items;
   v7 = itemsCopy;
@@ -5216,9 +5767,9 @@ void __25__NWActivityHandler_init__block_invoke_4(uint64_t a1)
 
   if ([MEMORY[0x277CCAAA0] isValidJSONObject:metricCopy])
   {
-    v16 = 0;
-    v8 = [MEMORY[0x277CCAAA0] dataWithJSONObject:metricCopy options:0 error:&v16];
-    v9 = v16;
+    v15 = 0;
+    v8 = [MEMORY[0x277CCAAA0] dataWithJSONObject:metricCopy options:0 error:&v15];
+    v9 = v15;
     if (!v9 && v8)
     {
       v10 = metricStreamLogHandle;
@@ -5228,7 +5779,7 @@ void __25__NWActivityHandler_init__block_invoke_4(uint64_t a1)
         v12 = v10;
         v13 = [[v11 alloc] initWithData:v8 encoding:4];
         *buf = 138412290;
-        v18 = v13;
+        v17 = v13;
         _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
       }
 
@@ -5245,8 +5796,6 @@ void __25__NWActivityHandler_init__block_invoke_4(uint64_t a1)
       _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "NWACT: Activity Report is not valid JSON, dropping", buf, 2u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)configuredForMetricStreaming
@@ -5340,58 +5889,50 @@ BOOL __35__NWActivityHandler_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)_sendDictionaryMetric:(void *)a1 ofType:forActivities:parentActivity:additionalItems:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = objc_begin_catch(a1);
   if (OUTLINED_FUNCTION_14())
   {
     OUTLINED_FUNCTION_0_6();
-    OUTLINED_FUNCTION_1_5(&dword_23255B000, v2, v3, "NWACT: Exception while trying to encode activity report to JSON Data: %@ (error %@)", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_1_5(&dword_23255B000, v2, v3, "NWACT: Exception while trying to encode activity report to JSON Data: %@ (error %@)", v4, v5, v6, v7);
   }
 
   objc_end_catch();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCellularItem:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = objc_begin_catch(a1);
   if (OUTLINED_FUNCTION_14())
   {
     OUTLINED_FUNCTION_0_6();
-    OUTLINED_FUNCTION_1_5(&dword_23255B000, v2, v3, "NWACT: Exception while trying to encode cellular fragment: %@ (error %@)", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_1_5(&dword_23255B000, v2, v3, "NWACT: Exception while trying to encode cellular fragment: %@ (error %@)", v4, v5, v6, v7);
   }
 
   objc_end_catch();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)streamAWDMetric:(void *)a1 withIdentifier:additionalDictionaryItems:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = objc_begin_catch(a1);
   if (OUTLINED_FUNCTION_14())
   {
     OUTLINED_FUNCTION_0_6();
-    OUTLINED_FUNCTION_1_5(&dword_23255B000, v2, v3, "Exception while trying to encode metric stream report: %@ (error %@)", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_1_5(&dword_23255B000, v2, v3, "Exception while trying to encode metric stream report: %@ (error %@)", v4, v5, v6, v7);
   }
 
   objc_end_catch();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)streamDictionaryMetric:(void *)a1 additionalDictionaryItems:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = objc_begin_catch(a1);
   if (OUTLINED_FUNCTION_14())
   {
     OUTLINED_FUNCTION_0_6();
-    OUTLINED_FUNCTION_1_5(&dword_23255B000, v2, v3, "Exception while trying to encode metric stream report: %@ (error %@)", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_1_5(&dword_23255B000, v2, v3, "Exception while trying to encode metric stream report: %@ (error %@)", v4, v5, v6, v7);
   }
 
   objc_end_catch();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

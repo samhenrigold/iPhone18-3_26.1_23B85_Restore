@@ -76,14 +76,14 @@
   noteCopy = note;
   selfCopy = self;
   SystemPaperThumbnailService.updateIfNeeded(for:completion:)(note, v6, v7);
-  sub_1D4320B20(v6);
+  sub_1D4320B20(v6, v7);
 }
 
 - (void)updateIfNeededForNotes:(id)notes completion:(id)completion
 {
   v5 = _Block_copy(completion);
-  sub_1D41766C0(0, &qword_1EDE32440);
-  sub_1D4333044(&qword_1EDE32438, &qword_1EDE32440);
+  sub_1D41766C0(0, &qword_1EDE32440, 0x1E69B77F0);
+  sub_1D4333044(&qword_1EDE32438, &qword_1EDE32440, 0x1E69B77F0, MEMORY[0x1E69E81B8]);
   v6 = sub_1D441A064();
   if (v5)
   {
@@ -100,14 +100,14 @@
 
   selfCopy = self;
   SystemPaperThumbnailService.updateIfNeeded(for:completion:)(v6, v8, v7);
-  sub_1D4320B20(v8);
+  sub_1D4320B20(v8, v7);
 }
 
 - (void)updateIfNeededForNoteIDs:(id)ds completion:(id)completion
 {
   v5 = _Block_copy(completion);
-  sub_1D41766C0(0, &qword_1EDE32768);
-  sub_1D4333044(&qword_1EDE32760, &qword_1EDE32768);
+  sub_1D41766C0(0, &qword_1EDE32768, 0x1E695D630);
+  sub_1D4333044(&qword_1EDE32760, &qword_1EDE32768, 0x1E695D630, MEMORY[0x1E69E81B8]);
   v6 = sub_1D441A064();
   if (v5)
   {
@@ -124,7 +124,7 @@
 
   selfCopy = self;
   SystemPaperThumbnailService.updateIfNeeded(for:completion:)(v6, v8, v7);
-  sub_1D4320B20(v8);
+  sub_1D4320B20(v8, v7);
 }
 
 - (void)updateIfNeededWithCompletion:(id)completion
@@ -157,11 +157,11 @@
   v12[3] = &block_descriptor_119;
   v10 = _Block_copy(v12);
   v11 = selfCopy;
-  sub_1D417C7B4(v4);
+  sub_1D417C7B4(v4, v5);
 
   [v6 sharedPerformCriticalBackgroundActivityWithReason:v8 block:v10];
 
-  sub_1D4320B20(v4);
+  sub_1D4320B20(v4, v5);
   _Block_release(v10);
 }
 
@@ -201,8 +201,8 @@
 
 - (void)invalidateForNotes:(id)notes
 {
-  sub_1D41766C0(0, &qword_1EDE32440);
-  sub_1D4333044(&qword_1EDE32438, &qword_1EDE32440);
+  sub_1D41766C0(0, &qword_1EDE32440, 0x1E69B77F0);
+  sub_1D4333044(&qword_1EDE32438, &qword_1EDE32440, 0x1E69B77F0, MEMORY[0x1E69E81B8]);
   v4 = sub_1D441A064();
   v5 = objc_opt_self();
   selfCopy = self;
@@ -226,8 +226,8 @@
 
 - (void)invalidateForNoteIDs:(id)ds
 {
-  sub_1D41766C0(0, &qword_1EDE32768);
-  sub_1D4333044(&qword_1EDE32760, &qword_1EDE32768);
+  sub_1D41766C0(0, &qword_1EDE32768, 0x1E695D630);
+  sub_1D4333044(&qword_1EDE32760, &qword_1EDE32768, 0x1E695D630, MEMORY[0x1E69E81B8]);
   v4 = sub_1D441A064();
   v5 = objc_opt_self();
   selfCopy = self;

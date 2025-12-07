@@ -467,15 +467,15 @@ void __90__SBModalUIFluidDismissGestureWorkspaceTransaction__finishInteractionAn
   }
 }
 
-uint64_t __90__SBModalUIFluidDismissGestureWorkspaceTransaction__finishInteractionAndDismiss_animated___block_invoke_5(uint64_t result)
+unsigned __int8 *__90__SBModalUIFluidDismissGestureWorkspaceTransaction__finishInteractionAndDismiss_animated___block_invoke_5(unsigned __int8 *result)
 {
-  *(*(result + 32) + 346) = 0;
-  if ((*(*(*(result + 40) + 8) + 24) & 1) == 0)
+  *(*(result + 4) + 346) = 0;
+  if ((*(*(*(result + 5) + 8) + 24) & 1) == 0)
   {
     v2 = result;
-    [*(result + 32) _cleanupHierarchyForDismissal:*(result + 48)];
-    v3 = *(v2 + 32);
-    if (*(v2 + 48))
+    [*(result + 4) _cleanupHierarchyForDismissal:result[48]];
+    v3 = *(v2 + 4);
+    if (v2[48])
     {
       v4 = 1;
     }

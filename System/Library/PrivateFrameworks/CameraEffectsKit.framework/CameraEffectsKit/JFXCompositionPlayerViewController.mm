@@ -226,10 +226,10 @@
 
 - (void)didReceiveMemoryWarning
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v10.receiver = self;
-  v10.super_class = JFXCompositionPlayerViewController;
-  [(JFXCompositionPlayerViewController *)&v10 didReceiveMemoryWarning];
+  v15 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = JFXCompositionPlayerViewController;
+  [(JFXCompositionPlayerViewController *)&v12 didReceiveMemoryWarning];
   clipsPlayer = [(JFXCompositionPlayerViewController *)self clipsPlayer];
   isPlaying = [clipsPlayer isPlaying];
 
@@ -240,17 +240,17 @@
     {
       displayName = [(JFXCompositionPlayerViewController *)self displayName];
       *buf = 138543362;
-      v12 = displayName;
+      v14 = displayName;
       _os_log_impl(&dword_242A3B000, v5, OS_LOG_TYPE_DEFAULT, "player %{public}@ didReceiveMemoryWarning and not playing. will clear composition", buf, 0xCu);
     }
 
-    v7 = JFXPlaybackEventSignpostPointCategory();
-    v8 = v7;
-    v9 = JFXSignpostExclusiveID;
-    if ((JFXSignpostExclusiveID - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+    v9 = JFXPlaybackEventSignpostPointCategory(v7, v8);
+    v10 = v9;
+    v11 = JFXSignpostExclusiveID;
+    if ((JFXSignpostExclusiveID - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_242A3B000, v8, OS_SIGNPOST_EVENT, v9, "MemoryWarning", &unk_242B66C87, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_242A3B000, v10, OS_SIGNPOST_EVENT, v11, "MemoryWarning", &unk_242B66C87, buf, 2u);
     }
 
     [(JFXCompositionPlayerViewController *)self unloadCompositionSetPlaceHolder:1];
@@ -259,8 +259,8 @@
 
 - (void)updateCachedPlaybackProperties
 {
-  [(JFXCompositionPlayerViewController *)self setCachedDuration:[(JFXCompositionPlayerViewController *)self duration]];
-  [(JFXCompositionPlayerViewController *)self setCachedCurrentTime:[(JFXCompositionPlayerViewController *)self currentTime]];
+  [(JFXCompositionPlayerViewController *)self setCachedDuration:objc_msgSend_duration(self, a2)];
+  [(JFXCompositionPlayerViewController *)self setCachedCurrentTime:objc_msgSend_currentTime(self)];
   [(JFXCompositionPlayerViewController *)self setCachedMuted:[(JFXCompositionPlayerViewController *)self isMuted]];
   [(JFXCompositionPlayerViewController *)self renderSizeInPixels];
 
@@ -405,7 +405,7 @@
     clipsPlayer5 = [(JFXCompositionPlayerViewController *)self clipsPlayer];
     [clipsPlayer5 setPlaybackDelegate:self];
 
-    [(JFXCompositionPlayerViewController *)self playbackTimeChangedObserverInterval];
+    objc_msgSend_playbackTimeChangedObserverInterval(self);
     clipsPlayer6 = [(JFXCompositionPlayerViewController *)self clipsPlayer];
     *buf = v30;
     v33 = v31;
@@ -596,7 +596,7 @@ void __71__JFXCompositionPlayerViewController_setNeedsCompositionUpdateForClip__
 - (void)unloadCompositionSetPlaceHolder:(BOOL)holder
 {
   holderCopy = holder;
-  v5 = JFXPlaybackEventSignpostPointCategory();
+  v5 = JFXPlaybackEventSignpostPointCategory(self, a2);
   v6 = v5;
   v7 = JFXSignpostExclusiveID;
   if ((JFXSignpostExclusiveID - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
@@ -828,7 +828,7 @@ void __71__JFXCompositionPlayerViewController_setNeedsCompositionUpdateForClip__
   kdebug_trace();
 }
 
-uint64_t __55__JFXCompositionPlayerViewController_removePlaceHolder__block_invoke(uint64_t a1)
+void *__55__JFXCompositionPlayerViewController_removePlaceHolder__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setAlpha:0.0];
   result = [*(a1 + 40) shouldScale];
@@ -852,7 +852,7 @@ uint64_t __55__JFXCompositionPlayerViewController_removePlaceHolder__block_invok
     clipsPlayer3 = clipsPlayer2;
     if (clipsPlayer2)
     {
-      [clipsPlayer2 currentCMTime];
+      objc_msgSend_currentCMTime(clipsPlayer2);
     }
 
     else
@@ -880,15 +880,15 @@ uint64_t __55__JFXCompositionPlayerViewController_removePlaceHolder__block_invok
   if (clipsPlayer)
   {
     clipsPlayer2 = [(JFXCompositionPlayerViewController *)self clipsPlayer];
-    currentTime = [clipsPlayer2 currentTime];
+    cachedCurrentTime = objc_msgSend_currentTime(clipsPlayer2);
   }
 
   else
   {
-    currentTime = [(JFXCompositionPlayerViewController *)self cachedCurrentTime];
+    cachedCurrentTime = [(JFXCompositionPlayerViewController *)self cachedCurrentTime];
   }
 
-  return currentTime;
+  return cachedCurrentTime;
 }
 
 - (CGSize)renderSizeInPixels
@@ -922,15 +922,15 @@ uint64_t __55__JFXCompositionPlayerViewController_removePlaceHolder__block_invok
   if (clipsPlayer)
   {
     clipsPlayer2 = [(JFXCompositionPlayerViewController *)self clipsPlayer];
-    duration = [clipsPlayer2 duration];
+    cachedDuration = objc_msgSend_duration(clipsPlayer2);
   }
 
   else
   {
-    duration = [(JFXCompositionPlayerViewController *)self cachedDuration];
+    cachedDuration = [(JFXCompositionPlayerViewController *)self cachedDuration];
   }
 
-  return duration;
+  return cachedDuration;
 }
 
 - (void)seekToTime:(int)time
@@ -947,12 +947,13 @@ uint64_t __55__JFXCompositionPlayerViewController_removePlaceHolder__block_invok
   [clipsPlayer seek:v3 tolerance:0 completion:v6];
 }
 
-void __49__JFXCompositionPlayerViewController_seekToTime___block_invoke(uint64_t a1, uint64_t a2, char a3)
+void __49__JFXCompositionPlayerViewController_seekToTime___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v5 = JFXLog_DebugPlayback();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __49__JFXCompositionPlayerViewController_seekToTime___block_invoke_cold_1(a1, a3, v5);
+    __49__JFXCompositionPlayerViewController_seekToTime___block_invoke_cold_1(a1, v3, v5);
   }
 }
 
@@ -984,7 +985,7 @@ void __49__JFXCompositionPlayerViewController_seekToTime___block_invoke(uint64_t
   v5 = clipsPlayer2;
   if (clipsPlayer2)
   {
-    [clipsPlayer2 playbackTimeChangedObserverInterval];
+    objc_msgSend_playbackTimeChangedObserverInterval(clipsPlayer2);
   }
 
   else
@@ -1155,7 +1156,7 @@ void __63__JFXCompositionPlayerViewController_pauseWithCompletionBlock___block_i
 
 - (void)mediaserverdCrashed
 {
-  v3 = JFXPlaybackEventSignpostPointCategory();
+  v3 = JFXPlaybackEventSignpostPointCategory(self, a2);
   v4 = v3;
   v5 = JFXSignpostExclusiveID;
   if ((JFXSignpostExclusiveID - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -1200,18 +1201,18 @@ void __57__JFXCompositionPlayerViewController_mediaserverdCrashed__block_invoke(
   if (v7)
   {
     clipsDataSource = [(JFXCompositionPlayerViewController *)self clipsDataSource];
-    duration = [clipsDataSource duration];
+    v9 = objc_msgSend_duration(clipsDataSource);
 
-    [(JFXCompositionPlayerViewController *)self setCachedDuration:duration];
+    [(JFXCompositionPlayerViewController *)self setCachedDuration:v9];
     [(JFXCompositionPlayerViewController *)self setCachedCurrentTime:v4];
-    if (duration >= v4)
+    if (v9 >= v4)
     {
       v4 = v4;
     }
 
     else
     {
-      v4 = duration;
+      v4 = v9;
     }
 
     delegate2 = [(JFXCompositionPlayerViewController *)self delegate];
@@ -1623,7 +1624,7 @@ LABEL_17:
       v20 = v19;
       delegate2 = [(JFXCompositionPlayerViewController *)self delegate];
       clipsPlayer = [(JFXCompositionPlayerViewController *)self clipsPlayer];
-      [delegate2 playbackAreaTapped:self normalizedClipPoint:objc_msgSend(clipsPlayer normalizedMinimumSize:"currentTime") atTime:{v14, v16, v18, v20}];
+      [delegate2 playbackAreaTapped:self normalizedClipPoint:objc_msgSend_currentTime(clipsPlayer) normalizedMinimumSize:v14 atTime:{v16, v18, v20}];
     }
   }
 }
@@ -1694,10 +1695,10 @@ LABEL_17:
       v29 = v28;
       delegate2 = [(JFXCompositionPlayerViewController *)self delegate];
       clipsPlayer = [(JFXCompositionPlayerViewController *)self clipsPlayer];
-      currentTime = [clipsPlayer currentTime];
+      v32 = objc_msgSend_currentTime(clipsPlayer);
       clipsPlayer2 = [(JFXCompositionPlayerViewController *)self clipsPlayer];
       clipsDataSource = [clipsPlayer2 clipsDataSource];
-      [delegate2 playbackAreaPanned:self gesture:pannedCopy normalizedClipPoint:currentTime normalizedMinimumSize:objc_msgSend(clipsDataSource translationDelta:"timeScale") atTime:v19 timeScale:{v21, v27, v29, v23, v25}];
+      [delegate2 playbackAreaPanned:self gesture:pannedCopy normalizedClipPoint:v32 normalizedMinimumSize:objc_msgSend(clipsDataSource translationDelta:"timeScale") atTime:v19 timeScale:{v21, v27, v29, v23, v25}];
     }
   }
 
@@ -1764,10 +1765,10 @@ LABEL_17:
         [pinchedCopy scale];
         v39 = v38;
         clipsPlayer = [(JFXCompositionPlayerViewController *)self clipsPlayer];
-        currentTime = [clipsPlayer currentTime];
+        v41 = objc_msgSend_currentTime(clipsPlayer);
         clipsPlayer2 = [(JFXCompositionPlayerViewController *)self clipsPlayer];
         clipsDataSource = [clipsPlayer2 clipsDataSource];
-        [delegate2 playbackAreaPinched:self gesture:pinchedCopy normalizedClipPoints:v18 normalizedCenterPoint:currentTime normalizedMinimumSize:objc_msgSend(clipsDataSource scaleDelta:"timeScale") atTime:v31 timeScale:{v32, v34, v36, v39}];
+        [delegate2 playbackAreaPinched:self gesture:pinchedCopy normalizedClipPoints:v18 normalizedCenterPoint:v41 normalizedMinimumSize:objc_msgSend(clipsDataSource scaleDelta:"timeScale") atTime:v31 timeScale:{v32, v34, v36, v39}];
       }
     }
   }
@@ -1834,7 +1835,7 @@ LABEL_17:
         [rotatedCopy rotation];
         v39 = v38;
         clipsPlayer = [(JFXCompositionPlayerViewController *)self clipsPlayer];
-        [delegate2 playbackAreaRotated:self gesture:rotatedCopy normalizedClipPoints:v18 normalizedCenterPoint:objc_msgSend(clipsPlayer normalizedMinimumSize:"currentTime") rotateDelta:v31 atTime:{v32, v34, v36, v39}];
+        [delegate2 playbackAreaRotated:self gesture:rotatedCopy normalizedClipPoints:v18 normalizedCenterPoint:objc_msgSend_currentTime(clipsPlayer) normalizedMinimumSize:v31 rotateDelta:v32 atTime:{v34, v36, v39}];
       }
     }
   }

@@ -987,7 +987,7 @@ id *sub_100015D10(id *result)
       abort();
     }
 
-    v3 = v2 - 1;
+    v3 = (v2 - 1);
     v1[15] = v3;
     if (!v3)
     {
@@ -2004,7 +2004,6 @@ void sub_100018A60(uint64_t a1)
     handler[4] = a1;
     handler[5] = "_NFLoadSuccess";
     xpc_set_event_stream_handler("com.apple.distnoted.matching", &_dispatch_main_q, handler);
-    v2 = *(a1 + 104);
     *(a1 + 144) = os_state_add_handler();
     nw_path_monitor_start(*(a1 + 184));
     nw_path_monitor_start(*(a1 + 192));
@@ -2012,19 +2011,19 @@ void sub_100018A60(uint64_t a1)
     nw_path_monitor_start(*(a1 + 208));
     sub_100015830(a1);
     *(a1 + 8) = 1;
-    v3 = *(a1 + 176);
+    v2 = *(a1 + 176);
     *(a1 + 176) = 0;
   }
 }
 
-void sub_100018BD8(void *a1)
+void sub_100018BD8(void *result)
 {
-  if (a1)
+  if (result)
   {
-    v2 = a1[22];
-    a1[22] = 0;
+    v2 = result[22];
+    result[22] = 0;
 
-    sub_100018C20(a1);
+    sub_100018C20(result);
   }
 }
 
@@ -3094,22 +3093,8 @@ LABEL_34:
 
             if (v37)
             {
-              if (!v28)
+              if (!v28 || (!v5 ? (v38 = 0) : (v38 = v5[2]), (v39 = v38, !v6) ? (v40 = 0) : (v40 = v6[2]), v41 = v40, v42 = [v39 compare:v41], v41, v39, v43 = v42 == 1, v25 = obja, v43))
               {
-                goto LABEL_51;
-              }
-
-              v38 = v5 ? v5[2] : 0;
-              v39 = v38;
-              v40 = v6 ? v6[2] : 0;
-              v41 = v40;
-              v42 = [v39 compare:v41];
-
-              v43 = v42 == 1;
-              v25 = obja;
-              if (v43)
-              {
-LABEL_51:
                 v44 = v32;
 
                 v45 = v6;
@@ -4635,7 +4620,7 @@ void sub_10001DD5C(uint64_t a1, int a2, id obj)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-id sub_10001DDC0(void **a1, void *a2, void *a3)
+id sub_10001DDC0(void *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
@@ -5089,23 +5074,13 @@ id sub_10001E43C(uint64_t a1, void *a2, uint64_t a3, void *a4, _BYTE *a5)
           {
 LABEL_120:
             v119 = [v30 parameters];
-            if (!v119)
-            {
-              goto LABEL_145;
-            }
-
-            v120 = v119;
-            v121 = [v30 parameters];
-            v122 = [v121 objectForKeyedSubscript:@"cardSessionToken"];
-
-            if (v122)
+            if (v119 && (v120 = v119, [v30 parameters], v121 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v121, "objectForKeyedSubscript:", @"cardSessionToken"), v122 = objc_claimAutoreleasedReturnValue(), v122, v121, v120, v122))
             {
               v123 = &off_100057598;
             }
 
             else
             {
-LABEL_145:
               v123 = &off_1000575C0;
             }
 
@@ -7728,13 +7703,12 @@ LABEL_34:
 LABEL_35:
 }
 
-void sub_1000233E8(void *a1)
+void sub_1000233E8(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  sub_100015830(v3);
+  sub_100015830(v2);
 }
 
 void sub_100023720(uint64_t a1, void *a2)
@@ -8023,7 +7997,7 @@ LABEL_46:
 LABEL_48:
 }
 
-void sub_100023F30(void **a1, void *a2, void *a3)
+void sub_100023F30(void *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
@@ -9328,14 +9302,14 @@ void sub_10002699C(uint64_t a1, void *a2)
     v17 = [*(a1 + 40) NF_clientName];
     *buf = 67110146;
     *&buf[4] = v14;
-    v179 = 2082;
-    v180 = v15;
-    v181 = 2082;
-    v182 = v16;
-    v183 = 1024;
-    v184 = 1747;
-    v185 = 2114;
-    v186 = v17;
+    v178 = 2082;
+    v179 = v15;
+    v180 = 2082;
+    v181 = v16;
+    v182 = 1024;
+    v183 = 1747;
+    v184 = 2114;
+    v185 = v17;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Processing %{public}@", buf, 0x2Cu);
   }
 
@@ -9363,15 +9337,15 @@ LABEL_111:
         v25 = v24;
         v26 = object_getClass(v18);
         v27 = class_isMetaClass(v26);
-        v147 = object_getClassName(v18);
-        v152 = sel_getName("_ingestCard:callback:");
+        v146 = object_getClassName(v18);
+        v151 = sel_getName("_ingestCard:callback:");
         v28 = 45;
         if (v27)
         {
           v28 = 43;
         }
 
-        v25(6, "%c[%{public}s %{public}s]:%i identifier : %{public}@", v28, v147, v152, 1594, v22);
+        v25(6, "%c[%{public}s %{public}s]:%i identifier : %{public}@", v28, v146, v151, 1594, v22);
       }
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -9395,14 +9369,14 @@ LABEL_111:
         *buf = 67110146;
         *&buf[4] = v32;
         v21 = v31;
-        v179 = 2082;
-        v180 = v33;
-        v181 = 2082;
-        v182 = v34;
-        v183 = 1024;
-        v184 = 1594;
-        v185 = 2114;
-        v186 = v22;
+        v178 = 2082;
+        v179 = v33;
+        v180 = 2082;
+        v181 = v34;
+        v182 = 1024;
+        v183 = 1594;
+        v184 = 2114;
+        v185 = v22;
         _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i identifier : %{public}@", buf, 0x2Cu);
       }
 
@@ -9419,15 +9393,15 @@ LABEL_111:
             v37 = v36;
             v38 = object_getClass(v18);
             v39 = class_isMetaClass(v38);
-            v148 = object_getClassName(v18);
-            v153 = sel_getName("_ingestCard:callback:");
+            v147 = object_getClassName(v18);
+            v152 = sel_getName("_ingestCard:callback:");
             v40 = 45;
             if (v39)
             {
               v40 = 43;
             }
 
-            v37(4, "%c[%{public}s %{public}s]:%i No registered URL for %{public}@", v40, v148, v153, 1596, v22);
+            v37(4, "%c[%{public}s %{public}s]:%i No registered URL for %{public}@", v40, v147, v152, 1596, v22);
           }
 
           dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -9449,22 +9423,22 @@ LABEL_111:
             v45 = sel_getName("_ingestCard:callback:");
             *buf = 67110146;
             *&buf[4] = v43;
-            v179 = 2082;
-            v180 = v44;
-            v181 = 2082;
-            v182 = v45;
-            v183 = 1024;
-            v184 = 1596;
-            v185 = 2114;
-            v186 = v22;
+            v178 = 2082;
+            v179 = v44;
+            v180 = 2082;
+            v181 = v45;
+            v182 = 1024;
+            v183 = 1596;
+            v184 = 2114;
+            v185 = v22;
             _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i No registered URL for %{public}@", buf, 0x2Cu);
           }
 
           v46 = [NSError alloc];
           v47 = [NSString stringWithUTF8String:"seld"];
-          *&v187 = NSLocalizedDescriptionKey;
+          *&v186 = NSLocalizedDescriptionKey;
           *buf = @"No registered URL.";
-          v48 = [NSDictionary dictionaryWithObjects:buf forKeys:&v187 count:1];
+          v48 = [NSDictionary dictionaryWithObjects:buf forKeys:&v186 count:1];
           v49 = v46;
           v50 = v47;
           v51 = 39;
@@ -9478,13 +9452,13 @@ LABEL_111:
       v52 = sub_1000368E4(v18[3]);
       if (!v52)
       {
-        v75 = [NSError alloc];
-        v76 = [NSString stringWithUTF8String:"seld"];
-        *&v187 = NSLocalizedDescriptionKey;
+        v74 = [NSError alloc];
+        v75 = [NSString stringWithUTF8String:"seld"];
+        *&v186 = NSLocalizedDescriptionKey;
         *buf = @"No registration info.";
-        v77 = [NSDictionary dictionaryWithObjects:buf forKeys:&v187 count:1];
-        v78 = [v75 initWithDomain:v76 code:39 userInfo:v77];
-        (*(v21 + 2))(v21, v78, -1);
+        v76 = [NSDictionary dictionaryWithObjects:buf forKeys:&v186 count:1];
+        v77 = [v74 initWithDomain:v75 code:39 userInfo:v76];
+        (*(v21 + 2))(v21, v77, -1);
 
         v22 = 0;
 LABEL_110:
@@ -9501,15 +9475,15 @@ LABEL_110:
         v55 = v54;
         v56 = object_getClass(v18);
         v57 = class_isMetaClass(v56);
-        v149 = object_getClassName(v18);
-        v154 = sel_getName("_ingestCard:callback:");
+        v148 = object_getClassName(v18);
+        v153 = sel_getName("_ingestCard:callback:");
         v58 = 45;
         if (v57)
         {
           v58 = 43;
         }
 
-        v55(6, "%c[%{public}s %{public}s]:%i default = %{public}@", v58, v149, v154, 1602, v22);
+        v55(6, "%c[%{public}s %{public}s]:%i default = %{public}@", v58, v148, v153, 1602, v22);
       }
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -9531,14 +9505,14 @@ LABEL_110:
         v63 = sel_getName("_ingestCard:callback:");
         *buf = 67110146;
         *&buf[4] = v61;
-        v179 = 2082;
-        v180 = v62;
-        v181 = 2082;
-        v182 = v63;
-        v183 = 1024;
-        v184 = 1602;
-        v185 = 2114;
-        v186 = v22;
+        v178 = 2082;
+        v179 = v62;
+        v180 = 2082;
+        v181 = v63;
+        v182 = 1024;
+        v183 = 1602;
+        v184 = 2114;
+        v185 = v22;
         _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i default = %{public}@", buf, 0x2Cu);
       }
 
@@ -9551,29 +9525,28 @@ LABEL_110:
     {
       v47 = v18;
       objc_sync_enter(v47);
-      v65 = v47[12];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v66 = [NSError alloc];
-        v67 = [NSString stringWithUTF8String:"seld"];
-        *&v187 = NSLocalizedDescriptionKey;
+        v65 = [NSError alloc];
+        v66 = [NSString stringWithUTF8String:"seld"];
+        *&v186 = NSLocalizedDescriptionKey;
         *buf = @"Card ingestion is in progress";
-        v68 = [NSDictionary dictionaryWithObjects:buf forKeys:&v187 count:1];
-        v69 = [v66 initWithDomain:v67 code:2 userInfo:v68];
-        (*(v21 + 2))(v21, v69, -1);
+        v67 = [NSDictionary dictionaryWithObjects:buf forKeys:&v186 count:1];
+        v68 = [v65 initWithDomain:v66 code:2 userInfo:v67];
+        (*(v21 + 2))(v21, v68, -1);
       }
 
       else
       {
-        v172 = 0;
-        v72 = [NFSecureElement embeddedSecureElementWithError:&v172];
-        v73 = v172;
-        v74 = [v72 serialNumber];
+        v171 = 0;
+        v71 = [NFSecureElement embeddedSecureElementWithError:&v171];
+        v72 = v171;
+        v73 = [v71 serialNumber];
 
-        if (v74)
+        if (v73)
         {
-          v165 = v73;
+          v164 = v72;
           if (v23)
           {
             [NSURL URLWithString:v22];
@@ -9583,237 +9556,237 @@ LABEL_110:
           {
             sub_10003687C(v47[3], v22);
           }
-          v94 = ;
-          v95 = [NSString alloc];
-          v96 = [v20 uri];
-          v164 = v74;
-          v97 = [v95 initWithFormat:@"v2/%@/%@", v74, v96];
+          v93 = ;
+          v94 = [NSString alloc];
+          v95 = [v20 uri];
+          v163 = v73;
+          v96 = [v94 initWithFormat:@"v2/%@/%@", v73, v95];
 
-          v162 = v97;
-          v163 = v94;
-          v98 = [v94 URLByAppendingPathComponent:v97];
+          v161 = v96;
+          v162 = v93;
+          v97 = [v93 URLByAppendingPathComponent:v96];
           dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          v99 = NFLogGetLogger();
-          if (v99)
+          v98 = NFLogGetLogger();
+          if (v98)
           {
-            v100 = v99;
-            v101 = object_getClass(v47);
-            v102 = class_isMetaClass(v101);
-            v151 = object_getClassName(v47);
-            v156 = sel_getName("_ingestCard:callback:");
-            v103 = 45;
-            if (v102)
+            v99 = v98;
+            v100 = object_getClass(v47);
+            v101 = class_isMetaClass(v100);
+            v150 = object_getClassName(v47);
+            v155 = sel_getName("_ingestCard:callback:");
+            v102 = 45;
+            if (v101)
             {
-              v103 = 43;
+              v102 = 43;
             }
 
-            v100(6, "%c[%{public}s %{public}s]:%i url: %{public}@", v103, v151, v156, 1636, v98);
+            v99(6, "%c[%{public}s %{public}s]:%i url: %{public}@", v102, v150, v155, 1636, v97);
           }
 
-          v168 = v21;
-          v166 = v3;
+          v167 = v21;
+          v165 = v3;
           dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          v104 = NFSharedLogGetLogger();
-          if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
+          v103 = NFSharedLogGetLogger();
+          if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
           {
-            v105 = object_getClass(v47);
-            if (class_isMetaClass(v105))
+            v104 = object_getClass(v47);
+            if (class_isMetaClass(v104))
             {
-              v106 = 43;
+              v105 = 43;
             }
 
             else
             {
-              v106 = 45;
+              v105 = 45;
             }
 
-            v107 = object_getClassName(v47);
-            v108 = sel_getName("_ingestCard:callback:");
+            v106 = object_getClassName(v47);
+            v107 = sel_getName("_ingestCard:callback:");
             *buf = 67110146;
-            *&buf[4] = v106;
-            v179 = 2082;
-            v180 = v107;
-            v181 = 2082;
-            v182 = v108;
-            v183 = 1024;
-            v184 = 1636;
-            v185 = 2114;
-            v186 = v98;
-            _os_log_impl(&_mh_execute_header, v104, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i url: %{public}@", buf, 0x2Cu);
+            *&buf[4] = v105;
+            v178 = 2082;
+            v179 = v106;
+            v180 = 2082;
+            v181 = v107;
+            v182 = 1024;
+            v183 = 1636;
+            v184 = 2114;
+            v185 = v97;
+            _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i url: %{public}@", buf, 0x2Cu);
           }
 
-          v109 = [NFRemoteAdminReaderState alloc];
-          v110 = objc_opt_new();
-          v161 = v98;
-          v111 = [v98 absoluteString];
-          v112 = [(NFRemoteAdminReaderState *)v109 initWithDictionary:v110 sourceURL:v111 originator:v22];
+          v108 = [NFRemoteAdminReaderState alloc];
+          v109 = objc_opt_new();
+          v160 = v97;
+          v110 = [v97 absoluteString];
+          v111 = [(NFRemoteAdminReaderState *)v108 initWithDictionary:v109 sourceURL:v110 originator:v22];
 
-          [(NFRemoteAdminState *)v112 setPendingImmediateRetry:1];
-          [(NFRemoteAdminReaderState *)v112 setRequestInfo:v20];
-          v169[0] = _NSConcreteStackBlock;
-          v169[1] = 3221225472;
-          v169[2] = sub_1000256EC;
-          v169[3] = &unk_100054BF8;
-          v169[4] = v47;
-          v171 = "_ingestCard:callback:";
-          v160 = v168;
-          v170 = v160;
-          v167 = v112;
-          [(NFRemoteAdminReaderState *)v112 setStateUpdateOnSessionEndedCallback:v169];
-          v113 = v20;
-          v114 = objc_opt_new();
-          v115 = [v113 sessionToken];
-          v116 = v115;
-          if (v115 && [v115 length])
+          [(NFRemoteAdminState *)v111 setPendingImmediateRetry:1];
+          [(NFRemoteAdminReaderState *)v111 setRequestInfo:v20];
+          v168[0] = _NSConcreteStackBlock;
+          v168[1] = 3221225472;
+          v168[2] = sub_1000256EC;
+          v168[3] = &unk_100054BF8;
+          v168[4] = v47;
+          v170 = "_ingestCard:callback:";
+          v159 = v167;
+          v169 = v159;
+          v166 = v111;
+          [(NFRemoteAdminReaderState *)v111 setStateUpdateOnSessionEndedCallback:v168];
+          v112 = v20;
+          v113 = objc_opt_new();
+          v114 = [v112 sessionToken];
+          v115 = v114;
+          if (v114 && [v114 length])
           {
-            [v114 setObject:v116 forKeyedSubscript:@"cardSessionToken"];
+            [v113 setObject:v115 forKeyedSubscript:@"cardSessionToken"];
           }
 
-          v117 = [v113 cardServiceInfo];
-          v118 = [v117 objectForKey:@"technology"];
+          v116 = [v112 cardServiceInfo];
+          v117 = [v116 objectForKey:@"technology"];
 
-          if (v118)
+          if (v117)
           {
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) != 0 && [v118 length])
+            if ((objc_opt_isKindOfClass() & 1) != 0 && [v117 length])
             {
-              [v114 setObject:v118 forKeyedSubscript:@"technology"];
+              [v113 setObject:v117 forKeyedSubscript:@"technology"];
             }
 
             else
             {
               dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-              v119 = NFLogGetLogger();
-              if (v119)
+              v118 = NFLogGetLogger();
+              if (v118)
               {
-                v120 = v119;
-                v121 = object_getClass(v47);
-                v158 = class_isMetaClass(v121);
-                v159 = object_getClassName(v47);
-                v157 = sel_getName("_generateReaderParamsFromRequest:");
-                v122 = 45;
-                if (v158)
+                v119 = v118;
+                v120 = object_getClass(v47);
+                v157 = class_isMetaClass(v120);
+                v158 = object_getClassName(v47);
+                v156 = sel_getName("_generateReaderParamsFromRequest:");
+                v121 = 45;
+                if (v157)
                 {
-                  v122 = 43;
+                  v121 = 43;
                 }
 
-                v120(4, "%c[%{public}s %{public}s]:%i Unexpected technology object type", v122, v159, v157, 1085);
+                v119(4, "%c[%{public}s %{public}s]:%i Unexpected technology object type", v121, v158, v156, 1085);
               }
 
               dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-              v123 = NFSharedLogGetLogger();
-              if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+              v122 = NFSharedLogGetLogger();
+              if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
               {
-                v124 = object_getClass(v47);
-                if (class_isMetaClass(v124))
+                v123 = object_getClass(v47);
+                if (class_isMetaClass(v123))
                 {
-                  v125 = 43;
+                  v124 = 43;
                 }
 
                 else
                 {
-                  v125 = 45;
+                  v124 = 45;
                 }
 
-                v126 = object_getClassName(v47);
-                v127 = sel_getName("_generateReaderParamsFromRequest:");
+                v125 = object_getClassName(v47);
+                v126 = sel_getName("_generateReaderParamsFromRequest:");
                 *buf = 67109890;
-                *&buf[4] = v125;
-                v179 = 2082;
-                v180 = v126;
-                v181 = 2082;
-                v182 = v127;
-                v183 = 1024;
-                v184 = 1085;
-                _os_log_impl(&_mh_execute_header, v123, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Unexpected technology object type", buf, 0x22u);
+                *&buf[4] = v124;
+                v178 = 2082;
+                v179 = v125;
+                v180 = 2082;
+                v181 = v126;
+                v182 = 1024;
+                v183 = 1085;
+                _os_log_impl(&_mh_execute_header, v122, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Unexpected technology object type", buf, 0x22u);
               }
             }
           }
 
-          v128 = [v113 cardServiceInfo];
-          v129 = [v128 objectForKey:@"version"];
+          v127 = [v112 cardServiceInfo];
+          v128 = [v127 objectForKey:@"version"];
 
-          if (!v129 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+          if (!v128 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
-            v130 = [NSNumber numberWithInt:2];
+            v129 = [NSNumber numberWithInt:2];
 
-            v129 = v130;
+            v128 = v129;
           }
 
-          [v114 setObject:v129 forKeyedSubscript:@"version"];
+          [v113 setObject:v128 forKeyedSubscript:@"version"];
 
-          [(NFRemoteAdminReaderState *)v167 setParameters:v114];
-          v131 = v47[3];
-          v132 = sub_100018770(v47, @"seld");
-          sub_100037160(v131, v132);
+          [(NFRemoteAdminReaderState *)v166 setParameters:v113];
+          v130 = v47[3];
+          v131 = sub_100018770(v47, @"seld");
+          sub_100037160(v130, v131);
 
-          v189 = 0u;
-          v190 = 0u;
-          v187 = 0u;
           v188 = 0u;
-          v133 = sub_100033310();
-          v134 = sub_100038884(v133);
+          v189 = 0u;
+          v186 = 0u;
+          v187 = 0u;
+          v132 = sub_100033310();
+          v133 = sub_100038884(v132);
 
-          v135 = [v134 countByEnumeratingWithState:&v187 objects:buf count:16];
-          if (v135)
+          v134 = [v133 countByEnumeratingWithState:&v186 objects:buf count:16];
+          if (v134)
           {
-            v136 = v135;
-            v137 = *v188;
+            v135 = v134;
+            v136 = *v187;
             while (2)
             {
-              for (i = 0; i != v136; i = i + 1)
+              for (i = 0; i != v135; i = i + 1)
               {
-                if (*v188 != v137)
+                if (*v187 != v136)
                 {
-                  objc_enumerationMutation(v134);
+                  objc_enumerationMutation(v133);
                 }
 
-                v139 = *(*(&v187 + 1) + 8 * i);
+                v138 = *(*(&v186 + 1) + 8 * i);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v141 = [v139 stateUpdateOnSessionEndedCallback];
+                  v140 = [v138 stateUpdateOnSessionEndedCallback];
 
-                  if (v141)
+                  if (v140)
                   {
-                    v142 = [NSError alloc];
-                    v143 = [NSString stringWithUTF8String:"seld"];
-                    v177 = NSLocalizedDescriptionKey;
-                    v173[0] = @"Pending card ingestion exist";
-                    v144 = [NSDictionary dictionaryWithObjects:v173 forKeys:&v177 count:1];
-                    v145 = [v142 initWithDomain:v143 code:2 userInfo:v144];
-                    (*(v160 + 2))(v160, v145, -1);
+                    v141 = [NSError alloc];
+                    v142 = [NSString stringWithUTF8String:"seld"];
+                    v176 = NSLocalizedDescriptionKey;
+                    v172[0] = @"Pending card ingestion exist";
+                    v143 = [NSDictionary dictionaryWithObjects:v172 forKeys:&v176 count:1];
+                    v144 = [v141 initWithDomain:v142 code:2 userInfo:v143];
+                    (*(v159 + 2))(v159, v144, -1);
 
-                    v3 = v166;
-                    v146 = v167;
+                    v3 = v165;
+                    v145 = v166;
                   }
 
                   else
                   {
-                    [v139 setPendingImmediateRetry:1];
-                    v173[0] = _NSConcreteStackBlock;
-                    v173[1] = 3221225472;
-                    v173[2] = sub_1000263C8;
-                    v173[3] = &unk_100054C20;
-                    v173[4] = v47;
-                    v176 = "_ingestCard:callback:";
-                    v146 = v167;
-                    v174 = v167;
-                    v175 = v160;
-                    [v139 setStateUpdateOnSessionEndedCallback:v173];
+                    [v138 setPendingImmediateRetry:1];
+                    v172[0] = _NSConcreteStackBlock;
+                    v172[1] = 3221225472;
+                    v172[2] = sub_1000263C8;
+                    v172[3] = &unk_100054C20;
+                    v172[4] = v47;
+                    v175 = "_ingestCard:callback:";
+                    v145 = v166;
+                    v173 = v166;
+                    v174 = v159;
+                    [v138 setStateUpdateOnSessionEndedCallback:v172];
                     sub_100015830(v47);
 
-                    v3 = v166;
+                    v3 = v165;
                   }
 
-                  v21 = v168;
+                  v21 = v167;
 
                   goto LABEL_108;
                 }
               }
 
-              v136 = [v134 countByEnumeratingWithState:&v187 objects:buf count:16];
-              if (v136)
+              v135 = [v133 countByEnumeratingWithState:&v186 objects:buf count:16];
+              if (v135)
               {
                 continue;
               }
@@ -9822,74 +9795,74 @@ LABEL_110:
             }
           }
 
-          v140 = sub_100033310();
-          sub_1000388F0(v140, v167);
+          v139 = sub_100033310();
+          sub_1000388F0(v139, v166);
 
           [v47 handleCardIngestionStatus:11];
           objc_sync_exit(v47);
 
           sub_100015830(v47);
-          v3 = v166;
-          v21 = v168;
+          v3 = v165;
+          v21 = v167;
           goto LABEL_110;
         }
 
         dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v79 = NFLogGetLogger();
-        if (v79)
+        v78 = NFLogGetLogger();
+        if (v78)
         {
-          v80 = v79;
-          v81 = object_getClass(v47);
-          v82 = class_isMetaClass(v81);
-          v150 = object_getClassName(v47);
-          v155 = sel_getName("_ingestCard:callback:");
-          v83 = 45;
-          if (v82)
+          v79 = v78;
+          v80 = object_getClass(v47);
+          v81 = class_isMetaClass(v80);
+          v149 = object_getClassName(v47);
+          v154 = sel_getName("_ingestCard:callback:");
+          v82 = 45;
+          if (v81)
           {
-            v83 = 43;
+            v82 = 43;
           }
 
-          v80(3, "%c[%{public}s %{public}s]:%i Missing primary SEID - %{public}@", v83, v150, v155, 1622, v73);
+          v79(3, "%c[%{public}s %{public}s]:%i Missing primary SEID - %{public}@", v82, v149, v154, 1622, v72);
         }
 
         dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v84 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+        v83 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
         {
-          v85 = object_getClass(v47);
-          if (class_isMetaClass(v85))
+          v84 = object_getClass(v47);
+          if (class_isMetaClass(v84))
           {
-            v86 = 43;
+            v85 = 43;
           }
 
           else
           {
-            v86 = 45;
+            v85 = 45;
           }
 
-          v87 = object_getClassName(v47);
-          v88 = sel_getName("_ingestCard:callback:");
+          v86 = object_getClassName(v47);
+          v87 = sel_getName("_ingestCard:callback:");
           *buf = 67110146;
-          *&buf[4] = v86;
-          v179 = 2082;
-          v180 = v87;
-          v181 = 2082;
-          v182 = v88;
-          v183 = 1024;
-          v184 = 1622;
-          v185 = 2114;
-          v186 = v73;
-          _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Missing primary SEID - %{public}@", buf, 0x2Cu);
+          *&buf[4] = v85;
+          v178 = 2082;
+          v179 = v86;
+          v180 = 2082;
+          v181 = v87;
+          v182 = 1024;
+          v183 = 1622;
+          v184 = 2114;
+          v185 = v72;
+          _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Missing primary SEID - %{public}@", buf, 0x2Cu);
         }
 
-        v89 = v73;
-        v90 = [NSError alloc];
-        v91 = [NSString stringWithUTF8String:"seld"];
-        *&v187 = NSLocalizedDescriptionKey;
+        v88 = v72;
+        v89 = [NSError alloc];
+        v90 = [NSString stringWithUTF8String:"seld"];
+        *&v186 = NSLocalizedDescriptionKey;
         *buf = @"Missing SEID";
-        v92 = [NSDictionary dictionaryWithObjects:buf forKeys:&v187 count:1];
-        v93 = [v90 initWithDomain:v91 code:15 userInfo:v92];
-        (*(v21 + 2))(v21, v93, -1);
+        v91 = [NSDictionary dictionaryWithObjects:buf forKeys:&v186 count:1];
+        v92 = [v89 initWithDomain:v90 code:15 userInfo:v91];
+        (*(v21 + 2))(v21, v92, -1);
       }
 
 LABEL_108:
@@ -9897,17 +9870,17 @@ LABEL_108:
       goto LABEL_109;
     }
 
-    v70 = [NSError alloc];
+    v69 = [NSError alloc];
     v47 = [NSString stringWithUTF8String:"seld"];
-    *&v187 = NSLocalizedDescriptionKey;
+    *&v186 = NSLocalizedDescriptionKey;
     *buf = @"Missing parameter";
-    v48 = [NSDictionary dictionaryWithObjects:buf forKeys:&v187 count:1];
-    v49 = v70;
+    v48 = [NSDictionary dictionaryWithObjects:buf forKeys:&v186 count:1];
+    v49 = v69;
     v50 = v47;
     v51 = 9;
 LABEL_50:
-    v71 = [v49 initWithDomain:v50 code:v51 userInfo:v48];
-    (*(v21 + 2))(v21, v71, -1);
+    v70 = [v49 initWithDomain:v50 code:v51 userInfo:v48];
+    (*(v21 + 2))(v21, v70, -1);
 
 LABEL_109:
     goto LABEL_110;

@@ -10,27 +10,26 @@
   v18 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v5 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = HMFGetOSLogHandle(selfCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v6 = HMFGetLogIdentifier(selfCopy);
+    v7 = HMFGetLogIdentifier(selfCopy);
     [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-    v8 = v7 - selfCopy->_creationTime;
+    v9 = v8 - selfCopy->_creationTime;
     transaction = selfCopy->_transaction;
     *buf = 138543874;
-    v13 = v6;
+    v13 = v7;
     v14 = 2048;
-    v15 = v8;
+    v15 = v9;
     v16 = 2112;
     v17 = transaction;
-    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Finishing transaction after %.3fs: %@", buf, 0x20u);
+    _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Finishing transaction after %.3fs: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v3);
   v11.receiver = selfCopy;
   v11.super_class = HMFOSTransaction;
   [(HMFOSTransaction *)&v11 dealloc];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HMFOSTransaction)initWithName:(id)name
@@ -54,22 +53,21 @@
 
     v11 = objc_autoreleasePoolPush();
     v12 = v5;
-    v13 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = HMFGetOSLogHandle(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v14 = HMFGetLogIdentifier(v12);
-      v15 = v5->_transaction;
+      v15 = HMFGetLogIdentifier(v12);
+      v16 = v5->_transaction;
       *buf = 138543618;
-      v20 = v14;
+      v20 = v15;
       v21 = 2112;
-      v22 = v15;
-      _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Starting transaction: %@", buf, 0x16u);
+      v22 = v16;
+      _os_log_impl(&dword_22ADEC000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Starting transaction: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -8,12 +8,12 @@
 
 - (MRUpdateContentItemMessage)initWithContentItems:(id)items forPlayerPath:(id)path encoding:(int64_t)encoding
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   pathCopy = path;
-  v26.receiver = self;
-  v26.super_class = MRUpdateContentItemMessage;
-  v10 = [(MRProtocolMessage *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = MRUpdateContentItemMessage;
+  v10 = [(MRProtocolMessage *)&v25 init];
   if (v10)
   {
     v11 = objc_alloc_init(_MRUpdateContentItemMessageProtobuf);
@@ -21,34 +21,34 @@
     protobuf = [skeleton protobuf];
     [(_MRUpdateContentItemMessageProtobuf *)v11 setPlayerPath:protobuf];
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v14 = itemsCopy;
-    v15 = [v14 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v23;
+      v17 = *v22;
       do
       {
         v18 = 0;
         do
         {
-          if (*v23 != v17)
+          if (*v22 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = [*(*(&v22 + 1) + 8 * v18) protobufWithEncoding:{encoding, v22}];
+          v19 = [*(*(&v21 + 1) + 8 * v18) protobufWithEncoding:{encoding, v21}];
           [(_MRUpdateContentItemMessageProtobuf *)v11 addContentItems:v19];
 
           ++v18;
         }
 
         while (v16 != v18);
-        v16 = [v14 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
       while (v16);
@@ -57,7 +57,6 @@
     [(MRProtocolMessage *)v10 setUnderlyingCodableMessage:v11];
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

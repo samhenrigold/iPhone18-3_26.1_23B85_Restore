@@ -291,10 +291,10 @@ void __106__WBSBiomeDonationManager_donateAutoPlayEventWithSignal_domain_country
   safari_highLevelDomainFromHost = [host safari_highLevelDomainFromHost];
 
   val = self;
-  v44 = lCopy;
+  v46 = lCopy;
   if ([MEMORY[0x1E698EE78] instancesRespondToSelector:sel_initWithDomain_visited_platform_userAgent_countryCode_privacyProxy_error_url_privateRelayVendorName_])
   {
-    v42 = objc_alloc(MEMORY[0x1E698EE78]);
+    v44 = objc_alloc(MEMORY[0x1E698EE78]);
     [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
     v17 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:ceil(v16 / 1800.0) * 30.0 * 60.0];
     v18 = [(WBSBiomeDonationManager *)self _biomeDeviceClassForUserAgent:agent];
@@ -303,8 +303,8 @@ void __106__WBSBiomeDonationManager_donateAutoPlayEventWithSignal_domain_country
     v21 = [MEMORY[0x1E696AD98] numberWithInt:relayedCopy];
     v22 = BiomeErrorResponseForStatusCode(code);
     absoluteString = [lCopy absoluteString];
-    LODWORD(v41) = v22;
-    v24 = [v42 initWithDomain:safari_highLevelDomainFromHost visited:v17 platform:v13 userAgent:v18 countryCode:countryCode privacyProxy:v21 error:v41 url:absoluteString privateRelayVendorName:nameCopy];
+    LODWORD(v43) = v22;
+    v24 = [v44 initWithDomain:safari_highLevelDomainFromHost visited:v17 platform:v13 userAgent:v18 countryCode:countryCode privacyProxy:v21 error:v43 url:absoluteString privateRelayVendorName:nameCopy];
 
     v25 = safari_highLevelDomainFromHost;
   }
@@ -323,26 +323,26 @@ void __106__WBSBiomeDonationManager_donateAutoPlayEventWithSignal_domain_country
     v31 = v30;
     if (v26)
     {
-      absoluteString2 = [v44 absoluteString];
-      LODWORD(v41) = v31;
+      absoluteString2 = [v46 absoluteString];
+      LODWORD(v43) = v31;
       v25 = safari_highLevelDomainFromHost;
-      v24 = [v27 initWithDomain:safari_highLevelDomainFromHost visited:v17 platform:v13 userAgent:v29 countryCode:countryCode privacyProxy:v21 error:v41 url:absoluteString2];
+      v24 = [v27 initWithDomain:safari_highLevelDomainFromHost visited:v17 platform:v13 userAgent:v29 countryCode:countryCode privacyProxy:v21 error:v43 url:absoluteString2];
     }
 
     else
     {
-      LODWORD(v41) = v30;
+      LODWORD(v43) = v30;
       v25 = safari_highLevelDomainFromHost;
-      v24 = [v27 initWithDomain:safari_highLevelDomainFromHost visited:v17 platform:v13 userAgent:v29 countryCode:countryCode privacyProxy:v21 error:v41];
+      v24 = [v27 initWithDomain:safari_highLevelDomainFromHost visited:v17 platform:v13 userAgent:v29 countryCode:countryCode privacyProxy:v21 error:v43];
     }
   }
 
   if (v24)
   {
-    v33 = WBS_LOG_CHANNEL_PREFIXBiomeDonation();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+    v35 = WBS_LOG_CHANNEL_PREFIXBiomeDonation(v33, v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
     {
-      [(WBSBiomeDonationManager *)v24 donateNavigationWithURL:v33 userAgent:v34 wasPrivateRelayed:v35 privateRelayVendorName:v36 statusCode:v37, v38, v39];
+      [(WBSBiomeDonationManager *)v24 donateNavigationWithURL:v35 userAgent:v36 wasPrivateRelayed:v37 privateRelayVendorName:v38 statusCode:v39, v40, v41];
     }
 
     objc_initWeak(&location, val);
@@ -351,11 +351,11 @@ void __106__WBSBiomeDonationManager_donateAutoPlayEventWithSignal_domain_country
     block[1] = 3221225472;
     block[2] = __113__WBSBiomeDonationManager_donateNavigationWithURL_userAgent_wasPrivateRelayed_privateRelayVendorName_statusCode___block_invoke;
     block[3] = &unk_1E7FB6E58;
-    objc_copyWeak(&v48, &location);
-    v47 = v24;
+    objc_copyWeak(&v50, &location);
+    v49 = v24;
     dispatch_async(streamAccessQueue, block);
 
-    objc_destroyWeak(&v48);
+    objc_destroyWeak(&v50);
     objc_destroyWeak(&location);
   }
 }
@@ -505,10 +505,10 @@ void __104__WBSBiomeDonationManager__donateWebPagePerformanceEventWithEvent_doma
   safari_highLevelDomainFromHost = [host safari_highLevelDomainFromHost];
 
   v8 = [objc_alloc(MEMORY[0x1E698EE90]) initWithDomain:safari_highLevelDomainFromHost blockingReason:reasonCopy];
-  v9 = WBS_LOG_CHANNEL_PREFIXBiomeDonation();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = WBS_LOG_CHANNEL_PREFIXBiomeDonation(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    [(WBSBiomeDonationManager *)v8 donateWebsiteBlockingQuit:v9 blockingReason:v10, v11, v12, v13, v14, v15];
+    [(WBSBiomeDonationManager *)v8 donateWebsiteBlockingQuit:v10 blockingReason:v11, v12, v13, v14, v15, v16];
   }
 
   objc_initWeak(&location, self);
@@ -517,12 +517,12 @@ void __104__WBSBiomeDonationManager__donateWebPagePerformanceEventWithEvent_doma
   block[1] = 3221225472;
   block[2] = __68__WBSBiomeDonationManager_donateWebsiteBlockingQuit_blockingReason___block_invoke;
   block[3] = &unk_1E7FB6E58;
-  objc_copyWeak(&v20, &location);
-  v19 = v8;
-  v17 = v8;
+  objc_copyWeak(&v21, &location);
+  v20 = v8;
+  v18 = v8;
   dispatch_async(streamAccessQueue, block);
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&location);
 }
 
@@ -1308,12 +1308,12 @@ LABEL_26:
   interactionCopy = interaction;
   if (+[WBSBrowsingAssistantController userConsentState]== 1)
   {
-    v33 = eventsCopy;
+    v34 = eventsCopy;
     v24 = [objc_alloc(MEMORY[0x1E698EDD8]) initWithWebpageViewStarted:eventsCopy dimensionContext:contextCopy bloomFilterPassed:passedCopy eligible:eligibleCopy webpageUrlSent:sentCopy serverRequestContext:requestCopy visualComponentPresentationContext:renderCopy userInteractionDetected:interactionCopy];
-    v25 = WBS_LOG_CHANNEL_PREFIXBiomeDonation();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    v26 = WBS_LOG_CHANNEL_PREFIXBiomeDonation(v24, v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
-      [WBSBiomeDonationManager _donateBrowsingAssistantEvents:v24 dimensionContext:v25 bloomFilterPassed:v26 eligible:v27 webpageUrlSent:v28 serverRequest:v29 render:v30 userInteraction:v31];
+      [WBSBiomeDonationManager _donateBrowsingAssistantEvents:v24 dimensionContext:v26 bloomFilterPassed:v27 eligible:v28 webpageUrlSent:v29 serverRequest:v30 render:v31 userInteraction:v32];
       if (!v24)
       {
         goto LABEL_5;
@@ -1324,7 +1324,7 @@ LABEL_26:
     {
 LABEL_5:
 
-      eventsCopy = v33;
+      eventsCopy = v34;
       goto LABEL_6;
     }
 
@@ -1334,11 +1334,11 @@ LABEL_5:
     block[1] = 3221225472;
     block[2] = __154__WBSBiomeDonationManager__donateBrowsingAssistantEvents_dimensionContext_bloomFilterPassed_eligible_webpageUrlSent_serverRequest_render_userInteraction___block_invoke;
     block[3] = &unk_1E7FB6E58;
-    objc_copyWeak(&v36, &location);
-    v35 = v24;
+    objc_copyWeak(&v37, &location);
+    v36 = v24;
     dispatch_async(streamAccessQueue, block);
 
-    objc_destroyWeak(&v36);
+    objc_destroyWeak(&v37);
     objc_destroyWeak(&location);
     goto LABEL_5;
   }
@@ -1379,91 +1379,91 @@ void __154__WBSBiomeDonationManager__donateBrowsingAssistantEvents_dimensionCont
 - (void)_clearEventsDonatedSinceDate:(id)date
 {
   dateCopy = date;
-  [dateCopy timeIntervalSinceReferenceDate];
-  v6 = v5;
-  v7 = WBS_LOG_CHANNEL_PREFIXBiomeDonation();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  timeIntervalSinceReferenceDate = [dateCopy timeIntervalSinceReferenceDate];
+  v7 = v6;
+  v9 = WBS_LOG_CHANNEL_PREFIXBiomeDonation(timeIntervalSinceReferenceDate, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    [(WBSBiomeDonationManager *)dateCopy _clearEventsDonatedSinceDate:v7, v6];
+    [(WBSBiomeDonationManager *)dateCopy _clearEventsDonatedSinceDate:v9, v7];
   }
 
   _autoPlayStream = [(WBSBiomeDonationManager *)self _autoPlayStream];
   pruner = [_autoPlayStream pruner];
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __56__WBSBiomeDonationManager__clearEventsDonatedSinceDate___block_invoke;
-  v42[3] = &unk_1E7FB6E80;
-  v10 = dateCopy;
-  v43 = v10;
-  [pruner deleteEventsPassingTest:v42];
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __56__WBSBiomeDonationManager__clearEventsDonatedSinceDate___block_invoke;
+  v44[3] = &unk_1E7FB6E80;
+  v12 = dateCopy;
+  v45 = v12;
+  [pruner deleteEventsPassingTest:v44];
 
   _webPagePerformanceStream = [(WBSBiomeDonationManager *)self _webPagePerformanceStream];
   pruner2 = [_webPagePerformanceStream pruner];
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __56__WBSBiomeDonationManager__clearEventsDonatedSinceDate___block_invoke_2;
-  v40[3] = &unk_1E7FB6E80;
-  v13 = v10;
-  v41 = v13;
-  [pruner2 deleteEventsPassingTest:v40];
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __56__WBSBiomeDonationManager__clearEventsDonatedSinceDate___block_invoke_2;
+  v42[3] = &unk_1E7FB6E80;
+  v15 = v12;
+  v43 = v15;
+  [pruner2 deleteEventsPassingTest:v42];
 
   _navigationsStream = [(WBSBiomeDonationManager *)self _navigationsStream];
   pruner3 = [_navigationsStream pruner];
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __56__WBSBiomeDonationManager__clearEventsDonatedSinceDate___block_invoke_3;
-  v38[3] = &unk_1E7FB6E80;
-  v16 = v13;
-  v39 = v16;
-  [pruner3 deleteEventsPassingTest:v38];
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __56__WBSBiomeDonationManager__clearEventsDonatedSinceDate___block_invoke_3;
+  v40[3] = &unk_1E7FB6E80;
+  v18 = v15;
+  v41 = v18;
+  [pruner3 deleteEventsPassingTest:v40];
 
   _webAppInFocusStream = [(WBSBiomeDonationManager *)self _webAppInFocusStream];
   pruner4 = [_webAppInFocusStream pruner];
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __56__WBSBiomeDonationManager__clearEventsDonatedSinceDate___block_invoke_4;
-  v36[3] = &unk_1E7FB6E80;
-  v19 = v16;
-  v37 = v19;
-  [pruner4 deleteEventsPassingTest:v36];
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __56__WBSBiomeDonationManager__clearEventsDonatedSinceDate___block_invoke_4;
+  v38[3] = &unk_1E7FB6E80;
+  v21 = v18;
+  v39 = v21;
+  [pruner4 deleteEventsPassingTest:v38];
 
   _pageLoadStream = [(WBSBiomeDonationManager *)self _pageLoadStream];
   pruner5 = [_pageLoadStream pruner];
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __56__WBSBiomeDonationManager__clearEventsDonatedSinceDate___block_invoke_5;
-  v34[3] = &unk_1E7FB6E80;
-  v22 = v19;
-  v35 = v22;
-  [pruner5 deleteEventsPassingTest:v34];
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __56__WBSBiomeDonationManager__clearEventsDonatedSinceDate___block_invoke_5;
+  v36[3] = &unk_1E7FB6E80;
+  v24 = v21;
+  v37 = v24;
+  [pruner5 deleteEventsPassingTest:v36];
 
   _windowProxyStream = [(WBSBiomeDonationManager *)self _windowProxyStream];
   pruner6 = [_windowProxyStream pruner];
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __56__WBSBiomeDonationManager__clearEventsDonatedSinceDate___block_invoke_6;
-  v32[3] = &unk_1E7FB6E80;
-  v33 = v22;
-  v25 = v22;
-  [pruner6 deleteEventsPassingTest:v32];
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __56__WBSBiomeDonationManager__clearEventsDonatedSinceDate___block_invoke_6;
+  v34[3] = &unk_1E7FB6E80;
+  v35 = v24;
+  v27 = v24;
+  [pruner6 deleteEventsPassingTest:v34];
 
   _browsingAssistantStream = [(WBSBiomeDonationManager *)self _browsingAssistantStream];
   pruner7 = [_browsingAssistantStream pruner];
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __56__WBSBiomeDonationManager__clearEventsDonatedSinceDate___block_invoke_7;
-  v31[3] = &__block_descriptor_40_e26_B24__0__BMStoreEvent_8_B16l;
-  *&v31[4] = v6;
-  [pruner7 deleteEventsPassingTest:v31];
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __56__WBSBiomeDonationManager__clearEventsDonatedSinceDate___block_invoke_7;
+  v33[3] = &__block_descriptor_40_e26_B24__0__BMStoreEvent_8_B16l;
+  *&v33[4] = v7;
+  [pruner7 deleteEventsPassingTest:v33];
 
   _websitesBlockingQuitStream = [(WBSBiomeDonationManager *)self _websitesBlockingQuitStream];
   pruner8 = [_websitesBlockingQuitStream pruner];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __56__WBSBiomeDonationManager__clearEventsDonatedSinceDate___block_invoke_8;
-  v30[3] = &__block_descriptor_40_e26_B24__0__BMStoreEvent_8_B16l;
-  *&v30[4] = v6;
-  [pruner8 deleteWithPolicy:@"clear-events" eventsPassingTest:v30];
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __56__WBSBiomeDonationManager__clearEventsDonatedSinceDate___block_invoke_8;
+  v32[3] = &__block_descriptor_40_e26_B24__0__BMStoreEvent_8_B16l;
+  *&v32[4] = v7;
+  [pruner8 deleteWithPolicy:@"clear-events" eventsPassingTest:v32];
 }
 
 uint64_t __56__WBSBiomeDonationManager__clearEventsDonatedSinceDate___block_invoke(uint64_t a1, void *a2)
@@ -1572,6 +1572,27 @@ uint64_t __56__WBSBiomeDonationManager__clearEventsDonatedSinceDate___block_invo
   }
 
   return v6;
+}
+
+- (void)donateNavigationWithURL:(uint64_t)a3 userAgent:(uint64_t)a4 wasPrivateRelayed:(uint64_t)a5 privateRelayVendorName:(uint64_t)a6 statusCode:(uint64_t)a7 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_1BB6F3000, a2, a3, "Donating safari navigation event: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)donateWebsiteBlockingQuit:(uint64_t)a3 blockingReason:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_1BB6F3000, a2, a3, "Donating blocking safari quit event: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_donateBrowsingAssistantEvents:(uint64_t)a1 dimensionContext:(NSObject *)a2 bloomFilterPassed:(uint64_t)a3 eligible:(uint64_t)a4 webpageUrlSent:(uint64_t)a5 serverRequest:(uint64_t)a6 render:(uint64_t)a7 userInteraction:(uint64_t)a8 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138739971;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_1BB6F3000, a2, a3, "Donating Browsing Assistant event: %{sensitive}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_clearEventsDonatedSinceDate:(double)a3 .cold.1(uint64_t a1, NSObject *a2, double a3)

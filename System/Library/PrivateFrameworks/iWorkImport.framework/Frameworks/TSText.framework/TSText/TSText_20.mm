@@ -136,32 +136,32 @@ uint64_t sub_276EE3B5C(uint64_t a1, uint64_t a2)
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
-  sub_276E410C4(a1 + 8, *(a2 + 8), *(a2 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 16) - *(a2 + 8)) >> 4));
+  sub_276E410C4((a1 + 8), *(a2 + 8), *(a2 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 16) - *(a2 + 8)) >> 4));
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  sub_276E410C4(a1 + 32, *(a2 + 32), *(a2 + 40), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 40) - *(a2 + 32)) >> 4));
+  sub_276E410C4((a1 + 32), *(a2 + 32), *(a2 + 40), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 40) - *(a2 + 32)) >> 4));
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
-  sub_276E410C4(a1 + 56, *(a2 + 56), *(a2 + 64), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 64) - *(a2 + 56)) >> 4));
+  sub_276E410C4((a1 + 56), *(a2 + 56), *(a2 + 64), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 64) - *(a2 + 56)) >> 4));
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
   *(a1 + 96) = 0;
-  sub_276E410C4(a1 + 80, *(a2 + 80), *(a2 + 88), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 88) - *(a2 + 80)) >> 4));
+  sub_276E410C4((a1 + 80), *(a2 + 80), *(a2 + 88), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 88) - *(a2 + 80)) >> 4));
   v4 = *(a2 + 104);
   *(a1 + 112) = 0;
   *(a1 + 104) = v4;
   *(a1 + 120) = 0;
   *(a1 + 128) = 0;
-  sub_276EE4508(a1 + 112, *(a2 + 112), *(a2 + 120), (*(a2 + 120) - *(a2 + 112)) >> 4);
+  sub_276EE4508((a1 + 112), *(a2 + 112), *(a2 + 120), (*(a2 + 120) - *(a2 + 112)) >> 4);
   *(a1 + 136) = *(a2 + 136);
   return a1;
 }
 
-void sub_276EE3C74(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_276EE3C74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_276E40F9C(va);
   sub_276E40F9C(va);
   sub_276E40F9C(va);
@@ -229,7 +229,7 @@ uint64_t sub_276EE3D80(uint64_t a1)
   return result;
 }
 
-uint64_t sub_276EE3E28(uint64_t a1, const char *a2)
+void *sub_276EE3E28(unint64_t *a1, const char *a2)
 {
   if (*a1 || (v4 = MEMORY[0x277D81150], objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "void TSWPStorageActionGroup::appendForwardAction(const TSWPStorageAction &)"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorageActionGroup.mm"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v8, v5, v7, 165, 0, "TSWPStorageActionGroup: bad group kind."), v7, v5, result = objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10), *a1))
   {
@@ -243,13 +243,13 @@ uint64_t sub_276EE3E28(uint64_t a1, const char *a2)
       objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18);
     }
 
-    return sub_276EE3F9C((a1 + 8), a2);
+    return sub_276EE3F9C(a1 + 1, a2);
   }
 
   return result;
 }
 
-uint64_t sub_276EE3F9C(uint64_t *a1, uint64_t a2)
+uint64_t sub_276EE3F9C(unint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -268,7 +268,7 @@ uint64_t sub_276EE3F9C(uint64_t *a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_276EE3FF0(uint64_t a1, const char *a2, _DWORD *a3)
+void *sub_276EE3FF0(uint64_t a1, const char *a2, _DWORD *a3)
 {
   if (*a1 || (v6 = MEMORY[0x277D81150], objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "void TSWPStorageActionGroup::appendActions(const TSWPStorageAction &, const TSWPStorageAction &)"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorageActionGroup.mm"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v10, v7, v9, 183, 0, "TSWPStorageActionGroup: bad group kind."), v9, v7, result = objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12), *a1))
   {
@@ -290,7 +290,7 @@ uint64_t sub_276EE3FF0(uint64_t a1, const char *a2, _DWORD *a3)
   return result;
 }
 
-uint64_t sub_276EE4188(uint64_t a1, const char *a2, _DWORD *a3)
+void *sub_276EE4188(uint64_t a1, const char *a2, _DWORD *a3)
 {
   if (*a1 || (v6 = MEMORY[0x277D81150], objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "void TSWPStorageActionGroup::replaceAction(NSUInteger, const TSWPStorageAction &)"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorageActionGroup.mm"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v10, v7, v9, 193, 0, "TSWPStorageActionGroup: bad group kind."), v9, v7, result = objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12), *a1))
   {
@@ -409,7 +409,7 @@ void *sub_276EE4314(void *result, const char *a2)
   return result;
 }
 
-uint64_t sub_276EE4508(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_276EE4508(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1085,7 +1085,7 @@ void sub_276EEA038(uint64_t a1, unint64_t a2, unint64_t a3, void *a4)
   *(a1 + 16) = cf;
 }
 
-uint64_t sub_276EEA1F8(uint64_t result, unint64_t a2, unint64_t a3, int a4)
+_DWORD *sub_276EEA1F8(_DWORD *result, unint64_t a2, unint64_t a3, int a4)
 {
   v6 = result;
   if (HIDWORD(a2))
@@ -1116,7 +1116,7 @@ uint64_t sub_276EEA1F8(uint64_t result, unint64_t a2, unint64_t a3, int a4)
   return result;
 }
 
-uint64_t sub_276EEA364(uint64_t result, unint64_t a2, unint64_t a3, __int16 a4, __int16 a5)
+_DWORD *sub_276EEA364(_DWORD *result, unint64_t a2, unint64_t a3, __int16 a4, __int16 a5)
 {
   v8 = result;
   if (HIDWORD(a2))
@@ -1130,9 +1130,9 @@ uint64_t sub_276EEA364(uint64_t result, unint64_t a2, unint64_t a3, __int16 a4, 
     a2 = 0xFFFFFFFFLL;
   }
 
-  *(v8 + 8) = a2;
-  *(v8 + 12) = a4;
-  *(v8 + 14) = a5;
+  v8[2] = a2;
+  *(v8 + 6) = a4;
+  *(v8 + 7) = a5;
   if (HIDWORD(a3))
   {
     v16 = MEMORY[0x277D81150];
@@ -1144,7 +1144,7 @@ uint64_t sub_276EEA364(uint64_t result, unint64_t a2, unint64_t a3, __int16 a4, 
     LODWORD(a3) = -1;
   }
 
-  *(v8 + 16) = a3;
+  v8[4] = a3;
   return result;
 }
 
@@ -1186,7 +1186,7 @@ void sub_276EEA4DC(uint64_t a1, unint64_t a2, unint64_t a3, void *a4)
   *(a1 + 16) = cf;
 }
 
-uint64_t sub_276EEA69C(uint64_t result, unint64_t a2, unint64_t a3, uint64_t a4)
+_DWORD *sub_276EEA69C(_DWORD *result, unint64_t a2, unint64_t a3, uint64_t a4)
 {
   v6 = result;
   if (HIDWORD(a2))
@@ -1239,7 +1239,7 @@ uint64_t sub_276EEA69C(uint64_t result, unint64_t a2, unint64_t a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_276EEA924(uint64_t result, unint64_t a2, unint64_t a3)
+_DWORD *sub_276EEA924(_DWORD *result, unint64_t a2, unint64_t a3)
 {
   v4 = result;
   if (HIDWORD(a2))
@@ -1253,7 +1253,7 @@ uint64_t sub_276EEA924(uint64_t result, unint64_t a2, unint64_t a3)
     a2 = 0xFFFFFFFFLL;
   }
 
-  *(v4 + 8) = a2;
+  v4[2] = a2;
   if (HIDWORD(a3))
   {
     v12 = MEMORY[0x277D81150];
@@ -1265,8 +1265,8 @@ uint64_t sub_276EEA924(uint64_t result, unint64_t a2, unint64_t a3)
     LODWORD(a3) = -1;
   }
 
-  *(v4 + 12) = a3;
-  *(v4 + 16) = 0;
+  v4[3] = a3;
+  *(v4 + 2) = 0;
   return result;
 }
 
@@ -1329,9 +1329,9 @@ void sub_276EEABDC(void *a1, uint64_t a2, uint64_t a3, void *a4)
     case 13:
     case 14:
     case 18:
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Can't read object for attribute table type %lu", "void TSWPReadAttributeTableReferenceMessage(TSPUnarchiver *__strong, TSWPAttributeArrayKind, const TSP::Reference &, void (^__strong)(id  _Nullable __strong))", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttributeArray.mm", 122, a2);
       v42 = MEMORY[0x277D81150];
-      v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, "void TSWPReadAttributeTableReferenceMessage(TSPUnarchiver *__strong, TSWPAttributeArrayKind, const TSP::Reference &, void (^__strong)(id  _Nullable __strong))", "void TSWPReadAttributeTableReferenceMessage(TSPUnarchiver *__strong, TSWPAttributeArrayKind, const TSP::Reference &, void (^__strong)(id  _Nullable __strong))", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttributeArray.mm", 122, a2);
+      v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, "void TSWPReadAttributeTableReferenceMessage(TSPUnarchiver *__strong, TSWPAttributeArrayKind, const TSP::Reference &, void (^__strong)(id  _Nullable __strong))");
       v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttributeArray.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v42, v47, v44, v46, 122, 1, "Can't read object for attribute table type %lu", a2);
 
@@ -1493,9 +1493,9 @@ void sub_276EEB4E8(void *a1, uint64_t a2, uint64_t a3, void *a4)
     case 13:
     case 14:
     case 18:
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Can't read object for attribute table type %lu", "void TSWPReadAttributeTableWeakReferenceMessage(TSPUnarchiver *__strong, TSWPAttributeArrayKind, const TSP::Reference &, void (^__strong)(id  _Nullable __strong))", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttributeArray.mm", 188, a2);
       v42 = MEMORY[0x277D81150];
-      v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, "void TSWPReadAttributeTableWeakReferenceMessage(TSPUnarchiver *__strong, TSWPAttributeArrayKind, const TSP::Reference &, void (^__strong)(id  _Nullable __strong))", "void TSWPReadAttributeTableWeakReferenceMessage(TSPUnarchiver *__strong, TSWPAttributeArrayKind, const TSP::Reference &, void (^__strong)(id  _Nullable __strong))", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttributeArray.mm", 188, a2);
+      v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, "void TSWPReadAttributeTableWeakReferenceMessage(TSPUnarchiver *__strong, TSWPAttributeArrayKind, const TSP::Reference &, void (^__strong)(id  _Nullable __strong))");
       v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttributeArray.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v42, v47, v44, v46, 188, 1, "Can't read object for attribute table type %lu", a2);
 
@@ -1855,11 +1855,11 @@ LABEL_14:
   do
   {
     v7 = v6 >> 1;
-    v8 = &v5[v6 >> 1];
-    var0 = v8->var0;
-    v9 = v8 + 1;
+    p_var0 = &v5[v6 >> 1].var0;
+    v10 = *p_var0;
+    v9 = (p_var0 + 2);
     v6 += ~(v6 >> 1);
-    if (var0 < a2)
+    if (v10 < a2)
     {
       v5 = v9;
     }
@@ -1896,7 +1896,7 @@ LABEL_14:
   }
 }
 
-const char *TSWPAttributeArray::exactAttributeIndexForCharIndex(TSWPAttributeArray *this, unint64_t a2)
+uint64_t TSWPAttributeArray::exactAttributeIndexForCharIndex(TSWPAttributeArray *this, unint64_t a2)
 {
   v4 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(this, a2);
   v5 = 0x7FFFFFFFFFFFFFFFLL;
@@ -2297,7 +2297,7 @@ BOOL TSWPAttributeArray::hasObjects(uint64_t a1)
   return a1 != 11 && v2;
 }
 
-uint64_t TSWPAttributeArray::objectIsEquivalentToObject(uint64_t a1, void *a2, void *a3)
+uint64_t TSWPAttributeArray::objectIsEquivalentToObject(unint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
@@ -2325,9 +2325,9 @@ uint64_t TSWPAttributeArray::objectIsEquivalentToObject(uint64_t a1, void *a2, v
         isEqualToStyleDiff = 0;
         if (a1 <= 11)
         {
-          if (a1 >= 6 && (a1 - 8) >= 4)
+          if (a1 >= 6 && a1 - 8 >= 4)
           {
-            if ((a1 - 6) >= 2)
+            if (a1 - 6 >= 2)
             {
               goto LABEL_32;
             }
@@ -2380,7 +2380,7 @@ LABEL_24:
           }
 
 LABEL_20:
-          if ((a1 - 13) < 2)
+          if (a1 - 13 < 2)
           {
             isEqualToString = objc_msgSend_isEqualToString_(v5, v15, v9);
 LABEL_31:
@@ -2670,9 +2670,9 @@ void TSWPAttributeRecord::setObject(uint64_t a1, unint64_t a2, void *a3)
   v11 = a3;
   if (a2 <= 0x12 && ((1 << a2) & 0x40C02) != 0)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d setObject requires attribute kind supports objects.", "void TSWPAttributeRecord::setObject(TSWPAttributeArrayKind, __strong id)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttributeArray.mm", 2171);
     v5 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "void TSWPAttributeRecord::setObject(TSWPAttributeArrayKind, __strong id)", "void TSWPAttributeRecord::setObject(TSWPAttributeArrayKind, __strong id)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttributeArray.mm", 2171);
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "void TSWPAttributeRecord::setObject(TSWPAttributeArrayKind, __strong id)");
     v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttributeArray.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v10, v7, v9, 2171, 1, "setObject requires attribute kind supports objects.");
 
@@ -2698,7 +2698,7 @@ void TSWPAttributeArray::willReplaceCharactersInRangeWithString(TSWPAttributeArr
   }
 }
 
-unint64_t TSWPAttributeArray::calculateAttributeRangeForCharacterRange(TSWPAttributeArray *this, _NSRange a2)
+const char *TSWPAttributeArray::calculateAttributeRangeForCharacterRange(TSWPAttributeArray *this, _NSRange a2)
 {
   length = a2.length;
   location = a2.location;
@@ -2717,7 +2717,7 @@ unint64_t TSWPAttributeArray::calculateAttributeRangeForCharacterRange(TSWPAttri
   return v5;
 }
 
-unint64_t TSWPAttributeArray::nonUndoableAdjustCharIndexForCharRangeWithString(uint64_t a1, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+const char *TSWPAttributeArray::nonUndoableAdjustCharIndexForCharRangeWithString(uint64_t a1, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   result = TSWPAttributeArray::calculateAttributeIndexForCharacterIndex(a1, a3);
   if (a6 != a4 && result != 0x7FFFFFFFFFFFFFFFLL)
@@ -2742,7 +2742,7 @@ unint64_t TSWPAttributeArray::nonUndoableAdjustCharIndexForCharRangeWithString(u
   return result;
 }
 
-unint64_t TSWPAttributeArray::calculateAttributeIndexForCharacterIndex(TSWPAttributeArray *this, unint64_t a2)
+const char *TSWPAttributeArray::calculateAttributeIndexForCharacterIndex(TSWPAttributeArray *this, unint64_t a2)
 {
   v4 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(this, a2);
   if (v4 == 0x7FFFFFFFFFFFFFFFLL)
@@ -2761,7 +2761,7 @@ unint64_t TSWPAttributeArray::calculateAttributeIndexForCharacterIndex(TSWPAttri
 
     else
     {
-      return (v6 + 1);
+      return v6 + 1;
     }
   }
 
@@ -3098,11 +3098,11 @@ id TSWPAttributeArray::descriptionAttributeDumpString(TSWPAttributeArray *this, 
   return v69;
 }
 
-void sub_276EEEC9C(uint64_t a1)
+void sub_276EEEC9C(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v3 = String();
-  objc_msgSend_addObject_(v1, v2, v3);
+  v2 = *(a1 + 32);
+  v4 = String();
+  objc_msgSend_addObject_(v2, v3, v4);
 }
 
 __CFString *TSWPAttributeArray::attributeArrayName(unint64_t a1, const char *a2)
@@ -3247,9 +3247,9 @@ void TSWPAttributeArray::enumerateObjectAttributesInCharacterRange(uint64_t a1, 
   }
 }
 
-uint64_t TSWPAttributeArray::begin@<X0>(TSWPAttributeArray *this@<X0>, const _NSRange *a2@<X1>, TSWPAttributeArray **a3@<X8>)
+uint64_t *TSWPAttributeArray::begin@<X0>(uint64_t *__return_ptr a1@<X8>, TSWPAttributeArray *this@<X0>, const _NSRange *a3@<X1>)
 {
-  result = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(this, a2->location);
+  result = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(this, a3->location);
   if (result == 0x7FFFFFFFFFFFFFFFLL)
   {
     v6 = 0;
@@ -3260,15 +3260,15 @@ uint64_t TSWPAttributeArray::begin@<X0>(TSWPAttributeArray *this@<X0>, const _NS
     v6 = result;
   }
 
-  *a3 = this;
-  a3[1] = v6;
+  *a1 = this;
+  a1[1] = v6;
   return result;
 }
 
-uint64_t TSWPAttributeArray::end@<X0>(TSWPAttributeArray *this@<X0>, const _NSRange *a2@<X1>, uint64_t a3@<X2>, TSWPAttributeArray **a4@<X8>)
+uint64_t *TSWPAttributeArray::end@<X0>(uint64_t *__return_ptr a1@<X8>, TSWPAttributeArray *this@<X0>, const _NSRange *a3@<X1>, uint64_t a4@<X2>)
 {
-  v7 = a2->length + a2->location;
-  result = objc_msgSend_length(this->var2, a2, a3);
+  v7 = (a3->length + a3->location);
+  result = objc_msgSend_length(this->var2, a3, a4);
   if (v7 == result)
   {
     v9 = *(this + 6);
@@ -3276,7 +3276,7 @@ uint64_t TSWPAttributeArray::end@<X0>(TSWPAttributeArray *this@<X0>, const _NSRa
 
   else
   {
-    result = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(this, v7 - (a2->length != 0));
+    result = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(this, v7 - (a3->length != 0));
     if (result == 0x7FFFFFFFFFFFFFFFLL)
     {
       v9 = 0;
@@ -3284,12 +3284,12 @@ uint64_t TSWPAttributeArray::end@<X0>(TSWPAttributeArray *this@<X0>, const _NSRa
 
     else
     {
-      v9 = (result + 1);
+      v9 = result + 1;
     }
   }
 
-  *a4 = this;
-  a4[1] = v9;
+  *a1 = this;
+  a1[1] = v9;
   return result;
 }
 
@@ -3533,7 +3533,7 @@ LABEL_23:
   }
 }
 
-void sub_276EEF66C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
+void sub_276EEF66C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
 {
   _Block_object_dispose(&a24, 8);
 
@@ -3935,42 +3935,42 @@ void sub_276EF0904(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void TSWPAttributeArray::saveToArchive(uint64_t a1, uint64_t a2, unint64_t *a3, void *a4, void *a5)
+void TSWPAttributeArray::saveToArchive(uint64_t a1, uint64_t a2, NSRange *a3, void *a4, void *a5)
 {
   v62 = *MEMORY[0x277D85DE8];
   v51 = a4;
   v49 = a5;
-  v8 = *a3;
+  location = a3->location;
   v54 = a3;
-  if (*a3 == *MEMORY[0x277D81490] && a3[1] == *(MEMORY[0x277D81490] + 8))
+  if (a3->location == *MEMORY[0x277D81490] && a3->length == *(MEMORY[0x277D81490] + 8))
   {
     v10 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "virtual void TSWPAttributeArray::saveToArchive(TSWP::OverlappingFieldAttributeTable &, const NSRange &, TSPArchiver *__strong, __strong id<TSWPStyleProvider>) const");
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], location, "virtual void TSWPAttributeArray::saveToArchive(TSWP::OverlappingFieldAttributeTable &, const NSRange &, TSPArchiver *__strong, __strong id<TSWPStyleProvider>) const");
     v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttributeArray.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v14, v11, v13, 1426, 0, "expected a valid range to archive");
 
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16);
-    v8 = *a3;
+    location = a3->location;
   }
 
-  if (v8)
+  if (location)
   {
-    v17 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(a1, v8);
+    v17 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(a1, location);
     if (v17 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v8 = 0;
+      location = 0;
     }
 
     else
     {
-      v8 = v17;
+      location = v17;
     }
   }
 
-  while (v8 < *(a1 + 24))
+  while (location < *(a1 + 24))
   {
-    v56 = *(*(a1 + 8) + 16 * v8);
-    v55 = v8;
+    v56 = *(*(a1 + 8) + 16 * location);
+    v55 = location;
     if (((*(*a1 + 424))(a1) & 1) == 0)
     {
       goto LABEL_51;
@@ -4107,10 +4107,214 @@ LABEL_49:
 LABEL_50:
 
 LABEL_51:
-    v8 = v55 + 1;
+    location = v55 + 1;
   }
 }
 
+void TSWPAttributeArray::saveToArchiveDowngradeHighlights(uint64_t a1, uint64_t a2, unint64_t *a3, void *a4, void *a5)
+{
+  v67 = *MEMORY[0x277D85DE8];
+  v55 = a4;
+  v52 = a5;
+  if (*a3)
+  {
+    v8 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(a1, *a3);
+    if (v8 == 0x7FFFFFFFFFFFFFFFLL)
+    {
+      v9 = 0;
+    }
+
+    else
+    {
+      v9 = v8;
+    }
+
+    v10 = *a3;
+  }
+
+  else
+  {
+    v10 = 0;
+    v9 = 0;
+  }
+
+  v11 = a3[1];
+  v12 = v10 + v11;
+  if (v11 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v12 = 0x7FFFFFFFFFFFFFFFLL;
+  }
+
+  v54 = v12;
+  if (v9 < *(a1 + 24))
+  {
+    v58 = a3;
+    while (1)
+    {
+      v61 = *(*(a1 + 8) + 16 * v9);
+      if (v61 >= v54)
+      {
+        goto LABEL_52;
+      }
+
+      if ((*(*a1 + 424))(a1, v9, *a3, a3[1]))
+      {
+        break;
+      }
+
+LABEL_51:
+      if (++v9 >= *(a1 + 24))
+      {
+        goto LABEL_52;
+      }
+    }
+
+    v13 = (*(*a1 + 136))(a1, v9);
+    v53 = v13;
+    if (v13)
+    {
+      v64 = 0u;
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
+      obj = v13;
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v15, &v62, v66, 16);
+      if (!v16)
+      {
+        goto LABEL_41;
+      }
+
+      v60 = *v63;
+      v57 = v9 - 1;
+      while (1)
+      {
+        for (i = 0; i != v16; ++i)
+        {
+          if (*v63 != v60)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v18 = *(*(&v62 + 1) + 8 * i);
+          if (!v61 || ((*(*a1 + 144))(a1, *(*(&v62 + 1) + 8 * i), v57) & 1) == 0)
+          {
+            v20 = v9;
+            v21 = (*(*a1 + 152))(a1, v18, v9);
+            v22 = v19;
+            v23 = *MEMORY[0x277D81490];
+            v24 = *(MEMORY[0x277D81490] + 8);
+            if (v21 == *MEMORY[0x277D81490] && v19 == v24)
+            {
+              v26 = MEMORY[0x277D81150];
+              v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "virtual void TSWPAttributeArray::saveToArchiveDowngradeHighlights(TSWP::ObjectAttributeTable &, const NSRange &, TSPArchiver *__strong, __strong id<TSWPStyleProvider>) const");
+              v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttributeArray.mm");
+              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v30, v27, v29, 1499, 0, "Expected valid range.");
+
+              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32);
+              v23 = *MEMORY[0x277D81490];
+              v24 = *(MEMORY[0x277D81490] + 8);
+            }
+
+            v33 = v21 == v23 && v22 == v24;
+            v9 = v20;
+            if (!v33)
+            {
+              v68.location = v21;
+              v68.length = v22;
+              v35 = TSWPAttributeArray::rangeForAttributeRange(a1, v68);
+              v36 = *v58;
+              v37 = a2;
+              v38 = *(a2 + 32);
+              if (!v38)
+              {
+                goto LABEL_36;
+              }
+
+              v39 = *(a2 + 24);
+              v40 = *v38;
+              if (v39 < *v38)
+              {
+                *(a2 + 24) = v39 + 1;
+                v41 = *&v38[2 * v39 + 2];
+LABEL_38:
+                TSWPAttributeArray::archiveObjectAttributeWithCharIndex(a1, 0, 0, v18, v35, v34, v36, v41, v55);
+                continue;
+              }
+
+              if (v40 == *(a2 + 28))
+              {
+LABEL_36:
+                google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a2 + 16));
+                v37 = a2;
+                v38 = *(a2 + 32);
+                v40 = *v38;
+              }
+
+              *v38 = v40 + 1;
+              v41 = google::protobuf::Arena::CreateMaybeMessage<TSWP::ObjectAttributeTable_ObjectAttribute>(*(v37 + 16));
+              v42 = *(a2 + 24);
+              v43 = *(a2 + 32) + 8 * v42;
+              *(a2 + 24) = v42 + 1;
+              *(v43 + 8) = v41;
+              goto LABEL_38;
+            }
+          }
+        }
+
+        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v19, &v62, v66, 16);
+        if (!v16)
+        {
+LABEL_41:
+
+          goto LABEL_50;
+        }
+      }
+    }
+
+    v44 = *a3;
+    v45 = a2;
+    v46 = *(a2 + 32);
+    if (!v46)
+    {
+      goto LABEL_47;
+    }
+
+    v47 = *(a2 + 24);
+    v48 = *v46;
+    if (v47 < *v46)
+    {
+      *(a2 + 24) = v47 + 1;
+      v49 = *&v46[2 * v47 + 2];
+      goto LABEL_49;
+    }
+
+    if (v48 == *(a2 + 28))
+    {
+LABEL_47:
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a2 + 16));
+      v45 = a2;
+      v46 = *(a2 + 32);
+      v48 = *v46;
+    }
+
+    *v46 = v48 + 1;
+    v49 = google::protobuf::Arena::CreateMaybeMessage<TSWP::ObjectAttributeTable_ObjectAttribute>(*(v45 + 16));
+    v50 = *(a2 + 24);
+    v51 = *(a2 + 32) + 8 * v50;
+    *(a2 + 24) = v50 + 1;
+    *(v51 + 8) = v49;
+LABEL_49:
+    TSWPAttributeArray::archiveObjectAttributeWithCharIndex(a1, 0, 0, 0, v61, v14, v44, v49, v55);
+LABEL_50:
+
+    a3 = v58;
+    goto LABEL_51;
+  }
+
+LABEL_52:
+}
+
+void TSWPAttributeArray::saveToArchive(uint64_t a1, uint64_t a2, unint64_t *a3, void *a4, void *a5)
 {
   v35 = a4;
   v9 = a5;
@@ -4356,209 +4560,6 @@ LABEL_21:
 LABEL_25:
 }
 
-void TSWPAttributeArray::saveToArchiveDowngradeHighlights(uint64_t a1, uint64_t a2, unint64_t *a3, void *a4, void *a5)
-{
-  v67 = *MEMORY[0x277D85DE8];
-  v55 = a4;
-  v52 = a5;
-  if (*a3)
-  {
-    v8 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(a1, *a3);
-    if (v8 == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v9 = 0;
-    }
-
-    else
-    {
-      v9 = v8;
-    }
-
-    v10 = *a3;
-  }
-
-  else
-  {
-    v10 = 0;
-    v9 = 0;
-  }
-
-  v11 = a3[1];
-  v12 = v10 + v11;
-  if (v11 == 0x7FFFFFFFFFFFFFFFLL)
-  {
-    v12 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  v54 = v12;
-  if (v9 < *(a1 + 24))
-  {
-    v58 = a3;
-    while (1)
-    {
-      v61 = *(*(a1 + 8) + 16 * v9);
-      if (v61 >= v54)
-      {
-        goto LABEL_52;
-      }
-
-      if ((*(*a1 + 424))(a1, v9, *a3, a3[1]))
-      {
-        break;
-      }
-
-LABEL_51:
-      if (++v9 >= *(a1 + 24))
-      {
-        goto LABEL_52;
-      }
-    }
-
-    v13 = (*(*a1 + 136))(a1, v9);
-    v53 = v13;
-    if (v13)
-    {
-      v64 = 0u;
-      v65 = 0u;
-      v62 = 0u;
-      v63 = 0u;
-      obj = v13;
-      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v15, &v62, v66, 16);
-      if (!v16)
-      {
-        goto LABEL_41;
-      }
-
-      v60 = *v63;
-      v57 = v9 - 1;
-      while (1)
-      {
-        for (i = 0; i != v16; ++i)
-        {
-          if (*v63 != v60)
-          {
-            objc_enumerationMutation(obj);
-          }
-
-          v18 = *(*(&v62 + 1) + 8 * i);
-          if (!v61 || ((*(*a1 + 144))(a1, *(*(&v62 + 1) + 8 * i), v57) & 1) == 0)
-          {
-            v20 = v9;
-            v21 = (*(*a1 + 152))(a1, v18, v9);
-            v22 = v19;
-            v23 = *MEMORY[0x277D81490];
-            v24 = *(MEMORY[0x277D81490] + 8);
-            if (v21 == *MEMORY[0x277D81490] && v19 == v24)
-            {
-              v26 = MEMORY[0x277D81150];
-              v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "virtual void TSWPAttributeArray::saveToArchiveDowngradeHighlights(TSWP::ObjectAttributeTable &, const NSRange &, TSPArchiver *__strong, __strong id<TSWPStyleProvider>) const");
-              v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttributeArray.mm");
-              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v30, v27, v29, 1499, 0, "Expected valid range.");
-
-              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32);
-              v23 = *MEMORY[0x277D81490];
-              v24 = *(MEMORY[0x277D81490] + 8);
-            }
-
-            v33 = v21 == v23 && v22 == v24;
-            v9 = v20;
-            if (!v33)
-            {
-              v68.location = v21;
-              v68.length = v22;
-              v35 = TSWPAttributeArray::rangeForAttributeRange(a1, v68);
-              v36 = *v58;
-              v37 = a2;
-              v38 = *(a2 + 32);
-              if (!v38)
-              {
-                goto LABEL_36;
-              }
-
-              v39 = *(a2 + 24);
-              v40 = *v38;
-              if (v39 < *v38)
-              {
-                *(a2 + 24) = v39 + 1;
-                v41 = *&v38[2 * v39 + 2];
-LABEL_38:
-                TSWPAttributeArray::archiveObjectAttributeWithCharIndex(a1, 0, 0, v18, v35, v34, v36, v41, v55);
-                continue;
-              }
-
-              if (v40 == *(a2 + 28))
-              {
-LABEL_36:
-                google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a2 + 16));
-                v37 = a2;
-                v38 = *(a2 + 32);
-                v40 = *v38;
-              }
-
-              *v38 = v40 + 1;
-              v41 = google::protobuf::Arena::CreateMaybeMessage<TSWP::ObjectAttributeTable_ObjectAttribute>(*(v37 + 16));
-              v42 = *(a2 + 24);
-              v43 = *(a2 + 32) + 8 * v42;
-              *(a2 + 24) = v42 + 1;
-              *(v43 + 8) = v41;
-              goto LABEL_38;
-            }
-          }
-        }
-
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v19, &v62, v66, 16);
-        if (!v16)
-        {
-LABEL_41:
-
-          goto LABEL_50;
-        }
-      }
-    }
-
-    v44 = *a3;
-    v45 = a2;
-    v46 = *(a2 + 32);
-    if (!v46)
-    {
-      goto LABEL_47;
-    }
-
-    v47 = *(a2 + 24);
-    v48 = *v46;
-    if (v47 < *v46)
-    {
-      *(a2 + 24) = v47 + 1;
-      v49 = *&v46[2 * v47 + 2];
-      goto LABEL_49;
-    }
-
-    if (v48 == *(a2 + 28))
-    {
-LABEL_47:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a2 + 16));
-      v45 = a2;
-      v46 = *(a2 + 32);
-      v48 = *v46;
-    }
-
-    *v46 = v48 + 1;
-    v49 = google::protobuf::Arena::CreateMaybeMessage<TSWP::ObjectAttributeTable_ObjectAttribute>(*(v45 + 16));
-    v50 = *(a2 + 24);
-    v51 = *(a2 + 32) + 8 * v50;
-    *(a2 + 24) = v50 + 1;
-    *(v51 + 8) = v49;
-LABEL_49:
-    TSWPAttributeArray::archiveObjectAttributeWithCharIndex(a1, 0, 0, 0, v61, v14, v44, v49, v55);
-LABEL_50:
-
-    a3 = v58;
-    goto LABEL_51;
-  }
-
-LABEL_52:
-}
-
 uint64_t TSWPAttributeArray::shouldBeCopiedForUndo(unint64_t a1, void *a2)
 {
   v3 = a2;
@@ -4638,7 +4639,7 @@ uint64_t TSWPAttributeArray::allowsNilObjects(unint64_t a1)
   return v1 & 1;
 }
 
-id TSWPAttributeArray::inverseObjectForApplying(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5)
+TSWPStyleDiff *TSWPAttributeArray::inverseObjectForApplying(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5)
 {
   v9 = a2;
   v10 = a3;
@@ -4796,7 +4797,7 @@ void sub_276EF2170()
   *MEMORY[0x277D81438] = v0;
 }
 
-uint64_t TSWPAttributeArray::nonUndoableRepair(TSWPAttributeArray *this)
+void *TSWPAttributeArray::nonUndoableRepair(TSWPAttributeArray *this)
 {
   result = (*(this->var0 + 8))(this, 0, *(this + 6), 0);
   v4 = *(this + 28);
@@ -4936,9 +4937,9 @@ uint64_t TSWPAttributeRecord::paragraphData(uint64_t a1, unint64_t a2)
 {
   if (a2 > 0x12 || ((1 << a2) & 0x40C02) == 0)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d paragraphData requires attribute kind supports TSWPParagraphData.", "const TSWPParagraphData &TSWPAttributeRecord::paragraphData(TSWPAttributeArrayKind) const", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttributeArray.mm", 2183);
     v3 = MEMORY[0x277D81150];
-    v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "const TSWPParagraphData &TSWPAttributeRecord::paragraphData(TSWPAttributeArrayKind) const", "const TSWPParagraphData &TSWPAttributeRecord::paragraphData(TSWPAttributeArrayKind) const", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttributeArray.mm", 2183);
+    v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "const TSWPParagraphData &TSWPAttributeRecord::paragraphData(TSWPAttributeArrayKind) const");
     v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttributeArray.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v3, v8, v5, v7, 2183, 1, "paragraphData requires attribute kind supports TSWPParagraphData.");
 
@@ -4953,9 +4954,9 @@ uint64_t TSWPAttributeRecord::setParagraphData(uint64_t result, unint64_t a2, _D
 {
   if (a2 > 0x12 || ((1 << a2) & 0x40C02) == 0)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d setParagraphData requires attribute kind supports TSWPParagraphData.", "void TSWPAttributeRecord::setParagraphData(TSWPAttributeArrayKind, const TSWPParagraphData &)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttributeArray.mm", 2188);
     v3 = MEMORY[0x277D81150];
-    v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "void TSWPAttributeRecord::setParagraphData(TSWPAttributeArrayKind, const TSWPParagraphData &)", "void TSWPAttributeRecord::setParagraphData(TSWPAttributeArrayKind, const TSWPParagraphData &)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttributeArray.mm", 2188);
+    v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "void TSWPAttributeRecord::setParagraphData(TSWPAttributeArrayKind, const TSWPParagraphData &)");
     v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttributeArray.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v3, v8, v5, v7, 2188, 1, "setParagraphData requires attribute kind supports TSWPParagraphData.");
 
@@ -4985,7 +4986,7 @@ void sub_276EF2904(uint64_t a1, void *a2)
   (*(*v4 + 328))(v4, *(v4 + 8) + 16 * *(a1 + 40));
 }
 
-unsigned int *TSWPParagraphAttributeArray::operator=(unsigned int *a1, uint64_t a2)
+TSWPAttributeArray *TSWPParagraphAttributeArray::operator=(TSWPAttributeArray *a1, uint64_t a2)
 {
   if (a1 == a2)
   {
@@ -4999,8 +5000,8 @@ unsigned int *TSWPParagraphAttributeArray::operator=(unsigned int *a1, uint64_t 
 
   else
   {
-    v4 = *(a1 + 2);
-    (*(*a1 + 64))(a1, 0, a1[6], 0);
+    v4 = a1->var2;
+    (*(a1->var0 + 8))(a1, 0, *(a1 + 6), 0);
     hasObjects = TSWPAttributeArray::hasObjects(*(a2 + 28));
     if (*(a2 + 24))
     {
@@ -5013,7 +5014,7 @@ unsigned int *TSWPParagraphAttributeArray::operator=(unsigned int *a1, uint64_t 
         if (v6)
         {
           v10 = TSWPAttributeArray::objectForAttributeIndex(a2, v8);
-          (*(*a1 + 56))(a1, v10, v9, v8, 0, 0);
+          (*(a1->var0 + 7))(a1, v10, v9, v8, 0, 0);
         }
 
         else
@@ -5117,7 +5118,7 @@ unint64_t TSWPParagraphAttributeArray::calculateInverseRange(uint64_t a1, unint6
   return a4;
 }
 
-void TSWPParagraphAttributeArray::buildInverseActionsForRemove(unsigned __int8 *a1, const char *a2, uint64_t a3, void *a4, uint64_t a5, int a6)
+void TSWPParagraphAttributeArray::buildInverseActionsForRemove(TSWPAttributeArray *a1, const char *a2, uint64_t a3, void *a4, uint64_t a5, int a6)
 {
   v66 = a4;
   if (a5)
@@ -5134,7 +5135,7 @@ void TSWPParagraphAttributeArray::buildInverseActionsForRemove(unsigned __int8 *
           {
             if (*(a5 + 472))
             {
-              v13 = a1[28];
+              v13 = *(a1 + 28);
               if (*(v11 + 8) == v13)
               {
                 goto LABEL_37;
@@ -5143,28 +5144,28 @@ void TSWPParagraphAttributeArray::buildInverseActionsForRemove(unsigned __int8 *
 
             else
             {
-              v13 = a1[28];
+              v13 = *(a1 + 28);
             }
 
             if (TSWPAttributeArray::hasObjects(v13))
             {
               v60 = *(a5 + 464);
               v14 = *(v60 + 4);
-              v15 = (*(*a1 + 432))(a1);
+              v15 = (*(a1->var0 + 54))(a1);
               if (a2 < &a2[a3])
               {
                 v61 = v15 | v14 & 0xFFFFFFFD;
                 v57 = &a2[a3 - 1];
                 do
                 {
-                  if (TSWPAttributeArray::supportsSingleSparseBreakingTableEntries(a1[28]))
+                  if (TSWPAttributeArray::supportsSingleSparseBreakingTableEntries(*(a1 + 28)))
                   {
                     v16 = TSWPAttributeArray::rangeForAttributeIndex(a1, a2);
                     v18 = v17 != 0;
                     v63 = v66;
                     v65 = TSWPAttributeArray::objectForAttributeIndex(a1, a2);
                     v19 = TSWPAttributeArray::inverseObjectForApplying(v60, v63, v65, 0, a5);
-                    if (TSWPAttributeArray::shouldBeCopiedForUndo(a1[28], v19))
+                    if (TSWPAttributeArray::shouldBeCopiedForUndo(*(a1 + 28), v19))
                     {
                       v20 = *(a5 + 8);
                       v23 = objc_msgSend_context(v20, v21, v22);
@@ -5174,7 +5175,7 @@ void TSWPParagraphAttributeArray::buildInverseActionsForRemove(unsigned __int8 *
                     }
 
                     v26 = TSWPParagraphAttributeArray::calculateInverseRange(a1, v16, v18, v16, v18, a5, 0);
-                    sub_276F3FE94(v67, a1[28], v26, v27 != 0, v19, v61);
+                    sub_276F3FE94(v67, *(a1 + 28), v26, v27 != 0, v19, v61);
                     sub_276F2F6C0(a5, v67, 0);
                     sub_276F40794(v67);
                     a6 = 0;
@@ -5187,7 +5188,7 @@ void TSWPParagraphAttributeArray::buildInverseActionsForRemove(unsigned __int8 *
                     v59 = v66;
                     v65 = TSWPAttributeArray::objectForAttributeIndex(a1, a2);
                     v19 = TSWPAttributeArray::inverseObjectForApplying(v60, v59, v65, 0, a5);
-                    if (TSWPAttributeArray::shouldBeCopiedForUndo(a1[28], v19))
+                    if (TSWPAttributeArray::shouldBeCopiedForUndo(*(a1 + 28), v19))
                     {
                       v30 = *(a5 + 8);
                       v33 = objc_msgSend_context(v30, v31, v32);
@@ -5199,7 +5200,7 @@ void TSWPParagraphAttributeArray::buildInverseActionsForRemove(unsigned __int8 *
                     v36 = TSWPParagraphAttributeArray::calculateInverseRange(a1, v64, v29, v64, v29, a5, 0);
                     v62 = v37;
                     v38 = v36;
-                    v40 = TSWPAttributeArray::supportsAttributeCollapsing(a1[28]) ^ 1;
+                    v40 = TSWPAttributeArray::supportsAttributeCollapsing(*(a1 + 28)) ^ 1;
                     if (a3 != 1)
                     {
                       LOBYTE(v40) = 1;
@@ -5207,7 +5208,7 @@ void TSWPParagraphAttributeArray::buildInverseActionsForRemove(unsigned __int8 *
 
                     if ((v40 & 1) == 0)
                     {
-                      v41 = objc_msgSend_attributeArrayForKind_(*(a1 + 2), v39, 0);
+                      v41 = objc_msgSend_attributeArrayForKind_(a1->var2, v39, 0);
                       v42 = v41;
                       if (v41)
                       {
@@ -5218,7 +5219,7 @@ void TSWPParagraphAttributeArray::buildInverseActionsForRemove(unsigned __int8 *
                           if (TSWPParagraphAttributeArray::isParagraphBreakSparse(a1, v43, v42))
                           {
                             v44 = TSWPAttributeArray::rangeForAttributeIndex(v42, v43);
-                            sub_276F3FE94(v67, a1[28], v44, v45, v19, v61 | 0x8000);
+                            sub_276F3FE94(v67, *(a1 + 28), v44, v45, v19, v61 | 0x8000);
                             sub_276F2F6C0(a5, v67, 0);
                             sub_276F40794(v67);
                           }
@@ -5230,7 +5231,7 @@ void TSWPParagraphAttributeArray::buildInverseActionsForRemove(unsigned __int8 *
                             {
                               v47 = TSWPAttributeArray::objectForAttributeIndex(a1, v46);
                               v56 = v47;
-                              if (TSWPAttributeArray::shouldBeCopiedForUndo(a1[28], v47))
+                              if (TSWPAttributeArray::shouldBeCopiedForUndo(*(a1 + 28), v47))
                               {
                                 v55 = *(a5 + 8);
                                 v54 = objc_msgSend_context(v55, v48, v49);
@@ -5240,7 +5241,7 @@ void TSWPParagraphAttributeArray::buildInverseActionsForRemove(unsigned __int8 *
                               }
 
                               v51 = TSWPAttributeArray::rangeForAttributeIndex(v42, v58);
-                              sub_276F3FE94(v67, a1[28], v51, v52, v47, v61);
+                              sub_276F3FE94(v67, *(a1 + 28), v51, v52, v47, v61);
                               sub_276F2F6C0(a5, v67, 0);
                               sub_276F40794(v67);
                             }
@@ -5251,12 +5252,12 @@ void TSWPParagraphAttributeArray::buildInverseActionsForRemove(unsigned __int8 *
 
                     if (v64 + v29 > v38 + v62)
                     {
-                      sub_276F3FE94(v67, a1[28], v38 + v62, v64 + v29 - (v38 + v62), v19, v61 | 0x8000);
+                      sub_276F3FE94(v67, *(a1 + 28), v38 + v62, v64 + v29 - (v38 + v62), v19, v61 | 0x8000);
                       sub_276F2F6C0(a5, v67, 0);
                       sub_276F40794(v67);
                     }
 
-                    sub_276F3FE94(v67, a1[28], v38, v62, v19, v61);
+                    sub_276F3FE94(v67, *(a1 + 28), v38, v62, v19, v61);
                     a6 &= TSWPAttributeArray::shouldValidateInverseActions() ^ 1;
                     sub_276F2F6C0(a5, v67, a6);
                     sub_276F40794(v67);
@@ -5272,7 +5273,7 @@ void TSWPParagraphAttributeArray::buildInverseActionsForRemove(unsigned __int8 *
 
             else
             {
-              (*(*a1 + 440))(a1, a2, a3, a5);
+              (*(a1->var0 + 55))(a1, a2, a3, a5);
             }
           }
         }
@@ -5305,7 +5306,7 @@ uint64_t TSWPParagraphAttributeArray::isParagraphBreakSparse(TSWPParagraphAttrib
   return result;
 }
 
-void TSWPParagraphAttributeArray::buildInverseActionsForAdd(unsigned __int8 *a1, unint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6)
+void TSWPParagraphAttributeArray::buildInverseActionsForAdd(TSWPAttributeArray *a1, unint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6)
 {
   v11 = a4;
   if (a5)
@@ -5317,7 +5318,7 @@ void TSWPParagraphAttributeArray::buildInverseActionsForAdd(unsigned __int8 *a1,
       {
         if (*(a5 + 472))
         {
-          v13 = a1[28];
+          v13 = *(a1 + 28);
           if (*(v12 + 8) == v13)
           {
             goto LABEL_30;
@@ -5326,20 +5327,20 @@ void TSWPParagraphAttributeArray::buildInverseActionsForAdd(unsigned __int8 *a1,
 
         else
         {
-          v13 = a1[28];
+          v13 = *(a1 + 28);
         }
 
         if (TSWPAttributeArray::hasObjects(v13))
         {
           v14 = *(*(a5 + 464) + 4);
-          v15 = v14 & 0xFFFFFFFD | (*(*a1 + 432))(a1) | a6;
-          if (TSWPAttributeArray::supportsSingleSparseBreakingTableEntries(a1[28]))
+          v15 = v14 & 0xFFFFFFFD | (*(a1->var0 + 54))(a1) | a6;
+          if (TSWPAttributeArray::supportsSingleSparseBreakingTableEntries(*(a1 + 28)))
           {
             v16 = TSWPAttributeArray::exactAttributeIndexForCharIndex(a1, a2);
             if (v16 == 0x7FFFFFFFFFFFFFFFLL)
             {
-              v17 = objc_msgSend_paragraphIndexAtCharIndex_(*(a1 + 2), 0x7FFFFFFFFFFFFFFFLL, a2);
-              v19 = objc_msgSend_textRangeForParagraphAtIndex_(*(a1 + 2), v18, v17);
+              v17 = objc_msgSend_paragraphIndexAtCharIndex_(a1->var2, 0x7FFFFFFFFFFFFFFFLL, a2);
+              v19 = objc_msgSend_textRangeForParagraphAtIndex_(a1->var2, v18, v17);
             }
 
             else
@@ -5350,7 +5351,7 @@ void TSWPParagraphAttributeArray::buildInverseActionsForAdd(unsigned __int8 *a1,
             if (v19 == a2)
             {
               v34 = TSWPParagraphAttributeArray::calculateInverseRange(a1, v19, v20 != 0, v19, v20 != 0, a5, v15);
-              sub_276F3FE94(v36, a1[28], v34, v35 != 0, 0, v15);
+              sub_276F3FE94(v36, *(a1 + 28), v34, v35 != 0, 0, v15);
               sub_276F2F6C0(a5, v36, 0);
 LABEL_29:
               sub_276F40794(v36);
@@ -5365,14 +5366,14 @@ LABEL_29:
               v23 = TSWPAttributeArray::rangeForAttributeIndex(a1, v21);
               if (v23 < a2)
               {
-                if (a1[28])
+                if (*(a1 + 28))
                 {
                   v24 = v22;
                   v25 = TSWPParagraphAttributeArray::calculateInverseRange(a1, a2, a3, a2, a3, a5, v15);
                   v27 = v26;
-                  if (TSWPAttributeArray::supportsAttributeCollapsing(a1[28]))
+                  if (TSWPAttributeArray::supportsAttributeCollapsing(*(a1 + 28)))
                   {
-                    v29 = objc_msgSend_attributeArrayForKind_(*(a1 + 2), v28, 0);
+                    v29 = objc_msgSend_attributeArrayForKind_(a1->var2, v28, 0);
                     v30 = v23 + v24;
                     v31 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(v29, v30);
                     if (v31 + 1 == *(v29 + 24))
@@ -5382,7 +5383,7 @@ LABEL_29:
                         v33 = TSWPAttributeArray::rangeForAttributeIndex(v29, v31);
                         if (v33 != v25 || v32 != v27)
                         {
-                          sub_276F3FE94(v36, a1[28], v33, v32, 0, v15 | 0x8000);
+                          sub_276F3FE94(v36, *(a1 + 28), v33, v32, 0, v15 | 0x8000);
                           sub_276F2F6C0(a5, v36, 0);
                           sub_276F40794(v36);
                         }
@@ -5397,12 +5398,12 @@ LABEL_29:
 
                   if (v30 > v25 + v27)
                   {
-                    sub_276F3FE94(v36, a1[28], v25 + v27, v30 - (v25 + v27), 0, v15 | 0x8000);
+                    sub_276F3FE94(v36, *(a1 + 28), v25 + v27, v30 - (v25 + v27), 0, v15 | 0x8000);
                     sub_276F2F6C0(a5, v36, 0);
                     sub_276F40794(v36);
                   }
 
-                  sub_276F3FE94(v36, a1[28], v25, v27, 0, v15);
+                  sub_276F3FE94(v36, *(a1 + 28), v25, v27, 0, v15);
                   sub_276F2F6C0(a5, v36, 0);
                   goto LABEL_29;
                 }
@@ -5413,7 +5414,7 @@ LABEL_29:
 
         else
         {
-          (*(*a1 + 448))(a1, a2, a3, a5, a6);
+          (*(a1->var0 + 56))(a1, a2, a3, a5, a6);
         }
       }
     }
@@ -5447,74 +5448,74 @@ uint64_t TSWPParagraphAttributeArray::buildInverseActionsForRemoveWithParData(ui
           if (a2 < &a2[a3])
           {
             v10 = result | v9 & 0xFFFFFFFD;
-            v31 = &a2[a3 - 1];
+            v29 = &a2[a3 - 1];
             v11 = 16 * a2;
-            v32 = result | v9 & 0xFFFFFFFD;
-            v33 = v4;
+            v30 = v10;
+            v31 = v4;
             do
             {
               v12 = TSWPAttributeArray::rangeForAttributeIndex(v8, a2);
               v14 = v13;
-              v15 = TSWPAttributeRecord::paragraphData(*(v8 + 8) + v11, *(v8 + 28));
-              v16 = TSWPParagraphAttributeArray::calculateInverseRange(v8, v12, v14, v12, v14, v4, 0);
-              v18 = v17;
-              v19 = TSWPAttributeArray::supportsAttributeCollapsing(*(v8 + 28));
-              if (a3 == 1 && (v19 & 1) != 0)
+              TSWPAttributeRecord::paragraphData(*(v8 + 8) + v11, *(v8 + 28));
+              v15 = TSWPParagraphAttributeArray::calculateInverseRange(v8, v12, v14, v12, v14, v4, 0);
+              v17 = v16;
+              v18 = TSWPAttributeArray::supportsAttributeCollapsing(*(v8 + 28));
+              if (a3 == 1 && (v18 & 1) != 0)
               {
-                v21 = objc_msgSend_attributeArrayForKind_(*(v8 + 16), v20, 0);
-                v22 = v12 + v14;
-                v23 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(v21, v22);
-                if (v23 + 1 != *(v21 + 24))
+                v20 = objc_msgSend_attributeArrayForKind_(*(v8 + 16), v19, 0);
+                v21 = v12 + v14;
+                v22 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(v20, v21);
+                if (v22 + 1 != *(v20 + 24))
                 {
                   goto LABEL_18;
                 }
 
-                v24 = v23;
-                if (TSWPParagraphAttributeArray::isParagraphBreakSparse(v8, v23, v21))
+                v23 = v22;
+                if (TSWPParagraphAttributeArray::isParagraphBreakSparse(v8, v22, v20))
                 {
-                  v25 = TSWPAttributeArray::rangeForAttributeIndex(v21, v24);
-                  v10 = v32;
-                  sub_276F40060(v34, v32 | 0x8000, *(v8 + 28), v25, v26, v15, 0);
-                  sub_276F2F6C0(v33, v34, 0);
+                  v24 = TSWPAttributeArray::rangeForAttributeIndex(v20, v23);
+                  v10 = v30;
+                  sub_276F40060(v32, v30 | 0x8000, *(v8 + 28), v24, v25);
+                  sub_276F2F6C0(v31, v32, 0);
                 }
 
                 else
                 {
-                  v27 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(v8, v22);
-                  if (v27 <= v31 || v27 >= *(v8 + 24))
+                  v26 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(v8, v21);
+                  if (v26 <= v29 || v26 >= *(v8 + 24))
                   {
 LABEL_18:
-                    v10 = v32;
+                    v10 = v30;
                     goto LABEL_19;
                   }
 
-                  v30 = TSWPAttributeRecord::paragraphData(*(v8 + 8) + 16 * v27, *(v8 + 28));
-                  v28 = TSWPAttributeArray::rangeForAttributeIndex(v21, v24);
-                  v10 = v32;
-                  sub_276F40060(v34, v32, *(v8 + 28), v28, v29, v30, 0);
-                  sub_276F2F6C0(v33, v34, 0);
+                  TSWPAttributeRecord::paragraphData(*(v8 + 8) + 16 * v26, *(v8 + 28));
+                  v27 = TSWPAttributeArray::rangeForAttributeIndex(v20, v23);
+                  v10 = v30;
+                  sub_276F40060(v32, v30, *(v8 + 28), v27, v28);
+                  sub_276F2F6C0(v31, v32, 0);
                 }
 
-                sub_276F40794(v34);
+                sub_276F40794(v32);
               }
 
               else
               {
-                v22 = v12 + v14;
+                v21 = v12 + v14;
               }
 
 LABEL_19:
-              if (v22 > v16 + v18)
+              if (v21 > v15 + v17)
               {
-                sub_276F40060(v34, v10 | 0x8000, *(v8 + 28), v16 + v18, v22 - (v16 + v18), v15, 0);
-                sub_276F2F6C0(v33, v34, 0);
-                sub_276F40794(v34);
+                sub_276F40060(v32, v10 | 0x8000, *(v8 + 28), v15 + v17, v21 - (v15 + v17));
+                sub_276F2F6C0(v31, v32, 0);
+                sub_276F40794(v32);
               }
 
-              sub_276F40060(v34, v10, *(v8 + 28), v16, v18, v15, 0);
-              v4 = v33;
-              sub_276F2F6C0(v33, v34, 0);
-              result = sub_276F40794(v34);
+              sub_276F40060(v32, v10, *(v8 + 28), v15, v17);
+              v4 = v31;
+              sub_276F2F6C0(v31, v32, 0);
+              result = sub_276F40794(v32);
               ++a2;
               v11 += 16;
               --a3;
@@ -5530,9 +5531,9 @@ LABEL_19:
   return result;
 }
 
-void sub_276EF460C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_276EF460C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   sub_276F40794(va);
   _Unwind_Resume(a1);
 }
@@ -5556,44 +5557,44 @@ uint64_t TSWPParagraphAttributeArray::buildInverseActionsForAddWithParData(uint6
           {
             v13 = result;
             v14 = v11 & 0xFFFFFFFD | a5 | v12;
-            v15 = TSWPAttributeRecord::paragraphData(*(v10 + 8) + 16 * result, *(v10 + 28));
-            v16 = TSWPAttributeArray::rangeForAttributeIndex(v10, v13);
-            v18 = v17;
-            v19 = TSWPParagraphAttributeArray::calculateInverseRange(v10, a2, a3, v16, v17, a4, v14);
-            v21 = v20;
+            TSWPAttributeRecord::paragraphData(*(v10 + 8) + 16 * result, *(v10 + 28));
+            v15 = TSWPAttributeArray::rangeForAttributeIndex(v10, v13);
+            v17 = v16;
+            v18 = TSWPParagraphAttributeArray::calculateInverseRange(v10, a2, a3, v15, v16, a4, v14);
+            v20 = v19;
             if (TSWPAttributeArray::supportsAttributeCollapsing(*(v10 + 28)))
             {
-              v23 = objc_msgSend_attributeArrayForKind_(*(v10 + 16), v22, 0);
-              v24 = v16 + v18;
-              v25 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(v23, v24);
-              if (v25 + 1 == *(v23 + 24))
+              v22 = objc_msgSend_attributeArrayForKind_(*(v10 + 16), v21, 0);
+              v23 = v15 + v17;
+              v24 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(v22, v23);
+              if (v24 + 1 == *(v22 + 24))
               {
-                v26 = v25;
-                if (TSWPParagraphAttributeArray::isParagraphBreakSparse(v10, v25, v23))
+                v25 = v24;
+                if (TSWPParagraphAttributeArray::isParagraphBreakSparse(v10, v24, v22))
                 {
-                  v27 = TSWPAttributeArray::rangeForAttributeIndex(v23, v26);
-                  sub_276F40060(v29, v14 | 0x8000, *(v10 + 28), v27, v28, v15, 0);
-                  sub_276F2F6C0(a4, v29, 0);
-                  sub_276F40794(v29);
+                  v26 = TSWPAttributeArray::rangeForAttributeIndex(v22, v25);
+                  sub_276F40060(v28, v14 | 0x8000, *(v10 + 28), v26, v27);
+                  sub_276F2F6C0(a4, v28, 0);
+                  sub_276F40794(v28);
                 }
               }
             }
 
             else
             {
-              v24 = v16 + v18;
+              v23 = v15 + v17;
             }
 
-            if (v24 > v19 + v21)
+            if (v23 > v18 + v20)
             {
-              sub_276F40060(v29, v14 | 0x8000, *(v10 + 28), v19 + v21, v24 - (v19 + v21), v15, 0);
-              sub_276F2F6C0(a4, v29, 0);
-              sub_276F40794(v29);
+              sub_276F40060(v28, v14 | 0x8000, *(v10 + 28), v18 + v20, v23 - (v18 + v20));
+              sub_276F2F6C0(a4, v28, 0);
+              sub_276F40794(v28);
             }
 
-            sub_276F40060(v29, v14, *(v10 + 28), v19, v21, v15, 0);
-            sub_276F2F6C0(a4, v29, 0);
-            return sub_276F40794(v29);
+            sub_276F40060(v28, v14, *(v10 + 28), v18, v20);
+            sub_276F2F6C0(a4, v28, 0);
+            return sub_276F40794(v28);
           }
         }
       }
@@ -6603,7 +6604,7 @@ void TSWPParagraphAttributeArray::willReplaceCharactersInRangeWithString(NSUInte
           v65 = v62;
           v66 = TSWPAttributeArray::supportsAttributeCollapsing(*(a1 + 28));
           v67 = v29 ? v66 : 0;
-          if (v67 != 1 || (v68 = (TSWPAttributeArray::effectiveAttributeIndexForCharIndex(v29, v39) + 1), v68 >= *(v29 + 24)) || !TSWPParagraphAttributeArray::isParagraphBreakSparse(a1, v68, v29) || (v69 = TSWPAttributeArray::charIndexForAttributeIndex(v29, v68), v70 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(a1, v69), v70 == 0x7FFFFFFFFFFFFFFFLL) || (!TSWPAttributeArray::hasObjects(*(a1 + 28)) ? (v71 = 0) : (TSWPAttributeArray::objectForAttributeIndex(a1, v70), v71 = objc_claimAutoreleasedReturnValue()), --v64, (*(*a1 + 456))(a1, v64 + v65, 1, v71, a7, 0), v73 = TSWPAttributeArray::rangeForAttributeIndex(a1, v70), (*(*a1 + 464))(a1, v69, v74 - v69 + v73, v71, a7, 0), TSWPAttributeArray::replaceCharIndexForAttributeIndex(a1, v69, v64 + v65), v71, v64))
+          if (v67 != 1 || (v68 = (TSWPAttributeArray::effectiveAttributeIndexForCharIndex(v29, v39) + 1), v68 >= *(v29 + 24)) || !TSWPParagraphAttributeArray::isParagraphBreakSparse(a1, v68, v29) || (v69 = TSWPAttributeArray::charIndexForAttributeIndex(v29, v68), v70 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(a1, v69), v70 == 0x7FFFFFFFFFFFFFFFLL) || (!TSWPAttributeArray::hasObjects(*(a1 + 28)) ? (v71 = 0) : (TSWPAttributeArray::objectForAttributeIndex(a1, v70), v71 = objc_claimAutoreleasedReturnValue()), --v64, (*(*a1 + 456))(a1, &v65[v64], 1, v71, a7, 0), v73 = TSWPAttributeArray::rangeForAttributeIndex(a1, v70), (*(*a1 + 464))(a1, v69, v74 - v69 + v73, v71, a7, 0), TSWPAttributeArray::replaceCharIndexForAttributeIndex(a1, v69, &v65[v64]), v71, v64))
           {
             (*(*a1 + 456))(a1, v65, v64, 0, a7, *(a1 + 28) == 0);
             (*(*a1 + 64))(a1, v65, v64, a7);
@@ -6742,9 +6743,9 @@ void TSWPParagraphAttributeArray::didReplaceCharactersInRangeWithString(uint64_t
   }
 }
 
-void TSWPParagraphAttributeArray::insertAttributesForMarkers(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8)
+void TSWPParagraphAttributeArray::insertAttributesForMarkers(TSWPAttributeArray *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8)
 {
-  if (((*(*a1 + 312))(a1) & 1) == 0)
+  if (((*(a1->var0 + 39))(a1, a2, a3) & 1) == 0)
   {
     v17 = MEMORY[0x277D81150];
     v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "virtual void TSWPParagraphAttributeArray::insertAttributesForMarkers(NSRange, NSUInteger, TSWPAttributeIndex, TSWPMarkers *, TSWPStorageActionState *, TSWPAttributeArrayDataContext &)");
@@ -6766,7 +6767,7 @@ void TSWPParagraphAttributeArray::insertAttributesForMarkers(unsigned __int8 *a1
   }
 
   v24 = 0;
-  v25 = a1[28];
+  v25 = *(a1 + 28);
   if (v25 > 7)
   {
     if (v25 == 8)
@@ -6780,7 +6781,7 @@ void TSWPParagraphAttributeArray::insertAttributesForMarkers(unsigned __int8 *a1
         {
           if (*(v58 + 8) == 4)
           {
-            (*(*a1 + 56))(a1, 0, v59 + *v58, ++a5, 0, a7);
+            (*(a1->var0 + 7))(a1, 0, v59 + *v58, ++a5, 0, a7);
             v57 = a6[1];
           }
 
@@ -6803,7 +6804,7 @@ void TSWPParagraphAttributeArray::insertAttributesForMarkers(unsigned __int8 *a1
       v39 = *(a8 + 440);
       if (v39 != -1)
       {
-        objc_msgSend_writingDirectionForParagraphAtParIndex_(*(a1 + 2), v15, v39);
+        objc_msgSend_writingDirectionForParagraphAtParIndex_(a1->var2, v15, v39);
         for (i = *a6; i != a6[1]; i += 16)
         {
           IsParagraphBreakingCharacter(*(i + 8));
@@ -6826,18 +6827,18 @@ void TSWPParagraphAttributeArray::insertAttributesForMarkers(unsigned __int8 *a1
         }
       }
 
-      v72 = *(a8 + 24 * a1[28] + 8);
+      v72 = *(a8 + 24 * *(a1 + 28) + 8);
       if (v72 == -1)
       {
         v72 = a5;
       }
 
-      if (v72 < *(a1 + 6) && *TSWPAttributeRecord::paragraphData(*(a1 + 1) + 16 * v72, a1[28]))
+      if (v72 < *(a1 + 6) && *TSWPAttributeRecord::paragraphData(&a1->var1[v72], *(a1 + 28)))
       {
         v24 = 0;
         if (a4 && *v66 + a2 != 0x7FFFFFFFFFFFFFFELL)
         {
-          if (*(a1 + 2))
+          if (a1->var2)
           {
             v73 = a6[1];
             if (v73 != *a6 && *(v73 - 16) == a4 - 1)
@@ -6856,10 +6857,10 @@ void TSWPParagraphAttributeArray::insertAttributesForMarkers(unsigned __int8 *a1
     goto LABEL_13;
   }
 
-  if (!a1[28])
+  if (!*(a1 + 28))
   {
-    v75 = objc_msgSend_isInInit(*(a1 + 2), v15, v16);
-    v43 = objc_msgSend_documentRoot(*(a1 + 2), v41, v42);
+    v75 = objc_msgSend_isInInit(a1->var2, v15, v16);
+    v43 = objc_msgSend_documentRoot(a1->var2, v41, v42);
     isBeingLocalized = objc_msgSend_isBeingLocalized(v43, v44, v45);
 
     v46 = *a6;
@@ -6882,29 +6883,29 @@ LABEL_45:
       {
         v48 = 0;
 LABEL_42:
-        (*(*a1 + 56))(a1, v24, v47, ++a5, 0, a7);
+        (*(a1->var0 + 7))(a1, v24, v47, ++a5, 0, a7);
         if (v48)
         {
-          (*(*a1 + 456))(a1, a5, 1, v48, a7, 0);
+          (*(a1->var0 + 57))(a1, a5, 1, v48, a7, 0);
           TSWPAttributeArray::nonUndoableReplaceObjectForAttributeIndex(a1, v48, a5, 0, a7);
         }
 
         goto LABEL_45;
       }
 
-      if (*(a8 + 24 * a1[28] + 8) == -1)
+      if (*(a8 + 24 * *(a1 + 28) + 8) == -1)
       {
         v49 = a5;
       }
 
       else
       {
-        v49 = *(a8 + 24 * a1[28] + 8);
+        v49 = *(a8 + 24 * *(a1 + 28) + 8);
       }
 
       v50 = TSWPAttributeArray::objectForAttributeIndex(a1, v49);
       v53 = v50;
-      if (!(v75 & 1 | ((*(a8 + 24 * a1[28]) & 1) == 0) | isBeingLocalized & 1))
+      if (!(v75 & 1 | ((*(a8 + 24 * *(a1 + 28)) & 1) == 0) | isBeingLocalized & 1))
       {
         v54 = objc_msgSend_followingParagraphStyle(v50, v51, v52);
         if (v54)
@@ -6919,7 +6920,7 @@ LABEL_42:
 
         if (!v55)
         {
-          v56 = (a8 + 24 * a1[28]);
+          v56 = (a8 + 24 * *(a1 + 28));
           if ((~*v56 & 0x1FFFFFFFELL) == 0)
           {
             *v56 = *v56 & 0xFFFFFFFE00000001 | (2 * v47);
@@ -6947,7 +6948,7 @@ LABEL_13:
     v60 = *(a8 + 32);
     if (v60 != -1)
     {
-      v61 = objc_msgSend_paragraphLevelAtParIndex_(*(a1 + 2), v15, v60);
+      v61 = objc_msgSend_paragraphLevelAtParIndex_(a1->var2, v15, v60);
       v62 = *a6;
       if (*a6 != a6[1])
       {
@@ -6956,7 +6957,7 @@ LABEL_13:
         {
           if (IsParagraphBreakingCharacter(*(v62 + 8)))
           {
-            objc_msgSend_paragraphFlagsAtCharIndex_(*(a1 + 2), v64, a2);
+            objc_msgSend_paragraphFlagsAtCharIndex_(a1->var2, v64, a2);
             TSWPParagraphAttributeArray::checkedCast16BitParDataValue(a1, v63, v65);
           }
 
@@ -6972,12 +6973,12 @@ LABEL_13:
 
   if (v25 == 2)
   {
-    if (a4 && (*(a8 + 48) & 0x1FFFFFFFELL) != 0x1FFFFFFFELL && (v26 = *(a1 + 2)) != 0)
+    if (a4 && (*(a8 + 48) & 0x1FFFFFFFELL) != 0x1FFFFFFFELL && (var2 = a1->var2) != 0)
     {
-      v27 = objc_msgSend_stylesheet(v26, v15, v16);
+      v27 = objc_msgSend_stylesheet(var2, v15, v16);
       v30 = objc_msgSend_defaultListStyle(v27, v28, v29);
 
-      objc_msgSend_listStyleAtCharIndex_effectiveRange_(*(a1 + 2), v31, (*(a8 + 24 * a1[28]) >> 1), v77);
+      objc_msgSend_listStyleAtCharIndex_effectiveRange_(a1->var2, v31, (*(a8 + 24 * *(a1 + 28)) >> 1), v77);
     }
 
     else
@@ -6985,7 +6986,7 @@ LABEL_13:
       v67 = *(a8 + 56);
       if (v67 != -1)
       {
-        v68 = objc_msgSend_listStyleAtParIndex_effectiveRange_(*(a1 + 2), v15, v67, 0);
+        v68 = objc_msgSend_listStyleAtParIndex_effectiveRange_(a1->var2, v15, v67, 0);
         v69 = *a6;
         v70 = a6[1];
         if (*a6 != v70)
@@ -6994,7 +6995,7 @@ LABEL_13:
           {
             if (IsParagraphBreakingCharacter(*(v69 + 8)))
             {
-              (*(*a1 + 56))(a1, v68, a2 + 1 + *v69, ++a5, 0, a7);
+              (*(a1->var0 + 7))(a1, v68, a2 + 1 + *v69, ++a5, 0, a7);
             }
 
             v69 += 16;
@@ -7010,7 +7011,7 @@ LABEL_13:
           if (IsParagraphBreakingCharacter(*(v69 + 8)))
           {
             v71 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(a1, a2 + 1 + *v69);
-            (*(*a1 + 368))(a1, v71, a7);
+            (*(a1->var0 + 46))(a1, v71, a7);
           }
         }
       }
@@ -7020,9 +7021,9 @@ LABEL_13:
   }
 
 LABEL_14:
-  *(a8 + 24 * a1[28]) &= ~1uLL;
-  *(a8 + 24 * a1[28] + 8) = -1;
-  *(a8 + 24 * a1[28]) |= 0x1FFFFFFFEuLL;
+  *(a8 + 24 * *(a1 + 28)) &= ~1uLL;
+  *(a8 + 24 * *(a1 + 28) + 8) = -1;
+  *(a8 + 24 * *(a1 + 28)) |= 0x1FFFFFFFEuLL;
 }
 
 uint64_t TSWPParagraphAttributeArray::checkedCast16BitParDataValue(TSWPParagraphAttributeArray *this, const char *a2, uint64_t a3)
@@ -7535,10 +7536,10 @@ uint64_t sub_276EF8A6C(uint64_t a1, uint64_t a2, uint64_t a3)
   return IsEquivalentToObject;
 }
 
-TSWPAttributeArray *sub_276EF8B08(TSWPAttributeArray *this, unint64_t a2, uint64_t a3)
+TSWPAttributeArray *sub_276EF8B08(TSWPAttributeArray *this, const char *a2, uint64_t a3)
 {
   v5 = this;
-  if (a2 && *(this + 6) > a2 && (this = (*(this->var0 + 43))(this, &this->var1[a2], &this->var1[a2 - 1]), (this & 1) != 0) || v5[6] - 1 == a2 && (v6 = TSWPAttributeArray::charIndexForAttributeIndex(v5, a2), this = (*(*v5 + 104))(v5), v6 == this) && *(v5 + 28) != 12 || v5[6] > a2 && (this = (*(*v5 + 352))(v5, *(v5 + 1) + 16 * a2, a2), this))
+  if (a2 && *(this + 6) > a2 && (this = (*(this->var0 + 43))(this, &this->var1[a2], &this->var1[a2 - 1]), (this & 1) != 0) || (v5[6] - 1) == a2 && (v6 = TSWPAttributeArray::charIndexForAttributeIndex(v5, a2), this = (*(*v5 + 104))(v5), v6 == this) && *(v5 + 28) != 12 || v5[6] > a2 && (this = (*(*v5 + 352))(v5, *(v5 + 1) + 16 * a2, a2), this))
   {
     v7 = *(*v5 + 64);
 
@@ -7548,11 +7549,11 @@ TSWPAttributeArray *sub_276EF8B08(TSWPAttributeArray *this, unint64_t a2, uint64
   return this;
 }
 
-void sub_276EF8C78(unsigned __int8 *a1, void *a2, NSUInteger a3, NSUInteger a4, void *a5, uint64_t a6)
+void sub_276EF8C78(TSWPAttributeArray *a1, void *a2, NSUInteger a3, NSUInteger a4, void *a5, uint64_t a6)
 {
   v96 = a2;
   v93 = a5;
-  if (a3 > (*(*a1 + 104))(a1) || a4 > (*(*a1 + 104))(a1) - a3)
+  if (a3 > (*(a1->var0 + 13))(a1) || a4 > (*(a1->var0 + 13))(a1) - a3)
   {
     v10 = MEMORY[0x277D81150];
     v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "virtual void TSWPStyleAttributeArray::applyObjectToCharRange(__strong id, NSRange, TSKAddedToDocumentContext *__strong, TSWPStorageActionState *)");
@@ -7560,8 +7561,8 @@ void sub_276EF8C78(unsigned __int8 *a1, void *a2, NSUInteger a3, NSUInteger a4, 
     v99.location = a3;
     v99.length = a4;
     v14 = NSStringFromRange(v99);
-    v15 = (*(*a1 + 104))(a1);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v16, v11, v13, 81, 0, "Bad input char range %{public}@; count=%lu, kind=%lu.", v14, v15, a1[28]);
+    v15 = (*(a1->var0 + 13))(a1);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v16, v11, v13, 81, 0, "Bad input char range %{public}@; count=%lu, kind=%lu.", v14, v15, *(a1 + 28));
 
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18);
   }
@@ -7608,13 +7609,13 @@ void sub_276EF8C78(unsigned __int8 *a1, void *a2, NSUInteger a3, NSUInteger a4, 
         v34 = v32;
         if (v28 <= a3)
         {
-          if ((TSWPAttributeArray::objectIsEquivalentToObject(a1[28], v31, v96) & 1) == 0)
+          if ((TSWPAttributeArray::objectIsEquivalentToObject(*(a1 + 28), v31, v96) & 1) == 0)
           {
             if (v28 == a3)
             {
               if ((v27 + 1) < *(a1 + 6))
               {
-                v35 = a1[28];
+                v35 = *(a1 + 28);
                 v87 = v27 + 1;
                 v36 = TSWPAttributeArray::objectForAttributeIndex(a1, (v27 + 1));
                 LODWORD(v35) = TSWPAttributeArray::objectIsEquivalentToObject(v35, v36, v96);
@@ -7623,8 +7624,8 @@ void sub_276EF8C78(unsigned __int8 *a1, void *a2, NSUInteger a3, NSUInteger a4, 
                 {
                   if (TSWPAttributeArray::charIndexForAttributeIndex(a1, v87) <= v94)
                   {
-                    (*(*a1 + 456))(a1, v87, 1, v96, a6, 0);
-                    (*(*a1 + 64))(a1, v87, 1, a6);
+                    (*(a1->var0 + 57))(a1, v87, 1, v96, a6, 0);
+                    (*(a1->var0 + 8))(a1, v87, 1, a6);
                     --v24;
                   }
                 }
@@ -7633,12 +7634,12 @@ void sub_276EF8C78(unsigned __int8 *a1, void *a2, NSUInteger a3, NSUInteger a4, 
               if (v27)
               {
                 v37 = TSWPAttributeArray::objectForAttributeIndex(a1, (v27 - 1));
-                IsEquivalentToObject = TSWPAttributeArray::objectIsEquivalentToObject(a1[28], v37, v96);
-                v39 = *(*a1 + 456);
+                IsEquivalentToObject = TSWPAttributeArray::objectIsEquivalentToObject(*(a1 + 28), v37, v96);
+                v39 = *(a1->var0 + 57);
                 if (IsEquivalentToObject)
                 {
                   v39(a1, v33, v34, v96, a6, 0);
-                  (*(*a1 + 64))(a1, v27, 1, a6);
+                  (*(a1->var0 + 8))(a1, v27, 1, a6);
                   --v24;
                   --v27;
                 }
@@ -7652,7 +7653,7 @@ void sub_276EF8C78(unsigned __int8 *a1, void *a2, NSUInteger a3, NSUInteger a4, 
 
               else
               {
-                (*(*a1 + 456))(a1, v33, v34, v96, a6, 0);
+                (*(a1->var0 + 57))(a1, v33, v34, v96, a6, 0);
                 TSWPAttributeArray::nonUndoableReplaceObjectForAttributeIndex(a1, v96, 0, v93, a6);
                 v27 = 0;
               }
@@ -7660,8 +7661,8 @@ void sub_276EF8C78(unsigned __int8 *a1, void *a2, NSUInteger a3, NSUInteger a4, 
 
             else
             {
-              (*(*a1 + 464))(a1, v33, v34, v96, a6, 0);
-              (*(*a1 + 56))(a1, v96, a3, ++v27, v93, a6);
+              (*(a1->var0 + 58))(a1, v33, v34, v96, a6, 0);
+              (*(a1->var0 + 7))(a1, v96, a3, ++v27, v93, a6);
               ++v24;
             }
           }
@@ -7669,8 +7670,8 @@ void sub_276EF8C78(unsigned __int8 *a1, void *a2, NSUInteger a3, NSUInteger a4, 
 
         else if (v28 < v94 && v28 + v30 <= v94)
         {
-          (*(*a1 + 456))(a1, v33, v32, v96, a6, 0);
-          (*(*a1 + 64))(a1, v27--, 1, a6);
+          (*(a1->var0 + 57))(a1, v33, v32, v96, a6, 0);
+          (*(a1->var0 + 8))(a1, v27--, 1, a6);
           --v24;
         }
       }
@@ -7686,7 +7687,7 @@ void sub_276EF8C78(unsigned __int8 *a1, void *a2, NSUInteger a3, NSUInteger a4, 
   if ((v90 != *(MEMORY[0x277D81490] + 8) || v91 != *MEMORY[0x277D81490]) && v40 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v45 = TSWPAttributeArray::charIndexForAttributeIndex(a1, v40);
-    v46 = TSWPAttributeArray::objectIsEquivalentToObject(a1[28], v92, v96);
+    v46 = TSWPAttributeArray::objectIsEquivalentToObject(*(a1 + 28), v92, v96);
     TSWPAttributeArray::rangeForAttributeIndex(a1, v42);
     v47 = NSIntersectionRangeInclusive();
     v48 = v41;
@@ -7716,7 +7717,7 @@ void sub_276EF8C78(unsigned __int8 *a1, void *a2, NSUInteger a3, NSUInteger a4, 
       if ((v45 > v94) | v46 & 1)
       {
 LABEL_42:
-        if (v94 < (*(*a1 + 104))(a1))
+        if (v94 < (*(a1->var0 + 13))(a1))
         {
           v50 = v91 + v90;
           if (v89 > v94 || v89 + v88 < v50)
@@ -7727,17 +7728,17 @@ LABEL_42:
             objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v51, v55, v52, v54, 207, 0, "Unexpected condition. This case should have been handled sonewhere above.");
 
             objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v56, v57);
-            (*(*a1 + 464))(a1, v94, v50 - v94, v92, a6, 0);
+            (*(a1->var0 + 58))(a1, v94, v50 - v94, v92, a6, 0);
           }
 
-          (*(*a1 + 56))(a1, v92, v94, v42 + 1, v93, a6);
+          (*(a1->var0 + 7))(a1, v92, v94, v42 + 1, v93, a6);
         }
 
         goto LABEL_55;
       }
 
-      v58 = (*(*a1 + 104))(a1);
-      v59 = *(*a1 + 456);
+      v58 = (*(a1->var0 + 13))(a1);
+      v59 = *(a1->var0 + 57);
       if (v94 != v58)
       {
         v59(a1, v47, v48, v96, a6, 0);
@@ -7751,19 +7752,19 @@ LABEL_42:
           objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v66, v67);
         }
 
-        (*(*a1 + 464))(a1, v94, v91 + v90 - v94, v92, a6, 0);
+        (*(a1->var0 + 58))(a1, v94, v91 + v90 - v94, v92, a6, 0);
         TSWPAttributeArray::nonUndoableReplaceCharIndexForAttributeIndex(a1, v94, v42);
         goto LABEL_55;
       }
 
 LABEL_54:
       v59(a1, v47, v48, v96, a6, 0);
-      (*(*a1 + 64))(a1, v42, 1, a6);
+      (*(a1->var0 + 8))(a1, v42, 1, a6);
       goto LABEL_55;
     }
 
 LABEL_53:
-    v59 = *(*a1 + 456);
+    v59 = *(a1->var0 + 57);
     goto LABEL_54;
   }
 
@@ -7772,7 +7773,7 @@ LABEL_55:
   if (v68 || (v69 = MEMORY[0x277D81150], objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "virtual void TSWPStyleAttributeArray::applyObjectToCharRange(__strong id, NSRange, TSKAddedToDocumentContext *__strong, TSWPStorageActionState *)"), v70 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v71, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStyleAttributeArray.mm"), v72 = objc_claimAutoreleasedReturnValue(), objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v69, v73, v70, v72, 215, 0, "Unexpected 0 count attribute index."), v72, v70, objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v74, v75), (v68 = *(a1 + 6)) != 0))
   {
     v76 = TSWPAttributeArray::charIndexForAttributeIndex(a1, (v68 - 1));
-    if (v76 >= (*(*a1 + 104))(a1) && (!objc_msgSend_isInInit(*(a1 + 2), v77, v78) || v76 < (*(*a1 + 104))(a1)) && (v76 != (*(*a1 + 104))(a1) || !TSWPAttributeArray::supportsObjectsStartingAtEndOfStorage(a1[28])))
+    if (v76 >= (*(a1->var0 + 13))(a1) && (!objc_msgSend_isInInit(a1->var2, v77, v78) || v76 < (*(a1->var0 + 13))(a1)) && (v76 != (*(a1->var0 + 13))(a1) || !TSWPAttributeArray::supportsObjectsStartingAtEndOfStorage(*(a1 + 28))))
     {
       v80 = MEMORY[0x277D81150];
       v81 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v79, "virtual void TSWPStyleAttributeArray::applyObjectToCharRange(__strong id, NSRange, TSKAddedToDocumentContext *__strong, TSWPStorageActionState *)");
@@ -9163,7 +9164,7 @@ uint64_t *TSWP::DummyCommandArchive::default_instance(TSWP::DummyCommandArchive 
   return &TSWP::_DummyCommandArchive_default_instance_;
 }
 
-uint64_t *TSWP::DummyCommandArchive::Clear(TSWP::DummyCommandArchive *this)
+google::protobuf::UnknownFieldSet *TSWP::DummyCommandArchive::Clear(TSWP::DummyCommandArchive *this)
 {
   v2 = *(this + 8);
   result = (this + 8);
@@ -9181,7 +9182,7 @@ google::protobuf::internal *TSWP::DummyCommandArchive::_InternalParse(uint64_t a
 {
   v18 = a2;
   v5 = 0;
-  if ((sub_276EA4A1C(a3, &v18) & 1) == 0)
+  if ((sub_276EA4A1C(a3, &v18, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
@@ -9273,7 +9274,7 @@ LABEL_27:
       }
 
 LABEL_19:
-      if (sub_276EA4A1C(a3, &v18))
+      if (sub_276EA4A1C(a3, &v18, *(a3 + 92)))
       {
         goto LABEL_26;
       }
@@ -9299,47 +9300,47 @@ unsigned __int8 *TSWP::DummyCommandArchive::_InternalSerialize(TSWP::DummyComman
       a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
     }
 
-    v4 = *(this + 6);
+    v5 = *(this + 6);
     *a2 = 8;
-    if (v4 > 0x7F)
+    if (v5 > 0x7F)
     {
-      a2[1] = v4 | 0x80;
-      v5 = v4 >> 7;
-      if (v4 >> 14)
+      a2[1] = v5 | 0x80;
+      v6 = v5 >> 7;
+      if (v5 >> 14)
       {
         a2 += 3;
         do
         {
-          *(a2 - 1) = v5 | 0x80;
-          v6 = v5 >> 7;
+          *(a2 - 1) = v6 | 0x80;
+          v7 = v6 >> 7;
           ++a2;
-          v7 = v5 >> 14;
-          v5 >>= 7;
+          v8 = v6 >> 14;
+          v6 >>= 7;
         }
 
-        while (v7);
-        *(a2 - 1) = v6;
+        while (v8);
+        *(a2 - 1) = v7;
       }
 
       else
       {
-        a2[2] = v5;
+        a2[2] = v6;
         a2 += 3;
       }
     }
 
     else
     {
-      a2[1] = v4;
+      a2[1] = v5;
       a2 += 2;
     }
   }
 
-  v8 = *(this + 1);
-  if ((v8 & 1) == 0)
+  v9 = *(this + 1);
+  if ((v9 & 1) == 0)
   {
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v8 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v9 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }

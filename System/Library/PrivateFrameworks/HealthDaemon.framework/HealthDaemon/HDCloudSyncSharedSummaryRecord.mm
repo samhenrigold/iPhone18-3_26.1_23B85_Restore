@@ -62,29 +62,29 @@
     v28 = v41 = versionCopy;
     v29 = dataCopy;
     v30 = compatibilityVersionCopy;
-    v31 = [v28 copy];
+    v31 = objc_msgSend_copy(v28);
     [(HDCloudSyncCodableSharedSummaryRecord *)v27->_underlyingSummaryRecord setUuid:v31];
 
-    v32 = [packageCopy copy];
+    v32 = objc_msgSend_copy(packageCopy);
     [(HDCloudSyncCodableSharedSummaryRecord *)v27->_underlyingSummaryRecord setPackage:v32];
 
-    v33 = [nameCopy copy];
+    v33 = objc_msgSend_copy(nameCopy);
     [(HDCloudSyncCodableSharedSummaryRecord *)v27->_underlyingSummaryRecord setName:v33];
 
-    v34 = [v41 copy];
+    v34 = objc_msgSend_copy(v41);
     [(HDCloudSyncCodableSharedSummaryRecord *)v27->_underlyingSummaryRecord setVersion:v34];
 
-    v35 = [v30 copy];
+    v35 = objc_msgSend_copy(v30);
     [(HDCloudSyncCodableSharedSummaryRecord *)v27->_underlyingSummaryRecord setCompatibilityVersion:v35];
 
     v36 = [typesCopy hk_map:&__block_literal_global_201];
     v37 = [v36 mutableCopy];
     [(HDCloudSyncCodableSharedSummaryRecord *)v27->_underlyingSummaryRecord setObjectTypeIdentifiers:v37];
 
-    v38 = [v42 copy];
+    v38 = objc_msgSend_copy(v42);
     [(HDCloudSyncCodableSharedSummaryRecord *)v27->_underlyingSummaryRecord setAuthorizationCategories:v38];
 
-    v39 = [v29 copy];
+    v39 = objc_msgSend_copy(v29);
     [(HDCloudSyncCodableSharedSummaryRecord *)v27->_underlyingSummaryRecord setSummaryData:v39];
 
     compatibilityVersionCopy = v30;
@@ -99,10 +99,10 @@
 
 - (HDCloudSyncSharedSummaryRecord)initWithCKRecord:(id)record schemaVersion:(int64_t)version
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = HDCloudSyncSharedSummaryRecord;
-  v4 = [(HDCloudSyncRecord *)&v15 initWithCKRecord:record schemaVersion:version];
+  v17 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = HDCloudSyncSharedSummaryRecord;
+  v4 = [(HDCloudSyncRecord *)&v14 initWithCKRecord:record schemaVersion:version];
   v5 = v4;
   if (!v4)
   {
@@ -137,14 +137,13 @@ LABEL_9:
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
   {
     *buf = 138543362;
-    v17 = v5;
+    v16 = v5;
     _os_log_fault_impl(&dword_228986000, v9, OS_LOG_TYPE_FAULT, "[summary-sharing] %{public}@: Failed to decode underlying record.", buf, 0xCu);
   }
 
   v10 = 0;
 LABEL_10:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -168,7 +167,7 @@ LABEL_10:
 - (NSArray)authorizationIdentifiers
 {
   authorizationCategories = [(HDCloudSyncCodableSharedSummaryRecord *)self->_underlyingSummaryRecord authorizationCategories];
-  v3 = [authorizationCategories copy];
+  v3 = objc_msgSend_copy(authorizationCategories);
 
   return v3;
 }

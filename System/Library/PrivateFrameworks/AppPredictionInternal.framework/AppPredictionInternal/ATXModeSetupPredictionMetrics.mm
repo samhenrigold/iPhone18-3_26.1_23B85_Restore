@@ -7,49 +7,49 @@
 
 - (id)coreAnalyticsDictionary
 {
-  v131[49] = *MEMORY[0x277D85DE8];
-  v130[0] = @"ModeName";
+  v130[49] = *MEMORY[0x277D85DE8];
+  v129[0] = @"ModeName";
   modeName = [(ATXModeSetupPredictionMetrics *)self modeName];
-  v129 = modeName;
+  v128 = modeName;
   if (!modeName)
   {
     modeName = [MEMORY[0x277CBEB68] null];
   }
 
-  v131[0] = modeName;
-  v130[1] = @"ModeIsCreated";
-  v128 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics modeIsCreated](self, "modeIsCreated", modeName)}];
-  v131[1] = v128;
-  v130[2] = @"ModeWasCreatedWithin7Days";
-  v127 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics modeWasCreatedWithin7Days](self, "modeWasCreatedWithin7Days")}];
-  v131[2] = v127;
-  v130[3] = @"ModeWasCreatedToday";
-  v126 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics modeWasCreatedToday](self, "modeWasCreatedToday")}];
-  v131[3] = v126;
-  v130[4] = @"ModeHasActivatedWithin7Days";
-  v125 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics modeHasActivatedWithin7Days](self, "modeHasActivatedWithin7Days")}];
-  v131[4] = v125;
-  v130[5] = @"ModeHasActivatedToday";
-  v124 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics modeHasActivatedToday](self, "modeHasActivatedToday")}];
-  v131[5] = v124;
-  v130[6] = @"WasOfferedDigestOnboardingSuggestion";
-  v123 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics wasOfferedDigestOnboardingSuggestion](self, "wasOfferedDigestOnboardingSuggestion")}];
-  v131[6] = v123;
-  v130[7] = @"HasSetupDigestThroughOnboardingSuggestion";
-  v122 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics hasSetupDigestThroughOnboardingSuggestion](self, "hasSetupDigestThroughOnboardingSuggestion")}];
-  v131[7] = v122;
-  v130[8] = @"IsDigestCurrentlyEnabled";
-  v121 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics isDigestCurrentlyEnabled](self, "isDigestCurrentlyEnabled")}];
-  v131[8] = v121;
-  v130[9] = @"ModeHasLinkedPoster";
-  v120 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics modeHasLinkedPoster](self, "modeHasLinkedPoster")}];
-  v131[9] = v120;
-  v130[10] = @"ModeHasSmartActivationEnabled";
-  v119 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics modeHasSmartActivationEnabled](self, "modeHasSmartActivationEnabled")}];
-  v131[10] = v119;
-  v130[11] = @"GlobalAllPagesFolderCountBucket";
+  v130[0] = modeName;
+  v129[1] = @"ModeIsCreated";
+  v127 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics modeIsCreated](self, "modeIsCreated", modeName)}];
+  v130[1] = v127;
+  v129[2] = @"ModeWasCreatedWithin7Days";
+  v126 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics modeWasCreatedWithin7Days](self, "modeWasCreatedWithin7Days")}];
+  v130[2] = v126;
+  v129[3] = @"ModeWasCreatedToday";
+  v125 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics modeWasCreatedToday](self, "modeWasCreatedToday")}];
+  v130[3] = v125;
+  v129[4] = @"ModeHasActivatedWithin7Days";
+  v124 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics modeHasActivatedWithin7Days](self, "modeHasActivatedWithin7Days")}];
+  v130[4] = v124;
+  v129[5] = @"ModeHasActivatedToday";
+  v123 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics modeHasActivatedToday](self, "modeHasActivatedToday")}];
+  v130[5] = v123;
+  v129[6] = @"WasOfferedDigestOnboardingSuggestion";
+  v122 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics wasOfferedDigestOnboardingSuggestion](self, "wasOfferedDigestOnboardingSuggestion")}];
+  v130[6] = v122;
+  v129[7] = @"HasSetupDigestThroughOnboardingSuggestion";
+  v121 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics hasSetupDigestThroughOnboardingSuggestion](self, "hasSetupDigestThroughOnboardingSuggestion")}];
+  v130[7] = v121;
+  v129[8] = @"IsDigestCurrentlyEnabled";
+  v120 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics isDigestCurrentlyEnabled](self, "isDigestCurrentlyEnabled")}];
+  v130[8] = v120;
+  v129[9] = @"ModeHasLinkedPoster";
+  v119 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics modeHasLinkedPoster](self, "modeHasLinkedPoster")}];
+  v130[9] = v119;
+  v129[10] = @"ModeHasSmartActivationEnabled";
+  v118 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeSetupPredictionMetrics modeHasSmartActivationEnabled](self, "modeHasSmartActivationEnabled")}];
+  v130[10] = v118;
+  v129[11] = @"GlobalAllPagesFolderCountBucket";
   globalAllPagesFolderCountBucket = [(ATXModeSetupPredictionMetrics *)self globalAllPagesFolderCountBucket];
-  v118 = globalAllPagesFolderCountBucket;
+  v117 = globalAllPagesFolderCountBucket;
   if (globalAllPagesFolderCountBucket)
   {
     v5 = globalAllPagesFolderCountBucket;
@@ -60,10 +60,10 @@
     v5 = &unk_283A55F40;
   }
 
-  v131[11] = v5;
-  v130[12] = @"GlobalAllPagesWidgetCountBucket";
+  v130[11] = v5;
+  v129[12] = @"GlobalAllPagesWidgetCountBucket";
   globalAllPagesWidgetCountBucket = [(ATXModeSetupPredictionMetrics *)self globalAllPagesWidgetCountBucket];
-  v117 = globalAllPagesWidgetCountBucket;
+  v116 = globalAllPagesWidgetCountBucket;
   if (globalAllPagesWidgetCountBucket)
   {
     v7 = globalAllPagesWidgetCountBucket;
@@ -74,10 +74,10 @@
     v7 = &unk_283A55F40;
   }
 
-  v131[12] = v7;
-  v130[13] = @"HomePageFolderCountBucket";
+  v130[12] = v7;
+  v129[13] = @"HomePageFolderCountBucket";
   homePageFolderCountBucket = [(ATXModeSetupPredictionMetrics *)self homePageFolderCountBucket];
-  v116 = homePageFolderCountBucket;
+  v115 = homePageFolderCountBucket;
   if (homePageFolderCountBucket)
   {
     v9 = homePageFolderCountBucket;
@@ -88,10 +88,10 @@
     v9 = &unk_283A55F40;
   }
 
-  v131[13] = v9;
-  v130[14] = @"HomePageWidgetCountBucket";
+  v130[13] = v9;
+  v129[14] = @"HomePageWidgetCountBucket";
   homePageWidgetCountBucket = [(ATXModeSetupPredictionMetrics *)self homePageWidgetCountBucket];
-  v115 = homePageWidgetCountBucket;
+  v114 = homePageWidgetCountBucket;
   if (homePageWidgetCountBucket)
   {
     v11 = homePageWidgetCountBucket;
@@ -102,10 +102,10 @@
     v11 = &unk_283A55F40;
   }
 
-  v131[14] = v11;
-  v130[15] = @"GlobalAppLaunchCount7Days";
+  v130[14] = v11;
+  v129[15] = @"GlobalAppLaunchCount7Days";
   globalAppLaunchCount7Days = [(ATXModeSetupPredictionMetrics *)self globalAppLaunchCount7Days];
-  v114 = globalAppLaunchCount7Days;
+  v113 = globalAppLaunchCount7Days;
   if (globalAppLaunchCount7Days)
   {
     v13 = globalAppLaunchCount7Days;
@@ -116,10 +116,10 @@
     v13 = &unk_283A55F40;
   }
 
-  v131[15] = v13;
-  v130[16] = @"GlobalAppLaunchCountToday";
+  v130[15] = v13;
+  v129[16] = @"GlobalAppLaunchCountToday";
   globalAppLaunchCountToday = [(ATXModeSetupPredictionMetrics *)self globalAppLaunchCountToday];
-  v113 = globalAppLaunchCountToday;
+  v112 = globalAppLaunchCountToday;
   if (globalAppLaunchCountToday)
   {
     v15 = globalAppLaunchCountToday;
@@ -130,10 +130,10 @@
     v15 = &unk_283A55F40;
   }
 
-  v131[16] = v15;
-  v130[17] = @"ModeAppLaunchCountBasedOnGlobalPriors7Days";
+  v130[16] = v15;
+  v129[17] = @"ModeAppLaunchCountBasedOnGlobalPriors7Days";
   modeAppLaunchCountBasedOnGlobalPriors7Days = [(ATXModeSetupPredictionMetrics *)self modeAppLaunchCountBasedOnGlobalPriors7Days];
-  v112 = modeAppLaunchCountBasedOnGlobalPriors7Days;
+  v111 = modeAppLaunchCountBasedOnGlobalPriors7Days;
   if (modeAppLaunchCountBasedOnGlobalPriors7Days)
   {
     v17 = modeAppLaunchCountBasedOnGlobalPriors7Days;
@@ -144,10 +144,10 @@
     v17 = &unk_283A55F40;
   }
 
-  v131[17] = v17;
-  v130[18] = @"ModeAppLaunchCountBasedOnGlobalPriorsToday";
+  v130[17] = v17;
+  v129[18] = @"ModeAppLaunchCountBasedOnGlobalPriorsToday";
   modeAppLaunchCountBasedOnGlobalPriorsToday = [(ATXModeSetupPredictionMetrics *)self modeAppLaunchCountBasedOnGlobalPriorsToday];
-  v111 = modeAppLaunchCountBasedOnGlobalPriorsToday;
+  v110 = modeAppLaunchCountBasedOnGlobalPriorsToday;
   if (modeAppLaunchCountBasedOnGlobalPriorsToday)
   {
     v19 = modeAppLaunchCountBasedOnGlobalPriorsToday;
@@ -158,10 +158,10 @@
     v19 = &unk_283A55F40;
   }
 
-  v131[18] = v19;
-  v130[19] = @"ModeInferredDuration7Days";
+  v130[18] = v19;
+  v129[19] = @"ModeInferredDuration7Days";
   modeInferredDuration7Days = [(ATXModeSetupPredictionMetrics *)self modeInferredDuration7Days];
-  v110 = modeInferredDuration7Days;
+  v109 = modeInferredDuration7Days;
   if (modeInferredDuration7Days)
   {
     v21 = modeInferredDuration7Days;
@@ -172,10 +172,10 @@
     v21 = &unk_283A55F40;
   }
 
-  v131[19] = v21;
-  v130[20] = @"ModeInferredDurationToday";
+  v130[19] = v21;
+  v129[20] = @"ModeInferredDurationToday";
   modeInferredDurationToday = [(ATXModeSetupPredictionMetrics *)self modeInferredDurationToday];
-  v109 = modeInferredDurationToday;
+  v108 = modeInferredDurationToday;
   if (modeInferredDurationToday)
   {
     v23 = modeInferredDurationToday;
@@ -186,10 +186,10 @@
     v23 = &unk_283A55F40;
   }
 
-  v131[20] = v23;
-  v130[21] = @"ModeInferredCount7Days";
+  v130[20] = v23;
+  v129[21] = @"ModeInferredCount7Days";
   modeInferredCount7Days = [(ATXModeSetupPredictionMetrics *)self modeInferredCount7Days];
-  v108 = modeInferredCount7Days;
+  v107 = modeInferredCount7Days;
   if (modeInferredCount7Days)
   {
     v25 = modeInferredCount7Days;
@@ -200,10 +200,10 @@
     v25 = &unk_283A55F40;
   }
 
-  v131[21] = v25;
-  v130[22] = @"ModeInferredCountToday";
+  v130[21] = v25;
+  v129[22] = @"ModeInferredCountToday";
   modeInferredCountToday = [(ATXModeSetupPredictionMetrics *)self modeInferredCountToday];
-  v107 = modeInferredCountToday;
+  v106 = modeInferredCountToday;
   if (modeInferredCountToday)
   {
     v27 = modeInferredCountToday;
@@ -214,10 +214,10 @@
     v27 = &unk_283A55F40;
   }
 
-  v131[22] = v27;
-  v130[23] = @"ModeTurnedOnCount7Days";
+  v130[22] = v27;
+  v129[23] = @"ModeTurnedOnCount7Days";
   modeTurnedOnCount7Days = [(ATXModeSetupPredictionMetrics *)self modeTurnedOnCount7Days];
-  v106 = modeTurnedOnCount7Days;
+  v105 = modeTurnedOnCount7Days;
   if (modeTurnedOnCount7Days)
   {
     v29 = modeTurnedOnCount7Days;
@@ -228,10 +228,10 @@
     v29 = &unk_283A55F40;
   }
 
-  v131[23] = v29;
-  v130[24] = @"ModeTurnedOnCountToday";
+  v130[23] = v29;
+  v129[24] = @"ModeTurnedOnCountToday";
   modeTurnedOnCountToday = [(ATXModeSetupPredictionMetrics *)self modeTurnedOnCountToday];
-  v105 = modeTurnedOnCountToday;
+  v104 = modeTurnedOnCountToday;
   if (modeTurnedOnCountToday)
   {
     v31 = modeTurnedOnCountToday;
@@ -242,10 +242,10 @@
     v31 = &unk_283A55F40;
   }
 
-  v131[24] = v31;
-  v130[25] = @"ModeTurnedOnDuration7Days";
+  v130[24] = v31;
+  v129[25] = @"ModeTurnedOnDuration7Days";
   modeTurnedOnDuration7Days = [(ATXModeSetupPredictionMetrics *)self modeTurnedOnDuration7Days];
-  v104 = modeTurnedOnDuration7Days;
+  v103 = modeTurnedOnDuration7Days;
   if (modeTurnedOnDuration7Days)
   {
     v33 = modeTurnedOnDuration7Days;
@@ -256,10 +256,10 @@
     v33 = &unk_283A55F40;
   }
 
-  v131[25] = v33;
-  v130[26] = @"ModeTurnedOnDurationToday";
+  v130[25] = v33;
+  v129[26] = @"ModeTurnedOnDurationToday";
   modeTurnedOnDurationToday = [(ATXModeSetupPredictionMetrics *)self modeTurnedOnDurationToday];
-  v103 = modeTurnedOnDurationToday;
+  v102 = modeTurnedOnDurationToday;
   if (modeTurnedOnDurationToday)
   {
     v35 = modeTurnedOnDurationToday;
@@ -270,10 +270,10 @@
     v35 = &unk_283A55F40;
   }
 
-  v131[26] = v35;
-  v130[27] = @"ModeNotificationsClearedCount7Days";
+  v130[26] = v35;
+  v129[27] = @"ModeNotificationsClearedCount7Days";
   modeNotificationsClearedCount7Days = [(ATXModeSetupPredictionMetrics *)self modeNotificationsClearedCount7Days];
-  v102 = modeNotificationsClearedCount7Days;
+  v101 = modeNotificationsClearedCount7Days;
   if (modeNotificationsClearedCount7Days)
   {
     v37 = modeNotificationsClearedCount7Days;
@@ -284,10 +284,10 @@
     v37 = &unk_283A55F40;
   }
 
-  v131[27] = v37;
-  v130[28] = @"ModeNotificationsClearedCountToday";
+  v130[27] = v37;
+  v129[28] = @"ModeNotificationsClearedCountToday";
   modeNotificationsClearedCountToday = [(ATXModeSetupPredictionMetrics *)self modeNotificationsClearedCountToday];
-  v101 = modeNotificationsClearedCountToday;
+  v100 = modeNotificationsClearedCountToday;
   if (modeNotificationsClearedCountToday)
   {
     v39 = modeNotificationsClearedCountToday;
@@ -298,10 +298,10 @@
     v39 = &unk_283A55F40;
   }
 
-  v131[28] = v39;
-  v130[29] = @"GlobalNotificationsClearedCount7Days";
+  v130[28] = v39;
+  v129[29] = @"GlobalNotificationsClearedCount7Days";
   globalNotificationsClearedCount7Days = [(ATXModeSetupPredictionMetrics *)self globalNotificationsClearedCount7Days];
-  v100 = globalNotificationsClearedCount7Days;
+  v99 = globalNotificationsClearedCount7Days;
   if (globalNotificationsClearedCount7Days)
   {
     v41 = globalNotificationsClearedCount7Days;
@@ -312,10 +312,10 @@
     v41 = &unk_283A55F40;
   }
 
-  v131[29] = v41;
-  v130[30] = @"GlobalNotificationsClearedCountToday";
+  v130[29] = v41;
+  v129[30] = @"GlobalNotificationsClearedCountToday";
   globalNotificationsClearedCountToday = [(ATXModeSetupPredictionMetrics *)self globalNotificationsClearedCountToday];
-  v99 = globalNotificationsClearedCountToday;
+  v98 = globalNotificationsClearedCountToday;
   if (globalNotificationsClearedCountToday)
   {
     v43 = globalNotificationsClearedCountToday;
@@ -326,10 +326,10 @@
     v43 = &unk_283A55F40;
   }
 
-  v131[30] = v43;
-  v130[31] = @"ModeNotificationsCount7Days";
+  v130[30] = v43;
+  v129[31] = @"ModeNotificationsCount7Days";
   modeNotificationsCount7Days = [(ATXModeSetupPredictionMetrics *)self modeNotificationsCount7Days];
-  v98 = modeNotificationsCount7Days;
+  v97 = modeNotificationsCount7Days;
   if (modeNotificationsCount7Days)
   {
     v45 = modeNotificationsCount7Days;
@@ -340,10 +340,10 @@
     v45 = &unk_283A55F40;
   }
 
-  v131[31] = v45;
-  v130[32] = @"ModeNotificationsCountToday";
+  v130[31] = v45;
+  v129[32] = @"ModeNotificationsCountToday";
   modeNotificationsCountToday = [(ATXModeSetupPredictionMetrics *)self modeNotificationsCountToday];
-  v97 = modeNotificationsCountToday;
+  v96 = modeNotificationsCountToday;
   if (modeNotificationsCountToday)
   {
     v47 = modeNotificationsCountToday;
@@ -354,10 +354,10 @@
     v47 = &unk_283A55F40;
   }
 
-  v131[32] = v47;
-  v130[33] = @"GlobalNotificationsCount7Days";
+  v130[32] = v47;
+  v129[33] = @"GlobalNotificationsCount7Days";
   globalNotificationsCount7Days = [(ATXModeSetupPredictionMetrics *)self globalNotificationsCount7Days];
-  v96 = globalNotificationsCount7Days;
+  v95 = globalNotificationsCount7Days;
   if (globalNotificationsCount7Days)
   {
     v49 = globalNotificationsCount7Days;
@@ -368,10 +368,10 @@
     v49 = &unk_283A55F40;
   }
 
-  v131[33] = v49;
-  v130[34] = @"GlobalNotificationsCountToday";
+  v130[33] = v49;
+  v129[34] = @"GlobalNotificationsCountToday";
   globalNotificationsCountToday = [(ATXModeSetupPredictionMetrics *)self globalNotificationsCountToday];
-  v95 = globalNotificationsCountToday;
+  v94 = globalNotificationsCountToday;
   if (globalNotificationsCountToday)
   {
     v51 = globalNotificationsCountToday;
@@ -382,10 +382,10 @@
     v51 = &unk_283A55F40;
   }
 
-  v131[34] = v51;
-  v130[35] = @"ModeWeightedAppLaunchCountBasedOnGlobalPriors7Days";
+  v130[34] = v51;
+  v129[35] = @"ModeWeightedAppLaunchCountBasedOnGlobalPriors7Days";
   modeWeightedAppLaunchCountBasedOnGlobalPriors7Days = [(ATXModeSetupPredictionMetrics *)self modeWeightedAppLaunchCountBasedOnGlobalPriors7Days];
-  v94 = modeWeightedAppLaunchCountBasedOnGlobalPriors7Days;
+  v93 = modeWeightedAppLaunchCountBasedOnGlobalPriors7Days;
   if (modeWeightedAppLaunchCountBasedOnGlobalPriors7Days)
   {
     v53 = modeWeightedAppLaunchCountBasedOnGlobalPriors7Days;
@@ -396,10 +396,10 @@
     v53 = &unk_283A55F40;
   }
 
-  v131[35] = v53;
-  v130[36] = @"ModeWeightedAppLaunchCountBasedOnGlobalPriorsToday";
+  v130[35] = v53;
+  v129[36] = @"ModeWeightedAppLaunchCountBasedOnGlobalPriorsToday";
   modeWeightedAppLaunchCountBasedOnGlobalPriorsToday = [(ATXModeSetupPredictionMetrics *)self modeWeightedAppLaunchCountBasedOnGlobalPriorsToday];
-  v93 = modeWeightedAppLaunchCountBasedOnGlobalPriorsToday;
+  v92 = modeWeightedAppLaunchCountBasedOnGlobalPriorsToday;
   if (modeWeightedAppLaunchCountBasedOnGlobalPriorsToday)
   {
     v55 = modeWeightedAppLaunchCountBasedOnGlobalPriorsToday;
@@ -410,10 +410,10 @@
     v55 = &unk_283A55F40;
   }
 
-  v131[36] = v55;
-  v130[37] = @"GlobalPosterConfigurationsCount";
+  v130[36] = v55;
+  v129[37] = @"GlobalPosterConfigurationsCount";
   globalPosterConfigurationsCount = [(ATXModeSetupPredictionMetrics *)self globalPosterConfigurationsCount];
-  v92 = globalPosterConfigurationsCount;
+  v91 = globalPosterConfigurationsCount;
   if (globalPosterConfigurationsCount)
   {
     v57 = globalPosterConfigurationsCount;
@@ -424,10 +424,10 @@
     v57 = &unk_283A55F40;
   }
 
-  v131[37] = v57;
-  v130[38] = @"GlobalAppInterruptionsCount7Days";
+  v130[37] = v57;
+  v129[38] = @"GlobalAppInterruptionsCount7Days";
   globalAppInterruptionsCount7Days = [(ATXModeSetupPredictionMetrics *)self globalAppInterruptionsCount7Days];
-  v91 = globalAppInterruptionsCount7Days;
+  v90 = globalAppInterruptionsCount7Days;
   if (globalAppInterruptionsCount7Days)
   {
     v59 = globalAppInterruptionsCount7Days;
@@ -438,10 +438,10 @@
     v59 = &unk_283A55F40;
   }
 
-  v131[38] = v59;
-  v130[39] = @"GlobalAppInterruptionsCountToday";
+  v130[38] = v59;
+  v129[39] = @"GlobalAppInterruptionsCountToday";
   globalAppInterruptionsCountToday = [(ATXModeSetupPredictionMetrics *)self globalAppInterruptionsCountToday];
-  v90 = globalAppInterruptionsCountToday;
+  v89 = globalAppInterruptionsCountToday;
   if (globalAppInterruptionsCountToday)
   {
     v61 = globalAppInterruptionsCountToday;
@@ -452,10 +452,10 @@
     v61 = &unk_283A55F40;
   }
 
-  v131[39] = v61;
-  v130[40] = @"ModeAppInterruptionsCountInModeInferred7Days";
+  v130[39] = v61;
+  v129[40] = @"ModeAppInterruptionsCountInModeInferred7Days";
   modeAppInterruptionsCountInModeInferred7Days = [(ATXModeSetupPredictionMetrics *)self modeAppInterruptionsCountInModeInferred7Days];
-  v89 = modeAppInterruptionsCountInModeInferred7Days;
+  v88 = modeAppInterruptionsCountInModeInferred7Days;
   if (modeAppInterruptionsCountInModeInferred7Days)
   {
     v63 = modeAppInterruptionsCountInModeInferred7Days;
@@ -466,10 +466,10 @@
     v63 = &unk_283A55F40;
   }
 
-  v131[40] = v63;
-  v130[41] = @"ModeAppInterruptionsCountInModeInferredToday";
+  v130[40] = v63;
+  v129[41] = @"ModeAppInterruptionsCountInModeInferredToday";
   modeAppInterruptionsCountInModeInferredToday = [(ATXModeSetupPredictionMetrics *)self modeAppInterruptionsCountInModeInferredToday];
-  v88 = modeAppInterruptionsCountInModeInferredToday;
+  v87 = modeAppInterruptionsCountInModeInferredToday;
   if (modeAppInterruptionsCountInModeInferredToday)
   {
     v65 = modeAppInterruptionsCountInModeInferredToday;
@@ -480,8 +480,8 @@
     v65 = &unk_283A55F40;
   }
 
-  v131[41] = v65;
-  v130[42] = @"ModeAppInterruptionsCountBasedOnAllowListOfInferredMode7Days";
+  v130[41] = v65;
+  v129[42] = @"ModeAppInterruptionsCountBasedOnAllowListOfInferredMode7Days";
   modeAppInterruptionsCountBasedOnAllowListOfInferredMode7Days = [(ATXModeSetupPredictionMetrics *)self modeAppInterruptionsCountBasedOnAllowListOfInferredMode7Days];
   v67 = modeAppInterruptionsCountBasedOnAllowListOfInferredMode7Days;
   if (modeAppInterruptionsCountBasedOnAllowListOfInferredMode7Days)
@@ -494,8 +494,8 @@
     v68 = &unk_283A55F40;
   }
 
-  v131[42] = v68;
-  v130[43] = @"ModeAppInterruptionsCountBasedOnAllowListOfInferredModeToday";
+  v130[42] = v68;
+  v129[43] = @"ModeAppInterruptionsCountBasedOnAllowListOfInferredModeToday";
   modeAppInterruptionsCountBasedOnAllowListOfInferredModeToday = [(ATXModeSetupPredictionMetrics *)self modeAppInterruptionsCountBasedOnAllowListOfInferredModeToday];
   v70 = modeAppInterruptionsCountBasedOnAllowListOfInferredModeToday;
   if (modeAppInterruptionsCountBasedOnAllowListOfInferredModeToday)
@@ -508,8 +508,8 @@
     v71 = &unk_283A55F40;
   }
 
-  v131[43] = v71;
-  v130[44] = @"ModeAppInterruptionsCountBasedOnDenyListOfInferredMode7Days";
+  v130[43] = v71;
+  v129[44] = @"ModeAppInterruptionsCountBasedOnDenyListOfInferredMode7Days";
   modeAppInterruptionsCountBasedOnDenyListOfInferredMode7Days = [(ATXModeSetupPredictionMetrics *)self modeAppInterruptionsCountBasedOnDenyListOfInferredMode7Days];
   v73 = modeAppInterruptionsCountBasedOnDenyListOfInferredMode7Days;
   if (modeAppInterruptionsCountBasedOnDenyListOfInferredMode7Days)
@@ -522,8 +522,8 @@
     v74 = &unk_283A55F40;
   }
 
-  v131[44] = v74;
-  v130[45] = @"ModeAppInterruptionsCountBasedOnDenyListOfInferredModeToday";
+  v130[44] = v74;
+  v129[45] = @"ModeAppInterruptionsCountBasedOnDenyListOfInferredModeToday";
   modeAppInterruptionsCountBasedOnDenyListOfInferredModeToday = [(ATXModeSetupPredictionMetrics *)self modeAppInterruptionsCountBasedOnDenyListOfInferredModeToday];
   v76 = modeAppInterruptionsCountBasedOnDenyListOfInferredModeToday;
   if (modeAppInterruptionsCountBasedOnDenyListOfInferredModeToday)
@@ -536,8 +536,8 @@
     v77 = &unk_283A55F40;
   }
 
-  v131[45] = v77;
-  v130[46] = @"TrialTreatmentId";
+  v130[45] = v77;
+  v129[46] = @"TrialTreatmentId";
   trialTreatmentId = [(ATXModeSetupPredictionMetrics *)self trialTreatmentId];
   null = trialTreatmentId;
   if (!trialTreatmentId)
@@ -545,8 +545,8 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v131[46] = null;
-  v130[47] = @"TrialExperimentId";
+  v130[46] = null;
+  v129[47] = @"TrialExperimentId";
   trialExperimentId = [(ATXModeSetupPredictionMetrics *)self trialExperimentId];
   null2 = trialExperimentId;
   if (!trialExperimentId)
@@ -554,8 +554,8 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v131[47] = null2;
-  v130[48] = @"TrialDeploymentId";
+  v130[47] = null2;
+  v129[48] = @"TrialDeploymentId";
   trialDeploymentId = [(ATXModeSetupPredictionMetrics *)self trialDeploymentId];
   null3 = trialDeploymentId;
   if (!trialDeploymentId)
@@ -563,8 +563,8 @@
     null3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v131[48] = null3;
-  v87 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v131 forKeys:v130 count:49];
+  v130[48] = null3;
+  v86 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v130 forKeys:v129 count:49];
   if (!trialDeploymentId)
   {
   }
@@ -577,13 +577,11 @@
   {
   }
 
-  if (!v129)
+  if (!v128)
   {
   }
 
-  v84 = *MEMORY[0x277D85DE8];
-
-  return v87;
+  return v86;
 }
 
 - (id)description

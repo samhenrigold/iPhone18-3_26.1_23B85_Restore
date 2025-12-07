@@ -46,31 +46,30 @@
     {
       path = self->_path;
       *buf = 138412290;
-      v11 = path;
+      v10 = path;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Database (%@) was not closed before dealloc", buf, 0xCu);
-      v7 = self->_path;
-      _MBLog();
+      _MBLog(@"E ", "Database (%@) was not closed before dealloc", self->_path);
     }
   }
 
-  v9 = 0;
-  [(MBFileHashDB *)self close:&v9, v7];
-  v5 = v9;
+  v8 = 0;
+  [(MBFileHashDB *)self close:&v8];
+  v5 = v8;
   if (v5)
   {
     v6 = MBGetDefaultLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v11 = v5;
+      v10 = v5;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Error closing file hash DB: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Error closing file hash DB: %@", v5);
     }
   }
 
-  v8.receiver = self;
-  v8.super_class = MBFileHashDB;
-  [(MBFileHashDB *)&v8 dealloc];
+  v7.receiver = self;
+  v7.super_class = MBFileHashDB;
+  [(MBFileHashDB *)&v7 dealloc];
 }
 
 - (BOOL)close:(id *)close

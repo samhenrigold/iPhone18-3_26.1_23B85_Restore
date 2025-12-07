@@ -143,7 +143,7 @@ LABEL_27:
 
   else
   {
-    v16 = background_color_os_log();
+    v16 = background_color_os_log(Height);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       [CNUICoreImageDerivedColorGenerator colorsForImageRef:v16];
@@ -196,12 +196,12 @@ uint64_t __47__CNUICoreImageDerivedColorGenerator_scheduler__block_invoke()
 
 void __90__CNUICoreImageDerivedColorGenerator_fetchColorsForImage_ciContext_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v72[1] = *MEMORY[0x1E69E9840];
+  v74[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) hash];
-  v3 = background_color_os_log();
+  v3 = background_color_os_log(v2);
   v4 = v3;
-  v59 = v2 - 1;
-  if (v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
+  v61 = v2 - 1;
+  if ((v2 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
     LOWORD(buf.a) = 0;
     _os_signpost_emit_with_name_impl(&dword_1A31E6000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "CNImageDerivedColorFetchColors", "", &buf, 2u);
@@ -209,8 +209,8 @@ void __90__CNUICoreImageDerivedColorGenerator_fetchColorsForImage_ciContext_with
 
   spid = v2;
 
-  v63 = [objc_alloc(MEMORY[0x1E695F658]) initWithImage:*(a1 + 32)];
-  v5 = [objc_opt_class() resizeImageForPerformance:v63];
+  v65 = [objc_alloc(MEMORY[0x1E695F658]) initWithImage:*(a1 + 32)];
+  v5 = [objc_opt_class() resizeImageForPerformance:v65];
   [v5 extent];
   v7 = v6;
   v9 = v8;
@@ -219,105 +219,106 @@ void __90__CNUICoreImageDerivedColorGenerator_fetchColorsForImage_ciContext_with
   v12 = objc_opt_new();
   [v12 setRevision:2];
   v13 = objc_autoreleasePoolPush();
-  v72[0] = v12;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v72 count:1];
-  v69 = 0;
-  v61 = v11;
-  v15 = [v11 performRequests:v14 error:&v69];
-  v16 = v69;
+  v74[0] = v12;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v74 count:1];
+  v71 = 0;
+  v63 = v11;
+  v15 = [v11 performRequests:v14 error:&v71];
+  v16 = v71;
 
   if (v16 || (v15 & 1) == 0)
   {
-    v17 = background_color_os_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = background_color_os_log(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      __90__CNUICoreImageDerivedColorGenerator_fetchColorsForImage_ciContext_withCompletionHandler___block_invoke_cold_1(v16, v17);
+      __90__CNUICoreImageDerivedColorGenerator_fetchColorsForImage_ciContext_withCompletionHandler___block_invoke_cold_1(v16, v18);
     }
   }
 
   objc_autoreleasePoolPop(v13);
-  v60 = v12;
-  v18 = [v12 results];
-  v19 = [v18 firstObject];
+  v62 = v12;
+  v19 = [v12 results];
+  v20 = [v19 firstObject];
 
-  v58 = v19;
-  v20 = [MEMORY[0x1E695F658] imageWithCVPixelBuffer:{objc_msgSend(v19, "pixelBuffer")}];
-  [v20 extent];
+  v60 = v20;
+  v21 = [MEMORY[0x1E695F658] imageWithCVPixelBuffer:{objc_msgSend(v20, "pixelBuffer")}];
+  [v21 extent];
   memset(&buf, 0, sizeof(buf));
-  CGAffineTransformMakeScale(&buf, v7 / v21, v9 / v22);
-  v67 = buf;
-  v23 = [v20 imageByApplyingTransform:&v67];
-  v24 = [MEMORY[0x1E695F648] colorThresholdFilter];
-  v57 = v23;
-  [v24 setInputImage:v23];
-  LODWORD(v25) = 0.5;
-  [v24 setThreshold:v25];
-  v26 = [v24 outputImage];
-  v27 = [MEMORY[0x1E695F648] maskToAlphaFilter];
-  v56 = v26;
-  [v27 setInputImage:v26];
-  v28 = [v27 outputImage];
-  v29 = [MEMORY[0x1E695F648] sourceOutCompositingFilter];
-  v62 = v5;
-  [v29 setInputImage:v5];
-  v54 = v28;
-  [v29 setBackgroundImage:v28];
-  v30 = [v29 outputImage];
-  v31 = objc_autoreleasePoolPush();
-  v70[0] = @"inputWidth";
-  v32 = [MEMORY[0x1E696AD98] numberWithDouble:v7];
-  v70[1] = @"inputHeight";
-  v71[0] = v32;
-  v33 = [MEMORY[0x1E696AD98] numberWithDouble:v9];
-  v71[1] = v33;
-  v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v71 forKeys:v70 count:2];
-  v55 = v30;
-  v35 = [v30 imageByApplyingFilter:@"CISmartGradient" withInputParameters:v34];
+  CGAffineTransformMakeScale(&buf, v7 / v22, v9 / v23);
+  v69 = buf;
+  v24 = [v21 imageByApplyingTransform:&v69];
+  v25 = [MEMORY[0x1E695F648] colorThresholdFilter];
+  v59 = v24;
+  [v25 setInputImage:v24];
+  LODWORD(v26) = 0.5;
+  [v25 setThreshold:v26];
+  v27 = [v25 outputImage];
+  v28 = [MEMORY[0x1E695F648] maskToAlphaFilter];
+  v58 = v27;
+  [v28 setInputImage:v27];
+  v29 = [v28 outputImage];
+  v30 = [MEMORY[0x1E695F648] sourceOutCompositingFilter];
+  v64 = v5;
+  [v30 setInputImage:v5];
+  v56 = v29;
+  [v30 setBackgroundImage:v29];
+  v31 = [v30 outputImage];
+  v32 = objc_autoreleasePoolPush();
+  v72[0] = @"inputWidth";
+  v33 = [MEMORY[0x1E696AD98] numberWithDouble:v7];
+  v72[1] = @"inputHeight";
+  v73[0] = v33;
+  v34 = [MEMORY[0x1E696AD98] numberWithDouble:v9];
+  v73[1] = v34;
+  v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:v72 count:2];
+  v57 = v31;
+  v36 = [v31 imageByApplyingFilter:@"CISmartGradient" withInputParameters:v35];
 
-  objc_autoreleasePoolPop(v31);
-  [v35 extent];
-  v37 = v36;
-  v39 = v38;
-  v41 = v40;
-  v42 = *(a1 + 40);
-  if (v42)
+  objc_autoreleasePoolPop(v32);
+  [v36 extent];
+  v38 = v37;
+  v40 = v39;
+  v42 = v41;
+  v43 = *(a1 + 40);
+  if (v43)
   {
-    v43 = v42;
+    v44 = v43;
   }
 
   else
   {
-    v43 = [*(a1 + 56) ciContextWithHighPriority:1];
+    v44 = [*(a1 + 56) ciContextWithHighPriority:1];
   }
 
-  v44 = v43;
-  v45 = [v35 imageByCroppingToRect:{v37, v39, 8.0, v41}];
-  [v45 extent];
-  v46 = [v44 createCGImage:v45 fromRect:?];
-  v47 = [objc_opt_class() colorsForImageRef:v46];
-  if (v46)
-  {
-    CFRelease(v46);
-  }
-
-  v48 = background_color_os_log();
+  v45 = v44;
+  v46 = [v36 imageByCroppingToRect:{v38, v40, 8.0, v42}];
+  [v46 extent];
+  v47 = [v45 createCGImage:v46 fromRect:?];
+  v48 = [objc_opt_class() colorsForImageRef:v47];
   v49 = v48;
-  if (v59 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
+  if (v47)
   {
-    LOWORD(v67.a) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1A31E6000, v49, OS_SIGNPOST_INTERVAL_END, spid, "CNImageDerivedColorFetchColors", "", &v67, 2u);
+    CFRelease(v47);
   }
 
-  v50 = [MEMORY[0x1E6996818] mainThreadScheduler];
-  v64[0] = MEMORY[0x1E69E9820];
-  v64[1] = 3221225472;
-  v64[2] = __90__CNUICoreImageDerivedColorGenerator_fetchColorsForImage_ciContext_withCompletionHandler___block_invoke_169;
-  v64[3] = &unk_1E76E8E48;
-  v51 = *(a1 + 48);
-  v65 = v47;
-  v66 = v51;
-  v52 = v47;
-  [v50 performBlock:v64];
+  v50 = background_color_os_log(v48);
+  v51 = v50;
+  if (v61 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v50))
+  {
+    LOWORD(v69.a) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1A31E6000, v51, OS_SIGNPOST_INTERVAL_END, spid, "CNImageDerivedColorFetchColors", "", &v69, 2u);
+  }
+
+  v52 = [MEMORY[0x1E6996818] mainThreadScheduler];
+  v66[0] = MEMORY[0x1E69E9820];
+  v66[1] = 3221225472;
+  v66[2] = __90__CNUICoreImageDerivedColorGenerator_fetchColorsForImage_ciContext_withCompletionHandler___block_invoke_169;
+  v66[3] = &unk_1E76E8E48;
+  v53 = *(a1 + 48);
+  v67 = v49;
+  v68 = v53;
+  v54 = v49;
+  [v52 performBlock:v66];
 }
 
 + (id)resizeImageForPerformance:(id)performance

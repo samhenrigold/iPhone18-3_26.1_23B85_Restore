@@ -51,7 +51,7 @@
 
 void __109__CKRemoveParticipantAlertServiceViewController_promptToRemoveParticipant_fromHighlight_usingPreferredStyle___block_invoke(uint64_t a1, void *a2)
 {
-  v67[1] = *MEMORY[0x1E69E9840];
+  v71[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 attributions];
   if ([v4 count] < 2)
@@ -70,105 +70,105 @@ void __109__CKRemoveParticipantAlertServiceViewController_promptToRemoveParticip
         {
           v12 = [v11 account];
           v13 = [*(a1 + 32) handle];
-          v55 = [v12 existingIMHandleWithID:v13];
+          v59 = [v12 existingIMHandleWithID:v13];
 
-          if (v55)
+          if (v59)
           {
-            v53 = [[CKConversation alloc] initWithChat:v11];
-            v14 = [(CKConversation *)v53 displayName];
+            v57 = [[CKConversation alloc] initWithChat:v11];
+            v14 = [(CKConversation *)v57 displayName];
             v15 = v14;
             if (v14)
             {
-              v52 = v14;
+              v56 = v14;
             }
 
             else
             {
-              v52 = [(CKConversation *)v53 name];
+              v56 = [(CKConversation *)v57 name];
             }
 
-            v67[0] = v55;
-            v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:1];
+            v71[0] = v59;
+            v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v71 count:1];
             v21 = [v11 canRemoveParticipants:v20];
 
             if (v21)
             {
-              v50 = MEMORY[0x1E696AEC0];
-              v22 = CKFrameworkBundle();
-              v23 = [v22 localizedStringForKey:@"REMOVE_PARTICIPANT_FROM_GROUP" value:&stru_1F04268F8 table:@"ChatKit"];
-              v51 = [v50 stringWithFormat:v23, *(a1 + 40), v52];
+              v54 = MEMORY[0x1E696AEC0];
+              v23 = CKFrameworkBundle(v22);
+              v24 = [v23 localizedStringForKey:@"REMOVE_PARTICIPANT_FROM_GROUP" value:&stru_1F04268F8 table:@"ChatKit"];
+              v55 = [v54 stringWithFormat:v24, *(a1 + 40), v56];
 
-              v48 = MEMORY[0x1E696AEC0];
-              v24 = CKFrameworkBundle();
-              v25 = [v24 localizedStringForKey:@"PARTICIPANT_REMOVED_FROM_COLLABORATIVE_DOCUMENT_SHARED_WITH_GROUP" value:&stru_1F04268F8 table:@"ChatKit"];
-              v49 = [v48 stringWithFormat:v25, *(a1 + 40), v52];
+              v52 = MEMORY[0x1E696AEC0];
+              v26 = CKFrameworkBundle(v25);
+              v27 = [v26 localizedStringForKey:@"PARTICIPANT_REMOVED_FROM_COLLABORATIVE_DOCUMENT_SHARED_WITH_GROUP" value:&stru_1F04268F8 table:@"ChatKit"];
+              v53 = [v52 stringWithFormat:v27, *(a1 + 40), v56];
 
-              v46 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v51 message:v49 preferredStyle:*(a1 + 64)];
-              v44 = MEMORY[0x1E69DC648];
-              v26 = MEMORY[0x1E696AEC0];
-              v27 = CKFrameworkBundle();
-              v28 = [v27 localizedStringForKey:@"REMOVE_FROM_GROUP" value:&stru_1F04268F8 table:@"ChatKit"];
-              v41 = [v26 stringWithFormat:v28, v52];
-              v60[0] = MEMORY[0x1E69E9820];
-              v60[1] = 3221225472;
-              v60[2] = __109__CKRemoveParticipantAlertServiceViewController_promptToRemoveParticipant_fromHighlight_usingPreferredStyle___block_invoke_2;
-              v60[3] = &unk_1E72F63E0;
-              v61 = v53;
-              v62 = v55;
+              v50 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v55 message:v53 preferredStyle:*(a1 + 64)];
+              v48 = MEMORY[0x1E69DC648];
+              v28 = MEMORY[0x1E696AEC0];
+              v29 = CKFrameworkBundle(v50);
+              v30 = [v29 localizedStringForKey:@"REMOVE_FROM_GROUP" value:&stru_1F04268F8 table:@"ChatKit"];
+              v45 = [v28 stringWithFormat:v30, v56];
+              v64[0] = MEMORY[0x1E69E9820];
+              v64[1] = 3221225472;
+              v64[2] = __109__CKRemoveParticipantAlertServiceViewController_promptToRemoveParticipant_fromHighlight_usingPreferredStyle___block_invoke_2;
+              v64[3] = &unk_1E72F63E0;
+              v65 = v57;
+              v66 = v59;
+              objc_copyWeak(&v67, (a1 + 56));
+              v49 = [v48 actionWithTitle:v45 style:0 handler:v64];
+
+              v46 = MEMORY[0x1E69DC648];
+              v32 = CKFrameworkBundle(v31);
+              v33 = [v32 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+              v62[0] = MEMORY[0x1E69E9820];
+              v62[1] = 3221225472;
+              v62[2] = __109__CKRemoveParticipantAlertServiceViewController_promptToRemoveParticipant_fromHighlight_usingPreferredStyle___block_invoke_107;
+              v62[3] = &unk_1E72EC698;
               objc_copyWeak(&v63, (a1 + 56));
-              v45 = [v44 actionWithTitle:v41 style:0 handler:v60];
+              v47 = [v46 actionWithTitle:v33 style:1 handler:v62];
 
-              v42 = MEMORY[0x1E69DC648];
-              v29 = CKFrameworkBundle();
-              v30 = [v29 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
-              v58[0] = MEMORY[0x1E69E9820];
-              v58[1] = 3221225472;
-              v58[2] = __109__CKRemoveParticipantAlertServiceViewController_promptToRemoveParticipant_fromHighlight_usingPreferredStyle___block_invoke_107;
-              v58[3] = &unk_1E72EC698;
-              objc_copyWeak(&v59, (a1 + 56));
-              v43 = [v42 actionWithTitle:v30 style:1 handler:v58];
-
-              [v46 addAction:v45];
-              [v46 addAction:v43];
-              [*(a1 + 48) presentViewController:v46 animated:1 completion:0];
+              [v50 addAction:v49];
+              [v50 addAction:v47];
+              [*(a1 + 48) presentViewController:v50 animated:1 completion:0];
               WeakRetained = objc_loadWeakRetained((a1 + 56));
               [WeakRetained _dismissAndCleanup];
 
-              objc_destroyWeak(&v59);
               objc_destroyWeak(&v63);
+              objc_destroyWeak(&v67);
             }
 
             else
             {
-              v32 = IMLogHandleForCategory();
-              if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+              v35 = IMLogHandleForCategory();
+              if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                _os_log_impl(&dword_19020E000, v32, OS_LOG_TYPE_INFO, "Notifying that the participant is still a member of a 3-person group", buf, 2u);
+                _os_log_impl(&dword_19020E000, v35, OS_LOG_TYPE_INFO, "Notifying that the participant is still a member of a 3-person group", buf, 2u);
               }
 
-              v33 = MEMORY[0x1E696AEC0];
-              v34 = CKFrameworkBundle();
-              v35 = [v34 localizedStringForKey:@"PARTICIPANT_IS_STILL_IN_MESSAGES_CONVERSATION" value:&stru_1F04268F8 table:@"ChatKit"];
-              v51 = [v33 stringWithFormat:v35, *(a1 + 40), v52];
+              v36 = MEMORY[0x1E696AEC0];
+              v38 = CKFrameworkBundle(v37);
+              v39 = [v38 localizedStringForKey:@"PARTICIPANT_IS_STILL_IN_MESSAGES_CONVERSATION" value:&stru_1F04268F8 table:@"ChatKit"];
+              v55 = [v36 stringWithFormat:v39, *(a1 + 40), v56];
 
-              v49 = [MEMORY[0x1E69DC650] alertControllerWithTitle:0 message:v51 preferredStyle:*(a1 + 64)];
-              v36 = MEMORY[0x1E69DC648];
-              v37 = MEMORY[0x1E696AEC0];
-              v38 = CKFrameworkBundle();
-              v47 = [v38 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
-              v39 = [v37 stringWithFormat:v47, v52];
-              v64[0] = MEMORY[0x1E69E9820];
-              v64[1] = 3221225472;
-              v64[2] = __109__CKRemoveParticipantAlertServiceViewController_promptToRemoveParticipant_fromHighlight_usingPreferredStyle___block_invoke_93;
-              v64[3] = &unk_1E72EC698;
-              objc_copyWeak(&v65, (a1 + 56));
-              v40 = [v36 actionWithTitle:v39 style:0 handler:v64];
+              v53 = [MEMORY[0x1E69DC650] alertControllerWithTitle:0 message:v55 preferredStyle:*(a1 + 64)];
+              v40 = MEMORY[0x1E69DC648];
+              v41 = MEMORY[0x1E696AEC0];
+              v42 = CKFrameworkBundle(v53);
+              v51 = [v42 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
+              v43 = [v41 stringWithFormat:v51, v56];
+              v68[0] = MEMORY[0x1E69E9820];
+              v68[1] = 3221225472;
+              v68[2] = __109__CKRemoveParticipantAlertServiceViewController_promptToRemoveParticipant_fromHighlight_usingPreferredStyle___block_invoke_93;
+              v68[3] = &unk_1E72EC698;
+              objc_copyWeak(&v69, (a1 + 56));
+              v44 = [v40 actionWithTitle:v43 style:0 handler:v68];
 
-              [v49 addAction:v40];
-              [*(a1 + 48) presentViewController:v49 animated:1 completion:0];
+              [v53 addAction:v44];
+              [*(a1 + 48) presentViewController:v53 animated:1 completion:0];
 
-              objc_destroyWeak(&v65);
+              objc_destroyWeak(&v69);
             }
           }
 
@@ -181,8 +181,8 @@ void __109__CKRemoveParticipantAlertServiceViewController_promptToRemoveParticip
               _os_log_impl(&dword_19020E000, v19, OS_LOG_TYPE_INFO, "Unable to find handle", buf, 2u);
             }
 
-            v54 = objc_loadWeakRetained((a1 + 56));
-            [v54 _dismissAndCleanup];
+            v58 = objc_loadWeakRetained((a1 + 56));
+            [v58 _dismissAndCleanup];
           }
         }
 
@@ -195,8 +195,8 @@ void __109__CKRemoveParticipantAlertServiceViewController_promptToRemoveParticip
             _os_log_impl(&dword_19020E000, v18, OS_LOG_TYPE_INFO, "Removing a single person from a collaboration sent to a 1-1 chat.", buf, 2u);
           }
 
-          v57 = objc_loadWeakRetained((a1 + 56));
-          [v57 _dismissAndCleanup];
+          v61 = objc_loadWeakRetained((a1 + 56));
+          [v61 _dismissAndCleanup];
         }
       }
 
@@ -208,8 +208,8 @@ void __109__CKRemoveParticipantAlertServiceViewController_promptToRemoveParticip
           __109__CKRemoveParticipantAlertServiceViewController_promptToRemoveParticipant_fromHighlight_usingPreferredStyle___block_invoke_cold_1(v7, v17);
         }
 
-        v56 = objc_loadWeakRetained((a1 + 56));
-        [v56 _dismissAndCleanup];
+        v60 = objc_loadWeakRetained((a1 + 56));
+        [v60 _dismissAndCleanup];
       }
     }
 

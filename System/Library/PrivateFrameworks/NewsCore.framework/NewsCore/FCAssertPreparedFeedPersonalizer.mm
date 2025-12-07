@@ -41,32 +41,31 @@
 
 - (FCAssertPreparedFeedPersonalizer)initWithTarget:(id)target
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   targetCopy = target;
   if (!targetCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "target"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "target"];
     *buf = 136315906;
-    v13 = "[FCAssertPreparedFeedPersonalizer initWithTarget:]";
-    v14 = 2080;
-    v15 = "FCAssertPreparedFeedPersonalizer.m";
-    v16 = 1024;
-    v17 = 31;
-    v18 = 2114;
-    v19 = v10;
+    v12 = "[FCAssertPreparedFeedPersonalizer initWithTarget:]";
+    v13 = 2080;
+    v14 = "FCAssertPreparedFeedPersonalizer.m";
+    v15 = 1024;
+    v16 = 31;
+    v17 = 2114;
+    v18 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v11.receiver = self;
-  v11.super_class = FCAssertPreparedFeedPersonalizer;
-  v6 = [(FCAssertPreparedFeedPersonalizer *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = FCAssertPreparedFeedPersonalizer;
+  v6 = [(FCAssertPreparedFeedPersonalizer *)&v10 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_target, target);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -154,7 +153,7 @@ uint64_t __71__FCAssertPreparedFeedPersonalizer_prepareForUseWithCompletionHandl
 
 - (void)fetchAggregateMapForPersonalizingItem:(id)item completion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   completionCopy = completion;
   target = [(FCAssertPreparedFeedPersonalizer *)self target];
@@ -174,19 +173,18 @@ uint64_t __71__FCAssertPreparedFeedPersonalizer_prepareForUseWithCompletionHandl
     }
 
     target2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case not implemented"];
-    v12 = 136315906;
-    v13 = "[FCAssertPreparedFeedPersonalizer fetchAggregateMapForPersonalizingItem:completion:]";
-    v14 = 2080;
-    v15 = "FCAssertPreparedFeedPersonalizer.m";
-    v16 = 1024;
-    v17 = 104;
-    v18 = 2114;
-    v19 = target2;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
+    v11 = 136315906;
+    v12 = "[FCAssertPreparedFeedPersonalizer fetchAggregateMapForPersonalizingItem:completion:]";
+    v13 = 2080;
+    v14 = "FCAssertPreparedFeedPersonalizer.m";
+    v15 = 1024;
+    v16 = 104;
+    v17 = 2114;
+    v18 = target2;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
   }
 
 LABEL_5:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

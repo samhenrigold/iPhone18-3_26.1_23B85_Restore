@@ -158,15 +158,8 @@ LABEL_23:
       v31 = serviceModeRequestedPass;
       hasSession = [stateCopy hasSession];
       serviceModeRequestedPass2 = v34;
-      if (hasSession != [(NPKContactlessPaymentSessionState *)self hasSession])
+      if (hasSession != -[NPKContactlessPaymentSessionState hasSession](self, "hasSession") || (v15 = [stateCopy sessionStarted], v15 != -[NPKContactlessPaymentSessionState sessionStarted](self, "sessionStarted")) || (v16 = objc_msgSend(stateCopy, "sessionWaitingToStart"), v16 != -[NPKContactlessPaymentSessionState sessionWaitingToStart](self, "sessionWaitingToStart")) || (v17 = objc_msgSend(stateCopy, "isSwitchingSessionType"), v17 != -[NPKContactlessPaymentSessionState isSwitchingSessionType](self, "isSwitchingSessionType")) || (v18 = objc_msgSend(stateCopy, "doublePressReceived"), v18 != -[NPKContactlessPaymentSessionState doublePressReceived](self, "doublePressReceived")) || (v19 = objc_msgSend(stateCopy, "sessionAuthorized"), v19 != -[NPKContactlessPaymentSessionState sessionAuthorized](self, "sessionAuthorized")) || (v20 = objc_msgSend(stateCopy, "passActivating"), v20 != -[NPKContactlessPaymentSessionState passActivating](self, "passActivating")) || (v21 = objc_msgSend(stateCopy, "contactlessInterfaceReady"), v21 != -[NPKContactlessPaymentSessionState contactlessInterfaceReady](self, "contactlessInterfaceReady")) || (v22 = objc_msgSend(stateCopy, "canChangePass"), v22 != -[NPKContactlessPaymentSessionState canChangePass](self, "canChangePass")))
       {
-        goto LABEL_15;
-      }
-
-      sessionStarted = [stateCopy sessionStarted];
-      if (sessionStarted != -[NPKContactlessPaymentSessionState sessionStarted](self, "sessionStarted") || (v16 = [stateCopy sessionWaitingToStart], v16 != -[NPKContactlessPaymentSessionState sessionWaitingToStart](self, "sessionWaitingToStart")) || (v17 = objc_msgSend(stateCopy, "isSwitchingSessionType"), v17 != -[NPKContactlessPaymentSessionState isSwitchingSessionType](self, "isSwitchingSessionType")) || (v18 = objc_msgSend(stateCopy, "doublePressReceived"), v18 != -[NPKContactlessPaymentSessionState doublePressReceived](self, "doublePressReceived")) || (v19 = objc_msgSend(stateCopy, "sessionAuthorized"), v19 != -[NPKContactlessPaymentSessionState sessionAuthorized](self, "sessionAuthorized")) || (v20 = objc_msgSend(stateCopy, "passActivating"), v20 != -[NPKContactlessPaymentSessionState passActivating](self, "passActivating")) || (v21 = objc_msgSend(stateCopy, "contactlessInterfaceReady"), v21 != -[NPKContactlessPaymentSessionState contactlessInterfaceReady](self, "contactlessInterfaceReady")) || (v22 = objc_msgSend(stateCopy, "canChangePass"), v22 != -[NPKContactlessPaymentSessionState canChangePass](self, "canChangePass")))
-      {
-LABEL_15:
         v23 = 0;
         serviceModeRequestedPass = v31;
 LABEL_22:
@@ -222,7 +215,6 @@ LABEL_26:
   transactionContext = [(NPKContactlessPaymentSessionState *)self transactionContext];
   [v3 safelyAddObject:transactionContext];
 
-  v9 = *MEMORY[0x277D38638];
   PKCombinedHash();
   [(NPKContactlessPaymentSessionState *)self hasSession];
   PKIntegerHash();
@@ -253,9 +245,9 @@ LABEL_26:
   [(NPKContactlessPaymentSessionState *)self failureType];
   PKIntegerHash();
   [(NPKContactlessPaymentSessionState *)self completionReason];
-  v10 = PKIntegerHash();
+  v9 = PKIntegerHash();
 
-  return v10;
+  return v9;
 }
 
 - (id)stateForNonModalDisplay

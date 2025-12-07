@@ -22,7 +22,7 @@
   v10[3] = &unk_100004268;
   v11 = callbackCopy;
   v9 = callbackCopy;
-  sub_100000F34(v7, NFSettingsNotification, v10);
+  sub_100000F34(NFSettingsNotification, v10, v7);
 }
 
 @end

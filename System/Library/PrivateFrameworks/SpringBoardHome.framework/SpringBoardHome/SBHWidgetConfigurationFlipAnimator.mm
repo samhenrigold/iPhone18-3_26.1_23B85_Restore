@@ -62,7 +62,7 @@
   rect = v13;
   [(SBHWidgetConfigurationFlipAnimator *)self setSourceContentFrame:?];
   homeScreenContentView = [userInfo homeScreenContentView];
-  [homeScreenContentView bounds];
+  objc_msgSend_bounds(homeScreenContentView);
   [homeScreenContentView convertRect:containerView toView:?];
   [(SBHWidgetConfigurationFlipAnimator *)self setHomeScreenContentFrame:?];
   [userInfo contentBoundingRect];
@@ -164,7 +164,7 @@
   [val setIconLabelAlpha:0.0];
   recta = [userInfo referenceView];
   [recta addObserver:self];
-  [recta bounds];
+  objc_msgSend_bounds(recta);
   [val convertRect:containerView toView:?];
   v54 = v53;
   v56 = v55;

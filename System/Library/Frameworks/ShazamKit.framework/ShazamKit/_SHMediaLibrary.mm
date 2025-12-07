@@ -85,7 +85,7 @@
 
 - (void)_addMediaItems:(id)items completionHandler:(id)handler
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   handlerCopy = handler;
   if (handlerCopy)
@@ -94,36 +94,36 @@
     {
       selfCopy = self;
       v8 = objc_opt_new();
+      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
       v9 = itemsCopy;
-      v10 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v27;
+        v12 = *v26;
         while (2)
         {
           v13 = 0;
           do
           {
-            if (*v27 != v12)
+            if (*v26 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v26 + 1) + 8 * v13);
+            v14 = *(*(&v25 + 1) + 8 * v13);
             v15 = [[SHMediaLibraryTrack alloc] initWithMediaItem:v14];
             if (!v15)
             {
-              v17 = sh_log_object();
+              v17 = sh_log_object(0);
               if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
               {
                 properties = [v14 properties];
                 *buf = 138412290;
-                v33 = properties;
+                v32 = properties;
                 _os_log_impl(&dword_230F52000, v17, OS_LOG_TYPE_ERROR, "Failed to create library track from media item with properties: %@", buf, 0xCu);
               }
 
@@ -131,9 +131,9 @@
               shazamID = [v14 shazamID];
               v21 = [v19 stringWithFormat:@"%@ is not a valid shazamID or it is missing. Ensure shazamID is provided and valid.", shazamID];
 
-              v30 = *MEMORY[0x277CCA068];
-              v31 = v21;
-              v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+              v29 = *MEMORY[0x277CCA068];
+              v30 = v21;
+              v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
               v23 = [SHError errorWithCode:400 underlyingError:0 keyOverrides:v22];
 
               handlerCopy[2](handlerCopy, v23);
@@ -147,7 +147,7 @@
           }
 
           while (v11 != v13);
-          v11 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
           if (v11)
           {
             continue;
@@ -166,8 +166,6 @@ LABEL_15:
       handlerCopy[2](handlerCopy, 0);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_synchronizeSnapshot:(id)snapshot startCondition:(id)condition

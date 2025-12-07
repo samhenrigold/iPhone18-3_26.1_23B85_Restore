@@ -147,11 +147,11 @@
   [(ICQInternetPrivacyViewModel *)viewModel enableLocationSharing:bOOLValue completion:v9];
 }
 
-uint64_t __74__ICQInternetPrivacyLocationSharingSpecifierProvider__specifierWasTapped___block_invoke(uint64_t result, uint64_t a2)
+id *__74__ICQInternetPrivacyLocationSharingSpecifierProvider__specifierWasTapped___block_invoke(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) _startFetchingSharingLocationPreference];
+    return [result[4] _startFetchingSharingLocationPreference];
   }
 
   return result;

@@ -19,73 +19,73 @@
 + (id)filterWithName:(id)name
 {
   nameCopy = name;
-  if (objc_msgSend_hasPrefix_(nameCopy, v4, @"RAW", v5, v6))
+  if ([(NSString *)nameCopy hasPrefix:@"RAW"])
   {
     NSClassFromString(nameCopy);
-    v7 = objc_opt_new();
+    v4 = objc_opt_new();
   }
 
   else
   {
-    v7 = 0;
+    v4 = 0;
   }
 
-  return v7;
+  return v4;
 }
 
 - (void)takeAttributesFromDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v8 = objc_msgSend_inputKeys(self, v4, v5, v6, v7);
-  objc_msgSend_takeAttributesFromDictionary_forKeys_(self, v9, dictionaryCopy, v8, v10);
+  inputKeys = [(RAWFilter *)self inputKeys];
+  [(RAWFilter *)self takeAttributesFromDictionary:dictionaryCopy forKeys:inputKeys];
 }
 
 - (void)takeAttributesFromDictionary:(id)dictionary forKeys:(id)keys
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = keys;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v24, v28, 16);
-  if (v10)
+  v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v6)
   {
-    v11 = *v25;
+    v7 = *v18;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v25 != v11)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
-        if ((objc_msgSend_isEqualToString_(v13, v7, @"inputImage", v8, v9) & 1) == 0)
+        v9 = *(*(&v17 + 1) + 8 * i);
+        if (([v9 isEqualToString:@"inputImage"] & 1) == 0)
         {
-          v17 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v7, @"valueBlock", v8, v9);
-          if (v17 && (objc_msgSend_stringByReplacingCharactersInRange_withString_(v13, v14, 0, 5, &stru_284938540), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_opt_class(), NSStringFromClass(v19), v20 = objc_claimAutoreleasedReturnValue(), (v17)[2](v17, v20, v18), v21 = objc_claimAutoreleasedReturnValue(), v20, v18, v21) || (objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v14, v13, v15, v16), (v21 = objc_claimAutoreleasedReturnValue()) != 0))
+          v10 = [dictionaryCopy objectForKeyedSubscript:@"valueBlock"];
+          if (v10 && ([v9 stringByReplacingCharactersInRange:0 withString:{5, &stru_284938540}], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_opt_class(), NSStringFromClass(v12), v13 = objc_claimAutoreleasedReturnValue(), (v10)[2](v10, v13, v11), v14 = objc_claimAutoreleasedReturnValue(), v13, v11, v14) || (objc_msgSend(dictionaryCopy, "objectForKeyedSubscript:", v9), (v14 = objc_claimAutoreleasedReturnValue()) != 0))
           {
-            objc_msgSend_setValue_forKey_(self, v14, v21, v13, v16);
+            [(RAWFilter *)self setValue:v14 forKey:v9];
           }
         }
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v24, v28, 16);
+      v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
-    while (v10);
+    while (v6);
   }
 }
 
 + (id)filterWithDefaultsForName:(id)name
 {
-  v5 = objc_msgSend_filterWithName_(MEMORY[0x277CBF750], a2, name, v3, v4);
-  objc_msgSend_setDefaults(v5, v6, v7, v8, v9);
+  v3 = [MEMORY[0x277CBF750] filterWithName:name];
+  [v3 setDefaults];
 
-  return v5;
+  return v3;
 }
 
 + (id)filterWithDefaultsForClass:(Class)class
@@ -93,11 +93,11 @@
   v3 = MEMORY[0x277CBF750];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v9 = objc_msgSend_filterWithName_(v3, v6, v5, v7, v8);
+  v6 = [v3 filterWithName:v5];
 
-  objc_msgSend_setDefaults(v9, v10, v11, v12, v13);
+  [v6 setDefaults];
 
-  return v9;
+  return v6;
 }
 
 - (void)setPrimitiveNumberValue:(id)value inVariable:(id *)variable forKey:(id)key
@@ -109,18 +109,18 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v13 = MEMORY[0x277CCABB0];
-      objc_msgSend_doubleValue(obj, v9, v10, v11, v12);
-      v18 = objc_msgSend_numberWithDouble_(v13, v14, v15, v16, v17);
+      v9 = MEMORY[0x277CCABB0];
+      [obj doubleValue];
+      v10 = [v9 numberWithDouble:?];
 
-      obj = v18;
+      obj = v10;
     }
 
-    if (!*variable || (objc_msgSend_isEqualToNumber_(obj, v9, *variable, v11, v12) & 1) == 0)
+    if (!*variable || ([obj isEqualToNumber:?] & 1) == 0)
     {
-      objc_msgSend_willChangeValueForKey_(self, v9, keyCopy, v11, v12);
+      [(RAWFilter *)self willChangeValueForKey:keyCopy];
       objc_storeStrong(variable, obj);
-      objc_msgSend_didChangeValueForKey_(self, v19, keyCopy, v20, v21);
+      [(RAWFilter *)self didChangeValueForKey:keyCopy];
     }
   }
 }
@@ -128,34 +128,33 @@
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  if (objc_msgSend_allowsKeyedCoding(coderCopy, v4, v5, v6, v7))
+  if ([coderCopy allowsKeyedCoding])
   {
-    v12 = objc_msgSend_inputKeys(self, v8, v9, v10, v11);
-    v20 = objc_msgSend_count(v12, v13, v14, v15, v16);
-    if (v20)
+    inputKeys = [(RAWFilter *)self inputKeys];
+    v5 = [inputKeys count];
+    if (v5)
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        v22 = objc_msgSend_objectAtIndexedSubscript_(v12, v17, i, v18, v19);
-        v26 = objc_msgSend_valueForKey_(self, v23, v22, v24, v25);
-        if (v26)
+        v7 = [inputKeys objectAtIndexedSubscript:i];
+        v8 = [(RAWFilter *)self valueForKey:v7];
+        if (v8)
         {
-          v27 = objc_alloc(MEMORY[0x277CCACA8]);
-          v31 = objc_msgSend_initWithFormat_(v27, v28, @"CI_%@", v29, v30, v22);
+          v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"CI_%@", v7];
           TypeID = CGColorSpaceGetTypeID();
-          if (TypeID == CFGetTypeID(v26) && ((v35 = sub_2338F2BB4(), v36 = CFEqual(v26, v35), v37 = @"Adobe RGB Linear", v36) || (v37 = CGColorSpaceCopyICCData(v26)) != 0))
+          if (TypeID == CFGetTypeID(v8) && ((v11 = sub_2338F2BB4(), v12 = CFEqual(v8, v11), v13 = @"Adobe RGB Linear", v12) || (v13 = CGColorSpaceCopyICCData(v8)) != 0))
           {
-            v38 = v37;
+            v14 = v13;
 
-            v26 = v38;
-            objc_msgSend_encodeObject_forKey_(coderCopy, v39, v38, v31, v40);
+            v8 = v14;
           }
 
           else
           {
-            v38 = 0;
-            objc_msgSend_encodeObject_forKey_(coderCopy, v33, v26, v31, v34);
+            v14 = 0;
           }
+
+          [coderCopy encodeObject:v8 forKey:v9];
         }
       }
     }
@@ -163,133 +162,131 @@
 
   else
   {
-    objc_msgSend_raise_format_(MEMORY[0x277CBEAD8], v8, @"CIRequiresKeyedArchiver", @"CoreImage doesn't support old-style archiving", v11);
+    [MEMORY[0x277CBEAD8] raise:@"CIRequiresKeyedArchiver" format:@"CoreImage doesn't support old-style archiving"];
   }
 }
 
 - (RAWFilter)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  if ((objc_msgSend_allowsKeyedCoding(coderCopy, v5, v6, v7, v8) & 1) == 0)
+  if (([coderCopy allowsKeyedCoding] & 1) == 0)
   {
     selfCopy = 0;
     goto LABEL_27;
   }
 
-  v13 = objc_msgSend_init(self, v9, v10, v11, v12);
-  selfCopy = v13;
-  if (!v13)
+  v5 = [(RAWFilter *)self init];
+  selfCopy = v5;
+  if (!v5)
   {
     self = 0;
     goto LABEL_27;
   }
 
-  v19 = objc_msgSend_inputKeys(v13, v14, v15, v16, v17);
-  v27 = objc_msgSend_count(v19, v20, v21, v22, v23);
-  if (!v27)
+  inputKeys = [(RAWFilter *)v5 inputKeys];
+  v8 = [inputKeys count];
+  if (!v8)
   {
     goto LABEL_24;
   }
 
-  v56 = selfCopy;
-  v28 = 0;
-  v29 = 0;
-  v30 = 0;
-  v31 = 0;
+  v25 = selfCopy;
+  v9 = 0;
+  v10 = 0;
+  v11 = 0;
+  v12 = 0;
   do
   {
-    v32 = v31;
-    v33 = v30;
-    v31 = objc_msgSend_objectAtIndexedSubscript_(v19, v24, v28, v25, v26);
+    v13 = v12;
+    v14 = v11;
+    v12 = [inputKeys objectAtIndexedSubscript:v9];
 
-    v34 = objc_alloc(MEMORY[0x277CCACA8]);
-    v30 = objc_msgSend_initWithFormat_(v34, v35, @"CI_%@", v36, v37, v31);
-
-    if (!objc_msgSend_containsValueForKey_(coderCopy, v38, v30, v39, v40))
+    v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"CI_%@", v12];
+    if (![coderCopy containsValueForKey:v11])
     {
 
-      v29 = 0;
+      v10 = 0;
       goto LABEL_22;
     }
 
-    v44 = objc_msgSend_decodeObjectForKey_(coderCopy, v41, v30, v42, v43);
+    v15 = [coderCopy decodeObjectForKey:v11];
 
-    v29 = v44;
-    if (!v29)
+    v10 = v15;
+    if (!v10)
     {
       goto LABEL_22;
     }
 
     TypeID = CFStringGetTypeID();
-    if (TypeID == CFGetTypeID(v29) && CFEqual(v29, @"Adobe RGB Linear"))
+    if (TypeID == CFGetTypeID(v10) && CFEqual(v10, @"Adobe RGB Linear"))
     {
-      v46 = sub_2338F2BB4();
+      v17 = sub_2338F2BB4();
     }
 
     else
     {
-      v51 = CFDataGetTypeID();
-      v50 = v29;
-      if (v51 != CFGetTypeID(v29))
+      v20 = CFDataGetTypeID();
+      v19 = v10;
+      if (v20 != CFGetTypeID(v10))
       {
         goto LABEL_20;
       }
 
-      v50 = v29;
-      if (CFDataGetLength(v29) < 0xFB)
+      v19 = v10;
+      if (CFDataGetLength(v10) < 0xFB)
       {
         goto LABEL_20;
       }
 
-      BytePtr = CFDataGetBytePtr(v29);
-      v50 = v29;
+      BytePtr = CFDataGetBytePtr(v10);
+      v19 = v10;
       if (!BytePtr)
       {
         goto LABEL_20;
       }
 
-      v50 = v29;
+      v19 = v10;
       if (*(BytePtr + 9) != 1886610273)
       {
         goto LABEL_20;
       }
 
-      v50 = v29;
+      v19 = v10;
       if (*(BytePtr + 4) != 541214546)
       {
         goto LABEL_20;
       }
 
-      v53 = CGDataProviderCreateWithCopyOfData();
-      v50 = v29;
-      if (!v53)
+      v22 = CGDataProviderCreateWithCopyOfData();
+      v19 = v10;
+      if (!v22)
       {
         goto LABEL_20;
       }
 
-      ICCBased = CGColorSpaceCreateICCBased(3uLL, 0, v53, 0);
-      CGDataProviderRelease(v53);
-      v46 = CFAutorelease(ICCBased);
+      ICCBased = CGColorSpaceCreateICCBased(3uLL, 0, v22, 0);
+      CGDataProviderRelease(v22);
+      v17 = CFAutorelease(ICCBased);
     }
 
-    v47 = v46;
+    v18 = v17;
 
-    if (v47)
+    if (v18)
     {
-      v50 = v47;
+      v19 = v18;
 LABEL_20:
 
-      v29 = v50;
+      v10 = v19;
     }
 
-    objc_msgSend_setValue_forKey_(v56, v48, v29, v31, v49);
+    [(RAWFilter *)v25 setValue:v10 forKey:v12];
 LABEL_22:
-    ++v28;
+    ++v9;
   }
 
-  while (v27 != v28);
+  while (v8 != v9);
 
-  selfCopy = v56;
+  selfCopy = v25;
 LABEL_24:
   self = selfCopy;
 
@@ -301,7 +298,7 @@ LABEL_27:
 
 - (id)apply:(id)apply image:(id)image extent:(CGRect)extent roiCallback:(id)callback arguments:(id)arguments inoutSpace:(CGColorSpace *)space
 {
-  v8 = objc_msgSend_apply_image_extent_roiCallback_arguments_inoutSpace_isAlphaOne_(self, a2, apply, image, callback, arguments, space, 0, extent.origin.x, extent.origin.y, extent.size.width, extent.size.height);
+  v8 = [(RAWFilter *)self apply:apply image:image extent:callback roiCallback:arguments arguments:space inoutSpace:0 isAlphaOne:extent.origin.x, extent.origin.y, extent.size.width, extent.size.height];
 
   return v8;
 }
@@ -313,96 +310,95 @@ LABEL_27:
   width = extent.size.width;
   y = extent.origin.y;
   x = extent.origin.x;
-  v69 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   applyCopy = apply;
   imageCopy = image;
   callbackCopy = callback;
   argumentsCopy = arguments;
-  v58 = imageCopy;
-  v24 = objc_msgSend_count(argumentsCopy, v20, v21, v22, v23);
-  v25 = sub_233755CB8(v24 + 1);
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
-  v62 = 0u;
-  v67 = imageCopy;
-  v28 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v26, &v67, 1, v27);
-  v32 = v28;
+  v34 = imageCopy;
+  v20 = sub_233755CB8([argumentsCopy count] + 1);
+  v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v43 = imageCopy;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+  v22 = v21;
   if (argumentsCopy)
   {
-    objc_msgSend_arrayByAddingObjectsFromArray_(v28, v29, argumentsCopy, v30, v31);
+    v23 = argumentsCopy;
   }
 
   else
   {
-    objc_msgSend_arrayByAddingObjectsFromArray_(v28, v29, MEMORY[0x277CBEBF8], v30, v31);
+    v23 = MEMORY[0x277CBEBF8];
   }
-  v33 = ;
 
-  v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v33, v34, &v61, v68, 16);
-  if (v38)
+  v24 = [v21 arrayByAddingObjectsFromArray:v23];
+
+  v25 = [v24 countByEnumeratingWithState:&v37 objects:v44 count:16];
+  if (v25)
   {
-    v39 = *v62;
+    v26 = *v38;
     do
     {
-      for (i = 0; i != v38; i = i + 1)
+      for (i = 0; i != v25; i = i + 1)
       {
-        if (*v62 != v39)
+        if (*v38 != v26)
         {
-          objc_enumerationMutation(v33);
+          objc_enumerationMutation(v24);
         }
 
-        v41 = *(*(&v61 + 1) + 8 * i);
+        v28 = *(*(&v37 + 1) + 8 * i);
         if (space && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
-          v42 = objc_msgSend_imageByColorMatchingWorkingSpaceToColorSpace_(v41, v35, space, v36, v37);
-          objc_msgSend_addObject_(v25, v43, v42, v44, v45);
+          v29 = [v28 imageByColorMatchingWorkingSpaceToColorSpace:space];
+          [v20 addObject:v29];
         }
 
         else
         {
-          objc_msgSend_addObject_(v25, v35, v41, v36, v37);
+          [v20 addObject:v28];
         }
       }
 
-      v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v33, v35, &v61, v68, 16);
+      v25 = [v24 countByEnumeratingWithState:&v37 objects:v44 count:16];
     }
 
-    while (v38);
+    while (v25);
   }
 
   if (oneCopy)
   {
-    v65 = *MEMORY[0x277CBFA00];
-    v38 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v46, 1, v47, v48);
-    v66 = v38;
-    v50 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v49, &v66, &v65, 1);
-    objc_msgSend_applyWithExtent_roiCallback_arguments_options_(applyCopy, v51, callbackCopy, v25, v50, x, y, width, height);
+    v41 = *MEMORY[0x277CBFA00];
+    v25 = [MEMORY[0x277CCABB0] numberWithBool:1];
+    v42 = v25;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
   }
 
   else
   {
-    v50 = 0;
-    objc_msgSend_applyWithExtent_roiCallback_arguments_options_(applyCopy, v46, callbackCopy, v25, 0, x, y, width, height);
+    v30 = 0;
   }
-  v55 = ;
+
+  v31 = [applyCopy applyWithExtent:callbackCopy roiCallback:v20 arguments:v30 options:{x, y, width, height}];
   if (oneCopy)
   {
   }
 
   if (space)
   {
-    v56 = objc_msgSend_imageByColorMatchingColorSpaceToWorkingSpace_(v55, v52, space, v53, v54);
+    v32 = [v31 imageByColorMatchingColorSpaceToWorkingSpace:space];
 
-    v55 = v56;
+    v31 = v32;
   }
 
-  return v55;
+  return v31;
 }
 
 - (id)apply:(id)apply image:(id)image arguments:(id)arguments inoutSpace:(CGColorSpace *)space isPremultiplied:(BOOL)premultiplied
 {
-  v7 = objc_msgSend_apply_image_arguments_inoutSpace_isPremultiplied_isAlphaOne_(self, a2, apply, image, arguments, space, premultiplied, 0);
+  v7 = [(RAWFilter *)self apply:apply image:image arguments:arguments inoutSpace:space isPremultiplied:premultiplied isAlphaOne:0];
 
   return v7;
 }
@@ -411,124 +407,123 @@ LABEL_27:
 {
   oneCopy = one;
   premultipliedCopy = premultiplied;
-  v91 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   applyCopy = apply;
   imageCopy = image;
   argumentsCopy = arguments;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v79 = applyCopy;
-    v21 = objc_msgSend_count(argumentsCopy, v17, v18, v19, v20);
-    v22 = sub_233755CB8(v21 + 1);
-    v85 = 0u;
-    v86 = 0u;
-    v83 = 0u;
-    v84 = 0u;
-    v89 = imageCopy;
-    v25 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v23, &v89, 1, v24);
-    v29 = v25;
+    v39 = applyCopy;
+    v13 = sub_233755CB8([argumentsCopy count] + 1);
+    v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v49 = imageCopy;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
+    v15 = v14;
     if (argumentsCopy)
     {
-      objc_msgSend_arrayByAddingObjectsFromArray_(v25, v26, argumentsCopy, v27, v28);
+      v16 = argumentsCopy;
     }
 
     else
     {
-      objc_msgSend_arrayByAddingObjectsFromArray_(v25, v26, MEMORY[0x277CBEBF8], v27, v28);
+      v16 = MEMORY[0x277CBEBF8];
     }
-    v30 = ;
 
-    v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v31, &v83, v90, 16);
-    if (v35)
+    v17 = [v14 arrayByAddingObjectsFromArray:v16];
+
+    v18 = [v17 countByEnumeratingWithState:&v43 objects:v50 count:16];
+    if (v18)
     {
-      v36 = *v84;
+      v19 = *v44;
       do
       {
-        for (i = 0; i != v35; ++i)
+        for (i = 0; i != v18; ++i)
         {
-          if (*v84 != v36)
+          if (*v44 != v19)
           {
-            objc_enumerationMutation(v30);
+            objc_enumerationMutation(v17);
           }
 
-          v38 = *(*(&v83 + 1) + 8 * i);
+          v21 = *(*(&v43 + 1) + 8 * i);
           if (space && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v39 = objc_msgSend_imageByColorMatchingWorkingSpaceToColorSpace_(v38, v32, space, v33, v34);
-            objc_msgSend_addObject_(v22, v40, v39, v41, v42);
+            v22 = [v21 imageByColorMatchingWorkingSpaceToColorSpace:space];
+            [v13 addObject:v22];
           }
 
           else
           {
-            objc_msgSend_addObject_(v22, v32, v38, v33, v34);
+            [v13 addObject:v21];
           }
         }
 
-        v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v32, &v83, v90, 16);
+        v18 = [v17 countByEnumeratingWithState:&v43 objects:v50 count:16];
       }
 
-      while (v35);
+      while (v18);
     }
 
     if (premultipliedCopy)
     {
-      v30 = objc_msgSend_objectAtIndexedSubscript_(v22, v43, 0, v45, v46);
-      v51 = objc_msgSend_imageByUnpremultiplyingAlpha(v30, v47, v48, v49, v50);
+      v17 = [v13 objectAtIndexedSubscript:0];
+      imageByUnpremultiplyingAlpha = [v17 imageByUnpremultiplyingAlpha];
 
-      objc_msgSend_setObject_atIndexedSubscript_(v22, v52, v51, 0, v53);
+      [v13 setObject:imageByUnpremultiplyingAlpha atIndexedSubscript:0];
     }
 
-    objc_msgSend_extent(imageCopy, v43, v44, v45, v46);
-    v61 = v57;
-    v62 = v58;
-    v63 = v59;
-    v64 = v60;
+    [imageCopy extent];
+    v25 = v24;
+    v27 = v26;
+    v29 = v28;
+    v31 = v30;
     if (oneCopy)
     {
-      v87 = *MEMORY[0x277CBFA00];
-      v30 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v54, 1, v55, v56);
-      v88 = v30;
-      v66 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v65, &v88, &v87, 1);
-      objc_msgSend_applyWithExtent_arguments_options_(v79, v67, v22, v66, v68, v61, v62, v63, v64);
+      v47 = *MEMORY[0x277CBFA00];
+      v17 = [MEMORY[0x277CCABB0] numberWithBool:1];
+      v48 = v17;
+      v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
     }
 
     else
     {
-      v66 = 0;
-      objc_msgSend_applyWithExtent_arguments_options_(v79, v54, v22, 0, v56, v57, v58, v59, v60);
+      v32 = 0;
     }
-    v75 = ;
+
+    v35 = [v39 applyWithExtent:v13 arguments:v32 options:{v25, v27, v29, v31}];
     if (oneCopy)
     {
     }
 
     if (premultipliedCopy)
     {
-      v76 = objc_msgSend_imageByPremultiplyingAlpha(v75, v71, v72, v73, v74);
+      imageByPremultiplyingAlpha = [v35 imageByPremultiplyingAlpha];
 
-      v75 = v76;
+      v35 = imageByPremultiplyingAlpha;
     }
 
     if (space)
     {
-      v77 = objc_msgSend_imageByColorMatchingColorSpaceToWorkingSpace_(v75, v71, space, v73, v74);
+      v37 = [v35 imageByColorMatchingColorSpaceToWorkingSpace:space];
 
-      v75 = v77;
+      v35 = v37;
     }
 
-    v70 = v75;
+    v34 = v35;
   }
 
   else
   {
-    v69 = objc_msgSend_name(applyCopy, v13, v14, v15, v16);
-    NSLog(&cfstr_KernelShouldBe.isa, v69);
+    name = [applyCopy name];
+    NSLog(&cfstr_KernelShouldBe.isa, name);
 
-    v70 = 0;
+    v34 = 0;
   }
 
-  return v70;
+  return v34;
 }
 
 - (id)applyMatrixToImage:(id)image vectorR:(id)r vectorG:(id)g vectorB:(id)b vectorBias:(id)bias inSpace:(CGColorSpace *)space outSpace:(CGColorSpace *)outSpace
@@ -538,24 +533,24 @@ LABEL_27:
   gCopy = g;
   bCopy = b;
   biasCopy = bias;
-  objc_msgSend_W(rCopy, v19, v20, v21, v22);
-  if (v27 == 0.0 && (objc_msgSend_W(gCopy, v23, v24, v25, v26), v32 == 0.0) && (objc_msgSend_W(bCopy, v28, v29, v30, v31), v37 == 0.0) && (objc_msgSend_W(biasCopy, v33, v34, v35, v36), v42 == 0.0))
+  [rCopy W];
+  if (v19 == 0.0 && ([gCopy W], v20 == 0.0) && (objc_msgSend(bCopy, "W"), v21 == 0.0) && (objc_msgSend(biasCopy, "W"), v22 == 0.0))
   {
     if (space)
     {
-      v45 = objc_msgSend_imageByColorMatchingWorkingSpaceToColorSpace_(imageCopy, v38, space, v40, v41);
+      v25 = [imageCopy imageByColorMatchingWorkingSpaceToColorSpace:space];
 
-      imageCopy = v45;
+      imageCopy = v25;
     }
 
-    v50 = objc_msgSend_vectorWithX_Y_Z_W_(MEMORY[0x277CBF788], v38, v39, v40, v41, 0.0, 0.0, 0.0, 1.0);
-    v51 = biasCopy;
+    v26 = [MEMORY[0x277CBF788] vectorWithX:0.0 Y:0.0 Z:0.0 W:1.0];
+    v27 = biasCopy;
     if (!biasCopy)
     {
-      v51 = objc_msgSend_vectorWithX_Y_Z_(MEMORY[0x277CBF788], v46, v47, v48, v49, 0.0, 0.0, 0.0);
+      v27 = [MEMORY[0x277CBF788] vectorWithX:0.0 Y:0.0 Z:0.0];
     }
 
-    v52 = objc_msgSend_filteredImage_keysAndValues_(imageCopy, v46, @"CIColorMatrix", @"inputRVector", v49, rCopy, @"inputGVector", gCopy, @"inputBVector", bCopy, @"inputAVector", v50, @"inputBiasVector", v51, 0);
+    v28 = [imageCopy filteredImage:@"CIColorMatrix" keysAndValues:{@"inputRVector", rCopy, @"inputGVector", gCopy, @"inputBVector", bCopy, @"inputAVector", v26, @"inputBiasVector", v27, 0}];
 
     if (!biasCopy)
     {
@@ -563,14 +558,14 @@ LABEL_27:
 
     if (outSpace)
     {
-      v56 = objc_msgSend_imageByColorMatchingColorSpaceToWorkingSpace_(v52, v53, outSpace, v54, v55);
+      v29 = [v28 imageByColorMatchingColorSpaceToWorkingSpace:outSpace];
 
-      imageCopy = v56;
+      imageCopy = v29;
     }
 
     else
     {
-      imageCopy = v52;
+      imageCopy = v28;
     }
   }
 
@@ -579,7 +574,7 @@ LABEL_27:
     NSLog(&cfstr_VectorsOfRGBBi.isa);
   }
 
-  v43 = imageCopy;
+  v23 = imageCopy;
 
   return imageCopy;
 }

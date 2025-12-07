@@ -9,14 +9,14 @@
 
 - (APResult)initWithBundleIdentifier:(id)identifier buyParams:(id)params itemIdentifier:(id)itemIdentifier productType:(id)type
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   paramsCopy = params;
   itemIdentifierCopy = itemIdentifier;
   typeCopy = type;
-  v26.receiver = self;
-  v26.super_class = APResult;
-  v15 = [(APResult *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = APResult;
+  v15 = [(APResult *)&v25 init];
   v16 = v15;
   if (v15)
   {
@@ -41,7 +41,7 @@
         {
           v21 = objc_opt_class();
           *buf = 138543362;
-          v28 = v21;
+          v27 = v21;
           v22 = v21;
           _os_log_impl(&dword_241063000, oSLogObject, OS_LOG_TYPE_INFO, "%{public}@: Buy params contains forceAskToBuyReason - removing it for replayed buy", buf, 0xCu);
         }
@@ -56,7 +56,6 @@
     objc_storeStrong(&v16->_buyParams, paramsCopy);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

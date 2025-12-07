@@ -116,31 +116,31 @@
 
 - (void)loadView
 {
-  v93[2] = *MEMORY[0x1E69E9840];
-  v83 = objc_alloc_init(MEMORY[0x1E69DD250]);
+  v95[2] = *MEMORY[0x1E69E9840];
+  v85 = objc_alloc_init(MEMORY[0x1E69DD250]);
   clearColor = [MEMORY[0x1E69DC888] clearColor];
-  [v83 setBackgroundColor:clearColor];
+  [v85 setBackgroundColor:clearColor];
 
   if (self->_showsHeader)
   {
-    v76 = objc_alloc_init(MEMORY[0x1E69DCC10]);
-    v4 = PRBundle();
+    v78 = objc_alloc_init(MEMORY[0x1E69DCC10]);
+    v4 = PRBundle(v78);
     v5 = [v4 localizedStringForKey:@"COLOR_HEADING" value:&stru_1F1C13D90 table:@"PosterKit"];
-    [v76 setText:v5];
+    [v78 setText:v5];
 
     v6 = [MEMORY[0x1E69DB878] boldSystemFontOfSize:18.0];
-    [v76 setFont:v6];
+    [v78 setFont:v6];
 
     labelColor = [MEMORY[0x1E69DC888] labelColor];
-    [v76 setTextColor:labelColor];
+    [v78 setTextColor:labelColor];
 
-    [v76 setTranslatesAutoresizingMaskIntoConstraints:0];
-    [v83 addSubview:v76];
+    [v78 setTranslatesAutoresizingMaskIntoConstraints:0];
+    [v85 addSubview:v78];
   }
 
   else
   {
-    v76 = 0;
+    v78 = 0;
   }
 
   [(PREditingContentStylePickerComponentViewController *)self loadItemsViewControllerIfNeeded];
@@ -165,7 +165,7 @@
     identifier = [(PREditorContentStylePickerConfiguration *)self->_configuration identifier];
     v13 = [(PREditingVariationSlider *)v11 initWithStyleCoordinator:selectedContentStyleCoordinator contextIdentifier:identifier];
 
-    v81 = v13;
+    v83 = v13;
     [(PREditingVariationSlider *)v13 addTarget:self action:sel_colorSliderDidUpdateVariation_ forControlEvents:4096];
     selectedContentStyleCoordinator2 = [itemsViewController selectedContentStyleCoordinator];
     style2 = [selectedContentStyleCoordinator2 style];
@@ -173,19 +173,19 @@
 
     if ((allowsVariation & 1) == 0)
     {
-      [(PREditingVariationSlider *)v81 setHidden:1];
+      [(PREditingVariationSlider *)v83 setHidden:1];
     }
 
     stylePalette = [(PREditorContentStylePickerConfiguration *)self->_configuration stylePalette];
-    -[PREditingVariationSlider setApplyVariationOnGlass:](v81, "setApplyVariationOnGlass:", [stylePalette displayingGlassStyles]);
+    -[PREditingVariationSlider setApplyVariationOnGlass:](v83, "setApplyVariationOnGlass:", [stylePalette displayingGlassStyles]);
 
-    objc_storeStrong(&self->_sliderView, v81);
-    [array addObject:v81];
+    objc_storeStrong(&self->_sliderView, v83);
+    [array addObject:v83];
   }
 
   else
   {
-    v81 = 0;
+    v83 = 0;
   }
 
   style3 = [selectedContentStyleCoordinator style];
@@ -207,45 +207,45 @@
 
     if (v22)
     {
-      objc_initWeak(&location, self);
-      v23 = MEMORY[0x1E69DC628];
-      v24 = PRBundle();
-      v25 = [v24 localizedStringForKey:@"TIME_STYLE_SELECTOR_GLASS" value:&stru_1F1C13D90 table:@"PosterKit"];
+      inited = objc_initWeak(&location, self);
+      v24 = MEMORY[0x1E69DC628];
+      v25 = PRBundle(inited);
+      v26 = [v25 localizedStringForKey:@"TIME_STYLE_SELECTOR_GLASS" value:&stru_1F1C13D90 table:@"PosterKit"];
+      v88[0] = MEMORY[0x1E69E9820];
+      v88[1] = 3221225472;
+      v88[2] = __62__PREditingContentStylePickerComponentViewController_loadView__block_invoke_2;
+      v88[3] = &unk_1E7843448;
+      objc_copyWeak(&v89, &location);
+      v81 = [v24 actionWithTitle:v26 image:0 identifier:0 handler:v88];
+
+      v27 = MEMORY[0x1E69DC628];
+      v29 = PRBundle(v28);
+      v30 = [v29 localizedStringForKey:@"TIME_STYLE_SELECTOR_SOLID" value:&stru_1F1C13D90 table:@"PosterKit"];
       v86[0] = MEMORY[0x1E69E9820];
       v86[1] = 3221225472;
-      v86[2] = __62__PREditingContentStylePickerComponentViewController_loadView__block_invoke_2;
+      v86[2] = __62__PREditingContentStylePickerComponentViewController_loadView__block_invoke_3;
       v86[3] = &unk_1E7843448;
       objc_copyWeak(&v87, &location);
-      v79 = [v23 actionWithTitle:v25 image:0 identifier:0 handler:v86];
+      v31 = [v27 actionWithTitle:v30 image:0 identifier:0 handler:v86];
 
-      v26 = MEMORY[0x1E69DC628];
-      v27 = PRBundle();
-      v28 = [v27 localizedStringForKey:@"TIME_STYLE_SELECTOR_SOLID" value:&stru_1F1C13D90 table:@"PosterKit"];
-      v84[0] = MEMORY[0x1E69E9820];
-      v84[1] = 3221225472;
-      v84[2] = __62__PREditingContentStylePickerComponentViewController_loadView__block_invoke_3;
-      v84[3] = &unk_1E7843448;
-      objc_copyWeak(&v85, &location);
-      v29 = [v26 actionWithTitle:v28 image:0 identifier:0 handler:v84];
-
-      v30 = objc_alloc(MEMORY[0x1E69C5648]);
-      v93[0] = v79;
-      v93[1] = v29;
-      v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v93 count:2];
-      v32 = [v30 initWithFrame:v31 actions:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+      v32 = objc_alloc(MEMORY[0x1E69C5648]);
+      v95[0] = v81;
+      v95[1] = v31;
+      v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v95 count:2];
+      v34 = [v32 initWithFrame:v33 actions:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
       itemStyleControl = self->_itemStyleControl;
-      self->_itemStyleControl = v32;
+      self->_itemStyleControl = v34;
 
       [(PUIStylePickerSegmentedControl *)self->_itemStyleControl setSelectedSegmentIndex:v20];
       [(PUIStylePickerSegmentedControl *)self->_itemStyleControl setTranslatesAutoresizingMaskIntoConstraints:0];
-      v34 = self->_itemStyleControl;
+      v36 = self->_itemStyleControl;
       clearColor2 = [MEMORY[0x1E69DC888] clearColor];
-      [(PUIStylePickerSegmentedControl *)v34 setBackgroundColor:clearColor2];
+      [(PUIStylePickerSegmentedControl *)v36 setBackgroundColor:clearColor2];
 
       [array addObject:self->_itemStyleControl];
-      objc_destroyWeak(&v85);
-
       objc_destroyWeak(&v87);
+
+      objc_destroyWeak(&v89);
       objc_destroyWeak(&location);
       v22 = 1;
     }
@@ -256,96 +256,96 @@
     v22 = 0;
   }
 
-  v36 = [objc_alloc(MEMORY[0x1E69DCF90]) initWithArrangedSubviews:array];
-  [v36 setAxis:1];
-  [v36 setAlignment:3];
-  [v36 setSpacing:24.0];
-  [v36 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v38 = [objc_alloc(MEMORY[0x1E69DCF90]) initWithArrangedSubviews:array];
+  [v38 setAxis:1];
+  [v38 setAlignment:3];
+  [v38 setSpacing:24.0];
+  [v38 setTranslatesAutoresizingMaskIntoConstraints:0];
   clearColor3 = [MEMORY[0x1E69DC888] clearColor];
-  [v36 setBackgroundColor:clearColor3];
+  [v38 setBackgroundColor:clearColor3];
 
-  objc_storeStrong(&self->_verticalStack, v36);
-  [v83 addSubview:v36];
+  objc_storeStrong(&self->_verticalStack, v38);
+  [v85 addSubview:v38];
   [(PREditingContentStylePickerComponentViewController *)self addChildViewController:itemsViewController];
-  [(PREditingContentStylePickerComponentViewController *)self setView:v83];
+  [(PREditingContentStylePickerComponentViewController *)self setView:v85];
   [itemsViewController didMoveToParentViewController:self];
   array2 = [MEMORY[0x1E695DF70] array];
   if (v22)
   {
     heightAnchor = [(PUIStylePickerSegmentedControl *)self->_itemStyleControl heightAnchor];
     [MEMORY[0x1E69C5648] defaultHeight];
-    v39 = [heightAnchor constraintEqualToConstant:?];
-    [array2 addObject:v39];
+    v41 = [heightAnchor constraintEqualToConstant:?];
+    [array2 addObject:v41];
   }
 
   if (self->_showsHeader)
   {
-    leadingAnchor = [v76 leadingAnchor];
-    leadingAnchor2 = [v83 leadingAnchor];
-    v42 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:20.0];
-    v92[0] = v42;
-    topAnchor = [v76 topAnchor];
-    topAnchor2 = [v83 topAnchor];
-    v44 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:10.0];
-    v92[1] = v44;
-    topAnchor3 = [v36 topAnchor];
-    bottomAnchor = [v76 bottomAnchor];
-    v47 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:20.0];
-    v92[2] = v47;
-    v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v92 count:3];
-    [array2 addObjectsFromArray:v48];
+    leadingAnchor = [v78 leadingAnchor];
+    leadingAnchor2 = [v85 leadingAnchor];
+    v44 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:20.0];
+    v94[0] = v44;
+    topAnchor = [v78 topAnchor];
+    topAnchor2 = [v85 topAnchor];
+    v46 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:10.0];
+    v94[1] = v46;
+    topAnchor3 = [v38 topAnchor];
+    bottomAnchor = [v78 bottomAnchor];
+    v49 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:20.0];
+    v94[2] = v49;
+    v50 = [MEMORY[0x1E695DEC8] arrayWithObjects:v94 count:3];
+    [array2 addObjectsFromArray:v50];
   }
 
   else
   {
-    leadingAnchor = [v36 topAnchor];
-    leadingAnchor2 = [v83 topAnchor];
-    v42 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v91 = v42;
-    topAnchor = [MEMORY[0x1E695DEC8] arrayWithObjects:&v91 count:1];
+    leadingAnchor = [v38 topAnchor];
+    leadingAnchor2 = [v85 topAnchor];
+    v44 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v93 = v44;
+    topAnchor = [MEMORY[0x1E695DEC8] arrayWithObjects:&v93 count:1];
     [array2 addObjectsFromArray:topAnchor];
   }
 
-  if (v81)
+  if (v83)
   {
-    heightAnchor2 = [(PREditingVariationSlider *)v81 heightAnchor];
+    heightAnchor2 = [(PREditingVariationSlider *)v83 heightAnchor];
     +[PREditingVariationSlider defaultHeight];
-    v50 = [heightAnchor2 constraintEqualToConstant:?];
-    v90[0] = v50;
-    leadingAnchor3 = [(PREditingVariationSlider *)v81 leadingAnchor];
-    leadingAnchor4 = [v36 leadingAnchor];
-    v53 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:36.0];
-    v90[1] = v53;
-    trailingAnchor = [(PREditingVariationSlider *)v81 trailingAnchor];
-    trailingAnchor2 = [v36 trailingAnchor];
-    v56 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-36.0];
-    v90[2] = v56;
-    v57 = [MEMORY[0x1E695DEC8] arrayWithObjects:v90 count:3];
-    [array2 addObjectsFromArray:v57];
+    v52 = [heightAnchor2 constraintEqualToConstant:?];
+    v92[0] = v52;
+    leadingAnchor3 = [(PREditingVariationSlider *)v83 leadingAnchor];
+    leadingAnchor4 = [v38 leadingAnchor];
+    v55 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:36.0];
+    v92[1] = v55;
+    trailingAnchor = [(PREditingVariationSlider *)v83 trailingAnchor];
+    trailingAnchor2 = [v38 trailingAnchor];
+    v58 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-36.0];
+    v92[2] = v58;
+    v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:v92 count:3];
+    [array2 addObjectsFromArray:v59];
   }
 
   leadingAnchor5 = [view leadingAnchor];
-  leadingAnchor6 = [v36 leadingAnchor];
-  v71 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-  v89[0] = v71;
+  leadingAnchor6 = [v38 leadingAnchor];
+  v73 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
+  v91[0] = v73;
   trailingAnchor3 = [view trailingAnchor];
-  trailingAnchor4 = [v36 trailingAnchor];
-  v68 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  v89[1] = v68;
-  leadingAnchor7 = [v36 leadingAnchor];
-  leadingAnchor8 = [v83 leadingAnchor];
-  v59 = [leadingAnchor7 constraintEqualToAnchor:leadingAnchor8];
-  v89[2] = v59;
-  trailingAnchor5 = [v36 trailingAnchor];
-  trailingAnchor6 = [v83 trailingAnchor];
-  v62 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
-  v89[3] = v62;
-  bottomAnchor2 = [v36 bottomAnchor];
-  bottomAnchor3 = [v83 bottomAnchor];
-  v65 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
-  v89[4] = v65;
-  v66 = [MEMORY[0x1E695DEC8] arrayWithObjects:v89 count:5];
-  [array2 addObjectsFromArray:v66];
+  trailingAnchor4 = [v38 trailingAnchor];
+  v70 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+  v91[1] = v70;
+  leadingAnchor7 = [v38 leadingAnchor];
+  leadingAnchor8 = [v85 leadingAnchor];
+  v61 = [leadingAnchor7 constraintEqualToAnchor:leadingAnchor8];
+  v91[2] = v61;
+  trailingAnchor5 = [v38 trailingAnchor];
+  trailingAnchor6 = [v85 trailingAnchor];
+  v64 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
+  v91[3] = v64;
+  bottomAnchor2 = [v38 bottomAnchor];
+  bottomAnchor3 = [v85 bottomAnchor];
+  v67 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
+  v91[4] = v67;
+  v68 = [MEMORY[0x1E695DEC8] arrayWithObjects:v91 count:5];
+  [array2 addObjectsFromArray:v68];
 
   [MEMORY[0x1E696ACD8] activateConstraints:array2];
 }

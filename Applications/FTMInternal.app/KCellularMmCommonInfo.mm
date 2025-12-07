@@ -337,7 +337,6 @@
   toCopy = to;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -346,169 +345,163 @@
     PBDataWriterWriteDataField();
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
-  v54 = 0u;
-  v6 = self->_eplmnLists;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v53 objects:v61 count:16];
-  if (v7)
-  {
-    v8 = v7;
-    v9 = *v54;
-    do
-    {
-      v10 = 0;
-      do
-      {
-        if (*v54 != v9)
-        {
-          objc_enumerationMutation(v6);
-        }
-
-        v11 = *(*(&v53 + 1) + 8 * v10);
-        PBDataWriterWriteSubmessage();
-        v10 = v10 + 1;
-      }
-
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v53 objects:v61 count:16];
-    }
-
-    while (v8);
-  }
-
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v12 = self->_roamingFlaiLists;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v49 objects:v60 count:16];
-  if (v13)
-  {
-    v14 = v13;
-    v15 = *v50;
-    do
-    {
-      v16 = 0;
-      do
-      {
-        if (*v50 != v15)
-        {
-          objc_enumerationMutation(v12);
-        }
-
-        v17 = *(*(&v49 + 1) + 8 * v16);
-        PBDataWriterWriteSubmessage();
-        v16 = v16 + 1;
-      }
-
-      while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v49 objects:v60 count:16];
-    }
-
-    while (v14);
-  }
-
-  v47 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v18 = self->_regProvFlaiLists;
-  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v45 objects:v59 count:16];
-  if (v19)
+  v47 = 0u;
+  v5 = self->_eplmnLists;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v46 objects:v54 count:16];
+  if (v6)
   {
-    v20 = v19;
-    v21 = *v46;
+    v7 = v6;
+    v8 = *v47;
     do
     {
-      v22 = 0;
+      v9 = 0;
       do
       {
-        if (*v46 != v21)
+        if (*v47 != v8)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v5);
         }
 
-        v23 = *(*(&v45 + 1) + 8 * v22);
         PBDataWriterWriteSubmessage();
-        v22 = v22 + 1;
+        ++v9;
       }
 
-      while (v20 != v22);
-      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v45 objects:v59 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v46 objects:v54 count:16];
     }
 
-    while (v20);
+    while (v7);
   }
 
-  v43 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  v24 = self->_roamingFtaiLists;
-  v25 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v41 objects:v58 count:16];
-  if (v25)
+  v43 = 0u;
+  v10 = self->_roamingFlaiLists;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v42 objects:v53 count:16];
+  if (v11)
   {
-    v26 = v25;
-    v27 = *v42;
+    v12 = v11;
+    v13 = *v43;
     do
     {
-      v28 = 0;
+      v14 = 0;
       do
       {
-        if (*v42 != v27)
+        if (*v43 != v13)
         {
-          objc_enumerationMutation(v24);
+          objc_enumerationMutation(v10);
         }
 
-        v29 = *(*(&v41 + 1) + 8 * v28);
         PBDataWriterWriteSubmessage();
-        v28 = v28 + 1;
+        ++v14;
       }
 
-      while (v26 != v28);
-      v26 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v41 objects:v58 count:16];
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v42 objects:v53 count:16];
     }
 
-    while (v26);
+    while (v12);
   }
 
-  v39 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v30 = self->_regProvFtaiLists;
-  v31 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v37 objects:v57 count:16];
-  if (v31)
+  v39 = 0u;
+  v15 = self->_regProvFlaiLists;
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v38 objects:v52 count:16];
+  if (v16)
   {
-    v32 = v31;
-    v33 = *v38;
+    v17 = v16;
+    v18 = *v39;
     do
     {
-      v34 = 0;
+      v19 = 0;
       do
       {
-        if (*v38 != v33)
+        if (*v39 != v18)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v15);
         }
 
-        v35 = *(*(&v37 + 1) + 8 * v34);
         PBDataWriterWriteSubmessage();
-        v34 = v34 + 1;
+        ++v19;
       }
 
-      while (v32 != v34);
-      v32 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v37 objects:v57 count:16];
+      while (v17 != v19);
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v38 objects:v52 count:16];
     }
 
-    while (v32);
+    while (v17);
+  }
+
+  v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v20 = self->_roamingFtaiLists;
+  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v34 objects:v51 count:16];
+  if (v21)
+  {
+    v22 = v21;
+    v23 = *v35;
+    do
+    {
+      v24 = 0;
+      do
+      {
+        if (*v35 != v23)
+        {
+          objc_enumerationMutation(v20);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v24;
+      }
+
+      while (v22 != v24);
+      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v34 objects:v51 count:16];
+    }
+
+    while (v22);
+  }
+
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v25 = self->_regProvFtaiLists;
+  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v30 objects:v50 count:16];
+  if (v26)
+  {
+    v27 = v26;
+    v28 = *v31;
+    do
+    {
+      v29 = 0;
+      do
+      {
+        if (*v31 != v28)
+        {
+          objc_enumerationMutation(v25);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v29;
+      }
+
+      while (v27 != v29);
+      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v30 objects:v50 count:16];
+    }
+
+    while (v27);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -806,7 +799,6 @@
     goto LABEL_23;
   }
 
-  v5 = *(equalCopy + 68);
   if (*&self->_has)
   {
     if ((*(equalCopy + 68) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -818,7 +810,7 @@
   else if (*(equalCopy + 68))
   {
 LABEL_23:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_24;
   }
 
@@ -873,7 +865,7 @@ LABEL_23:
     }
   }
 
-  v12 = (*(equalCopy + 68) & 2) == 0;
+  v11 = (*(equalCopy + 68) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 68) & 2) == 0 || self->_subsId != *(equalCopy + 16))
@@ -881,12 +873,12 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    v12 = 1;
+    v11 = 1;
   }
 
 LABEL_24:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash

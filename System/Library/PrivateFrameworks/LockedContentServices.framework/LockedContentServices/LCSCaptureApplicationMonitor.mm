@@ -8,6 +8,7 @@
 - (NSDictionary)knownCameraCaptureApplicationsByBundleIdentifier;
 - (id)_filterCaptureApplications:(id)applications launchType:(unint64_t)type;
 - (id)_lock_captureApplicationsFromKnownExtensions:(id)extensions currentCaptureApplications:(id)applications usingCachedLaunchOptions:(BOOL)options;
+- (id)_lock_evaluateCaptureApplicationRequirementsForKnownExtensions:(id)extensions usingCachedLaunchOptions:(BOOL)options;
 - (unint64_t)_lock_supportedLaunchTypesForExtension:(id)extension;
 - (void)_beginObservingMetadataChanges;
 - (void)_endObservingMetadataChanges;
@@ -54,8 +55,9 @@ uint64_t __80__LCSCaptureApplicationMonitor_knownCameraCaptureApplicationsByBund
   cameraCaptureProtocol = [MEMORY[0x277D23938] cameraCaptureProtocol];
   v5 = [extensionCopy hasImplementedAppIntentProtocol:cameraCaptureProtocol bundleTarget:0];
   v6 = [extensionCopy hasImplementedAppIntentProtocol:cameraCaptureProtocol bundleTarget:1];
-  v7 = LCSLogCommon();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v7 = v6;
+  v8 = LCSLogCommon(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     containerBundleIdentifier = [extensionCopy containerBundleIdentifier];
     typeName = [cameraCaptureProtocol typeName];
@@ -66,17 +68,16 @@ uint64_t __80__LCSCaptureApplicationMonitor_knownCameraCaptureApplicationsByBund
     v16 = 1024;
     v17 = v5;
     v18 = 1024;
-    v19 = v6;
-    _os_log_impl(&dword_256175000, v7, OS_LOG_TYPE_DEFAULT, "Capture Application (%@) implements %@: application %{BOOL}u, extension %{BOOL}u", &v12, 0x22u);
+    v19 = v7;
+    _os_log_impl(&dword_256175000, v8, OS_LOG_TYPE_DEFAULT, "Capture Application (%@) implements %@: application %{BOOL}u, extension %{BOOL}u", &v12, 0x22u);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v5 & v6;
+  return v5 & v7;
 }
 
 + (BOOL)_hasCameraUsageDescriptionForBundleIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v4 = [objc_opt_class() _bundleRecordForBundleIdentifier:identifierCopy];
   v5 = v4;
@@ -84,12 +85,12 @@ uint64_t __80__LCSCaptureApplicationMonitor_knownCameraCaptureApplicationsByBund
   {
     infoDictionary = [v4 infoDictionary];
     v7 = [infoDictionary objectForKey:@"NSCameraUsageDescription" ofClass:objc_opt_class()];
-    v8 = LCSLogCommon();
+    v8 = LCSLogCommon(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v7;
-      _os_log_impl(&dword_256175000, v8, OS_LOG_TYPE_DEFAULT, "NSCameraUsageDescription for %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v7;
+      _os_log_impl(&dword_256175000, v8, OS_LOG_TYPE_DEFAULT, "NSCameraUsageDescription for %@", &v11, 0xCu);
     }
 
     if (v7)
@@ -105,33 +106,33 @@ uint64_t __80__LCSCaptureApplicationMonitor_knownCameraCaptureApplicationsByBund
 
   else
   {
-    infoDictionary = LCSLogCommon();
+    infoDictionary = LCSLogCommon(0);
     if (os_log_type_enabled(infoDictionary, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = identifierCopy;
-      _os_log_impl(&dword_256175000, infoDictionary, OS_LOG_TYPE_DEFAULT, "No NSCameraUsageDescription for %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = identifierCopy;
+      _os_log_impl(&dword_256175000, infoDictionary, OS_LOG_TYPE_DEFAULT, "No NSCameraUsageDescription for %@", &v11, 0xCu);
     }
 
     LOBYTE(v9) = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 + (id)_bundleRecordForBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v8 = 0;
-  v4 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v9];
+  v5 = v9;
+  v6 = v5;
   if (!v4)
   {
-    v6 = LCSLogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = LCSLogCommon(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(LCSCaptureApplicationMonitor *)identifierCopy _bundleRecordForBundleIdentifier:v5, v6];
+      [(LCSCaptureApplicationMonitor *)identifierCopy _bundleRecordForBundleIdentifier:v6, v7];
     }
   }
 
@@ -152,9 +153,11 @@ uint64_t __80__LCSCaptureApplicationMonitor_knownCameraCaptureApplicationsByBund
 
 uint64_t __46__LCSCaptureApplicationMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance___sharedInstance = objc_alloc_init(LCSCaptureApplicationMonitor);
+  v0 = objc_alloc_init(LCSCaptureApplicationMonitor);
+  v1 = sharedInstance___sharedInstance;
+  sharedInstance___sharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (LCSCaptureApplicationMonitor)init
@@ -330,7 +333,7 @@ uint64_t __44__LCSCaptureApplicationMonitor_addObserver___block_invoke(uint64_t 
 {
   if (![*(*(a1 + 32) + 40) count])
   {
-    v2 = LCSLogCommon();
+    v2 = LCSLogCommon(0);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;
@@ -360,13 +363,13 @@ uint64_t __44__LCSCaptureApplicationMonitor_addObserver___block_invoke(uint64_t 
   }
 }
 
-uint64_t __47__LCSCaptureApplicationMonitor_removeObserver___block_invoke(uint64_t a1)
+void *__47__LCSCaptureApplicationMonitor_removeObserver___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 40) removeObject:*(a1 + 40)];
   result = [*(*(a1 + 32) + 40) count];
   if (!result)
   {
-    v3 = LCSLogCommon();
+    v3 = LCSLogCommon(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;
@@ -417,7 +420,7 @@ uint64_t __53__LCSCaptureApplicationMonitor_isCaptureApplication___block_invoke(
 
 - (void)_reevaluateCaptureApplicationRequirements
 {
-  v3 = LCSLogCommon();
+  v3 = LCSLogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -454,6 +457,19 @@ void __73__LCSCaptureApplicationMonitor__reevaluateCaptureApplicationRequirement
   v4 = *(*(a1 + 40) + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
+}
+
+- (id)_lock_evaluateCaptureApplicationRequirementsForKnownExtensions:(id)extensions usingCachedLaunchOptions:(BOOL)options
+{
+  optionsCopy = options;
+  lock_knownCaptureApplicationsByBundleIdentifier = self->_lock_knownCaptureApplicationsByBundleIdentifier;
+  extensionsCopy = extensions;
+  v8 = [(NSDictionary *)lock_knownCaptureApplicationsByBundleIdentifier copy];
+  v9 = [(LCSCaptureApplicationMonitor *)self _lock_captureApplicationsFromKnownExtensions:extensionsCopy currentCaptureApplications:v8 usingCachedLaunchOptions:optionsCopy];
+
+  v10 = [v9 copy];
+
+  return v10;
 }
 
 - (void)_lock_updateKnownCaptureApplications:(id)applications
@@ -503,30 +519,30 @@ void __73__LCSCaptureApplicationMonitor__reevaluateCaptureApplicationRequirement
 
 id __69__LCSCaptureApplicationMonitor__lock_updateKnownCaptureApplications___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) isEqualToSet:*(a1 + 40)] & 1) == 0)
   {
-    v13 = 0u;
-    v14 = 0u;
     v11 = 0u;
     v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v2 = [*(*(a1 + 48) + 40) copy];
-    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v12;
+      v5 = *v10;
       do
       {
         v6 = 0;
         do
         {
-          if (*v12 != v5)
+          if (*v10 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v11 + 1) + 8 * v6);
+          v7 = *(*(&v9 + 1) + 8 * v6);
           if (objc_opt_respondsToSelector())
           {
             [v7 captureApplicationProvider:*(a1 + 48) didUpdateKnownCameraCaptureApplications:*(a1 + 32)];
@@ -541,17 +557,14 @@ id __69__LCSCaptureApplicationMonitor__lock_updateKnownCaptureApplications___blo
         }
 
         while (v4 != v6);
-        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v4);
     }
   }
 
-  v8 = *(a1 + 56);
-  result = objc_opt_self();
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return objc_opt_self();
 }
 
 - (void)_updateCachedKnownCaptureApplications:(id)applications
@@ -621,44 +634,44 @@ void __62__LCSCaptureApplicationMonitor__beginObservingMetadataChanges__block_in
 
 - (void)_processMetadataChangeForBundleIdentifiers:(id)identifiers
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy_;
-  v32 = __Block_byref_object_dispose_;
-  v33 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy_;
+  v31 = __Block_byref_object_dispose_;
+  v32 = 0;
   queue = self->_queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __75__LCSCaptureApplicationMonitor__processMetadataChangeForBundleIdentifiers___block_invoke;
   block[3] = &unk_279824DC8;
   block[4] = self;
-  block[5] = &v28;
+  block[5] = &v27;
   dispatch_sync(queue, block);
-  if ([v29[5] count])
+  if ([v28[5] count])
   {
-    v6 = [MEMORY[0x277CBEB58] setWithCapacity:{2 * objc_msgSend(v29[5], "count")}];
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
+    v6 = [MEMORY[0x277CBEB58] setWithCapacity:{2 * objc_msgSend(v28[5], "count")}];
     v24 = 0u;
-    v7 = v29[5];
-    v8 = [v7 countByEnumeratingWithState:&v23 objects:v35 count:16];
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v7 = v28[5];
+    v8 = [v7 countByEnumeratingWithState:&v22 objects:v34 count:16];
     if (v8)
     {
-      v9 = *v24;
+      v9 = *v23;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v24 != v9)
+          if (*v23 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v23 + 1) + 8 * i);
+          v11 = *(*(&v22 + 1) + 8 * i);
           bundleIdentifier = [v11 bundleIdentifier];
           [v6 addObject:bundleIdentifier];
 
@@ -666,38 +679,38 @@ void __62__LCSCaptureApplicationMonitor__beginObservingMetadataChanges__block_in
           [v6 addObject:containerBundleIdentifier];
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v23 objects:v35 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v22 objects:v34 count:16];
       }
 
       while (v8);
     }
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v14 = identifiersCopy;
-    v15 = [v14 countByEnumeratingWithState:&v19 objects:v34 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v18 objects:v33 count:16];
     if (v15)
     {
-      v16 = *v20;
+      v16 = *v19;
       while (2)
       {
         for (j = 0; j != v15; ++j)
         {
-          if (*v20 != v16)
+          if (*v19 != v16)
           {
             objc_enumerationMutation(v14);
           }
 
-          if ([v6 containsObject:{*(*(&v19 + 1) + 8 * j), v19}])
+          if ([v6 containsObject:{*(*(&v18 + 1) + 8 * j), v18}])
           {
 
             goto LABEL_20;
           }
         }
 
-        v15 = [v14 countByEnumeratingWithState:&v19 objects:v34 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v18 objects:v33 count:16];
         if (v15)
         {
           continue;
@@ -714,9 +727,7 @@ LABEL_20:
     }
   }
 
-  _Block_object_dispose(&v28, 8);
-
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v27, 8);
 }
 
 uint64_t __75__LCSCaptureApplicationMonitor__processMetadataChangeForBundleIdentifiers___block_invoke(uint64_t a1)
@@ -726,7 +737,7 @@ uint64_t __75__LCSCaptureApplicationMonitor__processMetadataChangeForBundleIdent
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)_endObservingMetadataChanges
@@ -763,7 +774,7 @@ uint64_t __75__LCSCaptureApplicationMonitor__processMetadataChangeForBundleIdent
 
 void __129__LCSCaptureApplicationMonitor__lock_captureApplicationsFromKnownExtensions_currentCaptureApplications_usingCachedLaunchOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 containerBundleIdentifier];
   v5 = [v3 bundleIdentifier];
@@ -776,15 +787,15 @@ void __129__LCSCaptureApplicationMonitor__lock_captureApplicationsFromKnownExten
       v8 = [v6 attributes];
       v9 = [v8 supportedLaunchTypes];
 
-      v10 = LCSLogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = LCSLogCommon(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = NSStringFromLCSCaptureApplicationLaunchTypeMask(v9);
+        v12 = NSStringFromLCSCaptureApplicationLaunchTypeMask(v9);
         *buf = 138412546;
-        v28 = v4;
-        v29 = 2112;
-        *v30 = v11;
-        _os_log_impl(&dword_256175000, v10, OS_LOG_TYPE_DEFAULT, "Capture Application (%@): Using cached supported launch type: %@", buf, 0x16u);
+        v27 = v4;
+        v28 = 2112;
+        *v29 = v12;
+        _os_log_impl(&dword_256175000, v11, OS_LOG_TYPE_DEFAULT, "Capture Application (%@): Using cached supported launch type: %@", buf, 0x16u);
       }
 
       if (v9)
@@ -792,12 +803,12 @@ void __129__LCSCaptureApplicationMonitor__lock_captureApplicationsFromKnownExten
         goto LABEL_10;
       }
 
-      v12 = LCSLogCommon();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = LCSLogCommon(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v28 = v4;
-        _os_log_impl(&dword_256175000, v12, OS_LOG_TYPE_DEFAULT, "Capture Application (%@): Cached supported launch type is not found, trying again", buf, 0xCu);
+        v27 = v4;
+        _os_log_impl(&dword_256175000, v14, OS_LOG_TYPE_DEFAULT, "Capture Application (%@): Cached supported launch type is not found, trying again", buf, 0xCu);
       }
     }
 
@@ -809,36 +820,34 @@ LABEL_10:
 
   v9 = [*(a1 + 40) _lock_supportedLaunchTypesForExtension:v3];
 LABEL_12:
-  v13 = *(a1 + 40);
-  v14 = [objc_opt_class() _hasCameraUsageDescriptionForBundleIdentifier:v4];
-  v15 = *(a1 + 40);
+  v15 = [objc_opt_class() _hasCameraUsageDescriptionForBundleIdentifier:v4];
   v16 = [objc_opt_class() _hasCameraUsageDescriptionForBundleIdentifier:v5];
   v17 = [v3 visibilityOverride];
-  v18 = LCSLogCommon();
+  v18 = LCSLogCommon(v17);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     NSStringFromLCSCaptureApplicationLaunchTypeMask(v9);
-    v26 = v3;
+    v25 = v3;
     v20 = v19 = v9;
     *buf = 138413570;
-    v28 = v4;
-    v29 = 1024;
-    *v30 = v14;
-    *&v30[4] = 2112;
-    *&v30[6] = v5;
-    v31 = 1024;
-    v32 = v16;
-    v33 = 2112;
-    v34 = v20;
-    v35 = 1024;
-    v36 = v17 == 2;
+    v27 = v4;
+    v28 = 1024;
+    *v29 = v15;
+    *&v29[4] = 2112;
+    *&v29[6] = v5;
+    v30 = 1024;
+    v31 = v16;
+    v32 = 2112;
+    v33 = v20;
+    v34 = 1024;
+    v35 = v17 == 2;
     _os_log_impl(&dword_256175000, v18, OS_LOG_TYPE_DEFAULT, "Capture Application (%@): appHasCameraUsageDescription: %{BOOL}u; Extension (%@): extensionHasCameraUsageDescription: %{BOOL}u; supportedLaunchOptions: %@, visibilityHidden: %{BOOL}u", buf, 0x32u);
 
     v9 = v19;
-    v3 = v26;
+    v3 = v25;
   }
 
-  if ((v14 & v16) == 1 && v9 && v17 != 2)
+  if ((v15 & v16) == 1 && v9 && v17 != 2)
   {
     v21 = [*(a1 + 32) objectForKeyedSubscript:v4];
     if (!v21)
@@ -852,8 +861,6 @@ LABEL_12:
 
     [*(a1 + 48) setObject:v21 forKeyedSubscript:v4];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_lock_supportedLaunchTypesForExtension:(id)extension
@@ -889,30 +896,30 @@ LABEL_12:
 
 - (void)tccMonitor:(id)monitor didUpdateCameraTCCStatuses:(id)statuses
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   statusesCopy = statuses;
   os_unfair_lock_lock(&self->_lock);
   v6 = [(NSDictionary *)self->_lock_knownCaptureApplicationsByBundleIdentifier mutableCopy];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = statusesCopy;
-  v7 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
+        v11 = *(*(&v23 + 1) + 8 * i);
         bundleIdentifier = [v11 bundleIdentifier];
         v13 = [(NSDictionary *)self->_lock_knownCaptureApplicationsByBundleIdentifier objectForKeyedSubscript:bundleIdentifier];
         if (v13)
@@ -930,7 +937,7 @@ LABEL_12:
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v8);
@@ -940,20 +947,17 @@ LABEL_12:
   [(LCSCaptureApplicationMonitor *)self _lock_updateKnownCaptureApplications:v21];
 
   os_unfair_lock_unlock(&self->_lock);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_bundleRecordForBundleIdentifier:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 localizedDescription];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_256175000, a3, OS_LOG_TYPE_ERROR, "Unable to resolve bundle record for %@: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_256175000, a3, OS_LOG_TYPE_ERROR, "Unable to resolve bundle record for %@: %@", &v6, 0x16u);
 }
 
 @end

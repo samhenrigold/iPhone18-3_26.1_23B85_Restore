@@ -266,7 +266,7 @@ LABEL_10:
 LABEL_11:
 
 LABEL_21:
-  [(DDRProgress *)self _lock_noteTaskCompleted];
+  [(DDRProgress *)self _lock_noteTaskCompleted:*v44];
 LABEL_34:
   os_unfair_lock_unlock(&self->_lock);
 }
@@ -371,7 +371,7 @@ LABEL_9:
     }
   }
 
-  [(DDRProgress *)self completedProgress];
+  [(DDRProgress *)self completedProgress:*v36];
   v24 = v23;
   [(DDRProgress *)self totalEstimateTimeOfCompletion];
   v26 = v24 - v25;

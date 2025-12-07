@@ -195,13 +195,14 @@
   attributeType = [(PRPosterFocusConfiguration *)self attributeType];
   [dictionary bs_setSafeObject:attributeType forKey:@"attributeType"];
 
-  v12 = 0;
-  v8 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionary options:0 error:&v12];
-  v9 = v12;
+  v13 = 0;
+  v8 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionary options:0 error:&v13];
+  v9 = v13;
+  v10 = v9;
   if (v9)
   {
-    v10 = PRLogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = PRLogCommon(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(PRPosterMetadata *)self encodeJSON];
     }
@@ -212,37 +213,38 @@
 
 + (id)decodeObjectWithJSON:(id)n
 {
-  v12 = 0;
-  v3 = [MEMORY[0x1E696ACB0] JSONObjectWithData:n options:0 error:&v12];
-  v4 = v12;
-  if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && !v4)
+  v13 = 0;
+  v3 = [MEMORY[0x1E696ACB0] JSONObjectWithData:n options:0 error:&v13];
+  isKindOfClass = v13;
+  v5 = isKindOfClass;
+  if (v3 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0) && !v5)
   {
-    v5 = objc_alloc(MEMORY[0x1E696AFB0]);
-    v6 = [v3 objectForKeyedSubscript:@"activityUUID"];
-    v7 = [v5 initWithUUIDString:v6];
+    v6 = objc_alloc(MEMORY[0x1E696AFB0]);
+    v7 = [v3 objectForKeyedSubscript:@"activityUUID"];
+    v8 = [v6 initWithUUIDString:v7];
 
-    v8 = [PRPosterFocusConfiguration alloc];
-    v9 = [v3 objectForKeyedSubscript:@"activityIdentifier"];
-    v10 = [(PRPosterFocusConfiguration *)v8 initWithActivityIdentifier:v9 activityUUID:v7];
+    v9 = [PRPosterFocusConfiguration alloc];
+    v10 = [v3 objectForKeyedSubscript:@"activityIdentifier"];
+    v11 = [(PRPosterFocusConfiguration *)v9 initWithActivityIdentifier:v10 activityUUID:v8];
   }
 
   else
   {
-    v7 = PRLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PRLogCommon(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(PRPosterMetadata *)v4 decodeObjectWithJSON:v7];
+      [(PRPosterMetadata *)v5 decodeObjectWithJSON:v8];
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)initWithActivityIdentifier:(char *)a1 activityUUID:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -250,7 +252,7 @@
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -260,7 +262,7 @@
 
 - (void)initWithActivityIdentifier:(char *)a1 activityUUID:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSUUIDClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -268,7 +270,7 @@
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSUUIDClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -278,7 +280,7 @@
 
 - (void)initWithActivityIdentifier:(char *)a1 activityUUID:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -286,7 +288,7 @@
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -296,7 +298,7 @@
 
 - (void)initWithActivityIdentifier:(char *)a1 activityUUID:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -304,7 +306,7 @@
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

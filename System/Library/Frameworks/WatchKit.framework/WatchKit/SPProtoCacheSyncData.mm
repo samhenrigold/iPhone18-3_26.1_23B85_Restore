@@ -52,12 +52,9 @@
 
 - (void)writeTo:(id)to
 {
-  cacheIdentifier = self->_cacheIdentifier;
   toCopy = to;
   PBDataWriterWriteStringField();
-  permanentCache = self->_permanentCache;
   PBDataWriterWriteSubmessage();
-  transientCache = self->_transientCache;
   PBDataWriterWriteSubmessage();
 }
 

@@ -16,43 +16,43 @@
 
 + (id)statisticsForOwner:(id)owner type:(id)type anchor:(id *)anchor transaction:(id)transaction error:(id *)error
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   ownerCopy = owner;
   typeCopy = type;
   transactionCopy = transaction;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__120;
-  v35 = __Block_byref_object_dispose__120;
-  v36 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__120;
-  v29 = __Block_byref_object_dispose__120;
   v30 = 0;
-  v37[0] = @"anchor";
-  v37[1] = @"statistics";
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__120;
+  v34 = __Block_byref_object_dispose__120;
+  v35 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__120;
+  v28 = __Block_byref_object_dispose__120;
+  v29 = 0;
+  v36[0] = @"anchor";
+  v36[1] = @"statistics";
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
   v16 = _HDPredicateForOwnerAndType(ownerCopy, typeCopy);
   v17 = [transactionCopy databaseForEntityClass:self];
   v18 = [self queryWithDatabase:v17 predicate:v16];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __81__HDStatisticsCalculatorEntity_statisticsForOwner_type_anchor_transaction_error___block_invoke;
-  v24[3] = &unk_278624148;
-  v24[4] = &v25;
-  v24[5] = &v31;
-  v19 = [v18 enumerateProperties:v15 error:error enumerationHandler:v24];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __81__HDStatisticsCalculatorEntity_statisticsForOwner_type_anchor_transaction_error___block_invoke;
+  v23[3] = &unk_278624148;
+  v23[4] = &v24;
+  v23[5] = &v30;
+  v19 = [v18 enumerateProperties:v15 error:error enumerationHandler:v23];
   if (anchor)
   {
-    *anchor = v26[5];
+    *anchor = v25[5];
   }
 
   if (v19)
   {
-    v20 = v32[5];
+    v20 = v31[5];
   }
 
   else
@@ -62,69 +62,67 @@
 
   v21 = v20;
 
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v31, 8);
-
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v30, 8);
 
   return v21;
 }
 
-uint64_t __81__HDStatisticsCalculatorEntity_statisticsForOwner_type_anchor_transaction_error___block_invoke(uint64_t a1)
+uint64_t __81__HDStatisticsCalculatorEntity_statisticsForOwner_type_anchor_transaction_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = HDSQLiteColumnWithNameAsNumber();
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v4 = HDSQLiteColumnWithNameAsNumber();
+  v5 = *(*(a1 + 32) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
   objc_opt_class();
-  v5 = HDSQLiteColumnWithNameAsObject();
-  v6 = *(*(a1 + 40) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v7 = HDSQLiteColumnWithNameAsObject();
+  v8 = *(*(a1 + 40) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v7;
 
   return 1;
 }
 
 + (id)calculatorForOwner:(id)owner type:(id)type anchor:(id *)anchor transaction:(id)transaction error:(id *)error
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   ownerCopy = owner;
   typeCopy = type;
   transactionCopy = transaction;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__120;
-  v35 = __Block_byref_object_dispose__120;
-  v36 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__120;
-  v29 = __Block_byref_object_dispose__120;
   v30 = 0;
-  v37[0] = @"anchor";
-  v37[1] = @"calculator";
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__120;
+  v34 = __Block_byref_object_dispose__120;
+  v35 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__120;
+  v28 = __Block_byref_object_dispose__120;
+  v29 = 0;
+  v36[0] = @"anchor";
+  v36[1] = @"calculator";
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
   v16 = _HDPredicateForOwnerAndType(ownerCopy, typeCopy);
   v17 = [transactionCopy databaseForEntityClass:self];
   v18 = [self queryWithDatabase:v17 predicate:v16];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __81__HDStatisticsCalculatorEntity_calculatorForOwner_type_anchor_transaction_error___block_invoke;
-  v24[3] = &unk_278624148;
-  v24[4] = &v31;
-  v24[5] = &v25;
-  v19 = [v18 enumerateProperties:v15 error:error enumerationHandler:v24];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __81__HDStatisticsCalculatorEntity_calculatorForOwner_type_anchor_transaction_error___block_invoke;
+  v23[3] = &unk_278624148;
+  v23[4] = &v30;
+  v23[5] = &v24;
+  v19 = [v18 enumerateProperties:v15 error:error enumerationHandler:v23];
   if (anchor)
   {
-    *anchor = v32[5];
+    *anchor = v31[5];
   }
 
   if (v19)
   {
-    v20 = v26[5];
+    v20 = v25[5];
   }
 
   else
@@ -134,10 +132,8 @@ uint64_t __81__HDStatisticsCalculatorEntity_statisticsForOwner_type_anchor_trans
 
   v21 = v20;
 
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v31, 8);
-
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v30, 8);
 
   return v21;
 }
@@ -169,48 +165,46 @@ BOOL __81__HDStatisticsCalculatorEntity_calculatorForOwner_type_anchor_transacti
 
 + (BOOL)setStatistics:(id)statistics forOwner:(id)owner anchor:(id)anchor transaction:(id)transaction error:(id *)error
 {
-  v29[4] = *MEMORY[0x277D85DE8];
+  v28[4] = *MEMORY[0x277D85DE8];
   statisticsCopy = statistics;
   ownerCopy = owner;
   anchorCopy = anchor;
-  v29[0] = @"owner_id";
-  v29[1] = @"quantity_type";
-  v29[2] = @"anchor";
-  v29[3] = @"statistics";
+  v28[0] = @"owner_id";
+  v28[1] = @"quantity_type";
+  v28[2] = @"anchor";
+  v28[3] = @"statistics";
   v15 = MEMORY[0x277CBEA60];
   transactionCopy = transaction;
-  v17 = [v15 arrayWithObjects:v29 count:4];
+  v17 = [v15 arrayWithObjects:v28 count:4];
   v18 = [transactionCopy databaseForEntityClass:self];
 
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __80__HDStatisticsCalculatorEntity_setStatistics_forOwner_anchor_transaction_error___block_invoke;
-  v25[3] = &unk_278624170;
-  v26 = statisticsCopy;
-  v27 = ownerCopy;
-  v28 = anchorCopy;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __80__HDStatisticsCalculatorEntity_setStatistics_forOwner_anchor_transaction_error___block_invoke;
+  v24[3] = &unk_278624170;
+  v25 = statisticsCopy;
+  v26 = ownerCopy;
+  v27 = anchorCopy;
   v19 = anchorCopy;
   v20 = ownerCopy;
   v21 = statisticsCopy;
-  v22 = [self insertOrReplaceEntity:1 database:v18 properties:v17 error:error bindingHandler:v25];
+  v22 = [self insertOrReplaceEntity:1 database:v18 properties:v17 error:error bindingHandler:v24];
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22 != 0;
 }
 
 void __80__HDStatisticsCalculatorEntity_setStatistics_forOwner_anchor_transaction_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5 = [*(a1 + 32) quantityType];
+  v4 = [*(a1 + 32) quantityType];
   MEMORY[0x22AAC6B90](a2, @"owner_id", [*(a1 + 40) persistentID]);
-  MEMORY[0x22AAC6B90](a2, @"quantity_type", [v5 code]);
+  MEMORY[0x22AAC6B90](a2, @"quantity_type", [v4 code]);
   MEMORY[0x22AAC6BB0](a2, @"anchor", *(a1 + 48));
-  v4 = *(a1 + 32);
   HDSQLiteBindSecureCodingObjectToProperty();
 }
 
 + (BOOL)setCalculator:(id)calculator forOwner:(id)owner anchor:(id)anchor transaction:(id)transaction error:(id *)error
 {
-  v28[4] = *MEMORY[0x277D85DE8];
+  v27[4] = *MEMORY[0x277D85DE8];
   calculatorCopy = calculator;
   ownerCopy = owner;
   anchorCopy = anchor;
@@ -218,21 +212,21 @@ void __80__HDStatisticsCalculatorEntity_setStatistics_forOwner_anchor_transactio
   v16 = [calculatorCopy archivedRepresentationWithError:error];
   if (v16)
   {
-    v28[0] = @"owner_id";
-    v28[1] = @"quantity_type";
-    v28[2] = @"anchor";
-    v28[3] = @"calculator";
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
+    v27[0] = @"owner_id";
+    v27[1] = @"quantity_type";
+    v27[2] = @"anchor";
+    v27[3] = @"calculator";
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:4];
     v18 = [transactionCopy databaseForEntityClass:self];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __80__HDStatisticsCalculatorEntity_setCalculator_forOwner_anchor_transaction_error___block_invoke;
-    v23[3] = &unk_278624198;
-    v24 = calculatorCopy;
-    v25 = ownerCopy;
-    v26 = anchorCopy;
-    v27 = v16;
-    v19 = [self insertOrReplaceEntity:1 database:v18 properties:v17 error:error bindingHandler:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __80__HDStatisticsCalculatorEntity_setCalculator_forOwner_anchor_transaction_error___block_invoke;
+    v22[3] = &unk_278624198;
+    v23 = calculatorCopy;
+    v24 = ownerCopy;
+    v25 = anchorCopy;
+    v26 = v16;
+    v19 = [self insertOrReplaceEntity:1 database:v18 properties:v17 error:error bindingHandler:v22];
 
     v20 = v19 != 0;
   }
@@ -242,7 +236,6 @@ void __80__HDStatisticsCalculatorEntity_setStatistics_forOwner_anchor_transactio
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -257,16 +250,16 @@ void __80__HDStatisticsCalculatorEntity_setCalculator_forOwner_anchor_transactio
 
 + (BOOL)enumerateStatisticsForOwner:(id)owner transaction:(id)transaction error:(id *)error block:(id)block
 {
-  v27[4] = *MEMORY[0x277D85DE8];
+  v26[4] = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v27[0] = @"quantity_type";
-  v27[1] = @"anchor";
-  v27[2] = @"statistics";
-  v27[3] = @"calculator";
+  v26[0] = @"quantity_type";
+  v26[1] = @"anchor";
+  v26[2] = @"statistics";
+  v26[3] = @"calculator";
   v11 = MEMORY[0x277CBEA60];
   transactionCopy = transaction;
   ownerCopy = owner;
-  v14 = [v11 arrayWithObjects:v27 count:4];
+  v14 = [v11 arrayWithObjects:v26 count:4];
   v15 = MEMORY[0x277D10B18];
   v16 = MEMORY[0x277CCABB0];
   persistentID = [ownerCopy persistentID];
@@ -277,15 +270,14 @@ void __80__HDStatisticsCalculatorEntity_setCalculator_forOwner_anchor_transactio
   v20 = [transactionCopy databaseForEntityClass:self];
 
   v21 = [self queryWithDatabase:v20 predicate:v19];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __84__HDStatisticsCalculatorEntity_enumerateStatisticsForOwner_transaction_error_block___block_invoke;
-  v25[3] = &unk_2786145A8;
-  v26 = blockCopy;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __84__HDStatisticsCalculatorEntity_enumerateStatisticsForOwner_transaction_error_block___block_invoke;
+  v24[3] = &unk_2786145A8;
+  v25 = blockCopy;
   v22 = blockCopy;
-  LOBYTE(error) = [v21 enumerateProperties:v14 error:error enumerationHandler:v25];
+  LOBYTE(error) = [v21 enumerateProperties:v14 error:error enumerationHandler:v24];
 
-  v23 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -359,27 +351,24 @@ LABEL_9:
 
 + (id)foreignKeys
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v10 = @"owner_id";
+  v10[1] = *MEMORY[0x277D85DE8];
+  v9 = @"owner_id";
   v3 = objc_alloc(MEMORY[0x277D10B38]);
   ownerEntityClass = [self ownerEntityClass];
   ownerEntityReferenceColumn = [self ownerEntityReferenceColumn];
   v6 = [v3 initWithEntityClass:ownerEntityClass property:ownerEntityReferenceColumn deletionAction:2];
-  v11[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   return v7;
 }
 
 + (id)uniquedColumns
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"owner_id";
-  v5[1] = @"quantity_type";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"owner_id";
+  v4[1] = @"quantity_type";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }

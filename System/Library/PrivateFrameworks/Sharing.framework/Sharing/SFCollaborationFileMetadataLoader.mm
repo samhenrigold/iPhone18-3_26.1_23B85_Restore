@@ -33,17 +33,18 @@
 
 - (void)loadMetadataWithCompletionHandler:(id)handler
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   defaultManager = [getFPItemManagerClass() defaultManager];
   presentedItemURL = [(SFCollaborationFileMetadataLoader *)self presentedItemURL];
-  v15 = 0;
-  v7 = [defaultManager itemForURL:presentedItemURL error:&v15];
-  v8 = v15;
+  v16 = 0;
+  v7 = [defaultManager itemForURL:presentedItemURL error:&v16];
+  v8 = v16;
 
   if (v7)
   {
-    if (SharedWithYouCoreLibrary() && (v9 = SharedWithYouCoreLibrary(), dlsym(v9, "SWCollaborationMetadataForDocumentURL")))
+    v10 = SharedWithYouCoreLibrary();
+    if (v10 && (v11 = SharedWithYouCoreLibrary(), (v10 = dlsym(v11, "SWCollaborationMetadataForDocumentURL")) != 0))
     {
       [(SFCollaborationFileMetadataLoader *)self setLoadCompletionHandler:handlerCopy];
       if ([v7 isKnownByTheProvider])
@@ -53,22 +54,21 @@
 
       else
       {
-        [(SFCollaborationFileMetadataLoader *)self setWaitingForUbiquityChange:1];
-        v13 = share_sheet_log();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v14 = share_sheet_log([(SFCollaborationFileMetadataLoader *)self setWaitingForUbiquityChange:1]);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           presentedItemURL2 = [(SFCollaborationFileMetadataLoader *)self presentedItemURL];
           *buf = 138412290;
-          v17 = presentedItemURL2;
-          _os_log_impl(&dword_1A9662000, v13, OS_LOG_TYPE_DEFAULT, "Collaboration: waiting to load metadata until document is synced with iCloud for documentURL:%@", buf, 0xCu);
+          v18 = presentedItemURL2;
+          _os_log_impl(&dword_1A9662000, v14, OS_LOG_TYPE_DEFAULT, "Collaboration: waiting to load metadata until document is synced with iCloud for documentURL:%@", buf, 0xCu);
         }
       }
     }
 
     else
     {
-      v10 = share_sheet_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = share_sheet_log(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [SFCollaborationFileMetadataLoader loadMetadataWithCompletionHandler:];
       }
@@ -79,27 +79,22 @@
 
   else
   {
-    v11 = share_sheet_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = share_sheet_log(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [SFCollaborationFileMetadataLoader loadMetadataWithCompletionHandler:];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0, v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)presentedItemUbiquityDidChange
 {
-  v8 = *MEMORY[0x1E69E9840];
   presentedItemURL = [self presentedItemURL];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadMetadata
@@ -163,10 +158,11 @@ void __50__SFCollaborationFileMetadataLoader__loadMetadata__block_invoke(uint64_
 {
   metadataCopy = metadata;
   errorCopy = error;
+  v8 = errorCopy;
   if (errorCopy)
   {
-    v8 = share_sheet_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = share_sheet_log(errorCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SFCollaborationFileMetadataLoader _loadCompletedWithCollaborationMetadata:error:];
     }
@@ -174,7 +170,7 @@ void __50__SFCollaborationFileMetadataLoader__loadMetadata__block_invoke(uint64_
 
   loadCompletionHandler = [(SFCollaborationFileMetadataLoader *)self loadCompletionHandler];
   [(SFCollaborationFileMetadataLoader *)self setLoadCompletionHandler:0];
-  (loadCompletionHandler)[2](loadCompletionHandler, metadataCopy, errorCopy);
+  (loadCompletionHandler)[2](loadCompletionHandler, metadataCopy, v8);
 }
 
 - (void)loadMetadataWithCompletionHandler:.cold.1()
@@ -187,25 +183,19 @@ void __50__SFCollaborationFileMetadataLoader__loadMetadata__block_invoke(uint64_
 - (void)loadMetadataWithCompletionHandler:.cold.2()
 {
   OUTLINED_FUNCTION_3_6();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [v0 presentedItemURL];
   OUTLINED_FUNCTION_1_12();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadCompletedWithCollaborationMetadata:error:.cold.1()
 {
   OUTLINED_FUNCTION_3_6();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [v0 presentedItemURL];
   OUTLINED_FUNCTION_1_12();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

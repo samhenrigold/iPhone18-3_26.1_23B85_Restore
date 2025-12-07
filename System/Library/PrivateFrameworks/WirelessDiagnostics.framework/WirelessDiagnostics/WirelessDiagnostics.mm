@@ -50,48 +50,53 @@ void awd::profile::protobuf_AddDesc_AwdProfile_2eproto(awd::profile *this, uint6
   }
 }
 
-void *awd::profile::Condition::InitAsDefaultInstance(void *this)
+void awd::profile::Condition::InitAsDefaultInstance(awd::profile::Condition *this, uint64_t a2, uint64_t a3, const char *a4)
 {
-  v1 = this;
-  v2 = awd::profile::TypeVariant::default_instance_;
+  v5 = awd::profile::TypeVariant::default_instance_;
   if (awd::profile::TypeVariant::default_instance_)
   {
-    this[2] = awd::profile::TypeVariant::default_instance_;
+    *(this + 2) = awd::profile::TypeVariant::default_instance_;
 LABEL_4:
-    v1[4] = v2;
+    *(this + 4) = v5;
 LABEL_5:
-    v1[5] = v2;
+    *(this + 5) = v5;
     goto LABEL_6;
   }
 
-  this = awd::profile::protobuf_AddDesc_AwdProfile_2eproto(this);
-  v2 = awd::profile::TypeVariant::default_instance_;
-  v1[2] = awd::profile::TypeVariant::default_instance_;
-  if (v2)
+  awd::profile::protobuf_AddDesc_AwdProfile_2eproto(this, a2, a3, a4);
+  v5 = awd::profile::TypeVariant::default_instance_;
+  *(this + 2) = awd::profile::TypeVariant::default_instance_;
+  if (v5)
   {
     goto LABEL_4;
   }
 
-  this = awd::profile::protobuf_AddDesc_AwdProfile_2eproto(this);
-  v2 = awd::profile::TypeVariant::default_instance_;
-  v1[4] = awd::profile::TypeVariant::default_instance_;
-  if (v2)
+  awd::profile::protobuf_AddDesc_AwdProfile_2eproto(v6, v7, v8, v9);
+  v5 = awd::profile::TypeVariant::default_instance_;
+  *(this + 4) = awd::profile::TypeVariant::default_instance_;
+  if (v5)
   {
     goto LABEL_5;
   }
 
-  this = awd::profile::protobuf_AddDesc_AwdProfile_2eproto(this);
-  v2 = awd::profile::TypeVariant::default_instance_;
-  v1[5] = awd::profile::TypeVariant::default_instance_;
-  if (!v2)
+  awd::profile::protobuf_AddDesc_AwdProfile_2eproto(v10, v11, v12, v13);
+  v5 = awd::profile::TypeVariant::default_instance_;
+  *(this + 5) = awd::profile::TypeVariant::default_instance_;
+  if (!v5)
   {
-    this = awd::profile::protobuf_AddDesc_AwdProfile_2eproto(this);
-    v2 = awd::profile::TypeVariant::default_instance_;
+    awd::profile::protobuf_AddDesc_AwdProfile_2eproto(v14, v15, v16, v17);
+    v5 = awd::profile::TypeVariant::default_instance_;
   }
 
 LABEL_6:
-  v1[6] = v2;
-  return this;
+  *(this + 6) = v5;
+}
+
+void AWDPostSimpleMetricWithInteger(uint64_t a1, uint64_t a2)
+{
+  v3 = a1;
+  sub_2742E8B80(&v4);
+  sub_2742E8C38(v4, v3, a2);
 }
 
 void sub_2742E8B68(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -172,23 +177,22 @@ void sub_2742E8DB8(std::__shared_weak_count *a1)
   }
 }
 
-uint64_t *sub_2742E8E24(uint64_t **a1)
+uint64_t *sub_2742E8E24(uint64_t **a1, unsigned int a2)
 {
   v7 = a1;
-  v1 = *a1;
-  v2 = **a1;
+  v2 = *a1;
+  v3 = **a1;
   ComponentForMetricId = awd::getComponentForMetricId(*(*a1 + 2));
-  v4 = sub_2742E8FF8(v2, ComponentForMetricId);
-  v5 = v1[2];
-  sub_2742E92C4(v4, *(v1 + 2));
-  MEMORY[0x2743E9A90](v1, 0x1020C40A122CEF7);
+  v5 = sub_2742E8FF8(v3, ComponentForMetricId);
+  sub_2742E92C4(v5, *(v2 + 2), v2[2]);
+  MEMORY[0x2743E9A90](v2, 0x1020C40A122CEF7);
   return sub_2742E8D64(&v7);
 }
 
-void sub_2742E8E94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2742E8E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x2743E9A90](v2, 0x1020C40A122CEF7);
+  va_start(va, a3);
+  MEMORY[0x2743E9A90](v3, 0x1020C40A122CEF7);
   sub_2742E8D64(va);
   _Unwind_Resume(a1);
 }
@@ -273,16 +277,16 @@ LABEL_7:
   return *v2;
 }
 
-void sub_2742E9190(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2742E9190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_274306CE4(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t awd::SimpleMetricHelper::makeSimpleMetric@<X0>(awd::SimpleMetricHelper *this@<X0>, unsigned int a2@<W1>, uint64_t *a3@<X8>)
+uint64_t awd::SimpleMetricHelper::makeSimpleMetric@<X0>(awd::SimpleMetricHelper *this@<X0>, wireless_diagnostics::google::protobuf::MessageLite *a2@<X1>, awd::Metric **a4@<X8>)
 {
-  *a3 = 0;
+  *a4 = 0;
   Metric = awd::SimpleMetricHelper::shouldCreateMetric(this, a2);
   if (Metric)
   {
@@ -290,11 +294,11 @@ uint64_t awd::SimpleMetricHelper::makeSimpleMetric@<X0>(awd::SimpleMetricHelper 
     operator new();
   }
 
-  return awd::SimpleMetricHelper::maybeBufferMetric(this, a3);
+  return awd::SimpleMetricHelper::maybeBufferMetric(this, a4);
 }
 
 {
-  *a3 = 0;
+  *a4 = 0;
   Metric = awd::SimpleMetricHelper::shouldCreateMetric(this, a2);
   if (Metric)
   {
@@ -302,11 +306,11 @@ uint64_t awd::SimpleMetricHelper::makeSimpleMetric@<X0>(awd::SimpleMetricHelper 
     operator new();
   }
 
-  return awd::SimpleMetricHelper::maybeBufferMetric(this, a3);
+  return awd::SimpleMetricHelper::maybeBufferMetric(this, a4);
 }
 
 {
-  *a3 = 0;
+  *a4 = 0;
   Metric = awd::SimpleMetricHelper::shouldCreateMetric(this, a2);
   if (Metric)
   {
@@ -314,46 +318,34 @@ uint64_t awd::SimpleMetricHelper::makeSimpleMetric@<X0>(awd::SimpleMetricHelper 
     operator new();
   }
 
-  return awd::SimpleMetricHelper::maybeBufferMetric(this, a3);
+  return awd::SimpleMetricHelper::maybeBufferMetric(this, a4);
 }
 
+void sub_2742E9264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  *a3 = 0;
-  Metric = awd::SimpleMetricHelper::shouldCreateMetric(this, a2);
-  if (Metric)
-  {
-    awd::getAWDTimestamp(Metric);
-    operator new();
-  }
-
-  return awd::SimpleMetricHelper::maybeBufferMetric(this, a3);
-}
-
-void sub_2742E9264(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   awd::metrics::SimpleMetric::~SimpleMetric(va);
-  v4 = *v2;
-  *v2 = 0;
-  if (v4)
+  v5 = *v3;
+  *v3 = 0;
+  if (v5)
   {
-    sub_2742F0E58(v2, v4);
+    sub_2742F0E58(v3, v5);
   }
 
   _Unwind_Resume(a1);
 }
 
-void sub_2742E92C4(unsigned int *a1, unsigned int a2)
+void sub_2742E92C4(unsigned int *a1, wireless_diagnostics::google::protobuf::MessageLite *a2, uint64_t a3)
 {
-  awd::SimpleMetricHelper::makeSimpleMetric((a1 + 52), a2, &v4);
-  if (v4)
+  awd::SimpleMetricHelper::makeSimpleMetric((a1 + 52), a2, &v5);
+  if (v5)
   {
-    sub_2743056E0(a1, &v4);
-    v3 = v4;
-    v4 = 0;
-    if (v3)
+    sub_2743056E0(a1, &v5);
+    v4 = v5;
+    v5 = 0;
+    if (v4)
     {
-      sub_2742F0E58(&v4, v3);
+      sub_2742F0E58(&v5, v4);
     }
   }
 }
@@ -512,16 +504,16 @@ uint64_t awd::metrics::SimpleMetric::SimpleMetric(uint64_t this)
   return this;
 }
 
-uint64_t awd::metrics::SimpleMetric::ByteSize(awd::metrics::SimpleMetric *this)
+uint64_t awd::metrics::SimpleMetric::ByteSize(awd::metrics::SimpleMetric *this, unint64_t a2)
 {
-  v2 = *(this + 13);
-  if (v2)
+  v3 = *(this + 13);
+  if (v3)
   {
-    if (v2)
+    if (v3)
     {
-      v3 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize64(*(this + 1)) + 1;
-      v2 = *(this + 13);
-      if ((v2 & 2) == 0)
+      v4 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize64(*(this + 1)) + 1;
+      v3 = *(this + 13);
+      if ((v3 & 2) == 0)
       {
         goto LABEL_11;
       }
@@ -529,35 +521,35 @@ uint64_t awd::metrics::SimpleMetric::ByteSize(awd::metrics::SimpleMetric *this)
 
     else
     {
-      v3 = 0;
-      if ((v2 & 2) == 0)
+      v4 = 0;
+      if ((v3 & 2) == 0)
       {
         goto LABEL_11;
       }
     }
 
-    v5 = *(this + 8);
-    if (v5 >= 0x80)
+    v6 = *(this + 8);
+    if (v6 >= 0x80)
     {
-      v6 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v5) + 2;
-      v2 = *(this + 13);
+      v7 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v6) + 2;
+      v3 = *(this + 13);
     }
 
     else
     {
-      v6 = 3;
+      v7 = 3;
     }
 
-    v3 += v6;
+    v4 += v7;
 LABEL_11:
-    if ((v2 & 4) != 0)
+    if ((v3 & 4) != 0)
     {
-      v3 += wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize64(*(this + 2)) + 1;
-      v2 = *(this + 13);
-      if ((v2 & 8) == 0)
+      v4 += wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize64(*(this + 2)) + 1;
+      v3 = *(this + 13);
+      if ((v3 & 8) == 0)
       {
 LABEL_13:
-        if ((v2 & 0x10) == 0)
+        if ((v3 & 0x10) == 0)
         {
           goto LABEL_26;
         }
@@ -566,55 +558,55 @@ LABEL_13:
       }
     }
 
-    else if ((v2 & 8) == 0)
+    else if ((v3 & 8) == 0)
     {
       goto LABEL_13;
     }
 
-    v3 += wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize64(*(this + 3)) + 1;
-    v2 = *(this + 13);
-    if ((v2 & 0x10) == 0)
+    v4 += wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize64(*(this + 3)) + 1;
+    v3 = *(this + 13);
+    if ((v3 & 0x10) == 0)
     {
 LABEL_26:
-      result = ((v2 >> 4) & 2) + v3;
+      result = ((v3 >> 4) & 2) + v4;
       goto LABEL_27;
     }
 
 LABEL_17:
-    v7 = *(this + 5);
-    v8 = *(v7 + 23);
-    v9 = v8;
-    v10 = *(v7 + 8);
-    if ((v8 & 0x80u) == 0)
+    v8 = *(this + 5);
+    v9 = *(v8 + 23);
+    v10 = v9;
+    v11 = *(v8 + 8);
+    if ((v9 & 0x80u) == 0)
     {
-      v11 = *(v7 + 23);
+      v12 = *(v8 + 23);
     }
 
     else
     {
-      v11 = v10;
+      v12 = v11;
     }
 
-    if (v11 >= 0x80)
+    if (v12 >= 0x80)
     {
-      v12 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v11);
-      v8 = *(v7 + 23);
-      v10 = *(v7 + 8);
-      v2 = *(this + 13);
-      v9 = *(v7 + 23);
+      v13 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v12);
+      v9 = *(v8 + 23);
+      v11 = *(v8 + 8);
+      v3 = *(this + 13);
+      v10 = *(v8 + 23);
     }
 
     else
     {
-      v12 = 1;
+      v13 = 1;
     }
 
-    if (v9 < 0)
+    if (v10 < 0)
     {
-      v8 = v10;
+      v9 = v11;
     }
 
-    v3 += v12 + v8 + 1;
+    v4 += v13 + v9 + 1;
     goto LABEL_26;
   }
 
@@ -624,7 +616,7 @@ LABEL_27:
   return result;
 }
 
-void sub_2742E968C(uint64_t a1, _BYTE *a2)
+void sub_2742E968C(uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -848,7 +840,6 @@ LABEL_12:
   }
 
 LABEL_11:
-  v7 = *(v5 + 40);
   this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteString();
   v6 = *(v5 + 52);
   if ((v6 & 0x20) != 0)
@@ -863,9 +854,9 @@ LABEL_6:
   }
 
 LABEL_13:
-  v8 = *(v5 + 32);
+  v7 = *(v5 + 32);
 
-  return wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteUInt32(0x10, v8, a2, a4);
+  return wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteUInt32(0x10, v7, a2, a4);
 }
 
 void awd::metrics::SimpleMetric::~SimpleMetric(awd::metrics::SimpleMetric *this)
@@ -1030,99 +1021,104 @@ uint64_t sub_2742E9F44(uint64_t *a1)
   return result;
 }
 
-void awd::asString(unsigned int *a1@<X0>, std::string *a2@<X8>)
+void awd::asString(unsigned int *a1@<X0>, std::string *a3@<X8>)
 {
-  ctu::hex(*a1);
-  v4 = std::string::insert(&v22, 0, "Trigger(cid=0x");
-  v5 = *&v4->__r_.__value_.__l.__data_;
-  v23.__r_.__value_.__r.__words[2] = v4->__r_.__value_.__r.__words[2];
-  *&v23.__r_.__value_.__l.__data_ = v5;
-  v4->__r_.__value_.__l.__size_ = 0;
-  v4->__r_.__value_.__r.__words[2] = 0;
-  v4->__r_.__value_.__r.__words[0] = 0;
-  v6 = std::string::append(&v23, ", trid=0x");
-  v7 = *&v6->__r_.__value_.__l.__data_;
-  v24.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
-  *&v24.__r_.__value_.__l.__data_ = v7;
-  v6->__r_.__value_.__l.__size_ = 0;
-  v6->__r_.__value_.__r.__words[2] = 0;
-  v6->__r_.__value_.__r.__words[0] = 0;
-  ctu::hex(a1[1]);
-  if ((v21 & 0x80u) == 0)
+  ctu::hex(&v23, *a1);
+  v5 = std::string::insert(&v23, 0, "Trigger(cid=0x");
+  v6 = *&v5->__r_.__value_.__l.__data_;
+  v24.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
+  *&v24.__r_.__value_.__l.__data_ = v6;
+  v5->__r_.__value_.__l.__size_ = 0;
+  v5->__r_.__value_.__r.__words[2] = 0;
+  v5->__r_.__value_.__r.__words[0] = 0;
+  v7 = std::string::append(&v24, ", trid=0x");
+  v8 = *&v7->__r_.__value_.__l.__data_;
+  v25.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
+  *&v25.__r_.__value_.__l.__data_ = v8;
+  v7->__r_.__value_.__l.__size_ = 0;
+  v7->__r_.__value_.__r.__words[2] = 0;
+  v7->__r_.__value_.__r.__words[0] = 0;
+  ctu::hex(__p, a1[1]);
+  if ((v22 & 0x80u) == 0)
   {
-    v8 = __p;
+    v9 = __p;
   }
 
   else
   {
-    v8 = __p[0];
+    v9 = __p[0];
   }
 
-  if ((v21 & 0x80u) == 0)
+  if ((v22 & 0x80u) == 0)
   {
-    v9 = v21;
+    v10 = v22;
   }
 
   else
   {
-    v9 = __p[1];
+    v10 = __p[1];
   }
 
-  v10 = std::string::append(&v24, v8, v9);
-  v11 = *&v10->__r_.__value_.__l.__data_;
-  v25.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
-  *&v25.__r_.__value_.__l.__data_ = v11;
-  v10->__r_.__value_.__l.__size_ = 0;
-  v10->__r_.__value_.__r.__words[2] = 0;
-  v10->__r_.__value_.__r.__words[0] = 0;
-  v12 = std::string::append(&v25, ", sid=");
-  v13 = *&v12->__r_.__value_.__l.__data_;
-  v26.__r_.__value_.__r.__words[2] = v12->__r_.__value_.__r.__words[2];
-  *&v26.__r_.__value_.__l.__data_ = v13;
-  v12->__r_.__value_.__l.__size_ = 0;
-  v12->__r_.__value_.__r.__words[2] = 0;
-  v12->__r_.__value_.__r.__words[0] = 0;
-  std::to_string(&v19, a1[2]);
-  if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v11 = std::string::append(&v25, v9, v10);
+  v12 = *&v11->__r_.__value_.__l.__data_;
+  v26.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+  *&v26.__r_.__value_.__l.__data_ = v12;
+  v11->__r_.__value_.__l.__size_ = 0;
+  v11->__r_.__value_.__r.__words[2] = 0;
+  v11->__r_.__value_.__r.__words[0] = 0;
+  v13 = std::string::append(&v26, ", sid=");
+  v14 = *&v13->__r_.__value_.__l.__data_;
+  v27.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
+  *&v27.__r_.__value_.__l.__data_ = v14;
+  v13->__r_.__value_.__l.__size_ = 0;
+  v13->__r_.__value_.__r.__words[2] = 0;
+  v13->__r_.__value_.__r.__words[0] = 0;
+  std::to_string(&v20, a1[2]);
+  if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v14 = &v19;
+    v15 = &v20;
   }
 
   else
   {
-    v14 = v19.__r_.__value_.__r.__words[0];
+    v15 = v20.__r_.__value_.__r.__words[0];
   }
 
-  if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v19.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v20.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v19.__r_.__value_.__l.__size_;
+    size = v20.__r_.__value_.__l.__size_;
   }
 
-  v16 = std::string::append(&v26, v14, size);
-  v17 = *&v16->__r_.__value_.__l.__data_;
-  v27.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
-  *&v27.__r_.__value_.__l.__data_ = v17;
-  v16->__r_.__value_.__l.__size_ = 0;
-  v16->__r_.__value_.__r.__words[2] = 0;
-  v16->__r_.__value_.__r.__words[0] = 0;
-  v18 = std::string::append(&v27, ")");
-  *a2 = *v18;
-  v18->__r_.__value_.__l.__size_ = 0;
-  v18->__r_.__value_.__r.__words[2] = 0;
-  v18->__r_.__value_.__r.__words[0] = 0;
+  v17 = std::string::append(&v27, v15, size);
+  v18 = *&v17->__r_.__value_.__l.__data_;
+  v28.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
+  *&v28.__r_.__value_.__l.__data_ = v18;
+  v17->__r_.__value_.__l.__size_ = 0;
+  v17->__r_.__value_.__r.__words[2] = 0;
+  v17->__r_.__value_.__r.__words[0] = 0;
+  v19 = std::string::append(&v28, ")");
+  *a3 = *v19;
+  v19->__r_.__value_.__l.__size_ = 0;
+  v19->__r_.__value_.__r.__words[2] = 0;
+  v19->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v28.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v20.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v27.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v19.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
@@ -1130,14 +1126,14 @@ void awd::asString(unsigned int *a1@<X0>, std::string *a2@<X8>)
     operator delete(v26.__r_.__value_.__l.__data_);
   }
 
+  if (v22 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
   if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v25.__r_.__value_.__l.__data_);
-  }
-
-  if (v21 < 0)
-  {
-    operator delete(__p[0]);
   }
 
   if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
@@ -1148,11 +1144,6 @@ void awd::asString(unsigned int *a1@<X0>, std::string *a2@<X8>)
   if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v23.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v22.__r_.__value_.__l.__data_);
   }
 }
 
@@ -1397,7 +1388,7 @@ char *sub_2742EA368(uint64_t a1, char *a2, size_t a3, char *a4)
         operator new();
       }
 
-      v25 = a2 - v10;
+      v25 = (a2 - v10);
       memset(v12, *a4, a3);
       v26 = &v12[a3];
       v27 = v9 - v4;
@@ -1429,14 +1420,14 @@ void awd::serializeMetric(uint64_t a1@<X0>, awd *a2@<X1>, uint64_t a3@<X8>)
   PB::Writer::~Writer(&v6);
 }
 
-void sub_2742EA604(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2742EA604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v4 = *v2;
-  if (*v2)
+  va_start(va, a3);
+  v5 = *v3;
+  if (*v3)
   {
-    *(v2 + 8) = v4;
-    operator delete(v4);
+    *(v3 + 8) = v5;
+    operator delete(v5);
   }
 
   PB::Writer::~Writer(va);
@@ -1542,11 +1533,11 @@ uint64_t awd::getCoreAnalyticsEventName(awd *this)
   return MEMORY[0x2743E9A40](&v7);
 }
 
-void sub_2742EA9AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2742EA9AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_2742EABF8(va, MEMORY[0x277D82828]);
-  MEMORY[0x2743E9A40](v2 + 112);
+  MEMORY[0x2743E9A40](v3 + 112);
   _Unwind_Resume(a1);
 }
 
@@ -1618,13 +1609,13 @@ char *sub_2742EAD14(uint64_t a1, char *__dst, _BYTE *__src, char *a4, int64_t a5
 
   v10 = *(a1 + 8);
   v9 = *(a1 + 16);
-  if (v9 - v10 >= a5)
+  if ((v9 - v10) >= a5)
   {
     v16 = v10 - __dst;
-    if (v10 - __dst >= a5)
+    if ((v10 - __dst) >= a5)
     {
       v21 = &__dst[a5];
-      v22 = &v10[-a5];
+      v22 = (v10 - a5);
       v23 = *(a1 + 8);
       if (v10 >= a5)
       {
@@ -1659,7 +1650,7 @@ char *sub_2742EAD14(uint64_t a1, char *__dst, _BYTE *__src, char *a4, int64_t a5
 
       else
       {
-        v18 = &a4[__dst] - __src;
+        v18 = (&a4[__dst] - __src);
         v19 = *(a1 + 8);
         do
         {
@@ -1677,9 +1668,9 @@ char *sub_2742EAD14(uint64_t a1, char *__dst, _BYTE *__src, char *a4, int64_t a5
       }
 
       v32 = &__dst[a5];
-      v33 = (v18 - a5);
+      v33 = &v18[-a5];
       v34 = v18;
-      if (v18 - a5 < v10)
+      if (&v18[-a5] < v10)
       {
         do
         {
@@ -1706,7 +1697,7 @@ char *sub_2742EAD14(uint64_t a1, char *__dst, _BYTE *__src, char *a4, int64_t a5
   }
 
   v11 = *a1;
-  v12 = &v10[a5 - *a1];
+  v12 = v10 - *a1 + a5;
   if (v12 < 0)
   {
     sub_2742EAB3C();
@@ -1854,16 +1845,16 @@ void *sub_2742EB100(void *a1, uint64_t a2, uint64_t a3)
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -1886,9 +1877,9 @@ void *sub_2742EB100(void *a1, uint64_t a2, uint64_t a3)
   return a1;
 }
 
-void sub_2742EB240(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_2742EB240(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x2743E9940](&a10);
+  MEMORY[0x2743E9940](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -2014,29 +2005,28 @@ void *sub_2742EB53C(void *a1, NSObject **a2, char *a3)
 
 void awd::ServerConnectionInfo::setComponentConfig_sync(uint64_t a1, uint64_t *a2)
 {
-  v4 = a2[1];
-  v7 = *a2;
-  v8 = v4;
+  v3 = a2[1];
+  v5 = *a2;
+  v6 = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  awd::AWDLoggingMetric::setConfiguration(a1 + 48, &v5);
+  if (v6)
+  {
+    sub_2742E8DB8(v6);
+  }
+
+  v4 = *(a1 + 176);
   if (v4)
   {
-    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  awd::AWDLoggingMetric::setConfiguration(a1 + 48, &v7);
-  if (v8)
-  {
-    sub_2742E8DB8(v8);
-  }
-
-  v5 = *(a1 + 176);
-  if (v5)
-  {
-    (*(v5 + 16))();
+    (*(v4 + 16))();
   }
 
   if (*(a1 + 168))
   {
-    v6 = *a2;
     wireless_diagnostics::google::protobuf::MessageLite::SerializeToString();
     (*(*(a1 + 168) + 16))();
   }
@@ -2054,7 +2044,7 @@ void sub_2742EB674(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t awd::ServerConnectionInfo::trigger_sync@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, unsigned int **a4@<X3>, const void **a5@<X8>)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   awd::AWDLoggingMetric::trigger(a1 + 48, a2, a3);
   *a5 = 0;
   a5[1] = 0;
@@ -2122,7 +2112,7 @@ uint64_t awd::ServerConnectionInfo::trigger_sync@<X0>(uint64_t a1@<X0>, unint64_
           }
 
           *(4 * v23) = v11;
-          v20 = 4 * v23 + 4;
+          v20 = (4 * v23 + 4);
           memcpy(0, v21, v22);
           v27 = *a5;
           *a5 = 0;
@@ -2137,7 +2127,7 @@ uint64_t awd::ServerConnectionInfo::trigger_sync@<X0>(uint64_t a1@<X0>, unint64_
         else
         {
           *v19 = v11;
-          v20 = (v19 + 4);
+          v20 = v19 + 4;
         }
 
         a5[1] = v20;
@@ -2158,7 +2148,7 @@ uint64_t awd::ServerConnectionInfo::trigger_sync@<X0>(uint64_t a1@<X0>, unint64_
         block[2] = sub_2742EB9D0;
         block[3] = &unk_2883518B8;
         block[4] = a1;
-        v38 = v11;
+        v37 = v11;
         if (v29)
         {
           v31 = _Block_copy(v29);
@@ -2189,7 +2179,7 @@ LABEL_11:
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
-          v40 = v11;
+          v39 = v11;
           _os_log_impl(&dword_2742E7000, v17, OS_LOG_TYPE_INFO, "server.conn:#I No queriable callback for metric id 0x%x", buf, 8u);
         }
       }
@@ -2203,10 +2193,9 @@ LABEL_11:
   result = *(a1 + 160);
   if (result)
   {
-    result = (*(result + 16))(result, HIDWORD(a2), a2, a3);
+    return (*(result + 16))(result, HIDWORD(a2), a2, a3);
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2230,7 +2219,6 @@ uint64_t sub_2742EB9D0(uint64_t a1)
     sub_27431C5F0(a1, v2);
   }
 
-  v3 = *(a1 + 48);
   return (*(*(a1 + 40) + 16))();
 }
 
@@ -2258,7 +2246,7 @@ void sub_2742EBA60(uint64_t a1)
 uint64_t awd::ServerConnectionInfo::triggerAnalyticsQuery_sync(awd::ServerConnectionInfo *this, uint64_t a2, uint64_t a3)
 {
   v3 = a2;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = *(this + 20);
   if (v4)
   {
@@ -2289,10 +2277,10 @@ uint64_t awd::ServerConnectionInfo::triggerAnalyticsQuery_sync(awd::ServerConnec
       if (v7 != this + 120 && *(v7 + 8) <= a2)
       {
         dispatch_get_global_queue(0, 0);
-        v14 = *(v7 + 5);
-        if (v14)
+        v13 = *(v7 + 5);
+        if (v13)
         {
-          _Block_copy(v14);
+          _Block_copy(v13);
         }
 
         operator new();
@@ -2307,10 +2295,9 @@ uint64_t awd::ServerConnectionInfo::triggerAnalyticsQuery_sync(awd::ServerConnec
       _os_log_impl(&dword_2742E7000, v11, OS_LOG_TYPE_INFO, "server.conn:#I No queriable callback for metric id 0x%x for analytics", buf, 8u);
     }
 
-    v5 = 0;
+    return 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -2326,23 +2313,23 @@ void sub_2742EBC18(_Unwind_Exception *a1, int a2)
 
 void awd::ServerConnectionInfo::handleNotificationTimer24h_sync(awd::ServerConnectionInfo *this)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v1 = *(this + 17);
-  v14 = this + 144;
+  v13 = this + 144;
   if (v1 != (this + 144))
   {
     do
     {
       sub_2742ECDF0(__dst, v1 + 2);
+      v20 = 0;
       v21 = 0;
       v22 = 0;
-      v23 = 0;
-      sub_2742ED098(&v21, v26, v27, (v27 - v26) >> 4);
+      sub_2742ED098(&v20, v25, v26, (v26 - v25) >> 4);
       v3 = *(this + 4);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
       {
         v12 = __dst;
-        if (v25 < 0)
+        if (v24 < 0)
         {
           v12 = __dst[0];
         }
@@ -2352,8 +2339,8 @@ void awd::ServerConnectionInfo::handleNotificationTimer24h_sync(awd::ServerConne
         _os_log_debug_impl(&dword_2742E7000, v3, OS_LOG_TYPE_DEBUG, "server.conn:#D Calling callback on 24h-timer: %s", &buf, 0xCu);
       }
 
-      v5 = v21;
-      v4 = v22;
+      v5 = v20;
+      v4 = v21;
       while (v5 != v4)
       {
         if (*v5)
@@ -2397,9 +2384,9 @@ void awd::ServerConnectionInfo::handleNotificationTimer24h_sync(awd::ServerConne
 
         sub_2742ECDF0(&__p, __dst);
         dispatch_async(v7, block);
-        v28 = &v20;
-        sub_2742ED2E8(&v28);
-        if (v19 < 0)
+        v27 = &v19;
+        sub_2742ED2E8(&v27);
+        if (v18 < 0)
         {
           operator delete(__p);
         }
@@ -2427,11 +2414,11 @@ void awd::ServerConnectionInfo::handleNotificationTimer24h_sync(awd::ServerConne
         v5 += 2;
       }
 
-      *&buf = &v21;
+      *&buf = &v20;
       sub_2742ED2E8(&buf);
-      v21 = &v26;
-      sub_2742ED2E8(&v21);
-      if (v25 < 0)
+      v20 = &v25;
+      sub_2742ED2E8(&v20);
+      if (v24 < 0)
       {
         operator delete(__dst[0]);
       }
@@ -2463,10 +2450,8 @@ void awd::ServerConnectionInfo::handleNotificationTimer24h_sync(awd::ServerConne
       v1 = v10;
     }
 
-    while (v10 != v14);
+    while (v10 != v13);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2742EBF40(uint64_t *a1, uint64_t a2)
@@ -2500,7 +2485,7 @@ void sub_2742EBFB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *sub_2742EBFD4(void *a1, uint64_t a2)
+char *sub_2742EBFD4(char *a1, uint64_t a2)
 {
   v4 = *(a2 + 32);
   if (v4)
@@ -2509,14 +2494,14 @@ void *sub_2742EBFD4(void *a1, uint64_t a2)
   }
 
   v5 = *(a2 + 40);
-  a1[4] = v4;
-  a1[5] = v5;
+  *(a1 + 4) = v4;
+  *(a1 + 5) = v5;
   if (v5)
   {
     dispatch_retain(v5);
   }
 
-  return sub_2742ECDF0(a1 + 6, (a2 + 48));
+  return sub_2742ECDF0(a1 + 48, (a2 + 48));
 }
 
 uint64_t sub_2742EC03C(uint64_t a1)
@@ -2558,10 +2543,6 @@ void sub_2742EC07C(uint64_t a1)
 }
 
 awd::AWDServerConnection *awd::AWDServerConnection::AWDServerConnection(awd::AWDServerConnection *this)
-{
-  return awd::AWDServerConnection::AWDServerConnection(this);
-}
-
 {
   *this = 0;
   *(this + 1) = 0;
@@ -2645,23 +2626,23 @@ uint64_t awd::MetricFactory::getSharedMetricFactory(awd::MetricFactory *this)
   return result;
 }
 
-uint64_t awd::MetricFactory::newMetricContainerWithIdentifier(awd::MetricFactory *this)
+awd::MetricContainer *awd::MetricFactory::newMetricContainerWithIdentifier(awd::MetricFactory *this, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v2) = 0;
-    _os_log_impl(&dword_2742E7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "WirelessDiagnostics is deprecated and has been removed. Please migrate to Core Analytics.", &v2, 2u);
+    LOWORD(v3) = 0;
+    _os_log_impl(&dword_2742E7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "WirelessDiagnostics is deprecated and has been removed. Please migrate to Core Analytics.", &v3, 2u);
   }
 
-  sub_2742E8B80(&v2);
-  if (v2 && sub_274308018())
+  sub_2742E8B80(&v3);
+  if (v3 && sub_274308018())
   {
     operator new();
   }
 
-  if (v3)
+  if (v4)
   {
-    sub_2742E8DB8(v3);
+    sub_2742E8DB8(v4);
   }
 
   return 0;
@@ -2967,7 +2948,7 @@ void *sub_2742ECDA8(void *a1)
   return a1;
 }
 
-void *sub_2742ECDF0(void *__dst, __int128 *a2)
+char *sub_2742ECDF0(char *__dst, __int128 *a2)
 {
   if (*(a2 + 23) < 0)
   {
@@ -2977,14 +2958,14 @@ void *sub_2742ECDF0(void *__dst, __int128 *a2)
   else
   {
     v4 = *a2;
-    __dst[2] = *(a2 + 2);
+    *(__dst + 2) = *(a2 + 2);
     *__dst = v4;
   }
 
-  __dst[3] = 0;
-  __dst[4] = 0;
-  __dst[5] = 0;
-  sub_2742ED098((__dst + 3), *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 4);
+  *(__dst + 3) = 0;
+  *(__dst + 4) = 0;
+  *(__dst + 5) = 0;
+  sub_2742ED098(__dst + 3, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 4);
   return __dst;
 }
 
@@ -3070,14 +3051,14 @@ uint64_t *sub_2742ED03C(unsigned int *a1)
   return sub_2742ECFE4(&v2);
 }
 
-void sub_2742ED084(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2742ED084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_2742ECFE4(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_2742ED098(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_2742ED098(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3087,14 +3068,14 @@ uint64_t sub_2742ED098(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
   return result;
 }
 
-void sub_2742ED100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_2742ED100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   sub_2742ED2E8(&a9);
   _Unwind_Resume(a1);
 }
 
-void sub_2742ED120(uint64_t a1, unint64_t a2)
+void sub_2742ED120(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -3412,13 +3393,13 @@ void AWDServerConsolidateDeviceDiagnostics(uint64_t a1, uint64_t a2, void *a3)
   v6 = v5;
   if (v5)
   {
-    v17 = v5;
+    v16 = v5;
   }
 
   else
   {
     v6 = xpc_null_create();
-    v17 = v6;
+    v16 = v6;
     if (!v6)
     {
       v7 = xpc_null_create();
@@ -3435,25 +3416,25 @@ void AWDServerConsolidateDeviceDiagnostics(uint64_t a1, uint64_t a2, void *a3)
 
   v7 = xpc_null_create();
 LABEL_8:
-  v17 = v7;
+  v16 = v7;
 LABEL_9:
   xpc_release(v6);
   switch(a1)
   {
     case 2:
-      v9 = xpc_string_create("feedback");
-      if (!v9)
+      v8 = xpc_string_create("feedback");
+      if (!v8)
       {
-        v9 = xpc_null_create();
+        v8 = xpc_null_create();
       }
 
-      v13 = &v17;
-      v14 = "diagType";
-      sub_2742ED8B0(&v13, &v9, &v10);
-      xpc_release(v10);
-      v10 = 0;
+      v12 = &v16;
+      v13 = "diagType";
+      sub_2742ED8B0(&v12, &v8, &v9);
       xpc_release(v9);
       v9 = 0;
+      xpc_release(v8);
+      v8 = 0;
       break;
     case 1:
       object = xpc_string_create("cellular");
@@ -3462,32 +3443,32 @@ LABEL_9:
         object = xpc_null_create();
       }
 
-      v13 = &v17;
-      v14 = "diagType";
-      sub_2742ED8B0(&v13, &object, &v12);
-      xpc_release(v12);
-      v12 = 0;
+      v12 = &v16;
+      v13 = "diagType";
+      sub_2742ED8B0(&v12, &object, &v11);
+      xpc_release(v11);
+      v11 = 0;
       xpc_release(object);
       object = 0;
       break;
     case 0:
-      v15 = xpc_string_create("wifi");
-      if (!v15)
+      v14 = xpc_string_create("wifi");
+      if (!v14)
       {
-        v15 = xpc_null_create();
+        v14 = xpc_null_create();
       }
 
-      v13 = &v17;
-      v14 = "diagType";
-      sub_2742ED8B0(&v13, &v15, &v16);
-      xpc_release(v16);
-      v16 = 0;
+      v12 = &v16;
+      v13 = "diagType";
+      sub_2742ED8B0(&v12, &v14, &v15);
       xpc_release(v15);
       v15 = 0;
+      xpc_release(v14);
+      v14 = 0;
       break;
   }
 
-  AWDServerConnector::create(v8);
+  AWDServerConnector::create();
 }
 
 void sub_2742EDC18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, xpc_object_t object)
@@ -3741,20 +3722,20 @@ void sub_2742EE24C(uint64_t a1)
   }
 }
 
-void AWDServerSetInvestigationId(unsigned int a1, uint64_t a2, void *a3)
+void AWDServerSetInvestigationId(unsigned int a1, NSObject *a2, void *a3)
 {
   v4 = a3;
   v5 = xpc_dictionary_create(0, 0, 0);
   v6 = v5;
   if (v5)
   {
-    v15 = v5;
+    v14 = v5;
   }
 
   else
   {
     v6 = xpc_null_create();
-    v15 = v6;
+    v14 = v6;
     if (!v6)
     {
       v7 = xpc_null_create();
@@ -3771,36 +3752,36 @@ void AWDServerSetInvestigationId(unsigned int a1, uint64_t a2, void *a3)
 
   v7 = xpc_null_create();
 LABEL_8:
-  v15 = v7;
+  v14 = v7;
 LABEL_9:
   xpc_release(v6);
-  v13 = xpc_string_create("set-iid-only");
-  if (!v13)
+  v12 = xpc_string_create("set-iid-only");
+  if (!v12)
   {
-    v13 = xpc_null_create();
+    v12 = xpc_null_create();
   }
 
-  v11 = &v15;
-  v12 = "config";
-  sub_2742ED8B0(&v11, &v13, &v14);
-  xpc_release(v14);
-  v14 = 0;
+  v10 = &v14;
+  v11 = "config";
+  sub_2742ED8B0(&v10, &v12, &v13);
   xpc_release(v13);
   v13 = 0;
-  v9 = xpc_int64_create(a1);
-  if (!v9)
+  xpc_release(v12);
+  v12 = 0;
+  v8 = xpc_int64_create(a1);
+  if (!v8)
   {
-    v9 = xpc_null_create();
+    v8 = xpc_null_create();
   }
 
-  v11 = &v15;
-  v12 = "InvestigationId";
-  sub_2742ED8B0(&v11, &v9, &object);
+  v10 = &v14;
+  v11 = "InvestigationId";
+  sub_2742ED8B0(&v10, &v8, &object);
   xpc_release(object);
   object = 0;
-  xpc_release(v9);
-  v9 = 0;
-  AWDServerConnector::create(v8);
+  xpc_release(v8);
+  v8 = 0;
+  AWDServerConnector::create();
 }
 
 void sub_2742EE4D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, std::__shared_weak_count *a15, dispatch_object_t object, xpc_object_t a17)
@@ -3963,8 +3944,7 @@ __n128 awd::AWDSubmissionMessage::AWDSubmissionMessage(uint64_t a1, int a2, uint
   result = *a6;
   *(a1 + 32) = *a6;
   *(a1 + 48) = a6[1].n128_u64[0];
-  a6->n128_u64[0] = 0;
-  a6->n128_u64[1] = 0;
+  *a6 = 0uLL;
   a6[1].n128_u64[0] = 0;
   return result;
 }
@@ -3981,8 +3961,7 @@ __n128 awd::AWDSubmissionMessage::AWDSubmissionMessage(uint64_t a1, int a2, uint
   result = *a6;
   *(a1 + 32) = *a6;
   *(a1 + 48) = a6[1].n128_u64[0];
-  a6->n128_u64[0] = 0;
-  a6->n128_u64[1] = 0;
+  *a6 = 0uLL;
   a6[1].n128_u64[0] = 0;
   return result;
 }
@@ -3999,8 +3978,7 @@ __n128 awd::AWDSubmissionMessage::AWDSubmissionMessage(uint64_t a1, int a2, uint
   result = *a6;
   *(a1 + 32) = *a6;
   *(a1 + 48) = a6[1].n128_u64[0];
-  a6->n128_u64[0] = 0;
-  a6->n128_u64[1] = 0;
+  *a6 = 0uLL;
   a6[1].n128_u64[0] = 0;
   return result;
 }
@@ -4017,8 +3995,7 @@ __n128 awd::AWDSubmissionMessage::AWDSubmissionMessage(uint64_t a1, int a2, uint
   result = *a6;
   *(a1 + 32) = *a6;
   *(a1 + 48) = a6[1].n128_u64[0];
-  a6->n128_u64[0] = 0;
-  a6->n128_u64[1] = 0;
+  *a6 = 0uLL;
   a6[1].n128_u64[0] = 0;
   return result;
 }
@@ -4134,7 +4111,7 @@ void sub_2742EEE88(void *a1)
   JUMPOUT(0x2743E9A90);
 }
 
-void *sub_2742EEEF8(void *result, char *__src, char *a3, unint64_t a4)
+void **sub_2742EEEF8(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -4219,7 +4196,7 @@ void *sub_2742EEEF8(void *result, char *__src, char *a3, unint64_t a4)
   return result;
 }
 
-void sub_2742EF028(uint64_t a1, uint64_t a2)
+void sub_2742EF028(uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -4229,7 +4206,7 @@ void sub_2742EF028(uint64_t a1, uint64_t a2)
   sub_2742EAB3C();
 }
 
-void awd::AWDMetricBuffer::AWDMetricBuffer(uint64_t a1, int a2)
+void awd::AWDMetricBuffer::AWDMetricBuffer(uint64_t a1, int a2, uint64_t a3)
 {
   *a1 = dispatch_queue_create("com.apple.awd.AWDMetricBuffer", 0);
   ctu::OsLogLogger::OsLogLogger((a1 + 8), "com.apple.awd.framework", "metric.buffer");
@@ -4314,7 +4291,7 @@ void awd::AWDMetricBuffer::buffer(NSObject **a1, uint64_t a2)
 
 void awd::AWDMetricBuffer::setConfiguration_sync(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = (a1 + 88);
   sub_2742F0CF4(a1 + 80, *(a1 + 88));
   *(a1 + 80) = v4;
@@ -4329,24 +4306,18 @@ void awd::AWDMetricBuffer::setConfiguration_sync(uint64_t a1, uint64_t a2)
   v6 = *(a1 + 16);
   if (v6 == 60 || v6 == 12)
   {
-    v8 = *MEMORY[0x277D85DE8];
 
     awd::AWDMetricBuffer::setBasebandConfiguration_sync(a1, a2);
   }
 
-  else
+  else if (*(*a2 + 16))
   {
-    if (*(*a2 + 16))
-    {
-      buf = *(**(*a2 + 8) + 32) | (*(**(*a2 + 8) + 8) << 32);
-      sub_2742F0EB4();
-    }
-
-    v9 = *MEMORY[0x277D85DE8];
+    *buf = *(**(*a2 + 8) + 32) | (*(**(*a2 + 8) + 8) << 32);
+    sub_2742F0EB4(a1 + 56, buf);
   }
 }
 
-unsigned int *awd::AWDMetricBuffer::setBasebandConfiguration_sync(void *a1, uint64_t a2)
+uint64_t awd::AWDMetricBuffer::setBasebandConfiguration_sync(void *a1, uint64_t a2)
 {
   v3 = *(*a2 + 16);
   if (v3)
@@ -4428,7 +4399,7 @@ unsigned int *awd::AWDMetricBuffer::setBasebandConfiguration_sync(void *a1, uint
 
   v20 = a1[13];
   v21 = a1[14];
-  v22 = 126 - 2 * __clz((v21 - v20) >> 3);
+  v22 = 126 - 2 * __clz(&v21[-v20] >> 3);
   if (v21 == v20)
   {
     v23 = 0;
@@ -4482,27 +4453,23 @@ double awd::AWDMetricBuffer::BufferInfo::bufferInfoByMostRecent@<D0>(int a1@<W0>
   return result;
 }
 
-void awd::AWDMetricBuffer::setConfiguration(uint64_t *a1, __int128 *a2)
+void awd::AWDMetricBuffer::setConfiguration(uint64_t a1, __int128 *a2)
 {
-  v2 = a1[3];
-  v3 = a1[4];
-  if (v3)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    atomic_fetch_add_explicit((v3 + 16), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v2 + 16), 1uLL, memory_order_relaxed);
   }
 
-  v4 = *a1;
-  v5 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   operator new();
 }
 
-void awd::AWDMetricBuffer::_triggerOneMetric(uint64_t a1, uint64_t a2, unsigned int a3, int a4, unint64_t a5, uint64_t a6)
+void awd::AWDMetricBuffer::_triggerOneMetric(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, unint64_t a5, uint64_t a6)
 {
-  v55 = *MEMORY[0x277D85DE8];
-  v47 = a2;
-  v48 = a3;
+  v54 = *MEMORY[0x277D85DE8];
+  v46 = a2;
+  v47 = a3;
   v7 = *(a1 + 48);
   if (!v7)
   {
@@ -4521,6 +4488,7 @@ LABEL_16:
     goto LABEL_18;
   }
 
+  v10 = a4;
   v11 = std::__shared_weak_count::lock(v7);
   if (!v11)
   {
@@ -4533,292 +4501,296 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v13 = sub_2742F2F08(a1 + 56, &v47 + 1);
-  if (v13 == v14)
+  v13 = sub_2742F2F08(a1 + 56, &v46 + 1);
+  if (v13 != v14)
   {
-    v15 = *(a1 + 8);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    while (*(v13 + 10) != v10)
     {
-      *buf = 67109632;
-      *&buf[4] = v47;
-      *&buf[8] = 1024;
-      *&buf[10] = HIDWORD(v47);
-      *&buf[14] = 1024;
-      LODWORD(v53) = v48;
-      _os_log_impl(&dword_2742E7000, v15, OS_LOG_TYPE_DEFAULT, "metric.buffer:#E Could not find buffering info for Trigger(cid=0x%x, trid=0x%x, sid=%u)in timer function.", buf, 0x14u);
-    }
-
-    goto LABEL_20;
-  }
-
-  while (*(v13 + 10) != a4)
-  {
-    v16 = v13[1];
-    if (v16)
-    {
-      do
+      v16 = v13[1];
+      if (v16)
       {
-        v17 = v16;
-        v16 = *v16;
-      }
-
-      while (v16);
-    }
-
-    else
-    {
-      do
-      {
-        v17 = v13[2];
-        v18 = *v17 == v13;
-        v13 = v17;
-      }
-
-      while (!v18);
-    }
-
-    v13 = v17;
-    if (v17 == v14)
-    {
-      goto LABEL_34;
-    }
-  }
-
-  if (v13 == v14)
-  {
-LABEL_34:
-    v32 = *(a1 + 8);
-    if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_19;
-    }
-
-    *buf = 67109632;
-    *&buf[4] = v47;
-    *&buf[8] = 1024;
-    *&buf[10] = HIDWORD(v47);
-    *&buf[14] = 1024;
-    LODWORD(v53) = v48;
-    v20 = "metric.buffer:#E Could not find profile info for Trigger(cid=0x%x, trid=0x%x, sid=%u)in timer function.";
-    v21 = v32;
-    v22 = 20;
-LABEL_18:
-    _os_log_impl(&dword_2742E7000, v21, OS_LOG_TYPE_DEFAULT, v20, buf, v22);
-    goto LABEL_19;
-  }
-
-  v26 = v13[7];
-  v24 = v13 + 7;
-  v25 = v26;
-  if (!v26)
-  {
-    goto LABEL_31;
-  }
-
-  v27 = v24;
-  do
-  {
-    v28 = *(v25 + 32);
-    v29 = v28 >= a5;
-    v30 = v28 < a5;
-    if (v29)
-    {
-      v27 = v25;
-    }
-
-    v25 = *(v25 + 8 * v30);
-  }
-
-  while (v25);
-  if (v27 == v24 || *(v27 + 8) > a5)
-  {
-LABEL_31:
-    v31 = *(a1 + 8);
-    if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_19;
-    }
-
-    *buf = 67109120;
-    *&buf[4] = a5;
-    v20 = "metric.buffer:#E Could not find buffering info for metric 0x%x in timer function";
-    goto LABEL_33;
-  }
-
-  v33 = *(a1 + 88);
-  if (v33)
-  {
-    v34 = *(v27 + 11);
-    v35 = a1 + 88;
-    do
-    {
-      v36 = *(v33 + 32);
-      v29 = v36 >= a5;
-      v37 = v36 < a5;
-      if (v29)
-      {
-        v35 = v33;
-      }
-
-      v33 = *(v33 + 8 * v37);
-    }
-
-    while (v33);
-    if (v35 != a1 + 88 && *(v35 + 32) <= a5)
-    {
-      awd::MetricBuffer::end(v35 + 40, buf);
-      if (v34 > 2)
-      {
-        if (v34 == 3)
+        do
         {
-          awd::MetricBuffer::lastTimeInSeconds((v35 + 40), a6 - 1000 * v27[7], v49);
-          *buf = *v49;
+          v17 = v16;
+          v16 = *v16;
+        }
+
+        while (v16);
+      }
+
+      else
+      {
+        do
+        {
+          v17 = v13[2];
+          v18 = *v17 == v13;
+          v13 = v17;
+        }
+
+        while (!v18);
+      }
+
+      v13 = v17;
+      if (v17 == v14)
+      {
+        goto LABEL_34;
+      }
+    }
+
+    if (v13 != v14)
+    {
+      v25 = v13[7];
+      v23 = v13 + 7;
+      v24 = v25;
+      if (!v25)
+      {
+        goto LABEL_31;
+      }
+
+      v26 = v23;
+      do
+      {
+        v27 = *(v24 + 32);
+        v28 = v27 >= a5;
+        v29 = v27 < a5;
+        if (v28)
+        {
+          v26 = v24;
+        }
+
+        v24 = *(v24 + 8 * v29);
+      }
+
+      while (v24);
+      if (v26 == v23 || *(v26 + 8) > a5)
+      {
+LABEL_31:
+        v30 = *(a1 + 8);
+        if (!os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_19;
+        }
+
+        *buf = 67109120;
+        *&buf[4] = a5;
+        v20 = "metric.buffer:#E Could not find buffering info for metric 0x%x in timer function";
+        goto LABEL_33;
+      }
+
+      v32 = *(a1 + 88);
+      if (!v32)
+      {
+        goto LABEL_44;
+      }
+
+      v33 = *(v26 + 11);
+      v34 = a1 + 88;
+      do
+      {
+        v35 = *(v32 + 32);
+        v28 = v35 >= a5;
+        v36 = v35 < a5;
+        if (v28)
+        {
+          v34 = v32;
+        }
+
+        v32 = *(v32 + 8 * v36);
+      }
+
+      while (v32);
+      if (v34 == a1 + 88 || *(v34 + 32) > a5)
+      {
+LABEL_44:
+        v30 = *(a1 + 8);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 67109120;
+          *&buf[4] = a5;
+          v20 = "metric.buffer:#E Could not find buffer for metric 0x%x";
+LABEL_33:
+          v21 = v30;
+          v22 = 8;
+          goto LABEL_18;
+        }
+
+LABEL_19:
+        if (!v11)
+        {
+          return;
+        }
+
+        goto LABEL_20;
+      }
+
+      awd::MetricBuffer::end(buf, (v34 + 40));
+      if (v33 > 2)
+      {
+        if (v33 == 3)
+        {
+          awd::MetricBuffer::lastTimeInSeconds(v48, (v34 + 40), a6 - 1000 * v26[7]);
+          *buf = *v48;
+          v52 = v49;
           v53 = v50;
-          v54 = v51;
-          v38 = *(a1 + 8);
-          if (!os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+          v37 = *(a1 + 8);
+          if (!os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
           {
             goto LABEL_63;
           }
 
-          *v49 = 67109120;
-          *&v49[4] = a5;
-          v39 = "metric.buffer:#I Found buffering info for metric 0x%x: time before trigger";
+          *v48 = 67109120;
+          *&v48[4] = a5;
+          v38 = "metric.buffer:#I Found buffering info for metric 0x%x: time before trigger";
           goto LABEL_61;
         }
 
-        if (v34 == 4)
+        if (v33 == 4)
         {
-          v38 = *(a1 + 8);
-          if (!os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+          v37 = *(a1 + 8);
+          if (!os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
           {
             goto LABEL_63;
           }
 
-          *v49 = 67109120;
-          *&v49[4] = a5;
-          v39 = "metric.buffer:#I Found buffering info for metric 0x%x: callback";
+          *v48 = 67109120;
+          *&v48[4] = a5;
+          v38 = "metric.buffer:#I Found buffering info for metric 0x%x: callback";
           goto LABEL_61;
         }
       }
 
       else
       {
-        if (v34 == 1)
+        if (v33 == 1)
         {
-          awd::MetricBuffer::lastCount((v35 + 40), 1, v49);
-          *buf = *v49;
+          awd::MetricBuffer::lastCount(v48, (v34 + 40), 1);
+          *buf = *v48;
+          v52 = v49;
           v53 = v50;
-          v54 = v51;
-          v38 = *(a1 + 8);
-          if (!os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+          v37 = *(a1 + 8);
+          if (!os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
           {
             goto LABEL_63;
           }
 
-          *v49 = 67109120;
-          *&v49[4] = a5;
-          v39 = "metric.buffer:#I Found buffering info for metric 0x%x: most recent";
+          *v48 = 67109120;
+          *&v48[4] = a5;
+          v38 = "metric.buffer:#I Found buffering info for metric 0x%x: most recent";
           goto LABEL_61;
         }
 
-        if (v34 == 2)
+        if (v33 == 2)
         {
-          awd::MetricBuffer::lastCount((v35 + 40), *(v27 + 12), v49);
-          *buf = *v49;
+          awd::MetricBuffer::lastCount(v48, (v34 + 40), *(v26 + 12));
+          *buf = *v48;
+          v52 = v49;
           v53 = v50;
-          v54 = v51;
-          v38 = *(a1 + 8);
-          if (!os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+          v37 = *(a1 + 8);
+          if (!os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
           {
             goto LABEL_63;
           }
 
-          *v49 = 67109120;
-          *&v49[4] = a5;
-          v39 = "metric.buffer:#I Found buffering info for metric 0x%x: num before trigger";
+          *v48 = 67109120;
+          *&v48[4] = a5;
+          v38 = "metric.buffer:#I Found buffering info for metric 0x%x: num before trigger";
 LABEL_61:
-          v41 = v38;
-          v42 = 8;
+          v40 = v37;
+          v41 = 8;
 LABEL_62:
-          _os_log_impl(&dword_2742E7000, v41, OS_LOG_TYPE_INFO, v39, v49, v42);
+          _os_log_impl(&dword_2742E7000, v40, OS_LOG_TYPE_INFO, v38, v48, v41);
 LABEL_63:
           while (1)
           {
-            awd::MetricBuffer::end(v35 + 40, v49);
-            if (!awd::MetricBuffer::iterator::operator!=(buf, v49))
+            awd::MetricBuffer::end(v48, (v34 + 40));
+            if (!awd::MetricBuffer::iterator::operator!=(buf, v48))
             {
               break;
             }
 
+            v42 = v46;
             v43 = v47;
-            v44 = v48;
-            v45 = *(a1 + 16);
-            v46 = awd::MetricBuffer::iterator::operator*(buf);
-            a5 = a5 & 0xFFFFFFFF00000000 | v44;
-            awd::AWDMetricSubmitter::addMetric(v12, v43, a5, a4, v45, v46);
-            awd::MetricBuffer::iterator::operator++(buf, v49);
+            v44 = *(a1 + 16);
+            v45 = awd::MetricBuffer::iterator::operator*(buf);
+            a5 = a5 & 0xFFFFFFFF00000000 | v43;
+            awd::AWDMetricSubmitter::addMetric(v12, v42, a5, v10, v44, v45);
+            awd::MetricBuffer::iterator::operator++(buf, v48);
           }
 
           goto LABEL_19;
         }
       }
 
-      v40 = *(a1 + 8);
-      if (!os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+      v39 = *(a1 + 8);
+      if (!os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
       {
         goto LABEL_63;
       }
 
-      *v49 = 67109888;
-      *&v49[4] = a5;
-      *&v49[8] = 1024;
-      *&v49[10] = v47;
-      *&v49[14] = 1024;
-      LODWORD(v50) = HIDWORD(v47);
-      WORD2(v50) = 1024;
-      *(&v50 + 6) = v48;
-      v39 = "metric.buffer:#I Got unknown buffering info for metric 0x%x, Trigger(cid=0x%x, trid=0x%x, sid=%u)";
-      v41 = v40;
-      v42 = 26;
+      *v48 = 67109888;
+      *&v48[4] = a5;
+      *&v48[8] = 1024;
+      *&v48[10] = v46;
+      *&v48[14] = 1024;
+      LODWORD(v49) = HIDWORD(v46);
+      WORD2(v49) = 1024;
+      *(&v49 + 6) = v47;
+      v38 = "metric.buffer:#I Got unknown buffering info for metric 0x%x, Trigger(cid=0x%x, trid=0x%x, sid=%u)";
+      v40 = v39;
+      v41 = 26;
       goto LABEL_62;
     }
-  }
 
-  v31 = *(a1 + 8);
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 67109120;
-    *&buf[4] = a5;
-    v20 = "metric.buffer:#E Could not find buffer for metric 0x%x";
-LABEL_33:
+LABEL_34:
+    v31 = *(a1 + 8);
+    if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_19;
+    }
+
+    *buf = 67109632;
+    *&buf[4] = v46;
+    *&buf[8] = 1024;
+    *&buf[10] = HIDWORD(v46);
+    *&buf[14] = 1024;
+    LODWORD(v52) = v47;
+    v20 = "metric.buffer:#E Could not find profile info for Trigger(cid=0x%x, trid=0x%x, sid=%u)in timer function.";
     v21 = v31;
-    v22 = 8;
-    goto LABEL_18;
+    v22 = 20;
+LABEL_18:
+    _os_log_impl(&dword_2742E7000, v21, OS_LOG_TYPE_DEFAULT, v20, buf, v22);
+    goto LABEL_19;
   }
 
-LABEL_19:
-  if (v11)
+  v15 = *(a1 + 8);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-LABEL_20:
-    sub_2742E8DB8(v11);
+    *buf = 67109632;
+    *&buf[4] = v46;
+    *&buf[8] = 1024;
+    *&buf[10] = HIDWORD(v46);
+    *&buf[14] = 1024;
+    LODWORD(v52) = v47;
+    _os_log_impl(&dword_2742E7000, v15, OS_LOG_TYPE_DEFAULT, "metric.buffer:#E Could not find buffering info for Trigger(cid=0x%x, trid=0x%x, sid=%u)in timer function.", buf, 0x14u);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
+LABEL_20:
+  sub_2742E8DB8(v11);
 }
 
-void awd::AWDMetricBuffer::pushMetricToDaemon(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5, uint64_t a6)
+void awd::AWDMetricBuffer::pushMetricToDaemon(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v7 = *(a1 + 48);
   if (v7)
   {
+    v9 = a4;
     v12 = std::__shared_weak_count::lock(v7);
     if (v12)
     {
       v13 = *(a1 + 40);
       if (v13)
       {
-        awd::AWDMetricSubmitter::addMetric(v13, a2, a3, a4, *(a1 + 16), a6);
+        awd::AWDMetricSubmitter::addMetric(v13, a2, a3, v9, *(a1 + 16), a6);
 LABEL_9:
         sub_2742E8DB8(v12);
         return;
@@ -4881,24 +4853,19 @@ LABEL_9:
   }
 }
 
-uint64_t *awd::AWDMetricBuffer::finishSubmissionToDaemon(uint64_t *result, uint64_t a2, uint64_t a3, int a4, uint64_t *a5)
+void awd::AWDMetricBuffer::finishSubmissionToDaemon(uint64_t a1, uint64_t a2, int a3, int a4, NSObject **a5)
 {
   if (a4 != 12 && a4 != 60)
   {
-    v6 = result[5];
-    v5 = result[6];
+    v5 = *(a1 + 48);
     if (v5)
     {
       atomic_fetch_add_explicit((v5 + 16), 1uLL, memory_order_relaxed);
       atomic_fetch_add_explicit((v5 + 16), 1uLL, memory_order_relaxed);
     }
 
-    v7 = *a5;
-    v8 = *result;
     operator new();
   }
-
-  return result;
 }
 
 void sub_2742F0224(_Unwind_Exception *exception_object)
@@ -4915,19 +4882,19 @@ void sub_2742F0224(_Unwind_Exception *exception_object)
 void awd::AWDMetricBuffer::_trigger(uint64_t a1, uint64_t a2, int a3, dispatch_object_t *a4)
 {
   v4 = HIDWORD(a2);
-  v54 = *MEMORY[0x277D85DE8];
-  v42 = a2;
-  v43 = a3;
+  v53 = *MEMORY[0x277D85DE8];
+  v41 = a2;
+  v42 = a3;
   v6 = *(a1 + 8);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v45 = v4;
+    v44 = v4;
     _os_log_impl(&dword_2742E7000, v6, OS_LOG_TYPE_INFO, "metric.buffer:#I In _trigger with trigger 0x%x", buf, 8u);
   }
 
-  v7 = sub_2742F2F08(a1 + 56, &v42 + 1);
-  v27 = v8;
+  v7 = sub_2742F2F08(a1 + 56, &v41 + 1);
+  v26 = v8;
   v9 = v7;
   if (v7 == v8)
   {
@@ -4935,7 +4902,7 @@ void awd::AWDMetricBuffer::_trigger(uint64_t a1, uint64_t a2, int a3, dispatch_o
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v45 = HIDWORD(v42);
+      v44 = HIDWORD(v41);
       _os_log_impl(&dword_2742E7000, v10, OS_LOG_TYPE_INFO, "metric.buffer:#I Could not find buffering info for trigger 0x%x", buf, 8u);
     }
   }
@@ -4946,11 +4913,11 @@ void awd::AWDMetricBuffer::_trigger(uint64_t a1, uint64_t a2, int a3, dispatch_o
     do
     {
       v11 = v9[6];
-      v28 = v9;
-      v31 = v9 + 7;
+      v27 = v9;
+      v30 = v9 + 7;
       if (v11 != v9 + 7)
       {
-        v32 = *(v9 + 10);
+        v31 = *(v9 + 10);
         do
         {
           v12 = *(v11 + 8);
@@ -4974,15 +4941,15 @@ void awd::AWDMetricBuffer::_trigger(uint64_t a1, uint64_t a2, int a3, dispatch_o
           if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
           {
             *buf = 67110144;
-            v45 = HIDWORD(v42);
-            v46 = 1024;
-            v47 = v32;
-            v48 = 1024;
-            v49 = v12;
-            v50 = 2048;
-            v51 = v13;
-            v52 = 2048;
-            v53 = 1000000000 * v13;
+            v44 = HIDWORD(v41);
+            v45 = 1024;
+            v46 = v31;
+            v47 = 1024;
+            v48 = v12;
+            v49 = 2048;
+            v50 = v13;
+            v51 = 2048;
+            v52 = 1000000000 * v13;
             _os_log_impl(&dword_2742E7000, v18, OS_LOG_TYPE_INFO, "metric.buffer:#I Dispatching trigger 0x%x for profile 0x%x to metric 0x%x after %llu seconds (%llu ns).", buf, 0x28u);
           }
 
@@ -5002,22 +4969,22 @@ void awd::AWDMetricBuffer::_trigger(uint64_t a1, uint64_t a2, int a3, dispatch_o
             }
           }
 
-          v35 = v15;
-          v36 = v16;
+          v34 = v15;
+          v35 = v16;
           if (v16)
           {
             atomic_fetch_add_explicit(&v16->__shared_weak_owners_, 1uLL, memory_order_relaxed);
           }
 
+          v37 = v41;
           v38 = v42;
-          v39 = v43;
-          v40 = v32;
-          v41 = v12;
-          v37 = AWDTimestamp;
+          v39 = v31;
+          v40 = v12;
+          v36 = AWDTimestamp;
           dispatch_after(v17, v19, block);
-          if (v36)
+          if (v35)
           {
-            std::__shared_weak_count::__release_weak(v36);
+            std::__shared_weak_count::__release_weak(v35);
           }
 
           if (group)
@@ -5067,11 +5034,11 @@ void awd::AWDMetricBuffer::_trigger(uint64_t a1, uint64_t a2, int a3, dispatch_o
           v11 = v21;
         }
 
-        while (v21 != v31);
+        while (v21 != v30);
       }
 
-      v23 = v28;
-      v24 = v28[1];
+      v23 = v27;
+      v24 = v27[1];
       if (v24)
       {
         do
@@ -5098,10 +5065,8 @@ void awd::AWDMetricBuffer::_trigger(uint64_t a1, uint64_t a2, int a3, dispatch_o
       v9 = v25;
     }
 
-    while (v25 != v27);
+    while (v25 != v26);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2742F0610(uint64_t a1)
@@ -5205,90 +5170,82 @@ uint64_t awd::AWDMetricBuffer::BufferInfo::BufferInfo(uint64_t result, int a2, i
 
 void awd::AWDMetricBuffer::BufferInfo::debugLog(awd::AWDMetricBuffer::BufferInfo *this, os_log_t *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = *(this + 1);
   v4 = *a2;
   v5 = os_log_type_enabled(*a2, OS_LOG_TYPE_INFO);
-  if (v3 != 3)
+  switch(v3)
   {
-    if (v3 == 2)
-    {
+    case 3:
       if (!v5)
       {
-        goto LABEL_14;
+        return;
+      }
+
+      v12 = *this;
+      v13 = *(this + 2);
+      v14 = *(this + 3);
+      v16 = 67109632;
+      v17 = v12;
+      v18 = 2048;
+      v19 = v13;
+      v20 = 2048;
+      v21 = v14;
+      v7 = "metric.buffer:#I \t\t- METRIC 0x%x: Buffer last %llu+%llu seconds";
+      v8 = v4;
+      v9 = 28;
+      goto LABEL_13;
+    case 2:
+      if (!v5)
+      {
+        return;
       }
 
       v10 = *this;
       v11 = *(this + 2);
-      v17 = 67109376;
-      v18 = v10;
-      v19 = 1024;
-      LODWORD(v20) = v11;
+      v16 = 67109376;
+      v17 = v10;
+      v18 = 1024;
+      LODWORD(v19) = v11;
       v7 = "metric.buffer:#I \t\t- METRIC 0x%x: Buffer most recent %u metrics.";
-    }
-
-    else
-    {
-      if (v3 == 1)
-      {
-        if (v5)
-        {
-          v6 = *this;
-          v17 = 67109120;
-          v18 = v6;
-          v7 = "metric.buffer:#I \t\t- METRIC 0x%x: Buffer most recent metric.";
-          v8 = v4;
-          v9 = 8;
-LABEL_13:
-          _os_log_impl(&dword_2742E7000, v8, OS_LOG_TYPE_INFO, v7, &v17, v9);
-          goto LABEL_14;
-        }
-
-        goto LABEL_14;
-      }
-
+      break;
+    case 1:
       if (!v5)
       {
-        goto LABEL_14;
+        return;
+      }
+
+      v6 = *this;
+      v16 = 67109120;
+      v17 = v6;
+      v7 = "metric.buffer:#I \t\t- METRIC 0x%x: Buffer most recent metric.";
+      v8 = v4;
+      v9 = 8;
+      goto LABEL_13;
+    default:
+      if (!v5)
+      {
+        return;
       }
 
       v15 = *this;
-      v17 = 67109376;
-      v18 = v15;
-      v19 = 1024;
-      LODWORD(v20) = v3;
+      v16 = 67109376;
+      v17 = v15;
+      v18 = 1024;
+      LODWORD(v19) = v3;
       v7 = "metric.buffer:#I \t\t- METRIC 0x%x: UNKNOWN BUFFERING TYPE (%d)";
-    }
-
-    v8 = v4;
-    v9 = 14;
-    goto LABEL_13;
+      break;
   }
 
-  if (v5)
-  {
-    v12 = *this;
-    v13 = *(this + 2);
-    v14 = *(this + 3);
-    v17 = 67109632;
-    v18 = v12;
-    v19 = 2048;
-    v20 = v13;
-    v21 = 2048;
-    v22 = v14;
-    v7 = "metric.buffer:#I \t\t- METRIC 0x%x: Buffer last %llu+%llu seconds";
-    v8 = v4;
-    v9 = 28;
-    goto LABEL_13;
-  }
-
-LABEL_14:
-  v16 = *MEMORY[0x277D85DE8];
+  v8 = v4;
+  v9 = 14;
+LABEL_13:
+  _os_log_impl(&dword_2742E7000, v8, OS_LOG_TYPE_INFO, v7, &v16, v9);
 }
 
 void awd::AWDMetricBuffer::_debugLog(awd::AWDMetricBuffer *this)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = (this + 8);
   v3 = *(this + 1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
@@ -5308,9 +5265,9 @@ void awd::AWDMetricBuffer::_debugLog(awd::AWDMetricBuffer *this)
         v6 = *(v4 + 8);
         v7 = *(v4 + 10);
         *buf = 67109376;
-        v16 = v6;
-        v17 = 1024;
-        v18 = v7;
+        v15 = v6;
+        v16 = 1024;
+        v17 = v7;
         _os_log_impl(&dword_2742E7000, v5, OS_LOG_TYPE_INFO, "metric.buffer:#I \t- TRIGGER: 0x%x PROFILE: 0x%x", buf, 0xEu);
       }
 
@@ -5379,8 +5336,6 @@ void awd::AWDMetricBuffer::_debugLog(awd::AWDMetricBuffer *this)
 
     while (v13 != (this + 64));
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void awd::AWDMetricBuffer::debugLog(NSObject **this)
@@ -5471,9 +5426,9 @@ LABEL_8:
   return result;
 }
 
-void sub_2742F0DA0(uint64_t a1)
+void sub_2742F0DA0(uint64_t result)
 {
-  v1 = *(a1 + 32);
+  v1 = *(result + 32);
   v2 = (*v1 + 88);
   v3 = *v2;
   if (*v2)
@@ -5538,7 +5493,7 @@ void sub_2742F0E58(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t *sub_2742F0F68(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *sub_2742F0F68(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -5564,12 +5519,12 @@ uint64_t *sub_2742F0FC0(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -5583,22 +5538,22 @@ uint64_t *sub_2742F0FC0(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -5632,13 +5587,13 @@ uint64_t *sub_2742F0FC0(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -5680,41 +5635,41 @@ uint64_t *sub_2742F0FC0(uint64_t *result, uint64_t *a2)
   return result;
 }
 
-uint64_t *sub_2742F115C(uint64_t a1, unsigned int *a2)
+uint64_t *sub_2742F115C(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v5 = *(a1 + 8);
+  if (!v5)
   {
 LABEL_8:
     sub_2742F1224();
   }
 
-  v3 = *a2;
+  v6 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v7 = v5;
+      v8 = *(v5 + 32);
+      if (v6 >= v8)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v5 = *v7;
+      if (!*v7)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v8 >= v6)
     {
-      return v4;
+      return v7;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v5 = v7[1];
+    if (!v5)
     {
       goto LABEL_8;
     }
@@ -5738,41 +5693,41 @@ uint64_t *sub_2742F12A4(uint64_t *a1)
   return a1;
 }
 
-uint64_t *sub_2742F12F0(uint64_t a1, unsigned int *a2)
+uint64_t *sub_2742F12F0(uint64_t a1, unsigned int *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 32);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -5789,11 +5744,11 @@ void sub_2742F13CC(uint64_t a1, unint64_t a2)
   sub_2742ECF1C();
 }
 
-unsigned int *sub_2742F1414(unsigned int *result, unsigned int *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t sub_2742F1414(uint64_t result, char *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
-  v9 = a2 - 1;
+  v9 = a2 - 4;
   v10 = v8;
 LABEL_3:
   v11 = 1 - a4;
@@ -5813,12 +5768,12 @@ LABEL_3:
       {
         v88 = *(a2 - 2);
         v89 = *v10;
-        if (v88 < *v10 || v89 >= v88 && *(a2 - 1) < v10[1])
+        if (v88 < *v10 || v89 >= v88 && *(a2 - 1) < *(v10 + 1))
         {
           *v10 = v88;
           *(a2 - 2) = v89;
-          v90 = v10[1];
-          v10[1] = *(a2 - 1);
+          v90 = *(v10 + 1);
+          *(v10 + 1) = *(a2 - 1);
           *(a2 - 1) = v90;
         }
 
@@ -5830,32 +5785,32 @@ LABEL_3:
 
     if (v13 == 3)
     {
-      v91 = v10[2];
+      v91 = *(v10 + 2);
       v92 = *v10;
-      if (v91 >= *v10 && (v92 < v91 || v10[3] >= v10[1]))
+      if (v91 >= *v10 && (v92 < v91 || *(v10 + 3) >= *(v10 + 1)))
       {
         v106 = *(a2 - 2);
-        if (v106 >= v91 && (v91 < v106 || *(a2 - 1) >= v10[3]))
+        if (v106 >= v91 && (v91 < v106 || *(a2 - 1) >= *(v10 + 3)))
         {
           return result;
         }
 
-        v10[2] = v106;
+        *(v10 + 2) = v106;
         *(a2 - 2) = v91;
-        v9 = v10 + 3;
-        v107 = v10[3];
-        v10[3] = *(a2 - 1);
+        v9 = v10 + 12;
+        v107 = *(v10 + 3);
+        *(v10 + 3) = *(a2 - 1);
         *(a2 - 1) = v107;
-        v108 = v10[2];
+        v108 = *(v10 + 2);
         v109 = *v10;
-        if (v108 >= *v10 && (v109 < v108 || v10[3] >= v10[1]))
+        if (v108 >= *v10 && (v109 < v108 || *(v10 + 3) >= *(v10 + 1)))
         {
           return result;
         }
 
         *v10 = v108;
-        v10[2] = v109;
-        v94 = v10 + 1;
+        *(v10 + 2) = v109;
+        v94 = (v10 + 4);
 LABEL_201:
         v113 = *v94;
         *v94 = *v9;
@@ -5868,14 +5823,14 @@ LABEL_201:
       {
 LABEL_156:
         *v10 = v93;
-        v94 = v10 + 1;
+        v94 = (v10 + 4);
         *(a2 - 2) = v92;
         goto LABEL_201;
       }
 
       if (v91 >= v93)
       {
-        v110 = v10[3];
+        v110 = *(v10 + 3);
         if (*(a2 - 1) < v110)
         {
           goto LABEL_156;
@@ -5884,23 +5839,23 @@ LABEL_156:
 
       else
       {
-        v110 = v10[3];
+        v110 = *(v10 + 3);
       }
 
-      v111 = v10[1];
-      v10[3] = v111;
+      v111 = *(v10 + 1);
+      *(v10 + 3) = v111;
       *v10 = v91;
-      v10[1] = v110;
-      v10[2] = v92;
+      *(v10 + 1) = v110;
+      *(v10 + 2) = v92;
       v112 = *(a2 - 2);
       if (v112 >= v92 && (v92 < v112 || *(a2 - 1) >= v111))
       {
         return result;
       }
 
-      v10[2] = v112;
+      *(v10 + 2) = v112;
       *(a2 - 2) = v92;
-      v94 = v10 + 3;
+      v94 = (v10 + 12);
       goto LABEL_201;
     }
 
@@ -5942,74 +5897,35 @@ LABEL_11:
       return result;
     }
 
-    v14 = &v10[2 * (v13 >> 1)];
+    v14 = &v10[8 * (v13 >> 1)];
     v15 = v14;
     if (v13 >= 0x81)
     {
       v16 = *v14;
       v17 = *v10;
-      if (*v14 >= *v10 && (v17 < v16 || v14[1] >= v10[1]))
+      if (*v14 >= *v10 && (v17 < v16 || v14[1] >= *(v10 + 1)))
       {
         v24 = *(a2 - 2);
-        if (v24 >= v16 && (v16 < v24 || *(a2 - 1) >= v14[1]))
-        {
-          goto LABEL_45;
-        }
-
-        *v14 = v24;
-        *(a2 - 2) = v16;
-        v25 = v14 + 1;
-        v26 = v14[1];
-        v14[1] = *(a2 - 1);
-        *(a2 - 1) = v26;
-        v27 = *v14;
-        v28 = *v10;
-        if (*v14 >= *v10 && (v28 < v27 || *v25 >= v10[1]))
+        if (v24 >= v16 && (v16 < v24 || *(a2 - 1) >= v14[1]) || (*v14 = v24, *(a2 - 2) = v16, v25 = (v14 + 1), v26 = v14[1], v14[1] = *(a2 - 1), *(a2 - 1) = v26, v27 = *v14, v28 = *v10, *v14 >= *v10) && (v28 < v27 || *v25 >= *(v10 + 1)))
         {
 LABEL_45:
           v39 = v14 - 2;
           v40 = *(v14 - 2);
-          v41 = v10[2];
-          if (v40 >= v41 && (v41 < v40 || *(v14 - 1) >= v10[3]))
+          v41 = *(v10 + 2);
+          if (v40 >= v41 && (v41 < v40 || *(v14 - 1) >= *(v10 + 3)))
           {
             v44 = *(a2 - 4);
-            if (v44 >= v40 && (v40 < v44 || *(a2 - 3) >= *(v14 - 1)))
-            {
-              goto LABEL_67;
-            }
-
-            *v39 = v44;
-            *(a2 - 4) = v40;
-            v45 = v14 - 1;
-            v46 = *(v14 - 1);
-            *(v14 - 1) = *(a2 - 3);
-            *(a2 - 3) = v46;
-            v47 = *v39;
-            v48 = v10[2];
-            if (*v39 >= v48 && (v48 < v47 || *v45 >= v10[3]))
+            if (v44 >= v40 && (v40 < v44 || *(a2 - 3) >= *(v14 - 1)) || (*v39 = v44, *(a2 - 4) = v40, v45 = (v14 - 1), v46 = *(v14 - 1), *(v14 - 1) = *(a2 - 3), *(a2 - 3) = v46, v47 = *v39, v48 = *(v10 + 2), *v39 >= v48) && (v48 < v47 || *v45 >= *(v10 + 3)))
             {
 LABEL_67:
               v57 = v14[2];
               v55 = v14 + 2;
               v56 = v57;
-              v58 = v10[4];
-              if (v57 >= v58 && (v58 < v56 || v55[1] >= v10[5]))
+              v58 = *(v10 + 4);
+              if (v57 >= v58 && (v58 < v56 || v55[1] >= *(v10 + 5)))
               {
                 v61 = *(a2 - 6);
-                if (v61 >= v56 && (v56 < v61 || *(a2 - 5) >= v55[1]))
-                {
-                  goto LABEL_85;
-                }
-
-                *v55 = v61;
-                *(a2 - 6) = v56;
-                v62 = v55 + 1;
-                v63 = v55[1];
-                v55[1] = *(a2 - 5);
-                *(a2 - 5) = v63;
-                v64 = *v55;
-                v65 = v10[4];
-                if (*v55 >= v65 && (v65 < v64 || *v62 >= v10[5]))
+                if (v61 >= v56 && (v56 < v61 || *(a2 - 5) >= v55[1]) || (*v55 = v61, *(a2 - 6) = v56, v62 = (v55 + 1), v63 = v55[1], v55[1] = *(a2 - 5), *(a2 - 5) = v63, v64 = *v55, v65 = *(v10 + 4), *v55 >= v65) && (v65 < v64 || *v62 >= *(v10 + 5)))
                 {
 LABEL_85:
                   v70 = *v15;
@@ -6060,9 +5976,9 @@ LABEL_103:
 LABEL_104:
                     v82 = *v10;
                     *v10 = v70;
-                    v23 = v10 + 1;
+                    v23 = (v10 + 4);
                     *v15 = v82;
-                    v30 = v15 + 1;
+                    v30 = (v15 + 1);
                     goto LABEL_105;
                   }
 
@@ -6111,9 +6027,9 @@ LABEL_102:
                   goto LABEL_102;
                 }
 
-                v10[4] = v64;
+                *(v10 + 4) = v64;
                 *v55 = v65;
-                v60 = v10 + 5;
+                v60 = (v10 + 20);
 LABEL_84:
                 v69 = *v60;
                 *v60 = *v62;
@@ -6133,11 +6049,11 @@ LABEL_84:
                 if (*(a2 - 5) < v66)
                 {
 LABEL_69:
-                  v10[4] = v59;
+                  *(v10 + 4) = v59;
                   *(a2 - 6) = v58;
-                  v60 = v10 + 5;
+                  v60 = (v10 + 20);
 LABEL_83:
-                  v62 = a2 - 5;
+                  v62 = a2 - 20;
                   goto LABEL_84;
                 }
               }
@@ -6147,12 +6063,12 @@ LABEL_83:
                 v66 = v55[1];
               }
 
-              v67 = v10[5];
-              v10[4] = v56;
-              v10[5] = v66;
+              v67 = *(v10 + 5);
+              *(v10 + 4) = v56;
+              *(v10 + 5) = v66;
               *v55 = v58;
               v55[1] = v67;
-              v60 = v55 + 1;
+              v60 = (v55 + 1);
               v68 = *(a2 - 6);
               if (v68 >= v58 && (v58 < v68 || *(a2 - 5) >= v67))
               {
@@ -6164,9 +6080,9 @@ LABEL_83:
               goto LABEL_83;
             }
 
-            v10[2] = v47;
+            *(v10 + 2) = v47;
             *v39 = v48;
-            v43 = v10 + 3;
+            v43 = (v10 + 12);
 LABEL_66:
             v54 = *v43;
             *v43 = *v45;
@@ -6186,11 +6102,11 @@ LABEL_66:
             if (*(a2 - 3) < v49)
             {
 LABEL_47:
-              v10[2] = v42;
+              *(v10 + 2) = v42;
               *(a2 - 4) = v41;
-              v43 = v10 + 3;
+              v43 = (v10 + 12);
 LABEL_65:
-              v45 = a2 - 3;
+              v45 = a2 - 12;
               goto LABEL_66;
             }
           }
@@ -6200,9 +6116,9 @@ LABEL_65:
             v49 = *(v14 - 1);
           }
 
-          v52 = v10[3];
-          v10[2] = v40;
-          v10[3] = v49;
+          v52 = *(v10 + 3);
+          *(v10 + 2) = v40;
+          *(v10 + 3) = v49;
           *v39 = v41;
           *(v14 - 1) = v52;
           v43 = v14 - 1;
@@ -6218,7 +6134,7 @@ LABEL_65:
         }
 
         *v10 = v27;
-        v19 = v10 + 1;
+        v19 = (v10 + 4);
         *v14 = v28;
 LABEL_44:
         v38 = *v19;
@@ -6240,10 +6156,10 @@ LABEL_44:
         {
 LABEL_16:
           *v10 = v18;
-          v19 = v10 + 1;
+          v19 = (v10 + 4);
 LABEL_43:
           *(a2 - 2) = v17;
-          v25 = a2 - 1;
+          v25 = a2 - 4;
           goto LABEL_44;
         }
       }
@@ -6253,12 +6169,12 @@ LABEL_43:
         v34 = v14[1];
       }
 
-      v36 = v10[1];
+      v36 = *(v10 + 1);
       *v10 = v16;
-      v10[1] = v34;
+      *(v10 + 1) = v34;
       *v14 = v17;
       v14[1] = v36;
-      v19 = v14 + 1;
+      v19 = (v14 + 1);
       v37 = *(a2 - 2);
       if (v37 >= v17 && (v17 < v37 || *(a2 - 1) >= v36))
       {
@@ -6271,7 +6187,7 @@ LABEL_43:
 
     v20 = *v10;
     v21 = *v14;
-    if (*v10 < *v15 || v21 >= v20 && v10[1] < v15[1])
+    if (*v10 < *v15 || v21 >= v20 && *(v10 + 1) < v15[1])
     {
       v22 = *(a2 - 2);
       if (v22 < v20)
@@ -6281,7 +6197,7 @@ LABEL_43:
 
       if (v20 >= v22)
       {
-        v35 = v10[1];
+        v35 = *(v10 + 1);
         if (*(a2 - 1) >= v35)
         {
           goto LABEL_59;
@@ -6290,19 +6206,19 @@ LABEL_43:
 LABEL_19:
         *v15 = v22;
         *(a2 - 2) = v21;
-        v23 = v15 + 1;
+        v23 = (v15 + 1);
       }
 
       else
       {
-        v35 = v10[1];
+        v35 = *(v10 + 1);
 LABEL_59:
         v50 = v15[1];
         *v15 = v20;
         v15[1] = v35;
         *v10 = v21;
-        v10[1] = v50;
-        v23 = v10 + 1;
+        *(v10 + 1) = v50;
+        v23 = (v10 + 4);
         v51 = *(a2 - 2);
         if (v51 >= v21 && (v21 < v51 || *(a2 - 1) >= v50))
         {
@@ -6313,7 +6229,7 @@ LABEL_59:
         *(a2 - 2) = v21;
       }
 
-      v30 = a2 - 1;
+      v30 = a2 - 4;
 LABEL_105:
       v83 = *v23;
       *v23 = *v30;
@@ -6322,13 +6238,13 @@ LABEL_105:
     }
 
     v29 = *(a2 - 2);
-    if (v29 < v20 || v20 >= v29 && *(a2 - 1) < v10[1])
+    if (v29 < v20 || v20 >= v29 && *(a2 - 1) < *(v10 + 1))
     {
       *v10 = v29;
       *(a2 - 2) = v20;
-      v30 = v10 + 1;
-      v31 = v10[1];
-      v10[1] = *(a2 - 1);
+      v30 = v10 + 4;
+      v31 = *(v10 + 1);
+      *(v10 + 1) = *(a2 - 1);
       *(a2 - 1) = v31;
       v32 = *v10;
       v33 = *v15;
@@ -6336,7 +6252,7 @@ LABEL_105:
       {
         *v15 = v32;
         *v10 = v33;
-        v23 = v15 + 1;
+        v23 = (v15 + 1);
         goto LABEL_105;
       }
     }
@@ -6345,7 +6261,7 @@ LABEL_106:
     if ((a5 & 1) == 0)
     {
       v84 = *(v10 - 2);
-      if (v84 >= *v10 && (*v10 < v84 || *(v10 - 1) >= v10[1]))
+      if (v84 >= *v10 && (*v10 < v84 || *(v10 - 1) >= *(v10 + 1)))
       {
         result = sub_2742F22C0(v10, a2);
         v10 = result;
@@ -6360,7 +6276,7 @@ LABEL_106:
     }
 
     v87 = sub_2742F2530(v10, v85);
-    v10 = v85 + 2;
+    v10 = (v85 + 2);
     result = sub_2742F2530(v85 + 2, a2);
     if (result)
     {
@@ -6379,7 +6295,7 @@ LABEL_106:
     {
 LABEL_144:
       result = sub_2742F1414(v8, v85, a3, -v12, a5 & 1);
-      v10 = v85 + 2;
+      v10 = (v85 + 2);
 LABEL_146:
       a5 = 0;
       a4 = -v12;
@@ -6389,16 +6305,16 @@ LABEL_146:
 
   result = sub_2742F1F4C(v10, v10 + 2, v10 + 4, v10 + 6);
   v95 = *(a2 - 2);
-  v96 = v10[6];
-  if (v95 < v96 || v96 >= v95 && *(a2 - 1) < v10[7])
+  v96 = *(v10 + 6);
+  if (v95 < v96 || v96 >= v95 && *(a2 - 1) < *(v10 + 7))
   {
-    v10[6] = v95;
+    *(v10 + 6) = v95;
     *(a2 - 2) = v96;
-    v97 = v10[7];
-    v10[7] = *(a2 - 1);
+    v97 = *(v10 + 7);
+    *(v10 + 7) = *(a2 - 1);
     *(a2 - 1) = v97;
-    v98 = v10[6];
-    v99 = v10[4];
+    v98 = *(v10 + 6);
+    v99 = *(v10 + 4);
     if (v98 >= v99)
     {
       if (v99 < v98)
@@ -6406,8 +6322,8 @@ LABEL_146:
         return result;
       }
 
-      v101 = v10[7];
-      v100 = v10[5];
+      v101 = *(v10 + 7);
+      v100 = *(v10 + 5);
       if (v101 >= v100)
       {
         return result;
@@ -6416,15 +6332,15 @@ LABEL_146:
 
     else
     {
-      v100 = v10[5];
-      v101 = v10[7];
+      v100 = *(v10 + 5);
+      v101 = *(v10 + 7);
     }
 
-    v10[4] = v98;
-    v10[5] = v101;
-    v10[6] = v99;
-    v10[7] = v100;
-    v102 = v10[2];
+    *(v10 + 4) = v98;
+    *(v10 + 5) = v101;
+    *(v10 + 6) = v99;
+    *(v10 + 7) = v100;
+    v102 = *(v10 + 2);
     if (v98 >= v102)
     {
       if (v102 < v98)
@@ -6432,7 +6348,7 @@ LABEL_146:
         return result;
       }
 
-      v103 = v10[3];
+      v103 = *(v10 + 3);
       if (v101 >= v103)
       {
         return result;
@@ -6441,13 +6357,13 @@ LABEL_146:
 
     else
     {
-      v103 = v10[3];
+      v103 = *(v10 + 3);
     }
 
-    v10[2] = v98;
-    v10[3] = v101;
-    v10[4] = v102;
-    v10[5] = v103;
+    *(v10 + 2) = v98;
+    *(v10 + 3) = v101;
+    *(v10 + 4) = v102;
+    *(v10 + 5) = v103;
     v104 = *v10;
     if (v98 >= *v10)
     {
@@ -6456,7 +6372,7 @@ LABEL_146:
         return result;
       }
 
-      v105 = v10[1];
+      v105 = *(v10 + 1);
       if (v101 >= v105)
       {
         return result;
@@ -6465,13 +6381,13 @@ LABEL_146:
 
     else
     {
-      v105 = v10[1];
+      v105 = *(v10 + 1);
     }
 
     *v10 = v98;
-    v10[1] = v101;
-    v10[2] = v104;
-    v10[3] = v105;
+    *(v10 + 1) = v101;
+    *(v10 + 2) = v104;
+    *(v10 + 3) = v105;
   }
 
   return result;
@@ -6487,14 +6403,14 @@ unsigned int *sub_2742F1F4C(unsigned int *result, unsigned int *a2, unsigned int
     if (*a3 < v4 || v4 >= v6 && a3[1] < a2[1])
     {
       *result = v6;
-      v7 = (result + 1);
+      v7 = result + 1;
     }
 
     else
     {
       *result = v4;
       *a2 = v5;
-      v7 = (a2 + 1);
+      v7 = a2 + 1;
       v13 = result[1];
       result[1] = a2[1];
       a2[1] = v13;
@@ -6509,7 +6425,7 @@ unsigned int *sub_2742F1F4C(unsigned int *result, unsigned int *a2, unsigned int
     }
 
     *a3 = v5;
-    v10 = (a3 + 1);
+    v10 = a3 + 1;
     goto LABEL_14;
   }
 
@@ -6518,7 +6434,7 @@ unsigned int *sub_2742F1F4C(unsigned int *result, unsigned int *a2, unsigned int
   {
     *a2 = v8;
     *a3 = v4;
-    v10 = (a2 + 1);
+    v10 = a2 + 1;
     v9 = a2[1];
     a2[1] = a3[1];
     a3[1] = v9;
@@ -6527,7 +6443,7 @@ unsigned int *sub_2742F1F4C(unsigned int *result, unsigned int *a2, unsigned int
     if (*a2 < *result || v12 >= v11 && *v10 < result[1])
     {
       *result = v11;
-      v7 = (result + 1);
+      v7 = result + 1;
       *a2 = v12;
 LABEL_14:
       v15 = *v7;
@@ -7103,9 +7019,9 @@ LABEL_20:
 LABEL_22:
       *a1 = v28;
       a1[4] = v27;
-      v29 = (a1 + 1);
+      v29 = a1 + 1;
 LABEL_64:
-      v37 = (a1 + 5);
+      v37 = a1 + 5;
       goto LABEL_65;
     }
 
@@ -7125,7 +7041,7 @@ LABEL_64:
 
     v43 = a1[1];
     a1[3] = v43;
-    v29 = (a1 + 3);
+    v29 = a1 + 3;
     *a1 = v26;
     a1[1] = v39;
     a1[2] = v27;
@@ -7146,7 +7062,7 @@ LABEL_64:
     v36 = a1[5];
 LABEL_33:
     a1[3] = v36;
-    v37 = (a1 + 3);
+    v37 = a1 + 3;
     a1[2] = v34;
     a1[4] = v26;
     a1[5] = v35;
@@ -7157,7 +7073,7 @@ LABEL_33:
 
     *a1 = v34;
     a1[2] = v27;
-    v29 = (a1 + 1);
+    v29 = a1 + 1;
 LABEL_65:
     v44 = *v29;
     *v29 = *v37;
@@ -7249,7 +7165,7 @@ LABEL_81:
   }
 }
 
-unsigned int *sub_2742F2A34(unsigned int *a1, unsigned int *a2, unsigned int *a3, uint64_t a4)
+char *sub_2742F2A34(char *a1, char *a2, char *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -7258,7 +7174,7 @@ unsigned int *sub_2742F2A34(unsigned int *a1, unsigned int *a2, unsigned int *a3
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = &a1[2 * v9];
+      v11 = &a1[8 * v9];
       do
       {
         sub_2742F2BA8(a1, a4, v8, v11);
@@ -7277,17 +7193,17 @@ unsigned int *sub_2742F2A34(unsigned int *a1, unsigned int *a2, unsigned int *a3
       {
         v13 = *v12;
         v14 = *a1;
-        if (*v12 < *a1 || v14 >= v13 && v12[1] < a1[1])
+        if (*v12 < *a1 || v14 >= v13 && *(v12 + 1) < *(a1 + 1))
         {
           *v12 = v14;
           *a1 = v13;
-          v15 = v12[1];
-          v12[1] = a1[1];
-          a1[1] = v15;
+          v15 = *(v12 + 1);
+          *(v12 + 1) = *(a1 + 1);
+          *(a1 + 1) = v15;
           sub_2742F2BA8(a1, a4, v8, a1);
         }
 
-        v12 += 2;
+        v12 += 8;
       }
 
       while (v12 != a3);
@@ -7295,28 +7211,28 @@ unsigned int *sub_2742F2A34(unsigned int *a1, unsigned int *a2, unsigned int *a3
 
     if (v8 >= 2)
     {
-      v16 = a2 - 2;
+      v16 = a2 - 8;
       do
       {
         v18 = *a1;
-        v17 = a1[1];
+        v17 = *(a1 + 1);
         v19 = sub_2742F2CEC(a1, a4, v8);
         if (v16 == v19)
         {
           *v19 = v18;
-          v19[1] = v17;
+          *(v19 + 1) = v17;
         }
 
         else
         {
           *v19 = *v16;
-          v19[1] = v16[1];
+          *(v19 + 1) = *(v16 + 1);
           *v16 = v18;
-          v16[1] = v17;
-          sub_2742F2D78(a1, (v19 + 2), a4, ((v19 + 2) - a1) >> 3);
+          *(v16 + 1) = v17;
+          sub_2742F2D78(a1, (v19 + 8), a4, (v19 + 8 - a1) >> 3);
         }
 
-        v16 -= 2;
+        v16 -= 8;
       }
 
       while (v8-- > 2);
@@ -7541,17 +7457,17 @@ uint64_t *sub_2742F2E7C(uint64_t *a1)
   return sub_2742F2E1C(&v7);
 }
 
-void sub_2742F2EEC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2742F2EEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_2742E8DB8(v2);
+  va_start(va, a3);
+  sub_2742E8DB8(v3);
   sub_2742F2E1C(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t *sub_2742F2F08(uint64_t a1, unsigned int *a2)
 {
-  v2 = (a1 + 8);
+  v2 = a1 + 8;
   v3 = *(a1 + 8);
   if (!v3)
   {
@@ -7561,7 +7477,7 @@ uint64_t *sub_2742F2F08(uint64_t a1, unsigned int *a2)
   v4 = *a2;
   while (1)
   {
-    v5 = *(v3 + 8);
+    v5 = *(v3 + 32);
     if (v4 >= v5)
     {
       break;
@@ -7578,7 +7494,7 @@ LABEL_7:
 
   if (v5 < v4)
   {
-    ++v3;
+    v3 += 8;
     goto LABEL_7;
   }
 
@@ -7589,7 +7505,7 @@ LABEL_7:
     result = v3;
     do
     {
-      v8 = *(v7 + 8);
+      v8 = *(v7 + 32);
       v9 = v8 >= v4;
       v10 = v8 < v4;
       if (v9)
@@ -7597,15 +7513,13 @@ LABEL_7:
         result = v7;
       }
 
-      v7 = v7[v10];
+      v7 = *(v7 + 8 * v10);
     }
 
     while (v7);
   }
 
-  for (i = v3[1]; i; i = *(i + 8 * (v4 >= *(i + 32))))
-  {
-    *(i + 32);
+    ;
   }
 
   return result;
@@ -7651,18 +7565,18 @@ uint64_t *sub_2742F2FEC(uint64_t a1)
   return sub_2742F2F98(&v6);
 }
 
-void sub_2742F3054(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2742F3054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_2742E8DB8(v2);
+  va_start(va, a3);
+  sub_2742E8DB8(v3);
   sub_2742F2F98(va);
   _Unwind_Resume(a1);
 }
 
-void awd::AWDServerFacade::initConnection_sync(awd::AWDServerFacade *this)
+void awd::AWDServerFacade::initConnection_sync(dispatch_queue_t *this)
 {
   v2 = xpc_null_create();
-  mach_service = xpc_connection_create_mach_service("com.apple.awdd", *(this + 2), 2uLL);
+  mach_service = xpc_connection_create_mach_service("com.apple.awdd", this[2], 2uLL);
   if (!mach_service)
   {
     mach_service = xpc_null_create();
@@ -7684,7 +7598,7 @@ void awd::AWDServerFacade::initConnection_sync(awd::AWDServerFacade *this)
       v11 = xpc_null_create();
     }
 
-    v6 = *(this + 2);
+    v6 = this[2];
     object = v6;
     if (v6)
     {
@@ -7718,7 +7632,7 @@ void awd::AWDServerFacade::initConnection_sync(awd::AWDServerFacade *this)
 
   else
   {
-    v5 = *(this + 4);
+    v5 = this[4];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -7928,29 +7842,29 @@ uint64_t awd::AWDServerFacade::handleServerError(uint64_t result, void *a2)
   return result;
 }
 
-void awd::AWDServerFacade::handleMessage(void *a1, uint64_t a2)
+void awd::AWDServerFacade::handleMessage(void *a1, xpc_object_t *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v4 = a1[4];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = a2;
-    v33 = "AWDMessageType";
-    sub_2742ED5E8(buf, &v23);
-    v22 = xpc::dyn_cast_or_default();
+    v32 = "AWDMessageType";
+    sub_2742ED5E8(buf, &v22);
+    v21 = xpc::dyn_cast_or_default();
     LODWORD(object) = 67109120;
-    HIDWORD(object) = v22;
+    HIDWORD(object) = v21;
     _os_log_debug_impl(&dword_2742E7000, v4, OS_LOG_TYPE_DEBUG, "client:#D libawd got message of type %d", &object, 8u);
-    xpc_release(v23);
+    xpc_release(v22);
   }
 
   fflush(*MEMORY[0x277D85E08]);
   *buf = a2;
-  v33 = "AWDMessageType";
+  v32 = "AWDMessageType";
   sub_2742ED5E8(buf, &object);
   v5 = xpc::dyn_cast_or_default();
   xpc_release(object);
-  sub_2742E8B80(&v23);
+  sub_2742E8B80(&v22);
   if (v5 > 6)
   {
     switch(v5)
@@ -7983,12 +7897,12 @@ void awd::AWDServerFacade::handleMessage(void *a1, uint64_t a2)
         {
           *buf = 67109888;
           *&buf[4] = ComponentId;
-          LOWORD(v33) = 1024;
-          *(&v33 + 2) = CollectPII;
-          HIWORD(v33) = 1024;
-          v34 = CollectLocation;
-          v35 = 1024;
-          v36 = AnalyticsShimMode;
+          LOWORD(v32) = 1024;
+          *(&v32 + 2) = CollectPII;
+          HIWORD(v32) = 1024;
+          v33 = CollectLocation;
+          v34 = 1024;
+          v35 = AnalyticsShimMode;
           _os_log_impl(&dword_2742E7000, v20, OS_LOG_TYPE_INFO, "client:#I In switch branch for pii/location message msg. cid=0x%x collectPII is %d, collectLocation is %d, shim is %d", buf, 0x1Au);
         }
 
@@ -8018,7 +7932,7 @@ void awd::AWDServerFacade::handleMessage(void *a1, uint64_t a2)
       awd::AWDSetComponentConfigurationMessage::AWDSetComponentConfigurationMessage(buf, a2);
       awd::AWDSetComponentConfigurationMessage::getComponentId(buf);
       awd::AWDSetComponentConfigurationMessage::getDeviceConfigurationId(buf);
-      awd::AWDSetComponentConfigurationMessage::getComponentConfiguration(buf, &object);
+      awd::AWDSetComponentConfigurationMessage::getComponentConfiguration(&object, buf);
       operator new();
     }
 
@@ -8032,12 +7946,12 @@ void awd::AWDServerFacade::handleMessage(void *a1, uint64_t a2)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         object = __PAIR64__(Trigger, 67109888);
-        v26 = 1024;
-        v27 = HIDWORD(Trigger);
-        v28 = 1024;
-        v29 = v9;
-        v30 = 1024;
-        v31 = v6;
+        v25 = 1024;
+        v26 = HIDWORD(Trigger);
+        v27 = 1024;
+        v28 = v9;
+        v29 = 1024;
+        v30 = v6;
         _os_log_impl(&dword_2742E7000, v10, OS_LOG_TYPE_INFO, "client:#I Sending Trigger(cid=0x%x, trid=0x%x, sid=%u) to component: 0x%x", &object, 0x1Au);
       }
 
@@ -8055,12 +7969,10 @@ void awd::AWDServerFacade::handleMessage(void *a1, uint64_t a2)
     }
   }
 
-  if (v24)
+  if (v23)
   {
-    sub_2742E8DB8(v24);
+    sub_2742E8DB8(v23);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2742F3CB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, xpc_object_t object, uint64_t a14, xpc_object_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
@@ -8159,7 +8071,7 @@ void sub_2742F3F38(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL awd::AWDServerFacade::register_sync(awd::AWDServerFacade *this, int a2, int a3, int a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (MEMORY[0x2743EA150](*(this + 5)) == MEMORY[0x277D86450])
   {
     v10 = getpid();
@@ -8172,13 +8084,13 @@ BOOL awd::AWDServerFacade::register_sync(awd::AWDServerFacade *this, int a2, int
       v12 = *(this + 4);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        *v16 = 67109632;
-        v17 = a2;
-        v18 = 1024;
-        v19 = a3;
-        v20 = 1024;
-        v21 = a4;
-        _os_log_impl(&dword_2742E7000, v12, OS_LOG_TYPE_INFO, "client:#I Sending message to register with dcid %d, component 0x%x, needsconfig: %d", v16, 0x14u);
+        *v15 = 67109632;
+        v16 = a2;
+        v17 = 1024;
+        v18 = a3;
+        v19 = 1024;
+        v20 = a4;
+        _os_log_impl(&dword_2742E7000, v12, OS_LOG_TYPE_INFO, "client:#I Sending message to register with dcid %d, component 0x%x, needsconfig: %d", v15, 0x14u);
       }
 
       xpc_connection_send_message(*(this + 5), message);
@@ -8194,13 +8106,12 @@ BOOL awd::AWDServerFacade::register_sync(awd::AWDServerFacade *this, int a2, int
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v23 = a3;
+      v22 = a3;
       _os_log_impl(&dword_2742E7000, v8, OS_LOG_TYPE_DEFAULT, "client:#E xpc conenction NULL while registering as component 0x%x", buf, 8u);
-      v9 = 0;
+      return 0;
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -8819,7 +8730,7 @@ void sub_2742F519C(uint64_t a1)
   }
 }
 
-uint64_t *sub_2742F51AC(awd::AWDServerFacade ***a1)
+uint64_t *sub_2742F51AC(dispatch_queue_t ***a1)
 {
   v3 = a1;
   v1 = *a1;
@@ -8828,10 +8739,10 @@ uint64_t *sub_2742F51AC(awd::AWDServerFacade ***a1)
   return sub_2742E8D64(&v3);
 }
 
-void sub_2742F520C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2742F520C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x2743E9A90](v3, v2);
+  va_start(va, a3);
+  MEMORY[0x2743E9A90](v4, v3);
   sub_2742E8D64(va);
   _Unwind_Resume(a1);
 }
@@ -8861,9 +8772,10 @@ uint64_t *sub_2742F522C(xpc_object_t **a1)
   return sub_2742E8D64(&v5);
 }
 
-void sub_2742F52D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void sub_2742F52D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  sub_2742F52EC(&a10);
+  va_start(va, a9);
+  sub_2742F52EC(va);
   sub_2742E8D64(&a9);
   _Unwind_Resume(a1);
 }
@@ -8889,8 +8801,7 @@ __n128 awd::AWDSetComponentConfigurationMessage::AWDSetComponentConfigurationMes
   a1->n128_u32[3] = a3;
   result = *a4;
   a1[1] = *a4;
-  a4->n128_u64[0] = 0;
-  a4->n128_u64[1] = 0;
+  *a4 = 0uLL;
   return result;
 }
 
@@ -8900,12 +8811,11 @@ __n128 awd::AWDSetComponentConfigurationMessage::AWDSetComponentConfigurationMes
   a1->n128_u32[3] = a3;
   result = *a4;
   a1[1] = *a4;
-  a4->n128_u64[0] = 0;
-  a4->n128_u64[1] = 0;
+  *a4 = 0uLL;
   return result;
 }
 
-void awd::AWDSetComponentConfigurationMessage::AWDSetComponentConfigurationMessage(void *a1)
+void awd::AWDSetComponentConfigurationMessage::AWDSetComponentConfigurationMessage(void *a1, xpc_object_t *a2)
 {
   *a1 = &unk_288351C78;
   a1[1] = 0;
@@ -8954,11 +8864,11 @@ void awd::AWDSetComponentConfigurationMessage::~AWDSetComponentConfigurationMess
   JUMPOUT(0x2743E9A90);
 }
 
-uint64_t awd::AWDSetComponentConfigurationMessage::getComponentConfiguration@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+uint64_t *awd::AWDSetComponentConfigurationMessage::getComponentConfiguration@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v2 = *(this + 24);
-  *a2 = *(this + 16);
-  a2[1] = v2;
+  v2 = this[3];
+  *a1 = this[2];
+  a1[1] = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
@@ -9189,43 +9099,42 @@ uint64_t awd::MetricBuffer::getLastSubmitted(awd::MetricBuffer *this)
   }
 }
 
-void awd::MetricBuffer::buffer(uint64_t a1, uint64_t *a2)
+void awd::MetricBuffer::buffer(awd::MetricBuffer *a1, uint64_t *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v3 = **a2;
-  sub_2742F5D5C((a1 + 24), *(a1 + 24), a2);
+  v23 = *MEMORY[0x277D85DE8];
+  sub_2742F5D5C(a1 + 3, *(a1 + 3), a2);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     sub_27431C73C();
   }
 
-  v4 = *(a1 + 24);
-  v5 = *(a1 + 32);
-  if (v4 != v5)
+  v3 = *(a1 + 3);
+  v4 = *(a1 + 4);
+  if (v3 != v4)
   {
-    v6 = MEMORY[0x277D86220];
+    v5 = MEMORY[0x277D86220];
     do
     {
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
-        v7 = **v4;
-        v8 = *(*v4 + 1);
-        v9 = *(*v4 + 3) - *(*v4 + 2);
-        v17 = 67109888;
-        v18 = v7;
+        v6 = **v3;
+        v7 = *(*v3 + 1);
+        v8 = *(*v3 + 3) - *(*v3 + 2);
+        v15 = 67109888;
+        v16 = v6;
+        v17 = 2048;
+        v18 = v8;
         v19 = 2048;
-        v20 = v9;
-        v21 = 2048;
-        v22 = v8 / 0x3E8;
-        v23 = 1024;
-        v24 = v8 % 0x3E8;
-        _os_log_debug_impl(&dword_2742E7000, v6, OS_LOG_TYPE_DEBUG, "metric.buffer:#D   - Metric: 0x%x %zd bytes (%llu.%03u seconds since epoch)", &v17, 0x22u);
+        v20 = v7 / 0x3E8;
+        v21 = 1024;
+        v22 = v7 % 0x3E8;
+        _os_log_debug_impl(&dword_2742E7000, v5, OS_LOG_TYPE_DEBUG, "metric.buffer:#D   - Metric: 0x%x %zd bytes (%llu.%03u seconds since epoch)", &v15, 0x22u);
       }
 
-      ++v4;
+      ++v3;
     }
 
-    while (v4 != v5);
+    while (v3 != v4);
   }
 
   awd::MetricBuffer::_deleteOldMetrics(a1);
@@ -9234,36 +9143,34 @@ void awd::MetricBuffer::buffer(uint64_t a1, uint64_t *a2)
     sub_27431C784();
   }
 
-  v10 = *(a1 + 24);
-  v11 = *(a1 + 32);
-  if (v10 != v11)
+  v9 = *(a1 + 3);
+  v10 = *(a1 + 4);
+  if (v9 != v10)
   {
-    v12 = MEMORY[0x277D86220];
+    v11 = MEMORY[0x277D86220];
     do
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v13 = **v10;
-        v14 = *(*v10 + 1);
-        v15 = *(*v10 + 3) - *(*v10 + 2);
-        v17 = 67109888;
-        v18 = v13;
+        v12 = **v9;
+        v13 = *(*v9 + 1);
+        v14 = *(*v9 + 3) - *(*v9 + 2);
+        v15 = 67109888;
+        v16 = v12;
+        v17 = 2048;
+        v18 = v14;
         v19 = 2048;
-        v20 = v15;
-        v21 = 2048;
-        v22 = v14 / 0x3E8;
-        v23 = 1024;
-        v24 = v14 % 0x3E8;
-        _os_log_debug_impl(&dword_2742E7000, v12, OS_LOG_TYPE_DEBUG, "metric.buffer:#D   - Metric: 0x%x %zd bytes (%llu.%03u seconds since epoch)", &v17, 0x22u);
+        v20 = v13 / 0x3E8;
+        v21 = 1024;
+        v22 = v13 % 0x3E8;
+        _os_log_debug_impl(&dword_2742E7000, v11, OS_LOG_TYPE_DEBUG, "metric.buffer:#D   - Metric: 0x%x %zd bytes (%llu.%03u seconds since epoch)", &v15, 0x22u);
       }
 
-      ++v10;
+      ++v9;
     }
 
-    while (v10 != v11);
+    while (v9 != v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t *sub_2742F5D5C(void *a1, uint64_t *a2, uint64_t *a3)
@@ -9306,7 +9213,7 @@ uint64_t *sub_2742F5D5C(void *a1, uint64_t *a2, uint64_t *a3)
     }
 
     v26 = 0;
-    v27 = 8 * v16;
+    v27 = (8 * v16);
     v28 = (8 * v16);
     sub_2742F63A8(&v26, a3);
     v18 = v27;
@@ -9316,7 +9223,7 @@ uint64_t *sub_2742F5D5C(void *a1, uint64_t *a2, uint64_t *a3)
     *&v28 = v28 + a1[1] - v4;
     a1[1] = v4;
     v21 = v4 - v19;
-    v22 = (v20 - (v4 - v19));
+    v22 = v20 - (v4 - v19);
     memcpy(v22, v19, v21);
     v23 = *a1;
     *a1 = v22;
@@ -9368,73 +9275,75 @@ void sub_2742F5ED0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t awd::MetricBuffer::_deleteOldMetrics(uint64_t **this)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   AWDTimestamp = awd::getAWDTimestamp(this);
   v3 = this[3];
   v4 = this[4];
-  if (v3 == v4 || (v5 = v4 - v3, v6 = *this, v5 <= v6))
+  if (v3 == v4)
   {
-    v8 = 0;
+    return 0;
   }
 
-  else
+  v5 = v4 - v3;
+  v6 = *this;
+  if (v5 <= v6)
   {
-    v7 = AWDTimestamp;
-    v8 = 0;
-    v9 = AWDTimestamp - 1000 * this[1];
-    v10 = this[4];
-    v11 = v10;
-    do
+    return 0;
+  }
+
+  v7 = AWDTimestamp;
+  v8 = 0;
+  v9 = AWDTimestamp - 1000 * this[1];
+  v10 = this[4];
+  v11 = v10;
+  do
+  {
+    if (v11 == v3)
     {
-      if (v11 == v3)
-      {
-        break;
-      }
-
-      v12 = *--v11;
-      v13 = *(v12 + 8);
-      if (v13 < v9 || v13 > v7)
-      {
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 134218496;
-          v19 = v13;
-          v20 = 2048;
-          v21 = v5;
-          v22 = 1024;
-          v23 = v6;
-          _os_log_debug_impl(&dword_2742E7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "metric.buffer:#D About to erase metric with time %llums. Size is %zd; fMaxCount is %u", buf, 0x1Cu);
-          v10 = this[4];
-        }
-
-        sub_2742F6574(buf, v4, v10, v4 - 1);
-        v8 = (v8 + 1);
-        sub_2742F62E0((this + 3), v15);
-        v3 = this[3];
-        v10 = this[4];
-        v6 = *this;
-      }
-
-      v5 = v10 - v3;
-      --v4;
+      break;
     }
 
-    while (v5 > v6);
+    v12 = *--v11;
+    v13 = *(v12 + 8);
+    if (v13 < v9 || v13 > v7)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 134218496;
+        v18 = v13;
+        v19 = 2048;
+        v20 = v5;
+        v21 = 1024;
+        v22 = v6;
+        _os_log_debug_impl(&dword_2742E7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "metric.buffer:#D About to erase metric with time %llums. Size is %zd; fMaxCount is %u", buf, 0x1Cu);
+        v10 = this[4];
+      }
+
+      sub_2742F6574(buf, v4, v10, v4 - 1);
+      v8 = (v8 + 1);
+      sub_2742F62E0((this + 3), v15);
+      v3 = this[3];
+      v10 = this[4];
+      v6 = *this;
+    }
+
+    v5 = v10 - v3;
+    --v4;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
+  while (v5 > v6);
   return v8;
 }
 
-uint64_t awd::MetricBuffer::lastCount@<X0>(awd::MetricBuffer *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+uint64_t *awd::MetricBuffer::lastCount@<X0>(uint64_t *__return_ptr a1@<X8>, awd::MetricBuffer *this@<X0>, int a3@<W1>)
 {
   v4 = *(this + 3);
-  result = this + 24;
-  *(a3 + 32) = 0;
-  *a3 = v4;
-  *(a3 + 8) = result;
-  *(a3 + 16) = 0;
-  *(a3 + 24) = a2;
+  result = (this + 24);
+  a1[4] = 0;
+  *a1 = v4;
+  a1[1] = result;
+  a1[2] = 0;
+  *(a1 + 6) = a3;
   return result;
 }
 
@@ -9448,22 +9357,22 @@ void *awd::MetricBuffer::iterator::metricBufferIteratorByCount@<X0>(void *result
   return result;
 }
 
-uint64_t awd::MetricBuffer::lastTimeInSeconds@<X0>(awd::MetricBuffer *this@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t *awd::MetricBuffer::lastTimeInSeconds@<X0>(uint64_t *__return_ptr a1@<X8>, awd::MetricBuffer *this@<X0>, unint64_t a3@<X1>)
 {
-  *(a3 + 20) = 0;
-  *(a3 + 24) = 0;
+  *(a1 + 5) = 0;
+  *(a1 + 6) = 0;
   v5 = *(this + 3);
-  result = this + 24;
+  result = (this + 24);
   v4 = v5;
-  *(a3 + 8) = result;
-  *(a3 + 16) = 1;
-  *(a3 + 32) = a2;
-  while (v4 != *(result + 8) && *(*v4 + 8) < a2)
+  a1[1] = result;
+  *(a1 + 4) = 1;
+  a1[4] = a3;
+  while (v4 != result[1] && *(*v4 + 8) < a3)
   {
     v4 += 8;
   }
 
-  *a3 = v4;
+  *a1 = v4;
   return result;
 }
 
@@ -9481,14 +9390,14 @@ uint64_t *awd::MetricBuffer::iterator::metricBufferIteratorSinceTime@<X0>(uint64
   return result;
 }
 
-uint64_t awd::MetricBuffer::end@<X0>(uint64_t this@<X0>, uint64_t a2@<X8>)
+uint64_t *awd::MetricBuffer::end@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  *(a2 + 20) = 0;
-  *(a2 + 24) = 0;
-  *(a2 + 32) = 0;
-  *(a2 + 16) = 2;
-  *a2 = *(this + 32);
-  *(a2 + 8) = this + 24;
+  *(a1 + 5) = 0;
+  *(a1 + 6) = 0;
+  a1[4] = 0;
+  *(a1 + 4) = 2;
+  *a1 = this[4];
+  a1[1] = (this + 3);
   return this;
 }
 
@@ -9733,17 +9642,16 @@ uint64_t *sub_2742F6574(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 
 awd::MetricContainer *awd::MetricContainer::MetricContainer(awd::MetricContainer *this, int a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   *this = a2;
   *(this + 1) = 0;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v6[0] = 67109120;
-    v6[1] = a2;
-    _os_log_impl(&dword_2742E7000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "metric:#I Creating a metric container for metric id: 0x%x", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = a2;
+    _os_log_impl(&dword_2742E7000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "metric:#I Creating a metric container for metric id: 0x%x", v5, 8u);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -9778,16 +9686,16 @@ uint64_t awd::MetricContainer::takeMetric@<X0>(uint64_t this@<X0>, void *a2@<X8>
   return this;
 }
 
-uint64_t awd::MetricContainer::getMetricBytes@<X0>(awd::MetricContainer *this@<X0>, void *a2@<X8>)
+uint64_t *awd::MetricContainer::getMetricBytes@<X0>(uint64_t *a1@<X8>, uint64_t a2@<X0>)
 {
-  v2 = *(this + 1);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  return sub_2742F680C(a2, *(v2 + 16), *(v2 + 24), *(v2 + 24) - *(v2 + 16));
+  v2 = *(a2 + 8);
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  return sub_2742F680C(a1, *(v2 + 16), *(v2 + 24), *(v2 + 24) - *(v2 + 16));
 }
 
-uint64_t sub_2742F680C(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *sub_2742F680C(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9807,4 +9715,97 @@ void sub_2742F686C(_Unwind_Exception *exception_object)
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void platform::getCustomConfigsPaths(uint64_t **a1@<X8>)
+{
+  v12[1] = *MEMORY[0x277D85DE8];
+  sub_2742F6A8C(v5, "/var/wireless/awdd");
+  ctu::path_join_impl();
+  v7 = 1;
+  v8 = *v5;
+  v9 = v6;
+  v5[0] = 0;
+  v5[1] = 0;
+  v6 = 0;
+  sub_2742F6A8C(__p, "/AppleInternal/Library/awdd");
+  ctu::path_join_impl();
+  v10 = 0;
+  v11 = *__p;
+  v12[0] = v4;
+  __p[0] = 0;
+  __p[1] = 0;
+  v4 = 0;
+  sub_2742F6DB8(a1, &v7, 2);
+  for (i = 0; i != -8; i -= 4)
+  {
+    if (SHIBYTE(v12[i]) < 0)
+    {
+      operator delete(v12[i - 2]);
+    }
+  }
+
+  if (SHIBYTE(v4) < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (SHIBYTE(v6) < 0)
+  {
+    operator delete(v5[0]);
+  }
+}
+
+void sub_2742F69BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
+{
+  v30 = v28 + 40;
+  v31 = -64;
+  while (1)
+  {
+    if (*(v30 + 23) < 0)
+    {
+      operator delete(*v30);
+    }
+
+    v30 -= 32;
+    v31 += 32;
+    if (!v31)
+    {
+      if (a15 < 0)
+      {
+        operator delete(__p);
+      }
+
+      if (a21 < 0)
+      {
+        operator delete(a16);
+      }
+
+      _Unwind_Resume(exception_object);
+    }
+  }
+}
+
+void *sub_2742F6A8C(void *a1, char *__s)
+{
+  v4 = strlen(__s);
+  if (v4 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    sub_2742EB490();
+  }
+
+  v5 = v4;
+  if (v4 >= 0x17)
+  {
+    operator new();
+  }
+
+  *(a1 + 23) = v4;
+  if (v4)
+  {
+    memmove(a1, __s, v4);
+  }
+
+  *(a1 + v5) = 0;
+  return a1;
 }

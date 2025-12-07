@@ -32,7 +32,7 @@
   sub_1000C8E14();
   if (swift_unknownObjectWeakLoadStrong())
   {
-    type metadata accessor for AppPromotionDetailPageViewController();
+    type metadata accessor for AppPromotionDetailPageViewController(0);
     sub_1004D9948();
     swift_unknownObjectRelease();
   }

@@ -67,7 +67,7 @@
 
   v9 = v8;
 
-  if (v9 && [(NSMutableSet *)self->_incompleteProcessLaunchTransactions containsObject:v9])
+  if (v9 && objc_msgSend_containsObject_(self->_incompleteProcessLaunchTransactions))
   {
     [(NSMutableSet *)self->_incompleteProcessLaunchTransactions removeObject:v9];
     process = [v9 process];
@@ -315,11 +315,11 @@
   [switcherController addCenterRoleAppLayoutForDisplayItem:v12 completion:v18];
 }
 
-uint64_t __63__SBSuspendedWorkspaceTransaction__addSceneEntityToAppRecency___block_invoke_2(uint64_t result, int a2)
+id *__63__SBSuspendedWorkspaceTransaction__addSceneEntityToAppRecency___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) updateSettingsWithBlock:&__block_literal_global_51_2];
+    return [result[4] updateSettingsWithBlock:&__block_literal_global_51_2];
   }
 
   return result;
@@ -328,7 +328,7 @@ uint64_t __63__SBSuspendedWorkspaceTransaction__addSceneEntityToAppRecency___blo
 void __63__SBSuspendedWorkspaceTransaction__addSceneEntityToAppRecency___block_invoke_4(uint64_t a1)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v2 = SBLogAppSwitcher();
+  v2 = SBLogAppSwitcher(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -342,7 +342,7 @@ void __63__SBSuspendedWorkspaceTransaction__addSceneEntityToAppRecency___block_i
 {
   transactionCopy = transaction;
   processCopy = process;
-  if ([(NSMutableSet *)self->_outstandingProcessLaunchTransactions containsObject:transactionCopy])
+  if (objc_msgSend_containsObject_(self->_outstandingProcessLaunchTransactions))
   {
     [(NSMutableSet *)self->_outstandingProcessLaunchTransactions removeObject:transactionCopy];
     if (([processCopy isRunning] & 1) == 0)

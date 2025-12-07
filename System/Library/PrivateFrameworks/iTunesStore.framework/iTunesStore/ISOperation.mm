@@ -19,6 +19,7 @@
 - (unint64_t)authenticatedAccountCredentialSource;
 - (void)_addSubOperation:(id)operation;
 - (void)_failAfterException;
+- (void)_main:(BOOL)_main;
 - (void)_sendErrorToDelegate:(id)delegate;
 - (void)_sendSuccessToDelegate;
 - (void)_sendWillStartToDelegate;
@@ -48,34 +49,37 @@
     mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
   }
 
-  shouldLog = [mEMORY[0x277D69B38] shouldLog];
+  LODWORD(v4) = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    shouldLog |= 2u;
+    LODWORD(v4) = v4 | 2;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    shouldLog &= 2u;
+    v4 = v4;
   }
 
-  if (shouldLog)
+  else
+  {
+    v4 &= 2u;
+  }
+
+  if (v4)
   {
     v75 = 138543618;
     v76 = objc_opt_class();
     v77 = 2114;
     v78 = v74;
     v6 = v76;
-    LODWORD(v71) = 22;
-    v68 = &v75;
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_275BC3000, oSLogObject, 0, "%{public}@: [%{public}@] Running", &v75, 22);
 
     if (v7)
     {
-      v8 = [MEMORY[0x277CCACA8] stringWithCString:v7 encoding:{4, &v75, v71}];
+      v8 = [MEMORY[0x277CCACA8] stringWithCString:v7 encoding:4];
       free(v7);
-      v68 = v8;
+      v67 = v8;
       SSFileLog();
     }
   }
@@ -93,7 +97,7 @@
     if (!v11 || ([v11 success] & 1) != 0 || (objc_msgSend(v11, "error"), v12 = objc_claimAutoreleasedReturnValue(), v13 = -[ISOperation shouldFailAfterUniquePredecessorError:](self, "shouldFailAfterUniquePredecessorError:", v12), v12, !v13))
     {
       v21 = 0;
-      goto LABEL_27;
+      goto LABEL_29;
     }
 
     mEMORY[0x277D69B38]2 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
@@ -102,52 +106,56 @@
       mEMORY[0x277D69B38]2 = [MEMORY[0x277D69B38] sharedConfig];
     }
 
-    shouldLog2 = [mEMORY[0x277D69B38]2 shouldLog];
+    LODWORD(v15) = [mEMORY[0x277D69B38]2 shouldLog];
     if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
     {
-      shouldLog2 |= 2u;
+      LODWORD(v15) = v15 | 2;
     }
 
     oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      shouldLog2 &= 2u;
+      v15 = v15;
     }
 
-    if (shouldLog2)
+    else
+    {
+      v15 &= 2u;
+    }
+
+    if (v15)
     {
       v17 = objc_opt_class();
       v75 = 138412290;
       v76 = v17;
       v18 = v17;
-      LODWORD(v71) = 12;
-      v68 = &v75;
-      v19 = _os_log_send_and_compose_impl();
+      LODWORD(v70) = 12;
+      v19 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_275BC3000, oSLogObject2, 16, "%@: Failing because predecessor failed", &v75, v70);
 
       if (!v19)
       {
-LABEL_25:
+LABEL_27:
 
         error = [v11 error];
         [(ISOperation *)self setError:error];
 
         v21 = 1;
-LABEL_27:
+LABEL_29:
 
-        goto LABEL_29;
+        goto LABEL_31;
       }
 
-      oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:{4, &v75, v71}];
+      oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:4];
       free(v19);
-      v68 = oSLogObject2;
+      v67 = oSLogObject2;
       SSFileLog();
     }
 
-    goto LABEL_25;
+    goto LABEL_27;
   }
 
   v21 = 0;
-LABEL_29:
+LABEL_31:
   powerAssertionIdentifier = [(ISOperation *)self powerAssertionIdentifier];
   if (powerAssertionIdentifier)
   {
@@ -163,7 +171,7 @@ LABEL_29:
   if (![(ISOperation *)self shouldRunWithBackgroundPriority]|| (*__error() = 0, v24 = getpriority(3, 0), *__error()) || setpriority(3, 0, 4096))
   {
     v25 = 0;
-    goto LABEL_36;
+    goto LABEL_38;
   }
 
   mEMORY[0x277D69B38]3 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
@@ -172,57 +180,57 @@ LABEL_29:
     mEMORY[0x277D69B38]3 = [MEMORY[0x277D69B38] sharedConfig];
   }
 
-  shouldLog3 = [mEMORY[0x277D69B38]3 shouldLog];
+  shouldLog = [mEMORY[0x277D69B38]3 shouldLog];
   if ([mEMORY[0x277D69B38]3 shouldLogToDisk])
   {
-    shouldLog3 |= 2u;
+    shouldLog |= 2u;
   }
 
   oSLogObject3 = [mEMORY[0x277D69B38]3 OSLogObject];
-  v56 = os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG);
-  v57 = shouldLog3 & 2;
-  if (v56)
+  v55 = os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG);
+  v56 = shouldLog & 2;
+  if (v55)
   {
-    v57 = shouldLog3;
+    v56 = shouldLog;
   }
 
-  if (!v57)
+  if (!v56)
   {
-    goto LABEL_83;
+    goto LABEL_87;
   }
 
-  v58 = objc_opt_class();
-  v59 = oSLogObject3;
-  v60 = mEMORY[0x277D69B38]3;
-  v61 = v24;
-  v62 = MEMORY[0x277CCACC8];
-  v72 = v58;
-  v63 = v62;
-  v24 = v61;
-  mEMORY[0x277D69B38]3 = v60;
-  v64 = v59;
-  currentThread = [v63 currentThread];
+  v72 = v56;
+  v57 = objc_opt_class();
+  v58 = oSLogObject3;
+  v59 = mEMORY[0x277D69B38]3;
+  v60 = v24;
+  v61 = MEMORY[0x277CCACC8];
+  v71 = v57;
+  v62 = v61;
+  v24 = v60;
+  mEMORY[0x277D69B38]3 = v59;
+  v63 = v58;
+  currentThread = [v62 currentThread];
   v75 = 138412546;
-  v76 = v58;
+  v76 = v57;
   v77 = 2048;
   v78 = currentThread;
-  LODWORD(v71) = 22;
-  v69 = &v75;
-  v66 = currentThread;
-  v67 = _os_log_send_and_compose_impl();
+  LODWORD(v70) = 22;
+  v65 = currentThread;
+  v66 = _os_log_send_and_compose_impl(v72, 0, 0, 0, &dword_275BC3000, v58, 2, "%@: Running with background priority for thread: %p", &v75, v70);
 
-  if (v67)
+  if (v66)
   {
-    oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v67 encoding:{4, &v75, v71}];
-    free(v67);
-    v69 = oSLogObject3;
+    oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v66 encoding:4];
+    free(v66);
+    v68 = oSLogObject3;
     SSFileLog();
-LABEL_83:
+LABEL_87:
   }
 
   v25 = v24 == 0;
-LABEL_36:
-  [(ISOperation *)self _main:v21, v69];
+LABEL_38:
+  [(ISOperation *)self _main:v21, v68];
   if (v73)
   {
     v26 = +[ISDevice sharedInstance];
@@ -237,23 +245,23 @@ LABEL_36:
       mEMORY[0x277D69B38]4 = [MEMORY[0x277D69B38] sharedConfig];
     }
 
-    shouldLog4 = [mEMORY[0x277D69B38]4 shouldLog];
+    shouldLog2 = [mEMORY[0x277D69B38]4 shouldLog];
     shouldLogToDisk = [mEMORY[0x277D69B38]4 shouldLogToDisk];
     oSLogObject4 = [mEMORY[0x277D69B38]4 OSLogObject];
     v31 = oSLogObject4;
     if (shouldLogToDisk)
     {
-      shouldLog4 |= 2u;
+      shouldLog2 |= 2u;
     }
 
     if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEBUG))
     {
-      v32 = shouldLog4;
+      v32 = shouldLog2;
     }
 
     else
     {
-      v32 = shouldLog4 & 2;
+      v32 = shouldLog2 & 2;
     }
 
     if (v32)
@@ -264,28 +272,27 @@ LABEL_36:
       v76 = v33;
       v77 = 2048;
       v78 = currentThread2;
-      LODWORD(v71) = 22;
-      v70 = &v75;
-      v35 = _os_log_send_and_compose_impl();
+      LODWORD(v70) = 22;
+      v35 = _os_log_send_and_compose_impl(v32, 0, 0, 0, &dword_275BC3000, v31, 2, "%@: Restoring normal priority for thread: %p", &v75, v70);
 
       if (!v35)
       {
-LABEL_50:
+LABEL_52:
 
         setpriority(3, 0, 0);
-        goto LABEL_51;
+        goto LABEL_53;
       }
 
-      v31 = [MEMORY[0x277CCACA8] stringWithCString:v35 encoding:{4, &v75, v71}];
+      v31 = [MEMORY[0x277CCACA8] stringWithCString:v35 encoding:4];
       free(v35);
-      v70 = v31;
+      v69 = v31;
       SSFileLog();
     }
 
-    goto LABEL_50;
+    goto LABEL_52;
   }
 
-LABEL_51:
+LABEL_53:
   if (uniqueKey)
   {
     currentQueue2 = [MEMORY[0x277CCABD8] currentQueue];
@@ -305,23 +312,28 @@ LABEL_51:
       mEMORY[0x277D69B38]5 = [MEMORY[0x277D69B38] sharedConfig];
     }
 
-    shouldLog5 = [mEMORY[0x277D69B38]5 shouldLog];
+    LODWORD(v40) = [mEMORY[0x277D69B38]5 shouldLog];
     shouldLogToDisk2 = [mEMORY[0x277D69B38]5 shouldLogToDisk];
     oSLogObject5 = [mEMORY[0x277D69B38]5 OSLogObject];
     v43 = oSLogObject5;
     if (shouldLogToDisk2)
     {
-      shouldLog5 |= 2u;
+      LODWORD(v40) = v40 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_ERROR))
     {
-      shouldLog5 &= 2u;
+      v40 = v40;
     }
 
-    if (!shouldLog5)
+    else
     {
-      goto LABEL_72;
+      v40 &= 2u;
+    }
+
+    if (!v40)
+    {
+      goto LABEL_76;
     }
 
     v44 = objc_opt_class();
@@ -330,16 +342,16 @@ LABEL_51:
     v77 = 2114;
     v78 = v74;
     v45 = v44;
-    LODWORD(v71) = 22;
-    v46 = _os_log_send_and_compose_impl();
+    LODWORD(v70) = 22;
+    v46 = _os_log_send_and_compose_impl(v40, 0, 0, 0, &dword_275BC3000, v43, 16, "%{public}@: [%{public}@] Finished", &v75, v70);
 
     if (v46)
     {
-LABEL_71:
-      v43 = [MEMORY[0x277CCACA8] stringWithCString:v46 encoding:{4, &v75, v71}];
+LABEL_75:
+      v43 = [MEMORY[0x277CCACA8] stringWithCString:v46 encoding:4];
       free(v46);
       SSFileLog();
-LABEL_72:
+LABEL_76:
     }
   }
 
@@ -351,23 +363,28 @@ LABEL_72:
       mEMORY[0x277D69B38]5 = [MEMORY[0x277D69B38] sharedConfig];
     }
 
-    shouldLog6 = [mEMORY[0x277D69B38]5 shouldLog];
+    LODWORD(v47) = [mEMORY[0x277D69B38]5 shouldLog];
     shouldLogToDisk3 = [mEMORY[0x277D69B38]5 shouldLogToDisk];
     oSLogObject6 = [mEMORY[0x277D69B38]5 OSLogObject];
     v43 = oSLogObject6;
     if (shouldLogToDisk3)
     {
-      shouldLog6 |= 2u;
+      LODWORD(v47) = v47 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog6 &= 2u;
+      v47 = v47;
     }
 
-    if (!shouldLog6)
+    else
     {
-      goto LABEL_72;
+      v47 &= 2u;
+    }
+
+    if (!v47)
+    {
+      goto LABEL_76;
     }
 
     v50 = objc_opt_class();
@@ -376,16 +393,14 @@ LABEL_72:
     v77 = 2114;
     v78 = v74;
     v51 = v50;
-    LODWORD(v71) = 22;
-    v46 = _os_log_send_and_compose_impl();
+    LODWORD(v70) = 22;
+    v46 = _os_log_send_and_compose_impl(v47, 0, 0, 0, &dword_275BC3000, v43, 0, "%{public}@: [%{public}@] Finished", &v75, v70);
 
     if (v46)
     {
-      goto LABEL_71;
+      goto LABEL_75;
     }
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (ISOperationDelegate)delegate
@@ -429,7 +444,7 @@ LABEL_72:
 
 - (ISOperation)init
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISOperation.m", 47, a2);
   v7.receiver = self;
   v7.super_class = ISOperation;
   v3 = [(ISOperation *)&v7 init];
@@ -538,30 +553,30 @@ LABEL_72:
 
 - (BOOL)stopRunLoop
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   [(ISOperation *)self lock];
   v3 = [(NSMutableArray *)self->_subOperations copy];
   [(ISOperation *)self unlock];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([*(*(&v17 + 1) + 8 * i) stopRunLoop])
+        if ([*(*(&v16 + 1) + 8 * i) stopRunLoop])
         {
           v11 = 1;
           v10 = v4;
@@ -569,7 +584,7 @@ LABEL_72:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v6)
       {
         continue;
@@ -599,7 +614,6 @@ LABEL_72:
 
 LABEL_12:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -666,40 +680,40 @@ LABEL_12:
 
 - (id)copySerializationLocks
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   serializationLockIdentifiers = [(ISOperation *)self serializationLockIdentifiers];
   if ([serializationLockIdentifiers count])
   {
     v3 = +[ISUniqueOperationManager sharedInstance];
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v5 = serializationLockIdentifiers;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         v9 = 0;
         do
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [v3 lockWithIdentifier:{*(*(&v13 + 1) + 8 * v9), v13}];
+          v10 = [v3 lockWithIdentifier:{*(*(&v12 + 1) + 8 * v9), v12}];
           [v4 addObject:v10];
 
           ++v9;
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -711,7 +725,6 @@ LABEL_12:
     v4 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -763,7 +776,7 @@ void __38__ISOperation_dispatchCompletionBlock__block_invoke(uint64_t a1)
 
 - (void)releasePowerAssertionsDuringBlock:(id)block
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   copyActivePowerAssertionIdentifiers = [(ISOperation *)self copyActivePowerAssertionIdentifiers];
   v6 = +[ISDevice sharedInstance];
@@ -776,16 +789,21 @@ void __38__ISOperation_dispatchCompletionBlock__block_invoke(uint64_t a1)
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
@@ -794,19 +812,17 @@ void __38__ISOperation_dispatchCompletionBlock__block_invoke(uint64_t a1)
   {
     v11 = objc_opt_class();
     v12 = v11;
-    v36 = 138412546;
-    v37 = v11;
-    v38 = 2048;
-    v39 = [copyActivePowerAssertionIdentifiers count];
-    LODWORD(v25) = 22;
-    v24 = &v36;
-    v13 = _os_log_send_and_compose_impl();
+    v34 = 138412546;
+    v35 = v11;
+    v36 = 2048;
+    v37 = [copyActivePowerAssertionIdentifiers count];
+    v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_275BC3000, oSLogObject, 2, "%@: Temporarily disable %lu power assertions", &v34, 22);
 
     if (v13)
     {
-      v14 = [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:{4, &v36, v25}];
+      v14 = [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:4];
       free(v13);
-      v24 = v14;
+      v23 = v14;
       SSFileLog();
     }
   }
@@ -815,62 +831,60 @@ void __38__ISOperation_dispatchCompletionBlock__block_invoke(uint64_t a1)
   {
   }
 
-  v32 = 0u;
-  v33 = 0u;
   v30 = 0u;
   v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v15 = copyActivePowerAssertionIdentifiers;
-  v16 = [v15 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v16)
   {
-    v17 = *v31;
+    v17 = *v29;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v31 != v17)
+        if (*v29 != v17)
         {
           objc_enumerationMutation(v15);
         }
 
-        [v6 releasePowerAssertion:{*(*(&v30 + 1) + 8 * i), v24}];
+        [v6 releasePowerAssertion:{*(*(&v28 + 1) + 8 * i), v23}];
       }
 
-      v16 = [v15 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v16);
   }
 
   blockCopy[2](blockCopy);
-  v28 = 0u;
-  v29 = 0u;
   v26 = 0u;
   v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v19 = v15;
-  v20 = [v19 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v20)
   {
-    v21 = *v27;
+    v21 = *v25;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v27 != v21)
+        if (*v25 != v21)
         {
           objc_enumerationMutation(v19);
         }
 
-        [v6 takePowerAssertion:{*(*(&v26 + 1) + 8 * j), v24}];
+        [v6 takePowerAssertion:{*(*(&v24 + 1) + 8 * j), v23}];
       }
 
-      v20 = [v19 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v20);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)run:(BOOL)run
@@ -971,6 +985,58 @@ void __38__ISOperation_dispatchCompletionBlock__block_invoke(uint64_t a1)
   [(ISOperation *)self _sendErrorToDelegate:error];
 }
 
+- (void)_main:(BOOL)_main
+{
+  _mainCopy = _main;
+  currentRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
+  [(ISOperation *)self setOperationRunLoop:currentRunLoop];
+
+  delegate = [(ISOperation *)self delegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    [(ISOperation *)self lock];
+    v8 = objc_alloc_init(MEMORY[0x277D69BE0]);
+    progress = self->_progress;
+    self->_progress = v8;
+
+    [(SSOperationProgress *)self->_progress setMaxValue:1];
+    [(ISOperation *)self unlock];
+    [(ISOperation *)self sendProgressToDelegate];
+  }
+
+  [(ISOperation *)self _sendWillStartToDelegate];
+  [(ISOperation *)self run:_mainCopy];
+  if ([(ISOperation *)self success])
+  {
+    if (v7)
+    {
+      [(ISOperation *)self lock];
+      [(SSOperationProgress *)self->_progress setCurrentValue:[(SSOperationProgress *)self->_progress maxValue]];
+      [(SSOperationProgress *)self->_progress setEstimatedTimeRemaining:-1.0];
+      [(ISOperation *)self unlock];
+      [(ISOperation *)self sendProgressToDelegate];
+    }
+
+    [(ISOperation *)self _sendSuccessToDelegate];
+  }
+
+  else
+  {
+    error = [(ISOperation *)self error];
+    [(ISOperation *)self _sendErrorToDelegate:error];
+  }
+
+  [(ISOperation *)self lock];
+  v11 = self->_progress;
+  self->_progress = 0;
+
+  [(ISOperation *)self unlock];
+
+  [(ISOperation *)self setOperationRunLoop:0];
+}
+
 - (void)_sendErrorToDelegate:(id)delegate
 {
   delegateCopy = delegate;
@@ -1061,12 +1127,12 @@ void __38__ISOperation_dispatchCompletionBlock__block_invoke(uint64_t a1)
 
 - (BOOL)copyAccountID:(id *)d credentialSource:(unint64_t *)source byAuthenticatingWithContext:(id)context returningError:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v22 = 0;
+  v24 = *MEMORY[0x277D85DE8];
+  v21 = 0;
   v10 = [[ISStoreAuthenticateOperation alloc] initWithAuthenticationContext:context];
   if (v10)
   {
-    if ([(ISOperation *)self runSubOperation:v10 returningError:&v22])
+    if ([(ISOperation *)self runSubOperation:v10 returningError:&v21])
     {
       authenticatedAccountDSID = [(ISStoreAuthenticateOperation *)v10 authenticatedAccountDSID];
       authenticatedAccountCredentialSource = [(ISOperation *)v10 authenticatedAccountCredentialSource];
@@ -1092,30 +1158,35 @@ void __38__ISOperation_dispatchCompletionBlock__block_invoke(uint64_t a1)
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v16 = shouldLog | 2;
+      LODWORD(v16) = shouldLog | 2;
     }
 
     else
     {
-      v16 = shouldLog;
+      LODWORD(v16) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x277D69B38] OSLogObject], OS_LOG_TYPE_ERROR))
+    oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v16 = v16;
+    }
+
+    else
     {
       v16 &= 2u;
     }
 
     if (v16)
     {
-      v23 = 138543362;
-      v24 = objc_opt_class();
-      LODWORD(v21) = 12;
-      v17 = _os_log_send_and_compose_impl();
-      if (v17)
+      v22 = 138543362;
+      v23 = objc_opt_class();
+      v18 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%{public}@: Could not create authentication operation.", &v22, 12);
+      if (v18)
       {
-        v18 = v17;
-        [MEMORY[0x277CCACA8] stringWithCString:v17 encoding:{4, &v23, v21}];
-        free(v18);
+        v19 = v18;
+        [MEMORY[0x277CCACA8] stringWithCString:v18 encoding:4];
+        free(v19);
         SSFileLog();
       }
     }
@@ -1123,7 +1194,7 @@ void __38__ISOperation_dispatchCompletionBlock__block_invoke(uint64_t a1)
     authenticatedAccountCredentialSource = 0;
     authenticatedAccountDSID = 0;
     v13 = 0;
-    v22 = ISError(4, 0, 0);
+    v21 = ISError(4, 0, 0);
   }
 
   if (d)
@@ -1131,32 +1202,31 @@ void __38__ISOperation_dispatchCompletionBlock__block_invoke(uint64_t a1)
     *d = authenticatedAccountDSID;
     if (!source)
     {
-      goto LABEL_19;
+      goto LABEL_20;
     }
 
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   if (source)
   {
-LABEL_18:
+LABEL_19:
     *source = authenticatedAccountCredentialSource;
   }
 
-LABEL_19:
+LABEL_20:
   if (error)
   {
-    *error = v22;
+    *error = v21;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)copyAccountID:(id *)d credentialSource:(unint64_t *)source byHandlingAuthenticateResponse:(id)response returningError:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v25 = 0;
+  v29 = *MEMORY[0x277D85DE8];
+  v24 = 0;
   responseDictionary = [response responseDictionary];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -1170,91 +1240,94 @@ LABEL_19:
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      LODWORD(v13) = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      LODWORD(v13) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x277D69B38] OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
 
     if (v13)
     {
-      v26 = 138412546;
-      v27 = objc_opt_class();
-      v28 = 2112;
-      v29 = responseDictionary;
-      LODWORD(v24) = 22;
-      v23 = &v26;
-      v14 = _os_log_send_and_compose_impl();
-      if (v14)
+      v25 = 138412546;
+      v26 = objc_opt_class();
+      v27 = 2112;
+      v28 = responseDictionary;
+      v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_275BC3000, oSLogObject, 2, "[%@]: What do we do with this: %@", &v25, 22);
+      if (v15)
       {
-        v15 = v14;
-        v16 = [MEMORY[0x277CCACA8] stringWithCString:v14 encoding:{4, &v26, v24}];
-        free(v15);
-        v23 = v16;
+        v16 = v15;
+        v17 = [MEMORY[0x277CCACA8] stringWithCString:v15 encoding:4];
+        free(v16);
+        v23 = v17;
         SSFileLog();
       }
     }
   }
 
-  v17 = [ISStoreAuthenticateOperation _copyErrorForAuthenticateResponse:response error:&v25, v23];
-  if (v17)
+  v18 = [ISStoreAuthenticateOperation _copyErrorForAuthenticateResponse:response error:&v24, v23];
+  if (v18)
   {
-    v18 = [objc_msgSend(response "authenticatedAccount")];
+    v19 = [objc_msgSend(response "authenticatedAccount")];
     credentialSource = [response credentialSource];
     if (d)
     {
-      goto LABEL_14;
+      goto LABEL_15;
     }
   }
 
   else
   {
     credentialSource = 0;
-    v18 = 0;
+    v19 = 0;
     if (d)
     {
-LABEL_14:
-      *d = v18;
+LABEL_15:
+      *d = v19;
       if (!source)
       {
-        goto LABEL_16;
+        goto LABEL_17;
       }
 
-      goto LABEL_15;
+      goto LABEL_16;
     }
   }
 
   if (source)
   {
-LABEL_15:
+LABEL_16:
     *source = credentialSource;
   }
 
-LABEL_16:
+LABEL_17:
   if (error)
   {
-    v20 = v17;
+    v21 = v18;
   }
 
   else
   {
-    v20 = 1;
+    v21 = 1;
   }
 
-  if ((v20 & 1) == 0)
+  if ((v21 & 1) == 0)
   {
-    *error = v25;
+    *error = v24;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v18;
 }
 
 @end

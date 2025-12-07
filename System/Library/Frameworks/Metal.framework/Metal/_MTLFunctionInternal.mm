@@ -539,9 +539,9 @@
 
 - (BOOL)specializedFunctionHash:(id *)hash requestData:(id *)data airScript:(id *)script constants:(id)constants specializedName:(id)name privateFunctions:(id)functions completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   size = 0;
-  v24 = 0;
+  v23 = 0;
   if (constants)
   {
     constantsCopy = constants;
@@ -553,29 +553,27 @@
     constantsCopy = objc_alloc_init(MTLFunctionConstantValues);
   }
 
-  v17 = [(MTLFunctionConstantValues *)constantsCopy serializedConstantDataForFunction:self dataSize:&size errorMessage:&v24];
+  v17 = [(MTLFunctionConstantValues *)constantsCopy serializedConstantDataForFunction:self dataSize:&size errorMessage:&v23];
   if (v17)
   {
-    *script = [(MTLFunctionConstantValues *)constantsCopy newConstantScriptForFunction:self name:self->super._name specializedName:name errorMessage:&v24];
+    *script = [(MTLFunctionConstantValues *)constantsCopy newConstantScriptForFunction:self name:self->super._name specializedName:name errorMessage:&v23];
 
     *data = dispatch_data_create(v17, size, 0, *MEMORY[0x1E69E9648]);
-    createHashForType(15, v17, size, &self->_functionData.bitcodeHash, 0, name, functions, v25);
-    v18 = v25[1];
-    *hash->var0 = v25[0];
+    createHashForType(15, v17, size, &self->_functionData.bitcodeHash, 0, name, functions, v24);
+    v18 = v24[1];
+    *hash->var0 = v24[0];
     *&hash->var0[16] = v18;
   }
 
   else
   {
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObject:v24 forKey:*MEMORY[0x1E696A578]];
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObject:v23 forKey:*MEMORY[0x1E696A578]];
     v20 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"MTLLibraryErrorDomain" code:3 userInfo:v19];
 
     (*(handler + 2))(handler, 0, v20);
   }
 
-  result = v17 != 0;
-  v22 = *MEMORY[0x1E69E9840];
-  return result;
+  return v17 != 0;
 }
 
 - (void)storeTrackingDataWithDescriptor:(id)descriptor function:(id)function variantHash:(id *)hash
@@ -598,7 +596,7 @@
 
 - (void)newSpecializedFunctionWithDescriptor:(id)descriptor destinationArchive:(id)archive functionCache:(id)cache sync:(BOOL)sync compilerTask:(id)task completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (!self->_publicMetadataInitialized)
   {
     [(_MTLFunctionInternal *)self initializePublicMetadata:descriptor];
@@ -613,13 +611,11 @@
     }
 
     specializedName = 0;
-    goto LABEL_9;
   }
 
-  if ([descriptor applyFunctionConstants])
+  else if (([descriptor applyFunctionConstants] & 1) == 0)
   {
-LABEL_9:
-    if (self->super._functionConstants | specializedName)
+    if (specializedName)
     {
       goto LABEL_15;
     }
@@ -627,16 +623,15 @@ LABEL_9:
     goto LABEL_12;
   }
 
-  if (specializedName)
+  if (self->super._functionConstants | specializedName)
   {
 LABEL_15:
     MTLGetCompilerOptions(self->super._device, [descriptor pipelineOptions], objc_msgSend(-[MTLDevice compiler](self->super._device, "compiler"), "compilerFlags") & 0x80, 3uLL, 0);
-    v20 = 0;
+    v14 = 0;
     object = 0;
-    if (-[_MTLFunctionInternal specializedFunctionHash:requestData:airScript:constants:specializedName:privateFunctions:completionHandler:](self, "specializedFunctionHash:requestData:airScript:constants:specializedName:privateFunctions:completionHandler:", &v21, &v20, &object, [descriptor constantValues], specializedName, objc_msgSend(descriptor, "privateFunctions"), handler))
+    if (-[_MTLFunctionInternal specializedFunctionHash:requestData:airScript:constants:specializedName:privateFunctions:completionHandler:](self, "specializedFunctionHash:requestData:airScript:constants:specializedName:privateFunctions:completionHandler:", &v15, &v14, &object, [descriptor constantValues], specializedName, objc_msgSend(descriptor, "privateFunctions"), handler))
     {
-      v12 = _MTLGetLibrariesCache(self->super._device);
-      name = self->super._name;
+      _MTLGetLibrariesCache(self->super._device);
       if ([descriptor specializedName])
       {
         [descriptor specializedName];
@@ -647,13 +642,10 @@ LABEL_15:
         [descriptor pipelineOptions];
       }
 
-      device = self->super._device;
       [descriptor binaryArchives];
-      v16 = *(v12 + 32);
       MultiLevelCacheFactory::createFunctionCache();
     }
 
-    v17 = *MEMORY[0x1E69E9840];
     return;
   }
 
@@ -664,10 +656,9 @@ LABEL_12:
     goto LABEL_15;
   }
 
-  v13 = *(handler + 2);
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *(handler + 2);
 
-  v13(handler, self, 0);
+  v12(handler, self, 0);
 }
 
 - (id)newSpecializedFunctionWithDescriptor:(id)descriptor destinationArchive:(id)archive functionCache:(id)cache compilerTask:(id)task error:(id *)error
@@ -737,37 +728,35 @@ LABEL_12:
 
 - (id)newFunctionWithPluginData:(id)data bitcodeType:(unsigned __int8)type
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v7 = *&self->_functionData.functionInputs;
-  v19 = *&self->_functionData.pluginData;
+  v18 = *&self->_functionData.pluginData;
   object = v7;
   v8 = *&self->_functionData.baseFunctionHash.key[24];
-  v21 = *&self->_functionData.baseFunctionHash.key[8];
-  v22 = v8;
+  v20 = *&self->_functionData.baseFunctionHash.key[8];
+  v21 = v8;
   v9 = *&self->_functionData.airMajorVersion;
-  v16[2] = *&self->_functionData.sourceArchiveOffset;
-  v17[0] = v9;
+  v15[2] = *&self->_functionData.sourceArchiveOffset;
+  v16[0] = v9;
   v10 = *&self->_functionData.bitcodeHash.key[24];
-  v17[1] = *&self->_functionData.bitcodeHash.key[8];
-  v18 = v10;
+  v16[1] = *&self->_functionData.bitcodeHash.key[8];
+  v17 = v10;
   v11 = *&self->_functionData.publicArgumentsOffset;
-  v16[0] = *&self->_functionData.bitCodeOffset;
-  v16[1] = v11;
+  v15[0] = *&self->_functionData.bitCodeOffset;
+  v15[1] = v11;
   if (object)
   {
     dispatch_retain(object);
   }
 
-  *&v19 = data;
-  BYTE8(v18) = type;
+  *&v18 = data;
+  BYTE8(v17) = type;
   CC_SHA256_Init(&c);
-  CC_SHA256_Update(&c, v17 + 8, 0x20u);
-  bytes = [v19 bytes];
-  CC_SHA256_Update(&c, bytes, [v19 length]);
-  CC_SHA256_Final(v17 + 8, &c);
-  result = [[_MTLFunctionInternal alloc] initWithName:self->super._name type:self->super._functionType libraryData:self->super._libraryData functionData:v16 device:self->super._device];
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  CC_SHA256_Update(&c, v16 + 8, 0x20u);
+  bytes = [v18 bytes];
+  CC_SHA256_Update(&c, bytes, [v18 length]);
+  CC_SHA256_Final(v16 + 8, &c);
+  return [[_MTLFunctionInternal alloc] initWithName:self->super._name type:self->super._functionType libraryData:self->super._libraryData functionData:v15 device:self->super._device];
 }
 
 - (void)initializePrivateMetadata

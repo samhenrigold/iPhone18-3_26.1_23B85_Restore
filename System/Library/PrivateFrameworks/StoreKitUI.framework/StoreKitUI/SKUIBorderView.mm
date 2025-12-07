@@ -1,5 +1,6 @@
 @interface SKUIBorderView
 - (UIColor)color;
+- (void)color;
 - (void)setBackgroundColor:(id)color;
 - (void)setColor:(id)color;
 @end
@@ -57,6 +58,24 @@
       [(SKUIBorderView *)v3 setBackgroundColor:v4, v5, v6, v7, v8, v9, v10];
     }
   }
+}
+
+- (void)setColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBorderView setColor:]";
+}
+
+- (void)color
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBorderView color]";
+}
+
+- (void)setBackgroundColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBorderView setBackgroundColor:]";
 }
 
 @end

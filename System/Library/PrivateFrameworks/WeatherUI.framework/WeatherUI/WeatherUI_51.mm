@@ -450,7 +450,7 @@ void sub_1BCD441E4(uint64_t a1@<X8>)
 
 uint64_t sub_1BCD44968()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858, &qword_1BCE6CF50);
   result = swift_allocObject();
   *(result + 16) = xmmword_1BCE3C820;
   *(result + 32) = 0xC056800000000000;
@@ -2411,7 +2411,7 @@ __n128 sub_1BCD4714C@<Q0>(uint64_t a1@<X8>)
 
 uint64_t sub_1BCD478E8()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858, &qword_1BCE6CF50);
   result = swift_allocObject();
   *(result + 16) = xmmword_1BCE3C820;
   *(result + 32) = 0xC056800000000000;
@@ -4376,7 +4376,7 @@ void sub_1BCD4A094(uint64_t a1@<X8>)
 
 __n128 sub_1BCD4A860(__n128 a1, __n128 a2, __n128 a3, __n128 a4)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858, &qword_1BCE6CF50);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_1BCE3EBD0;
   *(v4 + 48) = xmmword_1BCE3F510;
@@ -5440,7 +5440,7 @@ double sub_1BCD4B8A4@<D0>(uint64_t a1@<X8>)
 
 __n128 sub_1BCD4BFE0()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858, &qword_1BCE6CF50);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1BCE3C820;
   *(v0 + 32) = 0xC056800000000000;
@@ -6947,7 +6947,7 @@ __n128 sub_1BCD4BFE0()
 
 double sub_1BCD4E054()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858, &qword_1BCE6CF50);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1BCE3C820;
   *(v0 + 32) = 0xC056800000000000;
@@ -8686,7 +8686,7 @@ void sub_1BCD502EC(uint64_t a1@<X8>)
 
 __n128 sub_1BCD50AFC(double a1, double a2, double a3, double a4, double a5)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858, &qword_1BCE6CF50);
   v10 = swift_allocObject();
   *(v10 + 16) = xmmword_1BCE3EBD0;
   *(v10 + 48) = xmmword_1BCE46CF0;
@@ -9749,7 +9749,7 @@ void sub_1BCD51BF4(uint64_t a1@<X8>)
 
 __n128 sub_1BCD523BC()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858, &qword_1BCE6CF50);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1BCE43B50;
   *(v0 + 48) = xmmword_1BCE3F6C0;

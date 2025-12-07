@@ -1,6 +1,7 @@
 @interface RPCaptureSession
 - (id)dispatchCaptureQueue;
 - (void)captureDidFailWithError:(id)error;
+- (void)didCaptureSampleWithType:(int)type withSampleBuffer:(opaqueCMSampleBuffer *)buffer withTransformFlags:(unint64_t)flags;
 - (void)handleClientApplicationDidEnterBackground;
 - (void)handleClientApplicationDidEnterForeground;
 - (void)handleDeviceLockedWarning;
@@ -10,11 +11,113 @@
 - (void)handleResumeContextIDFailure;
 - (void)packageAudioSampleBufferForCapture:(opaqueCMSampleBuffer *)capture withType:(int64_t)type;
 - (void)pauseSession;
+- (void)presentAcknowledgmentWithMicrophoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled withHandler:(id)handler;
 - (void)processVideoSampleBuffer:(opaqueCMSampleBuffer *)buffer;
+- (void)startCaptureWithMicrophoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled contextID:(id)d windowSize:(CGSize)size handler:(id)handler;
 - (void)stopCaptureWithHandler:(id)handler;
 @end
 
 @implementation RPCaptureSession
+
+- (void)startCaptureWithMicrophoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled contextID:(id)d windowSize:(CGSize)size handler:(id)handler
+{
+  height = size.height;
+  width = size.width;
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  dCopy = d;
+  handlerCopy = handler;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446978;
+    v18 = "[RPCaptureSession startCaptureWithMicrophoneEnabled:cameraEnabled:contextID:windowSize:handler:]";
+    v19 = 1024;
+    v20 = 35;
+    v21 = 2048;
+    selfCopy = self;
+    v23 = 1024;
+    sessionState = [(RPSession *)self sessionState];
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %p starting in session state %d", buf, 0x22u);
+  }
+
+  if ([(RPSession *)self sessionState]!= 3)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "RPCaptureSession: attempting to start capture session when session was not in stopped state", buf, 2u);
+    }
+
+    height = [NSError _rpUserErrorForCode:-5830 userInfo:0];
+    [(RPSession *)self reportSessionEndReason:height];
+    if (!handlerCopy)
+    {
+      goto LABEL_16;
+    }
+
+LABEL_14:
+    handlerCopy[2](handlerCopy, height);
+    goto LABEL_16;
+  }
+
+  v16.receiver = self;
+  v16.super_class = RPCaptureSession;
+  [(RPSession *)&v16 startWithContextID:dCopy windowSize:width, height];
+  height = [(RPSession *)self checkCaptureRequirementsWithMicrophoneEnabled:enabledCopy cameraEnabled:cameraEnabledCopy windowSize:width, height];
+  if (!height)
+  {
+    [(RPCaptureSession *)self presentAcknowledgmentWithMicrophoneEnabled:enabledCopy cameraEnabled:cameraEnabledCopy withHandler:handlerCopy];
+    goto LABEL_16;
+  }
+
+  if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_100066A7C(height);
+  }
+
+  [(RPSession *)self setSessionState:3];
+  if (handlerCopy)
+  {
+    goto LABEL_14;
+  }
+
+LABEL_16:
+}
+
+- (void)presentAcknowledgmentWithMicrophoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled withHandler:(id)handler
+{
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  if ([(RPSession *)self getAcknowledgementAlertResultsWithMicrophone:enabledCopy cameraEnabled:cameraEnabledCopy])
+  {
+    v9 = +[RPCaptureManager sharedInstance];
+    callingPID = self->super._callingPID;
+    microphoneEnabled = [(RPSession *)self microphoneEnabled];
+    [(RPSession *)self windowSize];
+    v13 = v12;
+    v15 = v14;
+    contextID = [(RPSession *)self contextID];
+    v17 = [NSArray arrayWithObject:contextID];
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_100055924;
+    v19[3] = &unk_1000A1840;
+    v19[4] = self;
+    v20 = handlerCopy;
+    [v9 startCaptureForDelegate:self forProcessID:callingPID shouldStartMicrophoneCapture:microphoneEnabled windowSize:0 captureType:v17 contextIDs:v19 didStartHandler:{v13, v15}];
+  }
+
+  else
+  {
+    [(RPSession *)self setSessionState:3];
+    if (handlerCopy)
+    {
+      v18 = [NSError _rpUserErrorForCode:-5801 userInfo:0];
+      (*(handlerCopy + 2))(handlerCopy, v18);
+    }
+  }
+}
 
 - (void)stopCaptureWithHandler:(id)handler
 {
@@ -94,6 +197,50 @@
   v3 = qword_1000B6A30;
 
   return v3;
+}
+
+- (void)didCaptureSampleWithType:(int)type withSampleBuffer:(opaqueCMSampleBuffer *)buffer withTransformFlags:(unint64_t)flags
+{
+  v6 = *&type;
+  if ([(RPSession *)self sessionState:*&type]!= 1)
+  {
+    return;
+  }
+
+  [(RPSession *)self updateReportingSampleCount:v6];
+  if (v6 == 2)
+  {
+    if (![(RPSession *)self microphoneEnabled])
+    {
+      DataBuffer = CMSampleBufferGetDataBuffer(buffer);
+      DataLength = CMBlockBufferGetDataLength(DataBuffer);
+      CMBlockBufferFillDataBytes(0, DataBuffer, 0, DataLength);
+    }
+
+    selfCopy2 = self;
+    bufferCopy2 = buffer;
+    v11 = 3;
+  }
+
+  else
+  {
+    if (v6 != 1)
+    {
+      if (!v6)
+      {
+
+        [(RPCaptureSession *)self processVideoSampleBuffer:buffer, v8];
+      }
+
+      return;
+    }
+
+    selfCopy2 = self;
+    bufferCopy2 = buffer;
+    v11 = 2;
+  }
+
+  [(RPCaptureSession *)selfCopy2 packageAudioSampleBufferForCapture:bufferCopy2 withType:v11];
 }
 
 - (void)captureDidFailWithError:(id)error

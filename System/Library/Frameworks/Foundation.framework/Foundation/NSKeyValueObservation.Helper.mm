@@ -53,7 +53,7 @@ LABEL_4:
 LABEL_9:
     specialized NSKeyValueObservation.Helper._swizzle_me_observeValue(forKeyPath:of:change:context:)(v15, v11);
 
-    outlined destroy of TermOfAddress?(v15, &_sypSgMd);
+    outlined destroy of TermOfAddress?(v15, &_sypSgMd, &_sypSgMR);
     return;
   }
 

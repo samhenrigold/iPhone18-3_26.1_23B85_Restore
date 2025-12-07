@@ -9,18 +9,19 @@
 - (NTKCSeparatorView)init
 {
   [objc_opt_class() intrinsicHeight];
-  v8.receiver = self;
-  v8.super_class = NTKCSeparatorView;
-  v4 = [(NTKCSeparatorView *)&v8 initWithFrame:0.0, 0.0, 0.0, v3];
+  v9.receiver = self;
+  v9.super_class = NTKCSeparatorView;
+  v4 = [(NTKCSeparatorView *)&v9 initWithFrame:0.0, 0.0, 0.0, v3];
+  v5 = v4;
   if (v4)
   {
-    v5 = NTKCSeparatorColor();
-    v7.receiver = v4;
-    v7.super_class = NTKCSeparatorView;
-    [(NTKCSeparatorView *)&v7 setBackgroundColor:v5];
+    v6 = NTKCSeparatorColor(v4);
+    v8.receiver = v5;
+    v8.super_class = NTKCSeparatorView;
+    [(NTKCSeparatorView *)&v8 setBackgroundColor:v6];
   }
 
-  return v4;
+  return v5;
 }
 
 + (double)intrinsicHeight

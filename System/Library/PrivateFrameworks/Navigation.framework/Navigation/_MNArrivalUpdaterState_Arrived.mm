@@ -13,7 +13,7 @@
 
 - (BOOL)_checkForDeparture
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   targetLeg = [(_MNArrivalUpdaterState *)self targetLeg];
   legIndex = [targetLeg legIndex];
 
@@ -34,9 +34,9 @@
     v17 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v20[0] = 67109120;
-      v20[1] = legIndex;
-      _os_log_impl(&dword_1D311E000, v17, OS_LOG_TYPE_ERROR, "Checking departure when target leg index is not valid (%d). Allowing departure", v20, 8u);
+      v19[0] = 67109120;
+      v19[1] = legIndex;
+      _os_log_impl(&dword_1D311E000, v17, OS_LOG_TYPE_ERROR, "Checking departure when target leg index is not valid (%d). Allowing departure", v19, 8u);
     }
 
     v8 = 1;
@@ -70,7 +70,6 @@ LABEL_2:
 
 LABEL_11:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

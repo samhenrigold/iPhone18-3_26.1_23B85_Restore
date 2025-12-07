@@ -38,11 +38,11 @@
   savedURLWithProperExtension = [(SFQuickLookDocument *)self->_quickLookDocument savedURLWithProperExtension];
   if (savedURLWithProperExtension)
   {
-    v7 = MEMORY[0x1E69CDA18];
+    v8 = MEMORY[0x1E69CDA18];
     sourceURL = [documentCopy sourceURL];
-    v9 = [v7 sf_interactionControllerWithDocumentURL:savedURLWithProperExtension sourceURL:sourceURL];
+    v10 = [v8 sf_interactionControllerWithDocumentURL:savedURLWithProperExtension sourceURL:sourceURL];
     documentInteractionController = self->_documentInteractionController;
-    self->_documentInteractionController = v9;
+    self->_documentInteractionController = v10;
 
     -[UIDocumentInteractionController setShouldUnzipDocument:](self->_documentInteractionController, "setShouldUnzipDocument:", [documentCopy shouldUnzipByUIDocumentInteractionController]);
     documentView = self->_documentView;
@@ -50,29 +50,29 @@
     lastObject = [icons lastObject];
     [(SFQuickLookDocumentView *)documentView updateDocumentIcon:lastObject];
 
-    v14 = self->_documentView;
+    v15 = self->_documentView;
     fileName = [(SFQuickLookDocument *)self->_quickLookDocument fileName];
-    [(SFQuickLookDocumentView *)v14 updateDocumentFileName:fileName];
+    [(SFQuickLookDocumentView *)v15 updateDocumentFileName:fileName];
 
-    v16 = self->_documentView;
+    v17 = self->_documentView;
     localizedType = [(SFQuickLookDocument *)self->_quickLookDocument localizedType];
-    [(SFQuickLookDocumentView *)v16 updateDocumentFileType:localizedType];
+    [(SFQuickLookDocumentView *)v17 updateDocumentFileType:localizedType];
 
     fileSize = [(SFQuickLookDocument *)self->_quickLookDocument fileSize];
-    v19 = self->_documentView;
-    v20 = objc_alloc_init(MEMORY[0x1E696AAF0]);
-    [v20 setCountStyle:3];
-    v21 = [v20 stringFromByteCount:fileSize];
+    v20 = self->_documentView;
+    v21 = objc_alloc_init(MEMORY[0x1E696AAF0]);
+    [v21 setCountStyle:3];
+    v22 = [v21 stringFromByteCount:fileSize];
 
-    [(SFQuickLookDocumentView *)v19 updateDocumentFileSize:v21];
+    [(SFQuickLookDocumentView *)v20 updateDocumentFileSize:v22];
   }
 
   else
   {
-    v22 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = WBS_LOG_CHANNEL_PREFIXDownloads(0, v6);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [SFQuickLookDocumentController updateWithQuickLookDocument:v22];
+      [SFQuickLookDocumentController updateWithQuickLookDocument:v23];
     }
   }
 }

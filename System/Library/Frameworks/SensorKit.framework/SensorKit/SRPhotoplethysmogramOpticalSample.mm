@@ -179,9 +179,7 @@
 {
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v6 = *&self->_whiteNoise;
-  return [v3 stringWithFormat:@"%@ (%p): emitter: %ld, photodiodes: %@, signalIdentifier: %ld, nominalWavelength: %f, effectiveWavelength: %f, frequency: %f, nanosecondsSinceStart: %lld, normalizedReflectance: %@, whiteNoise: %@, pinkNoise: %@, backgroundNoise: %@, noiseOffset: %@, conditions: %@", v5, self, self->_emitter, self->_activePhotodiodeIndexes, self->_signalIdentifier, *&self->_rawNominalWavelength, *&self->_rawEffectiveWavelength, *&self->_rawFrequency, self->_nanosecondsSinceStart, self->_normalizedReflectance, self->_whiteNoise, self->_pinkNoise, self->_backgroundNoise, self->_backgroundNoiseOffset, self->_conditions];
+  return [v3 stringWithFormat:@"%@ (%p): emitter: %ld, photodiodes: %@, signalIdentifier: %ld, nominalWavelength: %f, effectiveWavelength: %f, frequency: %f, nanosecondsSinceStart: %lld, normalizedReflectance: %@, whiteNoise: %@, pinkNoise: %@, backgroundNoise: %@, noiseOffset: %@, conditions: %@", NSStringFromClass(v4), self, self->_emitter, self->_activePhotodiodeIndexes, self->_signalIdentifier, *&self->_rawNominalWavelength, *&self->_rawEffectiveWavelength, *&self->_rawFrequency, self->_nanosecondsSinceStart, self->_normalizedReflectance, self->_whiteNoise, self->_pinkNoise, self->_backgroundNoise, self->_backgroundNoiseOffset, self->_conditions];
 }
 
 - (void)encodeWithCoder:(id)coder

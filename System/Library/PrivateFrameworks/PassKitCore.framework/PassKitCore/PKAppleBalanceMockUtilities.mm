@@ -757,9 +757,9 @@ LABEL_10:
     {
       cloudStoreZoneNames = [accountCopy cloudStoreZoneNames];
       firstObject = [cloudStoreZoneNames firstObject];
-      v10 = [firstObject isEqualToString:@"apple-account"];
+      isEqualToString = objc_msgSend_isEqualToString_(firstObject);
 
-      if (v10)
+      if (isEqualToString)
       {
         details = [accountCopy details];
         appleBalanceDetails = [details appleBalanceDetails];
@@ -802,9 +802,9 @@ LABEL_13:
     {
       cloudStoreZoneNames = [account2Copy cloudStoreZoneNames];
       firstObject = [cloudStoreZoneNames firstObject];
-      v10 = [firstObject isEqualToString:@"transactions"];
+      isEqualToString = objc_msgSend_isEqualToString_(firstObject);
 
-      if (v10)
+      if (isEqualToString)
       {
         details = [account2Copy details];
         appleBalanceDetails = [details appleBalanceDetails];
@@ -884,9 +884,9 @@ LABEL_13:
     goto LABEL_28;
   }
 
-  v15 = [countryCode isEqual:@"US"];
+  isEqualToString = [countryCode isEqual:@"US"];
 
-  if (!v15)
+  if (!isEqualToString)
   {
     goto LABEL_12;
   }
@@ -899,9 +899,9 @@ LABEL_18:
     accountSummary = associatedPassTypeIdentifier;
     if (associatedPassTypeIdentifier)
     {
-      v15 = [associatedPassTypeIdentifier isEqual:@"paymentpass.com.apple.wallet.dev"];
+      isEqualToString = [associatedPassTypeIdentifier isEqual:@"paymentpass.com.apple.wallet.dev"];
 
-      if (!v15)
+      if (!isEqualToString)
       {
         goto LABEL_12;
       }
@@ -910,9 +910,9 @@ LABEL_18:
       accountSummary = associatedPassSerialNumber;
       if (associatedPassSerialNumber)
       {
-        v15 = [associatedPassSerialNumber isEqual:@"wallettest.lynx.serialnumber"];
+        isEqualToString = [associatedPassSerialNumber isEqual:@"wallettest.lynx.serialnumber"];
 
-        if (!v15)
+        if (!isEqualToString)
         {
           goto LABEL_12;
         }
@@ -921,9 +921,9 @@ LABEL_18:
         accountSummary = fpanIdentifier;
         if (fpanIdentifier)
         {
-          v15 = [fpanIdentifier isEqual:@"FAPLLY3814311690852077410603"];
+          isEqualToString = [fpanIdentifier isEqual:@"FAPLLY3814311690852077410603"];
 
-          if (!v15)
+          if (!isEqualToString)
           {
             goto LABEL_12;
           }
@@ -939,12 +939,12 @@ LABEL_18:
           v26 = v25;
           if (currentBalance && v25)
           {
-            LOBYTE(v15) = [currentBalance isEqual:v25];
+            LOBYTE(isEqualToString) = [currentBalance isEqual:v25];
           }
 
           else
           {
-            LOBYTE(v15) = currentBalance == v25;
+            LOBYTE(isEqualToString) = currentBalance == v25;
           }
 
 LABEL_29:
@@ -954,16 +954,16 @@ LABEL_29:
     }
 
 LABEL_28:
-    LOBYTE(v15) = 0;
+    LOBYTE(isEqualToString) = 0;
     goto LABEL_29;
   }
 
   v20 = currencyCode;
   if (currencyCode)
   {
-    v15 = [(__CFString *)currencyCode isEqualToString:@"USD"];
+    isEqualToString = objc_msgSend_isEqualToString_(currencyCode);
 
-    if (!v15)
+    if (!isEqualToString)
     {
       goto LABEL_12;
     }
@@ -972,10 +972,10 @@ LABEL_28:
   }
 
 LABEL_11:
-  LOBYTE(v15) = 0;
+  LOBYTE(isEqualToString) = 0;
 LABEL_12:
 
-  return v15;
+  return isEqualToString;
 }
 
 + (BOOL)_verifyAppleBalanceAccountDetails2:(id)details2
@@ -1034,9 +1034,9 @@ LABEL_12:
     goto LABEL_28;
   }
 
-  v15 = [countryCode isEqual:@"FR"];
+  isEqualToString = [countryCode isEqual:@"FR"];
 
-  if (!v15)
+  if (!isEqualToString)
   {
     goto LABEL_12;
   }
@@ -1049,9 +1049,9 @@ LABEL_18:
     accountSummary = associatedPassTypeIdentifier;
     if (associatedPassTypeIdentifier)
     {
-      v15 = [associatedPassTypeIdentifier isEqual:@"paymentpass.com.apple.wallet.dev"];
+      isEqualToString = [associatedPassTypeIdentifier isEqual:@"paymentpass.com.apple.wallet.dev"];
 
-      if (!v15)
+      if (!isEqualToString)
       {
         goto LABEL_12;
       }
@@ -1060,9 +1060,9 @@ LABEL_18:
       accountSummary = associatedPassSerialNumber;
       if (associatedPassSerialNumber)
       {
-        v15 = [associatedPassSerialNumber isEqual:@"wallettest.lynx.serialnumber"];
+        isEqualToString = [associatedPassSerialNumber isEqual:@"wallettest.lynx.serialnumber"];
 
-        if (!v15)
+        if (!isEqualToString)
         {
           goto LABEL_12;
         }
@@ -1071,9 +1071,9 @@ LABEL_18:
         accountSummary = fpanIdentifier;
         if (fpanIdentifier)
         {
-          v15 = [fpanIdentifier isEqual:@"FAPLLY3814311690852077410604"];
+          isEqualToString = [fpanIdentifier isEqual:@"FAPLLY3814311690852077410604"];
 
-          if (!v15)
+          if (!isEqualToString)
           {
             goto LABEL_12;
           }
@@ -1089,12 +1089,12 @@ LABEL_18:
           v26 = v25;
           if (currentBalance && v25)
           {
-            LOBYTE(v15) = [currentBalance isEqual:v25];
+            LOBYTE(isEqualToString) = [currentBalance isEqual:v25];
           }
 
           else
           {
-            LOBYTE(v15) = currentBalance == v25;
+            LOBYTE(isEqualToString) = currentBalance == v25;
           }
 
 LABEL_29:
@@ -1104,16 +1104,16 @@ LABEL_29:
     }
 
 LABEL_28:
-    LOBYTE(v15) = 0;
+    LOBYTE(isEqualToString) = 0;
     goto LABEL_29;
   }
 
   v20 = currencyCode;
   if (currencyCode)
   {
-    v15 = [(__CFString *)currencyCode isEqualToString:@"EUR"];
+    isEqualToString = objc_msgSend_isEqualToString_(currencyCode);
 
-    if (!v15)
+    if (!isEqualToString)
     {
       goto LABEL_12;
     }
@@ -1122,10 +1122,10 @@ LABEL_28:
   }
 
 LABEL_11:
-  LOBYTE(v15) = 0;
+  LOBYTE(isEqualToString) = 0;
 LABEL_12:
 
-  return v15;
+  return isEqualToString;
 }
 
 + (BOOL)_verifyLightweightAppleBalanceAccountDetails:(id)details
@@ -1185,9 +1185,9 @@ LABEL_17:
 
       if (@"ampTopUpSupported" && identifier)
       {
-        v12 = [@"ampTopUpSupported" isEqualToString:identifier];
+        isEqualToString = objc_msgSend_isEqualToString_(@"ampTopUpSupported");
 
-        if (v12)
+        if (isEqualToString)
         {
           goto LABEL_18;
         }
@@ -1212,7 +1212,7 @@ LABEL_22:
         goto LABEL_23;
       }
 
-      v15 = [@"ampRedemptionSupported" isEqualToString:v13];
+      v15 = objc_msgSend_isEqualToString_(@"ampRedemptionSupported");
 
       if ((v15 & 1) == 0)
       {
@@ -1256,9 +1256,9 @@ LABEL_23:
     {
       cloudStoreZoneNames = [accountCopy cloudStoreZoneNames];
       firstObject = [cloudStoreZoneNames firstObject];
-      v10 = [firstObject isEqualToString:@"apple-account"];
+      isEqualToString = objc_msgSend_isEqualToString_(firstObject);
 
-      if (v10)
+      if (isEqualToString)
       {
         details = [accountCopy details];
         appleBalanceDetails = [details appleBalanceDetails];
@@ -1293,9 +1293,9 @@ LABEL_10:
       goto LABEL_2;
     }
 
-    v9 = [(__CFString *)programIdentifier isEqualToString:@"30154"];
+    isEqualToString = objc_msgSend_isEqualToString_(programIdentifier);
 
-    if (!v9)
+    if (!isEqualToString)
     {
       goto LABEL_2;
     }
@@ -1310,7 +1310,7 @@ LABEL_10:
       goto LABEL_2;
     }
 
-    v12 = [(__CFString *)versionIdentifier isEqualToString:@"v701909"];
+    v12 = objc_msgSend_isEqualToString_(versionIdentifier);
 
     if (!v12)
     {
@@ -1378,7 +1378,7 @@ LABEL_22:
       goto LABEL_2;
     }
 
-    v23 = [(__CFString *)offerText isEqualToString:@"Add $50 or more and get 1 month of Apple Music free."];
+    v23 = objc_msgSend_isEqualToString_(offerText);
 
     if (!v23)
     {
@@ -1395,7 +1395,7 @@ LABEL_22:
       goto LABEL_2;
     }
 
-    v26 = [(__CFString *)conditionText isEqualToString:@"1 month free, then $14.99/month. Limit 1 per Apple Account. Must claim your free content bonus immediately. Terms apply."];
+    v26 = objc_msgSend_isEqualToString_(conditionText);
 
     if (!v26)
     {
@@ -1445,9 +1445,9 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    v10 = [(__CFString *)v7 isEqualToString:v8];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if ((v10 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       goto LABEL_8;
     }
@@ -1467,7 +1467,7 @@ LABEL_10:
       goto LABEL_8;
     }
 
-    v16 = [(__CFString *)tokenIdentifier isEqualToString:@"12345678912345678912345678912345"];
+    v16 = objc_msgSend_isEqualToString_(tokenIdentifier);
 
     if (!v16)
     {
@@ -1514,7 +1514,7 @@ LABEL_10:
       v7 = absoluteString;
       if (absoluteString)
       {
-        v11 = [(__CFString *)absoluteString isEqualToString:@"https://www.apple.com/"];
+        v11 = objc_msgSend_isEqualToString_(absoluteString);
         v9 = v7;
       }
 

@@ -13,11 +13,11 @@
 
 - (SFHeroCardSection)initWithProtobuf:(id)protobuf
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v55.receiver = self;
-  v55.super_class = SFHeroCardSection;
-  v5 = [(SFCardSection *)&v55 init];
+  v54.receiver = self;
+  v54.super_class = SFHeroCardSection;
+  v5 = [(SFCardSection *)&v54 init];
   if (v5)
   {
     punchoutOptions = [protobufCopy punchoutOptions];
@@ -31,33 +31,33 @@
       v7 = 0;
     }
 
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     punchoutOptions2 = [protobufCopy punchoutOptions];
-    v9 = [punchoutOptions2 countByEnumeratingWithState:&v51 objects:v57 count:16];
+    v9 = [punchoutOptions2 countByEnumeratingWithState:&v50 objects:v56 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v52;
+      v11 = *v51;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v52 != v11)
+          if (*v51 != v11)
           {
             objc_enumerationMutation(punchoutOptions2);
           }
 
-          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v51 + 1) + 8 * i)];
+          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v50 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [punchoutOptions2 countByEnumeratingWithState:&v51 objects:v57 count:16];
+        v10 = [punchoutOptions2 countByEnumeratingWithState:&v50 objects:v56 count:16];
       }
 
       while (v10);
@@ -149,33 +149,33 @@
       v33 = 0;
     }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     buttonItems2 = [protobufCopy buttonItems];
-    v35 = [buttonItems2 countByEnumeratingWithState:&v47 objects:v56 count:16];
+    v35 = [buttonItems2 countByEnumeratingWithState:&v46 objects:v55 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v48;
+      v37 = *v47;
       do
       {
         for (j = 0; j != v36; ++j)
         {
-          if (*v48 != v37)
+          if (*v47 != v37)
           {
             objc_enumerationMutation(buttonItems2);
           }
 
-          v39 = [[SFButtonItem alloc] initWithProtobuf:*(*(&v47 + 1) + 8 * j)];
+          v39 = [[SFButtonItem alloc] initWithProtobuf:*(*(&v46 + 1) + 8 * j)];
           if (v39)
           {
             [v33 addObject:v39];
           }
         }
 
-        v36 = [buttonItems2 countByEnumeratingWithState:&v47 objects:v56 count:16];
+        v36 = [buttonItems2 countByEnumeratingWithState:&v46 objects:v55 count:16];
       }
 
       while (v36);
@@ -200,7 +200,6 @@
     v44 = v5;
   }
 
-  v45 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

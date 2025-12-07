@@ -6,9 +6,18 @@
 - (id)specifiers;
 - (id)stateSpecifierNamed:(id)named state:(unint64_t)state group:(id)group;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation ICSettingsQuickNoteController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ICSettingsQuickNoteController;
+  [(ICSettingsQuickNoteController *)&v4 viewDidAppear:appear];
+  [(ICSettingsQuickNoteController *)self ic_submitNavigationEventForIdentifier:ICAccessNotesFromLockScreenPrefIdentifier titleStringKey:@"ACCESS_NOTES_FROM_LOCK_SCREEN" navigationComponents:&off_1EEC0];
+}
 
 - (id)specifiers
 {

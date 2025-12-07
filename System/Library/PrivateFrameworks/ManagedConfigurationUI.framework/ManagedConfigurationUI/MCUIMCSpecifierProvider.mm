@@ -13,24 +13,24 @@
 
 - (id)specifiers
 {
-  v78[1] = *MEMORY[0x277D85DE8];
+  v77[1] = *MEMORY[0x277D85DE8];
   v3 = +[MCUIDataManager sharedManager];
-  v73 = 0;
-  v74 = 0;
-  v71 = 0;
   v72 = 0;
-  v69 = 0;
+  v73 = 0;
   v70 = 0;
-  [v3 allDeviceManagementOutMDMProfileInfo:&v74 outConfigurationProfilesInfo:&v73 outUninstalledProfilesInfo:&v72 outEnterpriseAppSigners:&v71 outFreeDevAppSigners:&v70 outBlockedApplications:&v69];
-  v4 = v74;
-  v5 = v73;
-  v6 = v72;
-  v7 = v71;
-  v8 = v70;
-  v9 = v69;
+  v71 = 0;
+  v68 = 0;
+  v69 = 0;
+  [v3 allDeviceManagementOutMDMProfileInfo:&v73 outConfigurationProfilesInfo:&v72 outUninstalledProfilesInfo:&v71 outEnterpriseAppSigners:&v70 outFreeDevAppSigners:&v69 outBlockedApplications:&v68];
+  v4 = v73;
+  v5 = v72;
+  v6 = v71;
+  v7 = v70;
+  v8 = v69;
+  v9 = v68;
 
   v10 = objc_opt_new();
-  v55 = v9;
+  v54 = v9;
   if (v4)
   {
     defaultStore = [MEMORY[0x277CB8F48] defaultStore];
@@ -38,8 +38,8 @@
 
     if (![dmc_visibleRemoteManagementAccounts count])
     {
-      v78[0] = v4;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:1];
+      v77[0] = v4;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:1];
       v14 = [(MCUISpecifierProvider *)self specifiersForMDMProfiles:v13];
 
       if (v14)
@@ -47,7 +47,7 @@
         [v10 addObjectsFromArray:v14];
       }
 
-      v9 = v55;
+      v9 = v54;
     }
   }
 
@@ -63,15 +63,15 @@
     [v10 addObjectsFromArray:v16];
   }
 
-  v68 = 0;
-  v53 = v6;
-  v54 = v5;
-  v49 = v8;
-  v51 = v16;
-  v52 = v15;
-  if ([(MCUISpecifierProvider *)self isSectionPopulated:v7 outIsPlural:&v68])
+  v67 = 0;
+  v52 = v6;
+  v53 = v5;
+  v48 = v8;
+  v50 = v16;
+  v51 = v15;
+  if ([(MCUISpecifierProvider *)self isSectionPopulated:v7 outIsPlural:&v67])
   {
-    if (v68)
+    if (v67)
     {
       v17 = @"ENTERPRISE_APP_PLURAL";
     }
@@ -85,49 +85,49 @@
     v19 = [MEMORY[0x277D3FAD8] groupSpecifierWithName:v18];
     [v10 addObject:v19];
 
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
     v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     v20 = v7;
     v21 = v7;
-    v22 = [v21 countByEnumeratingWithState:&v64 objects:v77 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v63 objects:v76 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v65;
+      v24 = *v64;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v65 != v24)
+          if (*v64 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = [(MCUIMCSpecifierProvider *)self _specifierForAppSigner:*(*(&v64 + 1) + 8 * i)];
+          v26 = [(MCUIMCSpecifierProvider *)self _specifierForAppSigner:*(*(&v63 + 1) + 8 * i)];
           [v10 addObject:v26];
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v64 objects:v77 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v63 objects:v76 count:16];
       }
 
       while (v23);
     }
 
-    v15 = v52;
-    v6 = v53;
+    v15 = v51;
+    v6 = v52;
     v7 = v20;
-    v8 = v49;
-    v5 = v54;
-    v9 = v55;
-    v16 = v51;
+    v8 = v48;
+    v5 = v53;
+    v9 = v54;
+    v16 = v50;
   }
 
-  v50 = v7;
-  if ([(MCUISpecifierProvider *)self isSectionPopulated:v8 outIsPlural:&v68])
+  v49 = v7;
+  if ([(MCUISpecifierProvider *)self isSectionPopulated:v8 outIsPlural:&v67])
   {
-    if (v68)
+    if (v67)
     {
       v27 = @"DEVELOPER_APP_PLURAL";
     }
@@ -141,47 +141,47 @@
     v29 = [MEMORY[0x277D3FAD8] groupSpecifierWithName:v28];
     [v10 addObject:v29];
 
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
     v30 = v8;
-    v31 = [v30 countByEnumeratingWithState:&v60 objects:v76 count:16];
+    v31 = [v30 countByEnumeratingWithState:&v59 objects:v75 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v61;
+      v33 = *v60;
       do
       {
         for (j = 0; j != v32; ++j)
         {
-          if (*v61 != v33)
+          if (*v60 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          v35 = [(MCUIMCSpecifierProvider *)self _specifierForAppSigner:*(*(&v60 + 1) + 8 * j)];
+          v35 = [(MCUIMCSpecifierProvider *)self _specifierForAppSigner:*(*(&v59 + 1) + 8 * j)];
           [v10 addObject:v35];
         }
 
-        v32 = [v30 countByEnumeratingWithState:&v60 objects:v76 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v59 objects:v75 count:16];
       }
 
       while (v32);
     }
 
-    v15 = v52;
-    v6 = v53;
-    v7 = v50;
-    v16 = v51;
-    v5 = v54;
-    v9 = v55;
+    v15 = v51;
+    v6 = v52;
+    v7 = v49;
+    v16 = v50;
+    v5 = v53;
+    v9 = v54;
   }
 
-  if ([(MCUISpecifierProvider *)self isSectionPopulated:v9 outIsPlural:&v68])
+  if ([(MCUISpecifierProvider *)self isSectionPopulated:v9 outIsPlural:&v67])
   {
-    v48 = v4;
-    if (v68)
+    v47 = v4;
+    if (v67)
     {
       v36 = @"BLOCKED_APP_PLURAL";
     }
@@ -195,26 +195,26 @@
     v38 = [MEMORY[0x277D3FAD8] groupSpecifierWithName:v37];
     [v10 addObject:v38];
 
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     v39 = v9;
-    v40 = [v39 countByEnumeratingWithState:&v56 objects:v75 count:16];
+    v40 = [v39 countByEnumeratingWithState:&v55 objects:v74 count:16];
     if (v40)
     {
       v41 = v40;
-      v42 = *v57;
+      v42 = *v56;
       do
       {
         for (k = 0; k != v41; ++k)
         {
-          if (*v57 != v42)
+          if (*v56 != v42)
           {
             objc_enumerationMutation(v39);
           }
 
-          v44 = *(*(&v56 + 1) + 8 * k);
+          v44 = *(*(&v55 + 1) + 8 * k);
           v45 = [(MCUIMCSpecifierProvider *)self _specifierForBlockedApp:v44];
           if (v45)
           {
@@ -227,23 +227,21 @@
           }
         }
 
-        v41 = [v39 countByEnumeratingWithState:&v56 objects:v75 count:16];
+        v41 = [v39 countByEnumeratingWithState:&v55 objects:v74 count:16];
       }
 
       while (v41);
     }
 
-    v4 = v48;
-    v8 = v49;
-    v6 = v53;
-    v5 = v54;
-    v7 = v50;
-    v16 = v51;
-    v9 = v55;
-    v15 = v52;
+    v4 = v47;
+    v8 = v48;
+    v6 = v52;
+    v5 = v53;
+    v7 = v49;
+    v16 = v50;
+    v9 = v54;
+    v15 = v51;
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

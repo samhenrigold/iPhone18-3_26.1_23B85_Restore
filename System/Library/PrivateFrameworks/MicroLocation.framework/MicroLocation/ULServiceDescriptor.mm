@@ -40,11 +40,11 @@
 
 - (ULServiceDescriptor)initWithCoder:(id)coder
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = ULServiceDescriptor;
-  v5 = [(ULServiceDescriptor *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = ULServiceDescriptor;
+  v5 = [(ULServiceDescriptor *)&v17 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"serviceIdentifier"];
@@ -56,9 +56,9 @@
       v5->_serviceIdentifier = v7;
 
       v9 = MEMORY[0x277CBEB98];
-      v19[0] = objc_opt_class();
-      v19[1] = objc_opt_class();
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+      v18[0] = objc_opt_class();
+      v18[1] = objc_opt_class();
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
       v11 = [v9 setWithArray:v10];
       v6 = [coderCopy decodeObjectOfClasses:v11 forKey:@"locationTypes"];
 
@@ -87,7 +87,6 @@
     v6 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

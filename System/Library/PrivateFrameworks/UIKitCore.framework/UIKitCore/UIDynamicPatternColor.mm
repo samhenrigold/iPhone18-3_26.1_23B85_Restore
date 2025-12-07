@@ -39,16 +39,24 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v5 = 1;
+    isEqual = 1;
   }
 
   else
   {
     objc_opt_class();
-    v5 = (objc_opt_isKindOfClass() & 1) != 0 && [(UIImage *)self->_image isEqual:equalCopy->_image];
+    if (objc_opt_isKindOfClass())
+    {
+      isEqual = objc_msgSend_isEqual_(self->_image);
+    }
+
+    else
+    {
+      isEqual = 0;
+    }
   }
 
-  return v5;
+  return isEqual;
 }
 
 - (id)_resolvedColorWithTraitCollection:(id)collection

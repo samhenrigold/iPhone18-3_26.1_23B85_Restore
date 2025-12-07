@@ -1,4 +1,5 @@
 @interface FSModuleIdentity
+- (FSModuleIdentity)initWithApplicationExtensionRecord:(id)record isEnabled:(BOOL)enabled;
 - (FSModuleIdentity)initWithApplicationExtensionRecord:(id)record isEnabled:(BOOL)enabled isSystem:(BOOL)system;
 - (FSModuleIdentity)initWithCoder:(id)coder;
 - (void)encodeWithCoder:(id)coder;
@@ -52,6 +53,27 @@
     applicationGroup = v9->_applicationGroup;
     v9->_applicationGroup = v28;
   }
+
+  return v9;
+}
+
+- (FSModuleIdentity)initWithApplicationExtensionRecord:(id)record isEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  recordCopy = record;
+  bundleIdentifier = [recordCopy bundleIdentifier];
+  if ([bundleIdentifier hasPrefix:@"com.apple."])
+  {
+    v8 = [bundleIdentifier hasPrefix:@"com.apple.fskit3p."] ^ 1;
+    enabledCopy = v8 | enabledCopy;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = [(FSModuleIdentity *)self initWithApplicationExtensionRecord:recordCopy isEnabled:enabledCopy isSystem:v8];
 
   return v9;
 }

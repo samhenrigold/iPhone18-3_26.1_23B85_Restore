@@ -290,23 +290,25 @@ LABEL_6:
   return v5;
 }
 
-id __25__TPSContent_na_identity__block_invoke()
+id __25__TPSContent_na_identity__block_invoke(uint64_t a1)
 {
   if (TPSContentLabelStyleWhiteValue_block_invoke_na_once_token_0 != -1)
   {
     __25__TPSContent_na_identity__block_invoke_cold_1();
   }
 
-  v1 = TPSContentLabelStyleWhiteValue_block_invoke_na_once_object_0;
+  v2 = TPSContentLabelStyleWhiteValue_block_invoke_na_once_object_0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __25__TPSContent_na_identity__block_invoke_2()
 {
-  TPSContentLabelStyleWhiteValue_block_invoke_na_once_object_0 = __25__TPSContent_na_identity__block_invoke_3();
+  v0 = __25__TPSContent_na_identity__block_invoke_3();
+  v1 = TPSContentLabelStyleWhiteValue_block_invoke_na_once_object_0;
+  TPSContentLabelStyleWhiteValue_block_invoke_na_once_object_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id __25__TPSContent_na_identity__block_invoke_3()

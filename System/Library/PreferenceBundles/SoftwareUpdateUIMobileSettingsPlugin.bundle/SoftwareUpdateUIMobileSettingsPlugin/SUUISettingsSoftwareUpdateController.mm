@@ -45,7 +45,7 @@
   }
 
   SUUISettingsSoftwareUpdateController.handleURL(_:withCompletion:)(v8, v5, v6);
-  sub_15224(v5);
+  sub_15224(v5, v6);
 
   _objc_release(self);
 }

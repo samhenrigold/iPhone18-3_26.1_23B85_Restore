@@ -47,7 +47,7 @@
 - (id)queryAppsWithBundleIDs:(id)ds startObserving:(BOOL)observing
 {
   observingCopy = observing;
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v7 = [getASDAppQueryClass() queryForBundleIDs:dsCopy];
   v8 = v7;
@@ -56,30 +56,30 @@
     [v7 setObserver:self];
     selfCopy = self;
     objc_sync_enter(selfCopy);
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v10 = dsCopy;
-    v11 = [v10 countByEnumeratingWithState:&v23 objects:v33 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v22 objects:v32 count:16];
     if (v11)
     {
-      v12 = *v24;
+      v12 = *v23;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v24 != v12)
+          if (*v23 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v23 + 1) + 8 * i);
+          v14 = *(*(&v22 + 1) + 8 * i);
           observingQueries = [(AMSUIWebJSAppQueryManager *)selfCopy observingQueries];
           [observingQueries setObject:v8 forKey:v14];
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v23 objects:v33 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v22 objects:v32 count:16];
       }
 
       while (v11);
@@ -100,17 +100,15 @@
     v18 = objc_opt_class();
     v19 = AMSLogKey();
     *buf = 138543874;
-    v28 = v18;
-    v29 = 2114;
-    v30 = v19;
-    v31 = 2114;
-    v32 = dsCopy;
+    v27 = v18;
+    v28 = 2114;
+    v29 = v19;
+    v30 = 2114;
+    v31 = dsCopy;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Executing app query for bundle identifiers %{public}@", buf, 0x20u);
   }
 
   v20 = [(AMSUIWebJSAppQueryManager *)self _executeAppQuery:v8];
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -118,7 +116,7 @@
 - (id)queryAppsWithStoreItemIDs:(id)ds startObserving:(BOOL)observing
 {
   observingCopy = observing;
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v7 = [getASDAppQueryClass() queryForStoreItemIDs:dsCopy];
   v8 = v7;
@@ -127,30 +125,30 @@
     [v7 setObserver:self];
     selfCopy = self;
     objc_sync_enter(selfCopy);
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v10 = dsCopy;
-    v11 = [v10 countByEnumeratingWithState:&v23 objects:v33 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v22 objects:v32 count:16];
     if (v11)
     {
-      v12 = *v24;
+      v12 = *v23;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v24 != v12)
+          if (*v23 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v23 + 1) + 8 * i);
+          v14 = *(*(&v22 + 1) + 8 * i);
           observingQueries = [(AMSUIWebJSAppQueryManager *)selfCopy observingQueries];
           [observingQueries setObject:v8 forKey:v14];
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v23 objects:v33 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v22 objects:v32 count:16];
       }
 
       while (v11);
@@ -171,17 +169,15 @@
     v18 = objc_opt_class();
     v19 = AMSLogKey();
     *buf = 138543874;
-    v28 = v18;
-    v29 = 2114;
-    v30 = v19;
-    v31 = 2114;
-    v32 = dsCopy;
+    v27 = v18;
+    v28 = 2114;
+    v29 = v19;
+    v30 = 2114;
+    v31 = dsCopy;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Executing app query for store item identifiers %{public}@", buf, 0x20u);
   }
 
   v20 = [(AMSUIWebJSAppQueryManager *)self _executeAppQuery:v8];
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -198,30 +194,30 @@
 
 - (void)stopObservingAppsWithBundleIDs:(id)ds
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = dsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         observingQueries = [(AMSUIWebJSAppQueryManager *)selfCopy observingQueries];
         [observingQueries removeObjectForKey:v10];
 
@@ -229,42 +225,41 @@
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(selfCopy);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopObservingAppsWithStoreItemIDs:(id)ds
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = dsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         observingQueries = [(AMSUIWebJSAppQueryManager *)selfCopy observingQueries];
         [observingQueries removeObjectForKey:v10];
 
@@ -272,14 +267,13 @@
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(selfCopy);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_encodeApp:(id)app
@@ -352,31 +346,30 @@
 
 void __46__AMSUIWebJSAppQueryManager__executeAppQuery___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v8 = *(a1 + 32);
-  v9 = AMSSetLogKey();
-  v10 = [MEMORY[0x1E698C968] sharedWebUIConfig];
-  v11 = v10;
+  v8 = AMSSetLogKey();
+  v9 = [MEMORY[0x1E698C968] sharedWebUIConfig];
+  v10 = v9;
   if (v5)
   {
-    if (!v10)
+    if (!v9)
     {
-      v11 = [MEMORY[0x1E698C968] sharedConfig];
+      v10 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v12 = [v11 OSLogObject];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v11 = [v10 OSLogObject];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = objc_opt_class();
-      v14 = AMSLogKey();
-      v19 = 138543618;
+      v12 = objc_opt_class();
+      v13 = AMSLogKey();
+      v17 = 138543618;
+      v18 = v12;
+      v19 = 2114;
       v20 = v13;
-      v21 = 2114;
-      v22 = v14;
-      _os_log_impl(&dword_1BB036000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] App query succeeded.", &v19, 0x16u);
+      _os_log_impl(&dword_1BB036000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] App query succeeded.", &v17, 0x16u);
     }
 
     [WeakRetained _postMediaQueryResultsChangeEventWithApps:v5];
@@ -385,29 +378,27 @@ void __46__AMSUIWebJSAppQueryManager__executeAppQuery___block_invoke(uint64_t a1
 
   else
   {
-    if (!v10)
+    if (!v9)
     {
-      v11 = [MEMORY[0x1E698C968] sharedConfig];
+      v10 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v15 = [v11 OSLogObject];
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v14 = [v10 OSLogObject];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v16 = objc_opt_class();
-      v17 = AMSLogKey();
-      v19 = 138543874;
+      v15 = objc_opt_class();
+      v16 = AMSLogKey();
+      v17 = 138543874;
+      v18 = v15;
+      v19 = 2114;
       v20 = v16;
       v21 = 2114;
-      v22 = v17;
-      v23 = 2114;
-      v24 = v6;
-      _os_log_impl(&dword_1BB036000, v15, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] App query failed %{public}@", &v19, 0x20u);
+      v22 = v6;
+      _os_log_impl(&dword_1BB036000, v14, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] App query failed %{public}@", &v17, 0x20u);
     }
 
     [*(a1 + 40) finishWithError:v6];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_postMediaQueryResultsChangeEventWithApps:(id)apps

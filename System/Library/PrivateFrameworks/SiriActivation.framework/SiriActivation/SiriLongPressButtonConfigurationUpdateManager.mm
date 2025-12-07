@@ -162,7 +162,7 @@
 
 void __96__SiriLongPressButtonConfigurationUpdateManager_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -173,29 +173,29 @@ void __96__SiriLongPressButtonConfigurationUpdateManager_observeValueForKeyPath_
 
     if ((v5 & 1) == 0)
     {
-      v17 = v3;
+      v16 = v3;
       v6 = [v3 integerValue];
       *(WeakRetained + 3) = v6;
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       v7 = [*(WeakRetained + 4) keyEnumerator];
-      v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v19;
+        v10 = *v18;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v19 != v10)
+            if (*v18 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v18 + 1) + 8 * i);
+            v12 = *(*(&v17 + 1) + 8 * i);
             v13 = [*(WeakRetained + 4) objectForKey:v12];
             if (v12)
             {
@@ -210,17 +210,15 @@ void __96__SiriLongPressButtonConfigurationUpdateManager_observeValueForKeyPath_
             }
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v9);
       }
 
-      v3 = v17;
+      v3 = v16;
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

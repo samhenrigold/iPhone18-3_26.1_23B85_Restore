@@ -17,7 +17,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  sub_100004C9C();
+  sub_100004C9C(selfCopy);
 }
 
 - (void)didUpdateColorFilterPreferenceWithFilter:(int64_t)filter

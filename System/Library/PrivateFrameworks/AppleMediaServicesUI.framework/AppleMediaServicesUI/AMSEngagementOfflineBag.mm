@@ -66,7 +66,7 @@
 
 void __42__AMSEngagementOfflineBag__attemptBagLoad__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -85,20 +85,19 @@ void __42__AMSEngagementOfflineBag__attemptBagLoad__block_invoke(uint64_t a1, vo
       v10 = [v9 OSLogObject];
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = *(a1 + 32);
-        v12 = objc_opt_class();
-        v13 = v12;
-        v14 = AMSLogKey();
-        v30 = 138543618;
-        v31 = v12;
-        v32 = 2114;
-        v33 = v14;
-        _os_log_impl(&dword_1BB036000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Failed to load the underlying bag. Falling back to offline bag..", &v30, 0x16u);
+        v11 = objc_opt_class();
+        v12 = v11;
+        v13 = AMSLogKey();
+        v26 = 138543618;
+        v27 = v11;
+        v28 = 2114;
+        v29 = v13;
+        _os_log_impl(&dword_1BB036000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Failed to load the underlying bag. Falling back to offline bag..", &v26, 0x16u);
       }
 
-      v15 = [*(a1 + 32) snapshotPromise];
-      v16 = [*(a1 + 32) underlyingOfflineBag];
-      [v15 finishWithResult:v16 error:0];
+      v14 = [*(a1 + 32) snapshotPromise];
+      v15 = [*(a1 + 32) underlyingOfflineBag];
+      [v14 finishWithResult:v15 error:0];
     }
 
     else
@@ -108,22 +107,21 @@ void __42__AMSEngagementOfflineBag__attemptBagLoad__block_invoke(uint64_t a1, vo
         v9 = [MEMORY[0x1E698C968] sharedConfig];
       }
 
-      v24 = [v9 OSLogObject];
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v22 = [v9 OSLogObject];
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = *(a1 + 32);
-        v26 = objc_opt_class();
-        v27 = v26;
-        v28 = AMSLogKey();
-        v30 = 138543618;
-        v31 = v26;
-        v32 = 2114;
-        v33 = v28;
-        _os_log_impl(&dword_1BB036000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Failed to generate offline bag.", &v30, 0x16u);
+        v23 = objc_opt_class();
+        v24 = v23;
+        v25 = AMSLogKey();
+        v26 = 138543618;
+        v27 = v23;
+        v28 = 2114;
+        v29 = v25;
+        _os_log_impl(&dword_1BB036000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Failed to generate offline bag.", &v26, 0x16u);
       }
 
-      v15 = [*(a1 + 32) snapshotPromise];
-      [v15 finishWithError:v6];
+      v14 = [*(a1 + 32) snapshotPromise];
+      [v14 finishWithError:v6];
     }
 
     [*(a1 + 32) setSnapshotPromise:0];
@@ -131,42 +129,39 @@ void __42__AMSEngagementOfflineBag__attemptBagLoad__block_invoke(uint64_t a1, vo
 
   else
   {
-    v17 = [MEMORY[0x1E698C968] sharedBagConfig];
-    if (!v17)
+    v16 = [MEMORY[0x1E698C968] sharedBagConfig];
+    if (!v16)
     {
-      v17 = [MEMORY[0x1E698C968] sharedConfig];
+      v16 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v18 = [v17 OSLogObject];
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v17 = [v16 OSLogObject];
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = *(a1 + 32);
-      v20 = objc_opt_class();
-      v21 = v20;
-      v22 = AMSLogKey();
-      v30 = 138543618;
-      v31 = v20;
-      v32 = 2114;
-      v33 = v22;
-      _os_log_impl(&dword_1BB036000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully snapshotted the bag. Using underlying bag..", &v30, 0x16u);
+      v18 = objc_opt_class();
+      v19 = v18;
+      v20 = AMSLogKey();
+      v26 = 138543618;
+      v27 = v18;
+      v28 = 2114;
+      v29 = v20;
+      _os_log_impl(&dword_1BB036000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully snapshotted the bag. Using underlying bag..", &v26, 0x16u);
     }
 
-    v23 = [*(a1 + 32) snapshotPromise];
-    [v23 finishWithResult:v5 error:0];
+    v21 = [*(a1 + 32) snapshotPromise];
+    [v21 finishWithResult:v5 error:0];
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_getOfflineBagData
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   ams_dynamicUIDirectory = [MEMORY[0x1E695DFF8] ams_dynamicUIDirectory];
   v3 = [ams_dynamicUIDirectory URLByAppendingPathComponent:@"offline-bag" isDirectory:0];
 
-  v20 = 0;
-  v4 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v3 options:0 error:&v20];
-  v5 = v20;
+  v19 = 0;
+  v4 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v3 options:0 error:&v19];
+  v5 = v19;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedBagConfig];
   mEMORY[0x1E698C968]2 = mEMORY[0x1E698C968];
   if (v5)
@@ -184,11 +179,11 @@ void __42__AMSEngagementOfflineBag__attemptBagLoad__block_invoke(uint64_t a1, vo
       v11 = AMSLogKey();
       v12 = AMSHashIfNeeded();
       *buf = 138543874;
-      v22 = v9;
-      v23 = 2114;
-      v24 = v11;
-      v25 = 2114;
-      v26 = v12;
+      v21 = v9;
+      v22 = 2114;
+      v23 = v11;
+      v24 = 2114;
+      v25 = v12;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to read offline bag data. error = %{public}@", buf, 0x20u);
     }
 
@@ -209,27 +204,25 @@ void __42__AMSEngagementOfflineBag__attemptBagLoad__block_invoke(uint64_t a1, vo
       v16 = v15;
       v17 = AMSLogKey();
       *buf = 138543618;
-      v22 = v15;
-      v23 = 2114;
-      v24 = v17;
+      v21 = v15;
+      v22 = 2114;
+      v23 = v17;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Successfully read offline bag data.", buf, 0x16u);
     }
 
     v13 = v4;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (id)_getSnapshotResult
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   snapshotPromise = [(AMSEngagementOfflineBag *)self snapshotPromise];
-  v13 = 0;
-  v3 = [snapshotPromise resultWithError:&v13];
-  v4 = v13;
+  v12 = 0;
+  v3 = [snapshotPromise resultWithError:&v12];
+  v4 = v12;
 
   if (v4)
   {
@@ -246,11 +239,11 @@ void __42__AMSEngagementOfflineBag__attemptBagLoad__block_invoke(uint64_t a1, vo
       v8 = AMSLogKey();
       v9 = AMSHashIfNeeded();
       *buf = 138543874;
-      v15 = v7;
-      v16 = 2114;
-      v17 = v8;
-      v18 = 2114;
-      v19 = v9;
+      v14 = v7;
+      v15 = 2114;
+      v16 = v8;
+      v17 = 2114;
+      v18 = v9;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to get snapshot result for key. error = %{public}@", buf, 0x20u);
     }
 
@@ -262,14 +255,12 @@ void __42__AMSEngagementOfflineBag__attemptBagLoad__block_invoke(uint64_t a1, vo
     v10 = v3;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (AMSSnapshotBag)underlyingOfflineBag
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   underlyingOfflineBag = self->_underlyingOfflineBag;
   if (underlyingOfflineBag)
   {
@@ -283,9 +274,9 @@ void __42__AMSEngagementOfflineBag__attemptBagLoad__block_invoke(uint64_t a1, vo
   v9 = objc_opt_class();
   v10 = [v6 setWithObjects:{v7, v8, v9, objc_opt_class(), 0}];
   _getOfflineBagData = [(AMSEngagementOfflineBag *)self _getOfflineBagData];
-  v35 = 0;
-  v12 = [v5 unarchivedObjectOfClasses:v10 fromData:_getOfflineBagData error:&v35];
-  v13 = v35;
+  v34 = 0;
+  v12 = [v5 unarchivedObjectOfClasses:v10 fromData:_getOfflineBagData error:&v34];
+  v13 = v34;
 
   if (v13)
   {
@@ -304,9 +295,9 @@ void __42__AMSEngagementOfflineBag__attemptBagLoad__block_invoke(uint64_t a1, vo
     profileVersion = [(AMSEngagementOfflineBag *)self profileVersion];
     [v14 setProfileVersion:profileVersion];
 
-    v34 = 0;
-    v18 = [v14 buildWithError:&v34];
-    v19 = v34;
+    v33 = 0;
+    v18 = [v14 buildWithError:&v33];
+    v19 = v33;
     mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedBagConfig];
     mEMORY[0x1E698C968]2 = mEMORY[0x1E698C968];
     if (v19)
@@ -320,15 +311,15 @@ void __42__AMSEngagementOfflineBag__attemptBagLoad__block_invoke(uint64_t a1, vo
       if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
       {
         v23 = objc_opt_class();
-        v33 = v23;
+        v32 = v23;
         v24 = AMSLogKey();
         v25 = AMSHashIfNeeded();
         *buf = 138543874;
-        v37 = v23;
-        v38 = 2114;
-        v39 = v24;
-        v40 = 2114;
-        v41 = v25;
+        v36 = v23;
+        v37 = 2114;
+        v38 = v24;
+        v39 = 2114;
+        v40 = v25;
         _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to create the offline snapshot. error = %{public}@", buf, 0x20u);
       }
     }
@@ -347,9 +338,9 @@ void __42__AMSEngagementOfflineBag__attemptBagLoad__block_invoke(uint64_t a1, vo
         v28 = v27;
         v29 = AMSLogKey();
         *buf = 138543618;
-        v37 = v27;
-        v38 = 2114;
-        v39 = v29;
+        v36 = v27;
+        v37 = 2114;
+        v38 = v29;
         _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully created the offline snapshot.", buf, 0x16u);
       }
 
@@ -369,7 +360,6 @@ LABEL_2:
 
   v3 = 0;
 LABEL_18:
-  v31 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

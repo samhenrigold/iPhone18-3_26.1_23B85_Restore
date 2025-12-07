@@ -35,7 +35,7 @@
       [v11 decorationOverlayRectForSpriteIndex:v4];
       if (!CGRectIsNull(v17))
       {
-        [v11 geometryForSpriteAtIndex:v4];
+        objc_msgSend_geometryForSpriteAtIndex_(v11);
         PXEdgeInsetsBetweenRects();
       }
     }

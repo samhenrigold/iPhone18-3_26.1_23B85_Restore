@@ -1,35 +1,35 @@
-unint64_t PDAmultiplyPDA(float16x4_t a1, __n128 a2, __n128 a3, float32x4_t a4, float32x4_t a5, float32x4_t a6, double a7, double a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, float16x4_t a17, float a18)
+unint64_t PDAmultiplyPDA(float16x4_t a1, __n128 a2, __n128 a3, float32x4_t a4, float32x4_t a5, float32x4_t a6, double a7, double a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, float16x4_t a17, float32_t a18)
 {
   a6.f32[0] = a18;
   a1.i16[1] = a2.n128_u16[0];
   a1.i16[2] = a3.n128_u16[0];
   a1.i16[3] = a4.i16[0];
-  v16 = vsubq_f32(vdupq_lane_s32(*a5.f32, 0), vcvtq_f32_f16(a1));
+  v18 = vsubq_f32(vdupq_lane_s32(*a5.f32, 0), vcvtq_f32_f16(a1));
   _Q1 = vsubq_f32(vdupq_lane_s32(*a6.f32, 0), vcvtq_f32_f16(a17));
-  _Q2 = vmulq_f32(v16, _Q1);
+  _Q2 = vmulq_f32(v18, _Q1);
   a4.i32[0] = 1.0;
-  v19 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(a6, a4)), 0), vmlaq_n_f32(_Q2, v16, 1.0 - a18), _Q2);
-  v20 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(a5, a4)), 0), vmlaq_n_f32(v19, _Q1, 1.0 - a5.f32[0]), v19);
+  v21 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(a6, a4)), 0), vmlaq_n_f32(_Q2, v18, 1.0 - a18), _Q2);
+  v22 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(a5, a4)), 0), vmlaq_n_f32(v21, _Q1, 1.0 - a5.f32[0]), v21);
   _Q1.f32[0] = (a5.f32[0] + a18) - (a5.f32[0] * a18);
-  _Q2.f32[0] = _Q1.f32[0] - v20.f32[0];
+  _Q2.f32[0] = _Q1.f32[0] - v22.f32[0];
   __asm { FCVT            H2, S2 }
 
-  *&_S3 = _Q1.f32[0] - v20.f32[2];
+  *&_S3 = _Q1.f32[0] - v22.f32[2];
   __asm
   {
     FCVT            H3, S3
     FCVT            H4, S1
   }
 
-  v20.i32[0] = vextq_s8(*&v20, *&v20, 8uLL).i32[1];
-  *v20.f32 = vsub_f32(vdup_lane_s32(*_Q1.f32, 0), *v20.f32);
-  v20.i64[0] = vmovl_u16(vcvt_f16_f32(v20)).u64[0];
-  v27.i64[0] = v20.u32[0];
-  v27.i64[1] = v20.u32[1];
+  v22.i32[0] = vextq_s8(*&v22, *&v22, 8uLL).i32[1];
+  *v22.f32 = vsub_f32(vdup_lane_s32(*_Q1.f32, 0), *v22.f32);
+  v22.i64[0] = vmovl_u16(vcvt_f16_f32(v22)).u64[0];
+  v29.i64[0] = v22.u32[0];
+  v29.i64[1] = v22.u32[1];
   _Q1.i64[0] = 0xFFFFLL;
   _Q1.i64[1] = 0xFFFFLL;
-  v28 = vshlq_u64(vandq_s8(v27, _Q1), xmmword_18439CB60);
-  return v28.i64[0] | (_S3 << 32) | _Q2.u32[0] | v28.i64[1];
+  v30 = vshlq_u64(vandq_s8(v29, _Q1), xmmword_18439CB60);
+  return v30.i64[0] | (_S3 << 32) | _Q2.u32[0] | v30.i64[1];
 }
 
 uint64_t PDAscreenPDA(__n128 _Q0, __n128 a2, __n128 _Q2, float16x4_t a4, double a5, float16x4_t a6, double _D6, int32x2_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __int16 a17, __int16 a18, __int16 a19, __int16 a20, float a21)
@@ -84,81 +84,81 @@ unint64_t PDAoverlayPDA(__n128 _Q0, __n128 _Q1, __n128 _Q2, __n128 _Q3, float a5
   _H17 = a17;
   __asm { FCVT            S0, H0 }
 
-  v27 = a5 - _S0;
+  v30 = a5 - _S0;
   __asm { FCVT            S1, H1 }
 
-  v29 = a5 - _S1;
+  v32 = a5 - _S1;
   __asm { FCVT            S2, H2 }
 
-  v31 = a5 - _S2;
+  v34 = a5 - _S2;
   __asm { FCVT            S3, H3 }
 
-  v33 = a5 - _S3;
+  v36 = a5 - _S3;
   __asm { FCVT            S17, H17 }
 
-  v35 = a21 - _S17;
+  v38 = a21 - _S17;
   __asm { FCVT            S16, H16 }
 
-  v37 = a21 - _S16;
+  v40 = a21 - _S16;
   __asm { FCVT            S7, H7 }
 
-  v39 = a21 - _S7;
+  v42 = a21 - _S7;
   __asm { FCVT            S6, H6 }
 
-  v41 = a21 - _S6;
-  v42 = (v27 * v35) + (v27 * v35);
-  v43 = (v29 * v37) + (v29 * v37);
-  v44 = (v31 * v39) + (v31 * v39);
-  v45 = (v33 * v41) + (v33 * v41);
-  v46 = a5 * a21;
-  v47 = a5 * 0.5;
-  _NF = v27 < (a5 * 0.5);
-  v48 = a21 + 1.0;
-  v49 = a5 + 1.0;
-  v50 = ((((a5 + 1.0) * v35) + (v27 * (a21 + 1.0))) - v42) - (a5 * a21);
-  v51 = 1.0 - a21;
-  v52 = 1.0 - a5;
-  v53 = (((1.0 - a5) * v35) + (v27 * (1.0 - a21))) + v42;
+  v44 = a21 - _S6;
+  v45 = (v30 * v38) + (v30 * v38);
+  v46 = (v32 * v40) + (v32 * v40);
+  v47 = (v34 * v42) + (v34 * v42);
+  v48 = (v36 * v44) + (v36 * v44);
+  v49 = a5 * a21;
+  v50 = a5 * 0.5;
+  _NF = v30 < (a5 * 0.5);
+  v51 = a21 + 1.0;
+  v52 = a5 + 1.0;
+  v53 = ((((a5 + 1.0) * v38) + (v30 * (a21 + 1.0))) - v45) - (a5 * a21);
+  v54 = 1.0 - a21;
+  v55 = 1.0 - a5;
+  v56 = (((1.0 - a5) * v38) + (v30 * (1.0 - a21))) + v45;
   if (!_NF)
   {
-    v53 = v50;
+    v56 = v53;
   }
 
-  _NF = v29 < v47;
-  v54 = (((v49 * v37) + (v29 * v48)) - v43) - v46;
-  v55 = ((v52 * v37) + (v29 * v51)) + v43;
+  _NF = v32 < v50;
+  v57 = (((v52 * v40) + (v32 * v51)) - v46) - v49;
+  v58 = ((v55 * v40) + (v32 * v54)) + v46;
   if (!_NF)
   {
-    v55 = v54;
+    v58 = v57;
   }
 
-  _NF = v31 < v47;
-  v56 = (((v49 * v39) + (v31 * v48)) - v44) - v46;
-  v57 = ((v52 * v39) + (v31 * v51)) + v44;
+  _NF = v34 < v50;
+  v59 = (((v52 * v42) + (v34 * v51)) - v47) - v49;
+  v60 = ((v55 * v42) + (v34 * v54)) + v47;
   if (!_NF)
   {
-    v57 = v56;
+    v60 = v59;
   }
 
-  _NF = v33 < v47;
-  v58 = (((v49 * v41) + (v33 * v48)) - v45) - v46;
-  v59 = ((v52 * v41) + (v33 * v51)) + v45;
+  _NF = v36 < v50;
+  v61 = (((v52 * v44) + (v36 * v51)) - v48) - v49;
+  v62 = ((v55 * v44) + (v36 * v54)) + v48;
   if (!_NF)
   {
-    v59 = v58;
+    v62 = v61;
   }
 
-  _S4 = (a5 + a21) - v46;
-  *&_S0 = _S4 - v53;
+  _S4 = (a5 + a21) - v49;
+  *&_S0 = _S4 - v56;
   __asm { FCVT            H0, S0 }
 
-  *&_S1 = _S4 - v55;
+  *&_S1 = _S4 - v58;
   __asm { FCVT            H1, S1 }
 
-  *&_S2 = _S4 - v57;
+  *&_S2 = _S4 - v60;
   __asm { FCVT            H2, S2 }
 
-  *&_S3 = _S4 - v59;
+  *&_S3 = _S4 - v62;
   __asm
   {
     FCVT            H3, S3
@@ -174,34 +174,34 @@ unint64_t PDAlightenPDA(float16x4_t a1, __n128 a2, __n128 a3, __n128 a4, float32
   a1.i16[1] = a2.n128_u16[0];
   a1.i16[2] = a3.n128_u16[0];
   a1.i16[3] = a4.n128_u16[0];
-  v16 = vsubq_f32(vdupq_lane_s32(*a5.f32, 0), vcvtq_f32_f16(a1));
+  v18 = vsubq_f32(vdupq_lane_s32(*a5.f32, 0), vcvtq_f32_f16(a1));
   _Q1 = vsubq_f32(vdupq_lane_s32(*a6.f32, 0), vcvtq_f32_f16(a17));
-  v18 = vmulq_n_f32(v16, a18);
+  v20 = vmulq_n_f32(v18, a18);
   _Q3 = vmulq_n_f32(_Q1, a5.f32[0]);
-  _Q2 = vbslq_s8(vcgtq_f32(_Q3, v18), _Q3, v18);
+  _Q2 = vbslq_s8(vcgtq_f32(_Q3, v20), _Q3, v20);
   _Q3.i32[0] = 1.0;
-  v21 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(a6, _Q3)), 0), vmlaq_n_f32(_Q2, v16, 1.0 - a18), _Q2);
-  v22 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(a5, _Q3)), 0), vmlaq_n_f32(v21, _Q1, 1.0 - a5.f32[0]), v21);
+  v23 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(a6, _Q3)), 0), vmlaq_n_f32(_Q2, v18, 1.0 - a18), _Q2);
+  v24 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(a5, _Q3)), 0), vmlaq_n_f32(v23, _Q1, 1.0 - a5.f32[0]), v23);
   _Q1.f32[0] = (a5.f32[0] + a18) - (a5.f32[0] * a18);
-  _Q2.f32[0] = _Q1.f32[0] - v22.f32[0];
+  _Q2.f32[0] = _Q1.f32[0] - v24.f32[0];
   __asm { FCVT            H2, S2 }
 
-  _Q3.f32[0] = _Q1.f32[0] - v22.f32[2];
+  _Q3.f32[0] = _Q1.f32[0] - v24.f32[2];
   __asm
   {
     FCVT            H3, S3
     FCVT            H4, S1
   }
 
-  v22.i32[0] = vextq_s8(*&v22, *&v22, 8uLL).i32[1];
-  *v22.f32 = vsub_f32(vdup_lane_s32(*_Q1.f32, 0), *v22.f32);
-  v22.i64[0] = vmovl_u16(vcvt_f16_f32(v22)).u64[0];
-  v28.i64[0] = v22.u32[0];
-  v28.i64[1] = v22.u32[1];
+  v24.i32[0] = vextq_s8(*&v24, *&v24, 8uLL).i32[1];
+  *v24.f32 = vsub_f32(vdup_lane_s32(*_Q1.f32, 0), *v24.f32);
+  v24.i64[0] = vmovl_u16(vcvt_f16_f32(v24)).u64[0];
+  v30.i64[0] = v24.u32[0];
+  v30.i64[1] = v24.u32[1];
   _Q1.i64[0] = 0xFFFFLL;
   _Q1.i64[1] = 0xFFFFLL;
-  v29 = vshlq_u64(vandq_s8(v28, _Q1), xmmword_18439CB60);
-  return v29.i64[0] | (_Q3.u32[0] << 32) | _Q2.u32[0] | v29.i64[1];
+  v31 = vshlq_u64(vandq_s8(v30, _Q1), xmmword_18439CB60);
+  return v31.i64[0] | (_Q3.u32[0] << 32) | _Q2.u32[0] | v31.i64[1];
 }
 
 unint64_t PDAdarkenPDA(float16x4_t a1, __n128 a2, __n128 a3, __n128 a4, float32x4_t a5, float32x4_t a6, double a7, double a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, float16x4_t a17, float a18)
@@ -210,34 +210,34 @@ unint64_t PDAdarkenPDA(float16x4_t a1, __n128 a2, __n128 a3, __n128 a4, float32x
   a1.i16[1] = a2.n128_u16[0];
   a1.i16[2] = a3.n128_u16[0];
   a1.i16[3] = a4.n128_u16[0];
-  v16 = vsubq_f32(vdupq_lane_s32(*a5.f32, 0), vcvtq_f32_f16(a1));
+  v18 = vsubq_f32(vdupq_lane_s32(*a5.f32, 0), vcvtq_f32_f16(a1));
   _Q1 = vsubq_f32(vdupq_lane_s32(*a6.f32, 0), vcvtq_f32_f16(a17));
-  v18 = vmulq_n_f32(v16, a18);
+  v20 = vmulq_n_f32(v18, a18);
   _Q3 = vmulq_n_f32(_Q1, a5.f32[0]);
-  _Q2 = vbslq_s8(vcgtq_f32(v18, _Q3), _Q3, v18);
+  _Q2 = vbslq_s8(vcgtq_f32(v20, _Q3), _Q3, v20);
   _Q3.i32[0] = 1.0;
-  v21 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(a6, _Q3)), 0), vmlaq_n_f32(_Q2, v16, 1.0 - a18), _Q2);
-  v22 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(a5, _Q3)), 0), vmlaq_n_f32(v21, _Q1, 1.0 - a5.f32[0]), v21);
+  v23 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(a6, _Q3)), 0), vmlaq_n_f32(_Q2, v18, 1.0 - a18), _Q2);
+  v24 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(a5, _Q3)), 0), vmlaq_n_f32(v23, _Q1, 1.0 - a5.f32[0]), v23);
   _Q1.f32[0] = (a5.f32[0] + a18) - (a5.f32[0] * a18);
-  _Q2.f32[0] = _Q1.f32[0] - v22.f32[0];
+  _Q2.f32[0] = _Q1.f32[0] - v24.f32[0];
   __asm { FCVT            H2, S2 }
 
-  _Q3.f32[0] = _Q1.f32[0] - v22.f32[2];
+  _Q3.f32[0] = _Q1.f32[0] - v24.f32[2];
   __asm
   {
     FCVT            H3, S3
     FCVT            H4, S1
   }
 
-  v22.i32[0] = vextq_s8(*&v22, *&v22, 8uLL).i32[1];
-  *v22.f32 = vsub_f32(vdup_lane_s32(*_Q1.f32, 0), *v22.f32);
-  v22.i64[0] = vmovl_u16(vcvt_f16_f32(v22)).u64[0];
-  v28.i64[0] = v22.u32[0];
-  v28.i64[1] = v22.u32[1];
+  v24.i32[0] = vextq_s8(*&v24, *&v24, 8uLL).i32[1];
+  *v24.f32 = vsub_f32(vdup_lane_s32(*_Q1.f32, 0), *v24.f32);
+  v24.i64[0] = vmovl_u16(vcvt_f16_f32(v24)).u64[0];
+  v30.i64[0] = v24.u32[0];
+  v30.i64[1] = v24.u32[1];
   _Q1.i64[0] = 0xFFFFLL;
   _Q1.i64[1] = 0xFFFFLL;
-  v29 = vshlq_u64(vandq_s8(v28, _Q1), xmmword_18439CB60);
-  return v29.i64[0] | (_Q3.u32[0] << 32) | _Q2.u32[0] | v29.i64[1];
+  v31 = vshlq_u64(vandq_s8(v30, _Q1), xmmword_18439CB60);
+  return v31.i64[0] | (_Q3.u32[0] << 32) | _Q2.u32[0] | v31.i64[1];
 }
 
 unint64_t PDAcolordodgePDA(__n128 _Q0, __n128 _Q1, __n128 _Q2, __n128 _Q3, float a5, double a6, double a7, double a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __int16 a17, __int16 a18, __int16 a19, __int16 a20, float a21)
@@ -247,32 +247,32 @@ unint64_t PDAcolordodgePDA(__n128 _Q0, __n128 _Q1, __n128 _Q2, __n128 _Q3, float
   _H16 = a17;
   __asm { FCVT            S0, H0 }
 
-  v26 = a5 - _S0;
+  v29 = a5 - _S0;
   __asm { FCVT            S0, H1 }
 
-  v28 = a5 - _S0;
+  v31 = a5 - _S0;
   __asm
   {
     FCVT            S18, H2
     FCVT            S0, H16
   }
 
-  v31 = a21 - _S0;
+  v34 = a21 - _S0;
   __asm { FCVT            S19, H7 }
 
-  v33 = a21 * a21;
-  v34 = 0.0;
-  v35 = 0.0;
-  if (v26 != 0.0)
+  v36 = a21 * a21;
+  v37 = 0.0;
+  v38 = 0.0;
+  if (v29 != 0.0)
   {
-    if (v31 == a21)
+    if (v34 == a21)
     {
-      v35 = 1.0;
+      v38 = 1.0;
     }
 
     else
     {
-      v35 = (v26 * v33) / (a21 - v31);
+      v38 = (v29 * v36) / (a21 - v34);
     }
   }
 
@@ -283,112 +283,107 @@ unint64_t PDAcolordodgePDA(__n128 _Q0, __n128 _Q1, __n128 _Q2, __n128 _Q3, float
     FCVT            S22, H17
   }
 
-  v39 = a5 - _S18;
-  v40 = a21 - _S19;
-  if (v28 != 0.0)
+  v42 = a5 - _S18;
+  v43 = a21 - _S19;
+  if (v31 != 0.0)
   {
-    if (v40 == a21)
+    if (v43 == a21)
     {
-      v34 = 1.0;
+      v37 = 1.0;
     }
 
     else
     {
-      v34 = (v28 * v33) / (a21 - v40);
+      v37 = (v31 * v36) / (a21 - v43);
     }
   }
 
   __asm { FCVT            S23, H20 }
 
-  v42 = a5 - _S21;
-  v43 = a21 - _S22;
-  v44 = 0.0;
-  v45 = 0.0;
-  if (v39 != 0.0)
-  {
-    if (v43 == a21)
-    {
-      v45 = 1.0;
-    }
-
-    else
-    {
-      v45 = (v39 * v33) / (a21 - v43);
-    }
-  }
-
-  v46 = a21 - _S23;
+  v45 = a5 - _S21;
+  v46 = a21 - _S22;
+  v47 = 0.0;
+  v48 = 0.0;
   if (v42 != 0.0)
   {
     if (v46 == a21)
     {
-      v44 = 1.0;
+      v48 = 1.0;
     }
 
     else
     {
-      v44 = (v42 * v33) / (a21 - v46);
+      v48 = (v42 * v36) / (a21 - v46);
     }
   }
 
-  v47 = v35 + (v26 * (1.0 - a21));
-  v48 = v34 + (v28 * (1.0 - a21));
-  v49 = v45 + (v39 * (1.0 - a21));
-  v50 = v44 + (v42 * (1.0 - a21));
+  v49 = a21 - _S23;
+  if (v45 != 0.0)
+  {
+    if (v49 == a21)
+    {
+      v47 = 1.0;
+    }
+
+    else
+    {
+      v47 = (v45 * v36) / (a21 - v49);
+    }
+  }
+
+  v50 = v38 + (v29 * (1.0 - a21));
+  v51 = v37 + (v31 * (1.0 - a21));
+  v52 = v48 + (v42 * (1.0 - a21));
+  v53 = v47 + (v45 * (1.0 - a21));
   if (a21 == 1.0)
   {
-    v47 = v35;
-    v48 = v34;
-    v51 = v45;
+    v50 = v38;
+    v51 = v37;
+    v54 = v48;
   }
 
   else
   {
-    v51 = v49;
+    v54 = v52;
   }
 
   if (a21 == 1.0)
   {
-    v52 = v44;
+    v55 = v47;
   }
 
   else
   {
-    v52 = v50;
+    v55 = v53;
   }
 
-  v53 = v47 + (v31 * (1.0 - a5));
-  v54 = v48 + (v40 * (1.0 - a5));
+  v56 = v50 + (v34 * (1.0 - a5));
+  v57 = v51 + (v43 * (1.0 - a5));
   if (a5 == 1.0)
   {
-    v53 = v47;
+    v56 = v50;
   }
 
   else
   {
-    v48 = v54;
+    v51 = v57;
   }
 
   if (a5 == 1.0)
   {
-    v55 = v52;
+    v58 = v55;
   }
 
   else
   {
-    v51 = v51 + (v43 * (1.0 - a5));
-    v55 = v52 + (v46 * (1.0 - a5));
+    v54 = v54 + (v46 * (1.0 - a5));
+    v58 = v55 + (v49 * (1.0 - a5));
   }
 
   _S4 = (a5 + a21) - (a5 * a21);
-  if (v53 > _S4)
+  if (v56 > _S4)
   {
-    v53 = _S4;
-  }
-
-  if (v48 > _S4)
-  {
-    v48 = _S4;
+    v56 = _S4;
   }
 
   if (v51 > _S4)
@@ -396,21 +391,26 @@ unint64_t PDAcolordodgePDA(__n128 _Q0, __n128 _Q1, __n128 _Q2, __n128 _Q3, float
     v51 = _S4;
   }
 
-  if (v55 > _S4)
+  if (v54 > _S4)
   {
-    v55 = _S4;
+    v54 = _S4;
   }
 
-  *&_S0 = _S4 - v53;
+  if (v58 > _S4)
+  {
+    v58 = _S4;
+  }
+
+  *&_S0 = _S4 - v56;
   __asm { FCVT            H0, S0 }
 
-  *&_S1 = _S4 - v48;
+  *&_S1 = _S4 - v51;
   __asm { FCVT            H1, S1 }
 
-  *&_S2 = _S4 - v51;
+  *&_S2 = _S4 - v54;
   __asm { FCVT            H2, S2 }
 
-  *&_S3 = _S4 - v55;
+  *&_S3 = _S4 - v58;
   __asm
   {
     FCVT            H3, S3
@@ -428,16 +428,16 @@ unint64_t PDAcolorburnPDA(__n128 _Q0, __n128 _Q1, __n128 _Q2, __n128 _Q3, float 
   _H16 = a17;
   __asm { FCVT            S0, H0 }
 
-  v27 = a5 - _S0;
+  v30 = a5 - _S0;
   __asm { FCVT            S0, H1 }
 
-  v29 = a5 - _S0;
+  v32 = a5 - _S0;
   __asm { FCVT            S0, H2 }
 
-  v31 = a5 - _S0;
+  v34 = a5 - _S0;
   __asm { FCVT            S0, H3 }
 
-  v33 = a5 - _S0;
+  v36 = a5 - _S0;
   __asm
   {
     FCVT            S16, H16
@@ -446,59 +446,32 @@ unint64_t PDAcolorburnPDA(__n128 _Q0, __n128 _Q1, __n128 _Q2, __n128 _Q3, float 
     FCVT            S24, H6
   }
 
-  v38 = a5 * a21;
-  v39 = a5 * a21;
-  v40 = a5 * a21;
   v41 = a5 * a21;
   v42 = a5 * a21;
+  v43 = a5 * a21;
+  v44 = a5 * a21;
+  v45 = a5 * a21;
   if (a21 != 1.0)
   {
-    v39 = v38 + (v27 * (1.0 - a21));
-    v40 = v38 + (v29 * (1.0 - a21));
-    v41 = v38 + (v31 * (1.0 - a21));
-    v42 = v38 + (v33 * (1.0 - a21));
+    v42 = v41 + (v30 * (1.0 - a21));
+    v43 = v41 + (v32 * (1.0 - a21));
+    v44 = v41 + (v34 * (1.0 - a21));
+    v45 = v41 + (v36 * (1.0 - a21));
   }
 
-  v43 = a21 - _S16;
-  v44 = a21 - _S18;
-  v45 = a21 - _S23;
-  v46 = a21 - _S24;
+  v46 = a21 - _S16;
+  v47 = a21 - _S18;
+  v48 = a21 - _S23;
+  v49 = a21 - _S24;
   if (a5 != 1.0)
   {
-    v39 = v39 + (v43 * (1.0 - a5));
-    v40 = v40 + (v44 * (1.0 - a5));
-    v41 = v41 + (v45 * (1.0 - a5));
     v42 = v42 + (v46 * (1.0 - a5));
+    v43 = v43 + (v47 * (1.0 - a5));
+    v44 = v44 + (v48 * (1.0 - a5));
+    v45 = v45 + (v49 * (1.0 - a5));
   }
 
-  v47 = a5 - v27;
-  if (v47 != 0.0)
-  {
-    if (v43 == 0.0 || (v39 = v39 - (((a21 * a21) * v47) / v43), v39 < 0.0))
-    {
-      v39 = 0.0;
-    }
-  }
-
-  v48 = a5 - v29;
-  if (v48 != 0.0)
-  {
-    if (v44 == 0.0 || (v40 = v40 - (((a21 * a21) * v48) / v44), v40 < 0.0))
-    {
-      v40 = 0.0;
-    }
-  }
-
-  v49 = a5 - v31;
-  if (v49 != 0.0)
-  {
-    if (v45 == 0.0 || (v41 = v41 - (((a21 * a21) * v49) / v45), v41 < 0.0))
-    {
-      v41 = 0.0;
-    }
-  }
-
-  v50 = a5 - v33;
+  v50 = a5 - v30;
   if (v50 != 0.0)
   {
     if (v46 == 0.0 || (v42 = v42 - (((a21 * a21) * v50) / v46), v42 < 0.0))
@@ -507,17 +480,44 @@ unint64_t PDAcolorburnPDA(__n128 _Q0, __n128 _Q1, __n128 _Q2, __n128 _Q3, float 
     }
   }
 
-  _S0 = (a5 + a21) - v38;
-  *&_S1 = _S0 - v39;
+  v51 = a5 - v32;
+  if (v51 != 0.0)
+  {
+    if (v47 == 0.0 || (v43 = v43 - (((a21 * a21) * v51) / v47), v43 < 0.0))
+    {
+      v43 = 0.0;
+    }
+  }
+
+  v52 = a5 - v34;
+  if (v52 != 0.0)
+  {
+    if (v48 == 0.0 || (v44 = v44 - (((a21 * a21) * v52) / v48), v44 < 0.0))
+    {
+      v44 = 0.0;
+    }
+  }
+
+  v53 = a5 - v36;
+  if (v53 != 0.0)
+  {
+    if (v49 == 0.0 || (v45 = v45 - (((a21 * a21) * v53) / v49), v45 < 0.0))
+    {
+      v45 = 0.0;
+    }
+  }
+
+  _S0 = (a5 + a21) - v41;
+  *&_S1 = _S0 - v42;
   __asm { FCVT            H1, S1 }
 
-  *&_S2 = _S0 - v40;
+  *&_S2 = _S0 - v43;
   __asm { FCVT            H2, S2 }
 
-  *&_S3 = _S0 - v41;
+  *&_S3 = _S0 - v44;
   __asm { FCVT            H3, S3 }
 
-  *&_S4 = _S0 - v42;
+  *&_S4 = _S0 - v45;
   __asm
   {
     FCVT            H4, S4
@@ -535,77 +535,77 @@ unint64_t PDAhardlightPDA(__n128 _Q0, __n128 _Q1, __n128 _Q2, __n128 _Q3, float 
   _H17 = a17;
   __asm { FCVT            S0, H0 }
 
-  v27 = a5 - _S0;
+  v30 = a5 - _S0;
   __asm { FCVT            S1, H1 }
 
-  v29 = a5 - _S1;
+  v32 = a5 - _S1;
   __asm { FCVT            S2, H2 }
 
-  v31 = a5 - _S2;
+  v34 = a5 - _S2;
   __asm { FCVT            S3, H3 }
 
-  v33 = a5 - _S3;
+  v36 = a5 - _S3;
   __asm { FCVT            S17, H17 }
 
-  v35 = a21 - _S17;
+  v38 = a21 - _S17;
   __asm { FCVT            S16, H16 }
 
-  v37 = a21 - _S16;
+  v40 = a21 - _S16;
   __asm { FCVT            S7, H7 }
 
-  v39 = a21 - _S7;
+  v42 = a21 - _S7;
   __asm { FCVT            S6, H6 }
 
-  v41 = a21 - _S6;
-  v42 = (v27 * v35) + (v27 * v35);
-  v43 = (v29 * v37) + (v29 * v37);
-  v44 = (v31 * v39) + (v31 * v39);
-  v45 = (v33 * v41) + (v33 * v41);
-  v46 = a5 * a21;
-  v47 = a21 * 0.5;
-  v48 = 1.0 - a21;
-  v49 = 1.0 - a5;
-  v50 = (((1.0 - a5) * v35) + (v27 * (1.0 - a21))) + v42;
-  v51 = a21 + 1.0;
-  v52 = a5 + 1.0;
-  v53 = ((((a5 + 1.0) * v35) + (v27 * (a21 + 1.0))) - v42) - (a5 * a21);
-  if (v35 <= (a21 * 0.5))
+  v44 = a21 - _S6;
+  v45 = (v30 * v38) + (v30 * v38);
+  v46 = (v32 * v40) + (v32 * v40);
+  v47 = (v34 * v42) + (v34 * v42);
+  v48 = (v36 * v44) + (v36 * v44);
+  v49 = a5 * a21;
+  v50 = a21 * 0.5;
+  v51 = 1.0 - a21;
+  v52 = 1.0 - a5;
+  v53 = (((1.0 - a5) * v38) + (v30 * (1.0 - a21))) + v45;
+  v54 = a21 + 1.0;
+  v55 = a5 + 1.0;
+  v56 = ((((a5 + 1.0) * v38) + (v30 * (a21 + 1.0))) - v45) - (a5 * a21);
+  if (v38 <= (a21 * 0.5))
   {
-    v53 = v50;
+    v56 = v53;
   }
 
-  v54 = ((v49 * v37) + (v29 * v48)) + v43;
-  v55 = (((v52 * v37) + (v29 * v51)) - v43) - v46;
-  if (v37 <= v47)
+  v57 = ((v52 * v40) + (v32 * v51)) + v46;
+  v58 = (((v55 * v40) + (v32 * v54)) - v46) - v49;
+  if (v40 <= v50)
   {
-    v55 = v54;
+    v58 = v57;
   }
 
-  v56 = ((v49 * v39) + (v31 * v48)) + v44;
-  v57 = (((v52 * v39) + (v31 * v51)) - v44) - v46;
-  if (v39 <= v47)
+  v59 = ((v52 * v42) + (v34 * v51)) + v47;
+  v60 = (((v55 * v42) + (v34 * v54)) - v47) - v49;
+  if (v42 <= v50)
   {
-    v57 = v56;
+    v60 = v59;
   }
 
-  v58 = ((v49 * v41) + (v33 * v48)) + v45;
-  v59 = (((v52 * v41) + (v33 * v51)) - v45) - v46;
-  if (v41 <= v47)
+  v61 = ((v52 * v44) + (v36 * v51)) + v48;
+  v62 = (((v55 * v44) + (v36 * v54)) - v48) - v49;
+  if (v44 <= v50)
   {
-    v59 = v58;
+    v62 = v61;
   }
 
-  _S4 = (a5 + a21) - v46;
-  *&_S0 = _S4 - v53;
+  _S4 = (a5 + a21) - v49;
+  *&_S0 = _S4 - v56;
   __asm { FCVT            H0, S0 }
 
-  *&_S1 = _S4 - v55;
+  *&_S1 = _S4 - v58;
   __asm { FCVT            H1, S1 }
 
-  *&_S2 = _S4 - v57;
+  *&_S2 = _S4 - v60;
   __asm { FCVT            H2, S2 }
 
-  *&_S3 = _S4 - v59;
+  *&_S3 = _S4 - v62;
   __asm
   {
     FCVT            H3, S3
@@ -618,77 +618,77 @@ unint64_t PDAhardlightPDA(__n128 _Q0, __n128 _Q1, __n128 _Q2, __n128 _Q3, float 
 unint64_t PDAsoftlightPDA(float16x4_t a1, __n128 a2, __n128 a3, float16x4_t a4, double a5, int32x2_t a6, double a7, double a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __int32 a17, __int16 a18, __int16 a19, float a20)
 {
   *a6.i32 = a20;
-  v18.i16[0] = a19;
-  v19.i32[0] = a17;
+  v20.i16[0] = a19;
+  v21.i32[0] = a17;
   a1.i16[1] = a2.n128_u16[0];
-  v21 = vcvtq_f32_f16(a1);
-  v20 = vdup_lane_s32(*&a5, 0);
-  *v21.f32 = vsub_f32(v20, *v21.f32);
-  v22 = vdup_lane_s32(a6, 0);
-  _D1 = vsub_f32(v22, *&vcvtq_f32_f16(v19));
+  v23 = vcvtq_f32_f16(a1);
+  v22 = vdup_lane_s32(*&a5, 0);
+  *v23.f32 = vsub_f32(v22, *v23.f32);
+  v24 = vdup_lane_s32(a6, 0);
+  _D1 = vsub_f32(v24, *&vcvtq_f32_f16(v21));
   a4.i16[1] = a3.n128_u16[0];
-  v24 = vsub_f32(v20, *&vcvtq_f32_f16(a4));
-  v18.i16[1] = a18;
-  v25 = vsub_f32(v22, *&vcvtq_f32_f16(v18));
+  v26 = vsub_f32(v22, *&vcvtq_f32_f16(a4));
+  v20.i16[1] = a18;
+  v27 = vsub_f32(v24, *&vcvtq_f32_f16(v20));
   if (*&a5 == 0.0)
   {
-    v28 = 0.0;
-    v31 = 0.0;
+    v30 = 0.0;
+    v33 = 0.0;
   }
 
   else
   {
-    v26 = vmul_f32(*v21.f32, _D1);
-    v27 = vsub_f32(vadd_f32(v26, v26), vdiv_f32(vmul_f32(vmul_f32(*v21.f32, *v21.f32), vsub_f32(vadd_f32(_D1, _D1), v22)), v20));
-    v28 = COERCE_DOUBLE(vbic_s8(v27, vcltz_f32(v27)));
-    v29 = vmul_f32(v24, v25);
-    v30 = vsub_f32(vadd_f32(v29, v29), vdiv_f32(vmul_f32(vmul_f32(v24, v24), vsub_f32(vadd_f32(v25, v25), v22)), v20));
-    v31 = COERCE_DOUBLE(vbic_s8(v30, vcltz_f32(v30)));
+    v28 = vmul_f32(*v23.f32, _D1);
+    v29 = vsub_f32(vadd_f32(v28, v28), vdiv_f32(vmul_f32(vmul_f32(*v23.f32, *v23.f32), vsub_f32(vadd_f32(_D1, _D1), v24)), v22));
+    v30 = COERCE_DOUBLE(vbic_s8(v29, vcltz_f32(v29)));
+    v31 = vmul_f32(v26, v27);
+    v32 = vsub_f32(vadd_f32(v31, v31), vdiv_f32(vmul_f32(vmul_f32(v26, v26), vsub_f32(vadd_f32(v27, v27), v24)), v22));
+    v33 = COERCE_DOUBLE(vbic_s8(v32, vcltz_f32(v32)));
   }
 
-  v32 = COERCE_DOUBLE(vmla_n_f32(*&v28, *v21.f32, 1.0 - a20));
-  *v21.f32 = vmla_n_f32(*&v31, v24, 1.0 - a20);
+  v34 = COERCE_DOUBLE(vmla_n_f32(*&v30, *v23.f32, 1.0 - a20));
+  *v23.f32 = vmla_n_f32(*&v33, v26, 1.0 - a20);
   if (a20 == 1.0)
   {
-    v33 = v28;
+    v35 = v30;
   }
 
   else
   {
-    v33 = v32;
+    v35 = v34;
   }
 
   if (a20 == 1.0)
   {
-    *v21.i64 = v31;
+    *v23.i64 = v33;
   }
 
   if (*&a5 != 1.0)
   {
-    v33 = COERCE_DOUBLE(vmla_n_f32(*&v33, _D1, 1.0 - *&a5));
-    *v21.f32 = vmla_n_f32(*v21.f32, v25, 1.0 - *&a5);
+    v35 = COERCE_DOUBLE(vmla_n_f32(*&v35, _D1, 1.0 - *&a5));
+    *v23.f32 = vmla_n_f32(*v23.f32, v27, 1.0 - *&a5);
   }
 
   _D1.f32[0] = (*&a5 + a20) - (*&a5 * a20);
-  *&_S2 = _D1.f32[0] - *&v33;
+  *&_S2 = _D1.f32[0] - *&v35;
   __asm { FCVT            H2, S2 }
 
-  *&_S4 = _D1.f32[0] - v21.f32[1];
+  *&_S4 = _D1.f32[0] - v23.f32[1];
   __asm
   {
     FCVT            H4, S4
     FCVT            H5, S1
   }
 
-  v21.i32[1] = HIDWORD(v33);
-  *v21.f32 = vsub_f32(vdup_lane_s32(_D1, 0), *v21.f32);
-  v41 = vmovl_u16(vcvt_f16_f32(v21)).u64[0];
-  v42.i64[0] = v41;
-  v42.i64[1] = HIDWORD(v41);
-  v43.i64[0] = 0xFFFFLL;
-  v43.i64[1] = 0xFFFFLL;
-  v44 = vshlq_u64(vandq_s8(v42, v43), xmmword_18439CB60);
-  return v44.i64[0] | (_S4 << 32) | _S2 | v44.i64[1];
+  v23.i32[1] = HIDWORD(v35);
+  *v23.f32 = vsub_f32(vdup_lane_s32(_D1, 0), *v23.f32);
+  v43 = vmovl_u16(vcvt_f16_f32(v23)).u64[0];
+  v44.i64[0] = v43;
+  v44.i64[1] = HIDWORD(v43);
+  v45.i64[0] = 0xFFFFLL;
+  v45.i64[1] = 0xFFFFLL;
+  v46 = vshlq_u64(vandq_s8(v44, v45), xmmword_18439CB60);
+  return v46.i64[0] | (_S4 << 32) | _S2 | v46.i64[1];
 }
 
 uint64_t PDAdifferencePDA(__n128 _Q0, __n128 a2, __n128 _Q2, float16x4_t a4, double a5, int32x2_t a6, float16x4_t a7, double _D7, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __int16 a17, __int16 a18, __int16 a19, __int16 a20, float a21)
@@ -814,92 +814,82 @@ unint64_t PDAhuePDA(float32x4_t _Q0, __n128 _Q1, float16x4_t a3, __n128 a4, doub
   a7.i32[0] = a19;
   _H7 = a18;
   _H16 = a17;
-  v74 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   __asm { FCVT            S0, H0 }
 
-  v26 = *&_D4 - _S0;
+  v27 = *&_D4 - _S0;
   __asm { FCVT            S1, H1 }
 
-  v28 = *&_D4 - _S1;
+  v29 = *&_D4 - _S1;
   a3.i16[1] = a4.n128_u16[0];
-  v29 = COERCE_DOUBLE(vsub_f32(vdup_lane_s32(*&_D4, 0), *&vcvtq_f32_f16(a3)));
+  v30 = vsub_f32(vdup_lane_s32(*&_D4, 0), *&vcvtq_f32_f16(a3));
   __asm { FCVT            S2, H16 }
 
-  v31 = a20 - _S2;
+  v32 = a20 - _S2;
   __asm { FCVT            S2, H7 }
 
-  v33 = a20 - _S2;
-  v34 = vsub_f32(vdup_lane_s32(a6, 0), *&vcvtq_f32_f16(a7));
-  v35 = v26 * a20;
-  v36 = v26 - (v26 * a20);
-  v37 = v28 - (v28 * a20);
-  v38 = COERCE_DOUBLE(vmul_n_f32(*&v29, a20));
-  v39 = COERCE_DOUBLE(vsub_f32(*&v29, *&v38));
+  v34 = a20 - _S2;
+  v35 = vsub_f32(vdup_lane_s32(a6, 0), *&vcvtq_f32_f16(a7));
+  v36 = v27 * a20;
+  v37 = v27 - (v27 * a20);
+  v38 = v29 - (v29 * a20);
+  v39 = vmul_n_f32(v30, a20);
+  v40 = COERCE_DOUBLE(vsub_f32(v30, v39));
   if (a20 == 1.0)
   {
-    v36 = 0.0;
     v37 = 0.0;
-    v40 = v28;
+    v38 = 0.0;
+    v41 = v29;
   }
 
   else
   {
-    v40 = v28 * a20;
+    v41 = v29 * a20;
   }
 
   if (a20 == 1.0)
   {
-    v35 = v26;
-    v41 = 0.0;
+    v36 = v27;
+    v42 = 0.0;
   }
 
   else
   {
-    v41 = v39;
+    v42 = v40;
   }
 
   if (a20 == 1.0)
   {
-    *_Q0.i64 = v29;
+    _Q0.i64[0] = *&v30;
   }
 
   else
   {
-    *_Q0.i64 = v38;
+    _Q0.i64[0] = *&v39;
   }
 
-  v42 = (v31 + v36) - (v31 * *&_D4);
-  v43 = vmul_n_f32(v34, *&_D4);
-  v44 = COERCE_DOUBLE(vsub_f32(vadd_f32(v34, *&v41), v43));
+  v43 = (v32 + v37) - (v32 * *&_D4);
+  v44 = vmul_n_f32(v35, *&_D4);
+  v45 = COERCE_DOUBLE(vsub_f32(vadd_f32(v35, *&v42), v44));
   if (*&_D4 == 1.0)
   {
-    v45 = v33;
+    v46 = v34;
   }
 
   else
   {
-    v31 = v31 * *&_D4;
-    v45 = v33 * *&_D4;
-  }
-
-  if (*&_D4 == 1.0)
-  {
-    v46 = v34.f32[0];
-  }
-
-  else
-  {
-    v46 = v43.f32[0];
+    v32 = v32 * *&_D4;
+    v46 = v34 * *&_D4;
   }
 
   if (*&_D4 == 1.0)
   {
-    v47 = v36;
+    v47 = v35.f32[0];
   }
 
   else
   {
-    v47 = v42;
+    v47 = v44.f32[0];
   }
 
   if (*&_D4 == 1.0)
@@ -909,144 +899,154 @@ unint64_t PDAhuePDA(float32x4_t _Q0, __n128 _Q1, float16x4_t a3, __n128 a4, doub
 
   else
   {
-    v48 = (v33 + v37) - (v33 * *&_D4);
+    v48 = v43;
+  }
+
+  if (*&_D4 == 1.0)
+  {
+    v49 = v38;
+  }
+
+  else
+  {
+    v49 = (v34 + v38) - (v34 * *&_D4);
   }
 
   if (*&_D4 != 1.0)
   {
-    v41 = v44;
+    v42 = v45;
   }
 
-  v71 = v31;
-  v72 = v45;
+  v72 = v32;
   v73 = v46;
-  v49 = v31 < v45;
-  v50 = v31 >= v45;
-  if (v31 < v45)
+  v74 = v47;
+  v50 = v32 < v46;
+  v51 = v32 >= v46;
+  if (v32 < v46)
   {
-    v51 = v31;
+    v52 = v32;
   }
 
   else
   {
-    v51 = v45;
+    v52 = v46;
   }
 
-  if (v31 < v45)
+  if (v32 < v46)
   {
-    v31 = v45;
+    v32 = v46;
   }
 
-  if (v46 <= v31)
+  if (v47 <= v32)
   {
-    v52 = v50;
-  }
-
-  else
-  {
-    v52 = v49;
-  }
-
-  v53 = 2;
-  if (v46 <= v31)
-  {
-    v54 = v49;
-  }
-
-  else
-  {
-    v54 = 2;
-  }
-
-  if (v46 < v51)
-  {
-    v55 = v49;
+    v53 = v51;
   }
 
   else
   {
     v53 = v50;
-    v50 = v52;
-    v55 = v54;
   }
 
-  v56 = *(&v71 + v55);
-  v57 = *(&v71 + v53);
-  if (v56 <= v57)
+  v54 = 2;
+  if (v47 <= v32)
   {
-    *(&v71 + v55) = 0.0;
-    *(&v71 + v50) = 0.0;
+    v55 = v50;
   }
 
   else
   {
-    if (v35 >= v40)
-    {
-      v58 = v40;
-    }
-
-    else
-    {
-      v58 = v35;
-    }
-
-    if (v35 >= v40)
-    {
-      v59 = v35;
-    }
-
-    else
-    {
-      v59 = v40;
-    }
-
-    if (_Q0.f32[0] > v59)
-    {
-      v60 = _Q0.f32[0];
-    }
-
-    else
-    {
-      v60 = v59;
-    }
-
-    if (_Q0.f32[0] >= v58)
-    {
-      v59 = v60;
-    }
-
-    else
-    {
-      v58 = _Q0.f32[0];
-    }
-
-    v61 = v59 - v58;
-    *(&v71 + v55) = v61;
-    *(&v71 + v50) = (v61 / (v56 - v57)) * (*(&v71 + v50) - v57);
+    v55 = 2;
   }
 
-  *(&v71 + v53) = 0.0;
-  v62 = (((v40 - v72) * 0.59) + ((v35 - v71) * 0.3)) + ((_Q0.f32[0] - v73) * 0.11);
+  if (v47 < v52)
+  {
+    v56 = v50;
+  }
+
+  else
+  {
+    v54 = v51;
+    v51 = v53;
+    v56 = v55;
+  }
+
+  v57 = *(&v72 + v56);
+  v58 = *(&v72 + v54);
+  if (v57 <= v58)
+  {
+    *(&v72 + v56) = 0.0;
+    *(&v72 + v51) = 0.0;
+  }
+
+  else
+  {
+    if (v36 >= v41)
+    {
+      v59 = v41;
+    }
+
+    else
+    {
+      v59 = v36;
+    }
+
+    if (v36 >= v41)
+    {
+      v60 = v36;
+    }
+
+    else
+    {
+      v60 = v41;
+    }
+
+    if (_Q0.f32[0] > v60)
+    {
+      v61 = _Q0.f32[0];
+    }
+
+    else
+    {
+      v61 = v60;
+    }
+
+    if (_Q0.f32[0] >= v59)
+    {
+      v60 = v61;
+    }
+
+    else
+    {
+      v59 = _Q0.f32[0];
+    }
+
+    v62 = v60 - v59;
+    *(&v72 + v56) = v62;
+    *(&v72 + v51) = (v62 / (v57 - v58)) * (*(&v72 + v51) - v58);
+  }
+
+  *(&v72 + v54) = 0.0;
+  v63 = (((v41 - v73) * 0.59) + ((v36 - v72) * 0.3)) + ((_Q0.f32[0] - v74) * 0.11);
   *&_D4 = (*&_D4 + a20) - (*&_D4 * a20);
-  *&_S3 = *&_D4 - (v47 + (v71 + v62));
+  *&_S3 = *&_D4 - (v48 + (v72 + v63));
   __asm { FCVT            H3, S3 }
 
-  *&_S5 = *&_D4 - (v48 + (v72 + v62));
+  *&_S5 = *&_D4 - (v49 + (v73 + v63));
   __asm
   {
     FCVT            H5, S5
     FCVT            H6, S4
   }
 
-  _Q0.f32[0] = v73 + v62;
-  *_Q0.f32 = vsub_f32(vdup_lane_s32(*&_D4, 0), vadd_f32(*&v41, *_Q0.f32));
-  v66 = vmovl_u16(vcvt_f16_f32(_Q0)).u64[0];
-  v67.i64[0] = v66;
-  v67.i64[1] = HIDWORD(v66);
-  v68.i64[0] = 0xFFFFLL;
-  v68.i64[1] = 0xFFFFLL;
-  v69 = vshlq_u64(vandq_s8(v67, v68), xmmword_18439CB70);
-  return vorrq_s8(v69, vdupq_laneq_s64(v69, 1)).u64[0] | (_S5 << 16) | _S3;
+  _Q0.f32[0] = v74 + v63;
+  *_Q0.f32 = vsub_f32(vdup_lane_s32(*&_D4, 0), vadd_f32(*&v42, *_Q0.f32));
+  v67 = vmovl_u16(vcvt_f16_f32(_Q0)).u64[0];
+  v68.i64[0] = v67;
+  v68.i64[1] = HIDWORD(v67);
+  v69.i64[0] = 0xFFFFLL;
+  v69.i64[1] = 0xFFFFLL;
+  v70 = vshlq_u64(vandq_s8(v68, v69), xmmword_18439CB70);
+  return vorrq_s8(v70, vdupq_laneq_s64(v70, 1)).u64[0] | (_S5 << 16) | _S3;
 }
 
 unint64_t PDAsaturationPDA(float32x4_t _Q0, __n128 _Q1, float16x4_t a3, __n128 a4, double _D4, int32x2_t a6, float16x4_t a7, double a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __int16 a17, __int16 a18, __int32 a19, float a20)
@@ -1055,101 +1055,91 @@ unint64_t PDAsaturationPDA(float32x4_t _Q0, __n128 _Q1, float16x4_t a3, __n128 a
   a7.i32[0] = a19;
   _H7 = a18;
   _H16 = a17;
-  v74 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   __asm { FCVT            S0, H0 }
 
-  v26 = *&_D4 - _S0;
+  v27 = *&_D4 - _S0;
   __asm { FCVT            S1, H1 }
 
-  v28 = *&_D4 - _S1;
+  v29 = *&_D4 - _S1;
   a3.i16[1] = a4.n128_u16[0];
-  v29 = COERCE_DOUBLE(vsub_f32(vdup_lane_s32(*&_D4, 0), *&vcvtq_f32_f16(a3)));
+  v30 = vsub_f32(vdup_lane_s32(*&_D4, 0), *&vcvtq_f32_f16(a3));
   __asm { FCVT            S2, H16 }
 
-  v31 = a20 - _S2;
+  v32 = a20 - _S2;
   __asm { FCVT            S2, H7 }
 
-  v33 = a20 - _S2;
-  v34 = vsub_f32(vdup_lane_s32(a6, 0), *&vcvtq_f32_f16(a7));
-  v35 = v26 * a20;
-  v36 = v26 - (v26 * a20);
-  v37 = v28 - (v28 * a20);
-  v38 = COERCE_DOUBLE(vmul_n_f32(*&v29, a20));
-  v39 = COERCE_DOUBLE(vsub_f32(*&v29, *&v38));
+  v34 = a20 - _S2;
+  v35 = vsub_f32(vdup_lane_s32(a6, 0), *&vcvtq_f32_f16(a7));
+  v36 = v27 * a20;
+  v37 = v27 - (v27 * a20);
+  v38 = v29 - (v29 * a20);
+  v39 = vmul_n_f32(v30, a20);
+  v40 = COERCE_DOUBLE(vsub_f32(v30, v39));
   if (a20 == 1.0)
   {
-    v36 = 0.0;
     v37 = 0.0;
-    v40 = v28;
+    v38 = 0.0;
+    v41 = v29;
   }
 
   else
   {
-    v40 = v28 * a20;
+    v41 = v29 * a20;
   }
 
   if (a20 == 1.0)
   {
-    v35 = v26;
-    v41 = 0.0;
+    v36 = v27;
+    v42 = 0.0;
   }
 
   else
   {
-    v41 = v39;
+    v42 = v40;
   }
 
   if (a20 == 1.0)
   {
-    *_Q0.i64 = v29;
+    _Q0.i64[0] = *&v30;
   }
 
   else
   {
-    *_Q0.i64 = v38;
+    _Q0.i64[0] = *&v39;
   }
 
-  v42 = (v31 + v36) - (v31 * *&_D4);
-  v43 = vmul_n_f32(v34, *&_D4);
-  v44 = COERCE_DOUBLE(vsub_f32(vadd_f32(v34, *&v41), v43));
+  v43 = (v32 + v37) - (v32 * *&_D4);
+  v44 = vmul_n_f32(v35, *&_D4);
+  v45 = COERCE_DOUBLE(vsub_f32(vadd_f32(v35, *&v42), v44));
   if (*&_D4 == 1.0)
   {
-    v45 = v31;
+    v46 = v32;
   }
 
   else
   {
-    v45 = v31 * *&_D4;
-  }
-
-  if (*&_D4 == 1.0)
-  {
-    v46 = v33;
-  }
-
-  else
-  {
-    v46 = v33 * *&_D4;
+    v46 = v32 * *&_D4;
   }
 
   if (*&_D4 == 1.0)
   {
-    v47 = v34.f32[0];
+    v47 = v34;
   }
 
   else
   {
-    v47 = v43.f32[0];
+    v47 = v34 * *&_D4;
   }
 
   if (*&_D4 == 1.0)
   {
-    v48 = v36;
+    v48 = v35.f32[0];
   }
 
   else
   {
-    v48 = v42;
+    v48 = v44.f32[0];
   }
 
   if (*&_D4 == 1.0)
@@ -1159,139 +1149,149 @@ unint64_t PDAsaturationPDA(float32x4_t _Q0, __n128 _Q1, float16x4_t a3, __n128 a
 
   else
   {
-    v49 = (v33 + v37) - (v33 * *&_D4);
+    v49 = v43;
+  }
+
+  if (*&_D4 == 1.0)
+  {
+    v50 = v38;
+  }
+
+  else
+  {
+    v50 = (v34 + v38) - (v34 * *&_D4);
   }
 
   if (*&_D4 != 1.0)
   {
-    v41 = v44;
+    v42 = v45;
   }
 
-  v71 = v35;
-  v72 = v40;
-  v73 = _Q0.f32[0];
-  v50 = v35 >= v40;
-  if (v35 < v40)
+  v72 = v36;
+  v73 = v41;
+  v74 = _Q0.f32[0];
+  v51 = v36 >= v41;
+  if (v36 < v41)
   {
-    v51 = v35;
-  }
-
-  else
-  {
-    v51 = v40;
-  }
-
-  if (v35 < v40)
-  {
-    v52 = v40;
+    v52 = v36;
   }
 
   else
   {
-    v52 = v35;
+    v52 = v41;
   }
 
-  if (_Q0.f32[0] <= v52)
+  if (v36 < v41)
   {
-    v53 = v35 >= v40;
-  }
-
-  else
-  {
-    v53 = v35 < v40;
-  }
-
-  v54 = 2;
-  if (_Q0.f32[0] <= v52)
-  {
-    v55 = v35 < v40;
+    v53 = v41;
   }
 
   else
   {
-    v55 = 2;
+    v53 = v36;
   }
 
-  if (_Q0.f32[0] < v51)
+  if (_Q0.f32[0] <= v53)
   {
-    v56 = v35 < v40;
-  }
-
-  else
-  {
-    v54 = v35 >= v40;
-    v50 = v53;
-    v56 = v55;
-  }
-
-  v57 = *(&v71 + v56);
-  v58 = *(&v71 + v54);
-  if (v57 <= v58)
-  {
-    *(&v71 + v56) = 0.0;
-    *(&v71 + v50) = 0.0;
+    v54 = v36 >= v41;
   }
 
   else
   {
-    if (v45 >= v46)
-    {
-      v59 = v46;
-    }
+    v54 = v36 < v41;
+  }
 
-    else
-    {
-      v59 = v45;
-    }
+  v55 = 2;
+  if (_Q0.f32[0] <= v53)
+  {
+    v56 = v36 < v41;
+  }
 
-    if (v45 < v46)
-    {
-      v45 = v46;
-    }
+  else
+  {
+    v56 = 2;
+  }
 
-    if (v47 > v45)
+  if (_Q0.f32[0] < v52)
+  {
+    v57 = v36 < v41;
+  }
+
+  else
+  {
+    v55 = v36 >= v41;
+    v51 = v54;
+    v57 = v56;
+  }
+
+  v58 = *(&v72 + v57);
+  v59 = *(&v72 + v55);
+  if (v58 <= v59)
+  {
+    *(&v72 + v57) = 0.0;
+    *(&v72 + v51) = 0.0;
+  }
+
+  else
+  {
+    if (v46 >= v47)
     {
       v60 = v47;
     }
 
     else
     {
-      v60 = v45;
+      v60 = v46;
     }
 
-    if (v47 >= v59)
+    if (v46 < v47)
     {
-      v47 = v59;
-      v45 = v60;
+      v46 = v47;
     }
 
-    v61 = v45 - v47;
-    *(&v71 + v56) = v61;
-    *(&v71 + v50) = (v61 / (v57 - v58)) * (*(&v71 + v50) - v58);
+    if (v48 > v46)
+    {
+      v61 = v48;
+    }
+
+    else
+    {
+      v61 = v46;
+    }
+
+    if (v48 >= v60)
+    {
+      v48 = v60;
+      v46 = v61;
+    }
+
+    v62 = v46 - v48;
+    *(&v72 + v57) = v62;
+    *(&v72 + v51) = (v62 / (v58 - v59)) * (*(&v72 + v51) - v59);
   }
 
-  *(&v71 + v54) = 0.0;
-  v62 = (((v40 - v72) * 0.59) + ((v35 - v71) * 0.3)) + ((_Q0.f32[0] - v73) * 0.11);
+  *(&v72 + v55) = 0.0;
+  v63 = (((v41 - v73) * 0.59) + ((v36 - v72) * 0.3)) + ((_Q0.f32[0] - v74) * 0.11);
   *&_D4 = (*&_D4 + a20) - (*&_D4 * a20);
-  *&_S3 = *&_D4 - (v48 + (v71 + v62));
+  *&_S3 = *&_D4 - (v49 + (v72 + v63));
   __asm { FCVT            H3, S3 }
 
-  *&_S5 = *&_D4 - (v49 + (v72 + v62));
+  *&_S5 = *&_D4 - (v50 + (v73 + v63));
   __asm
   {
     FCVT            H5, S5
     FCVT            H6, S4
   }
 
-  _Q0.f32[0] = v73 + v62;
-  *_Q0.f32 = vsub_f32(vdup_lane_s32(*&_D4, 0), vadd_f32(*&v41, *_Q0.f32));
-  v66 = vmovl_u16(vcvt_f16_f32(_Q0)).u64[0];
-  v67.i64[0] = v66;
-  v67.i64[1] = HIDWORD(v66);
-  v68.i64[0] = 0xFFFFLL;
-  v68.i64[1] = 0xFFFFLL;
-  v69 = vshlq_u64(vandq_s8(v67, v68), xmmword_18439CB70);
-  return vorrq_s8(v69, vdupq_laneq_s64(v69, 1)).u64[0] | (_S5 << 16) | _S3;
+  _Q0.f32[0] = v74 + v63;
+  *_Q0.f32 = vsub_f32(vdup_lane_s32(*&_D4, 0), vadd_f32(*&v42, *_Q0.f32));
+  v67 = vmovl_u16(vcvt_f16_f32(_Q0)).u64[0];
+  v68.i64[0] = v67;
+  v68.i64[1] = HIDWORD(v67);
+  v69.i64[0] = 0xFFFFLL;
+  v69.i64[1] = 0xFFFFLL;
+  v70 = vshlq_u64(vandq_s8(v68, v69), xmmword_18439CB70);
+  return vorrq_s8(v70, vdupq_laneq_s64(v70, 1)).u64[0] | (_S5 << 16) | _S3;
 }
 
 unint64_t PDAluminosityPDA(__n128 _Q0, __n128 _Q1, __n128 _Q2, __n128 _Q3, float a5, double a6, double a7, double a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __int16 a17, __int16 a18, __int16 a19, __int16 a20, float a21)
@@ -1302,92 +1302,92 @@ unint64_t PDAluminosityPDA(__n128 _Q0, __n128 _Q1, __n128 _Q2, __n128 _Q3, float
   _H17 = a17;
   __asm { FCVT            S0, H0 }
 
-  v27 = a5 - _S0;
+  v30 = a5 - _S0;
   __asm { FCVT            S1, H1 }
 
-  v29 = a5 - _S1;
+  v32 = a5 - _S1;
   __asm { FCVT            S2, H2 }
 
-  v31 = a5 - _S2;
+  v34 = a5 - _S2;
   __asm { FCVT            S17, H17 }
 
-  v33 = a21 - _S17;
+  v36 = a21 - _S17;
   __asm { FCVT            S16, H16 }
 
-  v35 = a21 - _S16;
+  v38 = a21 - _S16;
   __asm { FCVT            S7, H7 }
 
-  v37 = a21 - _S7;
+  v40 = a21 - _S7;
   __asm { FCVT            S6, H6 }
 
-  v39 = a21 - _S6;
+  v42 = a21 - _S6;
   __asm { FCVT            S3, H3 }
 
-  v41 = v27 - (v27 * a21);
-  v42 = v29 - (v29 * a21);
-  v43 = v31 - (v31 * a21);
-  v44 = (a5 - _S3) - ((a5 - _S3) * a21);
+  v44 = v30 - (v30 * a21);
+  v45 = v32 - (v32 * a21);
+  v46 = v34 - (v34 * a21);
+  v47 = (a5 - _S3) - ((a5 - _S3) * a21);
   if (_ZF)
   {
-    v41 = 0.0;
-    v42 = 0.0;
-    v43 = 0.0;
     v44 = 0.0;
+    v45 = 0.0;
+    v46 = 0.0;
+    v47 = 0.0;
   }
 
   else
   {
-    v31 = v31 * a21;
-    v29 = v29 * a21;
-    v27 = v27 * a21;
+    v34 = v34 * a21;
+    v32 = v32 * a21;
+    v30 = v30 * a21;
   }
 
-  v45 = (v33 + v41) - (v33 * a5);
-  v46 = (v35 + v42) - (v35 * a5);
-  v47 = (v37 + v43) - (v37 * a5);
-  v48 = (v39 + v44) - (v39 * a5);
+  v48 = (v36 + v44) - (v36 * a5);
+  v49 = (v38 + v45) - (v38 * a5);
+  v50 = (v40 + v46) - (v40 * a5);
+  v51 = (v42 + v47) - (v42 * a5);
   if (a5 == 1.0)
   {
-    v45 = v41;
-    v49 = v42;
+    v48 = v44;
+    v52 = v45;
   }
 
   else
   {
-    v33 = v33 * a5;
-    v35 = v35 * a5;
-    v37 = v37 * a5;
-    v39 = v39 * a5;
-    v49 = v46;
+    v36 = v36 * a5;
+    v38 = v38 * a5;
+    v40 = v40 * a5;
+    v42 = v42 * a5;
+    v52 = v49;
   }
 
   if (a5 == 1.0)
   {
-    v50 = v43;
+    v53 = v46;
   }
 
   else
   {
-    v50 = v47;
+    v53 = v50;
   }
 
   if (a5 != 1.0)
   {
-    v44 = v48;
+    v47 = v51;
   }
 
-  v51 = (((v35 - v29) * 0.59) + ((v33 - v27) * 0.3)) + ((v37 - v31) * 0.11);
+  v54 = (((v38 - v32) * 0.59) + ((v36 - v30) * 0.3)) + ((v40 - v34) * 0.11);
   _S4 = (a5 + a21) - (a5 * a21);
-  *&_S0 = _S4 - (v45 + (v27 + v51));
+  *&_S0 = _S4 - (v48 + (v30 + v54));
   __asm { FCVT            H0, S0 }
 
-  *&_S1 = _S4 - (v49 + (v29 + v51));
+  *&_S1 = _S4 - (v52 + (v32 + v54));
   __asm { FCVT            H1, S1 }
 
-  *&_S2 = _S4 - (v50 + (v31 + v51));
+  *&_S2 = _S4 - (v53 + (v34 + v54));
   __asm { FCVT            H2, S2 }
 
-  *&_S3 = _S4 - (v39 + v44);
+  *&_S3 = _S4 - (v42 + v47);
   __asm
   {
     FCVT            H3, S3
@@ -4527,7 +4527,7 @@ LABEL_35:
   }
 }
 
-uint64_t CMYKf16_mark_pixelmask(uint64_t result, uint64_t a2, double a3, __n128 _Q1, double _D2, float32x4_t a6, float32x4_t _Q4, float32x4_t _Q5, double _D6, double a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+unint64_t CMYKf16_mark_pixelmask(unint64_t result, uint64_t a2, double a3, __n128 _Q1, double _D2, float32x4_t a6, float32x4_t _Q4, float32x4_t _Q5, double _D6, double a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   v16 = *(result + 48);
   v17 = *(result + 136);
@@ -9406,9 +9406,9 @@ LABEL_52:
 
 uint64_t CMYKf16_image(uint64_t *a1, unsigned __int8 *a2, uint64_t a3)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v6 = *a1;
-  memset(v32, 0, 512);
+  memset(v22, 0, 512);
   if (*(a2 + 12))
   {
     v7 = 0;
@@ -9430,29 +9430,29 @@ uint64_t CMYKf16_image(uint64_t *a1, unsigned __int8 *a2, uint64_t a3)
     return 0;
   }
 
-  if (_blt_image_initialize(a2, a3, &v26, v32) < 1)
+  if (_blt_image_initialize(a2, a3, &v16, v22) < 1)
   {
     return 0xFFFFFFFFLL;
   }
 
-  v18 = *v6;
-  v19 = *a3;
-  v27 = v19;
-  v28 = v18;
-  if (v19 != 269501477)
+  v11 = *v6;
+  v12 = *a3;
+  v17 = v12;
+  v18 = v11;
+  if (v12 != 269501477)
   {
-    v20 = SAMPLEINDEX(v19, v10, v11, v12, v13, v14, v15, v16);
-    if (v20)
+    v13 = SAMPLEINDEX(v12);
+    if (v13)
     {
-      if (v20 <= 0x1B)
+      if (v13 <= 0x1B)
       {
-        _CGHandleAssert("CMYKf16_image_inner", 15096, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_cmyk_float16.cc", "index > SAMPLEF", "index = %d", v21, v22, v23, v20);
+        _CGHandleAssert("CMYKf16_image_inner", 15096, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Misc/blt_float16/blt_cmyk_float16.cc", "index > SAMPLEF", "index = %d", v13);
       }
 
-      v26 = CMYKF16_image_sample[v20 + 1];
-      if (v26)
+      v16 = CMYKF16_image_sample[v13 + 1];
+      if (v16)
       {
-        v27 = 269501477;
+        v17 = 269501477;
         goto LABEL_27;
       }
 
@@ -9466,23 +9466,23 @@ uint64_t CMYKf16_image(uint64_t *a1, unsigned __int8 *a2, uint64_t a3)
 
       else
       {
-        v26 = *&CMYK8_image_sample[2 * v20 + 2];
-        if (v26)
+        v16 = *&CMYK8_image_sample[2 * v13 + 2];
+        if (v16)
         {
-          v24 = 8;
-          v25 = 134759444;
+          v14 = 8;
+          v15 = 134759444;
 LABEL_26:
-          v29 = v24;
-          v27 = v25;
+          v19 = v14;
+          v17 = v15;
           goto LABEL_27;
         }
       }
 
-      v26 = *&CMYK16_image_sample[2 * v20 + 2];
-      if (v26)
+      v16 = *&CMYK16_image_sample[2 * v13 + 2];
+      if (v16)
       {
-        v24 = 16;
-        v25 = 269501476;
+        v14 = 16;
+        v15 = 269501476;
         goto LABEL_26;
       }
     }
@@ -9490,25 +9490,24 @@ LABEL_26:
     return 0xFFFFFFFFLL;
   }
 
-  if (!v31 && (~v30 & 0xC3) == 0)
+  if (!v21 && (~v20 & 0xC3) == 0)
   {
-    v17.n128_u32[0] = *(a3 + 8);
-    if (v17.n128_f32[0] >= 1.0 && !*(a3 + 24))
+    v10.n128_u32[0] = *(a3 + 8);
+    if (v10.n128_f32[0] >= 1.0 && !*(a3 + 24))
     {
-      if ((v30 & 4) != 0)
+      if ((v20 & 4) != 0)
       {
-        v17.n128_u64[0] = *(a3 + 32);
-        *(a2 + 8) = v17.n128_u64[0];
+        *(a2 + 8) = *(a3 + 32);
       }
 
-      CMYKf16_mark_inner(*(*a1 + 56), v17);
+      CMYKf16_mark_inner(*(*a1 + 56));
       return 1;
     }
   }
 
-  v26 = CMYKf16_sample_CMYKf_inner;
+  v16 = CMYKf16_sample_CMYKf_inner;
 LABEL_27:
-  CMYKf16_image_mark(a2, &v26, v8, v17);
+  CMYKf16_image_mark(a2, &v16, v8, v10);
   return 1;
 }
 
@@ -9554,7 +9553,7 @@ void CMYKf16_image_mark(uint64_t a1, uint64_t a2, int a3, __n128 a4)
 
     else
     {
-      MEMORY[0x1EEE9AC00](a1, a4);
+      MEMORY[0x1EEE9AC00](a1);
       v19 = &v618 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
       bzero(v19, v18);
       v21 = 0;
@@ -9685,20 +9684,20 @@ LABEL_24:
 LABEL_25:
     v633 = v53;
     v634 = v41;
-    *(v40 + 60) = v54;
+    *(v40 + 240) = v54;
     v56 = *v40;
     v635 = v55;
     v57 = v56(v40, v41);
-    v72 = v40[20];
-    v73 = v40[18];
-    v74 = *(v40 + 2);
-    if (v74 == *(v40 + 3))
+    v72 = *(v40 + 160);
+    v73 = *(v40 + 144);
+    v74 = *(v40 + 8);
+    if (v74 == *(v40 + 12))
     {
       _Q1 = v630;
       if (v630.n128_f32[0] < 1.0)
       {
         v75 = v46;
-        v76 = v40[18];
+        v76 = *(v40 + 144);
         do
         {
           if (*v76)
@@ -9728,7 +9727,7 @@ LABEL_25:
 
     else
     {
-      v81 = v40[19];
+      v81 = *(v40 + 152);
       v82 = HIWORD(v74) & 0x3F;
       v83 = v630.n128_f32[0];
       if (v82 == 16)
@@ -10463,11 +10462,11 @@ LABEL_575:
 
               v53 = 0;
               ++v636;
-              v41 = v40[16] + v284;
-              v55 = v40[17] + v635;
+              v41 = *(v40 + 128) + v284;
+              v55 = *(v40 + 136) + v635;
               if (v633)
               {
-                v635 += v40[17];
+                v635 += *(v40 + 136);
                 v632 = v54;
                 v50 = v624;
                 v44 = v633;
@@ -10491,8 +10490,8 @@ LABEL_577:
                       goto LABEL_575;
                     }
 
-                    v41 += v40[16] * v615;
-                    v635 += v40[17] * v615;
+                    v41 += *(v40 + 128) * v615;
+                    v635 += *(v40 + 136) * v615;
                     v35 += 8 * v619 * v615;
                     v617 = v613 * v615;
                     if (!v51)

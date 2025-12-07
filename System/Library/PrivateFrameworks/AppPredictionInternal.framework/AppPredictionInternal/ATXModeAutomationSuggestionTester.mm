@@ -23,11 +23,13 @@
   return v3;
 }
 
-uint64_t __51__ATXModeAutomationSuggestionTester_sharedInstance__block_invoke()
+uint64_t __51__ATXModeAutomationSuggestionTester_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  sharedInstance_sharedInstance = objc_opt_new();
+  v2 = objc_opt_new();
+  v3 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 - (ATXModeAutomationSuggestionTester)init
@@ -69,7 +71,7 @@ void __41__ATXModeAutomationSuggestionTester_init__block_invoke(uint64_t a1, int
 {
   v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  v5 = __atxlog_handle_modes();
+  v5 = __atxlog_handle_modes(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8[0] = 67109120;
@@ -79,14 +81,12 @@ void __41__ATXModeAutomationSuggestionTester_init__block_invoke(uint64_t a1, int
 
   if (v4)
   {
-    v6 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_modes(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __41__ATXModeAutomationSuggestionTester_init__block_invoke_cold_1(v4, v6);
+      __41__ATXModeAutomationSuggestionTester_init__block_invoke_cold_1(v4, v7);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -158,37 +158,37 @@ void __41__ATXModeAutomationSuggestionTester_init__block_invoke(uint64_t a1, int
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   if (!activity)
   {
-    v7 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = __atxlog_handle_modes(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      [ATXModeAutomationSuggestionTester activitySuggestionClient:v7 didSuggestActivity:?];
+      [ATXModeAutomationSuggestionTester activitySuggestionClient:v8 didSuggestActivity:?];
     }
 
-    v8 = objc_opt_new();
-    [v8 setTitle:@"Activity Ended"];
+    v9 = objc_opt_new();
+    [v9 setTitle:@"Activity Ended"];
     previousSuggestion = [clientCopy previousSuggestion];
-    v10 = previousSuggestion;
+    v11 = previousSuggestion;
     if (previousSuggestion)
     {
       modeUUID = [previousSuggestion modeUUID];
-      v12 = modeUUID;
+      v13 = modeUUID;
       if (modeUUID)
       {
-        v13 = modeUUID;
+        v14 = modeUUID;
       }
 
       else
       {
-        [v10 activityType];
-        v13 = ATXActivityTypeToString();
+        [v11 activityType];
+        v14 = ATXActivityTypeToString();
       }
 
-      v14 = v13;
+      v15 = v14;
 
-      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"The previous activity (%@) has ended", v14];
-      [v8 setBody:v15];
+      v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"The previous activity (%@) has ended", v15];
+      [v9 setBody:v16];
 
-      [(ATXModeAutomationSuggestionTester *)self _sendNotificationWithContent:v8];
+      [(ATXModeAutomationSuggestionTester *)self _sendNotificationWithContent:v9];
     }
   }
 }
@@ -217,32 +217,31 @@ void __41__ATXModeAutomationSuggestionTester_init__block_invoke(uint64_t a1, int
 void __66__ATXModeAutomationSuggestionTester__sendNotificationWithContent___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = __atxlog_handle_modes(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __66__ATXModeAutomationSuggestionTester__sendNotificationWithContent___block_invoke_cold_1(v2, v3);
+      __66__ATXModeAutomationSuggestionTester__sendNotificationWithContent___block_invoke_cold_1(v3, v4);
     }
   }
 }
 
 void __41__ATXModeAutomationSuggestionTester_init__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXModeAutomationSuggestionTester: error while requesting notification auth - %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXModeAutomationSuggestionTester: error while requesting notification auth - %@", &v2, 0xCu);
 }
 
 void __66__ATXModeAutomationSuggestionTester__sendNotificationWithContent___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXModeAutomationSuggestionTester: error while adding notification request - %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXModeAutomationSuggestionTester: error while adding notification request - %@", &v2, 0xCu);
 }
 
 @end

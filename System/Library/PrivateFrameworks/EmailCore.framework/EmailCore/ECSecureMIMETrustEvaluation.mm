@@ -50,19 +50,19 @@ void __34__ECSecureMIMETrustEvaluation_log__block_invoke(uint64_t a1)
 
 + (id)reevaluateWithNetworkAccessAllowed:(id)allowed
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   allowedCopy = allowed;
   if ([allowedCopy requiresReevaluationWithNetworkAccess])
   {
-    v18[0] = 0;
-    v5 = serializeTrust([allowedCopy trust], v18);
-    v6 = v18[0];
+    v17[0] = 0;
+    v5 = serializeTrust([allowedCopy trust], v17);
+    v6 = v17[0];
     v7 = v6;
     if (v5)
     {
-      v17 = v6;
-      v8 = copyDeserializedTrust(v5, &v17);
-      v9 = v17;
+      v16 = v6;
+      v8 = copyDeserializedTrust(v5, &v16);
+      v9 = v16;
 
       if (v8)
       {
@@ -108,14 +108,12 @@ void __34__ECSecureMIMETrustEvaluation_log__block_invoke(uint64_t a1)
 
 LABEL_12:
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)_initWithTrust:(__SecTrust *)trust options:(unint64_t)options signerEmailAddress:(id)address
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   if (!trust)
   {
@@ -123,9 +121,9 @@ LABEL_12:
     [currentHandler handleFailureInMethod:a2 object:self file:@"ECSecureMIMETrustEvaluation.m" lineNumber:132 description:{@"Invalid parameter not satisfying: %@", @"trust"}];
   }
 
-  v36.receiver = self;
-  v36.super_class = ECSecureMIMETrustEvaluation;
-  v9 = [(ECSecureMIMETrustEvaluation *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = ECSecureMIMETrustEvaluation;
+  v9 = [(ECSecureMIMETrustEvaluation *)&v35 init];
   v10 = v9;
   if (v9)
   {
@@ -140,7 +138,7 @@ LABEL_12:
     options = v10->_options;
     policies = 0;
     LODWORD(Allowed) = SecTrustCopyPolicies(trust, &policies);
-    v34 = policies;
+    v33 = policies;
     if (Allowed)
     {
       v16 = +[ECSecureMIMETrustEvaluation log];
@@ -153,26 +151,26 @@ LABEL_12:
     else
     {
       v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
-      v18 = v34;
-      v19 = [(__CFArray *)v18 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v18 = v33;
+      v19 = [(__CFArray *)v18 countByEnumeratingWithState:&v36 objects:v41 count:16];
       if (v19)
       {
-        v20 = *v38;
+        v20 = *v37;
         v21 = *MEMORY[0x277CDC4C0];
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v38 != v20)
+            if (*v37 != v20)
             {
               objc_enumerationMutation(v18);
             }
 
-            v23 = *(*(&v37 + 1) + 8 * i);
+            v23 = *(*(&v36 + 1) + 8 * i);
             OidString = SecPolicyGetOidString();
             if (!CFEqual(v21, OidString))
             {
@@ -180,7 +178,7 @@ LABEL_12:
             }
           }
 
-          v19 = [(__CFArray *)v18 countByEnumeratingWithState:&v37 objects:v42 count:16];
+          v19 = [(__CFArray *)v18 countByEnumeratingWithState:&v36 objects:v41 count:16];
         }
 
         while (v19);
@@ -262,7 +260,6 @@ LABEL_12:
 
 LABEL_36:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -276,15 +273,15 @@ LABEL_36:
 
 - (ECSecureMIMETrustEvaluation)initWithCoder:(id)coder
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(ECSecureMIMETrustEvaluation *)self init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"EFPropertyKey_trust"];
-    v18[0] = 0;
-    v7 = copyDeserializedTrust(v6, v18);
-    v8 = v18[0];
+    v17[0] = 0;
+    v7 = copyDeserializedTrust(v6, v17);
+    v8 = v17[0];
     if (!v7)
     {
       v9 = +[ECSecureMIMETrustEvaluation log];
@@ -311,17 +308,16 @@ LABEL_36:
     v5->_trustResult = [v15 unsignedIntValue];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v12[0] = 0;
-  v5 = serializeTrust([(ECSecureMIMETrustEvaluation *)self trust], v12);
-  v6 = v12[0];
+  v11[0] = 0;
+  v5 = serializeTrust([(ECSecureMIMETrustEvaluation *)self trust], v11);
+  v6 = v11[0];
   if (!v5)
   {
     v7 = +[ECSecureMIMETrustEvaluation log];
@@ -343,8 +339,6 @@ LABEL_36:
 
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[ECSecureMIMETrustEvaluation trustResult](self, "trustResult")}];
   [coderCopy encodeObject:v10 forKey:@"EFPropertyKey_trustResult"];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -367,10 +361,30 @@ LABEL_36:
 
 - (void)_evaluate
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_22D092000, v0, v1, "SecTrustGetTrustResult returned %d, evaluation=%@");
-  v2 = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  p_trust = &self->_trust;
+  SecTrustEvaluateWithError(self->_trust, &v11);
+  error = self->_error;
+  self->_error = v11;
+
+  TrustResult = SecTrustGetTrustResult(*p_trust, &self->_trustResult);
+  if (TrustResult)
+  {
+    v6 = +[ECSecureMIMETrustEvaluation log];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      [ECSecureMIMETrustEvaluation _evaluate];
+    }
+
+    v7 = MEMORY[0x277CCA9B8];
+    v12 = *MEMORY[0x277CCA068];
+    v13[0] = @"SecTrustGetTrustResult failed";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v9 = [v7 errorWithDomain:*MEMORY[0x277CCA590] code:TrustResult userInfo:v8];
+    v10 = self->_error;
+    self->_error = v9;
+  }
 }
 
 - (BOOL)requiresReevaluationWithNetworkAccess
@@ -437,44 +451,32 @@ LABEL_7:
 
 - (void)_initWithTrust:(int)a1 options:(NSObject *)a2 signerEmailAddress:.cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_22D092000, a2, OS_LOG_TYPE_ERROR, "SecTrustCopyPolicies returned %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_22D092000, a2, OS_LOG_TYPE_ERROR, "SecTrustCopyPolicies returned %d", v2, 8u);
 }
 
 - (void)_initWithTrust:(uint64_t)a1 options:(uint64_t)a2 signerEmailAddress:(NSObject *)a3 .cold.2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  LODWORD(v4) = 67109378;
-  HIDWORD(v4) = a2;
-  LOWORD(v5) = 2114;
-  *(&v5 + 2) = a1;
-  OUTLINED_FUNCTION_0_3(&dword_22D092000, a2, a3, "SecTrustSetPolicies returned %d, policies = %{public}@", v4, v5, WORD4(v5), *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  LODWORD(v3) = 67109378;
+  HIDWORD(v3) = a2;
+  LOWORD(v4) = 2114;
+  *(&v4 + 2) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_22D092000, a2, a3, "SecTrustSetPolicies returned %d, policies = %{public}@", v3, v4, WORD4(v4), *MEMORY[0x277D85DE8]);
 }
 
 - (void)_initWithTrust:(char)a1 options:(uint64_t)a2 signerEmailAddress:(NSObject *)a3 .cold.3(char a1, uint64_t a2, NSObject *a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
   v3 = "false";
   if (a1)
   {
     v3 = "true";
   }
 
-  LODWORD(v5) = 136315394;
-  HIDWORD(v5) = v3;
-  OUTLINED_FUNCTION_0_3(&dword_22D092000, a2, a3, "SecTrustSetNetworkFetchAllowed(%s) returned %d", v5, HIDWORD(v3));
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_initWithTrust:options:signerEmailAddress:.cold.4()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_22D092000, v0, v1, "SecTrustSetAnchorCertificates returned %d, certificates = %@");
-  v2 = *MEMORY[0x277D85DE8];
+  LODWORD(v4) = 136315394;
+  HIDWORD(v4) = v3;
+  OUTLINED_FUNCTION_0_3(&dword_22D092000, a2, a3, "SecTrustSetNetworkFetchAllowed(%s) returned %d", v4, HIDWORD(v3));
 }
 
 - (void)initWithCoder:.cold.1()

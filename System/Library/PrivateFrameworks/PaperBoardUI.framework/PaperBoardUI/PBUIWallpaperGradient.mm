@@ -130,7 +130,7 @@
   return v8;
 }
 
-uint64_t __39__PBUIWallpaperGradient_copyCGGradient__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__39__PBUIWallpaperGradient_copyCGGradient__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 doubleValue];
   *(*(a1 + 32) + 8 * a3) = v6;

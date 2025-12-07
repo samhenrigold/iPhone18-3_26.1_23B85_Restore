@@ -10,9 +10,9 @@
 
 - (ASCMediaCollectionViewCell)initWithFrame:(CGRect)frame
 {
-  v12.receiver = self;
-  v12.super_class = ASCMediaCollectionViewCell;
-  v3 = [(ASCMediaCollectionViewCell *)&v12 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v11.receiver = self;
+  v11.super_class = ASCMediaCollectionViewCell;
+  v3 = [(ASCMediaCollectionViewCell *)&v11 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = [ASCBorderedScreenshotView alloc];
@@ -23,8 +23,8 @@
 
     [(ASCBorderedScreenshotView *)v3->_screenshotView setIsAccessibilityElement:1];
     [(ASCBorderedScreenshotView *)v3->_screenshotView setAccessibilityTraits:*MEMORY[0x277D76560]];
-    v9 = ASCLocalizedString(@"AX_ARTWORK", v8);
-    [(ASCBorderedScreenshotView *)v3->_screenshotView setAccessibilityLabel:v9];
+    v8 = ASCLocalizedString(@"AX_ARTWORK");
+    [(ASCBorderedScreenshotView *)v3->_screenshotView setAccessibilityLabel:v8];
 
     contentView = [(ASCMediaCollectionViewCell *)v3 contentView];
     [contentView addSubview:v3->_screenshotView];

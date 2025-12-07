@@ -33,19 +33,19 @@
     authorizationRecord = v22->_authorizationRecord;
     v22->_authorizationRecord = v23;
 
-    v25 = [identifierCopy copy];
+    v25 = objc_msgSend_copy(identifierCopy);
     restrictedBundleIdentifier = v22->_restrictedBundleIdentifier;
     v22->_restrictedBundleIdentifier = v25;
 
-    v27 = [entitiesCopy copy];
+    v27 = objc_msgSend_copy(entitiesCopy);
     restrictedSourceEntities = v22->_restrictedSourceEntities;
     v22->_restrictedSourceEntities = v27;
 
-    v29 = [anchorCopy copy];
+    v29 = objc_msgSend_copy(anchorCopy);
     deletedObjectBaselineAnchor = v22->_deletedObjectBaselineAnchor;
     v22->_deletedObjectBaselineAnchor = v29;
 
-    v31 = [limitAnchorCopy copy];
+    v31 = objc_msgSend_copy(limitAnchorCopy);
     objectLimitAnchor = v22->_objectLimitAnchor;
     v22->_objectLimitAnchor = v31;
   }

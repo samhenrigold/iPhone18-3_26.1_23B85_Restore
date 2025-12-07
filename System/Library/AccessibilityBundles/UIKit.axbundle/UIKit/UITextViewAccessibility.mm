@@ -163,7 +163,7 @@
       defaultCenter = [MEMORY[0x29EDBA068] defaultCenter];
       [defaultCenter addObserver:v2 selector:sel__axDidFinishDataDetectorURLification_ name:@"DataDetectorsUIDidFinishURLificationNotification" object:v2];
       MEMORY[0x29EDC9740](defaultCenter);
-      return [UITextViewAccessibility _axSetDidRegisterForDDNotification:v2];
+      return [(UITextViewAccessibility *)v2 _axSetDidRegisterForDDNotification:?];
     }
   }
 
@@ -1442,29 +1442,29 @@ void __54__UITextViewAccessibility__accessibilityActivateLink___block_invoke_4(v
   objc_storeStrong(location, 0);
 }
 
-void __54__UITextViewAccessibility__accessibilityActivateLink___block_invoke_5(void *a1)
+void __54__UITextViewAccessibility__accessibilityActivateLink___block_invoke_5(void *a1, __n128 a2, __n128 a3, __n128 a4, __n128 a5)
 {
-  v5[2] = a1;
-  v5[1] = a1;
-  v3 = a1[4];
+  v9[2] = a1;
+  v9[1] = a1;
+  v7 = a1[4];
   AX_CGRectGetCenter();
-  v5[0] = [v3 _textInteractableItemAtPoint:0 precision:{v1, v2}];
-  [v5[0] setContextMenuInteraction:a1[5]];
-  [v5[0] invokeDefaultAction];
-  objc_storeStrong(v5, 0);
+  v9[0] = [v7 _textInteractableItemAtPoint:0 precision:{v5, v6}];
+  [v9[0] setContextMenuInteraction:a1[5]];
+  [v9[0] invokeDefaultAction];
+  objc_storeStrong(v9, 0);
 }
 
-uint64_t __54__UITextViewAccessibility__accessibilityActivateLink___block_invoke_6(uint64_t a1)
+uint64_t __54__UITextViewAccessibility__accessibilityActivateLink___block_invoke_6(void *a1, __n128 a2, __n128 a3, __n128 a4, __n128 a5)
 {
-  v8 = *(a1 + 32);
+  v12 = a1[4];
   AX_CGRectGetCenter();
-  [v8 startInteractionWithLinkAtPoint:{v1, v2}];
-  v9 = *(a1 + 32);
+  [v12 startInteractionWithLinkAtPoint:{v5, v6}];
+  v13 = a1[4];
   AX_CGRectGetCenter();
-  [v9 updateInteractionWithLinkAtPoint:{v3, v4}];
-  v11 = *(a1 + 32);
+  [v13 updateInteractionWithLinkAtPoint:{v7, v8}];
+  v15 = a1[4];
   AX_CGRectGetCenter();
-  return [v11 validateInteractionWithLinkAtPoint:{v5, v6}];
+  return [v15 validateInteractionWithLinkAtPoint:{v9, v10}];
 }
 
 - (unint64_t)accessibilityTraits
@@ -2409,7 +2409,7 @@ void __44__UITextViewAccessibility_setContentOffset___block_invoke(uint64_t a1)
         v34 = rangeCopy;
         AXPerformSafeBlock();
         v42 = *(v36 + 2);
-        v43 = *(v36 + 3);
+        *v43 = *(v36 + 3);
         objc_storeStrong(v33, 0);
         _Block_object_dispose(&v35, 8);
         UIAccessibilityFrameForBounds();

@@ -67,35 +67,31 @@
 
 void __81__PHMediaFormatLivePhotoConversionRequest_enqueueSubrequestsOnConversionManager___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v2 = [*(a1 + 32) imageConversionRequest];
-    v4 = 138412290;
-    v5 = v2;
-    _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Live photo request image subrequest finished: %@", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = v2;
+    _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Live photo request image subrequest finished: %@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __81__PHMediaFormatLivePhotoConversionRequest_enqueueSubrequestsOnConversionManager___block_invoke_749(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v2 = [*(a1 + 32) videoConversionRequest];
-    v4 = 138412290;
-    v5 = v2;
-    _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Live photo request video subrequest finished: %@", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = v2;
+    _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Live photo request video subrequest finished: %@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)requestForImageConversionRequest:(id)request videoConversionRequest:(id)conversionRequest error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   conversionRequestCopy = conversionRequest;
   v11 = conversionRequestCopy;
@@ -136,13 +132,11 @@ LABEL_3:
   {
     livePhotoPairingIdentifier = [v12 livePhotoPairingIdentifier];
     *buf = 138412290;
-    v22 = livePhotoPairingIdentifier;
+    v21 = livePhotoPairingIdentifier;
     _os_log_debug_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Initial live photo pairing identifier for live photo request: %@", buf, 0xCu);
   }
 
   v15 = [v12 compositeRequestCommonInitWithError:error];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

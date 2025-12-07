@@ -85,7 +85,7 @@ void __65__ICInlineAttachmentUIModel_attributesForInlineAttachmentUIModel__block
         }
 
         v12 = *(*(&v19 + 1) + 8 * i);
-        v13 = [attributesCopy objectForKeyedSubscript:v12];
+        v13 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
         if (v13)
         {
           v14 = v13;
@@ -93,7 +93,7 @@ void __65__ICInlineAttachmentUIModel_attributesForInlineAttachmentUIModel__block
 
           if ((v15 & 1) == 0)
           {
-            v16 = [attributesCopy objectForKeyedSubscript:v12];
+            v16 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
             [v5 setObject:v16 forKeyedSubscript:v12];
           }
         }
@@ -153,13 +153,13 @@ void __65__ICInlineAttachmentUIModel_attributesForInlineAttachmentUIModel__block
   stringCopy = string;
   attributesCopy = attributes;
   objc_opt_class();
-  v8 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69B7940]];
+  v8 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
   v9 = ICCheckedDynamicCast();
   [v9 floatValue];
   v11 = v10;
 
   objc_opt_class();
-  v12 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69DB650]];
+  v12 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
 
   v13 = ICCheckedDynamicCast();
 

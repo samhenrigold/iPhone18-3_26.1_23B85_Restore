@@ -14,7 +14,7 @@
   swift_beginAccess();
   if (*(self + v3))
   {
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact, CNContact_ptr);
 
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
@@ -32,7 +32,7 @@
   contactsCopy = contacts;
   if (contacts)
   {
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact, CNContact_ptr);
     contactsCopy = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

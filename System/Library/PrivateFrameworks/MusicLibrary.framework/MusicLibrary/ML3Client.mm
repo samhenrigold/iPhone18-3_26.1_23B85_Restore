@@ -43,7 +43,7 @@
   {
     objc_storeStrong(&v6->_connection, connection);
     v7->_processID = [connectionCopy processIdentifier];
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
     CPCopyBundleIdentifierAndTeamFromAuditToken();
     bundleID = v7->_bundleID;
     v7->_bundleID = 0;

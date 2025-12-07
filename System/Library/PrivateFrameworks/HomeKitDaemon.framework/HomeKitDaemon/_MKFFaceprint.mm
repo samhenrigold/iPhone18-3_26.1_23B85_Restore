@@ -15,7 +15,7 @@
 
 - (id)createHMFaceprint
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   data = [(_MKFFaceprint *)self data];
   modelUUID = [(_MKFFaceprint *)self modelUUID];
   faceCropUUID = [(_MKFFaceprint *)self faceCropUUID];
@@ -36,18 +36,16 @@
     {
       v13 = HMFGetLogIdentifier();
       v14 = [(HMDManagedObject *)selfCopy debugDescription];
-      v17 = 138543618;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v14;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Cannot create faceprint from _MKFFaceprint: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v13;
+      v18 = 2112;
+      v19 = v14;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Cannot create faceprint from _MKFFaceprint: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

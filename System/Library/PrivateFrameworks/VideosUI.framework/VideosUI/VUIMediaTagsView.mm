@@ -268,7 +268,7 @@ void __41__VUIMediaTagsView_initWithFrame_layout___block_invoke_3(uint64_t a1)
   v309 = &unk_1E44FDE95;
   v7 = MEMORY[0x1E695F058];
   v252 = *(MEMORY[0x1E695F058] + 16);
-  *obj = *MEMORY[0x1E695F058];
+  obj = *MEMORY[0x1E695F058];
   v310 = *MEMORY[0x1E695F058];
   v311 = v252;
   v305[0] = 0;
@@ -323,7 +323,7 @@ void __41__VUIMediaTagsView_initWithFrame_layout___block_invoke_3(uint64_t a1)
   v299[1] = v299;
   v299[2] = 0x4010000000;
   v299[3] = &unk_1E44FDE95;
-  v300 = *obj;
+  v300 = obj;
   v301 = v252;
   v294 = 0;
   v295 = &v294;
@@ -864,7 +864,7 @@ LABEL_76:
   lastObject = [v289[5] lastObject];
   if ([lastObject count] > 1 || !objc_msgSend(lastObject, "count"))
   {
-    *obj = *(v295 + 2);
+    obj = *(v295 + 2);
 
     goto LABEL_143;
   }
@@ -931,7 +931,7 @@ LABEL_150:
   v227 = v193;
   v225 = v194;
   lastObject2 = [v174 lastObject];
-  obj[0] = COERCE_ID(v152[2](v152, lastObject2));
+  *&obj = v152[2](v152, lastObject2);
   v247 = v197;
   v249 = v196;
   v199 = v198;
@@ -954,7 +954,7 @@ LABEL_150:
     goto LABEL_174;
   }
 
-  *&v334.origin.x = obj[0];
+  *&v334.origin.x = obj;
   v334.size.width = v247;
   v334.origin.y = v249;
   v334.size.height = v199;
@@ -1047,7 +1047,7 @@ LABEL_161:
   v339.size.height = v234;
   v339.size.width = v235;
   v217 = CGRectGetMaxX(v339);
-  *&v340.origin.x = obj[0];
+  *&v340.origin.x = obj;
   v340.size.width = v247;
   v340.origin.y = v249;
   v340.size.height = v199;
@@ -1056,7 +1056,7 @@ LABEL_161:
   {
 LABEL_151:
     v184 = 0;
-    *obj = *(v295 + 2);
+    obj = *(v295 + 2);
     goto LABEL_175;
   }
 
@@ -1223,7 +1223,7 @@ LABEL_140:
   }
 
 LABEL_142:
-  *obj = *(v295 + 2);
+  obj = *(v295 + 2);
 LABEL_143:
 
   objc_destroyWeak(v272);
@@ -1247,62 +1247,62 @@ LABEL_143:
 
   _Block_object_dispose(&v318, 8);
   _Block_object_dispose(&v322, 8);
-  v181 = *&obj[1];
-  v180 = *obj;
+  v181 = *(&obj + 1);
+  v180 = *&obj;
   result.height = v181;
   result.width = v180;
   return result;
 }
 
-double __59__VUIMediaTagsView__layoutSubviewsForSize_computationOnly___block_invoke(uint64_t a1, void *a2, int a3, int a4, int a5, double a6, double a7, double a8)
+double __59__VUIMediaTagsView__layoutSubviewsForSize_computationOnly___block_invoke(uint64_t a1, void *a2, int a3, int a4, int a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12)
 {
-  v14 = a2;
-  v16 = a2;
+  v18 = a2;
+  v20 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 144));
-  v19 = *(a1 + 152);
-  v18 = *(a1 + 160);
-  if ([v16 tag] == 110)
+  v23 = *(a1 + 152);
+  v22 = *(a1 + 160);
+  if ([v20 tag] == 110)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v20 = [WeakRetained tagsViewLayout];
-      [v20 badgeMaxHeight];
-      v18 = v21;
+      v24 = [WeakRetained tagsViewLayout];
+      [v24 badgeMaxHeight];
+      v22 = v25;
 
-      v19 = 0.0;
+      v23 = 0.0;
     }
   }
 
-  [v16 vui_sizeThatFits:{v19, v18}];
-  v24 = *MEMORY[0x1E695F060];
-  v25 = *(MEMORY[0x1E695F060] + 8);
-  if (v22 != *MEMORY[0x1E695F060] || v23 != v25)
+  [v20 vui_sizeThatFits:{v23, v22}];
+  v28 = *MEMORY[0x1E695F060];
+  v29 = *(MEMORY[0x1E695F060] + 8);
+  if (v26 != *MEMORY[0x1E695F060] || v27 != v29)
   {
-    v27 = v22;
-    v28 = v23;
-    v177 = a6;
+    v31 = v26;
+    v32 = v27;
+    v181 = a6;
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    v30 = isKindOfClass;
+    v34 = isKindOfClass;
     if (a7 <= 0.0)
     {
-      v31 = v28;
+      v35 = v32;
     }
 
     else
     {
-      v31 = a7;
+      v35 = a7;
     }
 
     if (a8 > 0.0)
     {
-      v27 = v31 * a8;
+      v31 = v35 * a8;
     }
 
     if (*(a1 + 168) == 1)
     {
-      v178 = v27;
+      v182 = v31;
       if (isKindOfClass)
       {
         if (a3)
@@ -1312,47 +1312,47 @@ double __59__VUIMediaTagsView__layoutSubviewsForSize_computationOnly___block_inv
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v32 = v31;
-              v33 = v16;
-              [v33 baselineHeight];
-              v35 = v34;
+              v36 = v35;
+              v37 = v20;
+              [v37 baselineHeight];
+              v39 = v38;
               VUIRoundValue();
-              v37 = v36;
-              v38 = [v33 vuiFont];
-              [v38 capHeight];
-              v40 = v39;
+              v41 = v40;
+              v42 = [v37 vuiFont];
+              [v42 capHeight];
+              v44 = v43;
 
-              v41 = *(*(*(a1 + 64) + 8) + 24);
+              v45 = *(*(*(a1 + 64) + 8) + 24);
               MidY = CGRectGetMidY(*(*(*(a1 + 56) + 8) + 32));
-              v43 = [WeakRetained tagsViewLayout];
-              v44 = [v43 alignBadgeVertically];
+              v47 = [WeakRetained tagsViewLayout];
+              v48 = [v47 alignBadgeVertically];
 
-              if ([v33 requiresMoreThanOneLineForTextWidth:v178])
+              if ([v37 requiresMoreThanOneLineForTextWidth:v182])
               {
-                v31 = v32;
-                if (CGRectGetHeight(*(*(*(a1 + 56) + 8) + 32)) < v32)
+                v35 = v36;
+                if (CGRectGetHeight(*(*(*(a1 + 56) + 8) + 32)) < v36)
                 {
-                  *(*(*(a1 + 56) + 8) + 40) = v32 * 0.5 + *(*(*(a1 + 64) + 8) + 24) - *(*(*(a1 + 56) + 8) + 56) * 0.5;
+                  *(*(*(a1 + 56) + 8) + 40) = v36 * 0.5 + *(*(*(a1 + 64) + 8) + 24) - *(*(*(a1 + 56) + 8) + 56) * 0.5;
                   goto LABEL_102;
                 }
 
-                *(*(*(a1 + 64) + 8) + 24) = CGRectGetMidY(*(*(*(a1 + 56) + 8) + 32)) + v32 * -0.5;
+                *(*(*(a1 + 64) + 8) + 24) = CGRectGetMidY(*(*(*(a1 + 56) + 8) + 32)) + v36 * -0.5;
 LABEL_113:
 
-                objc_storeStrong((*(*(a1 + 72) + 8) + 40), v14);
+                objc_storeStrong((*(*(a1 + 72) + 8) + 40), v18);
                 goto LABEL_114;
               }
 
-              if (v44)
+              if (v48)
               {
-                v143 = v40 * 0.5 + v35 - v40 + v41;
-                if (v143 > MidY)
+                v147 = v44 * 0.5 + v39 - v44 + v45;
+                if (v147 > MidY)
                 {
-                  v144 = *(*(a1 + 56) + 8);
-                  v145 = v143 - MidY + *(v144 + 40);
+                  v148 = *(*(a1 + 56) + 8);
+                  v149 = v147 - MidY + *(v148 + 40);
 LABEL_101:
-                  *(v144 + 40) = v145;
-                  v31 = v32;
+                  *(v148 + 40) = v149;
+                  v35 = v36;
 LABEL_102:
                   if ((*(a1 + 169) & 1) == 0)
                   {
@@ -1367,45 +1367,45 @@ LABEL_102:
                   goto LABEL_113;
                 }
 
-                v150 = *(*(a1 + 64) + 8);
-                v151 = MidY - v143 + *(v150 + 24);
+                v154 = *(*(a1 + 64) + 8);
+                v155 = MidY - v147 + *(v154 + 24);
               }
 
               else
               {
-                if (v35 > *(*(*(a1 + 56) + 8) + 56))
+                if (v39 > *(*(*(a1 + 56) + 8) + 56))
                 {
-                  [v33 frame];
-                  v145 = fabs(v37) + v146;
-                  v144 = *(*(a1 + 56) + 8);
+                  [v37 frame];
+                  v149 = fabs(v41) + v150;
+                  v148 = *(*(a1 + 56) + 8);
                   goto LABEL_101;
                 }
 
-                v151 = fabs(v37);
-                v150 = *(*(a1 + 64) + 8);
+                v155 = fabs(v41);
+                v154 = *(*(a1 + 64) + 8);
               }
 
-              *(v150 + 24) = v151;
-              v31 = v32;
+              *(v154 + 24) = v155;
+              v35 = v36;
               goto LABEL_113;
             }
           }
         }
 
         *(*(*(a1 + 40) + 8) + 24) = 0;
-        objc_storeStrong((*(*(a1 + 72) + 8) + 40), v14);
+        objc_storeStrong((*(*(a1 + 72) + 8) + 40), v18);
         goto LABEL_65;
       }
 
-      if ([v16 tag] == 108)
+      if ([v20 tag] == 108)
       {
         goto LABEL_62;
       }
 
-      v114 = *(*(*(a1 + 48) + 8) + 40);
+      v118 = *(*(*(a1 + 48) + 8) + 40);
       if (a4)
       {
-        if (!v114)
+        if (!v118)
         {
           goto LABEL_114;
         }
@@ -1413,63 +1413,63 @@ LABEL_102:
         goto LABEL_65;
       }
 
-      if (v114)
+      if (v118)
       {
-        if ([v16 tag] == 109)
+        if ([v20 tag] == 109)
         {
-          v131 = [*(a1 + 32) tagsViewLayout];
-          v132 = [v131 isSportsCanonicalType];
+          v135 = [*(a1 + 32) tagsViewLayout];
+          v136 = [v135 isSportsCanonicalType];
 
-          if (v132)
+          if (v136)
           {
 LABEL_62:
-            v92 = *(*(a1 + 40) + 8);
+            v96 = *(*(a1 + 40) + 8);
 LABEL_63:
-            *(v92 + 24) = 0;
+            *(v96 + 24) = 0;
 LABEL_65:
             *(*(*(a1 + 64) + 8) + 24) = *(*(*(a1 + 80) + 8) + 24);
-            v93 = [WeakRetained tagsViewLayout];
-            [v93 badgeMargin];
-            v95 = v94;
-
-            v96 = [WeakRetained tagsViewLayout];
-            v97 = [v96 textLayout];
-            [v97 margin];
+            v97 = [WeakRetained tagsViewLayout];
+            [v97 badgeMargin];
             v99 = v98;
 
-            if (v95 >= v99)
+            v100 = [WeakRetained tagsViewLayout];
+            v101 = [v100 textLayout];
+            [v101 margin];
+            v103 = v102;
+
+            if (v99 >= v103)
             {
-              v100 = v95;
+              v104 = v99;
             }
 
             else
             {
-              v100 = v99;
+              v104 = v103;
             }
 
-            v101 = fmax(v100, 2.0);
-            v102 = [WeakRetained tagsViewLayout];
-            v103 = [v102 textLayout];
-            [v103 margin];
-            v105 = v104;
-
+            v105 = fmax(v104, 2.0);
             v106 = [WeakRetained tagsViewLayout];
-            [v106 badgeMargin];
-            v108 = v107;
+            v107 = [v106 textLayout];
+            [v107 margin];
+            v109 = v108;
 
-            if (v105 >= v108)
+            v110 = [WeakRetained tagsViewLayout];
+            [v110 badgeMargin];
+            v112 = v111;
+
+            if (v109 >= v112)
             {
-              v109 = v105;
+              v113 = v109;
             }
 
             else
             {
-              v109 = v108;
+              v113 = v112;
             }
 
-            *(*(*(a1 + 64) + 8) + 24) = v101 + *(*(*(a1 + 88) + 8) + 24) + fmax(v109, 2.0) + *(*(*(a1 + 64) + 8) + 24);
+            *(*(*(a1 + 64) + 8) + 24) = v105 + *(*(*(a1 + 88) + 8) + 24) + fmax(v113, 2.0) + *(*(*(a1 + 64) + 8) + 24);
 LABEL_72:
-            v91 = 1;
+            v95 = 1;
             goto LABEL_115;
           }
         }
@@ -1478,8 +1478,8 @@ LABEL_72:
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           *(*(*(a1 + 64) + 8) + 24) = *(*(*(a1 + 56) + 8) + 40);
-          v92 = *(*(a1 + 40) + 8);
-          if (v27 + *(v92 + 24) <= *(a1 + 152))
+          v96 = *(*(a1 + 40) + 8);
+          if (v31 + *(v96 + 24) <= *(a1 + 152))
           {
             goto LABEL_114;
           }
@@ -1487,56 +1487,56 @@ LABEL_72:
           goto LABEL_63;
         }
 
-        v133 = *(*(*(a1 + 56) + 8) + 40);
-        v134 = *(*(*(a1 + 48) + 8) + 40);
-        [v134 baselineHeight];
+        v137 = *(*(*(a1 + 56) + 8) + 40);
+        v138 = *(*(*(a1 + 48) + 8) + 40);
+        [v138 baselineHeight];
         VUIRoundValue();
-        *(*(*(a1 + 64) + 8) + 24) = v133 + fabs(v135);
+        *(*(*(a1 + 64) + 8) + 24) = v137 + fabs(v139);
       }
 
 LABEL_114:
-      v91 = 0;
+      v95 = 0;
       goto LABEL_115;
     }
 
-    v46 = [WeakRetained tagsViewLayout];
-    v47 = [v46 isWrappingAllowed];
+    v50 = [WeakRetained tagsViewLayout];
+    v51 = [v50 isWrappingAllowed];
 
-    if (v47 && v27 + *(*(*(a1 + 40) + 8) + 24) > *(a1 + 152))
+    if (v51 && v31 + *(*(*(a1 + 40) + 8) + 24) > *(a1 + 152))
     {
-      v48 = *(*(a1 + 72) + 8);
-      v49 = *(v48 + 40);
-      *(v48 + 40) = 0;
+      v52 = *(*(a1 + 72) + 8);
+      v53 = *(v52 + 40);
+      *(v52 + 40) = 0;
 
       [*(*(*(a1 + 96) + 8) + 40) removeAllObjects];
       [*(*(*(a1 + 104) + 8) + 40) removeAllObjects];
-      if ((v30 & 1) == 0)
+      if ((v34 & 1) == 0)
       {
-        v178 = v27;
+        v182 = v31;
         if ([*(*(*(a1 + 48) + 8) + 40) tag] == 103)
         {
           [*(*(*(a1 + 48) + 8) + 40) vui_sizeThatFits:{*(a1 + 152), *(a1 + 160)}];
-          v116 = v115;
-          v118 = v117;
-          v119 = fmax(v117, v31);
-          v120 = [WeakRetained tagsViewLayout];
-          v121 = [v120 textLayout];
-          [v121 margin];
-          v123 = v119 + v122;
+          v120 = v119;
+          v122 = v121;
+          v123 = fmax(v121, v35);
           v124 = [WeakRetained tagsViewLayout];
-          [v124 badgeMargin];
-          *(*(*(a1 + 64) + 8) + 24) = v123 + v125 + *(*(*(a1 + 64) + 8) + 24);
+          v125 = [v124 textLayout];
+          [v125 margin];
+          v127 = v123 + v126;
+          v128 = [WeakRetained tagsViewLayout];
+          [v128 badgeMargin];
+          *(*(*(a1 + 64) + 8) + 24) = v127 + v129 + *(*(*(a1 + 64) + 8) + 24);
 
           *(*(*(a1 + 56) + 8) + 32) = 0;
           *(*(*(a1 + 56) + 8) + 40) = *(*(*(a1 + 64) + 8) + 24);
-          v126 = *(*(a1 + 56) + 8);
-          *(v126 + 48) = v116;
-          *(v126 + 56) = v118;
-          v127 = *(*(*(a1 + 56) + 8) + 32) + *(*(*(a1 + 56) + 8) + 48);
-          v128 = [WeakRetained tagsViewLayout];
-          v129 = [v128 textLayout];
-          [v129 margin];
-          *(*(*(a1 + 40) + 8) + 24) = v127 + v130;
+          v130 = *(*(a1 + 56) + 8);
+          *(v130 + 48) = v120;
+          *(v130 + 56) = v122;
+          v131 = *(*(*(a1 + 56) + 8) + 32) + *(*(*(a1 + 56) + 8) + 48);
+          v132 = [WeakRetained tagsViewLayout];
+          v133 = [v132 textLayout];
+          [v133 margin];
+          *(*(*(a1 + 40) + 8) + 24) = v131 + v134;
 
           if ((*(a1 + 169) & 1) == 0)
           {
@@ -1548,316 +1548,316 @@ LABEL_114:
             [*(*(*(a1 + 48) + 8) + 40) setFrame:?];
           }
 
-          v147 = *(*(a1 + 112) + 8);
-          v148 = *(v147 + 40);
-          v149 = *(*(a1 + 64) + 8);
-          if (v148 < v118 + *(v149 + 24))
+          v151 = *(*(a1 + 112) + 8);
+          v152 = *(v151 + 40);
+          v153 = *(*(a1 + 64) + 8);
+          if (v152 < v122 + *(v153 + 24))
           {
-            v148 = v118 + *(v149 + 24);
+            v152 = v122 + *(v153 + 24);
           }
 
-          *(v147 + 40) = v148;
+          *(v151 + 40) = v152;
         }
 
         else
         {
           *(*(*(a1 + 40) + 8) + 24) = 0;
-          v136 = *(*(*(a1 + 56) + 8) + 56);
-          v137 = [WeakRetained tagsViewLayout];
-          v138 = [v137 textLayout];
-          [v138 margin];
-          v140 = v136 + v139;
+          v140 = *(*(*(a1 + 56) + 8) + 56);
           v141 = [WeakRetained tagsViewLayout];
-          [v141 badgeMargin];
-          *(*(*(a1 + 64) + 8) + 24) = v140 + v142 + *(*(*(a1 + 64) + 8) + 24);
+          v142 = [v141 textLayout];
+          [v142 margin];
+          v144 = v140 + v143;
+          v145 = [WeakRetained tagsViewLayout];
+          [v145 badgeMargin];
+          *(*(*(a1 + 64) + 8) + 24) = v144 + v146 + *(*(*(a1 + 64) + 8) + 24);
         }
 
         goto LABEL_72;
       }
 
       *(*(*(a1 + 40) + 8) + 24) = 0;
-      v50 = *(*(*(a1 + 88) + 8) + 24);
-      v51 = [WeakRetained tagsViewLayout];
-      v52 = [v51 textLayout];
-      [v52 margin];
-      v54 = v50 + v53;
+      v54 = *(*(*(a1 + 88) + 8) + 24);
       v55 = [WeakRetained tagsViewLayout];
-      [v55 badgeMargin];
-      *(*(*(a1 + 64) + 8) + 24) = v54 + v56 + *(*(*(a1 + 64) + 8) + 24);
+      v56 = [v55 textLayout];
+      [v56 margin];
+      v58 = v54 + v57;
+      v59 = [WeakRetained tagsViewLayout];
+      [v59 badgeMargin];
+      *(*(*(a1 + 64) + 8) + 24) = v58 + v60 + *(*(*(a1 + 64) + 8) + 24);
 
-      HIDWORD(v170) = v30;
-      v174 = a5;
-      if ([v16 tag] == 100)
+      HIDWORD(v174) = v34;
+      v178 = a5;
+      if ([v20 tag] == 100)
       {
-        v176 = 0.0;
+        v180 = 0.0;
         if ((*(a1 + 169) & 1) == 0)
         {
-          [v16 removeFromSuperview];
+          [v20 removeFromSuperview];
         }
 
-        LODWORD(v170) = 1;
-        v27 = 0.0;
+        LODWORD(v174) = 1;
+        v31 = 0.0;
       }
 
       else
       {
-        v176 = v31;
+        v180 = v35;
         if ((*(a1 + 169) & 1) == 0 && [*(*(*(a1 + 48) + 8) + 40) tag] == 100)
         {
           [*(*(*(a1 + 48) + 8) + 40) removeFromSuperview];
         }
 
-        LODWORD(v170) = 1;
+        LODWORD(v174) = 1;
       }
     }
 
     else
     {
       *(*(*(a1 + 64) + 8) + 24) = *(*(*(a1 + 80) + 8) + 24);
-      if ((v30 & 1) == 0)
+      if ((v34 & 1) == 0)
       {
-        v110 = [WeakRetained tagsViewLayout];
-        v111 = [v110 alignBadgeVertically];
+        v114 = [WeakRetained tagsViewLayout];
+        v115 = [v114 alignBadgeVertically];
 
-        v178 = v27;
-        if (!v111 || !*(*(*(a1 + 72) + 8) + 40))
+        v182 = v31;
+        if (!v115 || !*(*(*(a1 + 72) + 8) + 40))
         {
           goto LABEL_114;
         }
 
-        v112 = *(*(*(a1 + 120) + 8) + 40);
+        v116 = *(*(*(a1 + 120) + 8) + 40);
         VUIRoundValue();
-        v91 = 0;
-        *(*(*(a1 + 64) + 8) + 24) = v112 + v113 * 0.5;
+        v95 = 0;
+        *(*(*(a1 + 64) + 8) + 24) = v116 + v117 * 0.5;
         goto LABEL_115;
       }
 
-      v176 = v31;
-      HIDWORD(v170) = v30;
-      v174 = a5;
+      v180 = v35;
+      HIDWORD(v174) = v34;
+      v178 = a5;
       if ((*(a1 + 169) & 1) == 0 && [*(*(*(a1 + 48) + 8) + 40) tag] == 100)
       {
-        v57 = [*(*(*(a1 + 48) + 8) + 40) superview];
+        v61 = [*(*(*(a1 + 48) + 8) + 40) superview];
 
-        if (!v57)
+        if (!v61)
         {
           [WeakRetained addSubview:*(*(*(a1 + 48) + 8) + 40)];
         }
       }
 
-      LODWORD(v170) = 0;
+      LODWORD(v174) = 0;
     }
 
-    v58 = v16;
-    v171 = v14;
-    objc_storeStrong((*(*(a1 + 72) + 8) + 40), v14);
-    v178 = v27;
-    v59 = [v58 requiresMoreThanOneLineForTextWidth:v27];
-    [v58 baselineHeight];
-    v180 = v60;
-    v61 = [v58 vuiFont];
-    [v61 capHeight];
-    v63 = v62;
+    v62 = v20;
+    v175 = v18;
+    objc_storeStrong((*(*(a1 + 72) + 8) + 40), v18);
+    v182 = v31;
+    v63 = [v62 requiresMoreThanOneLineForTextWidth:v31];
+    [v62 baselineHeight];
+    v184 = v64;
+    v65 = [v62 vuiFont];
+    [v65 capHeight];
+    v67 = v66;
 
     if ([*(*(*(a1 + 96) + 8) + 40) count])
     {
-      v64 = 0;
-      v172 = v63 * 0.5;
-      v173 = v180 - v63;
-      v175 = v176 * 0.5;
-      v179 = v25;
+      v68 = 0;
+      v176 = v67 * 0.5;
+      v177 = v184 - v67;
+      v179 = v180 * 0.5;
+      v183 = v29;
       do
       {
-        v65 = [*(*(*(a1 + 96) + 8) + 40) objectAtIndexedSubscript:{v64, v170}];
-        v66 = [*(*(*(a1 + 104) + 8) + 40) objectAtIndexedSubscript:v64];
-        [v66 CGRectValue];
-        v68 = v67;
-        v70 = v69;
+        v69 = [*(*(*(a1 + 96) + 8) + 40) objectAtIndexedSubscript:{v68, v174}];
+        v70 = [*(*(*(a1 + 104) + 8) + 40) objectAtIndexedSubscript:v68];
+        [v70 CGRectValue];
         v72 = v71;
         v74 = v73;
+        v76 = v75;
+        v78 = v77;
 
-        v75 = v58;
-        if (v72 == v24 && v74 == v25)
+        v79 = v62;
+        if (v76 == v28 && v78 == v29)
         {
           goto LABEL_59;
         }
 
-        v77 = v24;
-        v78 = *(*(*(a1 + 64) + 8) + 24);
+        v81 = v28;
+        v82 = *(*(*(a1 + 64) + 8) + 24);
         VUIRoundValue();
-        v80 = v79;
-        v181.origin.x = v68;
-        v181.origin.y = v70;
-        v181.size.width = v72;
-        v181.size.height = v74;
-        v81 = CGRectGetMidY(v181);
-        v82 = [WeakRetained tagsViewLayout];
-        v83 = [v82 alignBadgeVertically];
+        v84 = v83;
+        v185.origin.x = v72;
+        v185.origin.y = v74;
+        v185.size.width = v76;
+        v185.size.height = v78;
+        v85 = CGRectGetMidY(v185);
+        v86 = [WeakRetained tagsViewLayout];
+        v87 = [v86 alignBadgeVertically];
 
-        if (v59)
+        if (v63)
         {
-          v182.origin.x = v68;
-          v182.origin.y = v70;
-          v182.size.width = v72;
-          v182.size.height = v74;
-          if (CGRectGetHeight(v182) < v176)
+          v186.origin.x = v72;
+          v186.origin.y = v74;
+          v186.size.width = v76;
+          v186.size.height = v78;
+          if (CGRectGetHeight(v186) < v180)
           {
-            v84 = v175 + *(*(*(a1 + 64) + 8) + 24) + *(*(*(a1 + 56) + 8) + 56) * -0.5;
+            v88 = v179 + *(*(*(a1 + 64) + 8) + 24) + *(*(*(a1 + 56) + 8) + 56) * -0.5;
             goto LABEL_50;
           }
 
-          v183.origin.x = v68;
-          v183.origin.y = v70;
-          v183.size.width = v72;
-          v183.size.height = v74;
-          *(*(*(a1 + 64) + 8) + 24) = CGRectGetMidY(v183) - v175;
+          v187.origin.x = v72;
+          v187.origin.y = v74;
+          v187.size.width = v76;
+          v187.size.height = v78;
+          *(*(*(a1 + 64) + 8) + 24) = CGRectGetMidY(v187) - v179;
         }
 
         else
         {
-          if (v83)
+          if (v87)
           {
-            v85 = v172 + v173 + v78;
-            v24 = v77;
-            if (v85 > v81)
+            v89 = v176 + v177 + v82;
+            v28 = v81;
+            if (v89 > v85)
             {
-              v84 = v70 + v85 - v81;
+              v88 = v74 + v89 - v85;
               goto LABEL_51;
             }
 
-            *(*(*(a1 + 64) + 8) + 24) = v81 - v85 + *(*(*(a1 + 64) + 8) + 24);
+            *(*(*(a1 + 64) + 8) + 24) = v85 - v89 + *(*(*(a1 + 64) + 8) + 24);
             goto LABEL_58;
           }
 
-          v86 = fabs(v80);
-          if (v180 > v74)
+          v90 = fabs(v84);
+          if (v184 > v78)
           {
-            [v75 frame];
-            v84 = v86 + v87;
+            [v79 frame];
+            v88 = v90 + v91;
 LABEL_50:
-            v24 = v77;
+            v28 = v81;
 LABEL_51:
-            v25 = v179;
+            v29 = v183;
             if ((*(a1 + 169) & 1) == 0)
             {
-              if (v174)
+              if (v178)
               {
                 VUIRectWithFlippedOriginRelativeToBoundingRect();
-                v68 = v88;
-                v72 = v89;
-                v74 = v90;
+                v72 = v92;
+                v76 = v93;
+                v78 = v94;
               }
 
-              [v65 setFrame:{v68, v84, v72, v74}];
+              [v69 setFrame:{v72, v88, v76, v78}];
             }
 
             goto LABEL_59;
           }
 
-          *(*(*(a1 + 64) + 8) + 24) = v86;
+          *(*(*(a1 + 64) + 8) + 24) = v90;
         }
 
-        v24 = v77;
+        v28 = v81;
 LABEL_58:
-        v25 = v179;
+        v29 = v183;
 LABEL_59:
 
-        ++v64;
+        ++v68;
       }
 
-      while (v64 < [*(*(*(a1 + 96) + 8) + 40) count]);
+      while (v68 < [*(*(*(a1 + 96) + 8) + 40) count]);
     }
 
-    v31 = v176;
-    v14 = v171;
-    v91 = v170;
-    LOBYTE(v30) = BYTE4(v170);
+    v35 = v180;
+    v18 = v175;
+    v95 = v174;
+    LOBYTE(v34) = BYTE4(v174);
 LABEL_115:
-    v152 = [*(a1 + 32) tagsViewLayout];
-    [v152 separatorMargin];
-    v154 = v153;
+    v156 = [*(a1 + 32) tagsViewLayout];
+    [v156 separatorMargin];
+    v158 = v157;
 
-    if ([v16 tag] == 100 && v154 > 0.0)
+    if ([v20 tag] == 100 && v158 > 0.0)
     {
       [*(a1 + 32) _rightMarginForView:*(*(*(a1 + 48) + 8) + 40)];
-      *(*(*(a1 + 40) + 8) + 24) = *(*(*(a1 + 40) + 8) + 24) - v155;
-      *(*(*(a1 + 40) + 8) + 24) = v154 + *(*(*(a1 + 40) + 8) + 24);
+      *(*(*(a1 + 40) + 8) + 24) = *(*(*(a1 + 40) + 8) + 24) - v159;
+      *(*(*(a1 + 40) + 8) + 24) = v158 + *(*(*(a1 + 40) + 8) + 24);
     }
 
-    objc_storeStrong((*(*(a1 + 48) + 8) + 40), v14);
-    v156 = *(*(a1 + 40) + 8);
-    v45 = *(v156 + 24);
-    v157 = *(*(*(a1 + 64) + 8) + 24);
-    *(v156 + 24) = v178 + v177 + v45;
-    v158 = *(*(a1 + 56) + 8);
-    v158[4] = v45;
-    v158[5] = v157;
-    v158[6] = v178;
-    v158[7] = v31;
-    if ((v30 & 1) == 0)
+    objc_storeStrong((*(*(a1 + 48) + 8) + 40), v18);
+    v160 = *(*(a1 + 40) + 8);
+    v49 = *(v160 + 24);
+    v161 = *(*(*(a1 + 64) + 8) + 24);
+    *(v160 + 24) = v182 + v181 + v49;
+    v162 = *(*(a1 + 56) + 8);
+    v162[4] = v49;
+    v162[5] = v161;
+    v162[6] = v182;
+    v162[7] = v35;
+    if ((v34 & 1) == 0)
     {
-      [*(*(*(a1 + 96) + 8) + 40) addObject:v16];
-      v159 = *(*(*(a1 + 104) + 8) + 40);
-      v160 = [MEMORY[0x1E696B098] valueWithCGRect:{v45, v157, v178, v31}];
-      [v159 addObject:v160];
+      [*(*(*(a1 + 96) + 8) + 40) addObject:v20];
+      v163 = *(*(*(a1 + 104) + 8) + 40);
+      v164 = [MEMORY[0x1E696B098] valueWithCGRect:{v49, v161, v182, v35}];
+      [v163 addObject:v164];
     }
 
-    v184.origin.x = v45;
-    v184.origin.y = v157;
-    v184.size.width = v178;
-    v184.size.height = v31;
-    MinY = CGRectGetMinY(v184);
-    v162 = *(*(a1 + 80) + 8);
-    if (v91)
+    v188.origin.x = v49;
+    v188.origin.y = v161;
+    v188.size.width = v182;
+    v188.size.height = v35;
+    MinY = CGRectGetMinY(v188);
+    v166 = *(*(a1 + 80) + 8);
+    if (v95)
     {
-      *(v162 + 24) = MinY;
-      v163 = *(*(a1 + 88) + 8);
-      v164 = v31;
+      *(v166 + 24) = MinY;
+      v167 = *(*(a1 + 88) + 8);
+      v168 = v35;
     }
 
     else
     {
-      if (MinY >= *(v162 + 24))
+      if (MinY >= *(v166 + 24))
       {
-        MinY = *(v162 + 24);
+        MinY = *(v166 + 24);
       }
 
-      *(v162 + 24) = MinY;
-      v163 = *(*(a1 + 88) + 8);
-      v164 = *(v163 + 24);
-      if (v164 < v31)
+      *(v166 + 24) = MinY;
+      v167 = *(*(a1 + 88) + 8);
+      v168 = *(v167 + 24);
+      if (v168 < v35)
       {
-        v164 = v31;
+        v168 = v35;
       }
     }
 
-    *(v163 + 24) = v164;
-    if (*(*(*(a1 + 72) + 8) + 40) == v16)
+    *(v167 + 24) = v168;
+    if (*(*(*(a1 + 72) + 8) + 40) == v20)
     {
-      v165 = *(*(a1 + 120) + 8);
-      v165[4] = v45;
-      v165[5] = v157;
-      v165[6] = v178;
-      v165[7] = v31;
-      if (!v91)
+      v169 = *(*(a1 + 120) + 8);
+      v169[4] = v49;
+      v169[5] = v161;
+      v169[6] = v182;
+      v169[7] = v35;
+      if (!v95)
       {
 LABEL_132:
-        [*(*(*(a1 + 128) + 8) + 40) addObject:v16];
+        [*(*(*(a1 + 128) + 8) + 40) addObject:v20];
         goto LABEL_133;
       }
     }
 
-    else if (!v91)
+    else if (!v95)
     {
       goto LABEL_132;
     }
 
     if ([*(*(*(a1 + 128) + 8) + 40) count])
     {
-      v166 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v167 = *(*(a1 + 128) + 8);
-      v168 = *(v167 + 40);
-      *(v167 + 40) = v166;
+      v170 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v171 = *(*(a1 + 128) + 8);
+      v172 = *(v171 + 40);
+      *(v171 + 40) = v170;
 
       [*(*(*(a1 + 136) + 8) + 40) addObject:*(*(*(a1 + 128) + 8) + 40)];
     }
@@ -1865,12 +1865,12 @@ LABEL_132:
     goto LABEL_132;
   }
 
-  v45 = *MEMORY[0x1E695F058];
+  v49 = *MEMORY[0x1E695F058];
 LABEL_133:
   VUIRoundValue();
   VUICeilValue();
 
-  return v45;
+  return v49;
 }
 
 double __59__VUIMediaTagsView__layoutSubviewsForSize_computationOnly___block_invoke_2(uint64_t a1, void *a2)

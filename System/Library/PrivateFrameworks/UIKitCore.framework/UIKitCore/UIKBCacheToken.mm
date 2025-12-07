@@ -306,7 +306,7 @@ LABEL_9:
   return v10;
 }
 
-uint64_t __59__UIKBCacheToken_stringForComponentArray_additionalValues___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t __59__UIKBCacheToken_stringForComponentArray_additionalValues___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a3;
   v6 = [*(a1 + 32) _writeArray:*(a1 + 40) toStr:a2 maxLen:a3];

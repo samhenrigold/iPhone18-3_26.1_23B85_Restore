@@ -39,22 +39,22 @@
 
 - (int64_t)duration
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   finalTimestamp = self->_finalTimestamp;
   initialTimestamp = [(TUIFeedbackSurveyMetadata *)self initialTimestamp];
   [(NSDate *)finalTimestamp timeIntervalSinceDate:initialTimestamp];
   v5 = v4;
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
-  v6 = [&unk_2867A5A68 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v6 = [&unk_2867A5A68 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v15;
+    v9 = *v14;
     while (2)
     {
       v10 = 0;
@@ -62,15 +62,14 @@
       v8 += v7;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(&unk_2867A5A68);
         }
 
-        if (v5 < [*(*(&v14 + 1) + 8 * v10) intValue])
+        if (v5 < [*(*(&v13 + 1) + 8 * v10) intValue])
         {
-          v8 = v11;
-          goto LABEL_12;
+          return v11;
         }
 
         ++v11;
@@ -78,7 +77,7 @@
       }
 
       while (v7 != v10);
-      v7 = [&unk_2867A5A68 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [&unk_2867A5A68 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -90,11 +89,9 @@
 
   else
   {
-    v8 = 0;
+    return 0;
   }
 
-LABEL_12:
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

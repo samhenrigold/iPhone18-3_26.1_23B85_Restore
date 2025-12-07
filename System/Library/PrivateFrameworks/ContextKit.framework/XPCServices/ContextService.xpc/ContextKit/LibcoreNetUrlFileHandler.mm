@@ -1,5 +1,6 @@
 @interface LibcoreNetUrlFileHandler
 - (id)openConnectionWithJavaNetURL:(id)l withJavaNetProxy:(id)proxy;
+- (void)parseURLWithJavaNetURL:(id)l withNSString:(id)string withInt:(int)int withInt:(int)withInt;
 @end
 
 @implementation LibcoreNetUrlFileHandler
@@ -34,6 +35,26 @@
 
       return [(JavaNetURL *)v10 openConnection];
     }
+  }
+}
+
+- (void)parseURLWithJavaNetURL:(id)l withNSString:(id)string withInt:(int)int withInt:(int)withInt
+{
+  if (withInt >= int)
+  {
+    if (int >= withInt)
+    {
+      v9 = &stru_100484358;
+    }
+
+    else if (!string || (v8 = [string substring:*&int endIndex:*&withInt]) == 0 || (v9 = objc_msgSend(v8, "replace:withChar:", 92, 47)) == 0)
+    {
+      JreThrowNullPointerException();
+    }
+
+    v10.receiver = self;
+    v10.super_class = LibcoreNetUrlFileHandler;
+    [(JavaNetURLStreamHandler *)&v10 parseURLWithJavaNetURL:l withNSString:v9 withInt:0 withInt:[(__CFString *)v9 length]];
   }
 }
 

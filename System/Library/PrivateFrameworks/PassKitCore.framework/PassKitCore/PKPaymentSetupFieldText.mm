@@ -124,10 +124,10 @@
     {
       if (v8 && _currencyFormatter)
       {
-        v10 = [(NSString *)_currencyFormatter isEqualToString:v8];
+        isEqualToString = objc_msgSend_isEqualToString_(_currencyFormatter);
 
         v6 = codeCopy;
-        if (v10)
+        if (isEqualToString)
         {
           goto LABEL_10;
         }
@@ -239,7 +239,7 @@ LABEL_10:
           }
 
           v12 = *(*(&v22 + 1) + 8 * i);
-          if (!-[PKPaymentSetupFieldText isNumericFractional](self, "isNumericFractional") || ([v12 isEqualToString:decimalSeparator] & 1) == 0)
+          if (![(PKPaymentSetupFieldText *)self isNumericFractional]|| (objc_msgSend_isEqualToString_(v12) & 1) == 0)
           {
             v13 = [defaultValue stringByReplacingOccurrencesOfString:v12 withString:&stru_1F227FD28];
 
@@ -515,9 +515,9 @@ LABEL_24:
     {
       if (v18 && v17)
       {
-        v21 = [v17 isEqualToString:v18];
+        isEqualToString = objc_msgSend_isEqualToString_(v17);
 
-        if ((v21 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
           v20 = 0;
           goto LABEL_16;
@@ -634,9 +634,9 @@ LABEL_16:
         continue;
       }
 
-      v15 = [v12 isEqualToString:v13];
+      isEqualToString = objc_msgSend_isEqualToString_(v12);
 
-      if ((v15 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         goto LABEL_15;
       }
@@ -731,7 +731,7 @@ LABEL_26:
         {
           v9 = [displayFormat substringToIndex:1];
           displayFormatPlaceholder2 = [(PKPaymentSetupFieldText *)self displayFormatPlaceholder];
-          if ([v9 isEqualToString:displayFormatPlaceholder2])
+          if (objc_msgSend_isEqualToString_(v9))
           {
           }
 
@@ -943,7 +943,7 @@ LABEL_6:
   {
     v12 = v11;
     v13 = v12;
-    if (v12 == @"none" || (v14 = [(__CFString *)v12 isEqualToString:@"none", v38, v10], v13, (v14 & 1) != 0))
+    if (v12 == @"none" || (v14 = objc_msgSend_isEqualToString_(v12, v38, v10), v13, (v14 & 1) != 0))
     {
       v15 = 0;
     }
@@ -951,7 +951,7 @@ LABEL_6:
     else
     {
       v18 = v13;
-      if (v18 == @"short_reveal" || (v19 = v18, v20 = [(__CFString *)v18 isEqualToString:@"short_reveal"], v19, (v20 & 1) != 0) || (v21 = v19, v21 != @"reveal") && (v22 = v21, v23 = [(__CFString *)v21 isEqualToString:@"reveal"], v22, !v23))
+      if (v18 == @"short_reveal" || (v19 = v18, isEqualToString = objc_msgSend_isEqualToString_(v18), v19, (isEqualToString & 1) != 0) || (v21 = v19, v21 != @"reveal") && (v22 = v21, v23 = objc_msgSend_isEqualToString_(v21), v22, !v23))
       {
         v15 = 1;
       }

@@ -124,7 +124,6 @@
 {
   if (*&self->_has)
   {
-    reason = self->_reason;
     PBDataWriterWriteInt32Field();
   }
 }

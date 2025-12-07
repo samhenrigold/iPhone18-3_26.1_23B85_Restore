@@ -210,14 +210,15 @@
   if (scrubberDelegate)
   {
     v5 = scrubberDelegate;
-    if (objc_opt_respondsToSelector())
+    scrubberDelegate = objc_opt_respondsToSelector();
+    if (scrubberDelegate)
     {
       selectedIndexPath = [(PUReviewScrubber *)self selectedIndexPath];
       [v5 reviewScrubberDidSelectItemAtIndexPath:selectedIndexPath];
     }
   }
 
-  MEMORY[0x1EEE66BE0]();
+  MEMORY[0x1EEE66BE0](scrubberDelegate);
 }
 
 - (void)_notifyDelegateOfScrub
@@ -226,13 +227,14 @@
   if (scrubberDelegate)
   {
     v4 = scrubberDelegate;
-    if (objc_opt_respondsToSelector())
+    scrubberDelegate = objc_opt_respondsToSelector();
+    if (scrubberDelegate)
     {
-      [v4 reviewScrubberDidScrub:self];
+      scrubberDelegate = [v4 reviewScrubberDidScrub:self];
     }
   }
 
-  MEMORY[0x1EEE66BE0]();
+  MEMORY[0x1EEE66BE0](scrubberDelegate);
 }
 
 - (void)_updateToSelectedIndexPath:(id)path

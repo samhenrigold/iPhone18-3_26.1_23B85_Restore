@@ -2,13 +2,13 @@ uint64_t Apple80211SetWithIOCTL()
 {
   v0 = MEMORY[0x28223BE20]();
   v5 = v4;
-  v392 = *MEMORY[0x277D85DE8];
-  v391 = 0;
+  v391 = *MEMORY[0x277D85DE8];
+  v390 = 0;
+  v388 = 0u;
   v389 = 0u;
-  v390 = 0u;
   number = 0xAAAAAAAAAAAAAAAALL;
-  v388 = 0;
   v387 = 0;
+  v386 = 0;
   if (!v0)
   {
     goto LABEL_597;
@@ -23,13 +23,13 @@ uint64_t Apple80211SetWithIOCTL()
   v7 = v3;
   v8 = v2;
   v9 = v1;
-  v391 = 0;
+  v390 = 0;
+  v388 = 0uLL;
   v389 = 0uLL;
-  v390 = 0uLL;
   __strlcpy_chk();
-  LODWORD(v390) = v5;
+  LODWORD(v389) = v5;
   __strlcpy_chk();
-  HIBYTE(v388) = 0;
+  HIBYTE(v387) = 0;
   LQMConfigFromDict = 4294963393;
   if (v5 > 367)
   {
@@ -75,7 +75,7 @@ uint64_t Apple80211SetWithIOCTL()
 
         *buffer = 1;
         *&buffer[4] = v9;
-        DWORD2(v390) = 16;
+        DWORD2(v389) = 16;
         goto LABEL_898;
       case 381:
         LQMConfigFromDict = 4294963396;
@@ -103,8 +103,8 @@ uint64_t Apple80211SetWithIOCTL()
           }
         }
 
-        DWORD2(v390) = 12;
-        v391 = __dst;
+        DWORD2(v389) = 12;
+        v390 = __dst;
         goto LABEL_899;
       case 382:
         v205 = 1;
@@ -245,7 +245,7 @@ uint64_t Apple80211SetWithIOCTL()
         HIDWORD(__dst[0]) = CFArrayGetCount(v8);
         if ((HIDWORD(__dst[0]) - 1) > 3)
         {
-          goto LABEL_911;
+          return LQMConfigFromDict;
         }
 
         v206 = 0;
@@ -304,15 +304,15 @@ uint64_t Apple80211SetWithIOCTL()
             _os_log_impl(&dword_254882000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "APPLE80211_IOC_REASSOCIATE_WITH_CORECAPTURE: Validation failed... triggerString:%@", buffer, 0xCu);
           }
 
-          goto LABEL_808;
+          return 4294963396;
         }
 
         CFStringGetCStringPtr(v250, 0);
         CFStringGetLength(v250);
         __memcpy_chk();
 LABEL_884:
-        DWORD2(v390) = 68;
-        v391 = __dst;
+        DWORD2(v389) = 68;
+        v390 = __dst;
         if (Apple80211IOCTLSetWrapper())
         {
           goto LABEL_826;
@@ -374,7 +374,7 @@ LABEL_593:
           goto LABEL_594;
         }
 
-        goto LABEL_837;
+        return 0;
       case 408:
         *(&__dst[1] + 4) = 0;
         *(__dst + 4) = 0;
@@ -386,8 +386,8 @@ LABEL_593:
           goto LABEL_753;
         }
 
-        DWORD2(v390) = 28;
-        v391 = __dst;
+        DWORD2(v389) = 28;
+        v390 = __dst;
         if (Apple80211IOCTLSetWrapper())
         {
           goto LABEL_868;
@@ -407,8 +407,8 @@ LABEL_587:
         *(__dst + 4) = 0;
         *(&__dst[2] + 4) = 0;
         LODWORD(__dst[0]) = 1;
-        DWORD2(v390) = 28;
-        v391 = __dst;
+        DWORD2(v389) = 28;
+        v390 = __dst;
         if (Apple80211IOCTLSetWrapper())
         {
           goto LABEL_643;
@@ -489,8 +489,8 @@ LABEL_587:
         HIDWORD(__dst[0]) = *v8;
         v200 = 8;
 LABEL_615:
-        DWORD2(v390) = v200;
-        v391 = __dst;
+        DWORD2(v389) = v200;
+        v390 = __dst;
         if (!Apple80211IOCTLSetWrapper())
         {
           goto LABEL_900;
@@ -529,7 +529,7 @@ LABEL_615:
           goto LABEL_872;
         }
 
-        DWORD2(v390) = 1;
+        DWORD2(v389) = 1;
         goto LABEL_421;
       case 459:
         if (!v8)
@@ -842,9 +842,9 @@ LABEL_639:
         v298 = v297;
         if (CFDataGetLength(v297) < 7)
         {
-          v395.length = CFDataGetLength(v298);
-          v395.location = 0;
-          CFDataGetBytes(v298, v395, &buffer[8]);
+          v394.length = CFDataGetLength(v298);
+          v394.location = 0;
+          CFDataGetBytes(v298, v394, &buffer[8]);
           v94 = 16;
           goto LABEL_880;
         }
@@ -901,9 +901,9 @@ LABEL_639:
           goto LABEL_933;
         }
 
-        v396.length = CFStringGetLength(v300);
-        v396.location = 0;
-        CFStringGetBytes(v300, v396, 0x600u, 0, 0, __dst, 200, 0);
+        v395.length = CFStringGetLength(v300);
+        v395.location = 0;
+        CFStringGetBytes(v300, v395, 0x600u, 0, 0, __dst, 200, 0);
         v301 = CFDictionaryGetValue(v8, @"IO80211InterfaceOSVersion");
         if (!v301)
         {
@@ -913,9 +913,9 @@ LABEL_639:
         v302 = v301;
         if (CFStringGetLength(v301) < 101)
         {
-          v397.length = CFStringGetLength(v302);
-          v397.location = 0;
-          CFStringGetBytes(v302, v397, 0x600u, 0, 0, &__dst[25], 100, 0);
+          v396.length = CFStringGetLength(v302);
+          v396.location = 0;
+          CFStringGetBytes(v302, v396, 0x600u, 0, 0, &__dst[25], 100, 0);
           v194 = 300;
           goto LABEL_420;
         }
@@ -1145,7 +1145,7 @@ LABEL_731:
           number = v314;
           if (!v314 || !CFNumberGetValue(v314, kCFNumberSInt32Type, v313))
           {
-            goto LABEL_808;
+            return 4294963396;
           }
 
           ++v312;
@@ -1305,9 +1305,9 @@ LABEL_416:
             goto LABEL_872;
           }
 
-          v398.location = 0;
-          v398.length = 16;
-          CFDataGetBytes(v342, v398, v341);
+          v397.location = 0;
+          v397.length = 16;
+          CFDataGetBytes(v342, v397, v341);
           ++v340;
           v341 += 16;
         }
@@ -1596,7 +1596,7 @@ LABEL_440:
         v209 = CFArrayGetCount(v8);
         if (v209 >= 0xF)
         {
-          goto LABEL_808;
+          return 4294963396;
         }
 
         *buffer = 0;
@@ -1620,7 +1620,7 @@ LABEL_440:
 
           if (LODWORD(__dst[0]) > 0xE)
           {
-            goto LABEL_808;
+            return 4294963396;
           }
 
           v210 |= 1 << (LOBYTE(__dst[0]) - 1);
@@ -1637,7 +1637,7 @@ LABEL_471:
 
             v120 = 4;
 LABEL_860:
-            DWORD2(v390) = v120;
+            DWORD2(v389) = v120;
             v344 = buffer;
             goto LABEL_824;
           }
@@ -1837,8 +1837,8 @@ LABEL_860:
         }
 
 LABEL_797:
-        DWORD2(v390) = 36;
-        v391 = __dst;
+        DWORD2(v389) = 36;
+        v390 = __dst;
         goto LABEL_642;
       case 542:
         if (!v8)
@@ -2232,8 +2232,8 @@ LABEL_562:
 LABEL_776:
         v181 = 40;
 LABEL_777:
-        DWORD2(v390) = v181;
-        v391 = __dst;
+        DWORD2(v389) = v181;
+        v390 = __dst;
         goto LABEL_803;
       case 547:
         LOWORD(valuePtr) = 250;
@@ -2410,7 +2410,7 @@ LABEL_501:
         memset(__dst, 0, 20);
         if (CFArrayGetCount(v8) != 9)
         {
-          goto LABEL_808;
+          return 4294963396;
         }
 
         v182 = __dst;
@@ -2461,11 +2461,11 @@ LABEL_822:
           goto LABEL_902;
         }
 
-        v391 = v8;
-        DWORD2(v390) = 4;
+        v390 = v8;
+        DWORD2(v389) = 4;
         goto LABEL_14;
       case 562:
-        SensingRequest = _setUCMExtProfile(v6, &v389, v8);
+        SensingRequest = _setUCMExtProfile(v6, &v388, v8);
         goto LABEL_753;
       case 564:
         LQMConfigFromDict = 4294963396;
@@ -2487,10 +2487,10 @@ LABEL_822:
         v76 = 4;
         goto LABEL_392;
       case 571:
-        SensingRequest = _setDeviceOrientation(v6, &v389, v8);
+        SensingRequest = _setDeviceOrientation(v6, &v388, v8);
         goto LABEL_753;
       case 572:
-        SensingRequest = _setAccessoryState(v6, &v389, v8);
+        SensingRequest = _setAccessoryState(v6, &v388, v8);
         goto LABEL_753;
       case 582:
         if (!v8)
@@ -2563,9 +2563,9 @@ LABEL_640:
         do
         {
           v360 = CFArrayGetValueAtIndex(v32, v358);
-          v399.length = CFDataGetLength(v360);
-          v399.location = 0;
-          CFDataGetBytes(v360, v399, v359);
+          v398.length = CFDataGetLength(v360);
+          v398.location = 0;
+          CFDataGetBytes(v360, v398, v359);
           ++v358;
           v359 += 6;
         }
@@ -2577,10 +2577,10 @@ LABEL_864:
     }
 
 LABEL_865:
-    DWORD2(v390) = v49;
+    DWORD2(v389) = v49;
     v361 = __dst;
 LABEL_866:
-    v391 = v361;
+    v390 = v361;
     goto LABEL_867;
   }
 
@@ -2610,7 +2610,7 @@ LABEL_866:
           goto LABEL_872;
         }
 
-        DWORD2(v390) = strlen(__dst);
+        DWORD2(v389) = strlen(__dst);
         goto LABEL_310;
       case 2:
         LQMConfigFromDict = 4294963396;
@@ -2661,8 +2661,8 @@ LABEL_340:
 
         v76 = 148;
 LABEL_392:
-        DWORD2(v390) = v76;
-        v391 = v8;
+        DWORD2(v389) = v76;
+        v390 = v8;
         goto LABEL_14;
       case 4:
         LQMConfigFromDict = 4294963396;
@@ -2811,8 +2811,8 @@ LABEL_405:
           goto LABEL_928;
         }
 
-        DWORD2(v390) = 6;
-        v391 = v115;
+        DWORD2(v389) = 6;
+        v390 = v115;
         goto LABEL_803;
       case 10:
       case 11:
@@ -2928,12 +2928,12 @@ LABEL_266:
           CFNumberGetValue(v103, kCFNumberSInt32Type, &__dst[1]);
         }
 
-        DWORD2(v390) = 12;
-        v391 = __dst;
+        DWORD2(v389) = 12;
+        v390 = __dst;
 LABEL_203:
         if (!Apple80211IOCTLSetWrapper())
         {
-          goto LABEL_837;
+          return 0;
         }
 
         if (*__error() != 102 && *__error() != 6)
@@ -2969,11 +2969,11 @@ LABEL_313:
         }
 
 LABEL_835:
-        DWORD1(v390) = 2;
+        DWORD1(v389) = 2;
 LABEL_836:
         if (!Apple80211IOCTLSetWrapper())
         {
-          goto LABEL_837;
+          return 0;
         }
 
 LABEL_594:
@@ -3118,8 +3118,8 @@ LABEL_302:
           {
 LABEL_119:
             HIDWORD(__dst[0]) = v59;
-            DWORD2(v390) = 24;
-            v391 = __dst;
+            DWORD2(v389) = 24;
+            v390 = __dst;
             goto LABEL_825;
           }
         }
@@ -3138,8 +3138,8 @@ LABEL_119:
           goto LABEL_753;
         }
 
-        DWORD2(v390) = 8240;
-        v391 = __dst;
+        DWORD2(v389) = 8240;
+        v390 = __dst;
         goto LABEL_825;
       case 51:
         __dst[0] = 0;
@@ -3269,7 +3269,7 @@ LABEL_326:
         LODWORD(__dst[0]) = -1431655766;
         if (!v104)
         {
-          goto LABEL_830;
+          return 4294963395;
         }
 
         v105 = v104;
@@ -3328,26 +3328,26 @@ LABEL_215:
           goto LABEL_219;
         }
 
-        v370 = v114;
+        v369 = v114;
         if (v114 >= 1)
         {
-          v371 = 0;
-          v372 = v105 + 5;
+          v370 = 0;
+          v371 = v105 + 5;
           while (1)
           {
-            v373 = CFArrayGetValueAtIndex(v113, v371);
-            v374 = CFDataGetLength(v373);
-            *(v372 - 1) = v374;
-            if (v374 > 0x5DC)
+            v372 = CFArrayGetValueAtIndex(v113, v370);
+            v373 = CFDataGetLength(v372);
+            *(v371 - 1) = v373;
+            if (v373 > 0x5DC)
             {
               break;
             }
 
-            BytePtr = CFDataGetBytePtr(v373);
-            memcpy(v372, BytePtr, 0x5DCuLL);
-            ++v371;
-            v372 += 376;
-            if (v370 == v371)
+            BytePtr = CFDataGetBytePtr(v372);
+            memcpy(v371, BytePtr, 0x5DCuLL);
+            ++v370;
+            v371 += 376;
+            if (v369 == v370)
             {
               goto LABEL_916;
             }
@@ -3355,31 +3355,31 @@ LABEL_215:
 
 LABEL_219:
           free(v105);
-          goto LABEL_808;
+          return 4294963396;
         }
 
 LABEL_916:
-        v105[3] = v370;
+        v105[3] = v369;
 LABEL_917:
-        v376 = CFDictionaryGetValue(v8, @"WOW_ENABLE_LPAS");
+        v375 = CFDictionaryGetValue(v8, @"WOW_ENABLE_LPAS");
+        if (v375)
+        {
+          LODWORD(v375) = CFBooleanGetValue(v375);
+        }
+
+        v105[3764] = v375;
+        v376 = CFDictionaryGetValue(v8, @"WOW_ENABLE_CAPTIVE");
         if (v376)
         {
           LODWORD(v376) = CFBooleanGetValue(v376);
         }
 
-        v105[3764] = v376;
-        v377 = CFDictionaryGetValue(v8, @"WOW_ENABLE_CAPTIVE");
-        if (v377)
-        {
-          LODWORD(v377) = CFBooleanGetValue(v377);
-        }
-
-        v105[3765] = v377;
-        DWORD2(v390) = 15064;
-        v391 = v105;
-        v378 = Apple80211RawSet();
+        v105[3765] = v376;
+        DWORD2(v389) = 15064;
+        v390 = v105;
+        v377 = Apple80211RawSet();
         free(v105);
-        if (!v378)
+        if (!v377)
         {
           goto LABEL_900;
         }
@@ -3392,19 +3392,19 @@ LABEL_917:
         number = v170;
         if (!v170)
         {
-          goto LABEL_808;
+          return 4294963396;
         }
 
         if (!CFNumberGetValue(v170, kCFNumberSInt32Type, __dst + 4))
         {
-          goto LABEL_808;
+          return 4294963396;
         }
 
         v171 = CFDictionaryGetValue(v8, @"ROAM_THRESH_RATE");
         number = v171;
         if (!v171 || !CFNumberGetValue(v171, kCFNumberSInt32Type, &__dst[1]))
         {
-          goto LABEL_808;
+          return 4294963396;
         }
 
         goto LABEL_320;
@@ -3438,31 +3438,31 @@ LABEL_917:
         number = v95;
         if (!v95)
         {
-          goto LABEL_808;
+          return 4294963396;
         }
 
         if (!CFNumberGetValue(v95, kCFNumberSInt32Type, __dst + 4))
         {
-          goto LABEL_808;
+          return 4294963396;
         }
 
         v96 = CFDictionaryGetValue(v8, @"LQ_TX_RATE_DIVISOR");
         number = v96;
         if (!v96)
         {
-          goto LABEL_808;
+          return 4294963396;
         }
 
         if (!CFNumberGetValue(v96, kCFNumberSInt32Type, &__dst[1]))
         {
-          goto LABEL_808;
+          return 4294963396;
         }
 
         v97 = CFDictionaryGetValue(v8, @"LQ_EVENT_MIN_INTERVAL");
         number = v97;
         if (!v97 || !CFNumberGetValue(v97, kCFNumberSInt32Type, &__dst[1] + 4))
         {
-          goto LABEL_808;
+          return 4294963396;
         }
 
         goto LABEL_822;
@@ -3473,18 +3473,18 @@ LABEL_917:
         number = v163;
         if (!v163)
         {
-          goto LABEL_808;
+          return 4294963396;
         }
 
         if (!CFNumberGetValue(v163, kCFNumberSInt32Type, __dst + 4))
         {
-          goto LABEL_808;
+          return 4294963396;
         }
 
         v164 = CFDictionaryGetValue(v8, @"CUSTOM_IE_ADD");
         if (!v164)
         {
-          goto LABEL_808;
+          return 4294963396;
         }
 
         LODWORD(__dst[1]) = CFBooleanGetValue(v164) != 0;
@@ -3492,18 +3492,18 @@ LABEL_917:
         number = v165;
         if (!v165)
         {
-          goto LABEL_808;
+          return 4294963396;
         }
 
         if (!CFNumberGetValue(v165, kCFNumberSInt32Type, &__dst[1] + 4))
         {
-          goto LABEL_808;
+          return 4294963396;
         }
 
         v166 = CFDictionaryGetValue(v8, @"CUSTOM_IE_DATA");
         if (!v166)
         {
-          goto LABEL_808;
+          return 4294963396;
         }
 
         v167 = v166;
@@ -3512,9 +3512,9 @@ LABEL_917:
         __memcpy_chk();
         v156 = 2068;
 LABEL_309:
-        DWORD2(v390) = v156;
+        DWORD2(v389) = v156;
 LABEL_310:
-        v391 = __dst;
+        v390 = __dst;
         goto LABEL_825;
       case 94:
         LODWORD(__dst[0]) = 1;
@@ -3528,11 +3528,11 @@ LABEL_310:
         {
           CStringPtr = CFStringGetCStringPtr(@"VIRT_IF_ROLE", 0x600u);
           syslog(3, "APPLE80211_IOC_VIRTUAL_IF_CREATE %s is invalid\n", CStringPtr);
-          goto LABEL_808;
+          return 4294963396;
         }
 
-        DWORD2(v390) = 32;
-        v391 = __dst;
+        DWORD2(v389) = 32;
+        v390 = __dst;
         v99 = Apple80211IOCTLSetWrapper();
         syslog(3, "APPLE80211_IOC_VIRTUAL_IF_CREATE bsdErr %d\n", v99);
         if (v99)
@@ -3549,9 +3549,7 @@ LABEL_310:
           goto LABEL_900;
         }
 
-LABEL_830:
-        LQMConfigFromDict = 4294963395;
-        goto LABEL_911;
+        return 4294963395;
       case 95:
         LODWORD(__dst[0]) = 1;
         *(&__dst[1] + 4) = 0;
@@ -3559,13 +3557,13 @@ LABEL_830:
         v154 = CFDictionaryGetValue(v8, @"VIRT_IF_NAME");
         if (!v154 || !CFStringGetCString(v154, __dst + 4, 16, 0x8000100u))
         {
-          goto LABEL_808;
+          return 4294963396;
         }
 
         v155 = 20;
 LABEL_802:
-        DWORD2(v390) = v155;
-        v391 = __dst;
+        DWORD2(v389) = v155;
+        v390 = __dst;
 LABEL_803:
         if (!Apple80211IOCTLSetWrapper())
         {
@@ -3717,12 +3715,12 @@ LABEL_859:
               goto LABEL_860;
             }
 
-            LOBYTE(v382) = 0;
-            CFNumberGetValue(v355, kCFNumberSInt8Type, &v382);
-            v365 = v382;
-            if (v382 <= 4u)
+            LOBYTE(v381) = 0;
+            CFNumberGetValue(v355, kCFNumberSInt8Type, &v381);
+            v365 = v381;
+            if (v381 <= 4u)
             {
-              buffer[7] = v382;
+              buffer[7] = v381;
               buffer[6] = 1;
               buffer[4] = 0;
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -3833,7 +3831,7 @@ LABEL_889:
           goto LABEL_902;
         }
 
-        SensingRequest = _setRoamProfile(v6, &v389, v8);
+        SensingRequest = _setRoamProfile(v6, &v388, v8);
         goto LABEL_753;
     }
   }
@@ -3850,12 +3848,12 @@ LABEL_348:
           goto LABEL_902;
         }
 
-        SensingRequest = _setUCMProfile(v6, &v389, v8);
+        SensingRequest = _setUCMProfile(v6, &v388, v8);
 LABEL_753:
         LQMConfigFromDict = SensingRequest;
         if (!SensingRequest)
         {
-          goto LABEL_911;
+          return LQMConfigFromDict;
         }
 
         goto LABEL_902;
@@ -3867,7 +3865,7 @@ LABEL_753:
         {
           if (v5 == 260)
           {
-            SensingRequest = _set2GChainDisable(v6, &v389, v8);
+            SensingRequest = _set2GChainDisable(v6, &v388, v8);
             goto LABEL_753;
           }
 
@@ -3886,7 +3884,7 @@ LABEL_753:
           goto LABEL_872;
         }
 
-        DWORD1(v390) = __dst[0];
+        DWORD1(v389) = __dst[0];
 LABEL_642:
         if (Apple80211IOCTLSetWrapper())
         {
@@ -3899,7 +3897,7 @@ LABEL_643:
 LABEL_901:
           if (!LQMConfigFromDict)
           {
-            goto LABEL_911;
+            return LQMConfigFromDict;
           }
 
           goto LABEL_902;
@@ -3931,11 +3929,15 @@ LABEL_900:
           v78 = CFDictionaryGetValue(v8, @"CHIP_RESET_TRIGGER");
           v79 = CFDictionaryGetValue(v8, @"CHIP_RESET_NONFATAL");
           v80 = makeBoolRef(v79);
-          if (!v78 || (v81 = v80, CFStringGetLength(v78) > 128))
+          if (!v78)
           {
-LABEL_808:
-            LQMConfigFromDict = 4294963396;
-            goto LABEL_911;
+            return 4294963396;
+          }
+
+          v81 = v80;
+          if (CFStringGetLength(v78) > 128)
+          {
+            return 4294963396;
           }
 
           CFStringGetCStringPtr(v78, 0);
@@ -3949,8 +3951,8 @@ LABEL_808:
 
         v82 = 136;
 LABEL_327:
-        DWORD2(v390) = v82;
-        v391 = __dst;
+        DWORD2(v389) = v82;
+        v390 = __dst;
         break;
       case 241:
         v77 = __dst;
@@ -3961,9 +3963,9 @@ LABEL_327:
           goto LABEL_753;
         }
 
-        *(&v390 + 4) = v9 | 0x70800000000;
+        *(&v389 + 4) = v9 | 0x70800000000;
 LABEL_898:
-        v391 = v77;
+        v390 = v77;
 LABEL_899:
         if (!Apple80211RawSet())
         {
@@ -4016,7 +4018,7 @@ LABEL_828:
               v19 = 9;
             }
 
-            v380 = v19;
+            v379 = v19;
             v21 = v19 + 1;
             v22 = &__dst[11] + 4;
             while (1)
@@ -4051,14 +4053,14 @@ LABEL_928:
                 goto LABEL_872;
               }
 
-              v393.location = 0;
-              v393.length = 72;
-              CFDataGetBytes(v28, v393, v22);
+              v392.location = 0;
+              v392.length = 72;
+              CFDataGetBytes(v28, v392, v22);
               ++v20;
               v22 += 120;
               if (v21 == v20)
               {
-                v29 = v380 + 1;
+                v29 = v379 + 1;
                 goto LABEL_924;
               }
             }
@@ -4070,10 +4072,10 @@ LABEL_924:
         LODWORD(__dst[5]) = v29;
         v135 = 1244;
 LABEL_823:
-        DWORD2(v390) = v135;
+        DWORD2(v389) = v135;
         v344 = __dst;
 LABEL_824:
-        v391 = v344;
+        v390 = v344;
         break;
       default:
         goto LABEL_902;
@@ -4278,9 +4280,9 @@ LABEL_597:
 LABEL_419:
       v194 = 4;
 LABEL_420:
-      DWORD2(v390) = v194;
+      DWORD2(v389) = v194;
 LABEL_421:
-      v391 = __dst;
+      v390 = __dst;
     }
 
     else
@@ -4291,13 +4293,11 @@ LABEL_11:
         LQMConfigFromDict = 4294963396;
         if (v8 && v7 == 4)
         {
-          DWORD1(v390) = *v8;
+          DWORD1(v389) = *v8;
 LABEL_14:
           if (!Apple80211IOCTLSetWrapper())
           {
-LABEL_837:
-            LQMConfigFromDict = 0;
-            goto LABEL_911;
+            return 0;
           }
 
           if (*__error() == 102 || *__error() == 6)
@@ -4332,8 +4332,8 @@ LABEL_17:
 
       v13 = 36;
 LABEL_572:
-      DWORD2(v390) = v13;
-      v391 = __dst;
+      DWORD2(v389) = v13;
+      v390 = __dst;
     }
 
 LABEL_867:
@@ -4355,7 +4355,7 @@ LABEL_873:
       LQMConfigFromDict = *__error();
       if (!LQMConfigFromDict)
       {
-        goto LABEL_911;
+        return LQMConfigFromDict;
       }
 
       goto LABEL_902;
@@ -4386,7 +4386,7 @@ LABEL_873:
       CFNumberGetValue(v86, kCFNumberSInt32Type, &valuePtr);
       v87 = valuePtr;
       *&buffer[8] = valuePtr;
-      v382 = -1431655766;
+      v381 = -1431655766;
       v88 = CFDictionaryGetValue(v8, @"IO80211InterfaceSoftAPCSAChannelFlag");
       number = v88;
       if (!v88)
@@ -4394,10 +4394,10 @@ LABEL_873:
         goto LABEL_872;
       }
 
-      CFNumberGetValue(v88, kCFNumberSInt32Type, &v382);
-      v89 = v382;
-      *&buffer[12] = v382;
-      v381 = -1431655766;
+      CFNumberGetValue(v88, kCFNumberSInt32Type, &v381);
+      v89 = v381;
+      *&buffer[12] = v381;
+      v380 = -1431655766;
       v90 = CFDictionaryGetValue(v8, @"IO80211InterfaceSoftAPCSASwitchCount");
       number = v90;
       if (!v90)
@@ -4405,9 +4405,9 @@ LABEL_873:
         goto LABEL_872;
       }
 
-      CFNumberGetValue(v90, kCFNumberSInt32Type, &v381);
-      v91 = v381;
-      *&buffer[16] = v381;
+      CFNumberGetValue(v90, kCFNumberSInt32Type, &v380);
+      v91 = v380;
+      *&buffer[16] = v380;
       v92 = CFDictionaryGetValue(v8, @"IO80211InterfaceSoftAPCSAForceDisconnect");
       if (!v92)
       {
@@ -4493,9 +4493,9 @@ LABEL_872:
         __dst[0] = 0;
         if (CFStringGetLength(v55))
         {
-          v394.location = 0;
-          v394.length = v57;
-          if (!CFStringGetBytes(v55, v394, 0x8000100u, 0, 0, &buffer[4], 32, __dst))
+          v393.location = 0;
+          v393.length = v57;
+          if (!CFStringGetBytes(v55, v393, 0x8000100u, 0, 0, &buffer[4], 32, __dst))
           {
             goto LABEL_597;
           }
@@ -4533,7 +4533,7 @@ LABEL_872:
     }
 
 LABEL_880:
-    DWORD2(v390) = v94;
+    DWORD2(v389) = v94;
     v361 = buffer;
     goto LABEL_866;
   }
@@ -4547,8 +4547,8 @@ LABEL_6:
 LABEL_8:
       v11 = 1;
 LABEL_641:
-      DWORD2(v390) = v11;
-      v391 = __dst;
+      DWORD2(v389) = v11;
+      v390 = __dst;
       goto LABEL_642;
     }
 
@@ -4602,8 +4602,8 @@ LABEL_641:
       goto LABEL_872;
     }
 
-    DWORD2(v390) = 16;
-    v391 = buffer;
+    DWORD2(v389) = 16;
+    v390 = buffer;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(__dst[0]) = 136315394;
@@ -4644,7 +4644,7 @@ LABEL_902:
     WORD2(__dst[3]) = 2048;
     *(&__dst[3] + 6) = v366 % 0x3B9ACA00 / 0x3E8;
     HIWORD(__dst[4]) = 2082;
-    __dst[5] = &v387;
+    __dst[5] = &v386;
     LOWORD(__dst[6]) = 1024;
     *(&__dst[6] + 2) = v5;
     HIWORD(__dst[6]) = 2082;
@@ -4656,63 +4656,72 @@ LABEL_902:
     _os_log_impl(&dword_254882000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}s:%u @[%llu.%06llu] ifname['%{public}s'] IOCTL type %d/'%{public}s' return %d/0x%08x\n", __dst, 0x4Cu);
   }
 
-LABEL_911:
-  v368 = *MEMORY[0x277D85DE8];
   return LQMConfigFromDict;
 }
 
-void Apple80211EventMonitoringHelper(uint64_t a1, int a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void Apple80211EventMonitoringHelper(uint64_t a1, int a2, uint64_t a3, int a4)
 {
-  v75 = *MEMORY[0x277D85DE8];
-  if (!*(a1 + 1820) || (v9 = *(a1 + 1848)) == 0 || !*(a1 + 1856) || !*(a1 + 1872))
+  v67 = *MEMORY[0x277D85DE8];
+  if (!*(a1 + 1820) || (v5 = *(a1 + 1848)) == 0 || !*(a1 + 1856) || !*(a1 + 1872))
   {
-    _logEventPipeLogWithFormat(0, 0, 0, 1, "%s:%u IOUCPipe is invalid\n", a6, a7, a8, "Apple80211EventMonitoringHelper");
-    goto LABEL_9;
+    _logEventPipeLogWithFormat(0, 0, 0, 1, "%s:%u IOUCPipe is invalid\n");
+    return;
   }
 
-  v71 = 0;
-  IONotificationPortGetMachPort(v9);
+  v63 = 0;
+  MachPort = IONotificationPortGetMachPort(v5);
   current_queue = dispatch_get_current_queue();
-  dispatch_queue_get_label(current_queue);
-  pthread_threadid_np(0, &v71);
-  v11 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-  v12 = *(a1 + 1872);
-  v13 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-  v61 = *v12;
-  v63 = *(a1 + 1952);
-  v58 = *(a1 + 1848);
-  _logEventPipeLogWithFormat(0, *(a1 + 1832), 2, 0, "%s:%u @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u], ENTERED readOffset[%d], suspended[%u]\n", v14, v15, v16, "Apple80211EventMonitoringHelper");
+  label = dispatch_queue_get_label(current_queue);
+  if (label)
+  {
+    v9 = label;
+  }
+
+  else
+  {
+    v9 = "";
+  }
+
+  pthread_threadid_np(0, &v63);
+  v10 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+  v11 = *(a1 + 1872);
+  v12 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+  v58 = v10 / 0x3B9ACA00;
+  _logEventPipeLogWithFormat(0, *(a1 + 1832), 2, 0, "%s:%u @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u], ENTERED readOffset[%d], suspended[%u]\n", "Apple80211EventMonitoringHelper", 5812, v10 / 0x3B9ACA00, v10 % 0x3B9ACA00 / 0x3E8, v63, current_queue, v9, a1, *(a1 + 1848), MachPort, *v11, *(a1 + 1952));
   if (!*(a1 + 1952))
   {
-    v17 = v12[1];
-    v18 = v11;
-    if (v17 == *v12)
+    v53 = MachPort;
+    v54 = v10 % 0x3B9ACA00 / 0x3E8;
+    v52 = current_queue;
+    v13 = v11[1];
+    v14 = v10;
+    if (v13 == *v11)
     {
-      goto LABEL_7;
+      goto LABEL_10;
     }
 
     while (1)
     {
-      v67 = *v12;
-      v73 = 0u;
-      v74 = 0u;
-      v72 = 0u;
-      v26 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW) - v13;
+      v59 = *v11;
+      v65 = 0u;
+      v66 = 0u;
+      v64 = 0u;
+      v15 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW) - v12;
       if (*(a1 + 1840))
       {
-        v27 = v26 >= 0xBEBC201;
+        v16 = v15 >= 0xBEBC201;
       }
 
       else
       {
-        v27 = 0;
+        v16 = 0;
       }
 
-      if (v27)
+      if (v16)
       {
-        _logEventPipeLogWithFormat(0, 0, 0, 1, "%s:%u processing events for %llu ms, temporarily suspending to prevent starvation", v23, v24, v25, "Apple80211EventMonitoringHelper");
+        _logEventPipeLogWithFormat(0, 0, 0, 1, "%s:%u processing events for %llu ms, temporarily suspending to prevent starvation", "Apple80211EventMonitoringHelper", 5844, v15 / 0xF4240);
         *(a1 + 1952) = 1;
-        v49 = *(a1 + 1840);
+        v38 = *(a1 + 1840);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 0x40000000;
         block[2] = __Apple80211EventMonitoringHelper_block_invoke;
@@ -4720,172 +4729,161 @@ void Apple80211EventMonitoringHelper(uint64_t a1, int a2, uint64_t a3, int a4, u
         block[4] = a1;
         block[5] = a1;
         block[6] = a3;
-        v69 = a2;
-        v70 = a4;
-        dispatch_async(v49, block);
-        goto LABEL_7;
+        v61 = a2;
+        v62 = a4;
+        dispatch_async(v38, block);
+        goto LABEL_10;
       }
 
       __dmb(0xBu);
-      v28 = *(a1 + 1864);
-      if (v28 < v67)
+      v17 = *(a1 + 1864);
+      if (v17 < v59)
       {
-        v50 = "%s:%u Ring offset out of range: %u > %llu\n";
-LABEL_55:
-        _logEventPipeLogWithFormat(0, 0, 0, 1, v50, v23, v24, v25, "Apple80211EventMonitoringHelper");
-        goto LABEL_9;
+        v41 = v59;
+        v42 = *(a1 + 1864);
+        v39 = 5856;
+        v40 = "%s:%u Ring offset out of range: %u > %llu\n";
+LABEL_58:
+        _logEventPipeLogWithFormat(0, 0, 0, 1, v40, "Apple80211EventMonitoringHelper", v39, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51);
+        return;
       }
 
-      v29 = *(a1 + 1856);
-      v30 = v29 + v67;
-      if ((v30 & 3) != 0)
+      v18 = *(a1 + 1856);
+      v19 = &v18[v59];
+      if ((v19 & 3) != 0)
       {
-        v50 = "%s:%u Read Ptr is not multiple of %lu (%d) \n";
-        goto LABEL_55;
+        v41 = 4;
+        v42 = v59;
+        v39 = 5862;
+        v40 = "%s:%u Read Ptr is not multiple of %lu (%d) \n";
+        goto LABEL_58;
       }
 
-      v31 = *v30;
-      if (*v30 == 80 || v28 - v67 <= 0x2F)
+      v20 = *v19;
+      if (*v19 == 80 || v17 - v59 <= 0x2F)
       {
         break;
       }
 
-      v35 = *v30;
-      v36 = *(v30 + 32);
-      v73 = *(v30 + 16);
-      v74 = v36;
-      v72 = v35;
-      if (v67 == *v12 && v31 == v72)
+      v24 = *v19;
+      v25 = *(v19 + 2);
+      v65 = *(v19 + 1);
+      v66 = v25;
+      v64 = v24;
+      if (v59 == *v11 && v20 == v64)
       {
-        if (v72 != 87)
+        if (v64 != 87)
         {
-          if ((HIDWORD(v73) - 246) >= 0xFFFFFF0B)
-          {
-            v51 = gAppleMIndexToString[HIDWORD(v73)];
-          }
-
-          v52 = "%s:%u Invalid Metadata state, dump METADATA[%p]: state %d, sequenceNumber %u, payload %u, padding %u, event_code %u/'%s', ifname '%s', readOffset 0x%x, writeOffset 0x%x\n";
-LABEL_62:
-          _logEventPipeLogWithFormat(0, 0, 0, 1, v52, v23, v24, v25, "Apple80211EventMonitoringHelper");
-LABEL_7:
-          clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-          v62 = *v12;
-          v59 = *(a1 + 1848);
-          _logEventPipeLogWithFormat(0, *(a1 + 1832), 2, 0, "%s:%u @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u], EXIT readOffset[%d], total time [%llu.%06llu]\n", v19, v20, v21, "Apple80211EventMonitoringHelper");
-          goto LABEL_9;
+          _logEventPipeLogWithFormat(0, 0, 0, 1, "%s:%u Invalid Metadata state, dump METADATA[%p]: state %d, sequenceNumber %u, payload %u, padding %u, event_code %u/'%s', ifname '%s', readOffset 0x%x, writeOffset 0x%x\n", "Apple80211EventMonitoringHelper", 5892, v19, v64, WORD3(v64), WORD4(v65));
+          goto LABEL_10;
         }
 
-        v37 = (v67 + 48) % v28;
-        v38 = v37 + v29;
-        v39 = WORD4(v73);
-        if (v37 + WORD4(v73) <= v28)
+        v26 = (v59 + 48) % v17;
+        v27 = &v18[v26];
+        v28 = WORD4(v65);
+        if (v26 + WORD4(v65) <= v17)
         {
-          v42 = 0;
-          v41 = 0;
+          v31 = 0;
+          v30 = 0;
         }
 
         else
         {
-          v40 = (v28 - v37);
-          v41 = WORD4(v73) - v40;
-          v42 = v29;
-          v60 = *(a1 + 1848);
-          v43 = v18;
-          v44 = v37 + v29;
-          _logEventPipeLogWithFormat(0, *(a1 + 1832), 2, 0, "%s:%u @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u], log continuation/rollover, logMetadata[%p] log[%p] logSize[%llu] logPayloadOffset[%llu] logContinue[%p] logContinueSize[%llu]\n", v23, v24, v25, "Apple80211EventMonitoringHelper");
-          v38 = v44;
-          v18 = v43;
-          v29 = *(a1 + 1856);
-          v28 = *(a1 + 1864);
-          v39 = v40;
+          v29 = (v17 - v26);
+          v30 = WORD4(v65) - v29;
+          v31 = v18;
+          v32 = v14;
+          v33 = &v18[v26];
+          _logEventPipeLogWithFormat(0, *(a1 + 1832), 2, 0, "%s:%u @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u], log continuation/rollover, logMetadata[%p] log[%p] logSize[%llu] logPayloadOffset[%llu] logContinue[%p] logContinueSize[%llu]\n", "Apple80211EventMonitoringHelper", 5914, v58, v54, v63, v52, v9, a1, *(a1 + 1848), v53, v19, &v18[v26], v29, v26, v18, v30);
+          v27 = v33;
+          v14 = v32;
+          v18 = *(a1 + 1856);
+          v17 = *(a1 + 1864);
+          v28 = v29;
         }
 
-        v45 = v38 < v29 + v28 && v38 >= v29;
-        if (!v45 || v42 && (v42 < v29 || v42 >= v29 + v28) || v39 >= v28 || v41 >= v28)
+        v34 = v27 < &v18[v17] && v27 >= v18;
+        if (!v34 || v31 && (v31 < v18 || v31 >= &v18[v17]) || v28 >= v17 || v30 >= v17)
         {
-          v52 = "%s: Unexpected log parameters ring state3(0x%llx), ring buffer(0x%llx), ring size(%llu), logSize(%lu), logContinueSize(%lu)\n";
-          v54 = *(a1 + 1872);
-          goto LABEL_62;
+          _logEventPipeLogWithFormat(0, 0, 0, 1, "%s: Unexpected log parameters ring state3(0x%llx), ring buffer(0x%llx), ring size(%llu), logSize(%lu), logContinueSize(%lu)\n", "Apple80211EventMonitoringHelper", *(a1 + 1872), v18);
+          goto LABEL_10;
         }
 
-        if (_writeEventBuffer())
+        v35 = _writeEventBuffer();
+        if (v35)
         {
-          v46 = *v12;
-          if ((HIDWORD(v73) - 246) >= 0xFFFFFF0B)
+          v36 = "unknown APPLE80211_M_";
+          if ((HIDWORD(v65) - 246) >= 0xFFFFFF0B)
           {
-            v47 = gAppleMIndexToString[HIDWORD(v73)];
+            v36 = gAppleMIndexToString[HIDWORD(v65)];
           }
 
-          _logEventPipeLogWithFormat(0, 0, 0, 1, "%s: Unexpected _writeEventBuffer err[%d] while processing event, [%u->%u], state[0x%08x] flags[0x%04x] sequenceNumber[0x%04x] timestamp[0x%016llx sec, 0x%016llx usec] payloadLength[0x%04x/%u] padding[%u] event_code[%u]/'%s' ifname['%s']\n", v23, v24, v25, "Apple80211EventMonitoringHelper");
+          _logEventPipeLogWithFormat(0, 0, 0, 1, "%s: Unexpected _writeEventBuffer err[%d] while processing event, [%u->%u], state[0x%08x] flags[0x%04x] sequenceNumber[0x%04x] timestamp[0x%016llx sec, 0x%016llx usec] payloadLength[0x%04x/%u] padding[%u] event_code[%u]/'%s' ifname['%s']\n", "Apple80211EventMonitoringHelper", v35, v59, *v11, v64, WORD2(v64), WORD3(v64), *(&v64 + 1), v65, WORD4(v65), WORD4(v65), WORD5(v65), HIDWORD(v65), v36, &v66);
         }
 
-        if (v67 != *v12)
+        if (v59 != *v11)
         {
-          v56 = *v12;
-          v52 = "%s:read pointer moved [%u->%u] unexpected while processing event\n";
-          goto LABEL_62;
+          _logEventPipeLogWithFormat(0, 0, 0, 1, "%s:read pointer moved [%u->%u] unexpected while processing event\n");
+LABEL_10:
+          clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+          _logEventPipeLogWithFormat(0, *(a1 + 1832), 2, 0, "%s:%u @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u], EXIT readOffset[%d], total time [%llu.%06llu]\n", "Apple80211EventMonitoringHelper", 6020, v58, v54, v63, v52, v9, a1, *(a1 + 1848));
+          return;
         }
 
-        v48 = (*(a1 + 1856) + *v12);
-        if (v72 == *v48)
+        v37 = *(a1 + 1856) + *v11;
+        if (v64 == *v37)
         {
-          if (__PAIR64__(WORD5(v73), WORD4(v73)) == __PAIR64__(*(v48 + 13), *(v48 + 12)))
+          if (__PAIR64__(WORD5(v65), WORD4(v65)) == __PAIR64__(*(v37 + 26), *(v37 + 24)))
           {
-            v32 = (WORD4(v73) + WORD5(v73) + v67 + 48) % *(a1 + 1864);
-            if ((v32 & 3) != 0)
+            v21 = (WORD4(v65) + WORD5(v65) + v59 + 48) % *(a1 + 1864);
+            if ((v21 & 3) != 0)
             {
-              v57 = *v12;
-              v52 = "%s: Created a bad offset, don't save it, localReadOffset %u, payload %u, padding %u, total length %lu, oldOffset %u, newOffset %u, ringSize 0x%llx";
-              goto LABEL_62;
+              _logEventPipeLogWithFormat(0, 0, 0, 1, "%s: Created a bad offset, don't save it, localReadOffset %u, payload %u, padding %u, total length %lu, oldOffset %u, newOffset %u, ringSize 0x%llx", "Apple80211EventMonitoringHelper", v59, WORD4(v65), WORD5(v65));
+              goto LABEL_10;
             }
 
-            goto LABEL_19;
+            goto LABEL_22;
           }
 
-          _logEventPipeLogWithFormat(0, 0, 0, 1, "%s:metadata payload/padding changed [%u/%u->%u/%u] while processing event, retrying\n", v23, v24, v25, "Apple80211EventMonitoringHelper");
+          _logEventPipeLogWithFormat(0, 0, 0, 1, "%s:metadata payload/padding changed [%u/%u->%u/%u] while processing event, retrying\n", "Apple80211EventMonitoringHelper");
         }
 
         else
         {
-          v55 = *v48;
-          _logEventPipeLogWithFormat(0, 0, 0, 1, "%s:metadata state changed [%d->%d] while processing event, retrying\n", v23, v24, v25, "Apple80211EventMonitoringHelper");
+          _logEventPipeLogWithFormat(0, 0, 0, 1, "%s:metadata state changed [%d->%d] while processing event, retrying\n");
         }
       }
 
       else
       {
-        _logEventPipeLogWithFormat(0, 0, 0, 1, "%s:%u Read pointer moved while copying metadata. Retrying.\n", v23, v24, v25, "Apple80211EventMonitoringHelper");
+        _logEventPipeLogWithFormat(0, 0, 0, 1, "%s:%u Read pointer moved while copying metadata. Retrying.\n");
       }
 
-LABEL_28:
-      if (v17 == *v12)
+LABEL_31:
+      if (v13 == *v11)
       {
-        goto LABEL_7;
+        goto LABEL_10;
       }
     }
 
-    _logEventPipeLogWithFormat(0, 0, 0, 1, "%s:%u Skipping Padding Read offset is %d\n", v23, v24, v25, "Apple80211EventMonitoringHelper");
-    LODWORD(v32) = (v67 + 4) % *(a1 + 1864);
-LABEL_19:
-    v33 = v67;
-    v34 = v67;
-    atomic_compare_exchange_strong_explicit(v12, &v34, v32, memory_order_relaxed, memory_order_relaxed);
-    if (v34 == v33)
+    _logEventPipeLogWithFormat(0, 0, 0, 1, "%s:%u Skipping Padding Read offset is %d\n", "Apple80211EventMonitoringHelper", 5872, v59);
+    LODWORD(v21) = (v59 + 4) % *(a1 + 1864);
+LABEL_22:
+    v22 = v59;
+    v23 = v59;
+    atomic_compare_exchange_strong_explicit(v11, &v23, v21, memory_order_relaxed, memory_order_relaxed);
+    if (v23 == v22)
     {
-      v17 = v12[1];
+      v13 = v11[1];
     }
 
     else
     {
-      v53 = *v12;
-      _logEventPipeLogWithFormat(0, 0, 0, 1, "%s: Couldn't update read ptr, ringRead Offset %u, oldReadOffset %u, newOffset %u\n", v23, v24, v25, "Apple80211EventMonitoringHelper");
+      _logEventPipeLogWithFormat(0, 0, 0, 1, "%s: Couldn't update read ptr, ringRead Offset %u, oldReadOffset %u, newOffset %u\n", "Apple80211EventMonitoringHelper");
     }
 
-    goto LABEL_28;
+    goto LABEL_31;
   }
-
-LABEL_9:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t Apple80211IOCTLSetWrapper()
@@ -4893,780 +4891,905 @@ uint64_t Apple80211IOCTLSetWrapper()
   v0 = MEMORY[0x28223BE20]();
   v2 = v1;
   v3 = v0;
-  v65 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v4 = *(v1 + 16);
   if (!*(v0 + 109))
   {
     if (!*(v0 + 1817))
     {
-      memset(v40, 0, 32);
-      v10 = v0 + 4;
+      memset(v38, 0, 32);
+      v9 = v0 + 4;
       __strlcpy_chk();
-      v11 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-      ioctl(*v3, 0xC0206911uLL, v40);
-      v12 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW) - v11;
-      if (v12 > 0x3B9AC9FF && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      v10 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+      ioctl(*v3, 0xC0206911uLL, v38);
+      v11 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW) - v10;
+      if (v11 > 0x3B9AC9FF && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136448258;
-        v54 = "_logTimeIfThresholdExceeded";
-        v55 = 2082;
-        *v56 = v40;
-        *&v56[8] = 2080;
-        *&v56[10] = " 'SIOCGIFFLAGS' ";
-        *&v56[18] = 1024;
-        *&v56[20] = -1071617775;
-        v57 = 1024;
-        *v58 = -1071617775;
-        *&v58[4] = 2048;
-        *&v58[6] = v12 / 0x3B9ACA00;
-        v59 = 2048;
-        *v60 = v12 % 0x3B9ACA00 / 0x3E8;
-        *&v60[8] = 2048;
-        *&v60[10] = 1;
-        *&v60[18] = 2048;
-        v61 = 0;
+        v52 = "_logTimeIfThresholdExceeded";
+        v53 = 2082;
+        *v54 = v38;
+        *&v54[8] = 2080;
+        *&v54[10] = " 'SIOCGIFFLAGS' ";
+        *&v54[18] = 1024;
+        *&v54[20] = -1071617775;
+        v55 = 1024;
+        *v56 = -1071617775;
+        *&v56[4] = 2048;
+        *&v56[6] = v11 / 0x3B9ACA00;
+        v57 = 2048;
+        *v58 = v11 % 0x3B9ACA00 / 0x3E8;
+        *&v58[8] = 2048;
+        *&v58[10] = 1;
+        *&v58[18] = 2048;
+        v59 = 0;
         _os_log_impl(&dword_254882000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}s: ['%{public}s']%s: ioctl[0x%08x/%u] [%llu.%06llu] Exceeded threshold >= [%llu.%06llu]\n", buf, 0x54u);
       }
 
       __strlcpy_chk();
       if (*(v3 + 2008))
       {
-        v13 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+        v12 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           if (v4 > 584)
           {
-            v14 = "Error Invalid ioctl";
+            v13 = "Error Invalid ioctl";
           }
 
           else if (v4 == -1)
           {
-            v14 = "APPLE80211_IOC_CARD_SPECIFIC";
+            v13 = "APPLE80211_IOC_CARD_SPECIFIC";
           }
 
-          else if (v4 < 0 || (v14 = gAppleIoucIndexToString[v4]) == 0)
+          else if (v4 < 0 || (v13 = gAppleIoucIndexToString[v4]) == 0)
           {
-            v14 = "unknown Apple80211_IOC_";
+            v13 = "unknown Apple80211_IOC_";
           }
 
-          v28 = *(v2 + 24);
+          v27 = *(v2 + 24);
           *buf = 136448258;
-          v54 = "Apple80211IOCTLSetWrapper";
-          v55 = 1024;
-          *v56 = 6559;
-          *&v56[4] = 2048;
-          *&v56[6] = v13 / 0x3B9ACA00;
-          *&v56[14] = 2048;
-          *&v56[16] = v13 % 0x3B9ACA00 / 0x3E8;
-          v57 = 2082;
-          *v58 = v3 + 4;
-          *&v58[8] = 1024;
-          *&v58[10] = *&v40[16];
-          v59 = 1024;
-          *v60 = v4;
-          *&v60[4] = 2082;
-          *&v60[6] = v14;
-          *&v60[14] = 1024;
-          *&v60[16] = v28;
+          v52 = "Apple80211IOCTLSetWrapper";
+          v53 = 1024;
+          *v54 = 6559;
+          *&v54[4] = 2048;
+          *&v54[6] = v12 / 0x3B9ACA00;
+          *&v54[14] = 2048;
+          *&v54[16] = v12 % 0x3B9ACA00 / 0x3E8;
+          v55 = 2082;
+          *v56 = v3 + 4;
+          *&v56[8] = 1024;
+          *&v56[10] = *&v38[16];
+          v57 = 1024;
+          *v58 = v4;
+          *&v58[4] = 2082;
+          *&v58[6] = v13;
+          *&v58[14] = 1024;
+          *&v58[16] = v27;
           _os_log_impl(&dword_254882000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}s:%u @[%llu.%06llu] ifname['%{public}s']/0x%08x IOCTL type %d/'%{public}s', len[%d]\n", buf, 0x4Cu);
         }
       }
 
-      v21 = ioctl(*v3, 0x802869C8uLL, v2);
-      if (!v21)
+      v20 = ioctl(*v3, 0x802869C8uLL, v2);
+      if (!v20)
       {
-        goto LABEL_84;
+        return v20;
       }
 
-      v29 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+      v28 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_84;
+        return v20;
       }
 
-      v30 = *(v2 + 16);
-      if (v30 > 584)
+      v29 = *(v2 + 16);
+      if (v29 > 584)
       {
-        v31 = "Error Invalid ioctl";
+        v30 = "Error Invalid ioctl";
       }
 
-      else if (v30 == -1)
+      else if (v29 == -1)
       {
-        v31 = "APPLE80211_IOC_CARD_SPECIFIC";
+        v30 = "APPLE80211_IOC_CARD_SPECIFIC";
       }
 
-      else if (v30 < 0 || (v31 = gAppleIoucIndexToString[v30]) == 0)
+      else if (v29 < 0 || (v30 = gAppleIoucIndexToString[v29]) == 0)
       {
-        v31 = "unknown Apple80211_IOC_";
+        v30 = "unknown Apple80211_IOC_";
       }
 
-      v32 = *(v2 + 24);
+      v31 = *(v2 + 24);
       *buf = 136448770;
-      v54 = "Apple80211IOCTLSetWrapper";
-      v55 = 1024;
-      *v56 = 6565;
-      *&v56[4] = 2048;
-      *&v56[6] = v29 / 0x3B9ACA00;
-      *&v56[14] = 2048;
-      *&v56[16] = v29 % 0x3B9ACA00 / 0x3E8;
-      v57 = 2082;
-      *v58 = v10;
-      *&v58[8] = 1024;
-      *&v58[10] = *&v40[16];
-      v59 = 1024;
-      *v60 = v30;
-      *&v60[4] = 2082;
-      *&v60[6] = v31;
-      *&v60[14] = 1024;
-      *&v60[16] = v32;
-      LOWORD(v61) = 1024;
-      *(&v61 + 2) = v21;
-      HIWORD(v61) = 1024;
-      v62 = v21;
-      v33 = MEMORY[0x277D86220];
-      v34 = "%{public}s:%u @[%llu.%06llu] ifname['%{public}s']/0x%08x IOCTL type %d/'%{public}s', len[%d] return %d/0x%08x\n";
-      v35 = buf;
-      v36 = 88;
+      v52 = "Apple80211IOCTLSetWrapper";
+      v53 = 1024;
+      *v54 = 6565;
+      *&v54[4] = 2048;
+      *&v54[6] = v28 / 0x3B9ACA00;
+      *&v54[14] = 2048;
+      *&v54[16] = v28 % 0x3B9ACA00 / 0x3E8;
+      v55 = 2082;
+      *v56 = v9;
+      *&v56[8] = 1024;
+      *&v56[10] = *&v38[16];
+      v57 = 1024;
+      *v58 = v29;
+      *&v58[4] = 2082;
+      *&v58[6] = v30;
+      *&v58[14] = 1024;
+      *&v58[16] = v31;
+      LOWORD(v59) = 1024;
+      *(&v59 + 2) = v20;
+      HIWORD(v59) = 1024;
+      v60 = v20;
+      v32 = MEMORY[0x277D86220];
+      v33 = "%{public}s:%u @[%llu.%06llu] ifname['%{public}s']/0x%08x IOCTL type %d/'%{public}s', len[%d] return %d/0x%08x\n";
+      v34 = buf;
+      v35 = 88;
       goto LABEL_83;
     }
 
     outputStructCnt = 0;
     bzero(buf, 0x3C30uLL);
     *buf = -2144835128;
-    v7 = v3 + 4;
+    v6 = v3 + 4;
     __strlcpy_chk();
-    v63 = v4;
+    v61 = v4;
     if (*(v3 + 2008))
     {
-      v8 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+      v7 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         if (v4 > 584)
         {
-          v9 = "Error Invalid ioctl";
+          v8 = "Error Invalid ioctl";
         }
 
         else if (v4 == -1)
         {
-          v9 = "APPLE80211_IOC_CARD_SPECIFIC";
+          v8 = "APPLE80211_IOC_CARD_SPECIFIC";
         }
 
-        else if (v4 < 0 || (v9 = gAppleIoucIndexToString[v4]) == 0)
+        else if (v4 < 0 || (v8 = gAppleIoucIndexToString[v4]) == 0)
         {
-          v9 = "unknown Apple80211_IOC_";
+          v8 = "unknown Apple80211_IOC_";
         }
 
-        v15 = *(v2 + 24);
-        *v40 = 136448002;
-        *&v40[4] = "Apple80211IOCTLSetWrapper";
-        *&v40[12] = 1024;
-        *&v40[14] = 6489;
-        *&v40[18] = 2048;
-        *&v40[20] = v8 / 0x3B9ACA00;
-        *&v40[28] = 2048;
-        *&v40[30] = v8 % 0x3B9ACA00 / 0x3E8;
-        v41 = 2082;
-        v42 = v3 + 4;
-        v43 = 1024;
-        v44 = v4;
-        v45 = 2082;
-        v46 = v9;
-        v47 = 1024;
-        v48 = v15;
-        _os_log_impl(&dword_254882000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}s:%u @[%llu.%06llu] ifname['%{public}s'] IOUC type %d/'%{public}s', len[%d]\n", v40, 0x46u);
+        v14 = *(v2 + 24);
+        *v38 = 136448002;
+        *&v38[4] = "Apple80211IOCTLSetWrapper";
+        *&v38[12] = 1024;
+        *&v38[14] = 6489;
+        *&v38[18] = 2048;
+        *&v38[20] = v7 / 0x3B9ACA00;
+        *&v38[28] = 2048;
+        *&v38[30] = v7 % 0x3B9ACA00 / 0x3E8;
+        v39 = 2082;
+        v40 = v3 + 4;
+        v41 = 1024;
+        v42 = v4;
+        v43 = 2082;
+        v44 = v8;
+        v45 = 1024;
+        v46 = v14;
+        _os_log_impl(&dword_254882000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}s:%u @[%llu.%06llu] ifname['%{public}s'] IOUC type %d/'%{public}s', len[%d]\n", v38, 0x46u);
       }
     }
 
-    v16 = *(v2 + 20);
-    if (v16)
+    v15 = *(v2 + 20);
+    if (v15)
     {
-      v64 = *(v2 + 20);
+      v62 = *(v2 + 20);
     }
 
-    v17 = *(v2 + 24);
-    if (v17 >= 0x3C01)
+    v16 = *(v2 + 24);
+    if (v16 >= 0x3C01)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        *v40 = 136446466;
-        *&v40[4] = "Apple80211IOCTLSetWrapper";
-        *&v40[12] = 1024;
-        *&v40[14] = v17;
-        v18 = MEMORY[0x277D86220];
-        v19 = "%{public}s: req_len %d exceeds max input buffer length\n";
+        *v38 = 136446466;
+        *&v38[4] = "Apple80211IOCTLSetWrapper";
+        *&v38[12] = 1024;
+        *&v38[14] = v16;
+        v17 = MEMORY[0x277D86220];
+        v18 = "%{public}s: req_len %d exceeds max input buffer length\n";
 LABEL_38:
-        _os_log_impl(&dword_254882000, v18, OS_LOG_TYPE_DEFAULT, v19, v40, 0x12u);
-        goto LABEL_39;
+        _os_log_impl(&dword_254882000, v17, OS_LOG_TYPE_DEFAULT, v18, v38, 0x12u);
+        return 22;
       }
 
-      goto LABEL_39;
+      return 22;
     }
 
-    v20 = *(v2 + 32);
-    if (v17)
+    v19 = *(v2 + 32);
+    if (v16)
     {
-      if (v20)
+      if (v19)
       {
-        LODWORD(v54) = *(v2 + 24);
+        LODWORD(v52) = *(v2 + 24);
         __memcpy_chk();
 LABEL_40:
-        v22 = *(v2 + 16);
-        if (v22 == 94 || v22 == 293 || v22 == 153)
+        v21 = *(v2 + 16);
+        if (v21 == 94 || v21 == 293 || v21 == 153)
         {
-          outputStructCnt = v17;
+          outputStructCnt = v16;
         }
 
         else
         {
-          v20 = 0;
-          if ((v22 & 0xFFFFFFFE) == 0x18)
+          v19 = 0;
+          if ((v21 & 0xFFFFFFFE) == 0x18)
           {
-            v64 = v16;
+            v62 = v15;
           }
         }
 
         if (*(v3 + 1820))
         {
           pthread_self();
-          v23 = IOConnectCallStructMethod(*(v3 + 1820), 0, buf, 0x3C30uLL, v20, &outputStructCnt);
-          if (!v23)
+          v22 = IOConnectCallStructMethod(*(v3 + 1820), 0, buf, 0x3C30uLL, v19, &outputStructCnt);
+          if (!v22)
           {
-            if (outputStructCnt && outputStructCnt != *(v2 + 24))
+            if (!outputStructCnt || outputStructCnt == *(v2 + 24))
             {
-              v21 = 0;
-              *(v2 + 24) = outputStructCnt;
+              return 0;
             }
 
-            else
-            {
-              v21 = 0;
-            }
-
-            goto LABEL_84;
+            v20 = 0;
+            *(v2 + 24) = outputStructCnt;
+            return v20;
           }
 
-          v21 = v23;
-          *__error() = v23;
-          v24 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+          v20 = v22;
+          *__error() = v22;
+          v23 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-LABEL_84:
-            v38 = *MEMORY[0x277D85DE8];
-            return v21;
+            return v20;
           }
 
           if (v4 > 584)
           {
-            v25 = "Error Invalid ioctl";
+            v24 = "Error Invalid ioctl";
           }
 
           else if (v4 == -1)
           {
-            v25 = "APPLE80211_IOC_CARD_SPECIFIC";
+            v24 = "APPLE80211_IOC_CARD_SPECIFIC";
           }
 
-          else if (v4 < 0 || (v25 = gAppleIoucIndexToString[v4]) == 0)
+          else if (v4 < 0 || (v24 = gAppleIoucIndexToString[v4]) == 0)
           {
-            v25 = "unknown Apple80211_IOC_";
+            v24 = "unknown Apple80211_IOC_";
           }
 
-          v37 = *(v2 + 24);
-          *v40 = 136448514;
-          *&v40[4] = "Apple80211IOCTLSetWrapper";
-          *&v40[12] = 1024;
-          *&v40[14] = 6538;
-          *&v40[18] = 2048;
-          *&v40[20] = v24 / 0x3B9ACA00;
-          *&v40[28] = 2048;
-          *&v40[30] = v24 % 0x3B9ACA00 / 0x3E8;
-          v41 = 2082;
-          v42 = v7;
-          v43 = 1024;
-          v44 = v4;
-          v45 = 2082;
-          v46 = v25;
+          v36 = *(v2 + 24);
+          *v38 = 136448514;
+          *&v38[4] = "Apple80211IOCTLSetWrapper";
+          *&v38[12] = 1024;
+          *&v38[14] = 6538;
+          *&v38[18] = 2048;
+          *&v38[20] = v23 / 0x3B9ACA00;
+          *&v38[28] = 2048;
+          *&v38[30] = v23 % 0x3B9ACA00 / 0x3E8;
+          v39 = 2082;
+          v40 = v6;
+          v41 = 1024;
+          v42 = v4;
+          v43 = 2082;
+          v44 = v24;
+          v45 = 1024;
+          v46 = v36;
           v47 = 1024;
-          v48 = v37;
+          v48 = v20;
           v49 = 1024;
-          v50 = v21;
-          v51 = 1024;
-          v52 = v21;
-          v33 = MEMORY[0x277D86220];
-          v34 = "%{public}s:%u @[%llu.%06llu] ifname['%{public}s'] IOUC type %d/'%{public}s', len[%d] return %d/0x%08x\n";
-          v35 = v40;
-          v36 = 82;
+          v50 = v20;
+          v32 = MEMORY[0x277D86220];
+          v33 = "%{public}s:%u @[%llu.%06llu] ifname['%{public}s'] IOUC type %d/'%{public}s', len[%d] return %d/0x%08x\n";
+          v34 = v38;
+          v35 = 82;
         }
 
         else
         {
-          v21 = 3758097088;
-          v26 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+          v20 = 3758097088;
+          v25 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            goto LABEL_84;
+            return v20;
           }
 
           if (v4 > 584)
           {
-            v27 = "Error Invalid ioctl";
+            v26 = "Error Invalid ioctl";
           }
 
           else if (v4 == -1)
           {
-            v27 = "APPLE80211_IOC_CARD_SPECIFIC";
+            v26 = "APPLE80211_IOC_CARD_SPECIFIC";
           }
 
-          else if (v4 < 0 || (v27 = gAppleIoucIndexToString[v4]) == 0)
+          else if (v4 < 0 || (v26 = gAppleIoucIndexToString[v4]) == 0)
           {
-            v27 = "unknown Apple80211_IOC_";
+            v26 = "unknown Apple80211_IOC_";
           }
 
-          *v40 = 136447746;
-          *&v40[4] = "Apple80211IOCTLSetWrapper";
-          *&v40[12] = 1024;
-          *&v40[14] = 6520;
-          *&v40[18] = 2048;
-          *&v40[20] = v26 / 0x3B9ACA00;
-          *&v40[28] = 2048;
-          *&v40[30] = v26 % 0x3B9ACA00 / 0x3E8;
-          v41 = 2082;
-          v42 = v7;
-          v43 = 1024;
-          v44 = v4;
-          v45 = 2082;
-          v46 = v27;
-          v33 = MEMORY[0x277D86220];
-          v34 = "%{public}s:%u @[%llu.%06llu] ifname['%{public}s'] WiFi is in the middle of recovery, ignore command, type %d/'%{public}s'\n";
-          v35 = v40;
-          v36 = 64;
+          *v38 = 136447746;
+          *&v38[4] = "Apple80211IOCTLSetWrapper";
+          *&v38[12] = 1024;
+          *&v38[14] = 6520;
+          *&v38[18] = 2048;
+          *&v38[20] = v25 / 0x3B9ACA00;
+          *&v38[28] = 2048;
+          *&v38[30] = v25 % 0x3B9ACA00 / 0x3E8;
+          v39 = 2082;
+          v40 = v6;
+          v41 = 1024;
+          v42 = v4;
+          v43 = 2082;
+          v44 = v26;
+          v32 = MEMORY[0x277D86220];
+          v33 = "%{public}s:%u @[%llu.%06llu] ifname['%{public}s'] WiFi is in the middle of recovery, ignore command, type %d/'%{public}s'\n";
+          v34 = v38;
+          v35 = 64;
         }
 
 LABEL_83:
-        _os_log_impl(&dword_254882000, v33, OS_LOG_TYPE_DEFAULT, v34, v35, v36);
-        goto LABEL_84;
+        _os_log_impl(&dword_254882000, v32, OS_LOG_TYPE_DEFAULT, v33, v34, v35);
+        return v20;
       }
     }
 
-    else if (!v20)
+    else if (!v19)
     {
       goto LABEL_40;
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v40 = 136446466;
-      *&v40[4] = "Apple80211IOCTLSetWrapper";
-      *&v40[12] = 1024;
-      *&v40[14] = v17;
-      v18 = MEMORY[0x277D86220];
-      v19 = "%{public}s: Invalid data or length in req: len %d\n";
+      *v38 = 136446466;
+      *&v38[4] = "Apple80211IOCTLSetWrapper";
+      *&v38[12] = 1024;
+      *&v38[14] = v16;
+      v17 = MEMORY[0x277D86220];
+      v18 = "%{public}s: Invalid data or length in req: len %d\n";
       goto LABEL_38;
     }
 
-LABEL_39:
-    v21 = 22;
-    goto LABEL_84;
+    return 22;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
-  return _Apple80211AWDLCompatibilityCall();
+  return _Apple80211AWDLCompatibilityCall(v0, v1, 1);
 }
 
-void _logEventPipeLogWithFormat(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void _logEventPipeLogWithFormat(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const char *a5, ...)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  va_start(va, a5);
+  v12 = *MEMORY[0x277D85DE8];
   bzero(__str, 0x400uLL);
   if (a5 && ((a3 & a2) != 0 || a4))
   {
-    vsnprintf(__str, 0x400uLL, a5, &a9);
+    vsnprintf(__str, 0x400uLL, a5, va);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v15 = __str;
+      v10 = __str;
       _os_log_impl(&dword_254882000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-void _eventRead(uint64_t a1, unsigned int *a2)
+void _eventRead(_DWORD *a1, int *a2, const char *a3, uint64_t a4)
 {
-  v84 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  if (*a2 - 24 < 0x10 || strncmp(a2 + 24, (a1 + 4), 0x10uLL))
+  v86 = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  if ((*a2 - 24) < 0x10 || strncmp(a2 + 24, a1 + 4, 0x10uLL))
   {
-    goto LABEL_189;
+    return;
   }
 
-  v65 = 0;
-  if (a1)
+  v67 = 0;
+  if (a1 && (v9 = *(a1 + 231)) != 0)
   {
-    v5 = *(a1 + 1848);
-    if (v5)
-    {
-      IONotificationPortGetMachPort(v5);
-    }
-  }
-
-  v68 = 0xAAAAAAAAAAAAAAAALL;
-  *&v6 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v66 = v6;
-  v67 = v6;
-  current_queue = dispatch_get_current_queue();
-  dispatch_queue_get_label(current_queue);
-  pthread_threadid_np(0, &v65);
-  v8 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-  v12 = v8;
-  if (a1)
-  {
-    v13 = *(a1 + 1832);
+    MachPort = IONotificationPortGetMachPort(v9);
   }
 
   else
   {
-    v13 = 0;
+    MachPort = 0;
   }
 
-  v14 = (v2 - 40);
-  v15 = *(a1 + 1848);
-  v16 = *a2;
-  v17 = a2[5];
-  if ((v17 - 246) >= 0xFFFFFF0B)
+  v70 = 0xAAAAAAAAAAAAAAAALL;
+  *&v11 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v68 = v11;
+  v69 = v11;
+  current_queue = dispatch_get_current_queue();
+  label = dispatch_queue_get_label(current_queue);
+  if (label)
   {
-    v18 = gAppleMIndexToString[v17];
+    v14 = label;
   }
 
-  v59 = a2[5];
-  v63 = v8 / 0x3B9ACA00;
-  v64 = v8 % 0x3B9ACA00 / 0x3E8;
-  _logEventPipeLogWithFormat(0, v13, 2, 0, "%s:%u, tag[%s:0x%llx/%llu] @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u] processing event totalSize[%d], %d/'%s'\n", v9, v10, v11, "_eventRead");
-  v19 = *(a1 + 52);
+  else
+  {
+    v14 = "";
+  }
+
+  v66 = v14;
+  pthread_threadid_np(0, &v67);
+  v15 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+  v16 = v15;
+  if (a1)
+  {
+    v17 = *(a1 + 229);
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  v18 = (v4 - 40);
+  if (a3)
+  {
+    v19 = a3;
+  }
+
+  else
+  {
+    v19 = "";
+  }
+
+  v20 = a2[5];
+  if ((v20 - 246) >= 0xFFFFFF0B)
+  {
+    v21 = gAppleMIndexToString[v20];
+  }
+
+  else
+  {
+    v21 = "unknown APPLE80211_M_";
+  }
+
+  v64 = v15 / 0x3B9ACA00;
+  v65 = v15 % 0x3B9ACA00 / 0x3E8;
+  v63 = v19;
+  _logEventPipeLogWithFormat(0, v17, 2, 0, "%s:%u, tag[%s:0x%llx/%llu] @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u] processing event totalSize[%d], %d/'%s'\n", "_eventRead", 4977, v19, a4, a4, v15 / 0x3B9ACA00, v65, v67, current_queue, v66, a1, *(a1 + 231), MachPort, *a2, a2[5], v21);
   if (*(a1 + 51))
   {
-    v20 = a2[5];
-    if (*(a1 + 52) || (v21 = (v20 - 1), v22 = 1 << ((v20 - 1) & 7), (v22 & *(a1 + (v21 >> 3) + 20)) != 0))
+    v22 = a2[5];
+    if (*(a1 + 52) || (v23 = (v22 - 1), v24 = 1 << ((v22 - 1) & 7), (v24 & *(a1 + (v23 >> 3) + 20)) != 0))
     {
-      if (v2 == 40)
+      if (v4 == 40)
       {
-        v23 = 0;
+        v25 = 0;
       }
 
       else
       {
-        v23 = a2 + 10;
+        v25 = a2 + 10;
       }
 
-      (*(a1 + 72))(0, a1, v20, v23, v14, *(a1 + 80));
-      if (a2[5] != 10)
+      (*(a1 + 9))(0, a1, v22, v25, v18, *(a1 + 10));
+      if (a2[5] == 10)
       {
-        goto LABEL_184;
+        v26 = *(a1 + 19);
+        if (v26)
+        {
+          goto LABEL_27;
+        }
       }
 
-      v24 = *(a1 + 152);
-      if (!v24)
-      {
-        goto LABEL_184;
-      }
-
-      goto LABEL_19;
+      goto LABEL_192;
     }
 
-    v25 = v21 >> 3;
+    v27 = v23 >> 3;
   }
 
   else
   {
-    v20 = a2[5];
+    v22 = a2[5];
     if (*(a1 + 52))
     {
-      goto LABEL_24;
+      goto LABEL_32;
     }
 
-    v25 = (v20 - 1) >> 3;
-    v22 = 1 << ((v20 - 1) & 7);
+    v27 = (v22 - 1) >> 3;
+    v24 = 1 << ((v22 - 1) & 7);
   }
 
-  if ((v22 & *(a1 + v25 + 20)) == 0)
+  if ((v24 & *(a1 + v27 + 20)) == 0)
   {
-    goto LABEL_184;
+    goto LABEL_192;
   }
 
-LABEL_24:
-  if (v20 <= 137)
+LABEL_32:
+  if (v22 > 137)
   {
-    if (v20 > 38)
+    if (v22 <= 179)
     {
-      switch(v20)
+      if (v22 <= 149)
       {
-        case '7':
-          _dispatchDriverAvailable(a1, (a2 + 10));
-          goto LABEL_184;
-        case '8':
-        case ':':
-        case ';':
-        case '>':
-        case '@':
-        case 'A':
-        case 'B':
-        case 'C':
-        case 'D':
-        case 'E':
-        case 'F':
-        case 'G':
-        case 'M':
-        case 'O':
-        case 'R':
-        case 'T':
-        case 'U':
-        case 'V':
-        case 'W':
-        case 'X':
-        case '[':
-          goto LABEL_109;
-        case '9':
-          _dispatchGasResults();
-          goto LABEL_184;
-        case '<':
-          _dispatchCCAChangedEvent(a1, a2 + 40, v14);
-          goto LABEL_184;
-        case '=':
-          _dispatchPowerStatsUpdateEvent(a1, (a2 + 10));
-          goto LABEL_184;
-        case '?':
-          _dispatchBGScanCachedNetworks(a1, a2[10]);
-          goto LABEL_184;
-        case 'H':
-          _dispatchDissasocReceived(a1, (a2 + 10), v14);
-          goto LABEL_184;
-        case 'I':
-          _dispatchReassoc(a1, (a2 + 10), v14);
-          goto LABEL_184;
-        case 'J':
-          _dispatchAuth(a1, (a2 + 10), v14);
-          goto LABEL_184;
-        case 'K':
-          _dispatchPrune(a1, a2 + 40, v14);
-          goto LABEL_184;
-        case 'L':
-          _dispatchSupplicant(a1, (a2 + 10), v14);
-          goto LABEL_184;
-        case 'N':
-          _dispatchAssoc(a1, (a2 + 10), v14);
-          goto LABEL_184;
-        case 'P':
-          _dispatchRoamStatus(a1, a2 + 40, v14);
-          goto LABEL_184;
-        case 'Q':
-          v40 = _dispatchLeakyStatsEvent(a1, (a2 + 10), v14);
-          if (v40)
+        if (v22 <= 140)
+        {
+          if (v22 == 138)
           {
-            v41 = Apple80211ErrToStr(v40);
-            syslog(3, "%s Unable to parse event: leaky ap stats error (%s)", "_eventRead", v41);
+            _dispatchRoamScanEnd(a1, a2 + 40, v18);
           }
 
-          goto LABEL_184;
-        case 'S':
-          _dispatchRangingResults(a1, (a2 + 10));
-          goto LABEL_184;
-        case 'Y':
-          _dispatchTxFailureHistoryEvent(a1, a2 + 10, v14);
-          goto LABEL_184;
-        case 'Z':
-          _dispatchScanBackoffReport(a1, (a2 + 10), v14);
-          goto LABEL_184;
-        case '\\':
-          _dispatchTxInhibitEvent(a1, (a2 + 10), v14);
-          goto LABEL_184;
-        case ']':
-          _dispatchLocalMitigationEvent(a1, (a2 + 10), v14);
-          goto LABEL_184;
-        default:
-          if (v20 == 39)
+          else if (v22 == 139)
           {
-            _dispatchlqmChangedEvent(a1, (a2 + 10), v14);
+            _dispatchRoamPrep(a1, (a2 + 10), v18);
           }
 
           else
           {
-            if (v20 != 137)
+            if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
-              goto LABEL_109;
+              *buf = 136315394;
+              *&buf[4] = "_eventRead";
+              *&buf[12] = 1024;
+              *&buf[14] = 5303;
+              _os_log_impl(&dword_254882000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d Processing _dispatchBssSteeringRequest\n", buf, 0x12u);
             }
 
-            _dispatchRoamScanStart(a1, (a2 + 10), v14);
+            _dispatchBssSteeringRequest(a1, (a2 + 10), v18);
           }
 
-          break;
+          goto LABEL_192;
+        }
+
+        switch(v22)
+        {
+          case 0x8D:
+            _dispatchSoftAPLPMEvent(a1, a2 + 10, v18);
+            goto LABEL_192;
+          case 0x8F:
+            _dispatchActionFrameEvent(a1, a2 + 40, v18);
+            goto LABEL_192;
+          case 0x91:
+            _dispatchWeightedAvgLQMUpdateEvent(a1, (a2 + 10), v18);
+            goto LABEL_192;
+        }
       }
 
-      goto LABEL_184;
+      else if (v22 <= 163)
+      {
+        switch(v22)
+        {
+          case 0x96:
+            _dispatchDPS(a1, (a2 + 10), v18);
+            goto LABEL_192;
+          case 0x97:
+            _dispatchSlowWiFi(a1, (a2 + 10), v18);
+            goto LABEL_192;
+          case 0x9C:
+            _dispatchRealtimeSessionEvent(a1, (a2 + 10), v18);
+            goto LABEL_192;
+        }
+      }
+
+      else if (v22 > 168)
+      {
+        if (v22 == 169)
+        {
+          _dispatchLqmTxStatsUpdate(a1, (a2 + 10), v18);
+          goto LABEL_192;
+        }
+
+        if (v22 == 176)
+        {
+          _dispatchLqmCrashTracer(a1, a2 + 10, v18);
+          goto LABEL_192;
+        }
+      }
+
+      else
+      {
+        if (v22 == 164)
+        {
+          _dispatchSlowWiFiLinkProbeTrigger(a1, (a2 + 10), v18);
+          goto LABEL_192;
+        }
+
+        if (v22 == 165)
+        {
+          _dispatchSlowWiFiUserInputTrigger(a1, (a2 + 10), v18);
+          goto LABEL_192;
+        }
+      }
+
+      goto LABEL_117;
     }
 
-    if (v20 > 9)
+    if (v22 <= 209)
     {
-      if (v20 > 30)
+      if (v22 <= 191)
       {
-        if (v20 == 31)
+        switch(v22)
         {
-          _dispatchBGScanNetworkDiscoveredEvent(a1, (a2 + 10), v14);
-          goto LABEL_184;
-        }
+          case 0xB4:
+            if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 136315394;
+              *&buf[4] = "_eventRead";
+              *&buf[12] = 1024;
+              *&buf[14] = 5298;
+              _os_log_impl(&dword_254882000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d Processing _dispatchBeaconCacheUpdate\n", buf, 0x12u);
+            }
 
-        if (v20 == 34)
-        {
-          _dispatchDeauthReceived(a1, (a2 + 10), v14);
-          goto LABEL_184;
+            _dispatchBeaconCacheUpdate(a1, (a2 + 10), v18);
+            goto LABEL_192;
+          case 0xBD:
+            _dispatchTrafficInfoEvent(a1, a2 + 40, v18);
+            goto LABEL_192;
+          case 0xBE:
+            _dispatchBTCoexStatsUpdateEvent(a1, (a2 + 10), v18);
+            goto LABEL_192;
         }
-
-        goto LABEL_109;
       }
 
-      if (v20 != 10)
+      else if (v22 > 195)
       {
-        if (v20 == 14)
+        if (v22 == 196)
         {
-          _dispatchDecryptionFailure(a1, (a2 + 10), v14);
-          goto LABEL_184;
+          _dispatchTTRFromDriver(a1, a2 + 40, v18);
+          goto LABEL_192;
         }
 
-LABEL_109:
-        if (v2 == 40)
+        if (v22 == 199)
         {
-          v33 = 0;
+          _dispatchColocatedCacheEvent(a1, a2 + 10, v18);
+          goto LABEL_192;
+        }
+      }
+
+      else
+      {
+        if (v22 == 192)
+        {
+          _dispatchSIBEvent(a1, a2 + 10, v18);
+          goto LABEL_192;
+        }
+
+        if (v22 == 193)
+        {
+          _dispatchSensingResults(a1, a2 + 40, v18);
+          goto LABEL_192;
+        }
+      }
+
+      goto LABEL_117;
+    }
+
+    if (v22 <= 237)
+    {
+      switch(v22)
+      {
+        case 0xD2:
+          _dispatchP2PCountryCodeChange(a1, a2 + 40);
+          goto LABEL_192;
+        case 0xD9:
+          if (v4 != 40)
+          {
+            v41 = *(a2 + 14);
+            *buf = *(a2 + 10);
+            *&buf[16] = v41;
+            *&buf[29] = *(a2 + 69);
+            (*(a1 + 9))(0, a1, 217, buf, 37, *(a1 + 10));
+          }
+
+          goto LABEL_192;
+        case 0xDA:
+          _dispatchObssMitInfoEvent(a1, a2 + 40, v18);
+          goto LABEL_192;
+      }
+
+      goto LABEL_117;
+    }
+
+    if (v22 > 239)
+    {
+      if (v22 == 240)
+      {
+        _dispatchScanForwardStatsUpdateEvent(a1, (a2 + 10), v18);
+        goto LABEL_192;
+      }
+
+      if (v22 == 245)
+      {
+        _dispatchRxStall(a1, a2 + 10, v18);
+        goto LABEL_192;
+      }
+
+      goto LABEL_117;
+    }
+
+    if (v22 != 238)
+    {
+      if (a1 && v4 == 88)
+      {
+        (*(a1 + 9))(0, a1, 239, a2 + 10, 48, *(a1 + 10));
+      }
+
+      goto LABEL_192;
+    }
+
+    if (!a1 || v4 != 44)
+    {
+      goto LABEL_192;
+    }
+
+    v37 = *(a1 + 9);
+    v36 = *(a1 + 10);
+    v35 = a2 + 10;
+    v38 = 0;
+    v39 = a1;
+    v22 = 238;
+    goto LABEL_141;
+  }
+
+  if (v22 > 38)
+  {
+    switch(v22)
+    {
+      case '7':
+        _dispatchDriverAvailable(a1, (a2 + 10));
+        goto LABEL_192;
+      case '8':
+      case ':':
+      case ';':
+      case '>':
+      case '@':
+      case 'A':
+      case 'B':
+      case 'C':
+      case 'D':
+      case 'E':
+      case 'F':
+      case 'G':
+      case 'M':
+      case 'O':
+      case 'R':
+      case 'T':
+      case 'U':
+      case 'V':
+      case 'W':
+      case 'X':
+      case '[':
+        goto LABEL_117;
+      case '9':
+        _dispatchGasResults();
+        goto LABEL_192;
+      case '<':
+        _dispatchCCAChangedEvent(a1, a2 + 40, v18);
+        goto LABEL_192;
+      case '=':
+        _dispatchPowerStatsUpdateEvent(a1, (a2 + 10));
+        goto LABEL_192;
+      case '?':
+        _dispatchBGScanCachedNetworks(a1, a2[10]);
+        goto LABEL_192;
+      case 'H':
+        _dispatchDissasocReceived(a1, (a2 + 10), v18);
+        goto LABEL_192;
+      case 'I':
+        _dispatchReassoc(a1, (a2 + 10), v18);
+        goto LABEL_192;
+      case 'J':
+        _dispatchAuth(a1, (a2 + 10), v18);
+        goto LABEL_192;
+      case 'K':
+        _dispatchPrune(a1, a2 + 40, v18);
+        goto LABEL_192;
+      case 'L':
+        _dispatchSupplicant(a1, (a2 + 10), v18);
+        goto LABEL_192;
+      case 'N':
+        _dispatchAssoc(a1, (a2 + 10), v18);
+        goto LABEL_192;
+      case 'P':
+        _dispatchRoamStatus(a1, a2 + 40, v18);
+        goto LABEL_192;
+      case 'Q':
+        v42 = _dispatchLeakyStatsEvent(a1, (a2 + 10), v18);
+        if (v42)
+        {
+          v43 = Apple80211ErrToStr(v42);
+          syslog(3, "%s Unable to parse event: leaky ap stats error (%s)", "_eventRead", v43);
+        }
+
+        goto LABEL_192;
+      case 'S':
+        _dispatchRangingResults(a1, (a2 + 10));
+        goto LABEL_192;
+      case 'Y':
+        _dispatchTxFailureHistoryEvent(a1, a2 + 10, v18);
+        goto LABEL_192;
+      case 'Z':
+        _dispatchScanBackoffReport(a1, (a2 + 10), v18);
+        goto LABEL_192;
+      case '\\':
+        _dispatchTxInhibitEvent(a1, (a2 + 10), v18);
+        goto LABEL_192;
+      case ']':
+        _dispatchLocalMitigationEvent(a1, (a2 + 10), v18);
+        goto LABEL_192;
+      default:
+        if (v22 == 39)
+        {
+          _dispatchlqmChangedEvent(a1, (a2 + 10), v18);
         }
 
         else
         {
-          v33 = a2 + 10;
+          if (v22 != 137)
+          {
+            goto LABEL_117;
+          }
+
+          _dispatchRoamScanStart(a1, (a2 + 10), v18);
         }
 
-        v35 = *(a1 + 72);
-        v34 = *(a1 + 80);
-        v36 = 0;
-LABEL_113:
-        v37 = a1;
-        v38 = (v2 - 40);
-LABEL_134:
-        v35(v36, v37, v20, v33, v38, v34);
-        goto LABEL_184;
-      }
-
-      v62 = v14 == 4;
-      if (v2 == 44)
-      {
-        v44 = a2[10];
-      }
-
-      else
-      {
-        v44 = 0;
-      }
-
-      pthread_mutex_lock((a1 + 160));
-      if (*(a1 + 56))
-      {
-        v45 = *(a1 + 224);
-        v46 = v45 != pthread_self();
-      }
-
-      else
-      {
-        v46 = 0;
-      }
-
-      v47 = *(a1 + 232);
-      if (!v46 && !*(a1 + 232))
-      {
-        *(a1 + 224) = 0;
-      }
-
-      pthread_mutex_unlock((a1 + 160));
-      if (v46)
-      {
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136315138;
-          *&buf[4] = "_eventRead";
-          _os_log_impl(&dword_254882000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Error: Thread mismatch detected in scan done event, bailing, not dispatching async scan callback", buf, 0xCu);
-        }
-
-        goto LABEL_184;
-      }
-
-      if (v47)
-      {
-        _dispatchAsyncScanEvent(a1, v62, v44);
-      }
-
-      else
-      {
-        (*(a1 + 72))(v44, a1, 10, 0, 0, *(a1 + 80));
-        v24 = *(a1 + 152);
-        if (v24)
-        {
-LABEL_19:
-          dispatch_semaphore_signal(v24);
-          goto LABEL_184;
-        }
-      }
-
-      goto LABEL_184;
+        break;
     }
 
-    if (v20 == 2)
+    goto LABEL_192;
+  }
+
+  if (v22 <= 9)
+  {
+    if (v22 == 2)
     {
-      _dispatchSSIDChanged(a1, (a2 + 10), v14);
-      goto LABEL_184;
+      _dispatchSSIDChanged(a1, (a2 + 10), v18);
+      goto LABEL_192;
     }
 
-    if (v20 == 4)
+    if (v22 == 4)
     {
-      _dispatchLinkChangedEvent(a1, (a2 + 10), v14);
-      goto LABEL_184;
+      _dispatchLinkChangedEvent(a1, (a2 + 10), v18);
+      goto LABEL_192;
     }
 
-    if (v20 != 9)
+    if (v22 != 9)
     {
-      goto LABEL_109;
+      goto LABEL_117;
     }
 
-    pthread_mutex_lock((a1 + 272));
-    v26 = *(a1 + 352);
-    v27 = *(a1 + 344);
-    v28 = *(a1 + 56);
-    if (v28)
+    pthread_mutex_lock((a1 + 68));
+    v28 = *(a1 + 352);
+    v29 = *(a1 + 43);
+    v30 = *(a1 + 7);
+    if (v30)
     {
-      v29 = 1;
+      v31 = 1;
     }
 
     else
     {
-      v29 = v27 == 0;
+      v31 = v29 == 0;
     }
 
-    v30 = !v29;
-    v61 = v30;
-    if (v28 && v27)
+    v32 = !v31;
+    v61 = v32;
+    if (v30 && v29)
     {
-      v31 = *(a1 + 336);
-      v61 = v31 == pthread_self();
+      v33 = *(a1 + 42);
+      v61 = v33 == pthread_self();
     }
 
-    pthread_mutex_unlock((a1 + 272));
-    if (v2 == 44)
+    pthread_mutex_unlock((a1 + 68));
+    if (v4 == 44)
     {
-      v32 = a2[10];
+      v34 = a2[10];
     }
 
     else
     {
-      v32 = 0;
+      v34 = 0;
     }
 
-    if (!v61 && *(a1 + 56) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    if (!v61 && *(a1 + 7) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       *&buf[4] = "_eventRead";
@@ -5675,308 +5798,199 @@ LABEL_19:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v60 = *(a1 + 344);
-      v42 = *(a1 + 336);
-      v29 = v42 == pthread_self();
-      v32 = v32;
+      v60 = *(a1 + 43);
+      v44 = MachPort;
+      v45 = *(a1 + 42);
+      v31 = v45 == pthread_self();
+      MachPort = v44;
+      v34 = v34;
       *buf = 136315906;
-      v43 = v29;
+      v46 = v31;
       *&buf[4] = "_eventRead";
       *&buf[12] = 1024;
       *&buf[14] = v61;
       *&buf[18] = 2048;
       *&buf[20] = v60;
       *&buf[28] = 1024;
-      *&buf[30] = v43;
+      *&buf[30] = v46;
       _os_log_impl(&dword_254882000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: asyncAssoc %d, assoc record %p, assocThread & current thread %d\n", buf, 0x22u);
     }
 
     if (v61)
     {
       _dispatchAsyncAssocEvent(a1, a2 + 10);
-      goto LABEL_184;
+      goto LABEL_192;
     }
 
-    if (!*(a1 + 4) || (*a1 & 0x80000000) != 0 || !v26)
+    if (!*(a1 + 4) || (*a1 & 0x80000000) != 0 || !v28)
     {
-      goto LABEL_184;
+      goto LABEL_192;
     }
 
-    if (v2 != 44)
+    if (v18 != 4)
     {
-      v68 = 0;
-      v66 = 0u;
-      v67 = 0u;
+      v70 = 0;
+      v68 = 0u;
+      v69 = 0u;
       __strlcpy_chk();
-      LODWORD(v67) = 21;
-      if (!Apple80211IOCTLGetWrapper(a1, &v66))
+      LODWORD(v69) = 21;
+      if (Apple80211IOCTLGetWrapper())
       {
-        v36 = _errorForAssociateResult(SDWORD1(v67));
-        v20 = a2[5];
-        if (v2 == 40)
-        {
-          v33 = 0;
-        }
-
-        else
-        {
-          v33 = a2 + 10;
-        }
-
-        v35 = *(a1 + 72);
-        v34 = *(a1 + 80);
-        goto LABEL_113;
+        goto LABEL_192;
       }
 
-      goto LABEL_184;
+      v38 = _errorForAssociateResult(SDWORD1(v69));
+      v22 = a2[5];
+      if (v18)
+      {
+        v35 = a2 + 10;
+      }
+
+      else
+      {
+        v35 = 0;
+      }
+
+      v37 = *(a1 + 9);
+      v36 = *(a1 + 10);
+      goto LABEL_121;
     }
 
-    v20 = a2[5];
-    v35 = *(a1 + 72);
-    v34 = *(a1 + 80);
-    v33 = a2 + 10;
-    v36 = v32;
-    v37 = a1;
-LABEL_133:
-    v38 = 4;
-    goto LABEL_134;
+    v22 = a2[5];
+    v37 = *(a1 + 9);
+    v36 = *(a1 + 10);
+    v35 = a2 + 10;
+    v38 = v34;
+    v39 = a1;
+LABEL_141:
+    v40 = 4;
+    goto LABEL_142;
   }
 
-  if (v20 <= 179)
+  if (v22 > 30)
   {
-    if (v20 <= 149)
+    if (v22 == 31)
     {
-      if (v20 <= 140)
-      {
-        if (v20 == 138)
-        {
-          _dispatchRoamScanEnd(a1, a2 + 40, v14);
-        }
-
-        else if (v20 == 139)
-        {
-          _dispatchRoamPrep(a1, (a2 + 10), v14);
-        }
-
-        else
-        {
-          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 136315394;
-            *&buf[4] = "_eventRead";
-            *&buf[12] = 1024;
-            *&buf[14] = 5303;
-            _os_log_impl(&dword_254882000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d Processing _dispatchBssSteeringRequest\n", buf, 0x12u);
-          }
-
-          _dispatchBssSteeringRequest(a1, (a2 + 10), v14);
-        }
-
-        goto LABEL_184;
-      }
-
-      switch(v20)
-      {
-        case 0x8D:
-          _dispatchSoftAPLPMEvent(a1, a2 + 10, v14);
-          goto LABEL_184;
-        case 0x8F:
-          _dispatchActionFrameEvent(a1, a2 + 40, v14);
-          goto LABEL_184;
-        case 0x91:
-          _dispatchWeightedAvgLQMUpdateEvent(a1, (a2 + 10), v14);
-          goto LABEL_184;
-      }
+      _dispatchBGScanNetworkDiscoveredEvent(a1, (a2 + 10), v18);
+      goto LABEL_192;
     }
 
-    else if (v20 <= 163)
+    if (v22 == 34)
     {
-      switch(v20)
-      {
-        case 0x96:
-          _dispatchDPS(a1, (a2 + 10), v14);
-          goto LABEL_184;
-        case 0x97:
-          _dispatchSlowWiFi(a1, (a2 + 10), v14);
-          goto LABEL_184;
-        case 0x9C:
-          _dispatchRealtimeSessionEvent(a1, (a2 + 10), v14);
-          goto LABEL_184;
-      }
+      _dispatchDeauthReceived(a1, (a2 + 10), v18);
+      goto LABEL_192;
     }
 
-    else if (v20 > 168)
-    {
-      if (v20 == 169)
-      {
-        _dispatchLqmTxStatsUpdate(a1, (a2 + 10), v14);
-        goto LABEL_184;
-      }
+    goto LABEL_117;
+  }
 
-      if (v20 == 176)
-      {
-        _dispatchLqmCrashTracer(a1, a2 + 10, v14);
-        goto LABEL_184;
-      }
+  if (v22 != 10)
+  {
+    if (v22 == 14)
+    {
+      _dispatchDecryptionFailure(a1, (a2 + 10), v18);
+      goto LABEL_192;
+    }
+
+LABEL_117:
+    if (v4 == 40)
+    {
+      v35 = 0;
     }
 
     else
     {
-      if (v20 == 164)
-      {
-        _dispatchSlowWiFiLinkProbeTrigger(a1, (a2 + 10), v14);
-        goto LABEL_184;
-      }
-
-      if (v20 == 165)
-      {
-        _dispatchSlowWiFiUserInputTrigger(a1, (a2 + 10), v14);
-        goto LABEL_184;
-      }
+      v35 = a2 + 10;
     }
 
-    goto LABEL_109;
+    v37 = *(a1 + 9);
+    v36 = *(a1 + 10);
+    v38 = 0;
+LABEL_121:
+    v39 = a1;
+    v40 = v18;
+LABEL_142:
+    v37(v38, v39, v22, v35, v40, v36);
+    goto LABEL_192;
   }
 
-  if (v20 > 209)
+  v62 = v18 == 4;
+  if (v4 == 44)
   {
-    if (v20 <= 237)
-    {
-      switch(v20)
-      {
-        case 0xD2:
-          _dispatchP2PCountryCodeChange(a1, a2 + 40);
-          goto LABEL_184;
-        case 0xD9:
-          if (v2 != 40)
-          {
-            v39 = *(a2 + 14);
-            *buf = *(a2 + 10);
-            *&buf[16] = v39;
-            *&buf[29] = *(a2 + 69);
-            (*(a1 + 72))(0, a1, 217, buf, 37, *(a1 + 80));
-          }
-
-          goto LABEL_184;
-        case 0xDA:
-          _dispatchObssMitInfoEvent(a1, a2 + 40, v14);
-          goto LABEL_184;
-      }
-
-      goto LABEL_109;
-    }
-
-    if (v20 > 239)
-    {
-      if (v20 != 240)
-      {
-        if (v20 == 245)
-        {
-          _dispatchRxStall(a1, a2 + 10, v14);
-          goto LABEL_184;
-        }
-
-        goto LABEL_109;
-      }
-
-      _dispatchScanForwardStatsUpdateEvent(a1, (a2 + 10), v14);
-      goto LABEL_184;
-    }
-
-    if (v20 != 238)
-    {
-      if (a1 && v2 == 88)
-      {
-        (*(a1 + 72))(0, a1, 239, a2 + 10, 48, *(a1 + 80));
-      }
-
-      goto LABEL_184;
-    }
-
-    if (!a1 || v2 != 44)
-    {
-      goto LABEL_184;
-    }
-
-    v35 = *(a1 + 72);
-    v34 = *(a1 + 80);
-    v33 = a2 + 10;
-    v36 = 0;
-    v37 = a1;
-    v20 = 238;
-    goto LABEL_133;
+    v47 = a2[10];
   }
 
-  if (v20 <= 191)
+  else
   {
-    switch(v20)
-    {
-      case 0xB4:
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136315394;
-          *&buf[4] = "_eventRead";
-          *&buf[12] = 1024;
-          *&buf[14] = 5298;
-          _os_log_impl(&dword_254882000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d Processing _dispatchBeaconCacheUpdate\n", buf, 0x12u);
-        }
-
-        _dispatchBeaconCacheUpdate(a1, (a2 + 10), v14);
-        goto LABEL_184;
-      case 0xBD:
-        _dispatchTrafficInfoEvent(a1, a2 + 40, v14);
-        goto LABEL_184;
-      case 0xBE:
-        _dispatchBTCoexStatsUpdateEvent(a1, (a2 + 10), v14);
-        goto LABEL_184;
-    }
-
-    goto LABEL_109;
+    v47 = 0;
   }
 
-  if (v20 <= 195)
+  pthread_mutex_lock((a1 + 40));
+  v48 = MachPort;
+  if (*(a1 + 7))
   {
-    if (v20 == 192)
-    {
-      _dispatchSIBEvent(a1, a2 + 10, v14);
-      goto LABEL_184;
-    }
-
-    if (v20 == 193)
-    {
-      _dispatchSensingResults(a1, a2 + 40, v14);
-      goto LABEL_184;
-    }
-
-    goto LABEL_109;
+    v49 = *(a1 + 28);
+    v50 = v49 != pthread_self();
   }
 
-  if (v20 != 196)
+  else
   {
-    if (v20 == 199)
-    {
-      _dispatchColocatedCacheEvent(a1, a2 + 10, v14);
-      goto LABEL_184;
-    }
-
-    goto LABEL_109;
+    v50 = 0;
   }
 
-  _dispatchTTRFromDriver(a1, a2 + 40, v14);
-LABEL_184:
-  v51 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW) - v12;
-  v52 = a2[5];
-  v53 = *a2;
-  if (v51 >= 0xBEBC200 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  v51 = *(a1 + 232);
+  if (!v50 && !*(a1 + 232))
   {
-    if (v52 - 246 >= 0xFFFFFF0B)
+    *(a1 + 28) = 0;
+  }
+
+  pthread_mutex_unlock((a1 + 40));
+  if (v50)
+  {
+    MachPort = v48;
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v57 = gAppleMIndexToString[v52];
+      *buf = 136315138;
+      *&buf[4] = "_eventRead";
+      _os_log_impl(&dword_254882000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Error: Thread mismatch detected in scan done event, bailing, not dispatching async scan callback", buf, 0xCu);
+    }
+
+    goto LABEL_192;
+  }
+
+  if (v51)
+  {
+    _dispatchAsyncScanEvent(a1, v62, v47);
+    MachPort = v48;
+  }
+
+  else
+  {
+    (*(a1 + 9))(v47, a1, 10, 0, 0, *(a1 + 10));
+    v26 = *(a1 + 19);
+    MachPort = v48;
+    if (v26)
+    {
+LABEL_27:
+      dispatch_semaphore_signal(v26);
+    }
+  }
+
+LABEL_192:
+  v52 = MachPort;
+  v53 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW) - v16;
+  v54 = a2[5];
+  v55 = *a2;
+  if (v53 >= 0xBEBC200 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    if ((v54 - 246) >= 0xFFFFFF0B)
+    {
+      v59 = gAppleMIndexToString[v54];
     }
 
     else
     {
-      v57 = "unknown APPLE80211_M_";
+      v59 = "unknown APPLE80211_M_";
     }
 
     *buf = 136449026;
@@ -5984,39 +5998,49 @@ LABEL_184:
     *&buf[12] = 2082;
     *&buf[14] = "_eventRead exceeded threshold";
     *&buf[22] = 1024;
-    *&buf[24] = v52;
+    *&buf[24] = v54;
     *&buf[28] = 1024;
-    *&buf[30] = v52;
+    *&buf[30] = v54;
     *&buf[34] = 1024;
-    *&buf[36] = v53;
-    v70 = 2048;
-    v71 = v63;
+    *&buf[36] = v55;
     v72 = 2048;
     v73 = v64;
     v74 = 2048;
-    v75 = v51 / 0x3B9ACA00;
+    v75 = v65;
     v76 = 2048;
-    v77 = (274877907 * (v51 % 0x3B9ACA00)) >> 38;
+    v77 = v53 / 0x3B9ACA00;
     v78 = 2048;
-    v79 = 0;
+    v79 = (274877907 * (v53 % 0x3B9ACA00)) >> 38;
     v80 = 2048;
-    v81 = 200000;
-    v82 = 2082;
-    v83 = v57;
+    v81 = 0;
+    v82 = 2048;
+    v83 = 200000;
+    v84 = 2082;
+    v85 = v59;
     _os_log_error_impl(&dword_254882000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}s: '%{public}s': eventCode[0x%08x/%u] totalSize[%u] @[%llu.%06llu], [%llu.%06llu] Exceeded threshold >= [%llu.%06llu], event:'%{public}s'\n", buf, 0x6Eu);
-    v58 = *a2;
-    v52 = a2[5];
+    v56 = v63;
+    v57 = v64;
+    v55 = *a2;
+    v54 = a2[5];
   }
 
-  v54 = *(a1 + 1848);
-  if (v52 - 246 >= 0xFFFFFF0B)
+  else
   {
-    v55 = gAppleMIndexToString[v52];
+    v56 = v63;
+    v57 = v64;
   }
 
-  _logEventPipeLogWithFormat(0, *(a1 + 1832), 2, v51 > 0xBEBC1FF, "%s:%u, tag[%s:0x%llx/%llu] @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u], total time [%llu.%06llu], processed event totalSize[%d], %d/'%s'\n", v48, v49, v50, "_eventRead");
-LABEL_189:
-  v56 = *MEMORY[0x277D85DE8];
+  if ((v54 - 246) >= 0xFFFFFF0B)
+  {
+    v58 = gAppleMIndexToString[v54];
+  }
+
+  else
+  {
+    v58 = "unknown APPLE80211_M_";
+  }
+
+  _logEventPipeLogWithFormat(0, *(a1 + 229), 2, v53 > 0xBEBC1FF, "%s:%u, tag[%s:0x%llx/%llu] @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u], total time [%llu.%06llu], processed event totalSize[%d], %d/'%s'\n", "_eventRead", 5417, v56, a4, a4, v57, v65, v67, current_queue, v66, a1, *(a1 + 231), v52, v53 / 0x3B9ACA00, v53 % 0x3B9ACA00 / 0x3E8, v55, v54, v58);
 }
 
 uint64_t _writeEventBuffer()
@@ -6028,286 +6052,334 @@ uint64_t _writeEventBuffer()
   v8 = v7;
   v10 = v9;
   v11 = v0;
-  v91 = *MEMORY[0x277D85DE8];
-  bzero(v63, 0x1018uLL);
-  v62 = 0;
-  if (v11)
+  v84 = *MEMORY[0x277D85DE8];
+  bzero(v56, 0x1018uLL);
+  v55 = 0;
+  if (v11 && (v12 = v11[231]) != 0)
   {
-    v12 = *(v11 + 1848);
-    if (v12)
-    {
-      IONotificationPortGetMachPort(v12);
-    }
+    MachPort = IONotificationPortGetMachPort(v12);
+  }
+
+  else
+  {
+    MachPort = 0;
   }
 
   current_queue = dispatch_get_current_queue();
-  dispatch_queue_get_label(current_queue);
-  pthread_threadid_np(0, &v62);
-  v13 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-  v17 = *(v10 + 28);
-  v63[0] = 0;
-  v64 = v17;
+  label = dispatch_queue_get_label(current_queue);
+  v15 = "";
+  if (label)
+  {
+    v15 = label;
+  }
+
+  v54 = v15;
+  pthread_threadid_np(0, &v55);
+  v16 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+  v17 = v10[7];
+  v18 = &v58;
+  v56[0] = 0;
+  v57 = v17;
   if (v11)
   {
-    v18 = *(v11 + 1832);
-    v19 = *(v11 + 1848);
+    v19 = v11[229];
+    v20 = v11[231];
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
+    LODWORD(v20) = 0;
   }
 
-  v20 = v13 / 0x3B9ACA00;
-  v60 = v13 % 0x3B9ACA00 / 0x3E8;
-  _logEventPipeLogWithFormat(0, v18, 2, 0, "%s:%u @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u] processing event, logMetadata[%p] log[%p] length[%llu] logContinue[%p] lengthContinue[%llu], KEV_MSG_HEADER_SIZE[%u] APPLE80211_M_MAX_LEN[%u] IFNAMSIZ[%u] SIZEOF_IOUCMETADATA[%u] kmsg[%p] khdr[%p] total_size[%d]/khdr->total_size[%u] copy_size[%u]\n", v14, v15, v16, "_writeEventBuffer");
-  v24 = (v10 + 32);
-  if (v10 + 32 > &v65 && buf > v24 || v24 < &v65 && v10 + 48 > &v65)
+  v21 = v16 / 0x3B9ACA00;
+  v51 = MachPort;
+  v52 = v16 % 0x3B9ACA00 / 0x3E8;
+  _logEventPipeLogWithFormat(0, v19, 2, 0, "%s:%u @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u] processing event, logMetadata[%p] log[%p] length[%llu] logContinue[%p] lengthContinue[%llu], KEV_MSG_HEADER_SIZE[%u] APPLE80211_M_MAX_LEN[%u] IFNAMSIZ[%u] SIZEOF_IOUCMETADATA[%u] kmsg[%p] khdr[%p] total_size[%d]/khdr->total_size[%u] copy_size[%u]\n", "_writeEventBuffer", 5518, v16 / 0x3B9ACA00, v52, v55, current_queue, v54, v11, v20, MachPort, v10, v8, v6, v4, v2, 24, 4096, 16, 48, &v58, v56, 0, 0, 0);
+  v22 = (v10 + 8);
+  if (v10 + 8 > &v58 && buf > v22 || v22 < &v58 && v10 + 12 > &v58)
   {
-    bzero(&v65, 0x1000uLL);
-    v28 = 34;
-LABEL_25:
+    bzero(&v58, 0x1000uLL);
+    v23 = 0;
+    LODWORD(v24) = 0;
+    v25 = 34;
+    v26 = 5522;
+LABEL_29:
     if (v11)
     {
-      v32 = *(v11 + 1848);
-    }
-
-    if ((v64 - 246) >= 0xFFFFFF0B)
-    {
-      v33 = gAppleMIndexToString[v64];
-    }
-
-    _logEventPipeLogWithFormat(0, 0, 0, 1, "FAILED: %s:%u/err[%u] @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u], processed event, logMetadata[%p] log[%p] length[%llu] logContinue[%p] lengthContinue[%llu], KEV_MSG_HEADER_SIZE[%u] APPLE80211_M_MAX_LEN[%u] IFNAMSIZ[%u] SIZEOF_IOUCMETADATA[%u] kmsg[%p] khdr[%p] total_size[%d]/khdr->total_size[%u] copy_size[%u], %d/'%s'\n", v25, v26, v27, "_writeEventBuffer");
-    goto LABEL_30;
-  }
-
-  v65 = *v24;
-  if (v6 >= 0xFF0)
-  {
-    v29 = 4080;
-  }
-
-  else
-  {
-    v29 = v6;
-  }
-
-  if (v11)
-  {
-    v30 = *(v11 + 1832);
-    v31 = *(v11 + 1848);
-  }
-
-  else
-  {
-    v30 = 0;
-  }
-
-  _logEventPipeLogWithFormat(0, v30, 2, 0, "%s:%u @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u], processing event, logMetadata[%p] log[%p] length[%llu] logContinue[%p] lengthContinue[%llu], KEV_MSG_HEADER_SIZE[%u] APPLE80211_M_MAX_LEN[%u] IFNAMSIZ[%u] SIZEOF_IOUCMETADATA[%u] kmsg[%p] khdr[%p] total_size[%d]/khdr->total_size[%u] copy_size[%u]\n", v21, v22, v23, "_writeEventBuffer");
-  if (!v8)
-  {
-    bzero(v66, 0xFF0uLL);
-    v28 = 22;
-    goto LABEL_25;
-  }
-
-  if (v66 < v8 && buf > v8 || v66 > v8 && v8 + v29 > v66)
-  {
-    bzero(v66, 0xFF0uLL);
-    v28 = 34;
-    goto LABEL_25;
-  }
-
-  __memcpy_chk();
-  v39 = &v66[v29];
-  if (v11)
-  {
-    v40 = *(v11 + 1832);
-    v41 = *(v11 + 1848);
-  }
-
-  else
-  {
-    v40 = 0;
-  }
-
-  v59 = v29 + 16;
-  _logEventPipeLogWithFormat(0, v40, 2, 0, "%s:%u @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u], processing event, logMetadata[%p] log[%p] length[%llu] logContinue[%p] lengthContinue[%llu], KEV_MSG_HEADER_SIZE[%u] APPLE80211_M_MAX_LEN[%u] IFNAMSIZ[%u] SIZEOF_IOUCMETADATA[%u] kmsg[%p] khdr[%p] total_size[%d]/khdr->total_size[%u] copy_size[%u]\n", v36, v37, v38, "_writeEventBuffer");
-  if (v4)
-  {
-    if (__CFADD__(v59, v2))
-    {
-      v28 = 34;
-      goto LABEL_25;
-    }
-
-    v42 = 4080 - v29;
-    if (v59 + v2 > 0x1000)
-    {
-      if (v39 < v4 && buf > v4 || v39 > v4 && &v4[v42] > v39)
-      {
-        goto LABEL_45;
-      }
-
-      v44 = 4096;
+      v29 = v11[231];
     }
 
     else
     {
-      if ((v2 & 0x8000000000000000) != 0 || v42 < v2)
-      {
-        bzero(v39, 4080 - v29);
-        v28 = 7;
-        goto LABEL_25;
-      }
-
-      if (v39 < v4 && buf > v4 || v39 > v4 && &v4[v2] > v39)
-      {
-LABEL_45:
-        bzero(v39, 4080 - v29);
-        v28 = 34;
-        goto LABEL_25;
-      }
-
-      v44 = v59 + v2;
-      v42 = v2;
+      LODWORD(v29) = 0;
     }
 
-    memcpy(v39, v4, v42);
-    v43 = v44;
+    if ((v57 - 246) >= 0xFFFFFF0B)
+    {
+      v30 = gAppleMIndexToString[v57];
+    }
+
+    else
+    {
+      v30 = "unknown APPLE80211_M_";
+    }
+
+    _logEventPipeLogWithFormat(0, 0, 0, 1, "FAILED: %s:%u/err[%u] @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u], processed event, logMetadata[%p] log[%p] length[%llu] logContinue[%p] lengthContinue[%llu], KEV_MSG_HEADER_SIZE[%u] APPLE80211_M_MAX_LEN[%u] IFNAMSIZ[%u] SIZEOF_IOUCMETADATA[%u] kmsg[%p] khdr[%p] total_size[%d]/khdr->total_size[%u] copy_size[%u], %d/'%s'\n", "_writeEventBuffer", v26, v25, v21, v52, v55, current_queue, v54, v11, v29, v51, v10, v8, v6, v4, v2, 24, 4096, 16, 48, v18, v56, v23, v56[0], v24, v57, v30);
+    return v25;
+  }
+
+  v58 = *v22;
+  v18 = v59;
+  if (v6 >= 0xFF0)
+  {
+    v24 = 4080;
   }
 
   else
   {
-    v43 = v29 + 16;
+    v24 = v6;
   }
 
-  v45 = *(v10 + 28);
-  v63[0] = v43 + 24;
-  v64 = v45;
   if (v11)
   {
-    v46 = *(v11 + 1832);
-    v47 = *(v11 + 1848);
+    v27 = v11[229];
+    v28 = v11[231];
   }
 
   else
   {
-    v46 = 0;
+    v27 = 0;
+    LODWORD(v28) = 0;
   }
 
-  _logEventPipeLogWithFormat(0, v46, 2, 0, "%s:%u @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u] processing event, logMetadata[%p] log[%p] length[%llu] logContinue[%p] lengthContinue[%llu], KEV_MSG_HEADER_SIZE[%u] APPLE80211_M_MAX_LEN[%u] IFNAMSIZ[%u] SIZEOF_IOUCMETADATA[%u] kmsg[%p] khdr[%p] total_size[%d]/khdr->total_size[%u] copy_size[%u]\n", v25, v26, v27, "_writeEventBuffer");
-  v48 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-  _eventRead(v11, v63);
-  v52 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW) - v48;
-  if (v52 >= 0xBEBC200)
+  _logEventPipeLogWithFormat(0, v27, 2, 0, "%s:%u @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u], processing event, logMetadata[%p] log[%p] length[%llu] logContinue[%p] lengthContinue[%llu], KEV_MSG_HEADER_SIZE[%u] APPLE80211_M_MAX_LEN[%u] IFNAMSIZ[%u] SIZEOF_IOUCMETADATA[%u] kmsg[%p] khdr[%p] total_size[%d]/khdr->total_size[%u] copy_size[%u]\n", "_writeEventBuffer", 5539, v21, v52, v55, current_queue, v54, v11, v28, v51, v10, v8, v6, v4, v2, 24, 4096, 16, 48, v59, v56, 16, v56[0], v24);
+  if (!v8)
   {
-    v53 = v64;
-    v54 = v63[0];
+    bzero(v59, 0xFF0uLL);
+    v25 = 22;
+    goto LABEL_28;
+  }
+
+  if (v59 < v8 && buf > v8 || v59 > v8 && &v8[v24] > v59)
+  {
+    bzero(v59, 0xFF0uLL);
+    v25 = 34;
+LABEL_28:
+    v26 = 5542;
+    v23 = 16;
+    goto LABEL_29;
+  }
+
+  __memcpy_chk();
+  v18 = &v59[v24];
+  if (v11)
+  {
+    v32 = v11[229];
+    v33 = v11[231];
+  }
+
+  else
+  {
+    v32 = 0;
+    LODWORD(v33) = 0;
+  }
+
+  v49 = v24 + 16;
+  _logEventPipeLogWithFormat(0, v32, 2, 0, "%s:%u @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u], processing event, logMetadata[%p] log[%p] length[%llu] logContinue[%p] lengthContinue[%llu], KEV_MSG_HEADER_SIZE[%u] APPLE80211_M_MAX_LEN[%u] IFNAMSIZ[%u] SIZEOF_IOUCMETADATA[%u] kmsg[%p] khdr[%p] total_size[%d]/khdr->total_size[%u] copy_size[%u]\n", "_writeEventBuffer", 5556, v21, v52, v55, current_queue, v54, v11, v33, v51, v10, v8, v6, v4, v2, 24, 4096, 16, 48, v18, v56, v24 + 16, v56[0], v24);
+  v34 = v4;
+  if (v4)
+  {
+    v23 = v24 + 16;
+    if (__CFADD__(v49, v2))
+    {
+      v25 = 34;
+      v26 = 5561;
+      goto LABEL_29;
+    }
+
+    v35 = 4080 - v24;
+    if (v49 + v2 > 0x1000)
+    {
+      if (v18 < v4 && buf > v4 || v18 > v4 && &v4[v35] > v18)
+      {
+        v24 = 4080 - v24;
+        bzero(v18, v24);
+        v23 = v49;
+        v25 = 34;
+        v26 = 5573;
+        goto LABEL_29;
+      }
+
+      v37 = 4096;
+      LODWORD(v24) = 4080 - v24;
+    }
+
+    else
+    {
+      if ((v2 & 0x8000000000000000) != 0 || v35 < v2)
+      {
+        bzero(v18, 4080 - v24);
+        v23 = v24 + 16;
+        v25 = 7;
+LABEL_57:
+        v26 = 5565;
+        goto LABEL_29;
+      }
+
+      if (v18 < v4 && buf > v4 || v18 > v4 && &v4[v2] > v18)
+      {
+        bzero(v18, 4080 - v24);
+        v23 = v24 + 16;
+        v25 = 34;
+        goto LABEL_57;
+      }
+
+      v37 = v49 + v2;
+      v35 = v2;
+    }
+
+    memcpy(v18, v4, v35);
+    v34 = v4;
+    v36 = v37;
+  }
+
+  else
+  {
+    v36 = v24 + 16;
+  }
+
+  v38 = v10[7];
+  v56[0] = v36 + 24;
+  v57 = v38;
+  if (v11)
+  {
+    v39 = v11[229];
+    v40 = v11[231];
+  }
+
+  else
+  {
+    v39 = 0;
+    LODWORD(v40) = 0;
+  }
+
+  v50 = v36;
+  _logEventPipeLogWithFormat(0, v39, 2, 0, "%s:%u @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u] processing event, logMetadata[%p] log[%p] length[%llu] logContinue[%p] lengthContinue[%llu], KEV_MSG_HEADER_SIZE[%u] APPLE80211_M_MAX_LEN[%u] IFNAMSIZ[%u] SIZEOF_IOUCMETADATA[%u] kmsg[%p] khdr[%p] total_size[%d]/khdr->total_size[%u] copy_size[%u]\n", "_writeEventBuffer", 5600, v21, v52, v55, current_queue, v54, v11, v40, v51, v10, v8, v6, v34, v2, 24, 4096, 16, 48, v18, v56, v36, v36 + 24, v24);
+  v41 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+  _eventRead(v11, v56, "_writeEventBuffer", 5603);
+  v42 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW) - v41;
+  if (v42 >= 0xBEBC200)
+  {
+    v43 = v57;
+    v44 = v56[0];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      if ((v53 - 246) >= 0xFFFFFF0B)
+      if ((v43 - 246) >= 0xFFFFFF0B)
       {
-        v57 = gAppleMIndexToString[v53];
+        v47 = gAppleMIndexToString[v43];
       }
 
       else
       {
-        v57 = "unknown APPLE80211_M_";
+        v47 = "unknown APPLE80211_M_";
       }
 
       *buf = 136449026;
-      v68 = "_logTimeIfEventThresholdExceeded";
-      v69 = 2082;
-      v70 = "_writeEventBuffer exceeded threshold";
-      v71 = 1024;
-      v72 = v53;
-      v73 = 1024;
-      v74 = v53;
-      v75 = 1024;
-      v76 = v54;
-      v77 = 2048;
-      v78 = v20;
-      v79 = 2048;
-      v80 = v60;
-      v81 = 2048;
-      v82 = v52 / 0x3B9ACA00;
-      v83 = 2048;
-      v84 = (274877907 * (v52 % 0x3B9ACA00)) >> 38;
-      v85 = 2048;
-      v86 = 0;
-      v87 = 2048;
-      v88 = 200000;
-      v89 = 2082;
-      v90 = v57;
+      v61 = "_logTimeIfEventThresholdExceeded";
+      v62 = 2082;
+      v63 = "_writeEventBuffer exceeded threshold";
+      v64 = 1024;
+      v65 = v43;
+      v66 = 1024;
+      v67 = v43;
+      v68 = 1024;
+      v69 = v44;
+      v70 = 2048;
+      v71 = v21;
+      v72 = 2048;
+      v73 = v52;
+      v74 = 2048;
+      v75 = v42 / 0x3B9ACA00;
+      v76 = 2048;
+      v77 = (274877907 * (v42 % 0x3B9ACA00)) >> 38;
+      v78 = 2048;
+      v79 = 0;
+      v80 = 2048;
+      v81 = 200000;
+      v82 = 2082;
+      v83 = v47;
       _os_log_error_impl(&dword_254882000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}s: '%{public}s': eventCode[0x%08x/%u] totalSize[%u] @[%llu.%06llu], [%llu.%06llu] Exceeded threshold >= [%llu.%06llu], event:'%{public}s'\n", buf, 0x6Eu);
       if (v11)
       {
-        goto LABEL_60;
+        goto LABEL_67;
       }
 
-LABEL_65:
-      v55 = 0;
-      goto LABEL_66;
+LABEL_72:
+      v45 = 0;
+      LODWORD(v46) = 0;
+      goto LABEL_73;
     }
   }
 
   if (!v11)
   {
-    goto LABEL_65;
+    goto LABEL_72;
   }
 
-LABEL_60:
-  v55 = *(v11 + 1832);
-  v56 = *(v11 + 1848);
-LABEL_66:
-  if ((v64 - 246) >= 0xFFFFFF0B)
+LABEL_67:
+  v45 = v11[229];
+  v46 = v11[231];
+LABEL_73:
+  if ((v57 - 246) >= 0xFFFFFF0B)
   {
-    v58 = gAppleMIndexToString[v64];
+    v48 = gAppleMIndexToString[v57];
   }
 
-  _logEventPipeLogWithFormat(0, v55, 2, v52 > 0xBEBC1FF, "%s:%u @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u], total time [%llu.%06llu], processed event total_size[%d]/khdr->total_size[%u], %d/'%s'\n", v49, v50, v51, "_writeEventBuffer");
-  v28 = 0;
-LABEL_30:
-  v34 = *MEMORY[0x277D85DE8];
-  return v28;
+  else
+  {
+    v48 = "unknown APPLE80211_M_";
+  }
+
+  _logEventPipeLogWithFormat(0, v45, 2, v42 > 0xBEBC1FF, "%s:%u @[%llu.%06llu] tid[0x%llx], dq[%p]/'%s' opaque[%p] ioucPort[%u] machPort[%u], total time [%llu.%06llu], processed event total_size[%d]/khdr->total_size[%u], %d/'%s'\n", "_writeEventBuffer", 5623, v21, v52, v55, current_queue, v54, v11, v46, v51, v42 / 0x3B9ACA00, v42 % 0x3B9ACA00 / 0x3E8, v50, v56[0], v57, v48);
+  return 0;
 }
 
 uint64_t Apple80211CopyValue()
 {
   v0 = MEMORY[0x28223BE20]();
-  v33 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (!v0 || (*v0 & 0x80000000) != 0)
   {
-    goto LABEL_29;
+    return 4294963396;
   }
 
   v4 = v3;
   v5 = 4294963396;
   if (!v3 || !*(v0 + 4))
   {
-    goto LABEL_41;
+    return v5;
   }
 
   v6 = v2;
   v7 = v1;
   memset(__b, 170, sizeof(__b));
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0;
   __strlcpy_chk();
-  LODWORD(v31) = v7;
+  LODWORD(v29) = v7;
   bzero(__b, 0x3C30uLL);
   __b[0] = -1071093303;
   __strlcpy_chk();
   __b[3846] = v7;
-  if (v31 <= 247)
+  if (v29 <= 247)
   {
     v5 = 4294963394;
-    switch(v31)
+    switch(v29)
     {
       case -1:
-        goto LABEL_41;
+        return v5;
       case 0:
       case 3:
       case 10:
@@ -6362,7 +6434,7 @@ uint64_t Apple80211CopyValue()
       case 112:
       case 113:
       case 114:
-        goto LABEL_10;
+        return 4294963393;
       case 1:
       case 40:
         Mutable = CFDataCreateMutable(*MEMORY[0x277CBECE8], 0);
@@ -6430,67 +6502,61 @@ uint64_t Apple80211CopyValue()
       case 83:
         goto LABEL_37;
       case 13:
-        v28 = 0;
-        v23 = Apple80211GetWithIOCTL();
-        if (v23)
+        v26 = 0;
+        v22 = Apple80211GetWithIOCTL();
+        if (v22)
         {
-          goto LABEL_59;
+          return v22;
         }
 
         v9 = *MEMORY[0x277CBECE8];
-        v10 = &v28;
+        v10 = &v26;
         goto LABEL_20;
       case 65:
         Value = CFDictionaryGetValue(v6, @"MODE");
         if (!Value)
         {
-          goto LABEL_29;
+          return 4294963396;
         }
 
-        v25 = Value;
-        v26 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-        *v4 = v26;
-        if (!v26)
+        v24 = Value;
+        v25 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+        *v4 = v25;
+        if (!v25)
         {
-          goto LABEL_63;
+          return 4294963395;
         }
 
-        CFDictionarySetValue(v26, @"MODE", v25);
-        v27 = *v4;
+        CFDictionarySetValue(v25, @"MODE", v24);
         goto LABEL_39;
       case 79:
-        v23 = Apple80211GetWithIOCTL();
-LABEL_59:
-        v5 = v23;
-        goto LABEL_41;
+        return Apple80211GetWithIOCTL();
       default:
-        if (v31 == 166)
+        if (v29 == 166)
         {
           goto LABEL_7;
         }
 
-        if (v31 == 207)
+        if (v29 == 207)
         {
           goto LABEL_37;
         }
 
-        goto LABEL_10;
+        return 4294963393;
     }
   }
 
-  if (v31 > 367)
+  if (v29 > 367)
   {
-    v8 = v31 - 112;
-    if ((v31 - 368) > 0x37)
+    v8 = v29 - 112;
+    if ((v29 - 368) > 0x37)
     {
 LABEL_16:
-      if (v31 != 516)
+      if (v29 != 516)
       {
-        if (v31 != 574)
+        if (v29 != 574)
         {
-LABEL_10:
-          v5 = 4294963393;
-          goto LABEL_41;
+          return 4294963393;
         }
 
         goto LABEL_27;
@@ -6506,25 +6572,23 @@ LABEL_39:
         v5 = Apple80211GetWithIOCTL();
         if (!v5)
         {
-          goto LABEL_41;
+          return v5;
         }
 
 LABEL_40:
         CFRelease(*v4);
         *v4 = 0;
-        goto LABEL_41;
+        return v5;
       }
 
-LABEL_63:
-      v5 = 4294963395;
-      goto LABEL_41;
+      return 4294963395;
     }
 
     if (((1 << v8) & 0x80008022000000) == 0)
     {
       if (((1 << v8) & 0x40080) == 0)
       {
-        if (v31 == 368)
+        if (v29 == 368)
         {
           goto LABEL_37;
         }
@@ -6540,39 +6604,39 @@ LABEL_27:
     goto LABEL_7;
   }
 
-  if ((v31 - 254) > 0xA)
+  if ((v29 - 254) > 0xA)
   {
 LABEL_32:
-    if (v31 == 248)
+    if (v29 == 248)
     {
-      v15 = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
-      *v4 = v15;
-      if (!v15)
+      v14 = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
+      *v4 = v14;
+      if (!v14)
       {
-        goto LABEL_63;
+        return 4294963395;
       }
 
-      v16 = 1;
-      v17 = 0x2000;
+      v15 = 1;
+      v16 = 0x2000;
 LABEL_45:
-      v18 = v17;
+      v17 = v16;
       do
       {
-        v19 = v16;
-        v20 = malloc_type_malloc(v18, 0x100004077774924uLL);
-        if (!v20)
+        v18 = v15;
+        v19 = malloc_type_malloc(v17, 0x100004077774924uLL);
+        if (!v19)
         {
           goto LABEL_52;
         }
 
-        v21 = v20;
-        v22 = Apple80211GetWithIOCTL();
-        if (v22 == -3901)
+        v20 = v19;
+        v21 = Apple80211GetWithIOCTL();
+        if (v21 == -3901)
         {
-          v17 = 2 * v18;
-          free(v21);
-          v16 = 0;
-          if (v19)
+          v16 = 2 * v17;
+          free(v20);
+          v15 = 0;
+          if (v18)
           {
             goto LABEL_45;
           }
@@ -6582,44 +6646,44 @@ LABEL_52:
           goto LABEL_40;
         }
 
-        v5 = v22;
-        if (!v22)
+        v5 = v21;
+        if (!v21)
         {
-          *(v21 + (v18 - 1)) = 0;
-          CFStringAppendCString(*v4, v21, 0x8000100u);
-          free(v21);
-          goto LABEL_41;
+          *(v20 + (v17 - 1)) = 0;
+          CFStringAppendCString(*v4, v20, 0x8000100u);
+          free(v20);
+          return v5;
         }
 
-        free(v21);
-        v16 = 0;
+        free(v20);
+        v15 = 0;
       }
 
-      while ((v19 & 1) != 0);
+      while ((v18 & 1) != 0);
       if (v5)
       {
         goto LABEL_40;
       }
 
-      goto LABEL_41;
+      return v5;
     }
 
-    if (v31 != 353)
+    if (v29 != 353)
     {
-      goto LABEL_10;
+      return 4294963393;
     }
 
     goto LABEL_7;
   }
 
-  if (((1 << (v31 + 2)) & 0xB4) == 0)
+  if (((1 << (v29 + 2)) & 0xB4) == 0)
   {
-    if (v31 == 254)
+    if (v29 == 254)
     {
       goto LABEL_37;
     }
 
-    if (v31 == 264)
+    if (v29 == 264)
     {
       goto LABEL_27;
     }
@@ -6632,50 +6696,43 @@ LABEL_7:
   {
     if (*__error() == 102 || *__error() == 6)
     {
-      goto LABEL_10;
+      return 4294963393;
     }
 
     if (*__error() != 22)
     {
-      v5 = *__error();
-      goto LABEL_41;
+      return *__error();
     }
 
-LABEL_29:
-    v5 = 4294963396;
-    goto LABEL_41;
+    return 4294963396;
   }
 
   v9 = *MEMORY[0x277CBECE8];
-  v10 = &v31 + 4;
+  v10 = &v29 + 4;
 LABEL_20:
   v11 = CFNumberCreate(v9, kCFNumberIntType, v10);
   *v4 = v11;
   if (v11)
   {
-    v5 = 0;
+    return 0;
   }
 
   else
   {
-    v5 = 4294963395;
+    return 4294963395;
   }
-
-LABEL_41:
-  v13 = *MEMORY[0x277D85DE8];
-  return v5;
 }
 
 uint64_t Apple80211GetWithIOCTL()
 {
   v0 = MEMORY[0x28223BE20]();
   v4 = v3;
-  v1100 = *MEMORY[0x277D85DE8];
-  v1099 = 0;
+  v1099 = *MEMORY[0x277D85DE8];
+  v1098 = 0;
+  v1096 = 0u;
   v1097 = 0u;
-  v1098 = 0u;
+  v1094 = 0;
   v1095 = 0;
-  v1096 = 0;
   if ((*v0 & 0x80000000) != 0)
   {
     goto LABEL_48;
@@ -6695,13 +6752,13 @@ uint64_t Apple80211GetWithIOCTL()
   }
 
   v8 = v2;
-  v1099 = 0;
+  v1098 = 0;
+  v1096 = 0uLL;
   v1097 = 0uLL;
-  v1098 = 0uLL;
   __strlcpy_chk();
-  LODWORD(v1098) = v4;
+  LODWORD(v1097) = v4;
   __strlcpy_chk();
-  HIBYTE(v1096) = 0;
+  HIBYTE(v1095) = 0;
   if (v4 > 215)
   {
     if (v4 > 358)
@@ -6719,15 +6776,15 @@ uint64_t Apple80211GetWithIOCTL()
                 if (v4 == 387)
                 {
                   memset(__src, 0, 37);
-                  DWORD2(v1098) = 37;
-                  v1099 = __src;
+                  DWORD2(v1097) = 37;
+                  v1098 = __src;
                   if (!Apple80211IOCTLGetWrapper())
                   {
 LABEL_354:
                     v241 = __src;
 LABEL_355:
                     CFStringAppendCString(v5, v241, 0x8000100u);
-                    goto LABEL_798;
+                    return 0;
                   }
 
                   goto LABEL_231;
@@ -6743,7 +6800,7 @@ LABEL_843:
               v6 = LQMSummary;
               if (!LQMSummary)
               {
-                goto LABEL_907;
+                return v6;
               }
 
               goto LABEL_898;
@@ -6755,9 +6812,9 @@ LABEL_123:
             {
               v66 = v65;
               bzero(v65, 0x18004uLL);
-              DWORD2(v1098) = 98308;
-              v1099 = v66;
-              if (!Apple80211RawGet(v7, &v1097))
+              DWORD2(v1097) = 98308;
+              v1098 = v66;
+              if (!Apple80211RawGet(v7, &v1096))
               {
                 LODWORD(__src[0]) = 2;
                 v67 = *MEMORY[0x277CBECE8];
@@ -6773,7 +6830,7 @@ LABEL_123:
                     CFRelease(v69);
                     CFRelease(v71);
                     free(v66);
-                    goto LABEL_227;
+                    return 0;
                   }
 
                   free(v66);
@@ -6785,9 +6842,7 @@ LABEL_123:
                   free(v66);
                 }
 
-LABEL_889:
-                v6 = 4294963396;
-                goto LABEL_907;
+                return 4294963396;
               }
 
               goto LABEL_198;
@@ -6805,8 +6860,8 @@ LABEL_889:
 
             *&__src[0] = 0xAAAAAAAAAAAAAAAALL;
             WORD4(__src[0]) = -21846;
-            DWORD2(v1098) = 10;
-            v1099 = __src;
+            DWORD2(v1097) = 10;
+            v1098 = __src;
             if (Apple80211IOCTLGetWrapper())
             {
               goto LABEL_231;
@@ -6880,7 +6935,7 @@ LABEL_796:
                                 v1028 = v25;
 LABEL_797:
                                 CFRelease(v1028);
-                                goto LABEL_798;
+                                return 0;
                               }
                             }
                           }
@@ -6908,8 +6963,8 @@ LABEL_885:
           if (v4 == 390)
           {
             memset(__src, 170, 0x8D8uLL);
-            v1099 = __src;
-            DWORD2(v1098) = 2264;
+            v1098 = __src;
+            DWORD2(v1097) = 2264;
             Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
             bzero(__src, 0x8D8uLL);
             WORD5(__src[8]) = 2048;
@@ -6948,7 +7003,7 @@ LABEL_885:
               CFRelease(Mutable);
               if (!v6)
               {
-                goto LABEL_907;
+                return v6;
               }
 
               goto LABEL_898;
@@ -6957,7 +7012,7 @@ LABEL_885:
 LABEL_897:
             if (!v6)
             {
-              goto LABEL_907;
+              return v6;
             }
 
             goto LABEL_898;
@@ -6999,13 +7054,13 @@ LABEL_897:
               __src[2] = v14;
               __src[0] = v14;
               syslog(3, "[WiFiTimeSync] %s %s:%d APPLE80211_IOC_TIMESYNC_INFO\n", "/Library/Caches/com.apple.xbs/Sources/IO80211/IO80211API/Apple80211API.c", "Apple80211GetWithIOCTL", 13479);
-              DWORD2(v1098) = 256;
-              v1099 = __src;
-              if (!Apple80211RawGet(v7, &v1097))
+              DWORD2(v1097) = 256;
+              v1098 = __src;
+              if (!Apple80211RawGet(v7, &v1096))
               {
 LABEL_342:
-                CFDataAppendBytes(v5, __src, DWORD2(v1098));
-                goto LABEL_798;
+                CFDataAppendBytes(v5, __src, DWORD2(v1097));
+                return 0;
               }
 
               goto LABEL_231;
@@ -7024,8 +7079,8 @@ LABEL_6:
         if (!Apple80211IOCTLGetWrapper())
         {
           v6 = 0;
-          LODWORD(v5->isa) = DWORD1(v1098);
-          goto LABEL_907;
+          LODWORD(v5->isa) = DWORD1(v1097);
+          return v6;
         }
 
         goto LABEL_8;
@@ -7048,15 +7103,13 @@ LABEL_6:
               goto LABEL_898;
             }
 
-            DWORD2(v1098) = 14728;
-            v1099 = v5;
+            DWORD2(v1097) = 14728;
+            v1098 = v5;
             if (!Apple80211IOCTLGetWrapper())
             {
-              if (!DWORD1(v1098))
+              if (!DWORD1(v1097))
               {
-LABEL_227:
-                v6 = 0;
-                goto LABEL_907;
+                return 0;
               }
 
               syslog(3, "APPLE80211_IOR_LEGEND::%s(%d) Command returned error, exiting\n", "Apple80211GetWithIOCTL", 13509);
@@ -7094,13 +7147,13 @@ LABEL_223:
 
           *&__src[0] = 1;
           DWORD2(__src[0]) = 0;
-          DWORD2(v1098) = 12;
-          v1099 = __src;
+          DWORD2(v1097) = 12;
+          v1098 = __src;
           if (!Apple80211IOCTLGetWrapper())
           {
             if (!DWORD1(__src[0]))
             {
-              goto LABEL_798;
+              return 0;
             }
 
             v10 = 0;
@@ -7131,12 +7184,12 @@ LABEL_223:
 
         bzero(__src + 8, 0x29CuLL);
         *&__src[0] = 0x200000001;
-        DWORD2(v1098) = 676;
-        v1099 = __src;
+        DWORD2(v1097) = 676;
+        v1098 = __src;
 LABEL_217:
         if (!Apple80211IOCTLGetWrapper())
         {
-          goto LABEL_798;
+          return 0;
         }
 
         goto LABEL_231;
@@ -7148,8 +7201,8 @@ LABEL_217:
         {
           *&__src[0] = 1;
           DWORD2(__src[0]) = 0;
-          DWORD2(v1098) = 12;
-          v1099 = __src;
+          DWORD2(v1097) = 12;
+          v1098 = __src;
           goto LABEL_217;
         }
 
@@ -7160,12 +7213,12 @@ LABEL_217:
             goto LABEL_898;
           }
 
-          v1099 = v5;
-          DWORD2(v1098) = 4;
+          v1098 = v5;
+          DWORD2(v1097) = 4;
 LABEL_222:
           if (!Apple80211IOCTLGetWrapper())
           {
-            goto LABEL_227;
+            return 0;
           }
 
           goto LABEL_223;
@@ -7182,8 +7235,8 @@ LABEL_222:
         }
 
         bzero(__src, 0x308uLL);
-        v1099 = __src;
-        DWORD2(v1098) = 776;
+        v1098 = __src;
+        DWORD2(v1097) = 776;
         if (Apple80211IOCTLGetWrapper())
         {
           goto LABEL_804;
@@ -7229,9 +7282,7 @@ LABEL_222:
         v1051 = 0;
 LABEL_909:
         CFRelease(v1051);
-LABEL_910:
-        v6 = 4294963395;
-        goto LABEL_907;
+        return 4294963395;
       }
 
       if (v4 != 516)
@@ -7245,8 +7296,8 @@ LABEL_910:
       }
 
       LODWORD(__src[0]) = 0;
-      DWORD2(v1098) = 4;
-      v1099 = __src;
+      DWORD2(v1097) = 4;
+      v1098 = __src;
       if (!Apple80211IOCTLGetWrapper())
       {
         LODWORD(valuePtr[0]) = 0;
@@ -7288,13 +7339,13 @@ LABEL_910:
 
         if (LODWORD(valuePtr[0]))
         {
-          goto LABEL_798;
+          return 0;
         }
 
         v1038 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, valuePtr);
         if (!v1038)
         {
-          goto LABEL_798;
+          return 0;
         }
 
         v25 = v1038;
@@ -7314,7 +7365,7 @@ LABEL_809:
         v6 = *__error();
         if (!v6)
         {
-          goto LABEL_907;
+          return v6;
         }
 
         goto LABEL_898;
@@ -7347,8 +7398,8 @@ LABEL_806:
           }
 
           memset(__src, 0, 88);
-          DWORD2(v1098) = 88;
-          v1099 = __src;
+          DWORD2(v1097) = 88;
+          v1098 = __src;
           if (Apple80211IOCTLGetWrapper())
           {
             goto LABEL_231;
@@ -7461,9 +7512,9 @@ LABEL_806:
             *&v5->isa = 0u;
             v27 = 52;
 LABEL_220:
-            DWORD2(v1098) = v27;
+            DWORD2(v1097) = v27;
 LABEL_221:
-            v1099 = v5;
+            v1098 = v5;
             goto LABEL_222;
           }
 
@@ -7473,8 +7524,8 @@ LABEL_221:
           }
 
           memset(__src, 0, 28);
-          DWORD2(v1098) = 28;
-          v1099 = __src;
+          DWORD2(v1097) = 28;
+          v1098 = __src;
           if (Apple80211IOCTLGetWrapper())
           {
             goto LABEL_231;
@@ -7577,8 +7628,8 @@ LABEL_795:
         }
 
         memset(__src, 0, 36);
-        v1099 = __src;
-        DWORD2(v1098) = 36;
+        v1098 = __src;
+        DWORD2(v1097) = 36;
         if (!Apple80211IOCTLGetWrapper())
         {
           LQMSummary = _setLQMConfigIntoDict(__src, v5);
@@ -7595,16 +7646,16 @@ LABEL_795:
         {
           v66 = v118;
           bzero(v118, 0x19004uLL);
-          DWORD2(v1098) = 102404;
-          v1099 = v66;
-          if (!Apple80211RawGet(v7, &v1097))
+          DWORD2(v1097) = 102404;
+          v1098 = v66;
+          if (!Apple80211RawGet(v7, &v1096))
           {
             v1039 = _storeTrapCrashTracerMiniDumpinDict(v5, v66);
             free(v66);
             v6 = v1039;
             if (!v1039)
             {
-              goto LABEL_907;
+              return v6;
             }
 
             goto LABEL_898;
@@ -7642,12 +7693,12 @@ LABEL_919:
       }
 
       bzero(__src, 0x808uLL);
-      DWORD2(v1098) = 2056;
-      v1099 = __src;
+      DWORD2(v1097) = 2056;
+      v1098 = __src;
       if (!Apple80211IOCTLGetWrapper())
       {
         memcpy(v5, __src, 0x808uLL);
-        goto LABEL_798;
+        return 0;
       }
     }
 
@@ -7657,7 +7708,7 @@ LABEL_919:
       {
         if (v4 == 216)
         {
-          LQMSummary = _getRoamProfile(v7, &v1097, v5);
+          LQMSummary = _getRoamProfile(v7, &v1096, v5);
           goto LABEL_843;
         }
 
@@ -7669,7 +7720,7 @@ LABEL_919:
           }
 
           bzero(v5, 0x2000uLL);
-          DWORD2(v1098) = 0x2000;
+          DWORD2(v1097) = 0x2000;
           goto LABEL_221;
         }
 
@@ -7687,8 +7738,8 @@ LABEL_48:
         }
 
         bzero(__src, 0x12D8uLL);
-        v1099 = __src;
-        DWORD2(v1098) = 4824;
+        v1098 = __src;
+        DWORD2(v1097) = 4824;
         if (Apple80211IOCTLGetWrapper())
         {
           goto LABEL_804;
@@ -7696,10 +7747,10 @@ LABEL_48:
 
         if (!DWORD1(__src[0]))
         {
-          goto LABEL_798;
+          return 0;
         }
 
-        v1091 = v4;
+        v1090 = v4;
         v28 = 0;
         v29 = *MEMORY[0x277CBECE8];
         v30 = &__src[1];
@@ -7710,7 +7761,7 @@ LABEL_48:
           v33 = CFDictionaryCreateMutable(v29, 0, v31, v32);
           if (!v33)
           {
-            goto LABEL_910;
+            return 4294963395;
           }
 
           v34 = v33;
@@ -7740,10 +7791,10 @@ LABEL_48:
           {
             v6 = 0;
 LABEL_917:
-            LODWORD(v4) = v1091;
+            LODWORD(v4) = v1090;
             if (!v6)
             {
-              goto LABEL_907;
+              return v6;
             }
 
 LABEL_898:
@@ -7774,7 +7825,7 @@ LABEL_898:
               WORD6(__src[1]) = 2048;
               *(&__src[1] + 14) = v1085 % 0x3B9ACA00 / 0x3E8;
               WORD3(__src[2]) = 2082;
-              *(&__src[2] + 1) = &v1095;
+              *(&__src[2] + 1) = &v1094;
               LOWORD(__src[3]) = 1024;
               *(&__src[3] + 2) = v4;
               WORD3(__src[3]) = 2082;
@@ -7786,7 +7837,7 @@ LABEL_898:
               _os_log_impl(&dword_254882000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}s:%u @[%llu.%06llu] ifname['%{public}s'] IOCTL type %d/'%{public}s' return %d/0x%08x\n", __src, 0x4Cu);
             }
 
-            goto LABEL_907;
+            return v6;
           }
         }
 
@@ -7802,7 +7853,7 @@ LABEL_799:
           goto LABEL_10;
         }
 
-        LQMSummary = _getUCMProfile(v7, &v1097, v5);
+        LQMSummary = _getUCMProfile(v7, &v1096, v5);
         goto LABEL_843;
       }
 
@@ -7815,7 +7866,7 @@ LABEL_799:
       {
         if (v4 == 260)
         {
-          LQMSummary = _get2GChainDisable(v7, &v1097, v5);
+          LQMSummary = _get2GChainDisable(v7, &v1096, v5);
           goto LABEL_843;
         }
 
@@ -7823,10 +7874,10 @@ LABEL_799:
       }
 
       bzero(__src, 0x210uLL);
-      DWORD2(v1098) = 528;
-      v1099 = __src;
+      DWORD2(v1097) = 528;
+      v1098 = __src;
       Value = CFDictionaryGetValue(v5, @"APPLE80211KEY_AWD_TRAP_TYPE");
-      if (!Value || !CFNumberGetValue(Value, kCFNumberSInt32Type, &v1098 + 4))
+      if (!Value || !CFNumberGetValue(Value, kCFNumberSInt32Type, &v1097 + 4))
       {
         goto LABEL_808;
       }
@@ -7952,8 +8003,8 @@ LABEL_808:
       goto LABEL_10;
     case 1:
       memset(__src, 0, 33);
-      DWORD2(v1098) = 32;
-      v1099 = __src;
+      DWORD2(v1097) = 32;
+      v1098 = __src;
       goto LABEL_341;
     case 2:
       if (!v8)
@@ -7962,8 +8013,8 @@ LABEL_808:
       }
 
       __src[0] = 0uLL;
-      DWORD2(v1098) = 16;
-      v1099 = __src;
+      DWORD2(v1097) = 16;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -7996,7 +8047,7 @@ LABEL_808:
 LABEL_333:
       if (!HIDWORD(__src[0]))
       {
-        goto LABEL_798;
+        return 0;
       }
 
       v228 = CFNumberCreate(v223, kCFNumberSInt32Type, __src + 12);
@@ -8015,8 +8066,8 @@ LABEL_333:
       }
 
       __src[0] = 1uLL;
-      DWORD2(v1098) = 16;
-      v1099 = __src;
+      DWORD2(v1097) = 16;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -8079,8 +8130,8 @@ LABEL_333:
     case 6:
       DWORD2(__src[0]) = 0;
       *&__src[0] = 0;
-      DWORD2(v1098) = 12;
-      v1099 = __src;
+      DWORD2(v1097) = 12;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -8112,8 +8163,8 @@ LABEL_333:
 
       DWORD2(__src[0]) = 0;
       *&__src[0] = 0;
-      DWORD2(v1098) = 12;
-      v1099 = __src;
+      DWORD2(v1097) = 12;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -8123,7 +8174,7 @@ LABEL_333:
       v990 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, __src + 8);
       if (!v990)
       {
-        goto LABEL_910;
+        return 4294963395;
       }
 
       v991 = v990;
@@ -8132,7 +8183,7 @@ LABEL_333:
       v992 = CFNumberCreate(v989, kCFNumberSInt32Type, __src + 4);
       if (!v992)
       {
-        goto LABEL_910;
+        return 4294963395;
       }
 
       v25 = v992;
@@ -8141,8 +8192,8 @@ LABEL_333:
     case 9:
       WORD2(__src[0]) = 0;
       LODWORD(__src[0]) = 0;
-      DWORD2(v1098) = 6;
-      v1099 = __src;
+      DWORD2(v1097) = 6;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -8153,7 +8204,7 @@ LABEL_333:
         v6 = 0;
         LODWORD(v5->isa) = __src[0];
         WORD2(v5->isa) = WORD2(__src[0]);
-        goto LABEL_907;
+        return v6;
       }
 
       v1084 = ether_ntoa(__src);
@@ -8166,8 +8217,8 @@ LABEL_333:
       goto LABEL_355;
     case 12:
       memset(__src, 0, 28);
-      v1099 = __src + 4;
-      DWORD2(v1098) = 21;
+      v1098 = __src + 4;
+      DWORD2(v1097) = 21;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -8197,7 +8248,7 @@ LABEL_333:
       }
 
       while (v211);
-      goto LABEL_798;
+      return 0;
     case 13:
       if (!v8)
       {
@@ -8205,8 +8256,8 @@ LABEL_333:
       }
 
       *&__src[0] = 0;
-      v1099 = __src;
-      DWORD2(v1098) = 8;
+      v1098 = __src;
+      DWORD2(v1097) = 8;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -8214,12 +8265,12 @@ LABEL_333:
 
       v6 = 0;
       LODWORD(v5->isa) = DWORD1(__src[0]);
-      goto LABEL_907;
+      return v6;
     case 14:
       *&__src[0] = 1;
       DWORD2(__src[0]) = 0;
-      DWORD2(v1098) = 12;
-      v1099 = __src;
+      DWORD2(v1097) = 12;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -8250,15 +8301,15 @@ LABEL_333:
       *(&__src[1] + 4) = 0u;
       *(__src + 4) = 0u;
       LODWORD(__src[0]) = 1;
-      DWORD2(v1098) = 52;
-      v1099 = __src;
+      DWORD2(v1097) = 52;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
       }
 
-      v73 = v1098;
-      if (v1098 == 16)
+      v73 = v1097;
+      if (v1097 == 16)
       {
         v74 = @"RSSI_EXT_AGR";
       }
@@ -8268,7 +8319,7 @@ LABEL_333:
         v74 = @"NOISE_EXT_AGR";
       }
 
-      if (v1098 == 16)
+      if (v1097 == 16)
       {
         v75 = @"RSSI_EXT_LIST";
       }
@@ -8278,7 +8329,7 @@ LABEL_333:
         v75 = @"NOISE_EXT_LIST";
       }
 
-      if (v1098 == 16)
+      if (v1097 == 16)
       {
         v76 = @"RSSI_CTL_LIST";
       }
@@ -8288,7 +8339,7 @@ LABEL_333:
         v76 = @"NOISE_CTL_LIST";
       }
 
-      if (v1098 == 16)
+      if (v1097 == 16)
       {
         v77 = @"RSSI_CTL_AGR";
       }
@@ -8338,7 +8389,7 @@ LABEL_333:
         goto LABEL_759;
       }
 
-      v1091 = v4;
+      v1090 = v4;
       v1052 = CFArrayCreateMutable(v78, 0, MEMORY[0x277CBF128]);
       if (!v1052)
       {
@@ -8365,7 +8416,7 @@ LABEL_858:
             CFDictionaryAddValue(v5, v77, v1062);
             CFRelease(v1063);
             v1064 = CFNumberCreate(v78, kCFNumberSInt32Type, &__src[3]);
-            LODWORD(v4) = v1091;
+            LODWORD(v4) = v1090;
             if (!v1064)
             {
               goto LABEL_885;
@@ -8418,23 +8469,23 @@ LABEL_916:
         }
 
         CFRelease(v1053);
-        v1089 = v1055;
+        v1088 = v1055;
       }
 
       else
       {
-        v1089 = v1053;
+        v1088 = v1053;
       }
 
-      CFRelease(v1089);
+      CFRelease(v1088);
       goto LABEL_916;
     case 19:
       LODWORD(__src[0]) = 1;
       *(__src + 12) = 0;
       *(__src + 4) = 0;
       DWORD1(__src[1]) = 0;
-      DWORD2(v1098) = 24;
-      v1099 = __src;
+      DWORD2(v1097) = 24;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -8442,7 +8493,7 @@ LABEL_916:
 
       if (!DWORD1(__src[0]))
       {
-        goto LABEL_798;
+        return 0;
       }
 
       v197 = 0;
@@ -8477,8 +8528,8 @@ LABEL_916:
       goto LABEL_74;
     case 29:
       __src[0] = 0uLL;
-      DWORD2(v1098) = 16;
-      v1099 = __src;
+      DWORD2(v1097) = 16;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -8516,8 +8567,8 @@ LABEL_916:
       }
 
       memset(__src, 0, 188);
-      DWORD2(v1098) = 188;
-      v1099 = __src;
+      DWORD2(v1097) = 188;
+      v1098 = __src;
       v84 = v4;
       if (Apple80211IOCTLGetWrapper())
       {
@@ -8587,8 +8638,8 @@ LABEL_891:
       *(__src + 12) = 0;
       *(__src + 4) = 0;
       DWORD1(__src[1]) = 0;
-      DWORD2(v1098) = 24;
-      v1099 = __src;
+      DWORD2(v1097) = 24;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -8596,7 +8647,7 @@ LABEL_891:
 
       if (!DWORD1(__src[0]))
       {
-        goto LABEL_798;
+        return 0;
       }
 
       v39 = 0;
@@ -8607,7 +8658,7 @@ LABEL_891:
         v42 = CFNumberCreate(v41, kCFNumberSInt32Type, v40);
         if (!v42)
         {
-          goto LABEL_885;
+          break;
         }
 
         v43 = v42;
@@ -8617,14 +8668,15 @@ LABEL_891:
         v40 += 4;
         if (v39 >= DWORD1(__src[0]))
         {
-          goto LABEL_798;
+          return 0;
         }
       }
 
+      goto LABEL_885;
     case 40:
       memset(__src, 170, sizeof(__src));
-      DWORD2(v1098) = 0x8000;
-      v1099 = __src;
+      DWORD2(v1097) = 0x8000;
+      v1098 = __src;
 LABEL_341:
       if (!Apple80211IOCTLGetWrapper())
       {
@@ -8640,8 +8692,8 @@ LABEL_341:
 
       bzero(__src + 4, 0x804uLL);
       LODWORD(__src[0]) = 1;
-      DWORD2(v1098) = 2056;
-      v1099 = __src;
+      DWORD2(v1097) = 2056;
+      v1098 = __src;
       v84 = v4;
       if (Apple80211IOCTLGetWrapper())
       {
@@ -8728,8 +8780,8 @@ LABEL_314:
     case 48:
       bzero(__src + 4, 0x804uLL);
       LODWORD(__src[0]) = 1;
-      DWORD2(v1098) = 2056;
-      v1099 = __src;
+      DWORD2(v1097) = 2056;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -8739,8 +8791,8 @@ LABEL_314:
       goto LABEL_843;
     case 49:
       memset(__src, 0, 20);
-      DWORD2(v1098) = 20;
-      v1099 = __src;
+      DWORD2(v1097) = 20;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -8792,8 +8844,8 @@ LABEL_314:
       *(__src + 12) = 0;
       *(__src + 4) = 0;
       DWORD1(__src[1]) = 0;
-      DWORD2(v1098) = 24;
-      v1099 = __src;
+      DWORD2(v1097) = 24;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -8839,8 +8891,8 @@ LABEL_314:
       goto LABEL_795;
     case 54:
       *&__src[0] = 1;
-      DWORD2(v1098) = 8;
-      v1099 = __src;
+      DWORD2(v1097) = 8;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -8858,8 +8910,8 @@ LABEL_314:
     case 61:
       *&__src[0] = 1;
       DWORD2(__src[0]) = 0;
-      DWORD2(v1098) = 12;
-      v1099 = __src;
+      DWORD2(v1097) = 12;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -8886,8 +8938,8 @@ LABEL_314:
       goto LABEL_795;
     case 62:
       *&__src[0] = 1;
-      DWORD2(v1098) = 8;
-      v1099 = __src;
+      DWORD2(v1097) = 8;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -8948,8 +9000,8 @@ LABEL_314:
         goto LABEL_808;
       }
 
-      DWORD2(v1098) = 16;
-      v1099 = __src;
+      DWORD2(v1097) = 16;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -8976,8 +9028,8 @@ LABEL_314:
       goto LABEL_795;
     case 66:
       __src[0] = 1uLL;
-      DWORD2(v1098) = 16;
-      v1099 = __src;
+      DWORD2(v1097) = 16;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -9007,12 +9059,12 @@ LABEL_314:
       }
 
       while (v211);
-      goto LABEL_798;
+      return 0;
     case 69:
       v982 = malloc_type_malloc(0x3AD8uLL, 0x1000040BBD6A9C0uLL);
       if (!v982)
       {
-        goto LABEL_910;
+        return 4294963395;
       }
 
       v983 = v982;
@@ -9040,9 +9092,9 @@ LABEL_314:
 
       while (v987 * 4);
       v982[3] = 10;
-      DWORD2(v1098) = 15064;
-      v1099 = v982;
-      if (Apple80211RawGet(v7, &v1097))
+      DWORD2(v1097) = 15064;
+      v1098 = v982;
+      if (Apple80211RawGet(v7, &v1096))
       {
         free(v983);
         goto LABEL_804;
@@ -9064,18 +9116,18 @@ LABEL_314:
       memset(valuePtr, 170, 18);
       if (!v183)
       {
-        goto LABEL_889;
+        return 4294963396;
       }
 
       if (!CFStringGetCString(v183, valuePtr, 18, 0x8000100u))
       {
-        goto LABEL_889;
+        return 4294963396;
       }
 
       v184 = ether_aton(valuePtr);
       if (!v184)
       {
-        goto LABEL_889;
+        return 4294963396;
       }
 
       v185 = v184;
@@ -9085,8 +9137,8 @@ LABEL_314:
       WORD4(__src[0]) = *&v185->octet[4];
       DWORD1(__src[0]) = v186;
       HIDWORD(__src[0]) = 1024;
-      DWORD2(v1098) = 1040;
-      v1099 = __src;
+      DWORD2(v1097) = 1040;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -9095,7 +9147,7 @@ LABEL_314:
       v187 = CFDataCreate(*MEMORY[0x277CBECE8], &__src[1], HIDWORD(__src[0]));
       if (!v187)
       {
-        goto LABEL_910;
+        return 4294963395;
       }
 
       v25 = v187;
@@ -9106,18 +9158,18 @@ LABEL_314:
       memset(valuePtr, 170, 18);
       if (!v1005)
       {
-        goto LABEL_889;
+        return 4294963396;
       }
 
       if (!CFStringGetCString(v1005, valuePtr, 18, 0x8000100u))
       {
-        goto LABEL_889;
+        return 4294963396;
       }
 
       v1006 = ether_aton(valuePtr);
       if (!v1006)
       {
-        goto LABEL_889;
+        return 4294963396;
       }
 
       LODWORD(__src[0]) = 1;
@@ -9127,8 +9179,8 @@ LABEL_314:
       v1007 = *v1006->octet;
       WORD4(__src[0]) = *&v1006->octet[4];
       DWORD1(__src[0]) = v1007;
-      DWORD2(v1098) = 28;
-      v1099 = __src;
+      DWORD2(v1097) = 28;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -9150,8 +9202,8 @@ LABEL_314:
     case 80:
       *&__src[0] = 1;
       DWORD2(__src[0]) = 0;
-      DWORD2(v1098) = 12;
-      v1099 = __src;
+      DWORD2(v1097) = 12;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -9161,7 +9213,7 @@ LABEL_314:
       v177 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, __src + 4);
       if (!v177)
       {
-        goto LABEL_910;
+        return 4294963395;
       }
 
       v178 = v177;
@@ -9170,7 +9222,7 @@ LABEL_314:
       v179 = CFNumberCreate(v176, kCFNumberSInt32Type, __src + 8);
       if (!v179)
       {
-        goto LABEL_910;
+        return 4294963395;
       }
 
       v25 = v179;
@@ -9178,8 +9230,8 @@ LABEL_314:
       goto LABEL_758;
     case 81:
       LOBYTE(__src[0]) = -86;
-      DWORD2(v1098) = 1;
-      v1099 = __src;
+      DWORD2(v1097) = 1;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -9194,19 +9246,19 @@ LABEL_314:
 
       if ((v180 & 2) == 0)
       {
-        goto LABEL_798;
+        return 0;
       }
 
       v181 = *MEMORY[0x277CBED28];
       v182 = @"V_DBG_FLAG_CONNECTION";
 LABEL_791:
       CFDictionarySetValue(v5, v182, v181);
-      goto LABEL_798;
+      return 0;
     case 83:
       bzero(__src + 4, 0x804uLL);
       LODWORD(__src[0]) = 1;
-      DWORD2(v1098) = 2056;
-      v1099 = __src;
+      DWORD2(v1097) = 2056;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -9214,7 +9266,7 @@ LABEL_791:
 
       if (!DWORD1(__src[0]))
       {
-        goto LABEL_798;
+        return 0;
       }
 
       v140 = 0;
@@ -9227,7 +9279,7 @@ LABEL_791:
         v145 = CFDictionaryCreateMutable(v141, 0, v143, v144);
         if (!v145)
         {
-          goto LABEL_910;
+          return 4294963395;
         }
 
         v146 = v145;
@@ -9260,7 +9312,7 @@ LABEL_791:
                 v4 = v147;
                 if (v140 >= DWORD1(__src[0]))
                 {
-                  goto LABEL_798;
+                  return 0;
                 }
 
                 continue;
@@ -9278,8 +9330,8 @@ LABEL_791:
       LODWORD(__src[0]) = 1;
       *(__src + 12) = 0;
       *(__src + 4) = 0;
-      DWORD2(v1098) = 20;
-      v1099 = __src;
+      DWORD2(v1097) = 20;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -9289,7 +9341,7 @@ LABEL_791:
       v1017 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, __src + 4);
       if (!v1017)
       {
-        goto LABEL_910;
+        return 4294963395;
       }
 
       v1018 = v1017;
@@ -9298,7 +9350,7 @@ LABEL_791:
       v1019 = CFNumberCreate(v1016, kCFNumberSInt32Type, __src + 8);
       if (!v1019)
       {
-        goto LABEL_910;
+        return 4294963395;
       }
 
       v1020 = v1019;
@@ -9307,7 +9359,7 @@ LABEL_791:
       v1021 = CFNumberCreate(v1016, kCFNumberSInt32Type, __src + 12);
       if (!v1021)
       {
-        goto LABEL_910;
+        return 4294963395;
       }
 
       v25 = v1021;
@@ -9319,21 +9371,21 @@ LABEL_791:
       v168 = CFDictionaryGetValue(v5, @"CUSTOM_IE_DATA");
       if (!v168)
       {
-        goto LABEL_889;
+        return 4294963396;
       }
 
       v169 = v168;
       HIDWORD(__src[0]) = CFDataGetLength(v168);
       if (HIDWORD(__src[0]) > 0x800)
       {
-        goto LABEL_889;
+        return 4294963396;
       }
 
       CFDataGetBytePtr(v169);
       __memcpy_chk();
       LODWORD(__src[1]) = 2048;
-      DWORD2(v1098) = 2068;
-      v1099 = __src;
+      DWORD2(v1097) = 2068;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -9343,7 +9395,7 @@ LABEL_791:
       v171 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, __src + 4);
       if (!v171)
       {
-        goto LABEL_910;
+        return 4294963395;
       }
 
       v172 = v171;
@@ -9352,7 +9404,7 @@ LABEL_791:
       v173 = CFNumberCreate(v170, kCFNumberSInt32Type, __src + 12);
       if (!v173)
       {
-        goto LABEL_910;
+        return 4294963395;
       }
 
       v174 = v173;
@@ -9361,7 +9413,7 @@ LABEL_791:
       v175 = CFDataCreate(v170, &__src[1] + 4, LODWORD(__src[1]));
       if (!v175)
       {
-        goto LABEL_910;
+        return 4294963395;
       }
 
       v25 = v175;
@@ -9371,8 +9423,8 @@ LABEL_791:
       memset(__src, 0, 17);
       v72 = 16;
 LABEL_353:
-      DWORD2(v1098) = v72;
-      v1099 = __src;
+      DWORD2(v1097) = v72;
+      v1098 = __src;
       if (!Apple80211IOCTLGetWrapper())
       {
         goto LABEL_354;
@@ -9387,8 +9439,8 @@ LABEL_353:
 
       bzero(__src, 0x8D8uLL);
       WORD5(__src[8]) = 2048;
-      DWORD2(v1098) = 2264;
-      v1099 = __src;
+      DWORD2(v1097) = 2264;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -9398,8 +9450,8 @@ LABEL_353:
       goto LABEL_843;
     case 106:
       __src[0] = xmmword_2548C5030;
-      DWORD2(v1098) = 16;
-      v1099 = __src;
+      DWORD2(v1097) = 16;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -9435,8 +9487,8 @@ LABEL_353:
       goto LABEL_795;
     case 115:
       bzero(__src, 0x728uLL);
-      DWORD2(v1098) = 1832;
-      v1099 = __src;
+      DWORD2(v1097) = 1832;
+      v1098 = __src;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -12785,8 +12837,8 @@ LABEL_353:
       }
 
       bzero(__src, 0x2720uLL);
-      v1099 = __src;
-      DWORD2(v1098) = 10016;
+      v1098 = __src;
+      DWORD2(v1097) = 10016;
       if (Apple80211IOCTLGetWrapper())
       {
         goto LABEL_804;
@@ -12794,7 +12846,7 @@ LABEL_353:
 
       if (!WORD6(__src[0]))
       {
-        goto LABEL_798;
+        return 0;
       }
 
       v84 = v4;
@@ -12808,7 +12860,7 @@ LABEL_353:
         v89 = CFDictionaryCreateMutable(v86, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
         if (!v89)
         {
-          goto LABEL_910;
+          return 4294963395;
         }
 
         v90 = v89;
@@ -12824,15 +12876,15 @@ LABEL_353:
         CFRelease(v92);
         if (*(&__src[426] + v85))
         {
-          v1092 = 1;
+          v1091 = 1;
         }
 
         else
         {
-          v1092 = LODWORD(valuePtr[0]) > 0xE ? 3 : 0;
+          v1091 = LODWORD(valuePtr[0]) > 0xE ? 3 : 0;
         }
 
-        v93 = CFNumberCreate(v86, kCFNumberSInt32Type, &v1092);
+        v93 = CFNumberCreate(v86, kCFNumberSInt32Type, &v1091);
         if (!v93)
         {
           break;
@@ -12955,7 +13007,7 @@ LABEL_912:
   {
 LABEL_913:
     free(v983);
-    goto LABEL_910;
+    return 4294963395;
   }
 
   v1073 = v1072;
@@ -13020,9 +13072,5 @@ LABEL_870:
   CFDictionaryAddValue(v5, @"WOW_PATTERNS", v1068);
   CFRelease(v1068);
   free(v983);
-LABEL_798:
-  v6 = 0;
-LABEL_907:
-  v1087 = *MEMORY[0x277D85DE8];
-  return v6;
+  return 0;
 }

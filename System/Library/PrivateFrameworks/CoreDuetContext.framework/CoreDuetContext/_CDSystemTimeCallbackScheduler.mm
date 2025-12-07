@@ -38,7 +38,7 @@
 
 - (void)scheduleCallbackAtDate:(id)date identifier:(id)identifier requiringDeviceWake:(BOOL)wake
 {
-  v31[3] = *MEMORY[0x1E69E9840];
+  v30[3] = *MEMORY[0x1E69E9840];
   dateCopy = date;
   identifierCopy = identifier;
   eventNameRoot = [(_CDSystemTimeCallbackScheduler *)self eventNameRoot];
@@ -54,10 +54,10 @@
       v14 = [v11 stringWithFormat:@"%@", v13];
 
       eventNameRoot2 = [(_CDSystemTimeCallbackScheduler *)self eventNameRoot];
-      v31[0] = eventNameRoot2;
-      v31[1] = identifierCopy;
-      v31[2] = v14;
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:3];
+      v30[0] = eventNameRoot2;
+      v30[1] = identifierCopy;
+      v30[2] = v14;
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:3];
       v17 = [v16 componentsJoinedByString:@"."];
 
       date = [MEMORY[0x1E695DF00] date];
@@ -79,9 +79,9 @@
         {
           v22 = _CDFormattedDate();
           *buf = 138412546;
-          v28 = v22;
-          v29 = 2112;
-          v30 = v17;
+          v27 = v22;
+          v28 = 2112;
+          v29 = v17;
           _os_log_impl(&dword_1A9611000, v21, OS_LOG_TYPE_INFO, "Setting com.apple.alarm xpc event with date %@ for %@", buf, 0x16u);
         }
 
@@ -100,13 +100,11 @@
   else
   {
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unscheduleCallbackAtDate:(id)date identifier:(id)identifier requiringDeviceWake:(BOOL)wake
 {
-  v25[3] = *MEMORY[0x1E69E9840];
+  v24[3] = *MEMORY[0x1E69E9840];
   dateCopy = date;
   identifierCopy = identifier;
   eventNameRoot = [(_CDSystemTimeCallbackScheduler *)self eventNameRoot];
@@ -122,10 +120,10 @@
       v14 = [v11 stringWithFormat:@"%@", v13];
 
       eventNameRoot2 = [(_CDSystemTimeCallbackScheduler *)self eventNameRoot];
-      v25[0] = eventNameRoot2;
-      v25[1] = identifierCopy;
-      v25[2] = v14;
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:3];
+      v24[0] = eventNameRoot2;
+      v24[1] = identifierCopy;
+      v24[2] = v14;
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:3];
       v17 = [v16 componentsJoinedByString:@"."];
 
       contextChannel = [MEMORY[0x1E6997908] contextChannel];
@@ -133,9 +131,9 @@
       {
         v19 = _CDFormattedDate();
         *buf = 138412546;
-        v22 = v19;
-        v23 = 2112;
-        v24 = v17;
+        v21 = v19;
+        v22 = 2112;
+        v23 = v17;
         _os_log_impl(&dword_1A9611000, contextChannel, OS_LOG_TYPE_INFO, "Removing com.apple.alarm xpc event with date %@ for %@", buf, 0x16u);
       }
 
@@ -147,35 +145,30 @@
   else
   {
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleCallbackAtDate:(id)date
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AD88];
   dateCopy = date;
   defaultCenter = [v4 defaultCenter];
-  v9 = @"_CDSystemTimeCallbackDateKey";
-  v10[0] = dateCopy;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"_CDSystemTimeCallbackDateKey";
+  v9[0] = dateCopy;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [defaultCenter postNotificationName:@"_CDSystemTimeCallbackNotification" object:self userInfo:v7];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)scheduleCallbackAtDate:(uint64_t)a1 identifier:(uint64_t)a2 requiringDeviceWake:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = _CDFormattedDate();
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_1A9611000, a3, OS_LOG_TYPE_ERROR, "Setting com.apple.alarm xpc event to a past date %@ for %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_1A9611000, a3, OS_LOG_TYPE_ERROR, "Setting com.apple.alarm xpc event to a past date %@ for %@", &v6, 0x16u);
 }
 
 @end

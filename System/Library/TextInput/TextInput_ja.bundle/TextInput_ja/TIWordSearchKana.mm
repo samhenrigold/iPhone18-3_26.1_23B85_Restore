@@ -57,7 +57,7 @@
 
 + (id)configureContactCollectionObserver:(id)observer previousObserver:(id)previousObserver
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   observerCopy = observer;
   previousObserverCopy = previousObserver;
   sharedOperationQueue = [objc_opt_class() sharedOperationQueue];
@@ -66,20 +66,20 @@
   {
     v9 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s TIWordSearchKana:configureContactCollectionObserver - adding observer", "+[TIWordSearchKana configureContactCollectionObserver:previousObserver:]"];
     *buf = 138412290;
-    v24 = v9;
+    v23 = v9;
     _os_log_impl(&dword_29EA26000, v8, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
   }
 
   mEMORY[0x29EDC7268] = [MEMORY[0x29EDC7268] sharedInstance];
-  v20[0] = MEMORY[0x29EDCA5F8];
-  v20[1] = 3221225472;
-  v20[2] = __72__TIWordSearchKana_configureContactCollectionObserver_previousObserver___block_invoke;
-  v20[3] = &unk_29F379060;
+  v19[0] = MEMORY[0x29EDCA5F8];
+  v19[1] = 3221225472;
+  v19[2] = __72__TIWordSearchKana_configureContactCollectionObserver_previousObserver___block_invoke;
+  v19[3] = &unk_29F379060;
   v11 = sharedOperationQueue;
-  v21 = v11;
+  v20 = v11;
   v12 = observerCopy;
-  v22 = v12;
-  v13 = [mEMORY[0x29EDC7268] addContactObserver:v20];
+  v21 = v12;
+  v13 = [mEMORY[0x29EDC7268] addContactObserver:v19];
 
   if (previousObserverCopy)
   {
@@ -88,7 +88,7 @@
     {
       v15 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s TIWordSearchKana:configureContactCollectionObserver - removing observer", "+[TIWordSearchKana configureContactCollectionObserver:previousObserver:]"];
       *buf = 138412290;
-      v24 = v15;
+      v23 = v15;
       _os_log_impl(&dword_29EA26000, v14, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
     }
 
@@ -98,47 +98,42 @@
 
   v17 = MEMORY[0x29EDA3C60](v13);
 
-  v18 = *MEMORY[0x29EDCA608];
-
   return v17;
 }
 
 void __72__TIWordSearchKana_configureContactCollectionObserver_previousObserver___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   v3 = a2;
   v4 = TIPersonalizationContactOSLogFacility();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s TITextCheckerExemptions:addObserverAssertion - processing %ld contacts", "+[TIWordSearchKana configureContactCollectionObserver:previousObserver:]_block_invoke", objc_msgSend(v3, "count")];
     *buf = 138412290;
-    v16 = v5;
+    v15 = v5;
     _os_log_impl(&dword_29EA26000, v4, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
   }
 
   v6 = [v3 copy];
   v7 = MEMORY[0x29EDC7260];
-  v12[0] = MEMORY[0x29EDCA5F8];
-  v12[1] = 3221225472;
-  v12[2] = __72__TIWordSearchKana_configureContactCollectionObserver_previousObserver___block_invoke_7;
-  v12[3] = &unk_29F379038;
+  v11[0] = MEMORY[0x29EDCA5F8];
+  v11[1] = 3221225472;
+  v11[2] = __72__TIWordSearchKana_configureContactCollectionObserver_previousObserver___block_invoke_7;
+  v11[3] = &unk_29F379038;
   v8 = *(a1 + 32);
-  v13 = *(a1 + 40);
-  v14 = v6;
+  v12 = *(a1 + 40);
+  v13 = v6;
   v9 = v6;
-  v10 = [v7 blockOperationWithBlock:v12];
+  v10 = [v7 blockOperationWithBlock:v11];
   [v8 addOperation:v10];
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __72__TIWordSearchKana_configureContactCollectionObserver_previousObserver___block_invoke_7(uint64_t a1)
 {
-  v2 = [*(a1 + 32) mecabraRef];
-  v3 = *(a1 + 40);
-  v4 = TICreateNameReadingPairsFromContactCollection();
+  v1 = [*(a1 + 32) mecabraRef];
+  v2 = TICreateNameReadingPairsFromContactCollection();
 
-  return MEMORY[0x2A1C70B40](v2, v4);
+  return MEMORY[0x2A1C70B40](v1, v2);
 }
 
 - (id)initTIWordSearchWithInputMode:(id)mode
@@ -561,7 +556,7 @@ LABEL_43:
 
 + (void)clearCachedContactObserver
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   if (__contactCollectionObserver)
   {
     v2 = TIPersonalizationContactOSLogFacility();
@@ -569,7 +564,7 @@ LABEL_43:
     {
       v3 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s TIWordSearchKana:clearCachedContactObserver - removing observer", "+[TIWordSearchKana(TestingSupport) clearCachedContactObserver]"];
       *buf = 138412290;
-      v8 = v3;
+      v7 = v3;
       _os_log_impl(&dword_29EA26000, v2, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
     }
 
@@ -579,8 +574,6 @@ LABEL_43:
     v5 = __contactCollectionObserver;
     __contactCollectionObserver = 0;
   }
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 @end

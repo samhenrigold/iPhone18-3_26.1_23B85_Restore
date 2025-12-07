@@ -6,20 +6,20 @@ void KB::LikelihoodInfo::~LikelihoodInfo(void **this)
   }
 }
 
-void *std::vector<unsigned int>::vector[abi:nn200100](void *result, uint64_t a2, unint64_t a3)
+uint64_t *std::vector<unsigned int>::vector[abi:nn200100](uint64_t *a1, int *a2, unint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3)
   {
-    std::vector<unsigned int>::__vallocate[abi:nn200100](result, a3);
+    std::vector<unsigned int>::__vallocate[abi:nn200100](a1, a3);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<unsigned int>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned int>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {

@@ -26,13 +26,12 @@
 
 - (id)description
 {
-  v7.receiver = self;
-  v7.super_class = ISPlayerOutputContent;
-  v3 = [(ISPlayerOutputContent *)&v7 description];
-  videoPlayer = self->_videoPlayer;
-  v5 = [v3 stringByAppendingFormat:@" photo: %@, orientation: %d, video player: %@, aspect ratio: %@", self->_photo, self->_photoEXIFOrientation, videoPlayer, self->_aspectRatio];
+  v6.receiver = self;
+  v6.super_class = ISPlayerOutputContent;
+  v3 = [(ISPlayerOutputContent *)&v6 description];
+  v4 = [v3 stringByAppendingFormat:@" photo: %@, orientation: %d, video player: %@, aspect ratio: %@", self->_photo, self->_photoEXIFOrientation, self->_videoPlayer, self->_aspectRatio];
 
-  return v5;
+  return v4;
 }
 
 - (ISPlayerOutputContent)initWithPhoto:(CGImage *)photo photoIsOriginal:(BOOL)original photoEXIFOrientation:(int)orientation videoPlayer:(id)player aspectRatio:(id)ratio

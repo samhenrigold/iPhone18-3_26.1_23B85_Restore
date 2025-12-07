@@ -37,40 +37,38 @@
 
 - (id)payloadCopy
 {
-  v17[10] = *MEMORY[0x1E69E9840];
-  v16[0] = @"numSharedUsers";
+  v16[10] = *MEMORY[0x1E69E9840];
+  v15[0] = @"numSharedUsers";
   numSharedUsers = [(HMMultiUserSettingsForMetrics *)self numSharedUsers];
-  v17[0] = numSharedUsers;
-  v16[1] = @"numUsersWithSettings";
+  v16[0] = numSharedUsers;
+  v15[1] = @"numUsersWithSettings";
   numUsersWithSettings = [(HMMultiUserSettingsForMetrics *)self numUsersWithSettings];
-  v17[1] = numUsersWithSettings;
-  v16[2] = @"numUsersCloudShareTrustNotConfigured";
+  v16[1] = numUsersWithSettings;
+  v15[2] = @"numUsersCloudShareTrustNotConfigured";
   numUsersCloudShareTrustNotConfigured = [(HMMultiUserSettingsForMetrics *)self numUsersCloudShareTrustNotConfigured];
-  v17[2] = numUsersCloudShareTrustNotConfigured;
-  v16[3] = @"numUsersWithIdentifyVoiceOff";
+  v16[2] = numUsersCloudShareTrustNotConfigured;
+  v15[3] = @"numUsersWithIdentifyVoiceOff";
   numUsersWithIdentifyVoiceOff = [(HMMultiUserSettingsForMetrics *)self numUsersWithIdentifyVoiceOff];
-  v17[3] = numUsersWithIdentifyVoiceOff;
-  v16[4] = @"numUsersWithPlayBackInfluencesForYouOff";
+  v16[3] = numUsersWithIdentifyVoiceOff;
+  v15[4] = @"numUsersWithPlayBackInfluencesForYouOff";
   numUsersWithPlayBackInfluencesForYouOff = [(HMMultiUserSettingsForMetrics *)self numUsersWithPlayBackInfluencesForYouOff];
-  v17[4] = numUsersWithPlayBackInfluencesForYouOff;
-  v16[5] = @"numUsersSharedBackingStoreNotStarted";
+  v16[4] = numUsersWithPlayBackInfluencesForYouOff;
+  v15[5] = @"numUsersSharedBackingStoreNotStarted";
   numUsersSharedBackingStoreNotStarted = [(HMMultiUserSettingsForMetrics *)self numUsersSharedBackingStoreNotStarted];
-  v17[5] = numUsersSharedBackingStoreNotStarted;
-  v16[6] = @"numUsersSharedBackingStoreRunning";
+  v16[5] = numUsersSharedBackingStoreNotStarted;
+  v15[6] = @"numUsersSharedBackingStoreRunning";
   numUsersSharedBackingStoreRunning = [(HMMultiUserSettingsForMetrics *)self numUsersSharedBackingStoreRunning];
-  v17[6] = numUsersSharedBackingStoreRunning;
-  v16[7] = @"numUsersSharedBackingStoreNotRunningDueToError";
+  v16[6] = numUsersSharedBackingStoreRunning;
+  v15[7] = @"numUsersSharedBackingStoreNotRunningDueToError";
   numUsersSharedBackingStoreNotRunningDueToError = [(HMMultiUserSettingsForMetrics *)self numUsersSharedBackingStoreNotRunningDueToError];
-  v17[7] = numUsersSharedBackingStoreNotRunningDueToError;
-  v16[8] = @"numUsersSharedBackingStoreNotRunningDueToStopped";
+  v16[7] = numUsersSharedBackingStoreNotRunningDueToError;
+  v15[8] = @"numUsersSharedBackingStoreNotRunningDueToStopped";
   numUsersSharedBackingStoreNotRunningDueToStopped = [(HMMultiUserSettingsForMetrics *)self numUsersSharedBackingStoreNotRunningDueToStopped];
-  v17[8] = numUsersSharedBackingStoreNotRunningDueToStopped;
-  v16[9] = @"numUsersSharedBackingStoreSharedZoneWaitingForShareInvitation";
+  v16[8] = numUsersSharedBackingStoreNotRunningDueToStopped;
+  v15[9] = @"numUsersSharedBackingStoreSharedZoneWaitingForShareInvitation";
   numUsersSharedBackingStoreSharedZoneWaitingForShareInvitation = [(HMMultiUserSettingsForMetrics *)self numUsersSharedBackingStoreSharedZoneWaitingForShareInvitation];
-  v17[9] = numUsersSharedBackingStoreSharedZoneWaitingForShareInvitation;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:10];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v16[9] = numUsersSharedBackingStoreSharedZoneWaitingForShareInvitation;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:10];
 
   return v12;
 }
@@ -158,12 +156,11 @@
 
 uint64_t __44__HMMultiUserSettingsForMetrics_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_46363;
-  logCategory__hmf_once_v1_46363 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_46363;
+  logCategory__hmf_once_v1_46363 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)shortDescription

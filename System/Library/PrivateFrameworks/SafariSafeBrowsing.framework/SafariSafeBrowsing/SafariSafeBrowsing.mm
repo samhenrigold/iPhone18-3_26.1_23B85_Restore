@@ -1,4 +1,4 @@
-uint64_t sub_1000006C0()
+uint64_t sub_1000006C0(uint64_t a1, uint64_t a2)
 {
   if (qword_100008008 != -1)
   {
@@ -15,7 +15,7 @@ void sub_1000006F8(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_10000073C()
+uint64_t sub_10000073C(uint64_t a1, uint64_t a2)
 {
   if (qword_100008018 != -1)
   {
@@ -32,7 +32,7 @@ void sub_100000774(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_1000007B8()
+uint64_t sub_1000007B8(uint64_t a1, uint64_t a2)
 {
   if (qword_100008028 != -1)
   {
@@ -49,7 +49,7 @@ void sub_1000007F0(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_100000834()
+uint64_t sub_100000834(uint64_t a1, uint64_t a2)
 {
   if (qword_100008038 != -1)
   {
@@ -66,7 +66,7 @@ void sub_10000086C(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_1000008B0()
+uint64_t sub_1000008B0(uint64_t a1, uint64_t a2)
 {
   if (qword_100008048 != -1)
   {
@@ -83,7 +83,7 @@ void sub_1000008E8(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_10000092C()
+uint64_t sub_10000092C(uint64_t a1, uint64_t a2)
 {
   if (qword_100008058 != -1)
   {
@@ -100,7 +100,7 @@ void sub_100000964(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_1000009A8()
+uint64_t sub_1000009A8(uint64_t a1, uint64_t a2)
 {
   if (qword_100008068 != -1)
   {
@@ -117,7 +117,7 @@ void sub_1000009E0(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_100000A24()
+uint64_t sub_100000A24(uint64_t a1, uint64_t a2)
 {
   if (qword_100008078 != -1)
   {
@@ -134,7 +134,7 @@ void sub_100000A5C(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_100000AA0()
+uint64_t sub_100000AA0(uint64_t a1, uint64_t a2)
 {
   if (qword_100008088 != -1)
   {
@@ -151,7 +151,7 @@ void sub_100000AD8(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_100000B1C()
+uint64_t sub_100000B1C(uint64_t a1, uint64_t a2)
 {
   if (qword_100008098 != -1)
   {
@@ -168,7 +168,7 @@ void sub_100000B54(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_100000B98()
+uint64_t sub_100000B98(uint64_t a1, uint64_t a2)
 {
   if (qword_1000080A8 != -1)
   {
@@ -185,7 +185,7 @@ void sub_100000BD0(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_100000C14()
+uint64_t sub_100000C14(uint64_t a1, uint64_t a2)
 {
   if (qword_1000080B8 != -1)
   {

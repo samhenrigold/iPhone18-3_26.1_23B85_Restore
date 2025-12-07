@@ -3,6 +3,9 @@
 - (_INPBPlayMediaIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)parsecCategoryAsString:(int)string;
+- (id)playbackQueueLocationAsString:(int)string;
+- (id)playbackRepeatModeAsString:(int)string;
 - (int)StringAsParsecCategory:(id)category;
 - (int)StringAsPlaybackQueueLocation:(id)location;
 - (int)StringAsPlaybackRepeatMode:(id)mode;
@@ -35,35 +38,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v102 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_alternativeResults count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v92 = 0u;
     v93 = 0u;
     v94 = 0u;
     v95 = 0u;
-    v96 = 0u;
     v5 = self->_alternativeResults;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v93 objects:v101 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v92 objects:v100 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v94;
+      v8 = *v93;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v94 != v8)
+          if (*v93 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v93 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v92 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v93 objects:v101 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v92 objects:v100 count:16];
       }
 
       while (v7);
@@ -75,30 +78,30 @@
   if ([(NSArray *)self->_audioSearchResults count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v88 = 0u;
     v89 = 0u;
     v90 = 0u;
     v91 = 0u;
-    v92 = 0u;
     v12 = self->_audioSearchResults;
-    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v89 objects:v100 count:16];
+    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v88 objects:v99 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v90;
+      v15 = *v89;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v90 != v15)
+          if (*v89 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          dictionaryRepresentation2 = [*(*(&v89 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v88 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation2];
         }
 
-        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v89 objects:v100 count:16];
+        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v88 objects:v99 count:16];
       }
 
       while (v14);
@@ -118,30 +121,30 @@
   if ([(NSArray *)self->_buckets count])
   {
     array3 = [MEMORY[0x1E695DF70] array];
+    v84 = 0u;
     v85 = 0u;
     v86 = 0u;
     v87 = 0u;
-    v88 = 0u;
     v23 = self->_buckets;
-    v24 = [(NSArray *)v23 countByEnumeratingWithState:&v85 objects:v99 count:16];
+    v24 = [(NSArray *)v23 countByEnumeratingWithState:&v84 objects:v98 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v86;
+      v26 = *v85;
       do
       {
         for (k = 0; k != v25; ++k)
         {
-          if (*v86 != v26)
+          if (*v85 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          dictionaryRepresentation5 = [*(*(&v85 + 1) + 8 * k) dictionaryRepresentation];
+          dictionaryRepresentation5 = [*(*(&v84 + 1) + 8 * k) dictionaryRepresentation];
           [array3 addObject:dictionaryRepresentation5];
         }
 
-        v25 = [(NSArray *)v23 countByEnumeratingWithState:&v85 objects:v99 count:16];
+        v25 = [(NSArray *)v23 countByEnumeratingWithState:&v84 objects:v98 count:16];
       }
 
       while (v25);
@@ -157,30 +160,30 @@
   if ([(NSArray *)self->_hashedRouteUIDs count])
   {
     array4 = [MEMORY[0x1E695DF70] array];
+    v80 = 0u;
     v81 = 0u;
     v82 = 0u;
     v83 = 0u;
-    v84 = 0u;
     v32 = self->_hashedRouteUIDs;
-    v33 = [(NSArray *)v32 countByEnumeratingWithState:&v81 objects:v98 count:16];
+    v33 = [(NSArray *)v32 countByEnumeratingWithState:&v80 objects:v97 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v82;
+      v35 = *v81;
       do
       {
         for (m = 0; m != v34; ++m)
         {
-          if (*v82 != v35)
+          if (*v81 != v35)
           {
             objc_enumerationMutation(v32);
           }
 
-          dictionaryRepresentation7 = [*(*(&v81 + 1) + 8 * m) dictionaryRepresentation];
+          dictionaryRepresentation7 = [*(*(&v80 + 1) + 8 * m) dictionaryRepresentation];
           [array4 addObject:dictionaryRepresentation7];
         }
 
-        v34 = [(NSArray *)v32 countByEnumeratingWithState:&v81 objects:v98 count:16];
+        v34 = [(NSArray *)v32 countByEnumeratingWithState:&v80 objects:v97 count:16];
       }
 
       while (v34);
@@ -200,30 +203,30 @@
   if ([(NSArray *)self->_mediaItems count])
   {
     array5 = [MEMORY[0x1E695DF70] array];
+    v76 = 0u;
     v77 = 0u;
     v78 = 0u;
     v79 = 0u;
-    v80 = 0u;
     v43 = self->_mediaItems;
-    v44 = [(NSArray *)v43 countByEnumeratingWithState:&v77 objects:v97 count:16];
+    v44 = [(NSArray *)v43 countByEnumeratingWithState:&v76 objects:v96 count:16];
     if (v44)
     {
       v45 = v44;
-      v46 = *v78;
+      v46 = *v77;
       do
       {
         for (n = 0; n != v45; ++n)
         {
-          if (*v78 != v46)
+          if (*v77 != v46)
           {
             objc_enumerationMutation(v43);
           }
 
-          dictionaryRepresentation10 = [*(*(&v77 + 1) + 8 * n) dictionaryRepresentation];
+          dictionaryRepresentation10 = [*(*(&v76 + 1) + 8 * n) dictionaryRepresentation];
           [array5 addObject:dictionaryRepresentation10];
         }
 
-        v45 = [(NSArray *)v43 countByEnumeratingWithState:&v77 objects:v97 count:16];
+        v45 = [(NSArray *)v43 countByEnumeratingWithState:&v76 objects:v96 count:16];
       }
 
       while (v45);
@@ -337,8 +340,6 @@
   showTitle = [(_INPBPlayMediaIntent *)self showTitle];
   dictionaryRepresentation16 = [showTitle dictionaryRepresentation];
   [dictionary setObject:dictionaryRepresentation16 forKeyedSubscript:@"showTitle"];
-
-  v75 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -1143,70 +1144,68 @@ LABEL_117:
 
 - (void)writeTo:(id)to
 {
-  v93 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  v84 = 0u;
-  v85 = 0u;
-  v86 = 0u;
-  v87 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   v5 = self->_alternativeResults;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v84 objects:v92 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v70 objects:v78 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v85;
+    v8 = *v71;
     do
     {
       v9 = 0;
       do
       {
-        if (*v85 != v8)
+        if (*v71 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v84 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v84 objects:v92 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v70 objects:v78 count:16];
     }
 
     while (v7);
   }
 
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
-  v81 = 0u;
-  v11 = self->_audioSearchResults;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v80 objects:v91 count:16];
-  if (v12)
+  v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v10 = self->_audioSearchResults;
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v66 objects:v77 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v81;
+    v12 = v11;
+    v13 = *v67;
     do
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        if (*v81 != v14)
+        if (*v67 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v80 + 1) + 8 * v15);
         PBDataWriterWriteSubmessage();
-        ++v15;
+        ++v14;
       }
 
-      while (v13 != v15);
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v80 objects:v91 count:16];
+      while (v12 != v14);
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v66 objects:v77 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
   audiobookAuthor = [(_INPBPlayMediaIntent *)self audiobookAuthor];
@@ -1225,36 +1224,35 @@ LABEL_117:
     PBDataWriterWriteSubmessage();
   }
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
-  v77 = 0u;
-  v21 = self->_buckets;
-  v22 = [(NSArray *)v21 countByEnumeratingWithState:&v76 objects:v90 count:16];
-  if (v22)
+  v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v19 = self->_buckets;
+  v20 = [(NSArray *)v19 countByEnumeratingWithState:&v62 objects:v76 count:16];
+  if (v20)
   {
-    v23 = v22;
-    v24 = *v77;
+    v21 = v20;
+    v22 = *v63;
     do
     {
-      v25 = 0;
+      v23 = 0;
       do
       {
-        if (*v77 != v24)
+        if (*v63 != v22)
         {
-          objc_enumerationMutation(v21);
+          objc_enumerationMutation(v19);
         }
 
-        v26 = *(*(&v76 + 1) + 8 * v25);
         PBDataWriterWriteSubmessage();
-        ++v25;
+        ++v23;
       }
 
-      while (v23 != v25);
-      v23 = [(NSArray *)v21 countByEnumeratingWithState:&v76 objects:v90 count:16];
+      while (v21 != v23);
+      v21 = [(NSArray *)v19 countByEnumeratingWithState:&v62 objects:v76 count:16];
     }
 
-    while (v23);
+    while (v21);
   }
 
   expirationDate = [(_INPBPlayMediaIntent *)self expirationDate];
@@ -1265,36 +1263,35 @@ LABEL_117:
     PBDataWriterWriteSubmessage();
   }
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
-  v73 = 0u;
-  v29 = self->_hashedRouteUIDs;
-  v30 = [(NSArray *)v29 countByEnumeratingWithState:&v72 objects:v89 count:16];
-  if (v30)
+  v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v26 = self->_hashedRouteUIDs;
+  v27 = [(NSArray *)v26 countByEnumeratingWithState:&v58 objects:v75 count:16];
+  if (v27)
   {
-    v31 = v30;
-    v32 = *v73;
+    v28 = v27;
+    v29 = *v59;
     do
     {
-      v33 = 0;
+      v30 = 0;
       do
       {
-        if (*v73 != v32)
+        if (*v59 != v29)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v26);
         }
 
-        v34 = *(*(&v72 + 1) + 8 * v33);
         PBDataWriterWriteSubmessage();
-        ++v33;
+        ++v30;
       }
 
-      while (v31 != v33);
-      v31 = [(NSArray *)v29 countByEnumeratingWithState:&v72 objects:v89 count:16];
+      while (v28 != v30);
+      v28 = [(NSArray *)v26 countByEnumeratingWithState:&v58 objects:v75 count:16];
     }
 
-    while (v31);
+    while (v28);
   }
 
   intentMetadata = [(_INPBPlayMediaIntent *)self intentMetadata];
@@ -1313,36 +1310,35 @@ LABEL_117:
     PBDataWriterWriteSubmessage();
   }
 
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
-  v69 = 0u;
-  v39 = self->_mediaItems;
-  v40 = [(NSArray *)v39 countByEnumeratingWithState:&v68 objects:v88 count:16];
-  if (v40)
+  v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v35 = self->_mediaItems;
+  v36 = [(NSArray *)v35 countByEnumeratingWithState:&v54 objects:v74 count:16];
+  if (v36)
   {
-    v41 = v40;
-    v42 = *v69;
+    v37 = v36;
+    v38 = *v55;
     do
     {
-      v43 = 0;
+      v39 = 0;
       do
       {
-        if (*v69 != v42)
+        if (*v55 != v38)
         {
-          objc_enumerationMutation(v39);
+          objc_enumerationMutation(v35);
         }
 
-        v44 = *(*(&v68 + 1) + 8 * v43);
         PBDataWriterWriteSubmessage();
-        ++v43;
+        ++v39;
       }
 
-      while (v41 != v43);
-      v41 = [(NSArray *)v39 countByEnumeratingWithState:&v68 objects:v88 count:16];
+      while (v37 != v39);
+      v37 = [(NSArray *)v35 countByEnumeratingWithState:&v54 objects:v74 count:16];
     }
 
-    while (v41);
+    while (v37);
   }
 
   mediaSearch = [(_INPBPlayMediaIntent *)self mediaSearch];
@@ -1371,31 +1367,26 @@ LABEL_117:
 
   if ([(_INPBPlayMediaIntent *)self hasParsecCategory])
   {
-    parsecCategory = self->_parsecCategory;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPlayMediaIntent *)self hasPlayShuffled])
   {
-    playShuffled = self->_playShuffled;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBPlayMediaIntent *)self hasPlaybackQueueLocation])
   {
-    playbackQueueLocation = self->_playbackQueueLocation;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPlayMediaIntent *)self hasPlaybackRepeatMode])
   {
-    playbackRepeatMode = self->_playbackRepeatMode;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPlayMediaIntent *)self hasPlaybackSpeed])
   {
-    playbackSpeed = self->_playbackSpeed;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1419,7 +1410,6 @@ LABEL_117:
 
   if (proxiedBundleIdentifier)
   {
-    proxiedBundleIdentifier = self->_proxiedBundleIdentifier;
     PBDataWriterWriteStringField();
   }
 
@@ -1427,13 +1417,11 @@ LABEL_117:
 
   if (recoID)
   {
-    recoID = self->_recoID;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBPlayMediaIntent *)self hasResumePlayback])
   {
-    resumePlayback = self->_resumePlayback;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1444,8 +1432,6 @@ LABEL_117:
     showTitle2 = [(_INPBPlayMediaIntent *)self showTitle];
     PBDataWriterWriteSubmessage();
   }
-
-  v67 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setHasResumePlayback:(BOOL)playback
@@ -1522,6 +1508,21 @@ LABEL_117:
   return v4;
 }
 
+- (id)playbackRepeatModeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72822B8[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasPlaybackRepeatMode:(BOOL)mode
 {
   if (mode)
@@ -1578,6 +1579,21 @@ LABEL_117:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)playbackQueueLocationAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7282298[string];
   }
 
   return v4;
@@ -1679,6 +1695,21 @@ LABEL_117:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)parsecCategoryAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7282250[string];
   }
 
   return v4;

@@ -59,7 +59,7 @@ void __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_5(uint64_t 
 
 void __26__PLSpringBoardAgent_init__block_invoke_185(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = [a2 objectForKey:@"com.apple.springboard.lockstate"];
   v4 = [(PLOperator *)PLSpringBoardAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"SBLock"];
   if (v3)
@@ -81,13 +81,12 @@ void __26__PLSpringBoardAgent_init__block_invoke_185(uint64_t a1, void *a2)
 
   else if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
+    v7 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __26__PLSpringBoardAgent_init__block_invoke_2_186;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v8;
+    block[4] = v7;
     if (qword_2811F4B30 != -1)
     {
       dispatch_once(&qword_2811F4B30, block);
@@ -95,24 +94,22 @@ void __26__PLSpringBoardAgent_init__block_invoke_185(uint64_t a1, void *a2)
 
     if (byte_2811F4AF4 == 1)
     {
-      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: lockState is null this implies the notification payload was not or could not be populated by the CFNotificationOperatorComposition"];;
-      v10 = MEMORY[0x277D3F178];
-      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSpringBoardAgent.m"];
-      v12 = [v11 lastPathComponent];
-      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSpringBoardAgent init]_block_invoke"];
-      [v10 logMessage:v9 fromFile:v12 fromFunction:v13 fromLineNumber:382];
+      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: lockState is null this implies the notification payload was not or could not be populated by the CFNotificationOperatorComposition"];;
+      v9 = MEMORY[0x277D3F178];
+      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSpringBoardAgent.m"];
+      v11 = [v10 lastPathComponent];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSpringBoardAgent init]_block_invoke"];
+      [v9 logMessage:v8 fromFile:v11 fromFunction:v12 fromLineNumber:382];
 
-      v14 = PLLogCommon();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v13 = PLLogCommon();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v18 = v9;
-        _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v16 = v8;
+        _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)load
@@ -124,405 +121,381 @@ void __26__PLSpringBoardAgent_init__block_invoke_185(uint64_t a1, void *a2)
 
 + (id)entryEventPointDefinitions
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"SBAutoLock";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"SBAutoLock";
   entryEventPointAutoLock = [self entryEventPointAutoLock];
-  v10[0] = entryEventPointAutoLock;
-  v9[1] = @"SBNotifications";
+  v9[0] = entryEventPointAutoLock;
+  v8[1] = @"SBNotifications";
   entryEventPointLocalRemoteNotifications = [self entryEventPointLocalRemoteNotifications];
-  v10[1] = entryEventPointLocalRemoteNotifications;
-  v9[2] = @"SBBulletins";
+  v9[1] = entryEventPointLocalRemoteNotifications;
+  v8[2] = @"SBBulletins";
   entryEventPointBulletins = [self entryEventPointBulletins];
-  v10[2] = entryEventPointBulletins;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = entryEventPointBulletins;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
 
 + (id)entryEventPointLocalRemoteNotifications
 {
-  v25[2] = *MEMORY[0x277D85DE8];
-  v24[0] = *MEMORY[0x277D3F4E8];
+  v24[2] = *MEMORY[0x277D85DE8];
+  v23[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v22[0] = *MEMORY[0x277D3F568];
-  v22[1] = v2;
-  v23[0] = &unk_282C1C348;
-  v23[1] = MEMORY[0x277CBEC28];
-  v22[2] = *MEMORY[0x277D3F4A0];
-  v23[2] = MEMORY[0x277CBEC38];
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
-  v25[0] = v19;
-  v24[1] = *MEMORY[0x277D3F540];
-  v20[0] = @"NotificationType";
+  v21[0] = *MEMORY[0x277D3F568];
+  v21[1] = v2;
+  v22[0] = &unk_282C1C348;
+  v22[1] = MEMORY[0x277CBEC28];
+  v21[2] = *MEMORY[0x277D3F4A0];
+  v22[2] = MEMORY[0x277CBEC38];
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v24[0] = v18;
+  v23[1] = *MEMORY[0x277D3F540];
+  v19[0] = @"NotificationType";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v21[0] = commonTypeDict_IntegerFormat;
-  v20[1] = @"NotificationBundleID";
+  v20[0] = commonTypeDict_IntegerFormat;
+  v19[1] = @"NotificationBundleID";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat_withBundleID];
-  v21[1] = commonTypeDict_StringFormat_withBundleID;
-  v20[2] = @"Waking";
+  v20[1] = commonTypeDict_StringFormat_withBundleID;
+  v19[2] = @"Waking";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v21[2] = commonTypeDict_IntegerFormat2;
-  v20[3] = @"NSEStartTime";
+  v20[2] = commonTypeDict_IntegerFormat2;
+  v19[3] = @"NSEStartTime";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]4 commonTypeDict_DateFormat];
-  v21[3] = commonTypeDict_DateFormat;
-  v20[4] = @"NSEEndTime";
+  v20[3] = commonTypeDict_DateFormat;
+  v19[4] = @"NSEEndTime";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat2 = [mEMORY[0x277D3F198]5 commonTypeDict_DateFormat];
-  v21[4] = commonTypeDict_DateFormat2;
-  v20[5] = @"UIShown";
+  v20[4] = commonTypeDict_DateFormat2;
+  v19[5] = @"UIShown";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v21[5] = commonTypeDict_IntegerFormat3;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:6];
-  v25[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v20[5] = commonTypeDict_IntegerFormat3;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:6];
+  v24[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
 
   return v12;
 }
 
 + (id)entryEventPointBulletins
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = *MEMORY[0x277D3F4E8];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v14[0] = *MEMORY[0x277D3F568];
-  v14[1] = v2;
-  v15[0] = &unk_282C1C358;
-  v15[1] = MEMORY[0x277CBEC28];
-  v14[2] = *MEMORY[0x277D3F4A0];
-  v15[2] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
-  v17[0] = v3;
-  v16[1] = *MEMORY[0x277D3F540];
-  v12[0] = @"PostType";
+  v13[0] = *MEMORY[0x277D3F568];
+  v13[1] = v2;
+  v14[0] = &unk_282C1C358;
+  v14[1] = MEMORY[0x277CBEC28];
+  v13[2] = *MEMORY[0x277D3F4A0];
+  v14[2] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v16[0] = v3;
+  v15[1] = *MEMORY[0x277D3F540];
+  v11[0] = @"PostType";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v12[1] = @"BulletinBundleID";
-  v13[0] = commonTypeDict_IntegerFormat;
+  v11[1] = @"BulletinBundleID";
+  v12[0] = commonTypeDict_IntegerFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat_withBundleID];
-  v13[1] = commonTypeDict_StringFormat_withBundleID;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v17[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = commonTypeDict_StringFormat_withBundleID;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   return v9;
 }
 
 + (id)entryEventPointAutoLock
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1C358;
-  v13[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"AutoLockType";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1C358;
+  v12[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"AutoLockType";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v11 = commonTypeDict_IntegerFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_IntegerFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventForwardDefinitions
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  v9[0] = @"SBBlank";
+  v9[4] = *MEMORY[0x277D85DE8];
+  v8[0] = @"SBBlank";
   v2 = +[PLSpringBoardAgent entryEventForwardDefinitionBlank];
-  v10[0] = v2;
-  v9[1] = @"SBLock";
+  v9[0] = v2;
+  v8[1] = @"SBLock";
   v3 = +[PLSpringBoardAgent entryEventForwardDefinitionLock];
-  v10[1] = v3;
-  v9[2] = @"SBScreen";
+  v9[1] = v3;
+  v8[2] = @"SBScreen";
   v4 = +[PLSpringBoardAgent entryEventForwardDefinitionScreen];
-  v10[2] = v4;
-  v9[3] = @"SBWallpaper";
+  v9[2] = v4;
+  v8[3] = @"SBWallpaper";
   v5 = +[PLSpringBoardAgent entryEventForwardDefinitionWallpaper];
-  v10[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }
 
 + (id)entryEventForwardDefinitionBlank
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1C358;
-  v13[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"Blanked";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1C358;
+  v12[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"Blanked";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v11 = commonTypeDict_BoolFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_BoolFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventForwardDefinitionLock
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1C358;
-  v13[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"Locked";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1C358;
+  v12[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"Locked";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v11 = commonTypeDict_BoolFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_BoolFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventForwardDefinitionScreen
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1C358;
-  v13[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"Screen";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1C358;
+  v12[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"Screen";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v11 = commonTypeDict_IntegerFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_IntegerFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventForwardDefinitionWallpaper
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = *MEMORY[0x277D3F4E8];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v14[0] = *MEMORY[0x277D3F568];
-  v14[1] = v2;
-  v15[0] = &unk_282C1C358;
-  v15[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-  v17[0] = v3;
-  v16[1] = *MEMORY[0x277D3F540];
-  v12[0] = @"HomeScreen";
+  v13[0] = *MEMORY[0x277D3F568];
+  v13[1] = v2;
+  v14[0] = &unk_282C1C358;
+  v14[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v16[0] = v3;
+  v15[1] = *MEMORY[0x277D3F540];
+  v11[0] = @"HomeScreen";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v12[1] = @"LockScreen";
-  v13[0] = commonTypeDict_StringFormat;
+  v11[1] = @"LockScreen";
+  v12[0] = commonTypeDict_StringFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v13[1] = commonTypeDict_StringFormat2;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v17[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = commonTypeDict_StringFormat2;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   return v9;
 }
 
 + (id)entryAggregateDefinitions
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"SBNotifications_Aggregate";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"SBNotifications_Aggregate";
   entryAggregateDefinitionNotifications = [self entryAggregateDefinitionNotifications];
-  v8[1] = @"SBBulletins_Aggregate";
-  v9[0] = entryAggregateDefinitionNotifications;
+  v7[1] = @"SBBulletins_Aggregate";
+  v8[0] = entryAggregateDefinitionNotifications;
   entryAggregateDefinitionBulletins = [self entryAggregateDefinitionBulletins];
-  v9[1] = entryAggregateDefinitionBulletins;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = entryAggregateDefinitionBulletins;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
 
 + (id)entryAggregateDefinitionNotifications
 {
-  v49[4] = *MEMORY[0x277D85DE8];
-  v48[0] = *MEMORY[0x277D3F4E8];
+  v48[4] = *MEMORY[0x277D85DE8];
+  v47[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4A0];
-  v46[0] = *MEMORY[0x277D3F568];
-  v46[1] = v2;
-  v47[0] = &unk_282C1C368;
-  v47[1] = MEMORY[0x277CBEC38];
-  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
-  v49[0] = v39;
-  v48[1] = *MEMORY[0x277D3F540];
-  v44[0] = @"NotificationType";
+  v45[0] = *MEMORY[0x277D3F568];
+  v45[1] = v2;
+  v46[0] = &unk_282C1C368;
+  v46[1] = MEMORY[0x277CBEC38];
+  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
+  v48[0] = v38;
+  v47[1] = *MEMORY[0x277D3F540];
+  v43[0] = @"NotificationType";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v45[0] = commonTypeDict_IntegerFormat;
-  v44[1] = @"NotificationBundleID";
+  v44[0] = commonTypeDict_IntegerFormat;
+  v43[1] = @"NotificationBundleID";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat_withBundleID];
-  v45[1] = commonTypeDict_StringFormat_withBundleID;
-  v44[2] = @"Count";
+  v44[1] = commonTypeDict_StringFormat_withBundleID;
+  v43[2] = @"Count";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v45[2] = commonTypeDict_IntegerFormat2;
-  v44[3] = @"FgWakingCount";
+  v44[2] = commonTypeDict_IntegerFormat2;
+  v43[3] = @"FgWakingCount";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v45[3] = commonTypeDict_IntegerFormat3;
-  v44[4] = @"FgWakingPluggedInCount";
+  v44[3] = commonTypeDict_IntegerFormat3;
+  v43[4] = @"FgWakingPluggedInCount";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v45[4] = commonTypeDict_IntegerFormat4;
-  v44[5] = @"BgWakingCount";
+  v44[4] = commonTypeDict_IntegerFormat4;
+  v43[5] = @"BgWakingCount";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v45[5] = commonTypeDict_IntegerFormat5;
-  v44[6] = @"BgWakingPluggedInCount";
+  v44[5] = commonTypeDict_IntegerFormat5;
+  v43[6] = @"BgWakingPluggedInCount";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v45[6] = commonTypeDict_IntegerFormat6;
-  v44[7] = @"NonWakingCount";
+  v44[6] = commonTypeDict_IntegerFormat6;
+  v43[7] = @"NonWakingCount";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat7 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat];
-  v45[7] = commonTypeDict_IntegerFormat7;
-  v44[8] = @"NonWakingPluggedInCount";
+  v44[7] = commonTypeDict_IntegerFormat7;
+  v43[8] = @"NonWakingPluggedInCount";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat8 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat];
-  v45[8] = commonTypeDict_IntegerFormat8;
-  v44[9] = @"BgWakingNSEDuration";
+  v44[8] = commonTypeDict_IntegerFormat8;
+  v43[9] = @"BgWakingNSEDuration";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat = [mEMORY[0x277D3F198]10 commonTypeDict_RealFormat];
-  v45[9] = commonTypeDict_RealFormat;
-  v44[10] = @"BgWakingPluggedInNSEDuration";
+  v44[9] = commonTypeDict_RealFormat;
+  v43[10] = @"BgWakingPluggedInNSEDuration";
   mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat2 = [mEMORY[0x277D3F198]11 commonTypeDict_RealFormat];
-  v45[10] = commonTypeDict_RealFormat2;
-  v44[11] = @"NonWakingNSEDuration";
+  v44[10] = commonTypeDict_RealFormat2;
+  v43[11] = @"NonWakingNSEDuration";
   mEMORY[0x277D3F198]12 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat3 = [mEMORY[0x277D3F198]12 commonTypeDict_RealFormat];
-  v45[11] = commonTypeDict_RealFormat3;
-  v44[12] = @"NonWakingPluggedInNSEDuration";
+  v44[11] = commonTypeDict_RealFormat3;
+  v43[12] = @"NonWakingPluggedInNSEDuration";
   mEMORY[0x277D3F198]13 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat4 = [mEMORY[0x277D3F198]13 commonTypeDict_RealFormat];
-  v45[12] = commonTypeDict_RealFormat4;
-  v44[13] = @"FgWakingNSEDuration";
+  v44[12] = commonTypeDict_RealFormat4;
+  v43[13] = @"FgWakingNSEDuration";
   mEMORY[0x277D3F198]14 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat5 = [mEMORY[0x277D3F198]14 commonTypeDict_RealFormat];
-  v45[13] = commonTypeDict_RealFormat5;
-  v44[14] = @"FgWakingPluggedInNSEDuration";
+  v44[13] = commonTypeDict_RealFormat5;
+  v43[14] = @"FgWakingPluggedInNSEDuration";
   mEMORY[0x277D3F198]15 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat6 = [mEMORY[0x277D3F198]15 commonTypeDict_RealFormat];
-  v45[14] = commonTypeDict_RealFormat6;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:15];
-  v49[1] = v9;
-  v48[2] = *MEMORY[0x277D3F478];
-  v42 = &unk_282C1C378;
-  v40 = *MEMORY[0x277D3F470];
-  v41 = &unk_282C1C388;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-  v43 = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
-  v48[3] = *MEMORY[0x277D3F488];
-  v49[2] = v11;
-  v49[3] = &unk_282C14478;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:4];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v44[14] = commonTypeDict_RealFormat6;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:15];
+  v48[1] = v9;
+  v47[2] = *MEMORY[0x277D3F478];
+  v41 = &unk_282C1C378;
+  v39 = *MEMORY[0x277D3F470];
+  v40 = &unk_282C1C388;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+  v42 = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+  v47[3] = *MEMORY[0x277D3F488];
+  v48[2] = v11;
+  v48[3] = &unk_282C14478;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:4];
 
   return v12;
 }
 
 + (id)entryAggregateDefinitionBulletins
 {
-  v25[4] = *MEMORY[0x277D85DE8];
-  v24[0] = *MEMORY[0x277D3F4E8];
+  v24[4] = *MEMORY[0x277D85DE8];
+  v23[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4A0];
-  v22[0] = *MEMORY[0x277D3F568];
-  v22[1] = v2;
-  v23[0] = &unk_282C1C358;
-  v23[1] = MEMORY[0x277CBEC38];
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
-  v25[0] = v15;
-  v24[1] = *MEMORY[0x277D3F540];
-  v20[0] = @"PostType";
+  v21[0] = *MEMORY[0x277D3F568];
+  v21[1] = v2;
+  v22[0] = &unk_282C1C358;
+  v22[1] = MEMORY[0x277CBEC38];
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+  v24[0] = v14;
+  v23[1] = *MEMORY[0x277D3F540];
+  v19[0] = @"PostType";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v21[0] = commonTypeDict_IntegerFormat;
-  v20[1] = @"BulletinBundleID";
+  v20[0] = commonTypeDict_IntegerFormat;
+  v19[1] = @"BulletinBundleID";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat_withBundleID];
-  v21[1] = commonTypeDict_StringFormat_withBundleID;
-  v20[2] = @"Count";
+  v20[1] = commonTypeDict_StringFormat_withBundleID;
+  v19[2] = @"Count";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v21[2] = commonTypeDict_IntegerFormat2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
-  v25[1] = v9;
-  v24[2] = *MEMORY[0x277D3F478];
-  v18 = &unk_282C1C378;
-  v16 = *MEMORY[0x277D3F470];
-  v17 = &unk_282C1C398;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v19 = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-  v24[3] = *MEMORY[0x277D3F488];
-  v25[2] = v11;
-  v25[3] = &unk_282C14490;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v20[2] = commonTypeDict_IntegerFormat2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
+  v24[1] = v9;
+  v23[2] = *MEMORY[0x277D3F478];
+  v17 = &unk_282C1C378;
+  v15 = *MEMORY[0x277D3F470];
+  v16 = &unk_282C1C398;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v18 = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v23[3] = *MEMORY[0x277D3F488];
+  v24[2] = v11;
+  v24[3] = &unk_282C14490;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
 
   return v12;
 }
 
 - (PLSpringBoardAgent)init
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F208] isHomePod])
   {
     selfCopy = 0;
@@ -530,9 +503,9 @@ void __26__PLSpringBoardAgent_init__block_invoke_185(uint64_t a1, void *a2)
 
   else
   {
-    v50.receiver = self;
-    v50.super_class = PLSpringBoardAgent;
-    v4 = [(PLAgent *)&v50 init];
+    v49.receiver = self;
+    v49.super_class = PLSpringBoardAgent;
+    v4 = [(PLAgent *)&v49 init];
     v5 = v4;
     if (v4)
     {
@@ -542,26 +515,26 @@ void __26__PLSpringBoardAgent_init__block_invoke_185(uint64_t a1, void *a2)
       [defaultCenter addObserver:v5 selector:sel_settingsChangedNotification_ name:*MEMORY[0x277D25C98] object:0];
       v7 = objc_alloc(MEMORY[0x277D3F1F0]);
       v8 = *MEMORY[0x277D67260];
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __26__PLSpringBoardAgent_init__block_invoke;
-      v48[3] = &unk_2782597E8;
+      v47[0] = MEMORY[0x277D85DD0];
+      v47[1] = 3221225472;
+      v47[2] = __26__PLSpringBoardAgent_init__block_invoke;
+      v47[3] = &unk_2782597E8;
       v9 = v5;
-      v49 = v9;
-      v10 = [v7 initWithOperator:v9 forNotification:v8 withBlock:v48];
+      v48 = v9;
+      v10 = [v7 initWithOperator:v9 forNotification:v8 withBlock:v47];
       notificationSBScreenTimeTrackingChanged = v9->_notificationSBScreenTimeTrackingChanged;
       v9->_notificationSBScreenTimeTrackingChanged = v10;
 
       _SBFScreenTimeRegisterForExternalChangeNotification();
       v12 = objc_alloc(MEMORY[0x277D3F1F0]);
       v13 = *MEMORY[0x277D66D18];
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __26__PLSpringBoardAgent_init__block_invoke_164;
-      v46[3] = &unk_2782597E8;
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __26__PLSpringBoardAgent_init__block_invoke_164;
+      v45[3] = &unk_2782597E8;
       v14 = v9;
-      v47 = v14;
-      v15 = [v12 initWithOperator:v14 forNotification:v13 withBlock:v46];
+      v46 = v14;
+      v15 = [v12 initWithOperator:v14 forNotification:v13 withBlock:v45];
       notificationSBAutoLockTimerFiredNotification = v14->_notificationSBAutoLockTimerFiredNotification;
       v14->_notificationSBAutoLockTimerFiredNotification = v15;
 
@@ -592,7 +565,7 @@ void __26__PLSpringBoardAgent_init__block_invoke_185(uint64_t a1, void *a2)
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v52 = v18;
+            v51 = v18;
             _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -601,34 +574,34 @@ void __26__PLSpringBoardAgent_init__block_invoke_185(uint64_t a1, void *a2)
       v24 = objc_alloc(MEMORY[0x277D3F250]);
       date = [MEMORY[0x277CBEAA8] date];
       workQueue = [(PLOperator *)v14 workQueue];
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __26__PLSpringBoardAgent_init__block_invoke_178;
-      v43[3] = &unk_278259C40;
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __26__PLSpringBoardAgent_init__block_invoke_178;
+      v42[3] = &unk_278259C40;
       v27 = v14;
-      v44 = v27;
-      v28 = [v24 initWithFireDate:date withInterval:1 withTolerance:0 repeats:workQueue withUserInfo:v43 withQueue:86400.0 withBlock:0.0];
+      v43 = v27;
+      v28 = [v24 initWithFireDate:date withInterval:1 withTolerance:0 repeats:workQueue withUserInfo:v42 withQueue:86400.0 withBlock:0.0];
 
       [(PLSpringBoardAgent *)v27 setDailyWallpaperPoll:v28];
       v29 = objc_alloc(MEMORY[0x277D3F160]);
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __26__PLSpringBoardAgent_init__block_invoke_185;
-      v41[3] = &unk_2782597E8;
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __26__PLSpringBoardAgent_init__block_invoke_185;
+      v40[3] = &unk_2782597E8;
       v30 = v27;
-      v42 = v30;
-      v31 = [v29 initWithOperator:v30 forNotification:@"com.apple.springboard.lockstate" requireState:1 withBlock:v41];
+      v41 = v30;
+      v31 = [v29 initWithOperator:v30 forNotification:@"com.apple.springboard.lockstate" requireState:1 withBlock:v40];
       notificationSBLockTrackingChanged = v30->_notificationSBLockTrackingChanged;
       v30->_notificationSBLockTrackingChanged = v31;
 
       v33 = objc_alloc(MEMORY[0x277D3F160]);
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __26__PLSpringBoardAgent_init__block_invoke_190;
-      v39[3] = &unk_2782597E8;
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __26__PLSpringBoardAgent_init__block_invoke_190;
+      v38[3] = &unk_2782597E8;
       v34 = v30;
-      v40 = v34;
-      v35 = [v33 initWithOperator:v34 forNotification:@"com.apple.springboard.hasBlankedScreen" requireState:1 withBlock:v39];
+      v39 = v34;
+      v35 = [v33 initWithOperator:v34 forNotification:@"com.apple.springboard.hasBlankedScreen" requireState:1 withBlock:v38];
       notificationSBBlankTrackingChanged = v34->_notificationSBBlankTrackingChanged;
       v34->_notificationSBBlankTrackingChanged = v35;
     }
@@ -637,13 +610,12 @@ void __26__PLSpringBoardAgent_init__block_invoke_185(uint64_t a1, void *a2)
     selfCopy = self;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 void __26__PLSpringBoardAgent_init__block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [a2 objectForKey:*MEMORY[0x277D67258]];
   if (v3)
   {
@@ -656,13 +628,12 @@ void __26__PLSpringBoardAgent_init__block_invoke(uint64_t a1, void *a2)
 
   else if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
+    v6 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __26__PLSpringBoardAgent_init__block_invoke_2;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v7;
+    block[4] = v6;
     if (qword_2811F4B10 != -1)
     {
       dispatch_once(&qword_2811F4B10, block);
@@ -670,27 +641,25 @@ void __26__PLSpringBoardAgent_init__block_invoke(uint64_t a1, void *a2)
 
     if (_MergedGlobals_1_30 == 1)
     {
-      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: screenNumber is null this implies the notification payload was not delivered via NSNotificationOperatorComposition"];;
-      v9 = MEMORY[0x277D3F178];
-      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSpringBoardAgent.m"];
-      v11 = [v10 lastPathComponent];
-      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSpringBoardAgent init]_block_invoke"];
-      [v9 logMessage:v8 fromFile:v11 fromFunction:v12 fromLineNumber:328];
+      v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: screenNumber is null this implies the notification payload was not delivered via NSNotificationOperatorComposition"];;
+      v8 = MEMORY[0x277D3F178];
+      v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSpringBoardAgent.m"];
+      v10 = [v9 lastPathComponent];
+      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSpringBoardAgent init]_block_invoke"];
+      [v8 logMessage:v7 fromFile:v10 fromFunction:v11 fromLineNumber:328];
 
-      v13 = PLLogCommon();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v12 = PLLogCommon();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v17 = v8;
-        _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v15 = v7;
+        _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __26__PLSpringBoardAgent_init__block_invoke_2(uint64_t a1)
+void *__26__PLSpringBoardAgent_init__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_1_30 = result;
@@ -699,18 +668,17 @@ uint64_t __26__PLSpringBoardAgent_init__block_invoke_2(uint64_t a1)
 
 void __26__PLSpringBoardAgent_init__block_invoke_164(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
+    v7 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __26__PLSpringBoardAgent_init__block_invoke_2_165;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v8;
+    block[4] = v7;
     if (qword_2811F4B18 != -1)
     {
       dispatch_once(&qword_2811F4B18, block);
@@ -718,40 +686,39 @@ void __26__PLSpringBoardAgent_init__block_invoke_164(uint64_t a1, void *a2, void
 
     if (byte_2811F4AF1 == 1)
     {
-      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Autolock Fired %@: userInfo=%@", v6, v5];
-      v10 = MEMORY[0x277D3F178];
-      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSpringBoardAgent.m"];
-      v12 = [v11 lastPathComponent];
-      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSpringBoardAgent init]_block_invoke"];
-      [v10 logMessage:v9 fromFile:v12 fromFunction:v13 fromLineNumber:336];
+      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Autolock Fired %@: userInfo=%@", v6, v5];
+      v9 = MEMORY[0x277D3F178];
+      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSpringBoardAgent.m"];
+      v11 = [v10 lastPathComponent];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSpringBoardAgent init]_block_invoke"];
+      [v9 logMessage:v8 fromFile:v11 fromFunction:v12 fromLineNumber:336];
 
-      v14 = PLLogCommon();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v13 = PLLogCommon();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v21 = v9;
-        _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v19 = v8;
+        _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
-  v15 = [(PLOperator *)PLSpringBoardAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"SBAutoLock"];
-  v16 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v15];
-  v17 = [v5 objectForKeyedSubscript:@"SBAutoLockTimerCategoryKey"];
-  [v16 setObject:v17 forKeyedSubscript:@"AutoLockType"];
+  v14 = [(PLOperator *)PLSpringBoardAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"SBAutoLock"];
+  v15 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v14];
+  v16 = [v5 objectForKeyedSubscript:@"SBAutoLockTimerCategoryKey"];
+  [v15 setObject:v16 forKeyedSubscript:@"AutoLockType"];
 
-  [*(a1 + 32) logEntry:v16];
-  v18 = *MEMORY[0x277D85DE8];
+  [*(a1 + 32) logEntry:v15];
 }
 
-uint64_t __26__PLSpringBoardAgent_init__block_invoke_2_165(uint64_t a1)
+void *__26__PLSpringBoardAgent_init__block_invoke_2_165(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4AF1 = result;
   return result;
 }
 
-uint64_t __26__PLSpringBoardAgent_init__block_invoke_172(uint64_t a1)
+void *__26__PLSpringBoardAgent_init__block_invoke_172(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4AF2 = result;
@@ -760,16 +727,15 @@ uint64_t __26__PLSpringBoardAgent_init__block_invoke_172(uint64_t a1)
 
 void __26__PLSpringBoardAgent_init__block_invoke_178(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v2 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __26__PLSpringBoardAgent_init__block_invoke_2_179;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v3;
+    block[4] = v2;
     if (qword_2811F4B28 != -1)
     {
       dispatch_once(&qword_2811F4B28, block);
@@ -777,43 +743,42 @@ void __26__PLSpringBoardAgent_init__block_invoke_178(uint64_t a1)
 
     if (byte_2811F4AF3 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"SB Wallpaper poll"];
-      v5 = MEMORY[0x277D3F178];
-      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSpringBoardAgent.m"];
-      v7 = [v6 lastPathComponent];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSpringBoardAgent init]_block_invoke"];
-      [v5 logMessage:v4 fromFile:v7 fromFunction:v8 fromLineNumber:356];
+      v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"SB Wallpaper poll"];
+      v4 = MEMORY[0x277D3F178];
+      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSpringBoardAgent.m"];
+      v6 = [v5 lastPathComponent];
+      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSpringBoardAgent init]_block_invoke"];
+      [v4 logMessage:v3 fromFile:v6 fromFunction:v7 fromLineNumber:356];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v8 = PLLogCommon();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v17 = v4;
-        _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v15 = v3;
+        _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
-  v10 = [(PLOperator *)PLSpringBoardAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"SBWallpaper"];
-  v11 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v10];
-  v12 = [*(a1 + 32) fetchSBWallpaperForType:0];
-  [v11 setObject:v12 forKeyedSubscript:@"HomeScreen"];
+  v9 = [(PLOperator *)PLSpringBoardAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"SBWallpaper"];
+  v10 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v9];
+  v11 = [*(a1 + 32) fetchSBWallpaperForType:0];
+  [v10 setObject:v11 forKeyedSubscript:@"HomeScreen"];
 
-  v13 = [*(a1 + 32) fetchSBWallpaperForType:1];
-  [v11 setObject:v13 forKeyedSubscript:@"LockScreen"];
+  v12 = [*(a1 + 32) fetchSBWallpaperForType:1];
+  [v10 setObject:v12 forKeyedSubscript:@"LockScreen"];
 
-  [*(a1 + 32) logEntry:v11];
-  v14 = *MEMORY[0x277D85DE8];
+  [*(a1 + 32) logEntry:v10];
 }
 
-uint64_t __26__PLSpringBoardAgent_init__block_invoke_2_179(uint64_t a1)
+void *__26__PLSpringBoardAgent_init__block_invoke_2_179(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4AF3 = result;
   return result;
 }
 
-uint64_t __26__PLSpringBoardAgent_init__block_invoke_2_186(uint64_t a1)
+void *__26__PLSpringBoardAgent_init__block_invoke_2_186(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4AF4 = result;
@@ -822,7 +787,7 @@ uint64_t __26__PLSpringBoardAgent_init__block_invoke_2_186(uint64_t a1)
 
 void __26__PLSpringBoardAgent_init__block_invoke_190(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [a2 objectForKey:@"com.apple.springboard.hasBlankedScreen"];
   v4 = [(PLOperator *)PLSpringBoardAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"SBBlank"];
   if (v3)
@@ -846,13 +811,12 @@ void __26__PLSpringBoardAgent_init__block_invoke_190(uint64_t a1, void *a2)
 
   else if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v8 = *(a1 + 32);
-    v9 = objc_opt_class();
+    v8 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __26__PLSpringBoardAgent_init__block_invoke_3;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v9;
+    block[4] = v8;
     if (qword_2811F4B38 != -1)
     {
       dispatch_once(&qword_2811F4B38, block);
@@ -860,24 +824,22 @@ void __26__PLSpringBoardAgent_init__block_invoke_190(uint64_t a1, void *a2)
 
     if (byte_2811F4AF5 == 1)
     {
-      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: blankState is null this implies the notification payload was not or could not be populated by the CFNotificationOperatorComposition"];;
-      v11 = MEMORY[0x277D3F178];
-      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSpringBoardAgent.m"];
-      v13 = [v12 lastPathComponent];
-      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSpringBoardAgent init]_block_invoke"];
-      [v11 logMessage:v10 fromFile:v13 fromFunction:v14 fromLineNumber:420];
+      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: blankState is null this implies the notification payload was not or could not be populated by the CFNotificationOperatorComposition"];;
+      v10 = MEMORY[0x277D3F178];
+      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSpringBoardAgent.m"];
+      v12 = [v11 lastPathComponent];
+      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSpringBoardAgent init]_block_invoke"];
+      [v10 logMessage:v9 fromFile:v12 fromFunction:v13 fromLineNumber:420];
 
-      v15 = PLLogCommon();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v14 = PLLogCommon();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v19 = v10;
-        _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v17 = v9;
+        _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __26__PLSpringBoardAgent_init__block_invoke_2_191()
@@ -893,7 +855,7 @@ void __26__PLSpringBoardAgent_init__block_invoke_2_191()
   }
 }
 
-uint64_t __26__PLSpringBoardAgent_init__block_invoke_3(uint64_t a1)
+void *__26__PLSpringBoardAgent_init__block_invoke_3(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4AF5 = result;
@@ -902,9 +864,9 @@ uint64_t __26__PLSpringBoardAgent_init__block_invoke_3(uint64_t a1)
 
 - (void)initOperatorDependancies
 {
-  v63 = *MEMORY[0x277D85DE8];
-  storage = [(PLOperator *)self storage];
-  v4 = [storage lastEntryForKey:@"PLBatteryAgent_EventBackward_Battery"];
+  v62 = *MEMORY[0x277D85DE8];
+  v3 = objc_msgSend_storage(self, a2);
+  v4 = [v3 lastEntryForKey:@"PLBatteryAgent_EventBackward_Battery"];
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -932,7 +894,7 @@ uint64_t __26__PLSpringBoardAgent_init__block_invoke_3(uint64_t a1)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v62 = v6;
+        v61 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -946,14 +908,14 @@ uint64_t __26__PLSpringBoardAgent_init__block_invoke_3(uint64_t a1)
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v12 = objc_opt_class();
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_206;
-    v55[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v55[4] = v12;
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_206;
+    v54[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v54[4] = v12;
     if (qword_2811F4B48 != -1)
     {
-      dispatch_once(&qword_2811F4B48, v55);
+      dispatch_once(&qword_2811F4B48, v54);
     }
 
     if (byte_2811F4AF7 == 1)
@@ -969,30 +931,30 @@ uint64_t __26__PLSpringBoardAgent_init__block_invoke_3(uint64_t a1)
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v62 = v13;
+        v61 = v13;
         _os_log_debug_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   v19 = objc_alloc(MEMORY[0x277D3F1A8]);
-  v59 = @"ExternalConnected";
-  v57 = &unk_282C11790;
+  v58 = @"ExternalConnected";
+  v56 = &unk_282C11790;
   null = [MEMORY[0x277CBEB68] null];
-  v58 = null;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
-  v60 = v21;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
-  v54[0] = MEMORY[0x277D85DD0];
-  v54[1] = 3221225472;
-  v54[2] = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_216;
-  v54[3] = &unk_2782597E8;
-  v54[4] = self;
-  v23 = [v19 initWithOperator:self forEntryKey:@"PLBatteryAgent_EventBackward_Battery" withFilter:v22 withBlock:v54];
+  v57 = null;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+  v59 = v21;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_216;
+  v53[3] = &unk_2782597E8;
+  v53[4] = self;
+  v23 = [v19 initWithOperator:self forEntryKey:@"PLBatteryAgent_EventBackward_Battery" withFilter:v22 withBlock:v53];
   [(PLSpringBoardAgent *)self setDeviceChargingStateNotification:v23];
 
-  storage2 = [(PLOperator *)self storage];
-  v25 = [storage2 lastEntryForKey:@"PLDisplayAgent_EventPoint_Display"];
+  v24 = objc_msgSend_storage(self);
+  v25 = [v24 lastEntryForKey:@"PLDisplayAgent_EventPoint_Display"];
 
   if (_os_feature_enabled_impl() && [MEMORY[0x277D3F208] hasAOD])
   {
@@ -1035,32 +997,32 @@ LABEL_26:
   }
 
 LABEL_28:
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_2;
-  v53[3] = &unk_2782597E8;
-  v53[4] = self;
-  v31 = [MEMORY[0x277D3F1A8] displayOnNotificationWithOperator:self withBlock:v53];
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_2;
+  v52[3] = &unk_2782597E8;
+  v52[4] = self;
+  v31 = [MEMORY[0x277D3F1A8] displayOnNotificationWithOperator:self withBlock:v52];
   [(PLSpringBoardAgent *)self setDisplayOnNotification:v31];
 
   if (_os_feature_enabled_impl() && [MEMORY[0x277D3F208] hasAOD])
   {
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_3;
-    v52[3] = &unk_2782597E8;
-    v52[4] = self;
-    v32 = [MEMORY[0x277D3F1A8] displayOffOrAODNotificationWithOperator:self withBlock:v52];
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_3;
+    v51[3] = &unk_2782597E8;
+    v51[4] = self;
+    v32 = [MEMORY[0x277D3F1A8] displayOffOrAODNotificationWithOperator:self withBlock:v51];
   }
 
   else
   {
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_4;
-    v51[3] = &unk_2782597E8;
-    v51[4] = self;
-    v32 = [MEMORY[0x277D3F1A8] displayOffNotificationWithOperator:self withBlock:v51];
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_4;
+    v50[3] = &unk_2782597E8;
+    v50[4] = self;
+    v32 = [MEMORY[0x277D3F1A8] displayOffNotificationWithOperator:self withBlock:v50];
   }
 
   v33 = v32;
@@ -1068,55 +1030,53 @@ LABEL_28:
 
   v34 = [(PLOperator *)PLPushAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"ReceivedPush"];
   v35 = objc_alloc(MEMORY[0x277D3F1A8]);
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_5;
-  v50[3] = &unk_2782597E8;
-  v50[4] = self;
-  v36 = [v35 initWithOperator:self forEntryKey:v34 withBlock:v50];
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_5;
+  v49[3] = &unk_2782597E8;
+  v49[4] = self;
+  v36 = [v35 initWithOperator:self forEntryKey:v34 withBlock:v49];
   [(PLSpringBoardAgent *)self setReceivedPushNotification:v36];
 
   v37 = objc_alloc(MEMORY[0x277D3F270]);
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_250;
-  v49[3] = &unk_27825A1D8;
-  v49[4] = self;
-  v38 = [v37 initWithOperator:self withRegistration:&unk_282C17D88 withBlock:v49];
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_250;
+  v48[3] = &unk_27825A1D8;
+  v48[4] = self;
+  v38 = [v37 initWithOperator:self withRegistration:&unk_282C17D88 withBlock:v48];
   userNotificationRequestEvent = self->_userNotificationRequestEvent;
   self->_userNotificationRequestEvent = v38;
 
   v40 = objc_alloc(MEMORY[0x277D3F270]);
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_259;
-  v48[3] = &unk_27825A1D8;
-  v48[4] = self;
-  v41 = [v40 initWithOperator:self withRegistration:&unk_282C17DB0 withBlock:v48];
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_259;
+  v47[3] = &unk_27825A1D8;
+  v47[4] = self;
+  v41 = [v40 initWithOperator:self withRegistration:&unk_282C17DB0 withBlock:v47];
   userNotificationTriggerEvent = self->_userNotificationTriggerEvent;
   self->_userNotificationTriggerEvent = v41;
 
   v43 = objc_alloc(MEMORY[0x277D3F270]);
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_273;
-  v47[3] = &unk_27825A1D8;
-  v47[4] = self;
-  v44 = [v43 initWithOperator:self withRegistration:&unk_282C17DD8 withBlock:v47];
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_273;
+  v46[3] = &unk_27825A1D8;
+  v46[4] = self;
+  v44 = [v43 initWithOperator:self withRegistration:&unk_282C17DD8 withBlock:v46];
   bulletinBoardNotificationPublishEvent = self->_bulletinBoardNotificationPublishEvent;
   self->_bulletinBoardNotificationPublishEvent = v44;
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke(uint64_t a1)
+void *__46__PLSpringBoardAgent_initOperatorDependancies__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4AF6 = result;
   return result;
 }
 
-uint64_t __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_206(uint64_t a1)
+void *__46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_206(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4AF7 = result;
@@ -1132,14 +1092,14 @@ void __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_216(uint64_
 
 void __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_250(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogCommon();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "PLSpringBoardAgent:Request payload =%@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "PLSpringBoardAgent:Request payload =%@", &v8, 0xCu);
   }
 
   if (([MEMORY[0x277D3F180] fullMode] & 1) != 0 || objc_msgSend(MEMORY[0x277D3F208], "internalBuild"))
@@ -1151,23 +1111,20 @@ void __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_250(uint64_
   {
     [*(a1 + 32) logBulletinAggregate:v6];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_259(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = a5;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
+    v7 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_2_260;
-    v19 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v20 = v8;
+    v15 = 3221225472;
+    v16 = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_2_260;
+    v17 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v18 = v7;
     if (qword_2811F4B50 != -1)
     {
       dispatch_once(&qword_2811F4B50, &block);
@@ -1175,29 +1132,27 @@ void __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_259(uint64_
 
     if (byte_2811F4AF8 == 1)
     {
-      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"payload=%@", v6, block, v17, v18, v19, v20];
-      v10 = MEMORY[0x277D3F178];
-      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSpringBoardAgent.m"];
-      v12 = [v11 lastPathComponent];
-      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSpringBoardAgent initOperatorDependancies]_block_invoke"];
-      [v10 logMessage:v9 fromFile:v12 fromFunction:v13 fromLineNumber:508];
+      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"payload=%@", v6, block, v15, v16, v17, v18];
+      v9 = MEMORY[0x277D3F178];
+      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSpringBoardAgent.m"];
+      v11 = [v10 lastPathComponent];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSpringBoardAgent initOperatorDependancies]_block_invoke"];
+      [v9 logMessage:v8 fromFile:v11 fromFunction:v12 fromLineNumber:508];
 
-      v14 = PLLogCommon();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v13 = PLLogCommon();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v22 = v9;
-        _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v20 = v8;
+        _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   [*(a1 + 32) logNotification:v6];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_2_260(uint64_t a1)
+void *__46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_2_260(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4AF8 = result;
@@ -1206,17 +1161,16 @@ uint64_t __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_2_260(u
 
 void __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_273(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = a5;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
+    v7 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_2_274;
-    v19 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v20 = v8;
+    v15 = 3221225472;
+    v16 = __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_2_274;
+    v17 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v18 = v7;
     if (qword_2811F4B58 != -1)
     {
       dispatch_once(&qword_2811F4B58, &block);
@@ -1224,29 +1178,27 @@ void __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_273(uint64_
 
     if (byte_2811F4AF9 == 1)
     {
-      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Received BulletinBoard payload: %@", v6, block, v17, v18, v19, v20];
-      v10 = MEMORY[0x277D3F178];
-      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSpringBoardAgent.m"];
-      v12 = [v11 lastPathComponent];
-      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSpringBoardAgent initOperatorDependancies]_block_invoke"];
-      [v10 logMessage:v9 fromFile:v12 fromFunction:v13 fromLineNumber:516];
+      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Received BulletinBoard payload: %@", v6, block, v15, v16, v17, v18];
+      v9 = MEMORY[0x277D3F178];
+      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSpringBoardAgent.m"];
+      v11 = [v10 lastPathComponent];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSpringBoardAgent initOperatorDependancies]_block_invoke"];
+      [v9 logMessage:v8 fromFile:v11 fromFunction:v12 fromLineNumber:516];
 
-      v14 = PLLogCommon();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v13 = PLLogCommon();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v22 = v9;
-        _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v20 = v8;
+        _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   [*(a1 + 32) logMailNotification:v6];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_2_274(uint64_t a1)
+void *__46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_2_274(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4AF9 = result;
@@ -1255,7 +1207,7 @@ uint64_t __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_2_274(u
 
 - (void)handleChargingStateChange:(id)change
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = changeCopy;
   if (changeCopy)
@@ -1295,16 +1247,14 @@ uint64_t __46__PLSpringBoardAgent_initOperatorDependancies__block_invoke_2_274(u
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v17 = v8;
+        v16 = v8;
         _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __48__PLSpringBoardAgent_handleChargingStateChange___block_invoke(uint64_t a1)
+void *__48__PLSpringBoardAgent_handleChargingStateChange___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4AFA = result;
@@ -1313,7 +1263,7 @@ uint64_t __48__PLSpringBoardAgent_handleChargingStateChange___block_invoke(uint6
 
 - (void)startAutolockEnergyPeriodicTimer
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if ([(PLSpringBoardAgent *)self autoLockIsNil])
   {
     autolockEnergyPeriodicTimer = [(PLSpringBoardAgent *)self autolockEnergyPeriodicTimer];
@@ -1323,14 +1273,14 @@ uint64_t __48__PLSpringBoardAgent_handleChargingStateChange___block_invoke(uint6
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v4 = objc_opt_class();
-        v29[0] = MEMORY[0x277D85DD0];
-        v29[1] = 3221225472;
-        v29[2] = __54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke;
-        v29[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v29[4] = v4;
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke;
+        v28[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v28[4] = v4;
         if (qword_2811F4B68 != -1)
         {
-          dispatch_once(&qword_2811F4B68, v29);
+          dispatch_once(&qword_2811F4B68, v28);
         }
 
         if (byte_2811F4AFB == 1)
@@ -1346,7 +1296,7 @@ uint64_t __48__PLSpringBoardAgent_handleChargingStateChange___block_invoke(uint6
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v31 = v5;
+            v30 = v5;
             _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -1366,37 +1316,37 @@ uint64_t __48__PLSpringBoardAgent_handleChargingStateChange___block_invoke(uint6
       }
 
       v13 = [monotonicDate dateByAddingTimeInterval:*&qword_2811F4B78];
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke_2;
-      v27[3] = &unk_2782591D0;
-      v27[4] = self;
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke_2;
+      v26[3] = &unk_2782591D0;
+      v26[4] = self;
       if (qword_2811F4B80 != -1)
       {
-        dispatch_once(&qword_2811F4B80, v27);
+        dispatch_once(&qword_2811F4B80, v26);
       }
 
       v14 = *&qword_2811F4B88;
       workQueue = [(PLOperator *)self workQueue];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke_3;
-      v26[3] = &unk_27825B230;
-      v26[4] = self;
-      v16 = [v12 scheduledTimerWithMonotonicFireDate:v13 withInterval:workQueue withQueue:v26 withBlock:v14];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke_3;
+      v25[3] = &unk_27825B230;
+      v25[4] = self;
+      v16 = [v12 scheduledTimerWithMonotonicFireDate:v13 withInterval:workQueue withQueue:v25 withBlock:v14];
       [(PLSpringBoardAgent *)self setAutolockEnergyPeriodicTimer:v16];
 
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v17 = objc_opt_class();
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke_4;
-        v25[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v25[4] = v17;
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke_4;
+        v24[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v24[4] = v17;
         if (qword_2811F4B90 != -1)
         {
-          dispatch_once(&qword_2811F4B90, v25);
+          dispatch_once(&qword_2811F4B90, v24);
         }
 
         if (byte_2811F4AFC == 1)
@@ -1412,39 +1362,37 @@ uint64_t __48__PLSpringBoardAgent_handleChargingStateChange___block_invoke(uint6
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v31 = v18;
+            v30 = v18;
             _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke(uint64_t a1)
+void *__54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4AFB = result;
   return result;
 }
 
-uint64_t __54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke_286(uint64_t a1)
+void *__54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke_286(uint64_t a1)
 {
   result = [*(a1 + 32) defaultDoubleForKey:@"AutolockEnergyPeriodicTimerInterval"];
   qword_2811F4B78 = v2;
   return result;
 }
 
-uint64_t __54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke_2(uint64_t a1)
+void *__54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) defaultDoubleForKey:@"AutolockEnergyPeriodicTimerInterval"];
   qword_2811F4B88 = v2;
   return result;
 }
 
-uint64_t __54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke_4(uint64_t a1)
+void *__54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke_4(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4AFC = result;
@@ -1453,7 +1401,7 @@ uint64_t __54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke
 
 - (void)stopAutolockEnergyPeriodicTimer
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   autolockEnergyPeriodicTimer = [(PLSpringBoardAgent *)self autolockEnergyPeriodicTimer];
 
   if (autolockEnergyPeriodicTimer)
@@ -1484,7 +1432,7 @@ uint64_t __54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v28 = v5;
+          v27 = v5;
           _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -1499,19 +1447,19 @@ uint64_t __54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v13 = objc_opt_class();
-      v21 = MEMORY[0x277D85DD0];
-      v22 = 3221225472;
-      v23 = __53__PLSpringBoardAgent_stopAutolockEnergyPeriodicTimer__block_invoke_297;
-      v24 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v25 = v13;
+      v20 = MEMORY[0x277D85DD0];
+      v21 = 3221225472;
+      v22 = __53__PLSpringBoardAgent_stopAutolockEnergyPeriodicTimer__block_invoke_297;
+      v23 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v24 = v13;
       if (qword_2811F4BA0 != -1)
       {
-        dispatch_once(&qword_2811F4BA0, &v21);
+        dispatch_once(&qword_2811F4BA0, &v20);
       }
 
       if (byte_2811F4AFE == 1)
       {
-        v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"end", v21, v22, v23, v24, v25];
+        v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"end", v20, v21, v22, v23, v24];
         v15 = MEMORY[0x277D3F178];
         v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSpringBoardAgent.m"];
         lastPathComponent2 = [v16 lastPathComponent];
@@ -1522,24 +1470,22 @@ uint64_t __54__PLSpringBoardAgent_startAutolockEnergyPeriodicTimer__block_invoke
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v28 = v14;
+          v27 = v14;
           _os_log_debug_impl(&dword_21A4C6000, v19, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __53__PLSpringBoardAgent_stopAutolockEnergyPeriodicTimer__block_invoke(uint64_t a1)
+void *__53__PLSpringBoardAgent_stopAutolockEnergyPeriodicTimer__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4AFD = result;
   return result;
 }
 
-uint64_t __53__PLSpringBoardAgent_stopAutolockEnergyPeriodicTimer__block_invoke_297(uint64_t a1)
+void *__53__PLSpringBoardAgent_stopAutolockEnergyPeriodicTimer__block_invoke_297(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4AFE = result;
@@ -1548,7 +1494,7 @@ uint64_t __53__PLSpringBoardAgent_stopAutolockEnergyPeriodicTimer__block_invoke_
 
 - (void)computeAutolockEnergyWithNow:(id)now
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   nowCopy = now;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -1579,7 +1525,7 @@ uint64_t __53__PLSpringBoardAgent_stopAutolockEnergyPeriodicTimer__block_invoke_
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v49 = v8;
+        v48 = v8;
         _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -1594,14 +1540,14 @@ uint64_t __53__PLSpringBoardAgent_stopAutolockEnergyPeriodicTimer__block_invoke_
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v18 = objc_opt_class();
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __51__PLSpringBoardAgent_computeAutolockEnergyWithNow___block_invoke_303;
-      v46[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v46[4] = v18;
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __51__PLSpringBoardAgent_computeAutolockEnergyWithNow___block_invoke_303;
+      v45[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v45[4] = v18;
       if (qword_2811F4BB0 != -1)
       {
-        dispatch_once(&qword_2811F4BB0, v46);
+        dispatch_once(&qword_2811F4BB0, v45);
       }
 
       if (byte_2811F4B00 == 1)
@@ -1617,7 +1563,7 @@ uint64_t __53__PLSpringBoardAgent_stopAutolockEnergyPeriodicTimer__block_invoke_
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v49 = v19;
+          v48 = v19;
           _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -1629,14 +1575,14 @@ uint64_t __53__PLSpringBoardAgent_stopAutolockEnergyPeriodicTimer__block_invoke_
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v27 = objc_opt_class();
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = __51__PLSpringBoardAgent_computeAutolockEnergyWithNow___block_invoke_309;
-      v45[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v45[4] = v27;
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = __51__PLSpringBoardAgent_computeAutolockEnergyWithNow___block_invoke_309;
+      v44[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v44[4] = v27;
       if (qword_2811F4BB8 != -1)
       {
-        dispatch_once(&qword_2811F4BB8, v45);
+        dispatch_once(&qword_2811F4BB8, v44);
       }
 
       if (byte_2811F4B01 == 1)
@@ -1652,7 +1598,7 @@ uint64_t __53__PLSpringBoardAgent_stopAutolockEnergyPeriodicTimer__block_invoke_
         if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v49 = v28;
+          v48 = v28;
           _os_log_debug_impl(&dword_21A4C6000, v33, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -1664,14 +1610,14 @@ uint64_t __53__PLSpringBoardAgent_stopAutolockEnergyPeriodicTimer__block_invoke_
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v35 = objc_opt_class();
-        v44[0] = MEMORY[0x277D85DD0];
-        v44[1] = 3221225472;
-        v44[2] = __51__PLSpringBoardAgent_computeAutolockEnergyWithNow___block_invoke_315;
-        v44[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v44[4] = v35;
+        v43[0] = MEMORY[0x277D85DD0];
+        v43[1] = 3221225472;
+        v43[2] = __51__PLSpringBoardAgent_computeAutolockEnergyWithNow___block_invoke_315;
+        v43[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v43[4] = v35;
         if (qword_2811F4BC0 != -1)
         {
-          dispatch_once(&qword_2811F4BC0, v44);
+          dispatch_once(&qword_2811F4BC0, v43);
         }
 
         if (byte_2811F4B02 == 1)
@@ -1687,7 +1633,7 @@ uint64_t __53__PLSpringBoardAgent_stopAutolockEnergyPeriodicTimer__block_invoke_
           if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v49 = v36;
+            v48 = v36;
             _os_log_debug_impl(&dword_21A4C6000, v41, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -1699,32 +1645,30 @@ uint64_t __53__PLSpringBoardAgent_stopAutolockEnergyPeriodicTimer__block_invoke_
 
     [(PLSpringBoardAgent *)self setLastEligibleAutolockEnergyComputationDate:nowCopy];
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __51__PLSpringBoardAgent_computeAutolockEnergyWithNow___block_invoke(uint64_t a1)
+void *__51__PLSpringBoardAgent_computeAutolockEnergyWithNow___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4AFF = result;
   return result;
 }
 
-uint64_t __51__PLSpringBoardAgent_computeAutolockEnergyWithNow___block_invoke_303(uint64_t a1)
+void *__51__PLSpringBoardAgent_computeAutolockEnergyWithNow___block_invoke_303(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4B00 = result;
   return result;
 }
 
-uint64_t __51__PLSpringBoardAgent_computeAutolockEnergyWithNow___block_invoke_309(uint64_t a1)
+void *__51__PLSpringBoardAgent_computeAutolockEnergyWithNow___block_invoke_309(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4B01 = result;
   return result;
 }
 
-uint64_t __51__PLSpringBoardAgent_computeAutolockEnergyWithNow___block_invoke_315(uint64_t a1)
+void *__51__PLSpringBoardAgent_computeAutolockEnergyWithNow___block_invoke_315(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4B02 = result;
@@ -1734,24 +1678,8 @@ uint64_t __51__PLSpringBoardAgent_computeAutolockEnergyWithNow___block_invoke_31
 - (void)setLastReceivedPushEntry:(id)entry
 {
   entryCopy = entry;
-  if (!entryCopy)
+  if (!entryCopy || !self->_lastReceivedPushEntry || ([entryCopy entryDate], v5 = objc_claimAutoreleasedReturnValue(), -[PLEntry entryDate](self->_lastReceivedPushEntry, "entryDate"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "timeIntervalSinceDate:", v6), v8 = v7, v6, v5, v8 > 0.0))
   {
-    goto LABEL_11;
-  }
-
-  if (!self->_lastReceivedPushEntry)
-  {
-    goto LABEL_11;
-  }
-
-  entryDate = [entryCopy entryDate];
-  entryDate2 = [(PLEntry *)self->_lastReceivedPushEntry entryDate];
-  [entryDate timeIntervalSinceDate:entryDate2];
-  v8 = v7;
-
-  if (v8 > 0.0)
-  {
-LABEL_11:
     if ([PLPushAgent isHighPriorityPushEntry:entryCopy])
     {
       objc_storeStrong(&self->_lastReceivedPushEntry, entry);
@@ -1781,7 +1709,7 @@ LABEL_11:
 
 - (void)resetAutoLockIsNil
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = [(PLSpringBoardAgent *)self screenLock:0];
   v4 = [v3 intValue] == -1;
 
@@ -1790,10 +1718,10 @@ LABEL_11:
   {
     v5 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __40__PLSpringBoardAgent_resetAutoLockIsNil__block_invoke;
-    v18 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v19 = v5;
+    v15 = 3221225472;
+    v16 = __40__PLSpringBoardAgent_resetAutoLockIsNil__block_invoke;
+    v17 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v18 = v5;
     if (qword_2811F4BC8 != -1)
     {
       dispatch_once(&qword_2811F4BC8, &block);
@@ -1803,7 +1731,7 @@ LABEL_11:
     {
       v6 = MEMORY[0x277CCACA8];
       v7 = [MEMORY[0x277CCABB0] numberWithBool:{-[PLSpringBoardAgent autoLockIsNil](self, "autoLockIsNil")}];
-      v8 = [v6 stringWithFormat:@"Value of autolock %@", v7, block, v16, v17, v18, v19];
+      v8 = [v6 stringWithFormat:@"Value of autolock %@", v7, block, v15, v16, v17, v18];
 
       v9 = MEMORY[0x277D3F178];
       v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSpringBoardAgent.m"];
@@ -1815,16 +1743,14 @@ LABEL_11:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v21 = v8;
+        v20 = v8;
         _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __40__PLSpringBoardAgent_resetAutoLockIsNil__block_invoke(uint64_t a1)
+void *__40__PLSpringBoardAgent_resetAutoLockIsNil__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4B03 = result;
@@ -1897,7 +1823,7 @@ LABEL_16:
 
 - (id)addCountsAndDurationsFor:(id)for toEntry:(id)entry
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   forCopy = for;
   v8 = [forCopy objectForKeyedSubscript:@"NSEStartTime"];
@@ -1940,14 +1866,14 @@ LABEL_16:
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v21 = objc_opt_class();
-          v87[0] = MEMORY[0x277D85DD0];
-          v87[1] = 3221225472;
-          v87[2] = __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke;
-          v87[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v87[4] = v21;
+          v86[0] = MEMORY[0x277D85DD0];
+          v86[1] = 3221225472;
+          v86[2] = __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke;
+          v86[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v86[4] = v21;
           if (qword_2811F4BD0 != -1)
           {
-            dispatch_once(&qword_2811F4BD0, v87);
+            dispatch_once(&qword_2811F4BD0, v86);
           }
 
           if (byte_2811F4B04 == 1)
@@ -1967,7 +1893,7 @@ LABEL_16:
             if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v89 = v25;
+              v88 = v25;
 LABEL_47:
               _os_log_debug_impl(&dword_21A4C6000, v30, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               goto LABEL_48;
@@ -1987,14 +1913,14 @@ LABEL_47:
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v59 = objc_opt_class();
-          v86[0] = MEMORY[0x277D85DD0];
-          v86[1] = 3221225472;
-          v86[2] = __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke_370;
-          v86[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v86[4] = v59;
+          v85[0] = MEMORY[0x277D85DD0];
+          v85[1] = 3221225472;
+          v85[2] = __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke_370;
+          v85[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v85[4] = v59;
           if (qword_2811F4BD8 != -1)
           {
-            dispatch_once(&qword_2811F4BD8, v86);
+            dispatch_once(&qword_2811F4BD8, v85);
           }
 
           if (byte_2811F4B05 == 1)
@@ -2014,7 +1940,7 @@ LABEL_47:
             if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v89 = v25;
+              v88 = v25;
               goto LABEL_47;
             }
 
@@ -2033,14 +1959,14 @@ LABEL_47:
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v41 = objc_opt_class();
-        v85[0] = MEMORY[0x277D85DD0];
-        v85[1] = 3221225472;
-        v85[2] = __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke_376;
-        v85[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v85[4] = v41;
+        v84[0] = MEMORY[0x277D85DD0];
+        v84[1] = 3221225472;
+        v84[2] = __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke_376;
+        v84[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v84[4] = v41;
         if (qword_2811F4BE0 != -1)
         {
-          dispatch_once(&qword_2811F4BE0, v85);
+          dispatch_once(&qword_2811F4BE0, v84);
         }
 
         if (byte_2811F4B06 == 1)
@@ -2060,7 +1986,7 @@ LABEL_47:
           if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v89 = v25;
+            v88 = v25;
             goto LABEL_47;
           }
 
@@ -2078,14 +2004,14 @@ LABEL_47:
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v68 = objc_opt_class();
-        v84[0] = MEMORY[0x277D85DD0];
-        v84[1] = 3221225472;
-        v84[2] = __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke_382;
-        v84[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v84[4] = v68;
+        v83[0] = MEMORY[0x277D85DD0];
+        v83[1] = 3221225472;
+        v83[2] = __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke_382;
+        v83[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v83[4] = v68;
         if (qword_2811F4BE8 != -1)
         {
-          dispatch_once(&qword_2811F4BE8, v84);
+          dispatch_once(&qword_2811F4BE8, v83);
         }
 
         if (byte_2811F4B07 == 1)
@@ -2105,7 +2031,7 @@ LABEL_47:
           if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v89 = v25;
+            v88 = v25;
             goto LABEL_47;
           }
 
@@ -2151,7 +2077,7 @@ LABEL_47:
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v89 = v25;
+          v88 = v25;
           goto LABEL_47;
         }
 
@@ -2169,14 +2095,14 @@ LABEL_48:
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v50 = objc_opt_class();
-      v78 = MEMORY[0x277D85DD0];
-      v79 = 3221225472;
-      v80 = __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke_394;
-      v81 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v82 = v50;
+      v77 = MEMORY[0x277D85DD0];
+      v78 = 3221225472;
+      v79 = __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke_394;
+      v80 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v81 = v50;
       if (qword_2811F4BF8 != -1)
       {
-        dispatch_once(&qword_2811F4BF8, &v78);
+        dispatch_once(&qword_2811F4BF8, &v77);
       }
 
       if (byte_2811F4B09 == 1)
@@ -2184,7 +2110,7 @@ LABEL_48:
         v51 = MEMORY[0x277CCACA8];
         v52 = [entryCopy objectForKeyedSubscript:@"NonWakingCount"];
         v53 = [entryCopy objectForKeyedSubscript:@"NonWakingNSEDuration"];
-        v25 = [v51 stringWithFormat:@"Non-Waking count: %@, Non Waking NSE duration: %@", v52, v53, v78, v79, v80, v81, v82];
+        v25 = [v51 stringWithFormat:@"Non-Waking count: %@, Non Waking NSE duration: %@", v52, v53, v77, v78, v79, v80, v81];
 
         v54 = MEMORY[0x277D3F178];
         v55 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSpringBoardAgent.m"];
@@ -2196,7 +2122,7 @@ LABEL_48:
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v89 = v25;
+          v88 = v25;
           goto LABEL_47;
         }
 
@@ -2205,47 +2131,45 @@ LABEL_48:
     }
   }
 
-  v76 = *MEMORY[0x277D85DE8];
-
   return entryCopy;
 }
 
-uint64_t __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke(uint64_t a1)
+void *__55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4B04 = result;
   return result;
 }
 
-uint64_t __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke_370(uint64_t a1)
+void *__55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke_370(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4B05 = result;
   return result;
 }
 
-uint64_t __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke_376(uint64_t a1)
+void *__55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke_376(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4B06 = result;
   return result;
 }
 
-uint64_t __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke_382(uint64_t a1)
+void *__55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke_382(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4B07 = result;
   return result;
 }
 
-uint64_t __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke_388(uint64_t a1)
+void *__55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke_388(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4B08 = result;
   return result;
 }
 
-uint64_t __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke_394(uint64_t a1)
+void *__55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invoke_394(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4B09 = result;
@@ -2254,7 +2178,7 @@ uint64_t __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invok
 
 - (void)logNotification:(id)notification
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -2282,7 +2206,7 @@ uint64_t __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invok
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v45 = notificationCopy;
+        v44 = notificationCopy;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -2346,14 +2270,14 @@ uint64_t __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invok
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v34 = objc_opt_class();
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = __38__PLSpringBoardAgent_logNotification___block_invoke_409;
-      v42[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v42[4] = v34;
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __38__PLSpringBoardAgent_logNotification___block_invoke_409;
+      v41[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v41[4] = v34;
       if (qword_2811F4C08 != -1)
       {
-        dispatch_once(&qword_2811F4C08, v42);
+        dispatch_once(&qword_2811F4C08, v41);
       }
 
       if (byte_2811F4B0B == 1)
@@ -2369,7 +2293,7 @@ uint64_t __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invok
         if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v45 = v35;
+          v44 = v35;
           _os_log_debug_impl(&dword_21A4C6000, v40, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -2382,18 +2306,16 @@ uint64_t __55__PLSpringBoardAgent_addCountsAndDurationsFor_toEntry___block_invok
   }
 
   [(PLOperator *)self logEntry:v33];
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __38__PLSpringBoardAgent_logNotification___block_invoke(uint64_t a1)
+void *__38__PLSpringBoardAgent_logNotification___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4B0A = result;
   return result;
 }
 
-uint64_t __38__PLSpringBoardAgent_logNotification___block_invoke_409(uint64_t a1)
+void *__38__PLSpringBoardAgent_logNotification___block_invoke_409(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4B0B = result;
@@ -2402,7 +2324,7 @@ uint64_t __38__PLSpringBoardAgent_logNotification___block_invoke_409(uint64_t a1
 
 - (void)logMailNotification:(id)notification
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = [notification objectForKeyedSubscript:@"SectionIdentifier"];
   v5 = [v4 isEqualToString:@"com.apple.mobilemail"];
 
@@ -2455,11 +2377,11 @@ LABEL_14:
 LABEL_15:
         [(PLOperator *)self logEntry:v7];
 
-        goto LABEL_16;
+        return;
       }
 
       *buf = 138412290;
-      v28 = v11;
+      v27 = v11;
     }
 
     else
@@ -2471,14 +2393,14 @@ LABEL_15:
       }
 
       v17 = objc_opt_class();
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __42__PLSpringBoardAgent_logMailNotification___block_invoke_426;
-      v25[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v25[4] = v17;
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __42__PLSpringBoardAgent_logMailNotification___block_invoke_426;
+      v24[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v24[4] = v17;
       if (qword_2811F4C18 != -1)
       {
-        dispatch_once(&qword_2811F4C18, v25);
+        dispatch_once(&qword_2811F4C18, v24);
       }
 
       if (byte_2811F4B0D != 1)
@@ -2503,25 +2425,22 @@ LABEL_15:
       }
 
       *buf = 138412290;
-      v28 = v11;
+      v27 = v11;
     }
 
     _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     goto LABEL_14;
   }
-
-LABEL_16:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __42__PLSpringBoardAgent_logMailNotification___block_invoke(uint64_t a1)
+void *__42__PLSpringBoardAgent_logMailNotification___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4B0C = result;
   return result;
 }
 
-uint64_t __42__PLSpringBoardAgent_logMailNotification___block_invoke_426(uint64_t a1)
+void *__42__PLSpringBoardAgent_logMailNotification___block_invoke_426(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4B0D = result;
@@ -2573,18 +2492,16 @@ uint64_t __42__PLSpringBoardAgent_logMailNotification___block_invoke_426(uint64_
 
 - (void)setUpScreenNumberDictionary
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = &unk_282C11808;
-  v6[0] = @"com.apple.Maps";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = &unk_282C11808;
+  v5[0] = @"com.apple.Maps";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   [(PLSpringBoardAgent *)self setScreenNumberToName:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAccountingEvent:(id)event
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = [eventCopy objectForKeyedSubscript:@"Screen"];
   [v5 doubleValue];
@@ -2621,10 +2538,10 @@ uint64_t __42__PLSpringBoardAgent_logMailNotification___block_invoke_426(uint64_
     {
       v19 = objc_opt_class();
       block = MEMORY[0x277D85DD0];
-      v53 = 3221225472;
-      v54 = __41__PLSpringBoardAgent_addAccountingEvent___block_invoke;
-      v55 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v56 = v19;
+      v52 = 3221225472;
+      v53 = __41__PLSpringBoardAgent_addAccountingEvent___block_invoke;
+      v54 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v55 = v19;
       if (qword_2811F4C20 != -1)
       {
         dispatch_once(&qword_2811F4C20, &block);
@@ -2634,7 +2551,7 @@ uint64_t __42__PLSpringBoardAgent_logMailNotification___block_invoke_426(uint64_
       {
         v20 = MEMORY[0x277CCACA8];
         v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v7];
-        v22 = [v20 stringWithFormat:@"screenNumber unfiltered : %@", v21, block, v53, v54, v55, v56];
+        v22 = [v20 stringWithFormat:@"screenNumber unfiltered : %@", v21, block, v52, v53, v54, v55];
 
         v23 = MEMORY[0x277D3F178];
         v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSpringBoardAgent.m"];
@@ -2646,7 +2563,7 @@ uint64_t __42__PLSpringBoardAgent_logMailNotification___block_invoke_426(uint64_
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v64 = v22;
+          v63 = v22;
           _os_log_debug_impl(&dword_21A4C6000, v27, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -2655,15 +2572,15 @@ uint64_t __42__PLSpringBoardAgent_logMailNotification___block_invoke_426(uint64_
     if (v18)
     {
       mEMORY[0x277D3F0C0] = [MEMORY[0x277D3F0C0] sharedInstance];
-      v61 = v18;
-      v62 = &unk_282C1C358;
-      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+      v60 = v18;
+      v61 = &unk_282C1C358;
+      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
       entryDate2 = [eventCopy entryDate];
       [mEMORY[0x277D3F0C0] createDistributionEventForwardWithDistributionID:1 withChildNodeNameToWeight:v29 withStartDate:entryDate2];
 
       mEMORY[0x277D3F0C0]2 = [MEMORY[0x277D3F0C0] sharedInstance];
-      v60 = v18;
-      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+      v59 = v18;
+      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
       entryDate3 = [eventCopy entryDate];
       [mEMORY[0x277D3F0C0]2 createQualificationEventForwardWithQualificationID:2 withChildNodeNames:v32 withStartDate:entryDate3];
     }
@@ -2685,17 +2602,17 @@ uint64_t __42__PLSpringBoardAgent_logMailNotification___block_invoke_426(uint64_
           mEMORY[0x277D3F0C0]3 = [MEMORY[0x277D3F0C0] sharedInstance];
           lastReceivedPushEntry3 = [(PLSpringBoardAgent *)self lastReceivedPushEntry];
           v43 = [lastReceivedPushEntry3 objectForKeyedSubscript:@"BundleID"];
-          v58 = v43;
-          v59 = &unk_282C1C358;
-          v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+          v57 = v43;
+          v58 = &unk_282C1C358;
+          v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
           entryDate6 = [eventCopy entryDate];
           [mEMORY[0x277D3F0C0]3 createDistributionEventPointWithDistributionID:28 withChildNodeNameToWeight:v44 withStartDate:entryDate6];
 
           mEMORY[0x277D3F0C0]4 = [MEMORY[0x277D3F0C0] sharedInstance];
           lastReceivedPushEntry4 = [(PLSpringBoardAgent *)self lastReceivedPushEntry];
           v48 = [lastReceivedPushEntry4 objectForKeyedSubscript:@"BundleID"];
-          v57 = v48;
-          v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+          v56 = v48;
+          v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
           entryDate7 = [eventCopy entryDate];
           [mEMORY[0x277D3F0C0]4 createQualificationEventForwardWithQualificationID:10 withChildNodeNames:v49 withStartDate:entryDate7];
         }
@@ -2704,11 +2621,9 @@ uint64_t __42__PLSpringBoardAgent_logMailNotification___block_invoke_426(uint64_
 
     [(PLSpringBoardAgent *)self setLastSBEntry:eventCopy];
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __41__PLSpringBoardAgent_addAccountingEvent___block_invoke(uint64_t a1)
+void *__41__PLSpringBoardAgent_addAccountingEvent___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4B0E = result;

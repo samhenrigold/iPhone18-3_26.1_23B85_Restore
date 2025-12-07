@@ -67,42 +67,43 @@
 
     v12 = +[NSUserDefaults standardUserDefaults];
     v13 = [v12 valueForKey:keyCopy];
+    v14 = v13;
     if (v13)
     {
-      v14 = sub_100003164();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100003164(v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138412546;
-        v20 = keyCopy;
-        v21 = 2112;
-        v22 = v13;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[NOTICE] user default for %@: %@", &v19, 0x16u);
+        v20 = 138412546;
+        v21 = keyCopy;
+        v22 = 2112;
+        v23 = v14;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[NOTICE] user default for %@: %@", &v20, 0x16u);
       }
     }
 
     if (blockCopy)
     {
-      v15 = blockCopy[2](blockCopy, v13);
+      v16 = blockCopy[2](blockCopy, v14);
 
-      v13 = v15;
+      v14 = v16;
     }
 
-    v16 = self->_cache;
-    objc_sync_enter(v16);
-    v17 = v13;
-    if (!v13)
+    v17 = self->_cache;
+    objc_sync_enter(v17);
+    v18 = v14;
+    if (!v14)
     {
-      v17 = +[NSNull null];
+      v18 = +[NSNull null];
     }
 
-    [(NSMutableDictionary *)self->_cache setObject:v17 forKeyedSubscript:keyCopy];
-    if (!v13)
+    [(NSMutableDictionary *)self->_cache setObject:v18 forKeyedSubscript:keyCopy];
+    if (!v14)
     {
     }
 
-    objc_sync_exit(v16);
+    objc_sync_exit(v17);
 
-    v9 = v13;
+    v9 = v14;
     v11 = v9;
   }
 

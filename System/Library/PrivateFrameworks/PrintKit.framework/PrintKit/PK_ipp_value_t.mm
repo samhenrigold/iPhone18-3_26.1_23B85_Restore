@@ -224,7 +224,7 @@ LABEL_7:
     v13 = _PKLogCategory(PKLogCategoryFramework);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15[0] = 0;
+      *v15 = 0;
       _os_log_impl(&dword_25F5FC000, v13, OS_LOG_TYPE_ERROR, "invalid resolution object", v15, 2u);
     }
 

@@ -14,13 +14,16 @@
 - (void)logActivities;
 - (void)logDailyActivities;
 - (void)logPredictions;
+- (void)logToPowerLogTrigger:(id)trigger withStatus:(BOOL)status;
 - (void)recordActivity:(id)activity;
 - (void)recordActivityLifeCycleEnd:(id)end;
 - (void)recordActivityLifeCycleStart:(id)start;
 - (void)recordActivityLifeCycleSuspend:(id)suspend;
 - (void)recordAppPrediction:(id)prediction app:(id)app;
 - (void)recordCAEventsForActivity:(id)activity withParams:(id)params;
+- (void)recordPrediction:(id)prediction key:(id)key valueMultiplier:(int)multiplier;
 - (void)reportEndScheduledIntensiveWork:(id)work;
+- (void)reportNewStatus:(BOOL)status forTrigger:(id)trigger;
 - (void)reportStartScheduledIntensiveWork:(id)work;
 - (void)resetTriggerReport;
 - (void)sendAnalyticsEventForStream:(id)stream withActivity:(id)activity withMetricValueKey:(id)key withMetricValue:(id)value;
@@ -184,83 +187,81 @@ LABEL_14:
   shortPeriodTimer = self->_shortPeriodTimer;
   self->_shortPeriodTimer = v7;
 
-  v9 = self->_shortPeriodTimer;
   dispatch_set_qos_class_fallback();
-  v10 = self->_shortPeriodTimer;
+  v9 = self->_shortPeriodTimer;
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = sub_100113480;
   handler[3] = &unk_1001B5668;
   handler[4] = self;
-  dispatch_source_set_event_handler(v10, handler);
-  v11 = self->_shortPeriodTimer;
-  v12 = dispatch_walltime(0, 817405952);
-  dispatch_source_set_timer(v11, v12, 0x34630B8A000uLL, 0x45D964B800uLL);
+  dispatch_source_set_event_handler(v9, handler);
+  v10 = self->_shortPeriodTimer;
+  v11 = dispatch_walltime(0, 817405952);
+  dispatch_source_set_timer(v10, v11, 0x34630B8A000uLL, 0x45D964B800uLL);
   dispatch_resume(self->_shortPeriodTimer);
-  v13 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_syncQueue);
+  v12 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_syncQueue);
   longPeriodTimer = self->_longPeriodTimer;
-  self->_longPeriodTimer = v13;
+  self->_longPeriodTimer = v12;
 
-  v15 = self->_longPeriodTimer;
   dispatch_set_qos_class_fallback();
-  v16 = self->_longPeriodTimer;
-  v33[0] = _NSConcreteStackBlock;
-  v33[1] = 3221225472;
-  v33[2] = sub_100113488;
-  v33[3] = &unk_1001B5668;
-  v33[4] = self;
-  dispatch_source_set_event_handler(v16, v33);
-  v17 = self->_longPeriodTimer;
-  v18 = dispatch_walltime(0, -1025343488);
-  dispatch_source_set_timer(v17, v18, 0xD18C2E28000uLL, 0x45D964B800uLL);
+  v14 = self->_longPeriodTimer;
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_100113488;
+  v31[3] = &unk_1001B5668;
+  v31[4] = self;
+  dispatch_source_set_event_handler(v14, v31);
+  v15 = self->_longPeriodTimer;
+  v16 = dispatch_walltime(0, -1025343488);
+  dispatch_source_set_timer(v15, v16, 0xD18C2E28000uLL, 0x45D964B800uLL);
   dispatch_resume(self->_longPeriodTimer);
-  v19 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_syncQueue);
+  v17 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_syncQueue);
   dailyPeriodTimer = self->_dailyPeriodTimer;
-  self->_dailyPeriodTimer = v19;
+  self->_dailyPeriodTimer = v17;
 
-  v21 = [(NSUserDefaults *)self->_defaults objectForKey:@"nextTriggerReport"];
+  v19 = [(NSUserDefaults *)self->_defaults objectForKey:@"nextTriggerReport"];
 
   defaults = self->_defaults;
-  if (v21)
+  if (v19)
   {
     [(NSUserDefaults *)self->_defaults doubleForKey:@"nextTriggerReport"];
-    v23 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
-    [v23 timeIntervalSinceNow];
-    v24 = 0.0;
-    if (v25 > 0.0)
+    v21 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
+    [v21 timeIntervalSinceNow];
+    v22 = 0.0;
+    if (v23 > 0.0)
     {
-      [v23 timeIntervalSinceNow];
-      v24 = v26;
+      [v21 timeIntervalSinceNow];
+      v22 = v24;
     }
   }
 
   else
   {
-    v24 = 86400.0;
-    v23 = [NSDate dateWithTimeIntervalSinceNow:86400.0];
-    [v23 timeIntervalSinceReferenceDate];
+    v22 = 86400.0;
+    v21 = [NSDate dateWithTimeIntervalSinceNow:86400.0];
+    [v21 timeIntervalSinceReferenceDate];
     [(NSUserDefaults *)defaults setDouble:@"nextTriggerReport" forKey:?];
   }
 
-  v27 = [_DASDaemonLogger logForCategory:@"PowerLog"];
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+  v25 = [_DASDaemonLogger logForCategory:@"PowerLog"];
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
-    v28 = [NSNumber numberWithDouble:v24 / 60.0];
+    v26 = [NSNumber numberWithDouble:v22 / 60.0];
     *buf = 138412290;
-    v36 = v28;
-    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Will report in %@ minutes", buf, 0xCu);
+    v34 = v26;
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Will report in %@ minutes", buf, 0xCu);
   }
 
+  v27 = self->_dailyPeriodTimer;
+  v28 = dispatch_walltime(0, (v22 * 1000000000.0));
+  dispatch_source_set_timer(v27, v28, 0x4E94914F0000uLL, 0x45D964B800uLL);
   v29 = self->_dailyPeriodTimer;
-  v30 = dispatch_walltime(0, (v24 * 1000000000.0));
-  dispatch_source_set_timer(v29, v30, 0x4E94914F0000uLL, 0x45D964B800uLL);
-  v31 = self->_dailyPeriodTimer;
-  v32[0] = _NSConcreteStackBlock;
-  v32[1] = 3221225472;
-  v32[2] = sub_100113490;
-  v32[3] = &unk_1001B5668;
-  v32[4] = self;
-  dispatch_source_set_event_handler(v31, v32);
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_100113490;
+  v30[3] = &unk_1001B5668;
+  v30[4] = self;
+  dispatch_source_set_event_handler(v29, v30);
   dispatch_activate(self->_dailyPeriodTimer);
 }
 
@@ -407,7 +408,7 @@ LABEL_20:
   datesCopy = dates;
   [durations doubleValue];
   v7 = v6;
-  if ([datesCopy count])
+  if (objc_msgSend_count(datesCopy))
   {
     lastObject = [datesCopy lastObject];
     [lastObject timeIntervalSinceNow];
@@ -556,6 +557,172 @@ LABEL_15:
 LABEL_16:
 }
 
+- (void)reportNewStatus:(BOOL)status forTrigger:(id)trigger
+{
+  statusCopy = status;
+  triggerCopy = trigger;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  triggerCopy = [NSString stringWithFormat:@"%@Available", triggerCopy];
+  v9 = [(NSMutableDictionary *)selfCopy->_triggerReport objectForKeyedSubscript:triggerCopy];
+  if (v9)
+  {
+    v10 = [(NSMutableDictionary *)selfCopy->_triggerReport objectForKeyedSubscript:triggerCopy];
+    bOOLValue = [v10 BOOLValue];
+
+    if (bOOLValue == statusCopy)
+    {
+      goto LABEL_31;
+    }
+  }
+
+  triggerCopy2 = [NSString stringWithFormat:@"%@EstimatedUnavailableStartDates", triggerCopy];
+  v13 = [(NSMutableDictionary *)selfCopy->_triggerReport objectForKeyedSubscript:triggerCopy2];
+  if (v13)
+  {
+    v14 = [(NSMutableDictionary *)selfCopy->_triggerReport objectForKeyedSubscript:triggerCopy2];
+    v15 = [v14 mutableCopy];
+  }
+
+  else
+  {
+    v15 = +[NSMutableArray array];
+  }
+
+  if (statusCopy)
+  {
+    v16 = @"%@AvailableCount";
+  }
+
+  else
+  {
+    v16 = @"%@UnavailableCount";
+  }
+
+  triggerCopy3 = [NSString stringWithFormat:v16, triggerCopy];
+  v18 = [(NSMutableDictionary *)selfCopy->_triggerReport objectForKeyedSubscript:triggerCopy3];
+  if (v18)
+  {
+    v4 = [(NSMutableDictionary *)selfCopy->_triggerReport objectForKeyedSubscript:triggerCopy3];
+    v19 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v4 intValue] + 1);
+  }
+
+  else
+  {
+    v19 = &off_1001CA9D8;
+  }
+
+  [(NSMutableDictionary *)selfCopy->_triggerReport setObject:v19 forKeyedSubscript:triggerCopy3];
+  if (v18)
+  {
+  }
+
+  if (statusCopy)
+  {
+    triggerCopy4 = [NSString stringWithFormat:@"%@EstimatedUnavailableDuration", triggerCopy];
+    v21 = [(NSMutableDictionary *)selfCopy->_triggerReport objectForKeyedSubscript:triggerCopy4];
+    [(_DASPLLogger *)selfCopy newDurationForStartDates:v15 withPreviousDurations:v21];
+    v23 = v22;
+
+    v24 = [NSNumber numberWithDouble:v23];
+    [(NSMutableDictionary *)selfCopy->_triggerReport setObject:v24 forKeyedSubscript:triggerCopy4];
+
+    v25 = +[NSDate distantFuture];
+    [v15 addObject:v25];
+  }
+
+  else
+  {
+    triggerCopy4 = +[NSDate date];
+    [v15 addObject:triggerCopy4];
+  }
+
+  [(NSMutableDictionary *)selfCopy->_triggerReport setObject:v15 forKeyedSubscript:triggerCopy2];
+  if (([triggerCopy isEqualToString:off_10020ACC0] & 1) != 0 || objc_msgSend(triggerCopy, "isEqualToString:", off_10020ACD0))
+  {
+    [(_DASPLLogger *)selfCopy updateEnergyDurationWithTrigger:triggerCopy andState:statusCopy];
+  }
+
+  if (([triggerCopy isEqualToString:off_10020ACC8] & 1) != 0 || objc_msgSend(triggerCopy, "isEqualToString:", off_10020ACD8))
+  {
+    [(_DASPLLogger *)selfCopy updateDataDurationWithTrigger:triggerCopy andState:statusCopy];
+  }
+
+  if ([triggerCopy isEqualToString:off_10020ACC0])
+  {
+    v26 = &off_10020ACC0;
+LABEL_27:
+    [(_DASPLLogger *)selfCopy logToPowerLogTrigger:*v26 withStatus:statusCopy];
+    goto LABEL_28;
+  }
+
+  if ([triggerCopy isEqualToString:off_10020ACC8])
+  {
+    v26 = &off_10020ACC8;
+    goto LABEL_27;
+  }
+
+LABEL_28:
+  v27 = [NSNumber numberWithBool:statusCopy];
+  [(NSMutableDictionary *)selfCopy->_triggerReport setObject:v27 forKeyedSubscript:triggerCopy];
+
+  [(NSUserDefaults *)selfCopy->_defaults setObject:selfCopy->_triggerReport forKey:@"triggerReport"];
+  v28 = [_DASDaemonLogger logForCategory:@"PowerLog"];
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  {
+    v29 = [NSNumber numberWithBool:statusCopy];
+    triggerReport = selfCopy->_triggerReport;
+    *buf = 138412802;
+    v33 = v29;
+    v34 = 2112;
+    v35 = triggerCopy;
+    v36 = 2112;
+    v37 = triggerReport;
+    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Recording %@ for trigger %@. Updated report is %@", buf, 0x20u);
+  }
+
+LABEL_31:
+  objc_sync_exit(selfCopy);
+}
+
+- (void)logToPowerLogTrigger:(id)trigger withStatus:(BOOL)status
+{
+  statusCopy = status;
+  triggerCopy = trigger;
+  v6 = +[NSMutableDictionary dictionary];
+  v7 = [_DASDaemonLogger logForCategory:@"PowerLog"];
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = [NSNumber numberWithBool:statusCopy];
+    *buf = 138412546;
+    v14 = triggerCopy;
+    v15 = 2112;
+    v16 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Recording trigger %@ budget available %@ to PowerLog", buf, 0x16u);
+  }
+
+  v9 = objc_autoreleasePoolPush();
+  triggerCopy = [NSString stringWithFormat:@"%@Available", triggerCopy];
+  v11 = [NSNumber numberWithBool:statusCopy];
+  [v6 setObject:v11 forKeyedSubscript:triggerCopy];
+
+  if (off_10020ACC0 == triggerCopy || off_10020ACC8 == triggerCopy)
+  {
+    PLLogRegisteredEvent();
+  }
+
+  else
+  {
+    v12 = [_DASDaemonLogger logForCategory:@"PowerLog"];
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      sub_10012D980(triggerCopy, v12);
+    }
+  }
+
+  objc_autoreleasePoolPop(v9);
+}
+
 - (void)logActivities
 {
   v3 = +[NSMutableDictionary dictionary];
@@ -610,7 +777,7 @@ LABEL_16:
   v8 = v4;
   v18 = v8;
   [(NSMutableDictionary *)predictions enumerateKeysAndObjectsUsingBlock:v17];
-  v9 = [(NSMutableDictionary *)self->_predictions count];
+  v9 = objc_msgSend_count(self->_predictions);
   [(NSMutableDictionary *)self->_predictions removeAllObjects];
 
   objc_sync_exit(v6);
@@ -626,7 +793,7 @@ LABEL_16:
   v12 = v5;
   v16 = v12;
   [(NSMutableDictionary *)appPredictions enumerateKeysAndObjectsUsingBlock:v14];
-  v13 = [(NSMutableDictionary *)self->_appPredictions count];
+  v13 = objc_msgSend_count(self->_appPredictions);
   [(NSMutableDictionary *)self->_appPredictions removeAllObjects];
   self->_appPredictionCount = 0;
 
@@ -766,7 +933,7 @@ LABEL_16:
   if (v12)
   {
     v13 = [NSMutableArray arrayWithArray:v12];
-    if ([v13 count])
+    if (objc_msgSend_count(v13))
     {
       v14 = 0;
       do
@@ -785,7 +952,7 @@ LABEL_16:
         ++v14;
       }
 
-      while (v14 < [v13 count]);
+      while (v14 < objc_msgSend_count(v13));
     }
   }
 
@@ -797,6 +964,23 @@ LABEL_16:
   objc_autoreleasePoolPop(v8);
 
   return v13;
+}
+
+- (void)recordPrediction:(id)prediction key:(id)key valueMultiplier:(int)multiplier
+{
+  v5 = *&multiplier;
+  predictionCopy = prediction;
+  keyCopy = key;
+  if ([(_DASPLLogger *)self shouldLogPrediction:predictionCopy])
+  {
+    v9 = self->_predictions;
+    objc_sync_enter(v9);
+    [(NSMutableDictionary *)self->_predictions setObject:predictionCopy forKeyedSubscript:keyCopy];
+    v10 = [NSNumber numberWithInt:v5];
+    [(NSMutableDictionary *)self->_multiplier setObject:v10 forKeyedSubscript:keyCopy];
+
+    objc_sync_exit(v9);
+  }
 }
 
 - (void)recordAppPrediction:(id)prediction app:(id)app
@@ -816,7 +1000,7 @@ LABEL_16:
 - (id)commaDelimitedEntriesFrom:(id)from
 {
   fromCopy = from;
-  if ([fromCopy count])
+  if (objc_msgSend_count(fromCopy))
   {
     v4 = [fromCopy sortedArrayUsingSelector:"caseInsensitiveCompare:"];
     firstObject = [v4 firstObject];
@@ -1031,7 +1215,7 @@ LABEL_16:
   v41 = v18;
   objc_sync_enter(v41);
   policyResponseMetadata3 = [v41 policyResponseMetadata];
-  v43 = [policyResponseMetadata3 count];
+  v43 = objc_msgSend_count(policyResponseMetadata3);
 
   if (v43)
   {
@@ -1399,7 +1583,7 @@ LABEL_16:
       [v28 setObject:v58 forKeyedSubscript:@"OptimalScore"];
 
       limitationResponse = [endCopy limitationResponse];
-      v60 = [limitationResponse count];
+      v60 = objc_msgSend_count(limitationResponse);
 
       if (v60)
       {

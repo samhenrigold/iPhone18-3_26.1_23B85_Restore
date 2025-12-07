@@ -136,7 +136,7 @@ void __51__CRNOscillationScrollTestParameters_composerBlock__block_invoke(uint64
   }
 }
 
-uint64_t __51__CRNOscillationScrollTestParameters_composerBlock__block_invoke_2(uint64_t a1, double *a2, int a3)
+void *__51__CRNOscillationScrollTestParameters_composerBlock__block_invoke_2(uint64_t a1, double *a2, int a3)
 {
   result = [*(a1 + 32) amplitudeVariationPerIteration];
   if (!a3)
@@ -165,7 +165,7 @@ uint64_t __51__CRNOscillationScrollTestParameters_composerBlock__block_invoke_2(
 
 - (RCPSyntheticEventStream)eventStream
 {
-  if (RecapLibraryCore_4())
+  if (RecapLibraryCore_4(0))
   {
     v9 = 0;
     v10 = &v9;

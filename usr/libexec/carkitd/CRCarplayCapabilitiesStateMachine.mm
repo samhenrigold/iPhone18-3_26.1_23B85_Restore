@@ -340,9 +340,7 @@
   plistData = self->_plistData;
   self->_plistData = 0;
 
-  v10 = objc_opt_new();
-  propertyValueLookupTable = self->_propertyValueLookupTable;
-  self->_propertyValueLookupTable = v10;
+  self->_propertyValueLookupTable = objc_opt_new();
 
   _objc_release_x1();
 }

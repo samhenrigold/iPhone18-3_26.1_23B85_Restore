@@ -320,7 +320,6 @@
 
   v3 = MEMORY[0x277D82BE0](v59[0]);
   objc_storeStrong(v59, 0);
-  *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -338,46 +337,43 @@
 
 - (void)writeTo:(id)to
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, to);
-  version = selfCopy->_version;
   PBDataWriterWriteInt32Field();
-  type = selfCopy->_type;
   PBDataWriterWriteInt32Field();
   if (!selfCopy->_uuid)
   {
     __assert_rtn("[WOHealthBridgeProtoPersistence writeTo:]", "WOHealthBridgeProtoPersistence.m", 375, "nil != self->_uuid");
   }
 
-  uuid = selfCopy->_uuid;
   PBDataWriterWriteDataField();
   memset(__b, 0, 0x40uLL);
   obj = MEMORY[0x277D82BE0](selfCopy->_keyedNumbers);
-  v34 = [obj countByEnumeratingWithState:__b objects:v44 count:16];
-  if (v34)
+  v26 = [obj countByEnumeratingWithState:__b objects:v36 count:16];
+  if (v26)
   {
-    v30 = *__b[2];
-    v31 = 0;
-    v32 = v34;
+    v22 = *__b[2];
+    v23 = 0;
+    v24 = v26;
     while (1)
     {
-      v29 = v31;
-      if (*__b[2] != v30)
+      v21 = v23;
+      if (*__b[2] != v22)
       {
         objc_enumerationMutation(obj);
       }
 
-      __b[8] = *(__b[1] + 8 * v31);
+      __b[8] = *(__b[1] + 8 * v23);
       PBDataWriterWriteSubmessage();
-      ++v31;
-      if (v29 + 1 >= v32)
+      ++v23;
+      if (v21 + 1 >= v24)
       {
-        v31 = 0;
-        v32 = [obj countByEnumeratingWithState:__b objects:v44 count:16];
-        if (!v32)
+        v23 = 0;
+        v24 = [obj countByEnumeratingWithState:__b objects:v36 count:16];
+        if (!v24)
         {
           break;
         }
@@ -386,30 +382,30 @@
   }
 
   MEMORY[0x277D82BD8](obj);
-  memset(v37, 0, 0x40uLL);
-  v27 = MEMORY[0x277D82BE0](selfCopy->_keyedStrings);
-  v28 = [v27 countByEnumeratingWithState:v37 objects:v43 count:16];
-  if (v28)
+  memset(v29, 0, 0x40uLL);
+  v19 = MEMORY[0x277D82BE0](selfCopy->_keyedStrings);
+  v20 = [v19 countByEnumeratingWithState:v29 objects:v35 count:16];
+  if (v20)
   {
-    v24 = *v37[2];
-    v25 = 0;
-    v26 = v28;
+    v16 = *v29[2];
+    v17 = 0;
+    v18 = v20;
     while (1)
     {
-      v23 = v25;
-      if (*v37[2] != v24)
+      v15 = v17;
+      if (*v29[2] != v16)
       {
-        objc_enumerationMutation(v27);
+        objc_enumerationMutation(v19);
       }
 
-      v37[8] = *(v37[1] + 8 * v25);
+      v29[8] = *(v29[1] + 8 * v17);
       PBDataWriterWriteSubmessage();
-      ++v25;
-      if (v23 + 1 >= v26)
+      ++v17;
+      if (v15 + 1 >= v18)
       {
-        v25 = 0;
-        v26 = [v27 countByEnumeratingWithState:v37 objects:v43 count:16];
-        if (!v26)
+        v17 = 0;
+        v18 = [v19 countByEnumeratingWithState:v29 objects:v35 count:16];
+        if (!v18)
         {
           break;
         }
@@ -417,31 +413,31 @@
     }
   }
 
-  MEMORY[0x277D82BD8](v27);
-  memset(v36, 0, 0x40uLL);
-  v21 = MEMORY[0x277D82BE0](selfCopy->_keyedDates);
-  v22 = [v21 countByEnumeratingWithState:v36 objects:v42 count:16];
-  if (v22)
+  MEMORY[0x277D82BD8](v19);
+  memset(v28, 0, 0x40uLL);
+  v13 = MEMORY[0x277D82BE0](selfCopy->_keyedDates);
+  v14 = [v13 countByEnumeratingWithState:v28 objects:v34 count:16];
+  if (v14)
   {
-    v18 = *v36[2];
-    v19 = 0;
-    v20 = v22;
+    v10 = *v28[2];
+    v11 = 0;
+    v12 = v14;
     while (1)
     {
-      v17 = v19;
-      if (*v36[2] != v18)
+      v9 = v11;
+      if (*v28[2] != v10)
       {
-        objc_enumerationMutation(v21);
+        objc_enumerationMutation(v13);
       }
 
-      v36[8] = *(v36[1] + 8 * v19);
+      v28[8] = *(v28[1] + 8 * v11);
       PBDataWriterWriteSubmessage();
-      ++v19;
-      if (v17 + 1 >= v20)
+      ++v11;
+      if (v9 + 1 >= v12)
       {
-        v19 = 0;
-        v20 = [v21 countByEnumeratingWithState:v36 objects:v42 count:16];
-        if (!v20)
+        v11 = 0;
+        v12 = [v13 countByEnumeratingWithState:v28 objects:v34 count:16];
+        if (!v12)
         {
           break;
         }
@@ -449,31 +445,31 @@
     }
   }
 
-  MEMORY[0x277D82BD8](v21);
-  memset(v35, 0, 0x40uLL);
-  v15 = MEMORY[0x277D82BE0](selfCopy->_keyedDatas);
-  v16 = [v15 countByEnumeratingWithState:v35 objects:v41 count:16];
-  if (v16)
+  MEMORY[0x277D82BD8](v13);
+  memset(v27, 0, 0x40uLL);
+  v7 = MEMORY[0x277D82BE0](selfCopy->_keyedDatas);
+  v8 = [v7 countByEnumeratingWithState:v27 objects:v33 count:16];
+  if (v8)
   {
-    v12 = *v35[2];
-    v13 = 0;
-    v14 = v16;
+    v4 = *v27[2];
+    v5 = 0;
+    v6 = v8;
     while (1)
     {
-      v11 = v13;
-      if (*v35[2] != v12)
+      v3 = v5;
+      if (*v27[2] != v4)
       {
-        objc_enumerationMutation(v15);
+        objc_enumerationMutation(v7);
       }
 
-      v35[8] = *(v35[1] + 8 * v13);
+      v27[8] = *(v27[1] + 8 * v5);
       PBDataWriterWriteSubmessage();
-      ++v13;
-      if (v11 + 1 >= v14)
+      ++v5;
+      if (v3 + 1 >= v6)
       {
-        v13 = 0;
-        v14 = [v15 countByEnumeratingWithState:v35 objects:v41 count:16];
-        if (!v14)
+        v5 = 0;
+        v6 = [v7 countByEnumeratingWithState:v27 objects:v33 count:16];
+        if (!v6)
         {
           break;
         }
@@ -481,32 +477,26 @@
     }
   }
 
-  MEMORY[0x277D82BD8](v15);
+  MEMORY[0x277D82BD8](v7);
   if (!selfCopy->_persistedData)
   {
     __assert_rtn("[WOHealthBridgeProtoPersistence writeTo:]", "WOHealthBridgeProtoPersistence.m", 408, "nil != self->_persistedData");
   }
 
-  persistedData = selfCopy->_persistedData;
   PBDataWriterWriteDataField();
   if (selfCopy->_persistedProtoData)
   {
-    persistedProtoData = selfCopy->_persistedProtoData;
     PBDataWriterWriteDataField();
   }
 
-  objectState = selfCopy->_objectState;
   PBDataWriterWriteInt32Field();
-  objectModificationTimeSinceReferenceDate = selfCopy->_objectModificationTimeSinceReferenceDate;
   PBDataWriterWriteDoubleField();
   if (selfCopy->_syncIdentity)
   {
-    syncIdentity = selfCopy->_syncIdentity;
     PBDataWriterWriteSubmessage();
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -751,7 +741,6 @@
   MEMORY[0x277D82BD8](v10);
   v12 = MEMORY[0x277D82BE0](v49);
   objc_storeStrong(&v49, 0);
-  *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -1048,7 +1037,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

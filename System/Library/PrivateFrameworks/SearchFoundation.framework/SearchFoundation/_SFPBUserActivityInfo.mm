@@ -332,18 +332,14 @@ LABEL_19:
 
 - (void)setStringValue:(id)value
 {
-  v4 = [value copy];
-  stringValue = self->_stringValue;
-  self->_stringValue = v4;
+  self->_stringValue = [value copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setKey:(id)key
 {
-  v4 = [key copy];
-  key = self->_key;
-  self->_key = v4;
+  self->_key = [key copy];
 
   MEMORY[0x1EEE66BB8]();
 }

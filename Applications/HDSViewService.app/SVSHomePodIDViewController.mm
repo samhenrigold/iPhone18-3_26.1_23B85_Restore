@@ -56,7 +56,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_100061714(v8);
+  sub_100061714(v8, v9);
 }
 
 - (void)viewDidLoad

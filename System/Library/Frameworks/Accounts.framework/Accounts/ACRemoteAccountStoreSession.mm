@@ -110,7 +110,7 @@ ACTrackedXPCConnection *__42__ACRemoteAccountStoreSession__connection__block_inv
 
 void __42__ACRemoteAccountStoreSession__connection__block_invoke_52(uint64_t a1)
 {
-  v2 = _ACLogSystem();
+  v2 = _ACLogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -143,7 +143,7 @@ void __42__ACRemoteAccountStoreSession__connection__block_invoke_52(uint64_t a1)
 
 void __42__ACRemoteAccountStoreSession__connection__block_invoke_3(uint64_t a1)
 {
-  v2 = _ACLogSystem();
+  v2 = _ACLogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -303,7 +303,7 @@ void __56__ACRemoteAccountStoreSession__setConnectionInvalidated__block_invoke(u
 void __71__ACRemoteAccountStoreSession__locked_connection_setEffectiveBundleID___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _ACLogSystem();
+  v3 = _ACLogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __71__ACRemoteAccountStoreSession__locked_connection_setEffectiveBundleID___block_invoke_cold_1(v2, v3);
@@ -313,7 +313,7 @@ void __71__ACRemoteAccountStoreSession__locked_connection_setEffectiveBundleID__
 void __71__ACRemoteAccountStoreSession__locked_connection_setEffectiveBundleID___block_invoke_65(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = _ACLogSystem();
+  v6 = _ACLogSystem(v5);
   v7 = v6;
   if (a2)
   {
@@ -382,21 +382,19 @@ void __71__ACRemoteAccountStoreSession__locked_connection_setEffectiveBundleID__
 
 void __71__ACRemoteAccountStoreSession__locked_connection_setEffectiveBundleID___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_ERROR, "Error setting the client's bundle ID: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_ERROR, "Error setting the client's bundle ID: %@", &v2, 0xCu);
 }
 
 void __71__ACRemoteAccountStoreSession__locked_connection_setEffectiveBundleID___block_invoke_65_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_DEBUG, "Spoofed the client's bundle ID to: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_DEBUG, "Spoofed the client's bundle ID to: %@", &v3, 0xCu);
 }
 
 - (void)_locked_connection:(uint64_t)a1 setNotificationsEnabled:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)

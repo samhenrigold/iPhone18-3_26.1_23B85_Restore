@@ -18,18 +18,18 @@
 
 + (id)_labelsForVersion:(int64_t)version
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (version == 2)
   {
     v8 = *MEMORY[0x277D274D0];
-    v13 = *MEMORY[0x277D274E0];
-    v14 = v8;
+    v12 = *MEMORY[0x277D274E0];
+    v13 = v8;
     v9 = *MEMORY[0x277D274E8];
-    v15 = *MEMORY[0x277D274D8];
-    v16 = v9;
-    v17 = @"None";
+    v14 = *MEMORY[0x277D274D8];
+    v15 = v9;
+    v16 = @"None";
     v5 = MEMORY[0x277CBEA60];
-    v6 = &v13;
+    v6 = &v12;
     v7 = 5;
     goto LABEL_5;
   }
@@ -37,22 +37,21 @@
   if (version == 1)
   {
     v3 = *MEMORY[0x277D274D0];
-    v18 = *MEMORY[0x277D274E0];
-    v19 = v3;
+    v17 = *MEMORY[0x277D274E0];
+    v18 = v3;
     v4 = *MEMORY[0x277D274E8];
-    v20 = *MEMORY[0x277D274D8];
-    v21 = v4;
+    v19 = *MEMORY[0x277D274D8];
+    v20 = v4;
     v5 = MEMORY[0x277CBEA60];
-    v6 = &v18;
+    v6 = &v17;
     v7 = 4;
 LABEL_5:
-    v10 = [v5 arrayWithObjects:v6 count:{v7, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22}];
+    v10 = [v5 arrayWithObjects:v6 count:{v7, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21}];
     goto LABEL_7;
   }
 
   v10 = MEMORY[0x277CBEBF8];
 LABEL_7:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

@@ -47,7 +47,7 @@ uint64_t TXTextLayout::getParagraphStyleAtIndex(TXTextLayout *this, unsigned int
   return *(v2 + 8 * a2);
 }
 
-uint64_t *TXTextLayout::getComposedCharacter(TXTextLayout *this, unsigned int a2)
+char *TXTextLayout::getComposedCharacter(TXTextLayout *this, unsigned int a2)
 {
   v14 = a2;
   v2 = this + 64304;
@@ -58,9 +58,9 @@ uint64_t *TXTextLayout::getComposedCharacter(TXTextLayout *this, unsigned int a2
     {
       if (v4 >= a2)
       {
-        v15 = &v14;
-        v12 = std::__tree<std::__value_type<unsigned int,TXComposedCharacter>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,TXComposedCharacter>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,TXComposedCharacter>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 64296, &v14);
-        return v12 + 5;
+        v16 = &v14;
+        v12 = std::__tree<std::__value_type<unsigned int,TXComposedCharacter>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,TXComposedCharacter>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,TXComposedCharacter>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 64296, &v14, &std::piecewise_construct, &v16, &v13);
+        return (v12 + 5);
       }
 
       ++i;
@@ -114,12 +114,12 @@ uint64_t *TXTextLayout::getComposedCharacter(TXTextLayout *this, unsigned int a2
   {
 LABEL_21:
     v13 = 0;
-    v15 = &v13;
-    v12 = std::__tree<std::__value_type<unsigned int,TXComposedCharacter>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,TXComposedCharacter>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,TXComposedCharacter>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 64296, &v13);
-    return v12 + 5;
+    v16 = &v13;
+    v12 = std::__tree<std::__value_type<unsigned int,TXComposedCharacter>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,TXComposedCharacter>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,TXComposedCharacter>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 64296, &v13, &std::piecewise_construct, &v16, &v15);
+    return (v12 + 5);
   }
 
-  return (v5 + 40);
+  return v5 + 40;
 }
 
 void TXTextLayout::addStyle(uint64_t a1, uint64_t a2)
@@ -260,7 +260,7 @@ void *AddAllMaterialsToSequenceBehaviors(void *result, char *a2)
   return result;
 }
 
-OZScene *ReplaceAllMaterialsInStyles(OZScene *result, uint64_t a2)
+OZStyle *ReplaceAllMaterialsInStyles(OZStyle *result, uint64_t a2)
 {
   v2 = result + 19344;
   v3 = *(result + 2419);
@@ -367,7 +367,7 @@ void TXTextLayout::setStyle(unsigned int *a1, TXTextStyle **a2, _BYTE *a3)
 
       if (*(*a2 + 49857))
       {
-        TXTextLayout::getCurrentStyleForInsertion(a1, &v29);
+        TXTextLayout::getCurrentStyleForInsertion(&v29, a1);
         TXTextStyle::copyStyle(v29, *a2);
         if (v30)
         {
@@ -486,9 +486,9 @@ void sub_25FADF2AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t TXTextLayout::didToggleIs3D(TXTextLayout *this, uint64_t a2)
+void TXTextLayout::didToggleIs3D(TXTextLayout *this, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = this + 19344;
   v4 = *(this + 2419);
   if (v4 != this + 19344)
@@ -553,13 +553,13 @@ uint64_t TXTextLayout::didToggleIs3D(TXTextLayout *this, uint64_t a2)
   }
 
   snprintf(__str, 0x40uLL, "%d", a2);
-  return OZChannelBase::setRangeName("3D Text Toggle", "3D Text");
+  OZChannelBase::setRangeName("3D Text Toggle", "3D Text");
 }
 
-uint64_t TXTextLayout::getCurrentStyleForInsertion@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+uint64_t *TXTextLayout::getCurrentStyleForInsertion@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v2 = *(this + 19256);
-  v3 = *(this + 19260);
+  v2 = *(this + 4814);
+  v3 = *(this + 4815);
   if (v2 != v3)
   {
     v4 = v3 - v2;
@@ -567,7 +567,7 @@ uint64_t TXTextLayout::getCurrentStyleForInsertion@<X0>(uint64_t this@<X0>, void
     v5 = v2 > v3;
     if (v2 < v3)
     {
-      v3 = *(this + 19256);
+      v3 = *(this + 4814);
     }
 
     if (v5)
@@ -575,14 +575,14 @@ uint64_t TXTextLayout::getCurrentStyleForInsertion@<X0>(uint64_t this@<X0>, void
       v4 = v6;
     }
 
-    for (i = *(this + 19376); i != this + 19368; i = *(i + 8))
+    for (i = this[2422]; i != this + 2421; i = i[1])
     {
-      v8 = *(i + 16);
+      v8 = i[2];
       if (*(v8 + 24) == v3 && *(v8 + 28) == v4)
       {
         v9 = *(v8 + 16);
-        *a2 = *(v8 + 8);
-        a2[1] = v9;
+        *a1 = *(v8 + 8);
+        a1[1] = v9;
         if (v9)
         {
           atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
@@ -599,7 +599,7 @@ uint64_t TXTextLayout::getCurrentStyleForInsertion@<X0>(uint64_t this@<X0>, void
 uint64_t TXTextLayout::splitStyleRunsInRange(Li3DEngineScene *a1, unsigned int *a2)
 {
   v4 = Li3DEngineScene::sceneManager(a1);
-  OZLockingGroup::WriteSentry::WriteSentry(v21, v4);
+  OZLockingGroup::WriteSentry::WriteSentry(&v21, v4);
   v5 = *(a1 + 2422);
   if (v5 != (a1 + 19368))
   {
@@ -693,25 +693,26 @@ LABEL_9:
 
 LABEL_31:
   TXTextLayout::updateStyleNames(a1);
-  OZLockingGroup::WriteSentry::~WriteSentry(v21);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v21);
   return 0;
 }
 
-void sub_25FADFC7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, PCString a15, uint64_t a16, char a17)
+void sub_25FADFC7C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, PCString a15, uint64_t a16, ...)
 {
-  MEMORY[0x2666E9F00](v18, 0x10A1C40CEA811D0);
+  va_start(va, a16);
+  MEMORY[0x2666E9F00](v17, 0x10A1C40CEA811D0, a3, a4, a5, a6, a7, a8);
   if (a14)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](a14);
   }
 
   PCString::~PCString(&a15);
-  if (v17)
+  if (v16)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(&a17);
+  OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
 
@@ -758,7 +759,7 @@ void TXTextLayout::removeStyle(uint64_t a1, uint64_t a2)
         }
       }
 
-      std::list<std::shared_ptr<TXTextStyle>>::remove(a1 + 19344, &v16);
+      std::list<std::shared_ptr<TXTextStyle>>::remove((a1 + 19344), &v16);
       v14 = v16;
       v15 = v17;
       if (v17)
@@ -798,12 +799,12 @@ void sub_25FADFF50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::list<std::shared_ptr<TXTextStyle>>::remove(uint64_t a1, void *a2)
+void std::list<std::shared_ptr<TXTextStyle>>::remove(void *a1, void *a2)
 {
   v9[0] = v9;
   v9[1] = v9;
   v9[2] = 0;
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (v2 != a1)
   {
     do
@@ -850,9 +851,9 @@ void std::list<std::shared_ptr<TXTextStyle>>::remove(uint64_t a1, void *a2)
   std::__list_imp<std::shared_ptr<TXTextStyle>>::clear(v9);
 }
 
-void sub_25FAE0038(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FAE0038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<std::shared_ptr<TXTextStyle>>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -912,7 +913,7 @@ uint64_t TXTextLayout::getStyleRunAtInsertionPoint(TXTextLayout *this, unsigned 
 
 void sub_25FAE01BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
 {
-  MEMORY[0x2666E9F00](v12, 0x10A1C40CEA811D0);
+  MEMORY[0x2666E9F00](v12, 0x10A1C40CEA811D0, a3, a4, a5, a6, a7, a8);
   if (a11)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](a11);
@@ -926,33 +927,33 @@ void sub_25FAE01BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t TXTextLayout::getStyleAtCharOffset@<X0>(uint64_t this@<X0>, unsigned int a2@<W1>, void *a3@<X8>)
+uint64_t *TXTextLayout::getStyleAtCharOffset@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, unsigned int a3@<W1>)
 {
-  v3 = *(this + 19376);
-  if (v3 == this + 19368)
+  v3 = this[2422];
+  if (v3 == this + 2421)
   {
-    *a3 = 0;
-    a3[1] = 0;
+    *a1 = 0;
+    a1[1] = 0;
   }
 
   else
   {
     do
     {
-      v4 = *(v3 + 16);
+      v4 = v3[2];
       v5 = *(v4 + 24);
-      if (v5 <= a2 && *(v4 + 28) + v5 > a2)
+      if (v5 <= a3 && *(v4 + 28) + v5 > a3)
       {
         break;
       }
 
-      v3 = *(v3 + 8);
+      v3 = v3[1];
     }
 
-    while (v3 != this + 19368);
+    while (v3 != this + 2421);
     v6 = *(v4 + 16);
-    *a3 = *(v4 + 8);
-    a3[1] = v6;
+    *a1 = *(v4 + 8);
+    a1[1] = v6;
     if (v6)
     {
       atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
@@ -966,56 +967,53 @@ uint64_t TXTextLayout::getStyleRunAtCharOffset(TXTextLayout *this, unsigned int 
 {
   v2 = this + 19368;
   v3 = *(this + 2422);
-  if (v3 == this + 19368)
+  if (v3 == (this + 19368))
   {
     return 0;
   }
 
   do
   {
-    result = *(v3 + 2);
+    result = v3[2];
     v5 = *(result + 24);
     if (v5 <= a2 && *(result + 28) + v5 > a2)
     {
       break;
     }
 
-    v3 = *(v3 + 1);
+    v3 = v3[1];
   }
 
   while (v3 != v2);
   return result;
 }
 
-uint64_t TXTextLayout::getGlyphSelectedStyles(uint64_t result, uint64_t a2)
+void TXTextLayout::getGlyphSelectedStyles(uint64_t a1, uint64_t *a2)
 {
-  v2 = result;
-  if (((*(result + 19280) - *(result + 19272)) & 0x3FFFFFFFCLL) != 0)
+  if (((*(a1 + 19280) - *(a1 + 19272)) & 0x3FFFFFFFCLL) != 0)
   {
-    CharOffsetAt = TXDiscontinuousSelection::getCharOffsetAt((result + 19272), 0);
-    TXTextLayout::getStyleAtCharOffset(v2, CharOffsetAt, &v7);
-    std::list<std::shared_ptr<TXTextStyle>>::push_back();
+    CharOffsetAt = TXDiscontinuousSelection::getCharOffsetAt((a1 + 19272), 0);
+    TXTextLayout::getStyleAtCharOffset(&v8, a1, CharOffsetAt);
+    std::list<std::shared_ptr<TXTextStyle>>::push_back(a2, &v8);
   }
 
-  if (!*(a2 + 16))
+  if (!a2[2])
   {
-    v4 = *(result + 19256);
-    v5 = (*(*result + 216))(result);
-    if (v4 >= v5)
+    v5 = *(a1 + 19256);
+    v6 = (*(*a1 + 216))(a1);
+    if (v5 >= v6)
     {
-      v6 = v5;
+      v7 = v6;
     }
 
     else
     {
-      v6 = v4;
+      v7 = v5;
     }
 
-    (*(*v2 + 288))(&v7, v2, v6);
-    std::list<std::shared_ptr<TXTextStyle>>::push_back();
+    (*(*a1 + 288))(&v8, a1, v7);
+    std::list<std::shared_ptr<TXTextStyle>>::push_back(a2, &v8);
   }
-
-  return result;
 }
 
 void sub_25FAE03F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -1028,31 +1026,29 @@ void sub_25FAE03F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *TXTextLayout::getStylesInRange(void *result, uint64_t a2, _DWORD *a3)
+void TXTextLayout::getStylesInRange(void *a1, uint64_t *a2, _DWORD *a3)
 {
   if (!a3[1])
   {
-    (*(*result + 288))(&v8);
-    std::list<std::shared_ptr<TXTextStyle>>::push_back();
+    (*(*a1 + 288))(&v9);
+    std::list<std::shared_ptr<TXTextStyle>>::push_back(a2, &v9);
   }
 
-  for (i = result[2422]; i != result + 2421; i = i[1])
+  for (i = a1[2422]; i != a1 + 2421; i = i[1])
   {
-    v4 = i[2];
-    v5 = *(v4 + 24);
-    if (v5 <= *a3 + a3[1] - 1 && v5 + *(v4 + 28) - 1 >= *a3)
+    v5 = i[2];
+    v6 = *(v5 + 24);
+    if (v6 <= *a3 + a3[1] - 1 && v6 + *(v5 + 28) - 1 >= *a3)
     {
-      v7 = *(v4 + 16);
-      if (v7)
+      v8 = *(v5 + 16);
+      if (v8)
       {
-        atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
       }
 
       operator new();
     }
   }
-
-  return result;
 }
 
 void sub_25FAE0540(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -1069,7 +1065,7 @@ void TXTextLayout::updateStyleRun(TXTextLayout *this, TXTextStyleRun *a2)
 {
   v3 = this + 57344;
   v4 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v9, v4);
+  OZLockingGroup::WriteSentry::WriteSentry(&v9, v4);
   v5 = *(v3 + 185);
   v6 = *(v3 + 186);
   while (v5 != v6)
@@ -1084,22 +1080,22 @@ void TXTextLayout::updateStyleRun(TXTextLayout *this, TXTextStyleRun *a2)
     v5 += 2;
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v9);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v9);
 }
 
-void sub_25FAE05F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FAE05F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
 
-void *std::list<TXTextStyleRun *>::remove(uint64_t a1, void *a2)
+void *std::list<TXTextStyleRun *>::remove(void *a1, void *a2)
 {
   v10[0] = v10;
   v10[1] = v10;
   v10[2] = 0;
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (v2 != a1)
   {
     do
@@ -1146,9 +1142,9 @@ void *std::list<TXTextStyleRun *>::remove(uint64_t a1, void *a2)
   return std::__list_imp<unsigned int>::clear(v10);
 }
 
-void sub_25FAE06C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FAE06C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -1156,7 +1152,7 @@ void sub_25FAE06C4(_Unwind_Exception *a1, uint64_t a2, ...)
 uint64_t TXTextLayout::isAnyParagraphDirty(TXTextLayout *this)
 {
   v2 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::ReadSentry::ReadSentry(v9, v2);
+  OZLockingGroup::ReadSentry::ReadSentry(&v9, v2);
   v3 = *(this + 2378);
   v4 = *(this + 2379);
   if (v3 == v4)
@@ -1182,7 +1178,7 @@ uint64_t TXTextLayout::isAnyParagraphDirty(TXTextLayout *this)
     while (!v7);
   }
 
-  OZLockingGroup::ReadSentry::~ReadSentry(v9);
+  OZLockingGroup::ReadSentry::~ReadSentry(&v9);
   return v6;
 }
 
@@ -1234,7 +1230,7 @@ void TXTextLayout::updateParagraphStylesAfterTextDelete(uint64_t **this, unsigne
             v19 = *v18;
             v20 = this[2379];
             v21 = v20 - (v18 + 1);
-            if (v20 != (v18 + 1))
+            if (v20 != v18 + 1)
             {
               memmove(&this[2378][v17], v18 + 1, v20 - (v18 + 1));
             }
@@ -1287,7 +1283,7 @@ void TXTextLayout::updateParagraphStylesAfterTextDelete(uint64_t **this, unsigne
   }
 }
 
-void TXTextLayout::updateParagraphStylesAfterTextInsert(TXTextLayout *this, unsigned int a2, unsigned int a3)
+void TXTextLayout::updateParagraphStylesAfterTextInsert(TXTextLayout *this, unsigned int a2, int a3)
 {
   v3 = *(this + 2378);
   v4 = *(this + 2379);
@@ -1387,7 +1383,7 @@ char *std::vector<TXParagraphStyle *>::insert(void *a1, char *__src, char *a3)
       std::vector<double>::__throw_length_error[abi:ne200100]();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 2 > v11)
     {
@@ -1457,7 +1453,7 @@ char *std::vector<TXParagraphStyle *>::insert(void *a1, char *__src, char *a3)
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 8;
+      v9 = (v6 + 8);
     }
 
     a1[1] = v9;
@@ -1652,9 +1648,9 @@ void sub_25FAE107C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void TXTextLayout::setKerningAtCharOffset(uint64_t **this, double a2, uint64_t a3)
+void TXTextLayout::setKerningAtCharOffset(TXParagraphStyle ***this, double a2, uint64_t a3)
 {
-  v15[0] = a3;
+  v15 = a3;
   v6 = Li3DEngineScene::sceneManager(this);
   OZLockingGroup::WriteSentry::WriteSentry(&v14, v6);
   if (a3 < 0)
@@ -1664,8 +1660,8 @@ void TXTextLayout::setKerningAtCharOffset(uint64_t **this, double a2, uint64_t a
 
   if (fabs(a2) >= 0.0000001)
   {
-    v15[2] = v15;
-    *(std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>((this + 2403), v15) + 5) = a2;
+    v16 = &v15;
+    *(std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>((this + 2403), &v15, &std::piecewise_construct, &v16) + 5) = a2;
 LABEL_11:
     v9 = this[2378];
     v10 = this[2379];
@@ -1686,8 +1682,8 @@ LABEL_17:
       while (1)
       {
         v11 = *v9;
-        v12 = *(*v9 + 856);
-        if (v12 <= v15[0] && *(v11 + 108) + v12 > v15[0])
+        v12 = *(*v9 + 107);
+        if (v12 <= v15 && *(v11 + 108) + v12 > v15)
         {
           break;
         }
@@ -1710,7 +1706,7 @@ LABEL_17:
     {
       if (v8 >= a3)
       {
-        std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__erase_unique<long>(this + 2403, v15);
+        std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__erase_unique<long>(this + 2403, &v15);
         goto LABEL_11;
       }
 
@@ -1859,10 +1855,10 @@ CGColorSpace **TXTextLayout::initializeScrollMargins(TXTextLayout *this)
 {
   v2 = (this + 200);
   v3 = (*(*(this + 25) + 272))(this + 200);
-  v4 = OZSceneSettings::OZSceneSettings(&v33, (v3 + 336));
-  v5 = v34;
-  v6 = v35;
-  v7 = OZPreferenceManager::Instance(v4);
+  OZSceneSettings::OZSceneSettings(&v33, v3 + 336);
+  v4 = v34;
+  v5 = v35;
+  v7 = OZPreferenceManager::Instance(v6);
   SafeZonesTitlePercentage = OZPreferenceManager::getSafeZonesTitlePercentage(v7);
   v10 = v9;
   v11 = v35;
@@ -1875,7 +1871,7 @@ CGColorSpace **TXTextLayout::initializeScrollMargins(TXTextLayout *this)
   v32 = 0.0;
   memset(&v30, 0, sizeof(v30));
   v17 = (*(*v2 + 272))(v2);
-  OZScene::getCurrentTime(v17, &v30);
+  OZScene::getCurrentTime(&v30, v17);
   OZTransformNode::getTranslation(v2, &v32, &v31, &v30);
   v32 = v16 * v32;
   v28 = 0.0;
@@ -1884,14 +1880,14 @@ CGColorSpace **TXTextLayout::initializeScrollMargins(TXTextLayout *this)
   OZTransformNode::getPivot(v2, &v29, &v28, &v27, &v30);
   if (OZChannel::getValueAsInt((this + 20720), MEMORY[0x277CC08F0], 0.0))
   {
-    v18 = v5;
+    v18 = v4;
     v19 = (v14 * v11);
   }
 
   else
   {
-    v19 = v6;
-    v18 = (v10 * v5);
+    v19 = v5;
+    v18 = (v10 * v4);
   }
 
   v20 = v16 * v18;
@@ -1918,9 +1914,9 @@ CGColorSpace **TXTextLayout::initializeScrollMargins(TXTextLayout *this)
   return PCCFRef<CGColorSpace *>::~PCCFRef(&v36);
 }
 
-void sub_25FAE17EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25FAE17EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   OZSceneSettings::~OZSceneSettings(va);
   _Unwind_Resume(a1);
 }
@@ -1929,10 +1925,10 @@ CGColorSpace **TXTextLayout::initializeTickerMargins(TXTextLayout *this)
 {
   v2 = (this + 200);
   v3 = (*(*(this + 25) + 272))(this + 200);
-  v4 = OZSceneSettings::OZSceneSettings(&v35, (v3 + 336));
-  v6 = v36;
-  v5 = v37;
-  v7 = OZPreferenceManager::Instance(v4);
+  OZSceneSettings::OZSceneSettings(&v35, v3 + 336);
+  v5 = v36;
+  v4 = v37;
+  v7 = OZPreferenceManager::Instance(v6);
   SafeZonesTitlePercentage = OZPreferenceManager::getSafeZonesTitlePercentage(v7);
   v10 = v9;
   v11 = v36;
@@ -1945,7 +1941,7 @@ CGColorSpace **TXTextLayout::initializeTickerMargins(TXTextLayout *this)
   v34 = 0.0;
   memset(&v32, 0, sizeof(v32));
   v17 = (*(*v2 + 272))(v2);
-  OZScene::getCurrentTime(v17, &v32);
+  OZScene::getCurrentTime(&v32, v17);
   OZTransformNode::getTranslation(v2, &v34, &v33, &v32);
   v34 = v16 * v34;
   v30 = 0.0;
@@ -1980,18 +1976,18 @@ CGColorSpace **TXTextLayout::initializeTickerMargins(TXTextLayout *this)
   if (OZChannel::getValueAsInt((this + 20720), MEMORY[0x277CC08F0], 0.0))
   {
     v22 = v16 * (v14 * v11);
-    v23 = v5 * 0.5 - v33 + v30;
-    v24 = v5 * -0.5 - v33 + v30;
+    v23 = v4 * 0.5 - v33 + v30;
+    v24 = v4 * -0.5 - v33 + v30;
     v25 = v22 * 0.5 - v34 + v31;
     v26 = v25 - v19;
   }
 
   else
   {
-    v27 = v16 * v6;
+    v27 = v16 * v5;
     v26 = v27 * -0.5 - v34 + v31;
     v25 = v27 * 0.5 - v34 + v31;
-    v24 = (v10 * v5) * -0.5 - v33 + v30;
+    v24 = (v10 * v4) * -0.5 - v33 + v30;
     v23 = v19 + v24;
   }
 
@@ -2013,9 +2009,9 @@ CGColorSpace **TXTextLayout::initializeTickerMargins(TXTextLayout *this)
   return PCCFRef<CGColorSpace *>::~PCCFRef(&v38);
 }
 
-void sub_25FAE1C14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25FAE1C14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   OZSceneSettings::~OZSceneSettings(va);
   _Unwind_Resume(a1);
 }
@@ -2064,7 +2060,7 @@ void TXTextLayout::setLayoutMethod(TXTextLayout *this, int a2)
   ValueAsInt = OZChannel::getValueAsInt((this + 20464), v5, 0.0);
   __asm { FMOV            V0.2D, #-1.0 }
 
-  v22 = _Q0;
+  v24 = _Q0;
   if (ValueAsInt == 1)
   {
     if (*v4 == 1)
@@ -2080,12 +2076,12 @@ LABEL_26:
     StringPtr = TXChannelString::getStringPtr((this + 19048));
     if (PCString::size(StringPtr))
     {
-      v24 = 0uLL;
-      v25 = v22;
-      OZRenderState::OZRenderState(&v23);
-      TXTextLayout::getTypographicBounds(this, &v24, &v23, 1, 0);
-      v14 = *&v25 + 2.0;
-      *&v25 = *&v25 + 2.0;
+      v26 = 0uLL;
+      v27 = v24;
+      OZRenderState::OZRenderState(&v25);
+      TXTextLayout::getTypographicBounds(this, &v26, &v25, 1, 0);
+      v14 = *&v27 + 2.0;
+      *&v27 = *&v27 + 2.0;
       v15 = *(this + 2378);
       if (*(this + 2379) == v15)
       {
@@ -2094,28 +2090,28 @@ LABEL_26:
 
       if (*(*v15 + 960) == 1)
       {
-        v16.n128_u64[0] = *&vsubq_f64(v24, *&v14);
-        v16.n128_u64[1] = *&vaddq_f64(*&v24, 0).f64[1];
-        v24 = v16;
+        v16.n128_u64[0] = *&vsubq_f64(v26, *&v14);
+        v16.n128_u64[1] = *&vaddq_f64(*&v26, 0).f64[1];
+        v26 = v16;
       }
 
-      (*(*this + 344))(this, &v24);
+      (*(*this + 344))(this, &v26);
     }
 
     else
     {
-      TXTextLayout::getStyleAtCharOffset(this, 0, &v24);
-      *&v23.var0.var0 = *&v5->value;
-      v23.var0.var3 = v5->epoch;
-      Size = TXTextStyle::getSize(v24.n128_u64[0], &v23, 0.0);
+      TXTextLayout::getStyleAtCharOffset(&v26, this, 0);
+      *&v25.var0.var0 = *&v5->value;
+      v25.var0.var3 = v5->epoch;
+      Size = TXTextStyle::getSize(v26.n128_u64[0], &v25, 0.0);
       OZChannel::setValue((this + 24272), MEMORY[0x277CC08F0], 0.0, 0);
       OZChannel::setValue((this + 24424), MEMORY[0x277CC08F0], 300.0, 0);
-      v21 = Size;
-      OZChannel::setValue((this + 24728), MEMORY[0x277CC08F0], v21 + -300.0, 0);
-      OZChannel::setValue((this + 24576), MEMORY[0x277CC08F0], v21, 0);
-      if (v24.n128_u64[1])
+      v23 = Size;
+      OZChannel::setValue((this + 24728), MEMORY[0x277CC08F0], v23 + -300.0, 0);
+      OZChannel::setValue((this + 24576), MEMORY[0x277CC08F0], v23, 0);
+      if (v26.n128_u64[1])
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v24.n128_u64[1]);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v26.n128_u64[1]);
       }
     }
 
@@ -2151,14 +2147,14 @@ LABEL_25:
 
   if (OZChannel::getValueAsInt((this + 20464), MEMORY[0x277CC08F0], 0.0))
   {
-    OZRenderState::OZRenderState(&v23);
+    OZRenderState::OZRenderState(&v25);
     v17 = (*(*(this + 25) + 272))(this + 200);
-    OZScene::getCurrentTime(v17, &v24);
-    *&v23.var0.var0 = v24;
-    v23.var0.var3 = v25;
-    v24 = 0uLL;
-    v25 = v22;
-    TXTextLayout::getTypographicBounds(this, &v24, &v23, 1, 0);
+    OZScene::getCurrentTime(&v26, v17);
+    *&v25.var0.var0 = v26;
+    v25.var0.var3 = v27;
+    v26 = 0uLL;
+    v27 = v24;
+    TXTextLayout::getTypographicBounds(this, &v26, &v25, 1, 0);
     v18 = OZChannel::getValueAsInt((this + 54280), MEMORY[0x277CC08F0], 0.0);
     v19 = 53528;
     if (!v18)
@@ -2168,11 +2164,11 @@ LABEL_25:
 
     if (((*(*(this + v19) + 552))(this + v19, 0) & 1) == 0)
     {
-      TXTextLayout::initializePaths(this, &v24);
+      TXTextLayout::initializePaths(this, &v26);
       *(this + 63760) = 1;
     }
 
-    TXTextLayout::doLayout(this, &v23, 0);
+    TXTextLayout::doLayout(this, &v25, 0, v20, v21);
   }
 
   else
@@ -2181,7 +2177,7 @@ LABEL_25:
   }
 
 LABEL_27:
-  *(this + 3689) = v22;
+  *(this + 3689) = v24;
   *(this + 3693) = xmmword_2603429E0;
   *(this + 3692) = xmmword_2603429E0;
   *(this + 3691) = xmmword_2603429E0;
@@ -2260,15 +2256,15 @@ uint64_t TXTextLayout::getTypographicBounds(uint64_t a1, uint64_t a2, CMTime *a3
                 v35 = 0;
               }
 
-              TXHelperFunctions::GetTextObjectContainingCharIndex(a1, v35, 1, 0, &v68);
+              TXHelperFunctions::GetTextObjectContainingCharIndex(&v68, a1, v35, 1, 0);
               if (v68 != 0.0)
               {
-                TXTextLayout::getStyleAtCharOffset(a1, v35, &v66);
+                TXTextLayout::getStyleAtCharOffset(&v66, a1, v35);
                 v36 = v66;
                 *&v64[0].var0 = *&v70.value;
                 *&v65 = v70.epoch;
                 Size = TXTextStyle::getSize(v66, v64, 0.0);
-                TXTextStyle::getFontName(v36, v64);
+                TXTextStyle::getFontName(v64, v36);
                 Font = TXTextLayout::getFont(a1, v64);
                 PCString::~PCString(v64);
                 if (Font)
@@ -2587,7 +2583,7 @@ void TXTextLayout::initializePaths(uint64_t a1, uint64_t a2)
   if ((v9 & 1) == 0)
   {
     Instance = OZCurrentThread::getInstance(v9);
-    if (PCThread::isSelf(*(Instance + 8)))
+    if (PCThread::isSelf(*(Instance + 1)))
     {
       OZChannelPosition3D::willBeModified((a1 + 52504), 1);
       (*(*(a1 + 52640) + 480))(a1 + 52640, 1);
@@ -2748,7 +2744,8 @@ LABEL_37:
 LABEL_39:
   if (((*(*(a1 + 53528) + 552))(a1 + 53528, 0) & 1) == 0)
   {
-    *v45 = 0uLL;
+    *v45 = 0;
+    *&v45[8] = 0;
     __asm { FMOV            V0.2D, #-1.0 }
 
     *&v45[16] = _Q0;
@@ -2834,7 +2831,7 @@ LABEL_39:
   initializeNormalsForPath((a1 + 52504));
   initializeNormalsForPath((a1 + 53392));
   v42 = OZCurrentThread::getInstance(v41);
-  if (PCThread::isSelf(*(v42 + 8)))
+  if (PCThread::isSelf(*(v42 + 1)))
   {
     v43 = (*(*(a1 + 200) + 272))(a1 + 200);
     OZDocument::postNotification(*(v43 + 1584), 8);
@@ -3132,7 +3129,7 @@ double TXTextLayout::getParagraphBounds(uint64_t a1, double *a2)
 double TXTextLayout::getScrollableHeight(TXTextLayout *this, CMTime *a2)
 {
   v4 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v15, v4);
+  OZLockingGroup::WriteSentry::WriteSentry(&v15, v4);
   v13[0] = 0;
   v13[1] = 0;
   __asm { FMOV            V0.2D, #-1.0 }
@@ -3146,13 +3143,13 @@ double TXTextLayout::getScrollableHeight(TXTextLayout *this, CMTime *a2)
   }
 
   v11 = *v10;
-  OZLockingGroup::WriteSentry::~WriteSentry(v15);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v15);
   return v11;
 }
 
-void sub_25FAE402C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FAE402C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
@@ -3168,7 +3165,7 @@ __CFString *TXTextLayout::setScrollPosition(TXTextLayout *this, double a2, int a
     if (result)
     {
       OZRenderState::OZRenderState(&v22);
-      OZScene::getCurrentTime(v7, &v20);
+      OZScene::getCurrentTime(&v20, v7);
       v8 = v20;
       v22.var0.var3 = v21;
       v9 = &v21;
@@ -3225,7 +3222,7 @@ double TXTextLayout::scrollToFitCharOffset(TXTextLayout *this, int a2, int a3, d
         v10 = (*(*(this + 25) + 272))(this + 200);
         if (v10)
         {
-          OZScene::getCurrentTime(v10, &v56);
+          OZScene::getCurrentTime(&v56, v10);
           v11 = v56;
           v58.var0.var3 = v57;
           v12 = &v57;
@@ -3245,7 +3242,7 @@ double TXTextLayout::scrollToFitCharOffset(TXTextLayout *this, int a2, int a3, d
           v18 = *v12;
           if (ScrollableHeight >= *v12)
           {
-            TXHelperFunctions::GetTextObjectContainingCharIndex(this, v6, 1, 0, &v53);
+            TXHelperFunctions::GetTextObjectContainingCharIndex(&v53, this, v6, 1, 0);
             if (v53)
             {
               if (OZChannel::getValueAsInt((this + 20464), MEMORY[0x277CC08F0], 0.0) == 4)
@@ -3274,7 +3271,7 @@ double TXTextLayout::scrollToFitCharOffset(TXTextLayout *this, int a2, int a3, d
                   v34 = 0;
                 }
 
-                TXHelperFunctions::GetTextObjectContainingCharIndex(this, v34, 1, 0, &v51);
+                TXHelperFunctions::GetTextObjectContainingCharIndex(&v51, this, v34, 1, 0);
                 if (v51)
                 {
                   if (OZChannel::getValueAsInt((this + 20720), MEMORY[0x277CC08F0], 0.0))
@@ -3532,7 +3529,7 @@ double TXTextLayout::getScrollPositionInPixels(TXTextLayout *this)
         v9 = *(OZApplication::getCurrentDoc(theApp) + 3);
       }
 
-      OZScene::getCurrentTime(v9, &v16);
+      OZScene::getCurrentTime(&v16, v9);
       *&v18.var0.var0 = v16;
       v18.var0.var3 = v17;
       OZRenderState::OZRenderState(&v15, &v18);
@@ -3596,8 +3593,8 @@ void *TXTextLayout::updateKerningsAfterTextInsertion(void *this, uint64_t a2, ui
         while (v11);
       }
 
-      v18[0] = v10[4];
-      if (v18[0] < a2)
+      v18 = v10[4];
+      if (v18 < a2)
       {
         break;
       }
@@ -3627,10 +3624,10 @@ void *TXTextLayout::updateKerningsAfterTextInsertion(void *this, uint64_t a2, ui
       }
 
       v14 = v13[5];
-      std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__erase_unique<long>(v6 + 2403, v18);
-      v17 = v18[0] + a3;
-      v18[2] = &v17;
-      this = std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>((v6 + 2403), &v17);
+      std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__erase_unique<long>(v6 + 2403, &v18);
+      v17 = v18 + a3;
+      v19 = &v17;
+      this = std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>((v6 + 2403), &v17, &std::piecewise_construct, &v19);
       this[5] = v14;
       v15 = *v3;
       if (*v3)
@@ -3688,8 +3685,8 @@ void TXTextLayout::updateKerningsAfterTextDeletion(TXTextLayout *this, uint64_t 
         operator delete(v3);
         v18[0] = v9 - a3;
         v18[1] = v14;
-        v16 = std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_hint_unique_key_args<long,std::pair<long,double>>(this + 2403, v15, v18);
-        v17 = *(v16 + 8);
+        v16 = std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_hint_unique_key_args<long,std::pair<long,double>>(this + 2403, v15, v18, v18);
+        v17 = v16[1];
         if (v17)
         {
           do
@@ -3705,7 +3702,7 @@ void TXTextLayout::updateKerningsAfterTextDeletion(TXTextLayout *this, uint64_t 
         {
           do
           {
-            v12 = *(v16 + 16);
+            v12 = v16[2];
             v13 = *v12 == v16;
             v16 = v12;
           }
@@ -3765,9 +3762,9 @@ void *TXTextLayout::getKerningsForRange(void *result, void *a2, uint64_t a3)
         }
 
         v8 = v3[5];
-        v12[0] = v7 - *a2;
-        v12[2] = v12;
-        result = std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(a3, v12);
+        v12 = v7 - *a2;
+        v13 = &v12;
+        result = std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(a3, &v12, &std::piecewise_construct, &v13);
         result[5] = v8;
       }
 
@@ -3804,7 +3801,7 @@ void *TXTextLayout::getKerningsForRange(void *result, void *a2, uint64_t a3)
   return result;
 }
 
-void TXTextLayout::shiftKerningsToLeft(uint64_t **this)
+void TXTextLayout::shiftKerningsToLeft(TXTextLayout **this)
 {
   v2 = Li3DEngineScene::sceneManager(this);
   OZLockingGroup::WriteSentry::WriteSentry(v5, v2);
@@ -3813,7 +3810,7 @@ void TXTextLayout::shiftKerningsToLeft(uint64_t **this)
   {
     do
     {
-      TXTextLayout::setKerningAtCharOffset(this, *(v3 + 5), v3[4] - 1);
+      TXTextLayout::setKerningAtCharOffset(this, *(v3 + 5), *(v3 + 4) - 1);
       v4 = std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer(this + 2403, v3);
       operator delete(v3);
       v3 = v4;
@@ -3825,9 +3822,9 @@ void TXTextLayout::shiftKerningsToLeft(uint64_t **this)
   OZLockingGroup::WriteSentry::~WriteSentry(v5);
 }
 
-void sub_25FAE523C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FAE523C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
@@ -3944,7 +3941,7 @@ void TXTextLayout::getTrackingForRange(uint64_t a1, uint64_t *a2, CMTime *a3, ui
             var0_low = LODWORD(v11[4].var0);
             if ((PCString::isNewline(v11 + 5) & 1) == 0)
             {
-              TXTextLayout::getStyleAtCharOffset(a1, var0_low, &v49);
+              TXTextLayout::getStyleAtCharOffset(&v49, a1, var0_low);
               v26 = v49;
               v48 = *a3;
               Size = TXTextStyle::getSize(v49, &v48, 0.0);
@@ -3977,7 +3974,7 @@ void TXTextLayout::getTrackingForRange(uint64_t a1, uint64_t *a2, CMTime *a3, ui
                   if (v43 >= v41)
                   {
                     v48.value = &v47;
-                    v44 = std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(a4, &v47);
+                    v44 = std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(a4, &v47, &std::piecewise_construct, &v48);
                     v44[5] = v40 + v44[5];
                     goto LABEL_39;
                   }
@@ -3987,7 +3984,7 @@ void TXTextLayout::getTrackingForRange(uint64_t a1, uint64_t *a2, CMTime *a3, ui
               }
 
               v48.value = &v47;
-              *(std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(a4, &v47) + 5) = v40;
+              *(std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(a4, &v47, &std::piecewise_construct, &v48) + 5) = v40;
 LABEL_39:
               if (v50)
               {
@@ -4059,7 +4056,7 @@ double TXTextLayout::getXMarginScale(TXTextLayout *this)
 void TXTextLayout::applyKerningAndTrackingToAttributedString(TXTextLayout *this, __CFAttributedString *a2, CMTime *a3, const CFRange *a4)
 {
   v8 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v14, v8);
+  OZLockingGroup::WriteSentry::WriteSentry(&v14, v8);
   v13[0] = 0;
   v13[1] = 0;
   v11[1] = 0;
@@ -4073,10 +4070,10 @@ void TXTextLayout::applyKerningAndTrackingToAttributedString(TXTextLayout *this,
   applyKerningsToAttributedString(&v10, @"SimpeValueDict::tracking", a2);
   std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&v10, v11[0]);
   std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&v12, v13[0]);
-  OZLockingGroup::WriteSentry::~WriteSentry(v14);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v14);
 }
 
-void sub_25FAE5778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, void *a13, uint64_t a14, char a15, void *a16)
+void sub_25FAE5778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16)
 {
   std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&a12, a13);
   std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&a15, a16);
@@ -4203,7 +4200,8 @@ uint64_t TXTextLayout::getAlignmentOffset(TXTextLayout *this, double *a2, double
     }
 
     *a2 = v31;
-    *&v97[0].value = 0uLL;
+    v97[0].value = 0;
+    *&v97[0].timescale = 0;
     __asm { FMOV            V0.2D, #-1.0 }
 
     *&v97[0].epoch = _Q0;
@@ -4213,7 +4211,7 @@ uint64_t TXTextLayout::getAlignmentOffset(TXTextLayout *this, double *a2, double
     TXTextLayout::getTypographicBounds(this, v97, a4, 0, 0);
     if (TXTextLayout::shouldScaleToBothMargins(this) && *(theApp + 82) == 1)
     {
-      TXTextLayout::_getImageBoundsFromParagraphs(this, a4, v93);
+      TXTextLayout::_getImageBoundsFromParagraphs(v93, this, a4);
       *&v97[0].value = *v93;
       *&v97[0].epoch = *&v93[16];
       v36 = *(this + 2378);
@@ -4265,7 +4263,7 @@ uint64_t TXTextLayout::getAlignmentOffset(TXTextLayout *this, double *a2, double
     v46 = (this + 58824);
     if (!OZChannel::getValueAsInt((this + 21368), MEMORY[0x277CC08F0], 0.0) || v42 > v44 && *(this + 19440) == 1)
     {
-      TXTextLayout::getStyleAtCharOffset(this, 0, &theString);
+      TXTextLayout::getStyleAtCharOffset(&theString.value, this, 0);
       v47 = *(this + 2378);
       if (*(this + 2379) == v47)
       {
@@ -4409,7 +4407,7 @@ LABEL_71:
 
     StringPtr = TXChannelString::getStringPtr((this + 19048));
     v79 = PCString::size(StringPtr);
-    TXChannelString::getString(this + 2381, &theString);
+    TXChannelString::getString(&theString, this + 2381);
     CharacterAtIndex = CFStringGetCharacterAtIndex(theString.value, (v79 - 1));
     if (TXCharacterSetIsNewline(CharacterAtIndex))
     {
@@ -4475,7 +4473,7 @@ LABEL_14:
     return 0;
   }
 
-  TXTextLayout::getStyleAtCharOffset(this, 0, &v94);
+  TXTextLayout::getStyleAtCharOffset(&v94, this, 0);
   v21 = *(this + 2379);
   v22 = *(this + 2378);
   if (v21 == v22)
@@ -4555,16 +4553,16 @@ void sub_25FAE616C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void TXTextLayout::_getImageBoundsFromParagraphs(TXTextLayout *this@<X0>, const CMTime *a2@<X1>, uint64_t a3@<X8>)
+void TXTextLayout::_getImageBoundsFromParagraphs(uint64_t *__return_ptr a1@<X8>, TXTextLayout *this@<X0>, const CMTime *a3@<X1>)
 {
-  *a3 = 0;
-  *(a3 + 8) = 0;
+  *a1 = 0;
+  a1[1] = 0;
   __asm { FMOV            V0.2D, #-1.0 }
 
-  *(a3 + 16) = _Q0;
+  *(a1 + 1) = _Q0;
   *&_Q0 = 0;
   v29 = _Q0;
-  OZChannel::getValueAsDouble((this + 22136), a2, 0.0);
+  OZChannel::getValueAsDouble((this + 22136), a3, 0.0);
   v12 = *(this + 2378);
   v13 = *(this + 2379);
   if (v12 != v13)
@@ -4574,11 +4572,11 @@ void TXTextLayout::_getImageBoundsFromParagraphs(TXTextLayout *this@<X0>, const 
     do
     {
       v16 = *v12;
-      *v31 = *&a2->value;
-      *&v31[16] = a2->epoch;
+      *v31 = *&a3->value;
+      *&v31[16] = a3->epoch;
       OZChannel::getValueAsDouble((v16 + 680), v31, 0.0);
       v18 = v17;
-      (*(*this + 712))(this, a2);
+      (*(*this + 712))(this, a3);
       v20 = *(*v12 + 876);
       if (v20)
       {
@@ -4601,7 +4599,7 @@ void TXTextLayout::_getImageBoundsFromParagraphs(TXTextLayout *this@<X0>, const 
           *&v27.f64[1] = v25;
           v30 = v25;
           *v31 = vaddq_f64(v27, *v31);
-          PCRect<double>::operator|=(a3, v31);
+          PCRect<double>::operator|=(a1, v31);
           *(&v25 + 1) = *(&v30 + 1);
           v28 = 0;
           LOBYTE(v15) = 0;
@@ -4650,24 +4648,23 @@ double TXTextLayout::_lastLineLeading(TXTextLayout *this)
   }
 }
 
-OZRenderState *TXTextLayout::getAlignmentOffsetForParagraph(OZRenderState *this, const TXParagraphStyle *a2, double *a3, double *a4, int a5, unsigned int a6, double a7, double a8)
+void TXTextLayout::getAlignmentOffsetForParagraph(OZRenderState *this, const TXParagraphStyle *a2, double *a3, double *a4, int a5, unsigned int a6, double a7, double a8)
 {
-  v12 = this;
   if (a6 <= 4 && ((1 << a6) & 0x1A) != 0)
   {
-    v23 = 0.0;
     v24 = 0.0;
-    this = OZRenderState::OZRenderState(&v22);
+    v25 = 0.0;
+    OZRenderState::OZRenderState(&v23);
     if (a7 == -1.0 || a8 == -1.0)
     {
-      this = (*(*v12 + 1016))(v12, &v24, &v23, &v22);
-      a8 = v23;
-      a7 = v24;
+      (*(this->var0.var0 + 1016))(this, &v25, &v24, &v23);
+      a8 = v24;
+      a7 = v25;
     }
 
     *a3 = a7;
     *a4 = a8;
-    return this;
+    return;
   }
 
   if (!a5)
@@ -4678,21 +4675,21 @@ OZRenderState *TXTextLayout::getAlignmentOffsetForParagraph(OZRenderState *this,
   if (a6)
   {
     v16 = *(a2 + 115);
-    v17 = *&this[226].var5;
+    var5 = this[226].var5;
     if (a5 != 1)
     {
       if (a5 != 2)
       {
-        return this;
+        return;
       }
 
-      v18 = -(v16 - v17);
+      v18 = -(v16 - *&var5);
 LABEL_21:
       *a3 = v18;
-      return this;
+      return;
     }
 
-    v19 = v16 - v17;
+    v19 = v16 - *&var5;
     v20 = -0.5;
 LABEL_20:
     v18 = v19 * v20;
@@ -4703,36 +4700,33 @@ LABEL_20:
   {
 LABEL_18:
     *a3 = 0.0;
-    return this;
+    return;
   }
 
-  this = OZChannel::getValueAsInt(&this[78].var7.var0[1][3], MEMORY[0x277CC08F0], 0.0);
-  v21 = *(a2 + 115);
-  if (this)
+  ValueAsInt = OZChannel::getValueAsInt(&this[78].var7.var0[1][3], MEMORY[0x277CC08F0], 0.0);
+  v22 = *(a2 + 115);
+  if (ValueAsInt)
   {
-    *a4 = v21;
+    *a4 = v22;
   }
 
   else
   {
-    *a3 = -v21;
+    *a3 = -v22;
   }
 
   if (a5 == 4 || a5 == 1)
   {
-    this = OZChannel::getValueAsInt((v12 + 20720), MEMORY[0x277CC08F0], 0.0);
-    if (this)
+    if (OZChannel::getValueAsInt(&this[78].var7.var0[1][3], MEMORY[0x277CC08F0], 0.0))
     {
       *a4 = *a4 * 0.5;
-      return this;
+      return;
     }
 
     v19 = *a3;
     v20 = 0.5;
     goto LABEL_20;
   }
-
-  return this;
 }
 
 uint64_t TXTextLayout::getBaseline(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -4866,133 +4860,133 @@ LABEL_33:
   return result;
 }
 
-void TXTextLayout::getOriginalBounds(uint64_t a1)
+void TXTextLayout::getOriginalBounds(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = MEMORY[0x28223BE20](a1);
-  v4 = v2;
-  v86[520] = *MEMORY[0x277D85DE8];
-  v5 = (v1 + 52212);
-  if ((*(v1 + 52360) & 1) == 0)
+  MEMORY[0x28223BE20](a1, a2, a3, a4, a5);
+  v8 = v6;
+  v92[520] = *MEMORY[0x277D85DE8];
+  v9 = (v5 + 52212);
+  if ((*(v5 + 52360) & 1) == 0)
   {
     __asm { FMOV            V0.2D, #-1.0 }
 
-    *(v2 + 16) = _Q0;
+    *(v6 + 16) = _Q0;
     return;
   }
 
-  v6 = v3;
-  v7 = v1;
-  PCWorkingColorVector::PCWorkingColorVector(&v85);
-  TXTextLayout::doLayout(v7, v6, &v85);
-  PCHashWriteStream::PCHashWriteStream(v86);
-  PCHashWriteStream::writeValue(v86, v6->var20);
-  PCHashWriteStream::writeValue(v86, v6->var29);
-  Hash = PCHashWriteStream::getHash(v86);
-  PCHash128::operator+=(v85.i32, Hash);
-  v9 = Li3DEngineScene::sceneManager(v7);
-  OZLockingGroup::WriteSentry::WriteSentry(v84, v9);
-  v10 = (v7 + 59008);
-  if (*(v7 + 59024) >= 0.0 && *(v7 + 59032) >= 0.0 && (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(v85, *(v7 + 59040))))) & 1) == 0 && (*(v7 + 19392) & 1) == 0 && (TXTextLayout::isAnyParagraphDirty(v7) & 1) == 0 && OZChannel::getValueAsInt((v7 + 20464), MEMORY[0x277CC08F0], 0.0) != 2 && !v6->var22)
+  v10 = v7;
+  v11 = v5;
+  PCWorkingColorVector::PCWorkingColorVector(&v91);
+  TXTextLayout::doLayout(v11, v10, &v91, v12, v13);
+  PCHashWriteStream::PCHashWriteStream(v92);
+  PCHashWriteStream::writeValue(v92, v10->var20);
+  PCHashWriteStream::writeValue(v92, v10->var29);
+  Hash = PCHashWriteStream::getHash(v92);
+  PCHash128::operator+=(v91.i32, Hash);
+  v15 = Li3DEngineScene::sceneManager(v11);
+  OZLockingGroup::WriteSentry::WriteSentry(v90, v15);
+  v16 = (v11 + 59008);
+  if (*(v11 + 59024) >= 0.0 && *(v11 + 59032) >= 0.0 && (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(v91, *(v11 + 59040))))) & 1) == 0 && (*(v11 + 19392) & 1) == 0 && (TXTextLayout::isAnyParagraphDirty(v11) & 1) == 0 && OZChannel::getValueAsInt((v11 + 20464), MEMORY[0x277CC08F0], 0.0) != 2 && !v10->var22)
   {
-    v67 = *(v7 + 59024);
-    *v4 = *v10;
-    *(v4 + 16) = v67;
+    v73 = *(v11 + 59024);
+    *v8 = *v16;
+    *(v8 + 16) = v73;
     goto LABEL_96;
   }
 
-  var0 = v6->var0;
-  OZChannel::getValueAsDouble((v7 + 59888), &var0, 0.0);
-  v12 = v11;
-  var0 = v6->var0;
-  OZChannel::getValueAsDouble((v7 + 60360), &var0, 0.0);
-  v14 = v13;
-  ValueAsInt = OZChannel::getValueAsInt((v7 + 20464), MEMORY[0x277CC08F0], 0.0);
-  v16 = OZChannel::getValueAsInt((v7 + 20464), MEMORY[0x277CC08F0], 0.0);
+  var0 = v10->var0;
+  OZChannel::getValueAsDouble((v11 + 59888), &var0, 0.0);
+  v18 = v17;
+  var0 = v10->var0;
+  OZChannel::getValueAsDouble((v11 + 60360), &var0, 0.0);
+  v20 = v19;
+  ValueAsInt = OZChannel::getValueAsInt((v11 + 20464), MEMORY[0x277CC08F0], 0.0);
+  v22 = OZChannel::getValueAsInt((v11 + 20464), MEMORY[0x277CC08F0], 0.0);
   __asm { FMOV            V0.2D, #-1.0 }
 
-  v71 = _Q0;
-  *(v4 + 16) = _Q0;
-  if (OZChannel::getValueAsInt((v7 + 20464), MEMORY[0x277CC08F0], 0.0) != 1 || !v6->var20)
+  v77 = _Q0;
+  *(v8 + 16) = _Q0;
+  if (OZChannel::getValueAsInt((v11 + 20464), MEMORY[0x277CC08F0], 0.0) != 1 || !v10->var20)
   {
-    v23 = *(v7 + 58824);
-    v22 = *(v7 + 58832);
+    v29 = *(v11 + 58824);
+    v28 = *(v11 + 58832);
     OZRenderParams::OZRenderParams(&var0);
-    v70 = v5;
-    OZRenderParams::setState(&var0, v6);
-    v83 = 1;
+    v76 = v9;
+    OZRenderParams::setState(&var0, v10);
+    v89 = 1;
     HostApplicationDelegate = OZApplication::getHostApplicationDelegate(theApp);
-    v69 = OZHostApplicationDelegateHandler::wantsToAdjustTextBoundsHeightUsingCapHeight(HostApplicationDelegate);
-    v25 = OZHostApplicationDelegateHandler::wantsToIgnoreTextBoundsOfTransparentObjects(HostApplicationDelegate);
-    v26 = OZHostApplicationDelegateHandler::wantsToIgnoreTextBoundsOfNewlinesOfTranscriptions(HostApplicationDelegate);
-    if (v23 == v22)
+    v75 = OZHostApplicationDelegateHandler::wantsToAdjustTextBoundsHeightUsingCapHeight(HostApplicationDelegate);
+    v31 = OZHostApplicationDelegateHandler::wantsToIgnoreTextBoundsOfTransparentObjects(HostApplicationDelegate);
+    v32 = OZHostApplicationDelegateHandler::wantsToIgnoreTextBoundsOfNewlinesOfTranscriptions(HostApplicationDelegate);
+    if (v29 == v28)
     {
 LABEL_94:
       OZRenderParams::~OZRenderParams(&var0);
-      v10 = (v7 + 59008);
+      v16 = (v11 + 59008);
       goto LABEL_95;
     }
 
-    v27 = v26;
-    v29 = ValueAsInt == 3 || v16 == 4;
-    v68 = v29;
+    v33 = v32;
+    v35 = ValueAsInt == 3 || v22 == 4;
+    v74 = v35;
     while (1)
     {
-      v30 = *(*v23 + 120);
-      if (v25)
+      v36 = *(*v29 + 120);
+      if (v31)
       {
-        FaceOpacity = TXTextObject::getFaceOpacity(*v23, v6);
-        if (!v6->var25 && fabs(FaceOpacity) < 0.0000001)
+        FaceOpacity = TXTextObject::getFaceOpacity(*v29, v10);
+        if (!v10->var25 && fabs(FaceOpacity) < 0.0000001)
         {
           goto LABEL_88;
         }
       }
 
-      v32 = v30 == 10 ? v27 : 0;
-      if (v32 == 1 && (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(*(*(v7 + 208) + 8), xmmword_260347A80)))) & 1) == 0)
+      v38 = v36 == 10 ? v33 : 0;
+      if (v38 == 1 && (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(*(*(v11 + 208) + 8), xmmword_260347A80)))) & 1) == 0)
       {
         goto LABEL_88;
       }
 
-      v80 = 0uLL;
-      v81 = v71;
-      if (*(*v23 + 138) != 1)
+      v86 = 0uLL;
+      v87 = v77;
+      if (*(*v29 + 138) != 1)
       {
         goto LABEL_88;
       }
 
-      v33 = *(*v23 + 120);
-      if (v22 == v23 + 16)
+      v39 = *(*v29 + 120);
+      if (v28 == v29 + 16)
       {
-        if (v30 == 10)
+        if (v36 == 10)
         {
-          TXTextLayout::getCursorRectForNewline(v7, *v23, v6, v72);
-          v80 = *v72;
-          v81 = *&v72[16];
+          TXTextLayout::getCursorRectForNewline(v78, v11, *v29, v10);
+          v86 = *v78;
+          v87 = *&v78[16];
 LABEL_85:
-          if (*&v81 > 0.0 && *(&v81 + 1) > 0.0)
+          if (*&v87 > 0.0 && *(&v87 + 1) > 0.0)
           {
-            PCRect<double>::operator|=(v4, &v80);
+            PCRect<double>::operator|=(v8, &v86);
           }
 
           goto LABEL_88;
         }
 
-        v36 = 1;
+        v42 = 1;
       }
 
       else
       {
-        v35 = *(v23 + 16);
-        v34 = *(v23 + 24);
-        if (v34)
+        v41 = *(v29 + 16);
+        v40 = *(v29 + 24);
+        if (v40)
         {
-          atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v40->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        if (*(v35 + 120) == 10)
+        if (*(v41 + 120) == 10)
         {
-          v36 = 1;
-          if (!v34)
+          v42 = 1;
+          if (!v40)
           {
             goto LABEL_49;
           }
@@ -5000,69 +4994,69 @@ LABEL_85:
           goto LABEL_48;
         }
 
-        v37 = *(v35 + 736);
-        v38 = *v70;
-        if (v38 < 1)
+        v43 = *(v41 + 736);
+        v44 = *v76;
+        if (v44 < 1)
         {
-          if (!v38)
+          if (!v44)
           {
-            v36 = 0;
-            if (!v34)
+            v42 = 0;
+            if (!v40)
             {
               goto LABEL_49;
             }
 
 LABEL_48:
-            std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v40);
             goto LABEL_49;
           }
 
-          v39 = 0;
+          v45 = 0;
         }
 
         else
         {
-          v39 = *(v70 + 1);
+          v45 = *(v76 + 1);
         }
 
-        v40 = 1;
-        v41 = v39;
-        v42 = *v70;
-        v36 = 1;
+        v46 = 1;
+        v47 = v45;
+        v48 = *v76;
+        v42 = 1;
         do
         {
-          if (v39 && *v41 == v37)
+          if (v45 && *v47 == v43)
           {
             break;
           }
 
-          v36 = v40++ < v38;
-          ++v41;
-          --v42;
+          v42 = v46++ < v44;
+          ++v47;
+          --v48;
         }
 
-        while (v42);
-        if (v34)
+        while (v48);
+        if (v40)
         {
           goto LABEL_48;
         }
       }
 
 LABEL_49:
-      if (v30 == 10 || v36 && v33 == 32 && *(v7 + 58832) - *(v7 + 58824) > 0x10uLL)
+      if (v36 == 10 || v42 && v39 == 32 && *(v11 + 58832) - *(v11 + 58824) > 0x10uLL)
       {
         goto LABEL_88;
       }
 
-      var29 = v6->var29;
+      var29 = v10->var29;
       if (var29 <= 1)
       {
         if (!var29)
         {
-          TypographicBounds = TXTextObject::getTypographicBounds(*v23);
-          v49 = *(TypographicBounds + 16);
-          v80 = *TypographicBounds;
-          v81 = v49;
+          TypographicBounds = TXTextObject::getTypographicBounds(*v29);
+          v55 = *(TypographicBounds + 16);
+          v86 = *TypographicBounds;
+          v87 = v55;
           goto LABEL_84;
         }
 
@@ -5071,46 +5065,7 @@ LABEL_49:
           goto LABEL_84;
         }
 
-        v44 = *(*v23 + 264);
-        if (v44)
-        {
-          v45 = *(v44 + 8);
-          v46 = *(v44 + 16);
-          if (v46)
-          {
-            atomic_fetch_add_explicit(&v46->__shared_owners_, 1uLL, memory_order_relaxed);
-          }
-        }
-
-        else
-        {
-          v46 = 0;
-          v45 = 0;
-        }
-
-        *v72 = *&v6->var0.var0;
-        *&v72[16] = v6->var0.var3;
-        Size = TXTextStyle::getSize(v45, v72, 0.0);
-        if (v46)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v46);
-        }
-
-        v57 = Size;
-        CapHeight = TXTextObject::getCapHeight(*v23, Size);
-        TXTextObject::getBoundingRectForGlyph(*v23, v57);
-LABEL_82:
-        v80 = v59;
-        v63 = CapHeight;
-        *&v81 = v60;
-LABEL_83:
-        *(&v81 + 1) = v63;
-        goto LABEL_84;
-      }
-
-      if (var29 == 2)
-      {
-        v50 = *(*v23 + 264);
+        v50 = *(*v29 + 264);
         if (v50)
         {
           v51 = *(v50 + 8);
@@ -5127,108 +5082,147 @@ LABEL_83:
           v51 = 0;
         }
 
-        *v72 = *&v6->var0.var0;
-        *&v72[16] = v6->var0.var3;
-        v61 = TXTextStyle::getSize(v51, v72, 0.0);
+        *v78 = *&v10->var0.var0;
+        *&v78[16] = v10->var0.var3;
+        Size = TXTextStyle::getSize(v51, v78, 0.0);
         if (v52)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v52);
         }
 
-        v62 = v61;
-        CapHeight = TXTextObject::getXHeight(*v23, v61);
-        TXTextObject::getBoundingRectForGlyph(*v23, v62);
+        v63 = Size;
+        CapHeight = TXTextObject::getCapHeight(*v29, Size);
+        TXTextObject::getBoundingRectForGlyph(*v29, v63);
+LABEL_82:
+        v86 = v65;
+        v69 = CapHeight;
+        *&v87 = v66;
+LABEL_83:
+        *(&v87 + 1) = v69;
+        goto LABEL_84;
+      }
+
+      if (var29 == 2)
+      {
+        v56 = *(*v29 + 264);
+        if (v56)
+        {
+          v57 = *(v56 + 8);
+          v58 = *(v56 + 16);
+          if (v58)
+          {
+            atomic_fetch_add_explicit(&v58->__shared_owners_, 1uLL, memory_order_relaxed);
+          }
+        }
+
+        else
+        {
+          v58 = 0;
+          v57 = 0;
+        }
+
+        *v78 = *&v10->var0.var0;
+        *&v78[16] = v10->var0.var3;
+        v67 = TXTextStyle::getSize(v57, v78, 0.0);
+        if (v58)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v58);
+        }
+
+        v68 = v67;
+        CapHeight = TXTextObject::getXHeight(*v29, v67);
+        TXTextObject::getBoundingRectForGlyph(*v29, v68);
         goto LABEL_82;
       }
 
       if (var29 == 3)
       {
-        v47 = *v23;
-        if (v68)
+        v53 = *v29;
+        if (v74)
         {
-          TXTextObject::getImageBoundsOfAttribute(v47, v80.f64, &var0, 5, 1, 1, 1u, 0, 0.0, 0.0, 0.0, 0.0);
+          TXTextObject::getImageBoundsOfAttribute(v53, v86.f64, &var0, 5, 1, 1, 1u, 0, 0.0, 0.0, 0.0, 0.0);
         }
 
         else
         {
-          TXTextObject::getImageBoundsWithFourCornerPinning(v47, &var0, &v80, 5);
+          TXTextObject::getImageBoundsWithFourCornerPinning(v53, &var0, &v86, 5);
         }
 
-        if (*(*v23 + 120) == 32)
+        if (*(*v29 + 120) == 32)
         {
-          *&v81 = *(TXTextObject::getTypographicBounds(*v23) + 16);
-          if (v69)
+          *&v87 = *(TXTextObject::getTypographicBounds(*v29) + 16);
+          if (v75)
           {
-            v53 = *(*v23 + 264);
-            if (v53)
+            v59 = *(*v29 + 264);
+            if (v59)
             {
-              v54 = *(v53 + 8);
-              v55 = *(v53 + 16);
-              if (v55)
+              v60 = *(v59 + 8);
+              v61 = *(v59 + 16);
+              if (v61)
               {
-                atomic_fetch_add_explicit(&v55->__shared_owners_, 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit(&v61->__shared_owners_, 1uLL, memory_order_relaxed);
               }
             }
 
             else
             {
-              v55 = 0;
-              v54 = 0;
+              v61 = 0;
+              v60 = 0;
             }
 
-            *v72 = *&v6->var0.var0;
-            *&v72[16] = v6->var0.var3;
-            v64 = TXTextStyle::getSize(v54, v72, 0.0);
-            if (v55)
+            *v78 = *&v10->var0.var0;
+            *&v78[16] = v10->var0.var3;
+            v70 = TXTextStyle::getSize(v60, v78, 0.0);
+            if (v61)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v55);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v61);
             }
 
-            v63 = TXTextObject::getCapHeight(*v23, v64);
+            v69 = TXTextObject::getCapHeight(*v29, v70);
             goto LABEL_83;
           }
         }
       }
 
 LABEL_84:
+      v85 = 0x3FF0000000000000;
+      v82 = 0x3FF0000000000000;
       v79 = 0x3FF0000000000000;
-      v76 = 0x3FF0000000000000;
-      v73 = 0x3FF0000000000000;
-      *v72 = 0x3FF0000000000000;
-      memset(&v72[8], 0, 32);
-      v74 = 0u;
-      v75 = 0u;
-      v77 = 0u;
-      v78 = 0u;
-      TXTextObject::getTransformMatrix(*v23, v72, &var0.value, 1, 0, 0, 0, v14, v12);
-      if (PCMatrix44Tmpl<double>::transformRect<double>(v72, v80.f64, &v80))
+      *v78 = 0x3FF0000000000000;
+      memset(&v78[8], 0, 32);
+      v80 = 0u;
+      v81 = 0u;
+      v83 = 0u;
+      v84 = 0u;
+      TXTextObject::getTransformMatrix(*v29, v78, &var0.value, 1, 0, 0, 0, v20, v18);
+      if (PCMatrix44Tmpl<double>::transformRect<double>(v78, v86.f64, &v86))
       {
         goto LABEL_85;
       }
 
 LABEL_88:
-      v23 += 16;
-      if (v23 == v22)
+      v29 += 16;
+      if (v29 == v28)
       {
         goto LABEL_94;
       }
     }
   }
 
-  (*(*v7 + 352))(v7, v4);
+  (*(*v11 + 352))(v11, v8);
 LABEL_95:
-  *(v7 + 64324) = 0;
-  v65 = *(v4 + 16);
-  *(v7 + 64328) = *v4;
-  *(v7 + 64344) = v65;
-  TXTextLayout::offsetBoundsBasedOnScrollPosition(v7, v4);
-  v66 = *(v4 + 16);
-  *v10 = *v4;
-  v10[1] = v66;
-  *(v7 + 59040) = v85;
+  *(v11 + 64324) = 0;
+  v71 = *(v8 + 16);
+  *(v11 + 64328) = *v8;
+  *(v11 + 64344) = v71;
+  TXTextLayout::offsetBoundsBasedOnScrollPosition(v11, v8);
+  v72 = *(v8 + 16);
+  *v16 = *v8;
+  v16[1] = v72;
+  *(v11 + 59040) = v91;
 LABEL_96:
-  OZLockingGroup::WriteSentry::~WriteSentry(v84);
-  PCHashWriteStream::~PCHashWriteStream(v86);
+  OZLockingGroup::WriteSentry::~WriteSentry(v90);
+  PCHashWriteStream::~PCHashWriteStream(v92);
 }
 
 void sub_25FAE6EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
@@ -5239,9 +5233,9 @@ void sub_25FAE6EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void TXTextLayout::getCursorRectForNewline(TXTextLayout *this@<X0>, TXTextObject *a2@<X1>, CMTime *a3@<X2>, double *a4@<X8>)
+void TXTextLayout::getCursorRectForNewline(double *__return_ptr a1@<X8>, TXTextLayout *this@<X0>, TXTextObject *a3@<X1>, CMTime *a4@<X2>)
 {
-  v8 = *(a2 + 184);
+  v8 = *(a3 + 184);
   v9 = *(this + 2378);
   v10 = *(this + 2379);
   while (v9 != v10)
@@ -5260,7 +5254,7 @@ void TXTextLayout::getCursorRectForNewline(TXTextLayout *this@<X0>, TXTextObject
 LABEL_7:
   DescenderForCharOffset = TXParagraphStyle::getDescenderForCharOffset(v11, v8);
   ValueAsInt = OZChannel::getValueAsInt((this + 20720), MEMORY[0x277CC08F0], 0.0);
-  TypographicBounds = TXTextObject::getTypographicBounds(a2);
+  TypographicBounds = TXTextObject::getTypographicBounds(a3);
   v16 = 16;
   if (!ValueAsInt)
   {
@@ -5268,7 +5262,7 @@ LABEL_7:
   }
 
   v17 = *(TypographicBounds + v16);
-  v18 = *(a2 + 33);
+  v18 = *(a3 + 33);
   if (v18)
   {
     v20 = *(v18 + 8);
@@ -5286,28 +5280,28 @@ LABEL_7:
   }
 
   v21 = v17;
-  if (!TXTextLayout::scaleAffectsLayout(this))
+  if ((TXTextLayout::scaleAffectsLayout(this) & 1) == 0)
   {
     v34 = 0.0;
     v35 = 0.0;
-    v32 = *a3;
+    v32 = *a4;
     v33 = 0.0;
-    OZChannelScale3D::getValue((v20 + 2864), &v32, &v35, &v34, &v33, 0.0);
+    OZChannelScale3D::getValue(v20 + 2864, &v32, &v35, &v34, &v33, 0.0);
     v21 = v17 * v34;
     DescenderForCharOffset = DescenderForCharOffset * v34;
   }
 
-  v32 = *a3;
+  v32 = *a4;
   OZChannel::getValueAsDouble((v11 + 680), &v32, 0.0);
   v23 = v22;
-  v24 = (*(*this + 712))(this, a3);
+  v24 = (*(*this + 712))(this, a4);
   v34 = 0.0;
   v35 = 0.0;
   TXTextLayout::getCursorOrigin(this, &v35, &v34);
   v25 = v23 * v24;
   if (OZChannel::getValueAsInt((this + 20720), MEMORY[0x277CC08F0], 0.0))
   {
-    TXTextObject::getPosition(a2, a3, &v32);
+    TXTextObject::getPosition(&v32.value, a3, a4);
     v26 = DescenderForCharOffset + *&v32.value - v17 - v25;
     v27 = v34;
     v28 = v21;
@@ -5316,19 +5310,19 @@ LABEL_7:
 
   else
   {
-    OZChannel::getValueAsDouble((v20 + 3592), a3, 0.0);
+    OZChannel::getValueAsDouble((v20 + 3592), a4, 0.0);
     v30 = v29;
     v31 = v35;
-    TXTextObject::getPosition(a2, a3, &v32);
+    TXTextObject::getPosition(&v32.value, a3, a4);
     v26 = v30 + v31;
     v27 = DescenderForCharOffset + *&v32.timescale - v17 - v25;
     v28 = 1.0;
   }
 
-  *a4 = v26;
-  a4[1] = v27;
-  a4[2] = v28;
-  a4[3] = v21;
+  *a1 = v26;
+  a1[1] = v27;
+  a1[2] = v28;
+  a1[3] = v21;
   if (v19)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v19);
@@ -5373,36 +5367,36 @@ uint64_t TXTextLayout::offsetBoundsBasedOnScrollPosition(uint64_t a1, float64x2_
 uint64_t TXTextLayout::getProjectedBounds(uint64_t a1, float64x2_t *a2, uint64_t *a3, uint64_t a4)
 {
   v8 = Li3DEngineScene::sceneManager(a1);
-  OZLockingGroup::WriteSentry::WriteSentry(v75, v8);
+  OZLockingGroup::WriteSentry::WriteSentry(v77, v8);
   v9 = *(a1 + 52360);
   if (v9)
   {
     time = *a4;
     Seconds = CMTimeGetSeconds(&time);
-    v63 = 0uLL;
+    v65 = 0uLL;
     __asm { FMOV            V1.2D, #-1.0 }
 
-    v32 = _Q1;
-    v64 = _Q1;
-    v74 = 0x3FF0000000000000;
-    v71 = 0x3FF0000000000000;
-    v68 = 0x3FF0000000000000;
-    v61 = &unk_2871F24E0;
-    v65 = 0x3FF0000000000000;
-    v66 = 0u;
-    v67 = 0u;
+    v34 = _Q1;
+    v66 = _Q1;
+    v76 = 0x3FF0000000000000;
+    v73 = 0x3FF0000000000000;
+    v70 = 0x3FF0000000000000;
+    v63 = &unk_2871F24E0;
+    v67 = 0x3FF0000000000000;
+    v68 = 0u;
     v69 = 0u;
-    v70 = 0u;
+    v71 = 0u;
     v72 = 0u;
-    v73 = 0u;
-    if (!OZValueCache<OZProjectedBoundsCacheItem>::find(a1 + 64032, &v61, Seconds))
+    v74 = 0u;
+    v75 = 0u;
+    if (!OZValueCache<OZProjectedBoundsCacheItem>::find(a1 + 64032, &v63, Seconds))
     {
       goto LABEL_13;
     }
 
     v15 = 0;
     v16 = 0;
-    v17 = &v65;
+    v17 = &v67;
     v18 = a3;
 LABEL_4:
     v19 = 0;
@@ -5425,71 +5419,71 @@ LABEL_4:
     if (!v16)
     {
 LABEL_13:
-      PCWorkingColorVector::PCWorkingColorVector(v60);
-      TXTextLayout::doLayout(a1, a4, v60);
-      a2[1] = v32;
+      PCWorkingColorVector::PCWorkingColorVector(v62);
+      TXTextLayout::doLayout(a1, a4, v62, v22, v23);
+      a2[1] = v34;
       OZRenderParams::OZRenderParams(&time);
       OZRenderParams::setState(&time, a4);
-      v59 = 1;
-      v57 = 0x3FF0000000000000;
-      v54 = 0x3FF0000000000000;
-      v51 = 0x3FF0000000000000;
-      v48 = 0x3FF0000000000000;
-      v49 = 0u;
-      v50 = 0u;
+      v61 = 1;
+      v59 = 0x3FF0000000000000;
+      v56 = 0x3FF0000000000000;
+      v53 = 0x3FF0000000000000;
+      v50 = 0x3FF0000000000000;
+      v51 = 0u;
       v52 = 0u;
-      v53 = 0u;
+      v54 = 0u;
       v55 = 0u;
-      v56 = 0u;
-      (*(*(a1 + 200) + 1256))(a1 + 200, &v48, &time);
-      PCMatrix44Tmpl<double>::operator*(a3, &v48, v47);
-      v23 = *(a1 + 58824);
-      v22 = *(a1 + 58832);
-      if (v23 != v22)
+      v57 = 0u;
+      v58 = 0u;
+      (*(*(a1 + 200) + 1256))(a1 + 200, &v50, &time);
+      PCMatrix44Tmpl<double>::operator*(a3, &v50, v49);
+      v25 = *(a1 + 58824);
+      v24 = *(a1 + 58832);
+      if (v25 != v24)
       {
-        v24 = MEMORY[0x277CC08F0];
+        v26 = MEMORY[0x277CC08F0];
         do
         {
-          v46[0] = 0uLL;
-          v46[1] = v32;
-          if (*(*v23 + 138))
+          v48[0] = 0uLL;
+          v48[1] = v34;
+          if (*(*v25 + 138))
           {
-            if (OZChannel::getValueAsInt((a1 + 20464), v24, 0.0) == 3 || OZChannel::getValueAsInt((a1 + 20464), v24, 0.0) == 4)
+            if (OZChannel::getValueAsInt((a1 + 20464), v26, 0.0) == 3 || OZChannel::getValueAsInt((a1 + 20464), v26, 0.0) == 4)
             {
-              TXTextObject::getImageBoundsOfAttribute(*v23, v46[0].f64, &time, 5, 1, 1, 1u, 0, 0.0, 0.0, 0.0, 0.0);
+              TXTextObject::getImageBoundsOfAttribute(*v25, v48[0].f64, &time, 5, 1, 1, 1u, 0, 0.0, 0.0, 0.0, 0.0);
             }
 
             else
             {
-              TXTextObject::getImageBoundsWithFourCornerPinning(*v23, &time, v46, 5);
+              TXTextObject::getImageBoundsWithFourCornerPinning(*v25, &time, v48, 5);
             }
 
-            v45 = 0x3FF0000000000000;
-            v42 = 0x3FF0000000000000;
-            v39 = 0x3FF0000000000000;
-            v36 = 0x3FF0000000000000;
-            v37 = 0u;
-            v38 = 0u;
+            v47 = 0x3FF0000000000000;
+            v44 = 0x3FF0000000000000;
+            v41 = 0x3FF0000000000000;
+            v38 = 0x3FF0000000000000;
+            v39 = 0u;
             v40 = 0u;
-            v41 = 0u;
+            v42 = 0u;
             v43 = 0u;
-            v44 = 0u;
-            TXTextObject::getTransformMatrix(*v23, &v36, &time.value, 1, 1, 0, 1, 0.0, 0.0);
-            v34 = 0uLL;
-            v35 = v32;
-            PCMatrix44Tmpl<double>::operator*(v47, &v36, v33);
-            v25 = PCMatrix44Tmpl<double>::transformRect<double>(v33, v46[0].f64, &v34);
-            v26 = v35.f64[0] > 0.0 && v25;
-            if (v26 && v35.f64[1] > 0.0)
+            v45 = 0u;
+            v46 = 0u;
+            TXTextObject::getTransformMatrix(*v25, &v38, &time.value, 1, 1, 0, 1uLL, 0.0, 0.0);
+            v36 = 0uLL;
+            v37 = v34;
+            PCMatrix44Tmpl<double>::operator*(v49, &v38, v35);
+            v27 = PCMatrix44Tmpl<double>::transformRect<double>(v35, v48[0].f64, &v36);
+            v28 = v37.f64[0] > 0.0 && v27;
+            if (v28 && v37.f64[1] > 0.0)
             {
-              PCRect<double>::operator|=(a2, &v34);
+              PCRect<double>::operator|=(a2, &v36);
             }
           }
 
-          v23 += 2;
+          v25 += 2;
         }
 
-        while (v23 != v22);
+        while (v25 != v24);
       }
 
       if (*(a4 + 241))
@@ -5497,28 +5491,28 @@ LABEL_13:
         OZElement::expandBoundsToIncludeDropShadow(a1 + 200, a2, a4);
       }
 
-      v27 = a2[1];
-      v63 = *a2;
-      v64 = v27;
-      if (&v65 != a3)
+      v29 = a2[1];
+      v65 = *a2;
+      v66 = v29;
+      if (&v67 != a3)
       {
         for (i = 0; i != 16; i += 4)
         {
-          v29 = (&v65 + i * 8);
-          v30 = *&a3[i + 2];
-          *v29 = *&a3[i];
-          v29[1] = v30;
+          v31 = (&v67 + i * 8);
+          v32 = *&a3[i + 2];
+          *v31 = *&a3[i];
+          v31[1] = v32;
         }
       }
 
-      OZValueCache<OZProjectedBoundsCacheItem>::add(a1 + 64032, &v61);
+      OZValueCache<OZProjectedBoundsCacheItem>::add((a1 + 64032), &v63);
     }
 
 LABEL_11:
     if (a2)
     {
-      v21 = v64;
-      *a2 = v63;
+      v21 = v66;
+      *a2 = v65;
       a2[1] = v21;
     }
   }
@@ -5530,7 +5524,7 @@ LABEL_11:
     a2[1] = _Q0;
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v75);
+  OZLockingGroup::WriteSentry::~WriteSentry(v77);
   return v9;
 }
 
@@ -5589,94 +5583,94 @@ LABEL_12:
   return v8;
 }
 
-void OZValueCache<OZProjectedBoundsCacheItem>::add(uint64_t a1, uint64_t a2)
+void OZValueCache<OZProjectedBoundsCacheItem>::add(void *a1, uint64_t a2)
 {
-  PCSharedMutex::lock((a1 + 40));
-  std::list<OZProjectedBoundsCacheItem>::remove_if<OZ_VC_SameKey<OZProjectedBoundsCacheItem>>(a1 + 8, *(a2 + 8));
-  if (*(a1 + 24) >= *(a1 + 32))
+  PCSharedMutex::lock((a1 + 5));
+  std::list<OZProjectedBoundsCacheItem>::remove_if<OZ_VC_SameKey<OZProjectedBoundsCacheItem>>((a1 + 1), *(a2 + 8));
+  if (a1[3] >= a1[4])
   {
-    std::list<OZProjectedBoundsCacheItem>::pop_front(a1 + 8);
+    std::list<OZProjectedBoundsCacheItem>::pop_front((a1 + 1));
   }
 
-  std::list<OZProjectedBoundsCacheItem>::push_back();
+  std::list<OZProjectedBoundsCacheItem>::push_back(a1 + 1, a2);
 }
 
 void TXTextLayout::getBoundsIgnoringParagraphMargins(TXTextLayout *this@<X0>, OZRenderState *a2@<X1>, __int128 *a3@<X8>)
 {
   time = a2->var0;
   Seconds = CMTimeGetSeconds(&time);
-  v67 = 0uLL;
-  v65 = &unk_2871F2540;
+  v69 = 0uLL;
+  v67 = &unk_2871F2540;
   __asm { FMOV            V1.2D, #-1.0 }
 
-  v50 = _Q1;
-  v68 = _Q1;
-  if (OZValueCache<OZBoundsCacheItem>::find(this + 63888, &v65, Seconds) && a2->var29 == *(this + 15970))
+  v52 = _Q1;
+  v70 = _Q1;
+  if (OZValueCache<OZBoundsCacheItem>::find(this + 63888, &v67, Seconds) && a2->var29 == *(this + 15970))
   {
-    v11 = v68;
-    *a3 = v67;
+    v11 = v70;
+    *a3 = v69;
     a3[1] = v11;
     return;
   }
 
   *a3 = 0;
   *(a3 + 1) = 0;
-  a3[1] = v50;
+  a3[1] = v52;
   v12 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v64, v12);
+  OZLockingGroup::WriteSentry::WriteSentry(&v66, v12);
   if (*(this + 52360) == 1)
   {
-    PCWorkingColorVector::PCWorkingColorVector(v63);
-    TXTextLayout::doLayout(this, a2, v63);
-    v13 = *(this + 7353);
-    v14 = *(this + 7354);
+    PCWorkingColorVector::PCWorkingColorVector(v65);
+    TXTextLayout::doLayout(this, a2, v65, v13, v14);
+    v15 = *(this + 7353);
+    v16 = *(this + 7354);
     OZRenderParams::OZRenderParams(&time);
     OZRenderParams::setState(&time, a2);
-    v62 = 1;
-    v49 = *(this + 2423) == 1;
-    if (v13 == v14)
+    v64 = 1;
+    v51 = *(this + 2423) == 1;
+    if (v15 == v16)
     {
 LABEL_59:
-      v48 = a3[1];
-      v67 = *a3;
-      v68 = v48;
-      OZValueCache<OZBoundsCacheItem>::add(this + 63888, &v65);
+      v50 = a3[1];
+      v69 = *a3;
+      v70 = v50;
+      OZValueCache<OZBoundsCacheItem>::add(this + 7986, &v67);
     }
 
     while (1)
     {
       while (1)
       {
-        if (*(*v13 + 138))
+        if (*(*v15 + 138))
         {
-          v59 = 0uLL;
-          v60 = v50;
-          v15 = *v13;
-          v16 = *(*v13 + 60);
-          if (v14 == v13 + 2 && v16 == 10)
+          v61 = 0uLL;
+          v62 = v52;
+          v17 = *v15;
+          v18 = *(*v15 + 60);
+          if (v16 == v15 + 2 && v18 == 10)
           {
-            TXTextLayout::getCursorRectForNewline(this, v15, a2, v51);
-            v17 = 0;
-            v59 = *v51;
-            v60 = *&v51[16];
+            TXTextLayout::getCursorRectForNewline(v53, this, v17, a2);
+            v19 = 0;
+            v61 = *v53;
+            v62 = *&v53[16];
             goto LABEL_10;
           }
 
-          if (v16 != 10)
+          if (v18 != 10)
           {
             break;
           }
         }
 
 LABEL_58:
-        v13 += 2;
-        if (v13 == v14)
+        v15 += 2;
+        if (v15 == v16)
         {
           goto LABEL_59;
         }
       }
 
-      v17 = 0;
+      v19 = 0;
       var29 = a2->var29;
       if (var29 <= 2)
       {
@@ -5687,48 +5681,48 @@ LABEL_58:
       {
         if (var29 == 5)
         {
-          TypographicBounds = TXTextObject::getTypographicBounds(*v13);
-          v31 = *(TypographicBounds + 16);
-          v59 = *TypographicBounds;
-          v60 = v31;
-          v32 = -v59.f64[1];
+          TypographicBounds = TXTextObject::getTypographicBounds(*v15);
+          v33 = *(TypographicBounds + 16);
+          v61 = *TypographicBounds;
+          v62 = v33;
+          v34 = -v61.f64[1];
           goto LABEL_54;
         }
 
         if (var29 == 6)
         {
-          v25 = *(v15 + 33);
-          if (v25)
+          v27 = *(v17 + 33);
+          if (v27)
           {
-            v26 = *(v25 + 8);
-            v27 = *(v25 + 16);
-            if (v27)
+            v28 = *(v27 + 8);
+            v29 = *(v27 + 16);
+            if (v29)
             {
-              atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
             }
           }
 
           else
           {
-            v27 = 0;
-            v26 = 0;
+            v29 = 0;
+            v28 = 0;
           }
 
-          *v51 = *&a2->var0.var0;
-          *&v51[16] = a2->var0.var3;
-          Size = TXTextStyle::getSize(v26, v51, 0.0);
-          if (v27)
+          *v53 = *&a2->var0.var0;
+          *&v53[16] = a2->var0.var3;
+          Size = TXTextStyle::getSize(v28, v53, 0.0);
+          if (v29)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v29);
           }
 
-          v37 = Size;
-          CapHeight = TXTextObject::getCapHeight(*v13, Size);
-          TXTextObject::getBoundingRectForGlyph(*v13, v37);
-          v17 = 0;
-          v59 = v39;
-          *&v60 = v40;
-          *(&v60 + 1) = CapHeight;
+          v39 = Size;
+          CapHeight = TXTextObject::getCapHeight(*v15, Size);
+          TXTextObject::getBoundingRectForGlyph(*v15, v39);
+          v19 = 0;
+          v61 = v41;
+          *&v62 = v42;
+          *(&v62 + 1) = CapHeight;
         }
       }
 
@@ -5736,46 +5730,46 @@ LABEL_58:
       {
         if (var29 != 3)
         {
-          v20 = TXTextObject::getTypographicBounds(*v13);
-          v21 = *(v20 + 16);
-          v59 = *v20;
-          *&v60 = v21;
-          *(&v60 + 1) = v59.f64[1] + *(&v21 + 1);
-          v59.f64[1] = 0.0;
+          v22 = TXTextObject::getTypographicBounds(*v15);
+          v23 = *(v22 + 16);
+          v61 = *v22;
+          *&v62 = v23;
+          *(&v62 + 1) = v61.f64[1] + *(&v23 + 1);
+          v61.f64[1] = 0.0;
           goto LABEL_55;
         }
 
-        TXTextObject::getImageBounds(*v13, a2, v51);
-        v59 = *v51;
-        v60 = *&v51[16];
-        v17 = 0;
-        if (*(*v13 + 64) == 1)
+        TXTextObject::getImageBounds(v53, *v15, a2);
+        v61 = *v53;
+        v62 = *&v53[16];
+        v19 = 0;
+        if (*(*v15 + 64) == 1)
         {
-          *(&v60 + 1) = 0;
+          *(&v62 + 1) = 0;
         }
       }
 
 LABEL_56:
-      v58 = 0x3FF0000000000000;
-      v55 = 0x3FF0000000000000;
-      v52 = 0x3FF0000000000000;
-      *v51 = 0x3FF0000000000000;
-      memset(&v51[8], 0, 32);
-      v53 = 0u;
-      v54 = 0u;
+      v60 = 0x3FF0000000000000;
+      v57 = 0x3FF0000000000000;
+      v54 = 0x3FF0000000000000;
+      *v53 = 0x3FF0000000000000;
+      memset(&v53[8], 0, 32);
+      v55 = 0u;
       v56 = 0u;
-      v57 = 0u;
-      TXTextObject::getTransformMatrix(*v13, v51, &time.value, 1, 1, 0, 1, 0.0, 0.0);
-      if (!PCMatrix44Tmpl<double>::transformRect<double>(v51, v59.f64, &v59))
+      v58 = 0u;
+      v59 = 0u;
+      TXTextObject::getTransformMatrix(*v15, v53, &time.value, 1, 1, 0, 1uLL, 0.0, 0.0);
+      if (!PCMatrix44Tmpl<double>::transformRect<double>(v53, v61.f64, &v61))
       {
         goto LABEL_57;
       }
 
 LABEL_10:
-      if (*&v60 <= 0.0 || *(&v60 + 1) <= 0.0)
+      if (*&v62 <= 0.0 || *(&v62 + 1) <= 0.0)
       {
 LABEL_57:
-        if (v17)
+        if (v19)
         {
           goto LABEL_59;
         }
@@ -5783,19 +5777,19 @@ LABEL_57:
         goto LABEL_58;
       }
 
-      PCRect<double>::operator|=(a3, &v59);
-      v13 += 2;
-      if (v13 == v14)
+      PCRect<double>::operator|=(a3, &v61);
+      v15 += 2;
+      if (v15 == v16)
       {
-        v18 = 1;
+        v20 = 1;
       }
 
       else
       {
-        v18 = v17;
+        v20 = v19;
       }
 
-      if (v18)
+      if (v20)
       {
         goto LABEL_59;
       }
@@ -5804,93 +5798,94 @@ LABEL_57:
     switch(var29)
     {
       case 0:
-        v28 = TXTextObject::getTypographicBounds(*v13);
-        v17 = 0;
-        v29 = *(v28 + 16);
-        v59 = *v28;
-        v60 = v29;
+        v30 = TXTextObject::getTypographicBounds(*v15);
+        v19 = 0;
+        v31 = *(v30 + 16);
+        v61 = *v30;
+        v62 = v31;
         goto LABEL_56;
       case 1:
-        v33 = *(v15 + 33);
-        if (v33)
-        {
-          v34 = *(v33 + 8);
-          v35 = *(v33 + 16);
-          if (v35)
-          {
-            atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
-          }
-        }
-
-        else
-        {
-          v35 = 0;
-          v34 = 0;
-        }
-
-        *v51 = *&a2->var0.var0;
-        *&v51[16] = a2->var0.var3;
-        v46 = TXTextStyle::getSize(v34, v51, 0.0);
+        v35 = *(v17 + 33);
         if (v35)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v35);
-        }
-
-        v47 = v46;
-        XHeight = TXTextObject::getCapHeight(*v13, v46);
-        TXTextObject::getBoundingRectForGlyph(*v13, v47);
-        break;
-      case 2:
-        v22 = *(v15 + 33);
-        if (v22)
-        {
-          v23 = *(v22 + 8);
-          v24 = *(v22 + 16);
-          if (v24)
+          v36 = *(v35 + 8);
+          v37 = *(v35 + 16);
+          if (v37)
           {
-            atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
           }
         }
 
         else
         {
-          v24 = 0;
-          v23 = 0;
+          v37 = 0;
+          v36 = 0;
         }
 
-        *v51 = *&a2->var0.var0;
-        *&v51[16] = a2->var0.var3;
-        v41 = TXTextStyle::getSize(v23, v51, 0.0);
+        *v53 = *&a2->var0.var0;
+        *&v53[16] = a2->var0.var3;
+        v48 = TXTextStyle::getSize(v36, v53, 0.0);
+        if (v37)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v37);
+        }
+
+        v49 = v48;
+        XHeight = TXTextObject::getCapHeight(*v15, v48);
+        TXTextObject::getBoundingRectForGlyph(*v15, v49);
+        break;
+      case 2:
+        v24 = *(v17 + 33);
         if (v24)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+          v25 = *(v24 + 8);
+          v26 = *(v24 + 16);
+          if (v26)
+          {
+            atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+          }
         }
 
-        v42 = v41;
-        XHeight = TXTextObject::getXHeight(*v13, v41);
-        TXTextObject::getBoundingRectForGlyph(*v13, v42);
+        else
+        {
+          v26 = 0;
+          v25 = 0;
+        }
+
+        *v53 = *&a2->var0.var0;
+        *&v53[16] = a2->var0.var3;
+        v43 = TXTextStyle::getSize(v25, v53, 0.0);
+        if (v26)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+        }
+
+        v44 = v43;
+        XHeight = TXTextObject::getXHeight(*v15, v43);
+        TXTextObject::getBoundingRectForGlyph(*v15, v44);
         break;
       default:
         goto LABEL_56;
     }
 
-    v59 = v44;
-    v32 = XHeight;
-    *&v60 = v45;
+    v61 = v46;
+    v34 = XHeight;
+    *&v62 = v47;
 LABEL_54:
-    *(&v60 + 1) = v32;
+    *(&v62 + 1) = v34;
 LABEL_55:
-    v17 = v49;
+    v19 = v51;
     goto LABEL_56;
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v64);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v66);
 }
 
-void sub_25FAE7E64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_25FAE7E64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  OZRenderParams::~OZRenderParams(&a33);
-  OZLockingGroup::WriteSentry::~WriteSentry((v33 - 160));
+  va_start(va, a32);
+  OZRenderParams::~OZRenderParams(va);
+  OZLockingGroup::WriteSentry::~WriteSentry((v32 - 160));
   _Unwind_Resume(a1);
 }
 
@@ -5922,13 +5917,13 @@ LABEL_7:
   return v8;
 }
 
-void OZValueCache<OZBoundsCacheItem>::add(uint64_t a1, uint64_t a2)
+void OZValueCache<OZBoundsCacheItem>::add(void *a1, uint64_t a2)
 {
-  PCSharedMutex::lock((a1 + 40));
-  std::list<OZProjectedBoundsCacheItem>::remove_if<OZ_VC_SameKey<OZProjectedBoundsCacheItem>>(a1 + 8, *(a2 + 8));
-  if (*(a1 + 24) >= *(a1 + 32))
+  PCSharedMutex::lock((a1 + 5));
+  std::list<OZProjectedBoundsCacheItem>::remove_if<OZ_VC_SameKey<OZProjectedBoundsCacheItem>>((a1 + 1), *(a2 + 8));
+  if (a1[3] >= a1[4])
   {
-    std::list<OZProjectedBoundsCacheItem>::pop_front(a1 + 8);
+    std::list<OZProjectedBoundsCacheItem>::pop_front((a1 + 1));
   }
 
   operator new();
@@ -5965,325 +5960,325 @@ uint64_t TXTextLayout::getLocalVolumeForHitCheck(PCString *a1, uint64_t a2, uint
   return result;
 }
 
-void TXTextLayout::getLocalVolume(uint64_t a1)
+void TXTextLayout::getLocalVolume(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = MEMORY[0x28223BE20](a1);
-  v3 = v2;
-  v5 = v4;
-  v6 = v1;
-  v102 = *MEMORY[0x277D85DE8];
-  if ((*(*v1 + 304))(v1))
+  v5 = MEMORY[0x28223BE20](a1, a2, a3, a4, a5);
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
+  v109 = *MEMORY[0x277D85DE8];
+  if ((*(*v10 + 304))(v10, v5))
   {
 
-    OZElement::getLocalVolume(v6 + 200, v5);
+    OZElement::getLocalVolume(v11 + 200, v9);
     return;
   }
 
-  v7 = (*(*v6 + 296))(v6);
-  if (OZChannel::getValueAsInt((v6 + 20464), MEMORY[0x277CC08F0], 0.0) != 1 || (v7 & 1) != 0)
+  v12 = (*(*v11 + 296))(v11);
+  if (OZChannel::getValueAsInt((v11 + 20464), MEMORY[0x277CC08F0], 0.0) != 1 || (v12 & 1) != 0)
   {
-    v13 = Li3DEngineScene::sceneManager(v6);
-    OZLockingGroup::WriteSentry::WriteSentry(v95, v13);
-    PCWorkingColorVector::PCWorkingColorVector(&v94);
-    TXTextLayout::doLayout(v6, v3, &v94);
-    v14 = v6 + 58824;
-    v76 = v6;
-    if (v7)
+    v18 = Li3DEngineScene::sceneManager(v11);
+    OZLockingGroup::WriteSentry::WriteSentry(v102, v18);
+    PCWorkingColorVector::PCWorkingColorVector(&v101);
+    TXTextLayout::doLayout(v11, v7, &v101, v19, v20);
+    v21 = v11 + 58824;
+    v83 = v11;
+    if (v12)
     {
-      PCHashWriteStream::PCHashWriteStream(&v99);
-      v15 = v7;
-      PCHashWriteStream::writeValue(&v99, 1);
-      v16 = *v14;
-      v17 = *(v14 + 8);
-      if (*v14 != v17)
+      PCHashWriteStream::PCHashWriteStream(&v106);
+      v22 = v12;
+      PCHashWriteStream::writeValue(&v106, 1);
+      v23 = *v21;
+      v24 = *(v21 + 8);
+      if (*v21 != v24)
       {
-        v18 = MEMORY[0x277CC08F0];
+        v25 = MEMORY[0x277CC08F0];
         do
         {
-          ExtrusionDepth = TXTextObject::getExtrusionDepth(*v16, v3);
-          PCHashWriteStream::writeValue(&v99, ExtrusionDepth);
-          v20 = *(*v16 + 33);
-          v21 = *(v20 + 8);
-          v22 = *(v20 + 16);
-          if (v22)
+          ExtrusionDepth = TXTextObject::getExtrusionDepth(*v23, v7);
+          PCHashWriteStream::writeValue(&v106, ExtrusionDepth);
+          v27 = *(*v23 + 33);
+          v28 = *(v27 + 8);
+          v29 = *(v27 + 16);
+          if (v29)
           {
-            atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          ValueAsInt = OZChannel::getValueAsInt((v21 + 41056), v18, 0.0);
-          PCHashWriteStream::writeValue(&v99, ValueAsInt);
-          if (v22)
+          ValueAsInt = OZChannel::getValueAsInt((v28 + 41056), v25, 0.0);
+          PCHashWriteStream::writeValue(&v106, ValueAsInt);
+          if (v29)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v29);
           }
 
-          v16 += 2;
+          v23 += 2;
         }
 
-        while (v16 != v17);
+        while (v23 != v24);
       }
 
-      Hash = PCHashWriteStream::getHash(&v99);
-      PCHash128::operator+=(v94.i32, Hash);
-      PCHashWriteStream::~PCHashWriteStream(&v99);
-      v7 = v15;
-      v6 = v76;
+      Hash = PCHashWriteStream::getHash(&v106);
+      PCHash128::operator+=(v101.i32, Hash);
+      PCHashWriteStream::~PCHashWriteStream(&v106);
+      v12 = v22;
+      v11 = v83;
     }
 
-    v79 = (v14 + 232);
-    if (*(v14 + 232) <= *(v14 + 240) && *(v14 + 248) <= *(v14 + 256) && *(v14 + 264) <= *(v14 + 272) && (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(v94, *(v6 + 59104))))) & 1) == 0 && (*(v6 + 19392) & 1) == 0 && (TXTextLayout::isAnyParagraphDirty(v6) & 1) == 0 && OZChannel::getValueAsInt((v6 + 20464), MEMORY[0x277CC08F0], 0.0) != 2 && !v3->var22)
+    v86 = (v21 + 232);
+    if (*(v21 + 232) <= *(v21 + 240) && *(v21 + 248) <= *(v21 + 256) && *(v21 + 264) <= *(v21 + 272) && (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(v101, *(v11 + 59104))))) & 1) == 0 && (*(v11 + 19392) & 1) == 0 && (TXTextLayout::isAnyParagraphDirty(v11) & 1) == 0 && OZChannel::getValueAsInt((v11 + 20464), MEMORY[0x277CC08F0], 0.0) != 2 && !v7->var22)
     {
-      v73 = *v79;
-      v74 = *(v14 + 264);
-      *(v5 + 16) = *(v14 + 248);
-      *(v5 + 32) = v74;
-      *v5 = v73;
+      v80 = *v86;
+      v81 = *(v21 + 264);
+      *(v9 + 16) = *(v21 + 248);
+      *(v9 + 32) = v81;
+      *v9 = v80;
       goto LABEL_108;
     }
 
-    *(v6 + 59088) = xmmword_2603429E0;
-    *(v6 + 59072) = xmmword_2603429E0;
-    *(v6 + 59056) = xmmword_2603429E0;
-    OZRenderParams::OZRenderParams(&v99);
-    OZRenderParams::setState(&v99, v3);
-    v78 = (v14 + 240);
-    v75 = v5;
-    v101 = 1;
-    v26 = *v14;
-    v25 = *(v14 + 8);
-    if (*v14 != v25)
+    *(v11 + 59088) = xmmword_2603429E0;
+    *(v11 + 59072) = xmmword_2603429E0;
+    *(v11 + 59056) = xmmword_2603429E0;
+    OZRenderParams::OZRenderParams(&v106);
+    OZRenderParams::setState(&v106, v7);
+    v85 = (v21 + 240);
+    v82 = v9;
+    v108 = 1;
+    v33 = *v21;
+    v32 = *(v21 + 8);
+    if (*v21 != v32)
     {
       __asm { FMOV            V0.2D, #-1.0 }
 
-      v77 = _Q0;
+      v84 = _Q0;
       while (1)
       {
-        v92 = 0uLL;
-        v93 = v77;
-        v90 = xmmword_2603429E0;
-        v91 = xmmword_2603429E0;
-        v89 = xmmword_2603429E0;
-        if ((v7 & 1) == 0)
+        v99 = 0uLL;
+        v100 = v84;
+        v97 = xmmword_2603429E0;
+        v98 = xmmword_2603429E0;
+        v96 = xmmword_2603429E0;
+        if ((v12 & 1) == 0)
         {
           break;
         }
 
-        TXTextObject::getBoundingImageVolume(*v26, &v89, &v99);
+        TXTextObject::getBoundingImageVolume(*v33, &v96, &v106);
 LABEL_53:
-        v44 = v7;
-        v88 = 0x3FF0000000000000;
-        v85 = 0x3FF0000000000000;
-        v82 = 0x3FF0000000000000;
+        v51 = v12;
+        v95 = 0x3FF0000000000000;
+        v92 = 0x3FF0000000000000;
+        v89 = 0x3FF0000000000000;
         var0.value = 0x3FF0000000000000;
         *&var0.timescale = 0u;
-        v81 = 0u;
-        v83 = 0u;
-        v84 = 0u;
-        v86 = 0u;
-        v87 = 0u;
-        TXTextObject::getTransformMatrix(*v26, &var0, &v99, 1, 1, 0, 1, 0.0, 0.0);
-        v45 = 0;
-        v46 = 0;
-        v47 = -1.0;
-        v48 = 1.0;
-        v49 = 1.0;
-        v50 = -1.0;
-        v51 = 1.0;
-        v52 = -1.0;
+        v88 = 0u;
+        v90 = 0u;
+        v91 = 0u;
+        v93 = 0u;
+        v94 = 0u;
+        TXTextObject::getTransformMatrix(*v33, &var0, &v106, 1, 1, 0, 1uLL, 0.0, 0.0);
+        v52 = 0;
+        v53 = 0;
+        v54 = -1.0;
+        v55 = 1.0;
+        v56 = 1.0;
+        v57 = -1.0;
+        v58 = 1.0;
+        v59 = -1.0;
         do
         {
-          v53 = (&v90 + 8);
-          if ((v46 & 2) != 0)
+          v60 = (&v97 + 8);
+          if ((v53 & 2) != 0)
           {
-            v53 = &v90;
+            v60 = &v97;
           }
 
-          v54 = *v53;
-          v55 = (&v91 + 8);
-          if (v46 >= 4)
+          v61 = *v60;
+          v62 = (&v98 + 8);
+          if (v53 >= 4)
           {
-            v55 = &v91;
+            v62 = &v98;
           }
 
-          v56 = *v55;
-          v96 = *(&v89 | v45 & 8 ^ 8);
-          v97 = v54;
-          v98 = v56;
-          PCMatrix44Tmpl<double>::transform<double>(&var0.value, &v96, &v96);
-          if (v45)
+          v63 = *v62;
+          v103 = *(&v96 | v52 & 8 ^ 8);
+          v104 = v61;
+          v105 = v63;
+          PCMatrix44Tmpl<double>::transform<double>(&var0.value, &v103, &v103);
+          if (v52)
           {
-            if (v48 >= v96)
+            if (v55 >= v103)
             {
-              v48 = v96;
+              v55 = v103;
             }
 
-            if (v47 <= v96)
+            if (v54 <= v103)
             {
-              v47 = v96;
+              v54 = v103;
             }
 
-            if (v49 >= v97)
+            if (v56 >= v104)
             {
-              v49 = v97;
+              v56 = v104;
             }
 
-            if (v50 <= v97)
+            if (v57 <= v104)
             {
-              v50 = v97;
+              v57 = v104;
             }
 
-            if (v51 >= v98)
+            if (v58 >= v105)
             {
-              v51 = v98;
+              v58 = v105;
             }
 
-            if (v52 <= v98)
+            if (v59 <= v105)
             {
-              v52 = v98;
+              v59 = v105;
             }
           }
 
           else
           {
-            v50 = v97;
-            v52 = v98;
-            v51 = v98;
-            v49 = v97;
-            v47 = v96;
-            v48 = v96;
+            v57 = v104;
+            v59 = v105;
+            v58 = v105;
+            v56 = v104;
+            v54 = v103;
+            v55 = v103;
           }
 
-          ++v46;
-          v45 += 8;
+          ++v53;
+          v52 += 8;
         }
 
-        while (v45 != 64);
-        v57 = *v79;
-        v58 = *v78;
-        if (*v79 <= *v78 && (v60 = *(v14 + 248), v59 = *(v14 + 256), v60 <= v59) && (v62 = *(v14 + 264), v61 = *(v14 + 272), v62 <= v61))
+        while (v52 != 64);
+        v64 = *v86;
+        v65 = *v85;
+        if (*v86 <= *v85 && (v67 = *(v21 + 248), v66 = *(v21 + 256), v67 <= v66) && (v69 = *(v21 + 264), v68 = *(v21 + 272), v69 <= v68))
         {
-          v64 = v48 <= v47 && v49 <= v50 && v51 <= v52;
-          v7 = v44;
-          if (!v64)
+          v71 = v55 <= v54 && v56 <= v57 && v58 <= v59;
+          v12 = v51;
+          if (!v71)
           {
             goto LABEL_79;
           }
 
-          if (v57 >= v48)
+          if (v64 >= v55)
           {
-            v57 = v48;
+            v64 = v55;
           }
 
-          if (v58 <= v47)
+          if (v65 <= v54)
           {
-            v58 = v47;
+            v65 = v54;
           }
 
-          *(v14 + 232) = v57;
-          *(v14 + 240) = v58;
-          if (v60 >= v49)
+          *(v21 + 232) = v64;
+          *(v21 + 240) = v65;
+          if (v67 >= v56)
           {
-            v60 = v49;
+            v67 = v56;
           }
 
-          if (v59 <= v50)
+          if (v66 <= v57)
           {
-            v59 = v50;
+            v66 = v57;
           }
 
-          *(v14 + 248) = v60;
-          *(v14 + 256) = v59;
-          if (v62 >= v51)
+          *(v21 + 248) = v67;
+          *(v21 + 256) = v66;
+          if (v69 >= v58)
           {
-            v65 = v51;
+            v72 = v58;
           }
 
           else
           {
-            v65 = v62;
+            v72 = v69;
           }
 
-          *(v14 + 264) = v65;
-          if (v61 > v52)
+          *(v21 + 264) = v72;
+          if (v68 > v59)
           {
-            v52 = v61;
+            v59 = v68;
           }
         }
 
         else
         {
-          *(v14 + 232) = v48;
-          *(v14 + 240) = v47;
-          *(v14 + 248) = v49;
-          *(v14 + 256) = v50;
-          *(v14 + 264) = v51;
-          v7 = v44;
+          *(v21 + 232) = v55;
+          *(v21 + 240) = v54;
+          *(v21 + 248) = v56;
+          *(v21 + 256) = v57;
+          *(v21 + 264) = v58;
+          v12 = v51;
         }
 
-        *(v14 + 272) = v52;
+        *(v21 + 272) = v59;
 LABEL_79:
-        v26 += 2;
-        if (v26 == v25)
+        v33 += 2;
+        if (v33 == v32)
         {
           goto LABEL_103;
         }
       }
 
-      var29 = v3->var29;
+      var29 = v7->var29;
       if (var29 <= 1)
       {
         if (var29)
         {
           if (var29 == 1)
           {
-            v29 = *(*v26 + 33);
-            if (v29)
+            v36 = *(*v33 + 33);
+            if (v36)
             {
-              v30 = *(v29 + 8);
-              v31 = *(v29 + 16);
-              if (v31)
+              v37 = *(v36 + 8);
+              v38 = *(v36 + 16);
+              if (v38)
               {
-                atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
               }
             }
 
             else
             {
-              v31 = 0;
-              v30 = 0;
+              v38 = 0;
+              v37 = 0;
             }
 
-            var0 = v3->var0;
-            Size = TXTextStyle::getSize(v30, &var0, 0.0);
-            if (v31)
+            var0 = v7->var0;
+            Size = TXTextStyle::getSize(v37, &var0, 0.0);
+            if (v38)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v38);
             }
 
-            v38 = Size;
-            CapHeight = TXTextObject::getCapHeight(*v26, Size);
-            TXTextObject::getBoundingRectForGlyph(*v26, v38);
+            v45 = Size;
+            CapHeight = TXTextObject::getCapHeight(*v33, Size);
+            TXTextObject::getBoundingRectForGlyph(*v33, v45);
 LABEL_51:
-            v92 = v40;
-            *&v93 = v41;
-            *(&v93 + 1) = CapHeight;
+            v99 = v47;
+            *&v100 = v48;
+            *(&v100 + 1) = CapHeight;
           }
         }
 
         else
         {
-          TypographicBounds = TXTextObject::getTypographicBounds(*v26);
-          v33 = *(TypographicBounds + 16);
-          v92 = *TypographicBounds;
-          v93 = v33;
+          TypographicBounds = TXTextObject::getTypographicBounds(*v33);
+          v40 = *(TypographicBounds + 16);
+          v99 = *TypographicBounds;
+          v100 = v40;
         }
 
 LABEL_52:
-        *&v89 = v92.f64[0];
-        *(&v89 + 1) = v92.f64[0] + *&v93;
-        *&v90 = v92.f64[1];
-        *(&v90 + 1) = v92.f64[1] + *(&v93 + 1);
-        v91 = 0uLL;
+        *&v96 = v99.f64[0];
+        *(&v96 + 1) = v99.f64[0] + *&v100;
+        *&v97 = v99.f64[1];
+        *(&v97 + 1) = v99.f64[1] + *(&v100 + 1);
+        v98 = 0uLL;
         goto LABEL_53;
       }
 
@@ -6291,99 +6286,99 @@ LABEL_52:
       {
         if (var29 == 3)
         {
-          TXTextObject::getImageBoundsWithFourCornerPinning(*v26, &v99, &v92, 5);
+          TXTextObject::getImageBoundsWithFourCornerPinning(*v33, &v106, &v99, 5);
         }
 
         goto LABEL_52;
       }
 
-      v34 = *(*v26 + 33);
-      if (v34)
+      v41 = *(*v33 + 33);
+      if (v41)
       {
-        v35 = *(v34 + 8);
-        v36 = *(v34 + 16);
-        if (v36)
+        v42 = *(v41 + 8);
+        v43 = *(v41 + 16);
+        if (v43)
         {
-          atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v43->__shared_owners_, 1uLL, memory_order_relaxed);
         }
       }
 
       else
       {
-        v36 = 0;
-        v35 = 0;
+        v43 = 0;
+        v42 = 0;
       }
 
-      var0 = v3->var0;
-      v42 = TXTextStyle::getSize(v35, &var0, 0.0);
-      if (v36)
+      var0 = v7->var0;
+      v49 = TXTextStyle::getSize(v42, &var0, 0.0);
+      if (v43)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v36);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v43);
       }
 
-      v43 = v42;
-      CapHeight = TXTextObject::getXHeight(*v26, v42);
-      TXTextObject::getBoundingRectForGlyph(*v26, v43);
+      v50 = v49;
+      CapHeight = TXTextObject::getXHeight(*v33, v49);
+      TXTextObject::getBoundingRectForGlyph(*v33, v50);
       goto LABEL_51;
     }
 
 LABEL_103:
-    v66 = (v14 + 240);
-    if (OZChannel::getValueAsInt((v76 + 20464), MEMORY[0x277CC08F0], 0.0) == 1 || OZChannel::getValueAsInt((v76 + 20464), MEMORY[0x277CC08F0], 0.0) == 3)
+    v73 = (v21 + 240);
+    if (OZChannel::getValueAsInt((v83 + 20464), MEMORY[0x277CC08F0], 0.0) == 1 || OZChannel::getValueAsInt((v83 + 20464), MEMORY[0x277CC08F0], 0.0) == 3)
     {
-      *(v14 + 248) = 0.0 - TXTextLayout::getScrollPositionInPixels(v76) + *(v14 + 248);
-      ScrollPositionInPixels = TXTextLayout::getScrollPositionInPixels(v76);
-      v66 = (v14 + 256);
+      *(v21 + 248) = 0.0 - TXTextLayout::getScrollPositionInPixels(v83) + *(v21 + 248);
+      ScrollPositionInPixels = TXTextLayout::getScrollPositionInPixels(v83);
+      v73 = (v21 + 256);
     }
 
     else
     {
-      if (OZChannel::getValueAsInt((v76 + 20464), MEMORY[0x277CC08F0], 0.0) != 4)
+      if (OZChannel::getValueAsInt((v83 + 20464), MEMORY[0x277CC08F0], 0.0) != 4)
       {
         goto LABEL_107;
       }
 
-      *v79 = 0.0 - TXTextLayout::getScrollPositionInPixels(v76) + *v79;
-      ScrollPositionInPixels = TXTextLayout::getScrollPositionInPixels(v76);
+      *v86 = 0.0 - TXTextLayout::getScrollPositionInPixels(v83) + *v86;
+      ScrollPositionInPixels = TXTextLayout::getScrollPositionInPixels(v83);
     }
 
-    *v66 = 0.0 - ScrollPositionInPixels + *v66;
+    *v73 = 0.0 - ScrollPositionInPixels + *v73;
 LABEL_107:
-    v68 = *v79;
-    v69 = *(v14 + 264);
-    v75[1] = *(v14 + 248);
-    v75[2] = v69;
-    *v75 = v68;
-    *(v76 + 59104) = v94;
-    OZRenderParams::~OZRenderParams(&v99);
+    v75 = *v86;
+    v76 = *(v21 + 264);
+    v82[1] = *(v21 + 248);
+    v82[2] = v76;
+    *v82 = v75;
+    *(v83 + 59104) = v101;
+    OZRenderParams::~OZRenderParams(&v106);
 LABEL_108:
-    OZLockingGroup::WriteSentry::~WriteSentry(v95);
+    OZLockingGroup::WriteSentry::~WriteSentry(v102);
     return;
   }
 
-  v99 = 0uLL;
+  v106 = 0uLL;
   __asm { FMOV            V0.2D, #-1.0 }
 
-  v100 = _Q0;
-  if (v3->var20)
+  *v107 = _Q0;
+  if (v7->var20)
   {
-    (*(*v6 + 352))(v6, &v99);
+    (*(*v11 + 352))(v11, &v106);
   }
 
   else
   {
-    (*(*(v6 + 200) + 1488))(v6 + 200, &v99, v3);
+    (*(*(v11 + 200) + 1488))(v11 + 200, &v106, v7);
   }
 
-  v70 = *(&v99 + 1);
-  v71 = *&v99 + *&v100;
-  v72 = *(&v99 + 1) + *(&v100 + 1);
-  *v5 = v99;
-  *(v5 + 8) = v71;
-  *(v5 + 16) = v70;
-  *(v5 + 24) = v72;
-  *(v5 + 32) = 0;
-  *(v5 + 40) = 0;
+  v77 = *(&v106 + 1);
+  v78 = *&v106 + v107[0];
+  v79 = *(&v106 + 1) + v107[1];
+  *v9 = v106;
+  *(v9 + 8) = v78;
+  *(v9 + 16) = v77;
+  *(v9 + 24) = v79;
+  *(v9 + 32) = 0;
+  *(v9 + 40) = 0;
 }
 
 void TXTextLayout::updateLineBreaksByHardLine(TXTextLayout *this)
@@ -6566,7 +6561,7 @@ void TXTextLayout::updateLineBreaks(PCString *this)
   {
     StringPtr = TXChannelString::getStringPtr(&this[2381]);
     v23 = PCString::size(StringPtr);
-    TXChannelString::getString(this + 2381, &theString);
+    TXChannelString::getString(&theString, this + 2381);
     CharacterAtIndex = CFStringGetCharacterAtIndex(theString, (v23 - 1));
     if (TXCharacterSetIsNewline(CharacterAtIndex))
     {
@@ -6614,7 +6609,7 @@ void TXTextLayout::computeLineOffsets(PCString *this, int a2, int a3, unint64_t 
   if (!a4)
   {
     *a5 = 0;
-    TXChannelString::getString(this + 2381, &v9);
+    TXChannelString::getString(&v9, this + 2381);
     v7 = PCString::size(&v9);
     goto LABEL_6;
   }
@@ -6624,7 +6619,7 @@ void TXTextLayout::computeLineOffsets(PCString *this, int a2, int a3, unint64_t 
     *a5 = a4[a2 - 1];
     if (a3 - 1 == a2)
     {
-      TXChannelString::getString(this + 2381, &v9);
+      TXChannelString::getString(&v9, this + 2381);
       v7 = PCString::size(&v9);
 LABEL_6:
       *a6 = v7;
@@ -6644,7 +6639,7 @@ LABEL_6:
   *a6 = v8;
 }
 
-uint64_t TXTextLayout::timeGlyphPropertiesMap(TXTextLayout *this)
+TXTimeGlyphPropertiesMap *TXTextLayout::timeGlyphPropertiesMap(TXTextLayout *this)
 {
   if (!*(this + 7649))
   {
@@ -6661,7 +6656,7 @@ uint64_t TXTextLayout::getPosition@<X0>(TXTextLayout *this@<X0>, CMTime *a2@<X1>
   return TXTimeGlyphPropertiesMap::getPosition(v7, a2, a3, a4);
 }
 
-double TXTextLayout::setPosition(TXTextLayout *a1, CMTime *a2, unsigned int *a3, __n128 *a4)
+double TXTextLayout::setPosition(TXTextLayout *a1, _DWORD *a2, _DWORD *a3, __n128 *a4)
 {
   v7 = TXTextLayout::timeGlyphPropertiesMap(a1);
 
@@ -6676,7 +6671,7 @@ uint64_t TXTextLayout::getPathRotation@<X0>(TXTextLayout *this@<X0>, CMTime *a2@
   return TXTimeGlyphPropertiesMap::getPathRotation(v7, a2, a3, a4);
 }
 
-double TXTextLayout::setPathRotation(TXTextLayout *a1, CMTime *a2, unsigned int *a3, __n128 *a4)
+double TXTextLayout::setPathRotation(TXTextLayout *a1, _DWORD *a2, _DWORD *a3, __n128 *a4)
 {
   v7 = TXTextLayout::timeGlyphPropertiesMap(a1);
 
@@ -6711,7 +6706,7 @@ void TXTextLayout::getSelectionBounds(uint64_t a1, uint64_t a2, const OZRenderSt
     v24 = _Q0;
     *(a2 + 16) = _Q0;
     v12 = Li3DEngineScene::sceneManager(a1);
-    OZLockingGroup::WriteSentry::WriteSentry(v27, v12);
+    OZLockingGroup::WriteSentry::WriteSentry(&v27, v12);
     v13 = a1 + 58824;
     v14 = *(a1 + 58824);
     v15 = *(v13 + 8);
@@ -6750,14 +6745,14 @@ void TXTextLayout::getSelectionBounds(uint64_t a1, uint64_t a2, const OZRenderSt
       v14 += 2;
     }
 
-    OZLockingGroup::WriteSentry::~WriteSentry(v27);
+    OZLockingGroup::WriteSentry::~WriteSentry(&v27);
     OZRenderParams::~OZRenderParams(v28);
   }
 }
 
-void sub_25FAE92C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25FAE92C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   OZRenderParams::~OZRenderParams(va);
   _Unwind_Resume(a1);
 }
@@ -6826,9 +6821,9 @@ LABEL_15:
   return v10;
 }
 
-void sub_25FAE952C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FAE952C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -6850,7 +6845,7 @@ double TXTextLayout::getYMarginScale(TXTextLayout *this)
   return result;
 }
 
-BOOL TXTextLayout::scaleAffectsLayout(TXTextLayout *this)
+uint64_t TXTextLayout::scaleAffectsLayout(TXTextLayout *this)
 {
   if (*(this + 63728) == 1)
   {
@@ -6933,10 +6928,10 @@ void TXTextLayout::getWordVolume(TXTextLayout *this@<X0>, unint64_t a2@<X1>, int
               v44 = v27;
               v45 = v26;
               v28 = v46;
-              v29 = *&v46 + 0.0;
-              v30 = *(&v46 + 1) + 0.0;
-              *&v46 = *&v46 + 0.0;
-              *(&v46 + 1) = *(&v46 + 1) + 0.0;
+              v29 = v46.f64[0] + 0.0;
+              v30 = v46.f64[1] + 0.0;
+              v46.f64[0] = v46.f64[0] + 0.0;
+              v46.f64[1] = v46.f64[1] + 0.0;
               v31 = *a4;
               if (vmovn_s64(vcgtq_f64(*a4, vdupq_laneq_s64(*a4, 1))).u8[0] & 1) != 0 || (v32 = a4[1], (vmovn_s64(vcgtq_f64(v32, vdupq_laneq_s64(v32, 1))).u8[0]) || (v34 = a4[2].f64[0], v33 = a4[2].f64[1], v34 > v33))
               {
@@ -6946,7 +6941,7 @@ void TXTextLayout::getWordVolume(TXTextLayout *this@<X0>, unint64_t a2@<X1>, int
                 a4[2] = v46;
               }
 
-              else if (v27.f64[0] <= v27.f64[1] && v26.f64[0] <= v26.f64[1] && *&v28 <= *(&v28 + 1))
+              else if (v27.f64[0] <= v27.f64[1] && v26.f64[0] <= v26.f64[1] && v28.f64[0] <= v28.f64[1])
               {
                 v38 = vmovn_s32(vuzp1q_s32(vcgtq_f64(v27, v31), vcgtq_f64(v26, v32)));
                 v39 = vmovn_s32(vuzp1q_s32(vcgtq_f64(v31, v27), vcgtq_f64(v32, v26)));
@@ -6957,7 +6952,7 @@ void TXTextLayout::getWordVolume(TXTextLayout *this@<X0>, unint64_t a2@<X1>, int
                 v40.i64[1] = v39.u16[3];
                 *a4 = v41;
                 a4[1] = vbslq_s8(vcltzq_s64(vshlq_n_s64(v40, 0x3FuLL)), v32, v26);
-                if (v34 >= *&v28)
+                if (v34 >= v28.f64[0])
                 {
                   v42 = v29;
                 }
@@ -6967,7 +6962,7 @@ void TXTextLayout::getWordVolume(TXTextLayout *this@<X0>, unint64_t a2@<X1>, int
                   v42 = v34;
                 }
 
-                if (v33 <= *(&v28 + 1))
+                if (v33 <= v28.f64[1])
                 {
                   v43 = v30;
                 }
@@ -6999,9 +6994,9 @@ void TXTextLayout::getWordVolume(TXTextLayout *this@<X0>, unint64_t a2@<X1>, int
   }
 }
 
-void sub_25FAE991C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_25FAE991C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
@@ -7009,8 +7004,8 @@ void sub_25FAE991C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 uint64_t TXTextLayout::getTextObjectIterWithCharOffset(TXTextLayout *this, TXTextLayout *a2)
 {
   v4 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::ReadSentry::ReadSentry(v9, v4);
-  TXHelperFunctions::GetTextObjectContainingCharIndex(this, a2, 1, 0, &v7);
+  OZLockingGroup::ReadSentry::ReadSentry(&v9, v4);
+  TXHelperFunctions::GetTextObjectContainingCharIndex(&v7, this, a2, 1, 0);
   if (v7)
   {
     v5 = *(this + 7353) + 16 * *(v7 + 388);
@@ -7026,13 +7021,13 @@ uint64_t TXTextLayout::getTextObjectIterWithCharOffset(TXTextLayout *this, TXTex
     std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  OZLockingGroup::ReadSentry::~ReadSentry(v9);
+  OZLockingGroup::ReadSentry::~ReadSentry(&v9);
   return v5;
 }
 
-void sub_25FAE99C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FAE99C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   OZLockingGroup::ReadSentry::~ReadSentry(va);
   _Unwind_Resume(a1);
 }
@@ -7091,10 +7086,10 @@ LABEL_7:
         v36 = v19;
         v37 = v18;
         v20 = v38;
-        v21 = *&v38 + 0.0;
-        v22 = *(&v38 + 1) + 0.0;
-        *&v38 = *&v38 + 0.0;
-        *(&v38 + 1) = *(&v38 + 1) + 0.0;
+        v21 = v38.f64[0] + 0.0;
+        v22 = v38.f64[1] + 0.0;
+        v38.f64[0] = v38.f64[0] + 0.0;
+        v38.f64[1] = v38.f64[1] + 0.0;
         v23 = *a5;
         if (vmovn_s64(vcgtq_f64(*a5, vdupq_laneq_s64(*a5, 1))).u8[0] & 1) != 0 || (v24 = a5[1], (vmovn_s64(vcgtq_f64(v24, vdupq_laneq_s64(v24, 1))).u8[0]) || (v26 = a5[2].f64[0], v25 = a5[2].f64[1], v26 > v25))
         {
@@ -7104,7 +7099,7 @@ LABEL_7:
           a5[2] = v38;
         }
 
-        else if (v19.f64[0] <= v19.f64[1] && v18.f64[0] <= v18.f64[1] && *&v20 <= *(&v20 + 1))
+        else if (v19.f64[0] <= v19.f64[1] && v18.f64[0] <= v18.f64[1] && v20.f64[0] <= v20.f64[1])
         {
           v30 = vmovn_s32(vuzp1q_s32(vcgtq_f64(v19, v23), vcgtq_f64(v18, v24)));
           v31 = vmovn_s32(vuzp1q_s32(vcgtq_f64(v23, v19), vcgtq_f64(v24, v18)));
@@ -7115,7 +7110,7 @@ LABEL_7:
           v32.i64[1] = v31.u16[3];
           *a5 = v33;
           a5[1] = vbslq_s8(vcltzq_s64(vshlq_n_s64(v32, 0x3FuLL)), v24, v18);
-          if (v26 >= *&v20)
+          if (v26 >= v20.f64[0])
           {
             v34 = v21;
           }
@@ -7125,7 +7120,7 @@ LABEL_7:
             v34 = v26;
           }
 
-          if (v25 <= *(&v20 + 1))
+          if (v25 <= v20.f64[1])
           {
             v35 = v22;
           }
@@ -7147,14 +7142,14 @@ LABEL_7:
   }
 }
 
-BOOL TXTextLayout::getTextObjectTypographicVolumeFromMap(uint64_t a1, _OWORD *a2, unsigned int a3)
+BOOL TXTextLayout::getTextObjectTypographicVolumeFromMap(uint64_t a1, _OWORD *a2, int a3)
 {
   v9 = a3;
   v3 = *(a1 + 61176);
   if (v3)
   {
     v10 = &v9;
-    v5 = std::__tree<std::__value_type<unsigned int,PCBox<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCBox<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCBox<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v3, &v9);
+    v5 = std::__tree<std::__value_type<unsigned int,PCBox<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCBox<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCBox<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v3, &v9, &std::piecewise_construct, &v10);
     v6 = *(v5 + 5);
     v7 = *(v5 + 9);
     a2[1] = *(v5 + 7);
@@ -7165,14 +7160,14 @@ BOOL TXTextLayout::getTextObjectTypographicVolumeFromMap(uint64_t a1, _OWORD *a2
   return v3 != 0;
 }
 
-BOOL TXTextLayout::getTextObjectVolumeFromMap(uint64_t a1, _OWORD *a2, unsigned int a3)
+BOOL TXTextLayout::getTextObjectVolumeFromMap(uint64_t a1, _OWORD *a2, int a3)
 {
   v9 = a3;
   v3 = *(a1 + 61168);
   if (v3)
   {
     v10 = &v9;
-    v5 = std::__tree<std::__value_type<unsigned int,PCBox<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCBox<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCBox<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v3, &v9);
+    v5 = std::__tree<std::__value_type<unsigned int,PCBox<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCBox<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCBox<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v3, &v9, &std::piecewise_construct, &v10);
     v6 = *(v5 + 5);
     v7 = *(v5 + 9);
     a2[1] = *(v5 + 7);
@@ -7198,7 +7193,7 @@ void TXTextLayout::getWordBounds(PCString *this@<X0>, uint64_t a2@<X1>, int a3@<
       {
         LODWORD(v36.f64[0]) = v9;
         v35.var0.var0 = &v36;
-        v31 = std::__tree<std::__value_type<int,PCRect<double>>,std::__map_value_compare<int,std::__value_type<int,PCRect<double>>,std::less<int>,true>,std::allocator<std::__value_type<int,PCRect<double>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&this[8029], &v36);
+        v31 = std::__tree<std::__value_type<int,PCRect<double>>,std::__map_value_compare<int,std::__value_type<int,PCRect<double>>,std::less<int>,true>,std::allocator<std::__value_type<int,PCRect<double>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&this[8029], &v36, &std::piecewise_construct, &v35);
         v32 = *(v31 + 7);
         *a4 = *(v31 + 5);
         *(a4 + 16) = v32;
@@ -7209,7 +7204,7 @@ void TXTextLayout::getWordBounds(PCString *this@<X0>, uint64_t a2@<X1>, int a3@<
     }
   }
 
-  TXChannelString::getString(this + 2381, &v41);
+  TXChannelString::getString(&v41, this + 2381);
   if (PCString::empty(&v41) || (v13 = (this->var0[34].length)(this, a2, 1), v13 == -1))
   {
     *a4 = 0;
@@ -7238,7 +7233,7 @@ void TXTextLayout::getWordBounds(PCString *this@<X0>, uint64_t a2@<X1>, int a3@<
       {
         if (std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>>>::find<unsigned int>(&this[8032].var0, &v40))
         {
-          TXTextLayout::cachedTextObjectForCharIndex(this, v40, &v38);
+          TXTextLayout::cachedTextObjectForCharIndex(&v38, this, v40);
           v23 = v38;
           if (v38 == v22)
           {
@@ -7259,7 +7254,7 @@ void TXTextLayout::getWordBounds(PCString *this@<X0>, uint64_t a2@<X1>, int a3@<
             else
             {
               OZRenderState::OZRenderState(&v35);
-              TXTextObject::getImageBounds(v23, &v35, v34);
+              TXTextObject::getImageBounds(v34, v23, &v35);
               v25 = v34[0];
               v26 = v34[1];
             }
@@ -7302,7 +7297,7 @@ void TXTextLayout::getWordBounds(PCString *this@<X0>, uint64_t a2@<X1>, int a3@<
 
     LODWORD(v36.f64[0]) = v10;
     v35.var0.var0 = &v36;
-    v28 = std::__tree<std::__value_type<int,PCRect<double>>,std::__map_value_compare<int,std::__value_type<int,PCRect<double>>,std::less<int>,true>,std::allocator<std::__value_type<int,PCRect<double>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&this[8029], &v36);
+    v28 = std::__tree<std::__value_type<int,PCRect<double>>,std::__map_value_compare<int,std::__value_type<int,PCRect<double>>,std::less<int>,true>,std::allocator<std::__value_type<int,PCRect<double>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&this[8029], &v36, &std::piecewise_construct, &v35);
     v29 = *a4;
     *(v28 + 7) = *(a4 + 16);
     *(v28 + 5) = v29;
@@ -7317,14 +7312,14 @@ LABEL_33:
   OZLockingGroup::WriteSentry::~WriteSentry(v42);
 }
 
-uint64_t *TXTextLayout::cachedTextObjectForCharIndex@<X0>(TXTextLayout *this@<X0>, unsigned int a2@<W1>, void *a3@<X8>)
+uint64_t *TXTextLayout::cachedTextObjectForCharIndex@<X0>(uint64_t *__return_ptr a1@<X8>, TXTextLayout *this@<X0>, int a3@<W1>)
 {
-  v6 = a2;
+  v6 = a3;
   v7 = &v6;
-  result = std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 8032, &v6);
+  result = std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 8032, &v6, &std::piecewise_construct, &v7);
   v5 = result[4];
-  *a3 = result[3];
-  a3[1] = v5;
+  *a1 = result[3];
+  a1[1] = v5;
   if (v5)
   {
     atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
@@ -7333,8 +7328,9 @@ uint64_t *TXTextLayout::cachedTextObjectForCharIndex@<X0>(TXTextLayout *this@<X0
   return result;
 }
 
-void TXTextLayout::getLineBounds(TXTextLayout *this@<X0>, CMTime *a2@<X2>, unint64_t a3@<X1>, char a4@<W3>, int a5@<W4>, double *a6@<X8>)
+void TXTextLayout::getLineBounds(TXTextLayout *this@<X0>, CMTime *a2@<X2>, unint64_t a3@<X1>, char a4@<W3>, unint64_t a5@<X4>, double *a6@<X8>)
 {
+  v6 = a5;
   v11 = a6;
   *a6 = 0.0;
   a6[1] = 0.0;
@@ -7361,10 +7357,10 @@ void TXTextLayout::getLineBounds(TXTextLayout *this@<X0>, CMTime *a2@<X2>, unint
     do
     {
       v17 = *v14;
-      v53 = 0;
-      *&v49.var0.var0 = *&a2->value;
-      v49.var0.var3 = a2->epoch;
-      OZChannel::getValueAsDouble((v17 + 680), &v49, 0.0);
+      v54 = 0;
+      *&v50.var0.var0 = *&a2->value;
+      v50.var0.var3 = a2->epoch;
+      OZChannel::getValueAsDouble((v17 + 680), &v50, 0.0);
       v19 = v18;
       (*(*this + 712))(this, a2);
       if (*(v17 + 876))
@@ -7373,27 +7369,27 @@ void TXTextLayout::getLineBounds(TXTextLayout *this@<X0>, CMTime *a2@<X2>, unint
         v22 = (v43 + v19) * v20;
         while (1)
         {
-          TXParagraphStyle::getLineMetrics(v17, v21, &v50);
-          v23 = v51;
-          v24 = v51 + v52;
-          v25 = v50;
+          TXParagraphStyle::getLineMetrics(v17, v21, &v51);
+          v23 = v52;
+          v24 = v52 + v53;
+          v25 = v51;
           if (a4)
           {
-            v26 = vabdd_f64(v24, v51);
-            v27 = vabdd_f64(*&v50, *(&v50 + 1));
+            v26 = vabdd_f64(v24, v52);
+            v27 = vabdd_f64(*&v51, *(&v51 + 1));
             v28 = v22 + v27;
-            v29 = v15 ? v16 : *&v50;
+            v29 = v15 ? v16 : *&v51;
             if (!v15)
             {
-              v28 = v22 - *(&v50 + 1);
+              v28 = v22 - *(&v51 + 1);
             }
           }
 
           else
           {
-            OZRenderState::OZRenderState(&v49);
-            *&v49.var0.var0 = *&a2->value;
-            v49.var0.var3 = a2->epoch;
+            OZRenderState::OZRenderState(&v50);
+            *&v50.var0.var0 = *&a2->value;
+            v50.var0.var3 = a2->epoch;
             v30 = *(v17 + 856);
             v29 = 0.0;
             v31 = 3.40282347e38;
@@ -7402,24 +7398,24 @@ void TXTextLayout::getLineBounds(TXTextLayout *this@<X0>, CMTime *a2@<X2>, unint
               v31 = 3.40282347e38;
               do
               {
-                TXHelperFunctions::GetTextObjectContainingCharIndex(this, v30, a5, &v53, &v47);
-                if (!TXCharacterSetIsWhitespaceOrNewline(*(v47 + 60)))
+                TXHelperFunctions::GetTextObjectContainingCharIndex(&v48, this, v30, v6, &v54);
+                if (!TXCharacterSetIsWhitespaceOrNewline(*(v48 + 60)))
                 {
-                  TXTextObject::getImageBounds(v47, &v49, &v45);
-                  if (v29 < v45.f64[1] + v46)
+                  TXTextObject::getImageBounds(&v45, v48, &v50);
+                  if (v29 < v46 + v47)
                   {
-                    v29 = v45.f64[1] + v46;
+                    v29 = v46 + v47;
                   }
 
-                  if (v31 > v45.f64[1])
+                  if (v31 > v46)
                   {
-                    v31 = v45.f64[1];
+                    v31 = v46;
                   }
                 }
 
-                if (v48)
+                if (v49)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v48);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v49);
                 }
 
                 v30 = (v30 + 1);
@@ -7458,14 +7454,14 @@ void TXTextLayout::getLineBounds(TXTextLayout *this@<X0>, CMTime *a2@<X2>, unint
           }
         }
 
-        v49.var0.var0 = 0;
-        v45.f64[0] = 0.0;
+        v50.var0.var0 = 0;
+        v45 = 0.0;
         Alignment = TXParagraphStyle::getAlignment(v17);
         ValueAsInt = OZChannel::getValueAsInt((this + 20464), MEMORY[0x277CC08F0], 0.0);
-        TXTextLayout::getAlignmentOffsetForParagraph(this, v17, &v49.var0.var0, v45.f64, Alignment, ValueAsInt, -1.0, -1.0);
+        TXTextLayout::getAlignmentOffsetForParagraph(this, v17, &v50.var0.var0, &v45, Alignment, ValueAsInt, -1.0, -1.0);
         v40 = v27;
-        v41 = v23 + *&v49.var0.var0;
-        v39 = v29 - v27 + v45.f64[0];
+        v41 = v23 + *&v50.var0.var0;
+        v39 = v29 - v27 + v45;
         v42 = v26;
       }
 
@@ -7642,7 +7638,7 @@ uint64_t TXTextLayout::getTypographicBox(uint64_t a1, float64x2_t *a2, CMTime *a
             v43 = 3.40282347e38;
             while (v40 < v41)
             {
-              TXHelperFunctions::GetTextObjectContainingCharIndex(a1, v40, 1, 0, &v78);
+              TXHelperFunctions::GetTextObjectContainingCharIndex(&v78.value, a1, v40, 1, 0);
               v77 = 0.0;
               OZChannelBase::setRangeName(v78.value, &v79);
               if (v43 > 0.0)
@@ -7895,7 +7891,8 @@ uint64_t TXTextLayout::getFont(PCString *this, PCString *a2)
   {
     Instance = TXFontManager::getInstance(v5);
     CoreTextFont = TXFontManager::getCoreTextFont(Instance, a2);
-    std::__tree<std::__value_type<PCString,TXFont *>,std::__map_value_compare<PCString,std::__value_type<PCString,TXFont *>,std::less<PCString>,true>,std::allocator<std::__value_type<PCString,TXFont *>>>::__emplace_unique_key_args<PCString,std::piecewise_construct_t const&,std::tuple<PCString const&>,std::tuple<>>(this + 7634, a2)[1].info = CoreTextFont;
+    v10 = a2;
+    std::__tree<std::__value_type<PCString,TXFont *>,std::__map_value_compare<PCString,std::__value_type<PCString,TXFont *>,std::less<PCString>,true>,std::allocator<std::__value_type<PCString,TXFont *>>>::__emplace_unique_key_args<PCString,std::piecewise_construct_t const&,std::tuple<PCString const&>,std::tuple<>>(this + 7634, a2, &std::piecewise_construct, &v10, &v9)[1].info = CoreTextFont;
   }
 
   else
@@ -7978,7 +7975,7 @@ void TXTextLayout::getTypographicBoundsWithAlignment(TXTextLayout *this@<X0>, co
 void TXTextLayout::doLineLayout(TXTextLayout *this, unsigned int a2, double a3, CMTime *a4)
 {
   v6 = this;
-  v114[1] = *MEMORY[0x277D85DE8];
+  *(&v114 + 1) = *MEMORY[0x277D85DE8];
   v7 = Li3DEngineScene::sceneManager(this);
   OZLockingGroup::WriteSentry::WriteSentry(v111, v7);
   v8 = *(v6 + 2378);
@@ -7992,12 +7989,12 @@ void TXTextLayout::doLineLayout(TXTextLayout *this, unsigned int a2, double a3, 
   if (v10)
   {
     v11 = *(v9 + 856);
-    TXChannelString::getString(v6 + 2381, &valuePtr);
+    TXChannelString::getString(&valuePtr, v6 + 2381);
     v91 = v11;
-    PCString::substr(&valuePtr, v11, v10, &v107.var0);
+    PCString::substr(&v107.var0, &valuePtr, v11, v10);
     PCString::~PCString(&valuePtr);
     TXTextLayout::getDisplayString(v6, &valuePtr);
-    PCString::substr(&valuePtr, v11, v10, &v106.var0);
+    PCString::substr(&v106.var0, &valuePtr, v11, v10);
     PCString::~PCString(&valuePtr);
     v12 = *MEMORY[0x277CBECE8];
     aStr = CFAttributedStringCreateMutable(*MEMORY[0x277CBECE8], 0);
@@ -8010,7 +8007,7 @@ void TXTextLayout::doLineLayout(TXTextLayout *this, unsigned int a2, double a3, 
     v109 = 0;
     v110 = 0;
     theArray = 0;
-    TXParagraphStyle::getTabs(v9, &valuePtr);
+    TXParagraphStyle::getTabs(&valuePtr, v9);
     v14 = (*&valuePtr.b - *&valuePtr.a) >> 3;
     if (*&valuePtr.a)
     {
@@ -8021,7 +8018,7 @@ void TXTextLayout::doLineLayout(TXTextLayout *this, unsigned int a2, double a3, 
     if (v14 >= 1)
     {
       theArray = CFArrayCreateMutable(v12, v14, MEMORY[0x277CBF128]);
-      TXParagraphStyle::getTabs(v9, &valuePtr);
+      TXParagraphStyle::getTabs(&valuePtr, v9);
       a = valuePtr.a;
       b = valuePtr.b;
       if (*&valuePtr.a != *&valuePtr.b)
@@ -8457,7 +8454,7 @@ LABEL_39:
     v109 = 0;
     v110 = 0;
     __p = 0;
-    std::vector<TXLineMetrics>::__init_with_size[abi:ne200100]<TXLineMetrics const*,TXLineMetrics const*>(&__p, &valuePtr, v114, 1uLL);
+    std::vector<TXLineMetrics>::__init_with_size[abi:ne200100]<TXLineMetrics const*,TXLineMetrics const*>(&__p, &valuePtr, &v114, 1uLL);
     if ((v9 + 888) != &__p)
     {
       std::vector<TXLineMetrics>::__assign_with_size[abi:ne200100]<TXLineMetrics*,TXLineMetrics*>((v9 + 888), __p, v109, (v109 - __p) >> 6);
@@ -8702,7 +8699,7 @@ void TXTextLayout::doParagraphLayout(TXTextLayout *this, TXParagraphStyle *a2, P
         v31 = -v31;
       }
 
-      TXTextLayout::applyCTLineDataToTextObjects(this, line, a2, a3, a4, v31, v30, v61);
+      TXTextLayout::applyCTLineDataToTextObjects(v61, this, line, a2, a3, a4, v31, v30, v57 + v14);
       std::vector<TXLineMetrics>::push_back[abi:ne200100](&v66, v61);
       v32 = v15;
       TrailingWhitespaceWidth = CTLineGetTrailingWhitespaceWidth(line);
@@ -8859,7 +8856,7 @@ void sub_25FAEC114(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void TXTextLayout::doTypeLayout(TXTextLayout *this, CTLineRef line, TXParagraphStyle *a3, const PCString *a4, __CFAttributedString *a5, double a6, const OZRenderState *a7)
+void TXTextLayout::doTypeLayout(TXTextLayout *this, CTLineRef line, TXParagraphStyle *a3, PCString *a4, __CFAttributedString *a5, double a6, const OZRenderState *a7)
 {
   v11 = line;
   *(a3 + 3) = *(a3 + 2);
@@ -8906,7 +8903,7 @@ void TXTextLayout::doTypeLayout(TXTextLayout *this, CTLineRef line, TXParagraphS
     }
   }
 
-  TXTextLayout::applyCTLineDataToTextObjects(this, v11, a3, a4, a5, 0.0, v15, v21);
+  TXTextLayout::applyCTLineDataToTextObjects(v21, this, v11, a3, a4, a5, 0.0, v15, v19);
   std::vector<TXLineMetrics>::push_back[abi:ne200100](&__p, v21);
   if ((a3 + 888) != &__p)
   {
@@ -8927,7 +8924,7 @@ void TXTextLayout::doTypeLayout(TXTextLayout *this, CTLineRef line, TXParagraphS
   }
 }
 
-void sub_25FAEC3CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, const void *a18, uint64_t a19, void *__p, uint64_t a21)
+void sub_25FAEC3CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21)
 {
   PCCFRef<__CTLine const*>::~PCCFRef(&a10);
   PCCFRef<__CTLine const*>::~PCCFRef(&a18);
@@ -8940,7 +8937,7 @@ void sub_25FAEC3CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -8989,7 +8986,7 @@ void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, void *
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -9093,44 +9090,44 @@ double getTrailingKerningWidth(const __CTLine *a1)
   return getTrailingKerningWidthForRun(ValueAtIndex);
 }
 
-void TXTextLayout::applyCTLineDataToTextObjects(TXTextLayout *this@<X0>, CTLineRef line@<X1>, TXParagraphStyle *a3@<X2>, const PCString *a4@<X4>, const __CFAttributedString *a5@<X5>, double a6@<D0>, const OZRenderState *a7@<X6>, uint64_t a8@<X8>)
+void TXTextLayout::applyCTLineDataToTextObjects(uint64_t *__return_ptr a1@<X8>, TXTextLayout *this@<X0>, CTLineRef line@<X1>, TXParagraphStyle *a4@<X2>, PCString *a5@<X4>, const __CFAttributedString *a6@<X5>, double a7@<D0>, const OZRenderState *a8@<X6>, uint64_t a9@<X3>)
 {
   theArray = CTLineGetGlyphRuns(line);
   Count = CFArrayGetCount(theArray);
   ValueAsInt = OZChannel::getValueAsInt((this + 20720), MEMORY[0x277CC08F0], 0.0);
   (*(*this + 304))(this);
-  aStr = a5;
-  Attribute = CFAttributedStringGetAttribute(a5, 0, *MEMORY[0x277CC4920], 0);
+  aStr = a6;
+  Attribute = CFAttributedStringGetAttribute(a6, 0, *MEMORY[0x277CC4920], 0);
   valuePtr[0] = 1;
   if (Attribute)
   {
-    v11 = Attribute;
+    v12 = Attribute;
     valuePtr[0] = 2;
-    v12 = CFNumberCreate(0, kCFNumberIntType, valuePtr);
-    CFNumberCompare(v12, v11, 0);
-    CFRelease(v12);
+    v13 = CFNumberCreate(0, kCFNumberIntType, valuePtr);
+    CFNumberCompare(v13, v12, 0);
+    CFRelease(v13);
   }
 
-  v40 = 0uLL;
+  v41 = 0uLL;
   __asm { FMOV            V0.2D, #-1.0 }
 
-  v41 = _Q0;
+  v42 = _Q0;
   String = CFAttributedStringGetString(aStr);
-  PCURL::PCURL(&v39, String);
+  PCURL::PCURL(&v40, String);
   if (Count >= 1)
   {
-    v19 = *MEMORY[0x277CC4838];
+    v20 = *MEMORY[0x277CC4838];
     ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0);
     CTRunGetGlyphCount(ValueAtIndex);
     Attributes = CTRunGetAttributes(ValueAtIndex);
-    Value = CFDictionaryGetValue(Attributes, v19);
-    v23 = CFAttributedStringGetAttribute(aStr, 0, v19, 0);
+    Value = CFDictionaryGetValue(Attributes, v20);
+    v24 = CFAttributedStringGetAttribute(aStr, 0, v20, 0);
     CTRunGetStringRange(ValueAtIndex);
-    v38 = CTFontCopyPostScriptName(Value);
-    v37 = CTFontCopyPostScriptName(v23);
-    CTFontGetAscent(v23);
-    CTFontGetDescent(v23);
-    CTFontGetLeading(v23);
+    v39 = CTFontCopyPostScriptName(Value);
+    v38 = CTFontCopyPostScriptName(v24);
+    CTFontGetAscent(v24);
+    CTFontGetDescent(v24);
+    CTFontGetLeading(v24);
     CTRunGetStatus(ValueAtIndex);
     glyphs = CTRunGetGlyphsPtr(ValueAtIndex);
     buffer = CTRunGetPositionsPtr(ValueAtIndex);
@@ -9161,21 +9158,21 @@ void TXTextLayout::applyCTLineDataToTextObjects(TXTextLayout *this@<X0>, CTLineR
       operator new[]();
     }
 
-    memset(&v36, 0, sizeof(v36));
-    CTRunGetTextMatrix(&v36, ValueAtIndex);
+    memset(&v37, 0, sizeof(v37));
+    CTRunGetTextMatrix(&v37, ValueAtIndex);
     operator new[]();
   }
 
-  v24.f64[0] = 0.0;
-  *a8 = 0;
-  v24.f64[1] = 0.0;
-  v25 = vbslq_s8(vclezq_f64(v24), 0, v24);
-  *(a8 + 8) = vbicq_s8(vnegq_f64(v25), vceqq_f64(v25, vdupq_n_s64(0x10000000000000uLL)));
-  v26 = v41;
-  *(a8 + 32) = v40;
-  *(a8 + 48) = v26;
-  *(a8 + 24) = 0;
-  PCString::~PCString(&v39);
+  v25.f64[0] = 0.0;
+  *a1 = 0;
+  v25.f64[1] = 0.0;
+  v26 = vbslq_s8(vclezq_f64(v25), 0, v25);
+  *(a1 + 1) = vbicq_s8(vnegq_f64(v26), vceqq_f64(v26, vdupq_n_s64(0x10000000000000uLL)));
+  v27 = v42;
+  *(a1 + 2) = v41;
+  *(a1 + 3) = v27;
+  a1[3] = 0;
+  PCString::~PCString(&v40);
 }
 
 void sub_25FAED790(_Unwind_Exception *a1)
@@ -9264,10 +9261,10 @@ void TXTextLayout::addCaretInsertionPoints(int a1, CFAttributedStringRef aStr, C
       {
         if (v21 - 1 != v20)
         {
-          v24 = (v17 + 32 * v20);
+          v24 = v17 + 32 * v20;
           v25 = *v24;
           v26 = *(v24 + 8);
-          v27 = v24[2];
+          v27 = *(v24 + 16);
           if ((*(v24 + 24) ^ v26))
           {
             v28 = *(v24 + 9);
@@ -9353,28 +9350,29 @@ LABEL_30:
   }
 }
 
-void sub_25FAEDD34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_25FAEDD34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
+  va_start(va, a33);
   if (__p)
   {
     operator delete(__p);
   }
 
   _Block_object_dispose(&a30, 8);
-  _Block_object_dispose(&a34, 8);
-  _Block_object_dispose((v34 - 184), 8);
-  _Block_object_dispose((v34 - 152), 8);
-  v36 = *(v34 - 112);
-  if (v36)
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v33 - 184), 8);
+  _Block_object_dispose((v33 - 152), 8);
+  v35 = *(v33 - 112);
+  if (v35)
   {
-    *(v34 - 104) = v36;
-    operator delete(v36);
+    *(v33 - 104) = v35;
+    operator delete(v35);
   }
 
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::vector<unsigned long>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<unsigned long>>::push_back[abi:ne200100](uint64_t a1, const void **a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -9385,7 +9383,7 @@ uint64_t std::vector<std::vector<unsigned long>>::push_back[abi:ne200100](uint64
   else
   {
     std::vector<std::vector<unsigned long>>::__construct_one_at_end[abi:ne200100]<std::vector<unsigned long> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
@@ -9568,9 +9566,9 @@ void *std::vector<std::shared_ptr<TXTextObject>>::insert(void *a1, void *a2, voi
   return v4;
 }
 
-void sub_25FAEE100(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FAEE100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::shared_ptr<TXTextObject>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9796,7 +9794,7 @@ void TXTextLayout::computeComposedCharacterIndices(PCString *this)
 {
   v2 = this + 7680;
   v3 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v77, v3);
+  OZLockingGroup::WriteSentry::WriteSentry(&v77, v3);
   v72 = v2 + 357;
   std::__tree<std::__value_type<unsigned int,TXComposedCharacter>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,TXComposedCharacter>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,TXComposedCharacter>>>::destroy(&v2[357], v2[358].var0);
   v2[357].var0 = &v2[358];
@@ -9805,7 +9803,7 @@ void TXTextLayout::computeComposedCharacterIndices(PCString *this)
   v69 = v2;
   v2[366].var0 = &v2[367];
   *&v2[367].var0 = 0u;
-  TXChannelString::getString(this + 2381, &v76);
+  TXChannelString::getString(&v76, this + 2381);
   v4 = PCString::cf_str(&v76);
   v5 = CFAttributedStringCreate(*MEMORY[0x277CBECE8], v4, 0);
   v6 = CTLineCreateWithAttributedString(v5);
@@ -9881,9 +9879,9 @@ void TXTextLayout::computeComposedCharacterIndices(PCString *this)
       }
 
       v74 = v14;
-      v86[0] = StringRange.location;
-      v79.var0 = v86;
-      v21 = std::__tree<std::__value_type<int,TXDirectionalRun>,std::__map_value_compare<int,std::__value_type<int,TXDirectionalRun>,std::less<int>,true>,std::allocator<std::__value_type<int,TXDirectionalRun>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&v69[366], v86);
+      v87[0] = StringRange.location;
+      v79.var0 = v87;
+      v21 = std::__tree<std::__value_type<int,TXDirectionalRun>,std::__map_value_compare<int,std::__value_type<int,TXDirectionalRun>,std::less<int>,true>,std::allocator<std::__value_type<int,TXDirectionalRun>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&v69[366], v87, &std::piecewise_construct, &v79);
       *(v21 + 5) = StringRange;
       *(v21 + 56) = v12 ^ 1;
     }
@@ -9905,7 +9903,7 @@ void TXTextLayout::computeComposedCharacterIndices(PCString *this)
         Status = CTRunGetStatus(v25);
         v27 = CTRunGetStringRange(v25);
         location = v27.location;
-        PCString::substr(&v76, LODWORD(v27.location), v27.length, &v85.var0);
+        PCString::substr(&v85.var0, &v76, LODWORD(v27.location), v27.length);
         v29 = Status & 1;
         v30 = v23 + PCString::composedCharacterCount(&v85) - 1;
         if (v29 == var0)
@@ -9918,7 +9916,7 @@ void TXTextLayout::computeComposedCharacterIndices(PCString *this)
           v31 = v30;
         }
 
-        PCString::stringWithoutSpacesAndNewlines(&v85, &v84);
+        PCString::stringWithoutSpacesAndNewlines(&v84, &v85);
         v32 = PCString::composedCharacterCount(&v84);
         if (v27.length >= 1)
         {
@@ -9946,15 +9944,15 @@ void TXTextLayout::computeComposedCharacterIndices(PCString *this)
           {
             v35 = PCString::cf_str(&v76);
             RangeOfComposedCharactersAtIndex = CFStringGetRangeOfComposedCharactersAtIndex(v35, location);
-            PCString::substr(&v76, LODWORD(RangeOfComposedCharactersAtIndex.location), RangeOfComposedCharactersAtIndex.length, &v83.var0);
+            PCString::substr(&v83.var0, &v76, LODWORD(RangeOfComposedCharactersAtIndex.location), RangeOfComposedCharactersAtIndex.length);
             PCString::PCString(&v79, &v83);
             v80 = RangeOfComposedCharactersAtIndex;
             *&v81 = __PAIR64__(v31, v23);
             *(&v81 + 1) = __PAIR64__(v33, v24);
             v82 = v29;
             v78 = RangeOfComposedCharactersAtIndex.location;
-            *v86 = &v78;
-            v37 = std::__tree<std::__value_type<unsigned int,TXComposedCharacter>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,TXComposedCharacter>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,TXComposedCharacter>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v72, &v78);
+            *v87 = &v78;
+            v37 = std::__tree<std::__value_type<unsigned int,TXComposedCharacter>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,TXComposedCharacter>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,TXComposedCharacter>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v72, &v78, &std::piecewise_construct, v87, &v86);
             PCString::set(v37 + 5, &v79);
             v38 = v81;
             *(v37 + 3) = v80;
@@ -10008,7 +10006,7 @@ void TXTextLayout::computeComposedCharacterIndices(PCString *this)
         v43 = CTRunGetStatus(*v39);
         v44 = CTRunGetStringRange(v42);
         v45 = v44.location;
-        PCString::substr(&v76, LODWORD(v44.location), v44.length, &v85.var0);
+        PCString::substr(&v85.var0, &v76, LODWORD(v44.location), v44.length);
         v46 = v43 & 1;
         v47 = v40 + PCString::composedCharacterCount(&v85) - 1;
         if (v43)
@@ -10021,7 +10019,7 @@ void TXTextLayout::computeComposedCharacterIndices(PCString *this)
           v48 = v40;
         }
 
-        PCString::stringWithoutSpacesAndNewlines(&v85, &v84);
+        PCString::stringWithoutSpacesAndNewlines(&v84, &v85);
         v49 = PCString::composedCharacterCount(&v84);
         if (v44.length >= 1)
         {
@@ -10049,15 +10047,15 @@ void TXTextLayout::computeComposedCharacterIndices(PCString *this)
           {
             v52 = PCString::cf_str(&v76);
             v53 = CFStringGetRangeOfComposedCharactersAtIndex(v52, v45);
-            PCString::substr(&v76, LODWORD(v53.location), v53.length, &v83.var0);
+            PCString::substr(&v83.var0, &v76, LODWORD(v53.location), v53.length);
             PCString::PCString(&v79, &v83);
             v80 = v53;
             *&v81 = __PAIR64__(v48, v40);
             *(&v81 + 1) = __PAIR64__(v50, v41);
             v82 = v46;
             v78 = v53.location;
-            *v86 = &v78;
-            v54 = std::__tree<std::__value_type<unsigned int,TXComposedCharacter>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,TXComposedCharacter>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,TXComposedCharacter>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v72, &v78);
+            *v87 = &v78;
+            v54 = std::__tree<std::__value_type<unsigned int,TXComposedCharacter>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,TXComposedCharacter>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,TXComposedCharacter>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v72, &v78, &std::piecewise_construct, v87, &v86);
             PCString::set(v54 + 5, &v79);
             v55 = v81;
             *(v54 + 3) = v80;
@@ -10176,5 +10174,5 @@ LABEL_69:
   }
 
   PCString::~PCString(&v76);
-  OZLockingGroup::WriteSentry::~WriteSentry(v77);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v77);
 }

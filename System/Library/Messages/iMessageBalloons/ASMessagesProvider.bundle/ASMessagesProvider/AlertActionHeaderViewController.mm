@@ -17,7 +17,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_6652B0();
+  sub_6652B0(selfCopy);
 }
 
 - (_TtC18ASMessagesProvider31AlertActionHeaderViewController)initWithNibName:(id)name bundle:(id)bundle

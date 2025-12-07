@@ -43,7 +43,7 @@
 
 - (void)sampleBufferChannel:(id)channel didReadSampleBuffer:(opaqueCMSampleBuffer *)buffer andMadeWriteSampleBuffer:(__CVBuffer *)sampleBuffer
 {
-  [(PFAVReaderWriter *)self timeRange];
+  objc_msgSend_timeRange(self, a2, channel);
   v8 = progressOfSampleBufferInTimeRange(buffer, v18);
   progressBlock = self->_progressBlock;
   if (progressBlock)
@@ -77,7 +77,7 @@
 
 - (void)sampleBufferChannel:(id)channel didReadSampleBuffer:(opaqueCMSampleBuffer *)buffer
 {
-  [(PFAVReaderWriter *)self timeRange];
+  objc_msgSend_timeRange(self, a2, channel);
   v6 = progressOfSampleBufferInTimeRange(buffer, v15);
   progressBlock = self->_progressBlock;
   if (progressBlock)
@@ -258,7 +258,7 @@ LABEL_27:
 
   v5 = dispatch_group_create();
   assetWriter = self->assetWriter;
-  [(PFAVReaderWriter *)self timeRange];
+  objc_msgSend_timeRange(self);
   v47 = v45;
   v48 = v46;
   [(AVAssetWriter *)assetWriter startSessionAtSourceTime:&v47];
@@ -600,7 +600,7 @@ LABEL_7:
 
           if (v19)
           {
-            [v19 preferredTransform];
+            objc_msgSend_preferredTransform(v19);
           }
 
           else
@@ -828,7 +828,7 @@ LABEL_64:
         {
           if (asset)
           {
-            [asset duration];
+            objc_msgSend_duration(asset);
           }
 
           else

@@ -265,7 +265,7 @@ uint64_t __34__CNCache_resultWithResourceLock___block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)objectForKey:(id)key
@@ -322,7 +322,6 @@ id __36__CNCache_objectForKey_onCacheMiss___block_invoke(uint64_t a1)
 
   if (!v3)
   {
-    v4 = *(a1 + 40);
     v3 = (*(*(a1 + 48) + 16))();
     if (v3)
     {
@@ -330,9 +329,9 @@ id __36__CNCache_objectForKey_onCacheMiss___block_invoke(uint64_t a1)
     }
   }
 
-  v5 = v3;
+  v4 = v3;
 
-  return v5;
+  return v4;
 }
 
 - (void)setObject:(id)object forKey:(id)key
@@ -438,33 +437,33 @@ void __30__CNCache_addDidEvictHandler___block_invoke(uint64_t a1)
 
 - (void)resourceLock_willSetObject:(id)object forKey:(id)key
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   keyCopy = key;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   boundingStrategies = [(CNCache *)self boundingStrategies];
-  v8 = [boundingStrategies countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [boundingStrategies countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     v11 = object != 0;
     do
     {
       v12 = 0;
       do
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(boundingStrategies);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * v12);
-        v16 = 0;
-        [v13 willUpdateCacheBy:v11 forKey:keyCopy keysToEvict:&v16];
-        v14 = v16;
+        v13 = *(*(&v16 + 1) + 8 * v12);
+        v15 = 0;
+        [v13 willUpdateCacheBy:v11 forKey:keyCopy keysToEvict:&v15];
+        v14 = v15;
         if (v14)
         {
           [(CNCache *)self resourceLock_evictObjectsForKeys:v14];
@@ -474,55 +473,51 @@ void __30__CNCache_addDidEvictHandler___block_invoke(uint64_t a1)
       }
 
       while (v9 != v12);
-      v9 = [boundingStrategies countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [boundingStrategies countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resourceLock_willAccessKey:(id)key
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   keyCopy = key;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   boundingStrategies = [(CNCache *)self boundingStrategies];
-  v6 = [boundingStrategies countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [boundingStrategies countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(boundingStrategies);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) willAccessKey:keyCopy];
+        [*(*(&v10 + 1) + 8 * v9++) willAccessKey:keyCopy];
       }
 
       while (v7 != v9);
-      v7 = [boundingStrategies countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [boundingStrategies countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resourceLock_validateKey:(id)key
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (key)
   {
     keyCopy = key;
@@ -530,10 +525,8 @@ void __30__CNCache_addDidEvictHandler___block_invoke(uint64_t a1)
     keyCopy2 = key;
     v6 = [v4 arrayWithObjects:&keyCopy count:1];
 
-    [(CNCache *)self resourceLock_validateKeys:v6, keyCopy, v9];
+    [(CNCache *)self resourceLock_validateKeys:v6, keyCopy, v8];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resourceLock_validateKeys:(id)keys

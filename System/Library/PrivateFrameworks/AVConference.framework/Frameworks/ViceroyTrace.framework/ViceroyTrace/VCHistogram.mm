@@ -278,34 +278,32 @@ LABEL_8:
 
 - (void)convertHistogramIntoPercentageUsingValuesFrom:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
-    VRTraceErrorLogLevelToCSTR(3u);
+    v0 = VRTraceErrorLogLevelToCSTR(3u);
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315650;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d The number of buckets are not same in both histograms", v3, v4, v5, v6, 2u);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d The number of buckets are not same in both histograms", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertHistogramIntoComplementaryPercentage:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
-    VRTraceErrorLogLevelToCSTR(3u);
+    v0 = VRTraceErrorLogLevelToCSTR(3u);
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315650;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d The number of buckets are not same in both histograms", v3, v4, v5, v6, 2u);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d The number of buckets are not same in both histograms", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 @end

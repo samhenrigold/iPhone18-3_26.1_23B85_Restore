@@ -206,34 +206,34 @@ void __66__AXUIDaemonApplicationDelegate__didUpdateToOrientation_duration___bloc
 + (OS_os_log)loggingFacility
 {
   OUTLINED_FUNCTION_1();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
-  v2 = MEMORY[0x1E69E9C10];
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
+  v3 = MEMORY[0x1E69E9C10];
 
-  return v2;
+  return v3;
 }
 
 + (NSString)debugFeatureName
 {
   OUTLINED_FUNCTION_1();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return &stru_1F4041FC0;
 }
 
 + (BOOL)isFeatureEnabled
 {
   OUTLINED_FUNCTION_1();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return 0;
 }
 
 + (NSString)featureEnabledStatusDidChangeNotification
 {
   OUTLINED_FUNCTION_1();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return &stru_1F4041FC0;
 }
 

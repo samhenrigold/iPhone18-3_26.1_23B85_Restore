@@ -76,7 +76,7 @@
   return queue;
 }
 
-uint64_t __62__CCDataResourceWriter_initializeDatabaseWithLocalDeviceSite___block_invoke(uint64_t a1)
+void *__62__CCDataResourceWriter_initializeDatabaseWithLocalDeviceSite___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _createDatabaseWithLocalDeviceSite:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -150,7 +150,7 @@ void __39__CCDataResourceWriter_removeResource___block_invoke(void *a1)
   return queue;
 }
 
-uint64_t __60__CCDataResourceWriter_submitDatabaseTransactionUsingBlock___block_invoke(uint64_t a1)
+void *__60__CCDataResourceWriter_submitDatabaseTransactionUsingBlock___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _executeDatabaseTransactionUsingBlock:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -223,7 +223,7 @@ void __55__CCDataResourceWriter_performMaintenance_shouldDefer___block_invoke(ui
 
   if (v9)
   {
-    v12 = CCTypeIdentifierRegistryBridge();
+    v12 = CCTypeIdentifierRegistryBridge(v7);
     v13 = [v12 setIdentifierForItemType:{objc_msgSend(v6, "itemType")}];
 
     if (v13)
@@ -258,7 +258,7 @@ void __55__CCDataResourceWriter_performMaintenance_shouldDefer___block_invoke(ui
     v10 = __biome_log_for_category();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [CCDataResourceWriter _temporaryDirectoryURLWithError:?];
+      [CCDataResourceWriter _temporaryDirectoryURLWithError:];
     }
 
     CCSetError(error, v8);
@@ -270,12 +270,12 @@ void __55__CCDataResourceWriter_performMaintenance_shouldDefer___block_invoke(ui
 
 - (BOOL)_createDatabaseWithLocalDeviceSite:(id)site
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   siteCopy = site;
   dispatch_assert_queue_V2(self->_queue);
-  v47 = 0;
-  v5 = [(CCDataResourceWriter *)self _temporaryDirectoryURLWithError:&v47];
-  v6 = v47;
+  v46 = 0;
+  v5 = [(CCDataResourceWriter *)self _temporaryDirectoryURLWithError:&v46];
+  v6 = v46;
   v7 = v6;
   if (v5 && !v6)
   {
@@ -286,22 +286,22 @@ void __55__CCDataResourceWriter_performMaintenance_shouldDefer___block_invoke(ui
       dataResource = self->_dataResource;
       path = [v8 path];
       *buf = 138412546;
-      v49 = dataResource;
-      v50 = 2112;
-      v51 = path;
+      v48 = dataResource;
+      v49 = 2112;
+      v50 = path;
       _os_log_impl(&dword_1B6DB2000, v9, OS_LOG_TYPE_DEFAULT, "(%@) Creating database in temporary path: %@", buf, 0x16u);
     }
 
     v12 = +[CCDatabaseConnection connectionToDatabaseAtURL:dataProtectionClass:openMode:accessAssertion:](CCDatabaseConnection, "connectionToDatabaseAtURL:dataProtectionClass:openMode:accessAssertion:", v8, [objc_opt_class() defaultDataProtectionClass], 3, self->_accessAssertion);
-    v46 = 0;
-    v13 = [v12 openWithError:&v46];
-    v14 = v46;
+    v45 = 0;
+    v13 = [v12 openWithError:&v45];
+    v14 = v45;
     v7 = v14;
     if (v13)
     {
-      v45 = v14;
-      v15 = [v12 beginTransactionWithError:&v45];
-      v16 = v45;
+      v44 = v14;
+      v15 = [v12 beginTransactionWithError:&v44];
+      v16 = v44;
 
       if ((v15 & 1) == 0)
       {
@@ -316,18 +316,18 @@ void __55__CCDataResourceWriter_performMaintenance_shouldDefer___block_invoke(ui
         goto LABEL_35;
       }
 
-      v44 = v16;
-      v17 = [v12 prepareWithError:&v44];
-      v7 = v44;
+      v43 = v16;
+      v17 = [v12 prepareWithError:&v43];
+      v7 = v43;
 
       if (v17)
       {
         v18 = [CCDatabaseUpdater updaterForDatabase:v12];
         if (([v18 registerLocalDeviceSite:siteCopy]& 1) != 0)
         {
-          v43 = v7;
-          v19 = [v12 commitTransactionWithError:&v43];
-          v20 = v43;
+          v42 = v7;
+          v19 = [v12 commitTransactionWithError:&v42];
+          v20 = v42;
 
           if ((v19 & 1) == 0)
           {
@@ -340,9 +340,9 @@ void __55__CCDataResourceWriter_performMaintenance_shouldDefer___block_invoke(ui
             goto LABEL_33;
           }
 
-          v42 = v20;
-          v21 = [v12 closeWithError:&v42];
-          v7 = v42;
+          v41 = v20;
+          v21 = [v12 closeWithError:&v41];
+          v7 = v41;
 
           if (v21)
           {
@@ -351,30 +351,30 @@ void __55__CCDataResourceWriter_performMaintenance_shouldDefer___block_invoke(ui
             p_dataResource = &self->_dataResource;
             resourceDirectoryURL = [(CCDataResource *)v24 resourceDirectoryURL];
             path2 = [resourceDirectoryURL path];
-            LODWORD(v39) = [defaultManager fileExistsAtPath:path2];
+            LODWORD(v38) = [defaultManager fileExistsAtPath:path2];
 
-            if (v39)
+            if (v38)
             {
 LABEL_14:
               path3 = [v5 path];
-              v40 = [path3 cStringUsingEncoding:4];
+              v39 = [path3 cStringUsingEncoding:4];
 
               databaseDirectoryURL = [(CCDataResource *)*p_dataResource databaseDirectoryURL];
               path4 = [databaseDirectoryURL path];
               v32 = [path4 cStringUsingEncoding:4];
 
-              LODWORD(path4) = renamex_np(v40, v32, 4u);
+              LODWORD(path4) = renamex_np(v39, v32, 4u);
               v33 = __biome_log_for_category();
               v34 = v33;
               if (!path4)
               {
                 if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
                 {
-                  v38 = *p_dataResource;
+                  v37 = *p_dataResource;
                   *buf = 138412546;
-                  v49 = v38;
-                  v50 = 2080;
-                  v51 = v32;
+                  v48 = v37;
+                  v49 = 2080;
+                  v50 = v32;
                   _os_log_impl(&dword_1B6DB2000, v34, OS_LOG_TYPE_DEFAULT, "(%@) Successfully renamed temporary directory and moved to final path: %s", buf, 0x16u);
                 }
 
@@ -392,11 +392,11 @@ LABEL_14:
 
             defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
             resourceDirectoryURL2 = [(CCDataResource *)*p_dataResource resourceDirectoryURL];
-            v41 = v7;
-            LODWORD(v39) = [defaultManager2 createDirectoryAtURL:resourceDirectoryURL2 withIntermediateDirectories:1 attributes:0 error:&v41];
-            v20 = v41;
+            v40 = v7;
+            LODWORD(v38) = [defaultManager2 createDirectoryAtURL:resourceDirectoryURL2 withIntermediateDirectories:1 attributes:0 error:&v40];
+            v20 = v40;
 
-            if (v39)
+            if (v38)
             {
               v7 = v20;
               goto LABEL_14;
@@ -468,16 +468,15 @@ LABEL_35:
   v35 = 0;
 LABEL_36:
 
-  v36 = *MEMORY[0x1E69E9840];
   return v35;
 }
 
 - (BOOL)_removeResource:(id *)resource
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v23 = 0;
-  v5 = [(CCDataResourceWriter *)self _temporaryDirectoryURLWithError:&v23];
-  v6 = v23;
+  v27 = *MEMORY[0x1E69E9840];
+  v22 = 0;
+  v5 = [(CCDataResourceWriter *)self _temporaryDirectoryURLWithError:&v22];
+  v6 = v22;
   v7 = v6;
   if (!v5 || v6)
   {
@@ -519,30 +518,30 @@ LABEL_9:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v25 = v12;
-    v26 = 2080;
-    v27 = v9;
+    v24 = v12;
+    v25 = 2080;
+    v26 = v9;
     _os_log_impl(&dword_1B6DB2000, v14, OS_LOG_TYPE_DEFAULT, "Successfully renamed directory at path %s into %s", buf, 0x16u);
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v22 = 0;
-  v20 = [defaultManager removeItemAtURL:v5 error:&v22];
-  v7 = v22;
+  v21 = 0;
+  v19 = [defaultManager removeItemAtURL:v5 error:&v21];
+  v7 = v21;
 
-  v21 = __biome_log_for_category();
-  v15 = v21;
-  if (v20)
+  v20 = __biome_log_for_category();
+  v15 = v20;
+  if (v19)
   {
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = v5;
+      v24 = v5;
       _os_log_impl(&dword_1B6DB2000, v15, OS_LOG_TYPE_DEFAULT, "Successfully removed folder at %@", buf, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     [CCDataResourceWriter _removeResource:];
   }
@@ -550,7 +549,6 @@ LABEL_9:
   v16 = 1;
 LABEL_10:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -592,19 +590,19 @@ LABEL_10:
 
 - (BOOL)_executeDatabaseTransactionUsingBlock:(id)block
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   dispatch_assert_queue_V2(self->_queue);
-  v25 = 0;
-  v5 = [(CCDataResourceWriter *)self _loadDatabase:&v25];
-  v6 = v25;
+  v24 = 0;
+  v5 = [(CCDataResourceWriter *)self _loadDatabase:&v24];
+  v6 = v24;
   v7 = v6;
   if (!v5)
   {
     v15 = __biome_log_for_category();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [CCDataResourceWriter _executeDatabaseTransactionUsingBlock:?];
+      [CCDataResourceWriter _executeDatabaseTransactionUsingBlock:];
     }
 
 LABEL_17:
@@ -612,18 +610,18 @@ LABEL_17:
     goto LABEL_22;
   }
 
-  v24 = v6;
-  v8 = [v5 beginTransactionWithError:&v24];
-  v9 = v24;
+  v23 = v6;
+  v8 = [v5 beginTransactionWithError:&v23];
+  v9 = v23;
 
   if (v8)
   {
-    v23 = 0;
-    if (blockCopy[2](blockCopy, v5, &v23) && [objc_opt_class() incrementRowsModified:v23 database:v5])
+    v22 = 0;
+    if (blockCopy[2](blockCopy, v5, &v22) && [objc_opt_class() incrementRowsModified:v22 database:v5])
     {
-      v22 = v9;
-      v10 = [v5 commitTransactionWithError:&v22];
-      v7 = v22;
+      v21 = v9;
+      v10 = [v5 commitTransactionWithError:&v21];
+      v7 = v21;
 
       v11 = __biome_log_for_category();
       v12 = v11;
@@ -633,7 +631,7 @@ LABEL_17:
         {
           dataResource = self->_dataResource;
           *buf = 138412290;
-          v27 = dataResource;
+          v26 = dataResource;
           _os_log_impl(&dword_1B6DB2000, v12, OS_LOG_TYPE_DEFAULT, "(%@) Successfully committed database transaction", buf, 0xCu);
         }
 
@@ -645,7 +643,7 @@ LABEL_21:
 
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [CCDataResourceWriter _executeDatabaseTransactionUsingBlock:?];
+        [CCDataResourceWriter _executeDatabaseTransactionUsingBlock:];
       }
     }
 
@@ -655,16 +653,16 @@ LABEL_21:
     }
 
     v17 = v7;
-    v21 = v7;
-    v18 = [v5 rollbackTransactionWithError:&v21];
-    v7 = v21;
+    v20 = v7;
+    v18 = [v5 rollbackTransactionWithError:&v20];
+    v7 = v20;
 
     if ((v18 & 1) == 0)
     {
       v12 = __biome_log_for_category();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [CCDataResourceWriter _executeDatabaseTransactionUsingBlock:?];
+        [CCDataResourceWriter _executeDatabaseTransactionUsingBlock:];
       }
 
       v14 = 0;
@@ -677,36 +675,35 @@ LABEL_21:
   v16 = __biome_log_for_category();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    [CCDataResourceWriter _executeDatabaseTransactionUsingBlock:?];
+    [CCDataResourceWriter _executeDatabaseTransactionUsingBlock:];
   }
 
   v14 = 0;
   v7 = v9;
 LABEL_22:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)_cleanupDatabaseIfRequired
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
-  v25 = 0;
-  v3 = [(CCDataResourceWriter *)self _loadDatabase:&v25];
-  v4 = v25;
+  v24 = 0;
+  v3 = [(CCDataResourceWriter *)self _loadDatabase:&v24];
+  v4 = v24;
   if (v3)
   {
-    v24 = v4;
-    v5 = [CCDatabaseUpdater selectRowsModifiedCountInDatabase:v3 error:&v24];
-    v6 = v24;
+    v23 = v4;
+    v5 = [CCDatabaseUpdater selectRowsModifiedCountInDatabase:v3 error:&v23];
+    v6 = v23;
 
     if (v6)
     {
       v7 = __biome_log_for_category();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        [(CCDataResourceWriter *)self _cleanupDatabaseIfRequired];
+        [CCDataResourceWriter _cleanupDatabaseIfRequired];
       }
 
       goto LABEL_26;
@@ -724,11 +721,11 @@ LABEL_22:
         v12 = &stru_1F2EBB700;
       }
 
-      v27 = dataResource;
-      v28 = 2112;
-      v29 = v12;
-      v30 = 2112;
-      v31 = v5;
+      v26 = dataResource;
+      v27 = 2112;
+      v28 = v12;
+      v29 = 2112;
+      v30 = v5;
       _os_log_impl(&dword_1B6DB2000, v10, OS_LOG_TYPE_DEFAULT, "(%@) Database cleanup is %@ required. %@ rows have been modified since last cleanup", buf, 0x20u);
     }
 
@@ -739,31 +736,31 @@ LABEL_22:
 
     else
     {
-      v23 = 0;
-      v13 = [v3 cleanup:&v23];
-      v14 = v23;
+      v22 = 0;
+      v13 = [v3 cleanup:&v22];
+      v14 = v22;
       if (!v13)
       {
         v17 = __biome_log_for_category();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          [(CCDataResourceWriter *)self _cleanupDatabaseIfRequired];
+          [CCDataResourceWriter _cleanupDatabaseIfRequired];
         }
 
         v16 = v14;
         goto LABEL_22;
       }
 
-      v22 = v14;
-      v15 = [CCDatabaseUpdater upsertRowsModified:0 database:v3 error:&v22];
-      v16 = v22;
+      v21 = v14;
+      v15 = [CCDatabaseUpdater upsertRowsModified:0 database:v3 error:&v21];
+      v16 = v21;
 
       if (!v15)
       {
         v17 = __biome_log_for_category();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          [(CCDataResourceWriter *)self _cleanupDatabaseIfRequired];
+          [CCDataResourceWriter _cleanupDatabaseIfRequired];
         }
 
 LABEL_22:
@@ -775,9 +772,9 @@ LABEL_22:
 
     v8 = 1;
 LABEL_23:
-    v21 = v16;
-    v18 = [v3 closeWithError:&v21];
-    v6 = v21;
+    v20 = v16;
+    v18 = [v3 closeWithError:&v20];
+    v6 = v20;
 
     if (v18)
     {
@@ -789,7 +786,7 @@ LABEL_27:
     v7 = __biome_log_for_category();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(CCDataResourceWriter *)self _cleanupDatabaseIfRequired];
+      [CCDataResourceWriter _cleanupDatabaseIfRequired];
     }
 
 LABEL_26:
@@ -801,26 +798,25 @@ LABEL_26:
   v5 = __biome_log_for_category();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    [CCDataResourceWriter _executeDatabaseTransactionUsingBlock:?];
+    [CCDataResourceWriter _executeDatabaseTransactionUsingBlock:];
   }
 
   v8 = 0;
 LABEL_28:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (BOOL)_didCompleteMaintenance:(id *)maintenance shouldDefer:(id)defer
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   deferCopy = defer;
   dispatch_assert_queue_V2(self->_queue);
   p_dataResource = &self->_dataResource;
   dataResource = self->_dataResource;
-  v38 = 0;
-  v9 = [(CCDataResource *)dataResource databaseFileExists:&v38];
-  v10 = v38;
+  v37 = 0;
+  v9 = [(CCDataResource *)dataResource databaseFileExists:&v37];
+  v10 = v37;
   v11 = __biome_log_for_category();
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
   if (v9)
@@ -836,24 +832,24 @@ LABEL_28:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v42 = 0;
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __60__CCDataResourceWriter__didCompleteMaintenance_shouldDefer___block_invoke;
-    v35[3] = &unk_1E7C8BA70;
+    v41 = 0;
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __60__CCDataResourceWriter__didCompleteMaintenance_shouldDefer___block_invoke;
+    v34[3] = &unk_1E7C8BA70;
     v14 = deferCopy;
-    v36 = v14;
-    v37 = buf;
-    if (![(CCDataResourceWriter *)self _executeDatabaseTransactionUsingBlock:v35])
+    v35 = v14;
+    v36 = buf;
+    if (![(CCDataResourceWriter *)self _executeDatabaseTransactionUsingBlock:v34])
     {
       v20 = __biome_log_for_category();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        [CCDataResourceWriter _didCompleteMaintenance:? shouldDefer:?];
+        [CCDataResourceWriter _didCompleteMaintenance:shouldDefer:];
       }
 
       v19 = 0;
-      v15 = v36;
+      v15 = v35;
       goto LABEL_30;
     }
 
@@ -863,11 +859,11 @@ LABEL_28:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         v16 = *p_dataResource;
-        *v39 = 138412290;
-        v40 = v16;
+        *v38 = 138412290;
+        v39 = v16;
         v17 = "(%@) Aborting maintenance due to deferral signal";
 LABEL_28:
-        _os_log_impl(&dword_1B6DB2000, v15, OS_LOG_TYPE_DEFAULT, v17, v39, 0xCu);
+        _os_log_impl(&dword_1B6DB2000, v15, OS_LOG_TYPE_DEFAULT, v17, v38, 0xCu);
         goto LABEL_29;
       }
 
@@ -879,7 +875,7 @@ LABEL_28:
       v15 = __biome_log_for_category();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [CCDataResourceWriter _didCompleteMaintenance:? shouldDefer:?];
+        [CCDataResourceWriter _didCompleteMaintenance:shouldDefer:];
       }
 
       goto LABEL_29;
@@ -891,8 +887,8 @@ LABEL_28:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         v25 = *p_dataResource;
-        *v39 = 138412290;
-        v40 = v25;
+        *v38 = 138412290;
+        v39 = v25;
         v17 = "(%@) Aborting maintenance after failing to record date";
         goto LABEL_28;
       }
@@ -911,20 +907,20 @@ LABEL_30:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         v22 = *p_dataResource;
-        *v39 = 138412290;
-        v40 = v22;
-        _os_log_impl(&dword_1B6DB2000, v21, OS_LOG_TYPE_DEFAULT, "(%@) Tombstoning set after maintenance removed all remaining state", v39, 0xCu);
+        *v38 = 138412290;
+        v39 = v22;
+        _os_log_impl(&dword_1B6DB2000, v21, OS_LOG_TYPE_DEFAULT, "(%@) Tombstoning set after maintenance removed all remaining state", v38, 0xCu);
       }
 
-      v34 = 0;
-      v23 = [(CCDataResourceWriter *)self _tombstoneResource:&v34];
-      v15 = v34;
+      v33 = 0;
+      v23 = [(CCDataResourceWriter *)self _tombstoneResource:&v33];
+      v15 = v33;
       if (!v23)
       {
         v24 = __biome_log_for_category();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          [CCDataResourceWriter _didCompleteMaintenance:? shouldDefer:?];
+          [CCDataResourceWriter _didCompleteMaintenance:shouldDefer:];
         }
 
         goto LABEL_29;
@@ -939,33 +935,33 @@ LABEL_36:
         v15 = __biome_log_for_category();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = *p_dataResource;
-          *v39 = 138412290;
-          v40 = v31;
-          _os_log_impl(&dword_1B6DB2000, v15, OS_LOG_TYPE_DEFAULT, "(%@) Finished database maintenance", v39, 0xCu);
+          v30 = *p_dataResource;
+          *v38 = 138412290;
+          v39 = v30;
+          _os_log_impl(&dword_1B6DB2000, v15, OS_LOG_TYPE_DEFAULT, "(%@) Finished database maintenance", v38, 0xCu);
         }
 
         v19 = 1;
         goto LABEL_30;
       }
 
-      v28 = *p_dataResource;
-      v33 = 0;
-      v29 = [v28 setWithError:&v33];
-      v15 = v33;
-      if (!v29)
+      v27 = *p_dataResource;
+      v32 = 0;
+      v28 = [(CCDataResource *)v27 setWithError:&v32];
+      v15 = v32;
+      if (!v28)
       {
-        v32 = __biome_log_for_category();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v31 = __biome_log_for_category();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
-          [CCDataResourceWriter _didCompleteMaintenance:? shouldDefer:?];
+          [CCDataResourceWriter _didCompleteMaintenance:shouldDefer:];
         }
 
         goto LABEL_29;
       }
 
-      v30 = v29;
-      *maintenance = v29;
+      v29 = v28;
+      *maintenance = v28;
     }
 
     goto LABEL_36;
@@ -984,7 +980,6 @@ LABEL_36:
   v19 = 1;
 LABEL_31:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -1075,201 +1070,106 @@ LABEL_11:
 
 - (void)_temporaryDirectoryURLWithError:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   [a1 itemType];
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-- (void)_temporaryDirectoryURLWithError:(uint64_t *)a1 .cold.2(uint64_t *a1)
+- (void)_temporaryDirectoryURLWithError:.cold.2()
 {
-  OUTLINED_FUNCTION_8_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v1, v2, "Could not obtain set from data resource: %@ with error: %@");
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_createDatabaseWithLocalDeviceSite:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Could not open database connection with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_createDatabaseWithLocalDeviceSite:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Could not begin database transaction with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_createDatabaseWithLocalDeviceSite:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Could not prepare database connection with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_createDatabaseWithLocalDeviceSite:.cold.5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Could not commit database transaction with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_createDatabaseWithLocalDeviceSite:.cold.6()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Could not close database connection with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v0, v1, "Could not obtain set from data resource: %@ with error: %@");
 }
 
 - (void)_createDatabaseWithLocalDeviceSite:(id *)a1 .cold.7(id *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*a1 resourceDirectoryURL];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_createDatabaseWithLocalDeviceSite:.cold.8()
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_createDatabaseWithLocalDeviceSite:.cold.9()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Could not resolve temporary database path with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
 - (void)_removeResource:.cold.2()
 {
   OUTLINED_FUNCTION_7_0();
-  v6 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E69C5D08] isDeviceUnlocked];
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)_removeResource:.cold.3()
+- (void)_executeDatabaseTransactionUsingBlock:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Could not resolve temporary directory path with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_executeDatabaseTransactionUsingBlock:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v1, v2, "(%@) Failed to begin transaction: %@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v0, v1, "(%@) Failed to begin transaction: %@");
 }
 
-- (void)_executeDatabaseTransactionUsingBlock:(uint64_t)a1 .cold.2(uint64_t a1)
+- (void)_executeDatabaseTransactionUsingBlock:.cold.2()
 {
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v1, v2, "(%@) Failed to commit transaction: %@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v0, v1, "(%@) Failed to commit transaction: %@");
 }
 
-- (void)_executeDatabaseTransactionUsingBlock:(uint64_t)a1 .cold.3(uint64_t a1)
+- (void)_executeDatabaseTransactionUsingBlock:.cold.3()
 {
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v1, v2, "(%@) Failed to rollback transaction: %@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v0, v1, "(%@) Failed to rollback transaction: %@");
 }
 
-- (void)_executeDatabaseTransactionUsingBlock:(uint64_t)a1 .cold.4(uint64_t a1)
+- (void)_executeDatabaseTransactionUsingBlock:.cold.4()
 {
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v1, v2, "(%@) Failed to open database: %@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v0, v1, "(%@) Failed to open database: %@");
 }
 
 - (void)_cleanupDatabaseIfRequired
 {
-  OUTLINED_FUNCTION_5_0(self, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v1, v2, "(%@) Failed to reset rows modified in database: %@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v0, v1, "(%@) Failed to reset rows modified in database: %@");
 }
 
-- (void)_didCompleteMaintenance:(uint64_t *)a1 shouldDefer:.cold.1(uint64_t *a1)
+- (void)_didCompleteMaintenance:shouldDefer:.cold.1()
 {
-  OUTLINED_FUNCTION_8_0(a1, *MEMORY[0x1E69E9840]);
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v1, v2, "(%@) Failed to complete data resource-specific maintenance", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_8_0(*MEMORY[0x1E69E9840]);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v1, v2, "(%@) Failed to complete data resource-specific maintenance", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
-- (void)_didCompleteMaintenance:(uint64_t *)a1 shouldDefer:.cold.2(uint64_t *a1)
+- (void)_didCompleteMaintenance:shouldDefer:.cold.2()
 {
-  OUTLINED_FUNCTION_8_0(a1, *MEMORY[0x1E69E9840]);
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v1, v2, "(%@) Failed to clean database", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_8_0(*MEMORY[0x1E69E9840]);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v1, v2, "(%@) Failed to clean database", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
-- (void)_didCompleteMaintenance:(uint64_t *)a1 shouldDefer:.cold.3(uint64_t *a1)
+- (void)_didCompleteMaintenance:shouldDefer:.cold.3()
 {
-  OUTLINED_FUNCTION_8_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v1, v2, "(%@) Failed to resolve set: %@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v0, v1, "(%@) Failed to resolve set: %@");
 }
 
-- (void)_didCompleteMaintenance:(uint64_t *)a1 shouldDefer:.cold.4(uint64_t *a1)
+- (void)_didCompleteMaintenance:shouldDefer:.cold.4()
 {
-  OUTLINED_FUNCTION_8_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v1, v2, "(%@) Maintenance failed to tombstone set: %@");
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __60__CCDataResourceWriter__didCompleteMaintenance_shouldDefer___block_invoke_27_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Failed to update last maintenance date: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)incrementRowsModified:database:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Failed to select rows modified in database: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)incrementRowsModified:database:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Failed to update rows modified in database: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v0, v1, "(%@) Maintenance failed to tombstone set: %@");
 }
 
 @end

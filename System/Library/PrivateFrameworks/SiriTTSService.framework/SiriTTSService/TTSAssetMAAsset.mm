@@ -57,9 +57,9 @@
 - (int64_t)versionNumber
 {
   selfCopy = self;
-  v3 = sub_1B1B4D498();
+  v4 = sub_1B1B4D498(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (NSArray)supportedLanguages
@@ -179,8 +179,8 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   sub_1B1B4EEC4(options, v8, v11, v10, v12);
-  sub_1B1A949B4(v10);
-  sub_1B1A949B4(v8);
+  sub_1B1A949B4(v10, v12);
+  sub_1B1A949B4(v8, v11);
 }
 
 - (void)cancelDownloadingThen:(id)then
@@ -217,7 +217,7 @@ LABEL_6:
 
   selfCopy = self;
   sub_1B1B4F648(v7, v6);
-  sub_1B1A949B4(v7);
+  sub_1B1A949B4(v7, v6);
 }
 
 @end

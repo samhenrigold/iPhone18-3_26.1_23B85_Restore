@@ -17,7 +17,7 @@
 {
   monitorCopy = monitor;
   v6 = objc_opt_new();
-  v7 = STKClass0SMSLog();
+  v7 = STKClass0SMSLog(v6);
   v16.receiver = self;
   v16.super_class = STKClass0SMSAlertSessionManager;
   v8 = [(STKAlertSessionManager *)&v16 initWithEventQueue:v6 logger:v7];
@@ -98,17 +98,16 @@
 
 - (void)smsMessageClass0Received:(id)received body:(id)body address:(id)address
 {
-  queue = self->_queue;
   addressCopy = address;
   bodyCopy = body;
   receivedCopy = received;
   BSDispatchQueueAssert();
-  v12 = [_STKClass0SMSResponseProvider alloc];
-  v15 = [(STKAlertSessionManager *)self log];
-  v13 = [(_STKClass0SMSResponseProvider *)v12 initWithLogger:v15];
+  v11 = [_STKClass0SMSResponseProvider alloc];
+  v14 = [(STKAlertSessionManager *)self log];
+  v12 = [(_STKClass0SMSResponseProvider *)v11 initWithLogger:v14];
   slotID = [receivedCopy slotID];
 
-  [(STKClass0SMSAlertSessionManager *)self _queue_handleClass0SMSBody:bodyCopy address:addressCopy responder:v13 forSlot:slotID];
+  [(STKClass0SMSAlertSessionManager *)self _queue_handleClass0SMSBody:bodyCopy address:addressCopy responder:v12 forSlot:slotID];
 }
 
 - (void)incomingCallUIStateDidChange:(BOOL)change
@@ -127,40 +126,40 @@
 
 void __64__STKClass0SMSAlertSessionManager_incomingCallUIStateDidChange___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 48) copy];
   v3 = *(a1 + 32);
   v4 = *(v3 + 48);
   *(v3 + 48) = 0;
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = v2;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v16;
+    v9 = *v15;
     *&v7 = 134217984;
-    v14 = v7;
+    v13 = v7;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * v10);
+        v11 = *(*(&v14 + 1) + 8 * v10);
         v12 = [*(a1 + 32) log];
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v14;
-          v20 = v11;
+          *buf = v13;
+          v19 = v11;
           _os_log_impl(&dword_262BB4000, v12, OS_LOG_TYPE_DEFAULT, "Enqueing session (%p) because incoming call UI was dismissed.", buf, 0xCu);
         }
 
@@ -169,13 +168,11 @@ void __64__STKClass0SMSAlertSessionManager_incomingCallUIStateDidChange___block_
       }
 
       while (v8 != v10);
-      v8 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
@@ -236,7 +233,6 @@ void __76__STKClass0SMSAlertSessionManager_remoteAlertHandle_didInvalidateWithEr
 - (void)_queue_setCurrentSession:(id)session
 {
   sessionCopy = session;
-  queue = self->_queue;
   BSDispatchQueueAssert();
   currentSession = self->_currentSession;
   if (currentSession != sessionCopy)
@@ -247,9 +243,9 @@ void __76__STKClass0SMSAlertSessionManager_remoteAlertHandle_didInvalidateWithEr
     [(STKAlertSession *)self->_currentSession invalidate];
   }
 
-  v8 = self->_currentSession;
+  v7 = self->_currentSession;
   self->_currentSession = sessionCopy;
-  v9 = sessionCopy;
+  v8 = sessionCopy;
 
   alertHandle2 = [(STKAlertSession *)self->_currentSession alertHandle];
 
@@ -258,30 +254,29 @@ void __76__STKClass0SMSAlertSessionManager_remoteAlertHandle_didInvalidateWithEr
 
 - (void)_queue_handleClass0SMSBody:(id)body address:(id)address responder:(id)responder forSlot:(int64_t)slot
 {
-  queue = self->_queue;
   responderCopy = responder;
   addressCopy = address;
   bodyCopy = body;
   BSDispatchQueueAssert();
-  v20 = [(STKCarrierSubscriptionMonitor *)self->_subscriptionMonitor subscriptionInfoForSlot:slot];
-  v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  [v14 setObject:bodyCopy forKeyedSubscript:@"Class0SMSBody"];
+  v19 = [(STKCarrierSubscriptionMonitor *)self->_subscriptionMonitor subscriptionInfoForSlot:slot];
+  v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  [v13 setObject:bodyCopy forKeyedSubscript:@"Class0SMSBody"];
 
-  [v14 setObject:addressCopy forKeyedSubscript:@"Class0SMSAddress"];
-  v15 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v20, "showClass0SMSFromField")}];
-  [v14 setObject:v15 forKeyedSubscript:@"Class0SMSShowFromField"];
+  [v13 setObject:addressCopy forKeyedSubscript:@"Class0SMSAddress"];
+  v14 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v19, "showClass0SMSFromField")}];
+  [v13 setObject:v14 forKeyedSubscript:@"Class0SMSShowFromField"];
 
-  v16 = [STKClass0SMSAlertSession alloc];
-  v17 = [(STKAlertSessionManager *)self log];
-  v18 = +[STKSoundFactory class0SMSSound];
-  v19 = [(STKClass0SMSAlertSession *)v16 initWithLogger:v17 responseProvider:responderCopy options:v14 sound:v18 slot:slot];
+  v15 = [STKClass0SMSAlertSession alloc];
+  v16 = [(STKAlertSessionManager *)self log];
+  v17 = +[STKSoundFactory class0SMSSound];
+  v18 = [(STKClass0SMSAlertSession *)v15 initWithLogger:v16 responseProvider:responderCopy options:v13 sound:v17 slot:slot];
 
-  [(STKClass0SMSAlertSessionManager *)self _queue_enqueueSession:v19];
+  [(STKClass0SMSAlertSessionManager *)self _queue_enqueueSession:v18];
 }
 
 - (void)_queue_enqueueSession:(id)session
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   v5 = -[STKCarrierSubscriptionMonitor subscriptionInfoForSlot:](self->_subscriptionMonitor, "subscriptionInfoForSlot:", [sessionCopy slot]);
   if ([(STKIncomingCallUIStateMonitor *)self->_queue_incomingCallStateMonitor isShowingIncomingCallUI])
@@ -296,13 +291,13 @@ void __76__STKClass0SMSAlertSessionManager_remoteAlertHandle_didInvalidateWithEr
 
   if (v6 || ([v5 canShowClass0SMSOverInCallAlerts] & 1) != 0)
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __57__STKClass0SMSAlertSessionManager__queue_enqueueSession___block_invoke;
-    v11[3] = &unk_279B4C620;
-    v11[4] = self;
-    v12 = sessionCopy;
-    [(STKAlertSessionManager *)self enqueuePresentationForSession:v12 completion:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __57__STKClass0SMSAlertSessionManager__queue_enqueueSession___block_invoke;
+    v10[3] = &unk_279B4C620;
+    v10[4] = self;
+    v11 = sessionCopy;
+    [(STKAlertSessionManager *)self enqueuePresentationForSession:v11 completion:v10];
   }
 
   else
@@ -318,14 +313,12 @@ void __76__STKClass0SMSAlertSessionManager_remoteAlertHandle_didInvalidateWithEr
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v14 = sessionCopy;
+      v13 = sessionCopy;
       _os_log_impl(&dword_262BB4000, v9, OS_LOG_TYPE_DEFAULT, "Pending session (%p) due to incoming call UI up and carrier wanting alerts suppressed over incoming call alerts.", buf, 0xCu);
     }
 
     [(NSMutableArray *)self->_queue_pendingAlertSessionsDueToInCallUI addObject:sessionCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __57__STKClass0SMSAlertSessionManager__queue_enqueueSession___block_invoke(uint64_t a1, int a2)

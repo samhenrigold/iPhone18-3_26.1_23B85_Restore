@@ -46,7 +46,7 @@
   CGContextSaveGState(context);
   [self _transformContextToModelCoordinates:context forAnnotation:annotationCopy forDisplay:objc_msgSend(optionsCopy pageControllerOrNil:{"forDisplay"), nilCopy}];
   memset(&v100, 0, sizeof(v100));
-  [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:0];
+  objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
   transform = v100;
   CGContextConcatCTM(context, &transform);
   [annotationCopy rectangle];
@@ -54,7 +54,7 @@
   v15 = +[AKGeometryHelper inverseExifOrientation:](AKGeometryHelper, "inverseExifOrientation:", [annotationCopy originalExifOrientation]);
   memset(&transform, 0, sizeof(transform));
   [annotationCopy rectangle];
-  [AKGeometryHelper affineTransformRecenteringAboutOriginForExifOrientation:v15 withOriginalSize:v16, v17];
+  objc_msgSend_affineTransformRecenteringAboutOriginForExifOrientation_withOriginalSize_(AKGeometryHelper, v16, v17);
   v98 = transform;
   CGContextConcatCTM(context, &v98);
   signature = [annotationCopy signature];
@@ -295,43 +295,20 @@ LABEL_44:
   v9 = v8;
   v11 = v10;
   [annotationCopy rectangle];
-  v26 = CGRectInset(v25, v9, v11);
-  v12 = v26.origin.x;
-  v13 = v26.origin.y;
-  width = v26.size.width;
-  height = v26.size.height;
-  v22 = 0;
-  memset(&v21, 0, sizeof(v21));
-  [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:&v22];
+  v19 = CGRectInset(v18, v9, v11);
+  v12 = v19.origin.x;
+  v13 = v19.origin.y;
+  width = v19.size.width;
+  height = v19.size.height;
+  objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
 
-  if (v22)
-  {
-    v19 = v21;
-    memset(&m, 0, sizeof(m));
-    CGAffineTransformInvert(&m, &v19);
-    v27.origin.x = v12;
-    v27.origin.y = v13;
-    v27.size.width = width;
-    v27.size.height = height;
-    v16 = CGPathCreateWithRect(v27, 0);
-    v23.x = x;
-    v23.y = y;
-    v17 = CGPathContainsPoint(v16, &m, v23, 0);
-    CGPathRelease(v16);
-  }
-
-  else
-  {
-    v28.origin.x = v12;
-    v28.origin.y = v13;
-    v28.size.width = width;
-    v28.size.height = height;
-    v24.x = x;
-    v24.y = y;
-    return CGRectContainsPoint(v28, v24);
-  }
-
-  return v17;
+  v20.origin.x = v12;
+  v20.origin.y = v13;
+  v20.size.width = width;
+  v20.size.height = height;
+  v17.x = x;
+  v17.y = y;
+  return CGRectContainsPoint(v20, v17);
 }
 
 @end

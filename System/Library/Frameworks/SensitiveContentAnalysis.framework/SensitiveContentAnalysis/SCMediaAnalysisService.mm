@@ -827,9 +827,11 @@ LABEL_12:
 - (void)_processMADResults:requestID:error:request:.cold.2()
 {
   OUTLINED_FUNCTION_3();
-  v1 = [v0 error];
+  v2 = [v1 error];
+  LODWORD(v9) = 67109378;
+  HIDWORD(v9) = v0;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1AEA3F000, v2, v3, "MAD request(%d) returns error: %@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_0(&dword_1AEA3F000, v3, v4, "MAD request(%d) returns error: %@", v5, v6, v7, v8, v9);
 }
 
 - (void)_processMADResults:requestID:error:request:.cold.3()
@@ -838,7 +840,7 @@ LABEL_12:
   v1 = [v0 results];
   [v1 count];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1AEA3F000, v2, v3, "MAD request(%d) returns unexpected number of results %lu", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0(&dword_1AEA3F000, v2, v3, "MAD request(%d) returns unexpected number of results %lu", v4, v5, v6, v7);
 }
 
 - (void)_processMADResults:(uint64_t)a1 requestID:(int)a2 error:videoRequest:.cold.1(uint64_t a1, int a2)
@@ -852,9 +854,11 @@ LABEL_12:
 - (void)_processMADResults:requestID:error:videoRequest:.cold.2()
 {
   OUTLINED_FUNCTION_3();
-  v1 = [v0 error];
+  v2 = [v1 error];
+  LODWORD(v9) = 67109378;
+  HIDWORD(v9) = v0;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1AEA3F000, v2, v3, "MAD video request(%d) returns error: %@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_0(&dword_1AEA3F000, v3, v4, "MAD video request(%d) returns error: %@", v5, v6, v7, v8, v9);
 }
 
 - (void)_processMADResults:requestID:error:videoRequest:.cold.3()
@@ -863,7 +867,7 @@ LABEL_12:
   v1 = [v0 results];
   [v1 count];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1AEA3F000, v2, v3, "MAD video request(%d) returns unexpected number of results %lu", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0(&dword_1AEA3F000, v2, v3, "MAD video request(%d) returns unexpected number of results %lu", v4, v5, v6, v7);
 }
 
 @end

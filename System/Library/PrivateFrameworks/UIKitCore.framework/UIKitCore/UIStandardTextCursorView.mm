@@ -256,7 +256,7 @@ id __48__UIStandardTextCursorView__fillColorForEffects__block_invoke(uint64_t a1
 
 - (void)_updateShadow
 {
-  [(UIStandardTextCursorView *)self _shadowSpecForEffects];
+  objc_msgSend__shadowSpecForEffects(self, a2);
   cGColor = [0 CGColor];
   layer = [(UIView *)self->_cursorShapeView layer];
   [layer setShadowColor:cGColor];

@@ -67,33 +67,33 @@ void __54__ATXPCServer__rescheduleIdleTimerSourceWithInterval___block_invoke(uin
 
 - (BOOL)_doingWork
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_connections;
-  v3 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) _outstandingMessages])
+        if ([*(*(&v7 + 1) + 8 * i) _outstandingMessages])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -105,7 +105,6 @@ void __54__ATXPCServer__rescheduleIdleTimerSourceWithInterval___block_invoke(uin
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -203,7 +202,7 @@ LABEL_11:
 
 void __43__ATXPCServer_initListenerWithServiceName___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x23EF202B0]();
   if (v4 == MEMORY[0x277D86450])
@@ -218,15 +217,13 @@ void __43__ATXPCServer_initListenerWithServiceName___block_invoke(uint64_t a1, v
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(*(*(a1 + 32) + 8) + 40);
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2080;
-      v12 = _StringForXPCType(v5);
-      _os_log_impl(&dword_23EC61000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ %s", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2080;
+      v11 = _StringForXPCType(v5);
+      _os_log_impl(&dword_23EC61000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ %s", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNewConnection:(id)connection

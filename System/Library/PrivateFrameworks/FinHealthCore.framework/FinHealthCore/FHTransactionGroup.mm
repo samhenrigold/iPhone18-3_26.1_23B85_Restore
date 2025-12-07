@@ -72,70 +72,68 @@
 
 + (id)deleteOutdatedEntityGroupsAndInsights
 {
-  v33[4] = *MEMORY[0x277D85DE8];
+  v32[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEAC0]);
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__3;
-  v29 = __Block_byref_object_dispose__3;
-  v30 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__3;
-  v23 = __Block_byref_object_dispose__3;
-  v24 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__3;
+  v28 = __Block_byref_object_dispose__3;
+  v29 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__3;
+  v22 = __Block_byref_object_dispose__3;
+  v23 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v4 = [FHDatabaseJoinClauseFromBuilder initWithBuilder:&__block_literal_global_5];
   v5 = [[FHDatabaseEntity alloc] initWithEntity:@"transactions" joinClause:v4];
   v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.t_identifier", @"transactions"];
-  v33[0] = v6;
+  v32[0] = v6;
   v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.t_fh_internal_state", @"transactions"];
-  v33[1] = v7;
+  v32[1] = v7;
   v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.t_identifier", @"fh_grouping"];
-  v33[2] = v8;
+  v32[2] = v8;
   v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.group_id", @"fh_grouping"];
-  v33[3] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:4];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __59__FHTransactionGroup_deleteOutdatedEntityGroupsAndInsights__block_invoke_2;
-  v18[3] = &unk_2785CC6A8;
-  v18[4] = &v25;
-  v18[5] = &v19;
-  [(FHDatabaseEntity *)v5 queryDataWithBlock:0 logicalOperator:@"AND" selectFields:v10 usingBlock:v18];
+  v32[3] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:4];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __59__FHTransactionGroup_deleteOutdatedEntityGroupsAndInsights__block_invoke_2;
+  v17[3] = &unk_2785CC6A8;
+  v17[4] = &v24;
+  v17[5] = &v18;
+  [(FHDatabaseEntity *)v5 queryDataWithBlock:0 logicalOperator:@"AND" selectFields:v10 usingBlock:v17];
 
-  if ([v26[5] count])
+  if ([v25[5] count])
   {
     v11 = FinHealthLogObject(@"FinHealthCore");
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v12 = v26[5];
+      v12 = v25[5];
       *buf = 138412290;
-      v32 = v12;
+      v31 = v12;
       _os_log_impl(&dword_226DD4000, v11, OS_LOG_TYPE_INFO, "Deleting outdated groups: %@", buf, 0xCu);
     }
 
-    v13 = [v26[5] copy];
+    v13 = [v25[5] copy];
     v14 = [self deleteInsightsForGroupIds:v13];
 
     v3 = v14;
   }
 
-  v15 = [v20[5] copy];
+  v15 = [v19[5] copy];
   [self _updateStateForTransactionsWithIds:v15];
 
-  _Block_object_dispose(&v19, 8);
-  _Block_object_dispose(&v25, 8);
-
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v24, 8);
 
   return v3;
 }
 
 void __59__FHTransactionGroup_deleteOutdatedEntityGroupsAndInsights__block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 stringAtIndex:0];
   v5 = [v3 intAtIndex:1];
@@ -151,11 +149,11 @@ void __59__FHTransactionGroup_deleteOutdatedEntityGroupsAndInsights__block_invok
         v11 = FinHealthLogObject(@"FinHealthCore");
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
-          v13 = 138412546;
-          v14 = v7;
-          v15 = 2112;
-          v16 = v6;
-          _os_log_impl(&dword_226DD4000, v11, OS_LOG_TYPE_DEBUG, "Recomputing group %@ -- Transaction %@ was updated", &v13, 0x16u);
+          v12 = 138412546;
+          v13 = v7;
+          v14 = 2112;
+          v15 = v6;
+          _os_log_impl(&dword_226DD4000, v11, OS_LOG_TYPE_DEBUG, "Recomputing group %@ -- Transaction %@ was updated", &v12, 0x16u);
         }
 
         [*(*(*(a1 + 32) + 8) + 40) addObject:v7];
@@ -172,11 +170,11 @@ void __59__FHTransactionGroup_deleteOutdatedEntityGroupsAndInsights__block_invok
     v8 = FinHealthLogObject(@"FinHealthCore");
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v13 = 138412546;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_impl(&dword_226DD4000, v8, OS_LOG_TYPE_DEBUG, "Recomputing group %@ -- Transaction %@ was deleted", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_impl(&dword_226DD4000, v8, OS_LOG_TYPE_DEBUG, "Recomputing group %@ -- Transaction %@ was deleted", &v12, 0x16u);
     }
 
     v9 = 32;
@@ -184,45 +182,43 @@ void __59__FHTransactionGroup_deleteOutdatedEntityGroupsAndInsights__block_invok
 LABEL_15:
     [*(*(*(a1 + v9) + 8) + 40) addObject:v10];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)deleteInsightsForGroupIds:(id)ids
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   idsCopy = ids;
-  v35 = [[FHDatabaseEntity alloc] initWithEntity:?];
-  v31 = [[FHDatabaseEntity alloc] initWithEntity:?];
-  v33 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  [v33 setObject:idsCopy forKey:@"ENTITY-GROUPS"];
-  v43 = 0u;
-  v44 = 0u;
+  v34 = [[FHDatabaseEntity alloc] initWithEntity:?];
+  v30 = [[FHDatabaseEntity alloc] initWithEntity:?];
+  v32 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  [v32 setObject:idsCopy forKey:@"ENTITY-GROUPS"];
   v42 = 0u;
+  v43 = 0u;
   v41 = 0u;
+  v40 = 0u;
   obj = idsCopy;
-  v36 = [obj countByEnumeratingWithState:&v41 objects:v53 count:16];
-  if (v36)
+  v35 = [obj countByEnumeratingWithState:&v40 objects:v52 count:16];
+  if (v35)
   {
-    v34 = *v42;
+    v33 = *v41;
     do
     {
-      for (i = 0; i != v36; ++i)
+      for (i = 0; i != v35; ++i)
       {
-        if (*v42 != v34)
+        if (*v41 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v41 + 1) + 8 * i);
+        v5 = *(*(&v40 + 1) + 8 * i);
         context = objc_autoreleasePoolPush();
-        v40[0] = MEMORY[0x277D85DD0];
-        v40[1] = 3221225472;
-        v40[2] = __48__FHTransactionGroup_deleteInsightsForGroupIds___block_invoke;
-        v40[3] = &unk_2785CB058;
-        v40[4] = v5;
-        v6 = [FHDatabaseClauseFromBuilder initWithBuilder:v40];
-        v7 = [(FHDatabaseEntity *)v35 clearDataWithClauseBuilder:v6];
+        v39[0] = MEMORY[0x277D85DD0];
+        v39[1] = 3221225472;
+        v39[2] = __48__FHTransactionGroup_deleteInsightsForGroupIds___block_invoke;
+        v39[3] = &unk_2785CB058;
+        v39[4] = v5;
+        v6 = [FHDatabaseClauseFromBuilder initWithBuilder:v39];
+        v7 = [(FHDatabaseEntity *)v34 clearDataWithClauseBuilder:v6];
         v8 = FinHealthLogObject(@"FinHealthCore");
         v9 = v8;
         if (v7)
@@ -258,34 +254,34 @@ LABEL_12:
 
         v13 = [FHDatabaseJoinClauseFromBuilder initWithBuilder:&__block_literal_global_146];
         v14 = [[FHDatabaseEntity alloc] initWithEntity:@"fh_grouping" joinClause:v13];
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = __48__FHTransactionGroup_deleteInsightsForGroupIds___block_invoke_2;
-        v39[3] = &unk_2785CB058;
-        v39[4] = v5;
-        v15 = [FHDatabaseClauseFromBuilder initWithBuilder:v39];
-        *&buf = 0;
-        *(&buf + 1) = &buf;
-        v49 = 0x3032000000;
-        v50 = __Block_byref_object_copy__3;
-        v51 = __Block_byref_object_dispose__3;
-        v52 = 0;
-        v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.predicted_score", @"features_predicted_realtime"];
-        v47 = v16;
-        v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
         v38[0] = MEMORY[0x277D85DD0];
         v38[1] = 3221225472;
-        v38[2] = __48__FHTransactionGroup_deleteInsightsForGroupIds___block_invoke_3;
-        v38[3] = &unk_2785CB080;
-        v38[4] = &buf;
-        [(FHDatabaseEntity *)v14 queryDataWithBlock:v15 logicalOperator:@"AND" selectFields:v17 usingBlock:v38];
+        v38[2] = __48__FHTransactionGroup_deleteInsightsForGroupIds___block_invoke_2;
+        v38[3] = &unk_2785CB058;
+        v38[4] = v5;
+        v15 = [FHDatabaseClauseFromBuilder initWithBuilder:v38];
+        *&buf = 0;
+        *(&buf + 1) = &buf;
+        v48 = 0x3032000000;
+        v49 = __Block_byref_object_copy__3;
+        v50 = __Block_byref_object_dispose__3;
+        v51 = 0;
+        v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.predicted_score", @"features_predicted_realtime"];
+        v46 = v16;
+        v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __48__FHTransactionGroup_deleteInsightsForGroupIds___block_invoke_3;
+        v37[3] = &unk_2785CB080;
+        v37[4] = &buf;
+        [(FHDatabaseEntity *)v14 queryDataWithBlock:v15 logicalOperator:@"AND" selectFields:v17 usingBlock:v37];
 
         if (!*(*(&buf + 1) + 40))
         {
           goto LABEL_25;
         }
 
-        if (v7 && [(FHDatabaseEntity *)v31 clearDataWithClauseBuilder:v15])
+        if (v7 && [(FHDatabaseEntity *)v30 clearDataWithClauseBuilder:v15])
         {
           v18 = FinHealthLogObject(@"FinHealthCore");
           if (!os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
@@ -293,8 +289,8 @@ LABEL_12:
             goto LABEL_20;
           }
 
-          *v45 = 138412290;
-          v46 = v5;
+          *v44 = 138412290;
+          v45 = v5;
           v19 = v18;
           v20 = OS_LOG_TYPE_INFO;
           v21 = "Income predictions for group: %@ deleted from FinHealthDB";
@@ -308,20 +304,20 @@ LABEL_12:
             goto LABEL_20;
           }
 
-          *v45 = 138412290;
-          v46 = v5;
+          *v44 = 138412290;
+          v45 = v5;
           v19 = v18;
           v20 = OS_LOG_TYPE_ERROR;
           v21 = "Failed to delete income predictions associated with group: %@ from FinHealthDB";
         }
 
-        _os_log_impl(&dword_226DD4000, v19, v20, v21, v45, 0xCu);
+        _os_log_impl(&dword_226DD4000, v19, v20, v21, v44, 0xCu);
 LABEL_20:
 
         [*(*(&buf + 1) + 40) doubleValue];
         if (v22 > 0.8)
         {
-          v23 = [v33 objectForKey:@"INCOME-INSIGHTS"];
+          v23 = [v32 objectForKey:@"INCOME-INSIGHTS"];
           v24 = v23;
           if (v23)
           {
@@ -336,7 +332,7 @@ LABEL_20:
           v26 = v25;
 
           v27 = [v26 setByAddingObject:v5];
-          [v33 setObject:v27 forKey:@"INCOME-INSIGHTS"];
+          [v32 setObject:v27 forKey:@"INCOME-INSIGHTS"];
         }
 
 LABEL_25:
@@ -345,14 +341,13 @@ LABEL_25:
         objc_autoreleasePoolPop(context);
       }
 
-      v36 = [obj countByEnumeratingWithState:&v41 objects:v53 count:16];
+      v35 = [obj countByEnumeratingWithState:&v40 objects:v52 count:16];
     }
 
-    while (v36);
+    while (v35);
   }
 
-  v28 = [v33 copy];
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = [v32 copy];
 
   return v28;
 }
@@ -378,50 +373,45 @@ void __48__FHTransactionGroup_deleteInsightsForGroupIds___block_invoke_2(uint64_
 
 uint64_t __48__FHTransactionGroup_deleteInsightsForGroupIds___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = [a2 decimalNumberAtIndex:0];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 decimalNumberAtIndex:0];
 
   return MEMORY[0x2821F96F8]();
 }
 
 + (void)_updateStateForTransactionsWithIds:(id)ids
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   idsCopy = ids;
   v4 = [[FHDatabaseManager alloc] init:0];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = idsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [v4 updateStateForTransaction:*(*(&v11 + 1) + 8 * v9++) newState:{2, v11}];
+        [v4 updateStateForTransaction:*(*(&v10 + 1) + 8 * v9++) newState:{2, v10}];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -349,7 +349,7 @@
 {
   if (geometry)
   {
-    [geometry fullTransform];
+    objc_msgSend_fullTransform(geometry, a2);
   }
 
   else
@@ -628,7 +628,7 @@
     parent = [(TSDAbstractLayout *)self parent];
     if (parent)
     {
-      [(TSDAbstractLayout *)parent transformInRoot];
+      objc_msgSend_transformInRoot(parent);
     }
 
     else
@@ -694,23 +694,18 @@
         if (!originalGeometry)
         {
 LABEL_7:
-          v13 = 0u;
-          v14 = 0u;
-          v12 = 0u;
+          v10 = 0u;
+          v11 = 0u;
+          v9 = 0u;
           goto LABEL_8;
         }
       }
 
-      v9 = *&retstr->c;
-      v11[0] = *&retstr->a;
-      v11[1] = v9;
-      v11[2] = *&retstr->tx;
-      [originalGeometry transformByConcatenatingTransformTo:v11];
+      objc_msgSend_transformByConcatenatingTransformTo_(originalGeometry, *&retstr->a, *&retstr->b, *&retstr->c, *&retstr->d, *&retstr->tx, *&retstr->ty);
 LABEL_8:
-      v10 = v13;
-      *&retstr->a = v12;
+      *&retstr->a = v9;
       *&retstr->c = v10;
-      *&retstr->tx = v14;
+      *&retstr->tx = v11;
       self = [(CGAffineTransform *)selfCopy2 parent];
       selfCopy2 = self;
     }
@@ -725,7 +720,7 @@ LABEL_8:
 {
   if (self)
   {
-    return [(CGAffineTransform *)self originalTransformInRoot];
+    return objc_msgSend_originalTransformInRoot(self, a3);
   }
 
   *&retstr->c = 0u;
@@ -744,7 +739,7 @@ LABEL_8:
     originalPureGeometry = [(TSDLayout *)self originalPureGeometry];
     if (originalPureGeometry)
     {
-      [originalPureGeometry fullTransform];
+      objc_msgSend_fullTransform(originalPureGeometry);
     }
 
     else
@@ -756,7 +751,7 @@ LABEL_8:
     geometry2 = [(TSDInfo *)[(TSDLayout *)self info] geometry];
     if (geometry2)
     {
-      [geometry2 fullTransform];
+      objc_msgSend_fullTransform(geometry2);
     }
 
     else
@@ -859,7 +854,7 @@ LABEL_8:
   originalGeometry = [(TSDLayout *)self originalGeometry];
   if (originalGeometry)
   {
-    [(TSDLayoutGeometry *)originalGeometry transform];
+    objc_msgSend_transform(originalGeometry);
   }
 
   else
@@ -887,7 +882,7 @@ LABEL_8:
   geometry = [(TSDAbstractLayout *)self geometry];
   if (geometry)
   {
-    [(TSDLayoutGeometry *)geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -915,9 +910,9 @@ LABEL_8:
 {
   pureGeometry = [(TSDLayout *)self pureGeometry];
   v4 = *(MEMORY[0x277CBF2C0] + 16);
-  v13 = *MEMORY[0x277CBF2C0];
-  v14 = v4;
-  v15 = *(MEMORY[0x277CBF2C0] + 32);
+  v12 = *MEMORY[0x277CBF2C0];
+  v13 = v4;
+  v14 = *(MEMORY[0x277CBF2C0] + 32);
   parent = [(TSDAbstractLayout *)self parent];
   if (parent)
   {
@@ -932,32 +927,29 @@ LABEL_8:
       geometry = [(TSDAbstractLayout *)parent2 geometry];
       if (geometry)
       {
-        v9[0] = v13;
-        v9[1] = v14;
-        v9[2] = v15;
-        [(TSDLayoutGeometry *)geometry transformByConcatenatingTransformTo:v9];
+        objc_msgSend_transformByConcatenatingTransformTo_(geometry, v12, v13, v14);
       }
 
       else
       {
-        v11 = 0u;
-        v12 = 0u;
         v10 = 0u;
+        v11 = 0u;
+        v9 = 0u;
       }
 
+      v12 = v9;
       v13 = v10;
       v14 = v11;
-      v15 = v12;
       parent2 = [(TSDAbstractLayout *)parent2 parent];
     }
 
     while (parent2);
   }
 
+  v9 = v12;
   v10 = v13;
   v11 = v14;
-  v12 = v15;
-  return [pureGeometry geometryByTransformingBy:&v10];
+  return [pureGeometry geometryByTransformingBy:&v9];
 }
 
 - (CGAffineTransform)pureTransformInRoot
@@ -968,7 +960,7 @@ LABEL_8:
   pureGeometry = [(TSDLayout *)self pureGeometry];
   if (pureGeometry)
   {
-    [pureGeometry transform];
+    objc_msgSend_transform(pureGeometry);
   }
 
   else
@@ -987,24 +979,19 @@ LABEL_8:
       geometry = [(CGAffineTransform *)v7 geometry];
       if (geometry)
       {
-        v9 = *&retstr->c;
-        v11[0] = *&retstr->a;
-        v11[1] = v9;
-        v11[2] = *&retstr->tx;
-        [geometry transformByConcatenatingTransformTo:v11];
+        objc_msgSend_transformByConcatenatingTransformTo_(geometry, *&retstr->a, *&retstr->b, *&retstr->c, *&retstr->d, *&retstr->tx, *&retstr->ty);
       }
 
       else
       {
-        v13 = 0u;
-        v14 = 0u;
-        v12 = 0u;
+        v10 = 0u;
+        v11 = 0u;
+        v9 = 0u;
       }
 
-      v10 = v13;
-      *&retstr->a = v12;
+      *&retstr->a = v9;
       *&retstr->c = v10;
-      *&retstr->tx = v14;
+      *&retstr->tx = v11;
       result = [(CGAffineTransform *)v7 parent];
       v7 = result;
     }
@@ -1023,7 +1010,7 @@ LABEL_8:
   originalPureGeometry = [(TSDLayout *)self originalPureGeometry];
   if (originalPureGeometry)
   {
-    [originalPureGeometry transform];
+    objc_msgSend_transform(originalPureGeometry);
   }
 
   else
@@ -1042,24 +1029,19 @@ LABEL_8:
       geometry = [(CGAffineTransform *)v7 geometry];
       if (geometry)
       {
-        v9 = *&retstr->c;
-        v11[0] = *&retstr->a;
-        v11[1] = v9;
-        v11[2] = *&retstr->tx;
-        [geometry transformByConcatenatingTransformTo:v11];
+        objc_msgSend_transformByConcatenatingTransformTo_(geometry, *&retstr->a, *&retstr->b, *&retstr->c, *&retstr->d, *&retstr->tx, *&retstr->ty);
       }
 
       else
       {
-        v13 = 0u;
-        v14 = 0u;
-        v12 = 0u;
+        v10 = 0u;
+        v11 = 0u;
+        v9 = 0u;
       }
 
-      v10 = v13;
-      *&retstr->a = v12;
+      *&retstr->a = v9;
       *&retstr->c = v10;
-      *&retstr->tx = v14;
+      *&retstr->tx = v11;
       result = [(CGAffineTransform *)v7 parent];
       v7 = result;
     }
@@ -1110,7 +1092,7 @@ LABEL_8:
   geometry = [(TSDAbstractLayout *)self geometry];
   if (geometry)
   {
-    [(TSDLayoutGeometry *)geometry transform];
+    objc_msgSend_transform(geometry);
     v6 = v13;
     v7 = v14;
     v8 = v15;
@@ -1145,7 +1127,7 @@ LABEL_8:
       v8 = v7;
       if (layoutGeometryFromProvider)
       {
-        [layoutGeometryFromProvider transform];
+        objc_msgSend_transform(layoutGeometryFromProvider);
       }
 
       else
@@ -1169,7 +1151,7 @@ LABEL_8:
       v14 = [TSDLayoutGeometry alloc];
       if (layoutGeometryFromProvider)
       {
-        [layoutGeometryFromProvider transform];
+        objc_msgSend_transform(layoutGeometryFromProvider);
       }
 
       else
@@ -1205,7 +1187,7 @@ LABEL_8:
     v18 = v17;
     if (geometry)
     {
-      [geometry transform];
+      objc_msgSend_transform(geometry);
     }
 
     else
@@ -1274,7 +1256,7 @@ LABEL_8:
 {
   if (self)
   {
-    [(TSDAbstractLayout *)self transform];
+    objc_msgSend_transform(self, a2);
   }
 
   else

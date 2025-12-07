@@ -8,10 +8,10 @@
 {
   if (!self->super._sourceEnabled)
   {
-    if (sub_100023ED4(0))
+    if (sub_100023ED4(0, a2))
     {
-      v3 = sub_100023ED4(0);
-      sub_100178498(v3, 30, self->_kfFilteredPressureDispatcher.__ptr_, -1.0);
+      v4 = sub_100023ED4(0, v3);
+      sub_100178498(v4, 30, self->_kfFilteredPressureDispatcher.__ptr_, -1.0);
     }
 
     ptr = self->fOdometerClient.__ptr_;

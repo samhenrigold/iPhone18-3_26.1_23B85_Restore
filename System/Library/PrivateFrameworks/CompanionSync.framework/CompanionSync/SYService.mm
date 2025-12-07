@@ -20,6 +20,8 @@
 - (PBCodable)stateForLogging;
 - (SYPersistentStore)persistentStore;
 - (SYService)init;
+- (SYService)initWithService:(id)service priority:(int64_t)priority asMasterStore:(BOOL)store options:(id)options;
+- (SYService)initWithService:(id)service priority:(int64_t)priority qos:(unsigned int)qos asMasterStore:(BOOL)store options:(id)options;
 - (id)_chooseBetweenCollidingSessions:(id)sessions :(id)a4;
 - (id)_claimOwnershipOfFileAtURL:(id)l error:(id *)error;
 - (id)_makeSessionForDeltaSync:(BOOL)sync;
@@ -56,6 +58,7 @@
 - (void)_swapSessionForVersionChange;
 - (void)_switchToNewTargetedDevice:(id)device;
 - (void)_updateMetaProtocolInfoForDevice:(id)device;
+- (void)_upgradeEngineTo:(unsigned int)to;
 - (void)_v1_handleBatchSyncChunk:(id)chunk completion:(id)completion;
 - (void)_v1_handleBatchSyncEnd:(id)end completion:(id)completion;
 - (void)_v1_handleBatchSyncStart:(id)start completion:(id)completion;
@@ -147,20 +150,8 @@
 - (NSString)peerID
 {
   peerID = self->_peerID;
-  if (peerID)
+  if (peerID || (-[SYService persistentStore](self, "persistentStore"), v4 = objc_claimAutoreleasedReturnValue(), [v4 peerID], v5 = objc_claimAutoreleasedReturnValue(), v6 = self->_peerID, self->_peerID = v5, v6, v4, (peerID = self->_peerID) != 0))
   {
-    goto LABEL_3;
-  }
-
-  persistentStore = [(SYService *)self persistentStore];
-  peerID = [persistentStore peerID];
-  v6 = self->_peerID;
-  self->_peerID = peerID;
-
-  peerID = self->_peerID;
-  if (peerID)
-  {
-LABEL_3:
     v7 = peerID;
   }
 
@@ -209,6 +200,276 @@ LABEL_3:
   [v3 raise:v4 format:{@"-[%@ init] is not supported.", v6}];
 
   return 0;
+}
+
+- (SYService)initWithService:(id)service priority:(int64_t)priority asMasterStore:(BOOL)store options:(id)options
+{
+  storeCopy = store;
+  defaultPriority = self->_defaultPriority;
+  if (defaultPriority)
+  {
+    v9 = 17;
+  }
+
+  else
+  {
+    v9 = 21;
+  }
+
+  if (defaultPriority == 20)
+  {
+    v10 = 25;
+  }
+
+  else
+  {
+    v10 = v9;
+  }
+
+  return [(SYService *)self initWithService:service priority:priority qos:v10 asMasterStore:storeCopy options:options];
+}
+
+- (SYService)initWithService:(id)service priority:(int64_t)priority qos:(unsigned int)qos asMasterStore:(BOOL)store options:(id)options
+{
+  storeCopy = store;
+  v9 = *&qos;
+  v92 = *MEMORY[0x1E69E9840];
+  serviceCopy = service;
+  optionsCopy = options;
+  v83.receiver = self;
+  v83.super_class = SYService;
+  v12 = [(SYService *)&v83 init];
+  v13 = v12;
+  if (v12)
+  {
+    v12->_flagLock._os_unfair_lock_opaque = 0;
+    v14 = serviceCopy;
+    if ([v14 hasSuffix:@"addressbooksync"])
+    {
+      v15 = "addressbooksync";
+    }
+
+    else if ([v14 hasSuffix:@"appregistrysync"])
+    {
+      v15 = "appregistrysync";
+    }
+
+    else if ([v14 hasSuffix:@"eventkitsync"])
+    {
+      v15 = "eventkitsync";
+    }
+
+    else if ([v14 hasSuffix:@"location.auth"])
+    {
+      v15 = "location.auth";
+    }
+
+    else if ([v14 hasSuffix:@"location.wifitilesync"])
+    {
+      v15 = "location.wifitilesync";
+    }
+
+    else if ([v14 hasSuffix:@"maps.sync"])
+    {
+      v15 = "maps.sync";
+    }
+
+    else if ([v14 hasSuffix:@"tccd.sync"])
+    {
+      v15 = "tccd.sync";
+    }
+
+    else if ([v14 hasSuffix:@"voicemailsync"])
+    {
+      v15 = "voicemailsync";
+    }
+
+    else
+    {
+      v15 = "SYService";
+    }
+
+    v16 = _os_activity_create(&dword_1DF835000, v15, MEMORY[0x1E69E9C08], OS_ACTIVITY_FLAG_DEFAULT);
+
+    serviceActivity = v13->_serviceActivity;
+    v13->_serviceActivity = v16;
+
+    state.opaque[0] = 0;
+    state.opaque[1] = 0;
+    os_activity_scope_enter(v13->_serviceActivity, &state);
+    v18 = objc_opt_new();
+    uUIDString = [v18 UUIDString];
+    generationID = v13->_generationID;
+    v13->_generationID = uUIDString;
+
+    v21 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v22 = v21;
+    if (v9)
+    {
+      v23 = dispatch_queue_attr_make_with_qos_class(v21, v9, 0);
+
+      v22 = v23;
+    }
+
+    v24 = objc_alloc(MEMORY[0x1E696AEC0]);
+    pathExtension = [v14 pathExtension];
+    v26 = [v24 initWithFormat:@"CompanionSync.SYService.%@.%p", pathExtension, v13];
+
+    v27 = v26;
+    v28 = dispatch_queue_create([v26 UTF8String], v22);
+    queue = v13->_queue;
+    v13->_queue = v28;
+
+    dispatch_queue_set_specific(v13->_queue, __SYService_Queue_Tag_Key, v13, 0);
+    [SYQueueDumper registerQueue:v13->_queue];
+    v30 = objc_alloc(MEMORY[0x1E696AEC0]);
+    pathExtension2 = [v14 pathExtension];
+    v32 = [v30 initWithFormat:@"CompanionSync.SYService.%@.incoming-io", pathExtension2];
+
+    v33 = v32;
+    v34 = dispatch_queue_create_with_target_V2([v32 UTF8String], v22, v13->_queue);
+    incomingIOQueue = v13->_incomingIOQueue;
+    v13->_incomingIOQueue = v34;
+
+    [SYQueueDumper registerQueue:v13->_incomingIOQueue];
+    v36 = objc_alloc(MEMORY[0x1E696AEC0]);
+    pathExtension3 = [v14 pathExtension];
+    v38 = [v36 initWithFormat:@"CompanionSync.SYService.%@.delegate", pathExtension3];
+
+    v39 = v38;
+    v40 = dispatch_queue_create([v38 UTF8String], v22);
+    delegateQueue = v13->_delegateQueue;
+    v13->_delegateQueue = v40;
+
+    [SYQueueDumper registerQueue:v13->_delegateQueue];
+    if (_sync_log_facilities_pred != -1)
+    {
+      [SYIncomingSyncAllObjectsSession _continueProcessing];
+    }
+
+    v42 = _sync_log_facilities;
+    if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_DEFAULT))
+    {
+      v43 = !storeCopy;
+      v44 = v22;
+      v45 = v38;
+      v46 = storeCopy;
+      v47 = v9;
+      if (v43)
+      {
+        v48 = "as Slave";
+      }
+
+      else
+      {
+        v48 = "as Master";
+      }
+
+      v49 = @"low";
+      if (!priority)
+      {
+        v49 = @"high";
+      }
+
+      if (priority == 20)
+      {
+        v49 = @"urgent";
+      }
+
+      v50 = v49;
+      v51 = v13->_generationID;
+      *buf = 138544130;
+      v85 = v14;
+      v86 = 2080;
+      v87 = v48;
+      v9 = v47;
+      storeCopy = v46;
+      v38 = v45;
+      v22 = v44;
+      v88 = 2114;
+      v89 = v50;
+      v90 = 2114;
+      v91 = v51;
+      v52 = v42;
+      _os_log_impl(&dword_1DF835000, v52, OS_LOG_TYPE_DEFAULT, "CompanionSync initializing new SYService %{public}@ %s, %{public}@ priority, generation %{public}@", buf, 0x2Au);
+    }
+
+    v53 = [v14 copy];
+    serviceName = v13->_serviceName;
+    v13->_serviceName = v53;
+
+    v13->_flags = (*&v13->_flags & 0xFFFFFFFE | storeCopy);
+    v13->_defaultPriority = priority;
+    v55 = [optionsCopy copy];
+    defaultOptions = v13->_defaultOptions;
+    v13->_defaultOptions = v55;
+
+    v57 = *&v13->_flags & 0xFFFFFE3F | 0x80;
+    *&v13->_defaultMessageTimeout = xmmword_1DF8E3D70;
+    v13->_flags = v57;
+    v13->_engineType = 1;
+    v13->_sendingBufferCap = 0x200000;
+    v58 = objc_alloc(MEMORY[0x1E696AEC0]);
+    pathExtension4 = [v14 pathExtension];
+    v60 = [v58 initWithFormat:@"CompanionSync.SYService.%@.SessionStartQueue", pathExtension4];
+
+    v61 = [[_SYMultiSuspendableQueue alloc] initWithName:v60 qosClass:v9 serial:1 target:v13->_queue];
+    sessionQueue = v13->_sessionQueue;
+    v13->_sessionQueue = v61;
+
+    [(_SYMultiSuspendableQueue *)v13->_sessionQueue suspend];
+    if (![(_SYMultiSuspendableQueue *)v13->_sessionQueue isSuspended])
+    {
+      _os_assumes_log();
+      [SYService initWithService:priority:qos:asMasterStore:options:];
+    }
+
+    [(SYService *)v13 _setupPairingNotifications];
+    v63 = +[SYDevice targetableDevice];
+    targetedDevice = v13->_targetedDevice;
+    v13->_targetedDevice = v63;
+
+    pairingStorePath = [(SYDevice *)v13->_targetedDevice pairingStorePath];
+    v66 = pairingStorePath == 0;
+
+    if (!v66)
+    {
+      *&v13->_flags |= 8u;
+      [(SYService *)v13 _updateMetaProtocolInfoForDevice:v13->_targetedDevice];
+    }
+
+    objc_initWeak(buf, v13);
+    dispatchQueue = [(_SYMultiSuspendableQueue *)v13->_sessionQueue dispatchQueue];
+    v68 = dispatch_source_create(MEMORY[0x1E69E96B8], 0, 0, dispatchQueue);
+    processSignalSource = v13->_processSignalSource;
+    v13->_processSignalSource = v68;
+
+    v70 = v13->_processSignalSource;
+    handler[0] = MEMORY[0x1E69E9820];
+    handler[1] = 3221225472;
+    handler[2] = __64__SYService_initWithService_priority_qos_asMasterStore_options___block_invoke;
+    handler[3] = &unk_1E86CA190;
+    objc_copyWeak(&v81, buf);
+    dispatch_source_set_event_handler(v70, handler);
+    dispatch_resume(v13->_processSignalSource);
+    v71 = objc_opt_new();
+    onSessionEnd = v13->_onSessionEnd;
+    v13->_onSessionEnd = v71;
+
+    v73 = [v14 copy];
+    objc_copyWeak(&v79, buf);
+    v74 = v73;
+    v13->_stateHandle = os_state_add_handler();
+    v75 = v13;
+
+    objc_destroyWeak(&v79);
+    objc_destroyWeak(&v81);
+    objc_destroyWeak(buf);
+
+    os_activity_scope_leave(&state);
+  }
+
+  return v13;
 }
 
 void __64__SYService_initWithService_priority_qos_asMasterStore_options___block_invoke(uint64_t a1)
@@ -260,14 +521,13 @@ char *__64__SYService_initWithService_priority_qos_asMasterStore_options___block
 
 - (void)dealloc
 {
-  stateHandle = self->_stateHandle;
   os_state_remove_handler();
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter removeObserver:self];
 
-  v5.receiver = self;
-  v5.super_class = SYService;
-  [(SYService *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = SYService;
+  [(SYService *)&v4 dealloc];
 }
 
 - (void)_setupPairingNotifications
@@ -300,7 +560,7 @@ void __39__SYService__setupPairingNotifications__block_invoke(uint64_t a1)
 {
   enginesCopy = engines;
   watchCopy = watch;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   versionCopy = version;
   buildCopy = build;
   os_unfair_lock_lock(&self->_flagLock);
@@ -321,10 +581,10 @@ void __39__SYService__setupPairingNotifications__block_invoke(uint64_t a1)
         goto LABEL_14;
       }
 
-      v22 = 138543618;
-      v23 = versionCopy;
-      v24 = 2114;
-      v25 = buildCopy;
+      v21 = 138543618;
+      v22 = versionCopy;
+      v23 = 2114;
+      v24 = buildCopy;
       v14 = "Remote device is an iDevice running OS %{public}@ (%{public}@). Will use protocol v1 when communicating with this device.";
       goto LABEL_13;
     }
@@ -350,13 +610,13 @@ LABEL_8:
     goto LABEL_14;
   }
 
-  v22 = 138543618;
-  v23 = versionCopy;
-  v24 = 2114;
-  v25 = buildCopy;
+  v21 = 138543618;
+  v22 = versionCopy;
+  v23 = 2114;
+  v24 = buildCopy;
   v14 = "Remote device is an WATCH running OS %{public}@ (%{public}@). Will use protocol v1 when communicating with this device.";
 LABEL_13:
-  _os_log_impl(&dword_1DF835000, v13, OS_LOG_TYPE_DEFAULT, v14, &v22, 0x16u);
+  _os_log_impl(&dword_1DF835000, v13, OS_LOG_TYPE_DEFAULT, v14, &v21, 0x16u);
 LABEL_14:
   v15 = 1;
 LABEL_15:
@@ -368,9 +628,9 @@ LABEL_15:
   v16 = _sync_log_facilities;
   if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 67109120;
-    LODWORD(v23) = v15;
-    _os_log_impl(&dword_1DF835000, v16, OS_LOG_TYPE_DEFAULT, "Updating protocol version for device OSInfo change: will use protocol v%d", &v22, 8u);
+    v21 = 67109120;
+    LODWORD(v22) = v15;
+    _os_log_impl(&dword_1DF835000, v16, OS_LOG_TYPE_DEFAULT, "Updating protocol version for device OSInfo change: will use protocol v%d", &v21, 8u);
   }
 
   os_unfair_lock_lock(&self->_flagLock);
@@ -399,13 +659,11 @@ LABEL_15:
       }
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateMetaProtocolInfoForDevice:(id)device
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   v5 = deviceCopy;
   if (deviceCopy)
@@ -421,13 +679,13 @@ LABEL_15:
     v9 = _sync_log_facilities;
     if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_INFO))
     {
-      v13 = 138543874;
-      v14 = deviceClass;
-      v15 = 2114;
-      v16 = systemVersion;
-      v17 = 2114;
-      v18 = systemBuildVersion;
-      _os_log_impl(&dword_1DF835000, v9, OS_LOG_TYPE_INFO, "Remote device is a %{public}@ with system version %{public}@, build %{public}@", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = deviceClass;
+      v14 = 2114;
+      v15 = systemVersion;
+      v16 = 2114;
+      v17 = systemBuildVersion;
+      _os_log_impl(&dword_1DF835000, v9, OS_LOG_TYPE_INFO, "Remote device is a %{public}@ with system version %{public}@, build %{public}@", &v12, 0x20u);
     }
 
     v10 = [deviceClass hasPrefix:@"Watch"];
@@ -465,8 +723,6 @@ LABEL_15:
     self->_flags = (*&self->_flags & 0xFFFFFE3F | 0x80);
     os_unfair_lock_unlock(&self->_flagLock);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deviceOSInfoChanged:(id)changed
@@ -596,7 +852,7 @@ void __43__SYService__ifDelegateImplements_do_then___block_invoke(void *a1)
 
 void __40__SYService__switchToNewTargetedDevice___block_invoke(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (_sync_log_facilities_pred != -1)
   {
     [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -607,22 +863,20 @@ void __40__SYService__switchToNewTargetedDevice___block_invoke(void *a1)
   {
     v3 = a1[4];
     v4 = a1[5];
-    v7 = 138543618;
-    v8 = v3;
-    v9 = 2114;
-    v10 = v4;
-    _os_log_impl(&dword_1DF835000, v2, OS_LOG_TYPE_DEFAULT, "Calling delegate willSwitchFromPairingID:%{public}@ toPairingID:%{public}@", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = v3;
+    v8 = 2114;
+    v9 = v4;
+    _os_log_impl(&dword_1DF835000, v2, OS_LOG_TYPE_DEFAULT, "Calling delegate willSwitchFromPairingID:%{public}@ toPairingID:%{public}@", &v6, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1[6] + 48));
   [WeakRetained service:a1[6] willSwitchFromPairingID:a1[4] toPairingID:a1[5]];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __40__SYService__switchToNewTargetedDevice___block_invoke_91(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock((*(a1 + 32) + 184));
   v2 = *(a1 + 32);
   os_unfair_lock_opaque = v2[47]._os_unfair_lock_opaque;
@@ -641,9 +895,9 @@ void __40__SYService__switchToNewTargetedDevice___block_invoke_91(uint64_t a1)
   if ((os_unfair_lock_opaque & 0x10) != 0 && *(a1 + 72) == 1 && *(a1 + 40) || (os_unfair_lock_lock((*(a1 + 32) + 184)), v4 = *(a1 + 32), v5 = v4[47]._os_unfair_lock_opaque, os_unfair_lock_unlock(v4 + 46), (v5 & 0x20000) != 0))
   {
     v6 = *(a1 + 32);
-    v24 = 0;
-    v7 = [v6 resume:&v24];
-    v8 = v24;
+    v23 = 0;
+    v7 = [v6 resume:&v23];
+    v8 = v23;
     if (v7)
     {
       os_unfair_lock_lock((*(a1 + 32) + 184));
@@ -687,30 +941,28 @@ void __40__SYService__switchToNewTargetedDevice___block_invoke_91(uint64_t a1)
       v15 = *(a1 + 32);
       v16 = *(v15 + 232);
       *buf = 134218242;
-      v26 = v15;
-      v27 = 2114;
-      v28 = v16;
+      v25 = v15;
+      v26 = 2114;
+      v27 = v16;
       _os_log_impl(&dword_1DF835000, v14, OS_LOG_TYPE_DEFAULT, "SYService %p has new generation %{public}@", buf, 0x16u);
     }
   }
 
   v17 = *(a1 + 32);
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __40__SYService__switchToNewTargetedDevice___block_invoke_94;
-  v21[3] = &unk_1E86CA0F8;
-  v21[4] = v17;
-  v22 = *(a1 + 56);
-  v23 = *(a1 + 48);
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __40__SYService__switchToNewTargetedDevice___block_invoke_2;
-  v19[3] = &unk_1E86C9E90;
-  v19[4] = *(a1 + 32);
-  v20 = *(a1 + 64);
-  [v17 _ifDelegateImplements:sel_service_didSwitchFromPairingID_toPairingID_ do:v21 then:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __40__SYService__switchToNewTargetedDevice___block_invoke_94;
+  v20[3] = &unk_1E86CA0F8;
+  v20[4] = v17;
+  v21 = *(a1 + 56);
+  v22 = *(a1 + 48);
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __40__SYService__switchToNewTargetedDevice___block_invoke_2;
+  v18[3] = &unk_1E86C9E90;
+  v18[4] = *(a1 + 32);
+  v19 = *(a1 + 64);
+  [v17 _ifDelegateImplements:sel_service_didSwitchFromPairingID_toPairingID_ do:v20 then:v18];
 }
 
 void __40__SYService__switchToNewTargetedDevice___block_invoke_94(void *a1)
@@ -802,7 +1054,7 @@ void __41__SYService__deviceTargetabilityChanged___block_invoke(uint64_t a1)
         v7 = _sync_log_facilities;
         if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_DEBUG))
         {
-          __41__SYService__deviceTargetabilityChanged___block_invoke_cold_8(WeakRetained + 19, v7);
+          __41__SYService__deviceTargetabilityChanged___block_invoke_cold_8((WeakRetained + 19), v7);
         }
       }
 
@@ -834,7 +1086,7 @@ void __41__SYService__deviceTargetabilityChanged___block_invoke(uint64_t a1)
       v9 = _sync_log_facilities;
       if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_DEBUG))
       {
-        __41__SYService__deviceTargetabilityChanged___block_invoke_cold_5(WeakRetained + 19, v9);
+        __41__SYService__deviceTargetabilityChanged___block_invoke_cold_5((WeakRetained + 19), v9);
       }
     }
   }
@@ -864,7 +1116,7 @@ void __41__SYService__deviceTargetabilityChanged___block_invoke(uint64_t a1)
 
 void __28__SYService__deviceRemoved___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -882,9 +1134,9 @@ void __28__SYService__deviceRemoved___block_invoke(uint64_t a1)
       if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_DEFAULT))
       {
         v6 = WeakRetained[19];
-        v11 = 138412290;
-        v12 = v6;
-        _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "Current targeted device (%@) was removed from known devices list.", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = v6;
+        _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "Current targeted device (%@) was removed from known devices list.", &v10, 0xCu);
       }
     }
 
@@ -901,16 +1153,14 @@ void __28__SYService__deviceRemoved___block_invoke(uint64_t a1)
       v9 = _sync_log_facilities;
       if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(&dword_1DF835000, v9, OS_LOG_TYPE_DEFAULT, "Last known paired device has unpaired. SYService can no longer function.", &v11, 2u);
+        LOWORD(v10) = 0;
+        _os_log_impl(&dword_1DF835000, v9, OS_LOG_TYPE_DEFAULT, "Last known paired device has unpaired. SYService can no longer function.", &v10, 2u);
       }
 
       [WeakRetained _signalPairingStoreUnavailable];
       [WeakRetained _switchToNewTargetedDevice:0];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removePairingStoreDevice
@@ -1038,7 +1288,7 @@ uint64_t __43__SYService__signalPairingStoreUnavailable__block_invoke(uint64_t a
 
 - (void)_dealWithPotentiallyStallingCurrentSession
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   currentSession = [(SYService *)self currentSession];
   v3 = currentSession;
   if (currentSession)
@@ -1059,9 +1309,9 @@ uint64_t __43__SYService__signalPairingStoreUnavailable__block_invoke(uint64_t a
         {
           v7 = v6;
           v8 = _SYObfuscate(v3);
-          v22 = 138543362;
-          v23 = v8;
-          _os_log_impl(&dword_1DF835000, v7, OS_LOG_TYPE_DEFAULT, "Canceling current sending session %{public}@ due to QWS", &v22, 0xCu);
+          v21 = 138543362;
+          v22 = v8;
+          _os_log_impl(&dword_1DF835000, v7, OS_LOG_TYPE_DEFAULT, "Canceling current sending session %{public}@ due to QWS", &v21, 0xCu);
         }
 
         v9 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithSYError:2021 userInfo:0];
@@ -1079,13 +1329,13 @@ uint64_t __43__SYService__signalPairingStoreUnavailable__block_invoke(uint64_t a
         v11 = v10;
         v12 = _SYObfuscate(v3);
         state2 = [v3 state];
-        v22 = 138543618;
-        v23 = v12;
-        v24 = 2048;
-        v25 = state2;
+        v21 = 138543618;
+        v22 = v12;
+        v23 = 2048;
+        v24 = state2;
         v14 = "Sending session (%{public}@}) still active at time of QWS. State is %{companionsync:SYSessionState}ld, so I'm letting it continue so that IDS can give it a not-the-active-device error next time it sends";
 LABEL_23:
-        _os_log_impl(&dword_1DF835000, v11, OS_LOG_TYPE_INFO, v14, &v22, 0x16u);
+        _os_log_impl(&dword_1DF835000, v11, OS_LOG_TYPE_INFO, v14, &v21, 0x16u);
       }
     }
 
@@ -1103,9 +1353,9 @@ LABEL_23:
         {
           v16 = v15;
           v17 = _SYObfuscate(v3);
-          v22 = 138543362;
-          v23 = v17;
-          _os_log_impl(&dword_1DF835000, v16, OS_LOG_TYPE_DEFAULT, "Canceling current receiving session %{public}@ due to QWS", &v22, 0xCu);
+          v21 = 138543362;
+          v22 = v17;
+          _os_log_impl(&dword_1DF835000, v16, OS_LOG_TYPE_DEFAULT, "Canceling current receiving session %{public}@ due to QWS", &v21, 0xCu);
         }
 
         v18 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithSYError:2021 userInfo:0];
@@ -1123,17 +1373,15 @@ LABEL_23:
         v11 = v19;
         v12 = _SYObfuscate(v3);
         state3 = [v3 state];
-        v22 = 138543618;
-        v23 = v12;
-        v24 = 2048;
-        v25 = state3;
+        v21 = 138543618;
+        v22 = v12;
+        v23 = 2048;
+        v24 = state3;
         v14 = "Receiving session (%{public}@}) still active at time of QWS. State is %{companionsync:SYSessionState}ld, so I'm letting it continue so that IDS can give it a not-the-active-device error next time it sends";
         goto LABEL_23;
       }
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_whenSessionEnds:(id)ends
@@ -1149,7 +1397,7 @@ LABEL_23:
 
 - (void)setDelegate:(id)delegate queue:(id)queue
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   queueCopy = queue;
   state.opaque[0] = 0;
@@ -1174,13 +1422,11 @@ LABEL_23:
 
   objc_storeWeak(&self->_delegate, delegateCopy);
   os_activity_scope_leave(&state);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)resume:(id *)resume
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(self->_serviceActivity, &state);
@@ -1202,9 +1448,9 @@ LABEL_23:
     if (resume)
     {
       v10 = MEMORY[0x1E696ABC0];
-      v31 = *MEMORY[0x1E696A578];
-      v32[0] = @"SYService has already been resumed.";
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+      v30 = *MEMORY[0x1E696A578];
+      v31[0] = @"SYService has already been resumed.";
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
       *resume = [v10 errorWithSYError:2002 userInfo:v11];
     }
 
@@ -1229,9 +1475,9 @@ LABEL_23:
     if (resume)
     {
       v12 = MEMORY[0x1E696ABC0];
-      v29 = *MEMORY[0x1E696A578];
-      v30 = @"SYService cannot be resumed until a delegate has been set.";
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v28 = *MEMORY[0x1E696A578];
+      v29 = @"SYService cannot be resumed until a delegate has been set.";
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
       *resume = [v12 errorWithSYError:2001 userInfo:v13];
     }
 
@@ -1265,51 +1511,49 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 1;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__5;
-  v22 = __Block_byref_object_dispose__5;
   v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 1;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__5;
+  v21 = __Block_byref_object_dispose__5;
+  v22 = 0;
   queue = self->_queue;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __20__SYService_resume___block_invoke;
-  v17[3] = &unk_1E86CA7C8;
-  v17[4] = self;
-  v17[5] = &v18;
-  v17[6] = &v24;
-  _dispatch_sync_safe_tagged(queue, self, v17);
-  v9 = *(v25 + 24);
-  if (resume && (v25[3] & 1) == 0)
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __20__SYService_resume___block_invoke;
+  v16[3] = &unk_1E86CA7C8;
+  v16[4] = self;
+  v16[5] = &v17;
+  v16[6] = &v23;
+  _dispatch_sync_safe_tagged(queue, self, v16);
+  v9 = *(v24 + 24);
+  if (resume && (v24[3] & 1) == 0)
   {
-    *resume = v19[5];
-    v9 = *(v25 + 24);
+    *resume = v18[5];
+    v9 = *(v24 + 24);
   }
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v17, 8);
 
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v23, 8);
 LABEL_23:
   os_activity_scope_leave(&state);
-  v14 = *MEMORY[0x1E69E9840];
   return v9 & 1;
 }
 
 void __20__SYService_resume___block_invoke(uint64_t a1)
 {
-  v3 = a1 + 40;
   v2 = *(a1 + 40);
-  v4 = *(a1 + 32);
-  v5 = *(v2 + 8);
-  obj = *(v5 + 40);
-  v6 = [v4 _initializeServiceDB:&obj];
-  objc_storeStrong((v5 + 40), obj);
-  if ((v6 & 1) == 0)
+  v3 = *(a1 + 32);
+  v4 = *(v2 + 8);
+  obj = *(v4 + 40);
+  v5 = [v3 _initializeServiceDB:&obj];
+  objc_storeStrong((v4 + 40), obj);
+  if ((v5 & 1) == 0)
   {
     if (_sync_log_facilities_pred != -1)
     {
@@ -1318,18 +1562,18 @@ void __20__SYService_resume___block_invoke(uint64_t a1)
 
     if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_ERROR))
     {
-      __20__SYService_resume___block_invoke_cold_2(v3);
+      __20__SYService_resume___block_invoke_cold_2();
     }
 
     goto LABEL_14;
   }
 
-  v7 = *(a1 + 32);
-  v8 = *(*(a1 + 40) + 8);
-  v14 = *(v8 + 40);
-  v9 = [v7 _initializeMessaging:&v14];
-  objc_storeStrong((v8 + 40), v14);
-  if ((v9 & 1) == 0)
+  v6 = *(a1 + 32);
+  v7 = *(*(a1 + 40) + 8);
+  v13 = *(v7 + 40);
+  v8 = [v6 _initializeMessaging:&v13];
+  objc_storeStrong((v7 + 40), v13);
+  if ((v8 & 1) == 0)
   {
     if (_sync_log_facilities_pred != -1)
     {
@@ -1338,7 +1582,7 @@ void __20__SYService_resume___block_invoke(uint64_t a1)
 
     if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_ERROR))
     {
-      __20__SYService_resume___block_invoke_cold_4(v3);
+      __20__SYService_resume___block_invoke_cold_4();
     }
 
 LABEL_14:
@@ -1346,11 +1590,11 @@ LABEL_14:
     return;
   }
 
-  v10 = [*(a1 + 32) persistentStore];
-  v11 = [v10 peerID];
-  v12 = *(a1 + 32);
-  v13 = *(v12 + 200);
-  *(v12 + 200) = v11;
+  v9 = [*(a1 + 32) persistentStore];
+  v10 = [v9 peerID];
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 200);
+  *(v11 + 200) = v10;
 
   [*(*(a1 + 32) + 80) resume];
   if ([*(*(a1 + 32) + 80) isSuspended])
@@ -1426,7 +1670,7 @@ uint64_t __20__SYService_suspend__block_invoke(uint64_t a1)
 {
   if (_sync_log_facilities_pred != -1)
   {
-    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_0_0(&_sync_log_facilities_pred);
   }
 
   if (OUTLINED_FUNCTION_6_0())
@@ -1465,7 +1709,7 @@ void __35__SYService__processPendingChanges__block_invoke(void *a1)
 
 void __35__SYService__processPendingChanges__block_invoke_119(uint64_t a1, char a2, void *a3)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -1481,47 +1725,46 @@ void __35__SYService__processPendingChanges__block_invoke_119(uint64_t a1, char 
       v8 = qword_1EDE73450;
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = (a1 + 40);
-        v9 = *(a1 + 40);
+        v9 = (a1 + 40);
         if (*(a1 + 56))
         {
-          v11 = "delta";
+          v10 = "delta";
         }
 
         else
         {
-          v11 = "reset";
+          v10 = "reset";
         }
 
-        v12 = objc_opt_class();
-        v22 = NSStringFromClass(v12);
-        v13 = [*v10 identifier];
-        v14 = [WeakRetained name];
-        v15 = [*v10 reason];
-        if (v15)
+        v11 = objc_opt_class();
+        v19 = NSStringFromClass(v11);
+        v12 = [*v9 identifier];
+        v13 = [WeakRetained name];
+        v14 = [*v9 reason];
+        if (v14)
         {
-          v16 = [*(a1 + 40) reason];
+          v15 = [*(a1 + 40) reason];
         }
 
         else
         {
-          v16 = @"-";
+          v15 = @"-";
         }
 
         *buf = 134219266;
-        v25 = pseudo_signpost_id;
-        v26 = 2082;
-        v27 = v11;
-        v28 = 2114;
-        v29 = v22;
-        v30 = 2114;
-        v31 = v13;
-        v32 = 2114;
-        v33 = v14;
-        v34 = 2114;
-        v35 = v16;
+        v22 = pseudo_signpost_id;
+        v23 = 2082;
+        v24 = v10;
+        v25 = 2114;
+        v26 = v19;
+        v27 = 2114;
+        v28 = v12;
+        v29 = 2114;
+        v30 = v13;
+        v31 = 2114;
+        v32 = v15;
         _os_log_impl(&dword_1DF835000, v8, OS_LOG_TYPE_DEFAULT, "Start signpost %llu: Started outgoing %{public}s %{public}@ with identifier %{public}@ for service %{public}@. Reason = '%{public}@'", buf, 0x3Eu);
-        if (v15)
+        if (v14)
         {
         }
       }
@@ -1539,24 +1782,21 @@ void __35__SYService__processPendingChanges__block_invoke_119(uint64_t a1, char 
         [SYIncomingSyncAllObjectsSession _continueProcessing];
       }
 
-      v17 = qword_1EDE73420;
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v16 = qword_1EDE73420;
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = *(a1 + 40);
-        v19 = objc_opt_class();
-        v20 = NSStringFromClass(v19);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
         *buf = 138543618;
-        v25 = v20;
-        v26 = 2112;
-        v27 = v5;
-        _os_log_impl(&dword_1DF835000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ failed to start: %@", buf, 0x16u);
+        v22 = v18;
+        v23 = 2112;
+        v24 = v5;
+        _os_log_impl(&dword_1DF835000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ failed to start: %@", buf, 0x16u);
       }
 
       os_activity_scope_leave(&state);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendResetRequest
@@ -1610,12 +1850,12 @@ void __35__SYService__processPendingChanges__block_invoke_119(uint64_t a1, char 
 
 void __30__SYService__sendResetRequest__block_invoke(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
-  v13.opaque[0] = 0;
-  v13.opaque[1] = 0;
-  os_activity_scope_enter(*(*(a1 + 32) + 168), &v13);
+  v12.opaque[0] = 0;
+  v12.opaque[1] = 0;
+  os_activity_scope_enter(*(*(a1 + 32) + 168), &v12);
   if (a2)
   {
     if (_sync_log_facilities_pred != -1)
@@ -1627,7 +1867,7 @@ void __30__SYService__sendResetRequest__block_invoke(uint64_t a1, char a2, void 
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v15 = v8;
+      v14 = v8;
       _os_log_impl(&dword_1DF835000, v10, OS_LOG_TYPE_DEFAULT, "Enqueued full-sync request with ID %{public}@", buf, 0xCu);
     }
 
@@ -1645,24 +1885,22 @@ void __30__SYService__sendResetRequest__block_invoke(uint64_t a1, char a2, void 
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = v9;
+      v14 = v9;
       _os_log_impl(&dword_1DF835000, v11, OS_LOG_TYPE_DEFAULT, "Failed to enqueue full-sync request: %@", buf, 0xCu);
     }
   }
 
-  os_activity_scope_leave(&v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v12);
 }
 
 void __30__SYService__sendResetRequest__block_invoke_129(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
-  v13.opaque[0] = 0;
-  v13.opaque[1] = 0;
-  os_activity_scope_enter(*(*(a1 + 32) + 168), &v13);
+  v12.opaque[0] = 0;
+  v12.opaque[1] = 0;
+  os_activity_scope_enter(*(*(a1 + 32) + 168), &v12);
   if (a2)
   {
     if (_sync_log_facilities_pred != -1)
@@ -1674,7 +1912,7 @@ void __30__SYService__sendResetRequest__block_invoke_129(uint64_t a1, char a2, v
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v15 = v8;
+      v14 = v8;
       _os_log_impl(&dword_1DF835000, v10, OS_LOG_TYPE_DEFAULT, "Enqueued reset request with ID %{public}@", buf, 0xCu);
     }
 
@@ -1692,14 +1930,12 @@ void __30__SYService__sendResetRequest__block_invoke_129(uint64_t a1, char a2, v
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = v9;
+      v14 = v9;
       _os_log_impl(&dword_1DF835000, v11, OS_LOG_TYPE_DEFAULT, "Failed to enqueue reset request: %@", buf, 0xCu);
     }
   }
 
-  os_activity_scope_leave(&v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v12);
 }
 
 - (void)setHasChangesAvailable
@@ -1752,22 +1988,22 @@ void __30__SYService__sendResetRequest__block_invoke_129(uint64_t a1, char a2, v
 
 - (BOOL)_initializeServiceDB:(id *)b
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   v5 = _os_activity_create(&dword_1DF835000, "SYService DB Setup", self->_serviceActivity, OS_ACTIVITY_FLAG_DEFAULT);
-  v30.opaque[0] = 0;
-  v30.opaque[1] = 0;
-  os_activity_scope_enter(v5, &v30);
+  v29.opaque[0] = 0;
+  v29.opaque[1] = 0;
+  os_activity_scope_enter(v5, &v29);
   _pathForDataStore = [(SYService *)self _pathForDataStore];
   if ([_pathForDataStore length])
   {
     v7 = *MEMORY[0x1E696A328];
-    v37[0] = *MEMORY[0x1E696A360];
-    v37[1] = v7;
-    v38[0] = @"mobile";
-    v38[1] = @"mobile";
-    v37[2] = *MEMORY[0x1E696A370];
-    v38[2] = &unk_1F5AE2680;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:3];
+    v36[0] = *MEMORY[0x1E696A360];
+    v36[1] = v7;
+    v37[0] = @"mobile";
+    v37[1] = @"mobile";
+    v36[2] = *MEMORY[0x1E696A370];
+    v37[2] = &unk_1F5AE2680;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:3];
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     v10 = [defaultManager createDirectoryAtPath:_pathForDataStore withIntermediateDirectories:1 attributes:v8 error:b];
 
@@ -1819,9 +2055,9 @@ void __30__SYService__sendResetRequest__block_invoke_129(uint64_t a1, char a2, v
           persistentStore3 = [(SYService *)self persistentStore];
           vectorClockJSON2 = [persistentStore3 vectorClockJSON];
           *buf = 138543618;
-          v32 = peerID2;
-          v33 = 2114;
-          v34 = vectorClockJSON2;
+          v31 = peerID2;
+          v32 = 2114;
+          v33 = vectorClockJSON2;
           _os_log_impl(&dword_1DF835000, v21, OS_LOG_TYPE_DEFAULT, "SYService persistent store initialized. PeerID = %{public}@, vector clock = %{public}@.", buf, 0x16u);
         }
 
@@ -1841,9 +2077,9 @@ void __30__SYService__sendResetRequest__block_invoke_129(uint64_t a1, char a2, v
       if (b)
       {
         v27 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v35 = *MEMORY[0x1E696A578];
-        v36 = @"Failed to create persistent store";
-        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+        v34 = *MEMORY[0x1E696A578];
+        v35 = @"Failed to create persistent store";
+        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
         *b = [v27 initWithSYError:2001 userInfo:v21];
 LABEL_27:
 
@@ -1868,9 +2104,9 @@ LABEL_27:
   if (b)
   {
     v25 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v39 = *MEMORY[0x1E696A578];
-    v40[0] = @"No pairing store path is available, which usually indicates we are not paired.";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    v38 = *MEMORY[0x1E696A578];
+    v39[0] = @"No pairing store path is available, which usually indicates we are not paired.";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
     v26 = [v25 initWithSYError:2003 userInfo:v8];
     v13 = 0;
     *b = v26;
@@ -1882,8 +2118,7 @@ LABEL_29:
   v13 = 0;
 LABEL_30:
 
-  os_activity_scope_leave(&v30);
-  v28 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v29);
   return v13;
 }
 
@@ -1957,7 +2192,7 @@ LABEL_30:
 
 - (void)_swapEngineTo:(unsigned int)to
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v5 = _os_activity_create(&dword_1DF835000, "SYService Sync Engine Swap", self->_serviceActivity, OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -1981,9 +2216,9 @@ LABEL_30:
 
   [(SYSyncEngine *)self->_syncEngine setResponder:self];
   v13 = *p_syncEngine;
-  v35 = 0;
-  v14 = [(SYSyncEngine *)v13 resume:&v35];
-  v15 = v35;
+  v34 = 0;
+  v14 = [(SYSyncEngine *)v13 resume:&v34];
+  v15 = v34;
   if (v14)
   {
     os_unfair_lock_lock(&self->_flagLock);
@@ -2020,9 +2255,9 @@ LABEL_30:
 
     objc_storeStrong(&self->_syncEngine, syncEngine);
     v18 = *p_syncEngine;
-    v34 = 0;
-    v19 = [(SYSyncEngine *)v18 resume:&v34];
-    v15 = v34;
+    v33 = 0;
+    v19 = [(SYSyncEngine *)v18 resume:&v33];
+    v15 = v33;
     if (!v19)
     {
       if (_sync_log_facilities_pred != -1)
@@ -2044,35 +2279,59 @@ LABEL_30:
       if (v22)
       {
         delegateQueue = self->_delegateQueue;
-        v28 = MEMORY[0x1E69E9820];
-        v29 = 3221225472;
-        v30 = __27__SYService__swapEngineTo___block_invoke;
-        v31 = &unk_1E86C9E90;
+        v27 = MEMORY[0x1E69E9820];
+        v28 = 3221225472;
+        v29 = __27__SYService__swapEngineTo___block_invoke;
+        v30 = &unk_1E86C9E90;
         selfCopy = self;
-        v33 = v15;
+        v32 = v15;
         v24 = delegateQueue;
-        v25 = [&v28 copy];
+        v25 = [&v27 copy];
         *buf = MEMORY[0x1E69E9820];
-        v38 = 3221225472;
-        v39 = ___dispatch_async_autoreleased_block_invoke;
-        v40 = &unk_1E86CAA90;
-        v41 = v25;
+        v37 = 3221225472;
+        v38 = ___dispatch_async_autoreleased_block_invoke;
+        v39 = &unk_1E86CAA90;
+        v40 = v25;
         v26 = v25;
         dispatch_async(v24, buf);
       }
 
-      [(SYService *)self suspend:v28];
+      [(SYService *)self suspend:v27];
     }
   }
 
   os_activity_scope_leave(&state);
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __27__SYService__swapEngineTo___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 48));
   [WeakRetained service:*(a1 + 32) encounteredError:*(a1 + 40) context:0];
+}
+
+- (void)_upgradeEngineTo:(unsigned int)to
+{
+  v3 = *&to;
+  currentSession = [(SYService *)self currentSession];
+
+  if (currentSession)
+  {
+    currentSession2 = [(SYService *)self currentSession];
+    [currentSession2 cancel];
+
+    objc_initWeak(&location, self);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __30__SYService__upgradeEngineTo___block_invoke;
+    v7[3] = &unk_1E86CA840;
+    objc_copyWeak(&v8, &location);
+    v9 = v3;
+    [(SYService *)self _whenSessionEnds:v7];
+    objc_destroyWeak(&v8);
+    objc_destroyWeak(&location);
+  }
+
+  [(SYService *)self _swapEngineTo:v3];
 }
 
 void __30__SYService__upgradeEngineTo___block_invoke(uint64_t a1)
@@ -2136,7 +2395,7 @@ void __40__SYService__downgradeEngineForVersion___block_invoke(uint64_t a1)
   _os_assumes_log();
   if (_sync_log_facilities_pred != -1)
   {
-    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_0_0(&_sync_log_facilities_pred);
   }
 
   if (OUTLINED_FUNCTION_6_0())
@@ -2294,7 +2553,7 @@ void __37__SYService_sessionDidEnd_withError___block_invoke(void *a1)
 
 - (void)_wrapUpCurrentSession:(id)session
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   if (_sync_log_facilities_pred != -1)
   {
@@ -2381,14 +2640,14 @@ void __37__SYService_sessionDidEnd_withError___block_invoke(void *a1)
       *&buf[4] = sessionSignpost;
       *&buf[12] = 2080;
       *&buf[14] = v21;
-      v48 = 2114;
-      v49 = identifier;
-      v50 = 2114;
-      v51 = name2;
-      v52 = 2114;
-      v53 = reason2;
-      v54 = 2048;
-      v55 = v15;
+      v47 = 2114;
+      v48 = identifier;
+      v49 = 2114;
+      v50 = name2;
+      v51 = 2114;
+      v52 = reason2;
+      v53 = 2048;
+      v54 = v15;
       _os_log_impl(&dword_1DF835000, v19, OS_LOG_TYPE_DEFAULT, "End signpost %llu: %s session with identifier %{public}@ for service %{public}@ (reason '%{public}@') completed in %.04f seconds.", buf, 0x3Eu);
       if (reason)
       {
@@ -2416,28 +2675,28 @@ void __37__SYService_sessionDidEnd_withError___block_invoke(void *a1)
     }
 
     os_unfair_lock_unlock(&self->_flagLock);
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v28 = v27;
-    v29 = [v28 countByEnumeratingWithState:&v42 objects:v46 count:16];
+    v29 = [v28 countByEnumeratingWithState:&v41 objects:v45 count:16];
     if (v29)
     {
-      v30 = *v43;
+      v30 = *v42;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v43 != v30)
+          if (*v42 != v30)
           {
             objc_enumerationMutation(v28);
           }
 
-          (*(*(*(&v42 + 1) + 8 * i) + 16))();
+          (*(*(*(&v41 + 1) + 8 * i) + 16))();
         }
 
-        v29 = [v28 countByEnumeratingWithState:&v42 objects:v46 count:16];
+        v29 = [v28 countByEnumeratingWithState:&v41 objects:v45 count:16];
       }
 
       while (v29);
@@ -2452,17 +2711,17 @@ void __37__SYService_sessionDidEnd_withError___block_invoke(void *a1)
 
       objc_initWeak(&location, self);
       queue = self->_queue;
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = __35__SYService__wrapUpCurrentSession___block_invoke;
-      v38[3] = &unk_1E86CA868;
-      objc_copyWeak(&v40, &location);
-      v38[4] = self;
-      v39 = v33;
+      v37[0] = MEMORY[0x1E69E9820];
+      v37[1] = 3221225472;
+      v37[2] = __35__SYService__wrapUpCurrentSession___block_invoke;
+      v37[3] = &unk_1E86CA868;
+      objc_copyWeak(&v39, &location);
+      v37[4] = self;
+      v38 = v33;
       v36 = v33;
-      dispatch_async(queue, v38);
+      dispatch_async(queue, v37);
 
-      objc_destroyWeak(&v40);
+      objc_destroyWeak(&v39);
       objc_destroyWeak(&location);
     }
 
@@ -2496,8 +2755,6 @@ void __37__SYService_sessionDidEnd_withError___block_invoke(void *a1)
 
     [(_SYMultiSuspendableQueue *)self->_sessionQueue resume];
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void __35__SYService__wrapUpCurrentSession___block_invoke(uint64_t a1)
@@ -2548,67 +2805,69 @@ void __35__SYService__wrapUpCurrentSession___block_invoke_2(uint64_t a1)
 
 - (id)_chooseBetweenCollidingSessions:(id)sessions :(id)a4
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   sessionsCopy = sessions;
   v7 = a4;
   isResetSync = [sessionsCopy isResetSync];
-  if (isResetSync != [v7 isResetSync])
+  isResetSync2 = [v7 isResetSync];
+  if (isResetSync != isResetSync2)
   {
-    v9 = [sessionsCopy isResetSync] ? v7 : sessionsCopy;
-    v10 = v9;
-    if (v10)
+    v10 = [sessionsCopy isResetSync] ? v7 : sessionsCopy;
+    isResetSync2 = v10;
+    v11 = isResetSync2;
+    if (isResetSync2)
     {
       goto LABEL_22;
     }
   }
 
-  v11 = (*&self->_flags >> 6) & 7;
-  if (v11 < 2)
+  v12 = (*&self->_flags >> 6) & 7;
+  if (v12 < 2)
   {
-    if (v11 != 1)
+    if (v12 != 1)
     {
 LABEL_16:
-      v10 = 0;
+      v11 = 0;
       goto LABEL_17;
     }
 
     [v7 birthDate];
-    v21 = v20;
+    v23 = v22;
     [sessionsCopy birthDate];
-    v19 = v21 - v22;
+    v21 = v23 - v24;
   }
 
   else
   {
-    v12 = _SessionIdentifierDateFormatter();
+    v13 = _SessionIdentifierDateFormatter(isResetSync2);
     identifier = [sessionsCopy identifier];
-    v14 = [v12 dateFromString:identifier];
+    v15 = [v13 dateFromString:identifier];
 
-    v15 = _SessionIdentifierDateFormatter();
+    v17 = _SessionIdentifierDateFormatter(v16);
     identifier2 = [v7 identifier];
-    v17 = [v15 dateFromString:identifier2];
+    v19 = [v17 dateFromString:identifier2];
 
-    [v14 timeIntervalSinceDate:v17];
-    v19 = v18;
+    [v15 timeIntervalSinceDate:v19];
+    v21 = v20;
   }
 
-  v23 = v7;
-  if (v19 <= 1.0)
+  v25 = v7;
+  if (v21 <= 1.0)
   {
-    v23 = sessionsCopy;
-    if (v19 >= -1.0)
+    v25 = sessionsCopy;
+    if (v21 >= -1.0)
     {
       goto LABEL_16;
     }
   }
 
-  v24 = v23;
-  v10 = v24;
-  if (!v24 || ![v24 hasRejectedPeerSession])
+  v26 = v25;
+  v11 = v26;
+  if (!v26 || ![v26 hasRejectedPeerSession])
   {
 LABEL_17:
-    [v10 setHasRejectedPeerSession:1];
-    if (v10)
+    [v11 setHasRejectedPeerSession:1];
+    if (v11)
     {
       goto LABEL_22;
     }
@@ -2616,115 +2875,113 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  if (v10 == sessionsCopy)
+  if (v11 == sessionsCopy)
   {
-    v25 = v7;
+    v27 = v7;
   }
 
   else
   {
-    v25 = sessionsCopy;
+    v27 = sessionsCopy;
   }
 
-  v41 = v25;
+  v42 = v27;
 
-  v10 = v41;
-  if (!v41)
+  v11 = v42;
+  if (!v42)
   {
 LABEL_18:
     isMasterStore = [(SYService *)self isMasterStore];
     if ([sessionsCopy isSending] != isMasterStore)
     {
-      v27 = sessionsCopy;
+      v29 = sessionsCopy;
     }
 
     else
     {
-      v27 = v7;
+      v29 = v7;
     }
 
-    v10 = v27;
+    v11 = v29;
   }
 
 LABEL_22:
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v29 = objc_opt_respondsToSelector();
+  v31 = objc_opt_respondsToSelector();
 
-  if (v29)
+  if (v31)
   {
     if (_sync_log_facilities_pred != -1)
     {
       [SYIncomingSyncAllObjectsSession _continueProcessing];
     }
 
-    v30 = qword_1EDE73420;
+    v32 = qword_1EDE73420;
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEBUG))
     {
-      [SYService _chooseBetweenCollidingSessions:v30];
+      [SYService _chooseBetweenCollidingSessions:v32];
     }
 
-    if (v10 == sessionsCopy)
+    if (v11 == sessionsCopy)
     {
-      v31 = v7;
+      v33 = v7;
     }
 
     else
     {
-      v31 = sessionsCopy;
+      v33 = sessionsCopy;
     }
 
-    v32 = v31;
-    v50 = 0;
-    v51 = &v50;
-    v52 = 0x3032000000;
-    v53 = __Block_byref_object_copy__5;
-    v54 = __Block_byref_object_dispose__5;
-    v55 = 0;
+    v34 = v33;
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x3032000000;
+    v54 = __Block_byref_object_copy__5;
+    v55 = __Block_byref_object_dispose__5;
+    v56 = 0;
     delegateQueue = self->_delegateQueue;
-    v42 = MEMORY[0x1E69E9820];
-    v43 = 3221225472;
-    v44 = __46__SYService__chooseBetweenCollidingSessions::__block_invoke;
-    v45 = &unk_1E86CA890;
-    v49 = &v50;
+    v43 = MEMORY[0x1E69E9820];
+    v44 = 3221225472;
+    v45 = __46__SYService__chooseBetweenCollidingSessions::__block_invoke;
+    v46 = &unk_1E86CA890;
+    v50 = &v51;
     selfCopy = self;
-    v10 = v10;
-    v47 = v10;
-    v34 = v32;
-    v48 = v34;
-    v35 = &v42;
+    v11 = v11;
+    v48 = v11;
+    v36 = v34;
+    v49 = v36;
+    v37 = &v43;
     *&block = MEMORY[0x1E69E9820];
     *(&block + 1) = 3221225472;
-    v57 = ___dispatch_sync_autoreleased_block_invoke;
-    v58 = &unk_1E86CAA90;
-    v59 = v35;
+    v58 = ___dispatch_sync_autoreleased_block_invoke;
+    v59 = &unk_1E86CAA90;
+    v60 = v37;
     dispatch_sync(delegateQueue, &block);
 
-    if (v51[5] == v34)
+    if (v52[5] == v36)
     {
       if (_sync_log_facilities_pred != -1)
       {
         [SYIncomingSyncAllObjectsSession _continueProcessing];
       }
 
-      v36 = qword_1EDE73420;
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      v38 = qword_1EDE73420;
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
-        identifier3 = [v51[5] identifier];
+        identifier3 = [v52[5] identifier];
         LODWORD(block) = 138543362;
         *(&block + 4) = identifier3;
-        _os_log_impl(&dword_1DF835000, v36, OS_LOG_TYPE_DEFAULT, "Delegate vetoed our decision. Session %{public}@ is now the winner", &block, 0xCu);
+        _os_log_impl(&dword_1DF835000, v38, OS_LOG_TYPE_DEFAULT, "Delegate vetoed our decision. Session %{public}@ is now the winner", &block, 0xCu);
       }
 
-      v38 = v51[5];
-      v10 = v38;
+      v40 = v52[5];
+      v11 = v40;
     }
 
-    _Block_object_dispose(&v50, 8);
+    _Block_object_dispose(&v51, 8);
   }
 
-  v39 = *MEMORY[0x1E69E9840];
-
-  return v10;
+  return v11;
 }
 
 void __46__SYService__chooseBetweenCollidingSessions::__block_invoke(void *a1)
@@ -2841,20 +3098,20 @@ LABEL_28:
   dispatch_async(queue, v7);
 }
 
-void __58__SYService__postVersionRejectionMessageForMessageWithID___block_invoke(uint64_t a1)
+void __58__SYService__postVersionRejectionMessageForMessageWithID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = objc_opt_new();
-  v2 = [*(a1 + 32) _newMessageHeader];
-  [v3 setHeader:v2];
+  v4 = objc_opt_new();
+  v3 = [*(a1 + 32) _newMessageHeader];
+  [v4 setHeader:v3];
 
-  [v3 setInReplyTo:*(a1 + 40)];
-  [v3 setSupportedVersions:&_postVersionRejectionMessageForMessageWithID__supportedVersions count:2];
-  [*(*(a1 + 32) + 112) enqueueSyncRequest:v3 withMessageID:0x7FFFLL priority:objc_msgSend(*(a1 + 32) options:"priority") userContext:0 callback:{0, &__block_literal_global_159}];
+  [v4 setInReplyTo:*(a1 + 40)];
+  [v4 setSupportedVersions:&_postVersionRejectionMessageForMessageWithID__supportedVersions count:2];
+  [*(*(a1 + 32) + 112) enqueueSyncRequest:v4 withMessageID:0x7FFFLL priority:objc_msgSend(*(a1 + 32) options:"priority") userContext:0 callback:{0, &__block_literal_global_159}];
 }
 
 void __58__SYService__postVersionRejectionMessageForMessageWithID___block_invoke_2(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   if (a2)
@@ -2867,9 +3124,9 @@ void __58__SYService__postVersionRejectionMessageForMessageWithID___block_invoke
     v8 = qword_1EDE73420;
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543362;
-      v14 = v6;
-      _os_log_impl(&dword_1DF835000, v8, OS_LOG_TYPE_DEFAULT, "Enqueued version rejection message with ID %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v6;
+      _os_log_impl(&dword_1DF835000, v8, OS_LOG_TYPE_DEFAULT, "Enqueued version rejection message with ID %{public}@", &v12, 0xCu);
     }
   }
 
@@ -2885,13 +3142,11 @@ void __58__SYService__postVersionRejectionMessageForMessageWithID___block_invoke
     {
       v10 = v9;
       v11 = _SYObfuscate(v7);
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_1DF835000, v10, OS_LOG_TYPE_DEFAULT, "Failed to enqueue version rejection message: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_1DF835000, v10, OS_LOG_TYPE_DEFAULT, "Failed to enqueue version rejection message: %{public}@", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDictionary)extraTransportOptions
@@ -2911,7 +3166,7 @@ void __58__SYService__postVersionRejectionMessageForMessageWithID___block_invoke
 
 - (BOOL)willAcceptMessageWithHeader:(id)header messageID:(id)d
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   headerCopy = header;
   dCopy = d;
   sequenceNumber = [headerCopy sequenceNumber];
@@ -2930,9 +3185,9 @@ void __58__SYService__postVersionRejectionMessageForMessageWithID___block_invoke
       v11 = qword_1EDE73420;
       if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
       {
-        v46 = 138543362;
-        v47 = dCopy;
-        _os_log_impl(&dword_1DF835000, v11, OS_LOG_TYPE_DEFAULT, "Ignoring message ID %{public}@, it's in the 'cancellation failed' list", &v46, 0xCu);
+        v45 = 138543362;
+        v46 = dCopy;
+        _os_log_impl(&dword_1DF835000, v11, OS_LOG_TYPE_DEFAULT, "Ignoring message ID %{public}@, it's in the 'cancellation failed' list", &v45, 0xCu);
       }
 
       persistentStore2 = [(SYService *)self persistentStore];
@@ -2941,25 +3196,40 @@ void __58__SYService__postVersionRejectionMessageForMessageWithID___block_invoke
       goto LABEL_10;
     }
 
-    v16 = (*&self->_flags >> 6) & 7;
-    if (v16 != [headerCopy version])
+    v15 = (*&self->_flags >> 6) & 7;
+    if (v15 != [headerCopy version])
     {
       self->_flags = (*&self->_flags & 0xFFFFFE3F | (([headerCopy version] & 7) << 6));
     }
 
-    v17 = MEMORY[0x1E695DF00];
+    v16 = MEMORY[0x1E695DF00];
     [headerCopy timestamp];
-    v18 = [v17 dateWithTimeIntervalSinceReferenceDate:?];
+    v17 = [v16 dateWithTimeIntervalSinceReferenceDate:?];
     persistentStore3 = [(SYService *)self persistentStore];
     lastMessageReceived = [persistentStore3 lastMessageReceived];
 
     persistentStore4 = [(SYService *)self persistentStore];
     sender = [headerCopy sender];
     peerID = [sender peerID];
-    v24 = [persistentStore4 sequenceNumberIsDuplicate:sequenceNumber forPeer:peerID];
+    v23 = [persistentStore4 sequenceNumberIsDuplicate:sequenceNumber forPeer:peerID];
 
-    if (v24)
+    if (v23)
     {
+      if (_sync_log_facilities_pred != -1)
+      {
+        [SYIncomingSyncAllObjectsSession _continueProcessing];
+      }
+
+      v24 = qword_1EDE73420;
+      if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
+      {
+        v45 = 138543618;
+        v46 = dCopy;
+        v47 = 2048;
+        v48 = sequenceNumber;
+        _os_log_impl(&dword_1DF835000, v24, OS_LOG_TYPE_DEFAULT, "Possible duplicate message %{public}@ received with seqno %llu. Comparing timestamps.", &v45, 0x16u);
+      }
+
       if (_sync_log_facilities_pred != -1)
       {
         [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -2968,36 +3238,21 @@ void __58__SYService__postVersionRejectionMessageForMessageWithID___block_invoke
       v25 = qword_1EDE73420;
       if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
       {
-        v46 = 138543618;
-        v47 = dCopy;
-        v48 = 2048;
-        v49 = sequenceNumber;
-        _os_log_impl(&dword_1DF835000, v25, OS_LOG_TYPE_DEFAULT, "Possible duplicate message %{public}@ received with seqno %llu. Comparing timestamps.", &v46, 0x16u);
-      }
-
-      if (_sync_log_facilities_pred != -1)
-      {
-        [SYIncomingSyncAllObjectsSession _continueProcessing];
-      }
-
-      v26 = qword_1EDE73420;
-      if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
-      {
-        v27 = MEMORY[0x1E695DF00];
-        v28 = v26;
+        v26 = MEMORY[0x1E695DF00];
+        v27 = v25;
         [headerCopy timestamp];
-        v29 = [v27 dateWithTimeIntervalSinceReferenceDate:?];
-        v46 = 138543618;
-        v47 = v29;
-        v48 = 2114;
-        v49 = lastMessageReceived;
-        _os_log_impl(&dword_1DF835000, v28, OS_LOG_TYPE_DEFAULT, "This message timestamp = %{public}@ vs. last message timestamp = %{public}@", &v46, 0x16u);
+        v28 = [v26 dateWithTimeIntervalSinceReferenceDate:?];
+        v45 = 138543618;
+        v46 = v28;
+        v47 = 2114;
+        v48 = lastMessageReceived;
+        _os_log_impl(&dword_1DF835000, v27, OS_LOG_TYPE_DEFAULT, "This message timestamp = %{public}@ vs. last message timestamp = %{public}@", &v45, 0x16u);
       }
 
-      if ([v18 compare:lastMessageReceived] != 1)
+      if ([v17 compare:lastMessageReceived] != 1)
       {
-        v45 = +[SYTransportLog sharedInstance];
-        oslog = [v45 oslog];
+        v44 = +[SYTransportLog sharedInstance];
+        oslog = [v44 oslog];
 
         if (os_log_type_enabled(oslog, 0x90u))
         {
@@ -3013,11 +3268,11 @@ void __58__SYService__postVersionRejectionMessageForMessageWithID___block_invoke
         [SYIncomingSyncAllObjectsSession _continueProcessing];
       }
 
-      v30 = qword_1EDE73420;
+      v29 = qword_1EDE73420;
       if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v46) = 0;
-        _os_log_impl(&dword_1DF835000, v30, OS_LOG_TYPE_DEFAULT, "Sequence numbers were reset; clearing our received seqno set.", &v46, 2u);
+        LOWORD(v45) = 0;
+        _os_log_impl(&dword_1DF835000, v29, OS_LOG_TYPE_DEFAULT, "Sequence numbers were reset; clearing our received seqno set.", &v45, 2u);
       }
 
       persistentStore5 = [(SYService *)self persistentStore];
@@ -3029,37 +3284,37 @@ void __58__SYService__postVersionRejectionMessageForMessageWithID___block_invoke
     persistentStore6 = [(SYService *)self persistentStore];
     sender3 = [headerCopy sender];
     peerID3 = [sender3 peerID];
-    v37 = [persistentStore6 lastSequenceNumberForPeerID:peerID3];
+    v36 = [persistentStore6 lastSequenceNumberForPeerID:peerID3];
 
     if (_sync_log_facilities_pred != -1)
     {
       [SYIncomingSyncAllObjectsSession _continueProcessing];
     }
 
-    v38 = qword_1EDE73420;
+    v37 = qword_1EDE73420;
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_INFO))
     {
-      v46 = 134218240;
-      v47 = sequenceNumber;
-      v48 = 2048;
-      v49 = v37;
-      _os_log_impl(&dword_1DF835000, v38, OS_LOG_TYPE_INFO, "Received seqno=%llu, last seen=%llu", &v46, 0x16u);
+      v45 = 134218240;
+      v46 = sequenceNumber;
+      v47 = 2048;
+      v48 = v36;
+      _os_log_impl(&dword_1DF835000, v37, OS_LOG_TYPE_INFO, "Received seqno=%llu, last seen=%llu", &v45, 0x16u);
     }
 
-    if (sequenceNumber != v37 + 1)
+    if (sequenceNumber != v36 + 1)
     {
-      v39 = +[SYTransportLog sharedInstance];
-      oslog2 = [v39 oslog];
+      v38 = +[SYTransportLog sharedInstance];
+      oslog2 = [v38 oslog];
 
       if (os_log_type_enabled(oslog2, 0x90u))
       {
-        v46 = 138543874;
-        v47 = dCopy;
-        v48 = 2048;
-        v49 = sequenceNumber;
-        v50 = 2048;
-        v51 = v37;
-        _os_log_error_impl(&dword_1DF835000, oslog2, 0x90u, "Out of order delivery or dropped message detected on receipt of message with ID %{public}@. Message sequence number = %llu, last received sequence number = %llu", &v46, 0x20u);
+        v45 = 138543874;
+        v46 = dCopy;
+        v47 = 2048;
+        v48 = sequenceNumber;
+        v49 = 2048;
+        v50 = v36;
+        _os_log_error_impl(&dword_1DF835000, oslog2, 0x90u, "Out of order delivery or dropped message detected on receipt of message with ID %{public}@. Message sequence number = %llu, last received sequence number = %llu", &v45, 0x20u);
       }
     }
 
@@ -3070,16 +3325,16 @@ void __58__SYService__postVersionRejectionMessageForMessageWithID___block_invoke
         [SYIncomingSyncAllObjectsSession _continueProcessing];
       }
 
-      v41 = qword_1EDE73420;
+      v40 = qword_1EDE73420;
       if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_ERROR))
       {
-        [SYService willAcceptMessageWithHeader:v41 messageID:?];
+        [SYService willAcceptMessageWithHeader:v40 messageID:?];
       }
     }
 
-    v42 = MEMORY[0x1E695DF00];
+    v41 = MEMORY[0x1E695DF00];
     [headerCopy timestamp];
-    oslog = [v42 dateWithTimeIntervalSinceReferenceDate:?];
+    oslog = [v41 dateWithTimeIntervalSinceReferenceDate:?];
     persistentStore7 = [(SYService *)self persistentStore];
     [persistentStore7 setLastMessageReceived:oslog];
 
@@ -3094,7 +3349,6 @@ LABEL_10:
   v13 = 0;
 LABEL_11:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -3118,7 +3372,7 @@ LABEL_11:
 
 uint64_t __47__SYService_handleSyncRequest_ofType_response___block_invoke(uint64_t a1)
 {
-  v3 = (a1 + 56);
+  v3 = a1 + 56;
   v2 = *(a1 + 56);
   if (v2 > 0x64)
   {
@@ -3667,7 +3921,7 @@ void __52__SYService_handleFileTransfer_metadata_completion___block_invoke_175(u
 
 - (void)handleSyncError:(id)error forMessageWithIdentifier:(id)identifier
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   identifierCopy = identifier;
   if (identifierCopy && (-[SYService persistentStore](self, "persistentStore"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 shouldIgnoreMessageID:identifierCopy], v8, v9))
@@ -3684,9 +3938,9 @@ void __52__SYService_handleFileTransfer_metadata_completion___block_invoke_175(u
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v25 = identifierCopy;
-      v26 = 2114;
-      v27 = errorCopy;
+      v24 = identifierCopy;
+      v25 = 2114;
+      v26 = errorCopy;
       _os_log_impl(&dword_1DF835000, v11, OS_LOG_TYPE_DEFAULT, "Received expected error for message ID %{public}@, will ignore it. Error is %{public}@", buf, 0x16u);
     }
   }
@@ -3702,7 +3956,7 @@ void __52__SYService_handleFileTransfer_metadata_completion___block_invoke_175(u
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = errorCopy;
+      v24 = errorCopy;
       _os_log_impl(&dword_1DF835000, v12, OS_LOG_TYPE_DEFAULT, "Sync error occurred: %@", buf, 0xCu);
     }
 
@@ -3720,19 +3974,17 @@ void __52__SYService_handleFileTransfer_metadata_completion___block_invoke_175(u
     }
 
     queue = self->_queue;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __54__SYService_handleSyncError_forMessageWithIdentifier___block_invoke;
-    v20[3] = &unk_1E86CA728;
-    v20[4] = self;
-    v21 = v15;
-    v22 = identifierCopy;
-    v23 = errorCopy;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __54__SYService_handleSyncError_forMessageWithIdentifier___block_invoke;
+    v19[3] = &unk_1E86CA728;
+    v19[4] = self;
+    v20 = v15;
+    v21 = identifierCopy;
+    v22 = errorCopy;
     v18 = v15;
-    dispatch_async(queue, v20);
+    dispatch_async(queue, v19);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __54__SYService_handleSyncError_forMessageWithIdentifier___block_invoke(void *a1)
@@ -3955,7 +4207,7 @@ LABEL_6:
 
 - (void)_enqueueIncomingStartSessionRequest:(id)request withCompletion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
   if (self->_queuedStartSession)
@@ -3974,23 +4226,21 @@ LABEL_6:
     v9 = v8;
     sessionID = [requestCopy sessionID];
     v11 = _SYObfuscate(self->_currentSession);
-    v15 = 138543618;
-    v16 = sessionID;
-    v17 = 2114;
-    v18 = v11;
-    _os_log_impl(&dword_1DF835000, v9, OS_LOG_TYPE_DEFAULT, "Deferring incoming start-session (%{public}@) to allow current session (%{public}@) to finish closing.", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = sessionID;
+    v16 = 2114;
+    v17 = v11;
+    _os_log_impl(&dword_1DF835000, v9, OS_LOG_TYPE_DEFAULT, "Deferring incoming start-session (%{public}@) to allow current session (%{public}@) to finish closing.", &v14, 0x16u);
   }
 
   v12 = [[_SYQueuedStartSession alloc] initWithRequest:requestCopy completion:completionCopy];
   queuedStartSession = self->_queuedStartSession;
   self->_queuedStartSession = v12;
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_request:(id)_request hasValidSessionIDForSession:(id)session response:(id)response completion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   _requestCopy = _request;
   responseCopy = response;
   completionCopy = completion;
@@ -4012,9 +4262,9 @@ LABEL_6:
       v17 = v16;
       v18 = objc_opt_class();
       v19 = NSStringFromClass(v18);
-      v25 = 138543362;
-      v26 = v19;
-      _os_log_impl(&dword_1DF835000, v17, OS_LOG_TYPE_DEFAULT, "Received %{public}@ message for another session ID", &v25, 0xCu);
+      v24 = 138543362;
+      v25 = v19;
+      _os_log_impl(&dword_1DF835000, v17, OS_LOG_TYPE_DEFAULT, "Received %{public}@ message for another session ID", &v24, 0xCu);
     }
 
     v20 = [SYErrorInfo alloc];
@@ -4025,13 +4275,12 @@ LABEL_6:
     completionCopy[2](completionCopy, responseCopy, 0);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (void)_handleStartSession:(id)session completion:(id)completion
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   completionCopy = completion;
   dispatch_assert_queue_not_V2(self->_delegateQueue);
@@ -4076,37 +4325,37 @@ LABEL_6:
     else
     {
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
-      v71 = 0;
-      v72 = &v71;
-      v73 = 0x2020000000;
-      v74 = 0;
+      v70 = 0;
+      v71 = &v70;
+      v72 = 0x2020000000;
+      v73 = 0;
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v81 = __Block_byref_object_copy__5;
-      v82 = __Block_byref_object_dispose__5;
-      v83 = 0;
+      v80 = __Block_byref_object_copy__5;
+      v81 = __Block_byref_object_dispose__5;
+      v82 = 0;
       delegateQueue = self->_delegateQueue;
-      v65[0] = MEMORY[0x1E69E9820];
-      v65[1] = 3221225472;
-      v65[2] = __44__SYService__handleStartSession_completion___block_invoke_184;
-      v65[3] = &unk_1E86CA7F0;
-      v69 = &v71;
+      v64[0] = MEMORY[0x1E69E9820];
+      v64[1] = 3221225472;
+      v64[2] = __44__SYService__handleStartSession_completion___block_invoke_184;
+      v64[3] = &unk_1E86CA7F0;
+      v68 = &v70;
       sessionID2 = WeakRetained;
-      v66 = sessionID2;
+      v65 = sessionID2;
       selfCopy = self;
-      v57 = v11;
-      v68 = v57;
-      v70 = buf;
-      v34 = v65;
+      v56 = v11;
+      v67 = v56;
+      v69 = buf;
+      v34 = v64;
       *block = MEMORY[0x1E69E9820];
       *&block[8] = 3221225472;
       *&block[16] = ___dispatch_sync_autoreleased_block_invoke;
-      v85 = &unk_1E86CAA90;
-      v86 = v34;
+      v84 = &unk_1E86CAA90;
+      v85 = v34;
       dispatch_sync(delegateQueue, block);
 
-      if (v72[3])
+      if (v71[3])
       {
         if (*p_currentSession)
         {
@@ -4150,18 +4399,18 @@ LABEL_6:
 
         objc_storeStrong(&self->_currentSession, v11);
         objc_initWeak(&location, self);
-        v58[0] = MEMORY[0x1E69E9820];
-        v58[1] = 3221225472;
-        v58[2] = __44__SYService__handleStartSession_completion___block_invoke_185;
-        v58[3] = &unk_1E86CA978;
-        objc_copyWeak(&v63, &location);
-        v59 = v57;
-        v60 = v8;
-        v61 = sessionCopy;
-        v62 = completionCopy;
-        [v59 start:v58];
+        v57[0] = MEMORY[0x1E69E9820];
+        v57[1] = 3221225472;
+        v57[2] = __44__SYService__handleStartSession_completion___block_invoke_185;
+        v57[3] = &unk_1E86CA978;
+        objc_copyWeak(&v62, &location);
+        v58 = v56;
+        v59 = v8;
+        v60 = sessionCopy;
+        v61 = completionCopy;
+        [v58 start:v57];
 
-        objc_destroyWeak(&v63);
+        objc_destroyWeak(&v62);
         objc_destroyWeak(&location);
       }
 
@@ -4175,7 +4424,7 @@ LABEL_6:
         v48 = qword_1EDE73420;
         if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
         {
-          v49 = _SYObfuscate(v57);
+          v49 = _SYObfuscate(v56);
           v50 = _SYObfuscate(*(*&buf[8] + 40));
           *block = 138543618;
           *&block[4] = v49;
@@ -4188,12 +4437,12 @@ LABEL_6:
         v52 = [(SYErrorInfo *)v51 initWithError:*(*&buf[8] + 40)];
         [v8 setError:v52];
 
-        wrappedUserContext = [v57 wrappedUserContext];
+        wrappedUserContext = [v56 wrappedUserContext];
         completionCopy[2](completionCopy, v8, wrappedUserContext);
       }
 
       _Block_object_dispose(buf, 8);
-      _Block_object_dispose(&v71, 8);
+      _Block_object_dispose(&v70, 8);
     }
 
     goto LABEL_67;
@@ -4263,7 +4512,7 @@ LABEL_6:
         *&buf[12] = 2114;
         *&buf[14] = v39;
         *&buf[22] = 2048;
-        v81 = *&v20;
+        v80 = *&v20;
         _os_log_impl(&dword_1DF835000, v38, OS_LOG_TYPE_DEFAULT, "A new StartSyncSession (%{public}@) arrived, but there is a current session (%{public}@) with an age of %.02f, so we are rejecting the new session.", buf, 0x20u);
       }
 
@@ -4318,14 +4567,14 @@ LABEL_6:
         }
 
         v55 = *p_currentSession;
-        v75[0] = MEMORY[0x1E69E9820];
-        v75[1] = 3221225472;
-        v75[2] = __44__SYService__handleStartSession_completion___block_invoke;
-        v75[3] = &unk_1E86CA950;
-        v78 = completionCopy;
-        v76 = v8;
-        v77 = v46;
-        [v55 _onSessionStateChangedTo:6 do:v75];
+        v74[0] = MEMORY[0x1E69E9820];
+        v74[1] = 3221225472;
+        v74[2] = __44__SYService__handleStartSession_completion___block_invoke;
+        v74[3] = &unk_1E86CA950;
+        v77 = completionCopy;
+        v75 = v8;
+        v76 = v46;
+        [v55 _onSessionStateChangedTo:6 do:v74];
       }
     }
 
@@ -4350,10 +4599,9 @@ LABEL_67:
 LABEL_68:
 
   os_activity_scope_leave(&state);
-  v56 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __44__SYService__handleStartSession_completion___block_invoke(void *a1)
+uint64_t __44__SYService__handleStartSession_completion___block_invoke(uint64_t a1)
 {
   if (_sync_log_facilities_pred != -1)
   {
@@ -4363,13 +4611,11 @@ uint64_t __44__SYService__handleStartSession_completion___block_invoke(void *a1)
   v2 = qword_1EDE73420;
   if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1DF835000, v2, OS_LOG_TYPE_DEFAULT, "Terrifying deferred session rejection path (dequeue).", v6, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_1DF835000, v2, OS_LOG_TYPE_DEFAULT, "Terrifying deferred session rejection path (dequeue).", v4, 2u);
   }
 
-  v3 = a1[5];
-  v4 = a1[4];
-  return (*(a1[6] + 16))();
+  return (*(*(a1 + 48) + 16))();
 }
 
 void __44__SYService__handleStartSession_completion___block_invoke_184(void *a1)
@@ -4402,7 +4648,7 @@ void __44__SYService__handleStartSession_completion___block_invoke_184(void *a1)
 
 void __44__SYService__handleStartSession_completion___block_invoke_185(uint64_t a1, int a2, void *a3)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   if (WeakRetained)
@@ -4442,33 +4688,32 @@ void __44__SYService__handleStartSession_completion___block_invoke_185(uint64_t 
           v13 = "delta";
         }
 
-        v14 = *(a1 + 32);
-        v15 = objc_opt_class();
-        v16 = NSStringFromClass(v15);
-        v17 = [*(a1 + 32) identifier];
-        v18 = [*(a1 + 32) reason];
-        if (v18)
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v16 = [*(a1 + 32) identifier];
+        v17 = [*(a1 + 32) reason];
+        if (v17)
         {
-          v19 = [*(a1 + 32) reason];
+          v18 = [*(a1 + 32) reason];
         }
 
         else
         {
-          v19 = @"-";
+          v18 = @"-";
         }
 
-        v27 = 134219010;
-        v28 = pseudo_signpost_id;
-        v29 = 2082;
-        v30 = v13;
+        v25 = 134219010;
+        v26 = pseudo_signpost_id;
+        v27 = 2082;
+        v28 = v13;
+        v29 = 2114;
+        v30 = v15;
         v31 = 2114;
         v32 = v16;
         v33 = 2114;
-        v34 = v17;
-        v35 = 2114;
-        v36 = v19;
-        _os_log_impl(&dword_1DF835000, v12, OS_LOG_TYPE_DEFAULT, "Start signpost %llu: Started incoming %{public}s %{public}@ with identifier %{public}@. Reason = '%{public}@'", &v27, 0x34u);
-        if (v18)
+        v34 = v18;
+        _os_log_impl(&dword_1DF835000, v12, OS_LOG_TYPE_DEFAULT, "Start signpost %llu: Started incoming %{public}s %{public}@ with identifier %{public}@. Reason = '%{public}@'", &v25, 0x34u);
+        if (v17)
         {
         }
       }
@@ -4483,23 +4728,23 @@ void __44__SYService__handleStartSession_completion___block_invoke_185(uint64_t 
         [SYIncomingSyncAllObjectsSession _continueProcessing];
       }
 
-      v20 = qword_1EDE73420;
+      v19 = qword_1EDE73420;
       if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = *(a1 + 32);
-        v27 = 138543362;
-        v28 = v21;
-        _os_log_impl(&dword_1DF835000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ decided not to come out and play.", &v27, 0xCu);
+        v20 = *(a1 + 32);
+        v25 = 138543362;
+        v26 = v20;
+        _os_log_impl(&dword_1DF835000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ decided not to come out and play.", &v25, 0xCu);
       }
 
-      v22 = [[SYErrorInfo alloc] initWithError:v5];
-      [*(a1 + 40) setError:v22];
+      v21 = [[SYErrorInfo alloc] initWithError:v5];
+      [*(a1 + 40) setError:v21];
     }
 
-    v23 = *(a1 + 56);
-    v24 = *(a1 + 40);
-    v25 = [*(a1 + 32) wrappedUserContext];
-    (*(v23 + 16))(v23, v24, v25);
+    v22 = *(a1 + 56);
+    v23 = *(a1 + 40);
+    v24 = [*(a1 + 32) wrappedUserContext];
+    (*(v22 + 16))(v22, v23, v24);
   }
 
   else
@@ -4514,18 +4759,16 @@ void __44__SYService__handleStartSession_completion___block_invoke_185(uint64_t 
       __44__SYService__handleStartSession_completion___block_invoke_185_cold_4();
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleResetRequest:(id)request completion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
-  v24.opaque[0] = 0;
-  v24.opaque[1] = 0;
-  os_activity_scope_enter(self->_serviceActivity, &v24);
+  v23.opaque[0] = 0;
+  v23.opaque[1] = 0;
+  os_activity_scope_enter(self->_serviceActivity, &v23);
   v8 = objc_opt_new();
   _newMessageHeader = [(SYService *)self _newMessageHeader];
   [v8 setHeader:_newMessageHeader];
@@ -4559,7 +4802,7 @@ void __44__SYService__handleStartSession_completion___block_invoke_185(uint64_t 
           }
 
           *buf = 138543362;
-          v26 = v17;
+          v25 = v17;
           _os_log_impl(&dword_1DF835000, v15, OS_LOG_TYPE_DEFAULT, "Accepting reset request: %{public}@ sync in progress, which will be canceled to make way for the requested reset.", buf, 0xCu);
         }
 
@@ -4611,8 +4854,7 @@ void __44__SYService__handleStartSession_completion___block_invoke_185(uint64_t 
     completionCopy[2](completionCopy, v8, 0);
   }
 
-  os_activity_scope_leave(&v24);
-  v23 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v23);
 }
 
 - (void)_handleSyncBatch:(id)batch completion:(id)completion
@@ -4748,11 +4990,11 @@ void __44__SYService__handleStartSession_completion___block_invoke_185(uint64_t 
 
 - (BOOL)_handleResetResponse:(id)response error:(id *)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   responseCopy = response;
-  v13.opaque[0] = 0;
-  v13.opaque[1] = 0;
-  os_activity_scope_enter(self->_serviceActivity, &v13);
+  v12.opaque[0] = 0;
+  v12.opaque[1] = 0;
+  os_activity_scope_enter(self->_serviceActivity, &v12);
   inFlightSyncRequestIdentifier = self->_inFlightSyncRequestIdentifier;
   self->_inFlightSyncRequestIdentifier = 0;
 
@@ -4775,14 +5017,13 @@ void __44__SYService__handleStartSession_completion___block_invoke_185(uint64_t 
       }
 
       *buf = 138412290;
-      v15 = v10;
+      v14 = v10;
       _os_log_impl(&dword_1DF835000, v7, OS_LOG_TYPE_DEFAULT, "Reset Sync request was denied: %@", buf, 0xCu);
     }
   }
 
-  os_activity_scope_leave(&v13);
+  os_activity_scope_leave(&v12);
 
-  v11 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -5166,7 +5407,7 @@ void __41__SYService__swapSessionForVersionChange__block_invoke(uint64_t a1)
 
 void __41__SYService__swapSessionForVersionChange__block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -5179,20 +5420,18 @@ void __41__SYService__swapSessionForVersionChange__block_invoke_2(uint64_t a1, c
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = v5;
+      v13 = v5;
       _os_log_impl(&dword_1DF835000, v6, OS_LOG_TYPE_DEFAULT, "Swapped-out session (version rejection) failed to start: %@", buf, 0xCu);
     }
 
     v7 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v11 = *MEMORY[0x1E696AA08];
-    v12 = v5;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696AA08];
+    v11 = v5;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
     v9 = [v7 initWithSYError:2018 userInfo:v8];
 
     [*(a1 + 32) _handleError:v9];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendData:(id)data options:(id)options completion:(id)completion
@@ -5221,23 +5460,23 @@ void __41__SYService__swapSessionForVersionChange__block_invoke_2(uint64_t a1, c
   os_activity_scope_leave(&state);
 }
 
-void __61__SYService_AtomicTransactions__sendData_options_completion___block_invoke(uint64_t a1)
+void __61__SYService_AtomicTransactions__sendData_options_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_new();
-  [v2 setPayload:*(a1 + 32)];
-  v4 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  v5 = *(v4 + 56);
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __61__SYService_AtomicTransactions__sendData_options_completion___block_invoke_2;
-  v7[3] = &unk_1E86CA1B8;
-  v7[4] = v4;
-  v8 = v2;
+  v3 = objc_opt_new();
+  [v3 setPayload:*(a1 + 32)];
+  v5 = *(a1 + 40);
+  v4 = *(a1 + 48);
+  v6 = *(v5 + 56);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __61__SYService_AtomicTransactions__sendData_options_completion___block_invoke_2;
+  v8[3] = &unk_1E86CA1B8;
+  v8[4] = v5;
   v9 = v3;
-  v10 = *(a1 + 56);
-  v6 = v2;
-  dispatch_async(v5, v7);
+  v10 = v4;
+  v11 = *(a1 + 56);
+  v7 = v3;
+  dispatch_async(v6, v8);
 }
 
 void __61__SYService_AtomicTransactions__sendData_options_completion___block_invoke_2(uint64_t a1)
@@ -5491,12 +5730,12 @@ uint64_t __81__SYService_AtomicTransactions__dataStreamWithMetadata_options_iden
 
 - (void)_v1_handleFullSyncRequest:(id)request completion:(id)completion
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
-  v25.opaque[0] = 0;
-  v25.opaque[1] = 0;
-  os_activity_scope_enter(self->_serviceActivity, &v25);
+  v24.opaque[0] = 0;
+  v24.opaque[1] = 0;
+  os_activity_scope_enter(self->_serviceActivity, &v24);
   v8 = objc_opt_new();
   _newMessageHeader = [(SYService *)self _newMessageHeader];
   [v8 setHeader:_newMessageHeader];
@@ -5524,7 +5763,7 @@ uint64_t __81__SYService_AtomicTransactions__dataStreamWithMetadata_options_iden
         {
           identifier = [currentSession identifier];
           *buf = 138543362;
-          v27 = identifier;
+          v26 = identifier;
           _os_log_impl(&dword_1DF835000, v19, OS_LOG_TYPE_DEFAULT, "Rejecting full-sync request: session (%{public}@) in progress", buf, 0xCu);
         }
 
@@ -5572,13 +5811,12 @@ LABEL_16:
   completionCopy[2](completionCopy, v8, syncID2);
 LABEL_17:
 
-  os_activity_scope_leave(&v25);
-  v24 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v24);
 }
 
 - (void)_v1_handleSyncAllObjects:(id)objects completion:(id)completion
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   completionCopy = completion;
   v8 = objc_opt_new();
@@ -5602,38 +5840,38 @@ LABEL_4:
     v15 = v13;
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v48 = 0;
-    v49 = &v48;
-    v50 = 0x2020000000;
-    v51 = 0;
+    v47 = 0;
+    v48 = &v47;
+    v49 = 0x2020000000;
+    v50 = 0;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v53 = 0x3032000000;
-    v54 = __Block_byref_object_copy__5;
-    v55 = __Block_byref_object_dispose__5;
-    v56 = 0;
+    v52 = 0x3032000000;
+    v53 = __Block_byref_object_copy__5;
+    v54 = __Block_byref_object_dispose__5;
+    v55 = 0;
     delegateQueue = self->_delegateQueue;
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __71__SYService_CompanionSyncProtoV1___v1_handleSyncAllObjects_completion___block_invoke;
-    v42[3] = &unk_1E86CA7F0;
-    v46 = &v48;
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __71__SYService_CompanionSyncProtoV1___v1_handleSyncAllObjects_completion___block_invoke;
+    v41[3] = &unk_1E86CA7F0;
+    v45 = &v47;
     syncID2 = WeakRetained;
-    v43 = syncID2;
+    v42 = syncID2;
     selfCopy = self;
     obj = v15;
     currentSession = v15;
-    v45 = currentSession;
+    v44 = currentSession;
     p_buf = &buf;
-    v19 = v42;
+    v19 = v41;
     *block = MEMORY[0x1E69E9820];
     *&block[8] = 3221225472;
     *&block[16] = ___dispatch_sync_autoreleased_block_invoke;
-    v58 = &unk_1E86CAA90;
-    v59 = v19;
+    v57 = &unk_1E86CAA90;
+    v58 = v19;
     dispatch_sync(delegateQueue, block);
 
-    if (v49[3])
+    if (v48[3])
     {
       if (self->_currentSession)
       {
@@ -5667,13 +5905,13 @@ LABEL_4:
 
       objc_storeStrong(&self->_currentSession, obja);
       objc_initWeak(&location, self);
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __71__SYService_CompanionSyncProtoV1___v1_handleSyncAllObjects_completion___block_invoke_490;
-      v39[3] = &unk_1E86CAA40;
-      objc_copyWeak(&v40, &location);
-      [(SYIncomingFullSyncSession *)currentSession start:v39];
-      objc_destroyWeak(&v40);
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __71__SYService_CompanionSyncProtoV1___v1_handleSyncAllObjects_completion___block_invoke_490;
+      v38[3] = &unk_1E86CAA40;
+      objc_copyWeak(&v39, &location);
+      [(SYIncomingFullSyncSession *)currentSession start:v38];
+      objc_destroyWeak(&v39);
       objc_destroyWeak(&location);
     }
 
@@ -5708,7 +5946,7 @@ LABEL_4:
     }
 
     _Block_object_dispose(&buf, 8);
-    _Block_object_dispose(&v48, 8);
+    _Block_object_dispose(&v47, 8);
     goto LABEL_27;
   }
 
@@ -5740,7 +5978,6 @@ LABEL_4:
   completionCopy[2](completionCopy, v8, v28);
 
 LABEL_27:
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __71__SYService_CompanionSyncProtoV1___v1_handleSyncAllObjects_completion___block_invoke(void *a1)
@@ -5773,7 +6010,7 @@ void __71__SYService_CompanionSyncProtoV1___v1_handleSyncAllObjects_completion__
 
 void __71__SYService_CompanionSyncProtoV1___v1_handleSyncAllObjects_completion___block_invoke_490(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained && (a2 & 1) == 0)
@@ -5788,18 +6025,16 @@ void __71__SYService_CompanionSyncProtoV1___v1_handleSyncAllObjects_completion__
     {
       v8 = v7;
       v9 = _SYObfuscate(v5);
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_1DF835000, v8, OS_LOG_TYPE_DEFAULT, "Incoming v1 SyncAllObjects session failed to start: %{public}@. Error response message will be delivered by the session when it's completed.", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_1DF835000, v8, OS_LOG_TYPE_DEFAULT, "Incoming v1 SyncAllObjects session failed to start: %{public}@. Error response message will be delivered by the session when it's completed.", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_v1_handleBatchSyncStart:(id)start completion:(id)completion
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   startCopy = start;
   completionCopy = completion;
   if (!self->_rejectingV1SyncSessions)
@@ -5831,37 +6066,37 @@ LABEL_6:
     [(SYSession *)v13 setBirthDate:?];
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x2020000000;
-    v47 = 0;
+    v43 = 0;
+    v44 = &v43;
+    v45 = 0x2020000000;
+    v46 = 0;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v49 = 0x3032000000;
-    v50 = __Block_byref_object_copy__5;
-    v51 = __Block_byref_object_dispose__5;
-    v52 = 0;
+    v48 = 0x3032000000;
+    v49 = __Block_byref_object_copy__5;
+    v50 = __Block_byref_object_dispose__5;
+    v51 = 0;
     delegateQueue = self->_delegateQueue;
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __71__SYService_CompanionSyncProtoV1___v1_handleBatchSyncStart_completion___block_invoke;
-    v38[3] = &unk_1E86CA7F0;
-    v42 = &v44;
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __71__SYService_CompanionSyncProtoV1___v1_handleBatchSyncStart_completion___block_invoke;
+    v37[3] = &unk_1E86CA7F0;
+    v41 = &v43;
     v18 = WeakRetained;
-    v39 = v18;
+    v38 = v18;
     selfCopy = self;
     currentSession = v13;
-    v41 = currentSession;
+    v40 = currentSession;
     p_buf = &buf;
-    v19 = v38;
+    v19 = v37;
     *block = MEMORY[0x1E69E9820];
     *&block[8] = 3221225472;
     *&block[16] = ___dispatch_sync_autoreleased_block_invoke;
-    v54 = &unk_1E86CAA90;
-    v55 = v19;
+    v53 = &unk_1E86CAA90;
+    v54 = v19;
     dispatch_sync(delegateQueue, block);
 
-    if (v45[3])
+    if (v44[3])
     {
       if (self->_currentSession)
       {
@@ -5895,17 +6130,17 @@ LABEL_6:
 
       objc_storeStrong(&self->_currentSession, v13);
       objc_initWeak(&location, self);
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __71__SYService_CompanionSyncProtoV1___v1_handleBatchSyncStart_completion___block_invoke_493;
-      v32[3] = &unk_1E86CAA68;
-      objc_copyWeak(&v36, &location);
-      v33 = startCopy;
-      v35 = completionCopy;
-      v34 = currentSession;
-      [(SYIncomingFullSyncSession *)v34 start:v32];
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __71__SYService_CompanionSyncProtoV1___v1_handleBatchSyncStart_completion___block_invoke_493;
+      v31[3] = &unk_1E86CAA68;
+      objc_copyWeak(&v35, &location);
+      v32 = startCopy;
+      v34 = completionCopy;
+      v33 = currentSession;
+      [(SYIncomingFullSyncSession *)v33 start:v31];
 
-      objc_destroyWeak(&v36);
+      objc_destroyWeak(&v35);
       objc_destroyWeak(&location);
     }
 
@@ -5936,7 +6171,7 @@ LABEL_6:
     }
 
     _Block_object_dispose(&buf, 8);
-    _Block_object_dispose(&v44, 8);
+    _Block_object_dispose(&v43, 8);
 
     goto LABEL_29;
   }
@@ -5962,8 +6197,6 @@ LABEL_6:
 
   (*(completionCopy + 2))(completionCopy, 0, 0);
 LABEL_29:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __71__SYService_CompanionSyncProtoV1___v1_handleBatchSyncStart_completion___block_invoke(void *a1)
@@ -6016,7 +6249,7 @@ void __71__SYService_CompanionSyncProtoV1___v1_handleBatchSyncStart_completion__
 
 - (void)_v1_handleBatchSyncChunk:(id)chunk completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   chunkCopy = chunk;
   completionCopy = completion;
   v8 = self->_currentSession;
@@ -6048,9 +6281,9 @@ void __71__SYService_CompanionSyncProtoV1___v1_handleBatchSyncStart_completion__
   {
     v13 = v12;
     identifier = [(SYSession *)v8 identifier];
-    v24 = 138543362;
-    v25 = identifier;
-    _os_log_impl(&dword_1DF835000, v13, OS_LOG_TYPE_DEFAULT, "Rejecting full-sync batch: session (%{public}@) in progress", &v24, 0xCu);
+    v23 = 138543362;
+    v24 = identifier;
+    _os_log_impl(&dword_1DF835000, v13, OS_LOG_TYPE_DEFAULT, "Rejecting full-sync batch: session (%{public}@) in progress", &v23, 0xCu);
   }
 
   v15 = objc_opt_new();
@@ -6071,12 +6304,11 @@ void __71__SYService_CompanionSyncProtoV1___v1_handleBatchSyncStart_completion__
   completionCopy[2](completionCopy, v15, v22);
 
 LABEL_10:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_v1_handleBatchSyncEnd:(id)end completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   endCopy = end;
   completionCopy = completion;
   v8 = self->_currentSession;
@@ -6108,9 +6340,9 @@ LABEL_10:
   {
     v13 = v12;
     identifier = [(SYSession *)v8 identifier];
-    v24 = 138543362;
-    v25 = identifier;
-    _os_log_impl(&dword_1DF835000, v13, OS_LOG_TYPE_DEFAULT, "Rejecting full-sync end: session (%{public}@) in progress", &v24, 0xCu);
+    v23 = 138543362;
+    v24 = identifier;
+    _os_log_impl(&dword_1DF835000, v13, OS_LOG_TYPE_DEFAULT, "Rejecting full-sync end: session (%{public}@) in progress", &v23, 0xCu);
   }
 
   v15 = objc_opt_new();
@@ -6131,12 +6363,11 @@ LABEL_10:
   completionCopy[2](completionCopy, v15, v22);
 
 LABEL_10:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_v1_handleChangeMessage:(id)message completion:(id)completion
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   completionCopy = completion;
   currentSession = [(SYService *)self currentSession];
@@ -6158,37 +6389,37 @@ LABEL_4:
     [(SYSession *)v11 setIdentifier:uUIDString];
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x2020000000;
-    v38 = 0;
+    v34 = 0;
+    v35 = &v34;
+    v36 = 0x2020000000;
+    v37 = 0;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v40 = 0x3032000000;
-    v41 = __Block_byref_object_copy__5;
-    v42 = __Block_byref_object_dispose__5;
-    v43 = 0;
+    v39 = 0x3032000000;
+    v40 = __Block_byref_object_copy__5;
+    v41 = __Block_byref_object_dispose__5;
+    v42 = 0;
     delegateQueue = self->_delegateQueue;
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __70__SYService_CompanionSyncProtoV1___v1_handleChangeMessage_completion___block_invoke;
-    v29[3] = &unk_1E86CA7F0;
-    v33 = &v35;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __70__SYService_CompanionSyncProtoV1___v1_handleChangeMessage_completion___block_invoke;
+    v28[3] = &unk_1E86CA7F0;
+    v32 = &v34;
     v16 = WeakRetained;
-    v30 = v16;
+    v29 = v16;
     selfCopy = self;
     currentSession = v11;
-    v32 = currentSession;
+    v31 = currentSession;
     p_buf = &buf;
-    v17 = v29;
+    v17 = v28;
     *block = MEMORY[0x1E69E9820];
     *&block[8] = 3221225472;
     *&block[16] = ___dispatch_sync_autoreleased_block_invoke;
-    v45 = &unk_1E86CAA90;
-    v46 = v17;
+    v44 = &unk_1E86CAA90;
+    v45 = v17;
     dispatch_sync(delegateQueue, block);
 
-    if (v36[3])
+    if (v35[3])
     {
       if (self->_currentSession)
       {
@@ -6222,13 +6453,13 @@ LABEL_4:
 
       objc_storeStrong(&self->_currentSession, v11);
       objc_initWeak(&location, self);
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __70__SYService_CompanionSyncProtoV1___v1_handleChangeMessage_completion___block_invoke_496;
-      v26[3] = &unk_1E86CAA40;
-      objc_copyWeak(&v27, &location);
-      [(SYIncomingTransactionSession *)currentSession start:v26];
-      objc_destroyWeak(&v27);
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __70__SYService_CompanionSyncProtoV1___v1_handleChangeMessage_completion___block_invoke_496;
+      v25[3] = &unk_1E86CAA40;
+      objc_copyWeak(&v26, &location);
+      [(SYIncomingTransactionSession *)currentSession start:v25];
+      objc_destroyWeak(&v26);
       objc_destroyWeak(&location);
     }
 
@@ -6255,7 +6486,7 @@ LABEL_4:
     }
 
     _Block_object_dispose(&buf, 8);
-    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v34, 8);
 
     goto LABEL_27;
   }
@@ -6277,8 +6508,6 @@ LABEL_4:
 
   (*(completionCopy + 2))(completionCopy, 0, 0);
 LABEL_27:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __70__SYService_CompanionSyncProtoV1___v1_handleChangeMessage_completion___block_invoke(void *a1)
@@ -6325,11 +6554,11 @@ void __70__SYService_CompanionSyncProtoV1___v1_handleChangeMessage_completion___
 
 - (BOOL)_v1_handleFullSyncRequestAck:(id)ack error:(id *)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   ackCopy = ack;
-  v12.opaque[0] = 0;
-  v12.opaque[1] = 0;
-  os_activity_scope_enter(self->_serviceActivity, &v12);
+  v11.opaque[0] = 0;
+  v11.opaque[1] = 0;
+  os_activity_scope_enter(self->_serviceActivity, &v11);
   inFlightSyncRequestIdentifier = self->_inFlightSyncRequestIdentifier;
   self->_inFlightSyncRequestIdentifier = 0;
 
@@ -6346,14 +6575,13 @@ void __70__SYService_CompanionSyncProtoV1___v1_handleChangeMessage_completion___
       error = [ackCopy error];
       v9 = _SYObfuscate(error);
       *buf = 138543362;
-      v14 = v9;
+      v13 = v9;
       _os_log_impl(&dword_1DF835000, v7, OS_LOG_TYPE_DEFAULT, "Protocol v1 full-sync-request was DENIED with error %{public}@", buf, 0xCu);
     }
   }
 
-  os_activity_scope_leave(&v12);
+  os_activity_scope_leave(&v11);
 
-  v10 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -6458,7 +6686,7 @@ LABEL_13:
 {
   if (_sync_log_facilities_pred != -1)
   {
-    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_0_0(&_sync_log_facilities_pred);
   }
 
   if (OUTLINED_FUNCTION_6_0())
@@ -6467,46 +6695,36 @@ LABEL_13:
   }
 }
 
-void __41__SYService__deviceTargetabilityChanged___block_invoke_cold_5(uint64_t *a1, void *a2)
+void __41__SYService__deviceTargetabilityChanged___block_invoke_cold_5(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = *a1;
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_7() debugDescription];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_7() debugDescription];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_8();
-  _os_log_debug_impl(v6, v7, OS_LOG_TYPE_DEBUG, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v5, v6, OS_LOG_TYPE_DEBUG, v7, v8, 0xCu);
 }
 
-void __41__SYService__deviceTargetabilityChanged___block_invoke_cold_8(uint64_t *a1, void *a2)
+void __41__SYService__deviceTargetabilityChanged___block_invoke_cold_8(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = *a1;
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_7() debugDescription];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_7() debugDescription];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_8();
-  _os_log_debug_impl(v6, v7, OS_LOG_TYPE_DEBUG, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v5, v6, OS_LOG_TYPE_DEBUG, v7, v8, 0xCu);
 }
 
-void __20__SYService_resume___block_invoke_cold_2(uint64_t a1)
+void __20__SYService_resume___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_14_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_14_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __20__SYService_resume___block_invoke_cold_4(uint64_t a1)
+void __20__SYService_resume___block_invoke_cold_4()
 {
-  OUTLINED_FUNCTION_14_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_14_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __20__SYService_resume___block_invoke_cold_5()
@@ -6514,7 +6732,7 @@ void __20__SYService_resume___block_invoke_cold_5()
   _os_assumes_log();
   if (_sync_log_facilities_pred != -1)
   {
-    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_0_0(&_sync_log_facilities_pred);
   }
 
   if (OUTLINED_FUNCTION_6_0())
@@ -6525,11 +6743,9 @@ void __20__SYService_resume___block_invoke_cold_5()
 
 - (void)_initializeServiceDB:.cold.6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_swapEngineTo:.cold.3()
@@ -6551,28 +6767,23 @@ void __20__SYService_resume___block_invoke_cold_5()
 
 - (void)sessionDidEnd:(void *)a1 withError:.cold.2(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v4, v5, OS_LOG_TYPE_ERROR, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_wrapUpCurrentSession:(uint64_t)a1 .cold.4(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_opt_new();
-  v6 = 138543618;
-  v7 = a1;
-  v8 = 2114;
-  v9 = v4;
-  _os_log_error_impl(&dword_1DF835000, v3, OS_LOG_TYPE_ERROR, "Concluding session has birthDate in the future! birthDate = %{public}@, now = %{public}@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543618;
+  v6 = a1;
+  v7 = 2114;
+  v8 = v4;
+  _os_log_error_impl(&dword_1DF835000, v3, OS_LOG_TYPE_ERROR, "Concluding session has birthDate in the future! birthDate = %{public}@, now = %{public}@", &v5, 0x16u);
 }
 
 void __35__SYService__wrapUpCurrentSession___block_invoke_2_cold_1()
@@ -6580,7 +6791,7 @@ void __35__SYService__wrapUpCurrentSession___block_invoke_2_cold_1()
   _os_assumes_log();
   if (_sync_log_facilities_pred != -1)
   {
-    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_0_0(&_sync_log_facilities_pred);
   }
 
   if (OUTLINED_FUNCTION_6_0())
@@ -6591,59 +6802,46 @@ void __35__SYService__wrapUpCurrentSession___block_invoke_2_cold_1()
 
 - (void)_chooseBetweenCollidingSessions:(void *)a1 :(void *)a2 .cold.2(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 identifier];
   OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(&dword_1DF835000, v3, OS_LOG_TYPE_DEBUG, "Asking delegate about session collision preference. We have chosen %{public}@ as the winner", v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DF835000, v3, OS_LOG_TYPE_DEBUG, "Asking delegate about session collision preference. We have chosen %{public}@ as the winner", v5, 0xCu);
 }
 
 - (void)willAcceptMessageWithHeader:(os_log_t)log messageID:.cold.3(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 134218242;
-  v5 = a2;
-  v6 = 2114;
-  v7 = a1;
-  _os_log_error_impl(&dword_1DF835000, log, 0x90u, "Message repeated (bubble): seqno = %llu, GUID = %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 134218242;
+  v4 = a2;
+  v5 = 2114;
+  v6 = a1;
+  _os_log_error_impl(&dword_1DF835000, log, 0x90u, "Message repeated (bubble): seqno = %llu, GUID = %{public}@", &v3, 0x16u);
 }
 
 - (void)willAcceptMessageWithHeader:(void *)a1 messageID:.cold.7(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v2 = a1;
   [OUTLINED_FUNCTION_7() version];
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v3, v4, OS_LOG_TYPE_ERROR, v5, v6, 8u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void __47__SYService_handleSyncRequest_ofType_response___block_invoke_cold_2(unsigned __int16 *a1, uint64_t a2, void *a3)
+void __47__SYService_handleSyncRequest_ofType_response___block_invoke_cold_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v4 = *a1;
-  v5 = *(a2 + 40);
-  v6 = a3;
+  v4 = a3;
   OUTLINED_FUNCTION_7();
-  v7 = objc_opt_class();
-  v13 = NSStringFromClass(v7);
+  v5 = objc_opt_class();
+  v10 = NSStringFromClass(v5);
   OUTLINED_FUNCTION_8();
-  _os_log_error_impl(v8, v9, 0x90u, v10, v11, 0x12u);
-
-  v12 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v6, v7, 0x90u, v8, v9, 0x12u);
 }
 
 void __52__SYService_handleFileTransfer_metadata_completion___block_invoke_175_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enqueueIncomingStartSessionRequest:withCompletion:.cold.1()
@@ -6651,7 +6849,7 @@ void __52__SYService_handleFileTransfer_metadata_completion___block_invoke_175_c
   _os_assumes_log();
   if (_sync_log_facilities_pred != -1)
   {
-    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_0_0(&_sync_log_facilities_pred);
   }
 
   if (OUTLINED_FUNCTION_6_0())

@@ -40,7 +40,7 @@
 {
   v4 = _Block_copy(action);
   _Block_copy(v4);
-  sub_1A43223D4(self);
+  sub_1A43223D4(self, v4);
 }
 
 - (PXUpdateBookmarksOrderAction)initWithPhotoLibrary:(id)library

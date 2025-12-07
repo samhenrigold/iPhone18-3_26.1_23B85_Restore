@@ -35,7 +35,7 @@
   v8 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
   v10 = &v15[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D2100);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D2100, &qword_1D22539C0);
   MEMORY[0x1EEE9AC00](v11 - 8);
   v13 = &v15[-v12];
   if (path)
@@ -85,12 +85,12 @@
 - (id)assetsFor:(int64_t)for
 {
   selfCopy = self;
-  sub_1D224003C();
+  sub_1D224003C(for);
 
   sub_1D225055C();
-  v4 = sub_1D2250AEC();
+  v5 = sub_1D2250AEC();
 
-  return v4;
+  return v5;
 }
 
 - (BOOL)mutateAndReturnError:(id *)error handler:(id)handler
@@ -203,14 +203,14 @@ LABEL_5:
 - (id)clustersFor:(int64_t)for
 {
   selfCopy = self;
-  sub_1D224152C();
+  sub_1D224152C(for);
 
-  sub_1D2174E10(0, &qword_1EDC876F8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D3098);
+  sub_1D2174E10(0, &qword_1EDC876F8, 0x1E696AD98);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D3098, &qword_1D2255E90);
   sub_1D2244FFC();
-  v4 = sub_1D225088C();
+  v5 = sub_1D225088C();
 
-  return v4;
+  return v5;
 }
 
 - (id)similarityBetween:(id)between and:(id)and error:(id *)error
@@ -240,12 +240,12 @@ LABEL_5:
 {
   forCopy = for;
   selfCopy = self;
-  sub_1D2241980(forCopy);
+  sub_1D2241980(forCopy, limit, offset);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D2910);
-  v8 = sub_1D2250AEC();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D2910, &qword_1D2254298);
+  v10 = sub_1D2250AEC();
 
-  return v8;
+  return v10;
 }
 
 - (id)tokenEmbeddingsForTag:(id)tag client:(int64_t)client type:(int64_t)type error:(id *)error

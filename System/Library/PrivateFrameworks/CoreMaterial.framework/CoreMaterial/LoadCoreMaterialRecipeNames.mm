@@ -5,59 +5,55 @@
 
 void ___LoadCoreMaterialRecipeNames_block_invoke()
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696AAE8] coreMaterialRecipeBundle];
   v1 = [v0 URLsForMaterialRecipes];
   v15 = [v0 URLsForMaterialRecipeDescendants];
   v16 = v1;
   v2 = [v1 arrayByAddingObjectsFromArray:?];
-  v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v2, "count")}];
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v25 count:16];
-  if (v5)
+  v3 = objc_alloc(MEMORY[0x1E695DF70]);
+  [v2 count];
+  v4 = [v3 initWithCapacity:?];
+  v5 = v2;
+  v6 = [v5 countByEnumeratingWithState:? objects:? count:?];
+  if (v6)
   {
-    v6 = v5;
-    v7 = *v18;
+    v7 = v6;
+    v8 = MEMORY[0];
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v7; i = (i + 1))
       {
-        if (*v18 != v7)
+        if (MEMORY[0] != v8)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
-        v10 = [v9 lastPathComponent];
-        v11 = [v10 stringByDeletingPathExtension];
+        v10 = *(8 * i);
+        v11 = [v10 lastPathComponent];
+        v12 = [v11 stringByDeletingPathExtension];
 
-        v12 = MTLogConfiguration;
+        v13 = MTLogConfiguration;
         if (os_log_type_enabled(MTLogConfiguration, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543618;
-          v22 = v11;
-          v23 = 2114;
-          v24 = v9;
-          _os_log_debug_impl(&dword_1BF527000, v12, OS_LOG_TYPE_DEBUG, "Found recipe '%{public}@' at URL: %{public}@", buf, 0x16u);
+          v18 = v12;
+          v19 = 2114;
+          v20 = v10;
+          _os_log_debug_impl(&dword_1BF527000, v13, OS_LOG_TYPE_DEBUG, "Found recipe '%{public}@' at URL: %{public}@", buf, 0x16u);
         }
 
-        [v3 addObject:v11];
+        [v4 addObject:?];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v6);
+    while (v7);
   }
 
-  v13 = __coreMaterialRecipeNames;
-  __coreMaterialRecipeNames = v3;
-
-  v14 = *MEMORY[0x1E69E9840];
+  v14 = __coreMaterialRecipeNames;
+  __coreMaterialRecipeNames = v4;
 }
 
 @end

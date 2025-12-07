@@ -38,7 +38,7 @@
 
 - (void)evaluatePowerModes
 {
-  v3 = sub_100001600();
+  v3 = sub_100001600(self);
   dispatch_assert_queue_V2(v3);
 
   deviceContext = [(PowerModesManager *)self deviceContext];
@@ -98,8 +98,7 @@
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "starting service", buf, 2u);
     }
 
-    [(PowerModesManager *)v2 setDelegate:v2];
-    v14 = sub_100001600();
+    v14 = sub_100001600([(PowerModesManager *)v2 setDelegate:v2]);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100011F94;
@@ -164,7 +163,7 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v7 = sub_100001600();
+  v7 = sub_100001600(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000122B8;
@@ -177,7 +176,7 @@
 {
   modesCopy = modes;
   contextCopy = context;
-  v7 = sub_100001600();
+  v7 = sub_100001600(contextCopy);
   dispatch_assert_queue_V2(v7);
 
   overridePresent = [(PowerModesManager *)self overridePresent];
@@ -252,7 +251,7 @@
             else if (([v21 pendingDelayedEntryTimer]& 1) == 0)
             {
               when = dispatch_time(0xFFFFFFFFFFFFFFFELL, (v20 * 1000000000.0));
-              v23 = sub_100001600();
+              v23 = sub_100001600(when);
               block[0] = _NSConcreteStackBlock;
               block[1] = 3221225472;
               v39[0] = sub_100012758;
@@ -444,7 +443,7 @@ LABEL_27:
         }
 
         v41 = dispatch_time(0xFFFFFFFFFFFFFFFELL, (v29 * 1000000000.0));
-        v42 = sub_100001600();
+        v42 = sub_100001600(v41);
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_100012D78;
@@ -485,7 +484,7 @@ LABEL_27:
 
 - (void)saveState
 {
-  v3 = sub_100001600();
+  v3 = sub_100001600(self);
   dispatch_assert_queue_V2(v3);
 
   v21 = +[NSMutableDictionary dictionary];
@@ -559,7 +558,7 @@ LABEL_27:
 
 - (void)restoreState
 {
-  v3 = sub_100001600();
+  v3 = sub_100001600(self);
   dispatch_assert_queue_V2(v3);
 
   defaults = [(PowerModesManager *)self defaults];
@@ -621,14 +620,15 @@ LABEL_27:
 - (void)clearState
 {
   v3 = qword_100036C70;
-  if (os_log_type_enabled(qword_100036C70, OS_LOG_TYPE_DEFAULT))
+  v4 = os_log_type_enabled(qword_100036C70, OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Clearing state after a reboot", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Clearing state after a reboot", v7, 2u);
   }
 
-  v4 = sub_100001600();
-  dispatch_assert_queue_V2(v4);
+  v5 = sub_100001600(v4);
+  dispatch_assert_queue_V2(v5);
 
   defaults = [(PowerModesManager *)self defaults];
   [defaults removeObjectForKey:@"modes"];
@@ -660,7 +660,7 @@ LABEL_27:
 {
   modeCopy = mode;
   replyCopy = reply;
-  v8 = sub_100001600();
+  v8 = sub_100001600(replyCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10001362C;
@@ -677,7 +677,7 @@ LABEL_27:
 {
   modeCopy = mode;
   replyCopy = reply;
-  v8 = sub_100001600();
+  v8 = sub_100001600(replyCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000137AC;
@@ -694,7 +694,7 @@ LABEL_27:
 {
   modeCopy = mode;
   replyCopy = reply;
-  v10 = sub_100001600();
+  v10 = sub_100001600(replyCopy);
   v13[0] = _NSConcreteStackBlock;
   v13[1] = 3221225472;
   v13[2] = sub_100013930;
@@ -712,7 +712,7 @@ LABEL_27:
 {
   chargerCopy = charger;
   replyCopy = reply;
-  v10 = sub_100001600();
+  v10 = sub_100001600(replyCopy);
   v13[0] = _NSConcreteStackBlock;
   v13[1] = 3221225472;
   v13[2] = sub_100013B9C;
@@ -730,7 +730,7 @@ LABEL_27:
 {
   delayCopy = delay;
   replyCopy = reply;
-  v10 = sub_100001600();
+  v10 = sub_100001600(replyCopy);
   v13[0] = _NSConcreteStackBlock;
   v13[1] = 3221225472;
   v13[2] = sub_100013D04;
@@ -748,7 +748,7 @@ LABEL_27:
 {
   durationCopy = duration;
   replyCopy = reply;
-  v10 = sub_100001600();
+  v10 = sub_100001600(replyCopy);
   v13[0] = _NSConcreteStackBlock;
   v13[1] = 3221225472;
   v13[2] = sub_100013E64;

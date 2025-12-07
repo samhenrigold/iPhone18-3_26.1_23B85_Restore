@@ -1,4 +1,6 @@
 @interface HMDEntryExitLogEvent
++ (id)entryLogEvent:(double)event isFalse:(BOOL)false isInitial:(BOOL)initial;
++ (id)exitLogEvent:(double)event isFalse:(BOOL)false isInitial:(BOOL)initial;
 - (HMDEntryExitLogEvent)initWithReason:(unint64_t)reason isFalse:(BOOL)false lastFired:(double)fired isInitial:(BOOL)initial;
 - (NSDictionary)coreAnalyticsEventDictionary;
 @end
@@ -7,10 +9,10 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v20[6] = *MEMORY[0x277D85DE8];
+  v19[6] = *MEMORY[0x277D85DE8];
   if ([(HMDEntryExitLogEvent *)self isInitial])
   {
-    v19[0] = @"isEntry_INT";
+    v18[0] = @"isEntry_INT";
     if ([(HMDEntryExitLogEvent *)self isEntry])
     {
       v3 = &unk_283E75248;
@@ -21,11 +23,11 @@
       v3 = &unk_283E75260;
     }
 
-    v20[0] = v3;
-    v19[1] = @"isEntry_BOOL";
+    v19[0] = v3;
+    v18[1] = @"isEntry_BOOL";
     v4 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDEntryExitLogEvent isEntry](self, "isEntry")}];
-    v20[1] = v4;
-    v19[2] = @"isExit_INT";
+    v19[1] = v4;
+    v18[2] = @"isExit_INT";
     if ([(HMDEntryExitLogEvent *)self isExit])
     {
       v5 = &unk_283E75248;
@@ -36,11 +38,11 @@
       v5 = &unk_283E75260;
     }
 
-    v20[2] = v5;
-    v19[3] = @"isExit_BOOL";
+    v19[2] = v5;
+    v18[3] = @"isExit_BOOL";
     v6 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDEntryExitLogEvent isExit](self, "isExit")}];
-    v20[3] = v6;
-    v19[4] = @"isFalse_INT";
+    v19[3] = v6;
+    v18[4] = @"isFalse_INT";
     if ([(HMDEntryExitLogEvent *)self isFalse])
     {
       v7 = &unk_283E75248;
@@ -51,16 +53,16 @@
       v7 = &unk_283E75260;
     }
 
-    v20[4] = v7;
-    v19[5] = @"isFalse_BOOL";
+    v19[4] = v7;
+    v18[5] = @"isFalse_BOOL";
     v8 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDEntryExitLogEvent isFalse](self, "isFalse")}];
-    v20[5] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:6];
+    v19[5] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:6];
   }
 
   else
   {
-    v17[0] = @"isEntry_INT";
+    v16[0] = @"isEntry_INT";
     if ([(HMDEntryExitLogEvent *)self isEntry])
     {
       v10 = &unk_283E75248;
@@ -71,11 +73,11 @@
       v10 = &unk_283E75260;
     }
 
-    v18[0] = v10;
-    v17[1] = @"isEntry_BOOL";
+    v17[0] = v10;
+    v16[1] = @"isEntry_BOOL";
     v4 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDEntryExitLogEvent isEntry](self, "isEntry")}];
-    v18[1] = v4;
-    v17[2] = @"isExit_INT";
+    v17[1] = v4;
+    v16[2] = @"isExit_INT";
     if ([(HMDEntryExitLogEvent *)self isExit])
     {
       v11 = &unk_283E75248;
@@ -86,11 +88,11 @@
       v11 = &unk_283E75260;
     }
 
-    v18[2] = v11;
-    v17[3] = @"isExit_BOOL";
+    v17[2] = v11;
+    v16[3] = @"isExit_BOOL";
     v6 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDEntryExitLogEvent isExit](self, "isExit")}];
-    v18[3] = v6;
-    v17[4] = @"isFalse_INT";
+    v17[3] = v6;
+    v16[4] = @"isFalse_INT";
     if ([(HMDEntryExitLogEvent *)self isFalse])
     {
       v12 = &unk_283E75248;
@@ -101,19 +103,17 @@
       v12 = &unk_283E75260;
     }
 
-    v18[4] = v12;
-    v17[5] = @"isFalse_BOOL";
+    v17[4] = v12;
+    v16[5] = @"isFalse_BOOL";
     v8 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDEntryExitLogEvent isFalse](self, "isFalse")}];
-    v18[5] = v8;
-    v17[6] = @"secondsLastFired_DOUBLE";
+    v17[5] = v8;
+    v16[6] = @"secondsLastFired_DOUBLE";
     v13 = MEMORY[0x277CCABB0];
     [(HMDEntryExitLogEvent *)self secondsLastFired];
     v14 = [v13 numberWithDouble:?];
-    v18[6] = v14;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:7];
+    v17[6] = v14;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:7];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -133,6 +133,20 @@
   }
 
   return result;
+}
+
++ (id)exitLogEvent:(double)event isFalse:(BOOL)false isInitial:(BOOL)initial
+{
+  v5 = [[HMDEntryExitLogEvent alloc] initWithReason:1 isFalse:false lastFired:initial isInitial:event];
+
+  return v5;
+}
+
++ (id)entryLogEvent:(double)event isFalse:(BOOL)false isInitial:(BOOL)initial
+{
+  v5 = [[HMDEntryExitLogEvent alloc] initWithReason:0 isFalse:false lastFired:initial isInitial:event];
+
+  return v5;
 }
 
 @end

@@ -1,5 +1,6 @@
 @interface CSConfirmMicCardViewController
 - (CSConfirmMicCardViewController)initWithType:(unint64_t)type confirmationHandler:(id)handler;
+- (void)_callCompletionBlockIfNeeded:(BOOL)needed;
 - (void)_confirmAndDismiss;
 - (void)_setupViews;
 - (void)dealloc;
@@ -191,7 +192,7 @@ void __45__CSConfirmMicCardViewController__setupViews__block_invoke(uint64_t a1)
 
 - (void)_confirmAndDismiss
 {
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -216,6 +217,20 @@ void __52__CSConfirmMicCardViewController__confirmAndDismiss__block_invoke(uint6
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _callCompletionBlockIfNeeded:1];
+}
+
+- (void)_callCompletionBlockIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  handler = [(CSConfirmMicCardViewController *)self handler];
+
+  if (handler)
+  {
+    handler2 = [(CSConfirmMicCardViewController *)self handler];
+    handler2[2](handler2, neededCopy);
+
+    [(CSConfirmMicCardViewController *)self setHandler:0];
+  }
 }
 
 @end

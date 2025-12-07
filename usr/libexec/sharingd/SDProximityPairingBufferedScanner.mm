@@ -4,8 +4,10 @@
 - (BOOL)pairingUpdatePairedInfoMB:(id)b fields:(id)fields bleDevice:(id)device;
 - (BOOL)sampleIsTooOld:(id)old;
 - (SDProximityPairingBufferedScanner)initWithQueue:(id)queue;
+- (id)modelWithProductID:(unsigned __int16)d;
 - (id)pairingParsePayload:(id)payload identifier:(id)identifier bleDevice:(id)device peerInfo:(id)info;
 - (int)_btSessionEnsureStarted;
+- (unsigned)statusToHeadsetStatus:(unsigned __int8)status forProductID:(unsigned __int16)d;
 - (void)_btSessionEnsureStopped;
 - (void)_ensureCbDiscoveryStopped;
 - (void)_ensureStarted;
@@ -17,6 +19,7 @@
 - (void)foundBufferedPairingDevices:(id)devices;
 - (void)invalidate;
 - (void)pairingParseAccessoryStatusPayloadPtr:(const char *)ptr end:(const char *)end fields:(id)fields;
+- (void)parseStatus3:(unsigned __int8)status3 productID:(unsigned int)d caseLEDColor:(unsigned __int8 *)color caseLEDStatus:(char *)status;
 - (void)proxPairingLoggerAndInvalidationHandler:(id)handler withLogLevel:(unsigned __int8)level andError:(id)error;
 - (void)startCBDiscoveryScreenOffPairing;
 - (void)turnOffScreenOffScanningIfNoAirPodsOntheAccount;
@@ -39,7 +42,7 @@
 {
   if (!self->_cbDiscoveryScreenOffPairing)
   {
-    v3 = sub_10002F024();
+    v3 = sub_10002F024(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;
@@ -63,40 +66,40 @@
     return 0;
   }
 
-  v3 = sub_10002F024();
+  v3 = sub_10002F024(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v10 = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "BTSession attach\n", v10, 2u);
+    *v11 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "BTSession attach\n", v11, 2u);
   }
 
-  *v10 = sub_1001FE53C;
+  *v11 = sub_1001FE53C;
   selfCopy = self;
-  v5 = off_100972B68("SDProximityPairingBufferedScanner", v10, selfCopy, selfCopy->_dispatchQueue);
+  v5 = off_100972B68("SDProximityPairingBufferedScanner", v11, selfCopy, selfCopy->_dispatchQueue);
   if (v5)
   {
     v6 = v5;
     CFRelease(selfCopy);
-    v7 = v6 + 310000;
+    v8 = v6 + 310000;
     if (v6 != -310000)
     {
-      v8 = sub_10002F024();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = sub_10002F024(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v12 = v6 + 310000;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "### BTSession attach failed: %d\n", buf, 8u);
+        v13 = v6 + 310000;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "### BTSession attach failed: %d\n", buf, 8u);
       }
     }
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
     self->_btStarted = 1;
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)configureCBDiscoveryScreenOffPairing
@@ -104,7 +107,7 @@
   cbDiscoveryScreenOffPairing = self->_cbDiscoveryScreenOffPairing;
   if (!cbDiscoveryScreenOffPairing)
   {
-    v4 = objc_alloc_init(off_100972B60());
+    v4 = objc_alloc_init(off_100972B60(0, a2));
     v5 = self->_cbDiscoveryScreenOffPairing;
     self->_cbDiscoveryScreenOffPairing = v4;
 
@@ -157,8 +160,7 @@
   [(CBDiscovery *)self->_cbDiscoveryScreenOffPairing addDiscoveryType:29];
   [(CBDiscovery *)self->_cbDiscoveryScreenOffPairing setBleScanRate:20];
   [(CBDiscovery *)self->_cbDiscoveryScreenOffPairing setBleScanRateScreenOff:20];
-  [(CBDiscovery *)self->_cbDiscoveryScreenOffPairing setLabel:@"Prox Pairing Screen Off Buffered Samples"];
-  v3 = sub_10002F024();
+  v3 = sub_10002F024([(CBDiscovery *)self->_cbDiscoveryScreenOffPairing setLabel:@"Prox Pairing Screen Off Buffered Samples"]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -248,11 +250,11 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_invalidateCalled)
   {
-    v3 = sub_10002F024();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_10002F024(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Invalidating\n", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Invalidating\n", buf, 2u);
     }
 
     self->_invalidateCalled = 1;
@@ -260,12 +262,11 @@
     self->_devices = 0;
 
     [(SDProximityPairingBufferedScanner *)self _btSessionEnsureStopped];
-    [(SDProximityPairingBufferedScanner *)self _ensureCbDiscoveryStopped];
-    v5 = sub_10002F024();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_10002F024([(SDProximityPairingBufferedScanner *)self _ensureCbDiscoveryStopped]);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Invalidated\n", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Invalidated\n", v9, 2u);
     }
 
     bufferedDeviceFoundHandler = self->_bufferedDeviceFoundHandler;
@@ -300,59 +301,59 @@
     return;
   }
 
-  v23 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
+  v23 = 0u;
   discoveredDevices = [(CBDiscovery *)cbDiscoveryScreenOffPairing discoveredDevices];
-  v6 = [discoveredDevices countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [discoveredDevices countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v18 = selfCopy;
-    v19 = 0;
-    v8 = *v22;
+    v19 = selfCopy;
+    v20 = 0;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v22 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(discoveredDevices);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
+        v10 = *(*(&v22 + 1) + 8 * i);
         productID = [v10 productID];
         if (productID - 8194 <= 0x26 && ((1 << (productID - 2)) & 0x6472863101) != 0)
         {
           productID2 = [v10 productID];
           if (productID2 != 8202 && productID2 != 8223)
           {
-            v15 = sub_10002F024();
+            v15 = sub_10002F024(productID2);
             if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
               _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "CBDiscoveryScreenOff found AirPods on account", buf, 2u);
             }
 
-            v19 = 1;
+            v20 = 1;
           }
         }
       }
 
-      v7 = [discoveredDevices countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [discoveredDevices countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v7);
 
-    selfCopy = v18;
-    if (v19)
+    selfCopy = v19;
+    if (v20)
     {
-      v16 = sub_10002F024();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = sub_10002F024(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "CBDiscoveryScreenOff screen off scan enabled", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "CBDiscoveryScreenOff screen off scan enabled", buf, 2u);
       }
 
       return;
@@ -363,11 +364,11 @@
   {
   }
 
-  v17 = sub_10002F024();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = sub_10002F024(v16);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "CBDiscoveryScreenOff being invalidated because device has no paired AirPods", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "CBDiscoveryScreenOff being invalidated because device has no paired AirPods", buf, 2u);
   }
 
   [(SDProximityPairingBufferedScanner *)selfCopy _ensureCbDiscoveryStopped];
@@ -378,7 +379,7 @@
   p_btSession = &self->_btSession;
   if (self->_btSession)
   {
-    v4 = sub_10002F024();
+    v4 = sub_10002F024(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -397,23 +398,24 @@
   handlerCopy = handler;
   errorCopy = error;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v10 = sub_10002F024();
-  if (os_log_type_enabled(v10, level))
+  v11 = sub_10002F024(v10);
+  if (os_log_type_enabled(v11, level))
   {
-    v12 = 138412546;
-    v13 = handlerCopy;
-    v14 = 2112;
-    v15 = errorCopy;
-    _os_log_impl(&_mh_execute_header, v10, level, "CBDiscoveryScreenOff handler called: %@ with error: %@", &v12, 0x16u);
+    v14 = 138412546;
+    v15 = handlerCopy;
+    v16 = 2112;
+    v17 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v11, level, "CBDiscoveryScreenOff handler called: %@ with error: %@", &v14, 0x16u);
   }
 
-  if (([handlerCopy isEqualToString:@"ActivateWithCompletion Handler"] & 1) == 0)
+  v12 = [handlerCopy isEqualToString:@"ActivateWithCompletion Handler"];
+  if ((v12 & 1) == 0)
   {
-    v11 = sub_10002F024();
-    if (os_log_type_enabled(v11, level))
+    v13 = sub_10002F024(v12);
+    if (os_log_type_enabled(v13, level))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&_mh_execute_header, v11, level, "CBDiscoveryScreenOff Invalidating failed CBDiscovery object", &v12, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&_mh_execute_header, v13, level, "CBDiscoveryScreenOff Invalidating failed CBDiscovery object", &v14, 2u);
     }
 
     [(SDProximityPairingBufferedScanner *)self _ensureCbDiscoveryStopped];
@@ -432,117 +434,364 @@
 - (void)foundBufferedPairingDevices:(id)devices
 {
   devicesCopy = devices;
-  v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
   v39 = 0u;
-  v5 = [devicesCopy countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v5 = [devicesCopy countByEnumeratingWithState:&v39 objects:v47 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v37;
-    v33 = WPPairingKeyDeviceAddress;
-    v32 = WPPairingKeyAdvertisingChannel;
+    v8 = *v40;
+    v36 = WPPairingKeyDeviceAddress;
+    v35 = WPPairingKeyAdvertisingChannel;
     *&v6 = 138412290;
-    v30 = v6;
+    v33 = v6;
     v9 = &NSURLAuthenticationMethodServerTrust_ptr;
-    v31 = devicesCopy;
-    v34 = *v37;
+    v34 = devicesCopy;
+    v37 = *v40;
     do
     {
       v10 = 0;
-      v35 = v7;
+      v38 = v7;
       do
       {
-        if (*v37 != v8)
+        if (*v40 != v8)
         {
           objc_enumerationMutation(devicesCopy);
         }
 
-        v11 = *(*(&v36 + 1) + 8 * v10);
-        if (([v11 discoveryFlags] & 0x1C080) != 0 && -[SDProximityPairingBufferedScanner isAirPods:](self, "isAirPods:", objc_msgSend(v11, "productID")) && !-[SDProximityPairingBufferedScanner sampleIsTooOld:](self, "sampleIsTooOld:", v11))
+        v11 = *(*(&v39 + 1) + 8 * v10);
+        if (([v11 discoveryFlags] & 0x1C080) != 0)
         {
-          v12 = sub_10002F024();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          if (-[SDProximityPairingBufferedScanner isAirPods:](self, "isAirPods:", [v11 productID]))
           {
-            *buf = v30;
-            v41 = v11;
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "CBDiscoveryScreenOff handling buffered device: %@", buf, 0xCu);
-          }
-
-          v13 = sub_10002F024();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-          {
-            identifier = [v11 identifier];
-            bleAppleManufacturerData = [v11 bleAppleManufacturerData];
-            *buf = 138412546;
-            v41 = identifier;
-            v42 = 2112;
-            v43 = bleAppleManufacturerData;
-            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "CBDiscoveryScreenOff handling buffered device: %@ with Apple payload: <%@>", buf, 0x16u);
-          }
-
-          v16 = [NSUUID alloc];
-          identifier2 = [v11 identifier];
-          v18 = [v16 initWithUUIDString:identifier2];
-
-          v19 = objc_alloc_init(NSMutableDictionary);
-          btAddressData = [v11 btAddressData];
-          [v19 setObject:btAddressData forKeyedSubscript:v33];
-
-          v21 = [v9[258] numberWithInt:{objc_msgSend(v11, "bleChannel")}];
-          [v19 setObject:v21 forKeyedSubscript:v32];
-
-          v22 = [(NSMutableDictionary *)self->_devices objectForKeyedSubscript:v18];
-          bleAppleManufacturerData2 = [v11 bleAppleManufacturerData];
-          v24 = [(SDProximityPairingBufferedScanner *)self pairingParsePayload:bleAppleManufacturerData2 identifier:v18 bleDevice:v22 peerInfo:v19];
-
-          if (v24)
-          {
-            v25 = [v9[258] numberWithDouble:{objc_msgSend(v11, "bleAdvertisementTimestampMachContinuous") / 1000000.0}];
-            [v24 setObject:v25 forKeyedSubscript:@"sampleTimestamp"];
-
-            v26 = [v9[258] numberWithInt:{objc_msgSend(v11, "bleChannel")}];
-            if (v26)
+            v12 = [(SDProximityPairingBufferedScanner *)self sampleIsTooOld:v11];
+            if ((v12 & 1) == 0)
             {
-              [v24 setObject:v26 forKeyedSubscript:@"ch"];
+              v13 = sub_10002F024(v12);
+              if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+              {
+                *buf = v33;
+                v44 = v11;
+                _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "CBDiscoveryScreenOff handling buffered device: %@", buf, 0xCu);
+              }
+
+              v15 = sub_10002F024(v14);
+              if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+              {
+                identifier = [v11 identifier];
+                bleAppleManufacturerData = [v11 bleAppleManufacturerData];
+                *buf = 138412546;
+                v44 = identifier;
+                v45 = 2112;
+                v46 = bleAppleManufacturerData;
+                _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "CBDiscoveryScreenOff handling buffered device: %@ with Apple payload: <%@>", buf, 0x16u);
+              }
+
+              v18 = [NSUUID alloc];
+              identifier2 = [v11 identifier];
+              v20 = [v18 initWithUUIDString:identifier2];
+
+              v21 = objc_alloc_init(NSMutableDictionary);
+              btAddressData = [v11 btAddressData];
+              [v21 setObject:btAddressData forKeyedSubscript:v36];
+
+              v23 = [v9[258] numberWithInt:{objc_msgSend(v11, "bleChannel")}];
+              [v21 setObject:v23 forKeyedSubscript:v35];
+
+              v24 = [(NSMutableDictionary *)self->_devices objectForKeyedSubscript:v20];
+              bleAppleManufacturerData2 = [v11 bleAppleManufacturerData];
+              v26 = [(SDProximityPairingBufferedScanner *)self pairingParsePayload:bleAppleManufacturerData2 identifier:v20 bleDevice:v24 peerInfo:v21];
+
+              if (v26)
+              {
+                v28 = [v9[258] numberWithDouble:{objc_msgSend(v11, "bleAdvertisementTimestampMachContinuous") / 1000000.0}];
+                [v26 setObject:v28 forKeyedSubscript:@"sampleTimestamp"];
+
+                v29 = [v9[258] numberWithInt:{objc_msgSend(v11, "bleChannel")}];
+                if (v29)
+                {
+                  [v26 setObject:v29 forKeyedSubscript:@"ch"];
+                }
+
+                bleRSSI = [v11 bleRSSI];
+                bleAppleManufacturerData3 = [v11 bleAppleManufacturerData];
+                [(SDProximityPairingBufferedScanner *)self _foundDevice:v20 advertisementData:bleAppleManufacturerData3 rssi:bleRSSI fields:v26];
+
+                devicesCopy = v34;
+              }
+
+              else
+              {
+                v29 = sub_10002F024(v27);
+                if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+                {
+                  bleAppleManufacturerData4 = [v11 bleAppleManufacturerData];
+                  *buf = 138412546;
+                  v44 = bleAppleManufacturerData4;
+                  v45 = 2112;
+                  v46 = v20;
+                  _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "pairingParsePayload failed to parse Pairing payload: <%@> for device: %@", buf, 0x16u);
+                }
+              }
+
+              v8 = v37;
+              v7 = v38;
+              v9 = &NSURLAuthenticationMethodServerTrust_ptr;
             }
-
-            bleRSSI = [v11 bleRSSI];
-            bleAppleManufacturerData3 = [v11 bleAppleManufacturerData];
-            [(SDProximityPairingBufferedScanner *)self _foundDevice:v18 advertisementData:bleAppleManufacturerData3 rssi:bleRSSI fields:v24];
-
-            devicesCopy = v31;
           }
-
-          else
-          {
-            v26 = sub_10002F024();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
-            {
-              bleAppleManufacturerData4 = [v11 bleAppleManufacturerData];
-              *buf = 138412546;
-              v41 = bleAppleManufacturerData4;
-              v42 = 2112;
-              v43 = v18;
-              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "pairingParsePayload failed to parse Pairing payload: <%@> for device: %@", buf, 0x16u);
-            }
-          }
-
-          v8 = v34;
-          v7 = v35;
-          v9 = &NSURLAuthenticationMethodServerTrust_ptr;
         }
 
         v10 = v10 + 1;
       }
 
       while (v7 != v10);
-      v7 = [devicesCopy countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v7 = [devicesCopy countByEnumeratingWithState:&v39 objects:v47 count:16];
     }
 
     while (v7);
   }
+}
+
+- (unsigned)statusToHeadsetStatus:(unsigned __int8)status forProductID:(unsigned __int16)d
+{
+  statusCopy = status;
+  v5 = [[SFHeadphoneProduct alloc] initWithProductID:d];
+  v6 = +[SFHeadphoneProduct airPodsMax];
+
+  if (v5 == v6)
+  {
+    v12 = dword_1007F5300[(statusCopy >> 5) & 3];
+  }
+
+  else
+  {
+    v7 = statusCopy & 1;
+    v8 = (statusCopy >> 1) & 3;
+    v9 = v7 | 2;
+    if (v8 != 2)
+    {
+      v9 = statusCopy & 1 | 8;
+    }
+
+    if (v8)
+    {
+      v7 |= 4u;
+    }
+
+    if (((statusCopy >> 1) & 3) > 1)
+    {
+      v7 = v9;
+    }
+
+    v10 = (statusCopy >> 3) & 3;
+    v11 = v7 | 0x10;
+    if (v10 != 2)
+    {
+      v11 = v7 | 0x40;
+    }
+
+    if (v10)
+    {
+      v7 |= 0x20u;
+    }
+
+    if (((statusCopy >> 3) & 3) > 1)
+    {
+      v7 = v11;
+    }
+
+    v12 = (4 * statusCopy) & 0x180 ^ 0x100 | v7;
+  }
+
+  if ((statusCopy & 0x80u) == 0)
+  {
+    v13 = v12;
+  }
+
+  else
+  {
+    v13 = v12 | 0x200;
+  }
+
+  return v13;
+}
+
+- (id)modelWithProductID:(unsigned __int16)d
+{
+  dCopy = d;
+  v4 = [[SFHeadphoneProduct alloc] initWithProductID:d];
+  v5 = v4;
+  if (v4)
+  {
+    bluetoothModel = [v4 bluetoothModel];
+LABEL_3:
+    v7 = bluetoothModel;
+    goto LABEL_4;
+  }
+
+  if (dCopy <= 788)
+  {
+    switch(dCopy)
+    {
+      case 0x266:
+        v7 = @"ATVRemote1,1";
+        break;
+      case 0x26D:
+        v7 = @"ATVRemote1,2";
+        break;
+      case 0x314:
+        v7 = @"ATVRemote1,3";
+        break;
+      default:
+LABEL_19:
+        bluetoothModel = [NSString stringWithFormat:@"Device1, %u", dCopy];
+        goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    v7 = @"AirPods1,1";
+    switch(dCopy)
+    {
+      case 8194:
+        break;
+      case 8195:
+        v7 = @"PowerBeats3,1";
+        break;
+      case 8196:
+      case 8199:
+      case 8200:
+      case 8209:
+      case 8210:
+      case 8211:
+      case 8212:
+      case 8213:
+      case 8214:
+      case 8216:
+      case 8217:
+      case 8219:
+      case 8220:
+      case 8221:
+      case 8222:
+      case 8223:
+      case 8224:
+      case 8225:
+      case 8226:
+      case 8227:
+      case 8228:
+        goto LABEL_19;
+      case 8197:
+        v7 = @"BeatsX1,1";
+        break;
+      case 8198:
+        v7 = @"BeatsSolo3,1";
+        break;
+      case 8201:
+        v7 = @"BeatsStudio3,2";
+        break;
+      case 8202:
+        v7 = @"Device1,8202";
+        break;
+      case 8203:
+        v7 = @"PowerbeatsPro1,1";
+        break;
+      case 8204:
+        v7 = @"BeatsSoloPro1,1";
+        break;
+      case 8205:
+        v7 = @"Powerbeats4,1";
+        break;
+      case 8206:
+        v7 = @"AirPodsPro1,1";
+        break;
+      case 8207:
+        v7 = @"AirPods1,3";
+        break;
+      case 8208:
+        v7 = @"Device1,8208";
+        break;
+      case 8215:
+        v7 = @"BeatsStudioPro1,1";
+        break;
+      case 8218:
+        v7 = @"Device1,8218";
+        break;
+      case 8229:
+        v7 = @"Device1,8229";
+        break;
+      default:
+        if (dCopy == 789)
+        {
+          v7 = @"ATVRemote1,4";
+        }
+
+        else
+        {
+          if (dCopy != 21760)
+          {
+            goto LABEL_19;
+          }
+
+          v7 = @"Device1,21760";
+        }
+
+        break;
+    }
+  }
+
+LABEL_4:
+
+  return v7;
+}
+
+- (void)parseStatus3:(unsigned __int8)status3 productID:(unsigned int)d caseLEDColor:(unsigned __int8 *)color caseLEDStatus:(char *)status
+{
+  status3Copy = status3;
+  v13 = [[SFHeadphoneProduct alloc] initWithProductID:*&d];
+  if ([v13 isBeatsProductWithCase])
+  {
+    v9 = (status3Copy >> 4) & 3;
+    if (v9 == 2)
+    {
+      LOBYTE(v9) = 1;
+    }
+
+    else
+    {
+      LOBYTE(v9) = 2 * (v9 != 1);
+    }
+
+    if (status3Copy >= 0x40)
+    {
+      LOBYTE(v10) = 4 * ((status3Copy & 0xC0) == 64);
+    }
+
+    else
+    {
+      LOBYTE(v10) = 3;
+    }
+
+    v11 = v13;
+  }
+
+  else
+  {
+    v12 = +[SFHeadphoneProduct airPodsMax];
+
+    v10 = (status3Copy >> 5) & 3;
+    v11 = v13;
+    v9 = status3Copy >> 7;
+    if (v13 == v12)
+    {
+      LOBYTE(v9) = (status3Copy & 0x10) != 0;
+    }
+  }
+
+  *color = v10;
+  *status = v9;
 }
 
 - (BOOL)pairingUpdatePairedInfoMB:(id)b fields:(id)fields bleDevice:(id)device
@@ -551,19 +800,21 @@
   fieldsCopy = fields;
   deviceCopy = device;
   paired = [deviceCopy paired];
-  if (!deviceCopy || (Current = CFAbsoluteTimeGetCurrent(), [deviceCopy pairCheckTime], Current - v13 > 1.0))
+  v12 = paired;
+  if (!deviceCopy || (Current = CFAbsoluteTimeGetCurrent(), paired = [deviceCopy pairCheckTime], Current - v14 > 1.0))
   {
     if (self->_btSession)
     {
-      v52[0] = 0;
-      v52[1] = 0;
-      v36 = 0;
-      [bCopy getUUIDBytes:v52];
-      v14 = off_100972B78(self->_btSession, v52, &v36);
-      v15 = v14 == 0;
-      if (!v14)
+      v53[0] = 0;
+      v53[1] = 0;
+      v37 = 0;
+      [bCopy getUUIDBytes:v53];
+      v15 = off_100972B78(self->_btSession, v53, &v37);
+      v16 = v15 == 0;
+      if (!v15)
       {
-        memset(v51, 0, sizeof(v51));
+        memset(v52, 0, sizeof(v52));
+        v51 = 0u;
         v50 = 0u;
         v49 = 0u;
         v48 = 0u;
@@ -575,44 +826,43 @@
         v42 = 0u;
         v41 = 0u;
         v40 = 0u;
-        v39 = 0u;
-        memset(v37, 0, sizeof(v37));
+        memset(v38, 0, sizeof(v38));
+        v35 = 0;
         v34 = 0;
-        v33 = 0;
         memset(buf, 0, sizeof(buf));
-        if (!off_100972B80(v36, buf, 248) && buf[0])
+        if (!off_100972B80(v37, buf, 248) && buf[0])
         {
-          v16 = [NSString stringWithUTF8String:buf];
-          [fieldsCopy setObject:v16 forKeyedSubscript:@"name"];
+          v17 = [NSString stringWithUTF8String:buf];
+          [fieldsCopy setObject:v17 forKeyedSubscript:@"name"];
         }
 
-        v35 = 0;
-        if (off_100972B88(v36, &v35))
+        v36 = 0;
+        if (off_100972B88(v37, &v36))
         {
-          paired = paired;
+          v12 = v12;
         }
 
         else
         {
-          paired = v35 != 0;
+          v12 = v36 != 0;
         }
 
-        v17 = [NSNumber numberWithBool:paired];
-        [fieldsCopy setObject:v17 forKeyedSubscript:@"paired"];
+        v18 = [NSNumber numberWithBool:v12];
+        [fieldsCopy setObject:v18 forKeyedSubscript:@"paired"];
 
+        v33 = 0;
+        off_100972B90(v37, &v33);
+        [deviceCopy setTempPaired:v33 != 0];
         v32 = 0;
-        off_100972B90(v36, &v32);
-        [deviceCopy setTempPaired:v32 != 0];
-        v31 = 0;
-        if (off_100972B98(v36, &v31))
+        if (off_100972B98(v37, &v32))
         {
-          v31 = 0;
+          v32 = 0;
         }
 
-        else if (v31)
+        else if (v32)
         {
-          v19 = [NSNumber numberWithUnsignedInt:?];
-          [fieldsCopy setObject:v19 forKeyedSubscript:@"CnSv"];
+          v20 = [NSNumber numberWithUnsignedInt:?];
+          [fieldsCopy setObject:v20 forKeyedSubscript:@"CnSv"];
         }
 
         bluetoothAddress = [deviceCopy bluetoothAddress];
@@ -623,33 +873,33 @@
 
         else
         {
-          LOBYTE(v37[0]) = 0;
-          if (!off_100972BA0(v36, v37, 32) && LOBYTE(v37[0]) && !off_100972BA8(v37, &v33))
+          LOBYTE(v38[0]) = 0;
+          if (!off_100972BA0(v37, v38, 32) && LOBYTE(v38[0]) && !off_100972BA8(v38, &v34))
           {
-            v30 = [NSData dataWithBytes:&v33 length:6];
-            [fieldsCopy setObject:v30 forKeyedSubscript:@"publicAddress"];
+            v31 = [NSData dataWithBytes:&v34 length:6];
+            [fieldsCopy setObject:v31 forKeyedSubscript:@"publicAddress"];
           }
         }
       }
 
-      v21 = sub_10002F024();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v22 = sub_10002F024(v15);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        v22 = [fieldsCopy objectForKeyedSubscript:@"name"];
-        v23 = v22;
-        v24 = "no";
-        *&buf[4] = v52;
+        v23 = [fieldsCopy objectForKeyedSubscript:@"name"];
+        v24 = v23;
+        v25 = "no";
+        *&buf[4] = v53;
         *buf = 136315650;
-        if (paired)
+        if (v12)
         {
-          v24 = "yes";
+          v25 = "yes";
         }
 
         *&buf[12] = 2112;
-        *&buf[14] = v22;
+        *&buf[14] = v23;
         *&buf[22] = 2080;
-        *&buf[24] = v24;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "Updated paired info for %s: Name '%@', Paired %s\n", buf, 0x20u);
+        *&buf[24] = v25;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "Updated paired info for %s: Name '%@', Paired %s\n", buf, 0x20u);
       }
 
       if (deviceCopy)
@@ -663,23 +913,23 @@ LABEL_29:
     {
       if (self->_btStarted)
       {
-        v18 = sub_10002F024();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v19 = sub_10002F024(paired);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
           *&buf[4] = bCopy;
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "### No BTSession to look up device %@\n", buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "### No BTSession to look up device %@\n", buf, 0xCu);
         }
       }
 
-      v15 = 0;
+      v16 = 0;
       if (deviceCopy)
       {
         goto LABEL_29;
       }
     }
 
-    if (v15)
+    if (v16)
     {
       goto LABEL_38;
     }
@@ -693,8 +943,8 @@ LABEL_29:
 
   if ([deviceCopy connectedServices])
   {
-    v26 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [deviceCopy connectedServices]);
-    [fieldsCopy setObject:v26 forKeyedSubscript:@"CnSv"];
+    v27 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [deviceCopy connectedServices]);
+    [fieldsCopy setObject:v27 forKeyedSubscript:@"CnSv"];
   }
 
   name = [deviceCopy name];
@@ -704,11 +954,11 @@ LABEL_29:
     [fieldsCopy setObject:name forKeyedSubscript:@"name"];
   }
 
-  v28 = [NSNumber numberWithBool:paired];
-  [fieldsCopy setObject:v28 forKeyedSubscript:@"paired"];
+  v29 = [NSNumber numberWithBool:v12];
+  [fieldsCopy setObject:v29 forKeyedSubscript:@"paired"];
 
 LABEL_38:
-  return paired;
+  return v12;
 }
 
 - (BOOL)pairingUpdatePairedInfo:(id)info fields:(id)fields bleDevice:(id)device
@@ -732,21 +982,8 @@ LABEL_38:
 - (void)pairingParseAccessoryStatusPayloadPtr:(const char *)ptr end:(const char *)end fields:(id)fields
 {
   fieldsCopy = fields;
-  if (end - ptr < 1)
+  if (end - ptr < 1 || ((v9 = *ptr, v8 = ptr + 1, +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", v9 & 7), v10 = objc_claimAutoreleasedReturnValue(), [fieldsCopy setObject:v10 forKeyedSubscript:@"locP"], v10, (v9 & 4) != 0) ? (v11 = &__kCFBooleanTrue) : (v11 = &__kCFBooleanFalse), objc_msgSend(fieldsCopy, "setObject:forKeyedSubscript:", v11, @"lc"), end - v8 < 1))
   {
-    goto LABEL_10;
-  }
-
-  v9 = *ptr;
-  v8 = ptr + 1;
-  v10 = [NSNumber numberWithInt:v9 & 7];
-  [fieldsCopy setObject:v10 forKeyedSubscript:@"locP"];
-
-  v11 = (v9 & 4) != 0 ? &__kCFBooleanTrue : &__kCFBooleanFalse;
-  [fieldsCopy setObject:v11 forKeyedSubscript:@"lc"];
-  if (end - v8 < 1)
-  {
-LABEL_10:
     LOBYTE(v12) = 0;
     goto LABEL_11;
   }
@@ -829,8 +1066,8 @@ LABEL_20:
     v14 = 0;
   }
 
-  v62 = 0;
-  v15 = [gSFNearbyAgent idsDeviceForBluetoothDeviceID:deviceCopy conflictDetected:&v62];
+  v63 = 0;
+  v15 = [gSFNearbyAgent idsDeviceForBluetoothDeviceID:deviceCopy conflictDetected:&v63];
   v16 = [(NSMutableDictionary *)self->_devices objectForKeyedSubscript:deviceCopy];
   if (v16)
   {
@@ -844,7 +1081,7 @@ LABEL_20:
       }
 
       v19 = v14;
-      v20 = [NSNumber numberWithBool:v62];
+      v20 = [NSNumber numberWithBool:v63];
       [fieldsCopy setObject:v20 forKeyedSubscript:@"idsIDCD"];
     }
 
@@ -854,7 +1091,7 @@ LABEL_20:
       uniqueIDOverride = 0;
     }
 
-    advertisementFields = [v17 advertisementFields];
+    v35 = objc_msgSend_advertisementFields(v17);
     CFStringGetTypeID();
     v36 = CFDictionaryGetTypedValue();
 
@@ -863,8 +1100,8 @@ LABEL_20:
       [v36 isEqual:uniqueIDOverride];
     }
 
-    v59 = v36;
-    v60 = uniqueIDOverride;
+    v60 = v36;
+    v61 = uniqueIDOverride;
     CFStringGetTypeID();
     v37 = CFDictionaryGetTypedValue();
     modelIdentifier = v37;
@@ -880,8 +1117,8 @@ LABEL_20:
       }
     }
 
-    v61 = deviceCopy;
-    advertisementFields2 = [v17 advertisementFields];
+    v62 = deviceCopy;
+    v39 = objc_msgSend_advertisementFields(v17);
     CFStringGetTypeID();
     v40 = CFDictionaryGetTypedValue();
 
@@ -905,7 +1142,7 @@ LABEL_20:
       [v17 setConnectedServices:Int64Ranged];
     }
 
-    v58 = modelIdentifier;
+    v59 = modelIdentifier;
     if (v19)
     {
       [v17 updateRSSI:v19];
@@ -974,12 +1211,12 @@ LABEL_20:
       {
 LABEL_69:
         sub_100200404(v55, v17);
-        v56 = sub_10002F024();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+        v57 = sub_10002F024(v56);
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v64 = v17;
-          _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "Updated %@\n", buf, 0xCu);
+          v65 = v17;
+          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_ERROR, "Updated %@\n", buf, 0xCu);
         }
 
         bufferedDeviceFoundHandler = selfCopy->_bufferedDeviceFoundHandler;
@@ -988,8 +1225,8 @@ LABEL_69:
           bufferedDeviceFoundHandler[2](bufferedDeviceFoundHandler, v17);
         }
 
-        name3 = v60;
-        deviceCopy = v61;
+        name3 = v61;
+        deviceCopy = v62;
         v15 = v44;
         goto LABEL_74;
       }
@@ -1035,7 +1272,7 @@ LABEL_69:
       [fieldsCopy setObject:uniqueIDOverride2 forKeyedSubscript:@"idsID"];
     }
 
-    v29 = [NSNumber numberWithBool:v62];
+    v29 = [NSNumber numberWithBool:v63];
     [fieldsCopy setObject:v29 forKeyedSubscript:@"idsIDCD"];
 
     [fieldsCopy setObject:&__kCFBooleanTrue forKeyedSubscript:@"paired"];
@@ -1050,11 +1287,11 @@ LABEL_69:
       goto LABEL_22;
     }
 
-    uniqueIDOverride2 = sub_10002F024();
+    uniqueIDOverride2 = sub_10002F024(v22);
     if (os_log_type_enabled(uniqueIDOverride2, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v64 = deviceCopy;
+      v65 = deviceCopy;
       _os_log_impl(&_mh_execute_header, uniqueIDOverride2, OS_LOG_TYPE_ERROR, "### No IDS device found for paired ID %@\n", buf, 0xCu);
     }
   }
@@ -1096,12 +1333,11 @@ LABEL_22:
     devices = self->_devices;
   }
 
-  [(NSMutableDictionary *)devices setObject:v17 forKeyedSubscript:deviceCopy];
-  v33 = sub_10002F024();
+  v33 = sub_10002F024([(NSMutableDictionary *)devices setObject:v17 forKeyedSubscript:deviceCopy]);
   if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v64 = v17;
+    v65 = v17;
     _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Found %@\n", buf, 0xCu);
   }
 
@@ -1133,8 +1369,8 @@ LABEL_74:
     v19 = (v18 - 8194) > 0xD || ((1 << (v18 - 2)) & 0x3001) == 0;
     if (v19)
     {
-      v32 = [[SFHeadphoneProduct alloc] initWithProductID:v18];
-      [v32 isAirPods];
+      v30 = [[SFHeadphoneProduct alloc] initWithProductID:v18];
+      [v30 isAirPods];
 
       sub_100200BA4();
       if (v19)
@@ -1144,12 +1380,12 @@ LABEL_74:
 
       else
       {
-        v33 = [[SFHeadphoneProduct alloc] initWithProductID:v18];
-        hasSplitBattery = [v33 hasSplitBattery];
+        v31 = [[SFHeadphoneProduct alloc] initWithProductID:v18];
+        hasSplitBattery = [v31 hasSplitBattery];
       }
     }
 
-    v291 = [[SFHeadphoneProduct alloc] initWithProductID:v18];
+    v288 = [[SFHeadphoneProduct alloc] initWithProductID:v18];
     v20 = [NSNumber numberWithUnsignedChar:v17];
     sub_100035E1C();
 
@@ -1174,13 +1410,13 @@ LABEL_298:
     }
 
     v25 = 0;
-    v284 = &bytes[v15];
+    v281 = &bytes[v15];
     switch(v17)
     {
       case 0:
       case 7:
-        v282 = deviceCopy;
-        v283 = infoCopy;
+        v279 = deviceCopy;
+        v280 = infoCopy;
         if (v17)
         {
           if (v15 < 0xD)
@@ -1188,16 +1424,14 @@ LABEL_298:
             goto LABEL_301;
           }
 
-          v277 = bytes[7];
-          v273 = bytes[8];
-          v26 = bytes[9];
-          v27 = bytes[10];
-          v28 = bytes + 12;
-          v29 = bytes[11];
+          v274 = bytes[7];
+          v270 = bytes[8];
+          v26 = bytes + 12;
+          v27 = bytes[11];
           if (v17 == 7)
           {
-            v30 = 0;
-            v31 = 0;
+            v28 = 0;
+            v29 = 0;
             goto LABEL_40;
           }
         }
@@ -1208,26 +1442,24 @@ LABEL_298:
           {
 LABEL_302:
             v25 = 0;
-            infoCopy = v283;
+            infoCopy = v280;
             goto LABEL_299;
           }
 
-          v277 = bytes[13];
-          v273 = bytes[14];
-          v67 = bytes[15];
-          v68 = bytes[16];
-          v28 = bytes + 18;
-          v29 = bytes[17];
+          v274 = bytes[13];
+          v270 = bytes[14];
+          v26 = bytes + 18;
+          v27 = bytes[17];
         }
 
-        v31 = *v28;
-        v30 = 1;
+        v29 = *v26;
+        v28 = 1;
 LABEL_40:
         sub_100200BA4();
-        v280 = identifierCopy;
-        v263 = v70;
-        v268 = v71;
-        v271 = v72;
+        v277 = identifierCopy;
+        v260 = v67;
+        v265 = v68;
+        v268 = v69;
         if (v19)
         {
           hasSplitCaseColors = 1;
@@ -1235,114 +1467,114 @@ LABEL_40:
 
         else
         {
-          v73 = v29;
-          v74 = v69;
-          v75 = [[SFHeadphoneProduct alloc] initWithProductID:v18];
-          hasSplitCaseColors = [v75 hasSplitCaseColors];
+          v70 = v27;
+          v71 = v66;
+          v72 = [[SFHeadphoneProduct alloc] initWithProductID:v18];
+          hasSplitCaseColors = [v72 hasSplitCaseColors];
 
-          v69 = v74;
-          v29 = v73;
+          v66 = v71;
+          v27 = v70;
         }
 
-        if ((v30 & hasSplitCaseColors) == 1)
+        if ((v28 & hasSplitCaseColors) == 1)
         {
-          if (v284 - v69 < 1)
+          if (v281 - v66 < 1)
           {
-            v265 = v69;
-            v77 = 0;
+            v262 = v66;
+            v74 = 0;
           }
 
           else
           {
-            v265 = v69 + 1;
-            v77 = *v69 >> 5;
+            v262 = v66 + 1;
+            v74 = *v66 >> 5;
           }
 
-          v95 = v31 >> 4;
-          v96 = [NSNumber numberWithUnsignedChar:v31 & 0xF];
+          v92 = v29 >> 4;
+          v93 = [NSNumber numberWithUnsignedChar:v29 & 0xF];
           sub_100200B44();
 
-          v97 = [NSNumber numberWithUnsignedChar:v95];
+          v94 = [NSNumber numberWithUnsignedChar:v92];
           sub_100200B44();
 
-          v98 = [NSNumber numberWithUnsignedChar:v77];
+          v95 = [NSNumber numberWithUnsignedChar:v74];
           [sub_100019E60() setObject:? forKeyedSubscript:?];
         }
 
         else
         {
-          v265 = v69;
-          v78 = +[SFHeadphoneProduct airPodsMax];
+          v262 = v66;
+          v75 = +[SFHeadphoneProduct airPodsMax];
 
-          if (v291 == v78)
+          if (v288 == v75)
           {
-            [NSNumber numberWithInt:v31 & 0x1F];
+            [NSNumber numberWithInt:v29 & 0x1F];
           }
 
           else
           {
-            [NSNumber numberWithUnsignedChar:v31];
+            [NSNumber numberWithUnsignedChar:v29];
           }
-          v98 = ;
+          v95 = ;
           [sub_100019E60() setObject:? forKeyedSubscript:?];
         }
 
-        v99 = [(SDProximityPairingBufferedScanner *)self statusToHeadsetStatus:v277 forProductID:v18];
-        if (v273 == 255)
+        v96 = [(SDProximityPairingBufferedScanner *)self statusToHeadsetStatus:v274 forProductID:v18];
+        if (v270 == 255)
         {
-          v276 = 0;
+          v273 = 0;
         }
 
         else
         {
           sub_100200B7C();
-          v100 = sub_100200B6C();
-          v102 = v101 < 0;
+          v97 = sub_100200B6C();
+          v99 = v98 < 0;
+          v100 = 1;
+          if (v99)
+          {
+            v100 = 2;
+          }
+
+          v273 = v100;
+        }
+
+        v101 = v265;
+        if (v268 == 255)
+        {
+          v269 = 0;
+        }
+
+        else
+        {
+          sub_100200B7C();
+          v97 = sub_100200B6C();
+          v99 = v102 < 0;
           v103 = 1;
-          if (v102)
+          if (v99)
           {
             v103 = 2;
           }
 
-          v276 = v103;
+          v269 = v103;
         }
 
-        v104 = v268;
-        if (v271 == 255)
+        if (v101 == 255)
         {
-          v272 = 0;
-        }
-
-        else
-        {
-          sub_100200B7C();
-          v100 = sub_100200B6C();
-          v102 = v105 < 0;
-          v106 = 1;
-          if (v102)
-          {
-            v106 = 2;
-          }
-
-          v272 = v106;
-        }
-
-        if (v104 == 255)
-        {
-          v108 = 0;
+          v105 = 0;
         }
 
         else
         {
-          v100 = sub_100200B6C();
-          if (v107 >= 0)
+          v97 = sub_100200B6C();
+          if (v104 >= 0)
           {
-            v108 = 1;
+            v105 = 1;
           }
 
           else
           {
-            v108 = 2;
+            v105 = 2;
           }
         }
 
@@ -1353,54 +1585,54 @@ LABEL_40:
 
         else
         {
-          v110 = [[SFHeadphoneProduct alloc] initWithProductID:v18];
-          hasLid = [v110 hasLid];
+          v107 = [[SFHeadphoneProduct alloc] initWithProductID:v18];
+          hasLid = [v107 hasLid];
         }
 
-        if ((v29 & 0x80u) == 0)
+        if ((v27 & 0x80u) == 0)
         {
-          v111 = 1;
+          v108 = 1;
         }
 
         else
         {
-          v111 = hasLid;
+          v108 = hasLid;
         }
 
-        if (v111)
+        if (v108)
         {
-          v112 = v99;
+          v109 = v96;
         }
 
         else
         {
-          v112 = v99 | 0x400;
+          v109 = v96 | 0x400;
         }
 
-        v100 = [NSNumber numberWithUnsignedInt:v112, v100];
-        [v16 setObject:v100 forKeyedSubscript:@"hsStatus"];
+        v110 = [NSNumber numberWithUnsignedInt:v109, v97];
+        [v16 setObject:v110 forKeyedSubscript:@"hsStatus"];
 
-        if ((hasLid & ((v29 & 8) >> 3)) != 0)
+        if ((hasLid & ((v27 & 8) >> 3)) != 0)
         {
-          v114 = &__kCFBooleanTrue;
+          v111 = &__kCFBooleanTrue;
         }
 
         else
         {
-          v114 = &__kCFBooleanFalse;
+          v111 = &__kCFBooleanFalse;
         }
 
-        [v16 setObject:v114 forKeyedSubscript:@"lc"];
-        v115 = [NSNumber numberWithInt:v29 & 7];
-        if ((v112 & 0x100) != 0)
+        [v16 setObject:v111 forKeyedSubscript:@"lc"];
+        v112 = [NSNumber numberWithInt:v27 & 7];
+        if ((v109 & 0x100) != 0)
         {
           [sub_100019E60() setObject:? forKeyedSubscript:?];
 
-          advertisementFields = [v282 advertisementFields];
-          v117 = [advertisementFields objectForKeyedSubscript:@"locS"];
+          v116 = objc_msgSend_advertisementFields(v279);
+          v114 = [v116 objectForKeyedSubscript:@"locS"];
 
-          v118 = v108;
-          if (!v117)
+          v115 = v105;
+          if (!v114)
           {
             goto LABEL_107;
           }
@@ -1410,11 +1642,11 @@ LABEL_40:
         {
           [sub_100019E60() setObject:? forKeyedSubscript:?];
 
-          advertisementFields2 = [v282 advertisementFields];
-          v117 = [advertisementFields2 objectForKeyedSubscript:@"locP"];
+          v113 = objc_msgSend_advertisementFields(v279);
+          v114 = [v113 objectForKeyedSubscript:@"locP"];
 
-          v118 = v108;
-          if (!v117)
+          v115 = v105;
+          if (!v114)
           {
             goto LABEL_107;
           }
@@ -1422,123 +1654,123 @@ LABEL_40:
 
         [sub_100019E60() setObject:? forKeyedSubscript:?];
 LABEL_107:
-        identifierCopy = v280;
-        infoCopy = v283;
+        identifierCopy = v277;
+        infoCopy = v280;
 
         sub_100200B90();
-        [SDProximityPairingBufferedScanner parseStatus3:"parseStatus3:productID:caseLEDColor:caseLEDStatus:" productID:v29 caseLEDColor:v18 caseLEDStatus:?];
-        v120 = +[SFHeadphoneProduct airPodsMax];
+        [SDProximityPairingBufferedScanner parseStatus3:"parseStatus3:productID:caseLEDColor:caseLEDStatus:" productID:v27 caseLEDColor:v18 caseLEDStatus:?];
+        v117 = +[SFHeadphoneProduct airPodsMax];
 
-        if (v291 == v120)
+        if (v288 == v117)
         {
-          0x1F = [NSNumber numberWithInt:v277 & 0x1F];
+          0x1F = [NSNumber numberWithInt:v274 & 0x1F];
           sub_100035E1C();
-          v122 = v272;
+          v119 = v269;
         }
 
         else
         {
-          v121 = v18 == 8207 || v18 == 8194;
-          v122 = v272;
-          if (!v121)
+          v118 = v18 == 8207 || v18 == 8194;
+          v119 = v269;
+          if (!v118)
           {
 LABEL_116:
-            if ([v291 supportsDigitalEngraving] && v284 - v265 >= 17)
+            if ([v288 supportsDigitalEngraving] && v281 - v262 >= 17)
             {
-              v124 = [NSData dataWithBytes:v265 length:17];
+              v121 = [NSData dataWithBytes:v262 length:17];
               sub_100035E1C();
             }
 
-            v125 = [NSNumber numberWithUnsignedChar:buf[0]];
+            v122 = [NSNumber numberWithUnsignedChar:buf[0]];
             sub_100035E1C();
 
-            v126 = [NSNumber numberWithUnsignedChar:v293];
+            v123 = [NSNumber numberWithUnsignedChar:v290];
             sub_100035E1C();
 
-            v127 = [(SDProximityPairingBufferedScanner *)self modelWithProductID:v18];
+            v124 = [(SDProximityPairingBufferedScanner *)self modelWithProductID:v18];
             sub_100035E1C();
 
-            v128 = [NSNumber numberWithUnsignedShort:v18];
+            v125 = [NSNumber numberWithUnsignedShort:v18];
             sub_100035E1C();
 
             [v16 setObject:&__kCFBooleanTrue forKeyedSubscript:@"ns"];
             if (v17)
             {
-              [v283 objectForKeyedSubscript:WPPairingKeyDeviceAddress];
+              [v280 objectForKeyedSubscript:WPPairingKeyDeviceAddress];
             }
 
             else
             {
-              [NSData dataWithBytes:v263 length:6];
+              [NSData dataWithBytes:v260 length:6];
             }
-            v129 = ;
-            v130 = v276;
+            v126 = ;
+            v127 = v273;
             sub_100021F1C();
 
-            v42 = objc_alloc_init(NSMutableArray);
+            v40 = objc_alloc_init(NSMutableArray);
             if (!hasSplitBattery)
             {
-              v131 = objc_alloc_init(SFBatteryInfo);
-              v135 = sub_100008A24();
-              v136 = sub_100019D28(v135, 0.0001);
-              [v137 setBatteryLevel:v136];
-              [v131 setBatteryState:v276];
-              [v131 setBatteryType:4];
+              v128 = objc_alloc_init(SFBatteryInfo);
+              v132 = sub_100008A24();
+              v133 = sub_100019D28(v132, 0.0001);
+              [v134 setBatteryLevel:v133];
+              [v128 setBatteryState:v273];
+              [v128 setBatteryType:4];
               goto LABEL_138;
             }
 
-            if (v118)
+            if (v115)
             {
-              v131 = objc_alloc_init(SFBatteryInfo);
-              v132 = sub_100023FB4();
-              v133 = sub_100019D28(v132, 0.0001);
-              [v134 setBatteryLevel:v133];
-              [v131 setBatteryState:v118];
-              [v131 setBatteryType:1];
-              [v42 addObject:v131];
-              if (!(v276 | v122))
+              v128 = objc_alloc_init(SFBatteryInfo);
+              v129 = sub_100023FB4();
+              v130 = sub_100019D28(v129, 0.0001);
+              [v131 setBatteryLevel:v130];
+              [v128 setBatteryState:v115];
+              [v128 setBatteryType:1];
+              [v40 addObject:v128];
+              if (!(v273 | v119))
               {
-                LOBYTE(v112) = 0x80;
-                v130 = 2;
-                v122 = 2;
+                LOBYTE(v109) = 0x80;
+                v127 = 2;
+                v119 = 2;
                 goto LABEL_129;
               }
             }
 
             else
             {
-              v131 = 0;
+              v128 = 0;
             }
 
-            if (!v276)
+            if (!v273)
             {
 LABEL_133:
-              if (!v122)
+              if (!v119)
               {
                 goto LABEL_139;
               }
 
-              v141 = objc_alloc_init(SFBatteryInfo);
+              v138 = objc_alloc_init(SFBatteryInfo);
 
-              v142 = sub_10002A838();
-              [v141 setBatteryLevel:{sub_100019D28(v142, 0.0001)}];
-              [v141 setBatteryState:v122];
-              if ((v112 & 0x80) != 0)
+              v139 = sub_10002A838();
+              [v138 setBatteryLevel:{sub_100019D28(v139, 0.0001)}];
+              [v138 setBatteryState:v119];
+              if ((v109 & 0x80) != 0)
               {
-                v143 = 3;
+                v140 = 3;
               }
 
               else
               {
-                v143 = 2;
+                v140 = 2;
               }
 
-              [v141 setBatteryType:v143];
-              v131 = v141;
+              [v138 setBatteryType:v140];
+              v128 = v138;
 LABEL_138:
-              [v42 addObject:v131];
+              [v40 addObject:v128];
 LABEL_139:
-              deviceCopy = v282;
+              deviceCopy = v279;
               sub_100021F1C();
 
 LABEL_140:
@@ -1546,28 +1778,28 @@ LABEL_140:
             }
 
 LABEL_129:
-            v138 = objc_alloc_init(SFBatteryInfo);
+            v135 = objc_alloc_init(SFBatteryInfo);
 
-            v139 = sub_100008A24();
-            [v138 setBatteryLevel:{sub_100019D28(v139, 0.0001)}];
-            [v138 setBatteryState:v130];
-            if ((v112 & 0x80) != 0)
+            v136 = sub_100008A24();
+            [v135 setBatteryLevel:{sub_100019D28(v136, 0.0001)}];
+            [v135 setBatteryState:v127];
+            if ((v109 & 0x80) != 0)
             {
-              v140 = 2;
+              v137 = 2;
             }
 
             else
             {
-              v140 = 3;
+              v137 = 3;
             }
 
-            [v138 setBatteryType:v140];
-            [v42 addObject:v138];
-            v131 = v138;
+            [v135 setBatteryType:v137];
+            [v40 addObject:v135];
+            v128 = v135;
             goto LABEL_133;
           }
 
-          0x1F = [NSNumber numberWithInt:(v29 >> 4) & 1];
+          0x1F = [NSNumber numberWithInt:(v27 >> 4) & 1];
           sub_100035E1C();
         }
 
@@ -1578,23 +1810,23 @@ LABEL_129:
           goto LABEL_301;
         }
 
-        v50 = bytes[7];
-        v269 = bytes[9];
-        v261 = bytes[8];
+        v49 = bytes[7];
+        v266 = bytes[9];
+        v258 = bytes[8];
         if (v15 == 26)
         {
-          v51 = deviceCopy;
-          v52 = identifierCopy;
-          v274 = 0;
-          v264 = 0;
-          v266 = 0;
-          v53 = (bytes + 10);
-          v54 = (bytes + 11);
-          v55 = (bytes + 12);
-          v56 = (bytes + 13);
-          v258 = (bytes + 14);
-          v259 = 0;
-          v257 = (bytes + 17);
+          v50 = deviceCopy;
+          v51 = identifierCopy;
+          v271 = 0;
+          v261 = 0;
+          v263 = 0;
+          v52 = (bytes + 10);
+          v53 = (bytes + 11);
+          v54 = (bytes + 12);
+          v55 = (bytes + 13);
+          v255 = (bytes + 14);
+          v256 = 0;
+          v254 = (bytes + 17);
         }
 
         else
@@ -1604,135 +1836,135 @@ LABEL_129:
             goto LABEL_301;
           }
 
-          v51 = deviceCopy;
-          v52 = identifierCopy;
-          v274 = bytes[10];
-          v53 = (bytes + 13);
-          LODWORD(v259) = bytes[11];
-          HIDWORD(v259) = bytes[12];
-          v54 = (bytes + 14);
-          v55 = (bytes + 15);
-          v56 = (bytes + 16);
-          v257 = (bytes + 20);
-          v258 = (bytes + 17);
-          v264 = bytes[23];
-          v266 = bytes[24];
+          v50 = deviceCopy;
+          v51 = identifierCopy;
+          v271 = bytes[10];
+          v52 = (bytes + 13);
+          LODWORD(v256) = bytes[11];
+          HIDWORD(v256) = bytes[12];
+          v53 = (bytes + 14);
+          v54 = (bytes + 15);
+          v55 = (bytes + 16);
+          v254 = (bytes + 20);
+          v255 = (bytes + 17);
+          v261 = bytes[23];
+          v263 = bytes[24];
         }
 
-        v79 = *v56;
-        v80 = *v55;
-        v81 = *v54;
-        v286 = *v53;
-        v256 = v50;
-        v279 = [SDProximityPairingBufferedScanner statusToHeadsetStatus:"statusToHeadsetStatus:forProductID:" forProductID:?];
-        if ([(SDProximityPairingBufferedScanner *)self pairingUpdatePairedInfo:v52 fields:v16 bleDevice:v51])
+        v76 = *v55;
+        v77 = *v54;
+        v78 = *v53;
+        v283 = *v52;
+        v253 = v49;
+        v276 = [SDProximityPairingBufferedScanner statusToHeadsetStatus:"statusToHeadsetStatus:forProductID:" forProductID:?];
+        if ([(SDProximityPairingBufferedScanner *)self pairingUpdatePairedInfo:v51 fields:v16 bleDevice:v50])
         {
           if (v15 == 26 || !sub_1001FFBA8(v18))
           {
-            v255 = 0;
+            v252 = 0;
           }
 
           else
           {
-            if ((v286 & 0x20) != 0)
+            if ((v283 & 0x20) != 0)
             {
-              v83 = 2;
+              v80 = 2;
             }
 
             else
             {
-              v83 = 1;
+              v80 = 1;
             }
 
-            v255 = v83;
+            v252 = v80;
           }
 
-          if (v81 == -1)
+          if (v78 == -1)
           {
-            *(&v262 + 1) = 0;
+            *(&v259 + 1) = 0;
           }
 
           else
           {
-            v180 = v81 & 0x7F;
-            if (v180 >= 0x64)
+            v177 = v78 & 0x7F;
+            if (v177 >= 0x64)
             {
-              v180 = 100;
+              v177 = 100;
             }
 
-            v82 = sub_100200B5C(v180);
-            v181 = 1;
-            if (v81 < 0)
+            v79 = sub_100200B5C(v177);
+            v178 = 1;
+            if (v78 < 0)
             {
-              v181 = 2;
+              v178 = 2;
             }
 
-            *(&v262 + 1) = v181;
+            *(&v259 + 1) = v178;
           }
 
-          identifierCopy = v52;
-          if (v80 == -1)
+          identifierCopy = v51;
+          if (v77 == -1)
           {
-            *&v262 = 0;
+            *&v259 = 0;
           }
 
           else
           {
-            v194 = v80 & 0x7F;
-            if (v194 >= 0x64)
+            v191 = v77 & 0x7F;
+            if (v191 >= 0x64)
             {
-              v194 = 100;
+              v191 = 100;
             }
 
-            v82 = sub_100200B5C(v194);
-            v195 = 1;
-            if (v80 < 0)
+            v79 = sub_100200B5C(v191);
+            v192 = 1;
+            if (v77 < 0)
             {
-              v195 = 2;
+              v192 = 2;
             }
 
-            *&v262 = v195;
+            *&v259 = v192;
           }
 
-          deviceCopy = v51;
-          if (v79 == -1)
+          deviceCopy = v50;
+          if (v76 == -1)
           {
-            v260 = 0;
+            v257 = 0;
           }
 
           else
           {
-            v196 = v79 & 0x7F;
-            if (v196 >= 0x64)
+            v193 = v76 & 0x7F;
+            if (v193 >= 0x64)
             {
-              v196 = 100;
+              v193 = 100;
             }
 
-            v82 = sub_100200B5C(v196);
-            v197 = 1;
-            if (v79 < 0)
+            v79 = sub_100200B5C(v193);
+            v194 = 1;
+            if (v76 < 0)
             {
-              v197 = 2;
+              v194 = 2;
             }
 
-            v260 = v197;
+            v257 = v194;
           }
 
-          v193 = &NSURLAuthenticationMethodServerTrust_ptr;
-          v198 = [NSNumber numberWithUnsignedChar:v82];
+          v190 = &NSURLAuthenticationMethodServerTrust_ptr;
+          v195 = [NSNumber numberWithUnsignedChar:v79];
           sub_100200B44();
 
-          v199 = [NSNumber numberWithInteger:v286 & 3];
+          v196 = [NSNumber numberWithInteger:v283 & 3];
           sub_100200B44();
 
-          v200 = [NSData dataWithBytes:v257 length:3];
+          v197 = [NSData dataWithBytes:v254 length:3];
           sub_100035E1C();
 
-          v201 = [NSData dataWithBytes:v258 length:3];
+          v198 = [NSData dataWithBytes:v255 length:3];
           sub_100035E1C();
 
           [v16 setObject:&__kCFBooleanTrue forKeyedSubscript:@"paired"];
-          v202 = [NSNumber numberWithUnsignedChar:v255];
+          v199 = [NSNumber numberWithUnsignedChar:v252];
           sub_100035E1C();
 
           selfCopy2 = self;
@@ -1740,87 +1972,87 @@ LABEL_129:
 
         else
         {
-          v93 = v261;
-          v94 = v269;
-          if ((v261 & 0xF) == 0xF)
+          v90 = v258;
+          v91 = v266;
+          if ((v258 & 0xF) == 0xF)
           {
-            *(&v262 + 1) = 0;
+            *(&v259 + 1) = 0;
           }
 
           else
           {
             sub_100200B38();
-            if (v155)
+            if (v152)
             {
-              v182 = v183;
+              v179 = v180;
             }
 
-            sub_10002FCE0(v182);
-            v184 = 1;
-            if ((v94 & 0x10) != 0)
+            sub_10002FCE0(v179);
+            v181 = 1;
+            if ((v91 & 0x10) != 0)
             {
-              v184 = 2;
+              v181 = 2;
             }
 
-            *(&v262 + 1) = v184;
+            *(&v259 + 1) = v181;
           }
 
-          identifierCopy = v52;
-          deviceCopy = v51;
+          identifierCopy = v51;
+          deviceCopy = v50;
           selfCopy2 = self;
-          if (v93 >> 4 == 15)
+          if (v90 >> 4 == 15)
           {
-            *&v262 = 0;
+            *&v259 = 0;
           }
 
           else
           {
             sub_100200B38();
-            if (v155)
+            if (v152)
+            {
+              v183 = v184;
+            }
+
+            sub_10002FCE0(v183);
+            v185 = 1;
+            if ((v91 & 0x20) != 0)
+            {
+              v185 = 2;
+            }
+
+            *&v259 = v185;
+          }
+
+          if ((v91 & 0xF) == 0xF)
+          {
+            v257 = 0;
+          }
+
+          else
+          {
+            sub_100200B38();
+            if (v152)
             {
               v186 = v187;
             }
 
             sub_10002FCE0(v186);
-            v188 = 1;
-            if ((v94 & 0x20) != 0)
+            v189 = 1;
+            if ((v188 & 0x40) != 0)
             {
-              v188 = 2;
+              v189 = 2;
             }
 
-            *&v262 = v188;
+            v257 = v189;
           }
 
-          if ((v94 & 0xF) == 0xF)
-          {
-            v260 = 0;
-          }
-
-          else
-          {
-            sub_100200B38();
-            if (v155)
-            {
-              v189 = v190;
-            }
-
-            sub_10002FCE0(v189);
-            v192 = 1;
-            if ((v191 & 0x40) != 0)
-            {
-              v192 = 2;
-            }
-
-            v260 = v192;
-          }
-
-          v193 = &NSURLAuthenticationMethodServerTrust_ptr;
+          v190 = &NSURLAuthenticationMethodServerTrust_ptr;
         }
 
-        v203 = [(SDProximityPairingBufferedScanner *)selfCopy2 modelWithProductID:v18];
+        v200 = [(SDProximityPairingBufferedScanner *)selfCopy2 modelWithProductID:v18];
         sub_100035E1C();
 
-        v204 = [v193[258] numberWithUnsignedShort:v18];
+        v201 = [v190[258] numberWithUnsignedShort:v18];
         sub_100035E1C();
 
         if (v15 == 26)
@@ -1829,43 +2061,43 @@ LABEL_129:
         }
 
         sub_100200B90();
-        [SDProximityPairingBufferedScanner parseStatus3:selfCopy2 productID:"parseStatus3:productID:caseLEDColor:caseLEDStatus:" caseLEDColor:v274 caseLEDStatus:v18];
+        [SDProximityPairingBufferedScanner parseStatus3:selfCopy2 productID:"parseStatus3:productID:caseLEDColor:caseLEDStatus:" caseLEDColor:v271 caseLEDStatus:v18];
         sub_100200BA4();
-        if (v19 || (v205 = [[SFHeadphoneProduct alloc] initWithProductID:v18], v206 = objc_msgSend(v205, "hasSplitCaseColors"), v205, v206))
+        if (v19 || (v202 = [[SFHeadphoneProduct alloc] initWithProductID:v18], v203 = objc_msgSend(v202, "hasSplitCaseColors"), v202, v203))
         {
-          v207 = [v193[258] numberWithUnsignedChar:v259 & 0xF];
+          v204 = [v190[258] numberWithUnsignedChar:v256 & 0xF];
           sub_100200B44();
 
-          v208 = [v193[258] numberWithUnsignedChar:v259 >> 4];
+          v205 = [v190[258] numberWithUnsignedChar:v256 >> 4];
           sub_100035E1C();
 
-          v209 = [v193[258] numberWithUnsignedChar:HIDWORD(v259) >> 5];
+          v206 = [v190[258] numberWithUnsignedChar:HIDWORD(v256) >> 5];
         }
 
         else
         {
-          v210 = +[SFHeadphoneProduct airPodsMax];
+          v207 = +[SFHeadphoneProduct airPodsMax];
 
-          v211 = v193[258];
-          if (v291 == v210)
+          v208 = v190[258];
+          if (v288 == v207)
           {
-            [v211 numberWithInt:v259 & 0x1F];
+            [v208 numberWithInt:v256 & 0x1F];
           }
 
           else
           {
-            [v211 numberWithUnsignedChar:v259];
+            [v208 numberWithUnsignedChar:v256];
           }
-          v209 = ;
+          v206 = ;
         }
 
         sub_100035E1C();
 
-        v212 = +[SFHeadphoneProduct airPodsMax];
+        v209 = +[SFHeadphoneProduct airPodsMax];
 
-        if (v291 == v212)
+        if (v288 == v209)
         {
-          v214 = v256 & 0x1F;
+          v211 = v253 & 0x1F;
         }
 
         else
@@ -1881,36 +2113,36 @@ LABEL_129:
             if (v18 != 8194)
             {
 LABEL_250:
-              v217 = [[SFHeadphoneProduct alloc] initWithProductID:v18];
-              hasLid2 = [v217 hasLid];
+              v214 = [[SFHeadphoneProduct alloc] initWithProductID:v18];
+              hasLid2 = [v214 hasLid];
 
 LABEL_251:
-              if ((v274 & 0x80u) == 0)
+              if ((v271 & 0x80u) == 0)
               {
-                v218 = 1;
+                v215 = 1;
               }
 
               else
               {
-                v218 = hasLid2;
+                v215 = hasLid2;
               }
 
-              v219 = v279;
-              if (!v218)
+              v216 = v276;
+              if (!v215)
               {
-                v219 = v279 | 0x400;
+                v216 = v276 | 0x400;
               }
 
-              v220 = [v193[258] numberWithInt:v274 & 7];
-              v279 = v219;
-              if ((v219 & 0x100) != 0)
+              v217 = [v190[258] numberWithInt:v271 & 7];
+              v276 = v216;
+              if ((v216 & 0x100) != 0)
               {
                 [sub_100019E60() setObject:? forKeyedSubscript:?];
 
-                advertisementFields3 = [deviceCopy advertisementFields];
-                v222 = [advertisementFields3 objectForKeyedSubscript:@"locS"];
+                v220 = objc_msgSend_advertisementFields(deviceCopy);
+                v219 = [v220 objectForKeyedSubscript:@"locS"];
 
-                if (v222)
+                if (v219)
                 {
 LABEL_260:
                   [sub_100019E60() setObject:? forKeyedSubscript:?];
@@ -1921,197 +2153,197 @@ LABEL_260:
               {
                 [sub_100019E60() setObject:? forKeyedSubscript:?];
 
-                advertisementFields4 = [deviceCopy advertisementFields];
-                v222 = [advertisementFields4 objectForKeyedSubscript:@"locP"];
+                v218 = objc_msgSend_advertisementFields(deviceCopy);
+                v219 = [v218 objectForKeyedSubscript:@"locP"];
 
-                if (v222)
+                if (v219)
                 {
                   goto LABEL_260;
                 }
               }
 
-              if ((hasLid2 & ((v274 & 8) >> 3)) != 0)
+              if ((hasLid2 & ((v271 & 8) >> 3)) != 0)
               {
-                v224 = &__kCFBooleanTrue;
+                v221 = &__kCFBooleanTrue;
               }
 
               else
               {
-                v224 = &__kCFBooleanFalse;
+                v221 = &__kCFBooleanFalse;
               }
 
-              [v16 setObject:v224 forKeyedSubscript:@"lc"];
-              v225 = [v193[258] numberWithUnsignedChar:buf[0]];
+              [v16 setObject:v221 forKeyedSubscript:@"lc"];
+              v222 = [v190[258] numberWithUnsignedChar:buf[0]];
               sub_100021F1C();
 
-              v226 = [v193[258] numberWithUnsignedChar:v293];
+              v223 = [v190[258] numberWithUnsignedChar:v290];
               sub_100021F1C();
 
 LABEL_265:
-              v227 = v279;
-              v228 = [v193[258] numberWithUnsignedInt:v279];
+              v224 = v276;
+              v225 = [v190[258] numberWithUnsignedInt:v276];
               sub_100021F1C();
 
-              if ((v269 & 0x80) != 0)
+              if ((v266 & 0x80) != 0)
               {
-                v229 = [v193[258] numberWithUnsignedInt:2048];
+                v226 = [v190[258] numberWithUnsignedInt:2048];
                 sub_100021F1C();
               }
 
-              v290 = objc_alloc_init(NSMutableArray);
-              v230 = v262;
+              v287 = objc_alloc_init(NSMutableArray);
+              v227 = v259;
               if (!hasSplitBattery)
               {
-                if (!*(&v262 + 1))
+                if (!*(&v259 + 1))
                 {
-                  v232 = 0;
+                  v229 = 0;
                   goto LABEL_286;
                 }
 
-                v232 = objc_alloc_init(SFBatteryInfo);
-                v236 = sub_100008A24();
-                v237 = sub_100019D28(v236, 0.0001);
-                [v238 setBatteryLevel:v237];
-                [v232 setBatteryState:*(&v262 + 1)];
-                [v232 setBatteryType:4];
+                v229 = objc_alloc_init(SFBatteryInfo);
+                v233 = sub_100008A24();
+                v234 = sub_100019D28(v233, 0.0001);
+                [v235 setBatteryLevel:v234];
+                [v229 setBatteryState:*(&v259 + 1)];
+                [v229 setBatteryType:4];
                 goto LABEL_284;
               }
 
-              v231 = *(&v262 + 1);
-              if (v260)
+              v228 = *(&v259 + 1);
+              if (v257)
               {
-                v232 = objc_alloc_init(SFBatteryInfo);
-                v233 = sub_100023FB4();
-                v234 = sub_100019D28(v233, 0.0001);
-                [v235 setBatteryLevel:v234];
-                [v232 setBatteryState:v260];
-                [v232 setBatteryType:1];
-                [v290 addObject:v232];
-                if (v262 == 0)
+                v229 = objc_alloc_init(SFBatteryInfo);
+                v230 = sub_100023FB4();
+                v231 = sub_100019D28(v230, 0.0001);
+                [v232 setBatteryLevel:v231];
+                [v229 setBatteryState:v257];
+                [v229 setBatteryType:1];
+                [v287 addObject:v229];
+                if (v259 == 0)
                 {
-                  v227 = 0x80;
-                  v230 = 2;
-                  v231 = 2;
+                  v224 = 0x80;
+                  v227 = 2;
+                  v228 = 2;
                   goto LABEL_275;
                 }
               }
 
               else
               {
-                v232 = 0;
+                v229 = 0;
               }
 
-              if (!*(&v262 + 1))
+              if (!*(&v259 + 1))
               {
 LABEL_279:
-                if (!v230)
+                if (!v227)
                 {
 LABEL_286:
-                  v245 = +[SFHeadphoneProduct airPodsMax];
+                  v242 = +[SFHeadphoneProduct airPodsMax];
 
-                  if (v291 == v245)
+                  if (v288 == v242)
                   {
-                    if ((v259 & 0x1000000000) != 0)
+                    if ((v256 & 0x1000000000) != 0)
                     {
-                      v246 = &__kCFBooleanTrue;
+                      v243 = &__kCFBooleanTrue;
                     }
 
                     else
                     {
-                      v246 = &__kCFBooleanFalse;
+                      v243 = &__kCFBooleanFalse;
                     }
 
-                    [v16 setObject:v246 forKeyedSubscript:@"usbAudioConnected"];
+                    [v16 setObject:v243 forKeyedSubscript:@"usbAudioConnected"];
                   }
 
-                  [v16 setObject:v290 forKeyedSubscript:@"batteryInfo"];
-                  if ((v286 & 0x40) != 0)
+                  [v16 setObject:v287 forKeyedSubscript:@"batteryInfo"];
+                  if ((v283 & 0x40) != 0)
                   {
-                    v247 = &__kCFBooleanTrue;
+                    v244 = &__kCFBooleanTrue;
                   }
 
                   else
                   {
-                    v247 = &__kCFBooleanFalse;
+                    v244 = &__kCFBooleanFalse;
                   }
 
-                  [v16 setObject:v247 forKeyedSubscript:@"srConnected"];
-                  v248 = [v193[258] numberWithInt:v264 & 0xF];
+                  [v16 setObject:v244 forKeyedSubscript:@"srConnected"];
+                  v245 = [v190[258] numberWithInt:v261 & 0xF];
                   [sub_100019E60() setObject:? forKeyedSubscript:?];
 
-                  v249 = [v193[258] numberWithInt:v264 >> 4];
+                  v246 = [v190[258] numberWithInt:v261 >> 4];
                   [sub_100019E60() setObject:? forKeyedSubscript:?];
 
-                  v250 = [v193[258] numberWithInt:v266 & 3];
+                  v247 = [v190[258] numberWithInt:v263 & 3];
                   [sub_100019E60() setObject:? forKeyedSubscript:?];
 
-                  v251 = [v193[258] numberWithInt:(v266 >> 2) & 3];
+                  v248 = [v190[258] numberWithInt:(v263 >> 2) & 3];
                   [sub_100019E60() setObject:? forKeyedSubscript:?];
 
-                  if ((v266 & 0x10) != 0)
+                  if ((v263 & 0x10) != 0)
                   {
-                    v252 = &__kCFBooleanTrue;
+                    v249 = &__kCFBooleanTrue;
                   }
 
                   else
                   {
-                    v252 = &__kCFBooleanFalse;
+                    v249 = &__kCFBooleanFalse;
                   }
 
-                  [v16 setObject:v252 forKeyedSubscript:@"primaryiCloudSignIn"];
+                  [v16 setObject:v249 forKeyedSubscript:@"primaryiCloudSignIn"];
 
                   goto LABEL_298;
                 }
 
-                v242 = objc_alloc_init(SFBatteryInfo);
+                v239 = objc_alloc_init(SFBatteryInfo);
 
-                v243 = sub_10002A838();
-                [v242 setBatteryLevel:{sub_100019D28(v243, 0.0001)}];
-                [v242 setBatteryState:v230];
-                if (v227 < 0)
+                v240 = sub_10002A838();
+                [v239 setBatteryLevel:{sub_100019D28(v240, 0.0001)}];
+                [v239 setBatteryState:v227];
+                if (v224 < 0)
                 {
-                  v244 = 3;
+                  v241 = 3;
                 }
 
                 else
                 {
-                  v244 = 2;
+                  v241 = 2;
                 }
 
-                [v242 setBatteryType:v244];
-                v232 = v242;
+                [v239 setBatteryType:v241];
+                v229 = v239;
 LABEL_284:
-                [v290 addObject:v232];
+                [v287 addObject:v229];
                 goto LABEL_286;
               }
 
 LABEL_275:
-              v239 = objc_alloc_init(SFBatteryInfo);
+              v236 = objc_alloc_init(SFBatteryInfo);
 
-              v240 = sub_100008A24();
-              [v239 setBatteryLevel:{sub_100019D28(v240, 0.0001)}];
-              [v239 setBatteryState:v231];
-              if (v227 < 0)
+              v237 = sub_100008A24();
+              [v236 setBatteryLevel:{sub_100019D28(v237, 0.0001)}];
+              [v236 setBatteryState:v228];
+              if (v224 < 0)
               {
-                v241 = 2;
+                v238 = 2;
               }
 
               else
               {
-                v241 = 3;
+                v238 = 3;
               }
 
-              [v239 setBatteryType:v241];
-              [v290 addObject:v239];
-              v232 = v239;
+              [v236 setBatteryType:v238];
+              [v287 addObject:v236];
+              v229 = v236;
               goto LABEL_279;
             }
           }
 
-          v214 = (v274 >> 4) & 1;
+          v211 = (v271 >> 4) & 1;
         }
 
-        v215 = [v193[258] numberWithInt:v214];
+        v212 = [v190[258] numberWithInt:v211];
         [sub_100019E60() setObject:? forKeyedSubscript:?];
 
         if (v18 - 8194) < 0xE && ((0x3201u >> (v18 - 2)))
@@ -2123,52 +2355,52 @@ LABEL_249:
 
         goto LABEL_250;
       case 4:
-        v283 = infoCopy;
+        v280 = infoCopy;
         if (v15 < 0x1B)
         {
           goto LABEL_302;
         }
 
-        v57 = bytes[7];
-        v278 = bytes[8];
-        v285 = bytes[9];
-        v58 = bytes[10];
-        v59 = bytes[11];
-        v275 = bytes[12];
+        v56 = bytes[7];
+        v275 = bytes[8];
+        v282 = bytes[9];
+        v57 = bytes[10];
+        v58 = bytes[11];
+        v272 = bytes[12];
         *buf = *(bytes + 13);
-        LOWORD(v296) = *(bytes + 17);
-        v293 = *(bytes + 19);
-        v294 = *(bytes + 23);
-        v267 = v57;
-        v270 = *(bytes + 25);
-        v60 = [SDProximityPairingBufferedScanner statusToHeadsetStatus:"statusToHeadsetStatus:forProductID:" forProductID:?];
-        v61 = [NSNumber numberWithUnsignedChar:v59];
+        LOWORD(v293) = *(bytes + 17);
+        v290 = *(bytes + 19);
+        v291 = *(bytes + 23);
+        v264 = v56;
+        v267 = *(bytes + 25);
+        v59 = [SDProximityPairingBufferedScanner statusToHeadsetStatus:"statusToHeadsetStatus:forProductID:" forProductID:?];
+        v60 = [NSNumber numberWithUnsignedChar:v58];
         sub_100200B44();
 
-        v62 = [NSNumber numberWithUnsignedInt:v60];
+        v61 = [NSNumber numberWithUnsignedInt:v59];
         sub_100200B44();
 
-        if ((v58 & 8) != 0)
+        if ((v57 & 8) != 0)
         {
-          v63 = &__kCFBooleanTrue;
+          v62 = &__kCFBooleanTrue;
         }
 
         else
         {
-          v63 = &__kCFBooleanFalse;
+          v62 = &__kCFBooleanFalse;
         }
 
-        [v16 setObject:v63 forKeyedSubscript:@"lc"];
-        v64 = [NSNumber numberWithInt:v58 & 7];
-        v288 = v60;
-        if ((v60 & 0x100) != 0)
+        [v16 setObject:v62 forKeyedSubscript:@"lc"];
+        v63 = [NSNumber numberWithInt:v57 & 7];
+        v285 = v59;
+        if ((v59 & 0x100) != 0)
         {
           sub_100200B44();
 
-          advertisementFields5 = [deviceCopy advertisementFields];
-          v66 = [advertisementFields5 objectForKeyedSubscript:@"locS"];
+          v81 = objc_msgSend_advertisementFields(deviceCopy);
+          v65 = [v81 objectForKeyedSubscript:@"locS"];
 
-          if (!v66)
+          if (!v65)
           {
             goto LABEL_59;
           }
@@ -2178,10 +2410,10 @@ LABEL_249:
         {
           sub_100200B44();
 
-          advertisementFields6 = [deviceCopy advertisementFields];
-          v66 = [advertisementFields6 objectForKeyedSubscript:@"locP"];
+          v64 = objc_msgSend_advertisementFields(deviceCopy);
+          v65 = [v64 objectForKeyedSubscript:@"locP"];
 
-          if (!v66)
+          if (!v65)
           {
             goto LABEL_59;
           }
@@ -2189,295 +2421,295 @@ LABEL_249:
 
         sub_100200B44();
 LABEL_59:
-        v281 = identifierCopy;
+        v278 = identifierCopy;
 
-        v292 = 0;
-        [(SDProximityPairingBufferedScanner *)self parseStatus3:v58 productID:v18 caseLEDColor:&v292 + 1 caseLEDStatus:&v292];
-        isAirPodsPro = [v291 isAirPodsPro];
-        v86 = +[SFHeadphoneProduct airPods];
-        if ([v86 productID] == v18)
+        v289 = 0;
+        [(SDProximityPairingBufferedScanner *)self parseStatus3:v57 productID:v18 caseLEDColor:&v289 + 1 caseLEDStatus:&v289];
+        isAirPodsPro = [v288 isAirPodsPro];
+        v83 = +[SFHeadphoneProduct airPods];
+        if ([v83 productID] == v18)
         {
-          v87 = 1;
+          v84 = 1;
         }
 
         else
         {
           +[SFHeadphoneProduct airPodsSecondGeneration];
-          v89 = v88 = deviceCopy;
-          v87 = ([v89 productID] == v18) | isAirPodsPro;
+          v86 = v85 = deviceCopy;
+          v84 = ([v86 productID] == v18) | isAirPodsPro;
 
-          deviceCopy = v88;
+          deviceCopy = v85;
         }
 
-        v90 = +[SFHeadphoneProduct airPodsMax];
+        v87 = +[SFHeadphoneProduct airPodsMax];
 
-        if (v291 == v90)
+        if (v288 == v87)
         {
-          0x1F2 = [NSNumber numberWithInt:v267 & 0x1F];
+          0x1F2 = [NSNumber numberWithInt:v264 & 0x1F];
         }
 
         else
         {
-          if ((v87 & 1) == 0)
+          if ((v84 & 1) == 0)
           {
             goto LABEL_143;
           }
 
           if (isAirPodsPro)
           {
-            v91 = (v58 >> 4) & 1 | 2;
+            v88 = (v57 >> 4) & 1 | 2;
           }
 
           else
           {
-            v91 = (v58 >> 4) & 1;
+            v88 = (v57 >> 4) & 1;
           }
 
-          0x1F2 = [NSNumber numberWithUnsignedChar:v91];
+          0x1F2 = [NSNumber numberWithUnsignedChar:v88];
         }
 
         sub_100035E1C();
 
 LABEL_143:
-        v144 = [NSNumber numberWithUnsignedChar:HIBYTE(v292)];
+        v141 = [NSNumber numberWithUnsignedChar:HIBYTE(v289)];
         sub_100035E1C();
 
-        v145 = [NSNumber numberWithUnsignedChar:v292];
+        v142 = [NSNumber numberWithUnsignedChar:v289];
         sub_100035E1C();
 
-        v146 = [(SDProximityPairingBufferedScanner *)self modelWithProductID:v18];
+        v143 = [(SDProximityPairingBufferedScanner *)self modelWithProductID:v18];
         sub_100035E1C();
 
-        v147 = [NSNumber numberWithUnsignedShort:v18];
+        v144 = [NSNumber numberWithUnsignedShort:v18];
         sub_100035E1C();
 
-        v148 = [NSNumber numberWithUnsignedShort:v270];
+        v145 = [NSNumber numberWithUnsignedShort:v267];
         sub_100035E1C();
 
-        v149 = [NSData dataWithBytes:buf length:6];
+        v146 = [NSData dataWithBytes:buf length:6];
         sub_100035E1C();
 
-        v150 = [NSData dataWithBytes:&v293 length:6];
+        v147 = [NSData dataWithBytes:&v290 length:6];
         sub_100035E1C();
 
-        if (v275)
+        if (v272)
         {
           [v16 setObject:&__kCFBooleanTrue forKeyedSubscript:@"notMyCase"];
         }
 
-        identifierCopy = v281;
-        [(SDProximityPairingBufferedScanner *)self pairingUpdatePairedInfo:v281 fields:v16 bleDevice:deviceCopy];
-        v151 = objc_alloc_init(NSMutableArray);
-        if ((v285 & 0xF) == 0xF)
+        identifierCopy = v278;
+        [(SDProximityPairingBufferedScanner *)self pairingUpdatePairedInfo:v278 fields:v16 bleDevice:deviceCopy];
+        v148 = objc_alloc_init(NSMutableArray);
+        if ((v282 & 0xF) == 0xF)
         {
-          v152 = 0;
+          v149 = 0;
         }
 
         else
         {
           sub_100200B38();
-          if (v155)
+          if (v152)
           {
-            v153 = v154;
+            v150 = v151;
           }
 
-          sub_10002FCE0(v153);
-          if ((v156 & 0x40) != 0)
+          sub_10002FCE0(v150);
+          if ((v153 & 0x40) != 0)
           {
-            v152 = 2;
+            v149 = 2;
           }
 
           else
           {
-            v152 = 1;
+            v149 = 1;
           }
         }
 
-        v157 = v278;
-        if ((v278 & 0xF) == 0xF)
+        v154 = v275;
+        if ((v275 & 0xF) == 0xF)
         {
-          v158 = 0;
+          v155 = 0;
         }
 
         else
         {
           sub_100200B38();
-          if (v155)
+          if (v152)
           {
-            v159 = v160;
+            v156 = v157;
           }
 
-          sub_10002FCE0(v159);
-          if ((v161 & 0x10) != 0)
+          sub_10002FCE0(v156);
+          if ((v158 & 0x10) != 0)
           {
-            v158 = 2;
+            v155 = 2;
           }
 
           else
           {
-            v158 = 1;
+            v155 = 1;
           }
         }
 
-        if (v157 >> 4 == 15)
+        if (v154 >> 4 == 15)
         {
-          v162 = 0;
+          v159 = 0;
         }
 
         else
         {
           sub_100200B38();
-          if (v155)
+          if (v152)
           {
-            v163 = v164;
+            v160 = v161;
           }
 
-          sub_10002FCE0(v163);
-          if ((v165 & 0x20) != 0)
+          sub_10002FCE0(v160);
+          if ((v162 & 0x20) != 0)
           {
-            v162 = 2;
-          }
-
-          else
-          {
-            v162 = 1;
-          }
-        }
-
-        if (v152)
-        {
-          v166 = objc_alloc_init(SFBatteryInfo);
-          v167 = sub_100023FB4();
-          v168 = sub_100019D28(v167, 0.0001);
-          [v169 setBatteryLevel:v168];
-          [v166 setBatteryState:v152];
-          [v166 setBatteryType:1];
-          [v151 addObject:v166];
-          if (!(v162 | v158))
-          {
-            v288 = 0x80;
-            v158 = 2;
-            v162 = 2;
-          }
-        }
-
-        if (v158)
-        {
-          v170 = objc_alloc_init(SFBatteryInfo);
-          v171 = sub_10002A838();
-          v172 = sub_100019D28(v171, 0.0001);
-          [v173 setBatteryLevel:v172];
-          [v170 setBatteryState:v158];
-          if (v288 < 0)
-          {
-            v174 = 2;
+            v159 = 2;
           }
 
           else
           {
-            v174 = 3;
+            v159 = 1;
           }
-
-          [v170 setBatteryType:v174];
-          [v151 addObject:v170];
         }
 
-        if (v162)
+        if (v149)
         {
-          v175 = objc_alloc_init(SFBatteryInfo);
-          v176 = sub_100008A24();
-          v177 = sub_100019D28(v176, 0.0001);
-          [v178 setBatteryLevel:v177];
-          [v175 setBatteryState:v162];
-          if (v288 < 0)
+          v163 = objc_alloc_init(SFBatteryInfo);
+          v164 = sub_100023FB4();
+          v165 = sub_100019D28(v164, 0.0001);
+          [v166 setBatteryLevel:v165];
+          [v163 setBatteryState:v149];
+          [v163 setBatteryType:1];
+          [v148 addObject:v163];
+          if (!(v159 | v155))
           {
-            v179 = 3;
+            v285 = 0x80;
+            v155 = 2;
+            v159 = 2;
+          }
+        }
+
+        if (v155)
+        {
+          v167 = objc_alloc_init(SFBatteryInfo);
+          v168 = sub_10002A838();
+          v169 = sub_100019D28(v168, 0.0001);
+          [v170 setBatteryLevel:v169];
+          [v167 setBatteryState:v155];
+          if (v285 < 0)
+          {
+            v171 = 2;
           }
 
           else
           {
-            v179 = 2;
+            v171 = 3;
           }
 
-          [v175 setBatteryType:v179];
-          [v151 addObject:v175];
+          [v167 setBatteryType:v171];
+          [v148 addObject:v167];
+        }
+
+        if (v159)
+        {
+          v172 = objc_alloc_init(SFBatteryInfo);
+          v173 = sub_100008A24();
+          v174 = sub_100019D28(v173, 0.0001);
+          [v175 setBatteryLevel:v174];
+          [v172 setBatteryState:v159];
+          if (v285 < 0)
+          {
+            v176 = 3;
+          }
+
+          else
+          {
+            v176 = 2;
+          }
+
+          [v172 setBatteryType:v176];
+          [v148 addObject:v172];
         }
 
         sub_100035E1C();
 
-        infoCopy = v283;
+        infoCopy = v280;
         goto LABEL_298;
       case 5:
       case 9:
-        v34 = bytes + 7;
-        v35 = [NSNumber numberWithUnsignedShort:v18];
+        v32 = bytes + 7;
+        v33 = [NSNumber numberWithUnsignedShort:v18];
         sub_100021F1C();
 
-        v36 = [(SDProximityPairingBufferedScanner *)self modelWithProductID:v18];
+        v34 = [(SDProximityPairingBufferedScanner *)self modelWithProductID:v18];
         sub_100021F1C();
 
         if (v15 != 7)
         {
-          v34 = bytes + 8;
-          v37 = [NSNumber numberWithUnsignedChar:bytes[7]];
+          v32 = bytes + 8;
+          v35 = [NSNumber numberWithUnsignedChar:bytes[7]];
           sub_100021F1C();
         }
 
-        if (v284 - v34 < 1)
+        if (v281 - v32 < 1)
         {
           goto LABEL_298;
         }
 
-        v38 = *v34;
-        v39 = [NSNumber numberWithInt:v38 & 3];
+        v36 = *v32;
+        v37 = [NSNumber numberWithInt:v36 & 3];
         sub_100021F1C();
 
-        v40 = [NSNumber numberWithInt:(v38 >> 2) & 3];
+        v38 = [NSNumber numberWithInt:(v36 >> 2) & 3];
         sub_100021F1C();
 
-        if (&v284[~v34] < 1)
+        if (&v281[~v32] < 1)
         {
           goto LABEL_298;
         }
 
-        v41 = [NSNumber numberWithUnsignedChar:v34[1]];
+        v39 = [NSNumber numberWithUnsignedChar:v32[1]];
         sub_100021F1C();
 
-        if (v284 - v34 - 2 < 18)
+        if (v281 - v32 - 2 < 18)
         {
           goto LABEL_298;
         }
 
-        v42 = [NSData dataWithBytes:v34 + 3 length:18];
+        v40 = [NSData dataWithBytes:v32 + 3 length:18];
         sub_100021F1C();
         goto LABEL_140;
       case 6:
-        v43 = (bytes + 7);
+        v41 = (bytes + 7);
         Int64 = CFDictionaryGetInt64();
         [(SDProximityPairingBufferedScanner *)self pairingUpdatePairedInfo:identifierCopy fields:v16 bleDevice:deviceCopy];
         if (Int64)
         {
-          v45 = [(SDProximityPairingBufferedScanner *)self modelWithProductID:v18];
+          v43 = [(SDProximityPairingBufferedScanner *)self modelWithProductID:v18];
           sub_100021F1C();
 
-          v46 = [NSNumber numberWithUnsignedShort:v18];
+          v44 = [NSNumber numberWithUnsignedShort:v18];
           sub_100021F1C();
 
-          v47 = [infoCopy objectForKeyedSubscript:WPPairingKeyDeviceAddress];
+          v45 = [infoCopy objectForKeyedSubscript:WPPairingKeyDeviceAddress];
           sub_100021F1C();
 
-          v48 = [NSNumber numberWithBool:1];
+          v46 = [NSNumber numberWithBool:1];
           sub_100021F1C();
 
-          v49 = sub_10002F024();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+          v48 = sub_10002F024(v47);
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v296 = v16;
-            _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEBUG, "AccessoryStatus found: %@\n", buf, 0xCu);
+            v293 = v16;
+            _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEBUG, "AccessoryStatus found: %@\n", buf, 0xCu);
           }
 
-          [(SDProximityPairingBufferedScanner *)self pairingParseAccessoryStatusPayloadPtr:v43 end:v284 fields:v16];
+          [(SDProximityPairingBufferedScanner *)self pairingParseAccessoryStatusPayloadPtr:v41 end:v281 fields:v16];
         }
 
         goto LABEL_298;
@@ -2486,11 +2718,11 @@ LABEL_143:
     }
   }
 
-  v291 = 0;
+  v288 = 0;
 LABEL_301:
   v25 = 0;
 LABEL_299:
-  v253 = v25;
+  v250 = v25;
 
   return v25;
 }

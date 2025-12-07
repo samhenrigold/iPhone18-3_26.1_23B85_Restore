@@ -322,11 +322,11 @@ LABEL_32:
 
 - (RFPrimaryHeaderStackedImageCardSection)initWithProtobuf:(id)protobuf
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v29.receiver = self;
-  v29.super_class = RFPrimaryHeaderStackedImageCardSection;
-  v5 = [(SFCardSection *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = RFPrimaryHeaderStackedImageCardSection;
+  v5 = [(SFCardSection *)&v28 init];
   if (v5)
   {
     text = [protobufCopy text];
@@ -360,33 +360,33 @@ LABEL_32:
       v15 = 0;
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     images2 = [protobufCopy images];
-    v17 = [images2 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v17 = [images2 countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v26;
+      v19 = *v25;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v26 != v19)
+          if (*v25 != v19)
           {
             objc_enumerationMutation(images2);
           }
 
-          v21 = [[RFVisualProperty alloc] initWithProtobuf:*(*(&v25 + 1) + 8 * i)];
+          v21 = [[RFVisualProperty alloc] initWithProtobuf:*(*(&v24 + 1) + 8 * i)];
           if (v21)
           {
             [v15 addObject:v21];
           }
         }
 
-        v18 = [images2 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v18 = [images2 countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v18);
@@ -396,7 +396,6 @@ LABEL_32:
     v22 = v5;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

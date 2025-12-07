@@ -54,22 +54,22 @@
 - (CDMEmbeddingConfigItem)initWithEmbeddingModelPath:(id)path isStableEmbeddingModel:(BOOL)model
 {
   modelCopy = model;
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  v18.receiver = self;
-  v18.super_class = CDMEmbeddingConfigItem;
-  v8 = [(CDMEmbeddingConfigItem *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = CDMEmbeddingConfigItem;
+  v8 = [(CDMEmbeddingConfigItem *)&v17 init];
   if (v8)
   {
     v9 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v20 = "[CDMEmbeddingConfigItem initWithEmbeddingModelPath:isStableEmbeddingModel:]";
-      v21 = 2112;
-      v22 = pathCopy;
-      v23 = 1024;
-      v24 = modelCopy;
+      v19 = "[CDMEmbeddingConfigItem initWithEmbeddingModelPath:isStableEmbeddingModel:]";
+      v20 = 2112;
+      v21 = pathCopy;
+      v22 = 1024;
+      v23 = modelCopy;
       _os_log_debug_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEBUG, "%s Init with embedding model path: %@, stable embedding model flag: %d.", buf, 0x1Cu);
     }
 
@@ -88,13 +88,12 @@
     v8->_embeddingModelDimension = v14;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 + (int64_t)getEmbeddingDimensionFromEmbeddingModelMetadata:(id)metadata
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   v4 = metadataCopy;
   if (!metadataCopy)
@@ -102,9 +101,9 @@
     v5 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v11 = 136315138;
-      v12 = "+[CDMEmbeddingConfigItem getEmbeddingDimensionFromEmbeddingModelMetadata:]";
-      _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: Input model metadata is nil. Return default embedding model dimension.", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "+[CDMEmbeddingConfigItem getEmbeddingDimensionFromEmbeddingModelMetadata:]";
+      _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: Input model metadata is nil. Return default embedding model dimension.", &v10, 0xCu);
     }
 
     goto LABEL_11;
@@ -117,13 +116,13 @@
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 136315650;
-      v12 = "+[CDMEmbeddingConfigItem getEmbeddingDimensionFromEmbeddingModelMetadata:]";
-      v13 = 2112;
-      v14 = v4;
-      v15 = 2112;
-      v16 = @"EmbeddingDimension";
-      _os_log_debug_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEBUG, "%s Model metadata: %@ doesn't have key: %@. Return default embedding model dimension.", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "+[CDMEmbeddingConfigItem getEmbeddingDimensionFromEmbeddingModelMetadata:]";
+      v12 = 2112;
+      v13 = v4;
+      v14 = 2112;
+      v15 = @"EmbeddingDimension";
+      _os_log_debug_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEBUG, "%s Model metadata: %@ doesn't have key: %@. Return default embedding model dimension.", &v10, 0x20u);
     }
 
     v5 = 0;
@@ -134,19 +133,18 @@ LABEL_11:
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315650;
-    v12 = "+[CDMEmbeddingConfigItem getEmbeddingDimensionFromEmbeddingModelMetadata:]";
-    v13 = 2112;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v4;
-    _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s Found embedding model dimension config: %@ in embedding model metadata: %@.", &v11, 0x20u);
+    v10 = 136315650;
+    v11 = "+[CDMEmbeddingConfigItem getEmbeddingDimensionFromEmbeddingModelMetadata:]";
+    v12 = 2112;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v4;
+    _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s Found embedding model dimension config: %@ in embedding model metadata: %@.", &v10, 0x20u);
   }
 
   integerValue = [v5 integerValue];
 LABEL_12:
 
-  v9 = *MEMORY[0x1E69E9840];
   return integerValue;
 }
 

@@ -31,13 +31,13 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v124[4] = *MEMORY[0x277D85DE8];
-  v117.receiver = self;
-  v117.super_class = BKUIButtonTray;
-  v8 = [(BKUIButtonTray *)&v117 initWithFrame:?];
+  v123[4] = *MEMORY[0x277D85DE8];
+  v116.receiver = self;
+  v116.super_class = BKUIButtonTray;
+  v8 = [(BKUIButtonTray *)&v116 initWithFrame:?];
   if (!v8)
   {
-    goto LABEL_14;
+    return v8;
   }
 
   if (_os_feature_enabled_impl())
@@ -72,7 +72,7 @@
         [(UIButton *)v8->_bottomLinkButton addTarget:v8 action:sel_linkButtonPressed_ forControlEvents:64];
       }
 
-      goto LABEL_14;
+      return v8;
     }
   }
 
@@ -112,13 +112,13 @@
     v32 = MEMORY[0x277D76918];
   }
 
-  v111 = [v30 preferredFontDescriptorWithTextStyle:*v32];
+  v110 = [v30 preferredFontDescriptorWithTextStyle:*v32];
   v33 = MEMORY[0x277D74300];
-  v34 = [v111 fontDescriptorWithSymbolicTraits:2];
-  v113 = [v33 fontWithDescriptor:v34 size:0.0];
+  v34 = [v110 fontDescriptorWithSymbolicTraits:2];
+  v112 = [v33 fontWithDescriptor:v34 size:0.0];
 
   titleLabel = [(UIButton *)v8->_bottomLinkButton titleLabel];
-  [titleLabel setFont:v113];
+  [titleLabel setFont:v112];
 
   titleLabel2 = [(UIButton *)v8->_bottomLinkButton titleLabel];
   [titleLabel2 setAdjustsFontSizeToFitWidth:1];
@@ -144,17 +144,17 @@
   [(NSLayoutConstraint *)v8->_escapeHatchButtonBottomConstraint setPriority:v47];
 
   v48 = MEMORY[0x277CCAAD0];
-  v124[0] = v8->_escapeHatchButtonLeadingConstraint;
-  v124[1] = v8->_escapeHatchButtonTrailingConstraint;
+  v123[0] = v8->_escapeHatchButtonLeadingConstraint;
+  v123[1] = v8->_escapeHatchButtonTrailingConstraint;
   centerXAnchor = [(UIButton *)v8->_bottomLinkButton centerXAnchor];
   centerXAnchor2 = [(BKUIButtonTray *)v8 centerXAnchor];
   v51 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v124[2] = v51;
+  v123[2] = v51;
   heightAnchor = [(UIButton *)v8->_bottomLinkButton heightAnchor];
   [(UIButton *)v8->_nextStateButton frame];
   v54 = [heightAnchor constraintEqualToConstant:v53];
-  v124[3] = v54;
-  v55 = [MEMORY[0x277CBEA60] arrayWithObjects:v124 count:4];
+  v123[3] = v54;
+  v55 = [MEMORY[0x277CBEA60] arrayWithObjects:v123 count:4];
   [v48 activateConstraints:v55];
 
   rightAnchor3 = [(UIView *)v8->_nextStateButtonContainer rightAnchor];
@@ -166,8 +166,8 @@
   topAnchor = [(BKUIButtonTray *)v8 topAnchor];
   topAnchor2 = [(UIView *)v8->_nextStateButtonContainer topAnchor];
   v62 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:-5.0];
-  v123 = v62;
-  v63 = [MEMORY[0x277CBEA60] arrayWithObjects:&v123 count:1];
+  v122 = v62;
+  v63 = [MEMORY[0x277CBEA60] arrayWithObjects:&v122 count:1];
   layoutConstraints = v8->_layoutConstraints;
   v8->_layoutConstraints = v63;
 
@@ -176,46 +176,46 @@
   [v65 activateConstraints:layoutConstraints];
 
   v67 = MEMORY[0x277CCAAD0];
-  v122[0] = v8->_nextStateButtonContainerHorizontalPositionConstraint;
+  v121[0] = v8->_nextStateButtonContainerHorizontalPositionConstraint;
   widthAnchor = [(UIView *)v8->_nextStateButtonContainer widthAnchor];
   widthAnchor2 = [(BKUIButtonTray *)v8 widthAnchor];
   v70 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-  v122[1] = v70;
-  v71 = [MEMORY[0x277CBEA60] arrayWithObjects:v122 count:2];
+  v121[1] = v70;
+  v71 = [MEMORY[0x277CBEA60] arrayWithObjects:v121 count:2];
   [v67 activateConstraints:v71];
 
   [(UIButton *)v8->_nextStateButton setAlpha:0.0];
   [(UIButton *)v8->_nextStateButton setTranslatesAutoresizingMaskIntoConstraints:0];
   [(UIView *)v8->_nextStateButtonContainer addSubview:v8->_nextStateButton];
-  v107 = MEMORY[0x277CCAAD0];
+  v106 = MEMORY[0x277CCAAD0];
   topAnchor3 = [(UIButton *)v8->_nextStateButton topAnchor];
   topAnchor4 = [(UIView *)v8->_nextStateButtonContainer topAnchor];
-  v108 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-  v121[0] = v108;
+  v107 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
+  v120[0] = v107;
   bottomAnchor = [(UIButton *)v8->_nextStateButton bottomAnchor];
   bottomAnchor2 = [(UIView *)v8->_nextStateButtonContainer bottomAnchor];
   v74 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v121[1] = v74;
+  v120[1] = v74;
   heightAnchor2 = [(UIButton *)v8->_nextStateButton heightAnchor];
   [(UIButton *)v8->_nextStateButton frame];
   v77 = [heightAnchor2 constraintEqualToConstant:v76];
-  v121[2] = v77;
+  v120[2] = v77;
   bottomAnchor3 = [(UIButton *)v8->_nextStateButton bottomAnchor];
   bottomAnchor4 = [(UIView *)v8->_nextStateButtonContainer bottomAnchor];
   v80 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-  v121[3] = v80;
-  v81 = [MEMORY[0x277CBEA60] arrayWithObjects:v121 count:4];
-  [v107 activateConstraints:v81];
+  v120[3] = v80;
+  v81 = [MEMORY[0x277CBEA60] arrayWithObjects:v120 count:4];
+  [v106 activateConstraints:v81];
 
   leftAnchor3 = [(UIButton *)v8->_nextStateButton leftAnchor];
   leftAnchor4 = [(UIView *)v8->_nextStateButtonContainer leftAnchor];
   v84 = [leftAnchor3 constraintEqualToAnchor:leftAnchor4 constant:v17];
-  v120[0] = v84;
+  v119[0] = v84;
   rightAnchor5 = [(UIButton *)v8->_nextStateButton rightAnchor];
   rightAnchor6 = [(UIView *)v8->_nextStateButtonContainer rightAnchor];
   v87 = [rightAnchor5 constraintEqualToAnchor:rightAnchor6 constant:v44];
-  v120[1] = v87;
-  v88 = [MEMORY[0x277CBEA60] arrayWithObjects:v120 count:2];
+  v119[1] = v87;
+  v88 = [MEMORY[0x277CBEA60] arrayWithObjects:v119 count:2];
 
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   LODWORD(leftAnchor4) = [currentDevice userInterfaceIdiom] == 1;
@@ -225,12 +225,12 @@
     widthAnchor3 = [(UIButton *)v8->_nextStateButton widthAnchor];
     +[BKUIStyle _buttonSizeForPads];
     v91 = [widthAnchor3 constraintEqualToConstant:?];
-    v119[0] = v91;
+    v118[0] = v91;
     centerXAnchor3 = [(UIButton *)v8->_nextStateButton centerXAnchor];
     centerXAnchor4 = [(BKUIButtonTray *)v8 centerXAnchor];
     v94 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-    v119[1] = v94;
-    v95 = [MEMORY[0x277CBEA60] arrayWithObjects:v119 count:2];
+    v118[1] = v94;
+    v95 = [MEMORY[0x277CBEA60] arrayWithObjects:v118 count:2];
 
     v88 = v95;
   }
@@ -242,7 +242,7 @@
   v8->_topLinkButton = v96;
 
   titleLabel3 = [(UIButton *)v8->_topLinkButton titleLabel];
-  [titleLabel3 setFont:v113];
+  [titleLabel3 setFont:v112];
 
   titleLabel4 = [(UIButton *)v8->_topLinkButton titleLabel];
   [titleLabel4 setAdjustsFontSizeToFitWidth:1];
@@ -263,22 +263,20 @@
   }
 
   objc_initWeak(&location, v8);
-  v118[0] = objc_opt_class();
-  v118[1] = objc_opt_class();
-  v103 = [MEMORY[0x277CBEA60] arrayWithObjects:v118 count:2];
-  v114[0] = MEMORY[0x277D85DD0];
-  v114[1] = 3221225472;
-  v114[2] = __54__BKUIButtonTray_initWithFrame_willUseActionDelegate___block_invoke;
-  v114[3] = &unk_278D09928;
-  objc_copyWeak(&v115, &location);
-  v104 = [(BKUIButtonTray *)v8 registerForTraitChanges:v103 withHandler:v114];
+  v117[0] = objc_opt_class();
+  v117[1] = objc_opt_class();
+  v103 = [MEMORY[0x277CBEA60] arrayWithObjects:v117 count:2];
+  v113[0] = MEMORY[0x277D85DD0];
+  v113[1] = 3221225472;
+  v113[2] = __54__BKUIButtonTray_initWithFrame_willUseActionDelegate___block_invoke;
+  v113[3] = &unk_278D09928;
+  objc_copyWeak(&v114, &location);
+  v104 = [(BKUIButtonTray *)v8 registerForTraitChanges:v103 withHandler:v113];
   [(BKUIButtonTray *)v8 setTraitChangeRegistration:v104];
 
-  objc_destroyWeak(&v115);
+  objc_destroyWeak(&v114);
   objc_destroyWeak(&location);
 
-LABEL_14:
-  v105 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -319,7 +317,7 @@ void __54__BKUIButtonTray_initWithFrame_willUseActionDelegate___block_invoke(uin
 
 - (void)_layoutInternalButtonsForDisplayState:(int64_t)state
 {
-  v44[3] = *MEMORY[0x277D85DE8];
+  v43[3] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCAAD0];
   layoutConstraints = [(BKUIButtonTray *)self layoutConstraints];
   [v5 deactivateConstraints:layoutConstraints];
@@ -331,24 +329,24 @@ void __54__BKUIButtonTray_initWithFrame_willUseActionDelegate___block_invoke(uin
       nextStateButtonContainer = [(BKUIButtonTray *)self nextStateButtonContainer];
       topAnchor = [nextStateButtonContainer topAnchor];
       topAnchor2 = [(BKUIButtonTray *)self topAnchor];
-      v40 = topAnchor;
-      v38 = [topAnchor constraintEqualToAnchor:5.0 constant:?];
-      v42[0] = v38;
+      v39 = topAnchor;
+      v37 = [topAnchor constraintEqualToAnchor:5.0 constant:?];
+      v41[0] = v37;
       bottomLinkButton = [(BKUIButtonTray *)self bottomLinkButton];
       topAnchor3 = [bottomLinkButton topAnchor];
       nextStateButtonContainer2 = [(BKUIButtonTray *)self nextStateButtonContainer];
       bottomAnchor = [nextStateButtonContainer2 bottomAnchor];
-      v36 = topAnchor3;
+      v35 = topAnchor3;
       nextStateButtonContainer4 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:5.0];
-      v42[1] = nextStateButtonContainer4;
+      v41[1] = nextStateButtonContainer4;
       bottomLinkButton2 = [(BKUIButtonTray *)self bottomLinkButton];
       bottomAnchor2 = [bottomLinkButton2 bottomAnchor];
       bottomAnchor3 = [(BKUIButtonTray *)self bottomAnchor];
       [(BKUIButtonTray *)self _bottomPadding];
       v22 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3 constant:-v30];
-      v42[2] = v22;
+      v41[2] = v22;
       v23 = MEMORY[0x277CBEA60];
-      v24 = v42;
+      v24 = v41;
     }
 
     else
@@ -361,23 +359,23 @@ void __54__BKUIButtonTray_initWithFrame_willUseActionDelegate___block_invoke(uin
       nextStateButtonContainer = [(BKUIButtonTray *)self nextStateButtonContainer];
       topAnchor4 = [nextStateButtonContainer topAnchor];
       topAnchor2 = [(BKUIButtonTray *)self topAnchor];
-      v40 = topAnchor4;
-      v38 = [topAnchor4 constraintEqualToAnchor:0.0 constant:?];
-      v41[0] = v38;
+      v39 = topAnchor4;
+      v37 = [topAnchor4 constraintEqualToAnchor:0.0 constant:?];
+      v40[0] = v37;
       bottomLinkButton = [(BKUIButtonTray *)self bottomLinkButton];
       topAnchor5 = [bottomLinkButton topAnchor];
       nextStateButtonContainer2 = [(BKUIButtonTray *)self nextStateButtonContainer];
       bottomAnchor = [nextStateButtonContainer2 bottomAnchor];
-      v36 = topAnchor5;
+      v35 = topAnchor5;
       nextStateButtonContainer4 = [topAnchor5 constraintEqualToAnchor:bottomAnchor constant:0.0];
-      v41[1] = nextStateButtonContainer4;
+      v40[1] = nextStateButtonContainer4;
       bottomLinkButton2 = [(BKUIButtonTray *)self bottomLinkButton];
       bottomAnchor2 = [bottomLinkButton2 bottomAnchor];
       bottomAnchor3 = [(BKUIButtonTray *)self bottomAnchor];
       v22 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3 constant:0.0];
-      v41[2] = v22;
+      v40[2] = v22;
       v23 = MEMORY[0x277CBEA60];
-      v24 = v41;
+      v24 = v40;
     }
 
     v31 = [v23 arrayWithObjects:v24 count:3];
@@ -392,23 +390,23 @@ void __54__BKUIButtonTray_initWithFrame_willUseActionDelegate___block_invoke(uin
     nextStateButtonContainer3 = [(BKUIButtonTray *)self nextStateButtonContainer];
     topAnchor6 = [nextStateButtonContainer3 topAnchor];
     topAnchor2 = [(BKUIButtonTray *)self topAnchor];
-    v40 = topAnchor6;
-    v38 = [topAnchor6 constraintEqualToAnchor:5.0 constant:?];
-    v44[0] = v38;
+    v39 = topAnchor6;
+    v37 = [topAnchor6 constraintEqualToAnchor:5.0 constant:?];
+    v43[0] = v37;
     bottomLinkButton = [(BKUIButtonTray *)self bottomLinkButton];
     topAnchor7 = [bottomLinkButton topAnchor];
     nextStateButtonContainer2 = [(UIView *)self->_nextStateButtonContainer bottomAnchor];
-    v36 = topAnchor7;
+    v35 = topAnchor7;
     bottomAnchor = [topAnchor7 constraintEqualToAnchor:nextStateButtonContainer2 constant:0.0];
-    v44[1] = bottomAnchor;
+    v43[1] = bottomAnchor;
     nextStateButtonContainer4 = [(BKUIButtonTray *)self nextStateButtonContainer];
     bottomLinkButton2 = [nextStateButtonContainer4 bottomAnchor];
     bottomAnchor2 = [(BKUIButtonTray *)self bottomAnchor];
     [(BKUIButtonTray *)self _bottomPadding];
     bottomAnchor3 = [bottomLinkButton2 constraintEqualToAnchor:bottomAnchor2 constant:-v27];
-    v44[2] = bottomAnchor3;
+    v43[2] = bottomAnchor3;
     v18 = MEMORY[0x277CBEA60];
-    v19 = v44;
+    v19 = v43;
     goto LABEL_9;
   }
 
@@ -420,23 +418,23 @@ void __54__BKUIButtonTray_initWithFrame_willUseActionDelegate___block_invoke(uin
     nextStateButtonContainer3 = [(BKUIButtonTray *)self nextStateButtonContainer];
     topAnchor8 = [nextStateButtonContainer3 topAnchor];
     topAnchor2 = [(BKUIButtonTray *)self topAnchor];
-    v40 = topAnchor8;
-    v38 = [topAnchor8 constraintEqualToAnchor:0.0 constant:?];
-    v43[0] = v38;
+    v39 = topAnchor8;
+    v37 = [topAnchor8 constraintEqualToAnchor:0.0 constant:?];
+    v42[0] = v37;
     bottomLinkButton = [(BKUIButtonTray *)self bottomLinkButton];
     topAnchor9 = [bottomLinkButton topAnchor];
     nextStateButtonContainer2 = [(BKUIButtonTray *)self topAnchor];
-    v36 = topAnchor9;
+    v35 = topAnchor9;
     bottomAnchor = [topAnchor9 constraintEqualToAnchor:nextStateButtonContainer2 constant:5.0];
-    v43[1] = bottomAnchor;
+    v42[1] = bottomAnchor;
     nextStateButtonContainer4 = [(BKUIButtonTray *)self nextStateButtonContainer];
     bottomLinkButton2 = [nextStateButtonContainer4 bottomAnchor];
     bottomAnchor2 = [(BKUIButtonTray *)self bottomAnchor];
     [(BKUIButtonTray *)self _bottomPadding];
     bottomAnchor3 = [bottomLinkButton2 constraintEqualToAnchor:bottomAnchor2 constant:-v16];
-    v43[2] = bottomAnchor3;
+    v42[2] = bottomAnchor3;
     v18 = MEMORY[0x277CBEA60];
-    v19 = v43;
+    v19 = v42;
 LABEL_9:
     v22 = [v18 arrayWithObjects:v19 count:3];
     [(BKUIButtonTray *)self setLayoutConstraints:v22];
@@ -447,8 +445,6 @@ LABEL_13:
   v32 = MEMORY[0x277CCAAD0];
   layoutConstraints2 = [(BKUIButtonTray *)self layoutConstraints];
   [v32 activateConstraints:layoutConstraints2];
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (id)nextStateButtonContainerHorizontalPositionConstraint:(BOOL)constraint
@@ -482,10 +478,10 @@ LABEL_13:
 
 - (void)updateButtonLayout
 {
-  v122 = *MEMORY[0x277D85DE8];
+  v121 = *MEMORY[0x277D85DE8];
   if (self->_isSolarium)
   {
-    v3 = _BKUILoggingFacility();
+    v3 = _BKUILoggingFacility(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       nextStateButton = [(BKUIButtonTray *)self nextStateButton];
@@ -493,7 +489,7 @@ LABEL_13:
       v4 = MEMORY[0x277CCABB0];
       nextStateButton2 = [(BKUIButtonTray *)self nextStateButton];
       [nextStateButton2 alpha];
-      v100 = [v4 numberWithDouble:?];
+      v99 = [v4 numberWithDouble:?];
       v5 = MEMORY[0x277CCABB0];
       nextStateButton3 = [(BKUIButtonTray *)self nextStateButton];
       v6 = [v5 numberWithBool:{objc_msgSend(nextStateButton3, "isEnabled")}];
@@ -517,23 +513,23 @@ LABEL_13:
       topLinkButton3 = [(BKUIButtonTray *)self topLinkButton];
       v18 = [v16 numberWithBool:{objc_msgSend(topLinkButton3, "isEnabled")}];
       *buf = 138414338;
-      v105 = currentTitle;
-      v106 = 2112;
-      v107 = v100;
-      v108 = 2112;
-      v109 = v6;
-      v110 = 2112;
-      v111 = currentTitle2;
-      v112 = 2112;
-      v113 = v9;
-      v114 = 2112;
-      v115 = v11;
-      v116 = 2112;
-      v117 = currentTitle3;
-      v118 = 2112;
-      v119 = v15;
-      v120 = 2112;
-      v121 = v18;
+      v104 = currentTitle;
+      v105 = 2112;
+      v106 = v99;
+      v107 = 2112;
+      v108 = v6;
+      v109 = 2112;
+      v110 = currentTitle2;
+      v111 = 2112;
+      v112 = v9;
+      v113 = 2112;
+      v114 = v11;
+      v115 = 2112;
+      v116 = currentTitle3;
+      v117 = 2112;
+      v118 = v15;
+      v119 = 2112;
+      v120 = v18;
       _os_log_impl(&dword_241B0A000, log, OS_LOG_TYPE_DEFAULT, "ButtonTray: Next State button [%@ - willShow:%@ isEnabled:%@] | Bottom Link button [%@ - willShow:%@ isEnabled:%@] | Top Link button [%@ - willShow:%@ isEnabled:%@]", buf, 0x5Cu);
 
       v3 = log;
@@ -553,9 +549,9 @@ LABEL_13:
 
         if (v25 == 0.0)
         {
-          [(BKUIButtonTray *)self noButtonsView];
+          noButtonsView = [(BKUIButtonTray *)self noButtonsView];
 LABEL_55:
-          v82 = _BKUILoggingFacility();
+          v82 = _BKUILoggingFacility(noButtonsView);
           if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
@@ -575,7 +571,6 @@ LABEL_55:
           layer = [(BKUIButtonTray *)self layer];
           [layer setNeedsLayout];
 
-          v87 = *MEMORY[0x277D85DE8];
           return;
         }
 
@@ -710,22 +705,22 @@ LABEL_47:
 LABEL_60:
                                 nextStateButton10 = [(BKUIButtonTray *)self nextStateButton];
                                 [nextStateButton10 alpha];
-                                if (v88 != 1.0)
+                                if (v87 != 1.0)
                                 {
                                   goto LABEL_54;
                                 }
 
                                 bottomLinkButton13 = [(BKUIButtonTray *)self bottomLinkButton];
                                 [bottomLinkButton13 alpha];
-                                if (v89 == 1.0)
+                                if (v88 == 1.0)
                                 {
                                   topLinkButton12 = [(BKUIButtonTray *)self topLinkButton];
                                   [topLinkButton12 alpha];
-                                  v92 = v91;
+                                  v91 = v90;
 
-                                  if (v92 == 1.0)
+                                  if (v91 == 1.0)
                                   {
-                                    [(BKUIButtonTray *)self allButtonsView];
+                                    noButtonsView = [(BKUIButtonTray *)self allButtonsView];
                                   }
 
                                   goto LABEL_55;
@@ -764,9 +759,9 @@ LABEL_60:
 
   topLinkButton13 = [(BKUIButtonTray *)self topLinkButton];
   [topLinkButton13 alpha];
-  v28 = v27;
+  v29 = v28;
 
-  if (v28 == 1.0)
+  if (v29 == 1.0)
   {
     [(BKUIButtonTray *)self showRetryButton];
     nextStateButton15 = [(BKUIButtonTray *)self nextStateButton];
@@ -792,43 +787,42 @@ LABEL_60:
 
   topLinkButton15 = [(BKUIButtonTray *)self topLinkButton];
   [topLinkButton15 setNeedsLayout];
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showRetryButton
 {
-  v30[4] = *MEMORY[0x277D85DE8];
+  v29[4] = *MEMORY[0x277D85DE8];
   nextStateButtonContainer = [(BKUIButtonTray *)self nextStateButtonContainer];
   topLinkButton = [(BKUIButtonTray *)self topLinkButton];
   [nextStateButtonContainer addSubview:topLinkButton];
 
-  v20 = MEMORY[0x277CCAAD0];
+  v19 = MEMORY[0x277CCAAD0];
   topLinkButton2 = [(BKUIButtonTray *)self topLinkButton];
   leadingAnchor = [topLinkButton2 leadingAnchor];
   nextStateButtonContainer2 = [(BKUIButtonTray *)self nextStateButtonContainer];
   leadingAnchor2 = [nextStateButtonContainer2 leadingAnchor];
-  v25 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v30[0] = v25;
+  v24 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v29[0] = v24;
   topLinkButton3 = [(BKUIButtonTray *)self topLinkButton];
   trailingAnchor = [topLinkButton3 trailingAnchor];
   nextStateButtonContainer3 = [(BKUIButtonTray *)self nextStateButtonContainer];
   trailingAnchor2 = [nextStateButtonContainer3 trailingAnchor];
-  v19 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v30[1] = v19;
+  v18 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v29[1] = v18;
   topLinkButton4 = [(BKUIButtonTray *)self topLinkButton];
   topAnchor = [topLinkButton4 topAnchor];
   nextStateButtonContainer4 = [(BKUIButtonTray *)self nextStateButtonContainer];
   topAnchor2 = [nextStateButtonContainer4 topAnchor];
   v7 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v30[2] = v7;
+  v29[2] = v7;
   topLinkButton5 = [(BKUIButtonTray *)self topLinkButton];
   bottomAnchor = [topLinkButton5 bottomAnchor];
   nextStateButtonContainer5 = [(BKUIButtonTray *)self nextStateButtonContainer];
   bottomAnchor2 = [nextStateButtonContainer5 bottomAnchor];
   v12 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v30[3] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:4];
-  [v20 activateConstraints:v13];
+  v29[3] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
+  [v19 activateConstraints:v13];
 
   topLinkButton6 = [(BKUIButtonTray *)self topLinkButton];
   [topLinkButton6 setAlpha:1.0];
@@ -837,7 +831,6 @@ LABEL_60:
   [topLinkButton7 setEnabled:1];
 
   [(BKUIButtonTray *)self _layoutInternalButtonsForDisplayState:3];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (double)_bottomPadding
@@ -854,7 +847,7 @@ LABEL_60:
 
 - (CGSize)intrinsicContentSize
 {
-  v36[3] = *MEMORY[0x277D85DE8];
+  v35[3] = *MEMORY[0x277D85DE8];
   if (!self->_isSolarium)
   {
     [(BKUIButtonTray *)self frame];
@@ -872,19 +865,19 @@ LABEL_60:
   }
 
   topLinkButton = [(BKUIButtonTray *)self topLinkButton];
-  v36[0] = topLinkButton;
+  v35[0] = topLinkButton;
   nextStateButton = [(BKUIButtonTray *)self nextStateButton];
-  v36[1] = nextStateButton;
+  v35[1] = nextStateButton;
   bottomLinkButton2 = [(BKUIButtonTray *)self bottomLinkButton];
-  v36[2] = bottomLinkButton2;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:3];
+  v35[2] = bottomLinkButton2;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:3];
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   nextStateButtonContainer = v6;
-  v8 = [nextStateButtonContainer countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v8 = [nextStateButtonContainer countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (!v8)
   {
 
@@ -897,18 +890,18 @@ LABEL_15:
 
   v9 = v8;
   v10 = 0;
-  v11 = *v32;
+  v11 = *v31;
   v12 = 0.0;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v32 != v11)
+      if (*v31 != v11)
       {
         objc_enumerationMutation(nextStateButtonContainer);
       }
 
-      v14 = *(*(&v31 + 1) + 8 * i);
+      v14 = *(*(&v30 + 1) + 8 * i);
       [v14 alpha];
       if (v15 == 1.0)
       {
@@ -918,7 +911,7 @@ LABEL_15:
       }
     }
 
-    v9 = [nextStateButtonContainer countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v9 = [nextStateButtonContainer countByEnumeratingWithState:&v30 objects:v34 count:16];
   }
 
   while (v9);
@@ -933,11 +926,10 @@ LABEL_15:
   v19 = v12 + 34.0 + (v10 + -1.0) * 10.0;
 LABEL_16:
 
-  v28 = *MEMORY[0x277D85DE8];
-  v29 = v18;
-  v30 = v19;
-  result.height = v30;
-  result.width = v29;
+  v28 = v18;
+  v29 = v19;
+  result.height = v29;
+  result.width = v28;
   return result;
 }
 
@@ -1030,7 +1022,7 @@ LABEL_16:
 
 - (void)noButtonsView
 {
-  v3 = _BKUILoggingFacility();
+  v3 = _BKUILoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1042,13 +1034,13 @@ LABEL_16:
 
 - (void)oneButtonView:(id)view
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   viewCopy = view;
-  v5 = _BKUILoggingFacility();
+  v5 = _BKUILoggingFacility(viewCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v15 = 0;
-    _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "ButtonTray: will show oneButtonView", v15, 2u);
+    *v14 = 0;
+    _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "ButtonTray: will show oneButtonView", v14, 2u);
   }
 
   [(BKUIButtonTray *)self resetConstraintsForButtons];
@@ -1057,8 +1049,8 @@ LABEL_16:
 
   bottomAnchor2 = [(BKUIButtonTray *)self bottomAnchor];
   v9 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-34.0];
-  v16[0] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
 
   v11 = [v6 arrayByAddingObjectsFromArray:v10];
   [(BKUIButtonTray *)self setLayoutConstraints:v11];
@@ -1066,20 +1058,18 @@ LABEL_16:
   v12 = MEMORY[0x277CCAAD0];
   layoutConstraints = [(BKUIButtonTray *)self layoutConstraints];
   [v12 activateConstraints:layoutConstraints];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)twoButtonView:(id)view secondButton:(id)button
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   buttonCopy = button;
   viewCopy = view;
-  v8 = _BKUILoggingFacility();
+  v8 = _BKUILoggingFacility(viewCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    *v25 = 0;
-    _os_log_impl(&dword_241B0A000, v8, OS_LOG_TYPE_DEFAULT, "ButtonTray: will show twoButtonView", v25, 2u);
+    *v24 = 0;
+    _os_log_impl(&dword_241B0A000, v8, OS_LOG_TYPE_DEFAULT, "ButtonTray: will show twoButtonView", v24, 2u);
   }
 
   [(BKUIButtonTray *)self resetConstraintsForButtons];
@@ -1088,7 +1078,7 @@ LABEL_16:
   bottomAnchor = [viewCopy bottomAnchor];
   bottomAnchor2 = [(BKUIButtonTray *)self bottomAnchor];
   v13 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-34.0];
-  v26[0] = v13;
+  v25[0] = v13;
   bottomAnchor3 = [buttonCopy bottomAnchor];
 
   bottomAnchor4 = [(BKUIButtonTray *)self bottomAnchor];
@@ -1096,8 +1086,8 @@ LABEL_16:
   v17 = v16;
 
   v18 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4 constant:-(v17 + 34.0 + 10.0)];
-  v26[1] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v25[1] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
 
   v20 = objc_opt_new();
   [v20 addObjectsFromArray:v9];
@@ -1109,14 +1099,12 @@ LABEL_16:
   v22 = MEMORY[0x277CCAAD0];
   layoutConstraints = [(BKUIButtonTray *)self layoutConstraints];
   [v22 activateConstraints:layoutConstraints];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)allButtonsView
 {
-  v36[3] = *MEMORY[0x277D85DE8];
-  v3 = _BKUILoggingFacility();
+  v35[3] = *MEMORY[0x277D85DE8];
+  v3 = _BKUILoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1125,26 +1113,26 @@ LABEL_16:
 
   [(BKUIButtonTray *)self resetConstraintsForButtons];
   nextStateButton = [(BKUIButtonTray *)self nextStateButton];
-  v34 = [(BKUIButtonTray *)self horizontalLayoutConstraints:nextStateButton];
+  v33 = [(BKUIButtonTray *)self horizontalLayoutConstraints:nextStateButton];
 
   topLinkButton = [(BKUIButtonTray *)self topLinkButton];
-  v33 = [(BKUIButtonTray *)self horizontalLayoutConstraints:topLinkButton];
+  v32 = [(BKUIButtonTray *)self horizontalLayoutConstraints:topLinkButton];
 
   bottomLinkButton = [(BKUIButtonTray *)self bottomLinkButton];
-  v32 = [(BKUIButtonTray *)self horizontalLayoutConstraints:bottomLinkButton];
+  v31 = [(BKUIButtonTray *)self horizontalLayoutConstraints:bottomLinkButton];
 
   nextStateButton2 = [(BKUIButtonTray *)self nextStateButton];
   bottomAnchor = [nextStateButton2 bottomAnchor];
   bottomAnchor2 = [(BKUIButtonTray *)self bottomAnchor];
-  v28 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-34.0];
-  v36[0] = v28;
+  v27 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-34.0];
+  v35[0] = v27;
   bottomLinkButton2 = [(BKUIButtonTray *)self bottomLinkButton];
   bottomAnchor3 = [bottomLinkButton2 bottomAnchor];
   bottomAnchor4 = [(BKUIButtonTray *)self bottomAnchor];
   nextStateButton3 = [(BKUIButtonTray *)self nextStateButton];
   [nextStateButton3 bounds];
   v10 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4 constant:-(v9 + 34.0 + 10.0)];
-  v36[1] = v10;
+  v35[1] = v10;
   topLinkButton2 = [(BKUIButtonTray *)self topLinkButton];
   bottomAnchor5 = [topLinkButton2 bottomAnchor];
   bottomAnchor6 = [(BKUIButtonTray *)self bottomAnchor];
@@ -1154,22 +1142,20 @@ LABEL_16:
   bottomLinkButton3 = [(BKUIButtonTray *)self bottomLinkButton];
   [bottomLinkButton3 bounds];
   v19 = [bottomAnchor5 constraintEqualToAnchor:bottomAnchor6 constant:-(v16 + v18 + 34.0 + 10.0 * 2.0)];
-  v36[2] = v19;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:3];
+  v35[2] = v19;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:3];
 
   v20 = objc_opt_new();
-  [v20 addObjectsFromArray:v34];
   [v20 addObjectsFromArray:v33];
   [v20 addObjectsFromArray:v32];
-  [v20 addObjectsFromArray:v25];
+  [v20 addObjectsFromArray:v31];
+  [v20 addObjectsFromArray:v24];
   v21 = [v20 copy];
   [(BKUIButtonTray *)self setLayoutConstraints:v21];
 
   v22 = MEMORY[0x277CCAAD0];
   layoutConstraints = [(BKUIButtonTray *)self layoutConstraints];
   [v22 activateConstraints:layoutConstraints];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetConstraintsForButtons
@@ -1186,7 +1172,7 @@ LABEL_16:
 
 - (id)horizontalLayoutConstraints:(id)constraints
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D75418];
   constraintsCopy = constraints;
   currentDevice = [v4 currentDevice];
@@ -1197,13 +1183,13 @@ LABEL_16:
     widthAnchor = [constraintsCopy widthAnchor];
     +[BKUIStyle _buttonSizeForPads];
     leftAnchor = [widthAnchor constraintEqualToConstant:?];
-    v21[0] = leftAnchor;
+    v20[0] = leftAnchor;
     centerXAnchor = [constraintsCopy centerXAnchor];
 
     centerXAnchor2 = [(BKUIButtonTray *)self centerXAnchor];
     rightAnchor = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v21[1] = rightAnchor;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+    v20[1] = rightAnchor;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
   }
 
   else
@@ -1214,16 +1200,14 @@ LABEL_16:
     widthAnchor = [constraintsCopy leftAnchor];
     leftAnchor = [(BKUIButtonTray *)self leftAnchor];
     centerXAnchor = [widthAnchor constraintEqualToAnchor:leftAnchor constant:v15];
-    v22[0] = centerXAnchor;
+    v21[0] = centerXAnchor;
     centerXAnchor2 = [constraintsCopy rightAnchor];
 
     rightAnchor = [(BKUIButtonTray *)self rightAnchor];
     v18 = [centerXAnchor2 constraintEqualToAnchor:rightAnchor constant:-v17];
-    v22[1] = v18;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+    v21[1] = v18;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

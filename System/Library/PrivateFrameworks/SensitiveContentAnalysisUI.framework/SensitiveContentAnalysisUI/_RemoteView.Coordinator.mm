@@ -45,7 +45,7 @@
   v5 = sub_1BC759870();
   v7 = v6;
 
-  sub_1BC6DB458();
+  sub_1BC6DB458(v5, v7);
   sub_1BC6AE140(v5, v7);
 }
 

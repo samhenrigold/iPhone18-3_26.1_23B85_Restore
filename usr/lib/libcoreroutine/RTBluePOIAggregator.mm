@@ -460,13 +460,13 @@ LABEL_20:
   v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v99];
   [bluePOIMetricManager2 setEventMetricsValue:v17 forKey:@"aggregationDurationPOI"];
 
-  mostConfidentPOI = [resultCopy mostConfidentPOI];
+  v18 = objc_msgSend_mostConfidentPOI(resultCopy);
   v19 = cachedResultCopy;
-  if (mostConfidentPOI)
+  if (v18)
   {
-    mostConfidentPOI2 = [resultCopy mostConfidentPOI];
+    v20 = objc_msgSend_mostConfidentPOI(resultCopy);
     poiConfidences = [resultCopy poiConfidences];
-    v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:mostConfidentPOI2];
+    v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v20];
     v23 = [poiConfidences objectForKeyedSubscript:v22];
     [v23 doubleValue];
     v25 = v24;
@@ -476,35 +476,35 @@ LABEL_20:
 
   else
   {
-    mostConfidentPOI2 = 0;
+    v20 = 0;
     v26 = -10000.0;
   }
 
   bluePOIMetricManager3 = [(RTBluePOIAggregator *)self bluePOIMetricManager];
-  v28 = [MEMORY[0x277CCABB0] numberWithBool:mostConfidentPOI != 0];
+  v28 = [MEMORY[0x277CCABB0] numberWithBool:v18 != 0];
   [bluePOIMetricManager3 setEventMetricsValue:v28 forKey:@"preAggregatedInferenceAvailablePOI"];
 
   bluePOIMetricManager4 = [(RTBluePOIAggregator *)self bluePOIMetricManager];
   v30 = [MEMORY[0x277CCABB0] numberWithDouble:round(v26)];
   [bluePOIMetricManager4 setEventMetricsValue:v30 forKey:@"preAggregationConfidencePOI"];
 
-  mostConfidentPOI3 = [cachedResultCopy mostConfidentPOI];
-  if (mostConfidentPOI3)
+  v31 = objc_msgSend_mostConfidentPOI(cachedResultCopy);
+  if (v31)
   {
-    mostConfidentPOI4 = [cachedResultCopy mostConfidentPOI];
+    v32 = objc_msgSend_mostConfidentPOI(cachedResultCopy);
     poiConfidences2 = [cachedResultCopy poiConfidences];
-    v34 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:mostConfidentPOI4];
+    v34 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v32];
     v35 = [poiConfidences2 objectForKeyedSubscript:v34];
     [v35 doubleValue];
   }
 
   else
   {
-    mostConfidentPOI4 = 0;
+    v32 = 0;
   }
 
-  v36 = mostConfidentPOI3 != 0;
-  v37 = mostConfidentPOI2 == mostConfidentPOI4;
+  v36 = v31 != 0;
+  v37 = v20 == v32;
   bluePOIMetricManager5 = [(RTBluePOIAggregator *)self bluePOIMetricManager];
   v39 = [MEMORY[0x277CCABB0] numberWithBool:v36];
   [bluePOIMetricManager5 setEventMetricsValue:v39 forKey:@"cachedInferenceAvailablePOI"];
@@ -513,13 +513,13 @@ LABEL_20:
   v41 = [MEMORY[0x277CCABB0] numberWithBool:v37];
   [bluePOIMetricManager6 setEventMetricsValue:v41 forKey:@"preAggregationMatchesCachePOI"];
 
-  mostConfidentPOI5 = [aggregatedResultCopy mostConfidentPOI];
+  v42 = objc_msgSend_mostConfidentPOI(aggregatedResultCopy);
   v43 = -10000.0;
-  if (mostConfidentPOI5)
+  if (v42)
   {
-    mostConfidentPOI6 = [aggregatedResultCopy mostConfidentPOI];
+    v44 = objc_msgSend_mostConfidentPOI(aggregatedResultCopy);
     poiConfidences3 = [aggregatedResultCopy poiConfidences];
-    v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:mostConfidentPOI6];
+    v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v44];
     v47 = [poiConfidences3 objectForKeyedSubscript:v46];
     [v47 doubleValue];
     v49 = v48;
@@ -529,18 +529,18 @@ LABEL_20:
 
   else
   {
-    mostConfidentPOI6 = 0;
+    v44 = 0;
     v50 = -10000.0;
   }
 
   v51 = v19;
-  v52 = mostConfidentPOI5 != 0;
+  v52 = v42 != 0;
   bluePOIMetricManager7 = [(RTBluePOIAggregator *)self bluePOIMetricManager];
   v54 = [MEMORY[0x277CCABB0] numberWithBool:v52];
   [bluePOIMetricManager7 setEventMetricsValue:v54 forKey:@"postAggregatedInferenceAvailablePOI"];
 
   bluePOIMetricManager8 = [(RTBluePOIAggregator *)self bluePOIMetricManager];
-  v56 = [MEMORY[0x277CCABB0] numberWithBool:mostConfidentPOI2 == mostConfidentPOI6];
+  v56 = [MEMORY[0x277CCABB0] numberWithBool:v20 == v44];
   [bluePOIMetricManager8 setEventMetricsValue:v56 forKey:@"preAggregationMatchesPostAggregationPOI"];
 
   bluePOIMetricManager9 = [(RTBluePOIAggregator *)self bluePOIMetricManager];

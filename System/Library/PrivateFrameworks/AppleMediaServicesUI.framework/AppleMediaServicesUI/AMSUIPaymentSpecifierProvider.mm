@@ -54,7 +54,7 @@
 
 void __56__AMSUIPaymentSpecifierProvider_initWithAccountManager___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -107,11 +107,11 @@ void __56__AMSUIPaymentSpecifierProvider_initWithAccountManager___block_invoke(u
       v20 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v49 = v5;
+    v48 = v5;
     v21 = [v20 OSLogObject];
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      v47 = v6;
+      v46 = v6;
       v22 = AMSLogKey();
       v23 = MEMORY[0x1E696AEC0];
       v24 = objc_opt_class();
@@ -134,7 +134,7 @@ void __56__AMSUIPaymentSpecifierProvider_initWithAccountManager___block_invoke(u
       *&buf[12] = 2114;
       *&buf[14] = v27;
       *&buf[22] = 2114;
-      v54 = v28;
+      v53 = v28;
       _os_log_impl(&dword_1BB036000, v21, OS_LOG_TYPE_DEBUG, "%{public}@[AIDAAccountManager addAccountChangeObserver:handler:] called with old account: %{public}@, new account: %{public}@", buf, 0x20u);
       if (v22)
       {
@@ -142,7 +142,7 @@ void __56__AMSUIPaymentSpecifierProvider_initWithAccountManager___block_invoke(u
         v26 = v6;
       }
 
-      v6 = v47;
+      v6 = v46;
       v8 = 0x1E698C000uLL;
     }
 
@@ -156,7 +156,7 @@ void __56__AMSUIPaymentSpecifierProvider_initWithAccountManager___block_invoke(u
     v31 = [v30 OSLogObject];
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
-      v48 = v19;
+      v47 = v19;
       v32 = v17;
       v33 = v6;
       v34 = AMSLogKey();
@@ -193,7 +193,7 @@ void __56__AMSUIPaymentSpecifierProvider_initWithAccountManager___block_invoke(u
 
       v6 = v33;
       v17 = v32;
-      v19 = v48;
+      v19 = v47;
     }
 
     if (v29)
@@ -202,34 +202,32 @@ void __56__AMSUIPaymentSpecifierProvider_initWithAccountManager___block_invoke(u
       v41 = [v40 copy];
 
       [WeakRetained setSpecifiers:0];
-      v50[0] = MEMORY[0x1E69E9820];
-      v50[1] = 3221225472;
-      v50[2] = __56__AMSUIPaymentSpecifierProvider_initWithAccountManager___block_invoke_47;
-      v50[3] = &unk_1E7F243C0;
-      v51 = WeakRetained;
-      v52 = v41;
-      v42 = v50;
+      v49[0] = MEMORY[0x1E69E9820];
+      v49[1] = 3221225472;
+      v49[2] = __56__AMSUIPaymentSpecifierProvider_initWithAccountManager___block_invoke_47;
+      v49[3] = &unk_1E7F243C0;
+      v50 = WeakRetained;
+      v51 = v41;
+      v42 = v49;
       v43 = v41;
       v44 = AMSLogKey();
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __AMSDispatchAsync_block_invoke_4;
-      v54 = &unk_1E7F245E0;
-      v55 = v44;
-      v56 = v42;
+      v53 = &unk_1E7F245E0;
+      v54 = v44;
+      v55 = v42;
       v45 = v44;
       dispatch_async(MEMORY[0x1E69E96A0], buf);
     }
 
-    v5 = v49;
+    v5 = v48;
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 void __56__AMSUIPaymentSpecifierProvider_initWithAccountManager___block_invoke_47(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E698C968] sharedAccountsConfig];
   if (!v3)
   {
@@ -241,49 +239,44 @@ void __56__AMSUIPaymentSpecifierProvider_initWithAccountManager___block_invoke_4
   {
     v5 = AMSLogKey();
     v6 = MEMORY[0x1E696AEC0];
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
-    v9 = v8;
+    v7 = objc_opt_class();
+    v8 = v7;
     if (v5)
     {
       v1 = AMSLogKey();
-      [v6 stringWithFormat:@"%@: [%@] ", v9, v1];
+      [v6 stringWithFormat:@"%@: [%@] ", v8, v1];
     }
 
     else
     {
-      [v6 stringWithFormat:@"%@: ", v8];
+      [v6 stringWithFormat:@"%@: ", v7];
     }
-    v10 = ;
-    v11 = [*(a1 + 32) delegate];
+    v9 = ;
+    v10 = [*(a1 + 32) delegate];
+    v11 = AMSHashIfNeeded();
     v12 = AMSHashIfNeeded();
-    v13 = *(a1 + 32);
-    v14 = AMSHashIfNeeded();
-    v15 = *(a1 + 40);
-    v16 = AMSHashIfNeeded();
+    v13 = AMSHashIfNeeded();
     *buf = 138544386;
-    v20 = v10;
+    v16 = v9;
+    v17 = 2114;
+    v18 = v11;
+    v19 = 2114;
+    v20 = v12;
     v21 = 2114;
-    v22 = v12;
+    v22 = v13;
     v23 = 2114;
-    v24 = v14;
-    v25 = 2114;
-    v26 = v16;
-    v27 = 2114;
-    v28 = @"false";
+    v24 = @"false";
     _os_log_impl(&dword_1BB036000, v4, OS_LOG_TYPE_INFO, "%{public}@Calling [AAUISpecifierProviderDelegate reloadSpecifiersForProvider:oldSpecifiers:animated:] on delegate: %{public}@ with provider: %{public}@, oldSpecifiers: %{public}@, animated: %{public}@", buf, 0x34u);
 
     if (v5)
     {
 
-      v10 = v1;
+      v9 = v1;
     }
   }
 
-  v17 = [*(a1 + 32) delegate];
-  [v17 reloadSpecifiersForProvider:*(a1 + 32) oldSpecifiers:*(a1 + 40) animated:0];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v14 = [*(a1 + 32) delegate];
+  [v14 reloadSpecifiersForProvider:*(a1 + 32) oldSpecifiers:*(a1 + 40) animated:0];
 }
 
 - (void)dealloc
@@ -416,7 +409,7 @@ void __56__AMSUIPaymentSpecifierProvider_initWithAccountManager___block_invoke_4
 - (id)_grandSlamAccount
 {
   selfCopy = self;
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   p_grandSlamAccount = &self->_grandSlamAccount;
   grandSlamAccount = self->_grandSlamAccount;
   if (!grandSlamAccount)
@@ -424,26 +417,26 @@ void __56__AMSUIPaymentSpecifierProvider_initWithAccountManager___block_invoke_4
     accountManager = [selfCopy accountManager];
     accountStore = [accountManager accountStore];
     accounts = [accountManager accounts];
-    v47 = 0;
-    v48 = &v47;
-    v49 = 0x2020000000;
+    v46 = 0;
+    v47 = &v46;
+    v48 = 0x2020000000;
     v7 = getAIDAServiceTypeCloudSymbolLoc_ptr_2;
-    v50 = getAIDAServiceTypeCloudSymbolLoc_ptr_2;
+    v49 = getAIDAServiceTypeCloudSymbolLoc_ptr_2;
     if (!getAIDAServiceTypeCloudSymbolLoc_ptr_2)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v52 = __getAIDAServiceTypeCloudSymbolLoc_block_invoke_2;
-      v53 = &unk_1E7F241B0;
-      v54 = &v47;
+      v51 = __getAIDAServiceTypeCloudSymbolLoc_block_invoke_2;
+      v52 = &unk_1E7F241B0;
+      v53 = &v46;
       v8 = AppleIDSSOAuthenticationLibrary_1();
       v9 = dlsym(v8, "AIDAServiceTypeCloud");
-      *(v54[1] + 24) = v9;
-      getAIDAServiceTypeCloudSymbolLoc_ptr_2 = *(v54[1] + 24);
-      v7 = v48[3];
+      *(v53[1] + 24) = v9;
+      getAIDAServiceTypeCloudSymbolLoc_ptr_2 = *(v53[1] + 24);
+      v7 = v47[3];
     }
 
-    _Block_object_dispose(&v47, 8);
+    _Block_object_dispose(&v46, 8);
     if (!v7)
     {
       [AIDAMutableServiceContext(AppleMediaServicesUI) _ams_installCDPUIWithCDPUIController:flowControllerDelegate:];
@@ -511,12 +504,12 @@ void __56__AMSUIPaymentSpecifierProvider_initWithAccountManager___block_invoke_4
         oSLogObject2 = [mEMORY[0x1E698C968]2 OSLogObject];
         if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
         {
-          v45 = AMSLogKey();
-          v24 = v45 == 0;
+          v44 = AMSLogKey();
+          v24 = v44 == 0;
           v25 = MEMORY[0x1E696AEC0];
           v26 = objc_opt_class();
           v27 = v26;
-          if (v45)
+          if (v44)
           {
             v24 = AMSLogKey();
             [v25 stringWithFormat:@"%@: [%@] ", v27, v24];
@@ -530,7 +523,7 @@ void __56__AMSUIPaymentSpecifierProvider_initWithAccountManager___block_invoke_4
           LODWORD(buf) = 138543362;
           *(&buf + 4) = v28;
           _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@Fetching AIDA account from store account", &buf, 0xCu);
-          if (v45)
+          if (v44)
           {
 
             v28 = v24;
@@ -600,14 +593,12 @@ void __56__AMSUIPaymentSpecifierProvider_initWithAccountManager___block_invoke_4
     grandSlamAccount = *p_grandSlamAccount;
   }
 
-  v43 = *MEMORY[0x1E69E9840];
-
   return grandSlamAccount;
 }
 
 - (void)_loadControllerForSpecifier:(id)specifier
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   specifierCopy = specifier;
   v6 = AMSSetLogKeyIfNeeded();
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
@@ -642,7 +633,7 @@ void __56__AMSUIPaymentSpecifierProvider_initWithAccountManager___block_invoke_4
     *&buf[12] = 2114;
     *&buf[14] = v14;
     *&buf[22] = 2114;
-    v26 = v16;
+    v25 = v16;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@specifier: %{public}@ | delegate: %{public}@", buf, 0x20u);
 
     if (v9)
@@ -655,43 +646,41 @@ void __56__AMSUIPaymentSpecifierProvider_initWithAccountManager___block_invoke_4
   delegate2 = [(AMSUIPaymentSpecifierProvider *)self delegate];
   [delegate2 specifierProvider:self willBeginLoadingSpecifier:specifierCopy];
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __61__AMSUIPaymentSpecifierProvider__loadControllerForSpecifier___block_invoke;
-  v23[3] = &unk_1E7F243C0;
-  v23[4] = self;
-  v24 = specifierCopy;
-  v18 = v23;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __61__AMSUIPaymentSpecifierProvider__loadControllerForSpecifier___block_invoke;
+  v22[3] = &unk_1E7F243C0;
+  v22[4] = self;
+  v23 = specifierCopy;
+  v18 = v22;
   v19 = specifierCopy;
   v20 = AMSLogKey();
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __AMSDispatchAsync_block_invoke_4;
-  v26 = &unk_1E7F245E0;
-  v27 = v20;
-  v28 = v18;
+  v25 = &unk_1E7F245E0;
+  v26 = v20;
+  v27 = v18;
   v21 = v20;
   dispatch_async(MEMORY[0x1E69E96A0], buf);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __61__AMSUIPaymentSpecifierProvider__loadControllerForSpecifier___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = +[AMSUIWebViewController createBagForSubProfile];
   v4 = [v3 URLForKey:@"paymentsAndShippingUrl"];
   v5 = [v4 valuePromise];
 
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __61__AMSUIPaymentSpecifierProvider__loadControllerForSpecifier___block_invoke_2;
-  v21[3] = &unk_1E7F24348;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __61__AMSUIPaymentSpecifierProvider__loadControllerForSpecifier___block_invoke_2;
+  v19[3] = &unk_1E7F24348;
   v6 = v3;
   v7 = *(a1 + 32);
-  v22 = v6;
-  v23 = v7;
-  v8 = [v5 thenWithBlock:v21];
+  v20 = v6;
+  v21 = v7;
+  v8 = [v5 thenWithBlock:v19];
   v9 = [MEMORY[0x1E698C968] sharedConfig];
   if (!v9)
   {
@@ -703,40 +692,37 @@ void __61__AMSUIPaymentSpecifierProvider__loadControllerForSpecifier___block_inv
   {
     v11 = AMSLogKey();
     v12 = MEMORY[0x1E696AEC0];
-    v13 = *(a1 + 32);
-    v14 = objc_opt_class();
-    v15 = v14;
+    v13 = objc_opt_class();
+    v14 = v13;
     if (v11)
     {
       v1 = AMSLogKey();
-      [v12 stringWithFormat:@"%@: [%@] ", v15, v1];
+      [v12 stringWithFormat:@"%@: [%@] ", v14, v1];
     }
 
     else
     {
-      [v12 stringWithFormat:@"%@: ", v14];
+      [v12 stringWithFormat:@"%@: ", v13];
     }
-    v16 = ;
+    v15 = ;
     *buf = 138543362;
-    v25 = v16;
+    v23 = v15;
     _os_log_impl(&dword_1BB036000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Loading payment & shipping", buf, 0xCu);
     if (v11)
     {
 
-      v16 = v1;
+      v15 = v1;
     }
   }
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __61__AMSUIPaymentSpecifierProvider__loadControllerForSpecifier___block_invoke_78;
-  v19[3] = &unk_1E7F24AB0;
-  v17 = *(a1 + 40);
-  v19[4] = *(a1 + 32);
-  v20 = v17;
-  [v8 addFinishBlock:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __61__AMSUIPaymentSpecifierProvider__loadControllerForSpecifier___block_invoke_78;
+  v17[3] = &unk_1E7F24AB0;
+  v16 = *(a1 + 40);
+  v17[4] = *(a1 + 32);
+  v18 = v16;
+  [v8 addFinishBlock:v17];
 }
 
 id __61__AMSUIPaymentSpecifierProvider__loadControllerForSpecifier___block_invoke_2(int8x16_t *a1, void *a2)
@@ -887,7 +873,7 @@ void __61__AMSUIPaymentSpecifierProvider__loadControllerForSpecifier___block_inv
 void __61__AMSUIPaymentSpecifierProvider__loadControllerForSpecifier___block_invoke_2_79(uint64_t a1)
 {
   v2 = a1;
-  v34 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = [*(a1 + 32) delegate];
   [v3 specifierProvider:*(v2 + 32) didFinishLoadingSpecifier:*(v2 + 40)];
 
@@ -904,31 +890,29 @@ void __61__AMSUIPaymentSpecifierProvider__loadControllerForSpecifier___block_inv
     {
       v6 = AMSLogKey();
       v7 = MEMORY[0x1E696AEC0];
-      v8 = *(v2 + 32);
-      v9 = objc_opt_class();
-      v10 = v9;
+      v8 = objc_opt_class();
+      v9 = v8;
       if (v6)
       {
         v1 = AMSLogKey();
-        [v7 stringWithFormat:@"%@: [%@] ", v10, v1];
+        [v7 stringWithFormat:@"%@: [%@] ", v9, v1];
       }
 
       else
       {
-        [v7 stringWithFormat:@"%@: ", v9];
+        [v7 stringWithFormat:@"%@: ", v8];
       }
-      v11 = ;
-      v27 = *(v2 + 48);
-      v28 = AMSLogableError();
+      v10 = ;
+      v24 = AMSLogableError();
       *buf = 138543618;
-      v31 = v11;
-      v32 = 2114;
-      v33 = v28;
+      v26 = v10;
+      v27 = 2114;
+      v28 = v24;
       _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@Failed to load payment & shipping. error: %{public}@", buf, 0x16u);
       if (v6)
       {
 
-        v11 = v1;
+        v10 = v1;
       }
     }
 
@@ -937,12 +921,12 @@ LABEL_22:
     goto LABEL_28;
   }
 
-  v12 = *(v2 + 56);
-  v13 = [MEMORY[0x1E698C968] sharedConfig];
-  v4 = v13;
-  if (!v12)
+  v11 = *(v2 + 56);
+  v12 = [MEMORY[0x1E698C968] sharedConfig];
+  v4 = v12;
+  if (!v11)
   {
-    if (!v13)
+    if (!v12)
     {
       v4 = [MEMORY[0x1E698C968] sharedConfig];
     }
@@ -950,74 +934,70 @@ LABEL_22:
     v5 = [v4 OSLogObject];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v21 = AMSLogKey();
-      v22 = MEMORY[0x1E696AEC0];
-      v23 = *(v2 + 32);
-      v24 = objc_opt_class();
-      v25 = v24;
-      if (v21)
+      v19 = AMSLogKey();
+      v20 = MEMORY[0x1E696AEC0];
+      v21 = objc_opt_class();
+      v22 = v21;
+      if (v19)
       {
         v2 = AMSLogKey();
-        [v22 stringWithFormat:@"%@: [%@] ", v25, v2];
+        [v20 stringWithFormat:@"%@: [%@] ", v22, v2];
       }
 
       else
       {
-        [v22 stringWithFormat:@"%@: ", v24];
+        [v20 stringWithFormat:@"%@: ", v21];
       }
-      v26 = ;
+      v23 = ;
       *buf = 138543362;
-      v31 = v26;
+      v26 = v23;
       _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@Failed to load payment & shipping, but did not receive an error.", buf, 0xCu);
-      if (v21)
+      if (v19)
       {
 
-        v26 = v2;
+        v23 = v2;
       }
     }
 
     goto LABEL_22;
   }
 
-  if (!v13)
+  if (!v12)
   {
     v4 = [MEMORY[0x1E698C968] sharedConfig];
   }
 
-  v14 = [v4 OSLogObject];
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v13 = [v4 OSLogObject];
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = AMSLogKey();
-    v16 = MEMORY[0x1E696AEC0];
-    v17 = *(v2 + 32);
-    v18 = objc_opt_class();
-    v19 = v18;
-    if (v15)
+    v14 = AMSLogKey();
+    v15 = MEMORY[0x1E696AEC0];
+    v16 = objc_opt_class();
+    v17 = v16;
+    if (v14)
     {
       v1 = AMSLogKey();
-      [v16 stringWithFormat:@"%@: [%@] ", v19, v1];
+      [v15 stringWithFormat:@"%@: [%@] ", v17, v1];
     }
 
     else
     {
-      [v16 stringWithFormat:@"%@: ", v18];
+      [v15 stringWithFormat:@"%@: ", v16];
     }
-    v20 = ;
+    v18 = ;
     *buf = 138543362;
-    v31 = v20;
-    _os_log_impl(&dword_1BB036000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Presenting payment & shipping", buf, 0xCu);
-    if (v15)
+    v26 = v18;
+    _os_log_impl(&dword_1BB036000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Presenting payment & shipping", buf, 0xCu);
+    if (v14)
     {
 
-      v20 = v1;
+      v18 = v1;
     }
   }
 
   v4 = [*(v2 + 32) delegate];
   [v4 specifierProvider:*(v2 + 32) showViewController:*(v2 + 56)];
 LABEL_28:
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (AAUISpecifierProviderDelegate)delegate

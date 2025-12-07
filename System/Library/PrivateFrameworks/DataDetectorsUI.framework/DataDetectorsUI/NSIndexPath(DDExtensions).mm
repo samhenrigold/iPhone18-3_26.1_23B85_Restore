@@ -6,7 +6,7 @@
 
 - (__CFString)dd_stringValue
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [self length];
   if (v2)
   {
@@ -18,11 +18,11 @@
     else if (v2 == 1)
     {
       v3 = [self indexAtPosition:0];
-      v14[32] = 0;
+      v13[32] = 0;
       v4 = 31;
       do
       {
-        v14[v4] = v3 % 0xA + 48;
+        v13[v4] = v3 % 0xA + 48;
         v6 = v4-- != 0;
         if (v3 < 0xA)
         {
@@ -33,7 +33,7 @@
       }
 
       while (v6);
-      v7 = [MEMORY[0x277CCACA8] stringWithCString:&v14[v4 + 1] encoding:4];
+      v7 = [MEMORY[0x277CCACA8] stringWithCString:&v13[v4 + 1] encoding:4];
     }
 
     else
@@ -63,8 +63,6 @@
   {
     v7 = &stru_282C1E0A8;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

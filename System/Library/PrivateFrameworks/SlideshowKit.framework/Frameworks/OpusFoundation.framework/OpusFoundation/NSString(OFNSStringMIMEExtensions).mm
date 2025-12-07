@@ -1,11 +1,11 @@
 @interface NSString(OFNSStringMIMEExtensions)
-+ (uint64_t)mimeBoundary;
++ (void)mimeBoundary;
 + (void)mimePart:()OFNSStringMIMEExtensions forName:;
 @end
 
 @implementation NSString(OFNSStringMIMEExtensions)
 
-+ (uint64_t)mimeBoundary
++ (void)mimeBoundary
 {
   result = mimeBoundary_mimeBoundary;
   if (!mimeBoundary_mimeBoundary)

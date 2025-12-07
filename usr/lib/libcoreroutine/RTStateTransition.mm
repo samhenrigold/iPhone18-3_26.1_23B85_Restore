@@ -855,7 +855,7 @@ double __63__RTStateTransition_getPredTrans_duration_numOfWeeks_uniqueID___block
   return result;
 }
 
-uint64_t __63__RTStateTransition_getPredTrans_duration_numOfWeeks_uniqueID___block_invoke_3(uint64_t a1, void *a2)
+void *__63__RTStateTransition_getPredTrans_duration_numOfWeeks_uniqueID___block_invoke_3(uint64_t a1, void *a2)
 {
   result = [a2 integerValue];
   *(*(*(a1 + 32) + 8) + 24) += result;
@@ -895,7 +895,7 @@ double __63__RTStateTransition_getPredTrans_duration_numOfWeeks_uniqueID___block
   return result;
 }
 
-uint64_t __63__RTStateTransition_getPredTrans_duration_numOfWeeks_uniqueID___block_invoke_3_237(void *a1, void *a2)
+void *__63__RTStateTransition_getPredTrans_duration_numOfWeeks_uniqueID___block_invoke_3_237(void *a1, void *a2)
 {
   result = [a2 integerValue];
   *(*(a1[4] + 8) + 24) += result;

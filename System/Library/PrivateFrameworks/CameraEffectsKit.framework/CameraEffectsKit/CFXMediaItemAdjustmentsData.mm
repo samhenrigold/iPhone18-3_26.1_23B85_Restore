@@ -19,20 +19,20 @@
   return v3;
 }
 
-void __57__CFXMediaItemAdjustmentsData_secureCodingClassWhitelist__block_invoke()
+void __57__CFXMediaItemAdjustmentsData_secureCodingClassWhitelist__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[6] = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v4[0] = objc_opt_class();
-  v4[1] = objc_opt_class();
-  v4[2] = objc_opt_class();
-  v4[3] = objc_opt_class();
-  v4[4] = objc_opt_class();
-  v4[5] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:6];
-  v2 = [v0 setWithArray:v1];
-  v3 = secureCodingClassWhitelist_secureCodingClassWhitelist;
-  secureCodingClassWhitelist_secureCodingClassWhitelist = v2;
+  v6[6] = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v6[3] = objc_opt_class();
+  v6[4] = objc_opt_class();
+  v6[5] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:6];
+  v4 = [v2 setWithArray:v3];
+  v5 = secureCodingClassWhitelist_secureCodingClassWhitelist;
+  secureCodingClassWhitelist_secureCodingClassWhitelist = v4;
 }
 
 - (CFXMediaItemAdjustmentsData)initWithCameraMode:(int64_t)mode metadataURL:(id)l cameraPosition:(int64_t)position effectStack:(id)stack

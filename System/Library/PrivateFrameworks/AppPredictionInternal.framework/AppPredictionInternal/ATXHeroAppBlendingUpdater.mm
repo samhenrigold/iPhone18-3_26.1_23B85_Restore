@@ -17,16 +17,16 @@
   if (locationCopy)
   {
     v11 = objc_autoreleasePoolPush();
-    v15 = 0;
-    v12 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:locationCopy requiringSecureCoding:1 error:&v15];
-    v13 = v15;
+    v16 = 0;
+    v12 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:locationCopy requiringSecureCoding:1 error:&v16];
+    v13 = v16;
     objc_autoreleasePoolPop(v11);
     if (v13)
     {
-      v14 = __atxlog_handle_hero();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = __atxlog_handle_hero(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [ATXHeroAppBlendingUpdater updateBlendingLayerWithHeroAppPredictions:v13 currentLocation:v14];
+        [ATXHeroAppBlendingUpdater updateBlendingLayerWithHeroAppPredictions:v13 currentLocation:v15];
       }
     }
   }
@@ -75,17 +75,16 @@ uint64_t __59__ATXHeroAppBlendingUpdater_nonBlacklistedPredictionsFrom___block_i
 
   if (v6)
   {
-    v7 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_hero(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [v3 bundleId];
+      v9 = [v3 bundleId];
       v11 = 138412290;
-      v12 = v8;
-      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "Removed blacklisted hero app prediction: %@", &v11, 0xCu);
+      v12 = v9;
+      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "Removed blacklisted hero app prediction: %@", &v11, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6 ^ 1u;
 }
 
@@ -102,11 +101,10 @@ uint64_t __59__ATXHeroAppBlendingUpdater_nonBlacklistedPredictionsFrom___block_i
 
 + (void)updateBlendingLayerWithHeroAppPredictions:(uint64_t)a1 currentLocation:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Error while archiving feedback metadata: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Error while archiving feedback metadata: %@", &v2, 0xCu);
 }
 
 @end

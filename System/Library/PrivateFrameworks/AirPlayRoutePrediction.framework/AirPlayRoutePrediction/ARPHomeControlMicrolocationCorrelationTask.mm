@@ -169,11 +169,10 @@ LABEL_9:
 
 - (void)execute
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_23EB15000, a2, OS_LOG_TYPE_ERROR, "Error reading persisted microlocation home controls archive file: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23EB15000, a2, OS_LOG_TYPE_ERROR, "Error reading persisted microlocation home controls archive file: %@", &v2, 0xCu);
 }
 
 uint64_t __53__ARPHomeControlMicrolocationCorrelationTask_execute__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -215,41 +214,39 @@ void __84__ARPHomeControlMicrolocationCorrelationTask_registerARPHomeControlNoti
   {
     if (state == 2)
     {
-      notify_post([@"com.apple.AirPlayRoutePrediction.ARPHomeControlSuggester.ReQuery" UTF8String]);
-      v4 = ARPLog();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v4 = notify_post([@"com.apple.AirPlayRoutePrediction.ARPHomeControlSuggester.ReQuery" UTF8String]);
+      v5 = ARPLog(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_23EB15000, v4, OS_LOG_TYPE_DEFAULT, "ARPHomeControl Suggester Notification After MicroLocations Correlation Notification", buf, 2u);
+        _os_log_impl(&dword_23EB15000, v5, OS_LOG_TYPE_DEFAULT, "ARPHomeControl Suggester Notification After MicroLocations Correlation Notification", buf, 2u);
       }
     }
   }
 
   else
   {
-    v5 = *MEMORY[0x277D86360];
+    v6 = *MEMORY[0x277D86360];
     *buf = *MEMORY[0x277D86250];
-    v16 = v5;
-    v6 = *MEMORY[0x277D86230];
+    v16 = v6;
+    v7 = *MEMORY[0x277D86230];
     v17 = *MEMORY[0x277D86340];
-    v18 = v6;
+    v18 = v7;
     v14[0] = xpc_int64_create(2 * *MEMORY[0x277D862C0]);
-    v7 = MEMORY[0x277D863E0];
     v8 = MEMORY[0x277D863E0];
-    v14[1] = v7;
+    v9 = MEMORY[0x277D863E0];
+    v14[1] = v8;
     v14[2] = xpc_string_create(*MEMORY[0x277D86350]);
-    v9 = MEMORY[0x277D863E8];
     v10 = MEMORY[0x277D863E8];
-    v14[3] = v9;
-    v11 = xpc_dictionary_create(buf, v14, 4uLL);
-    xpc_activity_set_criteria(v2, v11);
+    v11 = MEMORY[0x277D863E8];
+    v14[3] = v10;
+    v12 = xpc_dictionary_create(buf, v14, 4uLL);
+    xpc_activity_set_criteria(v2, v12);
 
     for (i = 3; i != -1; --i)
     {
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

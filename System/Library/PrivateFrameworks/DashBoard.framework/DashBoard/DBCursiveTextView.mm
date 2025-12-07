@@ -62,7 +62,7 @@
     [(DBCursiveTextView *)self pointSize];
     if (textPath2)
     {
-      [textPath2 transformForRect:1 pointSize:v7 flipped:{v9, v11, v13, v15}];
+      objc_msgSend_transformForRect_pointSize_flipped_(textPath2, v7, v9, v11, v13, v15);
     }
 
     else

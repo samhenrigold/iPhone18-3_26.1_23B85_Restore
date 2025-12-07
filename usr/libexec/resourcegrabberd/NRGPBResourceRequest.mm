@@ -78,19 +78,16 @@
     PBDataWriterWriteStringField();
   }
 
-  type = self->_type;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) != 0)
   {
-    screenScale = self->_screenScale;
     PBDataWriterWriteFloatField();
     has = self->_has;
   }
 
   if (has)
   {
-    iconVariant = self->_iconVariant;
     PBDataWriterWriteInt32Field();
   }
 }

@@ -250,7 +250,7 @@
   retryCount = [(HMDAppleMediaAccessorySetupLogEvent *)self retryCount];
   [v3 setObject:retryCount forKeyedSubscript:@"retryCount"];
 
-  v85 = [v3 copy];
+  v85 = objc_msgSend_copy(v3);
 
   return v85;
 }
@@ -280,16 +280,16 @@
     v37->_accessoryAddEndTime = addEndTime;
     v37->_accessoryRemoveTime = removeTime;
     v37->_configurationEndTime = configurationEndTime;
-    v40 = [errorCopy copy];
+    v40 = objc_msgSend_copy(errorCopy);
     setupSessionError = v37->_setupSessionError;
     v37->_setupSessionError = v40;
 
     v37->_isRepairSession = session;
-    v42 = [categoryCopy copy];
+    v42 = objc_msgSend_copy(categoryCopy);
     category = v37->_category;
     v37->_category = v42;
 
-    v44 = [versionCopy copy];
+    v44 = objc_msgSend_copy(versionCopy);
     accessorySoftwareVersion = v37->_accessorySoftwareVersion;
     v37->_accessorySoftwareVersion = v44;
 

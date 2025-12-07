@@ -99,23 +99,23 @@
   signView = self->_signView;
   if (!signView)
   {
-    v10 = 0u;
+    v9 = 0u;
     v4 = objc_opt_class();
     v5 = [(DirectionsStepView *)self traitCollection:0];
-    userInterfaceIdiom = [v5 userInterfaceIdiom];
+    [v5 userInterfaceIdiom];
     if (v4)
     {
-      [v4 cellMetricsForIdiom:userInterfaceIdiom];
+      objc_msgSend_cellMetricsForIdiom_(v4);
     }
 
     else
     {
-      v10 = 0u;
+      v9 = 0u;
     }
 
-    v7 = [[SimpleSignView alloc] initWithFrame:0.0, 0.0, *(&v10 + 1), 0.0];
-    v8 = self->_signView;
-    self->_signView = v7;
+    v6 = [[SimpleSignView alloc] initWithFrame:0.0, 0.0, *(&v9 + 1), 0.0];
+    v7 = self->_signView;
+    self->_signView = v6;
 
     [(SimpleSignView *)self->_signView setManeuverViewEdgeInsets:5.0, 5.0, 5.0, 5.0];
     signView = self->_signView;
@@ -156,7 +156,7 @@
   v20 = objc_opt_class();
   if (v20)
   {
-    [v20 arrowMetrics];
+    objc_msgSend_arrowMetrics(v20);
   }
 
   else
@@ -171,7 +171,7 @@
   v22 = objc_opt_class();
   if (v22)
   {
-    [v22 junctionArrowMetrics];
+    objc_msgSend_junctionArrowMetrics(v22);
   }
 
   else
@@ -353,23 +353,23 @@ LABEL_4:
 
   if (!self->_signView)
   {
-    v70 = 0u;
+    v68 = 0u;
     v21 = objc_opt_class();
     traitCollection = [(DirectionsStepView *)self traitCollection];
-    userInterfaceIdiom2 = [traitCollection userInterfaceIdiom];
+    [traitCollection userInterfaceIdiom];
     if (v21)
     {
-      [v21 cellMetricsForIdiom:userInterfaceIdiom2];
+      objc_msgSend_cellMetricsForIdiom_(v21);
     }
 
     else
     {
-      v70 = 0u;
+      v68 = 0u;
     }
 
-    v24 = [[SimpleSignView alloc] initWithFrame:0.0, 0.0, *(&v70 + 1), 0.0];
+    v23 = [[SimpleSignView alloc] initWithFrame:0.0, 0.0, *(&v68 + 1), 0.0];
     signView = self->_signView;
-    self->_signView = v24;
+    self->_signView = v23;
 
     signView = [(DirectionsStepView *)self signView];
     [(DirectionsStepView *)self addSubview:signView];
@@ -390,86 +390,86 @@ LABEL_4:
     else
     {
       [(DirectionsStepView *)self bounds];
-      v31 = v30;
+      v30 = v29;
       [(NSLayoutConstraint *)self->_trailingGuideWidth constant];
-      v33 = v32;
+      v32 = v31;
       [(RouteStepLabelListView *)self->_labelListView frame];
-      v34 = v31 - (v33 + CGRectGetMinX(v72));
-      v35 = [objc_opt_class() _roadDescriptionsLabelForStep:stepCopy width:v34];
+      v33 = v30 - (v32 + CGRectGetMinX(v70));
+      v34 = [objc_opt_class() _roadDescriptionsLabelForStep:stepCopy width:v33];
       roadDescriptionLabel = self->_roadDescriptionLabel;
-      self->_roadDescriptionLabel = v35;
+      self->_roadDescriptionLabel = v34;
     }
 
     [(DirectionsStepView *)self addSubview:self->_roadDescriptionLabel];
   }
 
-  v36 = objc_alloc_init(UILayoutGuide);
+  v35 = objc_alloc_init(UILayoutGuide);
   trailingViewGuide = self->_trailingViewGuide;
-  self->_trailingViewGuide = v36;
+  self->_trailingViewGuide = v35;
 
   [(DirectionsStepView *)self addLayoutGuide:self->_trailingViewGuide];
-  v38 = objc_opt_class();
+  v37 = objc_opt_class();
   traitCollection2 = [(DirectionsStepView *)self traitCollection];
-  userInterfaceIdiom3 = [traitCollection2 userInterfaceIdiom];
-  v68 = stepCopy;
-  v69 = routeCopy;
-  if (v38)
+  [traitCollection2 userInterfaceIdiom];
+  v66 = stepCopy;
+  v67 = routeCopy;
+  if (v37)
   {
-    [v38 cellMetricsForIdiom:userInterfaceIdiom3];
+    objc_msgSend_cellMetricsForIdiom_(v37);
   }
 
   widthAnchor = [(UILayoutGuide *)self->_trailingViewGuide widthAnchor];
-  v42 = [widthAnchor constraintEqualToConstant:0.0];
+  v40 = [widthAnchor constraintEqualToConstant:0.0];
   trailingGuideWidth = self->_trailingGuideWidth;
-  self->_trailingGuideWidth = v42;
+  self->_trailingGuideWidth = v40;
 
   trailingAnchor = [(DirectionsStepView *)self trailingAnchor];
   trailingAnchor2 = [(UILayoutGuide *)self->_trailingViewGuide trailingAnchor];
-  v46 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:0.0];
+  v44 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:0.0];
   trailingGuideToContentViewConstraint = self->_trailingGuideToContentViewConstraint;
-  self->_trailingGuideToContentViewConstraint = v46;
+  self->_trailingGuideToContentViewConstraint = v44;
 
-  v48 = objc_opt_new();
+  v46 = objc_opt_new();
   topAnchor = [(UILayoutGuide *)self->_trailingViewGuide topAnchor];
   topAnchor2 = [(DirectionsStepView *)self topAnchor];
-  v50 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v71[0] = v50;
+  v48 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v69[0] = v48;
   bottomAnchor = [(UILayoutGuide *)self->_trailingViewGuide bottomAnchor];
   bottomAnchor2 = [(DirectionsStepView *)self bottomAnchor];
-  v53 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v54 = self->_trailingGuideToContentViewConstraint;
-  v71[1] = v53;
-  v71[2] = v54;
-  v55 = v48;
-  v71[3] = self->_trailingGuideWidth;
-  v56 = [NSArray arrayWithObjects:v71 count:4];
-  [v48 addObjectsFromArray:v56];
+  v51 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v52 = self->_trailingGuideToContentViewConstraint;
+  v69[1] = v51;
+  v69[2] = v52;
+  v53 = v46;
+  v69[3] = self->_trailingGuideWidth;
+  v54 = [NSArray arrayWithObjects:v69 count:4];
+  [v46 addObjectsFromArray:v54];
 
-  [NSLayoutConstraint activateConstraints:v48];
-  stepCopy = v68;
-  routeCopy = v69;
-  v57 = sub_100F5C4B8(v68, v69);
-  v58 = v57;
-  if (v57)
+  [NSLayoutConstraint activateConstraints:v46];
+  stepCopy = v66;
+  routeCopy = v67;
+  v55 = sub_100F5C4B8(v66, v67);
+  v56 = v55;
+  if (v55)
   {
-    mapItemIfLoaded = [v57 mapItemIfLoaded];
+    mapItemIfLoaded = [v55 mapItemIfLoaded];
     traitCollection3 = [(DirectionsStepView *)self traitCollection];
     [traitCollection3 displayScale];
-    v62 = +[MKMapItem _maps_markerImageForMapItem:scale:size:useMarkerFallback:](MKMapItem, "_maps_markerImageForMapItem:scale:size:useMarkerFallback:", mapItemIfLoaded, [objc_opt_class() signViewIconSize], 1, v61);
+    v60 = +[MKMapItem _maps_markerImageForMapItem:scale:size:useMarkerFallback:](MKMapItem, "_maps_markerImageForMapItem:scale:size:useMarkerFallback:", mapItemIfLoaded, [objc_opt_class() signViewIconSize], 1, v59);
 
     [(DirectionsStepView *)self setAccessibilityIdentifier:@"DirectionsStepCell.Waypoint"];
   }
 
   else
   {
-    v63 = [(DirectionsStepView *)self _shieldImageFromStep:v68 route:v69 shieldSize:v66];
-    image = [v63 image];
-    [v63 contentScale];
-    v62 = [UIImage imageWithCGImage:image scale:0 orientation:v65];
+    v61 = [(DirectionsStepView *)self _shieldImageFromStep:v66 route:v67 shieldSize:v64];
+    image = [v61 image];
+    [v61 contentScale];
+    v60 = [UIImage imageWithCGImage:image scale:0 orientation:v63];
     [(DirectionsStepView *)self setAccessibilityIdentifier:@"DirectionsStepCell.Maneuver"];
   }
 
-  [(DirectionsStepView *)self _updateSignViewForStep:v68 maneuverImage:v62 route:v69];
+  [(DirectionsStepView *)self _updateSignViewForStep:v66 maneuverImage:v60 route:v67];
   [(DirectionsStepView *)self setNeedsLayout];
 
 LABEL_24:
@@ -477,9 +477,9 @@ LABEL_24:
 
 - (void)layoutSubviews
 {
-  v86.receiver = self;
-  v86.super_class = DirectionsStepView;
-  [(DirectionsStepView *)&v86 layoutSubviews];
+  v85.receiver = self;
+  v85.super_class = DirectionsStepView;
+  [(DirectionsStepView *)&v85 layoutSubviews];
   maneuverView = [(SimpleSignView *)self->_signView maneuverView];
   maneuverArtwork = [maneuverView maneuverArtwork];
   if ([maneuverArtwork maneuver])
@@ -501,210 +501,210 @@ LABEL_4:
   v7 = !self->_alignLeftIfNoManeuverSign;
   v6 = 1;
 LABEL_5:
-  v85 = 0;
-  v83 = 0u;
-  v84 = 0u;
-  v81 = 0u;
+  v84 = 0;
   v82 = 0u;
+  v83 = 0u;
+  v80 = 0u;
+  v81 = 0u;
   v8 = objc_opt_class();
   traitCollection = [(DirectionsStepView *)self traitCollection];
-  userInterfaceIdiom = [traitCollection userInterfaceIdiom];
+  [traitCollection userInterfaceIdiom];
   if (v8)
   {
-    [v8 cellMetricsForIdiom:userInterfaceIdiom];
+    objc_msgSend_cellMetricsForIdiom_(v8);
   }
 
   else
   {
-    v85 = 0;
-    v83 = 0u;
-    v84 = 0u;
-    v81 = 0u;
+    v84 = 0;
     v82 = 0u;
+    v83 = 0u;
+    v80 = 0u;
+    v81 = 0u;
   }
 
   [(DirectionsStepView *)self bounds];
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
   [(NSLayoutConstraint *)self->_trailingGuideWidth constant];
-  v20 = v16 - v19;
-  v21 = objc_opt_class();
-  v79[2] = v83;
-  v79[3] = v84;
-  v80 = v85;
-  v79[0] = v81;
-  v79[1] = v82;
-  [v21 _textWidthForWidth:v7 withManeuver:v79 metrics:v20];
-  v23 = v22;
-  v90.origin.x = v12;
-  v90.origin.y = v14;
-  v90.size.width = v20;
-  v90.size.height = v18;
-  [(RouteStepLabelListView *)self->_labelListView layoutToFitSize:v23, CGRectGetHeight(v90)];
+  v19 = v15 - v18;
+  v20 = objc_opt_class();
+  v78[2] = v82;
+  v78[3] = v83;
+  v79 = v84;
+  v78[0] = v80;
+  v78[1] = v81;
+  [v20 _textWidthForWidth:v7 withManeuver:v78 metrics:v19];
+  v22 = v21;
+  v89.origin.x = v11;
+  v89.origin.y = v13;
+  v89.size.width = v19;
+  v89.size.height = v17;
+  [(RouteStepLabelListView *)self->_labelListView layoutToFitSize:v22, CGRectGetHeight(v89)];
   [(RouteStepLabelListView *)self->_labelListView frame];
-  v25 = v24;
-  v27 = v26;
-  v29 = v28;
+  v24 = v23;
+  v26 = v25;
+  v28 = v27;
   if (v7)
   {
-    v30 = *(&v84 + 1) + *&v83 + *&v84;
+    v29 = *(&v83 + 1) + *&v82 + *&v83;
   }
 
   else
   {
-    v30 = *&v83;
+    v29 = *&v82;
   }
 
   [(MKMultiPartLabel *)self->_roadDescriptionLabel frame];
   superview = [(MKMultiPartLabel *)self->_roadDescriptionLabel superview];
   if (superview)
   {
-    [(MKMultiPartLabel *)self->_roadDescriptionLabel sizeThatFits:v23, 1.79769313e308];
-    v33 = v32;
+    [(MKMultiPartLabel *)self->_roadDescriptionLabel sizeThatFits:v22, 1.79769313e308];
+    v32 = v31;
   }
 
   else
   {
-    v33 = 0.0;
+    v32 = 0.0;
   }
 
   [(DirectionsStepView *)self bounds];
-  v70 = v34;
-  v72 = v35;
-  v68 = *&v83;
-  v69 = v36;
-  v37 = v84;
-  v67 = *(&v84 + 1);
+  v69 = v33;
+  v71 = v34;
+  v67 = *&v82;
+  v68 = v35;
+  v36 = v83;
+  v66 = *(&v83 + 1);
   [(SimpleSignView *)self->_signView setHidden:v6];
-  v91.origin.x = v30;
-  v91.origin.y = v25;
-  v91.size.width = v27;
-  v91.size.height = v29;
-  Height = CGRectGetHeight(v91);
-  v92.origin.y = 0.0;
-  v92.origin.x = v30;
-  v92.size.width = v23;
-  v92.size.height = v33;
-  if (CGRectGetHeight(v92) > 0.00000011920929)
+  v90.origin.x = v29;
+  v90.origin.y = v24;
+  v90.size.width = v26;
+  v90.size.height = v28;
+  Height = CGRectGetHeight(v90);
+  v91.origin.y = 0.0;
+  v91.origin.x = v29;
+  v91.size.width = v22;
+  v91.size.height = v32;
+  if (CGRectGetHeight(v91) > 0.00000011920929)
   {
-    v93.origin.x = v30;
-    v93.origin.y = v25;
-    v93.size.width = v27;
-    v93.size.height = v29;
-    if (CGRectGetHeight(v93) <= 0.00000011920929)
+    v92.origin.x = v29;
+    v92.origin.y = v24;
+    v92.size.width = v26;
+    v92.size.height = v28;
+    if (CGRectGetHeight(v92) <= 0.00000011920929)
     {
-      v39 = Height;
+      v38 = Height;
     }
 
     else
     {
-      v39 = Height + 4.0;
+      v38 = Height + 4.0;
     }
 
-    v94.origin.y = 0.0;
-    v94.origin.x = v30;
-    v94.size.width = v23;
-    v94.size.height = v33;
-    Height = v39 + CGRectGetHeight(v94);
+    v93.origin.y = 0.0;
+    v93.origin.x = v29;
+    v93.size.width = v22;
+    v93.size.height = v32;
+    Height = v38 + CGRectGetHeight(v93);
   }
 
-  v73 = v33;
-  v74 = v23;
+  v72 = v32;
+  v73 = v22;
   [(DirectionsStepView *)self bounds];
-  v40 = v29;
-  v41 = (CGRectGetHeight(v95) - Height) * 0.5;
-  v96.origin.x = v30;
-  v96.origin.y = v41;
-  v96.size.width = v27;
-  v96.size.height = v29;
-  v66 = CGRectGetMaxY(v96) + 4.0;
+  v39 = v28;
+  v40 = (CGRectGetHeight(v94) - Height) * 0.5;
+  v95.origin.x = v29;
+  v95.origin.y = v40;
+  v95.size.width = v26;
+  v95.size.height = v28;
+  v65 = CGRectGetMaxY(v95) + 4.0;
   [(SimpleSignView *)self->_signView frame];
-  v42 = v27;
-  v44 = v43;
-  v46 = v45;
-  v71 = round(v70 + (*&v37 + v68 + v67 - v43) * 0.5);
-  v47 = round(v72 + (v69 - v45) * 0.5);
+  v41 = v26;
+  v43 = v42;
+  v45 = v44;
+  v70 = round(v69 + (*&v36 + v67 + v66 - v42) * 0.5);
+  v46 = round(v71 + (v68 - v44) * 0.5);
   if (sub_10000FA08(self) == 5)
   {
-    v97.origin.x = v30;
-    v97.origin.y = v41;
-    v48 = v42;
-    v97.size.width = v42;
-    v97.size.height = v40;
-    v49 = CGRectGetHeight(v97);
+    v96.origin.x = v29;
+    v96.origin.y = v40;
+    v47 = v41;
+    v96.size.width = v41;
+    v96.size.height = v39;
+    v48 = CGRectGetHeight(v96);
     [(SimpleSignView *)self->_signView frame];
-    if (v49 > CGRectGetHeight(v98))
+    if (v48 > CGRectGetHeight(v97))
     {
-      v47 = 10.0;
+      v46 = 10.0;
     }
   }
 
   else
   {
-    v48 = v42;
+    v47 = v41;
   }
 
-  [(SimpleSignView *)self->_signView setFrame:v71, v47, v44, v46];
-  [(RouteStepLabelListView *)self->_labelListView setFrame:v30, v41, v48, v40];
-  [(MKMultiPartLabel *)self->_roadDescriptionLabel setFrame:v30, v66, v74, v73];
-  [(MKMultiPartLabel *)self->_roadDescriptionLabel setBounds:0.0, 0.0, v74, v73];
-  v50 = +[UIApplication sharedApplication];
-  userInterfaceLayoutDirection = [v50 userInterfaceLayoutDirection];
+  [(SimpleSignView *)self->_signView setFrame:v70, v46, v43, v45];
+  [(RouteStepLabelListView *)self->_labelListView setFrame:v29, v40, v47, v39];
+  [(MKMultiPartLabel *)self->_roadDescriptionLabel setFrame:v29, v65, v73, v72];
+  [(MKMultiPartLabel *)self->_roadDescriptionLabel setBounds:0.0, 0.0, v73, v72];
+  v49 = +[UIApplication sharedApplication];
+  userInterfaceLayoutDirection = [v49 userInterfaceLayoutDirection];
 
   if (userInterfaceLayoutDirection == 1)
   {
     roadDescriptionLabel = self->_roadDescriptionLabel;
     if (roadDescriptionLabel)
     {
-      v89[0] = self->_labelListView;
-      v89[1] = roadDescriptionLabel;
-      v89[2] = self->_signView;
-      v53 = v89;
-      v54 = 3;
+      v88[0] = self->_labelListView;
+      v88[1] = roadDescriptionLabel;
+      v88[2] = self->_signView;
+      v52 = v88;
+      v53 = 3;
     }
 
     else
     {
       signView = self->_signView;
-      v88[0] = self->_labelListView;
-      v88[1] = signView;
-      v53 = v88;
-      v54 = 2;
+      v87[0] = self->_labelListView;
+      v87[1] = signView;
+      v52 = v87;
+      v53 = 2;
     }
 
-    v56 = [NSArray arrayWithObjects:v53 count:v54];
+    v55 = [NSArray arrayWithObjects:v52 count:v53];
     [(DirectionsStepView *)self bounds];
-    MaxX = CGRectGetMaxX(v99);
+    MaxX = CGRectGetMaxX(v98);
+    v74 = 0u;
     v75 = 0u;
     v76 = 0u;
     v77 = 0u;
-    v78 = 0u;
-    v58 = v56;
-    v59 = [v58 countByEnumeratingWithState:&v75 objects:v87 count:16];
-    if (v59)
+    v57 = v55;
+    v58 = [v57 countByEnumeratingWithState:&v74 objects:v86 count:16];
+    if (v58)
     {
-      v60 = v59;
-      v61 = *v76;
+      v59 = v58;
+      v60 = *v75;
       do
       {
-        for (i = 0; i != v60; i = i + 1)
+        for (i = 0; i != v59; i = i + 1)
         {
-          if (*v76 != v61)
+          if (*v75 != v60)
           {
-            objc_enumerationMutation(v58);
+            objc_enumerationMutation(v57);
           }
 
-          v63 = *(*(&v75 + 1) + 8 * i);
-          [v63 frame];
-          [v63 setFrame:MaxX - (v64 + v65)];
+          v62 = *(*(&v74 + 1) + 8 * i);
+          [v62 frame];
+          [v62 setFrame:MaxX - (v63 + v64)];
         }
 
-        v60 = [v58 countByEnumeratingWithState:&v75 objects:v87 count:16];
+        v59 = [v57 countByEnumeratingWithState:&v74 objects:v86 count:16];
       }
 
-      while (v60);
+      while (v59);
     }
   }
 }
@@ -806,7 +806,7 @@ LABEL_5:
   v27 = 0u;
   v24 = 0u;
   v25 = 0u;
-  [self cellMetricsForIdiom:idiom];
+  objc_msgSend_cellMetricsForIdiom_(self);
   v22[2] = v26;
   v22[3] = v27;
   v23 = v28;

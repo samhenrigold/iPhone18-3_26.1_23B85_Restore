@@ -22,7 +22,7 @@
 - (void)layoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for SuggestedRouteBannerTitleView();
+  v3.super_class = type metadata accessor for SuggestedRouteBannerTitleView(0);
   v2 = v3.receiver;
   [(SuggestedRouteBannerTitleView *)&v3 layoutSubviews];
   [*&v2[OBJC_IVAR____TtC13MediaRemoteUI29SuggestedRouteBannerTitleView_titleLabel] bounds];

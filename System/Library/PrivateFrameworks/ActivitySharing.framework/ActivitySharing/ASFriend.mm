@@ -48,6 +48,7 @@
 - (_HKFitnessFriendActivitySnapshot)currentSnapshotWithGoalsCarriedForward;
 - (_HKFitnessFriendActivitySnapshot)mostRecentSnapshot;
 - (id)_emptySnapshotWithGoalsCarriedForwardForSnapshotIndex:(int64_t)index;
+- (id)codableFriendIncludingCloudKitFields:(BOOL)fields;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)fullDescription;
@@ -89,9 +90,10 @@
 
 - (NSString)displayName
 {
-  if ([(ASFriend *)self isMe])
+  isMe = [(ASFriend *)self isMe];
+  if (isMe)
   {
-    contact = ActivitySharingBundle();
+    contact = ActivitySharingBundle(isMe);
     [contact localizedStringForKey:@"ME" value:&stru_2850D2AA8 table:@"Localizable"];
   }
 
@@ -100,9 +102,9 @@
     contact = [(ASFriend *)self contact];
     [contact displayName];
   }
-  v4 = ;
+  v5 = ;
 
-  return v4;
+  return v5;
 }
 
 - (BOOL)isFriendshipCurrentlyActive
@@ -228,10 +230,11 @@
 
 - (NSString)fullName
 {
-  if ([(ASFriend *)self isMe])
+  isMe = [(ASFriend *)self isMe];
+  if (isMe)
   {
-    v3 = ActivitySharingBundle();
-    v4 = [v3 localizedStringForKey:@"ME" value:&stru_2850D2AA8 table:@"Localizable"];
+    v4 = ActivitySharingBundle(isMe);
+    v5 = [v4 localizedStringForKey:@"ME" value:&stru_2850D2AA8 table:@"Localizable"];
   }
 
   else
@@ -240,7 +243,7 @@
     fullName = [contact fullName];
 
     contact2 = [(ASFriend *)self contact];
-    v3 = contact2;
+    v4 = contact2;
     if (fullName)
     {
       [contact2 fullName];
@@ -250,12 +253,130 @@
     {
       [contact2 displayName];
     }
-    v4 = ;
+    v5 = ;
   }
 
-  v8 = v4;
+  v9 = v5;
 
-  return v8;
+  return v9;
+}
+
+- (id)codableFriendIncludingCloudKitFields:(BOOL)fields
+{
+  fieldsCopy = fields;
+  v49 = *MEMORY[0x277D85DE8];
+  v5 = objc_alloc_init(ASCodableFriend);
+  contact = [(ASFriend *)self contact];
+  v7 = [contact codableContactIncludingCloudKitFields:fieldsCopy];
+  [(ASCodableFriend *)v5 setContact:v7];
+
+  snapshots = [(ASFriend *)self snapshots];
+  allValues = [snapshots allValues];
+  v10 = [allValues hk_map:&__block_literal_global_1];
+  v11 = [v10 mutableCopy];
+  [(ASCodableFriend *)v5 setSnapshots:v11];
+
+  v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  friendWorkouts = [(ASFriend *)self friendWorkouts];
+  allValues2 = [friendWorkouts allValues];
+
+  v14 = [allValues2 countByEnumeratingWithState:&v43 objects:v48 count:16];
+  if (v14)
+  {
+    v15 = v14;
+    v16 = *v44;
+    v17 = MEMORY[0x277CBEBF8];
+    do
+    {
+      v18 = 0;
+      v19 = v17;
+      do
+      {
+        if (*v44 != v16)
+        {
+          objc_enumerationMutation(allValues2);
+        }
+
+        v20 = ASCodableWorkoutsFromWorkouts(*(*(&v43 + 1) + 8 * v18));
+        allObjects = [v20 allObjects];
+        v17 = [v19 arrayByAddingObjectsFromArray:allObjects];
+
+        ++v18;
+        v19 = v17;
+      }
+
+      while (v15 != v18);
+      v15 = [allValues2 countByEnumeratingWithState:&v43 objects:v48 count:16];
+    }
+
+    while (v15);
+  }
+
+  else
+  {
+    v17 = MEMORY[0x277CBEBF8];
+  }
+
+  v22 = [v17 mutableCopy];
+  [(ASCodableFriend *)v5 setWorkouts:v22];
+
+  v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  selfCopy = self;
+  friendAchievements = [(ASFriend *)self friendAchievements];
+  allValues3 = [friendAchievements allValues];
+
+  v25 = [allValues3 countByEnumeratingWithState:&v39 objects:v47 count:16];
+  if (v25)
+  {
+    v26 = v25;
+    v27 = *v40;
+    v28 = MEMORY[0x277CBEBF8];
+    do
+    {
+      v29 = 0;
+      v30 = v28;
+      do
+      {
+        if (*v40 != v27)
+        {
+          objc_enumerationMutation(allValues3);
+        }
+
+        v31 = ASCodableAchievementsFromAchievements(*(*(&v39 + 1) + 8 * v29));
+        allObjects2 = [v31 allObjects];
+        v28 = [v30 arrayByAddingObjectsFromArray:allObjects2];
+
+        ++v29;
+        v30 = v28;
+      }
+
+      while (v26 != v29);
+      v26 = [allValues3 countByEnumeratingWithState:&v39 objects:v47 count:16];
+    }
+
+    while (v26);
+  }
+
+  else
+  {
+    v28 = MEMORY[0x277CBEBF8];
+  }
+
+  v33 = [v28 mutableCopy];
+  [(ASCodableFriend *)v5 setAchievements:v33];
+
+  competitions = [(ASFriend *)selfCopy competitions];
+  v35 = [competitions hk_map:&__block_literal_global_298];
+  v36 = [v35 mutableCopy];
+  [(ASCodableFriend *)v5 setCompetitions:v36];
+
+  return v5;
 }
 
 + (ASFriend)friendWithCodableFriend:(id)friend
@@ -629,21 +750,10 @@ id __51__ASFriend_DomainCodable__friendWithCodableFriend___block_invoke(uint64_t
       return hasCompetitionRequestFromMe;
     }
 
-    if (![(ASFriend *)self ignoredCompetitionRequestFromMe])
+    if (!-[ASFriend ignoredCompetitionRequestFromMe](self, "ignoredCompetitionRequestFromMe") || (-[ASContact primaryRemoteRelationship](self->_contact, "primaryRemoteRelationship"), v4 = objc_claimAutoreleasedReturnValue(), [v4 dateForLatestIgnoredCompetitionRequest], v5 = objc_claimAutoreleasedReturnValue(), -[ASFriend dateForLatestOutgoingCompetitionRequest](self, "dateForLatestOutgoingCompetitionRequest"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v5, "hk_isAfterDate:", v6), v6, v5, v4, (v7 & 1) == 0))
     {
-      goto LABEL_6;
-    }
-
-    primaryRemoteRelationship = [(ASContact *)self->_contact primaryRemoteRelationship];
-    dateForLatestIgnoredCompetitionRequest = [primaryRemoteRelationship dateForLatestIgnoredCompetitionRequest];
-    dateForLatestOutgoingCompetitionRequest = [(ASFriend *)self dateForLatestOutgoingCompetitionRequest];
-    v7 = [dateForLatestIgnoredCompetitionRequest hk_isAfterDate:dateForLatestOutgoingCompetitionRequest];
-
-    if ((v7 & 1) == 0)
-    {
-LABEL_6:
-      dateForLatestOutgoingCompetitionRequest2 = [(ASFriend *)self dateForLatestOutgoingCompetitionRequest];
-      HasExpired = ASCompetitionRequestHasExpired(dateForLatestOutgoingCompetitionRequest2);
+      dateForLatestOutgoingCompetitionRequest = [(ASFriend *)self dateForLatestOutgoingCompetitionRequest];
+      HasExpired = ASCompetitionRequestHasExpired(dateForLatestOutgoingCompetitionRequest);
 
       LOBYTE(hasCompetitionRequestFromMe) = HasExpired ^ 1;
       return hasCompetitionRequestFromMe;
@@ -811,7 +921,7 @@ LABEL_6:
 
 - (NSDate)earliestCompetitionVictoryOrPotentialVictoryDate
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
   if ([(ASFriend *)self isCompetitionActive])
   {
@@ -835,26 +945,26 @@ LABEL_6:
 
   distantFuture = endDate;
 LABEL_6:
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   completedCompetitions = [(ASFriend *)self completedCompetitions];
-  v9 = [completedCompetitions countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [completedCompetitions countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(completedCompetitions);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         if ([v13 isParticipantWinning:0])
         {
           endDate2 = [v13 endDate];
@@ -869,13 +979,11 @@ LABEL_6:
         }
       }
 
-      v10 = [completedCompetitions countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [completedCompetitions countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return distantFuture;
 }
@@ -935,7 +1043,7 @@ LABEL_6:
 
 - (BOOL)estimatedIsStandaloneForSnapshotIndex:(id)index
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   indexCopy = index;
   v5 = [(NSDictionary *)self->_snapshots objectForKeyedSubscript:indexCopy];
   v6 = v5;
@@ -950,29 +1058,29 @@ LABEL_6:
     allKeys = [(NSDictionary *)self->_snapshots allKeys];
     v10 = [allKeys sortedArrayUsingComparator:&__block_literal_global_341];
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     activitySummary = v10;
-    v11 = [activitySummary countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v11 = [activitySummary countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v11)
     {
       selfCopy = self;
       v12 = 0;
-      v13 = *v30;
+      v13 = *v29;
       while (2)
       {
         v14 = 0;
         v15 = v12;
         do
         {
-          if (*v30 != v13)
+          if (*v29 != v13)
           {
             objc_enumerationMutation(activitySummary);
           }
 
-          v16 = *(*(&v29 + 1) + 8 * v14);
+          v16 = *(*(&v28 + 1) + 8 * v14);
           longLongValue = [v16 longLongValue];
           longLongValue2 = [indexCopy longLongValue];
           v12 = v16;
@@ -1023,7 +1131,7 @@ LABEL_6:
         }
 
         while (v11 != v14);
-        v11 = [activitySummary countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v11 = [activitySummary countByEnumeratingWithState:&v28 objects:v32 count:16];
         if (v11)
         {
           continue;
@@ -1067,7 +1175,6 @@ LABEL_28:
 LABEL_29:
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return _isStandalonePhoneSummary;
 }
 

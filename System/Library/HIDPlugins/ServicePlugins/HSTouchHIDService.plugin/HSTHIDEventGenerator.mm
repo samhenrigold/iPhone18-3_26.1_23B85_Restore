@@ -53,18 +53,18 @@
     {
       objc_storeStrong(&self->_lastTouchSystemReadyEvent, v7);
       v9 = [v8 dataValueForField:65540];
-      v10 = MTLoggingPlugin();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = MTLoggingPlugin(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = "YES";
+        v12 = "YES";
         if (!*v9)
         {
-          v11 = "NO";
+          v12 = "NO";
         }
 
         *buf = 136446210;
-        v13 = v11;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Touch System Ready = %{public}s", buf, 0xCu);
+        v14 = v12;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Touch System Ready = %{public}s", buf, 0xCu);
       }
     }
   }
@@ -86,84 +86,85 @@
 - (void)_logContact:(Contact *)contact ofType:(int)type withFrame:(id)frame
 {
   frameCopy = frame;
+  v10 = frameCopy;
   contactID = contact->contactID;
-  v10 = &self->_prevUnmodifiedContacts[contactID];
+  v12 = &self->_prevUnmodifiedContacts[contactID];
   contactStateCounts = self->_contactStateCounts;
-  if (__PAIR64__(v10->stage, v10->contactID) == __PAIR64__(contact->stage, contactID) && v10->finger == contact->finger && v10->flags == contact->flags)
+  if (__PAIR64__(v12->stage, v12->contactID) == __PAIR64__(contact->stage, contactID) && v12->finger == contact->finger && v12->flags == contact->flags)
   {
-    v12 = contactStateCounts[contactID] + 1;
-    contactStateCounts[contactID] = v12;
-    HIDWORD(v13) = -286331153 * v12;
-    LODWORD(v13) = -286331153 * v12;
-    if ((v13 >> 1) <= 0x8888888)
+    v14 = contactStateCounts[contactID] + 1;
+    contactStateCounts[contactID] = v14;
+    HIDWORD(v15) = -286331153 * v14;
+    LODWORD(v15) = -286331153 * v14;
+    if ((v15 >> 1) <= 0x8888888)
     {
-      v14 = MTLoggingPlugin();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = MTLoggingPlugin(frameCopy, v9);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        frameNumber = [frameCopy frameNumber];
-        firmwareTimestamp = [frameCopy firmwareTimestamp];
-        v17 = contactStateCounts[contactID];
-        v18 = [NSString stringWithFormat:@"HSTContact{ID:%u, Stage:%u, Finger:%u, Flags:0x%08llX}", contact->contactID, contact->stage, contact->finger, contact->flags];
+        frameNumber = [v10 frameNumber];
+        firmwareTimestamp = [v10 firmwareTimestamp];
+        v19 = contactStateCounts[contactID];
+        v20 = [NSString stringWithFormat:@"HSTContact{ID:%u, Stage:%u, Finger:%u, Flags:0x%08llX}", contact->contactID, contact->stage, contact->finger, contact->flags];
         *buf = 134219010;
-        v28 = frameNumber;
-        v29 = 2048;
-        v30 = (firmwareTimestamp / 1000000.0);
-        v31 = 1024;
-        *v32 = v17;
-        *&v32[4] = 2114;
-        *&v32[6] = v18;
+        v30 = frameNumber;
+        v31 = 2048;
+        v32 = (firmwareTimestamp / 1000000.0);
         v33 = 1024;
+        *v34 = v19;
+        *&v34[4] = 2114;
+        *&v34[6] = v20;
+        v35 = 1024;
         typeCopy = type;
-        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "[F%llu @%f] Contact seen for %d frames: state %{public}@, type %u", buf, 0x2Cu);
+        _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "[F%llu @%f] Contact seen for %d frames: state %{public}@, type %u", buf, 0x2Cu);
       }
     }
   }
 
   else
   {
-    v19 = MTLoggingPlugin();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = MTLoggingPlugin(frameCopy, v9);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      frameNumber2 = [frameCopy frameNumber];
-      firmwareTimestamp2 = [frameCopy firmwareTimestamp];
-      v22 = [NSString stringWithFormat:@"HSTContact{ID:%u, Stage:%u, Finger:%u, Flags:0x%08llX}", contact->contactID, contact->stage, contact->finger, contact->flags];
+      frameNumber2 = [v10 frameNumber];
+      firmwareTimestamp2 = [v10 firmwareTimestamp];
+      v24 = [NSString stringWithFormat:@"HSTContact{ID:%u, Stage:%u, Finger:%u, Flags:0x%08llX}", contact->contactID, contact->stage, contact->finger, contact->flags];
       *buf = 134219010;
-      v23 = contactStateCounts[contactID];
-      v28 = frameNumber2;
-      v29 = 2048;
-      v30 = (firmwareTimestamp2 / 1000000.0);
-      v31 = 2114;
-      *v32 = v22;
-      *&v32[8] = 1024;
-      *&v32[10] = type;
-      v33 = 1024;
-      typeCopy = v23;
-      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "[F%llu @%f] Contact state changed: %{public}@, type %u, previous state count %d", buf, 0x2Cu);
+      v25 = contactStateCounts[contactID];
+      v30 = frameNumber2;
+      v31 = 2048;
+      v32 = (firmwareTimestamp2 / 1000000.0);
+      v33 = 2114;
+      *v34 = v24;
+      *&v34[8] = 1024;
+      *&v34[10] = type;
+      v35 = 1024;
+      typeCopy = v25;
+      _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "[F%llu @%f] Contact state changed: %{public}@, type %u, previous state count %d", buf, 0x2Cu);
     }
 
     contactStateCounts[contactID] = 1;
   }
 
-  v24 = *&contact->contactID;
-  v25 = *&contact->position.x;
-  v26 = *&contact->azimuth;
-  *&v10->velocity.y = *&contact->velocity.y;
-  *&v10->azimuth = v26;
-  *&v10->contactID = v24;
-  *&v10->position.x = v25;
+  v26 = *&contact->contactID;
+  v27 = *&contact->position.x;
+  v28 = *&contact->azimuth;
+  *&v12->velocity.y = *&contact->velocity.y;
+  *&v12->azimuth = v28;
+  *&v12->contactID = v26;
+  *&v12->position.x = v27;
 }
 
 - (void)_handleContactFrame:(id)frame
 {
   frameCopy = frame;
-  HSUtil::MachTimeFromNanoseconds([frameCopy hsTimestamp]);
+  v3 = HSUtil::MachTimeFromNanoseconds([frameCopy hsTimestamp]);
   if (frameCopy[120] != 1)
   {
     goto LABEL_19;
   }
 
-  v3 = frameCopy[113];
-  if (v3 == 10)
+  v5 = frameCopy[113];
+  if (v5 == 10)
   {
     if ((self->_touchMode & 0x200) == 0)
     {
@@ -173,7 +174,7 @@
     goto LABEL_10;
   }
 
-  if (v3 == 9)
+  if (v5 == 9)
   {
     if ((self->_touchMode & 0x100) == 0)
     {
@@ -181,408 +182,408 @@
     }
 
 LABEL_10:
-    v4 = 1;
-    v5 = "enabled";
+    v6 = 1;
+    v7 = "enabled";
     goto LABEL_11;
   }
 
-  if (v3 == 8 && (self->_touchMode & 0x80) != 0)
+  if (v5 == 8 && (self->_touchMode & 0x80) != 0)
   {
     goto LABEL_10;
   }
 
 LABEL_8:
-  v4 = 2;
-  v5 = "disabled";
+  v6 = 2;
+  v7 = "disabled";
 LABEL_11:
-  v6 = MTLoggingPlugin();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v8 = MTLoggingPlugin(v3, v4);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(frameCopy + 29);
+    v9 = *(frameCopy + 29);
     buf[0] = 67109376;
-    buf[1] = v3;
+    buf[1] = v5;
     LOWORD(buf[2]) = 1024;
-    *(&buf[2] + 2) = v7;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Tritium3 frame received: wake reason 0x%02X, gesture recognition time %d ms", buf, 0xEu);
+    *(&buf[2] + 2) = v9;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Tritium3 frame received: wake reason 0x%02X, gesture recognition time %d ms", buf, 0xEu);
   }
 
-  v8 = *(frameCopy + 6);
-  for (i = *(frameCopy + 7); v8 != i; v8 += 64)
+  v12 = *(frameCopy + 6);
+  for (i = *(frameCopy + 7); v12 != i; v12 += 64)
   {
-    if (v8[1] - 1 <= 3)
+    if (v12[1] - 1 <= 3)
     {
-      v10 = MTLoggingPlugin();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v14 = MTLoggingPlugin(v10, v11);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = *v8;
+        v15 = *v12;
         buf[0] = 67109378;
-        buf[1] = v11;
+        buf[1] = v15;
         LOWORD(buf[2]) = 2082;
-        *(&buf[2] + 2) = v5;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Contact %u is a tritium3 contact, setting contact type to tritium3 %{public}s", buf, 0x12u);
+        *(&buf[2] + 2) = v7;
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Contact %u is a tritium3 contact, setting contact type to tritium3 %{public}s", buf, 0x12u);
       }
 
-      self->_contactTypes[*v8] = v4;
+      self->_contactTypes[*v12] = v6;
     }
   }
 
 LABEL_19:
-  v106 = 0u;
-  v107 = 0u;
-  v104 = 0u;
-  v105 = 0u;
-  v102 = 0u;
-  v103 = 0u;
+  v112 = 0u;
+  v113 = 0u;
+  v110 = 0u;
+  v111 = 0u;
+  v108 = 0u;
+  v109 = 0u;
   memset(buf, 0, sizeof(buf));
-  v12 = *(frameCopy + 7);
-  if (*(frameCopy + 6) >= v12)
+  v16 = *(frameCopy + 7);
+  if (*(frameCopy + 6) >= v16)
   {
-    v66 = 0;
-    v67 = 0;
-    v65 = 0;
+    v72 = 0;
+    v73 = 0;
+    v71 = 0;
   }
 
   else
   {
-    v13 = 0;
-    v90 = 0;
-    v89 = 0;
-    v91 = 0;
-    v92 = 0;
-    v14 = -v12;
+    v17 = 0;
+    v96 = 0;
+    v95 = 0;
+    v97 = 0;
+    v98 = 0;
+    v18 = -v16;
     selfCopy5 = self;
     do
     {
-      v17 = (v12 + v13 - 64);
-      v16 = *v17;
-      if (v16 >= 0x20)
+      v21 = (v16 + v17 - 64);
+      v20 = *v21;
+      if (v20 >= 0x20)
       {
         __assert_rtn("[HSTHIDEventGenerator _handleContactFrame:]", "HSTHIDEventGenerator.mm", 332, "c.contactID < Contact::MaxContactCount");
       }
 
       contactTypes = selfCopy5->_contactTypes;
-      [(HSTHIDEventGenerator *)selfCopy5 _logContact:v12 + v13 - 64 ofType:selfCopy5->_contactTypes[v16] withFrame:frameCopy];
-      v19 = &selfCopy5->_contacts[v16];
-      if ((selfCopy5->_touchMode & 1) == 0 && contactTypes[v16] != 1)
+      v23 = [(HSTHIDEventGenerator *)selfCopy5 _logContact:v16 + v17 - 64 ofType:selfCopy5->_contactTypes[v20] withFrame:frameCopy];
+      v25 = &selfCopy5->_contacts[v20];
+      if ((selfCopy5->_touchMode & 1) == 0 && contactTypes[v20] != 1)
       {
-        if (v19->contactID || v19->stage || v19->finger || v19->flags)
+        if (v25->contactID || v25->stage || v25->finger || v25->flags)
         {
-          v20 = MTLoggingPlugin();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v26 = MTLoggingPlugin(v23, v24);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
-            v21 = *v17;
-            *v98 = 67109120;
-            *&v98[4] = v21;
-            _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Contact %u is not tritium3 enabled and the screen is off, setting stage to NotTracking", v98, 8u);
+            v27 = *v21;
+            *v104 = 67109120;
+            *&v104[4] = v27;
+            _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "Contact %u is not tritium3 enabled and the screen is off, setting stage to NotTracking", v104, 8u);
           }
 
           selfCopy5 = self;
         }
 
-        *(v12 + v13 - 63) = 0;
+        *(v16 + v17 - 63) = 0;
       }
 
-      v22 = v12 + v13;
-      if (*(v12 + v13 - 62) - 1 >= 5)
+      v28 = v16 + v17;
+      if (*(v16 + v17 - 62) - 1 >= 5)
       {
-        if (v19->contactID || v19->stage || v19->finger || v19->flags)
+        if (v25->contactID || v25->stage || v25->finger || v25->flags)
         {
-          v23 = MTLoggingPlugin();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v29 = MTLoggingPlugin(v23, v24);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
-            v24 = *v17;
-            v25 = *(v22 - 62);
-            *v98 = 67109376;
-            *&v98[4] = v24;
-            v99 = 1024;
-            LODWORD(v100) = v25;
-            _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Contact %u has an invalid finger id (%d), setting stage to NotTracking", v98, 0xEu);
+            v30 = *v21;
+            v31 = *(v28 - 62);
+            *v104 = 67109376;
+            *&v104[4] = v30;
+            v105 = 1024;
+            LODWORD(v106) = v31;
+            _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "Contact %u has an invalid finger id (%d), setting stage to NotTracking", v104, 0xEu);
           }
 
           selfCopy5 = self;
         }
 
-        *(v12 + v13 - 63) = 0;
+        *(v16 + v17 - 63) = 0;
       }
 
-      stage = v19->stage;
-      v27 = stage - 1;
-      if ((stage - 1) >= 4u && *(v12 + v13 - 63) - 1 > 3 || contactTypes[v16] == 2)
+      stage = v25->stage;
+      v33 = stage - 1;
+      if ((stage - 1) >= 4u && *(v16 + v17 - 63) - 1 > 3 || contactTypes[v20] == 2)
       {
-        if (v19->contactID | stage || v19->finger || v19->flags)
+        if (v25->contactID | stage || v25->finger || v25->flags)
         {
-          v28 = MTLoggingPlugin();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+          v34 = MTLoggingPlugin(v23, v24);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
           {
-            v29 = "cType == Tritium3DisabledContact";
-            if (v19->stage - 1 >= 4)
+            v35 = "cType == Tritium3DisabledContact";
+            if (v25->stage - 1 >= 4)
             {
-              v29 = "cType == Tritium3DisabledContact";
-              if (*(v12 + v13 - 63) - 1 >= 4)
+              v35 = "cType == Tritium3DisabledContact";
+              if (*(v16 + v17 - 63) - 1 >= 4)
               {
-                v29 = "!inRange -> !inRange";
+                v35 = "!inRange -> !inRange";
               }
             }
 
-            v30 = *v17;
-            *v98 = 67109378;
-            *&v98[4] = v30;
-            v99 = 2082;
-            v100 = v29;
-            _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, "Erasing contact %u, reason: %{public}s", v98, 0x12u);
+            v36 = *v21;
+            *v104 = 67109378;
+            *&v104[4] = v36;
+            v105 = 2082;
+            v106 = v35;
+            _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "Erasing contact %u, reason: %{public}s", v104, 0x12u);
           }
 
           selfCopy5 = self;
         }
 
-        v31 = 0;
-        *&v19->contactID = 0;
-        v19->flags = 0;
-        v19->position = 0;
-        v19->needsVelocitiesCalculated = 0;
-        *&v19->velocity.x = 0u;
-        *&v19->minorRadius = 0u;
-        v19->tilt = 0.0;
-        v32 = (v12 + v13);
-        if (*(v12 + v13 - 63) - 1 <= 3)
+        v37 = 0;
+        *&v25->contactID = 0;
+        v25->flags = 0;
+        v25->position = 0;
+        v25->needsVelocitiesCalculated = 0;
+        *&v25->velocity.x = 0u;
+        *&v25->minorRadius = 0u;
+        v25->tilt = 0.0;
+        v38 = (v16 + v17);
+        if (*(v16 + v17 - 63) - 1 <= 3)
         {
-          v31 = contactTypes[v16];
+          v37 = contactTypes[v20];
         }
 
-        contactTypes[v16] = v31;
-        v33 = v32 - 64;
-        v34 = *(frameCopy + 7);
-        v35 = &v34[v14];
-        if (v32 != v34)
+        contactTypes[v20] = v37;
+        v39 = v38 - 64;
+        v40 = *(frameCopy + 7);
+        v41 = &v40[v18];
+        if (v38 != v40)
         {
-          memmove(v32 - 64, v32, &v34[v14]);
+          memmove(v38 - 64, v38, &v40[v18]);
         }
 
-        *(frameCopy + 7) = &v35[v33];
+        *(frameCopy + 7) = &v41[v39];
       }
 
       else
       {
-        v88 = v12 + v13;
-        v36 = *(v12 + v13 - 63);
-        if ((stage - 3) < 2 != (v36 - 3) < 2)
+        v94 = v16 + v17;
+        v42 = *(v16 + v17 - 63);
+        if ((stage - 3) < 2 != (v42 - 3) < 2)
         {
-          v37 = ((stage - 1) < 4u) ^ ((v36 - 1) < 4) | 2;
+          v43 = ((stage - 1) < 4u) ^ ((v42 - 1) < 4) | 2;
         }
 
         else
         {
-          v37 = ((stage - 1) < 4u) ^ ((v36 - 1) < 4);
+          v43 = ((stage - 1) < 4u) ^ ((v42 - 1) < 4);
         }
 
-        if ((stage - 1) <= 3u && v36 == 0)
+        if ((stage - 1) <= 3u && v42 == 0)
         {
-          v39 = MTLoggingPlugin();
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+          v45 = MTLoggingPlugin(v23, v24);
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
           {
-            v40 = *v17;
-            *v98 = 67109120;
-            *&v98[4] = v40;
-            _os_log_impl(&dword_0, v39, OS_LOG_TYPE_DEFAULT, "Contact %u transitioned from inRange -> NotTracking, canceling contact", v98, 8u);
+            v46 = *v21;
+            *v104 = 67109120;
+            *&v104[4] = v46;
+            _os_log_impl(&dword_0, v45, OS_LOG_TYPE_DEFAULT, "Contact %u transitioned from inRange -> NotTracking, canceling contact", v104, 8u);
           }
 
-          v37 |= 0x80u;
-          v27 = v19->stage - 1;
+          v43 |= 0x80u;
+          v33 = v25->stage - 1;
         }
 
-        if (v27 <= 3u)
+        if (v33 <= 3u)
         {
-          v41 = eventFlagsFromContact(v19);
-          v42 = eventFlagsFromContact((v12 + v13 - 64));
-          v43 = v12 + v13;
-          if (v19->finger == *(v22 - 62))
+          v47 = eventFlagsFromContact(v25);
+          v48 = eventFlagsFromContact((v16 + v17 - 64));
+          v49 = v16 + v17;
+          if (v25->finger == *(v28 - 62))
           {
-            v44 = v37;
+            v50 = v43;
           }
 
           else
           {
-            v44 = v37 | 0x20;
+            v50 = v43 | 0x20;
           }
 
-          v46 = *(v43 - 48);
-          v45 = *(v43 - 44);
-          if (v19->position.x == v46 && v19->position.y == v45)
+          v52 = *(v49 - 48);
+          v51 = *(v49 - 44);
+          if (v25->position.x == v52 && v25->position.y == v51)
           {
-            v48 = v44;
+            v54 = v50;
           }
 
           else
           {
-            v48 = v44 | 4;
+            v54 = v50 | 4;
           }
 
-          if (v41 == v42 && ((*(v12 + v13 - 56) ^ LODWORD(v19->flags)) & 0x4000) == 0)
+          if (v47 == v48 && ((*(v16 + v17 - 56) ^ LODWORD(v25->flags)) & 0x4000) == 0)
           {
-            v37 = v48;
+            v43 = v54;
           }
 
           else
           {
-            v37 = v48 | 0x40;
+            v43 = v54 | 0x40;
           }
         }
 
-        v50 = *v17;
-        buf[v50] = v37;
-        v51 = *(v88 - 63);
-        v52 = v91;
-        if ((v51 - 3) < 2)
+        v56 = *v21;
+        buf[v56] = v43;
+        v57 = *(v94 - 63);
+        v58 = v97;
+        if ((v57 - 3) < 2)
         {
-          v52 = v91 + 1;
+          v58 = v97 + 1;
         }
 
-        v91 = v52;
-        v53 = v89;
-        if ((v51 - 1) < 4)
+        v97 = v58;
+        v59 = v95;
+        if ((v57 - 1) < 4)
         {
-          v53 = v89 + 1;
+          v59 = v95 + 1;
         }
 
-        v89 = v53;
-        if ((v51 - 1) >= 4)
-        {
-          v57 = 0;
-          v55 = 0;
-          v54 = 0;
-          LOBYTE(v51) = 0;
-          LOBYTE(v50) = 0;
-          v59 = 0;
-          v61 = 0;
-          v62 = 0uLL;
-          v60 = 0uLL;
-          v58 = 0;
-          v56 = v87;
-        }
-
-        else
-        {
-          v54 = *(v22 - 62);
-          v55 = *(v12 + v13 - 61);
-          v56 = *(v12 + v13 - 60);
-          v57 = *(v12 + v13 - 56);
-          v58 = *(v12 + v13 - 48);
-          v59 = *(v12 + v13 - 40);
-          *v98 = *(v12 + v13 - 39);
-          v98[2] = *(v12 + v13 - 37);
-          v60 = *(v12 + v13 - 36);
-          v61 = *(v12 + v13 - 20);
-          v62 = *(v12 + v13 - 16);
-        }
-
-        v19->contactID = v50;
-        v19->stage = v51;
-        v19->finger = v54;
-        v19->hand = v55;
-        *(&v19->hand + 1) = v56;
-        v19->flags = v57;
-        v19->position = v58;
-        v19->needsVelocitiesCalculated = v59;
-        *(&v19->needsVelocitiesCalculated + 1) = *v98;
-        *(&v19->needsVelocitiesCalculated + 3) = v98[2];
-        *&v19->velocity.x = v60;
-        v19->minorRadius = v61;
-        *&v19->azimuth = v62;
-        v87 = v56;
-        if (*(v88 - 63) - 1 > 3)
+        v95 = v59;
+        if ((v57 - 1) >= 4)
         {
           v63 = 0;
+          v61 = 0;
+          v60 = 0;
+          LOBYTE(v57) = 0;
+          LOBYTE(v56) = 0;
+          v65 = 0;
+          v67 = 0;
+          v68 = 0uLL;
+          v66 = 0uLL;
+          v64 = 0;
+          v62 = v93;
         }
 
         else
         {
-          v63 = contactTypes[v16];
+          v60 = *(v28 - 62);
+          v61 = *(v16 + v17 - 61);
+          v62 = *(v16 + v17 - 60);
+          v63 = *(v16 + v17 - 56);
+          v64 = *(v16 + v17 - 48);
+          v65 = *(v16 + v17 - 40);
+          *v104 = *(v16 + v17 - 39);
+          v104[2] = *(v16 + v17 - 37);
+          v66 = *(v16 + v17 - 36);
+          v67 = *(v16 + v17 - 20);
+          v68 = *(v16 + v17 - 16);
         }
 
-        v90 |= v37;
-        v92 += v37 >> 7;
-        contactTypes[v16] = v63;
+        v25->contactID = v56;
+        v25->stage = v57;
+        v25->finger = v60;
+        v25->hand = v61;
+        *(&v25->hand + 1) = v62;
+        v25->flags = v63;
+        v25->position = v64;
+        v25->needsVelocitiesCalculated = v65;
+        *(&v25->needsVelocitiesCalculated + 1) = *v104;
+        *(&v25->needsVelocitiesCalculated + 3) = v104[2];
+        *&v25->velocity.x = v66;
+        v25->minorRadius = v67;
+        *&v25->azimuth = v68;
+        v93 = v62;
+        if (*(v94 - 63) - 1 > 3)
+        {
+          v69 = 0;
+        }
+
+        else
+        {
+          v69 = contactTypes[v20];
+        }
+
+        v96 |= v43;
+        v98 += v43 >> 7;
+        contactTypes[v20] = v69;
         selfCopy5 = self;
       }
 
-      v64 = *(frameCopy + 6);
-      v13 -= 64;
-      v14 += 64;
+      v70 = *(frameCopy + 6);
+      v17 -= 64;
+      v18 += 64;
     }
 
-    while (v64 < v12 + v13);
-    v65 = v90 & 0xFFFFFF7F;
-    v66 = v89 != 0;
-    v67 = v91 != 0;
-    if (v92)
+    while (v70 < v16 + v17);
+    v71 = v96 & 0xFFFFFF7F;
+    v72 = v95 != 0;
+    v73 = v97 != 0;
+    if (v98)
     {
-      v65 |= (v92 == (*(frameCopy + 7) - v64) >> 6) << 7;
+      v71 |= (v98 == (*(frameCopy + 7) - v70) >> 6) << 7;
     }
   }
 
   initialToCurrentFrameDeltaMs_low = LOBYTE(self->_frameMetadata.tritium.var0.__val_.initialToCurrentFrameDeltaMs);
   if ((initialToCurrentFrameDeltaMs_low & 1) == 0)
   {
-    v69 = frameCopy[120];
+    v75 = frameCopy[120];
     goto LABEL_108;
   }
 
-  v69 = frameCopy[120];
-  if (v69 != 1)
+  v75 = frameCopy[120];
+  if (v75 != 1)
   {
 LABEL_108:
-    v70 = (initialToCurrentFrameDeltaMs_low != v69) << 6;
+    v76 = (initialToCurrentFrameDeltaMs_low != v75) << 6;
     goto LABEL_109;
   }
 
   if (initialToCurrentFrameDeltaMs_low == 1 && self->_frameMetadata.tritium.var0.__val_.version == frameCopy[112] && *(&self->_frameMetadata.tritium.var0.__null_state_ + 1) == frameCopy[113] && self->_frameMetadata.tritium.var0.__val_.gestureType == *(frameCopy + 29))
   {
-    v70 = 0;
+    v76 = 0;
   }
 
   else
   {
-    v70 = 64;
+    v76 = 64;
   }
 
 LABEL_109:
-  v71 = v70 | v65;
-  v72 = *(frameCopy + 72);
-  v73 = *(frameCopy + 88);
-  v74 = *(frameCopy + 104);
+  v77 = v76 | v71;
+  v78 = *(frameCopy + 72);
+  v79 = *(frameCopy + 88);
+  v80 = *(frameCopy + 104);
   *(&self->_frameMetadata.tritium + 4) = *(frameCopy + 116);
-  self->_frameMetadata.image.var0 = v73;
-  *&self->_frameMetadata.image.__engaged_ = v74;
-  *&self->_frameMetadata.surfaceSize.var0.__null_state_ = v72;
+  self->_frameMetadata.image.var0 = v79;
+  *&self->_frameMetadata.image.__engaged_ = v80;
+  *&self->_frameMetadata.surfaceSize.var0.__null_state_ = v78;
   contacts = *(frameCopy + 6);
-  v76 = *(frameCopy + 7);
-  if (contacts == v76 || v71 == 0)
+  v82 = *(frameCopy + 7);
+  if (contacts == v82 || v77 == 0)
   {
-    v78 = 0;
+    v84 = 0;
   }
 
   else
   {
-    if (v66)
+    if (v72)
     {
-      v79 = v76 - contacts;
+      v85 = v82 - contacts;
     }
 
     else
     {
       contacts = self->_contacts;
-      v79 = 32;
+      v85 = 32;
     }
 
-    getAveragePositionFromContacts(contacts, v79);
-    v85 = v67 | 0x300000000;
-    *v98 = IOHIDEventCreateDigitizerEvent();
-    v81 = *(frameCopy + 6);
-    for (j = *(frameCopy + 7); v81 != j; ++v81)
+    getAveragePositionFromContacts(contacts, v85);
+    v91 = v73 | 0x300000000;
+    *v104 = IOHIDEventCreateDigitizerEvent();
+    v87 = *(frameCopy + 6);
+    for (j = *(frameCopy + 7); v87 != j; ++v87)
     {
-      eventFlagsFromContact(v81);
-      v86 = 0;
-      *&v85 = v81->zdensity;
+      eventFlagsFromContact(v87);
+      v92 = 0;
+      *&v91 = v87->zdensity;
       DigitizerFingerEventWithQuality = IOHIDEventCreateDigitizerFingerEventWithQuality();
       IOHIDEventSetPhase();
       IOHIDEventAppendEvent();
@@ -591,37 +592,37 @@ LABEL_109:
     IOHIDEventSetIntegerValue();
     if (frameCopy[120] == 1)
     {
-      v97 = frameCopy[113];
+      v103 = frameCopy[113];
       VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
       IOHIDEventSetPhase();
       IOHIDEventAppendEvent();
     }
 
-    v78 = objc_opt_new();
-    std::vector<HIDEvent * {__strong}>::push_back[abi:ne200100](v78 + 1, v98);
+    v84 = objc_opt_new();
+    std::vector<HIDEvent * {__strong}>::push_back[abi:ne200100](v84 + 1, v104);
   }
 
   selfCopy7 = self;
   if ((*(frameCopy + 10) & 1) != self->_largeBodyActive)
   {
     self->_largeBodyActive = *(frameCopy + 10) & 1;
-    if (!v78)
+    if (!v84)
     {
-      v78 = objc_opt_new();
+      v84 = objc_opt_new();
     }
 
     ProximtyEvent = IOHIDEventCreateProximtyEvent();
-    std::vector<HIDEvent * {__strong}>::push_back[abi:ne200100](v78 + 1, &ProximtyEvent);
+    std::vector<HIDEvent * {__strong}>::push_back[abi:ne200100](v84 + 1, &ProximtyEvent);
 
     selfCopy7 = self;
   }
 
-  v95.receiver = selfCopy7;
-  v95.super_class = HSTHIDEventGenerator;
-  [(HSStage *)&v95 handleConsume:frameCopy, v85, v86];
-  if (v78)
+  v101.receiver = selfCopy7;
+  v101.super_class = HSTHIDEventGenerator;
+  [(HSStage *)&v101 handleConsume:frameCopy, v91, v92];
+  if (v84)
   {
-    [(HSTHIDEventGenerator *)selfCopy7 _handleHIDEvents:v78];
+    [(HSTHIDEventGenerator *)selfCopy7 _handleHIDEvents:v84];
   }
 }
 
@@ -766,157 +767,157 @@ LABEL_26:
 - (void)_cancelActiveContacts:(int64_t)contacts
 {
   v4 = objc_opt_new();
-  v32 = v4;
-  [v4 hsSetTimestamp:contacts];
-  v5 = 200;
-  v6 = 2048;
+  v33 = v4;
+  v5 = [v4 hsSetTimestamp:contacts];
+  v7 = 200;
+  v8 = 2048;
   do
   {
-    v7 = self + v5;
-    if (*(&self->super.super.isa + v5 + 1) - 1 <= 3)
+    v9 = self + v7;
+    if (*(&self->super.super.isa + v7 + 1) - 1 <= 3)
     {
-      v8 = *v7;
-      v9 = v7[2];
-      v10 = v7[3];
-      v11 = v7[4];
-      v12 = v7[5];
-      v13 = v7[6];
-      v33 = v7[7];
-      v34 = *(v7 + 1);
-      v35 = *(v7 + 4);
-      v36 = *(v7 + 5);
-      v37 = v7[24];
-      v38 = v7[25];
-      v39 = v7[26];
-      v40 = v7[27];
-      v41 = *(v7 + 7);
-      v42 = *(v7 + 8);
-      v43 = *(v7 + 9);
-      v44 = *(v7 + 10);
-      v45 = *(v7 + 11);
-      v15 = *(v7 + 12);
-      v14 = *(v7 + 13);
-      v17 = *(v7 + 14);
-      v16 = *(v7 + 15);
-      v18 = MTLoggingPlugin();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v10 = *v9;
+      v11 = v9[2];
+      v12 = v9[3];
+      v13 = v9[4];
+      v14 = v9[5];
+      v15 = v9[6];
+      v34 = v9[7];
+      v35 = *(v9 + 1);
+      v36 = *(v9 + 4);
+      v37 = *(v9 + 5);
+      v38 = v9[24];
+      v39 = v9[25];
+      v40 = v9[26];
+      v41 = v9[27];
+      v42 = *(v9 + 7);
+      v43 = *(v9 + 8);
+      v44 = *(v9 + 9);
+      v45 = *(v9 + 10);
+      v46 = *(v9 + 11);
+      v17 = *(v9 + 12);
+      v16 = *(v9 + 13);
+      v19 = *(v9 + 14);
+      v18 = *(v9 + 15);
+      v20 = MTLoggingPlugin(v5, v6);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v48 = v8;
-        _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Canceling contact %u, setting stage to NotTracking", buf, 8u);
+        v49 = v10;
+        _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Canceling contact %u, setting stage to NotTracking", buf, 8u);
       }
 
-      v19 = (v4 + 6);
-      v20 = v4[7];
-      v21 = v4[8];
-      if (v20 >= v21)
+      v21 = (v4 + 6);
+      v22 = v4[7];
+      v23 = v4[8];
+      if (v22 >= v23)
       {
-        v23 = (v20 - *v19) >> 6;
-        v24 = v23 + 1;
-        if ((v23 + 1) >> 58)
+        v25 = (v22 - *v21) >> 6;
+        v26 = v25 + 1;
+        if ((v25 + 1) >> 58)
         {
           std::vector<HSUtil::CoderKey const*>::__throw_length_error[abi:ne200100]();
         }
 
-        v25 = v21 - *v19;
-        if (v25 >> 5 > v24)
+        v27 = v23 - *v21;
+        if (v27 >> 5 > v26)
         {
-          v24 = v25 >> 5;
+          v26 = v27 >> 5;
         }
 
-        if (v25 >= 0x7FFFFFFFFFFFFFC0)
+        if (v27 >= 0x7FFFFFFFFFFFFFC0)
         {
-          v26 = 0x3FFFFFFFFFFFFFFLL;
+          v28 = 0x3FFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v26 = v24;
+          v28 = v26;
         }
 
-        if (v26)
+        if (v28)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<HSTPipeline::Contact>>(v19, v26);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<HSTPipeline::Contact>>(v21, v28);
         }
 
-        v27 = v23 << 6;
-        *v27 = v8;
-        *(v27 + 1) = 0;
-        *(v27 + 2) = v9;
-        *(v27 + 3) = v10;
-        *(v27 + 4) = v11;
-        *(v27 + 5) = v12;
-        *(v27 + 6) = v13;
-        *(v27 + 7) = v33;
-        *(v27 + 8) = v34;
-        *(v27 + 16) = v35;
-        *(v27 + 20) = v36;
-        *(v27 + 24) = v37;
-        *(v27 + 25) = v38;
-        *(v27 + 26) = v39;
-        *(v27 + 27) = v40;
-        *(v27 + 28) = v41;
-        *(v27 + 32) = v42;
-        *(v27 + 36) = v43;
-        *(v27 + 40) = v44;
-        *(v27 + 44) = v45;
-        *(v27 + 48) = v15;
-        *(v27 + 52) = v14;
-        v22 = (v23 << 6) + 64;
-        v28 = *v19;
-        v29 = v19[1] - *v19;
-        v30 = (v27 - v29);
-        *(v27 + 56) = v17;
-        *(v27 + 60) = v16;
-        memcpy((v27 - v29), v28, v29);
-        v31 = *v19;
-        *v19 = v30;
-        v19[1] = v22;
-        v19[2] = 0;
-        if (v31)
+        v29 = v25 << 6;
+        *v29 = v10;
+        *(v29 + 1) = 0;
+        *(v29 + 2) = v11;
+        *(v29 + 3) = v12;
+        *(v29 + 4) = v13;
+        *(v29 + 5) = v14;
+        *(v29 + 6) = v15;
+        *(v29 + 7) = v34;
+        *(v29 + 8) = v35;
+        *(v29 + 16) = v36;
+        *(v29 + 20) = v37;
+        *(v29 + 24) = v38;
+        *(v29 + 25) = v39;
+        *(v29 + 26) = v40;
+        *(v29 + 27) = v41;
+        *(v29 + 28) = v42;
+        *(v29 + 32) = v43;
+        *(v29 + 36) = v44;
+        *(v29 + 40) = v45;
+        *(v29 + 44) = v46;
+        *(v29 + 48) = v17;
+        *(v29 + 52) = v16;
+        v24 = (v25 << 6) + 64;
+        v30 = *v21;
+        v31 = v21[1] - *v21;
+        v32 = (v29 - v31);
+        *(v29 + 56) = v19;
+        *(v29 + 60) = v18;
+        memcpy((v29 - v31), v30, v31);
+        v5 = *v21;
+        *v21 = v32;
+        v21[1] = v24;
+        v21[2] = 0;
+        if (v5)
         {
-          operator delete(v31);
+          operator delete(v5);
         }
       }
 
       else
       {
-        *v20 = v8;
-        *(v20 + 1) = 0;
-        *(v20 + 2) = v9;
-        *(v20 + 3) = v10;
-        *(v20 + 4) = v11;
-        *(v20 + 5) = v12;
-        *(v20 + 6) = v13;
-        *(v20 + 7) = v33;
-        *(v20 + 8) = v34;
-        *(v20 + 16) = v35;
-        *(v20 + 20) = v36;
-        *(v20 + 24) = v37;
-        *(v20 + 25) = v38;
-        *(v20 + 26) = v39;
-        *(v20 + 27) = v40;
-        *(v20 + 28) = v41;
-        *(v20 + 32) = v42;
-        *(v20 + 36) = v43;
-        *(v20 + 40) = v44;
-        *(v20 + 44) = v45;
-        *(v20 + 48) = v15;
-        *(v20 + 52) = v14;
-        v22 = v20 + 64;
-        *(v20 + 56) = v17;
-        *(v20 + 60) = v16;
+        *v22 = v10;
+        *(v22 + 1) = 0;
+        *(v22 + 2) = v11;
+        *(v22 + 3) = v12;
+        *(v22 + 4) = v13;
+        *(v22 + 5) = v14;
+        *(v22 + 6) = v15;
+        *(v22 + 7) = v34;
+        *(v22 + 8) = v35;
+        *(v22 + 16) = v36;
+        *(v22 + 20) = v37;
+        *(v22 + 24) = v38;
+        *(v22 + 25) = v39;
+        *(v22 + 26) = v40;
+        *(v22 + 27) = v41;
+        *(v22 + 28) = v42;
+        *(v22 + 32) = v43;
+        *(v22 + 36) = v44;
+        *(v22 + 40) = v45;
+        *(v22 + 44) = v46;
+        *(v22 + 48) = v17;
+        *(v22 + 52) = v16;
+        v24 = v22 + 64;
+        *(v22 + 56) = v19;
+        *(v22 + 60) = v18;
       }
 
-      v19[1] = v22;
-      v4 = v32;
+      v21[1] = v24;
+      v4 = v33;
     }
 
-    v5 += 64;
-    v6 -= 64;
+    v7 += 64;
+    v8 -= 64;
   }
 
-  while (v6);
+  while (v8);
   if (v4[6] != v4[7])
   {
     [(HSTHIDEventGenerator *)self _handleContactFrame:v4];
@@ -926,14 +927,14 @@ LABEL_26:
 - (void)_handleResetEvent:(id)event
 {
   eventCopy = event;
-  v7.receiver = self;
-  v7.super_class = HSTHIDEventGenerator;
-  [(HSStage *)&v7 handleConsume:eventCopy];
-  v5 = MTLoggingPlugin();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v9.receiver = self;
+  v9.super_class = HSTHIDEventGenerator;
+  v5 = [(HSStage *)&v9 handleConsume:eventCopy];
+  v7 = MTLoggingPlugin(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Reset event received, canceling active contacts", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Reset event received, canceling active contacts", v8, 2u);
   }
 
   -[HSTHIDEventGenerator _cancelActiveContacts:](self, "_cancelActiveContacts:", [eventCopy hsTimestamp]);
@@ -984,38 +985,39 @@ LABEL_26:
   eventCopy = event;
   if (!eventCopy)
   {
-    v11 = +[NSAssertionHandler currentHandler];
-    v12 = [NSString stringWithUTF8String:"[HSTHIDEventGenerator _handleCopyEvent:]"];
-    [v11 handleFailureInFunction:v12 file:@"HSTHIDEventGenerator.mm" lineNumber:677 description:{@"Invalid parameter not satisfying: %@", @"event"}];
+    v13 = +[NSAssertionHandler currentHandler];
+    v14 = [NSString stringWithUTF8String:"[HSTHIDEventGenerator _handleCopyEvent:]"];
+    [v13 handleFailureInFunction:v14 file:@"HSTHIDEventGenerator.mm" lineNumber:677 description:{@"Invalid parameter not satisfying: %@", @"event"}];
   }
 
-  v13.receiver = self;
-  v13.super_class = HSTHIDEventGenerator;
-  [(HSStage *)&v13 handleConsume:eventCopy];
+  v15.receiver = self;
+  v15.super_class = HSTHIDEventGenerator;
+  [(HSStage *)&v15 handleConsume:eventCopy];
   matching = [eventCopy matching];
   IntegerValue = IOHIDEventGetIntegerValue();
 
   matching2 = [eventCopy matching];
   v8 = IOHIDEventGetIntegerValue();
 
-  if ([eventCopy type] == 1 && IntegerValue == 65376 && v8 == 9)
+  type = [eventCopy type];
+  if (type == 1 && IntegerValue == 65376 && v8 == 9)
   {
     [eventCopy setResult:self->_lastTouchSystemReadyEvent];
   }
 
   else
   {
-    v9 = MTLoggingPlugin();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = MTLoggingPlugin(type, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      type = [eventCopy type];
+      type2 = [eventCopy type];
       *buf = 67109632;
-      v15 = type;
-      v16 = 1024;
-      v17 = IntegerValue;
+      v17 = type2;
       v18 = 1024;
-      v19 = v8;
-      _os_log_debug_impl(&dword_0, v9, OS_LOG_TYPE_DEBUG, "Unsuported copyEvent match event: type=%x, usagePage=%x, usage=%x", buf, 0x14u);
+      v19 = IntegerValue;
+      v20 = 1024;
+      v21 = v8;
+      _os_log_debug_impl(&dword_0, v11, OS_LOG_TYPE_DEBUG, "Unsuported copyEvent match event: type=%x, usagePage=%x, usage=%x", buf, 0x14u);
     }
   }
 }
@@ -1309,7 +1311,7 @@ LABEL_12:
   v22 = v5;
   v23 = v5;
   v21 = v5;
-  HSUtil::Decoder::decodeMap(decode, &v21);
+  HSUtil::Decoder::decodeMap(&v21, decode);
   if (*decode)
   {
     memset(__b, 170, sizeof(__b));
@@ -1396,7 +1398,7 @@ LABEL_19:
   v17 = v9;
   v18 = v9;
   v16 = v9;
-  HSUtil::Decoder::decodeArray(&v21, HSUtil::CoderKey::Literal<(char)99,(char)111,(char)110,(char)116,(char)97,(char)99,(char)116,(char)115>::Key, &v16);
+  HSUtil::Decoder::decodeArray(&v16, &v21, HSUtil::CoderKey::Literal<(char)99,(char)111,(char)110,(char)116,(char)97,(char)99,(char)116,(char)115>::Key);
   if (v21)
   {
     memset(__b, 170, sizeof(__b));
@@ -1548,58 +1550,66 @@ LABEL_20:
 
 - (void)handleHSDecode:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)handleHSDecode:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)handleHSDecode:.cold.3()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)handleHSDecode:.cold.4()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)handleHSDecode:.cold.5()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)handleHSDecode:.cold.6()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)handleHSDecode:.cold.7()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)handleHSDecode:.cold.8()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 @end

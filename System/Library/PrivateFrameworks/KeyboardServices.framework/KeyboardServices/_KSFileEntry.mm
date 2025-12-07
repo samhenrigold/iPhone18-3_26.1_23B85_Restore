@@ -40,15 +40,16 @@
   }
 
   v10 = [v4 subdataWithRange:{16, v9}];
-  v21 = 0;
-  v11 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v10 error:&v21];
-  v12 = v21;
+  v22 = 0;
+  v11 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v10 error:&v22];
+  v12 = v22;
+  v13 = v12;
   if (v12)
   {
-    v13 = KSCategory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = KSCategory(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(_KSFileEntry *)v12 entryWithSerialisedDataAtURL:v13];
+      [(_KSFileEntry *)v13 entryWithSerialisedDataAtURL:v14];
     }
   }
 
@@ -57,21 +58,21 @@
     [MEMORY[0x277CBEAD8] raise:*v6 format:{@"Input file '%@' didn't deserialise directory", lCopy}];
   }
 
-  v14 = *(bytes + 1);
-  v15 = [v4 length];
-  if (v15 > [v4 length])
+  v15 = *(bytes + 1);
+  v16 = [v4 length];
+  if (v16 > [v4 length])
   {
-    [MEMORY[0x277CBEAD8] raise:*v6 format:{@"Input file '%@' missing padding (size %lu, expected %lu)", lCopy, objc_msgSend(v4, "length"), v15}];
+    [MEMORY[0x277CBEAD8] raise:*v6 format:{@"Input file '%@' missing padding (size %lu, expected %lu)", lCopy, objc_msgSend(v4, "length"), v16}];
   }
 
-  v16 = [v4 subdataWithRange:{((v14 + 7) & 0xFFFFFFFFFFFFFFF8) + 16, v15 - (((v14 + 7) & 0xFFFFFFFFFFFFFFF8) + 16)}];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __45___KSFileEntry_entryWithSerialisedDataAtURL___block_invoke;
-  v19[3] = &unk_2797F7080;
-  v20 = v16;
-  v17 = v16;
-  [v11 performOnEverything:v19];
+  v17 = [v4 subdataWithRange:{((v15 + 7) & 0xFFFFFFFFFFFFFFF8) + 16, v16 - (((v15 + 7) & 0xFFFFFFFFFFFFFFF8) + 16)}];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __45___KSFileEntry_entryWithSerialisedDataAtURL___block_invoke;
+  v20[3] = &unk_2797F7080;
+  v21 = v17;
+  v18 = v17;
+  [v11 performOnEverything:v20];
   [v11 consistencyCheck];
 
   return v11;
@@ -79,7 +80,7 @@
 
 - (id)serialiseToTemporaryFile
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = [(_KSFileEntry *)self temporaryFileNameForType:@"UserWordStore"];
   v4 = open([v3 fileSystemRepresentation], 1573, 384);
   if ((v4 & 0x80000000) != 0)
@@ -91,13 +92,13 @@
   {
     v5 = v4;
     array = [MEMORY[0x277CBEB18] array];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __40___KSFileEntry_serialiseToTemporaryFile__block_invoke;
-    v25[3] = &unk_2797F7080;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __40___KSFileEntry_serialiseToTemporaryFile__block_invoke;
+    v24[3] = &unk_2797F7080;
     v7 = array;
-    v26 = v7;
-    [(_KSFileEntry *)self performOnEverything:v25];
+    v25 = v7;
+    [(_KSFileEntry *)self performOnEverything:v24];
     v8 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:0];
     [(_KSFileEntry *)self performOnEverything:&__block_literal_global_4];
     __buf[0] = 0;
@@ -105,26 +106,26 @@
     write(v5, __buf, 0x10uLL);
     write(v5, [v8 bytes], objc_msgSend(v8, "length"));
     WritePadding(v5, [v8 length]);
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v27 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v26 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
+          v14 = *(*(&v19 + 1) + 8 * i);
           v15 = objc_autoreleasePoolPush();
           contents = [v14 contents];
           write(v5, [contents bytes], objc_msgSend(contents, "length"));
@@ -133,7 +134,7 @@
           objc_autoreleasePoolPop(v15);
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v20 objects:v27 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v19 objects:v26 count:16];
       }
 
       while (v11);
@@ -142,8 +143,6 @@
     close(v5);
     v17 = v3;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -209,41 +208,40 @@
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = self->_tempFiles;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        unlink([*(*(&v10 + 1) + 8 * v7++) UTF8String]);
+        unlink([*(*(&v9 + 1) + 8 * v7++) UTF8String]);
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v9.receiver = self;
-  v9.super_class = _KSFileEntry;
-  [(_KSFileEntry *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = _KSFileEntry;
+  [(_KSFileEntry *)&v8 dealloc];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -256,32 +254,32 @@
 
 - (unint64_t)addBlobToFile:(id)file
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   fileCopy = file;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = self->_fileArray;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v8 += ([*(*(&v13 + 1) + 8 * i) size] + 7) & 0xFFFFFFFFFFFFFFF8;
+        v8 += ([*(*(&v12 + 1) + 8 * i) size] + 7) & 0xFFFFFFFFFFFFFFF8;
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -293,13 +291,12 @@
   }
 
   [(NSMutableArray *)self->_fileArray addObject:fileCopy];
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (void)loadAttributesFromURL:(id)l
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   lCopy = l;
   fileSystemRepresentation = [lCopy fileSystemRepresentation];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -321,7 +318,7 @@
 
   v11 = listxattr(fileSystemRepresentation, v10, v5, 0);
   v12 = v11;
-  v30 = lCopy;
+  v29 = lCopy;
   if (v11)
   {
     if (v11 == -1)
@@ -339,26 +336,26 @@
   }
 
   free(v10);
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v18 = v12;
-  v19 = [v18 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v33;
+    v21 = *v32;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v33 != v21)
+        if (*v32 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v32 + 1) + 8 * i);
+        v23 = *(*(&v31 + 1) + 8 * i);
         if (([v23 isEqualToString:&stru_286796E30] & 1) == 0)
         {
           v24 = getxattr(fileSystemRepresentation, [v23 UTF8String], 0, 0, 0, 0);
@@ -371,7 +368,7 @@
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v20);
@@ -379,46 +376,42 @@
 
   extendedAttributes = self->_extendedAttributes;
   self->_extendedAttributes = dictionary;
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveAttributesToURL:(id)l
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   lCopy = l;
   fileSystemRepresentation = [l fileSystemRepresentation];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = self->_extendedAttributes;
-  v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
-        v13 = [(NSMutableDictionary *)self->_extendedAttributes objectForKey:v12, v15];
+        v12 = *(*(&v14 + 1) + 8 * i);
+        v13 = [(NSMutableDictionary *)self->_extendedAttributes objectForKey:v12, v14];
         setxattr(fileSystemRepresentation, [v12 UTF8String], objc_msgSend(v13, "bytes"), objc_msgSend(v13, "length"), 0, 0);
       }
 
-      v9 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -447,13 +440,11 @@
 
 + (void)entryWithSerialisedDataAtURL:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 description];
-  v5[0] = 136315394;
+  v4[0] = 136315394;
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_2557E2000, a2, OS_LOG_TYPE_ERROR, "%s  couldn't decode data: %@", v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2557E2000, a2, OS_LOG_TYPE_ERROR, "%s  couldn't decode data: %@", v4, 0x16u);
 }
 
 @end

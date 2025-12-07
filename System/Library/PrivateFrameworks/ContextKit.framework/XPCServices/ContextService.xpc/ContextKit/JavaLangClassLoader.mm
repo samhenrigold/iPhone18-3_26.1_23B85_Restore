@@ -29,9 +29,7 @@
     sub_10017FFBC();
   }
 
-  v4 = JavaLangSystemClassLoader_loader_;
-
-  return IOSClass_forName_initialize_classLoader_(string, 0, v4);
+  return IOSClass_forName_initialize_classLoader_(string);
 }
 
 - (id)getResourceWithNSString:(id)string

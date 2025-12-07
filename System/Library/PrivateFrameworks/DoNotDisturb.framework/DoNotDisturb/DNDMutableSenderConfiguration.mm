@@ -18,7 +18,7 @@
   allowedContactTypes = self->super._allowedContactTypes;
   self->super._allowedContactTypes = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, allowedContactTypes);
 }
 
 - (void)setDeniedContactTypes:(id)types
@@ -27,7 +27,7 @@
   deniedContactTypes = self->super._deniedContactTypes;
   self->super._deniedContactTypes = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, deniedContactTypes);
 }
 
 - (void)setAllowedContactGroups:(id)groups
@@ -36,7 +36,7 @@
   allowedContactGroups = self->super._allowedContactGroups;
   self->super._allowedContactGroups = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, allowedContactGroups);
 }
 
 - (void)setDeniedContactGroups:(id)groups
@@ -45,7 +45,7 @@
   deniedContactGroups = self->super._deniedContactGroups;
   self->super._deniedContactGroups = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, deniedContactGroups);
 }
 
 - (void)setAllowedContacts:(id)contacts
@@ -54,7 +54,7 @@
   allowedContacts = self->super._allowedContacts;
   self->super._allowedContacts = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, allowedContacts);
 }
 
 - (void)setDeniedContacts:(id)contacts
@@ -63,7 +63,7 @@
   deniedContacts = self->super._deniedContacts;
   self->super._deniedContacts = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, deniedContacts);
 }
 
 - (void)setPhoneCallBypassSettings:(id)settings
@@ -72,41 +72,41 @@
   phoneCallBypassSettings = self->super._phoneCallBypassSettings;
   self->super._phoneCallBypassSettings = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, phoneCallBypassSettings);
 }
 
 - (void)removeAllowedContactMatchingContact:(id)contact
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = self->super._allowedContacts;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v14 != v8)
+      if (*v13 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v13 + 1) + 8 * v9);
-      if ([contactCopy matchesContact:{v10, v13}])
+      v10 = *(*(&v12 + 1) + 8 * v9);
+      if ([contactCopy matchesContact:{v10, v12}])
       {
         break;
       }
 
       if (v7 == ++v9)
       {
-        v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -130,41 +130,40 @@ LABEL_3:
 LABEL_12:
 
 LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDeniedContactMatchingContact:(id)contact
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = self->super._deniedContacts;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v14 != v8)
+      if (*v13 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v13 + 1) + 8 * v9);
-      if ([contactCopy matchesContact:{v10, v13}])
+      v10 = *(*(&v12 + 1) + 8 * v9);
+      if ([contactCopy matchesContact:{v10, v12}])
       {
         break;
       }
 
       if (v7 == ++v9)
       {
-        v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -188,7 +187,6 @@ LABEL_3:
 LABEL_12:
 
 LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

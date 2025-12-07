@@ -3,6 +3,7 @@
 + (id)locationFromMapItem:(id)item;
 + (id)locationFromMapItemDictionary:(id)dictionary;
 + (id)locationNamedEntityToPPScoredLocation:(id)location;
++ (id)scoredLocationFromName:(id)name category:(unsigned __int16)category score:(double)score sentimentScore:(double)sentimentScore;
 + (unsigned)namedEntityCategoryToLocationCategory:(unint64_t)category;
 - (BOOL)clearWithError:(id *)error deletedCount:(unint64_t *)count;
 - (BOOL)deleteAllLocationsFromSourcesWithBundleId:(id)id deletedCount:(unint64_t *)count error:(id *)error;
@@ -20,6 +21,7 @@
 - (id)homeOrWorkAddresses;
 - (id)locationForHome;
 - (id)locationForWork;
+- (id)locationRecordOfCategory:(unsigned __int16)category;
 - (id)locationRecordsWithQuery:(id)query error:(id *)error;
 - (id)rankedLocationsWithQuery:(id)query clientProcessName:(id)name error:(id *)error;
 - (void)processFeedback:(id)feedback;
@@ -56,33 +58,33 @@
 
 - (void)processFeedback:(id)feedback
 {
-  v194 = *MEMORY[0x277D85DE8];
+  v193 = *MEMORY[0x277D85DE8];
   feedbackCopy = feedback;
   feedbackItems = [feedbackCopy feedbackItems];
-  v152 = feedbackItems;
+  v151 = feedbackItems;
   if (self)
   {
     v4 = feedbackItems;
     v5 = objc_opt_new();
+    v183 = 0u;
     v184 = 0u;
     v185 = 0u;
     v186 = 0u;
-    v187 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v184 objects:buf count:16];
+    v7 = [v6 countByEnumeratingWithState:&v183 objects:buf count:16];
     if (v7)
     {
-      v8 = *v185;
+      v8 = *v184;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v185 != v8)
+          if (*v184 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v184 + 1) + 8 * i);
+          v10 = *(*(&v183 + 1) + 8 * i);
           v11 = objc_autoreleasePoolPush();
           itemString = [v10 itemString];
           lowercaseString = [itemString lowercaseString];
@@ -102,7 +104,7 @@
           objc_autoreleasePoolPop(v11);
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v184 objects:buf count:16];
+        v7 = [v6 countByEnumeratingWithState:&v183 objects:buf count:16];
       }
 
       while (v7);
@@ -119,55 +121,55 @@
   v19 = [v17 initWithArray:allKeys];
 
   v20 = objc_opt_new();
-  v145 = objc_opt_new();
+  v144 = objc_opt_new();
   timestamp = [feedbackCopy timestamp];
-  [v145 setScoringDate:timestamp];
+  [v144 setScoringDate:timestamp];
 
   timestamp2 = [feedbackCopy timestamp];
-  [v145 setToDate:timestamp2];
+  [v144 setToDate:timestamp2];
 
   clientBundleId = [feedbackCopy clientBundleId];
   v24 = [PPFeedbackExclusionProvider excludedBundleIdsForClientBundleId:clientBundleId domain:2];
-  [v145 setExcludingSourceBundleIds:v24];
+  [v144 setExcludingSourceBundleIds:v24];
 
-  v164 = 0;
-  v160[0] = MEMORY[0x277D85DD0];
-  v160[1] = 3221225472;
-  v160[2] = __40__PPLocalLocationStore_processFeedback___block_invoke;
-  v160[3] = &unk_2789799F8;
-  v137 = v20;
-  v161 = v137;
+  v163 = 0;
+  v159[0] = MEMORY[0x277D85DD0];
+  v159[1] = 3221225472;
+  v159[2] = __40__PPLocalLocationStore_processFeedback___block_invoke;
+  v159[3] = &unk_2789799F8;
+  v136 = v20;
+  v160 = v136;
   v25 = v5;
-  v162 = v25;
-  v136 = v19;
-  v163 = v136;
-  v26 = [(PPLocalLocationStore *)self iterLocationRecordsWithQuery:v145 error:&v164 block:v160];
-  v132 = v164;
+  v161 = v25;
+  v135 = v19;
+  v162 = v135;
+  v26 = [(PPLocalLocationStore *)self iterLocationRecordsWithQuery:v144 error:&v163 block:v159];
+  v131 = v163;
   if (v26)
   {
-    if (![v137 count])
+    if (![v136 count])
     {
 LABEL_95:
       v60 = objc_opt_new();
-      v158 = 0u;
-      v159 = 0u;
-      v156 = 0u;
       v157 = 0u;
-      v112 = v136;
-      v113 = [v112 countByEnumeratingWithState:&v156 objects:v182 count:16];
+      v158 = 0u;
+      v155 = 0u;
+      v156 = 0u;
+      v112 = v135;
+      v113 = [v112 countByEnumeratingWithState:&v155 objects:v181 count:16];
       if (v113)
       {
-        v114 = *v157;
+        v114 = *v156;
         do
         {
           for (j = 0; j != v113; ++j)
           {
-            if (*v157 != v114)
+            if (*v156 != v114)
             {
               objc_enumerationMutation(v112);
             }
 
-            v116 = *(*(&v156 + 1) + 8 * j);
+            v116 = *(*(&v155 + 1) + 8 * j);
             v117 = objc_autoreleasePoolPush();
             v118 = [v25 objectForKeyedSubscript:v116];
             [v60 addObjectsFromArray:v118];
@@ -175,7 +177,7 @@ LABEL_95:
             objc_autoreleasePoolPop(v117);
           }
 
-          v113 = [v112 countByEnumeratingWithState:&v156 objects:v182 count:16];
+          v113 = [v112 countByEnumeratingWithState:&v155 objects:v181 count:16];
         }
 
         while (v113);
@@ -201,7 +203,7 @@ LABEL_95:
     clientIdentifier2 = [feedbackCopy clientIdentifier];
     clientBundleId3 = [feedbackCopy clientBundleId];
     mappingId2 = [feedbackCopy mappingId];
-    v32 = [v27 initWithFeedbackItems:v137 timestamp:timestamp4 clientIdentifier:clientIdentifier2 clientBundleId:clientBundleId3 mappingId:mappingId2];
+    v32 = [v27 initWithFeedbackItems:v136 timestamp:timestamp4 clientIdentifier:clientIdentifier2 clientBundleId:clientBundleId3 mappingId:mappingId2];
 
     [PPFeedbackStorage logFeedback:v32 domain:2 domainStatus:2 inBackground:1];
     feedbackItems2 = [v32 feedbackItems];
@@ -210,7 +212,7 @@ LABEL_95:
     [PPFeedbackUtils recordUserEventsFromFeedback:feedbackCopy matchingFeedbackItems:feedbackItems2 clientBundleId:clientBundleId4 clientIdentifier:clientIdentifier3 domain:2];
 
     v36 = v32;
-    v130 = v36;
+    v129 = v36;
     if (self)
     {
       clientBundleId5 = [v36 clientBundleId];
@@ -220,31 +222,31 @@ LABEL_95:
       {
         oslog = objc_opt_new();
         [oslog setPredictionType:3];
-        v39 = [PPFeedbackUtils feedbackMetadataForBaseFeedback:v130];
+        v39 = [PPFeedbackUtils feedbackMetadataForBaseFeedback:v129];
         [oslog setFeedbackMetadata:v39];
 
-        v135 = v130;
+        v134 = v129;
         v40 = objc_opt_new();
         v41 = objc_opt_new();
-        v176 = 0u;
-        v177 = 0u;
-        v174 = 0u;
         v175 = 0u;
-        feedbackItems3 = [v135 feedbackItems];
-        v43 = [feedbackItems3 countByEnumeratingWithState:&v174 objects:buf count:16];
+        v176 = 0u;
+        v173 = 0u;
+        v174 = 0u;
+        feedbackItems3 = [v134 feedbackItems];
+        v43 = [feedbackItems3 countByEnumeratingWithState:&v173 objects:buf count:16];
         if (v43)
         {
-          v44 = *v175;
+          v44 = *v174;
           do
           {
             for (k = 0; k != v43; ++k)
             {
-              if (*v175 != v44)
+              if (*v174 != v44)
               {
                 objc_enumerationMutation(feedbackItems3);
               }
 
-              v46 = *(*(&v174 + 1) + 8 * k);
+              v46 = *(*(&v173 + 1) + 8 * k);
               itemString2 = [v46 itemString];
               [v40 addObject:itemString2];
 
@@ -252,53 +254,53 @@ LABEL_95:
               [v41 setObject:v46 forKeyedSubscript:itemString3];
             }
 
-            v43 = [feedbackItems3 countByEnumeratingWithState:&v174 objects:buf count:16];
+            v43 = [feedbackItems3 countByEnumeratingWithState:&v173 objects:buf count:16];
           }
 
           while (v43);
         }
 
-        timestamp5 = [v135 timestamp];
+        timestamp5 = [v134 timestamp];
         [timestamp5 timeIntervalSince1970];
         v51 = v50;
-        v153 = v40;
+        v152 = v40;
         v52 = objc_opt_new();
         v53 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSince1970:v51];
         [v52 setScoringDate:v53];
         [v52 setToDate:v53];
-        *&v184 = 0;
-        *(&v184 + 1) = &v184;
-        *&v185 = 0x3032000000;
-        *(&v185 + 1) = __Block_byref_object_copy__27221;
-        *&v186 = __Block_byref_object_dispose__27222;
-        *(&v186 + 1) = [objc_alloc(MEMORY[0x277CBEB58]) initWithSet:v153];
+        *&v183 = 0;
+        *(&v183 + 1) = &v183;
+        *&v184 = 0x3032000000;
+        *(&v184 + 1) = __Block_byref_object_copy__27221;
+        *&v185 = __Block_byref_object_dispose__27222;
+        *(&v185 + 1) = [objc_alloc(MEMORY[0x277CBEB58]) initWithSet:v152];
         location[0] = 0;
         location[1] = location;
-        *&v171 = 0x3032000000;
-        *(&v171 + 1) = __Block_byref_object_copy__27221;
-        *&v172 = __Block_byref_object_dispose__27222;
-        *(&v172 + 1) = objc_opt_new();
+        *&v170 = 0x3032000000;
+        *(&v170 + 1) = __Block_byref_object_copy__27221;
+        *&v171 = __Block_byref_object_dispose__27222;
+        *(&v171 + 1) = objc_opt_new();
         aBlock[0] = MEMORY[0x277D85DD0];
         aBlock[1] = 3221225472;
         aBlock[2] = __84__PPLocalLocationStore__locationToMappedStringMatchingForLocations_timestamp_error___block_invoke;
         aBlock[3] = &unk_278979A20;
-        aBlock[4] = &v184;
+        aBlock[4] = &v183;
         aBlock[5] = location;
         v54 = _Block_copy(aBlock);
-        v180 = 0;
-        v178[0] = MEMORY[0x277D85DD0];
-        v178[1] = 3221225472;
-        v178[2] = __84__PPLocalLocationStore__locationToMappedStringMatchingForLocations_timestamp_error___block_invoke_2;
-        v178[3] = &unk_278979A48;
+        v179 = 0;
+        v177[0] = MEMORY[0x277D85DD0];
+        v177[1] = 3221225472;
+        v177[2] = __84__PPLocalLocationStore__locationToMappedStringMatchingForLocations_timestamp_error___block_invoke_2;
+        v177[3] = &unk_278979A48;
         v55 = v54;
-        v179 = v55;
-        v56 = [(PPLocalLocationStore *)self iterLocationRecordsWithQuery:v52 error:&v180 block:v178];
-        v57 = v180;
+        v178 = v55;
+        v56 = [(PPLocalLocationStore *)self iterLocationRecordsWithQuery:v52 error:&v179 block:v177];
+        v57 = v179;
         v58 = v57;
         if (v56)
         {
           v59 = *(location[1] + 5);
-          v150 = 0;
+          v149 = 0;
         }
 
         else
@@ -306,43 +308,43 @@ LABEL_95:
           if (v57)
           {
             v62 = v57;
-            v150 = v58;
+            v149 = v58;
           }
 
           else
           {
-            v150 = 0;
+            v149 = 0;
           }
 
           v63 = pp_locations_log_handle();
           if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
           {
-            *v188 = 138412290;
-            v189 = v58;
-            _os_log_error_impl(&dword_23224A000, v63, OS_LOG_TYPE_ERROR, "PPLocalLocationStore mapped string matching: error from iterLocationRecordsWithQuery: %@", v188, 0xCu);
+            *v187 = 138412290;
+            v188 = v58;
+            _os_log_error_impl(&dword_23224A000, v63, OS_LOG_TYPE_ERROR, "PPLocalLocationStore mapped string matching: error from iterLocationRecordsWithQuery: %@", v187, 0xCu);
           }
 
           v59 = 0;
         }
 
         _Block_object_dispose(location, 8);
-        _Block_object_dispose(&v184, 8);
+        _Block_object_dispose(&v183, 8);
 
         v64 = objc_opt_new();
-        v172 = 0u;
-        v173 = 0u;
-        *location = 0u;
         v171 = 0u;
+        v172 = 0u;
+        *location = 0u;
+        v170 = 0u;
         v65 = v59;
-        v66 = [v65 countByEnumeratingWithState:location objects:&v184 count:16];
+        v66 = [v65 countByEnumeratingWithState:location objects:&v183 count:16];
         if (v66)
         {
-          v67 = *v171;
+          v67 = *v170;
           do
           {
             for (m = 0; m != v66; ++m)
             {
-              if (*v171 != v67)
+              if (*v170 != v67)
               {
                 objc_enumerationMutation(v65);
               }
@@ -353,94 +355,94 @@ LABEL_95:
               [v64 setObject:v70 forKeyedSubscript:v71];
             }
 
-            v66 = [v65 countByEnumeratingWithState:location objects:&v184 count:16];
+            v66 = [v65 countByEnumeratingWithState:location objects:&v183 count:16];
           }
 
           while (v66);
         }
 
-        v72 = v150;
-        v128 = v72;
+        v72 = v149;
+        v127 = v72;
         if (v64)
         {
-          v167 = 0u;
-          v168 = 0u;
-          v165 = 0u;
           v166 = 0u;
+          v167 = 0u;
+          v164 = 0u;
+          v165 = 0u;
           obj = v64;
-          v133 = [obj countByEnumeratingWithState:&v165 objects:v183 count:16];
-          if (v133)
+          v132 = [obj countByEnumeratingWithState:&v164 objects:v182 count:16];
+          if (v132)
           {
-            v129 = 0;
-            v141 = 0;
+            v128 = 0;
+            v140 = 0;
             v74 = &off_27897A000;
-            v131 = *v166;
+            v130 = *v165;
             *&v73 = 138412546;
-            v126 = v73;
+            v125 = v73;
             do
             {
               v75 = 0;
               aSelector = v74[342];
               do
               {
-                if (*v166 != v131)
+                if (*v165 != v130)
                 {
                   v76 = v75;
                   objc_enumerationMutation(obj);
                   v75 = v76;
                 }
 
-                v139 = v75;
-                v77 = *(*(&v165 + 1) + 8 * v75);
-                v126 = [PPFeedbackUtils feedbackItemForPPFeedbackItem:v77, v126];
+                v138 = v75;
+                v77 = *(*(&v164 + 1) + 8 * v75);
+                v125 = [PPFeedbackUtils feedbackItemForPPFeedbackItem:v77, v125];
                 v78 = [obj objectForKeyedSubscript:v77];
                 v79 = [(PPLocationStorage *)self->_storage decayedFeedbackCountsForClusterIdentifier:v78];
-                clientBundleId6 = [v135 clientBundleId];
-                v148 = v78;
-                v147 = v79;
+                clientBundleId6 = [v134 clientBundleId];
+                v147 = v78;
+                v146 = v79;
                 objc_opt_self();
-                v154 = [PPScoreInterpreterBytecode bytecodeFromFactorName:@"PP2StageModel_LC_Agg.plplist" namespaceName:@"PERSONALIZATION_PORTRAIT_LOCATIONS"];
-                if (v154)
+                v153 = [PPScoreInterpreterBytecode bytecodeFromFactorName:@"PP2StageModel_LC_Agg.plplist" namespaceName:@"PERSONALIZATION_PORTRAIT_LOCATIONS"];
+                if (v153)
                 {
                   objc_opt_self();
-                  v151 = [PPScoreInterpreterBytecode bytecodeFromFactorName:@"PP2StageModel_LC_Final.plplist" namespaceName:@"PERSONALIZATION_PORTRAIT_LOCATIONS"];
-                  if (v151)
+                  v150 = [PPScoreInterpreterBytecode bytecodeFromFactorName:@"PP2StageModel_LC_Final.plplist" namespaceName:@"PERSONALIZATION_PORTRAIT_LOCATIONS"];
+                  if (v150)
                   {
-                    v80 = [PPStreamingLocationScorer sourceStatsNeededForBytecode:v154];
-                    v143 = [(PPLocationStorage *)self->_storage sourceStats:[PPStreamingLocationScorer sourceStatsNeededForBytecode:?]| v80, 0];
-                    v146 = objc_opt_new();
+                    v80 = [PPStreamingLocationScorer sourceStatsNeededForBytecode:v153];
+                    v142 = [(PPLocationStorage *)self->_storage sourceStats:[PPStreamingLocationScorer sourceStatsNeededForBytecode:?]| v80, 0];
+                    v145 = objc_opt_new();
                     v81 = objc_opt_new();
-                    [v81 setFuzzyMatchingString:v148];
-                    [v81 setScoringDate:v146];
-                    *&v174 = 0;
-                    v82 = [(PPLocalLocationStore *)self locationRecordsWithQuery:v81 error:&v174];
-                    v83 = v174;
-                    v142 = v83;
+                    [v81 setFuzzyMatchingString:v147];
+                    [v81 setScoringDate:v145];
+                    *&v173 = 0;
+                    v82 = [(PPLocalLocationStore *)self locationRecordsWithQuery:v81 error:&v173];
+                    v83 = v173;
+                    v141 = v83;
                     if (v82)
                     {
                       v84 = [PPStreamingLocationScorer alloc];
                       scoringDate = [v81 scoringDate];
-                      v86 = [(PPStreamingLocationScorer *)v84 initWithScoringDate:scoringDate sourceStats:v143 trialWrapper:self->_trialWrapper];
+                      v86 = [(PPStreamingLocationScorer *)v84 initWithScoringDate:scoringDate sourceStats:v142 trialWrapper:self->_trialWrapper];
 
                       v87 = objc_opt_self();
                       v88 = objc_opt_self();
                       firstObject = [v82 firstObject];
-                      [(PPStreamingLocationScorer *)v86 startNewClusterWithDecayedFeedbackCounts:v147 mostRelevantRecord:firstObject];
+                      [(PPStreamingLocationScorer *)v86 startNewClusterWithDecayedFeedbackCounts:v146 mostRelevantRecord:firstObject];
 
-                      v186 = 0u;
-                      v187 = 0u;
-                      v184 = 0u;
                       v185 = 0u;
+                      v186 = 0u;
+                      v183 = 0u;
+                      v184 = 0u;
                       v90 = v82;
-                      v91 = [v90 countByEnumeratingWithState:&v184 objects:buf count:16];
+                      v91 = [v90 countByEnumeratingWithState:&v183 objects:buf count:16];
                       if (v91)
                       {
-                        v92 = *v185;
+                        v92 = *v184;
                         do
                         {
                           for (n = 0; n != v91; ++n)
                           {
-                            if (*v185 != v92)
+                            if (*v184 != v92)
                             {
                               objc_enumerationMutation(v90);
                             }
@@ -448,7 +450,7 @@ LABEL_95:
                             [(PPStreamingLocationScorer *)v86 addRecord:?];
                           }
 
-                          v91 = [v90 countByEnumeratingWithState:&v184 objects:buf count:16];
+                          v91 = [v90 countByEnumeratingWithState:&v183 objects:buf count:16];
                         }
 
                         while (v91);
@@ -469,15 +471,15 @@ LABEL_95:
                       if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
                       {
                         v105 = NSStringFromSelector(aSelector);
-                        *buf = v126;
-                        v191 = v105;
-                        v192 = 2112;
-                        v193 = v142;
+                        *buf = v125;
+                        v190 = v105;
+                        v191 = 2112;
+                        v192 = v141;
                         _os_log_error_impl(&dword_23224A000, v86, OS_LOG_TYPE_ERROR, "error in %@: %@", buf, 0x16u);
                       }
 
                       v97 = 0;
-                      v129 = v142;
+                      v128 = v141;
                     }
                   }
 
@@ -496,19 +498,19 @@ LABEL_95:
                 v100 = [PPFeedbackUtils featuresForScoreDict:second];
                 v101 = [v100 mutableCopy];
 
-                if (!v141)
+                if (!v140)
                 {
-                  v141 = [[PPFeatureRedactor alloc] initWithTrialWrapper:self->_trialWrapper namespaceName:@"PERSONALIZATION_PORTRAIT_LOCATIONS"];
+                  v140 = [[PPFeatureRedactor alloc] initWithTrialWrapper:self->_trialWrapper namespaceName:@"PERSONALIZATION_PORTRAIT_LOCATIONS"];
                 }
 
                 if (v101)
                 {
-                  [(PPFeatureRedactor *)v141 transformFeaturesInPlace:v101];
+                  [(PPFeatureRedactor *)v140 transformFeaturesInPlace:v101];
                   first = [v97 first];
                   [first floatValue];
                   v103 = [PPFeedbackUtils scoredItemWithFeaturesForFeatureDictionary:v101 score:?];
 
-                  [v103 addFeedbackItems:v126];
+                  [v103 addFeedbackItems:v125];
                   [oslog addScoredItems:v103];
                 }
 
@@ -521,7 +523,7 @@ LABEL_95:
                     _os_log_error_impl(&dword_23224A000, v104, OS_LOG_TYPE_ERROR, "PPLocalLocationStore: unable to fetch feature dictionary.", buf, 2u);
                   }
 
-                  v169 = 0;
+                  v168 = 0;
                 }
 
                 if (!v101)
@@ -530,12 +532,12 @@ LABEL_95:
                   goto LABEL_84;
                 }
 
-                v75 = v139 + 1;
+                v75 = v138 + 1;
               }
 
-              while (v139 + 1 != v133);
-              v106 = [obj countByEnumeratingWithState:&v165 objects:v183 count:16];
-              v133 = v106;
+              while (v138 + 1 != v132);
+              v106 = [obj countByEnumeratingWithState:&v164 objects:v182 count:16];
+              v132 = v106;
               v74 = &off_27897A000;
             }
 
@@ -544,18 +546,18 @@ LABEL_95:
 
           else
           {
-            v129 = 0;
-            v141 = 0;
+            v128 = 0;
+            v140 = 0;
           }
 
           [PPFeedbackUtils addBoilerplateToFeedbackLog:oslog];
           mEMORY[0x277D41DA8] = [MEMORY[0x277D41DA8] sharedInstance];
           [mEMORY[0x277D41DA8] logMessage:oslog];
 
-          v169 = 1;
+          v168 = 1;
 LABEL_84:
 
-          v61 = v169;
+          v61 = v168;
         }
 
         else
@@ -563,19 +565,19 @@ LABEL_84:
           if (v72)
           {
             v107 = v72;
-            v129 = v128;
+            v128 = v127;
           }
 
           else
           {
-            v129 = 0;
+            v128 = 0;
           }
 
           v109 = pp_locations_log_handle();
           if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v191 = v128;
+            v190 = v127;
             _os_log_error_impl(&dword_23224A000, v109, OS_LOG_TYPE_ERROR, "logFeedbackSessionsWithFeedback: nil result from _feedbackItemToLocationMapForFeedback: %@", buf, 0xCu);
           }
 
@@ -592,11 +594,11 @@ LABEL_84:
           _os_log_debug_impl(&dword_23224A000, oslog, OS_LOG_TYPE_DEBUG, "PPLocalLocationStore: no feedback session log collection being performed due to sampling", buf, 2u);
         }
 
-        v129 = 0;
+        v128 = 0;
         v61 = 1;
       }
 
-      v110 = v129;
+      v110 = v128;
       if (v61)
       {
         goto LABEL_94;
@@ -613,12 +615,12 @@ LABEL_84:
     if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v191 = v110;
+      v190 = v110;
       _os_log_error_impl(&dword_23224A000, v111, OS_LOG_TYPE_ERROR, "PPLocalLocationStore: encountered error in session logging: %@", buf, 0xCu);
     }
 
 LABEL_94:
-    [(PPLocationStorage *)self->_storage donateLocationFeedback:v130];
+    [(PPLocationStorage *)self->_storage donateLocationFeedback:v129];
 
     goto LABEL_95;
   }
@@ -627,13 +629,11 @@ LABEL_94:
   if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v191 = v132;
+    v190 = v131;
     _os_log_error_impl(&dword_23224A000, v60, OS_LOG_TYPE_ERROR, "processFeedbackItems: error from iterLocationRecordsWithQuery: %@", buf, 0xCu);
   }
 
 LABEL_104:
-
-  v125 = *MEMORY[0x277D85DE8];
 }
 
 void __40__PPLocalLocationStore_processFeedback___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
@@ -668,34 +668,34 @@ void __40__PPLocalLocationStore_processFeedback___block_invoke(uint64_t a1, void
 
 void __84__PPLocalLocationStore__locationToMappedStringMatchingForLocations_timestamp_error___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if ([*(*(*(a1 + 32) + 8) + 40) count])
   {
     v6 = objc_opt_new();
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v7 = *(*(*(a1 + 32) + 8) + 40);
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         v11 = 0;
         do
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v16 + 1) + 8 * v11);
+          v12 = *(*(&v15 + 1) + 8 * v11);
           v13 = objc_autoreleasePoolPush();
-          [v5 rangeOfString:v12 options:{1, v16}];
+          [v5 rangeOfString:v12 options:{1, v15}];
           if (v14)
           {
             [*(*(*(a1 + 40) + 8) + 40) setObject:v5 forKeyedSubscript:v12];
@@ -707,7 +707,7 @@ void __84__PPLocalLocationStore__locationToMappedStringMatchingForLocations_time
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -720,8 +720,6 @@ void __84__PPLocalLocationStore__locationToMappedStringMatchingForLocations_time
   {
     *a3 = 1;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __84__PPLocalLocationStore__locationToMappedStringMatchingForLocations_timestamp_error___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -734,15 +732,15 @@ void __84__PPLocalLocationStore__locationToMappedStringMatchingForLocations_time
 
 - (void)registerFeedback:(id)feedback completion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   feedbackCopy = feedback;
   completionCopy = completion;
   v7 = pp_locations_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 138739971;
-    v12 = feedbackCopy;
-    _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "Location feedback received: %{sensitive}@", &v11, 0xCu);
+    v10 = 138739971;
+    v11 = feedbackCopy;
+    _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "Location feedback received: %{sensitive}@", &v10, 0xCu);
   }
 
   v8 = objc_opt_new();
@@ -753,8 +751,6 @@ void __84__PPLocalLocationStore__locationToMappedStringMatchingForLocations_time
   {
     completionCopy[2](completionCopy, 1, 0);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)deleteAllLocationsOlderThanDate:(id)date deletedCount:(unint64_t *)count error:(id *)error
@@ -862,7 +858,7 @@ void __84__PPLocalLocationStore__locationToMappedStringMatchingForLocations_time
 
 - (id)locationRecordsWithQuery:(id)query error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   v7 = pp_locations_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -873,22 +869,22 @@ void __84__PPLocalLocationStore__locationToMappedStringMatchingForLocations_time
     toDate = [queryCopy toDate];
     v12 = [toDate description];
     *buf = 134218498;
-    v22 = limit;
-    v23 = 2112;
-    v24 = v10;
-    v25 = 2112;
-    v26 = v12;
+    v21 = limit;
+    v22 = 2112;
+    v23 = v10;
+    v24 = 2112;
+    v25 = v12;
     _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEFAULT, "locationRecordsWithQuery called with limit %tu and date range: %@ - %@", buf, 0x20u);
   }
 
   v13 = objc_opt_new();
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __55__PPLocalLocationStore_locationRecordsWithQuery_error___block_invoke;
-  v19[3] = &unk_278979988;
-  v20 = v13;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __55__PPLocalLocationStore_locationRecordsWithQuery_error___block_invoke;
+  v18[3] = &unk_278979988;
+  v19 = v13;
   v14 = v13;
-  if ([(PPLocalLocationStore *)self iterLocationRecordsWithQuery:queryCopy error:error block:v19])
+  if ([(PPLocalLocationStore *)self iterLocationRecordsWithQuery:queryCopy error:error block:v18])
   {
     v15 = v14;
   }
@@ -900,7 +896,6 @@ void __84__PPLocalLocationStore__locationToMappedStringMatchingForLocations_time
 
   v16 = v15;
 
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -927,10 +922,7 @@ void __84__PPLocalLocationStore__locationToMappedStringMatchingForLocations_time
 
 uint64_t __43__PPLocalLocationStore_homeOrWorkAddresses__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 homeOrWorkAddresses];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 homeOrWorkAddresses];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -958,10 +950,7 @@ uint64_t __43__PPLocalLocationStore_homeOrWorkAddresses__block_invoke(uint64_t a
 
 uint64_t __39__PPLocalLocationStore_locationForWork__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 locationForWork];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 locationForWork];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -989,17 +978,46 @@ uint64_t __39__PPLocalLocationStore_locationForWork__block_invoke(uint64_t a1, v
 
 uint64_t __39__PPLocalLocationStore_locationForHome__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 locationForHome];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 locationForHome];
 
   return MEMORY[0x2821F96F8]();
 }
 
+- (id)locationRecordOfCategory:(unsigned __int16)category
+{
+  categoryCopy = category;
+  v5 = objc_opt_new();
+  [v5 setLimit:1];
+  v6 = objc_autoreleasePoolPush();
+  v7 = objc_alloc(MEMORY[0x277CBEB98]);
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:categoryCopy];
+  v9 = [v7 initWithObjects:{v8, 0}];
+
+  objc_autoreleasePoolPop(v6);
+  [v5 setMatchingCategories:v9];
+
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__27221;
+  v18 = __Block_byref_object_dispose__27222;
+  v19 = 0;
+  storage = self->_storage;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __49__PPLocalLocationStore_locationRecordOfCategory___block_invoke;
+  v13[3] = &unk_278979938;
+  v13[4] = &v14;
+  [(PPLocationStorage *)storage iterLocationRecordsWithQuery:v5 error:0 block:v13];
+  v11 = v15[5];
+  _Block_object_dispose(&v14, 8);
+
+  return v11;
+}
+
 - (BOOL)iterLocationRecordsWithQuery:(id)query error:(id *)error block:(id)block
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   blockCopy = block;
   v8 = pp_locations_log_handle();
@@ -1015,7 +1033,7 @@ uint64_t __39__PPLocalLocationStore_locationForHome__block_invoke(uint64_t a1, v
     *&buf[12] = 2112;
     *&buf[14] = v11;
     *&buf[22] = 2112;
-    v70 = v13;
+    v69 = v13;
     _os_log_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEFAULT, "iterLocationRecordsWithQuery called with limit %tu and date range: %@ - %@", buf, 0x20u);
   }
 
@@ -1055,78 +1073,78 @@ uint64_t __39__PPLocalLocationStore_locationForHome__block_invoke(uint64_t a1, v
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v70 = 0;
-    v63[0] = 0;
-    v63[1] = v63;
-    v63[2] = 0x2020000000;
-    v64 = 0;
+    v69 = 0;
+    v62[0] = 0;
+    v62[1] = v62;
+    v62[2] = 0x2020000000;
+    v63 = 0;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block_invoke;
     aBlock[3] = &unk_2789798C0;
-    v61 = v63;
+    v60 = v62;
     v22 = v21;
-    v58 = v22;
-    v60 = blockCopy;
-    v62 = buf;
-    v59 = queryCopy;
+    v57 = v22;
+    v59 = blockCopy;
+    v61 = buf;
+    v58 = queryCopy;
     v23 = _Block_copy(aBlock);
-    v53 = 0;
-    v54 = &v53;
-    v55 = 0x2020000000;
-    v56 = 0;
-    v49 = 0;
-    v50 = &v49;
-    v51 = 0x2020000000;
     v52 = 0;
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block_invoke_2;
-    v47[3] = &unk_2789798E8;
+    v53 = &v52;
+    v54 = 0x2020000000;
+    v55 = 0;
+    v48 = 0;
+    v49 = &v48;
+    v50 = 0x2020000000;
+    v51 = 0;
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block_invoke_2;
+    v46[3] = &unk_2789798E8;
     v24 = v14;
-    v48 = v24;
-    v25 = _Block_copy(v47);
+    v47 = v24;
+    v25 = _Block_copy(v46);
     storage = self->_storage;
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block_invoke_3;
-    v39[3] = &unk_278979910;
-    v44 = &v53;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block_invoke_3;
+    v38[3] = &unk_278979910;
+    v43 = &v52;
     v27 = v24;
-    v40 = v27;
+    v39 = v27;
     v28 = v25;
-    v42 = v28;
-    v45 = &v49;
+    v41 = v28;
+    v44 = &v48;
     v29 = v22;
-    v41 = v29;
+    v40 = v29;
     v30 = v23;
-    v43 = v30;
-    v46 = v63;
-    v31 = [(PPLocationStorage *)storage iterLocationRecordsWithQuery:v17 error:error block:v39];
+    v42 = v30;
+    v45 = v62;
+    v31 = [(PPLocationStorage *)storage iterLocationRecordsWithQuery:v17 error:error block:v38];
     if (v31)
     {
       v30[2](v30);
     }
 
-    if (v50[3])
+    if (v49[3])
     {
       v32 = pp_locations_log_handle();
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
-        v35 = v50[3];
-        v36 = v54[3];
-        *v65 = 134218240;
-        v66 = v35;
-        v67 = 2048;
-        v68 = v36;
-        _os_log_debug_impl(&dword_23224A000, v32, OS_LOG_TYPE_DEBUG, "iterLocationRecordsWithQuery filtered %tu of %tu items due to map UI restriction", v65, 0x16u);
+        v34 = v49[3];
+        v35 = v53[3];
+        *v64 = 134218240;
+        v65 = v34;
+        v66 = 2048;
+        v67 = v35;
+        _os_log_debug_impl(&dword_23224A000, v32, OS_LOG_TYPE_DEBUG, "iterLocationRecordsWithQuery filtered %tu of %tu items due to map UI restriction", v64, 0x16u);
       }
     }
 
-    _Block_object_dispose(&v49, 8);
-    _Block_object_dispose(&v53, 8);
+    _Block_object_dispose(&v48, 8);
+    _Block_object_dispose(&v52, 8);
 
-    _Block_object_dispose(v63, 8);
+    _Block_object_dispose(v62, 8);
     _Block_object_dispose(buf, 8);
   }
 
@@ -1135,53 +1153,50 @@ uint64_t __39__PPLocalLocationStore_locationForHome__block_invoke(uint64_t a1, v
     LOBYTE(v31) = 1;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
 void __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
   {
-    v16 = 0u;
-    v17 = 0u;
+    v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v3 = *(a1 + 32);
-    v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v15;
+      v6 = *v12;
 LABEL_4:
       v7 = 0;
       while (1)
       {
-        if (*v15 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * v7);
-        v9 = *(*(a1 + 56) + 8);
         (*(*(a1 + 48) + 16))(*(a1 + 48));
         ++*(*(*(a1 + 64) + 8) + 24);
-        v10 = *(*(a1 + 56) + 8);
-        if (*(v10 + 24))
+        v8 = *(*(a1 + 56) + 8);
+        if (*(v8 + 24))
         {
-          v11 = 1;
+          v9 = 1;
         }
 
         else
         {
-          v12 = *(*(*(a1 + 64) + 8) + 24);
-          v11 = v12 >= [*(a1 + 40) limit];
-          v10 = *(*(a1 + 56) + 8);
+          v10 = *(*(*(a1 + 64) + 8) + 24);
+          v9 = v10 >= [*(a1 + 40) limit];
+          v8 = *(*(a1 + 56) + 8);
         }
 
-        *(v10 + 24) = v11;
+        *(v8 + 24) = v9;
         if (*(*(*(a1 + 56) + 8) + 24))
         {
           break;
@@ -1189,7 +1204,7 @@ LABEL_4:
 
         if (v5 == ++v7)
         {
-          v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
           if (v5)
           {
             goto LABEL_4;
@@ -1203,39 +1218,38 @@ LABEL_4:
 
   [*(a1 + 32) removeAllObjects];
   objc_autoreleasePoolPop(v2);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([PPLocationSupport fuzzyMatchingLocations:*(*(&v10 + 1) + 8 * i) and:v3, v10])
+        if ([PPLocationSupport fuzzyMatchingLocations:*(*(&v9 + 1) + 8 * i) and:v3, v9])
         {
           v5 = 1;
           goto LABEL_11;
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;
@@ -1247,7 +1261,6 @@ uint64_t __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___b
 
 LABEL_11:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1276,24 +1289,24 @@ void __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block
 
 - (double)finalScoreFromRecordsUsingHybrid:(id)hybrid streamingScorer:(id)scorer mlModel:(id)model
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   hybridCopy = hybrid;
   scorerCopy = scorer;
   modelCopy = model;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v10 = [hybridCopy countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v10 = [hybridCopy countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v29;
+    v12 = *v28;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(hybridCopy);
         }
@@ -1301,19 +1314,19 @@ void __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block
         [(PPStreamingLocationScorer *)scorerCopy addRecord:?];
       }
 
-      v11 = [hybridCopy countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v11 = [hybridCopy countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v11);
   }
 
-  v27 = 0;
-  *&v14 = [(PPStreamingLocationScorer *)scorerCopy getFinalScoreWithAggregationResultOut:&v27 finalResultOut:?];
-  if (v27)
+  v26 = 0;
+  *&v14 = [(PPStreamingLocationScorer *)scorerCopy getFinalScoreWithAggregationResultOut:&v26 finalResultOut:?];
+  if (v26)
   {
-    v26 = 0;
-    v15 = [modelCopy predictionFromFeatures:v27 error:{&v26, v14}];
-    v16 = v26;
+    v25 = 0;
+    v15 = [modelCopy predictionFromFeatures:v26 error:{&v25, v14}];
+    v16 = v25;
     if (v15)
     {
       v17 = [v15 featureValueForName:@"computed_score"];
@@ -1341,7 +1354,7 @@ void __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block
       if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v33 = v16;
+        v32 = v16;
         _os_log_fault_impl(&dword_23224A000, v17, OS_LOG_TYPE_FAULT, "PPLocalLocationStore: unable to retrieve prediction %@", buf, 0xCu);
       }
     }
@@ -1358,13 +1371,12 @@ void __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 - (id)rankedLocationsWithQuery:(id)query clientProcessName:(id)name error:(id *)error
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   nameCopy = name;
   v8 = pp_locations_log_handle();
@@ -1380,7 +1392,7 @@ void __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block
     *&buf[12] = 2112;
     *&buf[14] = v11;
     *&buf[22] = 2112;
-    v88 = v13;
+    v87 = v13;
     _os_log_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEFAULT, "rankedLocationsWithQuery called with limit %tu and date range: %@ - %@", buf, 0x20u);
   }
 
@@ -1389,18 +1401,18 @@ void __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block
     v14 = [queryCopy copy];
     [v14 setLimit:-1];
     v15 = objc_opt_new();
-    v77 = 0;
+    v76 = 0;
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __65__PPLocalLocationStore__unlimitedLocationRecordsWithQuery_error___block_invoke;
-    v88 = &unk_278979988;
+    v87 = &unk_278979988;
     v16 = v15;
     selfCopy = v16;
-    v17 = [(PPLocalLocationStore *)self iterLocationRecordsWithQuery:v14 error:&v77 block:buf];
-    v18 = v77;
+    v17 = [(PPLocalLocationStore *)self iterLocationRecordsWithQuery:v14 error:&v76 block:buf];
+    v18 = v76;
     if (v17)
     {
-      v71 = v16;
+      v70 = v16;
       v19 = 0;
     }
 
@@ -1409,13 +1421,13 @@ void __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block
       v20 = pp_locations_log_handle();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v100) = 138412290;
-        *(&v100 + 4) = v18;
-        _os_log_error_impl(&dword_23224A000, v20, OS_LOG_TYPE_ERROR, "_unlimitedLocationRecordsWithQuery: nil result from iterLocationRecordsWithQuery: %@", &v100, 0xCu);
+        LODWORD(v99) = 138412290;
+        *(&v99 + 4) = v18;
+        _os_log_error_impl(&dword_23224A000, v20, OS_LOG_TYPE_ERROR, "_unlimitedLocationRecordsWithQuery: nil result from iterLocationRecordsWithQuery: %@", &v99, 0xCu);
       }
 
       v21 = v18;
-      v71 = 0;
+      v70 = 0;
       v19 = v18;
     }
   }
@@ -1423,21 +1435,21 @@ void __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block
   else
   {
     v19 = 0;
-    v71 = 0;
+    v70 = 0;
   }
 
-  v70 = v19;
-  if (v71)
+  v69 = v19;
+  if (v70)
   {
     objc_opt_self();
-    v69 = [PPScoreInterpreterBytecode bytecodeFromFactorName:@"PP2StageModel_LC_Agg.plplist" namespaceName:@"PERSONALIZATION_PORTRAIT_LOCATIONS"];
+    v68 = [PPScoreInterpreterBytecode bytecodeFromFactorName:@"PP2StageModel_LC_Agg.plplist" namespaceName:@"PERSONALIZATION_PORTRAIT_LOCATIONS"];
     objc_opt_self();
-    v68 = [PPScoreInterpreterBytecode bytecodeFromFactorName:@"PP2StageModel_LC_Final.plplist" namespaceName:@"PERSONALIZATION_PORTRAIT_LOCATIONS"];
+    v67 = [PPScoreInterpreterBytecode bytecodeFromFactorName:@"PP2StageModel_LC_Final.plplist" namespaceName:@"PERSONALIZATION_PORTRAIT_LOCATIONS"];
     v22 = 0;
-    if (v69 && v68)
+    if (v68 && v67)
     {
-      v23 = [PPStreamingLocationScorer sourceStatsNeededForBytecode:v69];
-      v22 = [PPStreamingLocationScorer sourceStatsNeededForBytecode:v68]| v23;
+      v23 = [PPStreamingLocationScorer sourceStatsNeededForBytecode:v68];
+      v22 = [PPStreamingLocationScorer sourceStatsNeededForBytecode:v67]| v23;
     }
 
     scoringDate = [queryCopy scoringDate];
@@ -1455,16 +1467,16 @@ void __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block
     v29 = v26;
 
     v30 = [(PPLocationStorage *)self->_storage sourceStats:v22 withExcludedAlgorithms:0];
-    v31 = v71;
+    v31 = v70;
     v32 = v29;
     v33 = v30;
-    v66 = v31;
+    v65 = v31;
     v34 = [PPLocationClusterID clustersWithRecords:v31];
     v35 = [PPLocationClusterID latLongTableWithClusters:v34];
-    v77 = 0;
-    v78 = &v77;
-    v79 = 0x2020000000;
-    v80 = 0;
+    v76 = 0;
+    v77 = &v76;
+    v78 = 0x2020000000;
+    v79 = 0;
     v36 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v34, "count")}];
     v37 = +[PPConfiguration sharedInstance];
     locationScoringUsesHybrid = [v37 locationScoringUsesHybrid];
@@ -1479,48 +1491,48 @@ void __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block
       _loadScoringMLModel = 0;
     }
 
-    v73 = 0;
-    v74 = &v73;
-    v75 = 0x2020000000;
-    v76 = 0;
+    v72 = 0;
+    v73 = &v72;
+    v74 = 0x2020000000;
+    v75 = 0;
     v40 = +[PPConfiguration sharedInstance];
     [v40 scoreThresholdForLocation];
     v42 = v41;
 
-    *&v100 = 0;
-    *(&v100 + 1) = &v100;
-    v101 = 0x3032000000;
-    v102 = __Block_byref_object_copy__27221;
-    v103 = __Block_byref_object_dispose__27222;
-    v104 = 0;
+    *&v99 = 0;
+    *(&v99 + 1) = &v99;
+    v100 = 0x3032000000;
+    v101 = __Block_byref_object_copy__27221;
+    v102 = __Block_byref_object_dispose__27222;
+    v103 = 0;
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __71__PPLocalLocationStore_scoreLocations_scoringDate_sourceStats_mlModel___block_invoke;
-    v88 = &unk_278979898;
-    v98 = sel_scoreLocations_scoringDate_sourceStats_mlModel_;
+    v87 = &unk_278979898;
+    v97 = sel_scoreLocations_scoringDate_sourceStats_mlModel_;
     selfCopy = self;
     v43 = v35;
-    v90 = v43;
-    v95 = &v100;
+    v89 = v43;
+    v94 = &v99;
     v44 = v32;
     selfCopy2 = v44;
     v45 = v33;
-    v92 = v45;
+    v91 = v45;
     v46 = _loadScoringMLModel;
-    v93 = v46;
-    v96 = &v73;
-    v99 = v42;
+    v92 = v46;
+    v95 = &v72;
+    v98 = v42;
     v47 = v36;
-    v94 = v47;
-    v97 = &v77;
+    v93 = v47;
+    v96 = &v76;
     [v34 enumerateKeysAndObjectsUsingBlock:buf];
-    v48 = v78[3];
+    v48 = v77[3];
     v49 = [v47 count];
     v50 = pp_locations_log_handle();
     if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
     {
-      v51 = v78[3];
-      if (*(v74 + 24))
+      v51 = v77[3];
+      if (*(v73 + 24))
       {
         v52 = 0.0;
       }
@@ -1530,21 +1542,21 @@ void __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block
         v52 = v42;
       }
 
-      *v81 = 134218496;
-      v82 = v51;
-      v83 = 2048;
-      v84 = v52;
-      v85 = 2048;
-      v86 = &v48[v49];
-      _os_log_impl(&dword_23224A000, v50, OS_LOG_TYPE_DEFAULT, "PPLocalLocationStore: filtered %tu items below threshold of %f out of %tu total.", v81, 0x20u);
+      *v80 = 134218496;
+      v81 = v51;
+      v82 = 2048;
+      v83 = v52;
+      v84 = 2048;
+      v85 = &v48[v49];
+      _os_log_impl(&dword_23224A000, v50, OS_LOG_TYPE_DEFAULT, "PPLocalLocationStore: filtered %tu items below threshold of %f out of %tu total.", v80, 0x20u);
     }
 
-    v53 = v94;
+    v53 = v93;
     v54 = v47;
 
-    _Block_object_dispose(&v100, 8);
-    _Block_object_dispose(&v73, 8);
-    _Block_object_dispose(&v77, 8);
+    _Block_object_dispose(&v99, 8);
+    _Block_object_dispose(&v72, 8);
+    _Block_object_dispose(&v76, 8);
 
     v55 = objc_opt_self();
     v56 = objc_opt_self();
@@ -1555,13 +1567,13 @@ void __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __83__PPLocalLocationStore__petLoggingForQuery_resultCount_clientProcessName_hasError___block_invoke;
-    v88 = &unk_278979850;
+    v87 = &unk_278979850;
     v61 = v59;
     selfCopy = v61;
-    v92 = v57;
+    v91 = v57;
     v62 = v58;
-    LOBYTE(v93) = v70 != 0;
-    v90 = v62;
+    LOBYTE(v92) = v69 != 0;
+    v89 = v62;
     selfCopy2 = self;
     dispatch_async(v60, buf);
 
@@ -1577,17 +1589,15 @@ void __65__PPLocalLocationStore_iterLocationRecordsWithQuery_error_block___block
 
   else if (error)
   {
-    v27 = v70;
+    v27 = v69;
     v28 = 0;
-    *error = v70;
+    *error = v69;
   }
 
   else
   {
     v28 = 0;
   }
-
-  v64 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -1640,24 +1650,24 @@ void __83__PPLocalLocationStore__petLoggingForQuery_resultCount_clientProcessNam
 
 - (id)_loadScoringMLModel
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v1 = *(self + 24);
-    v7 = 0;
-    v2 = [v1 mlModelForModelName:@"PPModel_LOC.mlmodelc" namespaceName:@"PERSONALIZATION_PORTRAIT_LOCATIONS" error:&v7];
-    v3 = v7;
+    v6 = 0;
+    v2 = [v1 mlModelForModelName:@"PPModel_LOC.mlmodelc" namespaceName:@"PERSONALIZATION_PORTRAIT_LOCATIONS" error:&v6];
+    v3 = v6;
     if (!v2)
     {
       v4 = pp_locations_log_handle();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v9 = v3;
-        v10 = 2112;
-        v11 = @"PPModel_LOC.mlmodelc";
-        v12 = 2112;
-        v13 = @"PERSONALIZATION_PORTRAIT_LOCATIONS";
+        v8 = v3;
+        v9 = 2112;
+        v10 = @"PPModel_LOC.mlmodelc";
+        v11 = 2112;
+        v12 = @"PERSONALIZATION_PORTRAIT_LOCATIONS";
         _os_log_error_impl(&dword_23224A000, v4, OS_LOG_TYPE_ERROR, "PPLocalLocationStore: error %@ in retrieving %@ model with namespace %@", buf, 0x20u);
       }
     }
@@ -1668,20 +1678,18 @@ void __83__PPLocalLocationStore__petLoggingForQuery_resultCount_clientProcessNam
     v2 = 0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 void __71__PPLocalLocationStore_scoreLocations_scoringDate_sourceStats_mlModel___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (![v6 count])
   {
-    v44 = [MEMORY[0x277CCA890] currentHandler];
-    [v44 handleFailureInMethod:*(a1 + 104) object:*(a1 + 32) file:@"PPLocalLocationStore.m" lineNumber:368 description:{@"Location cluster for %@ had 0 records", v5}];
+    v43 = [MEMORY[0x277CCA890] currentHandler];
+    [v43 handleFailureInMethod:*(a1 + 104) object:*(a1 + 32) file:@"PPLocalLocationStore.m" lineNumber:368 description:{@"Location cluster for %@ had 0 records", v5}];
   }
 
   v7 = [v6 sortedArrayUsingComparator:&__block_literal_global_209];
@@ -1723,21 +1731,21 @@ void __71__PPLocalLocationStore_scoreLocations_scoringDate_sourceStats_mlModel__
 
   if (!v21)
   {
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v24 = v6;
-    v25 = [v24 countByEnumeratingWithState:&v45 objects:v53 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v44 objects:v52 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v46;
+      v27 = *v45;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v46 != v27)
+          if (*v45 != v27)
           {
             objc_enumerationMutation(v24);
           }
@@ -1745,7 +1753,7 @@ void __71__PPLocalLocationStore_scoreLocations_scoringDate_sourceStats_mlModel__
           [(PPStreamingLocationScorer *)*(*(*(a1 + 80) + 8) + 40) addRecord:?];
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v45 objects:v53 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v44 objects:v52 count:16];
       }
 
       while (v26);
@@ -1794,11 +1802,11 @@ LABEL_23:
       v32 = pp_locations_log_handle();
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
-        v43 = *(a1 + 112);
+        v42 = *(a1 + 112);
         *buf = 134218240;
-        v50 = v30;
-        v51 = 2048;
-        v52 = v43;
+        v49 = v30;
+        v50 = 2048;
+        v51 = v42;
         _os_log_debug_impl(&dword_23224A000, v32, OS_LOG_TYPE_DEBUG, "Scoring: filtering out location with score %f below threshold of %f", buf, 0x16u);
       }
 
@@ -1814,15 +1822,14 @@ LABEL_23:
     goto LABEL_22;
   }
 
-  v42 = pp_locations_log_handle();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+  v41 = pp_locations_log_handle();
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_error_impl(&dword_23224A000, v42, OS_LOG_TYPE_ERROR, "PPLocalLocationStore: unable to locate ML model.", buf, 2u);
+    _os_log_error_impl(&dword_23224A000, v41, OS_LOG_TYPE_ERROR, "PPLocalLocationStore: unable to locate ML model.", buf, 2u);
   }
 
 LABEL_30:
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __71__PPLocalLocationStore_scoreLocations_scoringDate_sourceStats_mlModel___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1878,42 +1885,42 @@ LABEL_7:
 
 - (BOOL)iterRankedLocationsWithQuery:(id)query error:(id *)error block:(id)block
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v9 = [(PPLocalLocationStore *)self rankedLocationsWithQuery:query clientProcessName:0 error:error];
   v10 = v9;
   if (v9)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v11 = v9;
-    v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
 LABEL_4:
       v15 = 0;
       while (1)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v20 + 1) + 8 * v15);
-        v19 = 0;
-        blockCopy[2](blockCopy, v16, &v19);
-        if (v19)
+        v16 = *(*(&v19 + 1) + 8 * v15);
+        v18 = 0;
+        blockCopy[2](blockCopy, v16, &v18);
+        if (v18)
         {
           break;
         }
 
         if (v13 == ++v15)
         {
-          v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
           if (v13)
           {
             goto LABEL_4;
@@ -1925,7 +1932,6 @@ LABEL_4:
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v10 != 0;
 }
 
@@ -1933,7 +1939,7 @@ LABEL_4:
 {
   syncCopy = sync;
   algorithmCopy = algorithm;
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   locationsCopy = locations;
   sourceCopy = source;
   entitiesCopy = entities;
@@ -1970,7 +1976,7 @@ LABEL_3:
     *&buf[12] = 2112;
     *&buf[14] = sourceCopy;
     *&buf[22] = 2112;
-    v82 = v18;
+    v81 = v18;
     _os_log_impl(&dword_23224A000, v16, OS_LOG_TYPE_DEFAULT, "PPLocalLocationStore received a donation of %tu locations from source: %@, algorithm: %@", buf, 0x20u);
   }
 
@@ -1994,11 +2000,11 @@ LABEL_3:
     block[1] = 3221225472;
     block[2] = __97__PPLocalLocationStore_donateLocations_source_contextualNamedEntities_algorithm_cloudSync_error___block_invoke;
     block[3] = &unk_2789797E0;
-    v78 = sourceCopy;
+    v77 = sourceCopy;
     selfCopy = self;
     dispatch_async(v27, block);
 
-    v28 = v78;
+    v28 = v77;
     goto LABEL_28;
   }
 
@@ -2030,43 +2036,43 @@ LABEL_16:
   if (![locationsCopy count])
   {
     v40 = +[PPMetricsUtils loggingQueue];
-    v74[0] = MEMORY[0x277D85DD0];
-    v74[1] = 3221225472;
-    v74[2] = __97__PPLocalLocationStore_donateLocations_source_contextualNamedEntities_algorithm_cloudSync_error___block_invoke_191;
-    v74[3] = &unk_2789797E0;
-    v75 = sourceCopy;
+    v73[0] = MEMORY[0x277D85DD0];
+    v73[1] = 3221225472;
+    v73[2] = __97__PPLocalLocationStore_donateLocations_source_contextualNamedEntities_algorithm_cloudSync_error___block_invoke_191;
+    v73[3] = &unk_2789797E0;
+    v74 = sourceCopy;
     selfCopy3 = self;
-    dispatch_async(v40, v74);
+    dispatch_async(v40, v73);
 
-    v28 = v75;
+    v28 = v74;
 LABEL_28:
 
     LOBYTE(v41) = 1;
     goto LABEL_36;
   }
 
-  v65 = v25;
-  v66 = entitiesCopy;
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
+  v64 = v25;
+  v65 = entitiesCopy;
   v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
   v31 = locationsCopy;
-  v32 = [v31 countByEnumeratingWithState:&v70 objects:v80 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v69 objects:v79 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v71;
+    v34 = *v70;
     while (2)
     {
       for (i = 0; i != v33; ++i)
       {
-        if (*v71 != v34)
+        if (*v70 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        v36 = *(*(&v70 + 1) + 8 * i);
+        v36 = *(*(&v69 + 1) + 8 * i);
         location = [v36 location];
         if ([location category] == 6)
         {
@@ -2085,7 +2091,7 @@ LABEL_30:
         }
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v70 objects:v80 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v69 objects:v79 count:16];
       if (v33)
       {
         continue;
@@ -2096,12 +2102,12 @@ LABEL_30:
   }
 
 LABEL_31:
-  v69[0] = MEMORY[0x277D85DD0];
-  v69[1] = 3221225472;
-  v69[2] = __97__PPLocalLocationStore_donateLocations_source_contextualNamedEntities_algorithm_cloudSync_error___block_invoke_3;
-  v69[3] = &unk_278979828;
-  v69[4] = selfCopy2;
-  v42 = [v31 _pas_filteredArrayWithTest:v69];
+  v68[0] = MEMORY[0x277D85DD0];
+  v68[1] = 3221225472;
+  v68[2] = __97__PPLocalLocationStore_donateLocations_source_contextualNamedEntities_algorithm_cloudSync_error___block_invoke_3;
+  v68[3] = &unk_278979828;
+  v68[4] = selfCopy2;
+  v42 = [v31 _pas_filteredArrayWithTest:v68];
   v43 = [v31 count];
   v44 = [v42 count];
   v45 = pp_locations_log_handle();
@@ -2115,12 +2121,12 @@ LABEL_31:
     *&buf[12] = 2048;
     *&buf[14] = v47;
     *&buf[22] = 2112;
-    v82 = bundleId5;
+    v81 = bundleId5;
     _os_log_impl(&dword_23224A000, v45, OS_LOG_TYPE_DEFAULT, "PPLocalLocationStore: filtered %tu URLs of (of %tu) from %@", buf, 0x20u);
   }
 
-  entitiesCopy = v66;
-  v41 = [(PPLocationStorage *)selfCopy2->_storage donateLocations:v42 source:sourceCopy contextualNamedEntities:v66 algorithm:algorithmCopy cloudSync:v65 error:error];
+  entitiesCopy = v65;
+  v41 = [(PPLocationStorage *)selfCopy2->_storage donateLocations:v42 source:sourceCopy contextualNamedEntities:v65 algorithm:algorithmCopy cloudSync:v64 error:error];
   if (v41)
   {
     bundleId6 = [sourceCopy bundleId];
@@ -2132,23 +2138,22 @@ LABEL_31:
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __76__PPLocalLocationStore__logDonationForLocations_bundleId_algorithm_groupId___block_invoke;
-    v82 = &unk_2789799D0;
+    v81 = &unk_2789799D0;
     v55 = v52;
-    v83 = v55;
+    v82 = v55;
     v56 = v53;
-    entitiesCopy = v66;
+    entitiesCopy = v65;
     v57 = v56;
-    v84 = v56;
-    v85 = selfCopy2;
+    v83 = v56;
+    v84 = selfCopy2;
     v58 = v51;
-    v86 = v58;
+    v85 = v58;
     dispatch_async(v54, buf);
 
     PPPostNotification("com.apple.proactive.PersonalizationPortrait.locationsDidChangeMeaningfully");
   }
 
 LABEL_36:
-  v59 = *MEMORY[0x277D85DE8];
   return v41;
 }
 
@@ -2338,6 +2343,20 @@ void __53__PPLocalLocationStore_initWithStorage_trialWrapper___block_invoke(uint
   {
     [WeakRetained[2] removeAllObjects];
   }
+}
+
++ (id)scoredLocationFromName:(id)name category:(unsigned __int16)category score:(double)score sentimentScore:(double)sentimentScore
+{
+  categoryCopy = category;
+  nameCopy = name;
+  v10 = objc_opt_new();
+  [v10 setObject:nameCopy forKeyedSubscript:@"Name"];
+
+  v11 = [objc_alloc(MEMORY[0x277CBFC40]) initWithLocation:0 addressDictionary:v10 region:0 areasOfInterest:0];
+  v12 = [objc_alloc(MEMORY[0x277D3A3D8]) initWithPlacemark:v11 category:categoryCopy mostRelevantRecord:0];
+  v13 = [objc_alloc(MEMORY[0x277D3A4A8]) initWithLocation:v12 score:score sentimentScore:sentimentScore];
+
+  return v13;
 }
 
 + (unsigned)namedEntityCategoryToLocationCategory:(unint64_t)category

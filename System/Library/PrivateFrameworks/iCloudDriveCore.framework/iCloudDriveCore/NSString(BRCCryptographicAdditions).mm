@@ -10,13 +10,12 @@
 
 - (id)brc_SHA256
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   uTF8String = [self UTF8String];
-  memset(v6, 0, sizeof(v6));
+  memset(v5, 0, sizeof(v5));
   v2 = strlen(uTF8String);
-  CC_SHA256(uTF8String, v2, v6);
-  v3 = [MEMORY[0x277CBEA90] dataWithBytes:v6 length:32];
-  v4 = *MEMORY[0x277D85DE8];
+  CC_SHA256(uTF8String, v2, v5);
+  v3 = [MEMORY[0x277CBEA90] dataWithBytes:v5 length:32];
 
   return v3;
 }
@@ -24,7 +23,7 @@
 + (__CFString)brc_hexadecimalStringWithBytes:()BRCCryptographicAdditions length:
 {
   v4 = a4;
-  v16[128] = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = [objc_alloc(MEMORY[0x277CCAB68]) initWithCapacity:2 * a4];
   if (v6)
   {
@@ -40,7 +39,7 @@
         v7 = v4;
       }
 
-      v8 = v16;
+      v8 = &cStr[1];
       v9 = a3;
       v10 = v7;
       do
@@ -61,14 +60,12 @@
     v12 = v6;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)brc_SHA1WithSalt:()BRCCryptographicAdditions
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v6 = a3;
   uTF8String = [self UTF8String];
@@ -78,14 +75,13 @@
   v10 = strlen(uTF8String2);
   CCHmac(0, uTF8String, v9, uTF8String2, v10, macOut);
   v11 = [MEMORY[0x277CCACA8] brc_hexadecimalStringWithBytes:macOut length:20];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)brc_SHA256WithSalt:()BRCCryptographicAdditions
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v6 = a3;
   uTF8String = [self UTF8String];
@@ -93,9 +89,8 @@
   v9 = strlen(uTF8String);
   v10 = [v6 length];
 
-  CCHmac(2u, uTF8String, v9, bytes, v10, &v14);
-  v11 = [MEMORY[0x277CBEA90] dataWithBytes:&v14 length:32];
-  v12 = *MEMORY[0x277D85DE8];
+  CCHmac(2u, uTF8String, v9, bytes, v10, &v13);
+  v11 = [MEMORY[0x277CBEA90] dataWithBytes:&v13 length:32];
 
   return v11;
 }

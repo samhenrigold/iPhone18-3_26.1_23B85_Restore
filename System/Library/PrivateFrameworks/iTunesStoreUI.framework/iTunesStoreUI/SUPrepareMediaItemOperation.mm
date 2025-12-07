@@ -53,15 +53,21 @@
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
@@ -72,27 +78,25 @@
     v19 = objc_opt_class();
     v20 = 2112;
     v21 = [v6 URL];
-    LODWORD(v16) = 22;
-    v15 = &v18;
-    v10 = _os_log_send_and_compose_impl();
-    if (v10)
+    v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Making HEAD request for URL: %@", &v18, 22);
+    if (v11)
     {
-      v11 = v10;
-      v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v18, v16}];
-      free(v11);
-      v15 = v12;
+      v12 = v11;
+      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v12);
+      v16 = v13;
       SSFileLog();
     }
   }
 
-  v13 = [(SUPrepareMediaItemOperation *)self runSubOperation:v5 returningError:&v17, v15];
+  v14 = [(SUPrepareMediaItemOperation *)self runSubOperation:v5 returningError:&v17, v16];
 
   if (request)
   {
     *request = v17;
   }
 
-  return v13;
+  return v14;
 }
 
 @end

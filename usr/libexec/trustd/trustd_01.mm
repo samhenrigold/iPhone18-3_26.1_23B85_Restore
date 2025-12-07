@@ -1,357 +1,3 @@
-uint64_t sub_10000E860(uint64_t a1, __CFArray *a2)
-{
-  if (*(a1 + 192) < 1)
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = **(a1 + 184);
-  }
-
-  LODWORD(v5) = off_1000927D0(off_1000927C0, a2, v4);
-  if (off_1000927B8(off_1000927A8, a2, v4))
-  {
-    LODWORD(v5) = v5 | 2;
-  }
-
-  if (off_100092800())
-  {
-    v5 = v5 | 8;
-  }
-
-  else
-  {
-    v5 = v5;
-  }
-
-  v6 = *(a1 + 56);
-  if (v6)
-  {
-    if ((*(v6 + 16))(v6, a2, v4))
-    {
-      return v5 | 4;
-    }
-
-    else
-    {
-      return v5;
-    }
-  }
-
-  return v5;
-}
-
-void sub_10000E934(CFTypeRef *a1)
-{
-  CFRelease(a1[3]);
-  CFRelease(a1[4]);
-
-  free(a1);
-}
-
-__CFArray *sub_10000E97C()
-{
-  Mutable = CFDictionaryCreateMutable(0, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  if (!Mutable)
-  {
-    return 0;
-  }
-
-  v1 = Mutable;
-  v2 = CFDictionaryCreateMutable(0, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  if (!v2)
-  {
-    CFRelease(v1);
-    return 0;
-  }
-
-  v3 = v2;
-  v4 = CFDictionaryCreateMutable(0, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  if (v4)
-  {
-    v5 = v4;
-    valuePtr = 1;
-    v6 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-    if (v6)
-    {
-      v7 = v6;
-      CFDictionaryAddValue(v5, @"kSecTrustSettingsResult", v6);
-      CFDictionaryAddValue(v1, kSecPolicyCheckSystemTrustedWeakHash, kCFBooleanTrue);
-      CFDictionaryAddValue(v1, kSecPolicyCheckSystemTrustedWeakKey, kCFBooleanTrue);
-      CFDictionaryAddValue(v3, @"kSecTrustSettingsPolicyOptions", v1);
-      v8 = CFArrayCreateMutable(0, 2, &kCFTypeArrayCallBacks);
-      v9 = v8;
-      if (v8)
-      {
-        CFArrayAppendValue(v8, v3);
-        CFArrayAppendValue(v9, v5);
-      }
-
-      CFRelease(v1);
-    }
-
-    else
-    {
-      v9 = 0;
-      v7 = v1;
-    }
-
-    CFRelease(v7);
-    CFRelease(v5);
-  }
-
-  else
-  {
-    CFRelease(v1);
-    v9 = 0;
-  }
-
-  CFRelease(v3);
-  return v9;
-}
-
-uint64_t sub_10000EB24(const __CFDictionary *a1)
-{
-  Value = CFDictionaryGetValue(a1, @"kSecTrustSettingsResult");
-  valuePtr = 0;
-  if (!Value)
-  {
-    return 1;
-  }
-
-  v2 = Value;
-  v3 = CFGetTypeID(Value);
-  if (v3 != CFNumberGetTypeID())
-  {
-    return 1;
-  }
-
-  if (CFNumberGetValue(v2, kCFNumberSInt32Type, &valuePtr))
-  {
-    return valuePtr;
-  }
-
-  return 1;
-}
-
-uint64_t sub_10000EB98(void *a1, const void *a2, CFDictionaryRef theDict)
-{
-  Value = CFDictionaryGetValue(theDict, @"kSecTrustSettingsPolicy");
-  v6 = CFDictionaryGetValue(theDict, @"kSecTrustSettingsPolicyName");
-  v7 = CFDictionaryGetValue(theDict, @"kSecTrustSettingsPolicyString");
-  v8 = CFDictionaryGetValue(theDict, @"kSecTrustSettingsKeyUsage");
-  v9 = CFDictionaryGetValue(theDict, @"kSecTrustSettingsPolicyOptions");
-  v44 = -1;
-  v10 = sub_10000EFE8(a1, Value, v6, &v44);
-  v11 = v44;
-  v43 = v10;
-  if (v7)
-  {
-    v12 = CFGetTypeID(v7);
-    if (v12 != CFStringGetTypeID())
-    {
-      v15 = 0;
-LABEL_22:
-      v11 = v44;
-      goto LABEL_23;
-    }
-
-    Length = CFStringGetLength(v7);
-    if (CFStringGetCharacterAtIndex(v7, Length - 1))
-    {
-      v14 = 0;
-    }
-
-    else
-    {
-      v16 = CFStringGetLength(v7);
-      v17 = CFStringGetLength(v7);
-      v14 = kCFAllocatorDefault;
-      if (v17 >= v16)
-      {
-        v47.length = v16 - 1;
-        v47.location = 0;
-        Copy = CFStringCreateWithSubstring(kCFAllocatorDefault, v7, v47);
-LABEL_9:
-        v19 = Copy;
-        if (v11 < 0 || !Copy)
-        {
-          v15 = 0;
-          if (!Copy)
-          {
-            goto LABEL_22;
-          }
-
-          goto LABEL_21;
-        }
-
-        if (CFArrayGetCount(a1[1]) <= v11)
-        {
-          goto LABEL_20;
-        }
-
-        ValueAtIndex = CFArrayGetValueAtIndex(a1[1], v11);
-        v21 = CFDictionaryGetValue(ValueAtIndex[4], kSecPolicyCheckSSLHostname);
-        if (v21 || (v21 = CFDictionaryGetValue(ValueAtIndex[4], kSecPolicyCheckEmail)) != 0)
-        {
-          v15 = 1;
-          if (CFStringCompare(v19, v21, 1uLL) == kCFCompareEqualTo)
-          {
-            goto LABEL_21;
-          }
-        }
-
-        v22 = CFDictionaryGetValue(ValueAtIndex[4], kSecPolicyCheckEAPTrustedServerNames);
-        if (v22 && (v23 = v22, v46.length = CFArrayGetCount(v22), v46.location = 0, CFArrayContainsValue(v23, v46, v19)))
-        {
-          v15 = 1;
-        }
-
-        else
-        {
-LABEL_20:
-          v15 = 0;
-        }
-
-LABEL_21:
-        CFRelease(v19);
-        goto LABEL_22;
-      }
-    }
-
-    Copy = CFStringCreateCopy(v14, v7);
-    goto LABEL_9;
-  }
-
-  v15 = 0;
-LABEL_23:
-  *valuePtr = 0;
-  if (!v8)
-  {
-    goto LABEL_27;
-  }
-
-  v24 = CFGetTypeID(v8);
-  if (v24 != CFNumberGetTypeID() || !CFNumberGetValue(v8, kCFNumberSInt64Type, valuePtr))
-  {
-    v25 = 0;
-    if (!v9)
-    {
-      goto LABEL_32;
-    }
-
-    goto LABEL_30;
-  }
-
-  if (*valuePtr == 0xFFFFFFFFLL)
-  {
-LABEL_27:
-    v25 = 1;
-    if (!v9)
-    {
-      goto LABEL_32;
-    }
-
-    goto LABEL_30;
-  }
-
-  v41 = Value;
-  if (sub_10000EFE8(a1, kSecPolicyAppleOCSPSigner, 0, 0))
-  {
-    v34 = 16;
-  }
-
-  else
-  {
-    v34 = 0;
-  }
-
-  v35 = *(*a1 + 200);
-  if (v35 && sub_1000132A0(v35, a2))
-  {
-    v34 |= 8u;
-  }
-
-  if (v11 < 0 || CFArrayGetCount(a1[1]) <= v11)
-  {
-    Count = CFArrayGetCount(a1[1]);
-    if (Count >= 1)
-    {
-      v38 = Count;
-      for (i = 0; i != v38; ++i)
-      {
-        v40 = CFArrayGetValueAtIndex(a1[1], i);
-        v34 |= sub_100045AC0(v40[4]);
-      }
-    }
-  }
-
-  else
-  {
-    v36 = CFArrayGetValueAtIndex(a1[1], v11);
-    v34 |= sub_100045AC0(v36[4]);
-  }
-
-  v25 = v34 == *valuePtr;
-  Value = v41;
-  if (v9)
-  {
-LABEL_30:
-    v26 = CFGetTypeID(v9);
-    if (v26 == CFDictionaryGetTypeID())
-    {
-      v27 = Value;
-      v28 = a1[2];
-      a1[2] = qword_100092E20;
-      CFDictionaryApplyFunction(v9, sub_100006C64, a1);
-      a1[2] = qword_100092E28;
-      CFDictionaryApplyFunction(v9, sub_100006C64, a1);
-      a1[2] = v28;
-      Value = v27;
-    }
-  }
-
-LABEL_32:
-  if (CFDictionaryContainsKey(theDict, @"kSecTrustSettingsApplication"))
-  {
-    v29 = sub_1000027AC("SecError");
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
-    {
-      *valuePtr = 0;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "kSecTrustSettingsApplication is not yet supported on this platform", valuePtr, 2u);
-    }
-  }
-
-  v30 = v43;
-  if (!(Value | v6))
-  {
-    v30 = 1;
-  }
-
-  if (v7)
-  {
-    v31 = v15;
-  }
-
-  else
-  {
-    v31 = 1;
-  }
-
-  v32 = v30 & v31 & v25;
-  if (v9)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return v32;
-  }
-}
-
 uint64_t sub_10000EFE8(uint64_t a1, CFTypeRef cf, CFTypeRef a3, CFIndex *a4)
 {
   if (!a3 || (v8 = CFGetTypeID(a3), v8 != CFStringGetTypeID()))
@@ -522,41 +168,20 @@ uint64_t sub_10000F1C0(void *a1, const void *a2)
     {
       if (v9)
       {
-        v13 = *(*a1 + 200);
-        v14 = v5 - *(v13 + 49);
-        if (v14 >= 1)
+        v13 = v5 - *(*(*a1 + 200) + 49);
+        if (v13 >= 1)
         {
-          v15 = 0;
-          while (1)
+          for (j = 0; j < v13; ++j)
           {
-            if (v13)
-            {
-              if ((v15 & 0x8000000000000000) == 0 && *(v13 + 16) > v15)
-              {
-                v16 = *(v13 + 8 * v15 + 136);
-                if (v16)
-                {
-                  v17 = *(v16 + 16);
-                }
-              }
-            }
-
             result = SecCertificateIsStrongKey();
             if ((result & 1) == 0)
             {
-              result = sub_100012178(a1, a2, v15, kCFBooleanFalse, 0, 0);
+              result = sub_100012178(a1, a2, j, kCFBooleanFalse, 0, 0);
               if (!result)
               {
                 break;
               }
             }
-
-            if (++v15 >= v14)
-            {
-              break;
-            }
-
-            v13 = *(*a1 + 200);
           }
         }
       }
@@ -605,41 +230,20 @@ uint64_t sub_10000F340(void *a1, const void *a2)
     {
       if (v9)
       {
-        v13 = *(*a1 + 200);
-        v14 = v5 - *(v13 + 49);
-        if (v14 >= 1)
+        v13 = v5 - *(*(*a1 + 200) + 49);
+        if (v13 >= 1)
         {
-          v15 = 0;
-          while (1)
+          for (j = 0; j < v13; ++j)
           {
-            if (v13)
-            {
-              if ((v15 & 0x8000000000000000) == 0 && *(v13 + 16) > v15)
-              {
-                v16 = *(v13 + 8 * v15 + 136);
-                if (v16)
-                {
-                  v17 = *(v16 + 16);
-                }
-              }
-            }
-
             result = SecCertificateIsWeakHash();
             if (result)
             {
-              result = sub_100012178(a1, a2, v15, kCFBooleanFalse, 0, 0);
+              result = sub_100012178(a1, a2, j, kCFBooleanFalse, 0, 0);
               if (!result)
               {
                 break;
               }
             }
-
-            if (++v15 >= v14)
-            {
-              break;
-            }
-
-            v13 = *(*a1 + 200);
           }
         }
       }
@@ -674,92 +278,78 @@ void sub_10000F4C0(void *a1, CFDictionaryRef theDict, const __CFDate *a3)
 
 void sub_10000F584(uint64_t a1, const __CFDictionary *a2, int a3)
 {
-  v3 = *a1;
   if (!*a1)
   {
     return;
   }
 
-  v4 = *(v3 + 272);
-  if (!v4)
+  v3 = *(*a1 + 272);
+  if (!v3)
   {
     return;
   }
 
-  v8 = *(v3 + 200);
+  v7 = SecCertificateCopySignedCertificateTimestamps();
+  v8 = *(*a1 + 104);
   if (v8)
-  {
-    if (*(v8 + 16) >= 1)
-    {
-      v9 = *(v8 + 136);
-      if (v9)
-      {
-        v10 = *(v9 + 16);
-      }
-    }
-  }
-
-  v11 = SecCertificateCopySignedCertificateTimestamps();
-  v12 = *(*a1 + 104);
-  if (v12)
   {
     CFRetain(*(*a1 + 104));
   }
 
-  v13 = sub_10000B234(a1);
-  if (!v11 || CFArrayGetCount(v11) < 1)
+  v9 = sub_10000B234(a1);
+  if (!v7 || CFArrayGetCount(v7) < 1)
   {
     Count = 0;
-    if (!v12)
+    if (!v8)
     {
-      goto LABEL_16;
+      goto LABEL_12;
     }
 
-LABEL_14:
-    if (CFArrayGetCount(v12) >= 1)
+LABEL_10:
+    if (CFArrayGetCount(v8) >= 1)
     {
-      *(v4 + 11) |= 4u;
-      Count += CFArrayGetCount(v12);
+      *(v3 + 11) |= 4u;
+      Count += CFArrayGetCount(v8);
     }
 
-    goto LABEL_16;
+    goto LABEL_12;
   }
 
-  *(v4 + 11) |= 1u;
-  Count = CFArrayGetCount(v11);
-  if (v12)
+  *(v3 + 11) |= 1u;
+  Count = CFArrayGetCount(v7);
+  if (v8)
   {
-    goto LABEL_14;
+    goto LABEL_10;
   }
 
-LABEL_16:
-  if (v13 && CFArrayGetCount(v13) >= 1)
+LABEL_12:
+  if (v9 && CFArrayGetCount(v9) >= 1)
   {
-    *(v4 + 11) |= 2u;
-    LODWORD(Count) = CFArrayGetCount(v13) + Count;
+    *(v3 + 11) |= 2u;
+    LODWORD(Count) = CFArrayGetCount(v9) + Count;
   }
 
-  *(v4 + 12) = Count;
-  *(v4 + 16) = a3;
+  *(v3 + 12) = Count;
+  *(v3 + 16) = a3;
   if (CFDictionaryGetCount(a2) == 1)
   {
-    *(v4 + 20) = 1;
+    *(v3 + 20) = 1;
   }
 
-  if (v11)
+  if (v7)
   {
-    CFRelease(v11);
+    CFRelease(v7);
   }
 
-  if (v12)
+  if (v8)
   {
-    CFRelease(v12);
+    CFRelease(v8);
   }
 
-  if (v13)
+  if (v9)
   {
 
-    CFRelease(v13);
+    CFRelease(v9);
   }
 }
 
@@ -915,11 +505,12 @@ LABEL_28:
   return v6;
 }
 
-void sub_10000FA50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_10000FA50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a16, 8);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -936,9 +527,9 @@ void sub_10000FA98(uint64_t a1, CFDictionaryRef theDict, const __CFDate *a3)
   }
 }
 
-uint64_t sub_10000FAF4(uint64_t a1, unsigned int a2, uint64_t (*a3)(void))
+uint64_t sub_10000FAF4(uint64_t a1, signed int a2, uint64_t (*a3)(void))
 {
-  if (a2 <= 0xE && (v6 = malloc_type_malloc(8 * a2 + 8, 0x2004093837F09uLL)) != 0)
+  if (a2 <= 0xE && (v6 = malloc_type_malloc((8 * a2 + 8), 0x2004093837F09uLL)) != 0)
   {
     v7 = v6;
     v8 = 0;
@@ -1159,37 +750,22 @@ uint64_t sub_10000FEE4(uint64_t a1, const void *a2)
     v6 = -1;
   }
 
-  v9 = sub_10000B794(a1, off_1000927F0, v8);
-  v10 = *(a1 + 8);
-  if ((v9 & *(*(*a1 + 200) + 49)) != 0)
+  if ((sub_10000B794(a1, off_1000927F0, v8) & *(*(*a1 + 200) + 49)) != 0)
   {
-    v11 = v6;
+    v9 = v6;
   }
 
   else
   {
-    v11 = v5;
+    v9 = v5;
   }
 
   ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 8), *(a1 + 24));
   result = CFDictionaryGetValue(ValueAtIndex[4], a2);
-  if (v11 >= 1)
+  if (v9 >= 1)
   {
-    for (i = 0; i < v11; ++i)
+    for (i = 0; i < v9; ++i)
     {
-      v15 = *(*a1 + 200);
-      if (v15)
-      {
-        if ((i & 0x8000000000000000) == 0 && *(v15 + 16) > i)
-        {
-          v16 = *(v15 + 8 * i + 136);
-          if (v16)
-          {
-            v17 = *(v16 + 16);
-          }
-        }
-      }
-
       result = SecPolicyCheckCertSignatureHashAlgorithms();
       if ((result & 1) == 0)
       {
@@ -1205,7 +781,7 @@ uint64_t sub_10000FEE4(uint64_t a1, const void *a2)
   return result;
 }
 
-uint64_t sub_100010020(uint64_t a1, uint64_t a2, uint64_t *a3, __CFString **a4)
+uint64_t sub_100010020(uint64_t a1, uint64_t a2, Class *a3, const void **a4)
 {
   if (a1 && *(a1 + 36) == 1)
   {
@@ -1221,15 +797,10 @@ uint64_t sub_100010020(uint64_t a1, uint64_t a2, uint64_t *a3, __CFString **a4)
 
     if (byte_100092AE8)
     {
-      v5 = off_1000927B0;
-      if (off_1000927B0)
+      v5 = off_1000927B0[0];
+      if (off_1000927B0[0])
       {
-        v6 = off_1000927A8;
-LABEL_14:
-        v8 = (v5)(v6);
-LABEL_16:
-        *a3 = v8;
-        return 1;
+        goto LABEL_13;
       }
     }
 
@@ -1238,19 +809,22 @@ LABEL_16:
       v5 = off_1000927E0[0];
       if (off_1000927E0[0])
       {
-        v6 = off_1000927D8;
-        goto LABEL_14;
+LABEL_13:
+        v7 = v5();
+LABEL_15:
+        *a3 = v7;
+        return 1;
       }
     }
 
-    v8 = 0;
-    goto LABEL_16;
+    v7 = 0;
+    goto LABEL_15;
   }
 
   return sub_100007D00(a1, a2, 0, a3, a4);
 }
 
-const __CFArray *sub_100010108(uint64_t a1, const void *a2)
+uint64_t sub_100010108(uint64_t a1, const void *a2)
 {
   v4 = *(*a1 + 200);
   if (v4 && *(v4 + 16) >= 1 && (v5 = *(v4 + 136)) != 0)
@@ -1282,7 +856,7 @@ const __CFArray *sub_100010108(uint64_t a1, const void *a2)
   return result;
 }
 
-const __CFArray *sub_100010208(const __CFArray *result, double a2, double a3)
+unint64_t sub_100010208(unint64_t result, double a2, double a3)
 {
   if (result)
   {
@@ -1296,7 +870,7 @@ const __CFArray *sub_100010208(const __CFArray *result, double a2, double a3)
       {
         Count = CFArrayGetCount(v5);
         v10 = v7 < Count;
-        result = (v7 >= Count);
+        result = v7 >= Count;
         if (!v10)
         {
           break;
@@ -1360,41 +934,25 @@ const __CFArray *sub_100010208(const __CFArray *result, double a2, double a3)
 uint64_t sub_10001035C(uint64_t a1, const void *a2)
 {
   v4 = *(*a1 + 200);
-  if (!v4)
+  if (v4 && (v5 = *(v4 + 16), v5 >= 1) && (v6 = *(v4 + 8 * v5 + 128)) != 0)
   {
-    goto LABEL_8;
-  }
-
-  if (*(v4 + 16) >= 1)
-  {
-    v5 = *(v4 + 136);
-    if (v5)
-    {
-      v6 = *(v5 + 16);
-    }
-  }
-
-  v7 = *(v4 + 16);
-  if (v7 >= 1 && (v8 = *(v4 + 8 * v7 + 128)) != 0)
-  {
-    v9 = *(v8 + 16);
+    v7 = *(v6 + 16);
   }
 
   else
   {
-LABEL_8:
-    v9 = 0;
+    v7 = 0;
   }
 
-  result = sub_100045FC0(v9, a1, @"TestSystemRoot");
+  result = sub_100045FC0(v7, a1, @"TestSystemRoot");
   if (result)
   {
     ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 8), *(a1 + 24));
     Value = CFDictionaryGetValue(ValueAtIndex[4], a2);
     SecCertificateNotValidBefore();
-    v14 = v13;
+    v12 = v11;
     SecCertificateNotValidAfter();
-    result = sub_100010208(Value, v14, v15);
+    result = sub_100010208(Value, v12, v13);
     if ((result & 1) == 0)
     {
 
@@ -1410,83 +968,61 @@ void sub_100010480(void *a1, const void *a2)
   v4 = *(*a1 + 200);
   if (v4)
   {
-    if (*(v4 + 16) >= 1)
+    v5 = *(v4 + 16);
+    v6 = v5 - 1;
+    if (v5 >= 1 && (v7 = *(v4 + 8 * v6 + 136)) != 0)
     {
-      v5 = *(v4 + 136);
-      if (v5)
-      {
-        v6 = *(v5 + 16);
-      }
-    }
-
-    v7 = *(v4 + 16);
-    v8 = v7 - 1;
-    if (v7 >= 1 && (v9 = *(v4 + 8 * v8 + 136)) != 0)
-    {
-      v10 = *(v9 + 16);
+      v8 = *(v7 + 16);
     }
 
     else
     {
-      v10 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    v7 = 0;
-    v10 = 0;
-    v8 = -1;
+    v5 = 0;
+    v8 = 0;
+    v6 = -1;
   }
 
-  if (sub_100045FC0(v10, a1, @"TestSystemRoot"))
+  if (sub_100045FC0(v8, a1, @"TestSystemRoot"))
   {
     if ((SecPolicyCheckCertExtendedKeyUsage() & 1) == 0)
     {
       sub_100012178(a1, a2, 0, kCFBooleanFalse, 0, 0);
     }
 
-    if (v7 >= 3)
+    if (v5 >= 3)
     {
-      v11 = 18;
+      v9 = 18;
       do
       {
-        v12 = *(*a1 + 200);
-        if (v12)
+        v10 = SecCertificateCopyExtendedKeyUsage();
+        if (v10)
         {
-          if (((v11 - 17) & 0x8000000000000000) == 0 && *(v12 + 16) > v11 - 17)
-          {
-            v13 = *(v12 + 8 * v11);
-            if (v13)
-            {
-              v14 = *(v13 + 16);
-            }
-          }
-        }
-
-        v15 = SecCertificateCopyExtendedKeyUsage();
-        if (v15)
-        {
-          v16 = v15;
-          if (CFArrayGetCount(v15) && (SecPolicyCheckCertExtendedKeyUsage() & 1) == 0 && (SecPolicyCheckCertExtendedKeyUsage() & 1) == 0)
+          v11 = v10;
+          if (CFArrayGetCount(v10) && (SecPolicyCheckCertExtendedKeyUsage() & 1) == 0 && (SecPolicyCheckCertExtendedKeyUsage() & 1) == 0)
           {
             sub_100012178(a1, a2, 0, kCFBooleanFalse, 0, 0);
           }
 
-          CFRelease(v16);
+          CFRelease(v11);
         }
 
-        ++v11;
+        ++v9;
       }
 
-      while (1 - v8 + v11 != 18);
+      while (1 - v6 + v9 != 18);
     }
   }
 
-  else if (!sub_10000B794(a1, off_1000927F0, v10))
+  else if (!sub_10000B794(a1, off_1000927F0, v8))
   {
     SecCertificateNotValidBefore();
-    if (v17 > 583628400.0 && (SecPolicyCheckCertExtendedKeyUsage() & 1) == 0)
+    if (v12 > 583628400.0 && (SecPolicyCheckCertExtendedKeyUsage() & 1) == 0)
     {
 
       sub_100012178(a1, a2, 0, kCFBooleanFalse, 0, 0);
@@ -1494,19 +1030,19 @@ void sub_100010480(void *a1, const void *a2)
   }
 }
 
-void sub_1000106E0(uint64_t a1, const __CFData *a2)
+void sub_1000106E0(void *a1, const __CFData *a2)
 {
   v6 = NAN;
-  v3 = sub_10001078C(a2, 1, *(a1 + 48), *(a1 + 56), *(a1 + 64), &v6, *(*(*(a1 + 32) + 8) + 24));
+  v3 = sub_10001078C(a2, 1, a1[6], a1[7], a1[8], &v6, *(*(a1[4] + 8) + 24));
   if (v3)
   {
     v4 = v3;
     v5 = v6;
-    sub_100010D44(*(a1 + 72), v3, v6);
+    sub_100010D44(a1[9], v3, v6);
     if (!CFDictionaryContainsKey(v4, @"expiry"))
     {
-      sub_100010D44(*(a1 + 80), v4, v5);
-      *(*(*(a1 + 40) + 8) + 24) = 1;
+      sub_100010D44(a1[10], v4, v5);
+      *(*(a1[5] + 8) + 24) = 1;
     }
   }
 }
@@ -1550,20 +1086,20 @@ const __CFDictionary *sub_10001078C(const __CFData *a1, uint64_t a2, const __CFD
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v56) = v23;
+      LODWORD(v54) = v23;
       _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "SCT version unsupported: %d\n", buf, 8u);
     }
 
     goto LABEL_16;
   }
 
-  v52 = a2;
+  v51 = a2;
   v25 = 0;
   v26 = 0;
   v27 = BytePtr + 33;
   do
   {
-    v26 = (*(v27 + v25++) | (v26 << 8));
+    v26 = *(v27 + v25++) | (v26 << 8);
   }
 
   while (v25 != 8);
@@ -1573,18 +1109,18 @@ const __CFDictionary *sub_10001078C(const __CFData *a1, uint64_t a2, const __CFD
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v56 = v26;
-      v57 = 2048;
-      v58 = a4;
+      v54 = v26;
+      v55 = 2048;
+      v56 = a4;
       _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "SCT is in the future: %llu > %llu\n", buf, 0x16u);
     }
 
     goto LABEL_16;
   }
 
-  v48 = v22[1];
-  v49 = *v22;
-  if (CFDataGetLength(a3) < 1 || CFDataGetLength(a3) > 1048574 || (v51 = a6, v47 = v18 + CFDataGetLength(a3), (v32 = malloc_type_malloc(v47 + 14, 0x2F6A79A8uLL)) == 0))
+  v47 = v22[1];
+  v48 = *v22;
+  if (CFDataGetLength(a3) < 1 || CFDataGetLength(a3) > 1048574 || (v50 = a6, v46 = v18 + CFDataGetLength(a3), (v32 = malloc_type_malloc(v46 + 14, 0x2F6A79A8uLL)) == 0))
   {
 LABEL_16:
     v29 = 0;
@@ -1595,8 +1131,8 @@ LABEL_16:
   *v32 = 0;
   *(v32 + 2) = *v27;
   v32[10] = 0;
-  v32[11] = v52;
-  v50 = v32;
+  v32[11] = v51;
+  v49 = v32;
   v33 = v32 + 12;
   v34 = CFDataGetBytePtr(a3);
   v35 = CFDataGetLength(a3);
@@ -1612,18 +1148,18 @@ LABEL_16:
   {
 LABEL_44:
     v44 = 0;
-    v30 = v50;
+    v30 = v49;
     if (!v37)
     {
-      goto LABEL_60;
+      goto LABEL_55;
     }
 
-LABEL_59:
+LABEL_54:
     CFRelease(v37);
-    goto LABEL_60;
+    goto LABEL_55;
   }
 
-  if (!v52 && CFDictionaryContainsKey(Value, @"expiry"))
+  if (!v51 && CFDictionaryContainsKey(Value, @"expiry"))
   {
     v29 = 0;
     goto LABEL_44;
@@ -1634,11 +1170,11 @@ LABEL_59:
   if (v40 && CFDateGetAbsoluteTime(v40) < v39)
   {
     v41 = sub_1000027AC("SecError");
-    v30 = v50;
+    v30 = v49;
     if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v56 = v29;
+      v54 = v29;
       _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Frozen CT log issued SCT after freezing (log=%@)\n", buf, 0xCu);
     }
 
@@ -1647,15 +1183,15 @@ LABEL_40:
     v44 = 0;
     if (!v37)
     {
-      goto LABEL_60;
+      goto LABEL_55;
     }
 
-    goto LABEL_59;
+    goto LABEL_54;
   }
 
   v42 = CFDictionaryGetValue(v29, @"start_inclusive");
   v43 = CFDictionaryGetValue(v29, @"end_exclusive");
-  v30 = v50;
+  v30 = v49;
   if (v42 && CFDateGetAbsoluteTime(v42) > a7 || v43 && CFDateGetAbsoluteTime(v43) <= a7 || !CFDictionaryGetValue(v29, @"key"))
   {
     goto LABEL_40;
@@ -1664,78 +1200,49 @@ LABEL_40:
   v44 = SecKeyCreateFromSubjectPublicKeyInfoData();
   if (!v44)
   {
-LABEL_58:
+LABEL_53:
     v29 = 0;
     if (!v37)
     {
-      goto LABEL_60;
+      goto LABEL_55;
     }
 
-    goto LABEL_59;
+    goto LABEL_54;
   }
 
-  if (v48 == 3)
+  if (v47 == 3)
   {
-    switch(v49)
+    if (v48 != 2 && v48 != 5 && v48 != 4)
     {
-      case 2:
-        v45 = &CSSMOID_ECDSA_WithSHA1;
-        break;
-      case 5:
-        v45 = &CSSMOID_ECDSA_WithSHA384;
-        break;
-      case 4:
-        v45 = &CSSMOID_ECDSA_WithSHA256;
-        break;
-      default:
-        goto LABEL_58;
+      goto LABEL_53;
     }
   }
 
-  else
+  else if (v47 != 1 || v48 != 2 && v48 != 5 && v48 != 4)
   {
-    if (v48 != 1)
-    {
-      goto LABEL_58;
-    }
-
-    switch(v49)
-    {
-      case 2:
-        v45 = &CSSMOID_SHA1WithRSA;
-        break;
-      case 5:
-        v45 = &CSSMOID_SHA384WithRSA;
-        break;
-      case 4:
-        v45 = &CSSMOID_SHA256WithRSA;
-        break;
-      default:
-        goto LABEL_58;
-    }
+    goto LABEL_53;
   }
 
-  v54 = *v45;
   if (SecKeyDigestAndVerify())
   {
-    v46 = sub_1000027AC("SecError");
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+    v45 = sub_1000027AC("SecError");
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v56 = v29;
-      _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "SCT signature failed (log=%@)\n", buf, 0xCu);
+      v54 = v29;
+      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "SCT signature failed (log=%@)\n", buf, 0xCu);
     }
 
-    goto LABEL_58;
+    goto LABEL_53;
   }
 
-  *v51 = v39;
+  *v50 = v39;
   if (v37)
   {
-    goto LABEL_59;
+    goto LABEL_54;
   }
 
-LABEL_60:
+LABEL_55:
   if (v44)
   {
     CFRelease(v44);
@@ -1761,7 +1268,7 @@ void sub_100010D44(const __CFDictionary *a1, const void *a2, CFAbsoluteTime a3)
   }
 }
 
-BOOL sub_100010DE4(sqlite3_stmt *a1, uint64_t a2, const void *a3, unint64_t a4, CFTypeRef *a5)
+BOOL sub_100010DE4(sqlite3_stmt *a1, uint64_t a2, const void *a3, unint64_t a4, CFErrorRef *a5)
 {
   if (a4 >> 31)
   {
@@ -1878,81 +1385,79 @@ LABEL_17:
   }
 }
 
-uint64_t sub_1000110F0(uint64_t *a1, uint64_t a2, double a3)
+uint64_t sub_1000110F0(uint64_t *a1, SecCertificateRef *a2, double a3)
 {
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2000000000;
-  v36 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2000000000;
-  v32 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2000000000;
-  v28 = 1;
-  v6 = *(a2 + 8);
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2000000000;
+  v34 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2000000000;
+  v30 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2000000000;
+  v26 = 1;
   PublicKeyData = SecCertificateGetPublicKeyData();
   if (PublicKeyData)
   {
-    v8 = PublicKeyData;
-    v9 = *a2;
-    v10 = SecCertificateCopyIssuerSequence();
-    if (v10)
+    v7 = PublicKeyData;
+    v8 = SecCertificateCopyIssuerSequence();
+    if (v8)
     {
-      v11 = v10;
-      v12 = SecCertificateCopySerialNumberData(*a2, 0);
-      if (v12)
+      v9 = v8;
+      v10 = SecCertificateCopySerialNumberData(*a2, 0);
+      if (v10)
       {
-        v13 = v12;
-        if (CFDataGetLength(v12) >= 1 && *(v8 + 8) <= 0x7FFFFFFFFFFFFFFEuLL)
+        v11 = v10;
+        if (CFDataGetLength(v10) >= 1 && *(v7 + 8) <= 0x7FFFFFFFFFFFFFFEuLL)
         {
-          v14 = *a1;
-          v24[0] = _NSConcreteStackBlock;
-          v24[1] = 0x40000000;
-          v24[2] = sub_1000113B8;
-          v24[3] = &unk_100083508;
-          v24[4] = &v25;
-          v24[5] = &v29;
-          v24[8] = v11;
-          v24[9] = v8;
-          *&v24[10] = a3;
-          v24[6] = &v33;
-          v24[7] = v13;
-          v15 = sub_100004B74(v14, (v30 + 3), v24);
-          *(v26 + 24) &= v15;
+          v12 = *a1;
+          v22[0] = _NSConcreteStackBlock;
+          v22[1] = 0x40000000;
+          v22[2] = sub_1000113B8;
+          v22[3] = &unk_100083508;
+          v22[4] = &v23;
+          v22[5] = &v27;
+          v22[8] = v9;
+          v22[9] = v7;
+          *&v22[10] = a3;
+          v22[6] = &v31;
+          v22[7] = v11;
+          v13 = sub_100004B74(v12, (v28 + 3), v22);
+          *(v24 + 24) &= v13;
         }
 
-        CFRelease(v13);
+        CFRelease(v11);
       }
 
-      CFRelease(v11);
+      CFRelease(v9);
     }
   }
 
-  if (*(v26 + 24) != 1 || v30[3])
+  if (*(v24 + 24) != 1 || v28[3])
   {
-    v16 = sub_1000027AC("SecError");
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_1000027AC("SecError");
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = v30[3];
+      v15 = v28[3];
       *buf = 138412290;
-      v38 = v17;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "ocsp cache lookup failed: %@", buf, 0xCu);
+      v36 = v15;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "ocsp cache lookup failed: %@", buf, 0xCu);
     }
 
-    v18 = v34[3];
-    if (v18)
+    v16 = v32[3];
+    if (v16)
     {
-      sub_100019788(v18);
-      v34[3] = 0;
+      sub_100019788(v16);
+      v32[3] = 0;
     }
 
-    v19 = v30[3];
-    if (v19)
+    v17 = v28[3];
+    if (v17)
     {
-      Code = CFErrorGetCode(v19);
+      Code = CFErrorGetCode(v17);
     }
 
     else
@@ -1961,18 +1466,18 @@ uint64_t sub_1000110F0(uint64_t *a1, uint64_t a2, double a3)
     }
 
     sub_100054DC0(2, 3, Code);
-    v21 = v30[3];
-    if (v21)
+    v19 = v28[3];
+    if (v19)
     {
-      CFRelease(v21);
+      CFRelease(v19);
     }
   }
 
-  v22 = v34[3];
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v33, 8);
-  return v22;
+  v20 = v32[3];
+  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v31, 8);
+  return v20;
 }
 
 uint64_t sub_100011378(uint64_t a1, uint64_t *a2)
@@ -2080,19 +1585,6 @@ uint64_t sub_100011604(void *a1, const void *a2)
   {
     for (i = 0; i < v5; ++i)
     {
-      v12 = *(*a1 + 200);
-      if (v12)
-      {
-        if ((i & 0x8000000000000000) == 0 && *(v12 + 16) > i)
-        {
-          v13 = *(v12 + 8 * i + 136);
-          if (v13)
-          {
-            v14 = *(v13 + 16);
-          }
-        }
-      }
-
       result = SecCertificateIsAtLeastMinKeySize();
       if ((result & 1) == 0)
       {
@@ -2110,19 +1602,6 @@ uint64_t sub_100011604(void *a1, const void *a2)
 
 uint64_t sub_100011734(uint64_t a1, const void *a2)
 {
-  v4 = *(*a1 + 200);
-  if (v4)
-  {
-    if (*(v4 + 16) >= 1)
-    {
-      v5 = *(v4 + 136);
-      if (v5)
-      {
-        v6 = *(v5 + 16);
-      }
-    }
-  }
-
   ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 8), *(a1 + 24));
   CFDictionaryGetValue(ValueAtIndex[4], a2);
   result = SecPolicyCheckCertSubjectOrganization();
@@ -2137,19 +1616,6 @@ uint64_t sub_100011734(uint64_t a1, const void *a2)
 
 uint64_t sub_1000117F4(uint64_t a1, const void *a2)
 {
-  v4 = *(*a1 + 200);
-  if (v4)
-  {
-    if (*(v4 + 16) >= 1)
-    {
-      v5 = *(v4 + 136);
-      if (v5)
-      {
-        v6 = *(v5 + 16);
-      }
-    }
-  }
-
   ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 8), *(a1 + 24));
   Value = CFDictionaryGetValue(ValueAtIndex[4], a2);
   CFDictionaryGetValue(Value, kSecPolicyLeafMarkerProd);
@@ -2158,18 +1624,18 @@ uint64_t sub_1000117F4(uint64_t a1, const void *a2)
   {
     if ((SecIsInternalRelease() & 1) == 0 && (sub_100003C24() & 1) == 0 && !CFPreferencesGetAppBooleanValue(@"AppleServerAuthenticationAllowUATIdMS", @"com.apple.security", 0) || (CFDictionaryGetValue(Value, kSecPolicyLeafMarkerQA), result = SecPolicyCheckCertLeafMarkerOid(), (result & 1) == 0))
     {
-      v10 = kSecPolicyCheckLeafMarkersProdAndQA;
+      v7 = kSecPolicyCheckLeafMarkersProdAndQA;
 
-      return sub_100012178(a1, v10, 0, kCFBooleanFalse, 1, 0);
+      return sub_100012178(a1, v7, 0, kCFBooleanFalse, 1, 0);
     }
   }
 
   return result;
 }
 
-void sub_100011920(uint64_t a1, const void *a2)
+void sub_100011920(uint64_t *a1, const void *a2)
 {
-  ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 8), *(a1 + 24));
+  ValueAtIndex = CFArrayGetValueAtIndex(a1[1], a1[3]);
   Value = CFDictionaryGetValue(ValueAtIndex[4], a2);
   if (Value)
   {
@@ -2236,17 +1702,16 @@ void sub_100011A9C(void *a1, uint64_t a2)
   v4 = *(a1[6] + 8);
   if (*(v4 + 24) == 1)
   {
-    v5 = *(a1[5] + 8);
-    v6 = (*(a1[4] + 16))();
+    v5 = (*(a1[4] + 16))();
     v4 = *(a1[6] + 8);
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  *(v4 + 24) = v6;
+  *(v4 + 24) = v5;
 
   free(v3);
 }
@@ -2534,36 +1999,36 @@ uint64_t sub_100012178(uint64_t a1, CFTypeRef cf1, CFIndex a3, const void *a4, i
 
   if (v20 == 5)
   {
-    v66 = 0;
+    v63 = 0;
     v21 = *(*a1 + 200);
     v22 = *(v21 + 8 * a3 + 136);
     v23 = *(v22 + 24);
-    v64 = a4;
+    v61 = a4;
     if (v21)
     {
       if ((a3 & 0x8000000000000000) == 0)
       {
-        v66 = 0;
+        v63 = 0;
         if (*(v21 + 16) > a3)
         {
           if (v22)
           {
-            v66 = *(v22 + 16);
+            v63 = *(v22 + 16);
           }
         }
       }
     }
 
-    v65 = a3;
+    v62 = a3;
     Count = CFArrayGetCount(v23);
     if (Count >= 1)
     {
       v25 = Count;
       v26 = 0;
       cf2 = kSecPolicyCheckSSLHostname;
-      v62 = kSecPolicyCheckEmail;
-      v61 = kSecPolicyCheckTemporalValidity;
-      v60 = kSecPolicyCheckValidLeaf;
+      v59 = kSecPolicyCheckEmail;
+      v58 = kSecPolicyCheckTemporalValidity;
+      v57 = kSecPolicyCheckValidLeaf;
       v27 = 1;
       while (1)
       {
@@ -2580,7 +2045,7 @@ uint64_t sub_100012178(uint64_t a1, CFTypeRef cf1, CFIndex a3, const void *a4, i
             {
               v32 = Value;
               v33 = CFGetTypeID(Value);
-              if (v33 == CFNumberGetTypeID() && CFNumberGetValue(v32, kCFNumberSInt32Type, &valuePtr) && sub_10000EB98(a1, v66, v29))
+              if (v33 == CFNumberGetTypeID() && CFNumberGetValue(v32, kCFNumberSInt32Type, &valuePtr) && sub_10000EB98(a1, v63, v29))
               {
                 v34 = -2147409654;
                 v35 = valuePtr;
@@ -2589,12 +2054,12 @@ uint64_t sub_100012178(uint64_t a1, CFTypeRef cf1, CFIndex a3, const void *a4, i
                   v34 = -2147408896;
                 }
 
-                else if (CFEqual(cf1, v62))
+                else if (CFEqual(cf1, v59))
                 {
                   v34 = -2147408872;
                 }
 
-                else if (!CFEqual(cf1, v61) && !CFEqual(cf1, v60))
+                else if (!CFEqual(cf1, v58) && !CFEqual(cf1, v57))
                 {
                   v34 = 0;
                 }
@@ -2617,16 +2082,16 @@ uint64_t sub_100012178(uint64_t a1, CFTypeRef cf1, CFIndex a3, const void *a4, i
 
       if (v27)
       {
-        v48 = sub_1000027AC("policy");
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+        v45 = sub_1000027AC("policy");
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
         {
           valuePtr = 67109378;
-          *v68 = v65;
-          *&v68[4] = 2112;
-          *&v68[6] = cf1;
-          v49 = "cert[%d]: skipped allowed error %@";
-LABEL_84:
-          _os_log_debug_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEBUG, v49, &valuePtr, 0x12u);
+          *v65 = v62;
+          *&v65[4] = 2112;
+          *&v65[6] = cf1;
+          v46 = "cert[%d]: skipped allowed error %@";
+LABEL_79:
+          _os_log_debug_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEBUG, v46, &valuePtr, 0x12u);
         }
 
         return 1;
@@ -2635,14 +2100,14 @@ LABEL_84:
 
 LABEL_39:
     v36 = *(*a1 + 128);
-    a4 = v64;
-    a3 = v65;
+    a4 = v61;
+    a3 = v62;
     v20 = 5;
     if (v36)
     {
-      if (CFArrayGetCount(*(*a1 + 128)) > v65)
+      if (CFArrayGetCount(*(*a1 + 128)) > v62)
       {
-        v37 = CFArrayGetValueAtIndex(v36, v65);
+        v37 = CFArrayGetValueAtIndex(v36, v62);
         if (v37)
         {
           v38 = v37;
@@ -2652,46 +2117,33 @@ LABEL_39:
             v40 = kSecCertificateDetailSHA1Digest;
             if (CFDictionaryContainsKey(v38, kSecCertificateDetailSHA1Digest))
             {
-              v41 = *(*a1 + 200);
-              if (v41)
-              {
-                if ((v65 & 0x8000000000000000) == 0 && *(v41 + 16) > v65)
-                {
-                  v42 = *(v41 + 8 * v65 + 136);
-                  if (v42)
-                  {
-                    v43 = *(v42 + 16);
-                  }
-                }
-              }
-
               SHA1Digest = SecCertificateGetSHA1Digest();
-              v45 = CFDictionaryGetValue(v38, v40);
-              if (CFEqual(SHA1Digest, v45))
+              v42 = CFDictionaryGetValue(v38, v40);
+              if (CFEqual(SHA1Digest, v42))
               {
-                v46 = CFDictionaryGetValue(v38, cf1);
-                if (v46)
+                v43 = CFDictionaryGetValue(v38, cf1);
+                if (v43)
                 {
-                  if (CFEqual(v64, v46))
+                  if (CFEqual(v61, v43))
                   {
-                    v47 = *(a1 + 64);
-                    if (v47 > 7 || ((1 << v47) & 0xE8) == 0)
+                    v44 = *(a1 + 64);
+                    if (v44 > 7 || ((1 << v44) & 0xE8) == 0)
                     {
                       *(a1 + 64) = 1;
                     }
 
-                    v48 = sub_1000027AC("policy");
-                    if (!os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+                    v45 = sub_1000027AC("policy");
+                    if (!os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
                     {
                       return 1;
                     }
 
                     valuePtr = 67109378;
-                    *v68 = v65;
-                    *&v68[4] = 2112;
-                    *&v68[6] = cf1;
-                    v49 = "cert[%d]: skipped exception error %@";
-                    goto LABEL_84;
+                    *v65 = v62;
+                    *&v65[4] = 2112;
+                    *&v65[6] = cf1;
+                    v46 = "cert[%d]: skipped exception error %@";
+                    goto LABEL_79;
                   }
                 }
               }
@@ -2702,63 +2154,63 @@ LABEL_39:
     }
   }
 
-  v50 = sub_1000027AC("policy");
-  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+  v47 = sub_1000027AC("policy");
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
   {
-    v51 = *(a1 + 16);
-    if (v51 == qword_100092E28)
+    v48 = *(a1 + 16);
+    if (v48 == qword_100092E28)
     {
-      v52 = "path";
+      v49 = "path";
     }
 
     else
     {
-      v52 = "custom";
+      v49 = "custom";
     }
 
     valuePtr = 67110146;
-    *v68 = a3;
-    if (v51 == qword_100092E20)
+    *v65 = a3;
+    if (v48 == qword_100092E20)
     {
-      v53 = "leaf";
+      v50 = "leaf";
     }
 
     else
     {
-      v53 = v52;
+      v50 = v49;
     }
 
-    *&v68[4] = 2112;
-    *&v68[6] = cf1;
-    *&v68[14] = 2080;
-    *&v68[16] = v53;
+    *&v65[4] = 2112;
+    *&v65[6] = cf1;
+    *&v65[14] = 2080;
+    *&v65[16] = v50;
     if (a5)
     {
-      v54 = "force";
+      v51 = "force";
     }
 
     else
     {
-      v54 = "";
+      v51 = "";
     }
 
-    v69 = 2080;
-    v70 = v54;
-    v71 = 2112;
-    v72 = a4;
-    _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "cert[%d]: %@ =(%s)[%s]> %@", &valuePtr, 0x30u);
+    v66 = 2080;
+    v67 = v51;
+    v68 = 2112;
+    v69 = a4;
+    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "cert[%d]: %@ =(%s)[%s]> %@", &valuePtr, 0x30u);
   }
 
-  v55 = *(a1 + 64);
-  if (v55 > 7 || ((1 << v55) & 0xE8) == 0 || v20 == 6)
+  v52 = *(a1 + 64);
+  if (v52 > 7 || ((1 << v52) & 0xE8) == 0 || v20 == 6)
   {
-    goto LABEL_73;
+    goto LABEL_68;
   }
 
-  if (v20 == 3 && v55 == 5)
+  if (v20 == 3 && v52 == 5)
   {
     v20 = 3;
-LABEL_73:
+LABEL_68:
     *(a1 + 64) = v20;
   }
 
@@ -2768,23 +2220,23 @@ LABEL_73:
     return result;
   }
 
-  v57 = CFArrayGetValueAtIndex(result, a3);
-  if (v57)
+  v54 = CFArrayGetValueAtIndex(result, a3);
+  if (v54)
   {
-    CFDictionarySetValue(v57, cf1, a4);
+    CFDictionarySetValue(v54, cf1, a4);
     return 1;
   }
 
-  v58 = sub_1000027AC("SecError");
-  result = os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT);
+  v55 = sub_1000027AC("SecError");
+  result = os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT);
   if (result)
   {
-    v59 = CFArrayGetCount(*(a1 + 56));
+    v56 = CFArrayGetCount(*(a1 + 56));
     valuePtr = 134218240;
-    *v68 = a3;
-    *&v68[8] = 2048;
-    *&v68[10] = v59;
-    _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "SecPVCSetResultForced: failed to get detail at index %ld (array length %ld)", &valuePtr, 0x16u);
+    *v65 = a3;
+    *&v65[8] = 2048;
+    *&v65[10] = v56;
+    _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "SecPVCSetResultForced: failed to get detail at index %ld (array length %ld)", &valuePtr, 0x16u);
     return 0;
   }
 
@@ -2793,19 +2245,6 @@ LABEL_73:
 
 uint64_t sub_100012818(uint64_t a1, const void *a2)
 {
-  v4 = *(*a1 + 200);
-  if (v4)
-  {
-    if (*(v4 + 16) >= 1)
-    {
-      v5 = *(v4 + 136);
-      if (v5)
-      {
-        v6 = *(v5 + 16);
-      }
-    }
-  }
-
   ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 8), *(a1 + 24));
   CFDictionaryGetValue(ValueAtIndex[4], a2);
   result = SecPolicyCheckCertKeyUsage();
@@ -2821,18 +2260,18 @@ uint64_t sub_100012818(uint64_t a1, const void *a2)
 BOOL sub_1000128D8(uint64_t a1, uint64_t a2)
 {
   sub_100003F3C(a1, a2);
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2000000000;
-  v30 = 1;
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 0x40000000;
-  v26[2] = sub_100013304;
-  v26[3] = &unk_100085A88;
-  v26[4] = &v27;
-  v26[5] = a2;
-  sub_1000029CC(a1, v26);
-  if ((*(a1 + 176) & 1) == 0 && *(v28 + 24) == 1)
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2000000000;
+  v25 = 1;
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 0x40000000;
+  v21[2] = sub_100013304;
+  v21[3] = &unk_100085A88;
+  v21[4] = &v22;
+  v21[5] = a2;
+  sub_1000029CC(a1, v21);
+  if ((*(a1 + 176) & 1) == 0 && *(v23 + 24) == 1)
   {
     goto LABEL_3;
   }
@@ -2842,30 +2281,28 @@ BOOL sub_1000128D8(uint64_t a1, uint64_t a2)
     goto LABEL_15;
   }
 
-  v5 = a2 + 136;
   for (i = *(a2 + 32); i < *(a2 + 16) - 1; *(a2 + 32) = i)
   {
-    if (i >= -1 && (v7 = *(v5 + 8 * i + 8)) != 0)
+    if (i >= -1 && (v6 = *(a2 + 136 + 8 * i + 8)) != 0)
     {
-      v8 = *(v7 + 16);
+      v7 = *(v6 + 16);
     }
 
     else
     {
-      v8 = 0;
+      v7 = 0;
     }
 
-    v9 = SecCertificateCopyKey(v8);
-    v10 = v9 == 0;
-    if (!v9)
+    v8 = SecCertificateCopyKey(v7);
+    v9 = v8 == 0;
+    if (!v8)
     {
-      goto LABEL_34;
+      goto LABEL_30;
     }
 
-    v11 = v9;
-    v12 = *(*(v5 + 8 * *(a2 + 32)) + 16);
+    v10 = v8;
     IsSignedBy = SecCertificateIsSignedBy();
-    CFRelease(v11);
+    CFRelease(v10);
     if (IsSignedBy)
     {
       goto LABEL_15;
@@ -2879,79 +2316,59 @@ BOOL sub_1000128D8(uint64_t a1, uint64_t a2)
     CFArrayAppendValue(*(a1 + 160), a2);
   }
 
-  if (*(a2 + 48) != 1 || (v14 = *(a2 + 40), v14 < 0))
+  if (*(a2 + 48) != 1 || (v12 = *(a2 + 40), v12 < 0) || (v13 = *(a2 + 16), v12 != v13 - 1))
   {
-    v15 = *(a2 + 16);
+    NormalizedIssuerContent = SecCertificateGetNormalizedIssuerContent();
+    if (!NormalizedIssuerContent || (v15 = *(a2 + 16), v15 < 2))
+    {
+LABEL_29:
+      v9 = 1;
+      goto LABEL_30;
+    }
+
+    v16 = NormalizedIssuerContent;
+    v17 = v15 - 1;
+    v18 = a2 + 8 * v15 + 120;
+    while (1)
+    {
+      NormalizedSubjectContent = SecCertificateGetNormalizedSubjectContent();
+      if (NormalizedSubjectContent)
+      {
+        if (CFEqual(v16, NormalizedSubjectContent))
+        {
+          break;
+        }
+      }
+
+      --v17;
+      v18 -= 8;
+      if (v17 <= 0)
+      {
+        goto LABEL_29;
+      }
+    }
+  }
+
+  if (*(a1 + 176))
+  {
+    v4 = *(a1 + 160);
   }
 
   else
   {
-    v15 = *(a2 + 16);
-    if (v14 == v15 - 1)
-    {
-      goto LABEL_21;
-    }
-  }
-
-  if (v15 >= 1)
-  {
-    v16 = *(v5 + 8 * v15 - 8);
-    if (v16)
-    {
-      v17 = *(v16 + 16);
-    }
-  }
-
-  NormalizedIssuerContent = SecCertificateGetNormalizedIssuerContent();
-  if (!NormalizedIssuerContent || (v19 = *(a2 + 16), v19 < 2))
-  {
-LABEL_33:
-    v10 = 1;
-    goto LABEL_34;
-  }
-
-  v20 = NormalizedIssuerContent;
-  v21 = v19 - 1;
-  v22 = a2 + 8 * v19 + 120;
-  while (1)
-  {
-    v23 = *(*v22 + 16);
-    NormalizedSubjectContent = SecCertificateGetNormalizedSubjectContent();
-    if (NormalizedSubjectContent)
-    {
-      if (CFEqual(v20, NormalizedSubjectContent))
-      {
-        break;
-      }
-    }
-
-    --v21;
-    v22 -= 8;
-    if (v21 <= 0)
-    {
-      goto LABEL_33;
-    }
-  }
-
-LABEL_21:
-  if (*(a1 + 176))
-  {
-    v4 = *(a1 + 160);
-    goto LABEL_4;
-  }
-
 LABEL_3:
-  v4 = *(a1 + 152);
-LABEL_4:
+    v4 = *(a1 + 152);
+  }
+
   CFArrayAppendValue(v4, a2);
 LABEL_15:
-  v10 = 0;
-LABEL_34:
-  _Block_object_dispose(&v27, 8);
-  return v10;
+  v9 = 0;
+LABEL_30:
+  _Block_object_dispose(&v22, 8);
+  return v9;
 }
 
-uint64_t sub_100012B10(uint64_t a1)
+BOOL sub_100012B10(uint64_t a1)
 {
   if (*(a1 + 176) == 1)
   {
@@ -3320,7 +2737,7 @@ uint64_t sub_1000132A0(uint64_t a1, CFTypeRef cf2)
   return v4;
 }
 
-uint64_t sub_100013304(uint64_t a1, _DWORD *a2)
+uint64_t sub_100013304(uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 40);
   if (v4)
@@ -3341,14 +2758,9 @@ uint64_t sub_100013304(uint64_t a1, _DWORD *a2)
 uint64_t sub_100013360(uint64_t result)
 {
   *(result + 49) = 1;
-  if ((*(result + 48) & 1) == 0)
+  if ((*(result + 48) & 1) == 0 && *(result + 16) >= 1)
   {
-    v1 = *(result + 16);
-    if (v1 >= 1)
-    {
-      v2 = *(*(result + 8 * v1 + 128) + 16);
-      return SecCertificateIsSelfSigned();
-    }
+    return SecCertificateIsSelfSigned();
   }
 
   return result;
@@ -3362,144 +2774,134 @@ uint64_t sub_1000133F8(uint64_t a1)
     if (a1)
     {
       v2 = *(a1 + 200);
-      v3 = *(v2 + 16);
       if (*(v2 + 69))
       {
-        v4 = 1;
+        v3 = 1;
       }
 
       else
       {
-        v5 = v3 - *(v2 + 49);
-        if (v5 < 1)
+        v4 = *(v2 + 16) - *(v2 + 49);
+        if (v4 < 1)
         {
 LABEL_10:
-          v4 = 1;
+          v3 = 1;
           *(v2 + 69) = 1;
         }
 
         else
         {
-          v6 = v2 + 136;
-          while ((*(*v6 + 42) & 1) == 0)
+          v5 = v2 + 136;
+          while ((*(*v5 + 42) & 1) == 0)
           {
-            v6 += 8;
-            if (!--v5)
+            v5 += 8;
+            if (!--v4)
             {
               goto LABEL_10;
             }
           }
 
-          v4 = 0;
-        }
-      }
-
-      if (v3 >= 1)
-      {
-        v7 = *(v2 + 136);
-        if (v7)
-        {
-          v8 = *(v7 + 16);
+          v3 = 0;
         }
       }
 
       IsWeakHash = SecCertificateIsWeakHash();
-      v10 = *(a1 + 200);
+      v7 = *(a1 + 200);
+      if (v7)
+      {
+        v8 = *(v7 + 65);
+        v9 = *(*(v7 + 136) + 40) ^ 1;
+      }
+
+      else
+      {
+        v8 = 0;
+        v9 = 1;
+      }
+
+      v10 = *(a1 + 224);
       if (v10)
       {
-        v11 = *(v10 + 65);
-        v12 = *(*(v10 + 136) + 40) ^ 1;
+        v11 = *(v10 + 96);
       }
 
       else
       {
         v11 = 0;
-        v12 = 1;
       }
 
-      v13 = *(a1 + 224);
-      if (v13)
+      v12 = sub_100013A40(v7, *(a1 + 120));
+      v13 = 11000000;
+      if ((v8 & 1) == 0)
       {
-        v14 = *(v13 + 96);
+        v13 = 10000000;
       }
 
-      else
+      v14 = v12 + v13;
+      v15 = *(a1 + 200);
+      if (*(v15 + 96) < v14)
       {
-        v14 = 0;
+        *(v15 + 96) = v14;
       }
 
-      v15 = sub_100013A40(v10, *(a1 + 120));
-      v16 = 11000000;
-      if ((v11 & 1) == 0)
+      if (v14 > v11)
       {
-        v16 = 10000000;
-      }
-
-      v17 = v15 + v16;
-      v18 = *(a1 + 200);
-      if (*(v18 + 96) < v17)
-      {
-        *(v18 + 96) = v17;
-      }
-
-      if (v17 > v14)
-      {
-        v19 = sub_1000027AC("accept");
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v16 = sub_1000027AC("accept");
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          v22 = *(a1 + 224);
-          v23 = "non ";
-          v24 = "non ";
-          if (v22)
+          v19 = *(a1 + 224);
+          v20 = "non ";
+          v21 = "non ";
+          if (v19)
           {
-            if (*(v22 + 65))
+            if (*(v19 + 65))
             {
-              v24 = "";
+              v21 = "";
             }
 
             else
             {
-              v24 = "non ";
+              v21 = "non ";
             }
           }
 
-          v25 = *(a1 + 200);
-          v26 = "reject";
-          if (v14 > 10000000)
+          v22 = *(a1 + 200);
+          v23 = "reject";
+          if (v11 > 10000000)
           {
-            v26 = "accept";
+            v23 = "accept";
           }
 
-          v27 = 136316419;
-          if (v11)
+          v24 = 136316419;
+          if (v8)
           {
-            v23 = "";
+            v20 = "";
           }
 
-          v28 = v24;
-          v29 = 2080;
-          v30 = v26;
-          v31 = 2048;
-          v32 = v14;
-          v33 = 2080;
-          v34 = v23;
-          v35 = 2048;
-          v36 = v17;
-          v37 = 2113;
-          v38 = v25;
-          _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "replacing %sev %s score: %ld with %sev score: %ld %{private}@", &v27, 0x3Eu);
+          v25 = v21;
+          v26 = 2080;
+          v27 = v23;
+          v28 = 2048;
+          v29 = v11;
+          v30 = 2080;
+          v31 = v20;
+          v32 = 2048;
+          v33 = v14;
+          v34 = 2113;
+          v35 = v22;
+          _os_log_debug_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "replacing %sev %s score: %ld with %sev score: %ld %{private}@", &v24, 0x3Eu);
         }
 
         *(a1 + 224) = *(a1 + 200);
       }
 
-      v20 = sub_1000066A8;
-      if ((v11 | v12) & (v4 | IsWeakHash))
+      v17 = sub_1000066A8;
+      if ((v8 | v9) & (v3 | IsWeakHash))
       {
-        v20 = sub_1000169B4;
+        v17 = sub_1000169B4;
       }
 
-      *(a1 + 248) = v20;
+      *(a1 + 248) = v17;
     }
   }
 
@@ -3511,144 +2913,129 @@ LABEL_10:
   return 1;
 }
 
-uint64_t sub_100013694(_DWORD *a1, CFIndex a2)
+uint64_t sub_100013694(uint64_t *a1, CFIndex a2)
 {
-  v4 = *(*a1 + 120);
-  v5 = *(*a1 + 200);
-  if (!v5 || a2 < 0)
+  v4 = *(*a1 + 200);
+  if (!v4 || a2 < 0)
   {
-    v7 = 0;
-    if (!v5)
+    v6 = 0;
+    if (!v4)
     {
-      v8 = -1;
+      v7 = -1;
       goto LABEL_10;
     }
   }
 
-  else if (*(v5 + 16) > a2 && (v6 = *(v5 + 8 * a2 + 136)) != 0)
+  else if (*(v4 + 16) > a2 && (v5 = *(v4 + 8 * a2 + 136)) != 0)
   {
-    v7 = *(v6 + 16);
+    v6 = *(v5 + 16);
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(v5 + 16) - 1;
+  v7 = *(v4 + 16) - 1;
 LABEL_10:
-  if (((sub_100006E14(a1, v7, 0) & 1) != 0 || sub_100012178(a1, kSecPolicyCheckTemporalValidity, a2, kCFBooleanFalse, 0, 0)) && (!SecCertificateIsWeakKey() || sub_100012178(a1, kSecPolicyCheckWeakKeySize, a2, kCFBooleanFalse, 0, 0)) && ((SecPolicyCheckCertWeakSignature() & 1) != 0 || sub_100012178(a1, kSecPolicyCheckWeakSignature, a2, kCFBooleanFalse, 0, 0)))
+  if (((sub_100006E14(a1, v6, 0, *(*a1 + 120)) & 1) != 0 || sub_100012178(a1, kSecPolicyCheckTemporalValidity, a2, kCFBooleanFalse, 0, 0)) && (!SecCertificateIsWeakKey() || sub_100012178(a1, kSecPolicyCheckWeakKeySize, a2, kCFBooleanFalse, 0, 0)) && ((SecPolicyCheckCertWeakSignature() & 1) != 0 || sub_100012178(a1, kSecPolicyCheckWeakSignature, a2, kCFBooleanFalse, 0, 0)))
   {
-    if (SecCertificateVersion() >= 3)
+    if (SecCertificateVersion() < 3)
     {
-      BasicConstraints = SecCertificateGetBasicConstraints();
-      if (!BasicConstraints)
+      if (a2 >= 1 && v7 > a2 && SecCertificateVersion() >= 3 && !sub_100012178(a1, kSecPolicyCheckBasicConstraints, a2, kCFBooleanFalse, 1, 0))
       {
-        v10 = &kSecPolicyCheckBasicConstraints;
-LABEL_30:
-        if ((sub_100012178(a1, *v10, a2, kCFBooleanFalse, 1, 0) & 1) == 0)
+        return (*(a1 + 16) > 7u) | (0x17u >> *(a1 + 16)) & 1;
+      }
+
+      goto LABEL_27;
+    }
+
+    BasicConstraints = SecCertificateGetBasicConstraints();
+    if (BasicConstraints)
+    {
+      if (*(BasicConstraints + 2))
+      {
+LABEL_27:
+        KeyUsage = SecCertificateGetKeyUsage();
+        if (KeyUsage && (KeyUsage & 0x20) == 0)
         {
-          return (a1[16] > 7u) | (0x17u >> a1[16]) & 1;
+          sub_100012178(a1, kSecPolicyCheckKeyUsage, a2, kCFBooleanFalse, 1, 0);
         }
 
-        goto LABEL_31;
+        return (*(a1 + 16) > 7u) | (0x17u >> *(a1 + 16)) & 1;
       }
 
-      if ((*(BasicConstraints + 2) & 1) == 0)
-      {
-        v10 = &kSecPolicyCheckBasicConstraintsCA;
-        goto LABEL_30;
-      }
-
-LABEL_31:
-      KeyUsage = SecCertificateGetKeyUsage();
-      if (KeyUsage && (KeyUsage & 0x20) == 0)
-      {
-        sub_100012178(a1, kSecPolicyCheckKeyUsage, a2, kCFBooleanFalse, 1, 0);
-      }
-
-      return (a1[16] > 7u) | (0x17u >> a1[16]) & 1;
+      v9 = &kSecPolicyCheckBasicConstraintsCA;
     }
 
-    if (a2 < 1 || v8 <= a2)
+    else
     {
-      goto LABEL_31;
+      v9 = &kSecPolicyCheckBasicConstraints;
     }
 
-    v11 = *(*a1 + 200);
-    if (v11)
+    if ((sub_100012178(a1, *v9, a2, kCFBooleanFalse, 1, 0) & 1) == 0)
     {
-      if (*(v11 + 16) > v8)
-      {
-        v12 = *(v11 + 8 * v8 + 136);
-        if (v12)
-        {
-          v13 = *(v12 + 16);
-        }
-      }
+      return (*(a1 + 16) > 7u) | (0x17u >> *(a1 + 16)) & 1;
     }
 
-    if (SecCertificateVersion() < 3 || sub_100012178(a1, kSecPolicyCheckBasicConstraints, a2, kCFBooleanFalse, 1, 0))
-    {
-      goto LABEL_31;
-    }
+    goto LABEL_27;
   }
 
-  return (a1[16] > 7u) | (0x17u >> a1[16]) & 1;
+  return (*(a1 + 16) > 7u) | (0x17u >> *(a1 + 16)) & 1;
 }
 
-void sub_100013908(_BYTE *a1)
+void sub_100013908(_BYTE *result, uint64_t a2, CFIndex a3)
 {
-  v1 = *(*a1 + 200);
-  if (v1)
+  v3 = *(*result + 200);
+  if (v3)
   {
-    v2 = v1[2];
-    if (v2 >= 1)
+    v4 = v3[2];
+    if (v4 >= 1)
     {
-      v4 = 0;
-      v5 = 0;
-      v6 = kSecPolicyCheckRevocationResponseRequired;
-      while (v1[11] > v5)
+      v6 = 0;
+      v7 = 0;
+      v8 = kSecPolicyCheckRevocationResponseRequired;
+      while (v3[11] > v7)
       {
-        v7 = v1[10];
-        if (!v7)
+        v9 = v3[10];
+        if (!v9)
         {
           break;
         }
 
-        v8 = (v7 + v4);
-        v9 = *(v7 + v4 + 16);
-        if (!v9 || *(v9 + 72) == 0.0)
+        v10 = (v9 + v6);
+        v11 = *(v9 + v6 + 16);
+        if (!v11 || *(v11 + 72) == 0.0)
         {
           goto LABEL_10;
         }
 
 LABEL_21:
-        ++v5;
-        v4 += 40;
-        if (v2 == v5)
+        ++v7;
+        v6 += 40;
+        if (v4 == v7)
         {
           return;
         }
       }
 
-      v8 = 0;
+      v10 = 0;
 LABEL_10:
-      if (v1[2] <= v5 || (v10 = v5, (*(v1[v5 + 17] + 43) & 1) == 0))
+      if (v3[2] <= v7 || (v12 = v7, (*(v3[v7 + 17] + 43) & 1) == 0))
       {
-        if (v5 || a1[32] != 1)
+        if (v7 || result[32] != 1)
         {
 LABEL_16:
-          if (sub_100013C7C(v8))
+          if (sub_100013C7C(v10))
           {
-            if (v8)
+            if (v10)
             {
-              v11 = v8[3];
-              if (v11)
+              v13 = v10[3];
+              if (v13)
               {
-                if (*(v11 + 49) != *(v11 + 48))
+                if (*(v13 + 49) != *(v13 + 48))
                 {
-                  sub_100053B7C(v8);
+                  sub_100053B7C(v10);
                 }
               }
             }
@@ -3657,10 +3044,10 @@ LABEL_16:
           goto LABEL_21;
         }
 
-        v10 = 0;
+        v12 = 0;
       }
 
-      sub_100012178(a1, v6, v10, kCFBooleanFalse, 1, 0);
+      sub_100012178(result, v8, v12, kCFBooleanFalse, 1, 0);
       goto LABEL_16;
     }
   }
@@ -3770,9 +3157,8 @@ LABEL_24:
   }
 }
 
-uint64_t sub_100013BF8(uint64_t a1)
+uint64_t sub_100013BF8(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 40);
   result = SecCertificateIsValid();
   if ((result & 1) == 0)
   {
@@ -3782,10 +3168,10 @@ uint64_t sub_100013BF8(uint64_t a1)
   return result;
 }
 
-double sub_100013C34(uint64_t a1)
+double sub_100013C34(uint64_t *a1)
 {
   sub_100015868(a1);
-  v3 = *(a1 + 16);
+  v3 = a1[2];
   if (v3)
   {
 
@@ -3802,7 +3188,6 @@ uint64_t sub_100013C7C(uint64_t result)
     v1 = *(result + 24);
     if (v1)
     {
-      v2 = *(v1 + 54);
       if ((*(v1 + 16) - 1) > 1)
       {
         if ((*(v1 + 54) & 1) == 0 && (*(v1 + 50) != 1 || *(v1 + 48) == 1))
@@ -3825,7 +3210,7 @@ uint64_t sub_100013C7C(uint64_t result)
   return result;
 }
 
-void sub_100013CE0(uint64_t a1, uint64_t a2, int a3, char a4, double a5)
+void sub_100013CE0(void *result, uint64_t a2, int a3, char a4, double a5)
 {
   if (!a2)
   {
@@ -3835,109 +3220,111 @@ void sub_100013CE0(uint64_t a1, uint64_t a2, int a3, char a4, double a5)
   v7 = *(a2 + 8);
   if (*(a2 + 8))
   {
-    v90 = sub_1000027AC("ocsp");
-    if (!os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
+    v87 = sub_1000027AC("ocsp");
+    if (!os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_72;
     }
 
-    v91 = *(a1 + 80);
+    v88 = result[10];
     *context = 138412546;
-    *&context[4] = v91;
+    *&context[4] = v88;
     *&context[12] = 1024;
     *&context[14] = v7;
-    v92 = "responder: %@ returned status: %d";
-    v93 = v90;
-    v94 = 18;
-LABEL_156:
-    _os_log_impl(&_mh_execute_header, v93, OS_LOG_TYPE_DEFAULT, v92, context, v94);
+    v89 = "responder: %@ returned status: %d";
+    v90 = v87;
+    v91 = 18;
+LABEL_151:
+    _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEFAULT, v89, context, v91);
     goto LABEL_72;
   }
 
-  v11 = sub_10001E660(a2, *(a1 + 32));
+  v11 = sub_10001E660(a2, result[4]);
   if (!v11)
   {
-    v95 = sub_1000027AC("ocsp");
-    if (!os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+    v92 = sub_1000027AC("ocsp");
+    if (!os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_72;
     }
 
-    v96 = *(a1 + 80);
+    v93 = result[10];
     *context = 138412290;
-    *&context[4] = v96;
-    v92 = "ocsp responder: %@ did not include status of requested cert";
-    v93 = v95;
-    v94 = 12;
-    goto LABEL_156;
+    *&context[4] = v93;
+    v89 = "ocsp responder: %@ did not include status of requested cert";
+    v90 = v92;
+    v91 = 12;
+    goto LABEL_151;
   }
 
   v12 = v11;
-  v13 = *(a1 + 48);
+  v13 = result[6];
   if (v13 && *(v13 + 8) >= *(v11 + 8))
   {
     goto LABEL_71;
   }
 
   Current = CFAbsoluteTimeGetCurrent();
+  v15 = Current;
   if ((a4 & 1) == 0)
   {
+    v16 = Current;
     if (*v12 == 1)
     {
-      v15 = *(a2 + 16);
+      v16 = *(a2 + 16);
     }
 
-    v16 = *(a1 + 56);
-    v17 = kCFAllocatorDefault;
-    if (v16 < -1 || (v18 = *(*(a1 + 16) + 200), v19 = v16 + 1, v20 = *(v18 + 16), v21 = v20 - (v16 + 1), v20 <= v16 + 1))
+    v17 = result[7];
+    v18 = kCFAllocatorDefault;
+    if (v17 < -1 || (v19 = *(result[2] + 200), v20 = v17 + 1, v21 = *(v19 + 16), v22 = v21 - (v17 + 1), v21 <= v17 + 1))
     {
-      v102 = 0;
-      v29 = 0;
-      v30 = 1;
+      v99 = 0;
+      v30 = 0;
+      v31 = 1;
       goto LABEL_20;
     }
 
-    v100 = a3;
-    v22 = *(v18 + 32);
-    v23 = *(v18 + 40);
-    v78 = v22 <= v19;
-    v24 = v22 - v19;
-    if (v78)
+    v97 = a3;
+    v23 = *(v19 + 32);
+    v24 = *(v19 + 40);
+    v75 = v23 <= v20;
+    v25 = v23 - v20;
+    if (v75)
     {
-      v25 = 0;
+      v26 = 0;
     }
 
     else
     {
-      v25 = v24;
+      v26 = v25;
     }
 
-    v26 = v23 - v19;
-    if (v23 <= v16)
+    v27 = v24 - v20;
+    if (v24 <= v17)
     {
-      v27 = -1;
-    }
-
-    else
-    {
-      v27 = v26;
-    }
-
-    if (v23 < 0)
-    {
-      v28 = 0;
+      v28 = -1;
     }
 
     else
     {
-      v28 = *(v18 + 48);
+      v28 = v27;
+    }
+
+    if (v24 < 0)
+    {
+      v29 = 0;
+    }
+
+    else
+    {
+      v29 = *(v19 + 48);
     }
 
     sub_1000034AC();
     Instance = _CFRuntimeCreateInstance();
     if (Instance)
     {
-      v72 = Instance;
+      v69 = Instance;
       *(Instance + 24) = 0u;
       *(Instance + 40) = 0u;
       *(Instance + 120) = 0u;
@@ -3945,197 +3332,197 @@ LABEL_156:
       *(Instance + 88) = 0u;
       *(Instance + 72) = 0u;
       *(Instance + 56) = 0u;
-      *(Instance + 16) = v21;
-      *(Instance + 32) = v25;
-      *(Instance + 40) = v27;
-      *(Instance + 48) = v28;
-      *(Instance + 49) = *(v18 + 49);
-      v102 = Instance;
-      if (v21 >= 1)
+      *(Instance + 16) = v22;
+      *(Instance + 32) = v26;
+      *(Instance + 40) = v28;
+      *(Instance + 48) = v29;
+      *(Instance + 49) = *(v19 + 49);
+      v99 = Instance;
+      if (v22 >= 1)
       {
-        v73 = (Instance + 136);
-        v74 = (v18 + 8 * v16 + 144);
-        v75 = (Instance + 136);
+        v70 = (Instance + 136);
+        v71 = (v19 + 8 * v17 + 144);
+        v72 = (Instance + 136);
         do
         {
-          v76 = *v74++;
-          *v75++ = v76;
-          CFRetain(v76);
-          --v21;
+          v73 = *v71++;
+          *v72++ = v73;
+          CFRetain(v73);
+          --v22;
         }
 
-        while (v21);
-        a3 = v100;
-        v17 = kCFAllocatorDefault;
-        if (*(v72 + 16) >= 1 && (v77 = *v73) != 0)
+        while (v22);
+        a3 = v97;
+        v18 = kCFAllocatorDefault;
+        if (*(v69 + 16) >= 1 && (v74 = *v70) != 0)
         {
-          v29 = *(v77 + 16);
-          if (v29)
+          v30 = *(v74 + 16);
+          if (v30)
           {
-            CFRetain(*(v77 + 16));
+            CFRetain(*(v74 + 16));
           }
 
-          v30 = 0;
+          v31 = 0;
         }
 
         else
         {
+          v31 = 0;
           v30 = 0;
-          v29 = 0;
         }
 
 LABEL_20:
-        v31 = sub_10001E2F0(a2);
-        *v105 = 0;
-        v106 = v105;
-        v107 = 0x2000000000;
-        v108 = 0;
         v32 = sub_10001E2F0(a2);
-        if (v32)
+        *v102 = 0;
+        v103 = v102;
+        v104 = 0x2000000000;
+        v105 = 0;
+        v33 = sub_10001E2F0(a2);
+        if (v33)
         {
-          v33 = v32;
+          v34 = v33;
           *context = _NSConcreteStackBlock;
           *&context[8] = 0x40000000;
           *&context[16] = sub_100020964;
           *&context[24] = &unk_100083B40;
-          v111 = v105;
-          v112 = a2;
-          v115.length = CFArrayGetCount(v32);
-          v115.location = 0;
-          CFArrayApplyFunction(v33, v115, sub_1000407C4, context);
-          CFRelease(v33);
+          v108 = v102;
+          v109 = a2;
+          v112.length = CFArrayGetCount(v33);
+          v112.location = 0;
+          CFArrayApplyFunction(v34, v112, sub_1000407C4, context);
+          CFRelease(v34);
         }
 
-        v34 = *(v106 + 24);
-        if (v29 && !v34)
+        v35 = *(v103 + 24);
+        if (v30 && !v35)
         {
-          if (sub_100020AB8(a2, v29))
+          if (sub_100020AB8(a2, v30))
           {
-            CFRetain(v29);
-            *(v106 + 24) = v29;
-            v34 = v29;
+            CFRetain(v30);
+            *(v103 + 24) = v30;
+            v35 = v30;
           }
 
           else
           {
-            v34 = *(v106 + 24);
+            v35 = *(v103 + 24);
           }
         }
 
-        _Block_object_dispose(v105, 8);
-        if (v34)
+        _Block_object_dispose(v102, 8);
+        if (v35)
         {
-          v35 = v31 == 0;
+          v36 = v32 == 0;
         }
 
         else
         {
-          v35 = 1;
+          v36 = 1;
         }
 
-        if (v35)
+        if (v36)
         {
-          v36 = sub_1000027AC("ocsp");
-          v37 = 0;
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+          v37 = sub_1000027AC("ocsp");
+          v38 = 0;
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
-            v65 = *(a1 + 80);
+            v61 = result[10];
             *context = 138412290;
-            *&context[4] = v65;
-            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "ocsp responder: %@ no signer found for response", context, 0xCu);
-            v37 = 0;
-            if ((v30 & 1) == 0)
+            *&context[4] = v61;
+            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "ocsp responder: %@ no signer found for response", context, 0xCu);
+            v38 = 0;
+            if ((v31 & 1) == 0)
             {
-              goto LABEL_149;
+              goto LABEL_144;
             }
           }
 
-          else if ((v30 & 1) == 0)
+          else if ((v31 & 1) == 0)
           {
-            goto LABEL_149;
+            goto LABEL_144;
           }
 
           goto LABEL_34;
         }
 
-        if (v29 && CFEqual(v34, v29))
+        if (v30 && CFEqual(v35, v30))
         {
-          v50 = sub_1000027AC("ocsp");
-          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+          v51 = sub_1000027AC("ocsp");
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
           {
-            v89 = *(a1 + 80);
+            v86 = result[10];
             *context = 138412290;
-            *&context[4] = v89;
-            _os_log_debug_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEBUG, "ocsp responder: %@ response signed by issuer", context, 0xCu);
+            *&context[4] = v86;
+            _os_log_debug_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEBUG, "ocsp responder: %@ response signed by issuer", context, 0xCu);
           }
 
-          v37 = 1;
-          if ((v30 & 1) == 0)
+          v38 = 1;
+          if ((v31 & 1) == 0)
           {
-            goto LABEL_149;
+            goto LABEL_144;
           }
 
           goto LABEL_34;
         }
 
-        v101 = a3;
-        v59 = sub_1000027AC("ocsp");
-        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+        v98 = a3;
+        v55 = sub_1000027AC("ocsp");
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
         {
-          v88 = *(a1 + 80);
+          v85 = result[10];
           *context = 138412290;
-          *&context[4] = v88;
-          _os_log_debug_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEBUG, "ocsp responder: %@ response signed by cert issued by issuer", context, 0xCu);
+          *&context[4] = v85;
+          _os_log_debug_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEBUG, "ocsp responder: %@ response signed by cert issued by issuer", context, 0xCu);
         }
 
         Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
-        CFArrayAppendValue(Mutable, v34);
-        v116.length = CFArrayGetCount(v31);
-        v116.location = 0;
-        CFArrayAppendArray(Mutable, v31, v116);
-        v61 = 0;
-        if ((v30 & 1) == 0)
+        CFArrayAppendValue(Mutable, v35);
+        v113.length = CFArrayGetCount(v32);
+        v113.location = 0;
+        CFArrayAppendArray(Mutable, v32, v113);
+        v57 = 0;
+        if ((v31 & 1) == 0)
         {
-          v61 = sub_100020884(v102);
+          v57 = sub_100020884(v99);
         }
 
-        *v105 = 0;
-        v106 = v105;
-        v107 = 0x2000000000;
-        LOBYTE(v108) = 0;
-        theArray = v61;
-        if (Mutable && v61)
+        *v102 = 0;
+        v103 = v102;
+        v104 = 0x2000000000;
+        LOBYTE(v105) = 0;
+        theArray = v57;
+        if (Mutable && v57)
         {
           values = SecPolicyCreateOCSPSigner();
-          cf = CFArrayCreate(v17, &values, 1, &kCFTypeArrayCallBacks);
+          cf = CFArrayCreate(v18, &values, 1, &kCFTypeArrayCallBacks);
           CFRelease(values);
           *context = _NSConcreteStackBlock;
           *&context[8] = 0x40000000;
           *&context[16] = sub_10001C7C0;
           *&context[24] = &unk_100085360;
-          v111 = v105;
-          v62 = _Block_copy(context);
-          v63 = *(a1 + 16);
-          if (v63)
+          v108 = v102;
+          v58 = _Block_copy(context);
+          v59 = result[2];
+          if (v59)
           {
-            v64 = *(v63 + 32);
-            if (v64)
+            v60 = *(v59 + 32);
+            if (v60)
             {
-              CFRetain(*(v63 + 32));
+              CFRetain(*(v59 + 32));
             }
           }
 
           else
           {
-            v64 = 0;
+            v60 = 0;
           }
 
-          v79 = sub_100003544(0, v64, Mutable, theArray, 1, 0, cf, 0, 0, 0, 0, 0, 0, sub_10001C77C, v62);
-          sub_1000209AC(v79, 0);
-          sub_100004890(v79);
-          if (v64)
+          v76 = sub_100003544(0, v60, Mutable, theArray, 1, 0, cf, 0, v16, 0, 0, 0, 0, 0, sub_10001C77C, v58);
+          sub_1000209AC(v76, 0);
+          sub_100004890(v76);
+          if (v60)
           {
-            CFRelease(v64);
+            CFRelease(v60);
           }
 
           if (cf)
@@ -4143,30 +3530,30 @@ LABEL_20:
             CFRelease(cf);
           }
 
-          if (*(v106 + 24) == 1)
+          if (*(v103 + 24) == 1)
           {
             ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0);
-            v81 = CFArrayGetValueAtIndex(Mutable, 0);
+            v78 = CFArrayGetValueAtIndex(Mutable, 0);
             if (ValueAtIndex)
             {
-              v82 = v81;
-              v83 = SecCertificateCopyKey(ValueAtIndex);
-              ValueAtIndex = v83;
-              v84 = v83 != 0;
-              if (v82 && v83)
+              v79 = v78;
+              v80 = SecCertificateCopyKey(ValueAtIndex);
+              ValueAtIndex = v80;
+              v81 = v80 != 0;
+              if (v79 && v80)
               {
                 if (!SecCertificateIsSignedBy())
                 {
                   CFRelease(ValueAtIndex);
-                  _Block_object_dispose(v105, 8);
-                  v87 = 1;
-                  goto LABEL_145;
+                  _Block_object_dispose(v102, 8);
+                  v84 = 1;
+                  goto LABEL_140;
                 }
 
-                v84 = 1;
+                v81 = 1;
               }
 
-              cfa = v84;
+              cfa = v81;
             }
 
             else
@@ -4174,11 +3561,11 @@ LABEL_20:
               cfa = 0;
             }
 
-            v85 = sub_1000027AC("ocsp");
-            if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
+            v82 = sub_1000027AC("ocsp");
+            if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEFAULT, "ocsp signer cert not signed by issuer", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "ocsp signer cert not signed by issuer", buf, 2u);
             }
 
             if (cfa)
@@ -4188,43 +3575,43 @@ LABEL_20:
           }
         }
 
-        _Block_object_dispose(v105, 8);
-        v86 = sub_1000027AC("ocsp");
-        if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
+        _Block_object_dispose(v102, 8);
+        v83 = sub_1000027AC("ocsp");
+        if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
         {
           *context = 0;
-          _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_DEFAULT, "ocsp response signed by certificate which does not satisfy ocspSigner policy", context, 2u);
+          _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_DEFAULT, "ocsp response signed by certificate which does not satisfy ocspSigner policy", context, 2u);
         }
 
-        v87 = 0;
-        v37 = 0;
+        v84 = 0;
+        v38 = 0;
         if (!Mutable)
         {
-LABEL_146:
+LABEL_141:
           if (theArray)
           {
             CFRelease(theArray);
           }
 
-          a3 = v101;
-          if ((v30 & 1) == 0)
+          a3 = v98;
+          if ((v31 & 1) == 0)
           {
-LABEL_149:
-            CFRelease(v102);
-            if (!v29)
+LABEL_144:
+            CFRelease(v99);
+            if (!v30)
             {
 LABEL_36:
-              if (v31)
+              if (v32)
               {
-                CFRelease(v31);
+                CFRelease(v32);
               }
 
-              if (v34)
+              if (v35)
               {
-                CFRelease(v34);
+                CFRelease(v35);
               }
 
-              if (!v37)
+              if (!v38)
               {
                 goto LABEL_71;
               }
@@ -4233,12 +3620,12 @@ LABEL_36:
             }
 
 LABEL_35:
-            CFRelease(v29);
+            CFRelease(v30);
             goto LABEL_36;
           }
 
 LABEL_34:
-          if (!v29)
+          if (!v30)
           {
             goto LABEL_36;
           }
@@ -4246,130 +3633,116 @@ LABEL_34:
           goto LABEL_35;
         }
 
-LABEL_145:
+LABEL_140:
         CFRelease(Mutable);
-        v37 = v87;
-        goto LABEL_146;
+        v38 = v84;
+        goto LABEL_141;
       }
 
+      v31 = 0;
       v30 = 0;
-      v29 = 0;
     }
 
     else
     {
-      v102 = 0;
-      v29 = 0;
-      v30 = 1;
+      v99 = 0;
+      v30 = 0;
+      v31 = 1;
     }
 
-    a3 = v100;
-    v17 = kCFAllocatorDefault;
+    a3 = v97;
+    v18 = kCFAllocatorDefault;
     goto LABEL_20;
   }
 
 LABEL_41:
-  v38 = *(a1 + 16);
-  if (v38)
+  v39 = result[2];
+  if (v39)
   {
-    v39 = *(v38 + 272);
-    if (v39)
+    v40 = *(v39 + 272);
+    if (v40)
     {
-      *&v40 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v40 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *context = v40;
-      *&context[16] = v40;
+      *&v41 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v41 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      *context = v41;
+      *&context[16] = v41;
       if (DERParseSequenceContent((a2 + 56), DERNumAlgorithmIdItemSpecs, &DERAlgorithmIdItemSpecs, context, 0x20uLL) || SecSignatureHashAlgorithmForAlgorithmOid() <= 4)
       {
-        *(v39 + 69) = 1;
+        *(v40 + 69) = 1;
       }
     }
   }
 
-  v41 = *(v12 + 8);
-  if (v41 <= Current + 4500.0)
+  v42 = *(v12 + 8);
+  if (v42 <= v15 + 4500.0)
   {
-    v46 = v41 + 86400.0;
+    v47 = v42 + 86400.0;
     if (*(v12 + 16) == 0.0)
     {
-      v47 = v46;
+      v48 = v47;
     }
 
     else
     {
-      v47 = *(v12 + 16);
+      v48 = *(v12 + 16);
     }
 
-    if (Current + -4500.0 <= v47)
+    if (v15 + -4500.0 <= v48)
     {
-      v48 = 1;
-      *(*(a1 + 24) + 33) = 1;
       v49 = 1;
+      *(result[3] + 33) = 1;
+      v50 = 1;
       goto LABEL_66;
     }
 
-    v51 = sub_1000027AC("SecError");
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+    v52 = sub_1000027AC("SecError");
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
     {
-      v52 = "thisUpdate + defaultTTL";
+      v53 = "thisUpdate + defaultTTL";
       if (*(v12 + 16) != 0.0)
       {
-        v52 = "nextUpdate";
+        v53 = "nextUpdate";
       }
 
       *context = 136315394;
-      *&context[4] = v52;
+      *&context[4] = v53;
       *&context[12] = 2048;
-      *&context[14] = (Current - v47) / 86400.0;
-      v43 = "OCSPSingleResponse: %s %.2f days ago";
-      v44 = v51;
-      v45 = 22;
+      *&context[14] = (v15 - v48) / 86400.0;
+      v44 = "OCSPSingleResponse: %s %.2f days ago";
+      v45 = v52;
+      v46 = 22;
       goto LABEL_64;
     }
   }
 
   else
   {
-    v42 = sub_1000027AC("SecError");
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v43 = sub_1000027AC("SecError");
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
       *context = 0;
-      v43 = "OCSPSingleResponse: thisUpdate more than 1:15 from now";
-      v44 = v42;
-      v45 = 2;
+      v44 = "OCSPSingleResponse: thisUpdate more than 1:15 from now";
+      v45 = v43;
+      v46 = 2;
 LABEL_64:
-      _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, v43, context, v45);
+      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, v44, context, v46);
     }
   }
 
-  v48 = 0;
   v49 = 0;
+  v50 = 0;
 LABEL_66:
   if (*v12 == 1)
   {
-    v54 = *(*(a1 + 16) + 200);
-    if (v54)
-    {
-      v55 = *(a1 + 56);
-      if ((v55 & 0x8000000000000000) == 0 && *(v54 + 16) > v55)
-      {
-        v56 = *(v54 + 8 * v55 + 136);
-        if (v56)
-        {
-          v57 = *(v56 + 16);
-        }
-      }
-    }
-
     SecCertificateNotValidAfter();
-LABEL_93:
-    *(a2 + 32) = v58;
-    goto LABEL_94;
+LABEL_88:
+    *(a2 + 32) = v62;
+    goto LABEL_89;
   }
 
   if (!*v12)
   {
-    if (!v49)
+    if (!v50)
     {
 LABEL_71:
       sub_10001E2B0(v12);
@@ -4379,18 +3752,18 @@ LABEL_72:
     }
 
     *(a2 + 24) = 0;
-    if (*(a2 + 16) > Current + 4500.0)
+    if (*(a2 + 16) > v15 + 4500.0)
     {
-      v53 = sub_1000027AC("ocsp");
-      if (!os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+      v54 = sub_1000027AC("ocsp");
+      if (!os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_71;
       }
 
-      *v105 = 0;
-      v70 = "OCSPResponse: producedAt more than 1:15 from now";
-LABEL_158:
-      _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, v70, v105, 2u);
+      *v102 = 0;
+      v67 = "OCSPResponse: producedAt more than 1:15 from now";
+LABEL_153:
+      _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, v67, v102, 2u);
       goto LABEL_71;
     }
 
@@ -4398,88 +3771,88 @@ LABEL_158:
     *&context[8] = 0x40000000;
     *&context[16] = sub_10001ED88;
     *&context[24] = &unk_100083AF0;
-    v111 = *&Current;
-    v112 = a2;
-    *v105 = _NSConcreteStackBlock;
-    v106 = 0x40000000;
-    v107 = sub_10001FBBC;
-    v108 = &unk_100083B68;
-    v109 = context;
-    if (DERDecodeSequenceContentWithBlock((a2 + 152), v105))
+    v108 = *&v15;
+    v109 = a2;
+    *v102 = _NSConcreteStackBlock;
+    v103 = 0x40000000;
+    v104 = sub_10001FBBC;
+    v105 = &unk_100083B68;
+    v106 = context;
+    if (DERDecodeSequenceContentWithBlock((a2 + 152), v102))
     {
-      v53 = sub_1000027AC("SecError");
-      if (!os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+      v54 = sub_1000027AC("SecError");
+      if (!os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_71;
       }
 
-      *v105 = 0;
-      v70 = "failed to parse single responses";
-      goto LABEL_158;
+      *v102 = 0;
+      v67 = "failed to parse single responses";
+      goto LABEL_153;
     }
 
-    v58 = *(a2 + 24);
-    if (v58 == 0.0)
+    v62 = *(a2 + 24);
+    if (v62 == 0.0)
     {
-      v58 = Current + 86400.0;
+      v62 = v15 + 86400.0;
     }
 
     else
     {
-      if (v58 < Current + -4500.0)
+      if (v62 < v15 + -4500.0)
       {
-        v53 = sub_1000027AC("ocsp");
-        if (!os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+        v54 = sub_1000027AC("ocsp");
+        if (!os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_71;
         }
 
-        *v105 = 0;
-        v70 = "OCSPResponse: latestNextUpdate more than 1:15 ago";
-        goto LABEL_158;
+        *v102 = 0;
+        v67 = "OCSPResponse: latestNextUpdate more than 1:15 ago";
+        goto LABEL_153;
       }
 
-      v78 = v58 - Current <= a5 || a5 <= 0.0;
-      if (!v78)
+      v75 = v62 - v15 <= a5 || a5 <= 0.0;
+      if (!v75)
       {
-        v58 = Current + a5;
+        v62 = v15 + a5;
       }
     }
 
-    goto LABEL_93;
+    goto LABEL_88;
   }
 
-LABEL_94:
+LABEL_89:
   if (a3)
   {
-    v66 = *(a1 + 40);
-    v67 = *(a1 + 80);
+    v63 = result[5];
+    v64 = result[10];
     *context = _NSConcreteStackBlock;
     *&context[8] = 0x40000000;
     *&context[16] = sub_100017E2C;
     *&context[24] = &unk_1000831D8;
-    v111 = v66;
-    v112 = a2;
-    v113 = v67;
-    v114 = Current;
+    v108 = v63;
+    v109 = a2;
+    v110 = v64;
+    v111 = v15;
     sub_100010E60(context);
   }
 
-  v68 = *(a1 + 40);
-  if (v68)
+  v65 = result[5];
+  if (v65)
   {
-    sub_100019788(v68);
+    sub_100019788(v65);
   }
 
-  *(a1 + 40) = a2;
-  v69 = *(a1 + 48);
-  if (v69)
+  result[5] = a2;
+  v66 = result[6];
+  if (v66)
   {
-    sub_10001E2B0(v69);
+    sub_10001E2B0(v66);
   }
 
-  *(a1 + 48) = v12;
-  *(a1 + 88) = v48;
+  result[6] = v12;
+  *(result + 88) = v49;
 }
 
 double sub_100014948(uint64_t a1, double result)
@@ -5275,9 +4648,9 @@ LABEL_163:
   return *(*(*(v2 + 32) + 8) + 24) != 0;
 }
 
-void sub_100015868(uint64_t a1)
+void sub_100015868(uint64_t *a1)
 {
-  v1 = *(a1 + 24);
+  v1 = a1[3];
   if (!v1)
   {
     return;
@@ -5406,10 +4779,10 @@ void sub_100015868(uint64_t a1)
             {
               CFArrayGetValueAtIndex(v19, i);
               OidString = SecPolicyGetOidString();
-              if ((sub_100052ACC(*(*(a1 + 24) + 88), OidString) & 1) == 0)
+              if ((sub_100052ACC(*(a1[3] + 88), OidString) & 1) == 0)
               {
                 v15 = 1;
-                if (*(*(a1 + 24) + 55) == 1)
+                if (*(a1[3] + 55) == 1)
                 {
                   v24 = 5;
                 }
@@ -5419,7 +4792,7 @@ void sub_100015868(uint64_t a1)
                   v24 = 0;
                 }
 
-                sub_100012178(v18, v17, *(a1 + 8), kCFBooleanFalse, 1, v24);
+                sub_100012178(v18, v17, a1[1], kCFBooleanFalse, 1, v24);
               }
             }
           }
@@ -5461,7 +4834,7 @@ void sub_100015868(uint64_t a1)
     }
   }
 
-  v27 = *(a1 + 24);
+  v27 = a1[3];
   if (v27)
   {
     if (v3)
@@ -5471,7 +4844,7 @@ void sub_100015868(uint64_t a1)
         v28 = v3[25];
         if (v28)
         {
-          v29 = *(a1 + 8);
+          v29 = a1[1];
           if ((v29 & 0x8000000000000000) == 0 && *(v28 + 16) > v29)
           {
             v30 = *(v28 + 8 * v29 + 136);
@@ -5481,12 +4854,12 @@ void sub_100015868(uint64_t a1)
               {
                 SecCertificateNotValidBefore();
                 v32 = v31;
-                v33 = *(a1 + 24);
+                v33 = a1[3];
                 v34 = *(v33 + 64);
                 if (v34)
                 {
                   AbsoluteTime = CFDateGetAbsoluteTime(v34);
-                  v33 = *(a1 + 24);
+                  v33 = a1[3];
                 }
 
                 else
@@ -5500,7 +4873,7 @@ void sub_100015868(uint64_t a1)
                   v37 = CFDateGetAbsoluteTime(v36);
                   if (v37 < CFAbsoluteTimeGetCurrent())
                   {
-                    *(*(a1 + 24) + 53) = 1;
+                    *(a1[3] + 53) = 1;
                   }
                 }
 
@@ -5509,7 +4882,7 @@ void sub_100015868(uint64_t a1)
                   v37 = 3.15569088e10;
                 }
 
-                if (v32 >= AbsoluteTime || *(a1 + 8) <= 0)
+                if (v32 >= AbsoluteTime || a1[1] <= 0)
                 {
                   if (*a1)
                   {
@@ -5534,7 +4907,7 @@ LABEL_79:
                     v41 = sub_1000027AC("rvc");
                     if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
                     {
-                      if (*(*(a1 + 24) + 55))
+                      if (*(a1[3] + 55))
                       {
                         v42 = "";
                       }
@@ -5554,20 +4927,20 @@ LABEL_79:
                       *(v38 + 70) |= 0x20u;
                     }
 
-                    if (*(*(a1 + 24) + 55) == 1)
+                    if (*(a1[3] + 55) == 1)
                     {
-                      sub_10005BDF8(*a1, kSecPolicyCheckGrayListedKey, *(a1 + 8), kCFBooleanFalse);
+                      sub_10005BDF8(*a1, kSecPolicyCheckGrayListedKey, a1[1], kCFBooleanFalse);
                     }
 
                     else
                     {
                       *buf = 0;
                       v43 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, buf);
-                      sub_10005BDF8(*a1, kSecPolicyCheckRevocation, *(a1 + 8), v43);
+                      sub_10005BDF8(*a1, kSecPolicyCheckRevocation, a1[1], v43);
                       v44 = *(*a1 + 200);
                       if (v44)
                       {
-                        v45 = *(a1 + 8);
+                        v45 = a1[1];
                         if (*(v44 + 16) > v45)
                         {
                           v46 = *(v44 + 8 * v45 + 136);
@@ -5639,7 +5012,7 @@ LABEL_95:
     v49 = *(v49 + 16);
   }
 
-  if (*(a1 + 8) + 1 < v49)
+  if (a1[1] + 1 < v49)
   {
     sub_1000119A8(*a1, kSecPolicyCheckRevocationAny);
     if (v9)
@@ -5766,19 +5139,6 @@ uint64_t sub_10001603C(uint64_t a1, const void *a2)
   {
     for (i = 0; i < v5; ++i)
     {
-      v9 = *(*a1 + 200);
-      if (v9)
-      {
-        if ((i & 0x8000000000000000) == 0 && *(v9 + 16) > i)
-        {
-          v10 = *(v9 + 8 * i + 136);
-          if (v10)
-          {
-            v11 = *(v10 + 16);
-          }
-        }
-      }
-
       result = SecPolicyCheckCertUnparseableExtension();
       if ((result & 1) == 0)
       {
@@ -5813,19 +5173,6 @@ uint64_t sub_10001612C(uint64_t a1, const void *a2)
   {
     for (i = 0; i < v5; ++i)
     {
-      v9 = *(*a1 + 200);
-      if (v9)
-      {
-        if ((i & 0x8000000000000000) == 0 && *(v9 + 16) > i)
-        {
-          v10 = *(v9 + 8 * i + 136);
-          if (v10)
-          {
-            v11 = *(v10 + 16);
-          }
-        }
-      }
-
       result = SecPolicyCheckCertNonEmptySubject();
       if ((result & 1) == 0)
       {
@@ -5860,19 +5207,6 @@ uint64_t sub_100016220(uint64_t a1, const void *a2)
   {
     for (i = 0; i < v5; ++i)
     {
-      v9 = *(*a1 + 200);
-      if (v9)
-      {
-        if ((i & 0x8000000000000000) == 0 && *(v9 + 16) > i)
-        {
-          v10 = *(v9 + 8 * i + 136);
-          if (v10)
-          {
-            v11 = *(v10 + 16);
-          }
-        }
-      }
-
       result = SecPolicyCheckCertDuplicateExtension();
       if ((result & 1) == 0)
       {
@@ -5905,7 +5239,7 @@ void *sub_100016314(void *result)
   return result;
 }
 
-uint64_t sub_100016360(uint64_t result, const void *a2)
+const void *sub_100016360(const void *result, const void *a2)
 {
   v2 = *(*result + 200);
   if (v2)
@@ -5917,26 +5251,6 @@ uint64_t sub_100016360(uint64_t result, const void *a2)
       v6 = 0;
       do
       {
-        v7 = *(*v5 + 200);
-        if (v7)
-        {
-          v8 = v3 < 1;
-        }
-
-        else
-        {
-          v8 = 1;
-        }
-
-        if (!v8 && *(v7 + 16) >= v3)
-        {
-          v9 = *(v7 + 8 * v3 + 128);
-          if (v9)
-          {
-            v10 = *(v9 + 16);
-          }
-        }
-
         --v3;
         if (v6)
         {
@@ -6189,7 +5503,6 @@ uint64_t sub_100016760(uint64_t a1)
 
 uint64_t sub_100016960(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v5 = *(*(*(a1 + 32) + 8) + 24);
   result = SecCertificateIsAtLeastMinKeySize();
   if ((result & 1) == 0)
   {
@@ -6254,16 +5567,16 @@ uint64_t sub_1000169B4(uint64_t a1)
   return v5;
 }
 
-void sub_100016B80(uint64_t a1)
+void sub_100016B80(uint64_t a1, uint64_t a2)
 {
   SecCertificateNotValidBefore();
-  v3 = CFDateCreate(0, v2);
-  if (v3)
+  v4 = CFDateCreate(0, v3);
+  if (v4)
   {
-    v4 = v3;
-    CFArrayAppendValue(*(a1 + 32), v3);
+    v5 = v4;
+    CFArrayAppendValue(*(a1 + 32), v4);
 
-    CFRelease(v4);
+    CFRelease(v5);
   }
 }
 
@@ -6280,20 +5593,20 @@ void sub_100016BE4(uint64_t a1, CFDateRef theDate)
   }
 }
 
-void sub_100016C30(uint64_t a1)
+void sub_100016C30(uint64_t a1, uint64_t a2)
 {
   SecCertificateNotValidAfter();
-  v3 = CFDateCreate(0, v2);
-  if (v3)
+  v4 = CFDateCreate(0, v3);
+  if (v4)
   {
-    v4 = v3;
-    CFArrayAppendValue(*(a1 + 32), v3);
+    v5 = v4;
+    CFArrayAppendValue(*(a1 + 32), v4);
 
-    CFRelease(v4);
+    CFRelease(v5);
   }
 }
 
-uint64_t sub_100016C94(int a1, xpc_object_t xdict, void *a3, __CFString **a4)
+uint64_t sub_100016C94(int a1, xpc_object_t xdict, void *a3, CFTypeRef *a4)
 {
   dictionary = xpc_dictionary_get_dictionary(xdict, "eventAttributes");
   v8 = sub_100016D54(xdict, "eventName", a4);
@@ -6329,7 +5642,7 @@ uint64_t sub_100016C94(int a1, xpc_object_t xdict, void *a3, __CFString **a4)
   return v12;
 }
 
-CFStringRef sub_100016D54(void *a1, const char *a2, __CFString **a3)
+CFStringRef sub_100016D54(void *a1, const char *a2, CFTypeRef *a3)
 {
   string = xpc_dictionary_get_string(a1, a2);
   if (string)
@@ -6352,7 +5665,7 @@ CFStringRef sub_100016D54(void *a1, const char *a2, __CFString **a3)
   return 0;
 }
 
-uint64_t sub_100016DE4(void *a1, void *a2, __CFString **a3)
+uint64_t sub_100016DE4(void *a1, void *a2, CFTypeRef *a3)
 {
   v5 = a2;
   if (sub_100003140())
@@ -6423,14 +5736,14 @@ uint64_t sub_100016DE4(void *a1, void *a2, __CFString **a3)
   return v7 & 1;
 }
 
-void sub_100017028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100017028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-unint64_t DERLengthOfEncodedSequenceFromObject(uint64_t a1, unint64_t a2, unint64_t a3, int a4, uint64_t a5, unint64_t *a6)
+unint64_t DERLengthOfEncodedSequenceFromObject(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, unint64_t *a6)
 {
   v17 = 0;
   result = sub_100017330(a2, a3, a4, a5, &v17);
@@ -6481,7 +5794,7 @@ unint64_t DERLengthOfEncodedSequenceFromObject(uint64_t a1, unint64_t a2, unint6
   return result;
 }
 
-unint64_t DEREncodeLengthSized(unint64_t result, unint64_t a2, unint64_t a3, uint64_t *a4)
+unint64_t DEREncodeLengthSized(unint64_t result, unint64_t a2, unint64_t a3, unint64_t *a4)
 {
   if (result < 0x80)
   {
@@ -6532,7 +5845,7 @@ LABEL_19:
       v10 = (a2 - v5);
       if (a2 - v5 != -2)
       {
-        v11 = (a2 + *a4);
+        v11 = a2 + *a4;
         while (v10 != -1)
         {
           if (v10 >= v11 || v10 < a2)
@@ -6718,7 +6031,7 @@ LABEL_43:
   return result;
 }
 
-uint64_t DEREncodeSequenceFromObject(uint64_t a1, unint64_t a2, unint64_t a3, unsigned int a4, uint64_t a5, unint64_t a6, unint64_t a7, unint64_t *a8)
+uint64_t DEREncodeSequenceFromObject(uint64_t a1, unint64_t a2, unint64_t a3, int a4, uint64_t a5, unint64_t a6, unint64_t a7, unint64_t *a8)
 {
   v8 = ~a6;
   if (~a6 < a7)
@@ -7035,7 +6348,7 @@ uint64_t sub_100017850(uint64_t result, unint64_t a2, unint64_t *a3)
       if (v3 >= 0x80)
       {
         v9 = (a2 + v4 - 1);
-        v10 = (a2 + v7);
+        v10 = a2 + v7;
         while (v9 != -2)
         {
           if (v9 >= v10 || v9 < a2)
@@ -7186,9 +6499,9 @@ void sub_100017C54(uint64_t a1)
   sub_10000319C(v1, v2, v3, v6, v4, v5, v7, v8, v10, v9, *(&v9 + 1), v11, *(&v11 + 1), v12, v13);
 }
 
-void sub_100017D14(uint64_t a1, const void *a2)
+void sub_100017D14(uint64_t *a1, const void *a2)
 {
-  ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 8), *(a1 + 24));
+  ValueAtIndex = CFArrayGetValueAtIndex(a1[1], a1[3]);
   v5 = CFDictionaryGetValue(ValueAtIndex[4], a2) != kCFBooleanTrue;
   v6 = *a1;
 
@@ -7332,28 +6645,26 @@ void sub_10001801C(uint64_t a1)
   if (*(v1 + 144) == 1)
   {
     *(v1 + 144) = 0;
-    v3 = *(a1 + 40);
-    v4 = *(a1 + 48);
     if (((*(*(*(*(*(*(a1 + 32) + 8) + 24) + 16) + 136) + 16))() & 1) == 0)
     {
-      v5 = *(*(a1 + 32) + 8);
-      v6 = *(v5 + 24);
-      if (v6[40] != 1 || (sub_100027D48(v6, 0, *(a1 + 48)) & 1) == 0 && (v5 = *(*(a1 + 32) + 8), (v6 = *(v5 + 24)) != 0))
+      v3 = *(*(a1 + 32) + 8);
+      v4 = *(v3 + 24);
+      if (v4[40] != 1 || (sub_100027D48(v4, 0, *(a1 + 48)) & 1) == 0 && (v3 = *(*(a1 + 32) + 8), (v4 = *(v3 + 24)) != 0))
       {
-        *(v5 + 24) = 0;
+        *(v3 + 24) = 0;
 
-        CFRelease(v6);
+        CFRelease(v4);
       }
     }
   }
 }
 
-uint64_t sub_1000180E4(uint64_t a1, uint64_t a2, CFTypeRef *a3, uint64_t a4)
+uint64_t sub_1000180E4(uint64_t a1, uint64_t a2, CFErrorRef *a3, uint64_t a4)
 {
   v13 = 1;
   if (*(a1 + 25) == 1)
   {
-    (*(a4 + 16))(a4, &v13);
+    (*(a4 + 16))(a4, &v13, a3);
     if ((v13 & 1) == 0)
     {
       v5 = sub_1000027AC("#SecDB");
@@ -7437,7 +6748,7 @@ uint64_t sub_100018318(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_1000183E0(uint64_t a1, const __CFString *cf, CFTypeRef *a3)
+uint64_t sub_1000183E0(uint64_t a1, const __CFString *cf, CFErrorRef *a3)
 {
   v4 = cf;
   CFRetain(cf);
@@ -7674,15 +6985,15 @@ uint64_t sub_100018B40(uint64_t a1, _BYTE *a2)
 void sub_100018B84(void **a1)
 {
   v2 = *a1;
-  if (v2[4])
+  if (*(v2 + 32))
   {
-    sub_100018B84(v2 + 4);
+    sub_100018B84((v2 + 32));
     v2 = *a1;
   }
 
-  if (v2[5])
+  if (*(v2 + 40))
   {
-    sub_100018B84(v2 + 5);
+    sub_100018B84((v2 + 40));
     v2 = *a1;
   }
 
@@ -7707,11 +7018,11 @@ void *sub_100018BE0(void *result)
   return result;
 }
 
-uint64_t sub_100018C2C(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t sub_100018C2C(uint64_t result, const void *a2, uint64_t a3, uint64_t a4, int a5)
 {
   if (*a3 == 1)
   {
-    result = sub_10001A95C(result, a2, *(a3 + 16));
+    result = sub_10001A95C(result, a2, *(a3 + 16), a4, a5);
     if (result)
     {
       *(a3 + 8) += result;
@@ -7772,7 +7083,7 @@ void sub_100018C7C(const __CFString *a1, const __CFString *a2, uint64_t a3, uint
   }
 }
 
-uint64_t sub_100018DC8(const __CFString *a1, CFTypeRef *a2, uint64_t a3, UInt8 *a4, unint64_t a5)
+uint64_t sub_100018DC8(const __CFString *a1, CFErrorRef *a2, uint64_t a3, UInt8 *a4, unint64_t a5)
 {
   if (!a1)
   {
@@ -7888,7 +7199,7 @@ LABEL_14:
     if ((sub_10001ACF4(HIDWORD(v57), v57, HIDWORD(v56), v56, HIDWORD(v55), v55, 0, &err) & 1) == 0)
     {
       v24 = CFErrorCopyDescription(err);
-      sub_10002AC20(v24, 1405091842);
+      sub_10002AC20(v24, 0x53C00002u);
       if (v24)
       {
         CFRelease(v24);
@@ -8016,41 +7327,7 @@ LABEL_14:
 
 LABEL_75:
     __freedtoa();
-    if (!v28)
-    {
-      goto LABEL_83;
-    }
-
-    v50 = (a4 + 2);
-    if ((a4 + 2) > v28)
-    {
-      goto LABEL_83;
-    }
-
-    *(v28 - 2) = v32 / 10 + 48;
-    *(v28 - 1) = v32 % 10 + 48;
-    if (v50 > v28 - 2)
-    {
-      goto LABEL_83;
-    }
-
-    *(v28 - 4) = v31 / 10 + 48;
-    *(v28 - 3) = v31 % 10 + 48;
-    if (v50 > v28 - 4)
-    {
-      goto LABEL_83;
-    }
-
-    *(v28 - 6) = v54 / 10 + 48;
-    *(v28 - 5) = v54 % 10 + 48;
-    if (v50 > v28 - 6)
-    {
-      goto LABEL_83;
-    }
-
-    *(v28 - 8) = v53 / 10 + 48;
-    *(v28 - 7) = v53 % 10 + 48;
-    if (v50 <= v28 - 8 && (*(v28 - 10) = v30 / 10 + 48, *(v28 - 9) = v30 % 10 + 48, v50 <= v28 - 10) && (v51 = (((103 * (v29 % 100)) >> 15) & 1) + ((103 * (v29 % 100)) >> 10), *(v28 - 12) = v51 + 48, *(v28 - 11) = v29 % 100 - 10 * v51 + 48, v50 <= v28 - 12))
+    if (v28 && (v50 = (a4 + 2), (a4 + 2) <= v28) && (*(v28 - 2) = v32 / 10 + 48, *(v28 - 1) = v32 % 10 + 48, v50 <= v28 - 2) && (*(v28 - 4) = v31 / 10 + 48, *(v28 - 3) = v31 % 10 + 48, v50 <= v28 - 4) && (*(v28 - 6) = v54 / 10 + 48, *(v28 - 5) = v54 % 10 + 48, v50 <= v28 - 6) && (*(v28 - 8) = v53 / 10 + 48, *(v28 - 7) = v53 % 10 + 48, v50 <= v28 - 8) && (*(v28 - 10) = v30 / 10 + 48, *(v28 - 9) = v30 % 10 + 48, v50 <= v28 - 10) && (v51 = (((103 * (v29 % 100)) >> 15) & 1) + ((103 * (v29 % 100)) >> 10), *(v28 - 12) = v51 + 48, *(v28 - 11) = v29 % 100 - 10 * v51 + 48, v50 <= v28 - 12))
     {
       *(v28 - 14) = v29 / 1000 + 48;
       *(v28 - 13) = v29 / 100 % 10 + 48;
@@ -8058,7 +7335,6 @@ LABEL_75:
 
     else
     {
-LABEL_83:
       sub_100029B54(-7, @"com.apple.security.cfder.error", v48, a2, v49, @"ccder failed to encode");
     }
 
@@ -8068,13 +7344,13 @@ LABEL_83:
   if (CFDictionaryGetTypeID() == v10)
   {
 
-    return sub_10001A7D8(a1, a2, a3);
+    return sub_10001A7D8(a1, a2, a3, a4, a5);
   }
 
   if (CFSetGetTypeID() == v10)
   {
 
-    return sub_10002A7F0(a1, a2, a3);
+    return sub_10002A7F0(a1, a2, a3, a4, a5);
   }
 
   if (CFStringGetTypeID() == v10)
@@ -8095,7 +7371,7 @@ LABEL_83:
     return 0;
   }
 
-  return sub_10002A6DC(a2);
+  return sub_10002A6DC(a2, a4, a5);
 }
 
 void sub_100019788(const void **a1)
@@ -8156,39 +7432,38 @@ CFBooleanRef sub_100019894(uint64_t a1, const void *a2)
 uint64_t sub_1000198F8(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, __CFArray *))
 {
   SecCertificateGetNormalizedIssuerContent();
-  v7 = *(a1 + 24);
-  v8 = SecItemCopyParentCertificates_ios();
-  if (v8)
+  v6 = SecItemCopyParentCertificates_ios();
+  if (v6)
   {
-    v9 = v8;
-    v10 = CFGetTypeID(v8);
-    if (v10 == CFArrayGetTypeID())
+    v7 = v6;
+    v8 = CFGetTypeID(v6);
+    if (v8 == CFArrayGetTypeID())
     {
-      Count = CFArrayGetCount(v9);
+      Count = CFArrayGetCount(v7);
       Mutable = CFArrayCreateMutable(kCFAllocatorDefault, Count, &kCFTypeArrayCallBacks);
       context[0] = _NSConcreteStackBlock;
       context[1] = 0x40000000;
       context[2] = sub_100039E34;
       context[3] = &unk_100083198;
       context[4] = Mutable;
-      v19.length = CFArrayGetCount(v9);
-      v19.location = 0;
-      CFArrayApplyFunction(v9, v19, sub_100039E98, context);
+      v17.length = CFArrayGetCount(v7);
+      v17.location = 0;
+      CFArrayApplyFunction(v7, v17, sub_100039E98, context);
     }
 
     else
     {
-      v13 = CFGetTypeID(v9);
-      if (v13 == CFDataGetTypeID())
+      v11 = CFGetTypeID(v7);
+      if (v11 == CFDataGetTypeID())
       {
-        v14 = CFArrayGetCount(v9);
-        Mutable = CFArrayCreateMutable(kCFAllocatorDefault, v14, &kCFTypeArrayCallBacks);
-        v15 = SecCertificateCreateWithData(kCFAllocatorDefault, v9);
-        if (v15)
+        v12 = CFArrayGetCount(v7);
+        Mutable = CFArrayCreateMutable(kCFAllocatorDefault, v12, &kCFTypeArrayCallBacks);
+        v13 = SecCertificateCreateWithData(kCFAllocatorDefault, v7);
+        if (v13)
         {
-          v16 = v15;
-          CFArrayAppendValue(Mutable, v15);
-          CFRelease(v16);
+          v14 = v13;
+          CFArrayAppendValue(Mutable, v13);
+          CFRelease(v14);
         }
       }
 
@@ -8198,7 +7473,7 @@ uint64_t sub_1000198F8(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_
       }
     }
 
-    CFRelease(v9);
+    CFRelease(v7);
     a4(a3, Mutable);
     if (Mutable)
     {
@@ -8214,97 +7489,96 @@ uint64_t sub_1000198F8(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_
   return 1;
 }
 
-uint64_t sub_100019AD0(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, id))
+uint64_t sub_100019AD0(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t))
 {
-  v7 = *(a3 + 120);
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2000000000;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2000000000;
+  v26 = 0;
   *&buf = _NSConcreteStackBlock;
   *(&buf + 1) = 0x40000000;
-  v29 = sub_100019DF0;
-  v30 = &unk_1000858B0;
-  v31 = &v24;
+  v28 = sub_100019DF0;
+  v29 = &unk_1000858B0;
+  v30 = &v23;
   sub_1000029CC(a3, &buf);
-  v8 = *(v25 + 24);
-  _Block_object_dispose(&v24, 8);
-  if (v8 != 1 || (SecCertificateIsValid() & 1) != 0)
+  v7 = *(v24 + 24);
+  _Block_object_dispose(&v23, 8);
+  if (v7 != 1 || (SecCertificateIsValid() & 1) != 0)
   {
-    v9 = objc_autoreleasePoolPush();
+    v8 = objc_autoreleasePoolPush();
     CAIssuers = SecCertificateGetCAIssuers();
-    v11 = CAIssuers;
+    v10 = CAIssuers;
     if (CAIssuers)
     {
       CFRetain(CAIssuers);
-      v12 = *(a3 + 272);
-      v13 = sub_100038A34(a2, v11, 0);
-      if (v13)
+      v11 = *(a3 + 272);
+      v12 = sub_100038A34(a2, v10, 0);
+      if (v12)
       {
-        v14 = v13;
-        if (v12)
+        v13 = v12;
+        if (v11)
         {
-          *(v12 + 21) = 1;
+          *(v11 + 21) = 1;
         }
 
-        a4(a3, v13);
-        CFRelease(v14);
+        a4(a3, v12);
+        CFRelease(v13);
         goto LABEL_18;
       }
 
-      if (v12)
+      if (v11)
       {
-        *(v12 + 22) = 1;
+        *(v11 + 22) = 1;
       }
 
-      v17 = [(__CFArray *)v11 count];
-      if (v17 < 0xA)
+      v16 = [(__CFArray *)v10 count];
+      if (v16 < 0xA)
       {
         if (qword_100092D48 != -1)
         {
           dispatch_once(&qword_100092D48, &stru_100082F58);
         }
 
-        v21 = *(a3 + 32);
-        if (v21)
+        v20 = *(a3 + 32);
+        if (v20)
         {
           CFRetain(*(a3 + 32));
         }
 
-        v22 = [qword_100092D38 sessionForAuditToken:v21];
-        v23 = [(TrustURLSessionContext *)[CAIssuerContext alloc] initWithContext:a3 uris:v11];
-        [(CAIssuerContext *)v23 setCallback:a4];
-        [(TrustURLSessionContext *)v23 setAttribution:*(a3 + 280)];
-        v16 = [qword_100092D40 fetchNext:v22 context:v23];
+        v21 = [qword_100092D38 sessionForAuditToken:v20];
+        v22 = [(TrustURLSessionContext *)[CAIssuerContext alloc] initWithContext:a3 uris:v10];
+        [(CAIssuerContext *)v22 setCallback:a4];
+        [(TrustURLSessionContext *)v22 setAttribution:*(a3 + 280)];
+        v15 = [qword_100092D40 fetchNext:v21 context:v22];
 
         goto LABEL_19;
       }
 
-      v18 = v17;
-      v19 = sub_1000027AC("caissuer");
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v17 = v16;
+      v18 = sub_1000027AC("caissuer");
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf) = 134217984;
-        *(&buf + 4) = v18;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "too many caIssuer entries (%ld)", &buf, 0xCu);
+        *(&buf + 4) = v17;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "too many caIssuer entries (%ld)", &buf, 0xCu);
       }
     }
 
     a4(a3, 0);
 LABEL_18:
-    v16 = 1;
+    v15 = 1;
 LABEL_19:
 
-    objc_autoreleasePoolPop(v9);
-    return v16;
+    objc_autoreleasePoolPop(v8);
+    return v15;
   }
 
-  v15 = sub_1000027AC("async");
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v14 = sub_1000027AC("async");
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = a2;
-    _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "skipping CAIssuer fetch for expired %@", &buf, 0xCu);
+    _os_log_debug_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "skipping CAIssuer fetch for expired %@", &buf, 0xCu);
   }
 
   a4(a3, 0);
@@ -8608,7 +7882,7 @@ LABEL_18:
   }
 }
 
-uint64_t sub_10001A414(const __CFString *a1, CFTypeRef *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_10001A414(const __CFString *a1, CFErrorRef *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!a1)
   {
@@ -8627,7 +7901,7 @@ uint64_t sub_10001A414(const __CFString *a1, CFTypeRef *a2, uint64_t a3, uint64_
       do
       {
         ValueAtIndex = CFArrayGetValueAtIndex(a1, v10 - 2);
-        v9 += sub_10001A414(ValueAtIndex, a2);
+        v9 += sub_10001A414(ValueAtIndex, a2, v12, v13, v14);
         --v10;
       }
 
@@ -8684,14 +7958,14 @@ LABEL_14:
       goto LABEL_14;
     }
 
-    sub_100029B54(-5, @"com.apple.security.cfder.error", v14, a2, v15, @"Unsupported CFType");
+    sub_100029B54(-5, @"com.apple.security.cfder.error", v17, a2, v18, @"Unsupported CFType");
     return 0;
   }
 
   return sub_100029678(a1, a2);
 }
 
-uint64_t sub_10001A6B8(void *a1, const char *a2, const __CFString *a3, CFTypeRef *a4, uint64_t a5)
+uint64_t sub_10001A6B8(void *a1, const char *a2, const __CFString *a3, CFErrorRef *a4, uint64_t a5)
 {
   v9 = sub_10001A414(a3, a4, a3, a4, a5);
   if (!v9)
@@ -8739,16 +8013,16 @@ uint64_t sub_10001A770(const __CFDictionary *a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10001A7D8(const __CFDictionary *a1, CFTypeRef *a2, char a3)
+uint64_t sub_10001A7D8(const __CFDictionary *a1, CFErrorRef *a2, char a3, uint64_t a4, uint64_t a5)
 {
   Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
-  v13[0] = 0xAAAAAAAAAAAAAA01;
-  v13[1] = a2;
-  BYTE1(v13[0]) = a3;
-  v13[2] = Mutable;
-  v13[3] = 0;
-  CFDictionaryApplyFunction(a1, sub_100018C7C, v13);
-  if ((v13[0] & 1) == 0)
+  v15[0] = 0xAAAAAAAAAAAAAA01;
+  v15[1] = a2;
+  BYTE1(v15[0]) = a3;
+  v15[2] = Mutable;
+  v15[3] = 0;
+  CFDictionaryApplyFunction(a1, sub_100018C7C, v15);
+  if ((v15[0] & 1) == 0)
   {
     if (Mutable)
     {
@@ -8758,23 +8032,23 @@ uint64_t sub_10001A7D8(const __CFDictionary *a1, CFTypeRef *a2, char a3)
     return 0;
   }
 
-  v14.length = CFArrayGetCount(Mutable);
-  v14.location = 0;
-  CFArraySortValues(Mutable, v14, sub_10001AE18, 0);
+  v16.length = CFArrayGetCount(Mutable);
+  v16.location = 0;
+  CFArraySortValues(Mutable, v16, sub_10001AE18, 0);
   Count = CFArrayGetCount(Mutable);
   if (Count >= 1)
   {
-    v8 = Count + 1;
+    v10 = Count + 1;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v8 - 2);
+      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v10 - 2);
       CFDataGetLength(ValueAtIndex);
       CFDataGetBytePtr(ValueAtIndex);
       ccder_encode_body();
-      --v8;
+      --v10;
     }
 
-    while (v8 > 1);
+    while (v10 > 1);
   }
 
   if (Mutable)
@@ -8785,14 +8059,14 @@ uint64_t sub_10001A7D8(const __CFDictionary *a1, CFTypeRef *a2, char a3)
   result = ccder_encode_constructed_tl();
   if (!result)
   {
-    sub_100029B54(-7, @"com.apple.security.cfder.error", v11, a2, v12, @"ccder failed to encode");
+    sub_100029B54(-7, @"com.apple.security.cfder.error", v13, a2, v14, @"ccder failed to encode");
     return 0;
   }
 
   return result;
 }
 
-uint64_t sub_10001A95C(const __CFString *a1, const __CFString *a2, CFTypeRef *a3, uint64_t a4, uint64_t a5)
+uint64_t sub_10001A95C(const __CFString *a1, const __CFString *a2, CFErrorRef *a3, uint64_t a4, uint64_t a5)
 {
   if (sub_10001A414(a1, a3, a3, a4, a5) && sub_10001A414(a2, a3, v7, v8, v9))
   {
@@ -8818,7 +8092,7 @@ uint64_t sub_10001A9F4(const __CFString *a1)
   return ccder_sizeof();
 }
 
-uint64_t sub_10001AA74(const __CFString *a1, CFTypeRef *a2, UInt8 *a3, uint64_t a4, uint64_t a5)
+uint64_t sub_10001AA74(const __CFString *a1, CFErrorRef *a2, UInt8 *a3, uint64_t a4, uint64_t a5)
 {
   if (a4)
   {
@@ -8888,7 +8162,7 @@ uint64_t sub_10001AC88(uint64_t a1)
   return v3(v1, v2);
 }
 
-uint64_t sub_10001ACF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, __CFString **a8)
+uint64_t sub_10001ACF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BOOL4 *a7, CFTypeRef *a8)
 {
   if ((a1 & 3) != 0)
   {
@@ -8999,11 +8273,10 @@ uint64_t sub_10001AE18(const __CFData *a1, const __CFData *a2)
   }
 }
 
-void sub_10001AED4(uint64_t a1)
+void sub_10001AED4(uint64_t a1, uint64_t a2)
 {
   if (*(*(*(a1 + 32) + 8) + 24))
   {
-    v2 = *(a1 + 40);
     if ((SecCertificateAppendToXPCArray() & 1) == 0)
     {
       xpc_release(*(*(*(a1 + 32) + 8) + 24));
@@ -9012,7 +8285,7 @@ void sub_10001AED4(uint64_t a1)
   }
 }
 
-uint64_t sub_10001AF60(uint64_t a1, __CFString **a2, uint64_t a3)
+uint64_t sub_10001AF60(uint64_t a1, CFTypeRef *a2, uint64_t a3)
 {
   if (a1)
   {
@@ -9624,7 +8897,7 @@ LABEL_22:
   return v9;
 }
 
-void sub_10001C2D4(int a1, __CFString **a2, CFStringRef format, ...)
+void sub_10001C2D4(int a1, CFTypeRef *a2, CFStringRef format, ...)
 {
   va_start(va, format);
   cf = 0;
@@ -9648,19 +8921,6 @@ void sub_10001C2D4(int a1, __CFString **a2, CFStringRef format, ...)
 
 uint64_t sub_10001C358(uint64_t a1, const void *a2)
 {
-  v4 = *(*a1 + 200);
-  if (v4)
-  {
-    if (*(v4 + 16) >= 1)
-    {
-      v5 = *(v4 + 136);
-      if (v5)
-      {
-        v6 = *(v5 + 16);
-      }
-    }
-  }
-
   ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 8), *(a1 + 24));
   CFDictionaryGetValue(ValueAtIndex[4], a2);
   result = SecPolicyCheckCertLeafMarkerOidWithoutValueCheck();
@@ -9671,4 +8931,760 @@ uint64_t sub_10001C358(uint64_t a1, const void *a2)
   }
 
   return result;
+}
+
+void sub_10001C418(uint64_t a1)
+{
+  sub_10001C550(a1);
+  if (*(a1 + 56))
+  {
+    sub_100018B84((a1 + 56));
+  }
+
+  v2 = *(a1 + 16);
+  if (v2 >= 1)
+  {
+    v3 = 0;
+    v4 = a1 + 136;
+    do
+    {
+      v5 = *(v4 + 8 * v3);
+      if (v5)
+      {
+        *(v4 + 8 * v3) = 0;
+        CFRelease(v5);
+        v2 = *(a1 + 16);
+      }
+
+      ++v3;
+    }
+
+    while (v3 < v2);
+  }
+}
+
+void sub_10001C488(uint64_t result)
+{
+  if (result)
+  {
+    v2 = *(result + 32);
+    if (v2)
+    {
+      sub_10001CA20(v2);
+      *(result + 32) = 0;
+    }
+
+    v3 = *(result + 40);
+    if (v3)
+    {
+      sub_100019788(v3);
+      *(result + 40) = 0;
+      v4 = *(result + 48);
+      if (v4)
+      {
+        sub_10001E2B0(v4);
+        *(result + 48) = 0;
+      }
+    }
+
+    *(result + 88) = 0;
+    *(result + 80) = 0;
+    *(result + 16) = 0;
+    *(result + 24) = 0;
+  }
+}
+
+void sub_10001C4EC(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    *(v2 + 16) = 0;
+    *(v2 + 24) = 0;
+    v3 = *(a1 + 16);
+    if (v3)
+    {
+      *(a1 + 16) = 0;
+      CFRelease(v3);
+    }
+  }
+
+  v4 = *(a1 + 24);
+  if (v4)
+  {
+    *(a1 + 24) = 0;
+
+    CFRelease(v4);
+  }
+}
+
+void sub_10001C550(uint64_t a1)
+{
+  v2 = *(a1 + 80);
+  if (v2)
+  {
+    v3 = *(a1 + 88);
+    if (v3 >= 1)
+    {
+      v4 = 0;
+      do
+      {
+        sub_10001C4EC(*(a1 + 80) + v4);
+        v4 += 40;
+        --v3;
+      }
+
+      while (v3);
+      v2 = *(a1 + 80);
+    }
+
+    free(v2);
+    *(a1 + 80) = 0;
+  }
+}
+
+void sub_10001C5B4(void *a1)
+{
+  v2 = a1[2];
+  if (v2)
+  {
+    a1[2] = 0;
+    CFRelease(v2);
+  }
+
+  v3 = a1[3];
+  if (v3)
+  {
+    a1[3] = 0;
+    CFRelease(v3);
+  }
+
+  v4 = a1[4];
+  if (v4)
+  {
+    a1[4] = 0;
+
+    CFRelease(v4);
+  }
+}
+
+double sub_10001C61C(void *a1)
+{
+  v1 = a1[2];
+  v2 = 0.0;
+  if (v1 >= 2 && a1[10] && a1[11] >= 1)
+  {
+    v4 = 0;
+    v5 = 0;
+    v6 = v1 - 1;
+    v7 = 0.0;
+    do
+    {
+      v8 = a1[10];
+      v2 = 0.0;
+      if (v8 && (v9 = *(v8 + v4 + 16)) != 0 && (v2 = *(v9 + 72), v2 != 0.0))
+      {
+        if (v2 < v7 || v7 == 0.0)
+        {
+          v7 = *(v9 + 72);
+        }
+      }
+
+      else
+      {
+        if (!v5)
+        {
+          return v2;
+        }
+
+        OCSPResponders = SecCertificateGetOCSPResponders();
+        if (OCSPResponders)
+        {
+          if (CFArrayGetCount(OCSPResponders) && v6 != v5)
+          {
+            return v2;
+          }
+        }
+      }
+
+      ++v5;
+      v4 += 40;
+      v2 = v7;
+    }
+
+    while (v5 < a1[11]);
+  }
+
+  return v2;
+}
+
+uint64_t sub_10001C730(uint64_t *a1)
+{
+  if (a1[2] >= 2)
+  {
+    v1 = a1[10];
+    if (v1)
+    {
+      v2 = a1[11];
+      if (v2 < 2)
+      {
+LABEL_8:
+        LOBYTE(v1) = 1;
+      }
+
+      else
+      {
+        v3 = v2 - 1;
+        v4 = (v1 + 33);
+        while (1)
+        {
+          v5 = *v4;
+          v4 += 40;
+          LOBYTE(v1) = v5;
+          if ((v5 & 1) == 0)
+          {
+            break;
+          }
+
+          if (!--v3)
+          {
+            goto LABEL_8;
+          }
+        }
+      }
+    }
+  }
+
+  else
+  {
+    LOBYTE(v1) = 0;
+  }
+
+  return v1 & 1;
+}
+
+void sub_10001C77C(void (**a1)(void, void), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  (a1[2])(a1, a5, a3, a4);
+
+  _Block_release(a1);
+}
+
+uint64_t sub_10001C7C0(uint64_t result, int a2)
+{
+  if (a2 == 4 || a2 == 1)
+  {
+    *(*(*(result + 32) + 8) + 24) = 1;
+  }
+
+  return result;
+}
+
+void sub_10001C7E4(uint64_t a1, CFDateRef theDate)
+{
+  AbsoluteTime = CFDateGetAbsoluteTime(theDate);
+  if (AbsoluteTime > *(a1 + 40))
+  {
+    v4 = *(*(a1 + 32) + 8);
+    if (AbsoluteTime < *(v4 + 24))
+    {
+      *(v4 + 24) = AbsoluteTime;
+    }
+  }
+}
+
+void sub_10001C830(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    *(a1 + 16) = 0;
+    dispatch_release(v2);
+  }
+
+  v3 = *(a1 + 56);
+  if (v3)
+  {
+    sub_10000E934(v3);
+    *(a1 + 56) = 0;
+  }
+
+  v4 = *(a1 + 40);
+  if (v4)
+  {
+    sub_10000E934(v4);
+    *(a1 + 40) = 0;
+  }
+
+  v5 = *(a1 + 48);
+  if (v5)
+  {
+    v6 = v5[3];
+    if (v6)
+    {
+      CFRelease(v6);
+    }
+
+    free(v5);
+    *(a1 + 48) = 0;
+  }
+
+  v7 = *(a1 + 64);
+  if (v7)
+  {
+    sub_10000E934(v7);
+    *(a1 + 64) = 0;
+  }
+
+  v8 = *(a1 + 32);
+  if (v8)
+  {
+    *(a1 + 32) = 0;
+    CFRelease(v8);
+  }
+
+  v9 = *(a1 + 72);
+  if (v9)
+  {
+    *(a1 + 72) = 0;
+    CFRelease(v9);
+  }
+
+  v10 = *(a1 + 88);
+  if (v10)
+  {
+    *(a1 + 88) = 0;
+    CFRelease(v10);
+  }
+
+  v11 = *(a1 + 136);
+  if (v11)
+  {
+    *(a1 + 136) = 0;
+    CFRelease(v11);
+  }
+
+  v12 = *(a1 + 144);
+  if (v12)
+  {
+    *(a1 + 144) = 0;
+    CFRelease(v12);
+  }
+
+  v13 = *(a1 + 152);
+  if (v13)
+  {
+    *(a1 + 152) = 0;
+    CFRelease(v13);
+  }
+
+  v14 = *(a1 + 160);
+  if (v14)
+  {
+    *(a1 + 160) = 0;
+    CFRelease(v14);
+  }
+
+  v15 = *(a1 + 96);
+  if (v15)
+  {
+    *(a1 + 96) = 0;
+    CFRelease(v15);
+  }
+
+  v16 = *(a1 + 104);
+  if (v16)
+  {
+    *(a1 + 104) = 0;
+    CFRelease(v16);
+  }
+
+  v17 = *(a1 + 112);
+  if (v17)
+  {
+    *(a1 + 112) = 0;
+    CFRelease(v17);
+  }
+
+  v18 = *(a1 + 200);
+  if (v18)
+  {
+    *(a1 + 200) = 0;
+    CFRelease(v18);
+  }
+
+  v19 = *(a1 + 216);
+  if (v19)
+  {
+    *(a1 + 216) = 0;
+    CFRelease(v19);
+  }
+
+  v20 = *(a1 + 232);
+  if (v20)
+  {
+    *(a1 + 232) = 0;
+    CFRelease(v20);
+  }
+
+  v21 = *(a1 + 128);
+  if (v21)
+  {
+    *(a1 + 128) = 0;
+    CFRelease(v21);
+  }
+
+  free(*(a1 + 272));
+  *(a1 + 272) = 0;
+  v22 = *(a1 + 184);
+  if (v22)
+  {
+    v23 = *(a1 + 192);
+    if (v23 >= 1)
+    {
+      for (i = 0; i < v23; ++i)
+      {
+        v25 = *(*(a1 + 184) + 8 * i);
+        if (v25)
+        {
+          v26 = v25[1];
+          if (v26)
+          {
+            v25[1] = 0;
+            CFRelease(v26);
+          }
+
+          v27 = v25[7];
+          if (v27)
+          {
+            v25[7] = 0;
+            CFRelease(v27);
+          }
+
+          v28 = v25[5];
+          if (v28)
+          {
+            v25[5] = 0;
+            CFRelease(v28);
+          }
+
+          free(*(*(a1 + 184) + 8 * i));
+          v23 = *(a1 + 192);
+        }
+      }
+
+      v22 = *(a1 + 184);
+    }
+
+    free(v22);
+    *(a1 + 184) = 0;
+  }
+}
+
+void sub_10001CA20(const void **a1)
+{
+  v2 = a1[5];
+  if (v2)
+  {
+    a1[5] = 0;
+    CFRelease(v2);
+  }
+
+  v3 = a1[6];
+  if (v3)
+  {
+    a1[6] = 0;
+    CFRelease(v3);
+  }
+
+  v4 = a1[7];
+  if (v4)
+  {
+    a1[7] = 0;
+    CFRelease(v4);
+  }
+
+  v5 = *a1;
+  if (*a1)
+  {
+    *a1 = 0;
+    CFRelease(v5);
+  }
+
+  v6 = a1[1];
+  if (v6)
+  {
+    a1[1] = 0;
+    CFRelease(v6);
+  }
+
+  v7 = a1[2];
+  if (v7)
+  {
+    a1[2] = 0;
+    CFRelease(v7);
+  }
+
+  free(a1);
+}
+
+void sub_10001CAB4(id a1)
+{
+  v1 = os_transaction_create();
+  if (qword_100092C70 != -1)
+  {
+    dispatch_once(&qword_100092C70, &stru_100082A60);
+  }
+
+  if (byte_100092C68 == 1)
+  {
+    Current = CFAbsoluteTimeGetCurrent();
+    qword_100092E58 = *&Current;
+    v3 = *&qword_100092E60;
+    if (*&qword_100092E60 == 0.0)
+    {
+      v19 = 0;
+      v20 = &v19;
+      v21 = 0x2000000000;
+      v22 = 0xBFF0000000000000;
+      v18[0] = _NSConcreteStackBlock;
+      v18[1] = 0x40000000;
+      v18[2] = sub_100053108;
+      v18[3] = &unk_100084428;
+      v18[4] = &v19;
+      sub_100011BD4(v18);
+      v4 = v20[3];
+      _Block_object_dispose(&v19, 8);
+      if (v4 >= Current)
+      {
+        *&v5 = v4;
+      }
+
+      else
+      {
+        *&v5 = Current;
+      }
+
+      qword_100092E60 = v5;
+      v18[0] = -1;
+      v6 = CFPreferencesCopyValue(@"ValidUpdateInterval", @"com.apple.security", kCFPreferencesAnyUser, kCFPreferencesCurrentHost);
+      if (v6)
+      {
+        v7 = v6;
+        v8 = CFGetTypeID(v6);
+        if (v8 == CFNumberGetTypeID() && CFNumberGetValue(v7, kCFNumberCFIndexType, v18))
+        {
+          if (v18[0] > 299)
+          {
+            if (v18[0] > 0x93A80uLL)
+            {
+              v18[0] = 604800;
+            }
+          }
+
+          else
+          {
+            v18[0] = 300;
+          }
+        }
+
+        CFRelease(v7);
+        v10 = v18[0];
+        if (v18[0] <= 0)
+        {
+          v10 = 10800;
+        }
+      }
+
+      else
+      {
+        v10 = 10800;
+      }
+
+      qword_100092E98 = v10;
+      v3 = *&qword_100092E60;
+      if (*&qword_100092E60 > *&qword_100092E58 + v10)
+      {
+        *&qword_100092E60 = *&qword_100092E58 + v10;
+        v3 = *&qword_100092E58 + v10;
+      }
+
+      v9 = Current;
+    }
+
+    else
+    {
+      v9 = Current + qword_100092E98;
+    }
+
+    if (v3 <= Current)
+    {
+      v11 = sub_1000027AC("validupdate");
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(v18[0]) = 0;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "starting update", v18, 2u);
+      }
+
+      qword_100092E60 = *&v9;
+      v12 = sub_100051A00();
+      v13 = sub_100052DBC(v12);
+      v14 = sub_100052F9C();
+      v15 = sub_100051D4C();
+      if ((sub_100051AB4(v12, v13, v15, 0) & 1) == 0)
+      {
+        if (v14)
+        {
+          v16 = sub_100051CA8();
+          sub_10003DFB4(v16, v12, v13);
+        }
+
+        else
+        {
+          v17 = sub_1000027AC("validupdate");
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          {
+            LOWORD(v18[0]) = 0;
+            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "skipping update", v18, 2u);
+          }
+        }
+      }
+
+      CFRelease(v12);
+    }
+
+    else
+    {
+      qword_100092E58 = 0;
+    }
+  }
+
+  os_release(v1);
+}
+
+uint64_t sub_10001CDC8(void *a1, sqlite3_stmt *a2)
+{
+  v3 = *(a1[4] + 8);
+  if (*(v3 + 24) == 1)
+  {
+    v4 = *(a1[7] + 8);
+    v5 = *(a1[5] + 8);
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 0x40000000;
+    v8[2] = sub_100049778;
+    v8[3] = &unk_1000847F8;
+    v8[4] = a1[6];
+    v8[5] = a2;
+    v6 = sub_100005D40(v4, a2, (v5 + 24), v8);
+    v3 = *(a1[4] + 8);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  *(v3 + 24) = v6;
+  return *(*(a1[4] + 8) + 24);
+}
+
+uint64_t sub_10001CE8C(void *a1, CFDataRef theData, CFErrorRef *a3)
+{
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2000000000;
+  v30 = -1;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2000000000;
+  v26 = a1 != 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2000000000;
+  v22 = 0;
+  if (a1 && theData && CFDataGetLength(theData) >= 1)
+  {
+    v6 = atomic_load(&qword_100092928);
+    if (v6 == -1)
+    {
+      atomic_store(sub_10001D11C(a1, 0), &qword_100092928);
+    }
+
+    v7 = atomic_load(&qword_100092928);
+    if (v7 > 6)
+    {
+      v8 = v24;
+      if (*(v24 + 24) == 1)
+      {
+        v9 = a1[1];
+        v18[0] = _NSConcreteStackBlock;
+        v18[1] = 0x40000000;
+        v18[2] = sub_10001D85C;
+        v18[3] = &unk_100084F48;
+        v18[4] = &v23;
+        v18[5] = &v19;
+        v18[7] = theData;
+        v18[8] = a1;
+        v18[6] = &v27;
+        v10 = sub_100004A60(v9, @"SELECT DISTINCT groupid FROM issuers WHERE issuer_hash=?", v20 + 3, v18);
+        v8 = v24;
+      }
+
+      else
+      {
+        v10 = 0;
+      }
+
+      *(v8 + 24) = v10;
+    }
+
+    else if ((*(*a1 + 17) & 1) == 0)
+    {
+      *(*a1 + 17) = 1;
+    }
+  }
+
+  if (*(v24 + 24) != 1 || v20[3])
+  {
+    v11 = sub_1000027AC("SecError");
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = v20[3];
+      *buf = 138412290;
+      v32 = v12;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "_SecRevocationDbGroupIdForIssuerHash failed: %@", buf, 0xCu);
+    }
+
+    v13 = v20[3];
+    if (v13)
+    {
+      Code = CFErrorGetCode(v13);
+    }
+
+    else
+    {
+      Code = -2070;
+    }
+
+    sub_100054DC0(1, 3, Code);
+    v15 = v20[3];
+    if (v15)
+    {
+      if (a3 && !*a3)
+      {
+        *a3 = v15;
+      }
+
+      else
+      {
+        CFRelease(v15);
+      }
+    }
+  }
+
+  v16 = v28[3];
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v27, 8);
+  return v16;
 }

@@ -38,7 +38,7 @@
       bundle2 = [(PLPhotoLibraryBundleCriteriaTuple *)equalCopy bundle];
       libraryURL2 = [bundle2 libraryURL];
       absoluteString2 = [libraryURL2 absoluteString];
-      if ([absoluteString isEqualToString:absoluteString2])
+      if (objc_msgSend_isEqualToString_(absoluteString))
       {
         criteria = [(PLPhotoLibraryBundleCriteriaTuple *)self criteria];
         criteria2 = [(PLPhotoLibraryBundleCriteriaTuple *)equalCopy criteria];

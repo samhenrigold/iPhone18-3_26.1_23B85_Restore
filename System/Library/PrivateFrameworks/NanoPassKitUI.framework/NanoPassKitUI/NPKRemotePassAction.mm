@@ -220,7 +220,7 @@ LABEL_10:
 
 - (void)_updateDataURL
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   data = [(NPKProtoRemotePassActionEnvelope *)self->_protoEnvelope data];
   v4 = [(NPKRemotePassAction *)self _messageDataURLWithData:data];
   [(MSMessage *)self->_underlyingMessage setURL:v4];
@@ -235,9 +235,9 @@ LABEL_10:
     v9 = pk_RemotePassAction_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 134217984;
-      v15 = v6;
-      _os_log_impl(&dword_25B64D000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Data url has size %lu", &v14, 0xCu);
+      v13 = 134217984;
+      v14 = v6;
+      _os_log_impl(&dword_25B64D000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Data url has size %lu", &v13, 0xCu);
     }
   }
 
@@ -251,13 +251,11 @@ LABEL_10:
       v12 = pk_RemotePassAction_log();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v14) = 0;
-        _os_log_impl(&dword_25B64D000, v12, OS_LOG_TYPE_DEFAULT, "Warning: The data URL is too big! We may fail message size validation, causing issues when inserting this message into a conversation.", &v14, 2u);
+        LOWORD(v13) = 0;
+        _os_log_impl(&dword_25B64D000, v12, OS_LOG_TYPE_DEFAULT, "Warning: The data URL is too big! We may fail message size validation, causing issues when inserting this message into a conversation.", &v13, 2u);
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSummaryText

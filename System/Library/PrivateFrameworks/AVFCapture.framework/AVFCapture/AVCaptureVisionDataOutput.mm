@@ -76,14 +76,14 @@
 
 - (void)setDelegate:(id)delegate callbackQueue:(id)queue
 {
-  if (AVCaptureIsRunningInMediaserverd())
+  if (AVCaptureIsRunningInMediaserverd(self, a2))
   {
     queue = 0;
   }
 
   [(AVCaptureVisionDataOutput *)self willChangeValueForKey:@"delegate"];
-  v8 = 0;
-  if ([(AVCaptureDataOutputDelegateCallbackHelper *)self->_internal->delegateCallbackHelper setClientDelegate:delegate clientCallbackQueue:queue exceptionReason:&v8])
+  v10 = 0;
+  if ([(AVCaptureDataOutputDelegateCallbackHelper *)self->_internal->delegateCallbackHelper setClientDelegate:delegate clientCallbackQueue:queue exceptionReason:&v10])
   {
     [(AVCaptureVisionDataOutput *)self didChangeValueForKey:@"delegate"];
   }
@@ -91,8 +91,8 @@
   else
   {
     v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    [(AVCaptureVisionDataOutput *)self didChangeValueForKey:@"delegate"];
-    if (AVCaptureShouldThrowForAPIViolations())
+    v8 = [(AVCaptureVisionDataOutput *)self didChangeValueForKey:@"delegate"];
+    if (AVCaptureShouldThrowForAPIViolations(v8, v9))
     {
       objc_exception_throw(v7);
     }
@@ -124,26 +124,26 @@
       goto LABEL_17;
     }
 
-    [sourceDevice activeVideoMinFrameDuration];
-    var3 = v18.epoch;
-    var0 = v18.value;
-    var2 = v18.flags;
-    var1 = v18.timescale;
-    if ((v18.flags & 1) == 0)
+    objc_msgSend_activeVideoMinFrameDuration(sourceDevice);
+    var3 = v19.epoch;
+    var0 = v19.value;
+    var2 = v19.flags;
+    var1 = v19.timescale;
+    if ((v19.flags & 1) == 0)
     {
 LABEL_17:
       internal = self->_internal;
-      v18.timescale = var1;
-      v18.flags = var2;
-      v18.epoch = var3;
+      v19.timescale = var1;
+      v19.flags = var2;
+      v19.epoch = var3;
       minFrameDuration = internal->minFrameDuration;
-      v18.value = var0;
-      if (CMTimeCompare(&v18, &minFrameDuration))
+      v19.value = var0;
+      if (CMTimeCompare(&v19, &minFrameDuration))
       {
-        v13 = self->_internal;
-        v14 = *&duration->var0;
-        v13->minFrameDuration.epoch = duration->var3;
-        *&v13->minFrameDuration.value = v14;
+        v14 = self->_internal;
+        v15 = *&duration->var0;
+        v14->minFrameDuration.epoch = duration->var3;
+        *&v14->minFrameDuration.value = v15;
         [(AVCaptureOutput *)self bumpChangeSeed];
       }
 
@@ -151,23 +151,23 @@ LABEL_17:
     }
   }
 
-  memset(&v18, 0, sizeof(v18));
+  memset(&v19, 0, sizeof(v19));
   activeFormat = [v6 activeFormat];
   if (activeFormat)
   {
-    [activeFormat lowestSupportedVideoFrameDuration];
+    objc_msgSend_lowestSupportedVideoFrameDuration(activeFormat);
   }
 
   else
   {
-    memset(&v18, 0, sizeof(v18));
+    memset(&v19, 0, sizeof(v19));
   }
 
   memset(&minFrameDuration, 0, sizeof(minFrameDuration));
   activeFormat2 = [v6 activeFormat];
   if (activeFormat2)
   {
-    [activeFormat2 highestSupportedVideoFrameDuration];
+    objc_msgSend_highestSupportedVideoFrameDuration(activeFormat2);
   }
 
   else
@@ -178,7 +178,7 @@ LABEL_17:
   time1.timescale = var1;
   time1.flags = var2;
   time1.epoch = var3;
-  time2 = v18;
+  time2 = v19;
   time1.value = var0;
   if ((CMTimeCompare(&time1, &time2) & 0x80000000) == 0)
   {
@@ -194,7 +194,7 @@ LABEL_17:
   }
 
   v11 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v11, v12))
   {
     objc_exception_throw(v11);
   }
@@ -225,27 +225,27 @@ LABEL_17:
       goto LABEL_17;
     }
 
-    [sourceDevice activeVideoMinFrameDuration];
-    var3 = v17.epoch;
-    var0 = v17.value;
-    var2 = v17.flags;
-    var1 = v17.timescale;
-    if ((v17.flags & 1) == 0)
+    objc_msgSend_activeVideoMinFrameDuration(sourceDevice);
+    var3 = v18.epoch;
+    var0 = v18.value;
+    var2 = v18.flags;
+    var1 = v18.timescale;
+    if ((v18.flags & 1) == 0)
     {
 LABEL_17:
       internal = self->_internal;
-      v17.timescale = var1;
-      v17.flags = var2;
-      v17.epoch = var3;
+      v18.timescale = var1;
+      v18.flags = var2;
+      v18.epoch = var3;
       minBurstFrameDuration = internal->minBurstFrameDuration;
-      v17.value = var0;
-      if (CMTimeCompare(&v17, &minBurstFrameDuration))
+      v18.value = var0;
+      if (CMTimeCompare(&v18, &minBurstFrameDuration))
       {
-        v13 = self->_internal;
-        v13->minBurstFrameDuration.value = var0;
-        v13->minBurstFrameDuration.timescale = var1;
-        v13->minBurstFrameDuration.flags = var2;
-        v13->minBurstFrameDuration.epoch = var3;
+        v14 = self->_internal;
+        v14->minBurstFrameDuration.value = var0;
+        v14->minBurstFrameDuration.timescale = var1;
+        v14->minBurstFrameDuration.flags = var2;
+        v14->minBurstFrameDuration.epoch = var3;
         [(AVCaptureOutput *)self bumpChangeSeed];
       }
 
@@ -253,23 +253,23 @@ LABEL_17:
     }
   }
 
-  memset(&v17, 0, sizeof(v17));
+  memset(&v18, 0, sizeof(v18));
   activeFormat = [v6 activeFormat];
   if (activeFormat)
   {
-    [activeFormat lowestSupportedVideoFrameDuration];
+    objc_msgSend_lowestSupportedVideoFrameDuration(activeFormat);
   }
 
   else
   {
-    memset(&v17, 0, sizeof(v17));
+    memset(&v18, 0, sizeof(v18));
   }
 
   memset(&minBurstFrameDuration, 0, sizeof(minBurstFrameDuration));
   activeFormat2 = [v6 activeFormat];
   if (activeFormat2)
   {
-    [activeFormat2 highestSupportedVideoFrameDuration];
+    objc_msgSend_highestSupportedVideoFrameDuration(activeFormat2);
   }
 
   else
@@ -280,7 +280,7 @@ LABEL_17:
   time1.timescale = var1;
   time1.flags = var2;
   time1.epoch = var3;
-  time2 = v17;
+  time2 = v18;
   time1.value = var0;
   if ((CMTimeCompare(&time1, &time2) & 0x80000000) == 0)
   {
@@ -296,7 +296,7 @@ LABEL_17:
   }
 
   v11 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v11, v12))
   {
     objc_exception_throw(v11);
   }
@@ -345,7 +345,7 @@ LABEL_17:
   else
   {
     v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v8, v9))
     {
       objc_exception_throw(v8);
     }
@@ -370,7 +370,7 @@ LABEL_17:
   else
   {
     v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v4, v5))
     {
       objc_exception_throw(v4);
     }
@@ -395,7 +395,7 @@ LABEL_17:
   else
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -420,7 +420,7 @@ LABEL_17:
   else
   {
     v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v4, v5))
     {
       objc_exception_throw(v4);
     }
@@ -455,7 +455,7 @@ LABEL_17:
   if (enabled && ![(AVCaptureVisionDataOutput *)self isDynamicThresholdingSupported])
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -480,7 +480,7 @@ LABEL_17:
   if (type && ![(AVCaptureVisionDataOutput *)self isKeypointDetectionFlowTypeSupported:type])
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, type}];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -505,7 +505,7 @@ LABEL_17:
   if (threshold && ![(AVCaptureVisionDataOutput *)self isSubPixelThresholdSupported])
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -531,7 +531,7 @@ LABEL_17:
   if (enabled && ![(AVCaptureVisionDataOutput *)self isFeatureMatchingSupported])
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -556,7 +556,7 @@ LABEL_17:
   if (size && ![(AVCaptureVisionDataOutput *)self isFeatureMatchingSupported])
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -592,7 +592,7 @@ LABEL_17:
   else
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -617,7 +617,7 @@ LABEL_17:
   else
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -642,7 +642,7 @@ LABEL_17:
   else
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -656,7 +656,7 @@ LABEL_17:
   if (threshold && ![(AVCaptureVisionDataOutput *)self isHammingDistanceThresholdSupported])
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -681,7 +681,7 @@ LABEL_17:
   if (metadata && ![(AVCaptureVisionDataOutput *)self isLACCConfigAndMetadataSupported])
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -743,19 +743,19 @@ uint64_t __59__AVCaptureVisionDataOutput_setKeypointDetectionThreshold___block_i
 {
   if ([(AVCaptureVisionDataOutput *)self areRuntimeUpdatesSupported])
   {
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __47__AVCaptureVisionDataOutput_setRuntimeUpdates___block_invoke;
-    v6[3] = &unk_1E786EFA8;
-    v6[4] = self;
-    v6[5] = updates;
-    [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v6];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __47__AVCaptureVisionDataOutput_setRuntimeUpdates___block_invoke;
+    v7[3] = &unk_1E786EFA8;
+    v7[4] = self;
+    v7[5] = updates;
+    [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v7];
   }
 
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -880,7 +880,7 @@ LABEL_5:
 
 - (void)setDelegateOverride:(id)override delegateOverrideCallbackQueue:(id)queue
 {
-  if (AVCaptureIsRunningInMediaserverd())
+  if (AVCaptureIsRunningInMediaserverd(self, a2))
   {
     queueCopy = 0;
   }
@@ -890,11 +890,11 @@ LABEL_5:
     queueCopy = queue;
   }
 
-  v9 = 0;
-  if (![(AVCaptureDataOutputDelegateCallbackHelper *)self->_internal->delegateCallbackHelper setDelegateOverride:override delegateOverrideCallbackQueue:queueCopy exceptionReason:&v9])
+  v10 = 0;
+  if (![(AVCaptureDataOutputDelegateCallbackHelper *)self->_internal->delegateCallbackHelper setDelegateOverride:override delegateOverrideCallbackQueue:queueCopy exceptionReason:&v10])
   {
     v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v8, v9))
     {
       objc_exception_throw(v8);
     }
@@ -917,18 +917,18 @@ LABEL_5:
 
 - (void)_handleNotification:(id)notification payload:(id)payload
 {
-  if ([objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FCD8]), "isEqual:", -[AVCaptureOutput sinkID](self, "sinkID")}])
+  if ([objc_msgSend_objectForKeyedSubscript_(payload a2])
   {
     if ([notification isEqualToString:*MEMORY[0x1E698FE48]])
     {
-      v7 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FE38]];
+      v7 = objc_msgSend_objectForKeyedSubscript_(payload);
 
       [(AVCaptureVisionDataOutput *)self _updateRemoteQueue:v7];
     }
 
     else if ([notification isEqualToString:*MEMORY[0x1E698FE40]])
     {
-      v8 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FBB8]];
+      v8 = objc_msgSend_objectForKeyedSubscript_(payload);
 
       [(AVCaptureVisionDataOutput *)self _updateLocalQueue:v8];
     }
@@ -941,7 +941,7 @@ LABEL_5:
   memset(&v16[1], 0, sizeof(CMTime));
   if (device)
   {
-    [device activeVideoMinFrameDuration];
+    objc_msgSend_activeVideoMinFrameDuration(device);
   }
 
   v16[0] = v16[1];

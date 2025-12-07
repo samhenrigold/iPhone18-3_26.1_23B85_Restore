@@ -136,7 +136,7 @@ void __79__ICDelegationServiceSecuritySettings_getDeviceReceiverSettingsWithComp
     }
 
     v15 = +[ICDeviceInfo currentDeviceInfo];
-    if ((([v15 isAppleTV] & 1) != 0 || objc_msgSend(v15, "isAudioAccessory")) && AirPlaySupportLibraryCore() && getAPSSettingsGetInt64SymbolLoc())
+    if ((([v15 isAppleTV] & 1) != 0 || objc_msgSend(v15, "isAudioAccessory")) && AirPlaySupportLibraryCore(0) && getAPSSettingsGetInt64SymbolLoc())
     {
       Int64SymbolLoc = getAPSSettingsGetInt64SymbolLoc();
       if (!Int64SymbolLoc)

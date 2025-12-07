@@ -150,8 +150,6 @@
     HKSessionTrackerAriadneTrigger();
     objc_storeStrong(&v11, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupAutoplaySynchronously:(BOOL)synchronously
@@ -190,7 +188,6 @@
   selfCopy->_hasSetupAutoplay = 1;
   objc_storeStrong(&v9, 0);
   objc_storeStrong(&v8, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __47__NLPlaybackModel__setupAutoplaySynchronously___block_invoke(id *a1)
@@ -331,8 +328,6 @@ void __47__NLPlaybackModel__setupAutoplaySynchronously___block_invoke(id *a1)
 
     objc_storeStrong(location, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 void __35__NLPlaybackModel__preparePlaylist__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -411,7 +406,6 @@ void __35__NLPlaybackModel__preparePlaylist__block_invoke(uint64_t a1, void *a2,
 
   objc_storeStrong(&v22, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __35__NLPlaybackModel__preparePlaylist__block_invoke_310(void *a1, void *a2)
@@ -454,7 +448,6 @@ void __35__NLPlaybackModel__preparePlaylist__block_invoke_310(void *a1, void *a2
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareWorkoutPlaylistWithCompletionHandler:(id)handler
@@ -600,7 +593,6 @@ void __38__NLPlaybackModel_stopWorkoutPlaylist__block_invoke_2(void *a1, void *a
 
   objc_storeStrong(&location, 0);
   objc_storeStrong(v10, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_musicPlaylistSettingsChangedWithPlaylistID:(id)d

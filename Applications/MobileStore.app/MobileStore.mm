@@ -9,9 +9,11 @@ uint64_t start(int a1, char **a2)
 
 void sub_10000160C(id a1)
 {
-  qword_100015700 = objc_alloc_init(MSQuickActionController);
+  v1 = objc_alloc_init(MSQuickActionController);
+  v2 = qword_100015700;
+  qword_100015700 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100001AE4(_Unwind_Exception *a1)
@@ -28,16 +30,21 @@ void sub_100001B08(uint64_t a1, int a2, void *a3)
   v7 = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v8 = v7 | 2;
+    LODWORD(v8) = v7 | 2;
   }
 
   else
   {
-    v8 = v7;
+    LODWORD(v8) = v7;
   }
 
   v9 = [v6 OSLogObject];
-  if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
@@ -50,18 +57,18 @@ void sub_100001B08(uint64_t a1, int a2, void *a3)
       *v14 = 138543362;
       *&v14[4] = objc_opt_class();
       v11 = *&v14[4];
-      LODWORD(v13) = 12;
-      goto LABEL_11;
+      v12 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, v9, 0, "%{public}@: Authorization granted", v14, 12, *v14, *&v14[16]);
+      goto LABEL_12;
     }
 
-LABEL_13:
+LABEL_14:
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   if (!v8)
   {
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -70,19 +77,19 @@ LABEL_13:
   *&v14[12] = 2114;
   *&v14[14] = v5;
   v11 = *&v14[4];
-  LODWORD(v13) = 22;
-LABEL_11:
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, v9, 0, "%{public}@: Failed to aquire authorization. Error: %{public}@", v14, 22, *v14, *&v14[16]);
+LABEL_12:
+  v13 = v12;
 
-  if (v12)
+  if (v13)
   {
-    v9 = [NSString stringWithCString:v12 encoding:4, v14, v13, *v14];
-    free(v12);
+    v9 = [NSString stringWithCString:v13 encoding:4];
+    free(v13);
     SSFileLog();
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
 }
 
 void sub_100001D44(id a1)
@@ -347,7 +354,7 @@ void sub_10000293C(uint64_t a1)
   }
 }
 
-uint64_t sub_100003088()
+uint64_t sub_100003088(uint64_t a1, uint64_t a2)
 {
   if (qword_100015718 != -1)
   {
@@ -357,7 +364,7 @@ uint64_t sub_100003088()
   return qword_100015710;
 }
 
-uint64_t sub_1000030EC()
+uint64_t sub_1000030EC(uint64_t a1, uint64_t a2)
 {
   if (qword_100015728 != -1)
   {

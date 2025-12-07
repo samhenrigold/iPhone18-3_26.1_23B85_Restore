@@ -80,39 +80,8 @@ LABEL_3:
 {
   setCopy = set;
   v5 = setCopy;
-  if (!setCopy)
+  if (!setCopy || (v6 = self->_ident == 0, [setCopy ident], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (ident = self->_ident) != 0 && (objc_msgSend(v5, "ident"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[TRIFactorPackSetId isEqual:](ident, "isEqual:", v10), v10, !v11) || (v12 = self->_packs == 0, objc_msgSend(v5, "packs"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14))
   {
-    goto LABEL_8;
-  }
-
-  v6 = self->_ident == 0;
-  ident = [setCopy ident];
-  v8 = ident != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_8;
-  }
-
-  ident = self->_ident;
-  if (ident)
-  {
-    ident2 = [v5 ident];
-    v11 = [(TRIFactorPackSetId *)ident isEqual:ident2];
-
-    if (!v11)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  v12 = self->_packs == 0;
-  packs = [v5 packs];
-  v14 = packs != 0;
-
-  if (v12 == v14)
-  {
-LABEL_8:
     v17 = 0;
   }
 
@@ -121,8 +90,8 @@ LABEL_8:
     packs = self->_packs;
     if (packs)
     {
-      packs2 = [v5 packs];
-      v17 = [(NSArray *)packs isEqual:packs2];
+      packs = [v5 packs];
+      v17 = [(NSArray *)packs isEqual:packs];
     }
 
     else

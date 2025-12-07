@@ -9,7 +9,7 @@
 
 - (id)pipelineForRepository:(id)repository
 {
-  v184 = *MEMORY[0x277D85DE8];
+  v183 = *MEMORY[0x277D85DE8];
   repositoryCopy = repository;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC328];
@@ -17,11 +17,11 @@
   {
     v6 = v5;
     context = [(HDCloudSyncManagerRepositoryTask *)self context];
-    v180 = 138543618;
+    v179 = 138543618;
     selfCopy = self;
-    v182 = 2114;
-    v183 = context;
-    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Starting cloud sync task with context %{public}@", &v180, 0x16u);
+    v181 = 2114;
+    v182 = context;
+    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Starting cloud sync task with context %{public}@", &v179, 0x16u);
   }
 
   v8 = [HDCloudSyncPipeline alloc];
@@ -135,8 +135,8 @@ LABEL_16:
   else
   {
 
-    v172 = repositoryCopy;
-    v173 = v15;
+    v171 = repositoryCopy;
+    v172 = v15;
   }
 
 LABEL_17:
@@ -147,11 +147,11 @@ LABEL_17:
   if (!self)
   {
 
-    v174 = v57;
-    v175 = v174;
+    v173 = v57;
+    v174 = v173;
 
-    v176 = v55;
-    v177 = v175;
+    v175 = v55;
+    v176 = v174;
     goto LABEL_50;
   }
 
@@ -514,8 +514,8 @@ LABEL_64:
     goto LABEL_65;
   }
 
-  v178 = v102;
-  v179 = v104;
+  v177 = v102;
+  v178 = v104;
 LABEL_85:
 
   v155 = v102;
@@ -574,54 +574,51 @@ LABEL_94:
 LABEL_95:
 
 LABEL_96:
-  v167 = *MEMORY[0x277D85DE8];
 
   return v156;
 }
 
 - (void)didFinishWithSuccess
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   manager = [(HDCloudSyncManagerRepositoryTask *)self manager];
   [manager updateErrorRequiringUserAction:0];
 
   [(HDCloudSyncManagerPipelineTask *)self callCompletionWithSuccess:1 error:0];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   mirroringTasks = [(HDCloudSyncManagerTask *)self mirroringTasks];
-  v5 = [mirroringTasks countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [mirroringTasks countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(mirroringTasks);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) didFinishWithSuccess];
+        [*(*(&v9 + 1) + 8 * v8++) didFinishWithSuccess];
       }
 
       while (v6 != v8);
-      v6 = [mirroringTasks countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [mirroringTasks countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFailWithErrors:(id)errors
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   errorsCopy = errors;
   manager = [(HDCloudSyncManagerRepositoryTask *)self manager];
   firstObject = [errorsCopy firstObject];
@@ -630,37 +627,35 @@ LABEL_96:
   firstObject2 = [errorsCopy firstObject];
   [(HDCloudSyncManagerPipelineTask *)self callCompletionWithSuccess:0 error:firstObject2];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   mirroringTasks = [(HDCloudSyncManagerTask *)self mirroringTasks];
-  v9 = [mirroringTasks countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [mirroringTasks countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(mirroringTasks);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) didFailWithErrors:errorsCopy];
+        [*(*(&v13 + 1) + 8 * v12++) didFailWithErrors:errorsCopy];
       }
 
       while (v10 != v12);
-      v10 = [mirroringTasks countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [mirroringTasks countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)combineWithTask:(id)task

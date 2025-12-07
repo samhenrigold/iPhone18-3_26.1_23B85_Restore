@@ -6,7 +6,7 @@ double TFont::GetUnderlinePositionAndThickness(TFont *this)
   *&v11.c = v3;
   *&v11.tx = v3;
   *&v11.a = v3;
-  TFont::GetScaledMatrix(this, &v11);
+  TFont::GetScaledMatrix(&v11, this);
   v4 = (*(*v2 + 592))(v2, &v11);
   if ((*(*v2 + 600))(v2, &v11) <= 0.0)
   {
@@ -356,7 +356,7 @@ LABEL_23:
   v8[4] = v7;
 }
 
-void TDecorator::dashes(TDecorator *this, unsigned int a2, double a3)
+void TDecorator::dashes(uint64_t this, unsigned int a2, double a3)
 {
   v23 = *MEMORY[0x1E69E9840];
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
@@ -364,10 +364,10 @@ void TDecorator::dashes(TDecorator *this, unsigned int a2, double a3)
   *(this + 56) = v5;
   *(this + 40) = v5;
   *(this + 24) = v5;
-  *(this + 1) = 0;
-  *(this + 2) = 0;
+  *(this + 8) = 0;
+  *(this + 16) = 0;
   *this = 0;
-  *(this + 9) = this + 24;
+  *(this + 72) = this + 24;
   v6 = (a2 >> 8) & 7;
   if (v6 > 2)
   {
@@ -418,7 +418,7 @@ void TDecorator::dashes(TDecorator *this, unsigned int a2, double a3)
   std::vector<double,TInlineBufferAllocator<double,6ul>>::__destroy_vector::operator()[abi:fn200100](&v21);
 LABEL_12:
   v13 = *this;
-  v14 = *(this + 1) - *this;
+  v14 = *(this + 8) - *this;
   if (v14)
   {
     v15 = v14 >> 3;
@@ -433,96 +433,96 @@ LABEL_12:
   }
 }
 
-void TDecorationRun::DrawDecorationRun<anonymous namespace::TRunAdapter>(CGContext *,anonymous namespace::TRunAdapter,anonymous namespace::TRunAdapter,double)::{lambda(CGPoint,CGPoint)#1}::operator()(uint64_t a1, double a2, double a3, double a4, double a5)
+void TDecorationRun::DrawDecorationRun<anonymous namespace::TRunAdapter>(CGContext *,anonymous namespace::TRunAdapter,anonymous namespace::TRunAdapter,double)::{lambda(CGPoint,CGPoint)#1}::operator()(uint64_t a1, double a2, double a3, double a4, double a5, uint64_t a6, uint64_t a7, unint64_t a8)
 {
-  v6 = a4;
-  v46[6] = *MEMORY[0x1E69E9840];
-  v8 = *(a1 + 56);
+  v9 = a4;
+  v49[6] = *MEMORY[0x1E69E9840];
+  v11 = *(a1 + 56);
   if ((**a1 & 1) == 0)
   {
-    v9 = *(a1 + 8);
-    v10 = v9[1];
-    v11 = v9[2];
-    v12 = v9[3];
-    v13 = v9[4];
-    v14 = v9[5];
-    v15 = v13 + a3 * v11 + *v9 * a2;
-    a3 = v14 + a3 * v12 + v10 * a2;
-    v6 = v13 + a5 * v11 + *v9 * a4;
-    a5 = v14 + a5 * v12 + v10 * a4;
-    a2 = v15;
+    v12 = *(a1 + 8);
+    v13 = v12[1];
+    v14 = v12[2];
+    v15 = v12[3];
+    v16 = v12[4];
+    v17 = v12[5];
+    v18 = v16 + a3 * v14 + *v12 * a2;
+    a3 = v17 + a3 * v15 + v13 * a2;
+    v9 = v16 + a5 * v14 + *v12 * a4;
+    a5 = v17 + a5 * v15 + v13 * a4;
+    a2 = v18;
   }
 
-  v16 = *(a1 + 24);
-  v17 = **(a1 + 16);
-  v18 = *v16;
-  v19 = v16[1];
-  v20 = **(a1 + 32);
-  v21 = **(a1 + 40);
-  v22 = *(a1 + 48);
-  v23 = *v22;
-  v24 = (*(v22 + 8) - *v22) >> 3;
-  *v46 = *v16;
-  *&v46[1] = v19;
-  v44 = a2;
-  v45 = a3;
-  v42 = v23;
-  v43 = v17;
-  v41 = v24;
-  v25 = *(v8 + 32) * 0.75;
-  v39 = *(v8 + 32);
-  v40 = v25;
-  if (*(v8 + 16) == 1)
+  v19 = *(a1 + 24);
+  v20 = **(a1 + 16);
+  v21 = *v19;
+  v22 = v19[1];
+  v23 = **(a1 + 32);
+  v24 = **(a1 + 40);
+  v25 = *(a1 + 48);
+  v26 = *v25;
+  v27 = (*(v25 + 8) - *v25) >> 3;
+  *v49 = *v19;
+  *&v49[1] = v22;
+  v47 = a2;
+  v48 = a3;
+  v45 = v26;
+  v46 = v20;
+  v44 = v27;
+  v28 = *(v11 + 32) * 0.75;
+  v42 = *(v11 + 32);
+  v43 = v28;
+  if (*(v11 + 16) == 1)
   {
     a5 = a5 - a3 * 2.0;
     a3 = a3 - a3 * 2.0;
-    v45 = a3;
+    v48 = a3;
   }
 
-  v33 = &v40;
-  v34 = v46;
-  v35 = v8;
   v36 = &v43;
-  v37 = &v42;
-  v38 = &v41;
-  if (*v8)
+  v37 = v49;
+  v38 = v11;
+  v39 = &v46;
+  v40 = &v45;
+  v41 = &v44;
+  if (*v11)
   {
-    if (v6 - a2 <= v25)
+    if (v9 - a2 <= v28)
     {
       return;
     }
 
-    v26 = a2 + v18;
-    v27 = v19 + a3;
-    v28 = v6 + v18;
-    v29 = v19 + a5;
+    v29 = a2 + v21;
+    v30 = v22 + a3;
+    v31 = v9 + v21;
+    v32 = v22 + a5;
     goto LABEL_12;
   }
 
-  *&v30 = -1;
-  *(&v30 + 1) = -1;
-  *&v32.c = v30;
-  *&v32.tx = v30;
-  *&v32.a = v30;
-  CGContextGetTextMatrix(&v32, v17);
-  if (v20 != v21)
+  *&v33 = -1;
+  *(&v33 + 1) = -1;
+  *&v35.c = v33;
+  *&v35.tx = v33;
+  *&v35.a = v33;
+  CGContextGetTextMatrix(&v35, v20);
+  if (v23 != v24)
   {
-    v46[5] = 0;
+    v49[5] = 0;
     operator new();
   }
 
-  if (v6 - v44 > v40)
+  if (v9 - v47 > v43)
   {
-    v31 = v34[1];
-    v26 = v44 + *v34;
-    v27 = v45 + v31;
-    v28 = v6 + *v34;
-    v29 = a5 + v31;
-    v17 = *v36;
-    v23 = *v37;
-    v24 = *v38;
+    v34 = v37[1];
+    v29 = v47 + *v37;
+    v30 = v48 + v34;
+    v31 = v9 + *v37;
+    v32 = a5 + v34;
+    v20 = *v39;
+    v26 = *v40;
+    v27 = *v41;
 LABEL_12:
-    TDecorationRun::DrawLineSegment(v17, v23, *&v26, *&v28, v24);
+    TDecorationRun::DrawLineSegment(v20, v26, *&v29, *&v31, v27);
   }
 }
 
@@ -624,7 +624,7 @@ void TDecorationRun::CalculateGlyphIntersections(uint64_t a1, __int128 *a2, __n1
           goto LABEL_15;
         }
 
-        v34 = ScriptTagForScriptCode(a3[19].n128_i32[0]);
+        v34 = ScriptTagForScriptCode(a3[19].n128_u32[0]);
         if (v34)
         {
           goto LABEL_20;
@@ -671,7 +671,7 @@ LABEL_23:
         }
 
         v63 = 0xAAAAAAAAAAAAAAAALL;
-        TFont::CreatePathForGlyph(v12, 0, v41, &v63);
+        TFont::CreatePathForGlyph(&v63, v12, 0, v41);
         if (atomic_load_explicit(&v63, memory_order_acquire))
         {
           *&v42 = -1;
@@ -891,15 +891,15 @@ LABEL_76:
   }
 }
 
-uint64_t TRun::IncrementAttachCountForChar(uint64_t this, uint64_t a2, uint64_t a3)
+id *TRun::IncrementAttachCountForChar(id *this, uint64_t a2, uint64_t a3)
 {
-  if (*(this + 208) >= 1)
+  if (this[26] >= 1)
   {
     v5 = this;
     GlyphIndexForChar = TRun::GetGlyphIndexForCharIndex<false>(this, a2);
-    v7 = [*(v5 + 216) attachmentCountAtIndex:*(v5 + 200) + GlyphIndexForChar] + a3;
-    v8 = *(v5 + 200) + GlyphIndexForChar;
-    v9 = *(v5 + 216);
+    v7 = [v5[27] attachmentCountAtIndex:v5[25] + GlyphIndexForChar] + a3;
+    v8 = v5[25] + GlyphIndexForChar;
+    v9 = v5[27];
 
     return [v9 setAttachmentCount:v7 atIndex:v8];
   }
@@ -1556,7 +1556,7 @@ LABEL_51:
   return result;
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,anonymous namespace::PathObserver::Intersection *,false>(uint64_t result, double *a2, uint64_t a3, char a4)
+unint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,anonymous namespace::PathObserver::Intersection *,false>(unint64_t result, double *a2, uint64_t a3, char a4)
 {
   v7 = result;
   while (2)
@@ -1806,12 +1806,12 @@ LABEL_288:
 LABEL_169:
             v70 = v69;
             v69 = v65;
-            v71 = v70[2];
+            v71 = *(v70 + 16);
             v72 = v71 < *v70;
-            if (v71 == *v70 && (v73 = *(v70 + 6), v74 = *(v70 + 2), v66 = v73 == v74, v72 = v73 < v74, v66))
+            if (v71 == *v70 && (v73 = *(v70 + 24), v74 = *(v70 + 8), v66 = v73 == v74, v72 = v73 < v74, v66))
             {
-              v75 = *(v70 + 7);
-              if (v75 >= *(v70 + 3))
+              v75 = *(v70 + 28);
+              if (v75 >= *(v70 + 12))
               {
                 goto LABEL_188;
               }
@@ -1824,8 +1824,8 @@ LABEL_169:
                 goto LABEL_188;
               }
 
-              v73 = *(v70 + 6);
-              v75 = *(v70 + 7);
+              v73 = *(v70 + 24);
+              v75 = *(v70 + 28);
             }
 
             *v69 = *v70;
@@ -1858,9 +1858,9 @@ LABEL_187:
                 *(v76 + 8) = v73;
                 *(v76 + 12) = v75;
 LABEL_188:
-                v65 = v69 + 2;
+                v65 = (v69 + 16);
                 v68 += 16;
-                if (v69 + 2 == a2)
+                if ((v69 + 16) == a2)
                 {
                   return result;
                 }
@@ -1868,7 +1868,7 @@ LABEL_188:
                 goto LABEL_169;
               }
 
-              v70 -= 2;
+              v70 -= 16;
               *v78 = *(i + v77 - 16);
               v77 -= 16;
               if (!v77)
@@ -2488,7 +2488,7 @@ LABEL_54:
           v32 = *(i + 8);
           *i = *v31;
           *v31 = v22;
-          *(v31 + 8) = v32;
+          *(v31 + 1) = v32;
           do
           {
             while (1)
@@ -2528,18 +2528,18 @@ LABEL_64:
             goto LABEL_290;
           }
 
-          v31 -= 16;
+          v31 -= 2;
           while (2)
           {
             v35 = *v31 < v16;
             if (*v31 == v16)
             {
-              v36 = *(v31 + 8);
+              v36 = *(v31 + 2);
               v66 = v36 == v21;
               v35 = v36 < v21;
               if (v66)
               {
-                if (*(v31 + 12) < v13)
+                if (*(v31 + 3) < v13)
                 {
                   break;
                 }
@@ -2552,7 +2552,7 @@ LABEL_64:
             {
 LABEL_72:
               v66 = v31 == v7;
-              v31 -= 16;
+              v31 -= 2;
               if (v66)
               {
                 goto LABEL_290;
@@ -2733,42 +2733,47 @@ LABEL_30:
   return result;
 }
 
-uint64_t std::function<void ()(double,double)>::operator()(uint64_t a1, double a2, double a3)
+double std::function<void ()(double,double)>::operator()(uint64_t a1, double a2, double a3)
 {
-  v5 = a3;
-  v6 = a2;
+  v8 = a3;
+  v9 = a2;
   if (a1)
   {
-    return (*(*a1 + 48))(a1, &v6, &v5);
+    (*(*a1 + 48))(a1, &v9, &v8);
   }
 
-  v4 = std::__throw_bad_function_call[abi:fn200100]();
+  else
+  {
+    v4 = std::__throw_bad_function_call[abi:fn200100]();
+  }
+
+  return result;
 }
 
-double std::__function::__func<void TDecorationRun::DrawLine<anonymous namespace::TRunAdapter>(CGContext *,CGPoint,anonymous namespace::TRunAdapter,anonymous namespace::TRunAdapter,CGPoint,CGPoint,double const*,unsigned long)::{lambda(double,double)#1},std::allocator<void TDecorationRun::DrawLine<anonymous namespace::TRunAdapter>(CGContext *,CGPoint,anonymous namespace::TRunAdapter,anonymous namespace::TRunAdapter,CGPoint,CGPoint,double const*,unsigned long)::{lambda(double,double)#1}>,void ()(double,double)>::operator()(uint64_t a1, double *a2, double *a3)
+double std::__function::__func<void TDecorationRun::DrawLine<anonymous namespace::TRunAdapter>(CGContext *,CGPoint,anonymous namespace::TRunAdapter,anonymous namespace::TRunAdapter,CGPoint,CGPoint,double const*,unsigned long)::{lambda(double,double)#1},std::allocator<void TDecorationRun::DrawLine<anonymous namespace::TRunAdapter>(CGContext *,CGPoint,anonymous namespace::TRunAdapter,anonymous namespace::TRunAdapter,CGPoint,CGPoint,double const*,unsigned long)::{lambda(double,double)#1}>,void ()(double,double)>::operator()(uint64_t a1, double *a2, double *a3, unint64_t a4)
 {
-  v3 = *a3;
-  v4 = **(a1 + 8);
-  v5 = *a2 - v4;
-  v6 = *(a1 + 24);
-  v7 = *(a1 + 32);
-  v8 = *v7;
-  if (v5 - *v7 > **v6)
+  v4 = *a3;
+  v5 = **(a1 + 8);
+  v6 = *a2 - v5;
+  v7 = *(a1 + 24);
+  v8 = *(a1 + 32);
+  v9 = *v8;
+  if (v6 - *v8 > **v7)
   {
-    v10 = v7[1];
-    v11 = *(v6 + 8);
-    v12 = v11[1];
-    v14.x = v8 + *v11;
-    v14.y = v10 + v12;
-    v15.x = v5 + *v11;
-    v15.y = *(*(a1 + 16) + 8) + v12;
-    TDecorationRun::DrawLineSegment(**(v6 + 24), **(v6 + 32), v14, v15, **(v6 + 40));
-    v4 = **(a1 + 8);
-    v7 = *(a1 + 32);
+    v11 = v8[1];
+    v12 = *(v7 + 8);
+    v13 = v12[1];
+    v15.x = v9 + *v12;
+    v15.y = v11 + v13;
+    v16.x = v6 + *v12;
+    v16.y = *(*(a1 + 16) + 8) + v13;
+    TDecorationRun::DrawLineSegment(**(v7 + 24), **(v7 + 32), v15, v16, **(v7 + 40));
+    v5 = **(a1 + 8);
+    v8 = *(a1 + 32);
   }
 
-  result = v3 + v4;
-  *v7 = result;
+  result = v4 + v5;
+  *v8 = result;
   return result;
 }
 
@@ -3012,7 +3017,7 @@ uint64_t CTLineGetRangeOfCharacterClusterAtIndex(uint64_t a1, uint64_t a2, unint
 
   v5 = *(a1 + 40);
   v6 = *(v5 + 9);
-  if (v6 > a2 || v6 + *(v5 + 10) <= a2)
+  if (v6 > a2 || *(v5 + 10) + v6 <= a2)
   {
     return -1;
   }
@@ -3160,7 +3165,7 @@ LABEL_50:
       do
       {
         v58 = 0xAAAAAAAAAAAAAAAALL;
-        TFont::CreatePathForGlyph(v34, 0, *(v54 + 2 * v52 + 2 * v37), &v58);
+        TFont::CreatePathForGlyph(&v58, v34, 0, *(v54 + 2 * v52 + 2 * v37));
         if (atomic_load_explicit(&v58, memory_order_acquire))
         {
           *&v38 = -1;
@@ -3270,24 +3275,24 @@ CFArrayRef CTFontCopyVariationAxes(CTFontRef font)
     return 0;
   }
 
-  TBaseFont::CopyVariationAxesExternal(*(*(font + 5) + 408), &v3);
+  TBaseFont::CopyVariationAxesExternal(&v3, *(*(font + 5) + 408));
   v1 = atomic_exchange(&v3, 0);
 
   return v1;
 }
 
-void TBaseFont::CopyVariationAxesExternal(TBaseFont *this@<X0>, atomic_ullong *a2@<X8>)
+void TBaseFont::CopyVariationAxesExternal(uint64_t *__return_ptr a1@<X8>, TBaseFont *this@<X0>)
 {
-  *a2 = 0xAAAAAAAAAAAAAAAALL;
-  (*(*this + 120))(a2);
-  if (atomic_load_explicit(a2, memory_order_acquire))
+  *a1 = 0xAAAAAAAAAAAAAAAALL;
+  (*(*this + 120))(a1);
+  if (atomic_load_explicit(a1, memory_order_acquire))
   {
     TBaseFont::GetInitializedGraphicsFont(this);
     ParserFont = CGFontGetParserFont();
     if (ParserFont)
     {
       v5 = ParserFont;
-      Count = CFArrayGetCount(atomic_load_explicit(a2, memory_order_acquire));
+      Count = CFArrayGetCount(atomic_load_explicit(a1, memory_order_acquire));
       v7 = *MEMORY[0x1E695E480];
       Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], Count, MEMORY[0x1E695E9C0]);
       v31 = 0xAAAAAAAAAAAAAAAALL;
@@ -3296,9 +3301,9 @@ void TBaseFont::CopyVariationAxesExternal(TBaseFont *this@<X0>, atomic_ullong *a
       if (v9)
       {
         v10 = v9;
-        v26 = a2;
+        v26 = a1;
         allocator = v7;
-        explicit = atomic_load_explicit(a2, memory_order_acquire);
+        explicit = atomic_load_explicit(a1, memory_order_acquire);
         if (explicit)
         {
           v12 = CFArrayGetCount(explicit);
@@ -3317,7 +3322,7 @@ void TBaseFont::CopyVariationAxesExternal(TBaseFont *this@<X0>, atomic_ullong *a
                 CFNumberGetValue(Value, kCFNumberIntType, &valuePtr);
                 VariationAxisNameID = FPFontGetVariationAxisNameID();
                 v29 = 0xAAAAAAAAAAAAAAAALL;
-                CopyLocalizedFontNameInternal(atomic_load_explicit(&v31, memory_order_acquire), 0, v10, VariationAxisNameID, 0, @"AxisNames", &v29);
+                CopyLocalizedFontNameInternal(&v29, atomic_load_explicit(&v31, memory_order_acquire), 0, v10, VariationAxisNameID, 0, @"AxisNames");
                 if (atomic_load_explicit(&v29, memory_order_acquire))
                 {
                   v19 = v15;
@@ -3419,24 +3424,24 @@ void CreateCopyOfArrayByApplyingFunction(const __CFArray *a1@<X0>, uint64_t a2@<
 
 void CreateCopyOfArrayByApplyingFunction(__CFArray const*,std::function<TCFRef<void const*> ()(void const*)>)::$_0::__invoke(void *a1, uint64_t a2)
 {
-  v8[0] = 0xAAAAAAAAAAAAAAAALL;
+  v9[0] = 0xAAAAAAAAAAAAAAAALL;
   v3 = *(*(a2 + 8) + 24);
-  v8[1] = a1;
+  v9[1] = a1;
   if (v3)
   {
-    (*(*v3 + 48))(v8);
-    if (atomic_load_explicit(v8, memory_order_acquire))
+    (*(*v3 + 48))(v9);
+    if (atomic_load_explicit(v9, memory_order_acquire))
     {
       v5 = *a2;
-      v6 = atomic_load_explicit(v8, memory_order_acquire);
+      v6 = atomic_load_explicit(v9, memory_order_acquire);
       CFArrayAppendValue(atomic_load_explicit(v5, memory_order_acquire), v6);
     }
   }
 
   else
   {
-    v7 = std::__throw_bad_function_call[abi:fn200100]();
-    std::__function::__func<CreateNormalizedLanguages(__CFArray const*)::$_0,std::allocator<CreateNormalizedLanguages(__CFArray const*)::$_0>,TCFRef<void const*> ()(void const*)>::operator()(v7);
+    std::__throw_bad_function_call[abi:fn200100]();
+    std::__function::__func<CreateNormalizedLanguages(__CFArray const*)::$_0,std::allocator<CreateNormalizedLanguages(__CFArray const*)::$_0>,TCFRef<void const*> ()(void const*)>::operator()(v7, v8);
   }
 }
 
@@ -3462,7 +3467,7 @@ uint64_t std::__function::__value_func<TCFRef<void const*> ()(void const*)>::~__
   return a1;
 }
 
-void CopyLocalizedFontNameInternal(CFArrayRef theArray@<X3>, CGFont *a2@<X0>, uint64_t a3@<X1>, unsigned int a4@<W2>, void *a5@<X4>, const __CFString *a6@<X5>, atomic_ullong *a7@<X8>)
+void CopyLocalizedFontNameInternal(uint64_t *__return_ptr a1@<X8>, CFArrayRef theArray@<X3>, CGFont *a3@<X0>, uint64_t a4@<X1>, unsigned int a5@<W2>, void *a6@<X4>, __CFString *a7@<X5>)
 {
   v80[1] = *MEMORY[0x1E69E9840];
   v78 = 0;
@@ -3473,37 +3478,37 @@ void CopyLocalizedFontNameInternal(CFArrayRef theArray@<X3>, CGFont *a2@<X0>, ui
     explicit = atomic_load_explicit(&v78, memory_order_acquire);
   }
 
-  if (a5)
+  if (a6)
   {
-    *a5 = 0;
+    *a6 = 0;
   }
 
-  if (a2 | a3 && a4 != -1)
+  if (a3 | a4 && a5 != -1)
   {
     v77.data = 0;
     v77.length = 0;
-    if ((a4 & 0x80000000) == 0)
+    if ((a5 & 0x80000000) == 0)
     {
-      if (a3)
+      if (a4)
       {
         v14 = 0;
       }
 
       else
       {
-        a3 = CGFontNameTableCreate();
-        v14 = a3;
-        if (!a3)
+        a4 = CGFontNameTableCreate();
+        v14 = a4;
+        if (!a4)
         {
           goto LABEL_44;
         }
       }
 
       v68 = v14;
-      v69 = a2;
-      v72 = a5;
-      v74 = a6;
-      v70 = a7;
+      v69 = a3;
+      v72 = a6;
+      v74 = a7;
+      v70 = a1;
       v15 = CGFontNameTableCopyLocales();
       v16 = *MEMORY[0x1E695E480];
       theSet = CFSetCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9F8]);
@@ -3537,7 +3542,7 @@ void CopyLocalizedFontNameInternal(CFArrayRef theArray@<X3>, CGFont *a2@<X0>, ui
         }
       }
 
-      v71 = a4;
+      v71 = a5;
       values = 0xAAAAAAAAAAAAAAAALL;
       TCFMutableArray::TCFMutableArray(&values, explicit);
       if (explicit)
@@ -3561,11 +3566,11 @@ void CopyLocalizedFontNameInternal(CFArrayRef theArray@<X3>, CGFont *a2@<X0>, ui
                 v34 = Value;
                 v35 = v15;
                 v36 = explicit;
-                v37 = a3;
+                v37 = a4;
                 v38 = atomic_load_explicit(&values, memory_order_acquire);
                 v81.length = CFArrayGetCount(atomic_load_explicit(&values, memory_order_acquire));
                 v39 = v38;
-                a3 = v37;
+                a4 = v37;
                 explicit = v36;
                 v15 = v35;
                 v81.location = 0;
@@ -3584,11 +3589,11 @@ void CopyLocalizedFontNameInternal(CFArrayRef theArray@<X3>, CGFont *a2@<X0>, ui
       }
 
       v40 = theSet;
-      a4 = v71;
+      a5 = v71;
       if (CFSetGetCount(theSet) > 0)
       {
         v77.info = 0xAAAAAAAAAAAAAAAALL;
-        CreateSortedArrayWithSet(theSet, 0, 0, &v77.info);
+        CreateSortedArrayWithSet(&v77.info, theSet, 0, 0);
         v41 = CFBundleCopyLocalizationsForPreferences(atomic_load_explicit(&v77.info, memory_order_acquire), atomic_load_explicit(&values, memory_order_acquire));
         v42 = v41;
         if (v41)
@@ -3625,34 +3630,34 @@ void CopyLocalizedFontNameInternal(CFArrayRef theArray@<X3>, CGFont *a2@<X0>, ui
         v40 = theSet;
       }
 
-      a2 = v69;
-      a7 = v70;
-      a5 = v72;
-      a6 = v74;
+      a3 = v69;
+      a1 = v70;
+      a6 = v72;
+      a7 = v74;
       if (v68)
       {
         CGFontNameTableRelease();
-        a3 = 0;
+        a4 = 0;
       }
     }
 
 LABEL_44:
-    if (a4 != 2 && !a6)
+    if (a5 != 2 && !a7)
     {
 LABEL_98:
       if (atomic_load_explicit(&v77.length, memory_order_acquire))
       {
-        if (a5)
+        if (a6)
         {
-          *a5 = atomic_exchange(&v77.data, 0);
+          *a6 = atomic_exchange(&v77.data, 0);
         }
 
-        *a7 = atomic_exchange(&v77.length, 0);
+        *a1 = atomic_exchange(&v77.length, 0);
       }
 
       else
       {
-        CopyFontNameInternal(a2, a3, a4, a7);
+        CopyFontNameInternal(a1, a3, a4, a5);
       }
 
       goto LABEL_103;
@@ -3662,7 +3667,7 @@ LABEL_98:
     v48 = v47 == 0;
     if (atomic_load_explicit(&v77.length, memory_order_acquire) && atomic_load_explicit(&v77.data, memory_order_acquire) && CFArrayGetCount(explicit))
     {
-      v75 = a6;
+      v75 = a7;
       values = 0xAAAAAAAAAAAAAAAALL;
       if (explicit)
       {
@@ -3685,7 +3690,7 @@ LABEL_98:
         if (!v50 || !v51)
         {
 
-          a6 = v75;
+          a7 = v75;
           if (v75)
           {
             goto LABEL_72;
@@ -3707,7 +3712,7 @@ LABEL_98:
         v48 = v53;
       }
 
-      a6 = v75;
+      a7 = v75;
       if (!v48)
       {
         goto LABEL_98;
@@ -3719,22 +3724,22 @@ LABEL_98:
       goto LABEL_98;
     }
 
-    if (a6)
+    if (a7)
     {
       goto LABEL_72;
     }
 
 LABEL_53:
-    if (a4 == 4)
+    if (a5 == 4)
     {
 LABEL_56:
-      a6 = @"FontNames";
+      a7 = @"FontNames";
       goto LABEL_72;
     }
 
-    if (a4 != 2)
+    if (a5 != 2)
     {
-      if (a4 != 1)
+      if (a5 != 1)
       {
         goto LABEL_98;
       }
@@ -3742,20 +3747,20 @@ LABEL_56:
       goto LABEL_56;
     }
 
-    a6 = @"StyleNames";
+    a7 = @"StyleNames";
 LABEL_72:
-    *a7 = 0xAAAAAAAAAAAAAAAALL;
-    CopyFontNameInternal(a2, a3, a4, a7);
-    if (atomic_load_explicit(a7, memory_order_acquire))
+    *a1 = 0xAAAAAAAAAAAAAAAALL;
+    CopyFontNameInternal(a1, a3, a4, a5);
+    if (atomic_load_explicit(a1, memory_order_acquire))
     {
-      if ((a4 & 0x80000000) != 0)
+      if ((a5 & 0x80000000) != 0)
       {
 LABEL_103:
 
         goto LABEL_104;
       }
 
-      MutableCopy = CFStringCreateMutableCopy(*MEMORY[0x1E695E480], 0, atomic_load_explicit(a7, memory_order_acquire));
+      MutableCopy = CFStringCreateMutableCopy(*MEMORY[0x1E695E480], 0, atomic_load_explicit(a1, memory_order_acquire));
       if (MutableCopy)
       {
         v55 = MutableCopy;
@@ -3766,7 +3771,7 @@ LABEL_103:
 
     v77.isa = 0xAAAAAAAAAAAAAAAALL;
     v77.info = 0;
-    v56 = atomic_load_explicit(a7, memory_order_acquire);
+    v56 = atomic_load_explicit(a1, memory_order_acquire);
     if (atomic_load_explicit(&v78, memory_order_acquire))
     {
       v57 = 0;
@@ -3778,16 +3783,16 @@ LABEL_103:
     }
 
     v58 = atomic_load_explicit(&v78, memory_order_acquire);
-    if (a5 || !v58)
+    if (a6 || !v58)
     {
       values = &v77.info;
       v80[0] = 0;
-      CopyDefaultLocalizedName(&v77, v56, a6, v57, v80);
+      CopyDefaultLocalizedName(&v77, v56, a7, v57, v80);
     }
 
     else
     {
-      CopyDefaultLocalizedName(&v77, v56, a6, v57, 0);
+      CopyDefaultLocalizedName(&v77, v56, a7, v57, 0);
     }
 
     if (!atomic_load_explicit(&v77, memory_order_acquire))
@@ -3797,7 +3802,7 @@ LABEL_103:
 
     if (atomic_load_explicit(&v77.info, memory_order_acquire) && atomic_load_explicit(&v77.data, memory_order_acquire))
     {
-      v73 = a5;
+      v73 = a6;
       values = 0xAAAAAAAAAAAAAAAALL;
       v80[0] = 0xAAAAAAAAAAAAAAAALL;
       v59 = atomic_load_explicit(&v77.info, memory_order_acquire);
@@ -3822,7 +3827,7 @@ LABEL_103:
       if (v65 == v66)
       {
 
-        a5 = v73;
+        a6 = v73;
       }
 
       else
@@ -3830,13 +3835,13 @@ LABEL_103:
         if (!v65 || !v66)
         {
 
-          a5 = v73;
+          a6 = v73;
           goto LABEL_97;
         }
 
         v67 = CFEqual(v65, v66);
 
-        a5 = v73;
+        a6 = v73;
         if (!v67)
         {
           goto LABEL_97;
@@ -3851,11 +3856,11 @@ LABEL_97:
     goto LABEL_98;
   }
 
-  *a7 = 0;
+  *a1 = 0;
 LABEL_104:
 }
 
-void CreateSortedArrayWithSet(CFSetRef theSet@<X0>, CFComparisonResult (__cdecl *a2)(const void *, const void *, void *)@<X1>, void *a3@<X2>, CFArrayRef *a4@<X8>)
+void CreateSortedArrayWithSet(CFArrayRef *__return_ptr a1@<X8>, CFSetRef theSet@<X0>, CFComparisonResult (__cdecl *a3)(const void *, const void *, void *)@<X1>, void *a4@<X2>)
 {
   v35 = *MEMORY[0x1E69E9840];
   if (theSet)
@@ -3925,7 +3930,7 @@ void CreateSortedArrayWithSet(CFSetRef theSet@<X0>, CFComparisonResult (__cdecl 
   }
 
   CFSetGetValues(theSet, v11);
-  if (a2 && Count >= 2)
+  if (a3 && Count >= 2)
   {
     v13 = values;
     Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
@@ -3935,13 +3940,13 @@ void CreateSortedArrayWithSet(CFSetRef theSet@<X0>, CFComparisonResult (__cdecl 
     explicit = atomic_load_explicit(&Mutable, memory_order_acquire);
     v37.length = CFArrayGetCount(atomic_load_explicit(&Mutable, memory_order_acquire));
     v37.location = 0;
-    CFArraySortValues(explicit, v37, a2, a3);
-    *a4 = atomic_exchange(&Mutable, 0);
+    CFArraySortValues(explicit, v37, a3, a4);
+    *a1 = atomic_exchange(&Mutable, 0);
   }
 
   else
   {
-    *a4 = CFArrayCreate(*MEMORY[0x1E695E480], values, Count, MEMORY[0x1E695E9C0]);
+    *a1 = CFArrayCreate(*MEMORY[0x1E695E480], values, Count, MEMORY[0x1E695E9C0]);
   }
 
   Mutable = &values;
@@ -3996,7 +4001,7 @@ void TInstanceFont::CopyAttribute(atomic_ullong *this@<X0>, uint64_t a2@<X1>, at
       v6 = 0xAAAAAAAAAAAAAAAALL;
       atomic_load_explicit(this + 80, memory_order_acquire);
       CreateVariationDictFromGraphicsFont(&v6);
-      CreateCodableVariationFromDefaultVariation(atomic_load_explicit(this + 75, memory_order_acquire), atomic_load_explicit(&v6, memory_order_acquire), &v5);
+      CreateCodableVariationFromDefaultVariation(&v5, atomic_load_explicit(this + 75, memory_order_acquire), atomic_load_explicit(&v6, memory_order_acquire));
       *a3 = atomic_exchange(&v5, 0);
     }
 
@@ -4165,8 +4170,8 @@ uint64_t TCFBase<TNativeParagraphStyle>::ClassDestruct(uint64_t a1)
 
   v3 = *(a1 + 40);
 
-  v4 = v3[1];
-  v3[1] = 0;
+  v4 = *(v3 + 8);
+  *(v3 + 8) = 0;
   if (v4)
   {
     MEMORY[0x1865F22D0](v4, 0x1000C40FA0F61DDLL);
@@ -4213,7 +4218,7 @@ CTFontRef CTFontCreateCopyWithSymbolicTraits(CTFontRef font, CGFloat size, const
   }
 
   v14 = 0xAAAAAAAAAAAAAAAALL;
-  TFont::CopyDescriptor(v5, 0, &v14);
+  TFont::CopyDescriptor(&v14, v5, 0);
   CopyWithSymbolicTraits = CTFontDescriptorCreateCopyWithSymbolicTraits(atomic_load_explicit(&v14, memory_order_acquire), symTraitValue, symTraitMask);
   v11 = CopyWithSymbolicTraits;
   if (CopyWithSymbolicTraits)
@@ -4556,7 +4561,7 @@ CFArrayRef TNativeParagraphStyle::CopyDefaultTabStops(TNativeParagraphStyle *thi
   while (1)
   {
     v2 = v2 + 28.0;
-    v3 = TCFBase<TNativeTextTab>::Allocate();
+    v3 = TCFBase<TNativeTextTab>::Allocate(72);
     if (v3)
     {
       *(v3 + 48) = v2;
@@ -4591,7 +4596,7 @@ LABEL_8:
   return v4;
 }
 
-uint64_t TCFBase<TNativeTextTab>::Allocate()
+uint64_t TCFBase<TNativeTextTab>::Allocate(uint64_t a1)
 {
   if (TCFBase<TNativeTextTab>::GetTypeID(void)::once != -1)
   {
@@ -4685,7 +4690,7 @@ CTFramesetterRef CTFramesetterCreateWithAttributedString(CFAttributedStringRef a
   v1 = attrString;
   if (attrString)
   {
-    v2 = TCFBase<TFramesetter>::Allocate();
+    v2 = TCFBase<TFramesetter>::Allocate(336);
     if (v2)
     {
       v2[2] = 0;
@@ -4693,7 +4698,7 @@ CTFramesetterRef CTFramesetterCreateWithAttributedString(CFAttributedStringRef a
       v2[4] = 0;
       v2[5] = v2 + 6;
       v2[6] = &unk_1EF257460;
-      TTypesetterAttrString::TTypesetterAttrString((v2 + 7), v1, 0);
+      TTypesetterAttrString::TTypesetterAttrString((v2 + 7), v1, 0, 0);
     }
 
     v4 = 0;
@@ -4703,7 +4708,7 @@ CTFramesetterRef CTFramesetterCreateWithAttributedString(CFAttributedStringRef a
   return v1;
 }
 
-uint64_t TCFBase<TFramesetter>::Allocate()
+uint64_t TCFBase<TFramesetter>::Allocate(uint64_t a1)
 {
   if (_MergedGlobals_8 != -1)
   {
@@ -4808,18 +4813,18 @@ CGSize CTFramesetterSuggestFrameSizeWithConstraints(CTFramesetterRef framesetter
     v19 = v18;
   }
 
-  v57 = NAN;
-  v55 = 0u;
+  v58 = NAN;
   v56 = 0u;
-  v54 = 0u;
-  v53 = 0xAAAAAAAAAAAAAAAALL;
-  TFramesetter::CreateFrame(v16, location, v19, v15, frameAttributes, &v57, &v54, &v53);
-  if (!atomic_load_explicit(&v53, memory_order_acquire))
+  v57 = 0u;
+  v55 = 0u;
+  v54 = 0xAAAAAAAAAAAAAAAALL;
+  TFramesetter::CreateFrame(v16, location, v19, v15, frameAttributes, &v58, &v54, &v55);
+  if (!atomic_load_explicit(&v54, memory_order_acquire))
   {
     goto LABEL_53;
   }
 
-  v20 = *(atomic_load_explicit(&v53, memory_order_acquire) + 40);
+  v20 = *(atomic_load_explicit(&v54, memory_order_acquire) + 40);
   if (fitRange)
   {
     *fitRange = *(v20 + 16);
@@ -4883,8 +4888,8 @@ LABEL_37:
 LABEL_38:
       v45 = v39 + *(v28 + 104) - v43;
 LABEL_39:
-      TLine::GetTrailingWhitespace(v28, v52);
-      v45 = v45 - v52[2];
+      TLine::GetTrailingWhitespace(v28, &v52);
+      v45 = v45 - v53;
       goto LABEL_40;
     }
 
@@ -4947,20 +4952,20 @@ LABEL_40:
   while (v23 != v24);
   if (v25)
   {
-    v46 = v57 + *(v28 + 112);
+    v46 = v58 + *(v28 + 112);
   }
 
   else if (*(v20 + 160))
   {
-    v26 = v57;
+    v26 = v58;
   }
 
   else
   {
-    v26 = v57 + *(&v56 + 1);
+    v26 = v58 + *(&v57 + 1);
     if ((*(v20 + 161) & 1) == 0)
     {
-      v26 = v26 + *&v55;
+      v26 = v26 + *&v56;
     }
   }
 
@@ -4990,7 +4995,7 @@ LABEL_64:
   return result;
 }
 
-void TFramesetter::CreateFrame(TFramesetter *a1@<X0>, CFIndex a2@<X1>, CFIndex a3@<X2>, void *a4@<X3>, const __CFDictionary *a5@<X4>, double *a6@<X5>, uint64_t a7@<X6>, unint64_t *a8@<X8>)
+void TFramesetter::CreateFrame(TFramesetter *a1@<X0>, CFIndex a2@<X1>, CFIndex a3@<X2>, void *a4@<X3>, const __CFDictionary *a5@<X4>, double *a6@<X5>, unint64_t *a7@<X8>, uint64_t a8@<X6>)
 {
   v19 = a5;
   v20 = a4;
@@ -5006,7 +5011,7 @@ void TFramesetter::CreateFrame(TFramesetter *a1@<X0>, CFIndex a2@<X1>, CFIndex a
     v15.length = a3;
     if (*(v14 + 32) == 1)
     {
-      TFramesetter::FrameInRect(a1, v14, a2, a3, a6, a7);
+      TFramesetter::FrameInRect(a1, v14, a2, a3, a6, a8);
     }
 
     else
@@ -5022,10 +5027,10 @@ void TFramesetter::CreateFrame(TFramesetter *a1@<X0>, CFIndex a2@<X1>, CFIndex a
     v16 = 0;
   }
 
-  *a8 = v16;
+  *a7 = v16;
 }
 
-uint64_t TCFBase<TFrame>::Allocate()
+uint64_t TCFBase<TFrame>::Allocate(uint64_t a1)
 {
   if (TCFBase<TFrame>::GetTypeID(void)::once != -1)
   {
@@ -5173,7 +5178,7 @@ void TFrame::TFrame(TFrame *this, id a2, const __CFDictionary *a3)
   }
 }
 
-void TFramesetter::FrameInRect(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double *a5, uint64_t a6)
+void TFramesetter::FrameInRect(uint64_t a1, uint64_t a2, CFIndex a3, uint64_t a4, double *a5, uint64_t a6)
 {
   v118 = *MEMORY[0x1E69E9840];
   v104 = *(a2 + 144);
@@ -5551,7 +5556,7 @@ LABEL_90:
         if ((v64 & 2) == 0)
         {
 LABEL_88:
-          TruncatedLine = CreateTruncatedLine(v68, v76, 0, 0, v70);
+          TruncatedLine = CreateTruncatedLine(v68, v76, 0, v70, 0);
           if (TruncatedLine)
           {
             v89 = TruncatedLine;
@@ -5702,7 +5707,7 @@ double TFramesetter::GetHeadIndent(TFramesetter *this, const TAttributes *a2)
   return 0.0;
 }
 
-unint64_t TFramesetter::ParagraphEndsWith(TFramesetter *this, const TLine *a2, const TCharStream *a3)
+uint64_t TFramesetter::ParagraphEndsWith(TFramesetter *this, const TLine *a2, const TCharStream *a3)
 {
   v3 = *(this + 10) + *(this + 9);
   if (v3 == *(a2 + 2))
@@ -5726,7 +5731,7 @@ unint64_t TFramesetter::ParagraphEndsWith(TFramesetter *this, const TLine *a2, c
   }
 
   v11 = *(this + 2);
-  if (result >= (*(this + 3) - v11) >> 3)
+  if (result >= ((*(this + 3) - v11) >> 3))
   {
     __break(1u);
   }
@@ -5745,7 +5750,7 @@ unint64_t TFramesetter::ParagraphEndsWith(TFramesetter *this, const TLine *a2, c
   return result;
 }
 
-void TFramesetter::GetLineMetrics(int8x16_t *this, TLine *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6)
+void TFramesetter::GetLineMetrics(float64x2_t *this, TLine *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6)
 {
   v6 = *(a2 + 15);
   if (*(a2 + 16) == -1.79769313e308)
@@ -5758,12 +5763,11 @@ void TFramesetter::GetLineMetrics(int8x16_t *this, TLine *a2, unsigned int a3, u
     v7 = *(a2 + 16);
   }
 
-  this->i64[0] = *(a2 + 14);
-  this->i64[1] = v6;
-  *this[1].i64 = v7;
-  this[1].i64[1] = 0;
-  this[2].i64[0] = 0;
-  this[2].i64[1] = v6;
+  this->f64[0] = *(a2 + 14);
+  *&this->f64[1] = v6;
+  this[1] = *&v7;
+  this[2].f64[0] = 0.0;
+  *&this[2].f64[1] = v6;
   v8 = *(a2 + 2);
   v9 = *(a2 + 3);
   v10 = v9 - v8;
@@ -5796,14 +5800,14 @@ void TFramesetter::GetLineMetrics(int8x16_t *this, TLine *a2, unsigned int a3, u
       v48.origin.y = v30;
       v48.size.width = v32;
       v48.size.height = v34;
-      *this->i64 = CGRectGetMaxY(v48);
+      this->f64[0] = CGRectGetMaxY(v48);
       v49.origin.x = v28;
       v49.origin.y = v30;
       v49.size.width = v32;
       v49.size.height = v34;
       *&v42 = fabs(CGRectGetMinX(v49));
-      this->i64[1] = v42;
-      this[2].i64[1] = v42;
+      this->f64[1] = *&v42;
+      this[2].f64[1] = *&v42;
       v50.origin.x = rect.origin.x;
       v50.origin.y = v37;
       v50.size.width = v39;
@@ -5819,7 +5823,7 @@ void TFramesetter::GetLineMetrics(int8x16_t *this, TLine *a2, unsigned int a3, u
         v43 = v7 + v43;
       }
 
-      *this[1].i64 = v43;
+      this[1].f64[0] = v43;
       goto LABEL_28;
     }
   }
@@ -5859,20 +5863,20 @@ LABEL_28:
     if (TFont::IsSystemUIFontAndForShaping(v22, &rect.size.height))
     {
       rect.size.height = -3.72066208e-103;
-      TAttributes::OriginalFont(v19 + 5, &rect.size.height);
+      TAttributes::OriginalFont(&rect.size.height, v19 + 5);
       if (atomic_load_explicit(&rect.size.height, memory_order_acquire))
       {
         TFont::GetDefaultMetrics(*(atomic_load_explicit(&rect.size.height, memory_order_acquire) + 40), &v47, &v46, &v45);
         v23.f64[0] = v21 + v47;
         v23.f64[1] = v46 - v21;
         *this = vbslq_s8(vcgtq_f64(v23, *this), v23, *this);
-        v24 = *this[1].i64;
+        v24 = this[1].f64[0];
         if (v24 < v45)
         {
           v24 = v45;
         }
 
-        *this[1].i64 = v24;
+        this[1].f64[0] = v24;
       }
     }
 
@@ -5880,13 +5884,13 @@ LABEL_28:
     v25.f64[0] = v21 + v47;
     v25.f64[1] = v46 - v21;
     *this = vbslq_s8(vcgtq_f64(v25, *this), v25, *this);
-    v26 = *this[1].i64;
+    v26 = this[1].f64[0];
     if (v26 < v45)
     {
       v26 = v45;
     }
 
-    *this[1].i64 = v26;
+    this[1].f64[0] = v26;
     if (v10 >> 3 == ++v17)
     {
       goto LABEL_28;
@@ -5932,7 +5936,7 @@ void ApplyParagraphStyleSettings(uint64_t a1, const void *a2, int a3, int a4, in
   {
     LineSpacingAdjustment = TParagraphStyle::GetLineSpacingAdjustment(v33, v31);
     v37 = *(a1 + 128);
-    f64 = a6[1].f64;
+    v38 = a6 + 1;
     v39 = LineSpacingAdjustment + a6[1].f64[0];
     a6[1].f64[0] = v39;
     v40 = 10000000.0;
@@ -5984,7 +5988,7 @@ void ApplyParagraphStyleSettings(uint64_t a1, const void *a2, int a3, int a4, in
 
   else
   {
-    f64 = a6[1].f64;
+    v38 = a6 + 1;
     v39 = a6[1].f64[0] + 0.0;
     a6[1].f64[0] = v39;
     v40 = 10000000.0;
@@ -6069,8 +6073,8 @@ LABEL_68:
   }
 
 LABEL_69:
-  v62 = *f64;
-  if (*f64 < v39)
+  v62 = v38->f64[0];
+  if (v38->f64[0] < v39)
   {
     v62 = v39;
   }
@@ -6080,7 +6084,7 @@ LABEL_69:
     v62 = v40;
   }
 
-  *f64 = v62;
+  v38->f64[0] = v62;
   if (a3 && (v12 & 1) == 0)
   {
     a6[1].f64[1] = ParagraphSpacingBefore;
@@ -6259,7 +6263,7 @@ uint64_t TFramesetter::AppendLine(uint64_t a1, int a2, unsigned __int8 a3, int a
   v24 = (a5 - 3);
   if (a5 >= 3)
   {
-    TruncatedLine = CreateTruncatedLine(atomic_load_explicit(a7, memory_order_acquire), v24, 0, 0, a9);
+    TruncatedLine = CreateTruncatedLine(atomic_load_explicit(a7, memory_order_acquire), v24, 0, a9, 0);
     if (!TruncatedLine)
     {
       return 0;
@@ -6514,7 +6518,7 @@ void TFrame::SetLines(void *a1, void *a2, char **a3, void *a4, uint64_t a5, uint
   TCFRef<__CTFont const*>::Retain(a1 + 17, a4);
 }
 
-void *std::vector<CGPoint>::__assign_with_size[abi:fn200100]<CGPoint*,CGPoint*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<CGPoint>::__assign_with_size[abi:fn200100]<CGPoint*,CGPoint*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -6590,7 +6594,7 @@ void *std::vector<CGPoint>::__assign_with_size[abi:fn200100]<CGPoint*,CGPoint*>(
   return result;
 }
 
-void std::vector<CGSize>::__vallocate[abi:fn200100](uint64_t a1, unint64_t a2)
+void std::vector<CGSize>::__vallocate[abi:fn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -6787,7 +6791,7 @@ CTFrameRef CTFramesetterCreateFrame(CTFramesetterRef framesetter, CFRange string
       }
 
       v15[0] = 0uLL;
-      TFramesetter::CreateFrame(v9, location, v12, path, frameAttributes, &v16, v15, &v14);
+      TFramesetter::CreateFrame(v9, location, v12, path, frameAttributes, &v16, &v14, v15);
       v4 = atomic_exchange(&v14, 0);
     }
   }
@@ -6900,16 +6904,16 @@ void CTFrameDraw(CTFrameRef frame, CGContextRef context)
   }
 }
 
-uint64_t sub_18466C868@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_18466C868@<X0>(_BYTE *a2@<X8>)
 {
 
-  *a1 = 1;
+  *a2 = 1;
   return result;
 }
 
 uint64_t sub_18466C8B4()
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869220);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869220, &qword_184741A70);
   __swift_allocate_value_buffer(v0, qword_1EA869200);
   v1 = __swift_project_value_buffer(v0, qword_1EA869200);
   v2 = *MEMORY[0x1E6968710];
@@ -6928,7 +6932,7 @@ uint64_t static AttributeScopes.CoreTextAttributes.LineHeightAttribute.runBounda
     swift_once();
   }
 
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869220);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869220, &qword_184741A70);
   v3 = __swift_project_value_buffer(v2, qword_1EA869200);
 
   return sub_18466CAAC(v3, a1);
@@ -6944,7 +6948,7 @@ uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -6958,7 +6962,7 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
 
 uint64_t sub_18466CAAC(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869220);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869220, &qword_184741A70);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -6970,7 +6974,7 @@ uint64_t sub_18466CB1C@<X0>(uint64_t a1@<X8>)
     swift_once();
   }
 
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869220);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869220, &qword_184741A70);
   v3 = __swift_project_value_buffer(v2, qword_1EA869200);
 
   return sub_18466CAAC(v3, a1);
@@ -7042,7 +7046,7 @@ uint64_t sub_18466CD94(uint64_t a1)
 
 uint64_t AttributedString.LineHeight.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869228);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869228, &qword_184741A78);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3, v5);
   v7 = &v11 - v6;
@@ -7073,7 +7077,7 @@ unint64_t sub_18466CF6C()
   result = qword_1EA869230;
   if (!qword_1EA869230)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_184741DC4, &_s10LineHeightV10CodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869230);
   }
 
@@ -7085,7 +7089,7 @@ unint64_t sub_18466CFC0()
   result = qword_1EA869238;
   if (!qword_1EA869238)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_184741D9C, &_s10LineHeightV23BaselineIntervalStorageON, v0, v1);
     atomic_store(result, &qword_1EA869238);
   }
 
@@ -7138,7 +7142,7 @@ uint64_t AttributedString.LineHeight.hashValue.getter()
 
 uint64_t AttributedString.LineHeight.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869240);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869240, &qword_184741A80);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5, v7);
   v9 = &v12 - v8;
@@ -7165,7 +7169,7 @@ uint64_t sub_18466D280()
   return sub_18473DD54();
 }
 
-uint64_t sub_18466D2D8()
+uint64_t sub_18466D2D8(uint64_t a1)
 {
   sub_18473DD24();
   AttributedString.LineHeight.hash(into:)();
@@ -7207,26 +7211,26 @@ uint64_t sub_18466D3A4(void *a1, uint64_t a2, int a3)
 {
   v40 = a3;
   v39 = a2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869280);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869280, &qword_184741E18);
   v37 = *(v4 - 8);
   v38 = v4;
   MEMORY[0x1EEE9AC00](v4, v5);
   v36 = &v31 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869288);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869288, &qword_184741E20);
   v34 = *(v7 - 8);
   v35 = v7;
   MEMORY[0x1EEE9AC00](v7, v8);
   v10 = &v31 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869290);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869290, &qword_184741E28);
   v32 = *(v11 - 8);
   v33 = v11;
   MEMORY[0x1EEE9AC00](v11, v12);
   v14 = &v31 - v13;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869298);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869298, &qword_184741E30);
   v31 = *(v15 - 8);
   MEMORY[0x1EEE9AC00](v15, v16);
   v18 = &v31 - v17;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8692A0);
+  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8692A0, &qword_184741E38);
   v19 = *(v41 - 8);
   MEMORY[0x1EEE9AC00](v41, v20);
   v22 = &v31 - v21;
@@ -7331,11 +7335,11 @@ uint64_t sub_18466D94C()
   return sub_18473DD54();
 }
 
-uint64_t sub_18466D994()
+uint64_t sub_18466D994(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_18473DD24();
-  MEMORY[0x1865F04B0](v1);
+  MEMORY[0x1865F04B0](v2);
   return sub_18473DD54();
 }
 
@@ -7364,10 +7368,10 @@ uint64_t sub_18466D9D8()
   }
 }
 
-uint64_t sub_18466DA50@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_18466DA50@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_18466E6C4(a1, a2);
-  *a3 = result;
+  result = sub_18466E6C4(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -7458,7 +7462,7 @@ uint64_t sub_18466DD24()
   return sub_18473DD54();
 }
 
-uint64_t sub_18466DD68()
+uint64_t sub_18466DD68(uint64_t a1)
 {
   sub_18473DD24();
   MEMORY[0x1865F04B0](0);
@@ -7512,13 +7516,13 @@ uint64_t sub_18466DF00(uint64_t a1)
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-uint64_t sub_18466DF3C@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_18466DF3C@<X0>(uint64_t a1@<X8>, void *a2@<X0>)
 {
-  result = sub_18466E824(a1);
+  result = sub_18466E824(a2);
   if (!v2)
   {
-    *a2 = result;
-    *(a2 + 8) = v5;
+    *a1 = result;
+    *(a1 + 8) = v5;
   }
 
   return result;
@@ -7533,9 +7537,9 @@ uint64_t sub_18466DF8C()
   return sub_18473DD54();
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -7551,7 +7555,7 @@ unint64_t sub_18466E034()
   result = qword_1EA869248;
   if (!qword_1EA869248)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_184741D74, &_s10LineHeightV23BaselineIntervalStorageON, v0, v1);
     atomic_store(result, &qword_1EA869248);
   }
 
@@ -7563,7 +7567,7 @@ unint64_t sub_18466E08C()
   result = qword_1EA869250;
   if (!qword_1EA869250)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AttributedString.LineHeight, &type metadata for AttributedString.LineHeight, v0, v1);
     atomic_store(result, &qword_1EA869250);
   }
 
@@ -7575,7 +7579,7 @@ unint64_t sub_18466E0E4()
   result = qword_1EA869258;
   if (!qword_1EA869258)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AttributedString.LineHeight, &type metadata for AttributedString.LineHeight, v0, v1);
     atomic_store(result, &qword_1EA869258);
   }
 
@@ -7590,20 +7594,20 @@ uint64_t __swift_memcpy9_8(uint64_t result, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_18466E14C()
+uint64_t sub_18466E14C(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
+  v2 = *v1;
+  v3 = *(v1 + 8);
   sub_18473DD24();
-  sub_18466D8E0(v4, v1, v2);
+  sub_18466D8E0(v5, v2, v3);
   return sub_18473DD54();
 }
 
-id sub_18466E230()
+id sub_18466E230(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = swift_getObjectType();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v4.receiver = v2;
+  v4.super_class = swift_getObjectType();
+  return objc_msgSendSuper2(&v4, sel_dealloc);
 }
 
 uint64_t sub_18466E28C(uint64_t a1)
@@ -7636,7 +7640,7 @@ unint64_t sub_18466E2F0()
   result = qword_1EA869260;
   if (!qword_1EA869260)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aEquj, &_s10LineHeightV10CodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869260);
   }
 
@@ -7648,7 +7652,7 @@ unint64_t sub_18466E348()
   result = qword_1EA869268;
   if (!qword_1EA869268)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aQuj, &_s10LineHeightV23BaselineIntervalStorageON, v0, v1);
     atomic_store(result, &qword_1EA869268);
   }
 
@@ -7660,7 +7664,7 @@ unint64_t sub_18466E3A0()
   result = qword_1EA869270;
   if (!qword_1EA869270)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_184741C54, &_s10LineHeightV10CodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869270);
   }
 
@@ -7672,7 +7676,7 @@ unint64_t sub_18466E3F8()
   result = qword_1EA869278;
   if (!qword_1EA869278)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_184741C7C, &_s10LineHeightV10CodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869278);
   }
 
@@ -7684,7 +7688,7 @@ unint64_t sub_18466E44C()
   result = qword_1EA8692A8;
   if (!qword_1EA8692A8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aUUj, &_s10LineHeightV23BaselineIntervalStorageO10CodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA8692A8);
   }
 
@@ -7696,7 +7700,7 @@ unint64_t sub_18466E4A0()
   result = qword_1EA8692B0;
   if (!qword_1EA8692B0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1847422F4, &_s10LineHeightV23BaselineIntervalStorageO15ExactCodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA8692B0);
   }
 
@@ -7708,7 +7712,7 @@ unint64_t sub_18466E4F4()
   result = qword_1EA8692B8;
   if (!qword_1EA8692B8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E69E7DF8], MEMORY[0x1E69E7DE0], v0, v1);
     atomic_store(result, &qword_1EA8692B8);
   }
 
@@ -7720,7 +7724,7 @@ unint64_t sub_18466E548()
   result = qword_1EA8692C0;
   if (!qword_1EA8692C0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1847422A4, &_s10LineHeightV23BaselineIntervalStorageO17LeadingCodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA8692C0);
   }
 
@@ -7732,7 +7736,7 @@ unint64_t sub_18466E59C()
   result = qword_1EA8692C8;
   if (!qword_1EA8692C8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aE_15, &_s10LineHeightV23BaselineIntervalStorageO18MultipleCodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA8692C8);
   }
 
@@ -7744,14 +7748,14 @@ unint64_t sub_18466E5F0()
   result = qword_1EA8692D0;
   if (!qword_1EA8692D0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_184742204, &_s10LineHeightV23BaselineIntervalStorageO18VariableCodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA8692D0);
   }
 
   return result;
 }
 
-uint64_t sub_18466E644(uint64_t a1, unsigned __int8 a2, uint64_t a3, char a4)
+BOOL sub_18466E644(uint64_t a1, unsigned __int8 a2, uint64_t a3, char a4)
 {
   if (a2 > 1u)
   {
@@ -7835,23 +7839,23 @@ uint64_t sub_18466E6C4(uint64_t a1, uint64_t a2)
 
 uint64_t sub_18466E824(void *a1)
 {
-  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8692D8);
+  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8692D8, &qword_184741E40);
   v46 = *(v50 - 8);
   MEMORY[0x1EEE9AC00](v50, v2);
   v49 = &v39 - v3;
-  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8692E0);
+  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8692E0, &qword_184741E48);
   v47 = *(v44 - 8);
   MEMORY[0x1EEE9AC00](v44, v4);
   v48 = &v39 - v5;
-  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8692E8);
+  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8692E8, &qword_184741E50);
   v45 = *(v43 - 8);
   MEMORY[0x1EEE9AC00](v43, v6);
   v8 = &v39 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8692F0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8692F0, &qword_184741E58);
   v42 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9, v10);
   v12 = &v39 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8692F8);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8692F8, &qword_184741E60);
   v14 = *(v13 - 8);
   MEMORY[0x1EEE9AC00](v13, v15);
   v17 = &v39 - v16;
@@ -7882,7 +7886,7 @@ uint64_t sub_18466E824(void *a1)
       v14 = sub_18473DC84();
       swift_allocError();
       v29 = v28;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869300);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869300, &qword_184741E68);
       *v29 = &_s10LineHeightV23BaselineIntervalStorageON;
       sub_18473DCA4();
       sub_18473DC74();
@@ -7994,7 +7998,7 @@ unint64_t sub_18466F01C()
   result = qword_1EA869308;
   if (!qword_1EA869308)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E69E7E18], MEMORY[0x1E69E7DE0], v0, v1);
     atomic_store(result, &qword_1EA869308);
   }
 
@@ -8289,7 +8293,7 @@ unint64_t sub_18466F334()
   result = qword_1EA869310;
   if (!qword_1EA869310)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_184741F64, &_s10LineHeightV23BaselineIntervalStorageO15ExactCodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869310);
   }
 
@@ -8301,7 +8305,7 @@ unint64_t sub_18466F38C()
   result = qword_1EA869318;
   if (!qword_1EA869318)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("-nujL^\b", &_s10LineHeightV23BaselineIntervalStorageO17LeadingCodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869318);
   }
 
@@ -8313,7 +8317,7 @@ unint64_t sub_18466F3E4()
   result = qword_1EA869320;
   if (!qword_1EA869320)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("umujp]\b", &_s10LineHeightV23BaselineIntervalStorageO18MultipleCodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869320);
   }
 
@@ -8325,7 +8329,7 @@ unint64_t sub_18466F43C()
   result = qword_1EA869328;
   if (!qword_1EA869328)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("mluj \\\b", &_s10LineHeightV23BaselineIntervalStorageO10CodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869328);
   }
 
@@ -8337,7 +8341,7 @@ unint64_t sub_18466F494()
   result = qword_1EA869330;
   if (!qword_1EA869330)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1847420FC, &_s10LineHeightV23BaselineIntervalStorageO18VariableCodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869330);
   }
 
@@ -8349,7 +8353,7 @@ unint64_t sub_18466F4EC()
   result = qword_1EA869338;
   if (!qword_1EA869338)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aVuj, &_s10LineHeightV23BaselineIntervalStorageO18VariableCodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869338);
   }
 
@@ -8361,7 +8365,7 @@ unint64_t sub_18466F544()
   result = qword_1EA869340;
   if (!qword_1EA869340)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_184742044, &_s10LineHeightV23BaselineIntervalStorageO18MultipleCodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869340);
   }
 
@@ -8373,7 +8377,7 @@ unint64_t sub_18466F59C()
   result = qword_1EA869348;
   if (!qword_1EA869348)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_18474206C, &_s10LineHeightV23BaselineIntervalStorageO18MultipleCodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869348);
   }
 
@@ -8385,7 +8389,7 @@ unint64_t sub_18466F5F4()
   result = qword_1EA869350;
   if (!qword_1EA869350)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aEUj, &_s10LineHeightV23BaselineIntervalStorageO17LeadingCodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869350);
   }
 
@@ -8397,7 +8401,7 @@ unint64_t sub_18466F64C()
   result = qword_1EA869358;
   if (!qword_1EA869358)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aWuj, &_s10LineHeightV23BaselineIntervalStorageO17LeadingCodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869358);
   }
 
@@ -8409,7 +8413,7 @@ unint64_t sub_18466F6A4()
   result = qword_1EA869360;
   if (!qword_1EA869360)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_184741ED4, &_s10LineHeightV23BaselineIntervalStorageO15ExactCodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869360);
   }
 
@@ -8421,7 +8425,7 @@ unint64_t sub_18466F6FC()
   result = qword_1EA869368;
   if (!qword_1EA869368)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(a5xuj, &_s10LineHeightV23BaselineIntervalStorageO15ExactCodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869368);
   }
 
@@ -8433,7 +8437,7 @@ unint64_t sub_18466F754()
   result = qword_1EA869370;
   if (!qword_1EA869370)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_18474214C, &_s10LineHeightV23BaselineIntervalStorageO10CodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869370);
   }
 
@@ -8445,7 +8449,7 @@ unint64_t sub_18466F7AC()
   result = qword_1EA869378;
   if (!qword_1EA869378)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_184742174, &_s10LineHeightV23BaselineIntervalStorageO10CodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869378);
   }
 
@@ -8504,24 +8508,24 @@ uint64_t AttributedString.AdaptiveImageGlyph.init(imageContent:)@<X0>(uint64_t a
   return result;
 }
 
-uint64_t sub_18466FA10(uint64_t a1, unint64_t a2)
+void sub_18466FA10(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return;
     }
   }
 }
 
-uint64_t sub_18466FA64(uint64_t a1, unint64_t a2)
+uint64_t sub_18466FA64(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -8553,7 +8557,7 @@ void static AttributedString.AdaptiveImageGlyph.contentType.getter()
   sub_18473DC34();
 }
 
-uint64_t static AttributedString.AdaptiveImageGlyph.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
+uint64_t static AttributedString.AdaptiveImageGlyph.== infix(_:_:)(_BOOL8 *a1, uint64_t *a2)
 {
   v2 = a1[2];
   v3 = a1[3];
@@ -8563,7 +8567,7 @@ uint64_t static AttributedString.AdaptiveImageGlyph.== infix(_:_:)(uint64_t *a1,
   v7 = a2[3];
   v8 = a2[4];
   v9 = a2[5];
-  if ((sub_184670AC0(*a1, a1[1], *a2, a2[1]) & 1) == 0 || (v2 != v6 || v3 != v7) && (sub_18473DD14() & 1) == 0)
+  if (!sub_184670AC0(*a1, a1[1], *a2, a2[1]) || (v2 != v6 || v3 != v7) && (sub_18473DD14() & 1) == 0)
   {
     return 0;
   }
@@ -8576,7 +8580,7 @@ uint64_t static AttributedString.AdaptiveImageGlyph.== infix(_:_:)(uint64_t *a1,
   return sub_18473DD14();
 }
 
-uint64_t sub_18466FC94()
+unint64_t sub_18466FC94()
 {
   v1 = *v0;
   v2 = 0xD000000000000011;
@@ -8596,10 +8600,10 @@ uint64_t sub_18466FC94()
   }
 }
 
-uint64_t sub_18466FCF8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_18466FCF8@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_184670EC4(a1, a2);
-  *a3 = result;
+  result = sub_184670EC4(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -8619,7 +8623,7 @@ uint64_t sub_18466FD68(uint64_t a1)
 
 uint64_t AttributedString.AdaptiveImageGlyph.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869380);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869380, &qword_1847423C0);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3, v5);
   v7 = v14 - v6;
@@ -8653,7 +8657,7 @@ uint64_t AttributedString.AdaptiveImageGlyph.encode(to:)(void *a1)
   return (*(v4 + 8))(v7, v3);
 }
 
-uint64_t AttributedString.AdaptiveImageGlyph.hash(into:)()
+uint64_t AttributedString.AdaptiveImageGlyph.hash(into:)(uint64_t a1)
 {
   sub_18473DC24();
   sub_18473DC64();
@@ -8672,7 +8676,7 @@ uint64_t AttributedString.AdaptiveImageGlyph.hashValue.getter()
 
 uint64_t AttributedString.AdaptiveImageGlyph.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869398);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869398, &qword_1847423C8);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5, v7);
   v9 = &v21 - v8;
@@ -8722,7 +8726,7 @@ uint64_t sub_184670340()
   return sub_18473DD54();
 }
 
-uint64_t sub_1846703C4()
+uint64_t sub_1846703C4(uint64_t a1)
 {
   sub_18473DC24();
   sub_18473DC64();
@@ -8730,7 +8734,7 @@ uint64_t sub_1846703C4()
   return sub_18473DC64();
 }
 
-uint64_t sub_184670430()
+uint64_t sub_184670430(uint64_t a1)
 {
   sub_18473DD24();
   sub_18473DC24();
@@ -8739,7 +8743,7 @@ uint64_t sub_184670430()
   return sub_18473DD54();
 }
 
-uint64_t sub_1846704B0(uint64_t *a1, uint64_t *a2)
+uint64_t sub_1846704B0(_BOOL8 *a1, uint64_t *a2)
 {
   v2 = a1[2];
   v3 = a1[3];
@@ -8749,7 +8753,7 @@ uint64_t sub_1846704B0(uint64_t *a1, uint64_t *a2)
   v7 = a2[3];
   v8 = a2[4];
   v9 = a2[5];
-  if ((sub_184670AC0(*a1, a1[1], *a2, a2[1]) & 1) == 0 || (v2 != v6 || v3 != v7) && (sub_18473DD14() & 1) == 0)
+  if (!sub_184670AC0(*a1, a1[1], *a2, a2[1]) || (v2 != v6 || v3 != v7) && (sub_18473DD14() & 1) == 0)
   {
     return 0;
   }
@@ -8762,22 +8766,22 @@ uint64_t sub_1846704B0(uint64_t *a1, uint64_t *a2)
   return sub_18473DD14();
 }
 
-id static CTAdaptiveImageGlyph._adaptiveImageGlyph(convertingFrom:)()
+id static CTAdaptiveImageGlyph._adaptiveImageGlyph(convertingFrom:)(uint64_t *a1)
 {
-  v0 = objc_allocWithZone(CTAdaptiveImageGlyph);
-  v1 = sub_18473DC44();
-  v2 = [v0 initWithContentIdentifier_];
+  v1 = objc_allocWithZone(CTAdaptiveImageGlyph);
+  v2 = sub_18473DC44();
+  v3 = [v1 initWithContentIdentifier_];
 
-  if (v2)
+  if (v3)
   {
-    return v2;
+    return v3;
   }
 
-  v4 = objc_allocWithZone(CTAdaptiveImageGlyph);
-  v5 = sub_18473DC04();
-  v6 = [v4 initWithImageContent_];
+  v5 = objc_allocWithZone(CTAdaptiveImageGlyph);
+  v6 = sub_18473DC04();
+  v7 = [v5 initWithImageContent_];
 
-  return v6;
+  return v7;
 }
 
 uint64_t sub_184670648@<X0>(uint64_t result@<X0>, uint64_t a2@<X2>, unint64_t a3@<X3>, BOOL *a4@<X8>)
@@ -9026,7 +9030,7 @@ LABEL_9:
   return v12;
 }
 
-uint64_t sub_184670AC0(uint64_t result, unint64_t a2, uint64_t a3, unint64_t a4)
+BOOL sub_184670AC0(_BOOL8 result, unint64_t a2, uint64_t a3, unint64_t a4)
 {
   v4 = a2 >> 62;
   v5 = a4 >> 62;
@@ -9141,7 +9145,7 @@ unint64_t sub_184670C28()
   result = qword_1EA869388;
   if (!qword_1EA869388)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_184742608, &_s18AdaptiveImageGlyphV10CodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869388);
   }
 
@@ -9153,7 +9157,7 @@ unint64_t sub_184670C7C()
   result = qword_1EA869390;
   if (!qword_1EA869390)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E6969090], MEMORY[0x1E6969080], v0, v1);
     atomic_store(result, &qword_1EA869390);
   }
 
@@ -9165,7 +9169,7 @@ unint64_t sub_184670CD0()
   result = qword_1EA8693A0;
   if (!qword_1EA8693A0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E69690B0], MEMORY[0x1E6969080], v0, v1);
     atomic_store(result, &qword_1EA8693A0);
   }
 
@@ -9177,7 +9181,7 @@ unint64_t sub_184670D28()
   result = qword_1EA8693A8;
   if (!qword_1EA8693A8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AttributedString.AdaptiveImageGlyph, &type metadata for AttributedString.AdaptiveImageGlyph, v0, v1);
     atomic_store(result, &qword_1EA8693A8);
   }
 
@@ -9213,7 +9217,7 @@ unint64_t sub_184670DC0()
   result = qword_1EA8693B0;
   if (!qword_1EA8693B0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aIhuj, &_s18AdaptiveImageGlyphV10CodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA8693B0);
   }
 
@@ -9225,7 +9229,7 @@ unint64_t sub_184670E18()
   result = qword_1EA8693B8;
   if (!qword_1EA8693B8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_184742550, &_s18AdaptiveImageGlyphV10CodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA8693B8);
   }
 
@@ -9237,7 +9241,7 @@ unint64_t sub_184670E70()
   result = qword_1EA8693C0;
   if (!qword_1EA8693C0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_184742578, &_s18AdaptiveImageGlyphV10CodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA8693C0);
   }
 
@@ -9283,7 +9287,7 @@ uint64_t sub_184670EC4(uint64_t a1, uint64_t a2)
 
 uint64_t sub_184671018()
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869220);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869220, &qword_184741A70);
   __swift_allocate_value_buffer(v0, qword_1EA8693C8);
   v1 = __swift_project_value_buffer(v0, qword_1EA8693C8);
   v2 = *MEMORY[0x1E6968710];
@@ -9302,7 +9306,7 @@ uint64_t static AttributeScopes.CoreTextAttributes.TextAlignmentAttribute.runBou
     swift_once();
   }
 
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869220);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869220, &qword_184741A70);
   v3 = __swift_project_value_buffer(v2, qword_1EA8693C8);
 
   return sub_18466CAAC(v3, a1);
@@ -9315,7 +9319,7 @@ uint64_t sub_184671250@<X0>(uint64_t a1@<X8>)
     swift_once();
   }
 
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869220);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869220, &qword_184741A70);
   v3 = __swift_project_value_buffer(v2, qword_1EA8693C8);
 
   return sub_18466CAAC(v3, a1);
@@ -9354,10 +9358,10 @@ uint64_t sub_184671360()
   }
 }
 
-uint64_t sub_1846713AC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_1846713AC@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_1846725B8(a1, a2);
-  *a3 = result;
+  result = sub_1846725B8(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -9405,22 +9409,22 @@ uint64_t sub_184671500(uint64_t a1)
 
 uint64_t AttributedString.TextAlignment.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8693E0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8693E0, &qword_184742678);
   v29 = *(v3 - 8);
   v30 = v3;
   MEMORY[0x1EEE9AC00](v3, v4);
   v28 = &v22 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8693E8);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8693E8, &qword_184742680);
   v26 = *(v6 - 8);
   v27 = v6;
   MEMORY[0x1EEE9AC00](v6, v7);
   v25 = &v22 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8693F0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8693F0, &qword_184742688);
   v23 = *(v9 - 8);
   v24 = v9;
   MEMORY[0x1EEE9AC00](v9, v10);
   v12 = &v22 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8693F8);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8693F8, &qword_184742690);
   v14 = *(v13 - 8);
   MEMORY[0x1EEE9AC00](v13, v15);
   v17 = &v22 - v16;
@@ -9469,7 +9473,7 @@ unint64_t sub_1846718B4()
   result = qword_1EA869400;
   if (!qword_1EA869400)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aVuj_0, &_s13TextAlignmentO10CodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869400);
   }
 
@@ -9481,7 +9485,7 @@ unint64_t sub_184671908()
   result = qword_1EA869408;
   if (!qword_1EA869408)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aVuj_1, &_s13TextAlignmentO15RightCodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869408);
   }
 
@@ -9493,7 +9497,7 @@ unint64_t sub_18467195C()
   result = qword_1EA869410;
   if (!qword_1EA869410)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_184742AEC, &_s13TextAlignmentO16CenterCodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869410);
   }
 
@@ -9505,7 +9509,7 @@ unint64_t sub_1846719B0()
   result = qword_1EA869418;
   if (!qword_1EA869418)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_184742A9C, &_s13TextAlignmentO14LeftCodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869418);
   }
 
@@ -9523,20 +9527,20 @@ uint64_t AttributedString.TextAlignment.hashValue.getter()
 uint64_t AttributedString.TextAlignment.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 {
   v43 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869420);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869420, &qword_184742698);
   v40 = *(v3 - 8);
   v41 = v3;
   MEMORY[0x1EEE9AC00](v3, v4);
   v45 = &v36 - v5;
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869428);
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869428, &qword_1847426A0);
   v39 = *(v42 - 8);
   MEMORY[0x1EEE9AC00](v42, v6);
   v8 = &v36 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869430);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869430, &qword_1847426A8);
   v44 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9, v10);
   v12 = &v36 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869438);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869438, &unk_1847426B0);
   v46 = *(v13 - 8);
   MEMORY[0x1EEE9AC00](v13, v14);
   v16 = &v36 - v15;
@@ -9631,7 +9635,7 @@ uint64_t AttributedString.TextAlignment.init(from:)@<X0>(void *a1@<X0>, _BYTE *a
   v25 = sub_18473DC84();
   swift_allocError();
   v27 = v26;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869300);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA869300, &qword_184741E68);
   *v27 = &type metadata for AttributedString.TextAlignment;
   sub_18473DCA4();
   sub_18473DC74();
@@ -9674,7 +9678,7 @@ unint64_t sub_1846720AC()
   result = qword_1EA869440;
   if (!qword_1EA869440)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AttributeScopes.CoreTextAttributes.TextAlignmentAttribute, &type metadata for AttributeScopes.CoreTextAttributes.TextAlignmentAttribute, v0, v1);
     atomic_store(result, &qword_1EA869440);
   }
 
@@ -9686,7 +9690,7 @@ unint64_t sub_184672104()
   result = qword_1EA869448;
   if (!qword_1EA869448)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AttributedString.TextAlignment, &type metadata for AttributedString.TextAlignment, v0, v1);
     atomic_store(result, &qword_1EA869448);
   }
 
@@ -9698,15 +9702,15 @@ unint64_t sub_18467215C()
   result = qword_1EA869450;
   if (!qword_1EA869450)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EA869458);
-    result = swift_getWitnessTable();
+    v3 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EA869458, &qword_184742798);
+    result = swift_getWitnessTable(MEMORY[0x1E69E6340], v3, v0, v1);
     atomic_store(result, &qword_1EA869450);
   }
 
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -9723,7 +9727,7 @@ unint64_t sub_18467220C()
   result = qword_1EA869460;
   if (!qword_1EA869460)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AttributedString.TextAlignment, &type metadata for AttributedString.TextAlignment, v0, v1);
     atomic_store(result, &qword_1EA869460);
   }
 
@@ -9735,7 +9739,7 @@ unint64_t sub_1846722A4()
   result = qword_1EA869468;
   if (!qword_1EA869468)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_184742A74, &_s13TextAlignmentO10CodingKeysON, v0, v1);
     atomic_store(result, &qword_1EA869468);
   }
 

@@ -21,24 +21,24 @@
 
 - (CGSize)size
 {
-  v5 = objc_msgSend_tsk_phoneUI(MEMORY[0x277D75418], a2, v2, v3, v4);
-  v6 = 25.0;
-  if (!v5)
+  v4 = objc_msgSend_tsk_phoneUI(MEMORY[0x277D75418], a2, v2, v3);
+  v5 = 25.0;
+  if (!v4)
   {
-    v6 = 24.0;
+    v5 = 24.0;
   }
 
-  v7 = 27.0;
-  result.height = v6;
-  result.width = v7;
+  v6 = 27.0;
+  result.height = v5;
+  result.width = v6;
   return result;
 }
 
 - (double)baselineOffset
 {
-  v5 = objc_msgSend_tsk_phoneUI(MEMORY[0x277D75418], a2, v2, v3, v4);
+  v4 = objc_msgSend_tsk_phoneUI(MEMORY[0x277D75418], a2, v2, v3);
   result = -8.0;
-  if (v5)
+  if (v4)
   {
     return -9.0;
   }
@@ -55,33 +55,33 @@
   }
 
   y = point.y;
-  objc_msgSend_size(self, a2, v3, v4, v5);
-  if (x > v9 + -5.0)
+  objc_msgSend_size(self, a2, v3, v4);
+  if (x > v8 + -5.0)
   {
     return 0;
   }
 
-  v11.receiver = self;
-  v11.super_class = TSTFormulaEqualsTokenAttachment;
-  return [(TSWPUIGraphicalAttachment *)&v11 wantsSelectionAtPoint:x, y];
+  v10.receiver = self;
+  v10.super_class = TSTFormulaEqualsTokenAttachment;
+  return [(TSWPUIGraphicalAttachment *)&v10 wantsSelectionAtPoint:x, y];
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[286], v5, v6);
+  v6 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[286], v5);
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v8, v7, unarchiverCopy, v9);
+  objc_msgSend_loadFromArchive_unarchiver_(self, v7, v6, unarchiverCopy);
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2214D1078, off_2812E4498[286], v5);
+  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2214D1078, off_2812E4498[286]);
 
-  objc_msgSend_saveToArchive_archiver_(self, v7, v6, archiverCopy, v8);
+  objc_msgSend_saveToArchive_archiver_(self, v6, v5, archiverCopy);
 }
 
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver
@@ -128,9 +128,9 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v9 = objc_msgSend_stringWithFormat_(v3, v6, @"<%@ %p>", v7, v8, v5, self);
+  v8 = objc_msgSend_stringWithFormat_(v3, v6, @"<%@ %p>", v7, v5, self);
 
-  return v9;
+  return v8;
 }
 
 @end

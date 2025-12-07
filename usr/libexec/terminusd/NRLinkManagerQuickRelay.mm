@@ -1,6 +1,7 @@
 @interface NRLinkManagerQuickRelay
 - (id)copyStatusString;
 - (void)cancel;
+- (void)connection:(id)connection didChangeConnectedStatus:(BOOL)status;
 - (void)connection:(id)connection didReceivePublicToken:(id)token;
 - (void)dealloc;
 - (void)invalidateManager;
@@ -12,6 +13,57 @@
 @end
 
 @implementation NRLinkManagerQuickRelay
+
+- (void)connection:(id)connection didChangeConnectedStatus:(BOOL)status
+{
+  statusCopy = status;
+  connectionCopy = connection;
+  if (self)
+  {
+    queue = self->super._queue;
+  }
+
+  else
+  {
+    queue = 0;
+  }
+
+  v7 = queue;
+  dispatch_assert_queue_V2(v7);
+
+  if (qword_1002291D0 != -1)
+  {
+    dispatch_once(&qword_1002291D0, &stru_1001FBED8);
+  }
+
+  if (_NRLogIsLevelEnabled())
+  {
+    if (qword_1002291D0 != -1)
+    {
+      dispatch_once(&qword_1002291D0, &stru_1001FBED8);
+    }
+
+    if (statusCopy)
+    {
+      v8 = "YES";
+    }
+
+    else
+    {
+      v8 = "NO";
+    }
+
+    _NRLogWithArgs(qword_1002291C8, 1, "%s%.30s:%-4d APSConnection: %@, connected: %s", ", "[NRLinkManagerQuickRelay connection:didChangeConnectedStatus:]"", 307, connectionCopy, v8);
+  }
+
+  if (self)
+  {
+    self->_apsConnected = statusCopy;
+    self = objc_loadWeakRetained(&self->_quickRelayManagerDelegate);
+  }
+
+  [(NRLinkManagerQuickRelay *)self apsIsConnected:statusCopy];
+}
 
 - (void)connection:(id)connection didReceivePublicToken:(id)token
 {
@@ -29,12 +81,7 @@
       dispatch_once(&qword_1002291D0, &stru_1001FBED8);
     }
 
-    v10 = connectionCopy;
-    v11 = tokenCopy;
-    v9 = 300;
-    v7 = "";
-    v8 = "[NRLinkManagerQuickRelay connection:didReceivePublicToken:]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002291C8, 1, "%s%.30s:%-4d APSConnection: %@, token: %@", ", "[NRLinkManagerQuickRelay connection:didReceivePublicToken:]"", 300, connectionCopy, tokenCopy);
   }
 
   -[NRLinkManagerQuickRelay connection:didChangeConnectedStatus:](self, "connection:didChangeConnectedStatus:", connectionCopy, [connectionCopy isConnected]);
@@ -55,24 +102,26 @@
       goto LABEL_6;
     }
 
-LABEL_10:
-    v16 = sub_10012141C();
-    _NRLogWithArgs();
+    v14 = sub_10012141C();
+    _NRLogWithArgs(v14, 17, "%s called with null link");
+LABEL_11:
 
     goto LABEL_6;
   }
 
   if (!v7)
   {
-    v14 = sub_10012141C();
-    v15 = _NRLogIsLevelEnabled();
+    v15 = sub_10012141C();
+    v16 = _NRLogIsLevelEnabled();
 
-    if (!v15)
+    if (!v16)
     {
       goto LABEL_6;
     }
 
-    goto LABEL_10;
+    v14 = sub_10012141C();
+    _NRLogWithArgs(v14, 17, "%s called with null data");
+    goto LABEL_11;
   }
 
   if (self)
@@ -143,7 +192,7 @@ LABEL_6:
     if (IsLevelEnabled)
     {
       v10 = sub_10012141C();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v10, 17, "%s called with null link", "[NRLinkManagerQuickRelay linkIsUnavailable:]");
     }
   }
 }
@@ -185,7 +234,7 @@ LABEL_6:
     if (IsLevelEnabled)
     {
       v10 = sub_10012141C();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v10, 17, "%s called with null link", "[NRLinkManagerQuickRelay linkIsReady:]");
     }
   }
 }
@@ -227,7 +276,7 @@ LABEL_6:
     if (IsLevelEnabled)
     {
       v10 = sub_10012141C();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v10, 17, "%s called with null link", "[NRLinkManagerQuickRelay linkIsSuspended:]");
     }
   }
 }
@@ -271,7 +320,7 @@ LABEL_6:
     if (IsLevelEnabled)
     {
       v10 = sub_10012141C();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v10, 17, "%s called with null link", "[NRLinkManagerQuickRelay linkIsAvailable:]");
     }
   }
 }
@@ -300,30 +349,29 @@ LABEL_6:
     StringFromNRLinkType = createStringFromNRLinkType();
     [v5 appendFormat:@"\nLinkManager type: %@", StringFromNRLinkType];
 
-    v10 = [NSString alloc];
+    v9 = [NSString alloc];
     goto LABEL_17;
   }
 
-  type = self->super._type;
-  v8 = createStringFromNRLinkType();
-  [v5 appendFormat:@"\nLinkManager type: %@", v8];
+  v7 = createStringFromNRLinkType();
+  [v5 appendFormat:@"\nLinkManager type: %@", v7];
 
   state = self->super._state;
-  v10 = [NSString alloc];
+  v9 = [NSString alloc];
   if (state > 1001)
   {
     switch(state)
     {
       case 0x3EA:
-        v11 = "Start";
+        v10 = "Start";
         goto LABEL_18;
       case 0x3EB:
-        v11 = "Ready";
+        v10 = "Ready";
         goto LABEL_18;
       case 0x3EC:
-        v11 = "Cancelled";
+        v10 = "Cancelled";
 LABEL_18:
-        state = [v10 initWithUTF8String:v11];
+        state = [v9 initWithUTF8String:v10];
         goto LABEL_19;
     }
 
@@ -333,20 +381,20 @@ LABEL_18:
   if (!state)
   {
 LABEL_17:
-    v11 = "Invalid";
+    v10 = "Invalid";
     goto LABEL_18;
   }
 
   if (state == 1001)
   {
-    v11 = "Initial";
+    v10 = "Initial";
     goto LABEL_18;
   }
 
 LABEL_14:
-  state = [v10 initWithFormat:@"Unknown(%u)", state];
+  state = [v9 initWithFormat:@"Unknown(%u)", state];
 LABEL_19:
-  v14 = state;
+  v13 = state;
   [v5 appendFormat:@"\nState: %@", state];
 
   return v5;
@@ -366,17 +414,13 @@ LABEL_19:
       dispatch_once(&qword_1002291D0, &stru_1001FBED8);
     }
 
-    v5 = 89;
-    selfCopy = self;
-    v3 = "";
-    v4 = "[NRLinkManagerQuickRelay dealloc]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002291C8, 1, "%s%.30s:%-4d Dealloc: %@", ", "[NRLinkManagerQuickRelay dealloc]"", 89, self);
   }
 
-  [(NRLinkManagerQuickRelay *)self invalidateManager:v3];
-  v7.receiver = self;
-  v7.super_class = NRLinkManagerQuickRelay;
-  [(NRLinkManagerQuickRelay *)&v7 dealloc];
+  [(NRLinkManagerQuickRelay *)self invalidateManager];
+  v3.receiver = self;
+  v3.super_class = NRLinkManagerQuickRelay;
+  [(NRLinkManagerQuickRelay *)&v3 dealloc];
 }
 
 - (void)invalidateManager

@@ -92,7 +92,7 @@ id __60__HFWalletUtilities_handleAddOrShowHomeKeyButtonTapForHome___block_invoke
   return v5;
 }
 
-uint64_t __60__HFWalletUtilities_handleAddOrShowHomeKeyButtonTapForHome___block_invoke_2(uint64_t a1, void *a2)
+void *__60__HFWalletUtilities_handleAddOrShowHomeKeyButtonTapForHome___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 BOOLValue];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -223,60 +223,58 @@ LABEL_9:
 
 id __60__HFWalletUtilities_handleAddOrShowHomeKeyButtonTapForHome___block_invoke_8(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x49uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v10 = 138413058;
-    v11 = v8;
-    v12 = 2080;
-    v13 = "+[HFWalletUtilities handleAddOrShowHomeKeyButtonTapForHome:]_block_invoke_8";
-    v14 = 2112;
-    v15 = v3;
-    v16 = 2112;
-    v17 = v9;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "(%@:%s) hf_addWalletKeyWithOptions: with notification but without enabling Express Mode returned error %@ for home %@", &v10, 0x2Au);
+    v7 = *(a1 + 32);
+    v8 = *(a1 + 40);
+    v9 = 138413058;
+    v10 = v7;
+    v11 = 2080;
+    v12 = "+[HFWalletUtilities handleAddOrShowHomeKeyButtonTapForHome:]_block_invoke_8";
+    v13 = 2112;
+    v14 = v3;
+    v15 = 2112;
+    v16 = v8;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "(%@:%s) hf_addWalletKeyWithOptions: with notification but without enabling Express Mode returned error %@ for home %@", &v9, 0x2Au);
   }
 
   v5 = [MEMORY[0x277D2C900] futureWithResult:v3];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 id __60__HFWalletUtilities_handleAddOrShowHomeKeyButtonTapForHome___block_invoke_33(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [MEMORY[0x277CD1A60] errorByDeviceWithOverallError:v2];
   v4 = objc_opt_new();
   v5 = [v3 objectEnumerator];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [v4 na_safeAddObject:*(*(&v16 + 1) + 8 * i)];
+        [v4 na_safeAddObject:*(*(&v15 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v7);
@@ -291,31 +289,29 @@ id __60__HFWalletUtilities_handleAddOrShowHomeKeyButtonTapForHome___block_invoke
 
   else
   {
-    v20 = v2;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+    v19 = v2;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
     v12 = [v11 futureWithResult:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 id __60__HFWalletUtilities_handleAddOrShowHomeKeyButtonTapForHome___block_invoke_2_39(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x49uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v13 = 136315650;
-    v14 = "+[HFWalletUtilities handleAddOrShowHomeKeyButtonTapForHome:]_block_invoke_2";
-    v15 = 2112;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v3;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "(HFWalletUtilities : %s) Completed adding Wallet Key without enabling Express Mode for iPhone and paired Apple Watches for home %@ with results %@", &v13, 0x20u);
+    v12 = 136315650;
+    v13 = "+[HFWalletUtilities handleAddOrShowHomeKeyButtonTapForHome:]_block_invoke_2";
+    v14 = 2112;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v3;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "(HFWalletUtilities : %s) Completed adding Wallet Key without enabling Express Mode for iPhone and paired Apple Watches for home %@ with results %@", &v12, 0x20u);
   }
 
   v6 = [v3 na_arrayByFlattening];
@@ -329,8 +325,6 @@ id __60__HFWalletUtilities_handleAddOrShowHomeKeyButtonTapForHome___block_invoke
   }
 
   v10 = [MEMORY[0x277D2C900] futureWithResult:v7];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -455,7 +449,7 @@ id __72__HFWalletUtilities_packageIconIdentifierForHome_shouldUseKeyholeAsset___
 
 id __90__HFWalletUtilities_walletKeyIconDescriptorForHome_shouldUseKeyholeAsset_foriPhoneDevice___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v3 = @"Lock";
@@ -482,9 +476,9 @@ id __90__HFWalletUtilities_walletKeyIconDescriptorForHome_shouldUseKeyholeAsset_
   if (*(a1 + 33) == 1)
   {
     v8 = objc_alloc_init(MEMORY[0x277CD4790]);
-    v18 = 0;
-    v9 = [v8 canEvaluatePolicy:2 error:&v18];
-    v10 = v18;
+    v17 = 0;
+    v9 = [v8 canEvaluatePolicy:2 error:&v17];
+    v10 = v17;
     if (v9)
     {
       if ([v8 biometryType] == 1)
@@ -504,11 +498,11 @@ id __90__HFWalletUtilities_walletKeyIconDescriptorForHome_shouldUseKeyholeAsset_
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v20 = "+[HFWalletUtilities walletKeyIconDescriptorForHome:shouldUseKeyholeAsset:foriPhoneDevice:]_block_invoke";
-        v21 = 2048;
-        v22 = v12;
-        v23 = 2112;
-        v24 = v10;
+        v19 = "+[HFWalletUtilities walletKeyIconDescriptorForHome:shouldUseKeyholeAsset:foriPhoneDevice:]_block_invoke";
+        v20 = 2048;
+        v21 = v12;
+        v22 = 2112;
+        v23 = v10;
         _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "(%s) biometryType is %ld. localAuthenticationError: %@", buf, 0x20u);
       }
     }
@@ -517,8 +511,6 @@ id __90__HFWalletUtilities_walletKeyIconDescriptorForHome_shouldUseKeyholeAsset_
   v14 = [[HFCAPackageIconDescriptor alloc] initWithPackageIdentifier:v6 state:v7];
 
   v15 = [MEMORY[0x277D2C900] futureWithResult:v14];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

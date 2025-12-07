@@ -53,11 +53,11 @@
   miniFlowDelegate = [(NCBSTinkerAddContactsViewController *)self miniFlowDelegate];
   familyMemberFirstName = [miniFlowDelegate familyMemberFirstName];
 
-  v4 = NanoContactsBridgeSetupBundle();
-  v5 = [v4 localizedStringForKey:@"TK_CONTACTS_ADD_TITLE" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
-  v6 = [NSString stringWithFormat:v5, familyMemberFirstName];
+  v5 = NanoContactsBridgeSetupBundle(v4);
+  v6 = [v5 localizedStringForKey:@"TK_CONTACTS_ADD_TITLE" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
+  v7 = [NSString stringWithFormat:v6, familyMemberFirstName];
 
-  return v6;
+  return v7;
 }
 
 - (id)detailString
@@ -65,16 +65,16 @@
   miniFlowDelegate = [(NCBSTinkerAddContactsViewController *)self miniFlowDelegate];
   familyMemberFirstName = [miniFlowDelegate familyMemberFirstName];
 
-  v4 = NanoContactsBridgeSetupBundle();
-  v5 = [v4 localizedStringForKey:@"TK_CONTACTS_ADD_DETAIL" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
-  v6 = [NSString stringWithFormat:v5, familyMemberFirstName, familyMemberFirstName];
+  v5 = NanoContactsBridgeSetupBundle(v4);
+  v6 = [v5 localizedStringForKey:@"TK_CONTACTS_ADD_DETAIL" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
+  v7 = [NSString stringWithFormat:v6, familyMemberFirstName, familyMemberFirstName];
 
-  return v6;
+  return v7;
 }
 
 - (id)suggestedButtonTitle
 {
-  v2 = NanoContactsBridgeSetupBundle();
+  v2 = NanoContactsBridgeSetupBundle(self);
   v3 = [v2 localizedStringForKey:@"TK_CONTACTS_ADD_BUTTON_ADD" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
 
   return v3;
@@ -82,7 +82,7 @@
 
 - (id)alternateButtonTitle
 {
-  v2 = NanoContactsBridgeSetupBundle();
+  v2 = NanoContactsBridgeSetupBundle(self);
   v3 = [v2 localizedStringForKey:@"TK_CONTACTS_ADD_BUTTON_LATER" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
 
   return v3;
@@ -99,18 +99,18 @@
   miniFlowDelegate = [(NCBSTinkerAddContactsViewController *)self miniFlowDelegate];
   familyMember = [miniFlowDelegate familyMember];
 
-  v5 = NCBS_Tinker_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = NCBS_Tinker_log(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136446466;
-    v9 = "[NCBSTinkerAddContactsViewController _addContacts]";
-    v10 = 2112;
-    v11 = familyMember;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%{public}s - familyMember: %@", &v8, 0x16u);
+    v9 = 136446466;
+    v10 = "[NCBSTinkerAddContactsViewController _addContacts]";
+    v11 = 2112;
+    v12 = familyMember;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%{public}s - familyMember: %@", &v9, 0x16u);
   }
 
-  v6 = [[CNUIFamilyMemberContactsController alloc] initWithFamilyMember:familyMember familyMemberContactsPresentation:self];
-  [(NCBSTinkerAddContactsViewController *)self setFamilyMemberContactsController:v6];
+  v7 = [[CNUIFamilyMemberContactsController alloc] initWithFamilyMember:familyMember familyMemberContactsPresentation:self];
+  [(NCBSTinkerAddContactsViewController *)self setFamilyMemberContactsController:v7];
 
   familyMemberContactsController = [(NCBSTinkerAddContactsViewController *)self familyMemberContactsController];
   [familyMemberContactsController performInteraction:2];
@@ -119,7 +119,7 @@
 - (void)presentViewController:(id)controller
 {
   controllerCopy = controller;
-  v5 = NCBS_Tinker_log();
+  v5 = NCBS_Tinker_log(controllerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v9 = 136446466;
@@ -140,7 +140,7 @@
 - (void)dismissPresentedViewController:(id)controller
 {
   controllerCopy = controller;
-  v5 = NCBS_Tinker_log();
+  v5 = NCBS_Tinker_log(controllerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     presentedViewController = [(NCBSTinkerAddContactsViewController *)self presentedViewController];
@@ -170,7 +170,7 @@
 - (void)presentedViewControllerDidCancel:(id)cancel
 {
   cancelCopy = cancel;
-  v5 = NCBS_Tinker_log();
+  v5 = NCBS_Tinker_log(cancelCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     presentedViewController = [(NCBSTinkerAddContactsViewController *)self presentedViewController];

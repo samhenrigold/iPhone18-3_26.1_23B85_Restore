@@ -7,7 +7,7 @@
 
 + (id)sk_bootSession
 {
-  v2 = sub_100080FB4(&unk_1003CE610);
+  v2 = sub_100080FB4(&unk_1003CE610, &unk_1002F8550);
   __chkstk_darwin(v2 - 8);
   v4 = &v8 - v3;
   sub_100176C48(&v8 - v3);

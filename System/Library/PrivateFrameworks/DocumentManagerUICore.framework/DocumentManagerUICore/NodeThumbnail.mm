@@ -16,7 +16,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  NodeThumbnail.addListener(_:)();
+  NodeThumbnail.addListener(_:)(listener);
   swift_unknownObjectRelease();
 }
 
@@ -95,18 +95,13 @@
   v7 = *(v5 + 1);
   if (v7 >> 62)
   {
-    if (v7 < 0)
-    {
-      v9 = *(v5 + 1);
-    }
-
     v8 = sub_249D04CEC();
     if (v8 >= v6)
     {
       goto LABEL_3;
     }
 
-LABEL_9:
+LABEL_7:
     __break(1u);
     return;
   }
@@ -114,7 +109,7 @@ LABEL_9:
   v8 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
   if (v8 < v6)
   {
-    goto LABEL_9;
+    goto LABEL_7;
   }
 
 LABEL_3:

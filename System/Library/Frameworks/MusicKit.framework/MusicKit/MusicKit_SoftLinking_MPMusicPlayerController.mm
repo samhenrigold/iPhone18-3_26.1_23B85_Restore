@@ -98,31 +98,31 @@
 
 - (id)itemsForContentItemIDs:(id)ds
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = [(MPMusicPlayerController *)self->_underlyingPlayerController _mediaItemsForContentItemIDs:dsCopy];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = dsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
-        v13 = [v6 objectForKey:{v12, v17}];
+        v12 = *(*(&v16 + 1) + 8 * i);
+        v13 = [v6 objectForKey:{v12, v16}];
         v14 = [MusicKit_SoftLinking_MPMusicPlayerItem playerItemForMediaItem:v13];
         if (v14)
         {
@@ -130,13 +130,11 @@
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

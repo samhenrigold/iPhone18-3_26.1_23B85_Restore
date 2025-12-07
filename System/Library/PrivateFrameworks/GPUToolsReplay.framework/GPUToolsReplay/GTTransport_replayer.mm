@@ -2,6 +2,7 @@
 - (BOOL)_activateSource:(id)source;
 - (BOOL)relayMessage:(id)message error:(id *)error;
 - (BOOL)send:(id)send inReplyTo:(id)to error:(id *)error replyQueue:(id)queue timeout:(unint64_t)timeout handler:(id)handler;
+- (BOOL)sendNewMessage:(int)message error:(id *)error replyQueue:(id)queue timeout:(unint64_t)timeout handler:(id)handler;
 - (GTTransport_replayer)init;
 - (NSURL)url;
 - (id).cxx_construct;
@@ -90,6 +91,14 @@ LABEL_16:
   }
 
   return v7;
+}
+
+- (BOOL)sendNewMessage:(int)message error:(id *)error replyQueue:(id)queue timeout:(unint64_t)timeout handler:(id)handler
+{
+  v12 = [[GTTransportMessage_replayer alloc] initWithKind:*&message attributes:0 payload:0];
+  LOBYTE(handler) = [(GTTransport_replayer *)self send:v12 inReplyTo:0 error:error replyQueue:queue timeout:timeout handler:handler];
+
+  return handler;
 }
 
 - (BOOL)send:(id)send inReplyTo:(id)to error:(id *)error replyQueue:(id)queue timeout:(unint64_t)timeout handler:(id)handler
@@ -271,32 +280,32 @@ LABEL_16:
 
 - (void)_dispatchMessage:(id)message
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ((self->_interposerVersion & 1) == 0)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     replyHandlersMap = self->_replyHandlersMap;
-    v6 = [(GTIntKeyedDictionary_replayer *)replyHandlersMap countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v6 = [(GTIntKeyedDictionary_replayer *)replyHandlersMap countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v20;
+      v8 = *v19;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(replyHandlersMap);
           }
 
-          [*(*(&v19 + 1) + 8 * i) _dispatch:message];
+          [*(*(&v18 + 1) + 8 * i) _dispatch:message];
         }
 
-        v7 = [(GTIntKeyedDictionary_replayer *)replyHandlersMap countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [(GTIntKeyedDictionary_replayer *)replyHandlersMap countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v7);
@@ -312,21 +321,19 @@ LABEL_16:
         v13 = *(v12 + 40) + 1;
         *(v12 + 40) = v13;
         v14 = *(v12 + 8);
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __32__GTTransport__dispatchMessage___block_invoke;
-        v16[3] = &unk_279658960;
-        v16[4] = v12;
-        v16[5] = message;
-        v16[6] = self;
-        v17 = v11;
-        v18 = v13;
-        dispatch_async(v14, v16);
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __32__GTTransport__dispatchMessage___block_invoke;
+        v15[3] = &unk_279658960;
+        v15[4] = v12;
+        v15[5] = message;
+        v15[6] = self;
+        v16 = v11;
+        v17 = v13;
+        dispatch_async(v14, v15);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleReplyTimeout:(unsigned int)timeout count:(unsigned int)count

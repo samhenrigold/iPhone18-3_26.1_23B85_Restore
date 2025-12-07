@@ -39,46 +39,45 @@
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = [+[FCSetValueMapTable allocWithZone:](FCSetValueMapTable init];
   backingMapTable = [(FCSetValueMapTable *)self backingMapTable];
-  v19 = v5;
+  v18 = v5;
   backingMapTable2 = [(FCSetValueMapTable *)v5 backingMapTable];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   backingMapTable3 = [(FCSetValueMapTable *)self backingMapTable];
   keyEnumerator = [backingMapTable3 keyEnumerator];
 
-  v10 = [keyEnumerator countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [keyEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         v15 = [backingMapTable objectForKey:v14];
         v16 = [v15 copyWithZone:zone];
         [backingMapTable2 setObject:v16 forKey:v14];
       }
 
-      v11 = [keyEnumerator countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [keyEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-  return v19;
+  return v18;
 }
 
 - (void)addObject:(id)object forKey:(id)key

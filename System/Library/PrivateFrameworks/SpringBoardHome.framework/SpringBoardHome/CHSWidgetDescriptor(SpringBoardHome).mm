@@ -8,8 +8,8 @@
 - (id)sbh_iconDataSource;
 - (uint64_t)_widgetLocationStyleForAddWidgetSheetLocation:()SpringBoardHome;
 - (uint64_t)sbh_disfavoredSizeClassesForAddWidgetSheetLocation:()SpringBoardHome;
-- (uint64_t)sbh_isLinkedOnOrAfter:()SpringBoardHome;
 - (uint64_t)sbh_supportsRemovableBackgroundOrAccessoryFamilies;
+- (unint64_t)sbh_isLinkedOnOrAfter:()SpringBoardHome;
 - (void)_loadColorsBackgroundColor:()SpringBoardHome accentColor:;
 - (void)_loadColorsFromExtensionForBundleIdentifier:()SpringBoardHome backgroundColor:accentColor:;
 - (void)_loadColorsFromShortcutsForBundleIdentifier:()SpringBoardHome backgroundColor:accentColor:;
@@ -110,7 +110,7 @@
 
 - (SBHWidget)sbh_iconDataSourceInDomain:()SpringBoardHome
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v4 = a3;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -135,21 +135,21 @@
       v7 = 0;
     }
 
-    v18 = v7;
+    v19 = v7;
 
-    type = [v18 type];
+    type = [v19 type];
     if (type > 3)
     {
       switch(type)
       {
         case 4:
-          v20 = SBHAppPredictionsElement;
+          v21 = SBHAppPredictionsElement;
           goto LABEL_23;
         case 5:
-          v20 = SBHSmartStackElement;
+          v21 = SBHSmartStackElement;
           goto LABEL_23;
         case 6:
-          v20 = SBHShortcutsSingleElement;
+          v21 = SBHShortcutsSingleElement;
           goto LABEL_23;
       }
     }
@@ -159,21 +159,21 @@
       switch(type)
       {
         case 1:
-          v20 = SBHSiriSuggestionsElement;
+          v21 = SBHSiriSuggestionsElement;
           goto LABEL_23;
         case 2:
-          v20 = SBHShortcutsFolderElement;
+          v21 = SBHShortcutsFolderElement;
           goto LABEL_23;
         case 3:
-          v20 = SBHFilesElement;
+          v21 = SBHFilesElement;
 LABEL_23:
-          v14 = objc_alloc_init(v20);
+          v14 = objc_alloc_init(v21);
           goto LABEL_24;
       }
     }
 
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Somehow got to SBHSpecialWidgetDescriptorTypeNone with a SBHSpecialWidgetDescriptor" userInfo:0];
-    objc_exception_throw(v22);
+    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Somehow got to SBHSpecialWidgetDescriptorTypeNone with a SBHSpecialWidgetDescriptor" userInfo:0];
+    objc_exception_throw(v23);
   }
 
   extensionIdentity = [self extensionIdentity];
@@ -184,16 +184,16 @@ LABEL_23:
   containerBundleIdentifier = [extensionIdentity containerBundleIdentifier];
   v14 = [(SBHWidget *)v10 initWithKind:kind extensionBundleIdentifier:extensionBundleIdentifier containerBundleIdentifier:containerBundleIdentifier supportedGridSizeClasses:v9];
 
-  v15 = SBLogWidgets();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = SBLogWidgets(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     extensionBundleIdentifier2 = [(SBHWidget *)v14 extensionBundleIdentifier];
     uniqueIdentifier = [(SBHWidget *)v14 uniqueIdentifier];
-    v23 = 138543618;
-    v24 = extensionBundleIdentifier2;
-    v25 = 2114;
-    v26 = uniqueIdentifier;
-    _os_log_impl(&dword_1BEB18000, v15, OS_LOG_TYPE_DEFAULT, "Widget %{public}@ %{public}@ created from CHS widget descriptor.", &v23, 0x16u);
+    v24 = 138543618;
+    v25 = extensionBundleIdentifier2;
+    v26 = 2114;
+    v27 = uniqueIdentifier;
+    _os_log_impl(&dword_1BEB18000, v16, OS_LOG_TYPE_DEFAULT, "Widget %{public}@ %{public}@ created from CHS widget descriptor.", &v24, 0x16u);
   }
 
 LABEL_24:
@@ -226,7 +226,7 @@ LABEL_24:
   return v2;
 }
 
-- (uint64_t)sbh_isLinkedOnOrAfter:()SpringBoardHome
+- (unint64_t)sbh_isLinkedOnOrAfter:()SpringBoardHome
 {
   if (a3 == 1)
   {
@@ -324,8 +324,8 @@ LABEL_24:
   v7 = a3;
   if (!*a4 || !*a5)
   {
-    v27 = a5;
-    v28 = v7;
+    v28 = a5;
+    v29 = v7;
     v8 = [objc_alloc(MEMORY[0x1E69635D0]) initWithBundleIdentifier:v7 error:0];
     compatibilityObject = [v8 compatibilityObject];
     bundleURL = [compatibilityObject bundleURL];
@@ -336,46 +336,46 @@ LABEL_24:
     v14 = [infoDictionary objectForKey:@"NSAccentColorName"];
     v15 = objc_alloc(MEMORY[0x1E69DD368]);
     currentDevice = [MEMORY[0x1E69DC938] currentDevice];
-    v29 = 0;
-    v17 = [v15 initWithURL:bundleURL idiom:objc_msgSend(currentDevice error:{"userInterfaceIdiom"), &v29}];
-    v18 = v29;
+    v30 = 0;
+    v17 = [v15 initWithURL:bundleURL idiom:objc_msgSend(currentDevice error:{"userInterfaceIdiom"), &v30}];
+    v18 = v30;
 
     if (v18)
     {
-      v19 = SBLogWidgets();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = SBLogWidgets(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        [CHSWidgetDescriptor(SpringBoardHome) _loadColorsFromExtensionForBundleIdentifier:v18 backgroundColor:v19 accentColor:?];
+        [CHSWidgetDescriptor(SpringBoardHome) _loadColorsFromExtensionForBundleIdentifier:v18 backgroundColor:v20 accentColor:?];
       }
     }
 
     else
     {
-      v25 = v11;
-      v26 = v8;
-      v20 = objc_opt_new();
-      v19 = [v17 colorNamed:v13 withTraitCollection:v20];
-
+      v26 = v11;
+      v27 = v8;
       v21 = objc_opt_new();
-      v22 = [v17 colorNamed:v14 withTraitCollection:v21];
+      v20 = [v17 colorNamed:v13 withTraitCollection:v21];
 
-      if (v19 && !*a4)
+      v22 = objc_opt_new();
+      v23 = [v17 colorNamed:v14 withTraitCollection:v22];
+
+      if (v20 && !*a4)
       {
-        v23 = v19;
-        *a4 = v19;
+        v24 = v20;
+        *a4 = v20;
       }
 
-      if (v27 && v22 && !*v27)
+      if (v28 && v23 && !*v28)
       {
-        v24 = v22;
-        *v27 = v22;
+        v25 = v23;
+        *v28 = v23;
       }
 
-      v11 = v25;
-      v8 = v26;
+      v11 = v26;
+      v8 = v27;
     }
 
-    v7 = v28;
+    v7 = v29;
   }
 }
 

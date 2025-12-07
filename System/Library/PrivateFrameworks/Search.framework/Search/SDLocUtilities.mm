@@ -126,28 +126,28 @@
     else
     {
       defaultWorkspace = [MEMORY[0x1E6963608] defaultWorkspace];
-      v14 = [defaultWorkspace applicationIsInstalled:identiferCopy];
+      v13 = [defaultWorkspace applicationIsInstalled:identiferCopy];
 
-      if (v14)
+      if (v13)
       {
-        v15 = SPFastApplicationsGetNoBuild();
-        v16 = [v15 objectForKeyedSubscript:identiferCopy];
+        v14 = SPFastApplicationsGetNoBuild();
+        v15 = [v14 objectForKeyedSubscript:identiferCopy];
 
-        displayName = [v16 displayName];
+        displayName = [v15 displayName];
         if (!displayName)
         {
-          v17 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:identiferCopy allowPlaceholder:1 error:0];
-          displayName = [v17 localizedName];
+          v16 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:identiferCopy allowPlaceholder:1 error:0];
+          displayName = [v16 localizedName];
         }
 
         p_vtable = (SPApplication + 24);
         goto LABEL_35;
       }
 
-      v18 = +[SDAppUninstallMonitor applicationsExcludedFromUninstall];
-      v19 = [v18 containsObject:identiferCopy];
+      v17 = +[SDAppUninstallMonitor applicationsExcludedFromUninstall];
+      v18 = [v17 containsObject:identiferCopy];
 
-      if (!v19)
+      if (!v18)
       {
         displayName = 0;
         goto LABEL_35;
@@ -159,18 +159,17 @@
 
     displayName = [v8 localizedStringForKey:v9 value:&stru_1F47D3128 table:@"Search"];
 LABEL_35:
-    v10 = *MEMORY[0x1E695E738];
     if (displayName)
     {
-      v11 = displayName;
+      v10 = displayName;
     }
 
     else
     {
-      v11 = *MEMORY[0x1E695E738];
+      v10 = *MEMORY[0x1E695E738];
     }
 
-    [p_vtable[206] setObject:v11 forKey:identiferCopy];
+    [p_vtable[206] setObject:v10 forKey:identiferCopy];
     pthread_rwlock_unlock(&sAppDisplayNameReadWriteLock);
     goto LABEL_39;
   }

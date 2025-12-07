@@ -94,7 +94,7 @@ void __46__SBDashBoardPluginViewController_viewDidLoad__block_invoke(uint64_t a1
   v6 = v7;
   if (v7)
   {
-    (*(v7 + 2))(v7);
+    v7[2](v7);
     v6 = v7;
   }
 }

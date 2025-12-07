@@ -3057,12 +3057,12 @@ LABEL_21:
 
   footerButtonView4 = [(RestaurantReservationTableViewController *)self footerButtonView];
   button4 = [footerButtonView4 button];
-  configuration = [button4 configuration];
+  v32 = objc_msgSend_configuration(button4);
 
-  [configuration setTitle:v26];
+  [v32 setTitle:v26];
   footerButtonView5 = [(RestaurantReservationTableViewController *)self footerButtonView];
   button5 = [footerButtonView5 button];
-  [button5 setConfiguration:configuration];
+  [button5 setConfiguration:v32];
 }
 
 - (void)didReceiveMemoryWarning

@@ -148,7 +148,7 @@
   [(CAMViewfinderFlipTransition *)self _backSnapshotTargetRadiansForDirection:direction frontSnapshotRadians:v43];
   v24 = [(CAMViewfinderFlipTransition *)self _snapshotFlipAnimationFromValue:v22 toValue:v23];
   [v24 setRemovedOnCompletion:0];
-  [v20 duration];
+  objc_msgSend_duration(v20);
   v26 = v25;
   timingFunction = [v20 timingFunction];
   v28 = [MEMORY[0x1E6979390] animationWithKeyPath:@"transform.scale.xy"];
@@ -218,7 +218,7 @@ void __84__CAMViewfinderFlipTransition_performFlipTransitionWithDirection_comple
 
     [animationCopy beginTime];
     v17 = v15 - v16;
-    [animationCopy duration];
+    objc_msgSend_duration(animationCopy);
     v19 = v17 / v18;
     if (v19 > 1.0)
     {

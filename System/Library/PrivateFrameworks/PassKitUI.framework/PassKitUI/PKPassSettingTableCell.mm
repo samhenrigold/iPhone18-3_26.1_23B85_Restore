@@ -100,7 +100,7 @@
   remainder.origin.y = v10;
   remainder.size.width = v12;
   remainder.size.height = v14;
-  [(PKPassThumbnailView *)self->_thumbnailView sizeStateForSize:v48, 1.79769313e308, v14 + -16.0];
+  [(PKPassThumbnailView *)&self->_thumbnailView->super.super.super.isa sizeStateForSize:v48, 1.79769313e308, v14 + -16.0];
   v15 = *v48;
   v16 = *&v48[1];
   v17 = 16.0;

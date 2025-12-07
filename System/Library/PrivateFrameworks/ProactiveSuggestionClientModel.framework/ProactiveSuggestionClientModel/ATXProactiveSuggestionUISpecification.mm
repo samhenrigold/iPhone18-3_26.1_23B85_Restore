@@ -3,6 +3,7 @@
 - (ATXProactiveSuggestionUISpecification)initWithProto:(id)proto;
 - (ATXProactiveSuggestionUISpecification)initWithProtoData:(id)data;
 - (ATXProactiveSuggestionUISpecification)initWithTitle:(id)title subtitle:(id)subtitle predictionReason:(id)reason preferredLayoutConfigs:(id)configs allowedOnLockscreen:(BOOL)lockscreen allowedOnHomeScreen:(BOOL)screen allowedOnSpotlight:(BOOL)spotlight shouldClearOnEngagement:(BOOL)self0 predictionReasons:(unint64_t)self1 contextStartDate:(id)self2 contextEndDate:(id)self3;
+- (ATXProactiveSuggestionUISpecification)initWithTitle:(id)title subtitle:(id)subtitle preferredLayoutConfigs:(id)configs allowedOnLockscreen:(BOOL)lockscreen allowedOnHomeScreen:(BOOL)screen allowedOnSpotlight:(BOOL)spotlight;
 - (BOOL)checkAndReportDecodingFailureIfNeededForBOOL:(BOOL)l key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code;
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code;
 - (BOOL)isEqual:(id)equal;
@@ -66,7 +67,7 @@
 
 - (id)proto
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   [(ATXPBProactiveSuggestionUISpecification *)v3 setTitle:?];
   [(ATXPBProactiveSuggestionUISpecification *)v3 setSubtitle:?];
@@ -77,27 +78,27 @@
   [(ATXPBProactiveSuggestionUISpecification *)v3 setShouldClearOnEngagement:?];
   [(ATXPBProactiveSuggestionUISpecification *)v3 setPredictionReasons:?];
   v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_preferredLayoutConfigs, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v5 = self->_preferredLayoutConfigs;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       v9 = 0;
       do
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        proto = [*(*(&v20 + 1) + 8 * v9) proto];
+        proto = [*(*(&v19 + 1) + 8 * v9) proto];
         if (proto)
         {
           [v4 addObject:proto];
@@ -105,10 +106,10 @@
 
         else
         {
-          v11 = __atxlog_handle_blending();
+          v11 = __atxlog_handle_blending(0);
           if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
-            [(ATXProactiveSuggestionUISpecification *)&v18 proto];
+            [(ATXProactiveSuggestionUISpecification *)&v17 proto];
           }
         }
 
@@ -116,7 +117,7 @@
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
@@ -137,8 +138,6 @@
     [(ATXPBProactiveSuggestionUISpecification *)v3 setContextEndDate:v15];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
@@ -155,6 +154,13 @@
   v11 = self->_predictionReasons - v10 + 32 * v10;
   v12 = &self->_contextStartDate[4 * v11] - v11;
   return self->_contextEndDate - v12 + 32 * v12;
+}
+
+- (ATXProactiveSuggestionUISpecification)initWithTitle:(id)title subtitle:(id)subtitle preferredLayoutConfigs:(id)configs allowedOnLockscreen:(BOOL)lockscreen allowedOnHomeScreen:(BOOL)screen allowedOnSpotlight:(BOOL)spotlight
+{
+  BYTE1(v9) = 1;
+  LOBYTE(v9) = spotlight;
+  return [(ATXProactiveSuggestionUISpecification *)self initWithTitle:title subtitle:subtitle predictionReason:0 preferredLayoutConfigs:configs allowedOnLockscreen:lockscreen allowedOnHomeScreen:screen allowedOnSpotlight:v9 shouldClearOnEngagement:?];
 }
 
 - (ATXProactiveSuggestionUISpecification)initWithTitle:(id)title subtitle:(id)subtitle predictionReason:(id)reason preferredLayoutConfigs:(id)configs allowedOnLockscreen:(BOOL)lockscreen allowedOnHomeScreen:(BOOL)screen allowedOnSpotlight:(BOOL)spotlight shouldClearOnEngagement:(BOOL)self0 predictionReasons:(unint64_t)self1 contextStartDate:(id)self2 contextEndDate:(id)self3
@@ -371,81 +377,82 @@ LABEL_30:
   if (protoCopy)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = protoCopy;
-      v6 = objc_alloc(MEMORY[0x1E695DF70]);
-      preferredLayoutConfigs = [(ATXPBProactiveSuggestionUISpecification *)v5 preferredLayoutConfigs];
-      v8 = [v6 initWithCapacity:{objc_msgSend(preferredLayoutConfigs, "count")}];
+      v6 = protoCopy;
+      v7 = objc_alloc(MEMORY[0x1E695DF70]);
+      preferredLayoutConfigs = [(ATXPBProactiveSuggestionUISpecification *)v6 preferredLayoutConfigs];
+      v9 = [v7 initWithCapacity:{objc_msgSend(preferredLayoutConfigs, "count")}];
 
       v31 = 0u;
       v32 = 0u;
       v29 = 0u;
       v30 = 0u;
-      preferredLayoutConfigs2 = [(ATXPBProactiveSuggestionUISpecification *)v5 preferredLayoutConfigs];
-      v10 = [preferredLayoutConfigs2 countByEnumeratingWithState:&v29 objects:v33 count:16];
-      if (v10)
+      preferredLayoutConfigs2 = [(ATXPBProactiveSuggestionUISpecification *)v6 preferredLayoutConfigs];
+      v11 = [preferredLayoutConfigs2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      if (v11)
       {
-        v11 = v10;
-        v12 = *v30;
+        v12 = v11;
+        v13 = *v30;
         do
         {
-          for (i = 0; i != v11; ++i)
+          for (i = 0; i != v12; ++i)
           {
-            if (*v30 != v12)
+            if (*v30 != v13)
             {
               objc_enumerationMutation(preferredLayoutConfigs2);
             }
 
-            v14 = [[ATXProactiveSuggestionLayoutConfig alloc] initWithProto:*(*(&v29 + 1) + 8 * i)];
-            [v8 addObject:v14];
+            v15 = [[ATXProactiveSuggestionLayoutConfig alloc] initWithProto:*(*(&v29 + 1) + 8 * i)];
+            [v9 addObject:v15];
           }
 
-          v11 = [preferredLayoutConfigs2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+          v12 = [preferredLayoutConfigs2 countByEnumeratingWithState:&v29 objects:v33 count:16];
         }
 
-        while (v11);
+        while (v12);
       }
 
-      title = [(ATXPBProactiveSuggestionUISpecification *)v5 title];
-      subtitle = [(ATXPBProactiveSuggestionUISpecification *)v5 subtitle];
-      reason = [(ATXPBProactiveSuggestionUISpecification *)v5 reason];
-      allowedOnLockscreen = [(ATXPBProactiveSuggestionUISpecification *)v5 allowedOnLockscreen];
-      allowedOnHomeScreen = [(ATXPBProactiveSuggestionUISpecification *)v5 allowedOnHomeScreen];
-      allowedOnSpotlight = [(ATXPBProactiveSuggestionUISpecification *)v5 allowedOnSpotlight];
-      shouldClearOnEngagement = [(ATXPBProactiveSuggestionUISpecification *)v5 shouldClearOnEngagement];
-      predictionReasons = [(ATXPBProactiveSuggestionUISpecification *)v5 predictionReasons];
-      if ([(ATXPBProactiveSuggestionUISpecification *)v5 hasContextStartDate])
+      title = [(ATXPBProactiveSuggestionUISpecification *)v6 title];
+      subtitle = [(ATXPBProactiveSuggestionUISpecification *)v6 subtitle];
+      reason = [(ATXPBProactiveSuggestionUISpecification *)v6 reason];
+      allowedOnLockscreen = [(ATXPBProactiveSuggestionUISpecification *)v6 allowedOnLockscreen];
+      allowedOnHomeScreen = [(ATXPBProactiveSuggestionUISpecification *)v6 allowedOnHomeScreen];
+      allowedOnSpotlight = [(ATXPBProactiveSuggestionUISpecification *)v6 allowedOnSpotlight];
+      shouldClearOnEngagement = [(ATXPBProactiveSuggestionUISpecification *)v6 shouldClearOnEngagement];
+      predictionReasons = [(ATXPBProactiveSuggestionUISpecification *)v6 predictionReasons];
+      if ([(ATXPBProactiveSuggestionUISpecification *)v6 hasContextStartDate])
       {
-        v19 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:-[ATXPBProactiveSuggestionUISpecification contextStartDate](v5)];
-      }
-
-      else
-      {
-        v19 = 0;
-      }
-
-      if ([(ATXPBProactiveSuggestionUISpecification *)v5 hasContextEndDate])
-      {
-        v21 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:-[ATXPBProactiveSuggestionUISpecification contextEndDate](v5)];
+        v20 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:-[ATXPBProactiveSuggestionUISpecification contextStartDate](v6)];
       }
 
       else
       {
-        v21 = 0;
+        v20 = 0;
+      }
+
+      if ([(ATXPBProactiveSuggestionUISpecification *)v6 hasContextEndDate])
+      {
+        v22 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:-[ATXPBProactiveSuggestionUISpecification contextEndDate](v6)];
+      }
+
+      else
+      {
+        v22 = 0;
       }
 
       BYTE1(v24) = shouldClearOnEngagement;
       LOBYTE(v24) = allowedOnSpotlight;
-      self = [(ATXProactiveSuggestionUISpecification *)self initWithTitle:title subtitle:subtitle predictionReason:reason preferredLayoutConfigs:v8 allowedOnLockscreen:allowedOnLockscreen allowedOnHomeScreen:allowedOnHomeScreen allowedOnSpotlight:v24 shouldClearOnEngagement:predictionReasons predictionReasons:v19 contextStartDate:v21 contextEndDate:?];
+      self = [(ATXProactiveSuggestionUISpecification *)self initWithTitle:title subtitle:subtitle predictionReason:reason preferredLayoutConfigs:v9 allowedOnLockscreen:allowedOnLockscreen allowedOnHomeScreen:allowedOnHomeScreen allowedOnSpotlight:v24 shouldClearOnEngagement:predictionReasons predictionReasons:v20 contextStartDate:v22 contextEndDate:?];
 
       selfCopy = self;
     }
 
     else
     {
-      v5 = __atxlog_handle_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_default(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
         [ATXProactiveSuggestionUISpecification initWithProto:];
       }
@@ -459,13 +466,12 @@ LABEL_30:
     selfCopy = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -482,11 +488,11 @@ LABEL_30:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -497,13 +503,12 @@ LABEL_30:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForBOOL:(BOOL)l key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -520,11 +525,11 @@ LABEL_7:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -535,7 +540,6 @@ LABEL_7:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -557,44 +561,42 @@ LABEL_7:
 
 - (id)jsonRawData
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v16 = @"title";
-  v17 = @"subtitle";
+  v32 = *MEMORY[0x1E69E9840];
+  v15 = @"title";
+  v16 = @"subtitle";
   reason = @"nil";
-  v24 = vbslq_s8(vceqzq_s64(*&self->_title), vdupq_n_s64(@"nil"), *&self->_title);
+  v23 = vbslq_s8(vceqzq_s64(*&self->_title), vdupq_n_s64(@"nil"), *&self->_title);
   if (self->_reason)
   {
     reason = self->_reason;
   }
 
-  v25 = reason;
-  v4 = [MEMORY[0x1E696AD98] numberWithBool:{self->_allowedOnLockscreen, v16, v17, @"reason", @"allowedOnLockscreen"}];
-  v26 = v4;
-  v18 = @"allowedOnHomeScreen";
+  v24 = reason;
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:{self->_allowedOnLockscreen, v15, v16, @"reason", @"allowedOnLockscreen"}];
+  v25 = v4;
+  v17 = @"allowedOnHomeScreen";
   v5 = [MEMORY[0x1E696AD98] numberWithBool:self->_allowedOnHomeScreen];
-  v27 = v5;
-  v19 = @"allowedOnSpotlight";
+  v26 = v5;
+  v18 = @"allowedOnSpotlight";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:self->_allowedOnSpotlight];
-  v28 = v6;
-  v20 = @"shouldClearOnEngagement";
+  v27 = v6;
+  v19 = @"shouldClearOnEngagement";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:self->_shouldClearOnEngagement];
-  v29 = v7;
-  v21 = @"predictionReasons";
+  v28 = v7;
+  v20 = @"predictionReasons";
   v8 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_predictionReasons];
-  v30 = v8;
-  v22 = @"contextStartDate";
+  v29 = v8;
+  v21 = @"contextStartDate";
   v9 = MEMORY[0x1E696AD98];
   [(NSDate *)self->_contextStartDate timeIntervalSinceReferenceDate];
   v10 = [v9 numberWithDouble:?];
-  v31 = v10;
-  v23 = @"contextEndDate";
+  v30 = v10;
+  v22 = @"contextEndDate";
   v11 = MEMORY[0x1E696AD98];
   [(NSDate *)self->_contextEndDate timeIntervalSinceReferenceDate];
   v12 = [v11 numberWithDouble:?];
-  v32 = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v16 count:10];
-
-  v14 = *MEMORY[0x1E69E9840];
+  v31 = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v15 count:10];
 
   return v13;
 }
@@ -602,7 +604,6 @@ LABEL_7:
 - (void)initWithProto:.cold.1()
 {
   OUTLINED_FUNCTION_4_3();
-  v12 = *MEMORY[0x1E69E9840];
   v1 = objc_opt_class();
   NSStringFromClass(v1);
   objc_claimAutoreleasedReturnValue();
@@ -610,9 +611,7 @@ LABEL_7:
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_1(&dword_1DEFC4000, v4, v5, "Unable to construct class %@ from ProtoBuf object Protobuf object was of class: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1DEFC4000, v4, v5, "Unable to construct class %@ from ProtoBuf object Protobuf object was of class: %@", v6, v7, v8, v9);
 }
 
 @end

@@ -41,7 +41,7 @@
 
 - (id)readData:(unint64_t)data
 {
-  result = [(NSData *)self->_data subdataWithRange:self->_position, data];
+  result = [(NSData *)self->_data subdataWithRange:?];
   self->_position += data;
   return result;
 }

@@ -1,6 +1,7 @@
 @interface HMThreadNetworkMetadata
 - (HMThreadNetworkMetadata)initWithCoder:(id)coder;
 - (HMThreadNetworkMetadata)initWithName:(id)name channel:(unsigned __int8)channel PANID:(id)d extendedPANID:(id)iD masterKey:(id)key passPhrase:(id)phrase PSKc:(id)kc;
+- (HMThreadNetworkMetadata)initWithName:(id)name channel:(unsigned __int8)channel PANID:(id)d extendedPANID:(id)iD masterKey:(id)key passPhrase:(id)phrase PSKc:(id)kc operationalDataset:(id)self0;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -78,6 +79,17 @@
   }
 
   return selfCopy;
+}
+
+- (HMThreadNetworkMetadata)initWithName:(id)name channel:(unsigned __int8)channel PANID:(id)d extendedPANID:(id)iD masterKey:(id)key passPhrase:(id)phrase PSKc:(id)kc operationalDataset:(id)self0
+{
+  channelCopy = channel;
+  datasetCopy = dataset;
+  v18 = [(HMThreadNetworkMetadata *)self initWithName:name channel:channelCopy PANID:d extendedPANID:iD masterKey:key passPhrase:phrase PSKc:kc];
+  v19 = [datasetCopy copy];
+
+  [(HMThreadNetworkMetadata *)v18 setOperationalDataset:v19];
+  return v18;
 }
 
 - (HMThreadNetworkMetadata)initWithName:(id)name channel:(unsigned __int8)channel PANID:(id)d extendedPANID:(id)iD masterKey:(id)key passPhrase:(id)phrase PSKc:(id)kc

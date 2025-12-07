@@ -16,7 +16,7 @@
 {
   tappedCopy = tapped;
   selfCopy = self;
-  sub_100362EE4();
+  sub_100362EE4(v5);
 }
 
 @end

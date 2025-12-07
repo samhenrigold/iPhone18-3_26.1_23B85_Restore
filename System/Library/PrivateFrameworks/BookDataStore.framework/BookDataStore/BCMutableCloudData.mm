@@ -42,8 +42,8 @@
 
     if (!privacyDelegate)
     {
-      v7 = BDSCloudKitLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = BDSCloudKitLog(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_1E4705888();
       }
@@ -91,7 +91,7 @@
 
   else
   {
-    v10 = BDSCloudKitLog();
+    v10 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1E47058BC();
@@ -105,7 +105,7 @@
 
 - (NSData)ckSystemFields
 {
-  v2 = BDSCloudKitLog();
+  v2 = BDSCloudKitLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_1E47058F0();
@@ -118,7 +118,7 @@
 
 - (id)recordType
 {
-  v2 = BDSCloudKitLog();
+  v2 = BDSCloudKitLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_1E4705924();
@@ -129,7 +129,7 @@
 
 - (id)identifier
 {
-  v2 = BDSCloudKitLog();
+  v2 = BDSCloudKitLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_1E4705958();
@@ -140,7 +140,7 @@
 
 - (id)zoneName
 {
-  v2 = BDSCloudKitLog();
+  v2 = BDSCloudKitLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_1E4705820();

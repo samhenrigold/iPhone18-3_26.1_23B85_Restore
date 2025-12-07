@@ -152,7 +152,7 @@ LABEL_13:
 
     else
     {
-      v45 = BKAudiobooksLog();
+      v45 = BKAudiobooksLog(0);
       if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
         sub_21680(&v17->_mediaItem, v45);

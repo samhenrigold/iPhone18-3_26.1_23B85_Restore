@@ -26,34 +26,21 @@
 
 - (IXPromisedOutOfBandStreamingZipTransfer)initWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = IXPromisedOutOfBandStreamingZipTransfer;
-  v3 = [(IXOpaqueDataPromise *)&v15 initWithCoder:coder];
-  if (!v3)
-  {
-    goto LABEL_3;
-  }
-
-  v4 = objc_alloc(MEMORY[0x1E69D4DD8]);
-  seed = [(IXDataPromise *)v3 seed];
-  szOptions = [seed szOptions];
-  v7 = [v4 initWithOptions:szOptions];
-  [(IXPromisedOutOfBandStreamingZipTransfer *)v3 setExtractor:v7];
-
-  extractor = [(IXPromisedOutOfBandStreamingZipTransfer *)v3 extractor];
-
-  if (!extractor)
+  v19 = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = IXPromisedOutOfBandStreamingZipTransfer;
+  v3 = [(IXOpaqueDataPromise *)&v14 initWithCoder:coder];
+  if (v3 && (v4 = objc_alloc(MEMORY[0x1E69D4DD8]), -[IXDataPromise seed](v3, "seed"), v5 = objc_claimAutoreleasedReturnValue(), [v5 szOptions], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v4, "initWithOptions:", v6), -[IXPromisedOutOfBandStreamingZipTransfer setExtractor:](v3, "setExtractor:", v7), v7, v6, v5, -[IXPromisedOutOfBandStreamingZipTransfer extractor](v3, "extractor"), v8 = objc_claimAutoreleasedReturnValue(), v8, !v8))
   {
     v10 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      seed2 = [(IXDataPromise *)v3 seed];
-      szOptions2 = [seed2 szOptions];
+      seed = [(IXDataPromise *)v3 seed];
+      szOptions = [seed szOptions];
       *buf = 136315394;
-      v17 = "[IXPromisedOutOfBandStreamingZipTransfer initWithCoder:]";
-      v18 = 2112;
-      v19 = szOptions2;
+      v16 = "[IXPromisedOutOfBandStreamingZipTransfer initWithCoder:]";
+      v17 = 2112;
+      v18 = szOptions;
       _os_log_impl(&dword_1DA47A000, v10, OS_LOG_TYPE_DEFAULT, "%s: [SZExtractor initWithOptions:] returned nil for options %@", buf, 0x16u);
     }
 
@@ -62,11 +49,9 @@
 
   else
   {
-LABEL_3:
     v9 = v3;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -79,12 +64,12 @@ LABEL_3:
 
 - (IXPromisedOutOfBandStreamingZipTransfer)initWithName:(id)name client:(unint64_t)client streamingZipOptions:(id)options archiveSize:(unint64_t)size diskSpaceNeeded:(unint64_t)needed
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   optionsCopy = options;
-  v30.receiver = self;
-  v30.super_class = IXPromisedOutOfBandStreamingZipTransfer;
-  v14 = [(IXDataPromise *)&v30 initWithName:nameCopy client:client diskSpaceNeeded:needed];
+  v29.receiver = self;
+  v29.super_class = IXPromisedOutOfBandStreamingZipTransfer;
+  v14 = [(IXDataPromise *)&v29 initWithName:nameCopy client:client diskSpaceNeeded:needed];
   v15 = v14;
   if (v14)
   {
@@ -118,14 +103,14 @@ LABEL_3:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v32 = 0;
+      v31 = 0;
       v20 = +[IXServerConnection sharedConnection];
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __111__IXPromisedOutOfBandStreamingZipTransfer_initWithName_client_streamingZipOptions_archiveSize_diskSpaceNeeded___block_invoke;
-      v29[3] = &unk_1E85C5560;
-      v29[4] = buf;
-      v21 = [v20 synchronousRemoteObjectProxyWithErrorHandler:v29];
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __111__IXPromisedOutOfBandStreamingZipTransfer_initWithName_client_streamingZipOptions_archiveSize_diskSpaceNeeded___block_invoke;
+      v28[3] = &unk_1E85C5560;
+      v28[4] = buf;
+      v21 = [v20 synchronousRemoteObjectProxyWithErrorHandler:v28];
 
       if (!v21)
       {
@@ -134,13 +119,13 @@ LABEL_3:
       }
 
       seed3 = [(IXDataPromise *)v15 seed];
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __111__IXPromisedOutOfBandStreamingZipTransfer_initWithName_client_streamingZipOptions_archiveSize_diskSpaceNeeded___block_invoke_6;
-      v26[3] = &unk_1E85C66C8;
-      v28 = buf;
-      v27 = v15;
-      [(IXPromisedOutOfBandStreamingZipTransfer *)v21 _remote_createOutOfBandStreamingZipTransferDataPromiseWithSeed:seed3 completion:v26];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __111__IXPromisedOutOfBandStreamingZipTransfer_initWithName_client_streamingZipOptions_archiveSize_diskSpaceNeeded___block_invoke_6;
+      v25[3] = &unk_1E85C66C8;
+      v27 = buf;
+      v26 = v15;
+      [(IXPromisedOutOfBandStreamingZipTransfer *)v21 _remote_createOutOfBandStreamingZipTransferDataPromiseWithSeed:seed3 completion:v25];
 
       LOBYTE(seed3) = *(*&buf[8] + 24);
       _Block_object_dispose(buf, 8);
@@ -158,42 +143,40 @@ LABEL_5:
   v21 = v15;
 LABEL_11:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 void __111__IXPromisedOutOfBandStreamingZipTransfer_initWithName_client_streamingZipOptions_archiveSize_diskSpaceNeeded___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[IXPromisedOutOfBandStreamingZipTransfer initWithName:client:streamingZipOptions:archiveSize:diskSpaceNeeded:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[IXPromisedOutOfBandStreamingZipTransfer initWithName:client:streamingZipOptions:archiveSize:diskSpaceNeeded:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 1;
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __111__IXPromisedOutOfBandStreamingZipTransfer_initWithName_client_streamingZipOptions_archiveSize_diskSpaceNeeded___block_invoke_6(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[IXPromisedOutOfBandStreamingZipTransfer initWithName:client:streamingZipOptions:archiveSize:diskSpaceNeeded:]_block_invoke";
-      v10 = 2112;
-      v11 = v5;
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed tell daemon to set up out of band StreamingZip transfer promise: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[IXPromisedOutOfBandStreamingZipTransfer initWithName:client:streamingZipOptions:archiveSize:diskSpaceNeeded:]_block_invoke";
+      v9 = 2112;
+      v10 = v5;
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed tell daemon to set up out of band StreamingZip transfer promise: %@", &v7, 0x16u);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -203,8 +186,6 @@ void __111__IXPromisedOutOfBandStreamingZipTransfer_initWithName_client_streamin
   {
     [*(a1 + 32) _updateInitWithSeed:a2 notifyDaemon:0];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)useProgressFromSZExtractor
@@ -291,29 +272,22 @@ void __86__IXPromisedOutOfBandStreamingZipTransfer_prepareForExtractionToPath_co
 
 void __86__IXPromisedOutOfBandStreamingZipTransfer_prepareForExtractionToPath_completionBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "[IXPromisedOutOfBandStreamingZipTransfer prepareForExtractionToPath:completionBlock:]_block_invoke_2";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel for reason: %@", &v7, 0x16u);
+      v5 = 136315394;
+      v6 = "[IXPromisedOutOfBandStreamingZipTransfer prepareForExtractionToPath:completionBlock:]_block_invoke_2";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel for reason: %@", &v5, 0x16u);
     }
   }
 
-  else
-  {
-    v5 = *(a1 + 32);
-  }
-
   (*(*(a1 + 40) + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)supplyBytes:(id)bytes withCompletionBlock:(id)block
@@ -400,29 +374,22 @@ void __75__IXPromisedOutOfBandStreamingZipTransfer_supplyBytes_withCompletionBlo
 
 void __75__IXPromisedOutOfBandStreamingZipTransfer_supplyBytes_withCompletionBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "[IXPromisedOutOfBandStreamingZipTransfer supplyBytes:withCompletionBlock:]_block_invoke_2";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel for reason: %@", &v7, 0x16u);
+      v5 = 136315394;
+      v6 = "[IXPromisedOutOfBandStreamingZipTransfer supplyBytes:withCompletionBlock:]_block_invoke_2";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel for reason: %@", &v5, 0x16u);
     }
   }
 
-  else
-  {
-    v5 = *(a1 + 32);
-  }
-
   (*(*(a1 + 40) + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)suspendStreamWithCompletionBlock:(id)block
@@ -479,29 +446,22 @@ void __76__IXPromisedOutOfBandStreamingZipTransfer_suspendStreamWithCompletionBl
 
 void __76__IXPromisedOutOfBandStreamingZipTransfer_suspendStreamWithCompletionBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "[IXPromisedOutOfBandStreamingZipTransfer suspendStreamWithCompletionBlock:]_block_invoke_2";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel for reason: %@", &v7, 0x16u);
+      v5 = 136315394;
+      v6 = "[IXPromisedOutOfBandStreamingZipTransfer suspendStreamWithCompletionBlock:]_block_invoke_2";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel for reason: %@", &v5, 0x16u);
     }
   }
 
-  else
-  {
-    v5 = *(a1 + 32);
-  }
-
   (*(*(a1 + 40) + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishStreamWithCompletionBlock:(id)block
@@ -559,29 +519,22 @@ void __75__IXPromisedOutOfBandStreamingZipTransfer_finishStreamWithCompletionBlo
 
 void __75__IXPromisedOutOfBandStreamingZipTransfer_finishStreamWithCompletionBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "[IXPromisedOutOfBandStreamingZipTransfer finishStreamWithCompletionBlock:]_block_invoke_2";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel for reason: %@", &v7, 0x16u);
+      v5 = 136315394;
+      v6 = "[IXPromisedOutOfBandStreamingZipTransfer finishStreamWithCompletionBlock:]_block_invoke_2";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel for reason: %@", &v5, 0x16u);
     }
   }
 
-  else
-  {
-    v5 = *(a1 + 32);
-  }
-
   (*(*(a1 + 40) + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)terminateStreamWithError:(id)error completionBlock:(id)block
@@ -634,7 +587,7 @@ void __75__IXPromisedOutOfBandStreamingZipTransfer_finishStreamWithCompletionBlo
 
 void __84__IXPromisedOutOfBandStreamingZipTransfer_terminateStreamWithError_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -642,45 +595,41 @@ void __84__IXPromisedOutOfBandStreamingZipTransfer_terminateStreamWithError_comp
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v11 = "[IXPromisedOutOfBandStreamingZipTransfer terminateStreamWithError:completionBlock:]_block_invoke";
-      v12 = 2112;
-      v13 = v3;
+      v10 = "[IXPromisedOutOfBandStreamingZipTransfer terminateStreamWithError:completionBlock:]_block_invoke";
+      v11 = 2112;
+      v12 = v3;
       _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Terminating stream failed with error: %@", buf, 0x16u);
     }
   }
 
   v5 = *(a1 + 32);
   v6 = *(a1 + 40);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __84__IXPromisedOutOfBandStreamingZipTransfer_terminateStreamWithError_completionBlock___block_invoke_20;
-  v8[3] = &unk_1E85C5470;
-  v9 = *(a1 + 48);
-  [v5 cancelForReason:v6 client:15 completion:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __84__IXPromisedOutOfBandStreamingZipTransfer_terminateStreamWithError_completionBlock___block_invoke_20;
+  v7[3] = &unk_1E85C5470;
+  v8 = *(a1 + 48);
+  [v5 cancelForReason:v6 client:15 completion:v7];
 }
 
 void __84__IXPromisedOutOfBandStreamingZipTransfer_terminateStreamWithError_completionBlock___block_invoke_20(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315394;
-      v7 = "[IXPromisedOutOfBandStreamingZipTransfer terminateStreamWithError:completionBlock:]_block_invoke";
-      v8 = 2112;
-      v9 = v3;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel for reason: %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "[IXPromisedOutOfBandStreamingZipTransfer terminateStreamWithError:completionBlock:]_block_invoke";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel for reason: %@", &v5, 0x16u);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetWithCompletion:(id)completion
@@ -742,19 +691,17 @@ void __84__IXPromisedOutOfBandStreamingZipTransfer_terminateStreamWithError_comp
 
 void __67__IXPromisedOutOfBandStreamingZipTransfer_setArchiveBytesConsumed___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "[IXPromisedOutOfBandStreamingZipTransfer setArchiveBytesConsumed:]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: Failed to set bytes completed: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[IXPromisedOutOfBandStreamingZipTransfer setArchiveBytesConsumed:]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: Failed to set bytes completed: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addBytesTransferred:(unint64_t)transferred
@@ -872,34 +819,21 @@ LABEL_12:
 
 - (IXPromisedOutOfBandStreamingZipTransfer)initWithSeed:(id)seed
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = IXPromisedOutOfBandStreamingZipTransfer;
-  v3 = [(IXDataPromise *)&v15 initWithSeed:seed];
-  if (!v3)
-  {
-    goto LABEL_3;
-  }
-
-  v4 = objc_alloc(MEMORY[0x1E69D4DD8]);
-  seed = [(IXDataPromise *)v3 seed];
-  szOptions = [seed szOptions];
-  v7 = [v4 initWithOptions:szOptions];
-  [(IXPromisedOutOfBandStreamingZipTransfer *)v3 setExtractor:v7];
-
-  extractor = [(IXPromisedOutOfBandStreamingZipTransfer *)v3 extractor];
-
-  if (!extractor)
+  v19 = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = IXPromisedOutOfBandStreamingZipTransfer;
+  v3 = [(IXDataPromise *)&v14 initWithSeed:seed];
+  if (v3 && (v4 = objc_alloc(MEMORY[0x1E69D4DD8]), -[IXDataPromise seed](v3, "seed"), v5 = objc_claimAutoreleasedReturnValue(), [v5 szOptions], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v4, "initWithOptions:", v6), -[IXPromisedOutOfBandStreamingZipTransfer setExtractor:](v3, "setExtractor:", v7), v7, v6, v5, -[IXPromisedOutOfBandStreamingZipTransfer extractor](v3, "extractor"), v8 = objc_claimAutoreleasedReturnValue(), v8, !v8))
   {
     v10 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      seed2 = [(IXDataPromise *)v3 seed];
-      szOptions2 = [seed2 szOptions];
+      seed = [(IXDataPromise *)v3 seed];
+      szOptions = [seed szOptions];
       *buf = 136315394;
-      v17 = "[IXPromisedOutOfBandStreamingZipTransfer initWithSeed:]";
-      v18 = 2112;
-      v19 = szOptions2;
+      v16 = "[IXPromisedOutOfBandStreamingZipTransfer initWithSeed:]";
+      v17 = 2112;
+      v18 = szOptions;
       _os_log_impl(&dword_1DA47A000, v10, OS_LOG_TYPE_DEFAULT, "%s: [SZExtractor initWithOptions:] returned nil for options %@", buf, 0x16u);
     }
 
@@ -908,11 +842,9 @@ LABEL_12:
 
   else
   {
-LABEL_3:
     v9 = v3;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -925,82 +857,72 @@ LABEL_3:
 
 - (void)prepareForExtraction:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: You must call -prepareForExtractionToPath: instead; -prepareForExtraction: is not valid on this type of promise. : %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: You must call -prepareForExtractionToPath: instead; -prepareForExtraction: is not valid on this type of promise. : %@", v2, v3, v4, v5, v6);
 }
 
 - (void)prepareForExtractionToPath:completionBlock:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: self.extractor was unexpectedly nil! : %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: self.extractor was unexpectedly nil! : %@", v2, v3, v4, v5, v6);
 }
 
 - (void)supplyBytes:withCompletionBlock:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: self.extractor was unexpectedly nil! : %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: self.extractor was unexpectedly nil! : %@", v2, v3, v4, v5, v6);
 }
 
 - (void)supplyBytes:withCompletionBlock:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: -supplyBytes:withCompletionBlock: called after promise was complete : %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: -supplyBytes:withCompletionBlock: called after promise was complete : %@", v2, v3, v4, v5, v6);
 }
 
 - (void)suspendStreamWithCompletionBlock:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: self.extractor was unexpectedly nil! : %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: self.extractor was unexpectedly nil! : %@", v2, v3, v4, v5, v6);
 }
 
 - (void)finishStreamWithCompletionBlock:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: self.extractor was unexpectedly nil! : %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: self.extractor was unexpectedly nil! : %@", v2, v3, v4, v5, v6);
 }
 
 - (void)terminateStreamWithError:completionBlock:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: self.extractor was unexpectedly nil! : %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: self.extractor was unexpectedly nil! : %@", v2, v3, v4, v5, v6);
 }
 
 - (void)terminateStreamWithError:completionBlock:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: -terminateStreamWithError:completionBlock: called after promise was complete : %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: -terminateStreamWithError:completionBlock: called after promise was complete : %@", v2, v3, v4, v5, v6);
 }
 
 - (void)resetWithCompletion:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = [a1 seed];
   v4 = [v3 szOptions];
-  v6 = 136315650;
-  v7 = "[IXPromisedOutOfBandStreamingZipTransfer resetWithCompletion:]";
-  v8 = 2112;
-  v9 = v4;
-  v10 = 2112;
-  v11 = 0;
-  _os_log_error_impl(&dword_1DA47A000, a2, OS_LOG_TYPE_ERROR, "%s: [SZExtractor initWithOptions:] returned nil for options %@ : %@", &v6, 0x20u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 136315650;
+  v6 = "[IXPromisedOutOfBandStreamingZipTransfer resetWithCompletion:]";
+  v7 = 2112;
+  v8 = v4;
+  v9 = 2112;
+  v10 = 0;
+  _os_log_error_impl(&dword_1DA47A000, a2, OS_LOG_TYPE_ERROR, "%s: [SZExtractor initWithOptions:] returned nil for options %@ : %@", &v5, 0x20u);
 }
 
 @end

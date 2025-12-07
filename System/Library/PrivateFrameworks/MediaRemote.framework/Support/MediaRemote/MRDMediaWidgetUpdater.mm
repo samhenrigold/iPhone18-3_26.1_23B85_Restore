@@ -33,7 +33,7 @@
 
 - (MRDMediaWidgetUpdater)init
 {
-  *(&self->super.isa + OBJC_IVAR___MRDMediaWidgetUpdater_scheduledReloadWidgets) = &_swiftEmptyDictionarySingleton;
+  *(&self->super.isa + OBJC_IVAR___MRDMediaWidgetUpdater_scheduledReloadWidgets) = _swiftEmptyDictionarySingleton;
   v3 = OBJC_IVAR___MRDMediaWidgetUpdater_lock;
   sub_1001BC5A8(&qword_100528660, &qword_100450550);
   v4 = swift_allocObject();

@@ -46,7 +46,7 @@
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   applicationCopy = application;
   selfCopy = self;
-  sub_100008924(v6);
+  sub_100008924(v6, v9);
 }
 
 @end

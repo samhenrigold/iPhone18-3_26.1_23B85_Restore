@@ -30,15 +30,15 @@
 
 - (uint64_t)hasHTML
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   v2 = hasHTML_htmlPatterns;
   if (!hasHTML_htmlPatterns)
   {
     v3 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"(<[^>\\n]+>)" options:0 error:0];
-    v21[0] = v3;
+    v20[0] = v3;
     v4 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"(&#\\d+)" options:0 error:0];;
-    v21[1] = v4;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+    v20[1] = v4;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
     v6 = [v5 copy];
     v7 = hasHTML_htmlPatterns;
     hasHTML_htmlPatterns = v6;
@@ -46,36 +46,35 @@
     v2 = hasHTML_htmlPatterns;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v8 = v2;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v16 + 1) + 8 * i) firstMatchInString:self options:0 range:{0, objc_msgSend(self, "length", v16)}];
+        v13 = [*(*(&v15 + 1) + 8 * i) firstMatchInString:self options:0 range:{0, objc_msgSend(self, "length", v15)}];
 
         if (v13)
         {
 
-          result = 1;
-          goto LABEL_15;
+          return 1;
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v10)
       {
         continue;
@@ -90,10 +89,7 @@
     [NSString(IMAdditions) hasHTML];
   }
 
-  result = [self containsMatchIn:{hasHTML_trie, v16}];
-LABEL_15:
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return [self containsMatchIn:{hasHTML_trie, v15}];
 }
 
 - (id)stringByStrippingHTML
@@ -426,31 +422,31 @@ LABEL_20:
 
 - (id)dictionaryByDecomposingQueryStringWithURLDecode:()IMAdditions
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v6 = [self componentsSeparatedByString:@"&"];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     v10 = @"=";
     do
     {
       v11 = 0;
-      v23 = v8;
+      v22 = v8;
       do
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = [*(*(&v24 + 1) + 8 * v11) componentsSeparatedByString:v10];
+        v12 = [*(*(&v23 + 1) + 8 * v11) componentsSeparatedByString:v10];
         if ([v12 count] == 2)
         {
           v13 = [v12 objectAtIndex:0];
@@ -470,7 +466,7 @@ LABEL_20:
             v6 = v17;
             v10 = v16;
             v9 = v15;
-            v8 = v23;
+            v8 = v22;
           }
 
           [dictionary setObject:v14 forKey:v13];
@@ -480,13 +476,11 @@ LABEL_20:
       }
 
       while (v8 != v11);
-      v8 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v8);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -494,30 +488,29 @@ LABEL_20:
 - (uint64_t)rangeOfSignificantSubstring
 {
   v2 = [MEMORY[0x1E695DFD8] setWithObjects:{@"an", @"a", @"the", 0}];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
-  v13[0] = 0;
-  v13[1] = v13;
-  v13[2] = 0x2020000000;
-  v14 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
+  v11[0] = 0;
+  v11[1] = v11;
+  v11[2] = 0x2020000000;
+  v12 = 0;
   v3 = [self length];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __52__NSString_IMAdditions__rangeOfSignificantSubstring__block_invoke;
-  v9[3] = &unk_1E8569C18;
-  v11 = &v15;
-  v12 = v13;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __52__NSString_IMAdditions__rangeOfSignificantSubstring__block_invoke;
+  v7[3] = &unk_1E8569C18;
+  v9 = &v13;
+  v10 = v11;
   v4 = v2;
-  v10 = v4;
-  [self enumerateSubstringsInRange:0 options:v3 usingBlock:{3, v9}];
-  v5 = v16[3];
-  v6 = [self length];
-  v7 = v6 - v16[3];
+  v8 = v4;
+  [self enumerateSubstringsInRange:0 options:v3 usingBlock:{3, v7}];
+  v5 = v14[3];
+  [self length];
 
-  _Block_object_dispose(v13, 8);
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(v11, 8);
+  _Block_object_dispose(&v13, 8);
 
   return v5;
 }

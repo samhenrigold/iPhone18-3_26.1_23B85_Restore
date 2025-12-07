@@ -130,7 +130,7 @@ void __66__FCTypicalDayProvider__onqueue_registerForSignificantTimeChanges__bloc
 
 - (void)_onqueue_rebuildTypicalDayModelForced:(BOOL)forced
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_serviceQueue);
   coachingDate = [(FCCDateProvider *)self->_dateProvider coachingDate];
   if (forced)
@@ -149,10 +149,10 @@ void __66__FCTypicalDayProvider__onqueue_registerForSignificantTimeChanges__bloc
       v8 = *MEMORY[0x277CCC290];
       if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v16) = 0;
+        LOWORD(v15) = 0;
         v9 = "Already rebuilt the typical day model today";
 LABEL_13:
-        _os_log_impl(&dword_24B55B000, v8, OS_LOG_TYPE_DEFAULT, v9, &v16, 2u);
+        _os_log_impl(&dword_24B55B000, v8, OS_LOG_TYPE_DEFAULT, v9, &v15, 2u);
         goto LABEL_10;
       }
 
@@ -172,9 +172,9 @@ LABEL_7:
     v14 = *MEMORY[0x277CCC290];
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = _typicalDayIntervalFromToday;
-      _os_log_impl(&dword_24B55B000, v14, OS_LOG_TYPE_DEFAULT, "Rebuilding typical day model with interval: %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = _typicalDayIntervalFromToday;
+      _os_log_impl(&dword_24B55B000, v14, OS_LOG_TYPE_DEFAULT, "Rebuilding typical day model with interval: %@", &v15, 0xCu);
     }
 
     [(FITypicalDayActivityModel *)self->_typicalDayModel rebuildWithInterval:_typicalDayIntervalFromToday];
@@ -186,14 +186,12 @@ LABEL_7:
   v8 = *MEMORY[0x277CCC290];
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v16) = 0;
+    LOWORD(v15) = 0;
     v9 = "Waiting for protected to be available before rebuilding typical day model";
     goto LABEL_13;
   }
 
 LABEL_10:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_handleUpdatedActivitySummary:(id)summary
@@ -274,7 +272,7 @@ void __97__FCTypicalDayProvider_currentActivitySummaryHelper_didUpdateTodayActiv
 
 - (void)currentActivitySummaryHelper:(id)helper didUpdateYesterdayActivitySummary:(id)summary changedFields:(unint64_t)fields
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (fields)
   {
     _HKInitializeLogging();
@@ -294,8 +292,6 @@ void __97__FCTypicalDayProvider_currentActivitySummaryHelper_didUpdateTodayActiv
     block[4] = self;
     dispatch_async(serviceQueue, block);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -30,7 +30,7 @@
 + (id)settingsStateDictionaryWithDetailsIncluded:(BOOL)included
 {
   includedCopy = included;
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v5 = +[MCProfileConnection sharedConnection];
   v6 = v5;
@@ -57,33 +57,33 @@
   if (v11)
   {
     v12 = objc_opt_new();
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     v13 = v11;
-    v14 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v35;
+      v16 = *v34;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v35 != v16)
+          if (*v34 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v34 + 1) + 8 * i);
+          v18 = *(*(&v33 + 1) + 8 * i);
           if ([v6 isBoolSettingLockedDownByRestrictions:v18])
           {
             [v12 addObject:v18];
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v15);
@@ -95,45 +95,43 @@
   v19 = [effectiveUserSettings objectForKey:@"restrictedValue"];
   if (v19)
   {
-    v29 = v11;
+    v28 = v11;
     v20 = objc_opt_new();
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v21 = v19;
-    v22 = [v21 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v31;
+      v24 = *v30;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v31 != v24)
+          if (*v30 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = *(*(&v30 + 1) + 8 * j);
+          v26 = *(*(&v29 + 1) + 8 * j);
           if ([v6 isValueSettingLockedDownByRestrictions:v26])
           {
             [v20 addObject:v26];
           }
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v23);
     }
 
     [dictionary setObject:v20 forKeyedSubscript:@"UI disabled for value settings"];
-    v11 = v29;
+    v11 = v28;
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -145,22 +143,22 @@
   if (includedCopy)
   {
     v5 = objc_alloc(MEMORY[0x1E695DF20]);
-    v6 = MCSystemProfileRestrictionsFilePath();
+    v6 = MCSystemProfileRestrictionsFilePath(v5);
     v7 = [v5 initWithContentsOfFile:v6];
     [dictionary setObject:v7 forKeyedSubscript:@"Restrictions per system profile"];
 
     v8 = objc_alloc(MEMORY[0x1E695DF20]);
-    v9 = MCUserProfileRestrictionsFilePath();
+    v9 = MCUserProfileRestrictionsFilePath(v8);
     v10 = [v8 initWithContentsOfFile:v9];
     [dictionary setObject:v10 forKeyedSubscript:@"Restrictions per user profile"];
 
     v11 = objc_alloc(MEMORY[0x1E695DF20]);
-    v12 = MCSystemClientRestrictionsFilePath();
+    v12 = MCSystemClientRestrictionsFilePath(v11);
     v13 = [v11 initWithContentsOfFile:v12];
     [dictionary setObject:v13 forKeyedSubscript:@"Restrictions per system client"];
 
     v14 = objc_alloc(MEMORY[0x1E695DF20]);
-    v15 = MCUserClientRestrictionsFilePath();
+    v15 = MCUserClientRestrictionsFilePath(v14);
     v16 = [v14 initWithContentsOfFile:v15];
     [dictionary setObject:v16 forKeyedSubscript:@"Restrictions per user client"];
   }

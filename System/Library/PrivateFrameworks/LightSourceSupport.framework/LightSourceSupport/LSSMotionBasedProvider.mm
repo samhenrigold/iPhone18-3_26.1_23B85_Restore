@@ -202,43 +202,43 @@ LABEL_5:
     }
 
     v9 = [v5 attitude];
-    [v9 quaternion];
-    *&v14.f64[0] = v10;
-    *&v14.f64[1] = v11;
-    v15.f64[0] = v12;
-    v15.f64[1] = v13;
-    v16 = vaddvq_f64(vaddq_f64(vmulq_f64(v14, v14), vmulq_f64(v15, v15)));
-    if (v16 == 0.0)
+    v10 = [v9 quaternion];
+    *&v15.f64[0] = v11;
+    *&v15.f64[1] = v12;
+    v16.f64[0] = v13;
+    v16.f64[1] = v14;
+    v17 = vaddvq_f64(vaddq_f64(vmulq_f64(v15, v15), vmulq_f64(v16, v16)));
+    if (v17 == 0.0)
     {
-      v17 = xmmword_255E9C9F0;
-      v18 = 0uLL;
+      v18 = xmmword_255E9C9F0;
+      v19 = 0uLL;
     }
 
     else
     {
-      v19 = 1.0 / sqrt(v16);
-      v17 = vmulq_n_f64(v15, v19);
-      v18 = vmulq_n_f64(v14, v19);
+      v20 = 1.0 / sqrt(v17);
+      v18 = vmulq_n_f64(v16, v20);
+      v19 = vmulq_n_f64(v15, v20);
     }
 
-    v34 = v18;
-    v35 = v17;
-    v20.f64[0] = NAN;
-    v20.f64[1] = NAN;
-    v21 = vnegq_f64(v20);
-    v22 = vandq_s8(v18, v21);
-    v23 = vandq_s8(v17, v21);
-    v24 = vdupq_n_s64(0x7FF0000000000000uLL);
-    v25 = vandq_s8(vcgtq_s64(v24, v22), vcgtq_s64(v24, v23));
-    if ((vandq_s8(v25, vdupq_laneq_s64(v25, 1)).u64[0] & 0x8000000000000000) == 0)
+    v34 = v19;
+    v35 = v18;
+    v21.f64[0] = NAN;
+    v21.f64[1] = NAN;
+    v22 = vnegq_f64(v21);
+    v23 = vandq_s8(v19, v22);
+    v24 = vandq_s8(v18, v22);
+    v25 = vdupq_n_s64(0x7FF0000000000000uLL);
+    v26 = vandq_s8(vcgtq_s64(v25, v23), vcgtq_s64(v25, v24));
+    if ((vandq_s8(v26, vdupq_laneq_s64(v26, 1)).u64[0] & 0x8000000000000000) == 0)
     {
-      v28 = v18;
-      v29 = v17;
-      v30 = v10;
-      v31 = v11;
-      v32 = v12;
-      v33 = v13;
-      v27 = LSSLogMotionBasedLightService();
+      v28 = v19;
+      v29 = v18;
+      v30 = v11;
+      v31 = v12;
+      v32 = v13;
+      v33 = v14;
+      v27 = LSSLogMotionBasedLightService(v10);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
       {
         *buf = 134219776;
@@ -269,27 +269,23 @@ LABEL_5:
   }
 
 LABEL_11:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)provider:(id)provider updatedLight:(id)light
 {
   var0 = light.var0;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v7 = *(*&var0 + 48);
-  v11[2] = *(*&var0 + 32);
-  v11[3] = v7;
+  v10[2] = *(*&var0 + 32);
+  v10[3] = v7;
   v8 = *(*&var0 + 80);
-  v11[4] = *(*&var0 + 64);
-  v11[5] = v8;
+  v10[4] = *(*&var0 + 64);
+  v10[5] = v8;
   v9 = *(*&var0 + 16);
-  v11[0] = **&var0;
-  v11[1] = v9;
-  [WeakRetained provider:self updatedLight:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = **&var0;
+  v10[1] = v9;
+  [WeakRetained provider:self updatedLight:v10];
 }
 
 - (void)invalidate
@@ -530,7 +526,7 @@ LABEL_31:
 
 - (void)_update:(uint64_t)_update timestamp:(float64x2_t *)timestamp
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   ++*(self + 48);
   v7 = [(LSSSettings *)*(self + 64) floatForKey:?];
   [(LSSRotationAccumulator *)*(self + 40) setSampleClampMax:v7];
@@ -575,7 +571,8 @@ LABEL_6:
 
     if (os_log_type_enabled(_MergedGlobals_6, OS_LOG_TYPE_INFO))
     {
-      OUTLINED_FUNCTION_4(&dword_255E8B000, v22, v23, "high quality", v24, v25, v26, v27, v62, v64, v65, v67, v68, v69, *&v70.f64[0], *&v70.f64[1], v71, v72, __dst[0], __dst[1], __dst[2], __dst[3], __dst[4], __dst[5], __dst[6], __dst[7], __dst[8], __dst[9], __dst[10], __dst[11], 0);
+      LOWORD(buf[0].f64[0]) = 0;
+      OUTLINED_FUNCTION_4(&dword_255E8B000, v22, v23, "high quality", v24, v25, v26, v27, v60, v62, v63, v65, v66, v67, *&v68.f64[0], *&v68.f64[1], v69, v70, __dst[0], __dst[1], __dst[2], __dst[3], __dst[4], __dst[5], __dst[6], __dst[7], __dst[8], __dst[9], __dst[10], __dst[11]);
     }
 
     *(self + 75) = 0;
@@ -591,7 +588,8 @@ LABEL_6:
 
     if (os_log_type_enabled(_MergedGlobals_6, OS_LOG_TYPE_INFO))
     {
-      OUTLINED_FUNCTION_4(&dword_255E8B000, v28, v29, "unpausing (light)", v30, v31, v32, v33, v62, v64, v65, v67, v68, v69, *&v70.f64[0], *&v70.f64[1], v71, v72, __dst[0], __dst[1], __dst[2], __dst[3], __dst[4], __dst[5], __dst[6], __dst[7], __dst[8], __dst[9], __dst[10], __dst[11], 0);
+      LOWORD(buf[0].f64[0]) = 0;
+      OUTLINED_FUNCTION_4(&dword_255E8B000, v28, v29, "unpausing (light)", v30, v31, v32, v33, v60, v62, v63, v65, v66, v67, *&v68.f64[0], *&v68.f64[1], v69, v70, __dst[0], __dst[1], __dst[2], __dst[3], __dst[4], __dst[5], __dst[6], __dst[7], __dst[8], __dst[9], __dst[10], __dst[11]);
     }
 
     *(self + 56) = *(self + 48);
@@ -600,7 +598,6 @@ LABEL_6:
 
   v34 = OUTLINED_FUNCTION_1_1();
   v39 = [(LSSMotionBasedProvider *)v35 _updateReference:v36 motionLevel:v34 activateLevel:v37 deactivateLevel:v38];
-  v40 = *(self + 72);
   if (v39)
   {
     if (*(self + 72))
@@ -611,11 +608,11 @@ LABEL_6:
         dispatch_once(&qword_280D2F530, &__block_literal_global_6);
       }
 
-      v41 = _MergedGlobals_6;
+      v40 = _MergedGlobals_6;
       if (os_log_type_enabled(_MergedGlobals_6, OS_LOG_TYPE_INFO))
       {
         LOWORD(buf[0].f64[0]) = 0;
-        _os_log_impl(&dword_255E8B000, v41, OS_LOG_TYPE_INFO, "unpausing (reference)", buf, 2u);
+        _os_log_impl(&dword_255E8B000, v40, OS_LOG_TYPE_INFO, "unpausing (reference)", buf, 2u);
       }
 
       *(self + 56) = *(self + 48);
@@ -625,60 +622,60 @@ LABEL_6:
 
   else if (*(self + 72))
   {
-    goto LABEL_44;
+    return;
   }
 
-  v42 = timestamp[1];
-  v43 = 1.0 / vaddvq_f64(vaddq_f64(vmulq_f64(*timestamp, *timestamp), vmulq_f64(v42, v42)));
-  v63 = vmulq_n_f64(vnegq_f64(*timestamp), v43);
-  v66 = vmulq_n_f64(vmulq_f64(v42, xmmword_255E9CA30), v43);
+  v41 = timestamp[1];
+  v42 = 1.0 / vaddvq_f64(vaddq_f64(vmulq_f64(*timestamp, *timestamp), vmulq_f64(v41, v41)));
+  v61 = vmulq_n_f64(vnegq_f64(*timestamp), v42);
+  v64 = vmulq_n_f64(vmulq_f64(v41, xmmword_255E9CA30), v42);
   [(LSSMotionBasedLightSource *)*(self + 24) direction];
-  v44 = vmulq_f64(v66, xmmword_255E9CA30);
-  v45 = vnegq_f64(v63);
-  v46 = vnegq_f64(v70);
-  v47 = vextq_s8(v44, vnegq_f64(v44), 8uLL);
-  v48 = vmlsq_lane_f64(vmlsq_lane_f64(vmulq_laneq_f64(v44, v46, 1), v47, v70.f64[0], 0), vextq_s8(v63, v45, 8uLL), *&v71, 0);
-  v49 = vmlsq_lane_f64(vmlsq_lane_f64(vmulq_laneq_f64(v63, v46, 1), vextq_s8(v45, v63, 8uLL), v70.f64[0], 0), v47, *&v71, 0);
-  v50 = vnegq_f64(v48);
-  v51 = vextq_s8(v49, vnegq_f64(v49), 8uLL);
-  buf[1] = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(v48, v66, 1), vextq_s8(v50, v48, 8uLL), v66.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(v49, v63, 1), v51, v63.f64[0]));
+  v43 = vmulq_f64(v64, xmmword_255E9CA30);
+  v44 = vnegq_f64(v61);
+  v45 = vnegq_f64(v68);
+  v46 = vextq_s8(v43, vnegq_f64(v43), 8uLL);
+  v47 = vmlsq_lane_f64(vmlsq_lane_f64(vmulq_laneq_f64(v43, v45, 1), v46, v68.f64[0], 0), vextq_s8(v61, v44, 8uLL), *&v69, 0);
+  v48 = vmlsq_lane_f64(vmlsq_lane_f64(vmulq_laneq_f64(v61, v45, 1), vextq_s8(v44, v61, 8uLL), v68.f64[0], 0), v46, *&v69, 0);
+  v49 = vnegq_f64(v47);
+  v50 = vextq_s8(v48, vnegq_f64(v48), 8uLL);
+  buf[1] = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(v47, v64, 1), vextq_s8(v49, v47, 8uLL), v64.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(v48, v61, 1), v50, v61.f64[0]));
   buf[0] = *&a2;
-  buf[2] = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(v49, v66, 1), v51, v66.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(v50, v63, 1), vextq_s8(v48, v50, 8uLL), v63.f64[0]));
+  buf[2] = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(v48, v64, 1), v50, v64.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(v49, v61, 1), vextq_s8(v47, v49, 8uLL), v61.f64[0]));
   memset(&buf[3], 0, 48);
   [(LSSQuaternionSmoothFilter *)*(self + 32) value];
   intensity = [(LSSMotionBasedLightSource *)*(self + 24) intensity];
   *buf[5].f64 = intensity;
   if (*(self + 75))
   {
-    v53 = 1;
+    v52 = 1;
   }
 
   else
   {
-    v53 = 2;
+    v52 = 2;
   }
 
-  HIDWORD(buf[5].f64[0]) = v53;
-  v54 = *(self + 48);
-  v55 = *(self + 56);
-  v56 = v54 >= v55;
-  v57 = v54 - v55;
-  if (!v56)
+  HIDWORD(buf[5].f64[0]) = v52;
+  v53 = *(self + 48);
+  v54 = *(self + 56);
+  v55 = v53 >= v54;
+  v56 = v53 - v54;
+  if (!v55)
   {
     __assert_rtn("[LSSMotionBasedProvider _update:timestamp:]", "LSSMotionBasedProvider.m", 306, "_frameCount >= _resumeFrame");
   }
 
-  if (v57 < 0x33)
+  if (v56 < 0x33)
   {
-    v58 = 1;
+    v57 = 1;
   }
 
   else
   {
-    v58 = v39;
+    v57 = v39;
   }
 
-  if (((v58 | v18) & 1) == 0)
+  if (((v57 | v18) & 1) == 0)
   {
     HIDWORD(buf[5].f64[0]) = 0;
     *(self + 72) = 1;
@@ -689,29 +686,25 @@ LABEL_6:
       dispatch_once(&qword_280D2F530, &__block_literal_global_6);
     }
 
-    v59 = _MergedGlobals_6;
+    v58 = _MergedGlobals_6;
     if (os_log_type_enabled(_MergedGlobals_6, OS_LOG_TYPE_INFO))
     {
       LOWORD(__dst[0]) = 0;
-      _os_log_impl(&dword_255E8B000, v59, OS_LOG_TYPE_INFO, "pausing", __dst, 2u);
+      _os_log_impl(&dword_255E8B000, v58, OS_LOG_TYPE_INFO, "pausing", __dst, 2u);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((self + 80));
   memcpy(__dst, buf, sizeof(__dst));
   [WeakRetained provider:self updatedLight:__dst];
-
-LABEL_44:
-  v61 = *MEMORY[0x277D85DE8];
 }
 
 void __49__LSSMotionBasedProvider_initWithQueue_delegate___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_255E8B000, a2, OS_LOG_TYPE_FAULT, "CMMotionManager error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_255E8B000, a2, OS_LOG_TYPE_FAULT, "CMMotionManager error: %@", &v2, 0xCu);
 }
 
 @end

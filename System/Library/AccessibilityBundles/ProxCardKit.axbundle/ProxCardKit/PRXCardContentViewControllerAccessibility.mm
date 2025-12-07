@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)setInfoButtonAction:(id)action;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -33,6 +34,14 @@
   v3.super_class = PRXCardContentViewControllerAccessibility;
   [(PRXCardContentViewControllerAccessibility *)&v3 viewDidLoad];
   [(PRXCardContentViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = PRXCardContentViewControllerAccessibility;
+  [(PRXCardContentViewControllerAccessibility *)&v3 viewDidAppear:appear];
+  AXPerformBlockOnMainThreadAfterDelay();
 }
 
 void __59__PRXCardContentViewControllerAccessibility_viewDidAppear___block_invoke(uint64_t a1)

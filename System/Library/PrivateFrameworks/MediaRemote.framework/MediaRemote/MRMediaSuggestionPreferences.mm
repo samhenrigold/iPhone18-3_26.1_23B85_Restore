@@ -148,31 +148,31 @@
 
 - (id)bundlesDisabledInAllContexts
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self)
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v2 = selfCopy[4];
-    v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v3)
     {
       v4 = 0;
-      v5 = *v13;
+      v5 = *v12;
       do
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v13 != v5)
+          if (*v12 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v12 + 1) + 8 * i);
+          v7 = *(*(&v11 + 1) + 8 * i);
           v8 = selfCopy[4];
           if (v4)
           {
@@ -182,12 +182,12 @@
 
           else
           {
-            v9 = [v8 objectForKeyedSubscript:{v7, v12}];
+            v9 = [v8 objectForKeyedSubscript:{v7, v11}];
             v4 = [v9 mutableCopy];
           }
         }
 
-        v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v3);
@@ -211,18 +211,16 @@ LABEL_16:
 
   v4 = 0;
 LABEL_17:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (NSArray)allContexts
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v5[0] = @"HomeScreen";
-  v5[1] = @"Home";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
+  v4[0] = @"HomeScreen";
+  v4[1] = @"Home";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
 
   return v2;
 }
@@ -393,15 +391,13 @@ LABEL_17:
 
 - (void)_updateGlobalToggleState
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(self, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = a2;
-    _os_log_impl(&dword_1A2860000, self, OS_LOG_TYPE_DEFAULT, "[MRMediaSuggestionPreferences] Updated to new state: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = a2;
+    _os_log_impl(&dword_1A2860000, self, OS_LOG_TYPE_DEFAULT, "[MRMediaSuggestionPreferences] Updated to new state: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

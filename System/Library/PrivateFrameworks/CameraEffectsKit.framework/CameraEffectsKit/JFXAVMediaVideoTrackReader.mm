@@ -69,7 +69,7 @@
       v9 = nextSample2;
       if (nextSample2)
       {
-        [nextSample2 presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(nextSample2);
       }
 
       else
@@ -189,7 +189,7 @@
     if (currentSample2)
     {
       v9 = currentSample2;
-      [currentSample2 presentationTimeStamp];
+      objc_msgSend_presentationTimeStamp(currentSample2);
       currentSample2 = v9;
     }
 
@@ -238,7 +238,7 @@
     v9 = JFXLog_DebugMediaDataReader();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      [(JFXAVMediaDataReader *)self currentReadingRange];
+      objc_msgSend_currentReadingRange(self);
       time = v20;
       Seconds = CMTimeGetSeconds(&time);
       LODWORD(time.value) = 138412546;
@@ -289,7 +289,7 @@
     v5 = currentSample2;
     if (currentSample2)
     {
-      [currentSample2 duration];
+      objc_msgSend_duration(currentSample2);
     }
 
     else
@@ -313,7 +313,7 @@
           v9 = nextSample2;
           if (nextSample2)
           {
-            [nextSample2 presentationTimeStamp];
+            objc_msgSend_presentationTimeStamp(nextSample2);
           }
 
           else
@@ -325,7 +325,7 @@
           v11 = currentSample4;
           if (currentSample4)
           {
-            [currentSample4 presentationTimeStamp];
+            objc_msgSend_presentationTimeStamp(currentSample4);
           }
 
           else

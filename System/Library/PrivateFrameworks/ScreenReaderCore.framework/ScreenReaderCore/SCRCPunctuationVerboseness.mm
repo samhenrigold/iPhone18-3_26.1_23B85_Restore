@@ -60,15 +60,15 @@
   return v2;
 }
 
-void __62__SCRCPunctuationVerboseness_userExposedPunctuationCharacters__block_invoke()
+void __62__SCRCPunctuationVerboseness_userExposedPunctuationCharacters__block_invoke(uint64_t a1)
 {
-  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v0 = MEMORY[0x277CBEAC0];
-  v1 = [v5 URLForResource:@"SCRCPunctuation_UserExposed" withExtension:@"scrconfig"];
-  v2 = [v0 dictionaryWithContentsOfURL:v1];
-  v3 = [v2 allKeys];
-  v4 = userExposedPunctuationCharacters_Keys;
-  userExposedPunctuationCharacters_Keys = v3;
+  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v1 = MEMORY[0x277CBEAC0];
+  v2 = [v6 URLForResource:@"SCRCPunctuation_UserExposed" withExtension:@"scrconfig"];
+  v3 = [v1 dictionaryWithContentsOfURL:v2];
+  v4 = [v3 allKeys];
+  v5 = userExposedPunctuationCharacters_Keys;
+  userExposedPunctuationCharacters_Keys = v4;
 }
 
 + (id)verbosenessDictionaryForLevel:(int64_t)level

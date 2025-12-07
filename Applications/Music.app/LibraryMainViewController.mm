@@ -52,11 +52,11 @@
 - (void)viewDidDisappear:(BOOL)disappear
 {
   disappearCopy = disappear;
-  v5.receiver = self;
-  v5.super_class = swift_getObjectType();
-  v4 = v5.receiver;
-  [(LibraryMainViewController *)&v5 viewDidDisappear:disappearCopy];
-  sub_1005AEFE0(0);
+  v6.receiver = self;
+  v6.super_class = swift_getObjectType();
+  v4 = v6.receiver;
+  [(LibraryMainViewController *)&v6 viewDidDisappear:disappearCopy];
+  sub_1005AEFE0(0, v5);
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
@@ -87,14 +87,14 @@
 {
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v13 = v12;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v16 = sub_1005BA07C(viewCopy, v11, v13);
+  v16 = sub_1005BA07C(viewCopy, v11, v13, v10);
 
   (*(v8 + 8))(v10, v7);
 
@@ -105,7 +105,7 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
@@ -121,12 +121,13 @@
 {
   v5 = type metadata accessor for IndexPath();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   v10 = IndexPath.section.getter();
-  LOBYTE(self) = sub_1005BF47C(v10);
+  sub_1005BF47C(v10);
+  LOBYTE(self) = v11;
 
   (*(v6 + 8))(v8, v5);
   return self != 0;
@@ -136,7 +137,7 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
@@ -151,12 +152,12 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_1005BC20C(viewCopy);
+  LOBYTE(self) = sub_1005BC20C(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -166,7 +167,7 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
@@ -180,7 +181,7 @@
 {
   v5 = type metadata accessor for IndexPath();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
+  __chkstk_darwin();
   v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   isEditing = [view isEditing];
@@ -192,19 +193,19 @@
 {
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
-  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v11);
-  v13 = &v17 - v12;
+  __chkstk_darwin();
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v12 = &v16 - v11;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
   sub_1005BC8C4(viewCopy);
 
-  v16 = *(v8 + 8);
-  v16(v10, v7);
-  v16(v13, v7);
+  v15 = *(v8 + 8);
+  v15(v10, v7);
+  v15(v12, v7);
 }
 
 - (void)collectionView:(id)view willDisplayContextMenuWithConfiguration:(id)configuration animator:(id)animator
@@ -245,7 +246,7 @@
 {
   v4 = type metadata accessor for UIContentUnavailableConfigurationState();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
+  __chkstk_darwin();
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UIContentUnavailableConfigurationState._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;

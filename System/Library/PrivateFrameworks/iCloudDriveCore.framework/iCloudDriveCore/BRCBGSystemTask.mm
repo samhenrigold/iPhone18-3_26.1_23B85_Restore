@@ -22,11 +22,11 @@
 
 - (BOOL)expireTask
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   task = self->_task;
-  v11 = 0;
-  v4 = [(BGSystemTask *)task setTaskExpiredWithRetryAfter:&v11 error:0.0];
-  v5 = v11;
+  v10 = 0;
+  v4 = [(BGSystemTask *)task setTaskExpiredWithRetryAfter:&v10 error:0.0];
+  v5 = v10;
   if ((v4 & 1) == 0)
   {
     v6 = brc_bread_crumbs();
@@ -35,16 +35,15 @@
     {
       identifier = [(BGSystemTask *)self->_task identifier];
       *buf = 138412802;
-      v13 = identifier;
-      v14 = 2112;
-      v15 = v5;
-      v16 = 2112;
-      v17 = v6;
+      v12 = identifier;
+      v13 = 2112;
+      v14 = v5;
+      v15 = 2112;
+      v16 = v6;
       _os_log_error_impl(&dword_223E7A000, v7, 0x90u, "[ERROR] Error setting task expired %@ : %@%@", buf, 0x20u);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

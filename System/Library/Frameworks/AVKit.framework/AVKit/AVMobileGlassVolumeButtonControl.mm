@@ -8,7 +8,7 @@
 - (CGRect)hitRect;
 - (CGSize)intrinsicContentSize;
 - (id)pointerInteraction:(id)interaction styleForRegion:(id)region;
-- (uint64_t)_centerMicaPackageLayer;
+- (void)_centerMicaPackageLayer;
 - (void)_updateMicaPackage:(uint64_t)package;
 - (void)_volumeControlButtonDidBeginPanning;
 - (void)_volumeControlButtonDidEndPanning;
@@ -111,7 +111,7 @@
   [(AVMobileGlassVolumeButtonControl *)self _centerMicaPackageLayer];
 }
 
-- (uint64_t)_centerMicaPackageLayer
+- (void)_centerMicaPackageLayer
 {
   if (result)
   {

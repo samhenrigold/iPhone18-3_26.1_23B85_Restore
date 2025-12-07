@@ -32,24 +32,22 @@
     return 0;
   }
 
-  v6 = *MEMORY[0x277CBECE8];
-  v7 = objc_msgSend_certificateForSignatureVerification(self, a2, v2);
-  v8 = SecCertificateCreateWithData(v6, v7);
+  v5 = SecCertificateCreateWithData(*MEMORY[0x277CBECE8], [(TMLCertificateManager *)self certificateForSignatureVerification]);
   BasicX509 = SecPolicyCreateBasicX509();
-  v10 = BasicX509;
-  if (v8)
+  v7 = BasicX509;
+  if (v5)
   {
-    v11 = BasicX509 == 0;
+    v8 = BasicX509 == 0;
   }
 
   else
   {
-    v11 = 1;
+    v8 = 1;
   }
 
-  if (v11)
+  if (v8)
   {
-    v12 = 0;
+    v9 = 0;
     verificationKey = 0;
     if (!BasicX509)
     {
@@ -60,30 +58,30 @@
   else
   {
     trust = 0;
-    v12 = 0;
-    if (!SecTrustCreateWithCertificates(v8, BasicX509, &trust))
+    v9 = 0;
+    if (!SecTrustCreateWithCertificates(v5, BasicX509, &trust))
     {
-      v13 = 0;
-      if (MEMORY[0x27438B420](trust, &v13))
+      v10 = 0;
+      if (MEMORY[0x27438B420](trust, &v10))
       {
-        v12 = 0;
+        v9 = 0;
       }
 
       else
       {
-        v12 = MEMORY[0x27438B400](trust);
+        v9 = MEMORY[0x27438B400](trust);
       }
     }
 
     CFRelease(trust);
   }
 
-  CFRelease(v10);
-  verificationKey = v12;
+  CFRelease(v7);
+  verificationKey = v9;
 LABEL_18:
-  if (v8)
+  if (v5)
   {
-    CFRelease(v8);
+    CFRelease(v5);
   }
 
   if (verificationKey)
@@ -98,28 +96,27 @@ LABEL_18:
 {
   if (self->_certificate)
   {
-    v4 = objc_alloc(MEMORY[0x277CBEA90]);
-    v7 = objc_msgSend_initWithBase64EncodedString_options_(v4, v5, v6, self->_certificate, 1);
+    v3 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:self->_certificate options:1];
   }
 
   else
   {
-    v7 = 0;
+    v3 = 0;
   }
 
-  return v7;
+  return v3;
 }
 
 - (void)updateCertificateFromPath:(id)path
 {
   if (path)
   {
-    v10 = 0;
-    v5 = objc_msgSend_stringWithContentsOfFile_encoding_error_(MEMORY[0x277CCACA8], a2, v3, path, 4, &v10);
-    v6 = v10;
-    if ((objc_msgSend_isEqualToString_(v5, v7, v8, self->_certificate) & 1) == 0)
+    v7 = 0;
+    v4 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:path encoding:4 error:&v7];
+    v5 = v7;
+    if (([v4 isEqualToString:self->_certificate] & 1) == 0)
     {
-      objc_storeStrong(&self->_certificate, v5);
+      objc_storeStrong(&self->_certificate, v4);
       self->_verificationKey = 0;
     }
   }

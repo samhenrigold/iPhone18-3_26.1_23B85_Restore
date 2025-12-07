@@ -32,10 +32,10 @@
 
 - (void)viewDidLoad
 {
-  v18[1] = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = ASCredentialRequestEnableICloudKeychainViewController;
-  [(ASCredentialRequestPaneViewController *)&v17 viewDidLoad];
+  v17[1] = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = ASCredentialRequestEnableICloudKeychainViewController;
+  [(ASCredentialRequestPaneViewController *)&v16 viewDidLoad];
   if (self->_canKeychainSyncBeEnabled)
   {
     v3 = _WBSLocalizedString();
@@ -65,8 +65,8 @@
     heightAnchor = [(ASCredentialRequestButtonContinue *)v8 heightAnchor];
     +[ASViewServiceInterfaceUtilities continueButtonHeight];
     v12 = [heightAnchor constraintEqualToConstant:?];
-    v18[0] = v12;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+    v17[0] = v12;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
     [v10 activateConstraints:v13];
 
     paneFooterStackView = [(ASCredentialRequestPaneViewController *)self paneFooterStackView];
@@ -75,21 +75,17 @@
     footerPaneContext = [(ASCredentialRequestPaneViewController *)self footerPaneContext];
     [footerPaneContext addEmptyViewWithSpacing:3.40282347e38];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_turnOnICloudKeychain
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DFF8] URLWithString:@"prefs:root=APPLE_ACCOUNT&path=ICLOUD_SERVICE/com.apple.Dataclass.KeychainSync"];
   defaultWorkspace = [MEMORY[0x1E6963608] defaultWorkspace];
-  v6 = *MEMORY[0x1E699F970];
-  v7[0] = MEMORY[0x1E695E118];
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = *MEMORY[0x1E699F970];
+  v6[0] = MEMORY[0x1E695E118];
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [defaultWorkspace openSensitiveURL:v2 withOptions:v4];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

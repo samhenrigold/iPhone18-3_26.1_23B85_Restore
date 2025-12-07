@@ -255,7 +255,7 @@
     [(CKObscurableBalloonView *)v18 addSubview:v63];
     [(CKObscurableBalloonView *)v18 bringSubviewToFront:v63];
     v45 = [_TtC7ChatKit18CKBalloonMaskLayer alloc];
-    [(CKBalloonView *)v18 balloonDescriptor];
+    objc_msgSend_balloonDescriptor(v18);
     v46 = [(CKBalloonMaskLayer *)v45 initWithDescriptor:v65];
     [(CKObscurableBalloonView *)v18 setMaskLayer:v46];
 

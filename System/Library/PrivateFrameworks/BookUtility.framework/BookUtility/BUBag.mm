@@ -298,7 +298,7 @@
   if (v8)
   {
     v11 = objc_msgSend_BOOLForKey_(v6, v9, @"BUSimulateAudiobookStoreAvailability");
-    v12 = BookUtilityLog();
+    v12 = BookUtilityLog(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
@@ -331,7 +331,7 @@
 
     else
     {
-      v20 = BookUtilityLog();
+      v20 = BookUtilityLog(0);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         sub_241DCF5C8(v20);

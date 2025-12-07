@@ -18,40 +18,40 @@
 
 - (id)description
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   cachedServices = [(HAPBLEAccessoryCache *)self cachedServices];
   v5 = [v3 stringWithFormat:@"\n\nList of Services: %tu\n", objc_msgSend(cachedServices, "count")];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   cachedServices2 = [(HAPBLEAccessoryCache *)self cachedServices];
-  v7 = [cachedServices2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [cachedServices2 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       v10 = 0;
       v11 = v5;
       do
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(cachedServices2);
         }
 
-        v5 = [v11 stringByAppendingFormat:@"%@", *(*(&v17 + 1) + 8 * v10)];
+        v5 = [v11 stringByAppendingFormat:@"%@", *(*(&v16 + 1) + 8 * v10)];
 
         ++v10;
         v11 = v5;
       }
 
       while (v8 != v10);
-      v8 = [cachedServices2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [cachedServices2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
@@ -61,14 +61,12 @@
   peripheralInfo = [(HAPBLEAccessoryCache *)self peripheralInfo];
   v14 = [v12 stringWithFormat:@"%@ %@", peripheralInfo, v5];
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (void)updateCurrentPairingIdentityIndexIfNeededForKeyBag:(id)bag
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   bagCopy = bag;
   lastKeyBagIdentityIndexFailingPV = [(HAPBLEAccessoryCache *)self lastKeyBagIdentityIndexFailingPV];
 
@@ -87,13 +85,13 @@
         v11 = HMFGetLogIdentifier();
         v12 = [MEMORY[0x277CCABB0] numberWithInteger:longLongValue + 1];
         pairingIdentifier = [(HAPBLEAccessoryCache *)selfCopy pairingIdentifier];
-        v17 = 138543874;
-        v18 = v11;
-        v19 = 2114;
-        v20 = v12;
-        v21 = 2114;
-        v22 = pairingIdentifier;
-        _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating keybag identity index to %{public}@ for %{public}@.", &v17, 0x20u);
+        v16 = 138543874;
+        v17 = v11;
+        v18 = 2114;
+        v19 = v12;
+        v20 = 2114;
+        v21 = pairingIdentifier;
+        _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating keybag identity index to %{public}@ for %{public}@.", &v16, 0x20u);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -107,15 +105,11 @@
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLastKeyBagIdentityIndexFailingPV:(id)v
 {
   vCopy = v;
-  lastKeyBagIdentityIndexFailingPV = self->_lastKeyBagIdentityIndexFailingPV;
-  v7 = vCopy;
   if ((HMFEqualObjects() & 1) == 0)
   {
     objc_storeStrong(&self->_lastKeyBagIdentityIndexFailingPV, v);
@@ -136,28 +130,28 @@
 
 - (void)updateWithService:(id)service
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   cachedServices = [(HAPBLEAccessoryCache *)self cachedServices];
-  v6 = [cachedServices countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [cachedServices countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(cachedServices);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         if ([v10 isEqual:serviceCopy])
         {
           [v10 updateWithService:serviceCopy];
@@ -165,7 +159,7 @@
         }
       }
 
-      v7 = [cachedServices countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [cachedServices countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v7)
       {
         continue;
@@ -178,33 +172,31 @@
   cachedServices = [(HAPBLEAccessoryCache *)self cachedServices];
   [cachedServices addObject:serviceCopy];
 LABEL_11:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getCachedServiceWithUUID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   cachedServices = [(HAPBLEAccessoryCache *)self cachedServices];
-  v6 = [cachedServices countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [cachedServices countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(cachedServices);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         serviceUUID = [v9 serviceUUID];
         v11 = [serviceUUID isEqual:dCopy];
 
@@ -215,7 +207,7 @@ LABEL_11:
         }
       }
 
-      v6 = [cachedServices countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [cachedServices countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -227,18 +219,16 @@ LABEL_11:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (HAPBLEAccessoryCache)initWithCoder:(id)coder
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v21.receiver = self;
-  v21.super_class = HAPBLEAccessoryCache;
-  v5 = [(HAPBLEAccessoryCache *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = HAPBLEAccessoryCache;
+  v5 = [(HAPBLEAccessoryCache *)&v20 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MV"];
@@ -254,9 +244,9 @@ LABEL_11:
     v5->_peripheralInfo = v10;
 
     v12 = MEMORY[0x277CBEB98];
-    v22[0] = objc_opt_class();
-    v22[1] = objc_opt_class();
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+    v21[0] = objc_opt_class();
+    v21[1] = objc_opt_class();
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
     v14 = [v12 setWithArray:v13];
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"CS"];
     cachedServices = v5->_cachedServices;
@@ -269,7 +259,6 @@ LABEL_11:
     v5->_discoveryVersion = [coderCopy decodeIntegerForKey:@"DV"];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

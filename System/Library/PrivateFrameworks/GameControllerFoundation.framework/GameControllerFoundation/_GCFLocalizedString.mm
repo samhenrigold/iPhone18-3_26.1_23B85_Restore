@@ -17,7 +17,7 @@
 
 - (_GCFLocalizedString)initWithCoder:(id)coder
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   if ([coder allowsKeyedCoding])
   {
     decodeObject = [coder decodeObjectOfClass:objc_opt_class() forKey:@"key"];
@@ -37,12 +37,12 @@
   v9 = decodeObject4;
   if (!decodeObject)
   {
-    [(_GCFLocalizedString *)&v15 initWithCoder:coder, v16];
+    [(_GCFLocalizedString *)v14 initWithCoder:coder, v15];
   }
 
   if (!decodeObject2)
   {
-    [(_GCFLocalizedString *)&v13 initWithCoder:coder, &v14];
+    [(_GCFLocalizedString *)v12 initWithCoder:coder, v13];
   }
 
   v10 = [MEMORY[0x1E696AAE8] bundleWithURL:decodeObject2];
@@ -51,9 +51,7 @@
     [(_GCFLocalizedString *)decodeObject initWithCoder:decodeObject2];
   }
 
-  result = [(_GCFLocalizedString *)self initWithKey:decodeObject sourceBundle:v10 table:decodeObject3 locale:v9];
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(_GCFLocalizedString *)self initWithKey:decodeObject sourceBundle:v10 table:decodeObject3 locale:v9];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -111,11 +109,10 @@
 
 - (_GCFLocalizedString)initWithKey:(id)key sourceBundle:(id)bundle table:(id)table locale:(id)locale
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (!key)
   {
-    self = 0;
-    goto LABEL_16;
+    return 0;
   }
 
   keyCopy = key;
@@ -164,13 +161,13 @@ LABEL_6:
       v14 = _MergedGlobals;
       if (os_log_type_enabled(_MergedGlobals, OS_LOG_TYPE_DEBUG))
       {
-        v17 = 138412802;
-        v18 = keyCopy;
-        v19 = 2048;
-        v20 = keyCopy;
-        v21 = 2048;
-        v22 = uTF8String;
-        _os_log_debug_impl(&dword_1D2C3B000, v14, OS_LOG_TYPE_DEBUG, "#WARNING Could not determine source bundle of string '%@' %p %p.", &v17, 0x20u);
+        v16 = 138412802;
+        v17 = keyCopy;
+        v18 = 2048;
+        v19 = keyCopy;
+        v20 = 2048;
+        v21 = uTF8String;
+        _os_log_debug_impl(&dword_1D2C3B000, v14, OS_LOG_TYPE_DEBUG, "#WARNING Could not determine source bundle of string '%@' %p %p.", &v16, 0x20u);
       }
 
       bundle = 0;
@@ -182,14 +179,12 @@ LABEL_15:
   self->_sourceBundle = bundle;
   self->_localizationTable = [table copy];
   self->_localeOverride = [locale copy];
-LABEL_16:
-  v15 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (qword_1EC72E4E8 != -1)
   {
     dispatch_once(&qword_1EC72E4E8, &__block_literal_global_3);
@@ -198,14 +193,12 @@ LABEL_16:
   v4 = _MergedGlobals;
   if (os_log_type_enabled(_MergedGlobals, OS_LOG_TYPE_FAULT))
   {
-    v6 = 138412546;
-    v7 = a1;
-    v8 = 2114;
-    v9 = [a2 path];
-    _os_log_fault_impl(&dword_1D2C3B000, v4, OS_LOG_TYPE_FAULT, "Failed to load source bundle for key '%@' at %{public}@.", &v6, 0x16u);
+    v5 = 138412546;
+    v6 = a1;
+    v7 = 2114;
+    v8 = [a2 path];
+    _os_log_fault_impl(&dword_1D2C3B000, v4, OS_LOG_TYPE_FAULT, "Failed to load source bundle for key '%@' at %{public}@.", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithCoder:(void *)a3 .cold.2(void *a1, void *a2, void *a3)

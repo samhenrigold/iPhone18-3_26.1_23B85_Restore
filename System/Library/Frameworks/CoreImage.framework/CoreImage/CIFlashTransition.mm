@@ -103,181 +103,182 @@
 
 - (id)outputImage
 {
-  v103 = *MEMORY[0x1E69E9840];
+  v105 = *MEMORY[0x1E69E9840];
   if (!self->inputImage || !self->inputTargetImage)
   {
     return 0;
   }
 
   [(CIVector *)self->inputExtent CGRectValue];
-  if (CGRectIsEmpty(v104))
+  IsEmpty = CGRectIsEmpty(v106);
+  if (IsEmpty)
   {
-    v3 = ci_logger_filter();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v5 = ci_logger_filter(IsEmpty, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v102 = [objc_opt_class() description];
-      _os_log_impl(&dword_19CC36000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: inputExtent is nil or empty.\n", buf, 0xCu);
+      v104 = [objc_opt_class() description];
+      _os_log_impl(&dword_19CC36000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: inputExtent is nil or empty.\n", buf, 0xCu);
     }
   }
 
   [(NSNumber *)self->inputMaxStriationRadius floatValue];
-  v97 = v4;
+  v99 = v6;
   [(NSNumber *)self->inputStriationStrength floatValue];
-  v96 = v5;
+  v98 = v7;
   [(NSNumber *)self->inputStriationContrast floatValue];
-  v7 = v6;
-  [(NSNumber *)self->inputFadeThreshold floatValue];
   v9 = v8;
-  [(NSNumber *)self->inputTime floatValue];
+  [(NSNumber *)self->inputFadeThreshold floatValue];
   v11 = v10;
-  [(CIVector *)self->inputCenter X];
+  [(NSNumber *)self->inputTime floatValue];
   v13 = v12;
-  [(CIVector *)self->inputCenter Y];
+  [(CIVector *)self->inputCenter X];
   v15 = v14;
-  [(CIVector *)self->inputExtent X];
+  [(CIVector *)self->inputCenter Y];
   v17 = v16;
   [(CIVector *)self->inputExtent X];
   v19 = v18;
-  [(CIVector *)self->inputExtent Z];
+  [(CIVector *)self->inputExtent X];
   v21 = v20;
+  [(CIVector *)self->inputExtent Z];
+  v23 = v22;
   [(CIVector *)self->inputExtent W];
-  v22.f32[0] = v13;
-  v23 = v15;
-  v94 = v22;
-  v95 = v23;
-  v22.f32[1] = v23;
-  v24.f32[0] = v17;
-  *&v25 = v19;
-  v26.f32[0] = v21 + v24.f32[0];
-  *&v27 = v27 + *&v25;
-  v24.i32[1] = LODWORD(v27);
-  v26.i32[1] = LODWORD(v27);
-  v28 = vsub_f32(__PAIR64__(v25, v24.u32[0]), v22);
-  v29 = vsub_f32(__PAIR64__(v25, v26.u32[0]), v22);
-  v30 = vsub_f32(v24, v22);
-  v31 = vsub_f32(v26, v22);
-  v32 = fmaxf(fmaxf(fmaxf(sqrtf(vaddv_f32(vmul_f32(v28, v28))), sqrtf(vaddv_f32(vmul_f32(v29, v29)))), sqrtf(vaddv_f32(vmul_f32(v30, v30)))), sqrtf(vaddv_f32(vmul_f32(v31, v31))));
-  v33 = 0.0;
-  if (v11 >= v9)
+  v24.f32[0] = v15;
+  v25 = v17;
+  v96 = v24;
+  v97 = v25;
+  v24.f32[1] = v25;
+  v26.f32[0] = v19;
+  *&v27 = v21;
+  v28.f32[0] = v23 + v26.f32[0];
+  *&v29 = v29 + *&v27;
+  v26.i32[1] = LODWORD(v29);
+  v28.i32[1] = LODWORD(v29);
+  v30 = vsub_f32(__PAIR64__(v27, v26.u32[0]), v24);
+  v31 = vsub_f32(__PAIR64__(v27, v28.u32[0]), v24);
+  v32 = vsub_f32(v26, v24);
+  v33 = vsub_f32(v28, v24);
+  v34 = fmaxf(fmaxf(fmaxf(sqrtf(vaddv_f32(vmul_f32(v30, v30))), sqrtf(vaddv_f32(vmul_f32(v31, v31)))), sqrtf(vaddv_f32(vmul_f32(v32, v32)))), sqrtf(vaddv_f32(vmul_f32(v33, v33))));
+  v35 = 0.0;
+  if (v13 >= v11)
   {
-    v33 = 1.0;
-    if (v11 < 1.0)
+    v35 = 1.0;
+    if (v13 < 1.0)
     {
-      v34 = (v11 - v9) / (1.0 - v9);
-      v33 = v34;
+      v36 = (v13 - v11) / (1.0 - v11);
+      v35 = v36;
     }
   }
 
-  v35 = log10f(v32) + 1.0;
-  if (v9 == 0.0)
+  v37 = log10f(v34) + 1.0;
+  if (v11 == 0.0)
   {
-    v36 = v11 / 0.000001;
+    v38 = v13 / 0.000001;
   }
 
   else
   {
-    v36 = (v11 / v9);
+    v38 = (v13 / v11);
   }
 
-  v38 = __exp10(v36 * v35 + -1.0);
+  v40 = __exp10(v38 * v37 + -1.0);
   [(CIImage *)self->inputImage extent];
-  v40 = v39;
   v42 = v41;
   v44 = v43;
   v46 = v45;
+  v48 = v47;
   [(CIImage *)self->inputTargetImage extent];
-  v111.origin.x = v47;
-  v111.origin.y = v48;
-  v111.size.width = v49;
-  v111.size.height = v50;
-  v105.origin.x = v40;
-  v105.origin.y = v42;
-  v105.size.width = v44;
-  v105.size.height = v46;
-  v106 = CGRectUnion(v105, v111);
-  x = v106.origin.x;
-  y = v106.origin.y;
-  width = v106.size.width;
-  height = v106.size.height;
+  v113.origin.x = v49;
+  v113.origin.y = v50;
+  v113.size.width = v51;
+  v113.size.height = v52;
+  v107.origin.x = v42;
+  v107.origin.y = v44;
+  v107.size.width = v46;
+  v107.size.height = v48;
+  v108 = CGRectUnion(v107, v113);
+  x = v108.origin.x;
+  y = v108.origin.y;
+  width = v108.size.width;
+  height = v108.size.height;
   [(CIVector *)self->inputExtent CGRectValue];
-  v112.origin.x = v55;
-  v112.origin.y = v56;
-  v112.size.width = v57;
-  v112.size.height = v58;
-  v107.origin.x = x;
-  v107.origin.y = y;
-  v107.size.width = width;
-  v107.size.height = height;
-  v98 = CGRectUnion(v107, v112);
-  v59 = v38;
-  v60 = [CIVector vectorWithX:100.0 Y:(v59 * v59) Z:1.0 / (v97 * v59) W:v33];
-  v61 = [CIVector vectorWithX:(v96 * v7) Y:(1.0 - v7) * v96 * 0.5];
+  v114.origin.x = v57;
+  v114.origin.y = v58;
+  v114.size.width = v59;
+  v114.size.height = v60;
+  v109.origin.x = x;
+  v109.origin.y = y;
+  v109.size.width = width;
+  v109.size.height = height;
+  v100 = CGRectUnion(v109, v114);
+  v61 = v40;
+  v62 = [CIVector vectorWithX:100.0 Y:(v61 * v61) Z:1.0 / (v99 * v61) W:v35];
+  v63 = [CIVector vectorWithX:(v98 * v9) Y:(1.0 - v9) * v98 * 0.5];
   _geomKernel = [(CIFlashTransition *)self _geomKernel];
   _colorKernel = [(CIFlashTransition *)self _colorKernel];
-  v64 = +[CIImage noiseImage];
-  v65 = MEMORY[0x1E695F040];
-  v66 = *MEMORY[0x1E695F040];
-  v67 = *(MEMORY[0x1E695F040] + 8);
-  v68 = *(MEMORY[0x1E695F040] + 16);
-  v69 = *(MEMORY[0x1E695F040] + 24);
-  v100 = [CIVector vectorWithX:v94.f32[0] Y:v95];
-  v70 = [_geomKernel applyWithExtent:&__block_literal_global_32 roiCallback:v64 inputImage:objc_msgSend(MEMORY[0x1E695DEC8] arguments:{"arrayWithObjects:count:", &v100, 1), v66, v67, v68, v69}];
-  [(CIVector *)v60 Z];
-  v72 = 1.0 / v71;
-  v73 = v94.f32[0] - v72;
-  v74 = v95 - v72;
-  v75 = v72 + v72;
-  v77 = v72 + v72 == 1.79769313e308 && v73 == -8.98846567e307 && v74 == -8.98846567e307;
-  v78 = v72 + v72;
-  if (v77)
+  v66 = +[CIImage noiseImage];
+  v67 = MEMORY[0x1E695F040];
+  v68 = *MEMORY[0x1E695F040];
+  v69 = *(MEMORY[0x1E695F040] + 8);
+  v70 = *(MEMORY[0x1E695F040] + 16);
+  v71 = *(MEMORY[0x1E695F040] + 24);
+  v102 = [CIVector vectorWithX:v96.f32[0] Y:v97];
+  v72 = [_geomKernel applyWithExtent:&__block_literal_global_32 roiCallback:v66 inputImage:objc_msgSend(MEMORY[0x1E695DEC8] arguments:{"arrayWithObjects:count:", &v102, 1), v68, v69, v70, v71}];
+  [(CIVector *)v62 Z];
+  v74 = 1.0 / v73;
+  v75 = v96.f32[0] - v74;
+  v76 = v97 - v74;
+  v77 = v74 + v74;
+  v79 = v74 + v74 == 1.79769313e308 && v75 == -8.98846567e307 && v76 == -8.98846567e307;
+  v80 = v74 + v74;
+  if (v79)
   {
-    v75 = v65[2];
-    v78 = v65[3];
-    v73 = *v65;
-    v74 = v65[1];
+    v77 = v67[2];
+    v80 = v67[3];
+    v75 = *v67;
+    v76 = v67[1];
   }
 
   [(CIImage *)self->inputImage extent];
-  v80 = v79;
   v82 = v81;
   v84 = v83;
   v86 = v85;
+  v88 = v87;
   [(CIImage *)self->inputTargetImage extent];
-  v113.origin.x = v87;
-  v113.origin.y = v88;
-  v113.size.width = v89;
-  v113.size.height = v90;
-  v108.origin.x = v80;
-  v108.origin.y = v82;
-  v108.size.width = v84;
-  v108.size.height = v86;
-  v109 = CGRectUnion(v108, v113);
-  v114.origin.x = v73;
-  v114.origin.y = v74;
-  v114.size.width = v75;
-  v114.size.height = v78;
-  v110 = CGRectUnion(v109, v114);
+  v115.origin.x = v89;
+  v115.origin.y = v90;
+  v115.size.width = v91;
+  v115.size.height = v92;
+  v110.origin.x = v82;
+  v110.origin.y = v84;
+  v110.size.width = v86;
+  v110.size.height = v88;
+  v111 = CGRectUnion(v110, v115);
+  v116.origin.x = v75;
+  v116.origin.y = v76;
+  v116.size.width = v77;
+  v116.size.height = v80;
+  v112 = CGRectUnion(v111, v116);
   inputTargetImage = self->inputTargetImage;
-  v99[0] = self->inputImage;
-  v99[1] = inputTargetImage;
+  v101[0] = self->inputImage;
+  v101[1] = inputTargetImage;
   inputColor = self->inputColor;
-  v99[2] = self->inputCenter;
-  v99[3] = inputColor;
-  v99[4] = v70;
-  v99[5] = v60;
-  v99[6] = v61;
-  v37 = [_colorKernel applyWithExtent:objc_msgSend(MEMORY[0x1E695DEC8] arguments:{"arrayWithObjects:count:", v99, 7), v110.origin.x, v110.origin.y, v110.size.width, v110.size.height}];
-  v115.origin.x = v73;
-  v115.origin.y = v74;
-  v115.size.width = v75;
-  v115.size.height = v78;
-  if (!CGRectContainsRect(v98, v115))
+  v101[2] = self->inputCenter;
+  v101[3] = inputColor;
+  v101[4] = v72;
+  v101[5] = v62;
+  v101[6] = v63;
+  v39 = [_colorKernel applyWithExtent:objc_msgSend(MEMORY[0x1E695DEC8] arguments:{"arrayWithObjects:count:", v101, 7), v112.origin.x, v112.origin.y, v112.size.width, v112.size.height}];
+  v117.origin.x = v75;
+  v117.origin.y = v76;
+  v117.size.width = v77;
+  v117.size.height = v80;
+  if (!CGRectContainsRect(v100, v117))
   {
-    return [v37 imageByCroppingToRect:{v98.origin.x, v98.origin.y, v98.size.width, v98.size.height}];
+    return [v39 imageByCroppingToRect:{v100.origin.x, v100.origin.y, v100.size.width, v100.size.height}];
   }
 
-  return v37;
+  return v39;
 }
 
 @end

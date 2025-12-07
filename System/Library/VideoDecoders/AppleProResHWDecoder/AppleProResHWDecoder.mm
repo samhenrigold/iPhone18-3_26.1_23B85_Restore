@@ -36,7 +36,7 @@ uint64_t worker(void *a1)
 
 void ThreadPool::ThreadPool(ThreadPool *this, int a2, int a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   *(this + 1) = 0u;
   *(this + 2) = 0u;
   *this = 0u;
@@ -45,10 +45,9 @@ void ThreadPool::ThreadPool(ThreadPool *this, int a2, int a3)
   pthread_mutex_init(this + 1, 0);
   pthread_cond_init((this + 128), 0);
   pthread_cond_init((this + 176), 0);
-  pthread_attr_init(&v5);
-  pthread_attr_setdetachstate(&v5, 1);
+  pthread_attr_init(&v4);
+  pthread_attr_setdetachstate(&v4, 1);
   atomic_store(0, this + 224);
-  v4 = *(this + 13);
   operator new[]();
 }
 
@@ -209,50 +208,47 @@ uint64_t std::deque<void *>::__maybe_remove_front_spare[abi:ne200100](uint64_t a
   return v4 ^ 1u;
 }
 
-void *std::deque<void *>::push_back(void *result, void *a2)
+void std::deque<void *>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 6) - 1;
+    v6 = ((v4 - v5) << 6) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = std::deque<void *>::__add_back_capacity(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    std::deque<void *>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<void *>::__add_back_capacity(void *a1)
+void std::deque<void *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -260,25 +256,25 @@ void *std::deque<void *>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<void **>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<void **>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<void **>::emplace_back<void **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<void **>::emplace_back<void **&>(a1, &v9);
 }
 
 void sub_277781328(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -292,27 +288,26 @@ void sub_277781328(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<void **>::emplace_back<void **&>(void *result, void *a2)
+void std::__split_buffer<void **>::emplace_back<void **&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<void **>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<void **>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -321,28 +316,26 @@ void *std::__split_buffer<void **>::emplace_back<void **&>(void *result, void *a
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<void **>::emplace_front<void **>(const void **result, void *a2)
+void std::__split_buffer<void **>::emplace_front<void **>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -355,52 +348,50 @@ const void **std::__split_buffer<void **>::emplace_front<void **>(const void **r
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<void **>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<void **>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<void **>::emplace_back<void **>(void *result, void *a2)
+void std::__split_buffer<void **>::emplace_back<void **>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<void **>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<void **>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -409,28 +400,26 @@ void *std::__split_buffer<void **>::emplace_back<void **>(void *result, void *a2
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<void **>::emplace_front<void **&>(const void **result, void *a2)
+void std::__split_buffer<void **>::emplace_front<void **&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -443,29 +432,28 @@ const void **std::__split_buffer<void **>::emplace_front<void **&>(const void **
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<void **>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<void **>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void std::__throw_bad_array_new_length[abi:ne200100]()
@@ -529,21 +517,21 @@ uint64_t *writeMExtPSIMIdentifier(uint64_t *result, unsigned int a2, unsigned in
   return result;
 }
 
-double addEOMDTagToMetaExt(uint64_t a1)
+double addEOMDTagToMetaExt(char **a1)
 {
   v2 = *a1;
-  v3 = *(a1 + 8) - *a1;
+  v3 = a1[1] - *a1;
   if (v3 > 0xFFFFFFFFFFFFFFF7)
   {
     v5 = &v2[v3 + 8];
-    *(a1 + 8) = v5;
+    a1[1] = v5;
   }
 
   else
   {
     std::vector<unsigned char>::__append(a1, 8uLL);
     v2 = *a1;
-    v5 = *(a1 + 8);
+    v5 = a1[1];
   }
 
   if (v5 - v2 >= (v3 + 8))
@@ -555,19 +543,19 @@ double addEOMDTagToMetaExt(uint64_t a1)
   return result;
 }
 
-void checkIfMetadataTagsArePresent(uint64_t a1, uint64_t a2)
+void checkIfMetadataTagsArePresent(char **result, uint64_t a2)
 {
-  v3 = *a1;
-  v4 = *(a1 + 8) - *a1;
+  v3 = *result;
+  v4 = result[1] - *result;
   if (v4 < 8)
   {
-    v8 = *(a1 + 8) - *a1;
+    v8 = result[1] - *result;
     goto LABEL_16;
   }
 
   v6 = *a2 + 1;
-  v7 = *a1;
-  v8 = *(a1 + 8) - *a1;
+  v7 = *result;
+  v8 = result[1] - *result;
   while (1)
   {
     v9 = bswap32(*v7);
@@ -626,14 +614,14 @@ LABEL_16:
   {
     if (v4 > v11)
     {
-      *(a1 + 8) = &v3[v11];
+      result[1] = &v3[v11];
     }
   }
 
   else
   {
 
-    std::vector<unsigned char>::__append(a1, -v8);
+    std::vector<unsigned char>::__append(result, -v8);
   }
 }
 
@@ -709,7 +697,7 @@ void extractISPDebugMetadataFromFrameMetaExt(int a1, uint64_t a2, uint64_t a3, u
 
 BOOL addISPDebugMetadataToMetaExt(CFPropertyListRef propertyList, char **a2, _BYTE *a3, uint64_t a4, const char *a5, int a6)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v11 = *MEMORY[0x277CBECE8];
   Data = CFPropertyListCreateData(*MEMORY[0x277CBECE8], propertyList, kCFPropertyListBinaryFormat_v1_0, 0, 0);
   Length = CFDataGetLength(Data);
@@ -718,7 +706,7 @@ BOOL addISPDebugMetadataToMetaExt(CFPropertyListRef propertyList, char **a2, _BY
   {
     v15 = *a2;
     v16 = a2[1];
-    v17 = (v16 - *a2);
+    v17 = v16 - *a2;
     v18 = Length + 35;
     v19 = (Length + 35 + v17);
     if (v19 <= v17)
@@ -748,9 +736,9 @@ BOOL addISPDebugMetadataToMetaExt(CFPropertyListRef propertyList, char **a2, _BY
     }
 
     writeMExtPSIMIdentifier(a2, v17 + 8, 0x1Au, "com.apple.ispdebugmetadata");
-    v29.location = 0;
-    v29.length = v14;
-    CFDataGetBytes(Data, v29, &(*a2)[v17 + 35]);
+    v28.location = 0;
+    v28.length = v14;
+    CFDataGetBytes(Data, v28, &(*a2)[v17 + 35]);
     *a3 = 1;
     if (*a5)
     {
@@ -765,9 +753,7 @@ BOOL addISPDebugMetadataToMetaExt(CFPropertyListRef propertyList, char **a2, _BY
     }
   }
 
-  result = v14 != 0;
-  v26 = *MEMORY[0x277D85DE8];
-  return result;
+  return v14 != 0;
 }
 
 uint64_t addGDCMetadataToMetaExt(const __CFDictionary *a1, char **a2, _BYTE *a3)
@@ -825,7 +811,7 @@ uint64_t addGDCMetadataToMetaExt(const __CFDictionary *a1, char **a2, _BYTE *a3)
 
     v16 = *a2;
     v17 = a2[1];
-    v18 = (v17 - *a2);
+    v18 = v17 - *a2;
     v19 = (v18 + 99);
     if (v19 <= v18)
     {
@@ -855,14 +841,14 @@ uint64_t addGDCMetadataToMetaExt(const __CFDictionary *a1, char **a2, _BYTE *a3)
     *(v21 + 26) = bswap32(v23);
     do
     {
-      *&v21[v20 + 30] = bswap32(*&v24[v20]);
+      *(v21 + 30 + v20) = bswap32(*&v24[v20]);
       v20 += 4;
     }
 
     while (v20 != 60);
     *(v21 + 90) = bswap32(v25);
     *(v21 + 94) = bswap32(HIDWORD(v25));
-    v21[98] = v26[0];
+    *(v21 + 98) = v26[0];
     result = 1;
     *a3 = 1;
   }
@@ -872,16 +858,16 @@ uint64_t addGDCMetadataToMetaExt(const __CFDictionary *a1, char **a2, _BYTE *a3)
 
 BOOL addVDDMetadataToMetaExt(const __CFDictionary *a1, char **a2, _BYTE *a3, int a4)
 {
-  v56 = *MEMORY[0x277D85DE8];
-  v43 = xmmword_2777A5D70;
-  v44 = unk_2777A5D80;
-  v45 = 1065353216;
+  v55 = *MEMORY[0x277D85DE8];
+  v42 = xmmword_2777A5D70;
+  v43 = unk_2777A5D80;
+  v44 = 1065353216;
   Value = CFDictionaryGetValue(a1, @"ProResRawNRMetadata");
   v9 = Value;
   if (Value)
   {
-    v35 = 0;
-    v34 = 0.0;
+    v34 = 0;
+    v33 = 0.0;
     v10 = CFDictionaryGetValue(Value, *MEMORY[0x277CF4990]);
     if (v10)
     {
@@ -891,48 +877,48 @@ BOOL addVDDMetadataToMetaExt(const __CFDictionary *a1, char **a2, _BYTE *a3, int
     v11 = CFDictionaryGetValue(v9, *MEMORY[0x277CF4980]);
     if (v11)
     {
-      CFNumberGetValue(v11, kCFNumberFloat32Type, &v37);
+      CFNumberGetValue(v11, kCFNumberFloat32Type, &v36);
     }
 
     v12 = CFDictionaryGetValue(a1, @"PreDemosaicGain");
     if (v12)
     {
-      CFNumberGetValue(v12, kCFNumberFloat32Type, &v38);
+      CFNumberGetValue(v12, kCFNumberFloat32Type, &v37);
     }
 
     v13 = CFDictionaryGetValue(a1, *MEMORY[0x277CF5028]);
     if (v13)
     {
-      CFNumberGetValue(v13, kCFNumberFloat32Type, &v39);
+      CFNumberGetValue(v13, kCFNumberFloat32Type, &v38);
     }
 
     v14 = CFDictionaryGetValue(v9, *MEMORY[0x277CF4B70]);
     if (v14)
     {
-      CFNumberGetValue(v14, kCFNumberFloat32Type, &v35 + 4);
+      CFNumberGetValue(v14, kCFNumberFloat32Type, &v34 + 4);
     }
 
     v15 = CFDictionaryGetValue(v9, *MEMORY[0x277CF50A0]);
     if (v15)
     {
-      CFNumberGetValue(v15, kCFNumberFloat32Type, &v35);
+      CFNumberGetValue(v15, kCFNumberFloat32Type, &v34);
     }
 
     v16 = CFDictionaryGetValue(v9, *MEMORY[0x277CF50A8]);
     if (v16)
     {
-      CFNumberGetValue(v16, kCFNumberFloat32Type, &v34);
+      CFNumberGetValue(v16, kCFNumberFloat32Type, &v33);
     }
 
     v17 = CFDictionaryGetValue(v9, *MEMORY[0x277CF4970]);
     if (v17)
     {
-      CFNumberGetValue(v17, kCFNumberFloat32Type, &v40);
+      CFNumberGetValue(v17, kCFNumberFloat32Type, &v39);
     }
 
-    *&v18 = *(&v35 + 1) * *(&v35 + 1) * ((v40 * v40 + -1.0) * 64.0 * (v34 * v34) + (64.0 - v40 * v40) * (*&v35 * *&v35)) / 63.0;
-    v41 = v18;
-    v42 = v40 * *(&v35 + 1);
+    *&v18 = *(&v34 + 1) * *(&v34 + 1) * ((v39 * v39 + -1.0) * 64.0 * (v33 * v33) + (64.0 - v39 * v39) * (*&v34 * *&v34)) / 63.0;
+    v40 = v18;
+    v41 = v39 * *(&v34 + 1);
     v19 = CFDictionaryGetValue(a1, @"TemporalHomographyMatrix");
     v20 = v19;
     if (v19)
@@ -943,30 +929,30 @@ BOOL addVDDMetadataToMetaExt(const __CFDictionary *a1, char **a2, _BYTE *a3, int
       {
         v23 = *BytePtr;
         v24 = *(BytePtr + 1);
-        v45 = *(BytePtr + 8);
-        v43 = v23;
-        v44 = v24;
+        v44 = *(BytePtr + 8);
+        v42 = v23;
+        v43 = v24;
       }
 
       else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67110146;
-        v47 = a4;
-        v48 = 1024;
-        v49 = 573;
-        v50 = 2080;
-        v51 = "addVDDMetadataToMetaExt";
-        v52 = 2048;
-        v53 = Length;
-        v54 = 2048;
-        v55 = 36;
+        v46 = a4;
+        v47 = 1024;
+        v48 = 573;
+        v49 = 2080;
+        v50 = "addVDDMetadataToMetaExt";
+        v51 = 2048;
+        v52 = Length;
+        v53 = 2048;
+        v54 = 36;
         _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): Invalid Homography Matrix size: %zu, expected: %zu\n", buf, 0x2Cu);
       }
     }
 
     v25 = *a2;
     v26 = a2[1];
-    v27 = (v26 - *a2);
+    v27 = v26 - *a2;
     v28 = (v27 + 86);
     if (v28 <= v27)
     {
@@ -993,16 +979,16 @@ BOOL addVDDMetadataToMetaExt(const __CFDictionary *a1, char **a2, _BYTE *a3, int
     v29 = 0;
     v30 = &(*a2)[v27];
     *(v30 + 22) = bswap32(valuePtr);
-    *(v30 + 26) = bswap32(v37);
-    *(v30 + 30) = bswap32(v38);
-    *(v30 + 34) = bswap32(v39);
-    *(v30 + 38) = bswap32(LODWORD(v40));
-    *(v30 + 42) = bswap32(v41);
-    *(v30 + 46) = bswap32(LODWORD(v42));
+    *(v30 + 26) = bswap32(v36);
+    *(v30 + 30) = bswap32(v37);
+    *(v30 + 34) = bswap32(v38);
+    *(v30 + 38) = bswap32(LODWORD(v39));
+    *(v30 + 42) = bswap32(v40);
+    *(v30 + 46) = bswap32(LODWORD(v41));
     v31 = v30 + 50;
     do
     {
-      *&v31[v29] = bswap32(*(&v43 + v29));
+      *(v31 + v29) = bswap32(*(&v42 + v29));
       v29 += 4;
     }
 
@@ -1010,14 +996,12 @@ BOOL addVDDMetadataToMetaExt(const __CFDictionary *a1, char **a2, _BYTE *a3, int
     *a3 = 1;
   }
 
-  result = v9 != 0;
-  v33 = *MEMORY[0x277D85DE8];
-  return result;
+  return v9 != 0;
 }
 
 BOOL addLSCMetadataToMetaExt(_BOOL8 result, char **a2, _BYTE *a3, int a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v7 = result;
@@ -1030,7 +1014,7 @@ BOOL addLSCMetadataToMetaExt(_BOOL8 result, char **a2, _BYTE *a3, int a4)
         CFNumberGetValue(Value, kCFNumberFloat32Type, &valuePtr);
       }
 
-      v29 = 0;
+      v28 = 0;
       v12 = CFDictionaryGetValue(v7, v9);
       if (v12)
       {
@@ -1043,7 +1027,7 @@ BOOL addLSCMetadataToMetaExt(_BOOL8 result, char **a2, _BYTE *a3, int a4)
         v13 = xmmword_2777A5D60;
       }
 
-      v27 = v13;
+      v26 = v13;
       v14 = CFDictionaryGetValue(v7, v10);
       if (v14)
       {
@@ -1054,12 +1038,12 @@ BOOL addLSCMetadataToMetaExt(_BOOL8 result, char **a2, _BYTE *a3, int a4)
           FMOV            V1.2D, #0.5
         }
 
-        v29 = vcvt_f32_f64(vmulq_f64(vaddq_f64(point.origin, vaddq_f64(v27, vmulq_f64(point.size, _Q2))), _Q1));
+        v28 = vcvt_f32_f64(vmulq_f64(vaddq_f64(point.origin, vaddq_f64(v26, vmulq_f64(point.size, _Q2))), _Q1));
       }
 
       v21 = *a2;
       v22 = a2[1];
-      v23 = (v22 - *a2);
+      v23 = v22 - *a2;
       v24 = (v23 + 34);
       if (v24 <= v23)
       {
@@ -1085,8 +1069,8 @@ BOOL addLSCMetadataToMetaExt(_BOOL8 result, char **a2, _BYTE *a3, int a4)
       writeMExtPSIMIdentifier(a2, v23 + 8, 0xDu, "com.apple.lsc");
       v25 = &(*a2)[v23];
       *(v25 + 22) = bswap32(valuePtr);
-      *(v25 + 26) = bswap32(v29.u32[0]);
-      *(v25 + 30) = bswap32(v29.u32[1]);
+      *(v25 + 26) = bswap32(v28.u32[0]);
+      *(v25 + 30) = bswap32(v28.u32[1]);
       result = 1;
       *a3 = 1;
     }
@@ -1101,12 +1085,11 @@ BOOL addLSCMetadataToMetaExt(_BOOL8 result, char **a2, _BYTE *a3, int a4)
         point.origin.y = 1.51430681e-269;
         *&point.size.width = "addLSCMetadataToMetaExt";
         _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): LSC metadata keys not present in metadataDictionary\n", &point, 0x18u);
-        result = 0;
+        return 0;
       }
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1339,10 +1322,10 @@ BOOL interchange_compression::check_valid_lossy_level(interchange_compression *t
 void interchange_compress_plane(const void *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   v3 = MEMORY[0x28223BE20](a1, a2, a3);
-  v67 = v8;
-  v77 = v9;
-  v78 = v10;
-  v97 = *MEMORY[0x277D85DE8];
+  v66 = v8;
+  v76 = v9;
+  v77 = v10;
+  v96 = *MEMORY[0x277D85DE8];
   if (v6)
   {
     v11 = 16;
@@ -1353,7 +1336,7 @@ void interchange_compress_plane(const void *a1, unsigned __int8 *a2, unsigned __
     v11 = 32;
   }
 
-  v89 = v11;
+  v88 = v11;
   if (v5 > 0x10 || (v12 = v5, ((1 << v5) & 0x11500) == 0))
   {
     interchange_compress_plane();
@@ -1432,16 +1415,16 @@ void interchange_compress_plane(const void *a1, unsigned __int8 *a2, unsigned __
     v21 = 5;
   }
 
-  v81 = v21;
-  v76 = interchange_compression::lossy_parameters[28 * v20 + 4 + v7];
-  interchange_compression::compressor::compressor(v95, v20, 0, v7, 0);
-  memset(v96, 0, sizeof(v96));
-  if (v67)
+  v80 = v21;
+  v75 = interchange_compression::lossy_parameters[28 * v20 + 4 + v7];
+  interchange_compression::compressor::compressor(v94, v20, 0, v7, 0);
+  memset(v95, 0, sizeof(v95));
+  if (v66)
   {
-    v69 = 0;
-    v84 = 0;
-    v22 = (v89 - 1 + v14) >> v81;
-    v23 = (v89 - 1 + v67) >> v81;
+    v68 = 0;
+    v83 = 0;
+    v22 = (v88 - 1 + v14) >> v80;
+    v23 = (v88 - 1 + v66) >> v80;
     v24 = 32 - __clz(v23 - 1);
     if (v23 >= 2)
     {
@@ -1475,33 +1458,33 @@ void interchange_compress_plane(const void *a1, unsigned __int8 *a2, unsigned __
       v28 = 3;
     }
 
-    v73 = v28;
-    v74 = 2 * v27;
-    v71 = (v27 + 1) & 0x7E;
-    v70 = vdupq_n_s64(v27 - 1);
+    v72 = v28;
+    v73 = 2 * v27;
+    v70 = (v27 + 1) & 0x7E;
+    v69 = vdupq_n_s64(v27 - 1);
     v29 = vdupq_n_s64(2uLL);
-    v68 = 1;
-    v72 = v29;
-    v75 = v27;
+    v67 = 1;
+    v71 = v29;
+    v74 = v27;
     do
     {
       if (v14)
       {
         v30 = 0;
-        v31 = v84 >> v81;
-        v80 = v31 * ((v89 - 1 + v14) >> v81);
+        v31 = v83 >> v80;
+        v79 = v31 * ((v88 - 1 + v14) >> v80);
         v32 = vdupq_n_s64(v31);
-        v34 = v68;
-        v33 = v69;
-        v79 = v32;
+        v34 = v67;
+        v33 = v68;
+        v78 = v32;
         do
         {
-          v35 = v30 >> v81;
+          v35 = v30 >> v80;
           if (v27)
           {
             v36 = vdupq_n_s64(v35);
             v37 = 0uLL;
-            v38 = v71;
+            v38 = v70;
             v39 = xmmword_2777AA680;
             do
             {
@@ -1516,7 +1499,7 @@ void interchange_compress_plane(const void *a1, unsigned __int8 *a2, unsigned __
             }
 
             while (v38);
-            v45 = vbslq_s8(vcgtq_u64(v41, v70), v40, v37);
+            v45 = vbslq_s8(vcgtq_u64(v41, v69), v40, v37);
             v46 = vorr_s8(*v45.i8, *&vextq_s8(v45, v45, 8uLL));
           }
 
@@ -1526,28 +1509,28 @@ void interchange_compress_plane(const void *a1, unsigned __int8 *a2, unsigned __
           }
 
           v47 = 0;
-          v48 = (v78 + (v35 + v80) * v76);
-          v49 = (v77 + ((*&v46 | ((v35 | (v84 >> v81)) >> v27 << v74)) << v73));
-          v82 = v34;
-          v83 = v33;
-          v85 = v30;
+          v48 = (v77 + ((v35 + v79) * v75));
+          v49 = (v76 + ((*&v46 | ((v35 | (v83 >> v80)) >> v27 << v73)) << v72));
+          v81 = v34;
+          v82 = v33;
+          v84 = v30;
           do
           {
             v50 = 0;
-            v88 = v47;
-            v51 = v84 + v47;
-            v86 = v34;
-            v87 = v33;
+            v87 = v47;
+            v51 = v83 + v47;
+            v85 = v34;
+            v86 = v33;
             v52 = v34;
             do
             {
-              v92 = v50;
-              v93 = v49;
+              v91 = v50;
+              v92 = v49;
               v53 = 0;
-              v54 = v96;
-              v91 = v33;
+              v54 = v95;
+              v90 = v33;
               v55 = v33;
-              v90 = v52;
+              v89 = v52;
               v56 = v30;
               do
               {
@@ -1558,7 +1541,7 @@ void interchange_compress_plane(const void *a1, unsigned __int8 *a2, unsigned __
                 v61 = v54;
                 do
                 {
-                  if (v53 + v51 >= v67 || v58 >= v14)
+                  if (v53 + v51 >= v66 || v58 >= v14)
                   {
                     *v61 = 0;
                     if (v13)
@@ -1615,51 +1598,49 @@ void interchange_compress_plane(const void *a1, unsigned __int8 *a2, unsigned __
               }
 
               while (v53 != 4);
-              *v94 = 0;
-              interchange_compression::compressor::compress(v95, v96, 8u, 4u, v48, &v94[1], v94);
-              v65 = v94[0];
-              *v93 = v94[1];
-              v49 = v93 + 1;
+              *v93 = 0;
+              interchange_compression::compressor::compress(v94, v95, 8u, 4u, v48, &v93[1], v93);
+              v65 = v93[0];
+              *v92 = v93[1];
+              v49 = v92 + 1;
               v48 += v65;
-              v50 = v92 + 8;
-              v52 = v90 + 16;
-              v33 = v91 + 8;
+              v50 = v91 + 8;
+              v52 = v89 + 16;
+              v33 = v90 + 8;
               v30 = v56 + 8;
             }
 
-            while (v92 + 8 < v89);
-            v47 = v88 + 4;
-            v34 = v86 + 8 * v14;
-            v33 = v87 + 4 * v14;
-            v30 = v85;
+            while (v91 + 8 < v88);
+            v47 = v87 + 4;
+            v34 = v85 + 8 * v14;
+            v33 = v86 + 4 * v14;
+            v30 = v84;
           }
 
-          while (v88 + 4 < v89);
-          v30 = v85 + v89;
-          v34 = v82 + 2 * v89;
-          v33 = v83 + v89;
-          LODWORD(v27) = v75;
-          v29 = v72;
-          v32 = v79;
+          while (v87 + 4 < v88);
+          v30 = v84 + v88;
+          v34 = v81 + 2 * v88;
+          v33 = v82 + v88;
+          LODWORD(v27) = v74;
+          v29 = v71;
+          v32 = v78;
         }
 
-        while (v85 + v89 < v14);
+        while (v84 + v88 < v14);
       }
 
-      v68 += 2 * v89 * v14;
-      v69 += v89 * v14;
-      v84 += v89;
+      v67 += 2 * v88 * v14;
+      v68 += v88 * v14;
+      v83 += v88;
     }
 
-    while (v84 < v67);
+    while (v83 < v66);
   }
-
-  v66 = *MEMORY[0x277D85DE8];
 }
 
 void interchange_compression::compressor::compress(interchange_compression::compressor *this, unsigned int (*a2)[4][8][4], unsigned int a3, unsigned int a4, unsigned __int8 *a5, unsigned int *a6, unsigned int *a7)
 {
-  v321 = *MEMORY[0x277D85DE8];
+  v324 = *MEMORY[0x277D85DE8];
   if (a3 - 9 <= 0xFFFFFFF7)
   {
     interchange_compression::compressor::compress();
@@ -1681,90 +1662,90 @@ void interchange_compression::compressor::compress(interchange_compression::comp
 
   if (*(this + 1150) == 27)
   {
-    v256 = -8;
+    v260 = -8;
   }
 
   else
   {
-    v258 = 0;
-    v259 = 0;
-    v260 = this + 196;
+    v261 = 0;
+    v262 = 0;
+    v263 = this + 196;
     do
     {
-      interchange_compression::compressor::compute_deltas(this, v258, a2, a3, a4);
-      v261 = interchange_compression::compressor::compute_smallest_predictor(this, v258, a3, a4);
-      v294[v258] = v261;
-      v259 += vaddvq_s32(vmulq_s32(*&v260[212 * v261], xmmword_2777AA690));
-      ++v258;
-      v260 += 1060;
+      interchange_compression::compressor::compute_deltas(this, v261, a2, a3, a4);
+      v264 = interchange_compression::compressor::compute_smallest_predictor(this, v261, a3, a4);
+      v297[v261] = v264;
+      v262 += vaddvq_s32(vmulq_s32(*&v263[212 * v264], xmmword_2777AA690));
+      ++v261;
+      v263 += 1060;
     }
 
-    while (v258 < *(&interchange_compression::format_table + 13 * *(this + 1150) + 2));
-    v256 = v259 - 8;
+    while (v261 < *(&interchange_compression::format_table + 13 * *(this + 1150) + 2));
+    v260 = v262 - 8;
   }
 
-  header = interchange_compression::compressor::create_header(this, v294, a2);
+  header = interchange_compression::compressor::create_header(this, v297, a2);
   v12 = *(this + 1150);
-  v13 = v256 + header + interchange_compression::memory_parameters[11 * v12 + 7];
+  v13 = v260 + header + interchange_compression::memory_parameters[11 * v12 + 7];
   if (v12 != 27)
   {
     if (*(&interchange_compression::format_table + 13 * v12 + 2) <= 1u)
     {
-      v263 = 1;
+      v266 = 1;
     }
 
     else
     {
-      v263 = *(&interchange_compression::format_table + 13 * v12 + 2);
+      v266 = *(&interchange_compression::format_table + 13 * v12 + 2);
     }
 
-    v264 = (this + 4272);
-    v265 = 1;
+    v267 = (this + 4272);
+    v268 = 1;
     v11 = 1;
     while (1)
     {
-      if (!*v264)
+      if (!*v267)
       {
         interchange_compression::compressor::compress();
       }
 
-      v266 = *(v264 - 4);
-      if ((~v266 & 3) != 0)
+      v269 = *(v267 - 4);
+      if ((~v269 & 3) != 0)
       {
         break;
       }
 
-      if ((v266 & 0x10) != 0)
+      if ((v269 & 0x10) != 0)
       {
         if (*(this + 1154) != 2)
         {
           break;
         }
 
-        v267 = 0;
-        if (v12 != 21 || v265 || (v266 & 4) != 0)
+        v270 = 0;
+        if (v12 != 21 || v268 || (v269 & 4) != 0)
         {
           goto LABEL_346;
         }
       }
 
-      else if ((v266 & 4) != 0)
+      else if ((v269 & 4) != 0)
       {
         break;
       }
 
-      v267 = (v266 & 8) == 0;
+      v270 = (v269 & 8) == 0;
 LABEL_346:
-      v11 &= v267;
-      --v265;
-      v264 += 3;
-      if (!--v263)
+      v11 &= v270;
+      --v268;
+      v267 += 3;
+      if (!--v266)
       {
         goto LABEL_6;
       }
     }
 
-    v267 = 0;
+    v270 = 0;
     goto LABEL_346;
   }
 
@@ -1792,8 +1773,8 @@ LABEL_6:
     v21 = interchange_compression::lossy_parameters[28 * v12 + 8 + v20];
     if (v19 > v21)
     {
-      v271 = this;
-      v270 = a4;
+      v274 = this;
+      v273 = a4;
       v22 = 1;
       if ((v10[556] & 1) == 0)
       {
@@ -1802,8 +1783,8 @@ LABEL_6:
 
       v23 = 0;
       v24 = 0;
-      v268 = v21 >> 2;
-      v290 = 16843009 * (v22 & 1);
+      v271 = v21 >> 2;
+      v293 = 16843009 * (v22 & 1);
       v25 = xmmword_2777AA6C0;
       v26.i64[0] = 0x100000001;
       v26.i64[1] = 0x100000001;
@@ -1813,9 +1794,9 @@ LABEL_6:
       while (1)
       {
         v30 = 0;
-        v31 = *(v271 + 1150);
+        v31 = *(v274 + 1150);
         v32 = *(&interchange_compression::format_table + 13 * v31 + 2);
-        v284 = v32;
+        v287 = v32;
         if (v32 <= 1)
         {
           v32 = 1;
@@ -1830,7 +1811,7 @@ LABEL_6:
             v35 = vdupq_n_s32(v34);
             v36 = vshlq_u32(vandq_s8(vshlq_u32(v35, v28), v26), v27);
             v37 = vshlq_u32(vandq_s8(vshlq_u32(v35, v25), v26), v27);
-            memcpy(&v293[v30], (*v29)[vorr_s8(*v37.i8, *&vextq_s8(v37, v37, 8uLL)).u32[0] | v37.i32[1]][vorr_s8(*v36.i8, *&vextq_s8(v36, v36, 8uLL)).u32[0] | v36.i32[1]], v33);
+            memcpy(&v296[v30], (*v29)[vorr_s8(*v37.i8, *&vextq_s8(v37, v37, 8uLL)).u32[0] | v37.i32[1]][vorr_s8(*v36.i8, *&vextq_s8(v36, v36, 8uLL)).u32[0] | v36.i32[1]], v33);
             v28 = xmmword_2777AA6A0;
             v27 = xmmword_2777AA6B0;
             v26.i64[0] = 0x100000001;
@@ -1843,13 +1824,13 @@ LABEL_6:
         }
 
         while (v30 != 128);
-        v286 = v31;
+        v289 = v31;
         v38 = (2 * v24) & 4;
         v39 = (2 * v24) & 2;
         v40 = v38 + 4;
-        v72 = a3 >= v38;
+        v76 = a3 >= v38;
         v41 = a3 - v38;
-        if (!v72)
+        if (!v76)
         {
           v41 = 0;
         }
@@ -1865,14 +1846,14 @@ LABEL_6:
         }
 
         v43 = v39 + 2;
-        v72 = v270 >= v39;
-        v44 = v270 - v39;
-        if (!v72)
+        v76 = v273 >= v39;
+        v44 = v273 - v39;
+        if (!v76)
         {
           v44 = 0;
         }
 
-        if (v43 <= v270)
+        if (v43 <= v273)
         {
           v45 = 2;
         }
@@ -1882,293 +1863,295 @@ LABEL_6:
           v45 = v44;
         }
 
-        v278 = *(v271 + 1151) - 1;
-        if (v278 > 2)
+        v281 = *(v274 + 1151) - 1;
+        if (v281 > 2)
         {
           interchange_compression::compressor::compress();
         }
 
-        *v281 = *(v271 + 1151);
-        v285 = v24;
-        v269 = v23;
-        v46 = *(v271 + 1152);
-        v47 = (&interchange_compression::format_table + 52 * v286);
-        v287 = v47 + 3;
-        v288 = v46 & 0xFFFFFFFE;
-        v48 = v284;
-        if (v286 != 27)
+        *v284 = *(v274 + 1151);
+        v288 = v24;
+        v272 = v23;
+        v46 = *(v274 + 1152);
+        v47 = (&interchange_compression::format_table + 52 * v289);
+        v290 = v47 + 3;
+        v291 = v46 & 0xFFFFFFFE;
+        v48 = v287;
+        if (v289 != 27)
         {
           break;
         }
 
 LABEL_32:
-        *v313 = 0;
-        v314 = 0;
-        memset(v312, 0, sizeof(v312));
-        v311[0] = interchange_compression::get_id(v47[3]);
-        v311[1] = interchange_compression::get_id(v47[4]);
-        v311[2] = interchange_compression::get_id(v47[5]);
-        v311[3] = interchange_compression::get_id(v47[6]);
-        interchange_compression::derive_sharing(v48, v311, v320, v313, v312, v49);
-        if (v286 == 27)
+        *v316 = 0;
+        v317 = 0;
+        memset(v315, 0, sizeof(v315));
+        v314[0] = interchange_compression::get_id(v47[3], v15);
+        v314[1] = interchange_compression::get_id(v47[4], v49);
+        v314[2] = interchange_compression::get_id(v47[5], v50);
+        v314[3] = interchange_compression::get_id(v47[6], v51);
+        interchange_compression::derive_sharing(v48, v314, v323, v316, v315, v52);
+        if (v289 == 27)
         {
-          v307 = 0;
-          v308 = 0;
-          v305 = 0u;
+          v310 = 0;
+          v311 = 0;
+          v308 = 0u;
+          v309 = 0u;
           v306 = 0u;
-          v303 = 0u;
+          v307 = 0u;
           v304 = 0u;
-          v301 = 0u;
-          v302 = 0u;
-          v300 = 0u;
-          LOBYTE(v50) = *(&v291[-1] + v24);
+          v305 = 0u;
+          v303 = 0u;
+          LOBYTE(v54) = *(&v294[-1] + v24);
           goto LABEL_251;
         }
 
-        v98 = 0;
+        v102 = 0;
         if (v42)
         {
-          v99 = v45 == 0;
+          v103 = v45 == 0;
         }
 
         else
         {
-          v99 = 1;
+          v103 = 1;
         }
 
-        v100 = v99;
-        v277 = v100;
-        v101 = v315;
+        v104 = v103;
+        v280 = v104;
+        v105 = v318;
         do
         {
-          v102 = v287[v98];
-          id = interchange_compression::get_id(v102);
-          v104 = id;
-          v105 = v320[v98];
-          v106 = &interchange_compression::dq_consts[160 * id + 10 * v105];
-          v282 = *(v106 + 1);
-          v107 = interchange_compression::dq_lossy_level[3 * id + v278];
-          v108 = v106[4];
-          LODWORD(v106) = v106[5];
-          v109 = &v310[v98];
-          *v109 = v107 + v108;
-          v110 = &v309[v98];
-          *v110 = v106 + v107;
-          v111 = v313[v98];
-          v112 = v312[v98];
-          interchange_compression::adjust_level(id, v105, v111, v112, v109, v110, v113);
-          if (v104 == 5 && v105 == 1 && v112 - v111 <= 1)
+          v106 = v290[v102];
+          id = interchange_compression::get_id(v106, v53);
+          v108 = id;
+          v109 = v323[v102];
+          v110 = &interchange_compression::dq_consts[160 * id + 10 * v109];
+          v285 = *(v110 + 1);
+          v111 = interchange_compression::dq_lossy_level[3 * id + v281];
+          v112 = v110[4];
+          LODWORD(v110) = v110[5];
+          v113 = &v313[v102];
+          *v113 = v111 + v112;
+          v114 = &v312[v102];
+          *v114 = v110 + v111;
+          v115 = v316[v102];
+          v116 = v315[v102];
+          interchange_compression::adjust_level(id, v109, v115, v116, v113, v114, v117);
+          if (v108 == 5 && v109 == 1 && v116 - v115 <= 1)
           {
-            *(&v291[-1] + v285) = 1;
+            *(&v294[-1] + v288) = 1;
           }
 
-          v114.i64[0] = 0x100000001;
-          v114.i64[1] = 0x100000001;
+          v118.i64[0] = 0x100000001;
+          v118.i64[1] = 0x100000001;
+          v53 = *v284;
           if (v46 == 1)
           {
-            v115 = 0;
-            v116 = *(&v291[-1] + v285);
-            if (v104 == 4)
+            v119 = 0;
+            v120 = *(&v294[-1] + v288);
+            if (v108 == 4)
             {
-              v117 = -2139095041;
+              v121 = -2139095041;
             }
 
             else
             {
-              v117 = -1;
+              v121 = -1;
             }
 
-            if (v104 == 3)
+            if (v108 == 3)
             {
-              v117 = -31745;
+              v121 = -31745;
             }
 
-            v118 = v101;
+            v122 = v105;
             do
             {
-              v119 = vdupq_n_s32(v115);
-              v120 = vshlq_u32(vandq_s8(vshlq_u32(v119, xmmword_2777AA6C0), v114), xmmword_2777AA6B0);
-              v121 = vshlq_u32(vandq_s8(vshlq_u32(v119, xmmword_2777AA6A0), v114), xmmword_2777AA6B0);
-              v122 = vorr_s8(*v121.i8, *&vextq_s8(v121, v121, 8uLL)).u32[0] | v121.i32[1];
-              if ((vorr_s8(*v120.i8, *&vextq_s8(v120, v120, 8uLL)).u32[0] | v120.i32[1]) < v45 && v122 < v42)
+              v123 = vdupq_n_s32(v119);
+              v124 = vshlq_u32(vandq_s8(vshlq_u32(v123, xmmword_2777AA6C0), v118), xmmword_2777AA6B0);
+              v125 = vshlq_u32(vandq_s8(vshlq_u32(v123, xmmword_2777AA6A0), v118), xmmword_2777AA6B0);
+              v126 = vorr_s8(*v125.i8, *&vextq_s8(v125, v125, 8uLL)).u32[0] | v125.i32[1];
+              if ((vorr_s8(*v124.i8, *&vextq_s8(v124, v124, 8uLL)).u32[0] | v124.i32[1]) < v45 && v126 < v42)
               {
-                v125 = (*v118 | v117) == 0xFFFFFFFF || *v118 == 1 << (v102 - 1);
-                v116 |= v125;
-                *(&v291[-1] + v285) = v116;
+                v129 = (*v122 | v121) == 0xFFFFFFFF || *v122 == 1 << (v106 - 1);
+                v120 |= v129;
+                *(&v294[-1] + v288) = v120;
               }
 
-              ++v115;
-              v118 += 4;
+              ++v119;
+              v122 += 4;
             }
 
-            while (v115 != 8);
+            while (v119 != 8);
           }
 
-          if (v277)
+          if (v280)
           {
-            *(&v291[-1] + v285) = 1;
+            *(&v294[-1] + v288) = 1;
           }
 
-          if (v282 >> v309[v98] > 1 << interchange_compression::lossy_parameters[28 * v286 + 12 + 4 * *v281 + v98])
+          if (v285 >> v312[v102] > 1 << interchange_compression::lossy_parameters[28 * v289 + 12 + 4 * *v284 + v102])
           {
-            *(&v291[-1] + v285) = 1;
+            *(&v294[-1] + v288) = 1;
           }
 
-          ++v98;
-          ++v101;
+          ++v102;
+          ++v105;
         }
 
-        while (v98 != v284);
-        v126 = 0;
-        v307 = 0;
-        v308 = 0;
-        v305 = 0u;
+        while (v102 != v287);
+        v130 = 0;
+        v310 = 0;
+        v311 = 0;
+        v308 = 0u;
+        v309 = 0u;
         v306 = 0u;
-        v303 = 0u;
+        v307 = 0u;
         v304 = 0u;
-        v301 = 0u;
-        v302 = 0u;
-        v127 = v317;
-        v128 = v315;
-        v300 = 0u;
+        v305 = 0u;
+        v131 = v320;
+        v132 = v318;
+        v303 = 0u;
         do
         {
-          v129 = v287[v126];
-          v130 = interchange_compression::get_id(v129);
-          v131 = 0;
-          v132 = v320[v126];
-          if (v129 >= v310[v126])
+          v133 = v290[v130];
+          v134 = interchange_compression::get_id(v133, v53);
+          v135 = 0;
+          v136 = v323[v130];
+          if (v133 >= v313[v130])
           {
-            v133 = v310[v126];
+            v137 = v313[v130];
           }
 
           else
           {
-            v133 = v129;
+            v137 = v133;
           }
 
-          v310[v126] = v133;
-          v134 = -1 << v129;
-          v135 = &interchange_compression::dq_consts[160 * v130 + 10 * v132];
-          if (v135[5])
+          v313[v130] = v137;
+          v138 = -1 << v133;
+          v139 = &interchange_compression::dq_consts[160 * v134 + 10 * v136];
+          if (v139[5])
           {
-            v136 = v129;
+            v140 = v133;
           }
 
           else
           {
-            v136 = 0;
+            v140 = 0;
           }
 
-          if (v136 >= v309[v126])
+          if (v140 >= v312[v130])
           {
-            v136 = v309[v126];
+            v140 = v312[v130];
           }
 
-          v309[v126] = v136;
-          v137 = *(v135 + 1);
-          v138 = v318[v126] & (-1 << (v129 - v133));
-          *(&v307 + v126) = v138;
-          if (v137 >> v136 <= 1)
+          v312[v130] = v140;
+          v141 = *(v139 + 1);
+          v142 = v321[v130] & (-1 << (v133 - v137));
+          *(&v310 + v130) = v142;
+          if (v141 >> v140 <= 1)
           {
-            v139 = 1;
+            v143 = 1;
           }
 
           else
           {
-            v139 = v137 >> v136;
+            v143 = v141 >> v140;
           }
 
-          v140 = v128;
-          v141.i64[0] = 0x100000001;
-          v141.i64[1] = 0x100000001;
+          v144 = v132;
+          v145.i64[0] = 0x100000001;
+          v145.i64[1] = 0x100000001;
           do
           {
-            v142 = *v140;
-            v140 += 4;
-            v143 = v142 - v138;
-            v144 = vdupq_n_s32(v131);
-            v145 = vshlq_u32(vandq_s8(vshlq_u32(v144, xmmword_2777AA6C0), v141), xmmword_2777AA6B0);
-            v146 = vshlq_u32(vandq_s8(vshlq_u32(v144, xmmword_2777AA6A0), v141), xmmword_2777AA6B0);
-            v147 = vorr_s8(*v145.i8, *&vextq_s8(v145, v145, 8uLL)).u32[0] | v145.i32[1];
-            if ((vorr_s8(*v146.i8, *&vextq_s8(v146, v146, 8uLL)).u32[0] | v146.i32[1]) >= v42 || v147 >= v45)
+            v146 = *v144;
+            v144 += 4;
+            v147 = v146 - v142;
+            v148 = vdupq_n_s32(v135);
+            v149 = vshlq_u32(vandq_s8(vshlq_u32(v148, xmmword_2777AA6C0), v145), xmmword_2777AA6B0);
+            v150 = vshlq_u32(vandq_s8(vshlq_u32(v148, xmmword_2777AA6A0), v145), xmmword_2777AA6B0);
+            v151 = vorr_s8(*v149.i8, *&vextq_s8(v149, v149, 8uLL)).u32[0] | v149.i32[1];
+            if ((vorr_s8(*v150.i8, *&vextq_s8(v150, v150, 8uLL)).u32[0] | v150.i32[1]) >= v42 || v151 >= v45)
             {
-              v143 = 0;
+              v147 = 0;
             }
 
-            *&v127[4 * v131++] = v143;
+            *&v131[4 * v135++] = v147;
           }
 
-          while (v131 != 8);
-          if (v129 == 2 && v137 >> v136 > 1)
+          while (v135 != 8);
+          if (v133 == 2 && v141 >> v140 > 1)
           {
             interchange_compression::compressor::compress();
           }
 
-          v149 = 0;
-          v150 = 0;
-          v151 = 1 << (v129 - 1);
-          v152 = 2 * v139 - 1;
-          v153 = v319[v126];
-          v279 = v139 + v151;
-          v50 = *(&v291[-1] + v285);
-          v154 = 1 << v129;
-          v283 = v137 + v138;
-          v155 = (1 << v129) - 1;
-          v156 = (1 << v129) - 1;
-          v157 = &v300 + 28 * v126;
-          v158 = v128;
+          v153 = 0;
+          v154 = 0;
+          v155 = 1 << (v133 - 1);
+          v156 = 2 * v143 - 1;
+          v157 = v322[v130];
+          v282 = v143 + v155;
+          v54 = *(&v294[-1] + v288);
+          v53 = ~(-1 << v140);
+          v158 = 1 << v133;
+          v286 = v141 + v142;
+          v159 = (1 << v133) - 1;
+          v160 = (1 << v133) - 1;
+          v161 = &v303 + 28 * v130;
+          v162 = v132;
           do
           {
-            if (v153 == v149)
+            if (v157 == v153)
             {
               goto LABEL_236;
             }
 
-            if (v136)
+            if (v140)
             {
-              v159 = *&v127[4 * v149] / v139;
+              v163 = *&v131[4 * v153] / v143;
             }
 
             else
             {
-              LODWORD(v159) = 0;
+              LODWORD(v163) = 0;
             }
 
-            *&v157[4 * v150] = v159;
-            if (v139 < 2)
+            *&v161[4 * v154] = v163;
+            if (v143 < 2)
             {
-              v162 = 0;
+              v166 = 0;
 LABEL_197:
-              v164 = 0;
+              v168 = 0;
               goto LABEL_198;
             }
 
-            v160 = *&v127[4 * v149];
-            if (!v160 || (!(v160 % v139) ? (v161 = ((v160 / v139) & 1) == 0) : (v161 = 1), v161))
+            v164 = *&v131[4 * v153];
+            if (!v164 || (!(v164 % v143) ? (v165 = ((v164 / v143) & 1) == 0) : (v165 = 1), v165))
             {
-              v162 = 0;
+              v166 = 0;
             }
 
             else
             {
-              if (v138)
+              if (v142)
               {
-                if (v288 != 2)
+                if (v291 != 2)
                 {
-                  v164 = ((v139 ^ *v158 ^ v138) & v152) == 0;
-                  v162 = 1;
+                  v168 = ((v143 ^ *v162 ^ v142) & v156) == 0;
+                  v166 = 1;
                   goto LABEL_198;
                 }
               }
 
               else
               {
-                v162 = v159 != 1;
-                if (v288 != 2 || v159 == 1)
+                v166 = v163 != 1;
+                if (v291 != 2 || v163 == 1)
                 {
-                  v163 = *v158;
-                  if (((v139 ^ v163) & v152) != 0)
+                  v167 = *v162;
+                  if (((v143 ^ v167) & v156) != 0)
                   {
                     goto LABEL_197;
                   }
@@ -2177,154 +2160,154 @@ LABEL_197:
                 }
               }
 
-              v186 = *v158;
-              v162 = v186 != v151;
-              if (v186 != v151)
+              v190 = *v162;
+              v166 = v190 != v155;
+              if (v190 != v155)
               {
-                v162 = v279 != v186;
+                v166 = v282 != v190;
               }
             }
 
-            LODWORD(v163) = *v158;
-            if (((v139 ^ *v158 ^ v138) & v152) != 0)
+            LODWORD(v167) = *v162;
+            if (((v143 ^ *v162 ^ v142) & v156) != 0)
             {
               goto LABEL_197;
             }
 
-            if (v138)
+            if (v142)
             {
-              if (v288 == 2)
+              if (v291 == 2)
               {
                 goto LABEL_248;
               }
 
-              v164 = 1;
+              v168 = 1;
               goto LABEL_198;
             }
 
 LABEL_246:
-            v164 = v139 != v160;
-            if (v288 == 2 && v139 != v160)
+            v168 = v143 != v164;
+            if (v291 == 2 && v143 != v164)
             {
 LABEL_248:
-              v164 = v163 != v151;
-              if (v163 != v151)
+              v168 = v167 != v155;
+              if (v167 != v155)
               {
-                v164 = v279 != v163;
+                v168 = v282 != v167;
               }
             }
 
 LABEL_198:
-            v165 = vdupq_n_s32(v149);
-            v166 = vshlq_u32(vandq_s8(vshlq_u32(v165, xmmword_2777AA6C0), v141), xmmword_2777AA6B0);
-            v167 = vshlq_u32(vandq_s8(vshlq_u32(v165, xmmword_2777AA6A0), v141), xmmword_2777AA6B0);
-            v168 = vorr_s8(*v167.i8, *&vextq_s8(v167, v167, 8uLL)).u32[0] | v167.i32[1];
-            v169 = v162 ^ v164;
-            if ((vorr_s8(*v166.i8, *&vextq_s8(v166, v166, 8uLL)).u32[0] | v166.i32[1]) < v45 && v168 < v42 && v169 != 0)
+            v169 = vdupq_n_s32(v153);
+            v170 = vshlq_u32(vandq_s8(vshlq_u32(v169, xmmword_2777AA6C0), v145), xmmword_2777AA6B0);
+            v171 = vshlq_u32(vandq_s8(vshlq_u32(v169, xmmword_2777AA6A0), v145), xmmword_2777AA6B0);
+            v172 = vorr_s8(*v171.i8, *&vextq_s8(v171, v171, 8uLL)).u32[0] | v171.i32[1];
+            v173 = v166 ^ v168;
+            if ((vorr_s8(*v170.i8, *&vextq_s8(v170, v170, 8uLL)).u32[0] | v170.i32[1]) < v45 && v172 < v42 && v173 != 0)
             {
               interchange_compression::compressor::compress();
             }
 
-            if (v162)
+            if (v166)
             {
-              LODWORD(v159) = v159 - 1;
-              *&v157[4 * v150] = v159;
+              LODWORD(v163) = v163 - 1;
+              *&v161[4 * v154] = v163;
             }
 
-            if (v159 >> v136 || (*v158 ^ v134) == 0xFFFFFFFF)
+            if (v163 >> v140 || (*v162 ^ v138) == 0xFFFFFFFF)
             {
-              *&v157[4 * v150] = ~(-1 << v136);
-              LODWORD(v159) = ~(-1 << v136);
+              *&v161[4 * v154] = v53;
+              LODWORD(v163) = ~(-1 << v140);
             }
 
-            v172 = vdupq_n_s32(v149);
-            v173 = vshlq_u32(vandq_s8(vshlq_u32(v172, xmmword_2777AA6C0), v141), xmmword_2777AA6B0);
-            v174 = vshlq_u32(vandq_s8(vshlq_u32(v172, xmmword_2777AA6A0), v141), xmmword_2777AA6B0);
-            v175 = vorr_s8(*v174.i8, *&vextq_s8(v174, v174, 8uLL)).u32[0] | v174.i32[1];
-            if ((vorr_s8(*v173.i8, *&vextq_s8(v173, v173, 8uLL)).u32[0] | v173.i32[1]) >= v45 || v175 >= v42)
+            v176 = vdupq_n_s32(v153);
+            v177 = vshlq_u32(vandq_s8(vshlq_u32(v176, xmmword_2777AA6C0), v145), xmmword_2777AA6B0);
+            v178 = vshlq_u32(vandq_s8(vshlq_u32(v176, xmmword_2777AA6A0), v145), xmmword_2777AA6B0);
+            v179 = vorr_s8(*v178.i8, *&vextq_s8(v178, v178, 8uLL)).u32[0] | v178.i32[1];
+            if ((vorr_s8(*v177.i8, *&vextq_s8(v177, v177, 8uLL)).u32[0] | v177.i32[1]) >= v45 || v179 >= v42)
             {
-              LODWORD(v159) = 0;
-              *&v157[4 * v150] = 0;
+              LODWORD(v163) = 0;
+              *&v161[4 * v154] = 0;
             }
 
-            if (!v50)
+            if (!v54)
             {
-              v177 = vdupq_n_s32(v149);
-              v178 = vshlq_u32(vandq_s8(vshlq_u32(v177, xmmword_2777AA6C0), v141), xmmword_2777AA6B0);
-              v179 = vshlq_u32(vandq_s8(vshlq_u32(v177, xmmword_2777AA6A0), v141), xmmword_2777AA6B0);
-              v180 = vorr_s8(*v179.i8, *&vextq_s8(v179, v179, 8uLL)).u32[0] | v179.i32[1];
-              if ((vorr_s8(*v178.i8, *&vextq_s8(v178, v178, 8uLL)).u32[0] | v178.i32[1]) < v45 && v180 < v42)
+              v181 = vdupq_n_s32(v153);
+              v182 = vshlq_u32(vandq_s8(vshlq_u32(v181, xmmword_2777AA6C0), v145), xmmword_2777AA6B0);
+              v183 = vshlq_u32(vandq_s8(vshlq_u32(v181, xmmword_2777AA6A0), v145), xmmword_2777AA6B0);
+              v184 = vorr_s8(*v183.i8, *&vextq_s8(v183, v183, 8uLL)).u32[0] | v183.i32[1];
+              if ((vorr_s8(*v182.i8, *&vextq_s8(v182, v182, 8uLL)).u32[0] | v182.i32[1]) < v45 && v184 < v42)
               {
-                v182 = 0;
-                if (v136)
+                v186 = 0;
+                if (v140)
                 {
-                  if (v159 | v138)
+                  if (v163 | v142)
                   {
-                    if (v283 < v154 || (v182 = v155, ((-1 << v136) ^ v159) != 0xFFFFFFFFFFFFFFFFLL))
+                    if (v286 < v158 || (v186 = v159, ((-1 << v140) ^ v163) != 0xFFFFFFFFFFFFFFFFLL))
                     {
-                      v182 = v139 / 2 + v139 * v159;
+                      v186 = v143 / 2 + v143 * v163;
                     }
                   }
                 }
 
-                v183 = *v158;
-                v184 = v182 + v138;
-                if (v184 >= v154)
+                v187 = *v162;
+                v188 = v186 + v142;
+                if (v188 >= v158)
                 {
-                  v184 = v156;
+                  v188 = v160;
                 }
 
-                LODWORD(v185) = v183 - v184;
-                if (v183 - v184 >= 0)
+                LODWORD(v189) = v187 - v188;
+                if (v187 - v188 >= 0)
                 {
-                  v185 = v185;
+                  v189 = v189;
                 }
 
                 else
                 {
-                  v185 = (v184 - v183);
+                  v189 = (v188 - v187);
                 }
 
-                if (v185 >> interchange_compression::lossy_parameters[28 * v286 + 12 + 4 * *v281 + v126])
+                if (v189 >> interchange_compression::lossy_parameters[28 * v289 + 12 + 4 * *v284 + v130])
                 {
                   interchange_compression::compressor::compress();
                 }
 
-                if (v155 <= v183 && v184 != v183)
+                if (v159 <= v187 && v188 != v187)
                 {
                   interchange_compression::compressor::compress();
                 }
               }
             }
 
-            ++v150;
+            ++v154;
 LABEL_236:
-            ++v149;
-            v158 += 4;
+            ++v153;
+            v162 += 4;
           }
 
-          while (v149 != 8);
-          ++v126;
-          v127 += 32;
-          ++v128;
-          v48 = v284;
+          while (v153 != 8);
+          ++v130;
+          v131 += 32;
+          ++v132;
+          v48 = v287;
         }
 
-        while (v126 != v284);
+        while (v130 != v287);
 LABEL_251:
-        v187 = v286;
-        v188 = interchange_compression::lossy_parameters[28 * v286 + 8 + *v281];
-        v297 = &a5[v285 * v268];
-        v296 = v188 >> 2;
-        v280 = 2 * (v188 & 0x1FFFFFFF);
-        v298 = 0;
-        v299 = 0;
-        bzero(v297, v188 >> 2);
-        if (v50)
+        v191 = v289;
+        v192 = interchange_compression::lossy_parameters[28 * v289 + 8 + *v284];
+        v300 = &a5[v288 * v271];
+        v299 = v192 >> 2;
+        v283 = 2 * (v192 & 0x1FFFFFFF);
+        v301 = 0;
+        v302 = 0;
+        bzero(v300, v192 >> 2);
+        if (v54)
         {
-          v190 = 0;
-          v191 = 0;
-          v192 = v315;
+          v194 = 0;
+          v195 = 0;
+          v196 = v318;
           v27 = xmmword_2777AA6B0;
           v25 = xmmword_2777AA6C0;
           v26.i64[0] = 0x100000001;
@@ -2332,49 +2315,49 @@ LABEL_251:
           v28 = xmmword_2777AA6A0;
           do
           {
-            v289 = v192;
-            if (v286 != 27)
+            v292 = v196;
+            if (v289 != 27)
             {
-              v193 = vdupq_n_s32(v190);
-              v194 = vshlq_u32(vandq_s8(vshlq_u32(v193, v25), v26), v27);
-              v195 = vshlq_u32(vandq_s8(vshlq_u32(v193, v28), v26), v27);
-              v196 = vorr_s8(*v195.i8, *&vextq_s8(v195, v195, 8uLL)).u32[0] | v195.i32[1];
-              v198 = (vorr_s8(*v194.i8, *&vextq_s8(v194, v194, 8uLL)).u32[0] | v194.i32[1]) >= v45 || v196 >= v42;
-              v200 = &interchange_compression::lossy_parameters[28 * v286 + 12 + 4 * *v281];
-              v199 = v284;
-              v201 = v287;
+              v197 = vdupq_n_s32(v194);
+              v198 = vshlq_u32(vandq_s8(vshlq_u32(v197, v25), v26), v27);
+              v199 = vshlq_u32(vandq_s8(vshlq_u32(v197, v28), v26), v27);
+              v200 = vorr_s8(*v199.i8, *&vextq_s8(v199, v199, 8uLL)).u32[0] | v199.i32[1];
+              v202 = (vorr_s8(*v198.i8, *&vextq_s8(v198, v198, 8uLL)).u32[0] | v198.i32[1]) >= v45 || v200 >= v42;
+              v204 = &interchange_compression::lossy_parameters[28 * v289 + 12 + 4 * *v284];
+              v203 = v287;
+              v205 = v290;
               do
               {
-                v203 = *v200++;
-                v202 = v203;
-                if (v198)
+                v207 = *v204++;
+                v206 = v207;
+                if (v202)
                 {
-                  v204 = 0;
-                  v205 = *v201;
+                  v208 = 0;
+                  v209 = *v205;
                 }
 
                 else
                 {
-                  v204 = *v192 >> v202;
-                  v205 = *v201;
-                  if (*v201 == 2)
+                  v208 = *v196 >> v206;
+                  v209 = *v205;
+                  if (*v205 == 2)
                   {
-                    if (v204 != *v192)
+                    if (v208 != *v196)
                     {
                       interchange_compression::compressor::compress();
                     }
 
-                    v205 = 2;
-                    v204 = *v192;
+                    v209 = 2;
+                    v208 = *v196;
                   }
                 }
 
-                v206 = v205 - v202;
-                bit_pack::pack(v295, v204, v205 - v202);
-                v191 += v206;
-                ++v201;
-                ++v192;
-                --v199;
+                v210 = v209 - v206;
+                bit_pack::pack(v298, v208, v209 - v206);
+                v195 += v210;
+                ++v205;
+                ++v196;
+                --v203;
                 v27 = xmmword_2777AA6B0;
                 v25 = xmmword_2777AA6C0;
                 v26.i64[0] = 0x100000001;
@@ -2382,15 +2365,15 @@ LABEL_251:
                 v28 = xmmword_2777AA6A0;
               }
 
-              while (v199);
+              while (v203);
             }
 
-            ++v190;
-            v192 = v289 + 4;
+            ++v194;
+            v196 = v292 + 4;
           }
 
-          while (v190 != 8);
-          if (v191 != v280)
+          while (v194 != 8);
+          if (v195 != v283)
           {
             interchange_compression::compressor::compress();
           }
@@ -2398,431 +2381,431 @@ LABEL_251:
 
         else
         {
-          if (v286 == 27)
+          if (v289 == 27)
           {
-            v207 = 0;
+            v211 = 0;
           }
 
           else
           {
-            v207 = 0;
-            v208 = v318;
-            v209 = v320;
-            v210 = v287;
-            v211 = v48;
+            v211 = 0;
+            v212 = v321;
+            v213 = v323;
+            v214 = v290;
+            v215 = v48;
             do
             {
-              *v292 = 0;
-              v213 = *v210++;
-              v212 = v213;
-              v215 = *v209++;
-              v214 = v215;
-              v216 = *v208++;
-              interchange_compression::encode_mode(v212, v214, v216, &v292[1], &v291[1], v292, v291, v189);
-              v217 = v292[1];
-              bit_pack::pack(v295, v292[0], v292[1]);
-              v207 += v217;
-              --v211;
+              *v295 = 0;
+              v217 = *v214++;
+              v216 = v217;
+              v219 = *v213++;
+              v218 = v219;
+              v220 = *v212++;
+              interchange_compression::encode_mode(v216, v218, v220, &v295[1], &v294[1], v295, v294, v193);
+              v221 = v295[1];
+              bit_pack::pack(v298, v295[0], v295[1]);
+              v211 += v221;
+              --v215;
             }
 
-            while (v211);
-            v218 = v318;
-            v219 = v320;
-            v220 = v287;
-            v221 = v48;
+            while (v215);
+            v222 = v321;
+            v223 = v323;
+            v224 = v290;
+            v225 = v48;
             do
             {
-              v223 = *v220++;
-              v222 = v223;
-              v225 = *v219++;
-              v224 = v225;
-              v226 = (v222 & 0xFFFFFFFD) != 8 || v224 >= 3;
-              if (!v226 || (v222 == 12 ? (v227 = v224 > 3) : (v227 = 1), !v227))
+              v227 = *v224++;
+              v226 = v227;
+              v229 = *v223++;
+              v228 = v229;
+              v230 = (v226 & 0xFFFFFFFD) != 8 || v228 >= 3;
+              if (!v230 || (v226 == 12 ? (v231 = v228 > 3) : (v231 = 1), !v231))
               {
-                *v291 = 0;
-                interchange_compression::encode_mode(v222, v224, *v218, &v292[1], &v291[1], v292, v291, v189);
-                v228 = v291[1];
-                bit_pack::pack(v295, v291[0], v291[1]);
-                v207 += v228;
+                *v294 = 0;
+                interchange_compression::encode_mode(v226, v228, *v222, &v295[1], &v294[1], v295, v294, v193);
+                v232 = v294[1];
+                bit_pack::pack(v298, v294[0], v294[1]);
+                v211 += v232;
               }
 
-              ++v218;
-              --v221;
+              ++v222;
+              --v225;
             }
 
-            while (v221);
-            v229 = v310;
-            v230 = &v307;
-            v231 = v320;
-            v232 = v48;
+            while (v225);
+            v233 = v313;
+            v234 = &v310;
+            v235 = v323;
+            v236 = v48;
             do
             {
-              v233 = *v231++;
-              v234 = *v287++;
-              if (v233)
+              v237 = *v235++;
+              v238 = *v290++;
+              if (v237)
               {
-                v235 = 1;
+                v239 = 1;
               }
 
               else
               {
-                v235 = v234 == 2;
+                v239 = v238 == 2;
               }
 
-              if (v235 || v234 >= 0x10)
+              if (v239 || v238 >= 0x10)
               {
-                v237 = *v229;
-                bit_pack::pack(v295, *v230 >> (v234 - *v229), *v229);
-                v207 += v237;
+                v241 = *v233;
+                bit_pack::pack(v298, *v234 >> (v238 - *v233), *v233);
+                v211 += v241;
               }
 
-              ++v229;
-              v230 = (v230 + 4);
-              --v232;
+              ++v233;
+              v234 = (v234 + 4);
+              --v236;
             }
 
-            while (v232);
-            v238 = v319;
-            v239 = v309;
-            v240 = v48;
+            while (v236);
+            v242 = v322;
+            v243 = v312;
+            v244 = v48;
             do
             {
-              if (*v239++)
+              if (*v243++)
               {
-                bit_pack::pack(v295, *v238, 3);
-                v207 += 3;
+                bit_pack::pack(v298, *v242, 3);
+                v211 += 3;
               }
 
-              ++v238;
-              --v240;
+              ++v242;
+              --v244;
             }
 
-            while (v240);
+            while (v244);
           }
 
-          v242 = v280 - v207;
-          v243 = (v280 - v207) / 7u;
-          bit_pack::pack(v295, 0, v242 % 7);
-          v244 = 0;
-          v245 = &v300;
+          v246 = v283 - v211;
+          v247 = (v283 - v211) / 7u;
+          bit_pack::pack(v298, 0, v246 % 7);
+          v248 = 0;
+          v249 = &v303;
           do
           {
-            if (v187 == 27)
+            if (v191 == 27)
             {
-              v246 = 0;
+              v250 = 0;
             }
 
             else
             {
-              v246 = 0;
-              v247 = v309;
-              v248 = v245;
-              v249 = v48;
+              v250 = 0;
+              v251 = v312;
+              v252 = v249;
+              v253 = v48;
               do
               {
-                v251 = *v247++;
-                v250 = v251;
-                if (v251)
+                v255 = *v251++;
+                v254 = v255;
+                if (v255)
                 {
-                  bit_pack::pack(v295, *v248, v250);
-                  v246 += v250;
+                  bit_pack::pack(v298, *v252, v254);
+                  v250 += v254;
                 }
 
-                v248 += 7;
-                --v249;
+                v252 += 7;
+                --v253;
               }
 
-              while (v249);
-              v187 = v286;
-              if (v246 > v243)
+              while (v253);
+              v191 = v289;
+              if (v250 > v247)
               {
                 interchange_compression::compressor::compress();
               }
             }
 
-            bit_pack::pack(v295, 0, v243 - v246);
+            bit_pack::pack(v298, 0, v247 - v250);
             v28 = xmmword_2777AA6A0;
             v27 = xmmword_2777AA6B0;
             v26.i64[0] = 0x100000001;
             v26.i64[1] = 0x100000001;
             v25 = xmmword_2777AA6C0;
-            ++v244;
-            v245 = (v245 + 4);
+            ++v248;
+            v249 = (v249 + 4);
           }
 
-          while (v244 != 7);
+          while (v248 != 7);
         }
 
-        if (v298 != v280)
+        if (v301 != v283)
         {
           interchange_compression::compressor::compress();
         }
 
-        v24 = v285 + 1;
-        v23 = v269 + 8;
+        v24 = v288 + 1;
+        v23 = v272 + 8;
         v29 = a2;
-        if (v285 == 3)
+        if (v288 == 3)
         {
-          *a6 = (4 * BYTE2(v290)) | (8 * HIBYTE(v290)) | (2 * BYTE1(v290)) | v290 | 0xF0;
-          *a7 = interchange_compression::lossy_parameters[28 * *(v271 + 1150) + 8 + *(v271 + 1151)];
-          goto LABEL_325;
+          *a6 = (4 * BYTE2(v293)) | (8 * HIBYTE(v293)) | (2 * BYTE1(v293)) | v293 | 0xF0;
+          *a7 = interchange_compression::lossy_parameters[28 * *(v274 + 1150) + 8 + *(v274 + 1151)];
+          return;
         }
       }
 
-      v51 = 0;
-      v52 = v315;
-      v53 = v293;
+      v55 = 0;
+      v56 = v318;
+      v57 = v296;
       do
       {
-        v54 = 0;
-        v55 = 1 << (v287[v51] - 1);
-        if (v288 != 2)
+        v58 = 0;
+        v59 = 1 << (v290[v55] - 1);
+        if (v291 != 2)
         {
-          v55 = 0;
+          v59 = 0;
         }
 
         do
         {
-          v56 = *&v53[v54 * 4] ^ v55;
-          if (v56 == 1 && v46 == 3)
+          v60 = *&v57[v58 * 4] ^ v59;
+          if (v60 == 1 && v46 == 3)
           {
-            v56 = 0;
+            v60 = 0;
           }
 
-          v52[v54] = v56;
-          v54 += 4;
+          v56[v58] = v60;
+          v58 += 4;
         }
 
-        while (v54 != 32);
-        ++v51;
-        ++v52;
-        v53 += 4;
+        while (v58 != 32);
+        ++v55;
+        ++v56;
+        v57 += 4;
       }
 
-      while (v51 != v284);
-      v58 = 0;
-      v59 = &v316;
+      while (v55 != v287);
+      v62 = 0;
+      v63 = &v319;
       while (1)
       {
-        v60 = v287[v58];
-        v61 = interchange_compression::get_id(v60);
-        v62.i64[0] = 0x100000001;
-        v62.i64[1] = 0x100000001;
-        v63 = v315[v58];
-        v64 = &v317[4 * v58 + 128];
-        v318[v58] = v63;
-        *v64 = v63;
-        v319[v58] = 0;
-        v65 = -7;
-        v66 = v59;
-        v67 = v63;
+        v64 = v290[v62];
+        v65 = interchange_compression::get_id(v64, v15);
+        v66.i64[0] = 0x100000001;
+        v66.i64[1] = 0x100000001;
+        v67 = v318[v62];
+        v68 = &v320[4 * v62 + 128];
+        v321[v62] = v67;
+        *v68 = v67;
+        v322[v62] = 0;
+        v69 = -7;
+        v70 = v63;
+        v71 = v67;
         do
         {
-          v68 = vdupq_n_s32(v65 + 8);
-          v69 = vshlq_u32(vandq_s8(vshlq_u32(v68, xmmword_2777AA6C0), v62), xmmword_2777AA6B0);
-          v70 = vshlq_u32(vandq_s8(vshlq_u32(v68, xmmword_2777AA6A0), v62), xmmword_2777AA6B0);
-          v71 = vorr_s8(*v70.i8, *&vextq_s8(v70, v70, 8uLL)).u32[0] | v70.i32[1];
-          v72 = (vorr_s8(*v69.i8, *&vextq_s8(v69, v69, 8uLL)).u32[0] | v69.i32[1]) >= v45 || v71 >= v42;
-          if (!v72)
+          v72 = vdupq_n_s32(v69 + 8);
+          v73 = vshlq_u32(vandq_s8(vshlq_u32(v72, xmmword_2777AA6C0), v66), xmmword_2777AA6B0);
+          v74 = vshlq_u32(vandq_s8(vshlq_u32(v72, xmmword_2777AA6A0), v66), xmmword_2777AA6B0);
+          v75 = vorr_s8(*v74.i8, *&vextq_s8(v74, v74, 8uLL)).u32[0] | v74.i32[1];
+          v76 = (vorr_s8(*v73.i8, *&vextq_s8(v73, v73, 8uLL)).u32[0] | v73.i32[1]) >= v45 || v75 >= v42;
+          if (!v76)
           {
-            v73 = *v66;
-            if (*v66 < v67)
+            v77 = *v70;
+            if (*v70 < v71)
             {
-              v319[v58] = v65 + 8;
-              v318[v58] = v73;
-              v67 = v73;
+              v322[v62] = v69 + 8;
+              v321[v62] = v77;
+              v71 = v77;
             }
 
-            if (v63 >= v73)
+            if (v67 >= v77)
             {
-              v74 = &v317[4 * v58 + 128];
+              v78 = &v320[4 * v62 + 128];
             }
 
             else
             {
-              v74 = v66;
+              v78 = v70;
             }
 
-            v63 = *v74;
-            *v64 = v63;
+            v67 = *v78;
+            *v68 = v67;
           }
 
-          v66 += 4;
-          v72 = __CFADD__(v65++, 1);
+          v70 += 4;
+          v76 = __CFADD__(v69++, 1);
         }
 
-        while (!v72);
-        v75 = 1 << (v60 - 1);
-        v76 = v63 - v67;
+        while (!v76);
+        v79 = 1 << (v64 - 1);
+        v80 = v67 - v71;
         for (i = 31; i != -1; --i)
         {
-          if ((v76 >> i))
+          if ((v80 >> i))
           {
             break;
           }
         }
 
-        HIDWORD(v79) = v60 - 2;
-        LODWORD(v79) = v60 - 2;
-        v78 = v79 >> 1;
-        if (v78 < 8 && ((0xB9u >> v78) & 1) != 0)
+        HIDWORD(v83) = v64 - 2;
+        LODWORD(v83) = v64 - 2;
+        v82 = v83 >> 1;
+        if (v82 < 8 && ((0xB9u >> v82) & 1) != 0)
         {
-          v80 = dword_2777AD4D0[v78];
+          v84 = dword_2777AD4D0[v82];
         }
 
         else
         {
-          if (v60 != 32)
+          if (v64 != 32)
           {
             interchange_compression::compressor::compress();
           }
 
-          v80 = -1;
+          v84 = -1;
         }
 
-        v81 = i + 1;
-        v82 = (v81 & 1) + (v81 >> 1);
-        if (v60 != 32)
+        v85 = i + 1;
+        v86 = (v85 & 1) + (v85 >> 1);
+        if (v64 != 32)
         {
-          v82 = i + 1;
+          v86 = i + 1;
         }
 
         if (i)
         {
-          v83 = 0;
+          v87 = 0;
         }
 
         else
         {
-          v83 = v60 == 2;
+          v87 = v64 == 2;
         }
 
-        if (v83)
+        if (v87)
         {
-          v82 = 2;
+          v86 = 2;
         }
 
-        if (i < 3 && v60 == 10)
+        if (i < 3 && v64 == 10)
         {
-          v82 = 3;
+          v86 = 3;
         }
 
-        if (i < 4 && v60 == 12)
+        if (i < 4 && v64 == 12)
         {
-          v82 = 4;
+          v86 = 4;
         }
 
-        if (v60 == 16 && !i)
+        if (v64 == 16 && !i)
         {
           break;
         }
 
-        v87 = v80 + v82;
-        v86 = v87 & ~(v87 >> 31);
-        v88 = &v320[v58];
-        *v88 = v86;
-        if (v60 < 8 || v87 >= 3 || v60 > 0xC || v81)
+        v91 = v84 + v86;
+        v90 = v91 & ~(v91 >> 31);
+        v92 = &v323[v62];
+        *v92 = v90;
+        if (v64 < 8 || v91 >= 3 || v64 > 0xC || v85)
         {
           goto LABEL_97;
         }
 
-        if (v67)
+        if (v71)
         {
-          v86 = (v67 ^ (-1 << v60)) != 0xFFFFFFFF || v60 > 0xB;
+          v90 = (v71 ^ (-1 << v64)) != 0xFFFFFFFF || v64 > 0xB;
 LABEL_96:
-          *v88 = v86;
+          *v92 = v90;
           goto LABEL_97;
         }
 
-        v86 = 0;
-        *v88 = 0;
+        v90 = 0;
+        *v92 = 0;
 LABEL_97:
-        v89 = 0;
-        if (v288 == 2 && v63 >= v75 && v67 < v75)
+        v93 = 0;
+        if (v291 == 2 && v67 >= v79 && v71 < v79)
         {
-          v89 = interchange_compression::dq_consts[160 * v61 + 8 + 10 * v86] == 0;
+          v93 = interchange_compression::dq_consts[160 * v65 + 8 + 10 * v90] == 0;
         }
 
-        if (v86 >= interchange_compression::dq_qp_transition[v61] || v89)
+        if (v90 >= interchange_compression::dq_qp_transition[v65] || v93)
         {
-          v90 = interchange_compression::dq_consts[160 * v61 + 4 + 10 * v86] - (v89 & (0xFBFFF00uLL >> v286)) + interchange_compression::dq_lossy_level[3 * v61 + v278];
-          if (v89)
+          v94 = interchange_compression::dq_consts[160 * v65 + 4 + 10 * v90] - (v93 & (0xFBFFF00uLL >> v289)) + interchange_compression::dq_lossy_level[3 * v65 + v281];
+          if (v93)
           {
-            v91 = 0;
+            v95 = 0;
           }
 
           else
           {
-            v91 = -2;
+            v95 = -2;
           }
 
-          v72 = v60 >= v90;
-          v92 = v60 - v90;
-          v93 = v67 & ~(-1 << v92);
-          if (v92 == 0 || !v72)
+          v76 = v64 >= v94;
+          v96 = v64 - v94;
+          v97 = v71 & ~(-1 << v96);
+          if (v96 == 0 || !v76)
           {
-            v93 = 0;
+            v97 = 0;
           }
 
-          v94 = v93 + v91;
-          if (v94 >= 1)
+          v98 = v97 + v95;
+          if (v98 >= 1)
           {
-            v95 = v94 + v76;
+            v99 = v98 + v80;
             for (j = 31; j != -1; --j)
             {
-              if ((v95 >> j))
+              if ((v99 >> j))
               {
                 break;
               }
             }
 
-            if (v81 < j + 1)
+            if (v85 < j + 1)
             {
-              *v88 = ++v86;
+              *v92 = ++v90;
             }
           }
         }
 
-        v97 = interchange_compression::dq_max_mode[v61];
-        if (v60 == 32)
+        v101 = interchange_compression::dq_max_mode[v65];
+        if (v64 == 32)
         {
-          if (v97 >= v86)
+          if (v101 >= v90)
           {
-            v97 = v86;
+            v101 = v90;
           }
 
-          *v88 = v97;
-          v48 = v284;
+          *v92 = v101;
+          v48 = v287;
         }
 
         else
         {
-          v48 = v284;
-          if (v86 > v97)
+          v48 = v287;
+          if (v90 > v101)
           {
             interchange_compression::compressor::compress();
           }
         }
 
-        ++v58;
-        v59 = (v59 + 4);
-        if (v58 == v48)
+        ++v62;
+        v63 = (v63 + 4);
+        if (v62 == v48)
         {
           goto LABEL_32;
         }
       }
 
-      if (v63 == 0xFFFF)
+      if (v67 == 0xFFFF)
       {
-        v86 = v80 + 2;
+        v90 = v84 + 2;
       }
 
       else
       {
-        v86 = (v80 + v82) & ~((v80 + v82) >> 31);
+        v90 = (v84 + v86) & ~((v84 + v86) >> 31);
       }
 
-      v88 = &v320[v58];
+      v92 = &v323[v62];
       goto LABEL_96;
     }
   }
@@ -2834,41 +2817,41 @@ LABEL_97:
 
   else if (v11)
   {
-    v252 = v14[8];
-    *a6 = v252;
-    *a7 = v17 + v17 * (v252 & ~(-1 << v16));
+    v256 = v14[8];
+    *a6 = v256;
+    *a7 = v17 + v17 * (v256 & ~(-1 << v16));
     interchange_compression::format_info::pack_pixel((&interchange_compression::format_table + 52 * *(this + 1150)), a5, a2);
-    v253 = *a7;
-    v297 = a5;
-    v296 = v253;
-    v298 = 0;
-    v299 = 0;
-    bzero(a5, v253);
-    v254 = *(this + 1150);
-    if (v254 != 27)
+    v257 = *a7;
+    v300 = a5;
+    v299 = v257;
+    v301 = 0;
+    v302 = 0;
+    bzero(a5, v257);
+    v258 = *(this + 1150);
+    if (v258 != 27)
     {
-      v255 = 0;
+      v259 = 0;
       do
       {
-        bit_pack::pack(v295, (*a2)[0][0][v255], *(&interchange_compression::format_table + 13 * v254 + v255 + 3));
-        ++v255;
-        v254 = *(this + 1150);
+        bit_pack::pack(v298, (*a2)[0][0][v259], *(&interchange_compression::format_table + 13 * v258 + v259 + 3));
+        ++v259;
+        v258 = *(this + 1150);
       }
 
-      while (v255 < *(&interchange_compression::format_table + 13 * v254 + 2));
+      while (v259 < *(&interchange_compression::format_table + 13 * v258 + 2));
     }
   }
 
   else
   {
-    v297 = a5;
-    v296 = v15;
-    v298 = 0;
-    v299 = 0;
+    v300 = a5;
+    v299 = v15;
+    v301 = 0;
+    v302 = 0;
     bzero(a5, v15);
-    interchange_compression::compressor::pack_header(this, v295, 0, a6);
-    interchange_compression::compressor::pack_deltas(this, v295, v294, a3, a4);
-    if ((v17 - 1 + ((v298 + 7) >> 3)) / v17 != v18)
+    interchange_compression::compressor::pack_header(this, v298, 0, a6);
+    interchange_compression::compressor::pack_deltas(this, v298, v297, a3, a4);
+    if ((v17 - 1 + ((v301 + 7) >> 3)) / v17 != v18)
     {
       interchange_compression::compressor::compress();
     }
@@ -2876,14 +2859,11 @@ LABEL_97:
     *a6 |= v18 - 1;
     *a7 = v19;
   }
-
-LABEL_325:
-  v257 = *MEMORY[0x277D85DE8];
 }
 
 interchange_compression::decompressor *interchange_decompress_plane(const unsigned __int8 *a1, const unsigned __int8 *a2, _BYTE *a3, unsigned int a4, unsigned int a5, unsigned int a6, int a7, unsigned int a8)
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   if (a7)
   {
     v8 = 16;
@@ -2894,7 +2874,7 @@ interchange_compression::decompressor *interchange_decompress_plane(const unsign
     v8 = 32;
   }
 
-  v96 = v8;
+  v95 = v8;
   if (a6 > 0x10 || ((1 << a6) & 0x11500) == 0)
   {
     interchange_decompress_plane();
@@ -2970,18 +2950,18 @@ interchange_compression::decompressor *interchange_decompress_plane(const unsign
     v18 = 5;
   }
 
-  v85 = v18;
+  v84 = v18;
   v19 = &interchange_compression::lossy_parameters[28 * v17];
-  v81 = v19[a8 + 4];
-  result = interchange_compression::decompressor::decompressor(v103, v17, a8, 0);
-  memset(v104, 0, sizeof(v104));
+  v80 = v19[a8 + 4];
+  result = interchange_compression::decompressor::decompressor(v102, v17, a8, 0);
+  memset(v103, 0, sizeof(v103));
   if (a5)
   {
-    v73 = 0;
-    v88 = 0;
-    v21 = (v96 - 1 + a4) >> v85;
-    v22 = (v96 - 1 + a5) >> v85;
-    v23 = (v21 * v22 * v81 + 127) & 0xFFFFFF80;
+    v72 = 0;
+    v87 = 0;
+    v21 = (v95 - 1 + a4) >> v84;
+    v22 = (v95 - 1 + a5) >> v84;
+    v23 = (v21 * v22 * v80 + 127) & 0xFFFFFF80;
     v24 = 32 - __clz(v22 - 1);
     if (v22 >= 2)
     {
@@ -2999,7 +2979,7 @@ interchange_compression::decompressor *interchange_decompress_plane(const unsign
       v26 = 0;
     }
 
-    v80 = &a2[v23];
+    v79 = &a2[v23];
     if (v26 >= v25)
     {
       v27 = v25;
@@ -3016,36 +2996,36 @@ interchange_compression::decompressor *interchange_decompress_plane(const unsign
       v28 = 3;
     }
 
-    v77 = v28;
-    v78 = 2 * v27;
-    v70 = &interchange_compression::memory_parameters[11 * v17];
-    v75 = (v27 + 1) & 0x7E;
-    v74 = vdupq_n_s64(v27 - 1);
+    v76 = v28;
+    v77 = 2 * v27;
+    v69 = &interchange_compression::memory_parameters[11 * v17];
+    v74 = (v27 + 1) & 0x7E;
+    v73 = vdupq_n_s64(v27 - 1);
     v29 = vdupq_n_s64(2uLL);
-    v72 = 1;
-    v76 = v29;
-    v79 = v27;
+    v71 = 1;
+    v75 = v29;
+    v78 = v27;
     do
     {
       if (a4)
       {
         v30 = 0;
-        v31 = v88 >> v85;
-        v84 = v31 * ((v96 - 1 + a4) >> v85);
-        v94 = ~(-1 << v70[7]);
-        v93 = v19[a8 + 8];
+        v31 = v87 >> v84;
+        v83 = v31 * ((v95 - 1 + a4) >> v84);
+        v93 = ~(-1 << v69[7]);
+        v92 = v19[a8 + 8];
         v32 = vdupq_n_s64(v31);
-        v34 = v72;
-        v33 = v73;
-        v83 = v32;
+        v34 = v71;
+        v33 = v72;
+        v82 = v32;
         do
         {
-          v35 = v30 >> v85;
+          v35 = v30 >> v84;
           if (v27)
           {
             v36 = vdupq_n_s64(v35);
             v37 = 0uLL;
-            v38 = v75;
+            v38 = v74;
             v39 = xmmword_2777AA680;
             do
             {
@@ -3060,7 +3040,7 @@ interchange_compression::decompressor *interchange_decompress_plane(const unsign
             }
 
             while (v38);
-            v45 = vbslq_s8(vcgtq_u64(v41, v74), v40, v37);
+            v45 = vbslq_s8(vcgtq_u64(v41, v73), v40, v37);
             v46 = vorr_s8(*v45.i8, *&vextq_s8(v45, v45, 8uLL));
           }
 
@@ -3070,31 +3050,31 @@ interchange_compression::decompressor *interchange_decompress_plane(const unsign
           }
 
           v47 = 0;
-          v48 = &a2[(v35 + v84) * v81];
-          v49 = &v80[(*&v46 | ((v35 | (v88 >> v85)) >> v27 << v78)) << v77];
-          v86 = v34;
-          v87 = v33;
-          v89 = v30;
+          v48 = &a2[((v35 + v83) * v80)];
+          v49 = &v79[(*&v46 | ((v35 | (v87 >> v84)) >> v27 << v77)) << v76];
+          v85 = v34;
+          v86 = v33;
+          v88 = v30;
           do
           {
             v50 = 0;
-            v92 = v47;
-            v51 = v88 + v47;
+            v91 = v47;
+            v51 = v87 + v47;
             v52 = v30;
-            v90 = v34;
-            v91 = v33;
+            v89 = v34;
+            v90 = v33;
             v53 = v33;
             do
             {
-              v99 = v53;
-              v100 = v50;
-              v101 = v49;
+              v98 = v53;
+              v99 = v50;
+              v100 = v49;
               v54 = v52;
               v55 = *v49;
-              v98 = v55 & 0xF0;
+              v97 = v55 & 0xF0;
               if (*v49)
               {
-                v56 = (v55 & v94) + 1;
+                v56 = (v55 & v93) + 1;
               }
 
               else
@@ -3102,13 +3082,13 @@ interchange_compression::decompressor *interchange_decompress_plane(const unsign
                 v56 = 0;
               }
 
-              v97 = v56;
-              v102 = v48;
-              result = interchange_compression::decompressor::decompress(v103, v48, v55, v104);
+              v96 = v56;
+              v101 = v48;
+              result = interchange_compression::decompressor::decompress(v102, v48, v55, v103);
               v57 = 0;
-              v58 = v99;
+              v58 = v98;
               v59 = v34;
-              v60 = &v104[0][0][1];
+              v60 = &v103[0][0][1];
               do
               {
                 v61 = 8;
@@ -3165,58 +3145,57 @@ interchange_compression::decompressor *interchange_decompress_plane(const unsign
               }
 
               while (v57 != 4);
-              if (v98 != 240 || a8 == 0)
+              if (v97 != 240 || a8 == 0)
               {
-                v68 = v97;
+                v68 = v96;
               }
 
               else
               {
-                v68 = v93;
+                v68 = v92;
               }
 
-              v48 = &v102[v68];
-              v49 = v101 + 1;
-              v50 = v100 + 8;
+              v48 = &v101[v68];
+              v49 = v100 + 1;
+              v50 = v99 + 8;
               v34 += 16;
-              v53 = v99 + 8;
+              v53 = v98 + 8;
               v52 = v54 + 8;
             }
 
-            while (v100 + 8 < v96);
-            v47 = v92 + 4;
-            v34 = v90 + 8 * a4;
-            v33 = v91 + 4 * a4;
-            v30 = v89;
+            while (v99 + 8 < v95);
+            v47 = v91 + 4;
+            v34 = v89 + 8 * a4;
+            v33 = v90 + 4 * a4;
+            v30 = v88;
           }
 
-          while (v92 + 4 < v96);
-          v30 = v89 + v96;
-          v34 = v86 + 2 * v96;
-          v33 = v87 + v96;
-          LODWORD(v27) = v79;
-          v29 = v76;
-          v32 = v83;
+          while (v91 + 4 < v95);
+          v30 = v88 + v95;
+          v34 = v85 + 2 * v95;
+          v33 = v86 + v95;
+          LODWORD(v27) = v78;
+          v29 = v75;
+          v32 = v82;
         }
 
-        while (v89 + v96 < a4);
+        while (v88 + v95 < a4);
       }
 
-      v72 += 2 * v96 * a4;
-      v73 += v96 * a4;
-      v88 += v96;
+      v71 += 2 * v95 * a4;
+      v72 += v95 * a4;
+      v87 += v95;
     }
 
-    while (v88 < a5);
+    while (v87 < a5);
   }
 
-  v69 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t interchange_compression::decompressor::decompress(interchange_compression::decompressor *this, const unsigned __int8 *a2, unsigned int a3, unsigned int (*a4)[4][8][4])
 {
-  v211 = *MEMORY[0x277D85DE8];
+  v215 = *MEMORY[0x277D85DE8];
   v8 = interchange_compression::memory_parameters[11 * *(this + 85) + 7];
   if ((*(this + 87) - 1) <= 2)
   {
@@ -3224,7 +3203,7 @@ uint64_t interchange_compression::decompressor::decompress(interchange_compressi
     v10 = *(this + 85);
     if (subblock_size > interchange_compression::lossy_parameters[28 * v10 + 8 + *(this + 87)] || subblock_size < interchange_compression::decompressor::get_subblock_size(this, LOBYTE(interchange_compression::memory_parameters[11 * v10 + 8])))
     {
-      goto LABEL_215;
+      goto LABEL_216;
     }
 
     if ((~a3 & 0xF0) == 0)
@@ -3234,122 +3213,124 @@ uint64_t interchange_compression::decompressor::decompress(interchange_compressi
       {
         v12 = 0;
         v13 = *(this + 85);
-        v173 = interchange_compression::lossy_parameters[28 * v13 + 8 + v11] >> 2;
-        v14 = vand_s8(vmovn_s32(vtstq_s32(vdupq_n_s32(a3), xmmword_2777AA6D0)), 0x1000100010001);
-        v188 = vuzp1_s8(v14, v14).u32[0];
-        v171 = a2;
-        v172 = a4;
+        v177 = interchange_compression::lossy_parameters[28 * v13 + 8 + v11] >> 2;
+        v14 = 0xFFFFFFFFLL;
+        v15 = vand_s8(vmovn_s32(vtstq_s32(vdupq_n_s32(a3), xmmword_2777AA6D0)), 0x1000100010001);
+        v192 = vuzp1_s8(v15, v15).u32[0];
+        v175 = a2;
+        v176 = a4;
         while (1)
         {
-          v15 = *(this + 87);
-          v16 = *(this + 88);
-          v17 = &a2[v12 * v173];
-          v187 = v16;
-          v174 = v12;
-          if (v189[v12 - 4] != 1)
+          v16 = *(this + 87);
+          v17 = *(this + 88);
+          v18 = &a2[v12 * v177];
+          v191 = v17;
+          v178 = v12;
+          if (v193[v12 - 4] != 1)
           {
             break;
           }
 
-          v18 = 0;
-          v19 = interchange_compression::lossy_parameters[28 * v13 + 8 + v15] >> 2;
-          v205 = &a2[v12 * v173];
-          v204 = v19;
-          v208 = 1;
-          v207 = 0;
-          v206 = 8 * v19;
-          v20 = &interchange_compression::format_table + 52 * v13;
-          v177 = v20 + 12;
-          v180 = *(v20 + 2);
-          v21 = v16 & 0xFFFFFFFE;
-          v175 = &interchange_compression::lossy_parameters[28 * v13 + 12 + 4 * v15];
-          v22 = v189;
+          v19 = 0;
+          v20 = interchange_compression::lossy_parameters[28 * v13 + 8 + v16] >> 2;
+          v209 = &a2[v12 * v177];
+          v208 = v20;
+          v212 = 1;
+          v211 = 0;
+          v210 = 8 * v20;
+          v21 = &interchange_compression::format_table + 52 * v13;
+          v181 = v21 + 12;
+          v184 = *(v21 + 2);
+          v22 = v17 & 0xFFFFFFFE;
+          v179 = &interchange_compression::lossy_parameters[28 * v13 + 12 + 4 * v16];
+          v23 = v193;
           do
           {
-            v184 = v18;
-            v24 = v175;
-            v23 = v177;
-            v182 = v22;
-            v25 = v180;
-            if (v180)
+            v188 = v19;
+            v25 = v179;
+            v24 = v181;
+            v186 = v23;
+            v26 = v184;
+            if (v184)
             {
               do
               {
-                v27 = *v24++;
-                v26 = v27;
-                v29 = *v23;
-                v23 += 4;
-                v28 = v29;
-                v30 = -1 << v29;
-                if (v29 == 32)
+                v28 = *v25++;
+                v27 = v28;
+                v30 = *v24;
+                v24 += 4;
+                v29 = v30;
+                v31 = -1 << v30;
+                if (v30 == 32)
                 {
-                  v31 = -1;
+                  v32 = -1;
                 }
 
                 else
                 {
-                  v31 = ~v30;
+                  v32 = ~v31;
                 }
 
-                v32 = 1 << (v28 - 1);
-                v33 = (bit_pack::unpack(v203, v28 - v26) << v26) & v31;
-                v35 = v21 != 2 || v33 != v32;
-                if (v33 >> v26 == v31 >> v26)
+                v33 = 1 << (v29 - 1);
+                v34 = (bit_pack::unpack(v207, v29 - v27) << v27) & v32;
+                v36 = v22 != 2 || v34 != v33;
+                if (v34 >> v27 == v32 >> v27)
                 {
-                  v36 = v31;
+                  v37 = v32;
                 }
 
                 else
                 {
-                  v36 = ((1 << (v26 - 1)) - ((v33 >> v26) & 1)) | v33;
+                  v37 = ((1 << (v27 - 1)) - ((v34 >> v27) & 1)) | v34;
                 }
 
-                if (!v35 || v33 == 0)
+                if (!v36 || v34 == 0)
                 {
-                  v38 = v33;
+                  v39 = v34;
                 }
 
                 else
                 {
-                  v38 = v36;
+                  v39 = v37;
                 }
 
-                if (!v26)
+                if (!v27)
                 {
-                  v38 = v33;
+                  v39 = v34;
                 }
 
-                if (v187 != 1)
+                if (v191 != 1)
                 {
-                  v33 = v38;
+                  v34 = v39;
                 }
 
-                if (v21 == 2)
+                if (v22 == 2)
                 {
-                  v39 = v32;
+                  v40 = v33;
                 }
 
                 else
                 {
-                  v39 = 0;
+                  v40 = 0;
                 }
 
-                *v22++ = v33 ^ v39;
-                v25 = (v25 - 1);
+                v14 = 0xFFFFFFFFLL;
+                *v23++ = v34 ^ v40;
+                v26 = (v26 - 1);
               }
 
-              while (v25);
+              while (v26);
             }
 
-            v18 = v184 + 1;
-            v22 = v182 + 4;
+            v19 = v188 + 1;
+            v23 = v186 + 4;
           }
 
-          while (v184 != 7);
-LABEL_175:
-          v134 = 0;
-          v135 = v189;
-          a2 = v171;
+          while (v188 != 7);
+LABEL_176:
+          v139 = 0;
+          v140 = v193;
+          a2 = v175;
           do
           {
             if (*(this + 85) == 27)
@@ -3359,440 +3340,442 @@ LABEL_175:
 
             else
             {
-              v136 = 0;
-              v137 = vdupq_n_s32(v134 + 8 * v174);
-              v138.i64[0] = 0x100000001;
-              v138.i64[1] = 0x100000001;
-              v139 = vshlq_u32(vandq_s8(vshlq_u32(v137, xmmword_2777AA6A0), v138), xmmword_2777AA6B0);
-              v140 = vshlq_u32(vandq_s8(vshlq_u32(v137, xmmword_2777AA6C0), v138), xmmword_2777AA6B0);
-              v141 = (*v172)[(vorr_s8(*v140.i8, *&vextq_s8(v140, v140, 8uLL)).u32[0] | v140.i32[1])][vorr_s8(*v139.i8, *&vextq_s8(v139, v139, 8uLL)).u32[0] | v139.i32[1]];
+              v141 = 0;
+              v142 = vdupq_n_s32(v139 + 8 * v178);
+              v143.i64[0] = 0x100000001;
+              v143.i64[1] = 0x100000001;
+              v144 = vshlq_u32(vandq_s8(vshlq_u32(v142, xmmword_2777AA6A0), v143), xmmword_2777AA6B0);
+              v145 = vshlq_u32(vandq_s8(vshlq_u32(v142, xmmword_2777AA6C0), v143), xmmword_2777AA6B0);
+              v146 = (*v176)[(vorr_s8(*v145.i8, *&vextq_s8(v145, v145, 8uLL)).u32[0] | v145.i32[1])][vorr_s8(*v144.i8, *&vextq_s8(v144, v144, 8uLL)).u32[0] | v144.i32[1]];
               do
               {
-                v141[v136] = *&v135[4 * v136];
-                ++v136;
+                v146[v141] = *&v140[4 * v141];
+                ++v141;
                 v13 = *(this + 85);
               }
 
-              while (v136 < *(&interchange_compression::format_table + 13 * v13 + 2));
+              while (v141 < *(&interchange_compression::format_table + 13 * v13 + 2));
             }
 
-            ++v134;
-            v135 += 16;
+            ++v139;
+            v140 += 16;
           }
 
-          while (v134 != 8);
-          v12 = v174 + 1;
-          if (v174 == 3)
+          while (v139 != 8);
+          v12 = v178 + 1;
+          if (v178 == 3)
           {
-            goto LABEL_205;
+            return 1;
           }
         }
 
-        v40 = (&interchange_compression::format_table + 52 * v13);
-        v41 = v40[2];
-        v178 = v40;
-        v181 = v41;
-        v42 = (v40 + 3);
-        v170 = *(this + 87);
-        LODWORD(v40) = interchange_compression::lossy_parameters[28 * v13 + 8 + v15];
-        v205 = v17;
-        LODWORD(v40) = 2 * v40;
-        v204 = (v40 >> 3) & 0x7FFFFFF;
-        v208 = 1;
-        v207 = 0;
-        v183 = v40;
-        v206 = v40 & 0x3FFFFFF8;
-        v176 = v42;
-        if (!v41)
+        v41 = (&interchange_compression::format_table + 52 * v13);
+        v42 = v41[2];
+        v182 = v41;
+        v185 = v42;
+        v43 = (v41 + 3);
+        v174 = *(this + 87);
+        LODWORD(v41) = interchange_compression::lossy_parameters[28 * v13 + 8 + v16];
+        v209 = v18;
+        LODWORD(v41) = 2 * v41;
+        v208 = (v41 >> 3) & 0x7FFFFFF;
+        v212 = 1;
+        v211 = 0;
+        v187 = v41;
+        v210 = v41 & 0x3FFFFFF8;
+        v180 = v43;
+        if (!v42)
         {
-          v185 = 0;
+          v189 = 0;
 LABEL_84:
-          *v200 = 0;
+          *v204 = 0;
+          v205 = 0;
+          memset(v203, 0, sizeof(v203));
+          v202[0] = interchange_compression::get_id(v182[3], v14);
+          v202[1] = interchange_compression::get_id(v182[4], v68);
+          v202[2] = interchange_compression::get_id(v182[5], v69);
+          v202[3] = interchange_compression::get_id(v182[6], v70);
+          interchange_compression::derive_sharing(v185, v202, v214, v204, v203, v71);
+          v200 = 0;
           v201 = 0;
-          memset(v199, 0, sizeof(v199));
-          v198[0] = interchange_compression::get_id(v178[3]);
-          v198[1] = interchange_compression::get_id(v178[4]);
-          v198[2] = interchange_compression::get_id(v178[5]);
-          v198[3] = interchange_compression::get_id(v178[6]);
-          interchange_compression::derive_sharing(v181, v198, v210, v200, v199, v67);
-          v196 = 0;
-          v197 = 0;
-          v194 = 0;
-          v195 = 0;
-          if (v181)
+          v198 = 0;
+          v199 = 0;
+          if (v185)
           {
-            v68 = 0;
+            v73 = 0;
             do
             {
-              v69 = *&v176[v68];
-              id = interchange_compression::get_id(v69);
-              v71 = v210[v68 / 4];
-              v72 = &interchange_compression::dq_consts[160 * id + 10 * v71];
-              v73 = interchange_compression::dq_lossy_level[3 * id + v170 - 1];
-              v74 = v72[5];
-              *(&v196 + v68) = v73 + v72[4];
-              *(&v194 + v68) = v74 + v73;
-              interchange_compression::adjust_level(id, v71, v200[v68 / 4], v199[v68 / 4], (&v196 + v68), (&v194 + v68), v75);
-              v76 = *(&v196 + v68);
-              if (v69 < v76)
+              v74 = *&v180[v73];
+              id = interchange_compression::get_id(v74, v72);
+              v76 = v214[v73 / 4];
+              v77 = &interchange_compression::dq_consts[160 * id + 10 * v76];
+              v78 = interchange_compression::dq_lossy_level[3 * id + v174 - 1];
+              v79 = v77[5];
+              *(&v200 + v73) = v78 + v77[4];
+              *(&v198 + v73) = v79 + v78;
+              interchange_compression::adjust_level(id, v76, v204[v73 / 4], v203[v73 / 4], (&v200 + v73), (&v198 + v73), v80);
+              v81 = *(&v200 + v73);
+              if (v74 < v81)
               {
-                v76 = v69;
+                v81 = v74;
               }
 
-              *(&v196 + v68) = v76;
-              if (v74)
+              *(&v200 + v73) = v81;
+              if (v79)
               {
-                v77 = v69;
+                v82 = v74;
               }
 
               else
               {
-                v77 = 0;
+                v82 = 0;
               }
 
-              if (v77 >= *(&v194 + v68))
+              if (v82 >= *(&v198 + v73))
               {
-                v77 = *(&v194 + v68);
+                v82 = *(&v198 + v73);
               }
 
-              *(&v194 + v68) = v77;
-              v68 += 4;
+              *(&v198 + v73) = v82;
+              v73 += 4;
             }
 
-            while (4 * v181 != v68);
+            while (4 * v185 != v73);
           }
 
-          if (v13 == 19 && v210[3] == 1 && v199[3] - HIDWORD(v201) <= 1)
+          if (v13 == 19 && v214[3] == 1 && v203[3] - HIDWORD(v205) <= 1)
           {
-            v196 = 0;
-            v197 = 0;
-            v194 = 0;
+            v200 = 0;
+            v201 = 0;
+            v198 = 0;
+            v199 = 0;
+          }
+
+          v197[0] = 0;
+          v197[1] = 0;
+          v83 = v185;
+          v84 = v189;
+          if (v185)
+          {
+            v85 = v197;
+            v86 = v213;
+            v87 = &v200;
+            v88 = v214;
+            v89 = v180;
+            do
+            {
+              v90 = *v88++;
+              if (v90 || (*v89 - 8) > 4)
+              {
+                v91 = *v87;
+                *v85 = bit_pack::unpack(v207, *v87) << (*v89 - v91);
+                v84 += v91;
+              }
+
+              else
+              {
+                *v85 = *v86;
+              }
+
+              ++v85;
+              ++v86;
+              v89 += 4;
+              ++v87;
+              --v83;
+            }
+
+            while (v83);
             v195 = 0;
-          }
-
-          v193[0] = 0;
-          v193[1] = 0;
-          v78 = v181;
-          v79 = v185;
-          if (v181)
-          {
-            v80 = v193;
-            v81 = v209;
-            v82 = &v196;
-            v83 = v210;
-            v84 = v176;
+            v196 = 0;
+            v92 = &v195;
+            v93 = &v198;
+            v94 = v185;
+            v95 = v187;
             do
             {
-              v85 = *v83++;
-              if (v85 || (*v84 - 8) > 4)
+              v96 = *v93;
+              v93 = (v93 + 4);
+              if (v96)
               {
-                v86 = *v82;
-                *v80 = bit_pack::unpack(v203, *v82) << (*v84 - v86);
-                v79 += v86;
+                v97 = bit_pack::get(v207, v211, 3u);
+                v211 += 3;
+                *v92 = v97;
+                v84 += 3;
               }
 
-              else
-              {
-                *v80 = *v81;
-              }
-
-              ++v80;
-              ++v81;
-              v84 += 4;
-              ++v82;
-              --v78;
+              v92 = (v92 + 4);
+              --v94;
             }
 
-            while (v78);
-            v191 = 0;
-            v192 = 0;
-            v87 = &v191;
-            v88 = &v194;
-            v89 = v181;
-            v90 = v183;
-            do
-            {
-              v91 = *v88;
-              v88 = (v88 + 4);
-              if (v91)
-              {
-                v92 = bit_pack::get(v203, v207, 3u);
-                v207 += 3;
-                *v87 = v92;
-                v79 += 3;
-              }
-
-              v87 = (v87 + 4);
-              --v89;
-            }
-
-            while (v89);
+            while (v94);
           }
 
           else
           {
-            v191 = 0;
-            v192 = 0;
-            v90 = v183;
+            v195 = 0;
+            v196 = 0;
+            v95 = v187;
           }
 
-          v93 = (v90 & 0x3FFFFFFE) - v79;
-          v94 = v93 / 7;
-          v95 = v207 + v93 - 7 * (v93 / 7);
-          v207 = v95;
-          v96 = v206;
-          if (v95 > v206)
+          v98 = (v95 & 0x3FFFFFFE) - v84;
+          v99 = v98 / 7;
+          v100 = v211 + v98 - 7 * (v98 / 7);
+          v211 = v100;
+          v101 = v210;
+          if (v100 > v210)
           {
             interchange_compression::decompressor::decompress();
           }
 
-          v97 = 0;
-          v98 = v190;
-          memset(v190, 0, sizeof(v190));
-          v99 = v181;
-          v100 = v94;
+          v102 = 0;
+          v103 = v194;
+          memset(v194, 0, sizeof(v194));
+          v104 = v185;
+          v105 = v99;
           do
           {
-            v101 = 0;
-            if (v99)
+            v106 = 0;
+            if (v104)
             {
-              v102 = &v194;
-              v103 = v98;
+              v107 = &v198;
+              v108 = v103;
               do
               {
-                v105 = *v102++;
-                v104 = v105;
-                if (v105)
+                v110 = *v107++;
+                v109 = v110;
+                if (v110)
                 {
-                  *v103 = bit_pack::unpack(v203, v104);
-                  v101 += v104;
+                  *v108 = bit_pack::unpack(v207, v109);
+                  v106 += v109;
                 }
 
-                v103 += 7;
-                --v99;
+                v108 += 7;
+                --v104;
               }
 
-              while (v99);
-              if (v101 > v100)
+              while (v104);
+              if (v106 > v105)
               {
                 interchange_compression::decompressor::decompress();
               }
 
-              v95 = v207;
-              v96 = v206;
-              v99 = v181;
+              v100 = v211;
+              v101 = v210;
+              v104 = v185;
             }
 
-            v95 += v100 - v101;
-            v207 = v95;
-            if (v95 > v96)
+            v100 += v105 - v106;
+            v211 = v100;
+            if (v100 > v101)
             {
               interchange_compression::decompressor::decompress();
             }
 
-            ++v97;
-            ++v98;
+            ++v102;
+            ++v103;
           }
 
-          while (v97 != 7);
-          if (v99)
+          while (v102 != 7);
+          if (v104)
           {
-            v106 = 0;
-            v107 = v189;
+            v111 = 0;
+            v112 = v193;
             do
             {
-              v108 = *&v176[4 * v106];
-              v109 = interchange_compression::get_id(v108);
-              v110 = 0;
-              v111 = 0;
-              v112 = *&interchange_compression::dq_consts[160 * v109 + 2 + 10 * v210[v106]];
-              v113 = *(&v194 + v106);
-              v114 = v112 >> v113;
-              if (v112 >> v113 <= 1)
+              v113 = *&v180[4 * v111];
+              v114 = interchange_compression::get_id(v113, v72);
+              v115 = 0;
+              v116 = 0;
+              v117 = *&interchange_compression::dq_consts[160 * v114 + 2 + 10 * v214[v111]];
+              v118 = *(&v198 + v111);
+              v119 = v117 >> v118;
+              if (v117 >> v118 <= 1)
               {
-                v114 = 1;
+                v119 = 1;
               }
 
-              if (v114 >> 1 >= (1 << (v108 - *(&v196 + v106))) >> 1)
+              if (v119 >> 1 >= (1 << (v113 - *(&v200 + v111))) >> 1)
               {
-                v115 = (1 << (v108 - *(&v196 + v106))) >> 1;
-              }
-
-              else
-              {
-                v115 = v114 >> 1;
-              }
-
-              v116 = *(v193 + v106);
-              v117 = (1 << (v108 - 1));
-              v118 = ~(-1 << v113);
-              v119 = v112 + v116;
-              v120 = 1 << v108;
-              if (!v116)
-              {
-                v115 = 0;
-              }
-
-              if (v108 == 16)
-              {
-                v121 = 31744;
+                v120 = (1 << (v113 - *(&v200 + v111))) >> 1;
               }
 
               else
               {
-                v121 = 2139095040;
+                v120 = v119 >> 1;
               }
 
-              if (v108 == 16)
+              v121 = *(v197 + v111);
+              v122 = (1 << (v113 - 1));
+              v123 = ~(-1 << v118);
+              v124 = v117 + v121;
+              v125 = 1 << v113;
+              v72 = (1 << v113) - 1;
+              if (!v121)
               {
-                v122 = 64512;
+                v120 = 0;
+              }
+
+              if (v113 == 16)
+              {
+                v126 = 31744;
               }
 
               else
               {
-                v122 = 4286578688;
+                v126 = 2139095040;
               }
 
-              if (v108 == 16)
+              if (v113 == 16)
               {
-                v123 = 32256;
+                v127 = 64512;
               }
 
               else
               {
-                v123 = 2143289344;
+                v127 = 4286578688;
               }
 
-              v124 = 4290772992;
-              if (v108 == 16)
+              if (v113 == 16)
               {
-                v124 = 65024;
+                v128 = 32256;
               }
 
-              v186 = v124;
-              v179 = v107;
-              v125 = v107;
+              else
+              {
+                v128 = 2143289344;
+              }
+
+              v129 = 4290772992;
+              if (v113 == 16)
+              {
+                v129 = 65024;
+              }
+
+              v190 = v129;
+              v183 = v112;
+              v130 = v112;
               do
               {
-                if (v113)
+                if (v118)
                 {
-                  if (v110 == *(&v191 + v106))
+                  if (v115 == *(&v195 + v111))
                   {
-                    v126 = v115;
-                    v127 = v116 == v117;
+                    v131 = v120;
+                    v132 = v121 == v122;
                   }
 
                   else
                   {
-                    v128 = v190[7 * v106 + v111];
-                    v127 = (v117 - v116) / v114 == v128;
-                    if (v128 > v118)
+                    v133 = v194[7 * v111 + v116];
+                    v132 = (v122 - v121) / v119 == v133;
+                    if (v133 > v123)
                     {
                       interchange_compression::decompressor::decompress();
                     }
 
-                    if (v128 | v116)
+                    if (v133 | v121)
                     {
-                      if (v119 < v120 || (v126 = v120 - 1, v128 != v118))
+                      if (v124 < v125 || (v131 = v125 - 1, v133 != v123))
                       {
-                        v126 = (v114 >> 1) + v114 * v128;
+                        v131 = (v119 >> 1) + v119 * v133;
                       }
                     }
 
                     else
                     {
-                      v126 = 0;
+                      v131 = 0;
                     }
 
-                    ++v111;
+                    ++v116;
                   }
                 }
 
                 else
                 {
-                  v126 = 0;
-                  v127 = v114 > v117 - v116;
+                  v131 = 0;
+                  v132 = v119 > v122 - v121;
                 }
 
-                v129 = v126 + v116;
-                v130 = v129;
-                if (v187 == 1)
+                v134 = v131 + v121;
+                v135 = v134;
+                if (v191 == 1)
                 {
-                  if (v129 < v121 || (v130 = (v121 - 1), v129 >= v123))
+                  if (v134 < v126 || (v135 = (v126 - 1), v134 >= v128))
                   {
-                    if (v129 < v123 || (v130 = v117, v129 >= v117))
+                    if (v134 < v128 || (v135 = v122, v134 >= v122))
                     {
-                      if (v129 < v186 && v129 >= v122)
+                      if (v134 < v190 && v134 >= v127)
                       {
-                        v130 = (v122 - 1);
+                        v135 = (v127 - 1);
                       }
 
                       else
                       {
-                        v130 = v129;
+                        v135 = v134;
                       }
                     }
                   }
                 }
 
-                if (v130 >= v120)
+                if (v135 >= v125)
                 {
-                  v132 = v120 - 1;
+                  v137 = v125 - 1;
                 }
 
                 else
                 {
-                  v132 = v130;
+                  v137 = v135;
                 }
 
-                if (v127)
+                if (v132)
                 {
-                  v133 = 0;
+                  v138 = 0;
                 }
 
                 else
                 {
-                  v133 = v132 ^ v117;
+                  v138 = v137 ^ v122;
                 }
 
-                if ((v187 & 0xFFFFFFFE) != 2)
+                if ((v191 & 0xFFFFFFFE) != 2)
                 {
-                  v133 = v132;
+                  v138 = v137;
                 }
 
-                *v125 = v133;
-                v125 += 4;
-                ++v110;
+                *v130 = v138;
+                v130 += 4;
+                ++v115;
               }
 
-              while (v110 != 8);
-              ++v106;
-              v107 = v179 + 4;
+              while (v115 != 8);
+              ++v111;
+              v112 = v183 + 4;
             }
 
-            while (v106 != v181);
+            while (v111 != v185);
           }
 
-          goto LABEL_175;
+          v14 = 0xFFFFFFFFLL;
+          goto LABEL_176;
         }
 
-        v43 = 0;
-        v44 = v202;
-        v45 = v42;
+        v44 = 0;
+        v45 = v206;
+        v46 = v43;
         do
         {
-          v47 = *v45;
-          v45 += 4;
-          v46 = v47;
-          if (v47 == 2)
+          v48 = *v46;
+          v46 += 4;
+          v47 = v48;
+          if (v48 == 2)
           {
-            v48 = 1;
+            v49 = 1;
           }
 
-          else if ((v46 - 8) >= 5)
+          else if ((v47 - 8) >= 5)
           {
-            v48 = 4;
-            if (v46 != 16 && v46 != 32)
+            v49 = 4;
+            if (v47 != 16 && v47 != 32)
             {
               interchange_compression::decompressor::decompress();
             }
@@ -3800,119 +3783,119 @@ LABEL_84:
 
           else
           {
-            v48 = 3;
+            v49 = 3;
           }
 
-          *v44++ = bit_pack::unpack(v203, v48);
-          v43 += v48;
-          --v41;
+          *v45++ = bit_pack::unpack(v207, v49);
+          v44 += v49;
+          --v42;
         }
 
-        while (v41);
-        v185 = v43;
-        v49 = 0;
-        v50 = v210;
-        v51 = v209;
-        v52 = v202;
-        v53 = v42;
-        v54 = v181;
+        while (v42);
+        v189 = v44;
+        v50 = 0;
+        v51 = v214;
+        v52 = v213;
+        v53 = v206;
+        v54 = v43;
+        v55 = v185;
         while (1)
         {
-          v56 = *v53++;
-          v55 = v56;
-          if (v56 == 2)
+          v57 = *v54++;
+          v56 = v57;
+          if (v57 == 2)
           {
-            v57 = *v52;
-            *v51 = 0;
-            v58 = v57 & 1;
-            v59 = v50;
+            v58 = *v53;
+            *v52 = 0;
+            v59 = v58 & 1;
+            v60 = v51;
           }
 
           else
           {
-            v60 = v55 - 8 < 5 || v55 == 16;
-            if (!v60 && v55 != 32)
+            v61 = v56 - 8 < 5 || v56 == 16;
+            if (!v61 && v56 != 32)
             {
               interchange_compression::decompressor::decompress();
             }
 
-            v61 = *v52;
-            if (((v55 & 0xFFFFFFFD) == 8 || v55 == 12) && v61 == 0)
+            v62 = *v53;
+            if (((v56 & 0xFFFFFFFD) == 8 || v56 == 12) && v62 == 0)
             {
-              v64 = bit_pack::get(v203, v207, 2u);
-              v207 += 2;
-              v185 += 2;
-              *v51 = 0;
-              v58 = v64 & 3;
-              v65 = v51;
-              v59 = v50;
+              v65 = bit_pack::get(v207, v211, 2u);
+              v211 += 2;
+              v189 += 2;
+              *v52 = 0;
+              v59 = v65 & 3;
+              v66 = v52;
+              v60 = v51;
             }
 
             else
             {
-              v59 = &v210[v49];
-              *v51 = 0;
-              if (v55 >= 0x10)
+              v60 = &v214[v50];
+              *v52 = 0;
+              if (v56 >= 0x10)
               {
-                v58 = v61 & 0xF;
+                v59 = v62 & 0xF;
                 goto LABEL_50;
               }
 
-              v58 = 0;
-              v65 = &v209[v49];
+              v59 = 0;
+              v66 = &v213[v50];
             }
 
-            v66 = v61 & 7;
-            *v59 = v66;
-            if ((v55 & 0xD) == 8)
+            v67 = v62 & 7;
+            *v60 = v67;
+            if ((v56 & 0xD) == 8)
             {
-              if ((v61 & 7) != 0)
+              if ((v62 & 7) != 0)
               {
-                v58 = v66 + 2;
+                v59 = v67 + 2;
               }
 
               else
               {
-                if (v58 > 1)
+                if (v59 > 1)
                 {
-                  if (v58 == 2)
+                  if (v59 == 2)
                   {
-                    v58 = 1;
+                    v59 = 1;
                   }
 
                   else
                   {
-                    v58 = 2;
+                    v59 = 2;
                   }
 
                   goto LABEL_50;
                 }
 
-                if (!v58)
+                if (!v59)
                 {
 LABEL_79:
-                  *v65 = 0;
+                  *v66 = 0;
                   goto LABEL_50;
                 }
 
-                v58 = 0;
-                *v65 = ~(-1 << v55);
+                v59 = 0;
+                *v66 = ~(-1 << v56);
               }
             }
 
             else
             {
-              if (v55 != 12)
+              if (v56 != 12)
               {
                 goto LABEL_51;
               }
 
-              if ((v61 & 7) != 0)
+              if ((v62 & 7) != 0)
               {
-                v58 = v66 + 3;
+                v59 = v67 + 3;
               }
 
-              else if (!v58)
+              else if (!v59)
               {
                 goto LABEL_79;
               }
@@ -3920,13 +3903,13 @@ LABEL_79:
           }
 
 LABEL_50:
-          *v59 = v58;
+          *v60 = v59;
 LABEL_51:
-          ++v49;
           ++v50;
           ++v51;
           ++v52;
-          if (!--v54)
+          ++v53;
+          if (!--v55)
           {
             goto LABEL_84;
           }
@@ -3935,127 +3918,127 @@ LABEL_51:
     }
   }
 
-  v142 = *(this + 85);
-  v143 = &interchange_compression::memory_parameters[11 * v142];
-  if (v143[8] == a3)
+  v147 = *(this + 85);
+  v148 = &interchange_compression::memory_parameters[11 * v147];
+  if (v148[8] == a3)
   {
-    v144 = (a3 & ~(-1 << v143[7])) + 1;
-    v205 = a2;
-    v204 = v144 << (v142 == 26);
-    v208 = 1;
-    v207 = 0;
-    v206 = 8 * v204;
-    if (v142 == 27)
+    v149 = (a3 & ~(-1 << v148[7])) + 1;
+    v209 = a2;
+    v208 = v149 << (v147 == 26);
+    v212 = 1;
+    v211 = 0;
+    v210 = 8 * v208;
+    if (v147 == 27)
     {
-      v145 = 27;
+      v150 = 27;
     }
 
     else
     {
-      v154 = 0;
+      v159 = 0;
       do
       {
-        (*a4)[0][0][v154] = bit_pack::unpack(v203, *(&interchange_compression::format_table + 13 * v142 + v154 + 3));
-        ++v154;
-        v142 = *(this + 85);
+        (*a4)[0][0][v159] = bit_pack::unpack(v207, *(&interchange_compression::format_table + 13 * v147 + v159 + 3));
+        ++v159;
+        v147 = *(this + 85);
       }
 
-      while (v154 < *(&interchange_compression::format_table + 13 * v142 + 2));
-      v145 = *(this + 85);
+      while (v159 < *(&interchange_compression::format_table + 13 * v147 + 2));
+      v150 = *(this + 85);
     }
 
-    v155 = 0;
+    v160 = 0;
     for (i = 0; i != 4; ++i)
     {
-      v157 = 0;
-      v158 = v155;
+      v162 = 0;
+      v163 = v160;
       do
       {
-        if (v145 == 27)
+        if (v150 == 27)
         {
-          v145 = 27;
+          v150 = 27;
         }
 
         else
         {
-          v159 = 0;
-          v160 = a4;
+          v164 = 0;
+          v165 = a4;
           do
           {
-            *((*v160)[0][0] + v158) = *v160;
-            ++v159;
-            v145 = *(this + 85);
-            v160 = (v160 + 4);
+            *((*v165)[0][0] + v163) = *v165;
+            ++v164;
+            v150 = *(this + 85);
+            v165 = (v165 + 4);
           }
 
-          while (v159 < *(&interchange_compression::format_table + 13 * v145 + 2));
+          while (v164 < *(&interchange_compression::format_table + 13 * v150 + 2));
         }
 
-        ++v157;
-        v158 += 16;
+        ++v162;
+        v163 += 16;
       }
 
-      while (v157 != 8);
-      v155 += 128;
+      while (v162 != 8);
+      v160 += 128;
     }
 
-    goto LABEL_205;
+    return 1;
   }
 
-  if (v143[9] == a3)
+  if (v148[9] == a3)
   {
-    v146 = 0;
-    v147 = interchange_compression::memory_parameters[11 * v142 + 5];
-    v205 = a2;
-    v204 = v147;
-    v208 = 1;
-    v207 = 0;
-    v206 = 8 * v147;
+    v151 = 0;
+    v152 = interchange_compression::memory_parameters[11 * v147 + 5];
+    v209 = a2;
+    v208 = v152;
+    v212 = 1;
+    v211 = 0;
+    v210 = 8 * v152;
     do
     {
-      if (v142 != 27)
+      if (v147 != 27)
       {
-        v148 = 0;
-        v149 = vdupq_n_s32(v146);
-        v150.i64[0] = 0x100000001;
-        v150.i64[1] = 0x100000001;
-        v151 = vshlq_u32(vandq_s8(vshlq_u32(v149, xmmword_2777AA6C0), v150), xmmword_2777AA6B0);
-        v152 = vshlq_u32(vandq_s8(vshlq_u32(v149, xmmword_2777AA6A0), v150), xmmword_2777AA6B0);
-        v153 = (*a4)[(vorr_s8(*v151.i8, *&vextq_s8(v151, v151, 8uLL)).u32[0] | v151.i32[1])][vorr_s8(*v152.i8, *&vextq_s8(v152, v152, 8uLL)).u32[0] | v152.i32[1]];
+        v153 = 0;
+        v154 = vdupq_n_s32(v151);
+        v155.i64[0] = 0x100000001;
+        v155.i64[1] = 0x100000001;
+        v156 = vshlq_u32(vandq_s8(vshlq_u32(v154, xmmword_2777AA6C0), v155), xmmword_2777AA6B0);
+        v157 = vshlq_u32(vandq_s8(vshlq_u32(v154, xmmword_2777AA6A0), v155), xmmword_2777AA6B0);
+        v158 = (*a4)[(vorr_s8(*v156.i8, *&vextq_s8(v156, v156, 8uLL)).u32[0] | v156.i32[1])][vorr_s8(*v157.i8, *&vextq_s8(v157, v157, 8uLL)).u32[0] | v157.i32[1]];
         do
         {
-          v153[v148] = bit_pack::unpack(v203, *(&interchange_compression::format_table + 13 * v142 + v148 + 3));
-          ++v148;
-          v142 = *(this + 85);
+          v158[v153] = bit_pack::unpack(v207, *(&interchange_compression::format_table + 13 * v147 + v153 + 3));
+          ++v153;
+          v147 = *(this + 85);
         }
 
-        while (v148 < *(&interchange_compression::format_table + 13 * v142 + 2));
+        while (v153 < *(&interchange_compression::format_table + 13 * v147 + 2));
       }
 
-      ++v146;
+      ++v151;
     }
 
-    while (v146 != 32);
+    while (v151 != 32);
     if (*(this + 87))
     {
       interchange_compression::decompressor::decompress();
     }
 
-    goto LABEL_205;
+    return 1;
   }
 
-  if (v143[10] == a3)
+  if (v148[10] == a3)
   {
     for (j = 0; j != 32; ++j)
     {
-      v163 = vdupq_n_s32(j);
-      v164.i64[0] = 0x100000001;
-      v164.i64[1] = 0x100000001;
-      v165 = vshlq_u32(vandq_s8(vshlq_u32(v163, xmmword_2777AA6C0), v164), xmmword_2777AA6B0);
-      v166 = vshlq_u32(vandq_s8(vshlq_u32(v163, xmmword_2777AA6A0), v164), xmmword_2777AA6B0);
-      interchange_compression::format_info::unpack_pixel((&interchange_compression::format_table + 52 * v142), a2, (*a4)[(vorr_s8(*v165.i8, *&vextq_s8(v165, v165, 8uLL)).u32[0] | v165.i32[1])][vorr_s8(*v166.i8, *&vextq_s8(v166, v166, 8uLL)).u32[0] | v166.i32[1]]);
-      v142 = *(this + 85);
-      a2 += *(&interchange_compression::format_table + 13 * v142 + 1);
+      v168 = vdupq_n_s32(j);
+      v169.i64[0] = 0x100000001;
+      v169.i64[1] = 0x100000001;
+      v170 = vshlq_u32(vandq_s8(vshlq_u32(v168, xmmword_2777AA6C0), v169), xmmword_2777AA6B0);
+      v171 = vshlq_u32(vandq_s8(vshlq_u32(v168, xmmword_2777AA6A0), v169), xmmword_2777AA6B0);
+      interchange_compression::format_info::unpack_pixel((&interchange_compression::format_table + 52 * v147), a2, (*a4)[(vorr_s8(*v170.i8, *&vextq_s8(v170, v170, 8uLL)).u32[0] | v170.i32[1])][vorr_s8(*v171.i8, *&vextq_s8(v171, v171, 8uLL)).u32[0] | v171.i32[1]]);
+      v147 = *(this + 85);
+      a2 += *(&interchange_compression::format_table + 13 * v147 + 1);
     }
 
     if (*(this + 87))
@@ -4063,36 +4046,31 @@ LABEL_51:
       interchange_compression::decompressor::decompress();
     }
 
-    goto LABEL_205;
+    return 1;
   }
 
-  v167 = ((a3 & ~(-1 << v8)) + 1) << (v142 == 26);
-  v168 = interchange_compression::memory_parameters[11 * v142 + 5];
-  v205 = a2;
-  if (v168 >= v167)
+  v172 = ((a3 & ~(-1 << v8)) + 1) << (v147 == 26);
+  v173 = interchange_compression::memory_parameters[11 * v147 + 5];
+  v209 = a2;
+  if (v173 >= v172)
   {
-    v168 = v167;
+    v173 = v172;
   }
 
-  v204 = v168;
-  v208 = 1;
-  v207 = 0;
-  v206 = 8 * v168;
-  if (!interchange_compression::decompressor::unpack_header(this, a2, a3, v203))
+  v208 = v173;
+  v212 = 1;
+  v211 = 0;
+  v210 = 8 * v173;
+  if (interchange_compression::decompressor::unpack_header(this, a2, a3, v207))
   {
-LABEL_215:
-    interchange_compression::decompressor::fill_subblock_error_color(this, a4);
-    result = 0;
-    goto LABEL_216;
+    interchange_compression::decompressor::decompress_pixels(this, a2, a3, v207, a4);
+    interchange_compression::decompressor::decorrelate(this, a4);
+    return 1;
   }
 
-  interchange_compression::decompressor::decompress_pixels(this, a2, a3, v203, a4);
-  interchange_compression::decompressor::decorrelate(this, a4);
-LABEL_205:
-  result = 1;
 LABEL_216:
-  v169 = *MEMORY[0x277D85DE8];
-  return result;
+  interchange_compression::decompressor::fill_subblock_error_color(this, a4);
+  return 0;
 }
 
 interchange_compression::compressor *interchange_compression::compressor::compressor(interchange_compression::compressor *this, unsigned int a2, int a3, interchange_compression *a4, unsigned int a5)
@@ -4326,26 +4304,26 @@ LABEL_15:
   return result;
 }
 
-uint64_t interchange_compression::compressor::compute_smallest_predictor(interchange_compression::compressor *this, unsigned int a2, unsigned int a3, unsigned int a4)
+uint64_t interchange_compression::compressor::compute_smallest_predictor(interchange_compression::compressor *this, int a2, unsigned int a3, unsigned int a4)
 {
   v8 = 0;
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  v25 = *MEMORY[0x277D85DE8];
-  v23[0] = 0;
-  v23[1] = 0;
-  v24 = 0;
-  v21 = this + 1060 * a2;
-  v22 = a2;
+  v24 = *MEMORY[0x277D85DE8];
+  v22[0] = 0;
+  v22[1] = 0;
+  v23 = 0;
+  v20 = this + 1060 * a2;
+  v21 = a2;
   do
   {
     if (interchange_compression::compressor::valid_predictor(this, v9, a2, a3, a4))
     {
-      v12 = &v21[v8];
-      interchange_compression::predictor_profile::process(&v21[v8], v8 == 424);
+      v12 = &v20[v8];
+      interchange_compression::predictor_profile::process(&v20[v8], v8 == 424);
       v13 = vmaxv_u16(vmovn_s32(vtstq_s32(*(v12 + 180), *(v12 + 180)))) & 1;
-      v14 = *(&interchange_compression::format_table + 13 * *(this + 1150) + v22 + 3);
+      v14 = *(&interchange_compression::format_table + 13 * *(this + 1150) + v21 + 3);
       if (v14 == 32)
       {
         v15 = 2;
@@ -4368,8 +4346,8 @@ uint64_t interchange_compression::compressor::compute_smallest_predictor(interch
       }
 
       v18 = v17 + 2 * (v8 == 424) * (v14 >> 1) + 4 * v16 + vaddvq_s32(vmulq_s32(*(v12 + 196), xmmword_2777AA690));
-      *(v23 + v9) = v18;
-      if ((v11 & 1) == 0 || *(v23 + v10) > v18)
+      *(v22 + v9) = v18;
+      if ((v11 & 1) == 0 || *(v22 + v10) > v18)
       {
         v10 = v9;
       }
@@ -4387,7 +4365,6 @@ uint64_t interchange_compression::compressor::compute_smallest_predictor(interch
     interchange_compression::compressor::compute_smallest_predictor();
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -4564,7 +4541,7 @@ uint64_t interchange_compression::compressor::create_header(interchange_compress
 
 void interchange_compression::compressor::pack_pixels(interchange_compression::compressor *this, const unsigned int (*a2)[4][8][4], unsigned __int32 a3, unsigned __int32 a4, unsigned __int8 *a5, unsigned int *a6, unsigned int *a7)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v8 = *(this + 1150);
   if (*(this + 4652) == 1)
   {
@@ -4583,10 +4560,10 @@ void interchange_compression::compressor::pack_pixels(interchange_compression::c
   v11 = &interchange_compression::memory_parameters[11 * *(this + 1150)];
   v13 = v11[9];
   v12 = v11[10];
-  v35 = a5;
-  v34 = v10;
+  v34 = a5;
+  v33 = v10;
+  v35 = 0;
   v36 = 0;
-  v37 = 0;
   bzero(a5, v10);
   for (i = 0; i != 32; ++i)
   {
@@ -4619,13 +4596,13 @@ void interchange_compression::compressor::pack_pixels(interchange_compression::c
 
         if (v12 == v13 || *(this + 4652) != 1)
         {
-          bit_pack::pack(v33, v27, v26[13 * v14 + 3]);
+          bit_pack::pack(v32, v27, v26[13 * v14 + 3]);
           v14 = *(this + 1150);
         }
 
         else
         {
-          bit_pack::pack(v33, v27 << (v26[13 * v14 + 7] - v16), v26[13 * v14 + 3] - v16 + v26[13 * v14 + 7]);
+          bit_pack::pack(v32, v27 << (v26[13 * v14 + 7] - v16), v26[13 * v14 + 3] - v16 + v26[13 * v14 + 7]);
           v14 = *(this + 1150);
           v16 = v26[13 * v14 + 7] + v26[13 * v14 + 3];
         }
@@ -4638,8 +4615,6 @@ void interchange_compression::compressor::pack_pixels(interchange_compression::c
       while (v15 < *(&interchange_compression::format_table + 13 * v14 + 2));
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void *interchange_compression::format_info::pack_pixel(interchange_compression::format_info *this, unsigned __int8 *__dst, unsigned int *a3)
@@ -4664,9 +4639,7 @@ void *interchange_compression::format_info::pack_pixel(interchange_compression::
     while (v3);
   }
 
-  result = memcpy(__dst, __src, *(this + 1));
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return memcpy(__dst, __src, *(this + 1));
 }
 
 void *bit_pack::pack(bit_pack *this, int a2, int a3)
@@ -4801,7 +4774,7 @@ char *interchange_compression::compressor::pack_deltas(char *this, bit_pack *a2,
     }
 
     v33 = v10;
-    v11 = *(v7 + 4600);
+    v11 = *(v7 + 1150);
     v31 = v8;
     v12 = 8 * v8;
     do
@@ -4853,7 +4826,7 @@ char *interchange_compression::compressor::pack_deltas(char *this, bit_pack *a2,
 
           else
           {
-            v22 = *(v17 + 212 * v21 + 172);
+            v22 = *&v17[212 * v21 + 172];
           }
 
           v23 = vdupq_n_s32(v18 + v12);
@@ -4870,12 +4843,12 @@ char *interchange_compression::compressor::pack_deltas(char *this, bit_pack *a2,
 
           else
           {
-            v30 = *(v17 + 32 * v28 + 212 * v21 + 4 * v27 + 4) + v22;
+            v30 = *&v17[212 * v21 + 4 + 32 * v28 + 4 * v27] + v22;
           }
 
           this = bit_pack::pack(a2, v30, *&v14[212 * v21 + 196]);
           ++v13;
-          v11 = *(v7 + 4600);
+          v11 = *(v7 + 1150);
           v14 += 1060;
           v17 += 1060;
         }
@@ -5349,7 +5322,7 @@ _DWORD *interchange_compression::header::field_container::set_signed(_DWORD *thi
   return this;
 }
 
-uint64_t interchange_compression::get_id(interchange_compression *this)
+uint64_t interchange_compression::get_id(interchange_compression *this, uint64_t a2)
 {
   if (this <= 11)
   {
@@ -5379,12 +5352,12 @@ uint64_t interchange_compression::get_id(interchange_compression *this)
 
   if (this == 2)
   {
-    v1 = 5;
+    v2 = 5;
   }
 
   else
   {
-    v1 = 6;
+    v2 = 6;
   }
 
   if ((this | 2) != 2)
@@ -5392,7 +5365,7 @@ uint64_t interchange_compression::get_id(interchange_compression *this)
     interchange_compression::get_id(this);
   }
 
-  return v1;
+  return v2;
 }
 
 uint64_t interchange_compression::derive_sharing(uint64_t this, uint64_t a2, unsigned int *a3, unsigned int *a4, int (*a5)[4], int (*a6)[4])
@@ -5613,11 +5586,11 @@ uint64_t interchange_compression::adjust_level(uint64_t this, int a2, int a3, in
   v7 = a4 - a3;
   if (a4 - a3 < 0)
   {
-    v8 = &interchange_compression::dq_consts + 640 * this + 40 * a2;
-    if (*(v8 + 7) < a3 - a4)
+    v8 = &interchange_compression::dq_consts[160 * this + 10 * a2];
+    if (v8[7] < a3 - a4)
     {
       --*a6;
-      if (!*(v8 + 8))
+      if (!v8[8])
       {
         v7 = -1;
         goto LABEL_4;
@@ -5635,7 +5608,7 @@ LABEL_4:
   return this;
 }
 
-uint64_t interchange_compression::encode_mode(uint64_t this, unsigned int a2, int a3, int *a4, unsigned int *a5, unsigned int *a6, unsigned int *a7, unsigned int *a8)
+uint64_t interchange_compression::encode_mode(uint64_t this, uint64_t a2, int a3, int *a4, unsigned int *a5, unsigned int *a6, unsigned int *a7, unsigned int *a8)
 {
   *a5 = 0;
   *a7 = 0;
@@ -5858,7 +5831,6 @@ void *interchange_compression::format_info::unpack_pixel(interchange_compression
     while (v6 < *(this + 2));
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6101,18 +6073,18 @@ uint64_t interchange_compression::decompressor::decompress_pixels(uint64_t this,
 {
   v5 = 0;
   v6 = 0;
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   v7 = this + 4;
-  v79 = (this + 12);
-  v84 = a5;
-  v90 = this;
+  v78 = (this + 12);
+  v83 = a5;
+  v89 = this;
   do
   {
     v8 = 0;
-    v78 = v5;
-    v88 = v5 >> 2 << 6;
-    v81 = (*a5)[2 * (v6 & 1)] + v88;
-    v83 = 4 * (v5 >> 2);
+    v77 = v5;
+    v87 = v5 >> 2 << 6;
+    v80 = (*a5)[2 * (v6 & 1)] + v87;
+    v82 = 4 * (v5 >> 2);
     if (interchange_compression::NUM_PIXELS_REGION[v6] <= 1u)
     {
       v9 = 1;
@@ -6125,7 +6097,7 @@ uint64_t interchange_compression::decompressor::decompress_pixels(uint64_t this,
 
     v10 = *(this + 340);
     v11 = v10;
-    v87 = v9;
+    v86 = v9;
     do
     {
       if (v11 == 27)
@@ -6137,10 +6109,10 @@ uint64_t interchange_compression::decompressor::decompress_pixels(uint64_t this,
       {
         v13 = 0;
         v12 = v8 + 1;
-        v14 = v91;
-        v15 = v79;
+        v14 = v90;
+        v15 = v78;
         v16 = &unk_2777ABEA4;
-        v17 = v79;
+        v17 = v78;
         do
         {
           v18 = *v17;
@@ -6237,29 +6209,29 @@ uint64_t interchange_compression::decompressor::decompress_pixels(uint64_t this,
           v32 = vshlq_u32(vandq_s8(vshlq_u32(v29, xmmword_2777AA6A0), v30), xmmword_2777AA6B0);
           *&v14[64 * (vorr_s8(*v31.i8, *&vextq_s8(v31, v31, 8uLL)).u32[0] | v31.i32[1]) + 16 * (vorr_s8(*v32.i8, *&vextq_s8(v32, v32, 8uLL)).u32[0] | v32.i32[1])] = v27 << -v22 >> -v22;
           ++v13;
-          v11 = *(v90 + 340);
+          v11 = *(v89 + 340);
           ++v16;
           v14 += 4;
           v15 = v17;
         }
 
         while (v13 < *(&interchange_compression::format_table + 13 * v11 + 2));
-        v10 = *(v90 + 340);
-        a5 = v84;
-        this = v90;
-        v9 = v87;
+        v10 = *(v89 + 340);
+        a5 = v83;
+        this = v89;
+        v9 = v86;
       }
 
       v8 = v12;
     }
 
     while (v12 != v9);
-    v33 = v88;
+    v33 = v87;
     if (v10 != 27)
     {
       v34 = 0;
       v35 = (2 * v6) & 2;
-      v80 = v91;
+      v79 = v90;
       do
       {
         if (!*(v7 + 12 * v34 + 8))
@@ -6359,15 +6331,15 @@ uint64_t interchange_compression::decompressor::decompress_pixels(uint64_t this,
         {
           v61 = 0;
           v62 = 0;
-          v82 = v60;
+          v81 = v60;
           v63 = -v52;
-          v85 = v52 | v35;
-          v64 = &v80[64 * v52];
+          v84 = v52 | v35;
+          v64 = &v79[64 * v52];
           v65 = v6 & 1 ^ v52 ^ 1;
-          v66 = &v81[128 * v52];
+          v66 = &v80[128 * v52];
           v67 = v65 | v35;
           v68 = 3;
-          v86 = &v91[64 * v65];
+          v85 = &v90[64 * v65];
           do
           {
             if (v63 != v35 || v33 + v61)
@@ -6423,10 +6395,10 @@ uint64_t interchange_compression::decompressor::decompress_pixels(uint64_t this,
                     interchange_compression::compressor::compute_deltas();
                   }
 
-                  v72 = *v54 - v70 + *&v64[v61] + ((*(v59 + 4) << -(v71 >> 1)) >> -(v71 >> 1)) * v85 + ((*(v58 + 4) << -(v71 >> 1)) >> -(v71 >> 1)) * (v83 + v62);
-                  v33 = v88;
-                  this = v90;
-                  a5 = v84;
+                  v72 = *v54 - v70 + *&v64[v61] + ((*(v59 + 4) << -(v71 >> 1)) >> -(v71 >> 1)) * v84 + ((*(v58 + 4) << -(v71 >> 1)) >> -(v71 >> 1)) * (v82 + v62);
+                  v33 = v87;
+                  this = v89;
+                  a5 = v83;
 LABEL_79:
                   v73 = ((v72 & ~(-1 << v71)) << -v71) >> -v71;
                 }
@@ -6474,8 +6446,8 @@ LABEL_79:
               }
 
               v76 = v75 | (2 * v6) & 4;
-              v33 = v88;
-              (*a5)[v67][v76][v36] = ((((*a5)[dword_2777AC448[16 * v67 + 1 + 2 * v76]][dword_2777AC448[16 * v67 + 2 * v76]][v36] - v70 + *&v86[16 * v75 + 4 * v36]) & ~(-1 << v74)) << -v74) >> -v74;
+              v33 = v87;
+              (*a5)[v67][v76][v36] = ((((*a5)[dword_2777AC448[16 * v67 + 1 + 2 * v76]][dword_2777AC448[16 * v67 + 2 * v76]][v36] - v70 + *&v85[16 * v75 + 4 * v36]) & ~(-1 << v74)) << -v74) >> -v74;
             }
 
 LABEL_87:
@@ -6489,22 +6461,21 @@ LABEL_87:
           v52 = 1;
         }
 
-        while ((v82 & 1) != 0);
+        while ((v81 & 1) != 0);
         v34 = v36 + 1;
         v10 = *(this + 340);
+        v79 += 4;
         v80 += 4;
-        v81 += 4;
       }
 
       while ((v36 + 1) < *(&interchange_compression::format_table + 13 * v10 + 2));
     }
 
     ++v6;
-    v5 = v78 + 2;
+    v5 = v77 + 2;
   }
 
   while (v6 != 4);
-  v77 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -6939,22 +6910,21 @@ uint64_t BitstreamReader::getBits(BitstreamReader *this, int a2)
 
 BOOL checkPlatformForProResRAWSupport(void)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  memset(v3, 0, sizeof(v3));
-  v2 = 128;
-  sysctlbyname("hw.targettype", v3, &v2, 0, 0);
-  if (v2 < 3)
+  v3 = *MEMORY[0x277D85DE8];
+  memset(v2, 0, sizeof(v2));
+  v1 = 128;
+  sysctlbyname("hw.targettype", v2, &v1, 0, 0);
+  if (v1 < 3)
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  if (LODWORD(v2[0]) == 3355990)
   {
-    result = LODWORD(v3[0]) == 3355990 || LODWORD(v3[0]) == 3421526;
+    return 1;
   }
 
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return LODWORD(v2[0]) == 3421526;
 }
 
 uint64_t AppleProResHW_CheckPlatform(void)
@@ -7238,17 +7208,17 @@ LABEL_62:
   return result;
 }
 
-uint64_t GetCompressedFrameSize(int a1, unsigned int a2, float a3, float a4, unsigned int *a5, unsigned int *a6, int a7)
+uint64_t GetCompressedFrameSize(int a1, unsigned int a2, float a3, float a4, unsigned int *a5, unsigned int *a6, int a7, uint64_t a8)
 {
   MaxCompressionSizeExcludingAlpha = GetMaxCompressionSizeExcludingAlpha(a1, a2, a3, a7);
   if (MaxCompressionSizeExcludingAlpha)
   {
     if (a5 && a6)
     {
-      v11 = 0;
-      v12 = 8 * MaxCompressionSizeExcludingAlpha / 9u;
-      *a6 = v12;
-      *a5 = (v12 * a4);
+      v12 = 0;
+      v13 = 8 * MaxCompressionSizeExcludingAlpha / 9u;
+      *a6 = v13;
+      *a5 = (v13 * a4);
     }
 
     else if (a5)
@@ -7260,7 +7230,7 @@ uint64_t GetCompressedFrameSize(int a1, unsigned int a2, float a3, float a4, uns
 
       else
       {
-        v11 = 3758097090;
+        v12 = 3758097090;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           GetCompressedFrameSize();
@@ -7270,7 +7240,7 @@ uint64_t GetCompressedFrameSize(int a1, unsigned int a2, float a3, float a4, uns
 
     else
     {
-      v11 = 3758097090;
+      v12 = 3758097090;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         GetCompressedFrameSize();
@@ -7288,7 +7258,7 @@ uint64_t GetCompressedFrameSize(int a1, unsigned int a2, float a3, float a4, uns
     return 4294954396;
   }
 
-  return v11;
+  return v12;
 }
 
 void setDataForProperty(__CFDictionary *a1, const __CFString *a2, UInt8 *bytes, CFIndex length)
@@ -7299,51 +7269,51 @@ void setDataForProperty(__CFDictionary *a1, const __CFString *a2, UInt8 *bytes, 
   CFRelease(v6);
 }
 
-uint64_t GetEmptySpotInFrameInfoArray(uint64_t a1)
+uint64_t GetEmptySpotInFrameInfoArray(uint64_t a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = *(a1 + 8);
-  v4 = *(a1 + 12);
+  v3 = *a1;
+  v4 = *(a1 + 8);
+  v5 = *(a1 + 12);
   pthread_mutex_lock(*(a1 + 24));
-  v5 = v3 % v4;
-  v6 = &v2[800 * v5];
-  if (*v6 == 1)
+  v6 = v4 % v5;
+  v7 = &v3[800 * v6];
+  if (*v7 == 1)
   {
-    v7 = 0;
-    v8 = *(a1 + 16);
-    *v8 = 0;
-    if (v4 <= 1)
+    v8 = 0;
+    v9 = *(a1 + 16);
+    *v9 = 0;
+    if (v5 <= 1)
     {
-      v9 = 1;
+      v10 = 1;
     }
 
     else
     {
-      v9 = v4;
+      v10 = v5;
     }
 
-    v5 = (v9 - 1);
-    v6 = v2;
+    v6 = (v10 - 1);
+    v7 = v3;
     do
     {
-      if ((*v6 & 1) == 0)
+      if ((*v7 & 1) == 0)
       {
-        *v8 = 1;
-        v5 = v7;
+        *v9 = 1;
+        v6 = v8;
         goto LABEL_14;
       }
 
-      ++v7;
-      v6 += 800;
+      ++v8;
+      v7 += 800;
     }
 
-    while (v9 != v7);
-    gettimeofday(&v13, 0);
-    v14.tv_sec = v13.tv_sec + 5;
-    v14.tv_nsec = 1000 * v13.tv_usec;
+    while (v10 != v8);
+    gettimeofday(&v14, 0);
+    v15.tv_sec = v14.tv_sec + 5;
+    v15.tv_nsec = 1000 * v14.tv_usec;
     while (**(a1 + 16) != 1)
     {
-      if (pthread_cond_timedwait(*(a1 + 32), *(a1 + 24), &v14) == 60)
+      if (pthread_cond_timedwait(*(a1 + 32), *(a1 + 24), &v15) == 60)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
@@ -7354,24 +7324,24 @@ uint64_t GetEmptySpotInFrameInfoArray(uint64_t a1)
       }
     }
 
-    v10 = 0;
-    v11 = &v2[800 * v5];
-    while (*v2 == 1)
+    v11 = 0;
+    v12 = &v3[800 * v6];
+    while (*v3 == 1)
     {
-      ++v10;
-      v2 += 800;
-      if (v9 == v10)
+      ++v11;
+      v3 += 800;
+      if (v10 == v11)
       {
-        v2 = v11;
+        v3 = v12;
         goto LABEL_21;
       }
     }
 
-    v5 = v10;
-    LODWORD(v9) = v10;
+    v6 = v11;
+    LODWORD(v10) = v11;
 LABEL_21:
-    v6 = v2;
-    if (v9 == v4)
+    v7 = v3;
+    if (v10 == v5)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
@@ -7382,23 +7352,23 @@ LABEL_21:
     }
 
 LABEL_14:
-    if (v5 != -1)
+    if (v6 != -1)
     {
       goto LABEL_15;
     }
 
 LABEL_24:
-    v5 = 0xFFFFFFFFLL;
+    v6 = 0xFFFFFFFFLL;
   }
 
   else
   {
 LABEL_15:
-    *v6 = 1;
+    *v7 = 1;
   }
 
   pthread_mutex_unlock(*(a1 + 24));
-  return v5;
+  return v6;
 }
 
 vImage_Error swizzle64BGRAtoRGBA(unsigned __int16 *a1, unsigned int a2, unsigned int a3, unsigned int a4)
@@ -7435,7 +7405,7 @@ uint64_t convert32BGRAtoRGB(uint64_t result, int a2, int a3, unsigned int a4)
   return result;
 }
 
-uint64_t numSlicesPerRow(unsigned int a1, int a2)
+uint64_t numSlicesPerRow(unsigned int a1, unsigned int a2)
 {
   v2 = 0;
   do
@@ -8735,47 +8705,45 @@ LABEL_296:
 
 uint64_t openUserClient(io_service_t a1, io_connect_t *connect, uint32_t a3, int a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = IOServiceOpen(a1, *MEMORY[0x277D85F48], a3, connect);
   if (v5 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v8[0] = 67109634;
-    v8[1] = a4;
-    v9 = 2080;
-    v10 = "openUserClient";
-    v11 = 1024;
-    v12 = v5;
-    _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): IOServiceOpen returned 0x%08x\n", v8, 0x18u);
+    v7[0] = 67109634;
+    v7[1] = a4;
+    v8 = 2080;
+    v9 = "openUserClient";
+    v10 = 1024;
+    v11 = v5;
+    _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): IOServiceOpen returned 0x%08x\n", v7, 0x18u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 void closeUserClient(io_connect_t a1, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = IOServiceClose(a1);
   if (v3)
   {
     v4 = v3;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v6[0] = 67109634;
-      v6[1] = a2;
-      v7 = 2080;
-      v8 = "closeUserClient";
-      v9 = 1024;
-      v10 = v4;
-      _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): IOServiceClose returned 0x%08x\n\n", v6, 0x18u);
+      v5[0] = 67109634;
+      v5[1] = a2;
+      v6 = 2080;
+      v7 = "closeUserClient";
+      v8 = 1024;
+      v9 = v4;
+      _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): IOServiceClose returned 0x%08x\n\n", v5, 0x18u);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t createConnection(uint32_t a1, io_connect_t *a2, int a3)
+uint64_t createConnection(uint32_t a1, io_connect_t *a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = IOServiceMatching("AppleProResHW");
   if (!v6)
   {
@@ -8799,7 +8767,7 @@ uint64_t createConnection(uint32_t a1, io_connect_t *a2, int a3)
   }
 
   v8 = MatchingService;
-  v9 = openUserClient(MatchingService, a2, a1, a3);
+  v9 = openUserClient(MatchingService, a2, a1, v3);
   if (v9 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     createConnection();
@@ -8825,9 +8793,10 @@ _DWORD *APR_ImgFmt_4CC(int a1)
   return result;
 }
 
-uint64_t checkFrameHeader(unsigned __int16 *a1, char a2, int a3, int a4)
+uint64_t checkFrameHeader(unsigned __int16 *a1, char a2, int a3, uint64_t a4)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v4 = a4;
+  v48 = *MEMORY[0x277D85DE8];
   if ((a3 & 0xFFFFFFFD) != 1)
   {
     if ((a3 & 0xFFFFFFFD) != 0)
@@ -8837,8 +8806,7 @@ uint64_t checkFrameHeader(unsigned __int16 *a1, char a2, int a3, int a4)
         checkFrameHeader();
       }
 
-      v6 = 4294954394;
-      goto LABEL_99;
+      return 4294954394;
     }
 
     v6 = 3758097084;
@@ -8849,18 +8817,18 @@ uint64_t checkFrameHeader(unsigned __int16 *a1, char a2, int a3, int a4)
         checkFrameHeader();
       }
 
-      goto LABEL_99;
+      return v6;
     }
 
     if ((a2 & 1) == 0 && !*(a1 + 19) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v31 = 67109634;
-      v32 = a4;
-      v33 = 1024;
-      v34 = 2602;
-      v35 = 2080;
-      v36 = "checkFrameHeader";
-      _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): No encoded alpha, assuming the frame is opaque\n", &v31, 0x18u);
+      v30 = 67109634;
+      v31 = v4;
+      v32 = 1024;
+      v33 = 2602;
+      v34 = 2080;
+      v35 = "checkFrameHeader";
+      _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): No encoded alpha, assuming the frame is opaque\n", &v30, 0x18u);
     }
 
     v7 = *(a1 + 3);
@@ -8887,7 +8855,7 @@ uint64_t checkFrameHeader(unsigned __int16 *a1, char a2, int a3, int a4)
           checkFrameHeader();
         }
 
-        goto LABEL_99;
+        return v6;
       }
 
       v9 = 0;
@@ -8993,7 +8961,7 @@ LABEL_54:
                       checkFrameHeader();
                     }
 
-                    goto LABEL_99;
+                    return v6;
                   }
                 }
 
@@ -9024,7 +8992,7 @@ LABEL_54:
                       checkFrameHeader();
                     }
 
-                    goto LABEL_99;
+                    return v6;
                   }
                 }
 
@@ -9057,7 +9025,7 @@ LABEL_54:
               *(a1 + 67) = *(a1 + 35);
             }
 
-            v6 = v9;
+            return v9;
           }
 
           else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -9065,7 +9033,7 @@ LABEL_54:
             checkFrameHeader();
           }
 
-          goto LABEL_99;
+          return v6;
         }
 
 LABEL_51:
@@ -9074,7 +9042,7 @@ LABEL_51:
           checkFrameHeader();
         }
 
-        goto LABEL_99;
+        return v6;
       }
     }
 
@@ -9094,7 +9062,7 @@ LABEL_51:
       checkFrameHeader();
     }
 
-    goto LABEL_99;
+    return v6;
   }
 
   v10 = *(a1 + 3);
@@ -9106,7 +9074,7 @@ LABEL_51:
       checkFrameHeader();
     }
 
-    goto LABEL_99;
+    return v6;
   }
 
   v11 = a1[4];
@@ -9115,7 +9083,7 @@ LABEL_51:
     v6 = 3758097084;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      checkFrameHeader(v11, a1);
+      checkFrameHeader();
     }
   }
 
@@ -9136,7 +9104,7 @@ LABEL_51:
             checkFrameHeader();
           }
 
-          goto LABEL_99;
+          return v6;
         }
       }
 
@@ -9148,7 +9116,7 @@ LABEL_51:
           checkFrameHeader();
         }
 
-        goto LABEL_99;
+        return v6;
       }
 
       if (a1[9])
@@ -9157,7 +9125,7 @@ LABEL_51:
         {
           if (*(a1 + 71) - 64 > 0xFFFFFFC0)
           {
-            v6 = 0;
+            return 0;
           }
 
           else
@@ -9189,7 +9157,7 @@ LABEL_51:
         }
       }
 
-      goto LABEL_99;
+      return v6;
     }
 
     v6 = 3758097084;
@@ -9197,34 +9165,32 @@ LABEL_51:
     {
       v27 = *(a1 + 14);
       v28 = *(a1 + 15);
-      v31 = 67111170;
-      v32 = a4;
-      v33 = 1024;
-      v34 = 2786;
-      v35 = 2080;
-      v36 = "checkFrameHeader";
-      v37 = 1024;
-      v38 = v13;
-      v39 = 1024;
-      v40 = v14;
-      v41 = 1024;
-      v42 = v27;
-      v43 = 1024;
-      v44 = v28;
-      v45 = 1024;
-      v46 = v11;
-      v47 = 1024;
-      v48 = v12;
-      _os_log_error_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "ERROR AppleProResHW (0x%x): %d: %s(): Invalid default_crop_left %d, default_crop_right %d, default_crop_top %d, or default_crop_bottom %d, %d, %d\n", &v31, 0x3Cu);
+      v30 = 67111170;
+      v31 = v4;
+      v32 = 1024;
+      v33 = 2786;
+      v34 = 2080;
+      v35 = "checkFrameHeader";
+      v36 = 1024;
+      v37 = v13;
+      v38 = 1024;
+      v39 = v14;
+      v40 = 1024;
+      v41 = v27;
+      v42 = 1024;
+      v43 = v28;
+      v44 = 1024;
+      v45 = v11;
+      v46 = 1024;
+      v47 = v12;
+      _os_log_error_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "ERROR AppleProResHW (0x%x): %d: %s(): Invalid default_crop_left %d, default_crop_right %d, default_crop_top %d, or default_crop_bottom %d, %d, %d\n", &v30, 0x3Cu);
     }
   }
 
-LABEL_99:
-  v29 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-uint64_t parseFrameHeader(uint64_t a1, unsigned __int16 *a2, char a3, int a4, int a5)
+uint64_t parseFrameHeader(uint64_t a1, unsigned __int16 *a2, char a3, int a4, uint64_t a5)
 {
   v5 = __rev16(*a2);
   *a1 = v5;
@@ -9362,28 +9328,27 @@ uint64_t parseFrameHeader(uint64_t a1, unsigned __int16 *a2, char a3, int a4, in
   return checkFrameHeader(a1, a3, a4, a5);
 }
 
-uint64_t createEncodeStatsBuffers(int a1, uint64_t a2, void *a3, int a4)
+uint64_t createEncodeStatsBuffers(int a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
 {
   if ((a4 - 1634755432) <= 0xB && ((1 << (a4 - 104)) & 0x8C1) != 0)
   {
-    v5 = 56;
+    v6 = 56;
     goto LABEL_9;
   }
 
   if (a4 == 1634743416 || a4 == 1634743400)
   {
-    v5 = 80;
+    v6 = 80;
 LABEL_9:
-    if (*(a2 + 20) == ((60 * a1 + 127) & 0xFFFFFF80) + ((2 * a1 + 127) & 0xFFFFFF80) + ((48 * a1 + 127) & 0xFFFFFF80) + ((v5 * a1 + 127) & 0xFFFFFF80))
+    if (*(a2 + 20) == ((60 * a1 + 127) & 0xFFFFFF80) + ((2 * a1 + 127) & 0xFFFFFF80) + ((48 * a1 + 127) & 0xFFFFFF80) + ((v6 * a1 + 127) & 0xFFFFFF80))
     {
       return 0;
     }
 
     if (*a3)
     {
-      v7 = *MEMORY[0x277CBECE8];
       CVDataBufferPoolCreateDataBuffer();
-      v6 = 3758097085;
+      v7 = 3758097085;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         createEncodeStatsBuffers();
@@ -9393,26 +9358,26 @@ LABEL_9:
     else
     {
       CVDataBufferPoolCreate();
-      v6 = 3758097085;
+      v7 = 3758097085;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         createEncodeStatsBuffers();
       }
     }
 
-    return v6;
+    return v7;
   }
 
-  v6 = 3758097090;
+  v7 = 3758097090;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     createEncodeStatsBuffers();
   }
 
-  return v6;
+  return v7;
 }
 
-_BYTE *getRtMpeStr@<X0>(int a1@<W0>, int a2@<W1>, int a3@<W2>, _BYTE *a4@<X8>)
+void *getRtMpeStr@<X0>(int a1@<W0>, int a2@<W1>, int a3@<W2>, void *a4@<X8>)
 {
   if (a1)
   {
@@ -9476,7 +9441,7 @@ _BYTE *getRtMpeStr@<X0>(int a1@<W0>, int a2@<W1>, int a3@<W2>, _BYTE *a4@<X8>)
   return std::string::basic_string[abi:ne200100]<0>(a4, v10);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -9490,13 +9455,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -9551,10 +9516,10 @@ void freeEncodeStatsBuffers(uint64_t a1, CFTypeRef cf)
 
 void printCodecType(int a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   __p[0] = 0;
   __p[1] = 0;
-  v7 = 0;
+  v6 = 0;
   if (a1 <= 1634755438)
   {
     if (a1 > 1634755431)
@@ -9624,21 +9589,19 @@ LABEL_22:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 67109634;
-    v9 = a2;
-    v10 = 2080;
-    v11 = "printCodecType";
-    v12 = 1024;
-    v13 = a1;
+    v8 = a2;
+    v9 = 2080;
+    v10 = "printCodecType";
+    v11 = 1024;
+    v12 = a1;
     _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): Unsupported CodecType: 0x%x\n", buf, 0x18u);
   }
 
 LABEL_23:
-  if (SHIBYTE(v7) < 0)
+  if (SHIBYTE(v6) < 0)
   {
     operator delete(__p[0]);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void sub_27778C96C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -9666,514 +9629,510 @@ uint64_t decodeSlice(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = MEMORY[0x28223BE20](a1, a2, a3);
   v9 = v6;
-  v106 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   v10 = *result;
   *(*(v5 + 32) + v6) = *(result + 1);
   v11 = bswap32(*(result + 2)) >> 16;
   if (v7 == 1)
   {
     *(*(v5 + 328) + 2 * v6) = (GAMMA[*(*(v5 + 32) + v6)] * v11) >> 10;
+    return result;
   }
 
-  else
+  v12 = result;
+  v13 = *(v5 + 24);
+  v14 = v6 % v13;
+  if ((v7 & 0xFFFFFFFE) == 2)
   {
-    v12 = result;
-    v13 = *(v5 + 24);
-    v14 = v6 % v13;
-    if ((v7 & 0xFFFFFFFE) == 2)
+    if ((v6 / v13 + v14))
     {
-      if ((v6 / v13 + v14))
-      {
-        goto LABEL_58;
-      }
-
-      if (v7 == 3 && *(*(v5 + 32) + v6) <= v8)
-      {
-        *(*(v5 + 320) + v6) = 0;
-        *(*(v5 + 312) + v6) = 0;
-        *(*(v5 + 304) + v6) = 0;
-        goto LABEL_58;
-      }
+      return result;
     }
 
-    v89 = v4;
-    v90 = v7 & 0xFFFFFFFE;
-    v91 = v6 % v13;
-    v92 = v6 / v13;
-    v15 = v10 >> 3;
-    v16 = *(v5 + v14 + 48);
-    v93 = v5;
-    v94 = *(v5 + 8);
-    bzero(v105, v16 << 9);
-    result = BitstreamReader::initialize(&v97, (v12 + v15), v11);
-    v17 = v97;
-    if (HIDWORD(v97))
+    if (v7 == 3 && *(*(v5 + 32) + v6) <= v8)
     {
-      v39 = v99;
-      v95 = v100;
-      v102 = 0;
+      *(*(v5 + 320) + v6) = 0;
+      *(*(v5 + 312) + v6) = 0;
+      *(*(v5 + 304) + v6) = 0;
+      return result;
+    }
+  }
+
+  v88 = v4;
+  v89 = v7 & 0xFFFFFFFE;
+  v90 = v6 % v13;
+  v91 = v6 / v13;
+  v15 = v10 >> 3;
+  v16 = *(v5 + v14 + 48);
+  v92 = v5;
+  v93 = *(v5 + 8);
+  bzero(v104, v16 << 9);
+  result = BitstreamReader::initialize(&v96, (v12 + v15), v11);
+  v17 = v96;
+  if (HIDWORD(v96))
+  {
+    v39 = v98;
+    v94 = v99;
+    v101 = 0;
+    v102 = 0;
+    v40 = v97;
+    v103 = 0;
+    result = RiceExpComboCode<unsigned int>::decodeUnsigned(&v103, &v101, HIDWORD(v96), EntropyCode::firstDcCodeBook);
+    v95 = v93 + 2;
+    v41 = -(v103 & 1) ^ (v103 >> 1);
+    v42 = v17 << v101;
+    v43 = v40 - v101;
+    if (v43 < 0)
+    {
+      if (v39 >= v94)
+      {
+        if (v39 >= v100)
+        {
+          v45 = 0;
+        }
+
+        else
+        {
+          v45 = 0;
+          v51 = 24;
+          v52 = v39;
+          do
+          {
+            v53 = *v52;
+            v52 = (v52 + 1);
+            v45 |= v53 << v51;
+            v51 -= 8;
+          }
+
+          while (v52 != v100);
+          v39 = v100;
+        }
+      }
+
+      else
+      {
+        v44 = *v39++;
+        v45 = bswap32(v44);
+      }
+
+      v42 |= v45 << -v43;
+      v43 += 32;
+    }
+
+    v104[0] = -(v103 & 1) ^ (v103 >> 1);
+    v54 = 1;
+    v55 = v104;
+    v56 = 3;
+    while (HIDWORD(v42))
+    {
+      v57 = v56;
+      if ((v56 & 0x8000u) != 0)
+      {
+        v57 = -v56;
+      }
+
+      if (v57 >= 3)
+      {
+        v57 = 3;
+      }
+
+      v58 = EntropyCode::levelDifferenceCodeBook[v57];
       v103 = 0;
-      v40 = v98;
-      v104 = 0;
-      result = RiceExpComboCode<unsigned int>::decodeUnsigned(&v104, &v102, HIDWORD(v97), EntropyCode::firstDcCodeBook);
-      v96 = v94 + 2;
-      v41 = -(v104 & 1) ^ (v104 >> 1);
-      v42 = v17 << v102;
-      v43 = v40 - v102;
+      result = RiceExpComboCode<unsigned int>::decodeUnsigned(&v103, &v101, HIDWORD(v42), v58);
+      v59 = (v56 >> 15) & 1;
+      if (v59)
+      {
+        v60 = -v103;
+      }
+
+      else
+      {
+        v60 = v103;
+      }
+
+      v42 <<= v101;
+      v43 -= v101;
       if (v43 < 0)
       {
-        if (v39 >= v95)
+        if (v39 >= v94)
         {
-          if (v39 >= v101)
+          if (v39 >= v100)
           {
-            v45 = 0;
+            v62 = 0;
           }
 
           else
           {
-            v45 = 0;
-            v52 = 24;
-            v53 = v39;
+            v62 = 0;
+            v63 = v100 - v39;
+            v64 = 24;
             do
             {
-              v54 = *v53;
-              v53 = (v53 + 1);
-              v45 |= v54 << v52;
-              v52 -= 8;
+              v65 = *v39;
+              v39 = (v39 + 1);
+              v62 |= v65 << v64;
+              v64 -= 8;
+              --v63;
             }
 
-            while (v53 != v101);
-            v39 = v101;
+            while (v63);
+            v39 = v100;
           }
         }
 
         else
         {
-          v44 = *v39++;
-          v45 = bswap32(v44);
+          v61 = *v39++;
+          v62 = bswap32(v61);
         }
 
-        v42 |= v45 << -v43;
+        v42 |= v62 << -v43;
         v43 += 32;
       }
 
-      v105[0] = -(v104 & 1) ^ (v104 >> 1);
-      v55 = 1;
-      v56 = v105;
-      v57 = 3;
-      while (HIDWORD(v42))
+      v56 = (-(v103 & 1) ^ (v60 >> 1)) + (v103 & v59);
+      v41 += v56;
+      v55[64] = v41;
+      v55 += 64;
+      if (++v54 >> v95)
       {
-        v58 = v57;
-        if ((v57 & 0x8000u) != 0)
+        if (HIDWORD(v42))
         {
-          v58 = -v57;
-        }
-
-        if (v58 >= 3)
-        {
-          v58 = 3;
-        }
-
-        v59 = EntropyCode::levelDifferenceCodeBook[v58];
-        v104 = 0;
-        result = RiceExpComboCode<unsigned int>::decodeUnsigned(&v104, &v102, HIDWORD(v42), v59);
-        v60 = (v57 >> 15) & 1;
-        if (v60)
-        {
-          v61 = -v104;
-        }
-
-        else
-        {
-          v61 = v104;
-        }
-
-        v42 <<= v102;
-        v43 -= v102;
-        if (v43 < 0)
-        {
-          if (v39 >= v95)
+          v66 = 2u;
+          v67 = 4u;
+          while (1)
           {
-            if (v39 >= v101)
+            v68 = EntropyCode::runCodeBook[v67];
+            v69 = EntropyCode::levelCodeBook[v66];
+            v70 = (&RiceExpComboCodeVLDPairTables + 40960 * EntropyCode::runCodeBook[v67] + 4096 * v69 + 4 * (v42 >> 54));
+            v71 = *v70;
+            v67 = *(v70 + 2);
+            v72 = *(v70 + 3);
+            v73 = v71 + 1;
+            v101 = v71 + 1;
+            v102 = v67;
+            if (v71)
             {
-              v63 = 0;
+              v74 = HIDWORD(v42) << v71;
+              v66 = v72 + 1;
+              v75 = ((v72 + 1) ^ (v74 >> 31)) - (v74 >> 31);
             }
 
             else
             {
-              v63 = 0;
-              v64 = v101 - v39;
-              v65 = 24;
-              do
-              {
-                v66 = *v39;
-                v39 = (v39 + 1);
-                v63 |= v66 << v65;
-                v65 -= 8;
-                --v64;
-              }
-
-              while (v64);
-              v39 = v101;
-            }
-          }
-
-          else
-          {
-            v62 = *v39++;
-            v63 = bswap32(v62);
-          }
-
-          v42 |= v63 << -v43;
-          v43 += 32;
-        }
-
-        v57 = (-(v104 & 1) ^ (v61 >> 1)) + (v104 & v60);
-        v41 += v57;
-        v56[64] = v41;
-        v56 += 64;
-        if (++v55 >> v96)
-        {
-          if (HIDWORD(v42))
-          {
-            v67 = 2u;
-            v68 = 4u;
-            while (1)
-            {
-              v69 = EntropyCode::runCodeBook[v68];
-              v70 = EntropyCode::levelCodeBook[v67];
-              v71 = (&RiceExpComboCodeVLDPairTables + 40960 * EntropyCode::runCodeBook[v68] + 4096 * v70 + 4 * (v42 >> 54));
-              v72 = *v71;
-              v68 = *(v71 + 2);
-              v73 = *(v71 + 3);
-              v74 = v72 + 1;
-              v102 = v72 + 1;
-              v103 = v68;
-              if (v72)
-              {
-                v75 = HIDWORD(v42) << v72;
-                v67 = v73 + 1;
-                v76 = ((v73 + 1) ^ (v75 >> 31)) - (v75 >> 31);
-              }
-
-              else
-              {
-                result = RiceExpComboCode<unsigned int>::decodeUnsigned(&v103, &v102, HIDWORD(v42), v69);
-                v42 <<= v102;
-                v43 -= v102;
-                if (v43 < 0)
-                {
-                  if (v39 >= v95)
-                  {
-                    if (v39 >= v101)
-                    {
-                      v78 = 0;
-                    }
-
-                    else
-                    {
-                      v78 = 0;
-                      v79 = v101 - v39;
-                      v80 = 24;
-                      do
-                      {
-                        v81 = *v39;
-                        v39 = (v39 + 1);
-                        v78 |= v81 << v80;
-                        v80 -= 8;
-                        --v79;
-                      }
-
-                      while (v79);
-                      v39 = v101;
-                    }
-                  }
-
-                  else
-                  {
-                    v77 = *v39++;
-                    v78 = bswap32(v77);
-                  }
-
-                  v42 |= v78 << -v43;
-                  v43 += 32;
-                }
-
-                if (!HIDWORD(v42))
-                {
-                  goto LABEL_8;
-                }
-
-                v104 = 0;
-                result = RiceExpComboCode<unsigned int>::decodeUnsigned(&v104, &v102, HIDWORD(v42), v70);
-                v82 = v102;
-                v68 = v103;
-                v74 = ++v102;
-                if (v103 > 0x7DF)
-                {
-                  goto LABEL_8;
-                }
-
-                v67 = v104 + 1;
-                if ((v104 + 1) >= 0x4000)
-                {
-                  goto LABEL_8;
-                }
-
-                v76 = (v67 ^ ((HIDWORD(v42) << v82) >> 31)) - ((HIDWORD(v42) << v82) >> 31);
-              }
-
-              v42 <<= v74;
-              v43 -= v74;
+              result = RiceExpComboCode<unsigned int>::decodeUnsigned(&v102, &v101, HIDWORD(v42), v68);
+              v42 <<= v101;
+              v43 -= v101;
               if (v43 < 0)
               {
-                if (v39 >= v95)
+                if (v39 >= v94)
                 {
-                  if (v39 >= v101)
+                  if (v39 >= v100)
                   {
-                    v84 = 0;
+                    v77 = 0;
                   }
 
                   else
                   {
-                    v84 = 0;
-                    v85 = v101 - v39;
-                    v86 = 24;
+                    v77 = 0;
+                    v78 = v100 - v39;
+                    v79 = 24;
                     do
                     {
-                      v87 = *v39;
+                      v80 = *v39;
                       v39 = (v39 + 1);
-                      v84 |= v87 << v86;
-                      v86 -= 8;
-                      --v85;
+                      v77 |= v80 << v79;
+                      v79 -= 8;
+                      --v78;
                     }
 
-                    while (v85);
-                    v39 = v101;
+                    while (v78);
+                    v39 = v100;
                   }
                 }
 
                 else
                 {
-                  v83 = *v39++;
-                  v84 = bswap32(v83);
+                  v76 = *v39++;
+                  v77 = bswap32(v76);
                 }
 
-                v42 |= v84 << -v43;
+                v42 |= v77 << -v43;
                 v43 += 32;
               }
 
-              v88 = v68 + v55;
-              if (v88 < 256 << v94)
+              if (!HIDWORD(v42))
               {
-                v105[64 * (v88 & ~(-4 << v94)) + ProgressiveScanTableFull[v88 >> v96]] = v76;
-                v55 = v88 + 1;
-                if (HIDWORD(v42))
+                goto LABEL_8;
+              }
+
+              v103 = 0;
+              result = RiceExpComboCode<unsigned int>::decodeUnsigned(&v103, &v101, HIDWORD(v42), v69);
+              v81 = v101;
+              v67 = v102;
+              v73 = ++v101;
+              if (v102 > 0x7DF)
+              {
+                goto LABEL_8;
+              }
+
+              v66 = v103 + 1;
+              if ((v103 + 1) >= 0x4000)
+              {
+                goto LABEL_8;
+              }
+
+              v75 = (v66 ^ ((HIDWORD(v42) << v81) >> 31)) - ((HIDWORD(v42) << v81) >> 31);
+            }
+
+            v42 <<= v73;
+            v43 -= v73;
+            if (v43 < 0)
+            {
+              if (v39 >= v94)
+              {
+                if (v39 >= v100)
                 {
-                  continue;
+                  v83 = 0;
+                }
+
+                else
+                {
+                  v83 = 0;
+                  v84 = v100 - v39;
+                  v85 = 24;
+                  do
+                  {
+                    v86 = *v39;
+                    v39 = (v39 + 1);
+                    v83 |= v86 << v85;
+                    v85 -= 8;
+                    --v84;
+                  }
+
+                  while (v84);
+                  v39 = v100;
                 }
               }
 
-              goto LABEL_8;
+              else
+              {
+                v82 = *v39++;
+                v83 = bswap32(v82);
+              }
+
+              v42 |= v83 << -v43;
+              v43 += 32;
             }
+
+            v87 = v67 + v54;
+            if (v87 < 256 << v93)
+            {
+              v104[64 * (v87 & ~(-4 << v93)) + ProgressiveScanTableFull[v87 >> v95]] = v75;
+              v54 = v87 + 1;
+              if (HIDWORD(v42))
+              {
+                continue;
+              }
+            }
+
+            goto LABEL_8;
+          }
+        }
+
+        break;
+      }
+    }
+  }
+
+LABEL_8:
+  v18 = *(v92 + 312);
+  *(v18 + v9) = 0;
+  v19 = *(v92 + 304);
+  *(v19 + v9) = -1;
+  if (v16)
+  {
+    v20 = 0;
+    v21 = 0;
+    v22 = 255;
+    v23 = v104;
+    v24 = v89;
+    do
+    {
+      v25 = v20 << 8;
+      v26 = 63;
+      while (v26)
+      {
+        if (v23[v26--])
+        {
+          v28 = v26 + 1;
+          LODWORD(v26) = (v26 + 1);
+          result = *(v18 + v9);
+          if (result < v28)
+          {
+            *(v18 + v9) = v26;
+            v22 = *(v19 + v9);
           }
 
           break;
         }
       }
-    }
 
-LABEL_8:
-    v18 = *(v93 + 312);
-    *(v18 + v9) = 0;
-    v19 = *(v93 + 304);
-    *(v19 + v9) = -1;
-    if (v16)
-    {
-      v20 = 0;
-      v21 = 0;
-      v22 = 255;
-      v23 = v105;
-      v24 = v90;
+      if (v26 < v22)
+      {
+        *(v19 + v9) = v26;
+        v21 = v104[256 * v20];
+        v22 = v26;
+      }
+
+      v29 = 127;
       do
       {
-        v25 = v20 << 8;
-        v26 = 63;
-        while (v26)
+        if (v29 == 64)
         {
-          if (v23[v26--])
-          {
-            v28 = v26 + 1;
-            LODWORD(v26) = (v26 + 1);
-            result = *(v18 + v9);
-            if (result < v28)
-            {
-              *(v18 + v9) = v26;
-              v22 = *(v19 + v9);
-            }
-
-            break;
-          }
+          v30 = 0;
+          goto LABEL_23;
         }
 
-        if (v26 < v22)
-        {
-          *(v19 + v9) = v26;
-          v21 = v105[256 * v20];
-          v22 = v26;
-        }
+        result = v23[v29--];
+      }
 
-        v29 = 127;
-        do
-        {
-          if (v29 == 64)
-          {
-            v30 = 0;
-            goto LABEL_23;
-          }
-
-          result = v23[v29--];
-        }
-
-        while (!result);
-        result = (v29 - 63);
-        v30 = (v29 - 63);
-        if (*(v18 + v9) < result)
-        {
-          *(v18 + v9) = v30;
-          v22 = *(v19 + v9);
-        }
+      while (!result);
+      result = (v29 - 63);
+      v30 = (v29 - 63);
+      if (*(v18 + v9) < result)
+      {
+        *(v18 + v9) = v30;
+        v22 = *(v19 + v9);
+      }
 
 LABEL_23:
-        if (v30 < v22)
+      if (v30 < v22)
+      {
+        *(v19 + v9) = v30;
+        v21 = v104[v25 | 0x40];
+        v22 = v30;
+      }
+
+      v31 = 191;
+      do
+      {
+        if (v31 == 128)
         {
-          *(v19 + v9) = v30;
-          v21 = v105[v25 | 0x40];
-          v22 = v30;
+          v32 = 0;
+          goto LABEL_31;
         }
 
-        v31 = 191;
-        do
-        {
-          if (v31 == 128)
-          {
-            v32 = 0;
-            goto LABEL_31;
-          }
+        result = v23[v31--];
+      }
 
-          result = v23[v31--];
-        }
-
-        while (!result);
-        result = (v31 - 127);
-        v32 = (v31 - 127);
-        if (*(v18 + v9) < result)
-        {
-          *(v18 + v9) = v32;
-          v22 = *(v19 + v9);
-        }
+      while (!result);
+      result = (v31 - 127);
+      v32 = (v31 - 127);
+      if (*(v18 + v9) < result)
+      {
+        *(v18 + v9) = v32;
+        v22 = *(v19 + v9);
+      }
 
 LABEL_31:
-        if (v32 < v22)
-        {
-          *(v19 + v9) = v32;
-          v21 = v105[v25 | 0x80];
-          v22 = v32;
-        }
+      if (v32 < v22)
+      {
+        *(v19 + v9) = v32;
+        v21 = v104[v25 | 0x80];
+        v22 = v32;
+      }
 
-        v33 = v25 | 0xC0;
-        v34 = 255;
-        do
+      v33 = v25 | 0xC0;
+      v34 = 255;
+      do
+      {
+        if (v34 == 192)
         {
-          if (v34 == 192)
-          {
-            v37 = 0;
-            goto LABEL_39;
-          }
+          v37 = 0;
+          goto LABEL_39;
         }
+      }
 
-        while (!v23[v34--]);
-        v36 = v34 + 65;
-        v37 = (v34 + 65);
-        result = *(v18 + v9);
-        if (result < v36)
-        {
-          *(v18 + v9) = v37;
-          v22 = *(v19 + v9);
-        }
+      while (!v23[v34--]);
+      v36 = v34 + 65;
+      v37 = (v34 + 65);
+      result = *(v18 + v9);
+      if (result < v36)
+      {
+        *(v18 + v9) = v37;
+        v22 = *(v19 + v9);
+      }
 
 LABEL_39:
-        if (v37 < v22)
-        {
-          *(v19 + v9) = v37;
-          v21 = v105[v33];
-          v22 = v37;
-        }
-
-        ++v20;
-        v23 += 256;
+      if (v37 < v22)
+      {
+        *(v19 + v9) = v37;
+        v21 = v104[v33];
+        v22 = v37;
       }
 
-      while (v20 != v16);
-      v38 = v21;
+      ++v20;
+      v23 += 256;
+    }
+
+    while (v20 != v16);
+    v38 = v21;
+  }
+
+  else
+  {
+    v38 = 0;
+    v24 = v89;
+  }
+
+  v46 = v38 * *(v88 + 13) * qScale[*(*(v92 + 32) + v9)];
+  if (v46 >> 7 >= -128)
+  {
+    v49 = v90;
+    v48 = v91;
+    if (v46 >> 7 <= 127)
+    {
+      v47 = (v46 >> 7) ^ 0xFFFFFF80;
     }
 
     else
     {
-      v38 = 0;
-      v24 = v90;
-    }
-
-    v46 = v38 * *(v89 + 13) * qScale[*(*(v93 + 32) + v9)];
-    if (v46 >> 7 >= -128)
-    {
-      v49 = v91;
-      v48 = v92;
-      if (v46 >> 7 <= 127)
-      {
-        v47 = (v46 >> 7) ^ 0xFFFFFF80;
-      }
-
-      else
-      {
-        LOBYTE(v47) = -1;
-      }
-    }
-
-    else
-    {
-      LOBYTE(v47) = 0;
-      v49 = v91;
-      v48 = v92;
-    }
-
-    *(*(v93 + 320) + v9) = v47;
-    if (v24 == 2)
-    {
-      if (v49)
-      {
-        *(*(v93 + 320) + (v9 - *(v93 + 24))) = *(*(v93 + 320) + v9);
-        *(*(v93 + 312) + (v9 - *(v93 + 24))) = *(*(v93 + 312) + v9);
-        v50 = v9 - *(v93 + 24);
-      }
-
-      else
-      {
-        if (v48 >= *(v93 + 20) - 1)
-        {
-          goto LABEL_58;
-        }
-
-        *(*(v93 + 320) + (*(v93 + 24) + v9)) = *(*(v93 + 320) + v9);
-        *(*(v93 + 312) + (*(v93 + 24) + v9)) = *(*(v93 + 312) + v9);
-        v50 = *(v93 + 24) + v9;
-      }
-
-      *(*(v93 + 304) + v50) = *(*(v93 + 304) + v9);
+      LOBYTE(v47) = -1;
     }
   }
 
-LABEL_58:
-  v51 = *MEMORY[0x277D85DE8];
+  else
+  {
+    LOBYTE(v47) = 0;
+    v49 = v90;
+    v48 = v91;
+  }
+
+  *(*(v92 + 320) + v9) = v47;
+  if (v24 == 2)
+  {
+    if (v49)
+    {
+      *(*(v92 + 320) + (v9 - *(v92 + 24))) = *(*(v92 + 320) + v9);
+      *(*(v92 + 312) + (v9 - *(v92 + 24))) = *(*(v92 + 312) + v9);
+      v50 = v9 - *(v92 + 24);
+    }
+
+    else
+    {
+      if (v48 >= *(v92 + 20) - 1)
+      {
+        return result;
+      }
+
+      *(*(v92 + 320) + (*(v92 + 24) + v9)) = *(*(v92 + 320) + v9);
+      *(*(v92 + 312) + (*(v92 + 24) + v9)) = *(*(v92 + 312) + v9);
+      v50 = *(v92 + 24) + v9;
+    }
+
+    *(*(v92 + 304) + v50) = *(*(v92 + 304) + v9);
+  }
+
   return result;
 }

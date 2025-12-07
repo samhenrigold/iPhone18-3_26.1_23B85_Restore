@@ -33,24 +33,24 @@
 
 - (Protocol)protocol
 {
-  v4 = MEMORY[0x277D81150];
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEDistributor protocol]", v2, v3);
-  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDistributor.m", v7, v8);
-  v10 = objc_opt_class();
-  v11 = NSStringFromClass(v10);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v12, v5, v9, 37, 0, "Abstract method not overridden by %{public}@", v11);
+  v3 = MEMORY[0x277D81150];
+  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEDistributor protocol]", v2);
+  v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDistributor.m", v6);
+  v8 = objc_opt_class();
+  v9 = NSStringFromClass(v8);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v3, v10, v4, v7, 37, 0, "Abstract method not overridden by %{public}@", v9);
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15, v16);
-  v17 = MEMORY[0x277CBEAD8];
-  v18 = *MEMORY[0x277CBE658];
-  v19 = MEMORY[0x277CCACA8];
-  v20 = objc_opt_class();
-  v21 = NSStringFromClass(v20);
-  v25 = objc_msgSend_stringWithFormat_(v19, v22, @"Abstract method not overridden by %@: %s", v23, v24, v21, "[TSCEDistributor protocol]");
-  v27 = objc_msgSend_exceptionWithName_reason_userInfo_(v17, v26, v18, v25, 0);
-  v28 = v27;
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12, v13);
+  v14 = MEMORY[0x277CBEAD8];
+  v15 = *MEMORY[0x277CBE658];
+  v16 = MEMORY[0x277CCACA8];
+  v17 = objc_opt_class();
+  v18 = NSStringFromClass(v17);
+  v21 = objc_msgSend_stringWithFormat_(v16, v19, @"Abstract method not overridden by %@: %s", v20, v18, "[TSCEDistributor protocol]");
+  v23 = objc_msgSend_exceptionWithName_reason_userInfo_(v14, v22, v15, v21, 0);
+  v24 = v23;
 
-  objc_exception_throw(v27);
+  objc_exception_throw(v23);
 }
 
 - (void)addReceiver:(id)receiver
@@ -58,42 +58,42 @@
   receiverCopy = receiver;
   if (receiverCopy)
   {
-    v54 = receiverCopy;
-    v13 = objc_msgSend_protocol(self, v6, v7, v8, v9);
-    if (v13)
+    v44 = receiverCopy;
+    v11 = objc_msgSend_protocol(self, v6, v7, v8);
+    if (v11)
     {
-      v14 = objc_msgSend_conformsToProtocol_(v54, v10, v13, v11, v12);
-      if (objc_msgSend_conformsToProtocol_(v54, v15, v13, v16, v17))
+      v12 = objc_msgSend_conformsToProtocol_(v44, v9, v11, v10);
+      if (objc_msgSend_conformsToProtocol_(v44, v13, v11, v14))
       {
         p_receiversLock = &self->_receiversLock;
         os_unfair_lock_lock(&self->_receiversLock);
-        if (!v14)
+        if (!v12)
         {
           goto LABEL_10;
         }
 
 LABEL_8:
-        if ((objc_msgSend_containsObject_(self->_receivers, v22, v54, v23, v24) & 1) == 0)
+        if ((objc_msgSend_containsObject_(self->_receivers, v18, v44, v19) & 1) == 0)
         {
-          objc_msgSend_addObject_(self->_receivers, v51, v54, v52, v53);
+          objc_msgSend_addObject_(self->_receivers, v42, v44, v43);
         }
 
         goto LABEL_10;
       }
 
-      v36 = MEMORY[0x277D81150];
-      v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSCEDistributor addReceiver:]", v19, v20);
-      v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDistributor.m", v39, v40);
-      v42 = NSStringFromSelector(a2);
-      v43 = objc_opt_class();
-      v44 = NSStringFromProtocol(v13);
-      v45 = objc_opt_class();
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v36, v46, v37, v41, 53, 0, "Error %@: Target %@ does not conform to protocol %@ required for TSCEDistributor class %@.", v42, v43, v44, v45);
+      v29 = MEMORY[0x277D81150];
+      v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSCEDistributor addReceiver:]", v16);
+      v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDistributor.m", v32);
+      v34 = NSStringFromSelector(a2);
+      v35 = objc_opt_class();
+      v36 = NSStringFromProtocol(v11);
+      v37 = objc_opt_class();
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v29, v38, v30, v33, 53, 0, "Error %@: Target %@ does not conform to protocol %@ required for TSCEDistributor class %@.", v34, v35, v36, v37);
 
-      objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v47, v48, v49, v50);
+      objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v39, v40, v41);
       p_receiversLock = &self->_receiversLock;
       os_unfair_lock_lock(&self->_receiversLock);
-      if (v14)
+      if (v12)
       {
         goto LABEL_8;
       }
@@ -101,12 +101,12 @@ LABEL_8:
 
     else
     {
-      v25 = MEMORY[0x277D81150];
-      v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSCEDistributor addReceiver:]", v11, v12);
-      v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDistributor.m", v28, v29);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v31, v26, v30, 49, 0, "protocol MUST be defined before addReceiver can be used");
+      v20 = MEMORY[0x277D81150];
+      v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSCEDistributor addReceiver:]", v10);
+      v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDistributor.m", v23);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v25, v21, v24, 49, 0, "protocol MUST be defined before addReceiver can be used");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v32, v33, v34, v35);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28);
       p_receiversLock = &self->_receiversLock;
       os_unfair_lock_lock(&self->_receiversLock);
     }
@@ -114,7 +114,7 @@ LABEL_8:
 LABEL_10:
     os_unfair_lock_unlock(p_receiversLock);
 
-    receiverCopy = v54;
+    receiverCopy = v44;
   }
 }
 
@@ -123,13 +123,13 @@ LABEL_10:
   missingCopy = missing;
   if (missingCopy)
   {
-    v10 = missingCopy;
-    hasReceiver = objc_msgSend_hasReceiver_(self, missingCopy, missingCopy, v5, v6);
-    missingCopy = v10;
+    v8 = missingCopy;
+    hasReceiver = objc_msgSend_hasReceiver_(self, missingCopy, missingCopy, v5);
+    missingCopy = v8;
     if ((hasReceiver & 1) == 0)
     {
-      objc_msgSend_addReceiver_(self, v10, v10, v8, v9);
-      missingCopy = v10;
+      objc_msgSend_addReceiver_(self, v8, v8, v7);
+      missingCopy = v8;
     }
   }
 }
@@ -140,7 +140,7 @@ LABEL_10:
   {
     receiverCopy = receiver;
     os_unfair_lock_lock(&self->_receiversLock);
-    objc_msgSend_removeObjectIdenticalTo_(self->_receivers, v5, receiverCopy, v6, v7);
+    objc_msgSend_removeObjectIdenticalTo_(self->_receivers, v5, receiverCopy, v6);
 
     os_unfair_lock_unlock(&self->_receiversLock);
   }
@@ -149,9 +149,9 @@ LABEL_10:
 - (BOOL)hasReceivers
 {
   os_unfair_lock_lock(&self->_receiversLock);
-  v7 = objc_msgSend_count(self->_receivers, v3, v4, v5, v6) != 0;
+  v6 = objc_msgSend_count(self->_receivers, v3, v4, v5) != 0;
   os_unfair_lock_unlock(&self->_receiversLock);
-  return v7;
+  return v6;
 }
 
 - (BOOL)hasReceiver:(id)receiver
@@ -160,77 +160,77 @@ LABEL_10:
   os_unfair_lock_lock(&self->_receiversLock);
   if (receiverCopy)
   {
-    v8 = objc_msgSend_indexOfObjectIdenticalTo_(self->_receivers, v5, receiverCopy, v6, v7) != 0x7FFFFFFFFFFFFFFFLL;
+    v7 = objc_msgSend_indexOfObjectIdenticalTo_(self->_receivers, v5, receiverCopy, v6) != 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
   os_unfair_lock_unlock(&self->_receiversLock);
 
-  return v8;
+  return v7;
 }
 
 - (void)dropAllTargets
 {
   os_unfair_lock_lock(&self->_receiversLock);
-  objc_msgSend_removeAllObjects(self->_receivers, v3, v4, v5, v6);
+  objc_msgSend_removeAllObjects(self->_receivers, v3, v4, v5);
 
   os_unfair_lock_unlock(&self->_receiversLock);
 }
 
 - (void)distributeBlock:(id)block
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   os_unfair_lock_lock(&self->_receiversLock);
-  if (objc_msgSend_count(self->_receivers, v5, v6, v7, v8))
+  if (objc_msgSend_count(self->_receivers, v5, v6, v7))
   {
-    v13 = objc_msgSend_copy(self->_receivers, v9, v10, v11, v12);
+    v11 = objc_msgSend_copy(self->_receivers, v8, v9, v10);
   }
 
   else
   {
-    v13 = 0;
+    v11 = 0;
   }
 
   os_unfair_lock_unlock(&self->_receiversLock);
-  v23 = 0u;
-  v24 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v14 = v13;
-  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v21, v25, 16);
-  if (v16)
+  v19 = 0u;
+  v20 = 0u;
+  v12 = v11;
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v19, v23, 16);
+  if (v14)
   {
-    v17 = v16;
-    v18 = *v22;
+    v15 = v14;
+    v16 = *v20;
     do
     {
-      v19 = 0;
+      v17 = 0;
       do
       {
-        if (*v22 != v18)
+        if (*v20 != v16)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v12);
         }
 
-        blockCopy[2](blockCopy, *(*(&v21 + 1) + 8 * v19++));
+        blockCopy[2](blockCopy, *(*(&v19 + 1) + 8 * v17++));
       }
 
-      while (v17 != v19);
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v20, &v21, v25, 16);
+      while (v15 != v17);
+      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v18, &v19, v23, 16);
     }
 
-    while (v17);
+    while (v15);
   }
 }
 
 - (void)suspendDuringBlock:(id)block
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   os_unfair_lock_lock(&self->_receiversLock);
   receivers = self->_receivers;
@@ -243,46 +243,46 @@ LABEL_10:
   blockCopy[2](blockCopy);
   os_unfair_lock_lock(&self->_receiversLock);
   v9 = self->_receivers;
-  if (objc_msgSend_count(v9, v10, v11, v12, v13))
+  if (objc_msgSend_count(v9, v10, v11, v12))
   {
-    v17 = MEMORY[0x277D81150];
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSCEDistributor suspendDuringBlock:]", v15, v16);
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDistributor.m", v20, v21);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v23, v18, v22, 127, 0, "someone added a receiver when we were not expecting it");
+    v15 = MEMORY[0x277D81150];
+    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSCEDistributor suspendDuringBlock:]", v14);
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDistributor.m", v18);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v20, v16, v19, 127, 0, "someone added a receiver when we were not expecting it");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26, v27);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23);
   }
 
   objc_storeStrong(&self->_receivers, receivers);
   os_unfair_lock_unlock(&self->_receiversLock);
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v28 = v9;
-  v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v29, &v37, v41, 16);
-  if (v30)
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v24 = v9;
+  v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v32, v36, 16);
+  if (v26)
   {
-    v34 = v30;
-    v35 = *v38;
+    v29 = v26;
+    v30 = *v33;
     do
     {
-      v36 = 0;
+      v31 = 0;
       do
       {
-        if (*v38 != v35)
+        if (*v33 != v30)
         {
-          objc_enumerationMutation(v28);
+          objc_enumerationMutation(v24);
         }
 
-        objc_msgSend_addReceiverIfMissing_(self, v31, *(*(&v37 + 1) + 8 * v36++), v32, v33, v37);
+        objc_msgSend_addReceiverIfMissing_(self, v27, *(*(&v32 + 1) + 8 * v31++), v28, v32);
       }
 
-      while (v34 != v36);
-      v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v31, &v37, v41, 16);
+      while (v29 != v31);
+      v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v27, &v32, v36, 16);
     }
 
-    while (v34);
+    while (v29);
   }
 }
 

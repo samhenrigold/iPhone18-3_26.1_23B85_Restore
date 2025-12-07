@@ -81,25 +81,26 @@
     [(PHRingtoneController *)self setAudioSessionIdentifier:[(PHRingtoneController *)self audioSessionIdentifierForSessionDescriptors:v6]];
   }
 
-  v12[0] = AVSystemController_ServerConnectionDiedNotification;
-  v12[1] = AVSystemController_SomeSessionIsPlayingDidChangeNotification;
-  v7 = [NSArray arrayWithObjects:v12 count:2];
-  v11 = 0;
-  v8 = [controllerCopy setAttribute:v7 forKey:AVSystemController_SubscribeToNotificationsAttribute error:&v11];
-  v9 = v11;
+  v13[0] = AVSystemController_ServerConnectionDiedNotification;
+  v13[1] = AVSystemController_SomeSessionIsPlayingDidChangeNotification;
+  v7 = [NSArray arrayWithObjects:v13 count:2];
+  v12 = 0;
+  v8 = [controllerCopy setAttribute:v7 forKey:AVSystemController_SubscribeToNotificationsAttribute error:&v12];
+  v9 = v12;
+  v10 = v9;
   if (v8)
   {
-    v10 = +[NSNotificationCenter defaultCenter];
-    [v10 addObserver:self selector:"handleAVSystemController_ServerConnectionDiedNotification:" name:AVSystemController_ServerConnectionDiedNotification object:controllerCopy];
-    [v10 addObserver:self selector:"handleAVSystemController_SomeSessionIsPlayingDidChangeNotification:" name:AVSystemController_SomeSessionIsPlayingDidChangeNotification object:controllerCopy];
+    v11 = +[NSNotificationCenter defaultCenter];
+    [v11 addObserver:self selector:"handleAVSystemController_ServerConnectionDiedNotification:" name:AVSystemController_ServerConnectionDiedNotification object:controllerCopy];
+    [v11 addObserver:self selector:"handleAVSystemController_SomeSessionIsPlayingDidChangeNotification:" name:AVSystemController_SomeSessionIsPlayingDidChangeNotification object:controllerCopy];
   }
 
   else
   {
-    v10 = sub_100004F84();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100004F84(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_1002546A8(v9, v10);
+      sub_1002546A8(v10, v11);
     }
   }
 }
@@ -121,18 +122,19 @@
   v6 = [v4 pickableRouteWithUniqueIdentifier:v5];
 
   isPreferredAndActive = [v6 isPreferredAndActive];
+  v8 = isPreferredAndActive;
   if (isPreferredAndActive)
   {
-    v8 = sub_100004F84();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004F84(isPreferredAndActive);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = @"YES";
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Preferred output port detected, setting preferredOutputPortEnabled = %@.", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = @"YES";
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Preferred output port detected, setting preferredOutputPortEnabled = %@.", &v11, 0xCu);
     }
   }
 
-  return isPreferredAndActive;
+  return v8;
 }
 
 - (BOOL)_shouldAnnounceCalls:(id)calls
@@ -153,27 +155,28 @@
   }
 
   bypassAnnounceCallsPreference = [callsCopy bypassAnnounceCallsPreference];
-  v9 = sub_100004F84();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-  if (bypassAnnounceCallsPreference)
+  v9 = bypassAnnounceCallsPreference;
+  v10 = sub_100004F84(bypassAnnounceCallsPreference);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  if (v9)
   {
-    if (v10)
+    if (v11)
     {
-      v11 = [NSString tu_stringWithTUConfigurationAnnounceCalls:announceCalls];
+      v12 = [NSString tu_stringWithTUConfigurationAnnounceCalls:announceCalls];
       *buf = 138412290;
-      v65 = v11;
-      v12 = "Call overwritten to %@";
+      v69 = v12;
+      v13 = "Call overwritten to %@";
 LABEL_9:
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, v12, buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v13, buf, 0xCu);
     }
   }
 
-  else if (v10)
+  else if (v11)
   {
-    v11 = [NSString tu_stringWithTUConfigurationAnnounceCalls:announceCalls];
+    v12 = [NSString tu_stringWithTUConfigurationAnnounceCalls:announceCalls];
     *buf = 138412290;
-    v65 = v11;
-    v12 = "Call announcement preference set to %@";
+    v69 = v12;
+    v13 = "Call announcement preference set to %@";
     goto LABEL_9;
   }
 
@@ -182,105 +185,107 @@ LABEL_9:
     goto LABEL_78;
   }
 
-  if (UIAccessibilityIsVoiceOverRunning())
+  IsVoiceOverRunning = UIAccessibilityIsVoiceOverRunning();
+  if (IsVoiceOverRunning)
   {
-    v13 = sub_100004F84();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100004F84(IsVoiceOverRunning);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Suppressing the call announcement, Voice Over is active.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Suppressing the call announcement, Voice Over is active.", buf, 2u);
     }
 
     goto LABEL_78;
   }
 
   audioSessionIdentifier = [(PHRingtoneController *)self audioSessionIdentifier];
+  v17 = audioSessionIdentifier;
   if (!audioSessionIdentifier)
   {
-    v15 = sub_100004F84();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100004F84(audioSessionIdentifier);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Deferring call announcement until audio session is available.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Deferring call announcement until audio session is available.", buf, 2u);
     }
   }
 
-  v16 = [AVAudioSession retrieveSessionWithID:audioSessionIdentifier];
-  if (!v16)
+  v19 = [AVAudioSession retrieveSessionWithID:v17];
+  if (!v19)
   {
-    v48 = sub_100004F84();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    v52 = sub_100004F84(0);
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
-      sub_100254720(audioSessionIdentifier, v48);
+      sub_100254720(v17, v52);
     }
 
     goto LABEL_78;
   }
 
-  v17 = v16;
-  currentRoute = [(__CFString *)v16 currentRoute];
+  v20 = v19;
+  currentRoute = [(__CFString *)v19 currentRoute];
   outputs = [currentRoute outputs];
 
   if (![outputs count])
   {
-    v49 = sub_100004F84();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+    v53 = sub_100004F84(0);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v65 = v17;
-      _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Suppressing the call announcement, could not retrieve any output routes for the specified audio session (%@).", buf, 0xCu);
+      v69 = v20;
+      _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "Suppressing the call announcement, could not retrieve any output routes for the specified audio session (%@).", buf, 0xCu);
     }
 
     goto LABEL_78;
   }
 
-  v54 = v17;
-  v55 = announceCalls;
-  v56 = callsCopy;
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  v20 = outputs;
-  v21 = [v20 countByEnumeratingWithState:&v60 objects:v68 count:16];
-  if (!v21)
+  v58 = v20;
+  v59 = announceCalls;
+  v60 = callsCopy;
+  v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
+  v23 = outputs;
+  endpointType2 = [v23 countByEnumeratingWithState:&v64 objects:v72 count:16];
+  if (!endpointType2)
   {
-    v57 = 0;
-    v59 = 0;
-    v23 = 0;
+    v61 = 0;
+    v63 = 0;
+    v26 = 0;
     goto LABEL_74;
   }
 
-  v22 = v21;
-  v57 = 0;
+  v25 = endpointType2;
+  v61 = 0;
   selfCopy = self;
-  v59 = 0;
-  v23 = 0;
-  v24 = *v61;
+  v63 = 0;
+  v26 = 0;
+  v27 = *v65;
   do
   {
-    v25 = 0;
+    v28 = 0;
     do
     {
-      if (*v61 != v24)
+      if (*v65 != v27)
       {
-        objc_enumerationMutation(v20);
+        objc_enumerationMutation(v23);
       }
 
-      v26 = *(*(&v60 + 1) + 8 * v25);
-      v27 = sub_100004F84();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v29 = *(*(&v64 + 1) + 8 * v28);
+      v30 = sub_100004F84(endpointType2);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        portName = [v26 portName];
-        endpointType = [v26 endpointType];
+        portName = [v29 portName];
+        endpointType = [v29 endpointType];
         *buf = 138412546;
-        v65 = portName;
-        v66 = 2048;
-        v67 = endpointType;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Verifying call announcement eligibility of output port %@ with endpoint type '%tu'.", buf, 0x16u);
+        v69 = portName;
+        v70 = 2048;
+        v71 = endpointType;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Verifying call announcement eligibility of output port %@ with endpoint type '%tu'.", buf, 0x16u);
       }
 
-      endpointType2 = [v26 endpointType];
+      endpointType2 = [v29 endpointType];
       if (endpointType2 <= 1953790302)
       {
         if (endpointType2 != 1751412846)
@@ -290,201 +295,202 @@ LABEL_9:
             goto LABEL_52;
           }
 
-          v32 = sub_100004F84();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          v34 = sub_100004F84(1936747378);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v65 = @"YES";
-            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Connected to an external speaker, setting speakerEnabled = %@.", buf, 0xCu);
+            v69 = @"YES";
+            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Connected to an external speaker, setting speakerEnabled = %@.", buf, 0xCu);
           }
 
           goto LABEL_40;
         }
 
-        v36 = sub_100004F84();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v39 = sub_100004F84(1751412846);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v65 = @"YES";
-          v37 = v36;
-          v38 = "Headphones output port detected, setting headphonesEnabled = %@.";
+          v69 = @"YES";
+          v40 = v39;
+          v41 = "Headphones output port detected, setting headphonesEnabled = %@.";
 LABEL_49:
-          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, v38, buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, v41, buf, 0xCu);
         }
 
 LABEL_50:
 
-        v59 = [(PHRingtoneController *)selfCopy _isActivePreferredOutputPort:v26];
+        endpointType2 = [(PHRingtoneController *)selfCopy _isActivePreferredOutputPort:v29];
+        v63 = endpointType2;
 LABEL_51:
-        v23 = 1;
+        v26 = 1;
         goto LABEL_52;
       }
 
       switch(endpointType2)
       {
         case 1953790303:
-          v33 = sub_100004F84();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          v35 = sub_100004F84(1953790303);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Call announcements via TTY are not supported.", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Call announcements via TTY are not supported.", buf, 2u);
           }
 
           break;
         case 1969977198:
-          portType = [v26 portType];
-          v35 = [portType isEqualToString:AVAudioSessionPortBluetoothHFP];
+          portType = [v29 portType];
+          v37 = [portType isEqualToString:AVAudioSessionPortBluetoothHFP];
 
-          if (v35)
+          if (v37)
           {
-            v36 = sub_100004F84();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+            v39 = sub_100004F84(v38);
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v65 = @"YES";
-              v37 = v36;
-              v38 = "Bluetooth Hands-Free Profile output port detected, setting headphonesEnabled = %@.";
+              v69 = @"YES";
+              v40 = v39;
+              v41 = "Bluetooth Hands-Free Profile output port detected, setting headphonesEnabled = %@.";
               goto LABEL_49;
             }
 
             goto LABEL_50;
           }
 
-          portType2 = [v26 portType];
-          v40 = [portType2 isEqualToString:AVAudioSessionPortHeadphones];
+          portType2 = [v29 portType];
+          v43 = [portType2 isEqualToString:AVAudioSessionPortHeadphones];
 
-          if (v40)
+          if (v43)
           {
-            v41 = sub_100004F84();
-            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+            v45 = sub_100004F84(v44);
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v65 = @"YES";
-              _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Headphone or headset output port detected, setting headphonesEnabled = %@.", buf, 0xCu);
+              v69 = @"YES";
+              _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Headphone or headset output port detected, setting headphonesEnabled = %@.", buf, 0xCu);
             }
 
             goto LABEL_51;
           }
 
-          portType3 = [v26 portType];
-          v43 = [portType3 isEqualToString:AVAudioSessionPortBuiltInSpeaker];
+          portType3 = [v29 portType];
+          v47 = [portType3 isEqualToString:AVAudioSessionPortBuiltInSpeaker];
 
-          v44 = sub_100004F84();
-          v45 = os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT);
-          if (v43)
+          v49 = sub_100004F84(v48);
+          v50 = os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT);
+          if (v47)
           {
-            if (v45)
+            if (v50)
             {
               *buf = 138412290;
-              v65 = @"YES";
-              _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Built-in speaker output port detected, setting speakerEnabled = %@.", buf, 0xCu);
+              v69 = @"YES";
+              _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Built-in speaker output port detected, setting speakerEnabled = %@.", buf, 0xCu);
             }
 
 LABEL_40:
-            BYTE4(v57) = 1;
+            BYTE4(v61) = 1;
             break;
           }
 
-          if (v45)
+          if (v50)
           {
-            portName2 = [v26 portName];
+            portName2 = [v29 portName];
             *buf = 138412290;
-            v65 = portName2;
-            _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Call announcements via %@ are not supported.", buf, 0xCu);
+            v69 = portName2;
+            _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Call announcements via %@ are not supported.", buf, 0xCu);
           }
 
           break;
         case 1986552684:
-          v31 = sub_100004F84();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          v33 = sub_100004F84(1986552684);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v65 = @"YES";
-            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Connected to a vehicle via bluetooth, setting connectedToVehicle = %@.", buf, 0xCu);
+            v69 = @"YES";
+            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Connected to a vehicle via bluetooth, setting connectedToVehicle = %@.", buf, 0xCu);
           }
 
-          LOBYTE(v57) = 1;
+          LOBYTE(v61) = 1;
           break;
       }
 
 LABEL_52:
-      v25 = v25 + 1;
+      ++v28;
     }
 
-    while (v22 != v25);
-    v47 = [v20 countByEnumeratingWithState:&v60 objects:v68 count:16];
-    v22 = v47;
+    while (v25 != v28);
+    endpointType2 = [v23 countByEnumeratingWithState:&v64 objects:v72 count:16];
+    v25 = endpointType2;
   }
 
-  while (v47);
+  while (endpointType2);
 LABEL_74:
 
-  if (v55 == 1)
+  if (v59 == 1)
   {
-    v52 = v23 | v59 | BYTE4(v57) | v57;
-    callsCopy = v56;
+    v56 = v26 | v63 | BYTE4(v61) | v61;
+    callsCopy = v60;
   }
 
   else
   {
-    callsCopy = v56;
-    if (v55 == 3)
+    callsCopy = v60;
+    if (v59 == 3)
     {
-      v50 = v23 & (BYTE4(v57) ^ 1);
-      v51 = v59;
+      v54 = v26 & (BYTE4(v61) ^ 1);
+      v55 = v63;
 LABEL_81:
-      v52 = v50 | v51;
+      v56 = v54 | v55;
     }
 
     else
     {
-      if (v55 == 2)
+      if (v59 == 2)
       {
-        v50 = v23 & (BYTE4(v57) ^ 1);
-        v51 = v59 | v57;
+        v54 = v26 & (BYTE4(v61) ^ 1);
+        v55 = v63 | v61;
         goto LABEL_81;
       }
 
 LABEL_78:
-      v52 = 0;
+      v56 = 0;
     }
   }
 
-  return v52 & 1;
+  return v56 & 1;
 }
 
 - (void)_playCallAnnouncement:(id)announcement
 {
   announcementCopy = announcement;
-  if ([(PHRingtoneController *)self _shouldAnnounceCalls:announcementCopy])
+  v5 = [(PHRingtoneController *)self _shouldAnnounceCalls:announcementCopy];
+  if (v5)
   {
     callAnnouncement = [(PHRingtoneController *)self callAnnouncement];
 
     if (callAnnouncement)
     {
-      callAnnouncement4 = sub_100004F84();
+      callAnnouncement4 = sub_100004F84(v7);
       if (os_log_type_enabled(callAnnouncement4, OS_LOG_TYPE_DEFAULT))
       {
         callAnnouncement2 = [(PHRingtoneController *)self callAnnouncement];
-        v10 = 138412546;
-        v11 = callAnnouncement2;
-        v12 = 2112;
-        v13 = announcementCopy;
-        _os_log_impl(&_mh_execute_header, callAnnouncement4, OS_LOG_TYPE_DEFAULT, "Announcements are enabled but already playing a call announcement (%@), so will not play call announcement (%@).", &v10, 0x16u);
+        v12 = 138412546;
+        v13 = callAnnouncement2;
+        v14 = 2112;
+        v15 = announcementCopy;
+        _os_log_impl(&_mh_execute_header, callAnnouncement4, OS_LOG_TYPE_DEFAULT, "Announcements are enabled but already playing a call announcement (%@), so will not play call announcement (%@).", &v12, 0x16u);
       }
     }
 
     else
     {
       [announcementCopy setAudioSessionIdentifier:{-[PHRingtoneController audioSessionIdentifier](self, "audioSessionIdentifier")}];
-      [(PHRingtoneController *)self setCallAnnouncement:announcementCopy];
-      v8 = sub_100004F84();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100004F84([(PHRingtoneController *)self setCallAnnouncement:announcementCopy]);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         callAnnouncement3 = [(PHRingtoneController *)self callAnnouncement];
-        v10 = 138412290;
-        v11 = callAnnouncement3;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Announcements are enabled, playing call announcement (%@).", &v10, 0xCu);
+        v12 = 138412290;
+        v13 = callAnnouncement3;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Announcements are enabled, playing call announcement (%@).", &v12, 0xCu);
       }
 
       callAnnouncement4 = [(PHRingtoneController *)self callAnnouncement];
@@ -494,12 +500,12 @@ LABEL_78:
 
   else
   {
-    callAnnouncement4 = sub_100004F84();
+    callAnnouncement4 = sub_100004F84(v5);
     if (os_log_type_enabled(callAnnouncement4, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = announcementCopy;
-      _os_log_impl(&_mh_execute_header, callAnnouncement4, OS_LOG_TYPE_DEFAULT, "Announcements are disabled, will not play call announcement (%@).", &v10, 0xCu);
+      v12 = 138412290;
+      v13 = announcementCopy;
+      _os_log_impl(&_mh_execute_header, callAnnouncement4, OS_LOG_TYPE_DEFAULT, "Announcements are disabled, will not play call announcement (%@).", &v12, 0xCu);
     }
   }
 }
@@ -560,7 +566,7 @@ LABEL_78:
 - (void)handleAVSystemController_ServerConnectionDiedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -588,7 +594,7 @@ LABEL_78:
 - (void)handleAVSystemController_SomeSessionIsPlayingDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -616,30 +622,30 @@ LABEL_78:
 
 - (unsigned)audioSessionIdentifierForSessionDescriptors:(id)descriptors
 {
-  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
   descriptorsCopy = descriptors;
-  v4 = [descriptorsCopy countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v4 = [descriptorsCopy countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v4)
   {
     v5 = v4;
     unsignedIntValue = 0;
-    v6 = *v28;
-    v22 = TUBundleIdentifierCallServicesDaemon;
-    v21 = descriptorsCopy;
-    v24 = *v28;
+    v6 = *v29;
+    v23 = TUBundleIdentifierCallServicesDaemon;
+    v22 = descriptorsCopy;
+    v25 = *v29;
     while (1)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v28 != v6)
+        if (*v29 != v6)
         {
           objc_enumerationMutation(descriptorsCopy);
         }
 
-        v8 = *(*(&v27 + 1) + 8 * i);
+        v8 = *(*(&v28 + 1) + 8 * i);
         v9 = AVSystemController_PlayingSessionsDescriptionKey_ClientPID;
         v10 = [v8 objectForKeyedSubscript:v9];
         objc_opt_class();
@@ -652,80 +658,81 @@ LABEL_78:
         v11 = +[RBSProcessIdentifier identifierWithPid:](RBSProcessIdentifier, "identifierWithPid:", [v10 intValue]);
         if (!v11)
         {
-          v13 = 0;
-          v18 = 1;
+          v14 = 0;
+          v19 = 1;
           goto LABEL_24;
         }
 
-        v26 = 0;
-        v12 = [RBSProcessHandle handleForIdentifier:v11 error:&v26];
-        v13 = v26;
+        v27 = 0;
+        v12 = [RBSProcessHandle handleForIdentifier:v11 error:&v27];
+        v13 = v27;
+        v14 = v13;
         if (v12)
         {
-          v14 = [RBSProcessPredicate predicateMatchingServiceName:v22];
-          if (v14)
+          v15 = [RBSProcessPredicate predicateMatchingServiceName:v23];
+          if (v15)
           {
-            v25 = 0;
-            v15 = [RBSProcessHandle handleForPredicate:v14 error:&v25];
-            v23 = v25;
+            v26 = 0;
+            v16 = [RBSProcessHandle handleForPredicate:v15 error:&v26];
+            v24 = v26;
 
-            if (v15 && [v12 isEqual:v15])
+            if (v16 && [v12 isEqual:v16])
             {
-              v16 = AVSystemController_PlayingSessionsDescriptionKey_AudioSessionID;
+              v17 = AVSystemController_PlayingSessionsDescriptionKey_AudioSessionID;
 
-              v17 = [v8 objectForKeyedSubscript:v16];
+              v18 = [v8 objectForKeyedSubscript:v17];
 
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                unsignedIntValue = [v17 unsignedIntValue];
-                v18 = 0;
+                unsignedIntValue = [v18 unsignedIntValue];
+                v19 = 0;
               }
 
               else
               {
-                v18 = 1;
+                v19 = 1;
               }
 
-              v10 = v17;
-              v9 = v16;
+              v10 = v18;
+              v9 = v17;
             }
 
             else
             {
-              v18 = 1;
+              v19 = 1;
             }
 
-            v13 = v23;
-            descriptorsCopy = v21;
+            v14 = v24;
+            descriptorsCopy = v22;
             goto LABEL_23;
           }
         }
 
         else
         {
-          v14 = sub_100004F84();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v15 = sub_100004F84(v13);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v32 = v13;
-            _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Retrieving process handle failed with error %@", buf, 0xCu);
+            v33 = v14;
+            _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Retrieving process handle failed with error %@", buf, 0xCu);
           }
         }
 
-        v18 = 1;
+        v19 = 1;
 LABEL_23:
 
-        v6 = v24;
+        v6 = v25;
 LABEL_24:
 
-        if (!v18)
+        if (!v19)
         {
           goto LABEL_29;
         }
       }
 
-      v5 = [descriptorsCopy countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v5 = [descriptorsCopy countByEnumeratingWithState:&v28 objects:v34 count:16];
       if (!v5)
       {
         goto LABEL_29;

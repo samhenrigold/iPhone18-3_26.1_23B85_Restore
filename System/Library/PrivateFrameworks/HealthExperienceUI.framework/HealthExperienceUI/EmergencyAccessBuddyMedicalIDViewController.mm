@@ -10,7 +10,7 @@
 - (void)viewDidLoad
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for EmergencyAccessBuddyMedicalIDViewController();
+  v5.super_class = type metadata accessor for EmergencyAccessBuddyMedicalIDViewController(0);
   v2 = v5.receiver;
   [(OBBaseWelcomeController *)&v5 viewDidLoad];
   navigationItem = [v2 navigationItem];
@@ -24,7 +24,7 @@
 - (void)viewDidLayoutSubviews
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for EmergencyAccessBuddyMedicalIDViewController();
+  v7.super_class = type metadata accessor for EmergencyAccessBuddyMedicalIDViewController(0);
   v2 = v7.receiver;
   [(OBBaseWelcomeController *)&v7 viewDidLayoutSubviews];
   [v2 availableContentViewHeight];

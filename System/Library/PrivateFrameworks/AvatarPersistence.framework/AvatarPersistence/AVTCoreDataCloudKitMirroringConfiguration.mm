@@ -140,7 +140,7 @@ LABEL_9:
 
 + (id)managedModelAttributesRequiredForMirroring
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBE358]);
   [v2 setName:*MEMORY[0x277CBE120]];
   [v2 setAttributeType:700];
@@ -149,11 +149,9 @@ LABEL_9:
   [v3 setName:*MEMORY[0x277CBE128]];
   [v3 setAttributeType:1000];
   [v3 setPreservesValueInHistoryOnDeletion:1];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
 
   return v4;
 }

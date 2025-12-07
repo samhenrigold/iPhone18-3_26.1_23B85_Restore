@@ -32,7 +32,7 @@
   v6 = 0;
   memset(v5, 0, sizeof(v5));
   sub_219BE6A84();
-  sub_2187B1C64(v5, &qword_280EE5AD0, &qword_280EE5AE0);
+  sub_2187B1C64(v5, &qword_280EE5AD0, &qword_280EE5AE0, MEMORY[0x277D6D540]);
   sub_219BE5964();
 }
 

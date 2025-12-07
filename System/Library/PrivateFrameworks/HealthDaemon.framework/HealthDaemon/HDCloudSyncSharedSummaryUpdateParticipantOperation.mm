@@ -18,15 +18,15 @@
   v13 = [(HDCloudSyncOperation *)&v21 initWithConfiguration:configuration cloudState:0];
   if (v13)
   {
-    v14 = [entryCopy copy];
+    v14 = objc_msgSend_copy(entryCopy);
     entry = v13->_entry;
     v13->_entry = v14;
 
-    v16 = [addCopy copy];
+    v16 = objc_msgSend_copy(addCopy);
     authorizationIdentifiersToAdd = v13->_authorizationIdentifiersToAdd;
     v13->_authorizationIdentifiersToAdd = v16;
 
-    v18 = [deleteCopy copy];
+    v18 = objc_msgSend_copy(deleteCopy);
     authorizationIdentifiersToDelete = v13->_authorizationIdentifiersToDelete;
     v13->_authorizationIdentifiersToDelete = v18;
   }
@@ -36,56 +36,56 @@
 
 - (void)main
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   configuration = [(HDCloudSyncOperation *)self configuration];
   cachedCloudState = [configuration cachedCloudState];
   configuration2 = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration2 repository];
   primaryCKContainer = [repository primaryCKContainer];
   containerIdentifier = [primaryCKContainer containerIdentifier];
-  v41 = 0;
-  v9 = [cachedCloudState privateMetadataZoneForContainerID:containerIdentifier error:&v41];
-  v10 = v41;
+  v40 = 0;
+  v9 = [cachedCloudState privateMetadataZoneForContainerID:containerIdentifier error:&v40];
+  v10 = v40;
 
   if (v9)
   {
     entry = self->_entry;
-    v40 = 0;
-    v12 = [(HDCloudSyncSharedSummaryUpdateParticipantOperation *)self _createOrUpdateParticipantRecordInZone:v9 entry:entry error:&v40];
-    v13 = v40;
+    v39 = 0;
+    v12 = [(HDCloudSyncSharedSummaryUpdateParticipantOperation *)self _createOrUpdateParticipantRecordInZone:v9 entry:entry error:&v39];
+    v13 = v39;
     if (v12)
     {
-      v39 = 0;
-      v14 = [(HDCloudSyncSharedSummaryUpdateParticipantOperation *)self _createOrUpdateAuthorizationRecordInZone:v9 participantRecord:v12 error:&v39];
-      v15 = v39;
+      v38 = 0;
+      v14 = [(HDCloudSyncSharedSummaryUpdateParticipantOperation *)self _createOrUpdateAuthorizationRecordInZone:v9 participantRecord:v12 error:&v38];
+      v15 = v38;
       if (v14)
       {
-        v37 = [HDCloudSyncModifyRecordsOperation alloc];
+        v36 = [HDCloudSyncModifyRecordsOperation alloc];
         configuration3 = [(HDCloudSyncOperation *)self configuration];
         configuration4 = [(HDCloudSyncOperation *)self configuration];
         repository2 = [configuration4 repository];
         [repository2 primaryCKContainer];
-        v18 = v36 = v13;
+        v18 = v35 = v13;
         [v12 record];
-        v19 = v35 = v15;
-        v42[0] = v19;
+        v19 = v34 = v15;
+        v41[0] = v19;
         [v14 record];
-        v34 = v12;
+        v33 = v12;
         v21 = v20 = v14;
-        v42[1] = v21;
-        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
-        v23 = [(HDCloudSyncModifyRecordsOperation *)v37 initWithConfiguration:configuration3 container:v18 recordsToSave:v22 recordIDsToDelete:0];
-        v38 = v10;
+        v41[1] = v21;
+        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
+        v23 = [(HDCloudSyncModifyRecordsOperation *)v36 initWithConfiguration:configuration3 container:v18 recordsToSave:v22 recordIDsToDelete:0];
+        v37 = v10;
         v24 = v23;
 
         v14 = v20;
-        v12 = v34;
+        v12 = v33;
 
-        v15 = v35;
-        v13 = v36;
+        v15 = v34;
+        v13 = v35;
 
         [(HDCloudSyncOperation *)self delegateToOperation:v24];
-        v10 = v38;
+        v10 = v37;
       }
 
       else
@@ -94,18 +94,18 @@
         v26 = *MEMORY[0x277CCC328];
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
         {
-          v30 = v26;
+          v29 = v26;
           [v9 zoneIdentifier];
-          v32 = v31 = v12;
+          v31 = v30 = v12;
           *buf = 138543874;
           selfCopy2 = self;
-          v45 = 2114;
-          v46 = v32;
-          v47 = 2114;
-          v48 = v15;
-          _os_log_error_impl(&dword_228986000, v30, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@ Failed to create or update authorization record for %{public}@, %{public}@", buf, 0x20u);
+          v44 = 2114;
+          v45 = v31;
+          v46 = 2114;
+          v47 = v15;
+          _os_log_error_impl(&dword_228986000, v29, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@ Failed to create or update authorization record for %{public}@, %{public}@", buf, 0x20u);
 
-          v12 = v31;
+          v12 = v30;
         }
 
         [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v15];
@@ -118,15 +118,15 @@
       v25 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v28 = v25;
+        v27 = v25;
         zoneIdentifier = [v9 zoneIdentifier];
         *buf = 138543874;
         selfCopy2 = self;
-        v45 = 2114;
-        v46 = zoneIdentifier;
-        v47 = 2114;
-        v48 = v13;
-        _os_log_error_impl(&dword_228986000, v28, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@ Failed to create or update relationship record for %{public}@, %{public}@", buf, 0x20u);
+        v44 = 2114;
+        v45 = zoneIdentifier;
+        v46 = 2114;
+        v47 = v13;
+        _os_log_error_impl(&dword_228986000, v27, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@ Failed to create or update relationship record for %{public}@, %{public}@", buf, 0x20u);
       }
 
       [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v13];
@@ -142,13 +142,11 @@
 
     [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v10];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createOrUpdateParticipantRecordInZone:(id)zone entry:(id)entry error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   entryCopy = entry;
   v10 = objc_alloc(MEMORY[0x277CCAD78]);
@@ -156,13 +154,13 @@
   v12 = [v10 initWithUUIDString:uuid];
 
   v13 = objc_opt_class();
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __105__HDCloudSyncSharedSummaryUpdateParticipantOperation__createOrUpdateParticipantRecordInZone_entry_error___block_invoke;
-  v28[3] = &unk_27861AD28;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __105__HDCloudSyncSharedSummaryUpdateParticipantOperation__createOrUpdateParticipantRecordInZone_entry_error___block_invoke;
+  v27[3] = &unk_27861AD28;
   v14 = v12;
-  v29 = v14;
-  v15 = [zoneCopy recordsForClass:v13 error:error filter:v28];
+  v28 = v14;
+  v15 = [zoneCopy recordsForClass:v13 error:error filter:v27];
   v16 = v15;
   if (!v15)
   {
@@ -179,8 +177,8 @@
     {
       *buf = 138543619;
       selfCopy2 = self;
-      v32 = 2113;
-      v33 = entryCopy;
+      v31 = 2113;
+      v32 = entryCopy;
       _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Updating participant with entry %{private}@.", buf, 0x16u);
     }
 
@@ -222,8 +220,6 @@ LABEL_12:
 
 LABEL_13:
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
@@ -237,7 +233,7 @@ uint64_t __105__HDCloudSyncSharedSummaryUpdateParticipantOperation__createOrUpda
 
 - (id)_createOrUpdateAuthorizationRecordInZone:(id)zone participantRecord:(id)record error:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   recordCopy = record;
   authorizationRecordIdentifier = [recordCopy authorizationRecordIdentifier];
@@ -257,23 +253,23 @@ LABEL_18:
 
   v13 = authorizationRecordIdentifier;
   v14 = objc_opt_class();
-  v38 = 0;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __119__HDCloudSyncSharedSummaryUpdateParticipantOperation__createOrUpdateAuthorizationRecordInZone_participantRecord_error___block_invoke;
-  v36[3] = &unk_27861AD50;
+  v37 = 0;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __119__HDCloudSyncSharedSummaryUpdateParticipantOperation__createOrUpdateAuthorizationRecordInZone_participantRecord_error___block_invoke;
+  v35[3] = &unk_27861AD50;
   uUID = v13;
-  v37 = uUID;
-  v16 = [zoneCopy recordsForClass:v14 error:&v38 filter:v36];
-  v17 = v38;
+  v36 = uUID;
+  v16 = [zoneCopy recordsForClass:v14 error:&v37 filter:v35];
+  v17 = v37;
   if (v16)
   {
     firstObject = [v16 firstObject];
     v19 = firstObject;
-    v35 = firstObject == 0;
+    v34 = firstObject == 0;
     if (firstObject)
     {
-      v34 = v17;
+      v33 = v17;
       [firstObject updateAuthorizationWithIdentifiersToAdd:self->_authorizationIdentifiersToAdd identifiersToDelete:self->_authorizationIdentifiersToDelete];
       [v19 authorizationIdentifiers];
       v21 = v20 = self;
@@ -284,7 +280,7 @@ LABEL_18:
         error = v19;
         self = v20;
         v12 = off_27860E000;
-        v17 = v34;
+        v17 = v33;
       }
 
       else
@@ -292,7 +288,7 @@ LABEL_18:
         v25 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a2 format:@"There are no remaining authorization categories. You must remove the participant from the share instead."];
         self = v20;
         v12 = off_27860E000;
-        v17 = v34;
+        v17 = v33;
         if (v25)
         {
           if (error)
@@ -311,7 +307,7 @@ LABEL_18:
       }
     }
 
-    v24 = v35;
+    v24 = v34;
   }
 
   else
@@ -320,15 +316,15 @@ LABEL_18:
     v23 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v32 = v23;
+      v31 = v23;
       zoneIdentifier2 = [zoneCopy zoneIdentifier];
       *buf = 138543874;
       selfCopy = self;
-      v41 = 2114;
-      v42 = zoneIdentifier2;
-      v43 = 2114;
-      v44 = v17;
-      _os_log_error_impl(&dword_228986000, v32, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@ Failed to get authorization records for %{public}@, %{public}@", buf, 0x20u);
+      v40 = 2114;
+      v41 = zoneIdentifier2;
+      v42 = 2114;
+      v43 = v17;
+      _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@ Failed to get authorization records for %{public}@, %{public}@", buf, 0x20u);
     }
 
     v24 = 0;
@@ -341,8 +337,6 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return error;
 }

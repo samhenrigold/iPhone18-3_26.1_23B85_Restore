@@ -11,18 +11,19 @@
 
 - (NSArray)structuredEntities
 {
-  if (sub_232C09034())
+  sub_232C09034();
+  if (v2)
   {
     type metadata accessor for DUStructuredEntity();
-    v2 = sub_232CE9FD0();
+    v3 = sub_232CE9FD0();
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)setStructuredEntities:(id)entities
@@ -67,7 +68,7 @@
 {
   coderCopy = coder;
   selfCopy = self;
-  sub_232C09830();
+  sub_232C09830(coderCopy);
 }
 
 @end

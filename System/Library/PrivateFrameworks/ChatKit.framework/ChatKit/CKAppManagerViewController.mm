@@ -49,39 +49,39 @@
 
 - (void)viewDidLoad
 {
-  v22.receiver = self;
-  v22.super_class = CKAppManagerViewController;
-  [(CKAppManagerViewController *)&v22 viewDidLoad];
-  v3 = CKFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"MANAGE_STICKER_APPS" value:&stru_1F04268F8 table:@"ChatKit"];
-  [(CKAppManagerViewController *)self setTitle:v4];
+  v23.receiver = self;
+  v23.super_class = CKAppManagerViewController;
+  viewDidLoad = [(CKAppManagerViewController *)&v23 viewDidLoad];
+  v4 = CKFrameworkBundle(viewDidLoad);
+  v5 = [v4 localizedStringForKey:@"MANAGE_STICKER_APPS" value:&stru_1F04268F8 table:@"ChatKit"];
+  [(CKAppManagerViewController *)self setTitle:v5];
 
   view = [(CKAppManagerViewController *)self view];
   [view bounds];
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
-  v14 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:0 target:self action:sel_doneButtonTapped_];
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
+  v15 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:0 target:self action:sel_doneButtonTapped_];
   dismissButton = self->_dismissButton;
-  self->_dismissButton = v14;
+  self->_dismissButton = v15;
 
-  v16 = [objc_alloc(MEMORY[0x1E69DD020]) initWithFrame:2 style:{v7, v9, v11, v13}];
+  v17 = [objc_alloc(MEMORY[0x1E69DD020]) initWithFrame:2 style:{v8, v10, v12, v14}];
   tableView = self->_tableView;
-  self->_tableView = v16;
+  self->_tableView = v17;
 
   [(UITableView *)self->_tableView setDelegate:self];
   [(UITableView *)self->_tableView setDataSource:self];
   [(UITableView *)self->_tableView setCellLayoutMarginsFollowReadableWidth:1];
-  v18 = objc_alloc_init(MEMORY[0x1E69DD250]);
-  [(UITableView *)self->_tableView setTableFooterView:v18];
+  v19 = objc_alloc_init(MEMORY[0x1E69DD250]);
+  [(UITableView *)self->_tableView setTableFooterView:v19];
 
   [(UITableView *)self->_tableView _setAllowsReorderingWhenNotEditing:1];
   [view addSubview:self->_tableView];
-  v19 = self->_tableView;
-  v20 = objc_opt_class();
-  v21 = +[CKAppManagerAppTableViewCell reuseIdentifier];
-  [(UITableView *)v19 registerClass:v20 forCellReuseIdentifier:v21];
+  v20 = self->_tableView;
+  v21 = objc_opt_class();
+  v22 = +[CKAppManagerAppTableViewCell reuseIdentifier];
+  [(UITableView *)v20 registerClass:v21 forCellReuseIdentifier:v22];
 
   [(UITableView *)self->_tableView registerClass:objc_opt_class() forHeaderFooterViewReuseIdentifier:@"AppManagerSectionHeaderReuseIdentifier"];
   [(UITableView *)self->_tableView registerClass:objc_opt_class() forHeaderFooterViewReuseIdentifier:@"AppManagerSectionFooterReuseIdentifier"];
@@ -692,11 +692,12 @@ LABEL_16:
   if ([(CKAppManagerViewController *)self isEditing])
   {
     v7 = [viewCopy dequeueReusableHeaderFooterViewWithIdentifier:@"AppManagerSectionHeaderReuseIdentifier"];
+    v8 = v7;
     if (section == 1)
     {
-      v8 = CKFrameworkBundle();
-      v9 = v8;
-      v10 = @"APPS_WITH_STICKER_APPS_SECTION_HEADER";
+      v9 = CKFrameworkBundle(v7);
+      v10 = v9;
+      v11 = @"APPS_WITH_STICKER_APPS_SECTION_HEADER";
     }
 
     else
@@ -706,14 +707,14 @@ LABEL_16:
         goto LABEL_12;
       }
 
-      v8 = CKFrameworkBundle();
-      v9 = v8;
-      v10 = @"STICKERS_ONLY_APPS_SECTION_HEADER";
+      v9 = CKFrameworkBundle(v7);
+      v10 = v9;
+      v11 = @"STICKERS_ONLY_APPS_SECTION_HEADER";
     }
 
-    v11 = [v8 localizedStringForKey:v10 value:&stru_1F04268F8 table:@"ChatKit"];
-    localizedUppercaseString = [v11 localizedUppercaseString];
-    textLabel = [v7 textLabel];
+    v12 = [v9 localizedStringForKey:v11 value:&stru_1F04268F8 table:@"ChatKit"];
+    localizedUppercaseString = [v12 localizedUppercaseString];
+    textLabel = [v8 textLabel];
     [textLabel setText:localizedUppercaseString];
 
     goto LABEL_11;
@@ -722,20 +723,20 @@ LABEL_16:
   if (section)
   {
 LABEL_7:
-    v7 = 0;
+    v8 = 0;
     goto LABEL_12;
   }
 
-  v7 = [viewCopy dequeueReusableHeaderFooterViewWithIdentifier:@"AppManagerSectionHeaderReuseIdentifier"];
-  v9 = CKFrameworkBundle();
-  v11 = [v9 localizedStringForKey:@"STICKER_APPS" value:&stru_1F04268F8 table:@"ChatKit"];
-  localizedUppercaseString = [v7 textLabel];
-  [localizedUppercaseString setText:v11];
+  v8 = [viewCopy dequeueReusableHeaderFooterViewWithIdentifier:@"AppManagerSectionHeaderReuseIdentifier"];
+  v10 = CKFrameworkBundle(v8);
+  v12 = [v10 localizedStringForKey:@"STICKER_APPS" value:&stru_1F04268F8 table:@"ChatKit"];
+  localizedUppercaseString = [v8 textLabel];
+  [localizedUppercaseString setText:v12];
 LABEL_11:
 
 LABEL_12:
 
-  return v7;
+  return v8;
 }
 
 - (id)tableView:(id)view viewForFooterInSection:(int64_t)section
@@ -753,7 +754,7 @@ LABEL_12:
     else
     {
       v8 = [viewCopy dequeueReusableHeaderFooterViewWithIdentifier:@"AppManagerSectionFooterReuseIdentifier"];
-      v9 = CKFrameworkBundle();
+      v9 = CKFrameworkBundle(v8);
       v10 = [v9 localizedStringForKey:@"APPS_WITH_STICKER_APPS_SECTION_FOOTER" value:&stru_1F04268F8 table:@"ChatKit"];
       textLabel = [v8 textLabel];
       [textLabel setText:v10];
@@ -817,7 +818,7 @@ LABEL_12:
 {
   v2 = [objc_alloc(MEMORY[0x1E69DD028]) initWithStyle:0 reuseIdentifier:0];
   defaultContentConfiguration = [v2 defaultContentConfiguration];
-  v4 = CKFrameworkBundle();
+  v4 = CKFrameworkBundle(defaultContentConfiguration);
   v5 = [v4 localizedStringForKey:@"GET_STICKER_APPS" value:&stru_1F04268F8 table:@"ChatKit"];
   [defaultContentConfiguration setText:v5];
 

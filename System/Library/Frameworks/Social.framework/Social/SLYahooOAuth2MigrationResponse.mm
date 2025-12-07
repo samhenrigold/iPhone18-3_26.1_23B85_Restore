@@ -9,69 +9,69 @@
   dataCopy = data;
   responseCopy = response;
   errorCopy = error;
-  v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(dataCopy, "length")}];
-  _SLLog(v5, 7, @"SLYahooOAuth2MigrationResponse initWithData: %@ length urlResponse: %@ error: %@");
+  v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(dataCopy, "length")}];
+  _SLLog(v5, 7, @"SLYahooOAuth2MigrationResponse initWithData: %@ length urlResponse: %@ error: %@", v13, v14, v15, v16, v17, v12);
 
-  v31.receiver = self;
-  v31.super_class = SLYahooOAuth2MigrationResponse;
-  v12 = [(SLYahooOAuth2MigrationResponse *)&v31 init:v28];
-  v13 = v12;
-  if (v12)
+  v53.receiver = self;
+  v53.super_class = SLYahooOAuth2MigrationResponse;
+  v18 = [(SLYahooOAuth2MigrationResponse *)&v53 init];
+  v19 = v18;
+  if (v18)
   {
-    objc_storeStrong(&v12->_error, error);
+    objc_storeStrong(&v18->_error, error);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = responseCopy;
-      statusCode = [v14 statusCode];
-      v13->_statusCode = statusCode;
-      v29 = [MEMORY[0x1E696AD98] numberWithInteger:statusCode];
-      _SLLog(v5, 7, @"SLYahooOAuth2MigrationResponse httpResponse status code %@");
+      v25 = responseCopy;
+      statusCode = [v25 statusCode];
+      v19->_statusCode = statusCode;
+      v27 = [MEMORY[0x1E696AD98] numberWithInteger:statusCode];
+      _SLLog(v5, 7, @"SLYahooOAuth2MigrationResponse httpResponse status code %@", v28, v29, v30, v31, v32, v27);
 
-      if (!v13->_error)
+      if (!v19->_error)
       {
-        v30 = 0;
-        v16 = [MEMORY[0x1E696ACB0] JSONObjectWithData:dataCopy options:0 error:{&v30, v29}];
-        v17 = v30;
-        v18 = v30;
-        if (v18)
+        v52 = 0;
+        v33 = [MEMORY[0x1E696ACB0] JSONObjectWithData:dataCopy options:0 error:&v52];
+        v34 = v52;
+        v35 = v52;
+        if (v35)
         {
-          objc_storeStrong(&v13->_error, v17);
+          objc_storeStrong(&v19->_error, v34);
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          objc_storeStrong(&v13->_responseBody, v16);
-          v19 = [(NSDictionary *)v13->_responseBody objectForKeyedSubscript:@"access_token"];
-          accessToken = v13->_accessToken;
-          v13->_accessToken = v19;
+          objc_storeStrong(&v19->_responseBody, v33);
+          v41 = [(NSDictionary *)v19->_responseBody objectForKeyedSubscript:@"access_token"];
+          accessToken = v19->_accessToken;
+          v19->_accessToken = v41;
 
-          v21 = [(NSDictionary *)v13->_responseBody objectForKeyedSubscript:@"refresh_token"];
-          refreshToken = v13->_refreshToken;
-          v13->_refreshToken = v21;
+          v43 = [(NSDictionary *)v19->_responseBody objectForKeyedSubscript:@"refresh_token"];
+          refreshToken = v19->_refreshToken;
+          v19->_refreshToken = v43;
 
-          v23 = MEMORY[0x1E695DF00];
-          v24 = [(NSDictionary *)v13->_responseBody objectForKeyedSubscript:@"expires_in"];
-          v25 = [v23 dateWithTimeIntervalSinceNow:{objc_msgSend(v24, "integerValue")}];
-          expiryDate = v13->_expiryDate;
-          v13->_expiryDate = v25;
+          v45 = MEMORY[0x1E695DF00];
+          v46 = [(NSDictionary *)v19->_responseBody objectForKeyedSubscript:@"expires_in"];
+          v47 = [v45 dateWithTimeIntervalSinceNow:{objc_msgSend(v46, "integerValue")}];
+          expiryDate = v19->_expiryDate;
+          v19->_expiryDate = v47;
         }
 
         else
         {
-          _SLLog(v5, 7, @"SLYahooOAuth2MigrationResponse response JSON data does not represent NSDictionary. Game over.");
+          _SLLog(v5, 7, @"SLYahooOAuth2MigrationResponse response JSON data does not represent NSDictionary. Game over.", v36, v37, v38, v39, v40, v51);
         }
       }
     }
 
     else
     {
-      _SLLog(v5, 7, @"SLYahooOAuth2MigrationResponse response is not NSHTTPURLResponse. Game over.");
+      _SLLog(v5, 7, @"SLYahooOAuth2MigrationResponse response is not NSHTTPURLResponse. Game over.", v20, v21, v22, v23, v24, v50);
     }
   }
 
-  return v13;
+  return v19;
 }
 
 @end

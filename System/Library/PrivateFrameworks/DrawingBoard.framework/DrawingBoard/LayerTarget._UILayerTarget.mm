@@ -25,7 +25,7 @@
   v6 = sub_249D604BC(v8);
 
   sub_249D39488(v8);
-  return v6 & 1;
+  return v6;
 }
 
 - (BOOL)matchesLayer:(id)layer

@@ -84,12 +84,12 @@
       v8 = 0;
       while (1)
       {
-        v21 = 0;
+        v20 = 0;
         v9 = [from position] + 1;
         if (v9 >= [from position] && (v10 = objc_msgSend(from, "position") + 1, v10 <= objc_msgSend(from, "length")))
         {
           data = [from data];
-          [data getBytes:&v21 range:{objc_msgSend(from, "position"), 1}];
+          [data getBytes:&v20 range:{objc_msgSend(from, "position"), 1}];
 
           [from setPosition:{objc_msgSend(from, "position") + 1}];
         }
@@ -99,8 +99,8 @@
           [from _setError];
         }
 
-        v8 |= (v21 & 0x7F) << v6;
-        if ((v21 & 0x80) == 0)
+        v8 |= (v20 & 0x7F) << v6;
+        if ((v20 & 0x80) == 0)
         {
           break;
         }
@@ -138,14 +138,12 @@ LABEL_14:
           v15 = objc_alloc_init(PBUnknownFields);
           unknownFields = self->_unknownFields;
           self->_unknownFields = v15;
-
-          v17 = self->_unknownFields;
         }
 
-        v18 = PBUnknownFieldAdd();
-        if (!v18)
+        v17 = PBUnknownFieldAdd();
+        if (!v17)
         {
-          return v18;
+          return v17;
         }
       }
 
@@ -155,8 +153,8 @@ LABEL_14:
     while (position2 < [from length]);
   }
 
-  LOBYTE(v18) = [from hasError] ^ 1;
-  return v18;
+  LOBYTE(v17) = [from hasError] ^ 1;
+  return v17;
 }
 
 - (id)dictionaryRepresentation

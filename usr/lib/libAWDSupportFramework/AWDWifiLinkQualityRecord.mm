@@ -960,7 +960,6 @@ LABEL_33:
   has = self->_has;
   if ((*&has & 0x4000000) != 0)
   {
-    txFrames = self->_txFrames;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((*&has & 0x2000000) == 0)
@@ -980,7 +979,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  txFail = self->_txFail;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000000) == 0)
@@ -995,7 +993,6 @@ LABEL_4:
   }
 
 LABEL_36:
-  txRetrans = self->_txRetrans;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1010,7 +1007,6 @@ LABEL_5:
   }
 
 LABEL_37:
-  bcnSched = self->_bcnSched;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1025,7 +1021,6 @@ LABEL_6:
   }
 
 LABEL_38:
-  bcnRcvs = self->_bcnRcvs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1040,7 +1035,6 @@ LABEL_7:
   }
 
 LABEL_39:
-  fwTxFrames = self->_fwTxFrames;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1055,7 +1049,6 @@ LABEL_8:
   }
 
 LABEL_40:
-  fwTxFail = self->_fwTxFail;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1070,7 +1063,6 @@ LABEL_9:
   }
 
 LABEL_41:
-  fwTxRetrans = self->_fwTxRetrans;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1085,7 +1077,6 @@ LABEL_10:
   }
 
 LABEL_42:
-  rxFrames = self->_rxFrames;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1100,7 +1091,6 @@ LABEL_11:
   }
 
 LABEL_43:
-  rssi = self->_rssi;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -1115,7 +1105,6 @@ LABEL_12:
   }
 
 LABEL_44:
-  trgDisc = self->_trgDisc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1130,7 +1119,6 @@ LABEL_13:
   }
 
 LABEL_45:
-  gwArpExpiry = self->_gwArpExpiry;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000000) == 0)
@@ -1145,7 +1133,6 @@ LABEL_14:
   }
 
 LABEL_46:
-  usrInput = self->_usrInput;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -1160,7 +1147,6 @@ LABEL_15:
   }
 
 LABEL_47:
-  txPerSign = self->_txPerSign;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1175,7 +1161,6 @@ LABEL_16:
   }
 
 LABEL_48:
-  fwTxPerSign = self->_fwTxPerSign;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1190,7 +1175,6 @@ LABEL_17:
   }
 
 LABEL_49:
-  bcnPerSign = self->_bcnPerSign;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -1205,7 +1189,6 @@ LABEL_18:
   }
 
 LABEL_50:
-  sympSign = self->_sympSign;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1220,7 +1203,6 @@ LABEL_19:
   }
 
 LABEL_51:
-  netScore = self->_netScore;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000000) == 0)
@@ -1235,7 +1217,6 @@ LABEL_20:
   }
 
 LABEL_52:
-  usrImpact = self->_usrImpact;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -1250,7 +1231,6 @@ LABEL_21:
   }
 
 LABEL_53:
-  sympAwdCode = self->_sympAwdCode;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1265,7 +1245,6 @@ LABEL_22:
   }
 
 LABEL_54:
-  arpFailureCount = self->_arpFailureCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1280,7 +1259,6 @@ LABEL_23:
   }
 
 LABEL_55:
-  dnsServersImpacted = self->_dnsServersImpacted;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1295,7 +1273,6 @@ LABEL_24:
   }
 
 LABEL_56:
-  dnsServersTotal = self->_dnsServersTotal;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1310,7 +1287,6 @@ LABEL_25:
   }
 
 LABEL_57:
-  gateOpenTime = self->_gateOpenTime;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -1325,7 +1301,6 @@ LABEL_26:
   }
 
 LABEL_58:
-  trafficWatchRx = self->_trafficWatchRx;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1340,7 +1315,6 @@ LABEL_27:
   }
 
 LABEL_59:
-  trafficWatchDuration = self->_trafficWatchDuration;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1355,7 +1329,6 @@ LABEL_28:
   }
 
 LABEL_60:
-  trafficWatchTime = self->_trafficWatchTime;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 0x80000000) == 0)
@@ -1370,7 +1343,6 @@ LABEL_29:
   }
 
 LABEL_61:
-  validState = self->_validState;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1385,7 +1357,6 @@ LABEL_30:
   }
 
 LABEL_62:
-  metricReason = self->_metricReason;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1397,7 +1368,6 @@ LABEL_31:
     }
 
 LABEL_64:
-    tdEvalDuration = self->_tdEvalDuration;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -1408,7 +1378,6 @@ LABEL_64:
   }
 
 LABEL_63:
-  rapidLqmDuration = self->_rapidLqmDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 8) != 0)
@@ -1423,7 +1392,6 @@ LABEL_32:
   }
 
 LABEL_65:
-  roamWaitTime = self->_roamWaitTime;
 
   PBDataWriterWriteUint64Field();
 }

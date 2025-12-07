@@ -6,7 +6,7 @@
 
 - (id)responseForServerData:(id)data
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (dataCopy)
   {
@@ -53,8 +53,6 @@
   {
     v11 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

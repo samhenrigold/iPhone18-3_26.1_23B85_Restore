@@ -18,7 +18,7 @@
 - (JSValue)isEnabled
 {
   selfCopy = self;
-  v3 = sub_216E2D09C();
+  v3 = sub_216E2D09C(sub_216E2D324);
 
   return v3;
 }
@@ -32,7 +32,7 @@
 - (JSValue)highlights
 {
   selfCopy = self;
-  v3 = sub_216E2D09C();
+  v3 = sub_216E2D09C(sub_216E2D2B4);
 
   return v3;
 }

@@ -93,31 +93,30 @@ LABEL_14:
 
   if (frequency)
   {
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
     v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     frequency2 = [dictionary frequency];
     v21 = 0;
-    v22 = [frequency2 countByEnumeratingWithState:&v64 objects:v74 count:16];
+    v22 = [frequency2 countByEnumeratingWithState:&v63 objects:v73 count:16];
     if (v22)
     {
-      v23 = *v65;
+      v23 = *v64;
       do
       {
-        for (i = 0; i != v22; i = i + 1)
+        for (i = 0; i != v22; ++i)
         {
-          if (*v65 != v23)
+          if (*v64 != v23)
           {
             objc_enumerationMutation(frequency2);
           }
 
-          v25 = *(*(&v64 + 1) + 8 * i);
-          v26 = SAAlarmDayOfWeekForString();
-          v21 |= MTAlarmRepeatDayFromSAAlarmDayOfWeek(v26);
+          v25 = SAAlarmDayOfWeekForString();
+          v21 |= MTAlarmRepeatDayFromSAAlarmDayOfWeek(v25);
         }
 
-        v22 = [frequency2 countByEnumeratingWithState:&v64 objects:v74 count:16];
+        v22 = [frequency2 countByEnumeratingWithState:&v63 objects:v73 count:16];
       }
 
       while (v22);
@@ -127,9 +126,9 @@ LABEL_14:
   }
 
   label = [dictionary label];
-  v28 = label == 0;
+  v27 = label == 0;
 
-  if (!v28)
+  if (!v27)
   {
     label2 = [dictionary label];
     [v7 setTitle:label2];
@@ -140,78 +139,78 @@ LABEL_14:
 
   if (isSilent)
   {
-    v32 = +[TLToneManager sharedToneManager];
-    v33 = [v32 defaultToneIdentifierForAlertType:13];
+    v31 = +[TLToneManager sharedToneManager];
+    v32 = [v31 defaultToneIdentifierForAlertType:13];
 
     sound2 = [v7 sound];
     vibrationIdentifier = [sound2 vibrationIdentifier];
     sound3 = [v7 sound];
     soundVolume = [sound3 soundVolume];
-    v38 = [MTSound toneSoundWithIdentifier:v33 vibrationIdentifer:vibrationIdentifier volume:soundVolume];
+    v37 = [MTSound toneSoundWithIdentifier:v32 vibrationIdentifer:vibrationIdentifier volume:soundVolume];
 
-    [v7 setSound:v38];
+    [v7 setSound:v37];
   }
 
-  v52 = objc_opt_new();
-  v39 = MTLogForCategory();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+  v51 = objc_opt_new();
+  v38 = MTLogForCategory();
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     *&buf[4] = self;
     *&buf[12] = 2114;
     *&buf[14] = v7;
-    _os_log_impl(&dword_0, v39, OS_LOG_TYPE_DEFAULT, "%{public}@ adding alarm: %{public}@", buf, 0x16u);
+    _os_log_impl(&dword_0, v38, OS_LOG_TYPE_DEFAULT, "%{public}@ adding alarm: %{public}@", buf, 0x16u);
   }
 
-  v40 = [v52 addAlarm:v7];
+  v39 = [v51 addAlarm:v7];
   objc_initWeak(&location, self);
-  v41 = dispatch_semaphore_create(0);
+  v40 = dispatch_semaphore_create(0);
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v71 = sub_3638;
-  v72 = sub_3648;
-  v73 = 0;
-  v58[0] = _NSConcreteStackBlock;
-  v58[1] = 3221225472;
-  v58[2] = sub_3650;
-  v58[3] = &unk_14518;
-  objc_copyWeak(&v62, &location);
-  v42 = v7;
+  v70 = sub_3638;
+  v71 = sub_3648;
+  v72 = 0;
+  v57[0] = _NSConcreteStackBlock;
+  v57[1] = 3221225472;
+  v57[2] = sub_3650;
+  v57[3] = &unk_14518;
+  objc_copyWeak(&v61, &location);
+  v41 = v7;
+  v58 = v41;
+  v60 = buf;
+  v42 = v40;
   v59 = v42;
-  v61 = buf;
-  v43 = v41;
-  v60 = v43;
-  v44 = [v40 addSuccessBlock:v58];
-  v54[0] = _NSConcreteStackBlock;
-  v54[1] = 3221225472;
-  v54[2] = sub_3780;
-  v54[3] = &unk_14540;
-  objc_copyWeak(&v57, &location);
-  v56 = buf;
-  v45 = v43;
-  v55 = v45;
-  v46 = [v40 addFailureBlock:v54];
-  dispatch_semaphore_wait(v45, 0xFFFFFFFFFFFFFFFFLL);
-  v47 = MTLogForCategory();
-  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+  v43 = [v39 addSuccessBlock:v57];
+  v53[0] = _NSConcreteStackBlock;
+  v53[1] = 3221225472;
+  v53[2] = sub_3780;
+  v53[3] = &unk_14540;
+  objc_copyWeak(&v56, &location);
+  v55 = buf;
+  v44 = v42;
+  v54 = v44;
+  v45 = [v39 addFailureBlock:v53];
+  dispatch_semaphore_wait(v44, 0xFFFFFFFFFFFFFFFFLL);
+  v46 = MTLogForCategory();
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
   {
     dictionary2 = [*(*&buf[8] + 40) dictionary];
-    sub_C93C(self, dictionary2, v69);
+    sub_C93C(self, dictionary2, v68);
   }
 
   dictionary3 = [*(*&buf[8] + 40) dictionary];
   completionCopy[2](completionCopy, dictionary3);
 
-  v50 = MTLogForCategory();
-  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+  v49 = MTLogForCategory();
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
   {
     dictionary4 = [*(*&buf[8] + 40) dictionary];
-    sub_C9A0(self, dictionary4, v68);
+    sub_C9A0(self, dictionary4, v67);
   }
 
-  objc_destroyWeak(&v57);
-  objc_destroyWeak(&v62);
+  objc_destroyWeak(&v56);
+  objc_destroyWeak(&v61);
   _Block_object_dispose(buf, 8);
 
   objc_destroyWeak(&location);

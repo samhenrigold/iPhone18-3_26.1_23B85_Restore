@@ -207,7 +207,6 @@
 - (int64_t)defaultStatusForCategory:(int64_t)category error:(id *)error;
 - (int64_t)pureUserInterfaceLayoutDirection;
 - (uint64_t)_defaultSupportedInterfaceOrientations;
-- (uint64_t)_internalHandleHIDEventBypassingUIEvent:(uint64_t)result;
 - (uint64_t)_shouldRegisterTopLevelKeyboardShortcutsForWindowScene:(uint64_t)scene;
 - (unint64_t)_restorationArchiveProtectionClass;
 - (unint64_t)_supportedInterfaceOrientationsForWindow:(id)window;
@@ -291,6 +290,7 @@
 - (void)_headsetButtonUp:(__IOHIDEvent *)up;
 - (void)_immediatelyUpdateSerializableKeyCommands;
 - (void)_initiateLaunchActionsBackgrounded:(BOOL)backgrounded firstActivation:(BOOL)activation;
+- (void)_internalHandleHIDEventBypassingUIEvent:(void *)result;
 - (void)_leak;
 - (void)_maybeEffectiveUserInterfaceStyleChanged;
 - (void)_noteAnimationFinished:(id)finished;
@@ -986,12 +986,12 @@ LABEL_18:
   }
 
   _UIUpdateCycleDebugOverlaySetup();
-  if (os_variant_has_internal_diagnostics() && (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_VisualizeUIViews, @"VisualizeUIViews", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48A8C4)
+  if (os_variant_has_internal_diagnostics() && !_UIInternalPreferenceUsesDefault(&_UIInternalPreference_VisualizeUIViews, @"VisualizeUIViews", _UIInternalPreferenceUpdateBool) && byte_1ED48A8C4)
   {
     +[UIView _setupViewVisualization];
   }
 
-  if (os_variant_has_internal_diagnostics() && (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_VisualizeMaterials, @"VisualizeMaterials", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48A8CC)
+  if (os_variant_has_internal_diagnostics() && !_UIInternalPreferenceUsesDefault(&_UIInternalPreference_VisualizeMaterials, @"VisualizeMaterials", _UIInternalPreferenceUpdateBool) && byte_1ED48A8CC)
   {
     +[UIVisualEffectView _setupMaterialVisualization];
   }
@@ -1515,7 +1515,7 @@ void __76__UIApplication_UIKitApplicationAccessibility___updateLargeTextNotifica
 {
   v2 = _UIMainBundleIdentifier();
 
-  return [v2 isEqualToString:@"com.apple.springboard"];
+  return objc_msgSend_isEqualToString_(v2);
 }
 
 - (void)_registerForUserDefaultsChanges
@@ -2025,7 +2025,7 @@ void __34__UIApplication__firstCommitBlock__block_invoke(uint64_t a1)
   return [(_UIApplicationInfoParser *)appInfo supportsMultiwindow];
 }
 
-uint64_t __43__UIApplication__appAdoptsUISceneLifecycle__block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__43__UIApplication__appAdoptsUISceneLifecycle__block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 count];
   if (result)
@@ -2050,9 +2050,9 @@ void __38__UIApplication__defaultSceneIfExists__block_invoke(uint64_t a1, void *
 {
   v9 = a2;
   v7 = [v9 identityToken];
-  v8 = [v7 isEqual:*(a1 + 32)];
+  isEqual = objc_msgSend_isEqual_(v7);
 
-  if (v8)
+  if (isEqual)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
     *a4 = 1;
@@ -2085,7 +2085,7 @@ uint64_t __34__UIApplication__firstCommitBlock__block_invoke_2(uint64_t a1)
 
 - (id)_currentFrameCountForTestDisplay
 {
-  if (byte_1ED4A20A1 == 1 && (+[UIScreen _screens](), v2 = objc_claimAutoreleasedReturnValue(), v3 = [v2 count], v2, v3 >= 2))
+  if (byte_1ED4A20A1 == 1 && (+[UIScreen _screens](UIScreen), v2 = objc_claimAutoreleasedReturnValue(), v3 = [v2 count], v2, v3 >= 2))
   {
     v4 = MEMORY[0x1E696AD98];
     DirtyFrameCountByIndex = CARenderServerGetDirtyFrameCountByIndex();
@@ -2676,10 +2676,10 @@ LABEL_19:
   return v3;
 }
 
-uint64_t __46__UIApplication__responderBasedEventDeliverer__block_invoke()
+BOOL __46__UIApplication__responderBasedEventDeliverer__block_invoke()
 {
   result = _UIInternalPreferenceUsesDefault(&_UIInternalPreference_ForceResponderChainIntegrity, @"ForceResponderChainIntegrity", _UIInternalPreferenceUpdateInteger);
-  byte_1EA992DCB = (qword_1ED48B490 > 0) & ~result;
+  byte_1EA992DCB = qword_1ED48B490 > 0 && ~result;
   return result;
 }
 
@@ -2752,7 +2752,7 @@ uint64_t __46__UIApplication__responderBasedEventDeliverer__block_invoke()
   }
 }
 
-uint64_t __38__UIApplication__performMemoryWarning__block_invoke(uint64_t a1, void *a2, int a3)
+void *__38__UIApplication__performMemoryWarning__block_invoke(uint64_t a1, void *a2, int a3)
 {
   if (a3)
   {
@@ -4281,7 +4281,7 @@ LABEL_15:
 
 - (void)layoutMonitor:(id)monitor didUpdateDisplayLayout:(id)layout withContext:(id)context
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   monitorCopy = monitor;
   layoutCopy = layout;
   contextCopy = context;
@@ -4295,60 +4295,58 @@ LABEL_15:
   p_applicationFlags = &self->_applicationFlags;
   selfCopy = self;
   v54 = *(&self->_applicationFlags + 1);
+  v64 = 0u;
+  v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
-  v69 = 0u;
   obj = [layoutCopy elements];
-  v62 = [obj countByEnumeratingWithState:&v66 objects:v79 count:16];
-  if (!v62)
+  v60 = [obj countByEnumeratingWithState:&v64 objects:v77 count:16];
+  if (!v60)
   {
     v57 = 0;
-    v63 = 0;
+    v61 = 0;
     goto LABEL_41;
   }
 
-  v63 = 0;
+  v61 = 0;
   v57 = 0;
   v10 = (v54 >> 35) & 3;
-  v61 = *v67;
-  v60 = *MEMORY[0x1E699F8A8];
-  v59 = *MEMORY[0x1E699F898];
+  v59 = *v65;
   while (2)
   {
-    for (i = 0; i != v62; ++i)
+    for (i = 0; i != v60; ++i)
     {
-      if (*v67 != v61)
+      if (*v65 != v59)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v66 + 1) + 8 * i);
+      v12 = *(*(&v64 + 1) + 8 * i);
       identifier = [v12 identifier];
       v14 = _UIMainBundleIdentifier();
       v15 = [identifier hasPrefix:v14];
 
       identifier2 = [v12 identifier];
-      v75 = 0;
-      v76 = &v75;
-      v77 = 0x2020000000;
+      v73 = 0;
+      v74 = &v73;
+      v75 = 0x2020000000;
       v17 = qword_1EA993200;
-      v78 = qword_1EA993200;
+      v76 = qword_1EA993200;
       if (!qword_1EA993200)
       {
-        v70 = MEMORY[0x1E69E9820];
-        v71 = 3221225472;
-        v72 = __getSBSDisplayLayoutElementAppSwitcherIdentifierSymbolLoc_block_invoke;
-        v73 = &unk_1E70F2F20;
-        v74 = &v75;
+        v68 = MEMORY[0x1E69E9820];
+        v69 = 3221225472;
+        v70 = __getSBSDisplayLayoutElementAppSwitcherIdentifierSymbolLoc_block_invoke;
+        v71 = &unk_1E70F2F20;
+        v72 = &v73;
         v18 = SpringBoardServicesLibrary_1();
         v19 = dlsym(v18, "SBSDisplayLayoutElementAppSwitcherIdentifier");
-        *(v74[1] + 24) = v19;
-        qword_1EA993200 = *(v74[1] + 24);
-        v17 = v76[3];
+        *(v72[1] + 24) = v19;
+        qword_1EA993200 = *(v72[1] + 24);
+        v17 = v74[3];
       }
 
-      _Block_object_dispose(&v75, 8);
+      _Block_object_dispose(&v73, 8);
       if (!v17)
       {
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -4358,29 +4356,29 @@ LABEL_15:
         goto LABEL_51;
       }
 
-      v20 = [identifier2 isEqualToString:*v17];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier2);
 
       identifier3 = [v12 identifier];
-      v75 = 0;
-      v76 = &v75;
-      v77 = 0x2020000000;
+      v73 = 0;
+      v74 = &v73;
+      v75 = 0x2020000000;
       v22 = qword_1EA993208;
-      v78 = qword_1EA993208;
+      v76 = qword_1EA993208;
       if (!qword_1EA993208)
       {
-        v70 = MEMORY[0x1E69E9820];
-        v71 = 3221225472;
-        v72 = __getSBSDisplayLayoutElementFloatingDockIdentifierSymbolLoc_block_invoke;
-        v73 = &unk_1E70F2F20;
-        v74 = &v75;
+        v68 = MEMORY[0x1E69E9820];
+        v69 = 3221225472;
+        v70 = __getSBSDisplayLayoutElementFloatingDockIdentifierSymbolLoc_block_invoke;
+        v71 = &unk_1E70F2F20;
+        v72 = &v73;
         v23 = SpringBoardServicesLibrary_1();
         v24 = dlsym(v23, "SBSDisplayLayoutElementFloatingDockIdentifier");
-        *(v74[1] + 24) = v24;
-        qword_1EA993208 = *(v74[1] + 24);
-        v22 = v76[3];
+        *(v72[1] + 24) = v24;
+        qword_1EA993208 = *(v72[1] + 24);
+        v22 = v74[3];
       }
 
-      _Block_object_dispose(&v75, 8);
+      _Block_object_dispose(&v73, 8);
       if (!v22)
       {
         currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
@@ -4391,23 +4389,23 @@ LABEL_51:
         __break(1u);
       }
 
-      v25 = [identifier3 isEqualToString:*v22];
+      v25 = objc_msgSend_isEqualToString_(identifier3);
 
       identifier4 = [v12 identifier];
-      v27 = [identifier4 isEqualToString:v60];
+      v27 = objc_msgSend_isEqualToString_(identifier4);
 
       identifier5 = [v12 identifier];
-      v29 = [identifier5 isEqualToString:v59];
+      v29 = objc_msgSend_isEqualToString_(identifier5);
 
       identifier6 = [v12 identifier];
-      v31 = [identifier6 isEqualToString:@"SBSpotlightAlert"];
+      v31 = objc_msgSend_isEqualToString_(identifier6);
 
       if (((v54 >> 35) & 3) > 1)
       {
         if (v10 == 2)
         {
-          v32 = v63;
-          if (((v20 | v25) & 1) == 0)
+          v32 = v61;
+          if (((isEqualToString | v25) & 1) == 0)
           {
             v32 = 3;
           }
@@ -4420,14 +4418,14 @@ LABEL_51:
       {
         if (!v10)
         {
-          v32 = v63;
-          if (v20)
+          v32 = v61;
+          if (isEqualToString)
           {
             v32 = 1;
           }
 
 LABEL_21:
-          v63 = v32;
+          v61 = v32;
           goto LABEL_27;
         }
 
@@ -4437,13 +4435,13 @@ LABEL_21:
           v33 = 0;
         }
 
-        v34 = v63;
-        if (!v20)
+        v34 = v61;
+        if (!isEqualToString)
         {
           v34 = v33;
         }
 
-        v63 = v34;
+        v61 = v34;
       }
 
 LABEL_27:
@@ -4452,7 +4450,7 @@ LABEL_27:
         v57 |= [v12 layoutRole] == 3;
       }
 
-      if (((v15 & (v25 ^ 1) | v20 | v27 | v29 | v31) & 1) != 0 && [v12 conformsToProtocol:&unk_1F016D890])
+      if (((v15 & (v25 ^ 1) | isEqualToString | v27 | v29 | v31) & 1) != 0 && [v12 conformsToProtocol:&unk_1F016D890])
       {
         v35 = v12;
         if ([v35 layoutRole] == 1 || objc_msgSend(v35, "layoutRole") == 4 || objc_msgSend(v35, "layoutRole") == 3)
@@ -4465,8 +4463,8 @@ LABEL_27:
       }
     }
 
-    v62 = [obj countByEnumeratingWithState:&v66 objects:v79 count:16];
-    if (v62)
+    v60 = [obj countByEnumeratingWithState:&v64 objects:v77 count:16];
+    if (v60)
     {
       continue;
     }
@@ -4500,12 +4498,12 @@ LABEL_42:
     v44 = v57;
   }
 
-  *(v36 + 1) = v45 & 0xFFFFFFE7FFFFFFFFLL | v37 & 0xFFFFFFE3FFFFFFFFLL | ((v63 & 3) << 35);
+  *(v36 + 1) = v45 & 0xFFFFFFE7FFFFFFFFLL | v37 & 0xFFFFFFE3FFFFFFFFLL | ((v61 & 3) << 35);
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __66__UIApplication_layoutMonitor_didUpdateDisplayLayout_withContext___block_invoke;
   aBlock[3] = &unk_1E70F35E0;
-  v65 = ((v54 & 0x400000000 | v63) != 0) | v44 & 1;
+  v63 = ((v54 & 0x400000000 | v61) != 0) | v44 & 1;
   aBlock[4] = v43;
   v46 = _Block_copy(aBlock);
   if (pthread_main_np() == 1)
@@ -4522,11 +4520,11 @@ LABEL_42:
 LABEL_48:
 }
 
-uint64_t __66__UIApplication_layoutMonitor_didUpdateDisplayLayout_withContext___block_invoke(uint64_t result)
+id *__66__UIApplication_layoutMonitor_didUpdateDisplayLayout_withContext___block_invoke(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return [*(result + 32) _deliverRemainingKeyUpEvents];
+    return [result[4] _deliverRemainingKeyUpEvents];
   }
 
   return result;
@@ -5879,8 +5877,8 @@ void __66__UIApplication_activityContinuationManager_continueUserActivity___bloc
   specification = [sceneCopy specification];
   uiSceneSessionRole = [specification uiSceneSessionRole];
 
-  v10 = [uiSceneSessionRole isEqualToString:@"UIWindowSceneSessionRoleApplication"];
-  v11 = [uiSceneSessionRole isEqualToString:@"UIWindowSceneSessionRoleExternalDisplayNonInteractive"];
+  isEqualToString = objc_msgSend_isEqualToString_(uiSceneSessionRole);
+  v11 = objc_msgSend_isEqualToString_(uiSceneSessionRole);
   specification2 = [sceneCopy specification];
   isUIKitManaged = [specification2 isUIKitManaged];
 
@@ -5891,7 +5889,7 @@ void __66__UIApplication_activityContinuationManager_continueUserActivity___bloc
   LODWORD(v49) = [specification4 allowsConfigurationByAppDelegate];
 
   selfCopy = self;
-  if (isUIKitManaged && isInternal && ((v10 | v11) & 1) != 0)
+  if (isUIKitManaged && isInternal && ((isEqualToString | v11) & 1) != 0)
   {
     if (os_variant_has_internal_diagnostics())
     {
@@ -6077,7 +6075,7 @@ uint64_t __63__UIApplication__connectUISceneFromFBSScene_transitionContext___blo
 {
   v3 = a2;
   v4 = [v3 role];
-  if (![v4 isEqualToString:*(a1 + 32)])
+  if (!objc_msgSend_isEqualToString_(v4))
   {
     goto LABEL_5;
   }
@@ -6285,7 +6283,7 @@ void __75__UIApplication_workspace_didCreateScene_withTransitionContext_completi
   }
 
   applicationFlags = self->_applicationFlags;
-  if (![qword_1EA992E50 count] && ((applicationFlags >> 26) & 0xF) != 0 && ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_ForceEndIngnoringInteractionEventsForCarPlayApp, @"ForceEndIngnoringInteractionEventsForCarPlayApp", _UIInternalPreferenceUpdateBool) & 1) != 0 || byte_1EA95E614))
+  if (![qword_1EA992E50 count] && ((applicationFlags >> 26) & 0xF) != 0 && (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_ForceEndIngnoringInteractionEventsForCarPlayApp, @"ForceEndIngnoringInteractionEventsForCarPlayApp", _UIInternalPreferenceUpdateBool) || byte_1EA95E614))
   {
     if (qword_1EA992F48 != -1)
     {
@@ -7206,7 +7204,7 @@ LABEL_16:
   sceneCopy = scene;
   if (![(UIApplication *)self _isSpringBoard])
   {
-    if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_RaiseForStatusBarCreation, @"RaiseForStatusBarCreation", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1EA95E60C)
+    if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_RaiseForStatusBarCreation, @"RaiseForStatusBarCreation", _UIInternalPreferenceUpdateBool) && byte_1EA95E60C)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       v11 = currentHandler;
@@ -8145,9 +8143,9 @@ void __78__UIApplication_setStatusBarHidden_animationParameters_changeApplicatio
 void __50__UIApplication_setStatusBarOrientation_animated___block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  v1 = [v0 isEqualToString:@"com.google.ios.youtube"];
+  isEqualToString = objc_msgSend_isEqualToString_(v0);
 
-  if (v1)
+  if (isEqualToString)
   {
     byte_1EA992DC6 = 1;
   }
@@ -8291,7 +8289,7 @@ void __50__UIApplication_setStatusBarOrientation_animated___block_invoke()
     goto LABEL_7;
   }
 
-  if (!windowCopy || (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_RaiseWithNilSceneForInterfaceOrientation, @"RaiseWithNilSceneForInterfaceOrientation", _UIInternalPreferenceUpdateBool) & 1) != 0 || !byte_1EA95E61C)
+  if (!windowCopy || _UIInternalPreferenceUsesDefault(&_UIInternalPreference_RaiseWithNilSceneForInterfaceOrientation, @"RaiseWithNilSceneForInterfaceOrientation", _UIInternalPreferenceUpdateBool) || !byte_1EA95E61C)
   {
     windowScene = [(UIApplication *)self _findUISceneForLegacyInterfaceOrientation];
     if (!windowScene)
@@ -8438,7 +8436,7 @@ LABEL_7:
   textCopy = text;
   NSLog(&cfstr_UiapplicationS_0.isa);
   v3 = _UIMainBundleIdentifier();
-  if ([v3 isEqualToString:@"com.apple.VoiceMemos"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = 206;
 LABEL_5:
@@ -8446,7 +8444,7 @@ LABEL_5:
     goto LABEL_7;
   }
 
-  if ([v3 isEqualToString:@"com.apple.nike"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = 201;
     goto LABEL_5;
@@ -8603,7 +8601,7 @@ LABEL_7:
 {
   beganCopy = began;
   eventCopy = event;
-  if (_UIPressesContainsPressType(beganCopy, 102))
+  if (_UIPressesContainsPressType(beganCopy, 0x66))
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     v9 = defaultCenter;
@@ -8614,7 +8612,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if (_UIPressesContainsPressType(beganCopy, 103))
+  if (_UIPressesContainsPressType(beganCopy, 0x67))
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     v9 = defaultCenter;
@@ -8622,7 +8620,7 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  if (_UIPressesContainsPressType(beganCopy, 601))
+  if (_UIPressesContainsPressType(beganCopy, 0x259))
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     v9 = defaultCenter;
@@ -8657,7 +8655,7 @@ LABEL_8:
 {
   endedCopy = ended;
   eventCopy = event;
-  if (_UIPressesContainsPressType(endedCopy, 102))
+  if (_UIPressesContainsPressType(endedCopy, 0x66))
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     v9 = defaultCenter;
@@ -8669,7 +8667,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  if (_UIPressesContainsPressType(endedCopy, 103))
+  if (_UIPressesContainsPressType(endedCopy, 0x67))
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     v9 = defaultCenter;
@@ -8677,7 +8675,7 @@ LABEL_8:
     goto LABEL_7;
   }
 
-  if (_UIPressesContainsPressType(endedCopy, 601))
+  if (_UIPressesContainsPressType(endedCopy, 0x259))
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     v9 = defaultCenter;
@@ -8728,7 +8726,7 @@ LABEL_9:
 {
   cancelledCopy = cancelled;
   eventCopy = event;
-  if ((_UIPressesContainsPressType(cancelledCopy, 201) & 1) == 0 && (_UIPressesContainsPressType(cancelledCopy, 102) & 1) == 0 && (_UIPressesContainsPressType(cancelledCopy, 103) & 1) == 0 && (_UIPressesContainsPressType(cancelledCopy, 601) & 1) == 0 && (_UIPressesContainsPressType(cancelledCopy, 7) & 1) == 0 && (_UIPressesContainsPressType(cancelledCopy, 6) & 1) == 0 && (_UIPressesContainsPressType(cancelledCopy, 5) & 1) == 0 && (_UIPressesContainsDirectionalPress(cancelledCopy) & 1) == 0)
+  if ((_UIPressesContainsPressType(cancelledCopy, 0xC9) & 1) == 0 && (_UIPressesContainsPressType(cancelledCopy, 0x66) & 1) == 0 && (_UIPressesContainsPressType(cancelledCopy, 0x67) & 1) == 0 && (_UIPressesContainsPressType(cancelledCopy, 0x259) & 1) == 0 && (_UIPressesContainsPressType(cancelledCopy, 7) & 1) == 0 && (_UIPressesContainsPressType(cancelledCopy, 6) & 1) == 0 && (_UIPressesContainsPressType(cancelledCopy, 5) & 1) == 0 && (_UIPressesContainsDirectionalPress(cancelledCopy) & 1) == 0)
   {
     v8.receiver = self;
     v8.super_class = UIApplication;
@@ -8974,12 +8972,12 @@ void __41__UIApplication_updateSuspendedSettings___block_invoke(uint64_t a1, voi
 
   scheme = [v8 scheme];
   v10 = scheme;
-  if (onlyCopy && ([scheme isEqualToString:@"app-prefs"] & 1) != 0)
+  if (onlyCopy && (objc_msgSend_isEqualToString_(scheme) & 1) != 0)
   {
     v11 = 0;
   }
 
-  else if ([v10 isEqualToString:@"app-settings"])
+  else if (objc_msgSend_isEqualToString_(v10))
   {
     v11 = 1;
   }
@@ -9013,7 +9011,7 @@ void __41__UIApplication_updateSuspendedSettings___block_invoke(uint64_t a1, voi
   v7 = [defaultWorkspace URLOverrideForURL:lCopy];
 
   scheme = [v7 scheme];
-  LOBYTE(defaultWorkspace) = [scheme isEqualToString:@"app-prefs"];
+  LOBYTE(defaultWorkspace) = objc_msgSend_isEqualToString_(scheme);
 
   return defaultWorkspace ^ 1;
 }
@@ -9022,16 +9020,16 @@ void __41__UIApplication_updateSuspendedSettings___block_invoke(uint64_t a1, voi
 {
   neededCopy = needed;
   scheme = [neededCopy scheme];
-  v5 = [scheme isEqualToString:@"app-settings"];
+  isEqualToString = objc_msgSend_isEqualToString_(scheme);
 
-  if (v5)
+  if (isEqualToString)
   {
     v6 = MEMORY[0x1E696AEC0];
     v7 = _UIMainBundleIdentifier();
     v8 = [v6 stringWithFormat:@"%@:%@", @"app-prefs", v7];
 
     resourceSpecifier = [neededCopy resourceSpecifier];
-    v10 = [resourceSpecifier isEqualToString:@"notifications"];
+    v10 = objc_msgSend_isEqualToString_(resourceSpecifier);
 
     if (v10)
     {
@@ -9041,7 +9039,7 @@ void __41__UIApplication_updateSuspendedSettings___block_invoke(uint64_t a1, voi
     else
     {
       resourceSpecifier2 = [neededCopy resourceSpecifier];
-      v13 = [resourceSpecifier2 isEqualToString:@"default-applications"];
+      v13 = objc_msgSend_isEqualToString_(resourceSpecifier2);
 
       if (!v13)
       {
@@ -10297,13 +10295,13 @@ uint64_t __64__UIApplication__createSnapshotContextForSceneRemoval_withName___bl
 LABEL_24:
 }
 
-uint64_t __65__UIApplication__beginSnapshotSessionForScene_withSnapshotBlock___block_invoke(uint64_t result)
+id *__65__UIApplication__beginSnapshotSessionForScene_withSnapshotBlock___block_invoke(id *result)
 {
-  if (*(*(*(result + 40) + 8) + 24))
+  if (*(*(result[5] + 1) + 24))
   {
     v1 = result;
-    result = [*(result + 32) _endBackgroundTask:?];
-    *(*(*(v1 + 40) + 8) + 24) = 0;
+    result = [result[4] _endBackgroundTask:?];
+    *(*(v1[5] + 1) + 24) = 0;
   }
 
   return result;
@@ -12044,7 +12042,7 @@ void __58__UIApplication__showEditAlertViewWithUndoManager_window___block_invoke
   [UIUndoGestureInteraction presentProductivityGestureTutorialIfNeededWithCompletion:v2];
 }
 
-uint64_t __58__UIApplication__showEditAlertViewWithUndoManager_window___block_invoke_4(uint64_t a1)
+void *__58__UIApplication__showEditAlertViewWithUndoManager_window___block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) canUndo];
   if (result)
@@ -12068,7 +12066,7 @@ void __58__UIApplication__showEditAlertViewWithUndoManager_window___block_invoke
   [UIUndoGestureInteraction presentProductivityGestureTutorialIfNeededWithCompletion:v2];
 }
 
-uint64_t __58__UIApplication__showEditAlertViewWithUndoManager_window___block_invoke_6(uint64_t a1)
+void *__58__UIApplication__showEditAlertViewWithUndoManager_window___block_invoke_6(uint64_t a1)
 {
   result = [*(a1 + 32) canRedo];
   if (result)
@@ -13178,8 +13176,7 @@ uint64_t __58__UIApplication__sendButtonEventWithType_phase_timestamp___block_in
 
     else
     {
-      [eventCopy _hidEvent];
-      _UIEventHIDUIWindowForHIDEvent();
+      _UIEventHIDUIWindowForHIDEvent([eventCopy _hidEvent]);
     }
     v10 = ;
     v11 = -[UIEventEnvironment _pressForType:window:](self->_eventDispatcher->_mainEnvironment, [infoCopy type], v10);
@@ -13249,10 +13246,10 @@ LABEL_31:
       v21 = BKSHIDEventGetBaseAttributes();
       environment = [v21 environment];
       systemEnvironment = [MEMORY[0x1E698E398] systemEnvironment];
-      v24 = [environment isEqual:systemEnvironment];
+      isEqual = objc_msgSend_isEqual_(environment);
 
       screen = [eventCopy _screen];
-      if (v24)
+      if (isEqual)
       {
         v25 = [(UIApplication *)self _windowForSystemAppButtonEventsForScreen:screen];
         if (v25)
@@ -13381,7 +13378,7 @@ LABEL_32:
 {
   gestureEnvironment = self->__gestureEnvironment;
   gestureRecognizers = [view gestureRecognizers];
-  [(UIGestureEnvironment *)gestureEnvironment _cancelGestureRecognizers:gestureRecognizers];
+  [(UIGestureEnvironment *)&gestureEnvironment->super.isa _cancelGestureRecognizers:gestureRecognizers];
 }
 
 - (void)_cancelTouchesOrPresses:(id)presses withEvent:(id)event includingGestures:(BOOL)gestures notificationBlock:(id)block
@@ -15111,7 +15108,7 @@ void __91__UIApplication__handleNonLaunchSpecificActions_forScene_withTransition
   dispatch_async(MEMORY[0x1E69E96A0], v2);
 }
 
-uint64_t __91__UIApplication__handleNonLaunchSpecificActions_forScene_withTransitionContext_completion___block_invoke_2(uint64_t a1)
+void *__91__UIApplication__handleNonLaunchSpecificActions_forScene_withTransitionContext_completion___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) canSendResponse];
   if (result)
@@ -15250,10 +15247,10 @@ uint64_t __91__UIApplication__handleNonLaunchSpecificActions_forScene_withTransi
 {
   v5 = [a2 persistentIdentifier];
   v6 = [*(a1 + 32) persistentIdentifier];
-  v7 = [v5 isEqualToString:v6];
+  isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-  *a3 = v7;
-  return v7;
+  *a3 = isEqualToString;
+  return isEqualToString;
 }
 
 - (void)_updateStateRestorationArchiveForBackgroundEvent:(id)event saveState:(BOOL)state exitIfCouldNotRestoreState:(BOOL)restoreState updateSnapshot:(BOOL)snapshot windowScene:(id)scene
@@ -15389,7 +15386,7 @@ uint64_t __130__UIApplication__updateStateRestorationArchiveForBackgroundEvent_s
   [(UIApplication *)self _updateStateRestorationArchiveForBackgroundEvent:v8 saveState:1 exitIfCouldNotRestoreState:1 updateSnapshot:1 windowScene:scene];
 }
 
-uint64_t __74__UIApplication__updateSnapshotAndStateRestorationWithAction_windowScene___block_invoke(uint64_t a1)
+void *__74__UIApplication__updateSnapshotAndStateRestorationWithAction_windowScene___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) canSendResponse];
   if (result)
@@ -15557,9 +15554,9 @@ void __41__UIApplication__applicationNameForMenus__block_invoke(uint64_t a1)
   {
     v5 = [MEMORY[0x1E695DF58] currentLocale];
     v6 = [v5 countryCode];
-    v7 = [v6 isEqualToString:@"cn"];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (v7)
+    if (isEqualToString)
     {
       v8 = [v34 objectForInfoDictionaryKey:@"CFBundleName#CH"];
       v9 = [v8 copyWithZone:0];
@@ -16044,36 +16041,36 @@ void __52__UIApplication__sendEventToGameControllerObserver___block_invoke(uint6
   }
 }
 
-void __45__UIApplication__internalHandlePressesEvent___block_invoke()
+void __45__UIApplication__internalHandlePressesEvent___block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  MethodImplementation = class_getMethodImplementation(v0, sel__handlePhysicalButtonEvent_);
-  v2 = objc_opt_class();
-  if (MethodImplementation != class_getMethodImplementation(v2, sel__handlePhysicalButtonEvent_) && ([UIApp isFrontBoard] & 1) == 0)
+  v1 = objc_opt_class();
+  MethodImplementation = class_getMethodImplementation(v1, sel__handlePhysicalButtonEvent_);
+  v3 = objc_opt_class();
+  if (MethodImplementation != class_getMethodImplementation(v3, sel__handlePhysicalButtonEvent_) && ([UIApp isFrontBoard] & 1) == 0)
   {
     if (os_variant_has_internal_diagnostics())
     {
-      v4 = __UIFaultDebugAssertLog();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+      v5 = __UIFaultDebugAssertLog();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
         *buf = 0;
-        _os_log_fault_impl(&dword_188A29000, v4, OS_LOG_TYPE_FAULT, "BUG IN CLIENT OF UIKIT: Invalid use of FrontBoard specific SPI. Please remove.", buf, 2u);
+        _os_log_fault_impl(&dword_188A29000, v5, OS_LOG_TYPE_FAULT, "BUG IN CLIENT OF UIKIT: Invalid use of FrontBoard specific SPI. Please remove.", buf, 2u);
       }
     }
 
     else
     {
-      v3 = *(__UILogGetCategoryCachedImpl("Assert", &__kitLocation_block_invoke_6___s_category) + 8);
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v4 = *(__UILogGetCategoryCachedImpl("Assert", &__kitLocation_block_invoke_6___s_category) + 8);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        *v5 = 0;
-        _os_log_impl(&dword_188A29000, v3, OS_LOG_TYPE_ERROR, "BUG IN CLIENT OF UIKIT: Invalid use of FrontBoard specific SPI. Please remove.", v5, 2u);
+        *v6 = 0;
+        _os_log_impl(&dword_188A29000, v4, OS_LOG_TYPE_ERROR, "BUG IN CLIENT OF UIKIT: Invalid use of FrontBoard specific SPI. Please remove.", v6, 2u);
       }
     }
   }
 }
 
-- (uint64_t)_internalHandleHIDEventBypassingUIEvent:(uint64_t)result
+- (void)_internalHandleHIDEventBypassingUIEvent:(void *)result
 {
   if (result)
   {
@@ -16102,12 +16099,12 @@ void __45__UIApplication__internalHandlePressesEvent___block_invoke()
   return result;
 }
 
-uint64_t __57__UIApplication__internalHandleHIDEventBypassingUIEvent___block_invoke()
+void *__57__UIApplication__internalHandleHIDEventBypassingUIEvent___block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  MethodImplementation = class_getMethodImplementation(v0, sel__handleHIDEventBypassingUIEvent_);
-  v2 = objc_opt_class();
-  if (MethodImplementation == class_getMethodImplementation(v2, sel__handleHIDEventBypassingUIEvent_))
+  v1 = objc_opt_class();
+  MethodImplementation = class_getMethodImplementation(v1, sel__handleHIDEventBypassingUIEvent_);
+  v3 = objc_opt_class();
+  if (MethodImplementation == class_getMethodImplementation(v3, sel__handleHIDEventBypassingUIEvent_))
   {
     result = 0;
   }
@@ -16639,7 +16636,7 @@ LABEL_8:
       if (automaticHardwareLayout2)
       {
         layout = [v17 layout];
-        v20 = [automaticHardwareLayout2 isEqualToString:layout] ^ 1;
+        v20 = objc_msgSend_isEqualToString_(automaticHardwareLayout2) ^ 1;
       }
 
       else
@@ -17546,8 +17543,7 @@ LABEL_75:
               }
             }
 
-            [v6 _hidEvent];
-            v75 = _UIEventHIDUIWindowForHIDEvent();
+            v75 = _UIEventHIDUIWindowForHIDEvent([v6 _hidEvent]);
             [-[UIApplication _pressesEventForWindow:](selfCopy _pressesEventForWindow:{v75), "_setHIDEvent:", objc_msgSend(v6, "_hidEvent")}];
             _isKeyDown = [v6 _isKeyDown];
             [v6 timestamp];
@@ -18147,7 +18143,7 @@ void __28__UIApplication_keyCommands__block_invoke(uint64_t a1)
 void __46__UIApplication__isGlobeKeyShortcutHUDEnabled__block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  byte_1EA992DCD = [v0 isEqualToString:@"com.apple.Spotlight"];
+  byte_1EA992DCD = objc_msgSend_isEqualToString_(v0);
 }
 
 - (void)handleKeyEvent:(__GSEvent *)event
@@ -18251,8 +18247,7 @@ LABEL_18:
 - (void)_sendMoveEventWithDirection:(int64_t)direction heading:(unint64_t)heading fromEvent:(id)event
 {
   eventCopy = event;
-  [eventCopy _hidEvent];
-  v9 = _UIEventHIDUIWindowForHIDEvent();
+  v9 = _UIEventHIDUIWindowForHIDEvent([eventCopy _hidEvent]);
   v10 = [(UIApplication *)self _moveEventForWindow:v9];
 
   [v10 _setHIDEvent:{objc_msgSend(eventCopy, "_hidEvent")}];
@@ -18423,9 +18418,9 @@ LABEL_35:
 
     v14 = [anyObject key];
     characters = [v14 characters];
-    v16 = [characters isEqualToString:@"UIKeyInputEscape"];
+    isEqualToString = objc_msgSend_isEqualToString_(characters);
 
-    if (v16)
+    if (isEqualToString)
     {
       v8 = 5;
     }
@@ -19197,7 +19192,7 @@ uint64_t __94__UIApplication_pushRegistry_didReceiveIncomingPushWithPayload_forT
 - (void)pushRegistry:(id)registry didUpdatePushCredentials:(id)credentials forType:(id)type
 {
   credentialsCopy = credentials;
-  if ([type isEqualToString:*MEMORY[0x1E6979270]])
+  if (objc_msgSend_isEqualToString_(type))
   {
     v8[0] = MEMORY[0x1E69E9820];
     v8[1] = 3221225472;
@@ -19224,7 +19219,7 @@ void __63__UIApplication_pushRegistry_didUpdatePushCredentials_forType___block_i
 - (void)pushRegistry:(id)registry didInvalidatePushTokenForType:(id)type error:(id)error
 {
   errorCopy = error;
-  if ([type isEqualToString:*MEMORY[0x1E6979270]])
+  if (objc_msgSend_isEqualToString_(type))
   {
     v11 = MEMORY[0x1E69E9820];
     v12 = 3221225472;
@@ -20009,9 +20004,9 @@ LABEL_84:
   _Block_object_dispose(&v37, 8);
   if (v19)
   {
-    if ([v18 isEqualToString:*v19])
+    if (objc_msgSend_isEqualToString_(v18))
     {
-      v21 = 3;
+      isEqualToString = 3;
     }
 
     else
@@ -20042,9 +20037,9 @@ LABEL_84:
         goto LABEL_112;
       }
 
-      if ([v18 isEqualToString:*v22])
+      if (objc_msgSend_isEqualToString_(v18))
       {
-        v21 = 2;
+        isEqualToString = 2;
       }
 
       else
@@ -20075,7 +20070,7 @@ LABEL_84:
           goto LABEL_112;
         }
 
-        v21 = [v18 isEqualToString:*v24];
+        isEqualToString = objc_msgSend_isEqualToString_(v18);
       }
     }
 
@@ -20109,7 +20104,7 @@ LABEL_84:
       v29 = *v26;
       v30 = CFDictionaryGetValue(a3, v28);
 LABEL_104:
-      [*(a1 + 32) _postSimpleRemoteNotificationForAction:v12 andContext:v21 trackID:v30];
+      [*(a1 + 32) _postSimpleRemoteNotificationForAction:v12 andContext:isEqualToString trackID:v30];
 
       goto LABEL_105;
     }
@@ -20311,17 +20306,17 @@ void __46__UIApplication__supportsOpenMainMenuCommands__block_invoke()
 uint64_t __46__UIApplication__supportsOpenMainMenuCommands__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = [a2 handlerRank];
-  if ([v2 isEqual:*MEMORY[0x1E69636D0]] & 1) != 0 || (objc_msgSend(v2, "isEqual:", *MEMORY[0x1E69636C0]))
+  if (objc_msgSend_isEqual_(v2) & 1) != 0 || (objc_msgSend_isEqual_(v2))
   {
-    v3 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v3 = [v2 isEqual:*MEMORY[0x1E69636C8]];
+    isEqual = objc_msgSend_isEqual_(v2);
   }
 
-  return v3;
+  return isEqual;
 }
 
 - (void)validateCommand:(id)command
@@ -21390,9 +21385,9 @@ void __69__UIApplication_StateRestoration___restorationArchiveProtectionClass__b
   v5 = [v0 infoDictionary];
 
   v1 = [v5 objectForKey:@"UIStateRestorationFileProtection"];
-  v2 = [v1 isEqualToString:*MEMORY[0x1E696A388]];
+  isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-  if (v2)
+  if (isEqualToString)
   {
     HasEntitlement = UISelfHasEntitlement(*MEMORY[0x1E696A378]);
     v4 = UISelfHasEntitlement(*MEMORY[0x1E696A380]);
@@ -21960,9 +21955,9 @@ void __133__UIApplication_StateRestoration___saveApplicationPreservationState_vi
   {
     v12 = v11;
     domain = [v11 domain];
-    v14 = [domain isEqualToString:*MEMORY[0x1E696A250]];
+    isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-    if (v14)
+    if (isEqualToString)
     {
       if ([v12 code] != 260)
       {
@@ -22680,11 +22675,11 @@ LABEL_176:
 
 uint64_t __86__UIApplication_SessionAndConfigurationInternal___openSessionForPersistentIdentifier___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v5 = [a2 persistentIdentifier];
-  v6 = [v5 isEqualToString:*(a1 + 32)];
+  v4 = [a2 persistentIdentifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  *a3 = v6;
-  return v6;
+  *a3 = isEqualToString;
+  return isEqualToString;
 }
 
 - (void)_discardSceneSessionsWithPersistentIdentifiers:(id)identifiers skippingPersistenceDeletion:(BOOL)deletion
@@ -22740,10 +22735,10 @@ id __125__UIApplication_SessionAndConfigurationInternal___discardSceneSessionsWi
 
 uint64_t __125__UIApplication_SessionAndConfigurationInternal___discardSceneSessionsWithPersistentIdentifiers_skippingPersistenceDeletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [a2 persistentIdentifier];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 persistentIdentifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (void)_discardSceneSessions:(id)sessions
@@ -23286,12 +23281,12 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  if ([testCopy isEqualToString:@"leak"])
+  if (objc_msgSend_isEqualToString_(testCopy))
   {
     v16 = [optionsCopy objectForKey:@"leak"];
-    v17 = [v16 isEqualToString:@"yes"];
+    isEqualToString = objc_msgSend_isEqualToString_(v16);
 
-    if (v17)
+    if (isEqualToString)
     {
       [(UIApplication *)self startLeaking];
     }
@@ -23304,7 +23299,7 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  if ([testCopy isEqualToString:@"resize"])
+  if (objc_msgSend_isEqualToString_(testCopy))
   {
     [(UIApplication *)self performSelector:sel__executeResizeTest withObject:self afterDelay:1.0];
     goto LABEL_5;
@@ -23539,7 +23534,7 @@ uint64_t __64__UIApplication_UIApplicationTesting___executeNextResizeSubTest__bl
     userInfo = [started userInfo];
     v5 = [userInfo objectForKey:0x1EFB16630];
 
-    if ([qword_1ED4A20D0 isEqualToString:v5])
+    if (objc_msgSend_isEqualToString_(qword_1ED4A20D0))
     {
       [(UIApplication *)self startedTest:qword_1ED4A20C8];
     }
@@ -23553,7 +23548,7 @@ uint64_t __64__UIApplication_UIApplicationTesting___executeNextResizeSubTest__bl
     userInfo = [finished userInfo];
     v9 = [userInfo objectForKey:0x1EFB16630];
 
-    if ([qword_1ED4A20D8 isEqualToString:v9])
+    if (objc_msgSend_isEqualToString_(qword_1ED4A20D8))
     {
       [(UIApplication *)self finishedTest:qword_1ED4A20C8 extraResults:0];
       v5 = qword_1ED4A20C8;
@@ -23565,7 +23560,7 @@ uint64_t __64__UIApplication_UIApplicationTesting___executeNextResizeSubTest__bl
       v7 = qword_1ED4A20D8;
       qword_1ED4A20D8 = 0;
 
-      v8 = +[NSNotificationCenter uikitInternalCenter];
+      v8 = +[(NSNotificationCenter *)MEMORY[0x1E696AD88]];
       [v8 removeObserver:self name:0x1EFBBAB50 object:0];
       [v8 removeObserver:self name:0x1EFBBAB70 object:0];
     }
@@ -23622,7 +23617,7 @@ LABEL_4:
 
   else
   {
-    v12 = +[NSNotificationCenter uikitInternalCenter];
+    v12 = +[(NSNotificationCenter *)MEMORY[0x1E696AD88]];
     [v12 addObserver:self selector:sel__noteAnimationStarted_ name:0x1EFBBAB50 object:0];
     [v12 addObserver:self selector:sel__noteAnimationFinished_ name:0x1EFBBAB70 object:0];
     objc_storeStrong(&qword_1ED4A20C8, test);
@@ -24249,17 +24244,17 @@ LABEL_21:
 
         if (testCopy && [(UIApplication *)self isRunningTest])
         {
-          v24 = [testCopy isEqualToString:@"launch"];
+          isEqualToString = objc_msgSend_isEqualToString_(testCopy);
         }
 
         else
         {
-          v24 = 1;
+          isEqualToString = 1;
         }
 
         if (*&__LaunchTime != 0.0)
         {
-          if (v24)
+          if (isEqualToString)
           {
             _extendLaunchTest2 = [(UIApplication *)self _extendLaunchTest];
 
@@ -24276,7 +24271,7 @@ LABEL_21:
           goto LABEL_40;
         }
 
-        if (v24)
+        if (isEqualToString)
         {
           if (os_variant_has_internal_content())
           {
@@ -24627,7 +24622,7 @@ LABEL_47:
       max_size_in_use_high = HIDWORD(stats.max_size_in_use);
       size_allocated = stats.size_allocated;
       size_allocated_high = HIDWORD(stats.size_allocated);
-      v68 = *&v162[4];
+      v68 = *&v162[12];
       v69 = v163;
       v70 = v164;
       v71 = v165;
@@ -24643,7 +24638,7 @@ LABEL_47:
       [v12 setObject:v74 forKey:@"virtualSize"];
 
       [v12 setObject:@"bytes" forKey:@"virtualSizeUnits"];
-      v75 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(&v68 + 1)];
+      v75 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v68];
       [v12 setObject:v75 forKey:@"maximumRSS"];
 
       [v12 setObject:@"bytes" forKey:@"maximumRSSUnits"];
@@ -24853,7 +24848,7 @@ LABEL_47:
         blockCopy[2]();
       }
 
-      if (qword_1ED4A20B8 || [testCopy isEqualToString:@"launch suspended"])
+      if (qword_1ED4A20B8 || objc_msgSend_isEqualToString_(testCopy))
       {
         [(UIApplication *)self _reportResults:v12];
       }
@@ -25059,13 +25054,13 @@ LABEL_15:
     }
 
     v22 = [dictionary objectForKey:@"SampleWithCHUD"];
-    byte_1ED4A20A2 = [v22 isEqualToString:@"YES"];
+    byte_1ED4A20A2 = objc_msgSend_isEqualToString_(v22);
 
     v23 = [dictionary objectForKey:@"CheckForLeaks"];
-    byte_1ED4A20A3 = [v23 isEqualToString:@"YES"];
+    byte_1ED4A20A3 = objc_msgSend_isEqualToString_(v23);
 
     v24 = [dictionary objectForKey:@"TargetsAuxiliaryDisplay"];
-    byte_1ED4A20A1 = [v24 isEqualToString:@"YES"];
+    byte_1ED4A20A1 = objc_msgSend_isEqualToString_(v24);
 
     v25 = [dictionary objectForKey:@"aggregate"];
     v26 = qword_1ED4A20C0;
@@ -25098,7 +25093,7 @@ LABEL_15:
   return v7 != 0;
 }
 
-uint64_t __53__UIApplication_UIApplicationTesting__handleTestURL___block_invoke(uint64_t a1)
+void *__53__UIApplication_UIApplicationTesting__handleTestURL___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) runTest:*(a1 + 40) options:*(a1 + 48)];
   if ((result & 1) == 0)
@@ -25127,31 +25122,31 @@ uint64_t __53__UIApplication_UIApplicationTesting__handleTestURL___block_invoke(
   v8 = v7;
   if (v7)
   {
-    if ([v7 isEqualToString:@"Portrait"])
+    if (objc_msgSend_isEqualToString_(v7))
     {
 LABEL_3:
       _safeInterfaceOrientationForNoWindow = 1;
       goto LABEL_11;
     }
 
-    if ([v8 isEqualToString:@"Landscape"] & 1) != 0 || (objc_msgSend(v8, "isEqualToString:", @"LandscapeRight"))
+    if (objc_msgSend_isEqualToString_(v8) & 1) != 0 || (objc_msgSend_isEqualToString_(v8))
     {
       goto LABEL_10;
     }
 
-    if ([v8 isEqualToString:@"LandscapeLeft"])
+    if (objc_msgSend_isEqualToString_(v8))
     {
       _safeInterfaceOrientationForNoWindow = 4;
     }
 
-    else if ([v8 isEqualToString:@"PortraitUpsideDown"])
+    else if (objc_msgSend_isEqualToString_(v8))
     {
       _safeInterfaceOrientationForNoWindow = 2;
     }
 
     else
     {
-      if (![v8 isEqualToString:@"current"])
+      if (!objc_msgSend_isEqualToString_(v8))
       {
         NSLog(&cfstr_UnsupportedVal_0.isa, v8);
         goto LABEL_3;
@@ -25170,7 +25165,7 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    if ([orientationCopy isEqualToString:@"resize"])
+    if (objc_msgSend_isEqualToString_(orientationCopy))
     {
       _safeInterfaceOrientationForNoWindow = 3;
     }
@@ -25668,16 +25663,16 @@ void __67__UIApplication_UIApplicationTesting__rotateIfNeeded_before_after___blo
   }
 }
 
-uint64_t __119__UIApplication__UIWindowSceneActivationCommon___requestSceneActivationWithConfiguration_animated_sender_errorHandler___block_invoke(uint64_t a1, int a2)
+uint64_t __119__UIApplication__UIWindowSceneActivationCommon___requestSceneActivationWithConfiguration_animated_sender_errorHandler___block_invoke(uint64_t a1, const char *a2)
 {
-  v3 = *(a1 + 32);
+  v4 = *(a1 + 32);
   if (a2)
   {
-    v4 = [*(a1 + 40) preview];
-    [v3 animateWithSourcePreview:v4 velocity:0.0];
+    v5 = objc_msgSend_preview(*(a1 + 40));
+    [v4 animateWithSourcePreview:v5 velocity:0.0];
 
-    v5 = [*(a1 + 40) options];
-    [*(a1 + 48) setOptions:v5];
+    v6 = [*(a1 + 40) options];
+    [*(a1 + 48) setOptions:v6];
   }
 
   else
@@ -25685,11 +25680,11 @@ uint64_t __119__UIApplication__UIWindowSceneActivationCommon___requestSceneActiv
     [*(a1 + 32) cancel];
   }
 
-  v7 = *(a1 + 48);
-  v6 = *(a1 + 56);
-  v8 = *(a1 + 64);
+  v8 = *(a1 + 48);
+  v7 = *(a1 + 56);
+  v9 = *(a1 + 64);
 
-  return [v6 activateSceneSessionForRequest:v7 errorHandler:v8];
+  return [v7 activateSceneSessionForRequest:v8 errorHandler:v9];
 }
 
 @end

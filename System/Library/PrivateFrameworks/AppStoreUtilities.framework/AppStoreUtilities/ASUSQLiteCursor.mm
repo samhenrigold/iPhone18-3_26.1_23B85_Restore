@@ -1,6 +1,8 @@
 @interface ASUSQLiteCursor
 - (double)doubleForColumnName:(id)name;
+- (id)URLForColumnIndex:(int)index;
 - (id)URLForColumnName:(id)name;
+- (id)UUIDForColumnIndex:(int)index;
 - (id)UUIDForColumnName:(id)name;
 - (id)dataForColumnIndex:(int)index;
 - (id)dataForColumnName:(id)name;
@@ -31,7 +33,7 @@
     if (v5)
     {
       v6 = v4 ? v4[2] : 0;
-      v5[6] = v6;
+      *(v5 + 6) = v6;
       objc_storeStrong(v5 + 7, a2);
       v7 = sqlite3_column_count(statement[6]);
       *(statement + 2) = v7;
@@ -329,6 +331,22 @@ LABEL_5:
   return v5;
 }
 
+- (id)UUIDForColumnIndex:(int)index
+{
+  v3 = [(ASUSQLiteCursor *)self stringForColumnIndex:*&index];
+  if (v3)
+  {
+    v4 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v3];
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  return v4;
+}
+
 - (id)UUIDForColumnName:(id)name
 {
   nameCopy = name;
@@ -343,6 +361,22 @@ LABEL_5:
   }
 
   return v5;
+}
+
+- (id)URLForColumnIndex:(int)index
+{
+  v3 = [(ASUSQLiteCursor *)self stringForColumnIndex:*&index];
+  if (v3)
+  {
+    v4 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:v3];
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  return v4;
 }
 
 - (id)URLForColumnName:(id)name

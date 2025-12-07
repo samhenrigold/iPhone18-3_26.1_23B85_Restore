@@ -235,7 +235,6 @@ LABEL_9:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -255,7 +254,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  resumeSuccessDuration = self->_resumeSuccessDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -270,7 +268,6 @@ LABEL_4:
   }
 
 LABEL_17:
-  resumeRequestReason = self->_resumeRequestReason;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -285,7 +282,6 @@ LABEL_5:
   }
 
 LABEL_18:
-  resumeSuccess = self->_resumeSuccess;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -300,12 +296,10 @@ LABEL_6:
   }
 
 LABEL_19:
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_7:
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 
@@ -317,7 +311,6 @@ LABEL_8:
 
   if ((*&self->_has & 0x20) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -521,7 +514,6 @@ LABEL_8:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 52);
   if (has)
   {
     if ((*(equalCopy + 52) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -568,7 +560,6 @@ LABEL_8:
       goto LABEL_42;
     }
 
-    v7 = *(equalCopy + 48);
     if (self->_resumeSuccess)
     {
       if ((*(equalCopy + 48) & 1) == 0)
@@ -624,12 +615,12 @@ LABEL_8:
     }
 
 LABEL_42:
-    v9 = 0;
+    v7 = 0;
     goto LABEL_43;
   }
 
 LABEL_38:
-  v9 = (*(equalCopy + 52) & 0x20) == 0;
+  v7 = (*(equalCopy + 52) & 0x20) == 0;
   if ((has & 0x20) != 0)
   {
     if ((*(equalCopy + 52) & 0x20) == 0 || self->_subsId != *(equalCopy + 11))
@@ -637,12 +628,12 @@ LABEL_38:
       goto LABEL_42;
     }
 
-    v9 = 1;
+    v7 = 1;
   }
 
 LABEL_43:
 
-  return v9;
+  return v7;
 }
 
 - (unint64_t)hash

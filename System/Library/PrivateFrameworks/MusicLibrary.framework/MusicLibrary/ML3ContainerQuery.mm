@@ -199,7 +199,7 @@ uint64_t __69__ML3ContainerQuery_valueForAggregateFunction_onEntitiesForProperty
   return result;
 }
 
-uint64_t __69__ML3ContainerQuery_valueForAggregateFunction_onEntitiesForProperty___block_invoke_4(uint64_t a1, void *a2)
+void *__69__ML3ContainerQuery_valueForAggregateFunction_onEntitiesForProperty___block_invoke_4(uint64_t a1, void *a2)
 {
   result = [a2 int64ForColumnIndex:0];
   v4 = *(*(a1 + 32) + 8);
@@ -213,7 +213,7 @@ uint64_t __69__ML3ContainerQuery_valueForAggregateFunction_onEntitiesForProperty
   return result;
 }
 
-uint64_t __69__ML3ContainerQuery_valueForAggregateFunction_onEntitiesForProperty___block_invoke_5(uint64_t a1, void *a2)
+void *__69__ML3ContainerQuery_valueForAggregateFunction_onEntitiesForProperty___block_invoke_5(uint64_t a1, void *a2)
 {
   result = [a2 int64ForColumnIndex:0];
   v4 = *(*(a1 + 32) + 8);

@@ -32,7 +32,7 @@
 
 - (uint64_t)fc_maybeContainsURL:()FCAdditions
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E69B70F8];
   v5 = a3;
   v6 = [v4 alloc];
@@ -52,11 +52,11 @@
       v13 = v12;
       bloomFilterData2 = [self bloomFilterData];
       *buf = 134218499;
-      v20 = [bloomFilterData2 length];
-      v21 = 1024;
+      v19 = [bloomFilterData2 length];
+      v20 = 1024;
       hashFunctionCount = [self hashFunctionCount];
-      v23 = 2117;
-      v24 = v11;
+      v22 = 2117;
+      v23 = v11;
       _os_log_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_DEFAULT, "using bloom filter of length %zd, hash function count %d to query %{sensitive}@", buf, 0x1Cu);
     }
 
@@ -65,16 +65,15 @@
 
   else
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __56__NTPBBloomFilterInfo_FCAdditions__fc_maybeContainsURL___block_invoke;
-    v18[3] = &unk_1E7C36F40;
-    v18[4] = self;
-    __56__NTPBBloomFilterInfo_FCAdditions__fc_maybeContainsURL___block_invoke(v18);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __56__NTPBBloomFilterInfo_FCAdditions__fc_maybeContainsURL___block_invoke;
+    v17[3] = &unk_1E7C36F40;
+    v17[4] = self;
+    __56__NTPBBloomFilterInfo_FCAdditions__fc_maybeContainsURL___block_invoke(v17);
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

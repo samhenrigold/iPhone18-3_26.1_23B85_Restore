@@ -47,7 +47,7 @@
   [connectionCopy setExportedObject:v11];
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -57,12 +57,12 @@
   }
 
   v12 = WBSApplicationIdentifierFromAuditToken();
-  v13 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = WBS_LOG_CHANNEL_PREFIXAuthorization(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     *&buf[4] = v12;
-    _os_log_impl(&dword_1C20AD000, v13, OS_LOG_TYPE_DEFAULT, "Received connection from %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_1C20AD000, v14, OS_LOG_TYPE_DEFAULT, "Received connection from %{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, v11);
@@ -70,34 +70,31 @@
   v18 = 3221225472;
   v19 = __55__ASCAgentListener_listener_shouldAcceptNewConnection___block_invoke;
   v20 = &unk_1E815FFA8;
-  v14 = v12;
-  v21 = v14;
+  v15 = v12;
+  v21 = v15;
   objc_copyWeak(&v22, buf);
   [connectionCopy setInvalidationHandler:&v17];
   [connectionCopy resume];
   objc_destroyWeak(&v22);
 
   objc_destroyWeak(buf);
-  v15 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
-void __55__ASCAgentListener_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
+void __55__ASCAgentListener_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x1E69E9840];
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1C20AD000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ disconnected.", &v6, 0xCu);
+    v6 = *(a1 + 32);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_1C20AD000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ disconnected.", &v8, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained cancelCurrentRequest];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

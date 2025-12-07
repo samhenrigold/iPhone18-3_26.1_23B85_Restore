@@ -11,14 +11,15 @@
   {
     if (byte_100117E80 == 1)
     {
-      v17 = *__error();
-      v18 = sub_100035B80();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = __error();
+      v21 = *v20;
+      v23 = sub_100035B80(v20, v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         sub_1000B5F30();
       }
 
-      *__error() = v17;
+      *__error() = v21;
     }
 
     if (byte_100117E81 != 1 || dword_100117510 > 3)
@@ -26,51 +27,51 @@
       goto LABEL_112;
     }
 
-    v20 = *__error();
-    v21 = *__error();
-    v22 = __error();
-    v23 = strerror(*v22);
-    v24 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to open %s: %d (%s)", file, v21, v23);
-    if (v24)
+    v25 = *__error();
+    v26 = *__error();
+    v27 = __error();
+    v28 = strerror(*v27);
+    v29 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to open %s: %d (%s)", file, v26, v28);
+    if (v29)
     {
-      v25 = v24;
-      CStringPtr = CFStringGetCStringPtr(v24, 0x8000100u);
+      v31 = v29;
+      CStringPtr = CFStringGetCStringPtr(v29, 0x8000100u);
       if (!CStringPtr)
       {
-        v48 = 2423272965;
+        v60 = 2423272965;
 LABEL_64:
-        v27 = malloc_type_calloc(0x400uLL, 1uLL, v48);
-        CFStringGetCString(v25, v27, 1024, 0x8000100u);
-        v28 = v27;
+        v33 = malloc_type_calloc(0x400uLL, 1uLL, v60);
+        CFStringGetCString(v31, v33, 1024, 0x8000100u);
+        v34 = v33;
         goto LABEL_65;
       }
 
 LABEL_26:
-      v27 = CStringPtr;
-      v28 = 0;
+      v33 = CStringPtr;
+      v34 = 0;
 LABEL_65:
       if (qword_100117E88)
       {
-        v49 = qword_100117E88;
+        v61 = qword_100117E88;
       }
 
       else
       {
-        v49 = __stderrp;
+        v61 = __stderrp;
       }
 
-      fprintf(v49, "%s\n", v27);
-      if (v28)
+      fprintf(v61, "%s\n", v33);
+      if (v34)
       {
-        free(v28);
+        free(v34);
       }
 
-      CFRelease(v25);
+      CFRelease(v31);
       goto LABEL_71;
     }
 
-    v46 = sub_100035B80();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+    v58 = sub_100035B80(0, v30);
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
     {
       sub_1000B5FC0();
     }
@@ -79,35 +80,36 @@ LABEL_59:
 
     if (qword_100117E88)
     {
-      v47 = qword_100117E88;
+      v59 = qword_100117E88;
     }
 
     else
     {
-      v47 = __stderrp;
+      v59 = __stderrp;
     }
 
-    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v47);
+    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v59);
 LABEL_71:
     initForFileParsing = 0;
-    *__error() = v20;
+    *__error() = v25;
     goto LABEL_113;
   }
 
   v5 = v4;
-  memset(&v82, 0, sizeof(v82));
-  if (fstat(v4, &v82))
+  memset(&v103, 0, sizeof(v103));
+  if (fstat(v4, &v103))
   {
     if (byte_100117E80 == 1)
     {
-      v6 = *__error();
-      v7 = sub_100035B80();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v6 = __error();
+      v7 = *v6;
+      v9 = sub_100035B80(v6, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_1000B59E4();
       }
 
-      *__error() = v6;
+      *__error() = v7;
     }
 
     if (byte_100117E81 != 1 || dword_100117510 > 3)
@@ -115,30 +117,30 @@ LABEL_71:
       goto LABEL_111;
     }
 
-    v9 = *__error();
-    v10 = *__error();
-    v11 = __error();
-    v12 = strerror(*v11);
-    v13 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to stat %s: %d (%s)", file, v10, v12);
-    if (v13)
+    v11 = *__error();
+    v12 = *__error();
+    v13 = __error();
+    v14 = strerror(*v13);
+    v15 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to stat %s: %d (%s)", file, v12, v14);
+    if (v15)
     {
-      v14 = v13;
-      v15 = CFStringGetCStringPtr(v13, 0x8000100u);
-      if (!v15)
+      v17 = v15;
+      v18 = CFStringGetCStringPtr(v15, 0x8000100u);
+      if (!v18)
       {
-        v16 = 1710749274;
+        v19 = 1710749274;
 LABEL_103:
-        v33 = malloc_type_calloc(0x400uLL, 1uLL, v16);
-        CFStringGetCString(v14, v33, 1024, 0x8000100u);
-        v34 = v33;
+        v42 = malloc_type_calloc(0x400uLL, 1uLL, v19);
+        CFStringGetCString(v17, v42, 1024, 0x8000100u);
+        v43 = v42;
         goto LABEL_104;
       }
 
       goto LABEL_39;
     }
 
-    v45 = sub_100035B80();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
+    v57 = sub_100035B80(0, v16);
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
     {
       sub_1000B5A74();
     }
@@ -146,18 +148,19 @@ LABEL_103:
     goto LABEL_86;
   }
 
-  if (v82.st_size <= 15)
+  if (v103.st_size <= 15)
   {
     if (byte_100117E80 == 1)
     {
-      v29 = *__error();
-      v30 = sub_100035B80();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v35 = __error();
+      v36 = *v35;
+      v38 = sub_100035B80(v35, v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
-        sub_1000B5E48(file, &v82.st_size);
+        sub_1000B5E48();
       }
 
-      *__error() = v29;
+      *__error() = v36;
     }
 
     if (byte_100117E81 != 1 || dword_100117510 > 3)
@@ -165,63 +168,63 @@ LABEL_103:
       goto LABEL_111;
     }
 
-    v9 = *__error();
-    v32 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s isn't big enough for a kcdata header (only %lld bytes)", file, v82.st_size);
-    if (v32)
+    v11 = *__error();
+    v40 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s isn't big enough for a kcdata header (only %lld bytes)", file, v103.st_size);
+    if (v40)
     {
-      v14 = v32;
-      v15 = CFStringGetCStringPtr(v32, 0x8000100u);
-      if (!v15)
+      v17 = v40;
+      v18 = CFStringGetCStringPtr(v40, 0x8000100u);
+      if (!v18)
       {
-        v16 = 3908451229;
+        v19 = 3908451229;
         goto LABEL_103;
       }
 
 LABEL_39:
-      v33 = v15;
-      v34 = 0;
+      v42 = v18;
+      v43 = 0;
 LABEL_104:
       if (qword_100117E88)
       {
-        v66 = qword_100117E88;
+        v84 = qword_100117E88;
       }
 
       else
       {
-        v66 = __stderrp;
+        v84 = __stderrp;
       }
 
-      fprintf(v66, "%s\n", v33);
-      if (v34)
+      fprintf(v84, "%s\n", v42);
+      if (v43)
       {
-        free(v34);
+        free(v43);
       }
 
-      CFRelease(v14);
+      CFRelease(v17);
       goto LABEL_110;
     }
 
-    v45 = sub_100035B80();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
+    v57 = sub_100035B80(0, v41);
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
     {
-      sub_1000B5EBC(file, &v82.st_size);
+      sub_1000B5EBC();
     }
 
 LABEL_86:
 
     if (qword_100117E88)
     {
-      v58 = qword_100117E88;
+      v73 = qword_100117E88;
     }
 
     else
     {
-      v58 = __stderrp;
+      v73 = __stderrp;
     }
 
-    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v58);
+    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v73);
 LABEL_110:
-    *__error() = v9;
+    *__error() = v11;
 LABEL_111:
     close(v5);
 LABEL_112:
@@ -229,20 +232,21 @@ LABEL_112:
     goto LABEL_113;
   }
 
-  v35 = mmap(0, v82.st_size, 1, 1, v5, 0);
+  v44 = mmap(0, v103.st_size, 1, 1, v5, 0);
   close(v5);
-  if (v35 == -1)
+  if (v44 == -1)
   {
     if (byte_100117E80 == 1)
     {
-      v51 = *__error();
-      v52 = sub_100035B80();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      v63 = __error();
+      v64 = *v63;
+      v66 = sub_100035B80(v63, v65);
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
         sub_1000B5D28();
       }
 
-      *__error() = v51;
+      *__error() = v64;
     }
 
     if (byte_100117E81 != 1 || dword_100117510 > 3)
@@ -250,26 +254,26 @@ LABEL_112:
       goto LABEL_112;
     }
 
-    v20 = *__error();
-    v54 = *__error();
-    v55 = __error();
-    v56 = strerror(*v55);
-    v57 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to map %s: %d (%s)", file, v54, v56);
-    if (v57)
+    v25 = *__error();
+    v68 = *__error();
+    v69 = __error();
+    v70 = strerror(*v69);
+    v71 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Unable to map %s: %d (%s)", file, v68, v70);
+    if (v71)
     {
-      v25 = v57;
-      CStringPtr = CFStringGetCStringPtr(v57, 0x8000100u);
+      v31 = v71;
+      CStringPtr = CFStringGetCStringPtr(v71, 0x8000100u);
       if (!CStringPtr)
       {
-        v48 = 656845922;
+        v60 = 656845922;
         goto LABEL_64;
       }
 
       goto LABEL_26;
     }
 
-    v46 = sub_100035B80();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+    v58 = sub_100035B80(0, v72);
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
     {
       sub_1000B5DB8();
     }
@@ -277,18 +281,19 @@ LABEL_112:
     goto LABEL_59;
   }
 
-  if (v35 + 4 > (v35 + v82.st_size) || v35 + v35[1] + 16 > v35 + v82.st_size)
+  if (v44 + 4 > (v44 + v103.st_size) || v44 + v44[1] + 16 > v44 + v103.st_size)
   {
     if (byte_100117E80 == 1)
     {
-      v36 = *__error();
-      v37 = sub_100035B80();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+      v45 = __error();
+      v46 = *v45;
+      v48 = sub_100035B80(v45, v47);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
       {
-        sub_1000B5C40(file, &v82.st_size);
+        sub_1000B5C40();
       }
 
-      *__error() = v36;
+      *__error() = v46;
     }
 
     if (byte_100117E81 != 1 || dword_100117510 > 0)
@@ -296,67 +301,68 @@ LABEL_112:
       goto LABEL_145;
     }
 
-    v39 = *__error();
-    v40 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Not a kcdata file: kcdata in %s not valid (file length %lld)", file, v82.st_size);
-    if (v40)
+    v50 = *__error();
+    v51 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Not a kcdata file: kcdata in %s not valid (file length %lld)", file, v103.st_size);
+    if (v51)
     {
-      v41 = v40;
-      v42 = CFStringGetCStringPtr(v40, 0x8000100u);
-      if (v42)
+      v53 = v51;
+      v54 = CFStringGetCStringPtr(v51, 0x8000100u);
+      if (v54)
       {
 LABEL_54:
-        v43 = v42;
-        v44 = 0;
+        v55 = v54;
+        v56 = 0;
 LABEL_138:
         if (qword_100117E88)
         {
-          v75 = qword_100117E88;
+          v96 = qword_100117E88;
         }
 
         else
         {
-          v75 = __stderrp;
+          v96 = __stderrp;
         }
 
-        fprintf(v75, "%s\n", v43);
-        if (v44)
+        fprintf(v96, "%s\n", v55);
+        if (v56)
         {
-          free(v44);
+          free(v56);
         }
 
-        CFRelease(v41);
+        CFRelease(v53);
         goto LABEL_144;
       }
 
-      v74 = 503990187;
+      v95 = 503990187;
 LABEL_137:
-      v43 = malloc_type_calloc(0x400uLL, 1uLL, v74);
-      CFStringGetCString(v41, v43, 1024, 0x8000100u);
-      v44 = v43;
+      v55 = malloc_type_calloc(0x400uLL, 1uLL, v95);
+      CFStringGetCString(v53, v55, 1024, 0x8000100u);
+      v56 = v55;
       goto LABEL_138;
     }
 
-    v68 = sub_100035B80();
-    if (os_log_type_enabled(v68, OS_LOG_TYPE_FAULT))
+    v86 = sub_100035B80(0, v52);
+    if (os_log_type_enabled(v86, OS_LOG_TYPE_FAULT))
     {
-      sub_1000B5CB4(file, &v82.st_size);
+      sub_1000B5CB4();
     }
 
     goto LABEL_118;
   }
 
-  if (*v35 != 1503811591)
+  if (*v44 != 1503811591)
   {
     if (byte_100117E80 == 1)
     {
-      v70 = *__error();
-      v71 = sub_100035B80();
-      if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+      v88 = __error();
+      v89 = *v88;
+      v91 = sub_100035B80(v88, v90);
+      if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
       {
-        sub_1000B5B04(file, v35);
+        sub_1000B5B04();
       }
 
-      *__error() = v70;
+      *__error() = v89;
     }
 
     if (byte_100117E81 != 1 || dword_100117510 > 3)
@@ -364,55 +370,55 @@ LABEL_137:
       goto LABEL_145;
     }
 
-    v39 = *__error();
-    LODWORD(v72) = *v35;
-    if ((*v35 & 0xFFFFFFF0) == 0x20)
+    v50 = *__error();
+    LODWORD(v92) = *v44;
+    if ((*v44 & 0xFFFFFFF0) == 0x20)
     {
-      v72 = 17;
+      v92 = 17;
     }
 
     else
     {
-      v72 = v72;
+      v92 = v92;
     }
 
-    v73 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s isn't a kcdata stackshot file (header type %#x)", file, v72);
-    if (v73)
+    v93 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s isn't a kcdata stackshot file (header type %#x)", file, v92);
+    if (v93)
     {
-      v41 = v73;
-      v42 = CFStringGetCStringPtr(v73, 0x8000100u);
-      if (v42)
+      v53 = v93;
+      v54 = CFStringGetCStringPtr(v93, 0x8000100u);
+      if (v54)
       {
         goto LABEL_54;
       }
 
-      v74 = 2273138238;
+      v95 = 2273138238;
       goto LABEL_137;
     }
 
-    v68 = sub_100035B80();
-    if (os_log_type_enabled(v68, OS_LOG_TYPE_FAULT))
+    v86 = sub_100035B80(0, v94);
+    if (os_log_type_enabled(v86, OS_LOG_TYPE_FAULT))
     {
-      sub_1000B5B80(file, v35);
+      sub_1000B5B80();
     }
 
 LABEL_118:
 
     if (qword_100117E88)
     {
-      v69 = qword_100117E88;
+      v87 = qword_100117E88;
     }
 
     else
     {
-      v69 = __stderrp;
+      v87 = __stderrp;
     }
 
-    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v69);
+    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v87);
 LABEL_144:
-    *__error() = v39;
+    *__error() = v50;
 LABEL_145:
-    munmap(v35, v82.st_size);
+    munmap(v44, v103.st_size);
     goto LABEL_112;
   }
 
@@ -421,83 +427,84 @@ LABEL_145:
   {
     if (byte_100117E80 == 1)
     {
-      v59 = *__error();
-      v60 = sub_100035B80();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+      v74 = __error();
+      v75 = *v74;
+      v77 = sub_100035B80(v74, v76);
+      if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "Avoiding inspecting live processes for stackshot file due to audio running", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "Avoiding inspecting live processes for stackshot file due to audio running", buf, 2u);
       }
 
-      *__error() = v59;
+      *__error() = v75;
     }
 
     if (byte_100117E81 == 1 && dword_100117510 <= 2)
     {
-      v61 = *__error();
-      v62 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Avoiding inspecting live processes for stackshot file due to audio running");
-      if (v62)
+      v78 = *__error();
+      v79 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Avoiding inspecting live processes for stackshot file due to audio running");
+      if (v79)
       {
-        v63 = v62;
-        v64 = CFStringGetCStringPtr(v62, 0x8000100u);
-        if (v64)
+        v81 = v79;
+        v82 = CFStringGetCStringPtr(v79, 0x8000100u);
+        if (v82)
         {
-          v65 = 0;
+          v83 = 0;
         }
 
         else
         {
-          v65 = malloc_type_calloc(0x400uLL, 1uLL, 0x5692B96AuLL);
-          CFStringGetCString(v63, v65, 1024, 0x8000100u);
-          v64 = v65;
+          v83 = malloc_type_calloc(0x400uLL, 1uLL, 0x5692B96AuLL);
+          CFStringGetCString(v81, v83, 1024, 0x8000100u);
+          v82 = v83;
         }
 
-        v78 = qword_100117E88;
+        v99 = qword_100117E88;
         if (!qword_100117E88)
         {
-          v78 = __stderrp;
+          v99 = __stderrp;
         }
 
-        fprintf(v78, "%s\n", v64);
-        if (v65)
+        fprintf(v99, "%s\n", v82);
+        if (v83)
         {
-          free(v65);
+          free(v83);
         }
 
-        CFRelease(v63);
+        CFRelease(v81);
       }
 
       else
       {
-        v76 = sub_100035B80();
-        if (os_log_type_enabled(v76, OS_LOG_TYPE_FAULT))
+        v97 = sub_100035B80(0, v80);
+        if (os_log_type_enabled(v97, OS_LOG_TYPE_FAULT))
         {
-          sub_1000B5BFC(v76);
+          sub_1000B5BFC(v97);
         }
 
         if (qword_100117E88)
         {
-          v77 = qword_100117E88;
+          v98 = qword_100117E88;
         }
 
         else
         {
-          v77 = __stderrp;
+          v98 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v77);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v98);
       }
 
-      *__error() = v61;
+      *__error() = v78;
     }
 
     [initForFileParsing setDataGatheringOptions:{objc_msgSend(initForFileParsing, "dataGatheringOptions") & 0xFFFFFFFFFFFFFFFDLL}];
   }
 
   sub_100077DF8(initForFileParsing, (byte_100117E94 >> 3) & 1, (byte_100117E94 >> 2) & 1, (byte_100117E94 & 0x10) == 0);
-  v79 = [NSData alloc];
-  v80 = [v79 initWithBytesNoCopy:v35 length:v82.st_size deallocator:&stru_100109A20];
-  [initForFileParsing addKCDataStackshots:v80 createSeparateSamplePerStackshot:1];
+  v100 = [NSData alloc];
+  v101 = [v100 initWithBytesNoCopy:v44 length:v103.st_size deallocator:&stru_100109A20];
+  [initForFileParsing addKCDataStackshots:v101 createSeparateSamplePerStackshot:1];
   [initForFileParsing postprocess];
 
 LABEL_113:

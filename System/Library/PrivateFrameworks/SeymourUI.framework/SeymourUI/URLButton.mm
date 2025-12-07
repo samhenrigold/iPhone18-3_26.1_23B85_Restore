@@ -20,7 +20,7 @@
 
 - (void)textSizeChanged:(id)changed
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C765E10);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C765E10, &unk_20C161460);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v15 - v6;
   if (changed)
@@ -43,7 +43,7 @@
   v14 = v10;
   sub_20B7F30D8(v10, v11, v12);
 
-  sub_20B520158(v7, &qword_27C765E10);
+  sub_20B520158(v7, &qword_27C765E10, &unk_20C161460);
 }
 
 @end

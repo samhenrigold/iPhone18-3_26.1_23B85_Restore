@@ -1,3 +1,10 @@
+void sub_10000175C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 int main(int argc, const char **argv, const char **envp)
 {
   v3 = objc_autoreleasePoolPush();
@@ -210,9 +217,9 @@ id getLocalCloudDocsURLs()
   return v2;
 }
 
-void sub_100002490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100002490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -763,51 +770,49 @@ uint64_t diskUsage(void *a1, void *a2)
   v3 = a1;
   v4 = a2;
   v5 = objc_opt_new();
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 1;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 1;
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
   v6 = v3;
   v7 = 0;
-  v8 = [v6 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v8 = [v6 countByEnumeratingWithState:&v14 objects:v22 count:16];
   if (v8)
   {
-    v9 = *v17;
+    v9 = *v15;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v17 != v9)
+      if (*v15 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v16 + 1) + 8 * v10);
       if (v4)
       {
-        v15 = v4;
-        v12 = traverse_dir_with_state();
+        v13 = v4;
+        v11 = traverse_dir_with_state();
       }
 
       else
       {
-        v13 = *(*(&v16 + 1) + 8 * v10);
-        v12 = traverse_dir_with_state();
+        v11 = traverse_dir_with_state();
       }
 
-      v7 += v12;
-      if (*(v21 + 24) != 1)
+      v7 += v11;
+      if (*(v19 + 24) != 1)
       {
         break;
       }
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v16 objects:v24 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v22 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -818,13 +823,13 @@ LABEL_3:
     }
   }
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v18, 8);
   return v7;
 }
 
-void sub_100003A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100003A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

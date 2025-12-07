@@ -19,7 +19,7 @@
 
 - (id)loadContentsForPlistWithLanguage:(id)language
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (TI_IS_INTERNAL_INSTALL::once_token != -1)
   {
     dispatch_once(&TI_IS_INTERNAL_INSTALL::once_token, &__block_literal_global_3815);
@@ -42,11 +42,11 @@
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     path2 = [v7 path];
-    v20 = 136315394;
-    v21 = "[TIFilterParameterLoader loadContentsForPlistWithLanguage:]";
-    v22 = 2080;
+    v19 = 136315394;
+    v20 = "[TIFilterParameterLoader loadContentsForPlistWithLanguage:]";
+    v21 = 2080;
     uTF8String = [path2 UTF8String];
-    _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  Looking for candidate filter plist file under: %s", &v20, 0x16u);
+    _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  Looking for candidate filter plist file under: %s", &v19, 0x16u);
   }
 
   if (!v10)
@@ -60,11 +60,11 @@ LABEL_7:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       uTF8String2 = [v13 UTF8String];
-      v20 = 136315394;
-      v21 = "[TIFilterParameterLoader loadContentsForPlistWithLanguage:]";
-      v22 = 2080;
+      v19 = 136315394;
+      v20 = "[TIFilterParameterLoader loadContentsForPlistWithLanguage:]";
+      v21 = 2080;
       uTF8String = uTF8String2;
-      _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  Looking for candidate filter plist file under: %s", &v20, 0x16u);
+      _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  Looking for candidate filter plist file under: %s", &v19, 0x16u);
     }
   }
 
@@ -81,14 +81,12 @@ LABEL_7:
     }
 
     uTF8String3 = [(__CFString *)v14 UTF8String];
-    v20 = 136315394;
-    v21 = "[TIFilterParameterLoader loadContentsForPlistWithLanguage:]";
-    v22 = 2080;
+    v19 = 136315394;
+    v20 = "[TIFilterParameterLoader loadContentsForPlistWithLanguage:]";
+    v21 = 2080;
     uTF8String = uTF8String3;
-    _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  A valid candidate filter plist was found: %s", &v20, 0x16u);
+    _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  A valid candidate filter plist was found: %s", &v19, 0x16u);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -143,9 +141,8 @@ void __104__TIFilterParameterLoader_loadCandidateFilterSpecificationForLanguageI
   v3 = *(a1 + 56);
   if (v3)
   {
-    v4 = *(a1 + 48);
-    v6 = v3;
-    v5 = v2;
+    v5 = v3;
+    v4 = v2;
     TIDispatchAsync();
   }
 }

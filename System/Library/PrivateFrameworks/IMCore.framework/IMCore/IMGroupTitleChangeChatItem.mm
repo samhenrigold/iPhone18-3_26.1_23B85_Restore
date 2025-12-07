@@ -10,44 +10,44 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  v7 = objc_msgSend__item(self, v5, v6);
-  v9 = objc_msgSend__initWithItem_sender_(v4, v8, v7, self->_sender);
+  _item = [(IMChatItem *)self _item];
+  v6 = [v4 _initWithItem:_item sender:self->_sender];
 
-  return v9;
+  return v6;
 }
 
 - (NSString)title
 {
-  v3 = objc_msgSend__item(self, a2, v2);
-  v6 = objc_msgSend_title(v3, v4, v5);
+  _item = [(IMChatItem *)self _item];
+  title = [_item title];
 
-  return v6;
+  return title;
 }
 
 - (BOOL)unattributed
 {
-  v3 = objc_msgSend__item(self, a2, v2);
-  v6 = objc_msgSend_unattributed(v3, v4, v5);
+  _item = [(IMChatItem *)self _item];
+  unattributed = [_item unattributed];
 
-  return v6;
+  return unattributed;
 }
 
 - (id)_initWithItem:(id)item sender:(id)sender
 {
   itemCopy = item;
   senderCopy = sender;
-  v18.receiver = self;
-  v18.super_class = IMGroupTitleChangeChatItem;
-  v8 = [(IMChatItem *)&v18 _initWithItem:itemCopy];
+  v13.receiver = self;
+  v13.super_class = IMGroupTitleChangeChatItem;
+  v8 = [(IMChatItem *)&v13 _initWithItem:itemCopy];
   v9 = v8;
   if (v8)
   {
     objc_storeStrong(v8 + 8, sender);
-    *(v9 + 56) = objc_msgSend_errorCode(itemCopy, v10, v11) != 0;
-    v14 = objc_msgSend_guid(itemCopy, v12, v13);
-    v15 = sub_1A83AC604();
+    *(v9 + 56) = [itemCopy errorCode] != 0;
+    guid = [itemCopy guid];
+    v11 = sub_1A83AC604();
 
-    objc_msgSend__setGUID_(v9, v16, v15);
+    [v9 _setGUID:v11];
   }
 
   return v9;

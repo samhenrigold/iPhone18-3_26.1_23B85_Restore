@@ -147,8 +147,7 @@ LABEL_31:
 
     if ((v8 == 0) != (v9 != 0))
     {
-      [(MNGuidanceLaneInfo *)self distanceDetailLevel];
-      v5 = sub_100C168BC(v8, v9);
+      v5 = sub_100C168BC(v8, v9, [(MNGuidanceLaneInfo *)self distanceDetailLevel]);
       goto LABEL_19;
     }
 

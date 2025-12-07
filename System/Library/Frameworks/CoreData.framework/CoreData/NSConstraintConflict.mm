@@ -1,6 +1,7 @@
 @interface NSConstraintConflict
 - (NSConstraintConflict)initWithCoder:(id)coder;
 - (NSConstraintConflict)initWithConstraint:(NSArray *)contraint databaseObject:(NSManagedObject *)databaseObject databaseSnapshot:(NSDictionary *)databaseSnapshot conflictingObjects:(NSArray *)conflictingObjects conflictingSnapshots:(NSArray *)conflictingSnapshots;
+- (id)debugDescription;
 - (id)description;
 - (void)_doCleanupForXPCStore:(id)store context:(id)context;
 - (void)dealloc;
@@ -27,47 +28,47 @@
 
 - (NSConstraintConflict)initWithConstraint:(NSArray *)contraint databaseObject:(NSManagedObject *)databaseObject databaseSnapshot:(NSDictionary *)databaseSnapshot conflictingObjects:(NSArray *)conflictingObjects conflictingSnapshots:(NSArray *)conflictingSnapshots
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v33.receiver = self;
-  v33.super_class = NSConstraintConflict;
-  v12 = [(NSConstraintConflict *)&v33 init];
+  v34 = *MEMORY[0x1E69E9840];
+  v32.receiver = self;
+  v32.super_class = NSConstraintConflict;
+  v12 = [(NSConstraintConflict *)&v32 init];
   if (v12)
   {
-    v28 = conflictingSnapshots;
+    v27 = conflictingSnapshots;
     v12->_constraint = contraint;
     v12->_databaseObject = databaseObject;
     v12->_databaseSnapshot = databaseSnapshot;
     v12->_conflictingObjects = conflictingObjects;
     v12->_conflictedValues = [[NSKnownKeysDictionary alloc] initForKeys:contraint];
     lastObject = [(NSArray *)conflictingObjects lastObject];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    v14 = [(NSArray *)contraint countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v14 = [(NSArray *)contraint countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (!v14)
     {
       goto LABEL_21;
     }
 
     v15 = v14;
-    v16 = *v30;
+    v16 = *v29;
     while (1)
     {
       v17 = contraint;
       v18 = 0;
       do
       {
-        if (*v30 != v16)
+        if (*v29 != v16)
         {
           objc_enumerationMutation(v17);
         }
 
-        v19 = *(*(&v29 + 1) + 8 * v18);
+        v19 = *(*(&v28 + 1) + 8 * v18);
         v20 = [v19 componentsSeparatedByString:@"."];
         if ([v20 count] < 2)
         {
-          null = [lastObject valueForKey:v19];
+          null = objc_msgSend_valueForKey_(lastObject);
           if (!null)
           {
             goto LABEL_15;
@@ -93,7 +94,7 @@
 
             else
             {
-              v24 = [lastObject valueForKey:v23];
+              v24 = objc_msgSend_valueForKey_(lastObject);
             }
 
             null = v24;
@@ -114,18 +115,17 @@ LABEL_15:
 
       while (v18 != v15);
       contraint = v17;
-      v25 = [(NSArray *)v17 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v25 = [(NSArray *)v17 countByEnumeratingWithState:&v28 objects:v33 count:16];
       v15 = v25;
       if (!v25)
       {
 LABEL_21:
-        v12->_conflictingSnapshots = v28;
-        break;
+        v12->_conflictingSnapshots = v27;
+        return v12;
       }
     }
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -157,7 +157,7 @@ LABEL_21:
 
 - (NSConstraintConflict)initWithCoder:(id)coder
 {
-  if ([coder requiresSecureCoding] && (objc_opt_respondsToSelector() & 1) != 0 && !objc_msgSend(coder, "userInfo") && !objc_msgSend(objc_msgSend(coder, "userInfo"), "valueForKey:", @"PSCKey") || (objc_msgSend(coder, "requiresSecureCoding") & 1) == 0 && !objc_msgSend(coder, "delegate"))
+  if ([coder requiresSecureCoding] && (objc_opt_respondsToSelector() & 1) != 0 && !objc_msgSend(coder, "userInfo") && !objc_msgSend_valueForKey_(objc_msgSend(coder, "userInfo")) || (objc_msgSend(coder, "requiresSecureCoding") & 1) == 0 && !objc_msgSend(coder, "delegate"))
   {
     NSLog(@"This is probably not where you want to be");
   }
@@ -199,10 +199,19 @@ LABEL_21:
 {
   v3 = objc_autoreleasePoolPush();
   v4 = [_PFRoutines newArrayOfObjectIDsFromCollection:?];
-  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ (%p) for constraint %@: database: %@, conflictedObjects: %@", objc_opt_class(), self, -[NSConstraintConflict constraint](self, "constraint"), -[NSManagedObject objectID](-[NSConstraintConflict databaseObject](self, "databaseObject"), "objectID"), v4];
+  v5 = MEMORY[0x1E696AEC0];
+  v6 = objc_opt_class();
+  v7 = objc_msgSend_stringWithFormat_(v5, v6, self, [(NSConstraintConflict *)self constraint], [(NSManagedObject *)[(NSConstraintConflict *)self databaseObject] objectID], v4);
   objc_autoreleasePoolPop(v3);
 
-  return v5;
+  return v7;
+}
+
+- (id)debugDescription
+{
+  v3 = MEMORY[0x1E696AEC0];
+  v4 = objc_opt_class();
+  return objc_msgSend_stringWithFormat_(v3, v4, self, [(NSConstraintConflict *)self constraint], [(NSConstraintConflict *)self databaseObject], [(NSConstraintConflict *)self conflictingObjects]);
 }
 
 @end

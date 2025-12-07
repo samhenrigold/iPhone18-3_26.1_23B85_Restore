@@ -138,7 +138,7 @@
 
 - (void)loadLabelTemplatesFromDirectory:(id)directory
 {
-  v128 = *MEMORY[0x277D85DE8];
+  v127 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   v4 = _mo_log_facility_get_os_log(MOLogFacilityEventBundleManager);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -147,110 +147,110 @@
   }
 
   [MEMORY[0x277CCAA00] defaultManager];
-  v67 = v117 = 0;
-  v5 = [v67 contentsOfDirectoryAtPath:directoryCopy error:&v117];
-  v6 = v117;
+  v66 = v116 = 0;
+  v5 = [v66 contentsOfDirectoryAtPath:directoryCopy error:&v116];
+  v6 = v116;
   v7 = [MEMORY[0x277CCAC30] predicateWithFormat:@"self ENDSWITH '.json'"];
-  v66 = v5;
+  v65 = v5;
   v8 = [v5 filteredArrayUsingPredicate:v7];
 
-  v65 = v8;
+  v64 = v8;
   if (v8 && [v8 count])
   {
-    v64 = v6;
-    v76 = objc_opt_new();
-    v80 = objc_opt_new();
+    v63 = v6;
+    v75 = objc_opt_new();
+    v79 = objc_opt_new();
+    v112 = 0u;
     v113 = 0u;
     v114 = 0u;
     v115 = 0u;
-    v116 = 0u;
     obj = v8;
-    v68 = directoryCopy;
-    v71 = [obj countByEnumeratingWithState:&v113 objects:v127 count:16];
-    if (v71)
+    v67 = directoryCopy;
+    v70 = [obj countByEnumeratingWithState:&v112 objects:v126 count:16];
+    if (v70)
     {
-      v70 = *v114;
+      v69 = *v113;
       do
       {
         v9 = 0;
         do
         {
-          if (*v114 != v70)
+          if (*v113 != v69)
           {
             objc_enumerationMutation(obj);
           }
 
-          v73 = v9;
-          v10 = *(*(&v113 + 1) + 8 * v9);
-          v72 = objc_autoreleasePoolPush();
+          v72 = v9;
+          v10 = *(*(&v112 + 1) + 8 * v9);
+          v71 = objc_autoreleasePoolPush();
           v11 = [directoryCopy stringByAppendingPathComponent:v10];
           v12 = _mo_log_facility_get_os_log(MOLogFacilityEventBundleManager);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v120 = v11;
+            v119 = v11;
             _os_log_debug_impl(&dword_22D8C5000, v12, OS_LOG_TYPE_DEBUG, "Template file, %@", buf, 0xCu);
           }
 
           v13 = [(MOEventBundleLabelFormatter *)self loadDictionaryFromPath:v11];
-          v85 = v11;
-          v74 = v13;
+          v84 = v11;
+          v73 = v13;
           if (v13 && [v13 count])
           {
             v14 = _mo_log_facility_get_os_log(MOLogFacilityEventBundleManager);
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412546;
-              v120 = v11;
-              v121 = 2112;
-              v122 = v74;
+              v119 = v11;
+              v120 = 2112;
+              v121 = v73;
               _os_log_debug_impl(&dword_22D8C5000, v14, OS_LOG_TYPE_DEBUG, "Template file, %@, dict, %@", buf, 0x16u);
             }
 
-            v15 = [v74 objectForKeyedSubscript:@"cases"];
+            v15 = [v73 objectForKeyedSubscript:@"cases"];
+            v108 = 0u;
             v109 = 0u;
             v110 = 0u;
             v111 = 0u;
-            v112 = 0u;
-            v75 = v15;
-            v79 = [v75 countByEnumeratingWithState:&v109 objects:v126 count:16];
-            if (v79)
+            v74 = v15;
+            v78 = [v74 countByEnumeratingWithState:&v108 objects:v125 count:16];
+            if (v78)
             {
+              v89 = 0;
               v90 = 0;
-              v91 = 0;
-              v77 = *v110;
+              v76 = *v109;
               do
               {
                 v16 = 0;
                 do
                 {
-                  if (*v110 != v77)
+                  if (*v109 != v76)
                   {
-                    objc_enumerationMutation(v75);
+                    objc_enumerationMutation(v74);
                   }
 
-                  v83 = v16;
-                  v17 = *(*(&v109 + 1) + 8 * v16);
-                  v82 = objc_autoreleasePoolPush();
+                  v82 = v16;
+                  v17 = *(*(&v108 + 1) + 8 * v16);
+                  v81 = objc_autoreleasePoolPush();
                   v18 = _mo_log_facility_get_os_log(MOLogFacilityEventBundleManager);
                   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412546;
-                    v120 = v85;
-                    v121 = 2112;
-                    v122 = v17;
+                    v119 = v84;
+                    v120 = 2112;
+                    v121 = v17;
                     _os_log_debug_impl(&dword_22D8C5000, v18, OS_LOG_TYPE_DEBUG, "Template file, %@, subdict, %@", buf, 0x16u);
                   }
 
                   v19 = [v17 objectForKeyedSubscript:@"bundleType"];
-                  v84 = [(MOEventBundleLabelFormatter *)self keywordForTemplateType:@"labels" bundleType:v19];
-                  v86 = [(MOEventBundleLabelFormatter *)self keywordForTemplateType:@"prompts" bundleType:v19];
-                  v88 = objc_opt_new();
+                  v83 = [(MOEventBundleLabelFormatter *)self keywordForTemplateType:@"labels" bundleType:v19];
+                  v85 = [(MOEventBundleLabelFormatter *)self keywordForTemplateType:@"prompts" bundleType:v19];
                   v87 = objc_opt_new();
+                  v86 = objc_opt_new();
                   v20 = [v17 objectForKeyedSubscript:@"context"];
                   if (v20)
                   {
-                    v21 = [(NSDictionary *)v80 objectForKey:v19];
+                    v21 = [(NSDictionary *)v79 objectForKey:v19];
                     if (v21)
                     {
                       v22 = [v20 mutableCopy];
@@ -259,31 +259,31 @@
                       v20 = v22;
                     }
 
-                    [(NSDictionary *)v80 setObject:v20 forKey:v19, v64, v65];
+                    [(NSDictionary *)v79 setObject:v20 forKey:v19, v63, v64];
                   }
 
-                  v92 = v20;
-                  v81 = v19;
-                  v23 = [v17 objectForKeyedSubscript:{@"templates", v64}];
+                  v91 = v20;
+                  v80 = v19;
+                  v23 = [v17 objectForKeyedSubscript:{@"templates", v63}];
+                  v104 = 0u;
                   v105 = 0u;
                   v106 = 0u;
                   v107 = 0u;
-                  v108 = 0u;
-                  v89 = v23;
-                  v94 = [v89 countByEnumeratingWithState:&v105 objects:v125 count:16];
-                  if (v94)
+                  v88 = v23;
+                  v93 = [v88 countByEnumeratingWithState:&v104 objects:v124 count:16];
+                  if (v93)
                   {
-                    v93 = *v106;
+                    v92 = *v105;
                     do
                     {
-                      for (i = 0; i != v94; ++i)
+                      for (i = 0; i != v93; ++i)
                       {
-                        if (*v106 != v93)
+                        if (*v105 != v92)
                         {
-                          objc_enumerationMutation(v89);
+                          objc_enumerationMutation(v88);
                         }
 
-                        v25 = *(*(&v105 + 1) + 8 * i);
+                        v25 = *(*(&v104 + 1) + 8 * i);
                         context = objc_autoreleasePoolPush();
                         v26 = [v25 objectForKeyedSubscript:@"conditions"];
                         v27 = [v25 objectForKeyedSubscript:@"extends"];
@@ -301,15 +301,15 @@
                           v32 = v30;
                         }
 
-                        v96 = v32;
+                        v95 = v32;
                         v33 = [MOEventBundleLabelTemplate conditionsFromLabels:v32];
-                        v100 = v26;
+                        v99 = v26;
                         v34 = [MOEventBundleLabelTemplate conditionsFromConditionStrings:v26];
-                        v98 = v27;
+                        v97 = v27;
                         v35 = [MOEventBundleLabelTemplate conditionsFromExtendStrings:v27];
-                        v97 = v28;
+                        v96 = v28;
                         v36 = [MOEventBundleLabelTemplate conditionsFromCapitalizations:v28];
-                        v95 = v33;
+                        v94 = v33;
                         v37 = [v34 setByAddingObjectsFromSet:v33];
                         if ([v35 count])
                         {
@@ -333,17 +333,17 @@
                           if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
                           {
                             *buf = 138412802;
-                            v120 = v29;
-                            v121 = 2112;
-                            v122 = v100;
-                            v123 = 2112;
-                            v124 = v37;
+                            v119 = v29;
+                            v120 = 2112;
+                            v121 = v99;
+                            v122 = 2112;
+                            v123 = v37;
                             _os_log_debug_impl(&dword_22D8C5000, v42, OS_LOG_TYPE_DEBUG, "template parsing, labels, %@, conditionStrings, %@, conditions, %@", buf, 0x20u);
                           }
 
-                          v43 = [[MOEventBundleLabelTemplate alloc] initWithConditions:v37 formats:v40 context:v92];
-                          [v88 addObject:v43];
-                          ++v90;
+                          v43 = [[MOEventBundleLabelTemplate alloc] initWithConditions:v37 formats:v40 context:v91];
+                          [v87 addObject:v43];
+                          ++v89;
                         }
 
                         if (v31 && [v31 count])
@@ -352,157 +352,157 @@
                           if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
                           {
                             *buf = 138412802;
-                            v120 = v29;
-                            v121 = 2112;
-                            v122 = v100;
-                            v123 = 2112;
-                            v124 = v37;
+                            v119 = v29;
+                            v120 = 2112;
+                            v121 = v99;
+                            v122 = 2112;
+                            v123 = v37;
                             _os_log_debug_impl(&dword_22D8C5000, v44, OS_LOG_TYPE_DEBUG, "template parsing, prompts, %@, conditionStrings, %@, conditions, %@", buf, 0x20u);
                           }
 
-                          v45 = [[MOEventBundleLabelTemplate alloc] initWithConditions:v37 formats:v41 context:v92];
-                          [v87 addObject:v45];
-                          ++v91;
+                          v45 = [[MOEventBundleLabelTemplate alloc] initWithConditions:v37 formats:v41 context:v91];
+                          [v86 addObject:v45];
+                          ++v90;
                         }
 
                         objc_autoreleasePoolPop(context);
                       }
 
-                      v94 = [v89 countByEnumeratingWithState:&v105 objects:v125 count:16];
+                      v93 = [v88 countByEnumeratingWithState:&v104 objects:v124 count:16];
                     }
 
-                    while (v94);
+                    while (v93);
                   }
 
-                  v46 = [(NSDictionary *)v76 objectForKey:v84];
-                  [v88 addObjectsFromArray:v46];
-                  [(NSDictionary *)v76 setObject:v88 forKey:v84];
-                  v47 = [(NSDictionary *)v76 objectForKey:v86];
-                  [v87 addObjectsFromArray:v47];
-                  [(NSDictionary *)v76 setObject:v87 forKey:v86];
+                  v46 = [(NSDictionary *)v75 objectForKey:v83];
+                  [v87 addObjectsFromArray:v46];
+                  [(NSDictionary *)v75 setObject:v87 forKey:v83];
+                  v47 = [(NSDictionary *)v75 objectForKey:v85];
+                  [v86 addObjectsFromArray:v47];
+                  [(NSDictionary *)v75 setObject:v86 forKey:v85];
                   v48 = _mo_log_facility_get_os_log(MOLogFacilityEventBundleManager);
                   if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
                   {
-                    v57 = [v88 count];
+                    v57 = [v87 count];
                     *buf = 138412802;
-                    v120 = v85;
-                    v121 = 2112;
-                    v122 = v84;
-                    v123 = 2048;
-                    v124 = v57;
+                    v119 = v84;
+                    v120 = 2112;
+                    v121 = v83;
+                    v122 = 2048;
+                    v123 = v57;
                     _os_log_debug_impl(&dword_22D8C5000, v48, OS_LOG_TYPE_DEBUG, "Template file, %@, key, %@, templates.count, %lu", buf, 0x20u);
                   }
 
                   v49 = _mo_log_facility_get_os_log(MOLogFacilityEventBundleManager);
                   if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
                   {
-                    v58 = [v87 count];
+                    v58 = [v86 count];
                     *buf = 138412802;
-                    v120 = v85;
-                    v121 = 2112;
-                    v122 = v86;
-                    v123 = 2048;
-                    v124 = v58;
+                    v119 = v84;
+                    v120 = 2112;
+                    v121 = v85;
+                    v122 = 2048;
+                    v123 = v58;
                     _os_log_debug_impl(&dword_22D8C5000, v49, OS_LOG_TYPE_DEBUG, "Template file, %@, key, %@, templates.count, %lu", buf, 0x20u);
                   }
 
-                  v103 = 0u;
-                  v104 = 0u;
-                  v101 = 0u;
                   v102 = 0u;
-                  v50 = v87;
-                  v51 = [v50 countByEnumeratingWithState:&v101 objects:v118 count:16];
+                  v103 = 0u;
+                  v100 = 0u;
+                  v101 = 0u;
+                  v50 = v86;
+                  v51 = [v50 countByEnumeratingWithState:&v100 objects:v117 count:16];
                   if (v51)
                   {
                     v52 = v51;
-                    v53 = *v102;
+                    v53 = *v101;
                     do
                     {
                       for (j = 0; j != v52; ++j)
                       {
-                        if (*v102 != v53)
+                        if (*v101 != v53)
                         {
                           objc_enumerationMutation(v50);
                         }
 
-                        v55 = *(*(&v101 + 1) + 8 * j);
+                        v55 = *(*(&v100 + 1) + 8 * j);
                         v56 = _mo_log_facility_get_os_log(MOLogFacilityEventBundleManager);
                         if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
                         {
                           *buf = 138412802;
-                          v120 = v85;
-                          v121 = 2112;
-                          v122 = v86;
-                          v123 = 2112;
-                          v124 = v55;
+                          v119 = v84;
+                          v120 = 2112;
+                          v121 = v85;
+                          v122 = 2112;
+                          v123 = v55;
                           _os_log_debug_impl(&dword_22D8C5000, v56, OS_LOG_TYPE_DEBUG, "Template file, %@, key, %@, flattened template, %@", buf, 0x20u);
                         }
                       }
 
-                      v52 = [v50 countByEnumeratingWithState:&v101 objects:v118 count:16];
+                      v52 = [v50 countByEnumeratingWithState:&v100 objects:v117 count:16];
                     }
 
                     while (v52);
                   }
 
-                  objc_autoreleasePoolPop(v82);
-                  v16 = v83 + 1;
+                  objc_autoreleasePoolPop(v81);
+                  v16 = v82 + 1;
                 }
 
-                while (v83 + 1 != v79);
-                v79 = [v75 countByEnumeratingWithState:&v109 objects:v126 count:16];
+                while (v82 + 1 != v78);
+                v78 = [v74 countByEnumeratingWithState:&v108 objects:v125 count:16];
               }
 
-              while (v79);
+              while (v78);
             }
 
             else
             {
+              v89 = 0;
               v90 = 0;
-              v91 = 0;
             }
 
-            directoryCopy = v68;
+            directoryCopy = v67;
           }
 
           else
           {
+            v89 = 0;
             v90 = 0;
-            v91 = 0;
           }
 
           v59 = _mo_log_facility_get_os_log(MOLogFacilityEventBundleManager);
           if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412802;
-            v120 = v85;
-            v121 = 2048;
-            v122 = v90;
-            v123 = 2048;
-            v124 = v91;
+            v119 = v84;
+            v120 = 2048;
+            v121 = v89;
+            v122 = 2048;
+            v123 = v90;
             _os_log_debug_impl(&dword_22D8C5000, v59, OS_LOG_TYPE_DEBUG, "Template file, %@, label.count, %lu, prompts.count, %lu", buf, 0x20u);
           }
 
-          objc_autoreleasePoolPop(v72);
-          v9 = v73 + 1;
+          objc_autoreleasePoolPop(v71);
+          v9 = v72 + 1;
         }
 
-        while (v73 + 1 != v71);
-        v71 = [obj countByEnumeratingWithState:&v113 objects:v127 count:16];
+        while (v72 + 1 != v70);
+        v70 = [obj countByEnumeratingWithState:&v112 objects:v126 count:16];
       }
 
-      while (v71);
+      while (v70);
     }
 
     templates = self->_templates;
-    self->_templates = v76;
-    v61 = v76;
+    self->_templates = v75;
+    v61 = v75;
 
-    directoryCopy = v68;
+    directoryCopy = v67;
     v62 = self->_context;
-    self->_context = v80;
+    self->_context = v79;
 
-    v6 = v64;
+    v6 = v63;
   }
 
   else
@@ -513,8 +513,6 @@
       [MOEventBundleLabelFormatter loadLabelTemplatesFromDirectory:];
     }
   }
-
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 - (id)loadDictionaryFromPath:(id)path
@@ -590,36 +588,36 @@ LABEL_14:
 
 - (id)formattedStringsForMetaData:(id)data templates:(id)templates
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dataCopy = data;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   templatesCopy = templates;
-  v8 = [templatesCopy countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v8 = [templatesCopy countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
     selfCopy = self;
-    v10 = *v23;
+    v10 = *v22;
     v11 = MEMORY[0x277CBEBF8];
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(templatesCopy);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         v14 = objc_autoreleasePoolPush();
         v15 = _mo_log_facility_get_os_log(MOLogFacilityEventBundleManager);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v27 = v13;
+          v26 = v13;
           _os_log_debug_impl(&dword_22D8C5000, v15, OS_LOG_TYPE_DEBUG, "template, %@", buf, 0xCu);
         }
 
@@ -641,7 +639,7 @@ LABEL_14:
         objc_autoreleasePoolPop(v14);
       }
 
-      v9 = [templatesCopy countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v9 = [templatesCopy countByEnumeratingWithState:&v21 objects:v27 count:16];
       if (v9)
       {
         continue;
@@ -658,14 +656,12 @@ LABEL_14:
 
 LABEL_16:
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)shuffleStrings:(id)strings shuffleMode:(unint64_t)mode
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   v6 = stringsCopy;
   if (stringsCopy && [stringsCopy count])
@@ -679,15 +675,15 @@ LABEL_16:
       v11 = _mo_log_facility_get_os_log(MOLogFacilityEventBundleManager);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v17 = 134218754;
-        v18 = [v6 count];
-        v19 = 2048;
-        v20 = v9;
-        v21 = 2048;
-        v22 = v10;
-        v23 = 2112;
-        v24 = v7;
-        _os_log_debug_impl(&dword_22D8C5000, v11, OS_LOG_TYPE_DEBUG, "Shuffle Labels: count, %lu, seed, %lu, start_index, %lu, nowDate, %@", &v17, 0x2Au);
+        v16 = 134218754;
+        v17 = [v6 count];
+        v18 = 2048;
+        v19 = v9;
+        v20 = 2048;
+        v21 = v10;
+        v22 = 2112;
+        v23 = v7;
+        _os_log_debug_impl(&dword_22D8C5000, v11, OS_LOG_TYPE_DEBUG, "Shuffle Labels: count, %lu, seed, %lu, start_index, %lu, nowDate, %@", &v16, 0x2Au);
       }
 
       if (v10)
@@ -717,14 +713,12 @@ LABEL_16:
     v12 = MEMORY[0x277CBEBF8];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)formattedStringsForMetaData:(id)data templateType:(id)type bundleType:(id)bundleType
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   typeCopy = type;
   v10 = [(MOEventBundleLabelFormatter *)self keywordForTemplateType:typeCopy bundleType:bundleType];
@@ -758,8 +752,8 @@ LABEL_16:
     v17 = v16;
     if (v16)
     {
-      v30[0] = v16;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+      v29[0] = v16;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
     }
 
     else
@@ -770,20 +764,18 @@ LABEL_16:
         allKeys = [dataCopy allKeys];
         templates2 = [(MOEventBundleLabelFormatter *)self templates];
         allKeys2 = [templates2 allKeys];
-        v24 = 138412802;
-        v25 = v10;
-        v26 = 2112;
-        v27 = allKeys;
-        v28 = 2112;
-        v29 = allKeys2;
-        _os_log_error_impl(&dword_22D8C5000, v18, OS_LOG_TYPE_ERROR, "The label template is not found for the keyword, %@, meta, %@, all keywords, %@", &v24, 0x20u);
+        v23 = 138412802;
+        v24 = v10;
+        v25 = 2112;
+        v26 = allKeys;
+        v27 = 2112;
+        v28 = allKeys2;
+        _os_log_error_impl(&dword_22D8C5000, v18, OS_LOG_TYPE_ERROR, "The label template is not found for the keyword, %@, meta, %@, all keywords, %@", &v23, 0x20u);
       }
 
       v14 = 0;
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -812,10 +804,9 @@ LABEL_16:
 
 - (void)loadLabelTemplatesFromDirectory:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(&dword_22D8C5000, v0, OS_LOG_TYPE_DEBUG, "load templates from %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_22D8C5000, v0, OS_LOG_TYPE_DEBUG, "load templates from %@", v1, 0xCu);
 }
 
 - (void)loadLabelTemplatesFromDirectory:.cold.2()
@@ -827,29 +818,25 @@ LABEL_16:
 
 - (void)loadDictionaryFromPath:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_2_4();
-  v4 = v0;
-  _os_log_error_impl(&dword_22D8C5000, v1, OS_LOG_TYPE_ERROR, "Couldn't parse JSON to dictionary. %@, error, %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_22D8C5000, v1, OS_LOG_TYPE_ERROR, "Couldn't parse JSON to dictionary. %@, error, %@", v2, 0x16u);
 }
 
 - (void)loadDictionaryFromPath:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)formattedStringsForMetaData:templateType:bundleType:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(&dword_22D8C5000, v0, OS_LOG_TYPE_DEBUG, "keyword, %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_22D8C5000, v0, OS_LOG_TYPE_DEBUG, "keyword, %@", v1, 0xCu);
 }
 
 @end

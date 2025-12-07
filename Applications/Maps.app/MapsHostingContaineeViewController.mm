@@ -13,7 +13,7 @@
 
 - (BOOL)_canShowWhileLocked
 {
-  v3 = type metadata accessor for MapsHostingContaineeViewController.HostingControllerOptions();
+  v3 = type metadata accessor for MapsHostingContaineeViewController.HostingControllerOptions(0);
   v4 = v3 - 8;
   __chkstk_darwin(v3);
   v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -43,7 +43,7 @@
 
 - (void)preferredContentSizeDidChangeForChildContentContainer:(id)container
 {
-  v4 = type metadata accessor for MapsHostingContaineeViewController.HostingControllerOptions();
+  v4 = type metadata accessor for MapsHostingContaineeViewController.HostingControllerOptions(0);
   v5 = v4 - 8;
   __chkstk_darwin(v4);
   v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);

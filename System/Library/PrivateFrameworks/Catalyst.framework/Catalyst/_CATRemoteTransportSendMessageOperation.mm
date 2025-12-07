@@ -8,8 +8,8 @@
 
 - (void)main
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v3 = CATGetCatalystQueue();
+  v14[1] = *MEMORY[0x277D85DE8];
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   transport = [(_CATRemoteTransportSendMessageOperation *)self transport];
@@ -17,9 +17,9 @@
   {
     v6 = MEMORY[0x277CCAAB0];
     message = [(_CATRemoteTransportSendMessageOperation *)self message];
-    v13[0] = 0;
-    v8 = [v6 cat_archivedDataWithRootObject:message error:v13];
-    v9 = v13[0];
+    v12[0] = 0;
+    v8 = [v6 cat_archivedDataWithRootObject:message error:v12];
+    v9 = v12[0];
 
     if (v8)
     {
@@ -28,9 +28,9 @@
 
     else
     {
-      v14 = *MEMORY[0x277CCA7E8];
-      v15[0] = v9;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v13 = *MEMORY[0x277CCA7E8];
+      v14[0] = v9;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
       v11 = CATErrorWithCodeAndUserInfo(301, v10);
       [(CATOperation *)self endOperationWithError:v11];
     }
@@ -41,14 +41,12 @@
     v5 = CATErrorWithCodeAndUserInfo(404, 0);
     [(CATOperation *)self endOperationWithError:v5];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didEncodeData:(id)data
 {
   dataCopy = data;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(dataCopy);
   CATAssertIsQueue(v4);
 
   transport = [(_CATRemoteTransportSendMessageOperation *)self transport];

@@ -20,93 +20,93 @@
 {
   sensitiveCopy = sensitive;
   matchCopy = match;
-  v6 = objc_msgSend_stringWithString_(MEMORY[0x277CCAB68], a2, string, sensitive, match);
-  v67 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x277CCA900], v7, @"~?*", v8, v9);
-  v68 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x277CCA900], v10, @"+[(){}^$|\\./", v11, v12);
-  v17 = objc_msgSend_mutableCopy(v68, v13, v14, v15, v16);
-  objc_msgSend_formUnionWithCharacterSet_(v17, v18, v67, v19, v20);
-  v27 = objc_msgSend_rangeOfCharacterFromSet_(v6, v21, v17, v22, v23);
-  v28 = v24;
-  v29 = 0x7FFFFFFFFFFFFFFFLL;
-  while (v27 != 0x7FFFFFFFFFFFFFFFLL)
+  v6 = objc_msgSend_stringWithString_(MEMORY[0x277CCAB68], a2, string, sensitive);
+  v56 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x277CCA900], v7, @"~?*", v8);
+  v57 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x277CCA900], v9, @"+[(){}^$|\\./", v10);
+  v14 = objc_msgSend_mutableCopy(v57, v11, v12, v13);
+  objc_msgSend_formUnionWithCharacterSet_(v14, v15, v56, v16);
+  v21 = objc_msgSend_rangeOfCharacterFromSet_(v6, v17, v14, v18);
+  v22 = v19;
+  v23 = 0x7FFFFFFFFFFFFFFFLL;
+  while (v21 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v30 = objc_msgSend_characterAtIndex_(v6, v24, v27, v25, v26);
-    v35 = v30;
-    if (v30 == 42)
+    v24 = objc_msgSend_characterAtIndex_(v6, v19, v21, v20);
+    v28 = v24;
+    if (v24 == 42)
     {
-      if (v27 == v29)
+      if (v21 == v23)
       {
-        objc_msgSend_replaceCharactersInRange_withString_(v6, v31, v27, v28, &stru_2834BADA0);
-        v40 = v29;
+        objc_msgSend_replaceCharactersInRange_withString_(v6, v25, v21, v22, &stru_2834BADA0);
+        v32 = v23;
       }
 
       else
       {
-        objc_msgSend_replaceCharactersInRange_withString_(v6, v31, v27, v28, @".*");
-        v40 = v27 + 2;
-        v29 = v27 + 2;
+        objc_msgSend_replaceCharactersInRange_withString_(v6, v25, v21, v22, @".*");
+        v32 = v21 + 2;
+        v23 = v21 + 2;
       }
     }
 
-    else if (v30 == 63)
+    else if (v24 == 63)
     {
-      objc_msgSend_replaceCharactersInRange_withString_(v6, v31, v27, v28, @".{1}");
-      v40 = v27 + 4;
+      objc_msgSend_replaceCharactersInRange_withString_(v6, v25, v21, v22, @".{1}");
+      v32 = v21 + 4;
     }
 
     else
     {
-      if (v30 == 126)
+      if (v24 == 126)
       {
-        v40 = v27 + 1;
-        if (v27 >= objc_msgSend_length(v6, v31, v32, v33, v34) - 1)
+        v32 = v21 + 1;
+        if (v21 >= objc_msgSend_length(v6, v25, v26, v27) - 1)
         {
           goto LABEL_18;
         }
 
-        v41 = objc_msgSend_characterAtIndex_(v6, v36, v27 + 1, v38, v39);
-        if (v41 == 42)
+        v33 = objc_msgSend_characterAtIndex_(v6, v29, v21 + 1, v31);
+        if (v33 == 42)
         {
-          objc_msgSend_replaceCharactersInRange_withString_(v6, v36, v27, 2, @"\\*");
+          objc_msgSend_replaceCharactersInRange_withString_(v6, v29, v21, 2, @"\\*");
         }
 
         else
         {
-          if (v41 != 63)
+          if (v33 != 63)
           {
             goto LABEL_18;
           }
 
-          objc_msgSend_replaceCharactersInRange_withString_(v6, v36, v27, 2, @"\\?");
+          objc_msgSend_replaceCharactersInRange_withString_(v6, v29, v21, 2, @"\\?");
         }
       }
 
       else
       {
-        if ((objc_msgSend_characterIsMember_(v68, v31, v30, v33, v34) & 1) == 0)
+        if ((objc_msgSend_characterIsMember_(v57, v25, v24, v27) & 1) == 0)
         {
-          v45 = MEMORY[0x277D81150];
-          v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "NSString *TSCEConvertWildcardStringToICURegex(NSString *__strong)", v43, v44);
-          v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERegexMatcher.mm", v48, v49);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v51, v46, v50, 84, 0, "We don't want to quote a character that doesn't need to be quoted.");
+          v36 = MEMORY[0x277D81150];
+          v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "NSString *TSCEConvertWildcardStringToICURegex(NSString *__strong)", v35);
+          v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERegexMatcher.mm", v39);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v36, v41, v37, v40, 84, 0, "We don't want to quote a character that doesn't need to be quoted.");
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v52, v53, v54, v55);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v42, v43, v44);
         }
 
-        v56 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v42, @"\\%C", v43, v44, v35);
-        objc_msgSend_replaceCharactersInRange_withString_(v6, v57, v27, v28, v56);
+        v45 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v34, @"\\%C", v35, v28);
+        objc_msgSend_replaceCharactersInRange_withString_(v6, v46, v21, v22, v45);
       }
 
-      v40 = v27 + 2;
+      v32 = v21 + 2;
     }
 
 LABEL_18:
-    v58 = objc_msgSend_length(v6, v36, v37, v38, v39);
-    v27 = objc_msgSend_rangeOfCharacterFromSet_options_range_(v6, v59, v17, 0, v40, v58 - v40);
-    v28 = v24;
+    v47 = objc_msgSend_length(v6, v29, v30, v31);
+    v21 = objc_msgSend_rangeOfCharacterFromSet_options_range_(v6, v48, v14, 0, v32, v47 - v32);
+    v22 = v19;
   }
 
-  matched = objc_msgSend_initWithRegexString_caseSensitive_entireMatch_outError_(self, v60, v6, sensitiveCopy, matchCopy, error);
+  matched = objc_msgSend_initWithRegexString_caseSensitive_entireMatch_outError_(self, v49, v6, sensitiveCopy, matchCopy, error);
   return matched;
 }
 
@@ -115,9 +115,9 @@ LABEL_18:
   matchCopy = match;
   sensitiveCopy = sensitive;
   stringCopy = string;
-  v29.receiver = self;
-  v29.super_class = TSCERegexMatcher;
-  v11 = [(TSCERegexMatcher *)&v29 init];
+  v27.receiver = self;
+  v27.super_class = TSCERegexMatcher;
+  v11 = [(TSCERegexMatcher *)&v27 init];
   if (v11)
   {
     v12 = stringCopy;
@@ -125,29 +125,29 @@ LABEL_18:
     if (matchCopy)
     {
       v14 = objc_alloc(MEMORY[0x277CCACA8]);
-      v13 = objc_msgSend_initWithFormat_(v14, v15, @"^%@$", v16, v17, v12);
+      v13 = objc_msgSend_initWithFormat_(v14, v15, @"^%@$", v16, v12);
     }
 
-    v18 = objc_alloc(MEMORY[0x277CCAC68]);
+    v17 = objc_alloc(MEMORY[0x277CCAC68]);
     if (sensitiveCopy)
     {
-      v20 = 48;
+      v19 = 48;
     }
 
     else
     {
-      v20 = 49;
+      v19 = 49;
     }
 
-    v28 = 0;
-    v21 = objc_msgSend_initWithPattern_options_error_(v18, v19, v13, v20, &v28);
-    v22 = v28;
+    v26 = 0;
+    v20 = objc_msgSend_initWithPattern_options_error_(v17, v18, v13, v19, &v26);
+    v21 = v26;
     regularExpression = v11->_regularExpression;
-    v11->_regularExpression = v21;
+    v11->_regularExpression = v20;
 
-    if (v22)
+    if (v21)
     {
-      *error = objc_msgSend_invalidRegexError_(TSCEError, v24, v12, v25, v26);
+      *error = objc_msgSend_invalidRegexError_(TSCEError, v23, v12, v24);
 
       v11 = 0;
     }
@@ -209,14 +209,14 @@ LABEL_18:
 - (_NSRange)rangeOfFirstMatchInString:(id)string
 {
   stringCopy = string;
-  v9 = objc_msgSend_length(stringCopy, v5, v6, v7, v8);
-  MatchInString_options_range = objc_msgSend_rangeOfFirstMatchInString_options_range_(self, v10, stringCopy, 0, 0, v9);
-  v13 = v12;
+  v8 = objc_msgSend_length(stringCopy, v5, v6, v7);
+  MatchInString_options_range = objc_msgSend_rangeOfFirstMatchInString_options_range_(self, v9, stringCopy, 0, 0, v8);
+  v12 = v11;
 
-  v14 = MatchInString_options_range;
-  v15 = v13;
-  result.length = v15;
-  result.location = v14;
+  v13 = MatchInString_options_range;
+  v14 = v12;
+  result.length = v14;
+  result.location = v13;
   return result;
 }
 
@@ -231,70 +231,70 @@ LABEL_18:
 - (_NSRange)rangeOfMatchInString:(id)string occurrence:(int64_t)occurrence matchesFound:(int64_t *)found
 {
   stringCopy = string;
-  v13 = stringCopy;
+  v12 = stringCopy;
   if (occurrence < 0)
   {
-    v19 = objc_msgSend_length(stringCopy, v9, v10, v11, v12);
-    v21 = objc_msgSend_matchesInString_options_range_(self, v20, v13, 0, 0, v19);
-    v26 = v21;
+    v18 = objc_msgSend_length(stringCopy, v9, v10, v11);
+    v20 = objc_msgSend_matchesInString_options_range_(self, v19, v12, 0, 0, v18);
+    v24 = v20;
     if (found)
     {
-      *found = objc_msgSend_count(v21, v22, v23, v24, v25);
+      *found = objc_msgSend_count(v20, v21, v22, v23);
     }
 
-    if (objc_msgSend_count(v26, v22, v23, v24, v25) >= -occurrence)
+    if (objc_msgSend_count(v24, v21, v22, v23) >= -occurrence)
     {
-      v31 = objc_msgSend_count(v26, v27, v28, v29, v30);
-      v35 = objc_msgSend_objectAtIndex_(v26, v32, v31 + occurrence, v33, v34);
-      v17 = objc_msgSend_range(v35, v36, v37, v38, v39);
-      v18 = v40;
+      v28 = objc_msgSend_count(v24, v25, v26, v27);
+      v31 = objc_msgSend_objectAtIndex_(v24, v29, v28 + occurrence, v30);
+      v16 = objc_msgSend_range(v31, v32, v33, v34);
+      v17 = v35;
     }
 
     else
     {
-      v17 = *MEMORY[0x277D81490];
-      v18 = *(MEMORY[0x277D81490] + 8);
+      v16 = *MEMORY[0x277D81490];
+      v17 = *(MEMORY[0x277D81490] + 8);
     }
   }
 
   else
   {
-    v51 = 0;
-    v52 = &v51;
-    v53 = 0x2020000000;
-    v54 = 0;
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x4012000000;
-    v47 = sub_22126B670;
-    v48 = nullsub_33;
-    v49 = &unk_22188E88F;
-    v50 = *MEMORY[0x277D81490];
+    v46 = 0;
+    v47 = &v46;
+    v48 = 0x2020000000;
+    v49 = 0;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x4012000000;
+    v42 = sub_22126B670;
+    v43 = nullsub_33;
+    v44 = &unk_22188E88F;
+    v45 = *MEMORY[0x277D81490];
     regularExpression = self->_regularExpression;
-    v15 = objc_msgSend_length(stringCopy, v9, v10, v11, v12);
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = sub_22126B680;
-    v43[3] = &unk_278462050;
-    v43[5] = &v44;
-    v43[6] = occurrence;
-    v43[4] = &v51;
-    objc_msgSend_enumerateMatchesInString_options_range_usingBlock_(regularExpression, v16, v13, 0, 0, v15, v43);
+    v14 = objc_msgSend_length(stringCopy, v9, v10, v11);
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = sub_22126B680;
+    v38[3] = &unk_278462050;
+    v38[5] = &v39;
+    v38[6] = occurrence;
+    v38[4] = &v46;
+    objc_msgSend_enumerateMatchesInString_options_range_usingBlock_(regularExpression, v15, v12, 0, 0, v14, v38);
     if (found)
     {
-      *found = v52[3];
+      *found = v47[3];
     }
 
-    v17 = v45[6];
-    v18 = v45[7];
-    _Block_object_dispose(&v44, 8);
-    _Block_object_dispose(&v51, 8);
+    v16 = v40[6];
+    v17 = v40[7];
+    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v46, 8);
   }
 
-  v41 = v17;
-  v42 = v18;
-  result.length = v42;
-  result.location = v41;
+  v36 = v16;
+  v37 = v17;
+  result.length = v37;
+  result.location = v36;
   return result;
 }
 

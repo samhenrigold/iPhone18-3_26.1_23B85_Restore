@@ -162,7 +162,6 @@ LABEL_6:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -182,7 +181,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  pagingDrxCycle = self->_pagingDrxCycle;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -197,12 +195,10 @@ LABEL_4:
   }
 
 LABEL_15:
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_5:
-    numSubs = self->_numSubs;
     PBDataWriterWriteUint32Field();
   }
 
@@ -214,7 +210,6 @@ LABEL_6:
 
   if ((*&self->_has & 0x10) != 0)
   {
-    isDataPreferred = self->_isDataPreferred;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -358,7 +353,6 @@ LABEL_6:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 40);
   if (has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -422,7 +416,7 @@ LABEL_6:
     has = self->_has;
   }
 
-  v8 = (*(equalCopy + 40) & 0x10) == 0;
+  v7 = (*(equalCopy + 40) & 0x10) == 0;
   if ((has & 0x10) != 0)
   {
     if ((*(equalCopy + 40) & 0x10) != 0)
@@ -440,17 +434,17 @@ LABEL_6:
         goto LABEL_27;
       }
 
-      v8 = 1;
+      v7 = 1;
       goto LABEL_28;
     }
 
 LABEL_27:
-    v8 = 0;
+    v7 = 0;
   }
 
 LABEL_28:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

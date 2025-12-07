@@ -21,7 +21,7 @@
 
 - (void)handleAppleMediaAccessoryModelIdentifierRequestMessage:(id)message
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -29,11 +29,11 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v26 = 138543618;
-    v27 = v8;
-    v28 = 2112;
-    v29 = messageCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling apple media accessory model identifier request message: %@", &v26, 0x16u);
+    v25 = 138543618;
+    v26 = v8;
+    v27 = 2112;
+    v28 = messageCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling apple media accessory model identifier request message: %@", &v25, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -58,9 +58,9 @@
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           v24 = HMFGetLogIdentifier();
-          v26 = 138543362;
-          v27 = v24;
-          _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to notify delegate of model identifier request message due to no delegate", &v26, 0xCu);
+          v25 = 138543362;
+          v26 = v24;
+          _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to notify delegate of model identifier request message due to no delegate", &v25, 0xCu);
         }
 
         objc_autoreleasePoolPop(v21);
@@ -77,11 +77,11 @@
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         v20 = HMFGetLogIdentifier();
-        v26 = 138543618;
-        v27 = v20;
-        v28 = 2112;
-        v29 = messagePayload;
-        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to get model identifier request payload from payload: %@", &v26, 0x16u);
+        v25 = 138543618;
+        v26 = v20;
+        v27 = 2112;
+        v28 = messagePayload;
+        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to get model identifier request payload from payload: %@", &v25, 0x16u);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -98,19 +98,17 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v26 = 138543618;
-      v27 = v16;
-      v28 = 2112;
-      v29 = messageCopy;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to get message payload from model identifier request message: %@", &v26, 0x16u);
+      v25 = 138543618;
+      v26 = v16;
+      v27 = 2112;
+      v28 = messageCopy;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to get message payload from model identifier request message: %@", &v25, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
     v10 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:8];
     [messageCopy respondWithError:v10];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (NSUUID)messageTargetUUID
@@ -135,7 +133,7 @@
 
 - (id)relayMessageName:(id)name payload:(id)payload toAppleMediaAccessory:(id)accessory
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   payloadCopy = payload;
   accessoryCopy = accessory;
@@ -147,14 +145,14 @@
     messageTargetUUID = [(HMDAppleMediaAccessoriesStateMessenger *)self messageTargetUUID];
     v15 = [(HMDRemoteDeviceMessageDestination *)v13 initWithTarget:messageTargetUUID device:device];
 
-    v28 = nameCopy;
+    v27 = nameCopy;
     v16 = [HMDRemoteMessage secureMessageWithName:nameCopy qualityOfService:-1 destination:v15 messagePayload:payloadCopy];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __89__HMDAppleMediaAccessoriesStateMessenger_relayMessageName_payload_toAppleMediaAccessory___block_invoke;
-    v29[3] = &unk_279734E00;
-    v30 = v11;
-    [v16 setResponseHandler:v29];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __89__HMDAppleMediaAccessoriesStateMessenger_relayMessageName_payload_toAppleMediaAccessory___block_invoke;
+    v28[3] = &unk_279734E00;
+    v29 = v11;
+    [v16 setResponseHandler:v28];
     v17 = objc_autoreleasePoolPush();
     selfCopy = self;
     v19 = HMFGetOSLogHandle();
@@ -162,11 +160,11 @@
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v32 = v20;
-      v33 = 2112;
-      v34 = v16;
-      v35 = 2112;
-      v36 = accessoryCopy;
+      v31 = v20;
+      v32 = 2112;
+      v33 = v16;
+      v34 = 2112;
+      v35 = accessoryCopy;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Relaying message: %@ to accessory: %@", buf, 0x20u);
     }
 
@@ -174,7 +172,7 @@
     messageDispatcher = [(HMDAppleMediaAccessoriesStateMessenger *)selfCopy messageDispatcher];
     [messageDispatcher sendMessage:v16];
 
-    nameCopy = v28;
+    nameCopy = v27;
   }
 
   else
@@ -186,13 +184,13 @@
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v32 = v25;
-      v33 = 2112;
-      v34 = nameCopy;
-      v35 = 2112;
-      v36 = payloadCopy;
-      v37 = 2112;
-      v38 = accessoryCopy;
+      v31 = v25;
+      v32 = 2112;
+      v33 = nameCopy;
+      v34 = 2112;
+      v35 = payloadCopy;
+      v36 = 2112;
+      v37 = accessoryCopy;
       _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@Failed to get device to relay message name: %@ payload: %@ to apple media accessory: %@", buf, 0x2Au);
     }
 
@@ -200,8 +198,6 @@
     v15 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:4];
     [v11 finishWithError:v15];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -230,7 +226,7 @@ void __89__HMDAppleMediaAccessoriesStateMessenger_relayMessageName_payload_toApp
 
 - (void)sendModelIdentifierRequestMessageToAppleMediaAccessory:(id)accessory withAccessoryIdentifier:(id)identifier completion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   identifierCopy = identifier;
   completionCopy = completion;
@@ -241,11 +237,11 @@ void __89__HMDAppleMediaAccessoriesStateMessenger_relayMessageName_payload_toApp
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v29 = v14;
-    v30 = 2112;
-    v31 = accessoryCopy;
-    v32 = 2112;
-    v33 = identifierCopy;
+    v28 = v14;
+    v29 = 2112;
+    v30 = accessoryCopy;
+    v31 = 2112;
+    v32 = identifierCopy;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Sending model identifier request message to apple media accessory: %@ accessory identifier: %@", buf, 0x20u);
   }
 
@@ -255,29 +251,27 @@ void __89__HMDAppleMediaAccessoriesStateMessenger_relayMessageName_payload_toApp
   payloadCopy = [(HMDAppleMediaAccessoryModelIdentifierRequestMessagePayload *)v15 payloadCopy];
   v18 = [(HMDAppleMediaAccessoriesStateMessenger *)selfCopy relayMessageName:v16 payload:payloadCopy toAppleMediaAccessory:accessoryCopy];
 
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __132__HMDAppleMediaAccessoriesStateMessenger_sendModelIdentifierRequestMessageToAppleMediaAccessory_withAccessoryIdentifier_completion___block_invoke;
-  v26[3] = &unk_279733F30;
-  v26[4] = selfCopy;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __132__HMDAppleMediaAccessoriesStateMessenger_sendModelIdentifierRequestMessageToAppleMediaAccessory_withAccessoryIdentifier_completion___block_invoke;
+  v25[3] = &unk_279733F30;
+  v25[4] = selfCopy;
   v19 = completionCopy;
-  v27 = v19;
-  v20 = [v18 addFailureBlock:v26];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __132__HMDAppleMediaAccessoriesStateMessenger_sendModelIdentifierRequestMessageToAppleMediaAccessory_withAccessoryIdentifier_completion___block_invoke_14;
-  v24[3] = &unk_27972FDD8;
-  v24[4] = selfCopy;
-  v25 = v19;
+  v26 = v19;
+  v20 = [v18 addFailureBlock:v25];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __132__HMDAppleMediaAccessoriesStateMessenger_sendModelIdentifierRequestMessageToAppleMediaAccessory_withAccessoryIdentifier_completion___block_invoke_14;
+  v23[3] = &unk_27972FDD8;
+  v23[4] = selfCopy;
+  v24 = v19;
   v21 = v19;
-  v22 = [v18 addSuccessBlock:v24];
-
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = [v18 addSuccessBlock:v23];
 }
 
 void __132__HMDAppleMediaAccessoriesStateMessenger_sendModelIdentifierRequestMessageToAppleMediaAccessory_withAccessoryIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -285,22 +279,20 @@ void __132__HMDAppleMediaAccessoriesStateMessenger_sendModelIdentifierRequestMes
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Relay model identifier request payload completed with error: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Relay model identifier request payload completed with error: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __132__HMDAppleMediaAccessoriesStateMessenger_sendModelIdentifierRequestMessageToAppleMediaAccessory_withAccessoryIdentifier_completion___block_invoke_14(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -308,11 +300,11 @@ void __132__HMDAppleMediaAccessoriesStateMessenger_sendModelIdentifierRequestMes
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v7;
-    v20 = 2112;
-    v21 = v3;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Relay model identifier request payload completed with response payload: %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v7;
+    v19 = 2112;
+    v20 = v3;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Relay model identifier request payload completed with response payload: %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -333,11 +325,11 @@ void __132__HMDAppleMediaAccessoriesStateMessenger_sendModelIdentifierRequestMes
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2112;
-      v21 = v3;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode model identifier response payload: %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v15;
+      v19 = 2112;
+      v20 = v3;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode model identifier response payload: %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -345,13 +337,11 @@ void __132__HMDAppleMediaAccessoriesStateMessenger_sendModelIdentifierRequestMes
     v11 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:15];
     (*(v16 + 16))(v16, v11, 0);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForMessagesWithHome:(id)home
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -360,7 +350,7 @@ void __132__HMDAppleMediaAccessoriesStateMessenger_sendModelIdentifierRequestMes
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v18 = v8;
+    v17 = v8;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Registering for messages", buf, 0xCu);
   }
 
@@ -370,13 +360,11 @@ void __132__HMDAppleMediaAccessoriesStateMessenger_sendModelIdentifierRequestMes
   v11 = [HMDUserMessagePolicy userMessagePolicyWithHome:homeCopy userPrivilege:4 remoteAccessRequired:0];
   messageDispatcher = [(HMDAppleMediaAccessoriesStateMessenger *)selfCopy messageDispatcher];
   v13 = +[HMDAppleMediaAccessoryModelIdentifierRequestMessagePayload messageName];
-  v16[0] = v9;
-  v16[1] = v10;
-  v16[2] = v11;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+  v15[0] = v9;
+  v15[1] = v10;
+  v15[2] = v11;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
   [messageDispatcher registerForMessage:v13 receiver:selfCopy policies:v14 selector:sel_handleAppleMediaAccessoryModelIdentifierRequestMessage_];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAppleMediaAccessoriesStateMessenger)initWithIdentifier:(id)identifier messageDispatcher:(id)dispatcher
@@ -424,12 +412,11 @@ LABEL_7:
 
 uint64_t __53__HMDAppleMediaAccessoriesStateMessenger_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v8_156392;
-  logCategory__hmf_once_v8_156392 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v8_156392;
+  logCategory__hmf_once_v8_156392 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

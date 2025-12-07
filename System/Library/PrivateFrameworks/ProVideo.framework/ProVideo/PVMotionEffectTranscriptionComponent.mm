@@ -58,7 +58,7 @@
         v18 = v17;
         if (v17)
         {
-          [v17 CMTimeValue];
+          objc_msgSend_CMTimeValue(v17);
         }
 
         else
@@ -97,7 +97,7 @@
     if (v22)
     {
       memset(&v34, 0, sizeof(v34));
-      [v22 CMTimeValue];
+      objc_msgSend_CMTimeValue(v22);
       OZXSetTranscriptionMediaOffset(*info, &v34);
     }
 
@@ -268,7 +268,7 @@
   }
 }
 
-void __79__PVMotionEffectTranscriptionComponent_resetToDefaultTranscriptionForLocaleID___block_invoke(uint64_t a1, uint64_t *a2)
+void __79__PVMotionEffectTranscriptionComponent_resetToDefaultTranscriptionForLocaleID___block_invoke(uint64_t a1, void **a2)
 {
   OZXSetTranscriptionLocale(*a2, *(a1 + 32));
   OZXResetToDefaultTranscription(*a2);
@@ -338,25 +338,23 @@ uint64_t __66__PVMotionEffectTranscriptionComponent_transcriptionHitTest_time___
 {
   v4 = [*(a1 + 32) motionEffect];
   v5 = [v4 timelineComponent];
-  v6 = [v5 isForceRenderAtPosterFrameEnabled];
+  [v5 isForceRenderAtPosterFrameEnabled];
 
-  memset(&v13, 0, sizeof(v13));
-  v7 = [*(a1 + 32) motionEffect];
-  v8 = [v7 timelineComponent];
-  v9 = v8;
-  v11 = *(a1 + 72);
-  v12 = *(a1 + 88);
-  if (v8)
+  memset(&v10, 0, sizeof(v10));
+  v6 = [*(a1 + 32) motionEffect];
+  v7 = [v6 timelineComponent];
+  v8 = v7;
+  if (v7)
   {
-    [v8 timelineTimeFromComponentTime_NoLock:&v11 forcePosterFrame:v6 documentInfo:a2];
+    objc_msgSend_timelineTimeFromComponentTime_NoLock_forcePosterFrame_documentInfo_(v7, *(a1 + 72), *(a1 + 88));
   }
 
   else
   {
-    memset(&v13, 0, sizeof(v13));
+    memset(&v10, 0, sizeof(v10));
   }
 
-  result = OZXTranscriptionHitTest(*a2, *(a1 + 56), &v13, (*(*(a1 + 48) + 8) + 24));
+  result = OZXTranscriptionHitTest(*a2, *(a1 + 56), &v10, (*(*(a1 + 48) + 8) + 24));
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
@@ -463,12 +461,12 @@ uint64_t __66__PVMotionEffectTranscriptionComponent_transcriptionHitTest_time___
   return result;
 }
 
-double __61__PVMotionEffectTranscriptionComponent_transcriptionDuration__block_invoke(uint64_t a1, uint64_t a2)
+double __61__PVMotionEffectTranscriptionComponent_transcriptionDuration__block_invoke(uint64_t a1, const char *a2)
 {
   v3 = *(a1 + 32);
   if (v3)
   {
-    [v3 transcriptionDuration_NoLock:a2];
+    objc_msgSend_transcriptionDuration_NoLock_(v3, a2, a2);
   }
 
   else
@@ -531,7 +529,7 @@ double __61__PVMotionEffectTranscriptionComponent_transcriptionDuration__block_i
     [(PVMotionEffectTranscriptionComponent *)self computeLoopMarkerBasedOnTranscription_NoLock:load];
     v11 = 0uLL;
     v12 = 0;
-    [(PVMotionEffectTranscriptionComponent *)self transcriptionDuration_NoLock:load];
+    objc_msgSend_transcriptionDuration_NoLock_(self);
     motionEffect = [(PVMotionEffectComponent *)self motionEffect];
     timelineComponent = [motionEffect timelineComponent];
     v9 = v11;

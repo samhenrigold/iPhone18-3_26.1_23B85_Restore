@@ -59,23 +59,23 @@ LABEL_11:
 + (id)deprecatedComponentsForVersion:(uint64_t)version
 {
   v2 = a2;
-  objc_opt_self();
+  v3 = objc_opt_self();
   array = [MEMORY[0x1E695DF70] array];
-  v4 = +[SXLegacySupport deprecatedComponents];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __50__SXLegacySupport_deprecatedComponentsForVersion___block_invoke;
-  v10[3] = &unk_1E8501380;
-  v11 = v2;
-  v5 = array;
-  v12 = v5;
-  v6 = v2;
-  [v4 enumerateKeysAndObjectsUsingBlock:v10];
+  v5 = +[(SXLegacySupport *)v3];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __50__SXLegacySupport_deprecatedComponentsForVersion___block_invoke;
+  v11[3] = &unk_1E8501380;
+  v12 = v2;
+  v6 = array;
+  v13 = v6;
+  v7 = v2;
+  [v5 enumerateKeysAndObjectsUsingBlock:v11];
 
-  v7 = v12;
-  v8 = v5;
+  v8 = v13;
+  v9 = v6;
 
-  return v5;
+  return v6;
 }
 
 + (id)deprecatedComponents
@@ -86,9 +86,9 @@ LABEL_11:
     +[SXLegacySupport deprecatedComponents];
   }
 
-  v0 = deprecatedComponents_deprecatedComponents;
+  v1 = deprecatedComponents_deprecatedComponents;
 
-  return v0;
+  return v1;
 }
 
 void __50__SXLegacySupport_deprecatedComponentsForVersion___block_invoke(uint64_t a1, void *a2, void *a3)

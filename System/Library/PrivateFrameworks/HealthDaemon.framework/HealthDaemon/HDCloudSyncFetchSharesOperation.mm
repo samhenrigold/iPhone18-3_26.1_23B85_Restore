@@ -27,7 +27,7 @@
 
 - (BOOL)performWithError:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   configuration = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration repository];
   allCKContainers = [repository allCKContainers];
@@ -38,26 +38,26 @@
 
   if (self->_fetchAllShares)
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v10 = allCKContainers;
-    v11 = [v10 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v31;
+      v13 = *v30;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v31 != v13)
+          if (*v30 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v30 + 1) + 8 * i);
+          v15 = *(*(&v29 + 1) + 8 * i);
           privateCloudDatabase = [v15 privateCloudDatabase];
           v17 = [(HDCloudSyncFetchSharesOperation *)self _fetchSharesForContainer:v15 database:privateCloudDatabase error:error];
 
@@ -76,7 +76,7 @@
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v29 objects:v37 count:16];
         LOBYTE(v19) = 1;
         if (v12)
         {
@@ -97,9 +97,9 @@
   {
     configuration2 = [(HDCloudSyncOperation *)self configuration];
     cachedCloudState = [configuration2 cachedCloudState];
-    v29 = 0;
-    v22 = [cachedCloudState zonesByIdentifierWithError:&v29];
-    v10 = v29;
+    v28 = 0;
+    v22 = [cachedCloudState zonesByIdentifierWithError:&v28];
+    v10 = v28;
 
     if (v22 || !v10)
     {
@@ -131,8 +131,8 @@
       {
         *buf = 138543618;
         selfCopy2 = self;
-        v36 = 2114;
-        v37 = v10;
+        v35 = 2114;
+        v36 = v10;
         _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get cached zones, %{public}@", buf, 0x16u);
       }
 
@@ -153,13 +153,12 @@
 
 LABEL_26:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (uint64_t)_fetchSharesForContainer:(void *)container database:(void *)database error:
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v7 = a2;
   containerCopy = container;
   if (self)
@@ -167,20 +166,20 @@ LABEL_26:
     configuration = [self configuration];
     cachedCloudState = [configuration cachedCloudState];
     containerIdentifier = [v7 containerIdentifier];
-    v28 = 0;
-    v12 = [cachedCloudState zoneIdentifiersForContainerIdentifier:containerIdentifier databaseScope:objc_msgSend(containerCopy error:{"databaseScope"), &v28}];
-    v13 = v28;
+    v27 = 0;
+    v12 = [cachedCloudState zoneIdentifiersForContainerIdentifier:containerIdentifier databaseScope:objc_msgSend(containerCopy error:{"databaseScope"), &v27}];
+    v13 = v27;
 
     if (v12 || !v13)
     {
       if (v12 && [v12 count])
       {
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __75__HDCloudSyncFetchSharesOperation__fetchSharesForContainer_database_error___block_invoke;
-        v27[3] = &unk_27861EAE8;
-        v27[4] = self;
-        v17 = [v12 hk_map:v27];
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __75__HDCloudSyncFetchSharesOperation__fetchSharesForContainer_database_error___block_invoke;
+        v26[3] = &unk_27861EAE8;
+        v26[4] = self;
+        v17 = [v12 hk_map:v26];
         v16 = [(HDCloudSyncFetchSharesOperation *)self _fetchSharesForZones:v17 error:database];
       }
 
@@ -197,10 +196,10 @@ LABEL_26:
           v21 = CKDatabaseScopeString();
           *buf = 138543874;
           selfCopy2 = self;
-          v31 = 2114;
-          v32 = containerIdentifier2;
-          v33 = 2114;
-          v34 = v21;
+          v30 = 2114;
+          v31 = containerIdentifier2;
+          v32 = 2114;
+          v33 = v21;
           _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_INFO, "%{public}@ No zones fetched for container %{public}@, database %{public}@", buf, 0x20u);
         }
       }
@@ -212,19 +211,19 @@ LABEL_26:
       v14 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v24 = v14;
+        v23 = v14;
         containerIdentifier3 = [v7 containerIdentifier];
         [containerCopy databaseScope];
-        v26 = CKDatabaseScopeString();
+        v25 = CKDatabaseScopeString();
         *buf = 138544130;
         selfCopy2 = self;
-        v31 = 2114;
-        v32 = containerIdentifier3;
-        v33 = 2114;
-        v34 = v26;
-        v35 = 2114;
-        v36 = v13;
-        _os_log_error_impl(&dword_228986000, v24, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get cached zones for container %{public}@ ,database %{public}@, %{public}@", buf, 0x2Au);
+        v30 = 2114;
+        v31 = containerIdentifier3;
+        v32 = 2114;
+        v33 = v25;
+        v34 = 2114;
+        v35 = v13;
+        _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get cached zones for container %{public}@ ,database %{public}@, %{public}@", buf, 0x2Au);
       }
 
       if (database)
@@ -247,41 +246,40 @@ LABEL_26:
     v16 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (uint64_t)_fetchSharesForZones:(void *)zones error:
 {
   zonesCopy = zones;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (self)
   {
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v26 objects:v36 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v25 objects:v35 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v27;
+      v9 = *v26;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v27 != v9)
+          if (*v26 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v26 + 1) + 8 * i);
-          v25 = 0;
-          v12 = [v11 zoneShareWithError:{&v25, zonesCopy}];
-          v13 = v25;
+          v11 = *(*(&v25 + 1) + 8 * i);
+          v24 = 0;
+          v12 = [v11 zoneShareWithError:{&v24, zonesCopy}];
+          v13 = v24;
           v14 = v13;
           if (v12)
           {
@@ -299,15 +297,15 @@ LABEL_26:
             v17 = *MEMORY[0x277CCC328];
             if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
             {
-              v22 = v17;
+              v21 = v17;
               zoneIdentifier = [v11 zoneIdentifier];
               *buf = 138543874;
               selfCopy = self;
-              v32 = 2114;
-              v33 = zoneIdentifier;
-              v34 = 2114;
-              v35 = v14;
-              _os_log_error_impl(&dword_228986000, v22, OS_LOG_TYPE_ERROR, "%{public}@ Failed to fetch CKShare for cached zone %{public}@, %{public}@", buf, 0x20u);
+              v31 = 2114;
+              v32 = zoneIdentifier;
+              v33 = 2114;
+              v34 = v14;
+              _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "%{public}@ Failed to fetch CKShare for cached zone %{public}@, %{public}@", buf, 0x20u);
             }
 
             if (zonesCopy)
@@ -331,7 +329,7 @@ LABEL_26:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v26 objects:v36 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v25 objects:v35 count:16];
         if (v8)
         {
           continue;
@@ -353,7 +351,6 @@ LABEL_23:
     v16 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

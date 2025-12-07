@@ -18,9 +18,9 @@
 - (id)goalQuantityForToday
 {
   selfCopy = self;
-  v3 = sub_1004F9C0C();
+  v4 = sub_1004F9C0C(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 @end

@@ -33,7 +33,6 @@
 {
   if (*&self->_has)
   {
-    bucketDuration = self->_bucketDuration;
     PBDataWriterWriteUint32Field();
   }
 }

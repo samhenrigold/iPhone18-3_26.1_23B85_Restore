@@ -8,12 +8,12 @@ int main(int argc, const char **argv, const char **envp)
   return 0;
 }
 
-void sub_100000E10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100000E10(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = CGPDFPageImpl;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -46,54 +46,55 @@ const void **applesauce::CF::ObjectRef<CGContext *>::~ObjectRef(const void **a1)
   return a1;
 }
 
-void _PDFLog(os_log_type_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void _PDFLog(os_log_type_t a1, void *a2, const char *a3, ...)
 {
+  va_start(va, a3);
   if (_PDFLog_onceToken != -1)
   {
     _PDFLog_cold_1();
   }
 
-  v12 = [NSString alloc];
-  v13 = [[NSString alloc] initWithUTF8String:a3];
-  v14 = [v12 initWithFormat:v13 arguments:&a9];
+  v6 = [NSString alloc];
+  v7 = [[NSString alloc] initWithUTF8String:a3];
+  v8 = [v6 initWithFormat:v7 arguments:va];
 
-  if (a2 && v14)
+  if (a2 && v8)
   {
-    v15 = sLog;
+    v9 = sLog;
     if (os_log_type_enabled(sLog, a1))
     {
       *buf = 136446466;
-      v22 = a2;
-      v23 = 2114;
-      v24 = v14;
-      v16 = "%{public}20s | %{public}@";
-      v17 = v15;
-      v18 = a1;
-      v19 = 22;
+      v16 = a2;
+      v17 = 2114;
+      v18 = v8;
+      v10 = "%{public}20s | %{public}@";
+      v11 = v9;
+      v12 = a1;
+      v13 = 22;
 LABEL_10:
-      _os_log_impl(&_mh_execute_header, v17, v18, v16, buf, v19);
+      _os_log_impl(&_mh_execute_header, v11, v12, v10, buf, v13);
     }
   }
 
-  else if (v14)
+  else if (v8)
   {
-    v20 = sLog;
+    v14 = sLog;
     if (os_log_type_enabled(sLog, a1))
     {
       *buf = 138543362;
-      v22 = v14;
-      v16 = "%{public}@";
-      v17 = v20;
-      v18 = a1;
-      v19 = 12;
+      v16 = v8;
+      v10 = "%{public}@";
+      v11 = v14;
+      v12 = a1;
+      v13 = 12;
       goto LABEL_10;
     }
   }
 }
 
-void sub_100001DEC(_Unwind_Exception *a1, void *a2, ...)
+void sub_100001DEC(_Unwind_Exception *a1, void *a2, void *a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   applesauce::CF::ObjectRef<CGDataProvider *>::~ObjectRef(va);
   _Unwind_Resume(a1);
@@ -148,7 +149,7 @@ void *std::vector<CGPDFPageImpl * {__strong}>::__append(void *result, unint64_t 
       v7 = v13;
     }
 
-    *(v5 + 8) = v7;
+    v5[1] = v7;
   }
 
   else
@@ -203,9 +204,9 @@ void *std::vector<CGPDFPageImpl * {__strong}>::__append(void *result, unint64_t 
   return result;
 }
 
-void sub_100002B54(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100002B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<CGPDFPageImpl * {__strong}>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }

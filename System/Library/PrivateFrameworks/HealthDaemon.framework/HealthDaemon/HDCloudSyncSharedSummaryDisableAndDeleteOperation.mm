@@ -6,7 +6,7 @@
 
 - (void)main
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   configuration = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration repository];
   syncAvailability = [repository syncAvailability];
@@ -20,12 +20,12 @@
     summarySharingEntryShim = [cloudSyncShimProvider summarySharingEntryShim];
 
     configuration3 = [(HDCloudSyncOperation *)self configuration];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __57__HDCloudSyncSharedSummaryDisableAndDeleteOperation_main__block_invoke;
-    v14[3] = &unk_2786130B0;
-    v14[4] = self;
-    [summarySharingEntryShim disableAllSharingEntriesWithConfiguration:configuration3 completion:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __57__HDCloudSyncSharedSummaryDisableAndDeleteOperation_main__block_invoke;
+    v13[3] = &unk_2786130B0;
+    v13[4] = self;
+    [summarySharingEntryShim disableAllSharingEntriesWithConfiguration:configuration3 completion:v13];
   }
 
   else
@@ -41,8 +41,6 @@
 
     [(HDCloudSyncOperation *)self finishWithSuccess:1 error:0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HDCloudSyncSharedSummaryDisableAndDeleteOperation_main__block_invoke(uint64_t a1, char a2, uint64_t a3)

@@ -1319,7 +1319,7 @@ MRDeviceInfo *__36__MRDeviceInfo_deviceInfosFromData___block_invoke(uint64_t a1,
 
 - (BOOL)containsDevice:(id)device
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   clusterID = [(MRDeviceInfo *)self clusterID];
   v6 = [clusterID isEqual:deviceCopy];
@@ -1331,33 +1331,33 @@ MRDeviceInfo *__36__MRDeviceInfo_deviceInfosFromData___block_invoke(uint64_t a1,
 
     if ((v8 & 1) == 0)
     {
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       groupedDevices = [(MRDeviceInfo *)self groupedDevices];
-      v11 = [groupedDevices countByEnumeratingWithState:&v31 objects:v37 count:16];
+      v11 = [groupedDevices countByEnumeratingWithState:&v30 objects:v36 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v32;
+        v13 = *v31;
 LABEL_6:
         v14 = 0;
         while (1)
         {
-          if (*v32 != v13)
+          if (*v31 != v13)
           {
             objc_enumerationMutation(groupedDevices);
           }
 
-          if ([*(*(&v31 + 1) + 8 * v14) containsDevice:deviceCopy])
+          if ([*(*(&v30 + 1) + 8 * v14) containsDevice:deviceCopy])
           {
             break;
           }
 
           if (v12 == ++v14)
           {
-            v12 = [groupedDevices countByEnumeratingWithState:&v31 objects:v37 count:16];
+            v12 = [groupedDevices countByEnumeratingWithState:&v30 objects:v36 count:16];
             if (v12)
             {
               goto LABEL_6;
@@ -1372,33 +1372,33 @@ LABEL_6:
       {
 LABEL_12:
 
-        v29 = 0u;
-        v30 = 0u;
-        v27 = 0u;
         v28 = 0u;
+        v29 = 0u;
+        v26 = 0u;
+        v27 = 0u;
         groupedDevices = [(MRDeviceInfo *)self clusteredDevices];
-        v15 = [groupedDevices countByEnumeratingWithState:&v27 objects:v36 count:16];
+        v15 = [groupedDevices countByEnumeratingWithState:&v26 objects:v35 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v28;
+          v17 = *v27;
 LABEL_14:
           v18 = 0;
           while (1)
           {
-            if (*v28 != v17)
+            if (*v27 != v17)
             {
               objc_enumerationMutation(groupedDevices);
             }
 
-            if ([*(*(&v27 + 1) + 8 * v18) containsDevice:deviceCopy])
+            if ([*(*(&v26 + 1) + 8 * v18) containsDevice:deviceCopy])
             {
               break;
             }
 
             if (v16 == ++v18)
             {
-              v16 = [groupedDevices countByEnumeratingWithState:&v27 objects:v36 count:16];
+              v16 = [groupedDevices countByEnumeratingWithState:&v26 objects:v35 count:16];
               if (v16)
               {
                 goto LABEL_14;
@@ -1413,12 +1413,12 @@ LABEL_14:
         {
 LABEL_20:
 
-          v25 = 0u;
-          v26 = 0u;
-          v23 = 0u;
           v24 = 0u;
+          v25 = 0u;
+          v22 = 0u;
+          v23 = 0u;
           groupedDevices = [(MRDeviceInfo *)self allClusteredDevices];
-          v9 = [groupedDevices countByEnumeratingWithState:&v23 objects:v35 count:16];
+          v9 = [groupedDevices countByEnumeratingWithState:&v22 objects:v34 count:16];
           if (!v9)
           {
 LABEL_30:
@@ -1426,24 +1426,24 @@ LABEL_30:
             goto LABEL_31;
           }
 
-          v19 = *v24;
+          v19 = *v23;
 LABEL_22:
           v20 = 0;
           while (1)
           {
-            if (*v24 != v19)
+            if (*v23 != v19)
             {
               objc_enumerationMutation(groupedDevices);
             }
 
-            if ([*(*(&v23 + 1) + 8 * v20) containsDevice:deviceCopy])
+            if ([*(*(&v22 + 1) + 8 * v20) containsDevice:deviceCopy])
             {
               break;
             }
 
             if (v9 == ++v20)
             {
-              v9 = [groupedDevices countByEnumeratingWithState:&v23 objects:v35 count:16];
+              v9 = [groupedDevices countByEnumeratingWithState:&v22 objects:v34 count:16];
               if (v9)
               {
                 goto LABEL_22;
@@ -1463,7 +1463,6 @@ LABEL_22:
   LOBYTE(v9) = 1;
 LABEL_31:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1471,27 +1470,27 @@ LABEL_31:
 {
   dCopy = d;
   deviceUID = [(MRDeviceInfo *)self deviceUID];
-  if ([deviceUID isEqualToString:dCopy])
+  if (objc_msgSend_isEqualToString_(deviceUID))
   {
-    v6 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
     clusterID = [(MRDeviceInfo *)self clusterID];
-    if ([clusterID isEqualToString:dCopy])
+    if (objc_msgSend_isEqualToString_(clusterID))
     {
-      v6 = 1;
+      isEqualToString = 1;
     }
 
     else
     {
       identifier = [(MRDeviceInfo *)self identifier];
-      v6 = [identifier isEqualToString:dCopy];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier);
     }
   }
 
-  return v6;
+  return isEqualToString;
 }
 
 - (id)resolveOutputDeviceUIDs:(id)ds
@@ -1522,7 +1521,7 @@ LABEL_31:
 id __40__MRDeviceInfo_resolveOutputDeviceUIDs___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([v3 isEqualToString:@"LOCAL_DEVICE"] || (+[MRAVOutputDevice localDeviceUID](MRAVOutputDevice, "localDeviceUID"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v3, "isEqualToString:", v4), v4, v5))
+  if (objc_msgSend_isEqualToString_(v3) || (+[MRAVOutputDevice localDeviceUID], v4 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v3), v4, isEqualToString))
   {
     v6 = [*(a1 + 32) deviceUID];
   }
@@ -2232,9 +2231,9 @@ id __40__MRDeviceInfo_resolveOutputDeviceUIDs___block_invoke(uint64_t a1, void *
     {
       name3 = [(MRDeviceInfo *)equalCopy name];
       name4 = [(MRDeviceInfo *)self name];
-      v62 = [name3 isEqualToString:name4];
+      isEqualToString = objc_msgSend_isEqualToString_(name3);
 
-      if (!v62)
+      if (!isEqualToString)
       {
 LABEL_217:
         LOBYTE(v63) = 0;
@@ -2253,7 +2252,7 @@ LABEL_217:
     {
       identifier3 = [(MRDeviceInfo *)equalCopy identifier];
       identifier4 = [(MRDeviceInfo *)self identifier];
-      v69 = [identifier3 isEqualToString:identifier4];
+      v69 = objc_msgSend_isEqualToString_(identifier3);
 
       if (!v69)
       {
@@ -2272,7 +2271,7 @@ LABEL_217:
     {
       localizedModelName3 = [(MRDeviceInfo *)equalCopy localizedModelName];
       localizedModelName4 = [(MRDeviceInfo *)self localizedModelName];
-      v75 = [localizedModelName3 isEqualToString:localizedModelName4];
+      v75 = objc_msgSend_isEqualToString_(localizedModelName3);
 
       if (!v75)
       {
@@ -2291,7 +2290,7 @@ LABEL_217:
     {
       buildVersion3 = [(MRDeviceInfo *)equalCopy buildVersion];
       buildVersion4 = [(MRDeviceInfo *)self buildVersion];
-      v81 = [buildVersion3 isEqualToString:buildVersion4];
+      v81 = objc_msgSend_isEqualToString_(buildVersion3);
 
       if (!v81)
       {
@@ -2310,7 +2309,7 @@ LABEL_217:
     {
       bundleIdentifier3 = [(MRDeviceInfo *)equalCopy bundleIdentifier];
       bundleIdentifier4 = [(MRDeviceInfo *)self bundleIdentifier];
-      v87 = [bundleIdentifier3 isEqualToString:bundleIdentifier4];
+      v87 = objc_msgSend_isEqualToString_(bundleIdentifier3);
 
       if (!v87)
       {
@@ -2329,7 +2328,7 @@ LABEL_217:
     {
       bundleVersion3 = [(MRDeviceInfo *)equalCopy bundleVersion];
       bundleVersion4 = [(MRDeviceInfo *)self bundleVersion];
-      v93 = [bundleVersion3 isEqualToString:bundleVersion4];
+      v93 = objc_msgSend_isEqualToString_(bundleVersion3);
 
       if (!v93)
       {
@@ -2348,7 +2347,7 @@ LABEL_217:
     {
       systemMediaApplication3 = [(MRDeviceInfo *)equalCopy systemMediaApplication];
       systemMediaApplication4 = [(MRDeviceInfo *)self systemMediaApplication];
-      v99 = [systemMediaApplication3 isEqualToString:systemMediaApplication4];
+      v99 = objc_msgSend_isEqualToString_(systemMediaApplication3);
 
       if (!v99)
       {
@@ -2367,7 +2366,7 @@ LABEL_217:
     {
       systemPodcastApplication3 = [(MRDeviceInfo *)equalCopy systemPodcastApplication];
       systemPodcastApplication4 = [(MRDeviceInfo *)self systemPodcastApplication];
-      v105 = [systemPodcastApplication3 isEqualToString:systemPodcastApplication4];
+      v105 = objc_msgSend_isEqualToString_(systemPodcastApplication3);
 
       if (!v105)
       {
@@ -2386,7 +2385,7 @@ LABEL_217:
     {
       systemBooksApplication3 = [(MRDeviceInfo *)equalCopy systemBooksApplication];
       systemBooksApplication4 = [(MRDeviceInfo *)self systemBooksApplication];
-      v111 = [systemBooksApplication3 isEqualToString:systemBooksApplication4];
+      v111 = objc_msgSend_isEqualToString_(systemBooksApplication3);
 
       if (!v111)
       {
@@ -2405,7 +2404,7 @@ LABEL_217:
     {
       deviceUID3 = [(MRDeviceInfo *)equalCopy deviceUID];
       deviceUID4 = [(MRDeviceInfo *)self deviceUID];
-      v117 = [deviceUID3 isEqualToString:deviceUID4];
+      v117 = objc_msgSend_isEqualToString_(deviceUID3);
 
       if (!v117)
       {
@@ -2424,7 +2423,7 @@ LABEL_217:
     {
       localReceiverPairingIdentity3 = [(MRDeviceInfo *)equalCopy localReceiverPairingIdentity];
       localReceiverPairingIdentity4 = [(MRDeviceInfo *)self localReceiverPairingIdentity];
-      v123 = [localReceiverPairingIdentity3 isEqualToString:localReceiverPairingIdentity4];
+      v123 = objc_msgSend_isEqualToString_(localReceiverPairingIdentity3);
 
       if (!v123)
       {
@@ -2443,7 +2442,7 @@ LABEL_217:
     {
       managedConfigurationDeviceIdentifier3 = [(MRDeviceInfo *)equalCopy managedConfigurationDeviceIdentifier];
       managedConfigurationDeviceIdentifier4 = [(MRDeviceInfo *)self managedConfigurationDeviceIdentifier];
-      v129 = [managedConfigurationDeviceIdentifier3 isEqualToString:managedConfigurationDeviceIdentifier4];
+      v129 = objc_msgSend_isEqualToString_(managedConfigurationDeviceIdentifier3);
 
       if (!v129)
       {
@@ -2462,7 +2461,7 @@ LABEL_217:
     {
       tightSyncUID3 = [(MRDeviceInfo *)equalCopy tightSyncUID];
       tightSyncUID4 = [(MRDeviceInfo *)self tightSyncUID];
-      v135 = [tightSyncUID3 isEqualToString:tightSyncUID4];
+      v135 = objc_msgSend_isEqualToString_(tightSyncUID3);
 
       if (!v135)
       {
@@ -2481,7 +2480,7 @@ LABEL_217:
     {
       groupUID3 = [(MRDeviceInfo *)equalCopy groupUID];
       groupUID4 = [(MRDeviceInfo *)self groupUID];
-      v141 = [groupUID3 isEqualToString:groupUID4];
+      v141 = objc_msgSend_isEqualToString_(groupUID3);
 
       if (!v141)
       {
@@ -2500,7 +2499,7 @@ LABEL_217:
     {
       airPlayGroupUID3 = [(MRDeviceInfo *)equalCopy airPlayGroupUID];
       airPlayGroupUID4 = [(MRDeviceInfo *)self airPlayGroupUID];
-      v147 = [airPlayGroupUID3 isEqualToString:airPlayGroupUID4];
+      v147 = objc_msgSend_isEqualToString_(airPlayGroupUID3);
 
       if (!v147)
       {
@@ -2519,7 +2518,7 @@ LABEL_217:
     {
       groupName3 = [(MRDeviceInfo *)equalCopy groupName];
       groupName4 = [(MRDeviceInfo *)self groupName];
-      v153 = [groupName3 isEqualToString:groupName4];
+      v153 = objc_msgSend_isEqualToString_(groupName3);
 
       if (!v153)
       {
@@ -2538,7 +2537,7 @@ LABEL_217:
     {
       senderDefaultGroupUID3 = [(MRDeviceInfo *)equalCopy senderDefaultGroupUID];
       senderDefaultGroupUID4 = [(MRDeviceInfo *)self senderDefaultGroupUID];
-      v159 = [senderDefaultGroupUID3 isEqualToString:senderDefaultGroupUID4];
+      v159 = objc_msgSend_isEqualToString_(senderDefaultGroupUID3);
 
       if (!v159)
       {
@@ -2652,7 +2651,7 @@ LABEL_217:
     {
       linkAgent3 = [(MRDeviceInfo *)equalCopy linkAgent];
       linkAgent4 = [(MRDeviceInfo *)self linkAgent];
-      v195 = [linkAgent3 isEqualToString:linkAgent4];
+      v195 = objc_msgSend_isEqualToString_(linkAgent3);
 
       if (!v195)
       {
@@ -2671,7 +2670,7 @@ LABEL_217:
     {
       clusterID3 = [(MRDeviceInfo *)equalCopy clusterID];
       clusterID4 = [(MRDeviceInfo *)self clusterID];
-      v201 = [clusterID3 isEqualToString:clusterID4];
+      v201 = objc_msgSend_isEqualToString_(clusterID3);
 
       if (!v201)
       {
@@ -2690,7 +2689,7 @@ LABEL_217:
     {
       preferredClusterLeaderID3 = [(MRDeviceInfo *)equalCopy preferredClusterLeaderID];
       preferredClusterLeaderID4 = [(MRDeviceInfo *)self preferredClusterLeaderID];
-      v207 = [preferredClusterLeaderID3 isEqualToString:preferredClusterLeaderID4];
+      v207 = objc_msgSend_isEqualToString_(preferredClusterLeaderID3);
 
       if (!v207)
       {
@@ -2709,7 +2708,7 @@ LABEL_217:
     {
       computerName3 = [(MRDeviceInfo *)equalCopy computerName];
       computerName4 = [(MRDeviceInfo *)self computerName];
-      v213 = [computerName3 isEqualToString:computerName4];
+      v213 = objc_msgSend_isEqualToString_(computerName3);
 
       if (!v213)
       {

@@ -252,7 +252,7 @@ void __87__FCURLRequestScheduler_scheduleURLRequest_destination_priority_logging
 
 void __87__FCURLRequestScheduler_scheduleURLRequest_destination_priority_loggingKey_completion___block_invoke_3(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v1 && [*(v1 + 16) containsObject:v2])
@@ -278,11 +278,11 @@ void __87__FCURLRequestScheduler_scheduleURLRequest_destination_priority_logging
         v6 = v5;
         v7 = v4;
         v8 = [v3 longOperationDescription];
-        *v11 = 138543618;
-        *&v11[4] = v5;
-        *&v11[12] = 2114;
-        *&v11[14] = v8;
-        _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ will cancel URL task %{public}@", v11, 0x16u);
+        *v10 = 138543618;
+        *&v10[4] = v5;
+        *&v10[12] = 2114;
+        *&v10[14] = v8;
+        _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ will cancel URL task %{public}@", v10, 0x16u);
       }
 
       [v3 cancel];
@@ -292,16 +292,14 @@ void __87__FCURLRequestScheduler_scheduleURLRequest_destination_priority_logging
     v9 = dispatch_get_global_queue(0, 0);
     if (v2 && v2[6])
     {
-      *v11 = MEMORY[0x1E69E9820];
-      *&v11[8] = 3221225472;
-      *&v11[16] = __40__FCURLRequestScheduler__cancelRequest___block_invoke;
-      v12 = &unk_1E7C36EA0;
-      v13 = v2;
-      dispatch_async(v9, v11);
+      *v10 = MEMORY[0x1E69E9820];
+      *&v10[8] = 3221225472;
+      *&v10[16] = __40__FCURLRequestScheduler__cancelRequest___block_invoke;
+      v11 = &unk_1E7C36EA0;
+      v12 = v2;
+      dispatch_async(v9, v10);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __87__FCURLRequestScheduler_scheduleURLRequest_destination_priority_loggingKey_completion___block_invoke_4(uint64_t a1, uint64_t a2)
@@ -442,7 +440,7 @@ void __41__FCURLRequestScheduler__serviceRequests__block_invoke_2(uint64_t a1, v
 
 void __41__FCURLRequestScheduler__serviceRequests__block_invoke_3(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = a2;
   if (v2)
@@ -468,19 +466,17 @@ void __41__FCURLRequestScheduler__serviceRequests__block_invoke_3(uint64_t a1, v
         v9 = v8;
         v10 = v7;
         v11 = [v6 longOperationDescription];
-        v13 = 138543618;
-        v14 = v8;
-        v15 = 2114;
-        v16 = v11;
-        _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ will cancel URL task %{public}@ to make way for higher-priority requests", &v13, 0x16u);
+        v12 = 138543618;
+        v13 = v8;
+        v14 = 2114;
+        v15 = v11;
+        _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ will cancel URL task %{public}@ to make way for higher-priority requests", &v12, 0x16u);
       }
 
       [*(v2 + 24) removeObjectForKey:v3];
       [v6 cancel];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __41__FCURLRequestScheduler__serviceRequests__block_invoke_4(uint64_t a1, void *a2, uint64_t a3, BOOL *a4)
@@ -515,7 +511,7 @@ void __41__FCURLRequestScheduler__serviceRequests__block_invoke_4(uint64_t a1, v
 
 - (void)_resumeURLTaskForRequest:(uint64_t)request
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!request)
   {
@@ -530,23 +526,23 @@ void __41__FCURLRequestScheduler__serviceRequests__block_invoke_4(uint64_t a1, v
   }
 
   date = [MEMORY[0x1E695DF00] date];
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__46;
-  v34 = __Block_byref_object_dispose__46;
-  v35 = 0;
-  v22 = MEMORY[0x1E69E9820];
-  v23 = 3221225472;
-  v24 = __50__FCURLRequestScheduler__resumeURLTaskForRequest___block_invoke_2;
-  v25 = &unk_1E7C41A18;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__46;
+  v33 = __Block_byref_object_dispose__46;
+  v34 = 0;
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 3221225472;
+  v23 = __50__FCURLRequestScheduler__resumeURLTaskForRequest___block_invoke_2;
+  v24 = &unk_1E7C41A18;
   requestCopy = request;
-  v29 = &v30;
+  v28 = &v29;
   v6 = v3;
-  v27 = v6;
+  v26 = v6;
   v7 = date;
-  v28 = v7;
-  v8 = _Block_copy(&v22);
+  v27 = v7;
+  v8 = _Block_copy(&v21);
   if (!v6)
   {
     v10 = *(request + 8);
@@ -561,7 +557,7 @@ void __41__FCURLRequestScheduler__serviceRequests__block_invoke_4(uint64_t a1, v
     v13 = v6[1];
 LABEL_8:
     v11 = v13;
-    v12 = [v10 downloadTaskWithRequest:v11 completionHandler:{v8, v22, v23, v24, v25, requestCopy, v27}];
+    v12 = [v10 downloadTaskWithRequest:v11 completionHandler:{v8, v21, v22, v23, v24, requestCopy, v26}];
     goto LABEL_9;
   }
 
@@ -569,14 +565,14 @@ LABEL_8:
   {
     v10 = *(request + 8);
     v11 = v6[1];
-    v12 = [v10 dataTaskWithRequest:v11 completionHandler:{v8, v22, v23, v24, v25, requestCopy, v27}];
+    v12 = [v10 dataTaskWithRequest:v11 completionHandler:{v8, v21, v22, v23, v24, requestCopy, v26}];
 LABEL_9:
-    v14 = v31[5];
-    v31[5] = v12;
+    v14 = v30[5];
+    v30[5] = v12;
   }
 
   v15 = *(request + 24);
-  [v15 setObject:v31[5] forKey:v6];
+  [v15 setObject:v30[5] forKey:v6];
 
   if (v6)
   {
@@ -588,8 +584,8 @@ LABEL_9:
     v16 = 0;
   }
 
-  [v31[5] setRelativePriority:{v16, v22, v23, v24, v25, requestCopy}];
-  [v31[5] addObserver:request forKeyPath:@"countOfBytesReceived" options:0 context:FCURLRequestSchedulerKVOContext];
+  [v30[5] setRelativePriority:{v16, v21, v22, v23, v24, requestCopy}];
+  [v30[5] addObserver:request forKeyPath:@"countOfBytesReceived" options:0 context:FCURLRequestSchedulerKVOContext];
   v17 = FCOperationLog;
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
@@ -604,19 +600,18 @@ LABEL_9:
     }
 
     v19 = v18;
-    longOperationDescription = [v31[5] longOperationDescription];
+    longOperationDescription = [v30[5] longOperationDescription];
     *buf = 138543618;
-    v37 = v19;
-    v38 = 2114;
-    v39 = longOperationDescription;
+    v36 = v19;
+    v37 = 2114;
+    v38 = longOperationDescription;
     _os_log_impl(&dword_1B63EF000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ will start URL task %{public}@", buf, 0x16u);
   }
 
-  [v31[5] resume];
-  _Block_object_dispose(&v30, 8);
+  [v30[5] resume];
+  _Block_object_dispose(&v29, 8);
 
 LABEL_17:
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __41__FCURLRequestScheduler__serviceRequests__block_invoke_5(uint64_t a1, void *a2, uint64_t a3, BOOL *a4)
@@ -699,7 +694,7 @@ void __50__FCURLRequestScheduler__resumeURLTaskForRequest___block_invoke_2(uint6
 
 void __50__FCURLRequestScheduler__resumeURLTaskForRequest___block_invoke_3(uint64_t a1)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   [*(*(*(a1 + 64) + 8) + 40) removeObserver:*(a1 + 32) forKeyPath:@"countOfBytesReceived"];
   v2 = *(a1 + 32);
   if (v2)
@@ -737,48 +732,22 @@ void __50__FCURLRequestScheduler__resumeURLTaskForRequest___block_invoke_3(uint6
     v16 = 0;
     if (v9 && v12)
     {
-      if (*(v12 + 7) < 1)
+      v16 = 0;
+      if (v12[7] >= 1)
       {
-        goto LABEL_16;
-      }
+        v17 = [v14 domain];
+        v18 = [v17 isEqualToString:*MEMORY[0x1E696A978]];
 
-      v17 = [v14 domain];
-      v18 = [v17 isEqualToString:*MEMORY[0x1E696A978]];
-
-      if (!v18 || [v15 code] != -1001)
-      {
-        goto LABEL_16;
-      }
-
-      v19 = *(v9 + 56);
-      if (v19)
-      {
-        v20 = v19;
-        v21 = *(v9 + 56);
-        [v21 fc_timeIntervalUntilNow];
-        v23 = v22;
-        [*(v12 + 1) timeoutInterval];
-        v25 = v24;
-
-        if (v23 < v25)
+        if (v18)
         {
-          goto LABEL_15;
+          if ([v15 code] == -1001)
+          {
+            if ((v19 = *(v9 + 56)) != 0 && (v20 = v19, v21 = *(v9 + 56), [v21 fc_timeIntervalUntilNow], v23 = v22, objc_msgSend(v12[1], "timeoutInterval"), v25 = v24, v21, v20, v23 < v25) || (objc_msgSend(v13, "fc_timeIntervalUntilNow"), v27 = v26, objc_msgSend(v12[1], "timeoutInterval"), v27 > v28 + v28))
+            {
+              v16 = 1;
+            }
+          }
         }
-      }
-
-      [v13 fc_timeIntervalUntilNow];
-      v27 = v26;
-      [*(v12 + 1) timeoutInterval];
-      if (v27 > v28 + v28)
-      {
-LABEL_15:
-        v16 = 1;
-      }
-
-      else
-      {
-LABEL_16:
-        v16 = 0;
       }
     }
 
@@ -804,9 +773,9 @@ LABEL_16:
         v35 = v29;
         v36 = [v33 longOperationDescription];
         *buf = 138543618;
-        v51 = v32;
-        v52 = 2114;
-        v53 = v36;
+        v50 = v32;
+        v51 = 2114;
+        v52 = v36;
         _os_log_impl(&dword_1B63EF000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@ will retry URL task %{public}@", buf, 0x16u);
       }
 
@@ -837,9 +806,9 @@ LABEL_16:
         v42 = v29;
         v43 = [v40 longOperationDescription];
         *buf = 138543618;
-        v51 = v39;
-        v52 = 2114;
-        v53 = v43;
+        v50 = v39;
+        v51 = 2114;
+        v52 = v43;
         _os_log_impl(&dword_1B63EF000, v42, OS_LOG_TYPE_DEFAULT, "%{public}@ did complete URL task %{public}@", buf, 0x16u);
       }
 
@@ -863,23 +832,21 @@ LABEL_16:
 
   else
   {
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __50__FCURLRequestScheduler__resumeURLTaskForRequest___block_invoke_4;
-    v47[3] = &unk_1E7C3A3A0;
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __50__FCURLRequestScheduler__resumeURLTaskForRequest___block_invoke_4;
+    v46[3] = &unk_1E7C3A3A0;
     v5 = *(a1 + 40);
     v6 = *(a1 + 64);
-    v48 = v5;
-    v49 = v6;
-    __50__FCURLRequestScheduler__resumeURLTaskForRequest___block_invoke_4(v47);
+    v47 = v5;
+    v48 = v6;
+    __50__FCURLRequestScheduler__resumeURLTaskForRequest___block_invoke_4(v46);
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 void __50__FCURLRequestScheduler__resumeURLTaskForRequest___block_invoke_4(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -898,14 +865,12 @@ void __50__FCURLRequestScheduler__resumeURLTaskForRequest___block_invoke_4(uint6
     v6 = v4;
     v7 = v2;
     v8 = [v5 longOperationDescription];
-    v10 = 138543618;
-    v11 = v4;
-    v12 = 2114;
-    v13 = v8;
-    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ ignoring URL task completion due to prior cancellation %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v4;
+    v11 = 2114;
+    v12 = v8;
+    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ ignoring URL task completion due to prior cancellation %{public}@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __40__FCURLRequestScheduler__cancelRequest___block_invoke(uint64_t a1)

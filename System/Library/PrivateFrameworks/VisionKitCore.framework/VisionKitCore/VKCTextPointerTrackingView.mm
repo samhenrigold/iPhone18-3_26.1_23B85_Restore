@@ -16,7 +16,7 @@
   v17 = 0u;
   if (quadCopy)
   {
-    [quadCopy rotationTransformAndBoundingBox:&v20];
+    objc_msgSend_rotationTransformAndBoundingBox_(quadCopy);
     v8 = *(&v20 + 1);
     v7 = *&v20;
     v10 = *(&v21 + 1);

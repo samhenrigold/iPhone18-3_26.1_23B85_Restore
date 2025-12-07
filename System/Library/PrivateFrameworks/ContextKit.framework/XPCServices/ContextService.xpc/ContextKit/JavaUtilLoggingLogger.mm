@@ -62,7 +62,7 @@
 
   if (self->isNamed_)
   {
-    LogManager = JavaUtilLoggingLogManager_getLogManager();
+    LogManager = JavaUtilLoggingLogManager_getLogManager(self, a2);
     if (!LogManager)
     {
       goto LABEL_9;
@@ -93,66 +93,66 @@ LABEL_9:
   v12 = [manager getPropertyWithNSString:{JreStrcat("$$", a2, manager, v3, v4, v5, v6, v7, v11)}];
   if (v12)
   {
-    [manager setLevelRecursivelyWithJavaUtilLoggingLogger:self withJavaUtilLoggingLevel:JavaUtilLoggingLevel_parseWithNSString_(v12)];
+    [manager setLevelRecursivelyWithJavaUtilLoggingLogger:self withJavaUtilLoggingLevel:{JavaUtilLoggingLevel_parseWithNSString_(v12, v13)}];
   }
 
-  v13 = atomic_load(p_name);
-  if (!v13)
+  v14 = atomic_load(p_name);
+  if (!v14)
   {
     goto LABEL_25;
   }
 
-  if ([v13 isEmpty])
+  if ([v14 isEmpty])
   {
-    v21 = @"handlers";
+    v22 = @"handlers";
   }
 
   else
   {
-    v22 = atomic_load(&self->name_);
-    v21 = JreStrcat("$$", v14, v15, v16, v17, v18, v19, v20, v22);
+    v23 = atomic_load(&self->name_);
+    v22 = JreStrcat("$$", v15, v16, v17, v18, v19, v20, v21, v23);
   }
 
-  v23 = [manager getPropertyWithNSString:v21];
-  if (v23)
+  v24 = [manager getPropertyWithNSString:v22];
+  if (v24)
   {
-    v24 = [v23 split:{@", |\\s"}];
-    if (!v24)
+    v25 = [v24 split:{@", |\\s"}];
+    if (!v25)
     {
       goto LABEL_25;
     }
 
-    v25 = (v24 + 24);
-    v26 = &v24[8 * *(v24 + 2) + 24];
-    if ((v24 + 24) < v26)
+    v26 = (v25 + 24);
+    v27 = &v25[8 * *(v25 + 2) + 24];
+    if ((v25 + 24) < v27)
     {
       while (1)
       {
-        v28 = *v25++;
-        v27 = v28;
-        if (!v28)
+        v29 = *v26++;
+        v28 = v29;
+        if (!v29)
         {
           break;
         }
 
-        if (([v27 isEmpty] & 1) == 0)
+        if (([v28 isEmpty] & 1) == 0)
         {
-          InstanceByClassWithNSString = JavaUtilLoggingLogManager_getInstanceByClassWithNSString_(v27);
-          v30 = objc_opt_class();
+          InstanceByClassWithNSString = JavaUtilLoggingLogManager_getInstanceByClassWithNSString_(v28, v30);
+          v32 = objc_opt_class();
           if (InstanceByClassWithNSString && (objc_opt_isKindOfClass() & 1) == 0)
           {
             JreThrowClassCastException();
           }
 
-          v37 = [manager getPropertyWithNSString:{JreStrcat("$$", v30, v31, v32, v33, v34, v35, v36, v27)}];
-          if (v37)
+          v39 = [manager getPropertyWithNSString:{JreStrcat("$$", v32, v33, v34, v35, v36, v37, v38, v28)}];
+          if (v39)
           {
             if (!InstanceByClassWithNSString)
             {
               JreThrowNullPointerException();
             }
 
-            [InstanceByClassWithNSString setLevelWithJavaUtilLoggingLevel:JavaUtilLoggingLevel_parseWithNSString_(v37)];
+            [InstanceByClassWithNSString setLevelWithJavaUtilLoggingLevel:{JavaUtilLoggingLevel_parseWithNSString_(v39, v40)}];
           }
 
           handlers = self->handlers_;
@@ -164,7 +164,7 @@ LABEL_9:
           [(JavaUtilList *)handlers addWithId:InstanceByClassWithNSString];
         }
 
-        if (v25 >= v26)
+        if (v26 >= v27)
         {
           return;
         }
@@ -193,7 +193,7 @@ LABEL_25:
 {
   if (self->isNamed_)
   {
-    LogManager = JavaUtilLoggingLogManager_getLogManager();
+    LogManager = JavaUtilLoggingLogManager_getLogManager(self, a2);
     if (!LogManager)
     {
       goto LABEL_10;
@@ -221,7 +221,7 @@ LABEL_10:
 {
   if (self->isNamed_)
   {
-    LogManager = JavaUtilLoggingLogManager_getLogManager();
+    LogManager = JavaUtilLoggingLogManager_getLogManager(self, a2);
     if (!LogManager)
     {
       JreThrowNullPointerException();
@@ -235,7 +235,7 @@ LABEL_10:
 
 - (void)setLevelWithJavaUtilLoggingLevel:(id)level
 {
-  LogManager = JavaUtilLoggingLogManager_getLogManager();
+  LogManager = JavaUtilLoggingLogManager_getLogManager(self, a2);
   v6 = LogManager;
   if (self->isNamed_)
   {
@@ -263,7 +263,7 @@ LABEL_5:
 {
   if (self->isNamed_)
   {
-    LogManager = JavaUtilLoggingLogManager_getLogManager();
+    LogManager = JavaUtilLoggingLogManager_getLogManager(self, a2);
     if (!LogManager)
     {
       JreThrowNullPointerException();
@@ -283,7 +283,7 @@ LABEL_5:
     objc_exception_throw(v7);
   }
 
-  LogManager = JavaUtilLoggingLogManager_getLogManager();
+  LogManager = JavaUtilLoggingLogManager_getLogManager(self, a2);
   if (!LogManager)
   {
     JreThrowNullPointerException();
@@ -338,10 +338,10 @@ LABEL_5:
     v10 = atomic_load(&self->name_);
     [(JavaUtilLoggingLogRecord *)v9 setLoggerNameWithNSString:v10];
     [(JavaUtilLoggingLogRecord *)v9 setSourceClassNameWithNSString:string];
-    [(JavaUtilLoggingLogRecord *)v9 setSourceMethodNameWithNSString:sString];
+    v11 = [(JavaUtilLoggingLogRecord *)v9 setSourceMethodNameWithNSString:sString];
     idCopy = id;
-    v11 = [IOSObjectArray arrayWithObjects:&idCopy count:1 type:NSObject_class_()];
-    [(JavaUtilLoggingLogRecord *)v9 setParametersWithNSObjectArray:v11, idCopy];
+    v13 = [IOSObjectArray arrayWithObjects:&idCopy count:1 type:NSObject_class_(v11, v12)];
+    [(JavaUtilLoggingLogRecord *)v9 setParametersWithNSObjectArray:v13, idCopy];
     sub_1002316B4(self, v9);
     [(JavaUtilLoggingLogger *)self logWithJavaUtilLoggingLogRecord:v9];
   }
@@ -445,10 +445,10 @@ LABEL_5:
     v10 = atomic_load(&self->name_);
     [(JavaUtilLoggingLogRecord *)v9 setLoggerNameWithNSString:v10];
     [(JavaUtilLoggingLogRecord *)v9 setSourceClassNameWithNSString:string];
-    [(JavaUtilLoggingLogRecord *)v9 setSourceMethodNameWithNSString:sString];
+    v11 = [(JavaUtilLoggingLogRecord *)v9 setSourceMethodNameWithNSString:sString];
     idCopy = id;
-    v11 = [IOSObjectArray arrayWithObjects:&idCopy count:1 type:NSObject_class_()];
-    [(JavaUtilLoggingLogRecord *)v9 setParametersWithNSObjectArray:v11, idCopy];
+    v13 = [IOSObjectArray arrayWithObjects:&idCopy count:1 type:NSObject_class_(v11, v12)];
+    [(JavaUtilLoggingLogRecord *)v9 setParametersWithNSObjectArray:v13, idCopy];
     sub_1002316B4(self, v9);
     [(JavaUtilLoggingLogger *)self logWithJavaUtilLoggingLogRecord:v9];
   }
@@ -583,10 +583,10 @@ LABEL_5:
   {
     v9 = new_JavaUtilLoggingLogRecord_initWithJavaUtilLoggingLevel_withNSString_(level, string);
     v10 = atomic_load(&self->name_);
-    [(JavaUtilLoggingLogRecord *)v9 setLoggerNameWithNSString:v10];
+    v11 = [(JavaUtilLoggingLogRecord *)v9 setLoggerNameWithNSString:v10];
     idCopy = id;
-    v11 = [IOSObjectArray arrayWithObjects:&idCopy count:1 type:NSObject_class_()];
-    [(JavaUtilLoggingLogRecord *)v9 setParametersWithNSObjectArray:v11, idCopy];
+    v13 = [IOSObjectArray arrayWithObjects:&idCopy count:1 type:NSObject_class_(v11, v12)];
+    [(JavaUtilLoggingLogRecord *)v9 setParametersWithNSObjectArray:v13, idCopy];
     sub_1002316B4(self, v9);
     [(JavaUtilLoggingLogger *)self logWithJavaUtilLoggingLogRecord:v9];
   }
@@ -725,10 +725,10 @@ LABEL_20:
     v14 = atomic_load(&self->name_);
     [(JavaUtilLoggingLogRecord *)v13 setLoggerNameWithNSString:v14];
     [(JavaUtilLoggingLogRecord *)v13 setSourceClassNameWithNSString:string];
-    [(JavaUtilLoggingLogRecord *)v13 setSourceMethodNameWithNSString:sString];
+    v15 = [(JavaUtilLoggingLogRecord *)v13 setSourceMethodNameWithNSString:sString];
     idCopy = id;
-    v15 = [IOSObjectArray arrayWithObjects:&idCopy count:1 type:NSObject_class_()];
-    [(JavaUtilLoggingLogRecord *)v13 setParametersWithNSObjectArray:v15, idCopy];
+    v17 = [IOSObjectArray arrayWithObjects:&idCopy count:1 type:NSObject_class_(v15, v16)];
+    [(JavaUtilLoggingLogRecord *)v13 setParametersWithNSObjectArray:v17, idCopy];
     sub_1002316B4(self, v13);
     [(JavaUtilLoggingLogger *)self logWithJavaUtilLoggingLogRecord:v13];
   }
@@ -770,19 +770,19 @@ LABEL_20:
 {
   if (sub_100231628(self, level))
   {
-    v13 = new_JavaUtilLoggingLogRecord_initWithJavaUtilLoggingLevel_withNSString_(level, withNSString);
+    v14 = new_JavaUtilLoggingLogRecord_initWithJavaUtilLoggingLevel_withNSString_(level, withNSString);
     if (nSString)
     {
-      [(JavaUtilLoggingLogRecord *)v13 setResourceBundleWithJavaUtilResourceBundle:JavaUtilLoggingLogger_loadResourceBundleWithNSString_(nSString)];
-      [(JavaUtilLoggingLogRecord *)v13 setResourceBundleNameWithNSString:nSString];
+      [(JavaUtilLoggingLogRecord *)v14 setResourceBundleWithJavaUtilResourceBundle:JavaUtilLoggingLogger_loadResourceBundleWithNSString_(nSString, v13)];
+      [(JavaUtilLoggingLogRecord *)v14 setResourceBundleNameWithNSString:nSString];
     }
 
-    v14 = atomic_load(&self->name_);
-    [(JavaUtilLoggingLogRecord *)v13 setLoggerNameWithNSString:v14];
-    [(JavaUtilLoggingLogRecord *)v13 setSourceClassNameWithNSString:string];
-    [(JavaUtilLoggingLogRecord *)v13 setSourceMethodNameWithNSString:sString];
+    v15 = atomic_load(&self->name_);
+    [(JavaUtilLoggingLogRecord *)v14 setLoggerNameWithNSString:v15];
+    [(JavaUtilLoggingLogRecord *)v14 setSourceClassNameWithNSString:string];
+    [(JavaUtilLoggingLogRecord *)v14 setSourceMethodNameWithNSString:sString];
 
-    [(JavaUtilLoggingLogger *)self logWithJavaUtilLoggingLogRecord:v13];
+    [(JavaUtilLoggingLogger *)self logWithJavaUtilLoggingLogRecord:v14];
   }
 }
 
@@ -790,21 +790,21 @@ LABEL_20:
 {
   if (sub_100231628(self, level))
   {
-    v15 = new_JavaUtilLoggingLogRecord_initWithJavaUtilLoggingLevel_withNSString_(level, withNSString);
+    v16 = new_JavaUtilLoggingLogRecord_initWithJavaUtilLoggingLevel_withNSString_(level, withNSString);
     if (nSString)
     {
-      [(JavaUtilLoggingLogRecord *)v15 setResourceBundleWithJavaUtilResourceBundle:JavaUtilLoggingLogger_loadResourceBundleWithNSString_(nSString)];
-      [(JavaUtilLoggingLogRecord *)v15 setResourceBundleNameWithNSString:nSString];
+      [(JavaUtilLoggingLogRecord *)v16 setResourceBundleWithJavaUtilResourceBundle:JavaUtilLoggingLogger_loadResourceBundleWithNSString_(nSString, v15)];
+      [(JavaUtilLoggingLogRecord *)v16 setResourceBundleNameWithNSString:nSString];
     }
 
-    v16 = atomic_load(&self->name_);
-    [(JavaUtilLoggingLogRecord *)v15 setLoggerNameWithNSString:v16];
-    [(JavaUtilLoggingLogRecord *)v15 setSourceClassNameWithNSString:string];
-    [(JavaUtilLoggingLogRecord *)v15 setSourceMethodNameWithNSString:sString];
+    v17 = atomic_load(&self->name_);
+    [(JavaUtilLoggingLogRecord *)v16 setLoggerNameWithNSString:v17];
+    [(JavaUtilLoggingLogRecord *)v16 setSourceClassNameWithNSString:string];
+    v18 = [(JavaUtilLoggingLogRecord *)v16 setSourceMethodNameWithNSString:sString];
     idCopy = id;
-    v17 = [IOSObjectArray arrayWithObjects:&idCopy count:1 type:NSObject_class_()];
-    [(JavaUtilLoggingLogRecord *)v15 setParametersWithNSObjectArray:v17, idCopy];
-    [(JavaUtilLoggingLogger *)self logWithJavaUtilLoggingLogRecord:v15];
+    v20 = [IOSObjectArray arrayWithObjects:&idCopy count:1 type:NSObject_class_(v18, v19)];
+    [(JavaUtilLoggingLogRecord *)v16 setParametersWithNSObjectArray:v20, idCopy];
+    [(JavaUtilLoggingLogger *)self logWithJavaUtilLoggingLogRecord:v16];
   }
 }
 
@@ -812,20 +812,20 @@ LABEL_20:
 {
   if (sub_100231628(self, level))
   {
-    v15 = new_JavaUtilLoggingLogRecord_initWithJavaUtilLoggingLevel_withNSString_(level, withNSString);
+    v16 = new_JavaUtilLoggingLogRecord_initWithJavaUtilLoggingLevel_withNSString_(level, withNSString);
     if (nSString)
     {
-      [(JavaUtilLoggingLogRecord *)v15 setResourceBundleWithJavaUtilResourceBundle:JavaUtilLoggingLogger_loadResourceBundleWithNSString_(nSString)];
-      [(JavaUtilLoggingLogRecord *)v15 setResourceBundleNameWithNSString:nSString];
+      [(JavaUtilLoggingLogRecord *)v16 setResourceBundleWithJavaUtilResourceBundle:JavaUtilLoggingLogger_loadResourceBundleWithNSString_(nSString, v15)];
+      [(JavaUtilLoggingLogRecord *)v16 setResourceBundleNameWithNSString:nSString];
     }
 
-    v16 = atomic_load(&self->name_);
-    [(JavaUtilLoggingLogRecord *)v15 setLoggerNameWithNSString:v16];
-    [(JavaUtilLoggingLogRecord *)v15 setSourceClassNameWithNSString:string];
-    [(JavaUtilLoggingLogRecord *)v15 setSourceMethodNameWithNSString:sString];
-    [(JavaUtilLoggingLogRecord *)v15 setParametersWithNSObjectArray:array];
+    v17 = atomic_load(&self->name_);
+    [(JavaUtilLoggingLogRecord *)v16 setLoggerNameWithNSString:v17];
+    [(JavaUtilLoggingLogRecord *)v16 setSourceClassNameWithNSString:string];
+    [(JavaUtilLoggingLogRecord *)v16 setSourceMethodNameWithNSString:sString];
+    [(JavaUtilLoggingLogRecord *)v16 setParametersWithNSObjectArray:array];
 
-    [(JavaUtilLoggingLogger *)self logWithJavaUtilLoggingLogRecord:v15];
+    [(JavaUtilLoggingLogger *)self logWithJavaUtilLoggingLogRecord:v16];
   }
 }
 
@@ -833,20 +833,20 @@ LABEL_20:
 {
   if (sub_100231628(self, level))
   {
-    v15 = new_JavaUtilLoggingLogRecord_initWithJavaUtilLoggingLevel_withNSString_(level, withNSString);
+    v16 = new_JavaUtilLoggingLogRecord_initWithJavaUtilLoggingLevel_withNSString_(level, withNSString);
     if (nSString)
     {
-      [(JavaUtilLoggingLogRecord *)v15 setResourceBundleWithJavaUtilResourceBundle:JavaUtilLoggingLogger_loadResourceBundleWithNSString_(nSString)];
-      [(JavaUtilLoggingLogRecord *)v15 setResourceBundleNameWithNSString:nSString];
+      [(JavaUtilLoggingLogRecord *)v16 setResourceBundleWithJavaUtilResourceBundle:JavaUtilLoggingLogger_loadResourceBundleWithNSString_(nSString, v15)];
+      [(JavaUtilLoggingLogRecord *)v16 setResourceBundleNameWithNSString:nSString];
     }
 
-    v16 = atomic_load(&self->name_);
-    [(JavaUtilLoggingLogRecord *)v15 setLoggerNameWithNSString:v16];
-    [(JavaUtilLoggingLogRecord *)v15 setSourceClassNameWithNSString:string];
-    [(JavaUtilLoggingLogRecord *)v15 setSourceMethodNameWithNSString:sString];
-    [(JavaUtilLoggingLogRecord *)v15 setThrownWithJavaLangThrowable:throwable];
+    v17 = atomic_load(&self->name_);
+    [(JavaUtilLoggingLogRecord *)v16 setLoggerNameWithNSString:v17];
+    [(JavaUtilLoggingLogRecord *)v16 setSourceClassNameWithNSString:string];
+    [(JavaUtilLoggingLogRecord *)v16 setSourceMethodNameWithNSString:sString];
+    [(JavaUtilLoggingLogRecord *)v16 setThrownWithJavaLangThrowable:throwable];
 
-    [(JavaUtilLoggingLogger *)self logWithJavaUtilLoggingLogRecord:v15];
+    [(JavaUtilLoggingLogger *)self logWithJavaUtilLoggingLogRecord:v16];
   }
 }
 

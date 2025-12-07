@@ -105,7 +105,7 @@
   contextCopy = context;
   if (componentCopy)
   {
-    [componentCopy lockupStyle];
+    objc_msgSend_lockupStyle(componentCopy);
   }
 
   else
@@ -276,12 +276,12 @@ LABEL_30:
 {
   schemeCopy = scheme;
   [(SUUILockupMetadataView *)self->_metadataView setColoringWithColorScheme:schemeCopy];
-  primaryTextColor = [schemeCopy primaryTextColor];
+  v5 = objc_msgSend_primaryTextColor(schemeCopy);
   itemOfferNoticeLabel = [(SUUIItemCellLayout *)self itemOfferNoticeLabel];
   v7 = itemOfferNoticeLabel;
-  if (primaryTextColor)
+  if (v5)
   {
-    [itemOfferNoticeLabel setTextColor:primaryTextColor];
+    [itemOfferNoticeLabel setTextColor:v5];
   }
 
   else
@@ -949,10 +949,10 @@ LABEL_52:
     v91 = floorf(v90);
     v92 = v87;
     MaxY = CGRectGetMaxY(*(&v86 - 2));
-    primaryTextColor = [(SUUILockupMetadataView *)self->_metadataView primaryTextColor];
-    if (primaryTextColor)
+    v94 = objc_msgSend_primaryTextColor(self->_metadataView);
+    if (v94)
     {
-      [itemOfferNoticeLabel setTextColor:primaryTextColor];
+      [itemOfferNoticeLabel setTextColor:v94];
     }
 
     else
@@ -1205,10 +1205,10 @@ LABEL_24:
 
     v48 = (v46 - v22) * 0.5;
     [itemOfferNoticeLabel setFrame:{v44 + floorf(v48), CGRectGetMaxY(*&v44) + 3.0, v22, v52}];
-    primaryTextColor = [(SUUILockupMetadataView *)self->_metadataView primaryTextColor];
-    if (primaryTextColor)
+    v49 = objc_msgSend_primaryTextColor(self->_metadataView);
+    if (v49)
     {
-      [itemOfferNoticeLabel setTextColor:primaryTextColor];
+      [itemOfferNoticeLabel setTextColor:v49];
     }
 
     else

@@ -36,7 +36,7 @@ void sub_254877150(uint64_t a1)
 
 void sub_254877210(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x259C1C8C0]();
   if (v4 == MEMORY[0x277D86480])
@@ -48,7 +48,7 @@ void sub_254877210(uint64_t a1, void *a2)
       {
         string = xpc_dictionary_get_string(v3, *MEMORY[0x277D86400]);
         *buf = 136315138;
-        v29 = string;
+        v28 = string;
         _os_log_impl(&dword_254876000, v10, OS_LOG_TYPE_INFO, "Error received in message reply handler: %s", buf, 0xCu);
       }
     }
@@ -60,9 +60,9 @@ void sub_254877210(uint64_t a1, void *a2)
       {
         v17 = [MEMORY[0x277CCA9B8] errorWithDomain:@"IMTransferAgentClientErrorDomain" code:-4 userInfo:0];
         v18 = *(a1 + 72);
-        v26 = @"error";
-        v27 = v17;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+        v25 = @"error";
+        v26 = v17;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
         (*(v18 + 16))(v18, v19);
       }
     }
@@ -82,7 +82,7 @@ void sub_254877210(uint64_t a1, void *a2)
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v29 = v13;
+        v28 = v13;
         _os_log_impl(&dword_254876000, v14, OS_LOG_TYPE_INFO, "received reply: %s", buf, 0xCu);
       }
     }
@@ -105,7 +105,7 @@ void sub_254877210(uint64_t a1, void *a2)
       {
         v6 = xpc_dictionary_get_string(v3, *MEMORY[0x277D86400]);
         *buf = 136315138;
-        v29 = v6;
+        v28 = v6;
         _os_log_impl(&dword_254876000, v5, OS_LOG_TYPE_INFO, "Error reply type in message reply handler: %s", buf, 0xCu);
       }
     }
@@ -114,9 +114,9 @@ void sub_254877210(uint64_t a1, void *a2)
     {
       v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"IMTransferAgentClientErrorDomain" code:-1 userInfo:0];
       v8 = *(a1 + 72);
-      v24 = @"error";
-      v25 = v7;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v23 = @"error";
+      v24 = v7;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
       (*(v8 + 16))(v8, v9);
     }
   }
@@ -129,8 +129,6 @@ void sub_254877210(uint64_t a1, void *a2)
     v22 = *(v21 + 40);
     *(v21 + 40) = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void sub_254877584(_Unwind_Exception *a1, int a2)
@@ -169,7 +167,7 @@ void sub_2548779F0(uint64_t a1)
 
 void sub_254877AB0(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x259C1C8C0]();
   if (v4 == MEMORY[0x277D86480])
@@ -181,7 +179,7 @@ void sub_254877AB0(uint64_t a1, void *a2)
       {
         string = xpc_dictionary_get_string(v3, *MEMORY[0x277D86400]);
         *buf = 136315138;
-        v29 = string;
+        v28 = string;
         _os_log_impl(&dword_254876000, v10, OS_LOG_TYPE_INFO, "Error received in message reply handler: %s", buf, 0xCu);
       }
     }
@@ -193,9 +191,9 @@ void sub_254877AB0(uint64_t a1, void *a2)
       {
         v17 = [MEMORY[0x277CCA9B8] errorWithDomain:@"IMTransferAgentClientErrorDomain" code:-4 userInfo:0];
         v18 = *(a1 + 72);
-        v26 = @"error";
-        v27 = v17;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+        v25 = @"error";
+        v26 = v17;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
         (*(v18 + 16))(v18, v19);
       }
     }
@@ -215,7 +213,7 @@ void sub_254877AB0(uint64_t a1, void *a2)
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v29 = v13;
+        v28 = v13;
         _os_log_impl(&dword_254876000, v14, OS_LOG_TYPE_INFO, "received reply: %s", buf, 0xCu);
       }
     }
@@ -238,7 +236,7 @@ void sub_254877AB0(uint64_t a1, void *a2)
       {
         v6 = xpc_dictionary_get_string(v3, *MEMORY[0x277D86400]);
         *buf = 136315138;
-        v29 = v6;
+        v28 = v6;
         _os_log_impl(&dword_254876000, v5, OS_LOG_TYPE_INFO, "Error reply type in message reply handler: %s", buf, 0xCu);
       }
     }
@@ -247,9 +245,9 @@ void sub_254877AB0(uint64_t a1, void *a2)
     {
       v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"IMTransferAgentClientErrorDomain" code:-1 userInfo:0];
       v8 = *(a1 + 72);
-      v24 = @"error";
-      v25 = v7;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v23 = @"error";
+      v24 = v7;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
       (*(v8 + 16))(v8, v9);
     }
   }
@@ -262,8 +260,6 @@ void sub_254877AB0(uint64_t a1, void *a2)
     v22 = *(v21 + 40);
     *(v21 + 40) = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void sub_254877E18(_Unwind_Exception *a1, int a2)

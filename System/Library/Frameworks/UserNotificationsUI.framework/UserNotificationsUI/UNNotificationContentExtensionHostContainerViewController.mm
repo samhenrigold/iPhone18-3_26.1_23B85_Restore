@@ -5,7 +5,7 @@
 
 uint64_t __85___UNNotificationContentExtensionHostContainerViewController_isMediaSafetyNetEnabled__block_invoke()
 {
-  result = MediaSafetyNetLibraryCore();
+  result = MediaSafetyNetLibraryCore(0);
   isMediaSafetyNetEnabled_enabled = result != 0;
   return result;
 }

@@ -78,46 +78,35 @@
   v4 = 0;
   if (family > 9)
   {
-    if (family == &dword_C)
+    if (family == &dword_C || family == (&dword_8 + 2))
     {
-      v5 = &off_C228;
+      goto LABEL_9;
     }
+  }
 
-    else
+  else
+  {
+    if (family != &dword_8)
     {
-      if (family != (&dword_8 + 2))
+      if (family != (&dword_8 + 1))
       {
-        goto LABEL_12;
+        goto LABEL_10;
       }
 
-      v5 = off_C218;
+      goto LABEL_9;
     }
 
-    goto LABEL_11;
-  }
-
-  if (family != &dword_8)
-  {
-    if (family != (&dword_8 + 1))
+    if ([objc_opt_class() vista] == &dword_0 + 1)
     {
-      goto LABEL_12;
+LABEL_9:
+      v4 = objc_opt_class();
+      goto LABEL_10;
     }
 
-    v5 = off_C210;
-    goto LABEL_11;
+    v4 = 0;
   }
 
-  if ([objc_opt_class() vista] == &dword_0 + 1)
-  {
-    v5 = off_C220;
-LABEL_11:
-    v6 = *v5;
-    v4 = objc_opt_class();
-    goto LABEL_12;
-  }
-
-  v4 = 0;
-LABEL_12:
+LABEL_10:
 
   return v4;
 }

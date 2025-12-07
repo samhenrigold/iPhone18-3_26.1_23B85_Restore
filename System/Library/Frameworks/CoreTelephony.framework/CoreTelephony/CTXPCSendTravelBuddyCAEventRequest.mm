@@ -10,19 +10,18 @@
 
 - (CTXPCSendTravelBuddyCAEventRequest)initWithAction:(id)action carrierName:(id)name
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   actionCopy = action;
   nameCopy = name;
-  v13[0] = @"action";
-  v13[1] = @"carrier";
-  v14[0] = actionCopy;
-  v14[1] = nameCopy;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
-  v12.receiver = self;
-  v12.super_class = CTXPCSendTravelBuddyCAEventRequest;
-  v9 = [(CTXPCMessage *)&v12 initWithNamedArguments:v8];
+  v12[0] = @"action";
+  v12[1] = @"carrier";
+  v13[0] = actionCopy;
+  v13[1] = nameCopy;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11.receiver = self;
+  v11.super_class = CTXPCSendTravelBuddyCAEventRequest;
+  v9 = [(CTXPCMessage *)&v11 initWithNamedArguments:v8];
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

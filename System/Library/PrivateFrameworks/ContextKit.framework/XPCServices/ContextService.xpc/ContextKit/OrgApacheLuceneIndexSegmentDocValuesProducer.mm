@@ -205,10 +205,10 @@ LABEL_17:
 - (id)getChildResources
 {
   v3 = new_JavaUtilArrayList_init();
-  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
   dvProducers = self->dvProducers_;
   if (!dvProducers)
   {
@@ -216,31 +216,31 @@ LABEL_17:
   }
 
   v5 = v3;
-  v6 = [(JavaUtilSet *)dvProducers countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [(JavaUtilSet *)dvProducers countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
-    v13 = v6;
-    v14 = *v19;
+    v14 = v6;
+    v15 = *v20;
     do
     {
-      for (i = 0; i != v13; i = i + 1)
+      for (i = 0; i != v14; i = i + 1)
       {
-        if (*v19 != v14)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(dvProducers);
         }
 
-        v16 = OrgApacheLuceneUtilAccountables_namedAccountableWithNSString_withOrgApacheLuceneUtilAccountable_(@"delegate", *(*(&v18 + 1) + 8 * i), v7, v8, v9, v10, v11, v12);
-        [(JavaUtilArrayList *)v5 addWithId:v16, v18];
+        v17 = OrgApacheLuceneUtilAccountables_namedAccountableWithNSString_withOrgApacheLuceneUtilAccountable_(@"delegate", *(*(&v19 + 1) + 8 * i), v8, v9, v10, v11, v12, v13);
+        [(JavaUtilArrayList *)v5 addWithId:v17, v19];
       }
 
-      v13 = [(JavaUtilSet *)dvProducers countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v14 = [(JavaUtilSet *)dvProducers countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
-    while (v13);
+    while (v14);
   }
 
-  return JavaUtilCollections_unmodifiableListWithJavaUtilList_(v5);
+  return JavaUtilCollections_unmodifiableListWithJavaUtilList_(v5, v7);
 }
 
 - (id)description
@@ -265,12 +265,13 @@ LABEL_17:
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
-    v2 = JavaLangLong_class_();
-    qword_100553E90 = OrgApacheLuceneUtilRamUsageEstimator_shallowSizeOfInstanceWithIOSClass_(v2);
-    v3 = OrgApacheLuceneIndexSegmentDocValuesProducer_class_();
-    qword_100553E88 = OrgApacheLuceneUtilRamUsageEstimator_shallowSizeOfInstanceWithIOSClass_(v3);
+    v5 = JavaLangLong_class_(v3, v4);
+    qword_100553E90 = OrgApacheLuceneUtilRamUsageEstimator_shallowSizeOfInstanceWithIOSClass_(v5);
+    v6 = OrgApacheLuceneIndexSegmentDocValuesProducer_class_();
+    qword_100553E88 = OrgApacheLuceneUtilRamUsageEstimator_shallowSizeOfInstanceWithIOSClass_(v6);
     atomic_store(1u, &OrgApacheLuceneIndexSegmentDocValuesProducer__initialized);
   }
 }

@@ -8,29 +8,29 @@
 
 - (VMMegadomeClient)init
 {
-  v9.receiver = self;
-  v9.super_class = VMMegadomeClient;
-  v2 = [(VMMegadomeClient *)&v9 init];
+  v10.receiver = self;
+  v10.super_class = VMMegadomeClient;
+  v2 = [(VMMegadomeClient *)&v10 init];
   if (v2)
   {
     v3 = objc_alloc_init(_TtC3vmd15MegadomeWrapper);
     megadomeWrapper = v2->_megadomeWrapper;
     v2->_megadomeWrapper = v3;
 
-    v5 = sub_100024CBC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100024CBC(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
+      v7 = objc_opt_class();
       *buf = 136315906;
-      v11 = "";
-      v12 = 2080;
-      v13 = "";
-      v14 = 2112;
-      v15 = v6;
-      v16 = 2048;
-      v17 = v2;
-      v7 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ %p Created", buf, 0x2Au);
+      v12 = "";
+      v13 = 2080;
+      v14 = "";
+      v15 = 2112;
+      v16 = v7;
+      v17 = 2048;
+      v18 = v2;
+      v8 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ %p Created", buf, 0x2Au);
     }
   }
 
@@ -39,7 +39,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100024CBC();
+  v3 = sub_100024CBC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
@@ -63,25 +63,25 @@
 {
   readMegadomeLanguages = [(MegadomeWrapper *)self->_megadomeWrapper readMegadomeLanguages];
   v3 = +[NSMutableArray array];
-  v17 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
+  v17 = 0u;
   allKeys = [readMegadomeLanguages allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v15 objects:v25 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v16 objects:v26 count:16];
   if (v5)
   {
-    v6 = *v16;
+    v6 = *v17;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v16 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v16 + 1) + 8 * i);
         v9 = [readMegadomeLanguages objectForKeyedSubscript:v8];
         v10 = v9;
         if (v9)
@@ -95,22 +95,22 @@
         }
       }
 
-      v5 = [allKeys countByEnumeratingWithState:&v15 objects:v25 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v16 objects:v26 count:16];
     }
 
     while (v5);
   }
 
-  v13 = sub_100024CBC();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_100024CBC(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v20 = "";
-    v21 = 2080;
-    v22 = "";
-    v23 = 2112;
-    v24 = v3;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#I %s%sgetMegadomeLanguages: %@", buf, 0x20u);
+    v21 = "";
+    v22 = 2080;
+    v23 = "";
+    v24 = 2112;
+    v25 = v3;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#I %s%sgetMegadomeLanguages: %@", buf, 0x20u);
   }
 
   return v3;

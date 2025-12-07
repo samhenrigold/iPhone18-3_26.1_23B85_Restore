@@ -15,9 +15,9 @@
   deviceCopy = device;
   queueCopy = queue;
   delegateCopy = delegate;
-  v24.receiver = self;
-  v24.super_class = CMContinuityCaptureNWClient;
-  v12 = [(CMContinuityCaptureNWTransportBase *)&v24 initWithDevice:deviceCopy];
+  v21.receiver = self;
+  v21.super_class = CMContinuityCaptureNWClient;
+  v12 = [(CMContinuityCaptureNWTransportBase *)&v21 initWithDevice:deviceCopy];
   if (v12)
   {
     v13 = objc_alloc_init(MEMORY[0x277CBEB58]);
@@ -27,22 +27,19 @@
     objc_storeStrong(&v12->_device, device);
     objc_storeStrong(&v12->_queue, queue);
     v15 = objc_storeWeak(&v12->_taskDelegate, delegateCopy);
-    [(CMContinuityCaptureNWTransportBase *)v12 setTaskDelegate:delegateCopy];
+    [(CMContinuityCaptureNWTransportBase *)v12 setTaskDelegate:?];
 
     objc_initWeak(&location, v12);
     v18 = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __65__CMContinuityCaptureNWClient_initWithDevice_queue_taskDelegate___block_invoke;
-    v21 = &unk_278D5CD58;
-    objc_copyWeak(&v22, &location);
-    [(CMContinuityCaptureNWTransportBase *)v12 createTimeSyncClock:&v18];
-    objc_destroyWeak(&v22);
+    objc_copyWeak(&v19, &location);
+    [(CMContinuityCaptureNWTransportBase *)v12 createTimeSyncClock:v18, 3221225472, __65__CMContinuityCaptureNWClient_initWithDevice_queue_taskDelegate___block_invoke, &unk_278D5CD58];
+    objc_destroyWeak(&v19);
     objc_destroyWeak(&location);
-    [(CMContinuityCaptureNWClient *)v12 setupTCPListener:v18];
+    [(CMContinuityCaptureNWClient *)v12 setupTCPListener];
     v16 = +[CMContinuityCaptureXPCClientCCD sharedInstance];
-    [v16 connectToContinuityCaptureServerWithDelegate:v12];
+    [v16 connectToContinuityCaptureServerWithDelegate:?];
 
-    [(ContinuityCaptureTransportDevice *)v12->_device activate:1];
+    [(ContinuityCaptureTransportDevice *)v12->_device activate:?];
   }
 
   return v12;
@@ -55,9 +52,9 @@ void __65__CMContinuityCaptureNWClient_initWithDevice_queue_taskDelegate___block
   v5 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained willChangeValueForKey:@"timeSyncClock"];
+    [WeakRetained willChangeValueForKey:?];
     objc_storeStrong(v5 + 10, a2);
-    [v5 didChangeValueForKey:@"timeSyncClock"];
+    [v5 didChangeValueForKey:?];
   }
 }
 
@@ -157,12 +154,12 @@ void __47__CMContinuityCaptureNWClient_setupTCPListener__block_invoke_5(uint64_t
       *(v9 + 56) = 0;
     }
 
-    [*(*(a1 + 32) + 24) setActiveConnection:0];
+    [*(*(a1 + 32) + 24) setActiveConnection:?];
     goto LABEL_11;
   }
 
-  [*(*(a1 + 32) + 24) setActiveConnection:*(a1 + 40)];
-  [*(a1 + 32) scheduleReadForConnection:*(a1 + 40) dataTillNow:0];
+  [*(*(a1 + 32) + 24) setActiveConnection:?];
+  [*(a1 + 32) scheduleReadForConnection:? dataTillNow:?];
 LABEL_11:
 }
 
@@ -198,21 +195,22 @@ void __47__CMContinuityCaptureNWClient_setupTCPListener__block_invoke_8(uint64_t
   if (configurationCopy)
   {
     activeEntities = self->_activeEntities;
-    v14 = [MEMORY[0x277CCABB0] numberWithInteger:entity];
-    LOBYTE(activeEntities) = [(NSMutableSet *)activeEntities containsObject:v14];
+    v14 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+    LOBYTE(activeEntities) = [(NSMutableSet *)activeEntities containsObject:?];
 
     if ((activeEntities & 1) == 0)
     {
       v15 = objc_opt_new();
-      [configurationCopy setSessionID:v15];
+      [configurationCopy setSessionID:?];
 
-      [configurationCopy setGenerationID:CMContinuityCaptureGetStreamSessionGenerationID()];
+      CMContinuityCaptureGetStreamSessionGenerationID();
+      [configurationCopy setGenerationID:?];
     }
   }
 
   v16 = self->_activeEntities;
-  v17 = [MEMORY[0x277CCABB0] numberWithInteger:entity];
-  [(NSMutableSet *)v16 addObject:v17];
+  v17 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+  [(NSMutableSet *)v16 addObject:?];
 
   if ([(NSMutableSet *)self->_activeEntities count]== 1)
   {
@@ -228,8 +226,8 @@ void __47__CMContinuityCaptureNWClient_setupTCPListener__block_invoke_8(uint64_t
   activeEntities = self->_activeEntities;
   v7 = MEMORY[0x277CCABB0];
   completionCopy = completion;
-  v8 = [v7 numberWithInteger:entity];
-  [(NSMutableSet *)activeEntities removeObject:v8];
+  v8 = [v7 numberWithInteger:?];
+  [(NSMutableSet *)activeEntities removeObject:?];
 
   completionCopy[2](completionCopy, entity, 0);
 }
@@ -240,7 +238,7 @@ void __47__CMContinuityCaptureNWClient_setupTCPListener__block_invoke_8(uint64_t
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   device = [(CMContinuityCaptureNWClient *)self device];
-  v7 = [v3 stringWithFormat:@"%@: %@ [%p]", v5, device, self];
+  v7 = [v3 stringWithFormat:v5, device, self];
 
   return v7;
 }

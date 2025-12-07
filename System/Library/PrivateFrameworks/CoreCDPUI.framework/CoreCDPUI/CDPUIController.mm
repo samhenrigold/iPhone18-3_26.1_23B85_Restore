@@ -238,23 +238,23 @@ void __39__CDPUIController_tryAgainLaterTapped___block_invoke(uint64_t a1)
   }
 }
 
-void __38__CDPUIController_backTappedFromRoot___block_invoke()
+void __38__CDPUIController_backTappedFromRoot___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = _CDPLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v3 = _CDPLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_2451DB000, v0, OS_LOG_TYPE_DEFAULT, "Animating back event...", v1, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_2451DB000, v3, OS_LOG_TYPE_DEFAULT, "Animating back event...", v4, 2u);
   }
 }
 
-uint64_t __38__CDPUIController_backTappedFromRoot___block_invoke_36(uint64_t a1)
+uint64_t __38__CDPUIController_backTappedFromRoot___block_invoke_36(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2451DB000, v2, OS_LOG_TYPE_DEFAULT, "Finished popping root controller, cancelling validation", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_2451DB000, v4, OS_LOG_TYPE_DEFAULT, "Finished popping root controller, cancelling validation", v6, 2u);
   }
 
   return [*(a1 + 32) handleBackPopCompletion];
@@ -602,46 +602,46 @@ LABEL_38:
   [v50 applyThemeToNavigationController:*(a1[4] + 7)];
 }
 
-void __53__CDPUIController__presentRootController_completion___block_invoke_49(uint64_t a1)
+void __53__CDPUIController__presentRootController_completion___block_invoke_49(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __53__CDPUIController__presentRootController_completion___block_invoke_49_cold_1();
   }
 
-  v3 = *(*(a1 + 40) + 56);
-  v4 = [*(a1 + 48) copy];
-  [v3 setViewControllers:v4 animated:1];
+  v5 = *(*(a1 + 40) + 56);
+  v6 = [*(a1 + 48) copy];
+  [v5 setViewControllers:v6 animated:1];
 
-  v5 = [*(*(a1 + 40) + 56) transitionCoordinator];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __53__CDPUIController__presentRootController_completion___block_invoke_50;
-  v8[3] = &unk_278E2B000;
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  v9 = v6;
-  v10 = v7;
-  v11 = *(a1 + 56);
-  [v5 animateAlongsideTransition:0 completion:v8];
+  v7 = [*(*(a1 + 40) + 56) transitionCoordinator];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __53__CDPUIController__presentRootController_completion___block_invoke_50;
+  v10[3] = &unk_278E2B000;
+  v8 = *(a1 + 32);
+  v9 = *(a1 + 40);
+  v11 = v8;
+  v12 = v9;
+  v13 = *(a1 + 56);
+  [v7 animateAlongsideTransition:0 completion:v10];
 }
 
-uint64_t __53__CDPUIController__presentRootController_completion___block_invoke_50(void *a1)
+uint64_t __53__CDPUIController__presentRootController_completion___block_invoke_50(void *a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __53__CDPUIController__presentRootController_completion___block_invoke_50_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1[5] + 168));
-  v4 = objc_opt_respondsToSelector();
+  v6 = objc_opt_respondsToSelector();
 
-  if (v4)
+  if (v6)
   {
-    v5 = objc_loadWeakRetained((a1[5] + 168));
-    [v5 uiController:a1[5] didPresentRootViewController:a1[4]];
+    v7 = objc_loadWeakRetained((a1[5] + 168));
+    [v7 uiController:a1[5] didPresentRootViewController:a1[4]];
   }
 
   result = a1[6];
@@ -938,13 +938,13 @@ void __65__CDPUIController_cdpContext_promptForLocalSecretWithCompletion___block
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void __65__CDPUIController_cdpContext_promptForLocalSecretWithCompletion___block_invoke_2(uint64_t a1)
+void __65__CDPUIController_cdpContext_promptForLocalSecretWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(*(a1 + 40) + 8);
-  if (*(v1 + 24))
+  v3 = *(*(a1 + 40) + 8);
+  if (*(v3 + 24))
   {
-    v2 = _CDPLogSystem();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v4 = _CDPLogSystem();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __65__CDPUIController_cdpContext_promptForLocalSecretWithCompletion___block_invoke_2_cold_1();
     }
@@ -952,22 +952,22 @@ void __65__CDPUIController_cdpContext_promptForLocalSecretWithCompletion___block
 
   else
   {
-    *(v1 + 24) = 1;
-    v4 = _CDPLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    *(v3 + 24) = 1;
+    v6 = _CDPLogSystem();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __65__CDPUIController_cdpContext_promptForLocalSecretWithCompletion___block_invoke_2_cold_2();
     }
 
     WeakRetained = objc_loadWeakRetained((*(*(a1 + 48) + 8) + 40));
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __65__CDPUIController_cdpContext_promptForLocalSecretWithCompletion___block_invoke_188;
-    v6[3] = &unk_278E2B118;
-    v7 = *(a1 + 32);
-    [WeakRetained dismissViewControllerAnimated:1 completion:v6];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __65__CDPUIController_cdpContext_promptForLocalSecretWithCompletion___block_invoke_188;
+    v8[3] = &unk_278E2B118;
+    v9 = *(a1 + 32);
+    [WeakRetained dismissViewControllerAnimated:1 completion:v8];
 
-    v2 = v7;
+    v4 = v9;
   }
 }
 
@@ -999,13 +999,13 @@ void __65__CDPUIController_cdpContext_promptForLocalSecretWithCompletion___block
   dispatch_async(MEMORY[0x277D85CD0], v10);
 }
 
-void __65__CDPUIController_cdpContext_promptForLocalSecretWithCompletion___block_invoke_2_191(uint64_t a1)
+void __65__CDPUIController_cdpContext_promptForLocalSecretWithCompletion___block_invoke_2_191(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(*(a1 + 64) + 8);
-  if (*(v1 + 24))
+  v3 = *(*(a1 + 64) + 8);
+  if (*(v3 + 24))
   {
-    v2 = _CDPLogSystem();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v4 = _CDPLogSystem();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __65__CDPUIController_cdpContext_promptForLocalSecretWithCompletion___block_invoke_2_191_cold_1();
     }
@@ -1013,14 +1013,14 @@ void __65__CDPUIController_cdpContext_promptForLocalSecretWithCompletion___block
 
   else
   {
-    *(v1 + 24) = 1;
+    *(v3 + 24) = 1;
     if ([*(a1 + 32) count])
     {
-      v4 = _CDPLogSystem();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v6 = _CDPLogSystem();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_2451DB000, v4, OS_LOG_TYPE_DEFAULT, "Local secret prompt came back with data", buf, 2u);
+        _os_log_impl(&dword_2451DB000, v6, OS_LOG_TYPE_DEFAULT, "Local secret prompt came back with data", buf, 2u);
       }
     }
 
@@ -1028,34 +1028,34 @@ void __65__CDPUIController_cdpContext_promptForLocalSecretWithCompletion___block
     aBlock[1] = 3221225472;
     aBlock[2] = __65__CDPUIController_cdpContext_promptForLocalSecretWithCompletion___block_invoke_192;
     aBlock[3] = &unk_278E2B190;
-    v17 = *(a1 + 40);
-    v18 = *(a1 + 56);
-    v5 = _Block_copy(aBlock);
-    v6 = [*(a1 + 32) firstObject];
-    if ([*(a1 + 48) forceInlinePresentation] || (objc_msgSend(*(a1 + 48), "forceInlinePresentation") & 1) == 0 && (objc_msgSend(*(a1 + 48), "titleText"), v7 = objc_claimAutoreleasedReturnValue(), v7, v7))
+    v19 = *(a1 + 40);
+    v20 = *(a1 + 56);
+    v7 = _Block_copy(aBlock);
+    v8 = [*(a1 + 32) firstObject];
+    if ([*(a1 + 48) forceInlinePresentation] || (objc_msgSend(*(a1 + 48), "forceInlinePresentation") & 1) == 0 && (objc_msgSend(*(a1 + 48), "titleText"), v9 = objc_claimAutoreleasedReturnValue(), v9, v9))
     {
-      v8 = [v6 userInfo];
-      v9 = [v8 objectForKeyedSubscript:@"localSecret"];
-      v10 = [v6 userInfo];
-      v11 = [v10 objectForKeyedSubscript:@"secretType"];
-      v5[2](v5, v9, [v11 integerValue]);
+      v10 = [v8 userInfo];
+      v11 = [v10 objectForKeyedSubscript:@"localSecret"];
+      v12 = [v8 userInfo];
+      v13 = [v12 objectForKeyedSubscript:@"secretType"];
+      v7[2](v7, v11, [v13 integerValue]);
     }
 
     else
     {
       WeakRetained = objc_loadWeakRetained((*(*(a1 + 72) + 8) + 40));
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __65__CDPUIController_cdpContext_promptForLocalSecretWithCompletion___block_invoke_2_201;
-      v13[3] = &unk_278E2B1B8;
-      v15 = v5;
-      v14 = v6;
-      [WeakRetained dismissViewControllerAnimated:1 completion:v13];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __65__CDPUIController_cdpContext_promptForLocalSecretWithCompletion___block_invoke_2_201;
+      v15[3] = &unk_278E2B1B8;
+      v17 = v7;
+      v16 = v8;
+      [WeakRetained dismissViewControllerAnimated:1 completion:v15];
 
-      v8 = v15;
+      v10 = v17;
     }
 
-    v2 = v17;
+    v4 = v19;
   }
 }
 
@@ -1790,7 +1790,7 @@ uint64_t __62__CDPUIController_cdpContext_promptForAdoptionOfMultipleICSC___bloc
   [(CDPRemoteDeviceSecretValidator *)remoteSecretValidator approveFromAnotherDeviceWithCompletion:v14];
 }
 
-uint64_t __44__CDPUIController_approveFromAnotherDevice___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__44__CDPUIController_approveFromAnotherDevice___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a2;
   result = [*(a1 + 32) sendRemoteApprovalCompletedEventWithContext:*(*(a1 + 32) + 80) didApprove:a2 error:a3];
@@ -1941,13 +1941,13 @@ void __44__CDPUIController_performCustodianRecovery___block_invoke_2(uint64_t a1
   [v3 custodianOSSelectionViewControllerWithCustodianController:v2 supportedEscapeOfferMask:v4 completion:v5];
 }
 
-uint64_t __44__CDPUIController_performCustodianRecovery___block_invoke_3(uint64_t result, uint64_t a2)
+id *__44__CDPUIController_performCustodianRecovery___block_invoke_3(id *result, uint64_t a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) _replaceViewController:*(result + 40) withNewController:a2];
-    v3 = *(*(v2 + 32) + 152);
+    [result[4] _replaceViewController:result[5] withNewController:a2];
+    v3 = *(v2[4] + 19);
 
     return [v3 insert:64];
   }
@@ -1999,30 +1999,30 @@ void __47__CDPUIController_performPiggybackingRecovery___block_invoke_2(uint64_t
   [(CDPUIController *)self dismissRecoveryFlow:reset reason:@"com.apple.CoreCDPUI.CDPEnrollmentCompleted" completion:v3];
 }
 
-uint64_t __39__CDPUIController_performAccountReset___block_invoke(uint64_t a1)
+uint64_t __39__CDPUIController_performAccountReset___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v14 = 0;
-    _os_log_impl(&dword_2451DB000, v2, OS_LOG_TYPE_DEFAULT, "UI dismissed, resetting account state", v14, 2u);
+    *v16 = 0;
+    _os_log_impl(&dword_2451DB000, v4, OS_LOG_TYPE_DEFAULT, "UI dismissed, resetting account state", v16, 2u);
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 152);
-  if (!v4)
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 152);
+  if (!v6)
   {
-    v5 = _CDPLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v7 = _CDPLogSystem();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      __39__CDPUIController_performAccountReset___block_invoke_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+      __39__CDPUIController_performAccountReset___block_invoke_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
     }
 
-    v3 = *(a1 + 32);
-    v4 = *(v3 + 152);
+    v5 = *(a1 + 32);
+    v6 = *(v5 + 152);
   }
 
-  return [*(v3 + 24) resetAccountCDPStateWithEscapeOptionsOffered:{objc_msgSend(v4, "escapeOffersPresented")}];
+  return [*(v5 + 24) resetAccountCDPStateWithEscapeOptionsOffered:{objc_msgSend(v6, "escapeOffersPresented")}];
 }
 
 - (void)finishValidation:(id)validation withError:(id)error
@@ -2038,13 +2038,13 @@ uint64_t __39__CDPUIController_performAccountReset___block_invoke(uint64_t a1)
   [(CDPUIController *)self dismissRecoveryFlow:validation reason:@"com.apple.CoreCDPUI.CDPEnrollmentCancelled" completion:v8];
 }
 
-uint64_t __46__CDPUIController_finishValidation_withError___block_invoke(uint64_t a1)
+uint64_t __46__CDPUIController_finishValidation_withError___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2451DB000, v2, OS_LOG_TYPE_DEFAULT, "UI dismissed, cancelling validation", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_2451DB000, v4, OS_LOG_TYPE_DEFAULT, "UI dismissed, cancelling validation", v6, 2u);
   }
 
   return [*(*(a1 + 32) + 24) cancelValidationWithError:*(a1 + 40)];
@@ -3098,33 +3098,33 @@ uint64_t __62__CDPUIController_dismissAndResetAccountCDPState_localSecret___bloc
   return v5;
 }
 
-void __86__CDPUIController__beginPiggybackingRecoveryEscapeOptionWithSupportedEscapeOfferMask___block_invoke(uint64_t a1)
+void __86__CDPUIController__beginPiggybackingRecoveryEscapeOptionWithSupportedEscapeOfferMask___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v14[0] = 0;
-    _os_log_impl(&dword_2451DB000, v2, OS_LOG_TYPE_DEFAULT, "User elected to start piggybacking flow", v14, 2u);
+    v16[0] = 0;
+    _os_log_impl(&dword_2451DB000, v4, OS_LOG_TYPE_DEFAULT, "User elected to start piggybacking flow", v16, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
     [*(a1 + 32) sendEscapeOfferSelectedEvent:*MEMORY[0x277CFD9B0]];
-    v4 = [*(a1 + 32) _piggybackingViewControllerWithSupportedEscapeOfferMask:*(a1 + 48)];
-    [WeakRetained[7] pushViewController:v4 animated:1];
-    v5 = WeakRetained[19];
-    if (v5)
+    v6 = [*(a1 + 32) _piggybackingViewControllerWithSupportedEscapeOfferMask:*(a1 + 48)];
+    [WeakRetained[7] pushViewController:v6 animated:1];
+    v7 = WeakRetained[19];
+    if (v7)
     {
-      [v5 insert:128];
+      [v7 insert:128];
     }
 
     else
     {
-      v6 = _CDPLogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+      v8 = _CDPLogSystem();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
-        __86__CDPUIController__beginPiggybackingRecoveryEscapeOptionWithSupportedEscapeOfferMask___block_invoke_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+        __86__CDPUIController__beginPiggybackingRecoveryEscapeOptionWithSupportedEscapeOfferMask___block_invoke_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
       }
     }
   }
@@ -3259,32 +3259,32 @@ void __50__CDPUIController_piggybackingUserDidNotGetACode___block_invoke(uint64_
   return v10;
 }
 
-void __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOffers_title_localizationKey___block_invoke(uint64_t a1)
+void __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOffers_title_localizationKey___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_2451DB000, v2, OS_LOG_TYPE_DEFAULT, "User elected to send code, starting piggybacking based data recovery", buf, 2u);
+    _os_log_impl(&dword_2451DB000, v4, OS_LOG_TYPE_DEFAULT, "User elected to send code, starting piggybacking based data recovery", buf, 2u);
   }
 
   [*(a1 + 32) sendEscapeOfferSelectedEvent:*MEMORY[0x277CFDA28]];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 80);
-    v6 = [*(v4 + 56) topViewController];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOffers_title_localizationKey___block_invoke_386;
-    v9[3] = &unk_278E2B578;
-    v7 = *(a1 + 48);
-    v8 = *(a1 + 32);
-    v9[4] = WeakRetained;
-    v9[5] = v8;
-    v9[6] = v7;
-    [CDPUIAuthenticationHelper proxAuthenticationForContext:v5 viewController:v6 withCompletion:v9];
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 80);
+    v8 = [*(v6 + 56) topViewController];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOffers_title_localizationKey___block_invoke_386;
+    v11[3] = &unk_278E2B578;
+    v9 = *(a1 + 48);
+    v10 = *(a1 + 32);
+    v11[4] = WeakRetained;
+    v11[5] = v10;
+    v11[6] = v9;
+    [CDPUIAuthenticationHelper proxAuthenticationForContext:v7 viewController:v8 withCompletion:v11];
   }
 }
 
@@ -3347,16 +3347,16 @@ void __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOf
   }
 }
 
-void __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOffers_title_localizationKey___block_invoke_387(uint64_t a1)
+void __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOffers_title_localizationKey___block_invoke_387(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOffers_title_localizationKey___block_invoke_387_cold_1();
   }
 
-  v3 = [*(a1 + 40) _piggybackingSomethingWentWrong:*(a1 + 48)];
-  [v3 handleEscapeAction:*(a1 + 40)];
+  v5 = [*(a1 + 40) _piggybackingSomethingWentWrong:*(a1 + 48)];
+  [v5 handleEscapeAction:*(a1 + 40)];
 }
 
 void __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOffers_title_localizationKey___block_invoke_388(uint64_t a1)
@@ -3385,33 +3385,33 @@ void __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOf
   }
 }
 
-void __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOffers_title_localizationKey___block_invoke_390(uint64_t a1)
+void __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOffers_title_localizationKey___block_invoke_390(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOffers_title_localizationKey___block_invoke_390_cold_1();
   }
 
-  v3 = [*(a1 + 32) _piggybackingHandleNonProxError:*(a1 + 40)];
-  v4 = [*(*(a1 + 32) + 56) topViewController];
-  [v3 setPresentingViewController:v4];
+  v5 = [*(a1 + 32) _piggybackingHandleNonProxError:*(a1 + 40)];
+  v6 = [*(*(a1 + 32) + 56) topViewController];
+  [v5 setPresentingViewController:v6];
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOffers_title_localizationKey___block_invoke_391;
-  v7[3] = &unk_278E2B2D0;
-  v5 = *(a1 + 32);
-  v8 = v3;
-  v9 = v5;
-  v6 = v3;
-  dispatch_async(MEMORY[0x277D85CD0], v7);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOffers_title_localizationKey___block_invoke_391;
+  v9[3] = &unk_278E2B2D0;
+  v7 = *(a1 + 32);
+  v10 = v5;
+  v11 = v7;
+  v8 = v5;
+  dispatch_async(MEMORY[0x277D85CD0], v9);
 }
 
-uint64_t __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOffers_title_localizationKey___block_invoke_391(uint64_t a1)
+uint64_t __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOffers_title_localizationKey___block_invoke_391(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOffers_title_localizationKey___block_invoke_391_cold_1();
   }
@@ -3572,16 +3572,16 @@ void __60__CDPUIController_attemptToJoinCircleWithPiggybacking_mask___block_invo
   }
 }
 
-void __60__CDPUIController_attemptToJoinCircleWithPiggybacking_mask___block_invoke_403(uint64_t a1)
+void __60__CDPUIController_attemptToJoinCircleWithPiggybacking_mask___block_invoke_403(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __60__CDPUIController_attemptToJoinCircleWithPiggybacking_mask___block_invoke_403_cold_1();
   }
 
-  v3 = [*(a1 + 40) _piggybackingSomethingWentWrong:*(a1 + 48)];
-  [v3 handleEscapeAction:*(a1 + 40)];
+  v5 = [*(a1 + 40) _piggybackingSomethingWentWrong:*(a1 + 48)];
+  [v5 handleEscapeAction:*(a1 + 40)];
 }
 
 - (id)_piggybackingCantGetToMyDevices:(id)devices message:(id)message skipButtonTitle:(id)title supportedEscapeOfferMask:(unint64_t)mask
@@ -3761,32 +3761,32 @@ LABEL_9:
   return v5;
 }
 
-void __83__CDPUIController__beginCustodianRecoveryEscapeOptionWithSupportedEscapeOfferMask___block_invoke(uint64_t a1)
+void __83__CDPUIController__beginCustodianRecoveryEscapeOptionWithSupportedEscapeOfferMask___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v14[0] = 0;
-    _os_log_impl(&dword_2451DB000, v2, OS_LOG_TYPE_DEFAULT, "Walrus User elected to start Custodian Flow, Showing Ask Help Now View", v14, 2u);
+    v16[0] = 0;
+    _os_log_impl(&dword_2451DB000, v4, OS_LOG_TYPE_DEFAULT, "Walrus User elected to start Custodian Flow, Showing Ask Help Now View", v16, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v4 = [*(a1 + 32) _custodianAskHelpViewControllerWithSupportedEscapeOfferMask:*(a1 + 48)];
-    [WeakRetained[7] pushViewController:v4 animated:1];
-    v5 = WeakRetained[19];
-    if (v5)
+    v6 = [*(a1 + 32) _custodianAskHelpViewControllerWithSupportedEscapeOfferMask:*(a1 + 48)];
+    [WeakRetained[7] pushViewController:v6 animated:1];
+    v7 = WeakRetained[19];
+    if (v7)
     {
-      [v5 insert:64];
+      [v7 insert:64];
     }
 
     else
     {
-      v6 = _CDPLogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+      v8 = _CDPLogSystem();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
-        __83__CDPUIController__beginCustodianRecoveryEscapeOptionWithSupportedEscapeOfferMask___block_invoke_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+        __83__CDPUIController__beginCustodianRecoveryEscapeOptionWithSupportedEscapeOfferMask___block_invoke_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
       }
     }
   }
@@ -3882,33 +3882,33 @@ void __83__CDPUIController__beginCustodianRecoveryEscapeOptionWithSupportedEscap
   return v8;
 }
 
-void __96__CDPUIController__custodianRecoveryEscapeOptionWithSupportedEscapeOfferMask_askHelpController___block_invoke(uint64_t a1)
+void __96__CDPUIController__custodianRecoveryEscapeOptionWithSupportedEscapeOfferMask_askHelpController___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_2451DB000, v2, OS_LOG_TYPE_DEFAULT, "User elected to start Custodian Flow, Showing OS picker", buf, 2u);
+    _os_log_impl(&dword_2451DB000, v4, OS_LOG_TYPE_DEFAULT, "User elected to start Custodian Flow, Showing OS picker", buf, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    v4 = [*(a1 + 32) buttonTray];
-    [v4 showButtonsBusy];
+    v6 = [*(a1 + 32) buttonTray];
+    [v6 showButtonsBusy];
 
     [WeakRetained sendEscapeOfferSelectedEvent:*MEMORY[0x277CFD9B8]];
-    v5 = *(a1 + 40);
-    v6 = *(a1 + 56);
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __96__CDPUIController__custodianRecoveryEscapeOptionWithSupportedEscapeOfferMask_askHelpController___block_invoke_482;
-    v7[3] = &unk_278E2B5F0;
-    objc_copyWeak(&v9, (a1 + 48));
-    v8 = *(a1 + 32);
-    [WeakRetained custodianOSSelectionViewControllerWithCustodianController:v5 supportedEscapeOfferMask:v6 completion:v7];
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 56);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __96__CDPUIController__custodianRecoveryEscapeOptionWithSupportedEscapeOfferMask_askHelpController___block_invoke_482;
+    v9[3] = &unk_278E2B5F0;
+    objc_copyWeak(&v11, (a1 + 48));
+    v10 = *(a1 + 32);
+    [WeakRetained custodianOSSelectionViewControllerWithCustodianController:v7 supportedEscapeOfferMask:v8 completion:v9];
 
-    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v11);
   }
 }
 
@@ -4391,10 +4391,10 @@ void __92__CDPUIController__custodianCodeEntryViewControllerWithController_suppo
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-uint64_t __92__CDPUIController__custodianCodeEntryViewControllerWithController_supportedEscapeOfferMask___block_invoke_564(uint64_t a1)
+uint64_t __92__CDPUIController__custodianCodeEntryViewControllerWithController_supportedEscapeOfferMask___block_invoke_564(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __92__CDPUIController__custodianCodeEntryViewControllerWithController_supportedEscapeOfferMask___block_invoke_564_cold_1();
   }
@@ -4402,16 +4402,16 @@ uint64_t __92__CDPUIController__custodianCodeEntryViewControllerWithController_s
   return [*(a1 + 32) _presentCustodianAttemptLimitAlert];
 }
 
-uint64_t __92__CDPUIController__custodianCodeEntryViewControllerWithController_supportedEscapeOfferMask___block_invoke_565(uint64_t a1)
+uint64_t __92__CDPUIController__custodianCodeEntryViewControllerWithController_supportedEscapeOfferMask___block_invoke_565(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v9 = *MEMORY[0x277D85DE8];
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_2451DB000, v2, OS_LOG_TYPE_DEFAULT, "Custodian Recovery Code Attempt: Code validation success! Custodian with recoveryInfo: %@", &v5, 0xCu);
+    v5 = *(a1 + 32);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_2451DB000, v4, OS_LOG_TYPE_DEFAULT, "Custodian Recovery Code Attempt: Code validation success! Custodian with recoveryInfo: %@", &v7, 0xCu);
   }
 
   return [*(a1 + 40) _validateCustodianRecoveryInfo:*(a1 + 32)];
@@ -4662,21 +4662,21 @@ void __117__CDPUIController__enterCustodianCodeEscapeOptionWithCustodianControll
   return v7;
 }
 
-void __90__CDPUIController__recoveryKeyEscapeOptionWithSupportedEscapeOfferMask_presentationBlock___block_invoke(uint64_t a1)
+void __90__CDPUIController__recoveryKeyEscapeOptionWithSupportedEscapeOfferMask_presentationBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_2451DB000, v2, OS_LOG_TYPE_DEFAULT, "User elected to start RK flow, prompting to confirm", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_2451DB000, v4, OS_LOG_TYPE_DEFAULT, "User elected to start RK flow, prompting to confirm", v8, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v4 = WeakRetained;
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained sendEscapeOfferSelectedEvent:*MEMORY[0x277CFDA10]];
-    v5 = [*(a1 + 32) recoveryKeyEntryControllerForCircleJoinWithCancel:0 supportedEscapeOfferMask:*(a1 + 56)];
+    v7 = [*(a1 + 32) recoveryKeyEntryControllerForCircleJoinWithCancel:0 supportedEscapeOfferMask:*(a1 + 56)];
     (*(*(a1 + 40) + 16))();
   }
 }
@@ -4804,26 +4804,26 @@ void __94__CDPUIController_recoveryKeyEntryControllerForCircleJoinWithCancel_sup
   return v4;
 }
 
-void __59__CDPUIController__enterSecretLaterEscapeOptionWithSecret___block_invoke(uint64_t a1)
+void __59__CDPUIController__enterSecretLaterEscapeOptionWithSecret___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_2451DB000, v2, OS_LOG_TYPE_DEFAULT, "User elected to skip CDP flow", buf, 2u);
+    _os_log_impl(&dword_2451DB000, v4, OS_LOG_TYPE_DEFAULT, "User elected to skip CDP flow", buf, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained sendEscapeOfferSelectedEvent:*MEMORY[0x277CFD998]];
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __59__CDPUIController__enterSecretLaterEscapeOptionWithSecret___block_invoke_597;
-    v5[3] = &unk_278E2AF90;
-    v5[4] = v4;
-    [v4 _dismissPresentedViewControllerWithReason:@"com.apple.CoreCDPUI.CDPEnrollmentCompleted" completion:v5];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __59__CDPUIController__enterSecretLaterEscapeOptionWithSecret___block_invoke_597;
+    v7[3] = &unk_278E2AF90;
+    v7[4] = v6;
+    [v6 _dismissPresentedViewControllerWithReason:@"com.apple.CoreCDPUI.CDPEnrollmentCompleted" completion:v7];
   }
 }
 
@@ -5150,13 +5150,13 @@ void __46__CDPUIController__remoteApprovalEscapeOption__block_invoke(uint64_t a1
   [(UINavigationController *)self->_navController presentViewController:v15 animated:1 completion:0];
 }
 
-uint64_t __73__CDPUIController__showResetKeychainConfirmationAlertWithViewController___block_invoke(uint64_t a1)
+uint64_t __73__CDPUIController__showResetKeychainConfirmationAlertWithViewController___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v14 = 0;
-    _os_log_impl(&dword_2451DB000, v2, OS_LOG_TYPE_DEFAULT, "User request keychain reset during iCSC entry challenge", v14, 2u);
+    *v16 = 0;
+    _os_log_impl(&dword_2451DB000, v4, OS_LOG_TYPE_DEFAULT, "User request keychain reset during iCSC entry challenge", v16, 2u);
   }
 
   objc_opt_class();
@@ -5166,21 +5166,21 @@ uint64_t __73__CDPUIController__showResetKeychainConfirmationAlertWithViewContro
   }
 
   [*(a1 + 40) _dismissPresentedViewControllerWithReason:@"com.apple.CoreCDPUI.CDPEnrollmentCompleted" completion:0];
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 152);
-  if (!v4)
+  v5 = *(a1 + 40);
+  v6 = *(v5 + 152);
+  if (!v6)
   {
-    v5 = _CDPLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v7 = _CDPLogSystem();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      __73__CDPUIController__showResetKeychainConfirmationAlertWithViewController___block_invoke_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+      __73__CDPUIController__showResetKeychainConfirmationAlertWithViewController___block_invoke_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
     }
 
-    v3 = *(a1 + 40);
-    v4 = *(v3 + 152);
+    v5 = *(a1 + 40);
+    v6 = *(v5 + 152);
   }
 
-  return [*(v3 + 24) resetAccountCDPStateWithEscapeOptionsOffered:{objc_msgSend(v4, "escapeOffersPresented")}];
+  return [*(v5 + 24) resetAccountCDPStateWithEscapeOptionsOffered:{objc_msgSend(v6, "escapeOffersPresented")}];
 }
 
 - (void)_showTryAgainLaterConfirmationAlertWithViewController:(id)controller
@@ -5213,25 +5213,25 @@ uint64_t __73__CDPUIController__showResetKeychainConfirmationAlertWithViewContro
   objc_destroyWeak(&location);
 }
 
-void __73__CDPUIController__showTryAgainLaterConfirmationAlertWithViewController___block_invoke(uint64_t a1)
+void __73__CDPUIController__showTryAgainLaterConfirmationAlertWithViewController___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __73__CDPUIController__showTryAgainLaterConfirmationAlertWithViewController___block_invoke_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained sendEscapeOfferSelectedEvent:*MEMORY[0x277CFDA48]];
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __73__CDPUIController__showTryAgainLaterConfirmationAlertWithViewController___block_invoke_655;
-    v5[3] = &unk_278E2AF90;
-    v5[4] = v4;
-    [v4 _dismissPresentedViewControllerWithReason:@"com.apple.CoreCDPUI.CDPEnrollmentCompleted" completion:v5];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __73__CDPUIController__showTryAgainLaterConfirmationAlertWithViewController___block_invoke_655;
+    v7[3] = &unk_278E2AF90;
+    v7[4] = v6;
+    [v6 _dismissPresentedViewControllerWithReason:@"com.apple.CoreCDPUI.CDPEnrollmentCompleted" completion:v7];
   }
 }
 
@@ -5363,7 +5363,7 @@ uint64_t __68__CDPUIController_keychainSyncController_didFinishWithResult_error_
   [(CDPRemoteDeviceSecretValidator *)remoteSecretValidator approveFromAnotherDeviceWithCompletion:v8];
 }
 
-uint64_t __47__CDPUIController__beginWaitingForApprovalFlow__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__47__CDPUIController__beginWaitingForApprovalFlow__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a2;
   result = [*(a1 + 32) sendRemoteApprovalCompletedEventWithContext:*(*(a1 + 32) + 80) didApprove:a2 error:a3];
@@ -5538,25 +5538,25 @@ LABEL_6:
   return v13;
 }
 
-void __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke(uint64_t a1)
+void __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __73__CDPUIController__showTryAgainLaterConfirmationAlertWithViewController___block_invoke_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained sendEscapeOfferSelectedEvent:*MEMORY[0x277CFDA48]];
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_679;
-    v5[3] = &unk_278E2AF90;
-    v5[4] = v4;
-    [v4 _dismissPresentedViewControllerWithReason:@"com.apple.CoreCDPUI.CDPEnrollmentCompleted" completion:v5];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_679;
+    v7[3] = &unk_278E2AF90;
+    v7[4] = v6;
+    [v6 _dismissPresentedViewControllerWithReason:@"com.apple.CoreCDPUI.CDPEnrollmentCompleted" completion:v7];
   }
 }
 
@@ -5567,10 +5567,10 @@ void __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_
   [v1 cancelValidationWithError:v2];
 }
 
-void __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_683(uint64_t a1)
+void __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_683(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_683_cold_1();
   }
@@ -5580,57 +5580,57 @@ void __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_
   [WeakRetained _showQuotaStorageAppListView:*(a1 + 32)];
 }
 
-void __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_684(uint64_t a1)
+void __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_684(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_684_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v4 = MEMORY[0x277D75110];
-  v5 = [MEMORY[0x277CFD508] builderForKey:@"WALRUS_STORAGE_LIST_UNAVAILABLE_CONFIRMATION_ALERT_TITLE" inTable:@"Localizable-Walrus"];
-  v6 = [v5 localizedString];
-  v7 = [MEMORY[0x277D75418] currentDevice];
-  v8 = [v7 userInterfaceIdiom];
+  v6 = MEMORY[0x277D75110];
+  v7 = [MEMORY[0x277CFD508] builderForKey:@"WALRUS_STORAGE_LIST_UNAVAILABLE_CONFIRMATION_ALERT_TITLE" inTable:@"Localizable-Walrus"];
+  v8 = [v7 localizedString];
+  v9 = [MEMORY[0x277D75418] currentDevice];
+  v10 = [v9 userInterfaceIdiom];
 
-  v9 = [v4 alertControllerWithTitle:v6 message:0 preferredStyle:(v8 & 0xFFFFFFFFFFFFFFFBLL) == 1];
+  v11 = [v6 alertControllerWithTitle:v8 message:0 preferredStyle:(v10 & 0xFFFFFFFFFFFFFFFBLL) == 1];
 
-  v10 = MEMORY[0x277D750F8];
-  v11 = [MEMORY[0x277CFD508] builderForKey:@"WALRUS_STORAGE_LIST_UNAVAILABLE_CONFIRMATION_DELETE_BUTTON_TITLE" inTable:@"Localizable-Walrus"];
-  v12 = [v11 localizedString];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_691;
-  v21[3] = &unk_278E2B820;
-  objc_copyWeak(&v22, (a1 + 40));
-  v13 = [v10 actionWithTitle:v12 style:2 handler:v21];
+  v12 = MEMORY[0x277D750F8];
+  v13 = [MEMORY[0x277CFD508] builderForKey:@"WALRUS_STORAGE_LIST_UNAVAILABLE_CONFIRMATION_DELETE_BUTTON_TITLE" inTable:@"Localizable-Walrus"];
+  v14 = [v13 localizedString];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_691;
+  v23[3] = &unk_278E2B820;
+  objc_copyWeak(&v24, (a1 + 40));
+  v15 = [v12 actionWithTitle:v14 style:2 handler:v23];
 
-  v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  [v9 addAction:v13];
-  [v14 addObject:*MEMORY[0x277CFDA18]];
-  v15 = MEMORY[0x277D750F8];
-  v16 = CDPLocalizedString();
-  v17 = [v15 actionWithTitle:v16 style:1 handler:0];
-  [v9 addAction:v17];
+  v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  [v11 addAction:v15];
+  [v16 addObject:*MEMORY[0x277CFDA18]];
+  v17 = MEMORY[0x277D750F8];
+  v18 = CDPLocalizedString();
+  v19 = [v17 actionWithTitle:v18 style:1 handler:0];
+  [v11 addAction:v19];
 
-  v18 = [MEMORY[0x277CE44D8] analyticsEventWithContext:*(*(a1 + 32) + 80) eventName:*MEMORY[0x277CFD6D0] category:*MEMORY[0x277CFD930]];
-  [v14 addObject:*MEMORY[0x277CFD958]];
-  v19 = [v14 aaf_arrayAsCommaSeperatedString];
-  [v18 setObject:v19 forKeyedSubscript:*MEMORY[0x277CFD6C8]];
+  v20 = [MEMORY[0x277CE44D8] analyticsEventWithContext:*(*(a1 + 32) + 80) eventName:*MEMORY[0x277CFD6D0] category:*MEMORY[0x277CFD930]];
+  [v16 addObject:*MEMORY[0x277CFD958]];
+  v21 = [v16 aaf_arrayAsCommaSeperatedString];
+  [v20 setObject:v21 forKeyedSubscript:*MEMORY[0x277CFD6C8]];
 
-  v20 = [MEMORY[0x277CFD490] rtcAnalyticsReporter];
-  [v20 sendEvent:v18];
+  v22 = [MEMORY[0x277CFD490] rtcAnalyticsReporter];
+  [v22 sendEvent:v20];
 
-  [WeakRetained[7] presentViewController:v9 animated:1 completion:0];
-  objc_destroyWeak(&v22);
+  [WeakRetained[7] presentViewController:v11 animated:1 completion:0];
+  objc_destroyWeak(&v24);
 }
 
-void __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_691(uint64_t a1)
+void __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_691(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_691_cold_1();
   }
@@ -5640,35 +5640,35 @@ void __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_
   [WeakRetained[3] resetAccountCDPStateWithEscapeOptionsOffered:{objc_msgSend(WeakRetained[19], "escapeOffersPresented")}];
 }
 
-uint64_t __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_695(uint64_t a1)
+uint64_t __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_695(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = *(*(a1 + 32) + 152);
-  if (!v2)
+  v19 = *MEMORY[0x277D85DE8];
+  v4 = *(*(a1 + 32) + 152);
+  if (!v4)
   {
-    v3 = _CDPLogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v5 = _CDPLogSystem();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_695_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+      __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_695_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
 
-    v2 = *(*(a1 + 32) + 152);
+    v4 = *(*(a1 + 32) + 152);
   }
 
-  v11 = [v2 canOfferRPD];
-  if ((v11 & 1) == 0)
+  v13 = [v4 canOfferRPD];
+  if ((v13 & 1) == 0)
   {
-    v12 = _CDPLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = _CDPLogSystem();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [*(*(a1 + 32) + 152) rpdBlockingError];
-      v15 = 138412290;
-      v16 = v13;
-      _os_log_impl(&dword_2451DB000, v12, OS_LOG_TYPE_DEFAULT, "Cannot offer RPD. Reason: %@", &v15, 0xCu);
+      v15 = [*(*(a1 + 32) + 152) rpdBlockingError];
+      v17 = 138412290;
+      v18 = v15;
+      _os_log_impl(&dword_2451DB000, v14, OS_LOG_TYPE_DEFAULT, "Cannot offer RPD. Reason: %@", &v17, 0xCu);
     }
   }
 
-  return v11;
+  return v13;
 }
 
 - (void)_rpdEscapeOptionWithOffer:(id)offer
@@ -5768,10 +5768,10 @@ uint64_t __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_mess
   objc_destroyWeak(&location);
 }
 
-void __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke(uint64_t a1)
+void __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_683_cold_1();
   }
@@ -5781,57 +5781,57 @@ void __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke(uint64_t a1)
   [WeakRetained _showQuotaStorageAppListView:*(a1 + 32)];
 }
 
-void __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke_700(uint64_t a1)
+void __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke_700(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_684_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = MEMORY[0x277D75110];
-  v5 = [MEMORY[0x277CFD508] builderForKey:@"WALRUS_STORAGE_LIST_UNAVAILABLE_CONFIRMATION_ALERT_TITLE" inTable:@"Localizable-Walrus"];
-  v6 = [v5 localizedString];
-  v7 = [MEMORY[0x277D75418] currentDevice];
-  v8 = [v7 userInterfaceIdiom];
+  v6 = MEMORY[0x277D75110];
+  v7 = [MEMORY[0x277CFD508] builderForKey:@"WALRUS_STORAGE_LIST_UNAVAILABLE_CONFIRMATION_ALERT_TITLE" inTable:@"Localizable-Walrus"];
+  v8 = [v7 localizedString];
+  v9 = [MEMORY[0x277D75418] currentDevice];
+  v10 = [v9 userInterfaceIdiom];
 
-  v9 = [v4 alertControllerWithTitle:v6 message:0 preferredStyle:(v8 & 0xFFFFFFFFFFFFFFFBLL) == 1];
+  v11 = [v6 alertControllerWithTitle:v8 message:0 preferredStyle:(v10 & 0xFFFFFFFFFFFFFFFBLL) == 1];
 
-  v10 = MEMORY[0x277D750F8];
-  v11 = [MEMORY[0x277CFD508] builderForKey:@"WALRUS_STORAGE_LIST_UNAVAILABLE_CONFIRMATION_DELETE_BUTTON_TITLE" inTable:@"Localizable-Walrus"];
-  v12 = [v11 localizedString];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke_701;
-  v21[3] = &unk_278E2B820;
-  objc_copyWeak(&v22, (a1 + 32));
-  v13 = [v10 actionWithTitle:v12 style:2 handler:v21];
+  v12 = MEMORY[0x277D750F8];
+  v13 = [MEMORY[0x277CFD508] builderForKey:@"WALRUS_STORAGE_LIST_UNAVAILABLE_CONFIRMATION_DELETE_BUTTON_TITLE" inTable:@"Localizable-Walrus"];
+  v14 = [v13 localizedString];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke_701;
+  v23[3] = &unk_278E2B820;
+  objc_copyWeak(&v24, (a1 + 32));
+  v15 = [v12 actionWithTitle:v14 style:2 handler:v23];
 
-  v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  [v9 addAction:v13];
-  [v14 addObject:*MEMORY[0x277CFDA18]];
-  v15 = MEMORY[0x277D750F8];
-  v16 = CDPLocalizedString();
-  v17 = [v15 actionWithTitle:v16 style:1 handler:0];
-  [v9 addAction:v17];
+  v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  [v11 addAction:v15];
+  [v16 addObject:*MEMORY[0x277CFDA18]];
+  v17 = MEMORY[0x277D750F8];
+  v18 = CDPLocalizedString();
+  v19 = [v17 actionWithTitle:v18 style:1 handler:0];
+  [v11 addAction:v19];
 
-  v18 = [MEMORY[0x277CE44D8] analyticsEventWithContext:*(WeakRetained + 10) eventName:*MEMORY[0x277CFD6D0] category:*MEMORY[0x277CFD930]];
-  [v14 addObject:*MEMORY[0x277CFD958]];
-  v19 = [v14 aaf_arrayAsCommaSeperatedString];
-  [v18 setObject:v19 forKeyedSubscript:*MEMORY[0x277CFD6C8]];
+  v20 = [MEMORY[0x277CE44D8] analyticsEventWithContext:*(WeakRetained + 10) eventName:*MEMORY[0x277CFD6D0] category:*MEMORY[0x277CFD930]];
+  [v16 addObject:*MEMORY[0x277CFD958]];
+  v21 = [v16 aaf_arrayAsCommaSeperatedString];
+  [v20 setObject:v21 forKeyedSubscript:*MEMORY[0x277CFD6C8]];
 
-  v20 = [MEMORY[0x277CFD490] rtcAnalyticsReporter];
-  [v20 sendEvent:v18];
+  v22 = [MEMORY[0x277CFD490] rtcAnalyticsReporter];
+  [v22 sendEvent:v20];
 
-  [*(WeakRetained + 7) presentViewController:v9 animated:1 completion:0];
-  objc_destroyWeak(&v22);
+  [*(WeakRetained + 7) presentViewController:v11 animated:1 completion:0];
+  objc_destroyWeak(&v24);
 }
 
-void __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke_701(uint64_t a1)
+void __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke_701(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_691_cold_1();
   }
@@ -5841,66 +5841,66 @@ void __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke_701(uint64_t
   [WeakRetained[3] resetAccountCDPStateWithEscapeOptionsOffered:{objc_msgSend(WeakRetained[19], "escapeOffersPresented")}];
 }
 
-uint64_t __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke_702(uint64_t a1)
+uint64_t __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke_702(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = *(*(a1 + 32) + 152);
-  if (!v2)
+  v19 = *MEMORY[0x277D85DE8];
+  v4 = *(*(a1 + 32) + 152);
+  if (!v4)
   {
-    v3 = _CDPLogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v5 = _CDPLogSystem();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke_702_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+      __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke_702_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
 
-    v2 = *(*(a1 + 32) + 152);
+    v4 = *(*(a1 + 32) + 152);
   }
 
-  v11 = [v2 canOfferRPD];
-  if ((v11 & 1) == 0)
+  v13 = [v4 canOfferRPD];
+  if ((v13 & 1) == 0)
   {
-    v12 = _CDPLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = _CDPLogSystem();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [*(*(a1 + 32) + 152) rpdBlockingError];
-      v15 = 138412290;
-      v16 = v13;
-      _os_log_impl(&dword_2451DB000, v12, OS_LOG_TYPE_DEFAULT, "Cannot offer RPD. Reason: %@", &v15, 0xCu);
+      v15 = [*(*(a1 + 32) + 152) rpdBlockingError];
+      v17 = 138412290;
+      v18 = v15;
+      _os_log_impl(&dword_2451DB000, v14, OS_LOG_TYPE_DEFAULT, "Cannot offer RPD. Reason: %@", &v17, 0xCu);
     }
   }
 
-  return v11;
+  return v13;
 }
 
-uint64_t __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke_703(uint64_t a1)
+uint64_t __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke_703(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = *(*(a1 + 32) + 152);
-  if (!v2)
+  v19 = *MEMORY[0x277D85DE8];
+  v4 = *(*(a1 + 32) + 152);
+  if (!v4)
   {
-    v3 = _CDPLogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v5 = _CDPLogSystem();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke_702_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+      __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke_702_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
 
-    v2 = *(*(a1 + 32) + 152);
+    v4 = *(*(a1 + 32) + 152);
   }
 
-  v11 = [v2 canOfferRPD];
-  if ((v11 & 1) == 0)
+  v13 = [v4 canOfferRPD];
+  if ((v13 & 1) == 0)
   {
-    v12 = _CDPLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = _CDPLogSystem();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [*(*(a1 + 32) + 152) rpdBlockingError];
-      v15 = 138412290;
-      v16 = v13;
-      _os_log_impl(&dword_2451DB000, v12, OS_LOG_TYPE_DEFAULT, "Cannot offer RPD. Reason: %@", &v15, 0xCu);
+      v15 = [*(*(a1 + 32) + 152) rpdBlockingError];
+      v17 = 138412290;
+      v18 = v15;
+      _os_log_impl(&dword_2451DB000, v14, OS_LOG_TYPE_DEFAULT, "Cannot offer RPD. Reason: %@", &v17, 0xCu);
     }
   }
 
-  return v11;
+  return v13;
 }
 
 uint64_t __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke_704(uint64_t a1)
@@ -5958,23 +5958,23 @@ uint64_t __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke_2(uint64
   return v16;
 }
 
-void __127__CDPUIController__iCSCSkipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask_withDevice___block_invoke(uint64_t a1)
+void __127__CDPUIController__iCSCSkipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask_withDevice___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v4 = _CDPLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __73__CDPUIController__showTryAgainLaterConfirmationAlertWithViewController___block_invoke_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained sendEscapeOfferSelectedEvent:*MEMORY[0x277CFDA48]];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __127__CDPUIController__iCSCSkipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask_withDevice___block_invoke_705;
-  v5[3] = &unk_278E2AF90;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __127__CDPUIController__iCSCSkipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask_withDevice___block_invoke_705;
+  v7[3] = &unk_278E2AF90;
+  v8 = WeakRetained;
   v6 = WeakRetained;
-  v4 = WeakRetained;
-  [v4 _dismissPresentedViewControllerWithReason:@"com.apple.CoreCDPUI.CDPEnrollmentCompleted" completion:v5];
+  [v6 _dismissPresentedViewControllerWithReason:@"com.apple.CoreCDPUI.CDPEnrollmentCompleted" completion:v7];
 }
 
 void __127__CDPUIController__iCSCSkipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask_withDevice___block_invoke_705(uint64_t a1)
@@ -6509,13 +6509,13 @@ void __59__CDPUIController__iCloudDeleteConfirmationViewController___block_invok
   }
 }
 
-void __60__CDPUIController_remoteSecretEntryDidExceedMaximumAttempts__block_invoke()
+void __60__CDPUIController_remoteSecretEntryDidExceedMaximumAttempts__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = _CDPLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = _CDPLogSystem();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_2451DB000, v0, OS_LOG_TYPE_DEFAULT, "UI dismissed", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_2451DB000, v2, OS_LOG_TYPE_DEFAULT, "UI dismissed", v3, 2u);
   }
 }
 
@@ -6532,13 +6532,13 @@ void __60__CDPUIController_remoteSecretEntryDidExceedMaximumAttempts__block_invo
   }
 }
 
-uint64_t __58__CDPUIController_remoteSecretEntryDidRequestAccountReset__block_invoke(uint64_t a1)
+uint64_t __58__CDPUIController_remoteSecretEntryDidRequestAccountReset__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _CDPLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2451DB000, v2, OS_LOG_TYPE_DEFAULT, "UI dismissed, resetting account state", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_2451DB000, v3, OS_LOG_TYPE_DEFAULT, "UI dismissed, resetting account state", v5, 2u);
   }
 
   return [*(*(a1 + 32) + 24) resetAccountCDPStateWithEscapeOptionsOffered:{objc_msgSend(*(*(a1 + 32) + 152), "escapeOffersPresented")}];
@@ -6587,13 +6587,13 @@ uint64_t __61__CDPUIController_remoteSecretEntryDidRequestDeviceSelection__block
   }
 }
 
-uint64_t __65__CDPUIController_remoteSecretEntryDidFinishValidationWithError___block_invoke(uint64_t a1)
+uint64_t __65__CDPUIController_remoteSecretEntryDidFinishValidationWithError___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _CDPLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2451DB000, v2, OS_LOG_TYPE_DEFAULT, "UI dismissed, cancelling validation", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_2451DB000, v3, OS_LOG_TYPE_DEFAULT, "UI dismissed, cancelling validation", v5, 2u);
   }
 
   return [*(*(a1 + 32) + 24) cancelValidationWithError:*(a1 + 40)];
@@ -6715,25 +6715,25 @@ uint64_t __73__CDPUIController_remoteSecretEntryDidRequestDeviceSelectionEscapeA
   objc_destroyWeak(&location);
 }
 
-void __72__CDPUIController_remoteSecretEntryDidRequestSkipEscapeActionForDevice___block_invoke(uint64_t a1)
+void __72__CDPUIController_remoteSecretEntryDidRequestSkipEscapeActionForDevice___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _CDPLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __73__CDPUIController__showTryAgainLaterConfirmationAlertWithViewController___block_invoke_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained sendEscapeOfferSelectedEvent:*MEMORY[0x277CFDA48]];
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __72__CDPUIController_remoteSecretEntryDidRequestSkipEscapeActionForDevice___block_invoke_761;
-    v5[3] = &unk_278E2AF90;
-    v6 = v4;
-    [v6 _dismissPresentedViewControllerWithReason:@"com.apple.CoreCDPUI.CDPEnrollmentCompleted" completion:v5];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __72__CDPUIController_remoteSecretEntryDidRequestSkipEscapeActionForDevice___block_invoke_761;
+    v6[3] = &unk_278E2AF90;
+    v7 = v5;
+    [v7 _dismissPresentedViewControllerWithReason:@"com.apple.CoreCDPUI.CDPEnrollmentCompleted" completion:v6];
   }
 }
 
@@ -6892,10 +6892,10 @@ void __72__CDPUIController_remoteSecretEntryDidRequestSkipEscapeActionForDevice_
   }
 }
 
-uint64_t __59__CDPUIController_presentQuotaScreenForRequest_completion___block_invoke(uint64_t a1)
+uint64_t __59__CDPUIController_presentQuotaScreenForRequest_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _CDPLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_691_cold_1();
   }
@@ -6994,6 +6994,13 @@ void __79__CDPUIController__presentSwiftUIRemoteSecretPromptWithDevice_didSelect
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
+void __66__CDPUIController__presentRemoteSecretControllerWithNewestDevice___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPUIController _presentRemoteSecretControllerWithNewestDevice:]_block_invoke";
+  OUTLINED_FUNCTION_3(&dword_2451DB000, a1, a3, "Ledger is nil when it shouldn't be. %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __66__CDPUIController__presentRemoteSecretControllerWithNewestDevice___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_1();
@@ -7007,6 +7014,27 @@ void __66__CDPUIController__presentRemoteSecretControllerWithNewestDevice___bloc
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
+}
+
+void __39__CDPUIController_performAccountReset___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPUIController performAccountReset:]_block_invoke";
+  OUTLINED_FUNCTION_3(&dword_2451DB000, a1, a3, "Ledger is nil. %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_handleDepletedRemainingAttemptsForDevice:(uint64_t)a3 fromViewController:(uint64_t)a4 mask:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPUIController _handleDepletedRemainingAttemptsForDevice:fromViewController:mask:]";
+  OUTLINED_FUNCTION_3(&dword_2451DB000, a1, a3, "Ledger is nil: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __86__CDPUIController__beginPiggybackingRecoveryEscapeOptionWithSupportedEscapeOfferMask___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPUIController _beginPiggybackingRecoveryEscapeOptionWithSupportedEscapeOfferMask:]_block_invoke";
+  OUTLINED_FUNCTION_3(&dword_2451DB000, a1, a3, "Ledger is nil. Probably not in recovery flow. %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __99__CDPUIController__piggybackingSendCodeEscapeOfferWithSupportedEscapeOffers_title_localizationKey___block_invoke_386_cold_1()
@@ -7046,6 +7074,13 @@ void __60__CDPUIController_attemptToJoinCircleWithPiggybacking_mask___block_invo
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
+void __83__CDPUIController__beginCustodianRecoveryEscapeOptionWithSupportedEscapeOfferMask___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPUIController _beginCustodianRecoveryEscapeOptionWithSupportedEscapeOfferMask:]_block_invoke";
+  OUTLINED_FUNCTION_3(&dword_2451DB000, a1, a3, "Ledger is nil. Probably not in recovery flow. %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __92__CDPUIController__custodianCodeEntryViewControllerWithController_supportedEscapeOfferMask___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
@@ -7074,6 +7109,27 @@ void __50__CDPUIController__validateCustodianRecoveryInfo___block_invoke_cold_1(
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
+void __72__CDPUIController__recoveryKeyEscapeOptionWithSupportedEscapeOfferMask___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPUIController _recoveryKeyEscapeOptionWithSupportedEscapeOfferMask:]_block_invoke";
+  OUTLINED_FUNCTION_3(&dword_2451DB000, a1, a3, "Ledger is nil. %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __94__CDPUIController_recoveryKeyEntryControllerForCircleJoinWithCancel_supportedEscapeOfferMask___block_invoke_592_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPUIController recoveryKeyEntryControllerForCircleJoinWithCancel:supportedEscapeOfferMask:]_block_invoke";
+  OUTLINED_FUNCTION_3(&dword_2451DB000, a1, a3, "Ledger is nil. %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __73__CDPUIController__showResetKeychainConfirmationAlertWithViewController___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPUIController _showResetKeychainConfirmationAlertWithViewController:]_block_invoke";
+  OUTLINED_FUNCTION_3(&dword_2451DB000, a1, a3, "Ledger is nil. %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)keychainSyncController:didFinishWithResult:error:.cold.1()
 {
   OUTLINED_FUNCTION_7();
@@ -7094,6 +7150,20 @@ void __68__CDPUIController_keychainSyncController_didFinishWithResult_error___bl
   *(a2 + 4) = a1;
   OUTLINED_FUNCTION_10();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
+}
+
+void __112__CDPUIController__skipOrDeleteiCloudDataEscapeOfferWithTitle_message_skipButtonTitle_supportedEscapeOfferMask___block_invoke_695_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPUIController _skipOrDeleteiCloudDataEscapeOfferWithTitle:message:skipButtonTitle:supportedEscapeOfferMask:]_block_invoke";
+  OUTLINED_FUNCTION_3(&dword_2451DB000, a1, a3, "Ledger is nil: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __45__CDPUIController__rpdEscapeOptionWithOffer___block_invoke_702_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPUIController _rpdEscapeOptionWithOffer:]_block_invoke";
+  OUTLINED_FUNCTION_3(&dword_2451DB000, a1, a3, "Ledger is nil: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_showQuotaStorageAppListView:(void *)a1 andCompletion:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)

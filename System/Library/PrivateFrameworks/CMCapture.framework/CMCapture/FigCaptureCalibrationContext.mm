@@ -64,7 +64,7 @@
 
   else
   {
-    [FigCaptureCalibrationContext initWithPreferenceString:withActivityName:withPropertyName:withExpectedDataSize:withInterval:withMinimumBatteryLevel:withInternalLogName:supportedDeviceNames:];
+    [FigCaptureCalibrationContext initWithPreferenceString:a2 withActivityName:0 withPropertyName:name withExpectedDataSize:propertyName withInterval:size withMinimumBatteryLevel:*&interval withInternalLogName:*&level supportedDeviceNames:?];
     return 0;
   }
 
@@ -100,7 +100,7 @@
         }
 
         v22 = *(*(&v29 + 1) + 8 * i);
-        if (([v22 isEqualToString:@"Back Camera"] & 1) != 0 || objc_msgSend(v22, "isEqualToString:", @"Back Telephoto Camera"))
+        if ((objc_msgSend_isEqualToString_(v22) & 1) != 0 || objc_msgSend_isEqualToString_(v22))
         {
           v23 = [objc_opt_class() calibrationStatusFromRawStreamCalibrationData:{objc_msgSend(dataCopy, "objectForKeyedSubscript:", v22)}];
           if (v23)
@@ -232,7 +232,7 @@ LABEL_10:
 {
   if (self)
   {
-    v23 = 0;
+    v29[0] = 0;
     if (*(self + 88) && (MGGetBoolAnswer() & 1) == 0 && MGGetBoolAnswer())
     {
       v10 = [objc_opt_class() calibrationDataStringForInternalLogging:a2];
@@ -243,46 +243,46 @@ LABEL_10:
         [v12 setTimeZone:{objc_msgSend(MEMORY[0x1E695DFE8], "localTimeZone")}];
         [v12 setDateFormat:@"yyyy-MM-dd"];
         v13 = [v12 stringFromDate:{objc_msgSend(MEMORY[0x1E695DF00], "date")}];
-        if (FigCaptureCameracapturedEnabled())
+        if (FigCaptureCameracapturedEnabled(v13, v14))
         {
-          v14 = @"cameracaptured";
+          v15 = @"cameracaptured";
         }
 
         else
         {
-          v14 = @"mediaserverd";
+          v15 = @"mediaserverd";
         }
 
-        v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@-%@.log", v14, *(self + 88), v13];
-        v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/private/var/mobile/Library/Logs/CrashReporter/%@", v14];
+        v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@-%@.log", v15, *(self + 88), v13];
+        v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/private/var/mobile/Library/Logs/CrashReporter/%@", v15];
         [objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")];
-        v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", v16, v15];
-        if (!v23)
+        v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", v17, v16];
+        if (!v29[0])
         {
-          v18 = v17;
-          v19 = [objc_msgSend(a2 objectForKeyedSubscript:{@"TimeSinceLastSuccessfulCalibration", "longLongValue"}];
+          v19 = v18;
+          v20 = [objc_msgSend(a2 objectForKeyedSubscript:{@"TimeSinceLastSuccessfulCalibration", "longLongValue"}];
           [v12 setDateFormat:@"HH:mm:ss"];
-          v20 = [v12 stringFromDate:{objc_msgSend(MEMORY[0x1E695DF00], "date")}];
-          v21 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          [v21 appendFormat:@"%@, ", v20];
-          [v21 appendFormat:@"%lld, ", v19];
-          [v21 appendFormat:@"%f, %f, %f, %f, ", *&file, *&field, *&a5, sqrt(field * field + file * file + a5 * a5)];
-          [v21 appendString:v11];
-          [v21 appendString:@"\n"];
+          v21 = [v12 stringFromDate:{objc_msgSend(MEMORY[0x1E695DF00], "date")}];
+          v22 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          [v22 appendFormat:@"%@, ", v21];
+          [v22 appendFormat:@"%lld, ", v20];
+          [v22 appendFormat:@"%f, %f, %f, %f, ", *&file, *&field, *&a5, sqrt(field * field + file * file + a5 * a5)];
+          [v22 appendString:v11];
+          [v22 appendString:@"\n"];
           if (([objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")] & 1) == 0)
           {
             [objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")];
           }
 
-          v22 = [MEMORY[0x1E696AC00] fileHandleForUpdatingAtPath:v18];
-          [v22 seekToEndOfFile];
-          [v22 writeData:{objc_msgSend(v21, "dataUsingEncoding:", 4)}];
-          [v22 closeFile];
+          v23 = [MEMORY[0x1E696AC00] fileHandleForUpdatingAtPath:v19];
+          [v23 seekToEndOfFile];
+          [v23 writeData:{objc_msgSend(v22, "dataUsingEncoding:", 4)}];
+          [v23 closeFile];
           goto LABEL_13;
         }
 
 LABEL_17:
-        v21 = 0;
+        v22 = 0;
 LABEL_13:
 
         return;
@@ -290,7 +290,7 @@ LABEL_13:
 
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v25, v26, v27, v28, v29[0], v29[1], v30);
     }
 
     v12 = 0;
@@ -309,13 +309,13 @@ LABEL_13:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v27, v29, v31, v33, v35, v37, v39, v41);
     return 0;
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v5 = *(reasons + 96);
-  v13 = OUTLINED_FUNCTION_60_0(dictionary, v6, v7, v8, v9, v10, v11, v12, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, 0);
+  v13 = OUTLINED_FUNCTION_60_0(dictionary, v6, v7, v8, v9, v10, v11, v12, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61);
   if (v13)
   {
     v14 = v13;
@@ -330,32 +330,25 @@ LABEL_13:
         }
 
         v17 = *(8 * i);
-        if (([v17 isEqualToString:@"Back Camera"] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(v17) & 1) == 0)
         {
-          v18 = [v17 isEqualToString:@"Back Telephoto Camera"];
-          if (!v18)
+          isEqualToString = objc_msgSend_isEqualToString_(v17);
+          if (!isEqualToString)
           {
             continue;
           }
         }
 
-        v18 = [dictionary setObject:objc_msgSend(objc_opt_class() forKeyedSubscript:{"createRawStreamCalibrationDataWithFailureReasons:", a2), v17}];
+        isEqualToString = [dictionary setObject:objc_msgSend(objc_opt_class() forKeyedSubscript:{"createRawStreamCalibrationDataWithFailureReasons:", a2), v17}];
       }
 
-      v14 = OUTLINED_FUNCTION_60_0(v18, v19, v20, v21, v22, v23, v24, v25, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v63);
+      v14 = OUTLINED_FUNCTION_60_0(isEqualToString, v19, v20, v21, v22, v23, v24, v25, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62);
     }
 
     while (v14);
   }
 
   return dictionary;
-}
-
-- (uint64_t)initWithPreferenceString:withActivityName:withPropertyName:withExpectedDataSize:withInterval:withMinimumBatteryLevel:withInternalLogName:supportedDeviceNames:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 @end

@@ -110,18 +110,18 @@
 
 - (VCSDate)initWithDateString:(const char *)string
 {
-  v17 = 0;
   v18 = 0;
-  v16 = 0;
+  v19 = 0;
+  v17 = 0;
   v5 = strlen(string);
   switch(v5)
   {
     case 8uLL:
-      sscanf(string, "%04d%02d%02d", &v18 + 4, &v18, &v17 + 4);
+      sscanf(string, "%04d%02d%02d", &v19 + 4, &v19, &v18 + 4);
+      v11 = 0;
       v10 = 0;
       v9 = 0;
-      v8 = 0;
-      v7 = 1;
+      v8 = 1;
       v6 = 1;
       goto LABEL_10;
     case 0xFuLL:
@@ -130,10 +130,10 @@
     case 0x10uLL:
       if (string[15] != 90)
       {
-        v12 = VCSLogHandle();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = VCSLogHandle(16);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          [(VCSDate *)string initWithDateString:v12];
+          [(VCSDate *)string initWithDateString:v13];
         }
 
         goto LABEL_15;
@@ -147,14 +147,14 @@ LABEL_16:
       goto LABEL_17;
   }
 
-  v15 = 0;
-  sscanf(string, "%04d%02d%02d%c%02d%02d%02d", &v18 + 4, &v18, &v17 + 4, &v15, &v17, &v16 + 4, &v16);
-  if (v15 != 84)
+  v16 = 0;
+  v7 = sscanf(string, "%04d%02d%02d%c%02d%02d%02d", &v19 + 4, &v19, &v18 + 4, &v16, &v18, &v17 + 4, &v17);
+  if (v16 != 84)
   {
-    v12 = VCSLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = VCSLogHandle(v7);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(VCSDate *)string initWithDateString:v12];
+      [(VCSDate *)string initWithDateString:v13];
     }
 
 LABEL_15:
@@ -162,14 +162,14 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v7 = 0;
-  v9 = HIDWORD(v16);
-  v8 = v17;
-  v10 = v16;
+  v8 = 0;
+  v10 = HIDWORD(v17);
+  v9 = v18;
+  v11 = v17;
 LABEL_10:
-  BYTE1(v14) = v7;
-  LOBYTE(v14) = v6;
-  self = [(VCSDate *)self initWithYear:SHIDWORD(v18) month:v18 day:HIDWORD(v17) hour:v8 minute:v9 second:v10 floating:v14 dateOnly:?];
+  BYTE1(v15) = v8;
+  LOBYTE(v15) = v6;
+  self = [(VCSDate *)self initWithYear:SHIDWORD(v19) month:v19 day:HIDWORD(v18) hour:v9 minute:v10 second:v11 floating:v15 dateOnly:?];
   selfCopy = self;
 LABEL_17:
 
@@ -310,11 +310,10 @@ LABEL_17:
 
 - (void)initWithDateString:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_error_impl(&dword_2754C5000, a2, OS_LOG_TYPE_ERROR, "malformed string for VCSDate: %s", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_error_impl(&dword_2754C5000, a2, OS_LOG_TYPE_ERROR, "malformed string for VCSDate: %s", &v2, 0xCu);
 }
 
 @end

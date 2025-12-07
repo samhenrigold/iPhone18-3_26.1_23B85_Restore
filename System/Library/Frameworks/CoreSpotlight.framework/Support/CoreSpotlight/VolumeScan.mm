@@ -11,6 +11,7 @@
 - (id)scanAtLiveFSHandle:(id)handle pathFromMountPoint:(id)point date:(id)date itemHandler:(id)handler completionHandler:(id)completionHandler;
 - (id)scanAtLiveFSHandle:(id)handle pathFromMountPoint:(id)point withCriteria:(id)criteria itemHandler:(id)handler completionHandler:(id)completionHandler;
 - (unint64_t)parentFromOID:(unint64_t)d error:(int *)error;
+- (unsigned)oidPath:(unint64_t *)path fromOID:(unint64_t)d includeLeaf:(BOOL)leaf error:(int *)error;
 - (void)cancelWithToken:(id)token;
 - (void)dealloc;
 @end
@@ -466,7 +467,7 @@ LABEL_7:
   v24[0] = &__kCFBooleanTrue;
   v29[1] = LISearchObjXattrsToReturn;
   v23[0] = off_10003CB08;
-  v23[1] = off_10003CAF8;
+  v23[1] = off_10003CAF8[0];
   v17 = 2;
   v24[1] = [NSArray arrayWithObjects:v23 count:2];
   if (dateCopy)
@@ -651,6 +652,27 @@ LABEL_3:
   }
 
   return v6;
+}
+
+- (unsigned)oidPath:(unint64_t *)path fromOID:(unint64_t)d includeLeaf:(BOOL)leaf error:(int *)error
+{
+  leafCopy = leaf;
+  dCopy = d;
+  v13 = 0;
+  v9 = [(VolumeScan *)self bulkResolveOIDs:&dCopy oidCount:1 error:&v13];
+  v10 = v9;
+  v11 = 0;
+  if (!v13)
+  {
+    v11 = sub_100021A98(v9, dCopy, path, leafCopy, &v13);
+  }
+
+  if (error)
+  {
+    *error = v13;
+  }
+
+  return v11;
 }
 
 - (char)pathFromOID:(unint64_t)d pathBuffer:(char *)buffer pathBufferSize:(unint64_t)size fullPath:(BOOL)path error:(int *)error

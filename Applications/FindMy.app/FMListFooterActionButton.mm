@@ -50,7 +50,7 @@
 
 - (void)touchesEnded:(id)ended withEvent:(id)event
 {
-  sub_10000905C(0, &qword_1006B0C30);
+  sub_10000905C(0, &qword_1006B0C30, UITouch_ptr);
   sub_1000D5BCC();
   v5 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;

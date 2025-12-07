@@ -7,6 +7,7 @@
 - (void)layoutSubviews;
 - (void)stateController:(id)controller didSetStateOfLayer:(id)layer;
 - (void)stateController:(id)controller transitionDidStart:(id)start speed:(float)speed;
+- (void)stateController:(id)controller transitionDidStop:(id)stop completed:(BOOL)completed;
 @end
 
 @implementation ContinuityCaptureShieldUICAPackageView
@@ -239,6 +240,38 @@
   {
     *&v10 = speed;
     [WeakRetained stateController:controllerCopy transitionDidStart:startCopy speed:v10];
+  }
+}
+
+- (void)stateController:(id)controller transitionDidStop:(id)stop completed:(BOOL)completed
+{
+  completedCopy = completed;
+  controllerCopy = controller;
+  stopCopy = stop;
+  v9 = stopCopy;
+  if (self->_pendingCompletion)
+  {
+    toState = [stopCopy toState];
+    v11 = [toState isEqualToString:self->_pendingCompletionToState];
+
+    if (v11)
+    {
+      (*(self->_pendingCompletion + 2))();
+      pendingCompletion = self->_pendingCompletion;
+      self->_pendingCompletion = 0;
+
+      pendingCompletionFromState = self->_pendingCompletionFromState;
+      self->_pendingCompletionFromState = 0;
+
+      pendingCompletionToState = self->_pendingCompletionToState;
+      self->_pendingCompletionToState = 0;
+    }
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_stateControllerDelegate);
+  if (objc_opt_respondsToSelector())
+  {
+    [WeakRetained stateController:controllerCopy transitionDidStop:v9 completed:completedCopy];
   }
 }
 

@@ -195,7 +195,7 @@
 
 - (double)cellBackgroundCornerRadius
 {
-  IsPad = _SFDeviceIsPad();
+  IsPad = _SFDeviceIsPad(self, a2);
   result = 9.22337204e18;
   if (IsPad)
   {

@@ -1,1789 +1,3 @@
-uint64_t HDCodableReferenceRangeReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    while (1)
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v17[0]) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:v17 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v17[0] & 0x7F) << v5;
-        if ((v17[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      if ((v12 >> 3) == 2)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 1)
-      {
-        v13 = PBReaderReadString();
-        v14 = *(a1 + 8);
-        *(a1 + 8) = v13;
-LABEL_23:
-
-        goto LABEL_25;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_25:
-      v15 = [a2 position];
-      if (v15 >= [a2 length])
-      {
-        return [a2 hasError] ^ 1;
-      }
-    }
-
-    v14 = objc_alloc_init(HDCodableInspectableValueCollection);
-    objc_storeStrong((a1 + 16), v14);
-    v17[0] = 0;
-    v17[1] = 0;
-    if (!PBReaderPlaceMark() || !HDCodableInspectableValueCollectionReadFrom(v14, a2))
-    {
-
-      return 0;
-    }
-
-    PBReaderRecallMark();
-    goto LABEL_23;
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-void sub_228B2A470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_228B2AF5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__45(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_228B2BF34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose((v11 - 128), 8);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__46(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_228B2E178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v12 - 120), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_228B2E52C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t HDCloudSyncCodableRegistryReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v31) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v31 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v31 & 0x7F) << v5;
-        if ((v31 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) <= 19)
-      {
-        if (v13 > 2)
-        {
-          if (v13 == 3)
-          {
-            v14 = objc_alloc_init(HDCodableSyncIdentity);
-            [a1 addDisabledSyncIdentities:v14];
-            v31 = 0;
-            v32 = 0;
-            if (!PBReaderPlaceMark() || !HDCodableSyncIdentityReadFrom(v14, a2))
-            {
-LABEL_67:
-
-              return 0;
-            }
-
-LABEL_56:
-            PBReaderRecallMark();
-LABEL_57:
-
-            goto LABEL_58;
-          }
-
-          if (v13 == 10)
-          {
-            v16 = 0;
-            v17 = 0;
-            v18 = 0;
-            *(a1 + 76) |= 2u;
-            while (1)
-            {
-              LOBYTE(v31) = 0;
-              v19 = [a2 position] + 1;
-              if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
-              {
-                v21 = [a2 data];
-                [v21 getBytes:&v31 range:{objc_msgSend(a2, "position"), 1}];
-
-                [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-              }
-
-              else
-              {
-                [a2 _setError];
-              }
-
-              v18 |= (v31 & 0x7F) << v16;
-              if ((v31 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v16 += 7;
-              v11 = v17++ >= 9;
-              if (v11)
-              {
-                LOBYTE(v22) = 0;
-                goto LABEL_63;
-              }
-            }
-
-            v22 = (v18 != 0) & ~[a2 hasError];
-LABEL_63:
-            *(a1 + 72) = v22;
-            goto LABEL_58;
-          }
-        }
-
-        else
-        {
-          if (v13 == 1)
-          {
-            v14 = PBReaderReadString();
-            if (v14)
-            {
-              [a1 addDisabledOwnerIdentifiers:v14];
-            }
-
-            goto LABEL_57;
-          }
-
-          if (v13 == 2)
-          {
-            v14 = objc_alloc_init(HDCloudSyncCodableRegisteredStore);
-            [a1 addStores:v14];
-            v31 = 0;
-            v32 = 0;
-            if (!PBReaderPlaceMark() || !HDCloudSyncCodableRegisteredStoreReadFrom(v14, a2))
-            {
-              goto LABEL_67;
-            }
-
-            goto LABEL_56;
-          }
-        }
-      }
-
-      else if (v13 <= 21)
-      {
-        if (v13 == 20)
-        {
-          v25 = PBReaderReadString();
-          v26 = 32;
-          goto LABEL_52;
-        }
-
-        if (v13 == 21)
-        {
-          *(a1 + 76) |= 1u;
-          v31 = 0;
-          v23 = [a2 position] + 8;
-          if (v23 >= [a2 position] && (v24 = objc_msgSend(a2, "position") + 8, v24 <= objc_msgSend(a2, "length")))
-          {
-            v29 = [a2 data];
-            [v29 getBytes:&v31 range:{objc_msgSend(a2, "position"), 8}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          *(a1 + 8) = v31;
-          goto LABEL_58;
-        }
-      }
-
-      else
-      {
-        switch(v13)
-        {
-          case 0x16:
-            v25 = PBReaderReadString();
-            v26 = 40;
-LABEL_52:
-            v27 = *(a1 + v26);
-            *(a1 + v26) = v25;
-
-            goto LABEL_58;
-          case 0x1E:
-            v14 = objc_alloc_init(HDCloudSyncCodableProfileIdentifier);
-            v15 = 48;
-            goto LABEL_54;
-          case 0x1F:
-            v14 = objc_alloc_init(HDCloudSyncCodableProfileIdentifier);
-            v15 = 56;
-LABEL_54:
-            objc_storeStrong((a1 + v15), v14);
-            v31 = 0;
-            v32 = 0;
-            if (!PBReaderPlaceMark() || !HDCloudSyncCodableProfileIdentifierReadFrom(v14, a2))
-            {
-              goto LABEL_67;
-            }
-
-            goto LABEL_56;
-        }
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_58:
-      v28 = [a2 position];
-    }
-
-    while (v28 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t HDCodableMedicalCodingReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v20 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v20 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v20 & 0x7F) << v5;
-        if ((v20 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      v13 = (v12 >> 3) - 1;
-      if (v13 >= 4)
-      {
-        if ((PBReaderSkipValueWithTag() & 1) == 0)
-        {
-          return 0;
-        }
-      }
-
-      else
-      {
-        v14 = off_27861A288[v13];
-        v15 = PBReaderReadString();
-        v16 = *v14;
-        v17 = *(a1 + v16);
-        *(a1 + v16) = v15;
-      }
-
-      v18 = [a2 position];
-    }
-
-    while (v18 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t HDCloudSyncCodableAttachmentManagementRecordReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v17 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v17 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v17 & 0x7F) << v5;
-        if ((v17 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 1)
-      {
-        v13 = PBReaderReadString();
-        v14 = *(a1 + 8);
-        *(a1 + 8) = v13;
-      }
-
-      else
-      {
-        result = PBReaderSkipValueWithTag();
-        if (!result)
-        {
-          return result;
-        }
-      }
-
-      v16 = [a2 position];
-    }
-
-    while (v16 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-void sub_228B38108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__47(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_228B382F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t HDCodableGeneratedObjectCollectionReadFrom(void *a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v16[0]) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:v16 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v16[0] & 0x7F) << v5;
-        if ((v16[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 273)
-      {
-        v13 = objc_alloc_init(HDCodableMedicationDoseEvent);
-        [a1 addMedicationDoseEvent:v13];
-        v16[0] = 0;
-        v16[1] = 0;
-        if (!PBReaderPlaceMark() || !HDCodableMedicationDoseEventReadFrom(v13, a2))
-        {
-
-          return 0;
-        }
-
-        PBReaderRecallMark();
-      }
-
-      else if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-      v14 = [a2 position];
-    }
-
-    while (v14 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t HDCodableMedicalIDDataReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 >= [a2 length])
-  {
-    return [a2 hasError] ^ 1;
-  }
-
-  while (2)
-  {
-    if ([a2 hasError])
-    {
-      return [a2 hasError] ^ 1;
-    }
-
-    v5 = 0;
-    v6 = 0;
-    v7 = 0;
-    while (1)
-    {
-      LOBYTE(v158) = 0;
-      v8 = [a2 position] + 1;
-      if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-      {
-        v10 = [a2 data];
-        [v10 getBytes:&v158 range:{objc_msgSend(a2, "position"), 1}];
-
-        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-      }
-
-      else
-      {
-        [a2 _setError];
-      }
-
-      v7 |= (v158 & 0x7F) << v5;
-      if ((v158 & 0x80) == 0)
-      {
-        break;
-      }
-
-      v5 += 7;
-      v11 = v6++ >= 9;
-      if (v11)
-      {
-        v12 = 0;
-        goto LABEL_15;
-      }
-    }
-
-    v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-    if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-    {
-      return [a2 hasError] ^ 1;
-    }
-
-    v13 = v12 >> 3;
-    if ((v12 >> 3) <= 99)
-    {
-      switch(v13)
-      {
-        case 1:
-          v54 = PBReaderReadData();
-          v55 = 328;
-LABEL_203:
-          v121 = *(a1 + v55);
-          *(a1 + v55) = v54;
-
-          break;
-        case 2:
-          *(a1 + 404) |= 0x200uLL;
-          v158 = 0;
-          v122 = [a2 position] + 8;
-          if (v122 >= [a2 position] && (v123 = objc_msgSend(a2, "position") + 8, v123 <= objc_msgSend(a2, "length")))
-          {
-            v155 = [a2 data];
-            [v155 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v128 = v158;
-          v129 = 80;
-LABEL_294:
-          *(a1 + v129) = v128;
-          break;
-        case 3:
-          v21 = 0;
-          v22 = 0;
-          v23 = 0;
-          *(a1 + 404) |= 0x100000000uLL;
-          while (1)
-          {
-            LOBYTE(v158) = 0;
-            v24 = [a2 position] + 1;
-            if (v24 >= [a2 position] && (v25 = objc_msgSend(a2, "position") + 1, v25 <= objc_msgSend(a2, "length")))
-            {
-              v26 = [a2 data];
-              [v26 getBytes:&v158 range:{objc_msgSend(a2, "position"), 1}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v23 |= (v158 & 0x7F) << v21;
-            if ((v158 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v21 += 7;
-            v11 = v22++ >= 9;
-            if (v11)
-            {
-              v27 = 0;
-              goto LABEL_238;
-            }
-          }
-
-          if ([a2 hasError])
-          {
-            v27 = 0;
-          }
-
-          else
-          {
-            v27 = v23;
-          }
-
-LABEL_238:
-          v126 = 384;
-LABEL_239:
-          *(a1 + v126) = v27;
-          break;
-        default:
-LABEL_207:
-          if ((PBReaderSkipValueWithTag() & 1) == 0)
-          {
-            return 0;
-          }
-
-          break;
-      }
-
-      goto LABEL_295;
-    }
-
-    switch(v13)
-    {
-      case 100:
-        v14 = 0;
-        v15 = 0;
-        v16 = 0;
-        *(a1 + 404) |= 0x200000000uLL;
-        while (1)
-        {
-          LOBYTE(v158) = 0;
-          v17 = [a2 position] + 1;
-          if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
-          {
-            v19 = [a2 data];
-            [v19 getBytes:&v158 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v16 |= (v158 & 0x7F) << v14;
-          if ((v158 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v14 += 7;
-          v11 = v15++ >= 9;
-          if (v11)
-          {
-            LOBYTE(v20) = 0;
-            goto LABEL_224;
-          }
-        }
-
-        v20 = (v16 != 0) & ~[a2 hasError];
-LABEL_224:
-        v124 = 400;
-        goto LABEL_225;
-      case 101:
-        *(a1 + 404) |= 0x2000uLL;
-        v158 = 0;
-        v74 = [a2 position] + 8;
-        if (v74 >= [a2 position] && (v75 = objc_msgSend(a2, "position") + 8, v75 <= objc_msgSend(a2, "length")))
-        {
-          v138 = [a2 data];
-          [v138 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 112;
-        goto LABEL_294;
-      case 102:
-        v54 = PBReaderReadData();
-        v55 = 368;
-        goto LABEL_203;
-      case 103:
-        *(a1 + 404) |= 0x800000uLL;
-        v158 = 0;
-        v72 = [a2 position] + 8;
-        if (v72 >= [a2 position] && (v73 = objc_msgSend(a2, "position") + 8, v73 <= objc_msgSend(a2, "length")))
-        {
-          v137 = [a2 data];
-          [v137 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 192;
-        goto LABEL_294;
-      case 104:
-        v54 = PBReaderReadString();
-        v55 = 360;
-        goto LABEL_203;
-      case 105:
-        *(a1 + 404) |= 0x400000uLL;
-        v158 = 0;
-        v76 = [a2 position] + 8;
-        if (v76 >= [a2 position] && (v77 = objc_msgSend(a2, "position") + 8, v77 <= objc_msgSend(a2, "length")))
-        {
-          v139 = [a2 data];
-          [v139 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 184;
-        goto LABEL_294;
-      case 106:
-        v53 = objc_alloc_init(HDCodableDateComponents);
-        objc_storeStrong((a1 + 304), v53);
-        v158 = 0;
-        v159 = 0;
-        if (!PBReaderPlaceMark() || !HDCodableDateComponentsReadFrom(v53, a2))
-        {
-          goto LABEL_297;
-        }
-
-        goto LABEL_195;
-      case 107:
-        *(a1 + 404) |= 0x800uLL;
-        v158 = 0;
-        v80 = [a2 position] + 8;
-        if (v80 >= [a2 position] && (v81 = objc_msgSend(a2, "position") + 8, v81 <= objc_msgSend(a2, "length")))
-        {
-          v141 = [a2 data];
-          [v141 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 96;
-        goto LABEL_294;
-      case 108:
-        v53 = objc_alloc_init(HDCodableQuantity);
-        v82 = 312;
-        goto LABEL_136;
-      case 109:
-        *(a1 + 404) |= 0x1000uLL;
-        v158 = 0;
-        v70 = [a2 position] + 8;
-        if (v70 >= [a2 position] && (v71 = objc_msgSend(a2, "position") + 8, v71 <= objc_msgSend(a2, "length")))
-        {
-          v136 = [a2 data];
-          [v136 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 104;
-        goto LABEL_294;
-      case 110:
-        v53 = objc_alloc_init(HDCodableQuantity);
-        v82 = 392;
-LABEL_136:
-        objc_storeStrong((a1 + v82), v53);
-        v158 = 0;
-        v159 = 0;
-        if (!PBReaderPlaceMark() || !HDCodableQuantityReadFrom(v53, a2))
-        {
-          goto LABEL_297;
-        }
-
-        goto LABEL_195;
-      case 111:
-        *(a1 + 404) |= 0x40000000uLL;
-        v158 = 0;
-        v62 = [a2 position] + 8;
-        if (v62 >= [a2 position] && (v63 = objc_msgSend(a2, "position") + 8, v63 <= objc_msgSend(a2, "length")))
-        {
-          v135 = [a2 data];
-          [v135 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 248;
-        goto LABEL_294;
-      case 112:
-        v85 = 0;
-        v86 = 0;
-        v87 = 0;
-        *(a1 + 404) |= 0x80000000uLL;
-        while (1)
-        {
-          LOBYTE(v158) = 0;
-          v88 = [a2 position] + 1;
-          if (v88 >= [a2 position] && (v89 = objc_msgSend(a2, "position") + 1, v89 <= objc_msgSend(a2, "length")))
-          {
-            v90 = [a2 data];
-            [v90 getBytes:&v158 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v87 |= (v158 & 0x7F) << v85;
-          if ((v158 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v85 += 7;
-          v11 = v86++ >= 9;
-          if (v11)
-          {
-            v27 = 0;
-            goto LABEL_229;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v27 = 0;
-        }
-
-        else
-        {
-          v27 = v87;
-        }
-
-LABEL_229:
-        v126 = 272;
-        goto LABEL_239;
-      case 113:
-        *(a1 + 404) |= 0x10uLL;
-        v158 = 0;
-        v103 = [a2 position] + 8;
-        if (v103 >= [a2 position] && (v104 = objc_msgSend(a2, "position") + 8, v104 <= objc_msgSend(a2, "length")))
-        {
-          v146 = [a2 data];
-          [v146 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 40;
-        goto LABEL_294;
-      case 114:
-        v56 = 0;
-        v57 = 0;
-        v58 = 0;
-        *(a1 + 404) |= 0x4000uLL;
-        while (1)
-        {
-          LOBYTE(v158) = 0;
-          v59 = [a2 position] + 1;
-          if (v59 >= [a2 position] && (v60 = objc_msgSend(a2, "position") + 1, v60 <= objc_msgSend(a2, "length")))
-          {
-            v61 = [a2 data];
-            [v61 getBytes:&v158 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v58 |= (v158 & 0x7F) << v56;
-          if ((v158 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v56 += 7;
-          v11 = v57++ >= 9;
-          if (v11)
-          {
-            v48 = 0;
-            goto LABEL_218;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v48 = 0;
-        }
-
-        else
-        {
-          v48 = v58;
-        }
-
-LABEL_218:
-        v125 = 120;
-        goto LABEL_234;
-      case 115:
-        *(a1 + 404) |= 0x8000uLL;
-        v158 = 0;
-        v40 = [a2 position] + 8;
-        if (v40 >= [a2 position] && (v41 = objc_msgSend(a2, "position") + 8, v41 <= objc_msgSend(a2, "length")))
-        {
-          v132 = [a2 data];
-          [v132 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 128;
-        goto LABEL_294;
-      case 116:
-        v53 = objc_alloc_init(HDCodableEmergencyContact);
-        [a1 addEmergencyContacts:v53];
-        v158 = 0;
-        v159 = 0;
-        if (!PBReaderPlaceMark() || !HDCodableEmergencyContactReadFrom(v53, a2))
-        {
-          goto LABEL_297;
-        }
-
-        goto LABEL_195;
-      case 117:
-        *(a1 + 404) |= 0x400uLL;
-        v158 = 0;
-        v78 = [a2 position] + 8;
-        if (v78 >= [a2 position] && (v79 = objc_msgSend(a2, "position") + 8, v79 <= objc_msgSend(a2, "length")))
-        {
-          v140 = [a2 data];
-          [v140 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 88;
-        goto LABEL_294;
-      case 118:
-        v53 = objc_alloc_init(HDCodableClinicalContact);
-        [a1 addClinicalContacts:v53];
-        v158 = 0;
-        v159 = 0;
-        if (!PBReaderPlaceMark() || !HDCodableClinicalContactReadFrom(v53, a2))
-        {
-          goto LABEL_297;
-        }
-
-        goto LABEL_195;
-      case 119:
-        *(a1 + 404) |= 0x20uLL;
-        v158 = 0;
-        v99 = [a2 position] + 8;
-        if (v99 >= [a2 position] && (v100 = objc_msgSend(a2, "position") + 8, v100 <= objc_msgSend(a2, "length")))
-        {
-          v144 = [a2 data];
-          [v144 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 48;
-        goto LABEL_294;
-      case 120:
-        v54 = PBReaderReadString();
-        v55 = 320;
-        goto LABEL_203;
-      case 121:
-        *(a1 + 404) |= 0x10000uLL;
-        v158 = 0;
-        v83 = [a2 position] + 8;
-        if (v83 >= [a2 position] && (v84 = objc_msgSend(a2, "position") + 8, v84 <= objc_msgSend(a2, "length")))
-        {
-          v142 = [a2 data];
-          [v142 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 136;
-        goto LABEL_294;
-      case 122:
-        v54 = PBReaderReadString();
-        v55 = 336;
-        goto LABEL_203;
-      case 123:
-        *(a1 + 404) |= 0x20000uLL;
-        v158 = 0;
-        v101 = [a2 position] + 8;
-        if (v101 >= [a2 position] && (v102 = objc_msgSend(a2, "position") + 8, v102 <= objc_msgSend(a2, "length")))
-        {
-          v145 = [a2 data];
-          [v145 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 144;
-        goto LABEL_294;
-      case 124:
-        v54 = PBReaderReadString();
-        v55 = 264;
-        goto LABEL_203;
-      case 125:
-        *(a1 + 404) |= 8uLL;
-        v158 = 0;
-        v38 = [a2 position] + 8;
-        if (v38 >= [a2 position] && (v39 = objc_msgSend(a2, "position") + 8, v39 <= objc_msgSend(a2, "length")))
-        {
-          v131 = [a2 data];
-          [v131 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 32;
-        goto LABEL_294;
-      case 126:
-        v54 = PBReaderReadString();
-        v55 = 344;
-        goto LABEL_203;
-      case 127:
-        *(a1 + 404) |= 0x40000uLL;
-        v158 = 0;
-        v49 = [a2 position] + 8;
-        if (v49 >= [a2 position] && (v50 = objc_msgSend(a2, "position") + 8, v50 <= objc_msgSend(a2, "length")))
-        {
-          v133 = [a2 data];
-          [v133 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 152;
-        goto LABEL_294;
-      case 128:
-        v30 = 0;
-        v31 = 0;
-        v32 = 0;
-        *(a1 + 404) |= 0x400000000uLL;
-        while (1)
-        {
-          LOBYTE(v158) = 0;
-          v33 = [a2 position] + 1;
-          if (v33 >= [a2 position] && (v34 = objc_msgSend(a2, "position") + 1, v34 <= objc_msgSend(a2, "length")))
-          {
-            v35 = [a2 data];
-            [v35 getBytes:&v158 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v32 |= (v158 & 0x7F) << v30;
-          if ((v158 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v30 += 7;
-          v11 = v31++ >= 9;
-          if (v11)
-          {
-            LOBYTE(v20) = 0;
-            goto LABEL_210;
-          }
-        }
-
-        v20 = (v32 != 0) & ~[a2 hasError];
-LABEL_210:
-        v124 = 401;
-LABEL_225:
-        *(a1 + v124) = v20;
-        goto LABEL_295;
-      case 129:
-        *(a1 + 404) |= 0x20000000uLL;
-        v158 = 0;
-        v109 = [a2 position] + 8;
-        if (v109 >= [a2 position] && (v110 = objc_msgSend(a2, "position") + 8, v110 <= objc_msgSend(a2, "length")))
-        {
-          v149 = [a2 data];
-          [v149 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 240;
-        goto LABEL_294;
-      case 130:
-        v54 = PBReaderReadString();
-        v55 = 376;
-        goto LABEL_203;
-      case 131:
-        *(a1 + 404) |= 0x10000000uLL;
-        v158 = 0;
-        v51 = [a2 position] + 8;
-        if (v51 >= [a2 position] && (v52 = objc_msgSend(a2, "position") + 8, v52 <= objc_msgSend(a2, "length")))
-        {
-          v134 = [a2 data];
-          [v134 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 232;
-        goto LABEL_294;
-      case 132:
-        *(a1 + 404) |= 0x4000000uLL;
-        v158 = 0;
-        v111 = [a2 position] + 8;
-        if (v111 >= [a2 position] && (v112 = objc_msgSend(a2, "position") + 8, v112 <= objc_msgSend(a2, "length")))
-        {
-          v150 = [a2 data];
-          [v150 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 216;
-        goto LABEL_294;
-      case 133:
-        *(a1 + 404) |= 0x8000000uLL;
-        v158 = 0;
-        v113 = [a2 position] + 8;
-        if (v113 >= [a2 position] && (v114 = objc_msgSend(a2, "position") + 8, v114 <= objc_msgSend(a2, "length")))
-        {
-          v151 = [a2 data];
-          [v151 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 224;
-        goto LABEL_294;
-      case 136:
-        *(a1 + 404) |= 0x1000000uLL;
-        v158 = 0;
-        v97 = [a2 position] + 8;
-        if (v97 >= [a2 position] && (v98 = objc_msgSend(a2, "position") + 8, v98 <= objc_msgSend(a2, "length")))
-        {
-          v143 = [a2 data];
-          [v143 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 200;
-        goto LABEL_294;
-      case 137:
-        *(a1 + 404) |= 0x2000000uLL;
-        v158 = 0;
-        v105 = [a2 position] + 8;
-        if (v105 >= [a2 position] && (v106 = objc_msgSend(a2, "position") + 8, v106 <= objc_msgSend(a2, "length")))
-        {
-          v147 = [a2 data];
-          [v147 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 208;
-        goto LABEL_294;
-      case 138:
-        v53 = objc_alloc_init(HDCodableMedicalIDMedication);
-        [a1 addMedicationsList:v53];
-        v158 = 0;
-        v159 = 0;
-        if (PBReaderPlaceMark() && HDCodableMedicalIDMedicationReadFrom(v53, a2))
-        {
-          goto LABEL_195;
-        }
-
-        goto LABEL_297;
-      case 139:
-        *(a1 + 404) |= 0x80000uLL;
-        v158 = 0;
-        v28 = [a2 position] + 8;
-        if (v28 >= [a2 position] && (v29 = objc_msgSend(a2, "position") + 8, v29 <= objc_msgSend(a2, "length")))
-        {
-          v127 = [a2 data];
-          [v127 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 160;
-        goto LABEL_294;
-      case 140:
-        v42 = 0;
-        v43 = 0;
-        v44 = 0;
-        *(a1 + 404) |= 0x100000uLL;
-        while (1)
-        {
-          LOBYTE(v158) = 0;
-          v45 = [a2 position] + 1;
-          if (v45 >= [a2 position] && (v46 = objc_msgSend(a2, "position") + 1, v46 <= objc_msgSend(a2, "length")))
-          {
-            v47 = [a2 data];
-            [v47 getBytes:&v158 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v44 |= (v158 & 0x7F) << v42;
-          if ((v158 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v42 += 7;
-          v11 = v43++ >= 9;
-          if (v11)
-          {
-            v48 = 0;
-            goto LABEL_214;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v48 = 0;
-        }
-
-        else
-        {
-          v48 = v44;
-        }
-
-LABEL_214:
-        v125 = 168;
-        goto LABEL_234;
-      case 141:
-        *(a1 + 404) |= 0x200000uLL;
-        v158 = 0;
-        v115 = [a2 position] + 8;
-        if (v115 >= [a2 position] && (v116 = objc_msgSend(a2, "position") + 8, v116 <= objc_msgSend(a2, "length")))
-        {
-          v152 = [a2 data];
-          [v152 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 176;
-        goto LABEL_294;
-      case 142:
-        v53 = objc_alloc_init(HDCodableMedicalIDAllergy);
-        [a1 addAllergiesList:v53];
-        v158 = 0;
-        v159 = 0;
-        if (!PBReaderPlaceMark() || !HDCodableMedicalIDAllergyReadFrom(v53, a2))
-        {
-          goto LABEL_297;
-        }
-
-        goto LABEL_195;
-      case 143:
-        *(a1 + 404) |= 1uLL;
-        v158 = 0;
-        v36 = [a2 position] + 8;
-        if (v36 >= [a2 position] && (v37 = objc_msgSend(a2, "position") + 8, v37 <= objc_msgSend(a2, "length")))
-        {
-          v130 = [a2 data];
-          [v130 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 8;
-        goto LABEL_294;
-      case 144:
-        v64 = 0;
-        v65 = 0;
-        v66 = 0;
-        *(a1 + 404) |= 2uLL;
-        while (1)
-        {
-          LOBYTE(v158) = 0;
-          v67 = [a2 position] + 1;
-          if (v67 >= [a2 position] && (v68 = objc_msgSend(a2, "position") + 1, v68 <= objc_msgSend(a2, "length")))
-          {
-            v69 = [a2 data];
-            [v69 getBytes:&v158 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v66 |= (v158 & 0x7F) << v64;
-          if ((v158 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v64 += 7;
-          v11 = v65++ >= 9;
-          if (v11)
-          {
-            v48 = 0;
-            goto LABEL_222;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v48 = 0;
-        }
-
-        else
-        {
-          v48 = v66;
-        }
-
-LABEL_222:
-        v125 = 16;
-        goto LABEL_234;
-      case 145:
-        *(a1 + 404) |= 4uLL;
-        v158 = 0;
-        v117 = [a2 position] + 8;
-        if (v117 >= [a2 position] && (v118 = objc_msgSend(a2, "position") + 8, v118 <= objc_msgSend(a2, "length")))
-        {
-          v153 = [a2 data];
-          [v153 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 24;
-        goto LABEL_294;
-      case 146:
-        v53 = objc_alloc_init(HDCodableMedicalIDCondition);
-        [a1 addConditionsList:v53];
-        v158 = 0;
-        v159 = 0;
-        if (PBReaderPlaceMark() && HDCodableMedicalIDConditionReadFrom(v53, a2))
-        {
-LABEL_195:
-          PBReaderRecallMark();
-
-LABEL_295:
-          v156 = [a2 position];
-          if (v156 >= [a2 length])
-          {
-            return [a2 hasError] ^ 1;
-          }
-
-          continue;
-        }
-
-LABEL_297:
-
-        return 0;
-      case 147:
-        *(a1 + 404) |= 0x40uLL;
-        v158 = 0;
-        v107 = [a2 position] + 8;
-        if (v107 >= [a2 position] && (v108 = objc_msgSend(a2, "position") + 8, v108 <= objc_msgSend(a2, "length")))
-        {
-          v148 = [a2 data];
-          [v148 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 56;
-        goto LABEL_294;
-      case 148:
-        v91 = 0;
-        v92 = 0;
-        v93 = 0;
-        *(a1 + 404) |= 0x80uLL;
-        while (1)
-        {
-          LOBYTE(v158) = 0;
-          v94 = [a2 position] + 1;
-          if (v94 >= [a2 position] && (v95 = objc_msgSend(a2, "position") + 1, v95 <= objc_msgSend(a2, "length")))
-          {
-            v96 = [a2 data];
-            [v96 getBytes:&v158 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v93 |= (v158 & 0x7F) << v91;
-          if ((v158 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v91 += 7;
-          v11 = v92++ >= 9;
-          if (v11)
-          {
-            v48 = 0;
-            goto LABEL_233;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v48 = 0;
-        }
-
-        else
-        {
-          v48 = v93;
-        }
-
-LABEL_233:
-        v125 = 64;
-LABEL_234:
-        *(a1 + v125) = v48;
-        goto LABEL_295;
-      case 149:
-        *(a1 + 404) |= 0x100uLL;
-        v158 = 0;
-        v119 = [a2 position] + 8;
-        if (v119 >= [a2 position] && (v120 = objc_msgSend(a2, "position") + 8, v120 <= objc_msgSend(a2, "length")))
-        {
-          v154 = [a2 data];
-          [v154 getBytes:&v158 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v128 = v158;
-        v129 = 72;
-        goto LABEL_294;
-      default:
-        goto LABEL_207;
-    }
-  }
-}
-
 uint64_t _HDAddFrozenAndExpectedSyncAnchorColumns(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v5 = [a2 unprotectedDatabase];
@@ -1826,20 +40,19 @@ uint64_t _HDAddSourceOwnerBundleIdentifierAndDropSyncPrimary(uint64_t a1, void *
 
 uint64_t _HDAddSourceOrderModificationDate(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v11[5] = *MEMORY[0x277D85DE8];
+  v10[5] = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v11[0] = @"CREATE TABLE datatype_source_order_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, data_type INTEGER NOT NULL, source INTEGER NOT NULL REFERENCES sources (ROWID) ON DELETE CASCADE, user_preferred INTEGER NOT NULL, provenance INTEGER NOT NULL, modification_date REAL NOT NULL);";
+  v10[0] = @"CREATE TABLE datatype_source_order_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, data_type INTEGER NOT NULL, source INTEGER NOT NULL REFERENCES sources (ROWID) ON DELETE CASCADE, user_preferred INTEGER NOT NULL, provenance INTEGER NOT NULL, modification_date REAL NOT NULL);";
   v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO datatype_source_order_new (data_type, source, user_preferred, provenance, modification_date) SELECT data_type, source, user_preferred, provenance, %lf FROM datatype_source_order ORDER BY ROWID ASC", CFAbsoluteTimeGetCurrent()];
-  v11[1] = v6;
-  v11[2] = @"DROP TABLE datatype_source_order";
-  v11[3] = @"ALTER TABLE datatype_source_order_new RENAME TO datatype_source_order";
-  v11[4] = @"CREATE INDEX datatype_source_order_data_type ON datatype_source_order (data_type, ROWID)";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:5];
+  v10[1] = v6;
+  v10[2] = @"DROP TABLE datatype_source_order";
+  v10[3] = @"ALTER TABLE datatype_source_order_new RENAME TO datatype_source_order";
+  v10[4] = @"CREATE INDEX datatype_source_order_data_type ON datatype_source_order (data_type, ROWID)";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:5];
 
   v8 = [v5 unprotectedDatabase];
 
   LODWORD(a4) = [v8 executeSQLStatements:v7 error:a4];
-  v9 = *MEMORY[0x277D85DE8];
   return a4 ^ 1;
 }
 
@@ -1961,7 +174,7 @@ uint64_t _HDUpdateVaccinationRecordColumnNames(uint64_t a1, void *a2, uint64_t a
 
 uint64_t _HDMoveClinicalCredentialsToKeychain(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 protectedDatabase];
   v7 = [v6 executeSQLStatements:&unk_283CAE980 error:a4];
@@ -1969,9 +182,9 @@ uint64_t _HDMoveClinicalCredentialsToKeychain(uint64_t a1, void *a2, uint64_t a3
   if (v7)
   {
     v8 = objc_alloc_init(HDLegacyClinicalCredentialManager);
-    v16 = 0;
-    v9 = [(HDLegacyClinicalCredentialManager *)v8 deleteCredentialKeyFromKeychainWithError:&v16];
-    v10 = v16;
+    v15 = 0;
+    v9 = [(HDLegacyClinicalCredentialManager *)v8 deleteCredentialKeyFromKeychainWithError:&v15];
+    v10 = v15;
     if (!v9)
     {
       _HKInitializeLogging();
@@ -1979,7 +192,7 @@ uint64_t _HDMoveClinicalCredentialsToKeychain(uint64_t a1, void *a2, uint64_t a3
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v18 = v10;
+        v17 = v10;
         _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "Failed to delete credential key from keychain during migration: %{public}@", buf, 0xCu);
       }
     }
@@ -1993,13 +206,12 @@ uint64_t _HDMoveClinicalCredentialsToKeychain(uint64_t a1, void *a2, uint64_t a3
     v13 = 1;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 uint64_t _HDRemoveMenstrualCycleDaySummaryTable(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = [a2 protectedDatabase];
   v6 = [v5 dumpSchemaWithError:a4];
   if (v6)
@@ -2015,9 +227,9 @@ uint64_t _HDRemoveMenstrualCycleDaySummaryTable(uint64_t a1, void *a2, uint64_t 
       v8 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_INFO))
       {
-        v11 = 138412290;
-        v12 = @"menstrual_cycle_day_summary_samples";
-        _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_INFO, "Skipping deletion from nonexistent table %@", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = @"menstrual_cycle_day_summary_samples";
+        _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_INFO, "Skipping deletion from nonexistent table %@", &v10, 0xCu);
       }
 
       v7 = 0;
@@ -2029,7 +241,6 @@ uint64_t _HDRemoveMenstrualCycleDaySummaryTable(uint64_t a1, void *a2, uint64_t 
     v7 = 1;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -2352,6 +563,13 @@ LABEL_34:
   return [a2 hasError] ^ 1;
 }
 
+void sub_228B5071C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__48(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -2441,9 +659,9 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_228B55794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228B55794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2647,23 +865,23 @@ LABEL_51:
   return [a2 hasError] ^ 1;
 }
 
-void sub_228B578CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_228B578CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228B5887C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228B5887C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2676,11 +894,11 @@ uint64_t __Block_byref_object_copy__50(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228B591AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228B591AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2691,17 +909,17 @@ uint64_t __Block_byref_object_copy__51(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228B59534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_228B59534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v14 - 120), 8);
+  _Block_object_dispose((v21 - 120), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228B5DDA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_228B5DDA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2713,9 +931,9 @@ uint64_t __Block_byref_object_copy__52(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228B5E028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_228B5E028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2825,165 +1043,163 @@ LABEL_15:
 
 id _EntityClasses()
 {
-  v3[130] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v3[5] = objc_opt_class();
-  v3[6] = objc_opt_class();
-  v3[7] = objc_opt_class();
-  v3[8] = objc_opt_class();
-  v3[9] = objc_opt_class();
-  v3[10] = objc_opt_class();
-  v3[11] = objc_opt_class();
-  v3[12] = objc_opt_class();
-  v3[13] = objc_opt_class();
-  v3[14] = objc_opt_class();
-  v3[15] = objc_opt_class();
-  v3[16] = objc_opt_class();
-  v3[17] = objc_opt_class();
-  v3[18] = objc_opt_class();
-  v3[19] = objc_opt_class();
-  v3[20] = objc_opt_class();
-  v3[21] = objc_opt_class();
-  v3[22] = objc_opt_class();
-  v3[23] = objc_opt_class();
-  v3[24] = objc_opt_class();
-  v3[25] = objc_opt_class();
-  v3[26] = objc_opt_class();
-  v3[27] = objc_opt_class();
-  v3[28] = objc_opt_class();
-  v3[29] = objc_opt_class();
-  v3[30] = objc_opt_class();
-  v3[31] = objc_opt_class();
-  v3[32] = objc_opt_class();
-  v3[33] = objc_opt_class();
-  v3[34] = objc_opt_class();
-  v3[35] = objc_opt_class();
-  v3[36] = objc_opt_class();
-  v3[37] = objc_opt_class();
-  v3[38] = objc_opt_class();
-  v3[39] = objc_opt_class();
-  v3[40] = objc_opt_class();
-  v3[41] = objc_opt_class();
-  v3[42] = objc_opt_class();
-  v3[43] = objc_opt_class();
-  v3[44] = objc_opt_class();
-  v3[45] = objc_opt_class();
-  v3[46] = objc_opt_class();
-  v3[47] = objc_opt_class();
-  v3[48] = objc_opt_class();
-  v3[49] = objc_opt_class();
-  v3[50] = objc_opt_class();
-  v3[51] = objc_opt_class();
-  v3[52] = objc_opt_class();
-  v3[53] = objc_opt_class();
-  v3[54] = objc_opt_class();
-  v3[55] = objc_opt_class();
-  v3[56] = objc_opt_class();
-  v3[57] = objc_opt_class();
-  v3[58] = objc_opt_class();
-  v3[59] = objc_opt_class();
-  v3[60] = objc_opt_class();
-  v3[61] = objc_opt_class();
-  v3[62] = objc_opt_class();
-  v3[63] = objc_opt_class();
-  v3[64] = objc_opt_class();
-  v3[65] = objc_opt_class();
-  v3[66] = objc_opt_class();
-  v3[67] = objc_opt_class();
-  v3[68] = objc_opt_class();
-  v3[69] = objc_opt_class();
-  v3[70] = objc_opt_class();
-  v3[71] = objc_opt_class();
-  v3[72] = objc_opt_class();
-  v3[73] = objc_opt_class();
-  v3[74] = objc_opt_class();
-  v3[75] = objc_opt_class();
-  v3[76] = objc_opt_class();
-  v3[77] = objc_opt_class();
-  v3[78] = objc_opt_class();
-  v3[79] = objc_opt_class();
-  v3[80] = objc_opt_class();
-  v3[81] = objc_opt_class();
-  v3[82] = objc_opt_class();
-  v3[83] = objc_opt_class();
-  v3[84] = objc_opt_class();
-  v3[85] = objc_opt_class();
-  v3[86] = objc_opt_class();
-  v3[87] = objc_opt_class();
-  v3[88] = objc_opt_class();
-  v3[89] = objc_opt_class();
-  v3[90] = objc_opt_class();
-  v3[91] = objc_opt_class();
-  v3[92] = objc_opt_class();
-  v3[93] = objc_opt_class();
-  v3[94] = objc_opt_class();
-  v3[95] = objc_opt_class();
-  v3[96] = objc_opt_class();
-  v3[97] = objc_opt_class();
-  v3[98] = objc_opt_class();
-  v3[99] = objc_opt_class();
-  v3[100] = objc_opt_class();
-  v3[101] = objc_opt_class();
-  v3[102] = objc_opt_class();
-  v3[103] = objc_opt_class();
-  v3[104] = objc_opt_class();
-  v3[105] = objc_opt_class();
-  v3[106] = objc_opt_class();
-  v3[107] = objc_opt_class();
-  v3[108] = objc_opt_class();
-  v3[109] = objc_opt_class();
-  v3[110] = objc_opt_class();
-  v3[111] = objc_opt_class();
-  v3[112] = objc_opt_class();
-  v3[113] = objc_opt_class();
-  v3[114] = objc_opt_class();
-  v3[115] = objc_opt_class();
-  v3[116] = objc_opt_class();
-  v3[117] = objc_opt_class();
-  v3[118] = objc_opt_class();
-  v3[119] = objc_opt_class();
-  v3[120] = objc_opt_class();
-  v3[121] = objc_opt_class();
-  v3[122] = objc_opt_class();
-  v3[123] = objc_opt_class();
-  v3[124] = objc_opt_class();
-  v3[125] = objc_opt_class();
-  v3[126] = objc_opt_class();
-  v3[127] = objc_opt_class();
-  v3[128] = objc_opt_class();
-  v3[129] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:130];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[130] = *MEMORY[0x277D85DE8];
+  v2[0] = objc_opt_class();
+  v2[1] = objc_opt_class();
+  v2[2] = objc_opt_class();
+  v2[3] = objc_opt_class();
+  v2[4] = objc_opt_class();
+  v2[5] = objc_opt_class();
+  v2[6] = objc_opt_class();
+  v2[7] = objc_opt_class();
+  v2[8] = objc_opt_class();
+  v2[9] = objc_opt_class();
+  v2[10] = objc_opt_class();
+  v2[11] = objc_opt_class();
+  v2[12] = objc_opt_class();
+  v2[13] = objc_opt_class();
+  v2[14] = objc_opt_class();
+  v2[15] = objc_opt_class();
+  v2[16] = objc_opt_class();
+  v2[17] = objc_opt_class();
+  v2[18] = objc_opt_class();
+  v2[19] = objc_opt_class();
+  v2[20] = objc_opt_class();
+  v2[21] = objc_opt_class();
+  v2[22] = objc_opt_class();
+  v2[23] = objc_opt_class();
+  v2[24] = objc_opt_class();
+  v2[25] = objc_opt_class();
+  v2[26] = objc_opt_class();
+  v2[27] = objc_opt_class();
+  v2[28] = objc_opt_class();
+  v2[29] = objc_opt_class();
+  v2[30] = objc_opt_class();
+  v2[31] = objc_opt_class();
+  v2[32] = objc_opt_class();
+  v2[33] = objc_opt_class();
+  v2[34] = objc_opt_class();
+  v2[35] = objc_opt_class();
+  v2[36] = objc_opt_class();
+  v2[37] = objc_opt_class();
+  v2[38] = objc_opt_class();
+  v2[39] = objc_opt_class();
+  v2[40] = objc_opt_class();
+  v2[41] = objc_opt_class();
+  v2[42] = objc_opt_class();
+  v2[43] = objc_opt_class();
+  v2[44] = objc_opt_class();
+  v2[45] = objc_opt_class();
+  v2[46] = objc_opt_class();
+  v2[47] = objc_opt_class();
+  v2[48] = objc_opt_class();
+  v2[49] = objc_opt_class();
+  v2[50] = objc_opt_class();
+  v2[51] = objc_opt_class();
+  v2[52] = objc_opt_class();
+  v2[53] = objc_opt_class();
+  v2[54] = objc_opt_class();
+  v2[55] = objc_opt_class();
+  v2[56] = objc_opt_class();
+  v2[57] = objc_opt_class();
+  v2[58] = objc_opt_class();
+  v2[59] = objc_opt_class();
+  v2[60] = objc_opt_class();
+  v2[61] = objc_opt_class();
+  v2[62] = objc_opt_class();
+  v2[63] = objc_opt_class();
+  v2[64] = objc_opt_class();
+  v2[65] = objc_opt_class();
+  v2[66] = objc_opt_class();
+  v2[67] = objc_opt_class();
+  v2[68] = objc_opt_class();
+  v2[69] = objc_opt_class();
+  v2[70] = objc_opt_class();
+  v2[71] = objc_opt_class();
+  v2[72] = objc_opt_class();
+  v2[73] = objc_opt_class();
+  v2[74] = objc_opt_class();
+  v2[75] = objc_opt_class();
+  v2[76] = objc_opt_class();
+  v2[77] = objc_opt_class();
+  v2[78] = objc_opt_class();
+  v2[79] = objc_opt_class();
+  v2[80] = objc_opt_class();
+  v2[81] = objc_opt_class();
+  v2[82] = objc_opt_class();
+  v2[83] = objc_opt_class();
+  v2[84] = objc_opt_class();
+  v2[85] = objc_opt_class();
+  v2[86] = objc_opt_class();
+  v2[87] = objc_opt_class();
+  v2[88] = objc_opt_class();
+  v2[89] = objc_opt_class();
+  v2[90] = objc_opt_class();
+  v2[91] = objc_opt_class();
+  v2[92] = objc_opt_class();
+  v2[93] = objc_opt_class();
+  v2[94] = objc_opt_class();
+  v2[95] = objc_opt_class();
+  v2[96] = objc_opt_class();
+  v2[97] = objc_opt_class();
+  v2[98] = objc_opt_class();
+  v2[99] = objc_opt_class();
+  v2[100] = objc_opt_class();
+  v2[101] = objc_opt_class();
+  v2[102] = objc_opt_class();
+  v2[103] = objc_opt_class();
+  v2[104] = objc_opt_class();
+  v2[105] = objc_opt_class();
+  v2[106] = objc_opt_class();
+  v2[107] = objc_opt_class();
+  v2[108] = objc_opt_class();
+  v2[109] = objc_opt_class();
+  v2[110] = objc_opt_class();
+  v2[111] = objc_opt_class();
+  v2[112] = objc_opt_class();
+  v2[113] = objc_opt_class();
+  v2[114] = objc_opt_class();
+  v2[115] = objc_opt_class();
+  v2[116] = objc_opt_class();
+  v2[117] = objc_opt_class();
+  v2[118] = objc_opt_class();
+  v2[119] = objc_opt_class();
+  v2[120] = objc_opt_class();
+  v2[121] = objc_opt_class();
+  v2[122] = objc_opt_class();
+  v2[123] = objc_opt_class();
+  v2[124] = objc_opt_class();
+  v2[125] = objc_opt_class();
+  v2[126] = objc_opt_class();
+  v2[127] = objc_opt_class();
+  v2[128] = objc_opt_class();
+  v2[129] = objc_opt_class();
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:130];
 
   return v0;
 }
 
 id _FutureEntityClasses()
 {
-  v3[3] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:3];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[3] = *MEMORY[0x277D85DE8];
+  v2[0] = objc_opt_class();
+  v2[1] = objc_opt_class();
+  v2[2] = objc_opt_class();
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:3];
 
   return v0;
 }
 
-void health::_PageForEntry(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void health::_PageForEntry(uint64_t *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, health::FilePage *a4@<X8>)
 {
   v9 = 0;
   v10 = 0;
   v12 = 0;
   v11 = 0;
-  health::VirtualFile::read<health::WriteAheadLog::LogEntryHeader>(*a1, *(a3 + 8), v8);
-  v7 = *(a3 + 16);
+  health::VirtualFile::read<health::WriteAheadLog::LogEntryHeader>(*a1, a3[1], v8);
+  v7 = a3[2];
   *a4 = a2;
-  a4[1] = v7;
+  *(a4 + 1) = v7;
   operator new[]();
 }
 
@@ -3026,7 +1242,7 @@ uint64_t health::FilePage::checksum(health::FilePage *this)
   return health::FletcherChecksum(v2, v3);
 }
 
-void health::_HDAssertImplementation<health::data_corruption_error>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void health::_HDAssertImplementation<health::data_corruption_error>(uint64_t a1, uint64_t **a2, uint64_t **a3, uint64_t **a4, uint64_t a5, uint64_t **a6)
 {
   v40 = *MEMORY[0x277D85DE8];
   memset(v39, 0, sizeof(v39));
@@ -3052,7 +1268,7 @@ void health::_HDAssertImplementation<health::data_corruption_error>(uint64_t a1,
 
   else
   {
-    v16 = *(a6 + 8);
+    v16 = a6[1];
   }
 
   v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, v15, v16);
@@ -3076,7 +1292,7 @@ void health::_HDAssertImplementation<health::data_corruption_error>(uint64_t a1,
 
   else
   {
-    v21 = *(a2 + 8);
+    v21 = a2[1];
   }
 
   v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, v20, v21);
@@ -3099,7 +1315,7 @@ void health::_HDAssertImplementation<health::data_corruption_error>(uint64_t a1,
 
   else
   {
-    v26 = *(a3 + 8);
+    v26 = a3[1];
   }
 
   v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, v25, v26);
@@ -3122,7 +1338,7 @@ void health::_HDAssertImplementation<health::data_corruption_error>(uint64_t a1,
 
   else
   {
-    v31 = *(a4 + 8);
+    v31 = a4[1];
   }
 
   v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, v30, v31);
@@ -3162,15 +1378,6 @@ void sub_228B63C78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   std::ostream::~ostream();
   MEMORY[0x22AAC8550](&a39);
   _Unwind_Resume(a1);
-}
-
-void health::WriteAheadLog::WriteAheadLog()
-{
-  operator new();
-}
-
-{
-  operator new();
 }
 
 uint64_t health::WriteAheadLog::WriteAheadLog(uint64_t a1, __int128 *a2, void *a3)
@@ -3437,16 +1644,16 @@ void health::WriteAheadLog::open(std::mutex *this, uint64_t a2)
 uint64_t *health::WriteAheadLog::_walLock_openLogForFileIdentifier(uint64_t *this, uint64_t a2)
 {
   v2 = this;
-  v42 = *MEMORY[0x277D85DE8];
-  v32 = a2;
+  v41 = *MEMORY[0x277D85DE8];
+  v31 = a2;
   if (this[26] != this[25])
   {
     v3 = *MEMORY[0x277CCC2A0];
-    std::string::basic_string[abi:ne200100]<0>(v31, "_transactionStack.size() == 0");
-    std::string::basic_string[abi:ne200100]<0>(v30, "_walLock_openLogForFileIdentifier");
-    std::string::basic_string[abi:ne200100]<0>(v29, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDWriteAheadLog.cpp");
+    std::string::basic_string[abi:ne200100]<0>(v30, "_transactionStack.size() == 0");
+    std::string::basic_string[abi:ne200100]<0>(v29, "_walLock_openLogForFileIdentifier");
+    std::string::basic_string[abi:ne200100]<0>(v28, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDWriteAheadLog.cpp");
     health::FormatString<>("Attempt to open the log while transactions are active.", &__p);
-    health::_HDAssertImplementation<health::transaction_error>(v3, v31, v30, v29, 241, &__p);
+    health::_HDAssertImplementation<health::transaction_error>(v3, v30, v29, v28, 241, &__p);
   }
 
   v4 = this[19];
@@ -3454,11 +1661,11 @@ uint64_t *health::WriteAheadLog::_walLock_openLogForFileIdentifier(uint64_t *thi
   {
     v5 = 0;
     v6 = this[14];
-    v34 = 0x200000001;
-    LODWORD(v35) = 0;
+    v33 = 0x200000001;
+    LODWORD(v34) = 0;
     do
     {
-      v7 = *(&v34 + v4);
+      v7 = *(&v33 + v4);
       if (v7 >= 4)
       {
         std::__throw_out_of_range[abi:ne200100]("bitset set argument out of range");
@@ -3469,28 +1676,28 @@ uint64_t *health::WriteAheadLog::_walLock_openLogForFileIdentifier(uint64_t *thi
     }
 
     while (v4 != 12);
-    (*(*v6 + 16))(&v37);
-    v8 = v37;
-    v37 = 0uLL;
+    (*(*v6 + 16))(&v36);
+    v8 = v36;
+    v36 = 0uLL;
     v9 = v2[20];
     *(v2 + 19) = v8;
     if (v9)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-      if (*(&v37 + 1))
+      if (*(&v36 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v37 + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v36 + 1));
       }
 
       if (!v2[19])
       {
 LABEL_13:
         v10 = *MEMORY[0x277CCC2A0];
-        std::string::basic_string[abi:ne200100]<0>(v27, "_walFile");
-        std::string::basic_string[abi:ne200100]<0>(v26, "_walLock_openLogForFileIdentifier");
-        std::string::basic_string[abi:ne200100]<0>(v25, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDWriteAheadLog.cpp");
-        health::FormatString<>("Failed to open WAL file.", &v24);
-        health::_HDAssertImplementation<health::transaction_error>(v10, v27, v26, v25, 249, &v24);
+        std::string::basic_string[abi:ne200100]<0>(v26, "_walFile");
+        std::string::basic_string[abi:ne200100]<0>(v25, "_walLock_openLogForFileIdentifier");
+        std::string::basic_string[abi:ne200100]<0>(v24, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDWriteAheadLog.cpp");
+        health::FormatString<>("Failed to open WAL file.", &v23);
+        health::_HDAssertImplementation<health::transaction_error>(v10, v26, v25, v24, 249, &v23);
       }
     }
 
@@ -3499,79 +1706,75 @@ LABEL_13:
       goto LABEL_13;
     }
 
-    v21 = 0x24857414CLL;
+    v20 = 0x24857414CLL;
+    v21 = 0;
     v22 = 0;
-    v23 = 0;
     v11 = v2[19];
-    v40 = 0;
-    v41 = 24;
-    v34 = &v37;
-    v35 = &v37;
-    v36 = 24;
-    v12 = (*(*v11 + 32))(v11, 0, &v37, 24);
-    LODWORD(v33) = 0;
-    health::DeserializationBuffer::extractRaw<unsigned int>(&v34, &v33);
-    LODWORD(v21) = v33;
-    LODWORD(v33) = 0;
-    health::DeserializationBuffer::extractRaw<unsigned int>(&v34, &v33);
-    HIDWORD(v21) = v33;
-    v33 = 0;
-    health::DeserializationBuffer::extractRaw<unsigned long long>(&v34, &v33);
-    v22 = v33;
-    v33 = 0;
-    health::DeserializationBuffer::extractRaw<unsigned long long>(&v34, &v33);
-    v23 = v33;
-    v13 = v40;
-    v40 = 0;
+    v39 = 0;
+    v40 = 24;
+    v33 = &v36;
+    v34 = &v36;
+    v35 = 24;
+    v12 = (*(*v11 + 32))(v11, 0, &v36, 24);
+    LODWORD(v32) = 0;
+    health::DeserializationBuffer::extractRaw<unsigned int>(&v33, &v32);
+    LODWORD(v20) = v32;
+    LODWORD(v32) = 0;
+    health::DeserializationBuffer::extractRaw<unsigned int>(&v33, &v32);
+    HIDWORD(v20) = v32;
+    v32 = 0;
+    health::DeserializationBuffer::extractRaw<unsigned long long>(&v33, &v32);
+    v21 = v32;
+    v32 = 0;
+    health::DeserializationBuffer::extractRaw<unsigned long long>(&v33, &v32);
+    v22 = v32;
+    v13 = v39;
+    v39 = 0;
     if (v13)
     {
       MEMORY[0x22AAC8570](v13, 0x1000C8077774924);
     }
 
-    v20 = v12;
+    v19 = v12;
     if (v12 < 1)
     {
       if (!v12)
       {
-        *&v37 = 0x24857414CLL;
-        *(&v37 + 1) = v32;
-        v38 = 0;
-        this = health::VirtualFile::write<health::WriteAheadLog::LogHeader>(v2[19], &v37);
-        goto LABEL_25;
+        *&v36 = 0x24857414CLL;
+        *(&v36 + 1) = v31;
+        v37 = 0;
+        return health::VirtualFile::write<health::WriteAheadLog::LogHeader>(v2[19], &v36);
       }
     }
 
-    else if (v21 == 1213677900 && HIDWORD(v21) <= 2)
+    else if (v20 == 1213677900 && HIDWORD(v20) <= 2)
     {
-      if (v22 != v32)
+      if (v21 != v31)
       {
         v14 = *MEMORY[0x277CCC2A0];
-        std::string::basic_string[abi:ne200100]<0>(v19, "header.fileIdentifier == fileIdentifier");
-        std::string::basic_string[abi:ne200100]<0>(v18, "_walLock_openLogForFileIdentifier");
-        std::string::basic_string[abi:ne200100]<0>(v17, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDWriteAheadLog.cpp");
-        v34 = 24;
-        *&v37 = &v32;
-        *(&v37 + 1) = &v22;
-        v38 = &v34;
-        v39 = &v20;
-        memset(&v16, 0, sizeof(v16));
-        health::FormatImplementation<long long &,unsigned long,unsigned long long &,unsigned long long &>("WAL file identifier does not match transactional file identifier; ignoring WAL file. (offset %ld, header size %ld, header identifier %ld, file identifier %ld", &v16, 0, &v37);
-        health::_HDAssertImplementation<health::data_corruption_error>(v14, v19, v18, v17, 256, &v16);
+        std::string::basic_string[abi:ne200100]<0>(v18, "header.fileIdentifier == fileIdentifier");
+        std::string::basic_string[abi:ne200100]<0>(v17, "_walLock_openLogForFileIdentifier");
+        std::string::basic_string[abi:ne200100]<0>(v16, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDWriteAheadLog.cpp");
+        v33 = 24;
+        *&v36 = &v31;
+        *(&v36 + 1) = &v21;
+        v37 = &v33;
+        v38 = &v19;
+        memset(&v15, 0, sizeof(v15));
+        health::FormatImplementation<long long &,unsigned long,unsigned long long &,unsigned long long &>("WAL file identifier does not match transactional file identifier; ignoring WAL file. (offset %ld, header size %ld, header identifier %ld, file identifier %ld", &v15, 0, &v36);
+        health::_HDAssertImplementation<health::data_corruption_error>(v14, v18, v17, v16, 256, &v15);
       }
 
-      this = health::WriteAheadLog::_walLock_loadExistingEntriesStartingAtOffset(v2, v20, HIDWORD(v21) == 1);
-      goto LABEL_25;
+      return health::WriteAheadLog::_walLock_loadExistingEntriesStartingAtOffset(v2, v19, HIDWORD(v20) == 1);
     }
 
     (*(*v2[19] + 56))(v2[19], 0);
-    *&v37 = 0x24857414CLL;
-    *(&v37 + 1) = v32;
-    v38 = 0;
-    this = health::VirtualFile::write<health::WriteAheadLog::LogHeader>(v2[19], &v37);
+    *&v36 = 0x24857414CLL;
+    *(&v36 + 1) = v31;
+    v37 = 0;
+    return health::VirtualFile::write<health::WriteAheadLog::LogHeader>(v2[19], &v36);
   }
 
-LABEL_25:
-  v15 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -3617,7 +1820,7 @@ uint64_t health::WriteAheadLog::maximumCommittedSizeForTransaction(std::mutex *t
         do
         {
           v9 = v7;
-          v7 = *(v7 + 1);
+          v7 = *v7->__m_.__opaque;
         }
 
         while (v7);
@@ -3646,7 +1849,7 @@ uint64_t health::WriteAheadLog::maximumCommittedSizeForTransaction(std::mutex *t
           do
           {
             v15 = v13;
-            v13 = *(v13 + 1);
+            v13 = *v13->__m_.__opaque;
           }
 
           while (v13);
@@ -3677,7 +1880,7 @@ uint64_t health::WriteAheadLog::maximumCommittedSizeForTransaction(std::mutex *t
             do
             {
               v18 = v6;
-              v6 = *(v6 + 1);
+              v6 = *v6->__m_.__opaque;
             }
 
             while (v6);
@@ -3705,7 +1908,7 @@ uint64_t health::WriteAheadLog::maximumCommittedSizeForTransaction(std::mutex *t
         do
         {
           v16 = v6;
-          v6 = *(v6 + 1);
+          v6 = *v6->__m_.__opaque;
         }
 
         while (v6);
@@ -3716,7 +1919,7 @@ uint64_t health::WriteAheadLog::maximumCommittedSizeForTransaction(std::mutex *t
         do
         {
           v16 = *(v4 + 2);
-          v10 = *v16 == v4;
+          v10 = v16->__m_.__sig == v4;
           v4 = v16;
         }
 
@@ -3792,7 +1995,7 @@ void sub_228B64D68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void health::WriteAheadLog::_walLock_checkpointWhenIdle(uint64_t a1, std::unique_lock<std::mutex> *__lk, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   *(a1 + 192) = 1;
   while (*(a1 + 208) != *(a1 + 200) || *(a1 + 248))
   {
@@ -3801,28 +2004,27 @@ void health::WriteAheadLog::_walLock_checkpointWhenIdle(uint64_t a1, std::unique
 
   if (*(a1 + 192) == 1)
   {
-    std::__function::__value_func<void ()(unsigned long long)>::__value_func[abi:ne200100](v13, a3);
-    std::__function::__value_func<void ()(unsigned long long,health::FilePage const&)>::__value_func[abi:ne200100](v12, a4);
-    std::__function::__value_func<void ()(unsigned long long)>::__value_func[abi:ne200100](v11, a5);
-    health::WriteAheadLog::_walLock_checkpoint(a1, v13);
-    std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v11);
-    std::__function::__value_func<void ()(unsigned long long,health::FilePage const&)>::~__value_func[abi:ne200100](v12);
-    std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v13);
+    std::__function::__value_func<void ()(unsigned long long)>::__value_func[abi:ne200100](v12, a3);
+    std::__function::__value_func<void ()(unsigned long long,health::FilePage const&)>::__value_func[abi:ne200100](v11, a4);
+    std::__function::__value_func<void ()(unsigned long long)>::__value_func[abi:ne200100](v10, a5);
+    health::WriteAheadLog::_walLock_checkpoint(a1, v12, v11, v10);
+    std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v10);
+    std::__function::__value_func<void ()(unsigned long long,health::FilePage const&)>::~__value_func[abi:ne200100](v11);
+    std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v12);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void sub_228B64ED8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
+void sub_228B64ED8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
+  va_start(va, a17);
   if (a2)
   {
     std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](&a10);
     std::__function::__value_func<void ()(unsigned long long,health::FilePage const&)>::~__value_func[abi:ne200100](&a14);
-    std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](&a18);
+    std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](va);
     __cxa_begin_catch(exception_object);
-    *(v18 + 192) = 0;
-    std::condition_variable::notify_all((v18 + 64));
+    *(v17 + 192) = 0;
+    std::condition_variable::notify_all((v17 + 64));
     __cxa_rethrow();
   }
 
@@ -3837,77 +2039,76 @@ void health::WriteAheadLog::_walLock_waitOnTransactionIdle(uint64_t a1, std::uni
   }
 }
 
-void health::WriteAheadLog::_walLock_checkpoint(uint64_t a1, uint64_t a2)
+void health::WriteAheadLog::_walLock_checkpoint(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (*(a1 + 208) != *(a1 + 200))
   {
-    v4 = *MEMORY[0x277CCC2A0];
-    std::string::basic_string[abi:ne200100]<0>(v20, "_transactionStack.size() == 0");
-    std::string::basic_string[abi:ne200100]<0>(v19, "_walLock_checkpoint");
-    std::string::basic_string[abi:ne200100]<0>(v18, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDWriteAheadLog.cpp");
+    v6 = *MEMORY[0x277CCC2A0];
+    std::string::basic_string[abi:ne200100]<0>(v21, "_transactionStack.size() == 0");
+    std::string::basic_string[abi:ne200100]<0>(v20, "_walLock_checkpoint");
+    std::string::basic_string[abi:ne200100]<0>(v19, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDWriteAheadLog.cpp");
     health::FormatString<>("Attempt to checkpoint the WAL while a write transaction is active", &__p);
-    health::_HDAssertImplementation<health::transaction_error>(v4, v20, v19, v18, 457, &__p);
+    health::_HDAssertImplementation<health::transaction_error>(v6, v21, v20, v19, 457, &__p);
   }
 
   if (*(a1 + 248))
   {
-    v5 = *MEMORY[0x277CCC2A0];
-    std::string::basic_string[abi:ne200100]<0>(v16, "_readTransactionIdentifiers.size() == 0");
-    std::string::basic_string[abi:ne200100]<0>(v15, "_walLock_checkpoint");
-    std::string::basic_string[abi:ne200100]<0>(v14, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDWriteAheadLog.cpp");
-    health::FormatString<>("Attempt to checkpoint the WAL while a read transaction is active", &v13);
-    health::_HDAssertImplementation<health::transaction_error>(v5, v16, v15, v14, 458, &v13);
+    v7 = *MEMORY[0x277CCC2A0];
+    std::string::basic_string[abi:ne200100]<0>(v17, "_readTransactionIdentifiers.size() == 0");
+    std::string::basic_string[abi:ne200100]<0>(v16, "_walLock_checkpoint");
+    std::string::basic_string[abi:ne200100]<0>(v15, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDWriteAheadLog.cpp");
+    health::FormatString<>("Attempt to checkpoint the WAL while a read transaction is active", &v14);
+    health::_HDAssertImplementation<health::transaction_error>(v7, v17, v16, v15, 458, &v14);
   }
 
   (*(**(a1 + 152) + 16))(*(a1 + 152));
-  v6 = *(a1 + 264);
-  v7 = (a1 + 272);
-  if (v6 != (a1 + 272))
+  v8 = *(a1 + 264);
+  v9 = (a1 + 272);
+  if (v8 != (a1 + 272))
   {
     do
     {
-      if (v6[6] != v6[5])
+      if (v8[6] != v8[5])
       {
         std::function<void ()(unsigned long long)>::operator()(a2, *(a1 + 176));
-        v8 = *(a1 + 176);
-        health::_PageForEntry((a1 + 152), v6[4], v6[6] - 24, v12);
+        health::_PageForEntry((a1 + 152), v8[4], (v8[6] - 24), v13);
       }
 
-      v9 = v6[1];
-      if (v9)
+      v10 = v8[1];
+      if (v10)
       {
         do
         {
-          v10 = v9;
-          v9 = *v9;
+          v11 = v10;
+          v10 = *v10;
         }
 
-        while (v9);
+        while (v10);
       }
 
       else
       {
         do
         {
-          v10 = v6[2];
-          v11 = *v10 == v6;
-          v6 = v10;
+          v11 = v8[2];
+          v12 = *v11 == v8;
+          v8 = v11;
         }
 
-        while (!v11);
+        while (!v12);
       }
 
-      v6 = v10;
+      v8 = v11;
     }
 
-    while (v10 != v7);
+    while (v11 != v9);
   }
 
   *(a1 + 184) = 0;
   std::__tree<std::__value_type<unsigned long long,std::vector<health::WriteAheadLog::PageEntry>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<health::WriteAheadLog::PageEntry>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<health::WriteAheadLog::PageEntry>>>>::destroy(a1 + 264, *(a1 + 272));
   *(a1 + 272) = 0;
   *(a1 + 280) = 0;
-  *(a1 + 264) = v7;
+  *(a1 + 264) = v9;
   *(a1 + 192) = 0;
   (*(**(a1 + 152) + 56))(*(a1 + 152), 0);
   std::condition_variable::notify_all((a1 + 64));
@@ -3940,27 +2141,25 @@ void sub_228B652C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void health::WriteAheadLog::checkpoint(std::mutex *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   __lk.__m_ = a1;
   __lk.__owns_ = 1;
   std::mutex::lock(a1);
   health::WriteAheadLog::_walLock_openLogForFileIdentifier(&a1->__m_.__sig, a2);
-  std::__function::__value_func<void ()(unsigned long long)>::__value_func[abi:ne200100](v14, a3);
-  std::__function::__value_func<void ()(unsigned long long,health::FilePage const&)>::__value_func[abi:ne200100](v13, a4);
-  std::__function::__value_func<void ()(unsigned long long)>::__value_func[abi:ne200100](v12, a5);
-  health::WriteAheadLog::_walLock_checkpointWhenIdle(a1, &__lk, v14, v13, v12);
-  std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v12);
-  std::__function::__value_func<void ()(unsigned long long,health::FilePage const&)>::~__value_func[abi:ne200100](v13);
-  std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v14);
+  std::__function::__value_func<void ()(unsigned long long)>::__value_func[abi:ne200100](v13, a3);
+  std::__function::__value_func<void ()(unsigned long long,health::FilePage const&)>::__value_func[abi:ne200100](v12, a4);
+  std::__function::__value_func<void ()(unsigned long long)>::__value_func[abi:ne200100](v11, a5);
+  health::WriteAheadLog::_walLock_checkpointWhenIdle(a1, &__lk, v13, v12, v11);
+  std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v11);
+  std::__function::__value_func<void ()(unsigned long long,health::FilePage const&)>::~__value_func[abi:ne200100](v12);
+  std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v13);
   if (__lk.__owns_)
   {
     std::mutex::unlock(__lk.__m_);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void sub_228B6548C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::mutex *a10, char a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
+void sub_228B6548C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::mutex *a10, char a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
 {
   std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](&a13);
   std::__function::__value_func<void ()(unsigned long long,health::FilePage const&)>::~__value_func[abi:ne200100](&a19);
@@ -3989,7 +2188,7 @@ void health::WriteAheadLog::_prepareReadTransaction(health::WriteAheadLog *this)
   }
 
   v2 = *(this + 22);
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_multi<unsigned long long const&>();
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_multi<unsigned long long const&>(this + 28, &v2);
 }
 
 void sub_228B65564(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::mutex *a11, char a12)
@@ -4033,15 +2232,16 @@ void health::WriteAheadLog::_prepareWriteTransaction(health::WriteAheadLog *this
   }
 
   health::WriteAheadLog::_walLock_openLogForFileIdentifier(this, a2);
-  if (!(*(**(this + 19) + 48))(*(this + 19)))
+  v5 = (*(**(this + 19) + 48))(*(this + 19));
+  if (!v5)
   {
-    v6[0] = 0x24857414CLL;
-    v6[1] = a2;
-    v6[2] = 0;
-    health::VirtualFile::write<health::WriteAheadLog::LogHeader>(*(this + 19), v6);
+    v7[0] = 0x24857414CLL;
+    v7[1] = a2;
+    v7[2] = 0;
+    health::VirtualFile::write<health::WriteAheadLog::LogHeader>(*(this + 19), v7);
   }
 
-  health::WriteAheadLog::_walLock_startTransaction(this, v4);
+  health::WriteAheadLog::_walLock_startTransaction(this, v4, v5, 0);
 }
 
 void sub_228B65770(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::mutex *a10, char a11)
@@ -4062,18 +2262,18 @@ uint64_t health::WriteAheadLog::_walLock_writeHeaderForIdentifier(health::WriteA
   return health::VirtualFile::write<health::WriteAheadLog::LogHeader>(*(this + 19), v3);
 }
 
-void health::WriteAheadLog::_walLock_startTransaction(uint64_t a1, uint64_t a2)
+void health::WriteAheadLog::_walLock_startTransaction(void *a1, uint64_t a2, uint64_t a3, int a4)
 {
-  for (i = *(a1 + 200); i != *(a1 + 208); i += 2)
+  for (i = a1[25]; i != a1[26]; i += 2)
   {
     if (**i == a2)
     {
-      v3 = *MEMORY[0x277CCC2A0];
-      std::string::basic_string[abi:ne200100]<0>(v7, "_walLock_transactionForIdentifier(transactionIdentifier) == nullptr");
-      std::string::basic_string[abi:ne200100]<0>(v6, "_walLock_startTransaction");
-      std::string::basic_string[abi:ne200100]<0>(v5, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDWriteAheadLog.cpp");
+      v5 = *MEMORY[0x277CCC2A0];
+      std::string::basic_string[abi:ne200100]<0>(v9, "_walLock_transactionForIdentifier(transactionIdentifier) == nullptr");
+      std::string::basic_string[abi:ne200100]<0>(v8, "_walLock_startTransaction");
+      std::string::basic_string[abi:ne200100]<0>(v7, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDWriteAheadLog.cpp");
       health::FormatString<>("Attempt to start a transaction which is already active.", &__p);
-      health::_HDAssertImplementation<health::transaction_error>(v3, v7, v6, v5, 353, &__p);
+      health::_HDAssertImplementation<health::transaction_error>(v5, v9, v8, v7, 353, &__p);
     }
   }
 
@@ -4105,10 +2305,10 @@ void sub_228B65AC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void health::WriteAheadLog::runWriteTransaction(health::WriteAheadLog *a1, uint64_t a2, int a3)
+void health::WriteAheadLog::runWriteTransaction(health::WriteAheadLog *a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v4 = a3;
-  v3 = 0;
+  v8 = a3;
+  v7 = 0;
   health::WriteAheadLog::_prepareWriteTransaction(a1, a2);
 }
 
@@ -4119,7 +2319,7 @@ void sub_228B65BD0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
   __cxa_rethrow();
 }
 
-void health::WriteAheadLog::pageAtOffset(std::mutex *this@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, void *a4@<X8>)
+void health::WriteAheadLog::pageAtOffset(health::FilePage *__return_ptr a1@<X8>, std::mutex *this@<X0>, unint64_t a3@<X1>, unint64_t a4@<X2>)
 {
   std::mutex::lock(this);
   if (*&this[3].__m_.__opaque[8] == *this[3].__m_.__opaque && !*&this[3].__m_.__opaque[48])
@@ -4138,21 +2338,21 @@ void health::WriteAheadLog::pageAtOffset(std::mutex *this@<X0>, unint64_t a2@<X1
     v11 = *(v9 - 16);
     v9 -= 16;
     v10 = v11;
-    if (*v11 <= a2)
+    if (*v11 <= a3)
     {
-      health::WriteAheadLog::Transaction::pageAtOffset(v10, a3, a4);
-      if (a4[2] | a4[4])
+      health::WriteAheadLog::Transaction::pageAtOffset(v10, a4, a1);
+      if (*(a1 + 2) | *(a1 + 4))
       {
         goto LABEL_13;
       }
 
-      v12 = a4[5];
+      v12 = *(a1 + 5);
       if (v12)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v12);
       }
 
-      v13 = a4[3];
+      v13 = *(a1 + 3);
       if (v13)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v13);
@@ -4160,7 +2360,7 @@ void health::WriteAheadLog::pageAtOffset(std::mutex *this@<X0>, unint64_t a2@<X1
     }
   }
 
-  health::WriteAheadLog::_walLock_committedPageAtOffsetForTransaction(this, a2, a3, a4);
+  health::WriteAheadLog::_walLock_committedPageAtOffsetForTransaction(this, a3, a4, a1);
 LABEL_13:
   std::mutex::unlock(this);
 }
@@ -4191,7 +2391,7 @@ void sub_228B65D70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-double health::WriteAheadLog::_walLock_committedPageAtOffsetForTransaction@<D0>(health::WriteAheadLog *this@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
+void health::WriteAheadLog::_walLock_committedPageAtOffsetForTransaction(health::WriteAheadLog *this@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, health::FilePage *a4@<X8>)
 {
   v4 = *(this + 34);
   if (v4)
@@ -4213,26 +2413,24 @@ double health::WriteAheadLog::_walLock_committedPageAtOffsetForTransaction@<D0>(
     while (v4);
     if (v5 != (this + 272) && v5[4] <= a3)
     {
-      v12 = v5 + 5;
-      v11 = v5[5];
-      v10 = v12[1];
-      while (v10 != v11)
+      v11 = v5 + 5;
+      v10 = v5[5];
+      v9 = v11[1];
+      while (v9 != v10)
       {
-        v13 = *(v10 - 24);
-        v10 -= 24;
-        if (v13 <= a2)
+        v12 = *(v9 - 3);
+        v9 -= 3;
+        if (v12 <= a2)
         {
-          health::_PageForEntry(this + 19, a3, v10, a4);
+          health::_PageForEntry(this + 19, a3, v9, a4);
         }
       }
     }
   }
 
-  result = 0.0;
-  *(a4 + 16) = 0u;
-  *(a4 + 32) = 0u;
+  *(a4 + 1) = 0u;
+  *(a4 + 2) = 0u;
   *a4 = 0u;
-  return result;
 }
 
 void health::WriteAheadLog::updatedPage(std::mutex *this, unint64_t a2, const health::FilePage *a3)
@@ -4329,7 +2527,7 @@ void sub_228B66268(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t health::WriteAheadLog::_walLock_loadExistingEntriesStartingAtOffset(health::WriteAheadLog *this, uint64_t a2, int a3)
+uint64_t health::WriteAheadLog::_walLock_loadExistingEntriesStartingAtOffset(health::WriteAheadLog *this, uint64_t *a2, int a3)
 {
   memset(v26, 0, sizeof(v26));
   v27 = 1065353216;
@@ -4340,7 +2538,7 @@ uint64_t health::WriteAheadLog::_walLock_loadExistingEntriesStartingAtOffset(hea
   v25 = 0;
   while (a2 < (*(**(this + 19) + 48))(*(this + 19)))
   {
-    v6 = health::VirtualFile::read<health::WriteAheadLog::LogEntryHeader>(*(this + 19), a2, &v21) + a2;
+    v6 = a2 + health::VirtualFile::read<health::WriteAheadLog::LogEntryHeader>(*(this + 19), a2, &v21);
     v7 = v21;
     if (v21 > 1)
     {
@@ -4355,7 +2553,7 @@ uint64_t health::WriteAheadLog::_walLock_loadExistingEntriesStartingAtOffset(hea
         a2 = v6;
         if (!std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(*&v26[0], *(&v26[0] + 1), v22))
         {
-          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v26, v13);
+          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v26, v13, &v22);
 LABEL_21:
           health::WriteAheadLog::_walLock_rollbackTransaction(this, v13);
           a2 = v6;
@@ -4398,10 +2596,10 @@ LABEL_26:
         v14 = v24;
         v28 = v23;
         v20.__r_.__value_.__r.__words[0] = &v28;
-        v15 = std::__tree<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v12 + 4), v23);
+        v15 = std::__tree<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v12 + 4, v23, &v20);
         v15[5] = v11;
         v15[6] = a2;
-        a2 = v14 + v6;
+        a2 = (v14 + v6);
         v15[7] = v14;
       }
     }
@@ -4410,7 +2608,7 @@ LABEL_26:
     {
       if (!v21)
       {
-        health::WriteAheadLog::_walLock_startTransaction(this, v22);
+        health::WriteAheadLog::_walLock_startTransaction(this, v22, a2, 1);
       }
 
       if (v21 != 1)
@@ -4418,7 +2616,7 @@ LABEL_26:
 LABEL_27:
         v19 = __cxa_allocate_exception(0x10uLL);
         LODWORD(v28) = v7;
-        health::FormatString<int>("Invalid WAL entry type {0}.", &v28, &v20);
+        health::FormatString<int>("Invalid WAL entry type {0}.", &v20, &v28);
         std::runtime_error::runtime_error(v19, &v20);
         v19->__vftable = &unk_283BE6EE8;
       }
@@ -4429,7 +2627,7 @@ LABEL_27:
         a2 = v6;
         if (std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(*&v26[0], *(&v26[0] + 1), v22))
         {
-          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v26, v8);
+          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v26, v8, &v22);
           goto LABEL_9;
         }
       }
@@ -4479,7 +2677,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t std::vector<std::shared_ptr<health::WriteAheadLog::Transaction>>::erase(uint64_t a1, uint64_t a2, __int128 *a3)
+__int128 *std::vector<std::shared_ptr<health::WriteAheadLog::Transaction>>::erase(uint64_t a1, __int128 *a2, __int128 *a3)
 {
   if (a3 != a2)
   {
@@ -4501,7 +2699,7 @@ uint64_t std::vector<std::shared_ptr<health::WriteAheadLog::Transaction>>::erase
 
 void health::Print<char const*>(std::string *a1, const char **a2)
 {
-  health::FormatString<char const*>(a1, a2, &__p);
+  health::FormatString<char const*>(a1, &__p, a2);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -4542,16 +2740,16 @@ void sub_228B666A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void health::WriteAheadLog::_walLock_commitTransaction(health::WriteAheadLog *this, unint64_t a2)
 {
-  v26[4] = *MEMORY[0x277D85DE8];
-  v25 = a2;
+  v25[4] = *MEMORY[0x277D85DE8];
+  v24 = a2;
   if (*(this + 26) == *(this + 25))
   {
     v3 = *MEMORY[0x277CCC2A0];
-    std::string::basic_string[abi:ne200100]<0>(v24, "_transactionStack.size() > 0");
-    std::string::basic_string[abi:ne200100]<0>(v23, "_walLock_commitTransaction");
-    std::string::basic_string[abi:ne200100]<0>(v22, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDWriteAheadLog.cpp");
-    health::FormatString<unsigned long long &>(&__p, "Attempt to commit transaction {0} when no transaction is active.", &v25);
-    health::_HDAssertImplementation<health::transaction_error>(v3, v24, v23, v22, 367, &__p);
+    std::string::basic_string[abi:ne200100]<0>(v23, "_transactionStack.size() > 0");
+    std::string::basic_string[abi:ne200100]<0>(v22, "_walLock_commitTransaction");
+    std::string::basic_string[abi:ne200100]<0>(v21, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDWriteAheadLog.cpp");
+    health::FormatString<unsigned long long &>(&__p, "Attempt to commit transaction {0} when no transaction is active.", &v24);
+    health::_HDAssertImplementation<health::transaction_error>(v3, v23, v22, v21, 367, &__p);
   }
 
   v4 = *(this + 25);
@@ -4565,15 +2763,15 @@ void health::WriteAheadLog::_walLock_commitTransaction(health::WriteAheadLog *th
     atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  if (*v9 != v25)
+  if (*v9 != v24)
   {
     v10 = *MEMORY[0x277CCC2A0];
-    std::string::basic_string[abi:ne200100]<0>(v20, "transaction->identifier() == transactionIdentifier");
-    std::string::basic_string[abi:ne200100]<0>(v19, "_walLock_commitTransaction");
-    std::string::basic_string[abi:ne200100]<0>(v18, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDWriteAheadLog.cpp");
-    v16 = *v9;
-    health::FormatString<unsigned long long &,unsigned long long>(&v17, "Attempt to commit transaction ({0}) which is not the innermost transaction ({1}).", &v25, &v16);
-    health::_HDAssertImplementation<health::transaction_error>(v10, v20, v19, v18, 370, &v17);
+    std::string::basic_string[abi:ne200100]<0>(v19, "transaction->identifier() == transactionIdentifier");
+    std::string::basic_string[abi:ne200100]<0>(v18, "_walLock_commitTransaction");
+    std::string::basic_string[abi:ne200100]<0>(v17, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDWriteAheadLog.cpp");
+    v15 = *v9;
+    health::FormatString<unsigned long long &,unsigned long long>(&v16, "Attempt to commit transaction ({0}) which is not the innermost transaction ({1}).", &v24, &v15);
+    health::_HDAssertImplementation<health::transaction_error>(v10, v19, v18, v17, 370, &v16);
   }
 
   v11 = std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::shared_ptr<health::WriteAheadLog::Transaction> *,std::shared_ptr<health::WriteAheadLog::Transaction> *,std::shared_ptr<health::WriteAheadLog::Transaction> *>((*(this + 25) + 16 * v6 + 16), *(this + 26), *(this + 25) + 16 * v6);
@@ -4590,13 +2788,13 @@ void health::WriteAheadLog::_walLock_commitTransaction(health::WriteAheadLog *th
   v14 = *(this + 25);
   if (v11 == v14)
   {
-    v26[0] = &unk_283BE8330;
-    v26[1] = this;
-    v26[2] = &v25;
-    v26[3] = v26;
-    health::WriteAheadLog::Transaction::commit(v9, v26);
-    std::__function::__value_func<void ()(long long,health::WriteAheadLog::PageEntry)>::~__value_func[abi:ne200100](v26);
-    *(this + 22) = v25;
+    v25[0] = &unk_283BE8330;
+    v25[1] = this;
+    v25[2] = &v24;
+    v25[3] = v25;
+    health::WriteAheadLog::Transaction::commit(v9, v25);
+    std::__function::__value_func<void ()(long long,health::WriteAheadLog::PageEntry)>::~__value_func[abi:ne200100](v25);
+    *(this + 22) = v24;
   }
 
   else
@@ -4608,8 +2806,6 @@ void health::WriteAheadLog::_walLock_commitTransaction(health::WriteAheadLog *th
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_228B66988(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *__p, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, void *a47, uint64_t a48, int a49, __int16 a50, char a51, char a52)
@@ -4756,25 +2952,24 @@ std::runtime_error *_ZN6health21data_corruption_errorCI1St13runtime_errorEPKc(st
   return result;
 }
 
-void *health::WriteAheadLog::Transaction::storePageEntry(health::WriteAheadLog::Transaction *this, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t **health::WriteAheadLog::Transaction::storePageEntry(uint64_t **this, unint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v6 = *this;
-  v8[0] = a2;
-  v8[1] = v8;
-  result = std::__tree<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 32, a2);
+  v8 = a2;
+  v9 = &v8;
+  result = std::__tree<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 4, a2, &v9);
   result[5] = v6;
   result[6] = a3;
   result[7] = a4;
   return result;
 }
 
-void health::FormatString<int>(std::string *a1@<X0>, int *a2@<X1>, std::string *a3@<X8>)
+void health::FormatString<int>(std::string *a1@<X0>, std::string *a2@<X8>, unsigned int *a3@<X1>)
 {
-  v3 = a2;
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
-  a3->__r_.__value_.__r.__words[0] = 0;
-  health::FormatImplementation<int>(a1, a3, 0, &v3);
+  v3 = a3;
+  *&a2->__r_.__value_.__r.__words[1] = 0uLL;
+  a2->__r_.__value_.__r.__words[0] = 0;
+  health::FormatImplementation<int>(a1, a2, 0, &v3);
 }
 
 void sub_228B66E7C(_Unwind_Exception *exception_object)
@@ -4806,74 +3001,70 @@ void sub_228B66EE0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-unint64_t health::WriteAheadLog::Transaction::commit(unint64_t a1, uint64_t a2)
+void health::WriteAheadLog::Transaction::commit(uint64_t a1, uint64_t a2)
 {
-  result = health::WriteAheadLog::Transaction::_writeCompletionEntryOfType(a1, 1);
-  v5 = *(a1 + 32);
-  v6 = (a1 + 40);
-  if (v5 != v6)
+  health::WriteAheadLog::Transaction::_writeCompletionEntryOfType(a1, 1);
+  v4 = *(a1 + 32);
+  v5 = (a1 + 40);
+  if (v4 != v5)
   {
     do
     {
-      v7 = v5[4];
-      v12 = *(v5 + 5);
-      v13 = v5[7];
-      v14 = v7;
-      v8 = *(a2 + 24);
-      if (!v8)
+      v6 = v4[4];
+      v11 = *(v4 + 5);
+      v12 = v4[7];
+      v13 = v6;
+      v7 = *(a2 + 24);
+      if (!v7)
       {
         std::__throw_bad_function_call[abi:ne200100]();
       }
 
-      result = (*(*v8 + 48))(v8, &v14, &v12);
-      v9 = v5[1];
-      if (v9)
+      (*(*v7 + 48))(v7, &v13, &v11);
+      v8 = v4[1];
+      if (v8)
       {
         do
         {
-          v10 = v9;
-          v9 = *v9;
+          v9 = v8;
+          v8 = *v8;
         }
 
-        while (v9);
+        while (v8);
       }
 
       else
       {
         do
         {
-          v10 = v5[2];
-          v11 = *v10 == v5;
-          v5 = v10;
+          v9 = v4[2];
+          v10 = *v9 == v4;
+          v4 = v9;
         }
 
-        while (!v11);
+        while (!v10);
       }
 
-      v5 = v10;
+      v4 = v9;
     }
 
-    while (v10 != v6);
+    while (v9 != v5);
   }
-
-  return result;
 }
 
 uint64_t health::WriteAheadLog::Transaction::commitAndMerge(health::WriteAheadLog::Transaction *this, health::WriteAheadLog::Transaction *a2)
 {
-  v4[4] = *MEMORY[0x277D85DE8];
-  v4[0] = &unk_283BE83C0;
-  v4[1] = a2;
-  v4[3] = v4;
-  health::WriteAheadLog::Transaction::commit(this, v4);
-  result = std::__function::__value_func<void ()(long long,health::WriteAheadLog::PageEntry)>::~__value_func[abi:ne200100](v4);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[4] = *MEMORY[0x277D85DE8];
+  v3[0] = &unk_283BE83C0;
+  v3[1] = a2;
+  v3[3] = v3;
+  health::WriteAheadLog::Transaction::commit(this, v3);
+  return std::__function::__value_func<void ()(long long,health::WriteAheadLog::PageEntry)>::~__value_func[abi:ne200100](v3);
 }
 
-void sub_228B67050(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_228B67050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(long long,health::WriteAheadLog::PageEntry)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5172,26 +3363,25 @@ uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std:
 
 void health::FormatImplementation<unsigned int>(std::string *a1, std::string *a2, std::string::size_type a3, unsigned int **a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v31 = a1;
+  v32 = *MEMORY[0x277D85DE8];
+  v29 = a1;
   v6 = a1->__r_.__value_.__s.__data_[0];
   if (a1->__r_.__value_.__s.__data_[0])
   {
     v9 = 0;
     v10 = 0;
-    v11 = a1;
-    while (1)
+    for (i = a1; ; i = (i + 1))
     {
       if (v6 == 123)
       {
-        v12 = v11->__r_.__value_.__s.__data_[1];
+        v12 = i->__r_.__value_.__s.__data_[1];
         if (v12 != 123)
         {
           if (v12 == 42)
           {
-            v31 = &v11->__r_.__value_.__s.__data_[2];
-            v22 = v11->__r_.__value_.__s.__data_[2];
-            if ((v22 - 48) > 9)
+            v29 = &i->__r_.__value_.__s.__data_[2];
+            v19 = i->__r_.__value_.__s.__data_[2];
+            if ((v19 - 48) > 9)
             {
               exception = __cxa_allocate_exception(0x10uLL);
               std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
@@ -5199,21 +3389,21 @@ void health::FormatImplementation<unsigned int>(std::string *a1, std::string *a2
 
             else
             {
-              v23 = 0;
-              v24 = &v11->__r_.__value_.__s.__data_[3];
+              v20 = 0;
+              v21 = &i->__r_.__value_.__s.__data_[3];
               do
               {
-                v31 = v24;
-                v23 = (v22 & 0xF) + 10 * v23;
-                v25 = *v24++;
-                LOBYTE(v22) = v25;
+                v29 = v21;
+                v20 = (v19 & 0xF) + 10 * v20;
+                v22 = *v21++;
+                LOBYTE(v19) = v22;
               }
 
-              while ((v25 - 58) >= 0xFFFFFFF6);
-              v31 = v24;
-              if (*(v24 - 1) == 125)
+              while ((v22 - 58) >= 0xFFFFFFF6);
+              v29 = v21;
+              if (*(v21 - 1) == 125)
               {
-                health::FormatterParameters<0ul,unsigned int>::formatOptionsAtIndex<unsigned int>(v23);
+                health::FormatterParameters<0ul,unsigned int>::formatOptionsAtIndex<unsigned int>(v20);
               }
 
               exception = __cxa_allocate_exception(0x10uLL);
@@ -5223,95 +3413,88 @@ void health::FormatImplementation<unsigned int>(std::string *a1, std::string *a2
             __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
           }
 
-          health::FormatOptions::FormatOptions(v28, &v31);
-          if (v28[1])
+          health::FormatOptions::FormatOptions(v25, &v29);
+          if (v26)
           {
-            v27 = __cxa_allocate_exception(0x10uLL);
-            std::runtime_error::runtime_error(v27, "Parameter index out of bounds.");
-            __cxa_throw(v27, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+            v24 = __cxa_allocate_exception(0x10uLL);
+            std::runtime_error::runtime_error(v24, "Parameter index out of bounds.");
+            __cxa_throw(v24, MEMORY[0x277D82760], MEMORY[0x277D82600]);
           }
 
-          v15 = v31;
-          health::TypeFormatter<unsigned int,void>::TypeFormatter(v32, **a4, v28);
-          if (v33 == 1 && *(v32[0] + 48) != 1)
+          v13 = v29;
+          health::TypeFormatter<unsigned int,void>::TypeFormatter(v30, **a4, v25);
+          if (v31 == 1 && *(v30[0] + 48) != 1)
           {
-            v16 = 32;
-          }
-
-          else
-          {
-            v16 = 33;
-          }
-
-          v17 = v16 - v32[5];
-          if (*(v32[0] + 50) == 1 && v17 <= *(v32[0] + 24))
-          {
-            v17 = *(v32[0] + 24);
-          }
-
-          v18 = v30;
-          if (v30 <= v17)
-          {
-            v18 = v17;
-          }
-
-          if (v29)
-          {
-            v19 = v18;
+            v14 = 32;
           }
 
           else
           {
-            v19 = v17;
+            v14 = 33;
           }
 
-          health::FormatImplementation<unsigned int>(v15, a2, v19 + a3 - v9, a4);
+          v15 = v14 - v30[5];
+          if (*(v30[0] + 50) == 1 && v15 <= *(v30[0] + 24))
+          {
+            v15 = *(v30[0] + 24);
+          }
+
+          v16 = v28;
+          if (v28 <= v15)
+          {
+            v16 = v15;
+          }
+
+          if (v27)
+          {
+            v17 = v16;
+          }
+
+          else
+          {
+            v17 = v15;
+          }
+
+          health::FormatImplementation<unsigned int>(v13, a2, v17 + a3 - v9, a4);
           if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v20 = a2;
+            v18 = a2;
           }
 
           else
           {
-            v20 = a2->__r_.__value_.__r.__words[0];
+            v18 = a2->__r_.__value_.__r.__words[0];
           }
 
-          health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned int>(v28, &v20[a3 - v9], v32);
+          health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned int>(v25, v18 + a3 - v9, v30);
           if (v9)
           {
             health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
           }
 
-          goto LABEL_33;
+          return;
         }
 
         v10 = 1;
-        v11 = (v11 + 1);
+        i = (i + 1);
       }
 
-      v31 = &v11->__r_.__value_.__s.__data_[1];
-      v6 = v11->__r_.__value_.__s.__data_[1];
+      v29 = &i->__r_.__value_.__s.__data_[1];
+      v6 = i->__r_.__value_.__s.__data_[1];
       --v9;
-      v11 = (v11 + 1);
       if (!v6)
       {
         std::string::resize(a2, a3 - v9, 0);
         if (v9)
         {
-          v13 = *MEMORY[0x277D85DE8];
 
           health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
-          return;
         }
 
-LABEL_33:
-        v21 = *MEMORY[0x277D85DE8];
         return;
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   std::string::resize(a2, a3, 0);
 }
@@ -5333,7 +3516,7 @@ void health::FormatterParameters<0ul,unsigned int>::formatOptionsAtIndex<unsigne
   __cxa_throw(v3, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void *health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned int>(void *result, char *__b, uint64_t *a3)
+unsigned __int8 *health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned int>(unsigned __int8 *result, char *__b, uint64_t *a3)
 {
   v4 = __b;
   v5 = result;
@@ -5358,7 +3541,7 @@ void *health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>
     }
   }
 
-  if (*(result + 16) != 1 || (v10 = result[3], v11 = v10 - v8, v10 <= v8))
+  if (result[16] != 1 || (v10 = *(result + 3), v11 = v10 - v8, v10 <= v8))
   {
 LABEL_14:
 
@@ -5375,7 +3558,7 @@ LABEL_14:
         return result;
       }
 
-      memset(__b, *(result + 52), v11);
+      memset(__b, result[52], v11);
       v4 += v11;
       goto LABEL_14;
     }
@@ -5393,7 +3576,7 @@ LABEL_14:
         v14 = v11 >> 1;
       }
 
-      memset(__b, *(result + 52), v14);
+      memset(__b, result[52], v14);
       v4 += v14;
     }
 
@@ -5408,14 +3591,14 @@ LABEL_14:
       v15 = v13;
     }
 
-    v16 = *(v5 + 52);
+    v16 = v5[52];
     v17 = &v4[v8];
   }
 
   else
   {
     health::TypeFormatter<unsigned int,void>::formatAtLocation<std::__wrap_iter<char *>>(a3, __b);
-    v16 = *(v5 + 52);
+    v16 = v5[52];
     v17 = &v4[v8];
     v15 = v11;
   }
@@ -5933,45 +4116,37 @@ void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::eq
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -6114,7 +4289,7 @@ LABEL_19:
 
 void health::WriteAheadLog::runWriteTransaction(unsigned long long,health::WriteAheadLog::CommitMode,std::function<BOOL ()(unsigned long long)>,std::function<void ()(unsigned long long)>,std::function<void ()(unsigned long long,health::FilePage const&)>,std::function<void ()(unsigned long long)>)::$_1::operator()(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   __lk.__m_ = v2;
   __lk.__owns_ = 1;
@@ -6133,13 +4308,13 @@ void health::WriteAheadLog::runWriteTransaction(unsigned long long,health::Write
 
   if (health::WriteAheadLog::_walLock_shouldCheckpointForMode(v2, **(a1 + 32)))
   {
-    std::__function::__value_func<void ()(unsigned long long)>::__value_func[abi:ne200100](v8, *(a1 + 40));
-    std::__function::__value_func<void ()(unsigned long long,health::FilePage const&)>::__value_func[abi:ne200100](v7, *(a1 + 48));
-    std::__function::__value_func<void ()(unsigned long long)>::__value_func[abi:ne200100](v6, *(a1 + 56));
-    health::WriteAheadLog::_walLock_checkpointWhenIdle(v2, &__lk, v8, v7, v6);
-    std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v6);
-    std::__function::__value_func<void ()(unsigned long long,health::FilePage const&)>::~__value_func[abi:ne200100](v7);
-    std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v8);
+    std::__function::__value_func<void ()(unsigned long long)>::__value_func[abi:ne200100](v7, *(a1 + 40));
+    std::__function::__value_func<void ()(unsigned long long,health::FilePage const&)>::__value_func[abi:ne200100](v6, *(a1 + 48));
+    std::__function::__value_func<void ()(unsigned long long)>::__value_func[abi:ne200100](v5, *(a1 + 56));
+    health::WriteAheadLog::_walLock_checkpointWhenIdle(v2, &__lk, v7, v6, v5);
+    std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v5);
+    std::__function::__value_func<void ()(unsigned long long,health::FilePage const&)>::~__value_func[abi:ne200100](v6);
+    std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v7);
   }
 
   health::WriteAheadLog::_walLock_pruneCommittedPages(v2);
@@ -6147,8 +4322,6 @@ void health::WriteAheadLog::runWriteTransaction(unsigned long long,health::Write
   {
     std::mutex::unlock(__lk.__m_);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void sub_228B68814(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::mutex *a10, char a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
@@ -6178,26 +4351,25 @@ uint64_t std::function<BOOL ()(unsigned long long)>::operator()(uint64_t a1, uin
 
 void health::FormatImplementation<unsigned long long &,unsigned long long>(std::string *a1, std::string *a2, std::string::size_type a3, unint64_t **a4)
 {
-  v59 = *MEMORY[0x277D85DE8];
-  v54 = a1;
+  v56 = *MEMORY[0x277D85DE8];
+  v51 = a1;
   v6 = a1->__r_.__value_.__s.__data_[0];
   if (a1->__r_.__value_.__s.__data_[0])
   {
     v9 = 0;
     v10 = 0;
-    v11 = a1;
-    while (1)
+    for (i = a1; ; i = (i + 1))
     {
       if (v6 == 123)
       {
-        v12 = v11->__r_.__value_.__s.__data_[1];
+        v12 = i->__r_.__value_.__s.__data_[1];
         if (v12 != 123)
         {
           if (v12 == 42)
           {
-            v54 = &v11->__r_.__value_.__s.__data_[2];
-            v41 = v11->__r_.__value_.__s.__data_[2];
-            if ((v41 - 48) > 9)
+            v51 = &i->__r_.__value_.__s.__data_[2];
+            v38 = i->__r_.__value_.__s.__data_[2];
+            if ((v38 - 48) > 9)
             {
               exception = __cxa_allocate_exception(0x10uLL);
               std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
@@ -6205,21 +4377,21 @@ void health::FormatImplementation<unsigned long long &,unsigned long long>(std::
 
             else
             {
-              v42 = 0;
-              v43 = &v11->__r_.__value_.__s.__data_[3];
+              v39 = 0;
+              v40 = &i->__r_.__value_.__s.__data_[3];
               do
               {
-                v54 = v43;
-                v42 = (v41 & 0xF) + 10 * v42;
-                v44 = *v43++;
-                LOBYTE(v41) = v44;
+                v51 = v40;
+                v39 = (v38 & 0xF) + 10 * v39;
+                v41 = *v40++;
+                LOBYTE(v38) = v41;
               }
 
-              while ((v44 - 58) >= 0xFFFFFFF6);
-              v54 = v43;
-              if (*(v43 - 1) == 125)
+              while ((v41 - 58) >= 0xFFFFFFF6);
+              v51 = v40;
+              if (*(v40 - 1) == 125)
               {
-                health::FormatterParameters<0ul,unsigned long long &,unsigned long long>::formatOptionsAtIndex<unsigned long long &,unsigned long long>(v42);
+                health::FormatterParameters<0ul,unsigned long long &,unsigned long long>::formatOptionsAtIndex<unsigned long long &,unsigned long long>(v39);
               }
 
               exception = __cxa_allocate_exception(0x10uLL);
@@ -6229,41 +4401,41 @@ void health::FormatImplementation<unsigned long long &,unsigned long long>(std::
             __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
           }
 
-          health::FormatOptions::FormatOptions(&v47, &v54);
-          v15 = v54;
-          if (!v49)
+          health::FormatOptions::FormatOptions(&v44, &v51);
+          v13 = v51;
+          if (!v46)
           {
-            health::TypeFormatter<unsigned long long &,void>::TypeFormatter(__p, a4[1], &v47);
-            v21 = v56;
-            if ((v56 & 0x80u) != 0)
+            health::TypeFormatter<unsigned long long &,void>::TypeFormatter(__p, a4[1], &v44);
+            v19 = v53;
+            if ((v53 & 0x80u) != 0)
             {
-              v21 = __p[1];
+              v19 = __p[1];
             }
 
-            v22 = v51;
-            if (v51 <= v21)
+            v20 = v48;
+            if (v48 <= v19)
             {
-              v22 = v21;
+              v20 = v19;
             }
 
-            if (v50)
+            if (v47)
             {
-              v21 = v22;
+              v19 = v20;
             }
 
-            health::FormatImplementation<unsigned long long &,unsigned long long>(v15, a2, v21 + a3 - v9, a4);
+            health::FormatImplementation<unsigned long long &,unsigned long long>(v13, a2, v19 + a3 - v9, a4);
             if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v23 = a2;
+              v21 = a2;
             }
 
             else
             {
-              v23 = a2->__r_.__value_.__r.__words[0];
+              v21 = a2->__r_.__value_.__r.__words[0];
             }
 
-            health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v47, &v23[a3 - v9], __p);
-            if ((v56 & 0x80000000) == 0)
+            health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v44, v21 + a3 - v9, __p);
+            if ((v53 & 0x80000000) == 0)
             {
               goto LABEL_76;
             }
@@ -6271,269 +4443,262 @@ void health::FormatImplementation<unsigned long long &,unsigned long long>(std::
             operator delete(__p[0]);
             if (!v9)
             {
-              goto LABEL_78;
+              return;
             }
 
             goto LABEL_77;
           }
 
-          if (v49 != 1)
+          if (v46 != 1)
           {
-            v46 = __cxa_allocate_exception(0x10uLL);
-            std::runtime_error::runtime_error(v46, "Parameter index out of bounds.");
-            __cxa_throw(v46, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+            v43 = __cxa_allocate_exception(0x10uLL);
+            std::runtime_error::runtime_error(v43, "Parameter index out of bounds.");
+            __cxa_throw(v43, MEMORY[0x277D82760], MEMORY[0x277D82600]);
           }
 
-          v16 = 0;
-          v17 = **a4;
-          v18 = &v47;
-          __p[0] = &v47;
-          v57 = 0;
-          v58 = 1;
-          if (v48 > 1)
+          v14 = 0;
+          v15 = **a4;
+          v16 = &v44;
+          __p[0] = &v44;
+          v54 = 0;
+          v55 = 1;
+          if (v45 > 1)
           {
-            if (v48 == 2)
+            if (v45 == 2)
             {
-              v24 = &health::TypeFormatterLowerHexMapping;
-              if (v52)
+              v22 = &health::TypeFormatterLowerHexMapping;
+              if (v49)
               {
-                v24 = &health::TypeFormatterUpperHexMapping;
+                v22 = &health::TypeFormatterUpperHexMapping;
               }
 
-              v19 = 71;
+              v17 = 71;
               do
               {
-                *(__p + v19--) = v24[v17 & 0xF];
-                v20 = v17 >= 0x10;
-                v17 >>= 4;
+                *(__p + v17--) = v22[v15 & 0xF];
+                v18 = v15 >= 0x10;
+                v15 >>= 4;
               }
 
-              while (v20);
+              while (v18);
             }
 
             else
             {
-              if (v48 != 3)
+              if (v45 != 3)
               {
                 goto LABEL_48;
               }
 
-              v19 = 71;
+              v17 = 71;
               do
               {
-                *(__p + v19--) = v17 & 1 | 0x30;
-                v20 = v17 >= 2;
-                v17 >>= 1;
+                *(__p + v17--) = v15 & 1 | 0x30;
+                v18 = v15 >= 2;
+                v15 >>= 1;
               }
 
-              while (v20);
+              while (v18);
             }
           }
 
           else
           {
-            if (v48)
+            if (v45)
             {
-              if (v48 == 1)
+              if (v45 == 1)
               {
-                v19 = 71;
+                v17 = 71;
                 do
                 {
-                  *(__p + v19--) = v17 & 7 | 0x30;
-                  v20 = v17 >= 8;
-                  v17 >>= 3;
+                  *(__p + v17--) = v15 & 7 | 0x30;
+                  v18 = v15 >= 8;
+                  v15 >>= 3;
                 }
 
-                while (v20);
+                while (v18);
                 goto LABEL_47;
               }
 
 LABEL_48:
-              v25 = 1;
-              if (*(v18 + 48) != 1)
+              v23 = 1;
+              if (*(v16 + 48) != 1)
               {
-                v26 = 64;
+                v24 = 64;
 LABEL_52:
-                v27 = v26 - v16;
-                if (*(v18 + 50) == 1 && v27 <= *(v18 + 3))
+                v25 = v24 - v14;
+                if (*(v16 + 50) == 1 && v25 <= *(v16 + 3))
                 {
-                  v27 = *(v18 + 3);
+                  v25 = *(v16 + 3);
                 }
 
-                v28 = v51;
-                if (v51 <= v27)
+                v26 = v48;
+                if (v48 <= v25)
                 {
-                  v28 = v27;
-                }
-
-                if (v50)
-                {
-                  v27 = v28;
-                }
-
-                health::FormatImplementation<unsigned long long &,unsigned long long>(v15, a2, v27 + a3 - v9, a4);
-                if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-                {
-                  v29 = a2;
-                }
-
-                else
-                {
-                  v29 = a2->__r_.__value_.__r.__words[0];
-                }
-
-                v30 = v29 + a3;
-                if (v25 && *(v18 + 48) != 1)
-                {
-                  v31 = 64;
-                }
-
-                else
-                {
-                  v31 = 65;
-                }
-
-                v32 = (v30 - v9);
-                v33 = v31 - v16;
-                if (*(v18 + 50) == 1 && v33 <= *(v18 + 3))
-                {
-                  v33 = *(v18 + 3);
-                }
-
-                if (v50 != 1 || (v34 = v51 - v33, v51 <= v33))
-                {
-LABEL_75:
-                  health::TypeFormatter<unsigned long long,void>::formatAtLocation<std::__wrap_iter<char *>>(__p, v32);
-                  goto LABEL_76;
+                  v26 = v25;
                 }
 
                 if (v47)
                 {
-                  if (v47 != 1)
+                  v25 = v26;
+                }
+
+                health::FormatImplementation<unsigned long long &,unsigned long long>(v13, a2, v25 + a3 - v9, a4);
+                if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                {
+                  v27 = a2;
+                }
+
+                else
+                {
+                  v27 = a2->__r_.__value_.__r.__words[0];
+                }
+
+                v28 = v27 + a3;
+                if (v23 && *(v16 + 48) != 1)
+                {
+                  v29 = 64;
+                }
+
+                else
+                {
+                  v29 = 65;
+                }
+
+                v30 = (v28 - v9);
+                v31 = v29 - v14;
+                if (*(v16 + 50) == 1 && v31 <= *(v16 + 3))
+                {
+                  v31 = *(v16 + 3);
+                }
+
+                if (v47 != 1 || (v32 = v48 - v31, v48 <= v31))
+                {
+LABEL_75:
+                  health::TypeFormatter<unsigned long long,void>::formatAtLocation<std::__wrap_iter<char *>>(__p, v30);
+                  goto LABEL_76;
+                }
+
+                if (v44)
+                {
+                  if (v44 != 1)
                   {
-                    if (v47 == 2)
+                    if (v44 == 2)
                     {
-                      memset(v32, __c, v51 - v33);
-                      v32 += v34;
+                      memset(v30, __c, v48 - v31);
+                      v30 += v32;
                       goto LABEL_75;
                     }
 
 LABEL_76:
                     if (!v9)
                     {
-                      goto LABEL_78;
+                      return;
                     }
 
 LABEL_77:
                     health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
-                    goto LABEL_78;
+                    return;
                   }
 
-                  v36 = v34 - (v34 >> 1);
-                  if (v34 >= 2)
+                  v33 = v32 - (v32 >> 1);
+                  if (v32 >= 2)
                   {
-                    if (v34 >> 1 <= 1)
+                    if (v32 >> 1 <= 1)
                     {
-                      v37 = 1;
+                      v34 = 1;
                     }
 
                     else
                     {
-                      v37 = v34 >> 1;
+                      v34 = v32 >> 1;
                     }
 
-                    memset(v32, __c, v37);
-                    v32 += v37;
+                    memset(v30, __c, v34);
+                    v30 += v34;
                   }
 
-                  health::TypeFormatter<unsigned long long,void>::formatAtLocation<std::__wrap_iter<char *>>(__p, v32);
-                  if (v36 <= 1)
+                  health::TypeFormatter<unsigned long long,void>::formatAtLocation<std::__wrap_iter<char *>>(__p, v30);
+                  if (v33 <= 1)
                   {
-                    v38 = 1;
+                    v35 = 1;
                   }
 
                   else
                   {
-                    v38 = v36;
+                    v35 = v33;
                   }
 
-                  v39 = __c;
-                  v40 = &v32[v33];
+                  v36 = __c;
+                  v37 = &v30[v31];
                 }
 
                 else
                 {
-                  health::TypeFormatter<unsigned long long,void>::formatAtLocation<std::__wrap_iter<char *>>(__p, v32);
-                  v39 = __c;
-                  v40 = &v32[v33];
-                  v38 = v34;
+                  health::TypeFormatter<unsigned long long,void>::formatAtLocation<std::__wrap_iter<char *>>(__p, v30);
+                  v36 = __c;
+                  v37 = &v30[v31];
+                  v35 = v32;
                 }
 
-                memset(v40, v39, v38);
+                memset(v37, v36, v35);
                 if (!v9)
                 {
-                  goto LABEL_78;
+                  return;
                 }
 
                 goto LABEL_77;
               }
 
 LABEL_51:
-              v26 = 65;
+              v24 = 65;
               goto LABEL_52;
             }
 
-            v19 = 71;
+            v17 = 71;
             do
             {
-              *(__p + v19--) = (v17 % 0xA) | 0x30;
-              v20 = v17 >= 0xA;
-              v17 /= 0xAuLL;
+              *(__p + v17--) = (v15 % 0xA) | 0x30;
+              v18 = v15 >= 0xA;
+              v15 /= 0xAuLL;
             }
 
-            while (v20);
+            while (v18);
           }
 
 LABEL_47:
-          v16 = v19 - 7;
-          v57 = v19 - 7;
-          v18 = __p[0];
-          if (v58)
+          v14 = v17 - 7;
+          v54 = v17 - 7;
+          v16 = __p[0];
+          if (v55)
           {
             goto LABEL_48;
           }
 
-          v25 = 0;
+          v23 = 0;
           goto LABEL_51;
         }
 
         v10 = 1;
-        v11 = (v11 + 1);
+        i = (i + 1);
       }
 
-      v54 = &v11->__r_.__value_.__s.__data_[1];
-      v6 = v11->__r_.__value_.__s.__data_[1];
+      v51 = &i->__r_.__value_.__s.__data_[1];
+      v6 = i->__r_.__value_.__s.__data_[1];
       --v9;
-      v11 = (v11 + 1);
       if (!v6)
       {
         std::string::resize(a2, a3 - v9, 0);
         if (v9)
         {
-          v13 = *MEMORY[0x277D85DE8];
 
           health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
-          return;
         }
 
-LABEL_78:
-        v35 = *MEMORY[0x277D85DE8];
         return;
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   std::string::resize(a2, a3, 0);
 }
@@ -6564,12 +4729,12 @@ void health::FormatterParameters<0ul,unsigned long long &,unsigned long long>::f
   __cxa_throw(v1, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-unsigned __int8 *health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(unsigned __int8 *result, char *__b, uint64_t a3)
+unsigned __int8 *health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(unsigned __int8 *result, char *__b, const void **a3)
 {
   v4 = __b;
   v5 = *(a3 + 23);
   v6 = v5;
-  v7 = *(a3 + 8);
+  v7 = a3[1];
   if ((v5 & 0x80u) == 0)
   {
     v8 = *(a3 + 23);
@@ -6577,7 +4742,7 @@ unsigned __int8 *health::FormatOptions::justifyNativeValueOfLength<std::__wrap_i
 
   else
   {
-    v8 = *(a3 + 8);
+    v8 = a3[1];
   }
 
   if (result[16] != 1 || (v9 = result, v10 = *(result + 3), v11 = v10 - v8, v10 <= v8))
@@ -6587,8 +4752,7 @@ unsigned __int8 *health::FormatOptions::justifyNativeValueOfLength<std::__wrap_i
       return result;
     }
 
-    v17 = *a3;
-    if (v6 >= 0)
+    if ((v5 & 0x80u) == 0)
     {
       v15 = a3;
     }
@@ -6608,23 +4772,22 @@ unsigned __int8 *health::FormatOptions::justifyNativeValueOfLength<std::__wrap_i
   {
     if (v8)
     {
-      v26 = *a3;
-      if (v6 >= 0)
+      if ((v5 & 0x80u) == 0)
       {
-        v27 = a3;
+        v24 = a3;
       }
 
       else
       {
-        v27 = *a3;
+        v24 = *a3;
       }
 
-      memmove(v4, v27, v8);
+      memmove(v4, v24, v8);
     }
 
-    v24 = v9[52];
-    v25 = &v4[v8];
-    v23 = v11;
+    v22 = v9[52];
+    v23 = &v4[v8];
+    v21 = v11;
     goto LABEL_49;
   }
 
@@ -6634,70 +4797,69 @@ unsigned __int8 *health::FormatOptions::justifyNativeValueOfLength<std::__wrap_i
     {
       if (v11 >> 1 <= 1)
       {
-        v18 = 1;
+        v17 = 1;
       }
 
       else
       {
-        v18 = v11 >> 1;
+        v17 = v11 >> 1;
       }
 
-      memset(__b, result[52], v18);
-      v4 += v18;
+      memset(__b, result[52], v17);
+      v4 += v17;
       v5 = *(a3 + 23);
-      v7 = *(a3 + 8);
-      LOBYTE(v6) = *(a3 + 23);
+      v7 = a3[1];
+      v6 = *(a3 + 23);
     }
 
-    v19 = v11 - (v11 >> 1);
-    if ((v6 & 0x80u) == 0)
+    v18 = v11 - (v11 >> 1);
+    if (v6 >= 0)
     {
-      v20 = v5;
+      v19 = v5;
     }
 
     else
     {
-      v20 = v7;
+      v19 = v7;
     }
 
-    if (v20)
+    if (v19)
     {
-      v21 = *a3;
-      if ((v6 & 0x80u) == 0)
+      if (v6 >= 0)
       {
-        v22 = a3;
+        v20 = a3;
       }
 
       else
       {
-        v22 = *a3;
+        v20 = *a3;
       }
 
-      memmove(v4, v22, v20);
+      memmove(v4, v20, v19);
     }
 
-    if (v19 <= 1)
+    if (v18 <= 1)
     {
-      v23 = 1;
+      v21 = 1;
     }
 
     else
     {
-      v23 = v19;
+      v21 = v18;
     }
 
-    v24 = v9[52];
-    v25 = &v4[v8];
+    v22 = v9[52];
+    v23 = &v4[v8];
 LABEL_49:
 
-    return memset(v25, v24, v23);
+    return memset(v23, v22, v21);
   }
 
   if (v12 == 2)
   {
     result = memset(__b, result[52], v11);
     v13 = *(a3 + 23);
-    v14 = v13 >= 0 ? *(a3 + 23) : *(a3 + 8);
+    v14 = v13 >= 0 ? *(a3 + 23) : a3[1];
     if (v14)
     {
       if (v13 >= 0)
@@ -6822,279 +4984,273 @@ uint64_t health::TypeFormatter<unsigned long long &,void>::TypeFormatter(uint64_
   return a1;
 }
 
-void sub_228B69464(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_228B69464(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
+  va_start(va, a11);
   std::locale::~locale(&a9);
-  std::ostringstream::~ostringstream(&a12);
-  if (*(v12 + 23) < 0)
+  std::ostringstream::~ostringstream(va);
+  if (*(v11 + 23) < 0)
   {
-    operator delete(*v12);
+    operator delete(*v11);
   }
 
   _Unwind_Resume(a1);
 }
 
-void health::FormatImplementation<long long &,unsigned long,unsigned long long &,unsigned long long &>(std::string *a1, std::string *a2, std::string::size_type a3, void **a4)
+void health::FormatImplementation<long long &,unsigned long,unsigned long long &,unsigned long long &>(std::string *a1, std::string *a2, std::string::size_type a3, void **a4, ...)
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v39 = a1;
+  v42 = *MEMORY[0x277D85DE8];
+  v36 = a1;
   v6 = a1->__r_.__value_.__s.__data_[0];
-  if (a1->__r_.__value_.__s.__data_[0])
+  if (!a1->__r_.__value_.__s.__data_[0])
   {
-    v9 = 0;
-    v10 = 0;
-    v11 = a1;
-    while (1)
+
+    std::string::resize(a2, a3, 0);
+    return;
+  }
+
+  v9 = 0;
+  v10 = 0;
+  v11 = a1;
+  while (v6 != 123)
+  {
+LABEL_6:
+    v36 = &v11->__r_.__value_.__s.__data_[1];
+    v6 = v11->__r_.__value_.__s.__data_[1];
+    ++v9;
+    v11 = (v11 + 1);
+    if (!v6)
     {
-      if (v6 == 123)
+      std::string::resize(a2, a3 + v9, 0);
+      if (v9)
       {
-        v12 = v11->__r_.__value_.__s.__data_[1];
-        if (v12 != 123)
-        {
-          if (v12 == 42)
-          {
-            v39 = &v11->__r_.__value_.__s.__data_[2];
-            v29 = v11->__r_.__value_.__s.__data_[2];
-            if ((v29 - 48) > 9)
-            {
-              exception = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
-            }
 
-            else
-            {
-              v30 = 0;
-              v31 = &v11->__r_.__value_.__s.__data_[3];
-              do
-              {
-                v39 = v31;
-                v30 = (v29 & 0xF) + 10 * v30;
-                v32 = *v31++;
-                LOBYTE(v29) = v32;
-              }
-
-              while ((v32 - 58) >= 0xFFFFFFF6);
-              v39 = v31;
-              if (*(v31 - 1) == 125)
-              {
-                health::FormatterParameters<0ul,long long &,unsigned long,unsigned long long &,unsigned long long &>::formatOptionsAtIndex<long long &,unsigned long,unsigned long long &,unsigned long long &>(v30);
-              }
-
-              exception = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
-            }
-
-            __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-          }
-
-          health::FormatOptions::FormatOptions(&v35, &v39);
-          v15 = v39;
-          if (v36 > 1)
-          {
-            if (v36 == 2)
-            {
-              health::TypeFormatter<unsigned long long &,void>::TypeFormatter(&__p, a4[1], &v35);
-              v22 = v42;
-              if ((v42 & 0x80u) != 0)
-              {
-                v22 = v41;
-              }
-
-              v23 = v38;
-              if (v38 <= v22)
-              {
-                v23 = v22;
-              }
-
-              if (v37)
-              {
-                v22 = v23;
-              }
-
-              health::FormatImplementation<long long &,unsigned long,unsigned long long &,unsigned long long &>(v15, a2, v22 + a3 + v9, a4);
-              if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-              {
-                v19 = a2;
-              }
-
-              else
-              {
-                v19 = a2->__r_.__value_.__r.__words[0];
-              }
-            }
-
-            else
-            {
-              if (v36 != 3)
-              {
-                goto LABEL_76;
-              }
-
-              health::TypeFormatter<unsigned long long &,void>::TypeFormatter(&__p, *a4, &v35);
-              v17 = v42;
-              if ((v42 & 0x80u) != 0)
-              {
-                v17 = v41;
-              }
-
-              v18 = v38;
-              if (v38 <= v17)
-              {
-                v18 = v17;
-              }
-
-              if (v37)
-              {
-                v17 = v18;
-              }
-
-              health::FormatImplementation<long long &,unsigned long,unsigned long long &,unsigned long long &>(v15, a2, v17 + a3 + v9, a4);
-              if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-              {
-                v19 = a2;
-              }
-
-              else
-              {
-                v19 = a2->__r_.__value_.__r.__words[0];
-              }
-            }
-          }
-
-          else
-          {
-            if (v36)
-            {
-              if (v36 == 1)
-              {
-                health::TypeFormatter<unsigned long,void>::TypeFormatter(&__p, *a4[2], &v35);
-                if (v44 == 1 && *(__p + 48) != 1)
-                {
-                  v16 = 64;
-                }
-
-                else
-                {
-                  v16 = 65;
-                }
-
-                v24 = v16 - v43;
-                if (*(__p + 50) == 1 && v24 <= *(__p + 3))
-                {
-                  v24 = *(__p + 3);
-                }
-
-                v25 = v38;
-                if (v38 <= v24)
-                {
-                  v25 = v24;
-                }
-
-                if (v37)
-                {
-                  v26 = v25;
-                }
-
-                else
-                {
-                  v26 = v24;
-                }
-
-                health::FormatImplementation<long long &,unsigned long,unsigned long long &,unsigned long long &>(v15, a2, v26 + a3 + v9, a4);
-                if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-                {
-                  v27 = a2;
-                }
-
-                else
-                {
-                  v27 = a2->__r_.__value_.__r.__words[0];
-                }
-
-                health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long>(&v35, &v27[a3 + v9], &__p);
-LABEL_65:
-                if (v9)
-                {
-                  health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
-                }
-
-                goto LABEL_67;
-              }
-
-LABEL_76:
-              v34 = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(v34, "Parameter index out of bounds.");
-              __cxa_throw(v34, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-            }
-
-            health::TypeFormatter<long long &,void>::TypeFormatter(&__p, a4[3], &v35);
-            v20 = v42;
-            if ((v42 & 0x80u) != 0)
-            {
-              v20 = v41;
-            }
-
-            v21 = v38;
-            if (v38 <= v20)
-            {
-              v21 = v20;
-            }
-
-            if (v37)
-            {
-              v20 = v21;
-            }
-
-            health::FormatImplementation<long long &,unsigned long,unsigned long long &,unsigned long long &>(v15, a2, v20 + a3 + v9, a4);
-            if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-            {
-              v19 = a2;
-            }
-
-            else
-            {
-              v19 = a2->__r_.__value_.__r.__words[0];
-            }
-          }
-
-          health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v35, &v19[a3 + v9], &__p);
-          if (v42 < 0)
-          {
-            operator delete(__p);
-          }
-
-          goto LABEL_65;
-        }
-
-        v10 = 1;
-        v11 = (v11 + 1);
+        health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
       }
 
-      v39 = &v11->__r_.__value_.__s.__data_[1];
-      v6 = v11->__r_.__value_.__s.__data_[1];
-      ++v9;
-      v11 = (v11 + 1);
-      if (!v6)
+      return;
+    }
+  }
+
+  v12 = v11->__r_.__value_.__s.__data_[1];
+  if (v12 == 123)
+  {
+    v10 = 1;
+    v11 = (v11 + 1);
+    goto LABEL_6;
+  }
+
+  if (v12 == 42)
+  {
+    v36 = &v11->__r_.__value_.__s.__data_[2];
+    v26 = v11->__r_.__value_.__s.__data_[2];
+    if ((v26 - 48) > 9)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
+    }
+
+    else
+    {
+      v27 = 0;
+      v28 = &v11->__r_.__value_.__s.__data_[3];
+      do
       {
-        std::string::resize(a2, a3 + v9, 0);
-        if (v9)
-        {
-          v13 = *MEMORY[0x277D85DE8];
+        v36 = v28;
+        v27 = (v26 & 0xF) + 10 * v27;
+        v29 = *v28++;
+        LOBYTE(v26) = v29;
+      }
 
-          health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
-          return;
-        }
+      while ((v29 - 58) >= 0xFFFFFFF6);
+      v36 = v28;
+      if (*(v28 - 1) == 125)
+      {
+        health::FormatterParameters<0ul,long long &,unsigned long,unsigned long long &,unsigned long long &>::formatOptionsAtIndex<long long &,unsigned long,unsigned long long &,unsigned long long &>(v27);
+      }
 
-LABEL_67:
-        v28 = *MEMORY[0x277D85DE8];
-        return;
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
+    }
+
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  health::FormatOptions::FormatOptions(v32, &v36);
+  v13 = v36;
+  if (v33 > 1)
+  {
+    if (v33 == 2)
+    {
+      health::TypeFormatter<unsigned long long &,void>::TypeFormatter(&__p, a4[1], v32);
+      v20 = v39;
+      if ((v39 & 0x80u) != 0)
+      {
+        v20 = v38;
+      }
+
+      v21 = v35;
+      if (v35 <= v20)
+      {
+        v21 = v20;
+      }
+
+      if (v34)
+      {
+        v20 = v21;
+      }
+
+      health::FormatImplementation<long long &,unsigned long,unsigned long long &,unsigned long long &>(v13, a2, v20 + a3 + v9, a4);
+      if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v17 = a2;
+      }
+
+      else
+      {
+        v17 = a2->__r_.__value_.__r.__words[0];
+      }
+    }
+
+    else
+    {
+      if (v33 != 3)
+      {
+        goto LABEL_76;
+      }
+
+      health::TypeFormatter<unsigned long long &,void>::TypeFormatter(&__p, *a4, v32);
+      v15 = v39;
+      if ((v39 & 0x80u) != 0)
+      {
+        v15 = v38;
+      }
+
+      v16 = v35;
+      if (v35 <= v15)
+      {
+        v16 = v15;
+      }
+
+      if (v34)
+      {
+        v15 = v16;
+      }
+
+      health::FormatImplementation<long long &,unsigned long,unsigned long long &,unsigned long long &>(v13, a2, v15 + a3 + v9, a4);
+      if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v17 = a2;
+      }
+
+      else
+      {
+        v17 = a2->__r_.__value_.__r.__words[0];
       }
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
+  else
+  {
+    if (v33)
+    {
+      if (v33 == 1)
+      {
+        health::TypeFormatter<unsigned long,void>::TypeFormatter(&__p, *a4[2], v32);
+        if (v41 == 1 && *(__p + 48) != 1)
+        {
+          v14 = 64;
+        }
 
-  std::string::resize(a2, a3, 0);
+        else
+        {
+          v14 = 65;
+        }
+
+        v22 = v14 - v40;
+        if (*(__p + 50) == 1 && v22 <= *(__p + 3))
+        {
+          v22 = *(__p + 3);
+        }
+
+        v23 = v35;
+        if (v35 <= v22)
+        {
+          v23 = v22;
+        }
+
+        if (v34)
+        {
+          v24 = v23;
+        }
+
+        else
+        {
+          v24 = v22;
+        }
+
+        health::FormatImplementation<long long &,unsigned long,unsigned long long &,unsigned long long &>(v13, a2, v24 + a3 + v9, a4);
+        if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v25 = a2;
+        }
+
+        else
+        {
+          v25 = a2->__r_.__value_.__r.__words[0];
+        }
+
+        health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long>(v32, v25 + a3 + v9, &__p);
+        goto LABEL_65;
+      }
+
+LABEL_76:
+      v31 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v31, "Parameter index out of bounds.");
+      __cxa_throw(v31, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    }
+
+    health::TypeFormatter<long long &,void>::TypeFormatter(&__p, a4[3], v32);
+    v18 = v39;
+    if ((v39 & 0x80u) != 0)
+    {
+      v18 = v38;
+    }
+
+    v19 = v35;
+    if (v35 <= v18)
+    {
+      v19 = v18;
+    }
+
+    if (v34)
+    {
+      v18 = v19;
+    }
+
+    health::FormatImplementation<long long &,unsigned long,unsigned long long &,unsigned long long &>(v13, a2, v18 + a3 + v9, a4);
+    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v17 = a2;
+    }
+
+    else
+    {
+      v17 = a2->__r_.__value_.__r.__words[0];
+    }
+  }
+
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v32, v17 + a3 + v9, &__p);
+  if (v39 < 0)
+  {
+    operator delete(__p);
+  }
+
+LABEL_65:
+  if (v9)
+  {
+    health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
+  }
 }
 
 void health::FormatterParameters<0ul,long long &,unsigned long,unsigned long long &,unsigned long long &>::formatOptionsAtIndex<long long &,unsigned long,unsigned long long &,unsigned long long &>(uint64_t a1)
@@ -7350,25 +5506,25 @@ uint64_t health::TypeFormatter<long long &,void>::TypeFormatter(uint64_t a1, voi
   return a1;
 }
 
-void sub_228B69FB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_228B69FB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
+  va_start(va, a11);
   std::locale::~locale(&a9);
-  std::ostringstream::~ostringstream(&a12);
-  if (*(v12 + 23) < 0)
+  std::ostringstream::~ostringstream(va);
+  if (*(v11 + 23) < 0)
   {
-    operator delete(*v12);
+    operator delete(*v11);
   }
 
   _Unwind_Resume(a1);
 }
 
-void health::FormatString<char const*>(std::string *a1@<X0>, const char **a2@<X1>, std::string *a3@<X8>)
+void health::FormatString<char const*>(std::string *a1@<X0>, std::string *a2@<X8>, const char **a3@<X1>)
 {
-  v3 = a2;
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
-  a3->__r_.__value_.__r.__words[0] = 0;
-  health::FormatImplementation<char const*>(a1, a3, 0, &v3);
+  v3 = a3;
+  *&a2->__r_.__value_.__r.__words[1] = 0uLL;
+  a2->__r_.__value_.__r.__words[0] = 0;
+  health::FormatImplementation<char const*>(a1, a2, 0, &v3);
 }
 
 void sub_228B6A038(_Unwind_Exception *exception_object)
@@ -7383,7 +5539,7 @@ void sub_228B6A038(_Unwind_Exception *exception_object)
 
 void health::FormatImplementation<char const*>(std::string *a1, std::string *this, std::string::size_type __n, const char ***a4)
 {
-  v19 = a1;
+  v20 = a1;
   v6 = a1->__r_.__value_.__s.__data_[0];
   if (a1->__r_.__value_.__s.__data_[0])
   {
@@ -7398,7 +5554,7 @@ void health::FormatImplementation<char const*>(std::string *a1, std::string *thi
         {
           if (v12 == 42)
           {
-            v19 = &i->__r_.__value_.__s.__data_[2];
+            v20 = &i->__r_.__value_.__s.__data_[2];
             v13 = i->__r_.__value_.__s.__data_[2];
             if ((v13 - 48) > 9)
             {
@@ -7412,14 +5568,14 @@ void health::FormatImplementation<char const*>(std::string *a1, std::string *thi
               v15 = &i->__r_.__value_.__s.__data_[3];
               do
               {
-                v19 = v15;
+                v20 = v15;
                 v14 = (v13 & 0xF) + 10 * v14;
                 v16 = *v15++;
                 LOBYTE(v13) = v16;
               }
 
               while ((v16 - 58) >= 0xFFFFFFF6);
-              v19 = v15;
+              v20 = v15;
               if (*(v15 - 1) == 125)
               {
                 health::FormatterParameters<0ul,char const*>::formatOptionsAtIndex<char const*>(a4, a4, v14);
@@ -7432,8 +5588,8 @@ void health::FormatImplementation<char const*>(std::string *a1, std::string *thi
             __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
           }
 
-          health::FormatOptions::FormatOptions(v18, &v19);
-          health::FormatterParameters<0ul,char const*>::formatParameterAtIndex<char const*>(a4, a4, *(&v18[0] + 1), v18, this, __n - v9, v19);
+          health::FormatOptions::FormatOptions(&v18, &v20);
+          health::FormatterParameters<0ul,char const*>::formatParameterAtIndex<char const*>(a4, a4, *v19, &v18, this, __n - v9, v20);
           if (v9)
           {
             health::CopyFormatSectionToResult(a1, this, __n, -v9, v10 & 1);
@@ -7446,7 +5602,7 @@ void health::FormatImplementation<char const*>(std::string *a1, std::string *thi
         i = (i + 1);
       }
 
-      v19 = &i->__r_.__value_.__s.__data_[1];
+      v20 = &i->__r_.__value_.__s.__data_[1];
       v6 = i->__r_.__value_.__s.__data_[1];
       --v9;
       if (!v6)
@@ -7479,7 +5635,7 @@ void health::FormatterParameters<0ul,char const*>::formatOptionsAtIndex<char con
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-unsigned __int8 *health::FormatterParameters<0ul,char const*>::formatParameterAtIndex<char const*>(const char ***a1, int a2, uint64_t a3, __int128 *a4, std::string *this, uint64_t a6, int a7)
+unsigned __int8 *health::FormatterParameters<0ul,char const*>::formatParameterAtIndex<char const*>(const char ***a1, uint64_t a2, uint64_t a3, __int128 *a4, std::string *this, uint64_t a6, char *a7)
 {
   if (a3)
   {
@@ -7487,47 +5643,47 @@ unsigned __int8 *health::FormatterParameters<0ul,char const*>::formatParameterAt
     health::FormatterParameters<1ul>::formatParameterAtIndex<health::FormatterParameters<0ul,char const*>>();
   }
 
-  v11 = **a1;
-  v17[0] = v11;
-  if (v11)
+  v12 = **a1;
+  v18[0] = v12;
+  if (v12)
   {
-    v11 = strlen(v11);
+    v12 = strlen(v12);
   }
 
-  v17[1] = v11;
-  v12 = a4[1];
-  v18 = *a4;
-  v19 = v12;
-  v20 = a4[2];
-  v21 = *(a4 + 6);
-  v13 = *(a4 + 3);
-  if (v13 <= v11)
+  v18[1] = v12;
+  v13 = a4[1];
+  v19 = *a4;
+  v20 = v13;
+  v21 = a4[2];
+  v22 = *(a4 + 6);
+  v14 = *(a4 + 3);
+  if (v14 <= v12)
   {
-    v13 = v11;
+    v14 = v12;
   }
 
   if (*(a4 + 16))
   {
-    v14 = v13;
+    v15 = v14;
   }
 
   else
   {
-    v14 = v11;
+    v15 = v12;
   }
 
-  health::FormatImplementation<char const*>(a7, this, &v14[a6]);
+  health::FormatImplementation<char const*>(a7, this, &v15[a6], a2);
   if ((this->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v15 = this;
+    v16 = this;
   }
 
   else
   {
-    v15 = this->__r_.__value_.__r.__words[0];
+    v16 = this->__r_.__value_.__r.__words[0];
   }
 
-  return health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(a4, v15 + a6, v17);
+  return health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(a4, v16 + a6, v18);
 }
 
 void health::FormatterParameters<1ul>::formatOptionsAtIndex<char const*>()
@@ -7666,76 +5822,68 @@ void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::eq
     return 0;
   }
 
-  result = *v5;
-  if (*v5)
+  for (result = *v5; result; result = *result)
   {
-    do
+    v7 = result[1];
+    if (v7 == a3)
     {
-      v7 = result[1];
-      if (v7 == a3)
+      if (result[2] == a3)
       {
-        if (result[2] == a3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v3.u32[0] > 1uLL)
+      {
+        if (v7 >= a2)
         {
-          return result;
+          v7 %= a2;
         }
       }
 
       else
       {
-        if (v3.u32[0] > 1uLL)
-        {
-          if (v7 >= a2)
-          {
-            v7 %= a2;
-          }
-        }
-
-        else
-        {
-          v7 &= a2 - 1;
-        }
-
-        if (v7 != v4)
-        {
-          return 0;
-        }
+        v7 &= a2 - 1;
       }
 
-      result = *result;
+      if (v7 != v4)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(void *result, unint64_t a2)
+void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(float *a1, unint64_t a2, void *a3)
 {
-  v2 = result[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -7743,47 +5891,45 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
-void health::FormatImplementation<int>(std::string *a1, std::string *this, std::string::size_type __n, int **a4)
+void health::FormatImplementation<int>(std::string *a1, std::string *this, std::string::size_type __n, unsigned int **a4)
 {
   v19 = a1;
   v6 = a1->__r_.__value_.__s.__data_[0];
@@ -7881,18 +6027,17 @@ void health::FormatterParameters<0ul,int>::formatOptionsAtIndex<int>(uint64_t a1
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void *health::FormatterParameters<0ul,int>::formatParameterAtIndex<int>(int **a1, uint64_t a2, uint64_t a3, uint64_t a4, std::string *a5, uint64_t a6, int a7)
+unsigned __int8 *health::FormatterParameters<0ul,int>::formatParameterAtIndex<int>(unsigned int **a1, uint64_t a2, uint64_t a3, uint64_t a4, std::string *a5, uint64_t a6, char *a7)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (a3)
   {
-    v11 = *MEMORY[0x277D85DE8];
 
     health::FormatterParameters<1ul>::formatParameterAtIndex<health::FormatterParameters<0ul,int>>();
   }
 
-  health::TypeFormatter<int,void>::TypeFormatter(v19, **a1, a4);
-  if (v20 == 1 && *(v19[0] + 48) != 1)
+  health::TypeFormatter<int,void>::TypeFormatter(v18, **a1, a4);
+  if (v19 == 1 && *(v18[0] + 48) != 1)
   {
     v12 = 32;
   }
@@ -7902,10 +6047,10 @@ void *health::FormatterParameters<0ul,int>::formatParameterAtIndex<int>(int **a1
     v12 = 33;
   }
 
-  v13 = v12 - v19[5];
-  if (*(v19[0] + 50) == 1 && v13 <= *(v19[0] + 24))
+  v13 = v12 - v18[5];
+  if (*(v18[0] + 50) == 1 && v13 <= *(v18[0] + 24))
   {
-    v13 = *(v19[0] + 24);
+    v13 = *(v18[0] + 24);
   }
 
   v14 = *(a4 + 24);
@@ -7924,7 +6069,7 @@ void *health::FormatterParameters<0ul,int>::formatParameterAtIndex<int>(int **a1
     v15 = v13;
   }
 
-  health::FormatImplementation<int>(a7, a5, v15 + a6);
+  health::FormatImplementation<int>(a7, a5, v15 + a6, a2);
   if ((a5->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v16 = a5;
@@ -7935,9 +6080,7 @@ void *health::FormatterParameters<0ul,int>::formatParameterAtIndex<int>(int **a1
     v16 = a5->__r_.__value_.__r.__words[0];
   }
 
-  result = health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned int>(a4, &v16[a6], v19);
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned int>(a4, v16 + a6, v18);
 }
 
 void health::FormatterParameters<1ul>::formatOptionsAtIndex<int>()
@@ -8174,7 +6317,7 @@ void health::FormatImplementation<unsigned long long &>(std::string *a1, std::st
                 v16 = a2->__r_.__value_.__r.__words[0];
               }
 
-              health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v22, &v16[a3 - v9], __p);
+              health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v22, v16 + a3 - v9, __p);
               if (v28 < 0)
               {
                 operator delete(__p[0]);
@@ -8244,7 +6387,7 @@ __n128 std::__function::__func<health::WriteAheadLog::_walLock_commitTransaction
   return result;
 }
 
-void std::__function::__func<health::WriteAheadLog::_walLock_commitTransaction(unsigned long long)::$_0,std::allocator<health::WriteAheadLog::_walLock_commitTransaction(unsigned long long)::$_0>,void ()(long long,health::WriteAheadLog::PageEntry)>::operator()(uint64_t a1, unint64_t *a2, __int128 *a3)
+void std::__function::__func<health::WriteAheadLog::_walLock_commitTransaction(unsigned long long)::$_0,std::allocator<health::WriteAheadLog::_walLock_commitTransaction(unsigned long long)::$_0>,void ()(long long,health::WriteAheadLog::PageEntry)>::operator()(uint64_t a1, uint64_t **a2, __int128 *a3)
 {
   v3 = *a2;
   v48 = *a3;
@@ -8538,10 +6681,10 @@ uint64_t std::__function::__value_func<void ()(long long,health::WriteAheadLog::
   return a1;
 }
 
-void *std::__tree<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(uint64_t a1, unint64_t a2)
+uint64_t **std::__tree<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(uint64_t **a1, unint64_t a2, uint64_t ***a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -8551,27 +6694,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -8589,9 +6732,9 @@ uint64_t std::__function::__func<health::WriteAheadLog::Transaction::commitAndMe
 __n128 std::__function::__func<health::WriteAheadLog::Transaction::commitAndMerge(health::WriteAheadLog::Transaction&)::$_0,std::allocator<health::WriteAheadLog::Transaction::commitAndMerge(health::WriteAheadLog::Transaction&)::$_0>,void ()(long long,health::WriteAheadLog::PageEntry)>::operator()(uint64_t a1, unint64_t *a2, __n128 *a3)
 {
   v4 = *(a1 + 8);
-  v7[0] = *a2;
-  v7[1] = v7;
-  v5 = std::__tree<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v4 + 32, v7[0]);
+  v7 = *a2;
+  v8 = &v7;
+  v5 = std::__tree<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,health::WriteAheadLog::PageEntry>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v4 + 32), v7, &v8);
   result = *a3;
   v5[7] = a3[1].n128_u64[0];
   *(v5 + 5) = result;
@@ -8723,7 +6866,7 @@ LABEL_6:
         v16 = a2->__r_.__value_.__r.__words[0];
       }
 
-      health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v26, &v16[a3 - v9], &__p);
+      health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v26, v16 + a3 - v9, &__p);
       if (SHIBYTE(v33) < 0)
       {
         operator delete(__p);
@@ -8772,7 +6915,7 @@ LABEL_48:
     v20 = a2->__r_.__value_.__r.__words[0];
   }
 
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v26, &v20[a3 - v9], &__p);
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v26, v20 + a3 - v9, &__p);
 LABEL_38:
   if (v9)
   {
@@ -8942,9 +7085,9 @@ LABEL_16:
   return result;
 }
 
-void sub_228B6D038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_228B6D038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9078,23 +7221,24 @@ LABEL_34:
   return [a2 hasError] ^ 1;
 }
 
-void sub_228B6E048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_228B6E048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a19);
+  va_start(va, a19);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228B6E568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_228B6E568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -9319,17 +7463,14 @@ LABEL_53:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t SleepLibraryCore()
+uint64_t SleepLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
   if (!SleepLibraryCore_frameworkLibrary)
   {
     SleepLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = SleepLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return SleepLibraryCore_frameworkLibrary;
 }
 
 uint64_t getgetSleepFeatureAvailabilityProvidingSymbolLoc()
@@ -9354,39 +7495,40 @@ uint64_t getgetSleepFeatureAvailabilityProvidingSymbolLoc()
   return v0;
 }
 
-void sub_228B6FBC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_228B6FBC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __SleepLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SleepLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void *__getgetSleepFeatureAvailabilityProvidingSymbolLoc_block_invoke(void *a1)
 {
-  v2 = SleepLibraryCore();
-  if (v2)
-  {
-    v3 = v2;
-  }
-
-  else
+  v6 = 0;
+  v2 = SleepLibraryCore(&v6);
+  if (!v2)
   {
     a1 = [MEMORY[0x277CCA890] currentHandler];
     v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *SleepLibrary(void)"];
-    [a1 handleFailureInFunction:v3 file:@"HDProfile+HKFeatureAvailabilityHealthDataSource.m" lineNumber:26 description:{@"%s", 0}];
+    [a1 handleFailureInFunction:v3 file:@"HDProfile+HKFeatureAvailabilityHealthDataSource.m" lineNumber:26 description:{@"%s", v6}];
 
     __break(1u);
-    free(v5);
+    goto LABEL_5;
+  }
+
+  v3 = v2;
+  v4 = v6;
+  if (v6)
+  {
+LABEL_5:
+    free(v4);
   }
 
   result = dlsym(v3, "getSleepFeatureAvailabilityProviding");
@@ -9488,9 +7630,9 @@ LABEL_24:
   return [a2 hasError] ^ 1;
 }
 
-void sub_228B708F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_228B708F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9502,16 +7644,16 @@ uint64_t __Block_byref_object_copy__55(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228B70AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_228B70AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228B70E84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228B70E84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9614,10 +7756,11 @@ LABEL_23:
   return [a2 hasError] ^ 1;
 }
 
-void sub_228B72C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_228B72C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  _Block_object_dispose((v26 - 240), 8);
-  _Block_object_dispose(&a26, 8);
+  va_start(va, a25);
+  _Block_object_dispose((v25 - 240), 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -10004,4 +8147,1530 @@ LABEL_97:
         goto LABEL_95;
     }
   }
+}
+
+void sub_228B7DA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, id location)
+{
+  objc_destroyWeak((v39 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_228B7FE08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location)
+{
+  objc_destroyWeak((v18 + 56));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_228B822C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__57(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+id HDSampleEntityOrderingTermsForRecentness()
+{
+  v5[3] = *MEMORY[0x277D85DE8];
+  v0 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"start_date" entityClass:objc_opt_class() ascending:0];
+  v1 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"end_date" entityClass:objc_opt_class() ascending:{0, v0}];
+  v5[1] = v1;
+  v2 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"creation_date" entityClass:objc_opt_class() ascending:0];
+  v5[2] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
+
+  return v3;
+}
+
+void sub_228B82654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id HDSampleEntityOrderingTermsForOldness()
+{
+  v3[1] = *MEMORY[0x277D85DE8];
+  v0 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"creation_date" entityClass:objc_opt_class() ascending:1];
+  v3[0] = v0;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
+
+  return v1;
+}
+
+void sub_228B82C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
+{
+  va_start(va, a37);
+  _Block_object_dispose(&a32, 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v37 - 184), 8);
+  _Block_object_dispose((v37 - 136), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228B82E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228B83B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228B85370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id HDSampleEntityPredicateForDateInterval(void *a1, void *a2)
+{
+  v16[2] = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = a1;
+  v5 = [v4 endDate];
+  v6 = HDSampleEntityPredicateForStartDate(3, v5);
+
+  v7 = [v4 startDate];
+  v8 = HDSampleEntityPredicateForEndDate(6, v7);
+
+  v16[0] = v6;
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v10 = [v4 startDate];
+
+  v11 = [v3 _earliestAllowedStartDateForSampleOverlappingDate:v10];
+
+  if (v11)
+  {
+    v12 = HDSampleEntityPredicateForStartDate(6, v11);
+    v13 = [v9 arrayByAddingObject:v12];
+
+    v9 = v13;
+  }
+
+  v14 = [MEMORY[0x277D10B20] predicateMatchingAllPredicates:v9];
+
+  return v14;
+}
+
+void sub_228B86F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228B87130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228B88318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228B88A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228B8914C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va1, a11);
+  va_start(va, a11);
+  v13 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Block_object_dispose((v11 - 136), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228B89688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v24 - 136), 8);
+  _Unwind_Resume(a1);
+}
+
+void _HDSQLiteNewSourceUUIDWithBundleIdentifierAndProductType(sqlite3_context *a1, int a2, sqlite3_value **a3)
+{
+  v13 = *MEMORY[0x277D85DE8];
+  if (a2 == 2)
+  {
+    if (sqlite3_value_type(*a3) != 5 && sqlite3_value_type(a3[1]) != 5)
+    {
+      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:sqlite3_value_text(*a3)];
+      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:sqlite3_value_text(a3[1])];
+      if (qword_280D67BA0 != -1)
+      {
+        dispatch_once(&qword_280D67BA0, &__block_literal_global_697);
+      }
+
+      if ([_MergedGlobals_199 containsObject:v6] && objc_msgSend(v5, "hasPrefix:", @"com.apple.health."))
+      {
+        v7 = [v5 stringByReplacingOccurrencesOfString:@"com.apple.health." withString:&stru_283BF39C8];
+        if ([v7 length])
+        {
+          v8 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v7];
+        }
+
+        else
+        {
+          _HKInitializeLogging();
+          v9 = *MEMORY[0x277CCC2A0];
+          if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543362;
+            *&buf[4] = v5;
+            _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "Failed to generate UUID from bundle identifier %{public}@", buf, 0xCu);
+          }
+
+          v8 = 0;
+        }
+
+        if (v8)
+        {
+          goto LABEL_12;
+        }
+      }
+
+      else
+      {
+      }
+    }
+
+    v8 = [MEMORY[0x277CCAD78] UUID];
+LABEL_12:
+    *buf = 0uLL;
+    [v8 getUUIDBytes:buf];
+    sqlite3_result_blob(a1, buf, 16, 0xFFFFFFFFFFFFFFFFLL);
+
+    return;
+  }
+
+  v10 = [MEMORY[0x277CCA890] currentHandler];
+  v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void _HDSQLiteNewSourceUUIDWithBundleIdentifierAndProductType(sqlite3_context *, int, sqlite3_value **)"}];
+  [v10 handleFailureInFunction:v11 file:@"HDDatabaseMigrator+Monarch.m" lineNumber:895 description:{@"Invalid parameter not satisfying: %@", @"argc == 2"}];
+
+  sqlite3_result_error(a1, "Improper number of arguments.", 1);
+}
+
+uint64_t __Block_byref_object_copy__58(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_228B8BFB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __getIMServiceImplClass_block_invoke(uint64_t a1)
+{
+  IMCoreLibrary();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("IMServiceImpl");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getIMServiceImplClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x277CCA890] currentHandler];
+    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Class getIMServiceImplClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"HDContributorManager.m" lineNumber:33 description:{@"Unable to find class %s", "IMServiceImpl"}];
+
+    __break(1u);
+  }
+}
+
+void *IMCoreLibrary()
+{
+  v5 = 0;
+  v0 = IMCoreLibraryCore(&v5);
+  if (!v0)
+  {
+    v1 = [MEMORY[0x277CCA890] currentHandler];
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *IMCoreLibrary(void)"];
+    [v1 handleFailureInFunction:v4 file:@"HDContributorManager.m" lineNumber:32 description:{@"%s", v5}];
+
+    __break(1u);
+    goto LABEL_5;
+  }
+
+  v1 = v0;
+  v2 = v5;
+  if (v5)
+  {
+LABEL_5:
+    free(v2);
+  }
+
+  return v1;
+}
+
+uint64_t IMCoreLibraryCore(uint64_t a1)
+{
+  if (!IMCoreLibraryCore_frameworkLibrary)
+  {
+    IMCoreLibraryCore_frameworkLibrary = _sl_dlopen();
+  }
+
+  return IMCoreLibraryCore_frameworkLibrary;
+}
+
+uint64_t __IMCoreLibraryCore_block_invoke(uint64_t a1)
+{
+  result = _sl_dlopen();
+  IMCoreLibraryCore_frameworkLibrary = result;
+  return result;
+}
+
+uint64_t getIMPreferredAccountForServiceSymbolLoc()
+{
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v0 = getIMPreferredAccountForServiceSymbolLoc_ptr;
+  v6 = getIMPreferredAccountForServiceSymbolLoc_ptr;
+  if (!getIMPreferredAccountForServiceSymbolLoc_ptr)
+  {
+    v1 = IMCoreLibrary();
+    v4[3] = dlsym(v1, "IMPreferredAccountForService");
+    getIMPreferredAccountForServiceSymbolLoc_ptr = v4[3];
+    v0 = v4[3];
+  }
+
+  _Block_object_dispose(&v3, 8);
+  return v0;
+}
+
+void sub_228B8C36C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *__getIMPreferredAccountForServiceSymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = IMCoreLibrary();
+  result = dlsym(v2, "IMPreferredAccountForService");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getIMPreferredAccountForServiceSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void sub_228B8C698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228B8D024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__59(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_228B8EC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+{
+  va_start(va, a17);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t HDCodableAuthorizationReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        LOBYTE(v52[0]) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:v52 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v52[0] & 0x7F) << v5;
+        if ((v52[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) <= 3)
+      {
+        break;
+      }
+
+      if (v13 <= 5)
+      {
+        if (v13 == 4)
+        {
+          *(a1 + 64) |= 8u;
+          v52[0] = 0;
+          v34 = [a2 position] + 8;
+          if (v34 >= [a2 position] && (v35 = objc_msgSend(a2, "position") + 8, v35 <= objc_msgSend(a2, "length")))
+          {
+            v50 = [a2 data];
+            [v50 getBytes:v52 range:{objc_msgSend(a2, "position"), 8}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          *(a1 + 32) = v52[0];
+          goto LABEL_100;
+        }
+
+        if (v13 == 5)
+        {
+          v14 = 0;
+          v15 = 0;
+          v16 = 0;
+          *(a1 + 64) |= 0x10u;
+          while (1)
+          {
+            LOBYTE(v52[0]) = 0;
+            v17 = [a2 position] + 1;
+            if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
+            {
+              v19 = [a2 data];
+              [v19 getBytes:v52 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v16 |= (v52[0] & 0x7F) << v14;
+            if ((v52[0] & 0x80) == 0)
+            {
+              break;
+            }
+
+            v14 += 7;
+            v11 = v15++ >= 9;
+            if (v11)
+            {
+              v20 = 0;
+              goto LABEL_90;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v20 = 0;
+          }
+
+          else
+          {
+            v20 = v16;
+          }
+
+LABEL_90:
+          v48 = 40;
+LABEL_99:
+          *(a1 + v48) = v20;
+          goto LABEL_100;
+        }
+
+        goto LABEL_56;
+      }
+
+      if (v13 == 6)
+      {
+        v36 = 0;
+        v37 = 0;
+        v38 = 0;
+        *(a1 + 64) |= 1u;
+        while (1)
+        {
+          LOBYTE(v52[0]) = 0;
+          v39 = [a2 position] + 1;
+          if (v39 >= [a2 position] && (v40 = objc_msgSend(a2, "position") + 1, v40 <= objc_msgSend(a2, "length")))
+          {
+            v41 = [a2 data];
+            [v41 getBytes:v52 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v38 |= (v52[0] & 0x7F) << v36;
+          if ((v52[0] & 0x80) == 0)
+          {
+            break;
+          }
+
+          v36 += 7;
+          v11 = v37++ >= 9;
+          if (v11)
+          {
+            v20 = 0;
+            goto LABEL_86;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v20 = 0;
+        }
+
+        else
+        {
+          v20 = v38;
+        }
+
+LABEL_86:
+        v48 = 8;
+        goto LABEL_99;
+      }
+
+      if (v13 != 7)
+      {
+        goto LABEL_56;
+      }
+
+      v27 = objc_alloc_init(HDCodableSyncIdentity);
+      objc_storeStrong((a1 + 56), v27);
+      v52[0] = 0;
+      v52[1] = 0;
+      if (!PBReaderPlaceMark() || !HDCodableSyncIdentityReadFrom(v27, a2))
+      {
+
+        return 0;
+      }
+
+      PBReaderRecallMark();
+
+LABEL_100:
+      v49 = [a2 position];
+      if (v49 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    switch(v13)
+    {
+      case 1:
+        v28 = 0;
+        v29 = 0;
+        v30 = 0;
+        *(a1 + 64) |= 0x20u;
+        while (1)
+        {
+          LOBYTE(v52[0]) = 0;
+          v31 = [a2 position] + 1;
+          if (v31 >= [a2 position] && (v32 = objc_msgSend(a2, "position") + 1, v32 <= objc_msgSend(a2, "length")))
+          {
+            v33 = [a2 data];
+            [v33 getBytes:v52 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v30 |= (v52[0] & 0x7F) << v28;
+          if ((v52[0] & 0x80) == 0)
+          {
+            break;
+          }
+
+          v28 += 7;
+          v11 = v29++ >= 9;
+          if (v11)
+          {
+            v20 = 0;
+            goto LABEL_82;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v20 = 0;
+        }
+
+        else
+        {
+          v20 = v30;
+        }
+
+LABEL_82:
+        v48 = 48;
+        goto LABEL_99;
+      case 2:
+        v42 = 0;
+        v43 = 0;
+        v44 = 0;
+        *(a1 + 64) |= 4u;
+        while (1)
+        {
+          LOBYTE(v52[0]) = 0;
+          v45 = [a2 position] + 1;
+          if (v45 >= [a2 position] && (v46 = objc_msgSend(a2, "position") + 1, v46 <= objc_msgSend(a2, "length")))
+          {
+            v47 = [a2 data];
+            [v47 getBytes:v52 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v44 |= (v52[0] & 0x7F) << v42;
+          if ((v52[0] & 0x80) == 0)
+          {
+            break;
+          }
+
+          v42 += 7;
+          v11 = v43++ >= 9;
+          if (v11)
+          {
+            v20 = 0;
+            goto LABEL_98;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v20 = 0;
+        }
+
+        else
+        {
+          v20 = v44;
+        }
+
+LABEL_98:
+        v48 = 24;
+        goto LABEL_99;
+      case 3:
+        v21 = 0;
+        v22 = 0;
+        v23 = 0;
+        *(a1 + 64) |= 2u;
+        while (1)
+        {
+          LOBYTE(v52[0]) = 0;
+          v24 = [a2 position] + 1;
+          if (v24 >= [a2 position] && (v25 = objc_msgSend(a2, "position") + 1, v25 <= objc_msgSend(a2, "length")))
+          {
+            v26 = [a2 data];
+            [v26 getBytes:v52 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v23 |= (v52[0] & 0x7F) << v21;
+          if ((v52[0] & 0x80) == 0)
+          {
+            break;
+          }
+
+          v21 += 7;
+          v11 = v22++ >= 9;
+          if (v11)
+          {
+            v20 = 0;
+            goto LABEL_94;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v20 = 0;
+        }
+
+        else
+        {
+          v20 = v23;
+        }
+
+LABEL_94:
+        v48 = 16;
+        goto LABEL_99;
+    }
+
+LABEL_56:
+    if ((PBReaderSkipValueWithTag() & 1) == 0)
+    {
+      return 0;
+    }
+
+    goto LABEL_100;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t HDCodableFHIRResourceReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 >= [a2 length])
+  {
+    return [a2 hasError] ^ 1;
+  }
+
+  while (2)
+  {
+    if ([a2 hasError])
+    {
+      return [a2 hasError] ^ 1;
+    }
+
+    v5 = 0;
+    v6 = 0;
+    v7 = 0;
+    while (1)
+    {
+      LOBYTE(v53) = 0;
+      v8 = [a2 position] + 1;
+      if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+      {
+        v10 = [a2 data];
+        [v10 getBytes:&v53 range:{objc_msgSend(a2, "position"), 1}];
+
+        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+      }
+
+      else
+      {
+        [a2 _setError];
+      }
+
+      v7 |= (v53 & 0x7F) << v5;
+      if ((v53 & 0x80) == 0)
+      {
+        break;
+      }
+
+      v5 += 7;
+      v11 = v6++ >= 9;
+      if (v11)
+      {
+        v12 = 0;
+        goto LABEL_15;
+      }
+    }
+
+    v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+    if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+    {
+      return [a2 hasError] ^ 1;
+    }
+
+    switch((v12 >> 3))
+    {
+      case 2u:
+        v13 = PBReaderReadString();
+        v14 = 80;
+        goto LABEL_77;
+      case 3u:
+        v13 = PBReaderReadString();
+        v14 = 120;
+        goto LABEL_77;
+      case 4u:
+        v13 = PBReaderReadData();
+        v14 = 104;
+        goto LABEL_77;
+      case 5u:
+        *(a1 + 160) |= 0x20u;
+        v53 = 0;
+        v34 = [a2 position] + 8;
+        if (v34 >= [a2 position] && (v35 = objc_msgSend(a2, "position") + 8, v35 <= objc_msgSend(a2, "length")))
+        {
+          v47 = [a2 data];
+          [v47 getBytes:&v53 range:{objc_msgSend(a2, "position"), 8}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v48 = v53;
+        v49 = 48;
+        goto LABEL_101;
+      case 6u:
+        v13 = PBReaderReadString();
+        v14 = 128;
+        goto LABEL_77;
+      case 7u:
+        v13 = PBReaderReadString();
+        v14 = 64;
+        goto LABEL_77;
+      case 9u:
+        v13 = PBReaderReadString();
+        v14 = 112;
+        goto LABEL_77;
+      case 0xAu:
+        v13 = PBReaderReadString();
+        v14 = 136;
+        goto LABEL_77;
+      case 0xBu:
+        v39 = 0;
+        v40 = 0;
+        v41 = 0;
+        *(a1 + 160) |= 1u;
+        while (1)
+        {
+          LOBYTE(v53) = 0;
+          v42 = [a2 position] + 1;
+          if (v42 >= [a2 position] && (v43 = objc_msgSend(a2, "position") + 1, v43 <= objc_msgSend(a2, "length")))
+          {
+            v44 = [a2 data];
+            [v44 getBytes:&v53 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v41 |= (v53 & 0x7F) << v39;
+          if ((v53 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v39 += 7;
+          v11 = v40++ >= 9;
+          if (v11)
+          {
+            v21 = 0;
+            goto LABEL_95;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v21 = 0;
+        }
+
+        else
+        {
+          v21 = v41;
+        }
+
+LABEL_95:
+        v46 = 8;
+        goto LABEL_96;
+      case 0xCu:
+        v13 = PBReaderReadString();
+        v14 = 56;
+        goto LABEL_77;
+      case 0xDu:
+        v15 = 0;
+        v16 = 0;
+        v17 = 0;
+        *(a1 + 160) |= 4u;
+        while (1)
+        {
+          LOBYTE(v53) = 0;
+          v18 = [a2 position] + 1;
+          if (v18 >= [a2 position] && (v19 = objc_msgSend(a2, "position") + 1, v19 <= objc_msgSend(a2, "length")))
+          {
+            v20 = [a2 data];
+            [v20 getBytes:&v53 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v17 |= (v53 & 0x7F) << v15;
+          if ((v53 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v15 += 7;
+          v11 = v16++ >= 9;
+          if (v11)
+          {
+            v21 = 0;
+            goto LABEL_83;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v21 = 0;
+        }
+
+        else
+        {
+          v21 = v17;
+        }
+
+LABEL_83:
+        v46 = 24;
+        goto LABEL_96;
+      case 0xEu:
+        v28 = 0;
+        v29 = 0;
+        v30 = 0;
+        *(a1 + 160) |= 8u;
+        while (1)
+        {
+          LOBYTE(v53) = 0;
+          v31 = [a2 position] + 1;
+          if (v31 >= [a2 position] && (v32 = objc_msgSend(a2, "position") + 1, v32 <= objc_msgSend(a2, "length")))
+          {
+            v33 = [a2 data];
+            [v33 getBytes:&v53 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v30 |= (v53 & 0x7F) << v28;
+          if ((v53 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v28 += 7;
+          v11 = v29++ >= 9;
+          if (v11)
+          {
+            v21 = 0;
+            goto LABEL_91;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v21 = 0;
+        }
+
+        else
+        {
+          v21 = v30;
+        }
+
+LABEL_91:
+        v46 = 32;
+        goto LABEL_96;
+      case 0xFu:
+        v22 = 0;
+        v23 = 0;
+        v24 = 0;
+        *(a1 + 160) |= 0x10u;
+        while (1)
+        {
+          LOBYTE(v53) = 0;
+          v25 = [a2 position] + 1;
+          if (v25 >= [a2 position] && (v26 = objc_msgSend(a2, "position") + 1, v26 <= objc_msgSend(a2, "length")))
+          {
+            v27 = [a2 data];
+            [v27 getBytes:&v53 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v24 |= (v53 & 0x7F) << v22;
+          if ((v53 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v22 += 7;
+          v11 = v23++ >= 9;
+          if (v11)
+          {
+            v21 = 0;
+            goto LABEL_87;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v21 = 0;
+        }
+
+        else
+        {
+          v21 = v24;
+        }
+
+LABEL_87:
+        v46 = 40;
+LABEL_96:
+        *(a1 + v46) = v21;
+        goto LABEL_102;
+      case 0x10u:
+        v13 = PBReaderReadString();
+        v14 = 96;
+        goto LABEL_77;
+      case 0x11u:
+        v36 = objc_alloc_init(HDCodableMessageVersion);
+        objc_storeStrong((a1 + 88), v36);
+        v53 = 0;
+        v54 = 0;
+        if (!PBReaderPlaceMark() || !HDCodableMessageVersionReadFrom(v36, a2))
+        {
+          goto LABEL_104;
+        }
+
+        goto LABEL_75;
+      case 0x12u:
+        *(a1 + 160) |= 2u;
+        v53 = 0;
+        v37 = [a2 position] + 8;
+        if (v37 >= [a2 position] && (v38 = objc_msgSend(a2, "position") + 8, v38 <= objc_msgSend(a2, "length")))
+        {
+          v50 = [a2 data];
+          [v50 getBytes:&v53 range:{objc_msgSend(a2, "position"), 8}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v48 = v53;
+        v49 = 16;
+LABEL_101:
+        *(a1 + v49) = v48;
+        goto LABEL_102;
+      case 0x13u:
+        v13 = PBReaderReadString();
+        v14 = 72;
+        goto LABEL_77;
+      case 0x14u:
+        v36 = objc_alloc_init(HDCodableSyncIdentity);
+        objc_storeStrong((a1 + 144), v36);
+        v53 = 0;
+        v54 = 0;
+        if (PBReaderPlaceMark() && HDCodableSyncIdentityReadFrom(v36, a2))
+        {
+LABEL_75:
+          PBReaderRecallMark();
+
+LABEL_102:
+          v51 = [a2 position];
+          if (v51 >= [a2 length])
+          {
+            return [a2 hasError] ^ 1;
+          }
+
+          continue;
+        }
+
+LABEL_104:
+
+        return 0;
+      case 0x15u:
+        v13 = PBReaderReadData();
+        v14 = 152;
+LABEL_77:
+        v45 = *(a1 + v14);
+        *(a1 + v14) = v13;
+
+        goto LABEL_102;
+      default:
+        if ((PBReaderSkipValueWithTag() & 1) == 0)
+        {
+          return 0;
+        }
+
+        goto LABEL_102;
+    }
+  }
+}
+
+void sub_228B9BE3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__60(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_228B9C020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228B9DC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228BA5574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__61(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+id _HDRatingOfExertionSamplesForWorkoutPID(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5)
+{
+  v25[2] = *MEMORY[0x277D85DE8];
+  v9 = MEMORY[0x277CCD830];
+  v10 = *MEMORY[0x277CCCB68];
+  v11 = a4;
+  v12 = a2;
+  v13 = [v9 quantityTypeForIdentifier:v10];
+  v25[0] = v13;
+  v14 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCCD8]];
+  v25[1] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+
+  v16 = HDReferenceForAssociatableObject(v12);
+
+  v24 = 0;
+  LOBYTE(v23) = a3 == 1;
+  v17 = [HDAssociationEntity objectsAssociatedWithObjectPID:a1 subObjectReference:v16 dataTypes:v15 associationType:1 behavior:0 limit:a3 sortDescending:v23 profile:v11 error:&v24];
+
+  v18 = v24;
+  if (v17)
+  {
+    v19 = v17;
+  }
+
+  else
+  {
+    v20 = v18;
+    if (v20)
+    {
+      if (a5)
+      {
+        v21 = v20;
+        *a5 = v20;
+      }
+
+      else
+      {
+        _HKLogDroppedError();
+      }
+    }
+  }
+
+  return v17;
+}
+
+void sub_228BA6614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__62(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_228BA73FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v22 - 128), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228BA767C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228BA7A50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t HDCodableMenstrualCyclesExperienceModelReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        break;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v24 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v24 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v24 & 0x7F) << v5;
+        if ((v24 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        break;
+      }
+
+      if ((v12 >> 3) == 2)
+      {
+        v15 = 0;
+        v16 = 0;
+        v17 = 0;
+        *(a1 + 24) |= 1u;
+        while (1)
+        {
+          v25 = 0;
+          v18 = [a2 position] + 1;
+          if (v18 >= [a2 position] && (v19 = objc_msgSend(a2, "position") + 1, v19 <= objc_msgSend(a2, "length")))
+          {
+            v20 = [a2 data];
+            [v20 getBytes:&v25 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v17 |= (v25 & 0x7F) << v15;
+          if ((v25 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v15 += 7;
+          v11 = v16++ >= 9;
+          if (v11)
+          {
+            v21 = 0;
+            goto LABEL_34;
+          }
+        }
+
+        v21 = [a2 hasError] ? 0 : v17;
+LABEL_34:
+        *(a1 + 8) = v21;
+      }
+
+      else if ((v12 >> 3) == 1)
+      {
+        v13 = PBReaderReadData();
+        v14 = *(a1 + 16);
+        *(a1 + 16) = v13;
+      }
+
+      else
+      {
+        result = PBReaderSkipValueWithTag();
+        if (!result)
+        {
+          return result;
+        }
+      }
+
+      v23 = [a2 position];
+    }
+
+    while (v23 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+void sub_228BAB4E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__63(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+id HDConceptIndexEntityPredicateForConceptIdentifier(void *a1, void *a2)
+{
+  v3 = a1;
+  v4 = a2;
+  if ([v4 count])
+  {
+    v5 = MEMORY[0x277D10B18];
+    v6 = [v3 numberRepresentation];
+    v7 = [v5 predicateWithProperty:@"concept_identifier" equalToValue:v6];
+
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __HDConceptIndexEntityPredicateForConceptIdentifier_block_invoke;
+    v12[3] = &unk_2786136C8;
+    v13 = v7;
+    v8 = v7;
+    v9 = [v4 hk_map:v12];
+    v10 = [MEMORY[0x277D10B20] predicateMatchingAnyPredicates:v9];
+  }
+
+  else
+  {
+    v10 = [MEMORY[0x277D10B70] falsePredicate];
+  }
+
+  return v10;
+}
+
+id __HDConceptIndexEntityPredicateForConceptIdentifier_block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = MEMORY[0x277D10B20];
+  v3 = *(a1 + 32);
+  v4 = [MEMORY[0x277D10B18] predicateWithProperty:@"key_path" equalToValue:a2];
+  v5 = [v2 compoundPredicateWithPredicate:v3 otherPredicate:v4];
+
+  return v5;
+}
+
+id HDConceptIndexEntityPredicateForConceptIdentifiers(void *a1, void *a2)
+{
+  v21 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = a2;
+  v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v6 = v3;
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v17;
+    do
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v17 != v9)
+        {
+          objc_enumerationMutation(v6);
+        }
+
+        v11 = [*(*(&v16 + 1) + 8 * i) numberRepresentation];
+        [v5 addObject:v11];
+      }
+
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v8);
+  }
+
+  v12 = [MEMORY[0x277D10B28] containsPredicateWithProperty:@"concept_identifier" values:v5];
+  v13 = [MEMORY[0x277D10B18] predicateWithProperty:@"key_path" equalToValue:v4];
+  v14 = [MEMORY[0x277D10B20] compoundPredicateWithPredicate:v13 otherPredicate:v12];
+
+  return v14;
+}
+
+void sub_228BAD63C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_228BAE030(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v17 + 48));
+  objc_destroyWeak((v18 - 72));
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
 }

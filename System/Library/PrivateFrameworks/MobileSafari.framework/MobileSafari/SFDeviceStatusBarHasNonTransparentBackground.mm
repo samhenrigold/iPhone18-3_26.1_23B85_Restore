@@ -3,7 +3,7 @@
 
 @implementation SFDeviceStatusBarHasNonTransparentBackground
 
-void ___SFDeviceStatusBarHasNonTransparentBackground_block_invoke()
+void ___SFDeviceStatusBarHasNonTransparentBackground_block_invoke(uint64_t a1, uint64_t a2)
 {
   if (_SFDeviceHasHomeButton::onceToken != -1)
   {
@@ -17,15 +17,15 @@ void ___SFDeviceStatusBarHasNonTransparentBackground_block_invoke()
       _SFSizeClassForWidth_cold_1();
     }
 
-    v0 = _SFDeviceIsPad::isPad ^ 1;
+    v2 = _SFDeviceIsPad::isPad ^ 1;
   }
 
   else
   {
-    v0 = 0;
+    v2 = 0;
   }
 
-  _SFDeviceStatusBarHasNonTransparentBackground::canHaveBackground = v0 & 1;
+  _SFDeviceStatusBarHasNonTransparentBackground::canHaveBackground = v2 & 1;
 }
 
 @end

@@ -9,13 +9,11 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"data_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"data_id";
   v2 = +[(HDDataEntity *)HDSampleEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -186,20 +184,19 @@ void __92__HDVisionPrescriptionEntity_insertDataObject_withProvenance_inDatabase
     sqlite3_bind_null(a2, 11);
   }
 
-  v36 = *(a1 + 40);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v37 = *(a1 + 40);
-    v38 = [v37 leftEye];
-    v39 = [v38 vertexDistance];
-    if (v39)
+    v36 = *(a1 + 40);
+    v37 = [v36 leftEye];
+    v38 = [v37 vertexDistance];
+    if (v38)
     {
-      v40 = [v37 leftEye];
-      v41 = [v40 vertexDistance];
-      v42 = [MEMORY[0x277CCDAB0] meterUnit];
-      [v41 doubleValueForUnit:v42];
-      sqlite3_bind_double(a2, 12, v43);
+      v39 = [v36 leftEye];
+      v40 = [v39 vertexDistance];
+      v41 = [MEMORY[0x277CCDAB0] meterUnit];
+      [v40 doubleValueForUnit:v41];
+      sqlite3_bind_double(a2, 12, v42);
     }
 
     else
@@ -207,15 +204,15 @@ void __92__HDVisionPrescriptionEntity_insertDataObject_withProvenance_inDatabase
       sqlite3_bind_null(a2, 12);
     }
 
-    v45 = [v37 rightEye];
-    v46 = [v45 vertexDistance];
-    if (v46)
+    v44 = [v36 rightEye];
+    v45 = [v44 vertexDistance];
+    if (v45)
     {
-      v47 = [v37 rightEye];
-      v48 = [v47 vertexDistance];
-      v49 = [MEMORY[0x277CCDAB0] meterUnit];
-      [v48 doubleValueForUnit:v49];
-      sqlite3_bind_double(a2, 13, v50);
+      v46 = [v36 rightEye];
+      v47 = [v46 vertexDistance];
+      v48 = [MEMORY[0x277CCDAB0] meterUnit];
+      [v47 doubleValueForUnit:v48];
+      sqlite3_bind_double(a2, 13, v49);
     }
 
     else
@@ -223,17 +220,17 @@ void __92__HDVisionPrescriptionEntity_insertDataObject_withProvenance_inDatabase
       sqlite3_bind_null(a2, 13);
     }
 
-    v51 = [v37 leftEye];
-    v52 = [v51 prism];
-    v53 = [v52 amount];
-    if (v53)
+    v50 = [v36 leftEye];
+    v51 = [v50 prism];
+    v52 = [v51 amount];
+    if (v52)
     {
-      v54 = [v37 leftEye];
-      v55 = [v54 prism];
-      v56 = [v55 amount];
-      v57 = [MEMORY[0x277CCDAB0] prismDiopterUnit];
-      [v56 doubleValueForUnit:v57];
-      sqlite3_bind_double(a2, 14, v58);
+      v53 = [v36 leftEye];
+      v54 = [v53 prism];
+      v55 = [v54 amount];
+      v56 = [MEMORY[0x277CCDAB0] prismDiopterUnit];
+      [v55 doubleValueForUnit:v56];
+      sqlite3_bind_double(a2, 14, v57);
     }
 
     else
@@ -241,17 +238,17 @@ void __92__HDVisionPrescriptionEntity_insertDataObject_withProvenance_inDatabase
       sqlite3_bind_null(a2, 14);
     }
 
-    v59 = [v37 rightEye];
-    v60 = [v59 prism];
-    v61 = [v60 amount];
-    if (v61)
+    v58 = [v36 rightEye];
+    v59 = [v58 prism];
+    v60 = [v59 amount];
+    if (v60)
     {
-      v62 = [v37 rightEye];
-      v63 = [v62 prism];
-      v64 = [v63 amount];
-      v65 = [MEMORY[0x277CCDAB0] prismDiopterUnit];
-      [v64 doubleValueForUnit:v65];
-      sqlite3_bind_double(a2, 15, v66);
+      v61 = [v36 rightEye];
+      v62 = [v61 prism];
+      v63 = [v62 amount];
+      v64 = [MEMORY[0x277CCDAB0] prismDiopterUnit];
+      [v63 doubleValueForUnit:v64];
+      sqlite3_bind_double(a2, 15, v65);
     }
 
     else
@@ -259,17 +256,17 @@ void __92__HDVisionPrescriptionEntity_insertDataObject_withProvenance_inDatabase
       sqlite3_bind_null(a2, 15);
     }
 
-    v67 = [v37 leftEye];
-    v68 = [v67 prism];
-    v69 = [v68 angle];
-    if (v69)
+    v66 = [v36 leftEye];
+    v67 = [v66 prism];
+    v68 = [v67 angle];
+    if (v68)
     {
-      v70 = [v37 leftEye];
-      v71 = [v70 prism];
-      v72 = [v71 angle];
-      v73 = [MEMORY[0x277CCDAB0] radianAngleUnit];
-      [v72 doubleValueForUnit:v73];
-      sqlite3_bind_double(a2, 16, v74);
+      v69 = [v36 leftEye];
+      v70 = [v69 prism];
+      v71 = [v70 angle];
+      v72 = [MEMORY[0x277CCDAB0] radianAngleUnit];
+      [v71 doubleValueForUnit:v72];
+      sqlite3_bind_double(a2, 16, v73);
     }
 
     else
@@ -277,17 +274,17 @@ void __92__HDVisionPrescriptionEntity_insertDataObject_withProvenance_inDatabase
       sqlite3_bind_null(a2, 16);
     }
 
-    v75 = [v37 rightEye];
-    v76 = [v75 prism];
-    v77 = [v76 angle];
-    if (v77)
+    v74 = [v36 rightEye];
+    v75 = [v74 prism];
+    v76 = [v75 angle];
+    if (v76)
     {
-      v78 = [v37 rightEye];
-      v79 = [v78 prism];
-      v80 = [v79 angle];
-      v81 = [MEMORY[0x277CCDAB0] radianAngleUnit];
-      [v80 doubleValueForUnit:v81];
-      sqlite3_bind_double(a2, 17, v82);
+      v77 = [v36 rightEye];
+      v78 = [v77 prism];
+      v79 = [v78 angle];
+      v80 = [MEMORY[0x277CCDAB0] radianAngleUnit];
+      [v79 doubleValueForUnit:v80];
+      sqlite3_bind_double(a2, 17, v81);
     }
 
     else
@@ -295,15 +292,15 @@ void __92__HDVisionPrescriptionEntity_insertDataObject_withProvenance_inDatabase
       sqlite3_bind_null(a2, 17);
     }
 
-    v83 = [v37 leftEye];
-    v84 = [v83 farPupillaryDistance];
-    if (v84)
+    v82 = [v36 leftEye];
+    v83 = [v82 farPupillaryDistance];
+    if (v83)
     {
-      v85 = [v37 leftEye];
-      v86 = [v85 farPupillaryDistance];
-      v87 = [MEMORY[0x277CCDAB0] meterUnit];
-      [v86 doubleValueForUnit:v87];
-      sqlite3_bind_double(a2, 18, v88);
+      v84 = [v36 leftEye];
+      v85 = [v84 farPupillaryDistance];
+      v86 = [MEMORY[0x277CCDAB0] meterUnit];
+      [v85 doubleValueForUnit:v86];
+      sqlite3_bind_double(a2, 18, v87);
     }
 
     else
@@ -311,15 +308,15 @@ void __92__HDVisionPrescriptionEntity_insertDataObject_withProvenance_inDatabase
       sqlite3_bind_null(a2, 18);
     }
 
-    v89 = [v37 rightEye];
-    v90 = [v89 farPupillaryDistance];
-    if (v90)
+    v88 = [v36 rightEye];
+    v89 = [v88 farPupillaryDistance];
+    if (v89)
     {
-      v91 = [v37 rightEye];
-      v92 = [v91 farPupillaryDistance];
-      v93 = [MEMORY[0x277CCDAB0] meterUnit];
-      [v92 doubleValueForUnit:v93];
-      sqlite3_bind_double(a2, 19, v94);
+      v90 = [v36 rightEye];
+      v91 = [v90 farPupillaryDistance];
+      v92 = [MEMORY[0x277CCDAB0] meterUnit];
+      [v91 doubleValueForUnit:v92];
+      sqlite3_bind_double(a2, 19, v93);
     }
 
     else
@@ -327,15 +324,15 @@ void __92__HDVisionPrescriptionEntity_insertDataObject_withProvenance_inDatabase
       sqlite3_bind_null(a2, 19);
     }
 
-    v95 = [v37 leftEye];
-    v96 = [v95 nearPupillaryDistance];
-    if (v96)
+    v94 = [v36 leftEye];
+    v95 = [v94 nearPupillaryDistance];
+    if (v95)
     {
-      v97 = [v37 leftEye];
-      v98 = [v97 nearPupillaryDistance];
-      v99 = [MEMORY[0x277CCDAB0] meterUnit];
-      [v98 doubleValueForUnit:v99];
-      sqlite3_bind_double(a2, 20, v100);
+      v96 = [v36 leftEye];
+      v97 = [v96 nearPupillaryDistance];
+      v98 = [MEMORY[0x277CCDAB0] meterUnit];
+      [v97 doubleValueForUnit:v98];
+      sqlite3_bind_double(a2, 20, v99);
     }
 
     else
@@ -343,15 +340,15 @@ void __92__HDVisionPrescriptionEntity_insertDataObject_withProvenance_inDatabase
       sqlite3_bind_null(a2, 20);
     }
 
-    v101 = [v37 rightEye];
-    v102 = [v101 nearPupillaryDistance];
-    if (v102)
+    v100 = [v36 rightEye];
+    v101 = [v100 nearPupillaryDistance];
+    if (v101)
     {
-      v103 = [v37 rightEye];
-      v104 = [v103 nearPupillaryDistance];
-      v105 = [MEMORY[0x277CCDAB0] meterUnit];
-      [v104 doubleValueForUnit:v105];
-      sqlite3_bind_double(a2, 21, v106);
+      v102 = [v36 rightEye];
+      v103 = [v102 nearPupillaryDistance];
+      v104 = [MEMORY[0x277CCDAB0] meterUnit];
+      [v103 doubleValueForUnit:v104];
+      sqlite3_bind_double(a2, 21, v105);
     }
 
     else
@@ -359,7 +356,7 @@ void __92__HDVisionPrescriptionEntity_insertDataObject_withProvenance_inDatabase
       sqlite3_bind_null(a2, 21);
     }
 
-    v44 = 22;
+    v43 = 22;
   }
 
   else
@@ -375,90 +372,89 @@ void __92__HDVisionPrescriptionEntity_insertDataObject_withProvenance_inDatabase
     sqlite3_bind_null(a2, 20);
     sqlite3_bind_null(a2, 21);
     sqlite3_bind_null(a2, 22);
-    v44 = 23;
+    v43 = 23;
   }
 
-  v107 = *(a1 + 40);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v133 = *(a1 + 40);
-    v108 = [v133 leftEye];
-    v109 = [v108 baseCurve];
-    if (v109)
+    v131 = *(a1 + 40);
+    v106 = [v131 leftEye];
+    v107 = [v106 baseCurve];
+    if (v107)
     {
-      v110 = [v133 leftEye];
-      v111 = [v110 baseCurve];
-      v112 = [MEMORY[0x277CCDAB0] meterUnit];
-      [v111 doubleValueForUnit:v112];
-      sqlite3_bind_double(a2, v44, v113);
+      v108 = [v131 leftEye];
+      v109 = [v108 baseCurve];
+      v110 = [MEMORY[0x277CCDAB0] meterUnit];
+      [v109 doubleValueForUnit:v110];
+      sqlite3_bind_double(a2, v43, v111);
     }
 
     else
     {
-      sqlite3_bind_null(a2, v44);
+      sqlite3_bind_null(a2, v43);
     }
 
-    v114 = [v133 rightEye];
-    v115 = [v114 baseCurve];
-    if (v115)
+    v112 = [v131 rightEye];
+    v113 = [v112 baseCurve];
+    if (v113)
     {
-      v116 = [v133 rightEye];
-      v117 = [v116 baseCurve];
-      v118 = [MEMORY[0x277CCDAB0] meterUnit];
-      [v117 doubleValueForUnit:v118];
-      sqlite3_bind_double(a2, v44 + 1, v119);
+      v114 = [v131 rightEye];
+      v115 = [v114 baseCurve];
+      v116 = [MEMORY[0x277CCDAB0] meterUnit];
+      [v115 doubleValueForUnit:v116];
+      sqlite3_bind_double(a2, v43 + 1, v117);
     }
 
     else
     {
-      sqlite3_bind_null(a2, v44 + 1);
+      sqlite3_bind_null(a2, v43 + 1);
     }
 
-    v120 = [v133 leftEye];
-    v121 = [v120 diameter];
-    if (v121)
+    v118 = [v131 leftEye];
+    v119 = [v118 diameter];
+    if (v119)
     {
-      v122 = [v133 leftEye];
-      v123 = [v122 diameter];
-      v124 = [MEMORY[0x277CCDAB0] meterUnit];
-      [v123 doubleValueForUnit:v124];
-      sqlite3_bind_double(a2, v44 + 2, v125);
+      v120 = [v131 leftEye];
+      v121 = [v120 diameter];
+      v122 = [MEMORY[0x277CCDAB0] meterUnit];
+      [v121 doubleValueForUnit:v122];
+      sqlite3_bind_double(a2, v43 + 2, v123);
     }
 
     else
     {
-      sqlite3_bind_null(a2, v44 + 2);
+      sqlite3_bind_null(a2, v43 + 2);
     }
 
-    v126 = [v133 rightEye];
-    v127 = [v126 diameter];
-    if (v127)
+    v124 = [v131 rightEye];
+    v125 = [v124 diameter];
+    if (v125)
     {
-      v128 = [v133 rightEye];
-      v129 = [v128 diameter];
-      v130 = [MEMORY[0x277CCDAB0] meterUnit];
-      [v129 doubleValueForUnit:v130];
-      sqlite3_bind_double(a2, v44 + 3, v131);
+      v126 = [v131 rightEye];
+      v127 = [v126 diameter];
+      v128 = [MEMORY[0x277CCDAB0] meterUnit];
+      [v127 doubleValueForUnit:v128];
+      sqlite3_bind_double(a2, v43 + 3, v129);
     }
 
     else
     {
-      sqlite3_bind_null(a2, v44 + 3);
+      sqlite3_bind_null(a2, v43 + 3);
     }
 
-    v132 = [v133 brand];
-    sqlite3_bind_text(a2, v44 + 4, [v132 UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
+    v130 = [v131 brand];
+    sqlite3_bind_text(a2, v43 + 4, [v130 UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
   }
 
   else
   {
-    sqlite3_bind_null(a2, v44);
-    sqlite3_bind_null(a2, v44 + 1);
-    sqlite3_bind_null(a2, v44 + 2);
-    sqlite3_bind_null(a2, v44 + 3);
+    sqlite3_bind_null(a2, v43);
+    sqlite3_bind_null(a2, v43 + 1);
+    sqlite3_bind_null(a2, v43 + 2);
+    sqlite3_bind_null(a2, v43 + 3);
 
-    sqlite3_bind_null(a2, v44 + 4);
+    sqlite3_bind_null(a2, v43 + 4);
   }
 }
 

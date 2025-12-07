@@ -72,7 +72,7 @@
 
 - (void)speechSynthesizer:(id)synthesizer didStartSpeechUtterance:(id)utterance
 {
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -105,7 +105,7 @@
 
 - (void)speechSynthesizer:(id)synthesizer didPauseSpeechUtterance:(id)utterance
 {
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -124,7 +124,7 @@
 
 - (void)speechSynthesizer:(id)synthesizer didContinueSpeechUtterance:(id)utterance
 {
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -145,7 +145,7 @@
 {
   utteranceCopy = utterance;
   synthesizerCopy = synthesizer;
-  v8 = sub_100004F84();
+  v8 = sub_100004F84(synthesizerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;

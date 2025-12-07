@@ -36,40 +36,39 @@ void __41__FCIssueRecordSource_nonLocalizableKeys__block_invoke(uint64_t a1)
 
 void __41__FCIssueRecordSource_nonLocalizableKeys__block_invoke_2(uint64_t a1, void *a2)
 {
-  v5 = a2;
-  [v5 addObject:@"allArticleIDs"];
-  [v5 addObject:@"allowedStorefrontIDs"];
-  [v5 addObject:@"blockedStorefrontIDs"];
-  [v5 addObject:@"channelTagID"];
-  [v5 addObject:@"coverArticleID"];
-  [v5 addObject:@"coverAspectRatio"];
-  [v5 addObject:@"coverImage"];
-  [v5 addObject:@"coverPrimaryColor"];
-  [v5 addObject:@"coverBackgroundColor"];
-  [v5 addObject:@"coverTextColor"];
-  [v5 addObject:@"coverAccentColor"];
-  [v5 addObject:@"description"];
-  [v5 addObject:@"edition"];
-  [v5 addObject:@"halfLife"];
-  [v5 addObject:@"isDraft"];
-  [v5 addObject:@"isPaid"];
-  [v5 addObject:@"minNewsVersion"];
-  [v5 addObject:@"layeredCover"];
-  [v5 addObject:@"layeredCoverAspectRatio"];
-  [v5 addObject:@"layeredCoverPrimaryColor"];
-  [v5 addObject:@"metadataAssetEncrypted"];
-  [v5 addObject:@"notificationDescription"];
-  [v5 addObject:@"pdfResourceArchive"];
-  [v5 addObject:@"publishDate"];
-  [v5 addObject:@"title"];
-  [v5 addObject:@"topicTagIDs"];
-  [v5 addObject:@"type"];
-  [v5 addObject:@"sortDate"];
-  v3 = *(a1 + 32);
+  v3 = a2;
+  [v3 addObject:@"allArticleIDs"];
+  [v3 addObject:@"allowedStorefrontIDs"];
+  [v3 addObject:@"blockedStorefrontIDs"];
+  [v3 addObject:@"channelTagID"];
+  [v3 addObject:@"coverArticleID"];
+  [v3 addObject:@"coverAspectRatio"];
+  [v3 addObject:@"coverImage"];
+  [v3 addObject:@"coverPrimaryColor"];
+  [v3 addObject:@"coverBackgroundColor"];
+  [v3 addObject:@"coverTextColor"];
+  [v3 addObject:@"coverAccentColor"];
+  [v3 addObject:@"description"];
+  [v3 addObject:@"edition"];
+  [v3 addObject:@"halfLife"];
+  [v3 addObject:@"isDraft"];
+  [v3 addObject:@"isPaid"];
+  [v3 addObject:@"minNewsVersion"];
+  [v3 addObject:@"layeredCover"];
+  [v3 addObject:@"layeredCoverAspectRatio"];
+  [v3 addObject:@"layeredCoverPrimaryColor"];
+  [v3 addObject:@"metadataAssetEncrypted"];
+  [v3 addObject:@"notificationDescription"];
+  [v3 addObject:@"pdfResourceArchive"];
+  [v3 addObject:@"publishDate"];
+  [v3 addObject:@"title"];
+  [v3 addObject:@"topicTagIDs"];
+  [v3 addObject:@"type"];
+  [v3 addObject:@"sortDate"];
   if ([objc_opt_class() _useTaggedImages])
   {
-    v4 = [@"coverImage" stringByAppendingString:@"2"];
-    [v5 addObject:v4];
+    v2 = [@"coverImage" stringByAppendingString:@"2"];
+    [v3 addObject:v2];
   }
 }
 

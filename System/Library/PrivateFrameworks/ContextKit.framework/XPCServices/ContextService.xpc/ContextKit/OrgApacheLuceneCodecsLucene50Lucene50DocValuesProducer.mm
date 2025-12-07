@@ -1,5 +1,4 @@
 @interface OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer
-- (NSString)description;
 - (id)getBinaryWithOrgApacheLuceneIndexFieldInfo:(id)info;
 - (id)getChildResources;
 - (id)getDocsWithFieldWithOrgApacheLuceneIndexFieldInfo:(id)info;
@@ -142,16 +141,9 @@ LABEL_26:
   [(JavaUtilArrayList *)v3 addAllWithJavaUtilCollection:OrgApacheLuceneUtilAccountables_namedAccountablesWithNSString_withJavaUtilMap_(@"addresses field", self->addressInstances_)];
   [(JavaUtilArrayList *)v3 addAllWithJavaUtilCollection:OrgApacheLuceneUtilAccountables_namedAccountablesWithNSString_withJavaUtilMap_(@"ord index field", self->ordIndexInstances_)];
   [(JavaUtilArrayList *)v3 addAllWithJavaUtilCollection:OrgApacheLuceneUtilAccountables_namedAccountablesWithNSString_withJavaUtilMap_(@"reverse index field", self->reverseIndexInstances_)];
-  v4 = JavaUtilCollections_unmodifiableListWithJavaUtilList_(v3);
+  v5 = JavaUtilCollections_unmodifiableListWithJavaUtilList_(v3, v4);
   objc_sync_exit(self);
-  return v4;
-}
-
-- (NSString)description
-{
-  v3 = [-[OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer getClass](self "getClass")];
-  numFields = self->numFields_;
-  return JreStrcat("$$IC", v4, v5, v6, v7, v8, v9, v10, v3);
+  return v5;
 }
 
 - (id)getNumericWithOrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer_NumericEntry:(id)entry

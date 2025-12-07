@@ -15,7 +15,7 @@
 {
   appearCopy = appear;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for MindfulnessSessionDetailViewController();
+  v8.super_class = type metadata accessor for MindfulnessSessionDetailViewController(0);
   v4 = v8.receiver;
   [(MindfulnessSessionDetailViewController *)&v8 viewWillAppear:appearCopy];
   navigationController = [v4 navigationController];

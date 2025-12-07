@@ -4,6 +4,8 @@
 - (_TtC16AssistiveTouchUI35CalibrationNavigationViewController)initWithNibName:(id)name bundle:(id)bundle;
 - (_TtC16AssistiveTouchUI35CalibrationNavigationViewController)initWithRootViewController:(id)controller;
 - (id)navigationController:(id)controller animationControllerForOperation:(int64_t)operation fromViewController:(id)viewController toViewController:(id)toViewController;
+- (id)popViewControllerAnimated:(BOOL)animated;
+- (void)pushViewController:(id)controller animated:(BOOL)animated;
 - (void)viewDidLoad;
 @end
 
@@ -17,6 +19,24 @@
   [(CalibrationNavigationViewController *)&v3 viewDidLoad];
   [v2 setDelegate_];
   [v2 setNavigationBarHidden_];
+}
+
+- (void)pushViewController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for CalibrationNavigationViewController();
+  [(CalibrationNavigationViewController *)&v6 pushViewController:controller animated:animatedCopy];
+}
+
+- (id)popViewControllerAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for CalibrationNavigationViewController();
+  v4 = [(CalibrationNavigationViewController *)&v6 popViewControllerAnimated:animatedCopy];
+
+  return v4;
 }
 
 - (_TtC16AssistiveTouchUI35CalibrationNavigationViewController)initWithNavigationBarClass:(Class)class toolbarClass:(Class)toolbarClass

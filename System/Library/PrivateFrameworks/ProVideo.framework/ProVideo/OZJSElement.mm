@@ -104,7 +104,7 @@
   dispatch_async(MEMORY[0x277D85CD0], v3);
 }
 
-uint64_t __27__OZJSElement_cloneAtTime___block_invoke(uint64_t a1)
+OZScene *__27__OZJSElement_cloneAtTime___block_invoke(uint64_t a1)
 {
   result = (*(**(*(a1 + 32) + 16) + 272))(*(*(a1 + 32) + 16));
   if (result)
@@ -125,8 +125,8 @@ uint64_t __27__OZJSElement_cloneAtTime___block_invoke(uint64_t a1)
 
     OZScene::selectObject(v3, v5, 0, 0);
     OZScene::duplicateSelected(v3);
-    OZScene::begin_all_sel(v3, v19);
-    OZScene::end_all_sel(v3, v15);
+    OZScene::begin_all_sel(v19, v3);
+    OZScene::end_all_sel(v15, v3);
     v6 = &v20;
     if (v22 == v17[2])
     {
@@ -184,7 +184,7 @@ uint64_t __27__OZJSElement_cloneAtTime___block_invoke(uint64_t a1)
 LABEL_20:
         v10 = *v6;
 LABEL_21:
-        v11 = *(v10 + 16);
+        v11 = v10[2];
         if (v11)
         {
           if (v12)

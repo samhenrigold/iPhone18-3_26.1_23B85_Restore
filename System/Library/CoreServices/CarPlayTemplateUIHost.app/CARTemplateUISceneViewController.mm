@@ -16,6 +16,7 @@
 - (void)sceneDidEnterBackground:(id)background;
 - (void)sceneWillEnterForeground:(id)foreground;
 - (void)sceneWillResignActive:(id)active;
+- (void)sendSceneUpdate:(BOOL)update openURLContexts:(id)contexts;
 - (void)setScene:(id)scene;
 - (void)traitCollectionDidChange:(id)change;
 - (void)viewDidLayoutSubviews;
@@ -240,6 +241,121 @@
     block[3] = &unk_10001C4E8;
     block[4] = self;
     dispatch_async(&_dispatch_main_q, block);
+  }
+}
+
+- (void)sendSceneUpdate:(BOOL)update openURLContexts:(id)contexts
+{
+  updateCopy = update;
+  contextsCopy = contexts;
+  if ([(CARTemplateUISceneViewController *)self invalidated])
+  {
+    v6 = sub_100001280(7uLL);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138543362;
+      selfCopy = self;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%{public}@ has already been invalidated, ignoring scene update", buf, 0xCu);
+    }
+  }
+
+  else
+  {
+    v6 = objc_alloc_init([objc_opt_class() sceneSpecificationClass]);
+    scene = [(CARTemplateUISceneViewController *)self scene];
+
+    if (scene)
+    {
+      scene2 = [(CARTemplateUISceneViewController *)self scene];
+      settings = [scene2 settings];
+      v10 = [settings mutableCopy];
+    }
+
+    else
+    {
+      scene2 = objc_alloc_init([v6 settingsClass]);
+      v10 = [scene2 mutableCopy];
+    }
+
+    v28 = objc_alloc_init([v6 transitionContextClass]);
+    displayConfiguration = [(CARTemplateUISceneViewController *)self displayConfiguration];
+    [v10 setDisplayConfiguration:displayConfiguration];
+
+    view = [(CARTemplateUISceneViewController *)self view];
+    [view bounds];
+    [v10 setFrame:?];
+
+    [(CARTemplateUISceneViewController *)self _safeAreaInsets];
+    [v10 setSafeAreaInsetsPortrait:?];
+    [v10 setLevel:1.0];
+    [v10 setInterfaceOrientation:1];
+    [v10 setForeground:updateCopy];
+    traitCollection = [(CARTemplateUISceneViewController *)self traitCollection];
+    [v10 setUserInterfaceStyle:{objc_msgSend(traitCollection, "userInterfaceStyle")}];
+
+    [(CARTemplateUISceneViewController *)self prepareSettings:v10];
+    v14 = [FBSMutableSceneParameters parametersForSpecification:v6];
+    [v14 setSettings:v10];
+    applicationIdentifier = [(CARTemplateUISceneViewController *)self applicationIdentifier];
+    v26 = [RBSProcessIdentity identityForEmbeddedApplicationIdentifier:applicationIdentifier];
+
+    v16 = [FBApplicationUpdateScenesTransaction alloc];
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_10000576C;
+    v36[3] = &unk_10001C510;
+    v17 = v10;
+    v37 = v17;
+    v34[1] = _NSConcreteStackBlock;
+    v34[2] = 3221225472;
+    v34[3] = sub_1000057D0;
+    v34[4] = &unk_10001C538;
+    v18 = [v16 initWithProcessIdentity:v26 executionContextProvider:v36];
+    v35 = v18;
+    v19 = BSLogAddStateCaptureBlockWithTitle();
+    objc_initWeak(buf, self);
+    v32[0] = _NSConcreteStackBlock;
+    v32[1] = 3221225472;
+    v32[2] = sub_100005838;
+    v32[3] = &unk_10001C560;
+    v20 = v19;
+    v33 = v20;
+    objc_copyWeak(v34, buf);
+    [v18 setCompletionBlock:v32];
+    if (contextsCopy)
+    {
+      v30[0] = _NSConcreteStackBlock;
+      v30[1] = 3221225472;
+      v30[2] = sub_1000058E4;
+      v30[3] = &unk_10001C588;
+      v21 = objc_alloc_init(NSMutableSet);
+      v31 = v21;
+      [contextsCopy enumerateObjectsUsingBlock:v30];
+      [v28 setActions:v21];
+    }
+
+    [v18 setWaitsForSceneCommits:{0, v26}];
+    sceneID = self->_sceneID;
+    workspaceIdentifier = [(CARTemplateUISceneViewController *)self workspaceIdentifier];
+    v24 = [FBSSceneIdentity identityForIdentifier:sceneID workspaceIdentifier:workspaceIdentifier];
+
+    [v18 updateSceneWithIdentity:v24 parameters:v14 transitionContext:v28];
+    currentTransaction = [(CARTemplateUISceneViewController *)self currentTransaction];
+    LODWORD(workspaceIdentifier) = currentTransaction == 0;
+
+    if (workspaceIdentifier)
+    {
+      [(CARTemplateUISceneViewController *)self setCurrentTransaction:v18];
+      [v18 begin];
+    }
+
+    else
+    {
+      [(CARTemplateUISceneViewController *)self setPendingTransaction:v18];
+    }
+
+    objc_destroyWeak(v34);
+    objc_destroyWeak(buf);
   }
 }
 

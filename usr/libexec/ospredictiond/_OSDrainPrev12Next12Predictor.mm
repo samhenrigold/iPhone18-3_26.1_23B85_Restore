@@ -11,6 +11,7 @@
 - (id)sliceArray:(id)array overPastDays:(int64_t)days startingAtDate:(id)date endingAtDate:(id)atDate withDataSamplingInterval:(double)interval includeLastIndex:(BOOL)index;
 - (int64_t)countBatteryDrainIn:(id)in moreThanEqualTo:(int64_t)to overPastDays:(int64_t)days startingAtDate:(id)date endingAtDate:(id)atDate withDataSamplingInterval:(double)interval;
 - (int64_t)drainDataForStartTimestamp:(id)timestamp toEndTimestamp:(id)endTimestamp fromBatteryTimeStampData:(id)data netDrain:(BOOL)drain;
+- (int64_t)drainFromEndDate:(id)date forLastHours:(int64_t)hours fromBatteryTimeStampData:(id)data netDrain:(BOOL)drain;
 - (int64_t)netDrainFor:(id)for fromStartIndex:(int)index toEndIndex:(int)endIndex;
 - (int64_t)percentileCategoryForBatteryDrain:(int64_t)drain inRollingDrainData:(id)data;
 - (int64_t)percentileCategoryForBatteryDrain:(int64_t)drain withFirstQuartile:(id)quartile withSecondQuartile:(id)secondQuartile withThirdQuartile:(id)thirdQuartile;
@@ -402,6 +403,18 @@ LABEL_7:
 LABEL_8:
 
   return v11;
+}
+
+- (int64_t)drainFromEndDate:(id)date forLastHours:(int64_t)hours fromBatteryTimeStampData:(id)data netDrain:(BOOL)drain
+{
+  drainCopy = drain;
+  v9 = (-3600 * hours);
+  dataCopy = data;
+  dateCopy = date;
+  v12 = [dateCopy dateByAddingTimeInterval:v9];
+  v13 = [(_OSDrainPrev12Next12Predictor *)self drainDataForStartTimestamp:v12 toEndTimestamp:dateCopy fromBatteryTimeStampData:dataCopy netDrain:drainCopy];
+
+  return v13;
 }
 
 - (int64_t)drainDataForStartTimestamp:(id)timestamp toEndTimestamp:(id)endTimestamp fromBatteryTimeStampData:(id)data netDrain:(BOOL)drain

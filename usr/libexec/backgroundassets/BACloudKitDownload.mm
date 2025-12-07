@@ -193,42 +193,42 @@ LABEL_12:
     goto LABEL_5;
   }
 
-  v13 = sub_100010694();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = sub_100010694(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
     selfCopy = self;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Download %{public}@ is restricted, validating.", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Download %{public}@ is restricted, validating.", buf, 0xCu);
   }
 
   applicationInfo2 = [(BADownload *)self applicationInfo];
-  v15 = [applicationInfo2 remainingDownloadAllowanceWithNecessity:0] == 0;
+  v16 = [applicationInfo2 remainingDownloadAllowanceWithNecessity:0] == 0;
 
-  if (v15)
+  if (v16)
   {
-    v28 = sub_100010694();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v30 = sub_100010694(v17);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      sub_10004BF40(self, v28);
+      sub_10004BF40(self, v30);
     }
 
     if (error)
     {
       sub_100027BE4(203);
-      *error = v26 = 0;
+      *error = v28 = 0;
     }
 
     else
     {
-      v26 = 0;
+      v28 = 0;
     }
   }
 
   else
   {
 LABEL_5:
-    v16 = +[NSDate now];
-    [(BADownload *)self setDownloadStartDate:v16];
+    v18 = +[NSDate now];
+    [(BADownload *)self setDownloadStartDate:v18];
 
     uniqueIdentifier = [(BADownload *)self uniqueIdentifier];
     [(BADownload *)self _addActivityWithIdentifier:uniqueIdentifier takePowerAssertion:1];
@@ -237,9 +237,9 @@ LABEL_5:
     if (delegate)
     {
       delegate2 = [(BADownload *)self delegate];
-      v20 = objc_opt_respondsToSelector();
+      v22 = objc_opt_respondsToSelector();
 
-      if (v20)
+      if (v22)
       {
         responseQueue = [(BADownload *)self responseQueue];
         block[0] = _NSConcreteStackBlock;
@@ -251,25 +251,25 @@ LABEL_5:
       }
     }
 
-    v22 = [[BACloudKitDownloadManager alloc] initWithDownload:self withDelegate:self];
-    [(BACloudKitDownload *)self setDownloadManager:v22];
+    v24 = [[BACloudKitDownloadManager alloc] initWithDownload:self withDelegate:self];
+    [(BACloudKitDownload *)self setDownloadManager:v24];
 
     downloadManager = [(BACloudKitDownload *)self downloadManager];
-    v29 = 0;
-    v24 = [downloadManager startDownloadWithError:&v29];
-    v25 = v29;
+    v31 = 0;
+    v26 = [downloadManager startDownloadWithError:&v31];
+    v27 = v31;
 
-    if ((v24 & 1) == 0)
+    if ((v26 & 1) == 0)
     {
-      [(BACloudKitDownload *)self _downloadFailedWithError:v25];
+      [(BACloudKitDownload *)self _downloadFailedWithError:v27];
     }
 
-    v26 = 1;
+    v28 = 1;
   }
 
   os_unfair_lock_unlock(downloadLock);
 
-  return v26;
+  return v28;
 }
 
 - (void)cancelDownload

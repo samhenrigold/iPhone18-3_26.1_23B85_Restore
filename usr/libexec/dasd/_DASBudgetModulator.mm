@@ -1032,7 +1032,7 @@ LABEL_6:
         if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
         {
           v68 = v63;
-          v69 = [v51 count];
+          v69 = objc_msgSend_count(v51);
           *buf = 67109634;
           *v72 = v62;
           *&v72[4] = 2112;

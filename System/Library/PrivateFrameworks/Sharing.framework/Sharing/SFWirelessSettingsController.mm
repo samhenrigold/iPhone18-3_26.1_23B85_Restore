@@ -63,7 +63,7 @@
   v8 = resultsCopy;
   if (event == 10)
   {
-    v17 = airdrop_log();
+    v17 = airdrop_log(resultsCopy);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [SFWirelessSettingsController handleOperationCallback:v8 event:v17 withResults:?];
@@ -74,7 +74,7 @@
 
   if (event != 12)
   {
-    v17 = airdrop_log();
+    v17 = airdrop_log(resultsCopy);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [SFWirelessSettingsController handleOperationCallback:event event:v8 withResults:v17];
@@ -181,27 +181,24 @@ void __74__SFWirelessSettingsController_handleOperationCallback_event_withResult
 
 - (void)handleOperationCallback:(void *)a1 event:(NSObject *)a2 withResults:.cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 objectForKeyedSubscript:@"Error"];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "SFWirelessSettingsController %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "SFWirelessSettingsController %@", &v4, 0xCu);
 }
 
 - (void)handleOperationCallback:(uint64_t)a1 event:(uint64_t)a2 withResults:(NSObject *)a3 .cold.2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
   v5 = a1;
-  v13 = *MEMORY[0x1E69E9840];
-  v7 = 138412802;
-  v8 = SFOperationEventToString_0(a1);
-  v9 = 1024;
-  v10 = v5;
-  v11 = 2112;
-  v12 = a2;
-  _os_log_error_impl(&dword_1A9662000, a3, OS_LOG_TYPE_ERROR, "SFWirelessSettingsController UNHANDLED EVENT %@ [%d] %@", &v7, 0x1Cu);
-  v6 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v6 = 138412802;
+  v7 = SFOperationEventToString_0(a1);
+  v8 = 1024;
+  v9 = v5;
+  v10 = 2112;
+  v11 = a2;
+  _os_log_error_impl(&dword_1A9662000, a3, OS_LOG_TYPE_ERROR, "SFWirelessSettingsController UNHANDLED EVENT %@ [%d] %@", &v6, 0x1Cu);
 }
 
 @end

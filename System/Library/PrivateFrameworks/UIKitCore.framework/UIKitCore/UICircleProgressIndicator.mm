@@ -3,7 +3,7 @@
 
 @implementation UICircleProgressIndicator
 
-uint64_t __58___UICircleProgressIndicator__startIndeterminateAnimation__block_invoke(uint64_t a1)
+void *__58___UICircleProgressIndicator__startIndeterminateAnimation__block_invoke(uint64_t a1)
 {
   v2 = 0;
   v3 = MEMORY[0x1E69E9820];

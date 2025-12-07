@@ -7,16 +7,16 @@
 
 - (void)main
 {
-  v84[1] = *MEMORY[0x277D85DE8];
+  v83[1] = *MEMORY[0x277D85DE8];
   configuration = [(HDCloudSyncOperation *)self configuration];
   cachedCloudState = [configuration cachedCloudState];
   configuration2 = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration2 repository];
   primaryCKContainer = [repository primaryCKContainer];
   containerIdentifier = [primaryCKContainer containerIdentifier];
-  v77 = 0;
-  v9 = [cachedCloudState attachmentZoneForContainerID:containerIdentifier error:&v77];
-  v10 = v77;
+  v76 = 0;
+  v9 = [cachedCloudState attachmentZoneForContainerID:containerIdentifier error:&v76];
+  v10 = v76;
 
   if (v9 || !v10)
   {
@@ -33,40 +33,40 @@
       }
     }
 
-    v71 = 0;
-    v72 = &v71;
-    v73 = 0x3032000000;
-    v74 = __Block_byref_object_copy__132;
-    v75 = __Block_byref_object_dispose__132;
-    v76 = 0;
-    v14 = objc_opt_class();
-    v69[4] = &v71;
     v70 = 0;
-    v69[0] = MEMORY[0x277D85DD0];
-    v69[1] = 3221225472;
-    v69[2] = __60__HDCloudSyncVerifyAttachmentManagementRecordOperation_main__block_invoke;
-    v69[3] = &unk_278625A08;
-    v15 = [v9 recordsForClass:v14 epoch:0 error:&v70 enumerationHandler:v69];
-    v16 = v70;
-    v63 = v16;
+    v71 = &v70;
+    v72 = 0x3032000000;
+    v73 = __Block_byref_object_copy__132;
+    v74 = __Block_byref_object_dispose__132;
+    v75 = 0;
+    v14 = objc_opt_class();
+    v68[4] = &v70;
+    v69 = 0;
+    v68[0] = MEMORY[0x277D85DD0];
+    v68[1] = 3221225472;
+    v68[2] = __60__HDCloudSyncVerifyAttachmentManagementRecordOperation_main__block_invoke;
+    v68[3] = &unk_278625A08;
+    v15 = [v9 recordsForClass:v14 epoch:0 error:&v69 enumerationHandler:v68];
+    v16 = v69;
+    v62 = v16;
     if ((v15 & 1) == 0)
     {
       [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v16];
 LABEL_41:
-      _Block_object_dispose(&v71, 8);
+      _Block_object_dispose(&v70, 8);
 
       goto LABEL_42;
     }
 
-    if (v72[5])
+    if (v71[5])
     {
       configuration4 = [(HDCloudSyncOperation *)self configuration];
       repository3 = [configuration4 repository];
       profile = [repository3 profile];
       legacyRepositoryProfile = [profile legacyRepositoryProfile];
-      v67 = 0;
-      v62 = HDCloudSyncAttachmentManagementUUID(legacyRepositoryProfile, &v67);
-      v21 = v67;
+      v66 = 0;
+      v61 = HDCloudSyncAttachmentManagementUUID(legacyRepositoryProfile, &v66);
+      v21 = v66;
 
       if (v21)
       {
@@ -86,17 +86,17 @@ LABEL_41:
 
       else
       {
-        v36 = v72[5];
-        if (!v62)
+        v36 = v71[5];
+        if (!v61)
         {
           uUID = [v36 UUID];
           configuration5 = [(HDCloudSyncOperation *)self configuration];
           repository4 = [configuration5 repository];
           profile2 = [repository4 profile];
           legacyRepositoryProfile2 = [profile2 legacyRepositoryProfile];
-          v66 = 0;
-          v45 = HDSetCloudSyncAttachmentManagementUUID(uUID, legacyRepositoryProfile2, &v66);
-          v21 = v66;
+          v65 = 0;
+          v45 = HDSetCloudSyncAttachmentManagementUUID(uUID, legacyRepositoryProfile2, &v65);
+          v21 = v65;
 
           if ((v45 & 1) == 0)
           {
@@ -104,13 +104,13 @@ LABEL_41:
             v46 = *MEMORY[0x277CCC328];
             if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
             {
-              uUID2 = [v72[5] UUID];
+              uUID2 = [v71[5] UUID];
               *buf = 138543874;
               *&buf[4] = self;
               *&buf[12] = 2114;
               *&buf[14] = uUID2;
               *&buf[22] = 2114;
-              v81 = v21;
+              v80 = v21;
               _os_log_error_impl(&dword_228986000, v46, OS_LOG_TYPE_ERROR, "[attachments] %{public}@: Failed to set previously nil local management UUID %{public}@, %{public}@", buf, 0x20u);
             }
           }
@@ -121,7 +121,7 @@ LABEL_41:
         }
 
         uUID3 = [v36 UUID];
-        v38 = [v62 isEqual:uUID3];
+        v38 = [v61 isEqual:uUID3];
 
         if (v38)
         {
@@ -131,39 +131,39 @@ LABEL_41:
 
         else
         {
-          v65 = 0;
+          v64 = 0;
           v47 = [(HDCloudSyncVerifyAttachmentManagementRecordOperation *)self _updateAllAttachmentReferencesToUnsynchronizedWithError:?];
-          v48 = v65;
+          v48 = v64;
           if (v47)
           {
-            uUID4 = [v72[5] UUID];
+            uUID4 = [v71[5] UUID];
             v50 = v48;
             configuration6 = [(HDCloudSyncOperation *)self configuration];
             repository5 = [configuration6 repository];
             profile3 = [repository5 profile];
             legacyRepositoryProfile3 = [profile3 legacyRepositoryProfile];
-            v64 = 0;
-            v61 = HDSetCloudSyncAttachmentManagementUUID(uUID4, legacyRepositoryProfile3, &v64);
-            v21 = v64;
+            v63 = 0;
+            v60 = HDSetCloudSyncAttachmentManagementUUID(uUID4, legacyRepositoryProfile3, &v63);
+            v21 = v63;
 
-            if ((v61 & 1) == 0)
+            if ((v60 & 1) == 0)
             {
               _HKInitializeLogging();
               v55 = *MEMORY[0x277CCC328];
               if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
               {
-                uUID5 = [v72[5] UUID];
+                uUID5 = [v71[5] UUID];
                 *buf = 138543874;
                 *&buf[4] = self;
                 *&buf[12] = 2114;
                 *&buf[14] = uUID5;
                 *&buf[22] = 2114;
-                v81 = v21;
+                v80 = v21;
                 _os_log_error_impl(&dword_228986000, v55, OS_LOG_TYPE_ERROR, "[attachments] %{public}@: Failed to set previously nil local management UUID %{public}@, %{public}@", buf, 0x20u);
               }
             }
 
-            [(HDCloudSyncOperation *)self finishWithSuccess:v61 error:v21];
+            [(HDCloudSyncOperation *)self finishWithSuccess:v60 error:v21];
           }
 
           else
@@ -189,9 +189,9 @@ LABEL_41:
 
     else
     {
-      v68 = 0;
+      v67 = 0;
       v23 = [(HDCloudSyncVerifyAttachmentManagementRecordOperation *)self _updateAllAttachmentReferencesToUnsynchronizedWithError:?];
-      v21 = v68;
+      v21 = v67;
       if ((v23 & 1) == 0)
       {
         _HKInitializeLogging();
@@ -214,7 +214,7 @@ LABEL_41:
       v25ZoneIdentifier = [zoneIdentifier zoneIdentifier];
       v27 = [(HDCloudSyncAttachmentManagementRecord *)v24 initInZoneID:v25ZoneIdentifier];
 
-      v62 = v27;
+      v61 = v27;
       if (self)
       {
         v28 = [HDCloudSyncModifyRecordsOperation alloc];
@@ -222,26 +222,26 @@ LABEL_41:
         configuration8 = [(HDCloudSyncOperation *)self configuration];
         repository6 = [configuration8 repository];
         primaryCKContainer2 = [repository6 primaryCKContainer];
-        record = [v62 record];
-        v84[0] = record;
-        v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v84 count:1];
+        record = [v61 record];
+        v83[0] = record;
+        v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:1];
         v34 = [(HDCloudSyncModifyRecordsOperation *)v28 initWithConfiguration:configuration7 container:primaryCKContainer2 recordsToSave:v33 recordIDsToDelete:0];
 
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __101__HDCloudSyncVerifyAttachmentManagementRecordOperation__modifyCloudKitAndFinishWithManagementRecord___block_invoke;
-        v81 = &unk_278625A30;
+        v80 = &unk_278625A30;
         selfCopy = self;
-        v35 = v62;
-        v83 = v35;
+        v35 = v61;
+        v82 = v35;
         [(HDCloudSyncOperation *)v34 setOnError:buf];
-        v78[0] = MEMORY[0x277D85DD0];
-        v78[1] = 3221225472;
-        v78[2] = __101__HDCloudSyncVerifyAttachmentManagementRecordOperation__modifyCloudKitAndFinishWithManagementRecord___block_invoke_299;
-        v78[3] = &unk_2786234A8;
-        v78[4] = self;
-        v79 = v35;
-        [(HDCloudSyncOperation *)v34 setOnSuccess:v78];
+        v77[0] = MEMORY[0x277D85DD0];
+        v77[1] = 3221225472;
+        v77[2] = __101__HDCloudSyncVerifyAttachmentManagementRecordOperation__modifyCloudKitAndFinishWithManagementRecord___block_invoke_299;
+        v77[3] = &unk_2786234A8;
+        v77[4] = self;
+        v78 = v35;
+        [(HDCloudSyncOperation *)v34 setOnSuccess:v77];
         [(HDCloudSyncOperation *)v34 start];
       }
     }
@@ -252,8 +252,6 @@ LABEL_40:
 
   [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v10];
 LABEL_42:
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAllAttachmentReferencesToUnsynchronizedWithError:(void *)result
@@ -280,33 +278,31 @@ LABEL_42:
 
 void __101__HDCloudSyncVerifyAttachmentManagementRecordOperation__modifyCloudKitAndFinishWithManagementRecord___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = a3;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
   {
-    v8 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v9 = v5;
-    v10 = [v7 recordID];
-    v11 = 138543874;
-    v12 = v8;
-    v13 = 2114;
-    v14 = v10;
-    v15 = 2114;
-    v16 = v4;
-    _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "[attachments] %{public}@: Failed to modify management attachment record %{public}@, %{public}@", &v11, 0x20u);
+    v7 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v8 = v5;
+    v9 = [v6 recordID];
+    v10 = 138543874;
+    v11 = v7;
+    v12 = 2114;
+    v13 = v9;
+    v14 = 2114;
+    v15 = v4;
+    _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "[attachments] %{public}@: Failed to modify management attachment record %{public}@, %{public}@", &v10, 0x20u);
   }
 
   [*(a1 + 32) finishWithSuccess:0 error:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __101__HDCloudSyncVerifyAttachmentManagementRecordOperation__modifyCloudKitAndFinishWithManagementRecord___block_invoke_299(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = MEMORY[0x277CCC328];
   v3 = *MEMORY[0x277CCC328];
@@ -317,9 +313,9 @@ void __101__HDCloudSyncVerifyAttachmentManagementRecordOperation__modifyCloudKit
     v6 = v3;
     v7 = [v4 recordID];
     *buf = 138543618;
-    v26 = v5;
-    v27 = 2114;
-    v28 = v7;
+    v25 = v5;
+    v26 = 2114;
+    v27 = v7;
     _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[attachments] %{public}@: Successfully modified management attachment record %{public}@", buf, 0x16u);
   }
 
@@ -328,9 +324,9 @@ void __101__HDCloudSyncVerifyAttachmentManagementRecordOperation__modifyCloudKit
   v10 = [v9 repository];
   v11 = [v10 profile];
   v12 = [v11 legacyRepositoryProfile];
-  v24 = 0;
-  v13 = HDSetCloudSyncAttachmentManagementUUID(v8, v12, &v24);
-  v14 = v24;
+  v23 = 0;
+  v13 = HDSetCloudSyncAttachmentManagementUUID(v8, v12, &v23);
+  v14 = v23;
 
   if (v13)
   {
@@ -345,17 +341,17 @@ void __101__HDCloudSyncVerifyAttachmentManagementRecordOperation__modifyCloudKit
     v18 = *v2;
     if (os_log_type_enabled(*v2, OS_LOG_TYPE_ERROR))
     {
-      v21 = *(a1 + 32);
-      v20 = *(a1 + 40);
-      v22 = v18;
-      v23 = [v20 UUID];
+      v20 = *(a1 + 32);
+      v19 = *(a1 + 40);
+      v21 = v18;
+      v22 = [v19 UUID];
       *buf = 138543874;
-      v26 = v21;
-      v27 = 2114;
-      v28 = v23;
-      v29 = 2114;
-      v30 = v14;
-      _os_log_error_impl(&dword_228986000, v22, OS_LOG_TYPE_ERROR, "[attachments] %{public}@: Failed to persist local attachment management UUID %{public}@, %{public}@", buf, 0x20u);
+      v25 = v20;
+      v26 = 2114;
+      v27 = v22;
+      v28 = 2114;
+      v29 = v14;
+      _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "[attachments] %{public}@: Failed to persist local attachment management UUID %{public}@, %{public}@", buf, 0x20u);
     }
 
     v15 = *(a1 + 32);
@@ -364,8 +360,6 @@ void __101__HDCloudSyncVerifyAttachmentManagementRecordOperation__modifyCloudKit
   }
 
   [v15 finishWithSuccess:v16 error:v17];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

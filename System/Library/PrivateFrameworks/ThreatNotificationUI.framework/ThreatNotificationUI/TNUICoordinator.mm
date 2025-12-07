@@ -8,9 +8,8 @@
 {
   v4 = type metadata accessor for TNCLogger.Category();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v9 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for MainActor();
   static MainActor.shared.getter();
   dispatch thunk of Actor.unownedExecutor.getter();
@@ -19,13 +18,13 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  (*(v5 + 104))(v8, *MEMORY[0x277D714A0], v4);
+  (*(v5 + 104))(v7, *MEMORY[0x277D714A0], v4);
   swift_unknownObjectRetain();
 
   static TNCLogger.logFunctionCall(category:functionName:)();
-  (*(v5 + 8))(v8, v4);
-  v10 = 4;
-  TNUICoordinator.handle(action:from:)(&v10, tapped);
+  (*(v5 + 8))(v7, v4);
+  v9 = 4;
+  TNUICoordinator.handle(action:from:)(&v9, tapped);
 
   swift_unknownObjectRelease();
 }

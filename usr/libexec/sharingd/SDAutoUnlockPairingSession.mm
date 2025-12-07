@@ -4,6 +4,7 @@
 - (SDAutoUnlockSessionDelegate)delegate;
 - (SDUnlockTransport)transport;
 - (id)dataFromUUID:(id)d;
+- (id)wrapPayload:(id)payload withType:(unsigned __int16)type useProxy:(BOOL)proxy senderID:(id)d;
 - (void)handleTimerFired;
 - (void)idsController:(id)controller didReceiveProtoData:(id)data forType:(unsigned __int16)type deviceID:(id)d;
 - (void)invalidate;
@@ -93,6 +94,43 @@
   v2 = ;
 
   return v2;
+}
+
+- (id)wrapPayload:(id)payload withType:(unsigned __int16)type useProxy:(BOOL)proxy senderID:(id)d
+{
+  proxyCopy = proxy;
+  typeCopy = type;
+  dCopy = d;
+  payloadCopy = payload;
+  v12 = objc_opt_new();
+  [v12 setVersion:1];
+  [v12 setPayload:payloadCopy];
+
+  [v12 setMessageType:typeCopy];
+  if (proxyCopy)
+  {
+    [v12 setUseProxy:1];
+  }
+
+  if (dCopy)
+  {
+    v13 = [[NSUUID alloc] initWithUUIDString:dCopy];
+    v14 = [(SDAutoUnlockPairingSession *)self dataFromUUID:v13];
+    [v12 setSenderID:v14];
+  }
+
+  sessionID = [(SDAutoUnlockPairingSession *)self sessionID];
+
+  if (sessionID)
+  {
+    sessionID2 = [(SDAutoUnlockPairingSession *)self sessionID];
+    v17 = [(SDAutoUnlockPairingSession *)self dataFromUUID:sessionID2];
+    [v12 setSessionID:v17];
+  }
+
+  data = [v12 data];
+
+  return data;
 }
 
 - (id)dataFromUUID:(id)d

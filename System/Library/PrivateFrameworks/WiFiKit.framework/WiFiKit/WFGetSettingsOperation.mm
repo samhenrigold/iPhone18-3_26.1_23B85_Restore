@@ -24,10 +24,11 @@
 - (void)start
 {
   v4 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && (self & 1) != 0 && os_log_type_enabled(a2, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 3 && (self & 1) != 0 && os_log_type_enabled(a2, v5))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_273ECD000, a2, v4, "No custom settings exist in WiFiManager", v5, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_273ECD000, a2, v5, "No custom settings exist in WiFiManager", v7, 2u);
   }
 }
 
@@ -50,12 +51,12 @@
 
 - (WFGetSettingsOperation)initWithSSID:(id)d interfaceName:(id)name
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dCopy = d;
   nameCopy = name;
-  v21.receiver = self;
-  v21.super_class = WFGetSettingsOperation;
-  v8 = [(WFGetSettingsOperation *)&v21 init];
+  v24.receiver = self;
+  v24.super_class = WFGetSettingsOperation;
+  v8 = [(WFGetSettingsOperation *)&v24 init];
   if (!v8)
   {
     name = 0;
@@ -64,16 +65,17 @@
 
   if (!dCopy)
   {
-    v18 = WFLogForCategory(0);
-    v19 = OSLogForWFLogLevel(1uLL);
-    if (!WFCurrentLogLevel() || !v18 || !os_log_type_enabled(v18, v19))
+    v17 = WFLogForCategory(0);
+    v18 = OSLogForWFLogLevel(1uLL);
+    v19 = v18;
+    if (!WFCurrentLogLevel(v18, v20) || !v17 || !os_log_type_enabled(v17, v19))
     {
       goto LABEL_17;
     }
 
     *buf = 136315138;
-    v23 = "[WFGetSettingsOperation initWithSSID:interfaceName:]";
-    v20 = "%s: missing ssid";
+    v26 = "[WFGetSettingsOperation initWithSSID:interfaceName:]";
+    v21 = "%s: missing ssid";
     goto LABEL_16;
   }
 
@@ -83,18 +85,19 @@
 
   if (!nameCopy)
   {
-    v18 = WFLogForCategory(0);
-    v19 = OSLogForWFLogLevel(1uLL);
-    if (!WFCurrentLogLevel() || !v18 || !os_log_type_enabled(v18, v19))
+    v17 = WFLogForCategory(0);
+    v22 = OSLogForWFLogLevel(1uLL);
+    v19 = v22;
+    if (!WFCurrentLogLevel(v22, v23) || !v17 || !os_log_type_enabled(v17, v19))
     {
       goto LABEL_17;
     }
 
     *buf = 136315138;
-    v23 = "[WFGetSettingsOperation initWithSSID:interfaceName:]";
-    v20 = "%s: missing interfaceName";
+    v26 = "[WFGetSettingsOperation initWithSSID:interfaceName:]";
+    v21 = "%s: missing interfaceName";
 LABEL_16:
-    _os_log_impl(&dword_273ECD000, v18, v19, v20, buf, 0xCu);
+    _os_log_impl(&dword_273ECD000, v17, v19, v21, buf, 0xCu);
 LABEL_17:
 
     goto LABEL_18;
@@ -119,7 +122,6 @@ LABEL_18:
   v8->_name = v14;
 LABEL_6:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

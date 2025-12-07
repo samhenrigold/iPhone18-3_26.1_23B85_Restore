@@ -216,11 +216,11 @@
 
 - (void)parseASParseContext:(id)context root:(id)root parent:(id)parent callbackDict:(id)dict streamCallbackDict:(id)callbackDict account:(id)account
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   parentCopy = parent;
-  v27.receiver = self;
-  v27.super_class = ASToDoRecurrence;
-  [(ASRecurrence *)&v27 parseASParseContext:context root:root parent:parentCopy callbackDict:dict streamCallbackDict:callbackDict account:account];
+  v26.receiver = self;
+  v26.super_class = ASToDoRecurrence;
+  [(ASRecurrence *)&v26 parseASParseContext:context root:root parent:parentCopy callbackDict:dict streamCallbackDict:callbackDict account:account];
   parsingState = self->super.super._parsingState;
   v17 = parentCopy;
   if (parsingState >= 2)
@@ -282,7 +282,7 @@
           type = [(ASRecurrence *)self type];
           intValue = [type intValue];
           *buf = 67109120;
-          v29 = intValue;
+          v28 = intValue;
           _os_log_impl(&dword_24A0AC000, v22, v23, "A recurrence with type %d didn't have an interval set, but we're being lenient, and assuming an interval of 1", buf, 8u);
         }
 
@@ -290,8 +290,6 @@
       }
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appendActiveSyncDataForTask:(id)task toWBXMLData:(id)data

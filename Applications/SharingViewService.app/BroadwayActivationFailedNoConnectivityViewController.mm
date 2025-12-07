@@ -12,7 +12,7 @@
   buttonCopy = button;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationFailedNoConnectivityViewController handleTryAgainButton:]", 30, "Try Again button");
   }
 
   [self->super._mainController retryActivation];
@@ -23,7 +23,7 @@
   buttonCopy = button;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationFailedNoConnectivityViewController handleDismissButton:]", 30, "Dismiss button");
   }
 
   [self->super._mainController dismiss:5];
@@ -34,7 +34,7 @@
   disappearCopy = disappear;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationFailedNoConnectivityViewController viewDidDisappear:]", 30, "NoConnectivityVC ViewDidDisappear");
   }
 
   v5.receiver = self;
@@ -47,7 +47,7 @@
   appearCopy = appear;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationFailedNoConnectivityViewController viewWillAppear:]", 30, "NoConnectivityVC ViewWillAppear");
   }
 
   v14.receiver = self;

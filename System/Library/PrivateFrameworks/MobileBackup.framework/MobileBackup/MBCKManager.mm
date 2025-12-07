@@ -20,6 +20,7 @@
 - (BOOL)acquireLockWithBackupUDID:(id)d account:(id)account owner:(id)owner timeout:(double)timeout connection:(id)connection error:(id *)error;
 - (BOOL)allowiTunesBackup;
 - (BOOL)cancelDeviceTransferWithTaskType:(int64_t)type connection:(id)connection error:(id *)error;
+- (BOOL)clearPendingSnapshotForBackupUUID:(id)d enabledState:(BOOL)state account:(id)account error:(id *)error;
 - (BOOL)closeRestorePlanForAccount:(id)account snapshotUUID:(id)d error:(id *)error;
 - (BOOL)countCameraRollQuota;
 - (BOOL)countCameraRollQuotaForBackupUDID:(id)d error:(id *)error;
@@ -65,12 +66,14 @@
 - (id)_cacheTrackerWithAccount:(id)account;
 - (id)_ckSettingsContextForBackupUDID:(id)d account:(id)account;
 - (id)_ckSettingsContextForRestoreWithDeviceUUID:(id)d account:(id)account delegateContext:(id)context;
+- (id)_copyBackupStateInfoForInitialMegaBackup:(BOOL)backup account:(id)account;
 - (id)_defaultMegaBackupExpirationDate;
 - (id)_domainDisplayNamesForFailedDomainsWithAccount:(id)account;
 - (id)_findTargetDeviceTransferEngineWithConnection:(id)connection error:(id *)error;
 - (id)_getBackupListWithOperationTracker:(id)tracker shouldFilter:(BOOL)filter error:(id *)error;
 - (id)_megaBackupExpirationDate;
 - (id)_restoreEngineWithRestoreType:(int)type settingsContext:(id)context debugContext:(id)debugContext excludedAppBundleIDs:(id)ds;
+- (id)_snapshotForSnapshotID:(unint64_t)d backupUDID:(id)iD cached:(BOOL)cached operationTracker:(id)tracker error:(id *)error;
 - (id)_startNetworkPathMonitor;
 - (id)allRestrictedDomainNames:(id)names account:(id)account;
 - (id)backgroundRestoreInfoWithAccount:(id)account;
@@ -84,14 +87,17 @@
 - (id)fetchRestorableSnapshotsForAccount:(id)account connection:(id)connection error:(id *)error;
 - (id)filesForSnapshotID:(unint64_t)d backupUDID:(id)iD account:(id)account connection:(id)connection error:(id *)error;
 - (id)getAppleIDsMapForBackupUDID:(id)d account:(id)account snapshotID:(unint64_t)iD activeAppleID:(id *)appleID connection:(id)connection error:(id *)error;
+- (id)getBackupListWithFiltering:(BOOL)filtering account:(id)account connection:(id)connection error:(id *)error;
 - (id)getBuddyDataStashForBackupUDID:(id)d snapshotID:(unint64_t)iD account:(id)account connection:(id)connection error:(id *)error;
 - (id)journalForBackupUUID:(id)d account:(id)account connection:(id)connection error:(id *)error;
 - (id)journalLastModifiedForBackupUUID:(id)d account:(id)account connection:(id)connection error:(id *)error;
 - (id)loadRestoreStateWithAccount:(id)account;
 - (id)nextBackupSizeInfoWithAccount:(id)account;
+- (id)openCacheWithAccount:(id)account accessType:(int)type cached:(BOOL)cached error:(id *)error;
 - (id)pendingSnapshotForCurrentDeviceAndAccount:(id)account error:(id *)error;
 - (id)prebuddyFollowUpTimerForAccount:(id)account;
 - (id)reservedBackupSizeListWithAccount:(id)account connection:(id)connection error:(id *)error;
+- (id)restoreFilesForDomain:(id)domain relativePath:(id)path pendingOnly:(BOOL)only range:(_NSRange)range account:(id)account error:(id *)error;
 - (id)restorePlanForAccount:(id)account snapshotUUID:(id)d error:(id *)error;
 - (id)restoreStateWithError:(id *)error;
 - (id)serviceStates;
@@ -126,7 +132,9 @@
 - (void)_saveForegroundRestoreCellularAccess:(id)access account:(id)account;
 - (void)_scheduleBackgroundRestoreTimeoutTTRWithAccount:(id)account;
 - (void)_scheduleDelayedBackgroundRestoreTimerWithAccount:(id)account;
+- (void)_setIsInitialMegaBackupCompleted:(BOOL)completed;
 - (void)_setMegaBackupExpirationDate:(id)date account:(id)account;
+- (void)_setMegaBackupMode:(BOOL)mode;
 - (void)_startBackupWithEngine:(id)engine account:(id)account;
 - (void)_startEngine:(id)engine delegateContext:(id)context;
 - (void)_startRestoreWithEngine:(id)engine delegateContext:(id)context;
@@ -152,6 +160,7 @@
 - (void)deviceIsLocking;
 - (void)deviceIsUnlocked;
 - (void)deviceIsUnlockedWithAccount:(id)account completion:(id)completion;
+- (void)didFinishAppRestoresWithAccount:(id)account cancelled:(BOOL)cancelled;
 - (void)exitMegaBackupModeWithAccount:(id)account;
 - (void)fetchNetworkConnectivityWithBlock:(id)block;
 - (void)finishAirTrafficRestoreWithAccount:(id)account;
@@ -164,6 +173,10 @@
 - (void)saveBackupDomainsEnabledForMegaBackup:(id)backup;
 - (void)saveBackupEnabledForMegaBackup;
 - (void)saveSyncSettingsEnabledForMegaBackup:(id)backup;
+- (void)setAllowiTunesBackup:(BOOL)backup;
+- (void)setBackupEnabled:(BOOL)enabled account:(id)account connection:(id)connection;
+- (void)setBackupEnabled:(BOOL)enabled forDomainName:(id)name account:(id)account;
+- (void)setPrebuddyMode:(BOOL)mode;
 - (void)setRestoreQualityOfService:(int64_t)service account:(id)account connection:(id)connection;
 - (void)setServiceDelegate:(id)delegate;
 - (void)setUpXPCEventHandler;
@@ -289,34 +302,34 @@
 - (void)_migrateMobileBackupDatabaseFromRootToMobile
 {
   v2 = [NSMutableArray arrayWithObject:@"cloudkit_cache.db"];
+  v19 = 0u;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
   v3 = MBSQLiteJournalSuffixes();
-  v4 = [v3 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v22;
+    v6 = *v20;
     do
     {
       v7 = 0;
       do
       {
-        if (*v22 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [@"cloudkit_cache.db" stringByAppendingString:*(*(&v21 + 1) + 8 * v7)];
+        v8 = [@"cloudkit_cache.db" stringByAppendingString:*(*(&v19 + 1) + 8 * v7)];
         [v2 addObject:v8];
 
         v7 = v7 + 1;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v5);
@@ -324,9 +337,9 @@
 
   v9 = +[NSFileManager defaultManager];
   v10 = MBGetCacheDir();
-  v20 = 0;
-  v11 = [v9 mb_migrateIfNeededFromSource:@"/var/root/Library/Caches/Backup" sourceSubPaths:v2 toDestination:v10 destinationSubPaths:v2 error:&v20];
-  v12 = v20;
+  v18 = 0;
+  v11 = [v9 mb_migrateIfNeededFromSource:@"/var/root/Library/Caches/Backup" sourceSubPaths:v2 toDestination:v10 destinationSubPaths:v2 error:&v18];
+  v12 = v18;
 
   if ((v11 & 1) == 0)
   {
@@ -334,19 +347,17 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412546;
-      v26 = @"cloudkit_cache.db";
-      v27 = 2112;
-      v28 = v12;
+      v24 = @"cloudkit_cache.db";
+      v25 = 2112;
+      v26 = v12;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_FAULT, "Error migrating %@ from root to mobile: %@", buf, 0x16u);
-      v17 = @"cloudkit_cache.db";
-      v18 = v12;
-      _MBLog();
+      _MBLog(@"F ", "Error migrating %@ from root to mobile: %@", @"cloudkit_cache.db", v12);
     }
   }
 
-  v19 = v12;
-  v14 = [v9 mb_migrateIfNeededFromSource:@"/var/root/Library/Preferences" sourceSubPaths:&off_1003E1FA0 toDestination:@"/var/mobile/Library/Preferences" destinationSubPaths:&off_1003E1FB8 error:{&v19, v17, v18}];
-  v15 = v19;
+  v17 = v12;
+  v14 = [v9 mb_migrateIfNeededFromSource:@"/var/root/Library/Preferences" sourceSubPaths:&off_1003E1FA0 toDestination:@"/var/mobile/Library/Preferences" destinationSubPaths:&off_1003E1FB8 error:&v17];
+  v15 = v17;
 
   if ((v14 & 1) == 0)
   {
@@ -354,11 +365,11 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412546;
-      v26 = @"com.apple.MobileBackup.plist";
-      v27 = 2112;
-      v28 = v15;
+      v24 = @"com.apple.MobileBackup.plist";
+      v25 = 2112;
+      v26 = v15;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_FAULT, "Error migrating %@ from root to mobile: %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"F ", "Error migrating %@ from root to mobile: %@", @"com.apple.MobileBackup.plist", v15);
     }
   }
 }
@@ -388,12 +399,12 @@
     accountIdentifier2 = [v5 accountIdentifier];
     persona2 = [v5 persona];
     personaIdentifier2 = [persona2 personaIdentifier];
-    _MBLog();
+    _MBLog(@"Df", "Clearing the restore session for account %{public}@(%{public}@)", accountIdentifier2, personaIdentifier2);
   }
 
-  v12 = [(MBPersonaStateManager *)self->_personaState objectForKeyedSubscript:v5];
-  [v12 clearRestoreSession];
-  [v12 setServiceState:0];
+  v13 = [(MBPersonaStateManager *)self->_personaState objectForKeyedSubscript:v5];
+  [v13 clearRestoreSession];
+  [v13 setServiceState:0];
 }
 
 - (void)clearRestoreSessionWithAccount:(id)account
@@ -449,7 +460,7 @@
       accountIdentifier2 = [v4 accountIdentifier];
       persona3 = [v4 persona];
       personaIdentifier2 = [persona3 personaIdentifier];
-      _MBLog();
+      _MBLog(@"I ", "Loaded restore state for account %{public}@(%{public}@): %{public}@", accountIdentifier2, personaIdentifier2, v6);
     }
   }
 
@@ -488,7 +499,7 @@
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Saved the restore state for account %{public}@: %{public}@", buf, 0x16u);
 
       accountIdentifier2 = [v7 accountIdentifier];
-      _MBLog();
+      _MBLog(@"I ", "Saved the restore state for account %{public}@: %{public}@", dictionaryRepresentation, accountIdentifier2);
     }
   }
 }
@@ -531,7 +542,7 @@
     {
       LOWORD(buf) = 0;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "No account found, returning idle restore state", &buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "No account found, returning idle restore state");
     }
 
     v10 = [[MBStateInfo alloc] initWithState:0 progress:0 estimatedTimeRemaining:0 error:0 errors:0.0];
@@ -551,7 +562,7 @@
       LODWORD(buf) = 138412290;
       *(&buf + 4) = v8;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed fetching account for -restoreStateWithError: %@", &buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed fetching account for -restoreStateWithError: %@", v8);
     }
 
     v10 = 0;
@@ -569,7 +580,7 @@
   }
 
   v6 = accountCopy;
-  v99 = a2;
+  v94 = a2;
   dispatch_assert_queue_V2(self->_stateQueue);
   accountIdentifier = [v6 accountIdentifier];
   persona = [v6 persona];
@@ -583,22 +594,17 @@
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544386;
-    *v104 = accountIdentifier;
-    *&v104[8] = 2114;
-    *&v104[10] = personaIdentifier;
-    v105 = 1024;
-    *v106 = serviceState;
-    *&v106[4] = 2048;
-    *&v106[6] = restore;
-    v107 = 2114;
-    v108 = restore;
+    *v99 = accountIdentifier;
+    *&v99[8] = 2114;
+    *&v99[10] = personaIdentifier;
+    v100 = 1024;
+    *v101 = serviceState;
+    *&v101[4] = 2048;
+    *&v101[6] = restore;
+    v102 = 2114;
+    v103 = restore;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "=restore-boot= Loading restore session for account %{public}@(%{public}@): (%d) (%p) %{public}@", buf, 0x30u);
-    v82 = restore;
-    v83 = restore;
-    v78 = personaIdentifier;
-    v81 = serviceState;
-    v75 = accountIdentifier;
-    _MBLog();
+    _MBLog(@"Df", "=restore-boot= Loading restore session for account %{public}@(%{public}@): (%d) (%p) %{public}@", accountIdentifier, personaIdentifier, serviceState, restore, restore);
   }
 
   if (restore)
@@ -615,21 +621,19 @@
     {
       propertyList = [v16 propertyList];
       *buf = 138543874;
-      *v104 = accountIdentifier;
-      *&v104[8] = 2114;
-      *&v104[10] = personaIdentifier;
-      v105 = 2114;
-      *v106 = propertyList;
+      *v99 = accountIdentifier;
+      *&v99[8] = 2114;
+      *&v99[10] = personaIdentifier;
+      v100 = 2114;
+      *v101 = propertyList;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "=restore-boot= Loaded restore session for account %{public}@(%{public}@): %{public}@", buf, 0x20u);
 
-      [v16 propertyList];
-      v81 = v78 = personaIdentifier;
-      v75 = accountIdentifier;
-      _MBLog();
+      propertyList2 = [v16 propertyList];
+      _MBLog(@"Df", "=restore-boot= Loaded restore session for account %{public}@(%{public}@): %{public}@", accountIdentifier, personaIdentifier, propertyList2);
     }
   }
 
-  [v11 setRestoreSession:{v16, v75, v78, v81, v82, v83}];
+  [v11 setRestoreSession:v16];
   restore = [objc_opt_class() loadRestoreStateInfoWithAccount:v6];
   if (v16)
   {
@@ -638,160 +642,158 @@
       self->_restoreTelemetryID = [v16 telemetryID];
     }
 
-    v19 = os_transaction_create();
-    [v11 setRestoreTransaction:v19];
+    v20 = os_transaction_create();
+    [v11 setRestoreTransaction:v20];
 
     isFinishing = [v16 isFinishing];
-    v94 = personaIdentifier;
-    v95 = accountIdentifier;
+    v89 = personaIdentifier;
+    v90 = accountIdentifier;
     if (isFinishing)
     {
-      v20 = 3;
-      v21 = 6;
+      v21 = 3;
+      v22 = 6;
     }
 
     else
     {
-      v24 = MBBackgroundRestoreSignpostHandle();
-      if (os_signpost_enabled(v24))
+      v25 = MBBackgroundRestoreSignpostHandle();
+      if (os_signpost_enabled(v25))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v24, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "BackgroundRestore", " enableTelemetry=YES ", buf, 2u);
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v25, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "BackgroundRestore", " enableTelemetry=YES ", buf, 2u);
       }
 
-      v20 = 2;
-      v21 = 5;
+      v21 = 2;
+      v22 = 5;
     }
 
-    [v11 setServiceState:v21];
-    v25 = MBGetDefaultLog();
-    v93 = isPrimaryAccount;
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    [v11 setServiceState:v22];
+    v26 = MBGetDefaultLog();
+    v88 = isPrimaryAccount;
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       persona2 = [v6 persona];
       personaIdentifier2 = [persona2 personaIdentifier];
       *buf = 67109378;
-      *v104 = v21;
-      *&v104[4] = 2112;
-      *&v104[6] = personaIdentifier2;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "=restore-boot= Setting service state to %u for persona %@", buf, 0x12u);
+      *v99 = v22;
+      *&v99[4] = 2112;
+      *&v99[6] = personaIdentifier2;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "=restore-boot= Setting service state to %u for persona %@", buf, 0x12u);
 
       persona3 = [v6 persona];
-      [persona3 personaIdentifier];
-      v79 = v76 = v21;
-      _MBLog();
+      personaIdentifier3 = [persona3 personaIdentifier];
+      _MBLog(@"Df", "=restore-boot= Setting service state to %u for persona %@", v22, personaIdentifier3);
     }
 
     if (restore)
     {
-      if ([restore isBackground] && objc_msgSend(restore, "state") == v20)
+      if ([restore isBackground] && objc_msgSend(restore, "state") == v21)
       {
         [v11 setRestore:restore];
 LABEL_34:
         _startNetworkPathMonitor = [(MBCKManager *)self _startNetworkPathMonitor];
         snapshotUUID = [v16 snapshotUUID];
-        v32 = [MBBackgroundRestoreProgressMonitor alloc];
+        v34 = [MBBackgroundRestoreProgressMonitor alloc];
         thermalPressureMonitor = [(MBCKManager *)self thermalPressureMonitor];
-        v34 = [(MBBackgroundRestoreProgressMonitor *)v32 initWithAccount:v6 serviceManager:self thermalPressureMonitor:thermalPressureMonitor snapshotUUID:snapshotUUID];
+        v36 = [(MBBackgroundRestoreProgressMonitor *)v34 initWithAccount:v6 serviceManager:self thermalPressureMonitor:thermalPressureMonitor snapshotUUID:snapshotUUID];
 
-        [v11 setBackgroundRestoreProgressMonitor:v34];
-        v91 = v34;
-        [(MBBackgroundRestoreProgressMonitor *)v34 start];
-        v35 = +[MBCKOperationPolicy expensiveCellularPolicy];
-        v36 = [MBEngine stringForRestoreType:2];
-        capitalizedString = [v36 capitalizedString];
+        [v11 setBackgroundRestoreProgressMonitor:v36];
+        v86 = v36;
+        [(MBBackgroundRestoreProgressMonitor *)v36 start];
+        v37 = +[MBCKOperationPolicy expensiveCellularPolicy];
+        v38 = [MBEngine stringForRestoreType:2];
+        capitalizedString = [v38 capitalizedString];
 
-        v89 = capitalizedString;
-        v90 = v35;
-        v88 = [[NSString alloc] initWithFormat:@"%@ Restore", capitalizedString];
-        [v35 operationGroupWithName:?];
-        v39 = v38 = v16;
-        v40 = [MBCKLockManager alloc];
-        v98 = v38;
-        backupUDID = [v38 backupUDID];
+        v84 = capitalizedString;
+        v85 = v37;
+        v83 = [[NSString alloc] initWithFormat:@"%@ Restore", capitalizedString];
+        [v37 operationGroupWithName:?];
+        v41 = v40 = v16;
+        v42 = [MBCKLockManager alloc];
+        v93 = v40;
+        backupUDID = [v40 backupUDID];
         databaseManager = [(MBCKManager *)self databaseManager];
         thermalPressureMonitor2 = [(MBCKManager *)self thermalPressureMonitor];
-        v97 = snapshotUUID;
-        v87 = v39;
-        v44 = [(MBCKLockManager *)v40 initWithAccount:v6 restoreType:2 backupUDID:backupUDID databaseManager:databaseManager delegate:self operationGroup:v39 thermalPressureMonitor:thermalPressureMonitor2 snapshotUUID:snapshotUUID];
+        v92 = snapshotUUID;
+        v82 = v41;
+        v46 = [(MBCKLockManager *)v42 initWithAccount:v6 restoreType:2 backupUDID:backupUDID databaseManager:databaseManager delegate:self operationGroup:v41 thermalPressureMonitor:thermalPressureMonitor2 snapshotUUID:snapshotUUID];
 
-        [v11 setLockManager:v44];
+        [v11 setLockManager:v46];
         persona4 = [v6 persona];
         if (MBIsInternalInstall())
         {
-          v46 = +[MBBehaviorOptions sharedOptions];
-          useRestoreOperationLog = [v46 useRestoreOperationLog];
+          v48 = +[MBBehaviorOptions sharedOptions];
+          useRestoreOperationLog = [v48 useRestoreOperationLog];
 
           if (useRestoreOperationLog)
           {
-            v48 = MBGetDefaultLog();
-            if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+            v50 = MBGetDefaultLog();
+            if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_INFO, "=restore-boot= Using restore operation log for background restore", buf, 2u);
-              _MBLog();
+              _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_INFO, "=restore-boot= Using restore operation log for background restore", buf, 2u);
+              _MBLog(@"I ", "=restore-boot= Using restore operation log for background restore");
             }
 
-            v49 = [MBRestoreOperationLogger alloc];
+            v51 = [MBRestoreOperationLogger alloc];
             restoreOperationLogPath = [persona4 restoreOperationLogPath];
-            v51 = [(MBRestoreOperationLogger *)v49 initWithPath:restoreOperationLogPath];
-            [v11 setRestoreLogger:v51];
+            v53 = [(MBRestoreOperationLogger *)v51 initWithPath:restoreOperationLogPath];
+            [v11 setRestoreLogger:v53];
           }
         }
 
-        if ([v98 isFinishing])
+        if ([v93 isFinishing])
         {
-          [(MBCKLockManager *)v44 releaseLockAsync];
+          [(MBCKLockManager *)v46 releaseLockAsync];
         }
 
         else
         {
-          [(MBCKLockManager *)v44 startRenewingLock];
+          [(MBCKLockManager *)v46 startRenewingLock];
         }
 
-        v52 = v97;
-        v102 = 0;
-        v53 = [MBCKEncryptionManager loadRestoreKeyBagsWithAccount:v6 error:&v102];
-        v96 = v102;
-        v86 = v44;
-        v84 = v53;
-        if (v53)
+        v54 = v92;
+        v97 = 0;
+        v55 = [MBCKEncryptionManager loadRestoreKeyBagsWithAccount:v6 error:&v97];
+        v91 = v97;
+        v81 = v46;
+        v79 = v55;
+        if (v55)
         {
-          [v11 setRestoreKeyBagsByID:v53];
+          [v11 setRestoreKeyBagsByID:v55];
         }
 
         else
         {
-          v54 = MBGetDefaultLog();
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+          v56 = MBGetDefaultLog();
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            *v104 = v96;
-            _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "=restore-boot= Failed to load restore keybags while loading restore session: %@", buf, 0xCu);
-            personaIdentifier4 = v96;
-            _MBLog();
+            *v99 = v91;
+            _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "=restore-boot= Failed to load restore keybags while loading restore session: %@", buf, 0xCu);
+            _MBLog(@"E ", "=restore-boot= Failed to load restore keybags while loading restore session: %@", v91);
           }
 
           [persona4 setPreferencesValue:&__kCFBooleanTrue forKey:@"NotifyDaemonNextTimeKeyBagIsUnlocked"];
-          v52 = v97;
+          v54 = v92;
         }
 
-        v55 = MBGetDefaultLog();
-        v56 = os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT);
-        v85 = persona4;
+        v57 = MBGetDefaultLog();
+        v58 = os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT);
+        v80 = persona4;
         if (isFinishing)
         {
-          if (v56)
+          if (v58)
           {
             persona5 = [v6 persona];
-            personaIdentifier3 = [persona5 personaIdentifier];
+            personaIdentifier4 = [persona5 personaIdentifier];
             *buf = 138412290;
-            *v104 = personaIdentifier3;
-            _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "=restore-boot= Not setting up app restore manager for persona %@", buf, 0xCu);
+            *v99 = personaIdentifier4;
+            _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "=restore-boot= Not setting up app restore manager for persona %@", buf, 0xCu);
 
             persona6 = [v6 persona];
-            personaIdentifier4 = [persona6 personaIdentifier];
-            _MBLog();
+            personaIdentifier5 = [persona6 personaIdentifier];
+            _MBLog(@"Df", "=restore-boot= Not setting up app restore manager for persona %@", personaIdentifier5);
           }
 
           [v11 setFinishedAppRestores:1];
@@ -799,85 +801,82 @@ LABEL_34:
 
         else
         {
-          if (v56)
+          if (v58)
           {
             persona7 = [v6 persona];
-            personaIdentifier5 = [persona7 personaIdentifier];
+            personaIdentifier6 = [persona7 personaIdentifier];
             *buf = 138412290;
-            *v104 = personaIdentifier5;
-            _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "=restore-boot= Setting up app restore manager for persona %@", buf, 0xCu);
+            *v99 = personaIdentifier6;
+            _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "=restore-boot= Setting up app restore manager for persona %@", buf, 0xCu);
 
             persona8 = [v6 persona];
-            personaIdentifier4 = [persona8 personaIdentifier];
-            _MBLog();
+            personaIdentifier7 = [persona8 personaIdentifier];
+            _MBLog(@"Df", "=restore-boot= Setting up app restore manager for persona %@", personaIdentifier7);
           }
 
-          v63 = +[_TtC7backupd20AppRestoreDispatcher shared];
+          v67 = +[_TtC7backupd20AppRestoreDispatcher shared];
           stateQueue = self->_stateQueue;
-          v101 = 0;
-          v65 = [v63 appRestorerForAccount:v6 stateQueue:stateQueue delegate:self error:&v101];
-          v66 = v101;
+          v96 = 0;
+          v69 = [v67 appRestorerForAccount:v6 stateQueue:stateQueue delegate:self error:&v96];
+          v70 = v96;
 
-          if (v65)
+          if (v69)
           {
             [v11 setFinishedAppRestores:0];
-            [v65 startObservingInstallCoordinators];
+            [v69 startObservingInstallCoordinators];
           }
 
           else
           {
-            v69 = MBGetDefaultLog();
-            if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+            v73 = MBGetDefaultLog();
+            if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              *v104 = v6;
-              *&v104[8] = 2112;
-              *&v104[10] = v66;
-              _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_ERROR, "=restore-boot= Failed to find the app restore manager for %@: %@", buf, 0x16u);
-              personaIdentifier4 = v6;
-              v80 = v66;
-              _MBLog();
+              *v99 = v6;
+              *&v99[8] = 2112;
+              *&v99[10] = v70;
+              _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "=restore-boot= Failed to find the app restore manager for %@: %@", buf, 0x16u);
+              _MBLog(@"E ", "=restore-boot= Failed to find the app restore manager for %@: %@", v6, v70);
             }
 
             [v11 setFinishedAppRestores:1];
-            v52 = v97;
+            v54 = v92;
           }
         }
 
-        v70 = v52;
-        [(MBCKManager *)self _scheduleDelayedBackgroundRestoreTimerWithAccount:v6, personaIdentifier4, v80];
+        v74 = v54;
+        [(MBCKManager *)self _scheduleDelayedBackgroundRestoreTimerWithAccount:v6];
         [(MBCKManager *)self _scheduleBackgroundRestoreTimeoutTTRWithAccount:v6];
-        personaIdentifier = v94;
-        accountIdentifier = v95;
+        personaIdentifier = v89;
+        accountIdentifier = v90;
         if (([v11 isHoldingWorkAssertionForBackgroundRestore] & 1) == 0)
         {
-          v71 = +[MBDaemon sharedDaemon];
-          [v71 holdWorkAssertion:v99];
+          v75 = +[MBDaemon sharedDaemon];
+          [v75 holdWorkAssertion:v94];
 
           [v11 setIsHoldingWorkAssertionForBackgroundRestore:1];
         }
 
-        v100 = v96;
-        v72 = [v11 openOrUseExistingPlanWithPersona:v85 snapshotUUID:v52 error:&v100];
-        v73 = v100;
+        v95 = v91;
+        v76 = [v11 openOrUseExistingPlanWithPersona:v80 snapshotUUID:v54 error:&v95];
+        v77 = v95;
 
-        if (!v72)
+        if (!v76)
         {
-          v74 = MBGetDefaultLog();
-          if (os_log_type_enabled(v74, OS_LOG_TYPE_FAULT))
+          v78 = MBGetDefaultLog();
+          if (os_log_type_enabled(v78, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412290;
-            *v104 = v73;
-            _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_FAULT, "Failed to open plan while loading restore session: %@", buf, 0xCu);
-            v76 = v73;
-            _MBLog();
+            *v99 = v77;
+            _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_FAULT, "Failed to open plan while loading restore session: %@", buf, 0xCu);
+            _MBLog(@"F ", "Failed to open plan while loading restore session: %@", v77);
           }
 
-          v70 = v97;
+          v74 = v92;
         }
 
-        v16 = v98;
-        if (!v93)
+        v16 = v93;
+        if (!v88)
         {
           goto LABEL_59;
         }
@@ -885,16 +884,16 @@ LABEL_34:
         goto LABEL_58;
       }
 
-      [restore setState:{v20, v76, v79}];
+      [restore setState:v21];
       [restore setIsBackground:1];
     }
 
     else
     {
-      restore = [[MBStateInfo alloc] initWithState:v20 progress:0 estimatedTimeRemaining:0 error:0 errors:0.0];
+      restore = [[MBStateInfo alloc] initWithState:v21 progress:0 estimatedTimeRemaining:0 error:0 errors:0.0];
       [restore setIsBackground:1];
-      v29 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v16 snapshotBackupPolicy]);
-      [restore setRestoredSnapshotBackupPolicy:v29];
+      v31 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v16 snapshotBackupPolicy]);
+      [restore setRestoredSnapshotBackupPolicy:v31];
 
       if (!restore)
       {
@@ -902,17 +901,17 @@ LABEL_34:
       }
     }
 
-    [v11 setRestore:{restore, v76}];
+    [v11 setRestore:restore];
     [objc_opt_class() saveRestoreStateInfo:restore account:v6];
     goto LABEL_34;
   }
 
-  v22 = MBGetDefaultLog();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+  v23 = MBGetDefaultLog();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "=restore-boot= No restore session found", buf, 2u);
-    _MBLog();
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "=restore-boot= No restore session found", buf, 2u);
+    _MBLog(@"I ", "=restore-boot= No restore session found");
   }
 
   if (restore)
@@ -921,8 +920,8 @@ LABEL_34:
     {
       [restore setState:4];
       [restore setIsBackground:1];
-      LODWORD(v23) = 1.0;
-      [restore setProgress:v23];
+      LODWORD(v24) = 1.0;
+      [restore setProgress:v24];
       [restore setEstimatedTimeRemaining:0];
       [objc_opt_class() saveRestoreStateInfo:restore account:v6];
     }
@@ -946,8 +945,8 @@ LABEL_34:
   }
 
 LABEL_58:
-  v67 = +[MBNotificationCenter sharedNotificationCenter];
-  [v67 postNotification:kMBManagerRestoreStateChangedNotification ifStateChanged:{objc_msgSend(restore, "state")}];
+  v71 = +[MBNotificationCenter sharedNotificationCenter];
+  [v71 postNotification:kMBManagerRestoreStateChangedNotification ifStateChanged:{objc_msgSend(restore, "state")}];
 
 LABEL_59:
   v15 = [restore copy];
@@ -1005,7 +1004,7 @@ LABEL_60:
       *buf = 138412290;
       v9 = accountCopy;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Cancelling background restore TTR Timer for %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Cancelling background restore TTR Timer for %@", accountCopy);
     }
 
     dispatch_source_cancel(restoreTTRTimer);
@@ -1027,7 +1026,7 @@ LABEL_60:
       *buf = 138412290;
       v9 = accountCopy;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Cancelling delayed background restore timer for %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Cancelling delayed background restore timer for %@", accountCopy);
     }
 
     dispatch_source_cancel(delayedRestoreTimer);
@@ -1074,35 +1073,35 @@ LABEL_60:
       v28 = v17;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Restore will time out on %{public}@", buf, 0xCu);
 
-      v24 = MBStringWithDate();
-      _MBLog();
+      v18 = MBStringWithDate();
+      _MBLog(@"I ", "Restore will time out on %{public}@", v18);
     }
 
-    v18 = [(MBPersonaStateManager *)self->_personaState objectForKeyedSubscript:accountCopy];
-    delayedRestoreTimer = [v18 delayedRestoreTimer];
+    v19 = [(MBPersonaStateManager *)self->_personaState objectForKeyedSubscript:accountCopy];
+    delayedRestoreTimer = [v19 delayedRestoreTimer];
 
     if (!delayedRestoreTimer)
     {
-      v20 = MBGetDefaultLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = MBGetDefaultLog();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Starting delayed restore timer", buf, 2u);
-        _MBLog();
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Starting delayed restore timer", buf, 2u);
+        _MBLog(@"Df", "Starting delayed restore timer");
       }
 
-      v21 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, &_dispatch_main_q);
+      v22 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, &_dispatch_main_q);
       [accountIdentifier2 timeIntervalSinceReferenceDate];
-      v23 = dispatch_walltime(0, (v22 * 1000000000.0));
-      dispatch_source_set_timer(v21, v23, 0x4E94914F0000uLL, 0);
+      v24 = dispatch_walltime(0, (v23 * 1000000000.0));
+      dispatch_source_set_timer(v22, v24, 0x4E94914F0000uLL, 0);
       handler[0] = _NSConcreteStackBlock;
       handler[1] = 3221225472;
       handler[2] = sub_1000948A0;
       handler[3] = &unk_1003BC0B0;
       v26 = accountCopy;
-      dispatch_source_set_event_handler(v21, handler);
-      [v18 setDelayedRestoreTimer:v21];
-      dispatch_resume(v21);
+      dispatch_source_set_event_handler(v22, handler);
+      [v19 setDelayedRestoreTimer:v22];
+      dispatch_resume(v22);
     }
 
     goto LABEL_15;
@@ -1117,7 +1116,7 @@ LABEL_60:
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "nil start date for the restore session for account %{public}@", buf, 0xCu);
 
     accountIdentifier2 = [accountCopy accountIdentifier];
-    _MBLog();
+    _MBLog(@"E ", "nil start date for the restore session for account %{public}@", accountIdentifier2);
 LABEL_15:
   }
 }
@@ -1163,35 +1162,35 @@ LABEL_15:
         v29 = v18;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Background Restore TTR timer will fire on %{public}@", buf, 0xCu);
 
-        v24 = MBStringWithDate();
-        _MBLog();
+        v19 = MBStringWithDate();
+        _MBLog(@"I ", "Background Restore TTR timer will fire on %{public}@", v19);
       }
 
       restoreTTRTimer = [v11 restoreTTRTimer];
 
       if (!restoreTTRTimer)
       {
-        v20 = MBGetDefaultLog();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v21 = MBGetDefaultLog();
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Starting background restore TTR timer", buf, 2u);
-          _MBLog();
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Starting background restore TTR timer", buf, 2u);
+          _MBLog(@"Df", "Starting background restore TTR timer");
         }
 
-        v21 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, &_dispatch_main_q);
+        v22 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, &_dispatch_main_q);
         [v16 timeIntervalSinceReferenceDate];
-        v23 = dispatch_walltime(0, (v22 * 1000000000.0));
-        dispatch_source_set_timer(v21, v23, 0x4E94914F0000uLL, 0);
+        v24 = dispatch_walltime(0, (v23 * 1000000000.0));
+        dispatch_source_set_timer(v22, v24, 0x4E94914F0000uLL, 0);
         handler[0] = _NSConcreteStackBlock;
         handler[1] = 3221225472;
         handler[2] = sub_100094D44;
         handler[3] = &unk_1003BC060;
         v26 = startDate;
         v27 = v6;
-        dispatch_source_set_event_handler(v21, handler);
-        [v11 setRestoreTTRTimer:v21];
-        dispatch_resume(v21);
+        dispatch_source_set_event_handler(v22, handler);
+        [v11 setRestoreTTRTimer:v22];
+        dispatch_resume(v22);
       }
     }
 
@@ -1211,7 +1210,7 @@ LABEL_17:
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "nil start date for the restore session for account %{public}@", buf, 0xCu);
 
       accountIdentifier2 = [accountCopy accountIdentifier];
-      _MBLog();
+      _MBLog(@"E ", "nil start date for the restore session for account %{public}@", accountIdentifier2);
     }
 
     goto LABEL_17;
@@ -1291,6 +1290,244 @@ LABEL_18:
   v10 = [v7 initWithState:6 progress:0 estimatedTimeRemaining:v8 error:errors errors:0.0];
 
   [objc_opt_class() saveBackupStateInfo:v10 forInitialMegaBackup:0 account:v11];
+}
+
+- (id)_snapshotForSnapshotID:(unint64_t)d backupUDID:(id)iD cached:(BOOL)cached operationTracker:(id)tracker error:(id *)error
+{
+  cachedCopy = cached;
+  iDCopy = iD;
+  trackerCopy = tracker;
+  if (!trackerCopy)
+  {
+    __assert_rtn("[MBCKManager _snapshotForSnapshotID:backupUDID:cached:operationTracker:error:]", "MBCKManager.m", 565, "tracker");
+  }
+
+  v11 = MBGetDefaultLog();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134218498;
+    dCopy = d;
+    v51 = 2112;
+    dCopy4 = iDCopy;
+    v53 = 1024;
+    LODWORD(v54[0]) = cachedCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Fetching the snapshot for snapshotID:%lu, backupUDID:%@, cached:%d", buf, 0x1Cu);
+    _MBLog(@"Df", "Fetching the snapshot for snapshotID:%lu, backupUDID:%@, cached:%d", d, iDCopy, cachedCopy);
+  }
+
+  if (cachedCopy)
+  {
+    selfCopy = self;
+    objc_sync_enter(selfCopy);
+    cachedBackupsByUDID = [(MBCKManager *)selfCopy cachedBackupsByUDID];
+    v14 = [cachedBackupsByUDID copy];
+
+    objc_sync_exit(selfCopy);
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  if ([v14 count])
+  {
+    v15 = 0;
+  }
+
+  else
+  {
+    v16 = MBGetDefaultLog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Refreshing the list of backups", buf, 2u);
+      _MBLog(@"Df", "Refreshing the list of backups");
+    }
+
+    v48 = 0;
+    v17 = [(MBCKManager *)self _getBackupListWithOperationTracker:trackerCopy shouldFilter:0 error:&v48];
+    v15 = v48;
+
+    if (!v17)
+    {
+      v32 = MBGetDefaultLog();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        dCopy = v15;
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Failed to refresh the list of backups: %@", buf, 0xCu);
+        _MBLog(@"E ", "Failed to refresh the list of backups: %@", v15);
+      }
+
+      v22 = 0;
+      goto LABEL_35;
+    }
+
+    selfCopy2 = self;
+    objc_sync_enter(selfCopy2);
+    cachedBackupsByUDID2 = [(MBCKManager *)selfCopy2 cachedBackupsByUDID];
+    v20 = [cachedBackupsByUDID2 copy];
+
+    objc_sync_exit(selfCopy2);
+    v14 = v20;
+  }
+
+  v21 = [v14 objectForKeyedSubscript:iDCopy];
+  v22 = v21;
+  if (!v21)
+  {
+    v30 = MBGetDefaultLog();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412546;
+      dCopy = iDCopy;
+      v51 = 2048;
+      dCopy4 = d;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "The specified backup does not exist, backupUDID:%@, snapshotID:%lu", buf, 0x16u);
+      _MBLog(@"E ", "The specified backup does not exist, backupUDID:%@, snapshotID:%lu", iDCopy, d);
+    }
+
+    iDCopy = [MBError errorWithCode:204 format:@"Backup %@ does not exist", iDCopy];
+    v22 = 0;
+    goto LABEL_34;
+  }
+
+  snapshots = [v21 snapshots];
+  v24 = [snapshots count] == 0;
+
+  if (v24)
+  {
+    iDCopy = [MBError errorWithCode:204 format:@"No snapshots found in backup %@", iDCopy];
+LABEL_34:
+    v32 = v15;
+    v15 = iDCopy;
+LABEL_35:
+
+    v34 = MBGetDefaultLog();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412802;
+      dCopy = iDCopy;
+      v51 = 2048;
+      dCopy4 = d;
+      v53 = 2112;
+      v54[0] = v15;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Failed to fetch the snapshot for backupUDID:%@, snapshotID:%lu: %@", buf, 0x20u);
+      _MBLog(@"E ", "Failed to fetch the snapshot for backupUDID:%@, snapshotID:%lu: %@", iDCopy, d, v15);
+    }
+
+    if (error)
+    {
+      v35 = v15;
+      lastObject = 0;
+      *error = v15;
+    }
+
+    else
+    {
+      lastObject = 0;
+    }
+
+    goto LABEL_46;
+  }
+
+  if (d)
+  {
+    v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    snapshots2 = [v22 snapshots];
+    v26 = [snapshots2 countByEnumeratingWithState:&v44 objects:v55 count:16];
+    if (v26)
+    {
+      v27 = *v45;
+LABEL_18:
+      v28 = 0;
+      while (1)
+      {
+        if (*v45 != v27)
+        {
+          objc_enumerationMutation(snapshots2);
+        }
+
+        v29 = *(*(&v44 + 1) + 8 * v28);
+        if ([v29 snapshotID] == d)
+        {
+          break;
+        }
+
+        if (v26 == ++v28)
+        {
+          v26 = [snapshots2 countByEnumeratingWithState:&v44 objects:v55 count:16];
+          if (v26)
+          {
+            goto LABEL_18;
+          }
+
+          goto LABEL_24;
+        }
+      }
+
+      lastObject = v29;
+
+      if (lastObject)
+      {
+        goto LABEL_43;
+      }
+    }
+
+    else
+    {
+LABEL_24:
+    }
+
+    iDCopy = [MBError errorWithCode:204 format:@"Specified snapshot %lu not found in backup %@", d, iDCopy];
+    goto LABEL_34;
+  }
+
+  snapshots3 = [v22 snapshots];
+  lastObject = [snapshots3 lastObject];
+
+  v37 = MBGetDefaultLog();
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+  {
+    snapshotID = [lastObject snapshotID];
+    *buf = 134218498;
+    dCopy = snapshotID;
+    v51 = 2112;
+    dCopy4 = iDCopy;
+    v53 = 2048;
+    v54[0] = 0;
+    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Selecting the last snapshot(%lu) automatically, backupUDID:%@, snapshotID:%lu", buf, 0x20u);
+    _MBLog(@"Df", "Selecting the last snapshot(%lu) automatically, backupUDID:%@, snapshotID:%lu", [lastObject snapshotID], iDCopy, 0);
+  }
+
+  if (!lastObject)
+  {
+    __assert_rtn("[MBCKManager _snapshotForSnapshotID:backupUDID:cached:operationTracker:error:]", "MBCKManager.m", 616, "foundSnapshot");
+  }
+
+LABEL_43:
+  v39 = MBGetDefaultLog();
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138413058;
+    dCopy = iDCopy;
+    v51 = 2048;
+    dCopy4 = d;
+    v53 = 1024;
+    LODWORD(v54[0]) = cachedCopy;
+    WORD2(v54[0]) = 2112;
+    *(v54 + 6) = lastObject;
+    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Found the snapshot for backupUDID:%@, snapshotID:%lu (%d): %@", buf, 0x26u);
+    _MBLog(@"Df", "Found the snapshot for backupUDID:%@, snapshotID:%lu (%d): %@", iDCopy, d, cachedCopy, lastObject);
+  }
+
+LABEL_46:
+
+  return lastObject;
 }
 
 - (unint64_t)_snapshotIDForSnapshotUUID:(id)d backupUDID:(id)iD operationTracker:(id)tracker error:(id *)error
@@ -1400,7 +1637,7 @@ LABEL_19:
       *buf = 67109120;
       v11 = v9;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Unable to service background restore request before the first unlock (%d)", buf, 8u);
-      _MBLog();
+      _MBLog(@"I ", "Unable to service background restore request before the first unlock (%d)", v9);
     }
 
     v8 = 60;
@@ -1419,7 +1656,7 @@ LABEL_11:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Unable to service background restore request while Setup is active", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Unable to service background restore request while Setup is active");
     }
 
     v8 = 10;
@@ -1444,72 +1681,70 @@ LABEL_11:
 
     accountIdentifier2 = [accountCopy accountIdentifier];
     personaIdentifier2 = [persona personaIdentifier];
-    _MBLog();
+    _MBLog(@"I ", "Checking for an incomplete restore for account %{public}@%{public}@", accountIdentifier2, personaIdentifier2);
   }
 
   v24 = 0;
-  v10 = [(MBCKManager *)self openCacheWithAccount:accountCopy accessType:1 error:&v24];
-  v11 = v24;
-  v12 = v11;
-  if (v10)
+  v11 = [(MBCKManager *)self openCacheWithAccount:accountCopy accessType:1 error:&v24];
+  v12 = v24;
+  v13 = v12;
+  if (v11)
   {
-    v13 = [[MBDomainManager alloc] initWithPersona:persona];
-    v23 = v12;
-    v14 = [v10 domainNamesForRestoreFailures:&v23];
-    v15 = v23;
+    v14 = [[MBDomainManager alloc] initWithPersona:persona];
+    v23 = v13;
+    v15 = [v11 domainNamesForRestoreFailures:&v23];
+    v16 = v23;
 
-    v16 = MBGetDefaultLog();
-    v17 = v16;
-    if (v14)
+    v17 = MBGetDefaultLog();
+    v18 = v17;
+    if (v15)
     {
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-      {
-        v18 = [v14 count];
-        *buf = 134218242;
-        v26 = v18;
-        v27 = 2114;
-        v28 = v14;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Found %ld failed domains: %{public}@", buf, 0x16u);
-        [v14 count];
-        _MBLog();
-      }
-
-      v19 = [MBMobileInstallation displayNamesForDomainNames:v14 domainManager:v13];
-      v17 = MBGetDefaultLog();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = [v19 count];
+        v19 = [v15 count];
         *buf = 134218242;
-        v26 = v20;
+        v26 = v19;
         v27 = 2114;
-        v28 = v19;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Found %ld display names: %{public}@", buf, 0x16u);
-        [v19 count];
-        _MBLog();
+        v28 = v15;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Found %ld failed domains: %{public}@", buf, 0x16u);
+        _MBLog(@"Df", "Found %ld failed domains: %{public}@", [v15 count], v15);
+      }
+
+      v20 = [MBMobileInstallation displayNamesForDomainNames:v15 domainManager:v14];
+      v18 = MBGetDefaultLog();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      {
+        v21 = [v20 count];
+        *buf = 134218242;
+        v26 = v21;
+        v27 = 2114;
+        v28 = v20;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Found %ld display names: %{public}@", buf, 0x16u);
+        _MBLog(@"Df", "Found %ld display names: %{public}@", [v20 count], v20);
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v26 = v15;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to fetch the failed domain names: %@", buf, 0xCu);
-        _MBLog();
+        v26 = v16;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Failed to fetch the failed domain names: %@", buf, 0xCu);
+        _MBLog(@"E ", "Failed to fetch the failed domain names: %@", v16);
       }
 
-      v19 = 0;
+      v20 = 0;
     }
   }
 
   else
   {
-    v19 = 0;
-    v15 = v11;
+    v20 = 0;
+    v16 = v12;
   }
 
-  return v19;
+  return v20;
 }
 
 - (void)_alertUserOfFinishedRestoreForAccount:(id)account
@@ -1539,14 +1774,15 @@ LABEL_11:
     {
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
+        v18 = integerValue == 1;
         *buf = 67109632;
-        v19 = wasCancelled;
-        v20 = 1024;
-        v21 = isPrimaryAccount;
-        v22 = 1024;
-        v23 = integerValue == 1;
+        v20 = wasCancelled;
+        v21 = 1024;
+        v22 = isPrimaryAccount;
+        v23 = 1024;
+        v24 = v18;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Not alerting user of restore finished cancelled:%d isPrimaryAccount:%d isRestoreFromMegaBackup:%d", buf, 0x14u);
-        _MBLog();
+        _MBLog(@"I ", "Not alerting user of restore finished cancelled:%d isPrimaryAccount:%d isRestoreFromMegaBackup:%d", wasCancelled, isPrimaryAccount, v18);
       }
     }
 
@@ -1556,7 +1792,7 @@ LABEL_11:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Alerting user of restore finished", buf, 2u);
-        _MBLog();
+        _MBLog(@"Df", "Alerting user of restore finished");
       }
 
       v9 = +[MBFollowUpManager sharedManager];
@@ -1571,9 +1807,9 @@ LABEL_11:
 
   if (MBIsInternalInstall() && !dword_100421660 && !atomic_fetch_add_explicit(&dword_100421660, 1u, memory_order_relaxed))
   {
-    v24 = @"failedDomainNames";
-    v25 = v6;
-    v9 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v25 = @"failedDomainNames";
+    v26 = v6;
+    v9 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     _MBCreateDiagnosticReport(@"Restore Incomplete", v9);
 LABEL_15:
   }
@@ -1645,16 +1881,16 @@ LABEL_15:
 
   v12 = connectionCopy;
   v13 = passcodeCopy;
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x2020000000;
-  v69 = 0;
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x3032000000;
-  v63 = sub_100093324;
-  v64 = sub_100093334;
-  v65 = 0;
+  v64 = 0;
+  v65 = &v64;
+  v66 = 0x2020000000;
+  v67 = 0;
+  v58 = 0;
+  v59 = &v58;
+  v60 = 0x3032000000;
+  v61 = sub_100093324;
+  v62 = sub_100093334;
+  v63 = 0;
   v14 = [(MBPersonaStateManager *)self->_personaState objectForKeyedSubscript:accountCopy];
   stateQueue = self->_stateQueue;
   block[0] = _NSConcreteStackBlock;
@@ -1662,29 +1898,29 @@ LABEL_15:
   block[2] = sub_100096BF8;
   block[3] = &unk_1003BCFA0;
   v16 = v14;
-  v57 = v16;
-  v58 = &v60;
-  v59 = &v66;
+  v55 = v16;
+  v56 = &v58;
+  v57 = &v64;
   dispatch_sync(stateQueue, block);
-  if (v67[3])
+  if (v65[3])
   {
-    *(v67 + 24) = 0;
+    *(v65 + 24) = 0;
     v17 = self->_stateQueue;
-    v52[0] = _NSConcreteStackBlock;
-    v52[1] = 3221225472;
-    v52[2] = sub_100096CE0;
-    v52[3] = &unk_1003BCFA0;
+    v50[0] = _NSConcreteStackBlock;
+    v50[1] = 3221225472;
+    v50[2] = sub_100096CE0;
+    v50[3] = &unk_1003BCFA0;
     v18 = v16;
-    v53 = v18;
-    v54 = &v60;
-    v55 = &v66;
-    dispatch_sync(v17, v52);
-    if (v67[3])
+    v51 = v18;
+    v52 = &v58;
+    v53 = &v64;
+    dispatch_sync(v17, v50);
+    if (v65[3])
     {
-      v42 = v18;
-      *(v67 + 24) = 0;
-      v19 = v61;
-      obj = v61[5];
+      v40 = v18;
+      *(v65 + 24) = 0;
+      v19 = v59;
+      obj = v59[5];
       v20 = [(MBCKManager *)self openCacheWithAccount:accountCopy accessType:1 error:&obj];
       passcodeCopy = v13;
       objc_storeStrong(v19 + 5, obj);
@@ -1692,37 +1928,37 @@ LABEL_15:
       v22 = v20;
       if (v20)
       {
-        v43 = +[MBCKOperationPolicy expensiveCellularPolicy];
+        v41 = +[MBCKOperationPolicy expensiveCellularPolicy];
         databaseManager = [(MBCKManager *)self databaseManager];
-        v24 = v61;
-        v50 = v61[5];
-        v44 = [MBCKOperationTracker operationTrackerWithAccount:accountCopy databaseManager:databaseManager policy:v43 error:&v50];
-        objc_storeStrong(v24 + 5, v50);
+        v24 = v59;
+        v48 = v59[5];
+        v42 = [MBCKOperationTracker operationTrackerWithAccount:accountCopy databaseManager:databaseManager policy:v41 error:&v48];
+        objc_storeStrong(v24 + 5, v48);
 
-        if (v44)
+        if (v42)
         {
           processName = [v21 processName];
-          v26 = [v43 operationGroupWithName:@"setupBackup" processName:processName];
-          [v44 setCkOperationGroup:v26];
+          v26 = [v41 operationGroupWithName:@"setupBackup" processName:processName];
+          [v42 setCkOperationGroup:v26];
 
-          ckOperationPolicy = [v44 ckOperationPolicy];
+          ckOperationPolicy = [v42 ckOperationPolicy];
           [ckOperationPolicy setQualityOfService:25];
 
-          v28 = v61;
-          v49 = v61[5];
-          v41 = [MBCKAccount fetchAccountWithOperationTracker:v44 cache:v22 create:1 error:&v49];
-          objc_storeStrong(v28 + 5, v49);
-          if (v41)
+          v28 = v59;
+          v47 = v59[5];
+          v39 = [MBCKAccount fetchAccountWithOperationTracker:v42 cache:v22 create:1 error:&v47];
+          objc_storeStrong(v28 + 5, v47);
+          if (v39)
           {
             v29 = MBDeviceUUID();
-            v30 = v61;
-            v48 = v61[5];
-            v31 = [v41 setupDeviceWithOperationTracker:v44 deviceUUID:v29 passcode:passcodeCopy error:&v48];
-            objc_storeStrong(v30 + 5, v48);
+            v30 = v59;
+            v46 = v59[5];
+            v31 = [v39 setupDeviceWithOperationTracker:v42 deviceUUID:v29 passcode:passcodeCopy error:&v46];
+            objc_storeStrong(v30 + 5, v46);
 
             if (v31)
             {
-              *(v67 + 24) = 1;
+              *(v65 + 24) = 1;
             }
 
             else
@@ -1730,12 +1966,11 @@ LABEL_15:
               v35 = MBGetDefaultLog();
               if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
               {
-                v36 = v61[5];
+                v36 = v59[5];
                 *buf = 138412290;
-                v71 = v36;
+                v69 = v36;
                 _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Failed to setup backup: %@", buf, 0xCu);
-                v40 = v61[5];
-                _MBLog();
+                _MBLog(@"E ", "Failed to setup backup: %@", v59[5]);
               }
             }
           }
@@ -1745,28 +1980,27 @@ LABEL_15:
             v33 = MBGetDefaultLog();
             if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
             {
-              v34 = v61[5];
+              v34 = v59[5];
               *buf = 138412290;
-              v71 = v34;
+              v69 = v34;
               _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Failed to fetch account: %@", buf, 0xCu);
-              v39 = v61[5];
-              _MBLog();
+              _MBLog(@"E ", "Failed to fetch account: %@", v59[5]);
             }
           }
         }
       }
 
       v37 = self->_stateQueue;
-      v46[0] = _NSConcreteStackBlock;
-      v46[1] = 3221225472;
-      v46[2] = sub_100096E58;
-      v46[3] = &unk_1003BC0B0;
-      v47 = v42;
-      dispatch_sync(v37, v46);
-      v32 = *(v67 + 24);
-      if (error && (v67[3] & 1) == 0)
+      v44[0] = _NSConcreteStackBlock;
+      v44[1] = 3221225472;
+      v44[2] = sub_100096E58;
+      v44[3] = &unk_1003BC0B0;
+      v45 = v40;
+      dispatch_sync(v37, v44);
+      v32 = *(v65 + 24);
+      if (error && (v65[3] & 1) == 0)
       {
-        *error = v61[5];
+        *error = v59[5];
       }
     }
 
@@ -1777,7 +2011,7 @@ LABEL_15:
       {
         v21 = v12;
         v32 = 0;
-        *error = v61[5];
+        *error = v59[5];
       }
 
       else
@@ -1792,7 +2026,7 @@ LABEL_15:
   {
     v21 = v12;
     v32 = 0;
-    *error = v61[5];
+    *error = v59[5];
   }
 
   else
@@ -1801,10 +2035,115 @@ LABEL_15:
     v21 = v12;
   }
 
-  _Block_object_dispose(&v60, 8);
-  _Block_object_dispose(&v66, 8);
+  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v64, 8);
 
   return v32;
+}
+
+- (void)setBackupEnabled:(BOOL)enabled account:(id)account connection:(id)connection
+{
+  enabledCopy = enabled;
+  accountCopy = account;
+  connectionCopy = connection;
+  if (!accountCopy)
+  {
+    __assert_rtn("[MBCKManager setBackupEnabled:account:connection:]", "MBCKManager.m", 853, "account");
+  }
+
+  v10 = connectionCopy;
+  persona = [accountCopy persona];
+  volumeMountPoint = [persona volumeMountPoint];
+  if (enabledCopy)
+  {
+    [MBFileSystemManager stopFilesystemKeyRollingWithPath:volumeMountPoint error:0];
+LABEL_4:
+
+    goto LABEL_16;
+  }
+
+  [MBFileSystemManager startFilesystemKeyRollingWithPath:volumeMountPoint error:0];
+
+  if ([accountCopy isPrimaryAccount])
+  {
+    v13 = +[MBLockdown connect];
+    if (v13)
+    {
+      v14 = MBGetDefaultLog();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Clearing dateOfLastBackup from lockdown", buf, 2u);
+        _MBLog(@"I ", "Clearing dateOfLastBackup from lockdown");
+      }
+
+      v31 = 0;
+      v15 = [v13 removeObjectWithDomain:@"com.apple.mobile.backup" andKey:@"LastCloudBackupDate" withError:&v31];
+      v16 = v31;
+      if ((v15 & 1) == 0)
+      {
+        v17 = MBGetDefaultLog();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138412290;
+          v33 = v16;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to clear dateOfLastBackup from lockdown: %@", buf, 0xCu);
+          _MBLog(@"E ", "Failed to clear dateOfLastBackup from lockdown: %@", v16);
+        }
+      }
+    }
+
+    [v13 disconnect];
+  }
+
+  v18 = +[MBXPCServer sharedInstance];
+  scheduler = [v18 scheduler];
+  [scheduler clearNilBackupDateFetchDateForAccount:accountCopy];
+
+  v30 = 0;
+  LOBYTE(scheduler) = [(MBCKManager *)self resetCacheWithAccount:accountCopy error:&v30];
+  persona = v30;
+  if ((scheduler & 1) == 0)
+  {
+    volumeMountPoint = MBGetDefaultLog();
+    if (os_log_type_enabled(volumeMountPoint, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v33 = persona;
+      _os_log_impl(&_mh_execute_header, volumeMountPoint, OS_LOG_TYPE_ERROR, "Failed to reset cache: %@", buf, 0xCu);
+      _MBLog(@"E ", "Failed to reset cache: %@", persona);
+    }
+
+    goto LABEL_4;
+  }
+
+LABEL_16:
+
+  v20 = +[MBNotificationCenter sharedNotificationCenter];
+  [v20 setState:0 forNotification:@"com.apple.private.restrict-post.MobileBackup.EnabledState"];
+
+  v21 = dispatch_group_create();
+  dispatch_group_enter(v21);
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3221225472;
+  v28[2] = sub_100097280;
+  v28[3] = &unk_1003BC010;
+  v22 = v21;
+  v29 = v22;
+  [accountCopy setBackupEnabled:enabledCopy completion:v28];
+  MBGroupWaitForever();
+  delegate = [(MBCKManager *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100097288;
+    block[3] = &unk_1003BCFC8;
+    v25 = delegate;
+    selfCopy = self;
+    v27 = enabledCopy;
+    dispatch_async(&_dispatch_main_q, block);
+  }
 }
 
 - (void)syncBackupEnabledWithAccount:(id)account connection:(id)connection
@@ -1823,7 +2162,7 @@ LABEL_15:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Syncing backup enabled", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Syncing backup enabled");
   }
 
   v12 = [(MBPersonaStateManager *)self->_personaState objectForKeyedSubscript:accountCopy];
@@ -1865,11 +2204,58 @@ LABEL_15:
     {
       *v23 = 0;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Ignoring syncBackupEnabled during restore", v23, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Ignoring syncBackupEnabled during restore");
     }
   }
 
   _Block_object_dispose(buf, 8);
+}
+
+- (void)setAllowiTunesBackup:(BOOL)backup
+{
+  backupCopy = backup;
+  v4 = +[UMUserPersona currentPersona];
+  v14 = 0;
+  v5 = [MBPersona personaWithUMPersona:v4 error:&v14];
+  v6 = v14;
+
+  if (v5)
+  {
+    v7 = [NSNumber numberWithBool:backupCopy];
+    [v5 setPreferencesValue:v7 forKey:@"AllowiTunesBackup"];
+  }
+
+  else
+  {
+    v7 = MBGetDefaultLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 138412290;
+      v16 = v6;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_FAULT, "Failed to fetch current persona to set AllowiTunesBackup: %@", buf, 0xCu);
+      _MBLog(@"F ", "Failed to fetch current persona to set AllowiTunesBackup: %@", v6);
+    }
+  }
+
+  v8 = +[MBLockdown connect];
+  v9 = [NSNumber numberWithBool:backupCopy];
+  v13 = 0;
+  v10 = [v8 setObject:v9 forDomain:@"com.apple.mobile.backup" andKey:@"CloudBackupEnabled" withError:&v13];
+  v11 = v13;
+
+  if ((v10 & 1) == 0)
+  {
+    v12 = MBGetDefaultLog();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v16 = v11;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Error setting lockdown cloud backup enabled key: %@", buf, 0xCu);
+      _MBLog(@"E ", "Error setting lockdown cloud backup enabled key: %@", v11);
+    }
+  }
+
+  [v8 disconnect];
 }
 
 - (BOOL)allowiTunesBackup
@@ -1903,7 +2289,7 @@ LABEL_15:
       *buf = 138412290;
       v11 = v4;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_FAULT, "Failed to fetch current persona for fetching AllowiTunesBackup: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"F ", "Failed to fetch current persona for fetching AllowiTunesBackup: %@", v4);
     }
 
     v6 = 0;
@@ -1983,7 +2369,7 @@ LABEL_15:
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Loaded backup state: %@", buf, 0xCu);
 
         dictionaryRepresentation2 = [v10 dictionaryRepresentation];
-        _MBLog();
+        _MBLog(@"I ", "Loaded backup state: %@", dictionaryRepresentation2);
       }
     }
   }
@@ -2015,30 +2401,85 @@ LABEL_15:
     {
       accountIdentifier = [v9 accountIdentifier];
       *buf = 138543618;
-      v19 = accountIdentifier;
-      v20 = 2112;
-      v21 = dictionaryRepresentation;
+      v18 = accountIdentifier;
+      v19 = 2112;
+      v20 = dictionaryRepresentation;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Saving backup state for account %{public}@: %@", buf, 0x16u);
 
       accountIdentifier2 = [v9 accountIdentifier];
-      v17 = dictionaryRepresentation;
-      _MBLog();
+      _MBLog(@"Df", "Saving backup state for account %{public}@: %@", accountIdentifier2, dictionaryRepresentation);
     }
 
     persona = [v9 persona];
-    v14 = persona;
+    v15 = persona;
     if (backupCopy)
     {
-      v15 = @"InitialMegaBackupInfo";
+      v16 = @"InitialMegaBackupInfo";
     }
 
     else
     {
-      v15 = @"BackupStateInfo";
+      v16 = @"BackupStateInfo";
     }
 
-    [persona setPreferencesValue:dictionaryRepresentation forKey:{v15, accountIdentifier2, v17}];
+    [persona setPreferencesValue:dictionaryRepresentation forKey:v16];
   }
+}
+
+- (id)_copyBackupStateInfoForInitialMegaBackup:(BOOL)backup account:(id)account
+{
+  backupCopy = backup;
+  accountCopy = account;
+  if (!accountCopy)
+  {
+    __assert_rtn("[MBCKManager _copyBackupStateInfoForInitialMegaBackup:account:]", "MBCKManager.m", 998, "account");
+  }
+
+  v7 = accountCopy;
+  dispatch_assert_queue_V2(self->_stateQueue);
+  v8 = [(MBPersonaStateManager *)self->_personaState objectForKeyedSubscript:v7];
+  accountIdentifier = [v7 accountIdentifier];
+  if (!accountIdentifier)
+  {
+    __assert_rtn("[MBCKManager _copyBackupStateInfoForInitialMegaBackup:account:]", "MBCKManager.m", 1002, "accountIdentifier");
+  }
+
+  v10 = accountIdentifier;
+  if (backupCopy)
+  {
+    [v8 initialMegaBackup];
+  }
+
+  else
+  {
+    [v8 backup];
+  }
+  v11 = ;
+  if (!v11)
+  {
+    v11 = [objc_opt_class() loadBackupStateInfoForInitialMegaBackup:backupCopy account:v7];
+    if (!v11 && !backupCopy)
+    {
+      v11 = [[MBStateInfo alloc] initWithState:0 progress:0 estimatedTimeRemaining:0 error:0 errors:0.0];
+    }
+
+    if (v11)
+    {
+      if (backupCopy)
+      {
+        [v8 setInitialMegaBackup:v11];
+      }
+
+      else
+      {
+        [v8 setBackup:v11];
+      }
+    }
+  }
+
+  v12 = [v11 copy];
+
+  return v12;
 }
 
 + (id)_removeIncompatibleSnapshotsWithAccountType:(int64_t)type device:(id)device snapshots:(id)snapshots
@@ -2067,7 +2508,7 @@ LABEL_15:
 
   v7 = trackerCopy;
   account = [trackerCopy account];
-  v45 = account;
+  v44 = account;
   if (!account)
   {
     __assert_rtn("[MBCKManager _getBackupListWithOperationTracker:shouldFilter:error:]", "MBCKManager.m", 1045, "serviceAccount");
@@ -2079,197 +2520,222 @@ LABEL_15:
   v11 = MBGetDefaultLog();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    accountIdentifier = [v45 accountIdentifier];
-    persona2 = [v45 persona];
+    accountIdentifier = [v44 accountIdentifier];
+    persona2 = [v44 persona];
     personaIdentifier = [persona2 personaIdentifier];
     *buf = 138544130;
     *&buf[4] = accountIdentifier;
     *&buf[12] = 2114;
     *&buf[14] = personaIdentifier;
     *&buf[22] = 1024;
-    LODWORD(v99) = filterCopy;
-    WORD2(v99) = 2048;
-    *(&v99 + 6) = accountType;
+    LODWORD(v98) = filterCopy;
+    WORD2(v98) = 2048;
+    *(&v98 + 6) = accountType;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Fetching iCloud backups for account %{public}@(%{public}@), filter:%d, accountType:%ld", buf, 0x26u);
 
-    accountIdentifier2 = [v45 accountIdentifier];
-    persona3 = [v45 persona];
+    accountIdentifier2 = [v44 accountIdentifier];
+    persona3 = [v44 persona];
     personaIdentifier2 = [persona3 personaIdentifier];
-    _MBLog();
+    _MBLog(@"Df", "Fetching iCloud backups for account %{public}@(%{public}@), filter:%d, accountType:%ld", accountIdentifier2, personaIdentifier2, filterCopy, accountType);
   }
 
   Current = CFAbsoluteTimeGetCurrent();
-  v18 = objc_opt_new();
+  v19 = objc_opt_new();
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  *&v99 = sub_100093324;
-  *(&v99 + 1) = sub_100093334;
-  v100 = 0;
-  v91[0] = 0;
-  v91[1] = v91;
-  v91[2] = 0x3032000000;
-  v91[3] = sub_100093324;
-  v91[4] = sub_100093334;
-  v92 = 0;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
-  v90 = 0;
-  v81 = 0;
-  v82 = &v81;
-  v83 = 0x3032000000;
-  v84 = sub_100093324;
-  v85 = sub_100093334;
+  *&v98 = sub_100093324;
+  *(&v98 + 1) = sub_100093334;
+  v99 = 0;
+  v90[0] = 0;
+  v90[1] = v90;
+  v90[2] = 0x3032000000;
+  v90[3] = sub_100093324;
+  v90[4] = sub_100093334;
+  v91 = 0;
   v86 = 0;
-  v19 = dispatch_group_create();
-  v20 = dispatch_get_global_queue(17, 0);
+  v87 = &v86;
+  v88 = 0x2020000000;
+  v89 = 0;
+  v80 = 0;
+  v81 = &v80;
+  v82 = 0x3032000000;
+  v83 = sub_100093324;
+  v84 = sub_100093334;
+  v85 = 0;
+  v20 = dispatch_group_create();
+  v21 = dispatch_get_global_queue(17, 0);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100098B9C;
   block[3] = &unk_1003BD0B0;
-  v40 = v7;
-  v74 = v40;
-  v77 = &v87;
-  v78 = &v81;
-  v79 = buf;
-  v21 = v18;
-  v75 = v21;
-  v76 = v19;
-  v80 = v91;
-  group = v76;
-  dispatch_group_async(v76, v20, block);
+  v39 = v7;
+  v73 = v39;
+  v76 = &v86;
+  v77 = &v80;
+  v78 = buf;
+  v22 = v19;
+  v74 = v22;
+  v75 = v20;
+  v79 = v90;
+  group = v75;
+  dispatch_group_async(v75, v21, block);
 
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x3032000000;
-  v70 = sub_100093324;
-  v71 = sub_100093334;
-  v72 = 0;
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x3032000000;
-  v64 = sub_100093324;
-  v65 = sub_100093334;
   v66 = 0;
-  v51[0] = _NSConcreteStackBlock;
-  v51[1] = 3221225472;
-  v51[2] = sub_100099054;
-  v51[3] = &unk_1003BD118;
-  v54 = &v87;
-  v55 = buf;
-  v56 = v91;
-  v41 = v21;
-  v52 = v41;
+  v67 = &v66;
+  v68 = 0x3032000000;
+  v69 = sub_100093324;
+  v70 = sub_100093334;
+  v71 = 0;
+  v60 = 0;
+  v61 = &v60;
+  v62 = 0x3032000000;
+  v63 = sub_100093324;
+  v64 = sub_100093334;
+  v65 = 0;
+  v50[0] = _NSConcreteStackBlock;
+  v50[1] = 3221225472;
+  v50[2] = sub_100099054;
+  v50[3] = &unk_1003BD118;
+  v53 = &v86;
+  v54 = buf;
+  v55 = v90;
+  v40 = v22;
+  v51 = v40;
   selfCopy = self;
-  v58 = &v61;
-  v59 = accountType;
-  v60 = filterCopy;
-  v57 = &v67;
-  v44 = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v51);
-  dispatch_group_notify(group, v20, v44);
+  v57 = &v60;
+  v58 = accountType;
+  v59 = filterCopy;
+  v56 = &v66;
+  v43 = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v50);
+  dispatch_group_notify(group, v21, v43);
 
-  dispatch_block_wait(v44, 0xFFFFFFFFFFFFFFFFLL);
-  if (v88[3])
+  dispatch_block_wait(v43, 0xFFFFFFFFFFFFFFFFLL);
+  if (v87[3])
   {
-    v22 = CFAbsoluteTimeGetCurrent();
-    v23 = MBGetDefaultLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v23 = CFAbsoluteTimeGetCurrent();
+    v24 = MBGetDefaultLog();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = v22 - Current;
-      v25 = v23;
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v25 = v23 - Current;
+      v26 = v24;
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = [v62[5] count];
-        *v94 = 134218240;
-        v95 = v26;
-        v96 = 2048;
-        v97 = v24;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Found %lu iCloud backups, t:%.3fs", v94, 0x16u);
+        v27 = [v61[5] count];
+        *v93 = 134218240;
+        v94 = v27;
+        v95 = 2048;
+        v96 = v25;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Found %lu iCloud backups, t:%.3fs", v93, 0x16u);
       }
 
-      [v62[5] count];
-      _MBLog();
+      _MBLog(@"Df", "Found %lu iCloud backups, t:%.3fs", [v61[5] count], v25);
     }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
-    v27 = v62[5];
-    v28 = [v27 countByEnumeratingWithState:&v47 objects:v93 count:16];
-    if (v28)
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v28 = v61[5];
+    v29 = [v28 countByEnumeratingWithState:&v46 objects:v92 count:16];
+    if (v29)
     {
-      v29 = *v48;
+      v30 = *v47;
       do
       {
-        for (i = 0; i != v28; i = i + 1)
+        for (i = 0; i != v29; i = i + 1)
         {
-          if (*v48 != v29)
+          if (*v47 != v30)
           {
-            objc_enumerationMutation(v27);
+            objc_enumerationMutation(v28);
           }
 
-          v31 = *(*(&v47 + 1) + 8 * i);
-          v32 = MBGetDefaultLog();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          v32 = *(*(&v46 + 1) + 8 * i);
+          v33 = MBGetDefaultLog();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
-            *v94 = 138412290;
-            v95 = v31;
-            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Found %@", v94, 0xCu);
-            _MBLog();
+            *v93 = 138412290;
+            v94 = v32;
+            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Found %@", v93, 0xCu);
+            _MBLog(@"Df", "Found %@", v32);
           }
         }
 
-        v28 = [v27 countByEnumeratingWithState:&v47 objects:v93 count:16];
+        v29 = [v28 countByEnumeratingWithState:&v46 objects:v92 count:16];
       }
 
-      while (v28);
+      while (v29);
     }
 
     selfCopy2 = self;
     objc_sync_enter(selfCopy2);
-    [(MBCKManager *)selfCopy2 setCachedBackupsByUDID:v68[5]];
+    [(MBCKManager *)selfCopy2 setCachedBackupsByUDID:v67[5]];
     objc_sync_exit(selfCopy2);
 
-    v34 = v62[5];
+    v35 = v61[5];
   }
 
   else
   {
-    if (!v82[5])
+    if (!v81[5])
     {
       __assert_rtn("[MBCKManager _getBackupListWithOperationTracker:shouldFilter:error:]", "MBCKManager.m", 1175, "fetchError");
     }
 
-    v35 = MBGetDefaultLog();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v36 = MBGetDefaultLog();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      v36 = v82[5];
-      *v94 = 138412290;
-      v95 = v36;
-      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Failed to fetch the iCloud backups: %@", v94, 0xCu);
-      v38 = v82[5];
-      _MBLog();
+      v37 = v81[5];
+      *v93 = 138412290;
+      v94 = v37;
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "Failed to fetch the iCloud backups: %@", v93, 0xCu);
+      _MBLog(@"E ", "Failed to fetch the iCloud backups: %@", v81[5]);
     }
 
-    v34 = 0;
+    v35 = 0;
     if (error)
     {
-      *error = v82[5];
+      *error = v81[5];
     }
   }
 
-  _Block_object_dispose(&v61, 8);
-  _Block_object_dispose(&v67, 8);
+  _Block_object_dispose(&v60, 8);
+  _Block_object_dispose(&v66, 8);
 
-  _Block_object_dispose(&v81, 8);
-  _Block_object_dispose(&v87, 8);
-  _Block_object_dispose(v91, 8);
+  _Block_object_dispose(&v80, 8);
+  _Block_object_dispose(&v86, 8);
+  _Block_object_dispose(v90, 8);
 
   _Block_object_dispose(buf, 8);
 
-  return v34;
+  return v35;
+}
+
+- (id)getBackupListWithFiltering:(BOOL)filtering account:(id)account connection:(id)connection error:(id *)error
+{
+  filteringCopy = filtering;
+  connectionCopy = connection;
+  accountCopy = account;
+  v12 = +[MBCKOperationPolicy expensiveCellularPolicy];
+  [v12 setQualityOfService:25];
+  databaseManager = [(MBCKManager *)self databaseManager];
+  v14 = [MBCKOperationTracker operationTrackerWithAccount:accountCopy databaseManager:databaseManager policy:v12 error:error];
+
+  if (v14)
+  {
+    processName = [connectionCopy processName];
+    v16 = [v12 operationGroupWithName:@"getBackups" processName:processName];
+    [v14 setCkOperationGroup:v16];
+
+    v17 = [(MBCKManager *)self _getBackupListWithOperationTracker:v14 shouldFilter:filteringCopy error:error];
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  return v17;
 }
 
 - (BOOL)hardwareModelNeedsH8Workaround:(id)workaround
@@ -2297,66 +2763,66 @@ LABEL_15:
   {
     if (error)
     {
-      v13 = @"Reference to the old device is nil";
+      v14 = @"Reference to the old device is nil";
       goto LABEL_9;
     }
 
 LABEL_10:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_42;
   }
 
   if (!toDeviceCopy)
   {
     deviceClass = [deviceCopy deviceClass];
-    v16 = MBDeviceClass();
+    v17 = MBDeviceClass();
     if (deviceClass)
     {
-      if ([deviceClass isEqualToString:v16])
+      if ([deviceClass isEqualToString:v17])
       {
         hardwareModel = [deviceCopy hardwareModel];
-        v18 = MBHardwareModel();
+        v19 = MBHardwareModel();
         if (hardwareModel)
         {
           if ([(MBCKManager *)self hardwareModelNeedsH8Workaround:hardwareModel])
           {
-            v19 = MBGetDefaultLog();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+            v20 = MBGetDefaultLog();
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Snapshot was made on a device model that was potentially affected by 23631672. Not inheriting", buf, 2u);
-              _MBLog();
+              _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Snapshot was made on a device model that was potentially affected by 23631672. Not inheriting", buf, 2u);
+              _MBLog(@"E ", "Snapshot was made on a device model that was potentially affected by 23631672. Not inheriting");
             }
 
             if (error)
             {
-              v20 = @"Inheritance is not supported for backups made on devices that were affected by 23631672";
+              v21 = @"Inheritance is not supported for backups made on devices that were affected by 23631672";
 LABEL_38:
-              [MBError errorWithCode:1 format:v20];
-              *error = v14 = 0;
+              [MBError errorWithCode:1 format:v21];
+              *error = v15 = 0;
               goto LABEL_40;
             }
           }
 
           else
           {
-            if (![(MBCKManager *)self hardwareModelNeedsH8Workaround:v18])
+            if (![(MBCKManager *)self hardwareModelNeedsH8Workaround:v19])
             {
-              v14 = 1;
+              v15 = 1;
               goto LABEL_40;
             }
 
-            v28 = MBGetDefaultLog();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            v31 = MBGetDefaultLog();
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Restoring to a device model that was affected by 23631672. Not inheriting", buf, 2u);
-              _MBLog();
+              _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "Restoring to a device model that was affected by 23631672. Not inheriting", buf, 2u);
+              _MBLog(@"E ", "Restoring to a device model that was affected by 23631672. Not inheriting");
             }
 
             if (error)
             {
-              v20 = @"Inheritance is not supported when restoring to devices that were affected by 23631672";
+              v21 = @"Inheritance is not supported when restoring to devices that were affected by 23631672";
               goto LABEL_38;
             }
           }
@@ -2364,16 +2830,16 @@ LABEL_38:
 
         else
         {
-          v25 = MBGetDefaultLog();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v27 = MBGetDefaultLog();
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
             deviceUUID = [deviceCopy deviceUUID];
             *buf = 138412290;
             v34 = deviceUUID;
-            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Couldn't determine the hardware model of the device %@ that made the backup snapshot", buf, 0xCu);
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Couldn't determine the hardware model of the device %@ that made the backup snapshot", buf, 0xCu);
 
             deviceUUID2 = [deviceCopy deviceUUID];
-            _MBLog();
+            _MBLog(@"E ", "Couldn't determine the hardware model of the device %@ that made the backup snapshot", deviceUUID2);
           }
 
           if (error)
@@ -2383,27 +2849,27 @@ LABEL_38:
           }
         }
 
-        v14 = 0;
+        v15 = 0;
 LABEL_40:
 
         goto LABEL_41;
       }
 
-      v24 = MBGetDefaultLog();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v26 = MBGetDefaultLog();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
         v34 = deviceClass;
         v35 = 2112;
-        v36 = v16;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Not inheriting backups for cross-device restore. Old device class: %@, inheriting device class: %@", buf, 0x16u);
-        _MBLog();
+        v36 = v17;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Not inheriting backups for cross-device restore. Old device class: %@, inheriting device class: %@", buf, 0x16u);
+        _MBLog(@"E ", "Not inheriting backups for cross-device restore. Old device class: %@, inheriting device class: %@", deviceClass, v17);
       }
 
       if (error)
       {
-        [MBError errorWithCode:1 format:@"Inheriting backups is not supported across cross-device restores. Old device class: %@, Restoring device class: %@ ", deviceClass, v16];
-        *error = v14 = 0;
+        [MBError errorWithCode:1 format:@"Inheriting backups is not supported across cross-device restores. Old device class: %@, Restoring device class: %@ ", deviceClass, v17];
+        *error = v15 = 0;
 LABEL_41:
 
         goto LABEL_42;
@@ -2412,16 +2878,16 @@ LABEL_41:
 
     else
     {
-      v21 = MBGetDefaultLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v22 = MBGetDefaultLog();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         deviceUUID4 = [deviceCopy deviceUUID];
         *buf = 138412290;
         v34 = deviceUUID4;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Couldn't determine the device class of the old device %@", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Couldn't determine the device class of the old device %@", buf, 0xCu);
 
         deviceUUID5 = [deviceCopy deviceUUID];
-        _MBLog();
+        _MBLog(@"E ", "Couldn't determine the device class of the old device %@", deviceUUID5);
       }
 
       if (error)
@@ -2431,7 +2897,7 @@ LABEL_41:
       }
     }
 
-    v14 = 0;
+    v15 = 0;
     goto LABEL_41;
   }
 
@@ -2444,7 +2910,7 @@ LABEL_41:
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Device record already exists for the device being restored to (%@). Can't inherit", buf, 0xCu);
 
     deviceUUID8 = [v10 deviceUUID];
-    _MBLog();
+    _MBLog(@"E ", "Device record already exists for the device being restored to (%@). Can't inherit", deviceUUID8);
   }
 
   if (!error)
@@ -2452,13 +2918,13 @@ LABEL_41:
     goto LABEL_10;
   }
 
-  v13 = @"Device record already exists for the currently restoring device. Not inheriting snapshot";
+  v14 = @"Device record already exists for the currently restoring device. Not inheriting snapshot";
 LABEL_9:
-  [MBError errorWithCode:1 format:v13, deviceUUID8];
-  *error = v14 = 0;
+  [MBError errorWithCode:1 format:v14];
+  *error = v15 = 0;
 LABEL_42:
 
-  return v14;
+  return v15;
 }
 
 - (BOOL)inheritSnapshotWithAccount:(id)account fromSnapshot:(id)snapshot fromDevice:(id)device error:(id *)error
@@ -2487,11 +2953,11 @@ LABEL_28:
       goto LABEL_113;
     }
 
-    v111 = +[MBCKOperationPolicy expensiveCellularPolicy];
+    v106 = +[MBCKOperationPolicy expensiveCellularPolicy];
     databaseManager = [(MBCKManager *)self databaseManager];
-    v112 = [MBCKOperationTracker operationTrackerWithAccount:accountCopy databaseManager:databaseManager policy:v111 error:error];
+    v107 = [MBCKOperationTracker operationTrackerWithAccount:accountCopy databaseManager:databaseManager policy:v106 error:error];
 
-    if (!v112)
+    if (!v107)
     {
       v32 = 0;
 LABEL_112:
@@ -2499,11 +2965,11 @@ LABEL_112:
       goto LABEL_113;
     }
 
-    v17 = [v111 operationGroupWithName:@"inheritBackup"];
-    [v112 setCkOperationGroup:v17];
+    v17 = [v106 operationGroupWithName:@"inheritBackup"];
+    [v107 setCkOperationGroup:v17];
 
-    v110 = [(MBCKManager *)self openCacheWithAccount:accountCopy accessType:1 error:error];
-    if (!v110)
+    v105 = [(MBCKManager *)self openCacheWithAccount:accountCopy accessType:1 error:error];
+    if (!v105)
     {
       v32 = 0;
 LABEL_111:
@@ -2512,42 +2978,42 @@ LABEL_111:
     }
 
     *buf = 0;
-    v129 = buf;
-    v130 = 0x3032000000;
-    v131 = sub_100093324;
-    v132 = sub_100093334;
-    v133 = 0;
-    v108 = v13;
-    v107 = MBDeviceUUID();
-    v18 = (v129 + 40);
-    obj = *(v129 + 5);
-    v109 = [MBCKAccount fetchAccountWithOperationTracker:v112 cache:v110 error:&obj];
+    v124 = buf;
+    v125 = 0x3032000000;
+    v126 = sub_100093324;
+    v127 = sub_100093334;
+    v128 = 0;
+    v103 = v13;
+    v102 = MBDeviceUUID();
+    v18 = (v124 + 40);
+    obj = *(v124 + 5);
+    v104 = [MBCKAccount fetchAccountWithOperationTracker:v107 cache:v105 error:&obj];
     objc_storeStrong(v18, obj);
-    if (v109)
+    if (v104)
     {
-      v19 = (v129 + 40);
-      v126 = *(v129 + 5);
-      v20 = [v109 fetchDevicesWithOperationTracker:v112 error:&v126];
-      objc_storeStrong(v19, v126);
+      v19 = (v124 + 40);
+      v121 = *(v124 + 5);
+      v20 = [v104 fetchDevicesWithOperationTracker:v107 error:&v121];
+      objc_storeStrong(v19, v121);
       if (v20)
       {
-        v21 = [v109 deviceForUUID:v107];
-        v22 = [v109 deviceForUUID:v108];
-        v105 = v21;
+        v21 = [v104 deviceForUUID:v102];
+        v22 = [v104 deviceForUUID:v103];
+        v100 = v21;
         if (!v22)
         {
           v38 = MBGetDefaultLog();
           if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
-            *v134 = 138412290;
-            *&v134[4] = v108;
-            _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Couldn't find device record for old device %@ under the account. Not inheriting backups", v134, 0xCu);
-            _MBLog();
+            *v129 = 138412290;
+            *&v129[4] = v103;
+            _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Couldn't find device record for old device %@ under the account. Not inheriting backups", v129, 0xCu);
+            _MBLog(@"E ", "Couldn't find device record for old device %@ under the account. Not inheriting backups", v103);
           }
 
           if (error)
           {
-            [MBError errorWithCode:1 format:@"Couldn't find device record for old device %@. Can't inherit backups from this device", v108];
+            [MBError errorWithCode:1 format:@"Couldn't find device record for old device %@. Can't inherit backups from this device", v103];
             *error = v32 = 0;
           }
 
@@ -2568,55 +3034,54 @@ LABEL_109:
           goto LABEL_110;
         }
 
-        v23 = (v129 + 40);
-        v125 = *(v129 + 5);
-        v24 = [v22 fetchSnapshotsWithOperationTracker:v112 retry:1 error:&v125];
-        v102 = v22;
-        objc_storeStrong(v23, v125);
+        v23 = (v124 + 40);
+        v120 = *(v124 + 5);
+        v24 = [v22 fetchSnapshotsWithOperationTracker:v107 retry:1 error:&v120];
+        v97 = v22;
+        objc_storeStrong(v23, v120);
         if ((v24 & 1) == 0)
         {
           v39 = MBGetDefaultLog();
           if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            v40 = *(v129 + 5);
-            *v134 = 138412546;
-            *&v134[4] = v108;
-            *&v134[12] = 2112;
-            *&v134[14] = v40;
-            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Couldn't fetch snapshot records for old device %@ - %@", v134, 0x16u);
-            v93 = *(v129 + 5);
-            _MBLog();
+            v40 = *(v124 + 5);
+            *v129 = 138412546;
+            *&v129[4] = v103;
+            *&v129[12] = 2112;
+            *&v129[14] = v40;
+            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Couldn't fetch snapshot records for old device %@ - %@", v129, 0x16u);
+            _MBLog(@"E ", "Couldn't fetch snapshot records for old device %@ - %@", v103, *(v124 + 5));
           }
 
           v32 = 0;
           if (error)
           {
-            *error = *(v129 + 5);
+            *error = *(v124 + 5);
           }
 
           goto LABEL_108;
         }
 
-        v124 = 0u;
-        v122 = 0u;
-        v123 = 0u;
-        v121 = 0u;
+        v119 = 0u;
+        v117 = 0u;
+        v118 = 0u;
+        v116 = 0u;
         snapshots = [v22 snapshots];
-        v26 = [snapshots countByEnumeratingWithState:&v121 objects:v136 count:16];
+        v26 = [snapshots countByEnumeratingWithState:&v116 objects:v131 count:16];
         if (v26)
         {
-          v27 = *v122;
-          v103 = snapshots;
+          v27 = *v117;
+          v98 = snapshots;
 LABEL_18:
           v28 = 0;
           while (1)
           {
-            if (*v122 != v27)
+            if (*v117 != v27)
             {
-              objc_enumerationMutation(v103);
+              objc_enumerationMutation(v98);
             }
 
-            v29 = *(*(&v121 + 1) + 8 * v28);
+            v29 = *(*(&v116 + 1) + 8 * v28);
             snapshotID = [v29 snapshotID];
             v31 = [snapshotID isEqualToString:snapshotCopy];
 
@@ -2627,8 +3092,8 @@ LABEL_18:
 
             if (v26 == ++v28)
             {
-              snapshots = v103;
-              v26 = [v103 countByEnumeratingWithState:&v121 objects:v136 count:16];
+              snapshots = v98;
+              v26 = [v98 countByEnumeratingWithState:&v116 objects:v131 count:16];
               if (v26)
               {
                 goto LABEL_18;
@@ -2658,131 +3123,130 @@ LABEL_18:
                 if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
                 {
                   v47 = MBStringForSnapshotFormat();
-                  *v134 = 138412290;
-                  *&v134[4] = v47;
-                  _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "Not inheriting snapshot with format %@", v134, 0xCu);
+                  *v129 = 138412290;
+                  *&v129[4] = v47;
+                  _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "Not inheriting snapshot with format %@", v129, 0xCu);
                 }
 
-                v92 = MBStringForSnapshotFormat();
-                _MBLog();
+                v48 = MBStringForSnapshotFormat();
+                _MBLog(@"E ", "Not inheriting snapshot with format %@", v48);
               }
 
               if (error)
               {
-                v48 = MBStringForSnapshotFormat();
-                *error = [MBError errorWithCode:1 format:@"Not enabling inheriting snapshot with format %@", v48];
+                v49 = MBStringForSnapshotFormat();
+                *error = [MBError errorWithCode:1 format:@"Not enabling inheriting snapshot with format %@", v49];
               }
 
               goto LABEL_84;
             }
 
-            v50 = MBGetDefaultLog();
-            if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+            v51 = MBGetDefaultLog();
+            if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
             {
-              *v134 = 138412290;
-              *&v134[4] = v107;
-              _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "Creating new device record for device %@", v134, 0xCu);
-              _MBLog();
+              *v129 = 138412290;
+              *&v129[4] = v102;
+              _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Creating new device record for device %@", v129, 0xCu);
+              _MBLog(@"Df", "Creating new device record for device %@", v102);
             }
 
-            v51 = [MBCKDevice alloc];
-            account = [v112 account];
-            v104 = -[MBCKDevice initWithUUID:cache:backupEnabled:](v51, "initWithUUID:cache:backupEnabled:", v107, 0, [account isEnabled]);
+            v52 = [MBCKDevice alloc];
+            account = [v107 account];
+            v99 = -[MBCKDevice initWithUUID:cache:backupEnabled:](v52, "initWithUUID:cache:backupEnabled:", v102, 0, [account isEnabled]);
 
-            v53 = (v129 + 40);
-            v120 = *(v129 + 5);
-            [v109 addDevice:v104 error:&v120];
-            objc_storeStrong(v53, v120);
-            v54 = (v129 + 40);
-            v119 = *(v129 + 5);
-            LOBYTE(v51) = [(MBCKModel *)v104 saveWithOperationTracker:v112 error:&v119];
-            objc_storeStrong(v54, v119);
-            if (v51)
+            v54 = (v124 + 40);
+            v115 = *(v124 + 5);
+            [v104 addDevice:v99 error:&v115];
+            objc_storeStrong(v54, v115);
+            v55 = (v124 + 40);
+            v114 = *(v124 + 5);
+            LOBYTE(v52) = [(MBCKModel *)v99 saveWithOperationTracker:v107 error:&v114];
+            objc_storeStrong(v55, v114);
+            if (v52)
             {
-              v55 = (v129 + 40);
-              v118 = *(v129 + 5);
-              v56 = [v109 saveWithOperationTracker:v112 error:&v118];
-              objc_storeStrong(v55, v118);
-              if (v56)
+              v56 = (v124 + 40);
+              v113 = *(v124 + 5);
+              v57 = [v104 saveWithOperationTracker:v107 error:&v113];
+              objc_storeStrong(v56, v113);
+              if (v57)
               {
                 snapshotFormat = [v44 snapshotFormat];
-                v58 = MBRandomUUID();
-                v59 = [MBCKSnapshot snapshotForDevice:v104 reason:0 type:4 snapshotFormat:snapshotFormat snapshotID:v58];
+                v59 = MBRandomUUID();
+                v60 = [MBCKSnapshot snapshotForDevice:v99 reason:0 type:4 snapshotFormat:snapshotFormat snapshotID:v59];
 
-                [v59 setIsInherited:1];
+                [v60 setIsInherited:1];
                 backupProperties = [v44 backupProperties];
-                [v59 setBackupProperties:backupProperties];
+                [v60 setBackupProperties:backupProperties];
 
-                v61 = MBGetDefaultLog();
-                if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
+                v62 = MBGetDefaultLog();
+                if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
                 {
-                  v62 = v61;
-                  if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+                  v63 = v62;
+                  if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
                   {
-                    backupProperties2 = [v59 backupProperties];
-                    v64 = [backupProperties2 length];
-                    *v134 = 134217984;
-                    *&v134[4] = v64;
-                    _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_INFO, "Found %lu bytes for buddy stash data on the old snapshot. Copied it over to the inheriting snapshot record", v134, 0xCu);
+                    backupProperties2 = [v60 backupProperties];
+                    v65 = [backupProperties2 length];
+                    *v129 = 134217984;
+                    *&v129[4] = v65;
+                    _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_INFO, "Found %lu bytes for buddy stash data on the old snapshot. Copied it over to the inheriting snapshot record", v129, 0xCu);
                   }
 
-                  backupProperties3 = [v59 backupProperties];
-                  [backupProperties3 length];
-                  _MBLog();
+                  backupProperties3 = [v60 backupProperties];
+                  _MBLog(@"I ", "Found %lu bytes for buddy stash data on the old snapshot. Copied it over to the inheriting snapshot record", [backupProperties3 length]);
                 }
 
-                v66 = (v129 + 40);
-                v117 = *(v129 + 5);
-                v67 = [v59 saveWithOperationTracker:v112 error:&v117];
-                objc_storeStrong(v66, v117);
-                if (v67)
+                v67 = (v124 + 40);
+                v112 = *(v124 + 5);
+                v68 = [v60 saveWithOperationTracker:v107 error:&v112];
+                objc_storeStrong(v67, v112);
+                if (v68)
                 {
-                  v68 = [CKReference alloc];
-                  recordID = [v102 recordID];
-                  v106 = [v68 initWithRecordID:recordID action:0];
+                  v69 = [CKReference alloc];
+                  recordID = [v97 recordID];
+                  v101 = [v69 initWithRecordID:recordID action:0];
 
-                  v70 = [CKReference alloc];
-                  recordID2 = [(MBCKModel *)v104 recordID];
-                  v101 = [v70 initWithRecordID:recordID2 action:0];
+                  v71 = [CKReference alloc];
+                  recordID2 = [(MBCKModel *)v99 recordID];
+                  v96 = [v71 initWithRecordID:recordID2 action:0];
 
-                  v72 = [CKReference alloc];
+                  v73 = [CKReference alloc];
                   recordID3 = [v44 recordID];
-                  v100 = [v72 initWithRecordID:recordID3 action:0];
+                  v95 = [v73 initWithRecordID:recordID3 action:0];
 
-                  v74 = [CKReference alloc];
-                  recordID4 = [v59 recordID];
-                  v99 = [v74 initWithRecordID:recordID4 action:0];
+                  v75 = [CKReference alloc];
+                  recordID4 = [v60 recordID];
+                  v94 = [v75 initWithRecordID:recordID4 action:0];
 
-                  v76 = [NSPredicate predicateWithFormat:@"oldDevice==%@ AND newDevice==%@ AND restoreSnapshot==%@ AND inheritedSnapshot==%@", v106, v101, v100, v99];
-                  v98 = [[CKQuery alloc] initWithRecordType:@"InheritBackup" predicate:v76];
-                  v97 = v76;
-                  v77 = dispatch_semaphore_create(0);
-                  *v134 = 0;
-                  *&v134[8] = v134;
-                  *&v134[16] = 0x2020000000;
-                  v135 = 0;
-                  v78 = [[CKQueryOperation alloc] initWithQuery:v98];
-                  [v78 setFetchAllResults:1];
-                  [v78 setRecordFetchedBlock:&stru_1003BD158];
-                  v113[0] = _NSConcreteStackBlock;
-                  v113[1] = 3221225472;
-                  v113[2] = sub_10009B0C8;
-                  v113[3] = &unk_1003BD180;
-                  v115 = buf;
-                  v116 = v134;
-                  v79 = v77;
-                  v114 = v79;
-                  [v78 setQueryCompletionBlock:v113];
-                  [v112 addDatabaseOperation:v78];
+                  v77 = [NSPredicate predicateWithFormat:@"oldDevice==%@ AND newDevice==%@ AND restoreSnapshot==%@ AND inheritedSnapshot==%@", v101, v96, v95, v94];
+                  v93 = [[CKQuery alloc] initWithRecordType:@"InheritBackup" predicate:v77];
+                  v92 = v77;
+                  v78 = dispatch_semaphore_create(0);
+                  *v129 = 0;
+                  *&v129[8] = v129;
+                  *&v129[16] = 0x2020000000;
+                  v130 = 0;
+                  v79 = [[CKQueryOperation alloc] initWithQuery:v93];
+                  [v79 setFetchAllResults:1];
+                  [v79 setRecordFetchedBlock:&stru_1003BD158];
+                  v108[0] = _NSConcreteStackBlock;
+                  v108[1] = 3221225472;
+                  v108[2] = sub_10009B0C8;
+                  v108[3] = &unk_1003BD180;
+                  v110 = buf;
+                  v111 = v129;
+                  v80 = v78;
+                  v109 = v80;
+                  [v79 setQueryCompletionBlock:v108];
+                  [v107 addDatabaseOperation:v79];
                   MBSemaphoreWaitForever();
-                  v96 = v79;
-                  if (*(*&v134[8] + 24) == 1)
+                  v91 = v80;
+                  if (*(*&v129[8] + 24) == 1)
                   {
-                    v80 = +[MBXPCServer sharedInstance];
-                    scheduler = [v80 scheduler];
+                    v81 = +[MBXPCServer sharedInstance];
+                    scheduler = [v81 scheduler];
                     [scheduler clearNilBackupDateFetchDateForAccount:accountCopy];
 
-                    v32 = *(*&v134[8] + 24);
+                    v32 = *(*&v129[8] + 24);
                   }
 
                   else
@@ -2792,76 +3256,74 @@ LABEL_18:
 
                   if (error && (v32 & 1) == 0)
                   {
-                    *error = *(v129 + 5);
-                    v32 = *(*&v134[8] + 24);
+                    *error = *(v124 + 5);
+                    v32 = *(*&v129[8] + 24);
                   }
 
-                  _Block_object_dispose(v134, 8);
+                  _Block_object_dispose(v129, 8);
                 }
 
                 else
                 {
-                  v88 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+                  v89 = MBGetDefaultLog();
+                  if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
                   {
-                    *v134 = 0;
-                    _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_ERROR, "Couldn't save new snapshot record to inherit to", v134, 2u);
-                    _MBLog();
+                    *v129 = 0;
+                    _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_ERROR, "Couldn't save new snapshot record to inherit to", v129, 2u);
+                    _MBLog(@"E ", "Couldn't save new snapshot record to inherit to");
                   }
 
                   v32 = 0;
                   if (error)
                   {
-                    *error = *(v129 + 5);
+                    *error = *(v124 + 5);
                   }
                 }
 
                 goto LABEL_106;
               }
 
-              v86 = MBGetDefaultLog();
-              if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+              v87 = MBGetDefaultLog();
+              if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
               {
-                v87 = *(v129 + 5);
-                *v134 = 138412546;
-                *&v134[4] = v107;
-                *&v134[12] = 2112;
-                *&v134[14] = v87;
-                _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_ERROR, "Couldn't add new device to account record for device %@ - %@", v134, 0x16u);
-                v95 = *(v129 + 5);
-                _MBLog();
+                v88 = *(v124 + 5);
+                *v129 = 138412546;
+                *&v129[4] = v102;
+                *&v129[12] = 2112;
+                *&v129[14] = v88;
+                _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_ERROR, "Couldn't add new device to account record for device %@ - %@", v129, 0x16u);
+                _MBLog(@"E ", "Couldn't add new device to account record for device %@ - %@", v102, *(v124 + 5));
               }
 
               if (error)
               {
-                v85 = *(v129 + 5);
+                v86 = *(v124 + 5);
                 goto LABEL_94;
               }
             }
 
             else
             {
-              v83 = MBGetDefaultLog();
-              if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
+              v84 = MBGetDefaultLog();
+              if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
               {
-                v84 = *(v129 + 5);
-                *v134 = 138412546;
-                *&v134[4] = v107;
-                *&v134[12] = 2112;
-                *&v134[14] = v84;
-                _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_ERROR, "Couldn't save new device record for device %@ - %@", v134, 0x16u);
-                v94 = *(v129 + 5);
-                _MBLog();
+                v85 = *(v124 + 5);
+                *v129 = 138412546;
+                *&v129[4] = v102;
+                *&v129[12] = 2112;
+                *&v129[14] = v85;
+                _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_ERROR, "Couldn't save new device record for device %@ - %@", v129, 0x16u);
+                _MBLog(@"E ", "Couldn't save new device record for device %@ - %@", v102, *(v124 + 5));
               }
 
               if (error)
               {
-                v85 = *(v129 + 5);
+                v86 = *(v124 + 5);
 LABEL_94:
                 v32 = 0;
-                *error = v85;
+                *error = v86;
 LABEL_106:
-                v105 = v104;
+                v100 = v99;
                 goto LABEL_107;
               }
             }
@@ -2870,15 +3332,15 @@ LABEL_106:
             goto LABEL_106;
           }
 
-          v82 = MBGetDefaultLog();
-          if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
+          v83 = MBGetDefaultLog();
+          if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
           {
-            *v134 = 138412546;
-            *&v134[4] = snapshotCopy;
-            *&v134[12] = 2112;
-            *&v134[14] = v108;
-            _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "Ignoring snapshot %@ from the old device %@ since it was created on a newer OS version", v134, 0x16u);
-            _MBLog();
+            *v129 = 138412546;
+            *&v129[4] = snapshotCopy;
+            *&v129[12] = 2112;
+            *&v129[14] = v103;
+            _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_DEFAULT, "Ignoring snapshot %@ from the old device %@ since it was created on a newer OS version", v129, 0x16u);
+            _MBLog(@"Df", "Ignoring snapshot %@ from the old device %@ since it was created on a newer OS version", snapshotCopy, v103);
           }
 
           if (error)
@@ -2892,26 +3354,26 @@ LABEL_106:
 LABEL_24:
 
 LABEL_62:
-          v49 = MBGetDefaultLog();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+          v50 = MBGetDefaultLog();
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
           {
-            *v134 = 138412546;
-            *&v134[4] = snapshotCopy;
-            *&v134[12] = 2112;
-            *&v134[14] = v108;
-            _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_ERROR, "Couldn't find snapshot record for snapshot ID %@ on the old device %@", v134, 0x16u);
-            _MBLog();
+            *v129 = 138412546;
+            *&v129[4] = snapshotCopy;
+            *&v129[12] = 2112;
+            *&v129[14] = v103;
+            _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "Couldn't find snapshot record for snapshot ID %@ on the old device %@", v129, 0x16u);
+            _MBLog(@"E ", "Couldn't find snapshot record for snapshot ID %@ on the old device %@", snapshotCopy, v103);
           }
 
           if (error)
           {
-            [MBError errorWithCode:1 format:@"Couldn't find snapshot record for snapshot %@ under device %@", snapshotCopy, v108];
+            [MBError errorWithCode:1 format:@"Couldn't find snapshot record for snapshot %@ under device %@", snapshotCopy, v103];
             v44 = 0;
             *error = v32 = 0;
 LABEL_107:
 
 LABEL_108:
-            v22 = v102;
+            v22 = v97;
             goto LABEL_109;
           }
         }
@@ -2925,17 +3387,16 @@ LABEL_84:
       v36 = MBGetDefaultLog();
       if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
-        v37 = *(v129 + 5);
-        *v134 = 138412290;
-        *&v134[4] = v37;
-        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "Couldn't fetch device records - %@", v134, 0xCu);
-        v91 = *(v129 + 5);
-        _MBLog();
+        v37 = *(v124 + 5);
+        *v129 = 138412290;
+        *&v129[4] = v37;
+        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "Couldn't fetch device records - %@", v129, 0xCu);
+        _MBLog(@"E ", "Couldn't fetch device records - %@", *(v124 + 5));
       }
 
       if (error)
       {
-        v35 = *(v129 + 5);
+        v35 = *(v124 + 5);
         goto LABEL_39;
       }
     }
@@ -2945,17 +3406,16 @@ LABEL_84:
       v33 = MBGetDefaultLog();
       if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        v34 = *(v129 + 5);
-        *v134 = 138412290;
-        *&v134[4] = v34;
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Couldn't fetch account record - %@", v134, 0xCu);
-        v90 = *(v129 + 5);
-        _MBLog();
+        v34 = *(v124 + 5);
+        *v129 = 138412290;
+        *&v129[4] = v34;
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Couldn't fetch account record - %@", v129, 0xCu);
+        _MBLog(@"E ", "Couldn't fetch account record - %@", *(v124 + 5));
       }
 
       if (error)
       {
-        v35 = *(v129 + 5);
+        v35 = *(v124 + 5);
 LABEL_39:
         v32 = 0;
         *error = v35;
@@ -2975,7 +3435,7 @@ LABEL_110:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Not inheriting backup because account is beneficiary", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Not inheriting backup because account is beneficiary");
   }
 
   if (!error)
@@ -3142,7 +3602,7 @@ LABEL_113:
   }
 
   dispatch_assert_queue_not_V2(self->_stateQueue);
-  v49 = [(MBPersonaStateManager *)self->_personaState objectForKeyedSubscript:accountCopy];
+  v48 = [(MBPersonaStateManager *)self->_personaState objectForKeyedSubscript:accountCopy];
   [(MBCKManager *)self networkConnectivity];
   v17 = v16;
   if (MBBackupReasonIsManual() && (v17 & 1) != 0)
@@ -3161,20 +3621,20 @@ LABEL_113:
   }
 
 LABEL_11:
-  v52 = MBStringForBackupReason();
+  v51 = MBStringForBackupReason();
   v19 = MBGetDefaultLog();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544130;
-    *&buf[4] = v52;
+    *&buf[4] = v51;
     *&buf[12] = 2048;
     *&buf[14] = reason;
     *&buf[22] = 2114;
-    v77 = accountIdentifier;
-    LOWORD(v78) = 2114;
-    *(&v78 + 2) = optionsCopy;
+    v76 = accountIdentifier;
+    LOWORD(v77) = 2114;
+    *(&v77 + 2) = optionsCopy;
     _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Starting backup, reason:%{public}@(%ld), account:%{public}@, options:%{public}@", buf, 0x2Au);
-    _MBLog();
+    _MBLog(@"Df", "Starting backup, reason:%{public}@(%ld), account:%{public}@, options:%{public}@", v51, reason, accountIdentifier, optionsCopy);
   }
 
   if (BYSetupAssistantNeedsToRun())
@@ -3184,7 +3644,7 @@ LABEL_11:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Refusing request to start backup while Buddy is active", buf, 2u);
-      _MBLog();
+      _MBLog(@"E ", "Refusing request to start backup while Buddy is active");
     }
 
     if (error)
@@ -3205,19 +3665,19 @@ LABEL_25:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v77 = sub_100093324;
-    *&v78 = sub_100093334;
-    *(&v78 + 1) = 0;
+    v76 = sub_100093324;
+    *&v77 = sub_100093334;
+    *(&v77 + 1) = 0;
     v22 = dispatch_group_create();
     dispatch_group_enter(v22);
-    v70[0] = _NSConcreteStackBlock;
-    v70[1] = 3221225472;
-    v70[2] = sub_10009C15C;
-    v70[3] = &unk_1003BC160;
-    v72 = buf;
+    v69[0] = _NSConcreteStackBlock;
+    v69[1] = 3221225472;
+    v69[2] = sub_10009C15C;
+    v69[3] = &unk_1003BC160;
+    v71 = buf;
     v23 = v22;
-    v71 = v23;
-    [(MBCKManager *)self _cancelBackupAndScanEnginesWithAccount:accountCopy timeout:300 completion:v70];
+    v70 = v23;
+    [(MBCKManager *)self _cancelBackupAndScanEnginesWithAccount:accountCopy timeout:300 completion:v69];
     MBGroupWaitForever();
     if (*(*&buf[8] + 40))
     {
@@ -3225,11 +3685,10 @@ LABEL_25:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         v25 = *(*&buf[8] + 40);
-        LODWORD(v73) = 138412290;
-        *(&v73 + 4) = v25;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to cancel already in-progress backup: %@", &v73, 0xCu);
-        v42 = *(*&buf[8] + 40);
-        _MBLog();
+        LODWORD(v72) = 138412290;
+        *(&v72 + 4) = v25;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to cancel already in-progress backup: %@", &v72, 0xCu);
+        _MBLog(@"E ", "Failed to cancel already in-progress backup: %@", *(*&buf[8] + 40));
       }
 
       if (error)
@@ -3244,28 +3703,28 @@ LABEL_25:
     _Block_object_dispose(buf, 8);
   }
 
-  v48 = objc_opt_new();
+  v47 = objc_opt_new();
   cellularAccess2 = [optionsCopy cellularAccess];
-  [v48 setCellularAccess:cellularAccess2];
+  [v47 setCellularAccess:cellularAccess2];
 
   databaseManager = [(MBCKManager *)self databaseManager];
-  v28 = [MBCKOperationTracker operationTrackerWithAccount:accountCopy databaseManager:databaseManager policy:v48 error:error];
+  v28 = [MBCKOperationTracker operationTrackerWithAccount:accountCopy databaseManager:databaseManager policy:v47 error:error];
 
   if (v28)
   {
     [v28 setXpcActivity:activityCopy];
     v29 = [NSString alloc];
-    capitalizedString = [v52 capitalizedString];
-    v46 = [v29 initWithFormat:@"%@ Backup", capitalizedString];
+    capitalizedString = [v51 capitalizedString];
+    v45 = [v29 initWithFormat:@"%@ Backup", capitalizedString];
 
     processName = [connectionCopy processName];
-    v47 = [v48 operationGroupWithName:v46 processName:processName];
+    v46 = [v47 operationGroupWithName:v45 processName:processName];
 
-    [v28 setCkOperationGroup:v47];
+    [v28 setCkOperationGroup:v46];
     v32 = MBDeviceUUID();
-    v45 = [(MBCKManager *)self _ckSettingsContextForBackupUDID:v32 account:accountCopy];
+    v44 = [(MBCKManager *)self _ckSettingsContextForBackupUDID:v32 account:accountCopy];
 
-    v44 = activityCopy;
+    v43 = activityCopy;
     v33 = dispatch_group_create();
     dispatch_group_enter(v33);
     stateQueue = self->_stateQueue;
@@ -3273,48 +3732,48 @@ LABEL_25:
     block[1] = 3221225472;
     block[2] = sub_10009C1BC;
     block[3] = &unk_1003BC5B8;
-    v35 = v49;
-    v66 = v35;
+    v35 = v48;
+    v65 = v35;
     selfCopy = self;
     v36 = accountCopy;
-    v68 = v36;
+    v67 = v36;
     v37 = v33;
-    v69 = v37;
+    v68 = v37;
     dispatch_async(stateQueue, block);
-    v43 = v37;
+    v42 = v37;
     MBGroupWaitForever();
-    *&v73 = 0;
-    *(&v73 + 1) = &v73;
-    v74 = 0x2020000000;
-    v75 = 0;
+    *&v72 = 0;
+    *(&v72 + 1) = &v72;
+    v73 = 0x2020000000;
+    v74 = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v77 = sub_100093324;
-    *&v78 = sub_100093334;
-    *(&v78 + 1) = 0;
+    v76 = sub_100093324;
+    *&v77 = sub_100093334;
+    *(&v77 + 1) = 0;
     v38 = self->_stateQueue;
-    v54[0] = _NSConcreteStackBlock;
-    v54[1] = 3221225472;
-    v54[2] = sub_10009C2F4;
-    v54[3] = &unk_1003BD1C8;
-    v62 = buf;
-    v63 = &v73;
-    v55 = v35;
+    v53[0] = _NSConcreteStackBlock;
+    v53[1] = 3221225472;
+    v53[2] = sub_10009C2F4;
+    v53[3] = &unk_1003BD1C8;
+    v61 = buf;
+    v62 = &v72;
+    v54 = v35;
     selfCopy2 = self;
     reasonCopy = reason;
-    v39 = v45;
-    v57 = v39;
-    v58 = v36;
-    v40 = v47;
-    v59 = v40;
-    v60 = v48;
-    v61 = v28;
-    dispatch_sync(v38, v54);
-    if (*(*(&v73 + 1) + 24))
+    v39 = v44;
+    v56 = v39;
+    v57 = v36;
+    v40 = v46;
+    v58 = v40;
+    v59 = v47;
+    v60 = v28;
+    dispatch_sync(v38, v53);
+    if (*(*(&v72 + 1) + 24))
     {
       v21 = 1;
-      activityCopy = v44;
+      activityCopy = v43;
     }
 
     else
@@ -3324,11 +3783,11 @@ LABEL_25:
         __assert_rtn("[MBCKManager startBackupWithOptions:reason:xpcActivity:account:connection:error:]", "MBCKManager.m", 1600, "success || localError");
       }
 
-      activityCopy = v44;
+      activityCopy = v43;
       if (error)
       {
         *error = [(MBCKManager *)self _sanitizeError:?];
-        v21 = *(*(&v73 + 1) + 24);
+        v21 = *(*(&v72 + 1) + 24);
       }
 
       else
@@ -3338,7 +3797,7 @@ LABEL_25:
     }
 
     _Block_object_dispose(buf, 8);
-    _Block_object_dispose(&v73, 8);
+    _Block_object_dispose(&v72, 8);
   }
 
   else
@@ -3375,7 +3834,7 @@ LABEL_37:
       {
         *v23 = 0;
         _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_FAULT, "Cannot update backup progress with nil controller", v23, 2u);
-        _MBLog();
+        _MBLog(@"F ", "Cannot update backup progress with nil controller");
       }
     }
   }
@@ -3417,7 +3876,7 @@ LABEL_37:
   v40 = v11;
   v41 = v9;
   v39 = v12;
-  if (!isPrimaryAccount || (_isMegaBackupMode & 1) == 0)
+  if (!isPrimaryAccount || !_isMegaBackupMode)
   {
     isPrebuddyMode = [(MBCKManager *)self isPrebuddyMode];
     goto LABEL_10;
@@ -3455,7 +3914,7 @@ LABEL_11:
   v43 = MBLogStringForNSQualityOfService();
   v24 = MBGetDefaultLog();
   v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-  if ((v15 | v19))
+  if (v15 || v19)
   {
     v26 = v41;
     if (v25)
@@ -3475,8 +3934,7 @@ LABEL_11:
       v67 = 1024;
       v68 = isPrebuddyMode;
       _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Starting backup, reason:%{public}@, qos:%{public}@, account:%{public}@ isMega:%d(%d) isPrebuddy:%d(%d)", buf, 0x38u);
-LABEL_19:
-      _MBLog();
+      _MBLog(@"Df", "Starting backup, reason:%{public}@, qos:%{public}@, account:%{public}@ isMega:%d(%d) isPrebuddy:%d(%d)", v23, v43, v41, v15, v42, v19, isPrebuddyMode);
     }
   }
 
@@ -3492,7 +3950,7 @@ LABEL_19:
       v59 = 2114;
       v60 = v41;
       _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Starting backup, reason:%{public}@, qos:%{public}@, account:%{public}@", buf, 0x20u);
-      goto LABEL_19;
+      _MBLog(@"Df", "Starting backup, reason:%{public}@, qos:%{public}@, account:%{public}@", v23, v43, v41);
     }
   }
 
@@ -3673,7 +4131,7 @@ LABEL_19:
       *buf = 138412290;
       v42 = v34;
       _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "RTCReporting send one message failed: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "RTCReporting send one message failed: %@", v34, v36, v37, v38);
     }
   }
 }
@@ -3704,24 +4162,24 @@ LABEL_19:
   }
 
   v8 = [MBXPCActivityTimer alloc];
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_10009DF5C;
-  v13[3] = &unk_1003BD218;
-  objc_copyWeak(&v15, &location);
+  v13 = _NSConcreteStackBlock;
+  v14 = 3221225472;
+  v15 = sub_10009DF5C;
+  v16 = &unk_1003BD218;
+  objc_copyWeak(&v18, &location);
   v9 = accountCopy;
-  v14 = v9;
-  v10 = [(MBXPCActivityTimer *)v8 initWithName:@"com.apple.PrebuddyFollowUpTimer" timeInterval:1 priority:8707 options:v13 block:unsignedIntegerValue];
+  v17 = v9;
+  v10 = [(MBXPCActivityTimer *)v8 initWithName:@"com.apple.PrebuddyFollowUpTimer" timeInterval:1 priority:8707 options:&v13 block:unsignedIntegerValue];
   v11 = MBGetDefaultLog();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = v10;
+    v21 = v10;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Finished setting up prebuddy followup timer: %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Finished setting up prebuddy followup timer: %@", v10, v13, v14, v15, v16);
   }
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
 
   return v10;
@@ -3744,14 +4202,14 @@ LABEL_19:
 
   deviceCopy = device;
   dispatch_assert_queue_not_V2(self->_stateQueue);
-  v42 = os_transaction_create();
+  v41 = os_transaction_create();
   v14 = MBGetDefaultLog();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138543362;
     *(&buf + 4) = dCopy;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Deleting all backups for %{public}@", &buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Deleting all backups for %{public}@", dCopy);
   }
 
   v15 = dCopy;
@@ -3787,46 +4245,46 @@ LABEL_19:
     {
       LOWORD(buf) = 0;
       _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Fetching the account record", &buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Fetching the account record");
     }
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v70 = 0x3032000000;
-    v71 = sub_100093324;
-    v72 = sub_100093334;
-    v73 = 0;
-    v61 = 0;
-    v27 = [MBCKAccount fetchAccountWithOperationTracker:v23 cache:0 error:&v61];
-    objc_storeStrong(&v73, v61);
+    v69 = 0x3032000000;
+    v70 = sub_100093324;
+    v71 = sub_100093334;
+    v72 = 0;
+    v60 = 0;
+    v27 = [MBCKAccount fetchAccountWithOperationTracker:v23 cache:0 error:&v60];
+    objc_storeStrong(&v72, v60);
     if (v27)
     {
       v28 = MBGetDefaultLog();
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v66) = 0;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Fetching the device records", &v66, 2u);
-        _MBLog();
+        LOWORD(v65) = 0;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Fetching the device records", &v65, 2u);
+        _MBLog(@"Df", "Fetching the device records");
       }
 
       if ([v27 fetchDevicesWithOperationTracker:v23 error:error])
       {
-        v40 = [v27 deviceForUUID:v18];
-        if (v40)
+        v39 = [v27 deviceForUUID:v18];
+        if (v39)
         {
           v29 = MBGetDefaultLog();
           if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
-            LODWORD(v66) = 138543362;
-            *(&v66 + 4) = v18;
-            _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Found the device record for %{public}@", &v66, 0xCu);
-            _MBLog();
+            LODWORD(v65) = 138543362;
+            *(&v65 + 4) = v18;
+            _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Found the device record for %{public}@", &v65, 0xCu);
+            _MBLog(@"Df", "Found the device record for %{public}@", v18);
           }
 
-          *&v66 = 0;
-          *(&v66 + 1) = &v66;
-          v67 = 0x2020000000;
-          v68 = 0;
+          *&v65 = 0;
+          *(&v65 + 1) = &v65;
+          v66 = 0x2020000000;
+          v67 = 0;
           v30 = *(*(&buf + 1) + 40);
           *(*(&buf + 1) + 40) = 0;
 
@@ -3834,23 +4292,23 @@ LABEL_19:
           {
             v31 = dispatch_group_create();
             dispatch_group_enter(v31);
-            v50[0] = _NSConcreteStackBlock;
-            v50[1] = 3221225472;
-            v50[2] = sub_10009E8D8;
-            v50[3] = &unk_1003BD280;
-            v50[4] = self;
-            v51 = v40;
-            v52 = v18;
-            v60 = deviceCopy;
-            v53 = v23;
+            v49[0] = _NSConcreteStackBlock;
+            v49[1] = 3221225472;
+            v49[2] = sub_10009E8D8;
+            v49[3] = &unk_1003BD280;
+            v49[4] = self;
+            v50 = v39;
+            v51 = v18;
+            v59 = deviceCopy;
+            v52 = v23;
             p_buf = &buf;
-            v54 = accountCopy;
-            v55 = connectionCopy;
-            v56 = v27;
-            v59 = &v66;
+            v53 = accountCopy;
+            v54 = connectionCopy;
+            v55 = v27;
+            v58 = &v65;
             v32 = v31;
-            v57 = v32;
-            [(MBCKManager *)self _cancelBackupAndScanEnginesWithAccount:v54 timeout:60 completion:v50];
+            v56 = v32;
+            [(MBCKManager *)self _cancelBackupAndScanEnginesWithAccount:v53 timeout:60 completion:v49];
             MBGroupWaitForever();
           }
 
@@ -3861,25 +4319,25 @@ LABEL_19:
             block[1] = 3221225472;
             block[2] = sub_10009ED60;
             block[3] = &unk_1003BDA00;
-            v45 = v27;
-            v46 = v23;
-            v47 = v18;
-            v48 = &buf;
-            v49 = &v66;
+            v44 = v27;
+            v45 = v23;
+            v46 = v18;
+            v47 = &buf;
+            v48 = &v65;
             dispatch_sync(stateQueue, block);
 
-            v32 = v45;
+            v32 = v44;
           }
 
-          if (*(*(&v66 + 1) + 24) == 1)
+          if (*(*(&v65 + 1) + 24) == 1)
           {
             v36 = MBGetDefaultLog();
             if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
             {
-              *v62 = 138543362;
-              v63 = v15;
-              _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Deleted all backups for %{public}@", v62, 0xCu);
-              _MBLog();
+              *v61 = 138543362;
+              v62 = v15;
+              _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Deleted all backups for %{public}@", v61, 0xCu);
+              _MBLog(@"Df", "Deleted all backups for %{public}@", v15);
             }
           }
 
@@ -3889,17 +4347,16 @@ LABEL_19:
             if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
               v37 = *(*(&buf + 1) + 40);
-              *v62 = 138543618;
-              v63 = v15;
-              v64 = 2112;
-              v65 = v37;
-              _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "Failed to delete all backups for %{public}@: %@", v62, 0x16u);
-              v39 = *(*(&buf + 1) + 40);
-              _MBLog();
+              *v61 = 138543618;
+              v62 = v15;
+              v63 = 2112;
+              v64 = v37;
+              _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "Failed to delete all backups for %{public}@: %@", v61, 0x16u);
+              _MBLog(@"E ", "Failed to delete all backups for %{public}@: %@", v15, *(*(&buf + 1) + 40));
             }
           }
 
-          if (*(*(&v66 + 1) + 24))
+          if (*(*(&v65 + 1) + 24))
           {
             v33 = 1;
           }
@@ -3907,10 +4364,10 @@ LABEL_19:
           else
           {
             *error = *(*(&buf + 1) + 40);
-            v33 = *(*(&v66 + 1) + 24);
+            v33 = *(*(&v65 + 1) + 24);
           }
 
-          _Block_object_dispose(&v66, 8);
+          _Block_object_dispose(&v65, 8);
         }
 
         else
@@ -3918,10 +4375,10 @@ LABEL_19:
           v34 = MBGetDefaultLog();
           if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
           {
-            LODWORD(v66) = 138412290;
-            *(&v66 + 4) = v18;
-            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Couldn't find the device record for %@", &v66, 0xCu);
-            _MBLog();
+            LODWORD(v65) = 138412290;
+            *(&v65 + 4) = v18;
+            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Couldn't find the device record for %@", &v65, 0xCu);
+            _MBLog(@"Df", "Couldn't find the device record for %@", v18);
           }
 
           v33 = 1;
@@ -3983,7 +4440,7 @@ LABEL_19:
         *buf = 138412290;
         v25 = v21;
         _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Synchronized to %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"I ", "Synchronized to %@", v21);
       }
     }
 
@@ -3999,6 +4456,103 @@ LABEL_19:
   }
 
   return v21;
+}
+
+- (BOOL)clearPendingSnapshotForBackupUUID:(id)d enabledState:(BOOL)state account:(id)account error:(id *)error
+{
+  stateCopy = state;
+  dCopy = d;
+  accountCopy = account;
+  v12 = MBGetDefaultLog();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543618;
+    v27 = dCopy;
+    v28 = 1024;
+    v29 = stateCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Removing the pending snapshot from the device record for device %{public}@, enabledState:%d", buf, 0x12u);
+    _MBLog(@"Df", "Removing the pending snapshot from the device record for device %{public}@, enabledState:%d", dCopy, stateCopy);
+  }
+
+  v13 = +[MBCKOperationPolicy expensiveCellularPolicy];
+  databaseManager = [(MBCKManager *)self databaseManager];
+  v15 = [MBCKOperationTracker operationTrackerWithAccount:accountCopy databaseManager:databaseManager policy:v13 error:error];
+
+  if (v15)
+  {
+    v16 = [v13 operationGroupWithName:@"accountChanged" processName:0];
+    [v15 setCkOperationGroup:v16];
+
+    v17 = [(MBCKManager *)self openCacheWithAccount:accountCopy accessType:1 error:error];
+    if (!v17)
+    {
+      v23 = 0;
+LABEL_24:
+
+      goto LABEL_25;
+    }
+
+    v18 = [MBCKAccount fetchAccountWithOperationTracker:v15 cache:v17 error:error];
+    v19 = v18;
+    if (!v18 || ![v18 fetchDevicesWithOperationTracker:v15 error:error])
+    {
+      v23 = 0;
+LABEL_23:
+
+      goto LABEL_24;
+    }
+
+    v20 = MBDeviceUUID();
+    v21 = [v19 deviceForUUID:v20];
+
+    if (v21 && [v21 pendingSnapshotQuotaReserved])
+    {
+      [v21 clearPendingSnapshotFieldsAndRebuildFileChanges:1];
+      backupEnabled = [v21 backupEnabled];
+      if (backupEnabled == stateCopy)
+      {
+        goto LABEL_16;
+      }
+    }
+
+    else
+    {
+      backupEnabled = [v21 backupEnabled];
+      if (backupEnabled == stateCopy)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    [v21 setBackupEnabled:stateCopy];
+LABEL_16:
+    if (([v21 saveWithOperationTracker:v15 error:error] & 1) == 0)
+    {
+      [v21 setBackupEnabled:backupEnabled];
+      v23 = 0;
+      goto LABEL_22;
+    }
+
+    v24 = MBGetDefaultLog();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      v27 = dCopy;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Removed the pending snapshot for device %{public}@", buf, 0xCu);
+      _MBLog(@"Df", "Removed the pending snapshot for device %{public}@", dCopy);
+    }
+
+LABEL_20:
+    v23 = 1;
+LABEL_22:
+
+    goto LABEL_23;
+  }
+
+  v23 = 0;
+LABEL_25:
+
+  return v23;
 }
 
 - (id)backgroundRestoreInfoWithAccount:(id)account
@@ -4053,7 +4607,7 @@ LABEL_19:
     {
       *v14 = 0;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Background restore progress monitor is not running", v14, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Background restore progress monitor is not running");
     }
 
     v11 = 0;
@@ -4100,7 +4654,7 @@ LABEL_19:
     *buf = 138543362;
     v10 = dictionaryRepresentation;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Saved foreground restore cellular access: %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Saved foreground restore cellular access: %{public}@", dictionaryRepresentation);
   }
 }
 
@@ -4127,22 +4681,22 @@ LABEL_19:
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Saved background restore cellular access for account %@ %{public}@", buf, 0x16u);
 
       accountIdentifier2 = [accountCopy accountIdentifier];
-      _MBLog();
+      _MBLog(@"Df", "Saved background restore cellular access for account %@ %{public}@", accountIdentifier2, dictionaryRepresentation);
     }
 
-    v16 = MBGetDefaultLog();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-    v18 = kMBBackgroundRestoreCellularAccessChangedNotification;
-    if (v17)
+    v17 = MBGetDefaultLog();
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+    v19 = kMBBackgroundRestoreCellularAccessChangedNotification;
+    if (v18)
     {
       *buf = 138543362;
       v26 = kMBBackgroundRestoreCellularAccessChangedNotification;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Posting %{public}@", buf, 0xCu);
-      _MBLog();
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Posting %{public}@", buf, 0xCu);
+      _MBLog(@"Df", "Posting %{public}@", v19);
     }
 
-    v19 = +[MBNotificationCenter sharedNotificationCenter];
-    [v19 postNotification:v18];
+    v20 = +[MBNotificationCenter sharedNotificationCenter];
+    [v20 postNotification:v19];
 
     v22[0] = _NSConcreteStackBlock;
     v22[1] = 3221225472;
@@ -4165,7 +4719,7 @@ LABEL_19:
     *buf = 138543362;
     v8 = v4;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "Fetched background restore cellular access: %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Db", "Fetched background restore cellular access: %{public}@", v4);
   }
 
   return v4;
@@ -4266,7 +4820,7 @@ LABEL_19:
       v55 = 1024;
       v56 = batchCopy;
       _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "=atc= Requesting restore of: %@ [%d]", buf, 0x12u);
-      _MBLog();
+      _MBLog(@"Df", "=atc= Requesting restore of: %@ [%d]", pathCopy, batchCopy);
     }
 
     backupUDID = [v41[5] backupUDID];
@@ -4306,7 +4860,7 @@ LABEL_19:
     {
       *v46 = 0;
       _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Restore power budget exhausted. Refusing restore request.", v46, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Restore power budget exhausted. Refusing restore request.");
     }
 
     [(MBCKManager *)self _warnUserOfPowerBudgetSuspendingRestoreForAccount:v14];
@@ -4384,8 +4938,7 @@ LABEL_19:
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "=atc= Requesting restore of %ld files", buf, 0xCu);
       }
 
-      [pathsCopy count];
-      _MBLog();
+      _MBLog(@"Df", "=atc= Requesting restore of %ld files", [pathsCopy count]);
     }
 
     backupUDID = [v47[5] backupUDID];
@@ -4410,7 +4963,7 @@ LABEL_19:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Restore power budget exhausted. Refusing restore request.", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Restore power budget exhausted. Refusing restore request.");
     }
 
     [(MBCKManager *)self _warnUserOfPowerBudgetSuspendingRestoreForAccount:v13];
@@ -4535,7 +5088,7 @@ LABEL_19:
         v56 = 2112;
         v57 = pathCopy;
         _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "Restoring %llu/%llu books files with absolutePath: %@", buf, 0x20u);
-        _MBLog();
+        _MBLog(@"I ", "Restoring %llu/%llu books files with absolutePath: %@", &v35[-v23], v35, pathCopy);
       }
 
       v30 = [(MBCKManager *)self restoreFilesWithPaths:serviceDelegate context:contextCopy account:v11 error:error];
@@ -4550,7 +5103,7 @@ LABEL_19:
         *buf = 138412290;
         v53 = pathCopy;
         _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "Restore for book at %@ has no pending restore files", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Restore for book at %@ has no pending restore files", pathCopy);
       }
 
       v32 = [MBError errorWithCode:4 path:pathCopy format:@"No pending restore files found"];
@@ -4595,50 +5148,48 @@ LABEL_19:
     *&buf[12] = 1024;
     *&buf[14] = isDataSeparatedPersona;
     _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Starting background restore for %@ (%d)", buf, 0x12u);
-    v35 = dCopy;
-    v36 = isDataSeparatedPersona;
-    _MBLog();
+    _MBLog(@"Df", "Starting background restore for %@ (%d)", dCopy, isDataSeparatedPersona);
   }
 
   [(MBCKManager *)self _waitForRestoreConditions:v15];
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v56 = sub_100093324;
-  v57 = sub_100093334;
-  v58 = 0;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x3032000000;
-  v48 = sub_100093324;
-  v49 = sub_100093334;
-  v50 = 0;
+  v54 = sub_100093324;
+  v55 = sub_100093334;
+  v56 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = sub_100093324;
+  v47 = sub_100093334;
+  v48 = 0;
   stateQueue = self->_stateQueue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000A1758;
   block[3] = &unk_1003BD340;
-  v43 = buf;
-  v37 = v18;
-  v42 = v37;
-  v44 = &v45;
+  v41 = buf;
+  v35 = v18;
+  v40 = v35;
+  v42 = &v43;
   dispatch_sync(stateQueue, block);
   if (!qosCopy || [qosCopy integerValue] == 25 || objc_msgSend(qosCopy, "integerValue") == 33 || -[MBCKManager isPowerBudgetAvailableForRestore](self, "isPowerBudgetAvailableForRestore"))
   {
-    v21 = [_TtC7backupd20AppRestoreDispatcher shared:v35];
+    v21 = +[_TtC7backupd20AppRestoreDispatcher shared];
     v22 = [v21 appRestorerForAccount:v15 stateQueue:self->_stateQueue delegate:self error:0];
 
     if (v22)
     {
-      v40 = 0;
-      v23 = [v22 setUpDataPromiseForBundleID:dCopy error:&v40];
-      v24 = v40;
+      v38 = 0;
+      v23 = [v22 setUpDataPromiseForBundleID:dCopy error:&v38];
+      v24 = v38;
       if (v23)
       {
         backupUDID = [*(*&buf[8] + 40) backupUDID];
         v26 = [(MBCKManager *)self _ckSettingsContextForRestoreWithDeviceUUID:backupUDID account:v15 delegateContext:contextCopy];
 
-        [v26 setLockManager:v46[5]];
+        [v26 setLockManager:v44[5]];
         [v26 setQos:qosCopy];
         [v26 setSnapshotID:{objc_msgSend(*(*&buf[8] + 40), "snapshotID")}];
         snapshotUUID = [*(*&buf[8] + 40) snapshotUUID];
@@ -4665,12 +5216,12 @@ LABEL_19:
         v30 = MBGetDefaultLog();
         if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          *v51 = 138412546;
-          v52 = dCopy;
-          v53 = 2112;
-          v54 = v24;
-          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Failed to setup data promise for %@: %@", v51, 0x16u);
-          _MBLog();
+          *v49 = 138412546;
+          v50 = dCopy;
+          v51 = 2112;
+          v52 = v24;
+          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Failed to setup data promise for %@: %@", v49, 0x16u);
+          _MBLog(@"E ", "Failed to setup data promise for %@: %@", dCopy, v24);
         }
 
         if (error)
@@ -4692,12 +5243,12 @@ LABEL_19:
       v28 = MBGetDefaultLog();
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        *v51 = 138412546;
-        v52 = v15;
-        v53 = 2112;
-        v54 = dCopy;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Failed to find the app restore manager for %@ while trying to restore %@", v51, 0x16u);
-        _MBLog();
+        *v49 = 138412546;
+        v50 = v15;
+        v51 = 2112;
+        v52 = dCopy;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Failed to find the app restore manager for %@ while trying to restore %@", v49, 0x16u);
+        _MBLog(@"E ", "Failed to find the app restore manager for %@ while trying to restore %@", v15, dCopy);
       }
 
       if (error)
@@ -4718,9 +5269,9 @@ LABEL_19:
     v34 = MBGetDefaultLog();
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      *v51 = 0;
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Restore power budget exhausted. Refusing restore request.", v51, 2u);
-      _MBLog();
+      *v49 = 0;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Restore power budget exhausted. Refusing restore request.", v49, 2u);
+      _MBLog(@"Df", "Restore power budget exhausted. Refusing restore request.");
     }
 
     [(MBCKManager *)self _warnUserOfPowerBudgetSuspendingRestoreForAccount:v15];
@@ -4736,7 +5287,7 @@ LABEL_19:
     }
   }
 
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v43, 8);
   _Block_object_dispose(buf, 8);
 
   return v29;
@@ -4903,7 +5454,7 @@ LABEL_19:
     __assert_rtn("[MBCKManager startRestoreForSnapshot:options:account:connection:error:]", "MBCKManager.m", 2505, "snapshotIdentifier");
   }
 
-  v47 = [(MBPersonaStateManager *)self->_personaState objectForKeyedSubscript:accountCopy];
+  v46 = [(MBPersonaStateManager *)self->_personaState objectForKeyedSubscript:accountCopy];
   if ([(MBCKManager *)self _isRestoreOnCellularSupported])
   {
     cellularAccess = [optionsCopy cellularAccess];
@@ -4916,7 +5467,7 @@ LABEL_19:
 
   v14 = objc_opt_new();
   [v14 setQualityOfService:25];
-  v48 = cellularAccess;
+  v47 = cellularAccess;
   [v14 setCellularAccess:cellularAccess];
   databaseManager = [(MBCKManager *)self databaseManager];
   v16 = [MBCKOperationTracker operationTrackerWithAccount:accountCopy databaseManager:databaseManager policy:v14 error:error];
@@ -4934,21 +5485,20 @@ LABEL_19:
     {
       +[MBServiceRestoreMode foregroundRestoreMode];
     }
-    v44 = ;
+    v43 = ;
     v18 = [MBEngine stringForRestoreType:1];
     capitalizedString = [v18 capitalizedString];
 
-    v42 = [[NSString alloc] initWithFormat:@"%@ Restore", capitalizedString];
-    v46 = [v14 operationGroupWithName:?];
-    [v16 setCkOperationGroup:v46];
+    v41 = [[NSString alloc] initWithFormat:@"%@ Restore", capitalizedString];
+    v45 = [v14 operationGroupWithName:?];
+    [v16 setCkOperationGroup:v45];
     v19 = MBGetDefaultLog();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       *&buf[4] = snapshotCopy;
       _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Received snapshot identifier:%@", buf, 0xCu);
-      v39 = snapshotCopy;
-      _MBLog();
+      _MBLog(@"Df", "Received snapshot identifier:%@", snapshotCopy);
     }
 
     backupUDID = [snapshotCopy backupUDID];
@@ -5003,18 +5553,18 @@ LABEL_34:
         *&buf[12] = 2112;
         *&buf[14] = snapshotUUID;
         *&buf[22] = 2048;
-        v74 = snapshotID2;
-        *v75 = 2114;
-        *&v75[2] = optionsCopy;
-        *&v75[10] = 2114;
-        *&v75[12] = accountIdentifier;
-        v76 = 2114;
-        v77 = personaIdentifier;
+        v73 = snapshotID2;
+        *v74 = 2114;
+        *&v74[2] = optionsCopy;
+        *&v74[10] = 2114;
+        *&v74[12] = accountIdentifier;
+        v75 = 2114;
+        v76 = personaIdentifier;
         _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Starting EDS restore for backupUUID:%@, snapshotUUID:%@, snapshotID:%lu, options:%{public}@, account:%{public}@(%{public}@)", buf, 0x3Eu);
 
         accountIdentifier2 = [accountCopy accountIdentifier];
         personaIdentifier2 = [persona personaIdentifier];
-        _MBLog();
+        _MBLog(@"Df", "Starting EDS restore for backupUUID:%@, snapshotUUID:%@, snapshotID:%lu, options:%{public}@, account:%{public}@(%{public}@)", backupUDID3, snapshotUUID, snapshotID2, optionsCopy, accountIdentifier2, personaIdentifier2);
       }
     }
 
@@ -5025,11 +5575,11 @@ LABEL_34:
       *&buf[12] = 2112;
       *&buf[14] = snapshotUUID;
       *&buf[22] = 2048;
-      v74 = snapshotID2;
-      *v75 = 2114;
-      *&v75[2] = optionsCopy;
+      v73 = snapshotID2;
+      *v74 = 2114;
+      *&v74[2] = optionsCopy;
       _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Starting restore for backupUUID:%@, snapshotUUID:%@, snapshotID:%lu, options:%{public}@", buf, 0x2Au);
-      _MBLog();
+      _MBLog(@"Df", "Starting restore for backupUUID:%@, snapshotUUID:%@, snapshotID:%lu, options:%{public}@", backupUDID3, snapshotUUID, snapshotID2, optionsCopy);
     }
 
     if (!backupUDID3)
@@ -5042,42 +5592,42 @@ LABEL_34:
       __assert_rtn("[MBCKManager startRestoreForSnapshot:options:account:connection:error:]", "MBCKManager.m", 2553, "snapshotUUID");
     }
 
-    [(MBCKManager *)self _saveForegroundRestoreCellularAccess:v48 account:accountCopy];
+    [(MBCKManager *)self _saveForegroundRestoreCellularAccess:v47 account:accountCopy];
     [persona setPreferencesValue:backupUDID3 forKey:@"MegaBackupSourceDeviceUUID"];
-    v69 = 0;
-    v70 = &v69;
-    v71 = 0x2020000000;
-    v72 = 0;
+    v68 = 0;
+    v69 = &v68;
+    v70 = 0x2020000000;
+    v71 = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v74 = sub_100093324;
-    *v75 = sub_100093334;
-    *&v75[8] = 0;
+    v73 = sub_100093324;
+    *v74 = sub_100093334;
+    *&v74[8] = 0;
     stateQueue = self->_stateQueue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000A2A60;
     block[3] = &unk_1003BD390;
-    v54 = v47;
-    v66 = buf;
-    v55 = accountCopy;
-    v36 = backupUDID3;
-    v56 = v36;
+    v53 = v46;
+    v65 = buf;
+    v54 = accountCopy;
+    v37 = backupUDID3;
+    v55 = v37;
     selfCopy = self;
-    v58 = v46;
-    v37 = snapshotUUID;
-    v59 = v37;
-    v68 = snapshotID2;
-    v60 = v44;
-    v61 = persona;
-    v62 = optionsCopy;
-    v63 = v14;
-    v64 = v16;
-    v65 = connectionCopy;
-    v67 = &v69;
+    v57 = v45;
+    v38 = snapshotUUID;
+    v58 = v38;
+    v67 = snapshotID2;
+    v59 = v43;
+    v60 = persona;
+    v61 = optionsCopy;
+    v62 = v14;
+    v63 = v16;
+    v64 = connectionCopy;
+    v66 = &v68;
     dispatch_sync(stateQueue, block);
-    if (v70[3])
+    if (v69[3])
     {
       v17 = 1;
     }
@@ -5092,7 +5642,7 @@ LABEL_34:
       if (error)
       {
         *error = [(MBCKManager *)self _sanitizeError:?];
-        v17 = *(v70 + 24);
+        v17 = *(v69 + 24);
       }
 
       else
@@ -5102,7 +5652,7 @@ LABEL_34:
     }
 
     _Block_object_dispose(buf, 8);
-    _Block_object_dispose(&v69, 8);
+    _Block_object_dispose(&v68, 8);
 
     goto LABEL_34;
   }
@@ -5135,22 +5685,21 @@ LABEL_35:
     {
       restorePlan = [v11 restorePlan];
       *buf = 138412290;
-      v22 = restorePlan;
+      v21 = restorePlan;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Set up new restore plan: %@", buf, 0xCu);
 
       restorePlan2 = [v11 restorePlan];
-      _MBLog();
+      _MBLog(@"Df", "Set up new restore plan: %@", restorePlan2);
     }
   }
 
   else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    v17 = *error;
+    v18 = *error;
     *buf = 138412290;
-    v22 = v17;
+    v21 = v18;
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to set up new restore plan: %@", buf, 0xCu);
-    v20 = *error;
-    _MBLog();
+    _MBLog(@"E ", "Failed to set up new restore plan: %@", *error);
   }
 
   return v13;
@@ -5189,37 +5738,37 @@ LABEL_35:
     dispatch_once(&qword_100421688, &stru_1003BD3B0);
   }
 
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = sub_100093324;
-  v50 = sub_100093334;
-  v51 = 0;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = sub_100093324;
-  v44 = sub_100093334;
   v45 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = sub_100093324;
+  v49 = sub_100093334;
+  v50 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = sub_100093324;
+  v43 = sub_100093334;
+  v44 = 0;
   v17 = qword_100421680;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000A36D4;
   block[3] = &unk_1003BD3D8;
   block[4] = self;
-  v37 = &v46;
+  v36 = &v45;
   v18 = v16;
-  v33 = v18;
+  v32 = v18;
   restoreCopy = restore;
   v19 = dCopy;
-  v34 = v19;
+  v33 = v19;
   v20 = trackerCopy;
-  v35 = v20;
+  v34 = v20;
   v21 = cacheCopy;
-  v36 = v21;
-  v38 = &v40;
+  v35 = v21;
+  v37 = &v39;
   dispatch_sync(v17, block);
-  v22 = v47[5];
+  v22 = v46[5];
   if (v22)
   {
     deviceUUID = [v22 deviceUUID];
@@ -5230,14 +5779,14 @@ LABEL_35:
       goto LABEL_23;
     }
 
-    v24 = v47[5];
+    v24 = v46[5];
     if (v24)
     {
       goto LABEL_14;
     }
   }
 
-  if (!v41[5])
+  if (!v40[5])
   {
     v29 = "device || fetchError";
     v30 = 2717;
@@ -5248,21 +5797,20 @@ LABEL_23:
   v25 = MBGetDefaultLog();
   if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
-    v26 = v41[5];
+    v26 = v40[5];
     *buf = 138412290;
-    v53 = v26;
+    v52 = v26;
     _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Failed to fetch device for restore %@", buf, 0xCu);
-    v31 = v41[5];
-    _MBLog();
+    _MBLog(@"E ", "Failed to fetch device for restore %@", v40[5]);
   }
 
-  *error = v41[5];
-  v24 = v47[5];
+  *error = v40[5];
+  v24 = v46[5];
 LABEL_14:
   v27 = v24;
 
-  _Block_object_dispose(&v40, 8);
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v45, 8);
 
   return v27;
 }
@@ -5301,7 +5849,7 @@ LABEL_14:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Not running restore as requested by delegate context", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Not running restore as requested by delegate context");
     }
 
     stateQueue = self->_stateQueue;
@@ -5309,16 +5857,16 @@ LABEL_14:
     block[1] = 3221225472;
     block[2] = sub_1000A4500;
     block[3] = &unk_1003BC0B0;
-    v59 = v10;
+    v57 = v10;
     dispatch_async(stateQueue, block);
-    v15 = v59;
+    v15 = v57;
   }
 
   else
   {
     restoreType = [engineCopy restoreType];
     [engineCopy qualityOfService];
-    v44 = MBLogStringForNSQualityOfService();
+    v42 = MBLogStringForNSQualityOfService();
     v17 = MBGetDefaultLog();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
@@ -5335,11 +5883,9 @@ LABEL_14:
       *buf = 136446466;
       *&buf[4] = v18;
       *&buf[12] = 2114;
-      *&buf[14] = v44;
+      *&buf[14] = v42;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Starting %{public}s restore, qos:%{public}@", buf, 0x16u);
-      v39 = v18;
-      v40 = v44;
-      _MBLog();
+      _MBLog(@"Df", "Starting %{public}s restore, qos:%{public}@", v18, v42);
     }
 
     isPrimaryAccount = [account isPrimaryAccount];
@@ -5366,10 +5912,10 @@ LABEL_14:
         [persona4 setPreferencesValue:v28 forKey:@"RestoreAfterMegaBackupDateDelta"];
       }
 
-      [(MBCKManager *)self submitMegaLifeCycleTelemetriesWithAccount:account, v39, v40];
+      [(MBCKManager *)self submitMegaLifeCycleTelemetriesWithAccount:account];
     }
 
-    v29 = [(MBCKManager *)self _startNetworkPathMonitor:v39];
+    _startNetworkPathMonitor = [(MBCKManager *)self _startNetworkPathMonitor];
     estimator = [engineCopy estimator];
     v31 = estimator;
     if (isForeground)
@@ -5383,33 +5929,33 @@ LABEL_14:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v61 = 0;
-    v46[0] = _NSConcreteStackBlock;
-    v46[1] = 3221225472;
-    v46[2] = sub_1000A4558;
-    v46[3] = &unk_1003BD450;
-    v46[4] = self;
-    v55 = isForeground;
+    v59 = 0;
+    v44[0] = _NSConcreteStackBlock;
+    v44[1] = 3221225472;
+    v44[2] = sub_1000A4558;
+    v44[3] = &unk_1003BD450;
+    v44[4] = self;
+    v53 = isForeground;
     v34 = restore;
-    v47 = v34;
+    v45 = v34;
     v35 = contextCopy;
-    v48 = v35;
-    v49 = v8;
-    v54 = buf;
+    v46 = v35;
+    v47 = v8;
+    v52 = buf;
     v36 = v31;
-    v50 = v36;
-    v56 = isDataSeparatedPersona;
-    v51 = v10;
-    v52 = account;
+    v48 = v36;
+    v54 = isDataSeparatedPersona;
+    v49 = v10;
+    v50 = account;
     v37 = engineCopy;
-    v53 = v37;
-    v57 = isPrimaryAccount;
-    v38 = objc_retainBlock(v46);
+    v51 = v37;
+    v55 = isPrimaryAccount;
+    v38 = objc_retainBlock(v44);
     [v37 setStateChange:v38];
     [(MBCKManager *)self _startEngine:v37 delegateContext:v35];
 
     _Block_object_dispose(buf, 8);
-    v15 = v44;
+    v15 = v42;
   }
 }
 
@@ -5468,7 +6014,7 @@ LABEL_14:
   databaseManager = [(MBCKManager *)self databaseManager];
   v12 = [MBCKOperationTracker operationTrackerWithAccount:accountCopy databaseManager:databaseManager policy:v10 error:error];
 
-  v40 = v12;
+  v38 = v12;
   if (v12)
   {
     processName = [connectionCopy processName];
@@ -5476,77 +6022,75 @@ LABEL_14:
     [v12 setCkOperationGroup:v14];
 
     v15 = MBDeviceClass();
-    v39 = MBDeviceUUID();
+    v37 = MBDeviceUUID();
     v16 = MBGetDefaultLog();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v59 = v39;
-      v60 = 2112;
-      v61 = v15;
+      v57 = v37;
+      v58 = 2112;
+      v59 = v15;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Current uuid:%@ class:%@", buf, 0x16u);
-      v34 = v39;
-      v35 = v15;
-      _MBLog();
+      _MBLog(@"Df", "Current uuid:%@ class:%@", v37, v15);
     }
 
     v17 = [(MBCKManager *)self _getBackupListWithOperationTracker:v12 shouldFilter:1 error:error];
     if (v17)
     {
-      v37 = connectionCopy;
-      v38 = accountCopy;
+      v35 = connectionCopy;
+      v36 = accountCopy;
       v12 = objc_opt_new();
+      v50 = 0u;
+      v51 = 0u;
       v52 = 0u;
       v53 = 0u;
-      v54 = 0u;
-      v55 = 0u;
-      v36 = v17;
+      v34 = v17;
       obj = v17;
-      v18 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+      v18 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v53;
-        v41 = *v53;
-        v42 = v15;
+        v20 = *v51;
+        v39 = *v51;
+        v40 = v15;
         do
         {
           v21 = 0;
-          v43 = v19;
+          v41 = v19;
           do
           {
-            if (*v53 != v20)
+            if (*v51 != v20)
             {
               objc_enumerationMutation(obj);
             }
 
-            v45 = v21;
-            v22 = *(*(&v52 + 1) + 8 * v21);
+            v43 = v21;
+            v22 = *(*(&v50 + 1) + 8 * v21);
             deviceClass = [v22 deviceClass];
             v24 = [deviceClass isEqualToString:v15];
 
             if (v24)
             {
-              v50 = 0u;
-              v51 = 0u;
               v48 = 0u;
               v49 = 0u;
+              v46 = 0u;
+              v47 = 0u;
               snapshots = [v22 snapshots];
-              v26 = [snapshots countByEnumeratingWithState:&v48 objects:v56 count:16];
+              v26 = [snapshots countByEnumeratingWithState:&v46 objects:v54 count:16];
               if (v26)
               {
                 v27 = v26;
-                v28 = *v49;
+                v28 = *v47;
                 do
                 {
                   for (i = 0; i != v27; i = i + 1)
                   {
-                    if (*v49 != v28)
+                    if (*v47 != v28)
                     {
                       objc_enumerationMutation(snapshots);
                     }
 
-                    v30 = *(*(&v48 + 1) + 8 * i);
+                    v30 = *(*(&v46 + 1) + 8 * i);
                     if ([v30 isCompatible])
                     {
                       [v12 addObject:v30];
@@ -5558,21 +6102,20 @@ LABEL_14:
                       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
                       {
                         *buf = 138412290;
-                        v59 = v30;
+                        v57 = v30;
                         _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Excluding %@", buf, 0xCu);
-                        v34 = v30;
-                        _MBLog();
+                        _MBLog(@"Df", "Excluding %@", v30);
                       }
                     }
                   }
 
-                  v27 = [snapshots countByEnumeratingWithState:&v48 objects:v56 count:16];
+                  v27 = [snapshots countByEnumeratingWithState:&v46 objects:v54 count:16];
                 }
 
                 while (v27);
-                v20 = v41;
-                v15 = v42;
-                v19 = v43;
+                v20 = v39;
+                v15 = v40;
+                v19 = v41;
               }
             }
 
@@ -5582,40 +6125,39 @@ LABEL_14:
               if (os_log_type_enabled(snapshots, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v59 = v22;
+                v57 = v22;
                 _os_log_impl(&_mh_execute_header, snapshots, OS_LOG_TYPE_DEFAULT, "Excluding %@", buf, 0xCu);
-                v34 = v22;
-                _MBLog();
+                _MBLog(@"Df", "Excluding %@", v22);
               }
             }
 
-            v21 = v45 + 1;
+            v21 = v43 + 1;
           }
 
-          while ((v45 + 1) != v19);
-          v19 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+          while ((v43 + 1) != v19);
+          v19 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
         }
 
         while (v19);
       }
 
-      v46[0] = _NSConcreteStackBlock;
-      v46[1] = 3221225472;
-      v46[2] = sub_1000A610C;
-      v46[3] = &unk_1003BD4A0;
-      v32 = v39;
-      v47 = v39;
-      [v12 sortUsingComparator:v46];
+      v44[0] = _NSConcreteStackBlock;
+      v44[1] = 3221225472;
+      v44[2] = sub_1000A610C;
+      v44[3] = &unk_1003BD4A0;
+      v32 = v37;
+      v45 = v37;
+      [v12 sortUsingComparator:v44];
 
-      connectionCopy = v37;
-      accountCopy = v38;
-      v17 = v36;
+      connectionCopy = v35;
+      accountCopy = v36;
+      v17 = v34;
     }
 
     else
     {
       v12 = 0;
-      v32 = v39;
+      v32 = v37;
     }
   }
 
@@ -5679,10 +6221,10 @@ LABEL_14:
 
     accountIdentifier2 = [v7 accountIdentifier];
     personaIdentifier2 = [v9 personaIdentifier];
-    _MBLog();
+    _MBLog(@"Df", "Finishing restore for account %{public}@(%{public}@) (%d)", accountIdentifier2, personaIdentifier2, cancelledCopy);
   }
 
-  v19 = self->_stateQueue;
+  v20 = self->_stateQueue;
   v25[0] = _NSConcreteStackBlock;
   v25[1] = 3221225472;
   v25[2] = sub_1000A65FC;
@@ -5693,10 +6235,10 @@ LABEL_14:
   v28 = v7;
   v29 = v9;
   v31 = isDataSeparatedPersona;
-  v20 = v9;
-  v21 = v7;
-  v22 = v13;
-  dispatch_sync(v19, v25);
+  v21 = v9;
+  v22 = v7;
+  v23 = v13;
+  dispatch_sync(v20, v25);
 
   _Block_object_dispose(v35, 8);
 }
@@ -5710,7 +6252,7 @@ LABEL_14:
     {
       *v6 = 0;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "AirTraffic finished restoring", v6, 2u);
-      _MBLog();
+      _MBLog(@"Df", "AirTraffic finished restoring");
     }
 
     account = [(MBServiceManager *)self account];
@@ -5738,7 +6280,7 @@ LABEL_14:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Can't finish restore until mini-buddy is done", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Can't finish restore until mini-buddy is done");
     }
 
     v8 = dispatch_time(0, 10000000000);
@@ -5768,7 +6310,7 @@ LABEL_14:
   }
 
   v8 = accountCopy;
-  v97 = a2;
+  v88 = a2;
   dispatch_assert_queue_V2(self->_stateQueue);
   isPrimaryAccount = [v8 isPrimaryAccount];
   v10 = [(MBPersonaStateManager *)self->_personaState objectForKeyedSubscript:v8];
@@ -5781,30 +6323,27 @@ LABEL_14:
   v12 = persona;
   serviceState = [v10 serviceState];
   v14 = MBGetDefaultLog();
-  v102 = v12;
+  v93 = v12;
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     accountIdentifier = [v8 accountIdentifier];
     personaIdentifier = [v12 personaIdentifier];
     *buf = 138544130;
     *&buf[4] = accountIdentifier;
-    v120 = 2114;
-    v121 = personaIdentifier;
-    v122 = 1024;
-    v123 = serviceState;
-    v124 = 2080;
+    v111 = 2114;
+    v112 = personaIdentifier;
+    v113 = 1024;
+    v114 = serviceState;
+    v115 = 2080;
     Name = sel_getName(reason);
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Finished restore for account %{public}@/%{public}@ (%d): %s", buf, 0x26u);
 
     accountIdentifier2 = [v8 accountIdentifier];
-    personaIdentifier2 = [v102 personaIdentifier];
-    v87 = serviceState;
-    v88 = sel_getName(reason);
-    v78 = accountIdentifier2;
-    v86 = personaIdentifier2;
-    _MBLog();
+    personaIdentifier2 = [v93 personaIdentifier];
+    v19 = sel_getName(reason);
+    _MBLog(@"Df", "Finished restore for account %{public}@/%{public}@ (%d): %s", accountIdentifier2, personaIdentifier2, serviceState, v19);
 
-    v12 = v102;
+    v12 = v93;
   }
 
   if (serviceState)
@@ -5813,120 +6352,117 @@ LABEL_14:
     restore = [v10 restore];
     restoreSession = [v10 restoreSession];
     [restore setState:4];
-    LODWORD(v21) = 1.0;
-    [restore setProgress:v21];
+    LODWORD(v22) = 1.0;
+    [restore setProgress:v22];
     [restore setIsBackground:1];
     [objc_opt_class() saveRestoreStateInfo:restore account:v8];
     if (isPrimaryAccount)
     {
-      v22 = +[MBNotificationCenter sharedNotificationCenter];
-      [v22 postNotification:kMBManagerRestoreStateChangedNotification ifStateChanged:{-[NSObject state](restore, "state")}];
+      v23 = +[MBNotificationCenter sharedNotificationCenter];
+      [v23 postNotification:kMBManagerRestoreStateChangedNotification ifStateChanged:{-[NSObject state](restore, "state")}];
     }
 
-    [(MBCKManager *)self _alertUserOfFinishedRestoreForAccount:v8, v78, v86, v87, v88];
-    v23 = MBBackgroundRestoreSignpostHandle();
-    if (os_signpost_enabled(v23))
+    [(MBCKManager *)self _alertUserOfFinishedRestoreForAccount:v8];
+    v24 = MBBackgroundRestoreSignpostHandle();
+    if (os_signpost_enabled(v24))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v23, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "BackgroundRestore", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v24, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "BackgroundRestore", "", buf, 2u);
     }
 
     startDate = [restoreSession startDate];
-    if (!startDate)
+    if (startDate)
     {
-      v27 = NAN;
-      goto LABEL_23;
-    }
+      v26 = +[NSDate date];
+      [v26 timeIntervalSinceDate:startDate];
+      v28 = v27;
 
-    v25 = +[NSDate date];
-    [v25 timeIntervalSinceDate:startDate];
-    v27 = v26;
+      if (v28 < 0.0)
+      {
+        v28 = 0.0;
+      }
 
-    if (v27 < 0.0)
-    {
-      v27 = 0.0;
-    }
+      wasCancelled = [restoreSession wasCancelled];
+      v30 = MBGetDefaultLog();
+      v31 = os_log_type_enabled(v30, OS_LOG_TYPE_INFO);
+      if (wasCancelled)
+      {
+        if (v31)
+        {
+          *buf = 134217984;
+          *&buf[4] = v28;
+          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "Restore cancelled after %g seconds", buf, 0xCu);
+          _MBLog(@"I ", "Restore cancelled after %g seconds");
+        }
+      }
 
-    wasCancelled = [restoreSession wasCancelled];
-    v29 = MBGetDefaultLog();
-    v30 = os_log_type_enabled(v29, OS_LOG_TYPE_INFO);
-    if (wasCancelled)
-    {
-      if (v30)
+      else if (v31)
       {
         *buf = 134217984;
-        *&buf[4] = v27;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "Restore cancelled after %g seconds", buf, 0xCu);
-LABEL_21:
-        v79 = v27;
-        _MBLog();
+        *&buf[4] = v28;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "Successful restore took %g seconds", buf, 0xCu);
+        _MBLog(@"I ", "Successful restore took %g seconds");
       }
     }
 
-    else if (v30)
+    else
     {
-      *buf = 134217984;
-      *&buf[4] = v27;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "Successful restore took %g seconds", buf, 0xCu);
-      goto LABEL_21;
+      v28 = NAN;
     }
 
-LABEL_23:
-    v95 = startDate;
-    v118 = 0;
-    v90 = [MBRestoreCloudFormatPolicy snapshotFormatForCurrentRestore:v12, *&v79];
+    v86 = startDate;
+    v109 = 0;
+    v81 = [MBRestoreCloudFormatPolicy snapshotFormatForCurrentRestore:v12];
     if (MBSnapshotFormatContainsFileLists())
     {
-      v117 = 0;
-      v32 = [MBRestoreCloudFormatPolicy isRestoringFromFileLists:&v118 persona:v12 error:&v117];
-      v33 = v117;
-      if ((v32 & 1) == 0)
+      v108 = 0;
+      v33 = [MBRestoreCloudFormatPolicy isRestoringFromFileLists:&v109 persona:v12 error:&v108];
+      v34 = v108;
+      if ((v33 & 1) == 0)
       {
-        v34 = MBGetDefaultLog();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+        v35 = MBGetDefaultLog();
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412290;
-          *&buf[4] = v33;
-          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_FAULT, "Could not determine if restoring using file lists: %@", buf, 0xCu);
-          v80 = v33;
-          _MBLog();
+          *&buf[4] = v34;
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_FAULT, "Could not determine if restoring using file lists: %@", buf, 0xCu);
+          _MBLog(@"F ", "Could not determine if restoring using file lists: %@", v34);
         }
       }
     }
 
-    v101 = v8;
-    v35 = objc_opt_new();
+    v92 = v8;
+    v36 = objc_opt_new();
     restorePlan = [v10 restorePlan];
-    v100 = v10;
-    v92 = restorePlan;
+    v91 = v10;
+    v83 = restorePlan;
     if ([restorePlan isPopulated])
     {
       +[NSMutableSet set];
-      v116 = 0;
-      v113[0] = _NSConcreteStackBlock;
-      v113[1] = 3221225472;
-      v113[2] = sub_1000A8160;
-      v37 = v113[3] = &unk_1003BD4F0;
-      v114 = v37;
-      v115 = v35;
-      v38 = [restorePlan enumerateRestoreFailuresOfType:2 isFatal:1 error:&v116 enumerator:v113];
-      v39 = v116;
-      if ((v38 & 1) == 0)
+      v107 = 0;
+      v104[0] = _NSConcreteStackBlock;
+      v104[1] = 3221225472;
+      v104[2] = sub_1000A8160;
+      v38 = v104[3] = &unk_1003BD4F0;
+      v105 = v38;
+      v106 = v36;
+      v39 = [restorePlan enumerateRestoreFailuresOfType:2 isFatal:1 error:&v107 enumerator:v104];
+      v40 = v107;
+      if ((v39 & 1) == 0)
       {
-        v40 = MBGetDefaultLog();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v41 = MBGetDefaultLog();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          *&buf[4] = v39;
-          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "Failed to fetch fatal restore errors from restore plan %@", buf, 0xCu);
-          v80 = v39;
-          _MBLog();
+          *&buf[4] = v40;
+          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "Failed to fetch fatal restore errors from restore plan %@", buf, 0xCu);
+          _MBLog(@"E ", "Failed to fetch fatal restore errors from restore plan %@", v40);
         }
       }
 
-      if ([v37 count])
+      if ([v38 count])
       {
-        allObjects = [v37 allObjects];
+        allObjects = [v38 allObjects];
       }
 
       else
@@ -5934,55 +6470,55 @@ LABEL_23:
         allObjects = 0;
       }
 
-      v112 = v39;
-      v43 = [restorePlan topDomainsByAssetBytes:5 error:{&v112, v80}];
-      v46 = v112;
+      v103 = v40;
+      v44 = [restorePlan topDomainsByAssetBytes:5 error:&v103];
+      v47 = v103;
 
-      v111 = v46;
-      v48 = restorePlan;
-      v47 = &v111;
-      v98 = [v48 topDomainsByItemCount:5 error:&v111];
+      v102 = v47;
+      v49 = restorePlan;
+      v48 = &v102;
+      v89 = [v49 topDomainsByItemCount:5 error:&v102];
     }
 
     else
     {
-      v110 = 0;
-      v37 = [(MBCKManager *)self openCacheWithAccount:v101 accessType:2 error:&v110];
-      v41 = v110;
-      v42 = v41;
-      if (!v37)
+      v101 = 0;
+      v38 = [(MBCKManager *)self openCacheWithAccount:v92 accessType:2 error:&v101];
+      v42 = v101;
+      v43 = v42;
+      if (!v38)
       {
-        v98 = 0;
+        v89 = 0;
         allObjects = 0;
-        v43 = 0;
-        goto LABEL_41;
+        v44 = 0;
+        goto LABEL_40;
       }
 
-      v109 = v41;
-      v43 = [v37 fetchDomainsWithTopNSizes:5 error:&v109];
-      v44 = restoreSession;
-      v45 = v109;
+      v100 = v42;
+      v44 = [v38 fetchDomainsWithTopNSizes:5 error:&v100];
+      v45 = restoreSession;
+      v46 = v100;
 
-      v108 = v45;
-      v98 = [v37 fetchDomainsWithTopNFileCounts:5 error:&v108];
-      v46 = v108;
+      v99 = v46;
+      v89 = [v38 fetchDomainsWithTopNFileCounts:5 error:&v99];
+      v47 = v99;
 
-      restoreSession = v44;
-      v107 = v46;
-      v47 = &v107;
-      allObjects = [v37 domainNamesForRestoreFailures:&v107];
+      restoreSession = v45;
+      v98 = v47;
+      v48 = &v98;
+      allObjects = [v38 domainNamesForRestoreFailures:&v98];
     }
 
-    v42 = *v47;
+    v43 = *v48;
 
-    v12 = v102;
-LABEL_41:
+    v12 = v93;
+LABEL_40:
 
-    v49 = [MBRestoreCloudFormatPolicy commitIDForCurrentRestore:v12];
-    v50 = v49;
-    if (v49)
+    v50 = [MBRestoreCloudFormatPolicy commitIDForCurrentRestore:v12];
+    v51 = v50;
+    if (v50)
     {
-      snapshotUUID = v49;
+      snapshotUUID = v50;
     }
 
     else
@@ -5990,133 +6526,129 @@ LABEL_41:
       snapshotUUID = [restoreSession snapshotUUID];
     }
 
-    v52 = snapshotUUID;
+    v53 = snapshotUUID;
 
     restoreTelemetryID = [(MBCKManager *)self restoreTelemetryID];
-    v54 = v118;
+    v55 = v109;
     error = [restore error];
-    v89 = v43;
-    v91 = v52;
-    [MBTelemetry sendBackgroundRestoreCompletion:restoreTelemetryID snapshotIdentifier:v52 snapshotFormat:v90 isRestoringUsingFileLists:v54 duration:error error:v35 fatalErrors:v27 domainsTopNSizes:v43 domainsTopNFileCount:v98 failedDomains:allObjects];
+    v80 = v44;
+    v82 = v53;
+    [MBTelemetry sendBackgroundRestoreCompletion:restoreTelemetryID snapshotIdentifier:v53 snapshotFormat:v81 isRestoringUsingFileLists:v55 duration:error error:v36 fatalErrors:v28 domainsTopNSizes:v44 domainsTopNFileCount:v89 failedDomains:allObjects];
 
     selfCopy = self;
     databaseManager = [(MBCKManager *)self databaseManager];
     backupUDID = [restoreSession backupUDID];
     snapshotUUID2 = [restoreSession snapshotUUID];
     snapshotID = [restoreSession snapshotID];
-    v60 = restore;
-    v61 = v118;
-    restorePlan2 = [v100 restorePlan];
-    v93 = v60;
-    error2 = [v60 error];
-    v94 = v35;
-    LOBYTE(v81) = v61;
-    [MBCKStatusRequest sendStatusRequestForBackgroundRestoreCompletionWithAccount:v101 databaseManager:databaseManager sourceDeviceID:backupUDID snapshotUUID:snapshotUUID2 snapshotIndex:snapshotID snapshotFormat:v90 isRestoringUsingFileLists:v27 fatalErrors:v81 plan:v35 duration:restorePlan2 error:error2];
+    v61 = restore;
+    v62 = v109;
+    restorePlan2 = [v91 restorePlan];
+    v84 = v61;
+    error2 = [v61 error];
+    v85 = v36;
+    LOBYTE(v79) = v62;
+    [MBCKStatusRequest sendStatusRequestForBackgroundRestoreCompletionWithAccount:v92 databaseManager:databaseManager sourceDeviceID:backupUDID snapshotUUID:snapshotUUID2 snapshotIndex:snapshotID snapshotFormat:v81 isRestoringUsingFileLists:v28 fatalErrors:v79 plan:v36 duration:restorePlan2 error:error2];
 
-    v64 = +[MBLockdown connect];
-    v106 = 0;
-    LOBYTE(error2) = [v64 setObject:@"RestoredFromiCloudBackup" forDomain:@"com.apple.purplebuddy" andKey:@"SetupState" withError:&v106];
-    v65 = v106;
+    v65 = +[MBLockdown connect];
+    v97 = 0;
+    LOBYTE(error2) = [v65 setObject:@"RestoredFromiCloudBackup" forDomain:@"com.apple.purplebuddy" andKey:@"SetupState" withError:&v97];
+    v66 = v97;
     if ((error2 & 1) == 0)
     {
-      v66 = MBGetDefaultLog();
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+      v67 = MBGetDefaultLog();
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *&buf[4] = v65;
-        _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "Error setting lockdown setup state key: %@", buf, 0xCu);
-        v82 = v65;
-        _MBLog();
+        *&buf[4] = v66;
+        _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "Error setting lockdown setup state key: %@", buf, 0xCu);
+        _MBLog(@"E ", "Error setting lockdown setup state key: %@", v66);
       }
     }
 
-    v105 = v65;
-    v67 = [v64 setObject:@"RestoredFromiCloudBackup" forDomain:@"com.apple.purplebuddy" andKey:@"RestoreState" withError:{&v105, v82}];
-    v68 = v105;
+    v96 = v66;
+    v68 = [v65 setObject:@"RestoredFromiCloudBackup" forDomain:@"com.apple.purplebuddy" andKey:@"RestoreState" withError:&v96];
+    v69 = v96;
 
-    v10 = v100;
-    v8 = v101;
-    v31 = v93;
-    if ((v67 & 1) == 0)
+    v10 = v91;
+    v8 = v92;
+    v32 = v84;
+    if ((v68 & 1) == 0)
     {
-      v69 = MBGetDefaultLog();
-      if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+      v70 = MBGetDefaultLog();
+      if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *&buf[4] = v68;
-        _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_ERROR, "Error setting lockdown restore state key: %@", buf, 0xCu);
-        v83 = v68;
-        _MBLog();
+        *&buf[4] = v69;
+        _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_ERROR, "Error setting lockdown restore state key: %@", buf, 0xCu);
+        _MBLog(@"E ", "Error setting lockdown restore state key: %@", v69);
       }
     }
 
-    v104 = v68;
-    v70 = [v64 removeObjectWithDomain:@"com.apple.mobile.backup" andKey:@"LastCloudBackupDate" withError:{&v104, v83}];
-    v71 = v104;
+    v95 = v69;
+    v71 = [v65 removeObjectWithDomain:@"com.apple.mobile.backup" andKey:@"LastCloudBackupDate" withError:&v95];
+    v72 = v95;
 
-    if ((v70 & 1) == 0)
+    if ((v71 & 1) == 0)
     {
-      v72 = MBGetDefaultLog();
-      if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+      v73 = MBGetDefaultLog();
+      if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *&buf[4] = v71;
-        _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_ERROR, "Failed to remove last backup date from lockdown: %@", buf, 0xCu);
-        v84 = v71;
-        _MBLog();
+        *&buf[4] = v72;
+        _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "Failed to remove last backup date from lockdown: %@", buf, 0xCu);
+        _MBLog(@"E ", "Failed to remove last backup date from lockdown: %@", v72);
       }
     }
 
-    [v64 disconnect];
-    [(MBCKManager *)selfCopy _cancelDelayedBackgroundRestoreTimerWithAccount:v101];
-    [(MBCKManager *)selfCopy _cancelBackgroundRestoreTTRTimerWithAccount:v101];
-    [(MBCKManager *)selfCopy _ckClearRestoreSessionWithAccount:v101];
-    v73 = MBGetDefaultLog();
-    if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+    [v65 disconnect];
+    [(MBCKManager *)selfCopy _cancelDelayedBackgroundRestoreTimerWithAccount:v92];
+    [(MBCKManager *)selfCopy _cancelBackgroundRestoreTTRTimerWithAccount:v92];
+    [(MBCKManager *)selfCopy _ckClearRestoreSessionWithAccount:v92];
+    v74 = MBGetDefaultLog();
+    if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "Resetting the cache since we finished restoring", buf, 2u);
-      _MBLog();
+      _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "Resetting the cache since we finished restoring", buf, 2u);
+      _MBLog(@"Df", "Resetting the cache since we finished restoring");
     }
 
-    v103 = 0;
-    v74 = [(MBCKManager *)selfCopy resetCacheWithAccount:v101 error:&v103];
-    v75 = v103;
-    if ((v74 & 1) == 0)
+    v94 = 0;
+    v75 = [(MBCKManager *)selfCopy resetCacheWithAccount:v92 error:&v94];
+    v76 = v94;
+    if ((v75 & 1) == 0)
     {
-      v76 = MBGetDefaultLog();
-      if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+      v77 = MBGetDefaultLog();
+      if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *&buf[4] = v75;
-        _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_ERROR, "Failed to reset cache after finishing restore: %@", buf, 0xCu);
-        v85 = v75;
-        _MBLog();
+        *&buf[4] = v76;
+        _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_ERROR, "Failed to reset cache after finishing restore: %@", buf, 0xCu);
+        _MBLog(@"E ", "Failed to reset cache after finishing restore: %@", v76);
       }
     }
 
-    v12 = v102;
-    [v102 removeRestorePrefetchCachesOlderThanDate:{0, v85}];
-    if ([v100 isHoldingWorkAssertionForBackgroundRestore])
+    v12 = v93;
+    [v93 removeRestorePrefetchCachesOlderThanDate:0];
+    if ([v91 isHoldingWorkAssertionForBackgroundRestore])
     {
-      v77 = +[MBDaemon sharedDaemon];
-      [v77 releaseWorkAssertion:v97];
+      v78 = +[MBDaemon sharedDaemon];
+      [v78 releaseWorkAssertion:v88];
 
-      [v100 setIsHoldingWorkAssertionForBackgroundRestore:0];
+      [v91 setIsHoldingWorkAssertionForBackgroundRestore:0];
     }
 
-    goto LABEL_65;
+    goto LABEL_64;
   }
 
-  v31 = MBGetDefaultLog();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+  v32 = MBGetDefaultLog();
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
-    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "_finishedRestoreWithAccount called with an invalid service state (%d)", buf, 8u);
-    _MBLog();
+    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "_finishedRestoreWithAccount called with an invalid service state (%d)", buf, 8u);
+    _MBLog(@"E ", "_finishedRestoreWithAccount called with an invalid service state (%d)", 0);
   }
 
-LABEL_65:
+LABEL_64:
 }
 
 - (void)_ckClearRestoreSessionWithAccount:(id)account
@@ -6144,14 +6676,14 @@ LABEL_65:
     accountIdentifier2 = [v5 accountIdentifier];
     persona2 = [v5 persona];
     personaIdentifier2 = [persona2 personaIdentifier];
-    _MBLog();
+    _MBLog(@"Df", "Clearing restore session for account %{public}@(%{public}@)", accountIdentifier2, personaIdentifier2);
   }
 
   deviceForRestore = [v6 deviceForRestore];
   [MBCKEncryptionManager removeRestoreKeyBagsWithAccount:v5 device:deviceForRestore];
   [MBServiceRestoreSession clearCurrentRestoreSessionWithAccount:v5];
-  v14 = +[MBFollowUpManager sharedManager];
-  [v14 clearPendingFollowUpsWithAccount:v5 identifiers:&off_1003E1FD0];
+  v15 = +[MBFollowUpManager sharedManager];
+  [v15 clearPendingFollowUpsWithAccount:v5 identifiers:&off_1003E1FD0];
 
   [v6 clearRestoreSession];
 }
@@ -6274,6 +6806,175 @@ LABEL_65:
   return v16 & 1;
 }
 
+- (id)restoreFilesForDomain:(id)domain relativePath:(id)path pendingOnly:(BOOL)only range:(_NSRange)range account:(id)account error:(id *)error
+{
+  length = range.length;
+  location = range.location;
+  onlyCopy = only;
+  domainCopy = domain;
+  pathCopy = path;
+  accountCopy = account;
+  if (!accountCopy)
+  {
+    __assert_rtn("[MBCKManager restoreFilesForDomain:relativePath:pendingOnly:range:account:error:]", "MBCKManager.m", 3468, "account");
+  }
+
+  v16 = accountCopy;
+  v17 = MBGetDefaultLog();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138413058;
+    v56 = domainCopy;
+    v57 = 1024;
+    *v58 = onlyCopy;
+    *&v58[4] = 2048;
+    *&v58[6] = location;
+    *&v58[14] = 2048;
+    *&v58[16] = length;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "=atc= Listing restore files for domain:%@, pendingOnly:%d range:(%lu, %lu)", buf, 0x26u);
+    _MBLog(@"Df", "=atc= Listing restore files for domain:%@, pendingOnly:%d range:(%lu, %lu)", domainCopy, onlyCopy, location, length);
+  }
+
+  v18 = [MBDomainManager alloc];
+  persona = [v16 persona];
+  v20 = [(MBDomainManager *)v18 initWithPersona:persona];
+
+  v21 = [(MBDomainManager *)v20 domainForName:domainCopy];
+  if (v21)
+  {
+    v43 = [(MBCKManager *)self restorePlanForAccount:v16 snapshotUUID:0 error:0];
+    if ([v43 isPopulated])
+    {
+      v22 = [v43 planForDomain:v21 restoreType:2 error:error];
+      v54 = 0;
+      v23 = [v22 atcFileInfosMatchingRelativePath:pathCopy pendingOnly:onlyCopy range:location error:{length, &v54}];
+      v24 = v54;
+      v25 = v24;
+      if (v23)
+      {
+        v26 = v23;
+      }
+
+      else if (error)
+      {
+        v32 = v24;
+        *error = v25;
+      }
+    }
+
+    else
+    {
+      v25 = [(MBCKManager *)self openCacheWithAccount:v16 accessType:1 error:error];
+      if (v25)
+      {
+        v50 = 0;
+        v51 = &v50;
+        v52 = 0x2020000000;
+        v53 = 0;
+        v27 = objc_opt_new();
+        v45[0] = _NSConcreteStackBlock;
+        v45[1] = 3221225472;
+        v45[2] = sub_1000A9614;
+        v45[3] = &unk_1003BD590;
+        v40 = pathCopy;
+        v46 = v40;
+        v49 = &v50;
+        v41 = v27;
+        v47 = v41;
+        v48 = v21;
+        v42 = objc_retainBlock(v45);
+        if (onlyCopy)
+        {
+          v28 = 11;
+        }
+
+        else
+        {
+          v28 = -1;
+        }
+
+        v29 = [v25 enumerateRestoreFilesForDomain:domainCopy excludingState:v28 foundRestorable:v42 range:{location, length}];
+        if (v29)
+        {
+          v30 = MBGetDefaultLog();
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138412802;
+            v56 = domainCopy;
+            v57 = 2112;
+            *v58 = v40;
+            *&v58[8] = 2112;
+            *&v58[10] = v29;
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "=atc= Failed finding restore files from cache for domain:%@, relativePath:%@ %@", buf, 0x20u);
+            _MBLog(@"E ", "=atc= Failed finding restore files from cache for domain:%@, relativePath:%@ %@", domainCopy, v40, v29);
+          }
+
+          if (error)
+          {
+            v31 = v29;
+            v23 = 0;
+            *error = v29;
+          }
+
+          else
+          {
+            v23 = 0;
+          }
+        }
+
+        else
+        {
+          v33 = MBGetDefaultLog();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          {
+            v34 = v33;
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+            {
+              v39 = [v41 count];
+              v35 = v51[3];
+              v36 = [v41 count];
+              *buf = 134218754;
+              v56 = &v39[-v35];
+              v57 = 2048;
+              *v58 = v36;
+              *&v58[8] = 2112;
+              *&v58[10] = domainCopy;
+              *&v58[18] = 2112;
+              *&v58[20] = v40;
+              _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "=atc= Found %llu/%lu restore files from cache for domain:%@, relativePath:%@", buf, 0x2Au);
+            }
+
+            v37 = [v41 count];
+            _MBLog(@"Df", "=atc= Found %llu/%lu restore files from cache for domain:%@, relativePath:%@", &v37[-v51[3]], [v41 count], domainCopy, v40);
+          }
+
+          v23 = v41;
+        }
+
+        _Block_object_dispose(&v50, 8);
+      }
+
+      else
+      {
+        v23 = 0;
+      }
+    }
+  }
+
+  else if (error)
+  {
+    [MBError errorWithCode:1 format:@"Unknown domain %@", domainCopy];
+    *error = v23 = 0;
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  return v23;
+}
+
 - (void)prioritizeRestoreFileWithPath:(id)path account:(id)account
 {
   pathCopy = path;
@@ -6290,24 +6991,23 @@ LABEL_65:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v34 = v9;
+    v31 = v9;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Prioritizing restore file: %@", buf, 0xCu);
-    v26 = v9;
-    _MBLog();
+    _MBLog(@"Df", "Prioritizing restore file: %@", v9);
   }
 
-  v32 = 0;
-  v11 = [(MBCKManager *)self openCacheWithAccount:v8 accessType:1 error:&v32];
-  v12 = v32;
+  v29 = 0;
+  v11 = [(MBCKManager *)self openCacheWithAccount:v8 accessType:1 error:&v29];
+  v12 = v29;
   if (v11)
   {
     v13 = [MBDomainManager alloc];
     persona = [v8 persona];
     v15 = [(MBDomainManager *)v13 initWithPersona:persona];
 
-    v31 = 0;
-    v16 = [(MBDomainManager *)v15 domainForPath:v9 relativePath:&v31];
-    v17 = v31;
+    v28 = 0;
+    v16 = [(MBDomainManager *)v15 domainForPath:v9 relativePath:&v28];
+    v17 = v28;
     if (v16)
     {
       name = [v16 name];
@@ -6319,19 +7019,17 @@ LABEL_65:
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v34 = v9;
-          v35 = 2112;
-          v36 = v19;
+          v31 = v9;
+          v32 = 2112;
+          v33 = v19;
           _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to set cache priority for path %@: %@", buf, 0x16u);
-          v26 = v9;
-          v28 = v19;
-          _MBLog();
+          _MBLog(@"E ", "Failed to set cache priority for path %@: %@", v9, v19);
         }
       }
 
-      v30 = v19;
-      v21 = [(MBCKManager *)self restorePlanForAccount:v8 snapshotUUID:0 error:&v30, v26, v28];
-      v22 = v30;
+      v27 = v19;
+      v21 = [(MBCKManager *)self restorePlanForAccount:v8 snapshotUUID:0 error:&v27];
+      v22 = v27;
 
       if (!v21)
       {
@@ -6339,16 +7037,15 @@ LABEL_65:
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v34 = v22;
+          v31 = v22;
           _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Failed to get plan to set priority: %@", buf, 0xCu);
-          v27 = v22;
-          _MBLog();
+          _MBLog(@"E ", "Failed to get plan to set priority: %@", v22);
         }
       }
 
-      v29 = v22;
-      v24 = [v21 incrementPriorityOfRestorableForDomain:v16 relativePath:v17 error:&v29, v27];
-      v12 = v29;
+      v26 = v22;
+      v24 = [v21 incrementPriorityOfRestorableForDomain:v16 relativePath:v17 error:&v26];
+      v12 = v26;
 
       if ((v24 & 1) == 0)
       {
@@ -6356,11 +7053,11 @@ LABEL_65:
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v34 = v9;
-          v35 = 2112;
-          v36 = v12;
+          v31 = v9;
+          v32 = 2112;
+          v33 = v12;
           _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Failed to set priority in plan for path %@: %@", buf, 0x16u);
-          _MBLog();
+          _MBLog(@"E ", "Failed to set priority in plan for path %@: %@", v9, v12);
         }
       }
     }
@@ -6371,9 +7068,9 @@ LABEL_65:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v34 = v9;
+        v31 = v9;
         _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Domain not found for request to prioritize restore file: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Domain not found for request to prioritize restore file: %@", v9);
       }
     }
   }
@@ -6404,35 +7101,32 @@ LABEL_65:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    iDCopy3 = v14;
-    v98 = 2112;
-    v99 = v17;
-    v100 = 2048;
-    iDCopy5 = iD;
+    iDCopy2 = v14;
+    v95 = 2112;
+    v96 = v17;
+    v97 = 2048;
+    iDCopy4 = iD;
     _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Fetching the buddy data stash, backupUDID:%@, backupUUID:%@, snapshotID:%lu", buf, 0x20u);
-    v67 = v17;
-    iDCopy2 = iD;
-    v66 = v14;
-    _MBLog();
+    _MBLog(@"Df", "Fetching the buddy data stash, backupUDID:%@, backupUUID:%@, snapshotID:%lu", v14, v17, iD);
   }
 
-  v80 = v17;
+  v77 = v17;
 
   v19 = +[MBCKOperationPolicy expensiveCellularPolicy];
   databaseManager = [(MBCKManager *)self databaseManager];
-  v95 = 0;
-  v21 = [MBCKOperationTracker operationTrackerWithAccount:accountCopy databaseManager:databaseManager policy:v19 error:&v95];
+  v92 = 0;
+  v21 = [MBCKOperationTracker operationTrackerWithAccount:accountCopy databaseManager:databaseManager policy:v19 error:&v92];
   selfCopy = self;
-  v23 = v95;
+  v23 = v92;
 
-  v72 = v19;
-  v73 = v13;
+  v69 = v19;
+  v70 = v13;
   if (!v21)
   {
-    v76 = 0;
+    v73 = 0;
 LABEL_39:
     v38 = 0;
-    v83 = 0;
+    v80 = 0;
     v43 = 0;
     v28 = 0;
     goto LABEL_53;
@@ -6442,55 +7136,55 @@ LABEL_39:
   v25 = [v19 operationGroupWithName:@"getBuddyDataStash" processName:processName];
   [v21 setCkOperationGroup:v25];
 
-  v94 = v23;
-  v79 = selfCopy;
-  v26 = [(MBCKManager *)selfCopy openCacheWithAccount:accountCopy accessType:1 error:&v94];
-  v27 = v94;
+  v91 = v23;
+  v76 = selfCopy;
+  v26 = [(MBCKManager *)selfCopy openCacheWithAccount:accountCopy accessType:1 error:&v91];
+  v27 = v91;
 
-  v76 = v26;
+  v73 = v26;
   if (!v26)
   {
-    v76 = 0;
+    v73 = 0;
     v23 = v27;
     goto LABEL_39;
   }
 
-  v70 = accountCopy;
-  v83 = 0;
-  v84 = 0;
+  v67 = accountCopy;
+  v80 = 0;
+  v81 = 0;
   v28 = 0;
   v29 = 1;
-  v30 = v80;
-  v74 = v14;
-  v75 = v21;
+  v30 = v77;
+  v71 = v14;
+  v72 = v21;
   do
   {
     v31 = v28;
     context = objc_autoreleasePoolPush();
-    v93 = v27;
-    v28 = [(MBCKManager *)v79 _snapshotForSnapshotID:iD backupUDID:v14 cached:v29 & 1 operationTracker:v21 error:&v93];
-    v23 = v93;
+    v90 = v27;
+    v28 = [(MBCKManager *)v76 _snapshotForSnapshotID:iD backupUDID:v14 cached:v29 & 1 operationTracker:v21 error:&v90];
+    v23 = v90;
 
     if (!v28 || ([v28 snapshotUUID], v32 = objc_claimAutoreleasedReturnValue(), v32, !v32))
     {
-      iDCopy2 = [MBError errorWithCode:204 format:@"Specified snapshot %lu not found in backup %@", iD, v14, iDCopy2];
-      accountCopy = v70;
-      v38 = v84;
+      v34 = [MBError errorWithCode:204 format:@"Specified snapshot %lu not found in backup %@", iD, v14];
+      accountCopy = v67;
+      v38 = v81;
 LABEL_48:
-      v62 = context;
+      v63 = context;
 
-      v23 = iDCopy2;
+      v23 = v34;
       goto LABEL_52;
     }
 
-    if (v84)
+    if (v81)
     {
       goto LABEL_14;
     }
 
-    v92 = v23;
-    v33 = [MBCKAccount fetchAccountWithOperationTracker:v21 cache:v76 error:&v92];
-    iDCopy2 = v92;
+    v89 = v23;
+    v33 = [MBCKAccount fetchAccountWithOperationTracker:v21 cache:v73 error:&v89];
+    v34 = v89;
 
     if (!v33)
     {
@@ -6498,21 +7192,21 @@ LABEL_48:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        iDCopy3 = iDCopy2;
+        iDCopy2 = v34;
         _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Failed to fetch the account record: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to fetch the account record: %@", v34);
       }
 
       v38 = 0;
 LABEL_47:
-      accountCopy = v70;
+      accountCopy = v67;
       goto LABEL_48;
     }
 
-    v91 = iDCopy2;
-    v84 = v33;
-    v35 = [v33 fetchDevicesWithOperationTracker:v21 error:&v91];
-    v23 = v91;
+    v88 = v34;
+    v81 = v33;
+    v35 = [v33 fetchDevicesWithOperationTracker:v21 error:&v88];
+    v23 = v88;
 
     if (!v35)
     {
@@ -6520,75 +7214,75 @@ LABEL_47:
     }
 
 LABEL_14:
-    v36 = v83;
-    if (v83)
+    v36 = v80;
+    if (v80)
     {
       v37 = v23;
       goto LABEL_18;
     }
 
-    v38 = v84;
-    v39 = [v84 deviceForUUID:v30];
+    v38 = v81;
+    v39 = [v81 deviceForUUID:v30];
     if (!v39)
     {
-      v61 = MBGetDefaultLog();
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+      v62 = MBGetDefaultLog();
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        iDCopy3 = v14;
-        v98 = 2112;
-        v99 = v30;
-        _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_ERROR, "No device found for backupUDID:%@, backupUUID:%@", buf, 0x16u);
-        _MBLog();
+        iDCopy2 = v14;
+        v95 = 2112;
+        v96 = v30;
+        _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_ERROR, "No device found for backupUDID:%@, backupUUID:%@", buf, 0x16u);
+        _MBLog(@"E ", "No device found for backupUDID:%@, backupUUID:%@", v14, v30);
       }
 
-      iDCopy2 = [MBError errorWithCode:1 format:@"No device found for %@", v14];
-      v83 = 0;
+      v34 = [MBError errorWithCode:1 format:@"No device found for %@", v14];
+      v80 = 0;
       goto LABEL_47;
     }
 
     v36 = v39;
-    v90 = v23;
-    v40 = [v39 fetchSnapshotsWithOperationTracker:v21 retry:1 error:&v90];
-    v37 = v90;
+    v87 = v23;
+    v40 = [v39 fetchSnapshotsWithOperationTracker:v21 retry:1 error:&v87];
+    v37 = v87;
 
     if (!v40)
     {
-      v83 = v36;
+      v80 = v36;
       v23 = v37;
 LABEL_51:
-      accountCopy = v70;
-      v38 = v84;
-      v62 = context;
+      accountCopy = v67;
+      v38 = v81;
+      v63 = context;
 LABEL_52:
-      objc_autoreleasePoolPop(v62);
+      objc_autoreleasePoolPop(v63);
       v43 = 0;
       goto LABEL_53;
     }
 
 LABEL_18:
     snapshotUUID = [v28 snapshotUUID];
+    v83 = 0u;
+    v84 = 0u;
+    v85 = 0u;
     v86 = 0u;
-    v87 = 0u;
-    v88 = 0u;
-    v89 = 0u;
-    v83 = v36;
+    v80 = v36;
     snapshots = [v36 snapshots];
-    v43 = [snapshots countByEnumeratingWithState:&v86 objects:v104 count:16];
+    v43 = [snapshots countByEnumeratingWithState:&v83 objects:v101 count:16];
     if (v43)
     {
-      v77 = v28;
-      v44 = *v87;
+      v74 = v28;
+      v44 = *v84;
       while (2)
       {
         for (i = 0; i != v43; i = i + 1)
         {
-          if (*v87 != v44)
+          if (*v84 != v44)
           {
             objc_enumerationMutation(snapshots);
           }
 
-          v46 = *(*(&v86 + 1) + 8 * i);
+          v46 = *(*(&v83 + 1) + 8 * i);
           snapshotID = [v46 snapshotID];
           v48 = [snapshotID isEqualToString:snapshotUUID];
 
@@ -6599,7 +7293,7 @@ LABEL_18:
           }
         }
 
-        v43 = [snapshots countByEnumeratingWithState:&v86 objects:v104 count:16];
+        v43 = [snapshots countByEnumeratingWithState:&v83 objects:v101 count:16];
         if (v43)
         {
           continue;
@@ -6609,10 +7303,10 @@ LABEL_18:
       }
 
 LABEL_28:
-      v14 = v74;
-      v21 = v75;
-      v30 = v80;
-      v28 = v77;
+      v14 = v71;
+      v21 = v72;
+      v30 = v77;
+      v28 = v74;
     }
 
     objc_autoreleasePoolPop(context);
@@ -6624,91 +7318,90 @@ LABEL_28:
   while ((v49 & 1) != 0);
   if (v43)
   {
-    v78 = v28;
+    v75 = v28;
     v50 = MBGetDefaultLog();
-    accountCopy = v70;
+    accountCopy = v67;
     if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
     {
       snapshotID2 = [v43 snapshotID];
       *buf = 134218498;
-      iDCopy3 = iD;
-      v98 = 2112;
-      v99 = snapshotID2;
-      v100 = 2112;
-      iDCopy5 = v14;
+      iDCopy2 = iD;
+      v95 = 2112;
+      v96 = snapshotID2;
+      v97 = 2112;
+      iDCopy4 = v14;
       _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "Found snapshot %lu (%@) in backup %@", buf, 0x20u);
 
       snapshotID3 = [v43 snapshotID];
-      _MBLog();
+      _MBLog(@"Df", "Found snapshot %lu (%@) in backup %@", iD, snapshotID3, v14);
     }
 
-    v52 = [MBCKProperties alloc];
+    v53 = [MBCKProperties alloc];
     backupProperties = [v43 backupProperties];
-    v85 = v27;
-    v54 = [(MBProperties *)v52 initWithData:backupProperties error:&v85];
-    v23 = v85;
+    v82 = v27;
+    v55 = [(MBProperties *)v53 initWithData:backupProperties error:&v82];
+    v23 = v82;
 
-    v55 = MBGetDefaultLog();
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+    v56 = MBGetDefaultLog();
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
     {
-      buddyStashData = [(MBProperties *)v54 buddyStashData];
-      v57 = [buddyStashData length];
+      buddyStashData = [(MBProperties *)v55 buddyStashData];
+      v58 = [buddyStashData length];
       *buf = 134218754;
-      iDCopy3 = v57;
-      v98 = 2112;
-      v99 = v14;
-      v100 = 2112;
-      iDCopy5 = v80;
-      v102 = 2048;
-      iDCopy4 = iD;
-      _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "Found %lu bytes for the buddy data stash, backupUDID:%@, backupUUID:%@, snapshotID:%lu", buf, 0x2Au);
+      iDCopy2 = v58;
+      v95 = 2112;
+      v96 = v14;
+      v97 = 2112;
+      iDCopy4 = v77;
+      v99 = 2048;
+      iDCopy3 = iD;
+      _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "Found %lu bytes for the buddy data stash, backupUDID:%@, backupUUID:%@, snapshotID:%lu", buf, 0x2Au);
 
-      buddyStashData2 = [(MBProperties *)v54 buddyStashData];
-      [buddyStashData2 length];
-      _MBLog();
+      buddyStashData2 = [(MBProperties *)v55 buddyStashData];
+      _MBLog(@"Df", "Found %lu bytes for the buddy data stash, backupUDID:%@, backupUUID:%@, snapshotID:%lu", [buddyStashData2 length], v14, v77, iD);
     }
 
-    if (v54)
+    if (v55)
     {
-      buddyStashData3 = [(MBProperties *)v54 buddyStashData];
+      buddyStashData3 = [(MBProperties *)v55 buddyStashData];
 
-      v60 = v73;
-      v28 = v78;
+      v61 = v70;
+      v28 = v75;
       goto LABEL_59;
     }
 
-    v28 = v78;
+    v28 = v75;
   }
 
   else
   {
     v23 = [MBError errorWithCode:1 format:@"Specified snapshot %lu not found in backup %@", iD, v14];
 
-    accountCopy = v70;
+    accountCopy = v67;
   }
 
-  v38 = v84;
+  v38 = v81;
 LABEL_53:
-  v63 = MBGetDefaultLog();
-  if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+  v64 = MBGetDefaultLog();
+  if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
   {
     *buf = 138413058;
-    iDCopy3 = v14;
-    v98 = 2112;
-    v99 = v80;
-    v100 = 2048;
-    iDCopy5 = iD;
-    v102 = 2112;
-    iDCopy4 = v23;
-    _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "Failed to fetch buddy data stash for backupUDID:%@, backupUUID:%@, snapshotID:%lu: %@", buf, 0x2Au);
-    _MBLog();
+    iDCopy2 = v14;
+    v95 = 2112;
+    v96 = v77;
+    v97 = 2048;
+    iDCopy4 = iD;
+    v99 = 2112;
+    iDCopy3 = v23;
+    _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_ERROR, "Failed to fetch buddy data stash for backupUDID:%@, backupUUID:%@, snapshotID:%lu: %@", buf, 0x2Au);
+    _MBLog(@"E ", "Failed to fetch buddy data stash for backupUDID:%@, backupUUID:%@, snapshotID:%lu: %@", v14, v77, iD, v23);
   }
 
-  v84 = v38;
+  v81 = v38;
 
   if (error)
   {
-    v64 = v23;
+    v65 = v23;
     buddyStashData3 = 0;
     *error = v23;
   }
@@ -6718,7 +7411,7 @@ LABEL_53:
     buddyStashData3 = 0;
   }
 
-  v60 = v73;
+  v61 = v70;
 LABEL_59:
 
   return buddyStashData3;
@@ -6761,75 +7454,72 @@ LABEL_59:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    iDCopy4 = v17;
-    v103 = 2112;
-    v104 = v19;
-    v105 = 2048;
-    iDCopy7 = iD;
+    iDCopy3 = v17;
+    v100 = 2112;
+    v101 = v19;
+    v102 = 2048;
+    iDCopy6 = iD;
     _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Fetching the iCloud Apple IDs for backupUDID:%@, backupUUID:%@, snapshotID:%lu", buf, 0x20u);
-    v72 = v19;
-    iDCopy2 = iD;
-    v71 = v17;
-    _MBLog();
+    _MBLog(@"Df", "Fetching the iCloud Apple IDs for backupUDID:%@, backupUUID:%@, snapshotID:%lu", v17, v19, iD);
   }
 
-  v83 = [(MBCKManager *)self openCacheWithAccount:accountCopy accessType:1 error:error];
-  if (!v83)
+  v80 = [(MBCKManager *)self openCacheWithAccount:accountCopy accessType:1 error:error];
+  if (!v80)
   {
     v27 = 0;
-    v64 = 0;
+    v65 = 0;
     activeAppleID = 0;
-    v63 = 0;
+    v64 = 0;
     v24 = 0;
     goto LABEL_66;
   }
 
-  v82 = v19;
+  v79 = v19;
   errorCopy = error;
   v21 = +[MBCKOperationPolicy expensiveCellularPolicy];
   selfCopy = self;
   databaseManager = [(MBCKManager *)self databaseManager];
-  v100 = 0;
-  v23 = [MBCKOperationTracker operationTrackerWithAccount:accountCopy databaseManager:databaseManager policy:v21 error:&v100];
-  v24 = v100;
+  v97 = 0;
+  v23 = [MBCKOperationTracker operationTrackerWithAccount:accountCopy databaseManager:databaseManager policy:v21 error:&v97];
+  v24 = v97;
 
-  v79 = connectionCopy;
+  v76 = connectionCopy;
   if (!v23)
   {
-    v87 = 0;
+    v84 = 0;
     v44 = 0;
     v27 = 0;
-    v90 = 0;
+    v87 = 0;
     goto LABEL_60;
   }
 
   appleIDCopy = appleID;
-  v77 = accountCopy;
+  v74 = accountCopy;
   processName = [connectionCopy processName];
-  v76 = v21;
+  v73 = v21;
   v26 = [v21 operationGroupWithName:@"getAppleIDsMap" processName:processName];
   [v23 setCkOperationGroup:v26];
 
-  v89 = v24;
-  v90 = 0;
+  v86 = v24;
+  v87 = 0;
   v27 = 0;
   v28 = 0;
   v29 = 1;
-  iDCopy3 = iD;
-  v81 = v23;
+  iDCopy2 = iD;
+  v78 = v23;
   do
   {
     v30 = v28;
     v31 = objc_autoreleasePoolPush();
-    v99 = v89;
-    v28 = [(MBCKManager *)selfCopy _snapshotForSnapshotID:iD backupUDID:v17 cached:v29 & 1 operationTracker:v23 error:&v99];
-    v24 = v99;
+    v96 = v86;
+    v28 = [(MBCKManager *)selfCopy _snapshotForSnapshotID:iD backupUDID:v17 cached:v29 & 1 operationTracker:v23 error:&v96];
+    v24 = v96;
 
     if (!v28)
     {
-      v87 = 0;
-      v21 = v76;
-      accountCopy = v77;
+      v84 = 0;
+      v21 = v73;
+      accountCopy = v74;
 LABEL_59:
       objc_autoreleasePoolPop(v31);
       v44 = 0;
@@ -6844,74 +7534,74 @@ LABEL_59:
       goto LABEL_44;
     }
 
-    v33 = v90;
-    if (!v90)
+    v33 = v87;
+    if (!v87)
     {
-      v98 = v24;
-      v34 = [MBCKAccount fetchAccountWithOperationTracker:v23 cache:v83 error:&v98];
-      v35 = v98;
+      v95 = v24;
+      v34 = [MBCKAccount fetchAccountWithOperationTracker:v23 cache:v80 error:&v95];
+      v35 = v95;
 
       if (!v34)
       {
-        v87 = v28;
+        v84 = v28;
         v24 = MBGetDefaultLog();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          iDCopy4 = v35;
+          iDCopy3 = v35;
           _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to fetch account record: %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"E ", "Failed to fetch account record: %@", v35);
         }
 
-        v90 = 0;
+        v87 = 0;
         goto LABEL_58;
       }
 
-      v97 = v35;
-      v90 = v34;
-      v36 = [v34 fetchDevicesWithOperationTracker:v23 error:&v97];
-      v24 = v97;
+      v94 = v35;
+      v87 = v34;
+      v36 = [v34 fetchDevicesWithOperationTracker:v23 error:&v94];
+      v24 = v94;
 
       v33 = v34;
       if (!v36)
       {
 LABEL_44:
-        v87 = v28;
+        v84 = v28;
 LABEL_53:
-        v21 = v76;
-        accountCopy = v77;
+        v21 = v73;
+        accountCopy = v74;
         v31 = context;
         goto LABEL_59;
       }
     }
 
-    v90 = v33;
+    v87 = v33;
     if (v27)
     {
-      v89 = v24;
+      v86 = v24;
       goto LABEL_18;
     }
 
-    v37 = [v33 deviceForUUID:v82];
+    v37 = [v33 deviceForUUID:v79];
     if (!v37)
     {
-      v87 = v28;
-      v65 = MBGetDefaultLog();
-      if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+      v84 = v28;
+      v66 = MBGetDefaultLog();
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        iDCopy4 = v17;
-        v103 = 2112;
-        v104 = v82;
-        _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_ERROR, "No device found for backupUDID:%@, backupUUID:%@,", buf, 0x16u);
-        _MBLog();
+        iDCopy3 = v17;
+        v100 = 2112;
+        v101 = v79;
+        _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "No device found for backupUDID:%@, backupUUID:%@,", buf, 0x16u);
+        _MBLog(@"E ", "No device found for backupUDID:%@, backupUUID:%@,", v17, v79);
       }
 
       v35 = [MBError errorWithCode:1 format:@"No device found for %@", v17];
       v27 = 0;
 LABEL_58:
-      v21 = v76;
-      accountCopy = v77;
+      v21 = v73;
+      accountCopy = v74;
       v31 = context;
 
       v24 = v35;
@@ -6919,64 +7609,64 @@ LABEL_58:
     }
 
     v27 = v37;
-    v96 = v24;
-    v38 = [v37 fetchSnapshotsWithOperationTracker:v23 retry:1 error:&v96];
-    v39 = v96;
+    v93 = v24;
+    v38 = [v37 fetchSnapshotsWithOperationTracker:v23 retry:1 error:&v93];
+    v39 = v93;
 
     if (!v38)
     {
-      v87 = v28;
+      v84 = v28;
       v24 = v39;
       goto LABEL_53;
     }
 
-    v89 = v39;
+    v86 = v39;
     snapshots = [v27 snapshots];
     v41 = [snapshots count];
 
     if (!v41)
     {
-      v87 = v28;
-      v66 = MBGetDefaultLog();
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+      v84 = v28;
+      v67 = MBGetDefaultLog();
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        iDCopy4 = v17;
-        v103 = 2112;
-        v104 = v82;
-        _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "No snapshots found for backupUDID:%@, backupUUID:%@", buf, 0x16u);
-        _MBLog();
+        iDCopy3 = v17;
+        v100 = 2112;
+        v101 = v79;
+        _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "No snapshots found for backupUDID:%@, backupUUID:%@", buf, 0x16u);
+        _MBLog(@"E ", "No snapshots found for backupUDID:%@, backupUUID:%@", v17, v79);
       }
 
       v35 = [MBError errorWithCode:1 format:@"No snapshots found for %@", v17];
-      v24 = v89;
+      v24 = v86;
       goto LABEL_58;
     }
 
 LABEL_18:
     snapshotUUID2 = [v28 snapshotUUID];
+    v89 = 0u;
+    v90 = 0u;
+    v91 = 0u;
     v92 = 0u;
-    v93 = 0u;
-    v94 = 0u;
-    v95 = 0u;
     snapshots2 = [v27 snapshots];
-    v44 = [snapshots2 countByEnumeratingWithState:&v92 objects:v111 count:16];
+    v44 = [snapshots2 countByEnumeratingWithState:&v89 objects:v108 count:16];
     if (v44)
     {
-      v84 = v27;
-      v86 = v28;
+      v81 = v27;
+      v83 = v28;
       v45 = v17;
-      v46 = *v93;
+      v46 = *v90;
       while (2)
       {
         for (i = 0; i != v44; i = i + 1)
         {
-          if (*v93 != v46)
+          if (*v90 != v46)
           {
             objc_enumerationMutation(snapshots2);
           }
 
-          v48 = *(*(&v92 + 1) + 8 * i);
+          v48 = *(*(&v89 + 1) + 8 * i);
           snapshotID = [v48 snapshotID];
           v50 = [snapshotID isEqualToString:snapshotUUID2];
 
@@ -6987,7 +7677,7 @@ LABEL_18:
           }
         }
 
-        v44 = [snapshots2 countByEnumeratingWithState:&v92 objects:v111 count:16];
+        v44 = [snapshots2 countByEnumeratingWithState:&v89 objects:v108 count:16];
         if (v44)
         {
           continue;
@@ -6998,10 +7688,10 @@ LABEL_18:
 
 LABEL_28:
       v17 = v45;
-      iD = iDCopy3;
-      v23 = v81;
-      v28 = v86;
-      v27 = v84;
+      iD = iDCopy2;
+      v23 = v78;
+      v28 = v83;
+      v27 = v81;
     }
 
     objc_autoreleasePoolPop(context);
@@ -7010,91 +7700,91 @@ LABEL_28:
   }
 
   while ((v51 & 1) != 0);
-  v87 = v28;
+  v84 = v28;
   if (v44)
   {
     v52 = MBGetDefaultLog();
-    accountCopy = v77;
+    accountCopy = v74;
     if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
     {
       snapshotID2 = [v44 snapshotID];
       *buf = 134218498;
-      iDCopy4 = iD;
-      v103 = 2112;
-      v104 = snapshotID2;
-      v105 = 2112;
-      iDCopy7 = v17;
+      iDCopy3 = iD;
+      v100 = 2112;
+      v101 = snapshotID2;
+      v102 = 2112;
+      iDCopy6 = v17;
       _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "Found snapshot %lu (%@) in backup %@", buf, 0x20u);
 
       snapshotID3 = [v44 snapshotID];
-      _MBLog();
+      _MBLog(@"Df", "Found snapshot %lu (%@) in backup %@", iD, snapshotID3, v17);
     }
 
-    v54 = [MBCKProperties alloc];
+    v55 = [MBCKProperties alloc];
     backupProperties = [v44 backupProperties];
-    v91 = v89;
-    v56 = [(MBProperties *)v54 initWithData:backupProperties error:&v91];
-    v24 = v91;
+    v88 = v86;
+    v57 = [(MBProperties *)v55 initWithData:backupProperties error:&v88];
+    v24 = v88;
 
-    v57 = v56;
-    if (v56)
+    v58 = v57;
+    if (v57)
     {
-      appleIDs = [(MBProperties *)v56 appleIDs];
-      activeAppleID = [(MBProperties *)v56 activeAppleID];
+      appleIDs = [(MBProperties *)v57 appleIDs];
+      activeAppleID = [(MBProperties *)v57 activeAppleID];
       if (appleIDs)
       {
-        v60 = appleIDs;
+        v61 = appleIDs;
       }
 
       else
       {
-        v60 = &__NSDictionary0__struct;
+        v61 = &__NSDictionary0__struct;
       }
 
-      v61 = MBGetDefaultLog();
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+      v62 = MBGetDefaultLog();
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138413314;
-        iDCopy4 = v17;
-        v103 = 2112;
-        v104 = v82;
-        v105 = 2048;
-        iDCopy7 = iD;
-        v107 = 2112;
-        v108 = v60;
-        v109 = 2112;
-        v110 = activeAppleID;
-        _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "Fetched the iCloud Apple IDs for backupUDID:%@, backupUUID:%@, snapshotID:%lu: %@, active Apple ID = %@", buf, 0x34u);
-        _MBLog();
+        iDCopy3 = v17;
+        v100 = 2112;
+        v101 = v79;
+        v102 = 2048;
+        iDCopy6 = iD;
+        v104 = 2112;
+        v105 = v61;
+        v106 = 2112;
+        v107 = activeAppleID;
+        _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "Fetched the iCloud Apple IDs for backupUDID:%@, backupUUID:%@, snapshotID:%lu: %@, active Apple ID = %@", buf, 0x34u);
+        _MBLog(@"Df", "Fetched the iCloud Apple IDs for backupUDID:%@, backupUUID:%@, snapshotID:%lu: %@, active Apple ID = %@", v17, v79, iD, v61, activeAppleID);
       }
 
       if (appleIDCopy)
       {
-        v62 = activeAppleID;
+        v63 = activeAppleID;
         *appleIDCopy = activeAppleID;
       }
 
-      v63 = v60;
+      v64 = v61;
 
-      v21 = v76;
-      v23 = v81;
+      v21 = v73;
+      v23 = v78;
       goto LABEL_65;
     }
 
-    v70 = MBGetDefaultLog();
-    v23 = v81;
-    if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+    v71 = MBGetDefaultLog();
+    v23 = v78;
+    if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
     {
       *buf = 138413058;
-      iDCopy4 = v17;
-      v103 = 2112;
-      v104 = v82;
-      v105 = 2048;
-      iDCopy7 = iD;
-      v107 = 2112;
-      v108 = v24;
-      _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_ERROR, "Failed to fetch the snapshot properties for backupUDID:%@, backupUUID:%@, snapshotID:%lu: %@", buf, 0x2Au);
-      _MBLog();
+      iDCopy3 = v17;
+      v100 = 2112;
+      v101 = v79;
+      v102 = 2048;
+      iDCopy6 = iD;
+      v104 = 2112;
+      v105 = v24;
+      _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_ERROR, "Failed to fetch the snapshot properties for backupUDID:%@, backupUUID:%@, snapshotID:%lu: %@", buf, 0x2Au);
+      _MBLog(@"E ", "Failed to fetch the snapshot properties for backupUDID:%@, backupUUID:%@, snapshotID:%lu: %@", v17, v79, iD, v24);
     }
   }
 
@@ -7102,48 +7792,48 @@ LABEL_28:
   {
     v24 = [MBError errorWithCode:1 format:@"Specified snapshot %lu not found in backup %@", iD, v17];
 
-    accountCopy = v77;
+    accountCopy = v74;
   }
 
-  v21 = v76;
+  v21 = v73;
 LABEL_60:
-  v67 = MBGetDefaultLog();
-  if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+  v68 = MBGetDefaultLog();
+  if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
   {
     *buf = 138413058;
-    iDCopy4 = v17;
-    v103 = 2112;
-    v104 = v82;
-    v105 = 2048;
-    iDCopy7 = iD;
-    v107 = 2112;
-    v108 = v24;
-    _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "Failed to fetch the iCloud Apple IDs for backupUDID:%@, backupUUID:%@, snapshotID:%lu: %@", buf, 0x2Au);
-    _MBLog();
+    iDCopy3 = v17;
+    v100 = 2112;
+    v101 = v79;
+    v102 = 2048;
+    iDCopy6 = iD;
+    v104 = 2112;
+    v105 = v24;
+    _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "Failed to fetch the iCloud Apple IDs for backupUDID:%@, backupUUID:%@, snapshotID:%lu: %@", buf, 0x2Au);
+    _MBLog(@"E ", "Failed to fetch the iCloud Apple IDs for backupUDID:%@, backupUUID:%@, snapshotID:%lu: %@", v17, v79, iD, v24);
   }
 
   if (errorCopy)
   {
-    v68 = v24;
+    v69 = v24;
     activeAppleID = 0;
-    v63 = 0;
+    v64 = 0;
     *errorCopy = v24;
   }
 
   else
   {
     activeAppleID = 0;
-    v63 = 0;
+    v64 = 0;
   }
 
 LABEL_65:
 
-  connectionCopy = v79;
-  v64 = v90;
-  v19 = v82;
+  connectionCopy = v76;
+  v65 = v87;
+  v19 = v79;
 LABEL_66:
 
-  return v63;
+  return v64;
 }
 
 - (BOOL)prepareForBackgroundRestoreWithAccount:(id)account error:(id *)error
@@ -7356,7 +8046,7 @@ LABEL_55:
         LODWORD(buf) = 138412290;
         *(&buf + 4) = v57;
         _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Failed to fetch account record: %@", &buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to fetch account record: %@", v57);
       }
 
       v40 = v57;
@@ -7383,7 +8073,7 @@ LABEL_54:
         LODWORD(buf) = 138412290;
         *(&buf + 4) = v21;
         _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "No backups for device %@", &buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "No backups for device %@", v21);
       }
 
       [MBError errorWithCode:1 format:@"No backups for device"];
@@ -7565,7 +8255,7 @@ LABEL_57:
 
     if (!v20)
     {
-      v37 = 0;
+      v38 = 0;
 LABEL_37:
 
       goto LABEL_38;
@@ -7645,7 +8335,7 @@ LABEL_37:
                   _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Found snapshot to merge: %{public}@", buf, 0xCu);
 
                   recordIDString3 = [v31 recordIDString];
-                  _MBLog();
+                  _MBLog(@"Df", "Found snapshot to merge: %{public}@", recordIDString3);
                 }
 
                 [v26 addSnapshotToMerge:v31];
@@ -7656,7 +8346,7 @@ LABEL_37:
               {
 LABEL_22:
 
-                v37 = [v26 saveWithOperationTracker:v43 error:errorCopy];
+                v38 = [v26 saveWithOperationTracker:v43 error:errorCopy];
                 v20 = v43;
                 accountCopy = v48;
                 v17 = v46;
@@ -7671,44 +8361,44 @@ LABEL_22:
 
         else
         {
-          v39 = MBGetDefaultLog();
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+          v40 = MBGetDefaultLog();
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
             v59 = dCopy;
-            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "No backups for device %@", buf, 0xCu);
-            _MBLog();
+            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "No backups for device %@", buf, 0xCu);
+            _MBLog(@"E ", "No backups for device %@", dCopy);
           }
 
           if (error)
           {
             [MBError errorWithCode:1 format:@"No backups for device"];
-            *error = v37 = 0;
+            *error = v38 = 0;
 LABEL_35:
 
             goto LABEL_36;
           }
         }
 
-        v37 = 0;
+        v38 = 0;
         goto LABEL_35;
       }
     }
 
     else
     {
-      v38 = MBGetDefaultLog();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      v39 = MBGetDefaultLog();
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         v59 = v50;
-        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Failed to fetch account record: %@", buf, 0xCu);
-        _MBLog();
+        _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Failed to fetch account record: %@", buf, 0xCu);
+        _MBLog(@"E ", "Failed to fetch account record: %@", v50);
       }
 
       if (error)
       {
-        v37 = 0;
+        v38 = 0;
         *error = v50;
 LABEL_36:
 
@@ -7716,14 +8406,14 @@ LABEL_36:
       }
     }
 
-    v37 = 0;
+    v38 = 0;
     goto LABEL_36;
   }
 
-  v37 = 0;
+  v38 = 0;
 LABEL_38:
 
-  return v37;
+  return v38;
 }
 
 - (BOOL)pinSnapshotID:(unint64_t)d backupUDID:(id)iD account:(id)account connection:(id)connection error:(id *)error
@@ -7813,7 +8503,7 @@ LABEL_30:
             *buf = 138412290;
             v38 = iDCopy;
             _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "No backups for device %@", buf, 0xCu);
-            _MBLog();
+            _MBLog(@"E ", "No backups for device %@", iDCopy);
           }
 
           if (error)
@@ -7841,7 +8531,7 @@ LABEL_30:
         *buf = 138412290;
         v38 = v34;
         _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Failed to fetch account record: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to fetch account record: %@", v34);
       }
 
       if (error)
@@ -7952,7 +8642,7 @@ LABEL_30:
             *buf = 138412290;
             v38 = iDCopy;
             _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "No backups for device %@", buf, 0xCu);
-            _MBLog();
+            _MBLog(@"E ", "No backups for device %@", iDCopy);
           }
 
           if (error)
@@ -7980,7 +8670,7 @@ LABEL_30:
         *buf = 138412290;
         v38 = v34;
         _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Failed to fetch account record: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to fetch account record: %@", v34);
       }
 
       if (error)
@@ -8084,7 +8774,7 @@ LABEL_31:
               *buf = 138412290;
               v42 = dCopy;
               _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "No backups for device %@", buf, 0xCu);
-              _MBLog();
+              _MBLog(@"E ", "No backups for device %@", dCopy, 0);
             }
 
             if (error)
@@ -8117,7 +8807,7 @@ LABEL_31:
           *buf = 138412290;
           v42 = v39;
           _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Failed to fetch account record: %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"E ", "Failed to fetch account record: %@", v39);
         }
 
         if (error)
@@ -8178,37 +8868,36 @@ LABEL_31:
     v19 = [v15 operationGroupWithName:@"getLastModifiedDateFromJournal" processName:processName];
     [v17 setCkOperationGroup:v19];
 
-    v35 = 0;
-    v20 = [MBCKAccount fetchAccountWithOperationTracker:v17 cache:v14 error:&v35];
-    v21 = v35;
+    v34 = 0;
+    v20 = [MBCKAccount fetchAccountWithOperationTracker:v17 cache:v14 error:&v34];
+    v21 = v34;
     if (v20)
     {
       if ([v20 fetchDevicesWithOperationTracker:v17 error:error])
       {
         v22 = [v20 deviceForUUID:dCopy];
-        v33 = v22;
+        v32 = v22;
         if (v22)
         {
           v23 = [MBCKJournal journalForDevice:v22 cache:v14 engine:0];
 
-          v34 = 0;
-          [v23 fetchFromServerWithOperationTracker:v17 error:&v34];
-          v21 = v34;
+          v33 = 0;
+          [v23 fetchFromServerWithOperationTracker:v17 error:&v33];
+          v21 = v33;
           if (!v23)
           {
             v24 = MBGetDefaultLog();
             if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v37 = v21;
+              v36 = v21;
               _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to fetch journal record: %@", buf, 0xCu);
-              v31 = v21;
-              _MBLog();
+              _MBLog(@"E ", "Failed to fetch journal record: %@", v21);
             }
           }
 
           [v23 recordRepresentation];
-          v25 = v32 = v23;
+          v25 = v31 = v23;
           modificationDate = [v25 modificationDate];
         }
 
@@ -8218,9 +8907,9 @@ LABEL_31:
           if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v37 = dCopy;
+            v36 = dCopy;
             _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "No backups for device %@", buf, 0xCu);
-            _MBLog();
+            _MBLog(@"E ", "No backups for device %@", dCopy);
           }
 
           if (error)
@@ -8245,9 +8934,9 @@ LABEL_31:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v37 = v21;
+        v36 = v21;
         _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Failed to fetch account record: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to fetch account record: %@", v21);
       }
 
       if (error)
@@ -8289,28 +8978,27 @@ LABEL_27:
     persona = [v5 persona];
     personaIdentifier = [persona personaIdentifier];
     *buf = 138543618;
-    v17 = accountIdentifier;
-    v18 = 2114;
-    v19 = personaIdentifier;
+    v16 = accountIdentifier;
+    v17 = 2114;
+    v18 = personaIdentifier;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Canceling background restore for account %{public}@(%{public}@)", buf, 0x16u);
 
     accountIdentifier2 = [v5 accountIdentifier];
     persona2 = [v5 persona];
-    [persona2 personaIdentifier];
-    v15 = v14 = accountIdentifier2;
-    _MBLog();
+    personaIdentifier2 = [persona2 personaIdentifier];
+    _MBLog(@"Df", "Canceling background restore for account %{public}@(%{public}@)", accountIdentifier2, personaIdentifier2);
   }
 
   if (BYSetupAssistantNeedsToRun())
   {
     do
     {
-      v12 = MBGetDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v13 = MBGetDefaultLog();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Can't cancel restore until mini-buddy is done", buf, 2u);
-        _MBLog();
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Can't cancel restore until mini-buddy is done", buf, 2u);
+        _MBLog(@"I ", "Can't cancel restore until mini-buddy is done");
       }
 
       sleep(0xAu);
@@ -8319,8 +9007,8 @@ LABEL_27:
     while ((BYSetupAssistantNeedsToRun() & 1) != 0);
   }
 
-  v13 = [_TtC7backupd20AppRestoreDispatcher shared:v14];
-  [v13 cancelAndUninstallRestorerForAccount:v5];
+  v14 = +[_TtC7backupd20AppRestoreDispatcher shared];
+  [v14 cancelAndUninstallRestorerForAccount:v5];
 
   [(MBCKManager *)self _airTrafficFinishedRestoring];
   [(MBCKManager *)self _finishRestoreWithAccount:v5 cancelled:1];
@@ -8359,7 +9047,7 @@ LABEL_27:
       *buf = 138543362;
       v21 = v10;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to cancel the restore engines due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to cancel the restore engines due to nil account: %{public}@", v10);
     }
   }
 }
@@ -8587,19 +9275,18 @@ LABEL_27:
     v12 = v11;
     if (v11)
     {
-      v19 = 0;
-      v13 = [v11 removeObjectWithDomain:@"com.apple.mobile.backup" andKey:@"LastCloudBackupDate" withError:&v19];
-      v14 = v19;
+      v18 = 0;
+      v13 = [v11 removeObjectWithDomain:@"com.apple.mobile.backup" andKey:@"LastCloudBackupDate" withError:&v18];
+      v14 = v18;
       if ((v13 & 1) == 0)
       {
         v15 = MBGetDefaultLog();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v21 = v14;
+          v20 = v14;
           _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to remove last backup date from lockdown: %@", buf, 0xCu);
-          v18 = v14;
-          _MBLog();
+          _MBLog(@"E ", "Failed to remove last backup date from lockdown: %@", v14);
         }
       }
     }
@@ -8674,7 +9361,7 @@ LABEL_14:
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Disabling backup because the backup for this device was deleted", buf, 2u);
-          _MBLog();
+          _MBLog(@"Df", "Disabling backup because the backup for this device was deleted");
         }
 
         [(MBCKManager *)self setBackupEnabled:0 account:accountCopy connection:v8];
@@ -8689,7 +9376,7 @@ LABEL_14:
         *buf = 138412290;
         v27 = v18;
         _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to fetch account record: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to fetch account record: %@", v18);
       }
 
       v14 = v18;
@@ -8726,7 +9413,7 @@ LABEL_16:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Managed AppleID - restricting health related domains", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Managed AppleID - restricting health related domains");
     }
 
     v12 = MBGetHealthRelatedDomains();
@@ -8780,7 +9467,7 @@ LABEL_16:
       *buf = 138412290;
       v36 = v16;
       _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Server restricted domains: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"I ", "Server restricted domains: %@", v16);
     }
 
     [v9 unionSet:v16];
@@ -8793,7 +9480,7 @@ LABEL_16:
     *buf = 138412290;
     v36 = v9;
     _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Restricted domains: %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "Restricted domains: %@", v9);
   }
 
   return v9;
@@ -8808,6 +9495,18 @@ LABEL_16:
 
   LOBYTE(accountCopy) = [v7 isDomainNameEnabled:nameCopy forPersona:persona];
   return accountCopy;
+}
+
+- (void)setBackupEnabled:(BOOL)enabled forDomainName:(id)name account:(id)account
+{
+  enabledCopy = enabled;
+  accountCopy = account;
+  nameCopy = name;
+  v9 = +[MBAppManager appManager];
+  persona = [accountCopy persona];
+  [v9 setEnabled:enabledCopy forDomainName:nameCopy persona:persona];
+
+  [(MBCKManager *)self updatePrebuddyFollowUp:accountCopy];
 }
 
 - (id)disabledDomainInfosForAccount:(id)account
@@ -8903,7 +9602,7 @@ LABEL_16:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Fetching quota reservations for all devices", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Fetching quota reservations for all devices");
   }
 
   v12 = [(MBCKManager *)self openCacheWithAccount:accountCopy accessType:1 error:error];
@@ -8995,7 +9694,7 @@ LABEL_16:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Fetching pending snapshot for current device", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Fetching pending snapshot for current device");
   }
 
   v8 = objc_opt_new();
@@ -9058,7 +9757,7 @@ LABEL_19:
         *buf = 138412290;
         v35 = v14;
         _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "No pending snapshot found for %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "No pending snapshot found for %@", v14);
       }
     }
 
@@ -9096,7 +9795,7 @@ LABEL_22:
   {
     *v6 = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "NOTE: Counting camera roll against iCloud quota is an unsupported operation (no-op)", v6, 2u);
-    _MBLog();
+    _MBLog(@"Df", "NOTE: Counting camera roll against iCloud quota is an unsupported operation (no-op)");
   }
 
   return 0;
@@ -9171,189 +9870,111 @@ LABEL_22:
     LODWORD(buf) = 138412290;
     *(&buf + 4) = dCopy;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Not counting camera roll against iCloud quota, backupUDID:%@", &buf, 0xCu);
-    v49 = dCopy;
-    _MBLog();
+    _MBLog(@"Df", "Not counting camera roll against iCloud quota, backupUDID:%@", dCopy);
   }
 
   v15 = [(MBCKManager *)self openCacheWithAccount:accountCopy accessType:1 error:error];
   if (v15)
   {
-    v61 = 0;
-    v16 = [MBCKAccount fetchAccountWithOperationTracker:v13 cache:v15 error:&v61];
-    v17 = v61;
+    v58 = 0;
+    v16 = [MBCKAccount fetchAccountWithOperationTracker:v13 cache:v15 error:&v58];
+    v17 = v58;
     v18 = v17;
-    if (v16)
+    if (!v16)
     {
-      v60 = v17;
-      v19 = [v16 fetchDevicesWithOperationTracker:v13 error:&v60];
-      v20 = v60;
-
-      if (v19)
+      if ([MBError isError:v17 withCode:204])
       {
-        v56 = dCopy;
-        v21 = MBDeviceUDID_Legacy();
-        v22 = [v56 isEqualToString:v21];
+        persona = [accountCopy persona];
+        [persona setPreferencesValue:0 forKey:@"HasDeferredDiscountingQuota"];
 
-        if (v22)
+        v33 = MBGetDefaultLog();
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          v23 = MBDeviceUUID();
-
-          v56 = v23;
+          LOWORD(buf) = 0;
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "No account record found to discount camera roll quota for", &buf, 2u);
+          _MBLog(@"Df", "No account record found to discount camera roll quota for");
         }
 
-        devicesByUUID = [v16 devicesByUUID];
-        v55 = [devicesByUUID objectForKeyedSubscript:v56];
+        v31 = 1;
+      }
 
-        if (!v55)
+      else
+      {
+        if ([MBRetryStrategy couldRetryError:v18])
         {
-          persona = [accountCopy persona];
-          [persona setPreferencesValue:0 forKey:@"HasDeferredDiscountingQuota"];
+          persona2 = [accountCopy persona];
+          [persona2 setPreferencesValue:&__kCFBooleanTrue forKey:@"HasDeferredDiscountingQuota"];
 
-          v40 = MBGetDefaultLog();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v37 = MBGetDefaultLog();
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
-            LOWORD(buf) = 0;
-            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "No device record found to discount camera roll quota for", &buf, 2u);
-            _MBLog();
-          }
-
-          v31 = 1;
-          goto LABEL_52;
-        }
-
-        *&buf = 0;
-        *(&buf + 1) = &buf;
-        v65 = 0x3032000000;
-        v66 = sub_100093324;
-        v67 = sub_100093334;
-        v68 = 0;
-        hmacKey = [v55 hmacKey];
-        v54 = [MBCKManifest domainHmac:@"CameraRollDomain" key:hmacKey];
-
-        v26 = dispatch_semaphore_create(0);
-        v53 = [MBCKEnableCameraRollGraceRequest requestWithDevice:v55 domainHMAC:v54];
-        recordRepresentation = [v53 recordRepresentation];
-        v57[0] = _NSConcreteStackBlock;
-        v57[1] = 3221225472;
-        v57[2] = sub_1000B1D04;
-        v57[3] = &unk_1003BD748;
-        p_buf = &buf;
-        v52 = v26;
-        v58 = v52;
-        [v13 saveRecord:recordRepresentation delegate:0 completion:v57];
-
-        MBSemaphoreWaitForever();
-        if (*(*(&buf + 1) + 40))
-        {
-          if ([MBRetryStrategy couldRetryError:?])
-          {
-            persona2 = [accountCopy persona];
-            [persona2 setPreferencesValue:&__kCFBooleanTrue forKey:@"HasDeferredDiscountingQuota"];
-
-            v29 = MBGetDefaultLog();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
-            {
-              v30 = *(*(&buf + 1) + 40);
-              *v62 = 138412290;
-              v63 = v30;
-              _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Deferring camera roll discount after receiving retryable error: %@", v62, 0xCu);
-              v50 = *(*(&buf + 1) + 40);
-              _MBLog();
-            }
-          }
-
-          else
-          {
-            v29 = MBGetDefaultLog();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
-            {
-              v46 = *(*(&buf + 1) + 40);
-              *v62 = 138412290;
-              v63 = v46;
-              _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Failed to discount camera roll from iCloud quota: %@", v62, 0xCu);
-              v51 = *(*(&buf + 1) + 40);
-              _MBLog();
-            }
-          }
-
-          if (error)
-          {
-            v45 = *(*(&buf + 1) + 40);
-            goto LABEL_48;
+            LODWORD(buf) = 138412290;
+            *(&buf + 4) = v18;
+            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Deferring camera roll discount after failing to fetching account record: %@", &buf, 0xCu);
+            _MBLog(@"E ", "Deferring camera roll discount after failing to fetching account record: %@", v18);
           }
         }
 
         else
         {
-          debugContext = [(MBCKManager *)self debugContext];
-          v43 = [debugContext isFlagSet:@"SimulateErrorDiscountingCameraRollQuota"];
-
-          if (!v43)
+          v37 = MBGetDefaultLog();
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
-            persona3 = [accountCopy persona];
-            [persona3 setPreferencesValue:0 forKey:@"HasDeferredDiscountingQuota"];
-
-            v31 = 1;
-            goto LABEL_51;
-          }
-
-          persona4 = [accountCopy persona];
-          [persona4 setPreferencesValue:&__kCFBooleanTrue forKey:@"HasDeferredDiscountingQuota"];
-
-          if (error)
-          {
-            v45 = [MBError errorWithCode:555 format:@"Simulated error discounting camera roll quota"];
-LABEL_48:
-            v31 = 0;
-            *error = v45;
-LABEL_51:
-
-            _Block_object_dispose(&buf, 8);
-LABEL_52:
-
-LABEL_53:
-            v18 = v20;
-LABEL_54:
-
-            goto LABEL_55;
+            LODWORD(buf) = 138412290;
+            *(&buf + 4) = v18;
+            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Failed to fetch account when trying to discount camera roll quota: %@", &buf, 0xCu);
+            _MBLog(@"E ", "Failed to fetch account when trying to discount camera roll quota: %@", v18);
           }
         }
 
-        v31 = 0;
-        goto LABEL_51;
+        if (error)
+        {
+          v41 = v18;
+          v31 = 0;
+          *error = v18;
+        }
+
+        else
+        {
+          v31 = 0;
+        }
       }
 
+      goto LABEL_52;
+    }
+
+    v57 = v17;
+    v19 = [v16 fetchDevicesWithOperationTracker:v13 error:&v57];
+    v20 = v57;
+
+    if ((v19 & 1) == 0)
+    {
       if ([MBRetryStrategy couldRetryError:v20])
       {
-        persona5 = [accountCopy persona];
-        [persona5 setPreferencesValue:&__kCFBooleanTrue forKey:@"HasDeferredDiscountingQuota"];
+        persona3 = [accountCopy persona];
+        [persona3 setPreferencesValue:&__kCFBooleanTrue forKey:@"HasDeferredDiscountingQuota"];
 
         v35 = MBGetDefaultLog();
-        if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_29;
+          LODWORD(buf) = 138412290;
+          *(&buf + 4) = v20;
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Deferring camera roll discount after failing to fetch device records: %@", &buf, 0xCu);
+          _MBLog(@"E ", "Deferring camera roll discount after failing to fetch device records: %@", v20);
         }
-
-        LODWORD(buf) = 138412290;
-        *(&buf + 4) = v20;
-        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Deferring camera roll discount after failing to fetch device records: %@", &buf, 0xCu);
       }
 
       else
       {
         v35 = MBGetDefaultLog();
-        if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_29;
+          LODWORD(buf) = 138412290;
+          *(&buf + 4) = v20;
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Failed to fetch devices when trying to discount camera roll quota: %@", &buf, 0xCu);
+          _MBLog(@"E ", "Failed to fetch devices when trying to discount camera roll quota: %@", v20);
         }
-
-        LODWORD(buf) = 138412290;
-        *(&buf + 4) = v20;
-        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Failed to fetch devices when trying to discount camera roll quota: %@", &buf, 0xCu);
       }
-
-      _MBLog();
-LABEL_29:
 
       if (error)
       {
@@ -9367,75 +9988,142 @@ LABEL_29:
         v31 = 0;
       }
 
-      goto LABEL_53;
+      goto LABEL_51;
     }
 
-    if ([MBError isError:v17 withCode:204])
-    {
-      persona6 = [accountCopy persona];
-      [persona6 setPreferencesValue:0 forKey:@"HasDeferredDiscountingQuota"];
+    v53 = dCopy;
+    v21 = MBDeviceUDID_Legacy();
+    v22 = [v53 isEqualToString:v21];
 
-      v33 = MBGetDefaultLog();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    if (v22)
+    {
+      v23 = MBDeviceUUID();
+
+      v53 = v23;
+    }
+
+    devicesByUUID = [v16 devicesByUUID];
+    v52 = [devicesByUUID objectForKeyedSubscript:v53];
+
+    if (!v52)
+    {
+      persona4 = [accountCopy persona];
+      [persona4 setPreferencesValue:0 forKey:@"HasDeferredDiscountingQuota"];
+
+      v40 = MBGetDefaultLog();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf) = 0;
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "No account record found to discount camera roll quota for", &buf, 2u);
-        _MBLog();
+        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "No device record found to discount camera roll quota for", &buf, 2u);
+        _MBLog(@"Df", "No device record found to discount camera roll quota for");
       }
 
       v31 = 1;
-      goto LABEL_54;
+      goto LABEL_50;
     }
 
-    if ([MBRetryStrategy couldRetryError:v18])
+    *&buf = 0;
+    *(&buf + 1) = &buf;
+    v62 = 0x3032000000;
+    v63 = sub_100093324;
+    v64 = sub_100093334;
+    v65 = 0;
+    hmacKey = [v52 hmacKey];
+    v51 = [MBCKManifest domainHmac:@"CameraRollDomain" key:hmacKey];
+
+    v26 = dispatch_semaphore_create(0);
+    v50 = [MBCKEnableCameraRollGraceRequest requestWithDevice:v52 domainHMAC:v51];
+    recordRepresentation = [v50 recordRepresentation];
+    v54[0] = _NSConcreteStackBlock;
+    v54[1] = 3221225472;
+    v54[2] = sub_1000B1D04;
+    v54[3] = &unk_1003BD748;
+    p_buf = &buf;
+    v49 = v26;
+    v55 = v49;
+    [v13 saveRecord:recordRepresentation delegate:0 completion:v54];
+
+    MBSemaphoreWaitForever();
+    if (*(*(&buf + 1) + 40))
     {
+      if ([MBRetryStrategy couldRetryError:?])
+      {
+        persona5 = [accountCopy persona];
+        [persona5 setPreferencesValue:&__kCFBooleanTrue forKey:@"HasDeferredDiscountingQuota"];
+
+        v29 = MBGetDefaultLog();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        {
+          v30 = *(*(&buf + 1) + 40);
+          *v59 = 138412290;
+          v60 = v30;
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Deferring camera roll discount after receiving retryable error: %@", v59, 0xCu);
+          _MBLog(@"E ", "Deferring camera roll discount after receiving retryable error: %@", *(*(&buf + 1) + 40));
+        }
+      }
+
+      else
+      {
+        v29 = MBGetDefaultLog();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        {
+          v46 = *(*(&buf + 1) + 40);
+          *v59 = 138412290;
+          v60 = v46;
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Failed to discount camera roll from iCloud quota: %@", v59, 0xCu);
+          _MBLog(@"E ", "Failed to discount camera roll from iCloud quota: %@", *(*(&buf + 1) + 40));
+        }
+      }
+
+      if (error)
+      {
+        v45 = *(*(&buf + 1) + 40);
+        goto LABEL_46;
+      }
+    }
+
+    else
+    {
+      debugContext = [(MBCKManager *)self debugContext];
+      v43 = [debugContext isFlagSet:@"SimulateErrorDiscountingCameraRollQuota"];
+
+      if (!v43)
+      {
+        persona6 = [accountCopy persona];
+        [persona6 setPreferencesValue:0 forKey:@"HasDeferredDiscountingQuota"];
+
+        v31 = 1;
+        goto LABEL_49;
+      }
+
       persona7 = [accountCopy persona];
       [persona7 setPreferencesValue:&__kCFBooleanTrue forKey:@"HasDeferredDiscountingQuota"];
 
-      v37 = MBGetDefaultLog();
-      if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      if (error)
       {
-        goto LABEL_38;
+        v45 = [MBError errorWithCode:555 format:@"Simulated error discounting camera roll quota"];
+LABEL_46:
+        v31 = 0;
+        *error = v45;
+LABEL_49:
+
+        _Block_object_dispose(&buf, 8);
+LABEL_50:
+
+LABEL_51:
+        v18 = v20;
+LABEL_52:
+
+        goto LABEL_53;
       }
-
-      LODWORD(buf) = 138412290;
-      *(&buf + 4) = v18;
-      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Deferring camera roll discount after failing to fetching account record: %@", &buf, 0xCu);
     }
 
-    else
-    {
-      v37 = MBGetDefaultLog();
-      if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_38;
-      }
-
-      LODWORD(buf) = 138412290;
-      *(&buf + 4) = v18;
-      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Failed to fetch account when trying to discount camera roll quota: %@", &buf, 0xCu);
-    }
-
-    _MBLog();
-LABEL_38:
-
-    if (error)
-    {
-      v41 = v18;
-      v31 = 0;
-      *error = v18;
-    }
-
-    else
-    {
-      v31 = 0;
-    }
-
-    goto LABEL_54;
+    v31 = 0;
+    goto LABEL_49;
   }
 
   v31 = 0;
-LABEL_55:
+LABEL_53:
 
   return v31;
 }
@@ -9457,6 +10145,42 @@ LABEL_55:
   }
 
   return !v5;
+}
+
+- (void)_setMegaBackupMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v5 = MBGetDefaultLog();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [NSNumber numberWithBool:modeCopy];
+    *buf = 138543362;
+    v12 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "_setMegaBackupMode: %{public}@", buf, 0xCu);
+
+    v7 = [NSNumber numberWithBool:modeCopy];
+    _MBLog(@"Df", "_setMegaBackupMode: %{public}@", v7);
+  }
+
+  account = [(MBServiceManager *)self account];
+  persona = [account persona];
+
+  if (modeCopy)
+  {
+    v10 = &__kCFBooleanTrue;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  [persona setPreferencesValue:v10 forKey:@"IsMegaBackupMode"];
+  if (!modeCopy)
+  {
+    [persona setPreferencesValue:0 forKey:@"IsInitialMegaBackupModeCompleted"];
+    [persona setPreferencesValue:0 forKey:@"MegaBackupModeExpirationDate"];
+  }
 }
 
 - (BOOL)_isMegaBackupMode
@@ -9499,6 +10223,37 @@ LABEL_55:
   return !v5;
 }
 
+- (void)_setIsInitialMegaBackupCompleted:(BOOL)completed
+{
+  completedCopy = completed;
+  v5 = MBGetDefaultLog();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [NSNumber numberWithBool:completedCopy];
+    *buf = 138543362;
+    v13 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "_setIsInitialMegaBackupCompleted: %{public}@", buf, 0xCu);
+
+    v7 = [NSNumber numberWithBool:completedCopy];
+    _MBLog(@"Df", "_setIsInitialMegaBackupCompleted: %{public}@", v7);
+  }
+
+  account = [(MBServiceManager *)self account];
+  persona = [account persona];
+  v10 = persona;
+  if (completedCopy)
+  {
+    v11 = &__kCFBooleanTrue;
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  [persona setPreferencesValue:v11 forKey:@"IsInitialMegaBackupModeCompleted"];
+}
+
 - (id)_megaBackupExpirationDate
 {
   account = [(MBServiceManager *)self account];
@@ -9518,7 +10273,7 @@ LABEL_55:
     *buf = 138543362;
     v12 = dateCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "setMegaBackupExpirationDate: %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "setMegaBackupExpirationDate: %{public}@", dateCopy);
   }
 
   persona = [accountCopy persona];
@@ -9542,7 +10297,7 @@ LABEL_55:
     *buf = 138543362;
     v8 = v4;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Default mega backup expiration date: %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Default mega backup expiration date: %{public}@", v4);
   }
 
   return v4;
@@ -9570,7 +10325,7 @@ LABEL_55:
       v26 = 2112;
       v27 = uUIDString;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Updating Mega Backup Status (%ld): %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Df", "Updating Mega Backup Status (%ld): %@", status, uUIDString);
     }
 
     v11 = +[ACAccountStore defaultStore];
@@ -9630,6 +10385,37 @@ LABEL_55:
   return !v5;
 }
 
+- (void)setPrebuddyMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v5 = MBGetDefaultLog();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [NSNumber numberWithBool:modeCopy];
+    *buf = 138543362;
+    v13 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "setPrebuddyMode: %{public}@", buf, 0xCu);
+
+    v7 = [NSNumber numberWithBool:modeCopy];
+    _MBLog(@"Df", "setPrebuddyMode: %{public}@", v7);
+  }
+
+  account = [(MBServiceManager *)self account];
+  persona = [account persona];
+  v10 = persona;
+  if (modeCopy)
+  {
+    v11 = &__kCFBooleanTrue;
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  [persona setPreferencesValue:v11 forKey:@"IsPrebuddyMode"];
+}
+
 - (void)saveBackupEnabledForMegaBackup
 {
   v3 = MBGetDefaultLog();
@@ -9637,7 +10423,7 @@ LABEL_55:
   {
     *v6 = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Saving backup enabled for mega backup.", v6, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Saving backup enabled for mega backup.");
   }
 
   account = [(MBServiceManager *)self account];
@@ -9654,7 +10440,7 @@ LABEL_55:
     *buf = 138412290;
     v9 = backupCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Saving sync settings enabled for mega backup: %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Saving sync settings enabled for mega backup: %@", backupCopy);
   }
 
   account = [(MBServiceManager *)self account];
@@ -9729,7 +10515,7 @@ LABEL_55:
     *buf = 138412290;
     v20 = v5;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Saving backup domains enabled for mega backup: %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Saving backup domains enabled for mega backup: %@", v5);
   }
 
   account = [(MBServiceManager *)self account];
@@ -9745,7 +10531,7 @@ LABEL_55:
   {
     *v10 = 0;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Restoring previous settings enabled for mega backup.", v10, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Restoring previous settings enabled for mega backup.");
   }
 
   [(MBCKManager *)self _restoreBackupEnabledForMegaBackup:backupCopy];
@@ -9781,7 +10567,7 @@ LABEL_55:
       *buf = 138412290;
       v11 = backupCopy;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Restoring backup enabled setting that was previously enabled for mega backup: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Restoring backup enabled setting that was previously enabled for mega backup: %@", backupCopy);
     }
 
     [(MBCKManager *)self setBackupEnabled:0 account:backupCopy connection:0];
@@ -9807,8 +10593,7 @@ LABEL_55:
       LODWORD(buf) = 138412290;
       *(&buf + 4) = v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Restoring sync settings enabled for mega backup: %@", &buf, 0xCu);
-      v24 = v7;
-      _MBLog();
+      _MBLog(@"Df", "Restoring sync settings enabled for mega backup: %@", v7);
     }
 
     v9 = +[ACAccountStore defaultStore];
@@ -9816,86 +10601,86 @@ LABEL_55:
     if (aa_primaryAppleAccount)
     {
       v11 = dispatch_group_create();
-      v50 = 0;
-      v51 = &v50;
-      v52 = 0x2020000000;
-      v53 = 1;
+      v49 = 0;
+      v50 = &v49;
+      v51 = 0x2020000000;
+      v52 = 1;
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v56 = 0x3032000000;
-      v57 = sub_100093324;
-      v58 = sub_100093334;
-      v59 = 0;
+      v55 = 0x3032000000;
+      v56 = sub_100093324;
+      v57 = sub_100093334;
+      v58 = 0;
       if ([v7 containsObject:ACAccountDataclassKeychainSync])
       {
         dispatch_group_enter(v11);
-        v46[0] = _NSConcreteStackBlock;
-        v46[1] = 3221225472;
-        v46[2] = sub_1000B375C;
-        v46[3] = &unk_1003BD798;
-        v48 = &v50;
+        v45[0] = _NSConcreteStackBlock;
+        v45[1] = 3221225472;
+        v45[2] = sub_1000B375C;
+        v45[3] = &unk_1003BD798;
+        v47 = &v49;
         p_buf = &buf;
-        v47 = v11;
-        [(MBCKManager *)self _disableKeychainSync:v46];
+        v46 = v11;
+        [(MBCKManager *)self _disableKeychainSync:v45];
       }
 
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
       v12 = v7;
-      v13 = [v12 countByEnumeratingWithState:&v42 objects:v54 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v41 objects:v53 count:16];
       if (v13)
       {
-        v14 = *v43;
+        v14 = *v42;
         do
         {
           for (i = 0; i != v13; i = i + 1)
           {
-            if (*v43 != v14)
+            if (*v42 != v14)
             {
               objc_enumerationMutation(v12);
             }
 
-            [aa_primaryAppleAccount setEnabled:0 forDataclass:{*(*(&v42 + 1) + 8 * i), v24}];
+            [aa_primaryAppleAccount setEnabled:0 forDataclass:*(*(&v41 + 1) + 8 * i)];
           }
 
-          v13 = [v12 countByEnumeratingWithState:&v42 objects:v54 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v41 objects:v53 count:16];
         }
 
         while (v13);
       }
 
-      v41 = 0;
-      v16 = [v9 dataclassActionsForAccountSave:aa_primaryAppleAccount error:&v41];
-      v17 = v41;
-      v39[0] = _NSConcreteStackBlock;
-      v39[1] = 3221225472;
-      v39[2] = sub_1000B37CC;
-      v39[3] = &unk_1003BD7C0;
+      v40 = 0;
+      v16 = [v9 dataclassActionsForAccountSave:aa_primaryAppleAccount error:&v40];
+      v17 = v40;
+      v38[0] = _NSConcreteStackBlock;
+      v38[1] = 3221225472;
+      v38[2] = sub_1000B37CC;
+      v38[3] = &unk_1003BD7C0;
       v18 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(v16, "count")}];
-      v40 = v18;
-      [v16 enumerateKeysAndObjectsUsingBlock:v39];
-      v35 = 0;
-      v36 = &v35;
-      v37 = 0x2020000000;
-      v38 = 0;
-      v29 = 0;
-      v30 = &v29;
-      v31 = 0x3032000000;
-      v32 = sub_100093324;
-      v33 = sub_100093334;
+      v39 = v18;
+      [v16 enumerateKeysAndObjectsUsingBlock:v38];
       v34 = 0;
+      v35 = &v34;
+      v36 = 0x2020000000;
+      v37 = 0;
+      v28 = 0;
+      v29 = &v28;
+      v30 = 0x3032000000;
+      v31 = sub_100093324;
+      v32 = sub_100093334;
+      v33 = 0;
       dispatch_group_enter(v11);
-      v25[0] = _NSConcreteStackBlock;
-      v25[1] = 3221225472;
-      v25[2] = sub_1000B3860;
-      v25[3] = &unk_1003BD798;
-      v27 = &v35;
-      v28 = &v29;
+      v24[0] = _NSConcreteStackBlock;
+      v24[1] = 3221225472;
+      v24[2] = sub_1000B3860;
+      v24[3] = &unk_1003BD798;
+      v26 = &v34;
+      v27 = &v28;
       v19 = v11;
-      v26 = v19;
-      [v9 saveAccount:aa_primaryAppleAccount withDataclassActions:v18 completion:v25];
+      v25 = v19;
+      [v9 saveAccount:aa_primaryAppleAccount withDataclassActions:v18 completion:v24];
       dispatch_group_wait(v19, 0xFFFFFFFFFFFFFFFFLL);
       v20 = *(*(&buf + 1) + 40);
       if (v20)
@@ -9903,15 +10688,15 @@ LABEL_55:
         *backup = v20;
       }
 
-      v21 = v30[5];
+      v21 = v29[5];
       if (v21)
       {
         *backup = v21;
       }
 
-      if (*(v51 + 24) == 1)
+      if (*(v50 + 24) == 1)
       {
-        v22 = *(v36 + 24);
+        v22 = *(v35 + 24);
       }
 
       else
@@ -9919,11 +10704,11 @@ LABEL_55:
         v22 = 0;
       }
 
-      _Block_object_dispose(&v29, 8);
-      _Block_object_dispose(&v35, 8);
+      _Block_object_dispose(&v28, 8);
+      _Block_object_dispose(&v34, 8);
 
       _Block_object_dispose(&buf, 8);
-      _Block_object_dispose(&v50, 8);
+      _Block_object_dispose(&v49, 8);
     }
 
     else
@@ -9949,7 +10734,7 @@ LABEL_55:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Disabling Keychain Sync.", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Disabling Keychain Sync.");
   }
 
   v6[0] = _NSConcreteStackBlock;
@@ -9974,41 +10759,39 @@ LABEL_55:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v22 = backupCopy;
-      v23 = 2112;
-      v24 = v7;
+      v20 = backupCopy;
+      v21 = 2112;
+      v22 = v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Restoring backup domains enabled for mega backup: %@, domainNames: %@", buf, 0x16u);
-      v14 = backupCopy;
-      v15 = v7;
-      _MBLog();
+      _MBLog(@"Df", "Restoring backup domains enabled for mega backup: %@, domainNames: %@", backupCopy, v7);
     }
 
-    v18 = 0u;
-    v19 = 0u;
     v16 = 0u;
     v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v17;
+      v12 = *v15;
       do
       {
         v13 = 0;
         do
         {
-          if (*v17 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          [(MBCKManager *)self setBackupEnabled:0 forDomainName:*(*(&v16 + 1) + 8 * v13) account:backupCopy, v14, v15, v16];
+          [(MBCKManager *)self setBackupEnabled:0 forDomainName:*(*(&v14 + 1) + 8 * v13) account:backupCopy];
           v13 = v13 + 1;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v11);
@@ -10023,7 +10806,7 @@ LABEL_55:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Deleting preferences for restoring settings enabled for mega backup", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Deleting preferences for restoring settings enabled for mega backup");
   }
 
   v13 = 0u;
@@ -10068,7 +10851,7 @@ LABEL_55:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Deleting preferences for mega backup telemetries", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Deleting preferences for mega backup telemetries");
   }
 
   v13 = 0u;
@@ -10161,7 +10944,7 @@ LABEL_55:
     *buf = 138412290;
     v11 = v5;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Exiting Mega Backup Mode: %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Exiting Mega Backup Mode: %@", v5);
   }
 
   [v6 setInitialMegaBackup:0];
@@ -10241,7 +11024,7 @@ LABEL_55:
               *v33 = 138412290;
               v34 = dateOfLastBackup;
               _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Successfully refreshed lockdown last backup date key to: %@", v33, 0xCu);
-              _MBLog();
+              _MBLog(@"Df", "Successfully refreshed lockdown last backup date key to: %@", dateOfLastBackup);
             }
 
             v17 = 1;
@@ -10255,7 +11038,7 @@ LABEL_55:
               *v33 = 138412290;
               v34 = v26;
               _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to set lockdown last backup date key: %@", v33, 0xCu);
-              _MBLog();
+              _MBLog(@"E ", "Failed to set lockdown last backup date key: %@", v26);
             }
 
             [v19 disconnect];
@@ -10272,7 +11055,7 @@ LABEL_55:
           {
             *v33 = 0;
             _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Failed to connect to lockdown to set last backup date key", v33, 2u);
-            _MBLog();
+            _MBLog(@"E ", "Failed to connect to lockdown to set last backup date key");
           }
 
           v17 = 0;
@@ -10286,7 +11069,7 @@ LABEL_55:
         {
           *v33 = 0;
           _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to refresh lockdown last backup date key because of nil date in device record", v33, 2u);
-          _MBLog();
+          _MBLog(@"E ", "Failed to refresh lockdown last backup date key because of nil date in device record");
         }
 
         v17 = 0;
@@ -10304,7 +11087,7 @@ LABEL_55:
       LODWORD(buf) = 138412290;
       *(&buf + 4) = v8;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to refresh last backup date from server: %@", &buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to refresh last backup date from server: %@", v8);
     }
 
     v17 = 0;
@@ -10398,7 +11181,7 @@ LABEL_55:
     {
       *v7 = 0;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Cannot update with a nil mega backup expiration date.", v7, 2u);
-      _MBLog();
+      _MBLog(@"E ", "Cannot update with a nil mega backup expiration date.");
     }
   }
 }
@@ -10431,7 +11214,7 @@ LABEL_55:
       *buf = 138412290;
       v11 = v6;
       _os_log_impl(&_mh_execute_header, prebuddyFollowUpController2, OS_LOG_TYPE_ERROR, "Unable to get account to update prebuddy follow up: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Unable to get account to update prebuddy follow up: %@", v6);
     }
 
     goto LABEL_8;
@@ -10495,7 +11278,7 @@ LABEL_9:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Device is locking", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Device is locking");
   }
 
   v4 = +[MBServiceAccount allServiceAccounts];
@@ -10592,7 +11375,7 @@ LABEL_9:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Device is unlocked", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Device is unlocked");
   }
 
   v4 = +[MBServiceAccount allServiceAccounts];
@@ -10634,12 +11417,12 @@ LABEL_9:
 
 - (void)_updateLockdownKeysForAccountState:(id)state
 {
-  v24 = 0;
+  v21 = 0;
   stateCopy = state;
   persona = [stateCopy persona];
-  v5 = [persona getBooleanValueForKey:@"AllowiTunesBackup" keyExists:&v24];
+  v5 = [persona getBooleanValueForKey:@"AllowiTunesBackup" keyExists:&v21];
 
-  LODWORD(persona) = v24;
+  LODWORD(persona) = v21;
   isEnabled = [stateCopy isEnabled];
 
   v7 = +[MBLockdown connect];
@@ -10650,7 +11433,7 @@ LABEL_9:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Clearing cloud backup lockdown key because the iTunes backup pref is set", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Clearing cloud backup lockdown key because the iTunes backup pref is set");
     }
 
     isEnabled = 0;
@@ -10661,22 +11444,19 @@ LABEL_9:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v26 = @"CloudBackupEnabled";
-    v27 = 2112;
-    v28 = v9;
-    v29 = 1024;
-    v30 = isEnabled;
+    v23 = @"CloudBackupEnabled";
+    v24 = 2112;
+    v25 = v9;
+    v26 = 1024;
+    v27 = isEnabled;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@ was %@, setting it to %d", buf, 0x1Cu);
-    v20 = v9;
-    v21 = isEnabled;
-    v19 = @"CloudBackupEnabled";
-    _MBLog();
+    _MBLog(@"Df", "%@ was %@, setting it to %d", @"CloudBackupEnabled", v9, isEnabled);
   }
 
   v11 = [NSNumber numberWithBool:isEnabled];
-  v23 = 0;
-  v12 = [v7 setObject:v11 forDomain:@"com.apple.mobile.backup" andKey:@"CloudBackupEnabled" withError:&v23];
-  v13 = v23;
+  v20 = 0;
+  v12 = [v7 setObject:v11 forDomain:@"com.apple.mobile.backup" andKey:@"CloudBackupEnabled" withError:&v20];
+  v13 = v20;
 
   if ((v12 & 1) == 0)
   {
@@ -10684,10 +11464,9 @@ LABEL_9:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v26 = v13;
+      v23 = v13;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Error setting lockdown cloud backup enabled key: %@", buf, 0xCu);
-      v19 = v13;
-      _MBLog();
+      _MBLog(@"E ", "Error setting lockdown cloud backup enabled key: %@", v13);
     }
   }
 
@@ -10698,22 +11477,21 @@ LABEL_9:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Clearing last backup date from lockdown", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Clearing last backup date from lockdown");
     }
 
-    v22 = 0;
-    v16 = [v7 removeObjectWithDomain:@"com.apple.mobile.backup" andKey:@"LastCloudBackupDate" withError:&v22];
-    v17 = v22;
+    v19 = 0;
+    v16 = [v7 removeObjectWithDomain:@"com.apple.mobile.backup" andKey:@"LastCloudBackupDate" withError:&v19];
+    v17 = v19;
     if ((v16 & 1) == 0)
     {
       v18 = MBGetDefaultLog();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v26 = v17;
+        v23 = v17;
         _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Failed to remove last backup date from lockdown: %@", buf, 0xCu);
-        v19 = v17;
-        _MBLog();
+        _MBLog(@"E ", "Failed to remove last backup date from lockdown: %@", v17);
       }
     }
   }
@@ -10758,7 +11536,7 @@ LABEL_9:
             {
               *buf = 0;
               _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Account became available during background restore - retrying pending downloads if necessary", buf, 2u);
-              _MBLog();
+              _MBLog(@"Df", "Account became available during background restore - retrying pending downloads if necessary");
             }
 
             v12[0] = _NSConcreteStackBlock;
@@ -10833,7 +11611,7 @@ LABEL_14:
     accountIdentifier2 = [v7 accountIdentifier];
     persona2 = [v7 persona];
     personaIdentifier2 = [persona2 personaIdentifier];
-    _MBLog();
+    _MBLog(@"Df", "-lockManagerDidReleaseLock called for account %{public}@(%{public}@)", accountIdentifier2, personaIdentifier2);
   }
 
   stateQueue = self->_stateQueue;
@@ -10844,7 +11622,7 @@ LABEL_14:
   block[4] = self;
   v18 = v7;
   v19 = a2;
-  v15 = v7;
+  v16 = v7;
   dispatch_async(stateQueue, block);
 }
 
@@ -10876,7 +11654,7 @@ LABEL_14:
     accountIdentifier2 = [v10 accountIdentifier];
     persona2 = [v10 persona];
     personaIdentifier2 = [persona2 personaIdentifier];
-    _MBLog();
+    _MBLog(@"Df", "-lockManager:failedToReleaseLockWithError: called for account %{public}@(%{public}@): %{public}@", accountIdentifier2, personaIdentifier2, errorCopy);
   }
 
   stateQueue = self->_stateQueue;
@@ -10887,7 +11665,7 @@ LABEL_14:
   block[4] = self;
   v21 = v10;
   v22 = a2;
-  v18 = v10;
+  v19 = v10;
   dispatch_async(stateQueue, block);
 }
 
@@ -10914,151 +11692,150 @@ LABEL_14:
   }
 
   v9 = persona;
-  v84 = v7;
-  v81 = [(MBPersonaStateManager *)self->_personaState objectForKeyedSubscript:v7];
-  finishedAppRestores = [v81 finishedAppRestores];
+  v79 = v7;
+  v76 = [(MBPersonaStateManager *)self->_personaState objectForKeyedSubscript:v7];
+  finishedAppRestores = [v76 finishedAppRestores];
   airTrafficDidFinishRestore = [(MBCKManager *)self airTrafficDidFinishRestore];
   v12 = BYSetupAssistantNeedsToRun();
   v13 = [MBRestoreCloudFormatPolicy snapshotFormatForCurrentRestore:v9];
-  v118 = 0;
-  v117 = 0;
-  v83 = v9;
-  LOBYTE(v9) = [MBRestoreCloudFormatPolicy isRestoringFromFileLists:&v118 persona:v9 error:&v117];
-  v14 = v117;
+  v113 = 0;
+  v112 = 0;
+  v78 = v9;
+  LOBYTE(v9) = [MBRestoreCloudFormatPolicy isRestoringFromFileLists:&v113 persona:v9 error:&v112];
+  v14 = v112;
   if ((v9 & 1) == 0)
   {
     v15 = MBGetDefaultLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v122 = v14;
+      v117 = v14;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_FAULT, "Failed to determine if restoring from file lists: %@", buf, 0xCu);
-      v76 = v14;
-      _MBLog();
+      _MBLog(@"F ", "Failed to determine if restoring from file lists: %@", v14);
     }
   }
 
-  v80 = v14;
-  v104 = [NSMutableDictionary alloc];
-  v132[0] = @"appRestoreComplete";
+  v75 = v14;
+  v99 = [NSMutableDictionary alloc];
+  v127[0] = @"appRestoreComplete";
   v16 = MBError_ptr;
   v17 = [NSNumber numberWithBool:finishedAppRestores];
-  v133[0] = v17;
-  v132[1] = @"atRestoreComplete";
+  v128[0] = v17;
+  v127[1] = @"atRestoreComplete";
   v18 = [NSNumber numberWithBool:airTrafficDidFinishRestore];
-  v133[1] = v18;
-  v132[2] = @"setupAssistantFinished";
+  v128[1] = v18;
+  v127[2] = @"setupAssistantFinished";
   v19 = [NSNumber numberWithBool:v12 ^ 1u];
-  v133[2] = v19;
-  v132[3] = @"thermalPressureLevel";
+  v128[2] = v19;
+  v127[3] = @"thermalPressureLevel";
   thermalPressureMonitor = [v5 thermalPressureMonitor];
   v21 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [thermalPressureMonitor thermalPressureLevel]);
-  v133[3] = v21;
-  v132[4] = @"snapshotUUID";
-  v82 = v5;
+  v128[3] = v21;
+  v127[4] = @"snapshotUUID";
+  v77 = v5;
   snapshotUUID = [v5 snapshotUUID];
-  v133[4] = snapshotUUID;
-  v132[5] = @"snapshotFormat";
+  v128[4] = snapshotUUID;
+  v127[5] = @"snapshotFormat";
   v23 = [NSNumber numberWithLongLong:v13];
-  v133[5] = v23;
-  v132[6] = @"isRestoringWithFileLists";
-  v24 = [NSNumber numberWithBool:v118];
-  v133[6] = v24;
-  v25 = [NSDictionary dictionaryWithObjects:v133 forKeys:v132 count:7];
-  v85 = [v104 initWithDictionary:v25];
+  v128[5] = v23;
+  v127[6] = @"isRestoringWithFileLists";
+  v24 = [NSNumber numberWithBool:v113];
+  v128[6] = v24;
+  v25 = [NSDictionary dictionaryWithObjects:v128 forKeys:v127 count:7];
+  v80 = [v99 initWithDictionary:v25];
 
-  v26 = v84;
-  v27 = v83;
-  if ([v84 isPrimaryAccount])
+  v26 = v79;
+  v27 = v78;
+  if ([v79 isPrimaryAccount])
   {
     v28 = objc_opt_new();
     v29 = [ATSession sessionsWithSessionTypeIdentifier:ATSessionTypeRestore];
     v30 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v29 count]);
-    [v85 setObject:v30 forKeyedSubscript:@"atRestoreSessionsCount"];
+    [v80 setObject:v30 forKeyedSubscript:@"atRestoreSessionsCount"];
 
-    v115 = 0u;
-    v116 = 0u;
-    v113 = 0u;
-    v114 = 0u;
+    v110 = 0u;
+    v111 = 0u;
+    v108 = 0u;
+    v109 = 0u;
     obj = v29;
-    v88 = [obj countByEnumeratingWithState:&v113 objects:v131 count:16];
-    v97 = v28;
-    if (!v88)
+    v83 = [obj countByEnumeratingWithState:&v108 objects:v126 count:16];
+    v92 = v28;
+    if (!v83)
     {
+      v85 = 0;
+      v86 = 0;
+      v87 = 0;
+      v88 = 0;
+      v89 = 0;
       v90 = 0;
       v91 = 0;
-      v92 = 0;
-      v93 = 0;
-      v94 = 0;
-      v95 = 0;
-      v96 = 0;
       goto LABEL_64;
     }
 
+    v85 = 0;
+    v86 = 0;
+    v87 = 0;
+    v88 = 0;
+    v89 = 0;
     v90 = 0;
     v91 = 0;
-    v92 = 0;
-    v93 = 0;
-    v94 = 0;
-    v95 = 0;
-    v96 = 0;
-    v87 = *v114;
+    v82 = *v109;
     while (1)
     {
       v31 = 0;
       do
       {
-        if (*v114 != v87)
+        if (*v109 != v82)
         {
           objc_enumerationMutation(obj);
         }
 
-        v89 = v31;
-        sessionTasks = [*(*(&v113 + 1) + 8 * v31) sessionTasks];
-        v109 = 0u;
-        v110 = 0u;
-        v111 = 0u;
-        v112 = 0u;
-        v98 = sessionTasks;
-        v100 = [v98 countByEnumeratingWithState:&v109 objects:v130 count:16];
-        if (v100)
+        v84 = v31;
+        sessionTasks = [*(*(&v108 + 1) + 8 * v31) sessionTasks];
+        v104 = 0u;
+        v105 = 0u;
+        v106 = 0u;
+        v107 = 0u;
+        v93 = sessionTasks;
+        v95 = [v93 countByEnumeratingWithState:&v104 objects:v125 count:16];
+        if (v95)
         {
-          v99 = *v110;
+          v94 = *v105;
           do
           {
             v33 = 0;
             do
             {
-              if (*v110 != v99)
+              if (*v105 != v94)
               {
-                objc_enumerationMutation(v98);
+                objc_enumerationMutation(v93);
               }
 
-              v103 = v33;
-              v101 = *(*(&v109 + 1) + 8 * v33);
+              v98 = v33;
+              v96 = *(*(&v104 + 1) + 8 * v33);
               context = objc_autoreleasePoolPush();
-              recentlyFailedAssets = [v101 recentlyFailedAssets];
+              recentlyFailedAssets = [v96 recentlyFailedAssets];
               v35 = objc_opt_new();
-              v105 = 0u;
-              v106 = 0u;
-              v107 = 0u;
-              v108 = 0u;
+              v100 = 0u;
+              v101 = 0u;
+              v102 = 0u;
+              v103 = 0u;
               v36 = recentlyFailedAssets;
-              v37 = [v36 countByEnumeratingWithState:&v105 objects:v129 count:16];
+              v37 = [v36 countByEnumeratingWithState:&v100 objects:v124 count:16];
               if (v37)
               {
                 v38 = v37;
-                v39 = *v106;
+                v39 = *v101;
                 do
                 {
                   for (i = 0; i != v38; i = i + 1)
                   {
-                    if (*v106 != v39)
+                    if (*v101 != v39)
                     {
                       objc_enumerationMutation(v36);
                     }
 
-                    v41 = *(*(&v105 + 1) + 8 * i);
+                    v41 = *(*(&v100 + 1) + 8 * i);
                     error = [v41 error];
                     if (error)
                     {
@@ -11066,11 +11843,11 @@ LABEL_14:
                       if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
                       {
                         *buf = 138412546;
-                        v122 = v41;
-                        v123 = 2112;
-                        v124 = error;
+                        v117 = v41;
+                        v118 = 2112;
+                        v119 = error;
                         _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "ATSessionTask recentlyFailedAsset:%@, error:%@", buf, 0x16u);
-                        _MBLog();
+                        _MBLog(@"E ", "ATSessionTask recentlyFailedAsset:%@, error:%@", v41, error);
                       }
 
                       domain = [error domain];
@@ -11081,18 +11858,18 @@ LABEL_14:
                     }
                   }
 
-                  v38 = [v36 countByEnumeratingWithState:&v105 objects:v129 count:16];
+                  v38 = [v36 countByEnumeratingWithState:&v100 objects:v124 count:16];
                 }
 
                 while (v38);
               }
 
-              totalItemCount = [v101 totalItemCount];
-              completedItemCount = [v101 completedItemCount];
-              totalItemCount2 = [v101 totalItemCount];
-              if (totalItemCount2 >= [v101 completedItemCount])
+              totalItemCount = [v96 totalItemCount];
+              completedItemCount = [v96 completedItemCount];
+              totalItemCount2 = [v96 totalItemCount];
+              if (totalItemCount2 >= [v96 completedItemCount])
               {
-                totalItemCount5 = (totalItemCount - completedItemCount);
+                totalItemCount4 = (totalItemCount - completedItemCount);
               }
 
               else
@@ -11100,38 +11877,35 @@ LABEL_14:
                 v51 = MBGetDefaultLog();
                 if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
                 {
-                  localizedDescription2 = [v101 localizedDescription];
-                  completedItemCount2 = [v101 completedItemCount];
-                  totalItemCount3 = [v101 totalItemCount];
+                  localizedDescription2 = [v96 localizedDescription];
+                  completedItemCount2 = [v96 completedItemCount];
+                  totalItemCount3 = [v96 totalItemCount];
                   *buf = 138412802;
-                  v122 = localizedDescription2;
-                  v123 = 2048;
-                  v124 = completedItemCount2;
-                  v125 = 2048;
-                  v126 = totalItemCount3;
+                  v117 = localizedDescription2;
+                  v118 = 2048;
+                  v119 = completedItemCount2;
+                  v120 = 2048;
+                  v121 = totalItemCount3;
                   _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "Pending AirTraffic Restore: %@ completed: %lu > total: %lu [inconsistent]", buf, 0x20u);
 
-                  localizedDescription3 = [v101 localizedDescription];
-                  completedItemCount3 = [v101 completedItemCount];
-                  totalItemCount4 = [v101 totalItemCount];
-                  v76 = localizedDescription3;
-                  _MBLog();
+                  localizedDescription3 = [v96 localizedDescription];
+                  _MBLog(@"E ", "Pending AirTraffic Restore: %@ completed: %lu > total: %lu [inconsistent]", localizedDescription3, [v96 completedItemCount], objc_msgSend(v96, "totalItemCount"));
                 }
 
-                totalItemCount5 = [v101 totalItemCount];
+                totalItemCount4 = [v96 totalItemCount];
               }
 
-              if ([v101 totalItemCount] && totalItemCount5)
+              if ([v96 totalItemCount] && totalItemCount4)
               {
-                dataClass = [v101 dataClass];
+                dataClass = [v96 dataClass];
                 if ([dataClass isEqualToString:@"Book"])
                 {
                   v58 = @"bookRecentErrors";
-                  v96 = totalItemCount5;
+                  v91 = totalItemCount4;
 LABEL_51:
                   if ([v35 count])
                   {
-                    [v97 setValue:v35 forKey:v58];
+                    [v92 setValue:v35 forKey:v58];
                   }
                 }
 
@@ -11140,41 +11914,41 @@ LABEL_51:
                   if ([dataClass isEqualToString:@"Photo"])
                   {
                     v58 = @"photoRecentErrors";
-                    v95 = totalItemCount5;
+                    v90 = totalItemCount4;
                     goto LABEL_51;
                   }
 
                   if ([dataClass isEqualToString:@"Ringtone"])
                   {
                     v58 = @"ringtoneRecentErrors";
-                    v94 = totalItemCount5;
+                    v89 = totalItemCount4;
                     goto LABEL_51;
                   }
 
                   if ([dataClass isEqualToString:@"Media"])
                   {
-                    v93 = totalItemCount5;
+                    v88 = totalItemCount4;
                     v58 = @"mediaRecentErrors";
                     goto LABEL_51;
                   }
 
                   if ([dataClass isEqualToString:@"MessagePart"])
                   {
-                    v92 = totalItemCount5;
+                    v87 = totalItemCount4;
                     v58 = @"messagePartRecentErrors";
                     goto LABEL_51;
                   }
 
                   if ([dataClass isEqualToString:@"VoiceMemo"])
                   {
-                    v91 = totalItemCount5;
+                    v86 = totalItemCount4;
                     v58 = @"voiceMemoRecentErrors";
                     goto LABEL_51;
                   }
 
                   if ([dataClass isEqualToString:@"File"])
                   {
-                    v90 = totalItemCount5;
+                    v85 = totalItemCount4;
                     v58 = @"localFilesRecentErrors";
                     goto LABEL_51;
                   }
@@ -11186,88 +11960,83 @@ LABEL_51:
               v59 = MBGetDefaultLog();
               if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
               {
-                localizedDescription4 = [v101 localizedDescription];
-                completedItemCount4 = [v101 completedItemCount];
-                totalItemCount6 = [v101 totalItemCount];
+                localizedDescription4 = [v96 localizedDescription];
+                completedItemCount3 = [v96 completedItemCount];
+                totalItemCount5 = [v96 totalItemCount];
                 *buf = 138413058;
-                v122 = localizedDescription4;
-                v123 = 2048;
-                v124 = completedItemCount4;
-                v125 = 2048;
-                v126 = totalItemCount6;
-                v127 = 2048;
-                v128 = totalItemCount5;
+                v117 = localizedDescription4;
+                v118 = 2048;
+                v119 = completedItemCount3;
+                v120 = 2048;
+                v121 = totalItemCount5;
+                v122 = 2048;
+                v123 = totalItemCount4;
                 _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_INFO, "Pending AirTraffic Restore: %@ completed: %lu total: %lu remaining: %lu", buf, 0x2Au);
 
-                localizedDescription5 = [v101 localizedDescription];
-                completedItemCount5 = [v101 completedItemCount];
-                totalItemCount4 = [v101 totalItemCount];
-                v79 = totalItemCount5;
-                v76 = localizedDescription5;
-                completedItemCount3 = completedItemCount5;
-                _MBLog();
+                localizedDescription5 = [v96 localizedDescription];
+                _MBLog(@"I ", "Pending AirTraffic Restore: %@ completed: %lu total: %lu remaining: %lu", localizedDescription5, [v96 completedItemCount], objc_msgSend(v96, "totalItemCount"), totalItemCount4, v75);
               }
 
               objc_autoreleasePoolPop(context);
-              v33 = v103 + 1;
+              v33 = v98 + 1;
             }
 
-            while ((v103 + 1) != v100);
-            v65 = [v98 countByEnumeratingWithState:&v109 objects:v130 count:16];
-            v100 = v65;
+            while ((v98 + 1) != v95);
+            v64 = [v93 countByEnumeratingWithState:&v104 objects:v125 count:16];
+            v95 = v64;
           }
 
-          while (v65);
+          while (v64);
         }
 
-        v31 = v89 + 1;
+        v31 = v84 + 1;
         v16 = MBError_ptr;
       }
 
-      while ((v89 + 1) != v88);
-      v88 = [obj countByEnumeratingWithState:&v113 objects:v131 count:16];
-      if (!v88)
+      while ((v84 + 1) != v83);
+      v83 = [obj countByEnumeratingWithState:&v108 objects:v126 count:16];
+      if (!v83)
       {
 LABEL_64:
 
-        v119[0] = @"bookPendingItemCount";
-        v66 = [v16[91] numberWithUnsignedInteger:v96];
-        v120[0] = v66;
-        v119[1] = @"photoPendingItemCount";
-        v67 = [v16[91] numberWithUnsignedInteger:v95];
-        v120[1] = v67;
-        v119[2] = @"ringtonePendingItemCount";
-        [v16[91] numberWithUnsignedInteger:v94];
-        v69 = v68 = v16;
-        v120[2] = v69;
-        v119[3] = @"mediaPendingItemCount";
-        v70 = [v16[91] numberWithUnsignedInteger:v93];
-        v120[3] = v70;
-        v119[4] = @"messagePartPendingItemCount";
-        v71 = [v68[91] numberWithUnsignedInteger:v92];
-        v120[4] = v71;
-        v119[5] = @"voiceMemoPendingItemCount";
-        v72 = [v68[91] numberWithUnsignedInteger:v91];
-        v120[5] = v72;
-        v119[6] = @"localFilesPendingItemCount";
-        v73 = [v68[91] numberWithUnsignedInteger:v90];
-        v120[6] = v73;
-        v74 = [NSDictionary dictionaryWithObjects:v120 forKeys:v119 count:7];
-        [v85 addEntriesFromDictionary:v74];
+        v114[0] = @"bookPendingItemCount";
+        v65 = [v16[91] numberWithUnsignedInteger:v91];
+        v115[0] = v65;
+        v114[1] = @"photoPendingItemCount";
+        v66 = [v16[91] numberWithUnsignedInteger:v90];
+        v115[1] = v66;
+        v114[2] = @"ringtonePendingItemCount";
+        [v16[91] numberWithUnsignedInteger:v89];
+        v68 = v67 = v16;
+        v115[2] = v68;
+        v114[3] = @"mediaPendingItemCount";
+        v69 = [v16[91] numberWithUnsignedInteger:v88];
+        v115[3] = v69;
+        v114[4] = @"messagePartPendingItemCount";
+        v70 = [v67[91] numberWithUnsignedInteger:v87];
+        v115[4] = v70;
+        v114[5] = @"voiceMemoPendingItemCount";
+        v71 = [v67[91] numberWithUnsignedInteger:v86];
+        v115[5] = v71;
+        v114[6] = @"localFilesPendingItemCount";
+        v72 = [v67[91] numberWithUnsignedInteger:v85];
+        v115[6] = v72;
+        v73 = [NSDictionary dictionaryWithObjects:v115 forKeys:v114 count:7];
+        [v80 addEntriesFromDictionary:v73];
 
-        if ([v97 count])
+        if ([v92 count])
         {
-          [v85 addEntriesFromDictionary:v97];
+          [v80 addEntriesFromDictionary:v92];
         }
 
-        v27 = v83;
-        v26 = v84;
+        v27 = v78;
+        v26 = v79;
         break;
       }
     }
   }
 
-  return v85;
+  return v80;
 }
 
 - (BOOL)acquireLockWithBackupUDID:(id)d account:(id)account owner:(id)owner timeout:(double)timeout connection:(id)connection error:(id *)error
@@ -11300,7 +12069,7 @@ LABEL_64:
     v35 = 2048;
     timeoutCopy = timeout;
     _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Acquiring CK lock for device:%@, timeout:%.3f", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"Df", "Acquiring CK lock for device:%@, timeout:%.3f", dCopy, *&timeout);
   }
 
   v20 = +[MBCKOperationPolicy expensiveCellularPolicy];
@@ -11325,7 +12094,7 @@ LABEL_64:
       *buf = 138412290;
       v34 = dCopy;
       _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Acquired the CK lock for device:%@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Acquired the CK lock for device:%@", dCopy);
     }
   }
 
@@ -11338,7 +12107,7 @@ LABEL_64:
       v35 = 2112;
       timeoutCopy = *&v27;
       _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Failed to acquire the CK lock for device:%@: %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to acquire the CK lock for device:%@: %@", dCopy, v27);
     }
 
     v30 = v27;
@@ -11371,7 +12140,7 @@ LABEL_64:
     *buf = 138412290;
     v32 = dCopy;
     _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Releasing the CK lock for device:%@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Releasing the CK lock for device:%@", dCopy);
   }
 
   v18 = +[MBCKOperationPolicy expensiveCellularPolicy];
@@ -11396,7 +12165,7 @@ LABEL_64:
       *buf = 138412290;
       v32 = dCopy;
       _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Released CK lock for device:%@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Released CK lock for device:%@", dCopy);
     }
   }
 
@@ -11409,7 +12178,7 @@ LABEL_64:
       v33 = 2112;
       v34 = v25;
       _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Failed to release the CK lock for device:%@: %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to release the CK lock for device:%@: %@", dCopy, v25);
     }
 
     v28 = v25;
@@ -11583,20 +12352,20 @@ LABEL_25:
 
   if ((v5 & 0x100) != 0 && (var4 & 4) != 0)
   {
-    v15 = 0;
-    v8 = [(MBCKManager *)self fetchBackgroundRestoreCellularAccessForAccount:accountCopy error:&v15];
-    v11 = v15;
+    v18 = 0;
+    v8 = [(MBCKManager *)self fetchBackgroundRestoreCellularAccessForAccount:accountCopy error:&v18];
+    v11 = v18;
     if (v11)
     {
       v12 = MBGetDefaultLog();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v17 = accountCopy;
-        v18 = 2112;
-        *v19 = v11;
+        v20 = accountCopy;
+        v21 = 2112;
+        *v22 = v11;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Error fetching cellular access for account (%@): %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "Error fetching cellular access for account (%@): %@", accountCopy, v11);
       }
 
       goto LABEL_11;
@@ -11622,9 +12391,9 @@ LABEL_2:
       block[1] = 3221225472;
       block[2] = sub_1000B9EC4;
       block[3] = &unk_1003BC0B0;
-      v14 = accountCopy;
+      v17 = accountCopy;
       dispatch_async(v9, block);
-      v10 = v14;
+      v10 = v17;
       goto LABEL_14;
     }
   }
@@ -11633,18 +12402,21 @@ LABEL_12:
   v10 = MBGetDefaultLog();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
+    v13 = v5 & 1;
+    v14 = (v5 >> 8) & 1;
     *buf = 138413314;
-    v17 = accountCopy;
-    v18 = 1024;
-    *v19 = v5 & 1;
-    *&v19[4] = 1024;
-    *&v19[6] = (v5 >> 8) & 1;
-    v20 = 1024;
-    v21 = HIWORD(v5) & 1;
-    v22 = 2114;
-    v23 = v8;
+    v15 = HIWORD(v5) & 1;
+    v20 = accountCopy;
+    v21 = 1024;
+    *v22 = v13;
+    *&v22[4] = 1024;
+    *&v22[6] = v14;
+    v23 = 1024;
+    v24 = v15;
+    v25 = 2114;
+    v26 = v8;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Not retrying app downloads for account %@, isOnWiFi:%d, isOnCellular:%d(%d), cellularAccess:%{public}@", buf, 0x28u);
-    _MBLog();
+    _MBLog(@"Df", "Not retrying app downloads for account %@, isOnWiFi:%d, isOnCellular:%d(%d), cellularAccess:%{public}@", accountCopy, v13, v14, v15, v8);
   }
 
 LABEL_14:
@@ -11834,7 +12606,7 @@ LABEL_14:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to fetch the persona identifier", buf, 2u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch the persona identifier");
     }
 
     v22 = 0;
@@ -12064,33 +12836,33 @@ LABEL_14:
   v9 = v8;
   if (v8)
   {
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x3032000000;
+    v40 = sub_100093324;
+    v41 = sub_100093334;
+    v42 = 0;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x3032000000;
+    v34 = sub_100093324;
+    v35 = sub_100093334;
     v36 = 0;
-    v37 = &v36;
-    v38 = 0x3032000000;
-    v39 = sub_100093324;
-    v40 = sub_100093334;
-    v41 = 0;
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x3032000000;
-    v33 = sub_100093324;
-    v34 = sub_100093334;
-    v35 = 0;
     stateQueue = self->_stateQueue;
     block = _NSConcreteStackBlock;
-    v22 = 3221225472;
-    v23 = sub_1000BBCB0;
-    v24 = &unk_1003BDA00;
+    v23 = 3221225472;
+    v24 = sub_1000BBCB0;
+    v25 = &unk_1003BDA00;
     selfCopy = self;
-    v26 = v8;
-    v28 = &v30;
-    v27 = v7;
-    v29 = &v36;
+    v27 = v8;
+    v29 = &v31;
+    v28 = v7;
+    v30 = &v37;
     dispatch_sync(stateQueue, &block);
-    v11 = v37[5];
+    v11 = v38[5];
     if (!v11)
     {
-      v12 = v31[5];
+      v12 = v32[5];
       if (!v12)
       {
         v13 = MBGetDefaultLog();
@@ -12101,27 +12873,27 @@ LABEL_14:
           {
             v15 = objc_opt_class();
             *buf = 138412290;
-            v43 = v15;
+            v44 = v15;
             _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to find an %@ instance", buf, 0xCu);
           }
 
-          objc_opt_class();
-          _MBLog();
+          v16 = objc_opt_class();
+          _MBLog(@"E ", "Failed to find an %@ instance", v16, block, v23, v24, v25, selfCopy, v27);
         }
 
-        v16 = [MBError errorWithCode:1 format:@"Failed to find an %@ instance", objc_opt_class(), block, v22, v23, v24, selfCopy, v26];
-        v17 = v31[5];
-        v31[5] = v16;
+        v17 = [MBError errorWithCode:1 format:@"Failed to find an %@ instance", objc_opt_class()];
+        v18 = v32[5];
+        v32[5] = v17;
 
-        v12 = v31[5];
+        v12 = v32[5];
       }
 
-      v18 = v12;
-      *error = v18;
-      v11 = v37[5];
+      v19 = v12;
+      *error = v19;
+      v11 = v38[5];
       if (!v11)
       {
-        if (!v18)
+        if (!v19)
         {
           __assert_rtn("[MBCKManager _findTargetDeviceTransferEngineWithConnection:error:]", "MBCKManager.m", 6098, "dtEngine || *error");
         }
@@ -12130,18 +12902,18 @@ LABEL_14:
       }
     }
 
-    v19 = v11;
+    v20 = v11;
 
-    _Block_object_dispose(&v30, 8);
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v37, 8);
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
-  return v19;
+  return v20;
 }
 
 - (void)startPreflightWithConnection:(id)connection completion:(id)completion
@@ -12249,7 +13021,7 @@ LABEL_14:
               v20 = 2048;
               completeCopy = complete;
               _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "IX: Restore engine already ongoing for app %@. Progress: %.2f", buf, 0x16u);
-              _MBLog();
+              _MBLog(@"I ", "IX: Restore engine already ongoing for app %@. Progress: %.2f", dCopy, *&complete, v14);
             }
 
             LOBYTE(v8) = 1;
@@ -12271,6 +13043,29 @@ LABEL_14:
 LABEL_16:
 
   return v8;
+}
+
+- (void)didFinishAppRestoresWithAccount:(id)account cancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  accountCopy = account;
+  if (!accountCopy)
+  {
+    __assert_rtn("[MBCKManager didFinishAppRestoresWithAccount:cancelled:]", "MBCKManager.m", 6171, "account");
+  }
+
+  v7 = accountCopy;
+  dispatch_assert_queue_not_V2(self->_stateQueue);
+  v8 = [(MBPersonaStateManager *)self->_personaState objectForKeyedSubscript:v7];
+  stateQueue = self->_stateQueue;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_1000BC474;
+  block[3] = &unk_1003BC0B0;
+  v12 = v8;
+  v10 = v8;
+  dispatch_sync(stateQueue, block);
+  [(MBCKManager *)self _finishRestoreWithAccount:v7 cancelled:cancelledCopy];
 }
 
 + (void)insufficientFreeSpaceToRestoreForAccount:(id)account
@@ -12332,7 +13127,7 @@ LABEL_16:
       v18 = 2112;
       v19 = personaIdentifier;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Associating cache tracker %@ with personaID %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"I ", "Associating cache tracker %@ with personaID %@", v10, personaIdentifier);
     }
 
     cacheTrackersByPersonaID3 = [(MBCKManager *)self cacheTrackersByPersonaID];
@@ -12347,6 +13142,23 @@ LABEL_16:
   }
 
   return v10;
+}
+
+- (id)openCacheWithAccount:(id)account accessType:(int)type cached:(BOOL)cached error:(id *)error
+{
+  cachedCopy = cached;
+  v8 = *&type;
+  accountCopy = account;
+  if (!error)
+  {
+    __assert_rtn("[MBCKManager openCacheWithAccount:accessType:cached:error:]", "MBCKManager.m", 6222, "error");
+  }
+
+  v11 = accountCopy;
+  v12 = [(MBCKManager *)self _cacheTrackerWithAccount:accountCopy];
+  v13 = [v12 openCacheWithAccessType:v8 cached:cachedCopy error:error];
+
+  return v13;
 }
 
 - (BOOL)resetCacheWithAccount:(id)account error:(id *)error
@@ -12424,7 +13236,7 @@ LABEL_16:
     {
       LOWORD(buf[0]) = 0;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Starting the network path monitor", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Starting the network path monitor");
     }
 
     v5 = objc_opt_new();

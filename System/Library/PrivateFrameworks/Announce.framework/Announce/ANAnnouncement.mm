@@ -63,35 +63,35 @@
 
 - (NSString)description
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   listeners = [(ANAnnouncement *)self listeners];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(listeners, "count")}];
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   listeners2 = [(ANAnnouncement *)self listeners];
-  v7 = [listeners2 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v7 = [listeners2 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v39;
+    v9 = *v38;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v39 != v9)
+        if (*v38 != v9)
         {
           objc_enumerationMutation(listeners2);
         }
 
-        info = [*(*(&v38 + 1) + 8 * i) info];
+        info = [*(*(&v37 + 1) + 8 * i) info];
         [v5 addObject:info];
       }
 
-      v8 = [listeners2 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v8 = [listeners2 countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v8);
@@ -101,30 +101,30 @@
   dataItems = [(ANAnnouncement *)self dataItems];
   v14 = [v12 arrayWithCapacity:{objc_msgSend(dataItems, "count")}];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   dataItems2 = [(ANAnnouncement *)self dataItems];
-  v16 = [dataItems2 countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v16 = [dataItems2 countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v35;
+    v18 = *v34;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v35 != v18)
+        if (*v34 != v18)
         {
           objc_enumerationMutation(dataItems2);
         }
 
-        info2 = [*(*(&v34 + 1) + 8 * j) info];
+        info2 = [*(*(&v33 + 1) + 8 * j) info];
         [v14 addObject:info2];
       }
 
-      v17 = [dataItems2 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v17 = [dataItems2 countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v17);
@@ -169,8 +169,6 @@
 
   v31 = [v21 description];
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v31;
 }
 
@@ -178,31 +176,22 @@
 {
   equalCopy = equal;
   v5 = equalCopy;
-  if (!equalCopy)
+  v11 = 0;
+  if (equalCopy)
   {
-    goto LABEL_5;
-  }
+    identifier = [equalCopy identifier];
+    if (identifier)
+    {
+      v7 = identifier;
+      identifier2 = [(ANAnnouncement *)self identifier];
+      identifier3 = [v5 identifier];
+      v10 = [identifier2 isEqual:identifier3];
 
-  identifier = [equalCopy identifier];
-  if (!identifier)
-  {
-    goto LABEL_5;
-  }
-
-  v7 = identifier;
-  identifier2 = [(ANAnnouncement *)self identifier];
-  identifier3 = [v5 identifier];
-  v10 = [identifier2 isEqual:identifier3];
-
-  if (v10)
-  {
-    v11 = 1;
-  }
-
-  else
-  {
-LABEL_5:
-    v11 = 0;
+      if (v10)
+      {
+        v11 = 1;
+      }
+    }
   }
 
   return v11;
@@ -265,7 +254,7 @@ LABEL_5:
   v22 = v3[18];
   v3[18] = receiptTimestamp;
 
-  [(ANAnnouncement *)self cmStartTime];
+  objc_msgSend_cmStartTime(self);
   v24 = v26;
   v25 = v27;
   [v3 setCmStartTime:&v24];
@@ -275,26 +264,26 @@ LABEL_5:
 
 - (NSData)fileData
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   dataItems = [(ANAnnouncement *)self dataItems];
-  data = [dataItems countByEnumeratingWithState:&v9 objects:v13 count:16];
+  data = [dataItems countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (data)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != data; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(dataItems);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if ([v6 type] == 1)
         {
           data = [v6 data];
@@ -302,7 +291,7 @@ LABEL_5:
         }
       }
 
-      data = [dataItems countByEnumeratingWithState:&v9 objects:v13 count:16];
+      data = [dataItems countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (data)
       {
         continue;
@@ -313,8 +302,6 @@ LABEL_5:
   }
 
 LABEL_11:
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return data;
 }
@@ -450,37 +437,37 @@ LABEL_34:
 
 - (void)removeAudioFileDataItems
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dataItems = [(ANAnnouncement *)self dataItems];
   v4 = [dataItems mutableCopy];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   dataItems2 = [(ANAnnouncement *)self dataItems];
-  v6 = [dataItems2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [dataItems2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(dataItems2);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if ([v10 type] == 1)
         {
           [v4 removeObject:v10];
         }
       }
 
-      v7 = [dataItems2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [dataItems2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -488,8 +475,6 @@ LABEL_34:
 
   v11 = [v4 copy];
   [(ANAnnouncement *)self setDataItems:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (unint64_t)sourceFromString:(id)string
@@ -550,11 +535,11 @@ LABEL_34:
 
 - (ANAnnouncement)initWithMessage:(id)message
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  v60.receiver = self;
-  v60.super_class = ANAnnouncement;
-  v5 = [(ANAnnouncement *)&v60 init];
+  v59.receiver = self;
+  v59.super_class = ANAnnouncement;
+  v5 = [(ANAnnouncement *)&v59 init];
   if (!v5)
   {
 LABEL_28:
@@ -588,9 +573,9 @@ LABEL_28:
       v5->_productTypeOverride = [v12 unsignedIntegerValue];
     }
 
-    v53 = v13;
-    v54 = v11;
-    v55 = v9;
+    v52 = v13;
+    v53 = v11;
+    v54 = v9;
     v14 = [messageCopy objectForKeyedSubscript:@"DeviceClass"];
     v15 = v14;
     if (v14)
@@ -598,7 +583,7 @@ LABEL_28:
       v5->_deviceClass = [v14 integerValue];
     }
 
-    v52 = v15;
+    v51 = v15;
     v16 = [messageCopy objectForKeyedSubscript:@"PlaybackDeadline"];
     playbackDeadline = v5->_playbackDeadline;
     v5->_playbackDeadline = v16;
@@ -611,37 +596,37 @@ LABEL_28:
     groupID = v5->_groupID;
     v5->_groupID = v20;
 
-    v51 = [messageCopy objectForKeyedSubscript:@"Announcer"];
-    v22 = [[ANParticipant alloc] initWithMessage:v51];
+    v50 = [messageCopy objectForKeyedSubscript:@"Announcer"];
+    v22 = [[ANParticipant alloc] initWithMessage:v50];
     announcer = v5->_announcer;
     v5->_announcer = v22;
 
     v24 = [messageCopy objectForKeyedSubscript:@"Listeners"];
     v25 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v24, "count")}];
+    v55 = 0u;
     v56 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v59 = 0u;
     v26 = v24;
-    v27 = [v26 countByEnumeratingWithState:&v56 objects:v61 count:16];
+    v27 = [v26 countByEnumeratingWithState:&v55 objects:v60 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v57;
+      v29 = *v56;
       do
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v57 != v29)
+          if (*v56 != v29)
           {
             objc_enumerationMutation(v26);
           }
 
-          v31 = [[ANParticipant alloc] initWithMessage:*(*(&v56 + 1) + 8 * i)];
+          v31 = [[ANParticipant alloc] initWithMessage:*(*(&v55 + 1) + 8 * i)];
           [v25 addObject:v31];
         }
 
-        v28 = [v26 countByEnumeratingWithState:&v56 objects:v61 count:16];
+        v28 = [v26 countByEnumeratingWithState:&v55 objects:v60 count:16];
       }
 
       while (v28);
@@ -699,7 +684,6 @@ LABEL_28:
   v45 = 0;
 LABEL_29:
 
-  v49 = *MEMORY[0x277D85DE8];
   return v45;
 }
 
@@ -714,55 +698,55 @@ LABEL_29:
   v22 = 0;
   v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:dataItems requiringSecureCoding:0 error:&v22];
   v7 = v22;
+  v8 = v7;
   if (v7)
   {
-    v8 = ANLogHandleAnnouncement();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = ANLogHandleAnnouncement(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       identifier = [(ANAnnouncement *)self identifier];
       *buf = 138412546;
       v24 = &stru_2836DAA20;
       v25 = 2112;
       v26 = identifier;
-      _os_log_impl(&dword_2237C8000, v8, OS_LOG_TYPE_ERROR, "%@Failed to archive data for Announcement %@", buf, 0x16u);
+      _os_log_impl(&dword_2237C8000, v9, OS_LOG_TYPE_ERROR, "%@Failed to archive data for Announcement %@", buf, 0x16u);
     }
   }
 
-  v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  [v10 setObject:self->_messageVersion forKeyedSubscript:@"MessageVersion"];
-  [v10 setObject:v6 forKeyedSubscript:@"DataItems"];
+  v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  [v11 setObject:self->_messageVersion forKeyedSubscript:@"MessageVersion"];
+  [v11 setObject:v6 forKeyedSubscript:@"DataItems"];
   message = [(ANParticipant *)self->_announcer message];
-  [v10 setObject:message forKeyedSubscript:@"Announcer"];
+  [v11 setObject:message forKeyedSubscript:@"Announcer"];
 
-  [v10 setObject:self->_playbackDeadline forKeyedSubscript:@"PlaybackDeadline"];
-  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_action];
-  [v10 setObject:v12 forKeyedSubscript:@"Action"];
+  [v11 setObject:self->_playbackDeadline forKeyedSubscript:@"PlaybackDeadline"];
+  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_action];
+  [v11 setObject:v13 forKeyedSubscript:@"Action"];
 
-  [v10 setObject:self->_identifier forKeyedSubscript:@"AnnouncementID"];
+  [v11 setObject:self->_identifier forKeyedSubscript:@"AnnouncementID"];
   groupID = [(ANAnnouncement *)self groupID];
-  [v10 setObject:groupID forKeyedSubscript:@"GroupID"];
+  [v11 setObject:groupID forKeyedSubscript:@"GroupID"];
 
-  v14 = [MEMORY[0x277CCABB0] numberWithLong:*&self->_productType];
-  [v10 setObject:v14 forKeyedSubscript:@"ProductType"];
+  v15 = [MEMORY[0x277CCABB0] numberWithLong:*&self->_productType];
+  [v11 setObject:v15 forKeyedSubscript:@"ProductType"];
 
-  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_productTypeOverride];
-  [v10 setObject:v15 forKeyedSubscript:@"ProductTypeOverride"];
+  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_productTypeOverride];
+  [v11 setObject:v16 forKeyedSubscript:@"ProductTypeOverride"];
 
-  v16 = [MEMORY[0x277CCABB0] numberWithInt:self->_deviceClass];
-  [v10 setObject:v16 forKeyedSubscript:@"DeviceClass"];
+  v17 = [MEMORY[0x277CCABB0] numberWithInt:self->_deviceClass];
+  [v11 setObject:v17 forKeyedSubscript:@"DeviceClass"];
 
   message2 = [(ANLocation *)self->_location message];
-  [v10 setObject:message2 forKeyedSubscript:@"Location"];
+  [v11 setObject:message2 forKeyedSubscript:@"Location"];
 
-  [v10 setObject:self->_transcriptionText forKeyedSubscript:@"AudioTranscription"];
-  [v10 setObject:self->_creationTimestamp forKeyedSubscript:@"CreationTimestamp"];
-  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_source];
-  [v10 setObject:v18 forKeyedSubscript:@"Source"];
+  [v11 setObject:self->_transcriptionText forKeyedSubscript:@"AudioTranscription"];
+  [v11 setObject:self->_creationTimestamp forKeyedSubscript:@"CreationTimestamp"];
+  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_source];
+  [v11 setObject:v19 forKeyedSubscript:@"Source"];
 
-  v19 = [v10 copy];
-  v20 = *MEMORY[0x277D85DE8];
+  v20 = [v11 copy];
 
-  return v19;
+  return v20;
 }
 
 - (id)messageForCompanion
@@ -1013,42 +997,40 @@ LABEL_29:
 
 - (id)_uuidFromUUIDs:(id)ds
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
-  v18 = 0uLL;
+  v17 = 0uLL;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [dsCopy countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v4 = [dsCopy countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(dsCopy);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
-        v16 = 0uLL;
-        [v8 getUUIDBytes:&v16];
-        v18 = veorq_s8(v18, v16);
+        v8 = *(*(&v11 + 1) + 8 * i);
+        v15 = 0uLL;
+        [v8 getUUIDBytes:&v15];
+        v17 = veorq_s8(v17, v15);
       }
 
-      v5 = [dsCopy countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v5 = [dsCopy countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v5);
   }
 
-  v9 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&v18];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&v17];
 
   return v9;
 }
@@ -1062,34 +1044,35 @@ LABEL_29:
     [ANAnnouncement processAudioTranscription:];
   }
 
-  if ([processAudioTranscription__recognizer supportsOnDeviceRecognition])
+  supportsOnDeviceRecognition = [processAudioTranscription__recognizer supportsOnDeviceRecognition];
+  if (supportsOnDeviceRecognition)
   {
-    v5 = objc_alloc(MEMORY[0x277CDCF08]);
-    v6 = MEMORY[0x277CBEBC0];
+    v6 = objc_alloc(MEMORY[0x277CDCF08]);
+    v7 = MEMORY[0x277CBEBC0];
     filePath = [(ANAnnouncement *)self filePath];
-    v8 = [v6 fileURLWithPath:filePath];
-    v9 = [v5 initWithURL:v8];
+    v9 = [v7 fileURLWithPath:filePath];
+    v10 = [v6 initWithURL:v9];
 
-    [v9 setRequiresOnDeviceRecognition:1];
-    [v9 setShouldReportPartialResults:0];
-    v10 = processAudioTranscription__recognizer;
+    [v10 setRequiresOnDeviceRecognition:1];
+    [v10 setShouldReportPartialResults:0];
+    v11 = processAudioTranscription__recognizer;
     v14[0] = MEMORY[0x277D85DD0];
     v14[1] = 3221225472;
     v14[2] = __44__ANAnnouncement_processAudioTranscription___block_invoke_115;
     v14[3] = &unk_2784E1CC0;
     v14[4] = self;
     v15 = transcriptionCopy;
-    v11 = [v10 recognitionTaskWithRequest:v9 resultHandler:v14];
+    v12 = [v11 recognitionTaskWithRequest:v10 resultHandler:v14];
   }
 
   else
   {
-    v12 = ANLogHandleAnnouncement();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = ANLogHandleAnnouncement(supportsOnDeviceRecognition);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v17 = &stru_2836DAA20;
-      _os_log_impl(&dword_2237C8000, v12, OS_LOG_TYPE_DEFAULT, "%@On device recognition not available, not processing", buf, 0xCu);
+      _os_log_impl(&dword_2237C8000, v13, OS_LOG_TYPE_DEFAULT, "%@On device recognition not available, not processing", buf, 0xCu);
     }
 
     if (transcriptionCopy)
@@ -1097,8 +1080,6 @@ LABEL_29:
       (*(transcriptionCopy + 2))(transcriptionCopy, 0);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__ANAnnouncement_processAudioTranscription___block_invoke()
@@ -1110,20 +1091,20 @@ uint64_t __44__ANAnnouncement_processAudioTranscription___block_invoke()
 
 void __44__ANAnnouncement_processAudioTranscription___block_invoke_115(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = ANLogHandleAnnouncement();
+  v7 = ANLogHandleAnnouncement(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [v5 transcriptions];
-    v24 = 138412802;
-    v25 = &stru_2836DAA20;
-    v26 = 2048;
-    v27 = [v8 count];
-    v28 = 2112;
-    v29 = v6;
-    _os_log_impl(&dword_2237C8000, v7, OS_LOG_TYPE_DEFAULT, "%@Received transcription result: (%lu transcriptions) %@", &v24, 0x20u);
+    v23 = 138412802;
+    v24 = &stru_2836DAA20;
+    v25 = 2048;
+    v26 = [v8 count];
+    v27 = 2112;
+    v28 = v6;
+    _os_log_impl(&dword_2237C8000, v7, OS_LOG_TYPE_DEFAULT, "%@Received transcription result: (%lu transcriptions) %@", &v23, 0x20u);
   }
 
   if (v5)
@@ -1163,8 +1144,6 @@ void __44__ANAnnouncement_processAudioTranscription___block_invoke_115(uint64_t 
   {
     (*(v22 + 16))(v22, v10);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCmStartTime:(id *)time

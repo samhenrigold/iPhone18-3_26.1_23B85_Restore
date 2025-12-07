@@ -71,18 +71,18 @@
 
 - (void)updateConstraints
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   constraints = [(OBIconTextView *)self constraints];
   [(OBIconTextView *)self removeConstraints:constraints];
 
-  v30.receiver = self;
-  v30.super_class = OBIconTextView;
-  [(OBIconTextView *)&v30 updateConstraints];
+  v29.receiver = self;
+  v29.super_class = OBIconTextView;
+  [(OBIconTextView *)&v29 updateConstraints];
   v4 = MEMORY[0x1E696ACD8];
-  v31 = @"padding";
+  v30 = @"padding";
   v5 = [MEMORY[0x1E696AD98] numberWithDouble:self->_padding];
-  v32[0] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+  v31[0] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
   v7 = _NSDictionaryOfVariableBindings(&cfstr_IconviewTextvi.isa, self->_iconView, self->_textView, 0);
   v8 = [v4 constraintsWithVisualFormat:@"|[_iconView]-(padding)-[_textView]|" options:0 metrics:v6 views:v7];
   [v4 activateConstraints:v8];
@@ -122,8 +122,6 @@
     [v27 setPriority:v28];
     [v27 setActive:1];
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateFont

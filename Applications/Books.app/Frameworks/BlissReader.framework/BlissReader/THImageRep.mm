@@ -613,7 +613,7 @@
     result = [(THWFreeTransformableRepGestureTargetHandler *)[(THImageRep *)self freeTransformableHandler] ftc];
     if (result)
     {
-      result = [(CGAffineTransform *)result currentTransform];
+      result = objc_msgSend_currentTransform(result);
     }
 
     else
@@ -646,7 +646,7 @@
 {
   if ([(THImageRep *)self isFreeTransformInProgress])
   {
-    [(THWFreeTransformController *)[(THWFreeTransformableRepGestureTargetHandler *)[(THImageRep *)self freeTransformableHandler] ftc] completionTargetRect];
+    objc_msgSend_completionTargetRect([(THWFreeTransformableRepGestureTargetHandler *)[(THImageRep *)self freeTransformableHandler] ftc]);
   }
 
   else

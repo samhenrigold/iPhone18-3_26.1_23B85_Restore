@@ -211,49 +211,42 @@ LABEL_5:
 
 - (void)initWithExtension:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3 = "extension.identity.presentsUserInterface";
-  v4 = 2080;
-  v2 = 136315650;
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = "extension.identity.presentsUserInterface";
+  v3 = 2080;
+  v1 = 136315650;
   OUTLINED_FUNCTION_0();
-  v5 = 54;
-  _os_log_fault_impl(&dword_1D29CC000, v0, OS_LOG_TYPE_FAULT, "%s - %s:%d: Extension point does not support user interface", &v2, 0x1Cu);
-  v1 = *MEMORY[0x1E69E9840];
+  v4 = 54;
+  _os_log_fault_impl(&dword_1D29CC000, v0, OS_LOG_TYPE_FAULT, "%s - %s:%d: Extension point does not support user interface", &v1, 0x1Cu);
 }
 
 - (void)setRootViewController:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v0 = NSStringFromProtocol(&unk_1F4E0B7B0);
   v1 = NSStringFromProtocol(&unk_1F4E17A48);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_1();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x30u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)makeSceneWithError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8[0] = 136316162;
+  v7[0] = 136316162;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3_1();
-  v9 = v4;
+  v8 = v4;
   OUTLINED_FUNCTION_4();
-  _os_log_fault_impl(&dword_1D29CC000, a2, OS_LOG_TYPE_FAULT, "%s - %s:%d: Unexpected configuration class '%@' expected '%@'", v8, 0x30u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1D29CC000, a2, OS_LOG_TYPE_FAULT, "%s - %s:%d: Unexpected configuration class '%@' expected '%@'", v7, 0x30u);
 }
 
 - (void)makeSceneWithError:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   [a1 sceneClass];
   v1 = NSStringFromProtocol(&unk_1F4E0B7B0);
   OUTLINED_FUNCTION_3();
@@ -262,13 +255,10 @@ LABEL_5:
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_1();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x30u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)makeSceneWithError:.cold.3()
 {
-  v7 = *MEMORY[0x1E69E9840];
   v0 = NSStringFromProtocol(&unk_1F4E0B7B0);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
@@ -276,21 +266,16 @@ LABEL_5:
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_1();
   _os_log_fault_impl(v1, v2, v3, v4, v5, 0x30u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectToScene:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
   v0 = NSStringFromClass(0);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_fault_impl(v1, v2, v3, v4, v5, 0x26u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

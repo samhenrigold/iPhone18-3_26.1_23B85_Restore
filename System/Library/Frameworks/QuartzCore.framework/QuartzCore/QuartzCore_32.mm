@@ -43,7 +43,7 @@ char *CA::Render::MediaLayer::show(uint64_t a1, X::Stream *this, int a3, char a4
   return X::Stream::printf(this, v9);
 }
 
-void *CA::Render::MediaLayer::encode(CA::Render::MediaLayer *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::MediaLayer::encode(CA::Render::MediaLayer *this, CA::Render::Encoder *a2)
 {
   CA::Render::Object::encode(this, a2);
 
@@ -559,11 +559,11 @@ void CARenderContextInvalidateRect(CA::Shape **a1, uint64_t a2, const CA::Bounds
   a6.f64[0] = 0.0;
   v7 = vdupq_lane_s64(vcgtq_f64(a6, v6).i64[0], 0);
   v8.i64[1] = *(a2 + 24);
-  *v8.i64 = -v6.f64[0];
+  *v8.i64 = -v6.n128_f64[0];
   v9 = vbslq_s8(v7, v8, v6);
   v10 = vdupq_lane_s64(vcgtq_f64(a6, vdupq_laneq_s64(v6, 1)).i64[0], 0);
   v11.i64[0] = v9.i64[0];
-  v11.i64[1] = *&vnegq_f64(v6).f64[1];
+  v11.i64[1] = *&vnegq_f64(*&v6).f64[1];
   v12 = vbslq_s8(v10, v11, v9);
   v13 = vceqzq_f64(v12);
   if ((vorrq_s8(vdupq_laneq_s64(v13, 1), v13).u64[0] & 0x8000000000000000) != 0 || (v14 = vceqq_f64(v12, v12), (vornq_s8(vdupq_laneq_s64(vmvnq_s8(v14), 1), v14).u64[0] & 0x8000000000000000) != 0))
@@ -580,10 +580,12 @@ void CARenderContextInvalidateRect(CA::Shape **a1, uint64_t a2, const CA::Bounds
     v16.i64[1] = v15.i64[1];
     v18 = vbslq_s8(v10, v16, v17);
     v19 = vcvtmq_s64_f64(vmaxnmq_f64(v18, vdupq_n_s64(0xC1BFFFFFFF000000)));
-    v20 = vuzp1q_s32(v19, vsubq_s64(vcvtpq_s64_f64(vminnmq_f64(vaddq_f64(v18, v12), vdupq_n_s64(0x41C0000000000000uLL))), v19));
+    v7 = vsubq_s64(vcvtpq_s64_f64(vminnmq_f64(vaddq_f64(v18, v12), vdupq_n_s64(0x41C0000000000000uLL))), v19);
+    v6 = vuzp1q_s32(v19, v7);
+    v20 = v6;
   }
 
-  CA::Render::Context::invalidate(a1, &v20, a3);
+  CA::Render::Context::invalidate(a1, &v20, a3, v6, v7);
 }
 
 uint64_t CARenderLayerGetContextId(uint64_t a1)
@@ -1273,7 +1275,7 @@ uint64_t CA::Mat2Impl::mat2_pow(uint64_t this, double *a2)
     *(this + 32) = v18;
   }
 
-  else if (this != &CA::Mat2Impl::mat2_identity_double)
+  else if (this != CA::Mat2Impl::mat2_identity_double)
   {
     *this = xmmword_183E20E00;
     *(this + 16) = xmmword_183E20E60;
@@ -1568,7 +1570,7 @@ void CA::Render::Context::transfer_slot(CA::Render::Context *this, int a2, CA::R
   }
 }
 
-void CA::Render::Context::get_debug_log(CA::Render::Context *this, CA::Render::Object *a2, int *a3, void *a4)
+void CA::Render::Context::get_debug_log(CA::Render::Context *this, CA::Render::Object *a2, void *a3, void *a4)
 {
   v182 = *MEMORY[0x1E69E9840];
   v5 = objc_autoreleasePoolPush();
@@ -1589,9 +1591,9 @@ void CA::Render::Context::get_debug_log(CA::Render::Context *this, CA::Render::O
   v168 = 0u;
   *buffer = 0u;
   v6 = *a3;
-  if (*a3 <= 0xB)
+  if (*a3 <= 0xBu)
   {
-    v7 = *(a3 + 2);
+    v7 = a3[2];
     if (((1 << v6) & 0xD97) != 0)
     {
       os_unfair_lock_lock(&CA::Render::Context::_context_lock);
@@ -1676,7 +1678,7 @@ void CA::Render::Context::get_debug_log(CA::Render::Context *this, CA::Render::O
             *v161 = 0u;
             v162 = 1065353216;
             v82 = *v78;
-            v83 = *(a3 + 1);
+            v83 = a3[1];
             if (!v83 || v83 == *(v82 + 16))
             {
               break;
@@ -2264,7 +2266,7 @@ LABEL_49:
             v30 = *v29;
             if ((*(*v29 + 13) & 2) == 0)
             {
-              v31 = *(a3 + 1);
+              v31 = a3[1];
               if (!v31 || v31 == *(v30 + 16))
               {
                 pthread_mutex_lock((v30 + 72));
@@ -2491,7 +2493,7 @@ LABEL_49:
           do
           {
             v17 = *v16;
-            v18 = *(a3 + 1);
+            v18 = a3[1];
             if (!v18 || v18 == *(v17 + 16))
             {
               pthread_mutex_lock((v17 + 72));
@@ -2591,7 +2593,7 @@ LABEL_94:
 
     else if (v6 == 3)
     {
-      CA::Render::show_statistics(*(a3 + 2));
+      CA::Render::show_statistics(a3[2]);
     }
   }
 
@@ -2955,35 +2957,35 @@ void CA::Render::collect_insecure_process_ids(CA::Render *this, uint64_t a2, CA:
   }
 }
 
-void *std::__hash_table<CA::Render::String *,std::hash<CA::Render::String *>,std::equal_to<CA::Render::String *>,std::allocator<CA::Render::String *>>::__emplace_unique_key_args<CA::Render::String *,CA::Render::String * const&>(void *result, unint64_t a2)
+void std::__hash_table<CA::Render::String *,std::hash<CA::Render::String *>,std::equal_to<CA::Render::String *>,std::allocator<CA::Render::String *>>::__emplace_unique_key_args<CA::Render::String *,CA::Render::String * const&>(void *a1, unint64_t a2, uint64_t *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = result[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*result + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -2991,44 +2993,42 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != a2)
+  if (v10[2] != a2)
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
 CFIndex ___ZN2CA6RenderL22sync_hang_report_levelEv_block_invoke()
@@ -3244,7 +3244,7 @@ uint64_t CA::Render::Context::hit_test_context(uint64_t a1)
   return v4;
 }
 
-uint64_t CA::Render::Context::get_layer_renderer_info(CA::Render::Context *this, CA::Render::Object *a2, int a3, int *a4, unsigned int *a5, unsigned int *a6)
+uint64_t CA::Render::Context::get_layer_renderer_info(CA::Render::Context *this, CA::Render::Object *a2, unsigned int a3, int *a4, unsigned int *a5, unsigned int *a6)
 {
   result = CA::Render::Context::lookup_handle(this, a2, a3, 0, 0);
   if (result)
@@ -3484,7 +3484,7 @@ void CA::Render::Context::set_glitch_request(CA::Render::Context *this, double a
     if (v5)
     {
 
-      CA::Render::Context::invalidate(this, v5 + 15, v6);
+      CA::Render::Context::invalidate(this, v5 + 15, v6, v7, v8);
     }
   }
 }
@@ -4350,7 +4350,7 @@ LABEL_76:
     {
       v114 = COERCE_UNSIGNED_INT64(fabs(1.0 / v567)) < 0x7FF0000000000000;
       v115 = COERCE_UNSIGNED_INT64(fabs(1.0 / v586)) > 0x7FEFFFFFFFFFFFFFLL;
-      v590[0] = 0.0;
+      v590[0] = 0;
       v116 = *(v620 + v111);
       v117 = v116 * v549 + v563;
       v118 = v116 * v547 + v581;
@@ -4405,10 +4405,10 @@ LABEL_76:
         v128 = v127;
       }
 
-      v130.f64[0] = v590[0];
+      *&v130.f64[0] = v590[0];
       if (v542)
       {
-        v131 = v590[0] * 2.5 + -1.50000006;
+        v131 = *v590 * 2.5 + -1.50000006;
         if (v131 > 1.0)
         {
           v131 = 1.0;
@@ -5136,8 +5136,8 @@ LABEL_289:
 
         v288 = *&top_shadow_rim_interp_colors[v278];
         v289 = *&top_shadow_rim_interp_values[v278];
-        v241 = v281 + v289 * (v247 * v283);
-        v240 = v282 + v289 * (v245 * v283);
+        v241 = v281 + v289 * (v247 * *&v283);
+        v240 = v282 + v289 * (v245 * *&v283);
         v290 = v241;
         v291 = &v246[v279];
         v292 = v240;
@@ -5158,8 +5158,8 @@ LABEL_289:
       v296 = &v629[96 * v238];
       v297 = *v296;
       v298 = *(v296 + 1);
-      v299 = v243 * v283;
-      v300 = v242 * v283;
+      v299 = v243 * *&v283;
+      v300 = v242 * *&v283;
       v301 = vcvtq_f32_f16(*(v296 + 32));
       do
       {
@@ -5213,7 +5213,7 @@ LABEL_289:
     v312 = v165;
     v313 = v163;
     v314 = 0;
-    v175.f64[0] = v590[v534 - 1];
+    *&v175.f64[0] = v590[v534 - 1];
     v315 = 2 * v534;
     v316 = v315 - 1;
     v317 = &v630[48 * v315 - 48];
@@ -5630,7 +5630,7 @@ LABEL_407:
       v438 = v439;
     }
 
-    v590[v433++] = v438;
+    *&v590[v433++] = v438;
     ++v436;
     v432 = v435 < v409;
     if (v435 < v409 || v434 < v429)
@@ -5667,8 +5667,8 @@ LABEL_407:
     {
       v446 = (*&v520 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000;
       v447 = v590[v444];
-      v448 = v577.f64[0] + v447 * v580.f64[0];
-      v449 = v149 + v447 * v401;
+      v448 = v577.f64[0] + *&v447 * v580.f64[0];
+      v449 = v149 + *&v447 * v401;
       v451 = v450;
       v452 = (v553 - v449) * v500 <= (v555 - v448) * v520 || (*&v500 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL;
       if (v452 && v446)
@@ -5692,14 +5692,14 @@ LABEL_407:
         v455 = (v557 - v449) * v500;
       }
 
-      v456 = (*&v579 - v447) * v544 + 1.57079633;
+      v456 = (*&v579 - *&v447) * v544 + 1.57079633;
       v457 = v546 * ((((((((v456 * v456) * 0.00096967) + -0.039228) * (v456 * v456)) + 0.49535) * (v456 * v456)) + -0.99861) + 1.0);
       v458.f64[0] = v448 + (v451 - v457) * v580.f64[0];
       v458.f64[1] = v449 + (v451 - v457) * v401;
       v562 = v458;
       v459 = v453 - v457;
       v460 = v457 + v455;
-      v461 = fmax((v548 - (v447 + v451) + v457) * v544 + -0.949999988, 0.0);
+      v461 = fmax((v548 - (*&v447 + v451) + v457) * v544 + -0.949999988, 0.0);
       *&v461 = v461 * v461 * -9.0;
       v462 = expf(*&v461);
       v463 = v538 * (v540 + v462 + v462 * v462 * (v462 * v462));
@@ -5786,10 +5786,10 @@ LABEL_433:
 
   v592 = 0u;
   v482 = *(*(v8 + 656) + 8);
-  *&v590[0] = v8;
+  v590[0] = v8;
   v590[1] = v482;
   v591 = 0u;
-  v590[2] = 0.0;
+  v590[2] = 0;
   WORD4(v591) = 0;
   CA::OGL::Context::ClippedArray::start(v590);
   v576 = 2 * (v399 & ~(v399 >> 31));
@@ -5921,63 +5921,63 @@ double *CA::OGL::anonymous namespace::curl_displace(double *this, double a2, dou
 
 float32x2_t CA::OGL::anonymous namespace::curl_strip_emit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, float64x2_t a6, double a7, double a8, float64x2_t a9, float64_t a10, double a11, double a12, float a13, float a14, float a15, float a16)
 {
-  v19 = a7 + a11 * a15;
-  v20 = a7 + a11 * a16;
-  v21 = a8 + a12 * a16;
-  v22 = (a2 + 96 * a4);
+  v16 = a7 + a11 * a15;
+  v17 = a7 + a11 * a16;
+  v18 = a8 + a12 * a16;
+  v19 = (a2 + 96 * a4);
   a9.f64[1] = a10;
-  *v22 = vcvt_f32_f64(vmlaq_n_f64(a6, a9, a13));
-  v22[1] = 0x3F80000000000000;
-  v23 = v19;
-  *&v19 = a8 + a12 * a15;
-  v22[2].f32[0] = v23;
-  v22[2].i32[1] = LODWORD(v19);
-  v22[4] = 0;
-  v24 = *a5;
-  v25 = a6.f64[0] + a9.f64[0] * a15;
-  v26 = a2 + 48 * ((2 * a4) | 1);
-  v27 = a6.f64[1] + a10 * a15;
-  *v26 = v25;
-  *(v26 + 4) = v27;
+  *v19 = vcvt_f32_f64(vmlaq_n_f64(a6, a9, a13));
+  v19[1] = 0x3F80000000000000;
+  v20 = v16;
+  *&v16 = a8 + a12 * a15;
+  v19[2].f32[0] = v20;
+  v19[2].i32[1] = LODWORD(v16);
+  v19[4] = 0;
+  v21 = *a5;
+  v22 = a6.f64[0] + a9.f64[0] * a15;
+  v23 = a2 + 48 * ((2 * a4) | 1);
+  v24 = a6.f64[1] + a10 * a15;
+  *v23 = v22;
+  *(v23 + 4) = v24;
+  *(v23 + 8) = 0x3F80000000000000;
+  *(v23 + 16) = v20;
+  *(v23 + 20) = LODWORD(v16);
+  *(v23 + 32) = v21;
+  v25 = *a5;
+  v26 = a1 + 96 * a4;
+  *v26 = v22;
+  *(v26 + 4) = v24;
   *(v26 + 8) = 0x3F80000000000000;
-  *(v26 + 16) = v23;
-  *(v26 + 20) = LODWORD(v19);
-  *(v26 + 32) = v24;
-  v28 = *a5;
-  v29 = a1 + 96 * a4;
-  *v29 = v25;
-  *(v29 + 4) = v27;
+  *(v26 + 16) = v20;
+  *(v26 + 20) = LODWORD(v16);
+  *(v26 + 32) = v25;
+  v27 = *a5;
+  v28 = a6.f64[0] + a9.f64[0] * a16;
+  v29 = a1 + 48 * ((2 * a4) | 1);
+  v30 = a6.f64[1] + a10 * a16;
+  *v29 = v28;
+  *(v29 + 4) = v30;
   *(v29 + 8) = 0x3F80000000000000;
-  *(v29 + 16) = v23;
-  *(v29 + 20) = LODWORD(v19);
-  *(v29 + 32) = v28;
-  v30 = *a5;
-  v31 = a6.f64[0] + a9.f64[0] * a16;
-  v32 = a1 + 48 * ((2 * a4) | 1);
-  v33 = a6.f64[1] + a10 * a16;
-  *v32 = v31;
-  *(v32 + 4) = v33;
+  *&v17 = v17;
+  *&v18 = v18;
+  *(v29 + 16) = LODWORD(v17);
+  *(v29 + 20) = LODWORD(v18);
+  *(v29 + 32) = v27;
+  v31 = *a5;
+  v32 = a3 + 96 * a4;
+  *v32 = v28;
+  *(v32 + 4) = v30;
   *(v32 + 8) = 0x3F80000000000000;
-  *&v20 = v20;
-  *&v21 = v21;
-  *(v32 + 16) = LODWORD(v20);
-  *(v32 + 20) = LODWORD(v21);
-  *(v32 + 32) = v30;
-  v34 = *a5;
-  v35 = a3 + 96 * a4;
-  *v35 = v31;
-  *(v35 + 4) = v33;
-  *(v35 + 8) = 0x3F80000000000000;
-  *(v35 + 16) = LODWORD(v20);
-  *(v35 + 20) = LODWORD(v21);
-  *(v35 + 32) = v34;
-  v36 = (a3 + 48 * ((2 * a4) | 1));
+  *(v32 + 16) = LODWORD(v17);
+  *(v32 + 20) = LODWORD(v18);
+  *(v32 + 32) = v31;
+  v33 = (a3 + 48 * ((2 * a4) | 1));
   result = vcvt_f32_f64(vmlaq_n_f64(a6, a9, a14));
-  *v36 = result;
-  v36[1] = 0x3F80000000000000;
-  v36[2].i32[0] = LODWORD(v20);
-  v36[2].i32[1] = LODWORD(v21);
-  v36[4] = 0;
+  *v33 = result;
+  v33[1] = 0x3F80000000000000;
+  v33[2].i32[0] = LODWORD(v17);
+  v33[2].i32[1] = LODWORD(v18);
+  v33[4] = 0;
   return result;
 }
 
@@ -6863,7 +6863,7 @@ uint64_t CA::OGL::anonymous namespace::PageCurlTransition::render(uint64_t resul
     v81 = 0u;
     v82 = 0u;
     memset(v96, 0, sizeof(v96));
-    v97 = 0u;
+    *v97[0].i8 = 0u;
     LOWORD(v96[0]) = 257;
     *(&v96[12] + 8) = *(v83 + 8);
     *(&v96[13] + 8) = *(&v83[1] + 8);
@@ -6975,8 +6975,8 @@ LABEL_43:
     *&v72 = 0x3C003C003C003C00;
     *(&v72 + 1) = 0x3C003C003C003C00;
     *(&v96[14] + 8) = v72;
-    *&v97 = 0x3C002E462A870000;
-    *(&v97 + 1) = 0x4014000000000000;
+    v97[0] = 0x3C002E462A870000;
+    v97[1] = 0x4014000000000000;
     if (v81.f64[0] > 0.850000024)
     {
       _D3 = v81.f64[0] * -1699.99993 + 1699.99998;
@@ -6988,7 +6988,7 @@ LABEL_43:
       *&v96[15] = *(&v96[14] + 1);
       *&v96[16] = vcvt_f16_f32(vmulq_f32(v77, vcvtq_f32_f16(v71)));
       *(&v96[15] + 1) = vcvt_f16_f32(vmulq_f32(v77, vcvtq_f32_f16(v70)));
-      *&v97 = vcvt_f16_f32(vmulq_f32(v77, vcvtq_f32_f16(0x3C002E462A870000)));
+      v97[0] = vcvt_f16_f32(vmulq_f32(v77, vcvtq_f32_f16(0x3C002E462A870000)));
     }
   }
 
@@ -7069,53 +7069,53 @@ double CA::OGL::anonymous namespace::PageCurlTransition::ROI(CA::OGL::_anonymous
 
 double CA::OGL::anonymous namespace::PageCurlTransition::DOD@<D0>(CA::OGL::_anonymous_namespace_::PageCurlTransition *this@<X0>, const CA::Render::Transition *a2@<X1>, __n128 *a3@<X2>, const CA::Transform *a4@<X3>, uint64_t a5@<X8>)
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v24 = 0;
-  memset(v23, 0, sizeof(v23));
-  v10 = a3->n128_u64[0];
-  v11 = a3->n128_u64[1];
+  v27 = *MEMORY[0x1E69E9840];
+  v22 = 0;
+  memset(v21, 0, sizeof(v21));
+  v8 = a3->n128_u64[0];
+  v9 = a3->n128_u64[1];
   *a5 = a3->n128_u64[0];
-  *(a5 + 8) = v11;
-  v12 = a3[1].n128_u64[0];
-  v13 = a3[1].n128_u64[1];
-  *(a5 + 16) = v12;
-  *(a5 + 24) = v13;
+  *(a5 + 8) = v9;
+  v10 = a3[1].n128_u64[0];
+  v11 = a3[1].n128_u64[1];
+  *(a5 + 16) = v10;
+  *(a5 + 24) = v11;
+  v23 = v8;
+  v24 = v9;
   v25 = v10;
   v26 = v11;
-  v27 = v12;
-  v28 = v13;
-  v15 = *(a5 + 16);
-  v16 = a3[1];
-  v17 = vclezq_f64(v15);
-  v18 = vclezq_f64(v16);
-  v19 = vmovn_s64(vcltzq_s64(vorrq_s8(vzip1q_s64(v18, v17), vzip2q_s64(v18, v17))));
-  if (v19.i8[4])
+  v13 = *(a5 + 16);
+  v14 = a3[1];
+  v15 = vclezq_f64(v13);
+  v16 = vclezq_f64(v14);
+  v17 = vmovn_s64(vcltzq_s64(vorrq_s8(vzip1q_s64(v16, v15), vzip2q_s64(v16, v15))));
+  if (v17.i8[4])
   {
-    if (v19.i8[0])
+    if (v17.i8[0])
     {
       goto LABEL_7;
     }
 
-    v20 = *a3;
+    v18 = *a3;
   }
 
   else
   {
-    if (v19.i8[0])
+    if (v17.i8[0])
     {
       goto LABEL_7;
     }
 
-    v21 = vaddq_f64(*a5, v15);
-    v20 = vminnmq_f64(*a5, *a3);
-    v16 = vsubq_f64(vmaxnmq_f64(v21, vaddq_f64(*a3, v16)), v20);
+    v19 = vaddq_f64(*a5, v13);
+    v18 = vminnmq_f64(*a5, *a3);
+    v14 = vsubq_f64(vmaxnmq_f64(v19, vaddq_f64(*a3, v14)), v18);
   }
 
-  *a5 = v20;
-  *(a5 + 16) = v16;
+  *a5 = v18;
+  *(a5 + 16) = v14;
 LABEL_7:
 
-  return CA::Rect::apply_transform(a5, a4, v14);
+  return CA::Rect::apply_transform(a5, a4, v12);
 }
 
 char *CA::Render::Object::show(uint64_t a1, X::Stream *this)
@@ -7392,11 +7392,11 @@ os_log_t ___Z22x_log_get_display_perfv_block_invoke()
   return result;
 }
 
-uint64_t CA::WindowServer::Display::set_mode(uint64_t this, const CA::WindowServer::Display::Mode *a2)
+CA::WindowServer::Display *CA::WindowServer::Display::set_mode(CA::WindowServer::Display *this, const CA::WindowServer::Display::Mode *a2)
 {
-  if (*(this + 656) != *a2)
+  if (*(this + 82) != *a2)
   {
-    v2.i64[0] = *(this + 656);
+    v2.i64[0] = *(this + 82);
     v2.i64[1] = *a2;
     v3 = vshrn_n_s64(v2, 0x1DuLL);
     v4.i64[0] = v3.i32[0] & 0x1FFFFFF;
@@ -7404,7 +7404,7 @@ uint64_t CA::WindowServer::Display::set_mode(uint64_t this, const CA::WindowServ
     v5 = vbslq_s8(vdupq_n_s64(0x3FFFFFE0000000uLL), vshlq_n_s64(vcvtq_u64_f64(vmulq_f64(vrndaq_f64(vmulq_f64(vcvtq_f64_u64(v4), vdupq_n_s64(0x3F59000000000000uLL))), vdupq_n_s64(0x40847AE147AE147BuLL))), 0x1DuLL), v2);
     if ((vmovn_s64(vceqq_s64(v5, vdupq_laneq_s64(v5, 1))).u32[0] & 1) == 0)
     {
-      *(this + 656) = *a2;
+      *(this + 82) = *a2;
       return CA::WindowServer::Display::post_display_changed(this);
     }
   }
@@ -7728,7 +7728,7 @@ LABEL_2:
   while (1)
   {
     v7 = v9;
-    v10 = a2 - v9;
+    v10 = (a2 - v9) >> 3;
     v11 = v10 - 2;
     if (v10 <= 2)
     {
@@ -7738,8 +7738,8 @@ LABEL_2:
     switch(v10)
     {
       case 3uLL:
-        v59 = CA::WindowServer::Display::Mode::operator<(v9 + 1, v9);
-        result = CA::WindowServer::Display::Mode::operator<(a2 - 1, v9 + 1);
+        v59 = CA::WindowServer::Display::Mode::operator<((v9 + 8), v9);
+        result = CA::WindowServer::Display::Mode::operator<(a2 - 1, (v9 + 8));
         if (v59)
         {
           v58 = *v9;
@@ -7751,16 +7751,16 @@ LABEL_110:
 
           else
           {
-            *v9 = v9[1];
-            v9[1] = v58;
-            result = CA::WindowServer::Display::Mode::operator<(a2 - 1, v9 + 1);
+            *v9 = *(v9 + 8);
+            *(v9 + 8) = v58;
+            result = CA::WindowServer::Display::Mode::operator<(a2 - 1, (v9 + 8));
             if (!result)
             {
               return result;
             }
 
-            v58 = v9[1];
-            v9[1] = *v8;
+            v58 = *(v9 + 8);
+            *(v9 + 8) = *v8;
           }
 
           *v8 = v58;
@@ -7772,11 +7772,11 @@ LABEL_110:
           return result;
         }
 
-        v91 = v9[1];
-        v9[1] = *v8;
+        v91 = *(v9 + 8);
+        *(v9 + 8) = *v8;
         *v8 = v91;
 LABEL_166:
-        result = CA::WindowServer::Display::Mode::operator<(v9 + 1, v9);
+        result = CA::WindowServer::Display::Mode::operator<((v9 + 8), v9);
         if (result)
         {
           *v9 = vextq_s8(*v9, *v9, 8uLL);
@@ -7785,39 +7785,39 @@ LABEL_166:
         return result;
       case 4uLL:
 
-        return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CA::WindowServer::Display::Mode *,0>(v9, v9 + 1, v9 + 2, a2 - 1);
+        return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CA::WindowServer::Display::Mode *,0>(v9, (v9 + 8), (v9 + 16), a2 - 1);
       case 5uLL:
-        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CA::WindowServer::Display::Mode *,0>(v9, v9 + 1, v9 + 2, v9 + 3);
-        result = CA::WindowServer::Display::Mode::operator<(a2 - 1, v9 + 3);
+        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CA::WindowServer::Display::Mode *,0>(v9, (v9 + 8), (v9 + 16), (v9 + 24));
+        result = CA::WindowServer::Display::Mode::operator<(a2 - 1, (v9 + 24));
         if (!result)
         {
           return result;
         }
 
-        v57 = v9[3];
-        v9[3] = *v8;
+        v57 = *(v9 + 24);
+        *(v9 + 24) = *v8;
         *v8 = v57;
-        result = CA::WindowServer::Display::Mode::operator<(v9 + 3, v9 + 2);
+        result = CA::WindowServer::Display::Mode::operator<((v9 + 24), (v9 + 16));
         if (!result)
         {
           return result;
         }
 
-        *(v9 + 1) = vextq_s8(*(v9 + 1), *(v9 + 1), 8uLL);
-        result = CA::WindowServer::Display::Mode::operator<(v9 + 2, v9 + 1);
+        *(v9 + 16) = vextq_s8(*(v9 + 16), *(v9 + 16), 8uLL);
+        result = CA::WindowServer::Display::Mode::operator<((v9 + 16), (v9 + 8));
         if (!result)
         {
           return result;
         }
 
-        *(v9 + 1) = vextq_s8(*(v9 + 1), *(v9 + 1), 8uLL);
+        *(v9 + 8) = vextq_s8(*(v9 + 8), *(v9 + 8), 8uLL);
         goto LABEL_166;
     }
 
 LABEL_10:
     if (v10 <= 23)
     {
-      v60 = v9 + 1;
+      v60 = (v9 + 8);
       v62 = v9 == a2 || v60 == a2;
       if (a4)
       {
@@ -7843,7 +7843,7 @@ LABEL_10:
                 }
 
                 v66 -= 8;
-                result = CA::WindowServer::Display::Mode::operator<(v98, (v9 + v66));
+                result = CA::WindowServer::Display::Mode::operator<(v98, (v66 + v9));
                 if ((result & 1) == 0)
                 {
                   v67 = (v9 + v66 + 8);
@@ -8030,11 +8030,11 @@ LABEL_130:
       return result;
     }
 
-    v12 = &v9[v10 >> 1];
+    v12 = (v9 + 8 * (v10 >> 1));
     if (v10 >= 0x81)
     {
-      v13 = CA::WindowServer::Display::Mode::operator<(&v9[v10 >> 1], v9);
-      v14 = CA::WindowServer::Display::Mode::operator<(a2 - 1, &v9[v10 >> 1]);
+      v13 = CA::WindowServer::Display::Mode::operator<((v9 + 8 * (v10 >> 1)), v9);
+      v14 = CA::WindowServer::Display::Mode::operator<(a2 - 1, (v9 + 8 * (v10 >> 1)));
       if (v13)
       {
         v15 = *v9;
@@ -8046,7 +8046,7 @@ LABEL_130:
 
         *v9 = *v12;
         *v12 = v15;
-        if (CA::WindowServer::Display::Mode::operator<(a2 - 1, &v9[v10 >> 1]))
+        if (CA::WindowServer::Display::Mode::operator<(a2 - 1, (v9 + 8 * (v10 >> 1))))
         {
           v15 = *v12;
           *v12 = *v8;
@@ -8060,7 +8060,7 @@ LABEL_27:
         v19 = *v12;
         *v12 = *v8;
         *v8 = v19;
-        if (CA::WindowServer::Display::Mode::operator<(&v9[v10 >> 1], v9))
+        if (CA::WindowServer::Display::Mode::operator<((v9 + 8 * (v10 >> 1)), v9))
         {
           v20 = *v9;
           *v9 = *v12;
@@ -8200,7 +8200,7 @@ LABEL_58:
       goto LABEL_58;
     }
 
-    v16 = CA::WindowServer::Display::Mode::operator<(v9, &v9[v10 >> 1]);
+    v16 = CA::WindowServer::Display::Mode::operator<(v9, (v9 + 8 * (v10 >> 1)));
     v17 = CA::WindowServer::Display::Mode::operator<(a2 - 1, v9);
     if (!v16)
     {
@@ -8209,7 +8209,7 @@ LABEL_58:
         v21 = *v9;
         *v9 = *v8;
         *v8 = v21;
-        if (CA::WindowServer::Display::Mode::operator<(v9, &v9[v10 >> 1]))
+        if (CA::WindowServer::Display::Mode::operator<(v9, (v9 + 8 * (v10 >> 1))))
         {
           v22 = *v12;
           *v12 = *v9;
@@ -8317,7 +8317,7 @@ LABEL_62:
       }
 
       v52 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CA::WindowServer::Display::Mode *>(v7, v47);
-      v9 = v47 + 1;
+      v9 = (v47 + 1);
       result = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CA::WindowServer::Display::Mode *>(v47 + 1, a2);
       if (result)
       {
@@ -8335,7 +8335,7 @@ LABEL_62:
 LABEL_81:
         result = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,CA::WindowServer::Display::Mode *,false>(v7, v47, a3, a4 & 1);
         a4 = 0;
-        v9 = v47 + 1;
+        v9 = (v47 + 1);
       }
     }
 
@@ -8355,7 +8355,8 @@ LABEL_81:
         v9 = v7;
         do
         {
-          result = CA::WindowServer::Display::Mode::operator<(v98, ++v9);
+          v9 += 8;
+          result = CA::WindowServer::Display::Mode::operator<(v98, v9);
         }
 
         while ((result & 1) == 0);
@@ -8373,7 +8374,7 @@ LABEL_81:
           }
 
           result = CA::WindowServer::Display::Mode::operator<(v98, v53);
-          v53 = v9 + 1;
+          v53 = (v9 + 8);
         }
 
         while (!result);
@@ -8398,7 +8399,7 @@ LABEL_81:
         *v54 = v55;
         do
         {
-          ++v9;
+          v9 += 8;
         }
 
         while (!CA::WindowServer::Display::Mode::operator<(v98, v9));
@@ -8410,8 +8411,8 @@ LABEL_81:
         while ((result & 1) != 0);
       }
 
-      v56 = v9 - 1;
-      if (v9 - 1 != v7)
+      v56 = (v9 - 8);
+      if ((v9 - 8) != v7)
       {
         *v7 = *v56;
       }
@@ -8655,7 +8656,7 @@ LABEL_17:
       v19 = v17;
       while (1)
       {
-        v20 = a1 + v19;
+        v20 = (a1 + v19);
         *(a1 + v19 + 24) = *(a1 + v19 + 16);
         if (v19 == -16)
         {
@@ -8663,7 +8664,7 @@ LABEL_17:
         }
 
         v19 -= 8;
-        if (!CA::WindowServer::Display::Mode::operator<(v23, (v20 + 8)))
+        if (!CA::WindowServer::Display::Mode::operator<(v23, v20 + 1))
         {
           v21 = (a1 + v19 + 24);
           goto LABEL_40;
@@ -8688,32 +8689,32 @@ LABEL_40:
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t a2, uint64_t **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = a1[1];
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -8721,47 +8722,47 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void *CA::WindowServer::Display::ModeSet::remove_mode(void *this, const CA::WindowServer::Display::Mode *a2)
+uint64_t **CA::WindowServer::Display::ModeSet::remove_mode(uint64_t **this, const CA::WindowServer::Display::Mode *a2)
 {
   v2 = this;
   v4 = *this;
@@ -8832,7 +8833,7 @@ void *CA::WindowServer::Display::ModeSet::remove_mode(void *this, const CA::Wind
       this = memmove(v4, v4 + 1, v3 - (v4 + 1));
     }
 
-    v2[1] = v4 + v20;
+    v2[1] = (v4 + v20);
   }
 
   return this;
@@ -9614,7 +9615,7 @@ uint64_t CA::WindowServer::Display::all_clones_support_hlg(CA::WindowServer::Dis
   return result;
 }
 
-uint64_t CA::WindowServer::Display::set_all_modes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t CA::WindowServer::Display::set_all_modes(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v4 = a3;
   if (a4)
@@ -9850,7 +9851,7 @@ LABEL_49:
     ++*(a1 + 32);
   }
 
-  CA::WindowServer::Display::ModeSet::operator=(a1 + 416, a2);
+  CA::WindowServer::Display::ModeSet::operator=((a1 + 416), a2);
   *(a1 + 656) = v4;
   *(a1 + 664) = v7;
   if (v7)

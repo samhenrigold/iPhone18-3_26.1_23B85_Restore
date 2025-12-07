@@ -22,17 +22,16 @@
   if (v2)
   {
     v3 = *(self + OBJC_IVAR___NLWeatherSummary_sourceName);
-    v4 = *(self + OBJC_IVAR___NLWeatherSummary_sourceName + 8);
 
-    v5 = MEMORY[0x20F2E6C00](v3, v2);
+    v4 = MEMORY[0x20F2E6C00](v3, v2);
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 - (NSString)description

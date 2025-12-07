@@ -684,15 +684,13 @@ LABEL_8:
 
 - (void)inputSessionDidEnd:(void *)a1 options:(NSObject *)a2 completion:.cold.1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = [a1 uuid];
-  v5 = 136315394;
-  v6 = "[RTIInputSystemService inputSessionDidEnd:options:completion:]";
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_19A2A6000, a2, OS_LOG_TYPE_ERROR, "%s  Timeout while waiting to end session. sessionID = %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 136315394;
+  v5 = "[RTIInputSystemService inputSessionDidEnd:options:completion:]";
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_19A2A6000, a2, OS_LOG_TYPE_ERROR, "%s  Timeout while waiting to end session. sessionID = %@", &v4, 0x16u);
 }
 
 @end

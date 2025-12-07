@@ -169,8 +169,8 @@ uint64_t __72__SBHIconRootTableViewController_revealIcon_animated_completionHand
   [textLabel setText:v12];
 
   imageView = [v7 imageView];
-  iconImageCache = [(SBHIconRootTableViewController *)self iconImageCache];
-  v15 = [iconImageCache imageForIcon:v9 compatibleWithTraitCollection:traitCollection options:0];
+  v14 = objc_msgSend_iconImageCache(self);
+  v15 = [v14 imageForIcon:v9 compatibleWithTraitCollection:traitCollection options:0];
   [imageView setImage:v15];
 
   return v7;

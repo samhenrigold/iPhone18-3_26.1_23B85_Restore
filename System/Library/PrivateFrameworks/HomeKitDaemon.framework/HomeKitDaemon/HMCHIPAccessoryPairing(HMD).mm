@@ -1,6 +1,6 @@
 @interface HMCHIPAccessoryPairing(HMD)
 - (id)chipPluginPairing;
-- (uint64_t)initWithHMMTRPairing:()HMD ownedEcosystem:;
+- (void)initWithHMMTRPairing:()HMD ownedEcosystem:;
 @end
 
 @implementation HMCHIPAccessoryPairing(HMD)
@@ -29,7 +29,7 @@
   return v15;
 }
 
-- (uint64_t)initWithHMMTRPairing:()HMD ownedEcosystem:
+- (void)initWithHMMTRPairing:()HMD ownedEcosystem:
 {
   v6 = a3;
   if (v6)
@@ -65,7 +65,7 @@
   else
   {
     v25 = _HMFPreconditionFailure();
-    return [HMCHIPAccessoryPairing(HMD) initWithHMMTRPairing:v25];
+    return [(HMCHIPAccessoryPairing(HMD) *)v25 initWithHMMTRPairing:v26, v27];
   }
 }
 

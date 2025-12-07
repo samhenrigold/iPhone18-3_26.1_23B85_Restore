@@ -2,6 +2,7 @@
 - (CKInboxModel)initWithSections:(id)sections footerAction:(id)action;
 - (CKInboxModelDelegate)delegate;
 - (id)buildItemsMap:(id)map;
+- (void)setIsCollapsed:(BOOL)collapsed;
 @end
 
 @implementation CKInboxModel
@@ -31,49 +32,49 @@
 
 - (id)buildItemsMap:(id)map
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   mapCopy = map;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = mapCopy;
-  v5 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v5 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v27;
+    v7 = *v26;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v27 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v26 + 1) + 8 * i);
+        v9 = *(*(&v25 + 1) + 8 * i);
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
         items = [v9 items];
-        v11 = [items countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v11 = [items countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v23;
+          v13 = *v22;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v23 != v13)
+              if (*v22 != v13)
               {
                 objc_enumerationMutation(items);
               }
 
-              v15 = *(*(&v22 + 1) + 8 * j);
+              v15 = *(*(&v21 + 1) + 8 * j);
               filterMode = [v15 filterMode];
 
               if (filterMode)
@@ -83,23 +84,34 @@
               }
             }
 
-            v12 = [items countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v12 = [items countByEnumeratingWithState:&v21 objects:v29 count:16];
           }
 
           while (v12);
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v6 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v6);
   }
 
   v18 = [v4 copy];
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
+}
+
+- (void)setIsCollapsed:(BOOL)collapsed
+{
+  collapsedCopy = collapsed;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+
+  if (WeakRetained)
+  {
+    v6 = objc_loadWeakRetained(&self->_delegate);
+    [v6 inboxModelDidUpdateIsCollapsed:collapsedCopy];
+  }
 }
 
 - (CKInboxModelDelegate)delegate

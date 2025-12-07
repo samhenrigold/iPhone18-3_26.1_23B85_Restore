@@ -38,10 +38,8 @@
 
 - (void)encodeWithXPCDictionary:(id)dictionary
 {
-  text = self->_text;
   dictionaryCopy = dictionary;
   BSSerializeStringToXPCDictionaryWithKey();
-  simLabel = self->_simLabel;
   BSSerializeStringToXPCDictionaryWithKey();
 }
 

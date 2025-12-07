@@ -60,7 +60,7 @@
   behaviorCopy = behavior;
   selfCopy = self;
   sub_188E44940(behaviorCopy, v6, v7);
-  sub_188A55B8C(v6);
+  sub_188A55B8C(v6, v7);
 }
 
 - (void)invalidate

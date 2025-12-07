@@ -11,7 +11,7 @@
 
 + (void)waitUntilMXIsFullyInitialized
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   [sIsMXFullyInitializedCondition lock];
   if ((sIsMXFullyInitialized & 1) == 0)
   {
@@ -38,7 +38,6 @@
   }
 
   [sIsMXFullyInitializedCondition unlock];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (void)initialize
@@ -58,13 +57,13 @@
   }
 }
 
-void __25__MXInitialization_start__block_invoke()
+void __25__MXInitialization_start__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MXGetPerformanceLog();
-  if (os_signpost_enabled(v0))
+  v2 = MXGetPerformanceLog(a1, a2);
+  if (os_signpost_enabled(v2))
   {
-    *v1 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B17A2000, v0, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "MX initialization", &unk_1B19E5B76, v1, 2u);
+    *v3 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B17A2000, v2, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "MX initialization", &unk_1B19E5B76, v3, 2u);
   }
 }
 
@@ -78,15 +77,15 @@ void __25__MXInitialization_start__block_invoke()
 
 uint64_t __46__MXInitialization_notifyMXIsFullyInitialized__block_invoke()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   [sIsMXFullyInitializedCondition lock];
   sIsMXFullyInitialized = 1;
-  [sIsMXFullyInitializedCondition broadcast];
-  v0 = MXGetPerformanceLog();
-  if (os_signpost_enabled(v0))
+  v0 = [sIsMXFullyInitializedCondition broadcast];
+  v2 = MXGetPerformanceLog(v0, v1);
+  if (os_signpost_enabled(v2))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B17A2000, v0, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "MX initialization", &unk_1B19E5B76, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B17A2000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "MX initialization", &unk_1B19E5B76, buf, 2u);
   }
 
   if (dword_1EB75DE40)
@@ -96,14 +95,12 @@ uint64_t __46__MXInitialization_notifyMXIsFullyInitialized__block_invoke()
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  result = [sIsMXFullyInitializedCondition unlock];
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  return [sIsMXFullyInitializedCondition unlock];
 }
 
 + (void)LoadAirPlaySenderFramework
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = dlopen("/System/Library/PrivateFrameworks/AirPlaySender.framework/AirPlaySender", 4);
   airplaysender = v2;
   if (v2)
@@ -111,7 +108,7 @@ uint64_t __46__MXInitialization_notifyMXIsFullyInitialized__block_invoke()
     sAirPlayStartServicesInMXProcess = dlsym(v2, "AirPlayStartServicesInMXProcess");
     if (!sAirPlayStartServicesInMXProcess)
     {
-      +[MXInitialization LoadAirPlaySenderFramework];
+      [(MXInitialization *)0 LoadAirPlaySenderFramework:v3];
     }
   }
 
@@ -121,18 +118,15 @@ uint64_t __46__MXInitialization_notifyMXIsFullyInitialized__block_invoke()
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (void)AirPlayStartServicesInMXProcess
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   +[MXInitialization LoadAirPlaySenderFramework];
   v2 = sAirPlayStartServicesInMXProcess;
   if (sAirPlayStartServicesInMXProcess)
   {
-    v3 = *MEMORY[0x1E69E9840];
 
     v2();
   }
@@ -142,7 +136,6 @@ uint64_t __46__MXInitialization_notifyMXIsFullyInitialized__block_invoke()
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v5 = *MEMORY[0x1E69E9840];
   }
 }
 

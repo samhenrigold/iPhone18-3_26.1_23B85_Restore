@@ -21,9 +21,9 @@ void __50___UIHIDEventSynchronizer__processDigitizerEvent___block_invoke(uint64_
 {
   v9 = [MEMORY[0x1E696AD98] numberWithLong:IOHIDEventGetIntegerValue()];
   v7 = [*(*(a1 + 32) + 72) pathId];
-  v8 = [v7 isEqual:v9];
+  isEqual = objc_msgSend_isEqual_(v7);
 
-  if (v8)
+  if (isEqual)
   {
     *(*(*(a1 + 40) + 8) + 24) = a2;
     *a4 = 1;

@@ -754,7 +754,7 @@ LABEL_25:
       v18 = "non-PMP";
     }
 
-    *v29 = *&self->_power_summary.total_energy;
+    v29 = *&self->_power_summary.total_energy;
     gpu_energy = self->_power_summary.gpu_energy;
     dram_energy = self->_power_summary.dram_energy;
     if ([(_EARProfiler *)self _hasPMP])
@@ -783,7 +783,7 @@ LABEL_25:
       v27 = "non-PMP";
     }
 
-    fprintf(v17, "| Background  |   Idle   |  Average  |   std    |\n| Power* (mW) |          |   %5.1f   |  %5.1f   |\n| %s     |          |           |          |\n|------------------------------------------------\n|             |  Total  |  ANE  |  GPU  |  DRAM |\n|             |  %6.2f | %5.1f | %5.1f | %5.1f |\n| Energy (J)  -----------------------------------\n| %s     |         |  ECPU |  PCPU | OTHER |\n|             |         | %5.1f | %5.1f | %5.1f |\n|------------------------------------------------\n|             |  Total  |  ANE  |  GPU  |  DRAM |\n|             |   %5d |  %4d |  %4d |  %4d |\n| Power (mW)  -----------------------------------\n| %s     |         |  ECPU |  PCPU | OTHER |\n| ^           |         |  %4d |  %4d |  %4d |\n=================================================\n| * If Idle power consumption is significant,   |\n|   try enabling one of the power settings      |\n|   recommended  above and kill any daemon(s)   |\n|   that are not needed by transcribe.          |\n| ^ Power measurements can be inaccurate on     |\n|   short audios and/or new hardwares.          |\n=================================================\n", v12, v16, v18, v29[0], v29[1], gpu_energy, dram_energy, v21, *&v28, *(&v28 + 1), other_energy, total_power, ane_power, gpu_power, dram_power, v27, self->_power_summary.ecpu_power, self->_power_summary.pcpu_power, self->_power_summary.other_power);
+    fprintf(v17, "| Background  |   Idle   |  Average  |   std    |\n| Power* (mW) |          |   %5.1f   |  %5.1f   |\n| %s     |          |           |          |\n|------------------------------------------------\n|             |  Total  |  ANE  |  GPU  |  DRAM |\n|             |  %6.2f | %5.1f | %5.1f | %5.1f |\n| Energy (J)  -----------------------------------\n| %s     |         |  ECPU |  PCPU | OTHER |\n|             |         | %5.1f | %5.1f | %5.1f |\n|------------------------------------------------\n|             |  Total  |  ANE  |  GPU  |  DRAM |\n|             |   %5d |  %4d |  %4d |  %4d |\n| Power (mW)  -----------------------------------\n| %s     |         |  ECPU |  PCPU | OTHER |\n| ^           |         |  %4d |  %4d |  %4d |\n=================================================\n| * If Idle power consumption is significant,   |\n|   try enabling one of the power settings      |\n|   recommended  above and kill any daemon(s)   |\n|   that are not needed by transcribe.          |\n| ^ Power measurements can be inaccurate on     |\n|   short audios and/or new hardwares.          |\n=================================================\n", v12, v16, v18, *&v29, *(&v29 + 1), gpu_energy, dram_energy, v21, *&v28, *(&v28 + 1), other_energy, total_power, ane_power, gpu_power, dram_power, v27, self->_power_summary.ecpu_power, self->_power_summary.pcpu_power, self->_power_summary.other_power);
   }
 }
 

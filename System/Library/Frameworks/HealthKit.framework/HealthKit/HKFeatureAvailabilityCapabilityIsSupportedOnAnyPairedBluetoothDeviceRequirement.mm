@@ -58,9 +58,10 @@ void __114__HKFeatureAvailabilityCapabilityIsSupportedOnAnyPairedBluetoothDevice
   {
     v6 = *(a1 + 32);
     v5 = (a1 + 32);
-    v10 = 0;
-    v7 = [v6 isSatisfiedWithDataSource:WeakRetained error:&v10];
-    v8 = v10;
+    v14 = 0;
+    v7 = [v6 isSatisfiedWithDataSource:WeakRetained error:&v14];
+    v8 = v14;
+    v10 = v8;
     if (v7)
     {
       [v3 featureAvailabilityRequirement:*v5 didUpdateSatisfaction:{objc_msgSend(v7, "BOOLValue")}];
@@ -68,11 +69,11 @@ void __114__HKFeatureAvailabilityCapabilityIsSupportedOnAnyPairedBluetoothDevice
 
     else
     {
-      _HKInitializeLogging();
-      v9 = HKLogInfrastructure();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      _HKInitializeLogging(v8, v9);
+      v13 = HKLogInfrastructure(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        __114__HKFeatureAvailabilityCapabilityIsSupportedOnAnyPairedBluetoothDeviceRequirement_registerObserver_forDataSource___block_invoke_cold_1(v5, v8, v9);
+        __114__HKFeatureAvailabilityCapabilityIsSupportedOnAnyPairedBluetoothDeviceRequirement_registerObserver_forDataSource___block_invoke_cold_1(v5, v10, v13);
       }
     }
   }
@@ -110,18 +111,15 @@ void __114__HKFeatureAvailabilityCapabilityIsSupportedOnAnyPairedBluetoothDevice
   return 0;
 }
 
-void __114__HKFeatureAvailabilityCapabilityIsSupportedOnAnyPairedBluetoothDeviceRequirement_registerObserver_forDataSource___block_invoke_cold_1(uint64_t *a1, uint64_t a2, NSObject *a3)
+void __114__HKFeatureAvailabilityCapabilityIsSupportedOnAnyPairedBluetoothDeviceRequirement_registerObserver_forDataSource___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v5 = *a1;
-  v8 = 138543618;
-  v9 = objc_opt_class();
-  v10 = 2114;
-  v11 = a2;
-  v6 = v9;
-  _os_log_error_impl(&dword_19197B000, a3, OS_LOG_TYPE_ERROR, "[%{public}@]: Error determining satisfaction in response to change in device pairing: %{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
+  v7 = objc_opt_class();
+  v8 = 2114;
+  v9 = a2;
+  v5 = v7;
+  _os_log_error_impl(&dword_19197B000, a3, OS_LOG_TYPE_ERROR, "[%{public}@]: Error determining satisfaction in response to change in device pairing: %{public}@", &v6, 0x16u);
 }
 
 @end

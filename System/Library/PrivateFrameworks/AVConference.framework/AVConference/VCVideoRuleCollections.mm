@@ -902,7 +902,7 @@ LABEL_5:
   return v3;
 }
 
-uint64_t __43__VCVideoRuleCollections_isEncodeSupported__block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
+void *__43__VCVideoRuleCollections_isEncodeSupported__block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   result = [a2 encodingType];
   if (result == 1)
@@ -937,7 +937,7 @@ uint64_t __43__VCVideoRuleCollections_isEncodeSupported__block_invoke(uint64_t a
   return v3;
 }
 
-uint64_t __43__VCVideoRuleCollections_isDecodeSupported__block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
+void *__43__VCVideoRuleCollections_isDecodeSupported__block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   result = [a2 encodingType];
   if (result == 2)

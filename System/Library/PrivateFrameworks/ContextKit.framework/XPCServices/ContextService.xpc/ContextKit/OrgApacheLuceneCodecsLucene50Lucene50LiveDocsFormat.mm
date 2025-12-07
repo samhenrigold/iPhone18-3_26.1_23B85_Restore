@@ -1,4 +1,5 @@
 @interface OrgApacheLuceneCodecsLucene50Lucene50LiveDocsFormat
+- (id)newLiveDocsWithInt:(int)int;
 - (id)newLiveDocsWithOrgApacheLuceneUtilBits:(id)bits;
 - (id)readLiveDocsWithOrgApacheLuceneStoreDirectory:(id)directory withOrgApacheLuceneIndexSegmentCommitInfo:(id)info withOrgApacheLuceneStoreIOContext:(id)context;
 - (void)filesWithOrgApacheLuceneIndexSegmentCommitInfo:(id)info withJavaUtilCollection:(id)collection;
@@ -6,6 +7,14 @@
 @end
 
 @implementation OrgApacheLuceneCodecsLucene50Lucene50LiveDocsFormat
+
+- (id)newLiveDocsWithInt:(int)int
+{
+  v3 = *&int;
+  v4 = new_OrgApacheLuceneUtilFixedBitSet_initWithInt_(int);
+  [(OrgApacheLuceneUtilFixedBitSet *)v4 setWithInt:0 withInt:v3];
+  return v4;
+}
 
 - (id)newLiveDocsWithOrgApacheLuceneUtilBits:(id)bits
 {
@@ -35,50 +44,50 @@
   getId = [*(info + 1) getId];
   v16 = JavaLangLong_toStringWithLong_withInt_(v10, 36);
   OrgApacheLuceneCodecsCodecUtil_checkIndexHeaderWithOrgApacheLuceneStoreDataInput_withNSString_withInt_withInt_withByteArray_withNSString_(v14, @"Lucene50LiveDocs", 0, 0, getId, v16);
-  v17 = [IOSLongArray arrayWithLength:OrgApacheLuceneUtilFixedBitSet_bits2wordsWithInt_(v13)];
-  v18 = v17;
-  if (v17->super.size_ >= 1)
+  v18 = [IOSLongArray arrayWithLength:OrgApacheLuceneUtilFixedBitSet_bits2wordsWithInt_(v13, v17)];
+  v19 = v18;
+  if (v18->super.size_ >= 1)
   {
     if (!v14)
     {
       JreThrowNullPointerException();
     }
 
-    v19 = 0;
-    v20 = v17;
+    v20 = 0;
+    v21 = v18;
     do
     {
       readLong = [v14 readLong];
-      size = v18->super.size_;
-      if (v19 >= size)
+      size = v19->super.size_;
+      if (v20 >= size)
       {
-        IOSArray_throwOutOfBoundsWithMsg(size, v19);
+        IOSArray_throwOutOfBoundsWithMsg(size, v20);
       }
 
-      v20->buffer_[0] = readLong;
-      ++v19;
-      v20 = (v20 + 8);
+      v21->buffer_[0] = readLong;
+      ++v20;
+      v21 = (v21 + 8);
     }
 
-    while (v19 < v18->super.size_);
+    while (v20 < v19->super.size_);
   }
 
-  v23 = new_OrgApacheLuceneUtilFixedBitSet_initWithLongArray_withInt_(v18, v13);
-  v24 = [(OrgApacheLuceneUtilFixedBitSet *)v23 length];
-  cardinality = [(OrgApacheLuceneUtilFixedBitSet *)v23 cardinality];
-  if (v24 - cardinality != [info getDelCount])
+  v24 = new_OrgApacheLuceneUtilFixedBitSet_initWithLongArray_withInt_(v19, v13);
+  v25 = [(OrgApacheLuceneUtilFixedBitSet *)v24 length];
+  cardinality = [(OrgApacheLuceneUtilFixedBitSet *)v24 cardinality];
+  if (v25 - cardinality != [info getDelCount])
   {
-    [(OrgApacheLuceneUtilFixedBitSet *)v23 length];
-    [(OrgApacheLuceneUtilFixedBitSet *)v23 cardinality];
+    [(OrgApacheLuceneUtilFixedBitSet *)v24 length];
+    [(OrgApacheLuceneUtilFixedBitSet *)v24 cardinality];
     [info getDelCount];
-    v34 = JreStrcat("$I$I", v27, v28, v29, v30, v31, v32, v33, @"bits.deleted=");
-    v35 = new_OrgApacheLuceneIndexCorruptIndexException_initWithNSString_withOrgApacheLuceneStoreDataInput_(v34, v14);
-    objc_exception_throw(v35);
+    v35 = JreStrcat("$I$I", v28, v29, v30, v31, v32, v33, v34, @"bits.deleted=");
+    v36 = new_OrgApacheLuceneIndexCorruptIndexException_initWithNSString_withOrgApacheLuceneStoreDataInput_(v35, v14);
+    objc_exception_throw(v36);
   }
 
   OrgApacheLuceneCodecsCodecUtil_checkFooterWithOrgApacheLuceneStoreChecksumIndexInput_withJavaLangThrowable_(v14, 0);
   [v14 close];
-  return v23;
+  return v24;
 }
 
 - (void)writeLiveDocsWithOrgApacheLuceneUtilMutableBits:(id)bits withOrgApacheLuceneStoreDirectory:(id)directory withOrgApacheLuceneIndexSegmentCommitInfo:(id)info withInt:(int)int withOrgApacheLuceneStoreIOContext:(id)context
@@ -142,7 +151,7 @@ LABEL_16:
     v23 = 0;
     while (v20)
     {
-      [v20 writeLongWithLong:*&v19[2 * v23++ + 4]];
+      [(OrgApacheLuceneUtilBytesRef *)v20 writeLongWithLong:*&v19[2 * v23++ + 4]];
       if (v23 >= v19[2])
       {
         goto LABEL_12;
@@ -157,7 +166,7 @@ LABEL_12:
   OrgApacheLuceneCodecsCodecUtil_writeFooterWithOrgApacheLuceneStoreIndexOutput_(v20);
   if (v20)
   {
-    [v20 close];
+    [(OrgApacheLuceneUtilBytesRef *)v20 close];
   }
 }
 

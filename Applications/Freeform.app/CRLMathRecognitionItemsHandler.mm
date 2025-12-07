@@ -45,7 +45,7 @@
 {
   swift_beginAccess();
   type metadata accessor for UUID();
-  sub_10099D754(&qword_1019FB870, &type metadata accessor for UUID);
+  sub_10099D754(&qword_1019FB870, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
 
   v2.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
@@ -55,7 +55,7 @@
 - (void)setComputedResultVisibilityStates:(id)states
 {
   type metadata accessor for UUID();
-  sub_10099D754(&qword_1019FB870, &type metadata accessor for UUID);
+  sub_10099D754(&qword_1019FB870, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR____TtC8Freeform30CRLMathRecognitionItemsHandler_computedResultVisibilityStates;
   swift_beginAccess();
@@ -111,7 +111,7 @@
 
 - (id)mathViewControllerDrawing:(id)drawing
 {
-  v5 = sub_1005B981C(&qword_101A01C10);
+  v5 = sub_1005B981C(&qword_101A01C10, &qword_10147ECC0);
   __chkstk_darwin(v5 - 8);
   v7 = &v16 - v6;
   drawingCopy = drawing;
@@ -187,13 +187,13 @@
 
 - (id)mathViewController:(id)controller createTypesetViewControllerForExpression:(id)expression latex:(BOOL)latex fontSize:(double)size
 {
-  v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v11 = v10;
+  v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v12 = v11;
   controllerCopy = controller;
   selfCopy = self;
-  v14 = sub_10099E1AC(v9, v11, latex);
+  v15 = sub_10099E1AC(v10, v12, latex, size);
 
-  return v14;
+  return v15;
 }
 
 - (void)mathViewController:(id)controller setShouldSolve:(BOOL)solve item:(id)item heroStroke:(id)stroke flag:(unint64_t)flag undoable:(BOOL)undoable
@@ -265,40 +265,40 @@ LABEL_7:
 
 - (id)mathViewController:(id)controller createTypesetImageForItemUUID:(id)d showResult:(BOOL)result fontSize:(double)size
 {
-  v8 = type metadata accessor for UUID();
-  v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for UUID();
+  v11 = *(v10 - 8);
+  __chkstk_darwin(v10);
+  v13 = &v19 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
-  sub_10099E764(v11);
-  v15 = v14;
+  sub_10099E764(v13, result, size);
+  v17 = v16;
 
-  (*(v9 + 8))(v11, v8);
+  (*(v11 + 8))(v13, v10);
 
-  return v15;
+  return v17;
 }
 
 - (id)mathViewController:(id)controller createTypesetImageForExpression:(id)expression latex:(BOOL)latex fontSize:(double)size
 {
-  v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v11 = v10;
+  v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v12 = v11;
   controllerCopy = controller;
   selfCopy = self;
-  v14 = sub_10099E870(v9, v11, latex);
+  v15 = sub_10099E870(v10, v12, latex, size);
 
-  return v14;
+  return v15;
 }
 
 - (void)mathViewController:(id)controller didUpdateExpressions:(id)expressions newExpressions:(id)newExpressions removedExpressions:(id)removedExpressions mathItems:(id)items
 {
   type metadata accessor for UUID();
-  sub_10099D754(&qword_1019FB870, &type metadata accessor for UUID);
+  sub_10099D754(&qword_1019FB870, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   v9 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   v10 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   v11 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_100006370(0, &qword_101A0A358);
+  sub_100006370(0, &qword_101A0A358, PKMathRecognitionItem_ptr);
   v12 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;

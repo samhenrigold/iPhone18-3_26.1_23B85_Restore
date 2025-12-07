@@ -384,7 +384,7 @@ void __57__PKApplyFieldsViewController__withdrawApplicationTapped__block_invoke(
   }
 }
 
-uint64_t __57__PKApplyFieldsViewController__withdrawApplicationTapped__block_invoke_2(uint64_t a1, char a2)
+void *__57__PKApplyFieldsViewController__withdrawApplicationTapped__block_invoke_2(uint64_t a1, char a2)
 {
   result = [*(a1 + 32) showSpinner:0];
   if ((a2 & 1) == 0)
@@ -527,13 +527,13 @@ void __46__PKApplyFieldsViewController__handleNextStep__block_invoke(uint64_t a1
   }
 }
 
-uint64_t __46__PKApplyFieldsViewController__handleNextStep__block_invoke_2(uint64_t a1)
+uint64_t __46__PKApplyFieldsViewController__handleNextStep__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Error: No next step to take. Terminating setup flow - File a radar", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Error: No next step to take. Terminating setup flow - File a radar", v5, 2u);
   }
 
   return [*(a1 + 32) _terminateFlow];
@@ -582,7 +582,7 @@ LABEL_5:
 LABEL_6:
 }
 
-uint64_t __93__PKApplyFieldsViewController__handleNextViewController_displayableError_terminationHandler___block_invoke(uint64_t a1, char a2)
+void *__93__PKApplyFieldsViewController__handleNextViewController_displayableError_terminationHandler___block_invoke(uint64_t a1, char a2)
 {
   result = [*(a1 + 32) showSpinner:0];
   if ((a2 & 1) == 0)

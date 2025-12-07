@@ -22,18 +22,18 @@
 
 - (PCAlgorithms)initWithConfig:(id)config
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   configCopy = config;
-  v20.receiver = self;
-  v20.super_class = PCAlgorithms;
-  v5 = [(PCAlgorithms *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = PCAlgorithms;
+  v5 = [(PCAlgorithms *)&v19 init];
   if (v5)
   {
     v6 = _plc_log_get_normal_handle(PCLogCategoryGeneral);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = configCopy;
+      v21 = configCopy;
       _os_log_impl(&dword_1CEE74000, v6, OS_LOG_TYPE_DEFAULT, "initializing PCAlgorithms with config: %@", buf, 0xCu);
     }
 
@@ -58,7 +58,6 @@
     [(PCAlgorithms *)v5 setDynamicsWeighting:v17];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -73,13 +72,13 @@
 
 - (BOOL)applyAlgorithmState:(id)state outError:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   v7 = objc_alloc(MEMORY[0x1E696ACD0]);
   algorithmState = [stateCopy algorithmState];
-  v30 = 0;
-  v9 = [v7 initForReadingFromData:algorithmState error:&v30];
-  v10 = v30;
+  v29 = 0;
+  v9 = [v7 initForReadingFromData:algorithmState error:&v29];
+  v10 = v29;
 
   if (!v10)
   {
@@ -176,9 +175,9 @@ LABEL_26:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        v32[0] = v14;
-        LOWORD(v32[1]) = 1024;
-        *(&v32[1] + 2) = 2;
+        v31[0] = v14;
+        LOWORD(v31[1]) = 1024;
+        *(&v31[1] + 2) = 2;
         _os_log_impl(&dword_1CEE74000, v22, OS_LOG_TYPE_DEFAULT, "applyAlgorithmState: version number %i does not match expected value %i", buf, 0xEu);
       }
 
@@ -213,7 +212,6 @@ LABEL_28:
   *error = v10;
 LABEL_29:
 
-  v28 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -266,7 +264,7 @@ LABEL_29:
 
 - (BOOL)interruptComputeWithError:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = _plc_log_get_normal_handle(PCLogCategoryGeneral);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -278,8 +276,7 @@ LABEL_29:
 
   if (!visitHistoryPred)
   {
-    v20 = 1;
-    goto LABEL_17;
+    return 1;
   }
 
   currentComputeDate = [(PCAlgorithms *)self currentComputeDate];
@@ -298,20 +295,19 @@ LABEL_29:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v27 = 6;
+        v26 = 6;
         _os_log_impl(&dword_1CEE74000, v16, OS_LOG_TYPE_ERROR, "age of model is greater than %d days, deferral will not be honored", buf, 8u);
       }
 
       if (!error)
       {
-        v20 = 0;
-        goto LABEL_17;
+        return 0;
       }
 
       v17 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v24 = *MEMORY[0x1E696A578];
-      v25 = @"deferral request ignored due to model age";
-      visitHistoryPred2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v23 = *MEMORY[0x1E696A578];
+      v24 = @"deferral request ignored due to model age";
+      visitHistoryPred2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
       v19 = [v17 initWithDomain:@"PCErrorDomain" code:6 userInfo:visitHistoryPred2];
       v20 = 0;
       *error = v19;
@@ -334,8 +330,6 @@ LABEL_29:
   v20 = 1;
 LABEL_15:
 
-LABEL_17:
-  v22 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -441,9 +435,9 @@ LABEL_17:
 
 - (BOOL)predictContextWithInputSignals:(id)signals result:(id *)result outError:(id *)error
 {
-  v150 = *MEMORY[0x1E69E9840];
+  v149 = *MEMORY[0x1E69E9840];
   signalsCopy = signals;
-  v145 = 0;
+  v144 = 0;
   visits = [signalsCopy visits];
   v8 = [PCNeuralNetworkUtilities sortVisitHistory:visits];
   v9 = [v8 mutableCopy];
@@ -461,7 +455,7 @@ LABEL_17:
 
   [PCLocationUtils cleanCurrentVisitWithMissingData:signalsCopy];
   outOfPatternLogic = [(PCAlgorithms *)self outOfPatternLogic];
-  v124 = [outOfPatternLogic processInputSignals:signalsCopy isOutOfPattern:&v145];
+  v123 = [outOfPatternLogic processInputSignals:signalsCopy isOutOfPattern:&v144];
 
   outOfPatternLogic2 = [(PCAlgorithms *)self outOfPatternLogic];
   isWaitingRetrain = [outOfPatternLogic2 isWaitingRetrain];
@@ -476,7 +470,7 @@ LABEL_17:
     }
   }
 
-  v119 = signalsCopy;
+  v118 = signalsCopy;
   selfCopy = self;
   config = [(PCAlgorithms *)self config];
   useVisitHistoryPredictor = [config useVisitHistoryPredictor];
@@ -487,14 +481,14 @@ LABEL_17:
   v25 = 0;
   if (!useVisitHistoryPredictor)
   {
-    v123 = 0;
+    v122 = 0;
     v26 = 0;
 LABEL_26:
     v27 = selfCopy;
     goto LABEL_27;
   }
 
-  v123 = 0;
+  v122 = 0;
   v26 = 0;
   v27 = selfCopy;
   if (!v22)
@@ -513,31 +507,31 @@ LABEL_26:
     {
       homeKitHomes = [signalsCopy homeKitHomes];
       *buf = 138739971;
-      v149 = homeKitHomes;
+      v148 = homeKitHomes;
       _os_log_impl(&dword_1CEE74000, v30, OS_LOG_TYPE_DEFAULT, "HomeKitHomes included in input signals: %{sensitive}@", buf, 0xCu);
     }
 
     visitHistoryPred2 = [(PCAlgorithms *)selfCopy visitHistoryPred];
-    visits2 = [v124 visits];
-    transitions2 = [v124 transitions];
-    locationHistorys2 = [v124 locationHistorys];
-    homeKitHomes2 = [v124 homeKitHomes];
-    [v124 currentTimeCFAbsolute];
-    v143 = 0;
-    v144 = 0;
-    v141 = 0;
+    visits2 = [v123 visits];
+    transitions2 = [v123 transitions];
+    locationHistorys2 = [v123 locationHistorys];
+    homeKitHomes2 = [v123 homeKitHomes];
+    [v123 currentTimeCFAbsolute];
     v142 = 0;
-    [visitHistoryPred2 predictWithHistory:visits2 transitionHistory:transitions2 locationHistory:locationHistorys2 homekitHomes:homeKitHomes2 atTime:&v144 locations:&v143 transitions:&v142 containsHomeKitPredictions:&v141 missingLoiResults:?];
-    v38 = v144;
-    v123 = v143;
-    v25 = v142;
-    v39 = v141;
+    v143 = 0;
+    v140 = 0;
+    v141 = 0;
+    [visitHistoryPred2 predictWithHistory:visits2 transitionHistory:transitions2 locationHistory:locationHistorys2 homekitHomes:homeKitHomes2 atTime:&v143 locations:&v142 transitions:&v141 containsHomeKitPredictions:&v140 missingLoiResults:?];
+    v38 = v143;
+    v122 = v142;
+    v25 = v141;
+    v39 = v140;
 
     v40 = _plc_log_get_normal_handle(PCLogCategoryGeneral);
     if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138739971;
-      v149 = v25;
+      v148 = v25;
       _os_log_impl(&dword_1CEE74000, v40, OS_LOG_TYPE_DEFAULT, "HomeKitHomes included in visit history predictor: %{sensitive}@", buf, 0xCu);
     }
 
@@ -548,32 +542,32 @@ LABEL_26:
     v26 = v38;
     if (v39)
     {
-      v139 = 0u;
-      v140 = 0u;
-      v137 = 0u;
       v138 = 0u;
+      v139 = 0u;
+      v136 = 0u;
+      v137 = 0u;
       v23 = v39;
-      v42 = [v23 countByEnumeratingWithState:&v137 objects:v147 count:16];
+      v42 = [v23 countByEnumeratingWithState:&v136 objects:v146 count:16];
       if (v42)
       {
         v43 = v42;
-        v44 = *v138;
+        v44 = *v137;
         do
         {
           for (i = 0; i != v43; ++i)
           {
-            if (*v138 != v44)
+            if (*v137 != v44)
             {
               objc_enumerationMutation(v23);
             }
 
-            v46 = *(*(&v137 + 1) + 8 * i);
+            v46 = *(*(&v136 + 1) + 8 * i);
             rolledLoiAnalyticsDictionarys = [(PCPPredictedContextAnalytics *)v24 rolledLoiAnalyticsDictionarys];
             v48 = [v23 objectForKeyedSubscript:v46];
             [rolledLoiAnalyticsDictionarys addObject:v48];
           }
 
-          v43 = [v23 countByEnumeratingWithState:&v137 objects:v147 count:16];
+          v43 = [v23 countByEnumeratingWithState:&v136 objects:v146 count:16];
         }
 
         while (v43);
@@ -597,21 +591,21 @@ LABEL_26:
   v23 = 0;
   v24 = 0;
   v25 = 0;
-  v123 = 0;
+  v122 = 0;
   v26 = 0;
-  v145 = 1;
+  v144 = 1;
 LABEL_27:
   config2 = [(PCAlgorithms *)v27 config];
   v50 = [config2 useCalendarVisitPredictor] & v22;
 
   if (v50 == 1)
   {
-    visits3 = [v124 visits];
-    calendarEvents = [v124 calendarEvents];
-    [v124 currentTimeCFAbsolute];
-    v136 = 0;
-    [PCCalendarVisitPredictor predictWithHistory:visits3 calendarEvents:calendarEvents atTime:&v136 results:?];
-    v53 = v136;
+    visits3 = [v123 visits];
+    calendarEvents = [v123 calendarEvents];
+    [v123 currentTimeCFAbsolute];
+    v135 = 0;
+    [PCCalendarVisitPredictor predictWithHistory:visits3 calendarEvents:calendarEvents atTime:&v135 results:?];
+    v53 = v135;
 
     v27 = selfCopy;
     [v26 addObjectsFromArray:v53];
@@ -628,14 +622,14 @@ LABEL_27:
   if (useScheduledTravelPredictor)
   {
 
-    mapsActiveNavigation = [v124 mapsActiveNavigation];
-    mapsHistoricalNavigations = [v124 mapsHistoricalNavigations];
-    visits4 = [v124 visits];
-    locationHistorys3 = [v124 locationHistorys];
-    [v124 currentTimeCFAbsolute];
-    v135 = 0;
-    [PCScheduledTravelPredictor predictWithScheduledTravelWithActiveNav:mapsActiveNavigation previousNav:mapsHistoricalNavigations visitHistory:visits4 locationHistory:locationHistorys3 atTime:&v135 results:?];
-    v60 = v135;
+    mapsActiveNavigation = [v123 mapsActiveNavigation];
+    mapsHistoricalNavigations = [v123 mapsHistoricalNavigations];
+    visits4 = [v123 visits];
+    locationHistorys3 = [v123 locationHistorys];
+    [v123 currentTimeCFAbsolute];
+    v134 = 0;
+    [PCScheduledTravelPredictor predictWithScheduledTravelWithActiveNav:mapsActiveNavigation previousNav:mapsHistoricalNavigations visitHistory:visits4 locationHistory:locationHistorys3 atTime:&v134 results:?];
+    v60 = v134;
 
     v53 = v60;
     v27 = selfCopy;
@@ -649,53 +643,53 @@ LABEL_27:
   if (v62 == 1)
   {
 
-    mapsViewedPlaces = [v124 mapsViewedPlaces];
-    visits5 = [v124 visits];
-    [v124 currentTimeCFAbsolute];
-    v134 = 0;
-    [PCMapsViewedPlacesPredictor predictWithViewedPlaces:mapsViewedPlaces history:visits5 atTime:&v134 results:?];
-    v65 = v134;
+    mapsViewedPlaces = [v123 mapsViewedPlaces];
+    visits5 = [v123 visits];
+    [v123 currentTimeCFAbsolute];
+    v133 = 0;
+    [PCMapsViewedPlacesPredictor predictWithViewedPlaces:mapsViewedPlaces history:visits5 atTime:&v133 results:?];
+    v65 = v133;
 
     v53 = v65;
     [v26 addObjectsFromArray:v65];
   }
 
-  v66 = v119;
+  v66 = v118;
   config5 = [(PCAlgorithms *)v27 config];
   useHomeKitPredictor = [config5 useHomeKitPredictor];
 
-  v118 = v26;
+  v117 = v26;
   if (useHomeKitPredictor)
   {
 
     v69 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v129 = 0u;
     v130 = 0u;
     v131 = 0u;
     v132 = 0u;
-    v133 = 0u;
-    homeKitHomes3 = [v119 homeKitHomes];
-    v71 = [homeKitHomes3 countByEnumeratingWithState:&v130 objects:v146 count:16];
+    homeKitHomes3 = [v118 homeKitHomes];
+    v71 = [homeKitHomes3 countByEnumeratingWithState:&v129 objects:v145 count:16];
     if (v71)
     {
       v72 = v71;
-      v73 = *v131;
+      v73 = *v130;
       do
       {
         for (j = 0; j != v72; ++j)
         {
-          if (*v131 != v73)
+          if (*v130 != v73)
           {
             objc_enumerationMutation(homeKitHomes3);
           }
 
-          v75 = *(*(&v130 + 1) + 8 * j);
-          if (!v25 || ([v25 containsObject:*(*(&v130 + 1) + 8 * j)] & 1) == 0)
+          v75 = *(*(&v129 + 1) + 8 * j);
+          if (!v25 || ([v25 containsObject:*(*(&v129 + 1) + 8 * j)] & 1) == 0)
           {
             [v69 addObject:v75];
           }
         }
 
-        v72 = [homeKitHomes3 countByEnumeratingWithState:&v130 objects:v146 count:16];
+        v72 = [homeKitHomes3 countByEnumeratingWithState:&v129 objects:v145 count:16];
       }
 
       while (v72);
@@ -705,29 +699,29 @@ LABEL_27:
     if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138739971;
-      v149 = v69;
+      v148 = v69;
       _os_log_impl(&dword_1CEE74000, v76, OS_LOG_TYPE_DEFAULT, "Sending HomeKitHomes to HomeKitHome predictor: %{sensitive}@", buf, 0xCu);
     }
 
-    v66 = v119;
-    locationHistorys4 = [v119 locationHistorys];
-    locationOfInterests = [v119 locationOfInterests];
-    [v119 currentTimeCFAbsolute];
-    v129 = 0;
-    v26 = v118;
-    [PCHomeKitPredictor predictHomeKitLocation:v69 locationHistory:locationHistorys4 locationsOfInterest:locationOfInterests candidateVisits:v118 atTime:&v129 locations:?];
-    v79 = v129;
+    v66 = v118;
+    locationHistorys4 = [v118 locationHistorys];
+    locationOfInterests = [v118 locationOfInterests];
+    [v118 currentTimeCFAbsolute];
+    v128 = 0;
+    v26 = v117;
+    [PCHomeKitPredictor predictHomeKitLocation:v69 locationHistory:locationHistorys4 locationsOfInterest:locationOfInterests candidateVisits:v117 atTime:&v128 locations:?];
+    v79 = v128;
 
     v53 = v79;
     v80 = _plc_log_get_normal_handle(PCLogCategoryGeneral);
     if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138739971;
-      v149 = v79;
+      v148 = v79;
       _os_log_impl(&dword_1CEE74000, v80, OS_LOG_TYPE_DEFAULT, "HomeKitHome predictions: %{sensitive}@", buf, 0xCu);
     }
 
-    [v118 addObjectsFromArray:v79];
+    [v117 addObjectsFromArray:v79];
     v27 = selfCopy;
   }
 
@@ -737,22 +731,22 @@ LABEL_27:
   if (useProbabilityModifier)
   {
     dynamicsWeighting = [(PCAlgorithms *)v27 dynamicsWeighting];
-    [v124 currentTimeCFAbsolute];
+    [v123 currentTimeCFAbsolute];
     v85 = v84;
-    visits6 = [v124 visits];
-    [v124 locationHistorys];
-    v87 = v121 = v53;
-    motionActivitys = [v124 motionActivitys];
-    [dynamicsWeighting modifyCandidateProbabilities:v118 atTime:visits6 visitHistory:v87 locationHistory:motionActivitys motionActivity:v85];
+    visits6 = [v123 visits];
+    [v123 locationHistorys];
+    v87 = v120 = v53;
+    motionActivitys = [v123 motionActivitys];
+    [dynamicsWeighting modifyCandidateProbabilities:v117 atTime:visits6 visitHistory:v87 locationHistory:motionActivitys motionActivity:v85];
 
-    [v124 currentTimeCFAbsolute];
+    [v123 currentTimeCFAbsolute];
     v90 = v89;
-    visits7 = [v124 visits];
-    v26 = v118;
-    transitions3 = [v124 transitions];
-    [PCConstraintsWeighting modifyCandidateVisitProbabilities:v118 transitProbabilities:v123 atTime:visits7 withVisitHistory:transitions3 transitionHistory:v90];
+    visits7 = [v123 visits];
+    v26 = v117;
+    transitions3 = [v123 transitions];
+    [PCConstraintsWeighting modifyCandidateVisitProbabilities:v117 transitProbabilities:v122 atTime:visits7 withVisitHistory:transitions3 transitionHistory:v90];
 
-    v53 = v121;
+    v53 = v120;
   }
 
   config7 = [(PCAlgorithms *)v27 config];
@@ -773,9 +767,9 @@ LABEL_27:
     locationHistorys5 = [v66 locationHistorys];
     locationOfInterests2 = [v66 locationOfInterests];
     [v66 currentTimeCFAbsolute];
-    v128 = 0;
-    [PCParkedCarLocationPredictor predictParkedCarLocation:parkedCar locationHistory:locationHistorys5 locationsOfInterest:locationOfInterests2 candidateVisits:v26 atTime:&v128 locations:?];
-    v100 = v128;
+    v127 = 0;
+    [PCParkedCarLocationPredictor predictParkedCarLocation:parkedCar locationHistory:locationHistorys5 locationsOfInterest:locationOfInterests2 candidateVisits:v26 atTime:&v127 locations:?];
+    v100 = v127;
 
     v53 = v100;
     [v26 addObjectsFromArray:v100];
@@ -788,24 +782,24 @@ LABEL_27:
   {
 
     propagatedLocations = [v66 propagatedLocations];
-    v127 = 0;
-    [v124 currentTimeCFAbsolute];
-    [PCPropagatedPositionPredictor predictPropagatedPosition:propagatedLocations locations:&v127 atTime:?];
-    v104 = v127;
+    v126 = 0;
+    [v123 currentTimeCFAbsolute];
+    [PCPropagatedPositionPredictor predictPropagatedPosition:propagatedLocations locations:&v126 atTime:?];
+    v104 = v126;
 
-    v122 = v104;
+    v121 = v104;
     [v26 addObjectsFromArray:v104];
   }
 
   else
   {
-    v122 = v53;
+    v121 = v53;
   }
 
-  v126 = 0;
-  [PCTravelPredictor predictTravel:v26 results:&v126];
-  v116 = v126;
-  [v123 addObjectsFromArray:?];
+  v125 = 0;
+  [PCTravelPredictor predictTravel:v26 results:&v125];
+  v115 = v125;
+  [v122 addObjectsFromArray:?];
   workoutPrediction = [(PCAlgorithms *)v27 workoutPrediction];
   visits8 = [v66 visits];
   workouts = [v66 workouts];
@@ -813,23 +807,22 @@ LABEL_27:
   v109 = v66;
   v110 = locationOfInterests3;
   [v109 currentTimeCFAbsolute];
-  v125 = 0;
-  [workoutPrediction predictWithLocationHistory:visits8 workoutHistory:workouts LOIs:v110 atTime:&v125 workoutPredictions:?];
-  v111 = v125;
+  v124 = 0;
+  [workoutPrediction predictWithLocationHistory:visits8 workoutHistory:workouts LOIs:v110 atTime:&v124 workoutPredictions:?];
+  v111 = v124;
 
   v112 = objc_alloc_init(PCPPredictedContextResult);
   [(PCPPredictedContextResult *)v112 setPredictedContextLocations:v26];
-  [(PCPPredictedContextResult *)v112 setPredictedContextTransitions:v123];
+  [(PCPPredictedContextResult *)v112 setPredictedContextTransitions:v122];
   [(PCPPredictedContextResult *)v112 setPredictedContextWorkouts:v111];
   [(PCPPredictedContextResult *)v112 setPredictedContextAnalytics:v24];
-  [(PCPPredictedContextResult *)v112 setComputeRequested:v145];
+  [(PCPPredictedContextResult *)v112 setComputeRequested:v144];
   if (result)
   {
     v113 = v112;
     *result = v112;
   }
 
-  v114 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

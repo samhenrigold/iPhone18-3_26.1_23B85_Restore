@@ -87,7 +87,7 @@ double SipRequest::updateInboundViaHeader@<D0>(SipMessage *a1@<X0>, uint64_t *a2
       goto LABEL_13;
     }
 
-    SipHost::address((v7 + 8), &v13);
+    SipHost::address(&v13, (v7 + 8));
     v12 = (*(*v13 + 104))(v13, a2, 0);
     if (v14)
     {
@@ -145,7 +145,7 @@ void SipRequest::validate(SipRequest *this@<X0>, uint64_t a2@<X8>)
   v26 = 0u;
   v27 = 0u;
   v25 = 0u;
-  SipMessage::validate(this, &v25);
+  SipMessage::validate(&v25, this);
   if ((*(**(&v25 + 1) + 24))(*(&v25 + 1), v26))
   {
     ImsResult::ImsResult(a2, &v25);
@@ -226,12 +226,11 @@ void SipRequest::validate(SipRequest *this@<X0>, uint64_t a2@<X8>)
   ImsResult::~ImsResult(&v25);
 }
 
-void sub_1E4F71854(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4F71854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -241,6 +240,7 @@ void sub_1E4F71854(_Unwind_Exception *a1, uint64_t a2, ...)
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   ImsResult::~ImsResult(va);
   ImsResult::~ImsResult(va1);
   _Unwind_Resume(a1);
@@ -268,43 +268,43 @@ BOOL SipRequest::needsDefaultRoute(SipRequest *this)
   return !v4 || v4[5] == 0;
 }
 
-uint64_t SipRequest::createMatchingRequest@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+uint64_t SipRequest::createMatchingRequest@<X0>(uint64_t a1@<X0>, uint64_t a3@<X8>)
 {
   result = *(a1 + 120);
   if (result)
   {
-    v5 = *(a1 + 151);
-    v6 = v5;
-    if ((v5 & 0x80u) != 0)
+    v6 = *(a1 + 151);
+    v7 = v6;
+    if ((v6 & 0x80u) != 0)
     {
-      v5 = *(a1 + 136);
+      v6 = *(a1 + 136);
     }
 
-    if (v5 == 6)
+    if (v6 == 6)
     {
-      if (v6 >= 0)
+      if (v7 >= 0)
       {
-        v7 = (a1 + 128);
+        v8 = (a1 + 128);
       }
 
       else
       {
-        v7 = *(a1 + 128);
+        v8 = *(a1 + 128);
       }
 
-      v8 = *v7;
-      v9 = *(v7 + 2);
-      if (v8 == 1230392905 && v9 == 17748)
+      v9 = *v8;
+      v10 = *(v8 + 2);
+      if (v9 == 1230392905 && v10 == 17748)
       {
-        *a2 = 0;
-        a2[1] = 0;
-        SipMessageEncodingMap::createRequestFromTemplate(result, a2);
+        *a3 = 0;
+        *(a3 + 8) = 0;
+        SipMessageEncodingMap::createRequestFromTemplate(result, a3);
       }
     }
   }
 
-  *a2 = 0;
-  a2[1] = 0;
+  *a3 = 0;
+  *(a3 + 8) = 0;
   return result;
 }
 
@@ -320,14 +320,14 @@ void sub_1E4F71B28(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-char **std::dynamic_pointer_cast[abi:ne200100]<SipMessage const,SharedImsResultItem const>@<X0>(char ***a1@<X0>, char ***a2@<X8>)
+void *std::dynamic_pointer_cast[abi:ne200100]<SipMessage const,SharedImsResultItem const>@<X0>(void **a1@<X0>, void **a2@<X8>)
 {
   v2 = a1;
   result = *a1;
   {
-    v6 = v2[1];
+    v5 = v2[1];
     *a2 = result;
-    a2[1] = v6;
+    a2[1] = v5;
   }
 
   else
@@ -632,13 +632,13 @@ uint64_t SipRequest::headerWithAuthScheme(uint64_t a1, const void **a2)
     v10 = *(v9 + 31);
     if ((v10 & 0x8000000000000000) != 0)
     {
-      v11 = v9[1];
-      v10 = v9[2];
+      v11 = *(v9 + 8);
+      v10 = *(v9 + 16);
     }
 
     else
     {
-      v11 = v9 + 1;
+      v11 = (v9 + 8);
     }
 
     if (v10 >= 0xD)
@@ -654,9 +654,8 @@ uint64_t SipRequest::headerWithAuthScheme(uint64_t a1, const void **a2)
     v13 = memcmp(v11, "Authorization", v12);
     if (v10 == 13 && v13 == 0)
     {
-      v15 = **v9;
-      v17 = v6;
-      v18 = v6 >> 3;
+      v16 = v6;
+      v17 = v6 >> 3;
       if (((v6 >> 3) + 1) >> 61)
       {
         std::vector<bambi::XmlParserNamespace>::__throw_length_error[abi:ne200100]();
@@ -672,9 +671,9 @@ uint64_t SipRequest::headerWithAuthScheme(uint64_t a1, const void **a2)
         std::__throw_bad_array_new_length[abi:ne200100]();
       }
 
-      *(8 * v18) = v16;
-      v6 = 8 * v18 + 8;
-      memcpy(0, 0, v17);
+      *(8 * v17) = v15;
+      v6 = 8 * v17 + 8;
+      memcpy(0, 0, v16);
       v2 = *(a1 + 48);
       v3 = *(a1 + 56);
     }
@@ -685,16 +684,16 @@ uint64_t SipRequest::headerWithAuthScheme(uint64_t a1, const void **a2)
   while (v7 < (v3 - v2) >> 3);
   if (v6)
   {
-    v19 = 0;
+    v18 = 0;
     for (i = 8; ; i += 8)
     {
       memset(&__str, 0, sizeof(__str));
       memset(&__p, 0, sizeof(__p));
       (*(**(i - 8) + 40))(*(i - 8), &__str);
-      v35 = 1;
-      v34[0] = 32;
-      ims::nextToken(&__str, 0, &__p, v34);
-      v21 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+      v33 = 1;
+      v32[0] = 32;
+      ims::nextToken(&__str, 0, &__p, v32);
+      v20 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
@@ -705,19 +704,19 @@ uint64_t SipRequest::headerWithAuthScheme(uint64_t a1, const void **a2)
         size = __p.__r_.__value_.__l.__size_;
       }
 
-      v23 = *(a2 + 23);
-      v24 = v23;
-      if (v23 < 0)
+      v22 = *(a2 + 23);
+      v23 = v22;
+      if (v22 < 0)
       {
-        v23 = a2[1];
+        v22 = a2[1];
       }
 
-      if (size == v23)
+      if (size == v22)
       {
         break;
       }
 
-      v28 = 0;
+      v27 = 0;
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         goto LABEL_39;
@@ -729,10 +728,10 @@ LABEL_40:
         operator delete(__str.__r_.__value_.__l.__data_);
       }
 
-      v30 = i == v6 || v28;
-      if (v30)
+      v28 = i == v6 || v27;
+      if (v28)
       {
-        return v19;
+        return v18;
       }
     }
 
@@ -746,25 +745,24 @@ LABEL_40:
       p_p = __p.__r_.__value_.__r.__words[0];
     }
 
-    if (v24 >= 0)
+    if (v23 >= 0)
     {
-      v26 = a2;
+      v25 = a2;
     }
 
     else
     {
-      v26 = *a2;
+      v25 = *a2;
     }
 
-    v27 = memcmp(p_p, v26, size);
-    v28 = v27 == 0;
-    v29 = *(i - 8);
-    if (!v27)
+    v26 = memcmp(p_p, v25, size);
+    v27 = v26 == 0;
+    if (!v26)
     {
-      v19 = *(i - 8);
+      v18 = *(i - 8);
     }
 
-    if ((v21 & 0x80000000) == 0)
+    if ((v20 & 0x80000000) == 0)
     {
       goto LABEL_40;
     }
@@ -821,8 +819,7 @@ void SipRequest::debugStr(SipRequest *this@<X0>, std::string *a2@<X8>)
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 8);
-    a2->__r_.__value_.__r.__words[2] = *(this + 18);
+    *a2 = *(this + 128);
   }
 }
 
@@ -872,12 +869,11 @@ uint64_t std::__shared_ptr_emplace<SipRequest>::__shared_ptr_emplace[abi:ne20010
   return a1;
 }
 
-char **SipMessageEncodingMap::headerPrototype<SipCSeqHeader>(void *a1)
+void *SipMessageEncodingMap::headerPrototype<SipCSeqHeader>(void *a1)
 {
   result = SipMessageEncodingMap::headerPrototypeWithName(a1, "CSeq");
   if (result)
   {
-    v2 = **result;
   }
 
   return result;
@@ -908,7 +904,7 @@ uint64_t ImsLogDestinationFile::ImsLogDestinationFile(uint64_t a1, uint64_t a2, 
     v11 = v9 >= 0 ? *(a2 + 23) : *(a2 + 8);
     if (v11 >= 1)
     {
-      v12 = &v10[v11];
+      v12 = (v10 + v11);
       v13 = v10;
       do
       {
@@ -922,7 +918,7 @@ uint64_t ImsLogDestinationFile::ImsLogDestinationFile(uint64_t a1, uint64_t a2, 
         {
           if (v14 != v12)
           {
-            v15 = v14 - v10;
+            v15 = &v14[-v10];
             if (v15 != -1)
             {
               std::string::basic_string(&v17, a2, 0, v15, &v18);
@@ -1037,26 +1033,26 @@ uint64_t ImsLogDestinationFile::createFromString(int a1, std::string *this)
   return 0;
 }
 
-void sub_1E4F72B94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+void sub_1E4F72B94(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
   if (a14 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x1E69235B0](v14, 0x10B3C40919B9137);
+  MEMORY[0x1E69235B0](v14, 0x10B3C40919B9137, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
 BOOL ImsLogDestinationFile::initialize(ImsLogDestinationFile *this)
 {
-  v61[2] = *MEMORY[0x1E69E9840];
+  v60[2] = *MEMORY[0x1E69E9840];
   v2 = *(this + 47);
   if ((v2 & 0x8000000000000000) == 0)
   {
     if (!*(this + 47))
     {
-      goto LABEL_58;
+      return v2 != 0;
     }
 
 LABEL_5:
@@ -1067,48 +1063,48 @@ LABEL_5:
       operator new();
     }
 
-    v58 = time(0);
-    memset(&v57, 0, sizeof(v57));
-    ims::localtime(&v58, &v57, v4);
-    v56 = 0;
-    v54 = 0u;
-    memset(v55, 0, sizeof(v55));
-    *v52 = 0u;
+    v57 = time(0);
+    memset(&v56, 0, sizeof(v56));
+    ims::localtime(&v57, &v56, v4);
+    v55 = 0;
     v53 = 0u;
-    v50 = 0u;
-    memset(v51, 0, sizeof(v51));
-    std::ostringstream::basic_ostringstream[abi:ne200100](&v50);
-    v5 = (&v51[-1] + *(v50 - 24));
+    memset(v54, 0, sizeof(v54));
+    *v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    memset(v50, 0, sizeof(v50));
+    std::ostringstream::basic_ostringstream[abi:ne200100](&v49);
+    v5 = (&v50[-1] + *(v49 - 24));
     if (v5[1].__fmtflags_ == -1)
     {
       std::ios_base::getloc(v5);
-      v6 = std::locale::use_facet(&v49, MEMORY[0x1E69E5318]);
+      v6 = std::locale::use_facet(&v48, MEMORY[0x1E69E5318]);
       (v6->__vftable[2].~facet_0)(v6, 32);
-      std::locale::~locale(&v49);
+      std::locale::~locale(&v48);
     }
 
     v5[1].__fmtflags_ = 48;
-    v49.__r_.__value_.__s.__data_[0] = 45;
-    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v50, &v49, 1);
-    v8 = MEMORY[0x1E6923340](v7, (v57.tm_year + 1900));
-    v49.__r_.__value_.__s.__data_[0] = 45;
-    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v49, 1);
+    v48.__r_.__value_.__s.__data_[0] = 45;
+    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v49, &v48, 1);
+    v8 = MEMORY[0x1E6923340](v7, (v56.tm_year + 1900));
+    v48.__r_.__value_.__s.__data_[0] = 45;
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v48, 1);
     *(v9 + *(*v9 - 24) + 24) = 2;
     v10 = MEMORY[0x1E6923340]();
-    v49.__r_.__value_.__s.__data_[0] = 45;
-    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, &v49, 1);
+    v48.__r_.__value_.__s.__data_[0] = 45;
+    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, &v48, 1);
     *(v11 + *(*v11 - 24) + 24) = 2;
     v12 = MEMORY[0x1E6923340]();
-    v49.__r_.__value_.__s.__data_[0] = 45;
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v49, 1);
+    v48.__r_.__value_.__s.__data_[0] = 45;
+    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v48, 1);
     *(v13 + *(*v13 - 24) + 24) = 2;
     v14 = MEMORY[0x1E6923340]();
-    v49.__r_.__value_.__s.__data_[0] = 45;
-    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, &v49, 1);
+    v48.__r_.__value_.__s.__data_[0] = 45;
+    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, &v48, 1);
     *(v15 + *(*v15 - 24) + 24) = 2;
     v16 = MEMORY[0x1E6923340]();
-    v49.__r_.__value_.__s.__data_[0] = 45;
-    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, &v49, 1);
+    v48.__r_.__value_.__s.__data_[0] = 45;
+    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, &v48, 1);
     *(v17 + *(*v17 - 24) + 24) = 2;
     MEMORY[0x1E6923340]();
     v18 = (this + 72);
@@ -1154,7 +1150,7 @@ LABEL_5:
     if (v22 == -1)
     {
 LABEL_42:
-      std::ostringstream::str[abi:ne200100](&v50, &v49);
+      std::ostringstream::str[abi:ne200100](&v49, &v48);
       v36 = *(this + 71);
       if (v36 >= 0)
       {
@@ -1176,10 +1172,10 @@ LABEL_42:
         v38 = *(this + 7);
       }
 
-      v39 = std::string::insert(&v49, 0, v37, v38);
+      v39 = std::string::insert(&v48, 0, v37, v38);
       v40 = v39->__r_.__value_.__r.__words[0];
-      v60.__r_.__value_.__r.__words[0] = v39->__r_.__value_.__l.__size_;
-      *(v60.__r_.__value_.__r.__words + 7) = *(&v39->__r_.__value_.__r.__words[1] + 7);
+      v59.__r_.__value_.__r.__words[0] = v39->__r_.__value_.__l.__size_;
+      *(v59.__r_.__value_.__r.__words + 7) = *(&v39->__r_.__value_.__r.__words[1] + 7);
       v41 = HIBYTE(v39->__r_.__value_.__r.__words[2]);
       v39->__r_.__value_.__l.__size_ = 0;
       v39->__r_.__value_.__r.__words[2] = 0;
@@ -1189,50 +1185,50 @@ LABEL_42:
         operator delete(*v18);
       }
 
-      v42 = v60.__r_.__value_.__r.__words[0];
+      v42 = v59.__r_.__value_.__r.__words[0];
       *(this + 9) = v40;
       *(this + 10) = v42;
-      *(this + 87) = *(v60.__r_.__value_.__r.__words + 7);
+      *(this + 87) = *(v59.__r_.__value_.__r.__words + 7);
       *(this + 95) = v41;
-      if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
       {
-        v35 = v49.__r_.__value_.__r.__words[0];
+        v35 = v48.__r_.__value_.__r.__words[0];
         goto LABEL_52;
       }
     }
 
     else
     {
-      std::string::basic_string(&v60, this + 2, 0, v22, v47);
-      std::ostringstream::str[abi:ne200100](&v50, v47);
-      if ((v48 & 0x80u) == 0)
+      std::string::basic_string(&v59, this + 2, 0, v22, v46);
+      std::ostringstream::str[abi:ne200100](&v49, v46);
+      if ((v47 & 0x80u) == 0)
       {
-        v25 = v47;
+        v25 = v46;
       }
 
       else
       {
-        v25 = v47[0];
+        v25 = v46[0];
       }
 
-      if ((v48 & 0x80u) == 0)
+      if ((v47 & 0x80u) == 0)
       {
-        v26 = v48;
+        v26 = v47;
       }
 
       else
       {
-        v26 = v47[1];
+        v26 = v46[1];
       }
 
-      v27 = std::string::append(&v60, v25, v26);
+      v27 = std::string::append(&v59, v25, v26);
       v28 = *&v27->__r_.__value_.__l.__data_;
-      v49.__r_.__value_.__r.__words[2] = v27->__r_.__value_.__r.__words[2];
-      *&v49.__r_.__value_.__l.__data_ = v28;
+      v48.__r_.__value_.__r.__words[2] = v27->__r_.__value_.__r.__words[2];
+      *&v48.__r_.__value_.__l.__data_ = v28;
       v27->__r_.__value_.__l.__size_ = 0;
       v27->__r_.__value_.__r.__words[2] = 0;
       v27->__r_.__value_.__r.__words[0] = 0;
-      std::string::basic_string(&__p, this + 2, v22, 0xFFFFFFFFFFFFFFFFLL, &v59);
+      std::string::basic_string(&__p, this + 2, v22, 0xFFFFFFFFFFFFFFFFLL, &v58);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         p_p = &__p;
@@ -1253,10 +1249,10 @@ LABEL_42:
         size = __p.__r_.__value_.__l.__size_;
       }
 
-      v31 = std::string::append(&v49, p_p, size);
+      v31 = std::string::append(&v48, p_p, size);
       v32 = v31->__r_.__value_.__r.__words[0];
-      v61[0] = v31->__r_.__value_.__l.__size_;
-      *(v61 + 7) = *(&v31->__r_.__value_.__r.__words[1] + 7);
+      v60[0] = v31->__r_.__value_.__l.__size_;
+      *(v60 + 7) = *(&v31->__r_.__value_.__r.__words[1] + 7);
       v33 = HIBYTE(v31->__r_.__value_.__r.__words[2]);
       v31->__r_.__value_.__l.__size_ = 0;
       v31->__r_.__value_.__r.__words[2] = 0;
@@ -1266,46 +1262,46 @@ LABEL_42:
         operator delete(*v18);
       }
 
-      v34 = v61[0];
+      v34 = v60[0];
       *(this + 9) = v32;
       *(this + 10) = v34;
-      *(this + 87) = *(v61 + 7);
+      *(this + 87) = *(v60 + 7);
       *(this + 95) = v33;
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v49.__r_.__value_.__l.__data_);
+        operator delete(v48.__r_.__value_.__l.__data_);
       }
 
-      if (v48 < 0)
+      if (v47 < 0)
       {
-        operator delete(v47[0]);
+        operator delete(v46[0]);
       }
 
-      if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
       {
-        v35 = v60.__r_.__value_.__r.__words[0];
+        v35 = v59.__r_.__value_.__r.__words[0];
 LABEL_52:
         operator delete(v35);
       }
     }
 
-    *&v50 = *MEMORY[0x1E69E54E8];
-    *(&v51[-1] + *(v50 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-    *(&v50 + 1) = MEMORY[0x1E69E5548] + 16;
-    if (SHIBYTE(v53) < 0)
+    *&v49 = *MEMORY[0x1E69E54E8];
+    *(&v50[-1] + *(v49 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+    *(&v49 + 1) = MEMORY[0x1E69E5548] + 16;
+    if (SHIBYTE(v52) < 0)
     {
-      operator delete(v52[1]);
+      operator delete(v51[1]);
     }
 
-    *(&v50 + 1) = MEMORY[0x1E69E5538] + 16;
-    std::locale::~locale(v51);
+    *(&v49 + 1) = MEMORY[0x1E69E5538] + 16;
+    std::locale::~locale(v50);
     std::ostream::~ostream();
-    MEMORY[0x1E6923510](v55);
+    MEMORY[0x1E6923510](v54);
     v43 = this + 24;
     if (*(this + 47) < 0)
     {
@@ -1322,10 +1318,7 @@ LABEL_52:
     goto LABEL_5;
   }
 
-LABEL_58:
-  result = v2 != 0;
-  v45 = *MEMORY[0x1E69E9840];
-  return result;
+  return v2 != 0;
 }
 
 void sub_1E4F7325C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, std::locale a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42)
@@ -1386,7 +1379,7 @@ void ImsLogDestinationFile::~ImsLogDestinationFile(ImsLogDestinationFile *this)
   JUMPOUT(0x1E69235B0);
 }
 
-uint64_t ImsLogDestinationFile::output(uint64_t a1, uint64_t a2, ims *a3, uint64_t a4, const char *a5)
+uint64_t ImsLogDestinationFile::output(uint64_t a1, uint64_t ***a2, ims *a3, uint64_t **a4, const char *a5)
 {
   if (*(a4 + 23) >= 0)
   {
@@ -1395,11 +1388,11 @@ uint64_t ImsLogDestinationFile::output(uint64_t a1, uint64_t a2, ims *a3, uint64
 
   else
   {
-    v8 = *(a4 + 8);
+    v8 = a4[1];
   }
 
   v9 = *(a1 + 104);
-  v10 = *(a2 + 8);
+  v10 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v11 = *(a2 + 23);
@@ -1436,7 +1429,7 @@ uint64_t ImsLogDestinationFile::output(uint64_t a1, uint64_t a2, ims *a3, uint64
 
     else
     {
-      v19 = *(a4 + 8);
+      v19 = a4[1];
     }
 
     v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, v18, v19);
@@ -1461,7 +1454,7 @@ uint64_t ImsLogDestinationFile::output(uint64_t a1, uint64_t a2, ims *a3, uint64
   return std::ostream::flush();
 }
 
-void ImsLogDestinationFile::dumpToPath(uint64_t a1, uint64_t a2)
+void ImsLogDestinationFile::dumpToPath(uint64_t a1, const std::string::value_type *a2)
 {
   if (*(a1 + 97) == 1)
   {
@@ -1487,7 +1480,7 @@ void ImsLogDestinationFile::dumpToPath(uint64_t a1, uint64_t a2)
     *(a1 + 104) = 0;
     v6 = 0;
     memset(v5, 0, sizeof(v5));
-    ImsFileManager::moveFile(a1 + 72, a2, v5);
+    ImsFileManager::moveFile((a1 + 72), a2, v5);
     (*(*a1 + 32))(a1);
     ImsResult::~ImsResult(v5);
   }
@@ -1502,8 +1495,7 @@ void ImsLogDestinationFile::name(ImsLogDestinationFile *this@<X0>, std::string *
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 24);
-    a2->__r_.__value_.__r.__words[2] = *(this + 5);
+    *a2 = *(this + 1);
   }
 }
 
@@ -1541,14 +1533,15 @@ void sub_1E4F737AC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-BOOL ATTRegistrationPolicy::isForbiddenUserError(ATTRegistrationPolicy *this, unsigned __int16 a2)
+BOOL ATTRegistrationPolicy::isForbiddenUserError(ATTRegistrationPolicy *this, uint64_t a2)
 {
+  v2 = a2;
   if (SipResponseCodeMap::empty((this + 2336)))
   {
     return 0;
   }
 
-  return SipResponseCodeMap::containsResponseCodeForMethod(this + 2336, "REGISTER", a2, 0);
+  return SipResponseCodeMap::containsResponseCodeForMethod(this + 2336, "REGISTER", v2, 0);
 }
 
 uint64_t ATTRegistrationPolicy::disableIfInWrongCountry(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1577,9 +1570,9 @@ uint64_t ATTRegistrationPolicy::disableIfInWrongCountry(uint64_t a1, uint64_t a2
   return result;
 }
 
-void sub_1E4F73940(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4F73940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ImsResult::~ImsResult(va);
   _Unwind_Resume(a1);
 }
@@ -2030,7 +2023,7 @@ void non-virtual thunk toATTRegistrationPolicy::~ATTRegistrationPolicy(ATTRegist
   JUMPOUT(0x1E69235B0);
 }
 
-_BYTE *ims::toString<ims::SpamCategory>@<X0>(unsigned int *a1@<X0>, _BYTE *a2@<X8>)
+void *ims::toString<ims::SpamCategory>@<X0>(unsigned int *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   if (v4 > 0x13)
@@ -2069,7 +2062,7 @@ void SpamCategoryMap::populateDefaultCategories(char **this)
   v5 = 0;
   v4[0] = 0;
   v8 = 3;
-  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p);
+  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p, __p);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2088,7 +2081,7 @@ void SpamCategoryMap::populateDefaultCategories(char **this)
   v5 = 0;
   v4[0] = 0;
   v8 = 4;
-  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p);
+  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p, __p);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2107,7 +2100,7 @@ void SpamCategoryMap::populateDefaultCategories(char **this)
   v5 = 0;
   v4[0] = 0;
   v8 = 5;
-  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p);
+  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p, __p);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2126,7 +2119,7 @@ void SpamCategoryMap::populateDefaultCategories(char **this)
   v5 = 0;
   v4[0] = 0;
   v8 = 6;
-  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p);
+  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p, __p);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2145,7 +2138,7 @@ void SpamCategoryMap::populateDefaultCategories(char **this)
   v5 = 0;
   v4[0] = 0;
   v8 = 7;
-  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p);
+  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p, __p);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2164,7 +2157,7 @@ void SpamCategoryMap::populateDefaultCategories(char **this)
   v5 = 0;
   v4[0] = 0;
   v8 = 8;
-  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p);
+  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p, __p);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2183,7 +2176,7 @@ void SpamCategoryMap::populateDefaultCategories(char **this)
   v5 = 0;
   v4[0] = 0;
   v8 = 9;
-  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p);
+  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p, __p);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2202,7 +2195,7 @@ void SpamCategoryMap::populateDefaultCategories(char **this)
   v5 = 0;
   v4[0] = 0;
   v8 = 10;
-  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p);
+  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p, __p);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2221,7 +2214,7 @@ void SpamCategoryMap::populateDefaultCategories(char **this)
   v5 = 0;
   v4[0] = 0;
   v8 = 11;
-  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p);
+  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p, __p);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2240,7 +2233,7 @@ void SpamCategoryMap::populateDefaultCategories(char **this)
   v5 = 0;
   v4[0] = 0;
   v8 = 12;
-  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p);
+  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p, __p);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2259,7 +2252,7 @@ void SpamCategoryMap::populateDefaultCategories(char **this)
   v5 = 0;
   v4[0] = 0;
   v8 = 13;
-  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p);
+  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p, __p);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2278,7 +2271,7 @@ void SpamCategoryMap::populateDefaultCategories(char **this)
   v5 = 0;
   v4[0] = 0;
   v8 = 14;
-  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p);
+  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p, __p);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2297,7 +2290,7 @@ void SpamCategoryMap::populateDefaultCategories(char **this)
   v5 = 0;
   v4[0] = 0;
   v8 = 15;
-  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p);
+  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p, __p);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2316,7 +2309,7 @@ void SpamCategoryMap::populateDefaultCategories(char **this)
   v5 = 0;
   v4[0] = 0;
   v8 = 16;
-  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p);
+  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p, __p);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2335,7 +2328,7 @@ void SpamCategoryMap::populateDefaultCategories(char **this)
   v5 = 0;
   v4[0] = 0;
   v8 = 17;
-  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p);
+  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p, __p);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2354,7 +2347,7 @@ void SpamCategoryMap::populateDefaultCategories(char **this)
   v5 = 0;
   v4[0] = 0;
   v8 = 18;
-  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p);
+  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p, __p);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2373,7 +2366,7 @@ void SpamCategoryMap::populateDefaultCategories(char **this)
   v5 = 0;
   v4[0] = 0;
   v8 = 19;
-  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p);
+  std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(this, __p, __p);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2400,7 +2393,7 @@ void sub_1E4F7533C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SpamCategoryMap::parseFromArray(uint64_t a1, __int128 **a2)
+void SpamCategoryMap::parseFromArray(uint64_t **a1, __int128 **a2)
 {
   v91 = 0;
   v92 = 0;
@@ -3044,7 +3037,7 @@ LABEL_168:
                                     v95 = v94;
                                     memset(&v94, 0, sizeof(v94));
                                     v96 = v79;
-                                    std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(a1, &v95.__r_.__value_.__l.__data_);
+                                    std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(a1, &v95, &v95);
                                     if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
                                     {
                                       operator delete(v95.__r_.__value_.__l.__data_);
@@ -3162,11 +3155,11 @@ void sub_1E4F75C3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *SpamCategoryMap::SpamCategoryMap(void *a1, __int128 **a2)
+uint64_t **SpamCategoryMap::SpamCategoryMap(uint64_t **a1, __int128 **a2)
 {
   a1[2] = 0;
   a1[1] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   SpamCategoryMap::parseFromArray(a1, a2);
   return a1;
 }
@@ -3212,64 +3205,63 @@ uint64_t SpamCategoryMap::operator==(void *a1, void *a2)
     }
 
     v9 = v5 >= 0 ? v3 + 4 : v3[4];
-    v10 = v4[4];
-    v11 = v8 >= 0 ? v4 + 4 : v4[4];
-    v12 = !memcmp(v9, v11, v6) && *(v3 + 14) == *(v4 + 14);
-    if (!v12)
+    v10 = v8 >= 0 ? v4 + 4 : v4[4];
+    v11 = !memcmp(v9, v10, v6) && *(v3 + 14) == *(v4 + 14);
+    if (!v11)
     {
       break;
     }
 
-    v13 = v3[1];
-    v14 = v3;
-    if (v13)
+    v12 = v3[1];
+    v13 = v3;
+    if (v12)
     {
       do
       {
-        v3 = v13;
-        v13 = *v13;
+        v3 = v12;
+        v12 = *v12;
       }
 
-      while (v13);
+      while (v12);
     }
 
     else
     {
       do
       {
-        v3 = v14[2];
-        v12 = *v3 == v14;
-        v14 = v3;
+        v3 = v13[2];
+        v11 = *v3 == v13;
+        v13 = v3;
       }
 
-      while (!v12);
+      while (!v11);
     }
 
-    v15 = v4[1];
-    if (v15)
+    v14 = v4[1];
+    if (v14)
     {
       do
       {
-        v16 = v15;
-        v15 = *v15;
+        v15 = v14;
+        v14 = *v14;
       }
 
-      while (v15);
+      while (v14);
     }
 
     else
     {
       do
       {
-        v16 = v4[2];
-        v12 = *v16 == v4;
-        v4 = v16;
+        v15 = v4[2];
+        v11 = *v15 == v4;
+        v4 = v15;
       }
 
-      while (!v12);
+      while (!v11);
     }
 
-    v4 = v16;
+    v4 = v15;
     if (v3 == v2)
     {
       return 1;
@@ -3282,7 +3274,7 @@ uint64_t SpamCategoryMap::operator==(void *a1, void *a2)
 uint64_t SpamCategoryMap::categoryForString(uint64_t a1, uint64_t a2)
 {
   ims::lowerCase(a2, &__p);
-  v3 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1, &__p.__r_.__value_.__l.__data_);
+  v3 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -3309,16 +3301,16 @@ void sub_1E4F75F34(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::map<std::string,ims::SpamCategory>::map[abi:ne200100](void *a1, uint64_t a2)
+uint64_t *std::map<std::string,ims::SpamCategory>::map[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   a1[2] = 0;
   a1[1] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   std::map<std::string,ims::SpamCategory>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,ims::SpamCategory>,std::__tree_node<std::__value_type<std::string,ims::SpamCategory>,void *> *,long>>>(a1, *a2, (a2 + 8));
   return a1;
 }
 
-void *std::map<std::string,ims::SpamCategory>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,ims::SpamCategory>,std::__tree_node<std::__value_type<std::string,ims::SpamCategory>,void *> *,long>>>(void *result, void **a2, void **a3)
+uint64_t *std::map<std::string,ims::SpamCategory>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,ims::SpamCategory>,std::__tree_node<std::__value_type<std::string,ims::SpamCategory>,void *> *,long>>>(uint64_t *result, char *a2, char *a3)
 {
   if (a2 != a3)
   {
@@ -3326,8 +3318,8 @@ void *std::map<std::string,ims::SpamCategory>::insert[abi:ne200100]<std::__map_c
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,ims::SpamCategory> const&>(v5, (v5 + 1), v4 + 4);
-      v6 = v4[1];
+      result = std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,ims::SpamCategory> const&>(v5, (v5 + 8), v4 + 32, (v4 + 32));
+      v6 = *(v4 + 1);
       if (v6)
       {
         do
@@ -3343,7 +3335,7 @@ void *std::map<std::string,ims::SpamCategory>::insert[abi:ne200100]<std::__map_c
       {
         do
         {
-          v7 = v4[2];
+          v7 = *(v4 + 2);
           v8 = *v7 == v4;
           v4 = v7;
         }
@@ -3360,11 +3352,11 @@ void *std::map<std::string,ims::SpamCategory>::insert[abi:ne200100]<std::__map_c
   return result;
 }
 
-void *std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,ims::SpamCategory> const&>(void *a1, uint64_t a2, void **a3)
+uint64_t *std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,ims::SpamCategory> const&>(uint64_t **a1, uint64_t *a2, char *a3, uint64_t a4)
 {
-  v4 = 0;
   v5 = 0;
-  result = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, a2, &v5, &v4, a3);
+  v6 = 0;
+  result = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__construct_node<std::pair<std::string const,ims::SpamCategory> const&>();
@@ -3398,7 +3390,7 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   operator delete(__p);
 }
 
-uint64_t **std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,ims::SpamCategory>,std::__tree_node<std::__value_type<std::string,ims::SpamCategory>,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+uint64_t ***std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,ims::SpamCategory>,std::__tree_node<std::__value_type<std::string,ims::SpamCategory>,void *> *,long>>(uint64_t ***result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
@@ -3406,7 +3398,7 @@ uint64_t **std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__m
     v6 = *result;
     v7 = result[1];
     *result = (result + 1);
-    v7[2] = 0;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -3493,17 +3485,17 @@ uint64_t **std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__m
   return result;
 }
 
-void sub_1E4F76374(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4F76374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::string>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(uint64_t a1, void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,ims::SpamCategory>,std::__map_value_compare<std::string,std::__value_type<std::string,ims::SpamCategory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ims::SpamCategory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ims::SpamCategory>>(uint64_t **a1, uint64_t ***a2, uint64_t a3)
 {
-  v3 = 0;
-  result = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v3, a2);
+  v4 = 0;
+  result = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v4, a2);
   if (!*result)
   {
     operator new();
@@ -3611,7 +3603,7 @@ uint64_t SipRegistrationPolicy::SipRegistrationPolicy(uint64_t a1, std::__shared
 
   (v6->__vftable[3].__on_zero_shared_weak)(v19);
   ims::getQueue(&v32);
-  ClientConfig::getLogTag(v19, &v31);
+  ClientConfig::getLogTag(&v31, v19);
   if ((v22 & 0x80u) == 0)
   {
     v8 = v21;
@@ -3857,41 +3849,39 @@ void SipRegistrationPolicy::deinitialize(SipRegistrationPolicy *this)
   *(this + 2368) = 0;
 }
 
-void SipRegistrationPolicy::updateNextRetryTime(void *a1, uint64_t a2, uint64_t a3)
+void SipRegistrationPolicy::updateNextRetryTime(void *a1, ims *a2, void **a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = a1[24];
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
     if (v7)
     {
-      (*(*a1 + 184))(v12, a1);
-      v11 = a2;
-      ims::TimeAndIntervalFromNow::logStr(&v11);
+      (*(*a1 + 184))(v10, a1);
+      ims::TimeAndIntervalFromNow::logStr();
     }
   }
 
   else if (v7)
   {
-    (*(*a1 + 184))(v12, a1);
-    v8 = v13 >= 0 ? v12 : v12[0];
+    (*(*a1 + 184))(v10, a1);
+    v8 = v11 >= 0 ? v10 : v10[0];
     v9 = *(a3 + 23) >= 0 ? a3 : *a3;
     *buf = 141558531;
-    v15 = 1752392040;
-    v16 = 2081;
-    v17 = v8;
-    v18 = 2080;
-    v19 = v9;
+    v13 = 1752392040;
+    v14 = 2081;
+    v15 = v8;
+    v16 = 2080;
+    v17 = v9;
     _os_log_impl(&dword_1E4C3F000, v6, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sclearing nextRetryTime due to %s", buf, 0x20u);
-    if (v13 < 0)
+    if (v11 < 0)
     {
-      operator delete(v12[0]);
+      operator delete(v10[0]);
     }
   }
 
   a1[51] = a2;
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4F77064(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -3916,110 +3906,105 @@ uint64_t SipRegistrationPolicy::isRegistrationRetryAllowed(void **a1)
   return v2();
 }
 
-uint64_t SipRegistrationPolicy::startTimer(SipRegistrationPolicy *this)
+time_t SipRegistrationPolicy::startTimer(SipRegistrationPolicy *this)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  if (*(this + 51))
+  v26 = *MEMORY[0x1E69E9840];
+  if (!*(this + 51))
   {
-    v2 = time(0);
-    v3 = *(this + 51);
-    v4 = v3 - v2;
-    if (v3 <= v2)
+    return -1;
+  }
+
+  v2 = time(0);
+  v3 = *(this + 51);
+  v4 = v3 - v2;
+  if (v3 <= v2)
+  {
+    v7 = *(this + 24);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(this + 24);
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      (*(*this + 184))(buf, this);
+      v8 = SHIBYTE(v21) >= 0 ? buf : *buf;
+      *v16 = 141558275;
+      *&v16[4] = 1752392040;
+      v17 = 2081;
+      v18 = v8;
+      _os_log_impl(&dword_1E4C3F000, v7, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sstartTimer: nextRetryTime has passed. Retrying immediately.", v16, 0x16u);
+      if (SHIBYTE(v21) < 0)
       {
-        (*(*this + 184))(buf, this);
-        v8 = SHIBYTE(v23) >= 0 ? buf : *buf;
-        *v18 = 141558275;
-        *&v18[4] = 1752392040;
-        v19 = 2081;
-        v20 = v8;
-        _os_log_impl(&dword_1E4C3F000, v7, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sstartTimer: nextRetryTime has passed. Retrying immediately.", v18, 0x16u);
-        if (SHIBYTE(v23) < 0)
-        {
-          operator delete(*buf);
-        }
+        operator delete(*buf);
       }
-
-      *(this + 2266) = 1;
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 0x40000000;
-      v17[2] = ___ZN21SipRegistrationPolicy10startTimerEv_block_invoke;
-      v17[3] = &__block_descriptor_tmp_17;
-      v17[4] = this;
-      v9 = *(this + 21);
-      if (!v9 || (v10 = *(this + 20), (v11 = std::__shared_weak_count::lock(v9)) == 0))
-      {
-        std::__throw_bad_weak_ptr[abi:ne200100]();
-      }
-
-      v12 = v11;
-      v13 = *(this + 22);
-      *buf = MEMORY[0x1E69E9820];
-      v22 = 1174405120;
-      v23 = ___ZNK3ctu20SharedSynchronizableI21SipRegistrationPolicyE15execute_wrappedEU13block_pointerFvvE_block_invoke;
-      v24 = &unk_1F5EE2448;
-      v26 = v10;
-      v27 = v12;
-      atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
-      v25 = v17;
-      dispatch_async(v13, buf);
-      if (v27)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v27);
-      }
-
-      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-      v4 = 0;
     }
 
-    else
+    *(this + 2266) = 1;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 0x40000000;
+    v15[2] = ___ZN21SipRegistrationPolicy10startTimerEv_block_invoke;
+    v15[3] = &__block_descriptor_tmp_17;
+    v15[4] = this;
+    v9 = *(this + 21);
+    if (!v9 || (v10 = *(this + 20), (v11 = std::__shared_weak_count::lock(v9)) == 0))
     {
-      if (os_log_type_enabled(*(this + 24), OS_LOG_TYPE_INFO))
-      {
-        (*(*this + 184))(v18, this);
-        v16 = *(this + 51);
-        ims::TimeAndIntervalFromNow::logStr(&v16);
-      }
-
-      std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(buf, this + 20);
-      v5 = v22;
-      if (v22)
-      {
-        v6 = (v22 + 16);
-        atomic_fetch_add_explicit((v22 + 16), 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-        atomic_fetch_add_explicit(v6, 1uLL, memory_order_relaxed);
-        if ((*(this + 2176) & 1) == 0)
-        {
-          atomic_fetch_add_explicit(v6, 1uLL, memory_order_relaxed);
-          goto LABEL_21;
-        }
-
-        std::__shared_weak_count::__release_weak(v5);
-        std::__shared_weak_count::__release_weak(v5);
-      }
-
-      else if ((*(this + 2176) & 1) == 0)
-      {
-LABEL_21:
-        v17[8] = 0;
-        operator new();
-      }
+      std::__throw_bad_weak_ptr[abi:ne200100]();
     }
+
+    v12 = v11;
+    v13 = *(this + 22);
+    *buf = MEMORY[0x1E69E9820];
+    v20 = 1174405120;
+    v21 = ___ZNK3ctu20SharedSynchronizableI21SipRegistrationPolicyE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+    v22 = &unk_1F5EE2448;
+    v24 = v10;
+    v25 = v12;
+    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+    v23 = v15;
+    dispatch_async(v13, buf);
+    if (v25)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+    }
+
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    return 0;
   }
 
   else
   {
-    v4 = -1;
+    if (os_log_type_enabled(*(this + 24), OS_LOG_TYPE_INFO))
+    {
+      (*(*this + 184))(v16, this);
+      ims::TimeAndIntervalFromNow::logStr();
+    }
+
+    std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(buf, this + 20);
+    v5 = v20;
+    if (v20)
+    {
+      v6 = (v20 + 16);
+      atomic_fetch_add_explicit((v20 + 16), 1uLL, memory_order_relaxed);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+      atomic_fetch_add_explicit(v6, 1uLL, memory_order_relaxed);
+      if ((*(this + 2176) & 1) == 0)
+      {
+        atomic_fetch_add_explicit(v6, 1uLL, memory_order_relaxed);
+        goto LABEL_21;
+      }
+
+      std::__shared_weak_count::__release_weak(v5);
+      std::__shared_weak_count::__release_weak(v5);
+    }
+
+    else if ((*(this + 2176) & 1) == 0)
+    {
+LABEL_21:
+      v15[8] = 0;
+      operator new();
+    }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
-void sub_1E4F77518(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
+void sub_1E4F77518(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
 {
   std::__function::__value_func<void ()(std::string &)>::~__value_func[abi:ne200100](&a19);
   if (v28)
@@ -4042,7 +4027,7 @@ void ___ZN21SipRegistrationPolicy10startTimerEv_block_invoke(uint64_t a1)
 
 void SipRegistrationPolicy::retryRegistration(SipRegistrationPolicy *this)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = *(this + 50);
   if (v2)
   {
@@ -4058,7 +4043,7 @@ void SipRegistrationPolicy::retryRegistration(SipRegistrationPolicy *this)
           if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
           {
             (*(*this + 184))(__p, this);
-            if (v27 >= 0)
+            if (v26 >= 0)
             {
               v6 = __p;
             }
@@ -4070,10 +4055,10 @@ void SipRegistrationPolicy::retryRegistration(SipRegistrationPolicy *this)
 
             *buf = 141558275;
             *&buf[4] = 1752392040;
-            v21 = 2081;
-            v22 = v6;
+            v20 = 2081;
+            v21 = v6;
             _os_log_impl(&dword_1E4C3F000, v5, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sretryRegistration: registration already in progress", buf, 0x16u);
-            if (SHIBYTE(v27) < 0)
+            if (SHIBYTE(v26) < 0)
             {
               operator delete(*__p);
             }
@@ -4082,56 +4067,56 @@ void SipRegistrationPolicy::retryRegistration(SipRegistrationPolicy *this)
 
         else if ((*(*this + 424))(this))
         {
-          v10 = *(this + 24);
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          v9 = *(this + 24);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
-            v11 = buf;
+            v10 = buf;
             (*(*this + 184))(buf, this);
-            if (v23 < 0)
+            if (v22 < 0)
             {
-              v11 = *buf;
+              v10 = *buf;
             }
 
-            SipRegistrationPolicy::lastRegisteredProxyUriString(v18, this);
-            v12 = v19;
-            v13 = v18[0];
-            SipRegistrationPolicy::currentProxyUriString(v16, this);
-            v14 = v18;
-            if (v12 < 0)
+            SipRegistrationPolicy::lastRegisteredProxyUriString(v17, this);
+            v11 = v18;
+            v12 = v17[0];
+            SipRegistrationPolicy::currentProxyUriString(v15, this);
+            v13 = v17;
+            if (v11 < 0)
             {
-              v14 = v13;
+              v13 = v12;
             }
 
-            if (v17 >= 0)
+            if (v16 >= 0)
             {
-              v15 = v16;
+              v14 = v15;
             }
 
             else
             {
-              v15 = v16[0];
+              v14 = v15[0];
             }
 
             *__p = 141558787;
             *&__p[4] = 1752392040;
-            v25 = 2081;
-            v26 = v11;
-            v27 = 2080;
-            v28 = v14;
-            v29 = 2080;
-            v30 = v15;
-            _os_log_impl(&dword_1E4C3F000, v10, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sretryRegistration: waiting for calls started on proxy %s to end before attempting registration with %s", __p, 0x2Au);
-            if (v17 < 0)
+            v24 = 2081;
+            v25 = v10;
+            v26 = 2080;
+            v27 = v13;
+            v28 = 2080;
+            v29 = v14;
+            _os_log_impl(&dword_1E4C3F000, v9, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sretryRegistration: waiting for calls started on proxy %s to end before attempting registration with %s", __p, 0x2Au);
+            if (v16 < 0)
             {
-              operator delete(v16[0]);
+              operator delete(v15[0]);
             }
 
-            if (v19 < 0)
+            if (v18 < 0)
             {
-              operator delete(v18[0]);
+              operator delete(v17[0]);
             }
 
-            if (v23 < 0)
+            if (v22 < 0)
             {
               operator delete(*buf);
             }
@@ -4154,8 +4139,8 @@ void SipRegistrationPolicy::retryRegistration(SipRegistrationPolicy *this)
             if (os_log_type_enabled(*(this + 24), OS_LOG_TYPE_DEFAULT))
             {
               (*(*this + 184))(buf, this);
-              v16[0] = *(this + 51);
-              ims::TimeAndIntervalFromNow::logStr(v16);
+              v15[0] = *(this + 51);
+              ims::TimeAndIntervalFromNow::logStr();
             }
 
             SipRegistrationPolicy::startTimer(this);
@@ -4164,7 +4149,7 @@ void SipRegistrationPolicy::retryRegistration(SipRegistrationPolicy *this)
 
 LABEL_19:
         std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-        goto LABEL_20;
+        return;
       }
     }
   }
@@ -4178,13 +4163,13 @@ LABEL_19:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     (*(*this + 184))(__p, this);
-    v8 = v27 >= 0 ? __p : *__p;
+    v8 = v26 >= 0 ? __p : *__p;
     *buf = 141558275;
     *&buf[4] = 1752392040;
-    v21 = 2081;
-    v22 = v8;
+    v20 = 2081;
+    v21 = v8;
     _os_log_impl(&dword_1E4C3F000, v7, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sretryRegistration: no delegate", buf, 0x16u);
-    if (SHIBYTE(v27) < 0)
+    if (SHIBYTE(v26) < 0)
     {
       operator delete(*__p);
     }
@@ -4194,9 +4179,6 @@ LABEL_19:
   {
     goto LABEL_19;
   }
-
-LABEL_20:
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4F77A64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
@@ -4212,8 +4194,8 @@ void sub_1E4F77A64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t SipRegistrationPolicy::startingRegistration(SipRegistrationPolicy *this)
 {
-  v2 = v24;
-  v28 = *MEMORY[0x1E69E9840];
+  v2 = v23;
+  v27 = *MEMORY[0x1E69E9840];
   if (*(this + 51) <= time(0))
   {
     if ((*(*this + 424))(this))
@@ -4221,54 +4203,54 @@ uint64_t SipRegistrationPolicy::startingRegistration(SipRegistrationPolicy *this
       v6 = *(this + 24);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        (*(*this + 184))(v24, this);
-        if (v27 < 0)
+        (*(*this + 184))(v23, this);
+        if (v26 < 0)
         {
-          v2 = *v24;
+          v2 = *v23;
         }
 
         SipRegistrationPolicy::lastRegisteredProxyUriString(__p, this);
-        v7 = v20;
+        v7 = v19;
         v8 = __p[0];
-        SipRegistrationPolicy::currentProxyUriString(v17, this);
+        SipRegistrationPolicy::currentProxyUriString(v16, this);
         v9 = __p;
         if (v7 < 0)
         {
           v9 = v8;
         }
 
-        if (v18 >= 0)
+        if (v17 >= 0)
         {
-          v10 = v17;
+          v10 = v16;
         }
 
         else
         {
-          v10 = v17[0];
+          v10 = v16[0];
         }
 
         *buf = 141558787;
         *&buf[4] = 1752392040;
         *&buf[12] = 2081;
         *&buf[14] = v2;
-        v22 = 2080;
-        *&v23[0] = v9;
-        WORD4(v23[0]) = 2080;
-        *(v23 + 10) = v10;
+        v21 = 2080;
+        *&v22[0] = v9;
+        WORD4(v22[0]) = 2080;
+        *(v22 + 10) = v10;
         _os_log_impl(&dword_1E4C3F000, v6, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}swaiting for calls started on proxy %s to end before attempting registration with %s", buf, 0x2Au);
-        if (v18 < 0)
+        if (v17 < 0)
         {
-          operator delete(v17[0]);
+          operator delete(v16[0]);
         }
 
-        if (v20 < 0)
+        if (v19 < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (v27 < 0)
+        if (v26 < 0)
         {
-          operator delete(*v24);
+          operator delete(*v23);
         }
       }
 
@@ -4286,14 +4268,14 @@ uint64_t SipRegistrationPolicy::startingRegistration(SipRegistrationPolicy *this
       {
         if (v13)
         {
-          (*(*this + 184))(v24, this);
-          v17[0] = *(this + 51);
-          ims::TimeAndIntervalFromNow::logStr(v17);
+          (*(*this + 184))(v23, this);
+          v16[0] = *(this + 51);
+          ims::TimeAndIntervalFromNow::logStr();
         }
 
         std::string::basic_string[abi:ne200100]<0>(buf, "ThrottlingExpired");
         (*(*this + 576))(this, 0, buf);
-        if (SHIBYTE(v22) < 0)
+        if (SHIBYTE(v21) < 0)
         {
           operator delete(*buf);
         }
@@ -4304,20 +4286,20 @@ uint64_t SipRegistrationPolicy::startingRegistration(SipRegistrationPolicy *this
       else if (v13)
       {
         (*(*this + 184))(buf, this);
-        v14 = v22 >= 0 ? buf : *buf;
-        *v24 = 141558275;
-        *&v24[4] = 1752392040;
-        v25 = 2081;
-        v26 = v14;
-        _os_log_impl(&dword_1E4C3F000, v12, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sthere is currently no registration throttling. Ok to retry registration.", v24, 0x16u);
-        if (SHIBYTE(v22) < 0)
+        v14 = v21 >= 0 ? buf : *buf;
+        *v23 = 141558275;
+        *&v23[4] = 1752392040;
+        v24 = 2081;
+        v25 = v14;
+        _os_log_impl(&dword_1E4C3F000, v12, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sthere is currently no registration throttling. Ok to retry registration.", v23, 0x16u);
+        if (SHIBYTE(v21) < 0)
         {
           operator delete(*buf);
         }
       }
 
       SipTimerContainer::cancelAllTimers((this + 224));
-      memset(v23, 0, sizeof(v23));
+      memset(v22, 0, sizeof(v22));
       *buf = &unk_1F5EBDEF8;
       *&buf[8] = &_bambiDomain;
       *&buf[16] = 0;
@@ -4330,9 +4312,9 @@ uint64_t SipRegistrationPolicy::startingRegistration(SipRegistrationPolicy *this
   {
     if (os_log_type_enabled(*(this + 24), OS_LOG_TYPE_DEFAULT))
     {
-      (*(*this + 184))(v24, this);
-      v17[0] = *(this + 51);
-      ims::TimeAndIntervalFromNow::logStr(v17);
+      (*(*this + 184))(v23, this);
+      v16[0] = *(this + 51);
+      ims::TimeAndIntervalFromNow::logStr();
     }
 
     if (!std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>>>::find<std::string>(this + 29, "ThrottleTimer"))
@@ -4341,7 +4323,7 @@ uint64_t SipRegistrationPolicy::startingRegistration(SipRegistrationPolicy *this
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         (*(*this + 184))(buf, this);
-        if (v22 >= 0)
+        if (v21 >= 0)
         {
           v4 = buf;
         }
@@ -4351,12 +4333,12 @@ uint64_t SipRegistrationPolicy::startingRegistration(SipRegistrationPolicy *this
           v4 = *buf;
         }
 
-        *v24 = 141558275;
-        *&v24[4] = 1752392040;
-        v25 = 2081;
-        v26 = v4;
-        _os_log_impl(&dword_1E4C3F000, v3, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sThrottleTimer is not active. Start it now... ", v24, 0x16u);
-        if (SHIBYTE(v22) < 0)
+        *v23 = 141558275;
+        *&v23[4] = 1752392040;
+        v24 = 2081;
+        v25 = v4;
+        _os_log_impl(&dword_1E4C3F000, v3, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sThrottleTimer is not active. Start it now... ", v23, 0x16u);
+        if (SHIBYTE(v21) < 0)
         {
           operator delete(*buf);
         }
@@ -4365,10 +4347,9 @@ uint64_t SipRegistrationPolicy::startingRegistration(SipRegistrationPolicy *this
       SipRegistrationPolicy::startTimer(this);
     }
 
-    v5 = 0;
+    return 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -4392,7 +4373,7 @@ void SipRegistrationPolicy::lastRegisteredProxyUriString(SipRegistrationPolicy *
 
   else
   {
-    SipUri::asString(v3 + 496 * v2, this);
+    SipUri::asString(v3 + 496 * v2, 2, this);
   }
 }
 
@@ -4416,22 +4397,22 @@ void SipRegistrationPolicy::currentProxyUriString(SipRegistrationPolicy *this, v
 
   else
   {
-    SipUri::asString(v2 + 496 * a2[60], this);
+    SipUri::asString(v2 + 496 * a2[60], 2, this);
   }
 }
 
 void SipRegistrationPolicy::startEmergencyRegistrationTimer(SipRegistrationPolicy *this)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if ((*(*this + 536))(this) && ((*(**(this + 282) + 16))(*(this + 282), 0) & 1) == 0)
   {
     v2 = *(*(this + 282) + 12);
-    std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v6, this + 20);
-    v3 = v7;
-    if (v7)
+    std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v5, this + 20);
+    v3 = v6;
+    if (v6)
     {
-      p_shared_weak_owners = &v7->__shared_weak_owners_;
-      atomic_fetch_add_explicit(&v7->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      p_shared_weak_owners = &v6->__shared_weak_owners_;
+      atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       std::__shared_weak_count::__release_shared[abi:ne200100](v3);
       atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
       if (v2)
@@ -4447,22 +4428,20 @@ void SipRegistrationPolicy::startEmergencyRegistrationTimer(SipRegistrationPolic
     else if (v2)
     {
 LABEL_7:
-      v8 = 0;
+      v7 = 0;
       operator new();
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1E4F78358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1E4F78358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<void ()(std::string &)>::~__value_func[abi:ne200100](va);
-  if (v4)
+  if (v7)
   {
-    std::__shared_weak_count::__release_weak(v4);
-    std::__shared_weak_count::__release_weak(v4);
+    std::__shared_weak_count::__release_weak(v7);
+    std::__shared_weak_count::__release_weak(v7);
   }
 
   _Unwind_Resume(a1);
@@ -4470,27 +4449,25 @@ void sub_1E4F78358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void SipRegistrationPolicy::initialRegisterRequestSent(SipRegistrationPolicy *this)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   *(this + 61) = *(this + 60);
   v2 = time(0);
   *(this + 52) = v2;
   v3 = *(this + 187);
-  std::string::basic_string[abi:ne200100]<0>(&__p, "SentInitialRegister");
-  (*(*this + 576))(this, v3 + v2, &__p);
-  if (v8 < 0)
+  std::string::basic_string[abi:ne200100]<0>(__p, "SentInitialRegister");
+  (*(*this + 576))(this, v3 + v2, __p);
+  if (v6 < 0)
   {
-    operator delete(__p);
+    operator delete(*__p);
   }
 
   if (os_log_type_enabled(*(this + 24), OS_LOG_TYPE_DEFAULT))
   {
-    (*(*this + 184))(&v6, this);
-    v5 = *(this + 51);
-    ims::TimeAndIntervalFromNow::logStr(&v5);
+    (*(*this + 184))(&v4, this);
+    ims::TimeAndIntervalFromNow::logStr();
   }
 
   SipRegistrationPolicy::startEmergencyRegistrationTimer(this);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4F7856C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -4503,33 +4480,28 @@ void sub_1E4F7856C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t SipRegistrationPolicy::authChallengeReceived(SipRegistrationPolicy *this)
+void SipRegistrationPolicy::authChallengeReceived(SipRegistrationPolicy *this)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  result = time(0);
-  v3 = *(this + 187) + result;
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = time(0);
+  v3 = *(this + 187) + v2;
   if (*(this + 51) < v3)
   {
-    v4 = result;
-    std::string::basic_string[abi:ne200100]<0>(&__p, "AuthChallengeReceived");
-    (*(*this + 576))(this, v3, &__p);
-    if (v9 < 0)
+    v4 = v2;
+    std::string::basic_string[abi:ne200100]<0>(__p, "AuthChallengeReceived");
+    (*(*this + 576))(this, v3, __p);
+    if (v7 < 0)
     {
-      operator delete(__p);
+      operator delete(*__p);
     }
 
     *(this + 52) = v4;
-    result = os_log_type_enabled(*(this + 24), OS_LOG_TYPE_DEFAULT);
-    if (result)
+    if (os_log_type_enabled(*(this + 24), OS_LOG_TYPE_DEFAULT))
     {
-      (*(*this + 184))(&v7, this);
-      v6 = *(this + 51);
-      ims::TimeAndIntervalFromNow::logStr(&v6);
+      (*(*this + 184))(&v5, this);
+      ims::TimeAndIntervalFromNow::logStr();
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void sub_1E4F7876C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -4544,18 +4516,18 @@ void sub_1E4F7876C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void SipRegistrationPolicy::clearFailureFlags(SipRegistrationPolicy *this)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = *(this + 24);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     (*(*this + 184))(__p, this);
-    v3 = v6 >= 0 ? __p : __p[0];
+    v3 = v5 >= 0 ? __p : __p[0];
     *buf = 141558275;
-    v8 = 1752392040;
-    v9 = 2081;
-    v10 = v3;
+    v7 = 1752392040;
+    v8 = 2081;
+    v9 = v3;
     _os_log_impl(&dword_1E4C3F000, v2, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sclearing registration failure flags", buf, 0x16u);
-    if (v6 < 0)
+    if (v5 < 0)
     {
       operator delete(__p[0]);
     }
@@ -4565,14 +4537,13 @@ void SipRegistrationPolicy::clearFailureFlags(SipRegistrationPolicy *this)
   *(this + 52) = 0;
   std::string::basic_string[abi:ne200100]<0>(__p, "ClearFailureFlags");
   (*(*this + 576))(this, 0, __p);
-  if (v6 < 0)
+  if (v5 < 0)
   {
     operator delete(__p[0]);
   }
 
   *(this + 52) = 0;
   SipRegistrationPolicy::clearLastProxyErrors(this);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4F78920(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -4612,38 +4583,36 @@ void SipRegistrationPolicy::clearLastProxyErrors(SipRegistrationPolicy *this)
   }
 }
 
-void sub_1E4F78A20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4F78A20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ImsResult::~ImsResult(va);
   _Unwind_Resume(a1);
 }
 
-void SipRegistrationPolicy::clearAllThrottling(SipRegistrationPolicy *this)
+void SipRegistrationPolicy::clearAllThrottling(os_log_t *this)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  SipTimerContainer::cancelAllTimers((this + 224));
-  if (*(this + 51))
+  v5 = *MEMORY[0x1E69E9840];
+  SipTimerContainer::cancelAllTimers((this + 28));
+  if (this[51])
   {
-    if (os_log_type_enabled(*(this + 24), OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(this[24], OS_LOG_TYPE_DEFAULT))
     {
-      (*(*this + 184))(&v4, this);
-      v3 = *(this + 51);
-      ims::TimeAndIntervalFromNow::logStr(&v3);
+      ((*this)[23].isa)(&v2, this);
+      ims::TimeAndIntervalFromNow::logStr();
     }
 
     std::string::basic_string[abi:ne200100]<0>(buf, "ClearAllThrottling");
-    (*(*this + 576))(this, 0, buf);
-    if (SHIBYTE(v6) < 0)
+    ((*this)[72].isa)(this, 0, buf);
+    if (SHIBYTE(v4) < 0)
     {
       operator delete(*buf);
     }
 
-    *(this + 52) = 0;
+    this[52] = 0;
   }
 
   *(this + 2264) = 0;
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4F78BF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -4656,28 +4625,13 @@ void sub_1E4F78BF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t SipRegistrationPolicy::scheduleRetry(SipRegistrationPolicy *this, const ImsResult *a2, uint64_t a3, int a4)
+time_t SipRegistrationPolicy::scheduleRetry(SipRegistrationPolicy *this, const ImsResult *a2, uint64_t a3, int a4)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v7 = time(0);
   v8 = *(this + 24);
-  if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO) || (((*(*this + 184))(__p, this), v29 >= 0) ? (v9 = __p) : (v9 = *__p), *buf = 141558531, *&buf[4] = 1752392040, v31 = 2081, v32 = v9, v33 = 2048, v34 = v7, _os_log_impl(&dword_1E4C3F000, v8, OS_LOG_TYPE_INFO, "#I %{private, mask.hash}sscheduleRetry: now is %lu", buf, 0x20u), (v29 & 0x80000000) == 0))
   {
-    goto LABEL_6;
-  }
-
-  (*(*this + 184))(__p, this);
-  v9 = v31 >= 0 ? __p : *__p;
-  *buf = 141558531;
-  *&buf[4] = 1752392040;
-  v33 = 2081;
-  v34 = v9;
-  v35 = 2048;
-  v36 = v7;
-  _os_log_impl(&dword_1E4C3F000, v8, OS_LOG_TYPE_INFO, "#I %{private, mask.hash}sscheduleRetry: now is %lu", buf, 0x20u);
-  if ((v31 & 0x80000000) == 0)
-  {
-LABEL_6:
     if (!a4)
     {
       goto LABEL_8;
@@ -4703,7 +4657,7 @@ LABEL_8:
     }
 
     (*(*this + 184))(__p, this);
-    if (v31 >= 0)
+    if (v29 >= 0)
     {
       v11 = __p;
     }
@@ -4715,10 +4669,10 @@ LABEL_8:
 
     *buf = 141558531;
     *&buf[4] = 1752392040;
-    v33 = 2081;
-    v34 = v11;
-    v35 = 2048;
-    v36 = a3;
+    v31 = 2081;
+    v32 = v11;
+    v33 = 2048;
+    v34 = a3;
     v12 = "%{private, mask.hash}sscheduleRetry: set retryInterval = %lu";
   }
 
@@ -4732,7 +4686,7 @@ LABEL_8:
     }
 
     (*(*this + 184))(__p, this);
-    if (v31 >= 0)
+    if (v29 >= 0)
     {
       v13 = __p;
     }
@@ -4744,15 +4698,15 @@ LABEL_8:
 
     *buf = 141558531;
     *&buf[4] = 1752392040;
-    v33 = 2081;
-    v34 = v13;
-    v35 = 2048;
-    v36 = a3;
+    v31 = 2081;
+    v32 = v13;
+    v33 = 2048;
+    v34 = a3;
     v12 = "%{private, mask.hash}sscheduleRetry: got retryInterval = %lu";
   }
 
   _os_log_impl(&dword_1E4C3F000, v10, OS_LOG_TYPE_DEFAULT, v12, buf, 0x20u);
-  if (v31 < 0)
+  if (v29 < 0)
   {
     operator delete(*__p);
   }
@@ -4777,15 +4731,15 @@ LABEL_21:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     (*(*this + 184))(__p, this);
-    v16 = v31 >= 0 ? __p : *__p;
+    v16 = v29 >= 0 ? __p : *__p;
     *buf = 141558531;
     *&buf[4] = 1752392040;
-    v33 = 2081;
-    v34 = v16;
-    v35 = 2048;
-    v36 = v14;
+    v31 = 2081;
+    v32 = v16;
+    v33 = 2048;
+    v34 = v14;
     _os_log_impl(&dword_1E4C3F000, v15, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sscheduleRetry: barringEndAt %lu", buf, 0x20u);
-    if (v31 < 0)
+    if (v29 < 0)
     {
       operator delete(*__p);
     }
@@ -4802,15 +4756,15 @@ LABEL_21:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     (*(*this + 184))(__p, this);
-    v20 = v31 >= 0 ? __p : *__p;
+    v20 = v29 >= 0 ? __p : *__p;
     *buf = 141558531;
     *&buf[4] = 1752392040;
-    v33 = 2081;
-    v34 = v20;
-    v35 = 2048;
-    v36 = v18;
+    v31 = 2081;
+    v32 = v20;
+    v33 = 2048;
+    v34 = v18;
     _os_log_impl(&dword_1E4C3F000, v19, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sscheduleRetry: retryIntervalOfBarring = %lu", buf, 0x20u);
-    if (v31 < 0)
+    if (v29 < 0)
     {
       operator delete(*__p);
     }
@@ -4829,15 +4783,15 @@ LABEL_48:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     (*(*this + 184))(__p, this);
-    v22 = v31 >= 0 ? __p : *__p;
+    v22 = v29 >= 0 ? __p : *__p;
     *buf = 141558531;
     *&buf[4] = 1752392040;
-    v33 = 2081;
-    v34 = v22;
-    v35 = 2048;
-    v36 = v18;
+    v31 = 2081;
+    v32 = v22;
+    v33 = 2048;
+    v34 = v18;
     _os_log_impl(&dword_1E4C3F000, v21, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sscheduleRetry: barring time is longer than the original retry interval: set retryInterval = %lu", buf, 0x20u);
-    if (v31 < 0)
+    if (v29 < 0)
     {
       operator delete(*__p);
     }
@@ -4853,7 +4807,7 @@ LABEL_49:
     }
 
     (*(*this + 184))(buf, this);
-    if (v35 >= 0)
+    if (v33 >= 0)
     {
       v24 = buf;
     }
@@ -4865,8 +4819,8 @@ LABEL_49:
 
     *__p = 141558275;
     *&__p[4] = 1752392040;
-    v29 = 2081;
-    v30 = v24;
+    v27 = 2081;
+    v28 = v24;
     _os_log_impl(&dword_1E4C3F000, v23, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}skeeping old retry time", __p, 0x16u);
   }
 
@@ -4877,7 +4831,7 @@ LABEL_49:
     (*(*this + 576))(this, v18 + v7, buf);
   }
 
-  if (SHIBYTE(v35) < 0)
+  if (SHIBYTE(v33) < 0)
   {
     operator delete(*buf);
   }
@@ -4886,13 +4840,10 @@ LABEL_58:
   if (os_log_type_enabled(*(this + 24), OS_LOG_TYPE_DEFAULT))
   {
     (*(*this + 184))(__p, this);
-    v27 = *(this + 51);
-    ims::TimeAndIntervalFromNow::logStr(&v27);
+    ims::TimeAndIntervalFromNow::logStr();
   }
 
-  result = SipRegistrationPolicy::startTimer(this);
-  v26 = *MEMORY[0x1E69E9840];
-  return result;
+  return SipRegistrationPolicy::startTimer(this);
 }
 
 void sub_1E4F79378(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -4907,7 +4858,7 @@ void sub_1E4F79378(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void SipRegistrationPolicy::handleBarringAccessAlleviated(SipRegistrationPolicy *this)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>>>::find<std::string>(this + 29, "ThrottleTimer") && *(this + 51) > 0)
   {
     if ((*(*this + 520))(this))
@@ -4917,15 +4868,15 @@ void SipRegistrationPolicy::handleBarringAccessAlleviated(SipRegistrationPolicy 
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         (*(*this + 184))(__p, this);
-        v4 = v20 >= 0 ? __p : *__p;
+        v4 = v18 >= 0 ? __p : *__p;
         *buf = 141558531;
         *&buf[4] = 1752392040;
-        v22 = 2081;
-        v23 = v4;
-        v24 = 2048;
-        v25 = v2;
+        v20 = 2081;
+        v21 = v4;
+        v22 = 2048;
+        v23 = v2;
         _os_log_impl(&dword_1E4C3F000, v3, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}shandleBarringAccessAlleviated: retryIntervalExtendedByBarring=%lu", buf, 0x20u);
-        if (v20 < 0)
+        if (v18 < 0)
         {
           operator delete(*__p);
         }
@@ -4940,30 +4891,28 @@ void SipRegistrationPolicy::handleBarringAccessAlleviated(SipRegistrationPolicy 
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
           (*(*this + 184))(__p, this);
-          v16 = *(this + 51);
-          ims::TimeAndIntervalFromNow::logStr(&v16);
+          ims::TimeAndIntervalFromNow::logStr();
         }
 
         v7 = v5 - v2;
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
           (*(*this + 184))(__p, this);
-          v16 = v7;
-          ims::TimeAndIntervalFromNow::logStr(&v16);
+          ims::TimeAndIntervalFromNow::logStr();
         }
 
-        SipTimerContainer::cancelTimer(this + 28, "ThrottleTimer");
+        SipTimerContainer::cancelTimer((this + 224), "ThrottleTimer");
         v8 = *(this + 24);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           (*(*this + 184))(buf, this);
-          v9 = v24 >= 0 ? buf : *buf;
+          v9 = v22 >= 0 ? buf : *buf;
           *__p = 141558275;
           *&__p[4] = 1752392040;
-          v18 = 2081;
-          v19 = v9;
+          v16 = 2081;
+          v17 = v9;
           _os_log_impl(&dword_1E4C3F000, v8, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}shandleBarringAccessAlleviated: canceled current ThrottleTimer", __p, 0x16u);
-          if (SHIBYTE(v24) < 0)
+          if (SHIBYTE(v22) < 0)
           {
             operator delete(*buf);
           }
@@ -4971,7 +4920,7 @@ void SipRegistrationPolicy::handleBarringAccessAlleviated(SipRegistrationPolicy 
 
         std::string::basic_string[abi:ne200100]<0>(buf, "ScheduleRetry");
         (*(*this + 576))(this, v7, buf);
-        if (SHIBYTE(v24) < 0)
+        if (SHIBYTE(v22) < 0)
         {
           operator delete(*buf);
         }
@@ -4979,22 +4928,21 @@ void SipRegistrationPolicy::handleBarringAccessAlleviated(SipRegistrationPolicy 
         if (os_log_type_enabled(*(this + 24), OS_LOG_TYPE_DEFAULT))
         {
           (*(*this + 184))(__p, this);
-          v16 = *(this + 51);
-          ims::TimeAndIntervalFromNow::logStr(&v16);
+          ims::TimeAndIntervalFromNow::logStr();
         }
 
         SipRegistrationPolicy::startTimer(this);
-        goto LABEL_43;
+        return;
       }
 
       v10 = *(this + 24);
       if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_43;
+        return;
       }
 
       (*(*this + 184))(buf, this);
-      if (v24 >= 0)
+      if (v22 >= 0)
       {
         v14 = buf;
       }
@@ -5006,8 +4954,8 @@ void SipRegistrationPolicy::handleBarringAccessAlleviated(SipRegistrationPolicy 
 
       *__p = 141558275;
       *&__p[4] = 1752392040;
-      v18 = 2081;
-      v19 = v14;
+      v16 = 2081;
+      v17 = v14;
       v12 = "%{private, mask.hash}shandleBarringAccessAlleviated: no-op: registration barring did not add extra wait time";
     }
 
@@ -5016,11 +4964,11 @@ void SipRegistrationPolicy::handleBarringAccessAlleviated(SipRegistrationPolicy 
       v10 = *(this + 24);
       if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_43;
+        return;
       }
 
       (*(*this + 184))(buf, this);
-      if (v24 >= 0)
+      if (v22 >= 0)
       {
         v13 = buf;
       }
@@ -5032,8 +4980,8 @@ void SipRegistrationPolicy::handleBarringAccessAlleviated(SipRegistrationPolicy 
 
       *__p = 141558275;
       *&__p[4] = 1752392040;
-      v18 = 2081;
-      v19 = v13;
+      v16 = 2081;
+      v17 = v13;
       v12 = "%{private, mask.hash}shandleBarringAccessAlleviated: no-op: registration barring is not active";
     }
   }
@@ -5043,11 +4991,11 @@ void SipRegistrationPolicy::handleBarringAccessAlleviated(SipRegistrationPolicy 
     v10 = *(this + 24);
     if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_43;
+      return;
     }
 
     (*(*this + 184))(buf, this);
-    if (v24 >= 0)
+    if (v22 >= 0)
     {
       v11 = buf;
     }
@@ -5059,19 +5007,16 @@ void SipRegistrationPolicy::handleBarringAccessAlleviated(SipRegistrationPolicy 
 
     *__p = 141558275;
     *&__p[4] = 1752392040;
-    v18 = 2081;
-    v19 = v11;
+    v16 = 2081;
+    v17 = v11;
     v12 = "%{private, mask.hash}shandleBarringAccessAlleviated: no-op: registration is currently not being throttled";
   }
 
   _os_log_impl(&dword_1E4C3F000, v10, OS_LOG_TYPE_DEFAULT, v12, __p, 0x16u);
-  if (SHIBYTE(v24) < 0)
+  if (SHIBYTE(v22) < 0)
   {
     operator delete(*buf);
   }
-
-LABEL_43:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4F79AC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -5113,17 +5058,17 @@ void SipRegistrationPolicy::emergencyRegistrationTimeout(SipRegistrationPolicy *
   }
 }
 
-void sub_1E4F79BD4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4F79BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ImsResult::~ImsResult(va);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
 void SipRegistrationPolicy::handleTimer(SipRegistrationPolicy *a1, uint64_t a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v4 = *(a2 + 23);
   if (v4 >= 0)
   {
@@ -5135,48 +5080,70 @@ void SipRegistrationPolicy::handleTimer(SipRegistrationPolicy *a1, uint64_t a2)
     v5 = *(a2 + 8);
   }
 
-  if (v5 == 13)
+  if (v5 != 13)
   {
-    v6 = *a2;
-    if (v4 >= 0)
+    goto LABEL_11;
+  }
+
+  v6 = *a2;
+  if (v4 >= 0)
+  {
+    v6 = a2;
+  }
+
+  v7 = *v6;
+  v8 = *(v6 + 5);
+  if (v7 == 0x656C74746F726854 && v8 == 0x72656D6954656C74)
+  {
+    v19 = *(a1 + 24);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = a2;
+      (*(*a1 + 184))(__p, a1);
+      v20 = v26 >= 0 ? __p : __p[0];
+      *buf = 141558275;
+      v28 = 1752392040;
+      v29 = 2081;
+      v30 = v20;
+      _os_log_impl(&dword_1E4C3F000, v19, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sregistration throttling timer fired", buf, 0x16u);
+      if (v26 < 0)
+      {
+        operator delete(__p[0]);
+      }
     }
 
-    v7 = *v6;
-    v8 = *(v6 + 5);
-    if (v7 == 0x656C74746F726854 && v8 == 0x72656D6954656C74)
+    SipRegistrationPolicy::retryRegistration(a1);
+  }
+
+  else
+  {
+LABEL_11:
+    v10 = qword_1EE2BD1E8;
+    if (byte_1EE2BD1F7 >= 0)
     {
-      v20 = *(a1 + 24);
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v10 = byte_1EE2BD1F7;
+    }
+
+    if (v5 == v10 && (v4 >= 0 ? (v11 = a2) : (v11 = *a2), byte_1EE2BD1F7 >= 0 ? (v12 = &SipRegistrationPolicy::kSubscriptionRetryTimerName) : (v12 = SipRegistrationPolicy::kSubscriptionRetryTimerName), !memcmp(v11, v12, v5)))
+    {
+      v21 = *(a1 + 50);
+      if (v21)
       {
-        (*(*a1 + 184))(__p, a1);
-        v21 = v29 >= 0 ? __p : __p[0];
-        *buf = 141558275;
-        v31 = 1752392040;
-        v32 = 2081;
-        v33 = v21;
-        _os_log_impl(&dword_1E4C3F000, v20, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sregistration throttling timer fired", buf, 0x16u);
-        if (v29 < 0)
+        v22 = std::__shared_weak_count::lock(v21);
+        if (v22)
         {
-          operator delete(__p[0]);
+          v23 = v22;
+          v24 = *(a1 + 49);
+          if (v24)
+          {
+            (*(*v24 + 96))(v24);
+          }
+
+          std::__shared_weak_count::__release_shared[abi:ne200100](v23);
         }
       }
-
-      SipRegistrationPolicy::retryRegistration(a1);
-      goto LABEL_52;
     }
-  }
 
-  v10 = qword_1EE2BD1E8;
-  if (byte_1EE2BD1F7 >= 0)
-  {
-    v10 = byte_1EE2BD1F7;
-  }
-
-  if (v5 != v10 || (v4 >= 0 ? (v11 = a2) : (v11 = *a2), byte_1EE2BD1F7 >= 0 ? (v12 = &SipRegistrationPolicy::kSubscriptionRetryTimerName) : (v12 = SipRegistrationPolicy::kSubscriptionRetryTimerName), memcmp(v11, v12, v5)))
-  {
-    if ((*(*a1 + 536))(a1))
+    else if ((*(*a1 + 536))(a1))
     {
       v13 = *(a2 + 23);
       if (v13 >= 0)
@@ -5202,53 +5169,24 @@ void SipRegistrationPolicy::handleTimer(SipRegistrationPolicy *a1, uint64_t a2)
         if (!memcmp(v16, v17, v14))
         {
           v18 = *(*a1 + 88);
-          v19 = *MEMORY[0x1E69E9840];
 
           v18(a1);
-          return;
         }
       }
     }
-
-LABEL_52:
-    v27 = *MEMORY[0x1E69E9840];
-    return;
   }
-
-  v22 = *(a1 + 50);
-  if (!v22)
-  {
-    goto LABEL_52;
-  }
-
-  v23 = std::__shared_weak_count::lock(v22);
-  if (!v23)
-  {
-    goto LABEL_52;
-  }
-
-  v24 = v23;
-  v25 = *(a1 + 49);
-  if (v25)
-  {
-    (*(*v25 + 96))(v25);
-  }
-
-  v26 = *MEMORY[0x1E69E9840];
-
-  std::__shared_weak_count::__release_shared[abi:ne200100](v24);
 }
 
 uint64_t SipRegistrationPolicy::handleNonSipError(SipRegistrationPolicy *this, const ImsResult *a2, int a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     v5 = *(this + 24);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       (*(*this + 184))(__p, this);
-      if (v12 >= 0)
+      if (v10 >= 0)
       {
         v6 = __p;
       }
@@ -5260,38 +5198,36 @@ uint64_t SipRegistrationPolicy::handleNonSipError(SipRegistrationPolicy *this, c
 
       v7 = *(this + 53);
       *buf = 141558531;
-      v14 = 1752392040;
-      v15 = 2081;
-      v16 = v6;
-      v17 = 2048;
-      v18 = v7;
+      v12 = 1752392040;
+      v13 = 2081;
+      v14 = v6;
+      v15 = 2048;
+      v16 = v7;
       _os_log_impl(&dword_1E4C3F000, v5, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}shandleNonSipError(causedByUAC): scheduleRetry(preferredRetryInterval=%lu, useNextProxy=false)", buf, 0x20u);
-      if (v12 < 0)
+      if (v10 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
-    result = (*(*this + 488))(this, a2, *(this + 53), 0);
-    goto LABEL_14;
+    return (*(*this + 488))(this, a2, *(this + 53), 0);
   }
 
-  if (!(*(*this + 408))(this, 0, 200))
+  else if ((*(*this + 408))(this, 0, 200))
   {
-    result = -1;
-LABEL_14:
-    v10 = *MEMORY[0x1E69E9840];
-    return result;
+
+    return SipRegistrationPolicy::handleGeneralError(this, a2);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return SipRegistrationPolicy::handleGeneralError(this, a2);
+  else
+  {
+    return -1;
+  }
 }
 
 uint64_t SipRegistrationPolicy::handleGeneralError(SipRegistrationPolicy *this, const ImsResult *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v4 = *(this + 57);
   if (v4)
   {
@@ -5314,16 +5250,16 @@ uint64_t SipRegistrationPolicy::handleGeneralError(SipRegistrationPolicy *this, 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     (*(*this + 184))(__p, this);
-    v7 = v35 >= 0 ? __p : *__p;
+    v7 = v34 >= 0 ? __p : *__p;
     v8 = *(this + 50);
-    *v25 = 141558531;
-    *&v25[4] = 1752392040;
-    v26 = 2081;
-    v27 = v7;
-    v28 = 1024;
-    v29 = v8;
-    _os_log_impl(&dword_1E4C3F000, v6, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}shandling general registration error #%u", v25, 0x1Cu);
-    if (v35 < 0)
+    *v24 = 141558531;
+    *&v24[4] = 1752392040;
+    v25 = 2081;
+    v26 = v7;
+    v27 = 1024;
+    v28 = v8;
+    _os_log_impl(&dword_1E4C3F000, v6, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}shandling general registration error #%u", v24, 0x1Cu);
+    if (v34 < 0)
     {
       operator delete(*__p);
     }
@@ -5340,16 +5276,16 @@ uint64_t SipRegistrationPolicy::handleGeneralError(SipRegistrationPolicy *this, 
       if (v12)
       {
         (*(*this + 184))(__p, this);
-        v14 = v35 >= 0 ? __p : *__p;
+        v14 = v34 >= 0 ? __p : *__p;
         v15 = *(this + 461) - *(this + 50);
-        *v25 = 141558531;
-        *&v25[4] = 1752392040;
-        v26 = 2081;
-        v27 = v14;
-        v28 = 1024;
-        v29 = v15;
-        _os_log_impl(&dword_1E4C3F000, v11, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sstill have %u more re-registration attempts", v25, 0x1Cu);
-        if (v35 < 0)
+        *v24 = 141558531;
+        *&v24[4] = 1752392040;
+        v25 = 2081;
+        v26 = v14;
+        v27 = 1024;
+        v28 = v15;
+        _os_log_impl(&dword_1E4C3F000, v11, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sstill have %u more re-registration attempts", v24, 0x1Cu);
+        if (v34 < 0)
         {
           operator delete(*__p);
         }
@@ -5360,16 +5296,16 @@ uint64_t SipRegistrationPolicy::handleGeneralError(SipRegistrationPolicy *this, 
     {
       if (v12)
       {
-        (*(*this + 184))(v25, this);
-        v13 = v28 >= 0 ? v25 : *v25;
+        (*(*this + 184))(v24, this);
+        v13 = v27 >= 0 ? v24 : *v24;
         *__p = 141558275;
         *&__p[4] = 1752392040;
-        v33 = 2081;
-        v34 = v13;
+        v32 = 2081;
+        v33 = v13;
         _os_log_impl(&dword_1E4C3F000, v11, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}stoo many re-registration errors. Next attempt will be an initial registration.", __p, 0x16u);
-        if (SHIBYTE(v28) < 0)
+        if (SHIBYTE(v27) < 0)
         {
-          operator delete(*v25);
+          operator delete(*v24);
         }
       }
 
@@ -5385,29 +5321,29 @@ uint64_t SipRegistrationPolicy::handleGeneralError(SipRegistrationPolicy *this, 
   {
     if (v19)
     {
-      (*(*this + 184))(v25, this);
-      if (v28 >= 0)
+      (*(*this + 184))(v24, this);
+      if (v27 >= 0)
       {
-        v20 = v25;
+        v20 = v24;
       }
 
       else
       {
-        v20 = *v25;
+        v20 = *v24;
       }
 
       *__p = 141558275;
       *&__p[4] = 1752392040;
-      v33 = 2081;
-      v34 = v20;
+      v32 = 2081;
+      v33 = v20;
       _os_log_impl(&dword_1E4C3F000, v18, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sreceived general errors from all proxies", __p, 0x16u);
-      if (SHIBYTE(v28) < 0)
+      if (SHIBYTE(v27) < 0)
       {
-        operator delete(*v25);
+        operator delete(*v24);
       }
     }
 
-    result = (*(*this + 144))(this, a2);
+    return (*(*this + 144))(this, a2);
   }
 
   else
@@ -5415,48 +5351,47 @@ uint64_t SipRegistrationPolicy::handleGeneralError(SipRegistrationPolicy *this, 
     if (v19)
     {
       (*(*this + 184))(__p, this);
-      v21 = v35 >= 0 ? __p : *__p;
+      v21 = v34 >= 0 ? __p : *__p;
       v22 = 0xEF7BDEF7BDEF7BDFLL * ((*(this + 58) - *(this + 57)) >> 4);
-      *v25 = 141558787;
-      *&v25[4] = 1752392040;
-      v26 = 2081;
-      v27 = v21;
-      v28 = 1024;
-      v29 = v16;
-      v30 = 2048;
-      v31 = v22;
-      _os_log_impl(&dword_1E4C3F000, v18, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sreceived general errors from %u of %zu proxies", v25, 0x26u);
-      if (v35 < 0)
+      *v24 = 141558787;
+      *&v24[4] = 1752392040;
+      v25 = 2081;
+      v26 = v21;
+      v27 = 1024;
+      v28 = v16;
+      v29 = 2048;
+      v30 = v22;
+      _os_log_impl(&dword_1E4C3F000, v18, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sreceived general errors from %u of %zu proxies", v24, 0x26u);
+      if (v34 < 0)
       {
         operator delete(*__p);
       }
     }
 
-    result = (*(*this + 136))(this, a2);
+    return (*(*this + 136))(this, a2);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-BOOL SipRegistrationPolicy::isFatalError(SipRegistrationPolicy *this, int a2)
+BOOL SipRegistrationPolicy::isFatalError(SipRegistrationPolicy *this, uint64_t a2)
 {
+  v2 = a2;
   if (SipResponseCodeMap::empty((this + 2304)))
   {
-    return (a2 & 0xFFFFFFFD) == 400;
+    return (v2 & 0xFFFFFFFD) == 400;
   }
 
-  return SipResponseCodeMap::containsResponseCodeForMethod(this + 2304, "REGISTER", a2, 0);
+  return SipResponseCodeMap::containsResponseCodeForMethod(this + 2304, "REGISTER", v2, 0);
 }
 
-BOOL SipRegistrationPolicy::isForbiddenUserError(SipRegistrationPolicy *this, int a2)
+BOOL SipRegistrationPolicy::isForbiddenUserError(SipRegistrationPolicy *this, uint64_t a2)
 {
+  v2 = a2;
   if (SipResponseCodeMap::empty((this + 2336)))
   {
-    return (a2 - 403) < 2;
+    return (v2 - 403) < 2;
   }
 
-  return SipResponseCodeMap::containsResponseCodeForMethod(this + 2336, "REGISTER", a2, 0);
+  return SipResponseCodeMap::containsResponseCodeForMethod(this + 2336, "REGISTER", v2, 0);
 }
 
 uint64_t SipRegistrationPolicy::isForbiddenCountryError(uint64_t a1, SipMessage **a2)
@@ -5468,7 +5403,7 @@ uint64_t SipRegistrationPolicy::isForbiddenCountryError(uint64_t a1, SipMessage 
   }
 
   memset(&__p, 0, sizeof(__p));
-  SipMessage::reasonText(v3, &__p);
+  SipMessage::reasonText(&__p, v3);
   v4 = (*(*a1 + 120))(a1, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -5545,44 +5480,42 @@ uint64_t SipRegistrationPolicy::isWifiAccessNetwork(SipRegistrationPolicy *this)
 
 void SipRegistrationPolicy::handleDeregistrationError(os_log_t *this, uint64_t **a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (a2[1] == &_posixDomain)
   {
-    goto LABEL_14;
+    goto LABEL_13;
   }
 
-  v4 = a2;
+  v3 = a2;
   do
   {
-    v5 = v4;
-    v4 = v4[4];
+    v4 = v3;
+    v3 = v3[4];
   }
 
-  while (v4);
-  if (v5[1] == &_posixDomain)
+  while (v3);
+  if (v4[1] == &_posixDomain)
   {
-LABEL_14:
-    v6 = a2;
+LABEL_13:
+    v5 = a2;
     do
     {
-      v7 = v6;
-      v6 = v6[4];
+      v6 = v5;
+      v5 = v5[4];
     }
 
-    while (v6);
-    if (ImsResultSet::containsResult((this + 252), *(v7 + 4)))
+    while (v5);
+    if (ImsResultSet::containsResult((this + 252), *(v6 + 4)))
     {
       if (os_log_type_enabled(this[24], OS_LOG_TYPE_DEFAULT))
       {
-        ((*this)[23].isa)(&v9, this);
-        ImsResult::logStr(a2);
+        ((*this)[23].isa)(&v7, this);
+        ImsResult::logStr();
       }
 
       SipRegistrationPolicy::clearAllThrottling(this);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4F7AA64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
@@ -5597,19 +5530,18 @@ void sub_1E4F7AA64(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t SipRegistrationPolicy::handleRegistrationError(uint64_t a1, SipResponse **a2)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   if (((*(*a1 + 408))(a1, 0, *(*a2 + 32)) & 1) == 0)
   {
     SipRegistrationPolicy::clearAllThrottling(a1);
-    v16 = -1;
-    goto LABEL_41;
+    return -1;
   }
 
   v4 = *(a1 + 192);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     (*(*a1 + 184))(__p, a1);
-    v5 = v33;
+    v5 = v32;
     v6 = *__p;
     v7 = (*(*a1 + 128))(a1);
     v8 = __p;
@@ -5628,10 +5560,10 @@ uint64_t SipRegistrationPolicy::handleRegistrationError(uint64_t a1, SipResponse
 
     *&buf[12] = 2081;
     *&buf[14] = v8;
-    v35 = 2080;
-    v36 = v9;
+    v34 = 2080;
+    v35 = v9;
     _os_log_impl(&dword_1E4C3F000, v4, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}swifi access network: %s", buf, 0x20u);
-    if (v33 < 0)
+    if (v32 < 0)
     {
       operator delete(*__p);
     }
@@ -5640,17 +5572,17 @@ uint64_t SipRegistrationPolicy::handleRegistrationError(uint64_t a1, SipResponse
   if ((*(*a1 + 128))(a1))
   {
     v10 = a2[1];
-    v28 = *a2;
-    v29 = v10;
+    v27 = *a2;
+    v28 = v10;
     if (v10)
     {
       atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v11 = (*(*a1 + 112))(a1, &v28);
-    if (v29)
+    v11 = (*(*a1 + 112))(a1, &v27);
+    if (v28)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v28);
       if (v11)
       {
 LABEL_14:
@@ -5658,7 +5590,7 @@ LABEL_14:
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           (*(*a1 + 184))(buf, a1);
-          if (v35 >= 0)
+          if (v34 >= 0)
           {
             v13 = buf;
           }
@@ -5670,24 +5602,24 @@ LABEL_14:
 
           *__p = 141558275;
           *&__p[4] = 1752392040;
-          v31 = 2081;
-          v32 = v13;
+          v30 = 2081;
+          v31 = v13;
           _os_log_impl(&dword_1E4C3F000, v12, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sForbidden Country Situation", __p, 0x16u);
-          if (SHIBYTE(v35) < 0)
+          if (SHIBYTE(v34) < 0)
           {
             operator delete(*buf);
           }
         }
 
         v14 = *(*a2 + 32) == 0;
+        v37 = 0u;
         v38 = 0u;
         v39 = 0u;
-        v40 = 0u;
         *buf = &unk_1F5EBDEF8;
         *&buf[8] = &_bambiDomain;
         *&buf[16] = v14 << 30;
+        v35 = 0;
         v36 = 0;
-        v37 = 0;
         v15 = (*(*a1 + 168))(a1, buf);
         goto LABEL_36;
       }
@@ -5702,23 +5634,23 @@ LABEL_14:
   if ((*(*a1 + 104))(a1, *(*a2 + 32)))
   {
     v17 = a2[1];
-    v26 = *a2;
-    v27 = v17;
+    v25 = *a2;
+    v26 = v17;
     if (v17)
     {
-      atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v17 + 1, 1uLL, memory_order_relaxed);
     }
 
-    v16 = (*(*a1 + 160))(a1, &v26);
-    v18 = v27;
-    if (!v27)
+    v16 = (*(*a1 + 160))(a1, &v25);
+    v18 = v26;
+    if (!v26)
     {
-      goto LABEL_41;
+      return v16;
     }
 
 LABEL_40:
     std::__shared_weak_count::__release_shared[abi:ne200100](v18);
-    goto LABEL_41;
+    return v16;
   }
 
   *(a1 + 208) = 0;
@@ -5728,37 +5660,37 @@ LABEL_40:
     if ((*(*a1 + 96))(a1))
     {
       v23 = *(*a2 + 32) == 0;
+      v37 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v40 = 0u;
       *buf = &unk_1F5EBDEF8;
       *&buf[8] = &_bambiDomain;
       *&buf[16] = v23 << 30;
+      v35 = 0;
       v36 = 0;
-      v37 = 0;
       v15 = (*(*a1 + 152))(a1, buf);
     }
 
     else
     {
-      SipResponse::asImsResult(*a2, buf);
+      SipResponse::asImsResult(buf, *a2);
       v15 = SipRegistrationPolicy::handleGeneralError(a1, buf);
     }
 
 LABEL_36:
     v16 = v15;
     ImsResult::~ImsResult(buf);
-    goto LABEL_41;
+    return v16;
   }
 
   v20 = a2[1];
   if (v20)
   {
-    atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v20 + 1, 1uLL, memory_order_relaxed);
   }
 
   v21 = SipMessage::header<SipRetryAfterHeader>(v19);
-  SipResponse::asImsResult(v19, buf);
+  SipResponse::asImsResult(buf, v19);
   if (v21)
   {
     v22 = (*(*a1 + 488))(a1, buf, v21[26], 0);
@@ -5777,8 +5709,6 @@ LABEL_36:
     goto LABEL_40;
   }
 
-LABEL_41:
-  v24 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -5800,40 +5730,40 @@ uint64_t SipRegistrationPolicy::handleMaxReRegistrationErrors(uint64_t this)
   return this;
 }
 
-uint64_t SipRegistrationPolicy::handleAuthChallengeError(SipRegistrationPolicy *this, const ImsResult *a2)
+uint64_t SipRegistrationPolicy::handleAuthChallengeError(os_log_t *this, const ImsResult *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   SipRegistrationPolicy::clearAllThrottling(this);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   __p[0] = &unk_1F5EBDEF8;
   __p[1] = &_bambiDomain;
-  v13 = 1073741832;
+  v12 = 1073741832;
   if (*(a2 + 1) == &_bambiDomain)
   {
     v4 = *(a2 + 4);
     ImsResult::~ImsResult(__p);
     if (v4 == 1073741832)
     {
-      v5 = *(this + 24);
+      v5 = this[24];
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        (*(*this + 184))(__p, this);
-        v6 = v14 >= 0 ? __p : __p[0];
+        ((*this)[23].isa)(__p, this);
+        v6 = v13 >= 0 ? __p : __p[0];
         *buf = 141558275;
-        v20 = 1752392040;
-        v21 = 2081;
-        v22 = v6;
+        v19 = 1752392040;
+        v20 = 2081;
+        v21 = v6;
         _os_log_impl(&dword_1E4C3F000, v5, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sretrying on auth challenge sync failure", buf, 0x16u);
-        if (v14 < 0)
+        if (v13 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
-      goto LABEL_22;
+      return 1;
     }
   }
 
@@ -5842,29 +5772,27 @@ uint64_t SipRegistrationPolicy::handleAuthChallengeError(SipRegistrationPolicy *
     ImsResult::~ImsResult(__p);
   }
 
-  v7 = *(this + 57);
-  if (v7 && v7 != *(this + 58))
+  v7 = this[57];
+  if (v7 && v7 != this[58])
   {
-    ImsResult::operator=(v7 + 496 * *(this + 60) + 408, a2);
+    ImsResult::operator=(&v7[62 * this[60] + 51], a2);
   }
 
-  if (0xEF7BDEF7BDEF7BDFLL * ((*(this + 58) - *(this + 57)) >> 4) != SipRegistrationPolicy::countOfProxiesWithErrors(this))
+  if (0xEF7BDEF7BDEF7BDFLL * ((this[58] - this[57]) >> 4) != SipRegistrationPolicy::countOfProxiesWithErrors(this))
   {
-    if ((*(*this + 320))(this))
+    if (((*this)[40].isa)(this))
     {
-      (*(*this + 504))(this);
+      ((*this)[63].isa)(this);
     }
 
-LABEL_22:
-    result = 1;
-    goto LABEL_24;
+    return 1;
   }
 
-  v8 = *(this + 24);
+  v8 = this[24];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    (*(*this + 184))(__p, this);
-    if (v14 >= 0)
+    ((*this)[23].isa)(__p, this);
+    if (v13 >= 0)
     {
       v9 = __p;
     }
@@ -5875,21 +5803,18 @@ LABEL_22:
     }
 
     *buf = 141558275;
-    v20 = 1752392040;
-    v21 = 2081;
-    v22 = v9;
+    v19 = 1752392040;
+    v20 = 2081;
+    v21 = v9;
     _os_log_impl(&dword_1E4C3F000, v8, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sreceived auth challenge error from all proxies", buf, 0x16u);
-    if (v14 < 0)
+    if (v13 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  (*(*this + 144))(this, a2);
-  result = 0;
-LABEL_24:
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  ((*this)[18].isa)(this, a2);
+  return 0;
 }
 
 uint64_t SipRegistrationPolicy::countOfProxiesWithErrors(SipRegistrationPolicy *this)
@@ -5917,37 +5842,37 @@ uint64_t SipRegistrationPolicy::countOfProxiesWithErrors(SipRegistrationPolicy *
 
 uint64_t SipRegistrationPolicy::retryTimeFromResult(SipRegistrationPolicy *this, const ImsResult *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (*(a2 + 1) != &SipResultDomain::_domain)
   {
-    goto LABEL_16;
+    return -1;
   }
 
   v2 = a2;
   if (!SipRegistrationConfig::honorRetryAfterForStatusCode((this + 504), *(a2 + 4)))
   {
-    goto LABEL_16;
+    return -1;
   }
 
+  v11 = 0;
   v12 = 0;
-  v13 = 0;
-  SipResultDomain::responseFromResult(v2, &v12);
-  if (v12 && (v2 = SipMessage::header<SipRetryAfterHeader>(v12)) != 0)
+  SipResultDomain::responseFromResult(v2, &v11);
+  if (v11 && (v2 = SipMessage::header<SipRetryAfterHeader>(v11)) != 0)
   {
     v4 = *(this + 24);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       (*(*this + 184))(__p, this);
-      v5 = v11 >= 0 ? __p : __p[0];
+      v5 = v10 >= 0 ? __p : __p[0];
       v6 = *(v2 + 104);
       *buf = 141558531;
-      v15 = 1752392040;
-      v16 = 2081;
-      v17 = v5;
-      v18 = 1024;
-      v19 = v6;
+      v14 = 1752392040;
+      v15 = 2081;
+      v16 = v5;
+      v17 = 1024;
+      v18 = v6;
       _os_log_impl(&dword_1E4C3F000, v4, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sUsing Retry-After header value: %u", buf, 0x1Cu);
-      if (v11 < 0)
+      if (v10 < 0)
       {
         operator delete(__p[0]);
       }
@@ -5962,18 +5887,16 @@ uint64_t SipRegistrationPolicy::retryTimeFromResult(SipRegistrationPolicy *this,
     v7 = 1;
   }
 
-  if (v13)
+  if (v12)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   }
 
   if (v7)
   {
-LABEL_16:
-    v2 = -1;
+    return -1;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -5989,7 +5912,7 @@ void sub_1E4F7B61C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t SipRegistrationPolicy::handleGeneralErrorFromOneProxy(SipRegistrationPolicy *this, const ImsResult *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v4 = SipRegistrationPolicy::retryTimeFromResult(this, a2);
   if (v4 == -1)
   {
@@ -6035,7 +5958,7 @@ uint64_t SipRegistrationPolicy::handleGeneralErrorFromOneProxy(SipRegistrationPo
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               (*(*this + 184))(__p, this);
-              if (v27 >= 0)
+              if (v26 >= 0)
               {
                 v15 = __p;
               }
@@ -6049,12 +5972,12 @@ uint64_t SipRegistrationPolicy::handleGeneralErrorFromOneProxy(SipRegistrationPo
               *&buf[4] = 1752392040;
               *&buf[12] = 2081;
               *&buf[14] = v15;
-              v29 = 2048;
-              v30 = v5;
-              v31 = 1024;
-              v32 = v13;
+              v28 = 2048;
+              v29 = v5;
+              v30 = 1024;
+              v31 = v13;
               _os_log_impl(&dword_1E4C3F000, v14, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sRetry-After header value=%ld < timerF=%u: will stay on the same proxy", buf, 0x26u);
-              if (v27 < 0)
+              if (v26 < 0)
               {
                 operator delete(*__p);
               }
@@ -6062,7 +5985,7 @@ uint64_t SipRegistrationPolicy::handleGeneralErrorFromOneProxy(SipRegistrationPo
 
             std::__shared_weak_count::__release_shared[abi:ne200100](v8);
             v16 = 0;
-            goto LABEL_36;
+            return (*(*this + 488))(this, a2, v5, v16);
           }
         }
 
@@ -6079,13 +6002,13 @@ uint64_t SipRegistrationPolicy::handleGeneralErrorFromOneProxy(SipRegistrationPo
     if (v19)
     {
       (*(*this + 184))(buf, this);
-      v20 = v29 >= 0 ? buf : *buf;
+      v20 = v28 >= 0 ? buf : *buf;
       *__p = 141558275;
       *&__p[4] = 1752392040;
-      v25 = 2081;
-      v26 = v20;
+      v24 = 2081;
+      v25 = v20;
       _os_log_impl(&dword_1E4C3F000, v18, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}stime to switch proxies", __p, 0x16u);
-      if (SHIBYTE(v29) < 0)
+      if (SHIBYTE(v28) < 0)
       {
         operator delete(*buf);
       }
@@ -6099,13 +6022,13 @@ uint64_t SipRegistrationPolicy::handleGeneralErrorFromOneProxy(SipRegistrationPo
     if (v19)
     {
       (*(*this + 184))(buf, this);
-      v21 = v29 >= 0 ? buf : *buf;
+      v21 = v28 >= 0 ? buf : *buf;
       *__p = 141558275;
       *&__p[4] = 1752392040;
-      v25 = 2081;
-      v26 = v21;
+      v24 = 2081;
+      v25 = v21;
       _os_log_impl(&dword_1E4C3F000, v18, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}swill try again with the same proxy.", __p, 0x16u);
-      if (SHIBYTE(v29) < 0)
+      if (SHIBYTE(v28) < 0)
       {
         operator delete(*buf);
       }
@@ -6114,15 +6037,12 @@ uint64_t SipRegistrationPolicy::handleGeneralErrorFromOneProxy(SipRegistrationPo
     v16 = 0;
   }
 
-LABEL_36:
-  result = (*(*this + 488))(this, a2, v5, v16);
-  v23 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*this + 488))(this, a2, v5, v16);
 }
 
 uint64_t SipRegistrationPolicy::handleFatalError(SipRegistrationPolicy *this, const ImsResult *a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v4 = *(this + 57);
   if (v4)
   {
@@ -6145,16 +6065,16 @@ uint64_t SipRegistrationPolicy::handleFatalError(SipRegistrationPolicy *this, co
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     (*(*this + 184))(__p, this);
-    v7 = v28 >= 0 ? __p : *__p;
+    v7 = v27 >= 0 ? __p : *__p;
     v8 = *(this + 51);
     *buf = 141558531;
     *&buf[4] = 1752392040;
-    v30 = 2081;
-    v31 = v7;
-    v32 = 1024;
-    v33 = v8;
+    v29 = 2081;
+    v30 = v7;
+    v31 = 1024;
+    v32 = v8;
     _os_log_impl(&dword_1E4C3F000, v6, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}shandling fatal registration error #%u", buf, 0x1Cu);
-    if (v28 < 0)
+    if (v27 < 0)
     {
       operator delete(*__p);
     }
@@ -6169,13 +6089,13 @@ uint64_t SipRegistrationPolicy::handleFatalError(SipRegistrationPolicy *this, co
     }
 
     (*(*this + 184))(buf, this);
-    v17 = v32 >= 0 ? buf : *buf;
+    v17 = v31 >= 0 ? buf : *buf;
     *__p = 141558275;
     *&__p[4] = 1752392040;
-    v26 = 2081;
-    v27 = v17;
+    v25 = 2081;
+    v26 = v17;
     _os_log_impl(&dword_1E4C3F000, v16, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sdisabled mode is, uh, disabled. I'll keep retrying.", __p, 0x16u);
-    if ((SHIBYTE(v32) & 0x80000000) == 0)
+    if ((SHIBYTE(v31) & 0x80000000) == 0)
     {
       goto LABEL_27;
     }
@@ -6196,16 +6116,16 @@ uint64_t SipRegistrationPolicy::handleFatalError(SipRegistrationPolicy *this, co
     }
 
     (*(*this + 184))(__p, this);
-    v13 = v28 >= 0 ? __p : *__p;
+    v13 = v27 >= 0 ? __p : *__p;
     v14 = *(this + 376) - *(this + 51);
     *buf = 141558531;
     *&buf[4] = 1752392040;
-    v30 = 2081;
-    v31 = v13;
-    v32 = 1024;
-    v33 = v14;
+    v29 = 2081;
+    v30 = v13;
+    v31 = 1024;
+    v32 = v14;
     _os_log_impl(&dword_1E4C3F000, v11, OS_LOG_TYPE_DEFAULT, "#W %{private, mask.hash}sreceived fatal registration response. %u more and you're done.", buf, 0x1Cu);
-    if ((v28 & 0x80000000) == 0)
+    if ((v27 & 0x80000000) == 0)
     {
       goto LABEL_27;
     }
@@ -6221,7 +6141,7 @@ LABEL_27:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         (*(*this + 184))(buf, this);
-        if (v32 >= 0)
+        if (v31 >= 0)
         {
           v20 = buf;
         }
@@ -6233,10 +6153,10 @@ LABEL_27:
 
         *__p = 141558275;
         *&__p[4] = 1752392040;
-        v26 = 2081;
-        v27 = v20;
+        v25 = 2081;
+        v26 = v20;
         _os_log_impl(&dword_1E4C3F000, v19, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sthis is a re-registration. Trying to use the same proxy.", __p, 0x16u);
-        if (SHIBYTE(v32) < 0)
+        if (SHIBYTE(v31) < 0)
         {
           operator delete(*buf);
         }
@@ -6244,35 +6164,31 @@ LABEL_27:
     }
 
     v21 = (*(*this + 208))(this);
-    result = (*(*this + 488))(this, a2, v21, v18);
-    goto LABEL_42;
+    return (*(*this + 488))(this, a2, v21, v18);
   }
 
   if (v12)
   {
     (*(*this + 184))(buf, this);
-    v23 = v32 >= 0 ? buf : *buf;
+    v23 = v31 >= 0 ? buf : *buf;
     *__p = 141558275;
     *&__p[4] = 1752392040;
-    v26 = 2081;
-    v27 = v23;
+    v25 = 2081;
+    v26 = v23;
     _os_log_impl(&dword_1E4C3F000, v11, OS_LOG_TYPE_DEFAULT, "#W %{private, mask.hash}stoo many fatal registration errors.  Disabling IMS registration.", __p, 0x16u);
-    if (SHIBYTE(v32) < 0)
+    if (SHIBYTE(v31) < 0)
     {
       operator delete(*buf);
     }
   }
 
   SipRegistrationPolicy::setRegistrationMode(this, &SipRegistrationMode::kModeDisabled, 200);
-  result = -1;
-LABEL_42:
-  v24 = *MEMORY[0x1E69E9840];
-  return result;
+  return -1;
 }
 
 void SipRegistrationPolicy::setRegistrationMode(SipRegistrationPolicy *this, const SipRegistrationMode *a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v4 = *(this + 50);
   if (v4)
   {
@@ -6287,8 +6203,8 @@ void SipRegistrationPolicy::setRegistrationMode(SipRegistrationPolicy *this, con
         {
           if (os_log_type_enabled(*(this + 24), OS_LOG_TYPE_DEFAULT))
           {
-            (*(*this + 184))(v20, this);
-            SipRegistrationMode::logStr((this + 448));
+            (*(*this + 184))(v19, this);
+            SipRegistrationMode::logStr();
           }
 
           *(this + 112) = v9;
@@ -6298,41 +6214,41 @@ void SipRegistrationPolicy::setRegistrationMode(SipRegistrationPolicy *this, con
             v10 = *(this + 24);
             if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
             {
-              (*(*this + 184))(v20, this);
-              v11 = v23;
-              v12 = *v20;
-              deviceEventsToString(*(this + 452), v18);
-              v13 = v20;
+              (*(*this + 184))(v19, this);
+              v11 = v22;
+              v12 = *v19;
+              deviceEventsToString(v17, *(this + 452));
+              v13 = v19;
               if (v11 < 0)
               {
                 v13 = v12;
               }
 
-              if (v19 >= 0)
+              if (v18 >= 0)
               {
-                v14 = v18;
+                v14 = v17;
               }
 
               else
               {
-                v14 = v18[0];
+                v14 = v17[0];
               }
 
               *buf = 141558531;
               *&buf[4] = 1752392040;
-              v25 = 2081;
-              v26 = v13;
-              v27 = 2080;
-              v28 = v14;
+              v24 = 2081;
+              v25 = v13;
+              v26 = 2080;
+              v27 = v14;
               _os_log_impl(&dword_1E4C3F000, v10, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}snot resetting registration mode until we see one of these events: %s", buf, 0x20u);
-              if (v19 < 0)
+              if (v18 < 0)
               {
-                operator delete(v18[0]);
+                operator delete(v17[0]);
               }
 
-              if (v23 < 0)
+              if (v22 < 0)
               {
-                operator delete(*v20);
+                operator delete(*v19);
               }
             }
           }
@@ -6342,7 +6258,7 @@ void SipRegistrationPolicy::setRegistrationMode(SipRegistrationPolicy *this, con
 
 LABEL_27:
         std::__shared_weak_count::__release_shared[abi:ne200100](v7);
-        goto LABEL_28;
+        return;
       }
     }
   }
@@ -6356,13 +6272,13 @@ LABEL_27:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     (*(*this + 184))(buf, this);
-    v16 = v27 >= 0 ? buf : *buf;
-    *v20 = 141558275;
-    *&v20[4] = 1752392040;
-    v21 = 2081;
-    v22 = v16;
-    _os_log_impl(&dword_1E4C3F000, v15, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}ssetRegistrationMode: no delegate", v20, 0x16u);
-    if (SHIBYTE(v27) < 0)
+    v16 = v26 >= 0 ? buf : *buf;
+    *v19 = 141558275;
+    *&v19[4] = 1752392040;
+    v20 = 2081;
+    v21 = v16;
+    _os_log_impl(&dword_1E4C3F000, v15, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}ssetRegistrationMode: no delegate", v19, 0x16u);
+    if (SHIBYTE(v26) < 0)
     {
       operator delete(*buf);
     }
@@ -6372,9 +6288,6 @@ LABEL_27:
   {
     goto LABEL_27;
   }
-
-LABEL_28:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4F7C360(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -6388,18 +6301,18 @@ void sub_1E4F7C360(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t SipRegistrationPolicy::handleForbiddenUser(uint64_t a1, uint64_t *a2)
+uint64_t SipRegistrationPolicy::handleForbiddenUser(uint64_t a1, SipResponse **a2)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v4 = *a2;
-  v5 = *(*a2 + 128);
-  v30 = 0;
-  memset(v29, 0, sizeof(v29));
-  SipResponse::asImsResult(v4, v29);
+  v5 = *(*a2 + 32);
+  v29 = 0;
+  memset(v28, 0, sizeof(v28));
+  SipResponse::asImsResult(v28, v4);
   v6 = *(a1 + 456);
   if (v6 && v6 != *(a1 + 464))
   {
-    ImsResult::operator=(v6 + 496 * *(a1 + 480) + 408, v29);
+    ImsResult::operator=(v6 + 496 * *(a1 + 480) + 408, v28);
   }
 
   *(a1 + 220) = 1;
@@ -6411,16 +6324,16 @@ uint64_t SipRegistrationPolicy::handleForbiddenUser(uint64_t a1, uint64_t *a2)
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     (*(*a1 + 184))(__p, a1);
-    v9 = v34 >= 0 ? __p : *__p;
+    v9 = v33 >= 0 ? __p : *__p;
     v10 = *(a1 + 208);
     *buf = 141558531;
     *&buf[4] = 1752392040;
-    v36 = 2081;
-    v37 = v9;
-    v38 = 1024;
-    v39 = v10;
+    v35 = 2081;
+    v36 = v9;
+    v37 = 1024;
+    v38 = v10;
     _os_log_impl(&dword_1E4C3F000, v8, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}shandling consecutive forbidden/unknown user registration error #%u", buf, 0x1Cu);
-    if (v34 < 0)
+    if (v33 < 0)
     {
       operator delete(*__p);
     }
@@ -6434,13 +6347,13 @@ uint64_t SipRegistrationPolicy::handleForbiddenUser(uint64_t a1, uint64_t *a2)
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         (*(*a1 + 184))(buf, a1);
-        v18 = v38 >= 0 ? buf : *buf;
+        v18 = v37 >= 0 ? buf : *buf;
         *__p = 141558275;
         *&__p[4] = 1752392040;
-        v32 = 2081;
-        v33 = v18;
+        v31 = 2081;
+        v32 = v18;
         _os_log_impl(&dword_1E4C3F000, v17, OS_LOG_TYPE_DEFAULT, "#W %{private, mask.hash}sreceived Forbidden/Unknown responses from all proxies.  Falling back to limited-access mode.", __p, 0x16u);
-        if (SHIBYTE(v38) < 0)
+        if (SHIBYTE(v37) < 0)
         {
           operator delete(*buf);
         }
@@ -6452,7 +6365,7 @@ uint64_t SipRegistrationPolicy::handleForbiddenUser(uint64_t a1, uint64_t *a2)
       v20 = *(a1 + 1496);
       std::string::basic_string[abi:ne200100]<0>(buf, "LimitedAccessThrottling");
       (*(*a1 + 576))(a1, v20 + v19, buf);
-      if (SHIBYTE(v38) < 0)
+      if (SHIBYTE(v37) < 0)
       {
         operator delete(*buf);
       }
@@ -6493,13 +6406,13 @@ LABEL_43:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         (*(*a1 + 184))(buf, a1);
-        v23 = v38 >= 0 ? buf : *buf;
+        v23 = v37 >= 0 ? buf : *buf;
         *__p = 141558275;
         *&__p[4] = 1752392040;
-        v32 = 2081;
-        v33 = v23;
+        v31 = 2081;
+        v32 = v23;
         _os_log_impl(&dword_1E4C3F000, v22, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sdisabled mode is, uh, disabled. I'll keep retrying.", __p, 0x16u);
-        if (SHIBYTE(v38) < 0)
+        if (SHIBYTE(v37) < 0)
         {
           operator delete(*buf);
         }
@@ -6512,13 +6425,13 @@ LABEL_43:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       (*(*a1 + 184))(buf, a1);
-      v16 = v38 >= 0 ? buf : *buf;
+      v16 = v37 >= 0 ? buf : *buf;
       *__p = 141558275;
       *&__p[4] = 1752392040;
-      v32 = 2081;
-      v33 = v16;
+      v31 = 2081;
+      v32 = v16;
       _os_log_impl(&dword_1E4C3F000, v15, OS_LOG_TYPE_DEFAULT, "#W %{private, mask.hash}sreceived Forbidden/Unknown responses from all proxies.  Disabling IMS registration.", __p, 0x16u);
-      if (SHIBYTE(v38) < 0)
+      if (SHIBYTE(v37) < 0)
       {
         operator delete(*buf);
       }
@@ -6547,7 +6460,7 @@ LABEL_49:
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       (*(*a1 + 184))(buf, a1);
-      if (v38 >= 0)
+      if (v37 >= 0)
       {
         v26 = buf;
       }
@@ -6559,20 +6472,19 @@ LABEL_49:
 
       *__p = 141558275;
       *&__p[4] = 1752392040;
-      v32 = 2081;
-      v33 = v26;
+      v31 = 2081;
+      v32 = v26;
       _os_log_impl(&dword_1E4C3F000, v25, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sthis is a re-registration. Trying to use the same proxy.", __p, 0x16u);
-      if (SHIBYTE(v38) < 0)
+      if (SHIBYTE(v37) < 0)
       {
         operator delete(*buf);
       }
     }
   }
 
-  v21 = (*(*a1 + 488))(a1, v29, v7, v24);
+  v21 = (*(*a1 + 488))(a1, v28, v7, v24);
 LABEL_57:
-  ImsResult::~ImsResult(v29);
-  v27 = *MEMORY[0x1E69E9840];
+  ImsResult::~ImsResult(v28);
   return v21;
 }
 
@@ -6589,8 +6501,6 @@ void *SipMessage::header<SipWarningHeader>(uint64_t a1)
   {
     return 0;
   }
-
-  v3 = **v2;
 }
 
 BOOL SipRegistrationPolicy::shouldWaitForCallsToEnd(SipRegistrationPolicy *this)
@@ -6617,7 +6527,7 @@ BOOL SipRegistrationPolicy::shouldWaitForCallsToEnd(SipRegistrationPolicy *this)
 
 void SipRegistrationPolicy::handleAllCallsEnded(SipRegistrationPolicy *this)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (*(this + 2264) == 1)
   {
     *(this + 2264) = 0;
@@ -6625,7 +6535,7 @@ void SipRegistrationPolicy::handleAllCallsEnded(SipRegistrationPolicy *this)
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       (*(*this + 184))(__p, this);
-      if (v6 >= 0)
+      if (v5 >= 0)
       {
         v3 = __p;
       }
@@ -6636,11 +6546,11 @@ void SipRegistrationPolicy::handleAllCallsEnded(SipRegistrationPolicy *this)
       }
 
       *buf = 141558275;
-      v8 = 1752392040;
-      v9 = 2081;
-      v10 = v3;
+      v7 = 1752392040;
+      v8 = 2081;
+      v9 = v3;
       _os_log_impl(&dword_1E4C3F000, v2, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sall calls have ended. Retrying registration.", buf, 0x16u);
-      if (v6 < 0)
+      if (v5 < 0)
       {
         operator delete(__p[0]);
       }
@@ -6648,147 +6558,151 @@ void SipRegistrationPolicy::handleAllCallsEnded(SipRegistrationPolicy *this)
 
     SipRegistrationPolicy::retryRegistration(this);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t SipRegistrationPolicy::handleRegistrationChange(int8x8_t *this, const SipRegistrationStateNotification *a2, const SipRegistrationState *a3)
+uint64_t SipRegistrationPolicy::handleRegistrationChange(SipRegistrationPolicy *this, const SipRegistrationStateNotification *a2, const SipRegistrationState *a3)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   if (*(*(*a2 + 48))(a2) == 2)
   {
     if ((*(*this + 536))(this))
     {
-      SipTimerContainer::cancelTimer(this + 28, &SipRegistrationPolicy::kEmergencyRegistrationTimer);
+      SipTimerContainer::cancelTimer((this + 224), &SipRegistrationPolicy::kEmergencyRegistrationTimer);
     }
 
     if (((*(*a2 + 56))(a2) & 1) == 0)
     {
-      if (this[27].i8[4] == 1)
+      if (*(this + 220) == 1)
       {
-        this[27].i8[4] = 0;
+        *(this + 220) = 0;
       }
 
       else
       {
-        ++this[27].i32[0];
+        ++*(this + 54);
       }
 
       (*(*this + 568))(this);
-      this[62] = this[60];
+      *(this + 62) = *(this + 60);
     }
 
-    goto LABEL_17;
+    return -1;
   }
 
+  if (*(*(*a2 + 48))(a2) != 3)
   {
-LABEL_17:
-    v9 = -1;
-    goto LABEL_18;
+    return -1;
   }
 
-  v8 = v7;
-  if (v7[80] == 1 && (v7[81] & 1) == 0)
+  *(this + 220) = 1;
+  *(this + 54) = 0;
+  if (!v6)
+  {
+    return -1;
+  }
+
+  v7 = v6;
+  if (v6[80] == 1 && (v6[81] & 1) == 0)
   {
     Retry = SipRegistrationNotification::secondsUntilNextRetry(a2);
-    v13 = this[186];
-    if (v13 >= Retry)
+    v11 = *(this + 186);
+    if (v11 >= Retry)
     {
-      v14 = Retry;
+      v12 = Retry;
     }
 
     else
     {
-      v14 = this[186];
+      v12 = *(this + 186);
     }
 
-    if (!v13)
+    if (!v11)
     {
-      v14 = Retry;
+      v12 = Retry;
     }
 
     if ((Retry - 1) >= 0xFFFFFFFFFFFFFFFELL)
     {
-      v15 = this[186];
+      v13 = *(this + 186);
     }
 
     else
     {
-      v15 = v14;
+      v13 = v12;
     }
 
-    v16 = this[50];
-    if (v16)
+    v14 = *(this + 50);
+    if (v14)
     {
-      v17 = std::__shared_weak_count::lock(v16);
-      if (v17)
+      v15 = std::__shared_weak_count::lock(v14);
+      if (v15)
       {
-        v18 = v17;
-        v19 = this[49];
-        if (!*&v19)
+        v16 = v15;
+        v17 = *(this + 49);
+        if (!v17)
         {
           goto LABEL_33;
         }
 
-        (*(**&v19 + 144))(&__p, *&this[49]);
-        v20 = SipStack::prefs(__p);
-        v21 = ImsPrefs::KeepThrottleRegAfterTerminationWhileOutOfService(v20);
-        if (v33)
+        (*(*v17 + 144))(&__p, *(this + 49));
+        v18 = SipStack::prefs(__p);
+        v19 = ImsPrefs::KeepThrottleRegAfterTerminationWhileOutOfService(v18);
+        if (v31)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v31);
         }
 
-        if (!v21)
+        if (!v19)
         {
-          (*(**&v19 + 144))(&__p, v19);
-          v29 = *(__p + 4504);
-          if (v33)
+          (*(*v17 + 144))(&__p, v17);
+          v27 = *(__p + 4504);
+          if (v31)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v31);
           }
 
-          std::__shared_weak_count::__release_shared[abi:ne200100](v18);
-          if ((v29 & 1) == 0)
+          std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+          if ((v27 & 1) == 0)
           {
-            v30 = this[24];
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+            v28 = *(this + 24);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
               (*(*this + 184))(&__p, this);
-              v31 = v35 >= 0 ? &__p : __p;
+              v29 = v33 >= 0 ? &__p : __p;
               *buf = 141558275;
-              v41 = 1752392040;
-              v42 = 2081;
-              v43 = v31;
-              _os_log_impl(&dword_1E4C3F000, v30, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sno more reg attempt after termination while no connectivity", buf, 0x16u);
-              if (v35 < 0)
+              v39 = 1752392040;
+              v40 = 2081;
+              v41 = v29;
+              _os_log_impl(&dword_1E4C3F000, v28, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sno more reg attempt after termination while no connectivity", buf, 0x16u);
+              if (v33 < 0)
               {
                 operator delete(__p);
               }
             }
 
-            goto LABEL_17;
+            return -1;
           }
         }
 
         else
         {
 LABEL_33:
-          std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v16);
         }
       }
     }
 
-    v22 = (*(*this + 328))(this);
-    v23 = *(v8 + 14);
-    if (v22)
+    v20 = (*(*this + 328))(this);
+    v21 = *(v7 + 14);
+    if (v20)
     {
-      if (v23 != 21)
+      if (v21 != 21)
       {
-        v24 = this[24];
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v22 = *(this + 24);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           (*(*this + 184))(&__p, this);
-          if (v35 >= 0)
+          if (v33 >= 0)
           {
             p_p = &__p;
           }
@@ -6799,10 +6713,10 @@ LABEL_33:
           }
 
           *buf = 141558275;
-          v41 = 1752392040;
-          v42 = 2081;
-          v43 = p_p;
-          v26 = "%{private, mask.hash}smoving to next proxy due to registration change";
+          v39 = 1752392040;
+          v40 = 2081;
+          v41 = p_p;
+          v24 = "%{private, mask.hash}smoving to next proxy due to registration change";
           goto LABEL_48;
         }
 
@@ -6810,69 +6724,67 @@ LABEL_33:
       }
     }
 
-    else if (v23 == 2 && this[271].i8[0] == 1)
+    else if (v21 == 2 && *(this + 2168) == 1)
     {
-      v24 = this[24];
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v22 = *(this + 24);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         (*(*this + 184))(&__p, this);
-        if (v35 >= 0)
+        if (v33 >= 0)
         {
-          v27 = &__p;
+          v25 = &__p;
         }
 
         else
         {
-          v27 = __p;
+          v25 = __p;
         }
 
         *buf = 141558275;
-        v41 = 1752392040;
-        v42 = 2081;
-        v43 = v27;
-        v26 = "%{private, mask.hash}smoving to next proxy due to P-CSCF restoration";
+        v39 = 1752392040;
+        v40 = 2081;
+        v41 = v25;
+        v24 = "%{private, mask.hash}smoving to next proxy due to P-CSCF restoration";
 LABEL_48:
-        _os_log_impl(&dword_1E4C3F000, v24, OS_LOG_TYPE_DEFAULT, v26, buf, 0x16u);
-        if (v35 < 0)
+        _os_log_impl(&dword_1E4C3F000, v22, OS_LOG_TYPE_DEFAULT, v24, buf, 0x16u);
+        if (v33 < 0)
         {
           operator delete(__p);
         }
       }
 
 LABEL_50:
-      v28 = 1;
+      v26 = 1;
 LABEL_52:
+      v34 = 0u;
+      v35 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v38 = 0u;
-      v39 = 0u;
       __p = &unk_1F5EBDEF8;
-      v33 = &_bambiDomain;
-      v34 = 1073741839;
-      v9 = (*(*this + 488))(this, &__p, v15, v28);
+      v31 = &_bambiDomain;
+      v32 = 1073741839;
+      v8 = (*(*this + 488))(this, &__p, v13, v26);
       ImsResult::~ImsResult(&__p);
-      goto LABEL_18;
+      return v8;
     }
 
-    v28 = 0;
+    v26 = 0;
     goto LABEL_52;
   }
 
-  if ((*(v7 + 14) - 3) > 1)
+  if ((*(v6 + 14) - 3) > 1)
   {
-    goto LABEL_17;
+    return -1;
   }
 
-  SipTimerContainer::cancelAllTimers(&this[28]);
-  v9 = -1;
-  if (*(v8 + 14) == 3 && *a3 == 2)
+  SipTimerContainer::cancelAllTimers((this + 224));
+  v8 = -1;
+  if (*(v7 + 14) == 3 && *a3 == 2)
   {
     SipRegistrationPolicy::clearAllThrottling(this);
   }
 
-LABEL_18:
-  v10 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v8;
 }
 
 uint64_t SipRegistrationPolicy::printProxyErrors(uint64_t this, ImsOutStream *a2, int a3)
@@ -7029,20 +6941,20 @@ uint64_t SipRegistrationPolicy::printPolicyInfo(SipRegistrationPolicy *this, Ims
   return result;
 }
 
-void SipRegistrationPolicy::logStrForPolicyInfo(SipRegistrationPolicy *this)
+void SipRegistrationPolicy::logStrForPolicyInfo()
 {
-  v2 = 0;
-  memset(v1, 0, sizeof(v1));
-  ImsStringOutStream::ImsStringOutStream(v1);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  ImsStringOutStream::ImsStringOutStream(v2, 1);
 }
 
-void sub_1E4F7DB68(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1E4F7DB68(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
 {
   if (a11 == 1)
   {
     if (a10)
     {
-      (*(*a10 + 8))(a10);
+      (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -7063,7 +6975,7 @@ uint64_t SipRegistrationPolicy::emergencyStateExited(SipRegistrationPolicy *this
 
 void SipRegistrationPolicy::checkTimers(SipRegistrationPolicy *this, uint64_t a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>>>::find<std::string>(this + 29, "ThrottleTimer"))
   {
     v4 = *(this + 51);
@@ -7076,13 +6988,13 @@ void SipRegistrationPolicy::checkTimers(SipRegistrationPolicy *this, uint64_t a2
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           (*(*this + 184))(buf, this);
-          v13 = v20 >= 0 ? buf : *buf;
-          *v16 = 141558275;
-          *&v16[4] = 1752392040;
-          v17 = 2081;
-          v18 = v13;
-          _os_log_impl(&dword_1E4C3F000, v12, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}soops, I slept through the last throttle time", v16, 0x16u);
-          if (SHIBYTE(v20) < 0)
+          v13 = v18 >= 0 ? buf : *buf;
+          *v14 = 141558275;
+          *&v14[4] = 1752392040;
+          v15 = 2081;
+          v16 = v13;
+          _os_log_impl(&dword_1E4C3F000, v12, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}soops, I slept through the last throttle time", v14, 0x16u);
+          if (SHIBYTE(v18) < 0)
           {
             operator delete(*buf);
           }
@@ -7116,14 +7028,13 @@ void SipRegistrationPolicy::checkTimers(SipRegistrationPolicy *this, uint64_t a2
         {
           if (v11)
           {
-            (*(*this + 184))(v16, this);
-            v15 = *(this + 51);
-            ims::TimeAndIntervalFromNow::logStr(&v15);
+            (*(*this + 184))(v14, this);
+            ims::TimeAndIntervalFromNow::logStr();
           }
 
           std::string::basic_string[abi:ne200100]<0>(buf, "CheckTimers");
           (*(*this + 576))(this, a2, buf);
-          if (SHIBYTE(v20) < 0)
+          if (SHIBYTE(v18) < 0)
           {
             operator delete(*buf);
           }
@@ -7135,9 +7046,8 @@ void SipRegistrationPolicy::checkTimers(SipRegistrationPolicy *this, uint64_t a2
         {
           if (v11)
           {
-            (*(*this + 184))(v16, this);
-            v15 = *(this + 51);
-            ims::TimeAndIntervalFromNow::logStr(&v15);
+            (*(*this + 184))(v14, this);
+            ims::TimeAndIntervalFromNow::logStr();
           }
 
           SipRegistrationPolicy::startTimer(this);
@@ -7145,8 +7055,6 @@ void SipRegistrationPolicy::checkTimers(SipRegistrationPolicy *this, uint64_t a2
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4F7E008(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -7159,10 +7067,10 @@ void sub_1E4F7E008(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SipRegistrationPolicy::currentProxies(SipRegistrationPolicy *this@<X0>, uint64_t a2@<X8>)
+void SipRegistrationPolicy::currentProxies(SipRegistrationPolicy *this@<X0>, uint64_t *a2@<X8>)
 {
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 0u;
+  *(a2 + 1) = 0u;
+  *(a2 + 2) = 0u;
   *a2 = 0u;
   v2 = *(this + 57);
   v3 = *(this + 58);
@@ -7173,9 +7081,9 @@ void SipRegistrationPolicy::currentProxies(SipRegistrationPolicy *this@<X0>, uin
     {
       if (v6 == *(this + 60))
       {
-        v7 = *(a2 + 32);
-        v8 = *(a2 + 8);
-        v9 = *(a2 + 16);
+        v7 = a2[4];
+        v8 = a2[1];
+        v9 = a2[2];
         if (!v7)
         {
           v10 = 2 * (v9 - v8) - 1;
@@ -7185,9 +7093,9 @@ void SipRegistrationPolicy::currentProxies(SipRegistrationPolicy *this@<X0>, uin
             v10 = 0;
           }
 
-          if ((v10 - *(a2 + 40)) < 0x10)
+          if ((v10 - a2[5]) < 0x10)
           {
-            v12 = *(a2 + 24);
+            v12 = a2[3];
             v13 = *a2;
             v14 = v12 - *a2;
             if (v11 < v14)
@@ -7214,13 +7122,13 @@ void SipRegistrationPolicy::currentProxies(SipRegistrationPolicy *this@<X0>, uin
             std::__allocate_at_least[abi:ne200100]<std::allocator<XmlParserGenericItem *>>(a2, v15);
           }
 
-          *(a2 + 32) = 16;
+          a2[4] = 16;
           v19[0] = *(v9 - 8);
-          *(a2 + 16) = v9 - 8;
+          a2[2] = v9 - 8;
           std::__split_buffer<SipUri *>::emplace_front<SipUri *>(a2, v19);
-          v7 = *(a2 + 32);
-          v8 = *(a2 + 8);
-          v9 = *(a2 + 16);
+          v7 = a2[4];
+          v8 = a2[1];
+          v9 = a2[2];
         }
 
         v16 = (v8 + 8 * (v7 >> 4));
@@ -7241,7 +7149,7 @@ void SipRegistrationPolicy::currentProxies(SipRegistrationPolicy *this@<X0>, uin
         }
 
         SipUri::SipUri((v18 - 408), v2);
-        *(a2 + 32) = vaddq_s64(*(a2 + 32), xmmword_1E5177540);
+        *(a2 + 2) = vaddq_s64(*(a2 + 2), xmmword_1E5177540);
       }
 
       else if (((*(**(v2 + 416) + 24))(*(v2 + 416), *(v2 + 424)) & 1) == 0)
@@ -7271,7 +7179,7 @@ void sub_1E4F7E330(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void SipRegistrationPolicy::transportInitializedToProxy(SipRegistrationPolicy *this, const SipUri *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = *(this + 57);
   v3 = *(this + 58);
   if (v2 != v3)
@@ -7279,10 +7187,10 @@ void SipRegistrationPolicy::transportInitializedToProxy(SipRegistrationPolicy *t
     v6 = 0;
     do
     {
-      memset(v14, 0, sizeof(v14));
-      SipUri::SipUri(v14, v2);
-      ImsResult::ImsResult((&v14[25] + 8), (v2 + 408));
-      v7 = SipUri::equals(v14, a2, 1);
+      memset(v13, 0, sizeof(v13));
+      SipUri::SipUri(v13, v2);
+      ImsResult::ImsResult((&v13[25] + 8), (v2 + 408));
+      v7 = SipUri::equals(v13, a2, 1);
       if (v7)
       {
         *(this + 60) = v6;
@@ -7291,19 +7199,19 @@ void SipRegistrationPolicy::transportInitializedToProxy(SipRegistrationPolicy *t
         {
           (*(*this + 184))(__p, this);
           v9 = __p;
-          if (v13 < 0)
+          if (v12 < 0)
           {
             v9 = __p[0];
           }
 
           *buf = 141558531;
-          v16 = 1752392040;
-          v17 = 2081;
-          v18 = v9;
-          v19 = 2048;
-          v20 = v6;
+          v15 = 1752392040;
+          v16 = 2081;
+          v17 = v9;
+          v18 = 2048;
+          v19 = v6;
           _os_log_impl(&dword_1E4C3F000, v8, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sinitialized transport to proxy offset %lu", buf, 0x20u);
-          if (v13 < 0)
+          if (v12 < 0)
           {
             operator delete(__p[0]);
           }
@@ -7315,8 +7223,8 @@ void SipRegistrationPolicy::transportInitializedToProxy(SipRegistrationPolicy *t
         ++v6;
       }
 
-      ImsResult::~ImsResult((&v14[25] + 8));
-      SipUri::~SipUri(v14);
+      ImsResult::~ImsResult((&v13[25] + 8));
+      SipUri::~SipUri(v13);
       v2 += 496;
       if (v2 == v3)
       {
@@ -7331,14 +7239,12 @@ void SipRegistrationPolicy::transportInitializedToProxy(SipRegistrationPolicy *t
 
     while ((v10 & 1) == 0);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1E4F7E580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1E4F7E580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  ImsResult::~ImsResult((v7 + 408));
+  va_start(va, a13);
+  ImsResult::~ImsResult((v13 + 408));
   SipUri::~SipUri(va);
   _Unwind_Resume(a1);
 }
@@ -7365,7 +7271,7 @@ void SipRegistrationPolicy::skipToNextProxy(SipRegistrationPolicy *this)
 
 void SipRegistrationPolicy::setProxyOffset(SipRegistrationPolicy *this, unint64_t a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = *(this + 57);
   v3 = *(this + 58);
   if (v2)
@@ -7384,39 +7290,28 @@ void SipRegistrationPolicy::setProxyOffset(SipRegistrationPolicy *this, unint64_
     {
       if (os_log_type_enabled(*(this + 24), OS_LOG_TYPE_DEFAULT))
       {
-        (*(*this + 184))(v20, this);
-        v8 = *(this + 57);
-        if (v8 == *(this + 58))
-        {
-          v9 = 0;
-        }
-
-        else
-        {
-          v9 = (v8 + 496 * *(this + 60));
-        }
-
-        SipHop::logStr(v9);
+        (*(*this + 184))(v15, this);
+        SipHop::logStr();
       }
     }
 
     else if (0xEF7BDEF7BDEF7BDFLL * ((v3 - v2) >> 4) <= a2)
     {
-      v12 = *(this + 24);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v7 = *(this + 24);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        (*(*this + 184))(v20, this);
-        v13 = v21 >= 0 ? v20 : v20[0];
+        (*(*this + 184))(v15, this);
+        v8 = v16 >= 0 ? v15 : v15[0];
         *buf = 141558531;
-        v23 = 1752392040;
-        v24 = 2081;
-        v25 = v13;
-        v26 = 2048;
-        v27 = a2;
-        _os_log_error_impl(&dword_1E4C3F000, v12, OS_LOG_TYPE_ERROR, "#E %{private, mask.hash}s%lu is not a valid proxy offset", buf, 0x20u);
-        if (v21 < 0)
+        v18 = 1752392040;
+        v19 = 2081;
+        v20 = v8;
+        v21 = 2048;
+        v22 = a2;
+        _os_log_error_impl(&dword_1E4C3F000, v7, OS_LOG_TYPE_ERROR, "#E %{private, mask.hash}s%lu is not a valid proxy offset", buf, 0x20u);
+        if (v16 < 0)
         {
-          operator delete(v20[0]);
+          operator delete(v15[0]);
         }
       }
     }
@@ -7428,68 +7323,55 @@ void SipRegistrationPolicy::setProxyOffset(SipRegistrationPolicy *this, unint64_
       *(this + 54) = 0;
       if (os_log_type_enabled(*(this + 24), OS_LOG_TYPE_DEFAULT))
       {
-        (*(*this + 184))(v20, this);
-        v10 = *(this + 57);
-        if (v10 == *(this + 58))
-        {
-          v11 = 0;
-        }
-
-        else
-        {
-          v11 = (v10 + 496 * *(this + 60));
-        }
-
-        SipHop::logStr(v11);
+        (*(*this + 184))(v15, this);
+        SipHop::logStr();
       }
 
       (*(*this + 224))(this);
-      v14 = *(this + 50);
-      if (v14)
+      v9 = *(this + 50);
+      if (v9)
       {
-        v15 = std::__shared_weak_count::lock(v14);
-        if (v15)
+        v10 = std::__shared_weak_count::lock(v9);
+        if (v10)
         {
-          v16 = v15;
-          v17 = *(this + 49);
-          if (v17)
+          v11 = v10;
+          v12 = *(this + 49);
+          if (v12)
           {
-            v18 = *(this + 57);
-            if (v18 == *(this + 58))
+            v13 = *(this + 57);
+            if (v13 == *(this + 58))
             {
-              v19 = 0;
+              v14 = 0;
             }
 
             else
             {
-              v19 = v18 + 496 * *(this + 60);
+              v14 = v13 + 496 * *(this + 60);
             }
 
-            (*(*v17 + 48))(v17, v19);
+            (*(*v12 + 48))(v12, v14);
           }
 
-          std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v11);
         }
       }
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void SipRegistrationPolicy::setProxy(SipRegistrationPolicy *this@<X0>, const SipUri *a2@<X1>, uint64_t a3@<X8>)
+void SipRegistrationPolicy::setProxy(uint64_t *__return_ptr a1@<X8>, SipRegistrationPolicy *this@<X0>, const SipUri *a3@<X1>)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (*(this + 58) == *(this + 57))
   {
 LABEL_13:
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     *buf = &unk_1F5EBDEF8;
-    v17 = &_bambiDomain;
-    v18 = 1073741836;
+    v16 = &_bambiDomain;
+    v17 = 1073741836;
     v12 = ImsResult::operator<<<char [15]>(buf, "unknown proxy ");
     v13 = *(v12 + 3);
     if (!v13)
@@ -7497,10 +7379,10 @@ LABEL_13:
       operator new();
     }
 
-    (*(*a2 + 40))(a2, v13);
-    ImsResult::ImsResult(a3, v12);
+    (*(*a3 + 40))(a3, v13);
+    ImsResult::ImsResult(a1, v12);
     ImsResult::~ImsResult(buf);
-    goto LABEL_20;
+    return;
   }
 
   v6 = 0;
@@ -7529,7 +7411,7 @@ LABEL_13:
 
     v11 = 5060;
 LABEL_9:
-    if (SipHost::equalsWithDefaultPort((a2 + 8), (*(this + 57) + v7), v11))
+    if (SipHost::equalsWithDefaultPort((a3 + 8), (*(this + 57) + v7), v11))
     {
       break;
     }
@@ -7549,25 +7431,22 @@ LABEL_9:
 
   if (os_log_type_enabled(*(this + 24), OS_LOG_TYPE_DEFAULT))
   {
-    (*(*this + 184))(&v15, this);
-    SipHop::logStr(a2);
+    (*(*this + 184))(&v14, this);
+    SipHop::logStr();
   }
 
   SipRegistrationPolicy::setProxyOffset(this, v6);
-  *(a3 + 24) = 0u;
-  *(a3 + 40) = 0u;
-  *(a3 + 56) = 0u;
-  *(a3 + 72) = 0u;
-  *a3 = &unk_1F5EBDEF8;
-  *(a3 + 8) = &_bambiDomain;
-  *(a3 + 16) = 0;
+  *(a1 + 3) = 0u;
+  *(a1 + 5) = 0u;
+  *(a1 + 7) = 0u;
+  *(a1 + 9) = 0u;
+  *a1 = &unk_1F5EBDEF8;
+  a1[1] = &_bambiDomain;
+  *(a1 + 4) = 0;
   if (v9)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
-
-LABEL_20:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4F7ED9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18)
@@ -7673,12 +7552,12 @@ BOOL SipRegistrationPolicy::allProxiesHaveError(uint64_t a1, uint64_t a2)
 
 void SipRegistrationPolicy::onInterfaceChanged(SipRegistrationPolicy *this)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = *(this + 24);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     (*(*this + 184))(__p, this);
-    if (v6 >= 0)
+    if (v5 >= 0)
     {
       v3 = __p;
     }
@@ -7689,61 +7568,60 @@ void SipRegistrationPolicy::onInterfaceChanged(SipRegistrationPolicy *this)
     }
 
     *buf = 141558275;
-    v8 = 1752392040;
-    v9 = 2081;
-    v10 = v3;
+    v7 = 1752392040;
+    v8 = 2081;
+    v9 = v3;
     _os_log_impl(&dword_1E4C3F000, v2, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sClearing throttling due to network interface change.", buf, 0x16u);
-    if (v6 < 0)
+    if (v5 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
   SipRegistrationPolicy::clearAllThrottling(this);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void SipRegistrationPolicy::updateConfig(NSObject **this, const SipRegistrationConfig *a2)
 {
   v3 = this;
-  v98 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   v4 = this[24];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    (*(*v3 + 184))(&__p, v3);
-    v5 = v55 >= 0 ? &__p : __p;
+    ((*v3)[23].isa)(&__p, v3);
+    v5 = v52 >= 0 ? &__p : __p;
     *buf = 141558275;
     *&buf[4] = 1752392040;
     *&buf[12] = 2081;
     *&buf[14] = v5;
     _os_log_impl(&dword_1E4C3F000, v4, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}supdating config", buf, 0x16u);
-    if (v55 < 0)
+    if (v52 < 0)
     {
       operator delete(__p);
     }
   }
 
   bzero(&__p, 0x688uLL);
-  SipRegistrationConfig::SipRegistrationConfig(&__p, (v3 + 504));
-  SipRegistrationConfig::operator=(v3 + 504, a2);
-  if ((*(*v3 + 536))(v3))
+  SipRegistrationConfig::SipRegistrationConfig(&__p, (v3 + 63));
+  SipRegistrationConfig::operator=((v3 + 63), a2);
+  if (((*v3)[67].isa)(v3))
   {
     SipRegistrationPolicy::clearAllThrottling(v3);
     goto LABEL_23;
   }
 
-  v6 = *(v3 + 50);
+  v6 = v3[50];
   if (v6)
   {
     v7 = std::__shared_weak_count::lock(v6);
     if (v7)
     {
-      v8 = *(v3 + 49);
+      v8 = v3[49];
       if (v8)
       {
-        if ((*(*v8 + 128))(v8))
+        if ((*(v8->isa + 16))(v8))
         {
-          (*(*v3 + 240))(v3);
+          ((*v3)[30].isa)(v3);
 LABEL_22:
           std::__shared_weak_count::__release_shared[abi:ne200100](v7);
           goto LABEL_23;
@@ -7757,17 +7635,17 @@ LABEL_22:
     v7 = 0;
   }
 
-  v9 = *(v3 + 24);
+  v9 = v3[24];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    (*(*v3 + 184))(buf, v3);
-    v10 = v65 >= 0 ? buf : *buf;
-    *v73 = 141558275;
-    *&v73[4] = 1752392040;
-    *&v73[12] = 2081;
-    *&v73[14] = v10;
-    _os_log_impl(&dword_1E4C3F000, v9, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sNetwork interface hasn't changed. Not clearing throttling.", v73, 0x16u);
-    if (v65 < 0)
+    ((*v3)[23].isa)(buf, v3);
+    v10 = v62 >= 0 ? buf : *buf;
+    *v70 = 141558275;
+    *&v70[4] = 1752392040;
+    *&v70[12] = 2081;
+    *&v70[14] = v10;
+    _os_log_impl(&dword_1E4C3F000, v9, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sNetwork interface hasn't changed. Not clearing throttling.", v70, 0x16u);
+    if (v62 < 0)
     {
       operator delete(*buf);
     }
@@ -7779,121 +7657,116 @@ LABEL_22:
   }
 
 LABEL_23:
-  v11 = *(v3 + 24);
-  if (__p != v54 && os_log_type_enabled(*(v3 + 24), OS_LOG_TYPE_DEFAULT))
+  v11 = v3[24];
+  if (__p != v51 && os_log_type_enabled(v3[24], OS_LOG_TYPE_DEFAULT))
   {
-    (*(*v3 + 184))(v73, v3);
-    std::string::basic_string[abi:ne200100]<0>(v60, ",");
+    ((*v3)[23].isa)(v70, v3);
+    std::string::basic_string[abi:ne200100]<0>(v57, ",");
     ims::join<std::__wrap_iter<SipUri const*>>();
   }
 
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    (*(*v3 + 184))(v73, v3);
-    std::string::basic_string[abi:ne200100]<0>(v60, ",");
-    v12 = *a2;
-    v13 = *(a2 + 1);
+    ((*v3)[23].isa)(v70, v3);
+    std::string::basic_string[abi:ne200100]<0>(v57, ",");
     ims::join<std::__wrap_iter<SipUri const*>>();
   }
 
-  if (*(v3 + 57) == *(v3 + 58))
+  if (v3[57] == v3[58])
   {
-    v17 = *(v3 + 24);
-    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v15 = v3[24];
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_57;
     }
 
-    (*(*v3 + 184))(buf, v3);
-    if (v65 >= 0)
+    ((*v3)[23].isa)(buf, v3);
+    if (v62 >= 0)
     {
-      v20 = buf;
+      v18 = buf;
     }
 
     else
     {
-      v20 = *buf;
+      v18 = *buf;
     }
 
-    *v73 = 141558275;
-    *&v73[4] = 1752392040;
-    *&v73[12] = 2081;
-    *&v73[14] = v20;
-    v19 = "%{private, mask.hash}sinitialized proxy list";
+    *v70 = 141558275;
+    *&v70[4] = 1752392040;
+    *&v70[12] = 2081;
+    *&v70[14] = v18;
+    v17 = "%{private, mask.hash}sinitialized proxy list";
     goto LABEL_55;
   }
 
-  v15 = *(v3 + 63);
-  v14 = *(v3 + 64);
-  v16 = __p;
-  if (v14 - v15 != v54 - __p)
+  v13 = v3[63];
+  v12 = v3[64];
+  v14 = __p;
+  if (v12 - v13 != v51 - __p)
   {
 LABEL_33:
-    v17 = *(v3 + 24);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v15 = v3[24];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      (*(*v3 + 184))(buf, v3);
-      if (v65 >= 0)
+      ((*v3)[23].isa)(buf, v3);
+      if (v62 >= 0)
       {
-        v18 = buf;
+        v16 = buf;
       }
 
       else
       {
-        v18 = *buf;
+        v16 = *buf;
       }
 
-      *v73 = 141558275;
-      *&v73[4] = 1752392040;
-      *&v73[12] = 2081;
-      *&v73[14] = v18;
-      v19 = "%{private, mask.hash}sproxy list has changed.";
+      *v70 = 141558275;
+      *&v70[4] = 1752392040;
+      *&v70[12] = 2081;
+      *&v70[14] = v16;
+      v17 = "%{private, mask.hash}sproxy list has changed.";
       goto LABEL_55;
     }
 
     goto LABEL_57;
   }
 
-  while (v15 != v14)
+  while (v13 != v12)
   {
-    if (!SipUri::equals(v15, v16, 1))
+    if (!SipUri::equals(v13, v14, 1))
     {
       goto LABEL_33;
     }
 
-    v15 = (v15 + 408);
-    v16 = (v16 + 408);
+    v13 = (v13 + 408);
+    v14 = (v14 + 408);
   }
 
-  if ((*(*v3 + 536))(v3))
+  if (((*v3)[67].isa)(v3))
   {
-    v17 = *(v3 + 24);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v15 = v3[24];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      (*(*v3 + 184))(buf, v3);
-      if (v65 >= 0)
+      ((*v3)[23].isa)(buf, v3);
+      if (v62 >= 0)
       {
-        v21 = buf;
+        v19 = buf;
       }
 
       else
       {
-        v21 = *buf;
+        v19 = *buf;
       }
 
-      *v73 = 141558275;
-      *&v73[4] = 1752392040;
-      *&v73[12] = 2081;
-      *&v73[14] = v21;
-      v19 = "%{private, mask.hash}sresetting proxy list for emergency call";
+      *v70 = 141558275;
+      *&v70[4] = 1752392040;
+      *&v70[12] = 2081;
+      *&v70[14] = v19;
+      v17 = "%{private, mask.hash}sresetting proxy list for emergency call";
       goto LABEL_55;
     }
 
 LABEL_57:
-    v25 = (v3 + 456);
-    v97 = 0u;
-    v96 = 0u;
-    v95 = 0u;
+    v23 = (v3 + 57);
     v94 = 0u;
     v93 = 0u;
     v92 = 0u;
@@ -7915,65 +7788,68 @@ LABEL_57:
     v76 = 0u;
     v75 = 0u;
     v74 = 0u;
-    memset(v73, 0, sizeof(v73));
-    v26 = *(v3 + 57);
-    if (v26 && v26 != *(v3 + 58))
+    v73 = 0u;
+    v72 = 0u;
+    v71 = 0u;
+    memset(v70, 0, sizeof(v70));
+    v24 = v3[57];
+    if (v24 && v24 != v3[58])
     {
-      SipUri::SipUri(v73, (v26 + 496 * *(v3 + 60)));
-      BYTE8(v97) = 1;
-      v26 = *v25;
+      SipUri::SipUri(v70, (v24 + 496 * v3[60]));
+      BYTE8(v94) = 1;
+      v24 = *v23;
     }
 
-    std::vector<SipRegistrationPolicy::ProxyInfo>::__base_destruct_at_end[abi:ne200100](v3 + 456, v26);
-    v27 = *a2;
+    std::vector<SipRegistrationPolicy::ProxyInfo>::__base_destruct_at_end[abi:ne200100]((v3 + 57), v24);
+    v25 = *a2;
     if (*(a2 + 1) != *a2)
     {
-      v28 = 0;
-      v50 = (v3 + 456);
+      v26 = 0;
+      v47 = v3 + 57;
       do
       {
         SipUri::SipUri(buf);
-        v70 = 0u;
-        v71 = 0u;
-        v72 = 0u;
-        v66[0] = &unk_1F5EBDEF8;
-        v66[1] = &_bambiDomain;
-        v67 = 0;
-        v68 = 0;
-        v69 = 0;
-        SipUri::operator=(buf, v27 + 408 * v28);
-        v30 = *(v3 + 58);
-        v29 = *(v3 + 59);
-        if (v30 >= v29)
+        v67 = 0u;
+        v68 = 0u;
+        v69 = 0u;
+        v63[0] = &unk_1F5EBDEF8;
+        v63[1] = &_bambiDomain;
+        v64 = 0;
+        v65 = 0;
+        v66 = 0;
+        SipUri::operator=(buf, v25 + 408 * v26);
+        v28 = v3[58];
+        v27 = v3[59];
+        if (v28 >= v27)
         {
-          v32 = 0xEF7BDEF7BDEF7BDFLL * ((v30 - *v25) >> 4);
-          v33 = v32 + 1;
-          if (v32 + 1 > 0x84210842108421)
+          v30 = 0xEF7BDEF7BDEF7BDFLL * ((v28 - *v23) >> 4);
+          v31 = v30 + 1;
+          if (v30 + 1 > 0x84210842108421)
           {
             std::vector<bambi::XmlParserNamespace>::__throw_length_error[abi:ne200100]();
           }
 
-          v34 = a2;
-          v35 = 0xEF7BDEF7BDEF7BDFLL * ((v29 - *v25) >> 4);
-          if (2 * v35 > v33)
+          v32 = a2;
+          v33 = 0xEF7BDEF7BDEF7BDFLL * ((v27 - *v23) >> 4);
+          if (2 * v33 > v31)
           {
-            v33 = 2 * v35;
+            v31 = 2 * v33;
           }
 
-          if (v35 >= 0x42108421084210)
+          if (v33 >= 0x42108421084210)
           {
-            v36 = 0x84210842108421;
+            v34 = 0x84210842108421;
           }
 
           else
           {
-            v36 = v33;
+            v34 = v31;
           }
 
-          v59 = v25;
-          if (v36)
+          v56 = v23;
+          if (v34)
           {
-            if (v36 <= 0x84210842108421)
+            if (v34 <= 0x84210842108421)
             {
               operator new();
             }
@@ -7981,132 +7857,132 @@ LABEL_57:
             std::__throw_bad_array_new_length[abi:ne200100]();
           }
 
-          v56 = 0;
-          v57 = 496 * v32;
-          v58 = 496 * v32;
-          SipUri::SipUri((496 * v32), buf);
-          ImsResult::ImsResult(496 * v32 + 408, v66);
-          *&v58 = v58 + 496;
-          v38 = *(v3 + 57);
-          v37 = *(v3 + 58);
-          v39 = v3;
-          v60[0] = v25;
-          v60[1] = &v62;
-          v61 = 0;
-          v60[2] = &v63;
-          v40 = v38;
-          v41 = v57 + v38 - v37;
-          v63 = v41;
-          v62 = v41;
-          v42 = v41;
-          if (v38 == v37)
+          v53 = 0;
+          v54 = 496 * v30;
+          v55 = 496 * v30;
+          SipUri::SipUri((496 * v30), buf);
+          ImsResult::ImsResult(496 * v30 + 408, v63);
+          *&v55 = v55 + 496;
+          v36 = v3[57];
+          v35 = v3[58];
+          v37 = v3;
+          v57[0] = v23;
+          v57[1] = &v59;
+          v58 = 0;
+          v57[2] = &v60;
+          v38 = v36;
+          v39 = v54 + v36 - v35;
+          v60 = v39;
+          v59 = v39;
+          v40 = v39;
+          if (v36 == v35)
           {
-            LOBYTE(v61) = 1;
+            LOBYTE(v58) = 1;
           }
 
           else
           {
             do
             {
-              SipUri::SipUri(v42, v40);
-              ImsResult::ImsResult((v42 + 408), (v40 + 408));
-              v40 += 496;
-              v42 = v63 + 496;
-              v63 += 496;
+              SipUri::SipUri(v40, v38);
+              ImsResult::ImsResult((v40 + 408), &v38[51]);
+              v38 += 62;
+              v40 = v60 + 496;
+              v60 += 496;
             }
 
-            while (v40 != v37);
-            LOBYTE(v61) = 1;
+            while (v38 != v35);
+            LOBYTE(v58) = 1;
             do
             {
-              ImsResult::~ImsResult((v38 + 408));
-              SipUri::~SipUri(v38);
-              v38 += 496;
+              ImsResult::~ImsResult(&v36[51]);
+              SipUri::~SipUri(v36);
+              v36 += 62;
             }
 
-            while (v38 != v37);
+            while (v36 != v35);
           }
 
-          std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<SipRegistrationPolicy::ProxyInfo>,SipRegistrationPolicy::ProxyInfo*>>::~__exception_guard_exceptions[abi:ne200100](v60);
-          v43 = *(v39 + 57);
-          *(v39 + 57) = v41;
-          v44 = *(v39 + 59);
-          v51 = v58;
-          *(v39 + 29) = v58;
-          *&v58 = v43;
-          *(&v58 + 1) = v44;
-          v57 = v43;
-          v56 = v43;
-          std::__split_buffer<SipRegistrationPolicy::ProxyInfo>::~__split_buffer(&v56);
-          v31 = v51;
-          a2 = v34;
-          v25 = v50;
-          v3 = v39;
+          std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<SipRegistrationPolicy::ProxyInfo>,SipRegistrationPolicy::ProxyInfo*>>::~__exception_guard_exceptions[abi:ne200100](v57);
+          v41 = v37[57];
+          v37[57] = v39;
+          v42 = v37[59];
+          v48 = v55;
+          *(v37 + 29) = v55;
+          *&v55 = v41;
+          *(&v55 + 1) = v42;
+          v54 = v41;
+          v53 = v41;
+          std::__split_buffer<SipRegistrationPolicy::ProxyInfo>::~__split_buffer(&v53);
+          v29 = v48;
+          a2 = v32;
+          v23 = v47;
+          v3 = v37;
         }
 
         else
         {
-          SipUri::SipUri(*(v3 + 58), buf);
-          ImsResult::ImsResult(v30 + 408, v66);
-          v31 = v30 + 496;
-          *(v3 + 58) = v30 + 496;
+          SipUri::SipUri(v3[58], buf);
+          ImsResult::ImsResult(&v28[51], v63);
+          v29 = v28 + 62;
+          v3[58] = v28 + 62;
         }
 
-        *(v3 + 58) = v31;
-        ImsResult::~ImsResult(v66);
+        v3[58] = v29;
+        ImsResult::~ImsResult(v63);
         SipUri::~SipUri(buf);
-        ++v28;
-        v27 = *a2;
+        ++v26;
+        v25 = *a2;
       }
 
-      while (v28 < 0xFAFAFAFAFAFAFAFBLL * ((*(a2 + 1) - *a2) >> 3));
+      while (v26 < 0xFAFAFAFAFAFAFAFBLL * ((*(a2 + 1) - *a2) >> 3));
     }
 
-    (*(*v3 + 232))(v3, v73);
-    v45 = -1108378657 * ((*(v3 + 58) - *(v3 + 57)) >> 4);
-    *(v3 + 53) = v45;
-    if (v45 == 1)
+    ((*v3)[29].isa)(v3, v70);
+    v43 = -1108378657 * ((v3[58] - v3[57]) >> 4);
+    *(v3 + 53) = v43;
+    if (v43 == 1)
     {
       *(v3 + 53) = *(a2 + 334);
     }
 
-    if (BYTE8(v97) == 1)
+    if (BYTE8(v94) == 1)
     {
-      SipUri::~SipUri(v73);
+      SipUri::~SipUri(v70);
     }
 
     goto LABEL_85;
   }
 
-  v22 = *(a2 + 1656);
-  v17 = *(v3 + 24);
-  v23 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
-  if (v22 == 1)
+  v20 = *(a2 + 1656);
+  v15 = v3[24];
+  v21 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+  if (v20 == 1)
   {
-    if (!v23)
+    if (!v21)
     {
       goto LABEL_57;
     }
 
-    (*(*v3 + 184))(buf, v3);
-    if (v65 >= 0)
+    ((*v3)[23].isa)(buf, v3);
+    if (v62 >= 0)
     {
-      v24 = buf;
+      v22 = buf;
     }
 
     else
     {
-      v24 = *buf;
+      v22 = *buf;
     }
 
-    *v73 = 141558275;
-    *&v73[4] = 1752392040;
-    *&v73[12] = 2081;
-    *&v73[14] = v24;
-    v19 = "%{private, mask.hash}sproxy list hasn't changed, but updating it anyway";
+    *v70 = 141558275;
+    *&v70[4] = 1752392040;
+    *&v70[12] = 2081;
+    *&v70[14] = v22;
+    v17 = "%{private, mask.hash}sproxy list hasn't changed, but updating it anyway";
 LABEL_55:
-    _os_log_impl(&dword_1E4C3F000, v17, OS_LOG_TYPE_DEFAULT, v19, v73, 0x16u);
-    if (v65 < 0)
+    _os_log_impl(&dword_1E4C3F000, v15, OS_LOG_TYPE_DEFAULT, v17, v70, 0x16u);
+    if (v62 < 0)
     {
       operator delete(*buf);
     }
@@ -8114,16 +7990,16 @@ LABEL_55:
     goto LABEL_57;
   }
 
-  if (v23)
+  if (v21)
   {
-    (*(*v3 + 184))(buf, v3);
-    v49 = v65 >= 0 ? buf : *buf;
-    *v73 = 141558275;
-    *&v73[4] = 1752392040;
-    *&v73[12] = 2081;
-    *&v73[14] = v49;
-    _os_log_impl(&dword_1E4C3F000, v17, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sproxy list hasn't changed", v73, 0x16u);
-    if (v65 < 0)
+    ((*v3)[23].isa)(buf, v3);
+    v46 = v62 >= 0 ? buf : *buf;
+    *v70 = 141558275;
+    *&v70[4] = 1752392040;
+    *&v70[12] = 2081;
+    *&v70[14] = v46;
+    _os_log_impl(&dword_1E4C3F000, v15, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sproxy list hasn't changed", v70, 0x16u);
+    if (v62 < 0)
     {
       operator delete(*buf);
     }
@@ -8131,25 +8007,25 @@ LABEL_55:
 
 LABEL_85:
   std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(buf, v3 + 20);
-  v46 = *&buf[8];
+  v44 = *&buf[8];
   if (*buf)
   {
-    v47 = *buf + 144;
+    v45 = *buf + 144;
   }
 
   else
   {
-    v47 = 0;
+    v45 = 0;
   }
 
-  v52[0] = v47;
-  v52[1] = *&buf[8];
+  v49[0] = v45;
+  v49[1] = *&buf[8];
   *&buf[8] = 0;
   *buf = 0;
-  SipSimpleBackoffTimer::initialize(v3 + 2184, v3 + 224, v52, &SipRegistrationPolicy::kSubscriptionRetryTimerName, *(a2 + 342), *(a2 + 343));
-  if (v46)
+  SipSimpleBackoffTimer::initialize((v3 + 273), (v3 + 28), v49, &SipRegistrationPolicy::kSubscriptionRetryTimerName, *(a2 + 342), *(a2 + 343));
+  if (v44)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v46);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v44);
   }
 
   if (*&buf[8])
@@ -8157,28 +8033,27 @@ LABEL_85:
     std::__shared_weak_count::__release_shared[abi:ne200100](*&buf[8]);
   }
 
-  if (v3 + 2336 != a2 + 1384)
+  if (v3 + 292 != (a2 + 1384))
   {
     std::__tree<std::__value_type<std::string,std::set<unsigned int>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<unsigned int>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,std::set<unsigned int>>,std::__tree_node<std::__value_type<std::string,std::set<unsigned int>>,void *> *,long>>(v3 + 293, *(a2 + 174), a2 + 175);
   }
 
-  if (v3 + 2304 != a2 + 1416)
+  if (v3 + 288 != (a2 + 1416))
   {
     std::__tree<std::__value_type<std::string,std::set<unsigned int>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<unsigned int>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,std::set<unsigned int>>,std::__tree_node<std::__value_type<std::string,std::set<unsigned int>>,void *> *,long>>(v3 + 289, *(a2 + 178), a2 + 179);
   }
 
-  if (v3 + 2272 != a2 + 1448)
+  if (v3 + 284 != (a2 + 1448))
   {
     std::__tree<std::__value_type<std::string,std::set<unsigned int>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<unsigned int>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,std::set<unsigned int>>,std::__tree_node<std::__value_type<std::string,std::set<unsigned int>>,void *> *,long>>(v3 + 285, *(a2 + 182), a2 + 183);
   }
 
   SipRegistrationConfig::~SipRegistrationConfig(&__p);
-  v48 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1E4F7FCFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ImsResult *a7, uint64_t a8, uint64_t a9, ...)
+void sub_1E4F7FCFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ImsResult *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ImsResult *a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   SipRegistrationConfig::~SipRegistrationConfig(va);
   _Unwind_Resume(a1);
 }
@@ -8199,7 +8074,7 @@ uint64_t SipRegistrationPolicy::bestAssociatedUri(uint64_t a1, uint64_t a2)
 
 void SipRegistrationPolicy::systemClockDidChange(SipRegistrationPolicy *this)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (*(this + 51))
   {
     v2 = time(0);
@@ -8212,17 +8087,15 @@ void SipRegistrationPolicy::systemClockDidChange(SipRegistrationPolicy *this)
       {
         if (v5)
         {
-          (*(*this + 184))(v9, this);
-          __p[0] = *(this + 51);
-          ims::TimeAndIntervalFromNow::logStr(__p);
+          (*(*this + 184))(v6, this);
+          ims::TimeAndIntervalFromNow::logStr();
         }
       }
 
       else if (v5)
       {
-        (*(*this + 184))(v9, this);
-        __p[0] = *(this + 51);
-        ims::TimeAndIntervalFromNow::logStr(__p);
+        (*(*this + 184))(v6, this);
+        ims::TimeAndIntervalFromNow::logStr();
       }
     }
 
@@ -8230,14 +8103,13 @@ void SipRegistrationPolicy::systemClockDidChange(SipRegistrationPolicy *this)
     {
       if (os_log_type_enabled(*(this + 24), OS_LOG_TYPE_DEFAULT))
       {
-        (*(*this + 184))(v9, this);
-        v8 = *(this + 51);
-        ims::TimeAndIntervalFromNow::logStr(&v8);
+        (*(*this + 184))(v6, this);
+        ims::TimeAndIntervalFromNow::logStr();
       }
 
       std::string::basic_string[abi:ne200100]<0>(buf, "SystemClockDidChange");
       (*(*this + 576))(this, v3, buf);
-      if (SHIBYTE(v11) < 0)
+      if (SHIBYTE(v8) < 0)
       {
         operator delete(*buf);
       }
@@ -8245,8 +8117,6 @@ void SipRegistrationPolicy::systemClockDidChange(SipRegistrationPolicy *this)
       *(this + 52) = v2;
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4F80250(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, int a29, __int16 a30, char a31, char a32)
@@ -8259,39 +8129,34 @@ void sub_1E4F80250(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL SipRegistrationPolicy::handleSubscriptionFailed(SipRegistrationPolicy *this, const ImsResult *a2, int a3)
+void SipRegistrationPolicy::handleSubscriptionFailed(SipRegistrationPolicy *this, const ImsResult *a2, unsigned int a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(buf, this + 20);
-    v4 = v14;
-    if (v14)
+    v4 = v9;
+    if (v9)
     {
-      p_shared_weak_owners = &v14->__shared_weak_owners_;
-      atomic_fetch_add_explicit(&v14->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      p_shared_weak_owners = &v9->__shared_weak_owners_;
+      atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       std::__shared_weak_count::__release_shared[abi:ne200100](v4);
       atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
       atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
     }
 
-    v15 = 0;
+    v10 = 0;
     operator new();
   }
 
   v6 = (*(*this + 256))(this, a2);
-  v7 = (*(*v6 + 24))(v6);
-  v8 = time(0);
-  result = os_log_type_enabled(*(this + 24), OS_LOG_TYPE_DEFAULT);
-  if (result)
+  (*(*v6 + 24))(v6);
+  time(0);
+  if (os_log_type_enabled(*(this + 24), OS_LOG_TYPE_DEFAULT))
   {
-    (*(*this + 184))(&v12, this);
-    v11 = v8 + v7;
-    ims::TimeAndIntervalFromNow::logStr(&v11);
+    (*(*this + 184))(&v7, this);
+    ims::TimeAndIntervalFromNow::logStr();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void sub_1E4F80518(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -8357,14 +8222,14 @@ LABEL_6:
   return result;
 }
 
-void sub_1E4F8072C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4F8072C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ImsResult::~ImsResult(va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *SipRegistrationPolicy::getClientRegTypeStr@<X0>(SipRegistrationPolicy *this@<X0>, _BYTE *a2@<X8>)
+void *SipRegistrationPolicy::getClientRegTypeStr@<X0>(SipRegistrationPolicy *this@<X0>, void *a2@<X8>)
 {
   v4 = *(this + 593);
   if (v4 > 3)
@@ -8413,7 +8278,7 @@ void SipEmergencyRegistrationPolicy::~SipEmergencyRegistrationPolicy(SipEmergenc
   MEMORY[0x1E69235B0](this, 0x10B3C40B37997A8);
 }
 
-void std::vector<SipRegistrationPolicy::ProxyInfo>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<SipRegistrationPolicy::ProxyInfo>::__destroy_vector::operator()[abi:ne200100](SipUri ***a1)
 {
   v2 = *a1;
   if (*v2)
@@ -8705,18 +8570,18 @@ uint64_t std::__function::__func<SipRegistrationPolicy::startEmergencyRegistrati
 
 void ims::join<std::__wrap_iter<SipUri const*>>()
 {
-  v1 = 0;
-  memset(v0, 0, sizeof(v0));
-  ImsStringOutStream::ImsStringOutStream(v0);
+  v5 = 0;
+  memset(v4, 0, sizeof(v4));
+  ImsStringOutStream::ImsStringOutStream(v4, 1);
 }
 
-void sub_1E4F81190(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1E4F81190(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
 {
   if (a11 == 1)
   {
     if (a10)
     {
-      (*(*a10 + 8))(a10);
+      (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -8866,22 +8731,27 @@ BOOL SipStandardDigestAuthScheme::hasValidNonce(SipStandardDigestAuthScheme *thi
 
 void SipStandardDigestAuthScheme::computeResponse(uint64_t a1, uint64_t a2)
 {
-  v3 = *a2;
-  v2 = *(a2 + 8);
-  if (v2)
+  v4 = *a2;
+  v3 = *(a2 + 8);
+  if (v3)
   {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
-  if ((*(a1 + 231) & 0x8000000000000000) != 0)
+  v5 = *(a1 + 231);
+  if (v5 < 0)
   {
-    v5 = *(a1 + 208);
-    v4 = *(a1 + 216);
+    v6 = *(a1 + 208);
+    v5 = *(a1 + 216);
   }
 
-  (*(*v3 + 120))(v3);
-  v6 = v3[14];
-  SipDigestAuthScheme::_computeResponse();
+  else
+  {
+    v6 = a1 + 208;
+  }
+
+  v7 = (*(*v4 + 120))(v4);
+  SipDigestAuthScheme::_computeResponse(a1, v7, (v4 + 19), v4[14], v6, v5);
 }
 
 void sub_1E4F81790(_Unwind_Exception *exception_object)
@@ -8894,25 +8764,38 @@ void sub_1E4F81790(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void SipStandardDigestAuthScheme::computeResponse(uint64_t a1)
+void SipStandardDigestAuthScheme::computeResponse(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  if ((*(a1 + 231) & 0x8000000000000000) != 0)
+  v4 = *(a1 + 231);
+  if (v4 < 0)
   {
-    v1 = *(a1 + 208);
-    v2 = *(a1 + 216);
+    v5 = *(a1 + 208);
+    v4 = *(a1 + 216);
   }
 
-  SipDigestAuthScheme::_computeResponse();
+  else
+  {
+    v5 = a1 + 208;
+  }
+
+  SipDigestAuthScheme::_computeResponse(a1, a2, a3, a4, v5, v4);
 }
 
+void SipStandardDigestAuthScheme::computeResponse(uint64_t a1, uint64_t a2, const std::string *a3, uint64_t a4)
 {
-  if ((*(a1 + 231) & 0x8000000000000000) != 0)
+  v4 = *(a1 + 231);
+  if ((v4 & 0x8000000000000000) != 0)
   {
-    v1 = *(a1 + 208);
-    v2 = *(a1 + 216);
+    v5 = *(a1 + 208);
+    v4 = *(a1 + 216);
   }
 
-  SipDigestAuthScheme::_computeResponse(a1);
+  else
+  {
+    v5 = (a1 + 208);
+  }
+
+  SipDigestAuthScheme::_computeResponse(a1, a2, a3, a4, v5, v4);
 }
 
 void SipStandardDigestAuthScheme::~SipStandardDigestAuthScheme(void **this)
@@ -8993,7 +8876,7 @@ void SipRegistrationInfoBody::SipRegistrationInfoBody(SipRegistrationInfoBody *t
 {
   v3 = SipXmlBody::SipXmlBody(this, a2);
   *v3 = &unk_1F5ED5C40;
-  SipRegistrationInfo::SipRegistrationInfo((v3 + 4), (a2 + 32));
+  SipRegistrationInfo::SipRegistrationInfo((v3 + 4), (a2 + 32), 0);
 }
 
 void sub_1E4F81BEC(_Unwind_Exception *exception_object)
@@ -9063,26 +8946,27 @@ void sub_1E4F81ECC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL SipRoutableLocalAddressHeader::setValueFromString(uint64_t a1, std::string *a2)
 {
-  v6 = 0;
   v7 = 0;
-  IpAddress::createAddress(a2, &v6);
-  if (v6 && (*(*v6 + 88))(v6))
+  v8 = 0;
+  IpAddress::createAddress(a2, &v7);
+  v3 = v7;
+  if (v7 && (*(*v7 + 88))(v7))
   {
-    IpAddress::asString(&v5);
+    IpAddress::asString(&v6, v3, 3);
   }
 
-  v3 = *(a1 + 87);
-  if (v3 < 0)
+  v4 = *(a1 + 87);
+  if (v4 < 0)
   {
-    v3 = *(a1 + 72);
+    v4 = *(a1 + 72);
   }
 
-  if (v7)
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  return v3 != 0;
+  return v4 != 0;
 }
 
 void sub_1E4F81FA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
@@ -9135,7 +9019,7 @@ void LazuliUri::LazuliUri(LazuliUri *this, const SipHost *a2, char a3)
   *(this + 14) = &unk_1F5EBEF50;
   *(this + 16) = 0;
   *(this + 15) = this + 128;
-  v5 = this + 120;
+  v5 = (this + 120);
   *(this + 17) = 0;
   *(this + 152) = a3;
   *(this + 72) = 257;
@@ -9163,9 +9047,9 @@ void LazuliUri::LazuliUri(LazuliUri *this, const SipHost *a2, char a3)
   std::string::__assign_external(v4, v7);
   std::string::basic_string[abi:ne200100]<0>(v10, "tcp");
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  v12 = v10;
-  v8 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v5, v10);
-  std::string::operator=((v8 + 56), &__p);
+  v13 = v10;
+  v8 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v5, v10, &std::piecewise_construct, &v13, &v12);
+  std::string::operator=((v8 + 7), &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -9630,7 +9514,7 @@ void LazuliUri::LazuliUri(LazuliUri *this, const LazuliUri *a2)
 
   SipHost::SipHost(this + 56, a2 + 56);
   *(this + 14) = &unk_1F5EBEF50;
-  std::map<std::string,std::string>::map[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>>(this + 15, *(a2 + 15), a2 + 16);
+  std::map<std::string,std::string>::map[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>>(this + 15, *(a2 + 15), a2 + 128);
   *(this + 145) = 1;
   *(this + 144) = *(a2 + 144);
   *(this + 152) = *(a2 + 152);
@@ -9740,7 +9624,7 @@ LABEL_8:
     v18[0] = time(0);
     ims::localtime(v18, &v18[2], v9);
     LODWORD(v20) = v19;
-    ImsInternetDateTime::toString(v18, &v17);
+    ImsInternetDateTime::toString(&v17, v18);
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__str.__r_.__value_.__l.__data_);
@@ -9764,8 +9648,8 @@ LABEL_8:
   {
     std::string::operator=((a1 + 104), this);
     v18[0] = &v22;
-    v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 72, &v22.__r_.__value_.__l.__data_);
-    std::string::operator=((v11 + 56), this + 1);
+    v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 72), &v22, &std::piecewise_construct, v18, &v17);
+    std::string::operator=((v11 + 7), this + 1);
     v12 = *(a3 + 23);
     if ((v12 & 0x80u) != 0)
     {
@@ -9775,8 +9659,8 @@ LABEL_8:
     if (v12)
     {
       v18[0] = "country";
-      v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 72, "country");
-      std::string::operator=((v13 + 56), a3);
+      v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 72), "country", &std::piecewise_construct, v18, &v17);
+      std::string::operator=((v13 + 7), a3);
     }
 
     v14 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
@@ -9788,8 +9672,8 @@ LABEL_8:
     if (v14)
     {
       v18[0] = "local-time-zone";
-      v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 72, "local-time-zone");
-      std::string::operator=((v15 + 56), &__str);
+      v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 72), "local-time-zone", &std::piecewise_construct, v18, &v17);
+      std::string::operator=((v15 + 7), &__str);
     }
   }
 
@@ -9804,4 +9688,171 @@ LABEL_8:
   }
 
   return size != 0;
+}
+
+void sub_1E4F83370(_Unwind_Exception *exception_object)
+{
+  if (*(v1 - 57) < 0)
+  {
+    operator delete(*(v1 - 80));
+  }
+
+  if (*(v1 - 33) < 0)
+  {
+    operator delete(*(v1 - 56));
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void SipPAccessNetworkInfoHeader::~SipPAccessNetworkInfoHeader(void **this)
+{
+  *this = &unk_1F5ECDC48;
+  if (*(this + 127) < 0)
+  {
+    operator delete(this[13]);
+  }
+
+  *this = &unk_1F5EEE300;
+  this[8] = &unk_1F5EBEF50;
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy((this + 9), this[10]);
+
+  SipHeader::~SipHeader(this);
+}
+
+{
+  *this = &unk_1F5ECDC48;
+  if (*(this + 127) < 0)
+  {
+    operator delete(this[13]);
+  }
+
+  *this = &unk_1F5EEE300;
+  this[8] = &unk_1F5EBEF50;
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy((this + 9), this[10]);
+  SipHeader::~SipHeader(this);
+
+  JUMPOUT(0x1E69235B0);
+}
+
+std::string::size_type ims::nextToken(std::string *__str, std::string::size_type __pos, std::string *this, char *a4)
+{
+  v4 = a4;
+  v6 = __pos;
+  v7 = __str;
+  v8 = SHIBYTE(__str->__r_.__value_.__r.__words[2]);
+  if (v8 >= 0)
+  {
+    size = HIBYTE(__str->__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    size = __str->__r_.__value_.__l.__size_;
+  }
+
+  if (size > __pos)
+  {
+    if (a4[23] >= 0)
+    {
+      v10 = a4;
+    }
+
+    else
+    {
+      v10 = *a4;
+    }
+
+    if (v8 >= 0)
+    {
+      v11 = __str;
+    }
+
+    else
+    {
+      v11 = __str->__r_.__value_.__r.__words[0];
+    }
+
+    while (strchr(v10, v11->__r_.__value_.__s.__data_[v6]))
+    {
+      if (size == ++v6)
+      {
+        return -1;
+      }
+    }
+  }
+
+  if (v6 == size)
+  {
+    return -1;
+  }
+
+  v12 = v6;
+  if (v6 < size)
+  {
+    if (v4[23] >= 0)
+    {
+      v13 = v4;
+    }
+
+    else
+    {
+      v13 = *v4;
+    }
+
+    if (v8 >= 0)
+    {
+      v14 = v7;
+    }
+
+    else
+    {
+      v14 = v7->__r_.__value_.__r.__words[0];
+    }
+
+    v12 = v6;
+    while (!strchr(v13, v14->__r_.__value_.__s.__data_[v12]))
+    {
+      if (size == ++v12)
+      {
+        v12 = size;
+        break;
+      }
+    }
+  }
+
+  std::string::assign(this, v7, v6, v12 - v6);
+  v15 = SHIBYTE(v7->__r_.__value_.__r.__words[2]);
+  if (v15 >= 0)
+  {
+    v16 = HIBYTE(v7->__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v16 = v7->__r_.__value_.__l.__size_;
+  }
+
+  if (v12 < v16)
+  {
+    if (v4[23] < 0)
+    {
+      v4 = *v4;
+    }
+
+    if (v15 < 0)
+    {
+      v7 = v7->__r_.__value_.__r.__words[0];
+    }
+
+    while (strchr(v4, v7->__r_.__value_.__s.__data_[v12]))
+    {
+      if (v16 == ++v12)
+      {
+        return v16;
+      }
+    }
+  }
+
+  return v12;
 }

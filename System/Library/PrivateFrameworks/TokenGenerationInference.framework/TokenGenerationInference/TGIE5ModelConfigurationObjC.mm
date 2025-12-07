@@ -82,7 +82,7 @@
         v10 = *(*(&v47 + 1) + 8 * i);
         if (v10)
         {
-          [v10 adapterConfiguration];
+          objc_msgSend_adapterConfiguration(v10);
         }
 
         else
@@ -141,7 +141,7 @@
         v15 = *(*(&v35 + 1) + 8 * j);
         if (v15)
         {
-          [v15 e5Function];
+          objc_msgSend_e5Function(v15);
         }
 
         else
@@ -204,16 +204,16 @@
   *v42 = 0u;
   *v43 = 0u;
   LODWORD(v44[0]) = 1065353216;
-  baseModel = [v2 baseModel];
-  v21 = baseModel == 0;
+  v20 = objc_msgSend_baseModel(v2);
+  v21 = v20 == 0;
 
   if (!v21)
   {
-    baseModel2 = [v2 baseModel];
-    v23 = baseModel2;
-    if (baseModel2)
+    v22 = objc_msgSend_baseModel(v2);
+    v23 = v22;
+    if (v22)
     {
-      [baseModel2 sharedConstants];
+      objc_msgSend_sharedConstants(v22);
     }
 
     else
@@ -243,11 +243,11 @@
   *&retstr[1].var0 = 0;
   retstr[1].var1.var0.var0.var1.var0 = 0;
   retstr[1].var1.var0.var0.var1.var1 = 0;
-  std::vector<TGIE5AdapterConfiguration>::__init_with_size[abi:ne200100]<TGIE5AdapterConfiguration*,TGIE5AdapterConfiguration*>(&retstr[1], v51, v52, 0x8E38E38E38E38E39 * ((v52 - v51) >> 3));
+  std::vector<TGIE5AdapterConfiguration>::__init_with_size[abi:ne200100]<TGIE5AdapterConfiguration*,TGIE5AdapterConfiguration*>(&retstr[1].var0, v51, v52, 0x8E38E38E38E38E39 * ((v52 - v51) >> 3));
   *(&retstr[1].var1.var0.var0.var1 + 2) = 0;
   *&retstr[2].var0 = 0;
   retstr[2].var1.var0.var0.var1.var0 = 0;
-  std::vector<TGIE5Function>::__init_with_size[abi:ne200100]<TGIE5Function*,TGIE5Function*>((&retstr[1].var1.var0.var0.var1 + 1), v39, v40, (v40 - v39) >> 6);
+  std::vector<TGIE5Function>::__init_with_size[abi:ne200100]<TGIE5Function*,TGIE5Function*>(&retstr[1].var1.var0.var0.var1 + 2, v39, v40, (v40 - v39) >> 6);
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::MemoryObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::MemoryObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::MemoryObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::MemoryObject>>>>::__hash_table(&retstr[2].var1.var0.var0.var1.var1, v42);
   *(&retstr[3].var1.var0.var0.var1 + 2) = 0;
   *&retstr[4].var0 = 0;
@@ -290,8 +290,8 @@
   serializeModelIOPath = [(TGIE5ModelConfigurationObjC *)self serializeModelIOPath];
   [(TGIE5ModelConfigurationObjC *)v9 setSerializeModelIOPath:serializeModelIOPath];
 
-  baseModel = [(TGIE5ModelConfigurationObjC *)self baseModel];
-  [(TGIE5ModelConfigurationObjC *)v9 setBaseModel:baseModel];
+  v11 = objc_msgSend_baseModel(self);
+  [(TGIE5ModelConfigurationObjC *)v9 setBaseModel:v11];
 
   [(TGIE5ModelConfigurationObjC *)v9 setUseEnergyEfficientMode:[(TGIE5ModelConfigurationObjC *)self useEnergyEfficientMode]];
   [(TGIE5ModelConfigurationObjC *)v9 setUseModelCatalogE5CompilerCache:[(TGIE5ModelConfigurationObjC *)self useModelCatalogE5CompilerCache]];
@@ -314,8 +314,8 @@
   serializeModelIOPath = [(TGIE5ModelConfigurationObjC *)self serializeModelIOPath];
   [(TGIE5ModelConfigurationObjC *)v9 setSerializeModelIOPath:serializeModelIOPath];
 
-  baseModel = [(TGIE5ModelConfigurationObjC *)self baseModel];
-  [(TGIE5ModelConfigurationObjC *)v9 setBaseModel:baseModel];
+  v11 = objc_msgSend_baseModel(self);
+  [(TGIE5ModelConfigurationObjC *)v9 setBaseModel:v11];
 
   [(TGIE5ModelConfigurationObjC *)v9 setUseEnergyEfficientMode:[(TGIE5ModelConfigurationObjC *)self useEnergyEfficientMode]];
   [(TGIE5ModelConfigurationObjC *)v9 setUseModelCatalogE5CompilerCache:[(TGIE5ModelConfigurationObjC *)self useModelCatalogE5CompilerCache]];
@@ -336,8 +336,8 @@
   v7 = [adapterConfigurations hash];
 
   useEnergyEfficientMode = [(TGIE5ModelConfigurationObjC *)self useEnergyEfficientMode];
-  baseModel = [(TGIE5ModelConfigurationObjC *)self baseModel];
-  v10 = [baseModel hash];
+  v9 = objc_msgSend_baseModel(self);
+  v10 = [v9 hash];
 
   serializeModelIOPath = [(TGIE5ModelConfigurationObjC *)self serializeModelIOPath];
   v12 = [serializeModelIOPath hash];
@@ -372,9 +372,9 @@
           e5Functions2 = [v5 e5Functions];
           if ([e5Functions isEqual:e5Functions2])
           {
-            baseModel = [(TGIE5ModelConfigurationObjC *)self baseModel];
-            baseModel2 = [v5 baseModel];
-            if (TGIIsEqualAllowingNil(baseModel, baseModel2))
+            v23 = objc_msgSend_baseModel(self);
+            v22 = objc_msgSend_baseModel(v5);
+            if (TGIIsEqualAllowingNil(v23, v22))
             {
               serializeModelIOPath = [(TGIE5ModelConfigurationObjC *)self serializeModelIOPath];
               serializeModelIOPath2 = [v5 serializeModelIOPath];

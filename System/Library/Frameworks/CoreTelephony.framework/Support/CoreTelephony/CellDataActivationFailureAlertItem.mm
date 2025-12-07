@@ -342,7 +342,7 @@ LABEL_45:
     p_additionalData = &self->_additionalData;
     v144 = "DataPlanCsn";
     sub_100006354(&p_additionalData, &v137);
-    xpc::bridge(&object, &v137, v20);
+    xpc::bridge(&v137, v20);
     sub_1001B1A54(cf, &object);
     sub_10000A1EC(&object);
     xpc_release(v137);
@@ -350,7 +350,7 @@ LABEL_45:
     p_additionalData = &self->_additionalData;
     v144 = "DataPlanUrl";
     sub_100006354(&p_additionalData, &v136);
-    xpc::bridge(&v137, &v136, v21);
+    xpc::bridge(&v136, v21);
     sub_100060DE8(&object, &v137);
     sub_10000A1EC(&v137);
     xpc_release(v136);
@@ -358,7 +358,7 @@ LABEL_45:
     p_additionalData = &self->_additionalData;
     v144 = "DataPlanIccid";
     sub_100006354(&p_additionalData, &v135);
-    xpc::bridge(&v136, &v135, v22);
+    xpc::bridge(&v135, v22);
     sub_100060DE8(&v137, &v136);
     sub_10000A1EC(&v136);
     xpc_release(v135);

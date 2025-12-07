@@ -40,8 +40,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  expirationDate = self->_expirationDate;
-  v6 = toCopy;
   PBDataWriterWriteDoubleField();
   if (!self->_threadID)
   {

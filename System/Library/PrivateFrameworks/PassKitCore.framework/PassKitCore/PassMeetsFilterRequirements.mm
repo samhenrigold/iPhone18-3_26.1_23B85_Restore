@@ -23,9 +23,9 @@ void ___PassMeetsFilterRequirements_block_invoke(uint64_t a1, void *a2, BOOL *a3
       goto LABEL_14;
     }
 
-    v11 = [v8 isEqualToString:v9];
+    isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-    if ((v11 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       goto LABEL_14;
     }

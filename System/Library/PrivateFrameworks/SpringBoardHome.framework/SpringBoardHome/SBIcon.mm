@@ -348,9 +348,11 @@
 
 uint64_t __35__SBIcon_backgroundGenerationQueue__block_invoke()
 {
-  backgroundGenerationQueue_backgroundGenerationWorkloop = dispatch_workloop_create("com.apple.SpringBoardHome.SBIconBackgroundLayerGenerationQueue");
+  v0 = dispatch_workloop_create("com.apple.SpringBoardHome.SBIconBackgroundLayerGenerationQueue");
+  v1 = backgroundGenerationQueue_backgroundGenerationWorkloop;
+  backgroundGenerationQueue_backgroundGenerationWorkloop = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)badgeNumberOrString
@@ -1054,7 +1056,7 @@ void __103__SBIcon_loadIconLayerInBackgroundWithInfo_traitCollection_context_opt
   BSDispatchMain();
 }
 
-uint64_t __103__SBIcon_loadIconLayerInBackgroundWithInfo_traitCollection_context_options_priority_completionHandler___block_invoke_2(uint64_t a1)
+void *__103__SBIcon_loadIconLayerInBackgroundWithInfo_traitCollection_context_options_priority_completionHandler___block_invoke_2(uint64_t a1)
 {
   v2 = [*(a1 + 32) imageGeneration];
   if (*(a1 + 40) && *(a1 + 72) != v2)
@@ -1078,7 +1080,7 @@ uint64_t __103__SBIcon_loadIconLayerInBackgroundWithInfo_traitCollection_context
     result = *(a1 + 64);
     if (result)
     {
-      v4 = *(result + 16);
+      v4 = result[2];
 
       return v4();
     }
@@ -1123,7 +1125,7 @@ uint64_t __103__SBIcon_loadIconLayerInBackgroundWithInfo_traitCollection_context
   _Block_object_dispose(&v32, 8);
 }
 
-uint64_t __94__SBIcon_loadRealIconContentLayerForLayerView_iconImageInfo_traitCollection_options_priority___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__94__SBIcon_loadRealIconContentLayerForLayerView_iconImageInfo_traitCollection_options_priority___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 32) setIconContentLayerForIconLayerView:*(a1 + 40) possibleContentLayer:a2 imageGeneration:a3 iconImageInfo:*(a1 + 48) traitCollection:*(a1 + 96) options:0 skipIfMissing:{*(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88)}];
   *(*(*(a1 + 56) + 8) + 24) = 1;
@@ -1152,7 +1154,7 @@ uint64_t __94__SBIcon_loadRealIconContentLayerForLayerView_iconImageInfo_traitCo
   viewCopy = view;
   collectionCopy = collection;
   handlerCopy = handler;
-  [viewCopy iconImageInfo];
+  objc_msgSend_iconImageInfo(viewCopy);
   v16 = v15;
   v18 = v17;
   v20 = v19;
@@ -1492,9 +1494,9 @@ LABEL_13:
   v12 = [objc_alloc(MEMORY[0x1E69A8A30]) initWithSize:v10 scale:{v9, v8}];
   v13 = [genericApplicationIcon prepareImageForDescriptor:v12];
   v14 = v13;
-  if (!v13 || (v15 = MEMORY[0x1E69DCAB8], v16 = [v13 CGImage], objc_msgSend(v14, "scale"), objc_msgSend(v15, "imageWithCGImage:scale:orientation:", v16, 0), (v17 = objc_claimAutoreleasedReturnValue()) == 0))
+  if (!v13 || (v15 = MEMORY[0x1E69DCAB8], v16 = [v13 CGImage], objc_msgSend(v14, "scale"), objc_msgSend(v15, "imageWithCGImage:scale:orientation:", v16, 0), v13 = objc_claimAutoreleasedReturnValue(), (v17 = v13) == 0))
   {
-    v18 = SBLogIcon();
+    v18 = SBLogIcon(v13);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
@@ -1642,7 +1644,7 @@ uint64_t __77__SBIcon_genericIconLayerWithInfo_traitCollection_options_completio
   v18 = ;
   [v16 setBackgroundColor:{objc_msgSend(v18, "CGColor")}];
   [self configureIconContentLayer:v16 iconImageInfo:collection options:{v13, v12, v11, v10}];
-  SBHIconServicesAddDebugLayerOverlayWithTraitCollection(v16, infoCopy, 0, v13, v12, v11, v10);
+  SBHIconServicesAddDebugLayerOverlayWithTraitCollection();
 
   return v16;
 }
@@ -1987,7 +1989,7 @@ void __79__SBIcon_setMissingIconLayerOnLayerView_iconImageInfo_traitCollection_o
   locationCopy = location;
   contextCopy = context;
   delegate = [(SBIcon *)self delegate];
-  v9 = SBLogIcon();
+  v9 = SBLogIcon(delegate);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138413058;
@@ -2010,7 +2012,7 @@ void __79__SBIcon_setMissingIconLayerOnLayerView_iconImageInfo_traitCollection_o
 - (void)completeUninstall
 {
   v6 = *MEMORY[0x1E69E9840];
-  v3 = SBLogIcon();
+  v3 = SBLogIcon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -2022,7 +2024,7 @@ void __79__SBIcon_setMissingIconLayerOnLayerView_iconImageInfo_traitCollection_o
 - (NSString)uninstallAlertTitle
 {
   v3 = MEMORY[0x1E696AEC0];
-  v4 = SBHBundle();
+  v4 = SBHBundle(self);
   v5 = [v4 localizedStringForKey:@"UNINSTALL_ICON_TITLE_DELETE_WITH_NAME" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
   v6 = [(SBIcon *)self displayNameForLocation:@"SBIconLocationNone"];
   v7 = [v3 stringWithFormat:v5, v6];
@@ -2032,7 +2034,7 @@ void __79__SBIcon_setMissingIconLayerOnLayerView_iconImageInfo_traitCollection_o
 
 - (NSString)uninstallAlertConfirmTitle
 {
-  v2 = SBHBundle();
+  v2 = SBHBundle(self);
   v3 = [v2 localizedStringForKey:@"UNINSTALL_ICON_BUTTON_DELETE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
 
   return v3;
@@ -2040,7 +2042,7 @@ void __79__SBIcon_setMissingIconLayerOnLayerView_iconImageInfo_traitCollection_o
 
 - (NSString)uninstallAlertCancelTitle
 {
-  v2 = SBHBundle();
+  v2 = SBHBundle(self);
   v3 = [v2 localizedStringForKey:@"UNINSTALL_ICON_BUTTON_CANCEL" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
 
   return v3;

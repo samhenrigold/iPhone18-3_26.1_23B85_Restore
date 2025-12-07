@@ -13,9 +13,9 @@ uint64_t sub_1000010DC(uint64_t a1)
   *(v1 + OBJC_IVAR___MicrophoneTestInputs_audioRecordingDuration) = 0x4008000000000000;
   v6 = *(v1 + OBJC_IVAR___MicrophoneTestInputs_audioRecordingDurationKey);
   v5 = *(v1 + OBJC_IVAR___MicrophoneTestInputs_audioRecordingDurationKey + 8);
-  if (*(a1 + 16) && (v7 = sub_100001B80(*(v1 + OBJC_IVAR___MicrophoneTestInputs_audioRecordingDurationKey), *(v1 + OBJC_IVAR___MicrophoneTestInputs_audioRecordingDurationKey + 8)), (v8 & 1) != 0) && (sub_1000020E4(*(a1 + 56) + 32 * v7, v66), (swift_dynamicCast() & 1) != 0) && (v65 >= 1.0 ? (v9 = v65 > 10.0) : (v9 = 1), !v9))
+  if (*(a1 + 16) && (v7 = sub_100001B80(*(v1 + OBJC_IVAR___MicrophoneTestInputs_audioRecordingDurationKey), *(v1 + OBJC_IVAR___MicrophoneTestInputs_audioRecordingDurationKey + 8)), (v8 & 1) != 0) && (sub_1000020E4(*(a1 + 56) + 32 * v7, v65), (swift_dynamicCast() & 1) != 0) && (v64 >= 1.0 ? (v9 = v64 > 10.0) : (v9 = 1), !v9))
   {
-    *(v1 + v4) = v65;
+    *(v1 + v4) = v64;
     if (!*(a1 + 16))
     {
       goto LABEL_15;
@@ -24,50 +24,49 @@ uint64_t sub_1000010DC(uint64_t a1)
 
   else
   {
-    static os_log_type_t.error.getter();
+    v10 = static os_log_type_t.error.getter();
     sub_100001BF8(&qword_100008768, &qword_1000025C8);
-    v10 = swift_allocObject();
-    *(v10 + 16) = xmmword_100002580;
-    *(v10 + 56) = &type metadata for String;
-    *(v10 + 64) = sub_100001C40();
-    *(v10 + 32) = v6;
-    *(v10 + 40) = v5;
+    v11 = swift_allocObject();
+    *(v11 + 16) = xmmword_100002580;
+    *(v11 + 56) = &type metadata for String;
+    *(v11 + 64) = sub_100001C40();
+    *(v11 + 32) = v6;
+    *(v11 + 40) = v5;
     sub_100001C94();
 
-    v11 = static OS_os_log.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v12 = static OS_os_log.default.getter();
+    os_log(_:dso:log:type:_:)("Input parameter validation: Default value is used for %@ ", 57, 2, &_mh_execute_header, v12, v10, v11);
 
     if (!*(a1 + 16))
     {
 LABEL_15:
-      v14 = sub_100001FD0(&_swiftEmptyArrayStorage);
+      v15 = sub_100001FD0(&_swiftEmptyArrayStorage);
       goto LABEL_16;
     }
   }
 
-  v12 = sub_100001B80(*(v2 + OBJC_IVAR___MicrophoneTestInputs_stringPropertiesKey), *(v2 + OBJC_IVAR___MicrophoneTestInputs_stringPropertiesKey + 8));
-  if ((v13 & 1) == 0)
+  v13 = sub_100001B80(*(v2 + OBJC_IVAR___MicrophoneTestInputs_stringPropertiesKey), *(v2 + OBJC_IVAR___MicrophoneTestInputs_stringPropertiesKey + 8));
+  if ((v14 & 1) == 0)
   {
     goto LABEL_15;
   }
 
-  sub_1000020E4(*(a1 + 56) + 32 * v12, v66);
+  sub_1000020E4(*(a1 + 56) + 32 * v13, v65);
   sub_100001BF8(&qword_100008790, &qword_1000025E0);
   if ((swift_dynamicCast() & 1) == 0)
   {
     goto LABEL_15;
   }
 
-  v14 = *&v65;
-  if (!*(*&v65 + 16))
+  v15 = *&v64;
+  if (!*(*&v64 + 16))
   {
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v15 = *(v2 + OBJC_IVAR___MicrophoneTestInputs_stringProperties);
-  *(v2 + OBJC_IVAR___MicrophoneTestInputs_stringProperties) = v14;
+  *(v2 + OBJC_IVAR___MicrophoneTestInputs_stringProperties) = v15;
 
   v17 = *(v2 + OBJC_IVAR___MicrophoneTestInputs_microphoneSequenceKey);
   v16 = *(v2 + OBJC_IVAR___MicrophoneTestInputs_microphoneSequenceKey + 8);
@@ -82,30 +81,31 @@ LABEL_16:
     goto LABEL_45;
   }
 
-  sub_1000020E4(*(a1 + 56) + 32 * v18, v66);
+  sub_1000020E4(*(a1 + 56) + 32 * v18, v65);
   sub_100001BF8(&qword_100008780, &qword_1000025D0);
   if ((swift_dynamicCast() & 1) == 0)
   {
     goto LABEL_45;
   }
 
-  if (!*(*&v65 + 16))
+  if (!*(*&v64 + 16))
   {
 
 LABEL_45:
-    static os_log_type_t.fault.getter();
+    v41 = static os_log_type_t.fault.getter();
 LABEL_46:
+    v42 = v41;
     sub_100001BF8(&qword_100008768, &qword_1000025C8);
-    v41 = swift_allocObject();
-    *(v41 + 16) = xmmword_100002580;
-    *(v41 + 56) = &type metadata for String;
-    *(v41 + 64) = sub_100001C40();
-    *(v41 + 32) = v17;
-    *(v41 + 40) = v16;
+    v43 = swift_allocObject();
+    *(v43 + 16) = xmmword_100002580;
+    *(v43 + 56) = &type metadata for String;
+    *(v43 + 64) = sub_100001C40();
+    *(v43 + 32) = v17;
+    *(v43 + 40) = v16;
     sub_100001C94();
 
-    v42 = static OS_os_log.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v44 = static OS_os_log.default.getter();
+    os_log(_:dso:log:type:_:)("Input parameter validation: required value %@ is missing, abort text", 68, 2, &_mh_execute_header, v44, v42, v43);
 
     return 0;
   }
@@ -123,38 +123,38 @@ LABEL_46:
     goto LABEL_48;
   }
 
-  sub_1000020E4(*(a1 + 56) + 32 * v20, v66);
+  sub_1000020E4(*(a1 + 56) + 32 * v20, v65);
   sub_100001BF8(&qword_100008788, &qword_1000025D8);
   if ((swift_dynamicCast() & 1) == 0)
   {
     goto LABEL_48;
   }
 
-  if (!*(*&v65 + 16))
+  if (!*(*&v64 + 16))
   {
 
 LABEL_48:
 
-    static os_log_type_t.error.getter();
+    v41 = static os_log_type_t.error.getter();
     goto LABEL_46;
   }
 
-  v64 = *(*&v65 + 16);
-  if (v64)
+  v63 = *(*&v64 + 16);
+  if (v63)
   {
     v22 = 0;
     v23 = &_swiftEmptyArrayStorage;
     while (2)
     {
-      if (v22 >= *(*&v65 + 16))
+      if (v22 >= *(*&v64 + 16))
       {
 LABEL_66:
         __break(1u);
         goto LABEL_67;
       }
 
-      v24 = *(*&v65 + 32 + 8 * v22++);
-      v25 = 1 << *(*&v65 + 32);
+      v24 = *(*&v64 + 32 + 8 * v22++);
+      v25 = 1 << *(*&v64 + 32);
       if (v25 < 64)
       {
         v26 = ~(-1 << v25);
@@ -165,7 +165,7 @@ LABEL_66:
         v26 = -1;
       }
 
-      v27 = v26 & *(*&v65 + 64);
+      v27 = v26 & *(*&v64 + 64);
       v28 = (v25 + 63) >> 6;
 
       v29 = 0;
@@ -182,7 +182,7 @@ LABEL_32:
           v30 = __clz(__rbit64(v27));
           v27 &= v27 - 1;
           v31 = v30 | (v29 << 6);
-          if (*(*(*&v65 + 56) + 8 * v31) == v24)
+          if (*(*(*&v64 + 56) + 8 * v31) == v24)
           {
             break;
           }
@@ -193,9 +193,9 @@ LABEL_32:
           }
         }
 
-        v33 = (*(*&v65 + 48) + 16 * v31);
-        v62 = *v33;
-        v63 = v33[1];
+        v33 = (*(*&v64 + 48) + 16 * v31);
+        v61 = *v33;
+        v62 = v33[1];
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
@@ -217,8 +217,8 @@ LABEL_32:
         *(v36 + 2) = v38;
         v39 = &v36[16 * v35];
         v23 = v36;
-        *(v39 + 4) = v62;
-        *(v39 + 5) = v63;
+        *(v39 + 4) = v61;
+        *(v39 + 5) = v62;
       }
 
       while (v27);
@@ -237,7 +237,7 @@ LABEL_34:
           break;
         }
 
-        v27 = *(*&v65 + 64 + 8 * v32);
+        v27 = *(*&v64 + 64 + 8 * v32);
         ++v29;
         if (v27)
         {
@@ -246,7 +246,7 @@ LABEL_34:
         }
       }
 
-      if (v22 != v64)
+      if (v22 != v63)
       {
         continue;
       }
@@ -267,82 +267,77 @@ LABEL_67:
     swift_once();
   }
 
-  v44 = qword_100008918;
-  v45 = *(v23 + 2);
-  if (v45)
+  v46 = qword_100008918;
+  v47 = *(v23 + 2);
+  if (v47)
   {
-    v66[0] = &_swiftEmptyArrayStorage;
-    sub_100001EA4(0, v45, 0);
-    v46 = v66[0];
-    v47 = *(v2 + OBJC_IVAR___MicrophoneTestInputs_microphoneNameMapping);
-    v48 = (v23 + 40);
+    v65[0] = &_swiftEmptyArrayStorage;
+    sub_100001EA4(0, v47, 0);
+    v48 = v65[0];
+    v49 = *(v2 + OBJC_IVAR___MicrophoneTestInputs_microphoneNameMapping);
+    v50 = (v23 + 40);
     do
     {
-      v49 = *v48;
-      if (*(v47 + 16))
+      v51 = *v50;
+      if (*(v49 + 16))
       {
-        v50 = *(v48 - 1);
-        v51 = *v48;
+        v52 = *(v50 - 1);
 
-        v52 = sub_100001B80(v50, v49);
-        if (v53)
+        v53 = sub_100001B80(v52, v51);
+        if (v54)
         {
-          v54 = (*(v47 + 56) + 16 * v52);
-          v55 = *v54;
-          v56 = v54[1];
+          v55 = (*(v49 + 56) + 16 * v53);
+          v56 = *v55;
+          v57 = v55[1];
         }
 
         else
         {
-          v55 = 0;
-          v56 = 0xE000000000000000;
+          v56 = 0;
+          v57 = 0xE000000000000000;
         }
       }
 
       else
       {
-        v55 = 0;
-        v56 = 0xE000000000000000;
-        v57 = *v48;
+        v56 = 0;
+        v57 = 0xE000000000000000;
       }
 
-      v66[0] = v46;
-      v59 = v46[2];
-      v58 = v46[3];
+      v65[0] = v48;
+      v59 = v48[2];
+      v58 = v48[3];
       if (v59 >= v58 >> 1)
       {
         sub_100001EA4((v58 > 1), v59 + 1, 1);
-        v46 = v66[0];
+        v48 = v65[0];
       }
 
-      v46[2] = v59 + 1;
-      v60 = &v46[2 * v59];
-      *(v60 + 4) = v55;
-      *(v60 + 5) = v56;
-      v48 += 2;
-      --v45;
+      v48[2] = v59 + 1;
+      v60 = &v48[2 * v59];
+      *(v60 + 4) = v56;
+      *(v60 + 5) = v57;
+      v50 += 2;
+      --v47;
     }
 
-    while (v45);
+    while (v47);
   }
 
   else
   {
 
-    v46 = &_swiftEmptyArrayStorage;
+    v48 = &_swiftEmptyArrayStorage;
   }
 
-  v61 = *(v44 + 32);
-  *(v44 + 32) = v46;
+  *(v46 + 32) = v48;
 
   return 1;
 }
 
 uint64_t sub_100001844(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  v7 = *(a1 + *a4);
-  *(a1 + *a4) = v6;
+  *(a1 + *a4) = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
   return 1;
 }
@@ -377,21 +372,20 @@ id sub_1000018A8()
   return objc_msgSendSuper2(&v8, "init");
 }
 
-id sub_100001A4C()
+id sub_100001A4C(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for MicrophoneTestInputs();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for MicrophoneTestInputs();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 unint64_t sub_100001B80(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v6 = Hasher._finalize()();
+  v4 = Hasher._finalize()();
 
-  return sub_100001CE0(a1, a2, v6);
+  return sub_100001CE0(a1, a2, v4);
 }
 
 uint64_t sub_100001BF8(uint64_t *a1, uint64_t *a2)
@@ -399,7 +393,6 @@ uint64_t sub_100001BF8(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -540,7 +533,7 @@ char *sub_100001D98(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-char *sub_100001EA4(char *a1, int64_t a2, char a3)
+char *sub_100001EA4(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_100001EC4(a1, a2, a3, *v3);
   *v3 = result;
@@ -705,9 +698,6 @@ void *sub_100002144()
 
 uint64_t sub_100002188()
 {
-  v1 = *(v0 + 32);
-
-  v2 = *(v0 + 40);
 
   return _swift_deallocClassInstance(v0, 48, 7);
 }

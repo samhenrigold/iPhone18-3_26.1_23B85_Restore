@@ -107,12 +107,15 @@
 - (void)handleResponseDictionary:(id)dictionary
 {
   v4 = [dictionary _arrayForKey:@"access-tokens"];
+  v5 = v4;
   if (v4)
   {
-    [(IDSHomeKitCloudRelayUserAccessTokensMessage *)self setResponseAccessTokens:v4];
+    v6 = v4;
+    v4 = [(IDSHomeKitCloudRelayUserAccessTokensMessage *)self setResponseAccessTokens:v4];
+    v5 = v6;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(v4, v5);
 }
 
 @end

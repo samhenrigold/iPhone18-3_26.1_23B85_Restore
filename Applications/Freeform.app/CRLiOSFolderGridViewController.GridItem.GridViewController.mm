@@ -12,7 +12,7 @@
   v5.super_class = _s8GridItemC18GridViewControllerCMa();
   selfCopy = self;
   [(CRLiOSFolderGridViewController.Item.ViewController *)&v5 viewDidLoad];
-  sub_1005B981C(&unk_101A150B0);
+  sub_1005B981C(&unk_101A150B0, &qword_10146F280);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_10146BDE0;
   *(v4 + 32) = type metadata accessor for UITraitUserInterfaceLevel();

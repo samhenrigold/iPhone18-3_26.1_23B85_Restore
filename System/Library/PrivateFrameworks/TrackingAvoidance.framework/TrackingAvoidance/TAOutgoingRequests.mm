@@ -56,20 +56,18 @@ LABEL_9:
 
 - (id)descriptionDictionary
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   key = self->_key;
   additionalInformation = self->_additionalInformation;
-  v11[0] = key;
-  v10[0] = @"Key";
-  v10[1] = @"AdditionalInformation";
+  v10[0] = key;
+  v9[0] = @"Key";
+  v9[1] = @"AdditionalInformation";
   v5 = [(NSDictionary *)additionalInformation description];
-  v11[1] = v5;
-  v10[2] = @"Date";
+  v10[1] = v5;
+  v9[2] = @"Date";
   getDateString = [(NSDate *)self->_date getDateString];
-  v11[2] = getDateString;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[2] = getDateString;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
   return v7;
 }
@@ -103,17 +101,15 @@ LABEL_9:
 
 - (void)description
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 138412546;
-  v9 = v6;
-  v10 = 2112;
-  v11 = a3;
-  _os_log_error_impl(&dword_26F2E2000, selfCopy, OS_LOG_TYPE_ERROR, "%@ instance failed to create description:%@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v6;
+  v9 = 2112;
+  v10 = a3;
+  _os_log_error_impl(&dword_26F2E2000, selfCopy, OS_LOG_TYPE_ERROR, "%@ instance failed to create description:%@", &v7, 0x16u);
 }
 
 @end

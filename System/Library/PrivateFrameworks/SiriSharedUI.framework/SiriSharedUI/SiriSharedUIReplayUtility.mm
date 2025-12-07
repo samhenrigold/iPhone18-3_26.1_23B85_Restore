@@ -76,7 +76,7 @@
 
 - (void)replayAllWithIntervalSeconds:(unint64_t)seconds recordingUrl:(id)url completion:(id)completion
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC6700);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC6700, &qword_21E4E90E0);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v16 - v10;
   v12 = _Block_copy(completion);
@@ -100,12 +100,12 @@
   _Block_release(v12);
 
   _Block_release(v12);
-  sub_21E424BC0(v11, &qword_27CEC6700);
+  sub_21E424BC0(v11, &qword_27CEC6700, &qword_21E4E90E0);
 }
 
 - (void)replayAtIndex:(int64_t)index recordingUrl:(id)url
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC6700);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC6700, &qword_21E4E90E0);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v13 - v8;
   if (url)
@@ -125,7 +125,7 @@
   sub_21E4AF664(v9);
   sub_21E4B012C(index);
 
-  sub_21E424BC0(v9, &qword_27CEC6700);
+  sub_21E424BC0(v9, &qword_27CEC6700, &qword_21E4E90E0);
 }
 
 - (void)addReplayControlTo:(id)to
@@ -172,11 +172,12 @@
   *(v5 + 16) = v4;
   v6 = (self + OBJC_IVAR____TtC12SiriSharedUI25SiriSharedUIReplayUtility_storedCallback);
   v7 = *(&self->super.isa + OBJC_IVAR____TtC12SiriSharedUI25SiriSharedUIReplayUtility_storedCallback);
+  v8 = *&self->viewModel[OBJC_IVAR____TtC12SiriSharedUI25SiriSharedUIReplayUtility_storedCallback];
   *v6 = sub_21E47C4D8;
   v6[1] = v5;
   selfCopy = self;
 
-  sub_21E3F1EB0(v7);
+  sub_21E3F1EB0(v7, v8);
   swift_getKeyPath();
   swift_getKeyPath();
 

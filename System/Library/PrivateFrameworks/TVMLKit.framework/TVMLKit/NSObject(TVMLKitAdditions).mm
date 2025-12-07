@@ -59,67 +59,67 @@
 
 + (id)tv_allowedLiteralJSONObjects
 {
-  v2[4] = *MEMORY[0x277D85DE8];
-  v2[0] = objc_opt_class();
-  v2[1] = objc_opt_class();
-  v2[2] = objc_opt_class();
-  v2[3] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:4];
+  v4[4] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
 
-  return v0;
+  return v2;
 }
 
 - (id)tv_JSCompatibleValue
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     selfCopy3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(self, "count")}];
-    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
     selfCopy2 = self;
-    v4 = [selfCopy2 countByEnumeratingWithState:&v25 objects:v30 count:16];
-    if (v4)
+    v5 = [selfCopy2 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    if (v5)
     {
-      v5 = v4;
-      v6 = *v26;
+      v6 = v5;
+      v7 = *v27;
       do
       {
-        for (i = 0; i != v5; ++i)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v26 != v6)
+          if (*v27 != v7)
           {
             objc_enumerationMutation(selfCopy2);
           }
 
-          v8 = *(*(&v25 + 1) + 8 * i);
-          v9 = [selfCopy2 objectForKey:v8];
-          tv_JSCompatibleValue = [v9 tv_JSCompatibleValue];
+          v9 = *(*(&v26 + 1) + 8 * i);
+          v10 = [selfCopy2 objectForKey:v9];
+          tv_JSCompatibleValue = [v10 tv_JSCompatibleValue];
 
-          tv_JSCompatibleValue2 = [v8 tv_JSCompatibleValue];
+          tv_JSCompatibleValue2 = [v9 tv_JSCompatibleValue];
           if (tv_JSCompatibleValue2)
           {
-            v12 = tv_JSCompatibleValue == 0;
+            v13 = tv_JSCompatibleValue == 0;
           }
 
           else
           {
-            v12 = 1;
+            v13 = 1;
           }
 
-          if (!v12)
+          if (!v13)
           {
             [selfCopy3 setObject:tv_JSCompatibleValue forKey:tv_JSCompatibleValue2];
           }
         }
 
-        v5 = [selfCopy2 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v6 = [selfCopy2 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
-      while (v5);
+      while (v6);
     }
 
 LABEL_25:
@@ -131,36 +131,36 @@ LABEL_25:
   if (objc_opt_isKindOfClass())
   {
     selfCopy3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(self, "count")}];
-    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
     selfCopy2 = self;
-    v13 = [selfCopy2 countByEnumeratingWithState:&v21 objects:v29 count:16];
-    if (v13)
+    v14 = [selfCopy2 countByEnumeratingWithState:&v22 objects:v30 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v15 = *v22;
+      v15 = v14;
+      v16 = *v23;
       do
       {
-        for (j = 0; j != v14; ++j)
+        for (j = 0; j != v15; ++j)
         {
-          if (*v22 != v15)
+          if (*v23 != v16)
           {
             objc_enumerationMutation(selfCopy2);
           }
 
-          tv_JSCompatibleValue3 = [*(*(&v21 + 1) + 8 * j) tv_JSCompatibleValue];
+          tv_JSCompatibleValue3 = [*(*(&v22 + 1) + 8 * j) tv_JSCompatibleValue];
           if (tv_JSCompatibleValue3)
           {
             [selfCopy3 addObject:tv_JSCompatibleValue3];
           }
         }
 
-        v14 = [selfCopy2 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v15 = [selfCopy2 countByEnumeratingWithState:&v22 objects:v30 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
 
     goto LABEL_25;
@@ -175,9 +175,9 @@ LABEL_32:
     goto LABEL_26;
   }
 
-  v20 = [self conformsToProtocol:&unk_287EADA10];
+  v21 = [self conformsToProtocol:&unk_287EADA10];
 
-  if (v20)
+  if (v21)
   {
     goto LABEL_32;
   }

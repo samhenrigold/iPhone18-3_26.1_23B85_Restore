@@ -58,11 +58,11 @@
 
 - (TPSContextualInfo)initWithDictionary:(id)dictionary
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v36.receiver = self;
-  v36.super_class = TPSContextualInfo;
-  v5 = [(TPSSerializableObject *)&v36 initWithDictionary:dictionaryCopy];
+  v35.receiver = self;
+  v35.super_class = TPSContextualInfo;
+  v5 = [(TPSSerializableObject *)&v35 initWithDictionary:dictionaryCopy];
   if (!v5)
   {
     goto LABEL_35;
@@ -90,13 +90,13 @@
     goto LABEL_36;
   }
 
-  v31 = dictionaryCopy;
+  v30 = dictionaryCopy;
   v11 = [dictionaryCopy TPSSafeArrayForKey:@"usageEvents"];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (!v12)
   {
     v14 = 0;
@@ -105,17 +105,17 @@
 
   v13 = v12;
   v14 = 0;
-  v15 = *v33;
+  v15 = *v32;
   do
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v33 != v15)
+      if (*v32 != v15)
       {
         objc_enumerationMutation(v11);
       }
 
-      v17 = *(*(&v32 + 1) + 8 * i);
+      v17 = *(*(&v31 + 1) + 8 * i);
       v18 = [MEMORY[0x277D71730] typeFromEventDictionary:v17];
       if (v18 == 3)
       {
@@ -144,7 +144,7 @@
       }
     }
 
-    v13 = [v11 countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v13 = [v11 countByEnumeratingWithState:&v31 objects:v36 count:16];
   }
 
   while (v13);
@@ -160,13 +160,13 @@ LABEL_25:
     v22 = 0;
   }
 
-  dictionaryCopy = v31;
+  dictionaryCopy = v30;
   objc_storeStrong(&v5->_usageEvents, v22);
   if (v21)
   {
   }
 
-  v23 = [v31 TPSSafeDictionaryForKey:@"triggers"];
+  v23 = [v30 TPSSafeDictionaryForKey:@"triggers"];
   if (v23)
   {
     v24 = [objc_alloc(MEMORY[0x277D71720]) initWithDictionary:v23 type:0];
@@ -174,7 +174,7 @@ LABEL_25:
     v5->_triggerCondition = v24;
   }
 
-  v26 = [v31 TPSSafeDictionaryForKey:@"desiredOutcome"];
+  v26 = [v30 TPSSafeDictionaryForKey:@"desiredOutcome"];
   if (v26)
   {
     v27 = [objc_alloc(MEMORY[0x277D71720]) initWithDictionary:v26 type:1];
@@ -186,7 +186,6 @@ LABEL_35:
   v10 = v5;
 LABEL_36:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

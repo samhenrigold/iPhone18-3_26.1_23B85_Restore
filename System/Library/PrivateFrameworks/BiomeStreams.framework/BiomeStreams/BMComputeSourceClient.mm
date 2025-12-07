@@ -1,5 +1,6 @@
 @interface BMComputeSourceClient
 - (BMComputeSourceClient)initWithStreamIdentifier:(id)identifier domain:(unint64_t)domain listenerEndpoint:(id)endpoint storage:(id)storage user:(unsigned int)user;
+- (BMComputeSourceClient)initWithStreamIdentifier:(id)identifier domain:(unint64_t)domain useCase:(id)case user:(unsigned int)user;
 - (BMComputeSourceClient)initWithStreamIdentifier:(id)identifier listenerEndpoint:(id)endpoint storage:(id)storage;
 - (id)_newConnectionForDomain:(unint64_t)domain;
 - (id)_remoteObjectProxyForDomain:(unint64_t)domain errorHandler:(id)handler;
@@ -9,6 +10,17 @@
 @end
 
 @implementation BMComputeSourceClient
+
+- (BMComputeSourceClient)initWithStreamIdentifier:(id)identifier domain:(unint64_t)domain useCase:(id)case user:(unsigned int)user
+{
+  v6 = *&user;
+  caseCopy = case;
+  identifierCopy = identifier;
+  v12 = [[BMComputePublisherStorage alloc] initWithUseCase:caseCopy domain:0 isClient:1];
+
+  v13 = [(BMComputeSourceClient *)self initWithStreamIdentifier:identifierCopy domain:domain listenerEndpoint:0 storage:v12 user:v6];
+  return v13;
+}
 
 - (BMComputeSourceClient)initWithStreamIdentifier:(id)identifier listenerEndpoint:(id)endpoint storage:(id)storage
 {
@@ -61,7 +73,7 @@
 
 - (id)_remoteObjectProxyForDomain:(unint64_t)domain errorHandler:(id)handler
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = self->_connectionWrapper;
   if (([(BMXPCConnectionWrapper *)v7 isValid]& 1) == 0)
@@ -86,9 +98,9 @@
 
       v12 = MEMORY[0x1E696ABC0];
       v13 = *MEMORY[0x1E698E8C8];
-      v22 = *MEMORY[0x1E696A578];
-      v23 = @"Failed to create remote object proxy";
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v21 = *MEMORY[0x1E696A578];
+      v22 = @"Failed to create remote object proxy";
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
       v15 = [v12 errorWithDomain:v13 code:0 userInfo:v14];
     }
 
@@ -96,9 +108,9 @@
     {
       v18 = MEMORY[0x1E696ABC0];
       v19 = *MEMORY[0x1E698E8C8];
-      v24 = *MEMORY[0x1E696A578];
-      v25 = @"Failed to get connection from BMXPCConnectionWrapper";
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v23 = *MEMORY[0x1E696A578];
+      v24 = @"Failed to get connection from BMXPCConnectionWrapper";
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
       v15 = [v18 errorWithDomain:v19 code:0 userInfo:v14];
       v11 = 0;
     }
@@ -110,16 +122,15 @@
   {
     v16 = MEMORY[0x1E696ABC0];
     v17 = *MEMORY[0x1E698E8C8];
-    v26 = *MEMORY[0x1E696A578];
-    v27[0] = @"Failed to get or create BMXPCConnectionWrapper";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v25 = *MEMORY[0x1E696A578];
+    v26[0] = @"Failed to get or create BMXPCConnectionWrapper";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
     v14 = [v16 errorWithDomain:v17 code:0 userInfo:v10];
     handlerCopy[2](handlerCopy, v14);
     v11 = 0;
   }
 
 LABEL_11:
-  v20 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -127,23 +138,23 @@ LABEL_11:
 - (void)sendEvent:(id)event account:(id)account remoteName:(id)name timestamp:(double)timestamp signpostID:(unint64_t)d sendFullEvent:(BOOL)fullEvent
 {
   fullEventCopy = fullEvent;
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   accountCopy = account;
   nameCopy = name;
   streamIdentifier = [(BMComputeSourceClient *)self streamIdentifier];
   if ([(NSString *)self->_streamIdentifier hasSuffix:@":subscriptions"]|| (p_storage = &self->_storage, [(BMComputePublisherStorage *)self->_storage checkActiveSubscriptionMarkerForStream:streamIdentifier]))
   {
-    v33 = accountCopy;
+    v32 = accountCopy;
     dCopy = d;
     domain = self->_domain;
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __89__BMComputeSourceClient_sendEvent_account_remoteName_timestamp_signpostID_sendFullEvent___block_invoke;
-    v34[3] = &unk_1E6E53620;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __89__BMComputeSourceClient_sendEvent_account_remoteName_timestamp_signpostID_sendFullEvent___block_invoke;
+    v33[3] = &unk_1E6E53620;
     v21 = streamIdentifier;
-    v35 = v21;
-    v22 = [(BMComputeSourceClient *)self _remoteObjectProxyForDomain:domain errorHandler:v34];
+    v34 = v21;
+    v22 = [(BMComputeSourceClient *)self _remoteObjectProxyForDomain:domain errorHandler:v33];
     if (fullEventCopy)
     {
       serialize = [eventCopy serialize];
@@ -175,10 +186,10 @@ LABEL_11:
 
     v30 = [MEMORY[0x1E696AD98] numberWithDouble:timestamp];
     v31 = dCopy;
-    accountCopy = v33;
-    [v22 sendEventWithStreamIdentifier:v21 timestamp:v30 signpostID:v31 eventData:serialize eventDataVersion:v25 account:v33 remoteName:nameCopy];
+    accountCopy = v32;
+    [v22 sendEventWithStreamIdentifier:v21 timestamp:v30 signpostID:v31 eventData:serialize eventDataVersion:v25 account:v32 remoteName:nameCopy];
 
-    v28 = v35;
+    v28 = v34;
   }
 
   else
@@ -194,21 +205,19 @@ LABEL_11:
     if (d - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
     {
       *buf = 138412290;
-      v37 = streamIdentifier;
+      v36 = streamIdentifier;
       _os_signpost_emit_with_name_impl(&dword_1848EE000, v28, OS_SIGNPOST_INTERVAL_END, d, "SendEvent", "StreamIdentifier=%@", buf, 0xCu);
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __89__BMComputeSourceClient_sendEvent_account_remoteName_timestamp_signpostID_sendFullEvent___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __biome_log_for_category();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = __biome_log_for_category();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __89__BMComputeSourceClient_sendEvent_account_remoteName_timestamp_signpostID_sendFullEvent___block_invoke_cold_1(a1);
+    __89__BMComputeSourceClient_sendEvent_account_remoteName_timestamp_signpostID_sendFullEvent___block_invoke_cold_1();
   }
 }
 
@@ -236,11 +245,11 @@ void __89__BMComputeSourceClient_sendEvent_account_remoteName_timestamp_signpost
 
 void __66__BMComputeSourceClient_eventsPrunedForAccount_remoteName_reason___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __biome_log_for_category();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = __biome_log_for_category();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __89__BMComputeSourceClient_sendEvent_account_remoteName_timestamp_signpostID_sendFullEvent___block_invoke_cold_1(a1);
+    __89__BMComputeSourceClient_sendEvent_account_remoteName_timestamp_signpostID_sendFullEvent___block_invoke_cold_1();
   }
 }
 

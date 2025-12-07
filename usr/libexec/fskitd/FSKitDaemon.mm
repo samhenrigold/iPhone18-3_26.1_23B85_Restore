@@ -95,7 +95,7 @@ LABEL_16:
     v5 = livefs_std_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_100008C2C(&name);
+      sub_100008C2C();
     }
 
     goto LABEL_16;

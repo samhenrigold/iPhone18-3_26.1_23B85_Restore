@@ -61,7 +61,7 @@
 {
   *(&self->super.super.isa + OBJC_IVAR____TtC14WidgetRenderer26JindoActivitySceneDelegate__systemApertureElementProvider) = 0;
   v3.receiver = self;
-  v3.super_class = type metadata accessor for JindoActivitySceneDelegate();
+  v3.super_class = type metadata accessor for JindoActivitySceneDelegate(0);
   return [(ActivitySceneDelegateBase *)&v3 init];
 }
 

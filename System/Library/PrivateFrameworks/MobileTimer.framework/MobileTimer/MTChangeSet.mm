@@ -153,7 +153,7 @@ uint64_t __55__MTChangeSet__isEqualToChangeSet_checkOriginalValues___block_invok
 
 + (id)changeSetWithChangesFromObject:(id)object toObject:(id)toObject inProperties:(id)properties
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   toObjectCopy = toObject;
   propertiesCopy = properties;
@@ -161,41 +161,41 @@ uint64_t __55__MTChangeSet__isEqualToChangeSet_checkOriginalValues___block_invok
   {
     selfCopy = self;
     v11 = objc_opt_new();
-    v46 = objectCopy;
+    v45 = objectCopy;
     [v11 encodeObject:objectCopy forKey:@"fromObject"];
-    v45 = toObjectCopy;
+    v44 = toObjectCopy;
     [v11 encodeObject:toObjectCopy forKey:@"toObject"];
-    v44 = v11;
+    v43 = v11;
     encodedDictionary = [v11 encodedDictionary];
     v13 = [encodedDictionary objectForKeyedSubscript:@"fromObject"];
-    v42 = encodedDictionary;
+    v41 = encodedDictionary;
     v14 = [encodedDictionary objectForKeyedSubscript:@"toObject"];
-    v41 = v13;
+    v40 = v13;
     v15 = [MTStorageReader _unwrap:v13];
-    v40 = v14;
+    v39 = v14;
     v16 = [MTStorageReader _unwrap:v14];
     v17 = objc_opt_new();
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
     v18 = v15;
-    v19 = [v18 countByEnumeratingWithState:&v51 objects:v56 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v50 objects:v55 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v52;
+      v21 = *v51;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v52 != v21)
+          if (*v51 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v51 + 1) + 8 * i);
-          if (!propertiesCopy || [propertiesCopy containsObject:*(*(&v51 + 1) + 8 * i)])
+          v23 = *(*(&v50 + 1) + 8 * i);
+          if (!propertiesCopy || [propertiesCopy containsObject:*(*(&v50 + 1) + 8 * i)])
           {
             v24 = [v18 objectForKeyedSubscript:v23];
             v25 = [v16 objectForKeyedSubscript:v23];
@@ -208,33 +208,33 @@ uint64_t __55__MTChangeSet__isEqualToChangeSet_checkOriginalValues___block_invok
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v51 objects:v56 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v50 objects:v55 count:16];
       }
 
       while (v20);
     }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     v28 = v16;
-    v29 = [v28 countByEnumeratingWithState:&v47 objects:v55 count:16];
+    v29 = [v28 countByEnumeratingWithState:&v46 objects:v54 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v48;
+      v31 = *v47;
       do
       {
         for (j = 0; j != v30; ++j)
         {
-          if (*v48 != v31)
+          if (*v47 != v31)
           {
             objc_enumerationMutation(v28);
           }
 
-          v33 = *(*(&v47 + 1) + 8 * j);
-          if (!propertiesCopy || [propertiesCopy containsObject:*(*(&v47 + 1) + 8 * j)])
+          v33 = *(*(&v46 + 1) + 8 * j);
+          if (!propertiesCopy || [propertiesCopy containsObject:*(*(&v46 + 1) + 8 * j)])
           {
             v34 = [v18 objectForKeyedSubscript:v33];
 
@@ -247,23 +247,21 @@ uint64_t __55__MTChangeSet__isEqualToChangeSet_checkOriginalValues___block_invok
           }
         }
 
-        v30 = [v28 countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v30 = [v28 countByEnumeratingWithState:&v46 objects:v54 count:16];
       }
 
       while (v30);
     }
 
     v37 = [[selfCopy alloc] initWithChanges:v17];
-    toObjectCopy = v45;
-    objectCopy = v46;
+    toObjectCopy = v44;
+    objectCopy = v45;
   }
 
   else
   {
     v37 = 0;
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 
   return v37;
 }
@@ -301,16 +299,16 @@ uint64_t __55__MTChangeSet__isEqualToChangeSet_checkOriginalValues___block_invok
 
 - (id)deserializedChangedValueForProperty:(id)property hasProperty:(BOOL *)hasProperty
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   propertyCopy = property;
   v7 = [(MTChangeSet *)self changedValueForProperty:propertyCopy hasProperty:hasProperty];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v8 = [MTDictionaryDeserializer alloc];
-    v14 = propertyCopy;
-    v15[0] = v7;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = propertyCopy;
+    v14[0] = v7;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v10 = [(MTStorageReader *)v8 initWithEncodedDictionary:v9];
 
     v11 = [(MTStorageReader *)v10 decodeObjectForKey:propertyCopy];
@@ -320,8 +318,6 @@ uint64_t __55__MTChangeSet__isEqualToChangeSet_checkOriginalValues___block_invok
   {
     v11 = v7;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

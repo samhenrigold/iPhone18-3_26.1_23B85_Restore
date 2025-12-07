@@ -83,15 +83,13 @@
 
 - (NSArray)attributeDescriptions
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = [HMFAttributeDescription alloc];
   target = [(HMFMessageDestination *)self target];
   uUIDString = [target UUIDString];
   v6 = [(HMFAttributeDescription *)v3 initWithName:@"Target" value:uUIDString];
-  v10[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v7;
 }

@@ -163,74 +163,72 @@ LABEL_10:
 
 - (void)updateLayoutForWidth:(double)width
 {
-  variableLength = [(PinField *)self variableLength];
-  y = CGRectZero.origin.y;
-  if (variableLength)
+  if ([(PinField *)self variableLength])
   {
     [(PinField *)self setFrame:CGRectZero.origin.x, CGRectZero.origin.y, width, 30.0];
     pinMaxLength = [(PinField *)self pinMaxLength];
     [pinMaxLength intValue];
 
     UIRectCenteredXInRect();
+    v7 = v6;
     v9 = v8;
     v11 = v10;
     v13 = v12;
-    v15 = v14;
     pinTextField = [(PinField *)self pinTextField];
-    [pinTextField setFrame:{v9, v11, v13, v15}];
+    [pinTextField setFrame:{v7, v9, v11, v13}];
 
     okButton = [(PinField *)self okButton];
-    [okButton setFrame:{v9 + v13, 0.0, 50.0, 30.0}];
+    [okButton setFrame:{v7 + v11, 0.0, 50.0, 30.0}];
   }
 
   else
   {
     slotWidth = self->_slotWidth;
-    v18 = 25.0;
+    v16 = 25.0;
     pinLength = self->_pinLength;
-    v20 = pinLength;
-    v21 = (slotWidth + 25.0) * pinLength + -25.0;
-    if (v21 > width + -25.0)
+    v18 = pinLength;
+    v19 = (slotWidth + 25.0) * pinLength + -25.0;
+    if (v19 > width + -25.0)
     {
-      v18 = (width + -25.0 - slotWidth * v20) / (pinLength - 1);
-      v21 = -(v18 - (slotWidth + v18) * v20);
+      v16 = (width + -25.0 - slotWidth * v18) / (pinLength - 1);
+      v19 = -(v16 - (slotWidth + v16) * v18);
     }
 
     slotHeight = self->_slotHeight;
-    [(PinField *)self setFrame:CGRectZero.origin.x, CGRectZero.origin.y, v21, ceilf(slotHeight)];
+    [(PinField *)self setFrame:CGRectZero.origin.x, CGRectZero.origin.y, v19, ceilf(slotHeight)];
     if (self->_pinLength)
     {
-      v23 = 0;
+      v21 = 0;
       p_pinDashSize = &self->_pinDashSize;
       do
       {
-        v37.size.width = p_pinDashSize->width;
-        v37.size.height = self->_pinDashSize.height;
-        v37.origin.x = (self->_slotWidth - p_pinDashSize->width) * 0.5 + (v18 + self->_slotWidth) * v23;
+        v35.size.width = p_pinDashSize->width;
+        v35.size.height = self->_pinDashSize.height;
+        v35.origin.x = (self->_slotWidth - p_pinDashSize->width) * 0.5 + (v16 + self->_slotWidth) * v21;
+        v35.origin.y = (self->_slotHeight - v35.size.height) * 0.5;
+        v36 = CGRectIntegral(v35);
+        x = v36.origin.x;
+        y = v36.origin.y;
+        width = v36.size.width;
+        height = v36.size.height;
+        v27 = [(NSMutableArray *)self->_pinDashViews objectAtIndex:v21];
+        [v27 setFrame:{x, y, width, height}];
+        v37.size.width = self->_pinDotSize.width;
+        v37.size.height = self->_pinDotSize.height;
+        v37.origin.x = (self->_slotWidth - v37.size.width) * 0.5 + (v16 + self->_slotWidth) * v21;
         v37.origin.y = (self->_slotHeight - v37.size.height) * 0.5;
         v38 = CGRectIntegral(v37);
-        x = v38.origin.x;
-        v26 = v38.origin.y;
-        width = v38.size.width;
-        height = v38.size.height;
-        v29 = [(NSMutableArray *)self->_pinDashViews objectAtIndex:v23];
-        [v29 setFrame:{x, v26, width, height}];
-        v39.size.width = self->_pinDotSize.width;
-        v39.size.height = self->_pinDotSize.height;
-        v39.origin.x = (self->_slotWidth - v39.size.width) * 0.5 + (v18 + self->_slotWidth) * v23;
-        v39.origin.y = (self->_slotHeight - v39.size.height) * 0.5;
-        v40 = CGRectIntegral(v39);
-        v30 = v40.origin.x;
-        v31 = v40.origin.y;
-        v32 = v40.size.width;
-        v33 = v40.size.height;
-        v34 = [(NSMutableArray *)self->_pinDotViews objectAtIndex:v23];
+        v28 = v38.origin.x;
+        v29 = v38.origin.y;
+        v30 = v38.size.width;
+        v31 = v38.size.height;
+        v32 = [(NSMutableArray *)self->_pinDotViews objectAtIndex:v21];
 
-        [v34 setFrame:{v30, v31, v32, v33}];
-        ++v23;
+        [v32 setFrame:{v28, v29, v30, v31}];
+        ++v21;
       }
 
-      while (v23 < self->_pinLength);
+      while (v21 < self->_pinLength);
     }
   }
 }

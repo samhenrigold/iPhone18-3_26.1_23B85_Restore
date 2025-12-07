@@ -25,6 +25,8 @@
 - (void)syncButtonPressed:(id)pressed;
 - (void)updateAppIconForTraitCollection:(id)collection;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CKCloudSettingsViewController
@@ -123,7 +125,7 @@ LABEL_7:
 
 - (void)dataclassSwitchStateDidChange:(id)change withSpecifier:(id)specifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   specifierCopy = specifier;
   viewModel = [(CKCloudSettingsViewController *)self viewModel];
@@ -138,14 +140,14 @@ LABEL_7:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v16 = changeCopy;
+        v15 = changeCopy;
         _os_log_impl(&dword_258D24000, v11, OS_LOG_TYPE_INFO, "Toggled MiC switch newState={%@}, will call super.", buf, 0xCu);
       }
     }
 
-    v14.receiver = self;
-    v14.super_class = CKCloudSettingsViewController;
-    [(ACUIDataclassConfigurationViewController *)&v14 dataclassSwitchStateDidChange:changeCopy withSpecifier:specifierCopy];
+    v13.receiver = self;
+    v13.super_class = CKCloudSettingsViewController;
+    [(ACUIDataclassConfigurationViewController *)&v13 dataclassSwitchStateDidChange:changeCopy withSpecifier:specifierCopy];
   }
 
   else
@@ -162,8 +164,6 @@ LABEL_7:
 
     [(CKCloudSettingsViewController *)self _presentAlertForAccountMismatchFromSpecifier:specifierCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentAlertForAccountMismatchFromSpecifier:(id)specifier
@@ -261,33 +261,30 @@ void __96__CKCloudSettingsViewController_HeaderSpecifiers___presentAlertForAccou
 
 - (void)viewDidLoad
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16.receiver = self;
-  v16.super_class = CKCloudSettingsViewController;
-  [(ACUIDataclassConfigurationViewController *)&v16 viewDidLoad];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = CKCloudSettingsViewController;
+  [(ACUIDataclassConfigurationViewController *)&v13 viewDidLoad];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"MESSAGES" value:&stru_286A13F00 table:@"iCloudMessagesSettings"];
   [(CKCloudSettingsViewController *)self setTitle:v4];
 
   gotLoadHelper_x8__OBJC_CLASS___SBSUITraitHomeScreenIconStyle(v5);
-  v7 = *(v6 + 3152);
-  v8 = objc_opt_self();
-  v17[0] = v8;
-  v9 = objc_opt_self();
-  v17[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v6 = objc_opt_self();
+  v14[0] = v6;
+  v7 = objc_opt_self();
+  v14[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
 
   objc_initWeak(&location, self);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __44__CKCloudSettingsViewController_viewDidLoad__block_invoke;
-  v13[3] = &unk_2798C4890;
-  objc_copyWeak(&v14, &location);
-  v11 = [(CKCloudSettingsViewController *)self registerForTraitChanges:v10 withHandler:v13];
-  objc_destroyWeak(&v14);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __44__CKCloudSettingsViewController_viewDidLoad__block_invoke;
+  v10[3] = &unk_2798C4890;
+  objc_copyWeak(&v11, &location);
+  v9 = [(CKCloudSettingsViewController *)self registerForTraitChanges:v8 withHandler:v10];
+  objc_destroyWeak(&v11);
   objc_destroyWeak(&location);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __44__CKCloudSettingsViewController_viewDidLoad__block_invoke(uint64_t a1, void *a2)
@@ -298,6 +295,29 @@ void __44__CKCloudSettingsViewController_viewDidLoad__block_invoke(uint64_t a1, 
 
   v4 = objc_loadWeakRetained((a1 + 32));
   [v4 reloadSpecifiers];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = CKCloudSettingsViewController;
+  [(ACUIDataclassConfigurationViewController *)&v7 viewWillAppear:appear];
+  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v5 = [v4 localizedStringForKey:@"MESSAGES" value:&stru_286A13F00 table:@"iCloudMessagesSettings"];
+  navigationItem = [(CKCloudSettingsViewController *)self navigationItem];
+  [navigationItem setTitle:v5];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = CKCloudSettingsViewController;
+  [(ACUIDataclassConfigurationViewController *)&v5 viewWillDisappear:disappear];
+  manageStorageController = self->_manageStorageController;
+  if (manageStorageController)
+  {
+    [(ICSManageStorageDrilldownController *)manageStorageController cancelLoading];
+  }
 }
 
 - (id)specifiers
@@ -331,7 +351,7 @@ void __44__CKCloudSettingsViewController_viewDidLoad__block_invoke(uint64_t a1, 
 
 - (id)_syncSpecifiers
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"SYNC_ACTION_GROUP_IDENTIFIER"];
   v4 = MEMORY[0x277D3FAD8];
   viewModel = [(CKCloudSettingsViewController *)self viewModel];
@@ -346,11 +366,9 @@ void __44__CKCloudSettingsViewController_viewDidLoad__block_invoke(uint64_t a1, 
   v10 = [MEMORY[0x277CCABB0] numberWithBool:isSyncButtonEnabled];
   [v7 setProperty:v10 forKey:*MEMORY[0x277D3FF38]];
 
-  v14[0] = v3;
-  v14[1] = v7;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13[0] = v3;
+  v13[1] = v7;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
 
   return v11;
 }
@@ -363,7 +381,7 @@ void __44__CKCloudSettingsViewController_viewDidLoad__block_invoke(uint64_t a1, 
 
 - (void)navigateToSettingsWithURLString:(id)string forSpecifier:(id)specifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   specifierCopy = specifier;
   if (IMOSLoggingEnabled())
@@ -371,8 +389,8 @@ void __44__CKCloudSettingsViewController_viewDidLoad__block_invoke(uint64_t a1, 
     v7 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_258D24000, v7, OS_LOG_TYPE_INFO, "Detected tap on footer link text.", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_258D24000, v7, OS_LOG_TYPE_INFO, "Detected tap on footer link text.", &v12, 2u);
     }
   }
 
@@ -381,9 +399,9 @@ void __44__CKCloudSettingsViewController_viewDidLoad__block_invoke(uint64_t a1, 
     v8 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v13 = 138412290;
-      v14 = specifierCopy;
-      _os_log_impl(&dword_258D24000, v8, OS_LOG_TYPE_INFO, "Attempting to present a screen for specifier={%@}", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = specifierCopy;
+      _os_log_impl(&dword_258D24000, v8, OS_LOG_TYPE_INFO, "Attempting to present a screen for specifier={%@}", &v12, 0xCu);
     }
   }
 
@@ -399,13 +417,11 @@ void __44__CKCloudSettingsViewController_viewDidLoad__block_invoke(uint64_t a1, 
     v11 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v13 = 138412290;
-      v14 = 0;
-      _os_log_impl(&dword_258D24000, v11, OS_LOG_TYPE_INFO, "Programming error - unable to load urlString=(%@)", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = 0;
+      _os_log_impl(&dword_258D24000, v11, OS_LOG_TYPE_INFO, "Programming error - unable to load urlString=(%@)", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)account
@@ -534,7 +550,7 @@ void __67__CKCloudSettingsViewController__startObservingAccountStoreChanges__blo
 {
   v4 = MEMORY[0x277D1B1A8];
   collectionCopy = collection;
-  v21 = [[v4 alloc] initWithBundleIdentifier:@"com.apple.MobileSMS"];
+  v19 = [[v4 alloc] initWithBundleIdentifier:@"com.apple.MobileSMS"];
   v6 = objc_alloc(MEMORY[0x277D1B1C8]);
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen scale];
@@ -542,23 +558,22 @@ void __67__CKCloudSettingsViewController__startObservingAccountStoreChanges__blo
 
   v10 = [collectionCopy userInterfaceStyle] == 2;
   gotLoadHelper_x8__OBJC_CLASS___SBSUITraitHomeScreenIconStyle(v11);
-  v13 = *(v12 + 3152);
-  v14 = objc_opt_self();
-  v15 = [collectionCopy objectForTrait:v14];
+  v12 = objc_opt_self();
+  v13 = [collectionCopy objectForTrait:v12];
 
-  [v9 setAppearance:{objc_msgSend(v15, "iconServicesAppearanceUsingDarkInterfaceStyle:", v10)}];
-  [v9 setAppearanceVariant:{objc_msgSend(v15, "iconServicesAppearanceVariantUsingDarkInterfaceStyle:", v10)}];
-  tintColor = [v15 tintColor];
+  [v9 setAppearance:{objc_msgSend(v13, "iconServicesAppearanceUsingDarkInterfaceStyle:", v10)}];
+  [v9 setAppearanceVariant:{objc_msgSend(v13, "iconServicesAppearanceVariantUsingDarkInterfaceStyle:", v10)}];
+  tintColor = [v13 tintColor];
   if (tintColor)
   {
-    v17 = [objc_alloc(MEMORY[0x277D1B150]) initWithCGColor:{objc_msgSend(tintColor, "CGColor")}];
-    [v9 setTintColor:v17];
+    v15 = [objc_alloc(MEMORY[0x277D1B150]) initWithCGColor:{objc_msgSend(tintColor, "CGColor")}];
+    [v9 setTintColor:v15];
   }
 
-  v18 = [v21 prepareImageForDescriptor:v9];
-  v19 = [MEMORY[0x277D755B8] imageWithCGImage:{objc_msgSend(v18, "CGImage")}];
+  v16 = [v19 prepareImageForDescriptor:v9];
+  v17 = [MEMORY[0x277D755B8] imageWithCGImage:{objc_msgSend(v16, "CGImage")}];
   cachedAppIconUIImage = self->_cachedAppIconUIImage;
-  self->_cachedAppIconUIImage = v19;
+  self->_cachedAppIconUIImage = v17;
 }
 
 - (void)pushManageStorage:(id)storage

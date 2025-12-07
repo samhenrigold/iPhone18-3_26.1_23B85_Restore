@@ -16,6 +16,7 @@
 - (unint64_t)_hashWithEpisodeSet:(id)set;
 - (void)_NRPairedDeviceRegistryWatchDidBecomeActiveDarwinNotification;
 - (void)_cancelAsset:(id)asset withError:(id)error;
+- (void)_cancelPodcastsDownloadsWithError:(id)error excludeActiveDownloads:(BOOL)downloads;
 - (void)_clearAssetURLForEpisode:(id)episode;
 - (void)_clearAssetURLForEpisodeWithUUID:(id)d;
 - (void)_clearPlayedDownloadsAndSyncPodcastsIfCanEnqueueAssets;
@@ -1085,6 +1086,28 @@ LABEL_10:
   v11 = [NSArray arrayWithObjects:&v12 count:1];
 
   [v10 installCompleteForAssets:v11];
+}
+
+- (void)_cancelPodcastsDownloadsWithError:(id)error excludeActiveDownloads:(BOOL)downloads
+{
+  downloadsCopy = downloads;
+  errorCopy = error;
+  if (!errorCopy)
+  {
+    errorCopy = [NSError errorWithDomain:@"ATError" code:2 userInfo:0];
+  }
+
+  v6 = sub_29E0();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v10 = errorCopy;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Cancelling Podcasts downloads with error %@", buf, 0xCu);
+  }
+
+  v7 = +[ATAssetLinkController sharedInstance];
+  v8 = [NSPredicate predicateWithFormat:@"dataclass=%@", @"Podcasts"];
+  [v7 cancelAllAssetsMatchingPredicate:v8 excludeActiveDownloads:downloadsCopy withError:errorCopy completion:0];
 }
 
 - (id)_episodePropertiesToFetch

@@ -21,22 +21,21 @@
 
 - (COExecutionContext)initWithDispatchQueue:(id)queue
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   queueCopy = queue;
-  v10.receiver = self;
-  v10.super_class = COExecutionContext;
-  v5 = [(COExecutionContext *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = COExecutionContext;
+  v5 = [(COExecutionContext *)&v9 init];
   if (v5)
   {
     dispatch_queue_set_specific(queueCopy, "queueSpecificInfo", queueCopy, 0);
-    v11 = @"dispatchQueue";
-    v12[0] = queueCopy;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = @"dispatchQueue";
+    v11[0] = queueCopy;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     metadata = v5->_metadata;
     v5->_metadata = v6;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

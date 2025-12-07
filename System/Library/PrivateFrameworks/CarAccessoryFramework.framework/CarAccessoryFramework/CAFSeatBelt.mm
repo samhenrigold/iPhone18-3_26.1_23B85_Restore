@@ -15,6 +15,7 @@
 - (unsigned)buckleState;
 - (unsigned)seatBeltIndicator;
 - (unsigned)seatOccupancy;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -230,6 +231,101 @@
   seatBeltIndicatorValue = [seatBeltIndicatorCharacteristic seatBeltIndicatorValue];
 
   return seatBeltIndicatorValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000036000065"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    vehicleLayoutKeyCharacteristic = [(CAFSeatBelt *)self vehicleLayoutKeyCharacteristic];
+    uniqueIdentifier2 = [vehicleLayoutKeyCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      vehicleLayoutKey = [(CAFSeatBelt *)self vehicleLayoutKey];
+      [observers seatBeltService:self didUpdateVehicleLayoutKey:vehicleLayoutKey];
+
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFSeatBelt *)self name];
+      [observers2 seatBeltService:self didUpdateName:name];
+
+LABEL_16:
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000060000006"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    seatOccupancyCharacteristic = [(CAFSeatBelt *)self seatOccupancyCharacteristic];
+    uniqueIdentifier4 = [seatOccupancyCharacteristic uniqueIdentifier];
+    v20 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v20)
+    {
+      observers2 = [(CAFService *)self observers];
+      [observers2 seatBeltService:self didUpdateSeatOccupancy:{-[CAFSeatBelt seatOccupancy](self, "seatOccupancy")}];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000060000002"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    buckleStateCharacteristic = [(CAFSeatBelt *)self buckleStateCharacteristic];
+    uniqueIdentifier6 = [buckleStateCharacteristic uniqueIdentifier];
+    v25 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v25)
+    {
+      observers2 = [(CAFService *)self observers];
+      [observers2 seatBeltService:self didUpdateBuckleState:{-[CAFSeatBelt buckleState](self, "buckleState")}];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers2 = [updateCopy characteristicType];
+  if (![observers2 isEqual:@"0x0000000060000007"])
+  {
+    goto LABEL_16;
+  }
+
+  uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+  seatBeltIndicatorCharacteristic = [(CAFSeatBelt *)self seatBeltIndicatorCharacteristic];
+  uniqueIdentifier8 = [seatBeltIndicatorCharacteristic uniqueIdentifier];
+  v29 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+  if (v29)
+  {
+    observers2 = [(CAFService *)self observers];
+    [observers2 seatBeltService:self didUpdateSeatBeltIndicator:{-[CAFSeatBelt seatBeltIndicator](self, "seatBeltIndicator")}];
+    goto LABEL_16;
+  }
+
+LABEL_17:
+  v30.receiver = self;
+  v30.super_class = CAFSeatBelt;
+  [(CAFService *)&v30 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForVehicleLayoutKey

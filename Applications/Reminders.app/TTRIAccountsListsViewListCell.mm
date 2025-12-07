@@ -67,7 +67,7 @@
 
   sub_1005E94AC();
 
-  sub_1000079B4(v6, &qword_10076AE40);
+  sub_1000079B4(v6, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (BOOL)accessibilityActivate

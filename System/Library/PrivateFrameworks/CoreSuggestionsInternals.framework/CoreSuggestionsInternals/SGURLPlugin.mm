@@ -2,6 +2,7 @@
 - (BOOL)_shouldProcessSearchableItem:(id)item;
 - (SGURLPlugin)initWithEntityStore:(id)store;
 - (SGURLPlugin)initWithEntityStoreGetter:(id)getter;
+- (id)_consumeContentParts:(id)parts title:(id)title fromHandle:(id)handle documentDate:(id)date isOutgoingDocument:(BOOL)document uniqueIdentifier:(id)identifier domainIdentifier:(id)domainIdentifier bundleIdentifier:(id)self0 context:(id)self1;
 - (id)_urlContainerFromText:(id)text documentDate:(id)date documentTitle:(id)title handle:(id)handle isOutgoingDocument:(BOOL)document uniqueIdentifier:(id)identifier domainIdentifier:(id)domainIdentifier bundleIdentifier:(id)self0;
 - (id)consumeRemindersContentWithContext:(id)context;
 - (id)extractURLsFromAttributesOfItem:(id)item handle:(id)handle;
@@ -14,16 +15,16 @@
 
 - (void)deleteSpotlightReferencesWithBundleIdentifier:(id)identifier
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if ([identifierCopy isEqualToString:*MEMORY[0x277D021A0]])
   {
     v5 = sgLogHandle();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = identifierCopy;
-      _os_log_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEFAULT, "SGURLPlugin: deleting URLs from bundleId %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = identifierCopy;
+      _os_log_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEFAULT, "SGURLPlugin: deleting URLs from bundleId %@", &v9, 0xCu);
     }
 
     v6 = (*(self->_entityStoreGetter + 2))();
@@ -34,28 +35,26 @@
       v8 = sgLogHandle();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v10 = 138412290;
-        v11 = identifierCopy;
-        _os_log_error_impl(&dword_231E60000, v8, OS_LOG_TYPE_ERROR, "SGURLPlugin failed to delete URLs from bundleId %@", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = identifierCopy;
+        _os_log_error_impl(&dword_231E60000, v8, OS_LOG_TYPE_ERROR, "SGURLPlugin failed to delete URLs from bundleId %@", &v9, 0xCu);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldProcessSearchableItem:(id)item
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   bundleID = [itemCopy bundleID];
   if (bundleID)
   {
     bundleID2 = [itemCopy bundleID];
     v6 = *MEMORY[0x277D41E80];
-    v11[0] = *MEMORY[0x277D41E60];
-    v11[1] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+    v10[0] = *MEMORY[0x277D41E60];
+    v10[1] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
     v8 = [v7 containsObject:bundleID2];
   }
 
@@ -64,14 +63,13 @@
     v8 = 1;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)_urlContainerFromText:(id)text documentDate:(id)date documentTitle:(id)title handle:(id)handle isOutgoingDocument:(BOOL)document uniqueIdentifier:(id)identifier domainIdentifier:(id)domainIdentifier bundleIdentifier:(id)self0
 {
-  HIDWORD(v29) = document;
-  v34 = *MEMORY[0x277D85DE8];
+  HIDWORD(v28) = document;
+  v33 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   bundleIdentifierCopy = bundleIdentifier;
   domainIdentifierCopy = domainIdentifier;
@@ -84,18 +82,16 @@
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v31 = [v22 count];
-    v32 = 2112;
-    v33 = identifierCopy;
+    v30 = objc_msgSend_count(v22);
+    v31 = 2112;
+    v32 = identifierCopy;
     _os_log_impl(&dword_231E60000, v23, OS_LOG_TYPE_DEFAULT, "SGURLPlugin: %tu detections on %@", buf, 0x16u);
   }
 
   urlDissector = self->_urlDissector;
   v25 = objc_opt_new();
-  LOBYTE(v29) = BYTE4(v29);
-  v26 = [(SGURLDissector *)urlDissector urlsFromText:textCopy handle:handleCopy dataDetectorMatches:v22 bundleIdentifier:bundleIdentifierCopy domainIdentifier:domainIdentifierCopy uniqueIdentifier:identifierCopy documentTitle:0.0 documentDate:titleCopy documentTimeInterval:dateCopy receivedAt:v25 isOutgoingDocument:v29];
-
-  v27 = *MEMORY[0x277D85DE8];
+  LOBYTE(v28) = BYTE4(v28);
+  v26 = [(SGURLDissector *)urlDissector urlsFromText:textCopy handle:handleCopy dataDetectorMatches:v22 bundleIdentifier:bundleIdentifierCopy domainIdentifier:domainIdentifierCopy uniqueIdentifier:identifierCopy documentTitle:0.0 documentDate:titleCopy documentTimeInterval:dateCopy receivedAt:v25 isOutgoingDocument:v28];
 
   return v26;
 }
@@ -134,7 +130,7 @@
     [v8 addObject:comment2];
   }
 
-  if ([v8 count])
+  if (objc_msgSend_count(v8))
   {
     selfCopy = self;
     v21 = *MEMORY[0x277D41E80];
@@ -183,7 +179,7 @@
 
 - (id)extractURLsFromAttributesOfItem:(id)item handle:(id)handle
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   handleCopy = handle;
   v7 = sgLogHandle();
@@ -191,7 +187,7 @@
   {
     uniqueIdentifier = [itemCopy uniqueIdentifier];
     *buf = 138412290;
-    v25 = uniqueIdentifier;
+    v24 = uniqueIdentifier;
     _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEFAULT, "SGURLPlugin: extracting URLs from attributes of %@", buf, 0xCu);
   }
 
@@ -205,17 +201,15 @@
   attributeSet3 = [itemCopy attributeSet];
   contentCreationDate = [attributeSet3 contentCreationDate];
   v16 = objc_opt_new();
-  LOBYTE(v19) = [MEMORY[0x277D41E30] searchableItemIsOutgoing:itemCopy];
-  v20 = [(SGURLDissector *)urlDissector urlsFromAttributes:attributeSet handle:handleCopy bundleIdentifier:bundleID domainIdentifier:domainIdentifier uniqueIdentifier:uniqueIdentifier2 documentTitle:title documentDate:0.0 documentTimeInterval:contentCreationDate receivedAt:v16 isOutgoingDocument:v19];
+  LOBYTE(v18) = [MEMORY[0x277D41E30] searchableItemIsOutgoing:itemCopy];
+  v19 = [(SGURLDissector *)urlDissector urlsFromAttributes:attributeSet handle:handleCopy bundleIdentifier:bundleID domainIdentifier:domainIdentifier uniqueIdentifier:uniqueIdentifier2 documentTitle:title documentDate:0.0 documentTimeInterval:contentCreationDate receivedAt:v16 isOutgoingDocument:v18];
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v19;
 }
 
 - (id)processSearchableItem:(id)item
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if (_os_feature_enabled_impl())
   {
@@ -229,10 +223,10 @@
         v7 = sgLogHandle();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          *v33 = 0;
+          *v32 = 0;
           v8 = "SGURLPlugin: TextUnderstanding feature flags enabled, ignoring item from Messages.";
 LABEL_13:
-          _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEFAULT, v8, v33, 2u);
+          _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEFAULT, v8, v32, 2u);
           goto LABEL_14;
         }
 
@@ -250,7 +244,7 @@ LABEL_13:
       v7 = sgLogHandle();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v33 = 0;
+        *v32 = 0;
         v8 = "SGURLPlugin ignoring item with nil unique identifier";
         goto LABEL_13;
       }
@@ -273,8 +267,8 @@ LABEL_14:
         bundleID3 = [itemCopy bundleID];
         attributeSet2 = [itemCopy attributeSet];
         uniqueIdentifier2 = [attributeSet2 uniqueIdentifier];
-        v34[0] = uniqueIdentifier2;
-        v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
+        v33[0] = uniqueIdentifier2;
+        v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
         [v7 deleteURLsFromBundleIdentifier:bundleID3 documentIdentifiers:v17];
 
         goto LABEL_14;
@@ -291,9 +285,9 @@ LABEL_14:
     {
       attributeSet4 = [itemCopy attributeSet];
       authorAddresses2 = [attributeSet4 authorAddresses];
-      v25 = [authorAddresses2 count];
+      v24 = objc_msgSend_count(authorAddresses2);
 
-      if (!v25)
+      if (!v24)
       {
         authorAddresses = 0;
         goto LABEL_25;
@@ -306,11 +300,11 @@ LABEL_14:
 
 LABEL_25:
     attributeSet5 = [itemCopy attributeSet];
-    v28 = [attributeSet5 URL];
-    absoluteString = [v28 absoluteString];
-    v30 = [absoluteString length];
+    v27 = [attributeSet5 URL];
+    absoluteString = [v27 absoluteString];
+    v29 = [absoluteString length];
 
-    if (v30)
+    if (v29)
     {
       [(SGURLPlugin *)self extractURLsFromAttributesOfItem:itemCopy handle:authorAddresses];
     }
@@ -319,9 +313,9 @@ LABEL_25:
     {
       [(SGURLPlugin *)self extractURLsFromTextPropertiesOfItem:itemCopy handle:authorAddresses];
     }
-    v31 = ;
-    v32 = (*(self->_entityStoreGetter + 2))();
-    [v31 writeWithEntityStore:v32];
+    v30 = ;
+    v31 = (*(self->_entityStoreGetter + 2))();
+    [v30 writeWithEntityStore:v31];
 
     v18 = +[FIAPResult success];
 
@@ -332,21 +326,53 @@ LABEL_15:
   v18 = +[FIAPResult success];
 LABEL_16:
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v18;
+}
+
+- (id)_consumeContentParts:(id)parts title:(id)title fromHandle:(id)handle documentDate:(id)date isOutgoingDocument:(BOOL)document uniqueIdentifier:(id)identifier domainIdentifier:(id)domainIdentifier bundleIdentifier:(id)self0 context:(id)self1
+{
+  documentCopy = document;
+  titleCopy = title;
+  handleCopy = handle;
+  dateCopy = date;
+  identifierCopy = identifier;
+  domainIdentifierCopy = domainIdentifier;
+  bundleIdentifierCopy = bundleIdentifier;
+  contextCopy = context;
+  v23 = [parts _pas_proxyComponentsJoinedByString:@"\n\n"];
+  shouldContinue = [contextCopy shouldContinue];
+
+  if (shouldContinue)
+  {
+    handle = [handleCopy handle];
+    v26 = [(SGURLPlugin *)self _urlContainerFromText:v23 documentDate:dateCopy documentTitle:titleCopy handle:handle isOutgoingDocument:documentCopy uniqueIdentifier:identifierCopy domainIdentifier:domainIdentifierCopy bundleIdentifier:bundleIdentifierCopy];
+
+    v27 = (*(self->_entityStoreGetter + 2))();
+    [v26 writeWithEntityStore:v27];
+
+    v28 = MEMORY[0x277D41DF0];
+    numberOfExtractions = [v26 numberOfExtractions];
+    interrupted = [v28 successWithNumberOfExtractions:numberOfExtractions];
+  }
+
+  else
+  {
+    interrupted = [MEMORY[0x277D41DF0] interrupted];
+  }
+
+  return interrupted;
 }
 
 - (id)consumeRemindersContentWithContext:(id)context
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   content = [contextCopy content];
   v6 = (*(self->_entityStoreGetter + 2))();
   v7 = *MEMORY[0x277D41E80];
   uniqueId = [content uniqueId];
-  v30[0] = uniqueId;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+  v29[0] = uniqueId;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
   [v6 deleteURLsFromBundleIdentifier:v7 documentIdentifiers:v9];
 
   [content completionDateTimestamp];
@@ -367,7 +393,7 @@ LABEL_16:
     {
       notes = [content notes];
       *buf = 134217984;
-      v29 = [notes length];
+      v28 = [notes length];
       _os_log_impl(&dword_231E60000, v16, OS_LOG_TYPE_DEFAULT, "SGURLPlugin: consumeRemindersContentWithContext: notes.length = %tu", buf, 0xCu);
     }
 
@@ -393,8 +419,6 @@ LABEL_16:
   {
     v11 = [MEMORY[0x277D41DF0] successWithNumberOfExtractions:0];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

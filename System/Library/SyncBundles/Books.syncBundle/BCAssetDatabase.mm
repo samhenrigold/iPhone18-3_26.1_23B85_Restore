@@ -15,6 +15,7 @@
 - (void)removeOutstandingAssetByPersistentID:(id)d;
 - (void)removeOutstandingAssetMissingFromPersistentIDs:(id)ds;
 - (void)removeOutstandingAssetsByPersistentIDs:(id)ds;
+- (void)removeOutstandingAssetsByRestoreFlag:(BOOL)flag keepDownloadedAssetRows:(BOOL)rows;
 - (void)setDownloadPath:(id)path forOutstandingAssetsByPersistentID:(id)d;
 - (void)updateOutstandingAssetDictionaries:(id)dictionaries isRestore:(BOOL)restore;
 @end
@@ -47,7 +48,7 @@
 - (BOOL)shouldRetryAddingPersistentStoreAfterError:(id)error
 {
   psErrorRetryCount = self->_psErrorRetryCount;
-  v5 = BCDefaultLog();
+  v5 = BCDefaultLog(self, a2);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
   if (psErrorRetryCount <= 0)
   {
@@ -71,42 +72,44 @@
 
 + (void)removeDatabase
 {
-  v2 = BCDefaultLog();
+  v2 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Removing the database.", buf, 2u);
   }
 
-  v9 = 0;
+  v13 = 0;
   v3 = +[NSFileManager defaultManager];
-  if ([(NSFileManager *)v3 fileExistsAtPath:@"/var/mobile/Media/Books/Sync/Database/"])
+  v4 = [(NSFileManager *)v3 fileExistsAtPath:@"/var/mobile/Media/Books/Sync/Database/"];
+  if (v4)
   {
-    if ([(NSFileManager *)v3 removeItemAtPath:@"/var/mobile/Media/Books/Sync/Database/" error:&v9])
+    v6 = [(NSFileManager *)v3 removeItemAtPath:@"/var/mobile/Media/Books/Sync/Database/" error:&v13];
+    if (v6)
     {
-      v4 = BCDefaultLog();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v8 = BCDefaultLog(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v13 = @"/var/mobile/Media/Books/Sync/Database/";
-        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "deleted: %@", buf, 0xCu);
+        v17 = @"/var/mobile/Media/Books/Sync/Database/";
+        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "deleted: %@", buf, 0xCu);
       }
     }
 
     else
     {
-      v6 = v9;
-      v7 = BCDefaultLog();
-      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
-      if (v6)
+      v10 = v13;
+      v11 = BCDefaultLog(v6, v7);
+      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
+      if (v10)
       {
-        if (v8)
+        if (v12)
         {
-          sub_13AD8(@"/var/mobile/Media/Books/Sync/Database/", &v9);
+          sub_13AD8();
         }
       }
 
-      else if (v8)
+      else if (v12)
       {
         sub_13B48();
       }
@@ -115,20 +118,20 @@
 
   else
   {
-    v5 = BCDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v9 = BCDefaultLog(v4, v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      sub_13A94(v5);
+      sub_13A94(v9);
     }
   }
 
   if (![(NSFileManager *)v3 fileExistsAtPath:@"/var/mobile/Media/Books/Sync/Database/"])
   {
-    v10[0] = NSFileOwnerAccountName;
-    v10[1] = NSFileGroupOwnerAccountName;
-    v11[0] = @"mobile";
-    v11[1] = @"mobile";
-    [(NSFileManager *)v3 createDirectoryAtPath:@"/var/mobile/Media/Books/Sync/Database/" withIntermediateDirectories:1 attributes:[NSDictionary error:"dictionaryWithObjects:forKeys:count:" dictionaryWithObjects:v11 forKeys:v10 count:2], 0];
+    v14[0] = NSFileOwnerAccountName;
+    v14[1] = NSFileGroupOwnerAccountName;
+    v15[0] = @"mobile";
+    v15[1] = @"mobile";
+    [(NSFileManager *)v3 createDirectoryAtPath:@"/var/mobile/Media/Books/Sync/Database/" withIntermediateDirectories:1 attributes:[NSDictionary error:"dictionaryWithObjects:forKeys:count:" dictionaryWithObjects:v15 forKeys:v14 count:2], 0];
   }
 }
 
@@ -153,44 +156,45 @@
   v8 = objc_alloc_init(NSFetchRequest);
   [v8 setEntity:{+[NSEntityDescription entityForName:inManagedObjectContext:](NSEntityDescription, "entityForName:inManagedObjectContext:", entities, c)}];
   [v8 setPredicate:predicate];
-  v13 = 0;
-  v9 = [c executeFetchRequest:v8 error:&v13];
+  v15 = 0;
+  v9 = [c executeFetchRequest:v8 error:&v15];
+  v11 = v9;
   if (v9)
   {
-    v10 = 1;
+    v12 = 1;
   }
 
   else
   {
-    v10 = v13 == 0;
+    v12 = v15 == 0;
   }
 
-  if (!v10)
+  if (!v12)
   {
-    v11 = BCDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = BCDefaultLog(v9, v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_13C28(entities, &v13);
+      sub_13C28();
     }
   }
 
-  return v9;
+  return v11;
 }
 
 - (id)cachedEntities:(id)entities byPersistentIDs:(id)ds metrics:(id *)metrics
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3052000000;
-  v18 = sub_F4D8;
-  v19 = sub_F4E8;
-  v20 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3052000000;
+  v19 = sub_F4D8;
+  v20 = sub_F4E8;
+  v21 = 0;
   if (![ds count])
   {
-    v11 = BCDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = BCDefaultLog(0, v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      sub_13C98(v11);
+      sub_13C98(v12);
       if (!metrics)
       {
         goto LABEL_6;
@@ -207,22 +211,22 @@
     goto LABEL_6;
   }
 
-  v9 = objc_alloc_init(NSAutoreleasePool);
+  v10 = objc_alloc_init(NSAutoreleasePool);
   newManagedObjectContext = [(BCDatabase *)self newManagedObjectContext];
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_F4F4;
-  v14[3] = &unk_20668;
-  v14[4] = entities;
-  v14[5] = newManagedObjectContext;
-  v14[6] = ds;
-  v14[7] = &v15;
-  v14[8] = metrics;
-  [newManagedObjectContext performBlockAndWait:v14];
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_F4F4;
+  v15[3] = &unk_20668;
+  v15[4] = entities;
+  v15[5] = newManagedObjectContext;
+  v15[6] = ds;
+  v15[7] = &v16;
+  v15[8] = metrics;
+  [newManagedObjectContext performBlockAndWait:v15];
 
 LABEL_6:
-  allObjects = [v16[5] allObjects];
-  _Block_object_dispose(&v15, 8);
+  allObjects = [v17[5] allObjects];
+  _Block_object_dispose(&v16, 8);
   return allObjects;
 }
 
@@ -254,7 +258,7 @@ LABEL_6:
 - (void)insertOutstandingAssetDictionaries:(id)dictionaries isRestore:(BOOL)restore
 {
   restoreCopy = restore;
-  v8 = BCDefaultLog();
+  v8 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
@@ -281,7 +285,7 @@ LABEL_6:
 - (void)updateOutstandingAssetDictionaries:(id)dictionaries isRestore:(BOOL)restore
 {
   restoreCopy = restore;
-  v8 = BCDefaultLog();
+  v8 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
@@ -307,7 +311,7 @@ LABEL_6:
 
 - (void)removeOutstandingAssetMissingFromPersistentIDs:(id)ds
 {
-  v6 = BCDefaultLog();
+  v6 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -331,9 +335,32 @@ LABEL_6:
   }
 }
 
+- (void)removeOutstandingAssetsByRestoreFlag:(BOOL)flag keepDownloadedAssetRows:(BOOL)rows
+{
+  rowsCopy = rows;
+  flagCopy = flag;
+  v7 = BCDefaultLog(self, a2);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109376;
+    v10 = flagCopy;
+    v11 = 1024;
+    v12 = rowsCopy;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Removing outstanding assets by restoreFlag %d, keepDownloadedAssetRows %d.", buf, 0xEu);
+  }
+
+  flagCopy = [NSPredicate predicateWithFormat:@"restoreRelated == %d", flagCopy];
+  if (rowsCopy)
+  {
+    flagCopy = +[NSPredicate predicateWithFormat:](NSPredicate, "predicateWithFormat:", @"(restoreRelated == %d) AND (downloadCompletePath == %@)", flagCopy, +[NSNull null]);
+  }
+
+  [(BCAssetDatabase *)self removeEntities:@"BCOutstandingAsset" byPredicate:flagCopy];
+}
+
 - (void)removeOutstandingAssetByPersistentID:(id)d
 {
-  v5 = BCDefaultLog();
+  v5 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -346,7 +373,7 @@ LABEL_6:
 
 - (void)removeOutstandingAssetsByPersistentIDs:(id)ds
 {
-  v5 = BCDefaultLog();
+  v5 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -362,7 +389,7 @@ LABEL_6:
 
 - (void)setDownloadPath:(id)path forOutstandingAssetsByPersistentID:(id)d
 {
-  v8 = BCDefaultLog();
+  v8 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -388,7 +415,7 @@ LABEL_6:
 
 - (id)outstandingAssetDownloadCompletePathsMatchingArray:(id)array
 {
-  v5 = BCDefaultLog();
+  v5 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
@@ -455,24 +482,24 @@ LABEL_6:
 {
   if ([d length])
   {
-    v8 = objc_alloc_init(NSAutoreleasePool);
+    v9 = objc_alloc_init(NSAutoreleasePool);
     newManagedObjectContext = [(BCDatabase *)self newManagedObjectContext];
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_118FC;
-    v11[3] = &unk_20758;
-    v11[4] = d;
-    v11[5] = self;
-    v11[6] = newManagedObjectContext;
-    v11[7] = size;
-    v11[8] = a2;
-    [newManagedObjectContext performBlockAndWait:v11];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_118FC;
+    v12[3] = &unk_20758;
+    v12[4] = d;
+    v12[5] = self;
+    v12[6] = newManagedObjectContext;
+    v12[7] = size;
+    v12[8] = a2;
+    [newManagedObjectContext performBlockAndWait:v12];
   }
 
   else
   {
-    v10 = BCDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BCDefaultLog(0, v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_13EA4();
     }

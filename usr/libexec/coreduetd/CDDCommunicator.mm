@@ -15,6 +15,7 @@
 - (id)getCurrrentSupportedVersions;
 - (id)getDictionaryFromConfigurationPlist:(id)plist;
 - (id)getScheduledForecasts;
+- (id)getScheduledMessage:(id)message withForecasts:(BOOL)forecasts;
 - (id)getStringArrayFromConfigurationPlist:(id)plist;
 - (id)getVersionsDictFromMaxVersion:(unint64_t)version minVersion:(unint64_t)minVersion;
 - (id)handleMessageVersioning:(id)versioning;
@@ -32,6 +33,7 @@
 - (void)checkDevices:(id)devices;
 - (void)dealloc;
 - (void)deregisterForSystemConditionChanges;
+- (void)exchangeSystemComboMessage:(BOOL)message;
 - (void)handleAppStateChanged;
 - (void)handleNetworkChanged;
 - (void)informCommunicationError;
@@ -41,6 +43,7 @@
 - (void)requestRemoteDeviceSync;
 - (void)setupCommControl;
 - (void)syncStateWithActiveRemote;
+- (void)triggerExchangeForFocalApp:(id)app inState:(int)state withNonApps:(id)apps byClient:(unint64_t)client;
 - (void)triggerFocalAppExchange:(id)exchange inState:(int)state shouldSendMessage:(BOOL)message;
 - (void)triggerNonAppFocalExchange:(id)exchange byClient:(unint64_t)client shouldSendMessage:(BOOL)message;
 - (void)triggerSystemDataExchange:(BOOL)exchange wakeRemote:(BOOL)remote;
@@ -1706,6 +1709,56 @@ LABEL_16:
   return v5;
 }
 
+- (id)getScheduledMessage:(id)message withForecasts:(BOOL)forecasts
+{
+  forecastsCopy = forecasts;
+  messageCopy = message;
+  v7 = [(CDDCommunicator *)self makeScheduledMessage:messageCopy withForecasts:forecastsCopy];
+  if (!v7)
+  {
+    sub_100022AB8();
+  }
+
+  v8 = v7;
+  v9 = [NSKeyedArchiver archivedDataWithRootObject:v7 requiringSecureCoding:1 error:0];
+  if (!v9)
+  {
+    sub_100022A8C();
+  }
+
+  v10 = v9;
+
+  return v10;
+}
+
+- (void)triggerExchangeForFocalApp:(id)app inState:(int)state withNonApps:(id)apps byClient:(unint64_t)client
+{
+  v7 = *&state;
+  appsCopy = apps;
+  [(CDDCommunicator *)self triggerFocalAppExchange:app inState:v7 shouldSendMessage:0];
+  [(CDDCommunicator *)self triggerNonAppFocalExchange:appsCopy byClient:client shouldSendMessage:0];
+  daemonQueue = self->daemonQueue;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_100016534;
+  v17[3] = &unk_10003CEE8;
+  v19 = v7;
+  v17[4] = self;
+  v18 = appsCopy;
+  v12 = v17;
+  v13 = daemonQueue;
+  v14 = appsCopy;
+  v15 = os_transaction_create();
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100017E3C;
+  block[3] = &unk_10003CAA0;
+  v21 = v15;
+  v22 = v12;
+  v16 = v15;
+  dispatch_async(v13, block);
+}
+
 - (void)triggerFocalAppExchange:(id)exchange inState:(int)state shouldSendMessage:(BOOL)message
 {
   exchangeCopy = exchange;
@@ -1803,6 +1856,111 @@ LABEL_16:
   v10 = v3;
   v6 = v5;
   dispatch_async(v4, block);
+}
+
+- (void)exchangeSystemComboMessage:(BOOL)message
+{
+  messageCopy = message;
+  generateFocalNonAppFocalMutableSet = [(CDDCommunicator *)self generateFocalNonAppFocalMutableSet];
+  if ([(NSArray *)self->exclusiveApps count])
+  {
+    v6 = 0;
+    do
+    {
+      lastSentFocalNonFocalState = self->lastSentFocalNonFocalState;
+      v8 = [(NSArray *)self->exclusiveApps objectAtIndex:v6];
+      LOBYTE(lastSentFocalNonFocalState) = [(NSMutableSet *)lastSentFocalNonFocalState containsObject:v8];
+
+      if (lastSentFocalNonFocalState)
+      {
+        goto LABEL_16;
+      }
+    }
+
+    while (++v6 < [(NSArray *)self->exclusiveApps count]);
+  }
+
+  if ([generateFocalNonAppFocalMutableSet isEqualToSet:self->lastSentFocalNonFocalState])
+  {
+    self->shouldTriggerDelayedMessage = 0;
+    v9 = +[_CDLogging communicatorChannel];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      v10 = "CDDCommunicator: Same focal app/nonapp state as last sent. Avoiding broadcasting. Any scheduled delayed messages set to void";
+LABEL_8:
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, v10, buf, 2u);
+      goto LABEL_9;
+    }
+
+    goto LABEL_9;
+  }
+
+  if ([generateFocalNonAppFocalMutableSet isSubsetOfSet:self->lastSentFocalNonFocalState])
+  {
+    v11 = +[_CDLogging communicatorChannel];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "CDDCommunicator:  Focal app/nonapp state subset of last sent.", buf, 2u);
+    }
+
+    if (!self->shouldTriggerDelayedMessage)
+    {
+      self->shouldTriggerDelayedMessage = 1;
+      v19 = +[_CDLogging communicatorChannel];
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "CDDCommunicator:  Scheduled to broadcast delayed focal app/nonapp message.", buf, 2u);
+      }
+
+      v20 = dispatch_time(0, 10000000000);
+      daemonQueue = self->daemonQueue;
+      v22[0] = _NSConcreteStackBlock;
+      v22[1] = 3221225472;
+      v22[2] = sub_100016FD0;
+      v22[3] = &unk_10003CF60;
+      v22[4] = self;
+      v23 = messageCopy;
+      dispatch_after(v20, daemonQueue, v22);
+      goto LABEL_19;
+    }
+
+    v9 = +[_CDLogging communicatorChannel];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      v10 = "CDDCommunicator:  Avoiding broadcast of delayed focal app/nonapp message. Another delayed message already scheduled or ";
+      goto LABEL_8;
+    }
+
+LABEL_9:
+
+    goto LABEL_19;
+  }
+
+LABEL_16:
+  v12 = +[_CDLogging communicatorChannel];
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "CDDCommunicator:  Non-Matching focal app/nonapp state. Broadcasting right away. Any scheduled delayed messages set to void", buf, 2u);
+  }
+
+  makeSystemComboMessage = [(CDDCommunicator *)self makeSystemComboMessage];
+  v14 = [NSKeyedArchiver archivedDataWithRootObject:makeSystemComboMessage requiringSecureCoding:1 error:0];
+  self->shouldTriggerDelayedMessage = 0;
+  control = self->control;
+  v16 = [NSNumber numberWithDouble:IDSMaxMessageTimeout];
+  [(CDDCommControl *)control triggeredExchange:v14 opportunistic:messageCopy queue:0 timeout:v16 urgent:1];
+
+  v17 = +[NSDate date];
+  lastSystemExchange = self->lastSystemExchange;
+  self->lastSystemExchange = v17;
+
+  [(NSMutableSet *)self->lastSentFocalNonFocalState setSet:generateFocalNonAppFocalMutableSet];
+LABEL_19:
 }
 
 - (void)triggerNonAppFocalExchange:(id)exchange byClient:(unint64_t)client shouldSendMessage:(BOOL)message

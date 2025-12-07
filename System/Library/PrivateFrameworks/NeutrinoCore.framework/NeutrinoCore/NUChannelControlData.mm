@@ -117,7 +117,7 @@ LABEL_25:
           v26 = value5;
           if (value5)
           {
-            [value5 nu_pixelRect];
+            objc_msgSend_nu_pixelRect(value5);
           }
 
           else
@@ -132,7 +132,7 @@ LABEL_25:
           v41 = value6;
           if (value6)
           {
-            [value6 nu_pixelRect];
+            objc_msgSend_nu_pixelRect(value6);
           }
 
           else

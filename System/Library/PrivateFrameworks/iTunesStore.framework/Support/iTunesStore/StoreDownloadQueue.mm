@@ -276,16 +276,21 @@
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v29 = shouldLog | 2;
+      LODWORD(v29) = shouldLog | 2;
     }
 
     else
     {
-      v29 = shouldLog;
+      LODWORD(v29) = shouldLog;
     }
 
     oSLogObject = [v9 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v29 = v29;
+    }
+
+    else
     {
       v29 &= 2u;
     }
@@ -295,20 +300,19 @@
       v36 = 138543362;
       v37 = objc_opt_class();
       v31 = v37;
-      LODWORD(v34) = 12;
-      v32 = _os_log_send_and_compose_impl();
+      v32 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Unable to set automatic download kinds because there's no active iTunes account.", &v36, 12);
 
       if (!v32)
       {
-        goto LABEL_42;
+        goto LABEL_45;
       }
 
-      oSLogObject = [NSString stringWithCString:v32 encoding:4, &v36, v34];
+      oSLogObject = [NSString stringWithCString:v32 encoding:4];
       free(v32);
       SSFileLog();
     }
 
-    goto LABEL_42;
+    goto LABEL_45;
   }
 
   if (!v8)
@@ -319,16 +323,21 @@
   shouldLog2 = [v9 shouldLog];
   if ([v9 shouldLogToDisk])
   {
-    v11 = shouldLog2 | 2;
+    LODWORD(v11) = shouldLog2 | 2;
   }
 
   else
   {
-    v11 = shouldLog2;
+    LODWORD(v11) = shouldLog2;
   }
 
   oSLogObject2 = [v9 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = v11;
+  }
+
+  else
   {
     v11 &= 2u;
   }
@@ -340,22 +349,20 @@
     v38 = 2112;
     v39 = kindsCopy;
     v13 = v37;
-    LODWORD(v34) = 22;
-    v33 = &v36;
-    v14 = _os_log_send_and_compose_impl();
+    v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Committing automatic download kinds: %@", &v36, 22);
 
     if (!v14)
     {
-      goto LABEL_13;
+      goto LABEL_14;
     }
 
-    oSLogObject2 = [NSString stringWithCString:v14 encoding:4, &v36, v34];
+    oSLogObject2 = [NSString stringWithCString:v14 encoding:4];
     free(v14);
     v33 = oSLogObject2;
     SSFileLog();
   }
 
-LABEL_13:
+LABEL_14:
   v15 = &kCFBooleanTrue;
   if (!dirtyCopy)
   {
@@ -372,7 +379,7 @@ LABEL_13:
   v9 = v35;
   if (v18)
   {
-    goto LABEL_28;
+    goto LABEL_30;
   }
 
   v19 = +[SSLogConfig sharedDaemonConfig];
@@ -384,23 +391,28 @@ LABEL_13:
   shouldLog3 = [v19 shouldLog];
   if ([v19 shouldLogToDisk])
   {
-    v21 = shouldLog3 | 2;
+    LODWORD(v21) = shouldLog3 | 2;
   }
 
   else
   {
-    v21 = shouldLog3;
+    LODWORD(v21) = shouldLog3;
   }
 
   oSLogObject3 = [v19 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+  {
+    v21 = v21;
+  }
+
+  else
   {
     v21 &= 2u;
   }
 
   if (!v21)
   {
-    goto LABEL_26;
+    goto LABEL_28;
   }
 
   v23 = objc_opt_class();
@@ -410,19 +422,18 @@ LABEL_13:
   v39 = v9;
   v24 = v23;
   LODWORD(v34) = 22;
-  v33 = &v36;
-  v25 = _os_log_send_and_compose_impl();
+  v25 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &_mh_execute_header, oSLogObject3, 16, "%{public}@: Failed to save the active account after setting automatic download kinds. error = %{public}@", &v36, v34);
 
   if (v25)
   {
-    oSLogObject3 = [NSString stringWithCString:v25 encoding:4, &v36, v34];
+    oSLogObject3 = [NSString stringWithCString:v25 encoding:4];
     free(v25);
     v33 = oSLogObject3;
     SSFileLog();
-LABEL_26:
+LABEL_28:
   }
 
-LABEL_28:
+LABEL_30:
   if ([kindsCopy count])
   {
     [SSDevice setPromptWithIdentifier:SSDevicePromptIdentifierAutomaticDownloadsAvailable needsDisplay:0];
@@ -435,7 +446,7 @@ LABEL_28:
   v27 = +[DistributedNotificationCenter defaultCenter];
   [v27 postNotificationName:kSSNotificationAutomaticDownloadKindsChanged];
 
-LABEL_42:
+LABEL_45:
 }
 
 - (NSSet)downloadKindsBeingChecked
@@ -683,37 +694,41 @@ LABEL_42:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  LODWORD(v15) = 138412290;
-  *(&v15 + 4) = objc_opt_class();
-  v8 = *(&v15 + 4);
-  LODWORD(v14) = 12;
-  v9 = _os_log_send_and_compose_impl();
+  v14 = 138412290;
+  v15 = objc_opt_class();
+  v8 = v15;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Checking download queues for trigger-downloads", &v14, 12);
 
   if (v9)
   {
-    oSLogObject = [NSString stringWithCString:v9 encoding:4, &v15, v14, v15];
+    oSLogObject = [NSString stringWithCString:v9 encoding:4];
     free(v9);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   v10 = +[SSAccountStore defaultStore];
@@ -740,31 +755,35 @@ LABEL_11:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      LODWORD(v16) = 138412290;
-      *(&v16 + 4) = objc_opt_class();
-      v10 = *(&v16 + 4);
-      LODWORD(v15) = 12;
-      v11 = _os_log_send_and_compose_impl();
+      v15 = 138412290;
+      v16 = objc_opt_class();
+      v10 = v16;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Resending dirty automatic download kinds", &v15, 12);
 
       if (!v11)
       {
-LABEL_14:
+LABEL_15:
 
         automaticDownloadKinds = [(StoreDownloadQueue *)self automaticDownloadKinds];
         v13 = [(StoreDownloadQueue *)self _newSetAutomaticDownloadKindsOperationWithDownloadKinds:automaticDownloadKinds account:activeAccount];
@@ -773,18 +792,18 @@ LABEL_14:
         v14 = +[ISOperationQueue mainQueue];
         [v14 addOperation:v13];
 
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      oSLogObject = [NSString stringWithCString:v11 encoding:4, &v16, v15, v16];
+      oSLogObject = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-LABEL_15:
+LABEL_16:
 }
 
 - (void)_accountStoreChangedNotification:(id)notification
@@ -824,11 +843,11 @@ LABEL_15:
   _validQueueIdentifiersForDaemon = [(StoreDownloadQueue *)self _validQueueIdentifiersForDaemon];
   [v8 minusSet:self->_storeQueueRequests];
   [(NSMutableSet *)self->_storeQueueRequests unionSet:v8];
-  v53 = v9;
+  v52 = v9;
   v11 = [v9 isEqualToString:@"trigger-download"];
   v12 = +[SSLogConfig sharedDaemonConfig];
   v13 = v12;
-  v52 = v8;
+  v51 = v8;
   if (v11)
   {
     if (!v12)
@@ -862,48 +881,46 @@ LABEL_15:
     {
       v18 = objc_opt_class();
       v19 = v18;
-      v64 = 138412802;
-      v65 = v18;
-      v66 = 2048;
-      v67 = [v8 count];
-      v68 = 2112;
-      v69 = v53;
-      LODWORD(v51) = 32;
-      v50 = &v64;
-      v20 = _os_log_send_and_compose_impl();
+      v63 = 138412802;
+      v64 = v18;
+      v65 = 2048;
+      v66 = [v8 count];
+      v67 = 2112;
+      v68 = v52;
+      v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Loading %lu queues with reason: %@", &v63, 32);
 
       if (!v20)
       {
         goto LABEL_14;
       }
 
-      oSLogObject = [NSString stringWithCString:v20 encoding:4, &v64, v51];
+      oSLogObject = [NSString stringWithCString:v20 encoding:4];
       free(v20);
       v50 = oSLogObject;
       SSFileLog();
     }
 
 LABEL_14:
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
     v59 = 0u;
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     v21 = v8;
-    v22 = [v21 countByEnumeratingWithState:&v58 objects:v63 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v57 objects:v62 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v59;
+      v24 = *v58;
       do
       {
         for (i = 0; i != v23; i = i + 1)
         {
-          if (*v59 != v24)
+          if (*v58 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = *(*(&v58 + 1) + 8 * i);
+          v26 = *(*(&v57 + 1) + 8 * i);
           queueIdentifier = [v26 queueIdentifier];
           v28 = [_validQueueIdentifiersForDaemon containsObject:queueIdentifier];
 
@@ -926,7 +943,7 @@ LABEL_14:
           }
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v58 objects:v63 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v57 objects:v62 count:16];
       }
 
       while (v23);
@@ -966,48 +983,46 @@ LABEL_14:
   {
     v36 = objc_opt_class();
     v37 = v36;
-    v64 = 138412802;
-    v65 = v36;
-    v66 = 2048;
-    v67 = [v8 count];
-    v68 = 2112;
-    v69 = v53;
-    LODWORD(v51) = 32;
-    v50 = &v64;
-    v38 = _os_log_send_and_compose_impl();
+    v63 = 138412802;
+    v64 = v36;
+    v65 = 2048;
+    v66 = [v8 count];
+    v67 = 2112;
+    v68 = v52;
+    v38 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Checking %lu queues with reason: %@", &v63, 32);
 
     if (!v38)
     {
       goto LABEL_38;
     }
 
-    oSLogObject2 = [NSString stringWithCString:v38 encoding:4, &v64, v51];
+    oSLogObject2 = [NSString stringWithCString:v38 encoding:4];
     free(v38);
     v50 = oSLogObject2;
     SSFileLog();
   }
 
 LABEL_38:
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   v39 = v8;
-  v40 = [v39 countByEnumeratingWithState:&v54 objects:v62 count:16];
+  v40 = [v39 countByEnumeratingWithState:&v53 objects:v61 count:16];
   if (v40)
   {
     v41 = v40;
-    v42 = *v55;
+    v42 = *v54;
     do
     {
       for (j = 0; j != v41; j = j + 1)
       {
-        if (*v55 != v42)
+        if (*v54 != v42)
         {
           objc_enumerationMutation(v39);
         }
 
-        v44 = *(*(&v54 + 1) + 8 * j);
+        v44 = *(*(&v53 + 1) + 8 * j);
         queueIdentifier3 = [v44 queueIdentifier];
         v46 = [_validQueueIdentifiersForDaemon containsObject:queueIdentifier3];
 
@@ -1030,7 +1045,7 @@ LABEL_38:
         }
       }
 
-      v41 = [v39 countByEnumeratingWithState:&v54 objects:v62 count:16];
+      v41 = [v39 countByEnumeratingWithState:&v53 objects:v61 count:16];
     }
 
     while (v41);
@@ -1118,16 +1133,21 @@ LABEL_49:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
@@ -1137,12 +1157,11 @@ LABEL_49:
     LODWORD(location[0]) = 138412290;
     *(location + 4) = objc_opt_class();
     v9 = *(location + 4);
-    LODWORD(v14) = 12;
-    v10 = _os_log_send_and_compose_impl();
+    v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[%@]: Checking automatic download queue", location, 12);
 
     if (v10)
     {
-      v11 = [NSString stringWithCString:v10 encoding:4, location, v14];
+      v11 = [NSString stringWithCString:v10 encoding:4];
       free(v10);
       SSFileLog();
     }
@@ -1155,19 +1174,19 @@ LABEL_49:
   v12 = +[LoadDownloadQueueOperation newLoadAutomaticDownloadQueueOperation];
   [v12 setAccountIdentifier:queueCopy];
   objc_initWeak(location, v12);
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_10012A9F0;
-  v15[3] = &unk_1003295A8;
-  v15[4] = self;
-  objc_copyWeak(&v17, location);
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10012A9F0;
+  v14[3] = &unk_1003295A8;
+  v14[4] = self;
+  objc_copyWeak(&v16, location);
   v13 = queueCopy;
-  v16 = v13;
-  [v12 setCompletionBlock:v15];
+  v15 = v13;
+  [v12 setCompletionBlock:v14];
   objc_storeStrong(&self->_loadAutomaticDownloadQueueOperation, v12);
   [(ISOperationQueue *)self->_operationQueue addOperation:self->_loadAutomaticDownloadQueueOperation];
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(location);
 }
 
@@ -1370,37 +1389,41 @@ LABEL_49:
   shouldLog = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = shouldLog | 2;
+    LODWORD(v4) = shouldLog | 2;
   }
 
   else
   {
-    v4 = shouldLog;
+    LODWORD(v4) = shouldLog;
   }
 
   oSLogObject = [v2 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
 
   if (!v4)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  LODWORD(v11) = 138412290;
-  *(&v11 + 4) = objc_opt_class();
-  v6 = *(&v11 + 4);
-  LODWORD(v10) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v10 = 138412290;
+  v11 = objc_opt_class();
+  v6 = v11;
+  v7 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Retrying all canceled restore downloads", &v10, 12);
 
   if (v7)
   {
-    oSLogObject = [NSString stringWithCString:v7 encoding:4, &v11, v10, v11];
+    oSLogObject = [NSString stringWithCString:v7 encoding:4];
     free(v7);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   +[RestoreDownloadsOperation resetShouldSuppressTermsAndConditionsDialogs];
@@ -1419,37 +1442,41 @@ LABEL_11:
   shouldLog = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = shouldLog | 2;
+    LODWORD(v4) = shouldLog | 2;
   }
 
   else
   {
-    v4 = shouldLog;
+    LODWORD(v4) = shouldLog;
   }
 
   oSLogObject = [v2 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
 
   if (!v4)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  LODWORD(v11) = 138412290;
-  *(&v11 + 4) = objc_opt_class();
-  v6 = *(&v11 + 4);
-  LODWORD(v10) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v10 = 138412290;
+  v11 = objc_opt_class();
+  v6 = v11;
+  v7 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Retrying all soft-failed restore downloads", &v10, 12);
 
   if (v7)
   {
-    oSLogObject = [NSString stringWithCString:v7 encoding:4, &v11, v10, v11];
+    oSLogObject = [NSString stringWithCString:v7 encoding:4];
     free(v7);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   +[RestoreDownloadsOperation resetShouldSuppressTermsAndConditionsDialogs];

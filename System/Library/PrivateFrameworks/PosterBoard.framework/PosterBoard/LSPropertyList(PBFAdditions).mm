@@ -41,35 +41,35 @@
 
 - (uint64_t)pbf_supportsDynamicDescriptors
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v2 = PBFPosterRolesSupportedForDataStoreCurrentDeviceClass();
-  v13 = 0u;
+  v19 = *MEMORY[0x277D85DE8];
+  v3 = PBFPosterRolesSupportedForDataStoreCurrentDeviceClass(self);
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
   pf_supportedRoles = [self pf_supportedRoles];
-  v4 = [pf_supportedRoles countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v4)
+  v5 = [pf_supportedRoles countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v14;
+    v6 = v5;
+    v7 = *v15;
     while (2)
     {
-      v7 = 0;
+      v8 = 0;
       do
       {
-        if (*v14 != v6)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(pf_supportedRoles);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * v7);
-        if (PFPosterRoleSupportsDynamicDescriptors() && ([v2 containsObject:v8] & 1) != 0)
+        v9 = *(*(&v14 + 1) + 8 * v8);
+        if (PFPosterRoleSupportsDynamicDescriptors() && ([v3 containsObject:v9] & 1) != 0)
         {
 
-          v10 = *MEMORY[0x277D3EBF8];
-          v11 = objc_opt_self();
-          pf_supportedRoles = [self objectForKey:v10 ofClass:v11];
+          v11 = *MEMORY[0x277D3EBF8];
+          v12 = objc_opt_self();
+          pf_supportedRoles = [self objectForKey:v11 ofClass:v12];
 
           if (objc_opt_respondsToSelector())
           {
@@ -84,12 +84,12 @@
           goto LABEL_14;
         }
 
-        ++v7;
+        ++v8;
       }
 
-      while (v5 != v7);
-      v5 = [pf_supportedRoles countByEnumeratingWithState:&v13 objects:v17 count:16];
-      if (v5)
+      while (v6 != v8);
+      v6 = [pf_supportedRoles countByEnumeratingWithState:&v14 objects:v18 count:16];
+      if (v6)
       {
         continue;
       }
@@ -206,15 +206,16 @@ LABEL_13:
   v4 = a3;
   v5 = [self _infoForStaticDescriptorIdentifier:v4];
   v6 = [v5 objectForKeyedSubscript:*MEMORY[0x277D3EC10]];
-  v11 = 0;
-  v7 = [MEMORY[0x277CEB7B0] galleryOptionsFromDictionaryRepresentation:v6 error:&v11];
-  v8 = v11;
+  v12 = 0;
+  v7 = [MEMORY[0x277CEB7B0] galleryOptionsFromDictionaryRepresentation:v6 error:&v12];
+  v8 = v12;
+  v9 = v8;
   if (v8)
   {
-    v9 = PBFLogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = PBFLogCommon(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(LSPropertyList(PBFAdditions) *)v4 pbf_proactivePosterDescriptorGalleryOptionsForStaticDescriptorIdentifier:v8, v9];
+      [(LSPropertyList(PBFAdditions) *)v4 pbf_proactivePosterDescriptorGalleryOptionsForStaticDescriptorIdentifier:v9, v10];
     }
   }
 

@@ -28,7 +28,7 @@
 
 - (WFRunShortcutContextualAction)initWithDescriptor:(id)descriptor serializedRepresentation:(id)representation namedQueryInfo:(id)info
 {
-  v46[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   representationCopy = representation;
   infoCopy = info;
@@ -44,27 +44,27 @@
 
   associatedAppBundleIdentifier = [descriptorCopy associatedAppBundleIdentifier];
 
-  v44 = representationCopy;
+  v43 = representationCopy;
   selfCopy = self;
   if (associatedAppBundleIdentifier)
   {
     v15 = [WFContextualActionIcon alloc];
     associatedAppBundleIdentifier2 = [descriptorCopy associatedAppBundleIdentifier];
-    v40 = [(WFContextualActionIcon *)v15 initWithApplicationBundleIdentifier:associatedAppBundleIdentifier2];
+    v39 = [(WFContextualActionIcon *)v15 initWithApplicationBundleIdentifier:associatedAppBundleIdentifier2];
   }
 
   else
   {
-    v40 = 0;
+    v39 = 0;
   }
 
-  v41 = v13;
-  v46[0] = v13;
-  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:1];
+  v40 = v13;
+  v45[0] = v13;
+  v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
   v17 = MEMORY[0x1E696AEC0];
   v18 = WFLocalizedString(@"Run %@");
   name2 = [descriptorCopy name];
-  v38 = v18;
+  v37 = v18;
   v20 = [v17 localizedStringWithFormat:v18, name2];
   v21 = WFLocalizedString(@"Run Shortcut");
   name3 = [descriptorCopy name];
@@ -102,11 +102,10 @@
   }
 
   objc_autoreleasePoolPop(v24);
-  v45.receiver = selfCopy;
-  v45.super_class = WFRunShortcutContextualAction;
-  v34 = [(WFTopHitItemContextualAction *)&v45 initWithItem:v23 identifier:@"is.workflow.actions.runworkflow" wfActionIdentifier:@"is.workflow.actions.runworkflow" associatedAppBundleIdentifier:@"com.apple.shortcuts" parameters:v39 displayString:v20 title:v21 subtitle:name3 primaryColor:9 icon:pNGRepresentation accessoryIcon:v40 namedQueryInfo:infoCopy];
+  v44.receiver = selfCopy;
+  v44.super_class = WFRunShortcutContextualAction;
+  v34 = [(WFTopHitItemContextualAction *)&v44 initWithItem:v23 identifier:@"is.workflow.actions.runworkflow" wfActionIdentifier:@"is.workflow.actions.runworkflow" associatedAppBundleIdentifier:@"com.apple.shortcuts" parameters:v38 displayString:v20 title:v21 subtitle:name3 primaryColor:9 icon:pNGRepresentation accessoryIcon:v39 namedQueryInfo:infoCopy];
 
-  v35 = *MEMORY[0x1E69E9840];
   return v34;
 }
 

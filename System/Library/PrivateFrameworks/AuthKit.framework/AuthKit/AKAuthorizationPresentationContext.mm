@@ -144,109 +144,104 @@
 
 - (AKAuthorizationPresentationContext)initWithCoder:(id)coder
 {
-  v64[3] = *MEMORY[0x1E69E9840];
-  v58 = &selfCopy;
+  v60[3] = *MEMORY[0x1E69E9840];
+  v54 = &selfCopy;
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, coder);
   v3 = selfCopy;
   selfCopy = 0;
-  v61.receiver = v3;
-  v61.super_class = AKAuthorizationPresentationContext;
-  v59 = [(AKAuthorizationPresentationContext *)&v61 init];
-  selfCopy = v59;
-  objc_storeStrong(&selfCopy, v59);
-  if (v59)
+  v57.receiver = v3;
+  v57.super_class = AKAuthorizationPresentationContext;
+  v55 = [(AKAuthorizationPresentationContext *)&v57 init];
+  selfCopy = v55;
+  objc_storeStrong(&selfCopy, v55);
+  if (v55)
   {
-    v39 = location[0];
-    v42 = 0x1E696A000uLL;
+    v35 = location[0];
+    v38 = 0x1E696A000uLL;
     v4 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_bundleID"];
     bundleID = selfCopy->_bundleID;
     selfCopy->_bundleID = v4;
     MEMORY[0x1E69E5920](bundleID);
-    v40 = location[0];
-    v6 = *(v42 + 3776);
-    v7 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_localizedAppName"];
+    v36 = location[0];
+    v6 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_localizedAppName"];
     localizedAppName = selfCopy->_localizedAppName;
-    selfCopy->_localizedAppName = v7;
+    selfCopy->_localizedAppName = v6;
     MEMORY[0x1E69E5920](localizedAppName);
-    v41 = location[0];
-    v9 = *(v42 + 3776);
-    v10 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_iconName"];
+    v37 = location[0];
+    v8 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_iconName"];
     iconName = selfCopy->_iconName;
-    selfCopy->_iconName = v10;
+    selfCopy->_iconName = v8;
     MEMORY[0x1E69E5920](iconName);
-    v43 = location[0];
-    v12 = *(v42 + 3776);
-    v13 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_iconTypeID"];
+    v39 = location[0];
+    v10 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_iconTypeID"];
     iconTypeID = selfCopy->_iconTypeID;
-    selfCopy->_iconTypeID = v13;
+    selfCopy->_iconTypeID = v10;
     MEMORY[0x1E69E5920](iconTypeID);
-    v44 = location[0];
-    v48 = 0x1E695D000uLL;
-    v15 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_iconData"];
+    v40 = location[0];
+    v44 = 0x1E695D000uLL;
+    v12 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_iconData"];
     iconData = selfCopy->_iconData;
-    selfCopy->_iconData = v15;
+    selfCopy->_iconData = v12;
     MEMORY[0x1E69E5920](iconData);
-    v45 = location[0];
-    v17 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_iconScale"];
+    v41 = location[0];
+    v14 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_iconScale"];
     iconScale = selfCopy->_iconScale;
-    selfCopy->_iconScale = v17;
+    selfCopy->_iconScale = v14;
     MEMORY[0x1E69E5920](iconScale);
-    v46 = location[0];
-    v19 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_credentialRequestContext"];
+    v42 = location[0];
+    v16 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_credentialRequestContext"];
     credentialRequestContext = selfCopy->_credentialRequestContext;
-    selfCopy->_credentialRequestContext = v19;
+    selfCopy->_credentialRequestContext = v16;
     MEMORY[0x1E69E5920](credentialRequestContext);
-    v47 = location[0];
-    v21 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_userInformation"];
+    v43 = location[0];
+    v18 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_userInformation"];
     userInformation = selfCopy->_userInformation;
-    selfCopy->_userInformation = v21;
+    selfCopy->_userInformation = v18;
     MEMORY[0x1E69E5920](userInformation);
-    v49 = location[0];
-    v23 = *(v48 + 3824);
-    v24 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_clientAuditTokenData"];
+    v45 = location[0];
+    v20 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_clientAuditTokenData"];
     clientAuditTokenData = selfCopy->_clientAuditTokenData;
-    selfCopy->_clientAuditTokenData = v24;
+    selfCopy->_clientAuditTokenData = v20;
     MEMORY[0x1E69E5920](clientAuditTokenData);
-    v51 = MEMORY[0x1E695DFA8];
-    v52 = 0x1E695D000uLL;
-    v50 = objc_opt_class();
-    v56 = 0;
-    v26 = [v51 setWithObjects:{v50, objc_opt_class(), 0}];
-    v57 = &v60;
-    v60 = v26;
-    v54 = v26;
-    v27 = objc_opt_class();
-    v53 = v64;
-    v64[0] = v27;
-    v64[1] = objc_opt_class();
-    v64[2] = objc_opt_class();
-    v55 = [*(v52 + 3784) arrayWithObjects:v53 count:3];
-    [v54 addObjectsFromArray:?];
-    MEMORY[0x1E69E5920](v55);
-    v28 = [location[0] decodeObjectOfClasses:v60 forKey:@"_loginChoices"];
+    v47 = MEMORY[0x1E695DFA8];
+    v48 = 0x1E695D000uLL;
+    v46 = objc_opt_class();
+    v52 = 0;
+    v22 = [v47 setWithObjects:{v46, objc_opt_class(), 0}];
+    v53 = &v56;
+    v56 = v22;
+    v50 = v22;
+    v23 = objc_opt_class();
+    v49 = v60;
+    v60[0] = v23;
+    v60[1] = objc_opt_class();
+    v60[2] = objc_opt_class();
+    v51 = [*(v48 + 3784) arrayWithObjects:v49 count:3];
+    [v50 addObjectsFromArray:?];
+    MEMORY[0x1E69E5920](v51);
+    v24 = [location[0] decodeObjectOfClasses:v56 forKey:@"_loginChoices"];
     loginChoices = selfCopy->_loginChoices;
-    selfCopy->_loginChoices = v28;
+    selfCopy->_loginChoices = v24;
     MEMORY[0x1E69E5920](loginChoices);
-    v30 = [location[0] decodeBoolForKey:@"_signInAllowsPCSKeyAccess"];
-    selfCopy->_signInAllowsPCSKeyAccess = v30;
-    v31 = [location[0] decodeBoolForKey:@"_hasShownFirstTimeAlready"];
-    v32 = v56;
-    v33 = v31;
-    v34 = v57;
-    selfCopy->_hasShownFirstTimeAlready = v33;
-    objc_storeStrong(v34, v32);
+    v26 = [location[0] decodeBoolForKey:@"_signInAllowsPCSKeyAccess"];
+    selfCopy->_signInAllowsPCSKeyAccess = v26;
+    v27 = [location[0] decodeBoolForKey:@"_hasShownFirstTimeAlready"];
+    v28 = v52;
+    v29 = v27;
+    v30 = v53;
+    selfCopy->_hasShownFirstTimeAlready = v29;
+    objc_storeStrong(v30, v28);
   }
 
-  v37 = &selfCopy;
-  v36 = MEMORY[0x1E69E5928](selfCopy);
+  v33 = &selfCopy;
+  v32 = MEMORY[0x1E69E5928](selfCopy);
   obj = 0;
   objc_storeStrong(location, 0);
-  objc_storeStrong(v37, obj);
-  *MEMORY[0x1E69E9840];
-  return v36;
+  objc_storeStrong(v33, obj);
+  return v32;
 }
 
 - (id)description
@@ -400,101 +395,95 @@
   v9 = +[AKFeatureManager sharedManager];
   isSiwaCredentialSharingEnabled = [v9 isSiwaCredentialSharingEnabled];
   MEMORY[0x1E69E5920](v9);
-  if (isSiwaCredentialSharingEnabled)
+  if (!isSiwaCredentialSharingEnabled)
   {
-    if (!selfCopy->_cachedHasSharedAccountLoginChoice)
+    return 0;
+  }
+
+  if (!selfCopy->_cachedHasSharedAccountLoginChoice)
+  {
+    objc_storeStrong(&selfCopy->_cachedHasSharedAccountLoginChoice, MEMORY[0x1E695E110]);
+    memset(__b, 0, 0x40uLL);
+    obj = MEMORY[0x1E69E5928](selfCopy->_loginChoices);
+    v8 = [obj countByEnumeratingWithState:__b objects:v14 count:16];
+    if (v8)
     {
-      objc_storeStrong(&selfCopy->_cachedHasSharedAccountLoginChoice, MEMORY[0x1E695E110]);
-      memset(__b, 0, 0x40uLL);
-      obj = MEMORY[0x1E69E5928](selfCopy->_loginChoices);
-      v8 = [obj countByEnumeratingWithState:__b objects:v14 count:16];
-      if (v8)
+      v4 = *__b[2];
+      v5 = 0;
+      v6 = v8;
+      while (1)
       {
-        v4 = *__b[2];
-        v5 = 0;
-        v6 = v8;
-        while (1)
+        v3 = v5;
+        if (*__b[2] != v4)
         {
-          v3 = v5;
-          if (*__b[2] != v4)
-          {
-            objc_enumerationMutation(obj);
-          }
-
-          __b[8] = *(__b[1] + 8 * v5);
-          objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 1)
-          {
-            break;
-          }
-
-          ++v5;
-          if (v3 + 1 >= v6)
-          {
-            v5 = 0;
-            v6 = [obj countByEnumeratingWithState:__b objects:v14 count:16];
-            if (!v6)
-            {
-              goto LABEL_12;
-            }
-          }
+          objc_enumerationMutation(obj);
         }
 
-        objc_storeStrong(&selfCopy->_cachedHasSharedAccountLoginChoice, MEMORY[0x1E695E118]);
+        __b[8] = *(__b[1] + 8 * v5);
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 1)
+        {
+          break;
+        }
+
+        ++v5;
+        if (v3 + 1 >= v6)
+        {
+          v5 = 0;
+          v6 = [obj countByEnumeratingWithState:__b objects:v14 count:16];
+          if (!v6)
+          {
+            goto LABEL_12;
+          }
+        }
       }
 
-LABEL_12:
-      MEMORY[0x1E69E5920](obj);
+      objc_storeStrong(&selfCopy->_cachedHasSharedAccountLoginChoice, MEMORY[0x1E695E118]);
     }
 
-    bOOLValue = [(NSNumber *)selfCopy->_cachedHasSharedAccountLoginChoice BOOLValue];
+LABEL_12:
+    MEMORY[0x1E69E5920](obj);
   }
 
-  else
-  {
-    bOOLValue = 0;
-  }
-
-  *MEMORY[0x1E69E9840];
-  return bOOLValue & 1;
+  return [(NSNumber *)selfCopy->_cachedHasSharedAccountLoginChoice BOOLValue];
 }
 
 - (BOOL)hasCreateAccountLoginChoice
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v12 = a2;
+  v11 = a2;
   if (!self->_cachedHasCreateAccountLoginChoice)
   {
     objc_storeStrong(&selfCopy->_cachedHasCreateAccountLoginChoice, MEMORY[0x1E695E110]);
     memset(__b, 0, sizeof(__b));
     obj = MEMORY[0x1E69E5928](selfCopy->_loginChoices);
-    v9 = [obj countByEnumeratingWithState:__b objects:v14 count:16];
-    if (v9)
+    v8 = [obj countByEnumeratingWithState:__b objects:v13 count:16];
+    if (v8)
     {
-      v5 = *__b[2];
-      v6 = 0;
-      v7 = v9;
+      v4 = *__b[2];
+      v5 = 0;
+      v6 = v8;
       while (1)
       {
-        v4 = v6;
-        if (*__b[2] != v5)
+        v3 = v5;
+        if (*__b[2] != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(__b[1] + 8 * v6);
-        if ([v11 shouldCreateAppleID])
+        v10 = *(__b[1] + 8 * v5);
+        if ([v10 shouldCreateAppleID])
         {
           break;
         }
 
-        ++v6;
-        if (v4 + 1 >= v7)
+        ++v5;
+        if (v3 + 1 >= v6)
         {
-          v6 = 0;
-          v7 = [obj countByEnumeratingWithState:__b objects:v14 count:16];
-          if (!v7)
+          v5 = 0;
+          v6 = [obj countByEnumeratingWithState:__b objects:v13 count:16];
+          if (!v6)
           {
             goto LABEL_10;
           }
@@ -508,9 +497,7 @@ LABEL_10:
     MEMORY[0x1E69E5920](obj);
   }
 
-  bOOLValue = [(NSNumber *)selfCopy->_cachedHasCreateAccountLoginChoice BOOLValue];
-  *MEMORY[0x1E69E9840];
-  return bOOLValue;
+  return [(NSNumber *)selfCopy->_cachedHasCreateAccountLoginChoice BOOLValue];
 }
 
 - (BOOL)isSignInFlow

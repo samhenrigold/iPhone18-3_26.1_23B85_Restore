@@ -31,7 +31,7 @@
 - (void)scrollViewIsAtTop:(BOOL)top offset:(double)offset
 {
   selfCopy = self;
-  CrossFadeNavigationBarCompressionAnimation.scrollViewIs(atTop:offset:)(0);
+  CrossFadeNavigationBarCompressionAnimation.scrollViewIs(atTop:offset:)();
 }
 
 @end

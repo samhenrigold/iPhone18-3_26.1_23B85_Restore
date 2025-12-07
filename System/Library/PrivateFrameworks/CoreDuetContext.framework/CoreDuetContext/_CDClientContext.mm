@@ -135,7 +135,7 @@
 
 - (void)unprotectedSetUpXPCConnectionWithEndpoint:(id)endpoint
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   if (self->_interrupted)
   {
@@ -174,13 +174,13 @@
     v10 = v9;
     [(NSXPCConnection *)v9 _setQueue:self->_xpcQueue];
     objc_initWeak(&state, self);
-    v16 = MEMORY[0x1E69E9820];
-    v17 = 3221225472;
-    v18 = __62___CDClientContext_unprotectedSetUpXPCConnectionWithEndpoint___block_invoke;
-    v19 = &unk_1E7886768;
-    objc_copyWeak(&v21, &state);
+    v15 = MEMORY[0x1E69E9820];
+    v16 = 3221225472;
+    v17 = __62___CDClientContext_unprotectedSetUpXPCConnectionWithEndpoint___block_invoke;
+    v18 = &unk_1E7886768;
+    objc_copyWeak(&v20, &state);
     selfCopy = self;
-    [(NSXPCConnection *)v10 setInterruptionHandler:&v16];
+    [(NSXPCConnection *)v10 setInterruptionHandler:&v15];
     serverInterface = [objc_opt_class() serverInterface];
     [(NSXPCConnection *)v10 setRemoteObjectInterface:serverInterface];
 
@@ -194,11 +194,9 @@
     self->_xpcConnection = v10;
     v14 = v10;
 
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&state);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (_CDClientContext)initWithEndpoint:(id)endpoint
@@ -413,19 +411,19 @@ LABEL_17:
 
 - (void)handleSubscribeToContextValueNotificationsEvent:(id)event
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   remoteUserContextProxy = [(_CDClientContext *)self remoteUserContextProxy];
 
   if (remoteUserContextProxy)
   {
-    v19 = 0;
-    v20 = 0;
     v18 = 0;
-    v6 = [_CDXPCContextCodecs parseSubscribeToContextValueNotificationsEvent:eventCopy registration:&v20 deviceIDs:&v19 error:&v18];
-    v7 = v20;
-    v8 = v19;
-    v9 = v18;
+    v19 = 0;
+    v17 = 0;
+    v6 = [_CDXPCContextCodecs parseSubscribeToContextValueNotificationsEvent:eventCopy registration:&v19 deviceIDs:&v18 error:&v17];
+    v7 = v19;
+    v8 = v18;
+    v9 = v17;
     if (v6)
     {
       log = self->_log;
@@ -434,21 +432,21 @@ LABEL_17:
         v11 = log;
         identifier = [v7 identifier];
         *buf = 138412546;
-        v22 = identifier;
-        v23 = 2112;
-        v24 = v7;
+        v21 = identifier;
+        v22 = 2112;
+        v23 = v7;
         _os_log_impl(&dword_1A9611000, v11, OS_LOG_TYPE_INFO, "Handling subscribe to context value change notifications request with registration %@: %@", buf, 0x16u);
       }
 
       remoteUserContextProxy2 = [(_CDClientContext *)self remoteUserContextProxy];
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __68___CDClientContext_handleSubscribeToContextValueNotificationsEvent___block_invoke;
-      v16[3] = &unk_1E7886808;
-      v17 = eventCopy;
-      [remoteUserContextProxy2 subscribeToContextValueChangeNotificationsWithRegistration:v7 deviceIDs:v8 handler:v16];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __68___CDClientContext_handleSubscribeToContextValueNotificationsEvent___block_invoke;
+      v15[3] = &unk_1E7886808;
+      v16 = eventCopy;
+      [remoteUserContextProxy2 subscribeToContextValueChangeNotificationsWithRegistration:v7 deviceIDs:v8 handler:v15];
 
-      v14 = v17;
+      v14 = v16;
     }
 
     else
@@ -470,25 +468,23 @@ LABEL_17:
       xpc_dictionary_send_reply();
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleUnsubscribeFromContextValueNotificationsEvent:(id)event
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   remoteUserContextProxy = [(_CDClientContext *)self remoteUserContextProxy];
 
   if (remoteUserContextProxy)
   {
-    v19 = 0;
-    v20 = 0;
     v18 = 0;
-    v6 = [_CDXPCContextCodecs parseUnsubscribeFromContextValueNotificationsEvent:eventCopy registration:&v20 deviceIDs:&v19 error:&v18];
-    v7 = v20;
-    v8 = v19;
-    v9 = v18;
+    v19 = 0;
+    v17 = 0;
+    v6 = [_CDXPCContextCodecs parseUnsubscribeFromContextValueNotificationsEvent:eventCopy registration:&v19 deviceIDs:&v18 error:&v17];
+    v7 = v19;
+    v8 = v18;
+    v9 = v17;
     if (v6)
     {
       log = self->_log;
@@ -497,21 +493,21 @@ LABEL_17:
         v11 = log;
         identifier = [v7 identifier];
         *buf = 138412546;
-        v22 = identifier;
-        v23 = 2112;
-        v24 = v7;
+        v21 = identifier;
+        v22 = 2112;
+        v23 = v7;
         _os_log_impl(&dword_1A9611000, v11, OS_LOG_TYPE_INFO, "Handling unsubscribe from context value change notifications request with registration %@: %@", buf, 0x16u);
       }
 
       remoteUserContextProxy2 = [(_CDClientContext *)self remoteUserContextProxy];
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __72___CDClientContext_handleUnsubscribeFromContextValueNotificationsEvent___block_invoke;
-      v16[3] = &unk_1E7886808;
-      v17 = eventCopy;
-      [remoteUserContextProxy2 unsubscribeFromContextValueChangeNotificationsWithRegistration:v7 deviceIDs:v8 handler:v16];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __72___CDClientContext_handleUnsubscribeFromContextValueNotificationsEvent___block_invoke;
+      v15[3] = &unk_1E7886808;
+      v16 = eventCopy;
+      [remoteUserContextProxy2 unsubscribeFromContextValueChangeNotificationsWithRegistration:v7 deviceIDs:v8 handler:v15];
 
-      v14 = v17;
+      v14 = v16;
     }
 
     else
@@ -533,8 +529,6 @@ LABEL_17:
       xpc_dictionary_send_reply();
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleKeepAliveEvent:(id)event
@@ -689,24 +683,24 @@ LABEL_13:
 
 - (void)handleNotificationEvent:(id)event
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   eventCopy = event;
-  v17 = 0;
-  v18 = 0;
   v16 = 0;
-  v5 = [(_CDXPCCodecs *)_CDXPCContextCodecs parseNotificationEvent:eventCopy registrationIdentifier:&v18 info:&v17 error:&v16];
-  v6 = v18;
-  v7 = v17;
-  v8 = v16;
+  v17 = 0;
+  v15 = 0;
+  v5 = [(_CDXPCCodecs *)_CDXPCContextCodecs parseNotificationEvent:eventCopy registrationIdentifier:&v17 info:&v16 error:&v15];
+  v6 = v17;
+  v7 = v16;
+  v8 = v15;
   log = self->_log;
   if (v5)
   {
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v22 = v6;
-      v23 = 2112;
-      v24 = v7;
+      v21 = v6;
+      v22 = 2112;
+      v23 = v7;
       _os_log_impl(&dword_1A9611000, log, OS_LOG_TYPE_DEFAULT, "Received context value change notification for registration %@: %@", buf, 0x16u);
     }
 
@@ -726,15 +720,15 @@ LABEL_13:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v22 = v6;
+        v21 = v6;
         _os_log_impl(&dword_1A9611000, v12, OS_LOG_TYPE_DEFAULT, "Sending change notification for registration %@", buf, 0xCu);
       }
 
-      v19[0] = @"RegistrationIdentifier";
-      v19[1] = @"Info";
-      v20[0] = v6;
-      v20[1] = v7;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+      v18[0] = @"RegistrationIdentifier";
+      v18[1] = @"Info";
+      v19[0] = v6;
+      v19[1] = v7;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
       [defaultCenter postNotificationName:@"_CDClientContextContextChanged" object:self userInfo:v13];
     }
@@ -744,8 +738,6 @@ LABEL_13:
   {
     [_CDClientContext handleNotificationEvent:];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logFaultIfDeprecatedKeyPath:(id)path
@@ -903,23 +895,23 @@ LABEL_13:
 - (id)objectForContextualKeyPath:(id)path synchronous:(BOOL)synchronous responseQueue:(id)queue withCompletion:(id)completion
 {
   synchronousCopy = synchronous;
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   queueCopy = queue;
   completionCopy = completion;
   [(_CDClientContext *)self logFaultIfDeprecatedKeyPath:pathCopy];
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __88___CDClientContext_objectForContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke;
-  v45[3] = &unk_1E78868A0;
-  v45[4] = self;
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __88___CDClientContext_objectForContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke;
+  v44[3] = &unk_1E78868A0;
+  v44[4] = self;
   v13 = pathCopy;
-  v46 = v13;
+  v45 = v13;
   v14 = completionCopy;
-  v48 = v14;
+  v47 = v14;
   v15 = queueCopy;
-  v47 = v15;
-  v16 = MEMORY[0x1AC5886D0](v45);
+  v46 = v15;
+  v16 = MEMORY[0x1AC5886D0](v44);
   currentConnection = [(_CDClientContext *)self currentConnection];
   v18 = currentConnection;
   if (synchronousCopy)
@@ -954,15 +946,15 @@ LABEL_13:
     block[1] = 3221225472;
     block[2] = __88___CDClientContext_objectForContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_2;
     block[3] = &unk_1E7886668;
-    v44 = v14;
+    v43 = v14;
     date = date;
-    v43 = date;
+    v42 = date;
     dispatch_async(defaultCallbackQueue, block);
     if (!v15)
     {
     }
 
-    v24 = v44;
+    v24 = v43;
   }
 
   else
@@ -991,19 +983,19 @@ LABEL_13:
         defaultCallbackQueue2 = [(_CDClientContext *)self defaultCallbackQueue];
       }
 
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __88___CDClientContext_objectForContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_3;
-      v39[3] = &unk_1E7886668;
-      v41 = v14;
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __88___CDClientContext_objectForContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_3;
+      v38[3] = &unk_1E7886668;
+      v40 = v14;
       date = date;
-      v40 = date;
-      dispatch_async(defaultCallbackQueue2, v39);
+      v39 = date;
+      dispatch_async(defaultCallbackQueue2, v38);
       if (!v15)
       {
       }
 
-      v28 = v41;
+      v28 = v40;
     }
 
     else
@@ -1032,20 +1024,20 @@ LABEL_13:
 
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v50 = 0x3032000000;
-      v51 = __Block_byref_object_copy__1;
-      v52 = __Block_byref_object_dispose__1;
-      v53 = 0;
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __88___CDClientContext_objectForContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_133;
-      v33[3] = &unk_1E78868F0;
+      v49 = 0x3032000000;
+      v50 = __Block_byref_object_copy__1;
+      v51 = __Block_byref_object_dispose__1;
+      v52 = 0;
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __88___CDClientContext_objectForContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_133;
+      v32[3] = &unk_1E78868F0;
       p_buf = &buf;
-      v33[4] = self;
-      v34 = v13;
-      v36 = v14;
-      v35 = v15;
-      [v19 propertiesOfPath:v34 handler:v33];
+      v32[4] = self;
+      v33 = v13;
+      v35 = v14;
+      v34 = v15;
+      [v19 propertiesOfPath:v33 handler:v32];
       date = *(*(&buf + 1) + 40);
 
       _Block_object_dispose(&buf, 8);
@@ -1056,7 +1048,6 @@ LABEL_13:
 LABEL_27:
 
 LABEL_28:
-  v31 = *MEMORY[0x1E69E9840];
 
   return date;
 }
@@ -1245,7 +1236,7 @@ LABEL_24:
 
 - (void)addKeyPathsWithRegistrationsForAnyChangeFromRegistration:(id)registration
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   registrationCopy = registration;
   predicate = [registrationCopy predicate];
   firesOnAnyChange = [predicate firesOnAnyChange];
@@ -1254,32 +1245,32 @@ LABEL_24:
   {
     v7 = self->_keyPathsWithRegistrationsForAnyChange;
     objc_sync_enter(v7);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     predicate2 = [registrationCopy predicate];
     keyPaths = [predicate2 keyPaths];
 
-    v10 = [keyPaths countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v10 = [keyPaths countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v10)
     {
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         v12 = 0;
         do
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(keyPaths);
           }
 
-          [(NSCountedSet *)self->_keyPathsWithRegistrationsForAnyChange addObject:*(*(&v14 + 1) + 8 * v12++)];
+          [(NSCountedSet *)self->_keyPathsWithRegistrationsForAnyChange addObject:*(*(&v13 + 1) + 8 * v12++)];
         }
 
         while (v10 != v12);
-        v10 = [keyPaths countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v10 = [keyPaths countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v10);
@@ -1287,13 +1278,11 @@ LABEL_24:
 
     objc_sync_exit(v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeKeyPathsWithRegistrationsForAnyChangeFromRegistration:(id)registration
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   registrationCopy = registration;
   predicate = [registrationCopy predicate];
   firesOnAnyChange = [predicate firesOnAnyChange];
@@ -1302,27 +1291,27 @@ LABEL_24:
   {
     v7 = self->_keyPathsWithRegistrationsForAnyChange;
     objc_sync_enter(v7);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     predicate2 = [registrationCopy predicate];
     keyPaths = [predicate2 keyPaths];
 
-    v10 = [keyPaths countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v10 = [keyPaths countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v10)
     {
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(keyPaths);
           }
 
-          v13 = *(*(&v16 + 1) + 8 * i);
+          v13 = *(*(&v15 + 1) + 8 * i);
           [(NSCountedSet *)self->_keyPathsWithRegistrationsForAnyChange removeObject:v13];
           if (![(NSCountedSet *)self->_keyPathsWithRegistrationsForAnyChange countForObject:v13])
           {
@@ -1333,7 +1322,7 @@ LABEL_24:
           }
         }
 
-        v10 = [keyPaths countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [keyPaths countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v10);
@@ -1341,13 +1330,11 @@ LABEL_24:
 
     objc_sync_exit(v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearCacheForKeyPathsWithFireOnChangeRegistrations:(id)registrations
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   registrationsCopy = registrations;
   predicate = [registrationsCopy predicate];
   firesOnAnyChange = [predicate firesOnAnyChange];
@@ -1356,32 +1343,32 @@ LABEL_24:
   {
     v7 = self->_keyPathToValues;
     objc_sync_enter(v7);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     predicate2 = [registrationsCopy predicate];
     keyPaths = [predicate2 keyPaths];
 
-    v10 = [keyPaths countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v10 = [keyPaths countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v10)
     {
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         v12 = 0;
         do
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(keyPaths);
           }
 
-          [(NSMutableDictionary *)self->_keyPathToValues removeObjectForKey:*(*(&v14 + 1) + 8 * v12++)];
+          [(NSMutableDictionary *)self->_keyPathToValues removeObjectForKey:*(*(&v13 + 1) + 8 * v12++)];
         }
 
         while (v10 != v12);
-        v10 = [keyPaths countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v10 = [keyPaths countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v10);
@@ -1389,8 +1376,6 @@ LABEL_24:
 
     objc_sync_exit(v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)retryTimes:(int)times block:(id)block
@@ -1418,7 +1403,7 @@ LABEL_24:
 
 - (void)registerCallback:(id)callback
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   callbackCopy = callback;
   v5 = _os_activity_create(&dword_1A9611000, "CoreDuet: ClientContext registerCallback:", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
@@ -1453,7 +1438,7 @@ LABEL_24:
   handler[1] = 3221225472;
   handler[2] = __37___CDClientContext_registerCallback___block_invoke;
   handler[3] = &unk_1E7886968;
-  objc_copyWeak(&v28, &state);
+  objc_copyWeak(&v27, &state);
   handler[4] = self;
   notify_register_dispatch(uTF8String, &out_token, concurrentRegistrationCallbackQueue, handler);
 
@@ -1474,20 +1459,18 @@ LABEL_24:
   [(NSMutableDictionary *)v21 setObject:v20 forKeyedSubscript:identifier5];
 
   objc_sync_exit(v16);
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __37___CDClientContext_registerCallback___block_invoke_140;
-  v25[3] = &unk_1E7886940;
-  v25[4] = self;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __37___CDClientContext_registerCallback___block_invoke_140;
+  v24[3] = &unk_1E7886940;
+  v24[4] = self;
   v23 = callbackCopy;
-  v26 = v23;
-  [(_CDClientContext *)self retryTimes:3 block:v25];
+  v25 = v23;
+  [(_CDClientContext *)self retryTimes:3 block:v24];
   [(_CDClientContext *)self addKeyPathsWithRegistrationsForAnyChangeFromRegistration:v23];
 
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(&state);
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cleanupInternalReferencesToRegistration:(id)registration
@@ -1520,22 +1503,22 @@ LABEL_24:
 
 - (void)deregisterCallback:(id)callback
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   callbackCopy = callback;
   v5 = _os_activity_create(&dword_1A9611000, "CoreDuet: ClientContext deregisterCallback:", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  v12.opaque[0] = 0;
-  v12.opaque[1] = 0;
-  os_activity_scope_enter(v5, &v12);
-  os_activity_scope_leave(&v12);
+  v11.opaque[0] = 0;
+  v11.opaque[1] = 0;
+  os_activity_scope_enter(v5, &v11);
+  os_activity_scope_leave(&v11);
 
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     v7 = log;
     identifier = [callbackCopy identifier];
-    LODWORD(v12.opaque[0]) = 138412290;
-    *(v12.opaque + 4) = identifier;
-    _os_log_impl(&dword_1A9611000, v7, OS_LOG_TYPE_DEFAULT, "Deregistering callback: %@", &v12, 0xCu);
+    LODWORD(v11.opaque[0]) = 138412290;
+    *(v11.opaque + 4) = identifier;
+    _os_log_impl(&dword_1A9611000, v7, OS_LOG_TYPE_DEFAULT, "Deregistering callback: %@", &v11, 0xCu);
   }
 
   currentConnection = [(_CDClientContext *)self currentConnection];
@@ -1543,12 +1526,11 @@ LABEL_24:
   [remoteObjectProxy deregisterCallback:callbackCopy];
 
   [(_CDClientContext *)self cleanupInternalReferencesToRegistration:callbackCopy];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)evaluatePredicate:(id)predicate
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v5 = _os_activity_create(&dword_1A9611000, "CoreDuet: ClientContext evaluatePredicate:", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
@@ -1566,34 +1548,33 @@ LABEL_24:
 
   state.opaque[0] = 0;
   state.opaque[1] = &state;
-  v16 = 0x2020000000;
-  v17 = 0;
+  v15 = 0x2020000000;
+  v16 = 0;
   currentConnection = [(_CDClientContext *)self currentConnection];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __38___CDClientContext_evaluatePredicate___block_invoke;
-  v13[3] = &unk_1E78867E0;
-  v13[4] = self;
-  v8 = predicateCopy;
-  v14 = v8;
-  v9 = [currentConnection synchronousRemoteObjectProxyWithErrorHandler:v13];
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
-  v12[2] = __38___CDClientContext_evaluatePredicate___block_invoke_142;
-  v12[3] = &unk_1E7886850;
-  v12[4] = &state;
-  [v9 evaluatePredicate:v8 handler:v12];
+  v12[2] = __38___CDClientContext_evaluatePredicate___block_invoke;
+  v12[3] = &unk_1E78867E0;
+  v12[4] = self;
+  v8 = predicateCopy;
+  v13 = v8;
+  v9 = [currentConnection synchronousRemoteObjectProxyWithErrorHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __38___CDClientContext_evaluatePredicate___block_invoke_142;
+  v11[3] = &unk_1E7886850;
+  v11[4] = &state;
+  [v9 evaluatePredicate:v8 handler:v11];
 
   LOBYTE(v9) = *(state.opaque[1] + 24);
   _Block_object_dispose(&state, 8);
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9 & 1;
 }
 
 - (void)handleContextualChange:(id)change info:(id)info handler:(id)handler
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   infoCopy = info;
   handlerCopy = handler;
@@ -1620,32 +1601,32 @@ LABEL_24:
   {
     v15 = self->_keyPathToValues;
     objc_sync_enter(v15);
+    v39 = 0u;
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
-    v44 = 0u;
     predicate = [v14 predicate];
     keyPaths = [predicate keyPaths];
 
-    v18 = [keyPaths countByEnumeratingWithState:&v41 objects:v45 count:16];
+    v18 = [keyPaths countByEnumeratingWithState:&v39 objects:v43 count:16];
     v19 = handlerCopy;
     v20 = infoCopy;
     if (v18)
     {
-      v21 = *v42;
+      v21 = *v40;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v42 != v21)
+          if (*v40 != v21)
           {
             objc_enumerationMutation(keyPaths);
           }
 
-          [(NSMutableDictionary *)self->_keyPathToValues removeObjectForKey:*(*(&v41 + 1) + 8 * i)];
+          [(NSMutableDictionary *)self->_keyPathToValues removeObjectForKey:*(*(&v39 + 1) + 8 * i)];
         }
 
-        v18 = [keyPaths countByEnumeratingWithState:&v41 objects:v45 count:16];
+        v18 = [keyPaths countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
       while (v18);
@@ -1673,10 +1654,10 @@ LABEL_24:
       block[1] = 3221225472;
       block[2] = __56___CDClientContext_handleContextualChange_info_handler___block_invoke;
       block[3] = &unk_1E7886618;
-      v37 = v14;
-      v38 = changeCopy;
-      v39 = infoCopy;
-      v40 = v25;
+      v35 = v14;
+      v36 = changeCopy;
+      v37 = infoCopy;
+      v38 = v25;
       v27 = v25;
       v28 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
       dispatch_async(serialRegistrationCallbackQueue, v28);
@@ -1693,11 +1674,10 @@ LABEL_24:
       }
 
       callback = [v14 callback];
-      concurrentRegistrationCallbackQueue = self->_concurrentRegistrationCallbackQueue;
-      v33 = changeCopy;
-      v35 = v19;
-      v34 = v14;
-      v31 = callback;
+      v31 = changeCopy;
+      v33 = v19;
+      v32 = v14;
+      v30 = callback;
       cd_dispatch_async_xpc();
     }
   }
@@ -1711,27 +1691,25 @@ LABEL_24:
 
     (*(handlerCopy + 2))(handlerCopy, 0);
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleRegistrationCompleted:(id)completed handler:(id)handler
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   completedCopy = completed;
   handlerCopy = handler;
   v8 = _os_activity_create(&dword_1A9611000, "CoreDuet: ClientContext handleRegistrationCompleted:handler:", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  v13.opaque[0] = 0;
-  v13.opaque[1] = 0;
-  os_activity_scope_enter(v8, &v13);
-  os_activity_scope_leave(&v13);
+  v12.opaque[0] = 0;
+  v12.opaque[1] = 0;
+  os_activity_scope_enter(v8, &v12);
+  os_activity_scope_leave(&v12);
 
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v13.opaque[0]) = 138412290;
-    *(v13.opaque + 4) = completedCopy;
-    _os_log_impl(&dword_1A9611000, log, OS_LOG_TYPE_DEFAULT, "Registration completed for %@", &v13, 0xCu);
+    LODWORD(v12.opaque[0]) = 138412290;
+    *(v12.opaque + 4) = completedCopy;
+    _os_log_impl(&dword_1A9611000, log, OS_LOG_TYPE_DEFAULT, "Registration completed for %@", &v12, 0xCu);
   }
 
   v10 = self->_registrations;
@@ -1745,8 +1723,6 @@ LABEL_24:
   }
 
   handlerCopy[2](handlerCopy, v11 != 0);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setObject:(id)object forContextualKeyPath:(id)path
@@ -1812,26 +1788,26 @@ LABEL_24:
 - (BOOL)setObject:(id)object forContextualKeyPath:(id)path synchronous:(BOOL)synchronous responseQueue:(id)queue withCompletion:(id)completion
 {
   synchronousCopy = synchronous;
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   pathCopy = path;
   queueCopy = queue;
   completionCopy = completion;
   [(_CDClientContext *)self logFaultIfDeprecatedKeyPath:pathCopy];
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __92___CDClientContext_setObject_forContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke;
-  v37[3] = &unk_1E78869B8;
-  v37[4] = self;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __92___CDClientContext_setObject_forContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke;
+  v36[3] = &unk_1E78869B8;
+  v36[4] = self;
   v16 = objectCopy;
-  v38 = v16;
+  v37 = v16;
   v17 = pathCopy;
-  v39 = v17;
+  v38 = v17;
   v18 = completionCopy;
-  v41 = v18;
+  v40 = v18;
   v19 = queueCopy;
-  v40 = v19;
-  v20 = MEMORY[0x1AC5886D0](v37);
+  v39 = v19;
+  v20 = MEMORY[0x1AC5886D0](v36);
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
@@ -1855,25 +1831,24 @@ LABEL_24:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v43 = 0x2020000000;
-  v44 = 0;
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __92___CDClientContext_setObject_forContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_147;
-  v31[3] = &unk_1E7886A08;
+  v42 = 0x2020000000;
+  v43 = 0;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __92___CDClientContext_setObject_forContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_147;
+  v30[3] = &unk_1E7886A08;
   p_buf = &buf;
   v25 = v18;
-  v35 = v25;
+  v34 = v25;
   v26 = v19;
-  v32 = v26;
+  v31 = v26;
   selfCopy = self;
   v27 = v17;
-  v34 = v27;
-  [v24 setObject:v16 forPath:v27 handler:v31];
+  v33 = v27;
+  [v24 setObject:v16 forPath:v27 handler:v30];
   v28 = *(*(&buf + 1) + 24);
 
   _Block_object_dispose(&buf, 8);
-  v29 = *MEMORY[0x1E69E9840];
   return v28 & 1;
 }
 
@@ -1940,26 +1915,26 @@ LABEL_24:
 - (BOOL)addObjects:(id)objects toArrayAtKeyPath:(id)path synchronous:(BOOL)synchronous responseQueue:(id)queue withCompletion:(id)completion
 {
   synchronousCopy = synchronous;
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   pathCopy = path;
   queueCopy = queue;
   completionCopy = completion;
   [(_CDClientContext *)self logFaultIfDeprecatedKeyPath:pathCopy];
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __89___CDClientContext_addObjects_toArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke;
-  v37[3] = &unk_1E78869B8;
-  v37[4] = self;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __89___CDClientContext_addObjects_toArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke;
+  v36[3] = &unk_1E78869B8;
+  v36[4] = self;
   v16 = objectsCopy;
-  v38 = v16;
+  v37 = v16;
   v17 = pathCopy;
-  v39 = v17;
+  v38 = v17;
   v18 = completionCopy;
-  v41 = v18;
+  v40 = v18;
   v19 = queueCopy;
-  v40 = v19;
-  v20 = MEMORY[0x1AC5886D0](v37);
+  v39 = v19;
+  v20 = MEMORY[0x1AC5886D0](v36);
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
@@ -1983,25 +1958,24 @@ LABEL_24:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v43 = 0x2020000000;
-  v44 = 0;
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __89___CDClientContext_addObjects_toArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_149;
-  v31[3] = &unk_1E7886A08;
+  v42 = 0x2020000000;
+  v43 = 0;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __89___CDClientContext_addObjects_toArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_149;
+  v30[3] = &unk_1E7886A08;
   p_buf = &buf;
   v25 = v18;
-  v35 = v25;
+  v34 = v25;
   v26 = v19;
-  v32 = v26;
+  v31 = v26;
   selfCopy = self;
   v27 = v17;
-  v34 = v27;
-  [v24 addObjects:v16 andRemoveObjects:0 forArrayAtPath:v27 handler:v31];
+  v33 = v27;
+  [v24 addObjects:v16 andRemoveObjects:0 forArrayAtPath:v27 handler:v30];
   v28 = *(*(&buf + 1) + 24);
 
   _Block_object_dispose(&buf, 8);
-  v29 = *MEMORY[0x1E69E9840];
   return v28 & 1;
 }
 
@@ -2068,26 +2042,26 @@ LABEL_24:
 - (BOOL)removeObjects:(id)objects fromArrayAtKeyPath:(id)path synchronous:(BOOL)synchronous responseQueue:(id)queue withCompletion:(id)completion
 {
   synchronousCopy = synchronous;
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   pathCopy = path;
   queueCopy = queue;
   completionCopy = completion;
   [(_CDClientContext *)self logFaultIfDeprecatedKeyPath:pathCopy];
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __94___CDClientContext_removeObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke;
-  v36[3] = &unk_1E78869B8;
-  v36[4] = self;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __94___CDClientContext_removeObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke;
+  v35[3] = &unk_1E78869B8;
+  v35[4] = self;
   v16 = objectsCopy;
-  v37 = v16;
+  v36 = v16;
   v17 = pathCopy;
-  v38 = v17;
+  v37 = v17;
   v18 = completionCopy;
-  v40 = v18;
+  v39 = v18;
   v19 = queueCopy;
-  v39 = v19;
-  v20 = MEMORY[0x1AC5886D0](v36);
+  v38 = v19;
+  v20 = MEMORY[0x1AC5886D0](v35);
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
@@ -2111,25 +2085,24 @@ LABEL_24:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v42 = 0x2020000000;
-  v43 = 0;
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __94___CDClientContext_removeObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_151;
-  v31[3] = &unk_1E7886A30;
+  v41 = 0x2020000000;
+  v42 = 0;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __94___CDClientContext_removeObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_151;
+  v30[3] = &unk_1E7886A30;
   p_buf = &buf;
-  v31[4] = self;
+  v30[4] = self;
   v25 = v17;
-  v32 = v25;
+  v31 = v25;
   v26 = v18;
-  v34 = v26;
+  v33 = v26;
   v27 = v19;
-  v33 = v27;
-  [v24 addObjects:0 andRemoveObjects:v16 forArrayAtPath:v25 handler:v31];
+  v32 = v27;
+  [v24 addObjects:0 andRemoveObjects:v16 forArrayAtPath:v25 handler:v30];
   v28 = *(*(&buf + 1) + 24);
 
   _Block_object_dispose(&buf, 8);
-  v29 = *MEMORY[0x1E69E9840];
   return v28 & 1;
 }
 
@@ -2183,7 +2156,7 @@ LABEL_24:
 - (id)removeObjectsMatchingPredicate:(id)predicate fromArrayAtKeyPath:(id)path synchronous:(BOOL)synchronous responseQueue:(id)queue withCompletion:(id)completion
 {
   synchronousCopy = synchronous;
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   pathCopy = path;
   queueCopy = queue;
@@ -2195,20 +2168,20 @@ LABEL_24:
   os_activity_scope_enter(v16, &state);
   os_activity_scope_leave(&state);
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __111___CDClientContext_removeObjectsMatchingPredicate_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke;
-  v37[3] = &unk_1E78869B8;
-  v37[4] = self;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __111___CDClientContext_removeObjectsMatchingPredicate_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke;
+  v36[3] = &unk_1E78869B8;
+  v36[4] = self;
   v17 = predicateCopy;
-  v38 = v17;
+  v37 = v17;
   v18 = pathCopy;
-  v39 = v18;
+  v38 = v18;
   v19 = completionCopy;
-  v41 = v19;
+  v40 = v19;
   v20 = queueCopy;
-  v40 = v20;
-  v21 = MEMORY[0x1AC5886D0](v37);
+  v39 = v20;
+  v21 = MEMORY[0x1AC5886D0](v36);
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
@@ -2232,27 +2205,26 @@ LABEL_24:
 
   state.opaque[0] = 0;
   state.opaque[1] = &state;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy__1;
-  v45 = __Block_byref_object_dispose__1;
-  v46 = 0;
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __111___CDClientContext_removeObjectsMatchingPredicate_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_154;
-  v32[3] = &unk_1E7886A80;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy__1;
+  v44 = __Block_byref_object_dispose__1;
+  v45 = 0;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __111___CDClientContext_removeObjectsMatchingPredicate_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_154;
+  v31[3] = &unk_1E7886A80;
   p_state = &state;
-  v32[4] = self;
+  v31[4] = self;
   v26 = v18;
-  v33 = v26;
+  v32 = v26;
   v27 = v19;
-  v35 = v27;
+  v34 = v27;
   v28 = v20;
-  v34 = v28;
-  [v25 removeObjectsMatchingPredicate:v17 fromArrayAtPath:v26 handler:v32];
+  v33 = v28;
+  [v25 removeObjectsMatchingPredicate:v17 fromArrayAtPath:v26 handler:v31];
   v29 = *(state.opaque[1] + 40);
 
   _Block_object_dispose(&state, 8);
-  v30 = *MEMORY[0x1E69E9840];
 
   return v29;
 }
@@ -2313,29 +2285,29 @@ LABEL_24:
 - (BOOL)addObjects:(id)objects andRemoveObjects:(id)removeObjects fromArrayAtKeyPath:(id)path synchronous:(BOOL)synchronous responseQueue:(id)queue withCompletion:(id)completion
 {
   synchronousCopy = synchronous;
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   removeObjectsCopy = removeObjects;
   pathCopy = path;
   queueCopy = queue;
   completionCopy = completion;
   [(_CDClientContext *)self logFaultIfDeprecatedKeyPath:pathCopy];
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __108___CDClientContext_addObjects_andRemoveObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke;
-  v40[3] = &unk_1E7886AA8;
-  v40[4] = self;
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = __108___CDClientContext_addObjects_andRemoveObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke;
+  v39[3] = &unk_1E7886AA8;
+  v39[4] = self;
   v19 = objectsCopy;
-  v41 = v19;
+  v40 = v19;
   v20 = removeObjectsCopy;
-  v42 = v20;
+  v41 = v20;
   v21 = pathCopy;
-  v43 = v21;
+  v42 = v21;
   v22 = completionCopy;
-  v45 = v22;
+  v44 = v22;
   v23 = queueCopy;
-  v44 = v23;
-  v24 = MEMORY[0x1AC5886D0](v40);
+  v43 = v23;
+  v24 = MEMORY[0x1AC5886D0](v39);
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
@@ -2359,25 +2331,24 @@ LABEL_24:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v47 = 0x2020000000;
-  v48 = 0;
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __108___CDClientContext_addObjects_andRemoveObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_158;
-  v35[3] = &unk_1E7886A30;
+  v46 = 0x2020000000;
+  v47 = 0;
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __108___CDClientContext_addObjects_andRemoveObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_158;
+  v34[3] = &unk_1E7886A30;
   p_buf = &buf;
-  v35[4] = self;
+  v34[4] = self;
   v29 = v21;
-  v36 = v29;
+  v35 = v29;
   v30 = v22;
-  v38 = v30;
+  v37 = v30;
   v31 = v23;
-  v37 = v31;
-  [v28 addObjects:v19 andRemoveObjects:v20 forArrayAtPath:v29 handler:v35];
+  v36 = v31;
+  [v28 addObjects:v19 andRemoveObjects:v20 forArrayAtPath:v29 handler:v34];
   v32 = *(*(&buf + 1) + 24);
 
   _Block_object_dispose(&buf, 8);
-  v33 = *MEMORY[0x1E69E9840];
   return v32 & 1;
 }
 
@@ -2479,31 +2450,31 @@ LABEL_24:
 - (id)valuesForKeyPaths:(id)paths synchronous:(BOOL)synchronous responseQueue:(id)queue withCompletion:(id)completion
 {
   synchronousCopy = synchronous;
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   queueCopy = queue;
   completionCopy = completion;
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  v13 = [pathsCopy countByEnumeratingWithState:&v38 objects:v47 count:16];
+  v13 = [pathsCopy countByEnumeratingWithState:&v37 objects:v46 count:16];
   if (v13)
   {
-    v14 = *v39;
+    v14 = *v38;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v39 != v14)
+        if (*v38 != v14)
         {
           objc_enumerationMutation(pathsCopy);
         }
 
-        [(_CDClientContext *)self logFaultIfDeprecatedKeyPath:*(*(&v38 + 1) + 8 * i)];
+        [(_CDClientContext *)self logFaultIfDeprecatedKeyPath:*(*(&v37 + 1) + 8 * i)];
       }
 
-      v13 = [pathsCopy countByEnumeratingWithState:&v38 objects:v47 count:16];
+      v13 = [pathsCopy countByEnumeratingWithState:&v37 objects:v46 count:16];
     }
 
     while (v13);
@@ -2517,16 +2488,16 @@ LABEL_24:
     _os_log_impl(&dword_1A9611000, log, OS_LOG_TYPE_DEFAULT, "Getting values for keypaths: %@", &buf, 0xCu);
   }
 
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __79___CDClientContext_valuesForKeyPaths_synchronous_responseQueue_withCompletion___block_invoke;
-  v35[3] = &unk_1E7886AF8;
-  v35[4] = self;
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __79___CDClientContext_valuesForKeyPaths_synchronous_responseQueue_withCompletion___block_invoke;
+  v34[3] = &unk_1E7886AF8;
+  v34[4] = self;
   v17 = completionCopy;
-  v37 = v17;
+  v36 = v17;
   v18 = queueCopy;
-  v36 = v18;
-  v19 = MEMORY[0x1AC5886D0](v35);
+  v35 = v18;
+  v19 = MEMORY[0x1AC5886D0](v34);
   currentConnection = [(_CDClientContext *)self currentConnection];
   v21 = currentConnection;
   if (synchronousCopy)
@@ -2542,34 +2513,33 @@ LABEL_24:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy__1;
-  v45 = __Block_byref_object_dispose__1;
-  v46 = 0;
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __79___CDClientContext_valuesForKeyPaths_synchronous_responseQueue_withCompletion___block_invoke_2;
-  v29[3] = &unk_1E7886B20;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy__1;
+  v44 = __Block_byref_object_dispose__1;
+  v45 = 0;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __79___CDClientContext_valuesForKeyPaths_synchronous_responseQueue_withCompletion___block_invoke_2;
+  v28[3] = &unk_1E7886B20;
   p_buf = &buf;
   v23 = v17;
-  v33 = v23;
+  v32 = v23;
   v24 = v18;
-  v30 = v24;
+  v29 = v24;
   selfCopy = self;
   v25 = pathsCopy;
-  v32 = v25;
-  [v22 valuesForPaths:v25 handler:v29];
+  v31 = v25;
+  [v22 valuesForPaths:v25 handler:v28];
   v26 = *(*(&buf + 1) + 40);
 
   _Block_object_dispose(&buf, 8);
-  v27 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
 
 - (BOOL)setObject:(id)object lastModifiedDate:(id)date forContextualKeyPath:(id)path
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   dateCopy = date;
   pathCopy = path;
@@ -2592,26 +2562,26 @@ LABEL_24:
   *state = 0;
   *&state[8] = state;
   *&state[16] = 0x2020000000;
-  v27 = 0;
+  v26 = 0;
   currentConnection = [(_CDClientContext *)self currentConnection];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __68___CDClientContext_setObject_lastModifiedDate_forContextualKeyPath___block_invoke;
-  v22[3] = &unk_1E7886B48;
-  v22[4] = self;
-  v14 = objectCopy;
-  v23 = v14;
-  v15 = dateCopy;
-  v24 = v15;
-  v16 = pathCopy;
-  v25 = v16;
-  v17 = [currentConnection synchronousRemoteObjectProxyWithErrorHandler:v22];
   v21[0] = MEMORY[0x1E69E9820];
   v21[1] = 3221225472;
-  v21[2] = __68___CDClientContext_setObject_lastModifiedDate_forContextualKeyPath___block_invoke_163;
-  v21[3] = &unk_1E7886850;
-  v21[4] = state;
-  [v17 setObject:v14 lastModifiedDate:v15 forContextualKeyPath:v16 handler:v21];
+  v21[2] = __68___CDClientContext_setObject_lastModifiedDate_forContextualKeyPath___block_invoke;
+  v21[3] = &unk_1E7886B48;
+  v21[4] = self;
+  v14 = objectCopy;
+  v22 = v14;
+  v15 = dateCopy;
+  v23 = v15;
+  v16 = pathCopy;
+  v24 = v16;
+  v17 = [currentConnection synchronousRemoteObjectProxyWithErrorHandler:v21];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __68___CDClientContext_setObject_lastModifiedDate_forContextualKeyPath___block_invoke_163;
+  v20[3] = &unk_1E7886850;
+  v20[4] = state;
+  [v17 setObject:v14 lastModifiedDate:v15 forContextualKeyPath:v16 handler:v20];
 
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
   {
@@ -2621,7 +2591,6 @@ LABEL_24:
   v18 = *(*&state[8] + 24);
 
   _Block_object_dispose(state, 8);
-  v19 = *MEMORY[0x1E69E9840];
   return v18 & 1;
 }
 
@@ -2693,53 +2662,18 @@ LABEL_24:
   }
 }
 
-- (void)handleMDCSEvent:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1A9611000, v0, v1, "Ignoring unrecognized message: %s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)handleNotificationEvent:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logFaultIfDeprecatedKeyPath:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_1A9611000, v0, OS_LOG_TYPE_FAULT, "the %@ contextual key path is deprecated and will be removed soon, please contact #help-biome", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-- (void)handleContextualChange:info:handler:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1A9611000, v0, v1, "Dispatching call to deprecated registration callback for %@, this may lead to priority problems. Switch to non-deprecated _CDContextualChangeRegistration APIs.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)handleContextualChange:info:handler:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1A9611000, v0, v1, "Unable to find registration for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setObject:lastModifiedDate:forContextualKeyPath:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_1A9611000, v0, v1, "Done setting object at keypath %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1A9611000, v0, OS_LOG_TYPE_FAULT, "the %@ contextual key path is deprecated and will be removed soon, please contact #help-biome", v1, 0xCu);
 }
 
 @end

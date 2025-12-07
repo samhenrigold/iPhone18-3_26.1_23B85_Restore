@@ -99,7 +99,7 @@ id __63__CORapportDevice_initWithCompanionLinkDevice_sourceTransport___block_inv
   companionLinkProvider = self->_companionLinkProvider;
   self->_companionLinkProvider = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, companionLinkProvider);
 }
 
 - (id)companionLinkProvider
@@ -111,7 +111,7 @@ id __63__CORapportDevice_initWithCompanionLinkDevice_sourceTransport___block_inv
 
 - (NSUUID)HomeKitIdentifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   HomeKitIdentifier = self->_HomeKitIdentifier;
   if (!HomeKitIdentifier)
   {
@@ -121,28 +121,28 @@ id __63__CORapportDevice_initWithCompanionLinkDevice_sourceTransport___block_inv
     if (!homeKitIdentifier)
     {
       iDSIdentifier = [(CORapportDevice *)self IDSIdentifier];
+      v16 = 0u;
       v17 = 0u;
       v18 = 0u;
       v19 = 0u;
-      v20 = 0u;
       sourceTransport = [(CORapportDevice *)self sourceTransport];
       client = [sourceTransport client];
       activeDevices = [client activeDevices];
 
-      homeKitIdentifier = [activeDevices countByEnumeratingWithState:&v17 objects:v21 count:16];
+      homeKitIdentifier = [activeDevices countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (homeKitIdentifier)
       {
-        v10 = *v18;
+        v10 = *v17;
         while (2)
         {
           for (i = 0; i != homeKitIdentifier; i = (i + 1))
           {
-            if (*v18 != v10)
+            if (*v17 != v10)
             {
               objc_enumerationMutation(activeDevices);
             }
 
-            v12 = *(*(&v17 + 1) + 8 * i);
+            v12 = *(*(&v16 + 1) + 8 * i);
             idsDeviceIdentifier = [v12 idsDeviceIdentifier];
             if (idsDeviceIdentifier && ![iDSIdentifier compare:idsDeviceIdentifier options:1])
             {
@@ -152,7 +152,7 @@ id __63__CORapportDevice_initWithCompanionLinkDevice_sourceTransport___block_inv
             }
           }
 
-          homeKitIdentifier = [activeDevices countByEnumeratingWithState:&v17 objects:v21 count:16];
+          homeKitIdentifier = [activeDevices countByEnumeratingWithState:&v16 objects:v20 count:16];
           if (homeKitIdentifier)
           {
             continue;
@@ -170,8 +170,6 @@ LABEL_14:
 
     HomeKitIdentifier = self->_HomeKitIdentifier;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return HomeKitIdentifier;
 }

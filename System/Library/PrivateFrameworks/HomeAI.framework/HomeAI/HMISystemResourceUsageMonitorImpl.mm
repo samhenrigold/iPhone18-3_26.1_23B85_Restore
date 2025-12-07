@@ -23,7 +23,7 @@
     objc_storeStrong(&v8->_workQueue, queue);
     if (class == 3)
     {
-      v10 = [[HMISystemResourceUsageMonitoriPad alloc] initWithWorkQueue:queueCopy];
+      v10 = [[HMISystemResourceUsageMonitoriPad alloc] initWithWorkQueue:?];
       resourceUsageMonitor = v9->_resourceUsageMonitor;
       v9->_resourceUsageMonitor = v10;
     }
@@ -59,7 +59,7 @@
   dispatch_assert_queue_V2(workQueue);
 
   resourceUsageMonitor = [(HMISystemResourceUsageMonitorImpl *)self resourceUsageMonitor];
-  [resourceUsageMonitor setDelegate:delegateCopy];
+  [resourceUsageMonitor setDelegate:?];
 }
 
 - (HMISystemResourceUsageMonitorDelegate)delegate

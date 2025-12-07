@@ -250,21 +250,21 @@ uint64_t __51__DNDSMetricsManager_sendMetricsHeartbeatsIfNeeded__block_invoke(ui
   dispatch_async(queue, v13);
 }
 
-void __65__DNDSMetricsManager_assertionTaken_withClientDetails_lockState___block_invoke(uint64_t a1)
+void __65__DNDSMetricsManager_assertionTaken_withClientDetails_lockState___block_invoke(id *a1)
 {
-  v2 = [*(a1 + 32) isUserInteractionClient];
-  v3 = [*(a1 + 40) details];
+  v2 = [a1[4] isUserInteractionClient];
+  v3 = [a1[5] details];
   v25 = [v3 modeIdentifier];
 
-  v4 = [*(a1 + 40) details];
+  v4 = [a1[5] details];
   v5 = [v4 identifier];
 
-  v6 = [*(a1 + 40) source];
+  v6 = [a1[5] source];
   v7 = [v6 clientIdentifier];
 
   v24 = [v7 isEqualToString:@"com.apple.donotdisturb.control-center.module"];
   v23 = [v7 isEqualToString:@"com.apple.private.Carousel.control-center.DND.state"];
-  v8 = [*(a1 + 40) details];
+  v8 = [a1[5] details];
   v9 = [v8 lifetime];
 
   objc_opt_class();
@@ -279,12 +279,12 @@ void __65__DNDSMetricsManager_assertionTaken_withClientDetails_lockState___block
     v10 = @"none";
   }
 
-  v11 = [*(a1 + 48) _calendar];
+  v11 = [a1[6] _calendar];
   v12 = [MEMORY[0x277CBEAA8] date];
   [v11 component:32 fromDate:v12];
 
   v13 = MEMORY[0x277CCABB0];
-  v14 = [*(a1 + 48) _calendar];
+  v14 = [a1[6] _calendar];
   v15 = [MEMORY[0x277CBEAA8] date];
   v16 = [v13 numberWithInteger:{objc_msgSend(v14, "component:fromDate:", 512, v15)}];
 
@@ -297,7 +297,6 @@ void __65__DNDSMetricsManager_assertionTaken_withClientDetails_lockState___block
 
   v27 = v7;
   v28 = v10;
-  v30 = *(a1 + 56);
   v29 = v16;
   v18 = v16;
   v19 = v10;
@@ -305,47 +304,45 @@ void __65__DNDSMetricsManager_assertionTaken_withClientDetails_lockState___block
   v21 = v5;
   v22 = v25;
   AnalyticsSendEventLazy();
-  [*(a1 + 48) _aggregateMetricsWithEnabled:1 manuallyEnabled:v2 numberOfNewSessions:1 numberOfNewManualSessions:v2 controlCenterPhone:v24 controlCenterWatch:v23 type:v21 mode:v22 dayOfWeek:v18];
-  [*(a1 + 48) sendMetricsHeartbeatsIfNeeded];
+  [a1[6] _aggregateMetricsWithEnabled:1 manuallyEnabled:v2 numberOfNewSessions:1 numberOfNewManualSessions:v2 controlCenterPhone:v24 controlCenterWatch:v23 type:v21 mode:v22 dayOfWeek:v18];
+  [a1[6] sendMetricsHeartbeatsIfNeeded];
 }
 
 id __65__DNDSMetricsManager_assertionTaken_withClientDetails_lockState___block_invoke_315(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v13[0] = @"manual";
+  v24 = *MEMORY[0x277D85DE8];
+  v12[0] = @"manual";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 88)];
-  v14 = v2;
-  v15 = *(a1 + 32);
-  v13[1] = @"mode";
-  v13[2] = @"type";
-  v16 = *(a1 + 48);
-  v13[3] = @"source";
-  v13[4] = @"controlCenterPhone";
+  v13 = v2;
+  v14 = *(a1 + 32);
+  v12[1] = @"mode";
+  v12[2] = @"type";
+  v15 = *(a1 + 48);
+  v12[3] = @"source";
+  v12[4] = @"controlCenterPhone";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 89)];
-  v17 = v3;
-  v13[5] = @"controlCenterWatch";
+  v16 = v3;
+  v12[5] = @"controlCenterWatch";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 90)];
-  v18 = v4;
-  v13[6] = @"schedule";
+  v17 = v4;
+  v12[6] = @"schedule";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 91)];
   v6 = *(a1 + 56);
-  v19 = v5;
-  v20 = v6;
-  v13[7] = @"scheduleIdentifier";
-  v13[8] = @"hour";
+  v18 = v5;
+  v19 = v6;
+  v12[7] = @"scheduleIdentifier";
+  v12[8] = @"hour";
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 72)];
-  v21 = v7;
-  v13[9] = @"lockState";
+  v20 = v7;
+  v12[9] = @"lockState";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 80)];
   v9 = *(a1 + 64);
-  v22 = v8;
-  v23 = v9;
-  v13[10] = @"weekday";
-  v13[11] = @"version";
-  v24 = &unk_285C534C0;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:v13 count:12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v21 = v8;
+  v22 = v9;
+  v12[10] = @"weekday";
+  v12[11] = @"version";
+  v23 = &unk_285C534C0;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:v12 count:12];
 
   return v10;
 }
@@ -554,167 +551,161 @@ id __65__DNDSMetricsManager_assertionTaken_withClientDetails_lockState___block_i
 
 id __49__DNDSMetricsManager__sendDailyHeartbeatIfNeeded__block_invoke(uint64_t a1)
 {
-  v20[15] = *MEMORY[0x277D85DE8];
-  v19[0] = @"enabled";
-  v18 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabled")}];
-  v20[0] = v18;
-  v19[1] = @"manuallyEnabled";
-  v17 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "manuallyEnabled")}];
-  v20[1] = v17;
-  v19[2] = @"numberOfSessions";
-  v16 = [*(a1 + 32) numberOfSessions];
-  v20[2] = v16;
-  v19[3] = @"numberOfManualSessions";
-  v15 = [*(a1 + 32) numberOfManualSessions];
-  v20[3] = v15;
-  v19[4] = @"enabledFromControlCenterPhone";
-  v14 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledFromControlCenterPhone")}];
-  v20[4] = v14;
-  v19[5] = @"enabledFromControlCenterWatch";
+  v19[15] = *MEMORY[0x277D85DE8];
+  v18[0] = @"enabled";
+  v17 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabled")}];
+  v19[0] = v17;
+  v18[1] = @"manuallyEnabled";
+  v16 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "manuallyEnabled")}];
+  v19[1] = v16;
+  v18[2] = @"numberOfSessions";
+  v15 = [*(a1 + 32) numberOfSessions];
+  v19[2] = v15;
+  v18[3] = @"numberOfManualSessions";
+  v14 = [*(a1 + 32) numberOfManualSessions];
+  v19[3] = v14;
+  v18[4] = @"enabledFromControlCenterPhone";
+  v13 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledFromControlCenterPhone")}];
+  v19[4] = v13;
+  v18[5] = @"enabledFromControlCenterWatch";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledFromControlCenterWatch")}];
-  v20[5] = v2;
-  v19[6] = @"enabledForOneHour";
+  v19[5] = v2;
+  v18[6] = @"enabledForOneHour";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledForOneHour")}];
-  v20[6] = v3;
-  v19[7] = @"enabledUntilEvening";
+  v19[6] = v3;
+  v18[7] = @"enabledUntilEvening";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledUntilEvening")}];
-  v20[7] = v4;
-  v19[8] = @"enabledUntilMorning";
+  v19[7] = v4;
+  v18[8] = @"enabledUntilMorning";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledUntilMorning")}];
-  v20[8] = v5;
-  v19[9] = @"enabledAtLocation";
+  v19[8] = v5;
+  v18[9] = @"enabledAtLocation";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledAtLocation")}];
-  v20[9] = v6;
-  v19[10] = @"enabledDuringEvent";
+  v19[9] = v6;
+  v18[10] = @"enabledDuringEvent";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledDuringEvent")}];
-  v20[10] = v7;
-  v19[11] = @"enabledDrivingMode";
+  v19[10] = v7;
+  v18[11] = @"enabledDrivingMode";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledDrivingMode")}];
-  v20[11] = v8;
-  v19[12] = @"enabledSleepMode";
+  v19[11] = v8;
+  v18[12] = @"enabledSleepMode";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledSleepMode")}];
-  v20[12] = v9;
-  v19[13] = @"dayOfWeek";
+  v19[12] = v9;
+  v18[13] = @"dayOfWeek";
   v10 = [*(a1 + 32) dayOfWeek];
-  v19[14] = @"version";
-  v20[13] = v10;
-  v20[14] = &unk_285C534C0;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:15];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v18[14] = @"version";
+  v19[13] = v10;
+  v19[14] = &unk_285C534C0;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:15];
 
   return v11;
 }
 
 id __50__DNDSMetricsManager__sendWeeklyHeartbeatIfNeeded__block_invoke(uint64_t a1)
 {
-  v19[14] = *MEMORY[0x277D85DE8];
-  v18[0] = @"enabled";
-  v17 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabled")}];
-  v19[0] = v17;
-  v18[1] = @"manuallyEnabled";
-  v16 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "manuallyEnabled")}];
-  v19[1] = v16;
-  v18[2] = @"numberOfSessions";
-  v15 = [*(a1 + 32) numberOfSessions];
-  v19[2] = v15;
-  v18[3] = @"numberOfManualSessions";
-  v14 = [*(a1 + 32) numberOfManualSessions];
-  v19[3] = v14;
-  v18[4] = @"enabledFromControlCenterPhone";
+  v18[14] = *MEMORY[0x277D85DE8];
+  v17[0] = @"enabled";
+  v16 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabled")}];
+  v18[0] = v16;
+  v17[1] = @"manuallyEnabled";
+  v15 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "manuallyEnabled")}];
+  v18[1] = v15;
+  v17[2] = @"numberOfSessions";
+  v14 = [*(a1 + 32) numberOfSessions];
+  v18[2] = v14;
+  v17[3] = @"numberOfManualSessions";
+  v13 = [*(a1 + 32) numberOfManualSessions];
+  v18[3] = v13;
+  v17[4] = @"enabledFromControlCenterPhone";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledFromControlCenterPhone")}];
-  v19[4] = v2;
-  v18[5] = @"enabledFromControlCenterWatch";
+  v18[4] = v2;
+  v17[5] = @"enabledFromControlCenterWatch";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledFromControlCenterWatch")}];
-  v19[5] = v3;
-  v18[6] = @"enabledForOneHour";
+  v18[5] = v3;
+  v17[6] = @"enabledForOneHour";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledForOneHour")}];
-  v19[6] = v4;
-  v18[7] = @"enabledUntilEvening";
+  v18[6] = v4;
+  v17[7] = @"enabledUntilEvening";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledUntilEvening")}];
-  v19[7] = v5;
-  v18[8] = @"enabledUntilMorning";
+  v18[7] = v5;
+  v17[8] = @"enabledUntilMorning";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledUntilMorning")}];
-  v19[8] = v6;
-  v18[9] = @"enabledAtLocation";
+  v18[8] = v6;
+  v17[9] = @"enabledAtLocation";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledAtLocation")}];
-  v19[9] = v7;
-  v18[10] = @"enabledDuringEvent";
+  v18[9] = v7;
+  v17[10] = @"enabledDuringEvent";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledDuringEvent")}];
-  v19[10] = v8;
-  v18[11] = @"enabledDrivingMode";
+  v18[10] = v8;
+  v17[11] = @"enabledDrivingMode";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledDrivingMode")}];
-  v19[11] = v9;
-  v18[12] = @"enabledSleepMode";
+  v18[11] = v9;
+  v17[12] = @"enabledSleepMode";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledSleepMode")}];
-  v18[13] = @"version";
-  v19[12] = v10;
-  v19[13] = &unk_285C534C0;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:14];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v17[13] = @"version";
+  v18[12] = v10;
+  v18[13] = &unk_285C534C0;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:14];
 
   return v11;
 }
 
 id __51__DNDSMetricsManager__sendMonthlyHeartbeatIfNeeded__block_invoke(uint64_t a1)
 {
-  v19[14] = *MEMORY[0x277D85DE8];
-  v18[0] = @"enabled";
-  v17 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabled")}];
-  v19[0] = v17;
-  v18[1] = @"manuallyEnabled";
-  v16 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "manuallyEnabled")}];
-  v19[1] = v16;
-  v18[2] = @"numberOfSessions";
-  v15 = [*(a1 + 32) numberOfSessions];
-  v19[2] = v15;
-  v18[3] = @"numberOfManualSessions";
-  v14 = [*(a1 + 32) numberOfManualSessions];
-  v19[3] = v14;
-  v18[4] = @"enabledFromControlCenterPhone";
+  v18[14] = *MEMORY[0x277D85DE8];
+  v17[0] = @"enabled";
+  v16 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabled")}];
+  v18[0] = v16;
+  v17[1] = @"manuallyEnabled";
+  v15 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "manuallyEnabled")}];
+  v18[1] = v15;
+  v17[2] = @"numberOfSessions";
+  v14 = [*(a1 + 32) numberOfSessions];
+  v18[2] = v14;
+  v17[3] = @"numberOfManualSessions";
+  v13 = [*(a1 + 32) numberOfManualSessions];
+  v18[3] = v13;
+  v17[4] = @"enabledFromControlCenterPhone";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledFromControlCenterPhone")}];
-  v19[4] = v2;
-  v18[5] = @"enabledFromControlCenterWatch";
+  v18[4] = v2;
+  v17[5] = @"enabledFromControlCenterWatch";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledFromControlCenterWatch")}];
-  v19[5] = v3;
-  v18[6] = @"enabledForOneHour";
+  v18[5] = v3;
+  v17[6] = @"enabledForOneHour";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledForOneHour")}];
-  v19[6] = v4;
-  v18[7] = @"enabledUntilEvening";
+  v18[6] = v4;
+  v17[7] = @"enabledUntilEvening";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledUntilEvening")}];
-  v19[7] = v5;
-  v18[8] = @"enabledUntilMorning";
+  v18[7] = v5;
+  v17[8] = @"enabledUntilMorning";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledUntilMorning")}];
-  v19[8] = v6;
-  v18[9] = @"enabledAtLocation";
+  v18[8] = v6;
+  v17[9] = @"enabledAtLocation";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledAtLocation")}];
-  v19[9] = v7;
-  v18[10] = @"enabledDuringEvent";
+  v18[9] = v7;
+  v17[10] = @"enabledDuringEvent";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledDuringEvent")}];
-  v19[10] = v8;
-  v18[11] = @"enabledDrivingMode";
+  v18[10] = v8;
+  v17[11] = @"enabledDrivingMode";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledDrivingMode")}];
-  v19[11] = v9;
-  v18[12] = @"enabledSleepMode";
+  v18[11] = v9;
+  v17[12] = @"enabledSleepMode";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "enabledSleepMode")}];
-  v18[13] = @"version";
-  v19[12] = v10;
-  v19[13] = &unk_285C534C0;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:14];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v17[13] = @"version";
+  v18[12] = v10;
+  v18[13] = &unk_285C534C0;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:14];
 
   return v11;
 }
 
 - (void)_writeMetricsToStore:(id)store
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   metricsBackingStore = self->_metricsBackingStore;
-  v13 = 0;
-  v4 = [(DNDSBackingStore *)metricsBackingStore writeRecord:store error:&v13];
-  v5 = v13;
+  v12 = 0;
+  v4 = [(DNDSBackingStore *)metricsBackingStore writeRecord:store error:&v12];
+  v5 = v12;
   if (v4)
   {
     if (v4 == 1)
@@ -723,7 +714,7 @@ id __51__DNDSMetricsManager__sendMonthlyHeartbeatIfNeeded__block_invoke(uint64_t
       if (os_log_type_enabled(DNDSLogMetrics, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v15 = v5;
+        v14 = v5;
         v7 = "Metrics Failed to write store, but error can be ignored; error=%{public}@";
         v8 = v10;
         v9 = 12;
@@ -756,8 +747,6 @@ LABEL_8:
 
     _DNDSRequestRadar(@"Failed to write store", v5, 0, @"/Library/Caches/com.apple.xbs/Sources/DoNotDisturbServer/DoNotDisturbServer/Metrics/DNDSMetricsManager.m", 434);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_metricsDayStringForDate:(id)date
@@ -867,11 +856,10 @@ LABEL_8:
 
 - (void)_writeMetricsToStore:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Metrics Failed to write store, will request radar; error=%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Metrics Failed to write store, will request radar; error=%{public}@", &v2, 0xCu);
 }
 
 @end

@@ -85,114 +85,114 @@
 
   if (offrampEnabled)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v56 = deletedCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Deleting calls from IDS firewall if necessary: %@", buf, 0xCu);
+      v58 = deletedCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Deleting calls from IDS firewall if necessary: %@", buf, 0xCu);
     }
 
-    v35 = +[NSMutableDictionary dictionary];
-    v36 = +[NSMutableSet set];
-    v8 = +[NSCalendar currentCalendar];
+    v37 = +[NSMutableDictionary dictionary];
+    v38 = +[NSMutableSet set];
+    v9 = +[NSCalendar currentCalendar];
     serverBag = [(CSDIDSFirewallManager *)selfCopy serverBag];
     idsFirewallCHExpiryTimeDays = [serverBag idsFirewallCHExpiryTimeDays];
-    v11 = +[NSDate date];
-    v34 = [v8 dateByAddingUnit:16 value:idsFirewallCHExpiryTimeDays toDate:v11 options:0];
+    v12 = +[NSDate date];
+    v36 = [v9 dateByAddingUnit:16 value:idsFirewallCHExpiryTimeDays toDate:v12 options:0];
 
-    v12 = +[NSMutableArray array];
-    v49 = 0u;
-    v50 = 0u;
+    v13 = +[NSMutableArray array];
     v51 = 0u;
     v52 = 0u;
-    v32 = deletedCopy;
-    v13 = deletedCopy;
-    v14 = [v13 countByEnumeratingWithState:&v49 objects:v54 count:16];
-    if (v14)
+    v53 = 0u;
+    v54 = 0u;
+    v34 = deletedCopy;
+    v14 = deletedCopy;
+    v15 = [v14 countByEnumeratingWithState:&v51 objects:v56 count:16];
+    if (v15)
     {
-      v15 = v14;
-      v16 = *v50;
+      v16 = v15;
+      v17 = *v52;
       do
       {
-        for (i = 0; i != v15; i = i + 1)
+        for (i = 0; i != v16; i = i + 1)
         {
-          if (*v50 != v16)
+          if (*v52 != v17)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v14);
           }
 
-          uniqueId = [*(*(&v49 + 1) + 8 * i) uniqueId];
-          v19 = [NSPredicate predicateWithFormat:@"unique_id != %@", uniqueId];
-          [v12 addObject:v19];
+          uniqueId = [*(*(&v51 + 1) + 8 * i) uniqueId];
+          v20 = [NSPredicate predicateWithFormat:@"unique_id != %@", uniqueId];
+          [v13 addObject:v20];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v49 objects:v54 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v51 objects:v56 count:16];
       }
 
-      while (v15);
+      while (v16);
     }
 
-    v33 = [NSCompoundPredicate andPredicateWithSubpredicates:v12];
-    v45 = 0u;
-    v46 = 0u;
+    v35 = [NSCompoundPredicate andPredicateWithSubpredicates:v13];
     v47 = 0u;
     v48 = 0u;
-    v20 = v13;
-    v21 = [v20 countByEnumeratingWithState:&v45 objects:v53 count:16];
-    if (v21)
+    v49 = 0u;
+    v50 = 0u;
+    v21 = v14;
+    v22 = [v21 countByEnumeratingWithState:&v47 objects:v55 count:16];
+    if (v22)
     {
-      v22 = v21;
-      v23 = *v46;
-      v24 = kCHServiceProviderFaceTime;
+      v23 = v22;
+      v24 = *v48;
+      v25 = kCHServiceProviderFaceTime;
       do
       {
-        for (j = 0; j != v22; j = j + 1)
+        for (j = 0; j != v23; j = j + 1)
         {
-          if (*v46 != v23)
+          if (*v48 != v24)
           {
-            objc_enumerationMutation(v20);
+            objc_enumerationMutation(v21);
           }
 
-          v26 = *(*(&v45 + 1) + 8 * j);
-          serviceProvider = [v26 serviceProvider];
-          v28 = [serviceProvider isEqualToString:v24];
+          v27 = *(*(&v47 + 1) + 8 * j);
+          serviceProvider = [v27 serviceProvider];
+          v29 = [serviceProvider isEqualToString:v25];
 
-          if (v28)
+          if (v29)
           {
-            validRemoteParticipantHandles = [v26 validRemoteParticipantHandles];
-            v38[0] = _NSConcreteStackBlock;
-            v38[1] = 3221225472;
-            v38[2] = sub_1001EAED0;
-            v38[3] = &unk_10061E2A0;
-            v39 = v35;
-            v40 = selfCopy;
-            v41 = v34;
-            v42 = v33;
-            v43 = v26;
-            v44 = v36;
-            [validRemoteParticipantHandles enumerateObjectsUsingBlock:v38];
+            validRemoteParticipantHandles = [v27 validRemoteParticipantHandles];
+            v40[0] = _NSConcreteStackBlock;
+            v40[1] = 3221225472;
+            v40[2] = sub_1001EAED0;
+            v40[3] = &unk_10061E2A0;
+            v41 = v37;
+            v42 = selfCopy;
+            v43 = v36;
+            v44 = v35;
+            v45 = v27;
+            v46 = v38;
+            [validRemoteParticipantHandles enumerateObjectsUsingBlock:v40];
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v45 objects:v53 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v47 objects:v55 count:16];
       }
 
-      while (v22);
+      while (v23);
     }
 
-    v30 = sub_100004778();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v32 = sub_100004778(v31);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v56 = v36;
-      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Removing handle(s) from firewall %@", buf, 0xCu);
+      v58 = v38;
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Removing handle(s) from firewall %@", buf, 0xCu);
     }
 
     service = [(CSDIDSFirewallManager *)selfCopy service];
-    [service removeFirewallEntries:v36];
+    [service removeFirewallEntries:v38];
 
-    deletedCopy = v32;
+    deletedCopy = v34;
   }
 }
 

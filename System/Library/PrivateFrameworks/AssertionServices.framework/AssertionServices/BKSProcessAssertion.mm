@@ -1,9 +1,11 @@
 @interface BKSProcessAssertion
 + (id)NameForReason:(unsigned int)reason;
+- (BKSProcessAssertion)initWithBundleIdentifier:(id)identifier flags:(unsigned int)flags reason:(unsigned int)reason name:(id)name withHandler:(id)handler acquire:(BOOL)acquire;
+- (BKSProcessAssertion)initWithBundleIdentifier:(id)identifier pid:(int)pid flags:(unsigned int)flags reason:(unsigned int)reason name:(id)name withHandler:(id)handler acquire:(BOOL)acquire;
+- (BKSProcessAssertion)initWithPID:(int)d flags:(unsigned int)flags reason:(unsigned int)reason name:(id)name withHandler:(id)handler acquire:(BOOL)acquire;
 - (BOOL)acquire;
 - (unint64_t)_legacyReasonForReason:(unsigned int)reason;
 - (unsigned)flags;
-- (void)acquire;
 - (void)assertion:(id)assertion didInvalidateWithError:(id)error;
 - (void)dealloc;
 - (void)invalidate;
@@ -14,7 +16,7 @@
 
 - (BOOL)acquire
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   if (self->_reason != 1)
   {
     goto LABEL_12;
@@ -36,10 +38,9 @@
 LABEL_11:
 
 LABEL_12:
-    v22.receiver = self;
-    v22.super_class = BKSProcessAssertion;
-    result = [(BKSAssertion *)&v22 acquire];
-    goto LABEL_13;
+    v21.receiver = self;
+    v21.super_class = BKSProcessAssertion;
+    return [(BKSAssertion *)&v21 acquire];
   }
 
   hostIdentifier = [processIdentity hostIdentifier];
@@ -49,7 +50,7 @@ LABEL_12:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v25 = processIdentity;
+      v24 = processIdentity;
       _os_log_impl(&dword_22EEB6000, v11, OS_LOG_TYPE_DEFAULT, "MediaPlayback hack extensions %{public}@ doesn't have host", buf, 0xCu);
     }
 
@@ -57,10 +58,10 @@ LABEL_12:
   }
 
   v9 = [MEMORY[0x277D46EC8] attributeWithReason:1 flags:3];
-  v26[0] = v9;
+  v25[0] = v9;
   v10 = [MEMORY[0x277D46D78] attributeWithCompletionPolicy:1];
-  v26[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v25[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
 
   v12 = objc_alloc(MEMORY[0x277D46DB8]);
   v13 = [MEMORY[0x277D47008] targetWithProcessIdentifier:hostIdentifier];
@@ -69,9 +70,9 @@ LABEL_12:
   self->_mediaPlaybackHackAssertion = v14;
 
   v16 = self->_mediaPlaybackHackAssertion;
-  v23 = 0;
-  LOBYTE(v13) = [(RBSAssertion *)v16 acquireWithError:&v23];
-  v17 = v23;
+  v22 = 0;
+  LOBYTE(v13) = [(RBSAssertion *)v16 acquireWithError:&v22];
+  v17 = v22;
   v18 = v17;
   if (v13)
   {
@@ -80,16 +81,13 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v21 = rbs_general_log();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v20 = rbs_general_log();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     [BKSProcessAssertion acquire];
   }
 
-  result = 0;
-LABEL_13:
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)invalidate
@@ -249,6 +247,110 @@ LABEL_13:
   return result;
 }
 
+- (BKSProcessAssertion)initWithBundleIdentifier:(id)identifier pid:(int)pid flags:(unsigned int)flags reason:(unsigned int)reason name:(id)name withHandler:(id)handler acquire:(BOOL)acquire
+{
+  v11 = *&reason;
+  v12 = *&flags;
+  v13 = *&pid;
+  v36[1] = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  nameCopy = name;
+  handlerCopy = handler;
+  if (!identifierCopy && v13 <= 0)
+  {
+    v18 = rbs_shim_log();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      [BKSProcessAssertion initWithBundleIdentifier:pid:flags:reason:name:withHandler:acquire:];
+    }
+  }
+
+  if (v11 > 10000)
+  {
+    if ((v11 - 50000) >= 4 && v11 != 10003 && v11 != 10001)
+    {
+      goto LABEL_17;
+    }
+  }
+
+  else if (v11 > 0x18 || ((1 << v11) & 0x142C840) == 0)
+  {
+LABEL_17:
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __90__BKSProcessAssertion_initWithBundleIdentifier_pid_flags_reason_name_withHandler_acquire___block_invoke;
+    v34[3] = &unk_278871B78;
+    v22 = handlerCopy;
+    v35 = v22;
+    v23 = MEMORY[0x2318FA0F0](v34);
+    v33.receiver = self;
+    v33.super_class = BKSProcessAssertion;
+    v24 = [(BKSAssertion *)&v33 _initWithName:nameCopy handler:v23];
+    v25 = v24;
+    if (v24)
+    {
+      acquireCopy2 = acquire;
+      v24[17] = v12;
+      v24[16] = v11;
+      if (identifierCopy)
+      {
+        v27 = [MEMORY[0x277D46F60] identityForEmbeddedApplicationIdentifier:identifierCopy];
+        v28 = [MEMORY[0x277D47008] targetWithProcessIdentity:v27];
+
+        acquireCopy2 = acquire;
+      }
+
+      else if (v13 < 1)
+      {
+        v28 = 0;
+      }
+
+      else
+      {
+        v28 = [MEMORY[0x277D47008] targetWithPid:v13];
+      }
+
+      [v25 _setTarget:v28];
+      v29 = [v25 _legacyFlagsForFlags:v12];
+      v30 = [v25 _legacyReasonForReason:v11];
+      v31 = [MEMORY[0x277D46EC8] attributeWithReason:v30 flags:v29];
+      v36[0] = v31;
+      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
+
+      [v25 _setAttributes:v32];
+      if (acquireCopy2)
+      {
+        if (v22)
+        {
+          [v25 _acquireAsynchronously];
+        }
+
+        else
+        {
+          [v25 acquire];
+        }
+      }
+    }
+
+    self = v25;
+
+    v19 = v35;
+    selfCopy = self;
+    goto LABEL_14;
+  }
+
+  v19 = rbs_shim_log();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+  {
+    [BKSProcessAssertion initWithBundleIdentifier:nameCopy pid:v11 flags:v19 reason:? name:? withHandler:? acquire:?];
+  }
+
+  selfCopy = 0;
+LABEL_14:
+
+  return selfCopy;
+}
+
 uint64_t __90__BKSProcessAssertion_initWithBundleIdentifier_pid_flags_reason_name_withHandler_acquire___block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
@@ -258,6 +360,59 @@ uint64_t __90__BKSProcessAssertion_initWithBundleIdentifier_pid_flags_reason_nam
   }
 
   return result;
+}
+
+- (BKSProcessAssertion)initWithBundleIdentifier:(id)identifier flags:(unsigned int)flags reason:(unsigned int)reason name:(id)name withHandler:(id)handler acquire:(BOOL)acquire
+{
+  v10 = *&reason;
+  v11 = *&flags;
+  nameCopy = name;
+  if (identifier)
+  {
+    LOBYTE(v18) = acquire;
+    self = [(BKSProcessAssertion *)self initWithBundleIdentifier:identifier pid:0xFFFFFFFFLL flags:v11 reason:v10 name:nameCopy withHandler:handler acquire:v18];
+    selfCopy = self;
+  }
+
+  else
+  {
+    v16 = rbs_shim_log();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      [BKSProcessAssertion initWithBundleIdentifier:flags:reason:name:withHandler:acquire:];
+    }
+
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
+
+- (BKSProcessAssertion)initWithPID:(int)d flags:(unsigned int)flags reason:(unsigned int)reason name:(id)name withHandler:(id)handler acquire:(BOOL)acquire
+{
+  v10 = *&reason;
+  v11 = *&flags;
+  v12 = *&d;
+  nameCopy = name;
+  if (v12 <= 0)
+  {
+    v16 = rbs_shim_log();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      [BKSProcessAssertion initWithPID:flags:reason:name:withHandler:acquire:];
+    }
+
+    selfCopy = 0;
+  }
+
+  else
+  {
+    LOBYTE(v18) = acquire;
+    self = [(BKSProcessAssertion *)self initWithBundleIdentifier:0 pid:v12 flags:v11 reason:v10 name:nameCopy withHandler:handler acquire:v18];
+    selfCopy = self;
+  }
+
+  return selfCopy;
 }
 
 - (unsigned)flags
@@ -289,25 +444,24 @@ uint64_t __90__BKSProcessAssertion_initWithBundleIdentifier_pid_flags_reason_nam
   [(BKSAssertion *)self _lock:v3];
 }
 
-uint64_t __32__BKSProcessAssertion_setFlags___block_invoke(uint64_t result)
+void *__32__BKSProcessAssertion_setFlags___block_invoke(void *result)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v1 = *(result + 32);
-  v2 = *(result + 40);
+  v7[1] = *MEMORY[0x277D85DE8];
+  v1 = result[4];
+  v2 = *(result + 10);
   if (*(v1 + 68) != v2)
   {
     v3 = result;
     *(v1 + 68) = v2;
-    v4 = *(result + 32);
+    v4 = result[4];
     v5 = [MEMORY[0x277D46EC8] attributeWithReason:v4[16] flags:v4[17]];
-    v8[0] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
     [v4 _lock_setAttributes:v6];
 
-    result = [*(v3 + 32) _lock_reaquireAssertion];
+    return [v3[4] _lock_reaquireAssertion];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -491,52 +645,18 @@ uint64_t __32__BKSProcessAssertion_setFlags___block_invoke(uint64_t result)
   return result;
 }
 
-- (void)initWithBundleIdentifier:pid:flags:reason:name:withHandler:acquire:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_22EEB6000, v0, v1, "BKSProcessAssertion %{public}@ created with no identifier or PID.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)initWithBundleIdentifier:(NSObject *)a3 pid:flags:reason:name:withHandler:acquire:.cold.2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
   v4 = a2;
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = [BKSProcessAssertion NameForReason:a2];
-  v8 = 138543874;
-  v9 = a1;
-  v10 = 2114;
-  v11 = v6;
-  v12 = 1024;
-  v13 = v4;
-  _os_log_fault_impl(&dword_22EEB6000, a3, OS_LOG_TYPE_FAULT, "BKSProcessAssertion %{public}@ created with no longer supported reason %{public}@ (%d)", &v8, 0x1Cu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithBundleIdentifier:flags:reason:name:withHandler:acquire:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_22EEB6000, v0, v1, "BKSProcessAssertion %{public}@ initialized with nil bundleIdentifier", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithPID:flags:reason:name:withHandler:acquire:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_22EEB6000, v0, v1, "BKSProcessAssertion %{public}@ initialized with invalid pid", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)acquire
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_22EEB6000, v0, v1, "MediaPlayback hack assertion failed to acquire with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = 138543874;
+  v8 = a1;
+  v9 = 2114;
+  v10 = v6;
+  v11 = 1024;
+  v12 = v4;
+  _os_log_fault_impl(&dword_22EEB6000, a3, OS_LOG_TYPE_FAULT, "BKSProcessAssertion %{public}@ created with no longer supported reason %{public}@ (%d)", &v7, 0x1Cu);
 }
 
 @end

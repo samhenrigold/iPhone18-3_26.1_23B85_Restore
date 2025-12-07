@@ -13,7 +13,7 @@
   v5 = [dictionaryCopy objectForKeyedSubscript:@"defaultWidgetStack"];
   if (!v5 || (v6 = v5, [dictionaryCopy objectForKeyedSubscript:@"defaultWidgetStack"], v7 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v7, v6, (isKindOfClass & 1) == 0))
   {
-    v9 = __atxlog_handle_home_screen();
+    v9 = __atxlog_handle_home_screen(v5);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(ATXDefaultHomeScreenItemUpdate *)v9 initWithDictionary:v47, v48, v49, v50, v51, v52, v53];
@@ -26,7 +26,7 @@
   v10 = [dictionaryCopy objectForKeyedSubscript:@"defaultWidgetTodayStack"];
   if (!v10 || (v11 = v10, [dictionaryCopy objectForKeyedSubscript:@"defaultWidgetTodayStack"], v12 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v13 = objc_opt_isKindOfClass(), v12, v11, (v13 & 1) == 0))
   {
-    v14 = __atxlog_handle_home_screen();
+    v14 = __atxlog_handle_home_screen(v10);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [(ATXDefaultHomeScreenItemUpdate *)v14 initWithDictionary:v54, v55, v56, v57, v58, v59, v60];
@@ -39,7 +39,7 @@
   v15 = [dictionaryCopy objectForKeyedSubscript:@"defaultWidgetOnboardingStacks"];
   if (!v15 || (v16 = v15, [dictionaryCopy objectForKeyedSubscript:@"defaultWidgetOnboardingStacks"], v17 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v18 = objc_opt_isKindOfClass(), v17, v16, (v18 & 1) == 0))
   {
-    v19 = __atxlog_handle_home_screen();
+    v19 = __atxlog_handle_home_screen(v15);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [(ATXDefaultHomeScreenItemUpdate *)v19 initWithDictionary:v61, v62, v63, v64, v65, v66, v67];
@@ -52,7 +52,7 @@
   v20 = [dictionaryCopy objectForKeyedSubscript:@"defaultWidgetsSmall"];
   if (!v20 || (v21 = v20, [dictionaryCopy objectForKeyedSubscript:@"defaultWidgetsSmall"], v22 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v23 = objc_opt_isKindOfClass(), v22, v21, (v23 & 1) == 0))
   {
-    v24 = __atxlog_handle_home_screen();
+    v24 = __atxlog_handle_home_screen(v20);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       [(ATXDefaultHomeScreenItemUpdate *)v24 initWithDictionary:v68, v69, v70, v71, v72, v73, v74];
@@ -65,7 +65,7 @@
   v25 = [dictionaryCopy objectForKeyedSubscript:@"defaultWidgetsMedium"];
   if (!v25 || (v26 = v25, [dictionaryCopy objectForKeyedSubscript:@"defaultWidgetsMedium"], v27 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v28 = objc_opt_isKindOfClass(), v27, v26, (v28 & 1) == 0))
   {
-    v75 = __atxlog_handle_home_screen();
+    v75 = __atxlog_handle_home_screen(v25);
     if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
     {
       [(ATXDefaultHomeScreenItemUpdate *)v75 initWithDictionary:v76, v77, v78, v79, v80, v81, v82];
@@ -78,7 +78,7 @@
   v30 = [dictionaryCopy objectForKeyedSubscript:@"defaultWidgetsLarge"];
   if (!v30 || (v31 = v30, [dictionaryCopy objectForKeyedSubscript:@"defaultWidgetsLarge"], v111 = v29, v32 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v33 = objc_opt_isKindOfClass(), v32, v29 = v111, v31, (v33 & 1) == 0))
   {
-    v83 = __atxlog_handle_home_screen();
+    v83 = __atxlog_handle_home_screen(v30);
     if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
     {
       [(ATXDefaultHomeScreenItemUpdate *)v83 initWithDictionary:v84, v85, v86, v87, v88, v89, v90];
@@ -91,7 +91,7 @@
   v35 = [dictionaryCopy objectForKeyedSubscript:@"defaultWidgetsExtraLarge"];
   if (!v35 || (v36 = v35, [dictionaryCopy objectForKeyedSubscript:@"defaultWidgetsExtraLarge"], v110 = v34, v37 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v38 = objc_opt_isKindOfClass(), v37, v34 = v110, v36, (v38 & 1) == 0))
   {
-    v91 = __atxlog_handle_home_screen();
+    v91 = __atxlog_handle_home_screen(v35);
     if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
     {
       [(ATXDefaultHomeScreenItemUpdate *)v91 initWithDictionary:v92, v93, v94, v95, v96, v97, v98];
@@ -105,7 +105,7 @@
   if (!v40 || (v41 = v40, [dictionaryCopy objectForKeyedSubscript:@"shouldSuggestSmartStackInGallery"], v42 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v43 = objc_opt_isKindOfClass(), v42, v41, (v43 & 1) == 0))
   {
     v100 = v39;
-    v101 = __atxlog_handle_home_screen();
+    v101 = __atxlog_handle_home_screen(v40);
     v75 = v111;
     if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
     {
@@ -320,6 +320,62 @@ LABEL_32:
 LABEL_33:
 
   return v9;
+}
+
+- (void)initWithDictionary:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"shouldSuggestSmartStackInGallery";
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a1, a3, "ATXDefaultHomeScreenItemUpdate dictionary was missing %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithDictionary:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"defaultWidgetsExtraLarge";
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a1, a3, "ATXDefaultHomeScreenItemUpdate dictionary was missing %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithDictionary:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"defaultWidgetsLarge";
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a1, a3, "ATXDefaultHomeScreenItemUpdate dictionary was missing %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithDictionary:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"defaultWidgetsMedium";
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a1, a3, "ATXDefaultHomeScreenItemUpdate dictionary was missing %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithDictionary:(uint64_t)a3 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"defaultWidgetsSmall";
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a1, a3, "ATXDefaultHomeScreenItemUpdate dictionary was missing %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithDictionary:(uint64_t)a3 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"defaultWidgetOnboardingStacks";
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a1, a3, "ATXDefaultHomeScreenItemUpdate dictionary was missing %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithDictionary:(uint64_t)a3 .cold.7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"defaultWidgetTodayStack";
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a1, a3, "ATXDefaultHomeScreenItemUpdate dictionary was missing %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithDictionary:(uint64_t)a3 .cold.8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"defaultWidgetStack";
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a1, a3, "ATXDefaultHomeScreenItemUpdate dictionary was missing %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

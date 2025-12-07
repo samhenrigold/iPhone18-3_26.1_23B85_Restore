@@ -21,7 +21,7 @@
 
 - (void)fetchDataForAttachment:(id)attachment consumer:(id)consumer progress:(id)progress completion:(id)completion
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   attachmentCopy = attachment;
   consumerCopy = consumer;
   progressCopy = progress;
@@ -31,8 +31,8 @@
   aBlock[2] = __89__MFDecryptedAttachmentDataProvider_fetchDataForAttachment_consumer_progress_completion___block_invoke;
   aBlock[3] = &unk_1E7AA4D60;
   v14 = progressCopy;
-  v34 = v14;
-  v32 = _Block_copy(aBlock);
+  v33 = v14;
+  v31 = _Block_copy(aBlock);
   messageStore = [(MFMailMessage *)self->_message messageStore];
   part = [attachmentCopy part];
   messageBody = [(MFMailMessage *)self->_message messageBody];
@@ -55,11 +55,11 @@
   {
     v23 = [attachmentCopy decodeFilterWithDataConsumer:consumerCopy];
     v24 = objc_alloc(MEMORY[0x1E69AD750]);
-    v37[0] = v23;
-    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:1];
+    v36[0] = v23;
+    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
     v19 = [v24 initWithConsumers:v25 expectedSize:{objc_msgSend(attachmentCopy, "encodedFileSize")}];
 
-    [v19 setProgressBlock:v32];
+    [v19 setProgressBlock:v31];
     [part range];
     LOBYTE(v25) = [messageStore dataForMimePart:part inRange:0 withConsumer:v26 downloadIfNecessary:{v19, 1}];
 
@@ -77,9 +77,9 @@
 
       if (error)
       {
-        v35 = *MEMORY[0x1E696AA08];
-        v36 = error;
-        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+        v34 = *MEMORY[0x1E696AA08];
+        v35 = error;
+        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
       }
 
       else
@@ -97,8 +97,6 @@
   [v19 done];
   [consumerCopy done];
   completionCopy[2](completionCopy, v21, v22, v20);
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __89__MFDecryptedAttachmentDataProvider_fetchDataForAttachment_consumer_progress_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)

@@ -16,7 +16,7 @@ void ___FigURLStorageSessionNSCopyGlobalSession_block_invoke()
 
   else
   {
-    ___FigURLStorageSessionNSCopyGlobalSession_block_invoke_cold_1();
+    ___FigURLStorageSessionNSCopyGlobalSession_block_invoke_cold_1(0, v3, v4, v5, v6, v7, v8, v9, v10, v11, SHIDWORD(v11), vars0);
   }
 
   objc_autoreleasePoolPop(v0);

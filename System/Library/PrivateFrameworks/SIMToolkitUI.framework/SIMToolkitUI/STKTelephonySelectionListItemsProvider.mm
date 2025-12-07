@@ -35,24 +35,24 @@
 
 - (id)selectionListItemsForContext:(id)context options:(id)options
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v7 = [options objectForKeyedSubscript:@"STKCTListItems"];
   if (v7)
   {
     itemList = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v10)
     {
       v11 = v10;
-      v26 = v7;
-      v27 = contextCopy;
-      v12 = *v30;
+      v25 = v7;
+      v26 = contextCopy;
+      v12 = *v29;
       v13 = *MEMORY[0x277CC40E0];
       v14 = *MEMORY[0x277CC37C0];
       do
@@ -60,12 +60,12 @@
         v15 = v9;
         for (i = 0; i != v11; ++i)
         {
-          if (*v30 != v12)
+          if (*v29 != v12)
           {
             objc_enumerationMutation(v15);
           }
 
-          v17 = *(*(&v29 + 1) + 8 * i);
+          v17 = *(*(&v28 + 1) + 8 * i);
           v18 = objc_alloc(MEMORY[0x277CC3710]);
           v19 = [v17 objectForKeyedSubscript:v13];
           v20 = [v17 objectForKeyedSubscript:v14];
@@ -75,25 +75,23 @@
         }
 
         v9 = v15;
-        v11 = [v15 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v11 = [v15 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v11);
-      v7 = v26;
-      contextCopy = v27;
+      v7 = v25;
+      contextCopy = v26;
     }
   }
 
   else
   {
     telephonyClient = self->_telephonyClient;
-    v28 = 0;
-    v23 = [(CoreTelephonyClient *)telephonyClient getSIMToolkitListItems:contextCopy items:&v28];
-    v9 = v28;
+    v27 = 0;
+    v23 = [(CoreTelephonyClient *)telephonyClient getSIMToolkitListItems:contextCopy items:&v27];
+    v9 = v27;
     itemList = [v9 itemList];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return itemList;
 }

@@ -134,7 +134,7 @@
       stringByDeletingPathExtension = v20;
 LABEL_12:
 
-      v24 = [stringByDeletingPathExtension mutableCopy];
+      v24 = objc_msgSend_mutableCopy(stringByDeletingPathExtension);
       whitespaceCharacterSet = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
       v26 = [v24 rangeOfCharacterFromSet:whitespaceCharacterSet options:4];
       v28 = v27;
@@ -1744,10 +1744,10 @@ LABEL_8:
 
     if (v4)
     {
-      [v4 videoDuration];
+      objc_msgSend_videoDuration(v4);
       *&self->_livePhotoOriginalVideoDuration.value = v7;
       self->_livePhotoOriginalVideoDuration.epoch = v8;
-      [v4 imageDisplayTime];
+      objc_msgSend_imageDisplayTime(v4);
     }
 
     else
@@ -2349,7 +2349,7 @@ LABEL_35:
     v83 = v20;
     if (objc_opt_isKindOfClass())
     {
-      v24 = [v8 mutableCopy];
+      v24 = objc_msgSend_mutableCopy(v8);
     }
 
     else
@@ -2382,7 +2382,7 @@ LABEL_35:
 
     [v25 setObject:v83 forKeyedSubscript:@"PFAssetBundleMetadataPairingIdentifierKey"];
     [v25 setObject:v82 forKeyedSubscript:@"PFAssetBundleMetadataTimingInfoKey"];
-    v33 = [v25 mutableCopy];
+    v33 = objc_msgSend_mutableCopy(v25);
     metadata = v5->_metadata;
     v5->_metadata = v33;
 

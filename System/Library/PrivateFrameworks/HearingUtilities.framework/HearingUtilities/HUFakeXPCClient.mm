@@ -11,7 +11,7 @@
   updateBlock = self->_updateBlock;
   self->_updateBlock = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, updateBlock);
 }
 
 - (BOOL)sendMessage:(id)message errorBlock:(id)block

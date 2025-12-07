@@ -3,58 +3,54 @@
 
 @implementation HKXPCConnection
 
-void __64___HKXPCConnection_resumeWithExportedInterface_remoteInterface___block_invoke(uint64_t a1)
+void __64___HKXPCConnection_resumeWithExportedInterface_remoteInterface___block_invoke(uint64_t a1, uint64_t a2)
 {
   v12 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
-  v2 = HKLogDefault;
+  _HKInitializeLogging(a1, a2);
+  v3 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
     v8 = 138412546;
-    v9 = v3;
+    v9 = v4;
     v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_19197B000, v2, OS_LOG_TYPE_DEFAULT, "%@Connection to %@ interrupted", &v8, 0x16u);
+    v11 = v5;
+    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "%@Connection to %@ interrupted", &v8, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v6 = [WeakRetained interruptionHandler];
+  v7 = [WeakRetained interruptionHandler];
 
-  if (v6)
+  if (v7)
   {
-    v6[2](v6);
+    v7[2](v7);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void __64___HKXPCConnection_resumeWithExportedInterface_remoteInterface___block_invoke_26(uint64_t a1)
+void __64___HKXPCConnection_resumeWithExportedInterface_remoteInterface___block_invoke_26(uint64_t a1, uint64_t a2)
 {
   v12 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
-  v2 = HKLogDefault;
+  _HKInitializeLogging(a1, a2);
+  v3 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
     v8 = 138412546;
-    v9 = v3;
+    v9 = v4;
     v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_19197B000, v2, OS_LOG_TYPE_DEFAULT, "%@Connection to %@ invalidated", &v8, 0x16u);
+    v11 = v5;
+    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "%@Connection to %@ invalidated", &v8, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v6 = [WeakRetained invalidationHandler];
+  v7 = [WeakRetained invalidationHandler];
 
-  if (v6)
+  if (v7)
   {
-    v6[2](v6);
+    v7[2](v7);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __43___HKXPCConnection_setInterruptionHandler___block_invoke(uint64_t a1)

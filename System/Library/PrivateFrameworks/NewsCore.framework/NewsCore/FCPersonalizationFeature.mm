@@ -171,7 +171,7 @@ FCTagIDFeature *__66__FCPersonalizationFeature_featuresFromTodayPersonalizationE
 
 + (id)featuresFromPersonalizingItem:(id)item personalizationTreatment:(id)treatment
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   treatmentCopy = treatment;
   array = [MEMORY[0x1E695DF70] array];
@@ -182,27 +182,27 @@ FCTagIDFeature *__66__FCPersonalizationFeature_featuresFromTodayPersonalizationE
     [array addObject:v8];
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
-  v32 = itemCopy;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v31 = itemCopy;
   topicIDs = [itemCopy topicIDs];
-  v10 = [topicIDs countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v10 = [topicIDs countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v34;
+    v12 = *v33;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v34 != v12)
+        if (*v33 != v12)
         {
           objc_enumerationMutation(topicIDs);
         }
 
-        v14 = *(*(&v33 + 1) + 8 * i);
+        v14 = *(*(&v32 + 1) + 8 * i);
         v15 = [[FCTagIDFeature alloc] initWithTagID:v14];
         [array addObject:v15];
 
@@ -213,13 +213,13 @@ FCTagIDFeature *__66__FCPersonalizationFeature_featuresFromTodayPersonalizationE
         }
       }
 
-      v11 = [topicIDs countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v11 = [topicIDs countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v11);
   }
 
-  if ([v32 isANF])
+  if ([v31 isANF])
   {
     +[FCHeadlineFeatureArticleTypeFlint articleTypeFlintFeature];
   }
@@ -232,9 +232,9 @@ FCTagIDFeature *__66__FCPersonalizationFeature_featuresFromTodayPersonalizationE
   [array addObject:v17];
 
   v18 = objc_opt_respondsToSelector();
-  if (treatmentCopy && (v18 & 1) != 0 && [v32 bodyTextLength] >= 1)
+  if (treatmentCopy && (v18 & 1) != 0 && [v31 bodyTextLength] >= 1)
   {
-    bodyTextLength = [v32 bodyTextLength];
+    bodyTextLength = [v31 bodyTextLength];
     [treatmentCopy articleLengthMediumThreshold];
     if (bodyTextLength <= v20)
     {
@@ -243,7 +243,7 @@ FCTagIDFeature *__66__FCPersonalizationFeature_featuresFromTodayPersonalizationE
 
     else
     {
-      bodyTextLength2 = [v32 bodyTextLength];
+      bodyTextLength2 = [v31 bodyTextLength];
       [treatmentCopy articleLengthLongThreshold];
       if (bodyTextLength2 <= v22)
       {
@@ -261,13 +261,13 @@ FCTagIDFeature *__66__FCPersonalizationFeature_featuresFromTodayPersonalizationE
     [array addObject:v23];
   }
 
-  if (publisherID && [v32 isPaid])
+  if (publisherID && [v31 isPaid])
   {
     v25 = [[FCPublisherPremiumFeature alloc] initWithTagID:publisherID];
     [array addObject:v25];
   }
 
-  if ([v32 hasVideo])
+  if ([v31 hasVideo])
   {
     v26 = +[FCHeadlineFeatureArticleWithVideoContent articleWithVideoContentFeature];
     [array addObject:v26];
@@ -275,12 +275,10 @@ FCTagIDFeature *__66__FCPersonalizationFeature_featuresFromTodayPersonalizationE
 
   if (objc_opt_respondsToSelector())
   {
-    iAdCategories = [v32 iAdCategories];
+    iAdCategories = [v31 iAdCategories];
     v28 = [iAdCategories fc_arrayByTransformingWithBlock:&__block_literal_global_75_2];
     [array addObjectsFromArray:v28];
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -318,23 +316,21 @@ FCTagIDFeature *__47__FCPersonalizationFeature_featuresFromTagIDs___block_invoke
 
 + (id)featureFromTagID:(id)d
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v4 = MEMORY[0x1E695DEC8];
   dCopy2 = d;
   v6 = [v4 arrayWithObjects:&dCopy count:1];
 
-  v7 = [self featuresFromTagIDs:{v6, dCopy, v12}];
+  v7 = [self featuresFromTagIDs:{v6, dCopy, v11}];
   firstObject = [v7 firstObject];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
 
 + (id)featureForIdentifier:(char)identifier allowFreeValued:
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a2;
   objc_opt_self();
   if ([v4 hasPrefix:@"f0"])
@@ -427,58 +423,56 @@ LABEL_17:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"The identifier %@ didn't map to any headline features", v4];
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"The identifier %@ didn't map to any headline features", v4];
     *buf = 136315906;
-    v13 = "+[FCPersonalizationFeature featureForIdentifier:allowFreeValued:]";
-    v14 = 2080;
-    v15 = "FCPersonalizationFeature.m";
-    v16 = 1024;
-    v17 = 330;
-    v18 = 2114;
-    v19 = v11;
+    v12 = "+[FCPersonalizationFeature featureForIdentifier:allowFreeValued:]";
+    v13 = 2080;
+    v14 = "FCPersonalizationFeature.m";
+    v15 = 1024;
+    v16 = 330;
+    v17 = 2114;
+    v18 = v10;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v10 = FCPersonalizationLog;
+  v9 = FCPersonalizationLog;
   if (os_log_type_enabled(FCPersonalizationLog, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v13 = v4;
-    _os_log_error_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_ERROR, "The identifier %{public}@ didn't map to any headline features", buf, 0xCu);
+    v12 = v4;
+    _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, "The identifier %{public}@ didn't map to any headline features", buf, 0xCu);
   }
 
   v7 = 0;
 LABEL_19:
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (void)initWithIdentifier:(void *)identifier
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (identifier)
   {
     if (!v3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier"];
+      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier"];
       *buf = 136315906;
-      v12 = "[FCPersonalizationFeature initWithIdentifier:]";
-      v13 = 2080;
-      v14 = "FCPersonalizationFeature.m";
-      v15 = 1024;
-      v16 = 357;
-      v17 = 2114;
-      v18 = v9;
+      v11 = "[FCPersonalizationFeature initWithIdentifier:]";
+      v12 = 2080;
+      v13 = "FCPersonalizationFeature.m";
+      v14 = 1024;
+      v15 = 357;
+      v16 = 2114;
+      v17 = v8;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
-    v10.receiver = identifier;
-    v10.super_class = FCPersonalizationFeature;
-    identifier = objc_msgSendSuper2(&v10, sel_init);
+    v9.receiver = identifier;
+    v9.super_class = FCPersonalizationFeature;
+    identifier = objc_msgSendSuper2(&v9, sel_init);
     if (identifier)
     {
       v5 = [v4 copy];
@@ -487,7 +481,6 @@ LABEL_19:
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return identifier;
 }
 

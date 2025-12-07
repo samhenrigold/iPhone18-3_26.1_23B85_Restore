@@ -1,4 +1,5 @@
 @interface KramerVCReader
++ (id)decodeCyclicLogEntry:(id)entry withRecordIndex:(unsigned __int8)index;
 + (id)decodeDirectory:(id)directory;
 + (id)decodeIPEHeader:(id)header;
 + (id)decodeIPETyp16:(id)typ16 withIfr:(id)ifr withBitmap:(id)bitmap;
@@ -39,45 +40,46 @@
   v61 = cCopy;
   v9 = [MifareUtils getMcmDataDal:19215 withTransceiver:cCopy withError:&v70];
   v10 = v70;
-  if ([v9 length])
+  v11 = [v9 length];
+  if (v11)
   {
-    v11 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v11 = v10 == 0;
+    v12 = v10 == 0;
   }
 
-  if (v11)
+  if (v12)
   {
-    v12 = ATLLogObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = ATLLogObject(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_22EEF5000, v12, OS_LOG_TYPE_ERROR, "No DAL data for Directory File", buf, 2u);
+      _os_log_impl(&dword_22EEF5000, v13, OS_LOG_TYPE_ERROR, "No DAL data for Directory File", buf, 2u);
     }
 
-    v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"No DAL data for Directory File"];
-    v14 = MEMORY[0x277CCA9B8];
+    v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"No DAL data for Directory File"];
+    v15 = MEMORY[0x277CCA9B8];
     v71 = *MEMORY[0x277CCA450];
-    v72[0] = v13;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:&v71 count:1];
-    v10 = [v14 errorWithDomain:@"ATL" code:3 userInfo:v15];
+    v72[0] = v14;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:&v71 count:1];
+    v10 = [v15 errorWithDomain:@"ATL" code:3 userInfo:v16];
   }
 
   if (v10)
   {
     if (error)
     {
-      v16 = v10;
-      v17 = 0;
+      v17 = v10;
+      v18 = 0;
       *error = v10;
       goto LABEL_35;
     }
 
 LABEL_34:
-    v17 = 0;
+    v18 = 0;
     goto LABEL_35;
   }
 
@@ -86,7 +88,7 @@ LABEL_34:
     v10 = 0;
     if (error)
     {
-      v17 = 0;
+      v18 = 0;
       *error = 0;
       goto LABEL_35;
     }
@@ -95,237 +97,236 @@ LABEL_34:
   }
 
   v58 = cityCopy;
-  v18 = 0x277CBE000uLL;
+  v19 = 0x277CBE000uLL;
   v57 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:3];
   v60 = [MEMORY[0x277CBEB18] arrayWithCapacity:7];
   v63 = [MEMORY[0x277CBEB18] arrayWithCapacity:7];
-  v19 = 0;
   v20 = 0;
   v21 = 0;
+  v22 = 0;
   v59 = v9;
   do
   {
-    v22 = [MEMORY[0x277CBEA90] dataWithBytes:objc_msgSend(v9 length:{"bytes") + 5 * v20 + 2, 5}];
-    if ([v22 isAll00])
+    v23 = [MEMORY[0x277CBEA90] dataWithBytes:objc_msgSend(v9 length:{"bytes") + 5 * v21 + 2, 5}];
+    if ([v23 isAll00])
     {
-      v23 = [*(v18 + 2872) dictionaryWithCapacity:1];
-      [v63 addObject:v23];
+      v24 = [*(v19 + 2872) dictionaryWithCapacity:1];
+      [v63 addObject:v24];
 
-      ++v20;
+      ++v21;
     }
 
     else
     {
-      v68 = v21;
-      v24 = [KramerVCReader getIPELabelDetails:v22 withError:&v68];
-      v25 = v68;
+      v68 = v22;
+      v25 = [KramerVCReader getIPELabelDetails:v23 withError:&v68];
+      v26 = v68;
 
-      v26 = [v24 objectForKeyedSubscript:@"IPEType"];
-      v27 = [KramerVCReader processSectorChain:v9 forIPE:v19];
-      if ([v27 count])
+      v27 = [v25 objectForKeyedSubscript:@"IPEType"];
+      v28 = [KramerVCReader processSectorChain:v9 forIPE:v20];
+      if ([v28 count])
       {
-        lastObject = [v27 lastObject];
-        v29 = [lastObject unsignedIntValue] == 13;
+        lastObject = [v28 lastObject];
+        v30 = [lastObject unsignedIntValue] == 13;
 
-        v30 = [MEMORY[0x277CCABB0] numberWithBool:v29];
-        [v24 setObject:v30 forKeyedSubscript:@"IPEBlocked"];
+        v31 = [MEMORY[0x277CCABB0] numberWithBool:v30];
+        [v25 setObject:v31 forKeyedSubscript:@"IPEBlocked"];
 
-        [v24 setObject:v27 forKeyedSubscript:@"IPESectorChain"];
+        [v25 setObject:v28 forKeyedSubscript:@"IPESectorChain"];
       }
 
-      ++v20;
-      v64 = v26;
-      unsignedCharValue = [v26 unsignedCharValue];
-      v67 = v25;
-      v32 = [KramerVCReader readIPEFromVC:v61 withStorageFile:v20 withTyp:unsignedCharValue withSectorChain:v27 withDirectoryDetails:v24 withError:&v67];
-      v33 = v67;
+      ++v21;
+      v64 = v27;
+      unsignedCharValue = [v27 unsignedCharValue];
+      v67 = v26;
+      v33 = [KramerVCReader readIPEFromVC:v61 withStorageFile:v21 withTyp:unsignedCharValue withSectorChain:v28 withDirectoryDetails:v25 withError:&v67];
+      v34 = v67;
 
-      [v24 addEntriesFromDictionary:v32];
-      v34 = [v24 objectForKeyedSubscript:@"IPEValueGroupFlag"];
-      unsignedIntValue = [v34 unsignedIntValue];
+      [v25 addEntriesFromDictionary:v33];
+      v35 = [v25 objectForKeyedSubscript:@"IPEValueGroupFlag"];
+      unsignedIntValue = [v35 unsignedIntValue];
 
       if (unsignedIntValue)
       {
-        v36 = v27;
-        v37 = [v24 objectForKeyedSubscript:@"OverflowFlag"];
-        unsignedIntValue2 = [v37 unsignedIntValue];
+        v37 = v28;
+        v38 = [v25 objectForKeyedSubscript:@"OverflowFlag"];
+        unsignedIntValue2 = [v38 unsignedIntValue];
 
         if (unsignedIntValue2 == 1)
         {
-          v39 = [v36 subarrayWithRange:{1, objc_msgSend(v36, "count")}];
+          v40 = [v37 subarrayWithRange:{1, objc_msgSend(v37, "count")}];
 
-          v36 = v39;
-          v40 = 1;
+          v37 = v40;
+          v41 = 1;
         }
 
         else
         {
-          v40 = 0;
+          v41 = 0;
         }
 
-        if ([v36 count])
+        if ([v37 count])
         {
-          v41 = [v36 objectAtIndex:v40];
-          unsignedCharValue2 = [v41 unsignedCharValue];
+          v42 = [v37 objectAtIndex:v41];
+          unsignedCharValue2 = [v42 unsignedCharValue];
 
           if (unsignedCharValue2 <= 0xC)
           {
             unsignedCharValue3 = [v64 unsignedCharValue];
-            v66 = v33;
-            v44 = [KramerVCReader readVGFromVC:v61 withStorageFile:unsignedCharValue2 withTyp:unsignedCharValue3 withSectorChain:v36 withError:&v66];
-            v45 = v66;
+            v66 = v34;
+            v45 = [KramerVCReader readVGFromVC:v61 withStorageFile:unsignedCharValue2 withTyp:unsignedCharValue3 withSectorChain:v37 withError:&v66];
+            v46 = v66;
 
-            [v24 addEntriesFromDictionary:v44];
-            v33 = v45;
+            [v25 addEntriesFromDictionary:v45];
+            v34 = v46;
           }
         }
 
-        v62 = v33;
+        v62 = v34;
       }
 
       else
       {
-        v62 = v33;
+        v62 = v34;
       }
 
-      v46 = v18;
-      v47 = [*(v18 + 2872) dictionaryWithCapacity:10];
-      v48 = [KramerVCReader getLatestValueGroup:v24];
-      [v24 setObject:v48 forKeyedSubscript:@"LatestValueGroup"];
-      v49 = [KramerVCReader getTopupCredits:v24 withIpeId:v20];
-      if (v49)
+      v47 = v19;
+      v48 = [*(v19 + 2872) dictionaryWithCapacity:10];
+      v49 = [KramerVCReader getLatestValueGroup:v25];
+      [v25 setObject:v49 forKeyedSubscript:@"LatestValueGroup"];
+      v50 = [KramerVCReader getTopupCredits:v25 withIpeId:v21];
+      if (v50)
       {
-        [v24 setObject:v49 forKeyedSubscript:@"VGTopups"];
+        [v25 setObject:v50 forKeyedSubscript:@"VGTopups"];
       }
 
-      v50 = [KramerVCReader deriveWalletData:v24 withSector:v19 withValueGroup:v48];
-      [v47 addEntriesFromDictionary:v50];
-      [v24 addEntriesFromDictionary:v50];
-      [v63 addObject:v24];
-      [v60 addObject:v47];
+      v51 = [KramerVCReader deriveWalletData:v25 withSector:v20 withValueGroup:v49];
+      [v48 addEntriesFromDictionary:v51];
+      [v25 addEntriesFromDictionary:v51];
+      [v63 addObject:v25];
+      [v60 addObject:v48];
 
       v9 = v59;
-      v18 = v46;
-      v21 = v62;
+      v19 = v47;
+      v22 = v62;
     }
 
-    ++v19;
+    ++v20;
   }
 
-  while (v20 != 7);
-  v51 = [MEMORY[0x277CBEA90] dataWithBytes:objc_msgSend(v9 length:{"bytes") + 37, 5}];
-  v52 = [*(v18 + 2872) dictionaryWithCapacity:2];
-  v53 = [KramerVCReader getLogDirectoryEntry:v51];
-  [v52 setObject:v53 forKeyedSubscript:@"LogDirectory"];
+  while (v21 != 7);
+  v52 = [MEMORY[0x277CBEA90] dataWithBytes:objc_msgSend(v9 length:{"bytes") + 37, 5}];
+  v53 = [*(v19 + 2872) dictionaryWithCapacity:2];
+  v54 = [KramerVCReader getLogDirectoryEntry:v52];
+  [v53 setObject:v54 forKeyedSubscript:@"LogDirectory"];
 
-  v65 = v21;
-  v54 = [KramerVCReader readCyclicLogFromVC:v61 forCity:&unk_2843C6320 withError:&v65];
+  v65 = v22;
+  v55 = [KramerVCReader readCyclicLogFromVC:v61 forCity:&unk_2843C6320 withError:&v65];
   v10 = v65;
 
-  [v52 setObject:v54 forKeyedSubscript:@"CyclicLog"];
-  [v63 addObject:v52];
-  v17 = v57;
-  [v57 setObject:v52 forKeyedSubscript:@"CyclicLog"];
+  [v53 setObject:v55 forKeyedSubscript:@"CyclicLog"];
+  [v63 addObject:v53];
+  v18 = v57;
+  [v57 setObject:v53 forKeyedSubscript:@"CyclicLog"];
   [v57 setObject:v60 forKeyedSubscript:@"CommutePlans"];
   [v57 setObject:v63 forKeyedSubscript:@"ATLInternal"];
 
   cityCopy = v58;
 LABEL_35:
 
-  v55 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v18;
 }
 
 + (id)readIPEFromVC:(id)c withStorageFile:(unsigned __int8)file withTyp:(unsigned __int8)typ withSectorChain:(id)chain withDirectoryDetails:(id)details withError:(id *)error
 {
   typCopy = typ;
   fileCopy = file;
-  v100[1] = *MEMORY[0x277D85DE8];
+  v103[1] = *MEMORY[0x277D85DE8];
   cCopy = c;
   chainCopy = chain;
   detailsCopy = details;
-  v86 = 0;
-  v15 = [MifareUtils getMcmDataDal:fileCopy | 0x4B00u withTransceiver:cCopy withError:&v86];
-  v16 = v86;
-  v84 = v15;
-  if ([v15 length])
+  v89 = 0;
+  v15 = [MifareUtils getMcmDataDal:fileCopy | 0x4B00u withTransceiver:cCopy withError:&v89];
+  v16 = v89;
+  v87 = v15;
+  v17 = [v15 length];
+  if (v17)
   {
-    v17 = 0;
+    v18 = 0;
   }
 
   else
   {
-    v17 = v16 == 0;
+    v18 = v16 == 0;
   }
 
-  if (v17)
+  if (v18)
   {
-    v18 = detailsCopy;
-    v19 = chainCopy;
-    v20 = cCopy;
-    v21 = ATLLogObject();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v19 = detailsCopy;
+    v20 = chainCopy;
+    v21 = cCopy;
+    v22 = ATLLogObject(v17);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_22EEF5000, v21, OS_LOG_TYPE_ERROR, "No DAL data for specified DAL ID", buf, 2u);
+      _os_log_impl(&dword_22EEF5000, v22, OS_LOG_TYPE_ERROR, "No DAL data for specified DAL ID", buf, 2u);
     }
 
-    v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"No DAL data for specified DAL ID"];
-    v23 = MEMORY[0x277CCA9B8];
-    v99 = *MEMORY[0x277CCA450];
-    v100[0] = v22;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v100 forKeys:&v99 count:1];
-    v16 = [v23 errorWithDomain:@"ATL" code:3 userInfo:v24];
+    v23 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"No DAL data for specified DAL ID"];
+    v24 = MEMORY[0x277CCA9B8];
+    v102 = *MEMORY[0x277CCA450];
+    v103[0] = v23;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v103 forKeys:&v102 count:1];
+    v16 = [v24 errorWithDomain:@"ATL" code:3 userInfo:v25];
 
-    cCopy = v20;
-    chainCopy = v19;
-    detailsCopy = v18;
+    cCopy = v21;
+    chainCopy = v20;
+    detailsCopy = v19;
   }
 
   if (!v16)
   {
-    v27 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:10];
-    v28 = [KramerVCReader decodeIPEHeader:v84];
-    v81 = v27;
-    [v27 addEntriesFromDictionary:v28];
-    v82 = v28;
-    v29 = [v28 objectForKeyedSubscript:@"IPELength"];
-    unsignedShortValue = [v29 unsignedShortValue];
+    v28 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:10];
+    v29 = [KramerVCReader decodeIPEHeader:v87];
+    v84 = v28;
+    [v28 addEntriesFromDictionary:v29];
+    v85 = v29;
+    v30 = [v29 objectForKeyedSubscript:@"IPELength"];
+    unsignedShortValue = [v30 unsignedShortValue];
 
-    v31 = ATLLogObject();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v33 = ATLLogObject(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = [v82 objectForKeyedSubscript:@"IPELength"];
-      unsignedShortValue2 = [v32 unsignedShortValue];
+      v34 = [v85 objectForKeyedSubscript:@"IPELength"];
+      unsignedShortValue2 = [v34 unsignedShortValue];
       *buf = 67109376;
-      *v98 = unsignedShortValue2;
-      *&v98[4] = 1024;
-      *&v98[6] = 4 * unsignedShortValue;
-      _os_log_impl(&dword_22EEF5000, v31, OS_LOG_TYPE_DEFAULT, "IPE Length %d blocks %d bytes", buf, 0xEu);
+      *v101 = unsignedShortValue2;
+      *&v101[4] = 1024;
+      *&v101[6] = 4 * unsignedShortValue;
+      _os_log_impl(&dword_22EEF5000, v33, OS_LOG_TYPE_DEFAULT, "IPE Length %d blocks %d bytes", buf, 0xEu);
     }
 
     if (unsignedShortValue < 0x1D)
     {
-      v37 = v81;
-      v38 = v82;
+      v40 = v84;
+      v41 = v85;
       goto LABEL_27;
     }
 
-    [v81 setObject:&unk_2843C6338 forKeyedSubscript:@"OverflowFlag"];
+    [v84 setObject:&unk_2843C6338 forKeyedSubscript:@"OverflowFlag"];
     if (![chainCopy count])
     {
-      v39 = ATLLogObject();
-      v38 = v82;
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+      v42 = ATLLogObject(0);
+      v41 = v85;
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_22EEF5000, v39, OS_LOG_TYPE_DEFAULT, "IPE overflow indicated, but there is no next sector in chain.", buf, 2u);
+        _os_log_impl(&dword_22EEF5000, v42, OS_LOG_TYPE_DEFAULT, "IPE overflow indicated, but there is no next sector in chain.", buf, 2u);
       }
 
-      v37 = v81;
-      [v81 setObject:@"IPE Overflow: Missing next sector" forKeyedSubscript:@"OverflowChainErrorMsg"];
-      [v81 setObject:&unk_2843C6350 forKeyedSubscript:@"OverflowFlag"];
+      v40 = v84;
+      [v84 setObject:@"IPE Overflow: Missing next sector" forKeyedSubscript:@"OverflowChainErrorMsg"];
+      [v84 setObject:&unk_2843C6350 forKeyedSubscript:@"OverflowFlag"];
       goto LABEL_27;
     }
 
@@ -334,26 +335,26 @@ LABEL_35:
 
     if (!unsignedShortValue3 || unsignedShortValue3 == 13 || unsignedShortValue3 == fileCopy)
     {
-      v36 = ATLLogObject();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      v39 = ATLLogObject(v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_22EEF5000, v36, OS_LOG_TYPE_DEFAULT, "IPE overflow indicated, but chain entry does not indicate a new sector to read.", buf, 2u);
+        _os_log_impl(&dword_22EEF5000, v39, OS_LOG_TYPE_DEFAULT, "IPE overflow indicated, but chain entry does not indicate a new sector to read.", buf, 2u);
       }
 
-      v37 = v81;
-      [v81 setObject:@"IPE Overflow: Invalid next sector" forKeyedSubscript:@"OverflowChainErrorMsg"];
-      [v81 setObject:&unk_2843C6350 forKeyedSubscript:@"OverflowFlag"];
-      v38 = v82;
+      v40 = v84;
+      [v84 setObject:@"IPE Overflow: Invalid next sector" forKeyedSubscript:@"OverflowChainErrorMsg"];
+      [v84 setObject:&unk_2843C6350 forKeyedSubscript:@"OverflowFlag"];
+      v41 = v85;
       goto LABEL_27;
     }
 
-    v85 = 0;
-    v74 = [MifareUtils getMcmDataDal:(unsignedShortValue3 + 19200) withTransceiver:cCopy withError:&v85];
-    v16 = v85;
-    if (![v84 length])
+    v88 = 0;
+    v77 = [MifareUtils getMcmDataDal:(unsignedShortValue3 + 19200) withTransceiver:cCopy withError:&v88];
+    v16 = v88;
+    if (![v87 length])
     {
-      v38 = v82;
+      v41 = v85;
       if (v16)
       {
 LABEL_74:
@@ -361,23 +362,23 @@ LABEL_74:
         {
           if (error)
           {
-            v79 = v16;
+            v82 = v16;
             *error = v16;
           }
 
-          v26 = 0;
-          v37 = v81;
+          v27 = 0;
+          v40 = v84;
           goto LABEL_64;
         }
 
-        v80 = [v84 mutableCopy];
-        [v80 appendData:v74];
+        v83 = [v87 mutableCopy];
+        [v83 appendData:v77];
 
-        v84 = v80;
-        v37 = v81;
+        v87 = v83;
+        v40 = v84;
 LABEL_27:
-        v40 = [v38 objectForKeyedSubscript:@"IPEFormatRev"];
-        unsignedShortValue4 = [v40 unsignedShortValue];
+        v43 = [v41 objectForKeyedSubscript:@"IPEFormatRev"];
+        unsignedShortValue4 = [v43 unsignedShortValue];
 
         if (typCopy > 21)
         {
@@ -390,41 +391,41 @@ LABEL_27:
 
             else
             {
-              v48 = ATLLogObject();
-              if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+              v52 = ATLLogObject(v45);
+              if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
               {
                 *buf = 67109120;
-                *v98 = unsignedShortValue4;
-                _os_log_impl(&dword_22EEF5000, v48, OS_LOG_TYPE_ERROR, "Unsupported IFR (%d) for IPE TYP 22", buf, 8u);
+                *v101 = unsignedShortValue4;
+                _os_log_impl(&dword_22EEF5000, v52, OS_LOG_TYPE_ERROR, "Unsupported IFR (%d) for IPE TYP 22", buf, 8u);
               }
 
-              v49 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unsupported IFR (%d) for IPE TYP 22", unsignedShortValue4];
-              v50 = MEMORY[0x277CCA9B8];
-              v89 = *MEMORY[0x277CCA450];
-              v90 = v49;
-              v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
-              v16 = [v50 errorWithDomain:@"ATL" code:8 userInfo:v51];
+              v53 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unsupported IFR (%d) for IPE TYP 22", unsignedShortValue4];
+              v54 = MEMORY[0x277CCA9B8];
+              v92 = *MEMORY[0x277CCA450];
+              v93 = v53;
+              v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
+              v16 = [v54 errorWithDomain:@"ATL" code:8 userInfo:v55];
             }
 
-            v67 = [v38 objectForKeyedSubscript:@"IPEFormatRev"];
-            v68 = [v38 objectForKeyedSubscript:@"IPEBitmap"];
-            v69 = [KramerVCReader decodeIPETyp22:v84 withIfr:v67 withBitmap:v68];
-            [v37 addEntriesFromDictionary:v69];
+            v71 = [v41 objectForKeyedSubscript:@"IPEFormatRev"];
+            v72 = [v41 objectForKeyedSubscript:@"IPEBitmap"];
+            v73 = [KramerVCReader decodeIPETyp22:v87 withIfr:v71 withBitmap:v72];
+            [v40 addEntriesFromDictionary:v73];
 
-            v70 = [detailsCopy objectForKeyedSubscript:@"IPEValueGroupFlag"];
-            LODWORD(v67) = [v70 unsignedIntValue];
+            v74 = [detailsCopy objectForKeyedSubscript:@"IPEValueGroupFlag"];
+            LODWORD(v71) = [v74 unsignedIntValue];
 
-            if (!v67)
+            if (!v71)
             {
               goto LABEL_61;
             }
 
 LABEL_60:
-            v71 = &unk_2843C6338;
+            v75 = &unk_2843C6338;
 LABEL_62:
-            [v37 setObject:v71 forKeyedSubscript:@"CountBasedFlag"];
+            [v40 setObject:v75 forKeyedSubscript:@"CountBasedFlag"];
 LABEL_63:
-            v26 = v37;
+            v27 = v40;
 LABEL_64:
 
             goto LABEL_65;
@@ -442,25 +443,25 @@ LABEL_64:
 
           else
           {
-            v42 = ATLLogObject();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+            v46 = ATLLogObject(v45);
+            if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
             {
               *buf = 67109120;
-              *v98 = unsignedShortValue4;
-              _os_log_impl(&dword_22EEF5000, v42, OS_LOG_TYPE_ERROR, "Unsupported IFR (%d) for IPE TYP 23", buf, 8u);
+              *v101 = unsignedShortValue4;
+              _os_log_impl(&dword_22EEF5000, v46, OS_LOG_TYPE_ERROR, "Unsupported IFR (%d) for IPE TYP 23", buf, 8u);
             }
 
-            v43 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unsupported IFR (%d) for IPE TYP 23", unsignedShortValue4];
-            v44 = MEMORY[0x277CCA9B8];
-            v87 = *MEMORY[0x277CCA450];
-            v88 = v43;
-            v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
-            v16 = [v44 errorWithDomain:@"ATL" code:8 userInfo:v45];
+            v47 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unsupported IFR (%d) for IPE TYP 23", unsignedShortValue4];
+            v48 = MEMORY[0x277CCA9B8];
+            v90 = *MEMORY[0x277CCA450];
+            v91 = v47;
+            v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
+            v16 = [v48 errorWithDomain:@"ATL" code:8 userInfo:v49];
           }
 
-          v59 = [v38 objectForKeyedSubscript:@"IPEFormatRev"];
-          v60 = [v38 objectForKeyedSubscript:@"IPEBitmap"];
-          v61 = [KramerVCReader decodeIPETyp23:v84 withIfr:v59 withBitmap:v60];
+          v63 = [v41 objectForKeyedSubscript:@"IPEFormatRev"];
+          v64 = [v41 objectForKeyedSubscript:@"IPEBitmap"];
+          v65 = [KramerVCReader decodeIPETyp23:v87 withIfr:v63 withBitmap:v64];
         }
 
         else
@@ -476,40 +477,40 @@ LABEL_64:
 
               else
               {
-                v52 = ATLLogObject();
-                if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+                v56 = ATLLogObject(v45);
+                if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 67109120;
-                  *v98 = unsignedShortValue4;
-                  _os_log_impl(&dword_22EEF5000, v52, OS_LOG_TYPE_ERROR, "Unsupported IFR (%d) for IPE TYP 2", buf, 8u);
+                  *v101 = unsignedShortValue4;
+                  _os_log_impl(&dword_22EEF5000, v56, OS_LOG_TYPE_ERROR, "Unsupported IFR (%d) for IPE TYP 2", buf, 8u);
                 }
 
-                v53 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unsupported IFR (%d) for IPE TYP 2", unsignedShortValue4];
-                v54 = MEMORY[0x277CCA9B8];
-                v91 = *MEMORY[0x277CCA450];
-                v92 = v53;
-                v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
-                v16 = [v54 errorWithDomain:@"ATL" code:8 userInfo:v55];
+                v57 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unsupported IFR (%d) for IPE TYP 2", unsignedShortValue4];
+                v58 = MEMORY[0x277CCA9B8];
+                v94 = *MEMORY[0x277CCA450];
+                v95 = v57;
+                v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+                v16 = [v58 errorWithDomain:@"ATL" code:8 userInfo:v59];
               }
 
-              v56 = [v38 objectForKeyedSubscript:@"IPEFormatRev"];
-              v57 = [v38 objectForKeyedSubscript:@"IPEBitmap"];
-              v58 = [KramerVCReader decodeIPETyp16:v84 withIfr:v56 withBitmap:v57];
-              [v37 addEntriesFromDictionary:v58];
+              v60 = [v41 objectForKeyedSubscript:@"IPEFormatRev"];
+              v61 = [v41 objectForKeyedSubscript:@"IPEBitmap"];
+              v62 = [KramerVCReader decodeIPETyp16:v87 withIfr:v60 withBitmap:v61];
+              [v40 addEntriesFromDictionary:v62];
 
 LABEL_61:
-              v71 = &unk_2843C6320;
+              v75 = &unk_2843C6320;
               goto LABEL_62;
             }
 
 LABEL_38:
-            v46 = ATLLogObject();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+            v50 = ATLLogObject(v45);
+            if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
             {
-              v47 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:typCopy];
+              v51 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:typCopy];
               *buf = 138412290;
-              *v98 = v47;
-              _os_log_impl(&dword_22EEF5000, v46, OS_LOG_TYPE_DEFAULT, "Specific decoding not yet implemented for TYP %@", buf, 0xCu);
+              *v101 = v51;
+              _os_log_impl(&dword_22EEF5000, v50, OS_LOG_TYPE_DEFAULT, "Specific decoding not yet implemented for TYP %@", buf, 0xCu);
             }
 
             v16 = 0;
@@ -523,162 +524,161 @@ LABEL_38:
 
           else
           {
-            v62 = ATLLogObject();
-            if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+            v66 = ATLLogObject(v45);
+            if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
             {
               *buf = 67109120;
-              *v98 = unsignedShortValue4;
-              _os_log_impl(&dword_22EEF5000, v62, OS_LOG_TYPE_ERROR, "Unsupported IFR (%d) for IPE TYP 2", buf, 8u);
+              *v101 = unsignedShortValue4;
+              _os_log_impl(&dword_22EEF5000, v66, OS_LOG_TYPE_ERROR, "Unsupported IFR (%d) for IPE TYP 2", buf, 8u);
             }
 
-            v63 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unsupported IFR (%d) for IPE TYP 2", unsignedShortValue4];
-            v64 = MEMORY[0x277CCA9B8];
-            v93 = *MEMORY[0x277CCA450];
-            v94 = v63;
-            v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
-            v16 = [v64 errorWithDomain:@"ATL" code:8 userInfo:v65];
+            v67 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unsupported IFR (%d) for IPE TYP 2", unsignedShortValue4];
+            v68 = MEMORY[0x277CCA9B8];
+            v96 = *MEMORY[0x277CCA450];
+            v97 = v67;
+            v69 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
+            v16 = [v68 errorWithDomain:@"ATL" code:8 userInfo:v69];
           }
 
-          v59 = [v38 objectForKeyedSubscript:@"IPEFormatRev"];
-          v60 = [v38 objectForKeyedSubscript:@"IPEBitmap"];
-          v61 = [KramerVCReader decodeIPETyp2:v84 withIfr:v59 withBitmap:v60];
+          v63 = [v41 objectForKeyedSubscript:@"IPEFormatRev"];
+          v64 = [v41 objectForKeyedSubscript:@"IPEBitmap"];
+          v65 = [KramerVCReader decodeIPETyp2:v87 withIfr:v63 withBitmap:v64];
         }
 
-        v66 = v61;
-        [v37 addEntriesFromDictionary:v61];
+        v70 = v65;
+        [v40 addEntriesFromDictionary:v65];
 
         goto LABEL_60;
       }
 
-      v75 = ATLLogObject();
-      if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+      v78 = ATLLogObject(0);
+      if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_22EEF5000, v75, OS_LOG_TYPE_ERROR, "No DAL data for specified DAL ID", buf, 2u);
+        _os_log_impl(&dword_22EEF5000, v78, OS_LOG_TYPE_ERROR, "No DAL data for specified DAL ID", buf, 2u);
       }
 
-      v76 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"No DAL data for specified DAL ID"];
-      v77 = MEMORY[0x277CCA9B8];
-      v95 = *MEMORY[0x277CCA450];
-      v96 = v76;
-      v78 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
-      v16 = [v77 errorWithDomain:@"ATL" code:3 userInfo:v78];
+      v79 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"No DAL data for specified DAL ID"];
+      v80 = MEMORY[0x277CCA9B8];
+      v98 = *MEMORY[0x277CCA450];
+      v99 = v79;
+      v81 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
+      v16 = [v80 errorWithDomain:@"ATL" code:3 userInfo:v81];
     }
 
-    v38 = v82;
+    v41 = v85;
     goto LABEL_74;
   }
 
   if (error)
   {
-    v25 = v16;
-    v26 = 0;
+    v26 = v16;
+    v27 = 0;
     *error = v16;
   }
 
   else
   {
-    v26 = 0;
+    v27 = 0;
   }
 
 LABEL_65:
 
-  v72 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v27;
 }
 
 + (id)readVGFromVC:(id)c withStorageFile:(unsigned __int8)file withTyp:(unsigned __int8)typ withSectorChain:(id)chain withError:(id *)error
 {
   typCopy = typ;
-  v82[1] = *MEMORY[0x277D85DE8];
+  v85[1] = *MEMORY[0x277D85DE8];
   cCopy = c;
   chainCopy = chain;
   firstObject = [chainCopy firstObject];
   unsignedShortValue = [firstObject unsignedShortValue];
 
-  v70 = 0;
-  v13 = [MifareUtils getMcmDataDal:(unsignedShortValue + 19200) withTransceiver:cCopy withError:&v70];
-  v14 = v70;
-  if ([v13 length])
+  v73 = 0;
+  v13 = [MifareUtils getMcmDataDal:(unsignedShortValue + 19200) withTransceiver:cCopy withError:&v73];
+  v14 = v73;
+  v15 = [v13 length];
+  if (v15)
   {
-    v15 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v15 = v14 == 0;
+    v16 = v14 == 0;
   }
 
-  if (v15)
+  if (v16)
   {
-    v16 = v13;
-    v17 = cCopy;
-    v18 = ATLLogObject();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = v13;
+    v18 = cCopy;
+    v19 = ATLLogObject(v15);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_22EEF5000, v18, OS_LOG_TYPE_ERROR, "No DAL data for specified DAL ID", buf, 2u);
+      _os_log_impl(&dword_22EEF5000, v19, OS_LOG_TYPE_ERROR, "No DAL data for specified DAL ID", buf, 2u);
     }
 
-    v19 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"No DAL data for specified DAL ID"];
-    v20 = MEMORY[0x277CCA9B8];
-    v81 = *MEMORY[0x277CCA450];
-    v82[0] = v19;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:&v81 count:1];
-    v14 = [v20 errorWithDomain:@"ATL" code:3 userInfo:v21];
+    v20 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"No DAL data for specified DAL ID"];
+    v21 = MEMORY[0x277CCA9B8];
+    v84 = *MEMORY[0x277CCA450];
+    v85[0] = v20;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:&v84 count:1];
+    v14 = [v21 errorWithDomain:@"ATL" code:3 userInfo:v22];
 
-    cCopy = v17;
-    v13 = v16;
+    cCopy = v18;
+    v13 = v17;
   }
 
   if (!v14)
   {
-    v25 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:12];
-    v66 = v13;
-    v26 = [KramerVCReader decodeVGHeader:v13];
-    [v25 addEntriesFromDictionary:v26];
-    v27 = [v26 objectForKeyedSubscript:@"VGLength"];
-    unsignedShortValue2 = [v27 unsignedShortValue];
+    v26 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:12];
+    v69 = v13;
+    v27 = [KramerVCReader decodeVGHeader:v13];
+    [v26 addEntriesFromDictionary:v27];
+    v28 = [v27 objectForKeyedSubscript:@"VGLength"];
+    unsignedShortValue2 = [v28 unsignedShortValue];
 
-    v29 = ATLLogObject();
-    v67 = v26;
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v31 = ATLLogObject(v30);
+    v70 = v27;
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = [v26 objectForKeyedSubscript:@"IPELength"];
-      unsignedShortValue3 = [v30 unsignedShortValue];
+      v32 = [v27 objectForKeyedSubscript:@"IPELength"];
+      unsignedShortValue3 = [v32 unsignedShortValue];
       *buf = 67109376;
-      *v80 = unsignedShortValue3;
-      *&v80[4] = 1024;
-      *&v80[6] = 4 * unsignedShortValue2;
-      _os_log_impl(&dword_22EEF5000, v29, OS_LOG_TYPE_DEFAULT, "VG Length %d blocks %d bytes", buf, 0xEu);
+      *v83 = unsignedShortValue3;
+      *&v83[4] = 1024;
+      *&v83[6] = 4 * unsignedShortValue2;
+      _os_log_impl(&dword_22EEF5000, v31, OS_LOG_TYPE_DEFAULT, "VG Length %d blocks %d bytes", buf, 0xEu);
 
-      v26 = v67;
+      v27 = v70;
     }
 
-    v32 = [v26 objectForKeyedSubscript:@"VGFormatRev"];
-    unsignedIntValue = [v32 unsignedIntValue];
+    v34 = [v27 objectForKeyedSubscript:@"VGFormatRev"];
+    unsignedIntValue = [v34 unsignedIntValue];
 
-    v22 = chainCopy;
+    v23 = chainCopy;
     if (unsignedShortValue2 >= 0x1D)
     {
-      [v25 setObject:&unk_2843C6338 forKeyedSubscript:@"OverflowFlag"];
+      [v26 setObject:&unk_2843C6338 forKeyedSubscript:@"OverflowFlag"];
       if ([chainCopy count] == 1)
       {
-        v34 = ATLLogObject();
-        v35 = typCopy;
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        v37 = ATLLogObject(1);
+        v38 = typCopy;
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_22EEF5000, v34, OS_LOG_TYPE_DEFAULT, "VG overflow indicated, but there is no next sector in chain.", buf, 2u);
+          _os_log_impl(&dword_22EEF5000, v37, OS_LOG_TYPE_DEFAULT, "VG overflow indicated, but there is no next sector in chain.", buf, 2u);
         }
 
-        [v25 setObject:@"VG Overflow: Missing next sector" forKeyedSubscript:@"OverflowChainErrorMsg"];
-        [v25 setObject:&unk_2843C6350 forKeyedSubscript:@"OverflowFlag"];
+        [v26 setObject:@"VG Overflow: Missing next sector" forKeyedSubscript:@"OverflowChainErrorMsg"];
+        v36 = [v26 setObject:&unk_2843C6350 forKeyedSubscript:@"OverflowFlag"];
 LABEL_27:
-        if (v35 > 21)
+        if (v38 > 21)
         {
-          if (v35 == 22)
+          if (v38 == 22)
           {
             if ((unsignedIntValue - 11) > 0xFFFFFFFD)
             {
@@ -687,40 +687,40 @@ LABEL_27:
 
             else
             {
-              v45 = ATLLogObject();
-              if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+              v49 = ATLLogObject(v36);
+              if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
               {
                 *buf = 67109120;
-                *v80 = unsignedIntValue;
-                _os_log_impl(&dword_22EEF5000, v45, OS_LOG_TYPE_ERROR, "Unsupported VG (%d) IFR for IPE TYP 22", buf, 8u);
+                *v83 = unsignedIntValue;
+                _os_log_impl(&dword_22EEF5000, v49, OS_LOG_TYPE_ERROR, "Unsupported VG (%d) IFR for IPE TYP 22", buf, 8u);
               }
 
-              v46 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unsupported VG (%d) IFR for IPE TYP 22", unsignedIntValue];
-              v47 = MEMORY[0x277CCA9B8];
-              v73 = *MEMORY[0x277CCA450];
-              v74 = v46;
-              v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-              v14 = [v47 errorWithDomain:@"ATL" code:8 userInfo:v48];
+              v50 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unsupported VG (%d) IFR for IPE TYP 22", unsignedIntValue];
+              v51 = MEMORY[0x277CCA9B8];
+              v76 = *MEMORY[0x277CCA450];
+              v77 = v50;
+              v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+              v14 = [v51 errorWithDomain:@"ATL" code:8 userInfo:v52];
             }
 
-            v43 = [v67 objectForKeyedSubscript:@"VGFormatRev"];
-            v49 = [v67 objectForKeyedSubscript:@"VGBitmap"];
-            v50 = [v67 objectForKeyedSubscript:@"VGNumValueRecords"];
-            v51 = [KramerVCReader decodeVGTyp22:v66 withIfr:v43 withBitmap:v49 withNumRecords:v50];
+            v47 = [v70 objectForKeyedSubscript:@"VGFormatRev"];
+            v53 = [v70 objectForKeyedSubscript:@"VGBitmap"];
+            v54 = [v70 objectForKeyedSubscript:@"VGNumValueRecords"];
+            v55 = [KramerVCReader decodeVGTyp22:v69 withIfr:v47 withBitmap:v53 withNumRecords:v54];
           }
 
           else
           {
-            if (v35 != 23)
+            if (v38 != 23)
             {
 LABEL_37:
-              v43 = ATLLogObject();
-              if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+              v47 = ATLLogObject(v36);
+              if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
               {
-                v44 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v35];
+                v48 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v38];
                 *buf = 138412290;
-                *v80 = v44;
-                _os_log_impl(&dword_22EEF5000, v43, OS_LOG_TYPE_DEBUG, "Specific decoding not yet implemented for TYP %@", buf, 0xCu);
+                *v83 = v48;
+                _os_log_impl(&dword_22EEF5000, v47, OS_LOG_TYPE_DEBUG, "Specific decoding not yet implemented for TYP %@", buf, 0xCu);
               }
 
               v14 = 0;
@@ -734,40 +734,40 @@ LABEL_37:
 
             else
             {
-              v39 = ATLLogObject();
-              if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+              v43 = ATLLogObject(v36);
+              if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
               {
                 *buf = 67109120;
-                *v80 = unsignedIntValue;
-                _os_log_impl(&dword_22EEF5000, v39, OS_LOG_TYPE_ERROR, "Unsupported VG (%d) IFR for IPE TYP 23", buf, 8u);
+                *v83 = unsignedIntValue;
+                _os_log_impl(&dword_22EEF5000, v43, OS_LOG_TYPE_ERROR, "Unsupported VG (%d) IFR for IPE TYP 23", buf, 8u);
               }
 
-              v40 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unsupported VG (%d) IFR for IPE TYP 23", unsignedIntValue];
-              v41 = MEMORY[0x277CCA9B8];
-              v71 = *MEMORY[0x277CCA450];
-              v72 = v40;
-              v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
-              v14 = [v41 errorWithDomain:@"ATL" code:8 userInfo:v42];
+              v44 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unsupported VG (%d) IFR for IPE TYP 23", unsignedIntValue];
+              v45 = MEMORY[0x277CCA9B8];
+              v74 = *MEMORY[0x277CCA450];
+              v75 = v44;
+              v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+              v14 = [v45 errorWithDomain:@"ATL" code:8 userInfo:v46];
             }
 
-            v43 = [v67 objectForKeyedSubscript:@"VGFormatRev"];
-            v49 = [v67 objectForKeyedSubscript:@"VGBitmap"];
-            v50 = [v67 objectForKeyedSubscript:@"VGNumValueRecords"];
-            v51 = [KramerVCReader decodeVGTyp23:v66 withIfr:v43 withBitmap:v49 withNumRecords:v50];
+            v47 = [v70 objectForKeyedSubscript:@"VGFormatRev"];
+            v53 = [v70 objectForKeyedSubscript:@"VGBitmap"];
+            v54 = [v70 objectForKeyedSubscript:@"VGNumValueRecords"];
+            v55 = [KramerVCReader decodeVGTyp23:v69 withIfr:v47 withBitmap:v53 withNumRecords:v54];
           }
         }
 
         else
         {
-          if (v35 != 2)
+          if (v38 != 2)
           {
-            if (v35 == 16)
+            if (v38 == 16)
             {
               v14 = 0;
 LABEL_56:
-              v24 = v25;
+              v25 = v26;
 LABEL_57:
-              v13 = v66;
+              v13 = v69;
 
               goto LABEL_58;
             }
@@ -782,30 +782,30 @@ LABEL_57:
 
           else
           {
-            v52 = ATLLogObject();
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+            v56 = ATLLogObject(v36);
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
             {
               *buf = 67109120;
-              *v80 = unsignedIntValue;
-              _os_log_impl(&dword_22EEF5000, v52, OS_LOG_TYPE_ERROR, "Unsupported VG (%d) IFR for IPE TYP 2", buf, 8u);
+              *v83 = unsignedIntValue;
+              _os_log_impl(&dword_22EEF5000, v56, OS_LOG_TYPE_ERROR, "Unsupported VG (%d) IFR for IPE TYP 2", buf, 8u);
             }
 
-            v53 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unsupported VG (%d) IFR for IPE TYP 2", unsignedIntValue];
-            v54 = MEMORY[0x277CCA9B8];
-            v75 = *MEMORY[0x277CCA450];
-            v76 = v53;
-            v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-            v14 = [v54 errorWithDomain:@"ATL" code:8 userInfo:v55];
+            v57 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unsupported VG (%d) IFR for IPE TYP 2", unsignedIntValue];
+            v58 = MEMORY[0x277CCA9B8];
+            v78 = *MEMORY[0x277CCA450];
+            v79 = v57;
+            v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+            v14 = [v58 errorWithDomain:@"ATL" code:8 userInfo:v59];
           }
 
-          v43 = [v67 objectForKeyedSubscript:@"VGFormatRev"];
-          v49 = [v67 objectForKeyedSubscript:@"VGBitmap"];
-          v50 = [v67 objectForKeyedSubscript:@"VGNumValueRecords"];
-          v51 = [KramerVCReader decodeVGTyp2:v66 withIfr:v43 withBitmap:v49 withNumRecords:v50];
+          v47 = [v70 objectForKeyedSubscript:@"VGFormatRev"];
+          v53 = [v70 objectForKeyedSubscript:@"VGBitmap"];
+          v54 = [v70 objectForKeyedSubscript:@"VGNumValueRecords"];
+          v55 = [KramerVCReader decodeVGTyp2:v69 withIfr:v47 withBitmap:v53 withNumRecords:v54];
         }
 
-        v56 = v51;
-        [v25 addEntriesFromDictionary:v51];
+        v60 = v55;
+        [v26 addEntriesFromDictionary:v55];
 
 LABEL_55:
         goto LABEL_56;
@@ -816,80 +816,78 @@ LABEL_55:
 
       if (!unsignedCharValue || unsignedCharValue == 13 || unsignedShortValue == unsignedCharValue)
       {
-        v38 = ATLLogObject();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v42 = ATLLogObject(v41);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_22EEF5000, v38, OS_LOG_TYPE_DEFAULT, "VG overflow indicated, but chain entry does not indicate a new sector to read.", buf, 2u);
+          _os_log_impl(&dword_22EEF5000, v42, OS_LOG_TYPE_DEFAULT, "VG overflow indicated, but chain entry does not indicate a new sector to read.", buf, 2u);
         }
 
-        [v25 setObject:@"VG Overflow: Invalid next sector" forKeyedSubscript:@"OverflowChainErrorMsg"];
-        [v25 setObject:&unk_2843C6350 forKeyedSubscript:@"OverflowFlag"];
+        [v26 setObject:@"VG Overflow: Invalid next sector" forKeyedSubscript:@"OverflowChainErrorMsg"];
+        v36 = [v26 setObject:&unk_2843C6350 forKeyedSubscript:@"OverflowFlag"];
       }
 
       else
       {
-        v69 = 0;
-        v59 = [MifareUtils getMcmDataDal:(unsignedShortValue + 19200) withTransceiver:cCopy withError:&v69];
-        v14 = v69;
-        if (![v66 length] && !v14)
+        v72 = 0;
+        v62 = [MifareUtils getMcmDataDal:(unsignedShortValue + 19200) withTransceiver:cCopy withError:&v72];
+        v14 = v72;
+        if (![v69 length] && !v14)
         {
-          v60 = ATLLogObject();
-          if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+          v63 = ATLLogObject(0);
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_22EEF5000, v60, OS_LOG_TYPE_ERROR, "No DAL data for specified DAL ID", buf, 2u);
+            _os_log_impl(&dword_22EEF5000, v63, OS_LOG_TYPE_ERROR, "No DAL data for specified DAL ID", buf, 2u);
           }
 
-          v61 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"No DAL data for specified DAL ID"];
-          v62 = MEMORY[0x277CCA9B8];
-          v77 = *MEMORY[0x277CCA450];
-          v78 = v61;
-          v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
-          v14 = [v62 errorWithDomain:@"ATL" code:3 userInfo:v63];
+          v64 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"No DAL data for specified DAL ID"];
+          v65 = MEMORY[0x277CCA9B8];
+          v80 = *MEMORY[0x277CCA450];
+          v81 = v64;
+          v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+          v14 = [v65 errorWithDomain:@"ATL" code:3 userInfo:v66];
         }
 
         if (v14)
         {
           if (error)
           {
-            v64 = v14;
+            v67 = v14;
             *error = v14;
           }
 
-          v24 = 0;
+          v25 = 0;
           goto LABEL_57;
         }
 
-        v65 = [v66 mutableCopy];
-        [v65 appendData:v59];
+        v68 = [v69 mutableCopy];
+        [v68 appendData:v62];
 
-        v66 = v65;
+        v69 = v68;
       }
     }
 
-    v35 = typCopy;
+    v38 = typCopy;
     goto LABEL_27;
   }
 
-  v22 = chainCopy;
+  v23 = chainCopy;
   if (error)
   {
-    v23 = v14;
-    v24 = 0;
+    v24 = v14;
+    v25 = 0;
     *error = v14;
   }
 
   else
   {
-    v24 = 0;
+    v25 = 0;
   }
 
 LABEL_58:
 
-  v57 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v25;
 }
 
 + (id)readCyclicLogFromVC:(id)c forCity:(id)city withError:(id *)error
@@ -898,67 +896,66 @@ LABEL_58:
   v21 = 0;
   v6 = [MifareUtils getMcmDataDal:19214 withTransceiver:c withError:&v21];
   v7 = v21;
-  if ([v6 length])
+  v8 = [v6 length];
+  if (v8)
   {
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = v7 == 0;
+    v9 = v7 == 0;
   }
 
-  if (v8)
+  if (v9)
   {
-    v9 = ATLLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = ATLLogObject(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *v20 = 0;
-      _os_log_impl(&dword_22EEF5000, v9, OS_LOG_TYPE_ERROR, "No DAL data for specified DAL ID", v20, 2u);
+      _os_log_impl(&dword_22EEF5000, v10, OS_LOG_TYPE_ERROR, "No DAL data for specified DAL ID", v20, 2u);
     }
 
-    v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"No DAL data for specified DAL ID"];
-    v11 = MEMORY[0x277CCA9B8];
+    v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"No DAL data for specified DAL ID"];
+    v12 = MEMORY[0x277CCA9B8];
     v22 = *MEMORY[0x277CCA450];
-    v23[0] = v10;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-    v7 = [v11 errorWithDomain:@"ATL" code:3 userInfo:v12];
+    v23[0] = v11;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v7 = [v12 errorWithDomain:@"ATL" code:3 userInfo:v13];
   }
 
   if (v7)
   {
     if (error)
     {
-      v13 = v7;
-      v14 = 0;
+      v14 = v7;
+      v15 = 0;
       *error = v7;
     }
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
   }
 
   else
   {
-    v14 = [MEMORY[0x277CBEB18] arrayWithCapacity:4];
-    v15 = 0;
+    v15 = [MEMORY[0x277CBEB18] arrayWithCapacity:4];
+    v16 = 0;
     do
     {
-      v16 = v15;
-      v17 = [KramerVCReader decodeCyclicLogEntry:v6 withRecordIndex:v15];
-      [v14 addObject:v17];
+      v17 = v16;
+      v18 = [KramerVCReader decodeCyclicLogEntry:v6 withRecordIndex:v16];
+      [v15 addObject:v18];
 
-      ++v15;
+      ++v16;
     }
 
-    while (v16 < 3);
+    while (v17 < 3);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v15;
 }
 
 + (id)getIPELabelDetails:(id)details withError:(id *)error
@@ -1170,12 +1167,12 @@ LABEL_21:
 {
   sectorCopy = sector;
   idCopy = id;
-  v7 = +[HashHelper hashHelper];
-  v8 = [(HashHelper *)v7 addString:idCopy];
+  v8 = +[HashHelper hashHelper];
+  v9 = [(HashHelper *)v8 addString:idCopy];
 
-  v9 = [(HashHelper *)v8 addNumber:sectorCopy];
+  v10 = [(HashHelper *)v9 addNumber:sectorCopy];
 
-  getHash = [(HashHelper *)v9 getHash];
+  getHash = [(HashHelper *)v10 getHash];
 
   asHexString = [getHash asHexString];
 
@@ -1258,102 +1255,101 @@ LABEL_21:
   typ16Copy = typ16;
   bitmapCopy = bitmap;
   v8 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:11];
-  v9 = *([typ16Copy bytes] + 2);
-  if (v9 != 255)
+  bytes = [typ16Copy bytes];
+  v10 = *(bytes + 2);
+  if (v10 != 255)
   {
-    v10 = ATLLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = ATLLogObject(bytes);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v42[0] = 67109120;
-      v42[1] = v9;
-      _os_log_impl(&dword_22EEF5000, v10, OS_LOG_TYPE_DEFAULT, "Remove Date value(%d) is not 255. This is inconsistent with expections for IPE 16.", v42, 8u);
+      v42[1] = v10;
+      _os_log_impl(&dword_22EEF5000, v11, OS_LOG_TYPE_DEFAULT, "Remove Date value(%d) is not 255. This is inconsistent with expections for IPE 16.", v42, 8u);
     }
   }
 
-  v11 = bswap32(*([typ16Copy bytes] + 3)) >> 16;
-  v12 = bswap32(*([typ16Copy bytes] + 16) & 0xFF3F) >> 16;
-  v13 = *([typ16Copy bytes] + 27);
-  v14 = *([typ16Copy bytes] + 28);
-  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v11];
-  [v8 setObject:v15 forKeyedSubscript:@"IPEConcessionaryPassIssuerCostCentre"];
-
+  v12 = bswap32(*([typ16Copy bytes] + 3)) >> 16;
+  v13 = bswap32(*([typ16Copy bytes] + 16) & 0xFF3F) >> 16;
+  v14 = *([typ16Copy bytes] + 27);
+  v15 = *([typ16Copy bytes] + 28);
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v12];
-  [v8 setObject:v16 forKeyedSubscript:@"IPEEntitlementExpiryRaw"];
+  [v8 setObject:v16 forKeyedSubscript:@"IPEConcessionaryPassIssuerCostCentre"];
 
-  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v13];
-  [v8 setObject:v17 forKeyedSubscript:@"IPEEntitlementCode"];
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v13];
+  [v8 setObject:v17 forKeyedSubscript:@"IPEEntitlementExpiryRaw"];
 
   v18 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v14];
-  [v8 setObject:v18 forKeyedSubscript:@"IPEConcessionaryClass"];
+  [v8 setObject:v18 forKeyedSubscript:@"IPEEntitlementCode"];
 
-  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v9];
-  [v8 setObject:v19 forKeyedSubscript:@"IPERemoveDate"];
+  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v15];
+  [v8 setObject:v19 forKeyedSubscript:@"IPEConcessionaryClass"];
+
+  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v10];
+  [v8 setObject:v20 forKeyedSubscript:@"IPERemoveDate"];
 
   if (([bitmapCopy unsignedCharValue] & 2) != 0)
   {
-    v21 = [typ16Copy subdataWithOffset:29 length:4];
-    asHexString = [v21 asHexString];
+    v22 = [typ16Copy subdataWithOffset:29 length:4];
+    asHexString = [v22 asHexString];
     [v8 setObject:asHexString forKeyedSubscript:@"TmpSecondaryID"];
 
-    v20 = 33;
+    v21 = 33;
   }
 
   else
   {
-    v20 = 29;
+    v21 = 29;
   }
 
   if (([bitmapCopy unsignedCharValue] & 4) != 0)
   {
-    v23 = [typ16Copy u8:v20];
-    v24 = v23;
-    v25 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v23];
-    [v8 setObject:v25 forKeyedSubscript:@"TmpForenameLength"];
+    v24 = [typ16Copy u8:v21];
+    v25 = v24;
+    v26 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v24];
+    [v8 setObject:v26 forKeyedSubscript:@"TmpForenameLength"];
 
-    LODWORD(v25) = v20 + 1;
-    v26 = [typ16Copy subdataWithOffset:v20 + 1 length:v24];
-    [v8 setObject:v26 forKeyedSubscript:@"TmpForename"];
+    LODWORD(v26) = v21 + 1;
+    v27 = [typ16Copy subdataWithOffset:v21 + 1 length:v25];
+    [v8 setObject:v27 forKeyedSubscript:@"TmpForename"];
 
-    v27 = v25 + v24;
-    v28 = [typ16Copy u8:v27];
-    v29 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v28];
-    [v8 setObject:v29 forKeyedSubscript:@"TmpSurnameLength"];
+    v28 = v26 + v25;
+    v29 = [typ16Copy u8:v28];
+    v30 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v29];
+    [v8 setObject:v30 forKeyedSubscript:@"TmpSurnameLength"];
 
-    v30 = (v27 + 1);
-    v31 = [typ16Copy subdataWithOffset:v30 length:v28];
-    [v8 setObject:v31 forKeyedSubscript:@"TmpSurname"];
+    v31 = (v28 + 1);
+    v32 = [typ16Copy subdataWithOffset:v31 length:v29];
+    [v8 setObject:v32 forKeyedSubscript:@"TmpSurname"];
 
-    v20 = v30 + v28;
+    v21 = v31 + v29;
   }
 
   if (([bitmapCopy unsignedCharValue] & 8) != 0)
   {
-    bytes = [typ16Copy bytes];
-    v33 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:bswap32(*(bytes + v20)) >> 16];
-    [v8 setObject:v33 forKeyedSubscript:@"IPEHalfDayOfWeek"];
+    bytes2 = [typ16Copy bytes];
+    v34 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:bswap32(*(bytes2 + v21)) >> 16];
+    [v8 setObject:v34 forKeyedSubscript:@"IPEHalfDayOfWeek"];
 
-    v34 = v20 + 2;
-    v35 = [typ16Copy u8:v20 + 3] + 2;
-    v36 = [typ16Copy subdataWithOffset:v34 length:v35];
-    [v8 setObject:v36 forKeyedSubscript:@"IPEValidAtOrFrom"];
-    v20 = v34 + v35;
+    v35 = v21 + 2;
+    v36 = [typ16Copy u8:v21 + 3] + 2;
+    v37 = [typ16Copy subdataWithOffset:v35 length:v36];
+    [v8 setObject:v37 forKeyedSubscript:@"IPEValidAtOrFrom"];
+    v21 = v35 + v36;
   }
 
   if (([bitmapCopy unsignedCharValue] & 0x10) != 0)
   {
-    v37 = [typ16Copy u8:v20 + 1] + 2;
-    v38 = [typ16Copy subdataWithOffset:v20 length:v37];
-    [v8 setObject:v38 forKeyedSubscript:@"IPEValidTo"];
-    v20 += v37;
+    v38 = [typ16Copy u8:v21 + 1] + 2;
+    v39 = [typ16Copy subdataWithOffset:v21 length:v38];
+    [v8 setObject:v39 forKeyedSubscript:@"IPEValidTo"];
+    v21 += v38;
   }
 
   if ([bitmapCopy unsignedCharValue])
   {
-    v39 = [typ16Copy subdataWithOffset:v20 length:3];
-    [v8 setObject:v39 forKeyedSubscript:@"IPELevelIIN"];
+    v40 = [typ16Copy subdataWithOffset:v21 length:3];
+    [v8 setObject:v40 forKeyedSubscript:@"IPELevelIIN"];
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1723,16 +1719,14 @@ LABEL_21:
 
   if ((v9 - 3) <= 0xFFFFFFFD)
   {
-    v13 = ATLLogObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = ATLLogObject(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v16[0] = 67109120;
       v16[1] = v9;
-      _os_log_impl(&dword_22EEF5000, v13, OS_LOG_TYPE_DEFAULT, "Warning: Unexpected IFR value for IPE (%d)", v16, 8u);
+      _os_log_impl(&dword_22EEF5000, v14, OS_LOG_TYPE_DEFAULT, "Warning: Unexpected IFR value for IPE (%d)", v16, 8u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1759,65 +1753,63 @@ LABEL_21:
 
   if ((v9 - 11) <= 0xFFFFFFFD)
   {
-    v13 = ATLLogObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = ATLLogObject(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v22 = 67109120;
       LODWORD(v23) = v9;
-      _os_log_impl(&dword_22EEF5000, v13, OS_LOG_TYPE_DEFAULT, "Warning: Unexpected IFR value for VG (%d)", &v22, 8u);
+      _os_log_impl(&dword_22EEF5000, v14, OS_LOG_TYPE_DEFAULT, "Warning: Unexpected IFR value for VG (%d)", &v22, 8u);
     }
   }
 
-  v14 = v7 & 0x3E;
-  if (v14 <= 0x37)
+  v15 = v7 & 0x3E;
+  if (v15 <= 0x37)
   {
-    if (v14 == 32)
+    if (v15 == 32)
     {
-      v15 = 1;
+      v16 = 1;
       goto LABEL_19;
     }
 
-    if (v14 == 48)
+    if (v15 == 48)
     {
-      v15 = 2;
+      v16 = 2;
       goto LABEL_19;
     }
   }
 
   else
   {
-    switch(v14)
+    switch(v15)
     {
       case '8':
-        v15 = 3;
+        v16 = 3;
         goto LABEL_19;
       case '<':
-        v15 = 4;
+        v16 = 4;
         goto LABEL_19;
       case '>':
-        v15 = 5;
+        v16 = 5;
         goto LABEL_19;
     }
   }
 
-  v16 = ATLLogObject();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = ATLLogObject(v13);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     0x3E = [MEMORY[0x277CCABB0] numberWithInt:v7 & 0x3E];
     v22 = 138412290;
     v23 = 0x3E;
-    _os_log_impl(&dword_22EEF5000, v16, OS_LOG_TYPE_DEFAULT, "Unexpected number of records for the Value Group (%@)", &v22, 0xCu);
+    _os_log_impl(&dword_22EEF5000, v17, OS_LOG_TYPE_DEFAULT, "Unexpected number of records for the Value Group (%@)", &v22, 0xCu);
   }
 
-  v15 = 0;
+  v16 = 0;
 LABEL_19:
-  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v15];
-  [v5 setObject:v18 forKeyedSubscript:@"VGNumValueRecords"];
+  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v16];
+  [v5 setObject:v19 forKeyedSubscript:@"VGNumValueRecords"];
 
-  v19 = [MEMORY[0x277CCABB0] numberWithBool:v7 & 1];
-  [v5 setObject:v19 forKeyedSubscript:@"VGExtendedFlag"];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v20 = [MEMORY[0x277CCABB0] numberWithBool:v7 & 1];
+  [v5 setObject:v20 forKeyedSubscript:@"VGExtendedFlag"];
 
   return v5;
 }
@@ -1861,6 +1853,109 @@ LABEL_19:
   [v5 setObject:v20 forKeyedSubscript:@"LogDateTimeStamp"];
 
   return v5;
+}
+
++ (id)decodeCyclicLogEntry:(id)entry withRecordIndex:(unsigned __int8)index
+{
+  indexCopy = index;
+  v34 = *MEMORY[0x277D85DE8];
+  entryCopy = entry;
+  v6 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:7];
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:indexCopy];
+  [v6 setObject:v7 forKeyedSubscript:@"RecordOffset"];
+
+  v8 = 48 * indexCopy;
+  v9 = *([entryCopy bytes] + v8);
+  if (v9 >= 4)
+  {
+    v10 = v9 >> 2;
+    v11 = bswap32(*([entryCopy bytes] + 48 * indexCopy));
+    v12 = *([entryCopy bytes] + v8 + 1) & 0xF;
+    v13 = bswap32(*([entryCopy bytes] + v8 + 2)) >> 20;
+    v14 = *([entryCopy bytes] + v8 + 3);
+    v15 = bswap32(*([entryCopy bytes] + v8 + 4)) >> 8;
+    v16 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v10];
+    [v6 setObject:v16 forKeyedSubscript:@"TTLength"];
+
+    0x3F = [MEMORY[0x277CCABB0] numberWithUnsignedChar:(v11 >> 20) & 0x3F];
+    [v6 setObject:0x3F forKeyedSubscript:@"TTBitmap1"];
+
+    v18 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v12];
+    [v6 setObject:v18 forKeyedSubscript:@"TTFormatRev"];
+
+    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v13];
+    [v6 setObject:v19 forKeyedSubscript:@"TTBitmap2"];
+
+    v20 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v14 & 0xF];
+    [v6 setObject:v20 forKeyedSubscript:@"TTTransactionType"];
+
+    v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v15];
+    [v6 setObject:v21 forKeyedSubscript:@"TTDateTimeStampRaw"];
+
+    v22 = [KramerMappings getAbsoluteDateComponents:v15];
+    v23 = [v6 setObject:v22 forKeyedSubscript:@"TTDateTimeStamp"];
+    if (v12 > 2)
+    {
+      if (v12 == 3)
+      {
+        v24 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:3];
+        v25 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v13];
+        v26 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v8];
+        v27 = [KramerVCReader decodeTransientTicketIfr3:entryCopy withIfr:v24 withBitmap:v25 withRecordOffset:v26];
+        goto LABEL_14;
+      }
+
+      if (v12 == 4)
+      {
+        v24 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:4];
+        v25 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v13];
+        v26 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v8];
+        v27 = [KramerVCReader decodeTransientTicketIfr4:entryCopy withIfr:v24 withBitmap:v25 withRecordOffset:v26];
+        goto LABEL_14;
+      }
+    }
+
+    else
+    {
+      if (v12 == 1)
+      {
+        v24 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:1];
+        v25 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v13];
+        v26 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v8];
+        v27 = [KramerVCReader decodeTransientTicketIfr1:entryCopy withIfr:v24 withBitmap:v25 withRecordOffset:v26];
+        goto LABEL_14;
+      }
+
+      if (v12 == 2)
+      {
+        v24 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:2];
+        v25 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v13];
+        v26 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v8];
+        v27 = [KramerVCReader decodeTransientTicketIfr2:entryCopy withIfr:v24 withBitmap:v25 withRecordOffset:v26];
+LABEL_14:
+        v30 = v27;
+        [v6 addEntriesFromDictionary:v27];
+
+LABEL_15:
+        goto LABEL_16;
+      }
+    }
+
+    v28 = ATLLogObject(v23);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    {
+      v29 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v12];
+      v32 = 138412290;
+      v33 = v29;
+      _os_log_impl(&dword_22EEF5000, v28, OS_LOG_TYPE_DEFAULT, "Unexpected IFR for Cyclic Log Transient Ticket (%@)", &v32, 0xCu);
+    }
+
+    goto LABEL_15;
+  }
+
+LABEL_16:
+
+  return v6;
 }
 
 + (id)decodeVGTyp2:(id)typ2 withIfr:(id)ifr withBitmap:(id)bitmap withNumRecords:(id)records
@@ -2214,50 +2309,48 @@ LABEL_19:
 
         if ((unsignedShortValue3 & 2) == 0)
         {
-          v18 = ATLLogObject();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v19 = ATLLogObject(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *v22 = 0;
-            _os_log_impl(&dword_22EEF5000, v18, OS_LOG_TYPE_DEFAULT, "Warning: TYP22 VG has remainingPasses, but StoredPasses flag is not set.", v22, 2u);
+            _os_log_impl(&dword_22EEF5000, v19, OS_LOG_TYPE_DEFAULT, "Warning: TYP22 VG has remainingPasses, but StoredPasses flag is not set.", v22, 2u);
           }
         }
       }
     }
 
-    v19 = firstObject;
+    v20 = firstObject;
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v20;
 }
 
 + (id)getTopupCredits:(id)credits withIpeId:(unsigned __int16)id
 {
   idCopy = id;
-  v51[1] = *MEMORY[0x277D85DE8];
+  v50[1] = *MEMORY[0x277D85DE8];
   creditsCopy = credits;
   v5 = [creditsCopy objectForKeyedSubscript:@"ValueGroupRecords"];
   if ([v5 count] < 2)
   {
-    v50 = 0;
+    v49 = 0;
     goto LABEL_23;
   }
 
-  v47 = creditsCopy;
+  v46 = creditsCopy;
   v6 = [creditsCopy objectForKeyedSubscript:@"VGNumValueRecords"];
   unsignedShortValue = [v6 unsignedShortValue];
 
-  v50 = [MEMORY[0x277CBEB18] arrayWithCapacity:unsignedShortValue];
-  v45 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"VGTrxSerialNum" ascending:0];
-  v51[0] = v45;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:1];
-  v46 = v5;
+  v49 = [MEMORY[0x277CBEB18] arrayWithCapacity:unsignedShortValue];
+  v44 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"VGTrxSerialNum" ascending:0];
+  v50[0] = v44;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:1];
+  v45 = v5;
   v9 = [v5 sortedArrayUsingDescriptors:v8];
 
   if ([v9 count] != 1)
@@ -2269,7 +2362,7 @@ LABEL_19:
     v11 = 0;
     v10 = 0;
     v16 = @"VGRemainingRides";
-    v48 = v9;
+    v47 = v9;
     while (1)
     {
       v17 = v16;
@@ -2352,9 +2445,9 @@ LABEL_19:
             v42 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:idCopy];
             [v27 setObject:v42 forKeyedSubscript:@"VGIpePointer"];
 
-            [v50 addObject:v27];
+            [v49 addObject:v27];
             v12 = v27;
-            v9 = v48;
+            v9 = v47;
           }
 
           goto LABEL_21;
@@ -2377,13 +2470,11 @@ LABEL_21:
   v12 = 0;
 LABEL_22:
 
-  v5 = v46;
-  creditsCopy = v47;
+  v5 = v45;
+  creditsCopy = v46;
 LABEL_23:
 
-  v43 = *MEMORY[0x277D85DE8];
-
-  return v50;
+  return v49;
 }
 
 + (id)getBestExpiry:(id)expiry withLatestValueGroup:(id)group
@@ -2401,13 +2492,13 @@ LABEL_23:
   {
     if (unsignedShortValue == 22)
     {
-      v16 = [expiryCopy objectForKeyedSubscript:@"IPEExpiryTime"];
-      unsignedShortValue3 = [v16 unsignedShortValue];
+      v17 = [expiryCopy objectForKeyedSubscript:@"IPEExpiryTime"];
+      unsignedShortValue3 = [v17 unsignedShortValue];
 
       if (groupCopy)
       {
-        v17 = [groupCopy objectForKeyedSubscript:@"VGExpiryCurrentRaw"];
-        unsignedShortValue4 = [v17 unsignedShortValue];
+        v18 = [groupCopy objectForKeyedSubscript:@"VGExpiryCurrentRaw"];
+        unsignedShortValue4 = [v18 unsignedShortValue];
 
         if (unsignedShortValue4)
         {
@@ -2416,8 +2507,8 @@ LABEL_23:
 
         else
         {
-          v19 = [groupCopy objectForKeyedSubscript:@"VGExpiryStoredPassRaw"];
-          unsignedShortValue5 = [v19 unsignedShortValue];
+          v20 = [groupCopy objectForKeyedSubscript:@"VGExpiryStoredPassRaw"];
+          unsignedShortValue5 = [v20 unsignedShortValue];
 
           if (unsignedShortValue5)
           {
@@ -2439,8 +2530,8 @@ LABEL_23:
         goto LABEL_10;
       }
 
-      v13 = [expiryCopy objectForKeyedSubscript:@"IPEExpiryTime"];
-      unsignedShortValue3 = [v13 unsignedShortValue];
+      v14 = [expiryCopy objectForKeyedSubscript:@"IPEExpiryTime"];
+      unsignedShortValue3 = [v14 unsignedShortValue];
     }
 
     if (unsignedShortValue3)
@@ -2455,8 +2546,8 @@ LABEL_23:
   {
     if (unsignedShortValue == 16)
     {
-      v11 = [expiryCopy objectForKeyedSubscript:@"IPEEntitlementExpiryRaw"];
-      unsignedShortValue6 = [v11 unsignedShortValue];
+      v12 = [expiryCopy objectForKeyedSubscript:@"IPEEntitlementExpiryRaw"];
+      unsignedShortValue6 = [v12 unsignedShortValue];
 
       if (unsignedShortValue6)
       {
@@ -2472,23 +2563,21 @@ LABEL_23:
     }
 
 LABEL_10:
-    v15 = ATLLogObject();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = ATLLogObject(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v24[0] = 67109120;
       v24[1] = unsignedShortValue;
-      _os_log_impl(&dword_22EEF5000, v15, OS_LOG_TYPE_DEFAULT, "Warning: IPE Typ %d is not supported! Default expiry date from Directory Entry is used.", v24, 8u);
+      _os_log_impl(&dword_22EEF5000, v16, OS_LOG_TYPE_DEFAULT, "Warning: IPE Typ %d is not supported! Default expiry date from Directory Entry is used.", v24, 8u);
     }
   }
 
 LABEL_20:
   unsignedShortValue3 = 1439;
 LABEL_21:
-  v21 = [KramerMappings getAbsoluteDateComponents:unsignedShortValue2 withTime:unsignedShortValue3];
+  v22 = [KramerMappings getAbsoluteDateComponents:unsignedShortValue2 withTime:unsignedShortValue3];
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v22;
 }
 
 + (id)decodeDirectory:(id)directory

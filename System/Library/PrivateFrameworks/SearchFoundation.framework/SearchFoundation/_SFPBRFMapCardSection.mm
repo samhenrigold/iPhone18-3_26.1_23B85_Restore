@@ -19,7 +19,7 @@
 
 - (_SFPBRFMapCardSection)initWithFacade:(id)facade
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBRFMapCardSection *)self init];
   if (v5)
@@ -40,33 +40,33 @@
       v7 = 0;
     }
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     markers2 = [facadeCopy markers];
-    v9 = [markers2 countByEnumeratingWithState:&v42 objects:v48 count:16];
+    v9 = [markers2 countByEnumeratingWithState:&v41 objects:v47 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v43;
+      v11 = *v42;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v43 != v11)
+          if (*v42 != v11)
           {
             objc_enumerationMutation(markers2);
           }
 
-          v13 = [[_SFPBRFMapMarker alloc] initWithFacade:*(*(&v42 + 1) + 8 * i)];
+          v13 = [[_SFPBRFMapMarker alloc] initWithFacade:*(*(&v41 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [markers2 countByEnumeratingWithState:&v42 objects:v48 count:16];
+        v10 = [markers2 countByEnumeratingWithState:&v41 objects:v47 count:16];
       }
 
       while (v10);
@@ -84,33 +84,33 @@
       v15 = 0;
     }
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     annotations2 = [facadeCopy annotations];
-    v17 = [annotations2 countByEnumeratingWithState:&v38 objects:v47 count:16];
+    v17 = [annotations2 countByEnumeratingWithState:&v37 objects:v46 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v39;
+      v19 = *v38;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v39 != v19)
+          if (*v38 != v19)
           {
             objc_enumerationMutation(annotations2);
           }
 
-          v21 = [[_SFPBRFMapAnnotation alloc] initWithFacade:*(*(&v38 + 1) + 8 * j)];
+          v21 = [[_SFPBRFMapAnnotation alloc] initWithFacade:*(*(&v37 + 1) + 8 * j)];
           if (v21)
           {
             [v15 addObject:v21];
           }
         }
 
-        v18 = [annotations2 countByEnumeratingWithState:&v38 objects:v47 count:16];
+        v18 = [annotations2 countByEnumeratingWithState:&v37 objects:v46 count:16];
       }
 
       while (v18);
@@ -118,7 +118,7 @@
 
     [(_SFPBRFMapCardSection *)v5 setAnnotations:v15];
     polyline = [facadeCopy polyline];
-    v33 = v5;
+    v32 = v5;
     if (polyline)
     {
       v23 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -129,65 +129,64 @@
       v23 = 0;
     }
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     polyline2 = [facadeCopy polyline];
-    v25 = [polyline2 countByEnumeratingWithState:&v34 objects:v46 count:16];
+    v25 = [polyline2 countByEnumeratingWithState:&v33 objects:v45 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v35;
+      v27 = *v34;
       do
       {
         for (k = 0; k != v26; ++k)
         {
-          if (*v35 != v27)
+          if (*v34 != v27)
           {
             objc_enumerationMutation(polyline2);
           }
 
-          v29 = [[_SFPBLatLng alloc] initWithFacade:*(*(&v34 + 1) + 8 * k)];
+          v29 = [[_SFPBLatLng alloc] initWithFacade:*(*(&v33 + 1) + 8 * k)];
           if (v29)
           {
             [v23 addObject:v29];
           }
         }
 
-        v26 = [polyline2 countByEnumeratingWithState:&v34 objects:v46 count:16];
+        v26 = [polyline2 countByEnumeratingWithState:&v33 objects:v45 count:16];
       }
 
       while (v26);
     }
 
-    v5 = v33;
-    [(_SFPBRFMapCardSection *)v33 setPolylines:v23];
+    v5 = v32;
+    [(_SFPBRFMapCardSection *)v32 setPolylines:v23];
     if ([facadeCopy hasCameraDistance])
     {
       [facadeCopy cameraDistance];
-      [(_SFPBRFMapCardSection *)v33 setCameraDistance:?];
+      [(_SFPBRFMapCardSection *)v32 setCameraDistance:?];
     }
 
     if ([facadeCopy hasShowsUserLocation])
     {
-      -[_SFPBRFMapCardSection setShowsUserLocation:](v33, "setShowsUserLocation:", [facadeCopy showsUserLocation]);
+      -[_SFPBRFMapCardSection setShowsUserLocation:](v32, "setShowsUserLocation:", [facadeCopy showsUserLocation]);
     }
 
-    v30 = v33;
+    v30 = v32;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBRFMapCardSection)initWithDictionary:(id)dictionary
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v51.receiver = self;
-  v51.super_class = _SFPBRFMapCardSection;
-  v5 = [(_SFPBRFMapCardSection *)&v51 init];
+  v50.receiver = self;
+  v50.super_class = _SFPBRFMapCardSection;
+  v5 = [(_SFPBRFMapCardSection *)&v50 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"sizeFormat"];
@@ -202,26 +201,26 @@
     if (objc_opt_isKindOfClass())
     {
       v8 = v6;
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
       v48 = 0u;
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
       v9 = v7;
-      v10 = [v9 countByEnumeratingWithState:&v47 objects:v54 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v46 objects:v53 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v48;
+        v12 = *v47;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v48 != v12)
+            if (*v47 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v47 + 1) + 8 * i);
+            v14 = *(*(&v46 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -230,7 +229,7 @@
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v47 objects:v54 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v46 objects:v53 count:16];
         }
 
         while (v11);
@@ -241,29 +240,29 @@
 
     v16 = [dictionaryCopy objectForKeyedSubscript:@"annotations"];
     objc_opt_class();
-    v38 = v16;
+    v37 = v16;
     if (objc_opt_isKindOfClass())
     {
-      v45 = 0u;
-      v46 = 0u;
-      v43 = 0u;
       v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
       v17 = v16;
-      v18 = [v17 countByEnumeratingWithState:&v43 objects:v53 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v42 objects:v52 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v44;
+        v20 = *v43;
         do
         {
           for (j = 0; j != v19; ++j)
           {
-            if (*v44 != v20)
+            if (*v43 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = *(*(&v43 + 1) + 8 * j);
+            v22 = *(*(&v42 + 1) + 8 * j);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -272,40 +271,40 @@
             }
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v43 objects:v53 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v42 objects:v52 count:16];
         }
 
         while (v19);
       }
 
-      v16 = v38;
+      v16 = v37;
     }
 
     v24 = [dictionaryCopy objectForKeyedSubscript:@"polyline"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v37 = v6;
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
+      v36 = v6;
       v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
       v25 = v24;
-      v26 = [v25 countByEnumeratingWithState:&v39 objects:v52 count:16];
+      v26 = [v25 countByEnumeratingWithState:&v38 objects:v51 count:16];
       if (v26)
       {
         v27 = v26;
-        v28 = *v40;
+        v28 = *v39;
         do
         {
           for (k = 0; k != v27; ++k)
           {
-            if (*v40 != v28)
+            if (*v39 != v28)
             {
               objc_enumerationMutation(v25);
             }
 
-            v30 = *(*(&v39 + 1) + 8 * k);
+            v30 = *(*(&v38 + 1) + 8 * k);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -314,14 +313,14 @@
             }
           }
 
-          v27 = [v25 countByEnumeratingWithState:&v39 objects:v52 count:16];
+          v27 = [v25 countByEnumeratingWithState:&v38 objects:v51 count:16];
         }
 
         while (v27);
       }
 
-      v6 = v37;
-      v16 = v38;
+      v6 = v36;
+      v16 = v37;
     }
 
     v32 = [dictionaryCopy objectForKeyedSubscript:@"cameraDistance"];
@@ -342,7 +341,6 @@
     v34 = v5;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -382,31 +380,31 @@
 
 - (id)dictionaryRepresentation
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_annotations count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     v5 = self->_annotations;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v43 objects:v49 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v42 objects:v48 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v44;
+      v8 = *v43;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v44 != v8)
+          if (*v43 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v43 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v42 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation)
           {
             [array addObject:dictionaryRepresentation];
@@ -419,7 +417,7 @@
           }
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v43 objects:v49 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v42 objects:v48 count:16];
       }
 
       while (v7);
@@ -439,26 +437,26 @@
   if ([(NSArray *)self->_markers count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     v15 = self->_markers;
-    v16 = [(NSArray *)v15 countByEnumeratingWithState:&v39 objects:v48 count:16];
+    v16 = [(NSArray *)v15 countByEnumeratingWithState:&v38 objects:v47 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v40;
+      v18 = *v39;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v40 != v18)
+          if (*v39 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          dictionaryRepresentation2 = [*(*(&v39 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v38 + 1) + 8 * j) dictionaryRepresentation];
           if (dictionaryRepresentation2)
           {
             [array2 addObject:dictionaryRepresentation2];
@@ -471,7 +469,7 @@
           }
         }
 
-        v17 = [(NSArray *)v15 countByEnumeratingWithState:&v39 objects:v48 count:16];
+        v17 = [(NSArray *)v15 countByEnumeratingWithState:&v38 objects:v47 count:16];
       }
 
       while (v17);
@@ -483,26 +481,26 @@
   if ([(NSArray *)self->_polylines count])
   {
     array3 = [MEMORY[0x1E695DF70] array];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v23 = self->_polylines;
-    v24 = [(NSArray *)v23 countByEnumeratingWithState:&v35 objects:v47 count:16];
+    v24 = [(NSArray *)v23 countByEnumeratingWithState:&v34 objects:v46 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v36;
+      v26 = *v35;
       do
       {
         for (k = 0; k != v25; ++k)
         {
-          if (*v36 != v26)
+          if (*v35 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          dictionaryRepresentation3 = [*(*(&v35 + 1) + 8 * k) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v34 + 1) + 8 * k) dictionaryRepresentation];
           if (dictionaryRepresentation3)
           {
             [array3 addObject:dictionaryRepresentation3];
@@ -515,7 +513,7 @@
           }
         }
 
-        v25 = [(NSArray *)v23 countByEnumeratingWithState:&v35 objects:v47 count:16];
+        v25 = [(NSArray *)v23 countByEnumeratingWithState:&v34 objects:v46 count:16];
       }
 
       while (v25);
@@ -553,8 +551,6 @@
 
     [dictionary setObject:v32 forKeyedSubscript:@"sizeFormat"];
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -720,7 +716,7 @@ LABEL_19:
 
 - (void)writeTo:(id)to
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_SFPBRFMapCardSection *)self sizeFormat])
   {
@@ -728,103 +724,100 @@ LABEL_19:
   }
 
   markers = [(_SFPBRFMapCardSection *)self markers];
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v6 = [markers countByEnumeratingWithState:&v33 objects:v39 count:16];
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v6 = [markers countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v34;
+    v8 = *v30;
     do
     {
       v9 = 0;
       do
       {
-        if (*v34 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(markers);
         }
 
-        v10 = *(*(&v33 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [markers countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v7 = [markers countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v7);
   }
 
   annotations = [(_SFPBRFMapCardSection *)self annotations];
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v12 = [annotations countByEnumeratingWithState:&v29 objects:v38 count:16];
-  if (v12)
-  {
-    v13 = v12;
-    v14 = *v30;
-    do
-    {
-      v15 = 0;
-      do
-      {
-        if (*v30 != v14)
-        {
-          objc_enumerationMutation(annotations);
-        }
-
-        v16 = *(*(&v29 + 1) + 8 * v15);
-        PBDataWriterWriteSubmessage();
-        ++v15;
-      }
-
-      while (v13 != v15);
-      v13 = [annotations countByEnumeratingWithState:&v29 objects:v38 count:16];
-    }
-
-    while (v13);
-  }
-
-  polylines = [(_SFPBRFMapCardSection *)self polylines];
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v18 = [polylines countByEnumeratingWithState:&v25 objects:v37 count:16];
-  if (v18)
+  v11 = [annotations countByEnumeratingWithState:&v25 objects:v34 count:16];
+  if (v11)
   {
-    v19 = v18;
-    v20 = *v26;
+    v12 = v11;
+    v13 = *v26;
     do
     {
-      v21 = 0;
+      v14 = 0;
       do
       {
-        if (*v26 != v20)
+        if (*v26 != v13)
+        {
+          objc_enumerationMutation(annotations);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v14;
+      }
+
+      while (v12 != v14);
+      v12 = [annotations countByEnumeratingWithState:&v25 objects:v34 count:16];
+    }
+
+    while (v12);
+  }
+
+  polylines = [(_SFPBRFMapCardSection *)self polylines];
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v16 = [polylines countByEnumeratingWithState:&v21 objects:v33 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v22;
+    do
+    {
+      v19 = 0;
+      do
+      {
+        if (*v22 != v18)
         {
           objc_enumerationMutation(polylines);
         }
 
-        v22 = *(*(&v25 + 1) + 8 * v21);
         PBDataWriterWriteSubmessage();
-        ++v21;
+        ++v19;
       }
 
-      while (v19 != v21);
-      v19 = [polylines countByEnumeratingWithState:&v25 objects:v37 count:16];
+      while (v17 != v19);
+      v17 = [polylines countByEnumeratingWithState:&v21 objects:v33 count:16];
     }
 
-    while (v19);
+    while (v17);
   }
 
   [(_SFPBRFMapCardSection *)self cameraDistance];
-  if (v23 != 0.0)
+  if (v20 != 0.0)
   {
     PBDataWriterWriteDoubleField();
   }
@@ -833,8 +826,6 @@ LABEL_19:
   {
     PBDataWriterWriteBOOLField();
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addPolyline:(id)polyline
@@ -857,9 +848,7 @@ LABEL_19:
 
 - (void)setPolyline:(id)polyline
 {
-  v4 = [polyline copy];
-  polylines = self->_polylines;
-  self->_polylines = v4;
+  self->_polylines = [polyline copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -884,9 +873,7 @@ LABEL_19:
 
 - (void)setAnnotations:(id)annotations
 {
-  v4 = [annotations copy];
-  annotations = self->_annotations;
-  self->_annotations = v4;
+  self->_annotations = [annotations copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -911,9 +898,7 @@ LABEL_19:
 
 - (void)setMarkers:(id)markers
 {
-  v4 = [markers copy];
-  markers = self->_markers;
-  self->_markers = v4;
+  self->_markers = [markers copy];
 
   MEMORY[0x1EEE66BB8]();
 }

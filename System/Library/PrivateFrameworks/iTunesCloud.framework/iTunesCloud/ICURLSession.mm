@@ -2226,7 +2226,7 @@ void __40__ICURLSession_cancelRequest_withError___block_invoke(uint64_t a1)
   dispatch_sync(accessQueue, v7);
 }
 
-uint64_t __30__ICURLSession_resumeRequest___block_invoke(uint64_t a1)
+void *__30__ICURLSession_resumeRequest___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v2 = os_log_create("com.apple.amp.iTunesCloud", "Default");

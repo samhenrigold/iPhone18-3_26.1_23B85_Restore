@@ -194,33 +194,33 @@
 
 - (id)afterOperations:(id)operations priority:(int64_t)priority spaceBlock:(id)block
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   operationsCopy = operations;
   blockCopy = block;
   v10 = [XRSpaceBlockOp alloc];
   v14 = objc_msgSend_initWithSpaceBlock_(v10, v11, blockCopy, v12, v13);
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v15 = operationsCopy;
-  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v32, v36, 16);
+  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v31, v35, 16);
   if (v20)
   {
-    v21 = *v33;
+    v21 = *v32;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v33 != v21)
+        if (*v32 != v21)
         {
           objc_enumerationMutation(v15);
         }
 
-        objc_msgSend_addDependency_(v14, v17, *(*(&v32 + 1) + 8 * i), v18, v19, v32);
+        objc_msgSend_addDependency_(v14, v17, *(*(&v31 + 1) + 8 * i), v18, v19, v31);
       }
 
-      v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v17, &v32, v36, 16);
+      v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v17, &v31, v35, 16);
     }
 
     while (v20);
@@ -229,20 +229,18 @@
   objc_msgSend_setQueuePriority_(v14, v23, priority, v24, v25);
   v29 = objc_msgSend__scheduleOperationFromCurrentQueue_(self, v26, v14, v27, v28);
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v29;
 }
 
 - (id)afterOperation:(id)operation priority:(int64_t)priority spaceBlock:(id)block
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   blockCopy = block;
   if (operationCopy)
   {
-    v17[0] = operationCopy;
-    v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v9, v17, 1, v10);
+    v16[0] = operationCopy;
+    v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v9, v16, 1, v10);
     objc_msgSend_afterOperations_priority_spaceBlock_(self, v13, v12, priority, blockCopy);
   }
 
@@ -255,8 +253,6 @@
   if (operationCopy)
   {
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -505,7 +501,7 @@ LABEL_14:
 
 - (void)requestLocalNotification:(id)notification object:(id)object observer:(id)observer block:(id)block
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   objectCopy = object;
   observerCopy = observer;
@@ -517,50 +513,43 @@ LABEL_14:
       sub_2480B359C();
     }
 
-    _DVTIUInvalidBlockCaptureBreak(blockCopy, observerCopy);
+    _DVTIUInvalidBlockCaptureBreak();
   }
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   v17 = objc_msgSend_copy(self->_notificationShims, v13, v14, v15, v16, notificationCopy);
-  v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v64, v68, 16);
+  v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v63, v67, 16);
   if (v23)
   {
-    v24 = *v65;
+    v24 = *v64;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v65 != v24)
+        if (*v64 != v24)
         {
           objc_enumerationMutation(v17);
         }
 
-        v26 = *(*(&v64 + 1) + 8 * i);
-        if (objc_msgSend_targetIsSet(v26, v19, v20, v21, v22))
+        v26 = *(*(&v63 + 1) + 8 * i);
+        if (!objc_msgSend_targetIsSet(v26, v19, v20, v21, v22) || (objc_msgSend_target(v26, v19, v27, v21, v22), v28 = objc_claimAutoreleasedReturnValue(), v29 = v28 == 0, v28, !v29))
         {
-          v28 = objc_msgSend_target(v26, v19, v27, v21, v22);
-          v29 = v28 == 0;
+          v30 = objc_msgSend_observer(v26, v19, v27, v21, v22);
+          v31 = v30 == 0;
 
-          if (v29)
+          if (!v31)
           {
-            goto LABEL_13;
+            continue;
           }
         }
 
-        v30 = objc_msgSend_observer(v26, v19, v27, v21, v22);
-        v31 = v30 == 0;
-
-        if (v31)
-        {
-LABEL_13:
-          objc_msgSend__removeNotificationShim_(self, v19, v26, v21, v22);
-        }
+        objc_msgSend__removeNotificationShim_(self, v19, v26, v21, v22);
       }
 
-      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v19, &v64, v68, 16);
+      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v19, &v63, v67, 16);
     }
 
     while (v23);
@@ -577,48 +566,46 @@ LABEL_13:
   objc_initWeak(&location, v32);
   v46 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v42, v43, v44, v45);
   queue = self->_queue;
-  v60[0] = MEMORY[0x277D85DD0];
-  v60[1] = 3221225472;
-  v60[2] = sub_24808C908;
-  v60[3] = &unk_278EFA3C0;
-  objc_copyWeak(&v62, &location);
+  v59[0] = MEMORY[0x277D85DD0];
+  v59[1] = 3221225472;
+  v59[2] = sub_24808C908;
+  v59[3] = &unk_278EFA3C0;
+  objc_copyWeak(&v61, &location);
   v48 = blockCopy;
-  v61 = v48;
-  v50 = objc_msgSend_addObserverForName_object_queue_usingBlock_(v46, v49, v59, objectCopy, queue, v60);
+  v60 = v48;
+  v50 = objc_msgSend_addObserverForName_object_queue_usingBlock_(v46, v49, v58, objectCopy, queue, v59);
   objc_msgSend_setToken_(v32, v51, v50, v52, v53);
 
   objc_msgSend_addObject_(self->_notificationShims, v54, v32, v55, v56);
-  objc_destroyWeak(&v62);
+  objc_destroyWeak(&v61);
   objc_destroyWeak(&location);
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopObservationsOfObject:(id)object forObserver:(id)observer
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   observerCopy = observer;
   v12 = objc_msgSend_set(MEMORY[0x277CBEB58], v8, v9, v10, v11);
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v13 = self->_notificationShims;
-  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v40, v45, 16);
+  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v39, v44, 16);
   if (v19)
   {
-    v20 = *v41;
+    v20 = *v40;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v41 != v20)
+        if (*v40 != v20)
         {
           objc_enumerationMutation(v13);
         }
 
-        v22 = *(*(&v40 + 1) + 8 * i);
+        v22 = *(*(&v39 + 1) + 8 * i);
         v23 = objc_msgSend_observer(v22, v15, v16, v17, v18);
         v24 = v23 == observerCopy;
 
@@ -631,40 +618,38 @@ LABEL_13:
         }
       }
 
-      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v15, &v40, v45, 16);
+      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v15, &v39, v44, 16);
     }
 
     while (v19);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v27 = v12;
-  v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v28, &v36, v44, 16);
+  v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v28, &v35, v43, 16);
   if (v32)
   {
-    v33 = *v37;
+    v33 = *v36;
     do
     {
       for (j = 0; j != v32; ++j)
       {
-        if (*v37 != v33)
+        if (*v36 != v33)
         {
           objc_enumerationMutation(v27);
         }
 
-        objc_msgSend__removeNotificationShim_(self, v29, *(*(&v36 + 1) + 8 * j), v30, v31, v36);
+        objc_msgSend__removeNotificationShim_(self, v29, *(*(&v35 + 1) + 8 * j), v30, v31, v35);
       }
 
-      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v29, &v36, v44, 16);
+      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v29, &v35, v43, 16);
     }
 
     while (v32);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receiveMobileAgent:(id)agent

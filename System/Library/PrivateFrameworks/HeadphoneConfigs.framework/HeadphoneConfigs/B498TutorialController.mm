@@ -12,13 +12,13 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_2511DAE30();
+  sub_2511DAE30(selfCopy);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_2511DB050();
+  sub_2511DB050(selfCopy);
 }
 
 - (void)viewIsAppearing:(BOOL)appearing
@@ -29,8 +29,9 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_2511DB58C(appear);
+  sub_2511DB58C(appearCopy);
 }
 
 - (_TtC16HeadphoneConfigs22B498TutorialController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

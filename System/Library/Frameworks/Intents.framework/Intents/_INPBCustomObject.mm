@@ -18,35 +18,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_alternatives count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v5 = self->_alternatives;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v24;
+      v8 = *v23;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v24 != v8)
+          if (*v23 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v23 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v22 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v7);
@@ -86,8 +86,6 @@
     v20 = [subtitleString copy];
     [dictionary setObject:v20 forKeyedSubscript:@"subtitleString"];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -321,35 +319,34 @@ LABEL_33:
 
 - (void)writeTo:(id)to
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v5 = self->_alternatives;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v17;
     do
     {
       v9 = 0;
       do
       {
-        if (*v23 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -367,7 +364,6 @@ LABEL_33:
 
   if (displayString)
   {
-    displayString = self->_displayString;
     PBDataWriterWriteStringField();
   }
 
@@ -375,7 +371,6 @@ LABEL_33:
 
   if (identifier)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteStringField();
   }
 
@@ -383,7 +378,6 @@ LABEL_33:
 
   if (pronunciationHint)
   {
-    pronunciationHint = self->_pronunciationHint;
     PBDataWriterWriteStringField();
   }
 
@@ -391,11 +385,8 @@ LABEL_33:
 
   if (subtitleString)
   {
-    subtitleString = self->_subtitleString;
     PBDataWriterWriteStringField();
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSubtitleString:(id)string

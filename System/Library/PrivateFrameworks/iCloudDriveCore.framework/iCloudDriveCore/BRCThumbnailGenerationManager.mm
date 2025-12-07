@@ -91,7 +91,7 @@ uint64_t __47__BRCThumbnailGenerationManager_defaultManager__block_invoke()
   }
 }
 
-unint64_t __68__BRCThumbnailGenerationManager__addThumbnailOperation_thumbnailID___block_invoke(void *a1)
+uint64_t (**__68__BRCThumbnailGenerationManager__addThumbnailOperation_thumbnailID___block_invoke(void *a1))(void)
 {
   v1 = (a1 + 4);
   [*(a1[4] + 32) setObject:a1[6] forKeyedSubscript:a1[5]];
@@ -110,7 +110,7 @@ unint64_t __68__BRCThumbnailGenerationManager__addThumbnailOperation_thumbnailID
     result = *(*v1 + 5);
     if (result)
     {
-      return (*(result + 16))();
+      return result[2]();
     }
   }
 
@@ -134,7 +134,7 @@ unint64_t __68__BRCThumbnailGenerationManager__addThumbnailOperation_thumbnailID
   }
 }
 
-unint64_t __73__BRCThumbnailGenerationManager__removeThumbnailOperationForThumbnailID___block_invoke(uint64_t a1)
+uint64_t (**__73__BRCThumbnailGenerationManager__removeThumbnailOperationForThumbnailID___block_invoke(uint64_t a1))(void)
 {
   v1 = (a1 + 32);
   result = [*(*(a1 + 32) + 32) removeObjectForKey:*(a1 + 40)];
@@ -155,7 +155,7 @@ unint64_t __73__BRCThumbnailGenerationManager__removeThumbnailOperationForThumbn
       result = *(*v1 + 6);
       if (result)
       {
-        return (*(result + 16))();
+        return result[2]();
       }
     }
   }
@@ -176,7 +176,7 @@ unint64_t __73__BRCThumbnailGenerationManager__removeThumbnailOperationForThumbn
 
 - (void)_addThumbnailGenerationJobAtURL:(id)l targetURL:(id)rL thumbnailID:(id)d timeout:(id)timeout syncContext:(id)context completionHandler:(id)handler
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   lCopy = l;
   rLCopy = rL;
   dCopy = d;
@@ -196,78 +196,77 @@ unint64_t __73__BRCThumbnailGenerationManager__removeThumbnailOperationForThumbn
     *&block[12] = 2112;
     *&block[14] = v20;
     *&block[22] = 2112;
-    v55 = v21;
+    v54 = v21;
     _os_log_debug_impl(&dword_223E7A000, v22, OS_LOG_TYPE_DEBUG, "[DEBUG] Generating thumbnail for ID %@ (shouldTransferThumbnail:yes) %@%@", block, 0x20u);
   }
 
   objc_initWeak(&location, v20);
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __125__BRCThumbnailGenerationManager__addThumbnailGenerationJobAtURL_targetURL_thumbnailID_timeout_syncContext_completionHandler___block_invoke;
-  v44[3] = &unk_2785054C0;
-  v39 = rLCopy;
-  v45 = v39;
-  v38 = lCopy;
-  v46 = v38;
-  objc_copyWeak(&v50, &location);
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __125__BRCThumbnailGenerationManager__addThumbnailGenerationJobAtURL_targetURL_thumbnailID_timeout_syncContext_completionHandler___block_invoke;
+  v43[3] = &unk_2785054C0;
+  v38 = rLCopy;
+  v44 = v38;
+  v37 = lCopy;
+  v45 = v37;
+  objc_copyWeak(&v49, &location);
   v23 = handlerCopy;
-  v49 = v23;
+  v48 = v23;
   selfCopy = self;
   v24 = dCopy;
-  v48 = v24;
-  [v20 setSaveThumbnailCompletionBlock:v44];
+  v47 = v24;
+  [v20 setSaveThumbnailCompletionBlock:v43];
   thumbnailQueue = self->_thumbnailQueue;
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __125__BRCThumbnailGenerationManager__addThumbnailGenerationJobAtURL_targetURL_thumbnailID_timeout_syncContext_completionHandler___block_invoke_7;
-  v41[3] = &unk_2784FF478;
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __125__BRCThumbnailGenerationManager__addThumbnailGenerationJobAtURL_targetURL_thumbnailID_timeout_syncContext_completionHandler___block_invoke_7;
+  v40[3] = &unk_2784FF478;
   v26 = contextCopy;
-  v42 = v26;
+  v41 = v26;
   v27 = v20;
-  v43 = v27;
+  v42 = v27;
   v28 = thumbnailQueue;
-  v29 = v41;
+  v29 = v40;
   v30 = objc_autoreleasePoolPush();
-  v52 = 0uLL;
-  v53 = 0;
-  __brc_create_section(0, "dispatch_async_with_logs", 283, 0, &v52);
+  v51 = 0uLL;
+  v52 = 0;
+  __brc_create_section(0, "dispatch_async_with_logs", 283, 0, &v51);
   v31 = brc_bread_crumbs();
   v32 = brc_default_log();
   if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
   {
-    v36 = v52;
+    v35 = v51;
     label = dispatch_queue_get_label(v28);
     *block = 134218498;
-    *&block[4] = v36;
+    *&block[4] = v35;
     *&block[12] = 2080;
     *&block[14] = label;
     *&block[22] = 2112;
-    v55 = v31;
+    v54 = v31;
     _os_log_debug_impl(&dword_223E7A000, v32, OS_LOG_TYPE_DEBUG, "[DEBUG] ┣%llx dispatching to %s%@", block, 0x20u);
   }
 
+  v57 = v51;
   v58 = v52;
-  v59 = v53;
   *block = MEMORY[0x277D85DD0];
   *&block[8] = 3221225472;
   *&block[16] = __dispatch_async_with_logs_block_invoke_14;
-  v55 = &unk_2784FF568;
+  v54 = &unk_2784FF568;
   v33 = v28;
-  v56 = v33;
+  v55 = v33;
   v34 = v29;
-  v57 = v34;
+  v56 = v34;
   dispatch_async(v33, block);
 
   objc_autoreleasePoolPop(v30);
-  objc_destroyWeak(&v50);
+  objc_destroyWeak(&v49);
 
   objc_destroyWeak(&location);
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __125__BRCThumbnailGenerationManager__addThumbnailGenerationJobAtURL_targetURL_thumbnailID_timeout_syncContext_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   if (v3)
@@ -276,14 +275,14 @@ void __125__BRCThumbnailGenerationManager__addThumbnailGenerationJobAtURL_target
     v6 = brc_default_log();
     if (os_log_type_enabled(v6, 0x90u))
     {
-      v9 = *(a1 + 40);
-      v10 = 138412802;
-      v11 = v9;
-      v12 = 2112;
-      v13 = v3;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_error_impl(&dword_223E7A000, v6, 0x90u, "[ERROR] Thumbnail creation of %@ failed with error: %@%@", &v10, 0x20u);
+      v8 = *(a1 + 40);
+      v9 = 138412802;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v3;
+      v13 = 2112;
+      v14 = v5;
+      _os_log_error_impl(&dword_223E7A000, v6, 0x90u, "[ERROR] Thumbnail creation of %@ failed with error: %@%@", &v9, 0x20u);
     }
 
     v4 = 0;
@@ -294,8 +293,6 @@ void __125__BRCThumbnailGenerationManager__addThumbnailGenerationJobAtURL_target
   [*(a1 + 48) _removeThumbnailOperationForThumbnailID:*(a1 + 56)];
   [WeakRetained hash];
   kdebug_trace();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addThumbnailGenerationJobAtURL:(id)l targetURL:(id)rL thumbnailID:(id)d syncContext:(id)context completionHandler:(id)handler
@@ -397,7 +394,7 @@ void __113__BRCThumbnailGenerationManager_getLocalThumbnailWithShare_mangledID_t
 
 void __113__BRCThumbnailGenerationManager_getLocalThumbnailWithShare_mangledID_targetURL_sessionContext_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -406,14 +403,14 @@ void __113__BRCThumbnailGenerationManager_getLocalThumbnailWithShare_mangledID_t
     v8 = brc_default_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v14 = [*(a1 + 32) fileObjectID];
-      v15 = [v14 asString];
+      v13 = [*(a1 + 32) fileObjectID];
+      v14 = [v13 asString];
       *buf = 138412802;
-      v19 = v15;
-      v20 = 2112;
-      v21 = v6;
-      v22 = 2112;
-      v23 = v7;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v6;
+      v21 = 2112;
+      v22 = v7;
       _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Could not get user visible URL for %@: %@%@", buf, 0x20u);
     }
 
@@ -427,15 +424,13 @@ void __113__BRCThumbnailGenerationManager_getLocalThumbnailWithShare_mangledID_t
 
     v11 = *(a1 + 56);
     v12 = *(a1 + 64);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __113__BRCThumbnailGenerationManager_getLocalThumbnailWithShare_mangledID_targetURL_sessionContext_completionHandler___block_invoke_13;
-    v16[3] = &unk_2785054E8;
-    v17 = *(a1 + 72);
-    [v11 addOutOfBandThumbnailGenerationJobAtURL:v5 targetURL:v12 syncContext:v10 completionHandler:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __113__BRCThumbnailGenerationManager_getLocalThumbnailWithShare_mangledID_targetURL_sessionContext_completionHandler___block_invoke_13;
+    v15[3] = &unk_2785054E8;
+    v16 = *(a1 + 72);
+    [v11 addOutOfBandThumbnailGenerationJobAtURL:v5 targetURL:v12 syncContext:v10 completionHandler:v15];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel
@@ -477,10 +472,7 @@ void __113__BRCThumbnailGenerationManager_getLocalThumbnailWithShare_mangledID_t
 
 uint64_t __57__BRCThumbnailGenerationManager_operationForThumbnailID___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 32) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 32) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -500,20 +492,16 @@ uint64_t __57__BRCThumbnailGenerationManager_operationForThumbnailID___block_inv
 
 void __68__BRCThumbnailGenerationManager__addThumbnailOperation_thumbnailID___block_invoke_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [*(*a1 + 32) count];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Thumbnail manager: reached maximum allowed number of thumbnails retrieval (%ld)%@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Thumbnail manager: reached maximum allowed number of thumbnails retrieval (%ld)%@", v3, v4, v5, v6);
 }
 
 void __73__BRCThumbnailGenerationManager__removeThumbnailOperationForThumbnailID___block_invoke_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [*(*a1 + 32) count];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Thumbnail manager: below maximum allowed number of thumbnails retrieval (%ld)%@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Thumbnail manager: below maximum allowed number of thumbnails retrieval (%ld)%@", v3, v4, v5, v6);
 }
 
 @end

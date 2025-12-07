@@ -19,7 +19,6 @@ void __39__NSBundle_MNExtras___navigationBundle__block_invoke()
 
 uint64_t __54__NSBundle_MNExtras___navigation_implementsSiriMethod__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   _navigation_implementsSiriMethod_implementsSiriMethod = result & 1;
   return result;

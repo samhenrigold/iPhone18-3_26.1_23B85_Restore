@@ -46,7 +46,7 @@
   v8[3] = &unk_278592560;
   objc_copyWeak(&v9, &location);
   v2 = MEMORY[0x22AA7E1B0](v8);
-  v3 = __atxlog_handle_pmm();
+  v3 = __atxlog_handle_pmm(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -64,15 +64,15 @@
 
 void __59__PMMAudioDisconnectListener__setupAudioDisconnectListener__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = __atxlog_handle_pmm();
+  v5 = __atxlog_handle_pmm(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_22639A000, v5, OS_LOG_TYPE_DEFAULT, "audio disconnect listener called, %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_22639A000, v5, OS_LOG_TYPE_DEFAULT, "audio disconnect listener called, %@", &v7, 0xCu);
   }
 
   if (WeakRetained)
@@ -83,8 +83,6 @@ void __59__PMMAudioDisconnectListener__setupAudioDisconnectListener__block_invok
       (*(v6 + 16))();
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupBluetoothDisconnectListener
@@ -96,7 +94,7 @@ void __59__PMMAudioDisconnectListener__setupAudioDisconnectListener__block_invok
   v8[3] = &unk_278592560;
   objc_copyWeak(&v9, &location);
   v2 = MEMORY[0x22AA7E1B0](v8);
-  v3 = __atxlog_handle_pmm();
+  v3 = __atxlog_handle_pmm(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -114,15 +112,15 @@ void __59__PMMAudioDisconnectListener__setupAudioDisconnectListener__block_invok
 
 void __63__PMMAudioDisconnectListener__setupBluetoothDisconnectListener__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = __atxlog_handle_pmm();
+  v5 = __atxlog_handle_pmm(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = v3;
-    _os_log_impl(&dword_22639A000, v5, OS_LOG_TYPE_DEFAULT, "bluetooth disconnect listener called, %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v3;
+    _os_log_impl(&dword_22639A000, v5, OS_LOG_TYPE_DEFAULT, "bluetooth disconnect listener called, %@", &v12, 0xCu);
   }
 
   if (WeakRetained)
@@ -149,8 +147,6 @@ void __63__PMMAudioDisconnectListener__setupBluetoothDisconnectListener__block_i
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithHandler:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

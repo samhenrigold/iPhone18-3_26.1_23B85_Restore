@@ -1,12 +1,12 @@
 uint64_t IOABPClass::readAsync(IOABPClass *this, uint64_t a2, unsigned int a3, void (*a4)(void *, int, void *), void *a5)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   *&v10 = 0xAAAAAAAAAAAAAAAALL;
   *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v20 = v10;
-  v21 = v10;
-  *reference = v10;
   v19 = v10;
+  v20 = v10;
+  *reference = v10;
+  v18 = v10;
   pthread_mutex_lock((this + 16));
   v11 = *(this + 12);
   if (v11)
@@ -14,7 +14,7 @@ uint64_t IOABPClass::readAsync(IOABPClass *this, uint64_t a2, unsigned int a3, v
     input[0] = a2;
     input[1] = a3;
     reference[1] = a4;
-    *&v19 = a5;
+    *&v18 = a5;
     v12 = *(this + 39);
     MachPort = IONotificationPortGetMachPort(v11);
     v14 = IOConnectCallAsyncScalarMethod(v12, 3u, MachPort, reference, 3u, input, 2u, 0, 0);
@@ -29,22 +29,21 @@ uint64_t IOABPClass::readAsync(IOABPClass *this, uint64_t a2, unsigned int a3, v
     }
 
     pthread_mutex_unlock((this + 16));
-    v14 = 3758097112;
+    return 3758097112;
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
 uint64_t IOABPClass::writeAsync(IOABPClass *this, const void *a2, unsigned int a3, void (*a4)(void *, int, void *), void *a5)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   *&v10 = 0xAAAAAAAAAAAAAAAALL;
   *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v20 = v10;
-  v21 = v10;
-  *reference = v10;
   v19 = v10;
+  v20 = v10;
+  *reference = v10;
+  v18 = v10;
   pthread_mutex_lock((this + 16));
   if ((*(this + 8) & 2) != 0)
   {
@@ -57,7 +56,7 @@ uint64_t IOABPClass::writeAsync(IOABPClass *this, const void *a2, unsigned int a
     input[0] = a2;
     input[1] = a3;
     reference[1] = a4;
-    *&v19 = a5;
+    *&v18 = a5;
     v12 = *(this + 39);
     MachPort = IONotificationPortGetMachPort(v11);
     v14 = IOConnectCallAsyncScalarMethod(v12, 2u, MachPort, reference, 3u, input, 2u, 0, 0);
@@ -72,10 +71,9 @@ uint64_t IOABPClass::writeAsync(IOABPClass *this, const void *a2, unsigned int a
     }
 
     pthread_mutex_unlock((this + 16));
-    v14 = 3758097112;
+    return 3758097112;
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
@@ -103,13 +101,13 @@ uint64_t ___ZN17IOABPControlClass28registerEventNotification_nlEP11__CFRunLoopP1
 
 uint64_t IOABPControlClass::readLogsAsync(IOABPControlClass *this, void *a2, unsigned int a3, unsigned int a4, void (*a5)(void *, int, void *), void *a6)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   *&v12 = 0xAAAAAAAAAAAAAAAALL;
   *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v22 = v12;
-  v23 = v12;
-  *reference = v12;
   v21 = v12;
+  v22 = v12;
+  *reference = v12;
+  v20 = v12;
   pthread_mutex_lock((this + 8));
   if ((*this & 4) != 0)
   {
@@ -123,7 +121,7 @@ uint64_t IOABPControlClass::readLogsAsync(IOABPControlClass *this, void *a2, uns
     input[1] = a3;
     input[2] = a4;
     reference[1] = a5;
-    *&v21 = a6;
+    *&v20 = a6;
     v14 = *(this + 40);
     MachPort = IONotificationPortGetMachPort(v13);
     v16 = IOConnectCallAsyncScalarMethod(v14, 2u, MachPort, reference, 3u, input, 3u, 0, 0);
@@ -138,10 +136,9 @@ uint64_t IOABPControlClass::readLogsAsync(IOABPControlClass *this, void *a2, uns
     }
 
     pthread_mutex_unlock((this + 8));
-    v16 = 3758097112;
+    return 3758097112;
   }
 
-  v17 = *MEMORY[0x29EDCA608];
   return v16;
 }
 
@@ -631,7 +628,7 @@ uint64_t IOABPControlClass::registerEventNotification_nl(uint64_t a1, const void
       v5 = 3758097093;
       if ((*a1 & 2) != 0)
       {
-        syslog(5, "IOABPControlClass::%s: a notification block is already registered. deregister it before registering a new block");
+        syslog(5, "IOABPControlClass::%s: a notification block is already registered. deregister it before registering a new block", a3);
       }
     }
 
@@ -685,7 +682,7 @@ uint64_t IOABPControlClass::registerEventNotification_nl(uint64_t a1, const void
       v5 = 3758097090;
       if ((*a1 & 2) != 0)
       {
-        syslog(5, "IOABPControlClass::%s: block must be provided\n");
+        syslog(5, "IOABPControlClass::%s: block must be provided\n", a3);
       }
     }
   }
@@ -695,7 +692,7 @@ uint64_t IOABPControlClass::registerEventNotification_nl(uint64_t a1, const void
     v5 = 3758097136;
     if ((*a1 & 2) != 0)
     {
-      syslog(5, "IOABPControlClass::%s: service is NULL - must successfully start() first\n");
+      syslog(5, "IOABPControlClass::%s: service is NULL - must successfully start() first\n", a3);
     }
   }
 
@@ -777,7 +774,6 @@ uint64_t IOABPControlClass::loggerTune(IOABPControlClass *this, unsigned int a2,
   input[3] = a5;
   v10 = IOConnectCallScalarMethod(*(this + 40), 3u, input, 4u, 0, 0);
   pthread_mutex_unlock((this + 8));
-  v11 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
@@ -1286,11 +1282,10 @@ void IOABPClass::interfaceMatched(IOABPClass *this, void *a2)
 
 uint64_t ___ZN10IOABPClass8start_nlEPKcP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES7_U13block_pointerFv12abpErrorTypejiE_block_invoke_3(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  return IOObjectRelease(v3);
+  return IOObjectRelease(v2);
 }
 
 uint64_t ___ZN10IOABPClass8start_nlEPKcP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES7_U13block_pointerFv12abpErrorTypejiE_block_invoke_4(uint64_t a1, io_iterator_t iterator)
@@ -1321,11 +1316,10 @@ uint64_t ___ZN10IOABPClass8start_nlEPKcP11__CFRunLoopP16dispatch_queue_sU13block
 
 uint64_t ___ZN10IOABPClass8start_nlEPKcP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES7_U13block_pointerFv12abpErrorTypejiE_block_invoke_5(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  return IOObjectRelease(v3);
+  return IOObjectRelease(v2);
 }
 
 uint64_t IOABPClass::close_nl(IOABPClass *this)
@@ -1586,7 +1580,6 @@ uint64_t IOABPClass::write(IOABPClass *this, const void *a2, unsigned int a3)
   input[1] = 0;
   v6 = IOConnectCallMethod(*(this + 39), 2u, input, 2u, a2, a3, 0, 0, 0, 0);
   pthread_mutex_unlock((this + 16));
-  v7 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -1609,7 +1602,6 @@ uint64_t IOABPClass::read(IOABPClass *this, void *a2, unsigned int *a3)
   }
 
   pthread_mutex_unlock((this + 16));
-  v7 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -1626,12 +1618,12 @@ uint64_t IOABPClass::sendImage(IOABPClass *this, const void *a2, unsigned int a3
   input[0] = 0;
   input[1] = 0;
   output = 0;
-  v13 = 0;
+  v12 = 0;
   v8 = IOConnectCallMethod(*(this + 39), 4u, input, 2u, a2, a3, &output, &outputCnt, 0, 0);
   if (!v8)
   {
     *a4 = output;
-    v8 = v13;
+    v8 = v12;
   }
 
   if ((*(this + 8) & 2) != 0)
@@ -1640,19 +1632,18 @@ uint64_t IOABPClass::sendImage(IOABPClass *this, const void *a2, unsigned int a3
   }
 
   pthread_mutex_unlock((this + 16));
-  v9 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
 uint64_t IOABPClass::sendImageAsync(IOABPClass *this, const void *a2, unsigned int a3, void (*a4)(void *, int, void *, void *), void *a5)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   *&v10 = 0xAAAAAAAAAAAAAAAALL;
   *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v22 = v10;
-  v23 = v10;
-  *reference = v10;
   v21 = v10;
+  v22 = v10;
+  *reference = v10;
+  v20 = v10;
   outputCnt = 2;
   pthread_mutex_lock((this + 16));
   if ((*(this + 8) & 2) != 0)
@@ -1668,7 +1659,7 @@ uint64_t IOABPClass::sendImageAsync(IOABPClass *this, const void *a2, unsigned i
     output[0] = 0;
     output[1] = 0;
     reference[1] = a4;
-    *&v21 = a5;
+    *&v20 = a5;
     v12 = *(this + 39);
     MachPort = IONotificationPortGetMachPort(v11);
     v14 = IOConnectCallAsyncScalarMethod(v12, 4u, MachPort, reference, 3u, input, 2u, output, &outputCnt);
@@ -1683,10 +1674,9 @@ uint64_t IOABPClass::sendImageAsync(IOABPClass *this, const void *a2, unsigned i
     }
 
     pthread_mutex_unlock((this + 16));
-    v14 = 3758097112;
+    return 3758097112;
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
@@ -1699,28 +1689,27 @@ uint64_t IOABPClass::readRegister(IOABPClass *this, unsigned int a2, void *a3, u
     syslog(5, "IOABPClass::%s: reg %u, buff %p, size %u\n", "readRegister", a2, a3, *a4);
   }
 
-  v11 = *a4;
+  v10 = *a4;
   input[0] = a2;
-  v8 = IOConnectCallMethod(*(this + 39), 5u, input, 1u, 0, 0, 0, 0, a3, &v11);
+  v8 = IOConnectCallMethod(*(this + 39), 5u, input, 1u, 0, 0, 0, 0, a3, &v10);
   if (!v8)
   {
-    *a4 = v11;
+    *a4 = v10;
   }
 
   pthread_mutex_unlock((this + 16));
-  v9 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
 uint64_t IOABPClass::abortChannelAsync(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v19 = v8;
-  v20 = v8;
-  *reference = v8;
   v18 = v8;
+  v19 = v8;
+  *reference = v8;
+  v17 = v8;
   input[1] = 0xAAAAAAAAAAAAAAAALL;
   pthread_mutex_lock((a1 + 16));
   if ((*(a1 + 8) & 2) != 0)
@@ -1743,7 +1732,7 @@ uint64_t IOABPClass::abortChannelAsync(uint64_t a1, unsigned int a2, uint64_t a3
   {
     input[0] = a2;
     reference[1] = a3;
-    *&v18 = a4;
+    *&v17 = a4;
     v11 = *(a1 + 156);
     MachPort = IONotificationPortGetMachPort(v10);
     v13 = IOConnectCallAsyncScalarMethod(v11, 6u, MachPort, reference, 3u, input, 1u, 0, 0);
@@ -1758,22 +1747,21 @@ uint64_t IOABPClass::abortChannelAsync(uint64_t a1, unsigned int a2, uint64_t a3
     }
 
     pthread_mutex_unlock((a1 + 16));
-    v13 = 3758097112;
+    return 3758097112;
   }
 
-  v14 = *MEMORY[0x29EDCA608];
   return v13;
 }
 
 uint64_t IOABPClass::startChannelAsync(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v19 = v8;
-  v20 = v8;
-  *reference = v8;
   v18 = v8;
+  v19 = v8;
+  *reference = v8;
+  v17 = v8;
   input[1] = 0xAAAAAAAAAAAAAAAALL;
   pthread_mutex_lock((a1 + 16));
   if ((*(a1 + 8) & 2) != 0)
@@ -1796,7 +1784,7 @@ uint64_t IOABPClass::startChannelAsync(uint64_t a1, unsigned int a2, uint64_t a3
   {
     input[0] = a2;
     reference[1] = a3;
-    *&v18 = a4;
+    *&v17 = a4;
     v11 = *(a1 + 156);
     MachPort = IONotificationPortGetMachPort(v10);
     v13 = IOConnectCallAsyncScalarMethod(v11, 7u, MachPort, reference, 3u, input, 1u, 0, 0);
@@ -1811,22 +1799,21 @@ uint64_t IOABPClass::startChannelAsync(uint64_t a1, unsigned int a2, uint64_t a3
     }
 
     pthread_mutex_unlock((a1 + 16));
-    v13 = 3758097112;
+    return 3758097112;
   }
 
-  v14 = *MEMORY[0x29EDCA608];
   return v13;
 }
 
 uint64_t IOABPClass::timeSyncAsync(IOABPClass *this, unsigned int a2, void *a3, unsigned int a4, void (*a5)(void *, int, void *), void *a6)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   *&v12 = 0xAAAAAAAAAAAAAAAALL;
   *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v22 = v12;
-  v23 = v12;
-  *reference = v12;
   v21 = v12;
+  v22 = v12;
+  *reference = v12;
+  v20 = v12;
   pthread_mutex_lock((this + 16));
   if ((*(this + 8) & 2) != 0)
   {
@@ -1840,7 +1827,7 @@ uint64_t IOABPClass::timeSyncAsync(IOABPClass *this, unsigned int a2, void *a3, 
     input[1] = a3;
     input[2] = a4;
     reference[1] = a5;
-    *&v21 = a6;
+    *&v20 = a6;
     v14 = *(this + 39);
     MachPort = IONotificationPortGetMachPort(v13);
     v16 = IOConnectCallAsyncScalarMethod(v14, 8u, MachPort, reference, 3u, input, 3u, 0, 0);
@@ -1855,27 +1842,26 @@ uint64_t IOABPClass::timeSyncAsync(IOABPClass *this, unsigned int a2, void *a3, 
     }
 
     pthread_mutex_unlock((this + 16));
-    v16 = 3758097112;
+    return 3758097112;
   }
 
-  v17 = *MEMORY[0x29EDCA608];
   return v16;
 }
 
 uint64_t IOABPClass::mapMemoryAsync(IOABPClass *this, unsigned int a2, uint64_t a3, unsigned int a4, void (*a5)(void *, int), void *a6)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
   *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v17 = v7;
   v18 = v7;
-  v19 = v7;
-  v17 = 0xAAAAAAAAAAAAAAAALL;
+  v16 = 0xAAAAAAAAAAAAAAAALL;
   reference[0] = 0xAAAAAAAAAAAAAAAALL;
   input[0] = a2;
   input[1] = a3;
   input[2] = a4;
   reference[1] = a5;
-  v16 = a6;
+  v15 = a6;
   if ((*(this + 8) & 2) != 0)
   {
     syslog(5, "IOABPClass::%s: region %u, size %u\n", "mapMemoryAsync", a2, a4);
@@ -1899,25 +1885,24 @@ uint64_t IOABPClass::mapMemoryAsync(IOABPClass *this, unsigned int a2, uint64_t 
     }
 
     pthread_mutex_unlock((this + 16));
-    v11 = 3758097112;
+    return 3758097112;
   }
 
-  v12 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
 uint64_t IOABPClass::unmapMemoryAsync(IOABPClass *this, unsigned int a2, void (*a3)(void *, int), void *a4)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v15 = v5;
   v16 = v5;
-  v17 = v5;
-  v15 = 0xAAAAAAAAAAAAAAAALL;
+  v14 = 0xAAAAAAAAAAAAAAAALL;
   reference[0] = 0xAAAAAAAAAAAAAAAALL;
   input = a2;
   reference[1] = a3;
-  v14 = a4;
+  v13 = a4;
   if ((*(this + 8) & 2) != 0)
   {
     syslog(5, "IOABPClass::%s: region %u\n", "unmapMemoryAsync", a2);
@@ -1941,29 +1926,28 @@ uint64_t IOABPClass::unmapMemoryAsync(IOABPClass *this, unsigned int a2, void (*
     }
 
     pthread_mutex_unlock((this + 16));
-    v9 = 3758097112;
+    return 3758097112;
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
 uint64_t IOABPClass::registerTimeEvent(IOABPClass *this, unsigned int a2, void (*a3)(void *, int, void **, unsigned int), void *a4)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 16));
   v8 = *(this + 12);
   if (v8)
   {
     *&v9 = 0xAAAAAAAAAAAAAAAALL;
     *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v18 = 0xAAAAAAAAAAAAAAAALL;
+    v17 = 0xAAAAAAAAAAAAAAAALL;
     reference[0] = 0xAAAAAAAAAAAAAAAALL;
+    v18 = v9;
     v19 = v9;
-    v20 = v9;
     input = a2;
     reference[1] = a3;
-    v17 = a4;
+    v16 = a4;
     v10 = *(this + 39);
     MachPort = IONotificationPortGetMachPort(v8);
     v12 = IOConnectCallAsyncScalarMethod(v10, 0xBu, MachPort, reference, 3u, &input, 1u, 0, 0);
@@ -1973,29 +1957,28 @@ uint64_t IOABPClass::registerTimeEvent(IOABPClass *this, unsigned int a2, void (
   else
   {
     pthread_mutex_unlock((this + 16));
-    v12 = 3758097112;
+    return 3758097112;
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return v12;
 }
 
 uint64_t IOABPClass::deregisterTimeEvent(IOABPClass *this, unsigned int a2, void (*a3)(void *, int), void *a4)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 16));
   v8 = *(this + 12);
   if (v8)
   {
     *&v9 = 0xAAAAAAAAAAAAAAAALL;
     *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v18 = 0xAAAAAAAAAAAAAAAALL;
+    v17 = 0xAAAAAAAAAAAAAAAALL;
     reference[0] = 0xAAAAAAAAAAAAAAAALL;
+    v18 = v9;
     v19 = v9;
-    v20 = v9;
     input = a2;
     reference[1] = a3;
-    v17 = a4;
+    v16 = a4;
     v10 = *(this + 39);
     MachPort = IONotificationPortGetMachPort(v8);
     v12 = IOConnectCallAsyncScalarMethod(v10, 0xCu, MachPort, reference, 3u, &input, 1u, 0, 0);
@@ -2005,10 +1988,9 @@ uint64_t IOABPClass::deregisterTimeEvent(IOABPClass *this, unsigned int a2, void
   else
   {
     pthread_mutex_unlock((this + 16));
-    v12 = 3758097112;
+    return 3758097112;
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return v12;
 }
 
@@ -2395,12 +2377,12 @@ uint64_t IOABPTraceClass::readLogsAsync(IOABPTraceClass *this, unsigned int a2, 
     input[3] = a5;
     *&v15 = 0xAAAAAAAAAAAAAAAALL;
     *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v23 = 0xAAAAAAAAAAAAAAAALL;
+    v22 = 0xAAAAAAAAAAAAAAAALL;
     reference[0] = 0xAAAAAAAAAAAAAAAALL;
+    v23 = v15;
     v24 = v15;
-    v25 = v15;
     reference[1] = a6;
-    v22 = a7;
+    v21 = a7;
     v16 = *(this + 19);
     MachPort = IONotificationPortGetMachPort(v14);
     v18 = IOConnectCallAsyncScalarMethod(v16, 0, MachPort, reference, 3u, input, 4u, 0, 0);
@@ -2415,10 +2397,9 @@ uint64_t IOABPTraceClass::readLogsAsync(IOABPTraceClass *this, unsigned int a2, 
     }
 
     pthread_mutex_unlock((this + 8));
-    v18 = 3758097112;
+    return 3758097112;
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return v18;
 }
 
@@ -2467,12 +2448,12 @@ uint64_t IOABPTraceClass::flushTraceBuffers(IOABPTraceClass *this, unsigned int 
     {
       *&v11 = 0xAAAAAAAAAAAAAAAALL;
       *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v19 = 0xAAAAAAAAAAAAAAAALL;
+      v18 = 0xAAAAAAAAAAAAAAAALL;
       reference[0] = 0xAAAAAAAAAAAAAAAALL;
+      v19 = v11;
       v20 = v11;
-      v21 = v11;
       reference[1] = a4;
-      v18 = a5;
+      v17 = a5;
       MachPort = IONotificationPortGetMachPort(*(this + 13));
       v13 = IOConnectCallAsyncScalarMethod(v10, 1u, MachPort, reference, 3u, input, 2u, 0, 0);
     }
@@ -2494,10 +2475,9 @@ uint64_t IOABPTraceClass::flushTraceBuffers(IOABPTraceClass *this, unsigned int 
     }
 
     pthread_mutex_unlock((this + 8));
-    v14 = 3758097112;
+    return 3758097112;
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
@@ -2557,9 +2537,9 @@ BOOL IOABPTraceClass::getRegistryInfo(uint64_t a1, void *a2)
   }
 }
 
-uint64_t IOABPTraceClass::getTraceCode(uint64_t a1)
+uint64_t IOABPTraceClass::getTraceCode(uint64_t a1, unsigned int a2, uint64_t a3)
 {
-  v4 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   if ((*a1 & 2) != 0)
   {
     syslog(5, "IOABPTraceClass::%s: \n", "getTraceCode");
@@ -2577,7 +2557,6 @@ uint64_t IOABPTraceClass::getTraceCode(uint64_t a1)
   }
 
   pthread_mutex_unlock((a1 + 8));
-  v2 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -2588,7 +2567,7 @@ void sub_297994A20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2602,13 +2581,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -2706,16 +2685,16 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x29EDC9488], MEMORY[0x29EDC9370]);
 }
 
-uint64_t std::vector<IOABPTraceCodeAttachment>::__emplace_back_slow_path<IOABPTraceCodeAttachment>(uint64_t a1, __int128 *a2)
+uint64_t std::vector<IOABPTraceCodeAttachment>::__emplace_back_slow_path<IOABPTraceCodeAttachment>(uint64_t *a1, __int128 *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 5;
+  v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
   if ((v2 + 1) >> 59)
   {
     std::vector<IOABPTraceCodeAttachment>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 4 > v3)
   {
     v3 = v6 >> 4;
@@ -2749,14 +2728,14 @@ uint64_t std::vector<IOABPTraceCodeAttachment>::__emplace_back_slow_path<IOABPTr
   *a2 = 0;
   *(v8 + 24) = *(a2 + 6);
   *&v18 = 32 * v2 + 32;
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   v11 = 32 * v2 + *a1 - v10;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<IOABPTraceCodeAttachment>,IOABPTraceCodeAttachment*>(a1, *a1, v10, v11);
   v12 = *a1;
   *a1 = v11;
-  v13 = *(a1 + 16);
+  v13 = a1[2];
   v15 = v18;
-  *(a1 + 8) = v18;
+  *(a1 + 1) = v18;
   *&v18 = v12;
   *(&v18 + 1) = v13;
   v16 = v12;
@@ -2765,9 +2744,9 @@ uint64_t std::vector<IOABPTraceCodeAttachment>::__emplace_back_slow_path<IOABPTr
   return v15;
 }
 
-void sub_297994EBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_297994EBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__split_buffer<IOABPTraceCodeAttachment>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }

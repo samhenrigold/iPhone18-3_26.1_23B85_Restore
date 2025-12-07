@@ -3,7 +3,9 @@
 - (SKManagerOperation)init;
 - (id)redactedDescription;
 - (id)validateWithRecachedDisk:(id)disk error:(id)error;
+- (void)dmAsyncFinishedForDisk:(__DADisk *)disk mainError:(int)error detailError:(int)detailError dictionary:(id)dictionary;
 - (void)dmAsyncMessageForDisk:(__DADisk *)disk string:(id)string dictionary:(id)dictionary;
+- (void)dmAsyncProgressForDisk:(__DADisk *)disk barberPole:(BOOL)pole percent:(float)percent;
 - (void)dmAsyncStartedForDisk:(__DADisk *)disk;
 - (void)finished;
 @end
@@ -52,6 +54,19 @@
   }
 }
 
+- (void)dmAsyncProgressForDisk:(__DADisk *)disk barberPole:(BOOL)pole percent:(float)percent
+{
+  v7 = [(SKManagerOperation *)self progressHandler:disk];
+
+  if (v7)
+  {
+    *&v8 = percent;
+    [(SKManagerOperation *)self setProgress:v8];
+    progressHandler = [(SKManagerOperation *)self progressHandler];
+    progressHandler[2](progressHandler, 0, percent);
+  }
+}
+
 - (void)dmAsyncMessageForDisk:(__DADisk *)disk string:(id)string dictionary:(id)dictionary
 {
   stringCopy = string;
@@ -62,6 +77,20 @@
     progressHandler2 = [(SKManagerOperation *)self progressHandler];
     [(SKManagerOperation *)self progress];
     (progressHandler2)[2](progressHandler2, stringCopy);
+  }
+}
+
+- (void)dmAsyncFinishedForDisk:(__DADisk *)disk mainError:(int)error detailError:(int)detailError dictionary:(id)dictionary
+{
+  v7 = [(SKManagerOperation *)self progressHandler:disk];
+
+  if (v7)
+  {
+    LODWORD(v8) = 1120403456;
+    [(SKManagerOperation *)self setProgress:v8];
+    progressHandler = [(SKManagerOperation *)self progressHandler];
+    [(SKManagerOperation *)self progress];
+    progressHandler[2](progressHandler, 0);
   }
 }
 

@@ -72,31 +72,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    pending = self->_pending;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_accountInfoData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    cloudStoreIsSetup = self->_cloudStoreIsSetup;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_errorData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -165,7 +163,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 28);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 28) & 2) == 0)
@@ -173,7 +170,6 @@
       goto LABEL_23;
     }
 
-    v11 = *(equalCopy + 25);
     if (self->_pending)
     {
       if ((*(equalCopy + 25) & 1) == 0)
@@ -204,7 +200,6 @@
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 28);
   if ((has & 1) == 0)
   {
     if ((*(equalCopy + 28) & 1) == 0)
@@ -213,7 +208,7 @@
     }
 
 LABEL_23:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_24;
   }
 
@@ -222,7 +217,6 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v12 = *(equalCopy + 24);
   if (self->_cloudStoreIsSetup)
   {
     if ((*(equalCopy + 24) & 1) == 0)
@@ -240,17 +234,17 @@ LABEL_9:
   errorData = self->_errorData;
   if (errorData | *(equalCopy + 2))
   {
-    v10 = [(NSData *)errorData isEqual:?];
+    v8 = [(NSData *)errorData isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_24:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

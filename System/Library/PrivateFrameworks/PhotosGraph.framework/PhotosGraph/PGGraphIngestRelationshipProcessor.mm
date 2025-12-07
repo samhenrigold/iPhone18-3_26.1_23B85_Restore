@@ -119,33 +119,27 @@ LABEL_11:
 
 - (unint64_t)relationshipForRelationshipTag:(unint64_t)tag
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = tag - 1;
   if (tag - 1 < 0xD && ((0x1EFFu >> v4) & 1) != 0)
   {
-    result = qword_22F78CAE8[v4];
+    return qword_22F78CAE8[v4];
   }
 
-  else
+  v6 = +[PGLogging sharedLogging];
+  loggingConnection = [v6 loggingConnection];
+
+  if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
   {
-    v6 = +[PGLogging sharedLogging];
-    loggingConnection = [v6 loggingConnection];
-
-    if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
-    {
-      v8 = [PGGraphPersonRelationshipTagNode labelForRelationshipTag:tag];
-      v10 = 134218242;
-      tagCopy = tag;
-      v12 = 2112;
-      v13 = v8;
-      _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[PGGraphIngestRelationshipProcessor] Encountered unmapped entity tag %lu (%@) during relationship ingest", &v10, 0x16u);
-    }
-
-    result = 0;
+    v8 = [PGGraphPersonRelationshipTagNode labelForRelationshipTag:tag];
+    v9 = 134218242;
+    tagCopy = tag;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[PGGraphIngestRelationshipProcessor] Encountered unmapped entity tag %lu (%@) during relationship ingest", &v9, 0x16u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (id)tagRelationshipByPersonForPersonNodes:(id)nodes
@@ -232,29 +226,29 @@ void __76__PGGraphIngestRelationshipProcessor_tagRelationshipByPersonForPersonNo
 
 void __88__PGGraphIngestRelationshipProcessor_insertRelationshipEdgesForRelationshipTags_meNode___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * v10) unsignedIntegerValue];
+        v11 = [*(*(&v13 + 1) + 8 * v10) unsignedIntegerValue];
         v12 = [PGGraphRelationshipEdge propertiesWithRelationshipSource:1];
         [*(*(a1 + 32) + 8) addRelationshipEdgesBetweenPersonNode:*(a1 + 40) andPersonNode:v5 forRelationship:v11 confidence:v12 properties:0.99];
 
@@ -262,18 +256,16 @@ void __88__PGGraphIngestRelationshipProcessor_insertRelationshipEdgesForRelation
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runWithGraphUpdate:(id)update progressBlock:(id)block
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   blockCopy = block;
   graph = [(PGGraphBuilder *)self->_graphBuilder graph];
@@ -281,7 +273,7 @@ void __88__PGGraphIngestRelationshipProcessor_insertRelationshipEdgesForRelation
   v10 = os_signpost_id_generate(loggingConnection);
   v11 = loggingConnection;
   v12 = v11;
-  v54 = v10 - 1;
+  v53 = v10 - 1;
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
@@ -290,7 +282,7 @@ void __88__PGGraphIngestRelationshipProcessor_insertRelationshipEdgesForRelation
 
   info = 0;
   mach_timebase_info(&info);
-  v51 = mach_absolute_time();
+  v50 = mach_absolute_time();
   if ([updateCopy isResumingFullAnalysis])
   {
     v13 = [(PGGraphIngestRelationshipProcessor *)self _personNodesToAnalyzeInGraph:graph];
@@ -306,7 +298,7 @@ void __88__PGGraphIngestRelationshipProcessor_insertRelationshipEdgesForRelation
   if ([(MAElementCollection *)v13 count])
   {
     spid = v10;
-    v50 = updateCopy;
+    v49 = updateCopy;
     [(PGGraphIngestRelationshipProcessor *)self removeInferredRelationshipEdgesForPersonNodes:v13 inGraph:graph];
     v16 = [PGGraphRelationshipProcessor alloc];
     serviceManager = [(PGGraphBuilder *)self->_graphBuilder serviceManager];
@@ -314,31 +306,31 @@ void __88__PGGraphIngestRelationshipProcessor_insertRelationshipEdgesForRelation
     v19 = v12;
     v20 = v18;
 
-    v48 = v19;
-    v49 = blockCopy;
+    v47 = v19;
+    v48 = blockCopy;
     [v20 runRelationshipAnalysisWithLoggingConnection:v19 progressBlock:blockCopy];
     meNode = [graph meNode];
     LOBYTE(serviceManager) = +[PGUserDefaults isRelationshipSignalPropertiesIngestAllowed];
     v22 = +[PGUserDefaults isRelationshipFilteredOutInferencesIngestAllowed];
-    v53 = graph;
-    v47 = [(PGGraphNodeCollection *)PGGraphPersonNodeCollection nodesInGraph:graph];
-    personNodeByLocalIdentifier = [v47 personNodeByLocalIdentifier];
+    v52 = graph;
+    v46 = [(PGGraphNodeCollection *)PGGraphPersonNodeCollection nodesInGraph:graph];
+    personNodeByLocalIdentifier = [v46 personNodeByLocalIdentifier];
     v24 = [(PGGraphIngestRelationshipProcessor *)self tagRelationshipByPersonForPersonNodes:v13];
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = __71__PGGraphIngestRelationshipProcessor_runWithGraphUpdate_progressBlock___block_invoke;
-    v58[3] = &unk_278886300;
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __71__PGGraphIngestRelationshipProcessor_runWithGraphUpdate_progressBlock___block_invoke;
+    v57[3] = &unk_278886300;
     v25 = personNodeByLocalIdentifier;
-    v63 = v22;
-    v64 = serviceManager;
-    v59 = v25;
+    v62 = v22;
+    v63 = serviceManager;
+    v58 = v25;
     selfCopy = self;
     v26 = meNode;
-    v61 = v26;
+    v60 = v26;
     v27 = v24;
-    v62 = v27;
-    v52 = v20;
-    [v20 enumerateInferredRelationshipsUsingBlock:v58];
+    v61 = v27;
+    v51 = v20;
+    [v20 enumerateInferredRelationshipsUsingBlock:v57];
     if ([v27 count])
     {
       [(PGGraphIngestRelationshipProcessor *)self insertRelationshipEdgesForRelationshipTags:v27 meNode:v26];
@@ -351,24 +343,24 @@ void __88__PGGraphIngestRelationshipProcessor_insertRelationshipEdgesForRelation
 
     [(PGGraphBuilder *)self->_graphBuilder insertStorytellingRelationshipsWithRelationshipsForPersonNodes:v31 meNode:v26];
     v32 = [(MAElementCollection *)v13 collectionBySubtracting:v31];
-    [(PGGraphIngestRelationshipProcessor *)self removeStorytellingRelationshipEdgesForPersonNodes:v32 inGraph:v53];
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __71__PGGraphIngestRelationshipProcessor_runWithGraphUpdate_progressBlock___block_invoke_2;
-    v55[3] = &unk_278886328;
+    [(PGGraphIngestRelationshipProcessor *)self removeStorytellingRelationshipEdgesForPersonNodes:v32 inGraph:v52];
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __71__PGGraphIngestRelationshipProcessor_runWithGraphUpdate_progressBlock___block_invoke_2;
+    v54[3] = &unk_278886328;
     v33 = v25;
-    v56 = v33;
+    v55 = v33;
     v34 = v28;
-    v57 = v34;
-    [v20 enumerateHighRecallInferredRelationshipsExcludingPersonNodes:v31 usingBlock:v55];
+    v56 = v34;
+    [v20 enumerateHighRecallInferredRelationshipsExcludingPersonNodes:v31 usingBlock:v54];
     [(PGGraphBuilder *)self->_graphBuilder addStorytellingRelationshipsToMeNode:v26 relationshipByPerson:v34];
     v35 = mach_absolute_time();
     numer = info.numer;
     denom = info.denom;
-    v12 = v48;
-    v38 = v48;
+    v12 = v47;
+    v38 = v47;
     v39 = v38;
-    if (v54 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
+    if (v53 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
     {
       *buf = 0;
       _os_signpost_emit_with_name_impl(&dword_22F0FC000, v39, OS_SIGNPOST_INTERVAL_END, spid, "PGGraphIngestRelationshipProcessor", "", buf, 2u);
@@ -377,15 +369,15 @@ void __88__PGGraphIngestRelationshipProcessor_insertRelationshipEdgesForRelation
     if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v67 = "PGGraphIngestRelationshipProcessor";
-      v68 = 2048;
-      v69 = ((((v35 - v51) * numer) / denom) / 1000000.0);
+      v66 = "PGGraphIngestRelationshipProcessor";
+      v67 = 2048;
+      v68 = ((((v35 - v50) * numer) / denom) / 1000000.0);
       _os_log_impl(&dword_22F0FC000, v39, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
 
-    blockCopy = v49;
-    updateCopy = v50;
-    graph = v53;
+    blockCopy = v48;
+    updateCopy = v49;
+    graph = v52;
   }
 
   else
@@ -395,7 +387,7 @@ void __88__PGGraphIngestRelationshipProcessor_insertRelationshipEdgesForRelation
     v41 = info.denom;
     v43 = v12;
     v44 = v43;
-    if (v54 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
+    if (v53 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
     {
       *buf = 0;
       _os_signpost_emit_with_name_impl(&dword_22F0FC000, v44, OS_SIGNPOST_INTERVAL_END, v10, "PGGraphIngestRelationshipProcessor", "", buf, 2u);
@@ -404,14 +396,12 @@ void __88__PGGraphIngestRelationshipProcessor_insertRelationshipEdgesForRelation
     if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v67 = "PGGraphIngestRelationshipProcessor";
-      v68 = 2048;
-      v69 = ((((v40 - v51) * v42) / v41) / 1000000.0);
+      v66 = "PGGraphIngestRelationshipProcessor";
+      v67 = 2048;
+      v68 = ((((v40 - v50) * v42) / v41) / 1000000.0);
       _os_log_impl(&dword_22F0FC000, v44, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __71__PGGraphIngestRelationshipProcessor_runWithGraphUpdate_progressBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, double a5)

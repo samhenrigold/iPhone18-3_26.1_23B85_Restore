@@ -17,11 +17,11 @@
 
   swift_unknownObjectRetain();
   selfCopy = self;
-  v5 = PhotosGridViewControllerAvatarDecorationDataSource.userData(for:)();
+  v6 = PhotosGridViewControllerAvatarDecorationDataSource.userData(for:)(asset);
 
   swift_unknownObjectRelease();
 
-  return v5;
+  return v6;
 }
 
 - (_TtC20CommunicationDetails50PhotosGridViewControllerAvatarDecorationDataSource)init

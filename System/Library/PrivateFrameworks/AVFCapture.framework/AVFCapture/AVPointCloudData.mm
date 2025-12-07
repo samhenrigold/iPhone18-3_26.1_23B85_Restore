@@ -163,7 +163,7 @@
       v6 = CFAutorelease(v6);
     }
 
-    v4->_projectorMode = [objc_msgSend(v6 objectForKeyedSubscript:{*MEMORY[0x1E6991138]), "intValue"}];
+    v4->_projectorMode = [objc_msgSend_objectForKeyedSubscript_(v6) intValue];
   }
 
   return v4;

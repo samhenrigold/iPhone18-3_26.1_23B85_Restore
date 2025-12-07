@@ -49,38 +49,13 @@
   statusCopy = status;
   eventClock = [(CPNowPlayingSportsEventStatus *)self eventClock];
 
-  if (eventClock)
+  if (eventClock && (-[CPNowPlayingSportsEventStatus eventClock](self, "eventClock"), v6 = objc_claimAutoreleasedReturnValue(), [statusCopy eventClock], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "isEqual:", v7), v7, v6, !v8) || (-[CPNowPlayingSportsEventStatus eventStatusText](self, "eventStatusText"), v9 = objc_claimAutoreleasedReturnValue(), v9, v9) && (-[CPNowPlayingSportsEventStatus eventStatusText](self, "eventStatusText"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(statusCopy, "eventStatusText"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "isEqualToArray:", v11), v11, v10, !v12))
   {
-    eventClock2 = [(CPNowPlayingSportsEventStatus *)self eventClock];
-    eventClock3 = [statusCopy eventClock];
-    v8 = [eventClock2 isEqual:eventClock3];
-
-    if (!v8)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  eventStatusText = [(CPNowPlayingSportsEventStatus *)self eventStatusText];
-
-  if (!eventStatusText)
-  {
-    goto LABEL_5;
-  }
-
-  eventStatusText2 = [(CPNowPlayingSportsEventStatus *)self eventStatusText];
-  eventStatusText3 = [statusCopy eventStatusText];
-  v12 = [eventStatusText2 isEqualToArray:eventStatusText3];
-
-  if (!v12)
-  {
-LABEL_7:
     v16 = 0;
   }
 
   else
   {
-LABEL_5:
     eventStatusImage = [(CPNowPlayingSportsEventStatus *)self eventStatusImage];
 
     if (eventStatusImage)

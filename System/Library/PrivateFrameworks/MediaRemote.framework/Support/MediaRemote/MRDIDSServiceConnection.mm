@@ -113,29 +113,25 @@
   selfCopy = self;
   objc_sync_enter(selfCopy);
   [v3 appendFormat:@" deviceUID = %@\n", selfCopy->_deviceUID];
-  device = selfCopy->_device;
-  v6 = MRCreateIndentedDebugDescriptionFromObject();
-  [v3 appendFormat:@" device = %@\n", v6];
+  v5 = MRCreateIndentedDebugDescriptionFromObject();
+  [v3 appendFormat:@" device = %@\n", v5];
 
   [v3 appendFormat:@" service = %@\n", selfCopy->_mrService];
-  messageHandlers = selfCopy->_messageHandlers;
+  v6 = MRCreateIndentedDebugDescriptionFromObject();
+  [v3 appendFormat:@" messageHandlers = %@\n", v6];
+
+  v7 = MRCreateIndentedDebugDescriptionFromObject();
+  [v3 appendFormat:@" destinationMessageHandlers = %@\n", v7];
+
   v8 = MRCreateIndentedDebugDescriptionFromObject();
-  [v3 appendFormat:@" messageHandlers = %@\n", v8];
-
-  destinationMessageHandlers = selfCopy->_destinationMessageHandlers;
-  v10 = MRCreateIndentedDebugDescriptionFromObject();
-  [v3 appendFormat:@" destinationMessageHandlers = %@\n", v10];
-
-  responseHandlers = selfCopy->_responseHandlers;
-  v12 = MRCreateIndentedDebugDescriptionFromObject();
-  [v3 appendFormat:@" responseMessageHandlers = %@\n", v12];
+  [v3 appendFormat:@" responseMessageHandlers = %@\n", v8];
 
   [v3 appendFormat:@" deviceMessageHandler = %@\n", selfCopy->_serviceHandlerToken];
-  v13 = objc_retainBlock(selfCopy->_invalidationHandler);
-  [v3 appendFormat:@" invalidationHandler = %@\n", v13];
+  v9 = objc_retainBlock(selfCopy->_invalidationHandler);
+  [v3 appendFormat:@" invalidationHandler = %@\n", v9];
 
-  v14 = objc_retainBlock(selfCopy->_connectionHandler);
-  [v3 appendFormat:@" connectionHandler = %@\n", v14];
+  v10 = objc_retainBlock(selfCopy->_connectionHandler);
+  [v3 appendFormat:@" connectionHandler = %@\n", v10];
 
   objc_sync_exit(selfCopy);
   [v3 appendFormat:@"}>"];

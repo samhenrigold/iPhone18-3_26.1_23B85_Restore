@@ -19,45 +19,45 @@
 - (void)setExpressionNode:(id)node
 {
   nodeCopy = node;
-  objc_msgSend_willModify(self, v5, v6, v7, v8);
+  objc_msgSend_willModify(self, v5, v6, v7);
   expressionNode = self->_expressionNode;
   if (expressionNode != nodeCopy)
   {
-    objc_msgSend_setTokenAttachment_(expressionNode, nodeCopy, 0, v9, v10);
+    objc_msgSend_setTokenAttachment_(expressionNode, nodeCopy, 0, v8);
     objc_storeStrong(&self->_expressionNode, node);
-    objc_msgSend_setTokenAttachment_(self->_expressionNode, v12, self, v13, v14);
-    objc_msgSend_invalidate(self, v15, v16, v17, v18);
+    objc_msgSend_setTokenAttachment_(self->_expressionNode, v10, self, v11);
+    objc_msgSend_invalidate(self, v12, v13, v14);
   }
 }
 
 - (TSTWPTokenAttachment)initWithContext:(id)context expressionNode:(id)node
 {
   nodeCopy = node;
-  v21.receiver = self;
-  v21.super_class = TSTWPTokenAttachment;
-  v8 = [(TSTWPTokenAttachment *)&v21 initWithContext:context];
+  v19.receiver = self;
+  v19.super_class = TSTWPTokenAttachment;
+  v8 = [(TSTWPTokenAttachment *)&v19 initWithContext:context];
   v9 = v8;
   if (v8)
   {
     objc_storeStrong(&v8->_expressionNode, node);
-    v14 = objc_msgSend_tokenAttachment(v9->_expressionNode, v10, v11, v12, v13);
-    v18 = v14;
-    if (v14)
+    v13 = objc_msgSend_tokenAttachment(v9->_expressionNode, v10, v11, v12);
+    v16 = v13;
+    if (v13)
     {
-      v19 = v14 == v9;
+      v17 = v13 == v9;
     }
 
     else
     {
-      v19 = 1;
+      v17 = 1;
     }
 
-    if (!v19)
+    if (!v17)
     {
-      objc_msgSend_setExpressionNode_(v14, v15, 0, v16, v17);
+      objc_msgSend_setExpressionNode_(v13, v14, 0, v15);
     }
 
-    objc_msgSend_setTokenAttachment_(v9->_expressionNode, v15, v9, v16, v17);
+    objc_msgSend_setTokenAttachment_(v9->_expressionNode, v14, v9, v15);
     v9->_active = 0;
     v9->_cachedImage = 0;
   }
@@ -84,9 +84,9 @@
   contextCopy = context;
   v8 = objc_msgSend_copyIntoContext_bakeModes_children_(self->_expressionNode, v7, contextCopy, modesCopy, 0);
   v9 = objc_alloc(objc_opt_class());
-  v12 = objc_msgSend_initWithContext_expressionNode_(v9, v10, contextCopy, v8, v11);
+  v11 = objc_msgSend_initWithContext_expressionNode_(v9, v10, contextCopy, v8);
 
-  return v12;
+  return v11;
 }
 
 - (id)formulaPlainText
@@ -94,15 +94,15 @@
   expressionNode = self->_expressionNode;
   if (expressionNode)
   {
-    v7 = objc_msgSend_formulaPlainText(expressionNode, a2, v2, v3, v4);
+    v6 = objc_msgSend_formulaPlainText(expressionNode, a2, v2, v3);
   }
 
   else
   {
-    v7 = &stru_2834BADA0;
+    v6 = &stru_2834BADA0;
   }
 
-  return v7;
+  return v6;
 }
 
 - (id)detokenizedText
@@ -110,15 +110,15 @@
   expressionNode = self->_expressionNode;
   if (expressionNode)
   {
-    v7 = objc_msgSend_detokenizedText(expressionNode, a2, v2, v3, v4);
+    v6 = objc_msgSend_detokenizedText(expressionNode, a2, v2, v3);
   }
 
   else
   {
-    v7 = &stru_2834BADA0;
+    v6 = &stru_2834BADA0;
   }
 
-  return v7;
+  return v6;
 }
 
 - (void)setCachedImage:(CGImage *)image
@@ -141,25 +141,25 @@
   if (!self->_inInvalidate)
   {
     self->_inInvalidate = 1;
-    objc_msgSend_setCachedImage_(self, a2, 0, v2, v3);
-    v47.receiver = self;
-    v47.super_class = TSTWPTokenAttachment;
-    [(TSWPUIGraphicalAttachment *)&v47 invalidate];
-    if (objc_msgSend_tokenType(self->_expressionNode, v5, v6, v7, v8) == 1)
+    objc_msgSend_setCachedImage_(self, a2, 0, v2);
+    v37.receiver = self;
+    v37.super_class = TSTWPTokenAttachment;
+    [(TSWPUIGraphicalAttachment *)&v37 invalidate];
+    if (objc_msgSend_tokenType(self->_expressionNode, v4, v5, v6) == 1)
     {
       objc_opt_class();
-      v17 = objc_msgSend_expressionNode(self, v13, v14, v15, v16);
-      v18 = TSUDynamicCast();
+      v13 = objc_msgSend_expressionNode(self, v10, v11, v12);
+      v14 = TSUDynamicCast();
 
-      v23 = objc_msgSend_functionEndNode(v18, v19, v20, v21, v22);
-      v28 = objc_msgSend_tokenAttachment(v23, v24, v25, v26, v27);
+      v18 = objc_msgSend_functionEndNode(v14, v15, v16, v17);
+      v22 = objc_msgSend_tokenAttachment(v18, v19, v20, v21);
     }
 
     else
     {
-      if (objc_msgSend_tokenType(self->_expressionNode, v9, v10, v11, v12) != 2)
+      if (objc_msgSend_tokenType(self->_expressionNode, v7, v8, v9) != 2)
       {
-        v42 = 0;
+        v33 = 0;
 LABEL_9:
         self->_inInvalidate = 0;
 
@@ -167,18 +167,18 @@ LABEL_9:
       }
 
       objc_opt_class();
-      v33 = objc_msgSend_expressionNode(self, v29, v30, v31, v32);
-      v18 = TSUDynamicCast();
+      v26 = objc_msgSend_expressionNode(self, v23, v24, v25);
+      v14 = TSUDynamicCast();
 
-      v23 = objc_msgSend_functionNode(v18, v34, v35, v36, v37);
-      v28 = objc_msgSend_tokenAttachment(v23, v38, v39, v40, v41);
+      v18 = objc_msgSend_functionNode(v14, v27, v28, v29);
+      v22 = objc_msgSend_tokenAttachment(v18, v30, v31, v32);
     }
 
-    v42 = v28;
+    v33 = v22;
 
-    if (v42)
+    if (v33)
     {
-      objc_msgSend_invalidate(v42, v43, v44, v45, v46);
+      objc_msgSend_invalidate(v33, v34, v35, v36);
     }
 
     goto LABEL_9;
@@ -189,18 +189,18 @@ LABEL_9:
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[196], v5, v6);
+  v6 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[196], v5);
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v8, v7, unarchiverCopy, v9);
+  objc_msgSend_loadFromArchive_unarchiver_(self, v7, v6, unarchiverCopy);
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2213F3728, off_2812E4498[196], v5);
+  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2213F3728, off_2812E4498[196]);
 
-  objc_msgSend_saveToArchive_archiver_(self, v7, v6, archiverCopy, v8);
+  objc_msgSend_saveToArchive_archiver_(self, v6, v5, archiverCopy);
 }
 
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver
@@ -258,27 +258,27 @@ LABEL_9:
     *(archive + 3) = v7;
   }
 
-  v14.receiver = self;
-  v14.super_class = TSTWPTokenAttachment;
-  [(TSWPUIGraphicalAttachment *)&v14 saveToArchive:v7 archiver:archiverCopy];
+  v13.receiver = self;
+  v13.super_class = TSTWPTokenAttachment;
+  [(TSWPUIGraphicalAttachment *)&v13 saveToArchive:v7 archiver:archiverCopy];
   expressionNode = self->_expressionNode;
   if (expressionNode)
   {
     *(archive + 4) |= 2u;
-    v12 = *(archive + 4);
-    if (!v12)
+    v11 = *(archive + 4);
+    if (!v11)
     {
-      v13 = *(archive + 1);
-      if (v13)
+      v12 = *(archive + 1);
+      if (v12)
       {
-        v13 = *(v13 & 0xFFFFFFFFFFFFFFFELL);
+        v12 = *(v12 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v12 = MEMORY[0x223DA0390](v13);
-      *(archive + 4) = v12;
+      v11 = MEMORY[0x223DA0390](v12);
+      *(archive + 4) = v11;
     }
 
-    objc_msgSend_setStrongReference_message_(archiverCopy, v9, expressionNode, v12, v10);
+    objc_msgSend_setStrongReference_message_(archiverCopy, v9, expressionNode, v11);
   }
 }
 
@@ -288,20 +288,20 @@ LABEL_9:
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   active = self->_active;
-  v11 = objc_msgSend_description(self->_expressionNode, v7, v8, v9, v10);
-  v15 = v11;
+  v10 = objc_msgSend_description(self->_expressionNode, v7, v8, v9);
+  v13 = v10;
   if (active)
   {
-    objc_msgSend_stringWithFormat_(v3, v12, @"<%@ %p>: isActive:%@, expressionNode:%@", v13, v14, v5, self, @"YES", v11);
+    objc_msgSend_stringWithFormat_(v3, v11, @"<%@ %p>: isActive:%@, expressionNode:%@", v12, v5, self, @"YES", v10);
   }
 
   else
   {
-    objc_msgSend_stringWithFormat_(v3, v12, @"<%@ %p>: isActive:%@, expressionNode:%@", v13, v14, v5, self, @"NO", v11);
+    objc_msgSend_stringWithFormat_(v3, v11, @"<%@ %p>: isActive:%@, expressionNode:%@", v12, v5, self, @"NO", v10);
   }
-  v16 = ;
+  v14 = ;
 
-  return v16;
+  return v14;
 }
 
 @end

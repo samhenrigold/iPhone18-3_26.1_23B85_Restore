@@ -1,11 +1,11 @@
 @interface NSMutableSet(TSUAdditions)
-- (uint64_t)tsu_xorSet:()TSUAdditions;
 - (void)tsu_addNonNilObject:()TSUAdditions;
+- (void)tsu_xorSet:()TSUAdditions;
 @end
 
 @implementation NSMutableSet(TSUAdditions)
 
-- (uint64_t)tsu_xorSet:()TSUAdditions
+- (void)tsu_xorSet:()TSUAdditions
 {
   v15 = *MEMORY[0x277D85DE8];
   v10 = 0u;
@@ -38,7 +38,7 @@
           [self addObject:v9];
         }
 
-        ++v8;
+        v8 = v8 + 1;
       }
 
       while (v6 != v8);
@@ -56,10 +56,10 @@
 {
   if (a3)
   {
-    return [self addObject:?];
+    return [result addObject:?];
   }
 
-  return self;
+  return result;
 }
 
 @end

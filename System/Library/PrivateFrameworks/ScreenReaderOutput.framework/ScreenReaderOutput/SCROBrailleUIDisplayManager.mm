@@ -11,7 +11,9 @@
 - (void)_updateIsHidingViews;
 - (void)dismissAll;
 - (void)dismissLineForView:(id)view;
+- (void)display:(id)display forView:(id)view clearAtNextDotPress:(BOOL)press;
 - (void)hideViews;
+- (void)requestSpeech:(id)speech language:(id)language shouldQueue:(BOOL)queue;
 - (void)showFirstLineForView:(id)view;
 - (void)showLastLineForView:(id)view;
 - (void)showNextLineForView:(id)view;
@@ -58,6 +60,67 @@ uint64_t __44__SCROBrailleUIDisplayManager_sharedManager__block_invoke()
   }
 
   return v2;
+}
+
+- (void)requestSpeech:(id)speech language:(id)language shouldQueue:(BOOL)queue
+{
+  queueCopy = queue;
+  languageCopy = language;
+  speechCopy = speech;
+  speechDelegate = [(SCROBrailleUIDisplayManager *)self speechDelegate];
+  [speechDelegate requestSpeech:speechCopy language:languageCopy shouldQueue:queueCopy];
+}
+
+- (void)display:(id)display forView:(id)view clearAtNextDotPress:(BOOL)press
+{
+  pressCopy = press;
+  displayCopy = display;
+  viewCopy = view;
+  viewQueue = [(SCROBrailleUIDisplayManager *)self viewQueue];
+  v10 = [viewQueue containsObject:viewCopy];
+
+  if (v10)
+  {
+    lineQueue = [(SCROBrailleUIDisplayManager *)self lineQueue];
+    v12 = [lineQueue count];
+
+    if (v12)
+    {
+      v13 = 0;
+      do
+      {
+        viewQueue2 = [(SCROBrailleUIDisplayManager *)self viewQueue];
+        v15 = [viewQueue2 objectAtIndex:v13];
+        v16 = [v15 isEqual:viewCopy];
+
+        if (v16)
+        {
+          lineQueue2 = [(SCROBrailleUIDisplayManager *)self lineQueue];
+          [lineQueue2 replaceObjectAtIndex:v13 withObject:displayCopy];
+        }
+
+        ++v13;
+        lineQueue3 = [(SCROBrailleUIDisplayManager *)self lineQueue];
+        v19 = [lineQueue3 count];
+      }
+
+      while (v13 < v19);
+    }
+  }
+
+  else
+  {
+    [(SCROBrailleUIDisplayManager *)self _commitDisplayedBrailleToTopMostView];
+    viewQueue3 = [(SCROBrailleUIDisplayManager *)self viewQueue];
+    [viewQueue3 insertObject:viewCopy atIndex:0];
+
+    lineQueue4 = [(SCROBrailleUIDisplayManager *)self lineQueue];
+    [lineQueue4 insertObject:displayCopy atIndex:0];
+  }
+
+  [(SCROBrailleUIDisplayManager *)self _updateBrailleModel];
+  mEMORY[0x277CF3318] = [MEMORY[0x277CF3318] sharedModel];
+  [mEMORY[0x277CF3318] setClearAtNextDotPress:pressCopy];
 }
 
 - (void)dismissLineForView:(id)view

@@ -923,7 +923,7 @@ LABEL_19:
   *&retstr->ascent = 0u;
   v5 = objc_msgSend_ctFont(self, a3, v3);
 
-  sub_276D38FF4(v5, v6, v7, retstr);
+  sub_276D38FF4(v5, retstr, v6, v7);
   return result;
 }
 

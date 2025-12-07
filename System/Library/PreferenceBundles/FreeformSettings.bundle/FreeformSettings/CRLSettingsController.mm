@@ -10,21 +10,30 @@
 - (id)p_systemPolicySpecifiers;
 - (id)specifiers;
 - (void)p_emitNavigationEventForRoot;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation CRLSettingsController
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CRLSettingsController;
+  [(CRLSettingsController *)&v4 viewDidAppear:appear];
+  [(CRLSettingsController *)self p_emitNavigationEventForRoot];
+}
+
 - (void)p_emitNavigationEventForRoot
 {
-  v9 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.freeform"];
+  v10 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.freeform"];
   v3 = [_NSLocalizedStringResource alloc];
   v4 = +[NSLocale currentLocale];
   v5 = [NSBundle bundleForClass:objc_opt_class()];
   bundleURL = [v5 bundleURL];
   v7 = [v3 initWithKey:@"Freeform" table:@"SettingsStrings" locale:v4 bundleURL:bundleURL];
 
-  v8 = CRLAppBundleIdentifier();
-  [(CRLSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:v8 title:v7 localizedNavigationComponents:&__NSArray0__struct deepLink:v9];
+  v9 = CRLAppBundleIdentifier(v8);
+  [(CRLSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:v9 title:v7 localizedNavigationComponents:&__NSArray0__struct deepLink:v10];
 }
 
 - (id)specifiers
@@ -74,7 +83,7 @@
   if (!systemPolicy)
   {
     v4 = [PSSystemPolicyForApp alloc];
-    v5 = CRLAppBundleIdentifier();
+    v5 = CRLAppBundleIdentifier(v4);
     v6 = [v4 initWithBundleIdentifier:v5];
     v7 = self->_systemPolicy;
     self->_systemPolicy = v6;
@@ -224,8 +233,8 @@
   v13 = [v12 objectForKeyedSubscript:keyCopy];
 
   [v10 setObject:v13 forKeyedSubscript:PSDefaultValueKey];
-  v14 = CRLAppBundleIdentifier();
-  [v10 setObject:v14 forKeyedSubscript:PSDefaultsKey];
+  v15 = CRLAppBundleIdentifier(v14);
+  [v10 setObject:v15 forKeyedSubscript:PSDefaultsKey];
 
   return v10;
 }
@@ -248,8 +257,8 @@
   v22 = [v21 objectForKeyedSubscript:keyCopy];
 
   [v19 setObject:v22 forKeyedSubscript:PSDefaultValueKey];
-  v23 = CRLAppBundleIdentifier();
-  [v19 setObject:v23 forKeyedSubscript:PSDefaultsKey];
+  v24 = CRLAppBundleIdentifier(v23);
+  [v19 setObject:v24 forKeyedSubscript:PSDefaultsKey];
 
   [v19 setValues:valuesCopy titles:titlesCopy shortTitles:shortTitlesCopy usingLocalizedTitleSorting:0];
 

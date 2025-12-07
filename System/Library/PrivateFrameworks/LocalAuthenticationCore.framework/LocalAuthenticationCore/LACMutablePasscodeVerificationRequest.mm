@@ -89,7 +89,6 @@
 
   v5 = OBJC_IVAR___LACMutablePasscodeVerificationRequest_options;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 

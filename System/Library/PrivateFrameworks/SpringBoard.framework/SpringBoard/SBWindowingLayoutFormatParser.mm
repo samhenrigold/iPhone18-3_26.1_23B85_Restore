@@ -155,7 +155,7 @@ LABEL_20:
 id __86__SBWindowingLayoutFormatParser__createItemRequestWithFormat_bundleIdentifiers_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([*(a1 + 32) containsObject:v3])
+  if (objc_msgSend_containsObject_(*(a1 + 32)))
   {
     v4 = 6;
 LABEL_3:
@@ -571,9 +571,18 @@ LABEL_9:
 
 - (int64_t)_applyLayoutRole:(int64_t)role
 {
-  if (SBLayoutRoleAdditionalSideRangeMax() <= role || SBLayoutRoleIsValidForSplitView(role) && SBLayoutRoleAdditionalSideRangeMax() > role)
+  if (SBLayoutRoleAdditionalSideRangeMax(self, a2) <= role)
   {
     return role;
+  }
+
+  IsValidForSplitView = SBLayoutRoleIsValidForSplitView(role);
+  if (IsValidForSplitView)
+  {
+    if (SBLayoutRoleAdditionalSideRangeMax(IsValidForSplitView, v6) > role)
+    {
+      return role;
+    }
   }
 
   return [(SBWindowingLayoutFormatParser *)self _applyLayoutRole:role + 1];

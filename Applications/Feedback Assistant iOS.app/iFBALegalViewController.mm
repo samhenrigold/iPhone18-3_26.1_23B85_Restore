@@ -5,6 +5,7 @@
 - (void)accept:(id)accept;
 - (void)decline:(id)decline;
 - (void)didReceiveMemoryWarning;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -60,6 +61,15 @@
   [textView3 setTextColor:v24];
 
   [(iFBALegalViewController *)self setModalInPresentation:1];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = iFBALegalViewController;
+  [(iFBALegalViewController *)&v5 viewDidAppear:appear];
+  textView = [(iFBALegalViewController *)self textView];
+  [textView flashScrollIndicators];
 }
 
 - (void)didReceiveMemoryWarning

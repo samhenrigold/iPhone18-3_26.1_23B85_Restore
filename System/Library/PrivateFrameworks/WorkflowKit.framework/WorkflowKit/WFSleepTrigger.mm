@@ -47,7 +47,7 @@
 
 - (id)localizedPastTenseDescription
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (![(WFSleepTrigger *)self selection])
   {
     v3 = @"Wind Down started";
@@ -68,26 +68,25 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v7 = getWFTriggersLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+  v6 = getWFTriggersLogObject();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
-    v8 = 136315394;
-    v9 = "[WFSleepTrigger localizedPastTenseDescription]";
-    v10 = 2114;
+    v7 = 136315394;
+    v8 = "[WFSleepTrigger localizedPastTenseDescription]";
+    v9 = 2114;
     selfCopy = self;
-    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", &v8, 0x16u);
+    _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", &v7, 0x16u);
   }
 
   v4 = &stru_1F4A1C408;
 LABEL_8:
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (id)localizedDescriptionWithConfigurationSummary
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (![(WFSleepTrigger *)self selection])
   {
     v3 = @"When Wind Down starts";
@@ -108,19 +107,18 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v7 = getWFTriggersLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+  v6 = getWFTriggersLogObject();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
-    v8 = 136315394;
-    v9 = "[WFSleepTrigger localizedDescriptionWithConfigurationSummary]";
-    v10 = 2114;
+    v7 = 136315394;
+    v8 = "[WFSleepTrigger localizedDescriptionWithConfigurationSummary]";
+    v9 = 2114;
     selfCopy = self;
-    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", &v8, 0x16u);
+    _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", &v7, 0x16u);
   }
 
   v4 = &stru_1F4A1C408;
 LABEL_8:
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

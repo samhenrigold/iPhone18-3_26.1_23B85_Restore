@@ -810,7 +810,7 @@ void __35__ATMPStoreAssetLink_cancelAssets___block_invoke(uint64_t a1)
   return v9;
 }
 
-uint64_t __42__ATMPStoreAssetLink_enqueueAssets_force___block_invoke(uint64_t a1)
+void *__42__ATMPStoreAssetLink_enqueueAssets_force___block_invoke(uint64_t a1)
 {
   v39 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 48) count];

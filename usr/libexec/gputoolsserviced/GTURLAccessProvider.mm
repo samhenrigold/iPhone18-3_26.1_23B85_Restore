@@ -134,21 +134,7 @@ LABEL_9:
   dCopy = d;
   handlerCopy = handler;
   v8 = dCopy;
-  if (!v8)
-  {
-    goto LABEL_10;
-  }
-
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_10;
-  }
-
-  scheme = [v8 scheme];
-  v10 = [scheme isEqualToString:@"gtsandboxid"];
-
-  if (v10 && ([v8 host], v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
+  if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && ([v8 scheme], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isEqualToString:", @"gtsandboxid"), v9, v10) && (objc_msgSend(v8, "host"), v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
   {
     path = [v8 path];
 
@@ -334,7 +320,6 @@ LABEL_51:
 
   else
   {
-LABEL_10:
   }
 
   if (GTCoreLogUseOsLog())

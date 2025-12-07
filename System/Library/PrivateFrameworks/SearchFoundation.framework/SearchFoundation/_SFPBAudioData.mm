@@ -507,18 +507,14 @@ LABEL_13:
 
 - (void)setFormatID:(id)d
 {
-  v4 = [d copy];
-  formatID = self->_formatID;
-  self->_formatID = v4;
+  self->_formatID = [d copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setAudioBuffer:(id)buffer
 {
-  v4 = [buffer copy];
-  audioBuffer = self->_audioBuffer;
-  self->_audioBuffer = v4;
+  self->_audioBuffer = [buffer copy];
 
   MEMORY[0x1EEE66BB8]();
 }

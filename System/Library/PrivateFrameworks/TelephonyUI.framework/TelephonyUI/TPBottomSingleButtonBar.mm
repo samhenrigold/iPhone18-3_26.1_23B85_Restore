@@ -23,7 +23,7 @@
   buttonCopy = button;
   button = self->_button;
   v9 = buttonCopy;
-  v26 = buttonCopy;
+  v25 = buttonCopy;
   if (button != buttonCopy)
   {
     [(TPButton *)button removeFromSuperview];
@@ -59,9 +59,8 @@ LABEL_9:
     {
       [(TPBottomSingleButtonBar *)self bounds];
       v23 = v22;
-      v24 = self->_button;
-      [objc_opt_class() defaultHeightForColor:{-[TPButton buttonColor](v24, "buttonColor")}];
-      v17 = v25;
+      [objc_opt_class() defaultHeightForColor:{-[TPButton buttonColor](self->_button, "buttonColor")}];
+      v17 = v24;
       v20 = self->_button;
       v21 = 0.0;
       v18 = 0.0;

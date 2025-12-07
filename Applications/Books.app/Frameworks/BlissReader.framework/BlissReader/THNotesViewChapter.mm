@@ -14,9 +14,9 @@
 
 - (THNotesViewChapter)initWithNavigationUnit:(id)unit navigationModel:(id)model tocModel:(id)tocModel chapterIndex:(unint64_t)index
 {
-  v16.receiver = self;
-  v16.super_class = THNotesViewChapter;
-  v10 = [(THNotesViewChapter *)&v16 init];
+  v19.receiver = self;
+  v19.super_class = THNotesViewChapter;
+  v10 = [(THNotesViewChapter *)&v19 init];
   v11 = v10;
   if (v10)
   {
@@ -25,22 +25,24 @@
     v12 = [model sectionIdentifierForNavigationUnit:unit];
     if (v12)
     {
-      v11->mSubtitle = [[NSString alloc] initWithFormat:objc_msgSend(THBundle(), "localizedStringForKey:value:table:", @"Chapter %@", &stru_471858, 0), v12];
+      v13 = v12;
+      v14 = [NSString alloc];
+      v11->mSubtitle = [v14 initWithFormat:objc_msgSend(THBundle(v14, v15), "localizedStringForKey:value:table:", @"Chapter %@", &stru_471858, 0), v13];
     }
 
     v11->mCachedAnnotationsByContentNode = objc_alloc_init(NSMutableDictionary);
-    v13 = [objc_msgSend(tocModel toc:0 tileModelForChapterIndex:{index), "notesThumb"}];
-    if (v13)
+    v16 = [objc_msgSend(tocModel toc:0 tileModelForChapterIndex:{index), "notesThumb"}];
+    if (v16)
     {
-      v14 = [UIImage imageWithCGImage:[TSDBitmapImageProvider temporaryCGImageForImageData:v13]];
+      v17 = [UIImage imageWithCGImage:[TSDBitmapImageProvider temporaryCGImageForImageData:v16]];
     }
 
     else
     {
-      v14 = [UIImage th_imageNamed:@"notes-no-image"];
+      v17 = [UIImage th_imageNamed:@"notes-no-image"];
     }
 
-    v11->mImage = v14;
+    v11->mImage = v17;
   }
 
   return v11;
@@ -233,36 +235,36 @@
 
 - (NSArray)sectionArray
 {
-  v16 = +[NSMutableArray array];
+  v20 = +[NSMutableArray array];
   contentNodes = [(THNavigationUnit *)self->mNavigationUnit contentNodes];
   v4 = +[NSMutableArray array];
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   obj = contentNodes;
-  v5 = [(NSArray *)contentNodes countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [(NSArray *)contentNodes countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v18;
+    v8 = *v22;
     do
     {
       v9 = 0;
       do
       {
-        if (*v18 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * v9);
+        v10 = *(*(&v21 + 1) + 8 * v9);
         v11 = objc_alloc_init(THNotesViewSection);
-        [(NSArray *)v16 addObject:v11];
+        v12 = [(NSArray *)v20 addObject:v11];
         if (v7)
         {
-          title = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle() localizedStringForKey:@"Section %lu - %@" value:&stru_471858 table:0], v7, objc_msgSend(v10, "title"));
+          title = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle(v12 v13)], v7, objc_msgSend(v10, "title"));
         }
 
         else
@@ -279,7 +281,7 @@
       }
 
       while (v6 != v9);
-      v6 = [(NSArray *)obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [(NSArray *)obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v6);
@@ -287,13 +289,13 @@
 
   if ([v4 count])
   {
-    v13 = objc_alloc_init(THNotesViewSection);
-    [(NSArray *)v16 addObject:v13];
-    -[THNotesViewSection setTitle:](v13, "setTitle:", [objc_msgSend(THBundle() localizedStringForKey:@"Old Notes" value:&stru_471858 table:{0), "stringByTransformingForTHNotesSectionHeader"}]);
-    [(THNotesViewSection *)v13 setNotes:v4];
+    v15 = objc_alloc_init(THNotesViewSection);
+    v16 = [(NSArray *)v20 addObject:v15];
+    -[THNotesViewSection setTitle:](v15, "setTitle:", [objc_msgSend(THBundle(v16 v17)]);
+    [(THNotesViewSection *)v15 setNotes:v4];
   }
 
-  return v16;
+  return v20;
 }
 
 @end

@@ -22,7 +22,7 @@
   swift_unknownObjectRetain();
   transitionCopy = transition;
   selfCopy = self;
-  sub_10001E8B4(rendererCopy);
+  sub_10001E8B4(rendererCopy, transition);
 
   swift_unknownObjectRelease();
 }

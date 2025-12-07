@@ -13,10 +13,10 @@
 
 - (void)viewDidLoad
 {
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for SelfServiceDestinationPickerViewController();
-  v2 = v5.receiver;
-  [(SelfServiceDestinationPickerViewController *)&v5 viewDidLoad];
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for SelfServiceDestinationPickerViewController();
+  v2 = v6.receiver;
+  [(SelfServiceDestinationPickerViewController *)&v6 viewDidLoad];
   sub_1001338E8();
   contentView = [v2 contentView];
   [contentView addSubview:*&v2[OBJC_IVAR____TtC11Diagnostics42SelfServiceDestinationPickerViewController_tableView]];
@@ -24,19 +24,21 @@
   buttonTray = [v2 buttonTray];
   [buttonTray addButton:*&v2[OBJC_IVAR____TtC11Diagnostics42SelfServiceDestinationPickerViewController_cancelButton]];
 
-  sub_1001340A0();
+  sub_1001340A0(v5);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1001333B4(appear);
+  sub_1001333B4(appearCopy);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_100133804(disappear);
+  sub_100133804(disappearCopy);
 }
 
 - (_TtC11Diagnostics42SelfServiceDestinationPickerViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

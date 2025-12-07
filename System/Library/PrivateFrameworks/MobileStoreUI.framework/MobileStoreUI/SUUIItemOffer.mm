@@ -212,7 +212,7 @@
       buttonText = v5->_buttonText;
       v5->_buttonText = v10;
 
-      v5->_price = ([(NSString *)v5->_buttonText isEqualToString:@"FREE"]^ 1);
+      v5->_price = (objc_msgSend_isEqualToString_(v5->_buttonText) ^ 1);
     }
 
     v12 = [dictionaryCopy objectForKey:@"confirm-text"];
@@ -329,22 +329,22 @@ LABEL_5:
 
 - (int64_t)offerType
 {
-  if ([(NSString *)self->_offerTypeString isEqualToString:@"rent"])
+  if (objc_msgSend_isEqualToString_(self->_offerTypeString, a2, @"rent"))
   {
     return 3;
   }
 
-  if ([(NSString *)self->_offerTypeString isEqualToString:@"preorder"])
+  if (objc_msgSend_isEqualToString_(self->_offerTypeString))
   {
     return 2;
   }
 
-  if ([(NSString *)self->_offerTypeString isEqualToString:@"complete"])
+  if (objc_msgSend_isEqualToString_(self->_offerTypeString))
   {
     return 1;
   }
 
-  if ([(NSString *)self->_offerTypeString isEqualToString:@"get"])
+  if (objc_msgSend_isEqualToString_(self->_offerTypeString))
   {
     return 4;
   }

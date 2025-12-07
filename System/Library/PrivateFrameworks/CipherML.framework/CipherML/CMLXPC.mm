@@ -127,10 +127,9 @@ void __60__CMLXPC_asyncProxyToConnection_dispatchQueue_errorHandler___block_invo
 
 void __38__CMLXPC_syncProxyToConnection_error___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_224E26000, v0, OS_LOG_TYPE_ERROR, "Connection was interrupted with %@ : error=%{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_224E26000, v0, OS_LOG_TYPE_ERROR, "Connection was interrupted with %@ : error=%{public}@", v1, 0x16u);
 }
 
 @end

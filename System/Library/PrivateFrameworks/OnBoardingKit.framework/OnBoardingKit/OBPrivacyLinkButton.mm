@@ -12,6 +12,7 @@
 - (void)layoutSubviews;
 - (void)setDisplayInfoIcon:(BOOL)icon;
 - (void)setEnabled:(BOOL)enabled;
+- (void)setHighlighted:(BOOL)highlighted;
 - (void)setUnderlineLinks:(BOOL)links;
 - (void)tintColorDidChange;
 - (void)traitCollectionDidChange:(id)change;
@@ -22,15 +23,15 @@
 - (OBPrivacyLinkButton)initWithCaption:(id)caption captionAttachmentImage:(id)image buttonText:(id)text symbolName:(id)name useLargeIcon:(BOOL)icon displayLanguage:(id)language
 {
   iconCopy = icon;
-  v284[3] = *MEMORY[0x1E69E9840];
+  v282[3] = *MEMORY[0x1E69E9840];
   captionCopy = caption;
   imageCopy = image;
   textCopy = text;
   nameCopy = name;
   languageCopy = language;
-  v264.receiver = self;
-  v264.super_class = OBPrivacyLinkButton;
-  v19 = [(OBPrivacyLinkButton *)&v264 init];
+  v262.receiver = self;
+  v262.super_class = OBPrivacyLinkButton;
+  v19 = [(OBPrivacyLinkButton *)&v262 init];
   v20 = v19;
   if (!v19)
   {
@@ -69,12 +70,12 @@
     v24 = textCopy;
   }
 
-  v234 = iconCopy;
-  v239 = languageCopy;
-  v240 = textCopy;
-  v244 = nameCopy;
+  v232 = iconCopy;
+  v237 = languageCopy;
+  v238 = textCopy;
+  v242 = nameCopy;
   objc_storeStrong(&v20->_buttonText, v24);
-  v241 = captionCopy;
+  v239 = captionCopy;
   if (captionCopy)
   {
   }
@@ -88,21 +89,21 @@
   [(UIView *)v20->_containerView setUserInteractionEnabled:0];
   [(UIView *)v20->_containerView setTranslatesAutoresizingMaskIntoConstraints:0];
   [(OBPrivacyLinkButton *)v20 addSubview:v20->_containerView];
-  v245 = MEMORY[0x1E696ACD8];
+  v243 = MEMORY[0x1E696ACD8];
   centerYAnchor = [(UIView *)v20->_containerView centerYAnchor];
   centerYAnchor2 = [(OBPrivacyLinkButton *)v20 centerYAnchor];
   v27 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v284[0] = v27;
+  v282[0] = v27;
   bottomAnchor = [(UIView *)v20->_containerView bottomAnchor];
   bottomAnchor2 = [(OBPrivacyLinkButton *)v20 bottomAnchor];
   v30 = [bottomAnchor constraintLessThanOrEqualToAnchor:bottomAnchor2];
-  v284[1] = v30;
+  v282[1] = v30;
   topAnchor = [(UIView *)v20->_containerView topAnchor];
   topAnchor2 = [(OBPrivacyLinkButton *)v20 topAnchor];
   v33 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2];
-  v284[2] = v33;
-  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v284 count:3];
-  [v245 activateConstraints:v34];
+  v282[2] = v33;
+  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v282 count:3];
+  [v243 activateConstraints:v34];
 
   v35 = +[OBFeatureFlags isNaturalUIEnabled];
   v36 = MEMORY[0x1E696ACD8];
@@ -112,12 +113,12 @@
     leadingAnchor = [(UIView *)v37 leadingAnchor];
     leadingAnchor2 = [(OBPrivacyLinkButton *)v20 leadingAnchor];
     v40 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v283[0] = v40;
+    v281[0] = v40;
     trailingAnchor = [(UIView *)v20->_containerView trailingAnchor];
     trailingAnchor2 = [(OBPrivacyLinkButton *)v20 trailingAnchor];
     v43 = [trailingAnchor constraintLessThanOrEqualToAnchor:trailingAnchor2];
-    v283[1] = v43;
-    rightAnchor = [MEMORY[0x1E695DEC8] arrayWithObjects:v283 count:2];
+    v281[1] = v43;
+    rightAnchor = [MEMORY[0x1E695DEC8] arrayWithObjects:v281 count:2];
     [v36 activateConstraints:rightAnchor];
   }
 
@@ -126,17 +127,17 @@
     centerXAnchor = [(UIView *)v37 centerXAnchor];
     centerXAnchor2 = [(OBPrivacyLinkButton *)v20 centerXAnchor];
     v40 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v282[0] = v40;
+    v280[0] = v40;
     trailingAnchor = [(UIView *)v20->_containerView leftAnchor];
     trailingAnchor2 = [(OBPrivacyLinkButton *)v20 leftAnchor];
     v43 = [trailingAnchor constraintGreaterThanOrEqualToAnchor:trailingAnchor2];
-    v282[1] = v43;
+    v280[1] = v43;
     rightAnchor = [(UIView *)v20->_containerView rightAnchor];
     rightAnchor2 = [(OBPrivacyLinkButton *)v20 rightAnchor];
     [rightAnchor constraintLessThanOrEqualToAnchor:rightAnchor2];
     v47 = v46 = v36;
-    v282[2] = v47;
-    v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v282 count:3];
+    v280[2] = v47;
+    v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v280 count:3];
     v49 = v46;
     leadingAnchor2 = centerXAnchor2;
     [v49 activateConstraints:v48];
@@ -150,48 +151,48 @@
   [(UIView *)v20->_containerView setContentHuggingPriority:1 forAxis:v51];
   bottomAnchor3 = [(UIView *)v20->_containerView bottomAnchor];
   bottomAnchor4 = [(OBPrivacyLinkButton *)v20 bottomAnchor];
-  v246 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-  v281[0] = v246;
+  v244 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
+  v279[0] = v244;
   topAnchor3 = [(UIView *)v20->_containerView topAnchor];
   topAnchor4 = [(OBPrivacyLinkButton *)v20 topAnchor];
   v54 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-  v281[1] = v54;
+  v279[1] = v54;
   leftAnchor = [(UIView *)v20->_containerView leftAnchor];
   leftAnchor2 = [(OBPrivacyLinkButton *)v20 leftAnchor];
   v57 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v281[2] = v57;
+  v279[2] = v57;
   rightAnchor3 = [(UIView *)v20->_containerView rightAnchor];
   rightAnchor4 = [(OBPrivacyLinkButton *)v20 rightAnchor];
   v60 = [rightAnchor3 constraintEqualToAnchor:rightAnchor4];
-  v281[3] = v60;
-  v242 = [MEMORY[0x1E695DEC8] arrayWithObjects:v281 count:4];
+  v279[3] = v60;
+  v240 = [MEMORY[0x1E695DEC8] arrayWithObjects:v279 count:4];
 
-  v262 = 0u;
-  v263 = 0u;
   v260 = 0u;
   v261 = 0u;
-  v61 = v242;
-  v62 = [v61 countByEnumeratingWithState:&v260 objects:v280 count:16];
+  v258 = 0u;
+  v259 = 0u;
+  v61 = v240;
+  v62 = [v61 countByEnumeratingWithState:&v258 objects:v278 count:16];
   if (v62)
   {
     v64 = v62;
-    v65 = *v261;
+    v65 = *v259;
     do
     {
       for (i = 0; i != v64; ++i)
       {
-        if (*v261 != v65)
+        if (*v259 != v65)
         {
           objc_enumerationMutation(v61);
         }
 
-        v67 = *(*(&v260 + 1) + 8 * i);
+        v67 = *(*(&v258 + 1) + 8 * i);
         LODWORD(v63) = 1144750080;
         [v67 setPriority:v63];
         [v67 setActive:1];
       }
 
-      v64 = [v61 countByEnumeratingWithState:&v260 objects:v280 count:16];
+      v64 = [v61 countByEnumeratingWithState:&v258 objects:v278 count:16];
     }
 
     while (v64);
@@ -200,48 +201,48 @@
   topAnchor5 = [(UIView *)v20->_containerView topAnchor];
   topAnchor6 = [(OBPrivacyLinkButton *)v20 topAnchor];
   v70 = [topAnchor5 constraintEqualToAnchor:topAnchor6];
-  v279[0] = v70;
+  v277[0] = v70;
   bottomAnchor5 = [(UIView *)v20->_containerView bottomAnchor];
   bottomAnchor6 = [(OBPrivacyLinkButton *)v20 bottomAnchor];
   v73 = [bottomAnchor5 constraintEqualToAnchor:bottomAnchor6];
-  v279[1] = v73;
-  v74 = [MEMORY[0x1E695DEC8] arrayWithObjects:v279 count:2];
+  v277[1] = v73;
+  v74 = [MEMORY[0x1E695DEC8] arrayWithObjects:v277 count:2];
 
-  v258 = 0u;
-  v259 = 0u;
   v256 = 0u;
   v257 = 0u;
+  v254 = 0u;
+  v255 = 0u;
   v75 = v74;
-  v76 = [v75 countByEnumeratingWithState:&v256 objects:v278 count:16];
+  v76 = [v75 countByEnumeratingWithState:&v254 objects:v276 count:16];
   if (v76)
   {
     v78 = v76;
-    v79 = *v257;
+    v79 = *v255;
     do
     {
       for (j = 0; j != v78; ++j)
       {
-        if (*v257 != v79)
+        if (*v255 != v79)
         {
           objc_enumerationMutation(v75);
         }
 
-        v81 = *(*(&v256 + 1) + 8 * j);
+        v81 = *(*(&v254 + 1) + 8 * j);
         LODWORD(v77) = 1144750080;
         [v81 setPriority:v77];
         [v81 setActive:1];
       }
 
-      v78 = [v75 countByEnumeratingWithState:&v256 objects:v278 count:16];
+      v78 = [v75 countByEnumeratingWithState:&v254 objects:v276 count:16];
     }
 
     while (v78);
   }
 
-  v82 = [MEMORY[0x1E69DCAB8] systemImageNamed:v244];
+  v82 = [MEMORY[0x1E69DCAB8] systemImageNamed:v242];
   if (!v82)
   {
-    v82 = [MEMORY[0x1E69DCAB8] _systemImageNamed:v244];
+    v82 = [MEMORY[0x1E69DCAB8] _systemImageNamed:v242];
   }
 
   v83 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v82];
@@ -290,7 +291,7 @@
     }
   }
 
-  v243 = v82;
+  v241 = v82;
   [(UITextView *)v20->_textView setTextAlignment:v85];
   [(UITextView *)v20->_textView setTextContainerInset:*MEMORY[0x1E69DDCE0], *(MEMORY[0x1E69DDCE0] + 8), *(MEMORY[0x1E69DDCE0] + 16), *(MEMORY[0x1E69DDCE0] + 24)];
   textContainer = [(UITextView *)v20->_textView textContainer];
@@ -329,43 +330,43 @@
   tintColor = [(OBPrivacyLinkButton *)v20 tintColor];
   [(OBPrivacyLinkButton *)v20 _updateButtonColorWithColor:tintColor];
 
-  v247 = MEMORY[0x1E696ACD8];
+  v245 = MEMORY[0x1E696ACD8];
   bottomAnchor7 = [(UITextView *)v20->_textView bottomAnchor];
   bottomAnchor8 = [(UIView *)v20->_containerView bottomAnchor];
   v106 = [bottomAnchor7 constraintEqualToAnchor:bottomAnchor8];
-  v277[0] = v106;
+  v275[0] = v106;
   trailingAnchor3 = [(UITextView *)v20->_textView trailingAnchor];
   trailingAnchor4 = [(UIView *)v20->_containerView trailingAnchor];
   v109 = [trailingAnchor3 constraintLessThanOrEqualToAnchor:trailingAnchor4];
-  v277[1] = v109;
-  v110 = [MEMORY[0x1E695DEC8] arrayWithObjects:v277 count:2];
-  [v247 activateConstraints:v110];
+  v275[1] = v109;
+  v110 = [MEMORY[0x1E695DEC8] arrayWithObjects:v275 count:2];
+  [v245 activateConstraints:v110];
 
   if (v20->_buttonLabel)
   {
     v111 = objc_alloc(MEMORY[0x1E69DCF90]);
-    v276[0] = v20->_iconView;
-    v276[1] = v20->_buttonLabel;
+    v274[0] = v20->_iconView;
+    v274[1] = v20->_buttonLabel;
     v112 = 0x1E695D000uLL;
-    v113 = [MEMORY[0x1E695DEC8] arrayWithObjects:v276 count:2];
+    v113 = [MEMORY[0x1E695DEC8] arrayWithObjects:v274 count:2];
     v114 = [v111 initWithArrangedSubviews:v113];
 
     [v114 setAxis:0];
     [v114 setSpacing:v22];
     [v114 setAlignment:3];
     [v114 setTranslatesAutoresizingMaskIntoConstraints:0];
-    v248 = v114;
+    v246 = v114;
     [(UIView *)v20->_containerView addSubview:v114];
   }
 
   else
   {
     [(UIView *)v20->_containerView addSubview:v20->_iconView];
-    v248 = 0;
+    v246 = 0;
     v112 = 0x1E695D000uLL;
   }
 
-  if (v243 && (-[UIImageView image](v20->_iconView, "image"), v115 = objc_claimAutoreleasedReturnValue(), [v115 size], v117 = v116, v115, v117 > 0.0))
+  if (v241 && (-[UIImageView image](v20->_iconView, "image"), v115 = objc_claimAutoreleasedReturnValue(), [v115 size], v117 = v116, v115, v117 > 0.0))
   {
     heightAnchor = [(UIImageView *)v20->_iconView heightAnchor];
     v119 = [heightAnchor constraintEqualToConstant:v21];
@@ -398,66 +399,66 @@
   [(UIImageView *)v20->_iconView setContentHuggingPriority:1 forAxis:v129];
   LODWORD(v130) = 1148846080;
   [(UIImageView *)v20->_iconView setContentHuggingPriority:0 forAxis:v130];
-  if (v234)
+  if (v232)
   {
-    v230 = MEMORY[0x1E696ACD8];
+    v228 = MEMORY[0x1E696ACD8];
     topAnchor7 = [(UIImageView *)v20->_iconView topAnchor];
     topAnchor8 = [(UIView *)v20->_containerView topAnchor];
     v132 = [topAnchor7 constraintEqualToAnchor:topAnchor8];
-    v275[0] = v132;
+    v273[0] = v132;
     bottomAnchor9 = [(UIImageView *)v20->_iconView bottomAnchor];
     topAnchor9 = [(UITextView *)v20->_textView topAnchor];
     v135 = [bottomAnchor9 constraintLessThanOrEqualToAnchor:topAnchor9];
-    v275[1] = v135;
-    v136 = [*(v112 + 3784) arrayWithObjects:v275 count:2];
-    [v230 activateConstraints:v136];
+    v273[1] = v135;
+    v136 = [*(v112 + 3784) arrayWithObjects:v273 count:2];
+    [v228 activateConstraints:v136];
 
     if (+[OBFeatureFlags isNaturalUIEnabled]&& [(UITextView *)v20->_textView textAlignment]== NSTextAlignmentNatural)
     {
-      v226 = MEMORY[0x1E696ACD8];
+      v224 = MEMORY[0x1E696ACD8];
       leadingAnchor3 = [(UIImageView *)v20->_iconView leadingAnchor];
       [(UIView *)v20->_containerView leadingAnchor];
-      v231 = v236 = leadingAnchor3;
-      v222 = [leadingAnchor3 constraintEqualToAnchor:-4.0 constant:?];
-      v274[0] = v222;
+      v229 = v234 = leadingAnchor3;
+      v220 = [leadingAnchor3 constraintEqualToAnchor:-4.0 constant:?];
+      v272[0] = v220;
       leadingAnchor4 = [(UITextView *)v20->_textView leadingAnchor];
       leadingAnchor5 = [(UIView *)v20->_containerView leadingAnchor];
       v140 = [leadingAnchor4 constraintEqualToAnchor:leadingAnchor5];
-      v274[1] = v140;
+      v272[1] = v140;
       trailingAnchor5 = [(UITextView *)v20->_textView trailingAnchor];
       trailingAnchor6 = [(UIView *)v20->_containerView trailingAnchor];
       v143 = [trailingAnchor5 constraintLessThanOrEqualToAnchor:trailingAnchor6];
-      v274[2] = v143;
-      v144 = v274;
+      v272[2] = v143;
+      v144 = v272;
     }
 
     else
     {
-      v226 = MEMORY[0x1E696ACD8];
+      v224 = MEMORY[0x1E696ACD8];
       centerXAnchor3 = [(UIImageView *)v20->_iconView centerXAnchor];
       [(UIView *)v20->_containerView centerXAnchor];
-      v231 = v236 = centerXAnchor3;
-      v222 = [centerXAnchor3 constraintEqualToAnchor:?];
-      v273[0] = v222;
+      v229 = v234 = centerXAnchor3;
+      v220 = [centerXAnchor3 constraintEqualToAnchor:?];
+      v271[0] = v220;
       leadingAnchor4 = [(UITextView *)v20->_textView leadingAnchor];
       leadingAnchor5 = [(UIView *)v20->_containerView leadingAnchor];
       v140 = [leadingAnchor4 constraintGreaterThanOrEqualToAnchor:leadingAnchor5];
-      v273[1] = v140;
+      v271[1] = v140;
       trailingAnchor5 = [(UITextView *)v20->_textView centerXAnchor];
       trailingAnchor6 = [(UIImageView *)v20->_iconView centerXAnchor];
       v143 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
-      v273[2] = v143;
-      v144 = v273;
+      v271[2] = v143;
+      v144 = v271;
     }
 
     v163 = [MEMORY[0x1E695DEC8] arrayWithObjects:v144 count:3];
-    [v226 activateConstraints:v163];
+    [v224 activateConstraints:v163];
 
     bottomAnchor10 = [(UIImageView *)v20->_iconView bottomAnchor];
     firstBaselineAnchor = [(UITextView *)v20->_textView firstBaselineAnchor];
     v166 = -v22;
-    v167 = v243;
-    if (!v243)
+    v167 = v241;
+    if (!v241)
     {
       v166 = 0.0;
     }
@@ -468,10 +469,10 @@
     [v168 setPriority:v169];
     [v168 setActive:1];
 
-    captionCopy = v241;
-    nameCopy = v244;
-    v160 = v248;
-    if (v243)
+    captionCopy = v239;
+    nameCopy = v242;
+    v160 = v246;
+    if (v241)
     {
       goto LABEL_69;
     }
@@ -479,105 +480,105 @@
 
   else
   {
-    v237 = MEMORY[0x1E696ACD8];
+    v235 = MEMORY[0x1E696ACD8];
     if (v20->_buttonLabel)
     {
-      topAnchor10 = [v248 topAnchor];
+      topAnchor10 = [v246 topAnchor];
       topAnchor11 = [(UIView *)v20->_containerView topAnchor];
-      v223 = [topAnchor10 constraintEqualToAnchor:topAnchor11];
-      v272[0] = v223;
-      bottomAnchor11 = [v248 bottomAnchor];
+      v221 = [topAnchor10 constraintEqualToAnchor:topAnchor11];
+      v270[0] = v221;
+      bottomAnchor11 = [v246 bottomAnchor];
       topAnchor12 = [(UITextView *)v20->_textView topAnchor];
-      v216 = [bottomAnchor11 constraintEqualToAnchor:topAnchor12];
-      v272[1] = v216;
+      v214 = [bottomAnchor11 constraintEqualToAnchor:topAnchor12];
+      v270[1] = v214;
       bottomAnchor12 = [(UITextView *)v20->_textView bottomAnchor];
       bottomAnchor13 = [(UIView *)v20->_containerView bottomAnchor];
-      v210 = [bottomAnchor12 constraintEqualToAnchor:bottomAnchor13];
-      v272[2] = v210;
+      v208 = [bottomAnchor12 constraintEqualToAnchor:bottomAnchor13];
+      v270[2] = v208;
       leadingAnchor6 = [(UITextView *)v20->_textView leadingAnchor];
       leadingAnchor7 = [(UIView *)v20->_containerView leadingAnchor];
       v147 = [leadingAnchor6 constraintEqualToAnchor:leadingAnchor7];
-      v272[3] = v147;
+      v270[3] = v147;
       trailingAnchor7 = [(UITextView *)v20->_textView trailingAnchor];
       trailingAnchor8 = [(UIView *)v20->_containerView trailingAnchor];
       v150 = [trailingAnchor7 constraintEqualToAnchor:trailingAnchor8];
-      v272[4] = v150;
-      v151 = [*(v112 + 3784) arrayWithObjects:v272 count:5];
-      [v237 activateConstraints:v151];
+      v270[4] = v150;
+      v151 = [*(v112 + 3784) arrayWithObjects:v270 count:5];
+      [v235 activateConstraints:v151];
 
       LODWORD(trailingAnchor7) = +[OBFeatureFlags isNaturalUIEnabled];
-      v238 = MEMORY[0x1E696ACD8];
-      leadingAnchor8 = [v248 leadingAnchor];
+      v236 = MEMORY[0x1E696ACD8];
+      leadingAnchor8 = [v246 leadingAnchor];
       leadingAnchor9 = [(UIView *)v20->_containerView leadingAnchor];
       if (trailingAnchor7)
       {
         v154 = [leadingAnchor8 constraintEqualToAnchor:leadingAnchor9];
-        v271[0] = v154;
-        trailingAnchor9 = [v248 trailingAnchor];
+        v269[0] = v154;
+        trailingAnchor9 = [v246 trailingAnchor];
         trailingAnchor10 = [(UIView *)v20->_containerView trailingAnchor];
         v157 = [trailingAnchor9 constraintLessThanOrEqualToAnchor:trailingAnchor10];
-        v271[1] = v157;
-        [MEMORY[0x1E695DEC8] arrayWithObjects:v271 count:2];
+        v269[1] = v157;
+        [MEMORY[0x1E695DEC8] arrayWithObjects:v269 count:2];
         v159 = v158 = leadingAnchor8;
-        [v238 activateConstraints:v159];
+        [v236 activateConstraints:v159];
 
-        v160 = v248;
+        v160 = v246;
       }
 
       else
       {
-        v233 = [leadingAnchor8 constraintGreaterThanOrEqualToAnchor:leadingAnchor9];
-        v270[0] = v233;
-        trailingAnchor11 = [v248 trailingAnchor];
+        v231 = [leadingAnchor8 constraintGreaterThanOrEqualToAnchor:leadingAnchor9];
+        v268[0] = v231;
+        trailingAnchor11 = [v246 trailingAnchor];
         trailingAnchor12 = [(UIView *)v20->_containerView trailingAnchor];
         v188 = [trailingAnchor11 constraintLessThanOrEqualToAnchor:trailingAnchor12];
-        v270[1] = v188;
-        [v248 centerXAnchor];
-        v189 = v229 = leadingAnchor8;
+        v268[1] = v188;
+        [v246 centerXAnchor];
+        v189 = v227 = leadingAnchor8;
         centerXAnchor4 = [(UIView *)v20->_containerView centerXAnchor];
         v191 = [v189 constraintEqualToAnchor:centerXAnchor4];
-        v270[2] = v191;
-        v192 = [MEMORY[0x1E695DEC8] arrayWithObjects:v270 count:3];
-        [v238 activateConstraints:v192];
+        v268[2] = v191;
+        v192 = [MEMORY[0x1E695DEC8] arrayWithObjects:v268 count:3];
+        [v236 activateConstraints:v192];
 
-        v160 = v248;
+        v160 = v246;
       }
 
-      captionCopy = v241;
+      captionCopy = v239;
     }
 
     else
     {
       leadingAnchor10 = [(UIImageView *)v20->_iconView leadingAnchor];
       leadingAnchor11 = [(UIView *)v20->_containerView leadingAnchor];
-      v221 = [leadingAnchor10 constraintEqualToAnchor:leadingAnchor11];
-      v269[0] = v221;
+      v219 = [leadingAnchor10 constraintEqualToAnchor:leadingAnchor11];
+      v267[0] = v219;
       trailingAnchor13 = [(UIImageView *)v20->_iconView trailingAnchor];
-      v219 = trailingAnchor13;
+      v217 = trailingAnchor13;
       leadingAnchor12 = [(UITextView *)v20->_textView leadingAnchor];
-      v217 = leadingAnchor12;
+      v215 = leadingAnchor12;
       v172 = -v22;
-      if (!v243)
+      if (!v241)
       {
         v172 = 0.0;
       }
 
-      v215 = [trailingAnchor13 constraintEqualToAnchor:leadingAnchor12 constant:v172];
-      v269[1] = v215;
+      v213 = [trailingAnchor13 constraintEqualToAnchor:leadingAnchor12 constant:v172];
+      v267[1] = v213;
       centerYAnchor3 = [(UITextView *)v20->_textView centerYAnchor];
       centerYAnchor4 = [(UIView *)v20->_containerView centerYAnchor];
-      v209 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
-      v269[2] = v209;
+      v207 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
+      v267[2] = v207;
       topAnchor13 = [(UITextView *)v20->_textView topAnchor];
       topAnchor14 = [(UIView *)v20->_containerView topAnchor];
       v175 = [topAnchor13 constraintGreaterThanOrEqualToAnchor:topAnchor14];
-      v269[3] = v175;
+      v267[3] = v175;
       bottomAnchor14 = [(UITextView *)v20->_textView bottomAnchor];
       bottomAnchor15 = [(UIView *)v20->_containerView bottomAnchor];
       v178 = [bottomAnchor14 constraintLessThanOrEqualToAnchor:bottomAnchor15];
-      v269[4] = v178;
-      v179 = [*(v112 + 3784) arrayWithObjects:v269 count:5];
-      [v237 activateConstraints:v179];
+      v267[4] = v178;
+      v179 = [*(v112 + 3784) arrayWithObjects:v267 count:5];
+      [v235 activateConstraints:v179];
 
       v180 = +[OBFeatureFlags isNaturalUIEnabled];
       v181 = MEMORY[0x1E696ACD8];
@@ -587,8 +588,8 @@
         topAnchor15 = [(UIImageView *)v182 topAnchor];
         topAnchor16 = [(UITextView *)v20->_textView topAnchor];
         v185 = [topAnchor15 constraintEqualToAnchor:topAnchor16];
-        v268 = v185;
-        v186 = &v268;
+        v266 = v185;
+        v186 = &v266;
       }
 
       else
@@ -596,12 +597,12 @@
         topAnchor15 = [(UIImageView *)v182 centerYAnchor];
         topAnchor16 = [(UITextView *)v20->_textView centerYAnchor];
         v185 = [topAnchor15 constraintEqualToAnchor:topAnchor16];
-        v267 = v185;
-        v186 = &v267;
+        v265 = v185;
+        v186 = &v265;
       }
 
-      captionCopy = v241;
-      v160 = v248;
+      captionCopy = v239;
+      v160 = v246;
       v193 = [MEMORY[0x1E695DEC8] arrayWithObjects:v186 count:1];
       [v181 activateConstraints:v193];
 
@@ -619,9 +620,9 @@
 
     LODWORD(v161) = 1148846080;
     [(UITextView *)v20->_textView setContentHuggingPriority:1 forAxis:v161];
-    v167 = v243;
-    nameCopy = v244;
-    if (v243)
+    v167 = v241;
+    nameCopy = v242;
+    if (v241)
     {
       goto LABEL_69;
     }
@@ -634,49 +635,47 @@
 
 LABEL_69:
   v201 = v20->_buttonLabel;
-  v202 = v20->_iconView;
   if (v201)
   {
-    v266[0] = v20->_iconView;
-    v266[1] = v201;
-    v266[2] = v20->_textView;
-    v203 = MEMORY[0x1E695DEC8];
-    v204 = v266;
-    v205 = 3;
+    v264[0] = v20->_iconView;
+    v264[1] = v201;
+    v264[2] = v20->_textView;
+    v202 = MEMORY[0x1E695DEC8];
+    v203 = v264;
+    v204 = 3;
   }
 
   else
   {
-    v265[0] = v20->_iconView;
-    v265[1] = v20->_textView;
-    v203 = MEMORY[0x1E695DEC8];
-    v204 = v265;
-    v205 = 2;
+    v263[0] = v20->_iconView;
+    v263[1] = v20->_textView;
+    v202 = MEMORY[0x1E695DEC8];
+    v203 = v263;
+    v204 = 2;
   }
 
-  v206 = [v203 arrayWithObjects:v204 count:v205];
-  [(OBPrivacyLinkButton *)v20 setAccessibilityElements:v206];
+  v205 = [v202 arrayWithObjects:v203 count:v204];
+  [(OBPrivacyLinkButton *)v20 setAccessibilityElements:v205];
 
-  languageCopy = v239;
-  textCopy = v240;
+  languageCopy = v237;
+  textCopy = v238;
 LABEL_73:
 
-  v207 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (void)layoutSubviews
 {
-  v36[1] = *MEMORY[0x1E69E9840];
-  v34.receiver = self;
-  v34.super_class = OBPrivacyLinkButton;
-  [(OBPrivacyLinkButton *)&v34 layoutSubviews];
+  v35[1] = *MEMORY[0x1E69E9840];
+  v33.receiver = self;
+  v33.super_class = OBPrivacyLinkButton;
+  [(OBPrivacyLinkButton *)&v33 layoutSubviews];
   if (self->_buttonLabel && [(NSString *)self->_captionText length]&& [(NSString *)self->_buttonText length]&& [(NSString *)self->_buttonText containsString:@" "])
   {
-    v35 = *MEMORY[0x1E69DB648];
+    v34 = *MEMORY[0x1E69DB648];
     _font = [(OBPrivacyLinkButton *)self _font];
-    v36[0] = _font;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v35[0] = _font;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
 
     text = [(UITextView *)self->_textView text];
     [(UITextView *)self->_textView frame];
@@ -726,8 +725,6 @@ LABEL_73:
     [(OBPrivacyLinkButton *)self setContentSize:?];
     [(OBPrivacyLinkButton *)self invalidateIntrinsicContentSize];
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)tintColorDidChange
@@ -831,6 +828,38 @@ LABEL_73:
   }
 }
 
+- (void)setHighlighted:(BOOL)highlighted
+{
+  highlightedCopy = highlighted;
+  v9.receiver = self;
+  v9.super_class = OBPrivacyLinkButton;
+  if ([(OBPrivacyLinkButton *)&v9 isHighlighted]!= highlighted)
+  {
+    v8.receiver = self;
+    v8.super_class = OBPrivacyLinkButton;
+    [(OBPrivacyLinkButton *)&v8 setHighlighted:highlightedCopy];
+    v5 = 0.25;
+    if (highlightedCopy)
+    {
+      v5 = 0.0;
+    }
+
+    v6 = 0.3;
+    v7[1] = 3221225472;
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[2] = __38__OBPrivacyLinkButton_setHighlighted___block_invoke;
+    v7[3] = &unk_1E7C157C8;
+    if (!highlightedCopy)
+    {
+      v6 = 1.0;
+    }
+
+    v7[4] = self;
+    *&v7[5] = v6;
+    [MEMORY[0x1E69DD250] animateWithDuration:v7 animations:v5];
+  }
+}
+
 - (void)setDisplayInfoIcon:(BOOL)icon
 {
   self->_displayInfoIcon = icon;
@@ -862,20 +891,8 @@ LABEL_73:
 - (_NSRange)_rangeForButtonText
 {
   _localizedButtonText = [(OBPrivacyLinkButton *)self _localizedButtonText];
-  if (!_localizedButtonText)
+  if (!_localizedButtonText || (-[UITextView attributedText](self->_textView, "attributedText"), v4 = objc_claimAutoreleasedReturnValue(), [v4 string], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(_localizedButtonText, "string"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v5, "rangeOfString:", v6), v9 = v8, v6, v5, v4, !v9))
   {
-    goto LABEL_3;
-  }
-
-  attributedText = [(UITextView *)self->_textView attributedText];
-  string = [attributedText string];
-  string2 = [_localizedButtonText string];
-  v7 = [string rangeOfString:string2];
-  v9 = v8;
-
-  if (!v9)
-  {
-LABEL_3:
     v9 = 0;
     v7 = 0;
   }
@@ -918,7 +935,7 @@ LABEL_3:
 
 - (id)labelText
 {
-  v38[2] = *MEMORY[0x1E69E9840];
+  v37[2] = *MEMORY[0x1E69E9840];
   if (self->_captionText)
   {
     v3 = objc_alloc_init(MEMORY[0x1E69DB7C8]);
@@ -935,12 +952,12 @@ LABEL_3:
     [v3 setAlignment:v4];
     v5 = objc_alloc(MEMORY[0x1E696AAB0]);
     captionText = self->_captionText;
-    v37[0] = *MEMORY[0x1E69DB650];
+    v36[0] = *MEMORY[0x1E69DB650];
     secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
-    v37[1] = *MEMORY[0x1E69DB688];
-    v38[0] = secondaryLabelColor;
-    v38[1] = v3;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:2];
+    v36[1] = *MEMORY[0x1E69DB688];
+    v37[0] = secondaryLabelColor;
+    v37[1] = v3;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:2];
     v9 = [v5 initWithString:captionText attributes:v8];
 
     if (self->_captionAttachmentImage)
@@ -1009,49 +1026,46 @@ LABEL_20:
         goto LABEL_21;
       }
 
-      v29 = MEMORY[0x1E69DCAD8];
+      v28 = MEMORY[0x1E69DCAD8];
       _font = [(OBPrivacyLinkButton *)self _font];
-      v25 = [v29 configurationWithFont:_font];
+      v25 = [v28 configurationWithFont:_font];
 
-      v31 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"info.circle.fill"];
-      v32 = [v31 imageByApplyingSymbolConfiguration:v25];
+      v30 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"info.circle.fill"];
+      v31 = [v30 imageByApplyingSymbolConfiguration:v25];
 
-      v33 = [v32 imageWithRenderingMode:2];
+      v32 = [v31 imageWithRenderingMode:2];
 
-      v34 = objc_opt_new();
-      [v34 setImage:v33];
-      v35 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v34];
-      [v24 setAttributedString:v35];
+      v33 = objc_opt_new();
+      [v33 setImage:v32];
+      v34 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v33];
+      [v24 setAttributedString:v34];
 
-      v36 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@" "];
-      [v24 appendAttributedString:v36];
+      v35 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@" "];
+      [v24 appendAttributedString:v35];
     }
 
     goto LABEL_16;
   }
 
 LABEL_21:
-  v27 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)buttonAttributes
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   if (UIAccessibilityButtonShapesEnabled())
   {
-    v5 = *MEMORY[0x1E69DB758];
-    v6[0] = &unk_1F2CF8600;
-    v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+    v4 = *MEMORY[0x1E69DB758];
+    v5[0] = &unk_1F2CF8600;
+    v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   }
 
   else
   {
     v2 = 0;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

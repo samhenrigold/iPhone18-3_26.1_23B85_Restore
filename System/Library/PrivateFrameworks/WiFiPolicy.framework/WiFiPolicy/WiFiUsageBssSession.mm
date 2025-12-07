@@ -11,6 +11,8 @@
 - (WiFiUsageBssSession)initWithInterfaceName:(id)name bssEnvironment:(id)environment andBssDetails:(id)details andNetworkDetails:(id)networkDetails;
 - (id)copyWithZone:(_NSZone *)zone;
 - (unint64_t)inRoamSuppressionEnabledDurationPerc;
+- (void)awdlStateDidChange:(BOOL)change inMode:(int64_t)mode;
+- (void)bluetoothStateDidChange:(BOOL)change connectedDeviceCount:(unint64_t)count inA2dp:(BOOL)a2dp inSco:(BOOL)sco;
 - (void)bssDidChange:(id)change withDetails:(id)details;
 - (void)callStateDidChange:(BOOL)change;
 - (void)cellularFallbackStateDidChange:(BOOL)change;
@@ -23,6 +25,7 @@
 - (void)roamingARConfigurationDidChange:(id *)change;
 - (void)roamingConfigurationDidChange:(int64_t)change withChannelList:(id)list;
 - (void)roamingStateDidChange:(BOOL)change reason:(unint64_t)reason andStatus:(unint64_t)status andLatency:(unint64_t)latency andRoamData:(id)data andPingPongNth:(BOOL)nth;
+- (void)scanningStateDidChange:(BOOL)change client:(unint64_t)client neighborBSS:(id)s otherBSS:(id)sS;
 - (void)sentBssTransitionResponseWithStatus:(int64_t)status terminationDelayRequested:(BOOL)requested;
 - (void)setJoinRssi:(int64_t)rssi;
 - (void)setRoamConfigChannels:(id *)channels;
@@ -666,10 +669,10 @@
 
 - (BOOL)submitAnalytics
 {
-  v205 = *MEMORY[0x277D85DE8];
+  v204 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   joinedTimestamp = [(WiFiUsageBssSession *)self joinedTimestamp];
-  v196 = date;
+  v195 = date;
   [date timeIntervalSinceDate:joinedTimestamp];
   v6 = v5;
 
@@ -715,15 +718,15 @@
   [dictionary setObject:v22 forKeyedSubscript:@"RoamConfigTriggerRssi"];
 
   v23 = *&self->_roamConfigChannels.valueByBand[2];
-  v202 = *self->_roamConfigChannels.valueByBand;
-  v203 = v23;
-  v24 = [WiFiUsagePrivacyFilter getLabelForIntegerByBand:&v202];
+  v201 = *self->_roamConfigChannels.valueByBand;
+  v202 = v23;
+  v24 = [WiFiUsagePrivacyFilter getLabelForIntegerByBand:&v201];
   [dictionary setObject:v24 forKeyedSubscript:@"RoamConfigChannelCountByBand"];
 
   v25 = *&self->_roamConfigChannels.valueByBand[2];
-  v202 = *self->_roamConfigChannels.valueByBand;
-  v203 = v25;
-  v26 = [MEMORY[0x277CCABB0] numberWithInteger:{+[WiFiUsagePrivacyFilter getSumAllBands:](WiFiUsagePrivacyFilter, "getSumAllBands:", &v202)}];
+  v201 = *self->_roamConfigChannels.valueByBand;
+  v202 = v25;
+  v26 = [MEMORY[0x277CCABB0] numberWithInteger:{+[WiFiUsagePrivacyFilter getSumAllBands:](WiFiUsagePrivacyFilter, "getSumAllBands:", &v201)}];
   [dictionary setObject:v26 forKeyedSubscript:@"RoamConfigChannelCountTotal"];
 
   v27 = [MEMORY[0x277CCABB0] numberWithBool:self->_roamConfigCriteria.forceApply];
@@ -769,39 +772,39 @@
   }
 
   v39 = *&self->_strongestRSSICountByBand.valueByBand[2];
-  v202 = *self->_strongestRSSICountByBand.valueByBand;
-  v203 = v39;
-  v40 = [WiFiUsagePrivacyFilter getLabelForPercIntegerByBand:&v202];
+  v201 = *self->_strongestRSSICountByBand.valueByBand;
+  v202 = v39;
+  v40 = [WiFiUsagePrivacyFilter getLabelForPercIntegerByBand:&v201];
   [dictionary setObject:v40 forKeyedSubscript:@"RoamCandidatesStrongestRssiByBandPerc"];
 
   v41 = *&self->_strongestRSSIByBand.valueByBand[2];
-  v202 = *self->_strongestRSSIByBand.valueByBand;
-  v203 = v41;
-  v42 = [WiFiUsagePrivacyFilter getLabelForRssiByBand:&v202];
+  v201 = *self->_strongestRSSIByBand.valueByBand;
+  v202 = v41;
+  v42 = [WiFiUsagePrivacyFilter getLabelForRssiByBand:&v201];
   [dictionary setObject:v42 forKeyedSubscript:@"RoamCandidatesStrongestRssiByBand"];
 
   v43 = *&self->_roamNeighsSmllstCurrentToNextBestRssiByBand.valueByBand[2];
-  v202 = *self->_roamNeighsSmllstCurrentToNextBestRssiByBand.valueByBand;
-  v203 = v43;
-  v44 = [WiFiUsagePrivacyFilter getLabelForRssiDeltaByBand:&v202];
+  v201 = *self->_roamNeighsSmllstCurrentToNextBestRssiByBand.valueByBand;
+  v202 = v43;
+  v44 = [WiFiUsagePrivacyFilter getLabelForRssiDeltaByBand:&v201];
   [dictionary setObject:v44 forKeyedSubscript:@"RoamCandidatesSmallestDiffCurrentToNextBestRSSIByBand"];
 
   v45 = *&self->_roamNeighsLrgstCurrentToNextBestRssiByBand.valueByBand[2];
-  v202 = *self->_roamNeighsLrgstCurrentToNextBestRssiByBand.valueByBand;
-  v203 = v45;
-  v46 = [WiFiUsagePrivacyFilter getLabelForRssiDeltaByBand:&v202];
+  v201 = *self->_roamNeighsLrgstCurrentToNextBestRssiByBand.valueByBand;
+  v202 = v45;
+  v46 = [WiFiUsagePrivacyFilter getLabelForRssiDeltaByBand:&v201];
   [dictionary setObject:v46 forKeyedSubscript:@"RoamCandidatesLargestDiffCurrentToNextBestRSSIByBand"];
 
   v47 = *&self->_roamNeighsSmllstCurrentToBestRssiByBand.valueByBand[2];
-  v202 = *self->_roamNeighsSmllstCurrentToBestRssiByBand.valueByBand;
-  v203 = v47;
-  v48 = [WiFiUsagePrivacyFilter getLabelForRssiDeltaByBand:&v202];
+  v201 = *self->_roamNeighsSmllstCurrentToBestRssiByBand.valueByBand;
+  v202 = v47;
+  v48 = [WiFiUsagePrivacyFilter getLabelForRssiDeltaByBand:&v201];
   [dictionary setObject:v48 forKeyedSubscript:@"RoamCandidatesSmallestDiffCurrentToBestRSSIByBand"];
 
   v49 = *&self->_roamNeighsLrgstCurrentToBestRssiByBand.valueByBand[2];
-  v202 = *self->_roamNeighsLrgstCurrentToBestRssiByBand.valueByBand;
-  v203 = v49;
-  v50 = [WiFiUsagePrivacyFilter getLabelForRssiDeltaByBand:&v202];
+  v201 = *self->_roamNeighsLrgstCurrentToBestRssiByBand.valueByBand;
+  v202 = v49;
+  v50 = [WiFiUsagePrivacyFilter getLabelForRssiDeltaByBand:&v201];
   [dictionary setObject:v50 forKeyedSubscript:@"RoamCandidatesLargestDiffCurrentToBestRSSIByBand"];
 
   v51 = [WiFiUsagePrivacyFilter numberWithInstances:self->_roamReasonInitialAssociationCount];
@@ -1241,26 +1244,26 @@
   allKeys = [dictionary allKeys];
   v180 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-  v200 = 0u;
-  v201 = 0u;
-  v198 = 0u;
   v199 = 0u;
+  v200 = 0u;
+  v197 = 0u;
+  v198 = 0u;
   v181 = v180;
-  v182 = [v181 countByEnumeratingWithState:&v198 objects:v204 count:16];
+  v182 = [v181 countByEnumeratingWithState:&v197 objects:v203 count:16];
   if (v182)
   {
     v183 = v182;
-    v184 = *v199;
+    v184 = *v198;
     do
     {
       for (i = 0; i != v183; ++i)
       {
-        if (*v199 != v184)
+        if (*v198 != v184)
         {
           objc_enumerationMutation(v181);
         }
 
-        v186 = *(*(&v198 + 1) + 8 * i);
+        v186 = *(*(&v197 + 1) + 8 * i);
         v187 = [v178 objectForKey:v186];
         [v176 appendFormat:@"%@=%@; ", v186, v187, context];
 
@@ -1275,7 +1278,7 @@
         }
       }
 
-      v183 = [v181 countByEnumeratingWithState:&v198 objects:v204 count:16];
+      v183 = [v181 countByEnumeratingWithState:&v197 objects:v203 count:16];
     }
 
     while (v183);
@@ -1289,7 +1292,6 @@
   AnalyticsSendEventLazy();
 
   [(WiFiUsageBssSession *)selfCopy setSessionInfo:v192];
-  v193 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1585,6 +1587,137 @@ LABEL_57:
     [(WiFiUsageBssSession *)self setLastLqmUpdateTimestamp:v5];
     -[WiFiUsageBssSession updateRssi:timeSinceLastUpdate:](self, "updateRssi:timeSinceLastUpdate:", [changeCopy rssi], v8);
   }
+}
+
+- (void)bluetoothStateDidChange:(BOOL)change connectedDeviceCount:(unint64_t)count inA2dp:(BOOL)a2dp inSco:(BOOL)sco
+{
+  scoCopy = sco;
+  a2dpCopy = a2dp;
+  date = [MEMORY[0x277CBEAA8] date];
+  v11 = date;
+  v21 = date;
+  if (a2dpCopy)
+  {
+    date = [(WiFiUsageBssSession *)self setA2dpActiveTime:date];
+    v11 = v21;
+    ++self->_inA2dpEventCount;
+  }
+
+  else if (self->_a2dpActiveTime)
+  {
+    [date timeIntervalSinceDate:?];
+    self->_inA2dpDuration = v12 + self->_inA2dpDuration;
+    lastPoorCoverageEntryTimestamp = self->_lastPoorCoverageEntryTimestamp;
+    if (lastPoorCoverageEntryTimestamp)
+    {
+      [(NSDate *)lastPoorCoverageEntryTimestamp timeIntervalSinceDate:self->_a2dpActiveTime];
+      if (v14 <= 0.0)
+      {
+        inA2dpDuration = self->_inA2dpDuration;
+      }
+
+      else
+      {
+        [v21 timeIntervalSinceDate:self->_lastPoorCoverageEntryTimestamp];
+      }
+
+      self->_poorCoverageAndA2dpDuration = inA2dpDuration + self->_poorCoverageAndA2dpDuration;
+    }
+
+    date = [(WiFiUsageBssSession *)self setA2dpActiveTime:0];
+    v11 = v21;
+  }
+
+  if (scoCopy)
+  {
+    date = [(WiFiUsageBssSession *)self setScoActiveTime:v11];
+    v11 = v21;
+    ++self->_inScoEventCount;
+  }
+
+  else if (self->_scoActiveTime)
+  {
+    [v11 timeIntervalSinceDate:?];
+    self->_inScoDuration = v16 + self->_inScoDuration;
+    v17 = self->_lastPoorCoverageEntryTimestamp;
+    if (v17)
+    {
+      [(NSDate *)v17 timeIntervalSinceDate:self->_scoActiveTime];
+      if (v18 <= 0.0)
+      {
+        inScoDuration = self->_inScoDuration;
+      }
+
+      else
+      {
+        [v21 timeIntervalSinceDate:self->_lastPoorCoverageEntryTimestamp];
+      }
+
+      self->_poorCoverageAndScoDuration = inScoDuration + self->_poorCoverageAndScoDuration;
+    }
+
+    date = [(WiFiUsageBssSession *)self setScoActiveTime:0];
+    v11 = v21;
+  }
+
+  if (count)
+  {
+    date = [(WiFiUsageBssSession *)self setHidPresentTime:v11];
+    v11 = v21;
+    ++self->_inHidPresentCount;
+  }
+
+  else if (self->_hidPresentTime)
+  {
+    [v11 timeIntervalSinceDate:?];
+    self->_inHidPresentDuration = v20 + self->_inHidPresentDuration;
+    date = [(WiFiUsageBssSession *)self setHidPresentTime:0];
+    v11 = v21;
+  }
+
+  MEMORY[0x2821F96F8](date, v11);
+}
+
+- (void)awdlStateDidChange:(BOOL)change inMode:(int64_t)mode
+{
+  changeCopy = change;
+  date = [MEMORY[0x277CBEAA8] date];
+  v7 = date;
+  if (changeCopy)
+  {
+    v12 = date;
+    date = [(WiFiUsageBssSession *)self setAwdlActiveTime:date];
+    v7 = v12;
+    ++self->_inAwdlEventCount;
+  }
+
+  else if (self->_awdlActiveTime)
+  {
+    v13 = date;
+    [date timeIntervalSinceDate:?];
+    self->_inAwdlDuration = v8 + self->_inAwdlDuration;
+    lastPoorCoverageEntryTimestamp = self->_lastPoorCoverageEntryTimestamp;
+    if (lastPoorCoverageEntryTimestamp)
+    {
+      [(NSDate *)lastPoorCoverageEntryTimestamp timeIntervalSinceDate:self->_awdlActiveTime];
+      if (v10 <= 0.0)
+      {
+        inAwdlDuration = self->_inAwdlDuration;
+      }
+
+      else
+      {
+        [v13 timeIntervalSinceDate:self->_lastPoorCoverageEntryTimestamp];
+      }
+
+      self->_poorCoverageAndAwdlDuration = inAwdlDuration + self->_poorCoverageAndAwdlDuration;
+    }
+
+    date = [(WiFiUsageBssSession *)self setAwdlActiveTime:0];
+    v7 = v13;
+  }
+
+  MEMORY[0x2821F96F8](date, v7);
 }
 
 - (void)roamingStateDidChange:(BOOL)change reason:(unint64_t)reason andStatus:(unint64_t)status andLatency:(unint64_t)latency andRoamData:(id)data andPingPongNth:(BOOL)nth
@@ -1910,43 +2043,41 @@ LABEL_52:
 
 - (void)roamingConfigurationDidChange:(int64_t)change withChannelList:(id)list
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   self->_roamConfigTriggerRssi = change;
   *self->_roamConfigChannels.valueByBand = 0u;
   *&self->_roamConfigChannels.valueByBand[2] = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   obj = [list allObjects];
-  v5 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [obj countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = [*(*(&v13 + 1) + 8 * i) objectForKey:@"IO80211ChannelFlags"];
+        v9 = [*(*(&v12 + 1) + 8 * i) objectForKey:@"IO80211ChannelFlags"];
         v10 = +[WiFiUsagePrivacyFilter bandFromFlags:](WiFiUsagePrivacyFilter, "bandFromFlags:", [v9 integerValue]);
 
         ++self->_roamConfigChannels.valueByBand[v10];
         self->_roamConfigChannels.valid[v10] = 1;
       }
 
-      v6 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [obj countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateRssiDiffStats:(id *)stats For:(id)for
@@ -1961,7 +2092,7 @@ LABEL_52:
   v11 = v10;
   if (v10)
   {
-    [v10 integerByBandValue];
+    objc_msgSend_integerByBandValue(v10);
   }
 
   else
@@ -1991,7 +2122,7 @@ LABEL_52:
   v17 = v16;
   if (v16)
   {
-    [v16 integerByBandValue];
+    objc_msgSend_integerByBandValue(v16);
   }
 
   else
@@ -2026,26 +2157,26 @@ LABEL_52:
 
 - (void)roamCandidatesStatsDidUpdate:(id *)update
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   allKeys = [update->var7 allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v6)
   {
-    v7 = *v33;
+    v7 = *v32;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v33 != v7)
+        if (*v32 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v32 + 1) + 8 * i);
+        v9 = *(*(&v31 + 1) + 8 * i);
         v10 = [(NSMutableDictionary *)self->_roamNeighborsByBand objectForKey:v9];
         if (!v10)
         {
@@ -2058,7 +2189,7 @@ LABEL_52:
         [v10 addObjectsFromArray:allObjects];
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v6);
@@ -2132,12 +2263,12 @@ LABEL_52:
     {
       if (var3 >= var0)
       {
-        v26 = &v30;
+        v26 = &v29;
       }
 
       else
       {
-        v26 = &v31;
+        v26 = &v30;
       }
 
       if (var3 >= var0)
@@ -2160,8 +2291,64 @@ LABEL_52:
       [(WiFiUsageBssSession *)self updateRssiDiffStats:v26 For:v27];
     }
   }
+}
 
-  v29 = *MEMORY[0x277D85DE8];
+- (void)scanningStateDidChange:(BOOL)change client:(unint64_t)client neighborBSS:(id)s otherBSS:(id)sS
+{
+  changeCopy = change;
+  date = [MEMORY[0x277CBEAA8] date];
+  v10 = date;
+  if (!changeCopy)
+  {
+    if (!self->_scanningActiveTime)
+    {
+      goto LABEL_14;
+    }
+
+    v15 = date;
+    [date timeIntervalSinceDate:?];
+    self->_inScanDuration = v11 + self->_inScanDuration;
+    lastPoorCoverageEntryTimestamp = self->_lastPoorCoverageEntryTimestamp;
+    if (lastPoorCoverageEntryTimestamp)
+    {
+      [(NSDate *)lastPoorCoverageEntryTimestamp timeIntervalSinceDate:self->_scanningActiveTime];
+      if (v13 <= 0.0)
+      {
+        inScanDuration = self->_inScanDuration;
+      }
+
+      else
+      {
+        [v15 timeIntervalSinceDate:self->_lastPoorCoverageEntryTimestamp];
+      }
+
+      self->_poorCoverageAndScanDuration = inScanDuration + self->_poorCoverageAndScanDuration;
+    }
+
+    date = [(WiFiUsageBssSession *)self setScanningActiveTime:0];
+    goto LABEL_13;
+  }
+
+  v15 = date;
+  date = [(WiFiUsageBssSession *)self setScanningActiveTime:date];
+  ++self->_inScanEventCount;
+  if (client == 17)
+  {
+    ++self->_indoorScanCount;
+LABEL_13:
+    v10 = v15;
+    goto LABEL_14;
+  }
+
+  v10 = v15;
+  if (client == 16)
+  {
+    ++self->_locationScanCount;
+  }
+
+LABEL_14:
+
+  MEMORY[0x2821F96F8](date, v10);
 }
 
 - (void)cellularFallbackStateDidChange:(BOOL)change

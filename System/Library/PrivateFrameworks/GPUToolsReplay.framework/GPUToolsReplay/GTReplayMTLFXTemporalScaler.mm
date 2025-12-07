@@ -3,14 +3,13 @@
 - (CGPoint)previousJitterOffset;
 - (GTReplayMTLFXTemporalScaler)initWithDevice:(id)device descriptor:(id)descriptor;
 - (MTLTexture)dilatedMotionVectors;
-- (uint64_t)setCurrentViewToClipMatrix:(double)matrix;
-- (uint64_t)setCurrentWorldToViewMatrix:(double)matrix;
-- (uint64_t)setPreviousViewToClipMatrix:(double)matrix;
-- (uint64_t)setPreviousWorldToViewMatrix:(double)matrix;
 - (void)encodeToCommandBuffer:(id)buffer;
 - (void)encodeToCommandQueue:(id)queue;
 - (void)setColorTexture:(id)texture;
+- (void)setCurrentViewToClipMatrix:(double)matrix;
+- (void)setCurrentWorldToViewMatrix:(double)matrix;
 - (void)setDebugTexture:(id)texture;
+- (void)setDepthReversed:(BOOL)reversed;
 - (void)setDepthTexture:(id)texture;
 - (void)setExposureTexture:(id)texture;
 - (void)setFence:(id)fence;
@@ -24,7 +23,10 @@
 - (void)setOutputTexture:(id)texture;
 - (void)setPreExposure:(float)exposure;
 - (void)setPreviousJitterOffset:(CGPoint)offset;
+- (void)setPreviousViewToClipMatrix:(double)matrix;
+- (void)setPreviousWorldToViewMatrix:(double)matrix;
 - (void)setReactiveMaskTexture:(id)texture;
+- (void)setReset:(BOOL)reset;
 @end
 
 @implementation GTReplayMTLFXTemporalScaler
@@ -106,7 +108,7 @@ LABEL_6:
   return dilatedMotionVectors;
 }
 
-- (uint64_t)setPreviousViewToClipMatrix:(double)matrix
+- (void)setPreviousViewToClipMatrix:(double)matrix
 {
   [*(self + 8) setPreviousViewToClipMatrix:?];
   v6 = *(self + 16);
@@ -114,7 +116,7 @@ LABEL_6:
   return [v6 setPreviousViewToClipMatrix:{a2, matrix, a4, a5}];
 }
 
-- (uint64_t)setPreviousWorldToViewMatrix:(double)matrix
+- (void)setPreviousWorldToViewMatrix:(double)matrix
 {
   [*(self + 8) setPreviousWorldToViewMatrix:?];
   v6 = *(self + 16);
@@ -122,7 +124,7 @@ LABEL_6:
   return [v6 setPreviousWorldToViewMatrix:{a2, matrix, a4, a5}];
 }
 
-- (uint64_t)setCurrentViewToClipMatrix:(double)matrix
+- (void)setCurrentViewToClipMatrix:(double)matrix
 {
   [*(self + 8) setCurrentViewToClipMatrix:?];
   v6 = *(self + 16);
@@ -130,7 +132,7 @@ LABEL_6:
   return [v6 setCurrentViewToClipMatrix:{a2, matrix, a4, a5}];
 }
 
-- (uint64_t)setCurrentWorldToViewMatrix:(double)matrix
+- (void)setCurrentWorldToViewMatrix:(double)matrix
 {
   [*(self + 8) setCurrentWorldToViewMatrix:?];
   v6 = *(self + 16);
@@ -154,6 +156,24 @@ LABEL_6:
   result.y = v3;
   result.x = v2;
   return result;
+}
+
+- (void)setDepthReversed:(BOOL)reversed
+{
+  reversedCopy = reversed;
+  [self->super._gpuScaler setDepthReversed:?];
+  aneScaler = self->super._aneScaler;
+
+  [aneScaler setDepthReversed:reversedCopy];
+}
+
+- (void)setReset:(BOOL)reset
+{
+  resetCopy = reset;
+  [self->super._gpuScaler setReset:?];
+  aneScaler = self->super._aneScaler;
+
+  [aneScaler setReset:resetCopy];
 }
 
 - (void)setMotionVectorScaleY:(float)y

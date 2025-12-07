@@ -239,60 +239,50 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, d);
-  v35 = 0;
-  objc_storeStrong(&v35, completion);
-  v34 = [AKSQLiteQuery queryWithString:@"SELECT client_id, app_name, app_developer_name, adam_id FROM authorized_primary_applications"];
-  v27 = 0;
-  v28 = &v27;
-  v29 = 838860800;
-  v30 = 48;
-  v31 = sub_100003A8C;
-  v32 = sub_100011230;
-  v33 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 838860800;
-  v23 = 48;
-  v24 = sub_100003A8C;
-  v25 = sub_100011230;
-  v26 = objc_alloc_init(NSMutableArray);
-  v14[1] = _NSConcreteStackBlock;
-  v15 = -1073741824;
-  v16 = 0;
-  v17 = sub_100105CE0;
-  v18 = &unk_10031F288;
-  v19 = &v20;
-  [v34 setRowHandler:?];
-  objc_initWeak(v14, selfCopy);
-  v7 = _NSConcreteStackBlock;
-  v8 = -1073741824;
-  v9 = 0;
-  v10 = sub_100105E7C;
-  v11 = &unk_10031F2B0;
-  objc_copyWeak(&v13, v14);
-  v12[0] = _objc_retain(v34);
-  v12[1] = &v27;
-  [AKSQLiteExecutor performBlockAndWait:&v7];
-  if (v28[5])
-  {
-    v4 = v28[5];
-  }
-
-  else
-  {
-    v5 = v21[5];
-  }
-
-  (*(v35 + 2))();
-  objc_storeStrong(v12, 0);
-  objc_destroyWeak(&v13);
-  objc_destroyWeak(v14);
-  _Block_object_dispose(&v20, 8);
-  objc_storeStrong(&v26, 0);
-  _Block_object_dispose(&v27, 8);
-  objc_storeStrong(&v33, 0);
-  objc_storeStrong(&v34, 0);
-  objc_storeStrong(&v35, 0);
+  v31 = 0;
+  objc_storeStrong(&v31, completion);
+  v30 = [AKSQLiteQuery queryWithString:@"SELECT client_id, app_name, app_developer_name, adam_id FROM authorized_primary_applications"];
+  v24[0] = 0;
+  v24[1] = v24;
+  v25 = 838860800;
+  v26 = 48;
+  v27 = sub_100003A8C;
+  v28 = sub_100011230;
+  v29 = 0;
+  v18[0] = 0;
+  v18[1] = v18;
+  v19 = 838860800;
+  v20 = 48;
+  v21 = sub_100003A8C;
+  v22 = sub_100011230;
+  v23 = objc_alloc_init(NSMutableArray);
+  v12[1] = _NSConcreteStackBlock;
+  v13 = -1073741824;
+  v14 = 0;
+  v15 = sub_100105CE0;
+  v16 = &unk_10031F288;
+  v17 = v18;
+  [v30 setRowHandler:?];
+  objc_initWeak(v12, selfCopy);
+  v5 = _NSConcreteStackBlock;
+  v6 = -1073741824;
+  v7 = 0;
+  v8 = sub_100105E7C;
+  v9 = &unk_10031F2B0;
+  objc_copyWeak(&v11, v12);
+  v10[0] = _objc_retain(v30);
+  v10[1] = v24;
+  [AKSQLiteExecutor performBlockAndWait:&v5];
+  (*(v31 + 2))();
+  objc_storeStrong(v10, 0);
+  objc_destroyWeak(&v11);
+  objc_destroyWeak(v12);
+  _Block_object_dispose(v18, 8);
+  objc_storeStrong(&v23, 0);
+  _Block_object_dispose(v24, 8);
+  objc_storeStrong(&v29, 0);
+  objc_storeStrong(&v30, 0);
+  objc_storeStrong(&v31, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -744,88 +734,87 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, d);
-  v31 = 0;
-  objc_storeStrong(&v31, completion);
+  v30 = 0;
+  objc_storeStrong(&v30, completion);
   if (location[0])
   {
-    v29 = _AKLogSiwa();
-    v28 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v28 = _AKLogSiwa();
+    v27 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      sub_1000194D4(v36, location[0]);
-      _os_log_impl(&_mh_execute_header, v29, v28, "Attempting to delete application with clientID: %@ from DB", v36, 0xCu);
+      sub_1000194D4(v35, location[0]);
+      _os_log_impl(&_mh_execute_header, v28, v27, "Attempting to delete application with clientID: %@ from DB", v35, 0xCu);
     }
 
-    objc_storeStrong(&v29, 0);
-    v27 = [AKSQLiteQuery queryWithString:@"DELETE FROM authorized_applications WHERE client_id = ?"];
-    v20 = 0;
-    v21 = &v20;
-    v22 = 838860800;
-    v23 = 48;
-    v24 = sub_100003A8C;
-    v25 = sub_100011230;
-    v26 = 0;
+    objc_storeStrong(&v28, 0);
+    v26 = [AKSQLiteQuery queryWithString:@"DELETE FROM authorized_applications WHERE client_id = ?"];
     v19 = 0;
-    [v27 bindParameter:location[0] error:&v19];
-    objc_storeStrong(&v26, v19);
+    v20 = &v19;
+    v21 = 838860800;
+    v22 = 48;
+    v23 = sub_100003A8C;
+    v24 = sub_100011230;
+    v25 = 0;
+    v18 = 0;
+    [v26 bindParameter:location[0] error:&v18];
+    objc_storeStrong(&v25, v18);
     objc_initWeak(&from, selfCopy);
-    v11 = _NSConcreteStackBlock;
-    v12 = -1073741824;
-    v13 = 0;
-    v14 = sub_100108284;
-    v15 = &unk_10031F2B0;
-    objc_copyWeak(&v17, &from);
-    v16[0] = _objc_retain(v27);
-    v16[1] = &v20;
-    [AKSQLiteExecutor performBlockAndWait:&v11];
-    if (v21[5])
+    v10 = _NSConcreteStackBlock;
+    v11 = -1073741824;
+    v12 = 0;
+    v13 = sub_100108284;
+    v14 = &unk_10031F2B0;
+    objc_copyWeak(&v16, &from);
+    v15[0] = _objc_retain(v26);
+    v15[1] = &v19;
+    [AKSQLiteExecutor performBlockAndWait:&v10];
+    if (v20[5])
     {
       oslog = _AKLogSiwa();
-      v9 = OS_LOG_TYPE_ERROR;
+      v8 = OS_LOG_TYPE_ERROR;
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
       {
-        sub_10001B098(v35, location[0], v21[5]);
-        _os_log_error_impl(&_mh_execute_header, oslog, v9, "Deleting application with clientID: %@ failed with error: %@", v35, 0x16u);
+        sub_10001B098(v34, location[0], v20[5]);
+        _os_log_error_impl(&_mh_execute_header, oslog, v8, "Deleting application with clientID: %@ failed with error: %@", v34, 0x16u);
       }
 
       objc_storeStrong(&oslog, 0);
-      v4 = v21[5];
-      (*(v31 + 2))();
-      v30 = 1;
+      (*(v30 + 2))();
+      v29 = 1;
     }
 
     else
     {
-      v8 = _AKLogSiwa();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v7 = _AKLogSiwa();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        sub_1000194D4(v34, location[0]);
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Application with clientID: %@ removed from database successfully", v34, 0xCu);
+        sub_1000194D4(v33, location[0]);
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Application with clientID: %@ removed from database successfully", v33, 0xCu);
       }
 
-      objc_storeStrong(&v8, 0);
-      (*(v31 + 2))();
-      v30 = 0;
+      objc_storeStrong(&v7, 0);
+      (*(v30 + 2))();
+      v29 = 0;
     }
 
-    objc_storeStrong(v16, 0);
-    objc_destroyWeak(&v17);
+    objc_storeStrong(v15, 0);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&from);
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v19, 8);
+    objc_storeStrong(&v25, 0);
     objc_storeStrong(&v26, 0);
-    objc_storeStrong(&v27, 0);
   }
 
   else
   {
-    v6 = v31;
-    v5 = [NSError errorWithDomain:AKSQLErrorDomain code:-6002 userInfo:0];
-    v6[2](v6, 0);
-    _objc_release(v5);
-    v30 = 1;
+    v5 = v30;
+    v4 = [NSError errorWithDomain:AKSQLErrorDomain code:-6002 userInfo:0];
+    v5[2](v5, 0);
+    _objc_release(v4);
+    v29 = 1;
   }
 
-  objc_storeStrong(&v31, 0);
+  objc_storeStrong(&v30, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -1422,7 +1411,7 @@
 
 - (id)_handleRevokedApplicationsForVersion:(id)version
 {
-  selfCopy = self;
+  location[2] = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, version);
@@ -1450,10 +1439,10 @@
   v27 = [NSNumber numberWithInt:0];
   v26 = [NSArray arrayWithObjects:v27, location[0], location[0], 0];
   v5 = v38 + 5;
-  v25 = v38[5];
-  [v28 bindParameters:v26 error:&v25];
-  objc_storeStrong(v5, v25);
-  objc_initWeak(&from, selfCopy);
+  *v25 = v38[5];
+  [v28 bindParameters:v26 error:v25];
+  objc_storeStrong(v5, *v25);
+  objc_initWeak(&from, location[2]);
   v17 = _NSConcreteStackBlock;
   v18 = -1073741824;
   v19 = 0;
@@ -1469,8 +1458,8 @@
     type = OS_LOG_TYPE_ERROR;
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
-      sub_1000194D4(v48, v38[5]);
-      _os_log_error_impl(&_mh_execute_header, oslog, type, "Failed to fetch applications to be revoked with error: %@", v48, 0xCu);
+      sub_1000194D4(v47, v38[5]);
+      _os_log_error_impl(&_mh_execute_header, oslog, type, "Failed to fetch applications to be revoked with error: %@", v47, 0xCu);
     }
 
     objc_storeStrong(&oslog, 0);
@@ -1490,8 +1479,8 @@
     v7 = _AKLogSiwa();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_1000194D4(v47, v38[5]);
-      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to revoke applications with error: %@", v47, 0xCu);
+      sub_1000194D4(v46, v38[5]);
+      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to revoke applications with error: %@", v46, 0xCu);
     }
 
     objc_storeStrong(&v7, 0);

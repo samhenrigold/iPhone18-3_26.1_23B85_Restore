@@ -42,54 +42,55 @@
 
 - (TUConversationProviderManagerXPCClient)init
 {
-  v13.receiver = self;
-  v13.super_class = TUConversationProviderManagerXPCClient;
-  v2 = [(TUConversationProviderManagerXPCClient *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = TUConversationProviderManagerXPCClient;
+  v2 = [(TUConversationProviderManagerXPCClient *)&v14 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = TUDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = TUDefaultLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Initializing TUConversationProviderManagerXPCClient", buf, 2u);
+      _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Initializing TUConversationProviderManagerXPCClient", buf, 2u);
     }
 
-    v4 = dispatch_queue_create("com.apple.telephonyutilities.conversationprovidermanagerxpcclient", 0);
-    queue = v2->_queue;
-    v2->_queue = v4;
+    v5 = dispatch_queue_create("com.apple.telephonyutilities.conversationprovidermanagerxpcclient", 0);
+    queue = v3->_queue;
+    v3->_queue = v5;
 
-    objc_initWeak(buf, v2);
-    v6 = v2->_queue;
+    objc_initWeak(buf, v3);
+    v7 = v3->_queue;
     handler[0] = MEMORY[0x1E69E9820];
     handler[1] = 3221225472;
     handler[2] = __46__TUConversationProviderManagerXPCClient_init__block_invoke;
     handler[3] = &unk_1E7424C60;
-    objc_copyWeak(&v11, buf);
-    notify_register_dispatch("CSDConversationProviderManagerClientsShouldConnectNotification", &v2->_shouldConnectToken, v6, handler);
+    objc_copyWeak(&v12, buf);
+    notify_register_dispatch("CSDConversationProviderManagerClientsShouldConnectNotification", &v3->_shouldConnectToken, v7, handler);
     WeakRetained = objc_loadWeakRetained(&sAsynchronousServer_3);
-    v8 = TUDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = TUDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      [(TUConversationProviderManagerXPCClient *)v2 init];
+      [(TUConversationProviderManagerXPCClient *)v3 init];
     }
 
-    [WeakRetained registerClient:v2];
-    objc_destroyWeak(&v11);
+    [WeakRetained registerClient:v3];
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
   }
 
-  return v2;
+  return v3;
 }
 
 void __46__TUConversationProviderManagerXPCClient_init__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "CSDConversationProviderManagerClientsShouldConnectNotification";
+    v7 = "CSDConversationProviderManagerClientsShouldConnectNotification";
     _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection for ProviderManager1", buf, 0xCu);
   }
 
@@ -100,28 +101,24 @@ void __46__TUConversationProviderManagerXPCClient_init__block_invoke(uint64_t a1
     block[1] = 3221225472;
     block[2] = __46__TUConversationProviderManagerXPCClient_init__block_invoke_2;
     block[3] = &unk_1E7424950;
-    v6 = WeakRetained;
+    v5 = WeakRetained;
     dispatch_async(v3, block);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __46__TUConversationProviderManagerXPCClient_init__block_invoke_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "CSDConversationProviderManagerClientsShouldConnectNotification";
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection for ProviderManager2", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "CSDConversationProviderManagerClientsShouldConnectNotification";
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection for ProviderManager2", &v4, 0xCu);
   }
 
   *(*(a1 + 32) + 10) = 1;
-  result = [*(a1 + 32) _requestInitialStateWithCompletionHandler:0];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _requestInitialStateWithCompletionHandler:0];
 }
 
 - (void)dealloc
@@ -183,17 +180,17 @@ uint64_t __72__TUConversationProviderManagerXPCClient_registerWithCompletionHand
 
 void __94__TUConversationProviderManagerXPCClient_conversationProviderForIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error getting conversation provider with identifier: %@ error: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error getting conversation provider with identifier: %@ error: %@", &v7, 0x16u);
   }
 
   v6 = *(a1 + 40);
@@ -201,8 +198,6 @@ void __94__TUConversationProviderManagerXPCClient_conversationProviderForIdentif
   {
     (*(v6 + 16))(v6, 0);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerForCallbacksForProvider:(id)provider completionHandler:(id)handler
@@ -223,17 +218,17 @@ void __94__TUConversationProviderManagerXPCClient_conversationProviderForIdentif
 
 void __92__TUConversationProviderManagerXPCClient_registerForCallbacksForProvider_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error registering callbacks for conversation provider: %@ error: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error registering callbacks for conversation provider: %@ error: %@", &v7, 0x16u);
   }
 
   v6 = *(a1 + 40);
@@ -241,8 +236,6 @@ void __92__TUConversationProviderManagerXPCClient_registerForCallbacksForProvide
   {
     (*(v6 + 16))(v6, v3);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerConversationProvider:(id)provider completionHandler:(id)handler
@@ -263,17 +256,17 @@ void __92__TUConversationProviderManagerXPCClient_registerForCallbacksForProvide
 
 void __89__TUConversationProviderManagerXPCClient_registerConversationProvider_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error registering conversation provider: %@ error: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error registering conversation provider: %@ error: %@", &v7, 0x16u);
   }
 
   v6 = *(a1 + 40);
@@ -281,8 +274,6 @@ void __89__TUConversationProviderManagerXPCClient_registerConversationProvider_c
   {
     (*(v6 + 16))(v6, v3);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)generatePseudonymHandleForConversationProvider:(id)provider expiryDuration:(double)duration URI:(id)i completionHandler:(id)handler
@@ -304,17 +295,17 @@ void __89__TUConversationProviderManagerXPCClient_registerConversationProvider_c
 
 void __126__TUConversationProviderManagerXPCClient_generatePseudonymHandleForConversationProvider_expiryDuration_URI_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error generating pseudonym handle for conversation provider: %@ error: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error generating pseudonym handle for conversation provider: %@ error: %@", &v7, 0x16u);
   }
 
   v6 = *(a1 + 40);
@@ -322,8 +313,6 @@ void __126__TUConversationProviderManagerXPCClient_generatePseudonymHandleForCon
   {
     (*(v6 + 16))(v6, 0, 0, v3);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)renewPseudonymHandle:(id)handle forConversationProvider:(id)provider expirationDate:(id)date completionHandler:(id)handler
@@ -348,20 +337,20 @@ void __126__TUConversationProviderManagerXPCClient_generatePseudonymHandleForCon
 
 void __120__TUConversationProviderManagerXPCClient_renewPseudonymHandle_forConversationProvider_expirationDate_completionHandler___block_invoke(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
     v6 = a1[5];
-    v9 = 138412802;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error renewing pseudonym handle: %@ for conversation provider: %@ error: %@", &v9, 0x20u);
+    v8 = 138412802;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error renewing pseudonym handle: %@ for conversation provider: %@ error: %@", &v8, 0x20u);
   }
 
   v7 = a1[6];
@@ -369,8 +358,6 @@ void __120__TUConversationProviderManagerXPCClient_renewPseudonymHandle_forConve
   {
     (*(v7 + 16))(v7, 0, 0, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)revokePseudonymHandle:(id)handle forConversationProvider:(id)provider completionHandler:(id)handler
@@ -394,20 +381,20 @@ void __120__TUConversationProviderManagerXPCClient_renewPseudonymHandle_forConve
 
 void __106__TUConversationProviderManagerXPCClient_revokePseudonymHandle_forConversationProvider_completionHandler___block_invoke(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
     v6 = a1[5];
-    v9 = 138412802;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error revoking pseudonym handle: %@ for conversation provider: %@ error: %@", &v9, 0x20u);
+    v8 = 138412802;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error revoking pseudonym handle: %@ for conversation provider: %@ error: %@", &v8, 0x20u);
   }
 
   v7 = a1[6];
@@ -415,8 +402,6 @@ void __106__TUConversationProviderManagerXPCClient_revokePseudonymHandle_forConv
   {
     (*(v7 + 16))(v7, 0, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)doesHandle:(id)handle correspondToConversationProvider:(id)provider completionHandler:(id)handler
@@ -440,20 +425,20 @@ void __106__TUConversationProviderManagerXPCClient_revokePseudonymHandle_forConv
 
 void __104__TUConversationProviderManagerXPCClient_doesHandle_correspondToConversationProvider_completionHandler___block_invoke(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
     v6 = a1[5];
-    v9 = 138412802;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error when checking if pseudonym handle: %@ corresponds to conversation provider: %@ error: %@", &v9, 0x20u);
+    v8 = 138412802;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error when checking if pseudonym handle: %@ corresponds to conversation provider: %@ error: %@", &v8, 0x20u);
   }
 
   v7 = a1[6];
@@ -461,8 +446,6 @@ void __104__TUConversationProviderManagerXPCClient_doesHandle_correspondToConver
   {
     (*(v7 + 16))(v7, 0, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
@@ -559,7 +542,7 @@ void __55__TUConversationProviderManagerXPCClient_xpcConnection__block_invoke(ui
   v2 = *(*(a1 + 32) + 16);
   if (!v2)
   {
-    v3 = TUDefaultLog();
+    v3 = TUDefaultLog(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
@@ -571,31 +554,29 @@ void __55__TUConversationProviderManagerXPCClient_xpcConnection__block_invoke(ui
     v6 = *(v5 + 16);
     *(v5 + 16) = v4;
 
-    v7 = *(a1 + 32);
-    v8 = [objc_opt_class() conversationProviderManagerServerXPCInterface];
-    [*(*(a1 + 32) + 16) setRemoteObjectInterface:v8];
+    v7 = [objc_opt_class() conversationProviderManagerServerXPCInterface];
+    [*(*(a1 + 32) + 16) setRemoteObjectInterface:v7];
 
-    v9 = *(a1 + 32);
-    v10 = [objc_opt_class() conversationProviderManagerClientXPCInterface];
-    [*(*(a1 + 32) + 16) setExportedInterface:v10];
+    v8 = [objc_opt_class() conversationProviderManagerClientXPCInterface];
+    [*(*(a1 + 32) + 16) setExportedInterface:v8];
 
     [*(*(a1 + 32) + 16) setExportedObject:?];
     objc_initWeak(buf, *(a1 + 32));
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __55__TUConversationProviderManagerXPCClient_xpcConnection__block_invoke_9;
-    v16[3] = &unk_1E7424998;
-    objc_copyWeak(&v17, buf);
-    [*(*(a1 + 32) + 16) setInvalidationHandler:v16];
-    v11 = MEMORY[0x1E69E9820];
-    v12 = 3221225472;
-    v13 = __55__TUConversationProviderManagerXPCClient_xpcConnection__block_invoke_10;
-    v14 = &unk_1E7424998;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __55__TUConversationProviderManagerXPCClient_xpcConnection__block_invoke_9;
+    v14[3] = &unk_1E7424998;
     objc_copyWeak(&v15, buf);
-    [*(*(a1 + 32) + 16) setInterruptionHandler:&v11];
+    [*(*(a1 + 32) + 16) setInvalidationHandler:v14];
+    v9 = MEMORY[0x1E69E9820];
+    v10 = 3221225472;
+    v11 = __55__TUConversationProviderManagerXPCClient_xpcConnection__block_invoke_10;
+    v12 = &unk_1E7424998;
+    objc_copyWeak(&v13, buf);
+    [*(*(a1 + 32) + 16) setInterruptionHandler:&v9];
     [*(*(a1 + 32) + 16) resume];
+    objc_destroyWeak(&v13);
     objc_destroyWeak(&v15);
-    objc_destroyWeak(&v17);
     objc_destroyWeak(buf);
     v2 = *(*(a1 + 32) + 16);
   }
@@ -621,7 +602,7 @@ void __55__TUConversationProviderManagerXPCClient_xpcConnection__block_invoke_9(
 
 void __55__TUConversationProviderManagerXPCClient_xpcConnection__block_invoke_2(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -651,7 +632,7 @@ void __55__TUConversationProviderManagerXPCClient_xpcConnection__block_invoke_10
 
 uint64_t __55__TUConversationProviderManagerXPCClient_xpcConnection__block_invoke_2_11(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -781,13 +762,12 @@ void __87__TUConversationProviderManagerXPCClient_conversationProviderManagerSer
 
 - (void)init
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 134218240;
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 134218240;
   selfCopy = self;
-  v6 = 2048;
-  v7 = a2;
-  _os_log_debug_impl(&dword_1956FD000, log, OS_LOG_TYPE_DEBUG, "Registering TUConversationProviderManagerXPCClient %p with async server %p", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = 2048;
+  v6 = a2;
+  _os_log_debug_impl(&dword_1956FD000, log, OS_LOG_TYPE_DEBUG, "Registering TUConversationProviderManagerXPCClient %p with async server %p", &v3, 0x16u);
 }
 
 @end

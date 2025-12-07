@@ -49,9 +49,9 @@
   }
 
   requestCacheKey = [(BWVisionRequestInferenceDescriptor *)self requestCacheKey];
-  requestCacheKey2 = [equal requestCacheKey];
+  [equal requestCacheKey];
 
-  return [(NSString *)requestCacheKey isEqualToString:requestCacheKey2];
+  return objc_msgSend_isEqualToString_(requestCacheKey);
 }
 
 - (id)copyWithZone:(_NSZone *)zone

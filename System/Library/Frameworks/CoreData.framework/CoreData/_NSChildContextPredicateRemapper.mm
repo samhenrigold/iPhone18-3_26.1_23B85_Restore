@@ -53,11 +53,9 @@
 - (id)replacementValueForValue:(uint64_t)value
 {
   v2 = 0;
-  v44 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   if (!value || !a2)
   {
-LABEL_41:
-    v25 = *MEMORY[0x1E69E9840];
     return v2;
   }
 
@@ -92,28 +90,26 @@ LABEL_41:
       v6 = obj;
     }
 
-    v18 = *MEMORY[0x1E69E9840];
-
     return v6;
   }
 
   if ([obj isNSArray])
   {
     v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v37 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v8 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+    v33 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v8 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v38;
+      v10 = *v34;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v38 != v10)
+          if (*v34 != v10)
           {
             objc_enumerationMutation(obj);
           }
@@ -122,32 +118,32 @@ LABEL_41:
           [v2 addObject:v12];
         }
 
-        v9 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+        v9 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
       }
 
       while (v9);
     }
 
-    goto LABEL_41;
+    return v2;
   }
 
   if ([obj isNSSet])
   {
     v2 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v33 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v13 = [obj countByEnumeratingWithState:&v33 objects:v42 count:16];
+    v29 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v13 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v34;
+      v15 = *v30;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v34 != v15)
+          if (*v30 != v15)
           {
             objc_enumerationMutation(obj);
           }
@@ -156,59 +152,57 @@ LABEL_41:
           [v2 addObject:v17];
         }
 
-        v14 = [obj countByEnumeratingWithState:&v33 objects:v42 count:16];
+        v14 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
       }
 
       while (v14);
     }
 
-    goto LABEL_41;
+    return v2;
   }
 
   if ([obj isNSOrderedSet])
   {
     v2 = objc_alloc_init(MEMORY[0x1E695DFA0]);
-    v29 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    v20 = [obj countByEnumeratingWithState:&v29 objects:v41 count:16];
-    if (v20)
+    v25 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v19 = [obj countByEnumeratingWithState:&v25 objects:v37 count:16];
+    if (v19)
     {
-      v21 = v20;
-      v22 = *v30;
+      v20 = v19;
+      v21 = *v26;
       do
       {
-        for (k = 0; k != v21; ++k)
+        for (k = 0; k != v20; ++k)
         {
-          if (*v30 != v22)
+          if (*v26 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = [(_NSChildContextPredicateRemapper *)value replacementValueForValue:?];
-          [v2 addObject:v24];
+          v23 = [(_NSChildContextPredicateRemapper *)value replacementValueForValue:?];
+          [v2 addObject:v23];
         }
 
-        v21 = [obj countByEnumeratingWithState:&v29 objects:v41 count:16];
+        v20 = [obj countByEnumeratingWithState:&v25 objects:v37 count:16];
       }
 
-      while (v21);
+      while (v20);
     }
 
-    goto LABEL_41;
+    return v2;
   }
 
   if ([obj isNSString])
   {
-    v26 = *MEMORY[0x1E69E9840];
 
     return [obj copy];
   }
 
   else
   {
-    v27 = *MEMORY[0x1E69E9840];
 
     return obj;
   }

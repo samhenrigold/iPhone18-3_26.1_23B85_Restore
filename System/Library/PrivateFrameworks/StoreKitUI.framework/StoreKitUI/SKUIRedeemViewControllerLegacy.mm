@@ -158,12 +158,13 @@
 
 - (unint64_t)supportedInterfaceOrientations
 {
-  if (SKUIUserInterfaceIdiom(self->_clientContext) == 1)
+  v2 = SKUIUserInterfaceIdiom(self->_clientContext);
+  if (v2 == 1)
   {
     return 30;
   }
 
-  if (SKUIAllowsLandscapePhone())
+  if (SKUIAllowsLandscapePhone(v2, v3))
   {
     return 26;
   }
@@ -619,11 +620,11 @@ void __58__SKUIRedeemViewControllerLegacy__loadInputViewController__block_invoke
     self->_cancelButtonItem = v4;
 
     [(UIBarButtonItem *)self->_cancelButtonItem setAction:sel__cancelButtonAction_];
-    [(UIBarButtonItem *)self->_cancelButtonItem setTarget:self];
-    v6 = self->_cancelButtonItem;
-    v7 = SKUIBundle();
-    v8 = [v7 localizedStringForKey:@"REDEEM_CANCEL_BUTTON" value:&stru_2827FFAC8 table:@"Redeem"];
-    [(UIBarButtonItem *)v6 setTitle:v8];
+    v6 = [(UIBarButtonItem *)self->_cancelButtonItem setTarget:self];
+    v7 = self->_cancelButtonItem;
+    v9 = SKUIBundle(v6, v8);
+    v10 = [v9 localizedStringForKey:@"REDEEM_CANCEL_BUTTON" value:&stru_2827FFAC8 table:@"Redeem"];
+    [(UIBarButtonItem *)v7 setTitle:v10];
 
     cancelButtonItem = self->_cancelButtonItem;
   }
@@ -723,7 +724,7 @@ uint64_t __74__SKUIRedeemViewControllerLegacy__executeIdValidationOperationWithF
 
 - (void)_showNationalIdLoadingPage
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v3 = [SKUILoadingViewController alloc];
   clientContext = [(SKUIRedeemViewControllerLegacy *)self clientContext];
   v5 = [(SKUILoadingViewController *)v3 initWithClientContext:clientContext];
@@ -756,16 +757,16 @@ uint64_t __74__SKUIRedeemViewControllerLegacy__executeIdValidationOperationWithF
   v11 = ;
   [(SKUILoadingViewController *)v5 setLoadingText:v11];
 
-  v12 = SKUITableViewGroupedBackgroundColor();
-  [(SKUILoadingViewController *)v5 setBackgroundColor:v12];
+  v14 = SKUITableViewGroupedBackgroundColor(v12, v13);
+  [(SKUILoadingViewController *)v5 setBackgroundColor:v14];
 
   navigationItem = [(SKUILoadingViewController *)v5 navigationItem];
   cancelButtonItem = [(SKUIRedeemViewControllerLegacy *)self cancelButtonItem];
   [navigationItem setLeftBarButtonItem:cancelButtonItem];
 
-  v16[0] = v5;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-  [(SKUIRedeemViewControllerLegacy *)self setViewControllers:v15];
+  v18[0] = v5;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  [(SKUIRedeemViewControllerLegacy *)self setViewControllers:v17];
 }
 
 - (SKUIRedeemViewCameraOverrideDelegate)cameraDelegate

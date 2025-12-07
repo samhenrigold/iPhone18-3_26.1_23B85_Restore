@@ -165,7 +165,7 @@
   return v2;
 }
 
-uint64_t __25__SUScriptTextField_blur__block_invoke(uint64_t a1)
+void *__25__SUScriptTextField_blur__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "_boxedNativeTextField")];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -184,7 +184,7 @@ uint64_t __25__SUScriptTextField_blur__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __26__SUScriptTextField_focus__block_invoke(uint64_t a1)
+void *__26__SUScriptTextField_focus__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "_boxedNativeTextField")];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -316,7 +316,7 @@ id __33__SUScriptTextField_keyboardType__block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __32__SUScriptTextField_placeholder__block_invoke(uint64_t a1)
+void *__32__SUScriptTextField_placeholder__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _copyPlaceholder];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -557,7 +557,7 @@ id __40__SUScriptTextField_shouldFocusFunction__block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __26__SUScriptTextField_value__block_invoke(uint64_t a1)
+void *__26__SUScriptTextField_value__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _copyValue];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -579,7 +579,7 @@ uint64_t __26__SUScriptTextField_value__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __26__SUScriptTextField_width__block_invoke(uint64_t a1)
+void *__26__SUScriptTextField_width__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "_boxedNativeTextField")];
   *(*(*(a1 + 40) + 8) + 24) = v3;

@@ -122,7 +122,7 @@
 
 - (id)focusItemsInRect:(CGRect)rect
 {
-  type metadata accessor for [UIFocusItem]();
+  type metadata accessor for [UIFocusItem](0);
   selfCopy = self;
   static Update.ensure<A>(_:)();
 

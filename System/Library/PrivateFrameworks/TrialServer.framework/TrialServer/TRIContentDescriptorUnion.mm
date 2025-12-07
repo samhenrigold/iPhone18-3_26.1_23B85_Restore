@@ -1,4 +1,5 @@
 @interface TRIContentDescriptorUnion
++ (id)unionWithType:(unsigned __int8)type experiment:(id)experiment treatment:(id)treatment rollout:(id)rollout factorPackSet:(id)set;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToUnion:(id)union;
 - (TRIContentDescriptorUnion)initWithType:(unsigned __int8)type experiment:(id)experiment treatment:(id)treatment rollout:(id)rollout factorPackSet:(id)set;
@@ -6,6 +7,7 @@
 - (id)copyWithReplacementFactorPackSet:(id)set;
 - (id)copyWithReplacementRollout:(id)rollout;
 - (id)copyWithReplacementTreatment:(id)treatment;
+- (id)copyWithReplacementType:(unsigned __int8)type;
 - (id)description;
 - (unint64_t)hash;
 @end
@@ -32,6 +34,30 @@
   }
 
   return v18;
+}
+
++ (id)unionWithType:(unsigned __int8)type experiment:(id)experiment treatment:(id)treatment rollout:(id)rollout factorPackSet:(id)set
+{
+  typeCopy = type;
+  setCopy = set;
+  rolloutCopy = rollout;
+  treatmentCopy = treatment;
+  experimentCopy = experiment;
+  v16 = [[self alloc] initWithType:typeCopy experiment:experimentCopy treatment:treatmentCopy rollout:rolloutCopy factorPackSet:setCopy];
+
+  return v16;
+}
+
+- (id)copyWithReplacementType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v5 = objc_alloc(objc_opt_class());
+  experiment = self->_experiment;
+  treatment = self->_treatment;
+  rollout = self->_rollout;
+  factorPackSet = self->_factorPackSet;
+
+  return [v5 initWithType:typeCopy experiment:experiment treatment:treatment rollout:rollout factorPackSet:factorPackSet];
 }
 
 - (id)copyWithReplacementExperiment:(id)experiment
@@ -70,87 +96,8 @@
 {
   unionCopy = union;
   v5 = unionCopy;
-  if (!unionCopy)
+  if (!unionCopy || (type = self->_type, type != [unionCopy type]) || (v7 = self->_experiment == 0, objc_msgSend(v5, "experiment"), v8 = objc_claimAutoreleasedReturnValue(), v9 = v8 != 0, v8, v7 == v9) || (experiment = self->_experiment) != 0 && (objc_msgSend(v5, "experiment"), v11 = objc_claimAutoreleasedReturnValue(), v12 = -[TRIExperimentDeployment isEqual:](experiment, "isEqual:", v11), v11, !v12) || (v13 = self->_treatment == 0, objc_msgSend(v5, "treatment"), v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 != 0, v14, v13 == v15) || (treatment = self->_treatment) != 0 && (objc_msgSend(v5, "treatment"), v17 = objc_claimAutoreleasedReturnValue(), v18 = -[TRITreatmentContentDescriptor isEqual:](treatment, "isEqual:", v17), v17, !v18) || (v19 = self->_rollout == 0, objc_msgSend(v5, "rollout"), v20 = objc_claimAutoreleasedReturnValue(), v21 = v20 != 0, v20, v19 == v21) || (rollout = self->_rollout) != 0 && (objc_msgSend(v5, "rollout"), v23 = objc_claimAutoreleasedReturnValue(), v24 = -[TRIRolloutDeployment isEqual:](rollout, "isEqual:", v23), v23, !v24) || (v25 = self->_factorPackSet == 0, objc_msgSend(v5, "factorPackSet"), v26 = objc_claimAutoreleasedReturnValue(), v27 = v26 != 0, v26, v25 == v27))
   {
-    goto LABEL_15;
-  }
-
-  type = self->_type;
-  if (type != [unionCopy type])
-  {
-    goto LABEL_15;
-  }
-
-  v7 = self->_experiment == 0;
-  experiment = [v5 experiment];
-  v9 = experiment != 0;
-
-  if (v7 == v9)
-  {
-    goto LABEL_15;
-  }
-
-  experiment = self->_experiment;
-  if (experiment)
-  {
-    experiment2 = [v5 experiment];
-    v12 = [(TRIExperimentDeployment *)experiment isEqual:experiment2];
-
-    if (!v12)
-    {
-      goto LABEL_15;
-    }
-  }
-
-  v13 = self->_treatment == 0;
-  treatment = [v5 treatment];
-  v15 = treatment != 0;
-
-  if (v13 == v15)
-  {
-    goto LABEL_15;
-  }
-
-  treatment = self->_treatment;
-  if (treatment)
-  {
-    treatment2 = [v5 treatment];
-    v18 = [(TRITreatmentContentDescriptor *)treatment isEqual:treatment2];
-
-    if (!v18)
-    {
-      goto LABEL_15;
-    }
-  }
-
-  v19 = self->_rollout == 0;
-  rollout = [v5 rollout];
-  v21 = rollout != 0;
-
-  if (v19 == v21)
-  {
-    goto LABEL_15;
-  }
-
-  rollout = self->_rollout;
-  if (rollout)
-  {
-    rollout2 = [v5 rollout];
-    v24 = [(TRIRolloutDeployment *)rollout isEqual:rollout2];
-
-    if (!v24)
-    {
-      goto LABEL_15;
-    }
-  }
-
-  v25 = self->_factorPackSet == 0;
-  factorPackSet = [v5 factorPackSet];
-  v27 = factorPackSet != 0;
-
-  if (v25 == v27)
-  {
-LABEL_15:
     v30 = 0;
   }
 
@@ -159,8 +106,8 @@ LABEL_15:
     factorPackSet = self->_factorPackSet;
     if (factorPackSet)
     {
-      factorPackSet2 = [v5 factorPackSet];
-      v30 = [(TRIFactorPackSetId *)factorPackSet isEqual:factorPackSet2];
+      factorPackSet = [v5 factorPackSet];
+      v30 = [(TRIFactorPackSetId *)factorPackSet isEqual:factorPackSet];
     }
 
     else

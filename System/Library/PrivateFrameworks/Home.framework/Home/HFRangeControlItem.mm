@@ -26,7 +26,7 @@
 
 - (HFRangeControlItem)initWithValueSource:(id)source targetCharacteristicTypes:(id)types minimumCharacteristicType:(id)type maximumCharacteristicType:(id)characteristicType displayResults:(id)results
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   typesCopy = types;
   typeCopy = type;
@@ -36,25 +36,25 @@
   {
     obj = characteristicType;
     v17 = [MEMORY[0x277CBEB58] set];
-    v30 = typeCopy;
+    v29 = typeCopy;
     [v17 na_safeAddObject:typeCopy];
-    v29 = characteristicTypeCopy;
+    v28 = characteristicTypeCopy;
     [v17 na_safeAddObject:characteristicTypeCopy];
     [v17 unionSet:typesCopy];
     v18 = [HFControlItemCharacteristicOptions alloc];
-    v32[0] = &unk_282523DF0;
-    v32[1] = &unk_282523E08;
-    v33[0] = v17;
+    v31[0] = &unk_282523DF0;
+    v31[1] = &unk_282523E08;
+    v32[0] = v17;
     readOnlyCharacteristicTypes = [objc_opt_class() readOnlyCharacteristicTypes];
-    v33[1] = readOnlyCharacteristicTypes;
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
+    v32[1] = readOnlyCharacteristicTypes;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
     v21 = v20 = sourceCopy;
     v22 = [(HFControlItemCharacteristicOptions *)v18 initWithCharacteristicTypesByUsage:v21];
 
     sourceCopy = v20;
-    v31.receiver = self;
-    v31.super_class = HFRangeControlItem;
-    v23 = [(HFControlItem *)&v31 initWithValueSource:v20 characteristicOptions:v22 displayResults:resultsCopy];
+    v30.receiver = self;
+    v30.super_class = HFRangeControlItem;
+    v23 = [(HFControlItem *)&v30 initWithValueSource:v20 characteristicOptions:v22 displayResults:resultsCopy];
     p_isa = &v23->super.super.super.isa;
     if (v23)
     {
@@ -66,8 +66,8 @@
     self = p_isa;
 
     selfCopy = self;
-    characteristicTypeCopy = v29;
-    typeCopy = v30;
+    characteristicTypeCopy = v28;
+    typeCopy = v29;
   }
 
   else
@@ -75,7 +75,6 @@
     selfCopy = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -249,42 +248,40 @@
 
 id __50__HFRangeControlItem_resultsForBatchReadResponse___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = [*(a1 + 32) allCharacteristicTypes];
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         v9 = [*(a1 + 32) responseForCharacteristicType:v8];
         v10 = [v9 value];
         [v2 setObject:v10 forKeyedSubscript:v8];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
 
   v11 = [*(a1 + 40) valueForCharacteristicValues:v2];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

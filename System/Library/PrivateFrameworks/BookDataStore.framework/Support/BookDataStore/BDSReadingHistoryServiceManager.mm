@@ -46,15 +46,16 @@
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
   selfCopy = self;
-  sub_1001C65B8();
+  v7 = sub_1001C65B8();
   if (qword_10026EBE8 != -1)
   {
+    v9 = v7;
     swift_once();
+    v7 = v9;
   }
 
-  v7 = sub_1001C5118();
-  v8 = *(&selfCopy->super.isa + OBJC_IVAR___BDSReadingHistoryServiceManager__readingHistoryServiceAccessQueue);
-  __chkstk_darwin(v7);
+  v8 = sub_1001C5118(v7, &_mh_execute_header, qword_1002711E8, "ReadingHistoryServiceManager clearData", 38, 2, _swiftEmptyArrayStorage);
+  __chkstk_darwin(v8);
   type metadata accessor for ReadingHistoryService();
   sub_1001C6688();
   ReadingHistoryService.clearData(completionHandler:)(sub_10009B2FC, v5);
@@ -66,15 +67,16 @@
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
   selfCopy = self;
-  sub_1001C65B8();
+  v7 = sub_1001C65B8();
   if (qword_10026EBE8 != -1)
   {
+    v9 = v7;
     swift_once();
+    v7 = v9;
   }
 
-  v7 = sub_1001C5118();
-  v8 = *(&selfCopy->super.isa + OBJC_IVAR___BDSReadingHistoryServiceManager__readingHistoryServiceAccessQueue);
-  __chkstk_darwin(v7);
+  v8 = sub_1001C5118(v7, &_mh_execute_header, qword_1002711E8, "ReadingGoalsServiceManager clearDefaultsCachedData", 50, 2, _swiftEmptyArrayStorage);
+  __chkstk_darwin(v8);
   type metadata accessor for ReadingHistoryService();
   sub_1001C6688();
   ReadingHistoryService.clearDefaultsCachedData(completionHandler:)(sub_10009B2FC, v5);
@@ -84,30 +86,30 @@
 {
   v6 = sub_1001C4CA8();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(handler);
+  v9 = v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(handler);
   sub_1001C4C78();
-  v12 = swift_allocObject();
-  *(v12 + 16) = v11;
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
   selfCopy = self;
-  sub_1001C65B8();
+  v13 = sub_1001C65B8();
   if (qword_10026EBE8 != -1)
   {
+    v16 = v13;
     swift_once();
+    v13 = v16;
   }
 
-  v14 = sub_1001C5118();
-  v15 = *(&selfCopy->super.isa + OBJC_IVAR___BDSReadingHistoryServiceManager__readingHistoryServiceAccessQueue);
+  v14 = sub_1001C5118(v13, &_mh_execute_header, qword_1002711E8, "ReadingHistoryServiceManager clearDate", 38, 2, _swiftEmptyArrayStorage);
   __chkstk_darwin(v14);
   v17[-2] = selfCopy;
   type metadata accessor for ReadingHistoryService();
   sub_1001C6688();
-  v16 = v17[1];
-  ReadingHistoryService.clearDate(_:completionHandler:)(v10, sub_10009B2FC, v12);
+  v15 = v17[1];
+  ReadingHistoryService.clearDate(_:completionHandler:)(v9, sub_10009B2FC, v11);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)clearTodayWithCompletionHandler:(id)handler
@@ -116,15 +118,16 @@
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
   selfCopy = self;
-  sub_1001C65B8();
+  v7 = sub_1001C65B8();
   if (qword_10026EBE8 != -1)
   {
+    v9 = v7;
     swift_once();
+    v7 = v9;
   }
 
-  v7 = sub_1001C5118();
-  v8 = *(&selfCopy->super.isa + OBJC_IVAR___BDSReadingHistoryServiceManager__readingHistoryServiceAccessQueue);
-  __chkstk_darwin(v7);
+  v8 = sub_1001C5118(v7, &_mh_execute_header, qword_1002711E8, "ReadingHistoryServiceManager clearToday", 39, 2, _swiftEmptyArrayStorage);
+  __chkstk_darwin(v8);
   type metadata accessor for ReadingHistoryService();
   sub_1001C6688();
   ReadingHistoryService.clearToday(completionHandler:)(sub_10009B2FC, v5);
@@ -145,56 +148,55 @@
 {
   v8 = sub_1001C4CA8();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(handler);
+  v11 = v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(handler);
   sub_1001C4C78();
-  v14 = swift_allocObject();
-  *(v14 + 16) = v13;
+  v13 = swift_allocObject();
+  *(v13 + 16) = v12;
   selfCopy = self;
-  sub_1001C65B8();
+  v15 = sub_1001C65B8();
   if (qword_10026EBE8 != -1)
   {
+    v18 = v15;
     swift_once();
+    v15 = v18;
   }
 
-  v16 = sub_1001C5118();
-  v17 = *(&selfCopy->super.isa + OBJC_IVAR___BDSReadingHistoryServiceManager__readingHistoryServiceAccessQueue);
+  v16 = sub_1001C5118(v15, &_mh_execute_header, qword_1002711E8, "ReadingHistoryServiceManager increment", 38, 2, _swiftEmptyArrayStorage);
   __chkstk_darwin(v16);
   v19[-2] = selfCopy;
   type metadata accessor for ReadingHistoryService();
   sub_1001C6688();
-  v18 = v19[1];
-  ReadingHistoryService.increment(date:by:completionHandler:)(v12, by, sub_10009AC28, v14);
+  v17 = v19[1];
+  ReadingHistoryService.increment(date:by:completionHandler:)(v11, by, sub_10009AC28, v13);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)readingHistoryStateInfoWithRangeStart:(id)start rangeEnd:(id)end currentTime:(id)time completionHandler:(id)handler
 {
   v8 = sub_1001C4CA8();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = __chkstk_darwin(v8);
-  v13 = &v23 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __chkstk_darwin(v11);
-  v16 = &v23 - v15;
-  __chkstk_darwin(v14);
-  v18 = &v23 - v17;
-  v19 = _Block_copy(handler);
+  v10 = __chkstk_darwin(v8);
+  v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = __chkstk_darwin(v10);
+  v15 = &v22 - v14;
+  __chkstk_darwin(v13);
+  v17 = &v22 - v16;
+  v18 = _Block_copy(handler);
   sub_1001C4C78();
   sub_1001C4C78();
   sub_1001C4C78();
-  v20 = swift_allocObject();
-  *(v20 + 16) = v19;
+  v19 = swift_allocObject();
+  *(v19 + 16) = v18;
   selfCopy = self;
-  ReadingHistoryServiceManager.readingHistoryStateInfo(rangeStart:rangeEnd:currentTime:completionHandler:)(v18, v16, v13, sub_10009AC20, v20);
+  ReadingHistoryServiceManager.readingHistoryStateInfo(rangeStart:rangeEnd:currentTime:completionHandler:)(v17, v15, v12, sub_10009AC20, v19);
 
-  v22 = *(v9 + 8);
-  v22(v13, v8);
-  v22(v16, v8);
-  v22(v18, v8);
+  v21 = *(v9 + 8);
+  v21(v12, v8);
+  v21(v15, v8);
+  v21(v17, v8);
 }
 
 - (id)serviceStatusInfo
@@ -278,135 +280,130 @@
 - (void)bookWidgetReadingHistoryStateInfoWithCompletionHandler:(id)handler
 {
   v5 = sub_100084528(&unk_100270A00, &qword_1001F3120);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_1001C6348();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_1001C6348();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_1001F0E28;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_1001F0E28;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_1001F0E30;
-  v13[5] = v12;
+  v12[4] = &unk_1001F0E30;
+  v12[5] = v11;
   selfCopy = self;
-  sub_100118770(0, 0, v8, &unk_1001F3460, v13);
+  sub_100118770(0, 0, v7, &unk_1001F3460, v12);
 }
 
 - (void)mergeMovedReadingHistoryDataWithCompletionHandler:(id)handler
 {
   v5 = sub_100084528(&unk_100270A00, &qword_1001F3120);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_1001C6348();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_1001C6348();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_1001F0E08;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_1001F0E08;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_1001F0E10;
-  v13[5] = v12;
+  v12[4] = &unk_1001F0E10;
+  v12[5] = v11;
   selfCopy = self;
-  sub_100118770(0, 0, v8, &unk_1001F3440, v13);
+  sub_100118770(0, 0, v7, &unk_1001F3440, v12);
 }
 
 - (void)backupWithName:(NSString *)name completionHandler:(id)handler
 {
   v7 = sub_100084528(&unk_100270A00, &qword_1001F3120);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v18 - v9;
-  v11 = _Block_copy(handler);
-  v12 = swift_allocObject();
-  v12[2] = name;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_1001C6348();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v17 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = name;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1001C6348();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_1001F0DE8;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_1001F0DE8;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_1001F0DF0;
-  v15[5] = v14;
+  v14[4] = &unk_1001F0DF0;
+  v14[5] = v13;
   nameCopy = name;
   selfCopy = self;
-  sub_100118770(0, 0, v10, &unk_1001F3420, v15);
+  sub_100118770(0, 0, v9, &unk_1001F3420, v14);
 }
 
 - (void)listBackupWithCompletionHandler:(id)handler
 {
   v5 = sub_100084528(&unk_100270A00, &qword_1001F3120);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_1001C6348();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_1001C6348();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_1001F0DC8;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_1001F0DC8;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_1001F0DD0;
-  v13[5] = v12;
+  v12[4] = &unk_1001F0DD0;
+  v12[5] = v11;
   selfCopy = self;
-  sub_100118770(0, 0, v8, &unk_1001F3400, v13);
+  sub_100118770(0, 0, v7, &unk_1001F3400, v12);
 }
 
 - (void)restoreWithName:(NSString *)name completionHandler:(id)handler
 {
   v7 = sub_100084528(&unk_100270A00, &qword_1001F3120);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v18 - v9;
-  v11 = _Block_copy(handler);
-  v12 = swift_allocObject();
-  v12[2] = name;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_1001C6348();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v17 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = name;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1001C6348();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_1001F0DA8;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_1001F0DA8;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_1001F0DB0;
-  v15[5] = v14;
+  v14[4] = &unk_1001F0DB0;
+  v14[5] = v13;
   nameCopy = name;
   selfCopy = self;
-  sub_100118770(0, 0, v10, &unk_1001F33E0, v15);
+  sub_100118770(0, 0, v9, &unk_1001F33E0, v14);
 }
 
 @end

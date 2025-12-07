@@ -25,11 +25,11 @@
 
 - (VSPluginTTSForwardStreamHandler)initWithDictionary:(id)dictionary
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v19.receiver = self;
-  v19.super_class = VSPluginTTSForwardStreamHandler;
-  v5 = [(VSPluginTTSForwardStreamHandler *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = VSPluginTTSForwardStreamHandler;
+  v5 = [(VSPluginTTSForwardStreamHandler *)&v18 init];
   if (v5)
   {
     v6 = *MEMORY[0x277D470D8];
@@ -61,11 +61,11 @@
           streamObject = VSGetLogDefault();
           if (os_log_type_enabled(streamObject, OS_LOG_TYPE_ERROR))
           {
-            v18 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x277D47C90]];
+            v17 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x277D47C90]];
             *buf = 136315394;
-            v21 = "[VSPluginTTSForwardStreamHandler initWithDictionary:]";
-            v22 = 2112;
-            v23 = v18;
+            v20 = "[VSPluginTTSForwardStreamHandler initWithDictionary:]";
+            v21 = 2112;
+            v22 = v17;
             _os_log_error_impl(&dword_2334AC000, streamObject, OS_LOG_TYPE_ERROR, "%s Unknown class %@", buf, 0x16u);
           }
 
@@ -82,7 +82,6 @@
 LABEL_9:
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

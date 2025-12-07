@@ -23,7 +23,7 @@
 
 - (id)toDict
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [(ABPKAlgorithmParams *)self regIntrinsics];
   v7 = simdMatrix3x3ToNSMat(v4, v5, v6);
@@ -32,15 +32,13 @@
   v8 = MEMORY[0x277CCABB0];
   [(ABPKAlgorithmParams *)self regImageResolution];
   v10 = [v8 numberWithDouble:v9];
-  v16[0] = v10;
+  v15[0] = v10;
   v11 = MEMORY[0x277CCABB0];
   [(ABPKAlgorithmParams *)self regImageResolution];
   v12 = [v11 numberWithDouble:?];
-  v16[1] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[1] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   [v3 setObject:v13 forKey:@"reg_image_resolution"];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

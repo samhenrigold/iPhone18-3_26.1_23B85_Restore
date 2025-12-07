@@ -1,6 +1,6 @@
 void *assignWithTake for SearchEnvironmentStorage.BoundProperties(void *a1, void *a2, int *a3)
 {
-  type metadata accessor for SearchBoundProperty<SearchFieldState>();
+  type metadata accessor for SearchBoundProperty<SearchFieldState>(0);
   v7 = v6;
   v8 = *(v6 - 8);
   v9 = *(v8 + 48);
@@ -80,7 +80,7 @@ LABEL_7:
   v24 = a3[5];
   v25 = a1 + v24;
   v26 = a2 + v24;
-  type metadata accessor for SearchBoundProperty<AttributedString>();
+  type metadata accessor for SearchBoundProperty<AttributedString>(0);
   v28 = v27;
   v29 = *(v27 - 8);
   v30 = *(v29 + 48);
@@ -130,7 +130,7 @@ LABEL_13:
   v38 = a3[6];
   v39 = (a1 + v38);
   v40 = (a2 + v38);
-  type metadata accessor for SearchBoundProperty<TextSelection?>();
+  type metadata accessor for SearchBoundProperty<TextSelection?>(0);
   v42 = v41;
   v43 = *(v41 - 8);
   v44 = *(v43 + 48);
@@ -229,7 +229,7 @@ LABEL_42:
   if (v46)
   {
 LABEL_19:
-    type metadata accessor for SearchBoundProperty<TextSelection?>?();
+    type metadata accessor for SearchBoundProperty<TextSelection?>?(0);
     memcpy(v39, v40, *(*(v55 - 8) + 64));
     goto LABEL_43;
   }
@@ -285,19 +285,19 @@ LABEL_43:
     {
       *v86 = *v87;
 
-      *(v86 + 8) = *(v87 + 1);
+      *(v86 + 1) = *(v87 + 1);
 
-      if (*(v86 + 24))
+      if (v86[24])
       {
         if ((v87[24] & 1) == 0)
         {
           swift_unknownObjectWeakTakeInit();
-          *(v86 + 24) = 0;
+          v86[24] = 0;
 LABEL_59:
-          *(v86 + 32) = *(v87 + 4);
+          *(v86 + 4) = *(v87 + 4);
 
 LABEL_60:
-          *(v86 + 40) = *(v87 + 10);
+          *(v86 + 10) = *(v87 + 10);
           return a1;
         }
       }
@@ -310,11 +310,11 @@ LABEL_60:
           goto LABEL_59;
         }
 
-        outlined destroy of PlatformSearchPopoverAnchor(v86 + 16);
+        outlined destroy of PlatformSearchPopoverAnchor((v86 + 16));
       }
 
-      *(v86 + 16) = *(v87 + 2);
-      *(v86 + 24) = v87[24];
+      *(v86 + 2) = *(v87 + 2);
+      v86[24] = v87[24];
       goto LABEL_59;
     }
 
@@ -324,40 +324,40 @@ LABEL_60:
   else if (v89)
   {
     *v86 = *v87;
-    *(v86 + 8) = v89;
+    *(v86 + 1) = v89;
     if (v87[24])
     {
-      *(v86 + 16) = *(v87 + 2);
-      *(v86 + 24) = v87[24];
+      *(v86 + 2) = *(v87 + 2);
+      v86[24] = v87[24];
     }
 
     else
     {
       swift_unknownObjectWeakTakeInit();
-      *(v86 + 24) = 0;
+      v86[24] = 0;
     }
 
-    *(v86 + 32) = *(v87 + 4);
+    *(v86 + 4) = *(v87 + 4);
     goto LABEL_60;
   }
 
   v90 = *(v87 + 1);
   *v86 = *v87;
-  *(v86 + 16) = v90;
+  *(v86 + 1) = v90;
   *(v86 + 28) = *(v87 + 28);
   return a1;
 }
 
-void type metadata completion function for SearchEnvironmentStorage.BoundProperties()
+void type metadata completion function for SearchEnvironmentStorage.BoundProperties(uint64_t a1)
 {
   type metadata accessor for Binding<SearchFieldState>?(319, &lazy cache variable for type metadata for SearchBoundProperty<SearchFieldState>?, type metadata accessor for SearchBoundProperty<SearchFieldState>, MEMORY[0x1E69E6720]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Binding<SearchFieldState>?(319, &lazy cache variable for type metadata for SearchBoundProperty<AttributedString>?, type metadata accessor for SearchBoundProperty<AttributedString>, MEMORY[0x1E69E6720]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for SearchBoundProperty<TextSelection?>?();
-      if (v2 <= 0x3F)
+      type metadata accessor for SearchBoundProperty<TextSelection?>?(319);
+      if (v3 <= 0x3F)
       {
         swift_initStructMetadata();
       }
@@ -365,10 +365,10 @@ void type metadata completion function for SearchEnvironmentStorage.BoundPropert
   }
 }
 
-uint64_t type metadata completion function for SearchBoundProperty()
+uint64_t type metadata completion function for SearchBoundProperty(uint64_t a1)
 {
   result = type metadata accessor for Binding();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initStructMetadata();
     return 0;
@@ -408,14 +408,16 @@ uint64_t *initializeBufferWithCopyOfBuffer for SearchBoundProperty(uint64_t *a1,
   return a1;
 }
 
-uint64_t destroy for SearchBoundProperty(uint64_t a1, uint64_t a2)
+double destroy for SearchBoundProperty(uint64_t a1, uint64_t a2)
 {
   v3 = a1 + 15;
 
   (*(*(*(a2 + 16) - 8) + 8))(((v3 & 0xFFFFFFFFFFFFFFF8) + *(*(*(a2 + 16) - 8) + 80) + 8) & ~*(*(*(a2 + 16) - 8) + 80));
+
+  return result;
 }
 
-void *initializeWithCopy for SearchBoundProperty(void *a1, void *a2, uint64_t a3)
+uint64_t *initializeWithCopy for SearchBoundProperty(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   *a1 = *a2;
   v5 = ((a1 + 15) & 0xFFFFFFFFFFFFFFF8);
@@ -438,7 +440,7 @@ void *initializeWithCopy for SearchBoundProperty(void *a1, void *a2, uint64_t a3
   return a1;
 }
 
-void *assignWithCopy for SearchBoundProperty(void *a1, void *a2, uint64_t a3)
+uint64_t *assignWithCopy for SearchBoundProperty(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v6 = a2 + 15;
   *a1 = *a2;
@@ -640,7 +642,7 @@ uint64_t *initializeBufferWithCopyOfBuffer for SearchEnvironmentStorage.AllPrope
     v5 = *(a3 + 20);
     v6 = (a1 + v5);
     v7 = (a2 + v5);
-    type metadata accessor for SearchBoundProperty<SearchFieldState>();
+    type metadata accessor for SearchBoundProperty<SearchFieldState>(0);
     v9 = v8;
     v10 = *(v8 - 8);
     v72 = v7;
@@ -690,7 +692,7 @@ uint64_t *initializeBufferWithCopyOfBuffer for SearchEnvironmentStorage.AllPrope
     v28 = v27[5];
     v29 = (v6 + v28);
     v30 = (v7 + v28);
-    type metadata accessor for SearchBoundProperty<AttributedString>();
+    type metadata accessor for SearchBoundProperty<AttributedString>(0);
     v32 = v31;
     v33 = *(v31 - 8);
     if ((*(v33 + 48))(v30, 1, v31))
@@ -723,12 +725,12 @@ uint64_t *initializeBufferWithCopyOfBuffer for SearchEnvironmentStorage.AllPrope
     v41 = v27[6];
     v42 = (v6 + v41);
     v43 = (v7 + v41);
-    type metadata accessor for SearchBoundProperty<TextSelection?>();
+    type metadata accessor for SearchBoundProperty<TextSelection?>(0);
     v45 = v44;
     v46 = *(v44 - 8);
     if ((*(v46 + 48))(v43, 1, v44))
     {
-      type metadata accessor for SearchBoundProperty<TextSelection?>?();
+      type metadata accessor for SearchBoundProperty<TextSelection?>?(0);
       memcpy(v42, v43, *(*(v47 - 8) + 64));
     }
 
@@ -822,10 +824,10 @@ uint64_t *initializeBufferWithCopyOfBuffer for SearchEnvironmentStorage.AllPrope
   return v13;
 }
 
-uint64_t destroy for SearchEnvironmentStorage.AllProperties(uint64_t a1, uint64_t a2)
+double destroy for SearchEnvironmentStorage.AllProperties(uint64_t a1, uint64_t a2)
 {
   v2 = a1 + *(a2 + 20);
-  type metadata accessor for SearchBoundProperty<SearchFieldState>();
+  type metadata accessor for SearchBoundProperty<SearchFieldState>(0);
   if (!(*(*(v3 - 8) + 48))(v2, 1, v3))
   {
 
@@ -838,7 +840,7 @@ uint64_t destroy for SearchEnvironmentStorage.AllProperties(uint64_t a1, uint64_
 
   v8 = type metadata accessor for SearchEnvironmentStorage.BoundProperties(0);
   v9 = v2 + v8[5];
-  type metadata accessor for SearchBoundProperty<AttributedString>();
+  type metadata accessor for SearchBoundProperty<AttributedString>(0);
   if (!(*(*(v10 - 8) + 48))(v9, 1, v10))
   {
 
@@ -849,9 +851,8 @@ uint64_t destroy for SearchEnvironmentStorage.AllProperties(uint64_t a1, uint64_
   }
 
   v14 = v2 + v8[6];
-  type metadata accessor for SearchBoundProperty<TextSelection?>();
-  result = (*(*(v15 - 8) + 48))(v14, 1, v15);
-  if (!result)
+  type metadata accessor for SearchBoundProperty<TextSelection?>(0);
+  if (!(*(*(v15 - 8) + 48))(v14, 1, v15))
   {
 
     type metadata accessor for Binding<SearchFieldState>?(0, &lazy cache variable for type metadata for Binding<TextSelection?>, type metadata accessor for TextSelection?, MEMORY[0x1E6981948]);
@@ -887,7 +888,7 @@ _BYTE *initializeWithCopy for SearchEnvironmentStorage.AllProperties(_BYTE *a1, 
   v3 = *(a3 + 20);
   v4 = &a1[v3];
   v5 = &a2[v3];
-  type metadata accessor for SearchBoundProperty<SearchFieldState>();
+  type metadata accessor for SearchBoundProperty<SearchFieldState>(0);
   v7 = v6;
   v8 = *(v6 - 8);
   v73 = v4;
@@ -939,7 +940,7 @@ _BYTE *initializeWithCopy for SearchEnvironmentStorage.AllProperties(_BYTE *a1, 
   v26 = v25[5];
   v27 = (v4 + v26);
   v28 = (v5 + v26);
-  type metadata accessor for SearchBoundProperty<AttributedString>();
+  type metadata accessor for SearchBoundProperty<AttributedString>(0);
   v30 = v29;
   v31 = *(v29 - 8);
   if ((*(v31 + 48))(v28, 1, v29))
@@ -974,12 +975,12 @@ _BYTE *initializeWithCopy for SearchEnvironmentStorage.AllProperties(_BYTE *a1, 
   v41 = v25[6];
   v42 = (v4 + v41);
   v43 = (v5 + v41);
-  type metadata accessor for SearchBoundProperty<TextSelection?>();
+  type metadata accessor for SearchBoundProperty<TextSelection?>(0);
   v45 = v44;
   v46 = *(v44 - 8);
   if ((*(v46 + 48))(v43, 1, v44))
   {
-    type metadata accessor for SearchBoundProperty<TextSelection?>?();
+    type metadata accessor for SearchBoundProperty<TextSelection?>?(0);
     memcpy(v42, v43, *(*(v47 - 8) + 64));
   }
 
@@ -1080,7 +1081,7 @@ _BYTE *assignWithCopy for SearchEnvironmentStorage.AllProperties(_BYTE *a1, _BYT
   v4 = *(a3 + 20);
   v5 = &a1[v4];
   v6 = &a2[v4];
-  type metadata accessor for SearchBoundProperty<SearchFieldState>();
+  type metadata accessor for SearchBoundProperty<SearchFieldState>(0);
   v8 = v7;
   v9 = *(v7 - 8);
   v10 = *(v9 + 48);
@@ -1177,7 +1178,7 @@ LABEL_7:
   v28 = v117[5];
   v29 = v5 + v28;
   v30 = v26 + v28;
-  type metadata accessor for SearchBoundProperty<AttributedString>();
+  type metadata accessor for SearchBoundProperty<AttributedString>(0);
   v32 = v31;
   v33 = *(v31 - 8);
   v34 = *(v33 + 48);
@@ -1235,7 +1236,7 @@ LABEL_13:
   v43 = v117[6];
   v44 = (v5 + v43);
   v45 = (v26 + v43);
-  type metadata accessor for SearchBoundProperty<TextSelection?>();
+  type metadata accessor for SearchBoundProperty<TextSelection?>(0);
   v47 = v46;
   v48 = *(v46 - 8);
   v49 = *(v48 + 48);
@@ -1300,7 +1301,7 @@ LABEL_13:
     }
 
 LABEL_19:
-    type metadata accessor for SearchBoundProperty<TextSelection?>?();
+    type metadata accessor for SearchBoundProperty<TextSelection?>?(0);
     memcpy(v44, v45, *(*(v61 - 8) + 64));
     goto LABEL_43;
   }
@@ -1487,7 +1488,7 @@ _BYTE *initializeWithTake for SearchEnvironmentStorage.AllProperties(_BYTE *a1, 
   v4 = *(a3 + 20);
   v5 = &a1[v4];
   v6 = &a2[v4];
-  type metadata accessor for SearchBoundProperty<SearchFieldState>();
+  type metadata accessor for SearchBoundProperty<SearchFieldState>(0);
   v8 = v7;
   v9 = *(v7 - 8);
   if ((*(v9 + 48))(v6, 1, v7))
@@ -1529,7 +1530,7 @@ _BYTE *initializeWithTake for SearchEnvironmentStorage.AllProperties(_BYTE *a1, 
   v23 = v22[5];
   v24 = (v5 + v23);
   v25 = (v6 + v23);
-  type metadata accessor for SearchBoundProperty<AttributedString>();
+  type metadata accessor for SearchBoundProperty<AttributedString>(0);
   v27 = v26;
   v28 = *(v26 - 8);
   if ((*(v28 + 48))(v25, 1, v26))
@@ -1555,12 +1556,12 @@ _BYTE *initializeWithTake for SearchEnvironmentStorage.AllProperties(_BYTE *a1, 
   v34 = v22[6];
   v35 = (v5 + v34);
   v36 = (v6 + v34);
-  type metadata accessor for SearchBoundProperty<TextSelection?>();
+  type metadata accessor for SearchBoundProperty<TextSelection?>(0);
   v38 = v37;
   v39 = *(v37 - 8);
   if ((*(v39 + 48))(v36, 1, v37))
   {
-    type metadata accessor for SearchBoundProperty<TextSelection?>?();
+    type metadata accessor for SearchBoundProperty<TextSelection?>?(0);
     memcpy(v35, v36, *(*(v40 - 8) + 64));
   }
 
@@ -1650,7 +1651,7 @@ _BYTE *assignWithTake for SearchEnvironmentStorage.AllProperties(_BYTE *a1, _BYT
   v3 = *(a3 + 20);
   v4 = &a1[v3];
   v5 = &a2[v3];
-  type metadata accessor for SearchBoundProperty<SearchFieldState>();
+  type metadata accessor for SearchBoundProperty<SearchFieldState>(0);
   v7 = v6;
   v8 = *(v6 - 8);
   v9 = *(v8 + 48);
@@ -1731,7 +1732,7 @@ LABEL_7:
   v25 = v24[5];
   v26 = v4 + v25;
   v27 = v5 + v25;
-  type metadata accessor for SearchBoundProperty<AttributedString>();
+  type metadata accessor for SearchBoundProperty<AttributedString>(0);
   v29 = v28;
   v30 = *(v28 - 8);
   v31 = *(v30 + 48);
@@ -1781,7 +1782,7 @@ LABEL_13:
   v39 = v24[6];
   v40 = (v4 + v39);
   v41 = (v5 + v39);
-  type metadata accessor for SearchBoundProperty<TextSelection?>();
+  type metadata accessor for SearchBoundProperty<TextSelection?>(0);
   v43 = v42;
   v44 = *(v42 - 8);
   v45 = *(v44 + 48);
@@ -1883,7 +1884,7 @@ LABEL_42:
   if (v47)
   {
 LABEL_19:
-    type metadata accessor for SearchBoundProperty<TextSelection?>?();
+    type metadata accessor for SearchBoundProperty<TextSelection?>?(0);
     memcpy(v40, v41, *(*(v56 - 8) + 64));
     goto LABEL_43;
   }
@@ -2002,10 +2003,10 @@ LABEL_60:
   return a1;
 }
 
-uint64_t type metadata completion function for SearchEnvironmentStorage.AllProperties()
+uint64_t type metadata completion function for SearchEnvironmentStorage.AllProperties(uint64_t a1)
 {
   result = type metadata accessor for SearchEnvironmentStorage.BoundProperties(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initStructMetadata();
     return 0;
@@ -2074,13 +2075,13 @@ uint64_t partial apply for specialized closure #1 in SearchBoundProperty.matches
   return result;
 }
 
-void type metadata accessor for (TextSelection?, TextSelection?)()
+void type metadata accessor for (TextSelection?, TextSelection?)(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (TextSelection?, TextSelection?))
   {
     type metadata accessor for TextSelection?(255);
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (TextSelection?, TextSelection?));
     }
@@ -2103,18 +2104,18 @@ void _PullDownButton<>.init(_:content:)()
 
 uint64_t instantiation function for generic protocol witness table for _PullDownButton<A, B>(uint64_t a1)
 {
-  result = swift_getWitnessTable();
+  result = swift_getWitnessTable(protocol conformance descriptor for _PullDownButton<A, B>);
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t type metadata completion function for _PullDownButton()
+uint64_t type metadata completion function for _PullDownButton(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_checkMetadataState();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_initStructMetadata();
       return 0;
@@ -2153,7 +2154,7 @@ uint64_t *initializeBufferWithCopyOfBuffer for _PullDownButton(uint64_t *a1, uin
     v20 = (v10 + v18) & 0xFFFFFFFFFFFFFFF8;
     v21 = *v20;
     LOBYTE(v18) = *(v20 + 8);
-    outlined copy of Environment<Bool>.Content(*v20, v18);
+    outlined copy of Environment<Bool>.Content();
     *v19 = v21;
     *(v19 + 8) = v18;
   }
@@ -2194,7 +2195,7 @@ uint64_t initializeWithCopy for _PullDownButton(uint64_t a1, uint64_t a2, uint64
   v16 = (v14 + v13) & 0xFFFFFFFFFFFFFFF8;
   v17 = *v16;
   LOBYTE(v13) = *(v16 + 8);
-  outlined copy of Environment<Bool>.Content(*v16, v13);
+  outlined copy of Environment<Bool>.Content();
   *v15 = v17;
   *(v15 + 8) = v13;
   return a1;
@@ -2217,7 +2218,7 @@ uint64_t assignWithCopy for _PullDownButton(uint64_t a1, uint64_t a2, uint64_t a
   v16 = (v14 + v13) & 0xFFFFFFFFFFFFFFF8;
   v17 = *v16;
   LOBYTE(v13) = *(v16 + 8);
-  outlined copy of Environment<Bool>.Content(*v16, v13);
+  outlined copy of Environment<Bool>.Content();
   v18 = *v15;
   v19 = *(v15 + 8);
   *v15 = v17;
@@ -2367,7 +2368,7 @@ uint64_t getEnumTagSinglePayload for _PullDownButton(unsigned __int8 *a1, unsign
 LABEL_30:
     if (v5 == v10)
     {
-      return (*(v4 + 48))();
+      return (*(v4 + 48))(a1);
     }
 
     v22 = &a1[v11] & ~v9;
@@ -2642,11 +2643,11 @@ uint64_t DocumentViewController.rootModifier.setter(uint64_t a1)
   swift_beginAccess();
   outlined assign with copy of RootModifier?(a1, v1 + v3);
   swift_endAccess();
-  outlined init with copy of AnyAccessibilityValue?(v1 + v3, v10, &lazy cache variable for type metadata for RootModifier?);
+  outlined init with copy of AnyAccessibilityValue?(v1 + v3, v10, &lazy cache variable for type metadata for RootModifier?, &type metadata for RootModifier);
   if (v11 == 1)
   {
-    outlined destroy of AnyAccessibilityValue?(a1, &lazy cache variable for type metadata for RootModifier?);
-    return outlined destroy of AnyAccessibilityValue?(v10, &lazy cache variable for type metadata for RootModifier?);
+    outlined destroy of AnyAccessibilityValue?(a1, &lazy cache variable for type metadata for RootModifier?, &type metadata for RootModifier);
+    return outlined destroy of AnyAccessibilityValue?(v10, &lazy cache variable for type metadata for RootModifier?, &type metadata for RootModifier);
   }
 
   outlined init with take of RootModifier(v10, v12);
@@ -2663,7 +2664,7 @@ uint64_t DocumentViewController.rootModifier.setter(uint64_t a1)
   {
 
 LABEL_7:
-    outlined destroy of AnyAccessibilityValue?(a1, &lazy cache variable for type metadata for RootModifier?);
+    outlined destroy of AnyAccessibilityValue?(a1, &lazy cache variable for type metadata for RootModifier?, &type metadata for RootModifier);
     return outlined destroy of RootModifier(v12);
   }
 
@@ -2675,7 +2676,7 @@ LABEL_7:
   swift_endAccess();
   DocumentHostingController.scenesDidChange(phaseChanged:)(1);
 
-  outlined destroy of AnyAccessibilityValue?(a1, &lazy cache variable for type metadata for RootModifier?);
+  outlined destroy of AnyAccessibilityValue?(a1, &lazy cache variable for type metadata for RootModifier?, &type metadata for RootModifier);
   outlined destroy of RootModifier(v10);
   return outlined destroy of RootModifier(v12);
 }
@@ -2752,7 +2753,7 @@ void __swiftcall DocumentViewController.makeDocumentHostingController()(UIViewCo
           return;
         }
 
-        outlined destroy of AnyAccessibilityValue?(&v18, &lazy cache variable for type metadata for IdentifiedDocumentGroupConfiguration?);
+        outlined destroy of AnyAccessibilityValue?(&v18, &lazy cache variable for type metadata for IdentifiedDocumentGroupConfiguration?, &type metadata for IdentifiedDocumentGroupConfiguration);
       }
 
       else
@@ -2811,7 +2812,7 @@ void __swiftcall DocumentViewController.makeDocumentHostingController()(UIViewCo
 
     else
     {
-      outlined destroy of AnyAccessibilityValue?(&v18, &lazy cache variable for type metadata for IdentifiedDocumentGroupConfiguration?);
+      outlined destroy of AnyAccessibilityValue?(&v18, &lazy cache variable for type metadata for IdentifiedDocumentGroupConfiguration?, &type metadata for IdentifiedDocumentGroupConfiguration);
     }
 
     [objc_allocWithZone(MEMORY[0x1E69DD258]) initWithNibName:0 bundle:0];
@@ -2831,7 +2832,7 @@ uint64_t DocumentViewController.updateInheritedEnvironment(with:)(uint64_t *a1)
   v1 = *a1;
   v2 = a1[1];
   Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong && (v7[0] = Strong, type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIViewController), type metadata accessor for CVarArg(0, &lazy cache variable for type metadata for InheritedEnvironmentSettable), (swift_dynamicCast() & 1) != 0))
+  if (Strong && (v7[0] = Strong, type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIViewController, 0x1E69DD258), type metadata accessor for CVarArg(0, &lazy cache variable for type metadata for InheritedEnvironmentSettable, &protocol descriptor for InheritedEnvironmentSettable), (swift_dynamicCast() & 1) != 0))
   {
     v4 = *(&v9 + 1);
     if (*(&v9 + 1))
@@ -2857,7 +2858,7 @@ uint64_t DocumentViewController.updateInheritedEnvironment(with:)(uint64_t *a1)
 
 unint64_t *DocumentViewController.makeDocumentHostingController(_:_:)(void *a1, uint64_t a2)
 {
-  type metadata accessor for ModifiedContent<ModifiedContent<AnyView, DocumentSceneRootBoxModifier>, DocumentBaseModifier>();
+  type metadata accessor for ModifiedContent<ModifiedContent<AnyView, DocumentSceneRootBoxModifier>, DocumentBaseModifier>(0);
   v6 = v5;
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -2868,10 +2869,10 @@ unint64_t *DocumentViewController.makeDocumentHostingController(_:_:)(void *a1, 
   v14 = &v38 - v13;
   v15 = OBJC_IVAR____TtC7SwiftUI22DocumentViewController_rootModifier;
   swift_beginAccess();
-  outlined init with copy of AnyAccessibilityValue?(v2 + v15, v52, &lazy cache variable for type metadata for RootModifier?);
+  outlined init with copy of AnyAccessibilityValue?(v2 + v15, v52, &lazy cache variable for type metadata for RootModifier?, &type metadata for RootModifier);
   if (v52[6] == 1)
   {
-    outlined destroy of AnyAccessibilityValue?(v52, &lazy cache variable for type metadata for RootModifier?);
+    outlined destroy of AnyAccessibilityValue?(v52, &lazy cache variable for type metadata for RootModifier?, &type metadata for RootModifier);
     return [objc_allocWithZone(MEMORY[0x1E69DD258]) initWithNibName:0 bundle:0];
   }
 
@@ -2991,7 +2992,7 @@ Swift::Void __swiftcall DocumentViewController.dismissDocument()()
   v14 = type metadata accessor for Logger();
   v15 = *(v14 - 8);
   v16 = *(v15 + 48);
-  if (v16(v13, 1, v14) == 1)
+  if ((v16)(v13, 1, v14) == 1)
   {
     outlined destroy of NavigationItemDescription?(v13, &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420], MEMORY[0x1E69E6720]);
   }
@@ -3019,7 +3020,7 @@ Swift::Void __swiftcall DocumentViewController.dismissDocument()()
   }
 
   static Log.documents.getter();
-  v23 = v16(v10, 1, v14);
+  v23 = (v16)(v10, 1, v14);
   v58 = v15;
   if (v23 == 1)
   {
@@ -3094,7 +3095,7 @@ Swift::Void __swiftcall DocumentViewController.dismissDocument()()
 
   v43 = v59;
   static Log.documents.getter();
-  if (v16(v43, 1, v14) == 1)
+  if ((v16)(v43, 1, v14) == 1)
   {
     outlined destroy of NavigationItemDescription?(v59, &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420], MEMORY[0x1E69E6720]);
   }
@@ -3176,7 +3177,7 @@ uint64_t DocumentViewController.presentationModeLocation.getter()
   else
   {
     swift_unknownObjectWeakInit();
-    type metadata accessor for LocationBox<DocumentPresentationModeLocation>();
+    type metadata accessor for LocationBox<DocumentPresentationModeLocation>(0);
     swift_allocObject();
     v2 = LocationBox.init(_:)();
     *(v0 + v1) = v2;
@@ -3185,7 +3186,7 @@ uint64_t DocumentViewController.presentationModeLocation.getter()
   return v2;
 }
 
-uint64_t closure #1 in DocumentViewController.init<A>(documentBrowserMediator:onDocumentClose:)(void *a1)
+double closure #1 in DocumentViewController.init<A>(documentBrowserMediator:onDocumentClose:)(void *a1)
 {
   type metadata accessor for NavigationItemDescription?(0, &lazy cache variable for type metadata for TaskPriority?, MEMORY[0x1E69E85F0], MEMORY[0x1E69E6720]);
   MEMORY[0x1EEE9AC00](v2 - 8);
@@ -3206,6 +3207,8 @@ uint64_t closure #1 in DocumentViewController.init<A>(documentBrowserMediator:on
   v9[5] = v7;
 
   _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCytSg_Tt2g5(0, 0, v4, &async function pointer to partial apply for closure #1 in closure #1 in DocumentViewController.init<A>(documentBrowserMediator:onDocumentClose:), v9);
+
+  return result;
 }
 
 uint64_t closure #1 in closure #1 in DocumentViewController.init<A>(documentBrowserMediator:onDocumentClose:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -3242,7 +3245,7 @@ void DocumentViewController.document.didset(id a1)
   v2 = v1;
   type metadata accessor for NavigationItemDescription?(0, &lazy cache variable for type metadata for URL?, MEMORY[0x1E6968FB0], MEMORY[0x1E69E6720]);
   v5 = MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v14 - v6;
+  v7 = &v16 - v6;
   v8 = [v2 document];
   if (v8)
   {
@@ -3250,17 +3253,19 @@ void DocumentViewController.document.didset(id a1)
 
   else if (a1)
   {
-    v11 = *&v2[OBJC_IVAR____TtC7SwiftUI22DocumentViewController_onDocumentClose];
-    if (v11)
+    v11 = &v2[OBJC_IVAR____TtC7SwiftUI22DocumentViewController_onDocumentClose];
+    v12 = *&v2[OBJC_IVAR____TtC7SwiftUI22DocumentViewController_onDocumentClose];
+    if (v12)
     {
+      v13 = *(v11 + 1);
 
-      v12 = [a1 fileURL];
+      v14 = [a1 fileURL];
       static URL._unconditionallyBridgeFromObjectiveC(_:)();
 
-      v13 = type metadata accessor for URL();
-      (*(*(v13 - 8) + 56))(v7, 0, 1, v13);
-      v11(v7);
-      outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v11);
+      v15 = type metadata accessor for URL();
+      (*(*(v15 - 8) + 56))(v7, 0, 1, v15);
+      v12(v7);
+      outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v12, v13);
       outlined destroy of NavigationItemDescription?(v7, &lazy cache variable for type metadata for URL?, MEMORY[0x1E6968FB0], MEMORY[0x1E69E6720]);
     }
 
@@ -3288,7 +3293,7 @@ void DocumentViewController.document.didset(id a1)
 
 Swift::Void __swiftcall DocumentViewController.navigationItemDidUpdate()()
 {
-  type metadata accessor for (NavigationItemDescription?, NavigationItemDescription?)();
+  type metadata accessor for (NavigationItemDescription?, NavigationItemDescription?)(0);
   v1 = v0;
   MEMORY[0x1EEE9AC00](v0);
   v127 = (&v112 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0));
@@ -3420,7 +3425,7 @@ Swift::Void __swiftcall DocumentViewController.navigationItemDidUpdate()()
     outlined init with copy of NavigationItemDescription(v21, v124);
     v58 = v128;
     v114 = *(v13 + 56);
-    v113 = v13 + 56;
+    v113 = (v13 + 56);
     v114(v57, 0, 1, v128);
     v59 = OBJC_IVAR____TtC7SwiftUI22DocumentViewController_lastNavigationItemDescription;
     v60 = v131;
@@ -3635,7 +3640,7 @@ LABEL_18:
         outlined assign with take of NavigationItemDescription?(v99, v100 + v59);
         swift_endAccess();
         v101 = swift_unknownObjectWeakLoadStrong();
-        if (v101 && (v132 = v101, type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIViewController), type metadata accessor for CVarArg(0, &lazy cache variable for type metadata for NavigationItemDescriptionProviding), (swift_dynamicCast() & 1) != 0))
+        if (v101 && (v132 = v101, type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIViewController, 0x1E69DD258), type metadata accessor for CVarArg(0, &lazy cache variable for type metadata for NavigationItemDescriptionProviding, &protocol descriptor for NavigationItemDescriptionProviding), (swift_dynamicCast() & 1) != 0))
         {
           if (*(&v134 + 1))
           {
@@ -3779,7 +3784,7 @@ void NavigationItemDescription.init(from:)(void *a1@<X0>, uint64_t a2@<X8>)
     swift_unknownObjectRetain();
     v26 = [a1 backAction];
     v27 = *(v4 + 32);
-    v28 = type metadata accessor for PlatformItemList.Item();
+    v28 = type metadata accessor for PlatformItemList.Item(0);
     (*(*(v28 - 8) + 56))(&v6[v27], 1, 1, v28);
     *v6 = v24;
     v6[8] = v25;
@@ -3887,7 +3892,7 @@ Swift::Void __swiftcall UIDocumentViewController.embedDocumentHostingController(
 
   v26 = a1;
   v27 = [v2 childViewControllers];
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIViewController);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIViewController, 0x1E69DD258);
   v28 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   v63 = v6;
@@ -4093,22 +4098,22 @@ LABEL_40:
   }
 }
 
-void type metadata completion function for DocumentViewController()
+void type metadata completion function for DocumentViewController(uint64_t a1)
 {
   type metadata accessor for NavigationItemDescription?(319, &lazy cache variable for type metadata for NavigationItemDescription?, type metadata accessor for NavigationItemDescription, MEMORY[0x1E69E6720]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     swift_updateClassMetadata2();
   }
 }
 
-void closure #1 in DocumentViewController.presentationController(_:willPresentWithAdaptiveStyle:transitionCoordinator:)()
+void closure #1 in DocumentViewController.presentationController(_:willPresentWithAdaptiveStyle:transitionCoordinator:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     DocumentViewController.dismissDocument()();
   }
 }
@@ -4234,185 +4239,186 @@ uint64_t protocol witness for Location.update() in conformance DocumentPresentat
   return 1;
 }
 
-uint64_t static DocumentBrowserMediator.resolveBrowserContextMenu(_:)(uint64_t a1)
+uint64_t static DocumentBrowserMediator.resolveBrowserContextMenu(_:)(unint64_t a1)
 {
   v2 = MEMORY[0x1E69E7CC0];
-  v68 = MEMORY[0x1E69E7CC0];
+  v69 = MEMORY[0x1E69E7CC0];
   type metadata accessor for NavigationItemDescription?(0, &lazy cache variable for type metadata for ((_:))?, type metadata accessor for (_:), MEMORY[0x1E69E6720]);
   static Update.ensure<A>(_:)();
-  v3 = *v66;
-  if (!*v66)
+  v3 = *v67;
+  if (!*v67)
   {
     return v2;
   }
 
-  *&v49 = v2;
-  (*v66)(v66, &v49);
-  result = outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v3);
-  v5 = 0;
-  v32 = 0;
-  v33 = *&v66[16];
-  v31 = *&v66[16] + 32;
+  v4 = *&v67[8];
+  *&v50 = v2;
+  (*v67)(v67, &v50);
+  result = outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v3, v4);
+  v6 = 0;
+  v33 = 0;
+  v34 = *&v67[16];
+  v32 = *&v67[16] + 32;
   while (1)
   {
-    v6 = *(v33 + 16);
-    if (v5 == v6)
+    v7 = *(v34 + 16);
+    if (v6 == v7)
     {
 LABEL_17:
 
       return v2;
     }
 
-    if (v5 >= v6)
+    if (v6 >= v7)
     {
       break;
     }
 
-    v7 = v32;
-    *v66 = v32;
-    result = outlined init with copy of PlatformItem(v31 + 632 * v5, &v66[8]);
-    ++v32;
-    if (__OFADD__(v7, 1))
+    v8 = v33;
+    *v67 = v33;
+    result = outlined init with copy of PlatformItem(v32 + 632 * v6, &v67[8]);
+    ++v33;
+    if (__OFADD__(v8, 1))
     {
       goto LABEL_20;
     }
 
-    ++v5;
-    v8 = *v66;
-    if (!*&v66[8])
+    ++v6;
+    v9 = *v67;
+    if (!*&v67[8])
     {
       goto LABEL_17;
     }
 
-    *v66 = *&v66[8];
-    *&v66[16] = *&v66[24];
-    *&v66[32] = *&v66[40];
-    *&v66[48] = *&v66[56];
-    *&v66[64] = *&v66[72];
-    *&v66[80] = *&v66[88];
-    *&v66[96] = *&v66[104];
-    *&v66[112] = *&v66[120];
-    *&v66[128] = *&v66[136];
-    *&v66[144] = *&v66[152];
-    *&v66[160] = *&v66[168];
-    *&v66[176] = *&v66[184];
-    *&v66[192] = *&v66[200];
-    *&v66[208] = *&v66[216];
-    *&v66[224] = *&v66[232];
-    *&v66[240] = *&v66[248];
-    *&v66[256] = *&v66[264];
-    *&v66[272] = *&v66[280];
-    *&v66[288] = *&v66[296];
-    *&v66[304] = *&v66[312];
-    *&v66[320] = *&v66[328];
-    *&v66[336] = *&v66[344];
-    *&v66[352] = *&v66[360];
-    *&v66[368] = *&v66[376];
-    *&v66[384] = *&v66[392];
-    *&v66[400] = *&v66[408];
-    *&v66[416] = *&v66[424];
-    *&v66[432] = *&v66[440];
-    *&v66[448] = *&v66[456];
-    *&v66[464] = *&v66[472];
-    *&v66[480] = *&v66[488];
-    *&v66[496] = *&v66[504];
-    *&v66[512] = *&v66[520];
-    *&v66[528] = *&v66[536];
-    *&v66[544] = *&v66[552];
-    *&v66[560] = *&v66[568];
-    *&v66[576] = *&v66[584];
-    *&v66[592] = *&v66[600];
-    *&v66[608] = *&v66[616];
-    v66[624] = v67;
-    *&v49 = 0;
-    *(&v49 + 1) = 0xE000000000000000;
+    *v67 = *&v67[8];
+    *&v67[16] = *&v67[24];
+    *&v67[32] = *&v67[40];
+    *&v67[48] = *&v67[56];
+    *&v67[64] = *&v67[72];
+    *&v67[80] = *&v67[88];
+    *&v67[96] = *&v67[104];
+    *&v67[112] = *&v67[120];
+    *&v67[128] = *&v67[136];
+    *&v67[144] = *&v67[152];
+    *&v67[160] = *&v67[168];
+    *&v67[176] = *&v67[184];
+    *&v67[192] = *&v67[200];
+    *&v67[208] = *&v67[216];
+    *&v67[224] = *&v67[232];
+    *&v67[240] = *&v67[248];
+    *&v67[256] = *&v67[264];
+    *&v67[272] = *&v67[280];
+    *&v67[288] = *&v67[296];
+    *&v67[304] = *&v67[312];
+    *&v67[320] = *&v67[328];
+    *&v67[336] = *&v67[344];
+    *&v67[352] = *&v67[360];
+    *&v67[368] = *&v67[376];
+    *&v67[384] = *&v67[392];
+    *&v67[400] = *&v67[408];
+    *&v67[416] = *&v67[424];
+    *&v67[432] = *&v67[440];
+    *&v67[448] = *&v67[456];
+    *&v67[464] = *&v67[472];
+    *&v67[480] = *&v67[488];
+    *&v67[496] = *&v67[504];
+    *&v67[512] = *&v67[520];
+    *&v67[528] = *&v67[536];
+    *&v67[544] = *&v67[552];
+    *&v67[560] = *&v67[568];
+    *&v67[576] = *&v67[584];
+    *&v67[592] = *&v67[600];
+    *&v67[608] = *&v67[616];
+    v67[624] = v68;
+    *&v50 = 0;
+    *(&v50 + 1) = 0xE000000000000000;
     _StringGuts.grow(_:)(22);
-    v9 = *v66;
+    v10 = *v67;
     Hasher.init(_seed:)();
-    MEMORY[0x18D00F6F0](*(v9 + 16));
-    v10 = *(v9 + 16);
-    if (v10)
+    MEMORY[0x18D00F6F0](*(v10 + 16));
+    v11 = *(v10 + 16);
+    if (v11)
     {
-      v11 = (v9 + 32);
+      v12 = (v10 + 32);
       do
       {
-        v12 = *v11++;
-        Hasher._combine(_:)(v12);
-        --v10;
+        v13 = *v12++;
+        Hasher._combine(_:)(v13);
+        --v11;
       }
 
-      while (v10);
+      while (v11);
     }
 
-    *&v49 = Hasher._finalize()();
-    v13 = dispatch thunk of CustomStringConvertible.description.getter();
-    v15 = v14;
+    *&v50 = Hasher._finalize()();
+    v14 = dispatch thunk of CustomStringConvertible.description.getter();
+    v16 = v15;
 
-    v64 = v13;
-    v65 = v15;
+    v65 = v14;
+    v66 = v16;
     MEMORY[0x18D00C9B0](0xD000000000000014, 0x800000018CD517C0);
-    v16 = v64;
     v17 = v65;
-    v61 = *&v66[224];
-    v62 = *&v66[240];
-    v63 = *&v66[256];
-    v57 = *&v66[160];
-    v58 = *&v66[176];
-    v59 = *&v66[192];
-    v60 = *&v66[208];
-    v53 = *&v66[96];
-    v54 = *&v66[112];
-    v55 = *&v66[128];
-    v56 = *&v66[144];
-    v49 = *&v66[32];
-    v50 = *&v66[48];
-    v51 = *&v66[64];
-    v52 = *&v66[80];
-    if (_s7SwiftUI12PlatformItemV14PrimaryContentVSgWOg(&v49) == 1 || (v46 = v61, v47 = v62, v48 = v63, v42 = v57, v43 = v58, v44 = v59, v45 = v60, v38 = v53, v39 = v54, v40 = v55, v41 = v56, aBlock = v49, v35 = v50, v36 = v51, v37 = v52, (v18 = PlatformItem.PrimaryContent.text.getter()) == 0))
+    v18 = v66;
+    v62 = *&v67[224];
+    v63 = *&v67[240];
+    v64 = *&v67[256];
+    v58 = *&v67[160];
+    v59 = *&v67[176];
+    v60 = *&v67[192];
+    v61 = *&v67[208];
+    v54 = *&v67[96];
+    v55 = *&v67[112];
+    v56 = *&v67[128];
+    v57 = *&v67[144];
+    v50 = *&v67[32];
+    v51 = *&v67[48];
+    v52 = *&v67[64];
+    v53 = *&v67[80];
+    if (_s7SwiftUI12PlatformItemV14PrimaryContentVSgWOg(&v50) == 1 || (v47 = v62, v48 = v63, v49 = v64, v43 = v58, v44 = v59, v45 = v60, v46 = v61, v39 = v54, v40 = v55, v41 = v56, v42 = v57, aBlock = v50, v36 = v51, v37 = v52, v38 = v53, (v19 = PlatformItem.PrimaryContent.text.getter()) == 0))
     {
-      v23 = 0xE800000000000000;
-      v21 = 0x656C746974206F6ELL;
+      v24 = 0xE800000000000000;
+      v22 = 0x656C746974206F6ELL;
     }
 
     else
     {
-      v19 = v18;
-      v20 = [v18 string];
+      v20 = v19;
+      v21 = [v19 string];
 
-      v21 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v23 = v22;
+      v22 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v24 = v23;
     }
 
-    v24 = swift_allocObject();
-    *(v24 + 16) = a1;
-    *(v24 + 24) = v8;
-    v25 = objc_allocWithZone(MEMORY[0x1E699A350]);
-    v26 = MEMORY[0x18D00C850](v16, v17);
+    v25 = swift_allocObject();
+    *(v25 + 16) = a1;
+    *(v25 + 24) = v9;
+    v26 = objc_allocWithZone(MEMORY[0x1E699A350]);
+    v27 = MEMORY[0x18D00C850](v17, v18);
 
-    v27 = MEMORY[0x18D00C850](v21, v23);
+    v28 = MEMORY[0x18D00C850](v22, v24);
 
-    *&v36 = partial apply for closure #2 in static DocumentBrowserMediator.resolveBrowserContextMenu(_:);
-    *(&v36 + 1) = v24;
+    *&v37 = partial apply for closure #2 in static DocumentBrowserMediator.resolveBrowserContextMenu(_:);
+    *(&v37 + 1) = v25;
     *&aBlock = MEMORY[0x1E69E9820];
     *(&aBlock + 1) = 1107296256;
-    *&v35 = thunk for @escaping @callee_guaranteed (@guaranteed [URL]) -> ();
-    *(&v35 + 1) = &block_descriptor_51;
-    v28 = _Block_copy(&aBlock);
-    v29 = [v25 initWithIdentifier:v26 localizedTitle:v27 availability:1 handler:v28];
+    *&v36 = thunk for @escaping @callee_guaranteed (@guaranteed [URL]) -> ();
+    *(&v36 + 1) = &block_descriptor_51;
+    v29 = _Block_copy(&aBlock);
+    v30 = [v26 initWithIdentifier:v27 localizedTitle:v28 availability:1 handler:v29];
 
-    _Block_release(v28);
+    _Block_release(v29);
 
-    v30 = v29;
+    v31 = v30;
     MEMORY[0x18D00CC30]();
-    if (*((v68 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v68 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+    if (*((v69 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v69 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
     {
       specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
     }
 
     specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
 
-    result = outlined destroy of PlatformItem(v66);
-    v2 = v68;
+    result = outlined destroy of PlatformItem(v67);
+    v2 = v69;
   }
 
   __break(1u);
@@ -4421,95 +4427,96 @@ LABEL_20:
   return result;
 }
 
-uint64_t *closure #1 in static DocumentBrowserMediator.resolveBrowserContextMenu(_:)@<X0>(void *a1@<X8>)
+void closure #1 in static DocumentBrowserMediator.resolveBrowserContextMenu(_:)(void *a2@<X8>)
 {
   type metadata accessor for (_:)();
-  result = AGGraphGetWeakValue();
-  if (result)
+  WeakValue = AGGraphGetWeakValue();
+  if (WeakValue)
   {
-    v3 = *result;
+    v4 = *WeakValue;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  *a1 = v3;
-  a1[1] = result;
-  return result;
+  *a2 = v4;
+  a2[1] = WeakValue;
 }
 
 uint64_t closure #2 in static DocumentBrowserMediator.resolveBrowserContextMenu(_:)(uint64_t a1, uint64_t a2, unint64_t a3)
 {
-  type metadata accessor for AnyAccessibilityValue?(0, &lazy cache variable for type metadata for PlatformItems?);
+  type metadata accessor for AnyAccessibilityValue?(0, &lazy cache variable for type metadata for PlatformItems?, MEMORY[0x1E697E188]);
   result = static Update.ensure<A>(_:)();
-  if (v10)
+  if (v12)
   {
-    if ((a3 & 0x8000000000000000) != 0 || *(v10 + 16) <= a3)
+    if ((a3 & 0x8000000000000000) != 0 || *(v12 + 16) <= a3)
     {
-      bzero(v9, 0x271uLL);
+      bzero(v11, 0x271uLL);
     }
 
     else
     {
-      outlined init with copy of PlatformItem(v10 + 632 * a3 + 32, v9);
+      outlined init with copy of PlatformItem(v12 + 632 * a3 + 32, v11);
     }
 
-    outlined init with copy of AnyAccessibilityValue?(v9, v7, &lazy cache variable for type metadata for PlatformItem?);
-    if (v7[0])
+    outlined init with copy of AnyAccessibilityValue?(v11, v9, &lazy cache variable for type metadata for PlatformItem?, MEMORY[0x1E697DED0]);
+    if (v9[0])
     {
-      v5 = v8;
-      outlined copy of PlatformItem.SelectionContent?(v7[35], v7[36], v7[37], v8);
-      outlined destroy of PlatformItem(v7);
+      v5 = v10;
+      outlined copy of PlatformItem.SelectionContent?(v9[35], v9[36], v9[37], v10);
+      outlined destroy of PlatformItem(v9);
       if (v5 != 1)
       {
         PlatformItem.SelectionContent.select()();
         swift_unknownObjectRelease();
       }
 
-      v6 = v9;
+      v6 = MEMORY[0x1E697DED0];
+      v7 = v11;
     }
 
     else
     {
-      outlined destroy of AnyAccessibilityValue?(v9, &lazy cache variable for type metadata for PlatformItem?);
-      v6 = v7;
+      v8 = MEMORY[0x1E697DED0];
+      outlined destroy of AnyAccessibilityValue?(v11, &lazy cache variable for type metadata for PlatformItem?, MEMORY[0x1E697DED0]);
+      v7 = v9;
+      v6 = v8;
     }
 
-    return outlined destroy of AnyAccessibilityValue?(v6, &lazy cache variable for type metadata for PlatformItem?);
+    return outlined destroy of AnyAccessibilityValue?(v7, &lazy cache variable for type metadata for PlatformItem?, v6);
   }
 
   return result;
 }
 
-void (**closure #1 in closure #2 in static DocumentBrowserMediator.resolveBrowserContextMenu(_:)@<X0>(uint64_t a1@<X1>, void *a2@<X8>))(uint64_t *__return_ptr, uint64_t *)
+void closure #1 in closure #2 in static DocumentBrowserMediator.resolveBrowserContextMenu(_:)(uint64_t a2@<X1>, void *a3@<X8>)
 {
   type metadata accessor for (_:)();
-  result = AGGraphGetWeakValue();
-  if (result)
+  WeakValue = AGGraphGetWeakValue();
+  if (WeakValue)
   {
-    v5 = *result;
-    v9 = a1;
+    v6 = *WeakValue;
+    v10 = a2;
 
-    v5(&v10, &v9);
+    v6(&v11, &v10);
 
-    v6 = v10;
     v7 = v11;
     v8 = v12;
+    v9 = v13;
   }
 
   else
   {
-    v6 = 0;
     v7 = 0;
     v8 = 0;
+    v9 = 0;
   }
 
-  *a2 = v6;
-  a2[1] = v7;
-  a2[2] = v8;
-  return result;
+  *a3 = v7;
+  a3[1] = v8;
+  a3[2] = v9;
 }
 
 uint64_t closure #1 in IdentifiedDocumentGroupDocumentCreation.defaultEditorConfiguration.getter@<X0>(uint64_t result@<X0>, _OWORD *a2@<X8>)
@@ -4576,7 +4583,7 @@ double IdentifiedDocumentGroupDocumentCreation.defaultEditorConfiguration.getter
   {
     outlined destroy of NewDocumentProvider?(v11, &lazy cache variable for type metadata for IdentifiedDocumentGroupConfiguration??, &lazy cache variable for type metadata for IdentifiedDocumentGroupConfiguration?, &type metadata for IdentifiedDocumentGroupConfiguration, type metadata accessor for AnyAccessibilityValue?);
     a2(v3);
-    outlined init with copy of AnyAccessibilityValue?(a3, v11, &lazy cache variable for type metadata for IdentifiedDocumentGroupConfiguration?);
+    outlined init with copy of AnyAccessibilityValue?(a3, v11, &lazy cache variable for type metadata for IdentifiedDocumentGroupConfiguration?, &type metadata for IdentifiedDocumentGroupConfiguration);
     swift_beginAccess();
     outlined assign with take of IdentifiedDocumentGroupConfiguration??(v11, v3 + v6);
     swift_endAccess();
@@ -4691,11 +4698,11 @@ id closure #1 in IdentifiedDocumentGroupDocumentCreation.documentBrowser.getter(
 
   IdentifiedDocumentGroupDocumentCreation.defaultEditorConfiguration.getter(v8);
   v5 = *(&v8[0] + 1) != 0;
-  outlined destroy of AnyAccessibilityValue?(v8, &lazy cache variable for type metadata for IdentifiedDocumentGroupConfiguration?);
+  outlined destroy of AnyAccessibilityValue?(v8, &lazy cache variable for type metadata for IdentifiedDocumentGroupConfiguration?, &type metadata for IdentifiedDocumentGroupConfiguration);
   [v4 setAllowsDocumentCreation_];
   [v4 setDelegate_];
   static DocumentBrowserMediator.resolveBrowserContextMenu(_:)(*(a1 + OBJC_IVAR____TtC7SwiftUI39IdentifiedDocumentGroupDocumentCreation_documentBrowserContextMenu));
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIDocumentBrowserAction);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIDocumentBrowserAction, 0x1E699A350);
   v6 = Array._bridgeToObjectiveC()().super.isa;
 
   [v4 setCustomActions_];
@@ -4997,7 +5004,7 @@ void closure #1 in IdentifiedDocumentGroupDocumentCreation.supportedContentTypes
           v23 = *(v16 + 3);
           if (v24 >= v23 >> 1)
           {
-            v16 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v23 > 1, v24 + 1, 1, v16);
+            v16 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v23 > 1), v24 + 1, 1, v16);
           }
 
           (*v15)(v12, v2);
@@ -5046,7 +5053,7 @@ LABEL_8:
           v31 = *(v16 + 3);
           if (v32 >= v31 >> 1)
           {
-            v16 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v31 > 1, v32 + 1, 1, v16);
+            v16 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v31 > 1), v32 + 1, 1, v16);
           }
 
           (*v15)(v6, v2);
@@ -5072,10 +5079,10 @@ LABEL_20:
   }
 }
 
-id DocumentViewController.__deallocating_deinit(uint64_t a1, uint64_t (*a2)(void))
+id DocumentViewController.__deallocating_deinit(uint64_t a1, uint64_t (*a2)(uint64_t))
 {
   v4.receiver = v2;
-  v4.super_class = a2();
+  v4.super_class = a2(a1);
   return objc_msgSendSuper2(&v4, sel_dealloc);
 }
 
@@ -5153,7 +5160,7 @@ uint64_t IdentifiedDocumentGroupDocumentCreation.presentDocument(at:)(uint64_t a
     }
   }
 
-  outlined destroy of AnyAccessibilityValue?(&v25, &lazy cache variable for type metadata for IdentifiedDocumentGroupConfiguration?);
+  outlined destroy of AnyAccessibilityValue?(&v25, &lazy cache variable for type metadata for IdentifiedDocumentGroupConfiguration?, &type metadata for IdentifiedDocumentGroupConfiguration);
   return 0;
 }
 
@@ -5187,7 +5194,7 @@ uint64_t IdentifiedDocumentGroupDocumentCreation.findConfiguration(for:)@<X0>(_O
 
   else
   {
-    v9 = outlined destroy of AnyAccessibilityValue?(v10, &lazy cache variable for type metadata for IdentifiedDocumentGroupConfiguration?);
+    v9 = outlined destroy of AnyAccessibilityValue?(v10, &lazy cache variable for type metadata for IdentifiedDocumentGroupConfiguration?, &type metadata for IdentifiedDocumentGroupConfiguration);
     MEMORY[0x1EEE9AC00](v9);
     return specialized Sequence.first(where:)(partial apply for closure #2 in IdentifiedDocumentGroupDocumentCreation.findConfiguration(for:), v3, a1);
   }
@@ -5195,7 +5202,7 @@ uint64_t IdentifiedDocumentGroupDocumentCreation.findConfiguration(for:)@<X0>(_O
   return result;
 }
 
-void closure #1 in IdentifiedDocumentGroupDocumentCreation.documentBrowser(_:didRequestDocumentCreationWithHandler:)(void *a1, void (*a2)(char *, void), uint64_t a3)
+void closure #1 in IdentifiedDocumentGroupDocumentCreation.documentBrowser(_:didRequestDocumentCreationWithHandler:)(void *a1, double (*a2)(char *, void), uint64_t a3)
 {
   type metadata accessor for NavigationItemDescription?(0, &lazy cache variable for type metadata for URL?, MEMORY[0x1E6968FB0], MEMORY[0x1E69E6720]);
   MEMORY[0x1EEE9AC00](v6 - 8);
@@ -5357,7 +5364,7 @@ uint64_t initializeBufferWithCopyOfBuffer for NavigationItemDescription(uint64_t
     v25 = *(type metadata accessor for ToolbarStorage.NavigationProperties(0) + 32);
     v26 = (v16 + v25);
     v27 = &v17[v25];
-    v28 = type metadata accessor for PlatformItemList.Item();
+    v28 = type metadata accessor for PlatformItemList.Item(0);
     v29 = *(v28 - 8);
     v30 = *(v29 + 48);
     v31 = v24;
@@ -5651,7 +5658,7 @@ LABEL_65:
                       v100 = v142[28];
                       __dst = v26 + v100;
                       v101 = &v27[v100];
-                      v102 = type metadata accessor for CommandOperation();
+                      v102 = type metadata accessor for CommandOperation(0);
                       v132 = *(v102 - 8);
                       v134 = *(v132 + 48);
                       v103 = v99;
@@ -5832,7 +5839,7 @@ LABEL_41:
         v52 = *(v27 + 22);
         v53 = *(v27 + 23);
         v54 = *(v27 + 25);
-        outlined copy of AccessibilityImageLabel(v52, v53, v37);
+        outlined copy of AccessibilityImageLabel(v52, v53, v37, v54);
         v26[22] = v52;
         v26[23] = v53;
         v26[24] = v37;
@@ -5873,7 +5880,7 @@ LABEL_41:
   return a1;
 }
 
-uint64_t destroy for NavigationItemDescription(uint64_t a1, uint64_t a2)
+double destroy for NavigationItemDescription(uint64_t a1, uint64_t a2)
 {
 
   if (*(a1 + 40))
@@ -5901,9 +5908,8 @@ uint64_t destroy for NavigationItemDescription(uint64_t a1, uint64_t a2)
   MEMORY[0x18D011290](v4 + 32);
 
   v7 = v4 + *(type metadata accessor for ToolbarStorage.NavigationProperties(0) + 32);
-  v8 = type metadata accessor for PlatformItemList.Item();
-  result = (*(*(v8 - 8) + 48))(v7, 1, v8);
-  if (!result)
+  v8 = type metadata accessor for PlatformItemList.Item(0);
+  if (!(*(*(v8 - 8) + 48))(v7, 1, v8))
   {
 
     v10 = *(v7 + 192);
@@ -5920,7 +5926,7 @@ uint64_t destroy for NavigationItemDescription(uint64_t a1, uint64_t a2)
 
       if (v11 != 0x1FFFFFFFELL)
       {
-        outlined consume of AccessibilityImageLabel(*(v7 + 176), *(v7 + 184), v10);
+        outlined consume of AccessibilityImageLabel(*(v7 + 176), *(v7 + 184), v10, *(v7 + 200));
       }
 
       swift_unknownObjectRelease();
@@ -5975,7 +5981,7 @@ LABEL_39:
 LABEL_44:
 
           v18 = v7 + *(v8 + 112);
-          v19 = type metadata accessor for CommandOperation();
+          v19 = type metadata accessor for CommandOperation(0);
           if (!(*(*(v19 - 8) + 48))(v18, 1, v19))
           {
             v20 = v18 + *(v19 + 20);
@@ -5988,9 +5994,11 @@ LABEL_44:
             {
             }
           }
+
+          return result;
         }
 
-        __swift_destroy_boxed_opaque_existential_1(v7 + 840);
+        __swift_destroy_boxed_opaque_existential_1((v7 + 840));
       }
 
       if (*(v7 + 880))
@@ -6013,7 +6021,7 @@ LABEL_36:
         goto LABEL_39;
       }
 
-      __swift_destroy_boxed_opaque_existential_1(v7 + 600);
+      __swift_destroy_boxed_opaque_existential_1((v7 + 600));
     }
 
     goto LABEL_36;
@@ -6101,7 +6109,7 @@ uint64_t initializeWithCopy for NavigationItemDescription(uint64_t a1, void *a2,
   v23 = *(type metadata accessor for ToolbarStorage.NavigationProperties(0) + 32);
   v24 = (v14 + v23);
   v25 = &v15[v23];
-  v26 = type metadata accessor for PlatformItemList.Item();
+  v26 = type metadata accessor for PlatformItemList.Item(0);
   v27 = *(v26 - 8);
   v28 = *(v27 + 48);
   v29 = v22;
@@ -6171,7 +6179,7 @@ uint64_t initializeWithCopy for NavigationItemDescription(uint64_t a1, void *a2,
       v50 = *(v25 + 22);
       v51 = *(v25 + 23);
       v52 = *(v25 + 25);
-      outlined copy of AccessibilityImageLabel(v50, v51, v35);
+      outlined copy of AccessibilityImageLabel(v50, v51, v35, v52);
       v24[22] = v50;
       v24[23] = v51;
       v24[24] = v35;
@@ -6532,7 +6540,7 @@ LABEL_63:
   v98 = v139[28];
   __dst = v24 + v98;
   v99 = &v25[v98];
-  v100 = type metadata accessor for CommandOperation();
+  v100 = type metadata accessor for CommandOperation(0);
   v129 = *(v100 - 8);
   v131 = *(v129 + 48);
   v101 = v97;
@@ -6805,7 +6813,7 @@ LABEL_33:
   v43 = *(type metadata accessor for ToolbarStorage.NavigationProperties(0) + 32);
   v44 = v22 + v43;
   v45 = &v23[v43];
-  v46 = type metadata accessor for PlatformItemList.Item();
+  v46 = type metadata accessor for PlatformItemList.Item(0);
   v47 = *(v46 - 8);
   v48 = *(v47 + 48);
   v49 = v48(v44, 1, v46);
@@ -6911,7 +6919,7 @@ LABEL_33:
           v206 = *(v45 + 23);
           v207 = v4;
           v208 = *(v45 + 25);
-          outlined copy of AccessibilityImageLabel(v205, v206, *(v45 + 24));
+          outlined copy of AccessibilityImageLabel(v205, v206, *(v45 + 24), v208);
           *(v44 + 176) = v205;
           *(v44 + 184) = v206;
           a3 = v204;
@@ -7036,7 +7044,7 @@ LABEL_33:
           v224 = *(v45 + 23);
           v225 = v4;
           v226 = *(v45 + 25);
-          outlined copy of AccessibilityImageLabel(v223, v224, *(v45 + 24));
+          outlined copy of AccessibilityImageLabel(v223, v224, *(v45 + 24), v226);
           *(v44 + 176) = v223;
           *(v44 + 184) = v224;
           a3 = v222;
@@ -7061,17 +7069,18 @@ LABEL_33:
         v229 = *(v45 + 23);
         v230 = v4;
         v231 = *(v45 + 25);
-        outlined copy of AccessibilityImageLabel(v228, v229, *(v45 + 24));
+        outlined copy of AccessibilityImageLabel(v228, v229, *(v45 + 24), v231);
         v232 = *(v44 + 176);
         v233 = *(v44 + 184);
         v234 = *(v44 + 192);
+        v235 = *(v44 + 200);
         *(v44 + 176) = v228;
         *(v44 + 184) = v229;
         a3 = v227;
         *(v44 + 192) = v218;
         *(v44 + 200) = v231;
         v4 = v230;
-        outlined consume of AccessibilityImageLabel(v232, v233, v234);
+        outlined consume of AccessibilityImageLabel(v232, v233, v234, v235);
       }
 
       *(v44 + 208) = *(v45 + 26);
@@ -7081,36 +7090,36 @@ LABEL_33:
 
       *(v44 + 224) = v45[224];
       *(v44 + 225) = v45[225];
-      v235 = *(v45 + 57);
+      v236 = *(v45 + 57);
       *(v44 + 232) = v45[232];
-      *(v44 + 228) = v235;
-      v236 = *(v44 + 240);
-      v237 = *(v45 + 30);
-      *(v44 + 240) = v237;
-      v238 = v237;
+      *(v44 + 228) = v236;
+      v237 = *(v44 + 240);
+      v238 = *(v45 + 30);
+      *(v44 + 240) = v238;
+      v239 = v238;
 
       *(v44 + 248) = *(v45 + 124);
       *(v44 + 250) = v45[250];
     }
 
-    v239 = *(v45 + 33);
+    v240 = *(v45 + 33);
     if (!*(v44 + 264))
     {
-      if (v239)
+      if (v240)
       {
         *(v44 + 256) = *(v45 + 32);
         *(v44 + 264) = *(v45 + 33);
-        v243 = *(v45 + 34);
+        v244 = *(v45 + 34);
 
-        if (v243 >= 2)
+        if (v244 >= 2)
         {
-          v244 = v243;
+          v245 = v244;
         }
 
-        *(v44 + 272) = v243;
-        v245 = *(v45 + 70);
+        *(v44 + 272) = v244;
+        v246 = *(v45 + 70);
         *(v44 + 284) = v45[284];
-        *(v44 + 280) = v245;
+        *(v44 + 280) = v246;
         *(v44 + 285) = v45[285];
         *(v44 + 286) = v45[286];
         *(v44 + 288) = *(v45 + 36);
@@ -7119,149 +7128,149 @@ LABEL_33:
 
       else
       {
-        v248 = *(v45 + 16);
-        v249 = *(v45 + 18);
+        v249 = *(v45 + 16);
+        v250 = *(v45 + 18);
         *(v44 + 272) = *(v45 + 17);
-        *(v44 + 288) = v249;
-        *(v44 + 256) = v248;
+        *(v44 + 288) = v250;
+        *(v44 + 256) = v249;
       }
 
 LABEL_139:
-      v252 = *(v45 + 42);
-      v253 = v252 & 0xFFFFFFFFFFFFFFFCLL;
-      v470 = v5;
-      v468 = a3;
-      v472 = v46;
+      v253 = *(v45 + 42);
+      v254 = v253 & 0xFFFFFFFFFFFFFFFCLL;
+      v471 = v5;
+      v469 = a3;
+      v473 = v46;
       if (*(v44 + 336) >> 2 == 0xFFFFFFFFLL)
       {
-        if (v253 == 0x3FFFFFFFCLL)
+        if (v254 == 0x3FFFFFFFCLL)
         {
-          v254 = *(v45 + 19);
-          v255 = *(v45 + 21);
+          v255 = *(v45 + 19);
+          v256 = *(v45 + 21);
           *(v44 + 320) = *(v45 + 20);
-          *(v44 + 336) = v255;
-          *(v44 + 304) = v254;
-          v256 = *(v45 + 22);
-          v257 = *(v45 + 23);
-          v258 = *(v45 + 24);
+          *(v44 + 336) = v256;
+          *(v44 + 304) = v255;
+          v257 = *(v45 + 22);
+          v258 = *(v45 + 23);
+          v259 = *(v45 + 24);
           *(v44 + 400) = *(v45 + 50);
-          *(v44 + 368) = v257;
-          *(v44 + 384) = v258;
-          *(v44 + 352) = v256;
+          *(v44 + 368) = v258;
+          *(v44 + 384) = v259;
+          *(v44 + 352) = v257;
         }
 
         else
         {
-          v264 = *(v45 + 38);
-          v265 = *(v45 + 39);
-          v463 = v4;
-          v266 = *(v45 + 40);
-          v267 = *(v45 + 41);
-          v268 = *(v45 + 43);
-          v269 = *(v45 + 44);
-          v442 = *(v45 + 46);
-          v446 = *(v45 + 47);
-          v451 = *(v45 + 48);
+          v265 = *(v45 + 38);
+          v266 = *(v45 + 39);
+          v464 = v4;
+          v267 = *(v45 + 40);
+          v268 = *(v45 + 41);
+          v269 = *(v45 + 43);
+          v270 = *(v45 + 44);
+          v443 = *(v45 + 46);
+          v447 = *(v45 + 47);
+          v452 = *(v45 + 48);
           __dstb = *(v45 + 49);
-          v459 = *(v45 + 50);
-          v270 = *(v45 + 45);
-          outlined copy of PlatformItemList.Item.SystemItem(v264, v265, v266, v267, v252, v268, v269, v270, v442, v446, v451, __dstb, v459);
-          *(v44 + 304) = v264;
-          *(v44 + 312) = v265;
-          *(v44 + 320) = v266;
-          *(v44 + 328) = v267;
-          *(v44 + 336) = v252;
-          *(v44 + 344) = v268;
-          *(v44 + 352) = v269;
-          *(v44 + 360) = v270;
-          *(v44 + 368) = v442;
-          *(v44 + 376) = v446;
-          *(v44 + 384) = v451;
+          v460 = *(v45 + 50);
+          v271 = *(v45 + 45);
+          outlined copy of PlatformItemList.Item.SystemItem(v265, v266, v267, v268, v253, v269, v270, v271, v443, v447, v452, __dstb, v460);
+          *(v44 + 304) = v265;
+          *(v44 + 312) = v266;
+          *(v44 + 320) = v267;
+          *(v44 + 328) = v268;
+          *(v44 + 336) = v253;
+          *(v44 + 344) = v269;
+          *(v44 + 352) = v270;
+          *(v44 + 360) = v271;
+          *(v44 + 368) = v443;
+          *(v44 + 376) = v447;
+          *(v44 + 384) = v452;
           *(v44 + 392) = __dstb;
-          v46 = v472;
-          v4 = v463;
-          *(v44 + 400) = v459;
+          v46 = v473;
+          v4 = v464;
+          *(v44 + 400) = v460;
         }
       }
 
-      else if (v253 == 0x3FFFFFFFCLL)
+      else if (v254 == 0x3FFFFFFFCLL)
       {
         outlined destroy of PlatformItemList.Item.SystemItem(v44 + 304);
-        v260 = *(v45 + 20);
-        v259 = *(v45 + 21);
+        v261 = *(v45 + 20);
+        v260 = *(v45 + 21);
         *(v44 + 304) = *(v45 + 19);
-        *(v44 + 320) = v260;
-        *(v44 + 336) = v259;
-        v262 = *(v45 + 23);
-        v261 = *(v45 + 24);
-        v263 = *(v45 + 22);
+        *(v44 + 320) = v261;
+        *(v44 + 336) = v260;
+        v263 = *(v45 + 23);
+        v262 = *(v45 + 24);
+        v264 = *(v45 + 22);
         *(v44 + 400) = *(v45 + 50);
-        *(v44 + 368) = v262;
-        *(v44 + 384) = v261;
-        *(v44 + 352) = v263;
+        *(v44 + 368) = v263;
+        *(v44 + 384) = v262;
+        *(v44 + 352) = v264;
       }
 
       else
       {
-        v271 = *(v45 + 38);
-        v272 = *(v45 + 39);
-        v464 = v4;
-        v274 = *(v45 + 40);
-        v273 = *(v45 + 41);
-        v447 = *(v45 + 44);
-        v452 = *(v45 + 43);
-        v275 = *(v45 + 46);
-        v443 = *(v45 + 45);
-        v276 = *(v45 + 47);
-        v277 = *(v45 + 48);
+        v272 = *(v45 + 38);
+        v273 = *(v45 + 39);
+        v465 = v4;
+        v275 = *(v45 + 40);
+        v274 = *(v45 + 41);
+        v448 = *(v45 + 44);
+        v453 = *(v45 + 43);
+        v276 = *(v45 + 46);
+        v444 = *(v45 + 45);
+        v277 = *(v45 + 47);
+        v278 = *(v45 + 48);
         __dstc = *(v45 + 49);
-        v460 = *(v45 + 50);
-        outlined copy of PlatformItemList.Item.SystemItem(v271, v272, v274, v273, v252, v452, v447, v443, v275, v276, v277, __dstc, v460);
-        v278 = *(v44 + 304);
-        v279 = *(v44 + 312);
-        v280 = *(v44 + 320);
-        v281 = *(v44 + 328);
-        v282 = *(v44 + 336);
-        v283 = *(v44 + 344);
-        v284 = *(v44 + 352);
-        v285 = *(v44 + 360);
-        v286 = *(v44 + 368);
-        v287 = *(v44 + 384);
-        v288 = *(v44 + 400);
-        *(v44 + 304) = v271;
-        *(v44 + 312) = v272;
-        *(v44 + 320) = v274;
-        *(v44 + 328) = v273;
-        *(v44 + 336) = v252;
-        *(v44 + 344) = v452;
-        *(v44 + 352) = v447;
-        *(v44 + 360) = v443;
-        *(v44 + 368) = v275;
-        *(v44 + 376) = v276;
-        *(v44 + 384) = v277;
-        v46 = v472;
-        v4 = v464;
+        v461 = *(v45 + 50);
+        outlined copy of PlatformItemList.Item.SystemItem(v272, v273, v275, v274, v253, v453, v448, v444, v276, v277, v278, __dstc, v461);
+        v279 = *(v44 + 304);
+        v280 = *(v44 + 312);
+        v281 = *(v44 + 320);
+        v282 = *(v44 + 328);
+        v283 = *(v44 + 336);
+        v284 = *(v44 + 344);
+        v285 = *(v44 + 352);
+        v286 = *(v44 + 360);
+        v287 = *(v44 + 368);
+        v288 = *(v44 + 384);
+        v289 = *(v44 + 400);
+        *(v44 + 304) = v272;
+        *(v44 + 312) = v273;
+        *(v44 + 320) = v275;
+        *(v44 + 328) = v274;
+        *(v44 + 336) = v253;
+        *(v44 + 344) = v453;
+        *(v44 + 352) = v448;
+        *(v44 + 360) = v444;
+        *(v44 + 368) = v276;
+        *(v44 + 376) = v277;
+        *(v44 + 384) = v278;
+        v46 = v473;
+        v4 = v465;
         *(v44 + 392) = __dstc;
-        *(v44 + 400) = v460;
-        outlined consume of PlatformItemList.Item.SystemItem(v278, v279, v280, v281, v282, v283, v284, v285, v286, *(&v286 + 1), v287, SBYTE8(v287), v288);
+        *(v44 + 400) = v461;
+        outlined consume of PlatformItemList.Item.SystemItem(v279, v280, v281, v282, v283, v284, v285, v286, v287, *(&v287 + 1), v288, SBYTE8(v288), v289);
       }
 
-      v289 = (v44 + 408);
-      v290 = v45 + 408;
-      v291 = *(v44 + 416);
-      v292 = *(v45 + 52);
-      if (v291 == 1)
+      v290 = (v44 + 408);
+      v291 = v45 + 408;
+      v292 = *(v44 + 416);
+      v293 = *(v45 + 52);
+      if (v292 == 1)
       {
-        if (v292 == 1)
+        if (v293 == 1)
         {
-          *v289 = *v290;
-          v293 = *(v45 + 424);
-          v294 = *(v45 + 440);
-          v295 = *(v45 + 456);
+          *v290 = *v291;
+          v294 = *(v45 + 424);
+          v295 = *(v45 + 440);
+          v296 = *(v45 + 456);
           *(v44 + 472) = v45[472];
-          *(v44 + 440) = v294;
-          *(v44 + 456) = v295;
-          *(v44 + 424) = v293;
+          *(v44 + 440) = v295;
+          *(v44 + 456) = v296;
+          *(v44 + 424) = v294;
           goto LABEL_181;
         }
 
@@ -7270,12 +7279,12 @@ LABEL_139:
         *(v44 + 410) = v45[410];
         *(v44 + 411) = v45[411];
         *(v44 + 412) = v45[412];
-        v299 = *(v45 + 52);
-        if (v299)
+        v300 = *(v45 + 52);
+        if (v300)
         {
-          v300 = *(v45 + 53);
-          *(v44 + 416) = v299;
-          *(v44 + 424) = v300;
+          v301 = *(v45 + 53);
+          *(v44 + 416) = v300;
+          *(v44 + 424) = v301;
         }
 
         else
@@ -7283,12 +7292,12 @@ LABEL_139:
           *(v44 + 416) = *(v45 + 26);
         }
 
-        v303 = *(v45 + 54);
-        if (v303)
+        v304 = *(v45 + 54);
+        if (v304)
         {
-          v304 = *(v45 + 55);
-          *(v44 + 432) = v303;
-          *(v44 + 440) = v304;
+          v305 = *(v45 + 55);
+          *(v44 + 432) = v304;
+          *(v44 + 440) = v305;
         }
 
         else
@@ -7296,8 +7305,8 @@ LABEL_139:
           *(v44 + 432) = *(v45 + 27);
         }
 
-        v306 = *(v45 + 56);
-        if (!v306)
+        v307 = *(v45 + 56);
+        if (!v307)
         {
           goto LABEL_179;
         }
@@ -7305,81 +7314,81 @@ LABEL_139:
         goto LABEL_177;
       }
 
-      if (v292 == 1)
+      if (v293 == 1)
       {
         outlined destroy of PlatformItemList.Item.SelectionBehavior(v44 + 408);
-        *v289 = *v290;
-        v297 = *(v45 + 440);
-        v296 = *(v45 + 456);
-        v298 = *(v45 + 424);
+        *v290 = *v291;
+        v298 = *(v45 + 440);
+        v297 = *(v45 + 456);
+        v299 = *(v45 + 424);
         *(v44 + 472) = v45[472];
-        *(v44 + 440) = v297;
-        *(v44 + 456) = v296;
-        *(v44 + 424) = v298;
+        *(v44 + 440) = v298;
+        *(v44 + 456) = v297;
+        *(v44 + 424) = v299;
         goto LABEL_181;
       }
 
-      *(v44 + 408) = *v290;
+      *(v44 + 408) = *v291;
       *(v44 + 409) = v45[409];
       *(v44 + 410) = v45[410];
       *(v44 + 411) = v45[411];
       *(v44 + 412) = v45[412];
-      v301 = *(v45 + 52);
-      if (v291)
+      v302 = *(v45 + 52);
+      if (v292)
       {
-        if (v301)
+        if (v302)
         {
-          v302 = *(v45 + 53);
-          *(v44 + 416) = v301;
-          *(v44 + 424) = v302;
+          v303 = *(v45 + 53);
+          *(v44 + 416) = v302;
+          *(v44 + 424) = v303;
 
           goto LABEL_166;
         }
       }
 
-      else if (v301)
+      else if (v302)
       {
-        v305 = *(v45 + 53);
-        *(v44 + 416) = v301;
-        *(v44 + 424) = v305;
+        v306 = *(v45 + 53);
+        *(v44 + 416) = v302;
+        *(v44 + 424) = v306;
 
         goto LABEL_166;
       }
 
       *(v44 + 416) = *(v45 + 26);
 LABEL_166:
-      v307 = *(v45 + 54);
+      v308 = *(v45 + 54);
       if (*(v44 + 432))
       {
-        if (v307)
+        if (v308)
         {
-          v308 = *(v45 + 55);
-          *(v44 + 432) = v307;
-          *(v44 + 440) = v308;
+          v309 = *(v45 + 55);
+          *(v44 + 432) = v308;
+          *(v44 + 440) = v309;
 
           goto LABEL_173;
         }
       }
 
-      else if (v307)
+      else if (v308)
       {
-        v309 = *(v45 + 55);
-        *(v44 + 432) = v307;
-        *(v44 + 440) = v309;
+        v310 = *(v45 + 55);
+        *(v44 + 432) = v308;
+        *(v44 + 440) = v310;
 
         goto LABEL_173;
       }
 
       *(v44 + 432) = *(v45 + 27);
 LABEL_173:
-      v306 = *(v45 + 56);
+      v307 = *(v45 + 56);
       if (*(v44 + 448))
       {
-        if (v306)
+        if (v307)
         {
-          v310 = *(v45 + 57);
-          *(v44 + 448) = v306;
-          *(v44 + 456) = v310;
+          v311 = *(v45 + 57);
+          *(v44 + 448) = v307;
+          *(v44 + 456) = v311;
 
 LABEL_180:
           *(v44 + 464) = *(v45 + 58);
@@ -7390,24 +7399,24 @@ LABEL_181:
 
           *(v44 + 496) = *(v45 + 62);
           *(v44 + 504) = v45[504];
-          v312 = *(v45 + 64);
+          v313 = *(v45 + 64);
           if (*(v44 + 512))
           {
-            if (v312)
+            if (v313)
             {
-              v313 = *(v45 + 65);
-              *(v44 + 512) = v312;
-              *(v44 + 520) = v313;
+              v314 = *(v45 + 65);
+              *(v44 + 512) = v313;
+              *(v44 + 520) = v314;
 
               goto LABEL_188;
             }
           }
 
-          else if (v312)
+          else if (v313)
           {
-            v314 = *(v45 + 65);
-            *(v44 + 512) = v312;
-            *(v44 + 520) = v314;
+            v315 = *(v45 + 65);
+            *(v44 + 512) = v313;
+            *(v44 + 520) = v315;
 
             goto LABEL_188;
           }
@@ -7415,10 +7424,10 @@ LABEL_181:
           *(v44 + 512) = *(v45 + 32);
 LABEL_188:
           *(v44 + 528) = v45[528];
-          v315 = *(v45 + 102);
+          v316 = *(v45 + 102);
           if (*(v44 + 816))
           {
-            if (v315)
+            if (v316)
             {
               *(v44 + 536) = *(v45 + 67);
               *(v44 + 544) = *(v45 + 68);
@@ -7427,30 +7436,30 @@ LABEL_188:
               *(v44 + 560) = *(v45 + 70);
 
               *(v44 + 568) = v45[568];
-              v316 = *(v45 + 36);
+              v317 = *(v45 + 36);
               *(v44 + 592) = v45[592];
-              *(v44 + 576) = v316;
-              v317 = (v44 + 600);
-              v318 = v45 + 600;
-              v319 = *(v44 + 624);
-              v320 = *(v45 + 78);
-              if (v319 != 1)
+              *(v44 + 576) = v317;
+              v318 = (v44 + 600);
+              v319 = v45 + 600;
+              v320 = *(v44 + 624);
+              v321 = *(v45 + 78);
+              if (v320 != 1)
               {
-                if (v320 == 1)
+                if (v321 == 1)
                 {
                   outlined destroy of AccessibilityValueStorage(v44 + 600);
-                  v330 = *(v45 + 616);
-                  v329 = *(v45 + 632);
-                  *v317 = *v318;
-                  *(v44 + 616) = v330;
-                  *(v44 + 632) = v329;
+                  v331 = *(v45 + 616);
+                  v330 = *(v45 + 632);
+                  *v318 = *v319;
+                  *(v44 + 616) = v331;
+                  *(v44 + 632) = v330;
                 }
 
                 else
                 {
-                  if (v319)
+                  if (v320)
                   {
-                    if (v320)
+                    if (v321)
                     {
                       __swift_assign_boxed_opaque_existential_1((v44 + 600), v45 + 75);
                     }
@@ -7458,28 +7467,28 @@ LABEL_188:
                     else
                     {
                       outlined destroy of AnyAccessibilityValue(v44 + 600);
-                      v348 = *(v45 + 79);
-                      v349 = *(v45 + 616);
-                      *v317 = *v318;
-                      *(v44 + 616) = v349;
-                      *(v44 + 632) = v348;
+                      v349 = *(v45 + 79);
+                      v350 = *(v45 + 616);
+                      *v318 = *v319;
+                      *(v44 + 616) = v350;
+                      *(v44 + 632) = v349;
                     }
                   }
 
-                  else if (v320)
+                  else if (v321)
                   {
-                    *(v44 + 624) = v320;
+                    *(v44 + 624) = v321;
                     *(v44 + 632) = *(v45 + 79);
-                    (**(v320 - 8))(v44 + 600, (v45 + 600));
+                    (**(v321 - 8))(v44 + 600, (v45 + 600));
                   }
 
                   else
                   {
-                    v350 = *v318;
-                    v351 = *(v45 + 616);
+                    v351 = *v319;
+                    v352 = *(v45 + 616);
                     *(v44 + 632) = *(v45 + 79);
-                    *v317 = v350;
-                    *(v44 + 616) = v351;
+                    *v318 = v351;
+                    *(v44 + 616) = v352;
                   }
 
                   *(v44 + 640) = *(v45 + 80);
@@ -7488,53 +7497,53 @@ LABEL_188:
                 goto LABEL_220;
               }
 
-              if (v320)
+              if (v321)
               {
-                if (v320 == 1)
+                if (v321 == 1)
                 {
-                  v321 = *v318;
-                  v322 = *(v45 + 632);
+                  v322 = *v319;
+                  v323 = *(v45 + 632);
                   *(v44 + 616) = *(v45 + 616);
-                  *(v44 + 632) = v322;
-                  *v317 = v321;
+                  *(v44 + 632) = v323;
+                  *v318 = v322;
 LABEL_220:
-                  v352 = *(v45 + 81);
+                  v353 = *(v45 + 81);
                   *(v44 + 656) = v45[656];
-                  *(v44 + 648) = v352;
-                  v353 = (v44 + 664);
-                  v354 = v45 + 664;
-                  v355 = *(v45 + 97);
+                  *(v44 + 648) = v353;
+                  v354 = (v44 + 664);
+                  v355 = v45 + 664;
+                  v356 = *(v45 + 97);
                   if (*(v44 + 776) == 1)
                   {
-                    if (v355 == 1)
+                    if (v356 == 1)
                     {
-                      v356 = *(v45 + 680);
-                      *v353 = *v354;
-                      *(v44 + 680) = v356;
-                      v357 = *(v45 + 696);
-                      v358 = *(v45 + 712);
-                      v359 = *(v45 + 744);
+                      v357 = *(v45 + 680);
+                      *v354 = *v355;
+                      *(v44 + 680) = v357;
+                      v358 = *(v45 + 696);
+                      v359 = *(v45 + 712);
+                      v360 = *(v45 + 744);
                       *(v44 + 728) = *(v45 + 728);
-                      *(v44 + 744) = v359;
-                      *(v44 + 696) = v357;
-                      *(v44 + 712) = v358;
-                      v360 = *(v45 + 760);
-                      v361 = *(v45 + 776);
-                      v362 = *(v45 + 792);
+                      *(v44 + 744) = v360;
+                      *(v44 + 696) = v358;
+                      *(v44 + 712) = v359;
+                      v361 = *(v45 + 760);
+                      v362 = *(v45 + 776);
+                      v363 = *(v45 + 792);
                       *(v44 + 808) = v45[808];
-                      *(v44 + 776) = v361;
-                      *(v44 + 792) = v362;
-                      *(v44 + 760) = v360;
+                      *(v44 + 776) = v362;
+                      *(v44 + 792) = v363;
+                      *(v44 + 760) = v361;
                     }
 
                     else
                     {
-                      v370 = *v354;
+                      v371 = *v355;
                       *(v44 + 672) = v45[672];
-                      *v353 = v370;
-                      v371 = *(v45 + 85);
+                      *v354 = v371;
+                      v372 = *(v45 + 85);
                       *(v44 + 688) = v45[688];
-                      *(v44 + 680) = v371;
+                      *(v44 + 680) = v372;
                       *(v44 + 689) = v45[689];
                       *(v44 + 690) = v45[690];
                       *(v44 + 691) = v45[691];
@@ -7551,43 +7560,43 @@ LABEL_220:
                       *(v44 + 760) = *(v45 + 95);
                       *(v44 + 768) = v45[768];
                       *(v44 + 776) = *(v45 + 97);
-                      v372 = *(v45 + 49);
+                      v373 = *(v45 + 49);
                       *(v44 + 800) = *(v45 + 100);
-                      *(v44 + 784) = v372;
+                      *(v44 + 784) = v373;
                       *(v44 + 808) = v45[808];
                     }
                   }
 
-                  else if (v355 == 1)
+                  else if (v356 == 1)
                   {
                     outlined destroy of AccessibilityTextLayoutProperties(v44 + 664);
-                    v363 = *(v45 + 680);
-                    *v353 = *v354;
-                    *(v44 + 680) = v363;
-                    v364 = *(v45 + 744);
-                    v366 = *(v45 + 696);
-                    v365 = *(v45 + 712);
+                    v364 = *(v45 + 680);
+                    *v354 = *v355;
+                    *(v44 + 680) = v364;
+                    v365 = *(v45 + 744);
+                    v367 = *(v45 + 696);
+                    v366 = *(v45 + 712);
                     *(v44 + 728) = *(v45 + 728);
-                    *(v44 + 744) = v364;
-                    *(v44 + 696) = v366;
-                    *(v44 + 712) = v365;
-                    v368 = *(v45 + 776);
-                    v367 = *(v45 + 792);
-                    v369 = *(v45 + 760);
+                    *(v44 + 744) = v365;
+                    *(v44 + 696) = v367;
+                    *(v44 + 712) = v366;
+                    v369 = *(v45 + 776);
+                    v368 = *(v45 + 792);
+                    v370 = *(v45 + 760);
                     *(v44 + 808) = v45[808];
-                    *(v44 + 776) = v368;
-                    *(v44 + 792) = v367;
-                    *(v44 + 760) = v369;
+                    *(v44 + 776) = v369;
+                    *(v44 + 792) = v368;
+                    *(v44 + 760) = v370;
                   }
 
                   else
                   {
-                    v373 = *v354;
+                    v374 = *v355;
                     *(v44 + 672) = v45[672];
-                    *v353 = v373;
-                    v374 = *(v45 + 85);
+                    *v354 = v374;
+                    v375 = *(v45 + 85);
                     *(v44 + 688) = v45[688];
-                    *(v44 + 680) = v374;
+                    *(v44 + 680) = v375;
                     *(v44 + 689) = v45[689];
                     *(v44 + 690) = v45[690];
                     *(v44 + 691) = v45[691];
@@ -7605,9 +7614,9 @@ LABEL_220:
                     *(v44 + 768) = v45[768];
                     *(v44 + 776) = *(v45 + 97);
 
-                    v375 = *(v45 + 49);
+                    v376 = *(v45 + 49);
                     *(v44 + 800) = *(v45 + 100);
-                    *(v44 + 784) = v375;
+                    *(v44 + 784) = v376;
                     *(v44 + 808) = v45[808];
                   }
 
@@ -7620,18 +7629,18 @@ LABEL_220:
                   goto LABEL_228;
                 }
 
-                *(v44 + 624) = v320;
+                *(v44 + 624) = v321;
                 *(v44 + 632) = *(v45 + 79);
-                (**(v320 - 8))(v44 + 600, (v45 + 600));
+                (**(v321 - 8))(v44 + 600, (v45 + 600));
               }
 
               else
               {
-                v346 = *v318;
-                v347 = *(v45 + 616);
+                v347 = *v319;
+                v348 = *(v45 + 616);
                 *(v44 + 632) = *(v45 + 79);
-                *v317 = v346;
-                *(v44 + 616) = v347;
+                *v318 = v347;
+                *(v44 + 616) = v348;
               }
 
               *(v44 + 640) = *(v45 + 80);
@@ -7645,7 +7654,7 @@ LABEL_199:
             goto LABEL_228;
           }
 
-          if (!v315)
+          if (!v316)
           {
             goto LABEL_199;
           }
@@ -7655,57 +7664,57 @@ LABEL_199:
           *(v44 + 552) = v45[552];
           *(v44 + 560) = *(v45 + 70);
           *(v44 + 568) = v45[568];
-          v323 = *(v45 + 36);
+          v324 = *(v45 + 36);
           *(v44 + 592) = v45[592];
-          *(v44 + 576) = v323;
-          v324 = (v44 + 600);
-          v325 = (v45 + 600);
-          v326 = *(v45 + 78);
+          *(v44 + 576) = v324;
+          v325 = (v44 + 600);
+          v326 = (v45 + 600);
+          v327 = *(v45 + 78);
 
-          if (v326)
+          if (v327)
           {
-            if (v326 == 1)
+            if (v327 == 1)
             {
-              v327 = *v325;
-              v328 = *(v45 + 632);
+              v328 = *v326;
+              v329 = *(v45 + 632);
               *(v44 + 616) = *(v45 + 616);
-              *(v44 + 632) = v328;
-              *v324 = v327;
+              *(v44 + 632) = v329;
+              *v325 = v328;
 LABEL_208:
-              v333 = *(v45 + 81);
+              v334 = *(v45 + 81);
               *(v44 + 656) = v45[656];
-              *(v44 + 648) = v333;
-              v334 = (v44 + 664);
-              v335 = v45 + 664;
+              *(v44 + 648) = v334;
+              v335 = (v44 + 664);
+              v336 = v45 + 664;
               if (*(v45 + 97) == 1)
               {
-                v336 = *(v45 + 680);
-                *v334 = *v335;
-                *(v44 + 680) = v336;
-                v337 = *(v45 + 696);
-                v338 = *(v45 + 712);
-                v339 = *(v45 + 744);
+                v337 = *(v45 + 680);
+                *v335 = *v336;
+                *(v44 + 680) = v337;
+                v338 = *(v45 + 696);
+                v339 = *(v45 + 712);
+                v340 = *(v45 + 744);
                 *(v44 + 728) = *(v45 + 728);
-                *(v44 + 744) = v339;
-                *(v44 + 696) = v337;
-                *(v44 + 712) = v338;
-                v340 = *(v45 + 760);
-                v341 = *(v45 + 776);
-                v342 = *(v45 + 792);
+                *(v44 + 744) = v340;
+                *(v44 + 696) = v338;
+                *(v44 + 712) = v339;
+                v341 = *(v45 + 760);
+                v342 = *(v45 + 776);
+                v343 = *(v45 + 792);
                 *(v44 + 808) = v45[808];
-                *(v44 + 776) = v341;
-                *(v44 + 792) = v342;
-                *(v44 + 760) = v340;
+                *(v44 + 776) = v342;
+                *(v44 + 792) = v343;
+                *(v44 + 760) = v341;
               }
 
               else
               {
-                v343 = *v335;
+                v344 = *v336;
                 *(v44 + 672) = v45[672];
-                *v334 = v343;
-                v344 = *(v45 + 85);
+                *v335 = v344;
+                v345 = *(v45 + 85);
                 *(v44 + 688) = v45[688];
-                *(v44 + 680) = v344;
+                *(v44 + 680) = v345;
                 *(v44 + 689) = v45[689];
                 *(v44 + 690) = v45[690];
                 *(v44 + 691) = v45[691];
@@ -7722,9 +7731,9 @@ LABEL_208:
                 *(v44 + 760) = *(v45 + 95);
                 *(v44 + 768) = v45[768];
                 *(v44 + 776) = *(v45 + 97);
-                v345 = *(v45 + 49);
+                v346 = *(v45 + 49);
                 *(v44 + 800) = *(v45 + 100);
-                *(v44 + 784) = v345;
+                *(v44 + 784) = v346;
                 *(v44 + 808) = v45[808];
               }
 
@@ -7733,42 +7742,42 @@ LABEL_208:
               *(v44 + 832) = *(v45 + 104);
 
 LABEL_228:
-              v376 = (v44 + 840);
-              v377 = (v45 + 840);
-              v378 = *(v44 + 864);
-              v379 = *(v45 + 108);
-              if (v378 == 1)
+              v377 = (v44 + 840);
+              v378 = (v45 + 840);
+              v379 = *(v44 + 864);
+              v380 = *(v45 + 108);
+              if (v379 == 1)
               {
-                if (v379)
+                if (v380)
                 {
-                  if (v379 == 1)
+                  if (v380 == 1)
                   {
-                    v380 = *v377;
-                    v381 = *(v45 + 856);
-                    v382 = *(v45 + 872);
+                    v381 = *v378;
+                    v382 = *(v45 + 856);
+                    v383 = *(v45 + 872);
                     *(v44 + 888) = *(v45 + 111);
-                    *(v44 + 856) = v381;
-                    *(v44 + 872) = v382;
-                    *v376 = v380;
+                    *(v44 + 856) = v382;
+                    *(v44 + 872) = v383;
+                    *v377 = v381;
                     goto LABEL_252;
                   }
 
-                  *(v44 + 864) = v379;
+                  *(v44 + 864) = v380;
                   *(v44 + 872) = *(v45 + 109);
-                  (**(v379 - 8))(v44 + 840, (v45 + 840));
+                  (**(v380 - 8))(v44 + 840, (v45 + 840));
                 }
 
                 else
                 {
-                  v386 = *v377;
-                  v387 = *(v45 + 856);
+                  v387 = *v378;
+                  v388 = *(v45 + 856);
                   *(v44 + 872) = *(v45 + 109);
-                  *v376 = v386;
-                  *(v44 + 856) = v387;
+                  *v377 = v387;
+                  *(v44 + 856) = v388;
                 }
 
-                v388 = *(v45 + 110);
-                if (!v388)
+                v389 = *(v45 + 110);
+                if (!v389)
                 {
                   goto LABEL_251;
                 }
@@ -7776,22 +7785,22 @@ LABEL_228:
 
               else
               {
-                if (v379 == 1)
+                if (v380 == 1)
                 {
                   outlined destroy of PlatformItemList.Item.SecondaryNavigationBehavior(v44 + 840);
-                  v384 = *(v45 + 856);
-                  v383 = *(v45 + 872);
-                  v385 = *v377;
+                  v385 = *(v45 + 856);
+                  v384 = *(v45 + 872);
+                  v386 = *v378;
                   *(v44 + 888) = *(v45 + 111);
-                  *(v44 + 856) = v384;
-                  *(v44 + 872) = v383;
-                  *v376 = v385;
+                  *(v44 + 856) = v385;
+                  *(v44 + 872) = v384;
+                  *v377 = v386;
                   goto LABEL_252;
                 }
 
-                if (v378)
+                if (v379)
                 {
-                  if (v379)
+                  if (v380)
                   {
                     __swift_assign_boxed_opaque_existential_1((v44 + 840), v45 + 105);
                   }
@@ -7799,38 +7808,38 @@ LABEL_228:
                   else
                   {
                     outlined destroy of AnyNavigationLinkPresentedValue(v44 + 840);
-                    v389 = *(v45 + 109);
-                    v390 = *(v45 + 856);
-                    *v376 = *v377;
-                    *(v44 + 856) = v390;
-                    *(v44 + 872) = v389;
+                    v390 = *(v45 + 109);
+                    v391 = *(v45 + 856);
+                    *v377 = *v378;
+                    *(v44 + 856) = v391;
+                    *(v44 + 872) = v390;
                   }
                 }
 
-                else if (v379)
+                else if (v380)
                 {
-                  *(v44 + 864) = v379;
+                  *(v44 + 864) = v380;
                   *(v44 + 872) = *(v45 + 109);
-                  (**(v379 - 8))(v44 + 840, (v45 + 840));
+                  (**(v380 - 8))(v44 + 840, (v45 + 840));
                 }
 
                 else
                 {
-                  v391 = *v377;
-                  v392 = *(v45 + 856);
+                  v392 = *v378;
+                  v393 = *(v45 + 856);
                   *(v44 + 872) = *(v45 + 109);
-                  *v376 = v391;
-                  *(v44 + 856) = v392;
+                  *v377 = v392;
+                  *(v44 + 856) = v393;
                 }
 
-                v388 = *(v45 + 110);
+                v389 = *(v45 + 110);
                 if (*(v44 + 880))
                 {
-                  if (v388)
+                  if (v389)
                   {
-                    v393 = *(v45 + 111);
-                    *(v44 + 880) = v388;
-                    *(v44 + 888) = v393;
+                    v394 = *(v45 + 111);
+                    *(v44 + 880) = v389;
+                    *(v44 + 888) = v394;
 
                     goto LABEL_252;
                   }
@@ -7838,15 +7847,15 @@ LABEL_228:
                   goto LABEL_251;
                 }
 
-                if (!v388)
+                if (!v389)
                 {
 LABEL_251:
                   *(v44 + 880) = *(v45 + 55);
 LABEL_252:
-                  v395 = *(v44 + 896);
-                  v396 = *(v45 + 112);
-                  *(v44 + 896) = v396;
-                  v397 = v396;
+                  v396 = *(v44 + 896);
+                  v397 = *(v45 + 112);
+                  *(v44 + 896) = v397;
+                  v398 = v397;
 
                   *(v44 + 904) = *(v45 + 113);
                   *(v44 + 912) = *(v45 + 114);
@@ -7861,99 +7870,99 @@ LABEL_252:
                   *(v44 + 952) = v45[952];
                   *(v44 + 953) = v45[953];
                   *(v44 + 954) = v45[954];
-                  v398 = *(v46 + 112);
-                  v399 = (v44 + v398);
-                  v400 = &v45[v398];
-                  v401 = type metadata accessor for CommandOperation();
-                  v402 = *(v401 - 8);
-                  v403 = *(v402 + 48);
-                  v404 = v403(v399, 1, v401);
-                  v405 = v403(v400, 1, v401);
-                  if (v404)
+                  v399 = *(v46 + 112);
+                  v400 = (v44 + v399);
+                  v401 = &v45[v399];
+                  v402 = type metadata accessor for CommandOperation(0);
+                  v403 = *(v402 - 8);
+                  v404 = *(v403 + 48);
+                  v405 = v404(v400, 1, v402);
+                  v406 = v404(v401, 1, v402);
+                  if (v405)
                   {
-                    if (!v405)
+                    if (!v406)
                     {
-                      v461 = v400;
-                      v465 = v4;
-                      *v399 = *v400;
-                      v406 = *(v401 + 20);
-                      v407 = &v399[v406];
-                      v408 = &v400[v406];
-                      v409 = *v408;
-                      v410 = *(v408 + 1);
-                      v411 = v408[16];
-                      outlined copy of Text.Storage(*v408, v410, v411);
-                      *v407 = v409;
-                      *(v407 + 1) = v410;
-                      v407[16] = v411;
-                      *(v407 + 3) = *(v408 + 3);
-                      v412 = *(type metadata accessor for CommandGroupPlacement(0) + 20);
-                      v413 = type metadata accessor for UUID();
-                      __dstd = *(*(v413 - 8) + 16);
+                      v462 = v401;
+                      v466 = v4;
+                      *v400 = *v401;
+                      v407 = *(v402 + 20);
+                      v408 = &v400[v407];
+                      v409 = &v401[v407];
+                      v410 = *v409;
+                      v411 = *(v409 + 1);
+                      v412 = v409[16];
+                      outlined copy of Text.Storage(*v409, v411, v412);
+                      *v408 = v410;
+                      *(v408 + 1) = v411;
+                      v408[16] = v412;
+                      *(v408 + 3) = *(v409 + 3);
+                      v413 = *(type metadata accessor for CommandGroupPlacement(0) + 20);
+                      v414 = type metadata accessor for UUID();
+                      __dstd = *(*(v414 - 8) + 16);
 
-                      __dstd(&v407[v412], &v408[v412], v413);
-                      v414 = *(v401 + 24);
-                      v415 = &v399[v414];
-                      v416 = &v461[v414];
-                      if (*v416)
+                      __dstd(&v408[v413], &v409[v413], v414);
+                      v415 = *(v402 + 24);
+                      v416 = &v400[v415];
+                      v417 = &v462[v415];
+                      if (*v417)
                       {
-                        v417 = *(v416 + 1);
-                        *v415 = *v416;
-                        *(v415 + 1) = v417;
+                        v418 = *(v417 + 1);
+                        *v416 = *v417;
+                        *(v416 + 1) = v418;
                       }
 
                       else
                       {
-                        *v415 = *v416;
+                        *v416 = *v417;
                       }
 
-                      v4 = v465;
-                      v419 = v472;
-                      (*(v402 + 56))(v399, 0, 1, v401);
-                      a3 = v468;
+                      v4 = v466;
+                      v420 = v473;
+                      (*(v403 + 56))(v400, 0, 1, v402);
+                      a3 = v469;
                       goto LABEL_265;
                     }
                   }
 
                   else
                   {
-                    if (!v405)
+                    if (!v406)
                     {
-                      v466 = v4;
-                      *v399 = *v400;
-                      v420 = *(v401 + 20);
-                      v421 = &v399[v420];
-                      v422 = &v400[v420];
-                      v423 = *&v400[v420];
-                      v424 = *&v400[v420 + 8];
-                      v425 = v400[v420 + 16];
-                      outlined copy of Text.Storage(v423, v424, v425);
-                      v426 = *v421;
-                      v427 = *(v421 + 1);
-                      v428 = v421[16];
-                      *v421 = v423;
-                      *(v421 + 1) = v424;
-                      v421[16] = v425;
-                      outlined consume of Text.Storage(v426, v427, v428);
-                      *(v421 + 3) = *(v422 + 3);
+                      v467 = v4;
+                      *v400 = *v401;
+                      v421 = *(v402 + 20);
+                      v422 = &v400[v421];
+                      v423 = &v401[v421];
+                      v424 = *&v401[v421];
+                      v425 = *&v401[v421 + 8];
+                      v426 = v401[v421 + 16];
+                      outlined copy of Text.Storage(v424, v425, v426);
+                      v427 = *v422;
+                      v428 = *(v422 + 1);
+                      v429 = v422[16];
+                      *v422 = v424;
+                      *(v422 + 1) = v425;
+                      v422[16] = v426;
+                      outlined consume of Text.Storage(v427, v428, v429);
+                      *(v422 + 3) = *(v423 + 3);
 
-                      v429 = *(type metadata accessor for CommandGroupPlacement(0) + 20);
-                      v430 = type metadata accessor for UUID();
-                      (*(*(v430 - 8) + 24))(&v421[v429], &v422[v429], v430);
-                      v431 = *(v401 + 24);
-                      v432 = &v399[v431];
-                      v433 = &v400[v431];
-                      v434 = *&v399[v431];
-                      v435 = *&v400[v431];
-                      if (v434)
+                      v430 = *(type metadata accessor for CommandGroupPlacement(0) + 20);
+                      v431 = type metadata accessor for UUID();
+                      (*(*(v431 - 8) + 24))(&v422[v430], &v423[v430], v431);
+                      v432 = *(v402 + 24);
+                      v433 = &v400[v432];
+                      v434 = &v401[v432];
+                      v435 = *&v400[v432];
+                      v436 = *&v401[v432];
+                      if (v435)
                       {
-                        v4 = v466;
-                        a3 = v468;
-                        if (v435)
+                        v4 = v467;
+                        a3 = v469;
+                        if (v436)
                         {
-                          v436 = *(v433 + 1);
-                          *v432 = v435;
-                          *(v432 + 1) = v436;
+                          v437 = *(v434 + 1);
+                          *v433 = v436;
+                          *(v433 + 1) = v437;
 
                           goto LABEL_259;
                         }
@@ -7961,62 +7970,62 @@ LABEL_252:
 
                       else
                       {
-                        v4 = v466;
-                        a3 = v468;
-                        if (v435)
+                        v4 = v467;
+                        a3 = v469;
+                        if (v436)
                         {
-                          v438 = *(v433 + 1);
-                          *v432 = v435;
-                          *(v432 + 1) = v438;
+                          v439 = *(v434 + 1);
+                          *v433 = v436;
+                          *(v433 + 1) = v439;
 
                           goto LABEL_259;
                         }
                       }
 
-                      *v432 = *v433;
+                      *v433 = *v434;
                       goto LABEL_259;
                     }
 
-                    _s7SwiftUI16CommandOperationVWOhTm_1(v399, type metadata accessor for CommandOperation);
+                    _s7SwiftUI16CommandOperationVWOhTm_1(v400, type metadata accessor for CommandOperation);
                   }
 
                   type metadata accessor for NavigationItemDescription?(0, &lazy cache variable for type metadata for CommandOperation?, type metadata accessor for CommandOperation, MEMORY[0x1E69E6720]);
-                  memcpy(v399, v400, *(*(v418 - 8) + 64));
-                  a3 = v468;
+                  memcpy(v400, v401, *(*(v419 - 8) + 64));
+                  a3 = v469;
 LABEL_259:
-                  v419 = v472;
+                  v420 = v473;
 LABEL_265:
-                  *(v44 + v419[29]) = v45[v419[29]];
-                  *(v44 + v419[30]) = v45[v419[30]];
-                  *(v44 + v419[31]) = v45[v419[31]];
-                  *(v44 + v419[32]) = v45[v419[32]];
-                  *(v44 + v419[33]) = v45[v419[33]];
-                  *(v44 + v419[34]) = *&v45[v419[34]];
+                  *(v44 + v420[29]) = v45[v420[29]];
+                  *(v44 + v420[30]) = v45[v420[30]];
+                  *(v44 + v420[31]) = v45[v420[31]];
+                  *(v44 + v420[32]) = v45[v420[32]];
+                  *(v44 + v420[33]) = v45[v420[33]];
+                  *(v44 + v420[34]) = *&v45[v420[34]];
 
-                  v5 = v470;
+                  v5 = v471;
                   goto LABEL_266;
                 }
               }
 
-              v394 = *(v45 + 111);
-              *(v44 + 880) = v388;
-              *(v44 + 888) = v394;
+              v395 = *(v45 + 111);
+              *(v44 + 880) = v389;
+              *(v44 + 888) = v395;
 
               goto LABEL_252;
             }
 
-            *(v44 + 624) = v326;
+            *(v44 + 624) = v327;
             *(v44 + 632) = *(v45 + 79);
-            (**(v326 - 8))(v44 + 600, (v45 + 600), v326);
+            (**(v327 - 8))(v44 + 600, (v45 + 600), v327);
           }
 
           else
           {
-            v331 = *v325;
-            v332 = *(v45 + 616);
+            v332 = *v326;
+            v333 = *(v45 + 616);
             *(v44 + 632) = *(v45 + 79);
-            *v324 = v331;
-            *(v44 + 616) = v332;
+            *v325 = v332;
+            *(v44 + 616) = v333;
           }
 
           *(v44 + 640) = *(v45 + 80);
@@ -8025,12 +8034,12 @@ LABEL_265:
         }
       }
 
-      else if (v306)
+      else if (v307)
       {
 LABEL_177:
-        v311 = *(v45 + 57);
-        *(v44 + 448) = v306;
-        *(v44 + 456) = v311;
+        v312 = *(v45 + 57);
+        *(v44 + 448) = v307;
+        *(v44 + 456) = v312;
 
         goto LABEL_180;
       }
@@ -8040,43 +8049,43 @@ LABEL_179:
       goto LABEL_180;
     }
 
-    if (!v239)
+    if (!v240)
     {
       outlined destroy of Image.NamedResolved(v44 + 256);
-      v247 = *(v45 + 17);
-      v246 = *(v45 + 18);
+      v248 = *(v45 + 17);
+      v247 = *(v45 + 18);
       *(v44 + 256) = *(v45 + 16);
-      *(v44 + 272) = v247;
-      *(v44 + 288) = v246;
+      *(v44 + 272) = v248;
+      *(v44 + 288) = v247;
       goto LABEL_139;
     }
 
     *(v44 + 256) = *(v45 + 32);
     *(v44 + 264) = *(v45 + 33);
 
-    v240 = *(v44 + 272);
-    v241 = *(v45 + 34);
-    if (v240 >= 2)
+    v241 = *(v44 + 272);
+    v242 = *(v45 + 34);
+    if (v241 >= 2)
     {
-      if (v241 >= 2)
+      if (v242 >= 2)
       {
-        *(v44 + 272) = v241;
-        v250 = v241;
+        *(v44 + 272) = v242;
+        v251 = v242;
 
         goto LABEL_138;
       }
 
-      v241 = *(v45 + 34);
+      v242 = *(v45 + 34);
     }
 
-    else if (v241 >= 2)
+    else if (v242 >= 2)
     {
-      *(v44 + 272) = v241;
-      v242 = v241;
+      *(v44 + 272) = v242;
+      v243 = v242;
 LABEL_138:
-      v251 = *(v45 + 70);
+      v252 = *(v45 + 70);
       *(v44 + 284) = v45[284];
-      *(v44 + 280) = v251;
+      *(v44 + 280) = v252;
       *(v44 + 285) = v45[285];
       *(v44 + 286) = v45[286];
       *(v44 + 288) = *(v45 + 36);
@@ -8086,7 +8095,7 @@ LABEL_138:
       goto LABEL_139;
     }
 
-    *(v44 + 272) = v241;
+    *(v44 + 272) = v242;
     goto LABEL_138;
   }
 
@@ -8098,8 +8107,8 @@ LABEL_42:
     goto LABEL_266;
   }
 
-  v469 = v5;
-  v471 = v46;
+  v470 = v5;
+  v472 = v46;
   v51 = *v45;
   *v44 = *v45;
   v52 = *(v45 + 1);
@@ -8114,7 +8123,7 @@ LABEL_42:
   v54 = v51;
   v55 = v52;
 
-  v458 = v47;
+  v459 = v47;
   if (v53 >> 1 != 4294967294)
   {
     v89 = v45[72];
@@ -8160,7 +8169,7 @@ LABEL_42:
       v106 = *(v45 + 22);
       v107 = *(v45 + 23);
       v108 = *(v45 + 25);
-      outlined copy of AccessibilityImageLabel(v106, v107, *(v45 + 24));
+      outlined copy of AccessibilityImageLabel(v106, v107, *(v45 + 24), v108);
       *(v44 + 176) = v106;
       *(v44 + 184) = v107;
       *(v44 + 192) = v104;
@@ -8242,8 +8251,8 @@ LABEL_37:
 
 LABEL_59:
   v114 = *(v45 + 42);
-  v462 = v4;
-  v467 = a3;
+  v463 = v4;
+  v468 = a3;
   if (v114 >> 2 == 0xFFFFFFFF)
   {
     v115 = *(v45 + 19);
@@ -8269,12 +8278,12 @@ LABEL_59:
     v125 = *(v45 + 43);
     v124 = *(v45 + 44);
     v126 = *(v45 + 45);
-    v439 = *(v45 + 46);
-    v440 = *(v45 + 47);
-    v444 = *(v45 + 48);
-    v448 = *(v45 + 49);
+    v440 = *(v45 + 46);
+    v441 = *(v45 + 47);
+    v445 = *(v45 + 48);
+    v449 = *(v45 + 49);
     __dsta = *(v45 + 50);
-    outlined copy of PlatformItemList.Item.SystemItem(v120, v121, v122, v123, v114, v125, v124, v126, v439, v440, v444, v448, __dsta);
+    outlined copy of PlatformItemList.Item.SystemItem(v120, v121, v122, v123, v114, v125, v124, v126, v440, v441, v445, v449, __dsta);
     *(v44 + 304) = v120;
     *(v44 + 312) = v121;
     *(v44 + 320) = v122;
@@ -8283,10 +8292,10 @@ LABEL_59:
     *(v44 + 344) = v125;
     *(v44 + 352) = v124;
     *(v44 + 360) = v126;
-    *(v44 + 368) = v439;
-    *(v44 + 376) = v440;
-    *(v44 + 384) = v444;
-    *(v44 + 392) = v448;
+    *(v44 + 368) = v440;
+    *(v44 + 376) = v441;
+    *(v44 + 384) = v445;
+    *(v44 + 392) = v449;
     *(v44 + 400) = __dsta;
   }
 
@@ -8545,23 +8554,23 @@ LABEL_94:
   *(v44 + 952) = v45[952];
   *(v44 + 953) = v45[953];
   *(v44 + 954) = v45[954];
-  v170 = v471[28];
+  v170 = v472[28];
   __dst = (v44 + v170);
   v171 = &v45[v170];
-  v172 = type metadata accessor for CommandOperation();
-  v445 = *(v172 - 8);
-  v449 = *(v445 + 48);
+  v172 = type metadata accessor for CommandOperation(0);
+  v446 = *(v172 - 8);
+  v450 = *(v446 + 48);
   v173 = v169;
   v174 = v171;
 
-  if (v449(v171, 1, v172))
+  if (v450(v171, 1, v172))
   {
     type metadata accessor for NavigationItemDescription?(0, &lazy cache variable for type metadata for CommandOperation?, type metadata accessor for CommandOperation, MEMORY[0x1E69E6720]);
     memcpy(__dst, v171, *(*(v175 - 8) + 64));
-    v5 = v469;
-    v176 = v471;
-    v177 = v458;
-    v4 = v462;
+    v5 = v470;
+    v176 = v472;
+    v177 = v459;
+    v4 = v463;
   }
 
   else
@@ -8571,7 +8580,7 @@ LABEL_94:
     v179 = &__dst[v178];
     v180 = v172;
     v181 = &v174[v178];
-    v450 = v174;
+    v451 = v174;
     v182 = *&v174[v178];
     v183 = *(v181 + 1);
     v184 = v181[16];
@@ -8582,12 +8591,12 @@ LABEL_94:
     *(v179 + 3) = *(v181 + 3);
     v185 = *(type metadata accessor for CommandGroupPlacement(0) + 20);
     v186 = type metadata accessor for UUID();
-    v441 = *(*(v186 - 8) + 16);
+    v442 = *(*(v186 - 8) + 16);
 
-    v441(&v179[v185], &v181[v185], v186);
+    v442(&v179[v185], &v181[v185], v186);
     v187 = *(v180 + 24);
     v188 = &__dst[v187];
-    v189 = &v450[v187];
+    v189 = &v451[v187];
     if (*v189)
     {
       v190 = *(v189 + 1);
@@ -8600,11 +8609,11 @@ LABEL_94:
       *v188 = *v189;
     }
 
-    v5 = v469;
-    v176 = v471;
-    v177 = v458;
-    v4 = v462;
-    (*(v445 + 56))(__dst, 0, 1, v180);
+    v5 = v470;
+    v176 = v472;
+    v177 = v459;
+    v4 = v463;
+    (*(v446 + 56))(__dst, 0, 1, v180);
   }
 
   *(v44 + v176[29]) = v45[v176[29]];
@@ -8616,7 +8625,7 @@ LABEL_94:
   v197 = *(v177 + 56);
 
   v197(v44, 0, 1, v176);
-  a3 = v467;
+  a3 = v468;
 LABEL_266:
   *(v5 + *(a3 + 28)) = *(v4 + *(a3 + 28));
   return v5;
@@ -8645,7 +8654,7 @@ _OWORD *initializeWithTake for NavigationItemDescription(_OWORD *a1, _OWORD *a2,
   v11 = *(type metadata accessor for ToolbarStorage.NavigationProperties(0) + 32);
   v12 = &v8[v11];
   v13 = &v9[v11];
-  v14 = type metadata accessor for PlatformItemList.Item();
+  v14 = type metadata accessor for PlatformItemList.Item(0);
   v15 = *(v14 - 1);
   if ((*(v15 + 48))(v13, 1, v14))
   {
@@ -8719,7 +8728,7 @@ _OWORD *initializeWithTake for NavigationItemDescription(_OWORD *a1, _OWORD *a2,
     v30 = v14[28];
     v31 = &v12[v30];
     v32 = &v13[v30];
-    v33 = type metadata accessor for CommandOperation();
+    v33 = type metadata accessor for CommandOperation(0);
     v34 = *(v33 - 8);
     if ((*(v34 + 48))(v32, 1, v33))
     {
@@ -8869,7 +8878,7 @@ LABEL_24:
   v23 = *(type metadata accessor for ToolbarStorage.NavigationProperties(0) + 32);
   v24 = v14 + v23;
   v25 = &v15[v23];
-  v26 = type metadata accessor for PlatformItemList.Item();
+  v26 = type metadata accessor for PlatformItemList.Item(0);
   v27 = *(v26 - 8);
   v28 = *(v27 + 48);
   v29 = v28(v24, 1, v26);
@@ -8924,19 +8933,19 @@ LABEL_34:
       }
 
 LABEL_49:
-      v77 = *(v25 + 33);
-      if (v77)
+      v78 = *(v25 + 33);
+      if (v78)
       {
         *(v24 + 256) = *(v25 + 32);
-        *(v24 + 264) = v77;
+        *(v24 + 264) = v78;
 
-        v78 = *(v24 + 272);
-        v79 = *(v25 + 34);
-        if (v78 >= 2)
+        v79 = *(v24 + 272);
+        v80 = *(v25 + 34);
+        if (v79 >= 2)
         {
-          if (v79 >= 2)
+          if (v80 >= 2)
           {
-            *(v24 + 272) = v79;
+            *(v24 + 272) = v80;
           }
 
           else
@@ -8948,7 +8957,7 @@ LABEL_49:
 
         else
         {
-          *(v24 + 272) = v79;
+          *(v24 + 272) = v80;
         }
 
         *(v24 + 280) = *(v25 + 70);
@@ -8959,141 +8968,141 @@ LABEL_49:
         *(v24 + 296) = *(v25 + 37);
 
 LABEL_58:
-        v81 = *(v24 + 336);
-        if (v81 >> 2 != 0xFFFFFFFF)
+        v82 = *(v24 + 336);
+        if (v82 >> 2 != 0xFFFFFFFF)
         {
-          v82 = *(v25 + 42);
-          if (v82 >> 2 != 0xFFFFFFFF)
+          v83 = *(v25 + 42);
+          if (v83 >> 2 != 0xFFFFFFFF)
           {
-            v86 = *(v24 + 304);
-            v87 = *(v24 + 312);
-            v88 = *(v24 + 320);
-            v89 = *(v24 + 328);
-            v90 = *(v24 + 344);
-            v91 = *(v24 + 352);
-            v92 = *(v24 + 360);
-            v93 = *(v24 + 368);
-            v94 = *(v24 + 384);
-            v95 = *(v24 + 400);
-            v96 = *(v25 + 20);
+            v87 = *(v24 + 304);
+            v88 = *(v24 + 312);
+            v89 = *(v24 + 320);
+            v90 = *(v24 + 328);
+            v91 = *(v24 + 344);
+            v92 = *(v24 + 352);
+            v93 = *(v24 + 360);
+            v94 = *(v24 + 368);
+            v95 = *(v24 + 384);
+            v96 = *(v24 + 400);
+            v97 = *(v25 + 20);
             *(v24 + 304) = *(v25 + 19);
-            *(v24 + 320) = v96;
-            *(v24 + 336) = v82;
+            *(v24 + 320) = v97;
+            *(v24 + 336) = v83;
             *(v24 + 344) = *(v25 + 344);
             *(v24 + 360) = *(v25 + 360);
             *(v24 + 376) = *(v25 + 376);
             *(v24 + 392) = *(v25 + 392);
-            outlined consume of PlatformItemList.Item.SystemItem(v86, v87, v88, v89, v81, v90, v91, v92, v93, *(&v93 + 1), v94, SBYTE8(v94), v95);
+            outlined consume of PlatformItemList.Item.SystemItem(v87, v88, v89, v90, v82, v91, v92, v93, v94, *(&v94 + 1), v95, SBYTE8(v95), v96);
 LABEL_63:
-            v97 = v25 + 408;
-            v98 = *(v24 + 416);
-            if (v98 == 1)
+            v98 = v25 + 408;
+            v99 = *(v24 + 416);
+            if (v99 == 1)
             {
 LABEL_66:
-              v100 = *(v25 + 456);
+              v101 = *(v25 + 456);
               *(v24 + 440) = *(v25 + 440);
-              *(v24 + 456) = v100;
+              *(v24 + 456) = v101;
               *(v24 + 472) = v25[472];
-              v101 = *(v25 + 424);
-              *(v24 + 408) = *v97;
-              *(v24 + 424) = v101;
+              v102 = *(v25 + 424);
+              *(v24 + 408) = *v98;
+              *(v24 + 424) = v102;
               goto LABEL_89;
             }
 
-            v99 = *(v25 + 52);
-            if (v99 == 1)
+            v100 = *(v25 + 52);
+            if (v100 == 1)
             {
               outlined destroy of PlatformItemList.Item.SelectionBehavior(v24 + 408);
               goto LABEL_66;
             }
 
-            *(v24 + 408) = *v97;
+            *(v24 + 408) = *v98;
             *(v24 + 409) = v25[409];
             *(v24 + 410) = v25[410];
             *(v24 + 411) = v25[411];
             *(v24 + 412) = v25[412];
-            if (v98)
+            if (v99)
             {
-              if (v99)
+              if (v100)
               {
-                v102 = *(v25 + 53);
-                *(v24 + 416) = v99;
-                *(v24 + 424) = v102;
+                v103 = *(v25 + 53);
+                *(v24 + 416) = v100;
+                *(v24 + 424) = v103;
 
                 goto LABEL_74;
               }
             }
 
-            else if (v99)
+            else if (v100)
             {
-              v103 = *(v25 + 53);
-              *(v24 + 416) = v99;
-              *(v24 + 424) = v103;
+              v104 = *(v25 + 53);
+              *(v24 + 416) = v100;
+              *(v24 + 424) = v104;
               goto LABEL_74;
             }
 
             *(v24 + 416) = *(v25 + 26);
 LABEL_74:
-            v104 = *(v25 + 54);
+            v105 = *(v25 + 54);
             if (*(v24 + 432))
             {
-              if (v104)
+              if (v105)
               {
-                v105 = *(v25 + 55);
-                *(v24 + 432) = v104;
-                *(v24 + 440) = v105;
+                v106 = *(v25 + 55);
+                *(v24 + 432) = v105;
+                *(v24 + 440) = v106;
 
                 goto LABEL_81;
               }
             }
 
-            else if (v104)
+            else if (v105)
             {
-              v106 = *(v25 + 55);
-              *(v24 + 432) = v104;
-              *(v24 + 440) = v106;
+              v107 = *(v25 + 55);
+              *(v24 + 432) = v105;
+              *(v24 + 440) = v107;
               goto LABEL_81;
             }
 
             *(v24 + 432) = *(v25 + 27);
 LABEL_81:
-            v107 = *(v25 + 56);
+            v108 = *(v25 + 56);
             if (*(v24 + 448))
             {
-              if (v107)
+              if (v108)
               {
-                v108 = *(v25 + 57);
-                *(v24 + 448) = v107;
-                *(v24 + 456) = v108;
+                v109 = *(v25 + 57);
+                *(v24 + 448) = v108;
+                *(v24 + 456) = v109;
 
 LABEL_88:
                 *(v24 + 464) = *(v25 + 58);
                 *(v24 + 472) = v25[472];
 LABEL_89:
-                v110 = *(v25 + 61);
+                v111 = *(v25 + 61);
                 *(v24 + 480) = *(v25 + 60);
-                *(v24 + 488) = v110;
+                *(v24 + 488) = v111;
 
                 *(v24 + 496) = *(v25 + 62);
                 *(v24 + 504) = v25[504];
-                v111 = *(v25 + 64);
+                v112 = *(v25 + 64);
                 if (*(v24 + 512))
                 {
-                  if (v111)
+                  if (v112)
                   {
-                    v112 = *(v25 + 65);
-                    *(v24 + 512) = v111;
-                    *(v24 + 520) = v112;
+                    v113 = *(v25 + 65);
+                    *(v24 + 512) = v112;
+                    *(v24 + 520) = v113;
 
                     goto LABEL_96;
                   }
                 }
 
-                else if (v111)
+                else if (v112)
                 {
-                  v113 = *(v25 + 65);
-                  *(v24 + 512) = v111;
-                  *(v24 + 520) = v113;
+                  v114 = *(v25 + 65);
+                  *(v24 + 512) = v112;
+                  *(v24 + 520) = v114;
                   goto LABEL_96;
                 }
 
@@ -9113,45 +9122,45 @@ LABEL_96:
                     *(v24 + 568) = v25[568];
                     *(v24 + 576) = *(v25 + 36);
                     *(v24 + 592) = v25[592];
-                    v114 = (v24 + 600);
-                    v115 = v25 + 600;
-                    v116 = *(v24 + 624);
-                    if (v116 != 1)
+                    v115 = (v24 + 600);
+                    v116 = v25 + 600;
+                    v117 = *(v24 + 624);
+                    if (v117 != 1)
                     {
-                      v117 = *(v25 + 78);
-                      if (v117 != 1)
+                      v118 = *(v25 + 78);
+                      if (v118 != 1)
                       {
-                        if (v116)
+                        if (v117)
                         {
-                          v119 = v24 + 600;
-                          if (v117)
+                          v120 = (v24 + 600);
+                          if (v118)
                           {
-                            __swift_destroy_boxed_opaque_existential_1(v119);
+                            __swift_destroy_boxed_opaque_existential_1(v120);
                           }
 
                           else
                           {
-                            outlined destroy of AnyAccessibilityValue(v119);
+                            outlined destroy of AnyAccessibilityValue(v120);
                           }
                         }
 
-                        v120 = *(v25 + 616);
-                        *v114 = *v115;
-                        *(v24 + 616) = v120;
+                        v121 = *(v25 + 616);
+                        *v115 = *v116;
+                        *(v24 + 616) = v121;
                         *(v24 + 632) = *(v25 + 79);
                         *(v24 + 640) = *(v25 + 80);
 
 LABEL_109:
                         *(v24 + 648) = *(v25 + 81);
                         *(v24 + 656) = v25[656];
-                        v121 = (v24 + 664);
-                        v122 = v25 + 664;
+                        v122 = (v24 + 664);
+                        v123 = v25 + 664;
                         if (*(v24 + 776) != 1)
                         {
-                          v123 = *(v25 + 97);
-                          if (v123 != 1)
+                          v124 = *(v25 + 97);
+                          if (v124 != 1)
                           {
-                            *v121 = *v122;
+                            *v122 = *v123;
                             *(v24 + 672) = v25[672];
                             *(v24 + 680) = *(v25 + 85);
                             *(v24 + 688) = v25[688];
@@ -9159,15 +9168,15 @@ LABEL_109:
                             *(v24 + 691) = v25[691];
                             *(v24 + 692) = v25[692];
                             *(v24 + 696) = *(v25 + 87);
-                            v128 = *(v25 + 45);
+                            v129 = *(v25 + 45);
                             *(v24 + 704) = *(v25 + 44);
-                            *(v24 + 720) = v128;
+                            *(v24 + 720) = v129;
                             *(v24 + 736) = *(v25 + 92);
                             *(v24 + 744) = v25[744];
                             *(v24 + 745) = v25[745];
                             *(v24 + 752) = *(v25 + 47);
                             *(v24 + 768) = v25[768];
-                            *(v24 + 776) = v123;
+                            *(v24 + 776) = v124;
 
                             *(v24 + 784) = *(v25 + 49);
                             *(v24 + 800) = *(v25 + 100);
@@ -9178,20 +9187,20 @@ LABEL_109:
                           outlined destroy of AccessibilityTextLayoutProperties(v24 + 664);
                         }
 
-                        v124 = *(v25 + 776);
+                        v125 = *(v25 + 776);
                         *(v24 + 760) = *(v25 + 760);
-                        *(v24 + 776) = v124;
+                        *(v24 + 776) = v125;
                         *(v24 + 792) = *(v25 + 792);
                         *(v24 + 808) = v25[808];
-                        v125 = *(v25 + 712);
+                        v126 = *(v25 + 712);
                         *(v24 + 696) = *(v25 + 696);
-                        *(v24 + 712) = v125;
-                        v126 = *(v25 + 744);
+                        *(v24 + 712) = v126;
+                        v127 = *(v25 + 744);
                         *(v24 + 728) = *(v25 + 728);
-                        *(v24 + 744) = v126;
-                        v127 = *(v25 + 680);
-                        *v121 = *v122;
-                        *(v24 + 680) = v127;
+                        *(v24 + 744) = v127;
+                        v128 = *(v25 + 680);
+                        *v122 = *v123;
+                        *(v24 + 680) = v128;
 LABEL_114:
                         *(v24 + 816) = *(v25 + 102);
 
@@ -9200,69 +9209,69 @@ LABEL_114:
                         *(v24 + 832) = *(v25 + 104);
 
 LABEL_115:
-                        v129 = (v24 + 840);
-                        v130 = v25 + 840;
-                        v131 = *(v24 + 864);
-                        if (v131 == 1)
+                        v130 = (v24 + 840);
+                        v131 = v25 + 840;
+                        v132 = *(v24 + 864);
+                        if (v132 == 1)
                         {
 LABEL_118:
-                          v133 = *(v25 + 856);
-                          *v129 = *v130;
-                          *(v24 + 856) = v133;
+                          v134 = *(v25 + 856);
+                          *v130 = *v131;
+                          *(v24 + 856) = v134;
                           *(v24 + 872) = *(v25 + 872);
                           *(v24 + 888) = *(v25 + 111);
                           goto LABEL_119;
                         }
 
-                        v132 = *(v25 + 108);
-                        if (v132 == 1)
+                        v133 = *(v25 + 108);
+                        if (v133 == 1)
                         {
                           outlined destroy of PlatformItemList.Item.SecondaryNavigationBehavior(v24 + 840);
                           goto LABEL_118;
                         }
 
-                        if (v131)
+                        if (v132)
                         {
-                          v146 = v24 + 840;
-                          if (v132)
+                          v147 = (v24 + 840);
+                          if (v133)
                           {
-                            __swift_destroy_boxed_opaque_existential_1(v146);
+                            __swift_destroy_boxed_opaque_existential_1(v147);
                           }
 
                           else
                           {
-                            outlined destroy of AnyNavigationLinkPresentedValue(v146);
+                            outlined destroy of AnyNavigationLinkPresentedValue(v147);
                           }
                         }
 
-                        v169 = *(v25 + 856);
-                        *v129 = *v130;
-                        *(v24 + 856) = v169;
+                        v170 = *(v25 + 856);
+                        *v130 = *v131;
+                        *(v24 + 856) = v170;
                         *(v24 + 872) = *(v25 + 109);
-                        v170 = *(v25 + 110);
+                        v171 = *(v25 + 110);
                         if (*(v24 + 880))
                         {
-                          if (v170)
+                          if (v171)
                           {
-                            v171 = *(v25 + 111);
-                            *(v24 + 880) = v170;
-                            *(v24 + 888) = v171;
+                            v172 = *(v25 + 111);
+                            *(v24 + 880) = v171;
+                            *(v24 + 888) = v172;
 
                             goto LABEL_119;
                           }
                         }
 
-                        else if (v170)
+                        else if (v171)
                         {
-                          v172 = *(v25 + 111);
-                          *(v24 + 880) = v170;
-                          *(v24 + 888) = v172;
+                          v173 = *(v25 + 111);
+                          *(v24 + 880) = v171;
+                          *(v24 + 888) = v173;
                           goto LABEL_119;
                         }
 
                         *(v24 + 880) = *(v25 + 55);
 LABEL_119:
-                        v134 = *(v24 + 896);
+                        v135 = *(v24 + 896);
                         *(v24 + 896) = *(v25 + 112);
 
                         *(v24 + 904) = *(v25 + 113);
@@ -9277,73 +9286,73 @@ LABEL_119:
 
                         *(v24 + 952) = v25[952];
                         *(v24 + 953) = *(v25 + 953);
-                        v178 = v26;
-                        v135 = *(v26 + 112);
-                        v136 = (v24 + v135);
-                        v137 = &v25[v135];
-                        v138 = type metadata accessor for CommandOperation();
-                        v139 = *(v138 - 8);
-                        v140 = *(v139 + 48);
-                        v175 = v136;
-                        LODWORD(v136) = v140(v136, 1, v138);
-                        v141 = v140(v137, 1, v138);
-                        if (v136)
+                        v179 = v26;
+                        v136 = *(v26 + 112);
+                        v137 = (v24 + v136);
+                        v138 = &v25[v136];
+                        v139 = type metadata accessor for CommandOperation(0);
+                        v140 = *(v139 - 8);
+                        v141 = *(v140 + 48);
+                        v176 = v137;
+                        LODWORD(v137) = v141(v137, 1, v139);
+                        v142 = v141(v138, 1, v139);
+                        if (v137)
                         {
-                          if (!v141)
+                          if (!v142)
                           {
-                            *v175 = *v137;
-                            v147 = *(v138 + 20);
-                            v148 = &v175[v147];
-                            v149 = &v137[v147];
-                            v150 = *&v137[v147 + 16];
-                            *v148 = *&v137[v147];
-                            *(v148 + 1) = v150;
-                            v151 = *(type metadata accessor for CommandGroupPlacement(0) + 20);
-                            v152 = type metadata accessor for UUID();
-                            (*(*(v152 - 8) + 32))(&v148[v151], &v149[v151], v152);
-                            *&v175[*(v138 + 24)] = *&v137[*(v138 + 24)];
-                            (*(v139 + 56))(v175, 0, 1, v138);
+                            *v176 = *v138;
+                            v148 = *(v139 + 20);
+                            v149 = &v176[v148];
+                            v150 = &v138[v148];
+                            v151 = *&v138[v148 + 16];
+                            *v149 = *&v138[v148];
+                            *(v149 + 1) = v151;
+                            v152 = *(type metadata accessor for CommandGroupPlacement(0) + 20);
+                            v153 = type metadata accessor for UUID();
+                            (*(*(v153 - 8) + 32))(&v149[v152], &v150[v152], v153);
+                            *&v176[*(v139 + 24)] = *&v138[*(v139 + 24)];
+                            (*(v140 + 56))(v176, 0, 1, v139);
                             goto LABEL_129;
                           }
 
                           type metadata accessor for NavigationItemDescription?(0, &lazy cache variable for type metadata for CommandOperation?, type metadata accessor for CommandOperation, MEMORY[0x1E69E6720]);
-                          v143 = *(*(v142 - 8) + 64);
-                          v144 = v175;
+                          v144 = *(*(v143 - 8) + 64);
+                          v145 = v176;
                         }
 
                         else
                         {
-                          if (!v141)
+                          if (!v142)
                           {
-                            *v175 = *v137;
-                            v155 = *(v138 + 20);
-                            v156 = &v175[v155];
-                            v157 = &v137[v155];
-                            LOBYTE(v155) = v137[v155 + 16];
-                            v158 = *v156;
-                            v159 = *(v156 + 1);
-                            v160 = v156[16];
-                            *v156 = *v157;
-                            v156[16] = v155;
-                            outlined consume of Text.Storage(v158, v159, v160);
-                            *(v156 + 3) = *(v157 + 3);
+                            *v176 = *v138;
+                            v156 = *(v139 + 20);
+                            v157 = &v176[v156];
+                            v158 = &v138[v156];
+                            LOBYTE(v156) = v138[v156 + 16];
+                            v159 = *v157;
+                            v160 = *(v157 + 1);
+                            v161 = v157[16];
+                            *v157 = *v158;
+                            v157[16] = v156;
+                            outlined consume of Text.Storage(v159, v160, v161);
+                            *(v157 + 3) = *(v158 + 3);
 
-                            v161 = *(type metadata accessor for CommandGroupPlacement(0) + 20);
-                            v162 = type metadata accessor for UUID();
-                            (*(*(v162 - 8) + 40))(&v156[v161], &v157[v161], v162);
-                            v163 = *(v138 + 24);
-                            v164 = &v175[v163];
-                            v165 = &v137[v163];
-                            v166 = *&v175[v163];
-                            v167 = *&v137[v163];
-                            if (v166)
+                            v162 = *(type metadata accessor for CommandGroupPlacement(0) + 20);
+                            v163 = type metadata accessor for UUID();
+                            (*(*(v163 - 8) + 40))(&v157[v162], &v158[v162], v163);
+                            v164 = *(v139 + 24);
+                            v165 = &v176[v164];
+                            v166 = &v138[v164];
+                            v167 = *&v176[v164];
+                            v168 = *&v138[v164];
+                            if (v167)
                             {
-                              v153 = v178;
-                              if (v167)
+                              v154 = v179;
+                              if (v168)
                               {
-                                v168 = *(v165 + 1);
-                                *v164 = v167;
-                                *(v164 + 1) = v168;
+                                v169 = *(v166 + 1);
+                                *v165 = v168;
+                                *(v165 + 1) = v169;
 
                                 goto LABEL_130;
                               }
@@ -9351,36 +9360,36 @@ LABEL_119:
 
                             else
                             {
-                              v153 = v178;
-                              if (v167)
+                              v154 = v179;
+                              if (v168)
                               {
-                                v173 = *(v165 + 1);
-                                *v164 = v167;
-                                *(v164 + 1) = v173;
+                                v174 = *(v166 + 1);
+                                *v165 = v168;
+                                *(v165 + 1) = v174;
                                 goto LABEL_130;
                               }
                             }
 
-                            *v164 = *v165;
+                            *v165 = *v166;
                             goto LABEL_130;
                           }
 
-                          _s7SwiftUI16CommandOperationVWOhTm_1(v175, type metadata accessor for CommandOperation);
+                          _s7SwiftUI16CommandOperationVWOhTm_1(v176, type metadata accessor for CommandOperation);
                           type metadata accessor for NavigationItemDescription?(0, &lazy cache variable for type metadata for CommandOperation?, type metadata accessor for CommandOperation, MEMORY[0x1E69E6720]);
-                          v143 = *(*(v145 - 8) + 64);
-                          v144 = v175;
+                          v144 = *(*(v146 - 8) + 64);
+                          v145 = v176;
                         }
 
-                        memcpy(v144, v137, v143);
+                        memcpy(v145, v138, v144);
 LABEL_129:
-                        v153 = v178;
+                        v154 = v179;
 LABEL_130:
-                        *(v24 + v153[29]) = v25[v153[29]];
-                        *(v24 + v153[30]) = v25[v153[30]];
-                        *(v24 + v153[31]) = v25[v153[31]];
-                        *(v24 + v153[32]) = v25[v153[32]];
-                        *(v24 + v153[33]) = v25[v153[33]];
-                        *(v24 + v153[34]) = *&v25[v153[34]];
+                        *(v24 + v154[29]) = v25[v154[29]];
+                        *(v24 + v154[30]) = v25[v154[30]];
+                        *(v24 + v154[31]) = v25[v154[31]];
+                        *(v24 + v154[32]) = v25[v154[32]];
+                        *(v24 + v154[33]) = v25[v154[33]];
+                        *(v24 + v154[34]) = *&v25[v154[34]];
 
                         goto LABEL_131;
                       }
@@ -9388,9 +9397,9 @@ LABEL_130:
                       outlined destroy of AccessibilityValueStorage(v24 + 600);
                     }
 
-                    v118 = *(v25 + 616);
-                    *v114 = *v115;
-                    *(v24 + 616) = v118;
+                    v119 = *(v25 + 616);
+                    *v115 = *v116;
+                    *(v24 + 616) = v119;
                     *(v24 + 632) = *(v25 + 632);
                     goto LABEL_109;
                   }
@@ -9403,11 +9412,11 @@ LABEL_130:
               }
             }
 
-            else if (v107)
+            else if (v108)
             {
-              v109 = *(v25 + 57);
-              *(v24 + 448) = v107;
-              *(v24 + 456) = v109;
+              v110 = *(v25 + 57);
+              *(v24 + 448) = v108;
+              *(v24 + 456) = v110;
               goto LABEL_88;
             }
 
@@ -9418,24 +9427,24 @@ LABEL_130:
           outlined destroy of PlatformItemList.Item.SystemItem(v24 + 304);
         }
 
-        v83 = *(v25 + 24);
+        v84 = *(v25 + 24);
         *(v24 + 368) = *(v25 + 23);
-        *(v24 + 384) = v83;
+        *(v24 + 384) = v84;
         *(v24 + 400) = *(v25 + 50);
-        v84 = *(v25 + 20);
+        v85 = *(v25 + 20);
         *(v24 + 304) = *(v25 + 19);
-        *(v24 + 320) = v84;
-        v85 = *(v25 + 22);
+        *(v24 + 320) = v85;
+        v86 = *(v25 + 22);
         *(v24 + 336) = *(v25 + 21);
-        *(v24 + 352) = v85;
+        *(v24 + 352) = v86;
         goto LABEL_63;
       }
 
       outlined destroy of Image.NamedResolved(v24 + 256);
 LABEL_53:
-      v80 = *(v25 + 17);
+      v81 = *(v25 + 17);
       *(v24 + 256) = *(v25 + 16);
-      *(v24 + 272) = v80;
+      *(v24 + 272) = v81;
       *(v24 + 288) = *(v25 + 18);
       goto LABEL_58;
     }
@@ -9484,10 +9493,11 @@ LABEL_43:
         v73 = *(v25 + 25);
         v74 = *(v24 + 176);
         v75 = *(v24 + 184);
+        v76 = *(v24 + 200);
         *(v24 + 176) = *(v25 + 11);
         *(v24 + 192) = v71;
         *(v24 + 200) = v73;
-        outlined consume of AccessibilityImageLabel(v74, v75, v70);
+        outlined consume of AccessibilityImageLabel(v74, v75, v70, v76);
 LABEL_48:
         *(v24 + 208) = *(v25 + 26);
         swift_unknownObjectRelease();
@@ -9497,7 +9507,7 @@ LABEL_48:
         *(v24 + 225) = v25[225];
         *(v24 + 228) = *(v25 + 57);
         *(v24 + 232) = v25[232];
-        v76 = *(v24 + 240);
+        v77 = *(v24 + 240);
         *(v24 + 240) = *(v25 + 30);
 
         *(v24 + 248) = *(v25 + 124);
@@ -9588,11 +9598,11 @@ LABEL_30:
   *(v24 + 944) = *(v25 + 118);
   *(v24 + 952) = v25[952];
   *(v24 + 953) = *(v25 + 953);
-  v177 = v26;
+  v178 = v26;
   v44 = *(v26 + 112);
   v45 = (v24 + v44);
   v46 = &v25[v44];
-  v47 = type metadata accessor for CommandOperation();
+  v47 = type metadata accessor for CommandOperation(0);
   v48 = *(v47 - 8);
   if ((*(v48 + 48))(v46, 1, v47))
   {
@@ -9604,7 +9614,7 @@ LABEL_30:
   {
     *v45 = *v46;
     v60 = *(v47 + 20);
-    v174 = v45;
+    v175 = v45;
     __src = v3;
     v61 = &v45[v60];
     v62 = &v46[v60];
@@ -9616,26 +9626,26 @@ LABEL_30:
     v66 = &v62[v64];
     v3 = __src;
     (*(*(v65 - 8) + 32))(&v61[v64], v66, v65);
-    *&v174[*(v47 + 24)] = *&v46[*(v47 + 24)];
+    *&v175[*(v47 + 24)] = *&v46[*(v47 + 24)];
     (*(v48 + 56))();
   }
 
-  *(v24 + v177[29]) = v25[v177[29]];
-  *(v24 + v177[30]) = v25[v177[30]];
-  *(v24 + v177[31]) = v25[v177[31]];
-  *(v24 + v177[32]) = v25[v177[32]];
-  *(v24 + v177[33]) = v25[v177[33]];
-  *(v24 + v177[34]) = *&v25[v177[34]];
+  *(v24 + v178[29]) = v25[v178[29]];
+  *(v24 + v178[30]) = v25[v178[30]];
+  *(v24 + v178[31]) = v25[v178[31]];
+  *(v24 + v178[32]) = v25[v178[32]];
+  *(v24 + v178[33]) = v25[v178[33]];
+  *(v24 + v178[34]) = *&v25[v178[34]];
   (*(v27 + 56))(v24, 0, 1);
 LABEL_131:
   *(a1 + *(a3 + 28)) = *(v3 + *(a3 + 28));
   return a1;
 }
 
-uint64_t type metadata completion function for NavigationItemDescription()
+uint64_t type metadata completion function for NavigationItemDescription(uint64_t a1)
 {
   result = type metadata accessor for ToolbarStorage.NavigationProperties(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initStructMetadata();
     return 0;
@@ -9661,19 +9671,20 @@ void closure #1 in IdentifiedDocumentGroupDocumentCreation.presentDocument(at:)(
 
 uint64_t IdentifiedDocumentGroupDocumentCreation.updateCurrentDocument(with:configuration:)(uint64_t a1, uint64_t a2)
 {
-  outlined init with copy of IdentifiedDocumentGroupConfiguration(a2, v7);
+  outlined init with copy of IdentifiedDocumentGroupConfiguration(a2, v8);
   swift_unknownObjectWeakInit();
   swift_unknownObjectWeakAssign();
-  v6[8] = 0;
+  v7[8] = 0;
   swift_beginAccess();
-  specialized Dictionary.subscript.setter(v6, v7);
+  specialized Dictionary.subscript.setter(v7, v8);
   result = swift_endAccess();
   v5 = *(v2 + OBJC_IVAR____TtC7SwiftUI39IdentifiedDocumentGroupDocumentCreation_newDocumentHandler);
   if (v5)
   {
+    v6 = *(v2 + OBJC_IVAR____TtC7SwiftUI39IdentifiedDocumentGroupDocumentCreation_newDocumentHandler + 8);
 
     v5(a1);
-    return outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v5);
+    return outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v5, v6);
   }
 
   return result;
@@ -9706,17 +9717,18 @@ uint64_t closure #1 in IdentifiedDocumentGroupDocumentCreation.createNewDocument
     result = swift_conformsToProtocol2();
     if (result)
     {
+      v4 = v0[13];
       v0[7] = v2;
       v0[8] = result;
-      outlined copy of AppIntentExecutor?(v1);
+      outlined copy of AppIntentExecutor?(v1, v4);
       swift_unknownObjectRetain();
-      v14 = (v1 + *v1);
-      v4 = swift_task_alloc();
-      v0[21] = v4;
-      *v4 = v0;
-      v4[1] = closure #1 in IdentifiedDocumentGroupDocumentCreation.createNewDocument(with:url:newDocumentProvider:_:);
+      v15 = (v1 + *v1);
+      v5 = swift_task_alloc();
+      v0[21] = v5;
+      *v5 = v0;
+      v5[1] = closure #1 in IdentifiedDocumentGroupDocumentCreation.createNewDocument(with:url:newDocumentProvider:_:);
 
-      return v14(v0 + 7);
+      return v15(v0 + 7);
     }
 
     else
@@ -9727,17 +9739,17 @@ uint64_t closure #1 in IdentifiedDocumentGroupDocumentCreation.createNewDocument
 
   else
   {
-    v5 = v0[17];
+    v6 = v0[17];
 
-    outlined init with copy of NewDocumentProvider?(v5 + 24, (v0 + 2), &lazy cache variable for type metadata for NewDocumentProvider?, &lazy cache variable for type metadata for NewDocumentProvider, &protocol descriptor for NewDocumentProvider, type metadata accessor for CVarArg);
-    v6 = v0[5];
-    if (v6)
+    outlined init with copy of NewDocumentProvider?(v6 + 24, (v0 + 2), &lazy cache variable for type metadata for NewDocumentProvider?, &lazy cache variable for type metadata for NewDocumentProvider, &protocol descriptor for NewDocumentProvider, type metadata accessor for CVarArg);
+    v7 = v0[5];
+    if (v7)
     {
-      v7 = v0[14];
-      v8 = v0[6];
+      v8 = v0[14];
+      v9 = v0[6];
       __swift_project_boxed_opaque_existential_1(v0 + 2, v0[5]);
-      (*(v8 + 8))(*(v7 + OBJC_IVAR____TtC7SwiftUI16PlatformDocument_documentBox), *(v7 + OBJC_IVAR____TtC7SwiftUI16PlatformDocument_documentBox + 8), v6, v8);
-      __swift_destroy_boxed_opaque_existential_1((v0 + 2));
+      (*(v9 + 8))(*(v8 + OBJC_IVAR____TtC7SwiftUI16PlatformDocument_documentBox), *(v8 + OBJC_IVAR____TtC7SwiftUI16PlatformDocument_documentBox + 8), v7, v9);
+      __swift_destroy_boxed_opaque_existential_1(v0 + 2);
     }
 
     else
@@ -9745,15 +9757,15 @@ uint64_t closure #1 in IdentifiedDocumentGroupDocumentCreation.createNewDocument
       outlined destroy of NewDocumentProvider?((v0 + 2), &lazy cache variable for type metadata for NewDocumentProvider?, &lazy cache variable for type metadata for NewDocumentProvider, &protocol descriptor for NewDocumentProvider, type metadata accessor for CVarArg);
     }
 
-    v9 = v0[15];
-    v10 = v0[14];
-    v11 = *(v10 + OBJC_IVAR____TtC7SwiftUI16PlatformDocument_documentBox + 8);
+    v10 = v0[15];
+    v11 = v0[14];
+    v12 = *(v11 + OBJC_IVAR____TtC7SwiftUI16PlatformDocument_documentBox + 8);
     ObjectType = swift_getObjectType();
-    (*(v11 + 40))(0, ObjectType, v11);
-    v9(v10);
-    v13 = v0[1];
+    (*(v12 + 40))(0, ObjectType, v12);
+    v10(v11);
+    v14 = v0[1];
 
-    return v13();
+    return v14();
   }
 
   return result;
@@ -9780,39 +9792,41 @@ uint64_t closure #1 in IdentifiedDocumentGroupDocumentCreation.createNewDocument
 
 {
   v1 = v0[12];
+  v2 = v0[13];
 
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v1);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v1, v2);
   swift_unknownObjectRelease();
-  v2 = v0[15];
-  v3 = v0[14];
-  v4 = *(v3 + OBJC_IVAR____TtC7SwiftUI16PlatformDocument_documentBox + 8);
+  v3 = v0[15];
+  v4 = v0[14];
+  v5 = *(v4 + OBJC_IVAR____TtC7SwiftUI16PlatformDocument_documentBox + 8);
   ObjectType = swift_getObjectType();
-  (*(v4 + 40))(0, ObjectType, v4);
-  v2(v3);
-  v6 = v0[1];
+  (*(v5 + 40))(0, ObjectType, v5);
+  v3(v4);
+  v7 = v0[1];
 
-  return v6();
+  return v7();
 }
 
 {
   v1 = v0[22];
   v2 = v0[15];
-  v3 = v0[12];
+  v4 = v0[12];
+  v3 = v0[13];
 
   _StringGuts.grow(_:)(45);
   v0[9] = 0;
   v0[10] = 0xE000000000000000;
   MEMORY[0x18D00C9B0](0xD00000000000002BLL, 0x800000018CD51730);
   v0[11] = v1;
-  type metadata accessor for CVarArg(0, &lazy cache variable for type metadata for Error);
+  type metadata accessor for CVarArg(0, &lazy cache variable for type metadata for Error, MEMORY[0x1E69E7280]);
   _print_unlocked<A, B>(_:_:)();
   MEMORY[0x18D009810](v0[9], v0[10]);
 
   v2(0);
 
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v3);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v4, v3);
   swift_unknownObjectRelease();
-  v4 = v0[1];
+  v5 = v0[1];
 
-  return v4();
+  return v5();
 }

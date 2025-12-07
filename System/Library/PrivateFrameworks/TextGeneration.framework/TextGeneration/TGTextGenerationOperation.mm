@@ -10,27 +10,26 @@
 
 - (TGTextGenerationOperation)initWithPrompt:(id)prompt
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   promptCopy = prompt;
-  v14.receiver = self;
-  v14.super_class = TGTextGenerationOperation;
-  v5 = [(TGTextGenerationOperation *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = TGTextGenerationOperation;
+  v5 = [(TGTextGenerationOperation *)&v13 init];
   if (v5)
   {
     v6 = [promptCopy copy];
     prompt = v5->_prompt;
     v5->_prompt = v6;
 
-    v15 = @"prompt";
+    v14 = @"prompt";
     prompt = [(TGTextGenerationOperation *)v5 prompt];
-    v16[0] = prompt;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v15[0] = prompt;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v10 = [v9 description];
     description = v5->_description;
     v5->_description = v10;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

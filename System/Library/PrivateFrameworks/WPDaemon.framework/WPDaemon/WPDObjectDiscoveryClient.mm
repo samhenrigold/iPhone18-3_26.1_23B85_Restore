@@ -1,12 +1,15 @@
 @interface WPDObjectDiscoveryClient
 - (WPDObjectDiscoveryClient)initWithXPCConnection:(id)connection server:(id)server;
 - (WPDObjectDiscoveryManager)objectDiscoveryManager;
+- (void)completeSPBeaconingWithSuccess:(BOOL)success;
+- (void)completeSPNearbyTockensWithSuccess:(BOOL)success;
 - (void)dealloc;
 - (void)destroy;
 - (void)endTestMode;
 - (void)generateStateDump;
 - (void)notifyClientObjectDiscoveryStateChange:(int64_t)change;
 - (void)registerWithDaemon:(id)daemon forProcess:(id)process machName:(id)name holdVouchers:(int64_t)vouchers;
+- (void)sendRegisteredWithDaemonAndContinuingSession:(BOOL)session;
 - (void)sendTestRequest:(id)request;
 - (void)startAdvertising:(id)advertising;
 - (void)startSPBeaconing;
@@ -150,7 +153,7 @@ LABEL_8:
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPDObjectDiscoveryClient dealloc];
@@ -162,20 +165,19 @@ LABEL_8:
     v4 = v3;
     clientUUID = [(WPDClient *)self clientUUID];
     *buf = 138412290;
-    v9 = clientUUID;
+    v8 = clientUUID;
     _os_log_impl(&dword_272965000, v4, OS_LOG_TYPE_INFO, "Deallocing WPDObjectDiscoveryClient %@", buf, 0xCu);
   }
 
   [(WPDObjectDiscoveryClient *)self setSpAgent:0];
-  v7.receiver = self;
-  v7.super_class = WPDObjectDiscoveryClient;
-  [(WPDClient *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = WPDObjectDiscoveryClient;
+  [(WPDClient *)&v6 dealloc];
 }
 
 - (void)generateStateDump
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPDObjectDiscoveryClient generateStateDump];
@@ -187,11 +189,11 @@ LABEL_8:
     v4 = v3;
     clientTypeString = [(WPDClient *)self clientTypeString];
     clientUUID = [(WPDClient *)self clientUUID];
-    v12 = 138412546;
-    v13 = clientTypeString;
-    v14 = 2112;
-    v15 = clientUUID;
-    _os_log_impl(&dword_272965000, v4, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: ========= %@ %@ =========", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = clientTypeString;
+    v13 = 2112;
+    v14 = clientUUID;
+    _os_log_impl(&dword_272965000, v4, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: ========= %@ %@ =========", &v11, 0x16u);
   }
 
   if (WPLogInitOnce != -1)
@@ -204,20 +206,18 @@ LABEL_8:
   {
     v8 = v7;
     keyAddressAndPayload = [(WPDObjectDiscoveryClient *)self keyAddressAndPayload];
-    v12 = 138412290;
-    v13 = keyAddressAndPayload;
-    _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: beacon buffer %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = keyAddressAndPayload;
+    _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: beacon buffer %@", &v11, 0xCu);
   }
 
   spAgent = [(WPDObjectDiscoveryClient *)self spAgent];
   [spAgent generateStateDump];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endTestMode
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPDObjectDiscoveryClient endTestMode];
@@ -229,7 +229,7 @@ LABEL_8:
     v4 = v3;
     clientUUID = [(WPDClient *)self clientUUID];
     *buf = 138412290;
-    v11 = clientUUID;
+    v10 = clientUUID;
     _os_log_impl(&dword_272965000, v4, OS_LOG_TYPE_INFO, "Ending test mode WPDObjectDiscoveryClient %@", buf, 0xCu);
   }
 
@@ -241,10 +241,9 @@ LABEL_8:
     [spAgent2 stopTest];
   }
 
-  v9.receiver = self;
-  v9.super_class = WPDObjectDiscoveryClient;
-  [(WPDClient *)&v9 endTestMode];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = WPDObjectDiscoveryClient;
+  [(WPDClient *)&v8 endTestMode];
 }
 
 - (void)registerWithDaemon:(id)daemon forProcess:(id)process machName:(id)name holdVouchers:(int64_t)vouchers
@@ -282,9 +281,22 @@ void __80__WPDObjectDiscoveryClient_registerWithDaemon_forProcess_machName_holdV
   }
 }
 
+- (void)sendRegisteredWithDaemonAndContinuingSession:(BOOL)session
+{
+  server = [(WPDClient *)self server];
+  wpdState = [server wpdState];
+  state = [wpdState state];
+
+  server2 = [(WPDClient *)self server];
+  wpdState2 = [server2 wpdState];
+  restricted = [wpdState2 restricted];
+
+  [(WPDObjectDiscoveryClient *)self notifyClientStateChange:state Restricted:restricted];
+}
+
 - (void)destroy
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPDObjectDiscoveryClient destroy];
@@ -296,13 +308,13 @@ void __80__WPDObjectDiscoveryClient_registerWithDaemon_forProcess_machName_holdV
     v4 = v3;
     clientUUID = [(WPDClient *)self clientUUID];
     processName = [(WPDClient *)self processName];
-    v12 = 138543874;
-    v13 = clientUUID;
-    v14 = 2114;
-    v15 = processName;
-    v16 = 1024;
+    v11 = 138543874;
+    v12 = clientUUID;
+    v13 = 2114;
+    v14 = processName;
+    v15 = 1024;
     processID = [(WPDClient *)self processID];
-    _os_log_impl(&dword_272965000, v4, OS_LOG_TYPE_DEFAULT, "Removing WPDObjectDiscoveryClient %{public}@ of process %{public}@ (%d)", &v12, 0x1Cu);
+    _os_log_impl(&dword_272965000, v4, OS_LOG_TYPE_DEFAULT, "Removing WPDObjectDiscoveryClient %{public}@ of process %{public}@ (%d)", &v11, 0x1Cu);
   }
 
   if ([(WPDClient *)self registered])
@@ -317,8 +329,6 @@ void __80__WPDObjectDiscoveryClient_registerWithDaemon_forProcess_machName_holdV
 
   server = [(WPDClient *)self server];
   [server removeClient:self];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSPNearbyTokens
@@ -328,9 +338,34 @@ void __80__WPDObjectDiscoveryClient_registerWithDaemon_forProcess_machName_holdV
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
+- (void)completeSPNearbyTockensWithSuccess:(BOOL)success
+{
+  successCopy = success;
+  if (WPLogInitOnce != -1)
+  {
+    [WPDObjectDiscoveryClient completeSPNearbyTockensWithSuccess:];
+  }
+
+  v5 = WiProxLog;
+  if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
+  {
+    [(WPDObjectDiscoveryClient *)v5 completeSPNearbyTockensWithSuccess:?];
+  }
+
+  spAgent = [(WPDObjectDiscoveryClient *)self spAgent];
+
+  if (spAgent)
+  {
+    tokenRequestID = [(WPDObjectDiscoveryClient *)self tokenRequestID];
+    [(WPDObjectDiscoveryClient *)self setTokenRequestID:0];
+    spAgent2 = [(WPDObjectDiscoveryClient *)self spAgent];
+    [spAgent2 completedTokenRequestID:tokenRequestID success:successCopy];
+  }
+}
+
 - (void)updateSPBeaconing
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   spAgent = [a2 spAgent];
   if ([spAgent beaconState])
@@ -344,8 +379,8 @@ void __80__WPDObjectDiscoveryClient_registerWithDaemon_forProcess_machName_holdV
   }
 
   objectDiscoveryManager = [a2 objectDiscoveryManager];
-  v9 = 136315650;
-  v10 = "[WPDObjectDiscoveryClient updateSPBeaconing]";
+  v8 = 136315650;
+  v9 = "[WPDObjectDiscoveryClient updateSPBeaconing]";
   if ([objectDiscoveryManager state] == 3)
   {
     v7 = "ON";
@@ -356,21 +391,18 @@ void __80__WPDObjectDiscoveryClient_registerWithDaemon_forProcess_machName_holdV
     v7 = "OFF";
   }
 
-  v11 = 2080;
-  v12 = v5;
-  v13 = 2080;
-  v14 = v7;
-  _os_log_debug_impl(&dword_272965000, selfCopy, OS_LOG_TYPE_DEBUG, "%s spAgent.beaconState: %s objectDiscoveryManager.state: %s", &v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = 2080;
+  v11 = v5;
+  v12 = 2080;
+  v13 = v7;
+  _os_log_debug_impl(&dword_272965000, selfCopy, OS_LOG_TYPE_DEBUG, "%s spAgent.beaconState: %s objectDiscoveryManager.state: %s", &v8, 0x20u);
 }
 
 - (void)startSPBeaconing
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_8();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)stopSPBeaconing
@@ -381,9 +413,34 @@ void __80__WPDObjectDiscoveryClient_registerWithDaemon_forProcess_machName_holdV
   [keyAddressAndPayload wipeout];
 }
 
+- (void)completeSPBeaconingWithSuccess:(BOOL)success
+{
+  successCopy = success;
+  if (WPLogInitOnce != -1)
+  {
+    [WPDObjectDiscoveryClient completeSPBeaconingWithSuccess:];
+  }
+
+  v5 = WiProxLog;
+  if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
+  {
+    [(WPDObjectDiscoveryClient *)v5 completeSPBeaconingWithSuccess:?];
+  }
+
+  spAgent = [(WPDObjectDiscoveryClient *)self spAgent];
+
+  if (spAgent)
+  {
+    keyRequestID = [(WPDObjectDiscoveryClient *)self keyRequestID];
+    [(WPDObjectDiscoveryClient *)self setKeyRequestID:0];
+    spAgent2 = [(WPDObjectDiscoveryClient *)self spAgent];
+    [spAgent2 completedKeyRequestID:keyRequestID success:successCopy];
+  }
+}
+
 - (void)startAdvertising:(id)advertising
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   advertisingCopy = advertising;
   if (WPLogInitOnce != -1)
   {
@@ -410,9 +467,9 @@ void __80__WPDObjectDiscoveryClient_registerWithDaemon_forProcess_machName_holdV
     }
 
     v16 = MEMORY[0x277CCA9B8];
-    v35 = *MEMORY[0x277CCA450];
-    v36[0] = @"The client is currently not registered with the daemon";
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x277CCA450];
+    v35[0] = @"The client is currently not registered with the daemon";
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
     v18 = v16;
     v19 = 2;
     goto LABEL_27;
@@ -433,9 +490,9 @@ void __80__WPDObjectDiscoveryClient_registerWithDaemon_forProcess_machName_holdV
     }
 
     v20 = MEMORY[0x277CCA9B8];
-    v33 = *MEMORY[0x277CCA450];
-    v34 = @"WPDObjectDiscovery manager is nil";
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+    v32 = *MEMORY[0x277CCA450];
+    v33 = @"WPDObjectDiscovery manager is nil";
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
     v18 = v20;
     v19 = 26;
 LABEL_27:
@@ -463,17 +520,17 @@ LABEL_37:
   {
     v8 = v7;
     processName = [(WPDClient *)self processName];
-    v23 = 138544386;
-    v24 = processName;
-    v25 = 1024;
+    v22 = 138544386;
+    v23 = processName;
+    v24 = 1024;
     processID = [(WPDClient *)self processID];
-    v27 = 2048;
-    v28 = clientType;
-    v29 = 2048;
+    v26 = 2048;
+    v27 = clientType;
+    v28 = 2048;
     advertisingRate = [advertisingCopy advertisingRate];
-    v31 = 2048;
-    v32 = [advertisingCopy advertisingRate] * 0.625;
-    _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery Start advertising for process %{public}@ (%d) of type %ld with advertising interval %ld (%.2f ms)", &v23, 0x30u);
+    v30 = 2048;
+    v31 = [advertisingCopy advertisingRate] * 0.625;
+    _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery Start advertising for process %{public}@ (%d) of type %ld with advertising interval %ld (%.2f ms)", &v22, 0x30u);
   }
 
   objectDiscoveryManager2 = [(WPDObjectDiscoveryClient *)self objectDiscoveryManager];
@@ -518,13 +575,11 @@ LABEL_29:
   }
 
 LABEL_38:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAdvertising:(id)advertising
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   advertisingCopy = advertising;
   if (WPLogInitOnce != -1)
   {
@@ -550,9 +605,9 @@ LABEL_38:
     }
 
     v15 = MEMORY[0x277CCA9B8];
-    v32 = *MEMORY[0x277CCA450];
-    v33[0] = @"The client is currently not registered with the daemon";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v31 = *MEMORY[0x277CCA450];
+    v32[0] = @"The client is currently not registered with the daemon";
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
     v17 = v15;
     v18 = 2;
     goto LABEL_26;
@@ -573,9 +628,9 @@ LABEL_38:
     }
 
     v19 = MEMORY[0x277CCA9B8];
-    v30 = *MEMORY[0x277CCA450];
-    v31 = @"ObjectDiscovery manager is nil ";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+    v29 = *MEMORY[0x277CCA450];
+    v30 = @"ObjectDiscovery manager is nil ";
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
     v17 = v19;
     v18 = 26;
 LABEL_26:
@@ -598,13 +653,13 @@ LABEL_27:
   {
     v8 = v7;
     processName = [(WPDClient *)self processName];
-    v24 = 138543874;
-    v25 = processName;
-    v26 = 1024;
+    v23 = 138543874;
+    v24 = processName;
+    v25 = 1024;
     processID = [(WPDClient *)self processID];
-    v28 = 2048;
-    v29 = clientType;
-    _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery Stop advertising for process %{public}@ (%d) of type %ld", &v24, 0x1Cu);
+    v27 = 2048;
+    v28 = clientType;
+    _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery Stop advertising for process %{public}@ (%d) of type %ld", &v23, 0x1Cu);
   }
 
   objectDiscoveryManager2 = [(WPDObjectDiscoveryClient *)self objectDiscoveryManager];
@@ -635,8 +690,6 @@ LABEL_27:
   }
 
 LABEL_28:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyClientObjectDiscoveryStateChange:(int64_t)change
@@ -863,126 +916,93 @@ void __57__WPDObjectDiscoveryClient_initWithXPCConnection_server___block_invoke_
 
 - (void)completeSPNearbyTockensWithSuccess:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 tokenRequestID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)completeSPBeaconingWithSuccess:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 keyRequestID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startAdvertising:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startAdvertising:(void *)a1 .cold.4(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v4 = a1;
   [OUTLINED_FUNCTION_9() processID];
   v5 = [a2 clientUUID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v6, v7, v8, v9, v10, 0x12u);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startAdvertising:.cold.11()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAdvertising:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAdvertising:(void *)a1 .cold.4(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v4 = a1;
   [OUTLINED_FUNCTION_9() processID];
   v5 = [a2 clientUUID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v6, v7, v8, v9, v10, 0x12u);
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-- (void)notifyClientObjectDiscoveryStateChange:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendTestRequest:(void *)a3 .cold.2(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [a3 clientUUID];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendTestRequest:(void *)a1 .cold.4(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a1;
   v5 = [OUTLINED_FUNCTION_9() testBeaconingInterval];
   v6 = [a2 clientUUID];
-  v8 = 138412546;
-  v9 = v5;
+  v7 = 138412546;
+  v8 = v5;
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(&dword_272965000, v2, OS_LOG_TYPE_DEBUG, "Requested custom beaconing interval %@ ms for test client %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_272965000, v2, OS_LOG_TYPE_DEBUG, "Requested custom beaconing interval %@ ms for test client %@", &v7, 0x16u);
 }
 
 - (void)sendTestRequest:(uint64_t)a3 .cold.6(void *a1, void *a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 clientUUID];
-  v8 = 134218242;
-  v9 = a3;
+  v7 = 134218242;
+  v8 = a3;
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(&dword_272965000, v5, OS_LOG_TYPE_ERROR, "Bad send test request %ld for client %@, dropping on the floor", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_272965000, v5, OS_LOG_TYPE_ERROR, "Bad send test request %ld for client %@, dropping on the floor", &v7, 0x16u);
 }
 
 @end

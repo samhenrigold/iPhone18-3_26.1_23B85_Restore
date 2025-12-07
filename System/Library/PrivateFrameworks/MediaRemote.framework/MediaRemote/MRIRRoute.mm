@@ -70,32 +70,32 @@
 
 + (id)routeWithOutputDevices:(id)devices
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   v3 = [devicesCopy copy];
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v37 objects:v49 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v36 objects:v48 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v38;
+    v8 = *v37;
     v9 = 1;
     v10 = MEMORY[0x1E695E0F0];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v38 != v8)
+        if (*v37 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v37 + 1) + 8 * i);
+        v12 = *(*(&v36 + 1) + 8 * i);
         if ([v12 clusterType])
         {
           clusterCompositionOutputDevices = [v12 clusterCompositionOutputDevices];
@@ -120,17 +120,17 @@
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               v19 = [v12 uid];
-              v36 = [v16 count];
+              v35 = [v16 count];
               configuredClusterSize = [v12 configuredClusterSize];
               v20 = [v12 debugDescription];
               *buf = 138413058;
-              v42 = v19;
-              v43 = 2048;
-              v44 = v36;
-              v45 = 2048;
-              v46 = configuredClusterSize;
-              v47 = 2112;
-              v48 = v20;
+              v41 = v19;
+              v42 = 2048;
+              v43 = v35;
+              v44 = 2048;
+              v45 = configuredClusterSize;
+              v46 = 2112;
+              v47 = v20;
               _os_log_error_impl(&dword_1A2860000, v18, OS_LOG_TYPE_ERROR, "[MRDRRC].IRR Donations disallowed, cluster %@ has %lu members, expected %lu; device: %@", buf, 0x2Au);
             }
 
@@ -139,7 +139,7 @@
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v37 objects:v49 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v36 objects:v48 count:16];
     }
 
     while (v7);
@@ -172,8 +172,6 @@
   v30 = [v23 arrayByAddingObjectsFromArray:v24];
   v31 = [MEMORY[0x1E695DFD8] setWithArray:v30];
   [(MRIRRoute *)v27 setNodes:v31];
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v27;
 }
@@ -224,10 +222,10 @@ uint64_t __36__MRIRRoute_routeWithOutputDevices___block_invoke_5(uint64_t a1, vo
 MRIRNode *__43__MRIRRoute_debugRouteWithDebugIdentifier___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 isEqualToString:@"Speaker"];
-  v3 = -[MRIRNode initWithAVOutputDeviceID:isLocal:]([MRIRNode alloc], "initWithAVOutputDeviceID:isLocal:", v2, [v2 isEqualToString:@"Speaker"] & 1);
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
+  v4 = [[MRIRNode alloc] initWithAVOutputDeviceID:v2 isLocal:(isEqualToString | objc_msgSend_isEqualToString_(v2)) & 1];
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal

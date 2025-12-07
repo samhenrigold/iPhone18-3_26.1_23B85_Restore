@@ -25,8 +25,10 @@
 - (void)invalidate;
 - (void)scheduleInQueue:(id)queue;
 - (void)scheduleInRunLoop:(id)loop inMode:(id)mode;
+- (void)setDisableSystemWaking:(BOOL)waking;
 - (void)setEarlyFireConstantInterval:(double)interval;
 - (void)setMinimumEarlyFireProportion:(double)proportion;
+- (void)setUserVisible:(BOOL)visible;
 @end
 
 @implementation PCPersistentTimer
@@ -45,7 +47,7 @@
 
 - (void)invalidate
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   WeakRetained = objc_loadWeakRetained(&selfCopy->_target);
@@ -56,9 +58,9 @@
     logObject = selfCopy->_logObject;
     if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = selfCopy;
-      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Invalidating timer %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = selfCopy;
+      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Invalidating timer %{public}@", &v10, 0xCu);
     }
 
     objc_storeWeak(&selfCopy->_target, 0);
@@ -80,13 +82,11 @@
   }
 
   objc_sync_exit(selfCopy);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (double)_earlyFireTime
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   if (self->_fireTime - self->_startTime >= 0.0)
   {
     v3 = self->_fireTime - self->_startTime;
@@ -138,8 +138,8 @@
       *&v13 = COERCE_DOUBLE(@"NO");
     }
 
-    v67 = v12;
-    v68 = 2112;
+    v66 = v12;
+    v67 = 2112;
     if (isWWANInterfaceUp)
     {
       v14 = @"YES";
@@ -150,17 +150,17 @@
       v14 = @"NO";
     }
 
-    v66 = 2114;
-    v69 = *&v13;
+    v65 = 2114;
+    v68 = *&v13;
     if (v8)
     {
       v11 = @"YES";
     }
 
-    v70 = 2114;
-    v71 = v14;
-    v72 = 2114;
-    v73 = v11;
+    v69 = 2114;
+    v70 = v14;
+    v71 = 2114;
+    v72 = v11;
     _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%{public}@ calculating _earlyFireDate. powerStateDetectionSupported = %{public}@ = (detectionSupported(%@) && (wwanIsUp(%{public}@) || ! internetReachable(%{public}@)))", buf, 0x34u);
   }
 
@@ -308,7 +308,7 @@ LABEL_37:
     v51 = PCStringFromDate(v50);
     v52 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:self->_fireTime];
     PCStringFromDate(v52);
-    v53 = v63 = v4;
+    v53 = v62 = v4;
     v54 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:self->_startTime];
     v55 = PCStringFromDate(v54);
     v56 = v55;
@@ -332,28 +332,27 @@ LABEL_37:
       v58 = "yes";
     }
 
-    v66 = 2114;
-    v67 = v51;
-    v68 = 2048;
-    v69 = minimumEarlyFireProportion * 100.0;
-    v70 = 2114;
-    v71 = v53;
-    v72 = 2114;
-    v73 = v55;
-    v74 = 2048;
-    v75 = v57;
-    v76 = 2082;
-    v77 = v59;
-    v78 = 2082;
-    v79 = v58;
-    v80 = 2048;
-    v81 = v60;
+    v65 = 2114;
+    v66 = v51;
+    v67 = 2048;
+    v68 = minimumEarlyFireProportion * 100.0;
+    v69 = 2114;
+    v70 = v53;
+    v71 = 2114;
+    v72 = v55;
+    v73 = 2048;
+    v74 = v57;
+    v75 = 2082;
+    v76 = v59;
+    v77 = 2082;
+    v78 = v58;
+    v79 = 2048;
+    v80 = v60;
     _os_log_impl(&dword_25E3EF000, v49, OS_LOG_TYPE_DEFAULT, "%{public}@ Calculated minimum fire date [%{public}@] (%g%%) with fire date [%{public}@], start date [%{public}@], minimum early fire proportion %g, power state detection supported: %{public}s, in high power state: %{public}s, early fire constant interval %f", buf, 0x5Cu);
 
-    v4 = v63;
+    v4 = v62;
   }
 
-  v61 = *MEMORY[0x277D85DE8];
   return v37;
 }
 
@@ -456,7 +455,7 @@ void __41__PCPersistentTimer__currentGuidanceTime__block_invoke(uint64_t a1, voi
 
 - (void)_fireTimerFired
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   WeakRetained = objc_loadWeakRetained(&selfCopy->_target);
@@ -466,9 +465,9 @@ void __41__PCPersistentTimer__currentGuidanceTime__block_invoke(uint64_t a1, voi
     logObject = selfCopy->_logObject;
     if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543362;
-      v8 = selfCopy;
-      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "PersistentTimer %{public}@ has fired", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = selfCopy;
+      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "PersistentTimer %{public}@ has fired", &v6, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&selfCopy->_target);
@@ -496,8 +495,6 @@ void __41__PCPersistentTimer__currentGuidanceTime__block_invoke(uint64_t a1, voi
   {
     [WeakRetained performSelector:selector withObject:selfCopy];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (PCPersistentTimer)initWithFireDate:(id)date serviceIdentifier:(id)identifier target:(id)target selector:(SEL)selector userInfo:(id)info
@@ -603,6 +600,36 @@ void __41__PCPersistentTimer__currentGuidanceTime__block_invoke(uint64_t a1, voi
   objc_sync_exit(obj);
 }
 
+- (void)setDisableSystemWaking:(BOOL)waking
+{
+  wakingCopy = waking;
+  obj = self;
+  objc_sync_enter(obj);
+  if (obj->_disableSystemWaking != wakingCopy)
+  {
+    obj->_disableSystemWaking = wakingCopy;
+    [(PCSimpleTimer *)obj->_simpleTimer setDisableSystemWaking:wakingCopy];
+    [(PCPersistentTimer *)obj _updateTimers];
+  }
+
+  objc_sync_exit(obj);
+}
+
+- (void)setUserVisible:(BOOL)visible
+{
+  visibleCopy = visible;
+  obj = self;
+  objc_sync_enter(obj);
+  if (obj->_userVisible != visibleCopy)
+  {
+    obj->_userVisible = visibleCopy;
+    [(PCSimpleTimer *)obj->_simpleTimer setUserVisible:visibleCopy];
+    [(PCPersistentTimer *)obj _updateTimers];
+  }
+
+  objc_sync_exit(obj);
+}
+
 - (BOOL)isUserVisible
 {
   selfCopy = self;
@@ -615,7 +642,7 @@ void __41__PCPersistentTimer__currentGuidanceTime__block_invoke(uint64_t a1, voi
 
 - (void)scheduleInRunLoop:(id)loop inMode:(id)mode
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   loopCopy = loop;
   modeCopy = mode;
   selfCopy = self;
@@ -649,9 +676,9 @@ void __41__PCPersistentTimer__currentGuidanceTime__block_invoke(uint64_t a1, voi
     {
       v15 = selfCopy->_simpleTimer;
       *buf = 138543618;
-      v25 = selfCopy;
-      v26 = 2114;
-      v27 = v15;
+      v24 = selfCopy;
+      v25 = 2114;
+      v26 = v15;
       _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%{public}@ created %{public}@", buf, 0x16u);
     }
 
@@ -675,13 +702,11 @@ void __41__PCPersistentTimer__currentGuidanceTime__block_invoke(uint64_t a1, voi
   {
     [PCPersistentTimer _updateTime:guidancePriority forGuidancePriority:fireTime];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleInQueue:(id)queue
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -726,9 +751,9 @@ LABEL_3:
     {
       v13 = selfCopy->_simpleTimer;
       *buf = 138543618;
-      v23 = selfCopy;
-      v24 = 2114;
-      v25 = v13;
+      v22 = selfCopy;
+      v23 = 2114;
+      v24 = v13;
       _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%{public}@ created %{public}@", buf, 0x16u);
     }
 
@@ -752,8 +777,6 @@ LABEL_3:
   {
     [PCPersistentTimer _updateTime:guidancePriority forGuidancePriority:fireTime];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (double)startTime
@@ -787,7 +810,7 @@ LABEL_3:
   return v3;
 }
 
-uint64_t __43__PCPersistentTimer__backgroundUpdateQueue__block_invoke()
+uint64_t __43__PCPersistentTimer__backgroundUpdateQueue__block_invoke(uint64_t a1, uint64_t a2)
 {
   _backgroundUpdateQueue_sQueue = PCCreateQueue("PCPersistentTimer-sharedBackgroundUpdateQueue");
 
@@ -878,7 +901,7 @@ void __67__PCPersistentTimer_cutPowerMonitorBatteryConnectedStateDidChange___blo
 
 + (void)_updateTime:(double)time forGuidancePriority:(unint64_t)priority
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (_updateTime_forGuidancePriority__onceToken != -1)
   {
     +[PCPersistentTimer _updateTime:forGuidancePriority:];
@@ -907,9 +930,9 @@ void __67__PCPersistentTimer_cutPowerMonitorBatteryConnectedStateDidChange___blo
       {
         v17 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v15 / 1000.0];
         v18 = PCStringFromDate(v17);
-        v21 = 138543362;
-        v22 = v18;
-        _os_log_impl(&dword_25E3EF000, v16, OS_LOG_TYPE_DEFAULT, "updating timer guidance to %{public}@", &v21, 0xCu);
+        v20 = 138543362;
+        v21 = v18;
+        _os_log_impl(&dword_25E3EF000, v16, OS_LOG_TYPE_DEFAULT, "updating timer guidance to %{public}@", &v20, 0xCu);
       }
 
       v19 = _updateTime_forGuidancePriority__token;
@@ -917,7 +940,10 @@ void __67__PCPersistentTimer_cutPowerMonitorBatteryConnectedStateDidChange___blo
       {
         if (notify_register_check("PCPersistentTimerGuidanceNotification", &_updateTime_forGuidancePriority__token))
         {
-          goto LABEL_11;
+LABEL_11:
+          notify_cancel(_updateTime_forGuidancePriority__token);
+          _updateTime_forGuidancePriority__token = -1;
+          return;
         }
 
         v19 = _updateTime_forGuidancePriority__token;
@@ -926,17 +952,12 @@ void __67__PCPersistentTimer_cutPowerMonitorBatteryConnectedStateDidChange___blo
       if (!notify_set_state(v19, (v14 * 1000.0)))
       {
         notify_post("PCPersistentTimerGuidanceNotification");
-        goto LABEL_12;
+        return;
       }
 
-LABEL_11:
-      notify_cancel(_updateTime_forGuidancePriority__token);
-      _updateTime_forGuidancePriority__token = -1;
+      goto LABEL_11;
     }
   }
-
-LABEL_12:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__PCPersistentTimer__updateTime_forGuidancePriority___block_invoke()

@@ -11,6 +11,7 @@
 - (id)newRawReadChannelForComponentLocator:(id)locator isStoredOutsideObjectArchive:(BOOL)archive error:(id *)error;
 - (id)packageEntryInfoAtRelativePath:(id)path error:(id *)error;
 - (id)packageEntryInfoForComponentLocator:(id)locator isStoredOutsideObjectArchive:(BOOL)archive;
+- (void)copyComponent:(id)component toPackageURL:(id)l packageLocator:(id)locator zipFileWriter:(id)writer encryptionKey:(id)key canLink:(BOOL)link completion:(id)completion;
 - (void)prepareForDocumentReplacementWithSuccess:(BOOL)success forSafeSave:(BOOL)save originalURL:(id)l;
 @end
 
@@ -162,6 +163,71 @@
 
   _Block_object_dispose(&v38, 8);
   return v24;
+}
+
+- (void)copyComponent:(id)component toPackageURL:(id)l packageLocator:(id)locator zipFileWriter:(id)writer encryptionKey:(id)key canLink:(BOOL)link completion:(id)completion
+{
+  linkCopy = link;
+  componentCopy = component;
+  lCopy = l;
+  locatorCopy = locator;
+  writerCopy = writer;
+  keyCopy = key;
+  completionCopy = completion;
+  if (objc_msgSend_isStoredOutsideObjectArchive(componentCopy, v21, v22))
+  {
+    v39 = writerCopy;
+    v40 = objc_msgSend_locator(componentCopy, v23, v24);
+    if (!v40)
+    {
+      v27 = MEMORY[0x277D81150];
+      v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "[TSPDirectoryPackage copyComponent:toPackageURL:packageLocator:zipFileWriter:encryptionKey:canLink:completion:]");
+      v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDirectoryPackage.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v27, v31, v28, v30, 111, 0, "invalid nil value for '%{public}s'", "packageLocator");
+
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v32, v33);
+    }
+
+    v34 = objc_msgSend_fileCoordinatorDelegate(self, v25, v26);
+    aBlock[0] = MEMORY[0x277D85DD0];
+    aBlock[1] = 3221225472;
+    aBlock[2] = sub_2769D3D2C;
+    aBlock[3] = &unk_27A6E3480;
+    v35 = completionCopy;
+    v52 = v35;
+    v36 = _Block_copy(aBlock);
+    v37 = v36;
+    if (v34)
+    {
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = sub_2769D3E20;
+      v42[3] = &unk_27A6E3B18;
+      v43 = v40;
+      v44 = lCopy;
+      v45 = locatorCopy;
+      selfCopy = self;
+      v47 = keyCopy;
+      v50 = linkCopy;
+      v48 = v35;
+      v49 = v37;
+      objc_msgSend_performReadUsingAccessor_(v34, v38, v42);
+    }
+
+    else
+    {
+      (*(v36 + 2))(v36);
+    }
+
+    writerCopy = v39;
+  }
+
+  else
+  {
+    v41.receiver = self;
+    v41.super_class = TSPDirectoryPackage;
+    [(TSPPackage *)&v41 copyComponent:componentCopy toPackageURL:lCopy packageLocator:locatorCopy zipFileWriter:writerCopy encryptionKey:keyCopy canLink:linkCopy completion:completionCopy];
+  }
 }
 
 - (id)newDataStorageAtRelativePath:(id)path decryptionInfo:(id)info materializedLength:(unint64_t)length packageURL:(id)l lastModificationDate:(id *)date

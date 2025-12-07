@@ -17,6 +17,8 @@
 - (void)setNowPlayingTypeForSpecifier:(id)specifier;
 - (void)setSmartStackPrimaryActionTypeForSpecifier:(id)specifier;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation WGABridgeDoubleTapSettingsViewController
@@ -32,6 +34,52 @@
   self->_eltonAccessor = v4;
 
   synchronize = [(NPSDomainAccessor *)self->_eltonAccessor synchronize];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v22.receiver = self;
+  v22.super_class = WGABridgeDoubleTapSettingsViewController;
+  [(WGABridgeDoubleTapSettingsViewController *)&v22 viewWillAppear:appear];
+  v4 = [_NSLocalizedStringResource alloc];
+  v5 = +[NSLocale currentLocale];
+  v6 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v6 bundleURL];
+  v8 = [v4 initWithKey:@"ELTON_DOUBLE_TAP_STATE" table:@"Localizable" locale:v5 bundleURL:bundleURL];
+
+  v9 = [_NSLocalizedStringResource alloc];
+  v10 = +[NSLocale currentLocale];
+  v11 = [NSBundle bundleWithIdentifier:@"com.apple.Bridge"];
+  bundleURL2 = [v11 bundleURL];
+  v13 = [v9 initWithKey:@"ELTON_TITLE" table:@"Localizable-elton" locale:v10 bundleURL:bundleURL2];
+
+  v23 = v13;
+  v14 = [NSArray arrayWithObjects:&v23 count:1];
+  v15 = [NSString stringWithFormat:@"bridge:root=ELTON_SETTINGS_ID&path=", @"ELTON_DOUBLE_TAP_ID"];
+  v16 = [NSURL URLWithString:v15];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ELTON_SETTINGS_ID" title:v8 localizedNavigationComponents:v14 deepLink:v16];
+
+  [(WGABridgeDoubleTapSettingsViewController *)self reloadSpecifiers];
+  objc_initWeak(&location, self);
+  uTF8String = [@"WAGPreferencesSyncDidChangeInternalNotification" UTF8String];
+  v18 = &_dispatch_main_q;
+  handler[0] = _NSConcreteStackBlock;
+  handler[1] = 3221225472;
+  handler[2] = sub_38F8;
+  handler[3] = &unk_8308;
+  objc_copyWeak(&v20, &location);
+  notify_register_dispatch(uTF8String, &self->_eltonPreferencesSyncToken, &_dispatch_main_q, handler);
+
+  objc_destroyWeak(&v20);
+  objc_destroyWeak(&location);
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = WGABridgeDoubleTapSettingsViewController;
+  [(WGABridgeDoubleTapSettingsViewController *)&v4 viewWillDisappear:disappear];
+  notify_cancel(self->_eltonPreferencesSyncToken);
 }
 
 - (id)specifiers

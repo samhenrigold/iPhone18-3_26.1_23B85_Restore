@@ -215,7 +215,7 @@
       v11 = BALog();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        sub_10078BC98();
+        sub_10078BC98(v11, v12, v13);
       }
     }
   }
@@ -224,8 +224,8 @@
   newSessionAssertion = [analyticsController3 newSessionAssertion];
   [(BKAppAnalyticsManager *)self setAnalyticsSessionAssertion:newSessionAssertion];
 
-  v14 = +[BCRCDataContainer defaultContainer];
-  [v14 deployStagedDataIfNeeded];
+  v16 = +[BCRCDataContainer defaultContainer];
+  [v16 deployStagedDataIfNeeded];
 }
 
 - (BOOL)analyticsSessionDataIsMainWindow
@@ -361,14 +361,14 @@
 
 - (id)analyticsControllerConfigurationForKey:(id)key
 {
-  v16[0] = kBAJitterTimestampEnabled;
-  v16[1] = kBAJitterTimestampLowerBound;
-  v17[0] = BRCBooksDefaultsKeyAnalyticsJitterTimestampEnabled2;
-  v17[1] = BRCBooksDefaultsKeyAnalyticsJitterTimestampLowerBound;
-  v16[2] = kBAJitterTimestampUpperBound;
-  v17[2] = BRCBooksDefaultsKeyAnalyticsJitterTimestampUpperBound;
+  v17[0] = kBAJitterTimestampEnabled;
+  v17[1] = kBAJitterTimestampLowerBound;
+  v18[0] = BRCBooksDefaultsKeyAnalyticsJitterTimestampEnabled2;
+  v18[1] = BRCBooksDefaultsKeyAnalyticsJitterTimestampLowerBound;
+  v17[2] = kBAJitterTimestampUpperBound;
+  v18[2] = BRCBooksDefaultsKeyAnalyticsJitterTimestampUpperBound;
   keyCopy = key;
-  v4 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:3];
+  v4 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:3];
   v5 = [v4 objectForKeyedSubscript:keyCopy];
 
   if (v5)
@@ -396,7 +396,7 @@
         v14 = BALog();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          sub_10078BD5C();
+          sub_10078BD5C(v5, v14, v15);
         }
       }
 

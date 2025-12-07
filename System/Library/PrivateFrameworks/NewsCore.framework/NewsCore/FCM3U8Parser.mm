@@ -64,7 +64,7 @@
   return v4;
 }
 
-void __31__FCM3U8Parser_parseWithError___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+void __31__FCM3U8Parser_parseWithError___block_invoke(void *result, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   v4 = a3 + a4;
   if (a3 < a3 + a4)
@@ -73,7 +73,7 @@ void __31__FCM3U8Parser_parseWithError___block_invoke(uint64_t a1, uint64_t a2, 
     v8 = -(a4 + a3);
     do
     {
-      v9 = *(a1 + 32);
+      v9 = result[4];
       if (v9)
       {
         v10 = a2 + v5;

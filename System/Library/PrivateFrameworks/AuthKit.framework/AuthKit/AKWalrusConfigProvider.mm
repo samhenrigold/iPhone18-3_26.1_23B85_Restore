@@ -131,7 +131,6 @@ void __56__AKWalrusConfigProvider_getWalrusConfigWithCompletion___block_invoke(N
 
   objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __56__AKWalrusConfigProvider_getWalrusConfigWithCompletion___block_invoke_66(uint64_t a1, void *a2, void *a3)

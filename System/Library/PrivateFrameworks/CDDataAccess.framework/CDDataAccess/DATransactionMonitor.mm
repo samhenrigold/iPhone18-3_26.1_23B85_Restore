@@ -29,10 +29,10 @@ uint64_t __48__DATransactionMonitor_sharedTransactionMonitor__block_invoke()
 
 - (DATransactionMonitor)init
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = DATransactionMonitor;
-  v2 = [(DATransactionMonitor *)&v9 init];
+  v11 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = DATransactionMonitor;
+  v2 = [(DATransactionMonitor *)&v8 init];
   v3 = v2;
   if (v2)
   {
@@ -43,12 +43,11 @@ uint64_t __48__DATransactionMonitor_sharedTransactionMonitor__block_invoke()
     {
       transactionCount = v3->_transactionCount;
       *buf = 67109120;
-      v11 = transactionCount;
+      v10 = transactionCount;
       _os_log_impl(&dword_24244C000, v4, v5, "Transaction count is initialized to %d", buf, 8u);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -81,7 +80,7 @@ void __64__DATransactionMonitor_incrementTransactionCountForTransaction___block_
 
 void __64__DATransactionMonitor_incrementTransactionCountForTransaction___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) transactionCount];
   v3 = MEMORY[0x277CF3AF0];
   if (!v2)
@@ -91,8 +90,8 @@ void __64__DATransactionMonitor_incrementTransactionCountForTransaction___block_
     v5 = *(v3 + 5);
     if (os_log_type_enabled(v4, v5))
     {
-      LOWORD(v13[0]) = 0;
-      _os_log_impl(&dword_24244C000, v4, v5, "DATransactionMonitor: xpc_transaction_begin INIT {name: com.apple.remindd.dataaccess.transactions}", v13, 2u);
+      LOWORD(v12[0]) = 0;
+      _os_log_impl(&dword_24244C000, v4, v5, "DATransactionMonitor: xpc_transaction_begin INIT {name: com.apple.remindd.dataaccess.transactions}", v12, 2u);
     }
   }
 
@@ -113,12 +112,10 @@ void __64__DATransactionMonitor_incrementTransactionCountForTransaction___block_
   if (os_log_type_enabled(v9, v10))
   {
     v11 = [*(a1 + 32) transactionCount];
-    v13[0] = 67109120;
-    v13[1] = v11;
-    _os_log_impl(&dword_24244C000, v9, v10, "Transaction count is incremented to %d", v13, 8u);
+    v12[0] = 67109120;
+    v12[1] = v11;
+    _os_log_impl(&dword_24244C000, v9, v10, "Transaction count is incremented to %d", v12, 8u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)decrementTransactionCountForTransaction:(id)transaction
@@ -138,7 +135,7 @@ void __64__DATransactionMonitor_incrementTransactionCountForTransaction___block_
 
 void __64__DATransactionMonitor_decrementTransactionCountForTransaction___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) transactionCount];
   v4 = MEMORY[0x277CF3AF0];
@@ -152,8 +149,8 @@ void __64__DATransactionMonitor_decrementTransactionCountForTransaction___block_
     v7 = *(v4 + 5);
     if (os_log_type_enabled(v6, v7))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_24244C000, v6, v7, "DATransactionMonitor: xpc_transaction_end RELEASE {name: com.apple.remindd.dataaccess.transactions}", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_24244C000, v6, v7, "DATransactionMonitor: xpc_transaction_end RELEASE {name: com.apple.remindd.dataaccess.transactions}", &v14, 2u);
     }
   }
 
@@ -171,21 +168,19 @@ void __64__DATransactionMonitor_decrementTransactionCountForTransaction___block_
   if (os_log_type_enabled(v9, v10))
   {
     v11 = [*v2 transactionCount];
-    v15 = 67109120;
-    LODWORD(v16) = v11;
-    _os_log_impl(&dword_24244C000, v9, v10, "Transaction count is decremented to %d", &v15, 8u);
+    v14 = 67109120;
+    LODWORD(v15) = v11;
+    _os_log_impl(&dword_24244C000, v9, v10, "Transaction count is decremented to %d", &v14, 8u);
   }
 
   v12 = DALoggingwithCategory();
   if (os_log_type_enabled(v12, v10))
   {
     v13 = [*v2 transactions];
-    v15 = 138412290;
-    v16 = v13;
-    _os_log_impl(&dword_24244C000, v12, v10, "Remaining transactions: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v13;
+    _os_log_impl(&dword_24244C000, v12, v10, "Remaining transactions: %@", &v14, 0xCu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (DATransactionMonitorDelegate)transactionMonitorDelegate

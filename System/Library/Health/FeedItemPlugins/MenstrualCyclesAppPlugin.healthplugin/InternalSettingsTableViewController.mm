@@ -37,7 +37,7 @@
 
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section
 {
-  v6 = type metadata accessor for Section() - 8;
+  v6 = type metadata accessor for Section(0) - 8;
   MEMORY[0x2A1C7C4A8](v6);
   v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (section < 0)
@@ -63,7 +63,7 @@
 
 - (id)tableView:(id)view titleForHeaderInSection:(int64_t)section
 {
-  v6 = type metadata accessor for Section() - 8;
+  v6 = type metadata accessor for Section(0) - 8;
   MEMORY[0x2A1C7C4A8](v6);
   v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (section < 0)

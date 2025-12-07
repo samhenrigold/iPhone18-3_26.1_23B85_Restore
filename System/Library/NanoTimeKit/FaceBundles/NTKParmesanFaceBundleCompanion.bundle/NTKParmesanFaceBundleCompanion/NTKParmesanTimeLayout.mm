@@ -17,10 +17,10 @@
 
 - (int64_t)_complicationAlignment
 {
-  v5 = objc_msgSend_scale(self, a2, v2, v3);
-  if (v5 == 3)
+  v4 = objc_msgSend_scale(self, a2, v2);
+  if (v4 == 3)
   {
-    if (objc_msgSend_alignment(self, v6, v7, v8))
+    if (objc_msgSend_alignment(self, v5, v6))
     {
       return 1;
     }
@@ -33,7 +33,7 @@
 
   else
   {
-    return v5 != 2 && v5 != 1;
+    return v4 != 2 && v4 != 1;
   }
 }
 

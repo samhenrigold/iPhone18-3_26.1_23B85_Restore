@@ -6,6 +6,7 @@
 + (BOOL)parsingWithSubItems;
 + (id)asParseRules;
 - (ASEvent)parentEvent;
+- (ASRecurrence)initWithCalRecurrence:(void *)recurrence parentEvent:(id)event useFloatingTimeForAllDayEvents:(BOOL)events;
 - (ASRecurrence)initWithCoder:(id)coder;
 - (BOOL)_loadAttributesFromCalRecurrence:(void *)recurrence parentStartDate:(id)date parentItem:(id)item useFloatingTimeForAllDayEvents:(BOOL)events;
 - (id)_transformedUntilDateForActiveSync:(id)sync;
@@ -14,6 +15,7 @@
 - (void)appendActiveSyncDataForTask:(id)task toWBXMLData:(id)data;
 - (void)encodeWithCoder:(id)coder;
 - (void)parseASParseContext:(id)context root:(id)root parent:(id)parent callbackDict:(id)dict streamCallbackDict:(id)callbackDict account:(id)account;
+- (void)saveToCalendarWithParentASEvent:(id)event existingRecord:(void *)record shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties useFloatingTimeForAllDayEvents:(BOOL)events account:(id)account;
 - (void)setUntilString:(id)string;
 @end
 
@@ -206,11 +208,11 @@
 
 - (void)parseASParseContext:(id)context root:(id)root parent:(id)parent callbackDict:(id)dict streamCallbackDict:(id)callbackDict account:(id)account
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   parentCopy = parent;
-  v27.receiver = self;
-  v27.super_class = ASRecurrence;
-  [(ASItem *)&v27 parseASParseContext:context root:root parent:parentCopy callbackDict:dict streamCallbackDict:callbackDict account:account];
+  v26.receiver = self;
+  v26.super_class = ASRecurrence;
+  [(ASItem *)&v26 parseASParseContext:context root:root parent:parentCopy callbackDict:dict streamCallbackDict:callbackDict account:account];
   parsingState = self->super._parsingState;
   v17 = parentCopy;
   if (parsingState >= 2)
@@ -275,7 +277,7 @@
           type = [(ASRecurrence *)self type];
           intValue = [type intValue];
           *buf = 67109120;
-          v29 = intValue;
+          v28 = intValue;
           _os_log_impl(&dword_24A0AC000, v22, v23, "A recurrence with type %d didn't have an interval set, but we're being lenient, and assuming an interval of 1", buf, 8u);
         }
 
@@ -283,14 +285,12 @@
       }
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_newRecurrenceWithParentStartDate:(id)date useFloatingTimeForAllDayEvents:(BOOL)events account:(id)account
 {
   eventsCopy = events;
-  v65[1] = *MEMORY[0x277D85DE8];
+  v64[1] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   accountCopy = account;
   v10 = +[ASLocalDBHelper sharedInstance];
@@ -333,9 +333,9 @@
     v20 = *(MEMORY[0x277D03988] + 7);
     if (os_log_type_enabled(v19, v20))
     {
-      LODWORD(v65[0]) = 67109120;
-      HIDWORD(v65[0]) = v17;
-      _os_log_impl(&dword_24A0AC000, v19, v20, "Setting arbitrary week start to %d", v65, 8u);
+      LODWORD(v64[0]) = 67109120;
+      HIDWORD(v64[0]) = v17;
+      _os_log_impl(&dword_24A0AC000, v19, v20, "Setting arbitrary week start to %d", v64, 8u);
     }
   }
 
@@ -377,8 +377,8 @@
       }
 
       v41 = v48;
-      v65[0] = v44;
-      v49 = CFArrayCreate(*MEMORY[0x277CBECE8], v65, 1, 0);
+      v64[0] = v44;
+      v49 = CFArrayCreate(*MEMORY[0x277CBECE8], v64, 1, 0);
       CalRecurrenceSetBySetPos();
       if (v49)
       {
@@ -511,30 +511,13 @@ LABEL_65:
 
   if (until)
   {
-    if (!eventsCopy)
-    {
-      goto LABEL_63;
-    }
-
-    parentEvent = [(ASRecurrence *)self parentEvent];
-
-    if (!parentEvent)
-    {
-      goto LABEL_63;
-    }
-
-    parentEvent2 = [(ASRecurrence *)self parentEvent];
-    allDayEvent = [parentEvent2 allDayEvent];
-    intValue11 = [allDayEvent intValue];
-
-    if (intValue11)
+    if (eventsCopy && (-[ASRecurrence parentEvent](self, "parentEvent"), v57 = objc_claimAutoreleasedReturnValue(), v57, v57) && (-[ASRecurrence parentEvent](self, "parentEvent"), v58 = objc_claimAutoreleasedReturnValue(), [v58 allDayEvent], v59 = objc_claimAutoreleasedReturnValue(), v60 = objc_msgSend(v59, "intValue"), v59, v58, v60))
     {
       v61 = [v56 dateByAddingTimeInterval:86399.0];
     }
 
     else
     {
-LABEL_63:
       v61 = [(ASRecurrence *)self _untilDateForCalFrameworkWithParentStartDate:dateCopy];
     }
 
@@ -548,14 +531,40 @@ LABEL_63:
 
 LABEL_66:
 
-  v63 = *MEMORY[0x277D85DE8];
   return Recurrence;
+}
+
+- (void)saveToCalendarWithParentASEvent:(id)event existingRecord:(void *)record shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties useFloatingTimeForAllDayEvents:(BOOL)events account:(id)account
+{
+  eventsCopy = events;
+  eventCopy = event;
+  accountCopy = account;
+  v12 = CalCalendarItemCopyRecurrences();
+  if ([v12 count])
+  {
+    v13 = 0;
+    do
+    {
+      v14 = [v12 objectAtIndexedSubscript:v13];
+      CalCalendarItemRemoveRecurrenceDirectly();
+
+      ++v13;
+    }
+
+    while (v13 < [v12 count]);
+  }
+
+  startDateForCalFramework = [eventCopy startDateForCalFramework];
+  v16 = [(ASRecurrence *)self _newRecurrenceWithParentStartDate:startDateForCalFramework useFloatingTimeForAllDayEvents:eventsCopy account:accountCopy];
+
+  CalCalendarItemAddRecurrenceDirectly();
+  CFRelease(v16);
 }
 
 - (BOOL)_loadAttributesFromCalRecurrence:(void *)recurrence parentStartDate:(id)date parentItem:(id)item useFloatingTimeForAllDayEvents:(BOOL)events
 {
   eventsCopy = events;
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   itemCopy = item;
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:CalRecurrenceGetInterval()];
@@ -603,19 +612,19 @@ LABEL_15:
       if (!v14 && v16 && v17)
       {
         [(ASRecurrence *)self setType:&unk_285D57F60];
-        v64 = -1;
-        v28 = [MEMORY[0x277CCABB0] numberWithInt:{_dayOfWeekFromByDayDaysArray(v18, &v64)}];
+        v63 = -1;
+        v28 = [MEMORY[0x277CCABB0] numberWithInt:{_dayOfWeekFromByDayDaysArray(v18, &v63)}];
         [(ASRecurrence *)self setDayOfWeek:v28];
 
         CFRelease(v18);
-        if (v64 == -2)
+        if (v63 == -2)
         {
           v29 = DALoggingwithCategory();
           v30 = *(MEMORY[0x277D03988] + 3);
           if (os_log_type_enabled(v29, v30))
           {
             *buf = 138412290;
-            v66 = itemCopy;
+            v65 = itemCopy;
             v31 = "Malformed Yearly recurrence coming from Cal framework (byDayDays has multiple weekOfMonths).  Parent is %@";
 LABEL_37:
             _os_log_impl(&dword_24A0AC000, v29, v30, v31, buf, 0xCu);
@@ -625,7 +634,7 @@ LABEL_37:
           goto LABEL_38;
         }
 
-        if ((v64 - 1) >= 5)
+        if ((v63 - 1) >= 5)
         {
           goto LABEL_107;
         }
@@ -679,7 +688,7 @@ LABEL_64:
       if (os_log_type_enabled(v48, v49))
       {
         *buf = 138412290;
-        v66 = itemCopy;
+        v65 = itemCopy;
         _os_log_impl(&dword_24A0AC000, v48, v49, "Malformed Monthly recurrence coming from Cal framework (need either (byMonthDayDays && byMonthMonths && !byDayDays) OR (!byMonthDayDays && byMonthMonths && byDayDays) OR (!byMonthDayDays && !byMonthMonths && !byDayDays).  Parent is %@", buf, 0xCu);
       }
 
@@ -736,7 +745,7 @@ LABEL_107:
       if (os_log_type_enabled(v35, v36))
       {
         *buf = 138412290;
-        v66 = itemCopy;
+        v65 = itemCopy;
         _os_log_impl(&dword_24A0AC000, v35, v36, "Malformed Monthly recurrence coming from Cal framework (both byMonthDayDays and byDayDays are set).  Parent is %@", buf, 0xCu);
       }
 
@@ -756,28 +765,28 @@ LABEL_107:
     else
     {
       [(ASRecurrence *)self setType:&unk_285D57F30];
-      v64 = -1;
-      v32 = [MEMORY[0x277CCABB0] numberWithInt:{_dayOfWeekFromByDayDaysArray(v25, &v64)}];
+      v63 = -1;
+      v32 = [MEMORY[0x277CCABB0] numberWithInt:{_dayOfWeekFromByDayDaysArray(v25, &v63)}];
       [(ASRecurrence *)self setDayOfWeek:v32];
 
       CFRelease(v25);
-      if (v64 == 5)
+      if (v63 == 5)
       {
         v41 = [MEMORY[0x277CCABB0] numberWithInt:5];
         [(ASRecurrence *)self setWeekOfMonth:v41];
         goto LABEL_77;
       }
 
-      if (v64)
+      if (v63)
       {
-        if (v64 == -2)
+        if (v63 == -2)
         {
           v29 = DALoggingwithCategory();
           v30 = *(MEMORY[0x277D03988] + 3);
           if (os_log_type_enabled(v29, v30))
           {
             *buf = 138412290;
-            v66 = itemCopy;
+            v65 = itemCopy;
             v31 = "Malformed Monthly recurrence coming from Cal framework (byDayDays has multiple weekOfMonths).  Parent is %@";
             goto LABEL_37;
           }
@@ -872,30 +881,13 @@ LABEL_78:
     }
 
     v52 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceReferenceDate:v51];
-    if (!eventsCopy)
-    {
-      goto LABEL_85;
-    }
-
-    parentEvent = [(ASRecurrence *)self parentEvent];
-
-    if (!parentEvent)
-    {
-      goto LABEL_85;
-    }
-
-    parentEvent2 = [(ASRecurrence *)self parentEvent];
-    allDayEvent = [parentEvent2 allDayEvent];
-    intValue = [allDayEvent intValue];
-
-    if (intValue)
+    if (eventsCopy && (-[ASRecurrence parentEvent](self, "parentEvent"), v53 = objc_claimAutoreleasedReturnValue(), v53, v53) && (-[ASRecurrence parentEvent](self, "parentEvent"), v54 = objc_claimAutoreleasedReturnValue(), [v54 allDayEvent], v55 = objc_claimAutoreleasedReturnValue(), v56 = objc_msgSend(v55, "intValue"), v55, v54, v56))
     {
       v57 = [v52 dateByAddingTimeInterval:-86399.0];
     }
 
     else
     {
-LABEL_85:
       v57 = [(ASRecurrence *)self _transformedUntilDateForActiveSync:v52];
     }
 
@@ -956,8 +948,31 @@ LABEL_103:
 
 LABEL_104:
 
-  v62 = *MEMORY[0x277D85DE8];
   return v60;
+}
+
+- (ASRecurrence)initWithCalRecurrence:(void *)recurrence parentEvent:(id)event useFloatingTimeForAllDayEvents:(BOOL)events
+{
+  eventsCopy = events;
+  eventCopy = event;
+  v14.receiver = self;
+  v14.super_class = ASRecurrence;
+  v9 = [(ASItem *)&v14 init];
+  v10 = v9;
+  if (v9)
+  {
+    [(ASRecurrence *)v9 setParentEvent:eventCopy];
+    startDateForCalFramework = [eventCopy startDateForCalFramework];
+    v12 = [(ASRecurrence *)v10 _loadAttributesFromCalRecurrence:recurrence parentStartDate:startDateForCalFramework parentItem:eventCopy useFloatingTimeForAllDayEvents:eventsCopy];
+
+    if (!v12)
+    {
+
+      v10 = 0;
+    }
+  }
+
+  return v10;
 }
 
 - (void)appendActiveSyncDataForTask:(id)task toWBXMLData:(id)data
@@ -1061,11 +1076,11 @@ LABEL_104:
 
 - (ASRecurrence)initWithCoder:(id)coder
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v22.receiver = self;
-  v22.super_class = ASRecurrence;
-  v6 = [(ASItem *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = ASRecurrence;
+  v6 = [(ASItem *)&v21 init];
   if (v6)
   {
     if (([coderCopy allowsKeyedCoding] & 1) == 0)
@@ -1092,9 +1107,9 @@ LABEL_104:
     [(ASRecurrence *)v6 setMonthOfYear:v12];
 
     v13 = MEMORY[0x277CBEB98];
-    v23[0] = objc_opt_class();
-    v23[1] = objc_opt_class();
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+    v22[0] = objc_opt_class();
+    v22[1] = objc_opt_class();
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
     v15 = [v13 setWithArray:v14];
     v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"until"];
     [(ASRecurrence *)v6 setUntil:v16];
@@ -1109,7 +1124,6 @@ LABEL_104:
     [(ASRecurrence *)v6 setCalendarType:v19];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

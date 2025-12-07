@@ -11,7 +11,7 @@
 
 + (BOOL)logUiEvent:(id)event withService:(id)service forCandidateIdentifier:(id)identifier systemStateManager:(id)manager candidatesContainer:(id)container inspections:(id)inspections statisticsManager:(id)statisticsManager historyEventsContainer:(id)self0
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   serviceCopy = service;
   identifierCopy = identifier;
@@ -20,8 +20,8 @@
   inspectionsCopy = inspections;
   statisticsManagerCopy = statisticsManager;
   eventsContainerCopy = eventsContainer;
-  clientIdentifier = [serviceCopy clientIdentifier];
-  LOBYTE(inspections) = [IRAnalyticsManager _isClientAllowedCA:clientIdentifier];
+  v21 = objc_msgSend_clientIdentifier(serviceCopy);
+  LOBYTE(inspections) = [IRAnalyticsManager _isClientAllowedCA:v21];
 
   if (inspections)
   {
@@ -34,16 +34,16 @@
       {
         log = v24;
         serviceIdentifier = [serviceCopy serviceIdentifier];
-        clientIdentifier2 = [serviceCopy clientIdentifier];
+        v37 = objc_msgSend_clientIdentifier(serviceCopy);
         *buf = 138412546;
-        v45 = serviceIdentifier;
-        v46 = 2112;
-        v47 = clientIdentifier2;
+        v44 = serviceIdentifier;
+        v45 = 2112;
+        v46 = v37;
         _os_log_impl(&dword_25543D000, log, OS_LOG_TYPE_DEFAULT, "#analytics, Starting ui event analytics for service: %@, client: %@", buf, 0x16u);
       }
 
       v25 = [v22 uiAnalyticsWithEvent:eventCopy forCandidateIdentifier:identifierCopy systemStateManager:managerCopy candidatesContainer:containerCopy inspections:inspectionsCopy statisticsManager:statisticsManagerCopy service:serviceCopy historyEventsContainer:eventsContainerCopy];
-      [serviceCopy clientIdentifier];
+      objc_msgSend_clientIdentifier(serviceCopy);
       loga = v22;
       v26 = eventsContainerCopy;
       v27 = statisticsManagerCopy;
@@ -69,24 +69,23 @@
     {
       v33 = v32;
       serviceIdentifier2 = [serviceCopy serviceIdentifier];
-      clientIdentifier3 = [serviceCopy clientIdentifier];
+      v35 = objc_msgSend_clientIdentifier(serviceCopy);
       *buf = 138412546;
-      v45 = serviceIdentifier2;
-      v46 = 2112;
-      v47 = clientIdentifier3;
+      v44 = serviceIdentifier2;
+      v45 = 2112;
+      v46 = v35;
       _os_log_impl(&dword_25543D000, v33, OS_LOG_TYPE_DEFAULT, "#analytics, Skipping ui event analytics for service: %@, client: %@", buf, 0x16u);
 
       v23 = 0;
     }
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v23 & 1;
 }
 
 + (void)sendEventLazyForEventIdentifier:(id)identifier clientIdentifier:(id)clientIdentifier analytics:(id)analytics
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   clientIdentifierCopy = clientIdentifier;
   analyticsCopy = analytics;
@@ -94,45 +93,42 @@
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v19 = identifierCopy;
-    v20 = 2112;
-    v21 = clientIdentifierCopy;
-    v22 = 2112;
-    v23 = analyticsCopy;
+    v18 = identifierCopy;
+    v19 = 2112;
+    v20 = clientIdentifierCopy;
+    v21 = 2112;
+    v22 = analyticsCopy;
     _os_log_impl(&dword_25543D000, v10, OS_LOG_TYPE_DEFAULT, "#analytics, [%@]:[%@]: Preparing to submit analytics: %@", buf, 0x20u);
   }
 
-  v15 = identifierCopy;
-  v16 = clientIdentifierCopy;
-  v17 = analyticsCopy;
+  v14 = identifierCopy;
+  v15 = clientIdentifierCopy;
+  v16 = analyticsCopy;
   v11 = analyticsCopy;
   v12 = clientIdentifierCopy;
   v13 = identifierCopy;
   AnalyticsSendEventLazy();
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 id __81__IRAnalyticsManager_sendEventLazyForEventIdentifier_clientIdentifier_analytics___block_invoke(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     v4 = a1[5];
     v5 = a1[6];
-    v9 = 138412802;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_25543D000, v2, OS_LOG_TYPE_DEFAULT, "#analytics, [%@]:[%@]: Submitting analytics: %@", &v9, 0x20u);
+    v8 = 138412802;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_25543D000, v2, OS_LOG_TYPE_DEFAULT, "#analytics, [%@]:[%@]: Submitting analytics: %@", &v8, 0x20u);
   }
 
   v6 = a1[6];
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -187,7 +183,7 @@ id __81__IRAnalyticsManager_sendEventLazyForEventIdentifier_clientIdentifier_ana
 
 void __53__IRAnalyticsManager__handleCoreAnalyticsXPCActivity__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = +[IRPreferences shared];
@@ -227,9 +223,9 @@ void __53__IRAnalyticsManager__handleCoreAnalyticsXPCActivity__block_invoke(uint
           if (os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v29 = v14;
-            v30 = 2112;
-            v31 = v16;
+            v28 = v14;
+            v29 = 2112;
+            v30 = v16;
             _os_log_impl(&dword_25543D000, v21, OS_LOG_TYPE_DEFAULT, "#analytics, Skipping weekly analytics due to mobile asset versioning missmatch: prev: %@, new: %@", buf, 0x16u);
           }
 
@@ -239,14 +235,14 @@ void __53__IRAnalyticsManager__handleCoreAnalyticsXPCActivity__block_invoke(uint
           v17 = 0;
         }
 
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __53__IRAnalyticsManager__handleCoreAnalyticsXPCActivity__block_invoke_51;
-        v24[3] = &unk_2797E0BF0;
-        v25 = v4;
-        v26 = v5;
-        v27 = v17;
-        [v12 enumerateObjectsUsingBlock:v24];
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __53__IRAnalyticsManager__handleCoreAnalyticsXPCActivity__block_invoke_51;
+        v23[3] = &unk_2797E0BF0;
+        v24 = v4;
+        v25 = v5;
+        v26 = v17;
+        [v12 enumerateObjectsUsingBlock:v23];
       }
 
       else
@@ -279,16 +275,14 @@ void __53__IRAnalyticsManager__handleCoreAnalyticsXPCActivity__block_invoke(uint
       _os_log_impl(&dword_25543D000, v18, OS_LOG_TYPE_DEFAULT, "#analytics, Weekly analytics disabled", buf, 2u);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __53__IRAnalyticsManager__handleCoreAnalyticsXPCActivity__block_invoke_51(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = IRCreateServicePackageAdapter([v3 servicePackage]);
-  v5 = [v3 clientIdentifier];
+  v5 = objc_msgSend_clientIdentifier(v3);
   if ([IRAnalyticsManager _isClientAllowedCA:v5])
   {
     v6 = objc_opt_respondsToSelector();
@@ -300,11 +294,11 @@ void __53__IRAnalyticsManager__handleCoreAnalyticsXPCActivity__block_invoke_51(u
       {
         v8 = v7;
         v9 = [v3 serviceIdentifier];
-        v10 = [v3 clientIdentifier];
+        v10 = objc_msgSend_clientIdentifier(v3);
         *buf = 138412546;
-        v29 = v9;
-        v30 = 2112;
-        v31 = v10;
+        v28 = v9;
+        v29 = 2112;
+        v30 = v10;
         _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_DEFAULT, "#analytics, Starting weekly analytics for service: %@, client: %@", buf, 0x16u);
       }
 
@@ -334,7 +328,7 @@ void __53__IRAnalyticsManager__handleCoreAnalyticsXPCActivity__block_invoke_51(u
       if (*(a1 + 48) == 1)
       {
         v25 = [v4 weeklyAnalyticsWithServiceStore:v14 statistics:v18 service:v3];
-        v26 = [v3 clientIdentifier];
+        v26 = objc_msgSend_clientIdentifier(v3);
         [IRAnalyticsManager sendEventLazyForEventIdentifier:@"com.apple.intelligentroutingd.CoreAnalyticsWeekly" clientIdentifier:v26 analytics:v25];
       }
 
@@ -351,17 +345,15 @@ void __53__IRAnalyticsManager__handleCoreAnalyticsXPCActivity__block_invoke_51(u
   {
     v20 = v19;
     v21 = [v3 serviceIdentifier];
-    v22 = [v3 clientIdentifier];
+    v22 = objc_msgSend_clientIdentifier(v3);
     *buf = 138412546;
-    v29 = v21;
-    v30 = 2112;
-    v31 = v22;
+    v28 = v21;
+    v29 = 2112;
+    v30 = v22;
     _os_log_impl(&dword_25543D000, v20, OS_LOG_TYPE_DEFAULT, "#analytics, Skipping weekly analytics for service: %@, client: %@", buf, 0x16u);
   }
 
 LABEL_14:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (IRBackgroundActivitiesManager)backgroundActivitiesManager

@@ -20,8 +20,7 @@
 - (int64_t)syncEngine:(id)engine prepareRecordToSave:(id)save;
 - (int64_t)syncEngine:(id)engine wantsRecord:(id)record;
 - (unint64_t)_lock_writeRecord:(id)record writePartition:(BOOL)partition error:(id *)error;
-- (void)_lock_existingConfigurations;
-- (void)_lock_modeIdentifiers;
+- (unint64_t)writeRecord:(id)record writePartition:(BOOL)partition error:(id *)error;
 - (void)_lock_purgeData;
 - (void)_lock_purgeRecordIDs:(id)ds;
 - (void)_lock_removeModeConfigurationWithCKRecordID:(id)d;
@@ -36,7 +35,6 @@
 - (void)idsSyncEngine:(id)engine didFetchRecord:(id)record;
 - (void)idsSyncEngine:(id)engine prepareRecordToSave:(id)save;
 - (void)idsSyncEngine:(id)engine recordWithIDWasDeleted:(id)deleted;
-- (void)monitoredContacts;
 - (void)purgeRecordsForIDSSyncEngine:(id)engine;
 - (void)syncEngine:(id)engine didFetchRecord:(id)record;
 - (void)syncEngine:(id)engine failedToDeleteRecordWithID:(id)d error:(id)error;
@@ -89,6 +87,18 @@
   os_unfair_lock_unlock(&self->_lock);
 
   return v5;
+}
+
+- (unint64_t)writeRecord:(id)record writePartition:(BOOL)partition error:(id *)error
+{
+  partitionCopy = partition;
+  recordCopy = record;
+  os_unfair_lock_lock(&self->_lock);
+  v9 = [(DNDSModeConfigurationsStore *)self _lock_writeRecord:recordCopy writePartition:partitionCopy error:error];
+
+  os_unfair_lock_unlock(&self->_lock);
+  [(DNDSModeConfigurationsStore *)self _notifyDelegateOfAvailableModes];
+  return v9;
 }
 
 - (id)backingStore:(id)store migrateDictionaryRepresentation:(id)representation fromVersionNumber:(unint64_t)number toVersionNumber:(unint64_t)versionNumber
@@ -172,7 +182,7 @@
 - (BOOL)_lock_mergeLocalConfigurationRecord:(id)record withRemoteConfigurationRecord:(id)configurationRecord modeIdentifier:(id)identifier sourceDeviceIdentifier:(id)deviceIdentifier sourceFrameworkVersion:(id *)version sourceIsCloud:(BOOL)cloud sourceWantsToForce:(BOOL)force deleteModeOnCorruption:(BOOL)self0
 {
   cloudCopy = cloud;
-  v141 = *MEMORY[0x277D85DE8];
+  v138 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   configurationRecordCopy = configurationRecord;
   identifierCopy = identifier;
@@ -180,8 +190,8 @@
   v20 = deviceIdentifierCopy;
   if (configurationRecordCopy)
   {
-    v122 = cloudCopy;
-    v123 = deviceIdentifierCopy;
+    v121 = cloudCopy;
+    v122 = deviceIdentifierCopy;
     v21 = [MEMORY[0x277D05990] modeConfigurationForRecord:configurationRecordCopy];
     v22 = [MEMORY[0x277D05990] modeConfigurationForRecord:recordCopy];
     [v22 log:DNDSLogModeConfigurations withMessage:@"Local configuration"];
@@ -217,8 +227,8 @@
       v38 = v21;
     }
 
-    v120 = recordCopy;
-    v121 = v38;
+    v119 = recordCopy;
+    v120 = v38;
     if (!force)
     {
       if (v38 == v21)
@@ -231,30 +241,30 @@
 
     if (v21)
     {
-      [v21 lastModifiedByVersion];
+      objc_msgSend_lastModifiedByVersion(v21);
     }
 
     if (v22)
     {
-      [v22 lastModifiedByVersion];
+      objc_msgSend_lastModifiedByVersion(v22);
     }
 
-    v126 = 0uLL;
+    v123 = 0uLL;
     v39 = +[DNDSDevice currentDevice];
     v40 = v39;
     if (v39)
     {
-      [v39 frameworkVersion];
+      objc_msgSend_frameworkVersion(v39);
     }
 
     else
     {
-      v126 = 0uLL;
+      v123 = 0uLL;
     }
 
     v57 = DNDSLogModeConfigurations;
     v58 = os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT);
-    if (v121 == v21)
+    if (v120 == v21)
     {
       if (v58)
       {
@@ -264,7 +274,7 @@
         DNDStringFromOperatingSystemVersion();
         loga = identifierCopy;
         v68 = v67 = self;
-        *buf = v126;
+        *buf = v123;
         *&buf[16] = 0;
         v69 = DNDStringFromOperatingSystemVersion();
         memset(buf, 0, sizeof(buf));
@@ -272,15 +282,15 @@
         memset(buf, 0, sizeof(buf));
         v71 = DNDStringFromOperatingSystemVersion();
         *buf = 138413314;
-        *&buf[4] = v123;
+        *&buf[4] = v122;
         *&buf[12] = 2114;
         *&buf[14] = v68;
         *&buf[22] = 2114;
-        v136 = v69;
-        v137 = 2114;
-        v138 = v70;
-        v139 = 2114;
-        v140 = v71;
+        v133 = v69;
+        v134 = 2114;
+        v135 = v70;
+        v136 = 2114;
+        v137 = v71;
         _os_log_impl(&dword_24912E000, v66, OS_LOG_TYPE_DEFAULT, "Remote device is forcing a write that we agree with. device: %@; sourceFrameworkVersion: %{public}@; currentFrameworkVersion: %{public}@; remoteRecordVersion: %{public}@; localRecordVersion: %{public}@;", buf, 0x34u);
 
         self = v67;
@@ -295,38 +305,36 @@
         *buf = *&version->var0;
         *&buf[16] = version->var2;
         log = v57;
-        v113 = DNDStringFromOperatingSystemVersion();
-        *buf = v126;
-        *&buf[16] = 0;
         v112 = DNDStringFromOperatingSystemVersion();
+        *buf = v123;
+        *&buf[16] = 0;
+        v111 = DNDStringFromOperatingSystemVersion();
         memset(buf, 0, sizeof(buf));
         v59 = DNDStringFromOperatingSystemVersion();
         memset(buf, 0, sizeof(buf));
         DNDStringFromOperatingSystemVersion();
-        v118 = configurationRecordCopy;
+        v117 = configurationRecordCopy;
         v60 = identifierCopy;
         v62 = v61 = self;
         *buf = 138413314;
-        *&buf[4] = v123;
+        *&buf[4] = v122;
         *&buf[12] = 2114;
-        *&buf[14] = v113;
+        *&buf[14] = v112;
         *&buf[22] = 2114;
-        v136 = v112;
-        v137 = 2114;
-        v138 = v59;
-        v139 = 2114;
-        v140 = v62;
+        v133 = v111;
+        v134 = 2114;
+        v135 = v59;
+        v136 = 2114;
+        v137 = v62;
         _os_log_impl(&dword_24912E000, log, OS_LOG_TYPE_DEFAULT, "Remote device is forcing a write that we disagree with. device: %@; sourceFrameworkVersion: %{public}@; currentFrameworkVersion: %{public}@; remoteRecordVersion: %{public}@; localRecordVersion: %{public}@;", buf, 0x34u);
 
         self = v61;
         identifierCopy = v60;
-        configurationRecordCopy = v118;
+        configurationRecordCopy = v117;
       }
 
-      *buf = v126;
+      *buf = v123;
       *&buf[16] = 0;
-      v124 = *&version->var0;
-      var2 = version->var2;
       v63 = DNDOperatingSystemVersionCompare();
       if (v63)
       {
@@ -376,7 +384,7 @@ LABEL_28:
             if (rawResolvedCompatibilityVersion > v46)
             {
 LABEL_37:
-              if (v122)
+              if (v121)
               {
                 v50 = [objc_alloc(MEMORY[0x277CBC5E8]) initWithZoneName:@"DNDSModeConfigurations"];
                 v51 = objc_alloc(MEMORY[0x277CBC5D0]);
@@ -385,8 +393,8 @@ LABEL_37:
 
                 [(NSMutableSet *)selfCopy->_ckRecordIDsToForceSave addObject:v53];
                 syncEngine = selfCopy->_syncEngine;
-                v130 = v53;
-                v55 = [MEMORY[0x277CBEA60] arrayWithObjects:&v130 count:1];
+                v127 = v53;
+                v55 = [MEMORY[0x277CBEA60] arrayWithObjects:&v127 count:1];
                 [(DNDSSyncEngine *)syncEngine addRecordIDsToSave:v55 recordIDsToDelete:0];
               }
 
@@ -395,8 +403,8 @@ LABEL_37:
                 v50 = [[DNDSIDSRecordID alloc] initWithIdentifier:identifierCopy zone:@"DNDSModeConfigurations"];
                 [(NSMutableSet *)selfCopy->_idsRecordIDsToForceSave addObject:v50];
                 idsSyncEngine = selfCopy->_idsSyncEngine;
-                v129 = v50;
-                v53 = [MEMORY[0x277CBEA60] arrayWithObjects:&v129 count:1];
+                v126 = v50;
+                v53 = [MEMORY[0x277CBEA60] arrayWithObjects:&v126 count:1];
                 [(DNDSIDSSyncEngine *)idsSyncEngine addRecordIDsToSave:v53 recordIDsToDelete:0];
               }
 
@@ -413,7 +421,7 @@ LABEL_37:
               *&buf[12] = 2114;
               *&buf[14] = lastModifiedByDeviceID;
               *&buf[22] = 2114;
-              v136 = lastModified;
+              v133 = lastModified;
               _os_log_error_impl(&dword_24912E000, v47, OS_LOG_TYPE_ERROR, "Remote configuration is from a device that doesn't agree with this resolution. Bumping lastModified from %{public}@ to %{public}@ to overcome remote lastModified of %{public}@ and resyncing.", buf, 0x20u);
             }
 
@@ -432,7 +440,7 @@ LABEL_37:
       selfCopy2 = self;
       v96 = +[DNDSDevice currentDevice];
       identifier = [v96 identifier];
-      v98 = [identifier compare:v123 options:769];
+      v98 = [identifier compare:v122 options:769];
 
       if (v98 == 1)
       {
@@ -521,9 +529,9 @@ LABEL_52:
         *&buf[12] = 2114;
         *&buf[14] = v79;
         *&buf[22] = 2114;
-        v136 = v81;
-        v137 = 2114;
-        v138 = lastModifiedByDeviceID2;
+        v133 = v81;
+        v134 = 2114;
+        v135 = lastModifiedByDeviceID2;
         _os_log_impl(&dword_24912E000, v77, OS_LOG_TYPE_DEFAULT, "Remote configuration is from a device that has a different version resolution. Updating resolvedCompatibilityVersion from %{public}@ to %{public}@ and bumping lastModified from %{public}@ to %{public}@ and resyncing.", buf, 0x2Au);
 
         self = v80;
@@ -534,9 +542,9 @@ LABEL_52:
       makeRecord2 = [v82 makeRecord];
       [(DNDSModeConfigurationsStore *)self _lock_updateModeConfigurationWithConfiguration:makeRecord2];
 
-      if (v122)
+      if (v121)
       {
-        v119 = v82;
+        v118 = v82;
         v84 = configurationRecordCopy;
         v85 = identifierCopy;
         selfCopy3 = self;
@@ -549,9 +557,9 @@ LABEL_52:
         logb = &selfCopy3->_syncEngine->super;
         identifierCopy = v85;
         configurationRecordCopy = v84;
-        v82 = v119;
-        v134 = v90;
-        v92 = [MEMORY[0x277CBEA60] arrayWithObjects:&v134 count:1];
+        v82 = v118;
+        v131 = v90;
+        v92 = [MEMORY[0x277CBEA60] arrayWithObjects:&v131 count:1];
         [logb addRecordIDsToSave:v92 recordIDsToDelete:0];
       }
 
@@ -563,8 +571,8 @@ LABEL_52:
         v87 = v101;
         v91 = selfCopy4;
         v103 = selfCopy4->_idsSyncEngine;
-        v133 = v101;
-        v90 = [MEMORY[0x277CBEA60] arrayWithObjects:&v133 count:1];
+        v130 = v101;
+        v90 = [MEMORY[0x277CBEA60] arrayWithObjects:&v130 count:1];
         [(DNDSIDSSyncEngine *)v103 addRecordIDsToSave:v90 recordIDsToDelete:0];
       }
 
@@ -572,13 +580,13 @@ LABEL_52:
     }
 
 LABEL_70:
-    if (v122)
+    if (v121)
     {
       lastModified = [[DNDSIDSRecordID alloc] initWithIdentifier:identifierCopy zone:@"DNDSModeConfigurations"];
       v104 = self->_idsSyncEngine;
-      v132 = lastModified;
+      v129 = lastModified;
       v25 = 1;
-      lastModified2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v132 count:1];
+      lastModified2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v129 count:1];
       [(DNDSIDSSyncEngine *)v104 addRecordIDsToSave:lastModified2 recordIDsToDelete:0];
     }
 
@@ -591,17 +599,17 @@ LABEL_70:
       lastModified2 = [v105 initWithRecordName:identifierCopy zoneID:v107];
 
       v108 = v106->_syncEngine;
-      v131 = lastModified2;
+      v128 = lastModified2;
       v25 = 1;
-      v109 = [MEMORY[0x277CBEA60] arrayWithObjects:&v131 count:1];
+      v109 = [MEMORY[0x277CBEA60] arrayWithObjects:&v128 count:1];
       [(DNDSSyncEngine *)v108 addRecordIDsToSave:v109 recordIDsToDelete:0];
     }
 
 LABEL_73:
 
-    recordCopy = v120;
+    recordCopy = v119;
 LABEL_74:
-    v20 = v123;
+    v20 = v122;
     goto LABEL_75;
   }
 
@@ -621,14 +629,14 @@ LABEL_74:
     v32 = [v30 initWithRecordName:identifierCopy zoneID:zoneID3];
 
     v33 = self->_syncEngine;
-    v128 = v32;
-    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v128 count:1];
+    v125 = v32;
+    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v125 count:1];
     [(DNDSSyncEngine *)v33 addRecordIDsToSave:0 recordIDsToDelete:v34];
 
     v35 = self->_idsSyncEngine;
     v36 = [[DNDSIDSRecordID alloc] initWithIdentifier:identifierCopy zone:@"DNDSModeConfigurations"];
-    v127 = v36;
-    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v127 count:1];
+    v124 = v36;
+    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v124 count:1];
     [(DNDSIDSSyncEngine *)v35 addRecordIDsToSave:0 recordIDsToDelete:v37];
 
     v25 = recordCopy != 0;
@@ -653,14 +661,13 @@ LABEL_74:
 
 LABEL_75:
 
-  v110 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 - (BOOL)_lock_mergeLocalConfigurationRecord:(id)record withRemoteCKRecord:(id)kRecord deleteModeOnCorruption:(BOOL)corruption
 {
-  HIDWORD(v35) = corruption;
-  v43 = *MEMORY[0x277D85DE8];
+  HIDWORD(v34) = corruption;
+  v42 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   kRecordCopy = kRecord;
   recordID = [kRecordCopy recordID];
@@ -676,8 +683,8 @@ LABEL_75:
   encryptedValues3 = [kRecordCopy encryptedValues];
   v16 = [encryptedValues3 objectForKey:@"DNDSModeConfigurationsSourceFrameworkVersion"];
 
-  v37 = 0uLL;
-  v38 = 0;
+  v36 = 0uLL;
+  v37 = 0;
   DNDOperatingSystemVersionFromString();
   encryptedValues4 = [kRecordCopy encryptedValues];
   v18 = [encryptedValues4 objectForKey:@"DNDSModeConfigurationsLastModified"];
@@ -699,9 +706,9 @@ LABEL_75:
       *&buf[12] = 2112;
       *&buf[14] = v14;
       *&buf[22] = 2112;
-      v40 = v16;
-      v41 = 2114;
-      v42 = v21;
+      v39 = v16;
+      v40 = 2114;
+      v41 = v21;
       v22 = "Fetched record with ID: %{public}@ from device %@ / %@ (force: %{public}@).";
       v23 = v19;
       v24 = 42;
@@ -741,8 +748,8 @@ LABEL_8:
   {
 LABEL_13:
 
-    v37 = *MEMORY[0x277D05858];
-    v38 = *(MEMORY[0x277D05858] + 16);
+    v36 = *MEMORY[0x277D05858];
+    v37 = *(MEMORY[0x277D05858] + 16);
     v31 = DNDSLogModeConfigurations;
     if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
     {
@@ -754,13 +761,12 @@ LABEL_13:
     LOBYTE(bOOLValue) = 0;
   }
 
-  *buf = v37;
-  *&buf[16] = v38;
-  BYTE1(v35) = BYTE4(v35);
-  LOBYTE(v35) = bOOLValue;
-  v32 = [(DNDSModeConfigurationsStore *)self _lock_mergeLocalConfigurationRecord:recordCopy withRemoteConfigurationRecord:v26 modeIdentifier:recordName sourceDeviceIdentifier:v14 sourceFrameworkVersion:buf sourceIsCloud:1 sourceWantsToForce:v35 deleteModeOnCorruption:?];
+  *buf = v36;
+  *&buf[16] = v37;
+  BYTE1(v34) = BYTE4(v34);
+  LOBYTE(v34) = bOOLValue;
+  v32 = [(DNDSModeConfigurationsStore *)self _lock_mergeLocalConfigurationRecord:recordCopy withRemoteConfigurationRecord:v26 modeIdentifier:recordName sourceDeviceIdentifier:v14 sourceFrameworkVersion:buf sourceIsCloud:1 sourceWantsToForce:v34 deleteModeOnCorruption:?];
 
-  v33 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
@@ -794,7 +800,7 @@ LABEL_13:
 
 - (void)syncEngine:(id)engine resolveConflictBetweenClientRecord:(id)record andServerRecord:(id)serverRecord
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   serverRecordCopy = serverRecord;
   recordCopy = record;
   recordID = [serverRecordCopy recordID];
@@ -804,9 +810,9 @@ LABEL_13:
   v11 = DNDSLogModeConfigurations;
   if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138543362;
-    v18 = recordName;
-    _os_log_impl(&dword_24912E000, v11, OS_LOG_TYPE_DEFAULT, "Encountered conflict while saving configuration: %{public}@", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = recordName;
+    _os_log_impl(&dword_24912E000, v11, OS_LOG_TYPE_DEFAULT, "Encountered conflict while saving configuration: %{public}@", &v16, 0xCu);
   }
 
   v12 = [(DNDSModeConfigurationsStore *)self _lock_modeConfigurationForModeIdentifier:recordName];
@@ -817,8 +823,8 @@ LABEL_13:
     v14 = DNDSLogModeConfigurations;
     if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_24912E000, v14, OS_LOG_TYPE_DEFAULT, "Server version of the record from this device is out of date.", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_24912E000, v14, OS_LOG_TYPE_DEFAULT, "Server version of the record from this device is out of date.", &v16, 2u);
     }
   }
 
@@ -828,13 +834,11 @@ LABEL_13:
   {
     [(DNDSModeConfigurationsStore *)self _notifyDelegateOfAvailableModes];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)syncEngine:(id)engine prepareRecordToSave:(id)save
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   saveCopy = save;
   engineCopy = engine;
   recordID = [saveCopy recordID];
@@ -843,9 +847,9 @@ LABEL_13:
   v10 = DNDSLogModeConfigurations;
   if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v30) = 138543362;
-    *(&v30 + 4) = recordName;
-    _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Preparing to save record %{public}@", &v30, 0xCu);
+    LODWORD(v29) = 138543362;
+    *(&v29 + 4) = recordName;
+    _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Preparing to save record %{public}@", &v29, 0xCu);
   }
 
   recordID2 = [saveCopy recordID];
@@ -870,13 +874,13 @@ LABEL_13:
   v23 = v22;
   if (v22)
   {
-    [v22 frameworkVersion];
+    objc_msgSend_frameworkVersion(v22);
   }
 
   else
   {
-    v30 = 0uLL;
-    v31 = 0;
+    v29 = 0uLL;
+    v30 = 0;
   }
 
   v24 = DNDStringFromOperatingSystemVersion();
@@ -888,20 +892,19 @@ LABEL_13:
   [encryptedValues3 setObject:identifier forKey:@"DNDSModeConfigurationsSourceDeviceIdentifier"];
 
   os_unfair_lock_unlock(&self->_lock);
-  v28 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (void)syncEngine:(id)engine recordWithIDWasDeleted:(id)deleted
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   deletedCopy = deleted;
   recordName = [deletedCopy recordName];
   v7 = DNDSLogModeConfigurations;
   if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v14 = recordName;
+    v13 = recordName;
     _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Server removed record %{public}@", buf, 0xCu);
   }
 
@@ -910,14 +913,12 @@ LABEL_13:
 
   v8 = [[DNDSIDSRecordID alloc] initWithIdentifier:recordName zone:@"DNDSModeConfigurations"];
   idsSyncEngine = self->_idsSyncEngine;
-  v12 = v8;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v11 = v8;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
   [(DNDSIDSSyncEngine *)idsSyncEngine addRecordIDsToSave:0 recordIDsToDelete:v10];
 
   os_unfair_lock_unlock(&self->_lock);
   [(DNDSModeConfigurationsStore *)self _notifyDelegateOfAvailableModes];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncEngine:(id)engine zoneWithIDWasDeleted:(id)deleted removingRecordIDs:(id)ds
@@ -935,39 +936,39 @@ LABEL_13:
 
 - (id)recordIDsForSyncEngine:(id)engine
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   os_unfair_lock_lock(&self->_lock);
   _lock_modeIdentifiers = [(DNDSModeConfigurationsStore *)self _lock_modeIdentifiers];
   os_unfair_lock_unlock(&self->_lock);
   v6 = [objc_alloc(MEMORY[0x277CBC5E8]) initWithZoneName:@"DNDSModeConfigurations"];
   zoneID = [v6 zoneID];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v8 = _lock_modeIdentifiers;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         v14 = objc_alloc(MEMORY[0x277CBC5D0]);
-        v15 = [v14 initWithRecordName:v13 zoneID:{zoneID, v21}];
+        v15 = [v14 initWithRecordName:v13 zoneID:{zoneID, v20}];
         [array addObject:v15];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v10);
@@ -979,18 +980,16 @@ LABEL_13:
     v17 = v16;
     v18 = [array count];
     *buf = 134349056;
-    v26 = v18;
+    v25 = v18;
     _os_log_impl(&dword_24912E000, v17, OS_LOG_TYPE_DEFAULT, "Fetched %{public}llu record IDs for the sync engine", buf, 0xCu);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (void)idsSyncEngine:(id)engine prepareRecordToSave:(id)save
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   saveCopy = save;
   recordID = [saveCopy recordID];
   identifier = [recordID identifier];
@@ -998,9 +997,9 @@ LABEL_13:
   v8 = DNDSLogModeConfigurations;
   if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v21) = 138543362;
-    *(&v21 + 4) = identifier;
-    _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, "Preparing to save record for IDS sync engine: %{public}@", &v21, 0xCu);
+    LODWORD(v20) = 138543362;
+    *(&v20 + 4) = identifier;
+    _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, "Preparing to save record for IDS sync engine: %{public}@", &v20, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -1020,13 +1019,13 @@ LABEL_13:
   v16 = v15;
   if (v15)
   {
-    [v15 frameworkVersion];
+    objc_msgSend_frameworkVersion(v15);
   }
 
   else
   {
-    v21 = 0uLL;
-    v22 = 0;
+    v20 = 0uLL;
+    v21 = 0;
   }
 
   v17 = DNDStringFromOperatingSystemVersion();
@@ -1037,12 +1036,11 @@ LABEL_13:
   [saveCopy setObject:identifier2 forKey:@"DNDSModeConfigurationsSourceDeviceIdentifier"];
 
   os_unfair_lock_unlock(&self->_lock);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)idsSyncEngine:(id)engine didFetchRecord:(id)record
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   recordID = [recordCopy recordID];
   identifier = [recordID identifier];
@@ -1062,8 +1060,8 @@ LABEL_13:
   bOOLValue = [v11 BOOLValue];
   v13 = [recordCopy objectForKey:@"DNDSModeConfigurationsSourceDeviceIdentifier"];
   v14 = [recordCopy objectForKey:@"DNDSModeConfigurationsSourceFrameworkVersion"];
-  v26 = 0uLL;
-  v27 = 0;
+  v25 = 0uLL;
+  v26 = 0;
   DNDOperatingSystemVersionFromString();
   v15 = [recordCopy objectForKey:@"DNDSModeConfigurationsLastModified"];
 
@@ -1084,24 +1082,24 @@ LABEL_13:
 
   if (v19 <= 1.0)
   {
-    v23 = DNDSLogModeConfigurations;
+    v22 = DNDSLogModeConfigurations;
     if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = @"NO";
+      v23 = @"NO";
       *buf = 138544130;
       *&buf[4] = identifier;
       if (bOOLValue)
       {
-        v24 = @"YES";
+        v23 = @"YES";
       }
 
       *&buf[12] = 2112;
       *&buf[14] = v13;
       *&buf[22] = 2112;
-      v29 = v14;
-      v30 = 2114;
-      v31 = v24;
-      _os_log_impl(&dword_24912E000, v23, OS_LOG_TYPE_DEFAULT, "Fetched record with ID: %{public}@ from device %@ / %@ (force: %{public}@).", buf, 0x2Au);
+      v28 = v14;
+      v29 = 2114;
+      v30 = v23;
+      _os_log_impl(&dword_24912E000, v22, OS_LOG_TYPE_DEFAULT, "Fetched record with ID: %{public}@ from device %@ / %@ (force: %{public}@).", buf, 0x2Au);
     }
   }
 
@@ -1109,8 +1107,8 @@ LABEL_13:
   {
 LABEL_7:
 
-    v26 = *MEMORY[0x277D05858];
-    v27 = *(MEMORY[0x277D05858] + 16);
+    v25 = *MEMORY[0x277D05858];
+    v26 = *(MEMORY[0x277D05858] + 16);
     v20 = DNDSLogModeConfigurations;
     if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
     {
@@ -1123,29 +1121,27 @@ LABEL_7:
     LOBYTE(bOOLValue) = 0;
   }
 
-  *buf = v26;
-  *&buf[16] = v27;
-  BYTE1(v25) = 1;
-  LOBYTE(v25) = bOOLValue;
-  v21 = [(DNDSModeConfigurationsStore *)self _lock_mergeLocalConfigurationRecord:v9 withRemoteConfigurationRecord:v10 modeIdentifier:identifier sourceDeviceIdentifier:v13 sourceFrameworkVersion:buf sourceIsCloud:0 sourceWantsToForce:v25 deleteModeOnCorruption:?];
+  *buf = v25;
+  *&buf[16] = v26;
+  BYTE1(v24) = 1;
+  LOBYTE(v24) = bOOLValue;
+  v21 = [(DNDSModeConfigurationsStore *)self _lock_mergeLocalConfigurationRecord:v9 withRemoteConfigurationRecord:v10 modeIdentifier:identifier sourceDeviceIdentifier:v13 sourceFrameworkVersion:buf sourceIsCloud:0 sourceWantsToForce:v24 deleteModeOnCorruption:?];
   os_unfair_lock_unlock(&self->_lock);
   if (v21)
   {
     [(DNDSModeConfigurationsStore *)self _notifyDelegateOfAvailableModes];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)idsSyncEngine:(id)engine recordWithIDWasDeleted:(id)deleted
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifier = [deleted identifier];
   v6 = DNDSLogModeConfigurations;
   if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v15 = identifier;
+    v14 = identifier;
     _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "IDS sync engine removed record %{public}@", buf, 0xCu);
   }
 
@@ -1155,14 +1151,12 @@ LABEL_7:
   zoneID = [v7 zoneID];
   v9 = [objc_alloc(MEMORY[0x277CBC5D0]) initWithRecordName:identifier zoneID:zoneID];
   syncEngine = self->_syncEngine;
-  v13 = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+  v12 = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
   [(DNDSSyncEngine *)syncEngine addRecordIDsToSave:0 recordIDsToDelete:v11];
 
   os_unfair_lock_unlock(&self->_lock);
   [(DNDSModeConfigurationsStore *)self _notifyDelegateOfAvailableModes];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)recordIDsForIDSSyncEngine:(id)engine
@@ -1215,13 +1209,13 @@ LABEL_7:
 
 - (NSSet)monitoredContacts
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
   os_unfair_lock_lock(&self->_lock);
   backingStore = self->_backingStore;
-  v47 = 0;
-  v5 = [(DNDSBackingStore *)backingStore readRecordWithError:&v47];
-  v6 = v47;
+  v46 = 0;
+  v5 = [(DNDSBackingStore *)backingStore readRecordWithError:&v46];
+  v6 = v46;
   if (v6)
   {
     if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_ERROR))
@@ -1232,56 +1226,56 @@ LABEL_7:
 
   else
   {
-    v31 = v5;
+    v30 = v5;
     selfCopy = self;
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     obj = [v5 modeConfigurations];
-    v7 = [obj countByEnumeratingWithState:&v43 objects:v50 count:16];
+    v7 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
     if (v7)
     {
       v8 = v7;
-      v34 = *v44;
+      v33 = *v43;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v44 != v34)
+          if (*v43 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v43 + 1) + 8 * i);
+          v10 = *(*(&v42 + 1) + 8 * i);
           secureConfiguration = [v10 secureConfiguration];
           senderConfiguration = [secureConfiguration senderConfiguration];
           allowedContacts = [senderConfiguration allowedContacts];
 
-          v41 = 0u;
-          v42 = 0u;
-          v39 = 0u;
           v40 = 0u;
+          v41 = 0u;
+          v38 = 0u;
+          v39 = 0u;
           v14 = allowedContacts;
-          v15 = [v14 countByEnumeratingWithState:&v39 objects:v49 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v38 objects:v48 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v40;
+            v17 = *v39;
             do
             {
               for (j = 0; j != v16; ++j)
               {
-                if (*v40 != v17)
+                if (*v39 != v17)
                 {
                   objc_enumerationMutation(v14);
                 }
 
-                v19 = [MEMORY[0x277D058F0] contactForRecord:*(*(&v39 + 1) + 8 * j)];
+                v19 = [MEMORY[0x277D058F0] contactForRecord:*(*(&v38 + 1) + 8 * j)];
                 [v3 addObject:v19];
               }
 
-              v16 = [v14 countByEnumeratingWithState:&v39 objects:v49 count:16];
+              v16 = [v14 countByEnumeratingWithState:&v38 objects:v48 count:16];
             }
 
             while (v16);
@@ -1291,57 +1285,55 @@ LABEL_7:
           senderConfiguration2 = [secureConfiguration2 senderConfiguration];
           deniedContacts = [senderConfiguration2 deniedContacts];
 
-          v37 = 0u;
-          v38 = 0u;
-          v35 = 0u;
           v36 = 0u;
+          v37 = 0u;
+          v34 = 0u;
+          v35 = 0u;
           v23 = deniedContacts;
-          v24 = [v23 countByEnumeratingWithState:&v35 objects:v48 count:16];
+          v24 = [v23 countByEnumeratingWithState:&v34 objects:v47 count:16];
           if (v24)
           {
             v25 = v24;
-            v26 = *v36;
+            v26 = *v35;
             do
             {
               for (k = 0; k != v25; ++k)
               {
-                if (*v36 != v26)
+                if (*v35 != v26)
                 {
                   objc_enumerationMutation(v23);
                 }
 
-                v28 = [MEMORY[0x277D058F0] contactForRecord:*(*(&v35 + 1) + 8 * k)];
+                v28 = [MEMORY[0x277D058F0] contactForRecord:*(*(&v34 + 1) + 8 * k)];
                 [v3 addObject:v28];
               }
 
-              v25 = [v23 countByEnumeratingWithState:&v35 objects:v48 count:16];
+              v25 = [v23 countByEnumeratingWithState:&v34 objects:v47 count:16];
             }
 
             while (v25);
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v43 objects:v50 count:16];
+        v8 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
       }
 
       while (v8);
     }
 
-    v5 = v31;
+    v5 = v30;
     self = selfCopy;
     v6 = 0;
   }
 
   os_unfair_lock_unlock(&self->_lock);
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (void)contactMonitor:(id)monitor didReceiveUpdatedContactsForContactsWithoutIdentifiers:(id)identifiers
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   if ([identifiersCopy count])
   {
@@ -1350,72 +1342,72 @@ LABEL_7:
     if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138477827;
-      v77 = identifiersCopy;
+      v76 = identifiersCopy;
       _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "Received updated identifierless contacts: %{private}@", buf, 0xCu);
     }
 
     _lock_mutableExistingConfigurations = [(DNDSModeConfigurationsStore *)self _lock_mutableExistingConfigurations];
     [_lock_mutableExistingConfigurations modeConfigurations];
+    v68 = 0u;
     v69 = 0u;
     v70 = 0u;
-    v71 = 0u;
-    obj = v72 = 0u;
-    v52 = [obj countByEnumeratingWithState:&v69 objects:v75 count:16];
-    if (!v52)
+    obj = v71 = 0u;
+    v51 = [obj countByEnumeratingWithState:&v68 objects:v74 count:16];
+    if (!v51)
     {
       goto LABEL_37;
     }
 
     selfCopy = self;
-    v48 = 0;
-    v51 = *v70;
+    v47 = 0;
+    v50 = *v69;
     do
     {
       v7 = 0;
       do
       {
-        if (*v70 != v51)
+        if (*v69 != v50)
         {
           objc_enumerationMutation(obj);
         }
 
-        v56 = v7;
-        v8 = *(*(&v69 + 1) + 8 * v7);
-        v55 = [v8 mutableCopy];
-        secureConfiguration = [v55 secureConfiguration];
+        v55 = v7;
+        v8 = *(*(&v68 + 1) + 8 * v7);
+        v54 = [v8 mutableCopy];
+        secureConfiguration = [v54 secureConfiguration];
         v10 = [secureConfiguration mutableCopy];
 
-        v54 = v10;
+        v53 = v10;
         senderConfiguration = [v10 senderConfiguration];
-        v53 = [senderConfiguration mutableCopy];
+        v52 = [senderConfiguration mutableCopy];
 
         v12 = [MEMORY[0x277CBEB58] set];
-        v57 = v8;
+        v56 = v8;
         secureConfiguration2 = [v8 secureConfiguration];
         senderConfiguration2 = [secureConfiguration2 senderConfiguration];
         allowedContacts = [senderConfiguration2 allowedContacts];
 
-        v67 = 0u;
-        v68 = 0u;
-        v65 = 0u;
         v66 = 0u;
-        v60 = allowedContacts;
-        v16 = [v60 countByEnumeratingWithState:&v65 objects:v74 count:16];
+        v67 = 0u;
+        v64 = 0u;
+        v65 = 0u;
+        v59 = allowedContacts;
+        v16 = [v59 countByEnumeratingWithState:&v64 objects:v73 count:16];
         if (v16)
         {
           v17 = v16;
           v18 = 0;
-          v19 = *v66;
+          v19 = *v65;
           do
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v66 != v19)
+              if (*v65 != v19)
               {
-                objc_enumerationMutation(v60);
+                objc_enumerationMutation(v59);
               }
 
-              v21 = *(*(&v65 + 1) + 8 * i);
+              v21 = *(*(&v64 + 1) + 8 * i);
               v22 = [MEMORY[0x277D058F0] contactForRecord:v21];
               v23 = [identifiersCopy objectForKeyedSubscript:v22];
               v24 = v23;
@@ -1430,7 +1422,7 @@ LABEL_7:
               [v12 addObject:v21];
             }
 
-            v17 = [v60 countByEnumeratingWithState:&v65 objects:v74 count:16];
+            v17 = [v59 countByEnumeratingWithState:&v64 objects:v73 count:16];
           }
 
           while (v17);
@@ -1441,33 +1433,33 @@ LABEL_7:
           v18 = 0;
         }
 
-        v58 = v12;
+        v57 = v12;
 
         v26 = [MEMORY[0x277CBEB58] set];
-        secureConfiguration3 = [v57 secureConfiguration];
+        secureConfiguration3 = [v56 secureConfiguration];
         senderConfiguration3 = [secureConfiguration3 senderConfiguration];
         deniedContacts = [senderConfiguration3 deniedContacts];
 
-        v63 = 0u;
-        v64 = 0u;
-        v61 = 0u;
         v62 = 0u;
-        v59 = deniedContacts;
-        v30 = [v59 countByEnumeratingWithState:&v61 objects:v73 count:16];
+        v63 = 0u;
+        v60 = 0u;
+        v61 = 0u;
+        v58 = deniedContacts;
+        v30 = [v58 countByEnumeratingWithState:&v60 objects:v72 count:16];
         if (v30)
         {
           v31 = v30;
-          v32 = *v62;
+          v32 = *v61;
           do
           {
             for (j = 0; j != v31; ++j)
             {
-              if (*v62 != v32)
+              if (*v61 != v32)
               {
-                objc_enumerationMutation(v59);
+                objc_enumerationMutation(v58);
               }
 
-              v34 = *(*(&v61 + 1) + 8 * j);
+              v34 = *(*(&v60 + 1) + 8 * j);
               v35 = [MEMORY[0x277D058F0] contactForRecord:v34];
               v36 = [identifiersCopy objectForKeyedSubscript:v35];
               v37 = v36;
@@ -1482,7 +1474,7 @@ LABEL_7:
               [v26 addObject:v34];
             }
 
-            v31 = [v59 countByEnumeratingWithState:&v61 objects:v73 count:16];
+            v31 = [v58 countByEnumeratingWithState:&v60 objects:v72 count:16];
           }
 
           while (v31);
@@ -1494,34 +1486,34 @@ LABEL_7:
           if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
           {
             v40 = v39;
-            mode = [v57 mode];
+            mode = [v56 mode];
             modeIdentifier = [mode modeIdentifier];
             *buf = 138543362;
-            v77 = modeIdentifier;
+            v76 = modeIdentifier;
             _os_log_impl(&dword_24912E000, v40, OS_LOG_TYPE_DEFAULT, "Detected matching contact in configuration: %{public}@", buf, 0xCu);
           }
 
-          [v53 setAllowedContacts:v58];
-          [v53 setDeniedContacts:v26];
-          [v54 setSenderConfiguration:v53];
-          [v55 setSecureConfiguration:v54];
-          mode2 = [v55 mode];
+          [v52 setAllowedContacts:v57];
+          [v52 setDeniedContacts:v26];
+          [v53 setSenderConfiguration:v52];
+          [v54 setSecureConfiguration:v53];
+          mode2 = [v54 mode];
           modeIdentifier2 = [mode2 modeIdentifier];
-          [_lock_mutableExistingConfigurations setModeConfiguration:v55 forModeIdentifier:modeIdentifier2];
+          [_lock_mutableExistingConfigurations setModeConfiguration:v54 forModeIdentifier:modeIdentifier2];
 
-          v48 = 1;
+          v47 = 1;
         }
 
-        v7 = v56 + 1;
+        v7 = v55 + 1;
       }
 
-      while (v56 + 1 != v52);
-      v52 = [obj countByEnumeratingWithState:&v69 objects:v75 count:16];
+      while (v55 + 1 != v51);
+      v51 = [obj countByEnumeratingWithState:&v68 objects:v74 count:16];
     }
 
-    while (v52);
+    while (v51);
     self = selfCopy;
-    if (v48)
+    if (v47)
     {
       [_lock_mutableExistingConfigurations log:DNDSLogModeConfigurations withMessage:@"Writing updated configurations"];
       [(DNDSModeConfigurationsStore *)selfCopy _lock_writeRecord:_lock_mutableExistingConfigurations writePartition:1 error:0];
@@ -1542,13 +1534,11 @@ LABEL_37:
       os_unfair_lock_unlock(&self->_lock);
     }
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contactMonitor:(id)monitor didReceiveUpdatedContacts:(id)contacts deletedContactIdentifiers:(id)identifiers withContactHistoryToken:(id)token
 {
-  v125 = *MEMORY[0x277D85DE8];
+  v124 = *MEMORY[0x277D85DE8];
   contactsCopy = contacts;
   identifiersCopy = identifiers;
   tokenCopy = token;
@@ -1557,7 +1547,7 @@ LABEL_37:
   if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138477827;
-    v124 = contactsCopy;
+    v123 = contactsCopy;
     _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Received updated contacts: %{private}@", buf, 0xCu);
   }
 
@@ -1565,7 +1555,7 @@ LABEL_37:
   if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138477827;
-    v124 = identifiersCopy;
+    v123 = identifiersCopy;
     _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Received deleted contact identifiers: %{private}@", buf, 0xCu);
   }
 
@@ -1584,70 +1574,70 @@ LABEL_37:
   v14 = [MEMORY[0x277CBEB98] setWithArray:identifiersCopy];
   _lock_mutableExistingConfigurations = [(DNDSModeConfigurationsStore *)self _lock_mutableExistingConfigurations];
   [_lock_mutableExistingConfigurations modeConfigurations];
+  v113 = 0u;
   v114 = 0u;
   v115 = 0u;
-  v116 = 0u;
-  obj = v117 = 0u;
-  v80 = [obj countByEnumeratingWithState:&v114 objects:v122 count:16];
-  if (!v80)
+  obj = v116 = 0u;
+  v79 = [obj countByEnumeratingWithState:&v113 objects:v121 count:16];
+  if (!v79)
   {
     goto LABEL_66;
   }
 
-  v75 = 0;
-  v78 = *v115;
-  v93 = v14;
+  v74 = 0;
+  v77 = *v114;
+  v92 = v14;
   selfCopy = self;
   do
   {
     v15 = 0;
     do
     {
-      if (*v115 != v78)
+      if (*v114 != v77)
       {
         objc_enumerationMutation(obj);
       }
 
-      v81 = v15;
-      v16 = *(*(&v114 + 1) + 8 * v15);
-      v85 = [v16 mutableCopy];
-      secureConfiguration = [v85 secureConfiguration];
+      v80 = v15;
+      v16 = *(*(&v113 + 1) + 8 * v15);
+      v84 = [v16 mutableCopy];
+      secureConfiguration = [v84 secureConfiguration];
       v18 = [secureConfiguration mutableCopy];
 
-      v84 = v18;
+      v83 = v18;
       senderConfiguration = [v18 senderConfiguration];
-      v83 = [senderConfiguration mutableCopy];
+      v82 = [senderConfiguration mutableCopy];
 
-      v97 = [MEMORY[0x277CBEB58] set];
-      v82 = v16;
+      v96 = [MEMORY[0x277CBEB58] set];
+      v81 = v16;
       secureConfiguration2 = [v16 secureConfiguration];
       senderConfiguration2 = [secureConfiguration2 senderConfiguration];
       allowedContacts = [senderConfiguration2 allowedContacts];
 
-      v112 = 0u;
-      v113 = 0u;
-      v110 = 0u;
       v111 = 0u;
-      v92 = allowedContacts;
-      v23 = [v92 countByEnumeratingWithState:&v110 objects:v121 count:16];
+      v112 = 0u;
+      v109 = 0u;
+      v110 = 0u;
+      v91 = allowedContacts;
+      v23 = [v91 countByEnumeratingWithState:&v109 objects:v120 count:16];
       if (v23)
       {
         v24 = v23;
         v25 = 0;
-        v26 = *v111;
-        v88 = *v111;
+        v26 = *v110;
+        v87 = *v110;
         do
         {
           v27 = 0;
-          v90 = v24;
+          v89 = v24;
           do
           {
-            if (*v111 != v26)
+            if (*v110 != v26)
             {
-              objc_enumerationMutation(v92);
+              objc_enumerationMutation(v91);
             }
 
-            v28 = *(*(&v110 + 1) + 8 * v27);
+            v28 = *(*(&v109 + 1) + 8 * v27);
             contactIdentifier = [v28 contactIdentifier];
             v30 = [v14 containsObject:contactIdentifier];
 
@@ -1662,27 +1652,27 @@ LABEL_37:
 
             else
             {
-              v108 = 0u;
-              v109 = 0u;
-              v106 = 0u;
               v107 = 0u;
+              v108 = 0u;
+              v105 = 0u;
+              v106 = 0u;
               v32 = contactsCopy;
-              v33 = [v32 countByEnumeratingWithState:&v106 objects:v120 count:16];
+              v33 = [v32 countByEnumeratingWithState:&v105 objects:v119 count:16];
               if (v33)
               {
                 v34 = v33;
-                v94 = v25;
-                v35 = *v107;
+                v93 = v25;
+                v35 = *v106;
                 do
                 {
                   for (i = 0; i != v34; ++i)
                   {
-                    if (*v107 != v35)
+                    if (*v106 != v35)
                     {
                       objc_enumerationMutation(v32);
                     }
 
-                    v37 = *(*(&v106 + 1) + 8 * i);
+                    v37 = *(*(&v105 + 1) + 8 * i);
                     contactIdentifier2 = [v28 contactIdentifier];
                     contactIdentifier3 = [v37 contactIdentifier];
                     if ([contactIdentifier2 isEqualToString:contactIdentifier3])
@@ -1695,7 +1685,7 @@ LABEL_37:
 
                         v25 = 1;
                         v28 = makeRecord;
-                        v14 = v93;
+                        v14 = v92;
                         goto LABEL_31;
                       }
                     }
@@ -1705,24 +1695,24 @@ LABEL_37:
                     }
                   }
 
-                  v34 = [v32 countByEnumeratingWithState:&v106 objects:v120 count:16];
+                  v34 = [v32 countByEnumeratingWithState:&v105 objects:v119 count:16];
                 }
 
                 while (v34);
-                v14 = v93;
-                v25 = v94;
+                v14 = v92;
+                v25 = v93;
 LABEL_31:
-                v26 = v88;
-                v24 = v90;
+                v26 = v87;
+                v24 = v89;
               }
             }
 
-            [v97 addObject:v28];
+            [v96 addObject:v28];
             ++v27;
           }
 
           while (v27 != v24);
-          v24 = [v92 countByEnumeratingWithState:&v110 objects:v121 count:16];
+          v24 = [v91 countByEnumeratingWithState:&v109 objects:v120 count:16];
         }
 
         while (v24);
@@ -1734,34 +1724,34 @@ LABEL_31:
       }
 
       v42 = [MEMORY[0x277CBEB58] set];
-      secureConfiguration3 = [v82 secureConfiguration];
+      secureConfiguration3 = [v81 secureConfiguration];
       senderConfiguration3 = [secureConfiguration3 senderConfiguration];
       deniedContacts = [senderConfiguration3 deniedContacts];
 
-      v104 = 0u;
-      v105 = 0u;
-      v102 = 0u;
       v103 = 0u;
-      v91 = deniedContacts;
-      v46 = [v91 countByEnumeratingWithState:&v102 objects:v119 count:16];
+      v104 = 0u;
+      v101 = 0u;
+      v102 = 0u;
+      v90 = deniedContacts;
+      v46 = [v90 countByEnumeratingWithState:&v101 objects:v118 count:16];
       if (v46)
       {
         v47 = v46;
-        v48 = *v103;
-        v86 = *v103;
-        v87 = v42;
+        v48 = *v102;
+        v85 = *v102;
+        v86 = v42;
         do
         {
           v49 = 0;
-          v89 = v47;
+          v88 = v47;
           do
           {
-            if (*v103 != v48)
+            if (*v102 != v48)
             {
-              objc_enumerationMutation(v91);
+              objc_enumerationMutation(v90);
             }
 
-            v50 = *(*(&v102 + 1) + 8 * v49);
+            v50 = *(*(&v101 + 1) + 8 * v49);
             contactIdentifier4 = [v50 contactIdentifier];
             v52 = [v14 containsObject:contactIdentifier4];
 
@@ -1776,27 +1766,27 @@ LABEL_31:
 
             else
             {
-              v100 = 0u;
-              v101 = 0u;
-              v98 = 0u;
               v99 = 0u;
+              v100 = 0u;
+              v97 = 0u;
+              v98 = 0u;
               v54 = contactsCopy;
-              v55 = [v54 countByEnumeratingWithState:&v98 objects:v118 count:16];
+              v55 = [v54 countByEnumeratingWithState:&v97 objects:v117 count:16];
               if (v55)
               {
                 v56 = v55;
-                v95 = v25;
-                v57 = *v99;
+                v94 = v25;
+                v57 = *v98;
                 do
                 {
                   for (j = 0; j != v56; ++j)
                   {
-                    if (*v99 != v57)
+                    if (*v98 != v57)
                     {
                       objc_enumerationMutation(v54);
                     }
 
-                    v59 = *(*(&v98 + 1) + 8 * j);
+                    v59 = *(*(&v97 + 1) + 8 * j);
                     contactIdentifier5 = [v50 contactIdentifier];
                     contactIdentifier6 = [v59 contactIdentifier];
                     if ([contactIdentifier5 isEqualToString:contactIdentifier6])
@@ -1809,7 +1799,7 @@ LABEL_31:
 
                         v25 = 1;
                         v50 = makeRecord2;
-                        v14 = v93;
+                        v14 = v92;
                         goto LABEL_55;
                       }
                     }
@@ -1819,16 +1809,16 @@ LABEL_31:
                     }
                   }
 
-                  v56 = [v54 countByEnumeratingWithState:&v98 objects:v118 count:16];
+                  v56 = [v54 countByEnumeratingWithState:&v97 objects:v117 count:16];
                 }
 
                 while (v56);
-                v14 = v93;
-                v25 = v95;
+                v14 = v92;
+                v25 = v94;
 LABEL_55:
-                v48 = v86;
-                v42 = v87;
-                v47 = v89;
+                v48 = v85;
+                v42 = v86;
+                v47 = v88;
               }
             }
 
@@ -1837,7 +1827,7 @@ LABEL_55:
           }
 
           while (v49 != v47);
-          v47 = [v91 countByEnumeratingWithState:&v102 objects:v119 count:16];
+          v47 = [v90 countByEnumeratingWithState:&v101 objects:v118 count:16];
         }
 
         while (v47);
@@ -1850,33 +1840,33 @@ LABEL_55:
         if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
         {
           v65 = v64;
-          mode = [v82 mode];
+          mode = [v81 mode];
           modeIdentifier = [mode modeIdentifier];
           *buf = 138543362;
-          v124 = modeIdentifier;
+          v123 = modeIdentifier;
           _os_log_impl(&dword_24912E000, v65, OS_LOG_TYPE_DEFAULT, "Detected matching contact in configuration: %{public}@", buf, 0xCu);
         }
 
-        [v83 setAllowedContacts:v97];
-        [v83 setDeniedContacts:v42];
-        [v84 setSenderConfiguration:v83];
-        [v85 setSecureConfiguration:v84];
-        mode2 = [v85 mode];
+        [v82 setAllowedContacts:v96];
+        [v82 setDeniedContacts:v42];
+        [v83 setSenderConfiguration:v82];
+        [v84 setSecureConfiguration:v83];
+        mode2 = [v84 mode];
         modeIdentifier2 = [mode2 modeIdentifier];
-        [_lock_mutableExistingConfigurations setModeConfiguration:v85 forModeIdentifier:modeIdentifier2];
+        [_lock_mutableExistingConfigurations setModeConfiguration:v84 forModeIdentifier:modeIdentifier2];
 
-        v75 = 1;
+        v74 = 1;
       }
 
-      v15 = v81 + 1;
+      v15 = v80 + 1;
     }
 
-    while (v81 + 1 != v80);
-    v80 = [obj countByEnumeratingWithState:&v114 objects:v122 count:16];
+    while (v80 + 1 != v79);
+    v79 = [obj countByEnumeratingWithState:&v113 objects:v121 count:16];
   }
 
-  while (v80);
-  if ((v75 & 1) == 0)
+  while (v79);
+  if ((v74 & 1) == 0)
   {
 LABEL_66:
     v70 = DNDSLogModeConfigurations;
@@ -1897,8 +1887,6 @@ LABEL_69:
   os_unfair_lock_unlock(&selfCopy->_lock);
   [(DNDSModeConfigurationsStore *)selfCopy _notifyDelegateOfAvailableModes];
 LABEL_70:
-
-  v71 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_lock_mutableExistingConfigurations
@@ -2016,7 +2004,7 @@ LABEL_70:
 
 - (void)_lock_updateModeConfigurationWithConfiguration:(id)configuration
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   os_unfair_lock_assert_owner(&self->_lock);
   v5 = DNDSLogModeConfigurations;
@@ -2026,7 +2014,7 @@ LABEL_70:
     mode = [configurationCopy mode];
     modeIdentifier = [mode modeIdentifier];
     *buf = 138543362;
-    v17 = modeIdentifier;
+    v16 = modeIdentifier;
     _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "Writing updated configuration with identifier: %{public}@", buf, 0xCu);
   }
 
@@ -2037,36 +2025,34 @@ LABEL_70:
   [_lock_mutableExistingConfigurations setModeConfiguration:configurationCopy forModeIdentifier:modeIdentifier2];
 
   backingStore = self->_backingStore;
-  v15 = 0;
-  [(DNDSBackingStore *)backingStore writeRecord:_lock_mutableExistingConfigurations writePartition:1 error:&v15];
-  v13 = v15;
+  v14 = 0;
+  [(DNDSBackingStore *)backingStore writeRecord:_lock_mutableExistingConfigurations writePartition:1 error:&v14];
+  v13 = v14;
   if (v13 && os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_ERROR))
   {
     [DNDSModeConfigurationsStore _lock_updateModeConfigurationWithConfiguration:];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_lock_writeRecord:(id)record writePartition:(BOOL)partition error:(id *)error
 {
   partitionCopy = partition;
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   v7 = [record mutableCopy];
   selfCopy = self;
   errorCopy = error;
   v8 = [(DNDSBackingStore *)self->_backingStore readRecordWithError:error];
   [v7 log:DNDSLogModeConfigurations withMessage:@"Writing configurations"];
-  v57 = v8;
-  v55 = [objc_alloc(MEMORY[0x277CBC5E8]) initWithZoneName:@"DNDSModeConfigurations"];
-  v9 = [[DNDSModeConfigurationsRecordDiff alloc] initWithOriginalModeConfigurations:v8 updatedModeConfigurations:v7 zone:v55];
+  v56 = v8;
+  v54 = [objc_alloc(MEMORY[0x277CBC5E8]) initWithZoneName:@"DNDSModeConfigurations"];
+  v9 = [[DNDSModeConfigurationsRecordDiff alloc] initWithOriginalModeConfigurations:v8 updatedModeConfigurations:v7 zone:v54];
   v10 = DNDSLogModeConfigurations;
   if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
   {
     v11 = v10;
     modifiedIDs = [(DNDSModeConfigurationsRecordDiff *)v9 modifiedIDs];
     *buf = 138543362;
-    v75 = modifiedIDs;
+    v74 = modifiedIDs;
     _os_log_impl(&dword_24912E000, v11, OS_LOG_TYPE_DEFAULT, "Merge diff modified: %{public}@", buf, 0xCu);
   }
 
@@ -2076,32 +2062,32 @@ LABEL_70:
     v14 = v13;
     removedIDs = [(DNDSModeConfigurationsRecordDiff *)v9 removedIDs];
     *buf = 138543362;
-    v75 = removedIDs;
+    v74 = removedIDs;
     _os_log_impl(&dword_24912E000, v14, OS_LOG_TYPE_DEFAULT, "Merge diff deleted: %{public}@", buf, 0xCu);
   }
 
   date = [MEMORY[0x277CBEAA8] date];
+  v65 = 0u;
   v66 = 0u;
   v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
-  v58 = v9;
+  v57 = v9;
   obj = [(DNDSModeConfigurationsRecordDiff *)v9 modifiedIDs];
-  v17 = [obj countByEnumeratingWithState:&v66 objects:v73 count:16];
+  v17 = [obj countByEnumeratingWithState:&v65 objects:v72 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v67;
+    v19 = *v66;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v67 != v19)
+        if (*v66 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        recordName = [*(*(&v66 + 1) + 8 * i) recordName];
+        recordName = [*(*(&v65 + 1) + 8 * i) recordName];
         v22 = [v7 modeConfigurationForModeIdentifier:recordName];
         v23 = [v22 mutableCopy];
 
@@ -2125,53 +2111,53 @@ LABEL_70:
 
         v29 = [[DNDSIDSRecordID alloc] initWithIdentifier:recordName zone:@"DNDSModeConfigurations"];
         idsSyncEngine = selfCopy->_idsSyncEngine;
-        v72 = v29;
-        v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v72 count:1];
+        v71 = v29;
+        v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v71 count:1];
         [(DNDSIDSSyncEngine *)idsSyncEngine addRecordIDsToSave:v31 recordIDsToDelete:0];
       }
 
-      v18 = [obj countByEnumeratingWithState:&v66 objects:v73 count:16];
+      v18 = [obj countByEnumeratingWithState:&v65 objects:v72 count:16];
     }
 
     while (v18);
   }
 
-  v59 = v7;
+  v58 = v7;
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
-  removedIDs2 = [(DNDSModeConfigurationsRecordDiff *)v58 removedIDs];
-  v33 = [removedIDs2 countByEnumeratingWithState:&v62 objects:v71 count:16];
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  removedIDs2 = [(DNDSModeConfigurationsRecordDiff *)v57 removedIDs];
+  v33 = [removedIDs2 countByEnumeratingWithState:&v61 objects:v70 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v63;
+    v35 = *v62;
     do
     {
       for (j = 0; j != v34; ++j)
       {
-        if (*v63 != v35)
+        if (*v62 != v35)
         {
           objc_enumerationMutation(removedIDs2);
         }
 
-        recordName2 = [*(*(&v62 + 1) + 8 * j) recordName];
+        recordName2 = [*(*(&v61 + 1) + 8 * j) recordName];
         v38 = [[DNDSIDSRecordID alloc] initWithIdentifier:recordName2 zone:@"DNDSModeConfigurations"];
         v39 = selfCopy->_idsSyncEngine;
-        v70 = v38;
-        v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v70 count:1];
+        v69 = v38;
+        v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v69 count:1];
         [(DNDSIDSSyncEngine *)v39 addRecordIDsToSave:0 recordIDsToDelete:v40];
       }
 
-      v34 = [removedIDs2 countByEnumeratingWithState:&v62 objects:v71 count:16];
+      v34 = [removedIDs2 countByEnumeratingWithState:&v61 objects:v70 count:16];
     }
 
     while (v34);
   }
 
-  v41 = [(DNDSBackingStore *)selfCopy->_backingStore writeRecord:v59 writePartition:partitionCopy error:errorCopy];
+  v41 = [(DNDSBackingStore *)selfCopy->_backingStore writeRecord:v58 writePartition:partitionCopy error:errorCopy];
   if (errorCopy)
   {
     if (*errorCopy)
@@ -2185,50 +2171,49 @@ LABEL_70:
   }
 
   syncEngine = selfCopy->_syncEngine;
-  modifiedIDs2 = [(DNDSModeConfigurationsRecordDiff *)v58 modifiedIDs];
-  removedIDs3 = [(DNDSModeConfigurationsRecordDiff *)v58 removedIDs];
+  modifiedIDs2 = [(DNDSModeConfigurationsRecordDiff *)v57 modifiedIDs];
+  removedIDs3 = [(DNDSModeConfigurationsRecordDiff *)v57 removedIDs];
   [(DNDSSyncEngine *)syncEngine addRecordIDsToSave:modifiedIDs2 recordIDsToDelete:removedIDs3];
 
-  v52 = *MEMORY[0x277D85DE8];
   return v41;
 }
 
 - (void)_lock_purgeRecordIDs:(id)ds
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   os_unfair_lock_assert_owner(&self->_lock);
   v5 = DNDSLogModeConfigurations;
   if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v31 = dsCopy;
+    v30 = dsCopy;
     _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Purging record IDs: %{public}@", buf, 0xCu);
   }
 
   _lock_mutableExistingConfigurations = [(DNDSModeConfigurationsStore *)self _lock_mutableExistingConfigurations];
   defaultModeConfiguration = [MEMORY[0x277D05990] defaultModeConfiguration];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v8 = dsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v25;
     do
     {
       v12 = 0;
       do
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        recordName = [*(*(&v25 + 1) + 8 * v12) recordName];
+        recordName = [*(*(&v24 + 1) + 8 * v12) recordName];
         mode = [defaultModeConfiguration mode];
         modeIdentifier = [mode modeIdentifier];
         v16 = [recordName isEqualToString:modeIdentifier];
@@ -2250,27 +2235,25 @@ LABEL_70:
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v10);
   }
 
-  v20 = *(v23 + 8);
-  v24 = 0;
-  [v20 writeRecord:_lock_mutableExistingConfigurations writePartition:1 error:&v24];
-  v21 = v24;
+  v20 = *(v22 + 8);
+  v23 = 0;
+  [v20 writeRecord:_lock_mutableExistingConfigurations writePartition:1 error:&v23];
+  v21 = v23;
   if (v21 && os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_ERROR))
   {
     [DNDSModeConfigurationsStore _lock_purgeRecordIDs:];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_lock_purgeData
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_lock);
   v3 = DNDSLogModeConfigurations;
   if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
@@ -2286,30 +2269,30 @@ LABEL_70:
   mode = [defaultModeConfiguration mode];
   modeIdentifier = [mode modeIdentifier];
   v9 = [(DNDSIDSRecordID *)v6 initWithIdentifier:modeIdentifier zone:@"DNDSModeConfigurations"];
-  v41[0] = v9;
-  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
+  v40[0] = v9;
+  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
 
   array = [MEMORY[0x277CBEB18] array];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v10 = v5;
-  v11 = [v10 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v36;
+    v13 = *v35;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v36 != v13)
+        if (*v35 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v35 + 1) + 8 * i);
+        v15 = *(*(&v34 + 1) + 8 * i);
         identifier = [v15 identifier];
         mode2 = [defaultModeConfiguration mode];
         modeIdentifier2 = [mode2 modeIdentifier];
@@ -2321,7 +2304,7 @@ LABEL_70:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v12);
@@ -2341,10 +2324,10 @@ LABEL_70:
   }
 
   backingStore = selfCopy->_backingStore;
-  v34 = 0;
-  [(DNDSBackingStore *)backingStore writeRecord:v21 writePartition:1 error:&v34, v30];
-  v26 = v34;
-  [(DNDSIDSSyncEngine *)selfCopy->_idsSyncEngine addRecordIDsToSave:v31 recordIDsToDelete:array];
+  v33 = 0;
+  [(DNDSBackingStore *)backingStore writeRecord:v21 writePartition:1 error:&v33, v29];
+  v26 = v33;
+  [(DNDSIDSSyncEngine *)selfCopy->_idsSyncEngine addRecordIDsToSave:v30 recordIDsToDelete:array];
   if (v26 && os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_ERROR))
   {
     [DNDSModeConfigurationsStore purgeRecordsForIDSSyncEngine:];
@@ -2355,19 +2338,17 @@ LABEL_70:
 
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   [standardUserDefaults removeObjectForKey:@"DNDSModeConfigurationsContactHistoryToken"];
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_lock_modeIdentifiers
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_lock);
   array = [MEMORY[0x277CBEB18] array];
   backingStore = self->_backingStore;
-  v23 = 0;
-  v5 = [(DNDSBackingStore *)backingStore readRecordWithError:&v23];
-  v6 = v23;
+  v22 = 0;
+  v5 = [(DNDSBackingStore *)backingStore readRecordWithError:&v22];
+  v6 = v22;
   if (v6)
   {
     if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_ERROR))
@@ -2379,31 +2360,31 @@ LABEL_70:
   else
   {
     modeConfigurations = [v5 modeConfigurations];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v8 = [modeConfigurations countByEnumeratingWithState:&v19 objects:v26 count:16];
+    v8 = [modeConfigurations countByEnumeratingWithState:&v18 objects:v25 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(modeConfigurations);
           }
 
-          mode = [*(*(&v19 + 1) + 8 * i) mode];
+          mode = [*(*(&v18 + 1) + 8 * i) mode];
           modeIdentifier = [mode modeIdentifier];
 
           [array addObject:modeIdentifier];
         }
 
-        v9 = [modeConfigurations countByEnumeratingWithState:&v19 objects:v26 count:16];
+        v9 = [modeConfigurations countByEnumeratingWithState:&v18 objects:v25 count:16];
       }
 
       while (v9);
@@ -2416,44 +2397,42 @@ LABEL_70:
     v15 = v14;
     v16 = [array count];
     *buf = 134349056;
-    v25 = v16;
+    v24 = v16;
     _os_log_impl(&dword_24912E000, v15, OS_LOG_TYPE_DEFAULT, "Fetched %{public}llu mode identifiers", buf, 0xCu);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)_lock_recordIDsForIDSSyncEngine:(id)engine
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_lock);
   array = [MEMORY[0x277CBEB18] array];
   _lock_modeIdentifiers = [(DNDSModeConfigurationsStore *)self _lock_modeIdentifiers];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v6 = [_lock_modeIdentifiers countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v6 = [_lock_modeIdentifiers countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(_lock_modeIdentifiers);
         }
 
-        v10 = [[DNDSIDSRecordID alloc] initWithIdentifier:*(*(&v16 + 1) + 8 * i) zone:@"DNDSModeConfigurations"];
+        v10 = [[DNDSIDSRecordID alloc] initWithIdentifier:*(*(&v15 + 1) + 8 * i) zone:@"DNDSModeConfigurations"];
         [array addObject:v10];
       }
 
-      v7 = [_lock_modeIdentifiers countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v7 = [_lock_modeIdentifiers countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v7);
@@ -2465,43 +2444,41 @@ LABEL_70:
     v12 = v11;
     v13 = [array count];
     *buf = 134349056;
-    v21 = v13;
+    v20 = v13;
     _os_log_impl(&dword_24912E000, v12, OS_LOG_TYPE_DEFAULT, "Fetched %{public}llu record IDs for the IDS sync engine", buf, 0xCu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (void)_notifyDelegateOfAvailableModes
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   _lock_existingConfigurations = [(DNDSModeConfigurationsStore *)self _lock_existingConfigurations];
   array = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   modeConfigurations = [_lock_existingConfigurations modeConfigurations];
-  v6 = [modeConfigurations countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v6 = [modeConfigurations countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(modeConfigurations);
         }
 
-        mode = [*(*(&v15 + 1) + 8 * v9) mode];
+        mode = [*(*(&v14 + 1) + 8 * v9) mode];
         v11 = [MEMORY[0x277D05930] modeForRecord:mode];
         if (([v11 isPlaceholder] & 1) == 0)
         {
@@ -2512,7 +2489,7 @@ LABEL_70:
       }
 
       while (v7 != v9);
-      v7 = [modeConfigurations countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v7 = [modeConfigurations countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v7);
@@ -2523,13 +2500,11 @@ LABEL_70:
   if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v20 = array;
+    v19 = array;
     _os_log_impl(&dword_24912E000, v12, OS_LOG_TYPE_DEFAULT, "Notifying delegate of available modes: %{public}@", buf, 0xCu);
   }
 
   [WeakRetained modeConfigurationStore:self didUpdateAvailableModes:array];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_purgeData
@@ -2543,32 +2518,32 @@ LABEL_70:
 
 - (void)_purgeRecordIDs:(id)ds
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   os_unfair_lock_lock(&self->_lock);
   [(DNDSModeConfigurationsStore *)self _lock_purgeRecordIDs:dsCopy];
   array = [MEMORY[0x277CBEB18] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = dsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * v10);
+        v11 = *(*(&v15 + 1) + 8 * v10);
         v12 = [DNDSIDSRecordID alloc];
         recordName = [v11 recordName];
         v14 = [(DNDSIDSRecordID *)v12 initWithIdentifier:recordName zone:@"DNDSModeConfigurations"];
@@ -2578,7 +2553,7 @@ LABEL_70:
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -2587,8 +2562,6 @@ LABEL_70:
   [(DNDSIDSSyncEngine *)self->_idsSyncEngine addRecordIDsToSave:0 recordIDsToDelete:array];
   os_unfair_lock_unlock(&self->_lock);
   [(DNDSModeConfigurationsStore *)self _notifyDelegateOfAvailableModes];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (DNDSModeConfigurationsStoreDelegate)delegate
@@ -2598,99 +2571,31 @@ LABEL_70:
   return WeakRetained;
 }
 
-- (void)_lock_mergeLocalConfigurationRecord:withRemoteConfigurationRecord:modeIdentifier:sourceDeviceIdentifier:sourceFrameworkVersion:sourceIsCloud:sourceWantsToForce:deleteModeOnCorruption:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Fetched data with ID %{public}@ could not be reconstructed into a configuration; ignoring update", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_lock_mergeLocalConfigurationRecord:withRemoteConfigurationRecord:modeIdentifier:sourceDeviceIdentifier:sourceFrameworkVersion:sourceIsCloud:sourceWantsToForce:deleteModeOnCorruption:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Fetched data with ID %{public}@ could not be reconstructed into a configuration; deleting local configuration", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)syncEngine:(void *)a1 failedToDeleteRecordWithID:(void *)a2 error:(uint64_t)a3 .cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 recordName];
   OUTLINED_FUNCTION_4();
-  v9 = 2114;
-  v10 = a3;
-  _os_log_error_impl(&dword_24912E000, v5, OS_LOG_TYPE_ERROR, "Failed to delete record %{public}@: %{public}@", v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)purgeRecordsForIDSSyncEngine:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Error deleting records: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)monitoredContacts
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Could not read current configuration for monitored contacts: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_lock_existingConfigurations
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Failed to fetch existing configurations: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v8 = 2114;
+  v9 = a3;
+  _os_log_error_impl(&dword_24912E000, v5, OS_LOG_TYPE_ERROR, "Failed to delete record %{public}@: %{public}@", v7, 0x16u);
 }
 
 - (void)_lock_removeModeConfigurationWithModeIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_error_impl(&dword_24912E000, v1, OS_LOG_TYPE_ERROR, "Failed to remove record %{public}@: %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_lock_updateModeConfigurationWithConfiguration:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Error writing fetched configurations: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&dword_24912E000, v1, OS_LOG_TYPE_ERROR, "Failed to remove record %{public}@: %{public}@", v2, 0x16u);
 }
 
 - (void)_lock_writeRecord:(uint64_t)a3 writePartition:(uint64_t)a4 error:(uint64_t)a5 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0(&dword_24912E000, a2, a3, "Error writing record: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_lock_purgeRecordIDs:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Error purging record IDs: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_lock_modeIdentifiers
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Could not read records to extract mode identifiers: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_24912E000, a2, a3, "Error writing record: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

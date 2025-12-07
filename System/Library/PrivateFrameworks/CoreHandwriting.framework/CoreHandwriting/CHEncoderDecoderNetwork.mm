@@ -318,9 +318,9 @@ LABEL_19:
 
 - (void)setUpMathDecoder:(void *)decoder imageCompressed:(void *)compressed
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   objc_msgSend_segmentationAttThreshold(self, a2, decoder, compressed, v4, v5);
-  sub_183830970();
+  sub_183830970(decoder, compressed, v8);
 }
 
 - (int)getIndexInCodemap:(id)codemap
@@ -362,7 +362,7 @@ LABEL_19:
         IndexInCodemap = objc_msgSend_getIndexInCodemap_(self, v5, @"0", v6, v7, v8);
         v122 = objc_msgSend_getIndexInCodemap_(self, v14, v12, v15, v16, v17);
         v133 = &v122;
-        v22 = sub_18398D624(v130, v122);
+        v22 = sub_18398D624(v130, v122, &v133);
         v23 = v22[3];
         v24 = v22[5];
         if (v24 == v23)
@@ -393,7 +393,7 @@ LABEL_19:
         }
 
         LODWORD(v133) = objc_msgSend_getIndexInCodemap_(self, v18, v12, v19, v20, v21);
-        sub_18398DADC(v127, v133);
+        sub_18398DADC(v127, v133, &v133);
       }
 
       v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(&unk_1EF1EC970, v5, &v123, v134, 16, v8);
@@ -405,7 +405,7 @@ LABEL_19:
   v26 = objc_msgSend_getIndexInCodemap_(self, v5, @"f", v6, v7, v8);
   v122 = objc_msgSend_getIndexInCodemap_(self, v27, @"\\int", v28, v29, v30);
   v133 = &v122;
-  v35 = sub_18398D624(v130, v122);
+  v35 = sub_18398D624(v130, v122, &v133);
   v36 = v35[3];
   v37 = v35[5];
   if (v37 == v36)
@@ -438,7 +438,7 @@ LABEL_19:
   v39 = objc_msgSend_getIndexInCodemap_(self, v31, @"1", v32, v33, v34);
   v122 = objc_msgSend_getIndexInCodemap_(self, v40, @"\\setminus", v41, v42, v43);
   v133 = &v122;
-  v48 = sub_18398D624(v130, v122);
+  v48 = sub_18398D624(v130, v122, &v133);
   v49 = v48[3];
   v50 = v48[5];
   if (v50 == v49)
@@ -471,7 +471,7 @@ LABEL_19:
   v52 = objc_msgSend_getIndexInCodemap_(self, v44, @"("), v45, v46, v47;
   v122 = objc_msgSend_getIndexInCodemap_(self, v53, @"\\lbrack", v54, v55, v56);
   v133 = &v122;
-  v61 = sub_18398D624(v130, v122);
+  v61 = sub_18398D624(v130, v122, &v133);
   v62 = v61[3];
   v63 = v61[5];
   if (v63 == v62)
@@ -504,7 +504,7 @@ LABEL_19:
   v65 = objc_msgSend_getIndexInCodemap_(self, v57, @""), v58, v59, v60);
   v122 = objc_msgSend_getIndexInCodemap_(self, v66, @"\\rbrack", v67, v68, v69);
   v133 = &v122;
-  v74 = sub_18398D624(v130, v122);
+  v74 = sub_18398D624(v130, v122, &v133);
   v75 = v74[3];
   v76 = v74[5];
   if (v76 == v75)
@@ -535,13 +535,13 @@ LABEL_19:
   }
 
   LODWORD(v133) = objc_msgSend_getIndexInCodemap_(self, v70, @"\\lbrack", v71, v72, v73);
-  sub_18398DADC(v127, v133);
+  sub_18398DADC(v127, v133, &v133);
   LODWORD(v133) = objc_msgSend_getIndexInCodemap_(self, v78, @"\\rbrack", v79, v80, v81);
-  sub_18398DADC(v127, v133);
+  sub_18398DADC(v127, v133, &v133);
   v86 = objc_msgSend_getIndexInCodemap_(self, v82, @"\\sum", v83, v84, v85);
   v122 = objc_msgSend_getIndexInCodemap_(self, v87, @"\\Sigma", v88, v89, v90);
   v133 = &v122;
-  v95 = sub_18398D624(v130, v122);
+  v95 = sub_18398D624(v130, v122, &v133);
   v96 = v95[3];
   v97 = v95[5];
   if (v97 == v96)
@@ -574,7 +574,7 @@ LABEL_19:
   v99 = objc_msgSend_getIndexInCodemap_(self, v91, @"\\prod", v92, v93, v94);
   v122 = objc_msgSend_getIndexInCodemap_(self, v100, @"\\Pi", v101, v102, v103);
   v133 = &v122;
-  v104 = sub_18398D624(v130, v122);
+  v104 = sub_18398D624(v130, v122, &v133);
   v105 = v104[3];
   v106 = v104[5];
   if (v106 == v105)
@@ -699,67 +699,67 @@ LABEL_19:
   DWORD1(v246) = 1008981770;
   LODWORD(v223[0]) = objc_msgSend_getIndexInCodemap_(self, v15, @"|", v16, v17, v18);
   v256 = v223;
-  v19 = sub_18398DDD8(__n, v223[0]);
-  sub_18398E0F8(v19 + 3, &v245, &v246 + 1, 3uLL);
+  v19 = sub_18398DDD8(__n, v223[0], &v256);
+  sub_18398E0F8(v19 + 3, &v245, &v246 + 8, 3uLL);
   LODWORD(v256) = objc_msgSend_getIndexInCodemap_(self, v20, @"|", v21, v22, v23);
   HIDWORD(v256) = 1008981770;
   LODWORD(v223[0]) = objc_msgSend_getIndexInCodemap_(self, v24, @"1", v25, v26, v27);
   *&v245 = v223;
-  v28 = sub_18398DDD8(__n, v223[0]);
+  v28 = sub_18398DDD8(__n, v223[0], &v245);
   sub_18398E0F8(v28 + 3, &v256, v257, 1uLL);
   LODWORD(v256) = objc_msgSend_getIndexInCodemap_(self, v29, @"1", v30, v31, v32);
   HIDWORD(v256) = 1008981770;
   LODWORD(v223[0]) = objc_msgSend_getIndexInCodemap_(self, v33, @"/", v34, v35, v36);
   *&v245 = v223;
-  v37 = sub_18398DDD8(__n, v223[0]);
+  v37 = sub_18398DDD8(__n, v223[0], &v245);
   sub_18398E0F8(v37 + 3, &v256, v257, 1uLL);
   LODWORD(v256) = objc_msgSend_getIndexInCodemap_(self, v38, @".", v39, v40, v41);
   HIDWORD(v256) = 1022739087;
   LODWORD(v223[0]) = objc_msgSend_getIndexInCodemap_(self, v42, @"\\cdot", v43, v44, v45);
   *&v245 = v223;
-  v46 = sub_18398DDD8(__n, v223[0]);
+  v46 = sub_18398DDD8(__n, v223[0], &v245);
   sub_18398E0F8(v46 + 3, &v256, v257, 1uLL);
   LODWORD(v256) = objc_msgSend_getIndexInCodemap_(self, v47, @"\\cdot", v48, v49, v50);
   HIDWORD(v256) = 1008981770;
   LODWORD(v223[0]) = objc_msgSend_getIndexInCodemap_(self, v51, @".", v52, v53, v54);
   *&v245 = v223;
-  v55 = sub_18398DDD8(__n, v223[0]);
+  v55 = sub_18398DDD8(__n, v223[0], &v245);
   sub_18398E0F8(v55 + 3, &v256, v257, 1uLL);
   LODWORD(v256) = objc_msgSend_getIndexInCodemap_(self, v56, @".", v57, v58, v59);
   HIDWORD(v256) = 1022739087;
   LODWORD(v223[0]) = objc_msgSend_getIndexInCodemap_(self, v60, @",", v61, v62, v63);
   *&v245 = v223;
-  v64 = sub_18398DDD8(__n, v223[0]);
+  v64 = sub_18398DDD8(__n, v223[0], &v245);
   sub_18398E0F8(v64 + 3, &v256, v257, 1uLL);
   LODWORD(v256) = objc_msgSend_getIndexInCodemap_(self, v65, @",", v66, v67, v68);
   HIDWORD(v256) = 1008981770;
   LODWORD(v223[0]) = objc_msgSend_getIndexInCodemap_(self, v69, @".", v70, v71, v72);
   *&v245 = v223;
-  v73 = sub_18398DDD8(__n, v223[0]);
+  v73 = sub_18398DDD8(__n, v223[0], &v245);
   sub_18398E0F8(v73 + 3, &v256, v257, 1uLL);
   LODWORD(v256) = objc_msgSend_getIndexInCodemap_(self, v74, @"2", v75, v76, v77);
   HIDWORD(v256) = 1008981770;
   LODWORD(v223[0]) = objc_msgSend_getIndexInCodemap_(self, v78, @"z", v79, v80, v81);
   *&v245 = v223;
-  v82 = sub_18398DDD8(__n, v223[0]);
+  v82 = sub_18398DDD8(__n, v223[0], &v245);
   sub_18398E0F8(v82 + 3, &v256, v257, 1uLL);
   LODWORD(v256) = objc_msgSend_getIndexInCodemap_(self, v83, @"2", v84, v85, v86);
   HIDWORD(v256) = 1008981770;
   LODWORD(v223[0]) = objc_msgSend_getIndexInCodemap_(self, v87, @"Z", v88, v89, v90);
   *&v245 = v223;
-  v91 = sub_18398DDD8(__n, v223[0]);
+  v91 = sub_18398DDD8(__n, v223[0], &v245);
   sub_18398E0F8(v91 + 3, &v256, v257, 1uLL);
   LODWORD(v256) = objc_msgSend_getIndexInCodemap_(self, v92, @"5", v93, v94, v95);
   HIDWORD(v256) = 1008981770;
   LODWORD(v223[0]) = objc_msgSend_getIndexInCodemap_(self, v96, @"s", v97, v98, v99);
   *&v245 = v223;
-  v100 = sub_18398DDD8(__n, v223[0]);
+  v100 = sub_18398DDD8(__n, v223[0], &v245);
   sub_18398E0F8(v100 + 3, &v256, v257, 1uLL);
   LODWORD(v256) = objc_msgSend_getIndexInCodemap_(self, v101, @"5", v102, v103, v104);
   HIDWORD(v256) = 1008981770;
   LODWORD(v223[0]) = objc_msgSend_getIndexInCodemap_(self, v105, @"S", v106, v107, v108);
   *&v245 = v223;
-  v109 = sub_18398DDD8(__n, v223[0]);
+  v109 = sub_18398DDD8(__n, v223[0], &v245);
   sub_18398E0F8(v109 + 3, &v256, v257, 1uLL);
   LODWORD(v245) = objc_msgSend_getIndexInCodemap_(self, v110, @"s", v111, v112, v113);
   DWORD1(v245) = 1000593162;
@@ -767,31 +767,31 @@ LABEL_19:
   HIDWORD(v245) = 1000593162;
   LODWORD(v223[0]) = objc_msgSend_getIndexInCodemap_(self, v118, @"5", v119, v120, v121);
   v256 = v223;
-  v122 = sub_18398DDD8(__n, v223[0]);
+  v122 = sub_18398DDD8(__n, v223[0], &v256);
   sub_18398E0F8(v122 + 3, &v245, &v246, 2uLL);
   LODWORD(v256) = objc_msgSend_getIndexInCodemap_(self, v123, @"6", v124, v125, v126);
   HIDWORD(v256) = 1022739087;
   LODWORD(v223[0]) = objc_msgSend_getIndexInCodemap_(self, v127, @"b", v128, v129, v130);
   *&v245 = v223;
-  v131 = sub_18398DDD8(__n, v223[0]);
+  v131 = sub_18398DDD8(__n, v223[0], &v245);
   sub_18398E0F8(v131 + 3, &v256, v257, 1uLL);
   LODWORD(v256) = objc_msgSend_getIndexInCodemap_(self, v132, @"b", v133, v134, v135);
   HIDWORD(v256) = 1000593162;
   LODWORD(v223[0]) = objc_msgSend_getIndexInCodemap_(self, v136, @"6", v137, v138, v139);
   *&v245 = v223;
-  v140 = sub_18398DDD8(__n, v223[0]);
+  v140 = sub_18398DDD8(__n, v223[0], &v245);
   sub_18398E0F8(v140 + 3, &v256, v257, 1uLL);
   LODWORD(v256) = objc_msgSend_getIndexInCodemap_(self, v141, @"9", v142, v143, v144);
   HIDWORD(v256) = 1008981770;
   LODWORD(v223[0]) = objc_msgSend_getIndexInCodemap_(self, v145, @"g", v146, v147, v148);
   *&v245 = v223;
-  v149 = sub_18398DDD8(__n, v223[0]);
+  v149 = sub_18398DDD8(__n, v223[0], &v245);
   sub_18398E0F8(v149 + 3, &v256, v257, 1uLL);
   LODWORD(v256) = objc_msgSend_getIndexInCodemap_(self, v150, @"g", v151, v152, v153);
   HIDWORD(v256) = 1000593162;
   LODWORD(v223[0]) = objc_msgSend_getIndexInCodemap_(self, v154, @"9", v155, v156, v157);
   *&v245 = v223;
-  v158 = sub_18398DDD8(__n, v223[0]);
+  v158 = sub_18398DDD8(__n, v223[0], &v245);
   sub_18398E0F8(v158 + 3, &v256, v257, 1uLL);
   IndexInCodemap = objc_msgSend_getIndexInCodemap_(self, v159, @"1", v160, v161, v162);
   v241 = objc_msgSend_getIndexInCodemap_(self, v163, @"|", v164, v165, v166);
@@ -801,41 +801,41 @@ LABEL_19:
   v245 = 0u;
   v246 = 0u;
   v247 = 1065353216;
-  sub_18383D490(&v245, &IndexInCodemap);
-  sub_18383D490(&v245, &v241);
-  sub_18383D490(&v245, &v242);
-  sub_18383D490(&v245, &v243);
-  sub_18383D490(&v245, &v244);
+  sub_18383D490(&v245, &IndexInCodemap, &IndexInCodemap);
+  sub_18383D490(&v245, &v241, &v241);
+  sub_18383D490(&v245, &v242, &v242);
+  sub_18383D490(&v245, &v243, &v243);
+  sub_18383D490(&v245, &v244, &v244);
   v237 = objc_msgSend_getIndexInCodemap_(self, v179, @"2", v180, v181, v182);
   v238 = objc_msgSend_getIndexInCodemap_(self, v183, @"z", v184, v185, v186);
   v239 = objc_msgSend_getIndexInCodemap_(self, v187, @"Z", v188, v189, v190);
   memset(v248, 0, sizeof(v248));
   v249 = 1065353216;
-  sub_18383D490(v248, &v237);
-  sub_18383D490(v248, &v238);
-  sub_18383D490(v248, &v239);
+  sub_18383D490(v248, &v237, &v237);
+  sub_18383D490(v248, &v238, &v238);
+  sub_18383D490(v248, &v239, &v239);
   v234 = objc_msgSend_getIndexInCodemap_(self, v191, @"5", v192, v193, v194);
   v235 = objc_msgSend_getIndexInCodemap_(self, v195, @"s", v196, v197, v198);
   v236 = objc_msgSend_getIndexInCodemap_(self, v199, @"S", v200, v201, v202);
   memset(v250, 0, sizeof(v250));
   v251 = 1065353216;
-  sub_18383D490(v250, &v234);
-  sub_18383D490(v250, &v235);
-  sub_18383D490(v250, &v236);
+  sub_18383D490(v250, &v234, &v234);
+  sub_18383D490(v250, &v235, &v235);
+  sub_18383D490(v250, &v236, &v236);
   v232 = objc_msgSend_getIndexInCodemap_(self, v203, @"6", v204, v205, v206);
   v233 = objc_msgSend_getIndexInCodemap_(self, v207, @"b", v208, v209, v210);
   memset(v252, 0, sizeof(v252));
   v253 = 1065353216;
-  sub_18383D490(v252, &v232);
-  sub_18383D490(v252, &v233);
+  sub_18383D490(v252, &v232, &v232);
+  sub_18383D490(v252, &v233, &v233);
   v229 = objc_msgSend_getIndexInCodemap_(self, v211, @"9", v212, v213, v214);
   v230 = objc_msgSend_getIndexInCodemap_(self, v215, @"g", v216, v217, v218);
   v231 = objc_msgSend_getIndexInCodemap_(self, v219, @"q", v220, v221, v222);
   memset(v254, 0, sizeof(v254));
   v255 = 1065353216;
-  sub_18383D490(v254, &v229);
-  sub_18383D490(v254, &v230);
-  sub_18383D490(v254, &v231);
+  sub_18383D490(v254, &v229, &v229);
+  sub_18383D490(v254, &v230, &v230);
+  sub_18383D490(v254, &v231, &v231);
   memset(v223, 0, sizeof(v223));
   v227 = v223;
   v228 = 0;
@@ -1067,7 +1067,7 @@ LABEL_10:
   v37 = &unk_1EF1BF8B8;
   v44 = v12;
   v39 = vmovn_s64(*&self->_padToMultipleOf);
-  sub_1837BD608(errorCopy, MEMORY[0x1E695EFF8], 0, &v36);
+  sub_1837BD608(errorCopy, MEMORY[0x1E695EFF8], &v36, 0);
   sub_183969890(&v37, &v36);
 }
 

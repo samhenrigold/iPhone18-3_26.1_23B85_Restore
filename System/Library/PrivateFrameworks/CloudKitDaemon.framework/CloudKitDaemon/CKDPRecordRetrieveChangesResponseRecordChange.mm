@@ -132,36 +132,35 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_recordIdentifier)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_etag)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_recordType)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_record)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -273,7 +272,6 @@
     }
   }
 
-  v14 = *(equalCopy + 44);
   if (*&self->_has)
   {
     if ((*(equalCopy + 44) & 1) == 0 || self->_type != *(equalCopy + 10))
@@ -290,10 +288,10 @@ LABEL_15:
   }
 
   record = self->_record;
-  v16 = equalCopy[2];
-  if (record | v16)
+  v15 = equalCopy[2];
+  if (record | v15)
   {
-    isEqual = objc_msgSend_isEqual_(record, v7, v16);
+    isEqual = objc_msgSend_isEqual_(record, v7, v15);
   }
 
   else

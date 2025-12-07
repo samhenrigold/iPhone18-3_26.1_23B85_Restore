@@ -23,7 +23,7 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"PXStoryTimelineSpecManager.m" lineNumber:51 description:{@"Invalid parameter not satisfying: %@", @"timelineSpec != nil"}];
   }
 
-  [(PXStoryTimelineSpecManager *)self fixedSegmentDuration];
+  objc_msgSend_fixedSegmentDuration(self);
   v8 = v10;
   v9 = v11;
   [spec setFixedSegmentDuration:&v8];
@@ -47,7 +47,7 @@
   {
     if (configurationCopy)
     {
-      [configurationCopy fixedSegmentDuration];
+      objc_msgSend_fixedSegmentDuration(configurationCopy);
     }
 
     else

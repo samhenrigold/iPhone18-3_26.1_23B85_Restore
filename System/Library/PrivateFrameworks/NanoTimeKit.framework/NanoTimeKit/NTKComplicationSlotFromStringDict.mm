@@ -3,12 +3,12 @@
 
 @implementation NTKComplicationSlotFromStringDict
 
-void ___NTKComplicationSlotFromStringDict_block_invoke()
+void ___NTKComplicationSlotFromStringDict_block_invoke(uint64_t a1)
 {
-  v2 = _NTKStringFromComplicationSlotDict();
-  v0 = _DictionaryByReversingDictionary(v2);
-  v1 = _NTKComplicationSlotFromStringDict_dictionary;
-  _NTKComplicationSlotFromStringDict_dictionary = v0;
+  v3 = _NTKStringFromComplicationSlotDict(a1);
+  v1 = _DictionaryByReversingDictionary(v3);
+  v2 = _NTKComplicationSlotFromStringDict_dictionary;
+  _NTKComplicationSlotFromStringDict_dictionary = v1;
 }
 
 @end

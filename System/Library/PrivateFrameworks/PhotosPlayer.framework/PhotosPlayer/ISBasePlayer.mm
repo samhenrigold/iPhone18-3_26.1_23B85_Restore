@@ -181,7 +181,7 @@ LABEL_11:
 
 - (void)behavior:(id)behavior setVideoVolume:(float)volume
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   behaviorCopy = behavior;
   activeBehavior = [(ISBasePlayer *)self activeBehavior];
 
@@ -190,25 +190,23 @@ LABEL_11:
     v8 = ISGetLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 138412802;
+      v10 = 138412802;
       selfCopy = self;
-      v13 = 2112;
-      v14 = behaviorCopy;
-      v15 = 2048;
+      v12 = 2112;
+      v13 = behaviorCopy;
+      v14 = 2048;
       volumeCopy = volume;
-      _os_log_debug_impl(&dword_25E667000, v8, OS_LOG_TYPE_DEBUG, "%@: will set video volume: %@ - %f", &v11, 0x20u);
+      _os_log_debug_impl(&dword_25E667000, v8, OS_LOG_TYPE_DEBUG, "%@: will set video volume: %@ - %f", &v10, 0x20u);
     }
 
     *&v9 = volume;
     [(ISBasePlayer *)self setVideoVolume:v9];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)behavior:(id)behavior setVideoForwardPlaybackEndTime:(id *)time
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   behaviorCopy = behavior;
   activeBehavior = [(ISBasePlayer *)self activeBehavior];
 
@@ -217,27 +215,25 @@ LABEL_11:
     v8 = ISGetLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v11 = *time;
-      Seconds = CMTimeGetSeconds(&v11);
-      LODWORD(v11.var0) = 138412802;
-      *(&v11.var0 + 4) = self;
-      LOWORD(v11.var2) = 2112;
-      *(&v11.var2 + 2) = behaviorCopy;
-      HIWORD(v11.var3) = 2048;
-      v12 = Seconds;
-      _os_log_debug_impl(&dword_25E667000, v8, OS_LOG_TYPE_DEBUG, "%@: will set video end time: %@ - %f", &v11, 0x20u);
+      v10 = *time;
+      Seconds = CMTimeGetSeconds(&v10);
+      LODWORD(v10.var0) = 138412802;
+      *(&v10.var0 + 4) = self;
+      LOWORD(v10.var2) = 2112;
+      *(&v10.var2 + 2) = behaviorCopy;
+      HIWORD(v10.var3) = 2048;
+      v11 = Seconds;
+      _os_log_debug_impl(&dword_25E667000, v8, OS_LOG_TYPE_DEBUG, "%@: will set video end time: %@ - %f", &v10, 0x20u);
     }
 
-    v11 = *time;
-    [(ISBasePlayer *)self _setForwardPlaybackEndTime:&v11];
+    v10 = *time;
+    [(ISBasePlayer *)self _setForwardPlaybackEndTime:&v10];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)behavior:(id)behavior prerollVideoAtRate:(float)rate completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   behaviorCopy = behavior;
   handlerCopy = handler;
   activeBehavior = [(ISBasePlayer *)self activeBehavior];
@@ -249,9 +245,9 @@ LABEL_11:
     {
       *buf = 138412802;
       selfCopy = self;
-      v22 = 2112;
-      v23 = behaviorCopy;
-      v24 = 2048;
+      v21 = 2112;
+      v22 = behaviorCopy;
+      v23 = 2048;
       rateCopy = rate;
       _os_log_debug_impl(&dword_25E667000, v12, OS_LOG_TYPE_DEBUG, "%@: will set video preroll rate: %@ - %f", buf, 0x20u);
     }
@@ -260,13 +256,13 @@ LABEL_11:
     currentItem = [videoPlayer currentItem];
     v11 = currentItem != 0;
 
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __62__ISBasePlayer_behavior_prerollVideoAtRate_completionHandler___block_invoke;
-    v18[3] = &unk_279A2A640;
-    v19 = handlerCopy;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __62__ISBasePlayer_behavior_prerollVideoAtRate_completionHandler___block_invoke;
+    v17[3] = &unk_279A2A640;
+    v18 = handlerCopy;
     *&v15 = rate;
-    [videoPlayer prerollAtRate:v18 completionHandler:v15];
+    [videoPlayer prerollAtRate:v17 completionHandler:v15];
   }
 
   else
@@ -274,13 +270,12 @@ LABEL_11:
     v11 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)behavior:(id)behavior seekVideoPlayerToTime:(id *)time toleranceBefore:(id *)before toleranceAfter:(id *)after completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   behaviorCopy = behavior;
   handlerCopy = handler;
   activeBehavior = [(ISBasePlayer *)self activeBehavior];
@@ -302,26 +297,26 @@ LABEL_11:
         LOWORD(time.flags) = 2112;
         *(&time.flags + 2) = behaviorCopy;
         HIWORD(time.epoch) = 2048;
-        v35 = Seconds;
+        v34 = Seconds;
         _os_log_debug_impl(&dword_25E667000, v19, OS_LOG_TYPE_DEBUG, "%@: will seek video to time: %@ - %f", &time, 0x20u);
       }
 
       [videoPlayer setRate:0.0];
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __96__ISBasePlayer_behavior_seekVideoPlayerToTime_toleranceBefore_toleranceAfter_completionHandler___block_invoke;
-      v29[3] = &unk_279A299F0;
-      v29[4] = self;
-      v30 = behaviorCopy;
-      v32 = *&time->var0;
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __96__ISBasePlayer_behavior_seekVideoPlayerToTime_toleranceBefore_toleranceAfter_completionHandler___block_invoke;
+      v28[3] = &unk_279A299F0;
+      v28[4] = self;
+      v29 = behaviorCopy;
+      v31 = *&time->var0;
       var3 = time->var3;
-      v31 = handlerCopy;
+      v30 = handlerCopy;
       time = *time;
-      v27 = *&before->var0;
-      v28 = before->var3;
-      v25 = *&after->var0;
-      v26 = after->var3;
-      [videoPlayer seekToTime:&time toleranceBefore:&v27 toleranceAfter:&v25 completionHandler:v29];
+      v26 = *&before->var0;
+      v27 = before->var3;
+      v24 = *&after->var0;
+      v25 = after->var3;
+      [videoPlayer seekToTime:&time toleranceBefore:&v26 toleranceAfter:&v24 completionHandler:v28];
 
       v15 = 1;
     }
@@ -332,13 +327,13 @@ LABEL_11:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         time = *time;
-        v23 = CMTimeGetSeconds(&time);
+        v22 = CMTimeGetSeconds(&time);
         LODWORD(time.value) = 138412802;
         *(&time.value + 4) = self;
         LOWORD(time.flags) = 2112;
         *(&time.flags + 2) = behaviorCopy;
         HIWORD(time.epoch) = 2048;
-        v35 = v23;
+        v34 = v22;
         _os_log_debug_impl(&dword_25E667000, v20, OS_LOG_TYPE_DEBUG, "%@: unable to seek video to time: %@ - %f", &time, 0x20u);
       }
 
@@ -351,32 +346,29 @@ LABEL_11:
     v15 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 uint64_t __96__ISBasePlayer_behavior_seekVideoPlayerToTime_toleranceBefore_toleranceAfter_completionHandler___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = ISGetLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v8 = *(a1 + 56);
-    Seconds = CMTimeGetSeconds(&v8);
-    LODWORD(v8.value) = 138412802;
-    *(&v8.value + 4) = v5;
-    LOWORD(v8.flags) = 2112;
-    *(&v8.flags + 2) = v6;
-    HIWORD(v8.epoch) = 2048;
-    v9 = Seconds;
-    _os_log_debug_impl(&dword_25E667000, v2, OS_LOG_TYPE_DEBUG, "%@: did seek video to time: %@ - %f", &v8, 0x20u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v7 = *(a1 + 56);
+    Seconds = CMTimeGetSeconds(&v7);
+    LODWORD(v7.value) = 138412802;
+    *(&v7.value + 4) = v4;
+    LOWORD(v7.flags) = 2112;
+    *(&v7.flags + 2) = v5;
+    HIWORD(v7.epoch) = 2048;
+    v8 = Seconds;
+    _os_log_debug_impl(&dword_25E667000, v2, OS_LOG_TYPE_DEBUG, "%@: did seek video to time: %@ - %f", &v7, 0x20u);
   }
 
-  result = (*(*(a1 + 48) + 16))();
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (BOOL)behavior:(id)behavior seekVideoPlayerToTime:(id *)time completionHandler:(id)handler
@@ -396,7 +388,7 @@ uint64_t __96__ISBasePlayer_behavior_seekVideoPlayerToTime_toleranceBefore_toler
     v14 = videoComposition2;
     if (videoComposition2)
     {
-      [videoComposition2 frameDuration];
+      objc_msgSend_frameDuration(videoComposition2);
     }
 
     else
@@ -434,7 +426,7 @@ uint64_t __96__ISBasePlayer_behavior_seekVideoPlayerToTime_toleranceBefore_toler
 
 - (void)behavior:(id)behavior setVideoPlayRate:(float)rate
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   behaviorCopy = behavior;
   activeBehavior = [(ISBasePlayer *)self activeBehavior];
 
@@ -443,26 +435,24 @@ uint64_t __96__ISBasePlayer_behavior_seekVideoPlayerToTime_toleranceBefore_toler
     v8 = ISGetLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 138412802;
+      v11 = 138412802;
       selfCopy = self;
-      v14 = 2112;
-      v15 = behaviorCopy;
-      v16 = 2048;
+      v13 = 2112;
+      v14 = behaviorCopy;
+      v15 = 2048;
       rateCopy = rate;
-      _os_log_debug_impl(&dword_25E667000, v8, OS_LOG_TYPE_DEBUG, "%@: will set video rate: %@ - %f", &v12, 0x20u);
+      _os_log_debug_impl(&dword_25E667000, v8, OS_LOG_TYPE_DEBUG, "%@: will set video rate: %@ - %f", &v11, 0x20u);
     }
 
     videoPlayer = [(ISBasePlayer *)self videoPlayer];
     *&v10 = rate;
     [videoPlayer setRate:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)behavior:(id)behavior didSetOutputInfo:(id)info withTransitionOptions:(id)options completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   behaviorCopy = behavior;
   infoCopy = info;
   optionsCopy = options;
@@ -479,13 +469,11 @@ uint64_t __96__ISBasePlayer_behavior_seekVideoPlayerToTime_toleranceBefore_toler
     v15 = ISGetLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v17 = 138412290;
-      v18 = behaviorCopy;
-      _os_log_debug_impl(&dword_25E667000, v15, OS_LOG_TYPE_DEBUG, "Ignoring output from behavior that is not active: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = behaviorCopy;
+      _os_log_debug_impl(&dword_25E667000, v15, OS_LOG_TYPE_DEBUG, "Ignoring output from behavior that is not active: %@", &v16, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setVideoPlayer:(id)player
@@ -808,7 +796,7 @@ void __43__ISBasePlayer__setForwardPlaybackEndTime___block_invoke(uint64_t a1)
   v5 = v4;
   if (v4)
   {
-    [v4 itemForwardPlaybackEndTime];
+    objc_msgSend_itemForwardPlaybackEndTime(v4);
   }
 
   else
@@ -869,7 +857,7 @@ void __43__ISBasePlayer__setForwardPlaybackEndTime___block_invoke(uint64_t a1)
 
 - (void)_updateWillPlayToPhotoObserverIfNeeded
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (!self->_isValid.willPlayToPhotoObserver)
   {
     self->_isValid.willPlayToPhotoObserver = 1;
@@ -886,33 +874,33 @@ void __43__ISBasePlayer__setForwardPlaybackEndTime___block_invoke(uint64_t a1)
 
     if (playerItem)
     {
-      memset(&v22, 0, sizeof(v22));
+      memset(&v21, 0, sizeof(v21));
       playerItem2 = [(ISBasePlayer *)self playerItem];
       playerContent = [playerItem2 playerContent];
       v9 = playerContent;
       if (playerContent)
       {
-        [playerContent photoTime];
+        objc_msgSend_photoTime(playerContent);
       }
 
       else
       {
-        memset(&v22, 0, sizeof(v22));
+        memset(&v21, 0, sizeof(v21));
       }
 
-      memset(&v21, 0, sizeof(v21));
+      memset(&v20, 0, sizeof(v20));
       [(ISBasePlayer *)self videoWillPlayToPhotoInterval];
       CMTimeMakeWithSeconds(&rhs, v10, 600);
-      lhs = v22;
-      CMTimeSubtract(&v21, &lhs, &rhs);
       lhs = v21;
+      CMTimeSubtract(&v20, &lhs, &rhs);
+      lhs = v20;
       time2 = **&MEMORY[0x277CC08F0];
       CMTimeMaximum(&rhs, &lhs, &time2);
-      v21 = rhs;
+      v20 = rhs;
       v11 = ISGetLog();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        rhs = v21;
+        rhs = v20;
         Seconds = CMTimeGetSeconds(&rhs);
         LODWORD(rhs.value) = 138412546;
         *(&rhs.value + 4) = self;
@@ -922,24 +910,22 @@ void __43__ISBasePlayer__setForwardPlaybackEndTime___block_invoke(uint64_t a1)
       }
 
       objc_initWeak(&lhs, self);
-      rhs = v21;
+      rhs = v20;
       v12 = [MEMORY[0x277CCAE60] valueWithCMTime:&rhs];
-      v23 = v12;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __54__ISBasePlayer__updateWillPlayToPhotoObserverIfNeeded__block_invoke;
-      v17[3] = &unk_279A2A3C0;
-      objc_copyWeak(&v18, &lhs);
-      v14 = [videoPlayer addBoundaryTimeObserverForTimes:v13 queue:0 usingBlock:v17];
+      v22 = v12;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __54__ISBasePlayer__updateWillPlayToPhotoObserverIfNeeded__block_invoke;
+      v16[3] = &unk_279A2A3C0;
+      objc_copyWeak(&v17, &lhs);
+      v14 = [videoPlayer addBoundaryTimeObserverForTimes:v13 queue:0 usingBlock:v16];
 
       [(ISBasePlayer *)self _setVideoWillPlayToPhotoObserver:v14];
-      objc_destroyWeak(&v18);
+      objc_destroyWeak(&v17);
       objc_destroyWeak(&lhs);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __54__ISBasePlayer__updateWillPlayToPhotoObserverIfNeeded__block_invoke(uint64_t a1)
@@ -961,15 +947,15 @@ void __54__ISBasePlayer__updateWillPlayToPhotoObserverIfNeeded__block_invoke_2(u
 
 - (void)_updateWillPlayToEndObserverIfNeeded
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (!self->_isValid.willPlayToEndObserver)
   {
     self->_isValid.willPlayToEndObserver = 1;
     videoPlayer = [(ISBasePlayer *)self videoPlayer];
     if (videoPlayer)
     {
-      memset(&v20, 0, sizeof(v20));
-      [(ISBasePlayer *)self _videoForwardPlaybackEndTime];
+      memset(&v19, 0, sizeof(v19));
+      objc_msgSend__videoForwardPlaybackEndTime(self);
       if (0 >> 96 != 1)
       {
         playerItem = [(ISBasePlayer *)self playerItem];
@@ -977,15 +963,15 @@ void __54__ISBasePlayer__updateWillPlayToPhotoObserverIfNeeded__block_invoke_2(u
         v6 = playerContent;
         if (playerContent)
         {
-          [playerContent videoDuration];
+          objc_msgSend_videoDuration(playerContent);
         }
 
         else
         {
-          memset(&v19, 0, sizeof(v19));
+          memset(&v18, 0, sizeof(v18));
         }
 
-        v20 = v19;
+        v19 = v18;
       }
 
       _videoWillPlayToEndObserver = [(ISBasePlayer *)self _videoWillPlayToEndObserver];
@@ -996,15 +982,15 @@ void __54__ISBasePlayer__updateWillPlayToPhotoObserverIfNeeded__block_invoke_2(u
         [videoPlayer removeTimeObserver:_videoWillPlayToEndObserver2];
       }
 
-      memset(&v19, 0, sizeof(v19));
+      memset(&v18, 0, sizeof(v18));
       [(ISBasePlayer *)self videoWillPlayToEndInterval];
       CMTimeMakeWithSeconds(&rhs, v9, 600);
-      lhs = v20;
-      CMTimeSubtract(&v19, &lhs, &rhs);
+      lhs = v19;
+      CMTimeSubtract(&v18, &lhs, &rhs);
       v10 = ISGetLog();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        rhs = v19;
+        rhs = v18;
         Seconds = CMTimeGetSeconds(&rhs);
         LODWORD(rhs.value) = 138412546;
         *(&rhs.value + 4) = self;
@@ -1014,24 +1000,22 @@ void __54__ISBasePlayer__updateWillPlayToPhotoObserverIfNeeded__block_invoke_2(u
       }
 
       objc_initWeak(&lhs, self);
-      rhs = v19;
+      rhs = v18;
       v11 = [MEMORY[0x277CCAE60] valueWithCMTime:&rhs];
-      v21 = v11;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __52__ISBasePlayer__updateWillPlayToEndObserverIfNeeded__block_invoke;
-      v16[3] = &unk_279A2A3C0;
-      objc_copyWeak(&v17, &lhs);
-      v13 = [videoPlayer addBoundaryTimeObserverForTimes:v12 queue:0 usingBlock:v16];
+      v20 = v11;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __52__ISBasePlayer__updateWillPlayToEndObserverIfNeeded__block_invoke;
+      v15[3] = &unk_279A2A3C0;
+      objc_copyWeak(&v16, &lhs);
+      v13 = [videoPlayer addBoundaryTimeObserverForTimes:v12 queue:0 usingBlock:v15];
 
       [(ISBasePlayer *)self _setVideoWillPlayToEndObserver:v13];
-      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v16);
       objc_destroyWeak(&lhs);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __52__ISBasePlayer__updateWillPlayToEndObserverIfNeeded__block_invoke(uint64_t a1)
@@ -1124,44 +1108,42 @@ void __52__ISBasePlayer__updateWillPlayToEndObserverIfNeeded__block_invoke_2(uin
 
 - (void)enumerateOutputsWithBlock:(id)block
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   blockCopy = block;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_outputs;
-  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        blockCopy[2](blockCopy, *(*(&v11 + 1) + 8 * v9++));
+        blockCopy[2](blockCopy, *(*(&v10 + 1) + 8 * v9++));
       }
 
       while (v7 != v9);
-      v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applyOutputInfo:(id)info fromBehavior:(id)behavior withTransitionOptions:(id)options completion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   behaviorCopy = behavior;
   optionsCopy = options;
@@ -1174,9 +1156,9 @@ void __52__ISBasePlayer__updateWillPlayToEndObserverIfNeeded__block_invoke_2(uin
     *&buf[12] = 2112;
     *&buf[14] = behaviorCopy;
     *&buf[22] = 2112;
-    v29 = infoCopy;
-    v30 = 2112;
-    v31 = optionsCopy;
+    v28 = infoCopy;
+    v29 = 2112;
+    v30 = optionsCopy;
     _os_log_debug_impl(&dword_25E667000, v14, OS_LOG_TYPE_DEBUG, "%@: will apply output info: %@ - %@\n\toptions: %@", buf, 0x2Au);
   }
 
@@ -1185,32 +1167,31 @@ void __52__ISBasePlayer__updateWillPlayToEndObserverIfNeeded__block_invoke_2(uin
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  LOBYTE(v29) = 1;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __78__ISBasePlayer_applyOutputInfo_fromBehavior_withTransitionOptions_completion___block_invoke;
-  v23[3] = &unk_279A29978;
+  LOBYTE(v28) = 1;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __78__ISBasePlayer_applyOutputInfo_fromBehavior_withTransitionOptions_completion___block_invoke;
+  v22[3] = &unk_279A29978;
   v16 = v15;
-  v24 = v16;
+  v23 = v16;
   v17 = infoCopy;
-  v25 = v17;
+  v24 = v17;
   v18 = optionsCopy;
-  v26 = v18;
-  v27 = buf;
-  [(ISBasePlayer *)self enumerateOutputsWithBlock:v23];
+  v25 = v18;
+  v26 = buf;
+  [(ISBasePlayer *)self enumerateOutputsWithBlock:v22];
   if (completionCopy)
   {
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __78__ISBasePlayer_applyOutputInfo_fromBehavior_withTransitionOptions_completion___block_invoke_4;
-    v20[3] = &unk_279A2A068;
-    v21 = completionCopy;
-    v22 = buf;
-    dispatch_group_notify(v16, MEMORY[0x277D85CD0], v20);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __78__ISBasePlayer_applyOutputInfo_fromBehavior_withTransitionOptions_completion___block_invoke_4;
+    v19[3] = &unk_279A2A068;
+    v20 = completionCopy;
+    v21 = buf;
+    dispatch_group_notify(v16, MEMORY[0x277D85CD0], v19);
   }
 
   _Block_object_dispose(buf, 8);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __78__ISBasePlayer_applyOutputInfo_fromBehavior_withTransitionOptions_completion___block_invoke(uint64_t a1, void *a2)
@@ -1252,7 +1233,7 @@ void __78__ISBasePlayer_applyOutputInfo_fromBehavior_withTransitionOptions_compl
 
 - (void)applyScale:(double)scale withTransitionOptions:(id)options completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   completionCopy = completion;
   v10 = ISGetLog();
@@ -1263,7 +1244,7 @@ void __78__ISBasePlayer_applyOutputInfo_fromBehavior_withTransitionOptions_compl
     *&buf[12] = 2048;
     *&buf[14] = scale;
     *&buf[22] = 2112;
-    v24 = optionsCopy;
+    v23 = optionsCopy;
     _os_log_debug_impl(&dword_25E667000, v10, OS_LOG_TYPE_DEBUG, "%@: will apply scale %.2f\n\toptions: %@", buf, 0x20u);
   }
 
@@ -1272,31 +1253,30 @@ void __78__ISBasePlayer_applyOutputInfo_fromBehavior_withTransitionOptions_compl
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  LOBYTE(v24) = 1;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __60__ISBasePlayer_applyScale_withTransitionOptions_completion___block_invoke;
-  v18[3] = &unk_279A29928;
+  LOBYTE(v23) = 1;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __60__ISBasePlayer_applyScale_withTransitionOptions_completion___block_invoke;
+  v17[3] = &unk_279A29928;
   v12 = v11;
-  v19 = v12;
+  v18 = v12;
   scaleCopy = scale;
   v13 = optionsCopy;
-  v20 = v13;
-  v21 = buf;
-  [(ISBasePlayer *)self enumerateOutputsWithBlock:v18];
+  v19 = v13;
+  v20 = buf;
+  [(ISBasePlayer *)self enumerateOutputsWithBlock:v17];
   if (completionCopy)
   {
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __60__ISBasePlayer_applyScale_withTransitionOptions_completion___block_invoke_3;
-    v15[3] = &unk_279A2A068;
-    v16 = completionCopy;
-    v17 = buf;
-    dispatch_group_notify(v12, MEMORY[0x277D85CD0], v15);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __60__ISBasePlayer_applyScale_withTransitionOptions_completion___block_invoke_3;
+    v14[3] = &unk_279A2A068;
+    v15 = completionCopy;
+    v16 = buf;
+    dispatch_group_notify(v12, MEMORY[0x277D85CD0], v14);
   }
 
   _Block_object_dispose(buf, 8);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __60__ISBasePlayer_applyScale_withTransitionOptions_completion___block_invoke(uint64_t a1, void *a2)
@@ -1317,7 +1297,7 @@ void __60__ISBasePlayer_applyScale_withTransitionOptions_completion___block_invo
 
 - (void)setActiveBehavior:(id)behavior
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   behaviorCopy = behavior;
   activeBehavior = self->_activeBehavior;
   if (activeBehavior != behaviorCopy)
@@ -1327,9 +1307,9 @@ void __60__ISBasePlayer_applyScale_withTransitionOptions_completion___block_invo
     v7 = ISGetLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 138412290;
-      v10 = behaviorCopy;
-      _os_log_debug_impl(&dword_25E667000, v7, OS_LOG_TYPE_DEBUG, "ACTIVE BEHAVIOR: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = behaviorCopy;
+      _os_log_debug_impl(&dword_25E667000, v7, OS_LOG_TYPE_DEBUG, "ACTIVE BEHAVIOR: %@", &v8, 0xCu);
     }
 
     objc_storeStrong(&self->_activeBehavior, behavior);
@@ -1337,8 +1317,6 @@ void __60__ISBasePlayer_applyScale_withTransitionOptions_completion___block_invo
     [(ISBehavior *)self->_activeBehavior becomeActive];
     [(ISBasePlayer *)self activeBehaviorDidChange];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAudioVolume:(float)volume
@@ -1393,27 +1371,27 @@ void __60__ISBasePlayer_applyScale_withTransitionOptions_completion___block_invo
 
 - (BOOL)videoLayersReadyForDisplay
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = self->_outputs;
-  v3 = [(NSHashTable *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [(NSHashTable *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         if ((objc_opt_respondsToSelector() & 1) != 0 && ![v7 isVideoReadyForDisplay])
         {
           v8 = 0;
@@ -1421,7 +1399,7 @@ void __60__ISBasePlayer_applyScale_withTransitionOptions_completion___block_invo
         }
       }
 
-      v4 = [(NSHashTable *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [(NSHashTable *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -1434,7 +1412,6 @@ void __60__ISBasePlayer_applyScale_withTransitionOptions_completion___block_invo
   v8 = 1;
 LABEL_12:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

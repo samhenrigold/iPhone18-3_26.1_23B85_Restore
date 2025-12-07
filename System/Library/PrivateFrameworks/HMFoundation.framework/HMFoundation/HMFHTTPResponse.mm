@@ -42,26 +42,24 @@
 
 - (id)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   v3 = [HMFAttributeDescription alloc];
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMFHTTPResponse statusCode](self, "statusCode")}];
   v5 = [(HMFAttributeDescription *)v3 initWithName:@"Status Code" value:v4];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = [HMFAttributeDescription alloc];
   headerFields = [(HMFHTTPResponse *)self headerFields];
   v8 = [(HMFAttributeDescription *)v6 initWithName:@"Headers" value:headerFields];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = [HMFAttributeDescription alloc];
   body = [(HMFHTTPResponse *)self body];
   v11 = [(HMFAttributeDescription *)v9 initWithName:@"Body" value:body options:1 formatter:0];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = [HMFAttributeDescription alloc];
   request = [(HMFHTTPResponse *)self request];
   v14 = [(HMFAttributeDescription *)v12 initWithName:@"Request" value:request options:1 formatter:0];
-  v18[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
 
   return v15;
 }

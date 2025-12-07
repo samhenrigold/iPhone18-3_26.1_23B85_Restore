@@ -1402,20 +1402,20 @@ LABEL_8:
 - (void)setLocation:(id)location
 {
   locationCopy = location;
-  v5 = _AECaptureLocationLog();
+  v5 = _AECaptureLocationLog(locationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [NSString stringWithUTF8String:"[BKPictureBookViewController setLocation:]"];
     *buf = 138412546;
-    v33 = v6;
-    v34 = 2112;
-    v35 = locationCopy;
+    v36 = v6;
+    v37 = 2112;
+    v38 = locationCopy;
     _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "#PictureBookVC %@: %@", buf, 0x16u);
   }
 
-  v31.receiver = self;
-  v31.super_class = BKPictureBookViewController;
-  [(BKBookViewController *)&v31 setLocation:locationCopy];
+  v34.receiver = self;
+  v34.super_class = BKPictureBookViewController;
+  [(BKBookViewController *)&v34 setLocation:locationCopy];
   viewIfLoaded = [(BKPictureBookViewController *)self viewIfLoaded];
   window = [viewIfLoaded window];
   windowScene = [window windowScene];
@@ -1423,18 +1423,18 @@ LABEL_8:
 
   if (activationState)
   {
-    v11 = _AEBookPluginsLifeCycleLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _AEBookPluginsLifeCycleLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       book = [(BKBookViewController *)self book];
       assetLogID = [book assetLogID];
       *buf = 138543362;
-      v33 = assetLogID;
-      v14 = "Setting Location when scene state is not foregroundActive. Bailing out. logID:%{public}@";
-      v15 = v11;
-      v16 = 12;
+      v36 = assetLogID;
+      v15 = "Setting Location when scene state is not foregroundActive. Bailing out. logID:%{public}@";
+      v16 = v12;
+      v17 = 12;
 LABEL_6:
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, v14, buf, v16);
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, v15, buf, v17);
     }
   }
 
@@ -1444,8 +1444,8 @@ LABEL_6:
 
     if (!viewIfLoaded2)
     {
-      v11 = _AEBookPluginsLifeCycleLog();
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = _AEBookPluginsLifeCycleLog(v19);
+      if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_18;
       }
@@ -1453,62 +1453,62 @@ LABEL_6:
       book = [(BKBookViewController *)self book];
       assetLogID = [book assetLogID];
       *buf = 138543618;
-      v33 = locationCopy;
-      v34 = 2114;
-      v35 = assetLogID;
-      v14 = "Bailing out on attempt to set location when our view is not loaded. Location:%{public}@ logID:%{public}@ ";
-      v15 = v11;
-      v16 = 22;
+      v36 = locationCopy;
+      v37 = 2114;
+      v38 = assetLogID;
+      v15 = "Bailing out on attempt to set location when our view is not loaded. Location:%{public}@ logID:%{public}@ ";
+      v16 = v12;
+      v17 = 22;
       goto LABEL_6;
     }
 
     objc_opt_class();
     location = [(BKBookViewController *)self location];
-    v11 = BUDynamicCast();
+    v12 = BUDynamicCast();
 
-    v19 = _AECaptureLocationLog();
-    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
-    if (v11)
+    v22 = _AECaptureLocationLog(v21);
+    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+    if (v12)
     {
-      if (v20)
+      if (v23)
       {
-        v21 = [NSNumber numberWithUnsignedInteger:[v11 ordinal]+ [v11 pageOffset]];
+        v24 = [NSNumber numberWithUnsignedInteger:[v12 ordinal]+ [v12 pageOffset]];
         *buf = 138412290;
-        v33 = v21;
-        _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "#PictureBookVC 1 Setting offset: %@", buf, 0xCu);
+        v36 = v24;
+        _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "#PictureBookVC 1 Setting offset: %@", buf, 0xCu);
       }
 
       pageNavigationViewController = [(BKPictureBookViewController *)self pageNavigationViewController];
-      ordinal = [v11 ordinal];
-      v24 = &ordinal[[v11 pageOffset]];
+      ordinal = [v12 ordinal];
+      v27 = &ordinal[[v12 pageOffset]];
       pageNavigationViewController2 = pageNavigationViewController;
     }
 
     else
     {
-      if (v20)
+      if (v23)
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "#PictureBookVC 2 Setting Offset 0", buf, 2u);
+        _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "#PictureBookVC 2 Setting Offset 0", buf, 2u);
       }
 
       pageNavigationViewController2 = [(BKPictureBookViewController *)self pageNavigationViewController];
       pageNavigationViewController = pageNavigationViewController2;
-      v24 = 0;
+      v27 = 0;
     }
 
-    [pageNavigationViewController2 setPageOffset:v24];
+    [pageNavigationViewController2 setPageOffset:v27];
 
     [(BKPictureBookViewController *)self updateCurrentReadingPositionViewIfNeeded];
     currentPages = [(BKPictureBookViewController *)self currentPages];
-    v28 = [NSNumber numberWithUnsignedInteger:v27];
-    [(BKPictureBookViewController *)self _updateWebProcessPluginObject:v28 withParameter:@"BEWebProcessPluginCurrentPageLengthParameterKey"];
+    v31 = [NSNumber numberWithUnsignedInteger:v30];
+    [(BKPictureBookViewController *)self _updateWebProcessPluginObject:v31 withParameter:@"BEWebProcessPluginCurrentPageLengthParameterKey"];
 
-    v29 = [NSNumber numberWithUnsignedInteger:currentPages];
-    [(BKPictureBookViewController *)self _updateWebProcessPluginObject:v29 withParameter:@"BEWebProcessPluginCurrentPageLocationParameterKey"];
+    v32 = [NSNumber numberWithUnsignedInteger:currentPages];
+    [(BKPictureBookViewController *)self _updateWebProcessPluginObject:v32 withParameter:@"BEWebProcessPluginCurrentPageLocationParameterKey"];
 
-    v30 = [NSNumber numberWithInteger:[(BKBookViewController *)self pageCountIncludingUpsell]];
-    [(BKPictureBookViewController *)self _updateWebProcessPluginObject:v30 withParameter:@"BEWebProcessPluginPageCountParameterKey"];
+    v33 = [NSNumber numberWithInteger:[(BKBookViewController *)self pageCountIncludingUpsell]];
+    [(BKPictureBookViewController *)self _updateWebProcessPluginObject:v33 withParameter:@"BEWebProcessPluginPageCountParameterKey"];
   }
 
 LABEL_18:
@@ -1516,7 +1516,7 @@ LABEL_18:
 
 - (void)restoreSavedLocation
 {
-  v3 = _AECaptureLocationLog();
+  v3 = _AECaptureLocationLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1562,10 +1562,11 @@ LABEL_18:
       v7 = 0;
     }
 
-    v5 = [(BKPageLocation *)v6 initWithOrdinal:v7 andOffset:0];
+    v4 = [(BKPageLocation *)v6 initWithOrdinal:v7 andOffset:0];
+    v5 = v4;
   }
 
-  v8 = _AECaptureLocationLog();
+  v8 = _AECaptureLocationLog(v4);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [NSNumber numberWithInteger:number];
@@ -1667,7 +1668,7 @@ LABEL_18:
       ordinal = [v11 ordinal];
       pageOffset = [v11 pageOffset];
 
-      v14 = &pageOffset[ordinal + 1];
+      v15 = &pageOffset[ordinal + 1];
     }
 
     else
@@ -1675,40 +1676,41 @@ LABEL_18:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v14 = [locationCopy ordinal] + 1;
+        ordinal2 = [locationCopy ordinal];
+        v15 = ordinal2 + 1;
       }
 
       else
       {
         paginationController2 = [(BKBookViewController *)self paginationController];
-        v14 = [paginationController2 pageNumberForLocation:locationCopy];
+        v15 = [paginationController2 pageNumberForLocation:locationCopy];
       }
     }
 
-    if (v14 == 0x7FFFFFFFFFFFFFFFLL)
+    if (v15 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v14 = (&dword_0 + 1);
+      v15 = (&dword_0 + 1);
     }
 
-    v16 = _AECaptureLocationLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = _AECaptureLocationLog(ordinal2);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = [NSNumber numberWithInteger:v14];
-      v20 = 138412546;
-      v21 = locationCopy;
-      v22 = 2112;
-      v23 = v17;
-      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "#PictureBookVC jumpToLocation:%@ pageNumber:%@", &v20, 0x16u);
+      v18 = [NSNumber numberWithInteger:v15];
+      v21 = 138412546;
+      v22 = locationCopy;
+      v23 = 2112;
+      v24 = v18;
+      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "#PictureBookVC jumpToLocation:%@ pageNumber:%@", &v21, 0x16u);
     }
 
-    [(BKThumbnailBookViewController *)self turnToPageNumber:v14 animated:animatedCopy];
+    [(BKThumbnailBookViewController *)self turnToPageNumber:v15 animated:animatedCopy];
   }
 
-  v18 = objc_retainBlock(completionCopy);
-  v19 = v18;
-  if (v18)
+  v19 = objc_retainBlock(completionCopy);
+  v20 = v19;
+  if (v19)
   {
-    (*(v18 + 2))(v18);
+    (*(v19 + 2))(v19);
   }
 }
 
@@ -2085,23 +2087,23 @@ LABEL_18:
   {
     [(BKPictureBookViewController *)self hideVerticalScrubber];
     UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, 0);
-    v4 = @"Dismissed page chooser";
+    v5 = @"Dismissed page chooser";
   }
 
   else
   {
     [(BKPictureBookViewController *)self showVerticalScrubber];
-    v5 = UIAccessibilityLayoutChangedNotification;
+    v6 = UIAccessibilityLayoutChangedNotification;
     verticalScrubber = [(BKPictureBookViewController *)self verticalScrubber];
-    UIAccessibilityPostNotification(v5, verticalScrubber);
+    UIAccessibilityPostNotification(v6, verticalScrubber);
 
-    v4 = @"Page chooser";
+    v5 = @"Page chooser";
   }
 
-  v7 = UIAccessibilityAnnouncementNotification;
-  v9 = AEBundle();
-  v8 = [v9 localizedStringForKey:v4 value:&stru_1E7188 table:0];
-  UIAccessibilityPostNotification(v7, v8);
+  v8 = UIAccessibilityAnnouncementNotification;
+  v10 = AEBundle(v4);
+  v9 = [v10 localizedStringForKey:v5 value:&stru_1E7188 table:0];
+  UIAccessibilityPostNotification(v8, v9);
 }
 
 - (BOOL)isSpread
@@ -3694,24 +3696,28 @@ LABEL_9:
   hintCopy = hint;
   pageNavigationViewController = [(BKPictureBookViewController *)self pageNavigationViewController];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  v6 = pageNavigationViewController;
+  if (isKindOfClass)
   {
-    v5 = pageNavigationViewController;
+    v7 = pageNavigationViewController;
     currentPages = [(BKPictureBookViewController *)self currentPages];
     [(BKPictureBookViewController *)self currentPages];
-    v8 = currentPages + v7;
-    if (v8 <= [(BKBookViewController *)self pageCountIncludingUpsell])
+    v10 = currentPages + v9;
+    if (v10 <= [(BKBookViewController *)self pageCountIncludingUpsell])
     {
-      if (hintCopy && [v5 isZoomedToSinglePage])
+      if (hintCopy && [v7 isZoomedToSinglePage])
       {
-        [v5 turnToPageNumber:v8 - 1 animated:1];
+        [v7 turnToPageNumber:v10 - 1 animated:1];
       }
 
-      [v5 curlPageForReadAloud:hintCopy];
+      [v7 curlPageForReadAloud:hintCopy];
     }
+
+    v6 = pageNavigationViewController;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(isKindOfClass, v6);
 }
 
 - (BOOL)_isManualCurlInProgress

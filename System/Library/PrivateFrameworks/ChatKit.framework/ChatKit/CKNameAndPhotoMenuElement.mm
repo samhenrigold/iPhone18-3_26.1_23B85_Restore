@@ -72,7 +72,7 @@ id __53__CKNameAndPhotoMenuElement_menuElementWithNickname___block_invoke(uint64
   [v18 setFont:v19];
 
   v20 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v13, v14, v15, v16}];
-  v21 = CKFrameworkBundle();
+  v21 = CKFrameworkBundle(v20);
   v22 = [v21 localizedStringForKey:@"NAME_AND_PHOTO_MENU" value:&stru_1F04268F8 table:@"ChatKit"];
   [v20 setText:v22];
 

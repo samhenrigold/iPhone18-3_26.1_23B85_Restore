@@ -3,6 +3,7 @@
 + (id)orderedClassesForChangesForLargeSync;
 + (id)orderedClassesForDelete;
 - (BOOL)_appendBatchToStorage:(id)storage alreadyMingled:(BOOL)mingled countOfAssetChanges:(unint64_t *)changes error:(id *)error;
+- (BOOL)appendBatch:(id)batch alreadyMingled:(BOOL)mingled countOfAssetChanges:(unint64_t *)changes error:(id *)error;
 - (BOOL)deleteMingledRecordsForScopeWithIdentifier:(id)identifier error:(id *)error;
 - (BOOL)deleteRecordsForScopeIndex:(int64_t)index maxCount:(int64_t)count deletedCount:(int64_t *)deletedCount error:(id *)error;
 - (BOOL)hasMingledRecordsForScopeWithIdentifier:(id)identifier;
@@ -58,10 +59,10 @@
 
 - (BOOL)openWithError:(id *)error
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = CPLEngineTransientRepository;
-  v4 = [(CPLEngineStorage *)&v10 openWithError:error];
+  v12 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = CPLEngineTransientRepository;
+  v4 = [(CPLEngineStorage *)&v9 openWithError:error];
   if (v4)
   {
     standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
@@ -75,7 +76,7 @@
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v12 = v6;
+          v11 = v6;
           _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Will give batches with a maximum size of %lu", buf, 0xCu);
         }
       }
@@ -84,7 +85,6 @@
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -299,40 +299,66 @@
   return v8;
 }
 
+- (BOOL)appendBatch:(id)batch alreadyMingled:(BOOL)mingled countOfAssetChanges:(unint64_t *)changes error:(id *)error
+{
+  mingledCopy = mingled;
+  v16 = *MEMORY[0x1E69E9840];
+  batchCopy = batch;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v11 = __CPLStorageOSLogDomain_9448();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      v14 = 134217984;
+      v15 = [batchCopy count];
+      _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEBUG, "Adding %lu records in disk storage", &v14, 0xCu);
+    }
+  }
+
+  if (changes)
+  {
+    *changes = 0;
+  }
+
+  v12 = [(CPLEngineTransientRepository *)self _appendBatchToStorage:batchCopy alreadyMingled:mingledCopy countOfAssetChanges:changes error:error];
+
+  return v12;
+}
+
 - (BOOL)_appendBatchToStorage:(id)storage alreadyMingled:(BOOL)mingled countOfAssetChanges:(unint64_t *)changes error:(id *)error
 {
   mingledCopy = mingled;
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
-  v54 = objc_alloc_init(CPLChangeBatch);
+  v53 = objc_alloc_init(CPLChangeBatch);
   selfCopy = self;
   engineStore = [(CPLEngineStorage *)self engineStore];
   remappedRecords = [engineStore remappedRecords];
   sharingScopeIdentifier = [engineStore sharingScopeIdentifier];
-  v50 = engineStore;
+  v49 = engineStore;
   ignoredRecords = [engineStore ignoredRecords];
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
   obj = storageCopy;
-  v56 = [obj countByEnumeratingWithState:&v61 objects:v67 count:16];
-  if (v56)
+  v55 = [obj countByEnumeratingWithState:&v60 objects:v66 count:16];
+  if (v55)
   {
-    v46 = a2;
+    v45 = a2;
     v11 = 0;
-    v57 = 0;
-    v55 = *v62;
+    v56 = 0;
+    v54 = *v61;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v62 != v55)
+      if (*v61 != v54)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v61 + 1) + 8 * v12);
+      v13 = *(*(&v60 + 1) + 8 * v12);
       v14 = objc_autoreleasePoolPush();
       scopedIdentifier = [v13 scopedIdentifier];
       scopeIdentifier = [scopedIdentifier scopeIdentifier];
@@ -349,7 +375,7 @@ LABEL_3:
       {
         v23 = v13;
         objc_opt_class();
-        v57 += objc_opt_isKindOfClass() & 1;
+        v56 += objc_opt_isKindOfClass() & 1;
         if (v18)
         {
           goto LABEL_30;
@@ -374,18 +400,18 @@ LABEL_3:
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v43 = __CPLStorageOSLogDomain_9448();
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+          v42 = __CPLStorageOSLogDomain_9448();
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v66 = 0;
-            _os_log_impl(&dword_1DC05A000, v43, OS_LOG_TYPE_ERROR, "Got a delete change with no identifier: %@", buf, 0xCu);
+            v65 = 0;
+            _os_log_impl(&dword_1DC05A000, v42, OS_LOG_TYPE_ERROR, "Got a delete change with no identifier: %@", buf, 0xCu);
           }
         }
 
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-        v45 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineTransientRepository.m"];
-        [currentHandler handleFailureInMethod:v46 object:selfCopy file:v45 lineNumber:387 description:{@"Got a delete change with no identifier: %@", 0}];
+        v44 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineTransientRepository.m"];
+        [currentHandler handleFailureInMethod:v45 object:selfCopy file:v44 lineNumber:387 description:{@"Got a delete change with no identifier: %@", 0}];
 
         abort();
       }
@@ -430,9 +456,9 @@ LABEL_31:
       {
         scopedIdentifier2 = [v13 scopedIdentifier];
         v33 = [scopedIdentifier2 copy];
-        v59 = v11;
-        v34 = [remappedRecords removeRemappedRecordWithScopedIdentifier:v33 error:&v59];
-        v31 = v59;
+        v58 = v11;
+        v34 = [remappedRecords removeRemappedRecordWithScopedIdentifier:v33 error:&v58];
+        v31 = v58;
 
         v11 = v31;
         if (!v34)
@@ -453,21 +479,21 @@ LABEL_44:
           }
 
           v11 = v31;
-          v40 = v54;
+          v40 = v53;
           goto LABEL_52;
         }
       }
 
       if (v23)
       {
-        [(CPLChangeBatch *)v54 addRecord:v23];
+        [(CPLChangeBatch *)v53 addRecord:v23];
       }
 
       objc_autoreleasePoolPop(v14);
-      if (v56 == ++v12)
+      if (v55 == ++v12)
       {
-        v36 = [obj countByEnumeratingWithState:&v61 objects:v67 count:16];
-        v56 = v36;
+        v36 = [obj countByEnumeratingWithState:&v60 objects:v66 count:16];
+        v55 = v36;
         if (v36)
         {
           goto LABEL_3;
@@ -499,9 +525,9 @@ LABEL_44:
     {
 LABEL_30:
       scopedIdentifier3 = [v13 scopedIdentifier];
-      v60 = v11;
-      v30 = [ignoredRecords removeRecordWithScopedIdentifier:scopedIdentifier3 error:&v60];
-      v31 = v60;
+      v59 = v11;
+      v30 = [ignoredRecords removeRecordWithScopedIdentifier:scopedIdentifier3 error:&v59];
+      v31 = v59;
 
       v11 = v31;
       if (!v30)
@@ -516,20 +542,19 @@ LABEL_30:
   }
 
   v11 = 0;
-  v57 = 0;
+  v56 = 0;
 LABEL_47:
 
   if (changes)
   {
-    *changes = v57;
+    *changes = v56;
   }
 
   platformObject = [(CPLEngineStorage *)selfCopy platformObject];
-  v40 = v54;
-  v38 = [platformObject appendBatch:v54 alreadyMingled:mingledCopy error:error];
+  v40 = v53;
+  v38 = [platformObject appendBatch:v53 alreadyMingled:mingledCopy error:error];
 
 LABEL_52:
-  v41 = *MEMORY[0x1E69E9840];
   return v38;
 }
 
@@ -650,13 +675,13 @@ LABEL_18:
 
 - (BOOL)shouldKeepDeleteChange:(id)change forRecordWithScopedIdentifier:(id)identifier
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   identifierCopy = identifier;
-  v27 = 0;
+  v26 = 0;
   engineStore = [(CPLEngineStorage *)self engineStore];
   idMapping = [engineStore idMapping];
-  v10 = [idMapping localScopedIdentifierForCloudScopedIdentifier:identifierCopy isFinal:&v27];
+  v10 = [idMapping localScopedIdentifierForCloudScopedIdentifier:identifierCopy isFinal:&v26];
 
   if (v10)
   {
@@ -676,7 +701,7 @@ LABEL_18:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v29 = changeCopy;
+        v28 = changeCopy;
         _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_DEBUG, "%@ is a delete for a quarantined record. Keeping.", buf, 0xCu);
       }
 
@@ -689,20 +714,8 @@ LABEL_18:
   v14 = [cloudCache targetForRecordWithCloudScopedIdentifier:identifierCopy];
 
   otherScopedIdentifier = [v14 otherScopedIdentifier];
-  if (!otherScopedIdentifier)
+  if (!otherScopedIdentifier || (v19 = otherScopedIdentifier, -[CPLEngineStorage engineStore](self, "engineStore"), v20 = objc_claimAutoreleasedReturnValue(), [v20 ignoredRecords], v21 = objc_claimAutoreleasedReturnValue(), -[NSObject otherScopedIdentifier](v14, "otherScopedIdentifier"), v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v21, "hasRecordWithScopedIdentifier:", v22), v22, v21, v20, v19, !v23))
   {
-    goto LABEL_13;
-  }
-
-  v19 = otherScopedIdentifier;
-  engineStore4 = [(CPLEngineStorage *)self engineStore];
-  ignoredRecords = [engineStore4 ignoredRecords];
-  otherScopedIdentifier2 = [v14 otherScopedIdentifier];
-  v23 = [ignoredRecords hasRecordWithScopedIdentifier:otherScopedIdentifier2];
-
-  if (!v23)
-  {
-LABEL_13:
     if (_CPLSilentLogging)
     {
       v15 = 0;
@@ -713,7 +726,7 @@ LABEL_13:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v29 = changeCopy;
+      v28 = changeCopy;
       _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_DEBUG, "%@ is a delete for a record we don't know or has already been deleted. Ignoring.", buf, 0xCu);
     }
 
@@ -727,7 +740,7 @@ LABEL_13:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v29 = changeCopy;
+      v28 = changeCopy;
       _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_DEBUG, "%@ is a delete of a record shadowing an other record", buf, 0xCu);
     }
 
@@ -742,7 +755,6 @@ LABEL_6:
 LABEL_18:
 
 LABEL_19:
-  v25 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -758,7 +770,7 @@ LABEL_19:
 
 - (id)batchStorageForScope:(id)scope
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   scopeCopy = scope;
   scopeType = [scopeCopy scopeType];
   if ((scopeType - 4) < 2)
@@ -804,9 +816,9 @@ LABEL_17:
           engineStore2 = [(CPLEngineStorage *)self engineStore];
           engineLibrary = [engineStore2 engineLibrary];
           [engineLibrary transport];
-          v18 = v24 = v14;
+          v18 = v23 = v14;
           [v18 propertyMapping];
-          v19 = v25 = scopes;
+          v19 = v24 = scopes;
           v20 = [(CPLSharedRecordMerger *)v15 initWithMapping:v19];
 
           v11 = [[CPLSharedBatchStorage alloc] initWithTransientRepository:self scope:scopeCopy sharedScope:v13 merger:v20];
@@ -819,11 +831,11 @@ LABEL_17:
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v27 = v13;
-            v28 = 2112;
-            v29 = v14;
-            v30 = 2112;
-            v31 = scopeCopy;
+            v26 = v13;
+            v27 = 2112;
+            v28 = v14;
+            v29 = 2112;
+            v30 = scopeCopy;
             _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_DEFAULT, "Ignoring %@ (%@) for %@", buf, 0x20u);
           }
         }
@@ -837,8 +849,6 @@ LABEL_18:
 
   v11 = [[CPLEngineTransientRepositoryBatchStorage alloc] initWithTransientRepository:self scope:scopeCopy];
 LABEL_20:
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -900,28 +910,26 @@ LABEL_20:
   return v3;
 }
 
-void __68__CPLEngineTransientRepository_orderedClassesForChangesForLargeSync__block_invoke()
+void __68__CPLEngineTransientRepository_orderedClassesForChangesForLargeSync__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3[14] = *MEMORY[0x1E69E9840];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v3[5] = objc_opt_class();
-  v3[6] = objc_opt_class();
-  v3[7] = objc_opt_class();
-  v3[8] = objc_opt_class();
-  v3[9] = objc_opt_class();
-  v3[10] = objc_opt_class();
-  v3[11] = objc_opt_class();
-  v3[12] = objc_opt_class();
-  v3[13] = objc_opt_class();
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:14];
-  v1 = orderedClassesForChangesForLargeSync_orderedClasses;
-  orderedClassesForChangesForLargeSync_orderedClasses = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
+  v4[14] = *MEMORY[0x1E69E9840];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v4[6] = objc_opt_class();
+  v4[7] = objc_opt_class();
+  v4[8] = objc_opt_class();
+  v4[9] = objc_opt_class();
+  v4[10] = objc_opt_class();
+  v4[11] = objc_opt_class();
+  v4[12] = objc_opt_class();
+  v4[13] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:14];
+  v3 = orderedClassesForChangesForLargeSync_orderedClasses;
+  orderedClassesForChangesForLargeSync_orderedClasses = v2;
 }
 
 + (id)orderedClassesForChanges
@@ -936,28 +944,26 @@ void __68__CPLEngineTransientRepository_orderedClassesForChangesForLargeSync__bl
   return v3;
 }
 
-void __56__CPLEngineTransientRepository_orderedClassesForChanges__block_invoke()
+void __56__CPLEngineTransientRepository_orderedClassesForChanges__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3[14] = *MEMORY[0x1E69E9840];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v3[5] = objc_opt_class();
-  v3[6] = objc_opt_class();
-  v3[7] = objc_opt_class();
-  v3[8] = objc_opt_class();
-  v3[9] = objc_opt_class();
-  v3[10] = objc_opt_class();
-  v3[11] = objc_opt_class();
-  v3[12] = objc_opt_class();
-  v3[13] = objc_opt_class();
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:14];
-  v1 = orderedClassesForChanges_orderedClasses;
-  orderedClassesForChanges_orderedClasses = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
+  v4[14] = *MEMORY[0x1E69E9840];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v4[6] = objc_opt_class();
+  v4[7] = objc_opt_class();
+  v4[8] = objc_opt_class();
+  v4[9] = objc_opt_class();
+  v4[10] = objc_opt_class();
+  v4[11] = objc_opt_class();
+  v4[12] = objc_opt_class();
+  v4[13] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:14];
+  v3 = orderedClassesForChanges_orderedClasses;
+  orderedClassesForChanges_orderedClasses = v2;
 }
 
 + (id)orderedClassesForDelete
@@ -972,28 +978,26 @@ void __56__CPLEngineTransientRepository_orderedClassesForChanges__block_invoke()
   return v3;
 }
 
-void __55__CPLEngineTransientRepository_orderedClassesForDelete__block_invoke()
+void __55__CPLEngineTransientRepository_orderedClassesForDelete__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3[14] = *MEMORY[0x1E69E9840];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v3[5] = objc_opt_class();
-  v3[6] = objc_opt_class();
-  v3[7] = objc_opt_class();
-  v3[8] = objc_opt_class();
-  v3[9] = objc_opt_class();
-  v3[10] = objc_opt_class();
-  v3[11] = objc_opt_class();
-  v3[12] = objc_opt_class();
-  v3[13] = objc_opt_class();
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:14];
-  v1 = orderedClassesForDelete_orderedClasses;
-  orderedClassesForDelete_orderedClasses = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
+  v4[14] = *MEMORY[0x1E69E9840];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v4[6] = objc_opt_class();
+  v4[7] = objc_opt_class();
+  v4[8] = objc_opt_class();
+  v4[9] = objc_opt_class();
+  v4[10] = objc_opt_class();
+  v4[11] = objc_opt_class();
+  v4[12] = objc_opt_class();
+  v4[13] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:14];
+  v3 = orderedClassesForDelete_orderedClasses;
+  orderedClassesForDelete_orderedClasses = v2;
 }
 
 @end

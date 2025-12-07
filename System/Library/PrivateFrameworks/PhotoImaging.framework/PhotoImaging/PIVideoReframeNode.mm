@@ -5,7 +5,7 @@
 - (id)_evaluateImage:(id *)image;
 - (id)_evaluateImageGeometry:(id *)geometry;
 - (id)_evaluateVideoProperties:(id *)properties;
-- (id)_stabilizeImage:(void *)image cleanRect:(void *)rect cropRect:(uint64_t)cropRect transform:(uint64_t)transform geometry:(uint64_t)geometry;
+- (id)_stabilizeImage:(double)image cleanRect:(double)rect cropRect:(double)cropRect transform:(double)transform geometry:(double)geometry;
 - (id)resolvedNodeWithCachedInputs:(id)inputs settings:(id)settings pipelineState:(id)state error:(id *)error;
 - (void)setFrameDuration:(id *)duration;
 - (void)setStabCropRect:(id *)rect;
@@ -35,87 +35,87 @@
   return self;
 }
 
-- (id)_stabilizeImage:(void *)image cleanRect:(void *)rect cropRect:(uint64_t)cropRect transform:(uint64_t)transform geometry:(uint64_t)geometry
+- (id)_stabilizeImage:(double)image cleanRect:(double)rect cropRect:(double)cropRect transform:(double)transform geometry:(double)geometry
 {
-  v62[4] = *MEMORY[0x1E69E9840];
-  rectCopy = rect;
-  imageCopy = image;
-  [rectCopy renderScale];
+  v70[4] = *MEMORY[0x1E69E9840];
+  v21 = a12;
+  v22 = a11;
+  [v21 renderScale];
   NUScaleToDouble();
-  v59 = v15;
+  v67 = v23;
   NUScaleRect();
-  v17 = v16;
-  v19 = v18;
-  v20 = [imageCopy imageByCroppingToRect:?];
+  v25 = v24;
+  v27 = v26;
+  v28 = [v22 imageByCroppingToRect:?];
 
-  CGAffineTransformMakeTranslation(&v60, -v17, -v19);
-  v21 = [v20 imageByApplyingTransform:&v60];
+  CGAffineTransformMakeTranslation(&v68, -v25, -v27);
+  v29 = [v28 imageByApplyingTransform:&v68];
 
-  [v21 extent];
-  MinX = CGRectGetMinX(v64);
-  [v21 extent];
-  MaxY = CGRectGetMaxY(v65);
-  [v21 extent];
-  MaxX = CGRectGetMaxX(v66);
-  [v21 extent];
-  v25 = CGRectGetMaxY(v67);
-  [v21 extent];
-  v26 = CGRectGetMinX(v68);
-  [v21 extent];
-  MinY = CGRectGetMinY(v69);
-  [v21 extent];
-  v28 = CGRectGetMaxX(v70);
-  [v21 extent];
-  v29 = CGRectGetMinY(v71);
-  v30 = MinX / v59;
-  v31 = MaxY / v59;
-  v32 = vaddq_f32(a11, vmlaq_n_f32(vmulq_n_f32(a9, v30), a10, v31));
-  v33 = vmulq_n_f64(vcvtq_f64_f32(vdiv_f32(*v32.i8, vdup_laneq_s32(v32, 2))), v59);
-  *v32.i32 = MaxX / v59;
-  v34 = v25 / v59;
-  v35 = vaddq_f32(a11, vmlaq_n_f32(vmulq_n_f32(a9, *v32.i32), a10, v34));
-  v57 = vmulq_n_f64(vcvtq_f64_f32(vdiv_f32(*v35.i8, vdup_laneq_s32(v35, 2))), v59);
-  *v35.i32 = v26 / v59;
-  v36 = MinY / v59;
-  v37 = vaddq_f32(a11, vmlaq_n_f32(vmulq_n_f32(a9, *v35.i32), a10, v36));
-  v56 = vmulq_n_f64(vcvtq_f64_f32(vdiv_f32(*v37.i8, vdup_laneq_s32(v37, 2))), v59);
-  *v37.i32 = v28 / v59;
-  *&v29 = v29 / v59;
-  v38 = vaddq_f32(a11, vmlaq_n_f32(vmulq_n_f32(a9, *v37.i32), a10, *&v29));
-  v58 = vmulq_n_f64(vcvtq_f64_f32(vdiv_f32(*v38.i8, vdup_laneq_s32(v38, 2))), v59);
-  v61[0] = @"inputTopLeft";
-  v39 = [MEMORY[0x1E695F688] vectorWithCGPoint:*&v33];
-  v62[0] = v39;
-  v61[1] = @"inputTopRight";
-  v40 = [MEMORY[0x1E695F688] vectorWithCGPoint:*&v57];
-  v62[1] = v40;
-  v61[2] = @"inputBottomLeft";
-  v41 = [MEMORY[0x1E695F688] vectorWithCGPoint:*&v56];
-  v62[2] = v41;
-  v61[3] = @"inputBottomRight";
-  v42 = [MEMORY[0x1E695F688] vectorWithCGPoint:*&v58];
-  v62[3] = v42;
-  v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:v61 count:4];
-  v44 = [v21 imageByApplyingFilter:@"CIPerspectiveTransform" withInputParameters:v43];
+  objc_msgSend_extent(v29);
+  MinX = CGRectGetMinX(v72);
+  objc_msgSend_extent(v29);
+  MaxY = CGRectGetMaxY(v73);
+  objc_msgSend_extent(v29);
+  MaxX = CGRectGetMaxX(v74);
+  objc_msgSend_extent(v29);
+  v33 = CGRectGetMaxY(v75);
+  objc_msgSend_extent(v29);
+  v34 = CGRectGetMinX(v76);
+  objc_msgSend_extent(v29);
+  MinY = CGRectGetMinY(v77);
+  objc_msgSend_extent(v29);
+  v36 = CGRectGetMaxX(v78);
+  objc_msgSend_extent(v29);
+  v37 = CGRectGetMinY(v79);
+  v38 = MinX / v67;
+  v39 = MaxY / v67;
+  v40 = vaddq_f32(a19, vmlaq_n_f32(vmulq_n_f32(a17, v38), a18, v39));
+  v41 = vmulq_n_f64(vcvtq_f64_f32(vdiv_f32(*v40.i8, vdup_laneq_s32(v40, 2))), v67);
+  *v40.i32 = MaxX / v67;
+  v42 = v33 / v67;
+  v43 = vaddq_f32(a19, vmlaq_n_f32(vmulq_n_f32(a17, *v40.i32), a18, v42));
+  v65 = vmulq_n_f64(vcvtq_f64_f32(vdiv_f32(*v43.i8, vdup_laneq_s32(v43, 2))), v67);
+  *v43.i32 = v34 / v67;
+  v44 = MinY / v67;
+  v45 = vaddq_f32(a19, vmlaq_n_f32(vmulq_n_f32(a17, *v43.i32), a18, v44));
+  v64 = vmulq_n_f64(vcvtq_f64_f32(vdiv_f32(*v45.i8, vdup_laneq_s32(v45, 2))), v67);
+  *v45.i32 = v36 / v67;
+  *&v37 = v37 / v67;
+  v46 = vaddq_f32(a19, vmlaq_n_f32(vmulq_n_f32(a17, *v45.i32), a18, *&v37));
+  v66 = vmulq_n_f64(vcvtq_f64_f32(vdiv_f32(*v46.i8, vdup_laneq_s32(v46, 2))), v67);
+  v69[0] = @"inputTopLeft";
+  v47 = [MEMORY[0x1E695F688] vectorWithCGPoint:*&v41];
+  v70[0] = v47;
+  v69[1] = @"inputTopRight";
+  v48 = [MEMORY[0x1E695F688] vectorWithCGPoint:*&v65];
+  v70[1] = v48;
+  v69[2] = @"inputBottomLeft";
+  v49 = [MEMORY[0x1E695F688] vectorWithCGPoint:*&v64];
+  v70[2] = v49;
+  v69[3] = @"inputBottomRight";
+  v50 = [MEMORY[0x1E695F688] vectorWithCGPoint:*&v66];
+  v70[3] = v50;
+  v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v70 forKeys:v69 count:4];
+  v52 = [v29 imageByApplyingFilter:@"CIPerspectiveTransform" withInputParameters:v51];
 
   NUScaleRect();
-  v46 = v45;
-  v48 = v47;
-  scaledSize = [rectCopy scaledSize];
-  v51 = v50;
+  v54 = v53;
+  v56 = v55;
+  scaledSize = [v21 scaledSize];
+  v59 = v58;
 
-  v52 = [v44 imageByCroppingToRect:{v46, v48, scaledSize, v51}];
-  CGAffineTransformMakeTranslation(&v60, -v46, -v48);
-  v53 = [v52 imageByApplyingTransform:&v60];
+  v60 = [v52 imageByCroppingToRect:{v54, v56, scaledSize, v59}];
+  CGAffineTransformMakeTranslation(&v68, -v54, -v56);
+  v61 = [v60 imageByApplyingTransform:&v68];
 
   if (*(self + 168) == 1)
   {
-    pi_imageByApplyingStabilizationWatermark = [v53 pi_imageByApplyingStabilizationWatermark];
+    pi_imageByApplyingStabilizationWatermark = [v61 pi_imageByApplyingStabilizationWatermark];
 
-    v53 = pi_imageByApplyingStabilizationWatermark;
+    v61 = pi_imageByApplyingStabilizationWatermark;
   }
 
-  return v53;
+  return v61;
 }
 
 - (id)_evaluateImage:(id *)image
@@ -157,7 +157,7 @@ LABEL_18:
     v45 = 0;
     if (v12)
     {
-      [v12 rawTime];
+      objc_msgSend_rawTime(v12);
       if (BYTE12(v44))
       {
 LABEL_12:
@@ -165,7 +165,7 @@ LABEL_12:
         v15 = inputVideoProperties;
         if (inputVideoProperties)
         {
-          [inputVideoProperties cleanAperture];
+          objc_msgSend_cleanAperture(inputVideoProperties);
         }
 
         else
@@ -180,7 +180,7 @@ LABEL_12:
         v21 = v20;
         v23 = v22;
 
-        [(PIVideoReframeNode *)self stabCropRect];
+        objc_msgSend_stabCropRect(self);
         NUPixelRectToCGRect();
         v25 = v24;
         v27 = v26;
@@ -212,7 +212,7 @@ LABEL_12:
         goto LABEL_18;
       }
 
-      [v12 time];
+      objc_msgSend_time(v12);
     }
 
     else
@@ -292,7 +292,7 @@ LABEL_20:
   if (v7)
   {
     memset(buf, 0, 32);
-    [(PIVideoReframeNode *)self stabCropRect];
+    objc_msgSend_stabCropRect(self);
     *buf = *MEMORY[0x1E69B38F8];
     v9 = objc_alloc(MEMORY[0x1E69B3B18]);
     renderScale = [v7 renderScale];
@@ -415,7 +415,7 @@ LABEL_20:
     [v8 setInputVideoProperties:v11];
     if (v12)
     {
-      [v12 frameDuration];
+      objc_msgSend_frameDuration(v12);
     }
 
     else

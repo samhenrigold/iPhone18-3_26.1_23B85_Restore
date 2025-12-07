@@ -88,7 +88,7 @@
   v37 = 0;
   if (identifierCopy)
   {
-    [identifierCopy HKGraphSeriesDataBlockPathValue];
+    objc_msgSend_HKGraphSeriesDataBlockPathValue(identifierCopy);
     v11 = *(&v36 + 1);
   }
 
@@ -350,29 +350,29 @@ void __88__HKHealthQueryChartCacheDataSource_operationForIdentifier_priorityDele
 
 - (id)queryDescription
 {
-  OUTLINED_FUNCTION_1_7();
-  OUTLINED_FUNCTION_2_2();
+  v2 = OUTLINED_FUNCTION_1_7(self);
+  OUTLINED_FUNCTION_2_2(v2);
   return @"UnknownQuery";
 }
 
 - (id)queriesForRequest:(id)request completionHandler:(id)handler
 {
-  OUTLINED_FUNCTION_1_7();
-  OUTLINED_FUNCTION_2_2();
+  v4 = OUTLINED_FUNCTION_1_7(self);
+  OUTLINED_FUNCTION_2_2(v4);
   return MEMORY[0x1E695E0F0];
 }
 
 - (id)generateSharableQueryDataForRequest:(id)request healthStore:(id)store completionHandler:(id)handler
 {
-  OUTLINED_FUNCTION_1_7();
-  OUTLINED_FUNCTION_2_2();
+  v5 = OUTLINED_FUNCTION_1_7(self);
+  OUTLINED_FUNCTION_2_2(v5);
   return 0;
 }
 
 - (id)chartPointsFromQueryData:(id)data dataIsFromRemoteSource:(BOOL)source
 {
-  OUTLINED_FUNCTION_1_7();
-  OUTLINED_FUNCTION_2_2();
+  v4 = OUTLINED_FUNCTION_1_7(self);
+  OUTLINED_FUNCTION_2_2(v4);
   return 0;
 }
 

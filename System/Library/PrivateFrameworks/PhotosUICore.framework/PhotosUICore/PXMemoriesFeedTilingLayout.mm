@@ -137,7 +137,7 @@ uint64_t __63__PXMemoriesFeedTilingLayout__invalidateSelectionTilesWithTag___blo
   v9 = *&identifier->index[1];
   v13 = *&identifier->length;
   v14 = v9;
-  [(PXMemoriesFeedTilingLayout *)self indexPathForTileIdentifier:&v13];
+  objc_msgSend_indexPathForTileIdentifier_(self);
   v10 = 0;
   if (0 == *&self->_highlightedMemoryIndexPath.dataSourceIdentifier && !self->_highlightedMemoryIndexPath.item)
   {
@@ -205,7 +205,7 @@ uint64_t __63__PXMemoriesFeedTilingLayout__invalidateSelectionTilesWithTag___blo
   v12 = *&identifier->index[1];
   v32 = *&identifier->length;
   v33 = v12;
-  [(PXMemoriesFeedTilingLayout *)self indexPathForTileIdentifier:&v32];
+  objc_msgSend_indexPathForTileIdentifier_(self);
   v13 = *&identifier->index[5];
   v34 = *&identifier->index[3];
   v35 = v13;
@@ -214,7 +214,7 @@ uint64_t __63__PXMemoriesFeedTilingLayout__invalidateSelectionTilesWithTag___blo
   v14 = *&identifier->index[1];
   v32 = *&identifier->length;
   v33 = v14;
-  [(PXMemoriesFeedTilingLayout *)self indexPathForTileIdentifier:&v32];
+  objc_msgSend_indexPathForTileIdentifier_(self);
   dataSourceIdentifier = self->_highlightedMemoryIndexPath.dataSourceIdentifier;
   section = self->_highlightedMemoryIndexPath.section;
   item = self->_highlightedMemoryIndexPath.item;
@@ -579,72 +579,73 @@ void __56__PXMemoriesFeedTilingLayout_indexPathForMemoryAtPoint___block_invoke(u
 
 - (BOOL)getGeometry:(PXTileGeometry *)geometry group:(unint64_t *)group userData:(id *)data forTileWithIdentifier:(PXTileIdentifier *)identifier
 {
+  v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v8 = *&identifier->index[5];
-  v18 = *&identifier->index[3];
-  v19 = v8;
-  v20 = *&identifier->index[7];
-  *&v21 = identifier->index[9];
+  v17 = *&identifier->index[3];
+  v18 = v8;
+  v19 = *&identifier->index[7];
+  *&v20 = identifier->index[9];
   v9 = *&identifier->index[1];
-  v16 = *&identifier->length;
-  v17 = v9;
-  [(PXMemoriesFeedTilingLayout *)self indexPathForTileIdentifier:&v16, group];
+  v15 = *&identifier->length;
+  v16 = v9;
+  objc_msgSend_indexPathForTileIdentifier_(self);
   v10 = *&identifier->index[5];
-  v18 = *&identifier->index[3];
-  v19 = v10;
-  v20 = *&identifier->index[7];
-  *&v21 = identifier->index[9];
+  v17 = *&identifier->index[3];
+  v18 = v10;
+  v19 = *&identifier->index[7];
+  *&v20 = identifier->index[9];
   v11 = *&identifier->index[1];
-  v16 = *&identifier->length;
-  v17 = v11;
-  [(PXMemoriesFeedTilingLayout *)self _itemKindForTileKind:[(PXMemoriesFeedTilingLayout *)self tileKindForTileIdentifier:&v16]];
-  if (v26 == *off_1E7721F68)
+  v15 = *&identifier->length;
+  v16 = v11;
+  [(PXMemoriesFeedTilingLayout *)self _itemKindForTileKind:[(PXMemoriesFeedTilingLayout *)self tileKindForTileIdentifier:&v15]];
+  if (v25 == *off_1E7721F68)
   {
 LABEL_11:
     [MEMORY[0x1E696AAA8] currentHandler];
     objc_claimAutoreleasedReturnValue();
+    v15 = v25;
     v16 = v26;
-    v17 = v27;
     PXSimpleIndexPathDescription();
   }
 
-  v12 = v27;
-  if (*(&v26 + 1) == 0x7FFFFFFFFFFFFFFFLL)
+  v12 = v26;
+  if (*(&v25 + 1) == 0x7FFFFFFFFFFFFFFFLL)
   {
-    if (v27 == 0x7FFFFFFFFFFFFFFFLL)
+    if (v26 == 0x7FFFFFFFFFFFFFFFLL)
     {
       goto LABEL_11;
     }
   }
 
-  else if (v27 == 0x7FFFFFFFFFFFFFFFLL)
+  else if (v26 == 0x7FFFFFFFFFFFFFFFLL)
   {
     v12 = 0;
     goto LABEL_8;
   }
 
-  if (*(&v27 + 1) != 0x7FFFFFFFFFFFFFFFLL)
+  if (*(&v26 + 1) != 0x7FFFFFFFFFFFFFFFLL)
   {
     goto LABEL_11;
   }
 
 LABEL_8:
-  v13 = [MEMORY[0x1E696AC88] px_indexPathForItem:v12 inSection:? withKind:?];
-  v25 = 0;
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
+  [MEMORY[0x1E696AC88] px_indexPathForItem:v12 inSection:? withKind:?];
+  objc_claimAutoreleasedReturnValue();
+  v24 = 0;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
+  v19 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v15 = 0u;
   layoutSnapshot = self->_layoutSnapshot;
   if (layoutSnapshot)
   {
-    [(PXSectionedLayoutSnapshot *)layoutSnapshot geometryForItem:v13];
+    objc_msgSend_geometryForItem_(layoutSnapshot);
   }
 
   PXRectWithCenterAndSize();
@@ -677,10 +678,10 @@ void __74__PXMemoriesFeedTilingLayout_enumerateTilesInRect_withOptions_usingBloc
 
   if (v6 == 2)
   {
-    v11 = *(a1 + 32);
-    v12 = *(a1 + 40);
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
 
-    [v11 _addTileWithKind:0 entryIndex:v4 memoryIndex:0 usingBlock:v12];
+    [v10 _addTileWithKind:0 entryIndex:v4 memoryIndex:0 usingBlock:v11];
   }
 
   else if (!v6)
@@ -692,22 +693,13 @@ void __74__PXMemoriesFeedTilingLayout_enumerateTilesInRect_withOptions_usingBloc
       v7 = [*(a1 + 32) dataSource];
       v8 = [v7 identifier];
 
-      v20 = 0u;
-      v21 = 0u;
-      v9 = *(a1 + 32);
-      v13 = xmmword_1A5380E50;
-      *&v14 = v8;
-      *(&v14 + 1) = v4;
-      v15 = v5;
-      v16 = 0x7FFFFFFFFFFFFFFFLL;
-      v17 = 0u;
-      v18 = 0u;
-      v19 = 0;
-      [v9 indexPathForTileIdentifier:&v13];
-      v10 = *(*(a1 + 32) + 136);
-      v13 = v20;
-      v14 = v21;
-      if ([v10 containsIndexPath:&v13])
+      v13 = 0u;
+      v14 = 0u;
+      objc_msgSend_indexPathForTileIdentifier_(*(a1 + 32), 5, 4, v8, v4, v5, 0x7FFFFFFFFFFFFFFFLL, 0, 0, 0, 0, 0);
+      v9 = *(*(a1 + 32) + 136);
+      v12[0] = v13;
+      v12[1] = v14;
+      if ([v9 containsIndexPath:v12])
       {
         [*(a1 + 32) _addTileWithKind:4 entryIndex:v4 memoryIndex:v5 usingBlock:*(a1 + 40)];
       }

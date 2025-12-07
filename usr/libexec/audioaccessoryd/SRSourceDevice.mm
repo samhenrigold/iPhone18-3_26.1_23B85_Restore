@@ -53,97 +53,173 @@ LABEL_12:
 
 - (void)setHijackedByPhoneCall:(BOOL)call
 {
-  if (self->_hijackedByPhoneCall != call)
+  hijackedByPhoneCall = self->_hijackedByPhoneCall;
+  if (hijackedByPhoneCall != call)
   {
+    callCopy = call;
     if (dword_1002F6270 <= 30)
     {
-      if (dword_1002F6270 == -1)
+      if (dword_1002F6270 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (hijackedByPhoneCall)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        hijackedByPhoneCall = self->_hijackedByPhoneCall;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (callCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F6270, "[SRSourceDevice setHijackedByPhoneCall:]", 30, "Setting hijacked by phone %s -> %s", v7, v6);
+        goto LABEL_11;
       }
 
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(hijackedByPhoneCall) = self->_hijackedByPhoneCall;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_hijackedByPhoneCall = call;
+LABEL_11:
+    self->_hijackedByPhoneCall = callCopy;
   }
 }
 
 - (void)setIncomingCallRingtone:(BOOL)ringtone
 {
-  if (self->_incomingCallRingtone != ringtone)
+  incomingCallRingtone = self->_incomingCallRingtone;
+  if (incomingCallRingtone != ringtone)
   {
+    ringtoneCopy = ringtone;
     if (dword_1002F6270 <= 30)
     {
-      if (dword_1002F6270 == -1)
+      if (dword_1002F6270 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (incomingCallRingtone)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        incomingCallRingtone = self->_incomingCallRingtone;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (ringtoneCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F6270, "[SRSourceDevice setIncomingCallRingtone:]", 30, "Setting incoming call ringtone state %s -> %s", v7, v6);
+        goto LABEL_11;
       }
 
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(incomingCallRingtone) = self->_incomingCallRingtone;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_incomingCallRingtone = ringtone;
+LABEL_11:
+    self->_incomingCallRingtone = ringtoneCopy;
   }
 }
 
 - (void)setIsSystemEligibleForSiriHijack:(BOOL)hijack
 {
-  if (self->_isSystemEligibleForSiriHijack != hijack)
+  isSystemEligibleForSiriHijack = self->_isSystemEligibleForSiriHijack;
+  if (isSystemEligibleForSiriHijack != hijack)
   {
+    hijackCopy = hijack;
     if (dword_1002F6270 <= 30)
     {
-      if (dword_1002F6270 == -1)
+      if (dword_1002F6270 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (isSystemEligibleForSiriHijack)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        isSystemEligibleForSiriHijack = self->_isSystemEligibleForSiriHijack;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (hijackCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F6270, "[SRSourceDevice setIsSystemEligibleForSiriHijack:]", 30, "Setting system eligibility for Siri Hijack %s -> %s", v7, v6);
+        goto LABEL_11;
       }
 
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(isSystemEligibleForSiriHijack) = self->_isSystemEligibleForSiriHijack;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_isSystemEligibleForSiriHijack = hijack;
+LABEL_11:
+    self->_isSystemEligibleForSiriHijack = hijackCopy;
   }
 }
 
 - (void)setShouldStayOnVirtual:(BOOL)virtual
 {
-  if (self->_shouldStayOnVirtual != virtual)
+  shouldStayOnVirtual = self->_shouldStayOnVirtual;
+  if (shouldStayOnVirtual != virtual)
   {
+    virtualCopy = virtual;
     if (dword_1002F6270 <= 30)
     {
-      if (dword_1002F6270 == -1)
+      if (dword_1002F6270 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (shouldStayOnVirtual)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        shouldStayOnVirtual = self->_shouldStayOnVirtual;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (virtualCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F6270, "[SRSourceDevice setShouldStayOnVirtual:]", 30, "Setting shouldStayOnVirtual %s -> %s", v7, v6);
+        goto LABEL_11;
       }
 
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(shouldStayOnVirtual) = self->_shouldStayOnVirtual;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_shouldStayOnVirtual = virtual;
+LABEL_11:
+    self->_shouldStayOnVirtual = virtualCopy;
   }
 }
 
@@ -180,8 +256,13 @@ LABEL_6:
 
   if (dword_1002F6270 <= 30 && (dword_1002F6270 != -1 || _LogCategory_Initialize()))
   {
-    v11 = self->_hijackBlockingClientSet;
-    LogPrintF();
+    v11 = @"Removed";
+    if (modeCopy)
+    {
+      v11 = @"Added";
+    }
+
+    LogPrintF(&dword_1002F6270, "[SRSourceDevice updateHijackBlockingClientWithBundleID:mode:]", 30, "%@ Hijackblocking client %@ clients %@", v11, v12, self->_hijackBlockingClientSet);
   }
 }
 

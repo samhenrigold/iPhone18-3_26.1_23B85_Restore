@@ -8,20 +8,20 @@
 {
   dCopy = d;
   contactCopy = contact;
-  v16.receiver = self;
-  v16.super_class = IMDCoreSpotlightChatParticipant;
-  v12 = [(IMDCoreSpotlightChatParticipant *)&v16 init];
-  if (v12)
+  v17.receiver = self;
+  v17.super_class = IMDCoreSpotlightChatParticipant;
+  v13 = [(IMDCoreSpotlightChatParticipant *)&v17 init];
+  if (v13)
   {
-    v13 = objc_msgSend_copy(dCopy, v10, v11);
-    handleID = v12->_handleID;
-    v12->_handleID = v13;
+    v14 = objc_msgSend_copy(dCopy, v10, v11, v12);
+    handleID = v13->_handleID;
+    v13->_handleID = v14;
 
-    objc_storeStrong(&v12->_contact, contact);
-    v12->_isSender = sender;
+    objc_storeStrong(&v13->_contact, contact);
+    v13->_isSender = sender;
   }
 
-  return v12;
+  return v13;
 }
 
 @end

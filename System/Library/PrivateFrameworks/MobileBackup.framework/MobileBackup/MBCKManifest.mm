@@ -445,69 +445,75 @@
       v20 = [v16 prepareForUploadWithEngine:v15 error:error];
       if (v20 != 2)
       {
-        v30 = v20;
-        v31 = v20 == 1;
-        v32 = MBGetDefaultLog();
-        v24 = v32;
-        if (!v31)
+        v31 = v20;
+        v32 = v20 == 1;
+        v33 = MBGetDefaultLog();
+        v24 = v33;
+        if (!v32)
         {
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
             recordIDString = [v16 recordIDString];
             relativePath = [v16 relativePath];
-            v38 = relativePath;
+            v40 = relativePath;
             if (error)
             {
-              v39 = *error;
+              v41 = *error;
             }
 
             else
             {
-              v39 = 0;
+              v41 = 0;
             }
 
             *buf = 138544386;
-            v115 = recordIDString;
-            v116 = 2112;
-            v117 = v16;
-            v118 = 2112;
-            v119 = relativePath;
-            v120 = 1024;
-            *v121 = v30;
-            *&v121[4] = 2112;
-            *&v121[6] = v39;
+            v109 = recordIDString;
+            v110 = 2112;
+            v111 = v16;
+            v112 = 2112;
+            v113 = relativePath;
+            v114 = 1024;
+            *v115 = v31;
+            *&v115[4] = 2112;
+            *&v115[6] = v41;
             _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to prepare file %{public}@ (%@, %@): %d, %@", buf, 0x30u);
 
             recordIDString2 = [v16 recordIDString];
             relativePath2 = [v16 relativePath];
+            v77 = relativePath2;
             if (error)
             {
-              v73 = *error;
+              v78 = *error;
             }
 
-            _MBLog();
+            else
+            {
+              v78 = 0;
+            }
+
+            _MBLog(@"E ", "Failed to prepare file %{public}@ (%@, %@): %d, %@", recordIDString2, v16, relativePath2, v31, v78);
           }
 
           [v16 cleanupAfterUpload];
           LOBYTE(error) = 0;
-          goto LABEL_66;
+          goto LABEL_67;
         }
 
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
           recordIDString3 = [v16 recordIDString];
           relativePath3 = [v16 relativePath];
           *buf = 138543874;
-          v115 = recordIDString3;
-          v116 = 2112;
-          v117 = v16;
-          v118 = 2112;
-          v119 = relativePath3;
+          v109 = recordIDString3;
+          v110 = 2112;
+          v111 = v16;
+          v112 = 2112;
+          v113 = relativePath3;
           _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Skipping %{public}@ (%@, %@)", buf, 0x20u);
 
           recordIDString4 = [v16 recordIDString];
           relativePath4 = [v16 relativePath];
-          _MBLog();
+          _MBLog(@"Df", "Skipping %{public}@ (%@, %@)", recordIDString4, v16, relativePath4);
         }
 
         goto LABEL_16;
@@ -525,16 +531,16 @@
           recordIDString5 = [v16 recordIDString];
           relativePath5 = [v16 relativePath];
           *buf = 138543874;
-          v115 = recordIDString5;
-          v116 = 2112;
-          v117 = v16;
-          v118 = 2112;
-          v119 = relativePath5;
+          v109 = recordIDString5;
+          v110 = 2112;
+          v111 = v16;
+          v112 = 2112;
+          v113 = relativePath5;
           _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Skipping already uploaded file %{public}@ (%@, %@)", buf, 0x20u);
 
           recordIDString6 = [v16 recordIDString];
           relativePath6 = [v16 relativePath];
-          _MBLog();
+          _MBLog(@"I ", "Skipping already uploaded file %{public}@ (%@, %@)", recordIDString6, v16, relativePath6);
         }
 
 LABEL_16:
@@ -546,16 +552,16 @@ LABEL_16:
           *skipped = 1;
         }
 
-        goto LABEL_66;
+        goto LABEL_67;
       }
 
       recordID = [v16 recordID];
       filesInFlightByID = [(MBCKManifest *)self filesInFlightByID];
       selfCopy = self;
       objc_sync_enter(selfCopy);
-      v41 = [filesInFlightByID objectForKeyedSubscript:recordID];
+      v43 = [filesInFlightByID objectForKeyedSubscript:recordID];
 
-      if (v41)
+      if (v43)
       {
         objc_sync_exit(selfCopy);
 
@@ -565,16 +571,16 @@ LABEL_16:
           recordIDString7 = [v16 recordIDString];
           relativePath7 = [v16 relativePath];
           *buf = 138543874;
-          v115 = recordIDString7;
-          v116 = 2112;
-          v117 = v16;
-          v118 = 2112;
-          v119 = relativePath7;
+          v109 = recordIDString7;
+          v110 = 2112;
+          v111 = v16;
+          v112 = 2112;
+          v113 = relativePath7;
           _os_log_impl(&_mh_execute_header, error, OS_LOG_TYPE_INFO, "Skipping already in-flight file %{public}@ (%@, %@)", buf, 0x20u);
 
           recordIDString8 = [v16 recordIDString];
           relativePath8 = [v16 relativePath];
-          _MBLog();
+          _MBLog(@"I ", "Skipping already in-flight file %{public}@ (%@, %@)", recordIDString8, v16, relativePath8);
         }
 
         [v16 cleanupAfterUpload];
@@ -589,35 +595,30 @@ LABEL_16:
 
       [filesInFlightByID setObject:v16 forKeyedSubscript:recordID];
       objc_sync_exit(selfCopy);
-      v104 = selfCopy;
+      v98 = selfCopy;
 
-      v45 = MBGetDefaultLog();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+      v48 = MBGetDefaultLog();
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
       {
         domainName = [(MBCKManifest *)selfCopy domainName];
         relativePath9 = [v16 relativePath];
         recordIDString9 = [v16 recordIDString];
         *buf = 138413314;
-        v115 = domainName;
-        v116 = 2112;
-        v117 = relativePath9;
-        v118 = 2114;
-        v119 = recordIDString9;
-        v120 = 2048;
-        *v121 = [v16 inode];
-        *&v121[8] = 1024;
-        *&v121[10] = [v16 isDataless];
-        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "Uploading file %@:%@ as %{public}@ (inode:%llu) (isDataless:%d)", buf, 0x30u);
+        v109 = domainName;
+        v110 = 2112;
+        v111 = relativePath9;
+        v112 = 2114;
+        v113 = recordIDString9;
+        v114 = 2048;
+        *v115 = [v16 inode];
+        *&v115[8] = 1024;
+        *&v115[10] = [v16 isDataless];
+        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_INFO, "Uploading file %@:%@ as %{public}@ (inode:%llu) (isDataless:%d)", buf, 0x30u);
 
-        domainName2 = [(MBCKManifest *)v104 domainName];
+        domainName2 = [(MBCKManifest *)v98 domainName];
         relativePath10 = [v16 relativePath];
         recordIDString10 = [v16 recordIDString];
-        inode = [v16 inode];
-        isDataless = [v16 isDataless];
-        v87 = relativePath10;
-        v90 = recordIDString10;
-        v85 = domainName2;
-        _MBLog();
+        _MBLog(@"I ", "Uploading file %@:%@ as %{public}@ (inode:%llu) (isDataless:%d)", domainName2, relativePath10, recordIDString10, [v16 inode], objc_msgSend(v16, "isDataless"));
       }
 
       recordRepresentation = [v16 recordRepresentation];
@@ -626,22 +627,21 @@ LABEL_16:
         if (MBIsInternalInstall())
         {
           aggregateSize = [v16 aggregateSize];
-          v54 = [v16 sizeFromFileIDWithDefaultValue:-1];
-          if (v54 != -1 && v54 != aggregateSize && dword_100421710 <= 9 && atomic_fetch_add_explicit(&dword_100421710, 1u, memory_order_relaxed) <= 9)
+          v57 = [v16 sizeFromFileIDWithDefaultValue:-1];
+          if (v57 != -1 && v57 != aggregateSize && dword_100421710 <= 9 && atomic_fetch_add_explicit(&dword_100421710, 1u, memory_order_relaxed) <= 9)
           {
-            v55 = MBGetDefaultLog();
-            if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
+            v58 = MBGetDefaultLog();
+            if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
             {
               fileID2 = [v16 fileID];
               *buf = 134218242;
-              v115 = aggregateSize;
-              v116 = 2112;
-              v117 = fileID2;
-              _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_FAULT, "The aggregate size (%llu) doesn't match the size for fileID:%@", buf, 0x16u);
+              v109 = aggregateSize;
+              v110 = 2112;
+              v111 = fileID2;
+              _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_FAULT, "The aggregate size (%llu) doesn't match the size for fileID:%@", buf, 0x16u);
 
-              [v16 fileID];
-              v87 = v85 = aggregateSize;
-              _MBLog();
+              fileID3 = [v16 fileID];
+              _MBLog(@"F ", "The aggregate size (%llu) doesn't match the size for fileID:%@", aggregateSize, fileID3);
             }
           }
         }
@@ -653,71 +653,71 @@ LABEL_16:
         __assert_rtn("[MBCKManifest queueUploadOfFileChange:batchSave:engine:skipped:error:]", "MBCKManifest.m", 291, "domainManager");
       }
 
-      v109[0] = _NSConcreteStackBlock;
-      v109[1] = 3221225472;
-      v109[2] = sub_1000F6648;
-      v109[3] = &unk_1003BE7E0;
-      v57 = v15;
-      v110 = v57;
-      v58 = v16;
-      v111 = v58;
-      v112 = v104;
-      v113 = changeCopy;
-      [saveCopy saveRecord:recordRepresentation delegate:v104 completion:v109];
-      if (([v58 deleted] & 1) != 0 || !objc_msgSend(v58, "hadTemporarySQLiteArchive") || !objc_msgSend(v58, "isSQLiteFile"))
+      v103[0] = _NSConcreteStackBlock;
+      v103[1] = 3221225472;
+      v103[2] = sub_1000F6648;
+      v103[3] = &unk_1003BE7E0;
+      v61 = v15;
+      v104 = v61;
+      v62 = v16;
+      v105 = v62;
+      v106 = v98;
+      v107 = changeCopy;
+      [saveCopy saveRecord:recordRepresentation delegate:v98 completion:v103];
+      if (([v62 deleted] & 1) != 0 || !objc_msgSend(v62, "hadTemporarySQLiteArchive") || !objc_msgSend(v62, "isSQLiteFile"))
       {
         LOBYTE(error) = 1;
         goto LABEL_59;
       }
 
-      v97 = +[NSFileManager defaultManager];
-      domain = [v58 domain];
+      v91 = +[NSFileManager defaultManager];
+      domain = [v62 domain];
       name = [domain name];
 
-      relativePath11 = [v58 relativePath];
-      v99 = [relativePath11 stringByAppendingString:@"-wal"];
+      relativePath11 = [v62 relativePath];
+      v93 = [relativePath11 stringByAppendingString:@"-wal"];
 
-      absolutePath = [v58 absolutePath];
-      v96 = [absolutePath stringByAppendingString:@"-wal"];
+      absolutePath = [v62 absolutePath];
+      v90 = [absolutePath stringByAppendingString:@"-wal"];
 
-      cache2 = [(MBCKModel *)v104 cache];
-      v100 = [cache2 lastBackedUpFileWithDomainName:name relativePath:v99 error:0];
+      cache2 = [(MBCKModel *)v98 cache];
+      v94 = [cache2 lastBackedUpFileWithDomainName:name relativePath:v93 error:0];
 
-      if (!v100 || ([v100 deleted] & 1) != 0 || !objc_msgSend(v97, "fileExistsAtPath:", v96))
+      if (!v94 || ([v94 deleted] & 1) != 0 || !objc_msgSend(v91, "fileExistsAtPath:", v90))
       {
 LABEL_48:
-        relativePath12 = [v58 relativePath];
-        v102 = [relativePath12 stringByAppendingString:@"-shm"];
+        relativePath12 = [v62 relativePath];
+        v96 = [relativePath12 stringByAppendingString:@"-shm"];
 
-        absolutePath2 = [v58 absolutePath];
+        absolutePath2 = [v62 absolutePath];
         oslog = [absolutePath2 stringByAppendingString:@"-shm"];
 
-        cache3 = [(MBCKModel *)v104 cache];
-        absolutePath7 = [cache3 lastBackedUpFileWithDomainName:name relativePath:v102 error:0];
+        cache3 = [(MBCKModel *)v98 cache];
+        absolutePath7 = [cache3 lastBackedUpFileWithDomainName:name relativePath:v96 error:0];
 
-        if (!absolutePath7 || ([absolutePath7 deleted] & 1) != 0 || !objc_msgSend(v97, "fileExistsAtPath:", oslog))
+        if (!absolutePath7 || ([absolutePath7 deleted] & 1) != 0 || !objc_msgSend(v91, "fileExistsAtPath:", oslog))
         {
           goto LABEL_55;
         }
 
-        v105 = objc_alloc_init(MBCKFileChange);
-        domain2 = [v58 domain];
-        [(MBCKFileChange *)v105 setDomain:domain2];
+        v99 = objc_alloc_init(MBCKFileChange);
+        domain2 = [v62 domain];
+        [(MBCKFileChange *)v99 setDomain:domain2];
 
-        [(MBCKFileChange *)v105 setRelativePath:v102];
-        [(MBCKFileChange *)v105 setAbsolutePath:oslog];
-        [(MBCKFileChange *)v105 setChangeType:3];
-        [(MBCKFileChange *)v105 setShouldCopy:0];
-        v70 = MBGetDefaultLog();
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
+        [(MBCKFileChange *)v99 setRelativePath:v96];
+        [(MBCKFileChange *)v99 setAbsolutePath:oslog];
+        [(MBCKFileChange *)v99 setChangeType:3];
+        [(MBCKFileChange *)v99 setShouldCopy:0];
+        v74 = MBGetDefaultLog();
+        if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v115 = oslog;
-          _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_INFO, "Adding deletion marker for %@", buf, 0xCu);
-          _MBLog();
+          v109 = oslog;
+          _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_INFO, "Adding deletion marker for %@", buf, 0xCu);
+          _MBLog(@"I ", "Adding deletion marker for %@", oslog);
         }
 
-        if ([snapshot addFileChange:v105 batchSave:saveCopy engine:v57 skipped:0 error:error])
+        if ([snapshot addFileChange:v99 batchSave:saveCopy engine:v61 skipped:0 error:error])
         {
 
 LABEL_55:
@@ -728,104 +728,101 @@ LABEL_57:
 LABEL_59:
 
 LABEL_60:
-LABEL_66:
+LABEL_67:
 
-          goto LABEL_67;
+          goto LABEL_68;
         }
 
-        v78 = MBGetDefaultLog();
-        v79 = os_log_type_enabled(v78, OS_LOG_TYPE_ERROR);
+        v83 = MBGetDefaultLog();
+        v84 = os_log_type_enabled(v83, OS_LOG_TYPE_ERROR);
         if (error)
         {
-          if (v79)
+          if (v84)
           {
-            absolutePath3 = [v58 absolutePath];
-            v81 = *error;
+            absolutePath3 = [v62 absolutePath];
+            v86 = *error;
             *buf = 138412546;
-            v115 = absolutePath3;
-            v116 = 2112;
-            v117 = v81;
-            _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, "Couldn't add deletion marker for the SHM file of checkpointed SQLite db at absolute path %@ - %@", buf, 0x16u);
+            v109 = absolutePath3;
+            v110 = 2112;
+            v111 = v86;
+            _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_ERROR, "Couldn't add deletion marker for the SHM file of checkpointed SQLite db at absolute path %@ - %@", buf, 0x16u);
 
-            absolutePath4 = [v58 absolutePath];
-            v89 = *error;
-            _MBLog();
-LABEL_81:
+            absolutePath4 = [v62 absolutePath];
+            _MBLog(@"E ", "Couldn't add deletion marker for the SHM file of checkpointed SQLite db at absolute path %@ - %@", absolutePath4, *error);
+LABEL_82:
           }
         }
 
-        else if (v79)
+        else if (v84)
         {
-          absolutePath5 = [v58 absolutePath];
+          absolutePath5 = [v62 absolutePath];
           *buf = 138412290;
-          v115 = absolutePath5;
-          _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, "Couldn't add deletion marker for the SHM file of checkpointed SQLite db at absolute path %@", buf, 0xCu);
+          v109 = absolutePath5;
+          _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_ERROR, "Couldn't add deletion marker for the SHM file of checkpointed SQLite db at absolute path %@", buf, 0xCu);
 
-          absolutePath4 = [v58 absolutePath];
-          _MBLog();
-          goto LABEL_81;
+          absolutePath4 = [v62 absolutePath];
+          _MBLog(@"E ", "Couldn't add deletion marker for the SHM file of checkpointed SQLite db at absolute path %@", absolutePath4);
+          goto LABEL_82;
         }
 
-        goto LABEL_83;
+        goto LABEL_84;
       }
 
-      v102 = objc_alloc_init(MBCKFileChange);
-      domain3 = [v58 domain];
-      [(MBCKFileChange *)v102 setDomain:domain3];
+      v96 = objc_alloc_init(MBCKFileChange);
+      domain3 = [v62 domain];
+      [(MBCKFileChange *)v96 setDomain:domain3];
 
-      [(MBCKFileChange *)v102 setRelativePath:v99];
-      [(MBCKFileChange *)v102 setAbsolutePath:v96];
-      [(MBCKFileChange *)v102 setChangeType:3];
-      [(MBCKFileChange *)v102 setShouldCopy:0];
-      v64 = MBGetDefaultLog();
-      if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
+      [(MBCKFileChange *)v96 setRelativePath:v93];
+      [(MBCKFileChange *)v96 setAbsolutePath:v90];
+      [(MBCKFileChange *)v96 setChangeType:3];
+      [(MBCKFileChange *)v96 setShouldCopy:0];
+      v68 = MBGetDefaultLog();
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v115 = v96;
-        _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_INFO, "Adding deletion marker for %@", buf, 0xCu);
-        v86 = v96;
-        _MBLog();
+        v109 = v90;
+        _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_INFO, "Adding deletion marker for %@", buf, 0xCu);
+        _MBLog(@"I ", "Adding deletion marker for %@", v90);
       }
 
-      if ([snapshot addFileChange:v102 batchSave:saveCopy engine:v57 skipped:0 error:error])
+      if ([snapshot addFileChange:v96 batchSave:saveCopy engine:v61 skipped:0 error:error])
       {
 
         goto LABEL_48;
       }
 
       oslog = MBGetDefaultLog();
-      v75 = os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR);
+      v80 = os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR);
       if (error)
       {
-        if (v75)
+        if (v80)
         {
-          absolutePath6 = [v58 absolutePath];
-          v77 = *error;
+          absolutePath6 = [v62 absolutePath];
+          v82 = *error;
           *buf = 138412546;
-          v115 = absolutePath6;
-          v116 = 2112;
-          v117 = v77;
+          v109 = absolutePath6;
+          v110 = 2112;
+          v111 = v82;
           _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_ERROR, "Couldn't add deletion marker for the WAL file of checkpointed SQLite db at absolute path %@ - %@", buf, 0x16u);
 
-          absolutePath7 = [v58 absolutePath];
-          v88 = *error;
-          _MBLog();
-LABEL_83:
+          absolutePath7 = [v62 absolutePath];
+          _MBLog(@"E ", "Couldn't add deletion marker for the WAL file of checkpointed SQLite db at absolute path %@ - %@", absolutePath7, *error);
+LABEL_84:
           LOBYTE(error) = 0;
           goto LABEL_56;
         }
       }
 
-      else if (v75)
+      else if (v80)
       {
-        absolutePath8 = [v58 absolutePath];
+        absolutePath8 = [v62 absolutePath];
         *buf = 138412290;
-        v115 = absolutePath8;
+        v109 = absolutePath8;
         _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_ERROR, "Couldn't add deletion marker for the WAL file of checkpointed SQLite db at absolute path %@", buf, 0xCu);
 
-        absolutePath7 = [v58 absolutePath];
-        _MBLog();
-        goto LABEL_83;
+        absolutePath7 = [v62 absolutePath];
+        _MBLog(@"E ", "Couldn't add deletion marker for the WAL file of checkpointed SQLite db at absolute path %@", absolutePath7);
+        goto LABEL_84;
       }
 
       LOBYTE(error) = 0;
@@ -845,7 +842,7 @@ LABEL_12:
     LOBYTE(error) = 0;
   }
 
-LABEL_67:
+LABEL_68:
 
   return error;
 }
@@ -886,7 +883,7 @@ LABEL_67:
 
     domainName2 = [(MBCKManifest *)self domainName];
     operationID2 = [v18 operationID];
-    _MBLog();
+    _MBLog(@"I ", "Querying: %@ %@ - continuing - operationID: %{public}@", domainName2, nameCopy, operationID2);
   }
 
   else
@@ -913,7 +910,7 @@ LABEL_67:
 
       domainName3 = [(MBCKManifest *)self domainName];
       operationID4 = [v18 operationID];
-      _MBLog();
+      _MBLog(@"I ", "Querying: %@ %@ - operationID: %{public}@", domainName3, nameCopy, operationID4);
 
       trackerCopy = v37;
     }
@@ -923,39 +920,39 @@ LABEL_67:
   v17 = v39;
 LABEL_9:
 
-  v28 = +[MBCKFile keysToFetchWithoutContents];
-  [v18 setDesiredKeys:v28];
+  v29 = +[MBCKFile keysToFetchWithoutContents];
+  [v18 setDesiredKeys:v29];
 
   v46[0] = _NSConcreteStackBlock;
   v46[1] = 3221225472;
   v46[2] = sub_1000F74F4;
   v46[3] = &unk_1003BE808;
   v46[4] = self;
-  v29 = progressCopy;
-  v47 = v29;
+  v30 = progressCopy;
+  v47 = v30;
   [v18 setRecordFetchedBlock:v46];
   v40[0] = _NSConcreteStackBlock;
   v40[1] = 3221225472;
   v40[2] = sub_1000F7594;
   v40[3] = &unk_1003BE830;
-  v30 = nameCopy;
-  v41 = v30;
-  v31 = v17;
-  v44 = v31;
+  v31 = nameCopy;
+  v41 = v31;
+  v32 = v17;
+  v44 = v32;
   selfCopy = self;
-  v32 = trackerCopy;
-  v43 = v32;
-  v33 = v29;
-  v45 = v33;
+  v33 = trackerCopy;
+  v43 = v33;
+  v34 = v30;
+  v45 = v34;
   [v18 setQueryCompletionBlock:v40];
-  ckOperationPolicy = [v32 ckOperationPolicy];
+  ckOperationPolicy = [v33 ckOperationPolicy];
   if (!ckOperationPolicy)
   {
     __assert_rtn("[MBCKManifest _queryManifestWithOperationTracker:progress:recordName:cursor:completion:]", "MBCKManifest.m", 462, "policy");
   }
 
-  v35 = ckOperationPolicy;
-  [v32 addDatabaseOperation:v18 policy:ckOperationPolicy];
+  v36 = ckOperationPolicy;
+  [v33 addDatabaseOperation:v18 policy:ckOperationPolicy];
 }
 
 - (void)fetchFilesWithOperationTracker:(id)tracker progress:(id)progress completion:(id)completion
@@ -1231,10 +1228,7 @@ LABEL_9:
     v44 = 2048;
     v45 = [v17 size];
     _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, "Manifest record %{public}@ has %lu regular files and %lu placeholder files (%lu bytes)", buf, 0x2Au);
-    [filesCopy count];
-    [placeholderFilesCopy count];
-    [v17 size];
-    _MBLog();
+    _MBLog(@"I ", "Manifest record %{public}@ has %lu regular files and %lu placeholder files (%lu bytes)", v11, [filesCopy count], objc_msgSend(placeholderFilesCopy, "count"), objc_msgSend(v17, "size"));
   }
 
   return v17;
@@ -1355,7 +1349,7 @@ LABEL_9:
       v34 = 2112;
       v35 = v13;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to delete pending manifest pages for manifest %{public}@: %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to delete pending manifest pages for manifest %{public}@: %@", manifestID, v13);
     }
 
     goto LABEL_6;
@@ -1381,7 +1375,7 @@ LABEL_6:
     v34 = 2048;
     v35 = v15;
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Deleting previously uploaded manifests for %{public}@ (%lu pages)", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"Df", "Deleting previously uploaded manifests for %{public}@ (%lu pages)", manifestID, v15);
   }
 
   v17 = dispatch_group_create();
@@ -1537,7 +1531,7 @@ LABEL_19:
       *&buf[12] = 2112;
       *&buf[14] = baseRecordIDString;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Saving %lu manifest records for %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"I ", "Saving %lu manifest records for %@", v10, baseRecordIDString);
     }
 
     group = dispatch_group_create();
@@ -1620,7 +1614,7 @@ LABEL_19:
         v63 = 2112;
         v64 = v12;
         _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Unable to fetch manifestPage %lu for manifest: %@ : %@", v59, 0x20u);
-        _MBLog();
+        _MBLog(@"E ", "Unable to fetch manifestPage %lu for manifest: %@ : %@", v13, self, v12);
       }
 
       v22 = +[MBCKManager sharedInstance];
@@ -1754,11 +1748,11 @@ LABEL_19:
     {
       recordID = [recordCopy recordID];
       *buf = 138543362;
-      v43 = recordID;
+      v41 = recordID;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Found nil domain field for %{public}@", buf, 0xCu);
 
       recordID2 = [recordCopy recordID];
-      _MBLog();
+      _MBLog(@"E ", "Found nil domain field for %{public}@", recordID2);
     }
 
     v7 = [recordCopy objectForKeyedSubscript:@"domainName"];
@@ -1770,89 +1764,87 @@ LABEL_19:
     domainName = [(MBCKManifest *)self domainName];
     device = [(MBCKManifest *)self device];
     hmacKey = [device hmacKey];
-    v13 = [MBCKManifest domainHmac:domainName key:hmacKey];
+    v14 = [MBCKManifest domainHmac:domainName key:hmacKey];
     domainHmac = self->_domainHmac;
-    self->_domainHmac = v13;
+    self->_domainHmac = v14;
   }
 
   encryptedValues2 = [recordCopy encryptedValues];
-  v16 = [encryptedValues2 objectForKeyedSubscript:@"dependentDomains"];
+  v17 = [encryptedValues2 objectForKeyedSubscript:@"dependentDomains"];
 
-  if (v16)
+  if (v17)
   {
-    v41[0] = objc_opt_class();
-    v41[1] = objc_opt_class();
-    v17 = [NSArray arrayWithObjects:v41 count:2];
-    v18 = [NSSet setWithArray:v17];
+    v39[0] = objc_opt_class();
+    v39[1] = objc_opt_class();
+    v18 = [NSArray arrayWithObjects:v39 count:2];
+    v19 = [NSSet setWithArray:v18];
     encryptedValues3 = [recordCopy encryptedValues];
-    v20 = [encryptedValues3 objectForKeyedSubscript:@"dependentDomains"];
-    v39 = 0;
-    v21 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v18 fromData:v20 error:&v39];
-    v16 = v39;
+    v21 = [encryptedValues3 objectForKeyedSubscript:@"dependentDomains"];
+    v37 = 0;
+    v22 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v19 fromData:v21 error:&v37];
+    v17 = v37;
     dependentDomainNames = self->_dependentDomainNames;
-    self->_dependentDomainNames = v21;
+    self->_dependentDomainNames = v22;
 
     if (!self->_dependentDomainNames)
     {
-      v23 = MBGetDefaultLog();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v24 = MBGetDefaultLog();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v43 = v16;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Couldn't unarchive dependent domain names: %@", buf, 0xCu);
-        v35 = v16;
-        _MBLog();
+        v41 = v17;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Couldn't unarchive dependent domain names: %@", buf, 0xCu);
+        _MBLog(@"E ", "Couldn't unarchive dependent domain names: %@", v17);
       }
     }
   }
 
-  v24 = [recordCopy objectForKeyedSubscript:{@"owningBundleID", v35}];
+  v25 = [recordCopy objectForKeyedSubscript:@"owningBundleID"];
   owningBundleID = self->_owningBundleID;
-  self->_owningBundleID = v24;
+  self->_owningBundleID = v25;
 
-  v26 = [recordCopy objectForKeyedSubscript:@"entitlements"];
-  if (v26)
+  v27 = [recordCopy objectForKeyedSubscript:@"entitlements"];
+  if (v27)
   {
-    v40[0] = objc_opt_class();
-    v40[1] = objc_opt_class();
-    v40[2] = objc_opt_class();
-    v40[3] = objc_opt_class();
-    v40[4] = objc_opt_class();
-    v40[5] = objc_opt_class();
-    v27 = [NSArray arrayWithObjects:v40 count:6];
-    v28 = [NSSet setWithArray:v27];
-    v38 = v16;
-    v29 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v28 fromData:v26 error:&v38];
-    v30 = v38;
+    v38[0] = objc_opt_class();
+    v38[1] = objc_opt_class();
+    v38[2] = objc_opt_class();
+    v38[3] = objc_opt_class();
+    v38[4] = objc_opt_class();
+    v38[5] = objc_opt_class();
+    v28 = [NSArray arrayWithObjects:v38 count:6];
+    v29 = [NSSet setWithArray:v28];
+    v36 = v17;
+    v30 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v29 fromData:v27 error:&v36];
+    v31 = v36;
 
-    [(MBCKManifest *)self setEntitlements:v29];
+    [(MBCKManifest *)self setEntitlements:v30];
     entitlements = [(MBCKManifest *)self entitlements];
 
     if (!entitlements)
     {
-      v32 = MBGetDefaultLog();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v33 = MBGetDefaultLog();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v43 = v30;
-        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Couldn't unarchive entitlements from record data: %@", buf, 0xCu);
-        v36 = v30;
-        _MBLog();
+        v41 = v31;
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Couldn't unarchive entitlements from record data: %@", buf, 0xCu);
+        _MBLog(@"E ", "Couldn't unarchive entitlements from record data: %@", v31);
       }
     }
   }
 
   else
   {
-    v30 = v16;
+    v31 = v17;
   }
 
-  v33 = [recordCopy objectForKeyedSubscript:{@"entitlementsPath", v36}];
-  [(MBCKManifest *)self setEntitlementsPath:v33];
+  v34 = [recordCopy objectForKeyedSubscript:@"entitlementsPath"];
+  [(MBCKManifest *)self setEntitlementsPath:v34];
 
-  v37.receiver = self;
-  v37.super_class = MBCKManifest;
-  [(MBCKModel *)&v37 refreshWithRecord:recordCopy];
+  v35.receiver = self;
+  v35.super_class = MBCKManifest;
+  [(MBCKModel *)&v35 refreshWithRecord:recordCopy];
 }
 
 - (id)baseRecordIDString
@@ -1947,7 +1939,7 @@ LABEL_19:
         v16 = 2112;
         v17 = v11;
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to mark %{public}@ as pending: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "Failed to mark %{public}@ as pending: %@", fileID, v11);
       }
     }
 
@@ -1956,7 +1948,7 @@ LABEL_19:
       *buf = 138543362;
       v15 = fileID;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Marked %{public}@ as pending", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"I ", "Marked %{public}@ as pending", fileID);
     }
   }
 }

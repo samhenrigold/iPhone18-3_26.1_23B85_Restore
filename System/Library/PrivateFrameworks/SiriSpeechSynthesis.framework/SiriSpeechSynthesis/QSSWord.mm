@@ -139,11 +139,7 @@ uint64_t __29__QSSWord_addObjectToBuffer___block_invoke(uint64_t a1, const void 
 
 - (void)pronunciations:(id)pronunciations
 {
-  root = self->_root;
-  v5 = &root[-*root->var0];
   pronunciationsCopy = pronunciations;
-  v7 = *root[*v5[6].var0 + *root[*v5[6].var0].var0].var0;
-  v8 = pronunciationsCopy;
   (*(pronunciations + 2))();
 }
 

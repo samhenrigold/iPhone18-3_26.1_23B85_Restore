@@ -467,7 +467,7 @@ void __89__ATStoreMediaAssetLink_ATStoreDownloadService_didChangeStateForAsset_o
   dispatch_async(queue, v7);
 }
 
-uint64_t __41__ATStoreMediaAssetLink_prioritizeAsset___block_invoke(uint64_t a1)
+void *__41__ATStoreMediaAssetLink_prioritizeAsset___block_invoke(uint64_t a1)
 {
   if (([*(*(a1 + 32) + 48) containsObject:*(a1 + 40)] & 1) != 0 || (result = objc_msgSend(*(*(a1 + 32) + 56), "containsObject:", *(a1 + 40)), result))
   {

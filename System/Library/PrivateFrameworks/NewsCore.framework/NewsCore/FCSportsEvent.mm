@@ -12,19 +12,19 @@
 
 - (FCSportsEvent)initWithSportsEventRecord:(id)record eventCompetitorTags:(id)tags eventLeagueTag:(id)tag assetManager:(id)manager interestToken:(id)token
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   tagsCopy = tags;
   tagCopy = tag;
   managerCopy = manager;
   tokenCopy = token;
-  v82.receiver = self;
-  v82.super_class = FCSportsEvent;
-  v18 = [(FCSportsEvent *)&v82 init];
+  v81.receiver = self;
+  v81.super_class = FCSportsEvent;
+  v18 = [(FCSportsEvent *)&v81 init];
   if (v18)
   {
-    v76 = tokenCopy;
-    v77 = managerCopy;
+    v75 = tokenCopy;
+    v76 = managerCopy;
     context = objc_autoreleasePoolPush();
     objc_storeStrong(&v18->_sportsEventRecord, record);
     objc_storeStrong(&v18->_interestToken, token);
@@ -85,39 +85,39 @@
 
     if (v48)
     {
-      v73 = tagCopy;
+      v72 = tagCopy;
       sportsData2 = [recordCopy sportsData];
       sportsData = v18->_sportsData;
       v18->_sportsData = sportsData2;
 
       v51 = MEMORY[0x1E695DF20];
-      v74 = recordCopy;
+      v73 = recordCopy;
       sportsData3 = [recordCopy sportsData];
       v53 = [v51 fc_dictionaryFromJSON:sportsData3];
 
       [(FCSportsEvent *)v18 _inflateSportsDataFromJSONDictionary:v53];
       dictionary = [MEMORY[0x1E695DF90] dictionary];
-      v72 = v53;
+      v71 = v53;
       v55 = [v53 objectForKeyedSubscript:@"competitorRosters"];
+      v77 = 0u;
       v78 = 0u;
       v79 = 0u;
       v80 = 0u;
-      v81 = 0u;
-      v56 = [v55 countByEnumeratingWithState:&v78 objects:v83 count:16];
+      v56 = [v55 countByEnumeratingWithState:&v77 objects:v82 count:16];
       if (v56)
       {
         v57 = v56;
-        v58 = *v79;
+        v58 = *v78;
         do
         {
           for (i = 0; i != v57; ++i)
           {
-            if (*v79 != v58)
+            if (*v78 != v58)
             {
               objc_enumerationMutation(v55);
             }
 
-            v60 = *(*(&v78 + 1) + 8 * i);
+            v60 = *(*(&v77 + 1) + 8 * i);
             v61 = [v60 objectForKeyedSubscript:@"competitorTagID"];
             if (v61)
             {
@@ -126,7 +126,7 @@
             }
           }
 
-          v57 = [v55 countByEnumeratingWithState:&v78 objects:v83 count:16];
+          v57 = [v55 countByEnumeratingWithState:&v77 objects:v82 count:16];
         }
 
         while (v57);
@@ -136,8 +136,8 @@
       rosterResourceIDs = v18->_rosterResourceIDs;
       v18->_rosterResourceIDs = v63;
 
-      recordCopy = v74;
-      tagCopy = v73;
+      recordCopy = v73;
+      tagCopy = v72;
     }
 
     sportsTheme = [recordCopy sportsTheme];
@@ -153,11 +153,10 @@
     }
 
     objc_autoreleasePoolPop(context);
-    tokenCopy = v76;
-    managerCopy = v77;
+    tokenCopy = v75;
+    managerCopy = v76;
   }
 
-  v70 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -260,7 +259,7 @@
 
 void __31__FCSportsEvent_contentArchive__block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   if (v4)
@@ -276,29 +275,29 @@ void __31__FCSportsEvent_contentArchive__block_invoke(uint64_t a1, void *a2)
   v6 = [FCContentArchive archiveWithRecord:v5];
   [v3 fc_safelyAddObject:v6];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v7 = [*(a1 + 32) eventCompetitorTags];
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
+    v10 = *v22;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * i);
+        v12 = *(*(&v21 + 1) + 8 * i);
         if (v12)
         {
-          if ([*(*(&v22 + 1) + 8 * i) conformsToProtocol:&unk_1F2E828A8])
+          if ([*(*(&v21 + 1) + 8 * i) conformsToProtocol:&unk_1F2E828A8])
           {
             v13 = v12;
           }
@@ -319,7 +318,7 @@ void __31__FCSportsEvent_contentArchive__block_invoke(uint64_t a1, void *a2)
         [v3 fc_safelyAddObject:v15];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v9);
@@ -349,8 +348,6 @@ void __31__FCSportsEvent_contentArchive__block_invoke(uint64_t a1, void *a2)
 
   v20 = [v19 contentArchive];
   [v3 fc_safelyAddObject:v20];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (FCContentManifest)contentManifest
@@ -369,7 +366,7 @@ void __31__FCSportsEvent_contentArchive__block_invoke(uint64_t a1, void *a2)
 
 void __32__FCSportsEvent_contentManifest__block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   if (v4)
@@ -386,29 +383,29 @@ void __32__FCSportsEvent_contentManifest__block_invoke(uint64_t a1, void *a2)
   v7 = [v6 contentManifest];
   [v3 fc_safelyAddObject:v7];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v8 = [*(a1 + 32) eventCompetitorTags];
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * i);
+        v13 = *(*(&v22 + 1) + 8 * i);
         if (v13)
         {
-          if ([*(*(&v23 + 1) + 8 * i) conformsToProtocol:&unk_1F2E828A8])
+          if ([*(*(&v22 + 1) + 8 * i) conformsToProtocol:&unk_1F2E828A8])
           {
             v14 = v13;
           }
@@ -429,7 +426,7 @@ void __32__FCSportsEvent_contentManifest__block_invoke(uint64_t a1, void *a2)
         [v3 fc_safelyAddObject:v16];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v10);
@@ -459,8 +456,6 @@ void __32__FCSportsEvent_contentManifest__block_invoke(uint64_t a1, void *a2)
 
   v21 = [v20 contentManifest];
   [v3 fc_safelyAddObject:v21];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isRouteable

@@ -2,7 +2,7 @@
 - (ARDirectionalLightEstimate)initWithCoder:(id)coder;
 - (ARDirectionalLightEstimate)initWithDirectionalLightEstimate:(id)estimate;
 - (ARDirectionalLightEstimate)initWithSphericalHarmonics:(id *)harmonics ambientIntensity:(double)intensity temperature:(double)temperature;
-- (ARDirectionalLightEstimate)lightEstimateByApplyingRotation:(void *)rotation;
+- (ARDirectionalLightEstimate)lightEstimateByApplyingRotation:(char *)rotation;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
@@ -69,12 +69,12 @@
   return v9;
 }
 
-- (ARDirectionalLightEstimate)lightEstimateByApplyingRotation:(void *)rotation
+- (ARDirectionalLightEstimate)lightEstimateByApplyingRotation:(char *)rotation
 {
   v13 = 0;
   v11 = 0u;
   v12 = 0u;
-  ARSphericalHarmonicsByApplyingRotation(rotation + 24, &v11, a2);
+  ARSphericalHarmonicsByApplyingRotation((rotation + 24), &v11, v1);
   v3 = [ARDirectionalLightEstimate alloc];
   [rotation ambientIntensity];
   v5 = v4;
@@ -83,7 +83,7 @@
   v9[1] = v12;
   v10 = v13;
   v7 = [(ARDirectionalLightEstimate *)v3 initWithSphericalHarmonics:v9 ambientIntensity:v5 temperature:v6];
-  [rotation timestamp];
+  objc_msgSend_timestamp(rotation);
   [(ARDirectionalLightEstimate *)v7 setTimestamp:?];
   [rotation confidenceRating];
   [(ARDirectionalLightEstimate *)v7 setConfidenceRating:?];

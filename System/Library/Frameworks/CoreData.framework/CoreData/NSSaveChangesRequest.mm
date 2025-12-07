@@ -1,9 +1,9 @@
 @interface NSSaveChangesRequest
-- (BOOL)hasChanges;
 - (NSSaveChangesRequest)init;
 - (NSSaveChangesRequest)initWithInsertedObjects:(NSSet *)insertedObjects updatedObjects:(NSSet *)updatedObjects deletedObjects:(NSSet *)deletedObjects lockedObjects:(NSSet *)lockedObjects;
 - (id)description;
-- (uint64_t)_addChangedObjectIDsNotification:(uint64_t)result;
+- (uint64_t)hasChanges;
+- (void)_addChangedObjectIDsNotification:(void *)result;
 - (void)_setSecureOperation:(BOOL)operation;
 - (void)dealloc;
 - (void)setDeletedObjects:(void *)result;
@@ -25,7 +25,7 @@
   [(NSPersistentStoreRequest *)&v3 dealloc];
 }
 
-- (BOOL)hasChanges
+- (uint64_t)hasChanges
 {
   if (result)
   {
@@ -75,41 +75,41 @@
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = [-[NSSet valueForKey:](self->_insertedObjects valueForKey:{@"objectID", "allObjects"}];
-  v5 = [-[NSSet valueForKey:](self->_updatedObjects valueForKey:{@"objectID", "allObjects"}];
-  v6 = [-[NSSet valueForKey:](self->_deletedObjects valueForKey:{@"objectID", "allObjects"}];
-  v7 = [-[NSSet valueForKey:](self->_optimisticallyLockedObjects valueForKey:{@"objectID", "allObjects"}];
+  allObjects = [objc_msgSend_valueForKey_(self->_insertedObjects) allObjects];
+  allObjects2 = [objc_msgSend_valueForKey_(self->_updatedObjects) allObjects];
+  allObjects3 = [objc_msgSend_valueForKey_(self->_deletedObjects) allObjects];
+  allObjects4 = [objc_msgSend_valueForKey_(self->_optimisticallyLockedObjects) allObjects];
   v8 = MEMORY[0x1E696AEC0];
   v14.receiver = self;
   v14.super_class = NSSaveChangesRequest;
   v9 = [(NSSaveChangesRequest *)&v14 description];
-  if (![(__CFString *)v4 count])
+  if (![(__CFString *)allObjects count])
   {
-    v4 = &stru_1EF3F1768;
+    allObjects = &stru_1EF3F1768;
   }
 
-  if (![(__CFString *)v5 count])
+  if (![(__CFString *)allObjects2 count])
   {
-    v5 = &stru_1EF3F1768;
+    allObjects2 = &stru_1EF3F1768;
   }
 
-  if (![(__CFString *)v6 count])
+  if (![(__CFString *)allObjects3 count])
   {
-    v6 = &stru_1EF3F1768;
+    allObjects3 = &stru_1EF3F1768;
   }
 
-  if ([(__CFString *)v7 count])
+  if ([allObjects4 count])
   {
-    v10 = v7;
+    v10 = objc_msgSend_stringWithFormat_(v8, v9, allObjects, allObjects2, allObjects3, allObjects4);
   }
 
   else
   {
-    v10 = &stru_1EF3F1768;
+    v10 = objc_msgSend_stringWithFormat_(v8, v9, allObjects, allObjects2, allObjects3, &stru_1EF3F1768);
   }
 
-  v11 = [v8 stringWithFormat:@"%@ { inserts (%@), updates (%@), deletes (%@) locks (%@) }", v9, v4, v5, v6, v10];
-  v12 = v11;
+  v11 = v10;
+  v12 = v10;
   objc_autoreleasePoolPop(v3);
   return v11;
 }
@@ -147,16 +147,16 @@
   self->_flags = v3;
 }
 
-- (uint64_t)_addChangedObjectIDsNotification:(uint64_t)result
+- (void)_addChangedObjectIDsNotification:(void *)result
 {
   if (result)
   {
     v3 = result;
-    v4 = *(result + 56);
+    v4 = result[7];
     if (!v4)
     {
       v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      *(v3 + 56) = v4;
+      v3[7] = v4;
     }
 
     return [v4 addObject:a2];

@@ -16,57 +16,57 @@
 
 - (CBGammaContrastPreservationParams)initWithProvider:(id)provider
 {
-  v25[20] = *MEMORY[0x277D85DE8];
+  v24[20] = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
-  v20.receiver = self;
-  v20.super_class = CBGammaContrastPreservationParams;
-  v5 = [(CBGammaContrastPreservationParams *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = CBGammaContrastPreservationParams;
+  v5 = [(CBGammaContrastPreservationParams *)&v19 init];
   *(v5 + 1) = os_log_create("com.apple.CoreBrightness.ChromaticCorrection", "gcp");
   *(v5 + 8) = 1084227584;
-  v24[0] = @"supports-gcp";
-  v24[1] = @"gcp-ramp-up-duration";
-  v25[0] = &unk_283743910;
-  v25[1] = &unk_2837437C0;
-  v24[2] = @"gcp-ramp-down-duration";
-  v24[3] = @"gcp-ramp-up-lux-threshold";
-  v25[2] = &unk_2837437D0;
-  v25[3] = &unk_2837437E0;
-  v24[4] = @"gcp-ramp-down-lux-threshold";
-  v24[5] = @"gcp-ramp-update-rate";
-  v25[4] = &unk_2837437E0;
-  v25[5] = &unk_2837437F0;
-  v24[6] = @"gcp-reference-white-nits";
-  v24[7] = @"gcp-reference-ambient-lux";
-  v25[6] = &unk_283743800;
-  v25[7] = &unk_283743810;
-  v24[8] = kCBGCPGammaMin;
-  v24[9] = kCBGCPGammaMax;
-  v25[8] = &unk_283743820;
-  v25[9] = &unk_283743830;
-  v24[10] = kCBGCPGammaFactorLow;
-  v24[11] = kCBGCPGammaFactorHigh;
-  v25[10] = &unk_283743840;
-  v25[11] = &unk_283743850;
-  v24[12] = kCBGCPNitsMin;
-  v24[13] = kCBGCPNitsMax;
-  v25[12] = &unk_2837437E0;
-  v25[13] = &unk_283743860;
-  v24[14] = kCBGCPAmbientMin;
-  v24[15] = kCBGCPAmbientMax;
-  v25[14] = &unk_283743870;
-  v25[15] = &unk_283743880;
-  v24[16] = kCBGCPAmbientFactor;
-  v24[17] = kCBGCPKb;
-  v25[16] = &unk_283743928;
-  v25[17] = &unk_283743890;
-  v24[18] = kCBGCPKl;
-  v24[19] = kCBGCPASb;
-  v25[18] = &unk_2837438A0;
-  v25[19] = &unk_2837438B0;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:20];
-  v23[0] = provider;
-  v23[1] = [CBDictConfigProvider providerWithDict:v6];
-  v7 = +[CBCombinedConfigProvider providerFromList:](CBCombinedConfigProvider, "providerFromList:", [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2]);
+  v23[0] = @"supports-gcp";
+  v23[1] = @"gcp-ramp-up-duration";
+  v24[0] = &unk_283743910;
+  v24[1] = &unk_2837437C0;
+  v23[2] = @"gcp-ramp-down-duration";
+  v23[3] = @"gcp-ramp-up-lux-threshold";
+  v24[2] = &unk_2837437D0;
+  v24[3] = &unk_2837437E0;
+  v23[4] = @"gcp-ramp-down-lux-threshold";
+  v23[5] = @"gcp-ramp-update-rate";
+  v24[4] = &unk_2837437E0;
+  v24[5] = &unk_2837437F0;
+  v23[6] = @"gcp-reference-white-nits";
+  v23[7] = @"gcp-reference-ambient-lux";
+  v24[6] = &unk_283743800;
+  v24[7] = &unk_283743810;
+  v23[8] = kCBGCPGammaMin;
+  v23[9] = kCBGCPGammaMax;
+  v24[8] = &unk_283743820;
+  v24[9] = &unk_283743830;
+  v23[10] = kCBGCPGammaFactorLow;
+  v23[11] = kCBGCPGammaFactorHigh;
+  v24[10] = &unk_283743840;
+  v24[11] = &unk_283743850;
+  v23[12] = kCBGCPNitsMin;
+  v23[13] = kCBGCPNitsMax;
+  v24[12] = &unk_2837437E0;
+  v24[13] = &unk_283743860;
+  v23[14] = kCBGCPAmbientMin;
+  v23[15] = kCBGCPAmbientMax;
+  v24[14] = &unk_283743870;
+  v24[15] = &unk_283743880;
+  v23[16] = kCBGCPAmbientFactor;
+  v23[17] = kCBGCPKb;
+  v24[16] = &unk_283743928;
+  v24[17] = &unk_283743890;
+  v23[18] = kCBGCPKl;
+  v23[19] = kCBGCPASb;
+  v24[18] = &unk_2837438A0;
+  v24[19] = &unk_2837438B0;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:20];
+  v22[0] = provider;
+  v22[1] = [CBDictConfigProvider providerWithDict:v6];
+  v7 = +[CBCombinedConfigProvider providerFromList:](CBCombinedConfigProvider, "providerFromList:", [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2]);
   [v7 setLogHandle:*(v5 + 1)];
   if (![v7 loadUint:@"supports-gcp" toDestination:v5 + 40] || !objc_msgSend(v7, "loadFloat:toDestination:", @"gcp-ramp-up-duration", v5 + 16) || !objc_msgSend(v7, "loadFloat:toDestination:", @"gcp-ramp-down-duration", v5 + 20) || !objc_msgSend(v7, "loadFloat:toDestination:", @"gcp-ramp-up-lux-threshold", v5 + 24) || !objc_msgSend(v7, "loadFloat:toDestination:", @"gcp-ramp-down-lux-threshold", v5 + 28) || !objc_msgSend(v7, "loadFloat:toDestination:", @"gcp-ramp-update-rate", v5 + 36) || !objc_msgSend(v7, "loadFloat:toDestination:", @"gcp-reference-white-nits", v5 + 44) || !objc_msgSend(v7, "loadFloat:toDestination:", @"gcp-reference-ambient-lux", v5 + 48) || !objc_msgSend(v7, "loadFloat:toDestination:", kCBGCPNitsMin, v5 + 64) || !objc_msgSend(v7, "loadFloat:toDestination:", kCBGCPNitsMax, v5 + 68) || !objc_msgSend(v7, "loadFloat:toDestination:", kCBGCPAmbientMin, v5 + 52) || !objc_msgSend(v7, "loadFloat:toDestination:", kCBGCPAmbientMax, v5 + 56) || !objc_msgSend(v7, "loadFloat:toDestination:", kCBGCPAmbientFactor, v5 + 60) || !objc_msgSend(v7, "loadFloat:toDestination:", kCBGCPGammaMin, v5 + 72) || !objc_msgSend(v7, "loadFloat:toDestination:", kCBGCPGammaMax, v5 + 76) || !objc_msgSend(v7, "loadFloat:toDestination:", kCBGCPGammaFactorLow, v5 + 80) || !objc_msgSend(v7, "loadFloat:toDestination:", kCBGCPGammaFactorHigh, v5 + 84) || (v8 = (v5 + 88), !objc_msgSend(v7, "loadFloat:toDestination:", kCBGCPASb, v5 + 88)) || (v9 = (v5 + 92), !objc_msgSend(v7, "loadFloat:toDestination:", kCBGCPKb, v5 + 92)) || (v10 = (v5 + 96), (objc_msgSend(v7, "loadFloat:toDestination:", kCBGCPKl, v5 + 96) & 1) == 0))
   {
@@ -193,54 +193,51 @@
 LABEL_61:
     objc_autoreleasePoolPop(context);
 
-    v5 = 0;
-    goto LABEL_62;
+    return 0;
   }
 
-  v21[0] = @"supports-gcp";
-  v21[1] = @"gcp-ramp-up-duration";
-  v22[0] = @"supported";
-  v22[1] = @"rampUpDuration";
-  v21[2] = @"gcp-ramp-down-duration";
-  v21[3] = @"gcp-ramp-up-lux-threshold";
-  v22[2] = @"rampDownDuration";
-  v22[3] = @"rampUpLuxDeltaThreshold";
-  v21[4] = @"gcp-ramp-down-lux-threshold";
-  v21[5] = @"gcp-ramp-update-rate";
-  v22[4] = @"rampDownLuxDeltaThreshold";
-  v22[5] = @"rampUpdateRate";
-  v21[6] = @"gcp-reference-white-nits";
-  v21[7] = @"gcp-reference-ambient-lux";
-  v22[6] = @"referenceWhiteBrightness";
-  v22[7] = @"referenceLux";
-  v21[8] = kCBGCPNitsMin;
-  v21[9] = kCBGCPNitsMax;
-  v22[8] = @"Bmin";
-  v22[9] = @"Bmax";
-  v21[10] = kCBGCPAmbientMin;
-  v21[11] = kCBGCPAmbientMax;
-  v22[10] = @"Lmin";
-  v22[11] = @"Lmax";
-  v21[12] = kCBGCPAmbientFactor;
-  v21[13] = kCBGCPGammaMin;
-  v22[12] = @"ambientFactor";
-  v22[13] = @"gammaMin";
-  v21[14] = kCBGCPGammaMax;
-  v21[15] = kCBGCPGammaFactorLow;
-  v22[14] = @"gammaMax";
-  v22[15] = @"gcpFactorLow";
-  v21[16] = kCBGCPGammaFactorHigh;
-  v21[17] = kCBGCPASb;
-  v22[16] = @"gcpFactorHigh";
-  v22[17] = @"ASb";
-  v21[18] = kCBGCPKb;
-  v21[19] = kCBGCPKl;
-  v22[18] = @"Kb";
-  v22[19] = @"Kl";
-  *(v5 + 13) = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:20];
+  v20[0] = @"supports-gcp";
+  v20[1] = @"gcp-ramp-up-duration";
+  v21[0] = @"supported";
+  v21[1] = @"rampUpDuration";
+  v20[2] = @"gcp-ramp-down-duration";
+  v20[3] = @"gcp-ramp-up-lux-threshold";
+  v21[2] = @"rampDownDuration";
+  v21[3] = @"rampUpLuxDeltaThreshold";
+  v20[4] = @"gcp-ramp-down-lux-threshold";
+  v20[5] = @"gcp-ramp-update-rate";
+  v21[4] = @"rampDownLuxDeltaThreshold";
+  v21[5] = @"rampUpdateRate";
+  v20[6] = @"gcp-reference-white-nits";
+  v20[7] = @"gcp-reference-ambient-lux";
+  v21[6] = @"referenceWhiteBrightness";
+  v21[7] = @"referenceLux";
+  v20[8] = kCBGCPNitsMin;
+  v20[9] = kCBGCPNitsMax;
+  v21[8] = @"Bmin";
+  v21[9] = @"Bmax";
+  v20[10] = kCBGCPAmbientMin;
+  v20[11] = kCBGCPAmbientMax;
+  v21[10] = @"Lmin";
+  v21[11] = @"Lmax";
+  v20[12] = kCBGCPAmbientFactor;
+  v20[13] = kCBGCPGammaMin;
+  v21[12] = @"ambientFactor";
+  v21[13] = @"gammaMin";
+  v20[14] = kCBGCPGammaMax;
+  v20[15] = kCBGCPGammaFactorLow;
+  v21[14] = @"gammaMax";
+  v21[15] = @"gcpFactorLow";
+  v20[16] = kCBGCPGammaFactorHigh;
+  v20[17] = kCBGCPASb;
+  v21[16] = @"gcpFactorHigh";
+  v21[17] = @"ASb";
+  v20[18] = kCBGCPKb;
+  v20[19] = kCBGCPKl;
+  v21[18] = @"Kb";
+  v21[19] = @"Kl";
+  *(v5 + 13) = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:20];
   objc_autoreleasePoolPop(context);
-LABEL_62:
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -253,30 +250,30 @@ LABEL_62:
 
 - (BOOL)isEqual:(id)equal
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     allValues = [(NSDictionary *)[(CBGammaContrastPreservationParams *)self codingKeys] allValues];
-    v6 = [(NSArray *)allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [(NSArray *)allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
 LABEL_4:
       v9 = 0;
       while (1)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = [-[CBGammaContrastPreservationParams valueForKey:](self valueForKey:{*(*(&v13 + 1) + 8 * v9)), "isEqual:", objc_msgSend(equal, "valueForKey:", *(*(&v13 + 1) + 8 * v9))}];
+        v10 = [-[CBGammaContrastPreservationParams valueForKey:](self valueForKey:{*(*(&v12 + 1) + 8 * v9)), "isEqual:", objc_msgSend(equal, "valueForKey:", *(*(&v12 + 1) + 8 * v9))}];
         if (!v10)
         {
           break;
@@ -284,14 +281,14 @@ LABEL_4:
 
         if (v7 == ++v9)
         {
-          v7 = [(NSArray *)allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v7 = [(NSArray *)allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
           LOBYTE(v10) = 1;
           if (v7)
           {
             goto LABEL_4;
           }
 
-          break;
+          return v10;
         }
       }
     }
@@ -307,11 +304,10 @@ LABEL_4:
     LOBYTE(v10) = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
-- (void)initWithProvider:(uint64_t)a1 .cold.2(uint64_t a1)
+- (double)initWithProvider:(uint64_t)a1 .cold.2(uint64_t a1)
 {
   v15 = *MEMORY[0x277D85DE8];
   v1 = OUTLINED_FUNCTION_2(a1);
@@ -325,52 +321,42 @@ LABEL_4:
   v13 = 2048;
   v14 = v3;
   _os_log_error_impl(&dword_223D10000, v5, OS_LOG_TYPE_ERROR, "Disabling due to invalid config: %@(%f) >= %@(%f)", &v7, 0x2Au);
-  v6 = *MEMORY[0x277D85DE8];
+  return result;
 }
 
 - (void)initWithProvider:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2(a1);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_2(&dword_223D10000, v1, v2, "Disabling due to invalid config: %@(%f) <= 0", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_223D10000, v1, v2, "Disabling due to invalid config: %@(%f) <= 0", v3, v4, v5, v6);
 }
 
 - (void)initWithProvider:(uint64_t)a1 .cold.4(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2(a1);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_2(&dword_223D10000, v1, v2, "Disabling due to invalid config: %@(%f) <= 0", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_223D10000, v1, v2, "Disabling due to invalid config: %@(%f) <= 0", v3, v4, v5, v6);
 }
 
 - (void)initWithProvider:(uint64_t)a1 .cold.5(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2(a1);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_2(&dword_223D10000, v1, v2, "Disabling due to invalid config: %@(%f) out of sensible range [0.5,1.5]", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_223D10000, v1, v2, "Disabling due to invalid config: %@(%f) out of sensible range [0.5,1.5]", v3, v4, v5, v6);
 }
 
 - (void)initWithProvider:(uint64_t)a1 .cold.6(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2(a1);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_2(&dword_223D10000, v1, v2, "Disabling due to invalid config: %@(%f) out of sensible range [1,2]", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_223D10000, v1, v2, "Disabling due to invalid config: %@(%f) out of sensible range [1,2]", v3, v4, v5, v6);
 }
 
 - (void)initWithProvider:(uint64_t)a1 .cold.7(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2(a1);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_2(&dword_223D10000, v1, v2, "Disabling due to invalid config: %@(%f) out of sensible range [0.5,2]", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_223D10000, v1, v2, "Disabling due to invalid config: %@(%f) out of sensible range [0.5,2]", v3, v4, v5, v6);
 }
 
 @end

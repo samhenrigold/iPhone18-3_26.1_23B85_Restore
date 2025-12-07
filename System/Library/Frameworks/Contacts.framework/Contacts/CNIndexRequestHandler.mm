@@ -310,21 +310,21 @@ LABEL_4:
   return contacts;
 }
 
-void __43__CNIndexRequestHandler_deltaSyncContacts___block_invoke(void *a1, uint64_t a2, void *a3, void *a4)
+void __43__CNIndexRequestHandler_deltaSyncContacts___block_invoke(void *a1, uint64_t a2, void *a3, void *a4, uint64_t a5)
 {
-  v13 = a3;
-  v7 = a4;
-  v8 = v7;
+  v14 = a3;
+  v8 = a4;
+  v9 = v8;
   if (a2 == 1)
   {
-    v9 = v7;
-    if (!v9)
+    v10 = v8;
+    if (!v10)
     {
       goto LABEL_6;
     }
 
-    v10 = v9;
-    v11 = 0;
+    v11 = v10;
+    v12 = 0;
   }
 
   else
@@ -334,24 +334,24 @@ void __43__CNIndexRequestHandler_deltaSyncContacts___block_invoke(void *a1, uint
       goto LABEL_6;
     }
 
+    if (!v14)
+    {
+      __43__CNIndexRequestHandler_deltaSyncContacts___block_invoke_cold_3(a1, v8);
+      goto LABEL_6;
+    }
+
+    v13 = [v14 searchableItemForIndexing];
     if (!v13)
     {
-      __43__CNIndexRequestHandler_deltaSyncContacts___block_invoke_cold_3(a1, v7);
+      __43__CNIndexRequestHandler_deltaSyncContacts___block_invoke_cold_2(a1, v14);
       goto LABEL_6;
     }
 
-    v12 = [v13 searchableItemForIndexing];
-    if (!v12)
-    {
-      __43__CNIndexRequestHandler_deltaSyncContacts___block_invoke_cold_2(a1, v13);
-      goto LABEL_6;
-    }
-
-    v11 = v12;
-    v10 = 0;
+    v12 = v13;
+    v11 = 0;
   }
 
-  __43__CNIndexRequestHandler_deltaSyncContacts___block_invoke_cold_1(a1, v11, v10);
+  __43__CNIndexRequestHandler_deltaSyncContacts___block_invoke_cold_1(a1, v12, v11);
 LABEL_6:
 }
 

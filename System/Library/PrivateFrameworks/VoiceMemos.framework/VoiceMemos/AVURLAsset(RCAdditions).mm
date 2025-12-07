@@ -10,48 +10,48 @@
 
 + (uint64_t)rc_updateFile:()RCAdditions withTranscriptionData:error:
 {
-  v46[2] = *MEMORY[0x277D85DE8];
+  v45[2] = *MEMORY[0x277D85DE8];
   v7 = a3;
-  v36 = a5;
-  v37 = a4;
-  v35 = v7;
+  v35 = a5;
+  v36 = a4;
+  v34 = v7;
   v8 = [RCMutableMovie movieWithURL:v7 error:a5];
   v9 = v8;
   if (v8)
   {
     v10 = [v8 tracksWithMediaType:*MEMORY[0x277CE5E48]];
-    v34 = [v10 na_filter:&__block_literal_global_129];
+    v33 = [v10 na_filter:&__block_literal_global_129];
 
-    firstObject = [v34 firstObject];
+    firstObject = [v33 firstObject];
     if (firstObject)
     {
       v11 = objc_opt_new();
-      v46[0] = transcriptionIdentifier(0);
-      v46[1] = transcriptionIdentifier(1);
-      v12 = [MEMORY[0x277CBEB98] setWithObjects:v46 count:2];
+      v45[0] = transcriptionIdentifier(0);
+      v45[1] = transcriptionIdentifier(1);
+      v12 = [MEMORY[0x277CBEB98] setWithObjects:v45 count:2];
       for (i = 1; i != -1; --i)
       {
       }
 
+      v38 = 0u;
       v39 = 0u;
       v40 = 0u;
       v41 = 0u;
-      v42 = 0u;
       metadata = [firstObject metadata];
-      v15 = [metadata countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v15 = [metadata countByEnumeratingWithState:&v38 objects:v42 count:16];
       if (v15)
       {
-        v16 = *v40;
+        v16 = *v39;
         do
         {
           for (j = 0; j != v15; ++j)
           {
-            if (*v40 != v16)
+            if (*v39 != v16)
             {
               objc_enumerationMutation(metadata);
             }
 
-            v18 = *(*(&v39 + 1) + 8 * j);
+            v18 = *(*(&v38 + 1) + 8 * j);
             identifier = [v18 identifier];
             v20 = [v12 containsObject:identifier];
 
@@ -61,17 +61,17 @@
             }
           }
 
-          v15 = [metadata countByEnumeratingWithState:&v39 objects:v43 count:16];
+          v15 = [metadata countByEnumeratingWithState:&v38 objects:v42 count:16];
         }
 
         while (v15);
       }
 
-      if (v37)
+      if (v36)
       {
-        v21 = transcriptionIdentifier([v35 isQuickTime]);
+        v21 = transcriptionIdentifier([v34 isQuickTime]);
         v22 = MEMORY[0x277CE6558];
-        v23 = v37;
+        v23 = v36;
         v24 = objc_alloc_init(v22);
         v25 = [MEMORY[0x277CE6520] keyForIdentifier:v21];
         [v24 setKey:v25];
@@ -87,9 +87,9 @@
       }
 
       [firstObject setMetadata:v11];
-      v27 = [v9 rc_writeMovieHeaderWithOptions:0 error:v36];
+      v27 = [v9 rc_writeMovieHeaderWithOptions:0 error:v35];
       v28 = v27;
-      if (v36)
+      if (v35)
       {
         v29 = v27;
       }
@@ -104,25 +104,25 @@
         v30 = OSLogForCategory(@"Default");
         if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          [AVURLAsset(RCAdditions) rc_updateFile:v36 withTranscriptionData:v30 error:?];
+          [AVURLAsset(RCAdditions) rc_updateFile:v35 withTranscriptionData:v30 error:?];
         }
       }
     }
 
     else
     {
-      if (!v36)
+      if (!v35)
       {
         v28 = 0;
         goto LABEL_28;
       }
 
       v31 = MEMORY[0x277CCA9B8];
-      v44 = *MEMORY[0x277CCA470];
-      v45 = @"No audio tracks exist";
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+      v43 = *MEMORY[0x277CCA470];
+      v44 = @"No audio tracks exist";
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
       [v31 errorWithDomain:@"com.apple.VoiceMemos.ErrorDomain" code:-1 userInfo:v11];
-      *v36 = v28 = 0;
+      *v35 = v28 = 0;
     }
 
 LABEL_28:
@@ -132,21 +132,18 @@ LABEL_28:
   v28 = 0;
 LABEL_29:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
 + (id)rc_preciseTimingAssetWithURL:()RCAdditions
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = objc_alloc(objc_opt_class());
-  v9 = *MEMORY[0x277CE6240];
-  v10[0] = MEMORY[0x277CBEC38];
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x277CE6240];
+  v9[0] = MEMORY[0x277CBEC38];
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 initWithURL:v3 options:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -221,14 +218,13 @@ LABEL_29:
 
 + (void)rc_updateFile:()RCAdditions withTranscriptionData:error:.cold.1(uint64_t *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 136315394;
-  v5 = "+[AVURLAsset(RCAdditions) rc_updateFile:withTranscriptionData:error:]";
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- writeMovieHeaderToURL error = %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "+[AVURLAsset(RCAdditions) rc_updateFile:withTranscriptionData:error:]";
+  v5 = 2112;
+  v6 = v2;
+  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- writeMovieHeaderToURL error = %@", &v3, 0x16u);
 }
 
 @end

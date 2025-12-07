@@ -9,6 +9,7 @@
 - (BOOL)isLonelyHex:(Hex)hex;
 - (CSLHexAppGraph)init;
 - (CSLHexAppGraph)initWithCoder:(id)coder;
+- (CSLHexAppGraph)initWithNodes:(id)nodes verticalOnly:(BOOL)only;
 - (CSLHexAppGraphDelegate)delegate;
 - (Hex)firstGoodEmptyHex;
 - (NSString)abbreviatedDescription;
@@ -40,6 +41,7 @@
 - (void)incrementNeighborCountsForHex:(Hex)hex;
 - (void)move343Node:(id)node toHex:(Hex)hex final:(BOOL)final;
 - (void)moveNode:(id)node toHex:(Hex)hex;
+- (void)moveNode:(id)node toHex:(Hex)hex final:(BOOL)final;
 - (void)moveNodesWithBundleIdentifiers:(id)identifiers toStartingHex:(Hex)hex forReason:(unint64_t)reason;
 - (void)removeNode:(id)node;
 - (void)removeNodeObjectForKey:(Hex)key;
@@ -105,6 +107,62 @@
   result = _bs_set_crash_log_message();
   __break(0);
   return result;
+}
+
+- (CSLHexAppGraph)initWithNodes:(id)nodes verticalOnly:(BOOL)only
+{
+  onlyCopy = only;
+  nodesCopy = nodes;
+  v7 = [(CSLHexAppGraph *)self initVerticalOnly:onlyCopy];
+  if (v7)
+  {
+    v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v8 = nodesCopy;
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    if (v9)
+    {
+      v10 = *v18;
+      do
+      {
+        for (i = 0; i != v9; i = i + 1)
+        {
+          if (*v18 != v10)
+          {
+            objc_enumerationMutation(v8);
+          }
+
+          v12 = *(*(&v17 + 1) + 8 * i);
+          -[CSLHexAppGraph setNodeObject:forKey:](v7, "setNodeObject:forKey:", v12, [v12 hex]);
+          nodesByBundle = [(CSLHexAppGraph *)v7 nodesByBundle];
+          bundleIdentifier = [v12 bundleIdentifier];
+          [nodesByBundle setObject:v12 forKey:bundleIdentifier];
+        }
+
+        v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      }
+
+      while (v9);
+    }
+
+    [(CSLHexAppGraph *)v7 calculateNeighborCounts];
+    if (![(CSLHexAppGraph *)v7 integrityCheck])
+    {
+      v15 = cslprf_icon_field_log();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        CSLHexNodesAbbreviatedDescription(v8);
+        objc_claimAutoreleasedReturnValue();
+        sub_23024();
+      }
+
+      v7 = 0;
+    }
+  }
+
+  return v7;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -196,26 +254,25 @@
 - (BOOL)addNode:(id)node
 {
   nodeCopy = node;
-  v21 = [nodeCopy hex];
-  v5 = sub_14288(&self->_nodes.__table_.__bucket_list_.__ptr_, &v21);
-  if (v5)
+  v20 = [nodeCopy hex];
+  if (sub_14288(&self->_nodes.__table_.__bucket_list_.__ptr_, &v20))
   {
-    v6 = cslprf_icon_field_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = cslprf_icon_field_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_2306C(nodeCopy, v5);
+      sub_2306C();
     }
 
-    LOBYTE(v7) = 0;
+    v6 = 0;
   }
 
   else
   {
     bundleIdentifier = [nodeCopy bundleIdentifier];
-    v6 = [(CSLHexAppGraph *)self nodeWithBundleIdentifier:bundleIdentifier];
+    v5 = [(CSLHexAppGraph *)self nodeWithBundleIdentifier:bundleIdentifier];
 
-    v7 = v6 == 0;
-    if (v6)
+    v6 = v5 == 0;
+    if (v5)
     {
       delegate = cslprf_icon_field_log();
       if (os_log_type_enabled(delegate, OS_LOG_TYPE_ERROR))
@@ -232,36 +289,36 @@
       }
 
       neighborCountValid = self->_neighborCountValid;
-      [(CSLHexAppGraph *)self setNodeObject:nodeCopy forKey:v21];
+      [(CSLHexAppGraph *)self setNodeObject:nodeCopy forKey:v20];
       nodesByBundle = [(CSLHexAppGraph *)self nodesByBundle];
       bundleIdentifier2 = [nodeCopy bundleIdentifier];
       [nodesByBundle setObject:nodeCopy forKey:bundleIdentifier2];
 
       if (neighborCountValid)
       {
-        [(CSLHexAppGraph *)self incrementNeighborCountsForHex:v21];
+        [(CSLHexAppGraph *)self incrementNeighborCountsForHex:v20];
         self->_neighborCountValid = 1;
       }
 
-      if ([(CSLHexAppGraph *)self isLonelyHex:v21])
+      if ([(CSLHexAppGraph *)self isLonelyHex:v20])
       {
-        v13 = [NSMutableSet setWithObject:nodeCopy];
-        [(CSLHexAppGraph *)self collapseLonelyNodes:v13];
+        v12 = [NSMutableSet setWithObject:nodeCopy];
+        [(CSLHexAppGraph *)self collapseLonelyNodes:v12];
 
         savedHex = [nodeCopy savedHex];
-        if (v21 != savedHex)
+        if (v20 != savedHex)
         {
-          v15 = cslprf_icon_field_log();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v14 = cslprf_icon_field_log();
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             savedHex2 = [nodeCopy savedHex];
             sub_5C48(&savedHex2, &__p);
-            v18 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
+            v17 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
             *buf = 138412546;
-            v24 = nodeCopy;
-            v25 = 2080;
-            v26 = v18;
-            _os_log_error_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "%@ is dirty, saved hex: %s", buf, 0x16u);
+            v23 = nodeCopy;
+            v24 = 2080;
+            v25 = v17;
+            _os_log_error_impl(&dword_0, v14, OS_LOG_TYPE_ERROR, "%@ is dirty, saved hex: %s", buf, 0x16u);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
@@ -274,13 +331,13 @@
 
       [(CSLHexAppGraph *)self integrityCheckIgnoringNode:0 shouldCheckNeighbors:1];
       delegate = [(CSLHexAppGraph *)self delegate];
-      v22 = nodeCopy;
-      v16 = [NSArray arrayWithObjects:&v22 count:1];
-      [delegate hexAppGraph:self addedNodes:v16 removedNodes:0 movedNodes:0];
+      v21 = nodeCopy;
+      v15 = [NSArray arrayWithObjects:&v21 count:1];
+      [delegate hexAppGraph:self addedNodes:v15 removedNodes:0 movedNodes:0];
     }
   }
 
-  return v7;
+  return v6;
 }
 
 - (Hex)firstGoodEmptyHex
@@ -317,7 +374,7 @@ LABEL_7:
     v6 = (size | (v4 << 32));
   }
 
-  while ([(CSLHexAppGraph *)self containsNodeAtHex:v6, v8, v9, v10, *v11, *&v11[16]]|| !self->_isVerticalOnly && [(CSLHexAppGraph *)self isLonelyHex:v6]);
+  while ([(CSLHexAppGraph *)self containsNodeAtHex:v6, v8, v9, v10, *v11, *&v11[8], *&v11[16], *&v11[24]]|| !self->_isVerticalOnly && [(CSLHexAppGraph *)self isLonelyHex:v6]);
   return v6;
 }
 
@@ -421,7 +478,7 @@ LABEL_7:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       sub_5C48(&hexCopy, &v29);
-      sub_23278(&v29);
+      sub_23278();
     }
 
     v8 = hexCopy;
@@ -479,7 +536,7 @@ LABEL_6:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       sub_5C48(&v28, &buf);
-      sub_232D0(&buf);
+      sub_232D0();
     }
 
     *__p = 0u;
@@ -500,7 +557,7 @@ LABEL_6:
       v16 = [(CSLHexAppGraph *)self nodeAtHex:*&v27[4]];
       if (v16)
       {
-        sub_13640(__p, &v27[4]);
+        sub_13640(__p, &v27[4], &v27[4]);
         if ([(CSLHexAppGraph *)self isLonelyHex:*&v27[4]])
         {
           v17 = cslprf_icon_field_log();
@@ -1396,7 +1453,7 @@ LABEL_173:
     WORD2(__p.__r_.__value_.__r.__words[1]) = 2080;
     *(&__p.__r_.__value_.__r.__words[1] + 6) = p_buf;
     HIWORD(__p.__r_.__value_.__r.__words[2]) = 2112;
-    v54 = v40;
+    v53 = v40;
     _os_log_debug_impl(&dword_0, v9, OS_LOG_TYPE_DEBUG, "[343 move] consider move %@ -> %s %@", &__p, 0x20u);
     if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -1436,7 +1493,7 @@ LABEL_173:
       WORD2(__p.__r_.__value_.__r.__words[1]) = 2080;
       *(&__p.__r_.__value_.__r.__words[1] + 6) = v41;
       HIWORD(__p.__r_.__value_.__r.__words[2]) = 2112;
-      v54 = v42;
+      v53 = v42;
       _os_log_debug_impl(&dword_0, v12, OS_LOG_TYPE_DEBUG, "[343 move] WILL move %@ -> %s %@", &__p, 0x20u);
       if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -1445,7 +1502,7 @@ LABEL_173:
     }
 
     selfCopy = self;
-    v51 = selfCopy;
+    v50 = selfCopy;
     q = hexCopy.q;
     r = hexCopy.r;
     v16 = [nodeCopy hex];
@@ -1459,21 +1516,21 @@ LABEL_173:
       v17 = r > SHIDWORD(v11);
     }
 
-    v50 = hexCopy;
+    v49 = hexCopy;
     v18 = nodeCopy;
     v19 = v18;
     if (v17)
     {
-      v49 = hexCopy;
+      v48 = hexCopy;
       v20 = v18;
       do
       {
-        v21 = sub_E3A8(&v49);
+        v21 = sub_E3A8(&v48);
         if (v21)
         {
-          v50 = __PAIR64__(v22, HIDWORD(v21));
+          v49 = __PAIR64__(v22, HIDWORD(v21));
           v23 = [(CSLHexAppGraph *)selfCopy nodeAtHex:__PAIR64__(v22, HIDWORD(v21))];
-          sub_E42C(&v51, v20, v50, v23);
+          sub_E42C(&v50, v20, v49, v23);
         }
 
         else
@@ -1481,7 +1538,7 @@ LABEL_173:
           v24 = cslprf_icon_field_log();
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
           {
-            sub_5C48(&v50, &__p);
+            sub_5C48(&v49, &__p);
             p_p = &__p;
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
             {
@@ -1513,27 +1570,27 @@ LABEL_173:
               WORD2(__p.__r_.__value_.__r.__words[1]) = 2114;
               *(&__p.__r_.__value_.__r.__words[1] + 6) = v46;
               HIWORD(__p.__r_.__value_.__r.__words[2]) = 2048;
-              v54 = selfCopy;
-              v55 = 2114;
-              v56 = @"CSLHexAppGraph.mm";
-              v57 = 1024;
-              v58 = 771;
-              v59 = 2114;
-              v60 = v43;
+              v53 = selfCopy;
+              v54 = 2114;
+              v55 = @"CSLHexAppGraph.mm";
+              v56 = 1024;
+              v57 = 771;
+              v58 = 2114;
+              v59 = v43;
               _os_log_error_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &__p, 0x3Au);
             }
 
             v47 = v43;
             [v43 UTF8String];
-            v48 = _bs_set_crash_log_message();
-            sub_23328(v48);
+            _bs_set_crash_log_message();
+            sub_23328();
           }
         }
 
-        v25 = SHIDWORD(v50) > SHIDWORD(v16);
-        if (HIDWORD(v50) == HIDWORD(v16))
+        v25 = SHIDWORD(v49) > SHIDWORD(v16);
+        if (HIDWORD(v49) == HIDWORD(v16))
         {
-          v25 = v50 > v16;
+          v25 = v49 > v16;
         }
 
         v26 = !v25 || v23 == 0;
@@ -1552,14 +1609,14 @@ LABEL_173:
       do
       {
         v31 = sub_BAB0(&__p);
-        v50 = __PAIR64__(v32, HIDWORD(v31));
+        v49 = __PAIR64__(v32, HIDWORD(v31));
         v23 = [(CSLHexAppGraph *)selfCopy nodeAtHex:__PAIR64__(v32, HIDWORD(v31))];
-        sub_E42C(&v51, v19, v50, v23);
+        sub_E42C(&v50, v19, v49, v23);
 
-        v33 = SHIDWORD(v50) < v30;
-        if (HIDWORD(v50) == v30)
+        v33 = SHIDWORD(v49) < v30;
+        if (HIDWORD(v49) == v30)
         {
-          v33 = v50 < v29;
+          v33 = v49 < v29;
         }
 
         v34 = !v33 || v23 == 0;
@@ -1598,6 +1655,311 @@ LABEL_173:
     allObjects = [(NSMutableSet *)self->_changedNodes allObjects];
     [delegate hexAppGraph:self addedNodes:0 removedNodes:0 movedNodes:allObjects];
   }
+}
+
+- (void)moveNode:(id)node toHex:(Hex)hex final:(BOOL)final
+{
+  finalCopy = final;
+  hexCopy = hex;
+  nodeCopy = node;
+  v9 = nodeCopy;
+  if (!self->_isVerticalOnly)
+  {
+    if (!*&hex || ![nodeCopy hex])
+    {
+      v11 = cslprf_icon_field_log();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        sub_5C48(&hexCopy, v53);
+        sub_23574();
+      }
+
+      goto LABEL_62;
+    }
+
+    [(NSMutableSet *)self->_changedNodes removeAllObjects];
+    if (hexCopy == [v9 hex])
+    {
+      if (finalCopy)
+      {
+        v10 = cslprf_icon_field_log();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        {
+          sub_234BC();
+        }
+
+        v11 = +[NSMutableSet set];
+        [v11 addObject:v9];
+        goto LABEL_55;
+      }
+    }
+
+    else
+    {
+      [(CSLHexAppGraph *)self revertMove];
+      v12 = cslprf_icon_field_log();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      {
+        sub_5C48(&hexCopy, &v59);
+        if (v60[7] >= 0)
+        {
+          v43 = &v59;
+        }
+
+        else
+        {
+          v43 = v59;
+        }
+
+        v44 = &stru_38F80;
+        *v53 = 138412802;
+        if (finalCopy)
+        {
+          v44 = @"(final)";
+        }
+
+        *&v53[4] = v9;
+        *v54 = 2080;
+        *&v54[2] = v43;
+        *&v54[10] = 2112;
+        *&v54[12] = v44;
+        _os_log_debug_impl(&dword_0, v12, OS_LOG_TYPE_DEBUG, "WILL move %@ -> %s %@", v53, 0x20u);
+        if ((v60[7] & 0x80000000) != 0)
+        {
+          operator delete(v59);
+        }
+      }
+
+      v13 = [v9 hex];
+      sub_13C20(&v59, hexCopy, v13);
+      v50[0] = 0;
+      *&v50[4] = 0;
+      do
+      {
+        v14 = sub_EEA0(&v59);
+        v16 = v14;
+        *v50 = v14;
+        *&v50[8] = v15;
+        if ((v14 & 1) == 0 || !HIDWORD(v14) && !v15)
+        {
+          break;
+        }
+
+        v17 = [(CSLHexAppGraph *)self nodeAtHex:*&v50[4]];
+        v18 = v17 == 0;
+      }
+
+      while (!v18);
+      [(CSLHexAppGraph *)self removeNodeWithoutReflow:v9];
+      if (v16)
+      {
+        v11 = +[NSMutableSet set];
+        [(CSLHexAppGraph *)self collapseToHex:v13 ignoringNode:v9];
+        v19 = [(CSLHexAppGraph *)self nodeAtHex:hexCopy];
+        v20 = v19 == 0;
+
+        if (v20)
+        {
+          v37 = cslprf_icon_field_log();
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+          {
+            sub_5C48(&hexCopy, v53);
+            sub_233D8();
+          }
+
+          [(CSLHexAppGraph *)self setNode:v9 toHex:hexCopy];
+          if (finalCopy)
+          {
+            v38 = cslprf_icon_field_log();
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+            {
+              sub_23454();
+            }
+
+            [v11 addObject:v9];
+          }
+        }
+
+        else
+        {
+          *v53 = hexCopy;
+          v53[8] = 1;
+          *v54 = hexCopy;
+          *&v54[8] = hexCopy;
+          *&v54[16] = hexCopy;
+          v55 = hexCopy;
+          v56 = hexCopy;
+          v57 = hexCopy;
+          v58 = 0xFFFFFFFF00000000;
+          v48 = 0;
+          v49 = 0;
+          while (1)
+          {
+            *v50 = sub_EF38(v53);
+            *&v50[8] = v21;
+            if ((v50[0] & 1) == 0)
+            {
+              break;
+            }
+
+            v22 = [(CSLHexAppGraph *)self nodeAtHex:*&v50[4]];
+            v23 = v22 == 0;
+
+            if (v23)
+            {
+              v48 = 1;
+              v49 = *&v50[4];
+              v24 = cslprf_icon_field_log();
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+              {
+                sub_5C48(&v49, &v47);
+                sub_23380();
+              }
+
+              break;
+            }
+          }
+
+          sub_13C20(buf, hexCopy, v49);
+          v59 = *buf;
+          *v60 = *&buf[16];
+          *&v60[12] = *&buf[28];
+          v25 = v9;
+          *&v26 = 138412290;
+          v45 = v26;
+          while (1)
+          {
+            *v50 = sub_EEA0(&v59);
+            *&v50[8] = v27;
+            if ((v50[0] & 1) == 0)
+            {
+              break;
+            }
+
+            v28 = [(CSLHexAppGraph *)self nodeAtHex:*&v50[4]];
+            v29 = cslprf_icon_field_log();
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+            {
+              sub_5C48(&v50[4], &__p);
+              p_p = &__p;
+              if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+              {
+                p_p = __p.__r_.__value_.__r.__words[0];
+              }
+
+              *buf = 138412802;
+              *&buf[4] = v28;
+              *&buf[12] = 2112;
+              *&buf[14] = v25;
+              *&buf[22] = 2080;
+              *&buf[24] = p_p;
+              _os_log_debug_impl(&dword_0, v29, OS_LOG_TYPE_DEBUG, "[push up] removed %@; move %@ -> %s", buf, 0x20u);
+              if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+              {
+                operator delete(__p.__r_.__value_.__l.__data_);
+              }
+            }
+
+            [(CSLHexAppGraph *)self setNode:v25 toHex:*&v50[4]];
+            if (!v28)
+            {
+              v30 = cslprf_icon_field_log();
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+              {
+                *buf = v45;
+                *&buf[4] = v25;
+                _os_log_debug_impl(&dword_0, v30, OS_LOG_TYPE_DEBUG, "[lonely?] add %@", buf, 0xCu);
+              }
+
+              [v11 addObject:v25];
+            }
+
+            v25 = v28;
+          }
+        }
+
+        goto LABEL_55;
+      }
+
+      v32 = v9;
+      *&v60[8] = 0;
+      *v60 = v59;
+      while (1)
+      {
+        *v50 = sub_EEA0(&v59);
+        *&v50[8] = v33;
+        if ((v50[0] & 1) == 0)
+        {
+          break;
+        }
+
+        v34 = [(CSLHexAppGraph *)self nodeAtHex:*&v50[4]];
+        v35 = cslprf_icon_field_log();
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+        {
+          sub_5C48(&v50[4], buf);
+          v36 = buf;
+          if (buf[23] < 0)
+          {
+            v36 = *buf;
+          }
+
+          *v53 = 138412802;
+          *&v53[4] = v34;
+          *v54 = 2112;
+          *&v54[2] = v32;
+          *&v54[10] = 2080;
+          *&v54[12] = v36;
+          _os_log_debug_impl(&dword_0, v35, OS_LOG_TYPE_DEBUG, "[simple shift] removed %@; move %@ -> %s", v53, 0x20u);
+          if ((buf[23] & 0x80000000) != 0)
+          {
+            operator delete(*buf);
+          }
+        }
+
+        [(CSLHexAppGraph *)self setNode:v32 toHex:*&v50[4]];
+        v32 = v34;
+      }
+    }
+
+    v11 = 0;
+LABEL_55:
+    if (finalCopy)
+    {
+      v39 = 0;
+    }
+
+    else
+    {
+      v39 = v9;
+    }
+
+    [(CSLHexAppGraph *)self integrityCheckIgnoringNode:v39 shouldCheckNeighbors:0, v45];
+    [(CSLHexAppGraph *)self collapseLonelyNodes:v11];
+    [(CSLHexAppGraph *)self integrityCheckIgnoringNode:v39 shouldCheckNeighbors:1];
+    if ([(NSMutableSet *)self->_changedNodes count])
+    {
+      v40 = cslprf_icon_field_log();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+      {
+        [(NSMutableSet *)self->_changedNodes count];
+        [(CSLHexAppGraph *)self delegate];
+        objc_claimAutoreleasedReturnValue();
+        sub_23524();
+      }
+
+      delegate = [(CSLHexAppGraph *)self delegate];
+      allObjects = [(NSMutableSet *)self->_changedNodes allObjects];
+      [delegate hexAppGraph:self addedNodes:0 removedNodes:0 movedNodes:allObjects];
+    }
+
+LABEL_62:
+
+    goto LABEL_63;
+  }
+
+  [(CSLHexAppGraph *)self move343Node:nodeCopy toHex:hex final:finalCopy];
+LABEL_63:
 }
 
 - (void)commitMovedNode:(id)node withReason:(unint64_t)reason
@@ -1763,11 +2125,11 @@ LABEL_173:
 - (void)incrementNeighborCountsForHex:(Hex)hex
 {
   hexCopy = hex;
-  v10 = 0;
-  v7 = sub_C8D8(&hexCopy);
-  for (i = v4; (v7 & 1) != 0; i = v6)
+  v11 = 0;
+  v8 = sub_C8D8(&hexCopy);
+  for (i = v4; (v8 & 1) != 0; i = v6)
   {
-    v5 = sub_14288(&self->_neighborCounts.__table_.__bucket_list_.__ptr_, &v7 + 1);
+    v5 = sub_14288(&self->_neighborCounts.__table_.__bucket_list_.__ptr_, &v8 + 1);
     if (v5)
     {
       ++*(v5 + 6);
@@ -1775,10 +2137,11 @@ LABEL_173:
 
     else
     {
-      sub_1491C(&self->_neighborCounts.__table_.__bucket_list_.__ptr_, &v7 + 1);
+      v7 = 1;
+      sub_1491C(&self->_neighborCounts.__table_.__bucket_list_.__ptr_, &v8 + 1, (&v8 + 4), &v7);
     }
 
-    v7 = sub_C8D8(&hexCopy);
+    v8 = sub_C8D8(&hexCopy);
   }
 }
 
@@ -2203,10 +2566,10 @@ LABEL_46:
 
 - (void)setNodeObject:(id)object forKey:(Hex)key
 {
-  v6[0] = key;
+  keyCopy = key;
   objectCopy = object;
-  v6[2] = v6;
-  sub_14B68(&self->_nodes.__table_.__bucket_list_.__ptr_, v6)[3] = objectCopy;
+  v7 = &keyCopy;
+  sub_14B68(&self->_nodes.__table_.__bucket_list_.__ptr_, &keyCopy, &unk_2A23C, &v7)[3] = objectCopy;
   *&self->_neighborCountValid = 256;
 }
 
@@ -2286,7 +2649,7 @@ LABEL_55:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_5C48(&v54, v55);
-        sub_2360C(v55);
+        sub_2360C();
       }
 
       goto LABEL_58;
@@ -2311,7 +2674,7 @@ LABEL_55:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_5C48(&v54, v55);
-        sub_2365C(v55);
+        sub_2365C();
       }
 
       goto LABEL_58;
@@ -2495,7 +2858,7 @@ LABEL_59:
       [v8 setObject:v7 forKey:bundleIdentifier];
 
       v11 = [v12 hex];
-      sub_14DDC(v5 + 4, &v11);
+      sub_14DDC(v5 + 4, &v11, &v11, &v12);
     }
 
     *(v5 + 8) = 0;
@@ -2879,7 +3242,7 @@ LABEL_19:
   identifierCopy = identifier;
   v9 = [[CSLHexAppNode alloc] initWithBundleIdentifier:identifierCopy hex:hex];
   [(NSMutableDictionary *)self->_nodesByBundle setObject:v9 forKey:identifierCopy];
-  sub_14DDC(&self->_nodes.__table_.__bucket_list_.__ptr_, &hexCopy);
+  sub_14DDC(&self->_nodes.__table_.__bucket_list_.__ptr_, &hexCopy, &hexCopy, &v9);
   v7 = v9;
 
   return v7;
@@ -3172,51 +3535,51 @@ LABEL_18:
       v25 = NSStringFromClass(v24);
       *buf = 138544642;
       *&buf[4] = v23;
-      v33 = 2114;
-      v34 = v25;
-      v35 = 2048;
+      v32 = 2114;
+      v33 = v25;
+      v34 = 2048;
       selfCopy = self;
-      v37 = 2114;
-      v38 = @"CSLHexAppGraph.mm";
-      v39 = 1024;
-      v40 = 2010;
-      v41 = 2114;
-      v42 = v22;
+      v36 = 2114;
+      v37 = @"CSLHexAppGraph.mm";
+      v38 = 1024;
+      v39 = 2010;
+      v40 = 2114;
+      v41 = v22;
       _os_log_error_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
     v26 = v22;
     [v22 UTF8String];
-    v27 = _bs_set_crash_log_message();
-    sub_23328(v27);
+    _bs_set_crash_log_message();
+    sub_23328();
   }
 
   size = self->_nodes.__table_.__size_;
+  v29 = 0xFFFFFFFE00000000;
   v30 = 0xFFFFFFFE00000000;
-  v31 = 0xFFFFFFFE00000000;
   if (size >= 1)
   {
     v4 = 16 * size;
     do
     {
-      v5 = sub_BAB0(&v31);
+      v5 = sub_BAB0(&v30);
       *(&v7 + 1) = v6;
       *&v7 = v5;
       v8 = [(CSLHexAppGraph *)self nodeAtHex:(v7 >> 32)];
       if (v8)
       {
-        LODWORD(v29) = sub_BAB0(&v30) >> 32;
-        HIDWORD(v29) = v9;
+        LODWORD(v28) = sub_BAB0(&v29) >> 32;
+        HIDWORD(v28) = v9;
         v10 = [v8 hex];
-        if (v29 != v10 || HIDWORD(v29) != HIDWORD(v10))
+        if (v28 != v10 || HIDWORD(v28) != HIDWORD(v10))
         {
           v12 = cslprf_icon_field_log();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
-            sub_5C48(&v29, &__p);
+            sub_5C48(&v28, &__p);
             v14 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
             v15 = __p.__r_.__value_.__r.__words[0];
-            v16 = [(CSLHexAppGraph *)self nodeAtHex:v29];
+            v16 = [(CSLHexAppGraph *)self nodeAtHex:v28];
             v17 = v16;
             *buf = 138412802;
             p_p = &__p;
@@ -3226,9 +3589,9 @@ LABEL_18:
             }
 
             *&buf[4] = v8;
-            v33 = 2080;
-            v34 = p_p;
-            v35 = 2112;
+            v32 = 2080;
+            v33 = p_p;
+            v34 = 2112;
             selfCopy = v16;
             _os_log_debug_impl(&dword_0, v12, OS_LOG_TYPE_DEBUG, "[343 collapse] move %@ -> %s; displaced:%@; ", buf, 0x20u);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -3237,7 +3600,7 @@ LABEL_18:
             }
           }
 
-          [(CSLHexAppGraph *)self moveNode:v8 toHex:v29];
+          [(CSLHexAppGraph *)self moveNode:v8 toHex:v28];
         }
 
         --size;

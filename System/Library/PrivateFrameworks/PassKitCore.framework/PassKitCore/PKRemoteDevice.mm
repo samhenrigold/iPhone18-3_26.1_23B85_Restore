@@ -192,7 +192,7 @@ uint64_t __95__PKRemoteDevice_PKPaymentAuthorizationDataModel__acceptedComparato
 
     if (deviceCopy)
     {
-      [deviceCopy operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(deviceCopy);
       v16 = v18;
     }
 

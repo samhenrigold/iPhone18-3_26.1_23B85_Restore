@@ -67,16 +67,16 @@ id __49__SUIKSearchResultsCollectionViewController_init__block_invoke(uint64_t a
   return v8;
 }
 
-void __49__SUIKSearchResultsCollectionViewController_init__block_invoke_2()
+void __49__SUIKSearchResultsCollectionViewController_init__block_invoke_2(uint64_t a1)
 {
-  v0 = PSBlankIconImage();
-  [v0 size];
-  reuseIdentifier_block_invoke_iconSize_0 = v1;
-  reuseIdentifier_block_invoke_iconSize_1 = v2;
+  v1 = PSBlankIconImage(a1);
+  [v1 size];
+  reuseIdentifier_block_invoke_iconSize_0 = v2;
+  reuseIdentifier_block_invoke_iconSize_1 = v3;
 
-  v3 = [MEMORY[0x1E69DCC28] subtitleCellConfiguration];
-  v4 = reuseIdentifier_block_invoke_cellConfig;
-  reuseIdentifier_block_invoke_cellConfig = v3;
+  v4 = [MEMORY[0x1E69DCC28] subtitleCellConfiguration];
+  v5 = reuseIdentifier_block_invoke_cellConfig;
+  reuseIdentifier_block_invoke_cellConfig = v4;
 }
 
 - (void)viewDidLoad
@@ -193,11 +193,11 @@ id __56__SUIKSearchResultsCollectionViewController_viewDidLoad__block_invoke_2(u
   return *&iconWidth_iconWidth;
 }
 
-void __54__SUIKSearchResultsCollectionViewController_iconWidth__block_invoke()
+void __54__SUIKSearchResultsCollectionViewController_iconWidth__block_invoke(uint64_t a1)
 {
-  v1 = PSBlankIconImage();
-  [v1 size];
-  *&iconWidth_iconWidth = v0 + 15.0;
+  v2 = PSBlankIconImage(a1);
+  [v2 size];
+  *&iconWidth_iconWidth = v1 + 15.0;
 }
 
 - (unint64_t)totalSearchResults

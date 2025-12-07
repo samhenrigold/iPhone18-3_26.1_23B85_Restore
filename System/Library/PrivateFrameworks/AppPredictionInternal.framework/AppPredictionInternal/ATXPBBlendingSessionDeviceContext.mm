@@ -1,6 +1,7 @@
 @interface ATXPBBlendingSessionDeviceContext
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)currentLOITypeAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (int)StringAsCurrentLOIType:(id)type;
@@ -120,6 +121,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)currentLOITypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278597E98[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCurrentLOIType:(id)type
@@ -289,7 +305,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    timeOfDay = self->_timeOfDay;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -309,7 +324,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  dayOfWeek = self->_dayOfWeek;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -324,7 +338,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  dateInWeekend = self->_dateInWeekend;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -339,7 +352,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  lastUnlockMoreThan30MinutesAgo = self->_lastUnlockMoreThan30MinutesAgo;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -354,7 +366,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  lastUnlockMoreThan1HourAgo = self->_lastUnlockMoreThan1HourAgo;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -369,12 +380,10 @@ LABEL_7:
   }
 
 LABEL_17:
-  currentLOIType = self->_currentLOIType;
   PBDataWriterWriteInt32Field();
   if (*&self->_has)
   {
 LABEL_8:
-    secondsBeforeBlendingUpdate = self->_secondsBeforeBlendingUpdate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -619,7 +628,6 @@ LABEL_8:
       goto LABEL_44;
     }
 
-    v5 = *(equalCopy + 28);
     if (self->_dateInWeekend)
     {
       if ((*(equalCopy + 28) & 1) == 0)
@@ -646,7 +654,6 @@ LABEL_8:
       goto LABEL_44;
     }
 
-    v6 = *(equalCopy + 30);
     if (self->_lastUnlockMoreThan30MinutesAgo)
     {
       if ((*(equalCopy + 30) & 1) == 0)
@@ -674,7 +681,7 @@ LABEL_8:
     }
 
 LABEL_44:
-    v8 = 0;
+    v5 = 0;
     goto LABEL_45;
   }
 
@@ -683,7 +690,6 @@ LABEL_44:
     goto LABEL_44;
   }
 
-  v7 = *(equalCopy + 29);
   if (self->_lastUnlockMoreThan1HourAgo)
   {
     if ((*(equalCopy + 29) & 1) == 0)
@@ -711,7 +717,7 @@ LABEL_18:
     goto LABEL_44;
   }
 
-  v8 = (*(equalCopy + 32) & 1) == 0;
+  v5 = (*(equalCopy + 32) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 32) & 1) == 0 || self->_secondsBeforeBlendingUpdate != *(equalCopy + 1))
@@ -719,12 +725,12 @@ LABEL_18:
       goto LABEL_44;
     }
 
-    v8 = 1;
+    v5 = 1;
   }
 
 LABEL_45:
 
-  return v8;
+  return v5;
 }
 
 - (unint64_t)hash

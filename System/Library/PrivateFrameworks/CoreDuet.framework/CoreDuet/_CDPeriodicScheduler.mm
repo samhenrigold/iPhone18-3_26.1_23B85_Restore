@@ -21,7 +21,7 @@
 
 - (void)registerJob:(id)job
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   jobCopy = job;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
@@ -30,11 +30,11 @@
     [jobCopy interval];
     v6 = [v5 numberWithDouble:?];
     *buf = 138412802;
-    v15 = jobCopy;
-    v16 = 2112;
-    v17 = jobName;
-    v18 = 2112;
-    v19 = v6;
+    v14 = jobCopy;
+    v15 = 2112;
+    v16 = jobName;
+    v17 = 2112;
+    v18 = v6;
     _os_log_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Registered CTS job %@ %@ with interval of %@ seconds", buf, 0x20u);
   }
 
@@ -45,11 +45,9 @@
   handler[1] = 3221225472;
   handler[2] = __36___CDPeriodicScheduler_registerJob___block_invoke;
   handler[3] = &unk_1E7367648;
-  v13 = jobCopy;
+  v12 = jobCopy;
   v10 = jobCopy;
   xpc_activity_register(uTF8String, v9, handler);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterJob:(id)job
@@ -61,7 +59,7 @@
 
 - (void)updateExecutionCriteriaOnJob:(id)job
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   jobCopy = job;
   activity = [jobCopy activity];
   v5 = activity;
@@ -74,16 +72,14 @@
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         jobName = [jobCopy jobName];
-        v10 = 138412290;
-        v11 = jobName;
-        _os_log_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Updating criteria on activity %@", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = jobName;
+        _os_log_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Updating criteria on activity %@", &v9, 0xCu);
       }
 
       xpc_activity_set_criteria(v5, executionCriteria);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

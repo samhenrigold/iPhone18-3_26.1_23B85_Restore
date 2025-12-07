@@ -17,69 +17,69 @@
 
 + (id)bestiMessageServiceHandle
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2050000000;
+  v33 = *MEMORY[0x1E69E9840];
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2050000000;
   v3 = getIMServiceClass_softClass;
-  v32 = getIMServiceClass_softClass;
+  v31 = getIMServiceClass_softClass;
   if (!getIMServiceClass_softClass)
   {
-    v24 = MEMORY[0x1E69E9820];
-    v25 = 3221225472;
-    v26 = __getIMServiceClass_block_invoke;
-    v27 = &unk_1E7FF2370;
-    v28 = &v29;
-    __getIMServiceClass_block_invoke(&v24);
-    v3 = v30[3];
+    v23 = MEMORY[0x1E69E9820];
+    v24 = 3221225472;
+    v25 = __getIMServiceClass_block_invoke;
+    v26 = &unk_1E7FF2370;
+    v27 = &v28;
+    __getIMServiceClass_block_invoke(&v23);
+    v3 = v29[3];
   }
 
   v4 = v3;
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v28, 8);
   iMessageService = [v3 iMessageService];
   if (iMessageService)
   {
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x2050000000;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x2050000000;
     v6 = getIMAccountControllerClass_softClass;
-    v32 = getIMAccountControllerClass_softClass;
+    v31 = getIMAccountControllerClass_softClass;
     if (!getIMAccountControllerClass_softClass)
     {
-      v24 = MEMORY[0x1E69E9820];
-      v25 = 3221225472;
-      v26 = __getIMAccountControllerClass_block_invoke;
-      v27 = &unk_1E7FF2370;
-      v28 = &v29;
-      __getIMAccountControllerClass_block_invoke(&v24);
-      v6 = v30[3];
+      v23 = MEMORY[0x1E69E9820];
+      v24 = 3221225472;
+      v25 = __getIMAccountControllerClass_block_invoke;
+      v26 = &unk_1E7FF2370;
+      v27 = &v28;
+      __getIMAccountControllerClass_block_invoke(&v23);
+      v6 = v29[3];
     }
 
     v7 = v6;
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v28, 8);
     sharedInstance = [v6 sharedInstance];
     v9 = [sharedInstance activeAccountsForService:iMessageService];
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v33 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v32 count:16];
     if (v11)
     {
-      v12 = *v21;
+      v12 = *v20;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
-          v15 = [self _getValidAccountAlias:{v14, v20}];
+          v14 = *(*(&v19 + 1) + 8 * i);
+          v15 = [self _getValidAccountAlias:{v14, v19}];
           v16 = v15 == 0;
 
           if (!v16)
@@ -89,7 +89,7 @@
           }
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v20 objects:v33 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v19 objects:v32 count:16];
         if (v11)
         {
           continue;
@@ -108,33 +108,31 @@ LABEL_16:
     loginIMHandle = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return loginIMHandle;
 }
 
 + (id)_getValidAccountAlias:(id)alias
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   [alias aliases];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v3 = v13 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = v12 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         if ([v7 scui_isValidAccountID])
         {
           v4 = v7;
@@ -142,7 +140,7 @@ LABEL_16:
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -153,8 +151,6 @@ LABEL_16:
   }
 
 LABEL_11:
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

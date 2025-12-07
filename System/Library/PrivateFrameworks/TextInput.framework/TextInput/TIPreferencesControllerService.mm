@@ -73,13 +73,13 @@
   return v2;
 }
 
-uint64_t __61__TIPreferencesControllerService_sharedPreferencesController__block_invoke()
+uint64_t __61__TIPreferencesControllerService_sharedPreferencesController__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_new();
-  v1 = sharedPreferencesController_sharedController_807;
-  sharedPreferencesController_sharedController_807 = v0;
+  v1 = objc_opt_new();
+  v2 = sharedPreferencesController_sharedController_807;
+  sharedPreferencesController_sharedController_807 = v1;
 
-  return MEMORY[0x1EEE66BB8](v0, v1);
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 @end

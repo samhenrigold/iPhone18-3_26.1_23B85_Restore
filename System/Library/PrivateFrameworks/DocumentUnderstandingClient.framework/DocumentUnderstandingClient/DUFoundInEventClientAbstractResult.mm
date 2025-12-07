@@ -1,21 +1,10 @@
 @interface DUFoundInEventClientAbstractResult
 - (DUFoundInEventClientAbstractResult)initWithCoder:(id)coder;
 - (DUFoundInEventClientAbstractResult)initWithFields:(BOOL)fields reservationIdError:(id)error reservationId:(id)id reservationNameError:(id)nameError reservationName:(id)name startAddressError:(id)addressError startAddress:(id)address startAddressComponents:(id)self0 endAddressError:(id)self1 endAddress:(id)self2 endAddressComponents:(id)self3 startPlaceError:(id)self4 startPlace:(id)self5 endPlaceError:(id)self6 endPlace:(id)self7 startDateError:(id)self8 startDate:(id)self9 endDateError:(id)endDateError endDate:(id)endDate hotelNameError:(id)hotelNameError hotelName:(id)hotelName guestNameError:(id)guestNameError guestName:(id)guestName movieNameError:(id)movieNameError movieName:(id)movieName;
-- (id)copyWithZone:(_NSZone *)zone;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation DUFoundInEventClientAbstractResult
-
-- (id)copyWithZone:(_NSZone *)zone
-{
-  v4 = [DUFoundInEventClientAbstractResult alloc];
-  v5 = *&self->_endAddressError;
-  v6 = *&self->_startPlace;
-  v7 = *&self->_startDate;
-  v8 = *&self->_hotelName;
-  return [(DUFoundInEventClientAbstractResult *)v4 initWithFields:self->_detectedEventPolarity reservationIdError:self->_reservationIdError reservationId:self->_reservationId reservationNameError:self->_reservationNameError reservationName:self->_reservationName startAddressError:self->_startAddressError startAddress:self->_startAddress startAddressComponents:self->_startAddressComponents endAddressError:self->_endAddressError endAddress:self->_endAddress endAddressComponents:self->_endAddressComponents startPlaceError:self->_startPlaceError startPlace:self->_startPlace endPlaceError:self->_endPlaceError endPlace:self->_endPlace startDateError:self->_startDateError startDate:self->_startDate endDateError:self->_endDateError endDate:self->_endDate hotelNameError:self->_hotelNameError hotelName:self->_hotelName guestNameError:self->_guestNameError guestName:self->_guestName movieNameError:self->_movieNameError movieName:self->_movieName];
-}
 
 - (DUFoundInEventClientAbstractResult)initWithCoder:(id)coder
 {

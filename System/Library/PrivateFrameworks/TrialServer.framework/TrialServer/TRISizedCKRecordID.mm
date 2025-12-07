@@ -60,18 +60,8 @@
 {
   dCopy = d;
   v5 = dCopy;
-  if (!dCopy)
+  if (!dCopy || (v6 = self->_recordId == 0, [dCopy recordId], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (recordId = self->_recordId) != 0 && (objc_msgSend(v5, "recordId"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[CKRecordID isEqual:](recordId, "isEqual:", v10), v10, !v11))
   {
-    goto LABEL_6;
-  }
-
-  v6 = self->_recordId == 0;
-  recordId = [dCopy recordId];
-  v8 = recordId != 0;
-
-  if (v6 == v8 || (recordId = self->_recordId) != 0 && ([v5 recordId], v10 = objc_claimAutoreleasedReturnValue(), v11 = -[CKRecordID isEqual:](recordId, "isEqual:", v10), v10, !v11))
-  {
-LABEL_6:
     v13 = 0;
   }
 

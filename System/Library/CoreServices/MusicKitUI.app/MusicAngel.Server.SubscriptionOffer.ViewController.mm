@@ -40,12 +40,12 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v11 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
-  v13 = sub_100007264(x, y, width, height);
+  v14 = sub_100007264(x, y, width, height, selfCopy, v11);
 
-  return v13;
+  return v14;
 }
 
 - (void)dynamicViewController:(id)controller didFinishPurchaseWithResult:(id)result error:(id)error

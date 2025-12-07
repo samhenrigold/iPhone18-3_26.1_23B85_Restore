@@ -32,10 +32,12 @@
 - (void)_deviceUpdateAttentionState;
 - (void)_deviceUpdateSiriRemoteFindingState;
 - (void)_disconnected:(int64_t)_disconnected error:(id)error;
+- (void)_enableFindingSession:(BOOL)session;
 - (void)_encounteredAuthenticationChallenge:(id)challenge;
 - (void)_reevaluate;
 - (void)_setActiveEndpoint;
 - (void)_setDeviceName:(id)name;
+- (void)_setDeviceSupportsFindMyRemote:(BOOL)remote;
 - (void)_setIdentifier:(id)identifier name:(id)name supportedButtons:(id)buttons;
 - (void)_setImpl:(id)impl;
 - (void)_setNowPlayingInfo:(id)info;
@@ -80,46 +82,42 @@
 
 - (void)addDeviceImpl:(id)impl
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   implCopy = impl;
-  v5 = _TVRCGeneralLog();
+  v5 = _TVRCGeneralLog(implCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "[TVRXDevice addDeviceImpl:]";
-    v9 = 2112;
-    v10 = implCopy;
-    v11 = 2112;
+    v6 = 136315650;
+    v7 = "[TVRXDevice addDeviceImpl:]";
+    v8 = 2112;
+    v9 = implCopy;
+    v10 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "%s impl: %@ for device: %@", &v7, 0x20u);
+    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "%s impl: %@ for device: %@", &v6, 0x20u);
   }
 
   [(NSMutableSet *)self->_deviceImplSet addObject:implCopy];
   [(TVRXDevice *)self _reevaluate];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDeviceImpl:(id)impl
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   implCopy = impl;
-  v5 = _TVRCGeneralLog();
+  v5 = _TVRCGeneralLog(implCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "[TVRXDevice removeDeviceImpl:]";
-    v9 = 2112;
-    v10 = implCopy;
-    v11 = 2112;
+    v6 = 136315650;
+    v7 = "[TVRXDevice removeDeviceImpl:]";
+    v8 = 2112;
+    v9 = implCopy;
+    v10 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "%s impl: %@ for device: %@", &v7, 0x20u);
+    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "%s impl: %@ for device: %@", &v6, 0x20u);
   }
 
   [(NSMutableSet *)self->_deviceImplSet removeObject:implCopy];
   [(TVRXDevice *)self _reevaluate];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)preferredImpl
@@ -131,34 +129,32 @@
   v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v5 = [(NSMutableSet *)deviceImplSet sortedArrayUsingDescriptors:v4];
 
-  v6 = _TVRCGeneralLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _TVRCGeneralLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 136315394;
     v11 = "[TVRXDevice preferredImpl]";
     v12 = 2114;
     v13 = v5;
-    _os_log_impl(&dword_26CF7F000, v6, OS_LOG_TYPE_DEFAULT, "%s sortedImpls: %{public}@", &v10, 0x16u);
+    _os_log_impl(&dword_26CF7F000, v7, OS_LOG_TYPE_DEFAULT, "%s sortedImpls: %{public}@", &v10, 0x16u);
   }
 
   firstObject = [v5 firstObject];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
 
 - (void)_reevaluate
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = _TVRCGeneralLog();
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = _TVRCGeneralLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "[TVRXDevice _reevaluate]";
-    v11 = 2112;
+    v8 = 136315394;
+    v9 = "[TVRXDevice _reevaluate]";
+    v10 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "%s %@", &v9, 0x16u);
+    _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "%s %@", &v8, 0x16u);
   }
 
   preferredImpl = [(TVRXDevice *)self preferredImpl];
@@ -187,8 +183,6 @@ LABEL_6:
   }
 
 LABEL_8:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendButtonEvent:(id)event
@@ -284,76 +278,74 @@ LABEL_8:
 
 - (void)connect
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v3 = _TVRCGeneralLog();
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = _TVRCGeneralLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 134217984;
+    v14 = 134217984;
     selfCopy4 = self;
-    _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> was asked to connect.", &v13, 0xCu);
+    _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> was asked to connect.", &v14, 0xCu);
   }
 
-  if ([(TVRXDevice *)self connectionState])
+  connectionState = [(TVRXDevice *)self connectionState];
+  if (connectionState)
   {
-    v4 = _TVRCGeneralLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _TVRCGeneralLog(connectionState);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      connectionState = [(TVRXDevice *)self connectionState];
-      v13 = 134218240;
+      connectionState2 = [(TVRXDevice *)self connectionState];
+      v14 = 134218240;
       selfCopy4 = self;
-      v15 = 2048;
-      v16 = connectionState;
-      _os_log_impl(&dword_26CF7F000, v4, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> device is not in the disconnected state, ignoring connect request. Current state is %ld", &v13, 0x16u);
+      v16 = 2048;
+      v17 = connectionState2;
+      _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> device is not in the disconnected state, ignoring connect request. Current state is %ld", &v14, 0x16u);
     }
 
 LABEL_12:
 
-    goto LABEL_13;
+    return;
   }
 
   _authenticationIsSupported = [(TVRXDevice *)self _authenticationIsSupported];
-  v7 = _TVRCGeneralLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _TVRCGeneralLog(_authenticationIsSupported);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 134218240;
+    v14 = 134218240;
     selfCopy4 = self;
-    v15 = 1024;
-    LODWORD(v16) = _authenticationIsSupported;
-    _os_log_impl(&dword_26CF7F000, v7, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> will allow authentication challenge: %d", &v13, 0x12u);
+    v16 = 1024;
+    LODWORD(v17) = _authenticationIsSupported;
+    _os_log_impl(&dword_26CF7F000, v8, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> will allow authentication challenge: %d", &v14, 0x12u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_impl);
   [WeakRetained setAuthenticationSupported:_authenticationIsSupported];
 
-  v9 = objc_loadWeakRetained(&self->_impl);
-  [v9 connect];
+  v10 = objc_loadWeakRetained(&self->_impl);
+  [v10 connect];
 
-  v10 = objc_loadWeakRetained(&self->_delegate);
+  v11 = objc_loadWeakRetained(&self->_delegate);
   LOBYTE(WeakRetained) = objc_opt_respondsToSelector();
 
   if (WeakRetained)
   {
-    v11 = _TVRCGeneralLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = _TVRCGeneralLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 134217984;
+      v14 = 134217984;
       selfCopy4 = self;
-      _os_log_impl(&dword_26CF7F000, v11, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> informing delegate that device began connecting.", &v13, 0xCu);
+      _os_log_impl(&dword_26CF7F000, v13, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> informing delegate that device began connecting.", &v14, 0xCu);
     }
 
-    v4 = objc_loadWeakRetained(&self->_delegate);
-    [v4 deviceBeganConnecting:self];
+    v5 = objc_loadWeakRetained(&self->_delegate);
+    [v5 deviceBeganConnecting:self];
     goto LABEL_12;
   }
-
-LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnect
 {
   v12 = *MEMORY[0x277D85DE8];
-  v3 = _TVRCGeneralLog();
+  v3 = _TVRCGeneralLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 134217984;
@@ -361,41 +353,41 @@ LABEL_13:
     _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> was asked to disconnect.", &v10, 0xCu);
   }
 
-  if (![(TVRXDevice *)self connectionState])
+  if ([(TVRXDevice *)self connectionState])
   {
-    v8 = _TVRCGeneralLog();
+    WeakRetained = objc_loadWeakRetained(&self->_impl);
+    [WeakRetained disconnect];
+
+    v5 = objc_loadWeakRetained(&self->_delegate);
+    v6 = objc_opt_respondsToSelector();
+
+    if ((v6 & 1) == 0)
+    {
+      return;
+    }
+
+    v8 = _TVRCGeneralLog(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 134217984;
       selfCopy3 = self;
-      _os_log_impl(&dword_26CF7F000, v8, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> device is already in the disconnected state, ignoring disconnect request.", &v10, 0xCu);
+      _os_log_impl(&dword_26CF7F000, v8, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> informing delegate that device disconnected (user-initiated).", &v10, 0xCu);
     }
 
-    goto LABEL_10;
+    v9 = objc_loadWeakRetained(&self->_delegate);
+    [v9 device:self disconnectedForReason:0 error:0];
   }
 
-  WeakRetained = objc_loadWeakRetained(&self->_impl);
-  [WeakRetained disconnect];
-
-  v5 = objc_loadWeakRetained(&self->_delegate);
-  v6 = objc_opt_respondsToSelector();
-
-  if (v6)
+  else
   {
-    v7 = _TVRCGeneralLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = _TVRCGeneralLog(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 134217984;
       selfCopy3 = self;
-      _os_log_impl(&dword_26CF7F000, v7, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> informing delegate that device disconnected (user-initiated).", &v10, 0xCu);
+      _os_log_impl(&dword_26CF7F000, v9, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> device is already in the disconnected state, ignoring disconnect request.", &v10, 0xCu);
     }
-
-    v8 = objc_loadWeakRetained(&self->_delegate);
-    [v8 device:self disconnectedForReason:0 error:0];
-LABEL_10:
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)allIdentifiers
@@ -408,34 +400,34 @@ LABEL_10:
 
 - (BOOL)containsIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   allIdentifiers = [(TVRXDevice *)self allIdentifiers];
-  v6 = [allIdentifiers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [allIdentifiers countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(allIdentifiers);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) isEqualToString:identifierCopy])
+        if ([*(*(&v10 + 1) + 8 * i) isEqualToString:identifierCopy])
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [allIdentifiers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [allIdentifiers countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -447,7 +439,6 @@ LABEL_10:
 
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -580,6 +571,36 @@ LABEL_11:
   return siriRemoteFindingState;
 }
 
+- (void)_enableFindingSession:(BOOL)session
+{
+  sessionCopy = session;
+  v15 = *MEMORY[0x277D85DE8];
+  WeakRetained = objc_loadWeakRetained(&self->_impl);
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    v8 = _TVRCGeneralLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = "no";
+      if (sessionCopy)
+      {
+        v9 = "yes";
+      }
+
+      v11 = 134218242;
+      selfCopy = self;
+      v13 = 2080;
+      v14 = v9;
+      _os_log_impl(&dword_26CF7F000, v8, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> finding session enabled: %s", &v11, 0x16u);
+    }
+
+    v10 = objc_loadWeakRetained(&self->_impl);
+    [v10 enableFindingSession:sessionCopy];
+  }
+}
+
 - (void)_updateDeviceProperties
 {
   WeakRetained = objc_loadWeakRetained(&self->_impl);
@@ -599,7 +620,7 @@ LABEL_11:
 {
   v18 = *MEMORY[0x277D85DE8];
   implCopy = impl;
-  v5 = _TVRCGeneralLog();
+  v5 = _TVRCGeneralLog(implCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 136315650;
@@ -611,17 +632,18 @@ LABEL_11:
     _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "%s impl:%@ %@", &v12, 0x20u);
   }
 
-  if ([(TVRXDevice *)self connectionState])
+  connectionState = [(TVRXDevice *)self connectionState];
+  if (connectionState)
   {
-    v6 = _TVRCGeneralLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _TVRCGeneralLog(connectionState);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       name = [(TVRXDevice *)self name];
       v12 = 134218242;
       selfCopy2 = self;
       v14 = 2114;
       v15 = name;
-      _os_log_impl(&dword_26CF7F000, v6, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> %{public}@ has an already established connection", &v12, 0x16u);
+      _os_log_impl(&dword_26CF7F000, v7, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> %{public}@ has an already established connection", &v12, 0x16u);
     }
   }
 
@@ -630,16 +652,14 @@ LABEL_11:
     WeakRetained = objc_loadWeakRetained(&self->_impl);
     [WeakRetained setAuthenticationSupported:0];
 
-    v9 = objc_loadWeakRetained(&self->_impl);
-    [v9 setDelegate:0];
+    v10 = objc_loadWeakRetained(&self->_impl);
+    [v10 setDelegate:0];
 
-    v10 = objc_storeWeak(&self->_impl, implCopy);
+    v11 = objc_storeWeak(&self->_impl, implCopy);
     [implCopy setDelegate:self];
 
     [(TVRXDevice *)self _updateDeviceProperties];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDelegate:(id)delegate
@@ -659,37 +679,39 @@ LABEL_11:
 {
   v20 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  if ([nameCopy length] && !-[NSString isEqualToString:](self->_name, "isEqualToString:", nameCopy))
+  if ([nameCopy length])
   {
-    v5 = _TVRCGeneralLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = [(NSString *)self->_name isEqualToString:nameCopy];
+    if ((v5 & 1) == 0)
     {
-      name = self->_name;
-      v14 = 134218498;
-      selfCopy = self;
-      v16 = 2114;
-      v17 = nameCopy;
-      v18 = 2114;
-      nameCopy2 = name;
-      _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> has a new name: %{public}@ old name: %{public}@", &v14, 0x20u);
-    }
+      v6 = _TVRCGeneralLog(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        name = self->_name;
+        v14 = 134218498;
+        selfCopy = self;
+        v16 = 2114;
+        v17 = nameCopy;
+        v18 = 2114;
+        nameCopy2 = name;
+        _os_log_impl(&dword_26CF7F000, v6, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> has a new name: %{public}@ old name: %{public}@", &v14, 0x20u);
+      }
 
-    v7 = self->_name;
-    v8 = [nameCopy copy];
-    v9 = self->_name;
-    self->_name = v8;
+      v8 = self->_name;
+      v9 = [nameCopy copy];
+      v10 = self->_name;
+      self->_name = v9;
 
-    WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v11 = objc_opt_respondsToSelector();
+      WeakRetained = objc_loadWeakRetained(&self->_delegate);
+      v12 = objc_opt_respondsToSelector();
 
-    if (v11)
-    {
-      v12 = objc_loadWeakRetained(&self->_delegate);
-      [v12 device:self didUpdateNameFrom:v7];
+      if (v12)
+      {
+        v13 = objc_loadWeakRetained(&self->_delegate);
+        [v13 device:self didUpdateNameFrom:v8];
+      }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setSupportedButtons:(id)buttons
@@ -702,68 +724,68 @@ LABEL_11:
     supportedButtons = self->_supportedButtons;
     self->_supportedButtons = v5;
 
-    v7 = _TVRCGeneralLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _TVRCGeneralLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = self->_supportedButtons;
+      v9 = self->_supportedButtons;
       v13 = 134218242;
       selfCopy = self;
       v15 = 2114;
-      v16 = v8;
-      _os_log_impl(&dword_26CF7F000, v7, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> has new set of supported buttons: %{public}@", &v13, 0x16u);
+      v16 = v9;
+      _os_log_impl(&dword_26CF7F000, v8, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> has new set of supported buttons: %{public}@", &v13, 0x16u);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v10 = objc_opt_respondsToSelector();
+    v11 = objc_opt_respondsToSelector();
 
-    if (v10)
+    if (v11)
     {
-      v11 = objc_loadWeakRetained(&self->_delegate);
-      [v11 device:self updatedSupportedButtons:self->_supportedButtons];
+      v12 = objc_loadWeakRetained(&self->_delegate);
+      [v12 device:self updatedSupportedButtons:self->_supportedButtons];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_encounteredAuthenticationChallenge:(id)challenge
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
-  v5 = _TVRCGeneralLog();
+  v5 = _TVRCGeneralLog(challengeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 134217984;
+    v13 = 134217984;
     selfCopy4 = self;
-    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> encountered authentication challenge.", &v12, 0xCu);
+    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> encountered authentication challenge.", &v13, 0xCu);
   }
 
-  if ([(TVRXDevice *)self connectionState]!= 1)
+  connectionState = [(TVRXDevice *)self connectionState];
+  if (connectionState != 1)
   {
-    WeakRetained = _TVRCGeneralLog();
+    WeakRetained = _TVRCGeneralLog(connectionState);
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = TVRCDeviceConnectionStateDescription([(TVRXDevice *)self connectionState]);
-      v12 = 134218242;
+      v12 = TVRCDeviceConnectionStateDescription([(TVRXDevice *)self connectionState]);
+      v13 = 134218242;
       selfCopy4 = self;
-      v14 = 2114;
-      v15 = v10;
-      _os_log_impl(&dword_26CF7F000, WeakRetained, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> device is not in the connected state, ignoring notification. Current state is: %{public}@", &v12, 0x16u);
+      v15 = 2114;
+      v16 = v12;
+      _os_log_impl(&dword_26CF7F000, WeakRetained, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> device is not in the connected state, ignoring notification. Current state is: %{public}@", &v13, 0x16u);
     }
 
     goto LABEL_10;
   }
 
   _authenticationIsSupported = [(TVRXDevice *)self _authenticationIsSupported];
-  v7 = _TVRCGeneralLog();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-  if (_authenticationIsSupported)
+  v8 = _authenticationIsSupported;
+  v9 = _TVRCGeneralLog(_authenticationIsSupported);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (v8)
   {
-    if (v8)
+    if (v10)
     {
-      v12 = 134217984;
+      v13 = 134217984;
       selfCopy4 = self;
-      _os_log_impl(&dword_26CF7F000, v7, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> informing delegate that device encountered authentication challenge.", &v12, 0xCu);
+      _os_log_impl(&dword_26CF7F000, v9, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> informing delegate that device encountered authentication challenge.", &v13, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -773,47 +795,46 @@ LABEL_10:
     goto LABEL_14;
   }
 
-  if (v8)
+  if (v10)
   {
-    v12 = 134217984;
+    v13 = 134217984;
     selfCopy4 = self;
-    _os_log_impl(&dword_26CF7F000, v7, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> delegate does not implement authentication method, cancelling authentication challenge.", &v12, 0xCu);
+    _os_log_impl(&dword_26CF7F000, v9, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> delegate does not implement authentication method, cancelling authentication challenge.", &v13, 0xCu);
   }
 
   [challengeCopy cancel];
 LABEL_14:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connectionAttemptSucceeded
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = _TVRCGeneralLog();
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = _TVRCGeneralLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134217984;
+    v12 = 134217984;
     selfCopy3 = self;
-    _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> underlying connection attempt succeeded.", &v11, 0xCu);
+    _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> underlying connection attempt succeeded.", &v12, 0xCu);
   }
 
-  if ([(TVRXDevice *)self connectionState]== 2)
+  connectionState = [(TVRXDevice *)self connectionState];
+  if (connectionState == 2)
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v5 = objc_opt_respondsToSelector();
+    v6 = objc_opt_respondsToSelector();
 
-    if (v5)
+    if (v6)
     {
-      v6 = _TVRCGeneralLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = _TVRCGeneralLog(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 134217984;
+        v12 = 134217984;
         selfCopy3 = self;
-        _os_log_impl(&dword_26CF7F000, v6, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> informing delegate that device became connected.", &v11, 0xCu);
+        _os_log_impl(&dword_26CF7F000, v8, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> informing delegate that device became connected.", &v12, 0xCu);
       }
 
-      v7 = objc_loadWeakRetained(&self->_delegate);
-      [v7 deviceConnected:self];
+      v9 = objc_loadWeakRetained(&self->_delegate);
+      [v9 deviceConnected:self];
     }
 
     [(TVRXDevice *)self _setActiveEndpoint];
@@ -821,26 +842,24 @@ LABEL_14:
 
   else
   {
-    v8 = _TVRCGeneralLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = _TVRCGeneralLog(connectionState);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = TVRCDeviceConnectionStateDescription([(TVRXDevice *)self connectionState]);
-      v11 = 134218242;
+      v11 = TVRCDeviceConnectionStateDescription([(TVRXDevice *)self connectionState]);
+      v12 = 134218242;
       selfCopy3 = self;
-      v13 = 2114;
-      v14 = v9;
-      _os_log_impl(&dword_26CF7F000, v8, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> device is not in the connected state, ignoring notification. Current state is: %{public}@", &v11, 0x16u);
+      v14 = 2114;
+      v15 = v11;
+      _os_log_impl(&dword_26CF7F000, v10, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> device is not in the connected state, ignoring notification. Current state is: %{public}@", &v12, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_disconnected:(int64_t)_disconnected error:(id)error
 {
   v22 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v7 = _TVRCGeneralLog();
+  v7 = _TVRCGeneralLog(errorCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v16 = 134218496;
@@ -853,9 +872,9 @@ LABEL_14:
   }
 
   _authenticationIsSupported = [(TVRXDevice *)self _authenticationIsSupported];
-  if (!_disconnected && !_authenticationIsSupported)
+  if (!_disconnected && (_authenticationIsSupported & 1) == 0)
   {
-    v9 = _TVRCGeneralLog();
+    v9 = _TVRCGeneralLog(_authenticationIsSupported);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 134217984;
@@ -879,19 +898,17 @@ LABEL_14:
 
   if (v12)
   {
-    v13 = _TVRCGeneralLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = _TVRCGeneralLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 134217984;
       selfCopy3 = self;
-      _os_log_impl(&dword_26CF7F000, v13, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> informing delegate that device disconnected.", &v16, 0xCu);
+      _os_log_impl(&dword_26CF7F000, v14, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> informing delegate that device disconnected.", &v16, 0xCu);
     }
 
-    v14 = objc_loadWeakRetained(&self->_delegate);
-    [v14 device:self disconnectedForReason:_disconnected error:errorCopy];
+    v15 = objc_loadWeakRetained(&self->_delegate);
+    [v15 device:self disconnectedForReason:_disconnected error:errorCopy];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setActiveEndpoint
@@ -907,42 +924,40 @@ LABEL_14:
     alternateIdentifiers = [v5 alternateIdentifiers];
     v7 = [alternateIdentifiers objectForKey:@"AirplayID"];
 
-    v8 = _TVRCGeneralLog();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = _TVRCGeneralLog(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
     if (v7)
     {
-      if (v9)
+      if (v10)
       {
         *buf = 134217984;
         selfCopy2 = self;
-        _os_log_impl(&dword_26CF7F000, v8, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> will attempt to update the active MR endpoint", buf, 0xCu);
+        _os_log_impl(&dword_26CF7F000, v9, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> will attempt to update the active MR endpoint", buf, 0xCu);
       }
 
-      v8 = +[TVRCMediaRemoteEndpointManager sharedInstance];
+      v9 = +[TVRCMediaRemoteEndpointManager sharedInstance];
       v11[0] = MEMORY[0x277D85DD0];
       v11[1] = 3221225472;
       v11[2] = __32__TVRXDevice__setActiveEndpoint__block_invoke;
       v11[3] = &unk_279D82DB0;
       v11[4] = self;
-      [v8 updateActiveEndpoint:v7 withCompletion:v11];
+      [v9 updateActiveEndpoint:v7 withCompletion:v11];
     }
 
-    else if (v9)
+    else if (v10)
     {
       *buf = 134217984;
       selfCopy2 = self;
-      _os_log_impl(&dword_26CF7F000, v8, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> cannot update the active MR endpoint since there is no Airplay ID associated with the device", buf, 0xCu);
+      _os_log_impl(&dword_26CF7F000, v9, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> cannot update the active MR endpoint since there is no Airplay ID associated with the device", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __32__TVRXDevice__setActiveEndpoint__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _TVRCGeneralLog();
+  v4 = _TVRCGeneralLog(v3);
   v5 = v4;
   if (v3)
   {
@@ -955,63 +970,60 @@ void __32__TVRXDevice__setActiveEndpoint__block_invoke(uint64_t a1, void *a2)
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 134217984;
-    v9 = v6;
-    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> successfully updated the active MR endpoint", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = v6;
+    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> successfully updated the active MR endpoint", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_authenticationIsSupported
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v4 = objc_opt_respondsToSelector();
 
   if (v4)
   {
-    v5 = objc_loadWeakRetained(&self->_delegate);
-    v6 = [v5 deviceShouldAllowConnectionAuthentication:self];
+    v6 = objc_loadWeakRetained(&self->_delegate);
+    v7 = [v6 deviceShouldAllowConnectionAuthentication:self];
 
-    v7 = _TVRCGeneralLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = _TVRCGeneralLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
       selfCopy2 = self;
-      v13 = 1024;
-      v14 = v6;
-      _os_log_impl(&dword_26CF7F000, v7, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> delegate will allow authentication challenge: %d", buf, 0x12u);
+      v14 = 1024;
+      v15 = v7;
+      _os_log_impl(&dword_26CF7F000, v9, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> delegate will allow authentication challenge: %d", buf, 0x12u);
     }
   }
 
   else
   {
-    LOBYTE(v6) = 0;
+    LOBYTE(v7) = 0;
   }
 
-  v8 = _TVRCGeneralLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = _TVRCGeneralLog(v5);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
     selfCopy2 = self;
-    _os_log_impl(&dword_26CF7F000, v8, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> checking with SpringBoard for locked-state.", buf, 0xCu);
+    _os_log_impl(&dword_26CF7F000, v10, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> checking with SpringBoard for locked-state.", buf, 0xCu);
   }
 
   SBSGetScreenLockStatus();
-  v9 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v7;
 }
 
 - (void)_deviceUpdateAttentionState
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = _TVRCGeneralLog();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = _TVRCGeneralLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134217984;
+    v7 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> device's attention state was updated", &v8, 0xCu);
+    _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> device's attention state was updated", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -1022,19 +1034,17 @@ void __32__TVRXDevice__setActiveEndpoint__block_invoke(uint64_t a1, void *a2)
     v6 = objc_loadWeakRetained(&self->_delegate);
     [v6 device:self updatedAttentionState:{-[TVRXDevice attentionState](self, "attentionState")}];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deviceUpdateSiriRemoteFindingState
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = _TVRCGeneralLog();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = _TVRCGeneralLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134217984;
+    v7 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> device's siri remote finding state was updated", &v8, 0xCu);
+    _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> device's siri remote finding state was updated", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -1045,20 +1055,18 @@ void __32__TVRXDevice__setActiveEndpoint__block_invoke(uint64_t a1, void *a2)
     v6 = objc_loadWeakRetained(&self->_delegate);
     [v6 device:self updatedSiriRemoteFindingState:{-[TVRXDevice siriRemoteFindingState](self, "siriRemoteFindingState")}];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setPairedRemoteInfo:(id)info
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   infoCopy = info;
-  v5 = _TVRCGeneralLog();
+  v5 = _TVRCGeneralLog(infoCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134217984;
+    v9 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> connected remote info was updated", &v10, 0xCu);
+    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> connected remote info was updated", &v9, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -1069,20 +1077,18 @@ void __32__TVRXDevice__setActiveEndpoint__block_invoke(uint64_t a1, void *a2)
     v8 = objc_loadWeakRetained(&self->_delegate);
     [v8 device:self updatedPairedRemoteInfo:infoCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setNowPlayingInfo:(id)info
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   infoCopy = info;
-  v5 = _TVRCGeneralLog();
+  v5 = _TVRCGeneralLog(infoCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134217984;
+    v9 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> now playing info was updated", &v10, 0xCu);
+    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> now playing info was updated", &v9, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -1093,8 +1099,36 @@ void __32__TVRXDevice__setActiveEndpoint__block_invoke(uint64_t a1, void *a2)
     v8 = objc_loadWeakRetained(&self->_delegate);
     [v8 device:self updatedNowPlayingInfo:infoCopy];
   }
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)_setDeviceSupportsFindMyRemote:(BOOL)remote
+{
+  remoteCopy = remote;
+  v14 = *MEMORY[0x277D85DE8];
+  v5 = _TVRCGeneralLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = "no";
+    if (remoteCopy)
+    {
+      v6 = "yes";
+    }
+
+    v10 = 134218242;
+    selfCopy = self;
+    v12 = 2080;
+    v13 = v6;
+    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "<TVRXDevice %p> supports find my remote: %s", &v10, 0x16u);
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  v8 = objc_opt_respondsToSelector();
+
+  if (v8)
+  {
+    v9 = objc_loadWeakRetained(&self->_delegate);
+    [v9 device:self supportsFindMyRemote:remoteCopy];
+  }
 }
 
 - (NSString)extendedDescription
@@ -1189,34 +1223,34 @@ void __32__TVRXDevice__setActiveEndpoint__block_invoke(uint64_t a1, void *a2)
 
 - (BOOL)isEqualToTVRXDevice:(id)device
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   allIdentifiers = [device allIdentifiers];
-  v5 = [allIdentifiers countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [allIdentifiers countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(allIdentifiers);
         }
 
-        if ([(TVRXDevice *)self containsIdentifier:*(*(&v12 + 1) + 8 * i)])
+        if ([(TVRXDevice *)self containsIdentifier:*(*(&v11 + 1) + 8 * i)])
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [allIdentifiers countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [allIdentifiers countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -1229,7 +1263,6 @@ void __32__TVRXDevice__setActiveEndpoint__block_invoke(uint64_t a1, void *a2)
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1260,21 +1293,20 @@ LABEL_11:
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = _TVRCGeneralLog();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = _TVRCGeneralLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v7 = "[TVRXDevice dealloc]";
-    v8 = 2112;
+    v6 = "[TVRXDevice dealloc]";
+    v7 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "%s %@", buf, 0x16u);
   }
 
-  v5.receiver = self;
-  v5.super_class = TVRXDevice;
-  [(TVRXDevice *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = TVRXDevice;
+  [(TVRXDevice *)&v4 dealloc];
 }
 
 - (void)sendEvent:(id)event options:(id)options response:(id)response
@@ -1450,14 +1482,13 @@ LABEL_11:
 
 void __32__TVRXDevice__setActiveEndpoint__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 134218242;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_26CF7F000, log, OS_LOG_TYPE_ERROR, "<TVRXDevice %p> could not update active MR endpoint. Error - %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218242;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_26CF7F000, log, OS_LOG_TYPE_ERROR, "<TVRXDevice %p> could not update active MR endpoint. Error - %@", &v4, 0x16u);
 }
 
 @end

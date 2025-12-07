@@ -58,13 +58,12 @@
 
 - (void)_enumerateMultipartImageViewsWithBlock:(id)block
 {
-  foregroundImageView = self->_foregroundImageView;
-  v5 = (block + 16);
-  v6 = *(block + 2);
+  v4 = (block + 16);
+  v5 = *(block + 2);
   blockCopy = block;
-  v6();
-  (*v5)(blockCopy, self->_backgroundImageView);
-  (*v5)(blockCopy, self->_foregroundAccentImageView);
+  v5();
+  (*v4)(blockCopy, self->_backgroundImageView);
+  (*v4)(blockCopy, self->_foregroundAccentImageView);
 }
 
 - (void)_enumerateImageViewsWithBlock:(id)block
@@ -77,52 +76,41 @@
 
 - (void)layoutSubviews
 {
-  v14.receiver = self;
-  v14.super_class = CDStackedImagesComplicationImageView;
-  [(CDStackedImagesComplicationImageView *)&v14 layoutSubviews];
+  v10.receiver = self;
+  v10.super_class = CDStackedImagesComplicationImageView;
+  [(CDStackedImagesComplicationImageView *)&v10 layoutSubviews];
   [(CDStackedImagesComplicationImageView *)self bounds];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __54__CDStackedImagesComplicationImageView_layoutSubviews__block_invoke;
-  v13[3] = &unk_278DF3738;
-  v13[5] = v3;
-  v13[6] = v4;
-  v13[7] = v5;
-  v13[8] = v6;
-  v13[4] = self;
-  [(CDStackedImagesComplicationImageView *)self _enumerateImageViewsWithBlock:v13];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __54__CDStackedImagesComplicationImageView_layoutSubviews__block_invoke;
+  v9[3] = &unk_278DF3738;
+  v9[5] = v3;
+  v9[6] = v4;
+  v9[7] = v5;
+  v9[8] = v6;
+  v9[4] = self;
+  [(CDStackedImagesComplicationImageView *)self _enumerateImageViewsWithBlock:v9];
   if ([(CDStackedImagesComplicationImageView *)self _hasShadowViews])
   {
-    v7 = *MEMORY[0x277CBF348];
-    v8 = *(MEMORY[0x277CBF348] + 8);
-    v9 = *MEMORY[0x277CBF3A8];
-    v10 = *(MEMORY[0x277CBF3A8] + 8);
-    [(UIImageView *)self->_monochromeShadowView sizeThatFits:*MEMORY[0x277CBF3A8], v10];
-    device = self->_device;
+    v7 = *MEMORY[0x277CBF3A8];
+    v8 = *(MEMORY[0x277CBF3A8] + 8);
+    [(UIImageView *)self->_monochromeShadowView sizeThatFits:*MEMORY[0x277CBF3A8], v8];
     CLKRectCenteredIntegralRectForDevice();
     [(UIImageView *)self->_monochromeShadowView setFrame:?];
-    [(UIImageView *)self->_multipartShadowView sizeThatFits:v9, v10];
-    v12 = self->_device;
+    [(UIImageView *)self->_multipartShadowView sizeThatFits:v7, v8];
     CLKRectCenteredIntegralRectForDevice();
     [(UIImageView *)self->_multipartShadowView setFrame:?];
   }
 }
 
-void __54__CDStackedImagesComplicationImageView_layoutSubviews__block_invoke(void *a1, void *a2)
+void __54__CDStackedImagesComplicationImageView_layoutSubviews__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277CBF348];
-  v4 = *(MEMORY[0x277CBF348] + 8);
-  v5 = *MEMORY[0x277CBF3A8];
-  v6 = *(MEMORY[0x277CBF3A8] + 8);
-  v12 = a2;
-  [v12 sizeThatFits:{v5, v6}];
-  v7 = *(a1[4] + 408);
-  v8 = a1[5];
-  v9 = a1[6];
-  v10 = a1[7];
-  v11 = a1[8];
+  v2 = *MEMORY[0x277CBF3A8];
+  v3 = *(MEMORY[0x277CBF3A8] + 8);
+  v4 = a2;
+  [v4 sizeThatFits:{v2, v3}];
   CLKRectCenteredIntegralRectForDevice();
-  [v12 setFrame:?];
+  [v4 setFrame:?];
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
@@ -176,7 +164,7 @@ void __54__CDStackedImagesComplicationImageView_layoutSubviews__block_invoke(voi
   return result;
 }
 
-float64x2_t __53__CDStackedImagesComplicationImageView_sizeThatFits___block_invoke(uint64_t a1, void *a2)
+int8x16_t __53__CDStackedImagesComplicationImageView_sizeThatFits___block_invoke(uint64_t a1, void *a2)
 {
   [a2 sizeThatFits:{*(a1 + 40), *(a1 + 48)}];
   v3 = *(*(a1 + 32) + 8);
@@ -188,55 +176,35 @@ float64x2_t __53__CDStackedImagesComplicationImageView_sizeThatFits___block_invo
 
 - (void)_updateImageSubviewsMaxSize
 {
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3010000000;
-  v23 = &unk_243DB9E91;
-  v24 = *MEMORY[0x277CBF3A8];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __67__CDStackedImagesComplicationImageView__updateImageSubviewsMaxSize__block_invoke;
-  v19[3] = &unk_278DF3788;
-  v19[4] = &v20;
-  [(CDStackedImagesComplicationImageView *)self _enumerateMultipartImageViewsWithBlock:v19];
+  v9[0] = 0;
+  v9[1] = v9;
+  v9[2] = 0x3010000000;
+  v9[3] = &unk_243DB9E91;
+  v10 = *MEMORY[0x277CBF3A8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __67__CDStackedImagesComplicationImageView__updateImageSubviewsMaxSize__block_invoke;
+  v8[3] = &unk_278DF3788;
+  v8[4] = v9;
+  [(CDStackedImagesComplicationImageView *)self _enumerateMultipartImageViewsWithBlock:v8];
   [(CLKImageProvider *)self->_imageProvider maxSize];
-  v5 = v21[4];
-  v6 = 1.0;
-  if (v3 > 0.0 && v5 > v3)
-  {
-    v6 = fmin(v3 / v5, 1.0);
-  }
-
-  v8 = v21[5];
-  if (v4 > 0.0 && v8 > v4)
-  {
-    v10 = v4 / v8;
-    if (v6 > v10)
-    {
-      v6 = v10;
-    }
-  }
-
-  device = self->_device;
   CLKFloorForDevice();
-  v13 = v12;
-  v14 = v6 * v21[5];
-  v15 = self->_device;
+  v4 = v3;
   CLKFloorForDevice();
-  v17 = v16;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __67__CDStackedImagesComplicationImageView__updateImageSubviewsMaxSize__block_invoke_2;
-  v18[3] = &__block_descriptor_48_e21_v16__0__UIImageView_8l;
-  *&v18[4] = v13;
-  *&v18[5] = v16;
-  [(CDStackedImagesComplicationImageView *)self _enumerateMultipartImageViewsWithBlock:v18];
-  [(CLKUIColoringImageView *)self->_monochromeImageView setMaxSize:v13, v17];
-  [(_CDComplicationImageViewProviderImageView *)self->_layerMaskImageView setMaxSize:v13, v17];
-  _Block_object_dispose(&v20, 8);
+  v6 = v5;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __67__CDStackedImagesComplicationImageView__updateImageSubviewsMaxSize__block_invoke_2;
+  v7[3] = &__block_descriptor_48_e21_v16__0__UIImageView_8l;
+  *&v7[4] = v4;
+  *&v7[5] = v5;
+  [(CDStackedImagesComplicationImageView *)self _enumerateMultipartImageViewsWithBlock:v7];
+  [(CLKUIColoringImageView *)self->_monochromeImageView setMaxSize:v4, v6];
+  [(_CDComplicationImageViewProviderImageView *)self->_layerMaskImageView setMaxSize:v4, v6];
+  _Block_object_dispose(v9, 8);
 }
 
-float64x2_t __67__CDStackedImagesComplicationImageView__updateImageSubviewsMaxSize__block_invoke(uint64_t a1, void *a2)
+int8x16_t __67__CDStackedImagesComplicationImageView__updateImageSubviewsMaxSize__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [v3 image];
@@ -267,7 +235,7 @@ void __67__CDStackedImagesComplicationImageView__updateImageSubviewsMaxSize__blo
 {
   if ([(CDStackedImagesComplicationImageView *)self _hasMultipartImages]|| self->_multicolorAlpha != 1.0)
   {
-    v14 = self->_color;
+    v13 = self->_color;
   }
 
   else
@@ -279,59 +247,53 @@ void __67__CDStackedImagesComplicationImageView__updateImageSubviewsMaxSize__blo
       color = self->_color;
     }
 
-    v14 = color;
+    v13 = color;
   }
 
   v5 = self->_foregroundColor;
-  imageProvider = self->_imageProvider;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     secondaryTintColor = [(CLKImageProvider *)self->_imageProvider secondaryTintColor];
-    v8 = secondaryTintColor;
+    v7 = secondaryTintColor;
     if (secondaryTintColor)
     {
-      v9 = secondaryTintColor;
+      v8 = secondaryTintColor;
     }
 
     else
     {
-      v9 = v5;
+      v8 = v5;
     }
 
-    v10 = v9;
+    v9 = v8;
 
-    v5 = v10;
+    v5 = v9;
   }
 
   [(CLKUIColoringImageView *)self->_foregroundImageView setColor:v5];
   backgroundImageView = self->_backgroundImageView;
   tintColor2 = [(CLKImageProvider *)self->_imageProvider tintColor];
-  v13 = tintColor2;
+  v12 = tintColor2;
   if (!tintColor2)
   {
-    v13 = self->_color;
+    v12 = self->_color;
   }
 
-  [(CLKUIColoringImageView *)backgroundImageView setColor:v13];
+  [(CLKUIColoringImageView *)backgroundImageView setColor:v12];
 
-  [(CLKUIColoringImageView *)self->_monochromeImageView setColor:v14];
+  [(CLKUIColoringImageView *)self->_monochromeImageView setColor:v13];
 }
 
 - (void)_updateShadowViewImages
 {
   self->_isShadowImagesStale = 0;
-  imageProvider = self->_imageProvider;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = MEMORY[0x277CCAE60];
+    v3 = MEMORY[0x277CCAE60];
     [(CLKUIColoringImageView *)self->_monochromeImageView sizeThatFits:*MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)];
-    v5 = [v4 valueWithCGSize:?];
-    monochromeImageView = self->_monochromeImageView;
-    shadowColor = self->_shadowColor;
-    shadowBlur = self->_shadowBlur;
-    v17 = v5;
+    v7 = [v3 valueWithCGSize:?];
     image = CLKUIShadowImageFromView();
     [(UIImageView *)self->_monochromeShadowView setImage:image];
   }
@@ -339,24 +301,18 @@ void __67__CDStackedImagesComplicationImageView__updateImageSubviewsMaxSize__blo
   else
   {
     image = [(CLKUIColoringImageView *)self->_monochromeImageView image];
-    v10 = self->_shadowColor;
-    v11 = self->_shadowBlur;
-    v12 = CLKUIShadowImage();
-    [(UIImageView *)self->_monochromeShadowView setImage:v12];
+    v5 = CLKUIShadowImage();
+    [(UIImageView *)self->_monochromeShadowView setImage:v5];
 
-    v17 = 0;
+    v7 = 0;
   }
 
-  multipartShadowViewSource = self->_multipartShadowViewSource;
-  v14 = self->_shadowColor;
-  v15 = self->_shadowBlur;
-  v16 = CLKUIShadowImage();
-  [(UIImageView *)self->_multipartShadowView setImage:v16];
+  v6 = CLKUIShadowImage();
+  [(UIImageView *)self->_multipartShadowView setImage:v6];
 }
 
 - (void)_updateImages
 {
-  imageProvider = self->_imageProvider;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -395,54 +351,54 @@ void __67__CDStackedImagesComplicationImageView__updateImageSubviewsMaxSize__blo
   {
     if ([(CDStackedImagesComplicationImageView *)self _hasMultipartImages])
     {
-      v23 = 0;
-      v24 = &v23;
-      v25 = 0x4010000000;
-      v26 = &unk_243DB9E91;
-      v14 = *(MEMORY[0x277CBF3A0] + 16);
-      v27 = *MEMORY[0x277CBF3A0];
-      v28 = v14;
-      v19 = 0;
-      v20 = &v19;
-      v21 = 0x2020000000;
       v22 = 0;
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __53__CDStackedImagesComplicationImageView__updateImages__block_invoke;
-      v18[3] = &unk_278DF37D0;
-      v18[4] = &v19;
-      v18[5] = &v23;
-      [(CDStackedImagesComplicationImageView *)self _enumerateMultipartImageViewsWithBlock:v18];
-      if (CGRectIsEmpty(v24[1]))
+      v23 = &v22;
+      v24 = 0x4010000000;
+      v25 = &unk_243DB9E91;
+      v13 = *(MEMORY[0x277CBF3A0] + 16);
+      v26 = *MEMORY[0x277CBF3A0];
+      v27 = v13;
+      v18 = 0;
+      v19 = &v18;
+      v20 = 0x2020000000;
+      v21 = 0;
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __53__CDStackedImagesComplicationImageView__updateImages__block_invoke;
+      v17[3] = &unk_278DF37D0;
+      v17[4] = &v18;
+      v17[5] = &v22;
+      [(CDStackedImagesComplicationImageView *)self _enumerateMultipartImageViewsWithBlock:v17];
+      if (CGRectIsEmpty(v23[1]))
       {
-        v15 = 0;
+        v14 = 0;
       }
 
       else
       {
-        UIGraphicsBeginImageContextWithOptions(v24[1].size, 0, v20[3]);
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __53__CDStackedImagesComplicationImageView__updateImages__block_invoke_2;
-        v17[3] = &unk_278DF37D0;
-        v17[4] = &v23;
-        v17[5] = &v19;
-        [(CDStackedImagesComplicationImageView *)self _enumerateMultipartImageViewsWithBlock:v17];
-        v15 = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsBeginImageContextWithOptions(v23[1].size, 0, v19[3]);
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __53__CDStackedImagesComplicationImageView__updateImages__block_invoke_2;
+        v16[3] = &unk_278DF37D0;
+        v16[4] = &v22;
+        v16[5] = &v18;
+        [(CDStackedImagesComplicationImageView *)self _enumerateMultipartImageViewsWithBlock:v16];
+        v14 = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
       }
 
-      _Block_object_dispose(&v19, 8);
-      _Block_object_dispose(&v23, 8);
+      _Block_object_dispose(&v18, 8);
+      _Block_object_dispose(&v22, 8);
     }
 
     else
     {
-      v15 = 0;
+      v14 = 0;
     }
 
     multipartShadowViewSource = self->_multipartShadowViewSource;
-    self->_multipartShadowViewSource = v15;
+    self->_multipartShadowViewSource = v14;
 
     if (self->_isUsingLegibility)
     {
@@ -511,18 +467,11 @@ void __53__CDStackedImagesComplicationImageView__updateImages__block_invoke(uint
 
 void __53__CDStackedImagesComplicationImageView__updateImages__block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = [a2 image];
-  v3 = *MEMORY[0x277CBF348];
-  v4 = *(MEMORY[0x277CBF348] + 8);
-  [v11 size];
-  v5 = *(*(a1 + 32) + 8);
-  v6 = v5[4];
-  v7 = v5[5];
-  v8 = v5[6];
-  v9 = v5[7];
-  v10 = *(*(*(a1 + 40) + 8) + 24);
+  v4 = [a2 image];
+  [v4 size];
+  v3 = *(*(*(a1 + 40) + 8) + 24);
   UIRectCenteredIntegralRectScale();
-  [v11 drawInRect:v10];
+  [v4 drawInRect:v3];
 }
 
 - (void)_updateAlpha
@@ -588,7 +537,6 @@ void __53__CDStackedImagesComplicationImageView__updateImages__block_invoke_2(ui
 - (BOOL)_hasMultipartImages
 {
   _shouldIgnoreTwoPieceImage = [(CDStackedImagesComplicationImageView *)self _shouldIgnoreTwoPieceImage];
-  imageProvider = self->_imageProvider;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -604,9 +552,9 @@ void __53__CDStackedImagesComplicationImageView__updateImages__block_invoke_2(ui
   if (twoPieceImageBackground)
   {
     twoPieceImageForeground = [(CLKImageProvider *)self->_imageProvider twoPieceImageForeground];
-    v8 = twoPieceImageForeground != 0;
+    v7 = twoPieceImageForeground != 0;
 
-    isTwoPiece |= v8;
+    isTwoPiece |= v7;
   }
 
   if (!_shouldIgnoreTwoPieceImage && (isTwoPiece & 1) != 0)
@@ -615,14 +563,13 @@ void __53__CDStackedImagesComplicationImageView__updateImages__block_invoke_2(ui
   }
 
   foregroundAccentImage = [(CLKImageProvider *)self->_imageProvider foregroundAccentImage];
-  v9 = foregroundAccentImage != 0;
+  v8 = foregroundAccentImage != 0;
 
-  return v9;
+  return v8;
 }
 
 - (void)_loadImageViewsIfNecessary
 {
-  imageProvider = self->_imageProvider;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   if (isKindOfClass)
@@ -638,67 +585,67 @@ void __53__CDStackedImagesComplicationImageView__updateImages__block_invoke_2(ui
   twoPieceImageBackground = [(CLKImageProvider *)self->_imageProvider twoPieceImageBackground];
 
   twoPieceImageForeground = [(CLKImageProvider *)self->_imageProvider twoPieceImageForeground];
-  v8 = (twoPieceImageForeground != 0) | isTwoPiece;
+  v7 = (twoPieceImageForeground != 0) | isTwoPiece;
 
   onePieceImage = [(CLKImageProvider *)self->_imageProvider onePieceImage];
-  v10 = onePieceImage != 0;
+  v9 = onePieceImage != 0;
 
   backgroundImageView = self->_backgroundImageView;
   if (twoPieceImageBackground)
   {
-    v12 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v12 = isTwoPiece == 0;
+    v11 = isTwoPiece == 0;
   }
 
-  if (v12)
+  if (v11)
   {
-    v15 = 1;
+    v14 = 1;
   }
 
   else
   {
     if (!backgroundImageView)
     {
-      v13 = objc_opt_new();
-      v14 = self->_backgroundImageView;
-      self->_backgroundImageView = v13;
+      v12 = objc_opt_new();
+      v13 = self->_backgroundImageView;
+      self->_backgroundImageView = v12;
 
       [(CDStackedImagesComplicationImageView *)self addSubview:self->_backgroundImageView];
       backgroundImageView = self->_backgroundImageView;
     }
 
-    v15 = 0;
+    v14 = 0;
   }
 
-  [(CLKUIColoringImageView *)backgroundImageView setHidden:v15];
-  v16 = isKindOfClass | v10;
+  [(CLKUIColoringImageView *)backgroundImageView setHidden:v14];
+  v15 = isKindOfClass | v9;
   foregroundImageView = self->_foregroundImageView;
-  if (v8)
+  if (v7)
   {
     if (!foregroundImageView)
     {
-      v18 = objc_opt_new();
-      v19 = self->_foregroundImageView;
-      self->_foregroundImageView = v18;
+      v17 = objc_opt_new();
+      v18 = self->_foregroundImageView;
+      self->_foregroundImageView = v17;
 
       [(CDStackedImagesComplicationImageView *)self addSubview:self->_foregroundImageView];
       foregroundImageView = self->_foregroundImageView;
     }
 
-    v20 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v20 = 1;
+    v19 = 1;
   }
 
-  [(CLKUIColoringImageView *)foregroundImageView setHidden:v20];
-  if ((v16 & 1) == 0)
+  [(CLKUIColoringImageView *)foregroundImageView setHidden:v19];
+  if ((v15 & 1) == 0)
   {
     goto LABEL_21;
   }
@@ -707,33 +654,33 @@ void __53__CDStackedImagesComplicationImageView__updateImages__block_invoke_2(ui
   {
     if (!self->_layerMaskImageView)
     {
-      v21 = objc_opt_new();
+      v20 = objc_opt_new();
       layerMaskImageView = self->_layerMaskImageView;
-      self->_layerMaskImageView = v21;
+      self->_layerMaskImageView = v20;
 
       [(CDStackedImagesComplicationImageView *)self addSubview:self->_layerMaskImageView];
     }
 
 LABEL_21:
     monochromeImageView = self->_monochromeImageView;
-    v24 = 1;
+    v23 = 1;
     goto LABEL_25;
   }
 
   monochromeImageView = self->_monochromeImageView;
   if (!monochromeImageView)
   {
-    v25 = objc_opt_new();
-    v26 = self->_monochromeImageView;
-    self->_monochromeImageView = v25;
+    v24 = objc_opt_new();
+    v25 = self->_monochromeImageView;
+    self->_monochromeImageView = v24;
 
     [(CDStackedImagesComplicationImageView *)self addSubview:self->_monochromeImageView];
     monochromeImageView = self->_monochromeImageView;
   }
 
-  v24 = 0;
+  v23 = 0;
 LABEL_25:
-  [(CLKUIColoringImageView *)monochromeImageView setHidden:v24];
+  [(CLKUIColoringImageView *)monochromeImageView setHidden:v23];
   foregroundAccentImage = [(CLKImageProvider *)self->_imageProvider foregroundAccentImage];
 
   foregroundAccentImageView = self->_foregroundAccentImageView;
@@ -741,9 +688,9 @@ LABEL_25:
   {
     if (!foregroundAccentImageView)
     {
-      v29 = objc_opt_new();
-      v30 = self->_foregroundAccentImageView;
-      self->_foregroundAccentImageView = v29;
+      v28 = objc_opt_new();
+      v29 = self->_foregroundAccentImageView;
+      self->_foregroundAccentImageView = v28;
 
       [(CDStackedImagesComplicationImageView *)self addSubview:self->_foregroundAccentImageView];
     }
@@ -752,14 +699,14 @@ LABEL_25:
   else
   {
     [(UIImageView *)foregroundAccentImageView removeFromSuperview];
-    v31 = self->_foregroundAccentImageView;
+    v30 = self->_foregroundAccentImageView;
     self->_foregroundAccentImageView = 0;
   }
 
   [(CLKUIColoringImageView *)self->_backgroundImageView setSymbolImageType:3];
-  v32 = self->_foregroundImageView;
+  v31 = self->_foregroundImageView;
 
-  [(CLKUIColoringImageView *)v32 setSymbolImageType:2];
+  [(CLKUIColoringImageView *)v31 setSymbolImageType:2];
 }
 
 - (BOOL)_shouldIgnoreTwoPieceImage
@@ -906,7 +853,6 @@ void __57__CDStackedImagesComplicationImageView_setImageProvider___block_invoke(
 
 - (void)setShadowBlur:(double)blur
 {
-  shadowBlur = self->_shadowBlur;
   if ((CLKFloatEqualsFloat() & 1) == 0)
   {
     self->_shadowBlur = blur;
@@ -943,140 +889,134 @@ void __57__CDStackedImagesComplicationImageView_setImageProvider___block_invoke(
 
 - (void)transitionToMonochromeWithFraction:(double)fraction
 {
-  v26[1] = *MEMORY[0x277D85DE8];
-  imageProvider = self->_imageProvider;
+  v24[1] = *MEMORY[0x277D85DE8];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   WeakRetained = objc_loadWeakRetained(&self->_filterProvider);
-  v8 = [WeakRetained filtersForView:self style:-[CDStackedImagesComplicationImageView _backgroundFilterStyle](self fraction:{"_backgroundFilterStyle"), fraction}];
+  v7 = [WeakRetained filtersForView:self style:-[CDStackedImagesComplicationImageView _backgroundFilterStyle](self fraction:{"_backgroundFilterStyle"), fraction}];
 
-  if (v8)
+  if (v7)
   {
     layer = [(CLKUIColoringImageView *)self->_backgroundImageView layer];
-    [layer setFilters:v8];
+    [layer setFilters:v7];
 
     layer2 = [(CLKUIColoringImageView *)self->_monochromeImageView layer];
-    [layer2 setFilters:v8];
+    [layer2 setFilters:v7];
 
     if (isKindOfClass)
     {
       layer3 = [(CLKUIColoringImageView *)self->_foregroundImageView layer];
-      [layer3 setFilters:v8];
+      [layer3 setFilters:v7];
     }
 
     if ([(CLKImageProvider *)self->_imageProvider useOnePieceAsLayerMask])
     {
-      v12 = objc_loadWeakRetained(&self->_filterProvider);
-      v13 = [v12 colorForView:self accented:0];
+      v11 = objc_loadWeakRetained(&self->_filterProvider);
+      v12 = [v11 colorForView:self accented:0];
 
-      v14 = objc_loadWeakRetained(&self->_filterProvider);
-      v15 = [v14 colorForView:self accented:1];
+      v13 = objc_loadWeakRetained(&self->_filterProvider);
+      v14 = [v13 colorForView:self accented:1];
 
-      v16 = _CDLayerMaskColorizationFilter(v13, v15);
-      v26[0] = v16;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+      v15 = _CDLayerMaskColorizationFilter(v12, v14);
+      v24[0] = v15;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
       layer4 = [(_CDComplicationImageViewProviderImageView *)self->_layerMaskImageView layer];
-      [layer4 setFilters:v17];
+      [layer4 setFilters:v16];
     }
   }
 
   if ((isKindOfClass & 1) == 0)
   {
-    v19 = objc_loadWeakRetained(&self->_filterProvider);
-    v20 = [v19 filtersForView:self style:-[CDStackedImagesComplicationImageView _foregroundFilterStyle](self fraction:{"_foregroundFilterStyle"), fraction}];
+    v18 = objc_loadWeakRetained(&self->_filterProvider);
+    v19 = [v18 filtersForView:self style:-[CDStackedImagesComplicationImageView _foregroundFilterStyle](self fraction:{"_foregroundFilterStyle"), fraction}];
 
-    if (v20)
+    if (v19)
     {
       layer5 = [(CLKUIColoringImageView *)self->_foregroundImageView layer];
-      [layer5 setFilters:v20];
+      [layer5 setFilters:v19];
 
       LODWORD(layer5) = [(CLKImageProvider *)self->_imageProvider isForegroundAccentImageTinted];
       layer6 = [(UIImageView *)self->_foregroundAccentImageView layer];
-      v23 = layer6;
+      v22 = layer6;
       if (layer5)
       {
-        v24 = v20;
+        v23 = v19;
       }
 
       else
       {
-        v24 = 0;
+        v23 = 0;
       }
 
-      [layer6 setFilters:v24];
+      [layer6 setFilters:v23];
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateMonochromeColor
 {
-  v24[1] = *MEMORY[0x277D85DE8];
-  imageProvider = self->_imageProvider;
+  v22[1] = *MEMORY[0x277D85DE8];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   WeakRetained = objc_loadWeakRetained(&self->_filterProvider);
-  v6 = [WeakRetained filtersForView:self style:{-[CDStackedImagesComplicationImageView _backgroundFilterStyle](self, "_backgroundFilterStyle")}];
+  v5 = [WeakRetained filtersForView:self style:{-[CDStackedImagesComplicationImageView _backgroundFilterStyle](self, "_backgroundFilterStyle")}];
 
-  if (v6)
+  if (v5)
   {
     layer = [(CLKUIColoringImageView *)self->_backgroundImageView layer];
-    [layer setFilters:v6];
+    [layer setFilters:v5];
 
     layer2 = [(CLKUIColoringImageView *)self->_monochromeImageView layer];
-    [layer2 setFilters:v6];
+    [layer2 setFilters:v5];
 
     if (isKindOfClass)
     {
       layer3 = [(CLKUIColoringImageView *)self->_foregroundImageView layer];
-      [layer3 setFilters:v6];
+      [layer3 setFilters:v5];
     }
 
     if ([(CLKImageProvider *)self->_imageProvider useOnePieceAsLayerMask])
     {
-      v10 = objc_loadWeakRetained(&self->_filterProvider);
-      v11 = [v10 colorForView:self accented:0];
+      v9 = objc_loadWeakRetained(&self->_filterProvider);
+      v10 = [v9 colorForView:self accented:0];
 
-      v12 = objc_loadWeakRetained(&self->_filterProvider);
-      v13 = [v12 colorForView:self accented:1];
+      v11 = objc_loadWeakRetained(&self->_filterProvider);
+      v12 = [v11 colorForView:self accented:1];
 
-      v14 = _CDLayerMaskColorizationFilter(v11, v13);
-      v24[0] = v14;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+      v13 = _CDLayerMaskColorizationFilter(v10, v12);
+      v22[0] = v13;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
       layer4 = [(_CDComplicationImageViewProviderImageView *)self->_layerMaskImageView layer];
-      [layer4 setFilters:v15];
+      [layer4 setFilters:v14];
     }
   }
 
   if ((isKindOfClass & 1) == 0)
   {
-    v17 = objc_loadWeakRetained(&self->_filterProvider);
-    v18 = [v17 filtersForView:self style:{-[CDStackedImagesComplicationImageView _foregroundFilterStyle](self, "_foregroundFilterStyle")}];
+    v16 = objc_loadWeakRetained(&self->_filterProvider);
+    v17 = [v16 filtersForView:self style:{-[CDStackedImagesComplicationImageView _foregroundFilterStyle](self, "_foregroundFilterStyle")}];
 
-    if (v18)
+    if (v17)
     {
       layer5 = [(CLKUIColoringImageView *)self->_foregroundImageView layer];
-      [layer5 setFilters:v18];
+      [layer5 setFilters:v17];
 
       LODWORD(layer5) = [(CLKImageProvider *)self->_imageProvider isForegroundAccentImageTinted];
       layer6 = [(UIImageView *)self->_foregroundAccentImageView layer];
-      v21 = layer6;
+      v20 = layer6;
       if (layer5)
       {
-        v22 = v18;
+        v21 = v17;
       }
 
       else
       {
-        v22 = 0;
+        v21 = 0;
       }
 
-      [layer6 setFilters:v22];
+      [layer6 setFilters:v21];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (CLKMonochromeFilterProvider)filterProvider

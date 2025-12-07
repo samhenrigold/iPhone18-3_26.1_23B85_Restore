@@ -9,7 +9,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_2748577C4();
+  sub_2748577C4(v2);
 }
 
 - (void)setState:(unint64_t)state

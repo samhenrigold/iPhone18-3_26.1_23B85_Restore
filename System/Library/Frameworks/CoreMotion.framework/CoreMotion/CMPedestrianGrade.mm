@@ -180,19 +180,17 @@
 
 - (id)sr_dictionaryRepresentation
 {
-  v19[2] = *MEMORY[0x1E69E9840];
-  v18[0] = @"startTime";
+  v18[2] = *MEMORY[0x1E69E9840];
+  v17[0] = @"startTime";
   v4 = MEMORY[0x1E696AD98];
   started = objc_msgSend_startDate(self, a2, v2);
   objc_msgSend_timeIntervalSinceReferenceDate(started, v6, v7);
-  v18[1] = @"grade";
-  v19[0] = objc_msgSend_numberWithDouble_(v4, v8, v9);
+  v17[1] = @"grade";
+  v18[0] = objc_msgSend_numberWithDouble_(v4, v8, v9);
   v10 = MEMORY[0x1E696AD98];
   objc_msgSend_grade(self, v11, v12);
-  v19[1] = objc_msgSend_numberWithFloat_(v10, v13, v14);
-  result = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v15, v19, v18, 2);
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  v18[1] = objc_msgSend_numberWithFloat_(v10, v13, v14);
+  return objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v15, v18, v17, 2);
 }
 
 @end

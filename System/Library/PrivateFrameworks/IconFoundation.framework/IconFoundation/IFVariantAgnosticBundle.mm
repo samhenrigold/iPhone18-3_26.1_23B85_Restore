@@ -6,44 +6,45 @@
 
 - (id)infoDictionary
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([(IFBundle *)self bundle])
   {
     [(IFBundle *)self bundle];
     v3 = _CFBundleCopyInfoPlistURL();
     if (v3)
     {
-      v10 = 0;
-      v4 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v3 error:&v10];
-      v5 = v10;
+      v11 = 0;
+      v4 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v3 error:&v11];
+      v5 = v11;
+      v6 = v5;
       if (v4)
       {
-        v6 = v4;
+        v7 = v4;
       }
 
       else
       {
-        v8 = IFDefaultLog();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+        v9 = IFDefaultLog(v5);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v12 = v3;
-          v13 = 2112;
-          v14 = v5;
-          _os_log_impl(&dword_1B9DEC000, v8, OS_LOG_TYPE_INFO, "Failed to read Info.plist contents at URL: %@. Error: %@", buf, 0x16u);
+          v13 = v3;
+          v14 = 2112;
+          v15 = v6;
+          _os_log_impl(&dword_1B9DEC000, v9, OS_LOG_TYPE_INFO, "Failed to read Info.plist contents at URL: %@. Error: %@", buf, 0x16u);
         }
       }
     }
 
     else
     {
-      v5 = IFDefaultLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v6 = IFDefaultLog(0);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         bundleURL = [(IFBundle *)self bundleURL];
         *buf = 138412290;
-        v12 = bundleURL;
-        _os_log_impl(&dword_1B9DEC000, v5, OS_LOG_TYPE_INFO, "Failed to determine Info.plist URL for bundle at URL: %@", buf, 0xCu);
+        v13 = bundleURL;
+        _os_log_impl(&dword_1B9DEC000, v6, OS_LOG_TYPE_INFO, "Failed to determine Info.plist URL for bundle at URL: %@", buf, 0xCu);
       }
 
       v4 = 0;

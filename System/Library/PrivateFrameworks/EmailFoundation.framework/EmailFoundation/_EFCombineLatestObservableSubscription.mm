@@ -73,7 +73,7 @@
   v20 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   observerCopy = observer;
-  v10 = _ef_log_EFObservable();
+  v10 = _ef_log_EFObservable(observerCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v14 = 134218498;
@@ -88,29 +88,28 @@
   [(NSLock *)self->_lock lock];
   [(NSMutableArray *)self->_results replaceObjectAtIndex:index withObject:resultCopy];
   [(NSMutableIndexSet *)self->_silentIndexes removeIndex:index];
-  if ([(NSMutableIndexSet *)self->_silentIndexes count])
+  v11 = [(NSMutableIndexSet *)self->_silentIndexes count];
+  if (v11)
   {
-    v11 = _ef_log_EFObservable();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = _ef_log_EFObservable(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      [_EFCombineLatestObservableSubscription _observableAtIndex:&self->_silentIndexes receivedResult:v11 observer:?];
+      [_EFCombineLatestObservableSubscription _observableAtIndex:&self->_silentIndexes receivedResult:v12 observer:?];
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v12 = [(NSMutableArray *)self->_results copy];
+    v13 = [(NSMutableArray *)self->_results copy];
   }
 
   [(NSLock *)self->_lock unlock];
-  if (v12)
+  if (v13)
   {
-    [observerCopy observerDidReceiveResult:v12];
+    [observerCopy observerDidReceiveResult:v13];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_observableAtIndex:(unint64_t)index didCompleteForObserver:(id)observer
@@ -145,14 +144,13 @@
 
 - (void)_observableAtIndex:(uint64_t)a1 receivedResult:(uint64_t *)a2 observer:(os_log_t)log .cold.1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a2;
-  v5 = 134218242;
-  v6 = a1;
-  v7 = 2114;
-  v8 = v3;
-  _os_log_debug_impl(&dword_1C6152000, log, OS_LOG_TYPE_DEBUG, "[%p] Remaining silent indexes: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 134218242;
+  v5 = a1;
+  v6 = 2114;
+  v7 = v3;
+  _os_log_debug_impl(&dword_1C6152000, log, OS_LOG_TYPE_DEBUG, "[%p] Remaining silent indexes: %{public}@", &v4, 0x16u);
 }
 
 @end

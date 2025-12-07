@@ -41,24 +41,23 @@
 - (void)chargingRateService:(id)service didUpdateChargingSpeed:(id)speed
 {
   v5 = sub_100005790(&qword_100027300, &qword_10001A848);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v11 - v7;
+  v7 = &v10 - v6;
   if (speed)
   {
     sub_100005F24(0, &unk_100027310, NSUnitSpeed_ptr);
     static Measurement._unconditionallyBridgeFromObjectiveC(_:)();
-    v9 = sub_100005790(&qword_100027308, &qword_10001A850);
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_100005790(&qword_100027308, &qword_10001A850);
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_100005790(&qword_100027308, &qword_10001A850);
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_100005790(&qword_100027308, &qword_10001A850);
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
-  sub_100005EC4(v8, &qword_100027300, &qword_10001A848);
+  sub_100005EC4(v7, &qword_100027300, &qword_10001A848);
 }
 
 - (void)dimensionManager:(id)manager didUpdateMeasurementSystem:(unint64_t)system

@@ -37,10 +37,10 @@
 
 + (id)contentWithType:(int64_t)type dictionary:(id)dictionary
 {
-  sub_1A88C81A8();
-  v5 = sub_1A87E98CC(type);
+  v5 = sub_1A88C81A8();
+  v6 = sub_1A87E98CC(type, v5);
 
-  return v5;
+  return v6;
 }
 
 - (IMPersistentMenuItem)init

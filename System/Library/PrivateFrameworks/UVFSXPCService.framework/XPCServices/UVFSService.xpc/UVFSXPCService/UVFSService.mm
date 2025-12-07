@@ -116,11 +116,11 @@ LABEL_21:
   deviceCopy = device;
   replyCopy = reply;
   v12 = 0;
-  v13[0] = &v12;
-  v13[1] = 0x3032000000;
-  v13[2] = sub_100005F30;
-  v13[3] = sub_100005F40;
-  v14 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = sub_100005F30;
+  v16 = sub_100005F40;
+  v17 = 0;
   if (os_log_type_enabled(uvfsservice_log_default, OS_LOG_TYPE_DEBUG))
   {
     sub_100020630();
@@ -139,16 +139,16 @@ LABEL_21:
   else
   {
     v9 = [NSError errorWithDomain:NSPOSIXErrorDomain code:19 userInfo:0];
-    v10 = *(v13[0] + 40);
-    *(v13[0] + 40) = v9;
+    v10 = v13[5];
+    v13[5] = v9;
   }
 
   if (os_log_type_enabled(uvfsservice_log_default, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000206B0(v13);
+    sub_1000206B0();
   }
 
-  replyCopy[2](replyCopy, *(v13[0] + 40));
+  replyCopy[2](replyCopy, v13[5]);
   _Block_object_dispose(&v12, 8);
 }
 
@@ -165,17 +165,7 @@ LABEL_21:
     if (v11)
     {
       errorState = [v11 errorState];
-      if (!errorState)
-      {
-        goto LABEL_32;
-      }
-
-      v14 = errorState;
-      errorState2 = [v12 errorState];
-      v16 = +[LIFSPreVolume errorForAuthError];
-      v17 = [errorState2 isEqual:v16];
-
-      if (v17)
+      if (errorState && (v14 = errorState, [v12 errorState], v15 = objc_claimAutoreleasedReturnValue(), +[LIFSPreVolume errorForAuthError](LIFSPreVolume, "errorForAuthError"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isEqual:", v16), v16, v15, v14, (v17 & 1) != 0))
       {
         preVolInfo = [v12 preVolInfo];
         if (preVolInfo)
@@ -244,13 +234,9 @@ LABEL_18:
         }
       }
 
-      else
+      else if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
       {
-LABEL_32:
-        if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
-        {
-          sub_10002082C();
-        }
+        sub_10002082C();
       }
     }
 

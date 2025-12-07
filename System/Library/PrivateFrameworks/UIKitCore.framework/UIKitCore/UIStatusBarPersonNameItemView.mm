@@ -32,7 +32,7 @@
 {
   v27[2] = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  if ([(NSString *)self->_personNameString isEqualToString:nameCopy])
+  if (objc_msgSend_isEqualToString_(self->_personNameString))
   {
     if (self->_maxWidth == width)
     {

@@ -66,12 +66,12 @@
 
 - (void)_setupButtons
 {
-  v93[4] = *MEMORY[0x277D85DE8];
+  v92[4] = *MEMORY[0x277D85DE8];
   v3 = +[VTUIStyle sharedStyle];
   footerView = [(VTUIVoiceSelectionView *)self footerView];
   [footerView setTranslatesAutoresizingMaskIntoConstraints:0];
-  v86 = footerView;
-  v87 = v3;
+  v85 = footerView;
+  v86 = v3;
   if (self->_shouldShowContinueButton)
   {
     v5 = +[VTUIButton _vtuiButtonWithPrimaryStyleForNormalAndDisabledState];
@@ -95,30 +95,30 @@
     [(UIButton *)self->_continueButton setTranslatesAutoresizingMaskIntoConstraints:0];
     if (+[VTUIFeatureFlags isNaturalUIEnabled](VTUIFeatureFlags, "isNaturalUIEnabled") && (+[VTUIStyle sharedStyle](VTUIStyle, "sharedStyle"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 isIpad], v12, (v13 & 1) == 0))
     {
-      v77 = MEMORY[0x277CCAAD0];
+      v76 = MEMORY[0x277CCAAD0];
       topAnchor = [(UIButton *)self->_continueButton topAnchor];
       topAnchor2 = [footerView topAnchor];
       [v3 continueButtonOffset];
-      v81 = topAnchor2;
-      v83 = topAnchor;
-      v79 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:?];
-      v93[0] = v79;
+      v80 = topAnchor2;
+      v82 = topAnchor;
+      v78 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:?];
+      v92[0] = v78;
       leadingAnchor = [(UIButton *)self->_continueButton leadingAnchor];
       leadingAnchor2 = [(VTUIVoiceSelectionView *)self leadingAnchor];
-      v78 = leadingAnchor;
+      v77 = leadingAnchor;
       [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:38.0];
       v19 = v28 = v3;
-      v93[1] = v19;
+      v92[1] = v19;
       trailingAnchor = [(UIButton *)self->_continueButton trailingAnchor];
       trailingAnchor2 = [(VTUIVoiceSelectionView *)self trailingAnchor];
       heightAnchor2 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-38.0];
-      v93[2] = heightAnchor2;
+      v92[2] = heightAnchor2;
       heightAnchor = [(UIButton *)self->_continueButton heightAnchor];
       [v28 primaryButtonHeight];
       v24 = [heightAnchor constraintEqualToConstant:?];
-      v93[3] = v24;
-      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:4];
-      [v77 activateConstraints:v29];
+      v92[3] = v24;
+      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:4];
+      [v76 activateConstraints:v29];
     }
 
     else
@@ -126,48 +126,48 @@
       topAnchor3 = [(UIButton *)self->_continueButton topAnchor];
       topAnchor4 = [footerView topAnchor];
       [v3 continueButtonOffset];
-      v81 = topAnchor4;
-      v83 = topAnchor3;
-      v79 = [topAnchor3 constraintEqualToAnchor:topAnchor4 constant:?];
-      v92[0] = v79;
+      v80 = topAnchor4;
+      v82 = topAnchor3;
+      v78 = [topAnchor3 constraintEqualToAnchor:topAnchor4 constant:?];
+      v91[0] = v78;
       centerXAnchor = [(UIButton *)self->_continueButton centerXAnchor];
       leadingAnchor2 = [footerView centerXAnchor];
-      v78 = centerXAnchor;
+      v77 = centerXAnchor;
       [centerXAnchor constraintEqualToAnchor:leadingAnchor2];
       v19 = v18 = v3;
-      v92[1] = v19;
+      v91[1] = v19;
       trailingAnchor = [(UIButton *)self->_continueButton widthAnchor];
       [v18 footerButtonMaximumWidth];
       trailingAnchor2 = [trailingAnchor constraintEqualToConstant:?];
-      v92[2] = trailingAnchor2;
+      v91[2] = trailingAnchor2;
       heightAnchor2 = [(UIButton *)self->_continueButton heightAnchor];
       [v18 primaryButtonHeight];
       heightAnchor = [heightAnchor2 constraintEqualToConstant:?];
-      v92[3] = heightAnchor;
-      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:4];
-      [v76 activateConstraints:v24];
+      v91[3] = heightAnchor;
+      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v91 count:4];
+      [v75 activateConstraints:v24];
     }
 
     allowsRandomSelection = self->_allowsRandomSelection;
     v31 = MEMORY[0x277CCAAD0];
     bottomAnchor = [(UIButton *)self->_continueButton bottomAnchor];
-    footerView = v86;
-    bottomAnchor2 = [v86 bottomAnchor];
-    v3 = v87;
+    footerView = v85;
+    bottomAnchor2 = [v85 bottomAnchor];
+    v3 = v86;
     if (allowsRandomSelection)
     {
-      [v87 continueButtonFromBottomTwoButtons];
+      [v86 continueButtonFromBottomTwoButtons];
       v35 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-v34];
-      v90 = v35;
-      v36 = &v90;
+      v89 = v35;
+      v36 = &v89;
     }
 
     else
     {
-      [v87 continueButtonFromBottom];
+      [v86 continueButtonFromBottom];
       v35 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-v37];
-      v91 = v35;
-      v36 = &v91;
+      v90 = v35;
+      v36 = &v90;
     }
 
     v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
@@ -200,56 +200,56 @@
       v45 = v48;
     }
 
-    v85 = v45;
+    v84 = v45;
     if (+[VTUIFeatureFlags isNaturalUIEnabled](VTUIFeatureFlags, "isNaturalUIEnabled") && (+[VTUIStyle sharedStyle](VTUIStyle, "sharedStyle"), v49 = objc_claimAutoreleasedReturnValue(), v50 = [v49 isIpad], v49, (v50 & 1) == 0))
     {
-      v80 = MEMORY[0x277CCAAD0];
-      v89[0] = v45;
+      v79 = MEMORY[0x277CCAAD0];
+      v88[0] = v45;
       leadingAnchor5 = [(UIButton *)self->_chooseRandomVoiceButton leadingAnchor];
       leadingAnchor6 = [(VTUIVoiceSelectionView *)self leadingAnchor];
-      v84 = leadingAnchor5;
+      v83 = leadingAnchor5;
       bottomAnchor5 = [leadingAnchor5 constraintEqualToAnchor:38.0 constant:?];
-      v89[1] = bottomAnchor5;
+      v88[1] = bottomAnchor5;
       trailingAnchor3 = [(UIButton *)self->_chooseRandomVoiceButton trailingAnchor];
       [(VTUIVoiceSelectionView *)self trailingAnchor];
       v56 = v64 = v3;
       [trailingAnchor3 constraintEqualToAnchor:v56 constant:-38.0];
       v59 = v65 = footerView;
-      v89[2] = v59;
+      v88[2] = v59;
       bottomAnchor3 = [(UIButton *)self->_chooseRandomVoiceButton bottomAnchor];
       bottomAnchor4 = [v65 bottomAnchor];
       [v64 footerSkipButtonBaselineFromBottom];
       v62 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4 constant:-v66];
-      v89[3] = v62;
-      v67 = [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:4];
-      [v80 activateConstraints:v67];
+      v88[3] = v62;
+      v67 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:4];
+      [v79 activateConstraints:v67];
     }
 
     else
     {
       v51 = MEMORY[0x277CCAAD0];
-      v88[0] = v45;
+      v87[0] = v45;
       widthAnchor = [(UIButton *)self->_chooseRandomVoiceButton widthAnchor];
       [v3 footerButtonMaximumWidth];
-      v84 = widthAnchor;
+      v83 = widthAnchor;
       leadingAnchor6 = [widthAnchor constraintEqualToConstant:?];
-      v88[1] = leadingAnchor6;
+      v87[1] = leadingAnchor6;
       bottomAnchor5 = [(UIButton *)self->_chooseRandomVoiceButton bottomAnchor];
       trailingAnchor3 = [footerView bottomAnchor];
       [v3 footerSkipButtonBaselineFromBottom];
       v56 = [bottomAnchor5 constraintEqualToAnchor:trailingAnchor3 constant:-v55];
-      v88[2] = v56;
+      v87[2] = v56;
       centerXAnchor2 = [(UIButton *)self->_chooseRandomVoiceButton centerXAnchor];
       v58 = footerView;
       v59 = centerXAnchor2;
       bottomAnchor3 = [v58 centerXAnchor];
       bottomAnchor4 = [v59 constraintEqualToAnchor:bottomAnchor3];
-      v88[3] = bottomAnchor4;
-      v62 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:4];
+      v87[3] = bottomAnchor4;
+      v62 = [MEMORY[0x277CBEA60] arrayWithObjects:v87 count:4];
       [v51 activateConstraints:v62];
     }
 
-    v3 = v87;
+    v3 = v86;
     if (+[VTUIFeatureFlags isNaturalUIEnabled])
     {
       v68 = self->_chooseRandomVoiceButton;
@@ -257,10 +257,10 @@
       [(UIButton *)v68 setBackgroundColor:systemGray6Color];
 
       v70 = self->_chooseRandomVoiceButton;
-      [v87 primaryButtonHeight];
+      [v86 primaryButtonHeight];
       [(UIButton *)v70 _setCornerRadius:v71 * 0.5];
       heightAnchor3 = [(UIButton *)self->_chooseRandomVoiceButton heightAnchor];
-      [v87 primaryButtonHeight];
+      [v86 primaryButtonHeight];
       v73 = [heightAnchor3 constraintEqualToConstant:?];
       [v73 setActive:1];
 
@@ -268,10 +268,8 @@
       [(UIButton *)self->_chooseRandomVoiceButton setConfiguration:_glassButtonConfiguration];
     }
 
-    footerView = v86;
+    footerView = v85;
   }
-
-  v75 = *MEMORY[0x277D85DE8];
 }
 
 @end

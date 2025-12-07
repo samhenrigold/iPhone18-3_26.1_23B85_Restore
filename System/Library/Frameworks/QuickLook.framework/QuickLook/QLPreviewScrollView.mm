@@ -296,24 +296,22 @@ LABEL_10:
 
           else
           {
-            v46 = *MEMORY[0x277CBF348];
-            v47 = *(MEMORY[0x277CBF348] + 8);
             [(QLPreviewScrollView *)self contentViewSize];
             QLAdaptSizeToRect();
+            v47 = v46;
             v49 = v48;
-            v51 = v50;
             [(QLPreviewScrollView *)self contentViewSize];
             if (v24 <= v26)
             {
-              v54 = v51 / v53;
+              v52 = v49 / v51;
             }
 
             else
             {
-              v54 = v49 / v52;
+              v52 = v47 / v50;
             }
 
-            self->_minZoomScale = v54;
+            self->_minZoomScale = v52;
           }
         }
 

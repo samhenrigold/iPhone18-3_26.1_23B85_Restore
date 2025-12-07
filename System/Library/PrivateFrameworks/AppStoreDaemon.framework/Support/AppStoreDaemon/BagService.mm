@@ -58,7 +58,7 @@
 
 - (void)warmUpCache
 {
-  v3 = sub_100085D40(&qword_10059C3E0);
+  v3 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   selfCopy = self;
@@ -72,7 +72,7 @@
   v9 = selfCopy;
   sub_1000D6CB8(0, 0, v5, 0, 0, &unk_100435C00, v8);
 
-  sub_100005518(v5, &qword_10059C3E0);
+  sub_100005518(v5, &qword_10059C3E0, &qword_1004344C0);
 }
 
 - (AMSBagProtocol)amsBag
@@ -80,7 +80,7 @@
   v2 = (self + OBJC_IVAR___BagService_lastRecentBagMutex);
   selfCopy = self;
   os_unfair_lock_lock(v2);
-  sub_1000044A4(&v2[2], v8, &qword_10059BDF0);
+  sub_1000044A4(&v2[2], v8, &qword_10059BDF0, qword_100434920);
   os_unfair_lock_unlock(v2);
   v4 = v9;
   if (v9)
@@ -93,7 +93,7 @@
 
   else
   {
-    sub_100005518(v8, &qword_10059BDF0);
+    sub_100005518(v8, &qword_10059BDF0, qword_100434920);
     v6 = sub_1000CCE24();
   }
 
@@ -110,8 +110,8 @@
 
 + (Bag)emptyBag
 {
-  v8 = &type metadata for EmptyBag;
-  v9 = sub_1000D68D0();
+  v7[3] = &type metadata for EmptyBag;
+  v7[4] = sub_1000D68D0();
   v2 = type metadata accessor for ObjCBag();
   v3 = objc_allocWithZone(v2);
   sub_1000056D0(v7, v3 + OBJC_IVAR___Bag_bag);
@@ -135,7 +135,7 @@
 
 - (id)addChangeObserverLimitedToKeys:(id)keys observer:(id)observer
 {
-  v7 = sub_100085D40(&qword_10059CBC0);
+  v7 = sub_100085D40(&qword_10059CBC0, &qword_100436F80);
   v8 = __chkstk_darwin(v7);
   v10 = &v23 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v8);
@@ -168,9 +168,9 @@
 
   sub_1000CA5F8(sub_1000D71D4, v20, v12);
 
-  sub_1000044A4(v12, v10, &qword_10059CBC0);
+  sub_1000044A4(v12, v10, &qword_10059CBC0, &qword_100436F80);
   v21 = _bridgeAnythingNonVerbatimToObjectiveC<A>(_:)();
-  sub_100005518(v12, &qword_10059CBC0);
+  sub_100005518(v12, &qword_10059CBC0, &qword_100436F80);
 
   return v21;
 }

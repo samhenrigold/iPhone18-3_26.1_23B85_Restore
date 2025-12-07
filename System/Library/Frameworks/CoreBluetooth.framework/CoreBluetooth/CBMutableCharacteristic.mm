@@ -68,37 +68,37 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if ([pathCopy isEqualToString:@"descriptors"])
   {
-    v23 = a2;
-    v24 = pathCopy;
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
+    v22 = a2;
+    v23 = pathCopy;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     obj = [(CBCharacteristic *)self descriptors];
-    v9 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v9 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v9)
     {
       v10 = v9;
       v11 = 0;
-      v27 = 0;
-      v28 = *v30;
+      v26 = 0;
+      v27 = *v29;
       do
       {
         v12 = 0;
-        v25 = v10;
+        v24 = v10;
         do
         {
           selfCopy = self;
-          if (*v30 != v28)
+          if (*v29 != v27)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v29 + 1) + 8 * v12);
+          v14 = *(*(&v28 + 1) + 8 * v12);
           uUID = [v14 UUID];
           v16 = [CBUUID UUIDWithString:@"2901"];
           v17 = [uUID isEqual:v16];
@@ -112,8 +112,8 @@
               goto LABEL_8;
             }
 
-            [CBMutableCharacteristic observeValueForKeyPath:v23 ofObject:selfCopy change:&v33 context:?];
-            v21 = v33;
+            [CBMutableCharacteristic observeValueForKeyPath:v22 ofObject:selfCopy change:&v32 context:?];
+            v21 = v32;
             v11 = 1;
           }
 
@@ -123,19 +123,19 @@
             v19 = [CBUUID UUIDWithString:@"2904"];
             v20 = [uUID2 isEqual:v19];
 
-            if ((v20 & v27) != 1)
+            if ((v20 & v26) != 1)
             {
-              v27 |= v20;
+              v26 |= v20;
               self = selfCopy;
-              v10 = v25;
+              v10 = v24;
               goto LABEL_8;
             }
 
             self = selfCopy;
-            [CBMutableCharacteristic observeValueForKeyPath:v23 ofObject:selfCopy change:&v33 context:?];
-            v21 = v33;
-            v27 = 1;
-            v10 = v25;
+            [CBMutableCharacteristic observeValueForKeyPath:v22 ofObject:selfCopy change:&v32 context:?];
+            v21 = v32;
+            v26 = 1;
+            v10 = v24;
           }
 
 LABEL_8:
@@ -144,13 +144,13 @@ LABEL_8:
         }
 
         while (v10 != v12);
-        v10 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v10 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v10);
     }
 
-    pathCopy = v24;
+    pathCopy = v23;
   }
 
   else if ([pathCopy isEqualToString:@"properties"])
@@ -173,8 +173,6 @@ LABEL_8:
   }
 
 LABEL_22:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)handleCentralSubscribed:(id)subscribed

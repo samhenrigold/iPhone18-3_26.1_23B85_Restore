@@ -74,31 +74,31 @@
 
 - (id)actionAndSlotSet
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = +[_ATXDataStore sharedInstance];
   v4 = [v3 actionForSlotUUID:self->_slotSetUuid];
 
   first = [v4 first];
   [v4 second];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v6 = v21 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = v20 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         uuid = [v11 uuid];
         v13 = [uuid isEqual:self->_slotSetUuid];
 
@@ -109,7 +109,7 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         continue;
@@ -123,7 +123,6 @@
 LABEL_11:
 
   v15 = [objc_alloc(MEMORY[0x277D42648]) initWithFirst:first second:v14];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

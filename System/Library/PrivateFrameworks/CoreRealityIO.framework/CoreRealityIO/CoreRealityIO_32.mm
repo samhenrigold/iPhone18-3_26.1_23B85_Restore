@@ -1,874 +1,8 @@
-void sub_2476A466C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, int a12, __int16 a13, char a14, char a15, int a16, __int16 a17, char a18, char a19, const void *a20)
+void sub_2476A7094(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
-  if (a10 == 1 && a19 < 0)
-  {
-    operator delete(__p);
-  }
-
-  realityio::WrappedCFRef<__CFString const*>::~WrappedCFRef(&a20);
-  _Unwind_Resume(a1);
-}
-
-void realityio::LiveSceneManager::updateLiveSceneImpl(uint64_t a1, uint64_t *a2)
-{
-  v28 = *MEMORY[0x277D85DE8];
-  std::chrono::steady_clock::now();
-  v25 = 1;
-  dispatch_assert_queue_V2(*(a1 + 216));
-  v4 = *a2;
-  v3 = a2[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v5 = *(a1 + 480);
-  *(a1 + 472) = v4;
-  *(a1 + 480) = v3;
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-
-  if (realityio::internal::enableSignposts(0, 0))
-  {
-    kdebug_trace();
-  }
-
-  if (realityio::internal::enableSignposts(0, 0))
-  {
-    kdebug_trace();
-  }
-
-  std::chrono::steady_clock::now();
-  std::recursive_mutex::lock((a1 + 152));
-  v7 = *(realityio::logObjects(v6) + 16);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_247485000, v7, OS_LOG_TYPE_INFO, "Starting live scene update phase 1\n", buf, 2u);
-  }
-
-  realityio::ImportSession::purgeMeshAssetCache(*(a1 + 24));
-  v8 = *(a1 + 416);
-  if (v8)
-  {
-    v9 = (*(*v8 + 48))(v8);
-    if (*(a1 + 288) == 1)
-    {
-      if (!*(a1 + 296))
-      {
-        v10 = *(*(*(a1 + 24) + 16) + 8);
-        *buf = v10;
-        if (v10)
-        {
-          CFRetain(v10);
-        }
-
-        operator new();
-      }
-
-      v11 = *(a1 + 16);
-      if (!v11 || (v12 = *(a1 + 8), (v13 = std::__shared_weak_count::lock(v11)) == 0))
-      {
-        std::__throw_bad_weak_ptr[abi:ne200100]();
-      }
-
-      v14 = v13;
-      v15 = *(a1 + 296);
-      v9 = *(v15 + 48);
-      *(v15 + 40) = v12;
-      *(v15 + 48) = v14;
-      if (v9)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-      }
-    }
-
-    v16 = *(realityio::logObjects(v9) + 56);
-    v17 = v16;
-    v18 = *(*(a1 + 40) + 296);
-    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
-    {
-      v19 = *(a1 + 24);
-      *buf = 134217984;
-      *&buf[4] = v19;
-      _os_signpost_emit_with_name_impl(&dword_247485000, v17, OS_SIGNPOST_EVENT, v18, "live-scene-update-state-prepare-update", "importSession %p", buf, 0xCu);
-    }
-
-    memset(v24, 0, sizeof(v24));
-    realityio::BuilderDependencyDAG::topologicalSort(*(a1 + 248), v24);
-    realityio::BuilderDependencyDAG::generateBuilderProviderInfo(*(a1 + 248), v23);
-    totalBuilders = 0;
-    std::chrono::steady_clock::now();
-    v20 = *(a1 + 40);
-    v21 = *(a1 + 48);
-    v27 = 0;
-    operator new();
-  }
-
-  std::__throw_bad_function_call[abi:ne200100]();
-}
-
-realityio::ImportSession::CancelledException *realityio::ImportSession::CancelledException::CancelledException(realityio::ImportSession::CancelledException *this, const realityio::ImportSession::CancelledException *a2)
-{
-  *this = &unk_285952540;
-  v3 = (this + 8);
-  if (*(a2 + 31) < 0)
-  {
-    std::string::__init_copy_ctor_external(v3, *(a2 + 1), *(a2 + 2));
-  }
-
-  else
-  {
-    v4 = *(a2 + 8);
-    v3->__r_.__value_.__r.__words[2] = *(a2 + 3);
-    *&v3->__r_.__value_.__l.__data_ = v4;
-  }
-
-  return this;
-}
-
-void realityio::BuilderDependencyDAG::forAllBuilders(void *a1, uint64_t a2)
-{
-  if (a1)
-  {
-    v3 = a1;
-    do
-    {
-      v6 = 0;
-      v7 = 0;
-      v4 = v3[3];
-      if (v4)
-      {
-        v7 = std::__shared_weak_count::lock(v4);
-        if (v7)
-        {
-          v6 = v3[2];
-        }
-      }
-
-      v5 = *(a2 + 24);
-      if (!v5)
-      {
-        std::__throw_bad_function_call[abi:ne200100]();
-      }
-
-      (*(*v5 + 48))(v5, &v6);
-      if (v7)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v7);
-      }
-
-      v3 = *v3;
-    }
-
-    while (v3);
-  }
-}
-
-void sub_2476A62F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>>::merge(uint64_t a1, void *a2, void *a3)
-{
-  if (a2 != a3)
-  {
-    v4 = a2;
-    do
-    {
-      v6 = v4[1];
-      *&v7 = *v4;
-      *(&v7 + 1) = v6;
-      if (v6)
-      {
-        atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
-      }
-
-      realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>>::insert(a1, &v7);
-      if (*(&v7 + 1))
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v7 + 1));
-      }
-
-      v4 += 2;
-    }
-
-    while (v4 != a3);
-  }
-}
-
-{
-  if (a2 != a3)
-  {
-    v4 = a2;
-    do
-    {
-      v6 = v4[1];
-      *&v7 = *v4;
-      *(&v7 + 1) = v6;
-      if (v6)
-      {
-        atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
-      }
-
-      realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>>::insert(a1, &v7);
-      if (*(&v7 + 1))
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v7 + 1));
-      }
-
-      v4 += 2;
-    }
-
-    while (v4 != a3);
-  }
-}
-
-void sub_2476A638C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_2476A6420(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t ___ZN9realityio16LiveSceneManager19updateLiveSceneImplENSt3__110shared_ptrINS_18EngineQueueManagerEEEb_block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  std::recursive_mutex::lock((v2 + 88));
-  v3 = *(v2 + 80);
-  if (v3)
-  {
-    (*(*v3 + 48))(v3);
-  }
-
-  std::recursive_mutex::unlock((v2 + 88));
-  result = realityio::internal::enableSignposts(0, 0);
-  if (result)
-  {
-    result = kdebug_trace();
-  }
-
-  if (*(a1 + 56))
-  {
-    v5 = *(a1 + 72);
-    v6 = *(**(*(v2 + 24) + 16) + 24);
-
-    return v6();
-  }
-
-  return result;
-}
-
-CFTypeRef __copy_helper_block_ea8_32c110_ZTSKZN9realityio16LiveSceneManager19updateLiveSceneImplENSt3__110shared_ptrINS_18EngineQueueManagerEEEbE4__10(uint64_t a1, uint64_t a2)
-{
-  *(a1 + 32) = *(a2 + 32);
-  v4 = *(a2 + 48);
-  *(a1 + 48) = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v5 = *(a2 + 56);
-  *(a1 + 56) = v5;
-  if (v5)
-  {
-    CFRetain(v5);
-  }
-
-  result = *(a2 + 64);
-  *(a1 + 64) = result;
-  if (result)
-  {
-    result = CFRetain(result);
-  }
-
-  *(a1 + 72) = *(a2 + 72);
-  return result;
-}
-
-void sub_2476A65A0(_Unwind_Exception *a1)
-{
-  realityio::WrappedCFRef<RIOImportSession *>::~WrappedCFRef(v2);
-  v4 = *(v1 + 48);
-  if (v4)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void __destroy_helper_block_ea8_32c110_ZTSKZN9realityio16LiveSceneManager19updateLiveSceneImplENSt3__110shared_ptrINS_18EngineQueueManagerEEEbE4__10(uint64_t a1)
-{
-  realityio::WrappedCFRef<void const*>::~WrappedCFRef((a1 + 64));
-  realityio::WrappedCFRef<RIOImportSession *>::~WrappedCFRef((a1 + 56));
-  v2 = *(a1 + 48);
-  if (v2)
-  {
-
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-}
-
-uint64_t realityio::LiveSceneManager::updateLiveSceneImpl(std::shared_ptr<realityio::EngineQueueManager>,BOOL)::$_10::~$_10(uint64_t a1)
-{
-  realityio::WrappedCFRef<void const*>::~WrappedCFRef((a1 + 32));
-  realityio::WrappedCFRef<RIOImportSession *>::~WrappedCFRef((a1 + 24));
-  v2 = *(a1 + 16);
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void realityio::LiveSceneManager::setSceneUpdatePassCompletion(uint64_t a1, uint64_t a2)
-{
-  std::recursive_mutex::lock((a1 + 88));
-  std::function<void ()(void)>::operator=((a1 + 56), a2);
-
-  std::recursive_mutex::unlock((a1 + 88));
-}
-
-const void **realityio::LiveSceneManager::description@<X0>(realityio::LiveSceneManager *this@<X0>, CFStringRef *a2@<X8>)
-{
-  *a2 = 0;
-  v4 = *(*(*(this + 3) + 16) + 16);
-  (*(**(this + 29) + 16))(&v6);
-  *a2 = CFStringCreateWithFormat(0, 0, @"<LiveSceneManager: %p { user stage: %p, engine: %p, state tracker: %@, }>", this, this + 32, v4, v6);
-  return realityio::WrappedCFRef<__CFString const*>::~WrappedCFRef(&v6);
-}
-
-void sub_2476A675C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
-{
-  va_start(va, a6);
-  realityio::WrappedCFRef<__CFString const*>::~WrappedCFRef(va);
-  realityio::WrappedCFRef<__CFString const*>::~WrappedCFRef(v6);
-  _Unwind_Resume(a1);
-}
-
-uint64_t *realityio::LiveSceneManager::getDeploymentErrors(uint64_t *a1, uint64_t a2)
-{
-  if (a1[35] != a2)
-  {
-    v3 = a2;
-    v4 = a1[32];
-    for (i = a1[33]; i != v4; std::allocator_traits<std::allocator<realityio::LiveSceneManager::CompatibilityFault>>::destroy[abi:ne200100]<realityio::LiveSceneManager::CompatibilityFault,0>(i))
-    {
-      i -= 40;
-    }
-
-    a1[33] = v4;
-    if (v3)
-    {
-      __src = 0;
-      v59 = 0;
-      v60 = 0;
-      v53 = 0;
-      v54[0] = 0;
-      v54[1] = 0;
-      realityio::BuilderDependencyDAG::getAllBuilders(a1[31], &v53);
-      v6 = v53;
-      v7 = v54[0];
-      for (j = v3; v6 != v7; v6 += 2)
-      {
-        v8 = v6[1];
-        if (v8)
-        {
-          v9 = std::__shared_weak_count::lock(v8);
-          if (v9)
-          {
-            v10 = *v6;
-          }
-
-          else
-          {
-            v10 = 0;
-          }
-        }
-
-        else
-        {
-          v10 = 0;
-          v9 = 0;
-        }
-
-        v11 = v59;
-        if (v59 >= v60)
-        {
-          v13 = __src;
-          v14 = v59 - __src;
-          v15 = (v59 - __src) >> 4;
-          v16 = v15 + 1;
-          if ((v15 + 1) >> 60)
-          {
-            std::vector<pxrInternal__aapl__pxrReserved__::UsdShadeOutput>::__throw_length_error[abi:ne200100]();
-          }
-
-          v17 = v60 - __src;
-          if ((v60 - __src) >> 3 > v16)
-          {
-            v16 = v17 >> 3;
-          }
-
-          if (v17 >= 0x7FFFFFFFFFFFFFF0)
-          {
-            v18 = 0xFFFFFFFFFFFFFFFLL;
-          }
-
-          else
-          {
-            v18 = v16;
-          }
-
-          p_src = &__src;
-          if (v18)
-          {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<realityio::MeshModelDescriptorBuilder::MeshModelDataT>>>(&__src, v18);
-          }
-
-          v19 = (16 * v15);
-          *v19 = v10;
-          v19[1] = v9;
-          v12 = 16 * v15 + 16;
-          memcpy(0, v13, v14);
-          v20 = __src;
-          v21 = v60;
-          __src = 0;
-          v59 = v12;
-          v60 = 0;
-          v61 = v20;
-          v63 = v20;
-          v64 = v21;
-          __p = v20;
-          std::__split_buffer<std::shared_ptr<realityio::MeshModelDescriptorBuilder::MeshModelDataT>>::~__split_buffer(&v61);
-          v3 = j;
-        }
-
-        else
-        {
-          *v59 = v10;
-          *(v11 + 1) = v9;
-          v12 = (v11 + 16);
-        }
-
-        v59 = v12;
-      }
-
-      v61 = &v53;
-      std::vector<std::weak_ptr<realityio::Builder>>::__destroy_vector::operator()[abi:ne200100](&v61);
-      v57[0] = 0;
-      v57[1] = 0;
-      v56[1] = v57;
-      v23 = __src;
-      v22 = v59;
-      if (__src != v59)
-      {
-        v50 = v59;
-        do
-        {
-          v24 = *(*v23 + 5);
-          v25 = *v23 + 48;
-          if (v24 != v25)
-          {
-            do
-            {
-              v26 = v24[4];
-              v56[0] = REComponentCreateByClass();
-              if ((MEMORY[0x24C1A33F0](v56[0], v3, 1) & 1) == 0)
-              {
-                v27 = *v23;
-                pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl(&v53, *v23 + 2);
-                pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl(&v53 + 1, v27 + 3);
-                v54[0] = v24[4];
-                v28 = v57[0];
-                if (!v57[0])
-                {
-                  goto LABEL_51;
-                }
-
-                v29 = v57;
-                do
-                {
-                  v30 = v29;
-                  v31 = v28 + 4;
-                  v32 = std::less<std::pair<pxrInternal__aapl__pxrReserved__::SdfPath,REComponentClass *>>::operator()[abi:ne200100](v28 + 4, &v53);
-                  v33 = v32;
-                  if (v32)
-                  {
-                    v29 = v30;
-                  }
-
-                  else
-                  {
-                    v29 = v28;
-                  }
-
-                  v28 = v28[v33];
-                }
-
-                while (v28);
-                v3 = j;
-                if (v29 == v57 || (!v32 ? (v34 = v31) : (v34 = v30 + 4), std::less<std::pair<pxrInternal__aapl__pxrReserved__::SdfPath,REComponentClass *>>::operator()[abi:ne200100](&v53, v34)))
-                {
-                  v35 = v57[0];
-                  if (!v57[0])
-                  {
-                    goto LABEL_51;
-                  }
-
-                  v36 = v57;
-                  while (1)
-                  {
-                    while (1)
-                    {
-                      v37 = v35;
-                      if (!std::less<std::pair<pxrInternal__aapl__pxrReserved__::SdfPath,REComponentClass *>>::operator()[abi:ne200100](&v53, v35 + 4))
-                      {
-                        break;
-                      }
-
-                      v35 = *v37;
-                      v36 = v37;
-                      if (!*v37)
-                      {
-                        goto LABEL_51;
-                      }
-                    }
-
-                    if (!std::less<std::pair<pxrInternal__aapl__pxrReserved__::SdfPath,REComponentClass *>>::operator()[abi:ne200100](v37 + 4, &v53))
-                    {
-                      break;
-                    }
-
-                    v36 = v37 + 1;
-                    v35 = v37[1];
-                    if (!v35)
-                    {
-                      goto LABEL_51;
-                    }
-                  }
-
-                  if (!*v36)
-                  {
-LABEL_51:
-                    operator new();
-                  }
-
-                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle();
-                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle();
-                  __p = 0;
-                  v63 = 0;
-                  v64 = 0;
-                  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=(&v61, &v53);
-                  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=(&v61 + 4, &v53 + 1);
-                  LOBYTE(p_src) = 0;
-                  Name = REComponentClassGetName();
-                  MEMORY[0x24C1A8D40](&__p, Name);
-                  std::vector<realityio::LiveSceneManager::CompatibilityFault>::push_back[abi:ne200100](a1 + 32, &v61);
-                  if (SHIBYTE(v64) < 0)
-                  {
-                    operator delete(__p);
-                  }
-
-                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-                  v3 = j;
-                  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v61);
-                }
-
-                pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-                pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v53);
-              }
-
-              realityio::WrappedRERef<REComponent *>::~WrappedRERef(v56);
-              v39 = v24[1];
-              if (v39)
-              {
-                do
-                {
-                  v40 = v39;
-                  v39 = *v39;
-                }
-
-                while (v39);
-              }
-
-              else
-              {
-                do
-                {
-                  v40 = v24[2];
-                  v41 = *v40 == v24;
-                  v24 = v40;
-                }
-
-                while (!v41);
-              }
-
-              v24 = v40;
-            }
-
-            while (v40 != v25);
-          }
-
-          v23 += 2;
-        }
-
-        while (v23 != v50);
-        v23 = __src;
-        v22 = v59;
-      }
-
-      v51 = v22;
-      if (v23 != v22)
-      {
-        do
-        {
-          v42 = realityio::Builder::addedAssets(*v23);
-          v43 = *v42;
-          v44 = *(v42 + 1);
-          while (v43 != v44)
-          {
-            v45 = *v43;
-            if ((REAssetIsAvailableForRealityFileVersion() & 1) == 0)
-            {
-              Type = REAssetGetType();
-              pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle();
-              pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle();
-              __p = 0;
-              v63 = 0;
-              v64 = 0;
-              v47 = *v23;
-              pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=(&v61, *v23 + 2);
-              pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=(&v61 + 4, v47 + 3);
-              LOBYTE(p_src) = 1;
-              realityio::CFStringCopyUTF8String(Type, &v53);
-              if (v53 == 1)
-              {
-                if (v55 >= 0)
-                {
-                  v48 = v54;
-                }
-
-                else
-                {
-                  v48 = v54[0];
-                }
-
-                MEMORY[0x24C1A8D40](&__p, v48);
-              }
-
-              std::vector<realityio::LiveSceneManager::CompatibilityFault>::push_back[abi:ne200100](a1 + 32, &v61);
-              if (v53 == 1 && v55 < 0)
-              {
-                operator delete(v54[0]);
-              }
-
-              if (SHIBYTE(v64) < 0)
-              {
-                operator delete(__p);
-              }
-
-              pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-              pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v61);
-            }
-
-            ++v43;
-          }
-
-          v23 += 2;
-        }
-
-        while (v23 != v51);
-      }
-
-      a1[35] = v3;
-      std::__tree<std::pair<pxrInternal__aapl__pxrReserved__::SdfPath,REComponentClass *>>::destroy(v57[0]);
-      v61 = &__src;
-      std::vector<std::shared_ptr<realityio::DirtyStageDescriptor const>>::__destroy_vector::operator()[abi:ne200100](&v61);
-    }
-  }
-
-  return a1 + 32;
-}
-
-void sub_2476A6D30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char *a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19, uint64_t *a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, char a26)
-{
-  a20 = &a12;
-  std::vector<std::weak_ptr<realityio::Builder>>::__destroy_vector::operator()[abi:ne200100](&a20);
-  a12 = &a23;
-  std::vector<std::shared_ptr<realityio::DirtyStageDescriptor const>>::__destroy_vector::operator()[abi:ne200100](&a12);
-  _Unwind_Resume(a1);
-}
-
-void realityio::BuilderDependencyDAG::getAllBuilders(uint64_t a1, uint64_t *a2)
-{
-  std::vector<std::weak_ptr<realityio::Builder>>::clear[abi:ne200100](a2);
-  for (i = *(a1 + 16); i; i = *i)
-  {
-    std::vector<std::weak_ptr<realityio::Builder>>::push_back[abi:ne200100](a2, i + 1);
-  }
-}
-
-void std::vector<realityio::LiveSceneManager::CompatibilityFault>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
-{
-  v5 = a1[1];
-  v4 = a1[2];
-  if (v5 >= v4)
-  {
-    v7 = 0xCCCCCCCCCCCCCCCDLL * ((v5 - *a1) >> 3);
-    if (v7 + 1 > 0x666666666666666)
-    {
-      std::vector<pxrInternal__aapl__pxrReserved__::UsdShadeOutput>::__throw_length_error[abi:ne200100]();
-    }
-
-    v8 = 0xCCCCCCCCCCCCCCCDLL * ((v4 - *a1) >> 3);
-    v9 = 2 * v8;
-    if (2 * v8 <= v7 + 1)
-    {
-      v9 = v7 + 1;
-    }
-
-    if (v8 >= 0x333333333333333)
-    {
-      v10 = 0x666666666666666;
-    }
-
-    else
-    {
-      v10 = v9;
-    }
-
-    v27 = a1;
-    if (v10)
-    {
-      if (v10 <= 0x666666666666666)
-      {
-        operator new();
-      }
-
-      std::__throw_bad_array_new_length[abi:ne200100]();
-    }
-
-    v12 = 40 * v7;
-    v23 = 0;
-    v24 = v12;
-    v25 = v12;
-    v26 = 0;
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl(v12, a2);
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl((v12 + 4), (a2 + 4));
-    if (*(a2 + 31) < 0)
-    {
-      std::string::__init_copy_ctor_external((v12 + 8), *(a2 + 8), *(a2 + 16));
-      v13 = v24;
-      v14 = v25;
-    }
-
-    else
-    {
-      *(v12 + 8) = *(a2 + 8);
-      *(v12 + 24) = *(a2 + 24);
-      v13 = v12;
-      v14 = v12;
-    }
-
-    *(v12 + 32) = *(a2 + 32);
-    v15 = *a1;
-    v16 = a1[1];
-    v17 = v13 + *a1 - v16;
-    if (*a1 != v16)
-    {
-      v18 = 0;
-      do
-      {
-        v19 = v17 + v18;
-        v20 = (v15 + v18);
-        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl((v17 + v18), (v15 + v18));
-        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl((v17 + v18 + 4), (v15 + v18 + 4));
-        v21 = *(v15 + v18 + 8);
-        *(v19 + 24) = *(v15 + v18 + 24);
-        *(v19 + 8) = v21;
-        v20[1] = 0;
-        v20[2] = 0;
-        v20[3] = 0;
-        *(v19 + 32) = *(v15 + v18 + 32);
-        v18 += 40;
-      }
-
-      while (v15 + v18 != v16);
-      do
-      {
-        std::allocator_traits<std::allocator<realityio::LiveSceneManager::CompatibilityFault>>::destroy[abi:ne200100]<realityio::LiveSceneManager::CompatibilityFault,0>(v15);
-        v15 += 40;
-      }
-
-      while (v15 != v16);
-      v15 = *a1;
-    }
-
-    v11 = v14 + 40;
-    *a1 = v17;
-    a1[1] = v14 + 40;
-    v22 = a1[2];
-    a1[2] = v26;
-    v25 = v15;
-    v26 = v22;
-    v23 = v15;
-    v24 = v15;
-    std::__split_buffer<realityio::LiveSceneManager::CompatibilityFault>::~__split_buffer(&v23);
-  }
-
-  else
-  {
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl(a1[1], a2);
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl((v5 + 4), (a2 + 4));
-    if (*(a2 + 31) < 0)
-    {
-      std::string::__init_copy_ctor_external((v5 + 8), *(a2 + 8), *(a2 + 16));
-    }
-
-    else
-    {
-      v6 = *(a2 + 8);
-      *(v5 + 24) = *(a2 + 24);
-      *(v5 + 8) = v6;
-    }
-
-    *(v5 + 32) = *(a2 + 32);
-    v11 = v5 + 40;
-    a1[1] = v11;
-  }
-
-  a1[1] = v11;
-}
-
-void sub_2476A7094(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
-{
-  pxrInternal__aapl__pxrReserved__::SdfPath::~SdfPath(v10);
-  std::__split_buffer<realityio::LiveSceneManager::CompatibilityFault>::~__split_buffer(&a10);
+  va_start(va, a9);
+  pxrInternal__aapl__pxrReserved__::SdfPath::~SdfPath(v9);
+  std::__split_buffer<realityio::LiveSceneManager::CompatibilityFault>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
@@ -896,7 +30,7 @@ pxrInternal__aapl__pxrReserved__::TfBaseException *pxrInternal__aapl__pxrReserve
   *(this + 8) = v4;
   *(this + 7) = 0;
   *(this + 8) = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(this + 48, *(a2 + 6), *(a2 + 7), (*(a2 + 7) - *(a2 + 6)) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(this + 6, *(a2 + 6), *(a2 + 7), (*(a2 + 7) - *(a2 + 6)) >> 3);
   if (*(a2 + 95) < 0)
   {
     std::string::__init_copy_ctor_external(this + 3, *(a2 + 9), *(a2 + 10));
@@ -925,7 +59,7 @@ void sub_2476A71C4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1049,7 +183,7 @@ uint64_t std::__function::__func<checkBuilderShouldBeInstancedForPrim(std::share
 
 uint64_t std::__function::__func<checkBuilderShouldBeInstancedForPrim(std::shared_ptr<realityio::DirtyStageSubscription const> &,realityio::LiveSceneUpdate const*,realityio::LiveSceneUpdate const&,pxrInternal__aapl__pxrReserved__::TfToken const&,pxrInternal__aapl__pxrReserved__::SdfPath const&)::$_0,std::allocator<checkBuilderShouldBeInstancedForPrim(std::shared_ptr<realityio::DirtyStageSubscription const> &,realityio::LiveSceneUpdate const*,realityio::LiveSceneUpdate const&,pxrInternal__aapl__pxrReserved__::TfToken const&,pxrInternal__aapl__pxrReserved__::SdfPath const&)::$_0>,BOOL ()(pxrInternal__aapl__pxrReserved__::TfToken const&)>::operator()(uint64_t a1, const pxrInternal__aapl__pxrReserved__::TfToken *a2)
 {
-  v3 = pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*(a1 + 8) + 8));
+  pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*(a1 + 8) + 8));
 
   return pxrInternal__aapl__pxrReserved__::UsdStage::HasMetadata(v3, a2);
 }
@@ -1076,7 +210,7 @@ uint64_t std::__function::__func<checkBuilderShouldBeInstancedForPrim(std::share
 
 uint64_t std::__function::__func<checkBuilderShouldBeInstancedForPrim(std::shared_ptr<realityio::DirtyStageSubscription const> &,realityio::LiveSceneUpdate const*,realityio::LiveSceneUpdate const&,pxrInternal__aapl__pxrReserved__::TfToken const&,pxrInternal__aapl__pxrReserved__::SdfPath const&)::$_1,std::allocator<checkBuilderShouldBeInstancedForPrim(std::shared_ptr<realityio::DirtyStageSubscription const> &,realityio::LiveSceneUpdate const*,realityio::LiveSceneUpdate const&,pxrInternal__aapl__pxrReserved__::TfToken const&,pxrInternal__aapl__pxrReserved__::SdfPath const&)::$_1>,BOOL ()(pxrInternal__aapl__pxrReserved__::SdfPath const&,pxrInternal__aapl__pxrReserved__::TfToken const&)>::operator()(uint64_t a1, const pxrInternal__aapl__pxrReserved__::SdfPath *a2, const pxrInternal__aapl__pxrReserved__::TfToken *a3)
 {
-  v5 = pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*(a1 + 8) + 8));
+  pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*(a1 + 8) + 8));
   pxrInternal__aapl__pxrReserved__::UsdStage::GetPrimAtPath(&v8, v5, a2);
   if (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v8))
   {
@@ -1125,7 +259,7 @@ uint64_t std::__function::__func<checkBuilderShouldBeInstancedForPrim(std::share
 
 uint64_t std::__function::__func<checkBuilderShouldBeInstancedForPrim(std::shared_ptr<realityio::DirtyStageSubscription const> &,realityio::LiveSceneUpdate const*,realityio::LiveSceneUpdate const&,pxrInternal__aapl__pxrReserved__::TfToken const&,pxrInternal__aapl__pxrReserved__::SdfPath const&)::$_2,std::allocator<checkBuilderShouldBeInstancedForPrim(std::shared_ptr<realityio::DirtyStageSubscription const> &,realityio::LiveSceneUpdate const*,realityio::LiveSceneUpdate const&,pxrInternal__aapl__pxrReserved__::TfToken const&,pxrInternal__aapl__pxrReserved__::SdfPath const&)::$_2>,BOOL ()(pxrInternal__aapl__pxrReserved__::SdfPath const&,pxrInternal__aapl__pxrReserved__::TfToken const&)>::operator()(uint64_t a1, const pxrInternal__aapl__pxrReserved__::SdfPath *a2, const pxrInternal__aapl__pxrReserved__::TfToken *a3)
 {
-  v5 = pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*(a1 + 8) + 8));
+  pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*(a1 + 8) + 8));
   pxrInternal__aapl__pxrReserved__::UsdStage::GetPrimAtPath(&v8, v5, a2);
   if (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v8))
   {
@@ -1174,7 +308,7 @@ uint64_t std::__function::__func<checkBuilderShouldBeInstancedForPrim(std::share
 
 uint64_t std::__function::__func<checkBuilderShouldBeInstancedForPrim(std::shared_ptr<realityio::DirtyStageSubscription const> &,realityio::LiveSceneUpdate const*,realityio::LiveSceneUpdate const&,pxrInternal__aapl__pxrReserved__::TfToken const&,pxrInternal__aapl__pxrReserved__::SdfPath const&)::$_3,std::allocator<checkBuilderShouldBeInstancedForPrim(std::shared_ptr<realityio::DirtyStageSubscription const> &,realityio::LiveSceneUpdate const*,realityio::LiveSceneUpdate const&,pxrInternal__aapl__pxrReserved__::TfToken const&,pxrInternal__aapl__pxrReserved__::SdfPath const&)::$_3>,BOOL ()(pxrInternal__aapl__pxrReserved__::SdfPath const&,pxrInternal__aapl__pxrReserved__::TfToken const&,pxrInternal__aapl__pxrReserved__::TfToken const&)>::operator()(uint64_t a1, const pxrInternal__aapl__pxrReserved__::SdfPath *a2, const pxrInternal__aapl__pxrReserved__::TfToken *a3, const pxrInternal__aapl__pxrReserved__::TfToken *a4)
 {
-  v7 = pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*(a1 + 8) + 8));
+  pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*(a1 + 8) + 8));
   pxrInternal__aapl__pxrReserved__::UsdStage::GetPrimAtPath(&v10, v7, a2);
   if (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v10) && pxrInternal__aapl__pxrReserved__::UsdPrim::HasProperty(&v10, a3))
   {
@@ -1213,7 +347,7 @@ uint64_t std::__function::__func<checkBuilderShouldBeInstancedForPrim(std::share
   }
 }
 
-uint64_t std::vector<std::shared_ptr<realityio::Builder>>::__init_with_size[abi:ne200100]<std::shared_ptr<realityio::Builder>*,std::shared_ptr<realityio::Builder>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t std::vector<std::shared_ptr<realityio::Builder>>::__init_with_size[abi:ne200100]<std::shared_ptr<realityio::Builder>*,std::shared_ptr<realityio::Builder>*>(uint64_t result, void *a2, void *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1512,9 +646,9 @@ LABEL_18:
   return v7;
 }
 
-void sub_2476A82F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2476A82F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::function<void ()(void)>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1536,7 +670,7 @@ uint64_t std::__split_buffer<std::function<void ()(void)>>::~__split_buffer(uint
   return a1;
 }
 
-uint64_t std::vector<realityio::WrappedRERef<REEntity *>>::__emplace_back_slow_path<realityio::WrappedRERef<REEntity *> const&>(void *a1, uint64_t *a2)
+uint64_t *std::vector<realityio::WrappedRERef<REEntity *>>::__emplace_back_slow_path<realityio::WrappedRERef<REEntity *> const&>(char **a1, uint64_t *a2)
 {
   v2 = (a1[1] - *a1) >> 3;
   v3 = v2 + 1;
@@ -1594,12 +728,12 @@ uint64_t std::vector<realityio::WrappedRERef<REEntity *>>::__emplace_back_slow_p
   v10 = *a1;
   v11 = a1[1];
   v12 = v11 - *a1;
-  v13 = v9 + 8;
+  v13 = (v9 + 8);
   v22 = v9 + 8;
   if (v11 != v10)
   {
     v14 = 0;
-    v15 = &v7[-(v11 - v10) - 1];
+    v15 = &v7[-8 * ((v11 - v10) >> 3) - 8];
     v16 = v10;
     do
     {
@@ -1618,7 +752,8 @@ uint64_t std::vector<realityio::WrappedRERef<REEntity *>>::__emplace_back_slow_p
     while (v16 != v11);
     do
     {
-      realityio::WrappedRERef<REEntity *>::~WrappedRERef(v10++);
+      realityio::WrappedRERef<REEntity *>::~WrappedRERef(v10);
+      v10 += 8;
     }
 
     while (v10 != v11);
@@ -1626,7 +761,7 @@ uint64_t std::vector<realityio::WrappedRERef<REEntity *>>::__emplace_back_slow_p
     v13 = v22;
   }
 
-  *a1 = v7 - v12;
+  *a1 = &v7[-v12];
   a1[1] = v13;
   v18 = a1[2];
   a1[2] = v23;
@@ -1638,9 +773,9 @@ uint64_t std::vector<realityio::WrappedRERef<REEntity *>>::__emplace_back_slow_p
   return v13;
 }
 
-void sub_2476A84D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2476A84D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<realityio::WrappedRERef<REEntity *>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1795,17 +930,17 @@ uint64_t std::__function::__func<realityio::LiveSceneManager::updateLiveScene(BO
 void std::__function::__func<realityio::LiveSceneManager::updateLiveScene(BOOL)::$_0,std::allocator<realityio::LiveSceneManager::updateLiveScene(BOOL)::$_0>,void ()(void)>::operator()(uint64_t a1)
 {
   v1 = *(a1 + 8);
-  realityio::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v3, 2040, v1);
+  realityio::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v3, 2040, v1, 0, 0, 0);
   realityio::LiveSceneUpdate::makeFromTrackedStageState(*(v1 + 232), *(v1 + 24), v2);
   operator new();
 }
 
-void sub_2476A8B50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2476A8B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x24C1A91B0](v2, 0x10F1C408B98DA2BLL);
+  va_start(va, a3);
+  MEMORY[0x24C1A91B0](v3, 0x10F1C408B98DA2BLL);
   realityio::LiveSceneUpdate::~LiveSceneUpdate(va);
-  realityio::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard((v3 - 48));
+  realityio::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard((v4 - 48), v6, v7);
   _Unwind_Resume(a1);
 }
 
@@ -1829,7 +964,7 @@ realityio::LiveSceneUpdate *realityio::LiveSceneUpdate::LiveSceneUpdate(realityi
   *(this + 2) = 0;
   *(this + 3) = 0;
   *(this + 4) = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(this + 16, *(a2 + 2), *(a2 + 3), (*(a2 + 3) - *(a2 + 2)) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(this + 2, *(a2 + 2), *(a2 + 3), (*(a2 + 3) - *(a2 + 2)) >> 3);
   *(this + 5) = 0;
   *(this + 6) = 0;
   *(this + 7) = 0;
@@ -2202,7 +1337,7 @@ LABEL_80:
 
         if (!pxrInternal__aapl__pxrReserved__::SdfAssetPath::operator<())
         {
-          v40 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfAssetPath,std::set<realityio::TextureImportOperationSettings>>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::SdfAssetPath,std::__value_type<pxrInternal__aapl__pxrReserved__::SdfAssetPath,std::set<realityio::TextureImportOperationSettings>>,std::less<pxrInternal__aapl__pxrReserved__::SdfAssetPath>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfAssetPath,std::set<realityio::TextureImportOperationSettings>>>>::__find_equal<pxrInternal__aapl__pxrReserved__::SdfAssetPath>(v35, &v63);
+          v40 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfAssetPath,std::set<realityio::TextureImportOperationSettings>>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::SdfAssetPath,std::__value_type<pxrInternal__aapl__pxrReserved__::SdfAssetPath,std::set<realityio::TextureImportOperationSettings>>,std::less<pxrInternal__aapl__pxrReserved__::SdfAssetPath>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfAssetPath,std::set<realityio::TextureImportOperationSettings>>>>::__find_equal<pxrInternal__aapl__pxrReserved__::SdfAssetPath>(v35, &v63, (v36 + 4));
           goto LABEL_79;
         }
 
@@ -2417,9 +1552,9 @@ _DWORD *std::__function::__func<realityio::LiveSceneManager::updateAsset(pxrInte
   return result;
 }
 
-void std::__function::__func<realityio::LiveSceneManager::updateAsset(pxrInternal__aapl__pxrReserved__::SdfPath,BOOL)::$_0,std::allocator<realityio::LiveSceneManager::updateAsset(pxrInternal__aapl__pxrReserved__::SdfPath,BOOL)::$_0>,void ()(void)>::destroy_deallocate(void *a1)
+void std::__function::__func<realityio::LiveSceneManager::updateAsset(pxrInternal__aapl__pxrReserved__::SdfPath,BOOL)::$_0,std::allocator<realityio::LiveSceneManager::updateAsset(pxrInternal__aapl__pxrReserved__::SdfPath,BOOL)::$_0>,void ()(void)>::destroy_deallocate(char *a1)
 {
-  std::__function::__alloc_func<realityio::LiveSceneManager::updateAsset(pxrInternal__aapl__pxrReserved__::SdfPath,BOOL)::$_0,std::allocator<realityio::LiveSceneManager::updateAsset(pxrInternal__aapl__pxrReserved__::SdfPath,BOOL)::$_0>,void ()(void)>::destroy[abi:ne200100](a1 + 8);
+  std::__function::__alloc_func<realityio::LiveSceneManager::updateAsset(pxrInternal__aapl__pxrReserved__::SdfPath,BOOL)::$_0,std::allocator<realityio::LiveSceneManager::updateAsset(pxrInternal__aapl__pxrReserved__::SdfPath,BOOL)::$_0>,void ()(void)>::destroy[abi:ne200100]((a1 + 8));
 
   operator delete(a1);
 }
@@ -2437,15 +1572,15 @@ void std::__function::__func<realityio::LiveSceneManager::updateAsset(pxrInterna
   v24[1] = 0;
   v23 = v24;
   v16 = v1;
-  v3 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,realityio::UsdPrimDelta>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::SdfPath,std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,realityio::UsdPrimDelta>,std::less<pxrInternal__aapl__pxrReserved__::SdfPath>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,realityio::UsdPrimDelta>>>::__emplace_unique_key_args<pxrInternal__aapl__pxrReserved__::SdfPath,std::piecewise_construct_t const&,std::tuple<pxrInternal__aapl__pxrReserved__::SdfPath const&>,std::tuple<>>(&v23, v1);
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=(v3 + 48, &v26);
+  v3 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,realityio::UsdPrimDelta>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::SdfPath,std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,realityio::UsdPrimDelta>,std::less<pxrInternal__aapl__pxrReserved__::SdfPath>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,realityio::UsdPrimDelta>>>::__emplace_unique_key_args<pxrInternal__aapl__pxrReserved__::SdfPath,std::piecewise_construct_t const&,std::tuple<pxrInternal__aapl__pxrReserved__::SdfPath const&>,std::tuple<>>(&v23, v1, &std::piecewise_construct, &v16, v22);
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=((v3 + 6), &v26);
   pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=(v3 + 52, &v27);
   *(v3 + 56) = v28;
-  if ((v3 + 40) != v25)
+  if (v3 + 5 != v25)
   {
-    std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,realityio::UsdPropertyDelta>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,realityio::UsdPropertyDelta>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,realityio::UsdPropertyDelta>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,realityio::UsdPropertyDelta>,std::__tree_node<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,realityio::UsdPropertyDelta>,void *> *,long>>((v3 + 64), v29, v30);
-    *(v3 + 128) = v31;
-    std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<pxrInternal__aapl__pxrReserved__::TfToken,void *> *>>((v3 + 96), v30[5], 0);
+    std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,realityio::UsdPropertyDelta>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,realityio::UsdPropertyDelta>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,realityio::UsdPropertyDelta>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,realityio::UsdPropertyDelta>,std::__tree_node<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,realityio::UsdPropertyDelta>,void *> *,long>>(v3 + 8, v29, v30);
+    *(v3 + 32) = v31;
+    std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<pxrInternal__aapl__pxrReserved__::TfToken,void *> *>>(v3 + 12, v30[5], 0);
   }
 
   v21 = *(v2 + 32);
@@ -2574,13 +1709,14 @@ LABEL_29:
   operator new();
 }
 
-void sub_2476AA078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53)
+void sub_2476AA078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, ...)
 {
+  va_start(va, a52);
   a10 = &a49;
   std::vector<std::pair<pxrInternal__aapl__pxrReserved__::SdfPath,pxrInternal__aapl__pxrReserved__::TfToken>>::__destroy_vector::operator()[abi:ne200100](&a10);
-  realityio::UsdStageDelta::~UsdStageDelta(&a53);
-  std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,realityio::UsdPrimDelta>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::SdfPath,std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,realityio::UsdPrimDelta>,std::less<pxrInternal__aapl__pxrReserved__::SdfPath>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,realityio::UsdPrimDelta>>>::destroy(v53 - 200, *(v53 - 192));
-  realityio::UsdPrimDelta::~UsdPrimDelta((v53 - 176));
+  realityio::UsdStageDelta::~UsdStageDelta(va);
+  std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,realityio::UsdPrimDelta>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::SdfPath,std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,realityio::UsdPrimDelta>,std::less<pxrInternal__aapl__pxrReserved__::SdfPath>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,realityio::UsdPrimDelta>>>::destroy(v52 - 200, *(v52 - 192));
+  realityio::UsdPrimDelta::~UsdPrimDelta((v52 - 176));
   _Unwind_Resume(a1);
 }
 
@@ -2843,79 +1979,71 @@ void *std::__hash_table<REAsset *,std::hash<REAsset *>,std::equal_to<REAsset *>,
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == a3)
       {
-        if (result[2] == a3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= a2)
         {
-          return result;
+          v10 %= a2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= a2)
-          {
-            v10 %= a2;
-          }
-        }
-
-        else
-        {
-          v10 &= a2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= a2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<REAsset *,std::hash<REAsset *>,std::equal_to<REAsset *>,std::allocator<REAsset *>>::__emplace_unique_key_args<REAsset *,REAsset * const&>(void *result, unint64_t a2)
+void std::__hash_table<REAsset *,std::hash<REAsset *>,std::equal_to<REAsset *>,std::allocator<REAsset *>>::__emplace_unique_key_args<REAsset *,REAsset * const&>(float *a1, unint64_t a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = result[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = *(a1 + 2);
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = (*&v5 - 1) & v4;
+    v8 = (*&v6 - 1) & v5;
   }
 
-  v8 = *(*result + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -2923,44 +2051,42 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != a2)
+  if (v10[2] != a2)
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
 __n128 std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImpl(std::shared_ptr<realityio::EngineQueueManager>,BOOL)::$_0,std::allocator<realityio::LiveSceneManager::updateLiveSceneImpl(std::shared_ptr<realityio::EngineQueueManager>,BOOL)::$_0>,void ()(pxrInternal__aapl__pxrReserved__::SdfPath const&)>::__clone(uint64_t a1, uint64_t a2)
@@ -2972,55 +2098,55 @@ __n128 std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImpl(
   return result;
 }
 
-uint64_t std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImpl(std::shared_ptr<realityio::EngineQueueManager>,BOOL)::$_0,std::allocator<realityio::LiveSceneManager::updateLiveSceneImpl(std::shared_ptr<realityio::EngineQueueManager>,BOOL)::$_0>,void ()(pxrInternal__aapl__pxrReserved__::SdfPath const&)>::operator()(uint64_t a1, const pxrInternal__aapl__pxrReserved__::SdfPath *a2)
+pxrInternal__aapl__pxrReserved__ *std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImpl(std::shared_ptr<realityio::EngineQueueManager>,BOOL)::$_0,std::allocator<realityio::LiveSceneManager::updateLiveSceneImpl(std::shared_ptr<realityio::EngineQueueManager>,BOOL)::$_0>,void ()(pxrInternal__aapl__pxrReserved__::SdfPath const&)>::operator()(uint64_t a1, const pxrInternal__aapl__pxrReserved__::SdfPath *a2)
 {
-  v57[1] = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 8);
   v3 = *(a1 + 16);
-  v38 = *(a1 + 24);
+  v37 = *(a1 + 24);
   v4 = atomic_load((*(v2 + 24) + 28));
   if (v4 == 1)
   {
     exception = __cxa_allocate_exception(0x20uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v39, "standardVisitDirtyPrimCancel");
-    realityio::ImportSession::CancelledException::CancelledException(exception, &v39);
+    std::string::basic_string[abi:ne200100]<0>(&v38, "standardVisitDirtyPrimCancel");
+    realityio::ImportSession::CancelledException::CancelledException(exception, &v38);
   }
 
   v6 = *(v2 + 240);
-  v7 = pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*(v2 + 40) + 8));
-  PrimAtPath = pxrInternal__aapl__pxrReserved__::UsdStage::GetPrimAtPath(&v50, v7, a2);
-  v49 = *a2 == *pxrInternal__aapl__pxrReserved__::SdfPath::AbsoluteRootPath(PrimAtPath);
-  if (v49 || (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v50) & 1) == 0)
+  pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*(v2 + 40) + 8));
+  PrimAtPath = pxrInternal__aapl__pxrReserved__::UsdStage::GetPrimAtPath(&v49, v7, a2);
+  v48 = *a2 == *pxrInternal__aapl__pxrReserved__::SdfPath::AbsoluteRootPath(PrimAtPath);
+  if (v48 || (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v49) & 1) == 0)
   {
-    MEMORY[0x24C1A5DE0](&v48, "");
+    MEMORY[0x24C1A5DE0](&v47, "");
   }
 
   else
   {
-    v10 = v51;
-    if (!v51 || (*(v51 + 57) & 8) != 0)
+    v10 = v50;
+    if (!v50 || (*(v50 + 57) & 8) != 0)
     {
-      pxrInternal__aapl__pxrReserved__::Usd_ThrowExpiredPrimAccessError(v51, v9);
+      pxrInternal__aapl__pxrReserved__::Usd_ThrowExpiredPrimAccessError(v50, v9);
     }
 
     v11 = **(v10 + 3);
-    v48 = v11;
+    v47 = v11;
     if ((v11 & 7) != 0 && (atomic_fetch_add_explicit((v11 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
     {
-      v48 &= 0xFFFFFFFFFFFFFFF8;
+      v47 &= 0xFFFFFFFFFFFFFFF8;
     }
   }
 
-  memset(v46, 0, sizeof(v46));
-  v47 = 1065353216;
-  *&v39 = v46;
-  *(&v39 + 1) = &v49;
-  v40 = v2;
-  v41 = a2;
-  v42 = v3;
-  v43 = &v50;
-  v44 = &v48;
-  v45 = vextq_s8(v38, v38, 8uLL);
+  memset(v45, 0, sizeof(v45));
+  v46 = 1065353216;
+  *&v38 = v45;
+  *(&v38 + 1) = &v48;
+  v39 = v2;
+  v40 = a2;
+  v41 = v3;
+  v42 = &v49;
+  v43 = &v47;
+  v44 = vextq_s8(v37, v37, 8uLL);
   if (*(v2 + 288) == 1)
   {
     v12 = 112;
@@ -3044,17 +2170,17 @@ uint64_t std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImp
   v14 = *(v2 + 240);
   if ((atomic_load_explicit(&_MergedGlobals_51, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_51))
   {
-    MEMORY[0x24C1A5DE0](v54, "com.apple.mesh-component-builder");
-    MEMORY[0x24C1A5DE0](v55, "com.apple.mesh-asset-builder");
-    MEMORY[0x24C1A5DE0](v56, "com.apple.mesh-model-descriptor-builder");
-    MEMORY[0x24C1A5DE0](v57, "com.apple.material-asset-builder");
-    std::unordered_set<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::unordered_set(v54, 4);
+    MEMORY[0x24C1A5DE0](v53, "com.apple.mesh-component-builder");
+    MEMORY[0x24C1A5DE0](&v53[1], "com.apple.mesh-asset-builder");
+    MEMORY[0x24C1A5DE0](&v53[2], "com.apple.mesh-model-descriptor-builder");
+    MEMORY[0x24C1A5DE0](&v53[3], "com.apple.material-asset-builder");
+    std::unordered_set<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::unordered_set(v53, 4);
     for (i = 3; i != -1; --i)
     {
-      v37 = v54[i];
-      if ((v37 & 7) != 0)
+      v36 = v53[i];
+      if ((v36 & 7) != 0)
       {
-        atomic_fetch_add_explicit((v37 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+        atomic_fetch_add_explicit((v36 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
       }
     }
 
@@ -3062,14 +2188,14 @@ uint64_t std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImp
   }
 
   v15 = *(v2 + 288);
-  if (!pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v50))
+  if (!pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v49))
   {
     v19 = *v6;
     for (j = v6[1]; v19 != j; v19 += 2)
     {
       if (v15 != 1 || !std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(&xmmword_27EE53590, *v19))
       {
-        realityio::LiveSceneManager::visitDirtyPrim(pxrInternal__aapl__pxrReserved__::SdfPath const&,realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>> &,realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>> &,realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>> &)::$_0::operator()(&v39, v19);
+        realityio::LiveSceneManager::visitDirtyPrim(pxrInternal__aapl__pxrReserved__::SdfPath const&,realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>> &,realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>> &,realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>> &)::$_0::operator()(&v38, v19);
       }
     }
 
@@ -3084,7 +2210,7 @@ uint64_t std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImp
     goto LABEL_57;
   }
 
-  while ((std::less<pxrInternal__aapl__pxrReserved__::TfToken>::operator()[abi:ne200100](v16, &v48, v18 + 4) & 1) != 0)
+  while (std::less<pxrInternal__aapl__pxrReserved__::TfToken>::operator()[abi:ne200100](v16, &v47, v18 + 4))
   {
     v17 = v18;
 LABEL_24:
@@ -3095,7 +2221,7 @@ LABEL_24:
     }
   }
 
-  if (std::less<pxrInternal__aapl__pxrReserved__::TfToken>::operator()[abi:ne200100](v16, v18 + 4, &v48))
+  if (std::less<pxrInternal__aapl__pxrReserved__::TfToken>::operator()[abi:ne200100](v16, v18 + 4, &v47))
   {
     v18 = (v18 + 8);
     goto LABEL_24;
@@ -3108,7 +2234,7 @@ LABEL_24:
     v22 = v18;
     do
     {
-      v23 = std::less<pxrInternal__aapl__pxrReserved__::TfToken>::operator()[abi:ne200100](v16, v21 + 4, &v48);
+      v23 = std::less<pxrInternal__aapl__pxrReserved__::TfToken>::operator()[abi:ne200100](v16, v21 + 4, &v47);
       if (v23)
       {
         v24 = 8;
@@ -3132,17 +2258,8 @@ LABEL_24:
 
   for (k = *(v18 + 1); k; k = k[v27])
   {
-    v26 = std::less<pxrInternal__aapl__pxrReserved__::TfToken>::operator()[abi:ne200100](v16, &v48, k + 4);
-    if (v26)
-    {
-      v27 = 0;
-    }
-
-    else
-    {
-      v27 = 1;
-    }
-
+    v26 = std::less<pxrInternal__aapl__pxrReserved__::TfToken>::operator()[abi:ne200100](v16, &v47, k + 4);
+    v27 = !v26;
     if (v26)
     {
       v17 = k;
@@ -3155,7 +2272,7 @@ LABEL_24:
     {
       if (v15 != 1 || !std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(&xmmword_27EE53590, v22[5]))
       {
-        realityio::LiveSceneManager::visitDirtyPrim(pxrInternal__aapl__pxrReserved__::SdfPath const&,realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>> &,realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>> &,realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>> &)::$_0::operator()(&v39, v22 + 5);
+        realityio::LiveSceneManager::visitDirtyPrim(pxrInternal__aapl__pxrReserved__::SdfPath const&,realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>> &,realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>> &,realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>> &)::$_0::operator()(&v38, v22 + 5);
       }
 
       v28 = v22[1];
@@ -3194,35 +2311,34 @@ LABEL_57:
   {
     if (v15 != 1 || !std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(&xmmword_27EE53590, *v31))
     {
-      realityio::LiveSceneManager::visitDirtyPrim(pxrInternal__aapl__pxrReserved__::SdfPath const&,realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>> &,realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>> &,realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>> &)::$_0::operator()(&v39, v31);
+      realityio::LiveSceneManager::visitDirtyPrim(pxrInternal__aapl__pxrReserved__::SdfPath const&,realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>> &,realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>> &,realityio::BuilderWorkingSetPriorityQueue<std::shared_ptr<realityio::Builder>> &)::$_0::operator()(&v38, v31);
     }
   }
 
 LABEL_62:
-  std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table(v46);
-  if ((v48 & 7) != 0)
+  std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table(v45);
+  if ((v47 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v48 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v47 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  if ((v53 & 7) != 0)
+  if ((v52 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v53 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v52 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v52);
-  result = v51;
-  if (v51)
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v51);
+  result = v50;
+  if (v50)
   {
-    result = pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v51);
+    return pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v50);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2476AB15C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_2476AB15C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
 {
   v33 = 24;
   while (1)
@@ -3287,7 +2403,7 @@ uint64_t std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImp
 
 uint64_t std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImpl(std::shared_ptr<realityio::EngineQueueManager>,BOOL)::$_1,std::allocator<realityio::LiveSceneManager::updateLiveSceneImpl(std::shared_ptr<realityio::EngineQueueManager>,BOOL)::$_1>,void ()(void)>::operator()(uint64_t result)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = *(result + 8);
   v2 = *(v1 + 464);
   v3 = *(v2 + 24);
@@ -3296,14 +2412,14 @@ uint64_t std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImp
   {
     do
     {
-      std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v6, v3);
-      if (!v7)
+      std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v5, v3);
+      if (!v6)
       {
         std::__throw_bad_function_call[abi:ne200100]();
       }
 
-      (*(*v7 + 48))(v7);
-      result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v6);
+      (*(*v6 + 48))(v6);
+      result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v5);
       v3 += 32;
     }
 
@@ -3320,7 +2436,6 @@ uint64_t std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImp
   }
 
   *(v2 + 32) = v3;
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3377,7 +2492,7 @@ void std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImpl(st
 LABEL_6:
     if (*(a1 + 16) + 8 == std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,unsigned int>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::SdfPath,std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,unsigned int>,std::less<pxrInternal__aapl__pxrReserved__::SdfPath>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,unsigned int>>>::find<pxrInternal__aapl__pxrReserved__::SdfPath>(*(a1 + 16), (v4 + 8)))
     {
-      v10 = pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*(v7 + 40) + 8));
+      pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*(v7 + 40) + 8));
       pxrInternal__aapl__pxrReserved__::UsdStage::GetPrimAtPath(&v13, v10, (v4 + 8));
       IsValid = pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v13);
       if ((v16 & 7) != 0)
@@ -3400,7 +2515,7 @@ LABEL_15:
       }
 
       v4 = v12;
-      std::__tree<pxrInternal__aapl__pxrReserved__::SdfPath>::__emplace_unique_key_args<pxrInternal__aapl__pxrReserved__::SdfPath,pxrInternal__aapl__pxrReserved__::SdfPath const&>(*(a1 + 16), (v12 + 8));
+      std::__tree<pxrInternal__aapl__pxrReserved__::SdfPath>::__emplace_unique_key_args<pxrInternal__aapl__pxrReserved__::SdfPath,pxrInternal__aapl__pxrReserved__::SdfPath const&>(*(a1 + 16), (v12 + 8), v12 + 8);
     }
 
     if (!realityio::MutableDirtyPropertyTable::anyMatch((v4 + 136), *(a1 + 32)))
@@ -3419,13 +2534,13 @@ LABEL_16:
   }
 }
 
-void sub_2476AB72C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2476AB72C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   pxrInternal__aapl__pxrReserved__::UsdPrim::~UsdPrim(va);
-  if (v3)
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
   _Unwind_Resume(a1);
@@ -3610,7 +2725,7 @@ LABEL_25:
 LABEL_31:
     v23 = a1[6];
 
-    return std::__hash_table<std::shared_ptr<realityio::Builder>,std::hash<std::shared_ptr<realityio::Builder>>,std::equal_to<std::shared_ptr<realityio::Builder>>,std::allocator<std::shared_ptr<realityio::Builder>>>::__emplace_unique_key_args<std::shared_ptr<realityio::Builder>,std::shared_ptr<realityio::Builder> const&>(v23, a2);
+    return std::__hash_table<std::shared_ptr<realityio::Builder>,std::hash<std::shared_ptr<realityio::Builder>>,std::equal_to<std::shared_ptr<realityio::Builder>>,std::allocator<std::shared_ptr<realityio::Builder>>>::__emplace_unique_key_args<std::shared_ptr<realityio::Builder>,std::shared_ptr<realityio::Builder> const&>(v23, a2, a2);
   }
 
   return result;
@@ -3659,7 +2774,7 @@ __n128 std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImpl(
 
 void std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImpl(std::shared_ptr<realityio::EngineQueueManager>,BOOL)::$_4,std::allocator<realityio::LiveSceneManager::updateLiveSceneImpl(std::shared_ptr<realityio::EngineQueueManager>,BOOL)::$_4>,void ()(void)>::operator()(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 8);
   v2 = *(v1 + 464);
   v3 = *(v2 + 24);
@@ -3668,20 +2783,20 @@ void std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImpl(st
   {
     while (1)
     {
-      std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](&v14, v3);
+      std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](&v13, v3);
       v6 = atomic_load((*(v1 + 24) + 28));
       if (v6 == 1)
       {
         break;
       }
 
-      if (!v16)
+      if (!v15)
       {
         std::__throw_bad_function_call[abi:ne200100]();
       }
 
-      (*(*v16 + 48))(v16);
-      std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&v14);
+      (*(*v15 + 48))(v15);
+      std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&v13);
       v3 += 32;
       if (v3 == v4)
       {
@@ -3690,7 +2805,7 @@ void std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImpl(st
     }
 
     **(a1 + 16) = 0;
-    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&v14);
+    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&v13);
   }
 
 LABEL_7:
@@ -3719,14 +2834,13 @@ LABEL_7:
       v12 = "NO";
     }
 
-    v14 = 136315138;
-    v15 = v12;
-    _os_log_impl(&dword_247485000, v11, OS_LOG_TYPE_INFO, "Phase 1 complete -> loadAssets() -- updating synchronous: %s\n", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = v12;
+    _os_log_impl(&dword_247485000, v11, OS_LOG_TYPE_INFO, "Phase 1 complete -> loadAssets() -- updating synchronous: %s\n", &v13, 0xCu);
   }
 
   std::chrono::steady_clock::now();
   realityio::AssetLoadTracker::loadAssets(*(*(v1 + 464) + 128), *(*(*(v1 + 24) + 16) + 16), *(v1 + 456));
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImpl(std::shared_ptr<realityio::EngineQueueManager>,BOOL)::$_4,std::allocator<realityio::LiveSceneManager::updateLiveSceneImpl(std::shared_ptr<realityio::EngineQueueManager>,BOOL)::$_4>,void ()(void)>::target(uint64_t a1, uint64_t a2)
@@ -3751,7 +2865,7 @@ __n128 std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImpl(
 
 uint64_t std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImpl(std::shared_ptr<realityio::EngineQueueManager>,BOOL)::$_5,std::allocator<realityio::LiveSceneManager::updateLiveSceneImpl(std::shared_ptr<realityio::EngineQueueManager>,BOOL)::$_5>,void ()(void)>::operator()(uint64_t result)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v1 = *(result + 8);
   v2 = *(v1 + 464);
   v3 = *(v2 + 48);
@@ -3761,39 +2875,37 @@ uint64_t std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImp
     v5 = result;
     while (1)
     {
-      std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v8, v3);
+      std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v7, v3);
       v6 = atomic_load((*(v1 + 24) + 28));
       if (v6 == 1)
       {
         break;
       }
 
-      if (!v9)
+      if (!v8)
       {
         std::__throw_bad_function_call[abi:ne200100]();
       }
 
-      (*(*v9 + 48))(v9);
-      result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v8);
+      (*(*v8 + 48))(v8);
+      result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v7);
       v3 += 32;
       if (v3 == v4)
       {
-        goto LABEL_8;
+        return result;
       }
     }
 
     **(v5 + 16) = 0;
-    result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v8);
+    return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v7);
   }
 
-LABEL_8:
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2476AC048(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2476AC048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3826,7 +2938,6 @@ uint64_t std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImp
   v4 = *(v2 + 112);
   while (v3 != v4)
   {
-    v5 = *v3;
     if ((REEntityGetSelfEnabled() & 1) == 0)
     {
       MEMORY[0x24C1A36E0](*v3, 1);
@@ -3835,15 +2946,15 @@ uint64_t std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImp
     ++v3;
   }
 
-  v6 = atomic_load((*(v1 + 24) + 28));
-  if (v6 == 1)
+  v5 = atomic_load((*(v1 + 24) + 28));
+  if (v5 == 1)
   {
     (*(**(*(v1 + 24) + 16) + 16))(*(*(v1 + 24) + 16));
     ChildCount = REEntityGetChildCount();
     if (ChildCount)
     {
-      v8 = ChildCount;
-      for (i = 0; i != v8; ++i)
+      v7 = ChildCount;
+      for (i = 0; i != v7; ++i)
       {
         (*(**(*(v1 + 24) + 16) + 16))(*(*(v1 + 24) + 16));
         REEntityGetChild();
@@ -3852,15 +2963,15 @@ uint64_t std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImp
     }
   }
 
-  v10 = *(*(v1 + 464) + 96);
-  if (!v10)
+  v9 = *(*(v1 + 464) + 96);
+  if (!v9)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  v11 = *(*v10 + 48);
+  v10 = *(*v9 + 48);
 
-  return v11();
+  return v10();
 }
 
 uint64_t std::__function::__func<realityio::LiveSceneManager::updateLiveSceneImpl(std::shared_ptr<realityio::EngineQueueManager>,BOOL)::$_6,std::allocator<realityio::LiveSceneManager::updateLiveSceneImpl(std::shared_ptr<realityio::EngineQueueManager>,BOOL)::$_6>,void ()(void)>::target(uint64_t a1, uint64_t a2)
@@ -4021,18 +3132,19 @@ void realityio::USDDiagnostics::~USDDiagnostics(realityio::USDDiagnostics *this)
 
 uint64_t realityio::USDDiagnostics::Add(realityio::USDDiagnostics *this)
 {
-  if (!atomic_load(off_278EA82B8))
+  v2 = atomic_load(off_278EA82B8);
+  if (!v2)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr>::_CreateInstance();
   }
 
-  return MEMORY[0x2822062D0]();
+  return MEMORY[0x2822062D0](v2, this);
 }
 
 uint64_t realityio::USDDiagnostics::shouldSaveMessage(uint64_t a1, char *a2)
 {
   v4 = 0;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = a2[23];
   if ((v5 & 0x80u) == 0)
   {
@@ -4044,8 +3156,8 @@ uint64_t realityio::USDDiagnostics::shouldSaveMessage(uint64_t a1, char *a2)
     v6 = *a2;
   }
 
-  v31 = v6;
-  v32 = (a1 + 64);
+  v30 = v6;
+  v31 = (a1 + 64);
   v7 = 1;
   v8 = off_278EA85E8;
 LABEL_5:
@@ -4068,7 +3180,7 @@ LABEL_5:
 
       else
       {
-        v16 = v32;
+        v16 = v31;
       }
 
       v7 = 0;
@@ -4078,7 +3190,7 @@ LABEL_5:
       v8 = v9;
       if (v17)
       {
-        goto LABEL_45;
+        return result;
       }
 
       goto LABEL_5;
@@ -4089,118 +3201,111 @@ LABEL_5:
   }
 
   while (v4 != 6);
-  if (v7)
+  if ((v7 & 1) == 0)
   {
-    if ((v5 & 0x80u) == 0)
-    {
-      v18 = v5;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v18 = *(a2 + 1);
-    }
-
-    v19 = *(a1 + 87);
-    v20 = *(a1 + 72);
-    if ((v19 & 0x80u) == 0)
-    {
-      v21 = v32;
-    }
-
-    else
-    {
-      v21 = *(a1 + 64);
-    }
-
-    if ((v19 & 0x80u) == 0)
-    {
-      v22 = v19;
-    }
-
-    else
-    {
-      v22 = v20;
-    }
-
-    if (v22)
-    {
-      if (v18 >= v22)
-      {
-        v23 = &v6[v18];
-        v24 = *v21;
-        do
-        {
-          v25 = v18 - v22;
-          if (v25 == -1)
-          {
-            break;
-          }
-
-          v26 = memchr(v6, v24, v25 + 1);
-          if (!v26)
-          {
-            break;
-          }
-
-          v27 = v26;
-          if (!memcmp(v26, v21, v22))
-          {
-            result = 1;
-            if (v27 == v23 || v27 - v31 == -1)
-            {
-              goto LABEL_45;
-            }
-
-            goto LABEL_39;
-          }
-
-          v6 = v27 + 1;
-          v18 = v23 - v6;
-        }
-
-        while (v23 - v6 >= v22);
-      }
-    }
-
-    else
-    {
-LABEL_39:
-      v28 = *realityio::logObjects(result);
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
-      {
-        if (a2[23] >= 0)
-        {
-          v29 = a2;
-        }
-
-        else
-        {
-          v29 = *a2;
-        }
-
-        *buf = 136315138;
-        v34 = v29;
-        _os_log_impl(&dword_247485000, v28, OS_LOG_TYPE_DEFAULT, "Unrecognized error pattern %s", buf, 0xCu);
-      }
-    }
-
-    result = 1;
+  if ((v5 & 0x80u) == 0)
+  {
+    v18 = v5;
   }
 
   else
   {
-    result = 0;
+    v18 = *(a2 + 1);
   }
 
-LABEL_45:
-  v30 = *MEMORY[0x277D85DE8];
-  return result;
+  v19 = *(a1 + 87);
+  v20 = *(a1 + 72);
+  if ((v19 & 0x80u) == 0)
+  {
+    v21 = v31;
+  }
+
+  else
+  {
+    v21 = *(a1 + 64);
+  }
+
+  if ((v19 & 0x80u) == 0)
+  {
+    v22 = v19;
+  }
+
+  else
+  {
+    v22 = v20;
+  }
+
+  if (v22)
+  {
+    if (v18 >= v22)
+    {
+      v23 = &v6[v18];
+      v24 = *v21;
+      do
+      {
+        v25 = v18 - v22;
+        if (v25 == -1)
+        {
+          break;
+        }
+
+        v26 = memchr(v6, v24, v25 + 1);
+        if (!v26)
+        {
+          break;
+        }
+
+        v27 = v26;
+        if (!memcmp(v26, v21, v22))
+        {
+          result = 1;
+          if (v27 == v23 || v27 - v30 == -1)
+          {
+            return result;
+          }
+
+          goto LABEL_39;
+        }
+
+        v6 = v27 + 1;
+        v18 = v23 - v6;
+      }
+
+      while (v23 - v6 >= v22);
+    }
+  }
+
+  else
+  {
+LABEL_39:
+    v28 = *realityio::logObjects(result);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    {
+      if (a2[23] >= 0)
+      {
+        v29 = a2;
+      }
+
+      else
+      {
+        v29 = *a2;
+      }
+
+      *buf = 136315138;
+      v33 = v29;
+      _os_log_impl(&dword_247485000, v28, OS_LOG_TYPE_DEFAULT, "Unrecognized error pattern %s", buf, 0xCu);
+    }
+  }
+
+  return 1;
 }
 
-void realityio::USDDiagnostics::saveMessage(uint64_t a1, int a2, uint64_t *a3)
+void realityio::USDDiagnostics::saveMessage(uint64_t a1, int a2, uint64_t **a3)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   if (*(a3 + 23) < 0)
   {
     a3 = *a3;
@@ -4218,9 +3323,9 @@ void realityio::USDDiagnostics::saveMessage(uint64_t a1, int a2, uint64_t *a3)
   }
 
   v7 = [(__CFString *)v6 hasPrefix:@"Usd crate file version mismatch"];
-  v14 = *MEMORY[0x277CCA450];
-  v15[0] = v6;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = *MEMORY[0x277CCA450];
+  v14[0] = v6;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   if (v7)
   {
     v9 = -1;
@@ -4243,8 +3348,6 @@ void realityio::USDDiagnostics::saveMessage(uint64_t a1, int a2, uint64_t *a3)
   {
     (*(*v12 + 48))(v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 id realityio::USDDiagnostics::GetError(id *this)
@@ -4305,24 +3408,24 @@ void sub_2476ACDB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void realityio::USDDiagnostics::GetWarnings(realityio::USDDiagnostics *this@<X0>, void *a2@<X8>)
+void realityio::USDDiagnostics::GetWarnings(std::string *__return_ptr a1@<X8>, realityio::USDDiagnostics *this@<X0>)
 {
   std::mutex::lock((this + 120));
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a2, *(this + 2), *(this + 3), 0xAAAAAAAAAAAAAAABLL * ((*(this + 3) - *(this + 2)) >> 3));
+  a1->__r_.__value_.__r.__words[0] = 0;
+  a1->__r_.__value_.__l.__size_ = 0;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a1, *(this + 2), *(this + 3), 0xAAAAAAAAAAAAAAABLL * ((*(this + 3) - *(this + 2)) >> 3));
 
   std::mutex::unlock((this + 120));
 }
 
-void realityio::USDDiagnostics::GetStatusMessages(realityio::USDDiagnostics *this@<X0>, void *a2@<X8>)
+void realityio::USDDiagnostics::GetStatusMessages(std::string *__return_ptr a1@<X8>, realityio::USDDiagnostics *this@<X0>)
 {
   std::mutex::lock((this + 184));
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a2, *(this + 5), *(this + 6), 0xAAAAAAAAAAAAAAABLL * ((*(this + 6) - *(this + 5)) >> 3));
+  a1->__r_.__value_.__r.__words[0] = 0;
+  a1->__r_.__value_.__l.__size_ = 0;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a1, *(this + 5), *(this + 6), 0xAAAAAAAAAAAAAAABLL * ((*(this + 6) - *(this + 5)) >> 3));
 
   std::mutex::unlock((this + 184));
 }
@@ -4337,7 +3440,7 @@ void realityio::USDDiagnostics::IssueError(uint64_t a1, uint64_t a2)
   }
 }
 
-void realityio::USDDiagnostics::IssueFatalError(uint64_t a1, uint64_t a2, uint64_t *a3)
+void realityio::USDDiagnostics::IssueFatalError(uint64_t a1, uint64_t a2, uint64_t **a3)
 {
   if (realityio::USDDiagnostics::shouldSaveMessage(a1, a3))
   {
@@ -4437,7 +3540,6 @@ uint64_t RIOPxrSdfAssetPathCreateEmptyPath()
 
 __n128 RIOPxrSdfAssetPathCreate<pxrInternal__aapl__pxrReserved__::SdfAssetPath>(__int128 *a1)
 {
-  v2 = *MEMORY[0x277CBECE8];
   if (RIOPxrSdfAssetPathGetTypeID::onceToken != -1)
   {
     dispatch_once(&RIOPxrSdfAssetPathGetTypeID::onceToken, &__block_literal_global_32);
@@ -4446,9 +3548,9 @@ __n128 RIOPxrSdfAssetPathCreate<pxrInternal__aapl__pxrReserved__::SdfAssetPath>(
   Instance = _CFRuntimeCreateInstance();
   if (Instance)
   {
-    v5 = *a1;
+    v4 = *a1;
     *(Instance + 32) = *(a1 + 2);
-    *(Instance + 16) = v5;
+    *(Instance + 16) = v4;
     *(a1 + 1) = 0;
     *(a1 + 2) = 0;
     *a1 = 0;
@@ -4652,7 +3754,7 @@ BOOL _RIOPxrSdfAssetPathCFEqual(void *a1, void *a2)
 
   if (v2 >= 0)
   {
-    v8 = (a1 + 2);
+    v8 = a1 + 2;
   }
 
   else
@@ -4662,7 +3764,7 @@ BOOL _RIOPxrSdfAssetPathCFEqual(void *a1, void *a2)
 
   if (v5 >= 0)
   {
-    v9 = (a2 + 2);
+    v9 = a2 + 2;
   }
 
   else
@@ -4699,7 +3801,7 @@ BOOL _RIOPxrSdfAssetPathCFEqual(void *a1, void *a2)
   }
 
   v16 = a1[5];
-  v15 = (a1 + 5);
+  v15 = a1 + 5;
   v14 = v16;
   if (v10 >= 0)
   {
@@ -4712,7 +3814,7 @@ BOOL _RIOPxrSdfAssetPathCFEqual(void *a1, void *a2)
   }
 
   v20 = a2[5];
-  v19 = (a2 + 5);
+  v19 = a2 + 5;
   v18 = v20;
   if (v13 >= 0)
   {
@@ -4735,22 +3837,20 @@ unint64_t _RIOPxrSdfAssetPathCFHash(const char *a1)
   return bswap64(0x9E3779B97F4A7C55 * v2);
 }
 
-atomic_uint **realityio::mtlxFromUsd@<X0>(_BYTE *a1@<X8>)
+atomic_uint **realityio::mtlxFromUsd@<X0>(void *a2@<X8>)
 {
   v6[37] = *MEMORY[0x277D85DE8];
   pxrInternal__aapl__pxrReserved__::USDInitializeConfiguration::USDInitializeConfiguration(v6);
   pxrInternal__aapl__pxrReserved__::usd_initialize();
   pxrInternal__aapl__pxrReserved__::USDInitializeConfiguration::~USDInitializeConfiguration(v6);
-  v2 = pxrInternal__aapl__pxrReserved__::UsdStage::Open();
+  v3 = pxrInternal__aapl__pxrReserved__::UsdStage::Open();
   if (v5)
   {
-    RIO_MTLX::Document::createDocument<RIO_MTLX::Document>(v2);
+    RIO_MTLX::Document::createDocument<RIO_MTLX::Document>(v3);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(a1, "");
-  result = pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::~TfRefPtr(&v5);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  std::string::basic_string[abi:ne200100]<0>(a2, "");
+  return pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::~TfRefPtr(&v5);
 }
 
 void sub_2476ADD74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, std::__shared_weak_count *a42, atomic_uint *a43, __int16 a44, char a45, char a46)
@@ -4792,100 +3892,100 @@ void sub_2476ADD74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t anonymous namespace::convertMaterial(uint64_t a1, pxrInternal__aapl__pxrReserved__::UsdObject *a2)
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase();
-  v75 = MEMORY[0x277D86758] + 16;
-  if (v76 && (*(v76 + 57) & 8) == 0 && ((*(MEMORY[0x277D86758] + 48))(&v75) & 1) != 0)
+  v73 = MEMORY[0x277D86758] + 16;
+  if (v74 && (*(v74 + 57) & 8) == 0 && ((*(MEMORY[0x277D86758] + 48))(&v73) & 1) != 0)
   {
-    v74 = 0;
-    MEMORY[0x24C1A5DE0](&v81, "mtlx");
+    v72 = 0;
+    MEMORY[0x24C1A5DE0](&v79, "mtlx");
     v2 = atomic_load(MEMORY[0x277D86568]);
     if (!v2)
     {
-      pxrInternal__aapl__pxrReserved__::TfStaticData<pxrInternal__aapl__pxrReserved__::UsdShadeTokensType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<pxrInternal__aapl__pxrReserved__::UsdShadeTokensType>>::_TryToCreateData();
+      pxrInternal__aapl__pxrReserved__::TfStaticData<pxrInternal__aapl__pxrReserved__::UsdShadeTokensType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<pxrInternal__aapl__pxrReserved__::UsdShadeTokensType>>::_TryToCreateData(MEMORY[0x277D86568]);
     }
 
     v3 = *(v2 + 216);
-    v82 = v3;
+    v80 = v3;
     if ((v3 & 7) != 0 && (atomic_fetch_add_explicit((v3 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
     {
-      v82 &= 0xFFFFFFFFFFFFFFF8;
+      v80 &= 0xFFFFFFFFFFFFFFF8;
     }
 
+    v85 = 0;
+    v86 = 0;
     v87 = 0;
-    v88 = 0;
-    v89 = 0;
-    std::vector<pxrInternal__aapl__pxrReserved__::TfToken>::__init_with_size[abi:ne200100]<pxrInternal__aapl__pxrReserved__::TfToken const*,pxrInternal__aapl__pxrReserved__::TfToken const*>(&v87, &v81, &v83, 2uLL);
+    std::vector<pxrInternal__aapl__pxrReserved__::TfToken>::__init_with_size[abi:ne200100]<pxrInternal__aapl__pxrReserved__::TfToken const*,pxrInternal__aapl__pxrReserved__::TfToken const*>(&v85, &v79, &v81, 2uLL);
     pxrInternal__aapl__pxrReserved__::UsdShadeMaterial::ComputeSurfaceSource();
-    v60.__r_.__value_.__r.__words[0] = &v87;
-    std::vector<pxrInternal__aapl__pxrReserved__::TfToken>::__destroy_vector::operator()[abi:ne200100](&v60);
+    v58.__r_.__value_.__r.__words[0] = &v85;
+    std::vector<pxrInternal__aapl__pxrReserved__::TfToken>::__destroy_vector::operator()[abi:ne200100](&v58);
     for (i = 8; i != -8; i -= 8)
     {
-      v5 = *(&v81 + i);
+      v5 = *(&v79 + i);
       if ((v5 & 7) != 0)
       {
         atomic_fetch_add_explicit((v5 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
       }
     }
 
-    if (v73 && (*(v73 + 57) & 8) == 0 && ((*(v72 + 32))(&v72) & 1) != 0)
+    if (v71 && (*(v71 + 57) & 8) == 0 && ((*(v70 + 32))(&v70) & 1) != 0)
     {
-      v71[0] = 0;
-      v71[1] = 0;
-      v70 = v71;
-      pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInputs(&v72);
-      v7 = v68;
-      v6 = v69;
-      if (v68 != v69)
+      v69[0] = 0;
+      v69[1] = 0;
+      v68 = v69;
+      pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInputs(&v66, &v70);
+      v7 = v66;
+      v6 = v67;
+      if (v66 != v67)
       {
-        v53 = v69;
+        v51 = v67;
         do
         {
-          pxrInternal__aapl__pxrReserved__::UsdObject::UsdObject(&v87, (v7 + 8), (v7 + 16));
+          pxrInternal__aapl__pxrReserved__::UsdObject::UsdObject(&v85, (v7 + 8), (v7 + 16));
           Name = pxrInternal__aapl__pxrReserved__::UsdObject::GetName(v7);
-          pxrInternal__aapl__pxrReserved__::UsdPrim::GetAttribute(&v64, &v87, Name);
-          if ((v90 & 7) != 0)
+          pxrInternal__aapl__pxrReserved__::UsdPrim::GetAttribute(&v62, &v85, Name);
+          if ((v88 & 7) != 0)
           {
-            atomic_fetch_add_explicit((v90 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+            atomic_fetch_add_explicit((v88 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
           }
 
           pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-          pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v89);
-          if (v88)
+          pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v87);
+          if (v86)
           {
-            pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v88);
+            pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v86);
           }
 
-          if (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v64))
+          if (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v62))
           {
-            MEMORY[0x24C1A7410](&v81, v7, 0);
-            if (v84)
+            MEMORY[0x24C1A7410](&v79, v7, 0);
+            if (v82)
             {
-              v9 = &v81;
-              if (v85 >= 2)
+              v9 = &v79;
+              if (v83 >= 2)
               {
-                v9 = v81;
+                v9 = v79;
               }
 
-              pxrInternal__aapl__pxrReserved__::UsdObject::UsdObject(&v87, v9 + 1, v9 + 4);
-              v10 = v87 != *a2 || v88 != *(a2 + 1) || v89 != *(a2 + 2) || (*(a2 + 3) ^ v90) > 7;
-              if ((v90 & 7) != 0)
+              pxrInternal__aapl__pxrReserved__::UsdObject::UsdObject(&v85, v9 + 1, v9 + 4);
+              v10 = v85 != *a2 || v86 != *(a2 + 1) || v87 != *(a2 + 2) || (*(a2 + 3) ^ v88) > 7;
+              if ((v88 & 7) != 0)
               {
-                atomic_fetch_add_explicit((v90 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+                atomic_fetch_add_explicit((v88 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
               }
 
               pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-              pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v89);
-              if (v88)
+              pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v87);
+              if (v86)
               {
-                pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v88);
+                pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v86);
               }
 
               if (v10)
               {
-                v52 = v7;
-                v11 = v85;
-                v12 = v81;
+                v50 = v7;
+                v11 = v83;
+                v12 = v79;
                 pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase();
                 if (v11 >= 2)
                 {
@@ -4894,45 +3994,45 @@ uint64_t anonymous namespace::convertMaterial(uint64_t a1, pxrInternal__aapl__px
 
                 else
                 {
-                  v13 = &v81;
+                  v13 = &v79;
                 }
 
                 v14 = v13[3];
-                v60.__r_.__value_.__r.__words[0] = MEMORY[0x277D86728] + 16;
-                v61 = v14;
+                v58.__r_.__value_.__r.__words[0] = MEMORY[0x277D86728] + 16;
+                v59 = v14;
                 if ((v14 & 7) != 0 && (atomic_fetch_add_explicit((v14 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
                 {
-                  v61 &= 0xFFFFFFFFFFFFFFF8;
+                  v59 &= 0xFFFFFFFFFFFFFFF8;
                 }
 
-                v15 = &v81;
+                v15 = &v79;
                 if (v11 >= 2)
                 {
                   v15 = v12;
                 }
 
                 v16 = v15[4];
-                v60.__r_.__value_.__r.__words[0] = MEMORY[0x277D867A8] + 16;
-                v62 = v16;
+                v58.__r_.__value_.__r.__words[0] = MEMORY[0x277D867A8] + 16;
+                v60 = v16;
                 if ((v16 & 7) != 0 && (atomic_fetch_add_explicit((v16 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
                 {
-                  v62 &= 0xFFFFFFFFFFFFFFF8;
+                  v60 &= 0xFFFFFFFFFFFFFFF8;
                 }
 
-                v17 = &v81;
+                v17 = &v79;
                 if (v11 >= 2)
                 {
                   v17 = v12;
                 }
 
-                v63 = *(v17 + 5);
-                pxrInternal__aapl__pxrReserved__::UsdObject::UsdObject(&v56, &v60.__r_.__value_.__l.__size_, &v60.__r_.__value_.__r.__words[2]);
-                pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(&v56, &v87);
-                v7 = v52;
-                v18 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,std::set<pxrInternal__aapl__pxrReserved__::TfToken>>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::SdfPath,std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,std::set<pxrInternal__aapl__pxrReserved__::TfToken>>,std::less<pxrInternal__aapl__pxrReserved__::SdfPath>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,std::set<pxrInternal__aapl__pxrReserved__::TfToken>>>>::find<pxrInternal__aapl__pxrReserved__::SdfPath>(&v70, &v87);
+                v61 = *(v17 + 5);
+                pxrInternal__aapl__pxrReserved__::UsdObject::UsdObject(&v54, &v58.__r_.__value_.__l.__size_, &v58.__r_.__value_.__r.__words[2]);
+                pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(&v85, &v54);
+                v7 = v50;
+                v18 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,std::set<pxrInternal__aapl__pxrReserved__::TfToken>>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::SdfPath,std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,std::set<pxrInternal__aapl__pxrReserved__::TfToken>>,std::less<pxrInternal__aapl__pxrReserved__::SdfPath>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,std::set<pxrInternal__aapl__pxrReserved__::TfToken>>>>::find<pxrInternal__aapl__pxrReserved__::SdfPath>(&v68, &v85);
                 pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-                pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v87);
-                if (v71 == v18)
+                pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v85);
+                if (v69 == v18)
                 {
                   v20 = *a1;
                   v19 = *(a1 + 8);
@@ -4942,8 +4042,8 @@ uint64_t anonymous namespace::convertMaterial(uint64_t a1, pxrInternal__aapl__px
                   }
 
                   pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase();
-                  v80[3] = MEMORY[0x277D86778] + 16;
-                  v21 = pxrInternal__aapl__pxrReserved__::UsdObject::GetName(&v56);
+                  v78[3] = MEMORY[0x277D86778] + 16;
+                  v21 = pxrInternal__aapl__pxrReserved__::UsdObject::GetName(&v54);
                   if ((*v21 & 0xFFFFFFFFFFFFFFF8) != 0)
                   {
                     EmptyString = (*v21 & 0xFFFFFFFFFFFFFFF8) + 16;
@@ -4957,41 +4057,41 @@ uint64_t anonymous namespace::convertMaterial(uint64_t a1, pxrInternal__aapl__px
                   RIO_MTLX::Element::addChild<RIO_MTLX::NodeGraph>(v20, EmptyString);
                 }
 
-                if ((v59 & 7) != 0)
+                if ((v57 & 7) != 0)
                 {
-                  atomic_fetch_add_explicit((v59 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+                  atomic_fetch_add_explicit((v57 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
                 }
 
                 pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-                pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v58);
-                if (v57)
+                pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v56);
+                if (v55)
                 {
-                  pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v57);
+                  pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v55);
                 }
 
-                if ((v62 & 7) != 0)
+                if ((v60 & 7) != 0)
                 {
-                  atomic_fetch_add_explicit((v62 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+                  atomic_fetch_add_explicit((v60 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
                 }
 
-                MEMORY[0x24C1A5890](&v60);
+                MEMORY[0x24C1A5890](&v58);
               }
             }
 
-            pxrInternal__aapl__pxrReserved__::TfSmallVector<pxrInternal__aapl__pxrReserved__::UsdShadeConnectionSourceInfo,1u>::~TfSmallVector(&v81);
-            v6 = v53;
+            pxrInternal__aapl__pxrReserved__::TfSmallVector<pxrInternal__aapl__pxrReserved__::UsdShadeConnectionSourceInfo,1u>::~TfSmallVector(&v79);
+            v6 = v51;
           }
 
-          if ((v67 & 7) != 0)
+          if ((v65 & 7) != 0)
           {
-            atomic_fetch_add_explicit((v67 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+            atomic_fetch_add_explicit((v65 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
           }
 
           pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-          pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v66);
-          if (v65)
+          pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v64);
+          if (v63)
           {
-            pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v65);
+            pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v63);
           }
 
           v7 += 32;
@@ -5000,16 +4100,16 @@ uint64_t anonymous namespace::convertMaterial(uint64_t a1, pxrInternal__aapl__px
         while (v7 != v6);
       }
 
-      v87 = &v68;
-      std::vector<pxrInternal__aapl__pxrReserved__::UsdShadeInput>::__destroy_vector::operator()[abi:ne200100](&v87);
-      v80[0] = 0;
-      std::string::basic_string[abi:ne200100]<0>(&v78, "unknownNodeType");
-      ShaderId = pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetShaderId(&v72, v80);
+      v85 = &v66;
+      std::vector<pxrInternal__aapl__pxrReserved__::UsdShadeInput>::__destroy_vector::operator()[abi:ne200100](&v85);
+      v78[0] = 0;
+      std::string::basic_string[abi:ne200100]<0>(&v76, "unknownNodeType");
+      ShaderId = pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetShaderId(&v70, v78);
       if (ShaderId)
       {
-        if ((v80[0] & 0xFFFFFFFFFFFFFFF8) != 0)
+        if ((v78[0] & 0xFFFFFFFFFFFFFFF8) != 0)
         {
-          v24 = (v80[0] & 0xFFFFFFFFFFFFFFF8) + 16;
+          v24 = (v78[0] & 0xFFFFFFFFFFFFFFF8) + 16;
         }
 
         else
@@ -5017,17 +4117,17 @@ uint64_t anonymous namespace::convertMaterial(uint64_t a1, pxrInternal__aapl__px
           v24 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(ShaderId);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v87, "ND_");
-        std::string::basic_string[abi:ne200100]<0>(&v81, "_surfaceshader");
-        v25 = HIBYTE(v89);
-        if (v89 >= 0)
+        std::string::basic_string[abi:ne200100]<0>(&v85, "ND_");
+        std::string::basic_string[abi:ne200100]<0>(&v79, "_surfaceshader");
+        v25 = HIBYTE(v87);
+        if (v87 >= 0)
         {
-          v26 = &v87;
+          v26 = &v85;
         }
 
         else
         {
-          v26 = v87;
+          v26 = v85;
         }
 
         v27 = *(v24 + 23);
@@ -5043,158 +4143,156 @@ uint64_t anonymous namespace::convertMaterial(uint64_t a1, pxrInternal__aapl__px
         }
 
         v30 = strlen(v26);
-        if (v29 >= v30 && ((v31 = *v24, v27 >= 0) ? (v32 = v24) : (v32 = *v24), !strncmp(v32, v26, v30) && ((v33 = HIBYTE(v83), v83 >= 0) ? (v34 = &v81) : (v34 = v81), (v35 = strlen(v34), v29 >= v35) && !strcmp(&v32[v29 - v35], v34))))
+        if (v29 >= v30 && (v27 >= 0 ? (v31 = v24) : (v31 = *v24), !strncmp(v31, v26, v30) && ((v32 = HIBYTE(v81), v81 >= 0) ? (v33 = &v79) : (v33 = v79), (v34 = strlen(v33), v29 >= v34) && !strcmp(&v31[v29 - v34], v33))))
         {
-          if ((v33 & 0x80u) == 0)
+          if ((v32 & 0x80u) == 0)
           {
-            v41 = v33;
+            v39 = v32;
           }
 
           else
           {
-            v41 = v82;
+            v39 = v80;
           }
 
-          if (v41)
+          if (v39)
           {
-            v42 = &v32[v29];
-            if (v29 >= v41)
+            v40 = &v31[v29];
+            if (v29 >= v39)
             {
-              v49 = *v34;
-              v50 = v32;
+              v47 = *v33;
+              v48 = v31;
               do
               {
-                if (v29 - v41 == -1)
+                if (v29 - v39 == -1)
                 {
                   break;
                 }
 
-                v51 = memchr(v50, v49, v29 - v41 + 1);
-                if (!v51)
+                v49 = memchr(v48, v47, v29 - v39 + 1);
+                if (!v49)
                 {
                   break;
                 }
 
-                v43 = v51;
-                if (!memcmp(v51, v34, v41))
+                v41 = v49;
+                if (!memcmp(v49, v33, v39))
                 {
                   goto LABEL_108;
                 }
 
-                v50 = (v43 + 1);
-                v29 = v42 - (v43 + 1);
+                v48 = (v41 + 1);
+                v29 = v40 - (v41 + 1);
               }
 
-              while (v29 >= v41);
+              while (v29 >= v39);
             }
 
-            v43 = v42;
+            v41 = v40;
 LABEL_108:
-            v44 = v43 - v32;
-            if (v43 == v42)
+            v42 = v41 - v31;
+            if (v41 == v40)
             {
-              v44 = -1;
+              v42 = -1;
             }
           }
 
           else
           {
-            v44 = 0;
+            v42 = 0;
           }
 
           if ((v25 & 0x80u) == 0)
           {
-            v45 = v25;
+            v43 = v25;
           }
 
           else
           {
-            v45 = v88;
+            v43 = v86;
           }
 
-          std::string::basic_string(&v60, v24, v45, v44 - v45, &v77);
-          v46 = MEMORY[0x24C1A5E00](&v79, &v60);
-          if ((v79.__r_.__value_.__r.__words[0] & 0xFFFFFFFFFFFFFFF8) != 0)
+          std::string::basic_string(&v58, v24, v43, v42 - v43, &v75);
+          v44 = MEMORY[0x24C1A5E00](&v77, &v58);
+          if ((v77.__r_.__value_.__r.__words[0] & 0xFFFFFFFFFFFFFFF8) != 0)
           {
-            v47 = (v79.__r_.__value_.__r.__words[0] & 0xFFFFFFFFFFFFFFF8) + 16;
-          }
-
-          else
-          {
-            v47 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v46);
-          }
-
-          if (*(v47 + 23) < 0)
-          {
-            std::string::__init_copy_ctor_external(&v86, *v47, *(v47 + 8));
+            v45 = (v77.__r_.__value_.__r.__words[0] & 0xFFFFFFFFFFFFFFF8) + 16;
           }
 
           else
           {
-            v48 = *v47;
-            v86.__r_.__value_.__r.__words[2] = *(v47 + 16);
-            *&v86.__r_.__value_.__l.__data_ = v48;
+            v45 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v44);
           }
 
-          if ((v79.__r_.__value_.__s.__data_[0] & 7) != 0)
+          if (*(v45 + 23) < 0)
           {
-            atomic_fetch_add_explicit((v79.__r_.__value_.__r.__words[0] & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+            std::string::__init_copy_ctor_external(&v84, *v45, *(v45 + 8));
           }
 
-          if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
+          else
           {
-            operator delete(v60.__r_.__value_.__l.__data_);
+            v46 = *v45;
+            v84.__r_.__value_.__r.__words[2] = *(v45 + 16);
+            *&v84.__r_.__value_.__l.__data_ = v46;
+          }
+
+          if ((v77.__r_.__value_.__s.__data_[0] & 7) != 0)
+          {
+            atomic_fetch_add_explicit((v77.__r_.__value_.__r.__words[0] & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          }
+
+          if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v58.__r_.__value_.__l.__data_);
           }
         }
 
         else if (v27 < 0)
         {
-          std::string::__init_copy_ctor_external(&v86, *v24, v28);
+          std::string::__init_copy_ctor_external(&v84, *v24, v28);
         }
 
         else
         {
-          v36 = *v24;
-          v86.__r_.__value_.__r.__words[2] = *(v24 + 16);
-          *&v86.__r_.__value_.__l.__data_ = v36;
+          v35 = *v24;
+          v84.__r_.__value_.__r.__words[2] = *(v24 + 16);
+          *&v84.__r_.__value_.__l.__data_ = v35;
         }
 
-        if (SHIBYTE(v83) < 0)
+        if (SHIBYTE(v81) < 0)
         {
-          operator delete(v81);
+          operator delete(v79);
         }
 
-        if (SHIBYTE(v89) < 0)
+        if (SHIBYTE(v87) < 0)
         {
-          operator delete(v87);
+          operator delete(v85);
         }
 
-        if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v78.__r_.__value_.__l.__data_);
+          operator delete(v76.__r_.__value_.__l.__data_);
         }
 
-        v78 = v86;
+        v76 = v84;
       }
 
-      v37 = *a1;
-      pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(a2, &v81);
-      pxrInternal__aapl__pxrReserved__::SdfPath::GetString(&v81);
+      v36 = *a1;
+      pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(&v79, a2);
+      pxrInternal__aapl__pxrReserved__::SdfPath::GetString(&v79);
       ValidIdentifier = pxrInternal__aapl__pxrReserved__::TfMakeValidIdentifier();
       RIO_MTLX::SURFACE_SHADER_TYPE_STRING(ValidIdentifier);
-      RIO_MTLX::GraphElement::addNode(v37, &v78, &v87);
+      RIO_MTLX::GraphElement::addNode(v36, &v76, &v85);
     }
 
-    MEMORY[0x24C1A5280](&v72);
-    if ((v74 & 7) != 0)
+    MEMORY[0x24C1A5280](&v70);
+    if ((v72 & 7) != 0)
     {
-      atomic_fetch_add_explicit((v74 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((v72 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
   }
 
-  result = MEMORY[0x24C1A5510](&v75);
-  v40 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x24C1A5510](&v73);
 }
 
 void sub_2476AFC28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *__p, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52)
@@ -5209,15 +4307,15 @@ void sub_2476AFC28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     atomic_fetch_add_explicit((a51 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  MEMORY[0x24C1A5510](&a52);
+  MEMORY[0x24C1A5510](&a52, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void anonymous namespace::setInput(void *a1, RIO_MTLX::Input **a2, void *a3, pxrInternal__aapl__pxrReserved__::UsdProperty *this, void **a5)
+void anonymous namespace::setInput(void *a1, RIO_MTLX::Input **a2, void *a3, pxrInternal__aapl__pxrReserved__::UsdProperty *this, std::string *a5)
 {
   *a1 = 0;
   a1[1] = 0;
-  if (*a5 <= 7)
+  if (a5->__r_.__value_.__r.__words[0] <= 7)
   {
     pxrInternal__aapl__pxrReserved__::UsdProperty::GetBaseName(v30, this);
     if (v30 == a5)
@@ -5230,12 +4328,12 @@ void anonymous namespace::setInput(void *a1, RIO_MTLX::Input **a2, void *a3, pxr
 
     else
     {
-      if ((*a5 & 7) != 0)
+      if ((a5->__r_.__value_.__r.__words[0] & 7) != 0)
       {
-        atomic_fetch_add_explicit((*a5 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+        atomic_fetch_add_explicit((a5->__r_.__value_.__r.__words[0] & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
       }
 
-      *a5 = v30[0];
+      a5->__r_.__value_.__l.__data_ = v30[0];
     }
   }
 
@@ -5330,7 +4428,7 @@ void anonymous namespace::setInput(void *a1, RIO_MTLX::Input **a2, void *a3, pxr
   }
 
   fprintf(*MEMORY[0x277D85DF8], "\n Unhandled input type = %s\n", v15);
-  v16 = *a5 & 0xFFFFFFFFFFFFFFF8;
+  v16 = a5->__r_.__value_.__r.__words[0] & 0xFFFFFFFFFFFFFFF8;
   if (v16)
   {
     v17 = (v16 + 16);
@@ -5352,7 +4450,7 @@ void anonymous namespace::setInput(void *a1, RIO_MTLX::Input **a2, void *a3, pxr
   __p[0] = _D0;
   LODWORD(__p[1]) = 1065353216;
   v25 = RIO_MTLX::EMPTY_STRING(v19);
-  RIO_MTLX::InterfaceElement::setInputValue<RIO_MTLX::Color3>(&v26, v18, v30, __p, v25);
+  RIO_MTLX::InterfaceElement::setInputValue<RIO_MTLX::Color3>(v26, v18, v30, __p, v25);
   if (v27)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v27);
@@ -5380,7 +4478,7 @@ void sub_2476B0D78(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *anonymous namespace::mtlxTypeString(_anonymous_namespace_ *this, const pxrInternal__aapl__pxrReserved__::TfToken *a2)
+void *anonymous namespace::mtlxTypeString(_anonymous_namespace_ *this, const pxrInternal__aapl__pxrReserved__::TfToken *a2)
 {
   MEMORY[0x24C1A5DE0](&v12, "color3f");
   v4 = v12 ^ *a2;
@@ -5519,7 +4617,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::TfSmallVector<pxrInternal__aapl__pxrR
   return v1;
 }
 
-void RIO_MTLX::InterfaceElement::setInputValue<RIO_MTLX::Color3>(RIO_MTLX::Element **a1, RIO_MTLX::Input *a2, const void **a3, int *a4, uint64_t *a5)
+void RIO_MTLX::InterfaceElement::setInputValue<RIO_MTLX::Color3>(RIO_MTLX::Element **a1, RIO_MTLX::Input *a2, uint64_t *a3, float *a4, const std::string *a5)
 {
   RIO_MTLX::Element::getChildOfType<RIO_MTLX::Input>(a2, a3, a1);
   v11 = *a1;
@@ -5529,13 +4627,13 @@ void RIO_MTLX::InterfaceElement::setInputValue<RIO_MTLX::Color3>(RIO_MTLX::Eleme
     RIO_MTLX::InterfaceElement::addInput(a2, a3);
   }
 
-  v12 = *(a5 + 23);
-  if ((v12 & 0x80u) != 0)
+  size = HIBYTE(a5->__r_.__value_.__r.__words[2]);
+  if ((size & 0x80u) != 0)
   {
-    v12 = a5[1];
+    size = a5->__r_.__value_.__l.__size_;
   }
 
-  if (!v12)
+  if (!size)
   {
     v10 = RIO_MTLX::TypedValue<RIO_MTLX::Color3>::TYPE();
     a5 = &RIO_MTLX::TypedValue<RIO_MTLX::Color3>::TYPE(void)::v;
@@ -5563,7 +4661,7 @@ void sub_2476B1270(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void RIO_MTLX::InterfaceElement::setInputValue<int>(RIO_MTLX::Element **a1, RIO_MTLX::Input *a2, const void **a3, unsigned int *a4, const std::string *a5)
+void RIO_MTLX::InterfaceElement::setInputValue<int>(RIO_MTLX::Element **a1, RIO_MTLX::Input *a2, uint64_t *a3, unsigned int *a4, const std::string *a5)
 {
   RIO_MTLX::Element::getChildOfType<RIO_MTLX::Input>(a2, a3, a1);
   v11 = *a1;
@@ -5672,60 +4770,59 @@ void std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,std
   }
 }
 
-uint64_t realityio::internal::dumpDiagnostics(const void **a1, atomic_uint **a2)
+uint64_t realityio::internal::dumpDiagnostics(const void **a1, atomic_uint **a2, uint64_t a3, uint64_t a4)
 {
   v82 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 23);
-  if (v2 < 0)
+  v4 = *(a1 + 23);
+  if (v4 < 0)
   {
-    v2 = a1[1];
+    v4 = a1[1];
   }
 
-  if (!v2 || (pxrInternal__aapl__pxrReserved__::TfIsDir() & 1) == 0 && !pxrInternal__aapl__pxrReserved__::TfMakeDirs())
+  if (!v4 || (pxrInternal__aapl__pxrReserved__::TfIsDir() & 1) == 0 && !pxrInternal__aapl__pxrReserved__::TfMakeDirs())
   {
-    v12 = 0;
-    goto LABEL_158;
+    return 0;
   }
 
   v66[0] = *a2;
   pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::_AddRef(v66);
   if (*(a1 + 23) >= 0)
   {
-    v5 = *(a1 + 23);
+    v7 = *(a1 + 23);
   }
 
   else
   {
-    v5 = a1[1];
+    v7 = a1[1];
   }
 
-  std::string::basic_string[abi:ne200100](&v70, v5 + 14);
+  std::string::basic_string[abi:ne200100](&v70, v7 + 14);
   if ((v70.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v6 = &v70;
+    v8 = &v70;
   }
 
   else
   {
-    v6 = v70.__r_.__value_.__r.__words[0];
+    v8 = v70.__r_.__value_.__r.__words[0];
   }
 
-  if (v5)
+  if (v7)
   {
     if (*(a1 + 23) >= 0)
     {
-      v7 = a1;
+      v9 = a1;
     }
 
     else
     {
-      v7 = *a1;
+      v9 = *a1;
     }
 
-    memmove(v6, v7, v5);
+    memmove(v8, v9, v7);
   }
 
-  strcpy(v6 + v5, "/snapshot.usdz");
+  strcpy(v8 + v7, "/snapshot.usdz");
   std::string::basic_string[abi:ne200100]<0>(&__stream, "rootLayer");
   std::string::basic_string[abi:ne200100]<0>(&__p, ".usda");
   pxrInternal__aapl__pxrReserved__::ArchMakeTmpFileName();
@@ -5776,15 +4873,15 @@ uint64_t realityio::internal::dumpDiagnostics(const void **a1, atomic_uint **a2)
   pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::~TfRefPtr(v66);
   if (*(a1 + 23) >= 0)
   {
-    v8 = *(a1 + 23);
+    v10 = *(a1 + 23);
   }
 
   else
   {
-    v8 = a1[1];
+    v10 = a1[1];
   }
 
-  std::string::basic_string[abi:ne200100](&__s, v8 + 17);
+  std::string::basic_string[abi:ne200100](&__s, v10 + 17);
   if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_s = &__s;
@@ -5795,22 +4892,22 @@ uint64_t realityio::internal::dumpDiagnostics(const void **a1, atomic_uint **a2)
     p_s = __s.__r_.__value_.__r.__words[0];
   }
 
-  if (v8)
+  if (v10)
   {
     if (*(a1 + 23) >= 0)
     {
-      v10 = a1;
+      v12 = a1;
     }
 
     else
     {
-      v10 = *a1;
+      v12 = *a1;
     }
 
-    memmove(p_s, v10, v8);
+    memmove(p_s, v12, v10);
   }
 
-  strcpy(p_s + v8, "/snapshot.reality");
+  strcpy(p_s + v10, "/snapshot.reality");
   if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
   {
     if (!__s.__r_.__value_.__l.__size_)
@@ -5821,32 +4918,32 @@ LABEL_80:
     }
 
     std::string::__init_copy_ctor_external(&v72, __s.__r_.__value_.__l.__data_, __s.__r_.__value_.__l.__size_);
-    v11 = &__s;
+    v13 = &__s;
     if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v11 = __s.__r_.__value_.__r.__words[0];
+      v13 = __s.__r_.__value_.__r.__words[0];
     }
 
 LABEL_49:
-    if (v11->__r_.__value_.__s.__data_[0] != 47)
+    if (v13->__r_.__value_.__s.__data_[0] != 47)
     {
       getcwd(&__stream, 0x400uLL);
       std::string::basic_string[abi:ne200100]<0>(&v70, &__stream);
-      v13 = std::string::append(&v70, "/");
-      v14 = *&v13->__r_.__value_.__l.__data_;
-      __p.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
-      *&__p.__r_.__value_.__l.__data_ = v14;
-      v13->__r_.__value_.__l.__size_ = 0;
-      v13->__r_.__value_.__r.__words[2] = 0;
-      v13->__r_.__value_.__r.__words[0] = 0;
+      v15 = std::string::append(&v70, "/");
+      v16 = *&v15->__r_.__value_.__l.__data_;
+      __p.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
+      *&__p.__r_.__value_.__l.__data_ = v16;
+      v15->__r_.__value_.__l.__size_ = 0;
+      v15->__r_.__value_.__r.__words[2] = 0;
+      v15->__r_.__value_.__r.__words[0] = 0;
       if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v15 = &__s;
+        v17 = &__s;
       }
 
       else
       {
-        v15 = __s.__r_.__value_.__r.__words[0];
+        v17 = __s.__r_.__value_.__r.__words[0];
       }
 
       if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -5859,23 +4956,23 @@ LABEL_49:
         size = __s.__r_.__value_.__l.__size_;
       }
 
-      v17 = std::string::append(&__p, v15, size);
-      v18 = v17->__r_.__value_.__r.__words[0];
-      *v80 = v17->__r_.__value_.__l.__size_;
-      *&v80[7] = *(&v17->__r_.__value_.__r.__words[1] + 7);
-      v19 = HIBYTE(v17->__r_.__value_.__r.__words[2]);
-      v17->__r_.__value_.__l.__size_ = 0;
-      v17->__r_.__value_.__r.__words[2] = 0;
-      v17->__r_.__value_.__r.__words[0] = 0;
+      v19 = std::string::append(&__p, v17, size);
+      v20 = v19->__r_.__value_.__r.__words[0];
+      *v80 = v19->__r_.__value_.__l.__size_;
+      *&v80[7] = *(&v19->__r_.__value_.__r.__words[1] + 7);
+      v21 = HIBYTE(v19->__r_.__value_.__r.__words[2]);
+      v19->__r_.__value_.__l.__size_ = 0;
+      v19->__r_.__value_.__r.__words[2] = 0;
+      v19->__r_.__value_.__r.__words[0] = 0;
       if (SHIBYTE(v72.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v72.__r_.__value_.__l.__data_);
       }
 
-      v72.__r_.__value_.__r.__words[0] = v18;
+      v72.__r_.__value_.__r.__words[0] = v20;
       v72.__r_.__value_.__l.__size_ = *v80;
       *(&v72.__r_.__value_.__r.__words[1] + 7) = *&v80[7];
-      *(&v72.__r_.__value_.__s + 23) = v19;
+      *(&v72.__r_.__value_.__s + 23) = v21;
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -5894,23 +4991,23 @@ LABEL_49:
     v70.__r_.__value_.__r.__words[0] = REAssetManagerSceneAssetCreate();
     if ((v72.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v21 = &v72;
+      v23 = &v72;
     }
 
     else
     {
-      v21 = v72.__r_.__value_.__r.__words[0];
+      v23 = v72.__r_.__value_.__r.__words[0];
     }
 
-    v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:v21];
+    v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:v23];
     *v80 = RERealityFileWritingParametersCreate();
     RERealityFileWritingParametersSetMajorVersion();
     v67[0] = RERealityFileWriterCreateWithParameters();
     if (v67[0])
     {
       RERealityFileWriterSetMetadataString();
-      v23 = v22;
-      [v22 cStringUsingEncoding:4];
+      v25 = v24;
+      [v24 cStringUsingEncoding:4];
       if (RERealityFileWriterOpen())
       {
         v64[0] = REAssetManagerCreateAssetRequest();
@@ -5919,21 +5016,21 @@ LABEL_49:
         v74 = RERealityFileAssetWriteReportCreate();
         v73 = REAssetWithMetadataCreate();
         v66[1] = v73;
-        v24 = RERealityFileWriterWriteAssetArrayAndDependencies();
-        v25 = RERealityFileAssetWriteReportGetError();
-        if (v25)
+        v26 = RERealityFileWriterWriteAssetArrayAndDependencies();
+        v27 = RERealityFileAssetWriteReportGetError();
+        if (v27)
         {
-          v26 = CFErrorCopyDescription(v25);
-          realityio::CFStringCopyUTF8String(v26, &__stream);
+          v28 = CFErrorCopyDescription(v27);
+          realityio::CFStringCopyUTF8String(&__stream, v28);
           if (__stream == 1)
           {
-            v27 = &v76;
+            v29 = &v76;
             if (SHIBYTE(v78) < 0)
             {
-              v27 = v76;
+              v29 = v76;
             }
 
-            fprintf(*MEMORY[0x277D85DF8], "\n ERROR %s\n", v27);
+            fprintf(*MEMORY[0x277D85DF8], "\n ERROR %s\n", v29);
             if ((__stream & 1) != 0 && SHIBYTE(v78) < 0)
             {
               operator delete(v76);
@@ -5941,7 +5038,7 @@ LABEL_49:
           }
         }
 
-        else if (v24)
+        else if (v26)
         {
           RERealityFileWriterClose();
         }
@@ -5973,14 +5070,14 @@ LABEL_49:
   if (*(&__s.__r_.__value_.__s + 23))
   {
     v72 = __s;
-    v11 = &__s;
+    v13 = &__s;
     goto LABEL_49;
   }
 
 LABEL_81:
   std::string::basic_string[abi:ne200100]<0>(v64, "reality.json");
-  v28 = REEngineGetServiceLocator();
-  v29 = MEMORY[0x24C1A4230](v28);
+  v30 = REEngineGetServiceLocator();
+  v31 = MEMORY[0x24C1A4230](v30);
   v74 = RESceneCreate();
   RESceneAddEntity();
   v73 = REAssetManagerSceneAssetCreate();
@@ -6019,8 +5116,8 @@ LABEL_81:
       p_p = __p.__r_.__value_.__r.__words[0];
     }
 
-    v31 = fopen(p_p, "w");
-    if (v31)
+    v33 = fopen(p_p, "w");
+    if (v33)
     {
       std::string::basic_string[abi:ne200100]<0>(&__s, "assetLinks.sh");
       pxrInternal__aapl__pxrReserved__::TfStringCatPaths();
@@ -6031,36 +5128,35 @@ LABEL_81:
 
       if ((v70.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v32 = &v70;
+        v34 = &v70;
       }
 
       else
       {
-        v32 = v70.__r_.__value_.__r.__words[0];
+        v34 = v70.__r_.__value_.__r.__words[0];
       }
 
-      v33 = fopen(v32, "w");
-      if (v33)
+      v35 = fopen(v34, "w");
+      if (v35)
       {
-        fwrite("/bin/mkdir -p assetLinks\n", 0x19uLL, 1uLL, v33);
-        fwrite("{\n", 2uLL, 1uLL, v31);
-        v34 = v72.__r_.__value_.__r.__words[0];
+        fwrite("/bin/mkdir -p assetLinks\n", 0x19uLL, 1uLL, v35);
+        fwrite("{\n", 2uLL, 1uLL, v33);
+        v36 = v72.__r_.__value_.__r.__words[0];
         if (v72.__r_.__value_.__l.__data_ != &v72.__r_.__value_.__r.__words[1])
         {
-          v35 = 0;
+          v37 = 0;
           do
           {
-            v36 = v34[1].__words[1];
             Type = REAssetGetType();
-            v38 = Type;
+            v39 = Type;
             if (Type)
             {
               CStringPtr = CFStringGetCStringPtr(Type, 0x8000100u);
               if (!CStringPtr)
               {
-                Length = CFStringGetLength(v38);
+                Length = CFStringGetLength(v39);
                 MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-                v42 = MaximumSizeForEncoding;
+                v43 = MaximumSizeForEncoding;
                 if (MaximumSizeForEncoding >= 0x7FFFFFFFFFFFFFF8)
                 {
                   std::string::__throw_length_error[abi:ne200100]();
@@ -6077,18 +5173,7 @@ LABEL_81:
                   bzero(&__s, MaximumSizeForEncoding);
                 }
 
-                __s.__r_.__value_.__s.__data_[v42] = 0;
-                if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-                {
-                  v43 = &__s;
-                }
-
-                else
-                {
-                  v43 = __s.__r_.__value_.__r.__words[0];
-                }
-
-                CFStringGetCString(v38, v43, v42, 0x8000100u);
+                __s.__r_.__value_.__s.__data_[v43] = 0;
                 if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
                   v44 = &__s;
@@ -6099,8 +5184,19 @@ LABEL_81:
                   v44 = __s.__r_.__value_.__r.__words[0];
                 }
 
-                v45 = strlen(v44);
-                std::string::resize(&__s, v45, 0);
+                CFStringGetCString(v39, v44, v43, 0x8000100u);
+                if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                {
+                  v45 = &__s;
+                }
+
+                else
+                {
+                  v45 = __s.__r_.__value_.__r.__words[0];
+                }
+
+                v46 = strlen(v45);
+                std::string::resize(&__s, v46, 0);
                 goto LABEL_118;
               }
             }
@@ -6116,15 +5212,15 @@ LABEL_118:
             pxrInternal__aapl__pxrReserved__::TfMakeValidIdentifier();
             if (v68 >= 0)
             {
-              v48 = v67;
+              v49 = v67;
             }
 
             else
             {
-              v48 = v67[0];
+              v49 = v67[0];
             }
 
-            pxrInternal__aapl__pxrReserved__::TfStringPrintf(v80, "%llu.%s.json", v47, v35, v48);
+            pxrInternal__aapl__pxrReserved__::TfStringPrintf(v80, "%llu.%s.json", v48, v37, v49);
             if (v68 < 0)
             {
               operator delete(v67[0]);
@@ -6132,17 +5228,6 @@ LABEL_118:
 
             pxrInternal__aapl__pxrReserved__::TfStringCatPaths();
             REAssetSerializeToJSON();
-            if (v81 >= 0)
-            {
-              v49 = v80;
-            }
-
-            else
-            {
-              v49 = *v80;
-            }
-
-            fprintf(v33, "/bin/ln -sf ../%s assetLinks/asset.%llu\n", v49, AssetId);
             if (v81 >= 0)
             {
               v50 = v80;
@@ -6153,13 +5238,24 @@ LABEL_118:
               v50 = *v80;
             }
 
-            fprintf(v31, "  %s: %llu", v50, AssetId);
-            if (v35 != v72.__r_.__value_.__r.__words[2] - 1)
+            fprintf(v35, "/bin/ln -sf ../%s assetLinks/asset.%llu\n", v50, AssetId);
+            if (v81 >= 0)
             {
-              fputc(44, v31);
+              v51 = v80;
             }
 
-            fputc(10, v31);
+            else
+            {
+              v51 = *v80;
+            }
+
+            fprintf(v33, "  %s: %llu", v51, AssetId);
+            if (v37 != v72.__r_.__value_.__r.__words[2] - 1)
+            {
+              fputc(44, v33);
+            }
+
+            fputc(10, v33);
             if (v68 < 0)
             {
               operator delete(v67[0]);
@@ -6175,39 +5271,39 @@ LABEL_118:
               operator delete(__s.__r_.__value_.__l.__data_);
             }
 
-            v51 = v34->__words[1];
-            if (v51)
+            v52 = *(v36 + 8);
+            if (v52)
             {
               do
               {
-                v52 = v51;
-                v51 = v51->__r_.__value_.__r.__words[0];
+                v53 = v52;
+                v52 = v52->__r_.__value_.__r.__words[0];
               }
 
-              while (v51);
+              while (v52);
             }
 
             else
             {
               do
               {
-                v52 = v34->__words[2];
-                v53 = v52->__r_.__value_.__r.__words[0] == v34;
-                v34 = v52;
+                v53 = *(v36 + 16);
+                v54 = v53->__r_.__value_.__r.__words[0] == v36;
+                v36 = v53;
               }
 
-              while (!v53);
+              while (!v54);
             }
 
-            ++v35;
-            v34 = v52;
+            ++v37;
+            v36 = v53;
           }
 
-          while (v52 != &v72.__r_.__value_.__r.__words[1]);
+          while (v53 != &v72.__r_.__value_.__r.__words[1]);
         }
 
-        fwrite("}\n", 2uLL, 1uLL, v31);
-        fclose(v31);
+        fwrite("}\n", 2uLL, 1uLL, v33);
+        fclose(v33);
       }
 
       if (SHIBYTE(v70.__r_.__value_.__r.__words[2]) < 0)
@@ -6250,31 +5346,29 @@ LABEL_118:
   }
 
   fwrite("{\n", 2uLL, 1uLL, __stream);
-  v54 = __stream;
-  v55 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CoreRE"];
-  v56 = *MEMORY[0x277CBED58];
-  v57 = [v55 objectForInfoDictionaryKey:*MEMORY[0x277CBED58]];
-  v58 = [v57 intValue];
+  v55 = __stream;
+  v56 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CoreRE"];
+  v57 = *MEMORY[0x277CBED58];
+  v58 = [v56 objectForInfoDictionaryKey:*MEMORY[0x277CBED58]];
+  v59 = [v58 intValue];
 
-  fprintf(v54, "\tCoreREVersion: %lu,\n", v58);
-  v59 = __stream;
-  v60 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CoreRealityIO"];
-  v61 = [v60 objectForInfoDictionaryKey:v56];
-  LODWORD(v56) = [v61 intValue];
+  fprintf(v55, "\tCoreREVersion: %lu,\n", v59);
+  v60 = __stream;
+  v61 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CoreRealityIO"];
+  v62 = [v61 objectForInfoDictionaryKey:v57];
+  LODWORD(v57) = [v62 intValue];
 
-  fprintf(v59, "\tCoreRealityIOVersion: %lu\n", v56);
-  v12 = 1;
+  fprintf(v60, "\tCoreRealityIOVersion: %lu\n", v57);
+  v14 = 1;
   fwrite("}\n", 2uLL, 1uLL, __stream);
   MEMORY[0x24C1A5410](&__stream);
-LABEL_158:
-  v62 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v14;
 }
 
-void sub_2476B2110(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45, void *__p, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56, int a57, __int16 a58, char a59, char a60)
+void sub_2476B2110(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45, void *__p, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, uint64_t a53, uint64_t a55, void *a58, uint64_t a59, int a60, __int16 a61, char a62, char a63)
 {
   realityio::WrappedRERef<REAssetWithMetadata *>::~WrappedRERef(&a53);
-  realityio::WrappedRERef<RERealityFileAssetWriteReport *>::~WrappedRERef(&a54);
+  realityio::WrappedRERef<RERealityFileAssetWriteReport *>::~WrappedRERef(&a55);
   realityio::WrappedRERef<REAssetLoadRequest *>::~WrappedRERef(&a13);
   realityio::WrappedRERef<RERealityFileWriter *>::~WrappedRERef(&a21);
   realityio::WrappedRERef<RERealityFileWritingParameters *>::~WrappedRERef((v61 - 128));
@@ -6294,7 +5388,7 @@ void sub_2476B2110(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *realityio::WrappedRERef<REAssetWithMetadata *>::~WrappedRERef(void *a1)
+uint64_t *realityio::WrappedRERef<REAssetWithMetadata *>::~WrappedRERef(uint64_t *a1)
 {
   if (*a1)
   {
@@ -6305,7 +5399,7 @@ void *realityio::WrappedRERef<REAssetWithMetadata *>::~WrappedRERef(void *a1)
   return a1;
 }
 
-void *realityio::WrappedRERef<RERealityFileAssetWriteReport *>::~WrappedRERef(void *a1)
+uint64_t *realityio::WrappedRERef<RERealityFileAssetWriteReport *>::~WrappedRERef(uint64_t *a1)
 {
   if (*a1)
   {
@@ -6316,7 +5410,7 @@ void *realityio::WrappedRERef<RERealityFileAssetWriteReport *>::~WrappedRERef(vo
   return a1;
 }
 
-void *realityio::WrappedRERef<RERealityFileWriter *>::~WrappedRERef(void *a1)
+uint64_t *realityio::WrappedRERef<RERealityFileWriter *>::~WrappedRERef(uint64_t *a1)
 {
   if (*a1)
   {
@@ -6327,7 +5421,7 @@ void *realityio::WrappedRERef<RERealityFileWriter *>::~WrappedRERef(void *a1)
   return a1;
 }
 
-void *realityio::WrappedRERef<RERealityFileWritingParameters *>::~WrappedRERef(void *a1)
+uint64_t *realityio::WrappedRERef<RERealityFileWritingParameters *>::~WrappedRERef(uint64_t *a1)
 {
   if (*a1)
   {
@@ -6338,10 +5432,10 @@ void *realityio::WrappedRERef<RERealityFileWritingParameters *>::~WrappedRERef(v
   return a1;
 }
 
-void *realityio::internal::anonymous namespace::getDependentAssets(unint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t *realityio::internal::anonymous namespace::getDependentAssets(unint64_t a1, uint64_t a2, uint64_t **a3)
 {
-  v6 = (a3 + 8);
-  v5 = *(a3 + 8);
+  v6 = a3 + 1;
+  v5 = a3[1];
   if (!v5)
   {
 LABEL_7:
@@ -6385,26 +5479,18 @@ LABEL_7:
     for (i = 0; i != Size; ++i)
     {
       Asset = REAssetDynamicArrayGetAsset();
-      v12 = *v6;
-      if (*v6)
+      for (j = *v6; j; j = *j)
       {
-        do
+        v13 = j[4];
+        if (Asset >= v13)
         {
-          v13 = v12[4];
-          if (Asset >= v13)
+          if (v13 >= Asset)
           {
-            if (v13 >= Asset)
-            {
-              goto LABEL_16;
-            }
-
-            ++v12;
+            goto LABEL_16;
           }
 
-          v12 = *v12;
+          ++j;
         }
-
-        while (v12);
       }
 
 LABEL_16:
@@ -6415,9 +5501,9 @@ LABEL_16:
   return realityio::WrappedRERef<REAssetDynamicArray *>::~WrappedRERef(&v15);
 }
 
-void sub_2476B26B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2476B26B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   realityio::WrappedRERef<REAssetDynamicArray *>::~WrappedRERef(va);
   _Unwind_Resume(a1);
 }
@@ -6426,16 +5512,16 @@ void realityio::PhysicsRigidBodyComponentBuilder::PhysicsRigidBodyComponentBuild
 {
   __src[3] = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:ne200100]<0>(__src, "PhysicsRigidBodyComponentBuilder");
-  std::string::basic_string[abi:ne200100]<0>(&__p, realityio::kPhysicsRigidBodyComponentBuilderIdentifier);
+  std::string::basic_string[abi:ne200100]<0>(__p, realityio::kPhysicsRigidBodyComponentBuilderIdentifier);
   realityio::generatePhysicsRigidBodyDirtyStageSubscription(&v4);
   v7[0] = &unk_28595C348;
   v7[3] = v7;
   v6[0] = &unk_28595C3C8;
   v6[3] = v6;
-  realityio::DynamicBuilder::DynamicBuilder(this, a2);
+  realityio::DynamicBuilder::DynamicBuilder(this, a2, __src, __p, &v4, v7, v6);
 }
 
-void sub_2476B2834(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22)
+void sub_2476B2834(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22)
 {
   std::__function::__value_func<std::shared_ptr<realityio::OutputsDescriptor const> ()(pxrInternal__aapl__pxrReserved__::SdfPath const&)>::~__value_func[abi:ne200100](&a18);
   std::__function::__value_func<std::shared_ptr<realityio::InputsDescriptor const> ()(pxrInternal__aapl__pxrReserved__::SdfPath const&)>::~__value_func[abi:ne200100](&a22);
@@ -6457,21 +5543,21 @@ void sub_2476B2834(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t realityio::PhysicsRigidBodyComponentBuilder::run(realityio::PhysicsRigidBodyComponentBuilder *this, std::__shared_weak_count **a2)
+uint64_t realityio::PhysicsRigidBodyComponentBuilder::run(realityio::PhysicsRigidBodyComponentBuilder *this, realityio::Inputs *a2)
 {
-  v85 = *MEMORY[0x277D85DE8];
-  v4 = (a2 + 4);
-  v5 = pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->(&(*a2)->__shared_owners_);
-  pxrInternal__aapl__pxrReserved__::UsdStage::GetPrimAtPath(&v71, v5, v4);
-  v70 = 0;
+  v83 = *MEMORY[0x277D85DE8];
+  v4 = (a2 + 32);
+  pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*a2 + 8));
+  pxrInternal__aapl__pxrReserved__::UsdStage::GetPrimAtPath(&v69, v5, v4);
+  v68 = 0;
   MEMORY[0x24C1A5DE0](buf, "physics:mass");
   v7 = atomic_load(MEMORY[0x277D86598]);
   if (!v7)
   {
-    pxrInternal__aapl__pxrReserved__::TfStaticData<pxrInternal__aapl__pxrReserved__::AaplUsdPhysicsTokensType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<pxrInternal__aapl__pxrReserved__::AaplUsdPhysicsTokensType>>::_TryToCreateData();
+    pxrInternal__aapl__pxrReserved__::TfStaticData<pxrInternal__aapl__pxrReserved__::AaplUsdPhysicsTokensType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<pxrInternal__aapl__pxrReserved__::AaplUsdPhysicsTokensType>>::_TryToCreateData(MEMORY[0x277D86598]);
   }
 
-  UsdPhysicsAttributeDoubleValue = realityio::getUsdPhysicsAttributeDoubleValue(&v71, buf, (v7 + 64), &v70, v6);
+  UsdPhysicsAttributeDoubleValue = realityio::getUsdPhysicsAttributeDoubleValue(&v69, buf, (v7 + 64), &v68, v6);
   if ((buf[0] & 7) != 0)
   {
     atomic_fetch_add_explicit((*buf & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
@@ -6483,61 +5569,61 @@ uint64_t realityio::PhysicsRigidBodyComponentBuilder::run(realityio::PhysicsRigi
     v10 = *(realityio::logObjects(UsdPhysicsAttributeDoubleValue) + 24);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(&v71, &v68);
-      v2 = &v68;
-      Text = pxrInternal__aapl__pxrReserved__::SdfPath::GetText(&v68);
+      pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(&v66, &v69);
+      v2 = &v66;
+      Text = pxrInternal__aapl__pxrReserved__::SdfPath::GetText(&v66);
       *buf = 136315138;
       *&buf[4] = Text;
       _os_log_impl(&dword_247485000, v10, OS_LOG_TYPE_INFO, "Updating entity's rigid body for prim %s", buf, 0xCu);
       pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-      pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v68);
+      pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v66);
     }
 
     v13 = realityio::EntityBuilder::kInputName(v12);
-    realityio::Inputs::_getValue<realityio::WrappedRERef<REEntity *>>(a2, v13, &v68);
-    if (v68)
+    realityio::Inputs::_getValue<realityio::WrappedRERef<REEntity *>>(a2, v13, &v66);
+    if (v66)
     {
-      v14 = v69;
-      v67 = v69;
-      if (v69)
+      v14 = v67;
+      v65 = v67;
+      if (v67)
       {
         v15 = RERetain();
         v16 = realityio::PhysicsMaterialAssetBuilder::kOutputName(v15);
-        realityio::Inputs::_getValue<REAsset *>(a2, v16, v63);
-        if (v63[0] != 1 || !v64)
+        realityio::Inputs::_getValue<REAsset *>(a2, v16, v61);
+        if (v61[0] != 1 || !v62)
         {
-          v36 = *(realityio::logObjects(v17) + 24);
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+          v35 = *(realityio::logObjects(v17) + 24);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_247485000, v36, OS_LOG_TYPE_DEFAULT, "No physics material asset exists for the rigid body. The rigid body's component will not be created", buf, 2u);
+            _os_log_impl(&dword_247485000, v35, OS_LOG_TYPE_DEFAULT, "No physics material asset exists for the rigid body. The rigid body's component will not be created", buf, 2u);
           }
 
           goto LABEL_69;
         }
 
         v18 = realityio::PhysicsColliderComponentBuilder::kOutputName(v17);
-        v78 = 0;
-        v79 = 0;
-        v19 = a2[3];
+        v76 = 0;
+        v77 = 0;
+        v19 = *(a2 + 3);
         if (v19)
         {
-          v79 = std::__shared_weak_count::lock(v19);
-          if (v79)
+          v77 = std::__shared_weak_count::lock(v19);
+          if (v77)
           {
-            v78 = a2[2];
+            v76 = *(a2 + 2);
           }
         }
 
-        MEMORY[0x24C1A5E00](&v80, v18);
-        v20 = std::__hash_table<std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>,std::__unordered_map_hasher<realityio::BuilderAndIOName,std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>,realityio::BuilderAndIOName::Hash,std::equal_to<realityio::BuilderAndIOName>,true>,std::__unordered_map_equal<realityio::BuilderAndIOName,std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>,std::equal_to<realityio::BuilderAndIOName>,realityio::BuilderAndIOName::Hash,true>,std::allocator<std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>>>::__equal_range_multi<realityio::BuilderAndIOName>(a2[1], &v78);
+        MEMORY[0x24C1A5E00](&v78, v18);
+        v20 = std::__hash_table<std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>,std::__unordered_map_hasher<realityio::BuilderAndIOName,std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>,realityio::BuilderAndIOName::Hash,std::equal_to<realityio::BuilderAndIOName>,true>,std::__unordered_map_equal<realityio::BuilderAndIOName,std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>,std::equal_to<realityio::BuilderAndIOName>,realityio::BuilderAndIOName::Hash,true>,std::allocator<std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>>>::__equal_range_multi<realityio::BuilderAndIOName>(*(a2 + 1), &v76);
         if (v20 == v21)
         {
           std::operator+<char>();
-          v22 = std::string::append(&v75, ") at prim path (");
+          v22 = std::string::append(&v73, ") at prim path (");
           v23 = *&v22->__r_.__value_.__l.__data_;
-          v76.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
-          *&v76.__r_.__value_.__l.__data_ = v23;
+          v74.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
+          *&v74.__r_.__value_.__l.__data_ = v23;
           v22->__r_.__value_.__l.__size_ = 0;
           v22->__r_.__value_.__r.__words[2] = 0;
           v22->__r_.__value_.__r.__words[0] = 0;
@@ -6563,35 +5649,35 @@ uint64_t realityio::PhysicsRigidBodyComponentBuilder::run(realityio::PhysicsRigi
             v27 = *(String + 8);
           }
 
-          v28 = std::string::append(&v76, v26, v27);
+          v28 = std::string::append(&v74, v26, v27);
           v29 = *&v28->__r_.__value_.__l.__data_;
-          v77.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
-          *&v77.__r_.__value_.__l.__data_ = v29;
+          v75.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
+          *&v75.__r_.__value_.__l.__data_ = v29;
           v28->__r_.__value_.__l.__size_ = 0;
           v28->__r_.__value_.__r.__words[2] = 0;
           v28->__r_.__value_.__r.__words[0] = 0;
-          v30 = std::string::append(&v77, ")");
+          v30 = std::string::append(&v75, ")");
         }
 
         else
         {
-          v37 = 1;
-          v38 = v20;
+          v36 = 1;
+          v37 = v20;
           do
           {
-            v38 = *v38;
-            --v37;
+            v37 = *v37;
+            --v36;
           }
 
-          while (v38 != v21);
-          if (!v37)
+          while (v37 != v21);
+          if (!v36)
           {
-            v55 = v20[5];
-            v49 = *(v55 + 16);
-            v56 = *(v55 + 24);
-            if (v56)
+            v53 = v20[5];
+            v48 = *(v53 + 16);
+            v54 = *(v53 + 24);
+            if (v54)
             {
-              atomic_fetch_add_explicit(&v56->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v54->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
             if ((v20[7] & 0xFFFFFFFFFFFFFFF8) != 0)
@@ -6604,59 +5690,59 @@ uint64_t realityio::PhysicsRigidBodyComponentBuilder::run(realityio::PhysicsRigi
               EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v20);
             }
 
-            realityio::Outputs::getRawValue<RECollisionShape *>(v49, EmptyString, buf);
-            v50 = buf[0];
+            realityio::Outputs::getRawValue<RECollisionShape *>(v48, EmptyString, buf);
+            v49 = buf[0];
             if (buf[0])
             {
-              *&v58 = *&buf[8];
+              *&v56 = *&buf[8];
             }
 
             else
             {
-              v81 = *&buf[8];
-              if (SHIBYTE(v84.__r_.__value_.__r.__words[2]) < 0)
+              v79 = *&buf[8];
+              if (SHIBYTE(v82.__r_.__value_.__r.__words[2]) < 0)
               {
-                std::string::__init_copy_ctor_external(&v82, v84.__r_.__value_.__l.__data_, v84.__r_.__value_.__l.__size_);
-                v59 = buf[0] | ((v84.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0);
+                std::string::__init_copy_ctor_external(&v80, v82.__r_.__value_.__l.__data_, v82.__r_.__value_.__l.__size_);
+                v57 = buf[0] | ((v82.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0);
               }
 
               else
               {
-                v82 = v84;
-                v59 = 1;
+                v80 = v82;
+                v57 = 1;
               }
 
-              v58 = v81;
-              size = v82.__r_.__value_.__l.__size_;
-              v49 = v82.__r_.__value_.__r.__words[0];
-              LOBYTE(v2) = *(&v82.__r_.__value_.__s + 23);
-              if ((v59 & 1) == 0)
+              v56 = v79;
+              size = v80.__r_.__value_.__l.__size_;
+              v48 = v80.__r_.__value_.__r.__words[0];
+              LOBYTE(v2) = *(&v80.__r_.__value_.__s + 23);
+              if ((v57 & 1) == 0)
               {
-                v61 = v81;
-                operator delete(v84.__r_.__value_.__l.__data_);
-                v58 = v61;
+                v59 = v79;
+                operator delete(v82.__r_.__value_.__l.__data_);
+                v56 = v59;
               }
             }
 
-            if (v56)
+            if (v54)
             {
-              v62 = v58;
-              std::__shared_weak_count::__release_shared[abi:ne200100](v56);
-              v58 = v62;
+              v60 = v56;
+              std::__shared_weak_count::__release_shared[abi:ne200100](v54);
+              v56 = v60;
             }
 
-            v48 = v58;
-            if ((v50 & 1) == 0)
+            v47 = v56;
+            if ((v49 & 1) == 0)
             {
-              *buf = v58;
+              *buf = v56;
               if ((v2 & 0x80) != 0)
               {
-                std::string::__init_copy_ctor_external(&buf[16], v49, size);
-                v48 = *buf;
-                v60 = *&buf[16];
-                LOBYTE(v2) = v84.__r_.__value_.__s.__data_[15];
-                operator delete(v49);
-                v49 = v60;
+                std::string::__init_copy_ctor_external(&buf[16], v48, size);
+                v47 = *buf;
+                v58 = *&buf[16];
+                LOBYTE(v2) = v82.__r_.__value_.__s.__data_[15];
+                operator delete(v48);
+                v48 = v58;
               }
             }
 
@@ -6664,70 +5750,60 @@ uint64_t realityio::PhysicsRigidBodyComponentBuilder::run(realityio::PhysicsRigi
           }
 
           std::operator+<char>();
-          v39 = std::string::append(&v75, ") at prim path (");
-          v40 = *&v39->__r_.__value_.__l.__data_;
-          v76.__r_.__value_.__r.__words[2] = v39->__r_.__value_.__r.__words[2];
-          *&v76.__r_.__value_.__l.__data_ = v40;
-          v39->__r_.__value_.__l.__size_ = 0;
-          v39->__r_.__value_.__r.__words[2] = 0;
-          v39->__r_.__value_.__r.__words[0] = 0;
-          v41 = pxrInternal__aapl__pxrReserved__::SdfPath::GetString(v4);
-          v42 = *(v41 + 23);
-          if (v42 >= 0)
+          v38 = std::string::append(&v73, ") at prim path (");
+          v39 = *&v38->__r_.__value_.__l.__data_;
+          v74.__r_.__value_.__r.__words[2] = v38->__r_.__value_.__r.__words[2];
+          *&v74.__r_.__value_.__l.__data_ = v39;
+          v38->__r_.__value_.__l.__size_ = 0;
+          v38->__r_.__value_.__r.__words[2] = 0;
+          v38->__r_.__value_.__r.__words[0] = 0;
+          v40 = pxrInternal__aapl__pxrReserved__::SdfPath::GetString(v4);
+          v41 = *(v40 + 23);
+          if (v41 >= 0)
           {
-            v43 = v41;
+            v42 = v40;
           }
 
           else
           {
-            v43 = *v41;
+            v42 = *v40;
           }
 
-          if (v42 >= 0)
+          if (v41 >= 0)
           {
-            v44 = *(v41 + 23);
+            v43 = *(v40 + 23);
           }
 
           else
           {
-            v44 = *(v41 + 8);
+            v43 = *(v40 + 8);
           }
 
-          v45 = std::string::append(&v76, v43, v44);
-          v46 = *&v45->__r_.__value_.__l.__data_;
-          v77.__r_.__value_.__r.__words[2] = v45->__r_.__value_.__r.__words[2];
-          *&v77.__r_.__value_.__l.__data_ = v46;
-          v45->__r_.__value_.__l.__size_ = 0;
-          v45->__r_.__value_.__r.__words[2] = 0;
-          v45->__r_.__value_.__r.__words[0] = 0;
-          v30 = std::string::append(&v77, ") because more than one connected builder produced the same output type");
+          v44 = std::string::append(&v74, v42, v43);
+          v45 = *&v44->__r_.__value_.__l.__data_;
+          v75.__r_.__value_.__r.__words[2] = v44->__r_.__value_.__r.__words[2];
+          *&v75.__r_.__value_.__l.__data_ = v45;
+          v44->__r_.__value_.__l.__size_ = 0;
+          v44->__r_.__value_.__r.__words[2] = 0;
+          v44->__r_.__value_.__r.__words[0] = 0;
+          v30 = std::string::append(&v75, ") because more than one connected builder produced the same output type");
         }
 
-        v47 = *&v30->__r_.__value_.__l.__data_;
-        v82.__r_.__value_.__r.__words[0] = v30->__r_.__value_.__r.__words[2];
-        v81 = v47;
+        v46 = *&v30->__r_.__value_.__l.__data_;
+        v80.__r_.__value_.__r.__words[0] = v30->__r_.__value_.__r.__words[2];
+        v79 = v46;
         v30->__r_.__value_.__l.__size_ = 0;
         v30->__r_.__value_.__r.__words[2] = 0;
         v30->__r_.__value_.__r.__words[0] = 0;
-        realityio::DetailedError::DetailedError(buf, 204, &realityio::FoundationErrorCategory(void)::instance, &v81);
-        v48 = *buf;
-        v49 = *&buf[16];
-        LOBYTE(v2) = v84.__r_.__value_.__s.__data_[15];
+        realityio::DetailedError::DetailedError(buf, 204, &realityio::FoundationErrorCategory(void)::instance, &v79);
+        v47 = *buf;
+        v48 = *&buf[16];
+        LOBYTE(v2) = v82.__r_.__value_.__s.__data_[15];
         *&buf[16] = 0;
-        *&v84.__r_.__value_.__l.__data_ = 0uLL;
-        if (v82.__r_.__value_.__s.__data_[7] < 0)
+        *&v82.__r_.__value_.__l.__data_ = 0uLL;
+        if (v80.__r_.__value_.__s.__data_[7] < 0)
         {
-          operator delete(v81);
-        }
-
-        if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v77.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v76.__r_.__value_.__l.__data_);
+          operator delete(v79);
         }
 
         if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
@@ -6735,67 +5811,76 @@ uint64_t realityio::PhysicsRigidBodyComponentBuilder::run(realityio::PhysicsRigi
           operator delete(v75.__r_.__value_.__l.__data_);
         }
 
-        v50 = 0;
+        if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v74.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v73.__r_.__value_.__l.__data_);
+        }
+
+        v49 = 0;
 LABEL_55:
-        if ((v80 & 7) != 0)
+        if ((v78 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v80 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v78 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
-        v51 = v79;
-        if (v79)
+        v50 = v77;
+        if (v77)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v79);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v77);
         }
 
-        if (v50)
+        if (v49)
         {
-          *&v81 = v48;
-          if (v48)
+          *&v79 = v47;
+          if (v47)
           {
-            v52 = a2[6];
             operator new();
           }
         }
 
-        v53 = *(realityio::logObjects(v51) + 24);
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+        v51 = *(realityio::logObjects(v50) + 24);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_247485000, v53, OS_LOG_TYPE_DEFAULT, "No physics collision shape exists for the rigid body. The rigid body's component will not be created.", buf, 2u);
+          _os_log_impl(&dword_247485000, v51, OS_LOG_TYPE_DEFAULT, "No physics collision shape exists for the rigid body. The rigid body's component will not be created.", buf, 2u);
         }
 
         if (v2 >= 0)
         {
-          v54 = 1;
+          v52 = 1;
         }
 
         else
         {
-          v54 = v50;
+          v52 = v49;
         }
 
-        if ((v54 & 1) == 0)
+        if ((v52 & 1) == 0)
         {
-          operator delete(v49);
+          operator delete(v48);
         }
 
 LABEL_69:
-        if ((v63[0] & 1) == 0 && v66 < 0)
+        if ((v61[0] & 1) == 0 && v64 < 0)
         {
           operator delete(__p);
         }
 
 LABEL_28:
-        realityio::WrappedRERef<REEntity *>::~WrappedRERef(&v67);
-        realityio::Result<realityio::WrappedRERef<REEntity *>,realityio::DetailedError>::~Result(&v68);
+        realityio::WrappedRERef<REEntity *>::~WrappedRERef(&v65);
+        realityio::Result<realityio::WrappedRERef<REEntity *>,realityio::DetailedError>::~Result(&v66);
         goto LABEL_29;
       }
     }
 
     else
     {
-      v67 = 0;
+      v65 = 0;
     }
 
     v33 = *(realityio::logObjects(v14) + 24);
@@ -6811,34 +5896,33 @@ LABEL_28:
   v31 = *(realityio::logObjects(UsdPhysicsAttributeDoubleValue) + 24);
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
-    pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(&v71, &v68);
-    v32 = pxrInternal__aapl__pxrReserved__::SdfPath::GetText(&v68);
+    pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(&v66, &v69);
+    v32 = pxrInternal__aapl__pxrReserved__::SdfPath::GetText(&v66);
     *buf = 136315138;
     *&buf[4] = v32;
     _os_log_impl(&dword_247485000, v31, OS_LOG_TYPE_DEFAULT, "Could not retrieve mass value from the attribute on prim: %s", buf, 0xCu);
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v68);
+    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v66);
   }
 
 LABEL_29:
-  if ((v74 & 7) != 0)
+  if ((v72 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v74 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v72 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v73);
-  result = v72;
-  if (v72)
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v71);
+  result = v70;
+  if (v70)
   {
-    result = pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v72);
+    return pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v70);
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2476B3034(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, uint64_t a47, void *a48, uint64_t a49, int a50, __int16 a51, char a52, char a53)
+void sub_2476B3034(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, uint64_t a47, void *a48, uint64_t a49, int a50, __int16 a51, char a52, char a53)
 {
   operator delete(v53);
   v56 = *(v54 - 184);
@@ -6866,22 +5950,20 @@ void sub_2476B3034(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t realityio::PhysicsRigidBodyComponentBuilder::clear(realityio::PhysicsRigidBodyComponentBuilder *this, realityio::Inputs *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v2 = *(a2 + 6);
-  v5 = a2;
-  v6[0] = &unk_28595C548;
-  v6[1] = &v5;
-  v6[2] = this;
-  v6[3] = v6;
-  (*(*v2 + 16))(v2, v6);
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v4 = a2;
+  v5[0] = &unk_28595C548;
+  v5[1] = &v4;
+  v5[2] = this;
+  v5[3] = v5;
+  (*(*v2 + 16))(v2, v5);
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_2476B32CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2476B32CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6989,25 +6071,14 @@ __n128 std::__function::__func<realityio::PhysicsRigidBodyComponentBuilder::run(
 
 void std::__function::__func<realityio::PhysicsRigidBodyComponentBuilder::run(realityio::Inputs *)::$_0,std::allocator<realityio::PhysicsRigidBodyComponentBuilder::run(realityio::Inputs *)::$_0>,void ()(void)>::operator()(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 24);
-  v4 = **(a1 + 16);
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
-  v9 = 0u;
-  v5 = *v3;
   REMakeMassFrameFromShapeAndMass();
-  v6 = **(a1 + 32);
   RERigidBodyComponentGetComponentType();
-  v7 = *(a1 + 48);
   operator new();
 }
 
-void sub_2476B3A98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_2476B3A98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::__function::__value_func<void ()(REComponent *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7036,14 +6107,8 @@ __n128 _ZNKSt3__110__function6__funcIZZN9realityio32PhysicsRigidBodyComponentBui
 uint64_t _ZNSt3__110__function6__funcIZZN9realityio32PhysicsRigidBodyComponentBuilder3runEPNS2_6InputsEENK3__0clEvEUlT_E_NS_9allocatorIS8_EEFvP11REComponentEEclEOSC_(uint64_t a1, uint64_t *a2)
 {
   realityio::Builder::addComponent(*(a1 + 8), *a2);
-  v3 = **(a1 + 16);
   RERigidBodyComponentSetMaterial();
   RERigidBodyComponentSetMotionType();
-  v4 = *(a1 + 24);
-  v8 = v4[2];
-  v9 = v4[3];
-  v6 = *v4;
-  v7 = v4[1];
   return RERigidBodyComponentSetMassFrame();
 }
 
@@ -7073,36 +6138,35 @@ uint64_t std::__function::__func<realityio::PhysicsRigidBodyComponentBuilder::cl
   v1 = *(a1 + 16);
   v2 = **(a1 + 8);
   v3 = realityio::EntityBuilder::kInputName(a1);
-  realityio::Inputs::_getValue<realityio::WrappedRERef<REEntity *>>(v2, v3, v9);
-  if (v9[0])
+  realityio::Inputs::_getValue<realityio::WrappedRERef<REEntity *>>(v2, v3, v8);
+  if (v8[0])
   {
-    v8 = v10;
-    if (v10)
+    v7 = v9;
+    if (v9)
     {
       RERetain();
       v4 = *(v1 + 280);
       v5 = *(v1 + 288);
       while (v4 != v5)
       {
-        v6 = *v4;
         REEntityRemoveComponentByClass();
-        ++v4;
+        v4 += 8;
       }
     }
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  realityio::WrappedRERef<REEntity *>::~WrappedRERef(&v8);
-  return realityio::Result<realityio::WrappedRERef<REEntity *>,realityio::DetailedError>::~Result(v9);
+  realityio::WrappedRERef<REEntity *>::~WrappedRERef(&v7);
+  return realityio::Result<realityio::WrappedRERef<REEntity *>,realityio::DetailedError>::~Result(v8);
 }
 
-void sub_2476B3DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2476B3DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   realityio::Result<realityio::WrappedRERef<REEntity *>,realityio::DetailedError>::~Result(va);
   _Unwind_Resume(a1);
 }
@@ -7121,22 +6185,7 @@ uint64_t std::__function::__func<realityio::PhysicsRigidBodyComponentBuilder::cl
 
 uint64_t realityio::replication::write(uint64_t a1, uint64_t *a2)
 {
-  if (*(a2 + 23) >= 0)
-  {
-    v3 = *(a2 + 23);
-  }
-
-  else
-  {
-    v3 = a2[1];
-  }
-
   std::ostream::write();
-  if (*(a2 + 23) < 0)
-  {
-    v4 = *a2;
-  }
-
   return std::ostream::write();
 }
 
@@ -7163,15 +6212,15 @@ uint64_t realityio::replication::write(pxrInternal__aapl__pxrReserved__::TfToken
   return realityio::replication::write(a1, EmptyString);
 }
 
-void *realityio::replication::details::writeMap<pxrInternal__aapl__pxrReserved__::VtDictionary>(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtDictionary *this)
+__int128 *realityio::replication::details::writeMap<pxrInternal__aapl__pxrReserved__::VtDictionary>(pxrInternal__aapl__pxrReserved__::TfToken *a1, pxrInternal__aapl__pxrReserved__::VtDictionary *this)
 {
-  v20[2] = *MEMORY[0x277D85DE8];
-  v19.__r_.__value_.__r.__words[0] = pxrInternal__aapl__pxrReserved__::VtDictionary::size(this);
+  v19[2] = *MEMORY[0x277D85DE8];
+  v18.__r_.__value_.__r.__words[0] = pxrInternal__aapl__pxrReserved__::VtDictionary::size(this);
   std::ostream::write();
   v4 = pxrInternal__aapl__pxrReserved__::VtDictionary::begin(this);
   v6 = v5;
-  v16 = v4;
-  v17 = v5;
+  v15 = v4;
+  v16 = v5;
   result = pxrInternal__aapl__pxrReserved__::VtDictionary::end(this);
   v9 = result;
   v10 = v8;
@@ -7190,41 +6239,40 @@ void *realityio::replication::details::writeMap<pxrInternal__aapl__pxrReserved__
   {
     do
     {
-      std::pair<std::string const,pxrInternal__aapl__pxrReserved__::VtValue>::pair[abi:ne200100](&v19, (v4 + 32));
-      if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+      std::pair<std::string const,pxrInternal__aapl__pxrReserved__::VtValue>::pair[abi:ne200100](&v18, v4 + 2);
+      if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p, v19.__r_.__value_.__l.__data_, v19.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&__p, v18.__r_.__value_.__l.__data_, v18.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        __p = v19;
+        __p = v18;
       }
 
-      pxrInternal__aapl__pxrReserved__::VtValue::VtValue(v18, v20);
+      pxrInternal__aapl__pxrReserved__::VtValue::VtValue(v17, v19);
       realityio::replication::write(a1, &__p);
-      realityio::replication::write(a1, v18);
-      pxrInternal__aapl__pxrReserved__::VtValue::~VtValue(v18);
+      realityio::replication::write(a1, v17);
+      pxrInternal__aapl__pxrReserved__::VtValue::~VtValue(v17);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      pxrInternal__aapl__pxrReserved__::VtValue::~VtValue(v20);
-      if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+      pxrInternal__aapl__pxrReserved__::VtValue::~VtValue(v19);
+      if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v19.__r_.__value_.__l.__data_);
+        operator delete(v18.__r_.__value_.__l.__data_);
       }
 
-      result = pxrInternal__aapl__pxrReserved__::VtDictionary::Iterator<std::map<std::string,pxrInternal__aapl__pxrReserved__::VtValue> const*,std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,pxrInternal__aapl__pxrReserved__::VtValue>,std::__tree_node<std::__value_type<std::string,pxrInternal__aapl__pxrReserved__::VtValue>,void *> *,long>>>::increment(&v16);
-      v4 = v16;
-      v13 = v16 == v9 || v10 == 0;
+      result = pxrInternal__aapl__pxrReserved__::VtDictionary::Iterator<std::map<std::string,pxrInternal__aapl__pxrReserved__::VtValue> const*,std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,pxrInternal__aapl__pxrReserved__::VtValue>,std::__tree_node<std::__value_type<std::string,pxrInternal__aapl__pxrReserved__::VtValue>,void *> *,long>>>::increment(&v15);
+      v4 = v15;
+      v13 = v15 == v9 || v10 == 0;
     }
 
-    while (v17 != v10 || !v13);
+    while (v16 != v10 || !v13);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7237,7 +6285,7 @@ void realityio::replication::write(pxrInternal__aapl__pxrReserved__::TfToken *a1
   v4 = *(v2 + 1);
   if (!v4)
   {
-    goto LABEL_404;
+    goto LABEL_403;
   }
 
   v6 = v4 & 0xFFFFFFFFFFFFFFF8;
@@ -7254,23 +6302,22 @@ LABEL_9:
       v7 = *v5;
       if ((*v5 & 4) == 0)
       {
-        v8 = *v2;
-LABEL_11:
-        v9 = *v8;
+LABEL_10:
         std::ostream::write();
-        v10 = v8[4];
-LABEL_12:
+LABEL_11:
         std::ostream::write();
         return;
       }
 
-      goto LABEL_49;
+LABEL_48:
+      (*((v7 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+      goto LABEL_10;
     }
 
     v4 = *v5;
     if (!*v5)
     {
-      goto LABEL_404;
+      goto LABEL_403;
     }
 
     v6 = v4 & 0xFFFFFFFFFFFFFFF8;
@@ -7290,7 +6337,7 @@ LABEL_12:
     v4 = *v5;
     if (!*v5)
     {
-      goto LABEL_404;
+      goto LABEL_403;
     }
 
     v6 = v4 & 0xFFFFFFFFFFFFFFF8;
@@ -7298,30 +6345,27 @@ LABEL_12:
 
   if (*(v6 + 16) == 52)
   {
-    goto LABEL_18;
+    goto LABEL_17;
   }
 
   if ((v4 & 4) != 0)
   {
     {
-LABEL_18:
+LABEL_17:
       std::ostream::write();
       v7 = *v5;
       if ((*v5 & 4) == 0)
       {
-        v8 = *v2;
-        goto LABEL_11;
+        goto LABEL_10;
       }
 
-LABEL_49:
-      v8 = (*((v7 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
-      goto LABEL_11;
+      goto LABEL_48;
     }
 
     v4 = *v5;
     if (!*v5)
     {
-      goto LABEL_404;
+      goto LABEL_403;
     }
 
     v6 = v4 & 0xFFFFFFFFFFFFFFF8;
@@ -7329,30 +6373,30 @@ LABEL_49:
 
   if (*(v6 + 16) == 53)
   {
-    goto LABEL_25;
+    goto LABEL_24;
   }
 
   if ((v4 & 4) != 0)
   {
     {
-LABEL_25:
+LABEL_24:
       std::ostream::write();
-      v11 = *v5;
+      v8 = *v5;
       if ((*v5 & 4) == 0)
       {
-        v12 = *v2;
-LABEL_101:
-        realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<unsigned int>>(a1, v12);
+        v9 = *v2;
+LABEL_100:
+        realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<unsigned int>>(a1, v9);
         return;
       }
 
-      goto LABEL_140;
+      goto LABEL_139;
     }
 
     v4 = *v5;
     if (!*v5)
     {
-      goto LABEL_404;
+      goto LABEL_403;
     }
 
     v6 = v4 & 0xFFFFFFFFFFFFFFF8;
@@ -7360,53 +6404,157 @@ LABEL_101:
 
   if (*(v6 + 16) == 54)
   {
-    goto LABEL_32;
+    goto LABEL_31;
   }
 
   if ((v4 & 4) != 0)
   {
     {
-LABEL_32:
+LABEL_31:
       std::ostream::write();
-      v13 = *v5;
+      v10 = *v5;
       if ((*v5 & 4) == 0)
       {
-        v14 = *v2;
-LABEL_145:
-        realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<long long>>(a1, v14);
+        v11 = *v2;
+LABEL_144:
+        realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<long long>>(a1, v11);
         return;
       }
 
-      goto LABEL_181;
+      goto LABEL_180;
     }
 
     if (!*v5)
     {
-      goto LABEL_404;
+      goto LABEL_403;
     }
   }
 
   if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<unsigned long long>>(v2))
   {
     std::ostream::write();
-    v13 = *v5;
+    v10 = *v5;
     if ((*v5 & 4) == 0)
     {
-      v14 = *v2;
-      goto LABEL_145;
+      v11 = *v2;
+      goto LABEL_144;
     }
 
-LABEL_181:
-    v14 = (*((v13 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
-    goto LABEL_145;
+LABEL_180:
+    v11 = (*((v10 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+    goto LABEL_144;
   }
 
   if (!*v5)
   {
-    goto LABEL_404;
+    goto LABEL_403;
   }
 
   if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::pxr_half::half>>(v2))
+  {
+    std::ostream::write();
+    if ((*v5 & 4) != 0)
+    {
+      v12 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+    }
+
+    else
+    {
+      v12 = *v2;
+    }
+
+    realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::pxr_half::half>>(a1, v12);
+    return;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<float>>(v2))
+  {
+    std::ostream::write();
+    v8 = *v5;
+    if ((*v5 & 4) == 0)
+    {
+      v9 = *v2;
+      goto LABEL_100;
+    }
+
+LABEL_139:
+    v9 = (*((v8 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+    goto LABEL_100;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<double>>(v2))
+  {
+    std::ostream::write();
+    v10 = *v5;
+    if ((*v5 & 4) == 0)
+    {
+      v11 = *v2;
+      goto LABEL_144;
+    }
+
+    goto LABEL_180;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<std::string>>(v2))
+  {
+    std::ostream::write();
+    if ((*v5 & 4) != 0)
+    {
+      v13 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+    }
+
+    else
+    {
+      v13 = *v2;
+    }
+
+    realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<std::string>>(a1, v13);
+    return;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::TfToken>>(v2))
+  {
+    std::ostream::write();
+    if ((*v5 & 4) != 0)
+    {
+      v14 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+    }
+
+    else
+    {
+      v14 = *v2;
+    }
+
+    realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::TfToken>>(a1, v14);
+    return;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::SdfAssetPath>>(v2))
   {
     std::ostream::write();
     if ((*v5 & 4) != 0)
@@ -7419,148 +6567,24 @@ LABEL_181:
       v15 = *v2;
     }
 
-    realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::pxr_half::half>>(a1, v15);
+    realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::SdfAssetPath>>(a1, v15);
     return;
   }
 
   if (!*v5)
   {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<float>>(v2))
-  {
-    std::ostream::write();
-    v11 = *v5;
-    if ((*v5 & 4) == 0)
-    {
-      v12 = *v2;
-      goto LABEL_101;
-    }
-
-LABEL_140:
-    v12 = (*((v11 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
-    goto LABEL_101;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<double>>(v2))
-  {
-    std::ostream::write();
-    v13 = *v5;
-    if ((*v5 & 4) == 0)
-    {
-      v14 = *v2;
-      goto LABEL_145;
-    }
-
-    goto LABEL_181;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<std::string>>(v2))
-  {
-    std::ostream::write();
-    if ((*v5 & 4) != 0)
-    {
-      v16 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
-    }
-
-    else
-    {
-      v16 = *v2;
-    }
-
-    realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<std::string>>(a1, v16);
-    return;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::TfToken>>(v2))
-  {
-    std::ostream::write();
-    if ((*v5 & 4) != 0)
-    {
-      v17 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
-    }
-
-    else
-    {
-      v17 = *v2;
-    }
-
-    realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::TfToken>>(a1, v17);
-    return;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::SdfAssetPath>>(v2))
-  {
-    std::ostream::write();
-    if ((*v5 & 4) != 0)
-    {
-      v18 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
-    }
-
-    else
-    {
-      v18 = *v2;
-    }
-
-    realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::SdfAssetPath>>(a1, v18);
-    return;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
+    goto LABEL_403;
   }
 
   if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuatd>>(v2))
   {
     std::ostream::write();
-    v19 = *v5;
+    v16 = *v5;
     if ((*v5 & 4) == 0)
     {
-      v20 = *v2;
-LABEL_157:
-      realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuatd>>(a1, v20);
-      return;
-    }
-
-    goto LABEL_183;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuatf>>(v2))
-  {
-    std::ostream::write();
-    v21 = *v5;
-    if ((*v5 & 4) == 0)
-    {
-      v22 = *v2;
-LABEL_151:
-      realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuatf>>(a1, v22);
+      v17 = *v2;
+LABEL_156:
+      realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuatd>>(a1, v17);
       return;
     }
 
@@ -7569,17 +6593,19 @@ LABEL_151:
 
   if (!*v5)
   {
-    goto LABEL_404;
+    goto LABEL_403;
   }
 
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuath>>(v2))
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuatf>>(v2))
   {
     std::ostream::write();
-    v13 = *v5;
+    v18 = *v5;
     if ((*v5 & 4) == 0)
     {
-      v14 = *v2;
-      goto LABEL_145;
+      v19 = *v2;
+LABEL_150:
+      realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuatf>>(a1, v19);
+      return;
     }
 
     goto LABEL_181;
@@ -7587,84 +6613,144 @@ LABEL_151:
 
   if (!*v5)
   {
-    goto LABEL_404;
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuath>>(v2))
+  {
+    std::ostream::write();
+    v10 = *v5;
+    if ((*v5 & 4) == 0)
+    {
+      v11 = *v2;
+      goto LABEL_144;
+    }
+
+    goto LABEL_180;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
   }
 
   if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2d>>(v2))
+  {
+    std::ostream::write();
+    v18 = *v5;
+    if ((*v5 & 4) == 0)
+    {
+      v19 = *v2;
+      goto LABEL_150;
+    }
+
+LABEL_181:
+    v19 = (*((v18 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+    goto LABEL_150;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2f>>(v2))
+  {
+    std::ostream::write();
+    v10 = *v5;
+    if ((*v5 & 4) == 0)
+    {
+      v11 = *v2;
+      goto LABEL_144;
+    }
+
+    goto LABEL_180;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2h>>(v2))
+  {
+    std::ostream::write();
+    v8 = *v5;
+    if ((*v5 & 4) == 0)
+    {
+      v9 = *v2;
+      goto LABEL_100;
+    }
+
+    goto LABEL_139;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2i>>(v2))
+  {
+    std::ostream::write();
+    v10 = *v5;
+    if ((*v5 & 4) == 0)
+    {
+      v11 = *v2;
+      goto LABEL_144;
+    }
+
+    goto LABEL_180;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3d>>(v2))
+  {
+    std::ostream::write();
+    if ((*v5 & 4) != 0)
+    {
+      v20 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+    }
+
+    else
+    {
+      v20 = *v2;
+    }
+
+    realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3d>>(a1, v20);
+    return;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3f>>(v2))
   {
     std::ostream::write();
     v21 = *v5;
     if ((*v5 & 4) == 0)
     {
       v22 = *v2;
-      goto LABEL_151;
+LABEL_117:
+      realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3f>>(a1, v22);
+      return;
     }
 
-LABEL_182:
-    v22 = (*((v21 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
-    goto LABEL_151;
+    goto LABEL_157;
   }
 
   if (!*v5)
   {
-    goto LABEL_404;
+    goto LABEL_403;
   }
 
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2f>>(v2))
-  {
-    std::ostream::write();
-    v13 = *v5;
-    if ((*v5 & 4) == 0)
-    {
-      v14 = *v2;
-      goto LABEL_145;
-    }
-
-    goto LABEL_181;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2h>>(v2))
-  {
-    std::ostream::write();
-    v11 = *v5;
-    if ((*v5 & 4) == 0)
-    {
-      v12 = *v2;
-      goto LABEL_101;
-    }
-
-    goto LABEL_140;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2i>>(v2))
-  {
-    std::ostream::write();
-    v13 = *v5;
-    if ((*v5 & 4) == 0)
-    {
-      v14 = *v2;
-      goto LABEL_145;
-    }
-
-    goto LABEL_181;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3d>>(v2))
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3h>>(v2))
   {
     std::ostream::write();
     if ((*v5 & 4) != 0)
@@ -7677,37 +6763,270 @@ LABEL_182:
       v23 = *v2;
     }
 
-    realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3d>>(a1, v23);
+    realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3h>>(a1, v23);
     return;
   }
 
   if (!*v5)
   {
-    goto LABEL_404;
+    goto LABEL_403;
   }
 
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3f>>(v2))
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3i>>(v2))
   {
     std::ostream::write();
-    v24 = *v5;
+    v21 = *v5;
     if ((*v5 & 4) == 0)
     {
-      v25 = *v2;
-LABEL_118:
-      realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3f>>(a1, v25);
-      return;
+      v22 = *v2;
+      goto LABEL_117;
     }
 
-    goto LABEL_158;
+LABEL_157:
+    v22 = (*((v21 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+    goto LABEL_117;
   }
 
   if (!*v5)
   {
-    goto LABEL_404;
+    goto LABEL_403;
   }
 
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3h>>(v2))
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4d>>(v2))
   {
+    std::ostream::write();
+    v16 = *v5;
+    if ((*v5 & 4) == 0)
+    {
+      v17 = *v2;
+      goto LABEL_156;
+    }
+
+LABEL_182:
+    v17 = (*((v16 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+    goto LABEL_156;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4f>>(v2))
+  {
+    std::ostream::write();
+    v18 = *v5;
+    if ((*v5 & 4) == 0)
+    {
+      v19 = *v2;
+      goto LABEL_150;
+    }
+
+    goto LABEL_181;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4h>>(v2))
+  {
+    std::ostream::write();
+    v10 = *v5;
+    if ((*v5 & 4) == 0)
+    {
+      v11 = *v2;
+      goto LABEL_144;
+    }
+
+    goto LABEL_180;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4i>>(v2))
+  {
+    std::ostream::write();
+    v18 = *v5;
+    if ((*v5 & 4) == 0)
+    {
+      v19 = *v2;
+      goto LABEL_150;
+    }
+
+    goto LABEL_181;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix2d>>(v2))
+  {
+    std::ostream::write();
+    v16 = *v5;
+    if ((*v5 & 4) == 0)
+    {
+      v17 = *v2;
+      goto LABEL_156;
+    }
+
+    goto LABEL_182;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix3d>>(v2))
+  {
+    std::ostream::write();
+    if ((*v5 & 4) != 0)
+    {
+      v24 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+    }
+
+    else
+    {
+      v24 = *v2;
+    }
+
+    realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix3d>>(a1, v24);
+    return;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix4d>>(v2))
+  {
+    std::ostream::write();
+    if ((*v5 & 4) != 0)
+    {
+      v25 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+    }
+
+    else
+    {
+      v25 = *v2;
+    }
+
+    realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix4d>>(a1, v25);
+    return;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<BOOL>(v2))
+  {
+    goto LABEL_172;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<unsigned char>(v2))
+  {
+    goto LABEL_172;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<int>(v2))
+  {
+    goto LABEL_346;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<unsigned int>(v2))
+  {
+    goto LABEL_346;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<long long>(v2))
+  {
+    goto LABEL_400;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<unsigned long long>(v2))
+  {
+    goto LABEL_400;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::pxr_half::half>(v2))
+  {
+    std::ostream::write();
+    if ((*v5 & 4) != 0)
+    {
+      (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+    }
+
+    goto LABEL_11;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<float>(v2))
+  {
+    goto LABEL_346;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<double>(v2))
+  {
+    goto LABEL_400;
+  }
+
+  if (!*v5)
+  {
+    goto LABEL_403;
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<std::string>(v2))
+  {
+LABEL_211:
     std::ostream::write();
     if ((*v5 & 4) != 0)
     {
@@ -7719,293 +7038,18 @@ LABEL_118:
       v26 = *v2;
     }
 
-    realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3h>>(a1, v26);
+    realityio::replication::write(a1, v26);
     return;
   }
 
   if (!*v5)
   {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3i>>(v2))
-  {
+LABEL_403:
     std::ostream::write();
-    v24 = *v5;
-    if ((*v5 & 4) == 0)
-    {
-      v25 = *v2;
-      goto LABEL_118;
-    }
-
-LABEL_158:
-    v25 = (*((v24 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
-    goto LABEL_118;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4d>>(v2))
-  {
-    std::ostream::write();
-    v19 = *v5;
-    if ((*v5 & 4) == 0)
-    {
-      v20 = *v2;
-      goto LABEL_157;
-    }
-
-LABEL_183:
-    v20 = (*((v19 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
-    goto LABEL_157;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4f>>(v2))
-  {
-    std::ostream::write();
-    v21 = *v5;
-    if ((*v5 & 4) == 0)
-    {
-      v22 = *v2;
-      goto LABEL_151;
-    }
-
-    goto LABEL_182;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4h>>(v2))
-  {
-    std::ostream::write();
-    v13 = *v5;
-    if ((*v5 & 4) == 0)
-    {
-      v14 = *v2;
-      goto LABEL_145;
-    }
-
-    goto LABEL_181;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4i>>(v2))
-  {
-    std::ostream::write();
-    v21 = *v5;
-    if ((*v5 & 4) == 0)
-    {
-      v22 = *v2;
-      goto LABEL_151;
-    }
-
-    goto LABEL_182;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix2d>>(v2))
-  {
-    std::ostream::write();
-    v19 = *v5;
-    if ((*v5 & 4) == 0)
-    {
-      v20 = *v2;
-      goto LABEL_157;
-    }
-
-    goto LABEL_183;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix3d>>(v2))
-  {
-    std::ostream::write();
-    if ((*v5 & 4) != 0)
-    {
-      v27 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
-    }
-
-    else
-    {
-      v27 = *v2;
-    }
-
-    realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix3d>>(a1, v27);
-    return;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix4d>>(v2))
-  {
-    std::ostream::write();
-    if ((*v5 & 4) != 0)
-    {
-      v28 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
-    }
-
-    else
-    {
-      v28 = *v2;
-    }
-
-    realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix4d>>(a1, v28);
-    return;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<BOOL>(v2))
-  {
-    goto LABEL_173;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<unsigned char>(v2))
-  {
-    goto LABEL_173;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<int>(v2))
-  {
-    goto LABEL_347;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<unsigned int>(v2))
-  {
-    goto LABEL_347;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<long long>(v2))
-  {
-    goto LABEL_401;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<unsigned long long>(v2))
-  {
-    goto LABEL_401;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::pxr_half::half>(v2))
-  {
-    std::ostream::write();
-    if ((*v5 & 4) != 0)
-    {
-      (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
-    }
-
-    goto LABEL_12;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<float>(v2))
-  {
-    goto LABEL_347;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<double>(v2))
-  {
-    goto LABEL_401;
-  }
-
-  if (!*v5)
-  {
-    goto LABEL_404;
-  }
-
-  if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<std::string>(v2))
-  {
-LABEL_212:
-    std::ostream::write();
-    if ((*v5 & 4) != 0)
-    {
-      v29 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
-    }
-
-    else
-    {
-      v29 = *v2;
-    }
-
-    realityio::replication::write(a1, v29);
-    return;
-  }
-
-  if (!*v5)
-  {
+    v43 = a1;
+    v41 = v2;
 LABEL_404:
-    std::ostream::write();
-    v52 = a1;
-    v50 = v2;
-LABEL_405:
-    realityio::replication::write(v52, v50);
+    realityio::replication::write(v43, v41);
     return;
   }
 
@@ -8015,56 +7059,56 @@ LABEL_405:
     {
       if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::SdfAssetPath>(v2))
       {
-        goto LABEL_212;
+        goto LABEL_211;
       }
 
       if (*v5)
       {
         if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::GfQuatd>(v2))
         {
-          goto LABEL_262;
+          goto LABEL_261;
         }
 
         if (*v5)
         {
           if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::GfQuatf>(v2))
           {
-            goto LABEL_258;
+            goto LABEL_257;
           }
 
           if (*v5)
           {
             if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::GfQuath>(v2))
             {
-              goto LABEL_401;
+              goto LABEL_400;
             }
 
             if (*v5)
             {
               if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::GfVec2d>(v2))
               {
-                goto LABEL_258;
+                goto LABEL_257;
               }
 
               if (*v5)
               {
                 if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::GfVec2f>(v2))
                 {
-                  goto LABEL_401;
+                  goto LABEL_400;
                 }
 
                 if (*v5)
                 {
                   if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::GfVec2h>(v2))
                   {
-                    goto LABEL_347;
+                    goto LABEL_346;
                   }
 
                   if (*v5)
                   {
                     if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::GfVec2i>(v2))
                     {
-                      goto LABEL_401;
+                      goto LABEL_400;
                     }
 
                     if (*v5)
@@ -8074,28 +7118,24 @@ LABEL_405:
                         std::ostream::write();
                         if ((*v5 & 4) == 0)
                         {
-                          v30 = *v2;
-                          goto LABEL_12;
+                          goto LABEL_11;
                         }
 
-LABEL_279:
-                        (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
-                        goto LABEL_12;
+                        goto LABEL_278;
                       }
 
                       if (*v5)
                       {
                         if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::GfVec3f>(v2))
                         {
-LABEL_246:
+LABEL_245:
                           std::ostream::write();
                           if ((*v5 & 4) == 0)
                           {
-                            v31 = *v2;
-                            goto LABEL_12;
+                            goto LABEL_11;
                           }
 
-                          goto LABEL_279;
+                          goto LABEL_278;
                         }
 
                         if (*v5)
@@ -8108,65 +7148,63 @@ LABEL_246:
                               (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                             }
 
-                            goto LABEL_12;
+                            goto LABEL_11;
                           }
 
                           if (*v5)
                           {
                             if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::GfVec3i>(v2))
                             {
-                              goto LABEL_246;
+                              goto LABEL_245;
                             }
 
                             if (*v5)
                             {
                               if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::GfVec4d>(v2))
                               {
-LABEL_262:
+LABEL_261:
                                 std::ostream::write();
                                 if ((*v5 & 4) == 0)
                                 {
-                                  v33 = *v2;
-                                  goto LABEL_12;
+                                  goto LABEL_11;
                                 }
 
-                                goto LABEL_279;
+                                goto LABEL_278;
                               }
 
                               if (*v5)
                               {
                                 if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::GfVec4f>(v2))
                                 {
-                                  goto LABEL_258;
+                                  goto LABEL_257;
                                 }
 
                                 if (*v5)
                                 {
                                   if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::GfVec4h>(v2))
                                   {
-                                    goto LABEL_401;
+                                    goto LABEL_400;
                                   }
 
                                   if (*v5)
                                   {
                                     if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::GfVec4i>(v2))
                                     {
-LABEL_258:
+LABEL_257:
                                       std::ostream::write();
                                       if ((*v5 & 4) == 0)
                                       {
-                                        v32 = *v2;
-                                        goto LABEL_12;
+                                        goto LABEL_11;
                                       }
 
-                                      goto LABEL_279;
+                                      goto LABEL_278;
                                     }
 
                                     if (*v5)
                                     {
                                       if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::GfMatrix2d>(v2))
                                       {
-                                        goto LABEL_262;
+                                        goto LABEL_261;
                                       }
 
                                       if (*v5)
@@ -8176,11 +7214,10 @@ LABEL_258:
                                           std::ostream::write();
                                           if ((*v5 & 4) == 0)
                                           {
-                                            v34 = *v2;
-                                            goto LABEL_12;
+                                            goto LABEL_11;
                                           }
 
-                                          goto LABEL_279;
+                                          goto LABEL_278;
                                         }
 
                                         if (*v5)
@@ -8190,11 +7227,12 @@ LABEL_258:
                                             std::ostream::write();
                                             if ((*v5 & 4) == 0)
                                             {
-                                              v35 = *v2;
-                                              goto LABEL_12;
+                                              goto LABEL_11;
                                             }
 
-                                            goto LABEL_279;
+LABEL_278:
+                                            (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+                                            goto LABEL_11;
                                           }
 
                                           if (*v5)
@@ -8204,15 +7242,15 @@ LABEL_258:
                                               std::ostream::write();
                                               if ((*v5 & 4) != 0)
                                               {
-                                                v36 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+                                                v27 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                                               }
 
                                               else
                                               {
-                                                v36 = *v2;
+                                                v27 = *v2;
                                               }
 
-                                              realityio::replication::details::writeMap<pxrInternal__aapl__pxrReserved__::VtDictionary>(a1, v36);
+                                              realityio::replication::details::writeMap<pxrInternal__aapl__pxrReserved__::VtDictionary>(a1, v27);
                                               return;
                                             }
 
@@ -8223,15 +7261,15 @@ LABEL_258:
                                                 std::ostream::write();
                                                 if ((*v5 & 4) != 0)
                                                 {
-                                                  v37 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+                                                  v28 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                                                 }
 
                                                 else
                                                 {
-                                                  v37 = *v2;
+                                                  v28 = *v2;
                                                 }
 
-                                                realityio::replication::write<pxrInternal__aapl__pxrReserved__::TfToken>(a1, v37);
+                                                realityio::replication::write<pxrInternal__aapl__pxrReserved__::TfToken>(a1, v28);
                                                 return;
                                               }
 
@@ -8242,15 +7280,15 @@ LABEL_258:
                                                   std::ostream::write();
                                                   if ((*v5 & 4) != 0)
                                                   {
-                                                    v38 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+                                                    v29 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                                                   }
 
                                                   else
                                                   {
-                                                    v38 = *v2;
+                                                    v29 = *v2;
                                                   }
 
-                                                  realityio::replication::write<std::string>(a1, v38);
+                                                  realityio::replication::write<std::string>(a1, v29);
                                                   return;
                                                 }
 
@@ -8261,15 +7299,15 @@ LABEL_258:
                                                     std::ostream::write();
                                                     if ((*v5 & 4) != 0)
                                                     {
-                                                      v39 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+                                                      v30 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                                                     }
 
                                                     else
                                                     {
-                                                      v39 = *v2;
+                                                      v30 = *v2;
                                                     }
 
-                                                    realityio::replication::write<pxrInternal__aapl__pxrReserved__::SdfPath>(a1, v39);
+                                                    realityio::replication::write<pxrInternal__aapl__pxrReserved__::SdfPath>(a1, v30);
                                                     return;
                                                   }
 
@@ -8280,15 +7318,15 @@ LABEL_258:
                                                       std::ostream::write();
                                                       if ((*v5 & 4) != 0)
                                                       {
-                                                        v40 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+                                                        v31 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                                                       }
 
                                                       else
                                                       {
-                                                        v40 = *v2;
+                                                        v31 = *v2;
                                                       }
 
-                                                      realityio::replication::write<pxrInternal__aapl__pxrReserved__::SdfReference>(a1, v40);
+                                                      realityio::replication::write<pxrInternal__aapl__pxrReserved__::SdfReference>(a1, v31);
                                                       return;
                                                     }
 
@@ -8299,15 +7337,15 @@ LABEL_258:
                                                         std::ostream::write();
                                                         if ((*v5 & 4) == 0)
                                                         {
-                                                          v41 = *v2;
-LABEL_315:
-                                                          realityio::replication::write<int>(a1, v41);
+                                                          v32 = *v2;
+LABEL_314:
+                                                          realityio::replication::write<int>(a1, v32);
                                                           return;
                                                         }
 
-LABEL_314:
-                                                        v41 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
-                                                        goto LABEL_315;
+LABEL_313:
+                                                        v32 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+                                                        goto LABEL_314;
                                                       }
 
                                                       if (*v5)
@@ -8317,15 +7355,15 @@ LABEL_314:
                                                           std::ostream::write();
                                                           if ((*v5 & 4) == 0)
                                                           {
-                                                            v42 = *v2;
-LABEL_321:
-                                                            realityio::replication::write<long long>(a1, v42);
+                                                            v33 = *v2;
+LABEL_320:
+                                                            realityio::replication::write<long long>(a1, v33);
                                                             return;
                                                           }
 
-LABEL_320:
-                                                          v42 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
-                                                          goto LABEL_321;
+LABEL_319:
+                                                          v33 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+                                                          goto LABEL_320;
                                                         }
 
                                                         if (*v5)
@@ -8335,11 +7373,11 @@ LABEL_320:
                                                             std::ostream::write();
                                                             if ((*v5 & 4) == 0)
                                                             {
-                                                              v41 = *v2;
-                                                              goto LABEL_315;
+                                                              v32 = *v2;
+                                                              goto LABEL_314;
                                                             }
 
-                                                            goto LABEL_314;
+                                                            goto LABEL_313;
                                                           }
 
                                                           if (*v5)
@@ -8349,11 +7387,11 @@ LABEL_320:
                                                               std::ostream::write();
                                                               if ((*v5 & 4) == 0)
                                                               {
-                                                                v42 = *v2;
-                                                                goto LABEL_321;
+                                                                v33 = *v2;
+                                                                goto LABEL_320;
                                                               }
 
-                                                              goto LABEL_320;
+                                                              goto LABEL_319;
                                                             }
 
                                                             if (*v5)
@@ -8363,15 +7401,15 @@ LABEL_320:
                                                                 std::ostream::write();
                                                                 if ((*v5 & 4) != 0)
                                                                 {
-                                                                  v43 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+                                                                  v34 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                                                                 }
 
                                                                 else
                                                                 {
-                                                                  v43 = *v2;
+                                                                  v34 = *v2;
                                                                 }
 
-                                                                realityio::replication::details::writeVector<std::vector<pxrInternal__aapl__pxrReserved__::SdfPath>>(a1, v43);
+                                                                realityio::replication::details::writeVector<std::vector<pxrInternal__aapl__pxrReserved__::SdfPath>>(a1, v34);
                                                                 return;
                                                               }
 
@@ -8382,15 +7420,15 @@ LABEL_320:
                                                                   std::ostream::write();
                                                                   if ((*v5 & 4) != 0)
                                                                   {
-                                                                    v44 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+                                                                    v35 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                                                                   }
 
                                                                   else
                                                                   {
-                                                                    v44 = *v2;
+                                                                    v35 = *v2;
                                                                   }
 
-                                                                  realityio::replication::details::writeVector<std::vector<pxrInternal__aapl__pxrReserved__::TfToken>>(a1, v44);
+                                                                  realityio::replication::details::writeVector<std::vector<pxrInternal__aapl__pxrReserved__::TfToken>>(a1, v35);
                                                                   return;
                                                                 }
 
@@ -8398,28 +7436,28 @@ LABEL_320:
                                                                 {
                                                                   if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::SdfSpecifier>(v2))
                                                                   {
-LABEL_347:
+LABEL_346:
                                                                     std::ostream::write();
                                                                     if ((*v5 & 4) != 0)
                                                                     {
                                                                       (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                                                                     }
 
-                                                                    goto LABEL_12;
+                                                                    goto LABEL_11;
                                                                   }
 
                                                                   if (*v5)
                                                                   {
                                                                     if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::SdfPermission>(v2))
                                                                     {
-                                                                      goto LABEL_347;
+                                                                      goto LABEL_346;
                                                                     }
 
                                                                     if (*v5)
                                                                     {
                                                                       if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::SdfVariability>(v2))
                                                                       {
-                                                                        goto LABEL_347;
+                                                                        goto LABEL_346;
                                                                       }
 
                                                                       if (*v5)
@@ -8429,15 +7467,15 @@ LABEL_347:
                                                                           std::ostream::write();
                                                                           if ((*v5 & 4) != 0)
                                                                           {
-                                                                            v45 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+                                                                            v36 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                                                                           }
 
                                                                           else
                                                                           {
-                                                                            v45 = *v2;
+                                                                            v36 = *v2;
                                                                           }
 
-                                                                          realityio::replication::details::writeMap<std::map<std::string,std::string>>(a1, v45);
+                                                                          realityio::replication::details::writeMap<std::map<std::string,std::string>>(a1, v36);
                                                                           return;
                                                                         }
 
@@ -8448,15 +7486,15 @@ LABEL_347:
                                                                             std::ostream::write();
                                                                             if ((*v5 & 4) != 0)
                                                                             {
-                                                                              v46 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+                                                                              v37 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                                                                             }
 
                                                                             else
                                                                             {
-                                                                              v46 = *v2;
+                                                                              v37 = *v2;
                                                                             }
 
-                                                                            realityio::replication::write(a1, v46);
+                                                                            realityio::replication::write(a1, v37);
                                                                             return;
                                                                           }
 
@@ -8467,15 +7505,15 @@ LABEL_347:
                                                                               std::ostream::write();
                                                                               if ((*v5 & 4) != 0)
                                                                               {
-                                                                                v47 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+                                                                                v38 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                                                                               }
 
                                                                               else
                                                                               {
-                                                                                v47 = *v2;
+                                                                                v38 = *v2;
                                                                               }
 
-                                                                              realityio::replication::details::writeVector<std::vector<long long>>(a1, v47);
+                                                                              realityio::replication::details::writeVector<std::vector<long long>>(a1, v38);
                                                                               return;
                                                                             }
 
@@ -8486,15 +7524,15 @@ LABEL_347:
                                                                                 std::ostream::write();
                                                                                 if ((*v5 & 4) != 0)
                                                                                 {
-                                                                                  v48 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+                                                                                  v39 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                                                                                 }
 
                                                                                 else
                                                                                 {
-                                                                                  v48 = *v2;
+                                                                                  v39 = *v2;
                                                                                 }
 
-                                                                                realityio::replication::details::writeVector<std::vector<pxrInternal__aapl__pxrReserved__::SdfLayerOffset>>(a1, v48);
+                                                                                realityio::replication::details::writeVector<std::vector<pxrInternal__aapl__pxrReserved__::SdfLayerOffset>>(a1, v39);
                                                                                 return;
                                                                               }
 
@@ -8505,15 +7543,15 @@ LABEL_347:
                                                                                   std::ostream::write();
                                                                                   if ((*v5 & 4) != 0)
                                                                                   {
-                                                                                    v49 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+                                                                                    v40 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                                                                                   }
 
                                                                                   else
                                                                                   {
-                                                                                    v49 = *v2;
+                                                                                    v40 = *v2;
                                                                                   }
 
-                                                                                  realityio::replication::details::writeVector<std::vector<std::string>>(a1, v49);
+                                                                                  realityio::replication::details::writeVector<std::vector<std::string>>(a1, v40);
                                                                                   return;
                                                                                 }
 
@@ -8521,14 +7559,14 @@ LABEL_347:
                                                                                 {
                                                                                   if (pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::SdfValueBlock>(v2))
                                                                                   {
-LABEL_173:
+LABEL_172:
                                                                                     std::ostream::write();
                                                                                     if ((*v5 & 4) != 0)
                                                                                     {
                                                                                       (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                                                                                     }
 
-                                                                                    goto LABEL_12;
+                                                                                    goto LABEL_11;
                                                                                   }
 
                                                                                   if (*v5)
@@ -8538,16 +7576,16 @@ LABEL_173:
                                                                                       std::ostream::write();
                                                                                       if ((*v5 & 4) != 0)
                                                                                       {
-                                                                                        v50 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+                                                                                        v41 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                                                                                       }
 
                                                                                       else
                                                                                       {
-                                                                                        v50 = *v2;
+                                                                                        v41 = *v2;
                                                                                       }
 
-                                                                                      v52 = a1;
-                                                                                      goto LABEL_405;
+                                                                                      v43 = a1;
+                                                                                      goto LABEL_404;
                                                                                     }
 
                                                                                     if (*v5)
@@ -8557,15 +7595,15 @@ LABEL_173:
                                                                                         std::ostream::write();
                                                                                         if ((*v5 & 4) != 0)
                                                                                         {
-                                                                                          v51 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+                                                                                          v42 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                                                                                         }
 
                                                                                         else
                                                                                         {
-                                                                                          v51 = *v2;
+                                                                                          v42 = *v2;
                                                                                         }
 
-                                                                                        realityio::replication::write<pxrInternal__aapl__pxrReserved__::SdfUnregisteredValue>(a1, v51);
+                                                                                        realityio::replication::write<pxrInternal__aapl__pxrReserved__::SdfUnregisteredValue>(a1, v42);
                                                                                         return;
                                                                                       }
 
@@ -8576,28 +7614,28 @@ LABEL_173:
                                                                                           std::ostream::write();
                                                                                           if ((*v5 & 4) != 0)
                                                                                           {
-                                                                                            v53 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
+                                                                                            v44 = (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                                                                                           }
 
                                                                                           else
                                                                                           {
-                                                                                            v53 = *v2;
+                                                                                            v44 = *v2;
                                                                                           }
 
-                                                                                          realityio::replication::write<pxrInternal__aapl__pxrReserved__::SdfPayload>(a1, v53);
+                                                                                          realityio::replication::write<pxrInternal__aapl__pxrReserved__::SdfPayload>(a1, v44);
                                                                                           return;
                                                                                         }
 
                                                                                         if (*v5 && pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::SdfTimeCode>(v2))
                                                                                         {
-LABEL_401:
+LABEL_400:
                                                                                           std::ostream::write();
                                                                                           if ((*v5 & 4) != 0)
                                                                                           {
                                                                                             (*((*v5 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
                                                                                           }
 
-                                                                                          goto LABEL_12;
+                                                                                          goto LABEL_11;
                                                                                         }
                                                                                       }
                                                                                     }
@@ -8642,7 +7680,7 @@ LABEL_401:
       }
     }
 
-    goto LABEL_404;
+    goto LABEL_403;
   }
 
   std::ostream::write();
@@ -8656,7 +7694,6 @@ LABEL_401:
 
 uint64_t realityio::replication::write<pxrInternal__aapl__pxrReserved__::TfToken>(pxrInternal__aapl__pxrReserved__::TfToken *a1, char *a2)
 {
-  v6 = *a2;
   std::ostream::write();
   if (*a2)
   {
@@ -8677,7 +7714,6 @@ uint64_t realityio::replication::write<pxrInternal__aapl__pxrReserved__::TfToken
 
 uint64_t realityio::replication::write<std::string>(uint64_t a1, char *a2)
 {
-  v6 = *a2;
   std::ostream::write();
   if (*a2)
   {
@@ -8698,7 +7734,6 @@ uint64_t realityio::replication::write<std::string>(uint64_t a1, char *a2)
 
 uint64_t realityio::replication::write<pxrInternal__aapl__pxrReserved__::SdfPath>(uint64_t a1, char *a2)
 {
-  v6 = *a2;
   std::ostream::write();
   if (*a2)
   {
@@ -8717,9 +7752,8 @@ uint64_t realityio::replication::write<pxrInternal__aapl__pxrReserved__::SdfPath
   return realityio::replication::details::writeVector<std::vector<pxrInternal__aapl__pxrReserved__::SdfPath>>(a1, &a2[v4]);
 }
 
-uint64_t realityio::replication::write<pxrInternal__aapl__pxrReserved__::SdfReference>(uint64_t a1, char *a2)
+void *realityio::replication::write<pxrInternal__aapl__pxrReserved__::SdfReference>(pxrInternal__aapl__pxrReserved__::TfToken *a1, char *a2)
 {
-  v6 = *a2;
   std::ostream::write();
   if (*a2)
   {
@@ -8738,13 +7772,12 @@ uint64_t realityio::replication::write<pxrInternal__aapl__pxrReserved__::SdfRefe
   return realityio::replication::details::writeVector<std::vector<pxrInternal__aapl__pxrReserved__::SdfReference>>(a1, &a2[v4]);
 }
 
-uint64_t realityio::replication::write<int>(uint64_t a1, uint64_t *a2)
+uint64_t realityio::replication::write<int>(uint64_t a1, char *a2)
 {
-  v6 = *a2;
   std::ostream::write();
   if (*a2)
   {
-    v4 = 1;
+    v4 = 8;
   }
 
   else
@@ -8753,19 +7786,18 @@ uint64_t realityio::replication::write<int>(uint64_t a1, uint64_t *a2)
     realityio::replication::details::writeVector<std::vector<int>>(a1, a2 + 7);
     realityio::replication::details::writeVector<std::vector<int>>(a1, a2 + 10);
     realityio::replication::details::writeVector<std::vector<int>>(a1, a2 + 13);
-    v4 = 16;
+    v4 = 128;
   }
 
   return realityio::replication::details::writeVector<std::vector<int>>(a1, &a2[v4]);
 }
 
-uint64_t realityio::replication::write<long long>(uint64_t a1, uint64_t *a2)
+uint64_t realityio::replication::write<long long>(uint64_t a1, char *a2)
 {
-  v6 = *a2;
   std::ostream::write();
   if (*a2)
   {
-    v4 = 1;
+    v4 = 8;
   }
 
   else
@@ -8774,19 +7806,18 @@ uint64_t realityio::replication::write<long long>(uint64_t a1, uint64_t *a2)
     realityio::replication::details::writeVector<std::vector<long long>>(a1, a2 + 7);
     realityio::replication::details::writeVector<std::vector<long long>>(a1, a2 + 10);
     realityio::replication::details::writeVector<std::vector<long long>>(a1, a2 + 13);
-    v4 = 16;
+    v4 = 128;
   }
 
   return realityio::replication::details::writeVector<std::vector<long long>>(a1, &a2[v4]);
 }
 
-uint64_t realityio::replication::write<pxrInternal__aapl__pxrReserved__::SdfUnregisteredValue>(uint64_t a1, uint64_t *a2)
+void *realityio::replication::write<pxrInternal__aapl__pxrReserved__::SdfUnregisteredValue>(pxrInternal__aapl__pxrReserved__::TfToken *a1, char *a2)
 {
-  v6 = *a2;
   std::ostream::write();
   if (*a2)
   {
-    v4 = 1;
+    v4 = 8;
   }
 
   else
@@ -8795,7 +7826,7 @@ uint64_t realityio::replication::write<pxrInternal__aapl__pxrReserved__::SdfUnre
     realityio::replication::details::writeVector<std::vector<pxrInternal__aapl__pxrReserved__::SdfUnregisteredValue>>(a1, a2 + 7);
     realityio::replication::details::writeVector<std::vector<pxrInternal__aapl__pxrReserved__::SdfUnregisteredValue>>(a1, a2 + 10);
     realityio::replication::details::writeVector<std::vector<pxrInternal__aapl__pxrReserved__::SdfUnregisteredValue>>(a1, a2 + 13);
-    v4 = 16;
+    v4 = 128;
   }
 
   return realityio::replication::details::writeVector<std::vector<pxrInternal__aapl__pxrReserved__::SdfUnregisteredValue>>(a1, &a2[v4]);
@@ -8803,7 +7834,6 @@ uint64_t realityio::replication::write<pxrInternal__aapl__pxrReserved__::SdfUnre
 
 uint64_t realityio::replication::write<pxrInternal__aapl__pxrReserved__::SdfPayload>(uint64_t a1, char *a2)
 {
-  v6 = *a2;
   std::ostream::write();
   if (*a2)
   {
@@ -8895,22 +7925,6 @@ uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__p
   }
 }
 
-uint64_t realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<unsigned int>>(uint64_t a1, uint64_t *a2)
-{
-  v5 = *a2;
-  std::ostream::write();
-  v3 = a2[4];
-  return std::ostream::write();
-}
-
-uint64_t realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<long long>>(uint64_t a1, uint64_t *a2)
-{
-  v5 = *a2;
-  std::ostream::write();
-  v3 = a2[4];
-  return std::ostream::write();
-}
-
 uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<unsigned long long>>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
 {
   v1 = *(a1 + 1);
@@ -8939,14 +7953,6 @@ uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__p
   }
 
   return 0;
-}
-
-uint64_t realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::pxr_half::half>>(uint64_t a1, uint64_t *a2)
-{
-  v5 = *a2;
-  std::ostream::write();
-  v3 = a2[4];
-  return std::ostream::write();
 }
 
 uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<float>>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
@@ -9100,22 +8106,6 @@ uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__p
   return 0;
 }
 
-uint64_t realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuatd>>(uint64_t a1, uint64_t *a2)
-{
-  v5 = *a2;
-  std::ostream::write();
-  v3 = a2[4];
-  return std::ostream::write();
-}
-
-uint64_t realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuatf>>(uint64_t a1, uint64_t *a2)
-{
-  v5 = *a2;
-  std::ostream::write();
-  v3 = a2[4];
-  return std::ostream::write();
-}
-
 uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuath>>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
 {
   v1 = *(a1 + 1);
@@ -9204,30 +8194,6 @@ uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__p
   }
 
   return 0;
-}
-
-uint64_t realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3d>>(uint64_t a1, uint64_t *a2)
-{
-  v5 = *a2;
-  std::ostream::write();
-  v3 = a2[4];
-  return std::ostream::write();
-}
-
-uint64_t realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3f>>(uint64_t a1, uint64_t *a2)
-{
-  v5 = *a2;
-  std::ostream::write();
-  v3 = a2[4];
-  return std::ostream::write();
-}
-
-uint64_t realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3h>>(uint64_t a1, uint64_t *a2)
-{
-  v5 = *a2;
-  std::ostream::write();
-  v3 = a2[4];
-  return std::ostream::write();
 }
 
 uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3i>>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
@@ -9335,14 +8301,6 @@ uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__p
   return 0;
 }
 
-uint64_t realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix3d>>(uint64_t a1, uint64_t *a2)
-{
-  v5 = *a2;
-  std::ostream::write();
-  v3 = a2[4];
-  return std::ostream::write();
-}
-
 uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix4d>>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
 {
   v1 = *(a1 + 1);
@@ -9356,14 +8314,6 @@ uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__p
   }
 
   return 0;
-}
-
-uint64_t realityio::replication::details::writeVector<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix4d>>(uint64_t a1, uint64_t *a2)
-{
-  v5 = *a2;
-  std::ostream::write();
-  v3 = a2[4];
-  return std::ostream::write();
 }
 
 uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<unsigned char>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
@@ -9787,7 +8737,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__p
   }
 }
 
-uint64_t realityio::replication::details::writeVector<std::vector<pxrInternal__aapl__pxrReserved__::SdfReference>>(uint64_t a1, uint64_t **a2)
+void *realityio::replication::details::writeVector<std::vector<pxrInternal__aapl__pxrReserved__::SdfReference>>(pxrInternal__aapl__pxrReserved__::TfToken *a1, uint64_t **a2)
 {
   v5 = *a2;
   v4 = a2[1];
@@ -9810,4 +8760,1030 @@ uint64_t realityio::replication::details::writeVector<std::vector<pxrInternal__a
   }
 
   return result;
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::SdfListOp<int>>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  v2 = *(a1 + 1);
+  if (!strcmp((*(*(v2 & 0xFFFFFFFFFFFFFFF8) + 8) & 0x7FFFFFFFFFFFFFFFLL), ("N32pxrInternal__aapl__pxrReserved__9SdfListOpIiEE" & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    return 1;
+  }
+
+  if ((v2 & 4) == 0)
+  {
+    return 0;
+  }
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::SdfListOp<long long>>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  v2 = *(a1 + 1);
+  if (!strcmp((*(*(v2 & 0xFFFFFFFFFFFFFFF8) + 8) & 0x7FFFFFFFFFFFFFFFLL), ("N32pxrInternal__aapl__pxrReserved__9SdfListOpIxEE" & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    return 1;
+  }
+
+  if ((v2 & 4) == 0)
+  {
+    return 0;
+  }
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::SdfListOp<unsigned int>>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  v2 = *(a1 + 1);
+  if (!strcmp((*(*(v2 & 0xFFFFFFFFFFFFFFF8) + 8) & 0x7FFFFFFFFFFFFFFFLL), ("N32pxrInternal__aapl__pxrReserved__9SdfListOpIjEE" & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    return 1;
+  }
+
+  if ((v2 & 4) == 0)
+  {
+    return 0;
+  }
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::SdfListOp<unsigned long long>>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  v2 = *(a1 + 1);
+  if (!strcmp((*(*(v2 & 0xFFFFFFFFFFFFFFF8) + 8) & 0x7FFFFFFFFFFFFFFFLL), ("N32pxrInternal__aapl__pxrReserved__9SdfListOpIyEE" & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    return 1;
+  }
+
+  if ((v2 & 4) == 0)
+  {
+    return 0;
+  }
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<std::vector<pxrInternal__aapl__pxrReserved__::SdfPath>>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  v2 = *(a1 + 1);
+  if (!strcmp((*(*(v2 & 0xFFFFFFFFFFFFFFF8) + 8) & 0x7FFFFFFFFFFFFFFFLL), ("NSt3__16vectorIN32pxrInternal__aapl__pxrReserved__7SdfPathENS_9allocatorIS2_EEEE" & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    return 1;
+  }
+
+  if ((v2 & 4) == 0)
+  {
+    return 0;
+  }
+}
+
+uint64_t realityio::replication::details::writeVector<std::vector<pxrInternal__aapl__pxrReserved__::SdfPath>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath **a2)
+{
+  v5 = *a2;
+  v4 = a2[1];
+  result = std::ostream::write();
+  v7 = (v4 - v5);
+  if (v7)
+  {
+    v8 = *a2;
+    do
+    {
+      String = pxrInternal__aapl__pxrReserved__::SdfPath::GetString(v8);
+      result = realityio::replication::write(a1, String);
+      v8 = (v8 + 8);
+      v7 -= 8;
+    }
+
+    while (v7);
+  }
+
+  return result;
+}
+
+uint64_t realityio::replication::details::writeVector<std::vector<pxrInternal__aapl__pxrReserved__::TfToken>>(pxrInternal__aapl__pxrReserved__::TfToken *a1, void *a2)
+{
+  v5 = *a2;
+  v4 = a2[1];
+  result = std::ostream::write();
+  v7 = v4 - v5;
+  if (v7)
+  {
+    v8 = *a2;
+    do
+    {
+      result = realityio::replication::write(a1, v8++);
+      v7 -= 8;
+    }
+
+    while (v7);
+  }
+
+  return result;
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::SdfPermission>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  v2 = *(a1 + 1);
+  if (!strcmp((*(*(v2 & 0xFFFFFFFFFFFFFFF8) + 8) & 0x7FFFFFFFFFFFFFFFLL), ("N32pxrInternal__aapl__pxrReserved__13SdfPermissionE" & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    return 1;
+  }
+
+  if ((v2 & 4) == 0)
+  {
+    return 0;
+  }
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::SdfVariability>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  v2 = *(a1 + 1);
+  if (!strcmp((*(*(v2 & 0xFFFFFFFFFFFFFFF8) + 8) & 0x7FFFFFFFFFFFFFFFLL), ("N32pxrInternal__aapl__pxrReserved__14SdfVariabilityE" & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    return 1;
+  }
+
+  if ((v2 & 4) == 0)
+  {
+    return 0;
+  }
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<std::map<std::string,std::string>>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  v2 = *(a1 + 1);
+  if (!strcmp((*(*(v2 & 0xFFFFFFFFFFFFFFF8) + 8) & 0x7FFFFFFFFFFFFFFFLL), (0x8000000247762DBCLL & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    return 1;
+  }
+
+  if ((v2 & 4) == 0)
+  {
+    return 0;
+  }
+}
+
+void realityio::replication::details::writeMap<std::map<std::string,std::string>>(uint64_t a1, void *a2)
+{
+  v12.__r_.__value_.__r.__words[0] = a2[2];
+  std::ostream::write();
+  v6 = *a2;
+  v4 = (a2 + 1);
+  v5 = v6;
+  if (v6 != v4)
+  {
+    do
+    {
+      std::pair<std::string const,std::string>::pair[abi:ne200100](&v12, v5 + 2);
+      if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
+      {
+        std::string::__init_copy_ctor_external(&v11, v12.__r_.__value_.__l.__data_, v12.__r_.__value_.__l.__size_);
+      }
+
+      else
+      {
+        v11 = v12;
+      }
+
+      if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
+      {
+        std::string::__init_copy_ctor_external(&__p, v13.__r_.__value_.__l.__data_, v13.__r_.__value_.__l.__size_);
+      }
+
+      else
+      {
+        __p = v13;
+      }
+
+      realityio::replication::write(a1, &v11);
+      realityio::replication::write(a1, &__p);
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__p.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v11.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v13.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v12.__r_.__value_.__l.__data_);
+      }
+
+      v7 = *(v5 + 1);
+      if (v7)
+      {
+        do
+        {
+          v8 = v7;
+          v7 = *v7;
+        }
+
+        while (v7);
+      }
+
+      else
+      {
+        do
+        {
+          v8 = *(v5 + 2);
+          v9 = *v8 == v5;
+          v5 = v8;
+        }
+
+        while (!v9);
+      }
+
+      v5 = v8;
+    }
+
+    while (v8 != v4);
+  }
+}
+
+void sub_2476B79B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23)
+{
+  if (a21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  pxrInternal__aapl__pxrReserved__::SdfAssetPath::~SdfAssetPath(&a23);
+  _Unwind_Resume(a1);
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::SdfPayload>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  v2 = *(a1 + 1);
+  if (!strcmp((*(*(v2 & 0xFFFFFFFFFFFFFFF8) + 8) & 0x7FFFFFFFFFFFFFFFLL), ("N32pxrInternal__aapl__pxrReserved__10SdfPayloadE" & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    return 1;
+  }
+
+  if ((v2 & 4) == 0)
+  {
+    return 0;
+  }
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<std::vector<double>>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  v2 = *(a1 + 1);
+  if (!strcmp((*(*(v2 & 0xFFFFFFFFFFFFFFF8) + 8) & 0x7FFFFFFFFFFFFFFFLL), (0x8000000247762E60 & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    return 1;
+  }
+
+  if ((v2 & 4) == 0)
+  {
+    return 0;
+  }
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<std::vector<pxrInternal__aapl__pxrReserved__::SdfLayerOffset>>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  v2 = *(a1 + 1);
+  if (!strcmp((*(*(v2 & 0xFFFFFFFFFFFFFFF8) + 8) & 0x7FFFFFFFFFFFFFFFLL), ("NSt3__16vectorIN32pxrInternal__aapl__pxrReserved__14SdfLayerOffsetENS_9allocatorIS2_EEEE" & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    return 1;
+  }
+
+  if ((v2 & 4) == 0)
+  {
+    return 0;
+  }
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<std::vector<std::string>>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  v2 = *(a1 + 1);
+  if (!strcmp((*(*(v2 & 0xFFFFFFFFFFFFFFF8) + 8) & 0x7FFFFFFFFFFFFFFFLL), (0x8000000247762EDDLL & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    return 1;
+  }
+
+  if ((v2 & 4) == 0)
+  {
+    return 0;
+  }
+}
+
+uint64_t realityio::replication::details::writeVector<std::vector<std::string>>(uint64_t a1, uint64_t **a2)
+{
+  v5 = *a2;
+  v4 = a2[1];
+  result = std::ostream::write();
+  v7 = (v4 - v5);
+  if (v7)
+  {
+    v8 = *a2;
+    do
+    {
+      result = realityio::replication::write(a1, v8);
+      v8 += 3;
+      v7 -= 24;
+    }
+
+    while (v7);
+  }
+
+  return result;
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::SdfUnregisteredValue>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  v2 = *(a1 + 1);
+  if (!strcmp((*(*(v2 & 0xFFFFFFFFFFFFFFF8) + 8) & 0x7FFFFFFFFFFFFFFFLL), ("N32pxrInternal__aapl__pxrReserved__20SdfUnregisteredValueE" & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    return 1;
+  }
+
+  if ((v2 & 4) == 0)
+  {
+    return 0;
+  }
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::SdfListOp<pxrInternal__aapl__pxrReserved__::SdfUnregisteredValue>>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  v2 = *(a1 + 1);
+  if (!strcmp((*(*(v2 & 0xFFFFFFFFFFFFFFF8) + 8) & 0x7FFFFFFFFFFFFFFFLL), ("N32pxrInternal__aapl__pxrReserved__9SdfListOpINS_20SdfUnregisteredValueEEE" & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    return 1;
+  }
+
+  if ((v2 & 4) == 0)
+  {
+    return 0;
+  }
+}
+
+void *realityio::replication::details::writeVector<std::vector<pxrInternal__aapl__pxrReserved__::SdfUnregisteredValue>>(pxrInternal__aapl__pxrReserved__::TfToken *a1, pxrInternal__aapl__pxrReserved__::VtValue **a2)
+{
+  v5 = *a2;
+  v4 = a2[1];
+  result = std::ostream::write();
+  v7 = (v4 - v5);
+  if (v7)
+  {
+    v8 = *a2;
+    do
+    {
+      result = realityio::replication::write(a1, v8);
+      v8 = (v8 + 16);
+      v7 -= 16;
+    }
+
+    while (v7);
+  }
+
+  return result;
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::SdfListOp<pxrInternal__aapl__pxrReserved__::SdfPayload>>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  v2 = *(a1 + 1);
+  if (!strcmp((*(*(v2 & 0xFFFFFFFFFFFFFFF8) + 8) & 0x7FFFFFFFFFFFFFFFLL), ("N32pxrInternal__aapl__pxrReserved__9SdfListOpINS_10SdfPayloadEEE" & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    return 1;
+  }
+
+  if ((v2 & 4) == 0)
+  {
+    return 0;
+  }
+}
+
+uint64_t realityio::replication::details::writeVector<std::vector<pxrInternal__aapl__pxrReserved__::SdfPayload>>(uint64_t a1, uint64_t **a2)
+{
+  v5 = *a2;
+  v4 = a2[1];
+  result = std::ostream::write();
+  v7 = (v4 - v5);
+  if (v7)
+  {
+    v8 = *a2;
+    do
+    {
+      result = realityio::replication::write(a1, v8);
+      v8 += 6;
+      v7 -= 48;
+    }
+
+    while (v7);
+  }
+
+  return result;
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeIs<pxrInternal__aapl__pxrReserved__::SdfTimeCode>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  v2 = *(a1 + 1);
+  if (!strcmp((*(*(v2 & 0xFFFFFFFFFFFFFFF8) + 8) & 0x7FFFFFFFFFFFFFFFLL), ("N32pxrInternal__aapl__pxrReserved__11SdfTimeCodeE" & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    return 1;
+  }
+
+  if ((v2 & 4) == 0)
+  {
+    return 0;
+  }
+}
+
+uint64_t realityio::TransformComponentBuilder::kOutputName(realityio::TransformComponentBuilder *this)
+{
+  if ((atomic_load_explicit(&qword_27EE535C0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE535C0))
+  {
+    operator new();
+  }
+
+  return _MergedGlobals_52;
+}
+
+void sub_2476B805C(_Unwind_Exception *a1)
+{
+  MEMORY[0x24C1A91B0](v1, 0x1012C40EC159624);
+  __cxa_guard_abort(&qword_27EE535C0);
+  _Unwind_Resume(a1);
+}
+
+void realityio::TransformComponentBuilder::TransformComponentBuilder(realityio::TransformComponentBuilder *this, const pxrInternal__aapl__pxrReserved__::SdfPath *a2)
+{
+  v8[4] = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:ne200100]<0>(v6, "TransformComponentBuilder");
+  std::string::basic_string[abi:ne200100]<0>(__p, realityio::kTransformComponentBuilderIdentifier);
+  realityio::generateTransformDirtyStageSubscription(&v4);
+  v8[0] = &unk_28595C640;
+  v8[3] = v8;
+  v7[0] = &unk_28595C6C0;
+  v7[3] = v7;
+  realityio::DynamicBuilder::DynamicBuilder(this, a2, v6, __p, &v4, v8, v7);
+}
+
+void sub_2476B81D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24)
+{
+  std::__function::__value_func<std::shared_ptr<realityio::OutputsDescriptor const> ()(pxrInternal__aapl__pxrReserved__::SdfPath const&)>::~__value_func[abi:ne200100](&a24);
+  std::__function::__value_func<std::shared_ptr<realityio::InputsDescriptor const> ()(pxrInternal__aapl__pxrReserved__::SdfPath const&)>::~__value_func[abi:ne200100](v24 - 56);
+  if (a11)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a11);
+  }
+
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a23 < 0)
+  {
+    operator delete(a18);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t realityio::TransformComponentBuilder::run(realityio::TransformComponentBuilder *this, realityio::Inputs *a2)
+{
+  v59 = *MEMORY[0x277D85DE8];
+  v4 = (a2 + 32);
+  pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*a2 + 8));
+  pxrInternal__aapl__pxrReserved__::UsdStage::GetPrimAtPath(&v43, v5, v4);
+  IsValid = pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v43);
+  if (IsValid)
+  {
+    v7 = *(realityio::logObjects(IsValid) + 24);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
+    if (v8)
+    {
+      *buf = 0;
+      _os_log_impl(&dword_247485000, v7, OS_LOG_TYPE_INFO, "Updating entity transform", buf, 2u);
+    }
+
+    v9 = realityio::EntityBuilder::kInputName(v8);
+    realityio::Inputs::_getValue<realityio::WrappedRERef<REEntity *>>(a2, v9, v41);
+    if (v41[0])
+    {
+      v11 = realityio::EntityBuilder::kPrimPathOutputName(v10);
+      realityio::Inputs::_getValue<pxrInternal__aapl__pxrReserved__::SdfPath *>(a2, v11, v37);
+      if (v37[0])
+      {
+        v13 = v38;
+        pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(buf, &v43);
+        v14 = *v13;
+        v15 = *buf;
+        pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+        v16 = pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(buf);
+        if (v14 == v15)
+        {
+          *buf = 0;
+          v55 = 0u;
+          v56 = 0u;
+          v57 = 0u;
+          v58 = 0u;
+          realityio::WrappedRERef<REAsset *>::operator=(v16, v42);
+          pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase();
+          v35 = MEMORY[0x277D86748] + 16;
+          pxrInternal__aapl__pxrReserved__::GfMatrix4d::SetDiagonal(v34, 1.0);
+          if (v36 && (*(v36 + 57) & 8) == 0 && (*(v35 + 32))(&v35))
+          {
+            MEMORY[0x24C1A54B0](v33, &v35);
+            pxrInternal__aapl__pxrReserved__::UsdGeomXformable::XformQuery::GetLocalTransformation();
+            ComponentType = v33;
+            std::vector<pxrInternal__aapl__pxrReserved__::UsdGeomXformOp>::__destroy_vector::operator()[abi:ne200100](&ComponentType);
+          }
+
+          MEMORY[0x24C1A4BE0](v33, v34);
+          REDecomposeMatrix();
+          v17 = atomic_load(&realityio::tokens::TransformBuilderTokens);
+          if (v17)
+          {
+            pxrInternal__aapl__pxrReserved__::UsdPrim::GetAttribute(&v32, &v43, (v17 + 64));
+            if (pxrInternal__aapl__pxrReserved__::UsdAttribute::HasAuthoredValue(&v32))
+            {
+              pxrInternal__aapl__pxrReserved__::UsdObject::GetStage(&ComponentType, &v43);
+              v18 = v50;
+              if (v50)
+              {
+                if (*(pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::Tf_Remnant>::operator->(&v50) + 14))
+                {
+                  v18 = ComponentType;
+                }
+
+                else
+                {
+                  v18 = 0;
+                }
+              }
+
+              __p = v18;
+              pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::_AddRef(&__p);
+              v19 = atomic_load(&realityio::tokens::TransformBuilderTokens);
+              if (!v19)
+              {
+                pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::TransformBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::TransformBuilderTokens_StaticTokenType>>::_TryToCreateData(&realityio::tokens::TransformBuilderTokens);
+              }
+
+              LOBYTE(v31[0]) = 0;
+              RealityKitStage = realityio::getRealityKitStageMetadata<BOOL>(&__p, (v19 + 56), v31);
+              pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::~TfRefPtr(&__p);
+              v21 = v50;
+              if (v50 && atomic_fetch_add_explicit((v50 + 8), 0xFFFFFFFF, memory_order_release) == 1)
+              {
+                (*(*v21 + 8))(v21);
+              }
+
+              if ((RealityKitStage & 1) == 0)
+              {
+                v54 = 1;
+                ComponentType = REAnchoringComponentGetComponentType();
+                std::__tree<REComponentClass *>::__emplace_unique_key_args<REComponentClass *,REComponentClass * const&>(this + 40, &ComponentType, &ComponentType);
+                pxrInternal__aapl__pxrReserved__::UsdAttribute::_Get<pxrInternal__aapl__pxrReserved__::TfToken>();
+              }
+            }
+
+            v54 = 0;
+            v47 = this;
+            v48[21] = 0;
+            operator new();
+          }
+
+          pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::TransformBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::TransformBuilderTokens_StaticTokenType>>::_TryToCreateData(&realityio::tokens::TransformBuilderTokens);
+        }
+
+        v25 = *(realityio::logObjects(v16) + 24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        {
+          pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(v34, &v43);
+          Text = pxrInternal__aapl__pxrReserved__::SdfPath::GetText(v34);
+          v28 = pxrInternal__aapl__pxrReserved__::SdfPath::GetText(v38);
+          *buf = 136315394;
+          *&buf[4] = Text;
+          v52 = 2080;
+          v53 = v28;
+          _os_log_impl(&dword_247485000, v25, OS_LOG_TYPE_INFO, "Skipping entity transform for %s becuase entity is for %s", buf, 0x16u);
+          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+          pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(v34);
+        }
+      }
+
+      else
+      {
+        v25 = *(realityio::logObjects(v12) + 24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        {
+          pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(v34, &v43);
+          v26 = pxrInternal__aapl__pxrReserved__::SdfPath::GetText(v34);
+          *buf = 136315138;
+          *&buf[4] = v26;
+          _os_log_impl(&dword_247485000, v25, OS_LOG_TYPE_INFO, "Skipping entity transform for %s becuase entity path is not available for some reason", buf, 0xCu);
+          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+          pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(v34);
+        }
+      }
+
+      if ((v37[0] & 1) == 0 && v40 < 0)
+      {
+        operator delete(v39);
+      }
+    }
+
+    else
+    {
+      v24 = *(realityio::logObjects(v10) + 24);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_247485000, v24, OS_LOG_TYPE_DEFAULT, "Stopping operation to set transform component because entity no longer exists", buf, 2u);
+      }
+    }
+
+    realityio::Result<realityio::WrappedRERef<REEntity *>,realityio::DetailedError>::~Result(v41);
+  }
+
+  else
+  {
+    v22 = *(realityio::logObjects(IsValid) + 24);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(v34, &v43);
+      v23 = pxrInternal__aapl__pxrReserved__::SdfPath::GetText(v34);
+      *buf = 136315138;
+      *&buf[4] = v23;
+      _os_log_impl(&dword_247485000, v22, OS_LOG_TYPE_DEFAULT, "Stopping operation to set transform component because the prim is not valid: '%s'", buf, 0xCu);
+      pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+      pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(v34);
+    }
+  }
+
+  if ((v46 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v46 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v45);
+  result = v44;
+  if (v44)
+  {
+    return pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v44);
+  }
+
+  return result;
+}
+
+void sub_2476B8AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55, uint64_t a56, uint64_t a57, void *__p, uint64_t a59, int a60, __int16 a61, char a62, char a63)
+{
+  pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::~TfRefPtr(&a13);
+  v67 = STACK[0x2B8];
+  if (STACK[0x2B8] && atomic_fetch_add_explicit(v67 + 2, 0xFFFFFFFF, memory_order_release) == 1)
+  {
+    (*(*v67 + 8))(v67);
+  }
+
+  pxrInternal__aapl__pxrReserved__::UsdAttribute::~UsdAttribute(&a23);
+  MEMORY[0x24C1A54D0](&a52);
+  if ((a55 & 1) == 0 && a63 < 0)
+  {
+    operator delete(__p);
+  }
+
+  realityio::Result<realityio::WrappedRERef<REEntity *>,realityio::DetailedError>::~Result(&a64);
+  pxrInternal__aapl__pxrReserved__::UsdPrim::~UsdPrim(&a65);
+  _Unwind_Resume(a1);
+}
+
+uint64_t anonymous namespace::TransformAnchoringData::TransformAnchoringData(uint64_t a1, uint64_t *a2)
+{
+  v4 = *a2;
+  *a1 = *a2;
+  if (v4)
+  {
+    RERetain();
+  }
+
+  v5 = *(a2 + 1);
+  v6 = *(a2 + 2);
+  v7 = *(a2 + 3);
+  *(a1 + 61) = *(a2 + 61);
+  *(a1 + 32) = v6;
+  *(a1 + 48) = v7;
+  *(a1 + 16) = v5;
+  v8 = a2[9];
+  *(a1 + 72) = v8;
+  if ((v8 & 7) != 0 && (atomic_fetch_add_explicit((v8 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+  {
+    *(a1 + 72) &= 0xFFFFFFFFFFFFFFF8;
+  }
+
+  v9 = a2[10];
+  *(a1 + 80) = v9;
+  if ((v9 & 7) != 0 && (atomic_fetch_add_explicit((v9 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+  {
+    *(a1 + 80) &= 0xFFFFFFFFFFFFFFF8;
+  }
+
+  if (*(a2 + 111) < 0)
+  {
+    std::string::__init_copy_ctor_external((a1 + 88), a2[11], a2[12]);
+  }
+
+  else
+  {
+    v10 = *(a2 + 11);
+    *(a1 + 104) = a2[13];
+    *(a1 + 88) = v10;
+  }
+
+  if (*(a2 + 135) < 0)
+  {
+    std::string::__init_copy_ctor_external((a1 + 112), a2[14], a2[15]);
+  }
+
+  else
+  {
+    v11 = *(a2 + 7);
+    *(a1 + 128) = a2[16];
+    *(a1 + 112) = v11;
+  }
+
+  return a1;
+}
+
+void sub_2476B8E0C(_Unwind_Exception *a1)
+{
+  if (*(v1 + 111) < 0)
+  {
+    operator delete(*(v1 + 88));
+  }
+
+  v3 = *(v1 + 80);
+  if ((v3 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v3 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  v4 = *(v1 + 72);
+  if ((v4 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v4 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  realityio::WrappedRERef<REEntity *>::~WrappedRERef(v1);
+  _Unwind_Resume(a1);
+}
+
+uint64_t realityio::TransformComponentBuilder::run(realityio::Inputs *)::$_0::~$_0(uint64_t a1)
+{
+  if (*(a1 + 151) < 0)
+  {
+    operator delete(*(a1 + 128));
+  }
+
+  if (*(a1 + 127) < 0)
+  {
+    operator delete(*(a1 + 104));
+  }
+
+  v2 = *(a1 + 96);
+  if ((v2 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v2 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  v3 = *(a1 + 88);
+  if ((v3 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v3 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  realityio::WrappedRERef<REEntity *>::~WrappedRERef((a1 + 16));
+  return a1;
+}
+
+void anonymous namespace::TransformAnchoringData::~TransformAnchoringData(void **this)
+{
+  if (*(this + 135) < 0)
+  {
+    operator delete(this[14]);
+  }
+
+  if (*(this + 111) < 0)
+  {
+    operator delete(this[11]);
+  }
+
+  v2 = this[10];
+  if ((v2 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v2 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  v3 = this[9];
+  if ((v3 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v3 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  realityio::WrappedRERef<REEntity *>::~WrappedRERef(this);
+}
+
+uint64_t realityio::TransformComponentBuilder::clear(realityio::TransformComponentBuilder *this, realityio::Inputs *a2)
+{
+  v4[4] = *MEMORY[0x277D85DE8];
+  v2 = *(a2 + 6);
+  v4[0] = &unk_28595C990;
+  v4[1] = a2;
+  v4[2] = this;
+  v4[3] = v4;
+  (*(*v2 + 16))(v2, v4);
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v4);
+}
+
+void sub_2476B9014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void realityio::TransformComponentBuilder::~TransformComponentBuilder(realityio::TransformComponentBuilder *this)
+{
+  *this = &unk_285943338;
+  std::__function::__value_func<std::shared_ptr<realityio::OutputsDescriptor const> ()(pxrInternal__aapl__pxrReserved__::SdfPath const&)>::~__value_func[abi:ne200100](this + 248);
+  std::__function::__value_func<std::shared_ptr<realityio::InputsDescriptor const> ()(pxrInternal__aapl__pxrReserved__::SdfPath const&)>::~__value_func[abi:ne200100](this + 216);
+  v2 = *(this + 26);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  v3 = *(this + 24);
+  if ((v3 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v3 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  v4 = *(this + 23);
+  if ((v4 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v4 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  realityio::Builder::~Builder(this);
+}
+
+{
+  *this = &unk_285943338;
+  std::__function::__value_func<std::shared_ptr<realityio::OutputsDescriptor const> ()(pxrInternal__aapl__pxrReserved__::SdfPath const&)>::~__value_func[abi:ne200100](this + 248);
+  std::__function::__value_func<std::shared_ptr<realityio::InputsDescriptor const> ()(pxrInternal__aapl__pxrReserved__::SdfPath const&)>::~__value_func[abi:ne200100](this + 216);
+  v2 = *(this + 26);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  v3 = *(this + 24);
+  if ((v3 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v3 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  v4 = *(this + 23);
+  if ((v4 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v4 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  realityio::Builder::~Builder(this);
+
+  JUMPOUT(0x24C1A91B0);
+}
+
+void sub_2476B94D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+  }
+
+  if (v21)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+  }
+
+  if (a18)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a18);
+  }
+
+  if (v20)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+  }
+
+  if (v19)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+  }
+
+  std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__function::__func<realityio::TransformComponentBuilder::TransformComponentBuilder(pxrInternal__aapl__pxrReserved__::SdfPath const&)::$_0,std::allocator<realityio::TransformComponentBuilder::TransformComponentBuilder(pxrInternal__aapl__pxrReserved__::SdfPath const&)::$_0>,std::shared_ptr<realityio::InputsDescriptor const> ()(pxrInternal__aapl__pxrReserved__::SdfPath const&)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t anonymous namespace::referenceImageCallback@<X0>(_anonymous_namespace_ *this@<X0>, const pxrInternal__aapl__pxrReserved__::UsdStage *a2@<X1>, unint64_t a3@<X8>)
+{
+  *a3 = 0u;
+  *(a3 + 16) = 0u;
+  *(a3 + 32) = 1065353216;
+  pxrInternal__aapl__pxrReserved__::UsdStage::GetPrimAtPath(&v9, this, a2);
+  if (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v9))
+  {
+    v3 = atomic_load(&realityio::tokens::TransformBuilderTokens);
+    if (!v3)
+    {
+      pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::TransformBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::TransformBuilderTokens_StaticTokenType>>::_TryToCreateData(&realityio::tokens::TransformBuilderTokens);
+    }
+
+    pxrInternal__aapl__pxrReserved__::UsdPrim::GetAttribute(&v5, &v9, (v3 + 64));
+    if (pxrInternal__aapl__pxrReserved__::UsdAttribute::HasAuthoredValue(&v5))
+    {
+      pxrInternal__aapl__pxrReserved__::UsdAttribute::_Get<pxrInternal__aapl__pxrReserved__::TfToken>();
+    }
+
+    if ((v8 & 7) != 0)
+    {
+      atomic_fetch_add_explicit((v8 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    }
+
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v7);
+    if (v6)
+    {
+      pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v6);
+    }
+  }
+
+  if ((v12 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v12 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v11);
+  result = v10;
+  if (v10)
+  {
+    return pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v10);
+  }
+
+  return result;
+}
+
+void sub_2476B9898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
+  va_copy(va2, va1);
+  v10 = va_arg(va2, void);
+  v12 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
+  v14 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
+  *(v4 - 40) = va;
+  std::vector<pxrInternal__aapl__pxrReserved__::SdfPath>::__destroy_vector::operator()[abi:ne200100]((v4 - 40));
+  pxrInternal__aapl__pxrReserved__::UsdRelationship::~UsdRelationship(va1);
+  if ((v15 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v15 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  pxrInternal__aapl__pxrReserved__::UsdAttribute::~UsdAttribute(va2);
+  pxrInternal__aapl__pxrReserved__::UsdPrim::~UsdPrim((v4 - 72));
+  std::__hash_table<pxrInternal__aapl__pxrReserved__::SdfPath,pxrInternal__aapl__pxrReserved__::SdfPath::Hash,std::equal_to<pxrInternal__aapl__pxrReserved__::SdfPath>,std::allocator<pxrInternal__aapl__pxrReserved__::SdfPath>>::~__hash_table(v3);
+  _Unwind_Resume(a1);
+}
+
+void sub_2476B9A94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  std::__shared_weak_count::~__shared_weak_count(v15);
+  operator delete(v17);
+  _Unwind_Resume(a1);
 }

@@ -582,9 +582,9 @@ LABEL_17:
   return v13;
 }
 
-uint64_t __64__GKCollectionViewDataSource_item_matchesSearchTerms_inSection___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void *__64__GKCollectionViewDataSource_item_matchesSearchTerms_inSection___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  result = [a2 rangeOfString:*(a1 + 32) options:897];
+  result = [a2 rangeOfString:*(a1 + 32) options:{897, a5, a6}];
   if (!result)
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;

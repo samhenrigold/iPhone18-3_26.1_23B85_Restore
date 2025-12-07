@@ -2,6 +2,7 @@
 + (id)sharedTransactionQueueForName:(id)name;
 - (PFOSTransactionQueue)initWithTransactionName:(id)name;
 - (id)description;
+- (void)_dispatchWork:(id)work waitUntilFinished:(BOOL)finished;
 @end
 
 @implementation PFOSTransactionQueue
@@ -75,6 +76,30 @@ uint64_t __54__PFOSTransactionQueue_sharedTransactionQueueForName___block_invoke
   build = [v3 build];
 
   return build;
+}
+
+- (void)_dispatchWork:(id)work waitUntilFinished:(BOOL)finished
+{
+  finishedCopy = finished;
+  v19[1] = *MEMORY[0x1E69E9840];
+  workCopy = work;
+  if (workCopy)
+  {
+    transactionName = [(PFOSTransactionQueue *)self transactionName];
+    txOperationQueue = self->_txOperationQueue;
+    v9 = MEMORY[0x1E696AAE0];
+    v13 = MEMORY[0x1E69E9820];
+    v14 = 3221225472;
+    v15 = __56__PFOSTransactionQueue__dispatchWork_waitUntilFinished___block_invoke;
+    v16 = &unk_1E8189FF8;
+    v17 = transactionName;
+    v18 = workCopy;
+    v10 = transactionName;
+    v11 = [v9 blockOperationWithBlock:&v13];
+    v19[0] = v11;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:{1, v13, v14, v15, v16}];
+    [(NSOperationQueue *)txOperationQueue addOperations:v12 waitUntilFinished:finishedCopy];
+  }
 }
 
 void __56__PFOSTransactionQueue__dispatchWork_waitUntilFinished___block_invoke(uint64_t a1)

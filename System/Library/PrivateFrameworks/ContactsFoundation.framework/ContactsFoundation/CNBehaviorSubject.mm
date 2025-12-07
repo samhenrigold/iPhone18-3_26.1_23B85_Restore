@@ -75,7 +75,7 @@ uint64_t __44__CNBehaviorSubject_resultWithResourceLock___block_invoke(uint64_t 
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)performWithResourceLock:(id)lock
@@ -153,7 +153,7 @@ void __37__CNBehaviorSubject__removeObserver___block_invoke(uint64_t a1)
 
 - (void)observerDidReceiveResult:(id)result
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   v5 = +[CNObservableContractEnforcement shouldSwizzleNilResults];
   if (!resultCopy && v5)
@@ -176,44 +176,42 @@ void __37__CNBehaviorSubject__removeObserver___block_invoke(uint64_t a1)
   enforcement = [(CNBehaviorSubject *)self enforcement];
   [enforcement observerDidReceiveResult:resultCopy];
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __46__CNBehaviorSubject_observerDidReceiveResult___block_invoke;
-  v20[3] = &unk_1E6ED5190;
-  v20[4] = self;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __46__CNBehaviorSubject_observerDidReceiveResult___block_invoke;
+  v19[3] = &unk_1E6ED5190;
+  v19[4] = self;
   v9 = resultCopy;
-  v21 = v9;
-  v10 = [(CNBehaviorSubject *)self resultWithResourceLock:v20];
+  v20 = v9;
+  v10 = [(CNBehaviorSubject *)self resultWithResourceLock:v19];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v11 = [v10 countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       v14 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [*(*(&v16 + 1) + 8 * v14++) observerDidReceiveResult:v9];
+        [*(*(&v15 + 1) + 8 * v14++) observerDidReceiveResult:v9];
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v12);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 id __46__CNBehaviorSubject_observerDidReceiveResult___block_invoke(uint64_t a1)
@@ -229,46 +227,44 @@ id __46__CNBehaviorSubject_observerDidReceiveResult___block_invoke(uint64_t a1)
 
 - (void)observerDidComplete
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   enforcement = [(CNBehaviorSubject *)self enforcement];
   [enforcement observerDidComplete];
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __40__CNBehaviorSubject_observerDidComplete__block_invoke;
-  v14[3] = &unk_1E6ED51B8;
-  v14[4] = self;
-  v4 = [(CNBehaviorSubject *)self resultWithResourceLock:v14];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __40__CNBehaviorSubject_observerDidComplete__block_invoke;
+  v13[3] = &unk_1E6ED51B8;
+  v13[4] = self;
+  v4 = [(CNBehaviorSubject *)self resultWithResourceLock:v13];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) observerDidComplete];
+        [*(*(&v9 + 1) + 8 * v8++) observerDidComplete];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 id __40__CNBehaviorSubject_observerDidComplete__block_invoke(uint64_t a1)
@@ -284,49 +280,47 @@ id __40__CNBehaviorSubject_observerDidComplete__block_invoke(uint64_t a1)
 
 - (void)observerDidFailWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   enforcement = [(CNBehaviorSubject *)self enforcement];
   [enforcement observerDidFailWithError:errorCopy];
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __46__CNBehaviorSubject_observerDidFailWithError___block_invoke;
-  v17[3] = &unk_1E6ED5190;
-  v17[4] = self;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __46__CNBehaviorSubject_observerDidFailWithError___block_invoke;
+  v16[3] = &unk_1E6ED5190;
+  v16[4] = self;
   v6 = errorCopy;
-  v18 = v6;
-  v7 = [(CNBehaviorSubject *)self resultWithResourceLock:v17];
+  v17 = v6;
+  v7 = [(CNBehaviorSubject *)self resultWithResourceLock:v16];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) observerDidFailWithError:v6];
+        [*(*(&v12 + 1) + 8 * v11++) observerDidFailWithError:v6];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 id __46__CNBehaviorSubject_observerDidFailWithError___block_invoke(uint64_t a1)
@@ -342,13 +336,11 @@ id __46__CNBehaviorSubject_observerDidFailWithError___block_invoke(uint64_t a1)
 
 - (void)observerDidReceiveResult:(NSObject *)a1 .cold.2(NSObject *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AF00] callStackSymbols];
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_1859F0000, a1, OS_LOG_TYPE_ERROR, "Call stack: %{public}@", &v4, 0xCu);
-
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_1859F0000, a1, OS_LOG_TYPE_ERROR, "Call stack: %{public}@", &v3, 0xCu);
 }
 
 @end

@@ -1,5 +1,6 @@
 @interface _CardDAVActionsContactsHandler
 + (OS_os_log)os_log;
+- (BOOL)handleAction:(id)action forContainer:(id)container inAccount:(id)account withFolderURL:(id)l isInitialSync:(BOOL)sync arePartialResults:(BOOL)results syncInfo:(id)info heldAsideGroups:(id)self0 internalReference:(id)self1;
 - (_CardDAVActionsContactsHandler)initWithContactStore:(id)store;
 - (id)localItemForExternalURL:(id)l forContainer:(id)container withStoreURL:(id)rL;
 - (id)matchingContactForExternalID:(id)d;
@@ -33,6 +34,143 @@
   }
 
   return v7;
+}
+
+- (BOOL)handleAction:(id)action forContainer:(id)container inAccount:(id)account withFolderURL:(id)l isInitialSync:(BOOL)sync arePartialResults:(BOOL)results syncInfo:(id)info heldAsideGroups:(id)self0 internalReference:(id)self1
+{
+  syncCopy = sync;
+  actionCopy = action;
+  containerCopy = container;
+  accountCopy = account;
+  lCopy = l;
+  infoCopy = info;
+  groupsCopy = groups;
+  changedItem = [actionCopy changedItem];
+  asContainer = [containerCopy asContainer];
+  serverID = [changedItem serverID];
+  v23 = [(_CardDAVActionsContactsHandler *)self localItemForExternalURL:serverID forContainer:containerCopy withStoreURL:lCopy];
+
+  if (!v23 && syncCopy)
+  {
+    if ([infoCopy startedWithNoContacts])
+    {
+      v23 = 0;
+    }
+
+    else
+    {
+      v23 = [(_CardDAVActionsContactsHandler *)self copyExistingContactForItem:changedItem inStore:asContainer];
+    }
+  }
+
+  itemChangeType = [actionCopy itemChangeType];
+  if (itemChangeType < 2)
+  {
+    os_log = [objc_opt_class() os_log];
+    v26 = os_log_type_enabled(os_log, OS_LOG_TYPE_INFO);
+    if (v23)
+    {
+      if (v26)
+      {
+        v27 = objc_opt_class();
+        NSStringFromClass(v27);
+        v46 = infoCopy;
+        v29 = v28 = accountCopy;
+        *buf = 138412290;
+        v53 = v29;
+        _os_log_impl(&dword_0, os_log, OS_LOG_TYPE_INFO, "updating %@", buf, 0xCu);
+
+        accountCopy = v28;
+        infoCopy = v46;
+      }
+    }
+
+    else if (v26)
+    {
+      v33 = objc_opt_class();
+      NSStringFromClass(v33);
+      v34 = v47 = accountCopy;
+      *buf = 138412290;
+      v53 = v34;
+      _os_log_impl(&dword_0, os_log, OS_LOG_TYPE_INFO, "adding %@", buf, 0xCu);
+
+      accountCopy = v47;
+    }
+
+    LOBYTE(v45) = !results;
+    v35 = [changedItem saveWithLocalObject:v23 toContainer:containerCopy containerURL:lCopy shouldMergeProperties:syncCopy outMergeDidChooseLocalProperties:0 account:accountCopy shouldSaveGroups:v45];
+    v30 = infoCopy;
+    if (v35)
+    {
+      os_log2 = [objc_opt_class() os_log];
+      if (os_log_type_enabled(os_log2, OS_LOG_TYPE_INFO))
+      {
+        v37 = objc_opt_class();
+        NSStringFromClass(v37);
+        v38 = v48 = accountCopy;
+        serverID2 = [changedItem serverID];
+        clientID = [changedItem clientID];
+        *buf = 138412802;
+        v53 = v38;
+        v54 = 2112;
+        v55 = serverID2;
+        v56 = 2112;
+        v57 = clientID;
+        _os_log_impl(&dword_0, os_log2, OS_LOG_TYPE_INFO, "saved %@, server id %@, clientID %@", buf, 0x20u);
+
+        accountCopy = v48;
+      }
+
+      v32 = 1;
+      goto LABEL_25;
+    }
+
+    if ([v23 isGroup])
+    {
+      os_log3 = [objc_opt_class() os_log];
+      if (os_log_type_enabled(os_log3, OS_LOG_TYPE_INFO))
+      {
+        [changedItem serverID];
+        v43 = v42 = accountCopy;
+        *buf = 138412290;
+        v53 = v43;
+        _os_log_impl(&dword_0, os_log3, OS_LOG_TYPE_INFO, "Holding aside group with server id %@", buf, 0xCu);
+
+        accountCopy = v42;
+      }
+
+      v31 = groupsCopy;
+      [groupsCopy addObject:actionCopy];
+      goto LABEL_23;
+    }
+
+LABEL_24:
+    v32 = 0;
+LABEL_25:
+    v31 = groupsCopy;
+    goto LABEL_26;
+  }
+
+  v30 = infoCopy;
+  if (itemChangeType != &dword_0 + 2)
+  {
+    goto LABEL_24;
+  }
+
+  v31 = groupsCopy;
+  if (!v23)
+  {
+LABEL_23:
+    v32 = 0;
+    goto LABEL_26;
+  }
+
+  [changedItem setLocalItem:v23];
+  [changedItem deleteFromContainer:0];
+  v32 = 1;
+LABEL_26:
+
+  return v32;
 }
 
 - (id)localItemForExternalURL:(id)l forContainer:(id)container withStoreURL:(id)rL

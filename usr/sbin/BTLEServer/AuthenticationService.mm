@@ -78,9 +78,11 @@
 {
   if (objc_opt_class() == self)
   {
-    qword_1000DDBA8 = objc_alloc_init(NSMutableSet);
+    v2 = objc_alloc_init(NSMutableSet);
+    v3 = qword_1000DDBA8;
+    qword_1000DDBA8 = v2;
 
-    _objc_release_x1();
+    _objc_release_x1(v2, v3);
   }
 }
 

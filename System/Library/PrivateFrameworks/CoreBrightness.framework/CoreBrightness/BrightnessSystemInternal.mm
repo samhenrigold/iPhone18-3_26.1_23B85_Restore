@@ -28,8 +28,7 @@ uint64_t __32__BrightnessSystemInternal_init__block_invoke(uint64_t a1)
   objc_sync_enter(obj);
   if (*(*(a1 + 32) + 88))
   {
-    v6 = *(a1 + 32);
-    [*(v6 + 80) enumerateKeysAndObjectsUsingBlock:?];
+    [*(*(a1 + 32) + 80) enumerateKeysAndObjectsUsingBlock:?];
     when = dispatch_time(0, 10000000000);
     global_queue = dispatch_get_global_queue(17, 0);
     dispatch_after(when, global_queue, *(*(a1 + 32) + 96));
@@ -78,12 +77,10 @@ uint64_t __32__BrightnessSystemInternal_init__block_invoke_81(uint64_t a1)
     }
   }
 
-  result = objc_sync_exit(obj);
-  *MEMORY[0x1E69E9840];
-  return result;
+  return objc_sync_exit(obj);
 }
 
-void __32__BrightnessSystemInternal_init__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+double __32__BrightnessSystemInternal_init__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v17 = *MEMORY[0x1E69E9840];
   objc_opt_class();
@@ -96,7 +93,7 @@ void __32__BrightnessSystemInternal_init__block_invoke_2(uint64_t a1, uint64_t a
       {
         if (*(*(a1 + 32) + 104))
         {
-          v4 = *(*(a1 + 32) + 104);
+          v5 = *(*(a1 + 32) + 104);
         }
 
         else
@@ -111,20 +108,20 @@ void __32__BrightnessSystemInternal_init__block_invoke_2(uint64_t a1, uint64_t a
             inited = init_default_corebrightness_log();
           }
 
-          v4 = inited;
+          v5 = inited;
         }
 
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           __os_log_helper_16_2_1_8_64(v15, a2);
-          _os_log_error_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_ERROR, "BSI-barrier: Disabling client %@", v15, 0xCu);
+          _os_log_error_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_ERROR, "BSI-barrier: Disabling client %@", v15, 0xCu);
         }
 
-        v8 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:2];
-        if (v8)
+        v9 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:2];
+        if (v9)
         {
-          [*(*(a1 + 32) + 80) setObject:v8 forKey:a2];
-          MEMORY[0x1E69E5920](v8);
+          [*(*(a1 + 32) + 80) setObject:v9 forKey:a2];
+          *&result = MEMORY[0x1E69E5920](v9).n128_u64[0];
         }
       }
     }
@@ -141,36 +138,35 @@ void __32__BrightnessSystemInternal_init__block_invoke_2(uint64_t a1, uint64_t a
       v10 = [*(*(a1 + 32) + 48) objectForKey:a2];
       if (*(*(a1 + 32) + 104))
       {
-        v6 = *(*(a1 + 32) + 104);
+        v7 = *(*(a1 + 32) + 104);
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v5 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v6 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v5 = init_default_corebrightness_log();
+          v6 = init_default_corebrightness_log();
         }
 
-        v6 = v5;
+        v7 = v6;
       }
 
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         __os_log_helper_16_2_2_8_64_8_64(v16, a2, v10);
-        _os_log_debug_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_DEBUG, "BSI-barrier: Sending barrier to client %@, connection %@", v16, 0x16u);
+        _os_log_debug_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_DEBUG, "BSI-barrier: Sending barrier to client %@, connection %@", v16, 0x16u);
       }
 
-      v9 = *(a1 + 32);
       [v10 scheduleSendBarrierBlock:?];
     }
   }
 
-  *MEMORY[0x1E69E9840];
+  return result;
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -384,7 +380,6 @@ uint64_t __41__BrightnessSystemInternal_destroyServer__block_invoke(uint64_t a1,
   objc_sync_enter(self);
   [(NSMutableDictionary *)self->_clientsProps enumerateKeysAndObjectsUsingBlock:?];
   objc_sync_exit(self);
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __57__BrightnessSystemInternal_notifyClientsForProperty_key___block_invoke(void *a1, uint64_t a2, void *a3)
@@ -429,13 +424,12 @@ uint64_t __57__BrightnessSystemInternal_notifyClientsForProperty_key___block_inv
             _os_log_debug_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEBUG, "passed for client %@", v9, 0xCu);
           }
 
-          result = [objc_msgSend(objc_msgSend(*(a1[5] + 48) objectForKey:{a2), "remoteObjectProxy"), "notifyChangedProperty:value:", a1[4], a1[6]}];
+          return [objc_msgSend(objc_msgSend(*(a1[5] + 48) objectForKey:{a2), "remoteObjectProxy"), "notifyChangedProperty:value:", a1[4], a1[6]}];
         }
       }
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -541,7 +535,6 @@ uint64_t __57__BrightnessSystemInternal_notifyClientsForProperty_key___block_inv
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -640,7 +633,7 @@ uint64_t __57__BrightnessSystemInternal_notifyClientsForProperty_key___block_inv
       }
     }
 
-    v13 = v10 & 1;
+    return v10 & 1;
   }
 
   else
@@ -671,11 +664,8 @@ uint64_t __57__BrightnessSystemInternal_notifyClientsForProperty_key___block_inv
       _os_log_error_impl(&dword_1DE8E5000, v9, OS_LOG_TYPE_ERROR, "Failed to init %d BLControl - non internal build.", v16, 8u);
     }
 
-    v13 = 0;
+    return 0;
   }
-
-  *MEMORY[0x1E69E9840];
-  return v13 & 1;
 }
 
 uint64_t __42__BrightnessSystemInternal_initBLControl___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -785,8 +775,6 @@ uint64_t __42__BrightnessSystemInternal_initBLControl___block_invoke(uint64_t a1
 
     objc_sync_exit(self);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setProperty:(id)property forKey:(id)key client:(id)client
@@ -821,7 +809,7 @@ uint64_t __42__BrightnessSystemInternal_initBLControl___block_invoke(uint64_t a1
       _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Switched BLControl to type = %d result = %d", v14, 0xEu);
     }
 
-    v13 = v8;
+    return v8;
   }
 
   else if (self->bl)
@@ -829,22 +817,19 @@ uint64_t __42__BrightnessSystemInternal_initBLControl___block_invoke(uint64_t a1
     [(BrightnessSystemInternal *)self setOwnedProperty:property forKey:key client:client];
     if ([(BrightnessSystemInternal *)self isACombinableProperty:key])
     {
-      v13 = [(BrightnessSystemInternal *)self setCombinableProperty:property forKey:key client:client];
+      return [(BrightnessSystemInternal *)self setCombinableProperty:property forKey:key client:client];
     }
 
     else
     {
-      v13 = [(BLControl *)self->bl setPropertyWithKey:key property:property client:client];
+      return [(BLControl *)self->bl setPropertyWithKey:key property:property client:client];
     }
   }
 
   else
   {
-    v13 = 0;
+    return 0;
   }
-
-  *MEMORY[0x1E69E9840];
-  return v13 & 1;
 }
 
 - (id)adjustDictionaryToBeValidPropertyList:(id)list
@@ -891,7 +876,7 @@ uint64_t __42__BrightnessSystemInternal_initBLControl___block_invoke(uint64_t a1
       }
     }
 
-    v27 = v23;
+    return v23;
   }
 
   else
@@ -932,26 +917,47 @@ uint64_t __42__BrightnessSystemInternal_initBLControl___block_invoke(uint64_t a1
         }
       }
 
-      v27 = v20;
+      return v20;
     }
 
     else
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
+      if (objc_opt_isKindOfClass())
       {
-        v27 = listCopy;
+        return listCopy;
+      }
+
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        return listCopy;
+      }
+
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        return listCopy;
+      }
+
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        return listCopy;
+      }
+
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        return listCopy;
       }
 
       else
       {
-        v27 = [listCopy description];
+        return [listCopy description];
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
-  return v27;
 }
 
 - (id)copyPropertyForKey:(id)key client:(id)client
@@ -985,55 +991,49 @@ uint64_t __42__BrightnessSystemInternal_initBLControl___block_invoke(uint64_t a1
 
   if ([key isEqual:@"CBSystemInitDuration"])
   {
-    v14 = [objc_alloc(MEMORY[0x1E696AD98]) initWithDouble:self->_initDuration];
+    return [objc_alloc(MEMORY[0x1E696AD98]) initWithDouble:self->_initDuration];
   }
 
-  else if (self->bl)
+  if (!self->bl)
   {
-    if ([(BrightnessSystemInternal *)self isACombinableProperty:key])
-    {
-      v10 = [(BrightnessSystemInternal *)self newAggregatedPropertyForCombinablePropertiesForKey:key];
-    }
+    return 0;
+  }
 
-    else
-    {
-      v10 = [(BLControl *)self->bl copyPropertyWithKey:key client:client];
-    }
-
-    keyCopy = 0;
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      keyCopy = key;
-    }
-
-    else
-    {
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-        keyCopy = [key getKeyString];
-      }
-    }
-
-    if ([keyCopy isEqualToString:@"StatusInfo"])
-    {
-      context = objc_autoreleasePoolPush();
-      v8 = [(BrightnessSystemInternal *)self adjustDictionaryToBeValidPropertyList:v10];
-      v10 = MEMORY[0x1E69E5928](v8);
-      objc_autoreleasePoolPop(context);
-    }
-
-    v14 = v10;
+  if ([(BrightnessSystemInternal *)self isACombinableProperty:key])
+  {
+    v10 = [(BrightnessSystemInternal *)self newAggregatedPropertyForCombinablePropertiesForKey:key];
   }
 
   else
   {
-    v14 = 0;
+    v10 = [(BLControl *)self->bl copyPropertyWithKey:key client:client];
   }
 
-  *MEMORY[0x1E69E9840];
-  return v14;
+  keyCopy = 0;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    keyCopy = key;
+  }
+
+  else
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      keyCopy = [key getKeyString];
+    }
+  }
+
+  if ([keyCopy isEqualToString:@"StatusInfo"])
+  {
+    context = objc_autoreleasePoolPush();
+    v8 = [(BrightnessSystemInternal *)self adjustDictionaryToBeValidPropertyList:v10];
+    v10 = MEMORY[0x1E69E5928](v8);
+    objc_autoreleasePoolPop(context);
+  }
+
+  return v10;
 }
 
 - (BOOL)isAlsSupported
@@ -1113,7 +1113,6 @@ uint64_t __42__BrightnessSystemInternal_initBLControl___block_invoke(uint64_t a1
   }
 
   objc_sync_exit(self);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setOwnedProperty:(id)property forKey:(id)key client:(id)client
@@ -1344,74 +1343,68 @@ uint64_t __57__BrightnessSystemInternal_undoOwnedPropertiesForClient___block_inv
     _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "setCombinableProperty %@ for key %@ and client %@", v20, 0x20u);
   }
 
-  if (property && key)
+  if (!property || !key)
   {
-    objc_sync_enter(self);
-    if (!self->_combinableProps)
-    {
-      self->_combinableProps = objc_alloc_init(MEMORY[0x1E695DF90]);
-    }
+    return 0;
+  }
 
-    v12 = [(NSMutableDictionary *)self->_combinableProps objectForKeyedSubscript:key];
-    if (!v12)
-    {
-      v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      [(NSMutableDictionary *)self->_combinableProps setObject:v12 forKeyedSubscript:key];
-      MEMORY[0x1E69E5920](v12);
-    }
+  objc_sync_enter(self);
+  if (!self->_combinableProps)
+  {
+    self->_combinableProps = objc_alloc_init(MEMORY[0x1E695DF90]);
+  }
 
-    if (self->_logHandle)
-    {
-      v7 = self->_logHandle;
-    }
+  v12 = [(NSMutableDictionary *)self->_combinableProps objectForKeyedSubscript:key];
+  if (!v12)
+  {
+    v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    [(NSMutableDictionary *)self->_combinableProps setObject:v12 forKeyedSubscript:key];
+    MEMORY[0x1E69E5920](v12);
+  }
 
-    else
-    {
-      if (_COREBRIGHTNESS_LOG_DEFAULT)
-      {
-        v6 = _COREBRIGHTNESS_LOG_DEFAULT;
-      }
-
-      else
-      {
-        v6 = init_default_corebrightness_log();
-      }
-
-      v7 = v6;
-    }
-
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
-    {
-      __os_log_helper_16_2_1_8_64(v19, self->_combinableProps);
-      _os_log_debug_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_DEBUG, "setCombinableProperty _combinableProps is now %@", v19, 0xCu);
-    }
-
-    if (client)
-    {
-      [v12 setObject:property forKeyedSubscript:client];
-    }
-
-    else
-    {
-      [v12 setObject:property forKeyedSubscript:@"server"];
-    }
-
-    objc_sync_exit(self);
-    v11 = [(BrightnessSystemInternal *)self newAggregatedPropertyForCombinablePropertiesForKey:key];
-    v10 = [objc_alloc(MEMORY[0x1E696AD98]) initWithLongLong:0x7FFFFFFFFFFFFFFFLL];
-    v13 = [(BLControl *)self->bl setPropertyWithKey:key property:v11 client:v10];
-    MEMORY[0x1E69E5920](v10);
-    MEMORY[0x1E69E5920](v11);
-    v18 = v13;
+  if (self->_logHandle)
+  {
+    v7 = self->_logHandle;
   }
 
   else
   {
-    v18 = 0;
+    if (_COREBRIGHTNESS_LOG_DEFAULT)
+    {
+      v6 = _COREBRIGHTNESS_LOG_DEFAULT;
+    }
+
+    else
+    {
+      v6 = init_default_corebrightness_log();
+    }
+
+    v7 = v6;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v18;
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    __os_log_helper_16_2_1_8_64(v19, self->_combinableProps);
+    _os_log_debug_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_DEBUG, "setCombinableProperty _combinableProps is now %@", v19, 0xCu);
+  }
+
+  if (client)
+  {
+    [v12 setObject:property forKeyedSubscript:client];
+  }
+
+  else
+  {
+    [v12 setObject:property forKeyedSubscript:@"server"];
+  }
+
+  objc_sync_exit(self);
+  v11 = [(BrightnessSystemInternal *)self newAggregatedPropertyForCombinablePropertiesForKey:key];
+  v10 = [objc_alloc(MEMORY[0x1E696AD98]) initWithLongLong:0x7FFFFFFFFFFFFFFFLL];
+  v13 = [(BLControl *)self->bl setPropertyWithKey:key property:v11 client:v10];
+  MEMORY[0x1E69E5920](v10);
+  MEMORY[0x1E69E5920](v11);
+  return v13;
 }
 
 - (id)newAggregatedPropertyForCombinablePropertiesForKey:(id)key
@@ -1639,7 +1632,6 @@ uint64_t __57__BrightnessSystemInternal_undoOwnedPropertiesForClient___block_inv
   objc_autoreleasePoolPop(context);
   v11 = v51;
   objc_sync_exit(self);
-  *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -1759,8 +1751,6 @@ uint64_t __57__BrightnessSystemInternal_undoOwnedPropertiesForClient___block_inv
 
     MEMORY[0x1E69E5920](v28);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 @end

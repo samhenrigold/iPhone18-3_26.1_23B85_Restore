@@ -17,6 +17,7 @@
 - (void)preferredContentSizeDidChangeForChildContentContainer:(id)container;
 - (void)setHome:(id)home;
 - (void)updateViewConstraints;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -56,6 +57,27 @@
   v6 = +[UIColor systemBackgroundColor];
   view = [(HomeNotificationViewController *)self view];
   [view setBackgroundColor:v6];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = HomeNotificationViewController;
+  [(HomeNotificationViewController *)&v7 viewDidDisappear:disappear];
+  v5 = HFLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = NSStringFromSelector(a2);
+    *buf = 138412546;
+    selfCopy = self;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@: %@", buf, 0x16u);
+  }
+
+  [(HomeNotificationViewController *)self _clearUpContentViewController];
+  [(HomeNotificationViewController *)self setCameraProfile:0];
+  [(HomeNotificationViewController *)self setNotificationSnapshot:0];
 }
 
 - (void)updateViewConstraints
@@ -102,19 +124,7 @@
   if (notificationRequestIdentifier)
   {
     cameraNotificationUUID = [(HomeNotificationViewController *)self cameraNotificationUUID];
-    if (!cameraNotificationUUID)
-    {
-      goto LABEL_7;
-    }
-
-    cameraNotificationUUID2 = [(HomeNotificationViewController *)self cameraNotificationUUID];
-    request2 = [notificationCopy request];
-    content2 = [request2 content];
-    userInfo = [content2 userInfo];
-    v15 = [userInfo objectForKeyedSubscript:HMBulletinCameraNotificationIDKey];
-    v16 = [cameraNotificationUUID2 isEqual:v15];
-
-    if (v16)
+    if (cameraNotificationUUID && (-[HomeNotificationViewController cameraNotificationUUID](self, "cameraNotificationUUID"), v11 = objc_claimAutoreleasedReturnValue(), -[NSObject request](notificationCopy, "request"), v12 = objc_claimAutoreleasedReturnValue(), [v12 content], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "userInfo"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "objectForKeyedSubscript:", HMBulletinCameraNotificationIDKey), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v11, "isEqual:", v15), v15, v14, v13, v12, v11, cameraNotificationUUID, v16))
     {
       contentViewController = [(HomeNotificationViewController *)self contentViewController];
       [contentViewController reloadAfterNotificationUpdate];
@@ -122,7 +132,6 @@
 
     else
     {
-LABEL_7:
       contentViewController = HFLogForCategory();
       if (os_log_type_enabled(contentViewController, OS_LOG_TYPE_ERROR))
       {
@@ -133,13 +142,13 @@ LABEL_7:
 
   else
   {
-    request3 = [notificationCopy request];
-    identifier = [request3 identifier];
+    request2 = [notificationCopy request];
+    identifier = [request2 identifier];
     [(HomeNotificationViewController *)self setNotificationRequestIdentifier:identifier];
 
-    request4 = [notificationCopy request];
-    content3 = [request4 content];
-    contentViewController = [content3 userInfo];
+    request3 = [notificationCopy request];
+    content2 = [request3 content];
+    contentViewController = [content2 userInfo];
 
     v22 = HFLogForCategory();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))

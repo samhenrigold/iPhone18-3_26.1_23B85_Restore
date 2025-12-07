@@ -43,12 +43,11 @@
 
 uint64_t __28__HMMMLogOrigin_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_23729;
-  logCategory__hmf_once_v1_23729 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_23729;
+  logCategory__hmf_once_v1_23729 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

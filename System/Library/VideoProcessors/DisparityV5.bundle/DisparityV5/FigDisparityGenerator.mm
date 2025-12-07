@@ -10,7 +10,9 @@
 - (FigDisparityGenerator)initWithCommandQueue:(id)queue;
 - (id)selectTuningParametersForCapture;
 - (int)_demosaic:(float)_demosaic andPreshift:(id)preshift tuningParameters:;
+- (int)_detectKeypoints:(float)keypoints preShift:;
 - (int)_detectKeypointsLKTFlow:(float)flow preShift:(id)shift parameters:;
+- (int)prepareToProcess:(unsigned int)process;
 - (int)prewarm;
 - (int)prewarmWithTuningParameters:(id)parameters;
 - (int)process;
@@ -794,7 +796,7 @@ LABEL_35:
 
   else
   {
-    sub_29576BD74();
+    sub_29576BD74(0, a2);
   }
 
   return 0;
@@ -893,26 +895,26 @@ LABEL_35:
     if (PixelFormatType != 1815162994 || CVPixelBufferGetPixelFormatType(v4) != 1815162994)
     {
       sub_29576BE64();
-      goto LABEL_170;
+      goto LABEL_171;
     }
 
     if (CVPixelBufferGetWidth(ImageBuffer) != self->_scalerOutputWidth || CVPixelBufferGetHeight(ImageBuffer) != self->_scalerOutputHeight)
     {
       sub_29576BEDC();
-      goto LABEL_170;
+      goto LABEL_171;
     }
 
     if (CVPixelBufferGetWidth(v4) != self->_scalerOutputWidth || CVPixelBufferGetHeight(v4) != self->_scalerOutputHeight)
     {
       sub_29576BF54();
-LABEL_170:
+LABEL_171:
       LODWORD(v37) = 0;
-      v778 = 0;
+      v781 = 0;
       v188 = 0;
-      v780 = 0;
-      v492 = 0;
-      v408 = 0;
-      goto LABEL_171;
+      v783 = 0;
+      v493 = 0;
+      v409 = 0;
+      goto LABEL_172;
     }
   }
 
@@ -923,7 +925,7 @@ LABEL_170:
     if (!v7 || !v8)
     {
       sub_29576BDEC();
-      goto LABEL_170;
+      goto LABEL_171;
     }
   }
 
@@ -940,7 +942,7 @@ LABEL_170:
     if (!self->_refHalfResRGBATexture)
     {
       sub_29576D260();
-      goto LABEL_170;
+      goto LABEL_171;
     }
 
     LODWORD(v25) = self->_scalerOutputWidth;
@@ -955,13 +957,13 @@ LABEL_170:
     {
       sub_29576D1B0();
       LODWORD(v37) = 0;
-LABEL_173:
-      v778 = 0;
-LABEL_177:
+LABEL_174:
+      v781 = 0;
+LABEL_178:
       v188 = 0;
-LABEL_180:
-      v780 = 0;
-      goto LABEL_181;
+LABEL_181:
+      v783 = 0;
+      goto LABEL_182;
     }
   }
 
@@ -974,7 +976,7 @@ LABEL_180:
     if (!v37)
     {
       sub_29576C12C();
-      goto LABEL_173;
+      goto LABEL_174;
     }
 
     v56 = objc_msgSend_desc(v37, v48, v49, v50, v51, v52, v53, v54, v55);
@@ -1002,9 +1004,9 @@ LABEL_180:
 
     if (!self->_refHalfResRGBATexture)
     {
-      v778 = v37;
+      v781 = v37;
       sub_29576C07C();
-      goto LABEL_176;
+      goto LABEL_177;
     }
 
     objc_msgSend_setLabel_(v37, v155, 0, v156, v157, v158, v159, v160, v161);
@@ -1015,28 +1017,28 @@ LABEL_180:
 
     if (!self->_auxHalfResRGBATexture)
     {
-      v778 = v37;
+      v781 = v37;
       sub_29576BFCC();
-      goto LABEL_176;
+      goto LABEL_177;
     }
   }
 
-  v778 = v37;
+  v781 = v37;
   if ((objc_msgSend__extractAndRunSanityChecks(self, v29, v30, v31, v32, v33, v34, v35, v36) & 1) == 0)
   {
     sub_29576C1DC();
-LABEL_176:
+LABEL_177:
     LODWORD(v37) = 0;
-    goto LABEL_177;
+    goto LABEL_178;
   }
 
   v188 = objc_msgSend_selectTuningParametersForCapture(self, v180, v181, v182, v183, v184, v185, v186, v187);
   if (!v188)
   {
     sub_29576D138();
-LABEL_179:
+LABEL_180:
     LODWORD(v37) = 0;
-    goto LABEL_180;
+    goto LABEL_181;
   }
 
   v189 = objc_opt_new();
@@ -1052,63 +1054,63 @@ LABEL_179:
   auxiliaryMeta = self->_auxiliaryMeta;
   referenceMeta = self->_referenceMeta;
   options = self->_options;
-  objc_msgSend_adaptiveCorrectionConfig(v188, v209, v210, v211, v212, v213, v214, v215, v216);
-  if (objc_msgSend_extractParametersFromReferenceMetadata_auxiliaryMetadata_options_adaptiveCorrectionConfig_useReferenceFrame_(calibration, v217, referenceMeta, auxiliaryMeta, options, &v805, 1, v218, v219))
+  objc_msgSend_adaptiveCorrectionConfig(v188, v216, v209, v210, v211, v212, v213, v214, v215);
+  if (objc_msgSend_extractParametersFromReferenceMetadata_auxiliaryMetadata_options_adaptiveCorrectionConfig_useReferenceFrame_(calibration, v217, referenceMeta, auxiliaryMeta, options, &v808, 1, v218, v219))
   {
     sub_29576C254();
-    goto LABEL_179;
+    goto LABEL_180;
   }
 
   if (objc_msgSend_computeInitialCalibration(self->_calibration, v220, v221, v222, v223, v224, v225, v226, v227))
   {
     sub_29576C2D4();
-    goto LABEL_179;
+    goto LABEL_180;
   }
 
-  objc_msgSend_referenceMagnification(self->_calibration, v228, v229, v230, v231, v232, v233, v234, v235);
-  if (v243 <= 0.0)
+  v236 = objc_msgSend_referenceMagnification(self->_calibration, v228, v229, v230, v231, v232, v233, v234, v235);
+  if (v244 <= 0.0)
   {
-    sub_29576D0C0();
-    goto LABEL_179;
+    sub_29576D0C0(v236);
+    goto LABEL_180;
   }
 
-  v244 = v243;
-  v804 = 0.0;
-  if (objc_msgSend_alignAuxiliaryImageForKeypoints(v188, v236, v237, v238, v239, v240, v241, v242, v243) && objc_msgSend_computeAuxiliaryImageShiftForKeypoints_(self->_calibration, v245, &v804, v246, v247, v248, v249, v250, v251))
+  v245 = v244;
+  v807 = 0.0;
+  if (objc_msgSend_alignAuxiliaryImageForKeypoints(v188, v237, v238, v239, v240, v241, v242, v243, v244) && objc_msgSend_computeAuxiliaryImageShiftForKeypoints_(self->_calibration, v246, &v807, v247, v248, v249, v250, v251, v252))
   {
     sub_29576C354();
-    goto LABEL_179;
+    goto LABEL_180;
   }
 
-  v252 = *&self->_inputCalibrationWidth;
-  v253 = *&self->_scalerOutputWidth;
-  v254 = *&self->_rectifiedOutputWidth;
-  if (objc_msgSend__demosaic_andPreshift_tuningParameters_(self, v245, v188, v246, v247, v248, v249, v250, v244, v804))
+  v253 = *&self->_inputCalibrationWidth;
+  v254 = *&self->_scalerOutputWidth;
+  v255 = *&self->_rectifiedOutputWidth;
+  if (objc_msgSend__demosaic_andPreshift_tuningParameters_(self, v246, v188, v247, v248, v249, v250, v251, v245, v807))
   {
     sub_29576C3D4();
-    goto LABEL_179;
+    goto LABEL_180;
   }
 
   self->_keypointsCount = 0;
   if (self->_useLktKeypoints)
   {
-    v262 = objc_msgSend__detectKeypointsLKTFlow_preShift_parameters_(self, v255, v188, v257, v258, v259, v260, v261, v244, v804);
+    v263 = objc_msgSend__detectKeypointsLKTFlow_preShift_parameters_(self, v256, v188, v258, v259, v260, v261, v262, v245, v807);
   }
 
   else
   {
-    v262 = objc_msgSend__detectKeypoints_preShift_(self, v255, v256, v257, v258, v259, v260, v261, v244, v804);
+    v263 = objc_msgSend__detectKeypoints_preShift_(self, v256, v257, v258, v259, v260, v261, v262, v245, v807);
   }
 
-  if (v262)
+  if (v263)
   {
     sub_29576C454();
     LODWORD(v37) = 0;
-    v780 = 0;
-    v492 = 0;
-    v408 = 0;
-    v765 = 0;
-    v764 = 1;
+    v783 = 0;
+    v493 = 0;
+    v409 = 0;
+    v768 = 0;
+    v767 = 1;
     goto LABEL_108;
   }
 
@@ -1117,34 +1119,34 @@ LABEL_179:
     kdebug_trace();
   }
 
-  objc_msgSend_setKeypointsForReference_auxiliary_keypointCount_(self->_calibration, v263, self->_adaptiveCorrectionKeypointsReferenceDistorted, self->_adaptiveCorrectionKeypointsAuxiliaryDistorted, self->_keypointsCount, v264, v265, v266, v267);
-  v780 = objc_msgSend_computeCalibration(self->_calibration, v268, v269, v270, v271, v272, v273, v274, v275);
-  if (v780 && !self->_shouldComputeDisparityWhenCalibrationFails)
+  objc_msgSend_setKeypointsForReference_auxiliary_keypointCount_(self->_calibration, v264, self->_adaptiveCorrectionKeypointsReferenceDistorted, self->_adaptiveCorrectionKeypointsAuxiliaryDistorted, self->_keypointsCount, v265, v266, v267, v268);
+  v783 = objc_msgSend_computeCalibration(self->_calibration, v269, v270, v271, v272, v273, v274, v275, v276);
+  if (v783 && !self->_shouldComputeDisparityWhenCalibrationFails)
   {
-    if (v780 == 1)
+    if (v783 == 1)
     {
-      v492 = 0;
-      v408 = 0;
-      v765 = 0;
-      v764 = 2;
-      goto LABEL_140;
+      v493 = 0;
+      v409 = 0;
+      v768 = 0;
+      v767 = 2;
+      goto LABEL_141;
     }
 
-    if (v780 == 2)
+    if (v783 == 2)
     {
-      v492 = 0;
-      v408 = 0;
-      v765 = 0;
-      v764 = 3;
-      goto LABEL_140;
+      v493 = 0;
+      v409 = 0;
+      v768 = 0;
+      v767 = 3;
+      goto LABEL_141;
     }
 
-LABEL_139:
-    v492 = 0;
-    v408 = 0;
-    v765 = 0;
-    v764 = 4;
 LABEL_140:
+    v493 = 0;
+    v409 = 0;
+    v768 = 0;
+    v767 = 4;
+LABEL_141:
     LODWORD(v37) = 1;
     goto LABEL_108;
   }
@@ -1181,559 +1183,559 @@ LABEL_140:
   *&self->_gdcParametersAuxiliary.applyRollingShutterCorrection = 0u;
   *&self->_gdcParametersAuxiliary.originalCropRect.origin.y = 0u;
   self->_gdcParametersAuxiliary.originalCropRect.size.height = 0.0;
-  v802 = 0u;
+  v805 = 0u;
+  v806 = 0u;
   v803 = 0u;
-  v800 = 0u;
+  v804 = 0u;
   v801 = 0u;
-  v798 = 0u;
+  v802 = 0u;
   v799 = 0u;
-  v796 = 0u;
+  v800 = 0u;
   v797 = 0u;
-  v794 = 0u;
+  v798 = 0u;
   v795 = 0u;
-  v792 = 0u;
+  v796 = 0u;
   v793 = 0u;
-  v790 = 0u;
+  v794 = 0u;
   v791 = 0u;
-  v788 = 0u;
+  v792 = 0u;
   v789 = 0u;
-  v786 = 0u;
+  v790 = 0u;
   v787 = 0u;
-  v784 = 0u;
-  v785 = 0u;
-  v282 = self->_calibration;
-  if (v282)
+  v788 = 0u;
+  v283 = self->_calibration;
+  if (v283)
   {
-    objc_msgSend_distModelFor_(v282, v276, 0, v277, v278, v279, v280, v281, 0.0);
-    v289 = self->_calibration;
+    objc_msgSend_distModelFor_(v283, 0.0, v277, 0, v278, v279, v280, v281, v282);
+    v290 = self->_calibration;
+    v803 = v814;
+    v804 = v815;
+    v805 = v816;
+    v806 = v817;
+    v799 = v810;
     v800 = v811;
     v801 = v812;
     v802 = v813;
-    v803 = v814;
-    v796 = v807;
     v797 = v808;
     v798 = v809;
-    v799 = v810;
-    v794 = v805;
-    v795 = v806;
-    if (v289)
+    if (v290)
     {
-      objc_msgSend_undistModelFor_(v289, v283, 0, v284, v285, v286, v287, v288, *v805.f64);
+      objc_msgSend_undistModelFor_(v290, *v808.f64, v284, 0, v285, v286, v287, v288, v289);
       goto LABEL_44;
     }
   }
 
   else
   {
-    v802 = 0uLL;
+    v805 = 0uLL;
+    v806 = 0uLL;
     v803 = 0uLL;
-    v800 = 0uLL;
+    v804 = 0uLL;
     v801 = 0uLL;
-    v798 = 0uLL;
+    v802 = 0uLL;
     v799 = 0uLL;
-    v796 = 0uLL;
+    v800 = 0uLL;
     v797 = 0uLL;
-    v794 = 0uLL;
-    v795 = 0uLL;
+    v798 = 0uLL;
   }
 
-  v813 = 0u;
+  v816 = 0u;
+  v817 = 0u;
   v814 = 0u;
-  v811 = 0u;
+  v815 = 0u;
   v812 = 0u;
-  v809 = 0u;
+  v813 = 0u;
   v810 = 0u;
-  v807 = 0u;
+  v811 = 0u;
   v808 = 0u;
-  v805 = 0u;
-  v806 = 0u;
+  v809 = 0u;
 LABEL_44:
+  v793 = v814;
+  v794 = v815;
+  v795 = v816;
+  v796 = v817;
+  v789 = v810;
   v790 = v811;
   v791 = v812;
   v792 = v813;
-  v793 = v814;
-  v786 = v807;
   v787 = v808;
   v788 = v809;
-  v789 = v810;
-  v784 = v805;
-  v785 = v806;
-  if (sub_295757980(&v794, v784.f64, &self->_gdcParametersReference, self->_inputCalibrationWidth, self->_inputCalibrationHeight))
+  if (sub_295757980(&v797, v787.f64, &self->_gdcParametersReference, self->_inputCalibrationWidth, self->_inputCalibrationHeight))
   {
     sub_29576C4CC();
-    goto LABEL_139;
+    goto LABEL_140;
   }
 
-  v297 = self->_calibration;
-  if (v297)
+  v298 = self->_calibration;
+  if (v298)
   {
-    objc_msgSend_distModelFor_(v297, v290, 1, v291, v292, v293, v294, v295, v296);
-    v304 = self->_calibration;
+    objc_msgSend_distModelFor_(v298, v297, v291, 1, v292, v293, v294, v295, v296);
+    v305 = self->_calibration;
+    v803 = v814;
+    v804 = v815;
+    v805 = v816;
+    v806 = v817;
+    v799 = v810;
     v800 = v811;
     v801 = v812;
     v802 = v813;
-    v803 = v814;
-    v796 = v807;
     v797 = v808;
     v798 = v809;
-    v799 = v810;
-    v794 = v805;
-    v795 = v806;
-    if (v304)
+    if (v305)
     {
-      objc_msgSend_undistModelFor_(v304, v298, 1, v299, v300, v301, v302, v303, *v805.f64);
+      objc_msgSend_undistModelFor_(v305, *v808.f64, v299, 1, v300, v301, v302, v303, v304);
       goto LABEL_50;
     }
   }
 
   else
   {
-    v802 = 0u;
+    v805 = 0u;
+    v806 = 0u;
     v803 = 0u;
-    v800 = 0u;
+    v804 = 0u;
     v801 = 0u;
-    v798 = 0u;
+    v802 = 0u;
     v799 = 0u;
-    v796 = 0u;
+    v800 = 0u;
     v797 = 0u;
-    v794 = 0u;
-    v795 = 0u;
+    v798 = 0u;
   }
 
-  v813 = 0u;
+  v816 = 0u;
+  v817 = 0u;
   v814 = 0u;
-  v811 = 0u;
+  v815 = 0u;
   v812 = 0u;
-  v809 = 0u;
+  v813 = 0u;
   v810 = 0u;
-  v807 = 0u;
+  v811 = 0u;
   v808 = 0u;
-  v805 = 0u;
-  v806 = 0u;
+  v809 = 0u;
 LABEL_50:
+  v793 = v814;
+  v794 = v815;
+  v795 = v816;
+  v796 = v817;
+  v789 = v810;
   v790 = v811;
   v791 = v812;
   v792 = v813;
-  v793 = v814;
-  v786 = v807;
   v787 = v808;
   v788 = v809;
-  v789 = v810;
-  v784 = v805;
-  v785 = v806;
-  if (sub_295757980(&v794, v784.f64, &self->_gdcParametersAuxiliary, self->_inputCalibrationWidth, self->_inputCalibrationHeight))
+  if (sub_295757980(&v797, v787.f64, &self->_gdcParametersAuxiliary, self->_inputCalibrationWidth, self->_inputCalibrationHeight))
   {
     sub_29576C548();
-    goto LABEL_139;
+    goto LABEL_140;
   }
 
-  LODWORD(v312) = 15.0;
-  if (objc_msgSend_computeStereoRectificationHomographies_alignedToAngle_(self->_calibration, v305, v306, v307, v308, v309, v310, v311, 300.0, v312))
+  LODWORD(v313) = 15.0;
+  if (objc_msgSend_computeStereoRectificationHomographies_alignedToAngle_(self->_calibration, v306, v307, v308, v309, v310, v311, v312, 300.0, v313))
   {
     sub_29576C5C4();
-    goto LABEL_139;
+    goto LABEL_140;
   }
 
-  v320 = vcvt_f32_u32(v252);
-  v321 = vmul_f32(vdiv_f32(v320, vcvt_f32_u32(v253)), vcvt_f32_u32(v254));
-  v322 = vmul_f32(vsub_f32(v320, v321), 0x3F0000003F000000);
-  v781 = vcvtq_f64_f32(v322);
-  v782 = vcvtq_f64_f32(v321);
-  objc_msgSend_rectReferenceToReference(self->_calibration, v313, v314, v315, v316, v317, v318, v319, *&v781.x);
-  v330 = 0;
+  v321 = vcvt_f32_u32(v253);
+  v322 = vmul_f32(vdiv_f32(v321, vcvt_f32_u32(v254)), vcvt_f32_u32(v255));
+  v323 = vmul_f32(vsub_f32(v321, v322), 0x3F0000003F000000);
+  v784 = vcvtq_f64_f32(v323);
+  v785 = vcvtq_f64_f32(v322);
+  objc_msgSend_rectReferenceToReference(self->_calibration, v314, v315, v316, v317, v318, v319, v320, *&v784.x);
+  v331 = 0;
   homography = self->_gdcParametersReference.homography;
-  v805 = v332;
-  v806 = v333;
-  v807 = v334;
+  v808 = v333;
+  v809 = v334;
+  v810 = v335;
   do
   {
     for (i = 0; i != 3; ++i)
     {
-      v336 = ((&v805 + i) & 0xFFFFFFFFFFFFFFF3 | (4 * (v330 & 3)));
-      v337 = *v336;
-      homography[i] = *v336;
+      v337 = ((&v808 + i) & 0xFFFFFFFFFFFFFFF3 | (4 * (v331 & 3)));
+      v338 = *v337;
+      homography[i] = *v337;
     }
 
-    ++v330;
+    ++v331;
     homography += 3;
   }
 
-  while (v330 != 3);
-  objc_msgSend_referenceToRectReference(self->_calibration, v323, v324, v325, v326, v327, v328, v329, v337);
-  v346 = 0;
+  while (v331 != 3);
+  objc_msgSend_referenceToRectReference(self->_calibration, v324, v325, v326, v327, v328, v329, v330, v338);
+  v347 = 0;
   inverseHomography = self->_gdcParametersReference.inverseHomography;
-  v805 = v348;
-  v806 = v345;
-  v807 = v349;
+  v808 = v349;
+  v809 = v346;
+  v810 = v350;
   do
   {
     for (j = 0; j != 3; ++j)
     {
-      inverseHomography[j] = *((&v805 + j) & 0xFFFFFFFFFFFFFFF3 | (4 * (v346 & 3)));
+      inverseHomography[j] = *((&v808 + j) & 0xFFFFFFFFFFFFFFF3 | (4 * (v347 & 3)));
     }
 
-    ++v346;
+    ++v347;
     inverseHomography += 3;
   }
 
-  while (v346 != 3);
-  *v345.f32 = vcvt_f32_u32(*&self->_rectifiedOutputWidth);
-  v351 = vdiv_f32(vcvt_f32_u32(*&self->_auxiliaryPaddedHalfResWidth), *v345.f32);
+  while (v347 != 3);
+  *v346.f32 = vcvt_f32_u32(*&self->_rectifiedOutputWidth);
+  v352 = vdiv_f32(vcvt_f32_u32(*&self->_auxiliaryPaddedHalfResWidth), *v346.f32);
   __asm { FMOV            V11.2S, #1.0 }
 
-  *v345.f32 = vmul_f32(vmul_f32(v322, vsub_f32(_D11, v351)), vdiv_f32(vcvt_f32_u32(*&self->_scalerOutputWidth), *v345.f32));
-  v775 = v351.u32[0];
-  v776 = v351.i32[1];
-  v345.i32[2] = 1.0;
-  v777 = v345;
-  objc_msgSend_rectReferenceToAuxiliary(self->_calibration, v338, v339, v340, v341, v342, v343, v344, 1.0);
-  v773 = v358;
-  v774 = v357;
-  v772 = v359;
-  objc_msgSend_auxiliaryPaddingHInv(self->_calibration, v360, v361, v362, v363, v364, v365, v366, v357.f32[0]);
-  v374 = 0;
-  v817 = v375;
-  v818 = v376;
-  v819 = v377;
-  v805 = 0u;
-  v806 = 0u;
-  v807 = 0u;
+  *v346.f32 = vmul_f32(vmul_f32(v323, vsub_f32(_D11, v352)), vdiv_f32(vcvt_f32_u32(*&self->_scalerOutputWidth), *v346.f32));
+  v778 = v352.u32[0];
+  v779 = v352.i32[1];
+  v346.i32[2] = 1.0;
+  v780 = v346;
+  objc_msgSend_rectReferenceToAuxiliary(self->_calibration, v339, v340, v341, v342, v343, v344, v345, 1.0);
+  v776 = v359;
+  v777 = v358;
+  v775 = v360;
+  objc_msgSend_auxiliaryPaddingHInv(self->_calibration, v361, v362, v363, v364, v365, v366, v367, v358.f32[0]);
+  v375 = 0;
+  v820 = v376;
+  v821 = v377;
+  v822 = v378;
+  v808 = 0u;
+  v809 = 0u;
+  v810 = 0u;
   do
   {
-    *(&v805 + v374) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v774, COERCE_FLOAT(*(&v817 + v374))), v773, *(&v817 + v374), 1), v772, *(&v817 + v374), 2);
-    v374 += 16;
+    *(&v808 + v375) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v777, COERCE_FLOAT(*(&v820 + v375))), v776, *(&v820 + v375), 1), v775, *(&v820 + v375), 2);
+    v375 += 16;
   }
 
-  while (v374 != 48);
-  v378 = 0;
-  LODWORD(v379) = 0;
-  v380 = v777;
-  HIDWORD(v379) = v776;
-  v380.i32[3] = 0;
-  v381 = v805;
-  v382 = v806;
-  v383 = v807;
-  v817 = v775;
-  v818 = v379;
-  v819 = v380;
-  v805 = 0u;
-  v806 = 0u;
-  v807 = 0u;
+  while (v375 != 48);
+  v379 = 0;
+  LODWORD(v380) = 0;
+  v381 = v780;
+  HIDWORD(v380) = v779;
+  v381.i32[3] = 0;
+  v382 = v808;
+  v383 = v809;
+  v384 = v810;
+  v820 = v778;
+  v821 = v380;
+  v822 = v381;
+  v808 = 0u;
+  v809 = 0u;
+  v810 = 0u;
   do
   {
-    *(&v805 + v378) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v381, COERCE_FLOAT(*(&v817 + v378))), v382, *(&v817 + v378), 1), v383, *(&v817 + v378), 2);
-    v378 += 16;
+    *(&v808 + v379) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v382, COERCE_FLOAT(*(&v820 + v379))), v383, *(&v820 + v379), 1), v384, *(&v820 + v379), 2);
+    v379 += 16;
   }
 
-  while (v378 != 48);
-  v384 = 0;
-  v385 = v805;
-  v386 = v806;
-  v387 = v807;
-  HIDWORD(v385.f64[1]) = 0;
-  v386.i32[3] = 0;
+  while (v379 != 48);
+  v385 = 0;
+  v386 = v808;
+  v387 = v809;
+  v388 = v810;
+  HIDWORD(v386.f64[1]) = 0;
   v387.i32[3] = 0;
-  v388 = self->_gdcParametersAuxiliary.homography;
-  v805 = v385;
-  v806 = v386;
-  v807 = v387;
+  v388.i32[3] = 0;
+  v389 = self->_gdcParametersAuxiliary.homography;
+  v808 = v386;
+  v809 = v387;
+  v810 = v388;
   do
   {
     for (k = 0; k != 3; ++k)
     {
-      v390 = ((&v805 + k) & 0xFFFFFFFFFFFFFFF3 | (4 * (v384 & 3)));
-      v391 = *v390;
-      v388[k] = *v390;
+      v391 = ((&v808 + k) & 0xFFFFFFFFFFFFFFF3 | (4 * (v385 & 3)));
+      v392 = *v391;
+      v389[k] = *v391;
     }
 
-    ++v384;
-    v388 += 3;
+    ++v385;
+    v389 += 3;
   }
 
-  while (v384 != 3);
-  v392 = self->_calibration;
-  if (v392)
+  while (v385 != 3);
+  v393 = self->_calibration;
+  if (v393)
   {
-    objc_msgSend_correctedCalibration(v392, v367, v368, v369, v370, v371, v372, v373, v391);
+    v393 = objc_msgSend_correctedCalibration(v393, v392, v368, v369, v370, v371, v372, v373, v374);
   }
 
   else
   {
-    v816 = 0.0;
-    v814 = 0u;
+    v819 = 0.0;
+    v817 = 0u;
+    v818 = 0u;
     v815 = 0u;
-    v812 = 0u;
+    v816 = 0u;
     v813 = 0u;
-    v810 = 0u;
+    v814 = 0u;
     v811 = 0u;
-    v808 = 0u;
+    v812 = 0u;
     v809 = 0u;
-    v806 = 0u;
-    v807 = 0u;
-    v805 = 0u;
+    v810 = 0u;
+    v808 = 0u;
   }
 
-  v393 = v814;
-  *&self->_correctedCalibration.extrinRotRefefenceToAuxiliary[10] = v813;
-  *&self->_correctedCalibration.canonicalDisparityScale = v393;
-  *&self->_correctedCalibration.calibrationDimensions[1] = v815;
-  self->_correctedCalibration.pixelSize_um[1] = v816;
-  v394 = v810;
-  *&self->_correctedCalibration.extrinRotRefefenceToAuxiliary[2] = v809;
-  *&self->_correctedCalibration.extrinRotRefefenceToAuxiliary[4] = v394;
-  v395 = v812;
-  *&self->_correctedCalibration.extrinRotRefefenceToAuxiliary[6] = v811;
-  *&self->_correctedCalibration.extrinRotRefefenceToAuxiliary[8] = v395;
-  v396 = v806;
-  *self->_correctedCalibration.focalLengthPix = v805;
-  *self->_correctedCalibration.opticalCenterX = v396;
-  v397 = v807.f32[0];
-  v398 = v808;
-  *self->_correctedCalibration.opticalCenterY = v807;
-  *self->_correctedCalibration.extrinRotRefefenceToAuxiliary = v398;
+  v394 = v817;
+  *&self->_correctedCalibration.extrinRotRefefenceToAuxiliary[10] = v816;
+  *&self->_correctedCalibration.canonicalDisparityScale = v394;
+  *&self->_correctedCalibration.calibrationDimensions[1] = v818;
+  self->_correctedCalibration.pixelSize_um[1] = v819;
+  v395 = v813;
+  *&self->_correctedCalibration.extrinRotRefefenceToAuxiliary[2] = v812;
+  *&self->_correctedCalibration.extrinRotRefefenceToAuxiliary[4] = v395;
+  v396 = v815;
+  *&self->_correctedCalibration.extrinRotRefefenceToAuxiliary[6] = v814;
+  *&self->_correctedCalibration.extrinRotRefefenceToAuxiliary[8] = v396;
+  v397 = v809;
+  *self->_correctedCalibration.focalLengthPix = v808;
+  *self->_correctedCalibration.opticalCenterX = v397;
+  v398 = v810.f32[0];
+  v399 = v811;
+  *self->_correctedCalibration.opticalCenterY = v810;
+  *self->_correctedCalibration.extrinRotRefefenceToAuxiliary = v399;
   if (*v38 == 1)
   {
-    kdebug_trace();
+    v393 = kdebug_trace();
   }
 
   if (!self->_gdcTransform)
   {
-    sub_29576D048();
+    sub_29576D048(v393);
     LODWORD(v37) = 0;
-LABEL_181:
-    v492 = 0;
-    goto LABEL_182;
+LABEL_182:
+    v493 = 0;
+    goto LABEL_183;
   }
 
-  v399 = objc_msgSend_commandQueue(self->_metalContext, v367, v368, v369, v370, v371, v372, v373, v397);
-  v408 = objc_msgSend_commandBuffer(v399, v400, v401, v402, v403, v404, v405, v406, v407);
+  v400 = objc_msgSend_commandQueue(self->_metalContext, v368, v369, v370, v371, v372, v373, v374, v398);
+  v409 = objc_msgSend_commandBuffer(v400, v401, v402, v403, v404, v405, v406, v407, v408);
 
-  if (!v408)
+  if (!v409)
   {
     sub_29576CFA4();
-LABEL_148:
+LABEL_149:
     LODWORD(v37) = 0;
-    v492 = 0;
-    goto LABEL_126;
+    v493 = 0;
+    goto LABEL_127;
   }
 
-  LODWORD(v412) = self->_auxiliaryPaddedHalfResWidth;
-  LODWORD(v413) = self->_auxiliaryPaddedHalfResHeight;
-  v416 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_metalContext, v409, self->_auxHalfResRectifiedRGBAPixelBuffer, 90, 22, 0, v410, v411, COERCE_FLOAT(COERCE_UNSIGNED_INT64(v412)), v413);
-  if (!v416)
+  LODWORD(v413) = self->_auxiliaryPaddedHalfResWidth;
+  LODWORD(v414) = self->_auxiliaryPaddedHalfResHeight;
+  v417 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_metalContext, v410, self->_auxHalfResRectifiedRGBAPixelBuffer, 90, 22, 0, v411, v412, COERCE_FLOAT(COERCE_UNSIGNED_INT64(v413)), v414);
+  if (!v417)
   {
     sub_29576CF2C();
-LABEL_147:
+LABEL_148:
 
+    goto LABEL_149;
+  }
+
+  v418 = *&self->_auxiliaryPaddedHalfResWidth;
+  v419.i64[0] = v418;
+  v419.i64[1] = HIDWORD(v418);
+  self->_gdcParametersAuxiliary.canvasResolution = vcvtq_f64_u64(v419);
+  self->_gdcParametersAuxiliary.applyZTransform = 0;
+  self->_gdcParametersAuxiliary.samplerType = 2;
+  self->_gdcParametersAuxiliary.originalCropRect.origin = v784;
+  self->_gdcParametersAuxiliary.originalCropRect.size = v785;
+  if (objc_msgSend_transformFrom_to_withParameters_withScale_withMode_andCommandBuffer_(self->_gdcTransform, v415, self->_auxHalfResRGBATexture, v417, &self->_gdcParametersAuxiliary, 1, v409, v416, 1.0))
+  {
+    sub_29576C640();
     goto LABEL_148;
   }
 
-  v417 = *&self->_auxiliaryPaddedHalfResWidth;
-  v418.i64[0] = v417;
-  v418.i64[1] = HIDWORD(v417);
-  self->_gdcParametersAuxiliary.canvasResolution = vcvtq_f64_u64(v418);
-  self->_gdcParametersAuxiliary.applyZTransform = 0;
-  self->_gdcParametersAuxiliary.samplerType = 2;
-  self->_gdcParametersAuxiliary.originalCropRect.origin = v781;
-  self->_gdcParametersAuxiliary.originalCropRect.size = v782;
-  if (objc_msgSend_transformFrom_to_withParameters_withScale_withMode_andCommandBuffer_(self->_gdcTransform, v414, self->_auxHalfResRGBATexture, v416, &self->_gdcParametersAuxiliary, 1, v408, v415, 1.0))
-  {
-    sub_29576C640();
-    goto LABEL_147;
-  }
-
-  LODWORD(v419) = self->_rectifiedOutputWidth;
-  LODWORD(v420) = self->_rectifiedOutputHeight;
-  v416 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_metalContext, v421, self->_refHalfResRectifiedRGBAPixelBuffer, 90, 22, 0, v422, v423, COERCE_FLOAT(COERCE_UNSIGNED_INT64(v419)), v420);
-  if (!v416)
+  LODWORD(v420) = self->_rectifiedOutputWidth;
+  LODWORD(v421) = self->_rectifiedOutputHeight;
+  v417 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_metalContext, v422, self->_refHalfResRectifiedRGBAPixelBuffer, 90, 22, 0, v423, v424, COERCE_FLOAT(COERCE_UNSIGNED_INT64(v420)), v421);
+  if (!v417)
   {
     sub_29576CEB4();
-    goto LABEL_147;
+    goto LABEL_148;
   }
 
-  v426 = *&self->_rectifiedOutputWidth;
-  v427.i64[0] = v426;
-  v427.i64[1] = HIDWORD(v426);
-  self->_gdcParametersReference.canvasResolution = vcvtq_f64_u64(v427);
+  v427 = *&self->_rectifiedOutputWidth;
+  v428.i64[0] = v427;
+  v428.i64[1] = HIDWORD(v427);
+  self->_gdcParametersReference.canvasResolution = vcvtq_f64_u64(v428);
   self->_gdcParametersReference.applyZTransform = 0;
   self->_gdcParametersReference.samplerType = 2;
-  self->_gdcParametersReference.originalCropRect.origin = v781;
-  self->_gdcParametersReference.originalCropRect.size = v782;
-  if (objc_msgSend_transformFrom_to_withParameters_withScale_withMode_andCommandBuffer_(self->_gdcTransform, v424, self->_refHalfResRGBATexture, v416, &self->_gdcParametersReference, 1, v408, v425, 1.0))
+  self->_gdcParametersReference.originalCropRect.origin = v784;
+  self->_gdcParametersReference.originalCropRect.size = v785;
+  if (objc_msgSend_transformFrom_to_withParameters_withScale_withMode_andCommandBuffer_(self->_gdcTransform, v425, self->_refHalfResRGBATexture, v417, &self->_gdcParametersReference, 1, v409, v426, 1.0))
   {
     sub_29576C6BC();
-    goto LABEL_147;
+    goto LABEL_148;
   }
 
   if (*v38)
   {
-    v436 = objc_msgSend_commandQueue(v408, v428, v429, v430, v431, v432, v433, v434, v435);
-    v445 = objc_msgSend_commandBuffer(v436, v437, v438, v439, v440, v441, v442, v443, v444);
+    v437 = objc_msgSend_commandQueue(v409, v429, v430, v431, v432, v433, v434, v435, v436);
+    v446 = objc_msgSend_commandBuffer(v437, v438, v439, v440, v441, v442, v443, v444, v445);
 
-    objc_msgSend_setLabel_(v445, v446, @"KTRACE_MTLCMDBUF", v447, v448, v449, v450, v451, v452);
-    objc_msgSend_addCompletedHandler_(v445, v453, &unk_2A1C9B3D8, v454, v455, v456, v457, v458, v459);
-    objc_msgSend_commit(v445, v460, v461, v462, v463, v464, v465, v466, v467);
-    objc_msgSend_addCompletedHandler_(v408, v468, &unk_2A1C9B3F8, v469, v470, v471, v472, v473, v474);
+    objc_msgSend_setLabel_(v446, v447, @"KTRACE_MTLCMDBUF", v448, v449, v450, v451, v452, v453);
+    objc_msgSend_addCompletedHandler_(v446, v454, &unk_2A1C9B3D8, v455, v456, v457, v458, v459, v460);
+    objc_msgSend_commit(v446, v461, v462, v463, v464, v465, v466, v467, v468);
+    objc_msgSend_addCompletedHandler_(v409, v469, &unk_2A1C9B3F8, v470, v471, v472, v473, v474, v475);
   }
 
-  objc_msgSend_commit(v408, v428, v429, v430, v431, v432, v433, v434, v435);
-  v483 = objc_msgSend_commandQueue(self->_metalContext, v475, v476, v477, v478, v479, v480, v481, v482);
-  v492 = objc_msgSend_commandBuffer(v483, v484, v485, v486, v487, v488, v489, v490, v491);
+  objc_msgSend_commit(v409, v429, v430, v431, v432, v433, v434, v435, v436);
+  v484 = objc_msgSend_commandQueue(self->_metalContext, v476, v477, v478, v479, v480, v481, v482, v483);
+  v493 = objc_msgSend_commandBuffer(v484, v485, v486, v487, v488, v489, v490, v491, v492);
 
-  if (!v492)
+  if (!v493)
   {
     sub_29576CE10();
-    goto LABEL_125;
+    goto LABEL_126;
   }
 
   disparityWidth = self->_disparityWidth;
   disparityHeight = self->_disparityHeight;
   rectifiedOutputWidth = self->_rectifiedOutputWidth;
   rectifiedOutputHeight = self->_rectifiedOutputHeight;
-  v500 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_metalContext, v493, self->_refHalfResRectifiedRGBAPixelBuffer, 90, 17, 0, v494, v495, COERCE_FLOAT(COERCE_UNSIGNED_INT64(rectifiedOutputWidth)), rectifiedOutputHeight);
-  if (v500)
+  v501 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_metalContext, v494, self->_refHalfResRectifiedRGBAPixelBuffer, 90, 17, 0, v495, v496, COERCE_FLOAT(COERCE_UNSIGNED_INT64(rectifiedOutputWidth)), rectifiedOutputHeight);
+  if (v501)
   {
-    v505 = v500;
-    v510 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v501, self->_refLowResRectifiedRGBAPixelBuffer, 115, 22, 0, v502, v503, v504);
-    if (v510)
+    v506 = v501;
+    v511 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v502, self->_refLowResRectifiedRGBAPixelBuffer, 115, 22, 0, v503, v504, v505);
+    if (v511)
     {
-      *v511.i32 = fminf(disparityWidth / rectifiedOutputWidth, disparityHeight / rectifiedOutputHeight);
-      LODWORD(v512) = vdup_lane_s32(v511, 0).u32[0];
-      if (!objc_msgSend_downscaleRGBA_toRGBA_scalingFactor_commandBuffer_(self->_referenceDemosaic, v506, v505, v510, v492, v507, v508, v509, v512))
+      *v512.i32 = fminf(disparityWidth / rectifiedOutputWidth, disparityHeight / rectifiedOutputHeight);
+      LODWORD(v513) = vdup_lane_s32(v512, 0).u32[0];
+      if (!objc_msgSend_downscaleRGBA_toRGBA_scalingFactor_commandBuffer_(self->_referenceDemosaic, v507, v506, v511, v493, v508, v509, v510, v513))
       {
 
-        v517 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v513, self->_auxHalfResRectifiedRGBAPixelBuffer, 90, 17, 0, v514, v515, v516);
+        v518 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v514, self->_auxHalfResRectifiedRGBAPixelBuffer, 90, 17, 0, v515, v516, v517);
         v38 = MEMORY[0x29EDB9270];
-        if (v517)
+        if (v518)
         {
-          v505 = v517;
-          v510 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v518, self->_auxLowResRectifiedRGBAPixelBuffer, 115, 22, 0, v519, v520, v521);
-          if (v510)
+          v506 = v518;
+          v511 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v519, self->_auxLowResRectifiedRGBAPixelBuffer, 115, 22, 0, v520, v521, v522);
+          if (v511)
           {
-            if (!objc_msgSend_downscaleRGBA_toRGBA_scalingFactor_commandBuffer_(self->_referenceDemosaic, v522, v505, v510, v492, v523, v524, v525, v512))
+            if (!objc_msgSend_downscaleRGBA_toRGBA_scalingFactor_commandBuffer_(self->_referenceDemosaic, v523, v506, v511, v493, v524, v525, v526, v513))
             {
 
               self->_canonicalDisparityScaleFactorOut = 1.0;
-              objc_msgSend_orientationVector(self->_calibration, v526, v527, v528, v529, v530, v531, v532, v533);
-              if (v541 < 0.0)
+              v535 = objc_msgSend_orientationVector(self->_calibration, v527, v528, v529, v530, v531, v532, v533, v534);
+              if (v543 < 0.0)
               {
-                sub_29576CBB8();
+                sub_29576CBB8(v535);
               }
 
               else
               {
-                objc_msgSend_orientationVector(self->_calibration, v534, v535, v536, v537, v538, v539, v540, v541);
-                if (v549 < 0.0)
+                v544 = objc_msgSend_orientationVector(self->_calibration, v536, v537, v538, v539, v540, v541, v542, v543);
+                if (v552 < 0.0)
                 {
-                  sub_29576CB40();
+                  sub_29576CB40(v544, v552);
                 }
 
                 else
                 {
-                  v550 = vcvt_f32_u32(*&self->_disparityWidth);
-                  v551 = vdiv_f32(v550, vcvt_f32_f64(*self->_correctedCalibration.calibrationDimensions));
-                  objc_msgSend_orientationVector(self->_calibration, v542, v543, v544, v545, v546, v547, v548, v550.f32[0]);
-                  v560 = vmul_f32(v559, v551);
+                  v553 = vcvt_f32_u32(*&self->_disparityWidth);
+                  v554 = vdiv_f32(v553, vcvt_f32_f64(*self->_correctedCalibration.calibrationDimensions));
+                  objc_msgSend_orientationVector(self->_calibration, v545, v546, v547, v548, v549, v550, v551, v553.f32[0]);
+                  v563 = vmul_f32(v562, v554);
                   canonicalDisparityScale = self->_correctedCalibration.canonicalDisparityScale;
-                  v562 = canonicalDisparityScale / sqrtf(vaddv_f32(vmul_f32(v560, v560)));
-                  self->_canonicalDisparityScaleFactorOut = v562;
+                  v565 = canonicalDisparityScale / sqrtf(vaddv_f32(vmul_f32(v563, v563)));
+                  self->_canonicalDisparityScaleFactorOut = v565;
                   if (*v38)
                   {
-                    v563 = objc_msgSend_commandQueue(v492, v552, v553, v554, v555, v556, v557, v558, v562);
-                    v572 = objc_msgSend_commandBuffer(v563, v564, v565, v566, v567, v568, v569, v570, v571);
+                    v566 = objc_msgSend_commandQueue(v493, v555, v556, v557, v558, v559, v560, v561, v565);
+                    v575 = objc_msgSend_commandBuffer(v566, v567, v568, v569, v570, v571, v572, v573, v574);
 
-                    objc_msgSend_setLabel_(v572, v573, @"KTRACE_MTLCMDBUF", v574, v575, v576, v577, v578, v579);
-                    objc_msgSend_addCompletedHandler_(v572, v580, &unk_2A1C9B418, v581, v582, v583, v584, v585, v586);
-                    objc_msgSend_commit(v572, v587, v588, v589, v590, v591, v592, v593, v594);
-                    objc_msgSend_addCompletedHandler_(v492, v595, &unk_2A1C9B438, v596, v597, v598, v599, v600, v601);
+                    objc_msgSend_setLabel_(v575, v576, @"KTRACE_MTLCMDBUF", v577, v578, v579, v580, v581, v582);
+                    objc_msgSend_addCompletedHandler_(v575, v583, &unk_2A1C9B418, v584, v585, v586, v587, v588, v589);
+                    objc_msgSend_commit(v575, v590, v591, v592, v593, v594, v595, v596, v597);
+                    objc_msgSend_addCompletedHandler_(v493, v598, &unk_2A1C9B438, v599, v600, v601, v602, v603, v604);
                   }
 
                   if (FigGetCFPreferenceNumberWithDefault())
                   {
-                    objc_msgSend_addCompletedHandler_(v492, v602, &unk_2A1C9B458, v604, v605, v606, v607, v608, v609);
+                    objc_msgSend_addCompletedHandler_(v493, v605, &unk_2A1C9B458, v607, v608, v609, v610, v611, v612);
                   }
 
-                  objc_msgSend_commit(v492, v602, v603, v604, v605, v606, v607, v608, v609);
-                  objc_msgSend_waitForSchedule(self->_metalContext, v610, v611, v612, v613, v614, v615, v616, v617);
+                  objc_msgSend_commit(v493, v605, v606, v607, v608, v609, v610, v611, v612);
+                  objc_msgSend_waitForSchedule(self->_metalContext, v613, v614, v615, v616, v617, v618, v619, v620);
                   if (FigGetCFPreferenceNumberWithDefault())
                   {
                     WeakRetained = objc_loadWeakRetained(&self->_disparityInferenceProcessorDelegate);
-                    v624 = objc_msgSend_processDisparityInferenceWithReferenceBuffer_auxBuffer_outputDisparityBuffer_(WeakRetained, v619, self->_refLowResRectifiedRGBAPixelBuffer, self->_auxLowResRectifiedRGBAPixelBuffer, self->_rectifiedDisparityMap, v620, v621, v622, v623);
+                    v627 = objc_msgSend_processDisparityInferenceWithReferenceBuffer_auxBuffer_outputDisparityBuffer_(WeakRetained, v622, self->_refLowResRectifiedRGBAPixelBuffer, self->_auxLowResRectifiedRGBAPixelBuffer, self->_rectifiedDisparityMap, v623, v624, v625, v626);
 
                     if (*v38 == 1)
                     {
                       kdebug_trace();
                     }
 
-                    if (!v624)
+                    if (!v627)
                     {
-                      v633 = objc_msgSend_commandQueue(self->_metalContext, v625, v626, v627, v628, v629, v630, v631, v632);
-                      v642 = objc_msgSend_commandBuffer(v633, v634, v635, v636, v637, v638, v639, v640, v641);
+                      v636 = objc_msgSend_commandQueue(self->_metalContext, v628, v629, v630, v631, v632, v633, v634, v635);
+                      v645 = objc_msgSend_commandBuffer(v636, v637, v638, v639, v640, v641, v642, v643, v644);
 
-                      if (!v642)
+                      if (!v645)
                       {
                         sub_29576CA1C();
                         LODWORD(v37) = 0;
-LABEL_182:
-                        v408 = 0;
-                        goto LABEL_126;
+LABEL_183:
+                        v409 = 0;
+                        goto LABEL_127;
                       }
 
-                      objc_msgSend_minDisparityClampingPercentile(v188, v643, v644, v645, v646, v647, v648, v649, v650);
-                      v783 = v651;
-                      objc_msgSend_maxDisparityClampingPercentile(v188, v652, v653, v654, v655, v656, v657, v658, v651);
-                      v664.f32[0] = v783;
-                      if (v783 != 0.0 && (v664.i32[1] = v663, objc_msgSend_clampFromPixelBuffer_Mask_MaxDisparity_Percentiles_CommandBuffer_(self->_clamping, v659, self->_rectifiedDisparityMap, self->_refLowResRectifiedRGBAPixelBuffer, v642, v660, v661, v662, 124.0, COERCE_DOUBLE(vminnm_f32(vmaxnm_f32(v664, 0), _D11)))))
+                      objc_msgSend_minDisparityClampingPercentile(v188, v646, v647, v648, v649, v650, v651, v652, v653);
+                      v786 = v654;
+                      objc_msgSend_maxDisparityClampingPercentile(v188, v655, v656, v657, v658, v659, v660, v661, v654);
+                      v667.f32[0] = v786;
+                      if (v786 != 0.0 && (v667.i32[1] = v666, objc_msgSend_clampFromPixelBuffer_Mask_MaxDisparity_Percentiles_CommandBuffer_(self->_clamping, v662, self->_rectifiedDisparityMap, self->_refLowResRectifiedRGBAPixelBuffer, v645, v663, v664, v665, 124.0, COERCE_DOUBLE(vminnm_f32(vmaxnm_f32(v667, 0), _D11)))))
                       {
                         sub_29576C830();
                       }
 
                       else
                       {
-                        v665 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_metalContext, v659, self->_rectifiedDisparityMap, 25, 17, 0, v661, v662, 0.0, 576.0);
-                        if (v665)
+                        v668 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_metalContext, v662, self->_rectifiedDisparityMap, 25, 17, 0, v664, v665, 0.0, 576.0);
+                        if (v668)
                         {
-                          v671 = v665;
-                          LODWORD(v669) = self->_disparityWidth;
-                          LODWORD(v670) = self->_disparityHeight;
-                          v679 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_metalContext, v666, self->_outputShiftmap, 25, 22, 0, v667, v668, COERCE_FLOAT(COERCE_UNSIGNED_INT64(v669)), v670);
-                          if (v679)
+                          v674 = v668;
+                          LODWORD(v672) = self->_disparityWidth;
+                          LODWORD(v673) = self->_disparityHeight;
+                          v682 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_metalContext, v669, self->_outputShiftmap, 25, 22, 0, v670, v671, COERCE_FLOAT(COERCE_UNSIGNED_INT64(v672)), v673);
+                          if (v682)
                           {
                             self->_gdcParametersReference.canvasResolution = xmmword_29577A8C0;
                             self->_gdcParametersReference.applyZTransform = 1;
                             self->_gdcParametersReference.samplerType = 0;
-                            *&self->_gdcParametersReference.originalImageOriginX = v322;
-                            *&self->_gdcParametersReference.originalImageWidth = v321;
-                            objc_msgSend_referenceFinalCropRect(self->_calibration, v672, v673, v674, v675, v676, v677, v678, 0.0);
-                            v681 = v680;
-                            objc_msgSend_referenceFinalCropRect(self->_calibration, v682, v683, v684, v685, v686, v687, v688, *&v680);
-                            v690 = v689;
-                            objc_msgSend_referenceFinalCropRect(self->_calibration, v691, v692, v693, v694, v695, v696, v697, v698);
-                            v700 = v699;
-                            objc_msgSend_referenceFinalCropRect(self->_calibration, v701, v702, v703, v704, v705, v706, v707, v708);
-                            self->_gdcParametersReference.originalCropRect.origin.x = v681;
-                            self->_gdcParametersReference.originalCropRect.origin.y = v690;
-                            self->_gdcParametersReference.originalCropRect.size.width = v700;
-                            self->_gdcParametersReference.originalCropRect.size.height = v709;
-                            if (!objc_msgSend_transformFrom_to_withParameters_withScale_withMode_andCommandBuffer_(self->_gdcTransform, v710, v671, v679, &self->_gdcParametersReference, 2, v642, v711, self->_canonicalDisparityScaleFactorOut))
+                            *&self->_gdcParametersReference.originalImageOriginX = v323;
+                            *&self->_gdcParametersReference.originalImageWidth = v322;
+                            objc_msgSend_referenceFinalCropRect(self->_calibration, v675, v676, v677, v678, v679, v680, v681, 0.0);
+                            v684 = v683;
+                            objc_msgSend_referenceFinalCropRect(self->_calibration, v685, v686, v687, v688, v689, v690, v691, *&v683);
+                            v693 = v692;
+                            objc_msgSend_referenceFinalCropRect(self->_calibration, v694, v695, v696, v697, v698, v699, v700, v701);
+                            v703 = v702;
+                            objc_msgSend_referenceFinalCropRect(self->_calibration, v704, v705, v706, v707, v708, v709, v710, v711);
+                            self->_gdcParametersReference.originalCropRect.origin.x = v684;
+                            self->_gdcParametersReference.originalCropRect.origin.y = v693;
+                            self->_gdcParametersReference.originalCropRect.size.width = v703;
+                            self->_gdcParametersReference.originalCropRect.size.height = v712;
+                            if (!objc_msgSend_transformFrom_to_withParameters_withScale_withMode_andCommandBuffer_(self->_gdcTransform, v713, v674, v682, &self->_gdcParametersReference, 2, v645, v714, self->_canonicalDisparityScaleFactorOut))
                             {
                               if (*v38)
                               {
-                                v720 = objc_msgSend_commandQueue(v642, v712, v713, v714, v715, v716, v717, v718, v719);
-                                v729 = objc_msgSend_commandBuffer(v720, v721, v722, v723, v724, v725, v726, v727, v728);
+                                v723 = objc_msgSend_commandQueue(v645, v715, v716, v717, v718, v719, v720, v721, v722);
+                                v732 = objc_msgSend_commandBuffer(v723, v724, v725, v726, v727, v728, v729, v730, v731);
 
-                                objc_msgSend_setLabel_(v729, v730, @"KTRACE_MTLCMDBUF", v731, v732, v733, v734, v735, v736);
-                                objc_msgSend_addCompletedHandler_(v729, v737, &unk_2A1C9B478, v738, v739, v740, v741, v742, v743);
-                                objc_msgSend_commit(v729, v744, v745, v746, v747, v748, v749, v750, v751);
-                                objc_msgSend_addCompletedHandler_(v642, v752, &unk_2A1C9B498, v753, v754, v755, v756, v757, v758);
+                                objc_msgSend_setLabel_(v732, v733, @"KTRACE_MTLCMDBUF", v734, v735, v736, v737, v738, v739);
+                                objc_msgSend_addCompletedHandler_(v732, v740, &unk_2A1C9B478, v741, v742, v743, v744, v745, v746);
+                                objc_msgSend_commit(v732, v747, v748, v749, v750, v751, v752, v753, v754);
+                                objc_msgSend_addCompletedHandler_(v645, v755, &unk_2A1C9B498, v756, v757, v758, v759, v760, v761);
                               }
 
-                              objc_msgSend_commit(v642, v712, v713, v714, v715, v716, v717, v718, v719);
+                              objc_msgSend_commit(v645, v715, v716, v717, v718, v719, v720, v721, v722);
 
-                              objc_msgSend_fillShiftMapMetadataWithCalModel_referenceGDC_auxiliaryGDC_(self, v759, &self->_correctedCalibration, &self->_gdcParametersReference, &self->_gdcParametersAuxiliary, v760, v761, v762, v763);
+                              objc_msgSend_fillShiftMapMetadataWithCalModel_referenceGDC_auxiliaryGDC_(self, v762, &self->_correctedCalibration, &self->_gdcParametersReference, &self->_gdcParametersAuxiliary, v763, v764, v765, v766);
                               LODWORD(v37) = 0;
-                              v764 = 0;
-                              v765 = 1;
+                              v767 = 0;
+                              v768 = 1;
                               goto LABEL_107;
                             }
 
@@ -1753,19 +1755,24 @@ LABEL_182:
                       }
 
                       LODWORD(v37) = 0;
-                      v765 = 0;
-                      v764 = 4;
+                      v768 = 0;
+                      v767 = 4;
 LABEL_107:
-                      v408 = v642;
+                      v409 = v645;
                       goto LABEL_108;
                     }
                   }
 
-                  sub_29576CAC0();
+                  else
+                  {
+                    v627 = 4294954516;
+                  }
+
+                  sub_29576CAC0(v627);
                 }
               }
 
-              goto LABEL_125;
+              goto LABEL_126;
             }
 
             sub_29576C7B4();
@@ -1776,15 +1783,15 @@ LABEL_107:
             sub_29576CC30();
           }
 
-          goto LABEL_157;
+          goto LABEL_158;
         }
 
         sub_29576CCA8();
-LABEL_125:
-        LODWORD(v37) = 0;
 LABEL_126:
-        v765 = 0;
-        v764 = 4;
+        LODWORD(v37) = 0;
+LABEL_127:
+        v768 = 0;
+        v767 = 4;
         goto LABEL_108;
       }
 
@@ -1797,16 +1804,16 @@ LABEL_126:
     }
 
     v38 = MEMORY[0x29EDB9270];
-LABEL_157:
+LABEL_158:
 
-    goto LABEL_125;
+    goto LABEL_126;
   }
 
   sub_29576CD98();
   LODWORD(v37) = 0;
-LABEL_171:
-  v765 = 0;
-  v764 = 4;
+LABEL_172:
+  v768 = 0;
+  v767 = 4;
   v38 = MEMORY[0x29EDB9270];
 LABEL_108:
   if (CVPixelBufferGetPixelFormatType(pixelBuffer) != 1815162994)
@@ -1817,51 +1824,62 @@ LABEL_108:
 
   if (*v38 == 1)
   {
-    v766 = v37;
+    v769 = v37;
   }
 
   else
   {
-    v766 = 0;
+    v769 = 0;
   }
 
-  if (v766 == 1)
+  if (v769 == 1)
   {
     kdebug_trace();
   }
 
-  if (v780 == 1)
+  if (v783 == 1)
   {
-    v767 = 2;
+    v770 = 2;
   }
 
   else
   {
-    v767 = 4;
+    v770 = 4;
   }
 
-  if (v780 == 2)
+  if (v783 == 2)
   {
-    v767 = 3;
+    v770 = 3;
   }
 
-  if (((v780 != 0) & v765) != 0)
+  if (((v783 != 0) & v768) != 0)
   {
-    v768 = v767;
+    v771 = v770;
   }
 
   else
   {
-    v768 = v764;
+    v771 = v767;
   }
 
-  v769 = self->_referenceMeta;
+  v772 = self->_referenceMeta;
   self->_referenceMeta = 0;
 
-  v770 = self->_auxiliaryMeta;
+  v773 = self->_auxiliaryMeta;
   self->_auxiliaryMeta = 0;
 
-  return v768;
+  return v771;
+}
+
+- (int)prepareToProcess:(unsigned int)process
+{
+  if (objc_msgSend_allocateResources(self, a2, *&process, v3, v4, v5, v6, v7, v8))
+  {
+    return 0;
+  }
+
+  sub_29576D46C();
+  return 4;
 }
 
 - (int)_demosaic:(float)_demosaic andPreshift:(id)preshift tuningParameters:
@@ -1893,7 +1911,7 @@ LABEL_108:
 
   if (v87)
   {
-    sub_29576D4E4();
+    sub_29576D4E4(v87);
   }
 
   else
@@ -1905,7 +1923,7 @@ LABEL_108:
 
     if (v87)
     {
-      sub_29576D564();
+      sub_29576D564(v87);
     }
 
     else
@@ -1935,18 +1953,97 @@ LABEL_108:
         objc_msgSend_demosaic2x_rawImagePixelFormat_toLuma_toRGBA_(v151, v153, v150, v152, v16, self->_refHalfResRGBATexture, v154, v155, v156);
       }
 
-      v87 = 0;
+      LODWORD(v87) = 0;
     }
   }
 
   return v87;
 }
 
+- (int)_detectKeypoints:(float)keypoints preShift:
+{
+  v6 = v5;
+  LODWORD(v8) = self->_scalerOutputWidth;
+  LODWORD(v5) = self->_scalerOutputHeight;
+  v12 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_metalContext, a2, self->_refHalfResLumaPixelBuffer, 10, 17, 0, v3, v4, COERCE_FLOAT(COERCE_UNSIGNED_INT64(v8)), v5);
+  if (!v12)
+  {
+    sub_29576D74C();
+    v19 = 0;
+LABEL_13:
+    LODWORD(v25) = -12782;
+    goto LABEL_10;
+  }
+
+  LODWORD(v13) = self->_scalerOutputWidth;
+  LODWORD(v14) = self->_scalerOutputHeight;
+  v19 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_metalContext, v9, self->_auxHalfResRectifiedRGBAPixelBuffer, 10, 17, 0, v10, v11, COERCE_FLOAT(COERCE_UNSIGNED_INT64(v13)), v14);
+  if (!v19)
+  {
+    sub_29576D6D4();
+    goto LABEL_13;
+  }
+
+  v21 = objc_msgSend_processReferenceImage_histogram_doWaitForIdle_(self->_keypointDetRtb, v15, v12, 0, 0, v16, v17, v18, v20);
+  if (v21)
+  {
+    LODWORD(v25) = v21;
+    sub_29576D5E4();
+  }
+
+  else
+  {
+    v24 = objc_msgSend_computeTransform_transform_outputCorners_solverSelector_histogram_roi_(self->_keypointDetRtb, v22, v19, 0, self->_keypointListRtb, 1, 0, 0, v23);
+    if (v24)
+    {
+      LODWORD(v25) = v24;
+      sub_29576D65C();
+    }
+
+    else
+    {
+      v25 = self->_keypointGridHeight * self->_keypointGridWidth;
+      if (v25)
+      {
+        v26 = vcvt_f32_u32(*&self->_inputCalibrationWidth);
+        v27 = vdiv_f32(v26, vmul_n_f32(vcvt_f32_u32(*&self->_scalerOutputWidth), keypoints));
+        v28 = vmla_n_f32(v6, v26, (1.0 - (1.0 / keypoints)) * 0.5);
+        keypointsMinSelectionScore = self->_keypointsMinSelectionScore;
+        p_var4 = &self->_keypointListRtb->var4;
+        do
+        {
+          v31 = *p_var4;
+          if ((v31 * log2f(fmaxf(p_var4[1], 1.0))) > keypointsMinSelectionScore)
+          {
+            keypointsCount = self->_keypointsCount;
+            v33 = 2 * keypointsCount;
+            v34 = *(p_var4 - 2);
+            v35 = vadd_f32(*(p_var4 - 4), 0);
+            adaptiveCorrectionKeypointsAuxiliaryDistorted = self->_adaptiveCorrectionKeypointsAuxiliaryDistorted;
+            *&self->_adaptiveCorrectionKeypointsReferenceDistorted[v33] = vcvtq_f64_f32(vadd_f32(v35, v35));
+            *&adaptiveCorrectionKeypointsAuxiliaryDistorted[v33] = vcvtq_f64_f32(vmla_f32(v28, v27, vadd_f32(v34, 0)));
+            self->_keypointsCount = keypointsCount + 1;
+          }
+
+          p_var4 += 6;
+          --v25;
+        }
+
+        while (v25);
+      }
+    }
+  }
+
+LABEL_10:
+
+  return v25;
+}
+
 - (int)_detectKeypointsLKTFlow:(float)flow preShift:(id)shift parameters:
 {
   v6 = v4;
   shiftCopy = shift;
-  v188 = 0;
+  v189 = 0;
   LODWORD(v10) = self->_scalerOutputWidth;
   LODWORD(v11) = self->_scalerOutputHeight;
   v18 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_metalContext, v12, self->_refHalfResLumaPixelBuffer, 10, 17, 0, v13, v14, COERCE_FLOAT(COERCE_UNSIGNED_INT64(v10)), v11);
@@ -1955,7 +2052,7 @@ LABEL_108:
     sub_29576D8B4();
     v28 = 0;
 LABEL_14:
-    v185 = -12782;
+    v186 = -12782;
     goto LABEL_11;
   }
 
@@ -1986,75 +2083,75 @@ LABEL_14:
   v111 = objc_msgSend_blockSize(shiftCopy, v104, v105, v106, v107, v108, v109, v110, v102);
   *&v112 = v94;
   *&v113 = v103;
-  objc_msgSend_computeKeypointsFromForwardFlow_backwardFlow_forwardConfidence_backwardConfidence_bidirectionalError_confidenceRadialWeight_confidenceMinimum_blockSize_outNumKeypoints_(lktKeypointDetector, v114, v48, v57, v66, v75, v111, &v188, v85, v112, v113);
+  objc_msgSend_computeKeypointsFromForwardFlow_backwardFlow_forwardConfidence_backwardConfidence_bidirectionalError_confidenceRadialWeight_confidenceMinimum_blockSize_outNumKeypoints_(lktKeypointDetector, v114, v48, v57, v66, v75, v111, &v189, v85, v112, v113);
 
-  objc_msgSend_waitUntilCompleted(self->_lktKeypointDetector, v115, v116, v117, v118, v119, v120, v121, v122);
-  if (self->_keypointGridHeight * self->_keypointGridWidth < v188)
+  v123 = objc_msgSend_waitUntilCompleted(self->_lktKeypointDetector, v115, v116, v117, v118, v119, v120, v121, v122);
+  if (self->_keypointGridHeight * self->_keypointGridWidth < v189)
   {
-    sub_29576D7C4();
-    v185 = -12780;
+    sub_29576D7C4(v123);
+    v186 = -12780;
   }
 
   else
   {
-    v131 = objc_msgSend_keypoints(self->_lktKeypointDetector, v123, v124, v125, v126, v127, v128, v129, v130);
-    v132 = v131;
-    v141 = objc_msgSend_contents(v132, v133, v134, v135, v136, v137, v138, v139, v140);
+    v132 = objc_msgSend_keypoints(self->_lktKeypointDetector, v124, v125, v126, v127, v128, v129, v130, v131);
+    v133 = v132;
+    v142 = objc_msgSend_contents(v133, v134, v135, v136, v137, v138, v139, v140, v141);
 
-    v150 = objc_msgSend_keypoints_confidence(self->_lktKeypointDetector, v142, v143, v144, v145, v146, v147, v148, v149);
-    v151 = v150;
-    v160 = objc_msgSend_contents(v151, v152, v153, v154, v155, v156, v157, v158, v159);
+    v151 = objc_msgSend_keypoints_confidence(self->_lktKeypointDetector, v143, v144, v145, v146, v147, v148, v149, v150);
+    v152 = v151;
+    v161 = objc_msgSend_contents(v152, v153, v154, v155, v156, v157, v158, v159, v160);
 
     self->_keypointsCount = 0;
-    if (v188)
+    if (v189)
     {
-      v169 = 0;
-      v170 = 1.0 / flow;
-      v171 = vcvt_f32_u32(v31);
-      v172 = vdiv_f32(vmul_n_f32(v171, (1 << Scale)), vcvt_f32_u32(v32));
-      v173 = vmul_n_f32(v172, v170);
-      v174 = vmla_n_f32(v6, v171, (1.0 - v170) * 0.5);
-      v175 = (v160 + 6);
-      v176 = (v141 + 4);
+      v170 = 0;
+      v171 = 1.0 / flow;
+      v172 = vcvt_f32_u32(v31);
+      v173 = vdiv_f32(vmul_n_f32(v172, (1 << Scale)), vcvt_f32_u32(v32));
+      v174 = vmul_n_f32(v173, v171);
+      v175 = vmla_n_f32(v6, v172, (1.0 - v171) * 0.5);
+      v176 = (v161 + 6);
+      v177 = (v142 + 4);
       do
       {
-        LODWORD(_Q0.f64[0]) = *(v176 - 1);
-        *&_Q0.f64[0] = vmul_f32(v172, vadd_f32(*&vcvtq_f32_f16(*&_Q0.f64[0]), 0));
+        LODWORD(_Q0.f64[0]) = *(v177 - 1);
+        *&_Q0.f64[0] = vmul_f32(v173, vadd_f32(*&vcvtq_f32_f16(*&_Q0.f64[0]), 0));
         if ((LODWORD(_Q0.f64[0]) & 0x7FFFFFFFu) <= 0x7F7FFFFF)
         {
-          v5.i32[0] = *v176;
-          v187 = *&_Q0.f64[0];
-          LOWORD(_Q0.f64[0]) = *v175;
+          v5.i32[0] = *v177;
+          v188 = *&_Q0.f64[0];
+          LOWORD(_Q0.f64[0]) = *v176;
           __asm { FCVT            S13, H0 }
 
-          objc_msgSend_confidenceMinimum(shiftCopy, v161, v162, v163, v164, v165, v166, v167, *_Q0.f64);
-          HIDWORD(_Q0.f64[0]) = v187.i32[1];
+          objc_msgSend_confidenceMinimum(shiftCopy, v162, v163, v164, v165, v166, v167, v168, *_Q0.f64);
+          HIDWORD(_Q0.f64[0]) = v188.i32[1];
           if (*_Q0.f64 <= _S13)
           {
             keypointsCount = self->_keypointsCount;
-            v183 = 2 * keypointsCount;
+            v184 = 2 * keypointsCount;
             adaptiveCorrectionKeypointsAuxiliaryDistorted = self->_adaptiveCorrectionKeypointsAuxiliaryDistorted;
-            *&self->_adaptiveCorrectionKeypointsReferenceDistorted[v183] = vcvtq_f64_f32(v187);
-            _Q0 = vcvtq_f64_f32(vmla_f32(v174, v173, vadd_f32(*&vcvtq_f32_f16(v5), 0)));
-            *&adaptiveCorrectionKeypointsAuxiliaryDistorted[v183] = _Q0;
+            *&self->_adaptiveCorrectionKeypointsReferenceDistorted[v184] = vcvtq_f64_f32(v188);
+            _Q0 = vcvtq_f64_f32(vmla_f32(v175, v174, vadd_f32(*&vcvtq_f32_f16(v5), 0)));
+            *&adaptiveCorrectionKeypointsAuxiliaryDistorted[v184] = _Q0;
             self->_keypointsCount = keypointsCount + 1;
           }
         }
 
-        ++v169;
-        v175 += 4;
-        v176 += 2;
+        ++v170;
+        v176 += 4;
+        v177 += 2;
       }
 
-      while (v169 < v188);
+      while (v170 < v189);
     }
 
-    v185 = 0;
+    v186 = 0;
   }
 
 LABEL_11:
 
-  return v185;
+  return v186;
 }
 
 - (id)selectTuningParametersForCapture

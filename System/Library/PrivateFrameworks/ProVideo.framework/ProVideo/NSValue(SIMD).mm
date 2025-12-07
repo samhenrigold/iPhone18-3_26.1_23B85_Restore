@@ -136,7 +136,7 @@
   v3.i32[2] = self.i32[2];
   v7[0] = v4;
   v7[1] = v3;
-  v8 = a3.u32[2];
+  v8 = a3.i32[2];
   v5 = [MEMORY[0x277CCAE60] valueWithBytes:v7 objCType:"[9f]"];
 
   return v5;
@@ -165,7 +165,7 @@
 + (id)valueWithSIMDFloat4x4:()SIMD
 {
   *&v4 = vzip1q_s32(self, a2).u64[0];
-  *(&v4 + 1) = vextq_s8(a3, vzip1q_s32(*&a3, a4), 8uLL).i64[1];
+  *(&v4 + 1) = vextq_s8(*&a3, vzip1q_s32(a3, a4), 8uLL).i64[1];
   *&v5 = vtrn2q_s32(self, a2).u64[0];
   *(&v5 + 1) = __PAIR64__(a4.u32[1], a3.u32[1]);
   v10 = *MEMORY[0x277D85DE8];
@@ -229,21 +229,21 @@
 
 - (double)SIMDFloat3Value
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2[3] = *MEMORY[0x277D85DE8];
   [self getValue:v2 size:12];
   return v2[0];
 }
 
 - (double)SIMDFloat4Value
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2[3] = *MEMORY[0x277D85DE8];
   [self getValue:v2 size:16];
   return v2[0];
 }
 
 - (double)SIMDDouble2Value
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2[3] = *MEMORY[0x277D85DE8];
   [self getValue:v2 size:16];
   return v2[0];
 }
@@ -328,7 +328,7 @@
 
 - (double)SIMDQuatFValue
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2[3] = *MEMORY[0x277D85DE8];
   [self getValue:v2 size:16];
   return v2[0];
 }

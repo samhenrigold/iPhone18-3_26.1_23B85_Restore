@@ -9,6 +9,7 @@
 - (void)deleteAssetDetailForAssetID:(id)d completion:(id)completion;
 - (void)dissociateCloudDataFromSyncWithCompletion:(id)completion;
 - (void)fetchAssetDetailsForUnsyncedTastes:(id)tastes;
+- (void)fetchAssetDetailsIncludingDeleted:(BOOL)deleted completion:(id)completion;
 - (void)fetchFinishedAssetCountByYearWithCompletion:(id)completion;
 - (void)fetchFinishedDatesByAssetIDForYear:(int64_t)year completion:(id)completion;
 - (void)getAssetDetailChangesSince:(id)since completion:(id)completion;
@@ -208,14 +209,14 @@
   if ([(BCCloudAssetDetailManager *)self enableCloudSync])
   {
     dataManager = [(BCCloudAssetDetailManager *)self dataManager];
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_10005F3DC;
-    v17[3] = &unk_100241770;
-    v18 = completionCopy;
-    [dataManager resolveConflictsForRecords:recordsCopy completion:v17];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_10005F3DC;
+    v18[3] = &unk_100241770;
+    v19 = completionCopy;
+    [dataManager resolveConflictsForRecords:recordsCopy completion:v18];
 
-    v10 = v18;
+    v10 = v19;
   }
 
   else
@@ -225,27 +226,27 @@
 
     if (verboseLoggingEnabled)
     {
-      v13 = sub_10000DB80();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_10000DB80(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         enableCloudSync = [(BCCloudAssetDetailManager *)self enableCloudSync];
-        v15 = @"NO";
+        v16 = @"NO";
         if (enableCloudSync)
         {
-          v15 = @"YES";
+          v16 = @"YES";
         }
 
         *buf = 138412290;
-        v20 = v15;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "\\#zonefetch BCCloudAssetDetailManager resolveConflictsForRecords ignoring changes for records enableCloudSync:%@\\"", buf, 0xCu);
+        v21 = v16;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "\\#zonefetch BCCloudAssetDetailManager resolveConflictsForRecords ignoring changes for records enableCloudSync:%@\", buf, 0xCu);
       }
     }
 
-    v16 = objc_retainBlock(completionCopy);
-    v10 = v16;
-    if (v16)
+    v17 = objc_retainBlock(completionCopy);
+    v10 = v17;
+    if (v17)
     {
-      (*(v16 + 2))(v16, 0, 0);
+      (*(v17 + 2))(v17, 0, 0);
     }
   }
 }
@@ -307,18 +308,18 @@
 
   if (verboseLoggingEnabled)
   {
-    v7 = sub_10000DB80();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_10000DB80(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = @"NO";
+      v9 = @"NO";
       if (syncCopy)
       {
-        v8 = @"YES";
+        v9 = @"YES";
       }
 
-      v15 = 138412290;
-      v16 = v8;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "\\BCCloudAssetDetailManager #enableCloudSync setEnableCloudSync %@\\"", &v15, 0xCu);
+      v16 = 138412290;
+      v17 = v9;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "\\BCCloudAssetDetailManager #enableCloudSync setEnableCloudSync %@\", &v16, 0xCu);
     }
   }
 
@@ -401,7 +402,7 @@
 
   else
   {
-    v10 = sub_100002660();
+    v10 = sub_100002660(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1001C20B8(v10);
@@ -440,7 +441,7 @@
 {
   dCopy = d;
   completionCopy = completion;
-  v8 = sub_100002660();
+  v8 = sub_100002660(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -486,6 +487,14 @@
   v13 = completionCopy;
   v11 = completionCopy;
   [dataManager resolvedCloudDataForCloudData:v8 predicate:dCopy completion:v12];
+}
+
+- (void)fetchAssetDetailsIncludingDeleted:(BOOL)deleted completion:(id)completion
+{
+  deletedCopy = deleted;
+  completionCopy = completion;
+  dataManager = [(BCCloudAssetDetailManager *)self dataManager];
+  [dataManager fetchCloudDataIncludingDeleted:deletedCopy completion:completionCopy];
 }
 
 - (void)getAssetDetailChangesSince:(id)since completion:(id)completion

@@ -1,772 +1,3 @@
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_GpsToUtcConversion.clearApplicableTimeNanoseconds()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion(0) + 20);
-  *v1 = 0;
-  *(v1 + 8) = 1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_GpsToUtcConversion.offsetNanoseconds.setter(double a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion(0);
-  v4 = v1 + *(result + 24);
-  *v4 = a1;
-  *(v4 + 8) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_GpsToUtcConversion.offsetNanoseconds.modify(uint64_t a1))()
-{
-  *(a1 + 8) = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion(0) + 24);
-  *(a1 + 16) = v3;
-  v4 = v1 + v3;
-  v5 = *v4;
-  if (*(v4 + 8))
-  {
-    v5 = 0.0;
-  }
-
-  *a1 = v5;
-  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_GpsToUtcConversion.clearOffsetNanoseconds()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion(0) + 24);
-  *v1 = 0;
-  *(v1 + 8) = 1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_GpsToUtcConversion.driftPpb.setter(double a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion(0);
-  v4 = v1 + *(result + 28);
-  *v4 = a1;
-  *(v4 + 8) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_GpsToUtcConversion.driftPpb.modify(uint64_t a1))()
-{
-  *(a1 + 8) = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion(0) + 28);
-  *(a1 + 16) = v3;
-  v4 = v1 + v3;
-  v5 = *v4;
-  if (*(v4 + 8))
-  {
-    v5 = 0.0;
-  }
-
-  *a1 = v5;
-  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_GpsToUtcConversion.clearDriftPpb()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion(0) + 28);
-  *v1 = 0;
-  *(v1 + 8) = 1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_GpsToUtcConversion.accelPpbPerSecond.setter(double a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion(0);
-  v4 = v1 + *(result + 32);
-  *v4 = a1;
-  *(v4 + 8) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_GpsToUtcConversion.accelPpbPerSecond.modify(uint64_t a1))()
-{
-  *(a1 + 8) = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion(0) + 32);
-  *(a1 + 16) = v3;
-  v4 = v1 + v3;
-  v5 = *v4;
-  if (*(v4 + 8))
-  {
-    v5 = 0.0;
-  }
-
-  *a1 = v5;
-  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_GpsToUtcConversion.clearAccelPpbPerSecond()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion(0) + 32);
-  *v1 = 0;
-  *(v1 + 8) = 1;
-}
-
-int *CLP_LogEntry_PrivateData_GpsToUtcConversion.init()@<X0>(uint64_t a1@<X8>)
-{
-  UnknownStorage.init()();
-  result = type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion(0);
-  v3 = a1 + result[5];
-  *v3 = 0;
-  *(v3 + 8) = 1;
-  v4 = a1 + result[6];
-  *v4 = 0;
-  *(v4 + 8) = 1;
-  v5 = a1 + result[7];
-  *v5 = 0;
-  *(v5 + 8) = 1;
-  v6 = a1 + result[8];
-  *v6 = 0;
-  *(v6 + 8) = 1;
-  return result;
-}
-
-uint64_t CLP_LogEntry_PrivateData_GpsTimeInfo.week.setter(int a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo(0);
-  v4 = v1 + *(result + 20);
-  *v4 = a1;
-  *(v4 + 4) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_GpsTimeInfo.week.modify(uint64_t a1))()
-{
-  *a1 = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo(0) + 20);
-  *(a1 + 12) = v3;
-  v4 = (v1 + v3);
-  if (*(v4 + 4))
-  {
-    v5 = 0;
-  }
-
-  else
-  {
-    v5 = *v4;
-  }
-
-  *(a1 + 8) = v5;
-  return CLP_LogEntry_AONLoc_Request.processID.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_GpsTimeInfo.clearWeek()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo(0) + 20);
-  *v1 = 0;
-  *(v1 + 4) = 1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_GpsTimeInfo.leapSecond.setter(uint64_t a1)
-{
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo(0) + 24);
-  outlined destroy of Any?(v1 + v3, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v1 + v3, type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo);
-  v4 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo(0);
-  v5 = *(*(v4 - 8) + 56);
-
-  return v5(v1 + v3, 0, 1, v4);
-}
-
-void (*CLP_LogEntry_PrivateData_GpsTimeInfo.leapSecond.modify(void *a1))(uint64_t **a1, char a2)
-{
-  v3 = MEMORY[0x277D84FD8];
-  if (MEMORY[0x277D84FD8])
-  {
-    v4 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v4 = malloc(0x38uLL);
-  }
-
-  v5 = v4;
-  *a1 = v4;
-  *v4 = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR) - 8) + 64);
-  if (v3)
-  {
-    v7 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v7 = malloc(v6);
-  }
-
-  v8 = v7;
-  v5[1] = v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo(0);
-  v5[2] = v9;
-  v10 = *(v9 - 1);
-  v11 = v10;
-  v5[3] = v10;
-  v12 = *(v10 + 64);
-  if (v3)
-  {
-    v5[4] = swift_coroFrameAlloc();
-    v13 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v5[4] = malloc(*(v10 + 64));
-    v13 = malloc(v12);
-  }
-
-  v14 = v13;
-  v5[5] = v13;
-  v15 = *(type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo(0) + 24);
-  *(v5 + 12) = v15;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + v15, v8, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
-  v16 = *(v11 + 48);
-  if (v16(v8, 1, v9) == 1)
-  {
-    UnknownStorage.init()();
-    v17 = v14 + v9[5];
-    *v17 = 0;
-    *(v17 + 4) = 1;
-    *(v14 + v9[6]) = 5;
-    v18 = v9[7];
-    v19 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondChange(0);
-    (*(*(v19 - 8) + 56))(v14 + v18, 1, 1, v19);
-    if (v16(v8, 1, v9) != 1)
-    {
-      outlined destroy of Any?(v8, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
-    }
-  }
-
-  else
-  {
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, v14, type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo);
-  }
-
-  return CLP_LogEntry_PrivateData_GpsTimeInfo.leapSecond.modify;
-}
-
-uint64_t CLP_LogEntry_PrivateData_GpsTimeInfo.conversion.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_GpsToUtcConversionVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GpsToUtcConversionVSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v15 - v5;
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + *(v7 + 28), v6, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GpsToUtcConversionVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GpsToUtcConversionVSgMR);
-  v8 = type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion(0);
-  v9 = *(*(v8 - 1) + 48);
-  if (v9(v6, 1, v8) != 1)
-  {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion);
-  }
-
-  UnknownStorage.init()();
-  v10 = a1 + v8[5];
-  *v10 = 0;
-  *(v10 + 8) = 1;
-  v11 = a1 + v8[6];
-  *v11 = 0;
-  *(v11 + 8) = 1;
-  v12 = a1 + v8[7];
-  *v12 = 0;
-  *(v12 + 8) = 1;
-  v13 = a1 + v8[8];
-  *v13 = 0;
-  *(v13 + 8) = 1;
-  result = (v9)(v6, 1, v8);
-  if (result != 1)
-  {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GpsToUtcConversionVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GpsToUtcConversionVSgMR);
-  }
-
-  return result;
-}
-
-uint64_t CLP_LogEntry_PrivateData_GpsTimeInfo.conversion.setter(uint64_t a1)
-{
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo(0) + 28);
-  outlined destroy of Any?(v1 + v3, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GpsToUtcConversionVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GpsToUtcConversionVSgMR);
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v1 + v3, type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion);
-  v4 = type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion(0);
-  v5 = *(*(v4 - 8) + 56);
-
-  return v5(v1 + v3, 0, 1, v4);
-}
-
-void (*CLP_LogEntry_PrivateData_GpsTimeInfo.conversion.modify(void *a1))(uint64_t **a1, char a2)
-{
-  v3 = MEMORY[0x277D84FD8];
-  if (MEMORY[0x277D84FD8])
-  {
-    v4 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v4 = malloc(0x38uLL);
-  }
-
-  v5 = v4;
-  *a1 = v4;
-  *v4 = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_GpsToUtcConversionVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GpsToUtcConversionVSgMR) - 8) + 64);
-  if (v3)
-  {
-    v7 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v7 = malloc(v6);
-  }
-
-  v8 = v7;
-  v5[1] = v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion(0);
-  v5[2] = v9;
-  v10 = *(v9 - 1);
-  v11 = v10;
-  v5[3] = v10;
-  v12 = *(v10 + 64);
-  if (v3)
-  {
-    v5[4] = swift_coroFrameAlloc();
-    v13 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v5[4] = malloc(*(v10 + 64));
-    v13 = malloc(v12);
-  }
-
-  v14 = v13;
-  v5[5] = v13;
-  v15 = *(type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo(0) + 28);
-  *(v5 + 12) = v15;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + v15, v8, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GpsToUtcConversionVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GpsToUtcConversionVSgMR);
-  v16 = *(v11 + 48);
-  if (v16(v8, 1, v9) == 1)
-  {
-    UnknownStorage.init()();
-    v17 = v14 + v9[5];
-    *v17 = 0;
-    *(v17 + 8) = 1;
-    v18 = v14 + v9[6];
-    *v18 = 0;
-    *(v18 + 8) = 1;
-    v19 = v14 + v9[7];
-    *v19 = 0;
-    *(v19 + 8) = 1;
-    v20 = v14 + v9[8];
-    *v20 = 0;
-    *(v20 + 8) = 1;
-    if (v16(v8, 1, v9) != 1)
-    {
-      outlined destroy of Any?(v8, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GpsToUtcConversionVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GpsToUtcConversionVSgMR);
-    }
-  }
-
-  else
-  {
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, v14, type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion);
-  }
-
-  return CLP_LogEntry_PrivateData_GpsTimeInfo.conversion.modify;
-}
-
-uint64_t CLP_LogEntry_PrivateData_GpsTimeInfo.init()@<X0>(uint64_t a1@<X8>)
-{
-  UnknownStorage.init()();
-  v2 = type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo(0);
-  v3 = a1 + v2[5];
-  *v3 = 0;
-  *(v3 + 4) = 1;
-  v4 = v2[6];
-  v5 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo(0);
-  (*(*(v5 - 8) + 56))(a1 + v4, 1, 1, v5);
-  v6 = v2[7];
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion(0);
-  v8 = *(*(v7 - 8) + 56);
-
-  return v8(a1 + v6, 1, 1, v7);
-}
-
-uint64_t CLP_LogEntry_PrivateData_GlonassSubsecondConversion.collectionTimeNanoseconds.setter(uint64_t a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion(0);
-  v4 = v1 + *(result + 20);
-  *v4 = a1;
-  *(v4 + 8) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_GlonassSubsecondConversion.collectionTimeNanoseconds.modify(uint64_t a1))()
-{
-  *(a1 + 8) = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion(0) + 20);
-  *(a1 + 16) = v3;
-  v4 = (v1 + v3);
-  if (*(v4 + 8))
-  {
-    v5 = 0;
-  }
-
-  else
-  {
-    v5 = *v4;
-  }
-
-  *a1 = v5;
-  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_GlonassSubsecondConversion.clearCollectionTimeNanoseconds()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion(0) + 20);
-  *v1 = 0;
-  *(v1 + 8) = 1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_GlonassSubsecondConversion.offsetTimeNanoseconds.setter(double a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion(0);
-  v4 = v1 + *(result + 24);
-  *v4 = a1;
-  *(v4 + 8) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_GlonassSubsecondConversion.offsetTimeNanoseconds.modify(uint64_t a1))()
-{
-  *(a1 + 8) = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion(0) + 24);
-  *(a1 + 16) = v3;
-  v4 = v1 + v3;
-  v5 = *v4;
-  if (*(v4 + 8))
-  {
-    v5 = 0.0;
-  }
-
-  *a1 = v5;
-  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_GlonassSubsecondConversion.clearOffsetTimeNanoseconds()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion(0) + 24);
-  *v1 = 0;
-  *(v1 + 8) = 1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_GlonassSubsecondConversion.init()@<X0>(uint64_t a1@<X8>)
-{
-  UnknownStorage.init()();
-  result = type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion(0);
-  v3 = a1 + *(result + 20);
-  *v3 = 0;
-  *(v3 + 8) = 1;
-  v4 = a1 + *(result + 24);
-  *v4 = 0;
-  *(v4 + 8) = 1;
-  return result;
-}
-
-uint64_t CLP_LogEntry_PrivateData_GlonassTimeInfo.fourWeekPeriod.setter(int a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0);
-  v4 = v1 + *(result + 20);
-  *v4 = a1;
-  *(v4 + 4) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_GlonassTimeInfo.fourWeekPeriod.modify(uint64_t a1))()
-{
-  *a1 = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0) + 20);
-  *(a1 + 12) = v3;
-  v4 = (v1 + v3);
-  if (*(v4 + 4))
-  {
-    v5 = 0;
-  }
-
-  else
-  {
-    v5 = *v4;
-  }
-
-  *(a1 + 8) = v5;
-  return CLP_LogEntry_AONLoc_Request.processID.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_GlonassTimeInfo.clearFourWeekPeriod()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0) + 20);
-  *v1 = 0;
-  *(v1 + 4) = 1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_LeapSecondChange.newLeapSecond.getter(uint64_t (*a1)(void))
-{
-  v2 = (v1 + *(a1(0) + 24));
-  if (v2[4])
-  {
-    return 0;
-  }
-
-  else
-  {
-    return *v2;
-  }
-}
-
-uint64_t CLP_LogEntry_PrivateData_GlonassTimeInfo.day.setter(int a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0);
-  v4 = v1 + *(result + 24);
-  *v4 = a1;
-  *(v4 + 4) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_GlonassTimeInfo.day.modify(uint64_t a1))()
-{
-  *a1 = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0) + 24);
-  *(a1 + 12) = v3;
-  v4 = (v1 + v3);
-  if (*(v4 + 4))
-  {
-    v5 = 0;
-  }
-
-  else
-  {
-    v5 = *v4;
-  }
-
-  *(a1 + 8) = v5;
-  return CLP_LogEntry_AONLoc_Request.processID.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_GlonassTimeInfo.clearDay()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0) + 24);
-  *v1 = 0;
-  *(v1 + 4) = 1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_GlonassTimeInfo.leapSecondDeprecated.getter()
-{
-  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0) + 28));
-  if (v1 == 6)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return v1;
-  }
-}
-
-uint64_t CLP_LogEntry_PrivateData_GlonassTimeInfo.leapSecondDeprecated.setter(char a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0);
-  *(v1 + *(result + 28)) = a1;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_GlonassTimeInfo.leapSecondDeprecated.modify(uint64_t a1))()
-{
-  *a1 = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0) + 28);
-  *(a1 + 8) = v3;
-  v4 = *(v1 + v3);
-  if (v4 == 6)
-  {
-    LOBYTE(v4) = 0;
-  }
-
-  *(a1 + 12) = v4;
-  return CLP_LogEntry_AONLoc_Response.requestType.modify;
-}
-
-uint64_t CLP_LogEntry_PrivateData_GlonassTimeInfo.gpsTimeConversion.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMd, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v13 - v5;
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + *(v7 + 32), v6, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMd, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMR);
-  v8 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion(0);
-  v9 = *(*(v8 - 8) + 48);
-  if (v9(v6, 1, v8) != 1)
-  {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion);
-  }
-
-  UnknownStorage.init()();
-  v10 = a1 + *(v8 + 20);
-  *v10 = 0;
-  *(v10 + 8) = 1;
-  v11 = a1 + *(v8 + 24);
-  *v11 = 0;
-  *(v11 + 8) = 1;
-  result = (v9)(v6, 1, v8);
-  if (result != 1)
-  {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMd, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMR);
-  }
-
-  return result;
-}
-
-uint64_t CLP_LogEntry_PrivateData_GlonassTimeInfo.gpsTimeConversion.setter(uint64_t a1)
-{
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0) + 32);
-  outlined destroy of Any?(v1 + v3, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMd, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMR);
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v1 + v3, type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion);
-  v4 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion(0);
-  v5 = *(*(v4 - 8) + 56);
-
-  return v5(v1 + v3, 0, 1, v4);
-}
-
-void (*CLP_LogEntry_PrivateData_GlonassTimeInfo.gpsTimeConversion.modify(void *a1))(uint64_t **a1, char a2)
-{
-  v3 = MEMORY[0x277D84FD8];
-  if (MEMORY[0x277D84FD8])
-  {
-    v4 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v4 = malloc(0x38uLL);
-  }
-
-  v5 = v4;
-  *a1 = v4;
-  *v4 = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMd, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMR) - 8) + 64);
-  if (v3)
-  {
-    v7 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v7 = malloc(v6);
-  }
-
-  v8 = v7;
-  v5[1] = v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion(0);
-  v5[2] = v9;
-  v10 = *(v9 - 8);
-  v11 = v10;
-  v5[3] = v10;
-  v12 = *(v10 + 64);
-  if (v3)
-  {
-    v5[4] = swift_coroFrameAlloc();
-    v13 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v5[4] = malloc(*(v10 + 64));
-    v13 = malloc(v12);
-  }
-
-  v14 = v13;
-  v5[5] = v13;
-  v15 = *(type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0) + 32);
-  *(v5 + 12) = v15;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + v15, v8, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMd, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMR);
-  v16 = *(v11 + 48);
-  if (v16(v8, 1, v9) == 1)
-  {
-    UnknownStorage.init()();
-    v17 = v14 + *(v9 + 20);
-    *v17 = 0;
-    *(v17 + 8) = 1;
-    v18 = v14 + *(v9 + 24);
-    *v18 = 0;
-    *(v18 + 8) = 1;
-    if (v16(v8, 1, v9) != 1)
-    {
-      outlined destroy of Any?(v8, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMd, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMR);
-    }
-  }
-
-  else
-  {
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, v14, type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion);
-  }
-
-  return CLP_LogEntry_PrivateData_GlonassTimeInfo.gpsTimeConversion.modify;
-}
-
-BOOL CLP_LogEntry_PrivateData_Clock.hasReceiverToGpsTime.getter(uint64_t *a1, uint64_t *a2, uint64_t (*a3)(void), uint64_t (*a4)(void))
-{
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v17 - v11;
-  v13 = a3(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + *(v13 + 32), v12, a1, a2);
-  v14 = a4(0);
-  v15 = (*(*(v14 - 8) + 48))(v12, 1, v14) != 1;
-  outlined destroy of Any?(v12, a1, a2);
-  return v15;
-}
-
-uint64_t CLP_LogEntry_PrivateData_Clock.clearReceiverToGpsTime()(uint64_t (*a1)(void), uint64_t *a2, uint64_t *a3, uint64_t (*a4)(void))
-{
-  v8 = *(a1(0) + 32);
-  outlined destroy of Any?(v4 + v8, a2, a3);
-  v9 = a4(0);
-  v10 = *(*(v9 - 8) + 56);
-
-  return v10(v4 + v8, 1, 1, v9);
-}
-
-uint64_t CLP_LogEntry_PrivateData_GlonassTimeInfo.utcConversionDeprecated.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMd, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v13 - v5;
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + *(v7 + 36), v6, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMd, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMR);
-  v8 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion(0);
-  v9 = *(*(v8 - 8) + 48);
-  if (v9(v6, 1, v8) != 1)
-  {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion);
-  }
-
-  UnknownStorage.init()();
-  v10 = a1 + *(v8 + 20);
-  *v10 = 0;
-  *(v10 + 8) = 1;
-  v11 = a1 + *(v8 + 24);
-  *v11 = 0;
-  *(v11 + 8) = 1;
-  result = (v9)(v6, 1, v8);
-  if (result != 1)
-  {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMd, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMR);
-  }
-
-  return result;
-}
-
 uint64_t CLP_LogEntry_PrivateData_GlonassTimeInfo.utcConversionDeprecated.setter(uint64_t a1)
 {
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0) + 36);
@@ -778,7 +9,7 @@ uint64_t CLP_LogEntry_PrivateData_GlonassTimeInfo.utcConversionDeprecated.setter
   return v5(v1 + v3, 0, 1, v4);
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_GlonassTimeInfo.utcConversionDeprecated.modify(void *a1))()
+uint64_t (*CLP_LogEntry_PrivateData_GlonassTimeInfo.utcConversionDeprecated.modify(void *a1))(uint64_t a1, uint64_t a2)
 {
   v3 = MEMORY[0x277D84FD8];
   if (MEMORY[0x277D84FD8])
@@ -857,15 +88,14 @@ uint64_t (*CLP_LogEntry_PrivateData_GlonassTimeInfo.utcConversionDeprecated.modi
 BOOL CLP_LogEntry_PrivateData_GlonassTimeInfo.hasUtcConversionDeprecated.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMd, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v9 - v3;
-  v5 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v0 + *(v5 + 36), v4, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMd, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMR);
-  v6 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion(0);
-  v7 = (*(*(v6 - 8) + 48))(v4, 1, v6) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMd, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMR);
-  return v7;
+  v3 = &v8 - v2;
+  v4 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v0 + *(v4 + 36), v3, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMd, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMR);
+  v5 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion(0);
+  v6 = (*(*(v5 - 8) + 48))(v3, 1, v5) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMd, &_s10ALProtobuf51CLP_LogEntry_PrivateData_GlonassSubsecondConversionVSgMR);
+  return v6;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_GlonassTimeInfo.clearUtcConversionDeprecated()()
@@ -907,7 +137,7 @@ uint64_t CLP_LogEntry_PrivateData_SubSecondConversion.applicableTimeNanoSeconds.
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_SubSecondConversion.applicableTimeNanoSeconds.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_SubSecondConversion.applicableTimeNanoSeconds.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0) + 20);
@@ -943,7 +173,7 @@ uint64_t CLP_LogEntry_PrivateData_SubSecondConversion.offsetNanoSeconds.setter(d
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_SubSecondConversion.offsetNanoSeconds.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_SubSecondConversion.offsetNanoSeconds.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0) + 24);
@@ -975,7 +205,7 @@ uint64_t CLP_LogEntry_PrivateData_SubSecondConversion.driftPpb.setter(double a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_SubSecondConversion.driftPpb.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_SubSecondConversion.driftPpb.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0) + 28);
@@ -1033,24 +263,21 @@ uint64_t CLP_LogEntry_PrivateData_BeidouTimeInfo.week.setter(int a1)
 {
   v2 = v1;
   v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
-  v5 = *(v1 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v1 + v4);
+  v6 = *(v1 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
-    v11 = swift_allocObject();
-    v12 = v7;
-    v7 = v11;
-    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v12);
-    *(v2 + v4) = v11;
+    type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+    v7 = swift_allocObject();
+    v8 = v6;
+    v6 = v7;
+    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v8);
+    *(v2 + v4) = v7;
   }
 
   result = swift_beginAccess();
-  *(v7 + 16) = a1;
-  *(v7 + 20) = 0;
+  *(v6 + 16) = a1;
+  *(v6 + 20) = 0;
   return result;
 }
 
@@ -1083,32 +310,29 @@ void (*CLP_LogEntry_PrivateData_BeidouTimeInfo.week.modify(uint64_t *a1))(uint64
   return CLP_LogEntry_PrivateData_BeidouTimeInfo.week.modify;
 }
 
-void CLP_LogEntry_PrivateData_MeasurementExtension.jammerCn0DbHz.modify(uint64_t *a1, uint64_t a2, uint64_t (*a3)(void), void (*a4)(uint64_t))
+void CLP_LogEntry_PrivateData_MeasurementExtension.jammerCn0DbHz.modify(uint64_t *a1, char a2, uint64_t (*a3)(void), void (*a4)(uint64_t))
 {
   v6 = *a1;
   v7 = *(*a1 + 80);
   v8 = *(*a1 + 84);
   v9 = *(*a1 + 72);
-  v10 = *(v9 + v8);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v12 = *(v9 + v8);
+  v11 = *(v9 + v8);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v13 = *(v6 + 84);
-    v14 = *(v6 + 72);
-    v15 = a3(0);
-    v16 = *(v15 + 48);
-    v17 = *(v15 + 52);
-    v18 = swift_allocObject();
-    v19 = v12;
-    v12 = v18;
-    a4(v19);
-    *(v14 + v13) = v18;
+    v12 = *(v6 + 84);
+    v13 = *(v6 + 72);
+    a3(0);
+    v14 = swift_allocObject();
+    v15 = v11;
+    v11 = v14;
+    a4(v15);
+    *(v13 + v12) = v14;
   }
 
   swift_beginAccess();
-  *(v12 + 16) = v7;
-  *(v12 + 20) = 0;
+  *(v11 + 16) = v7;
+  *(v11 + 20) = 0;
 
   free(v6);
 }
@@ -1124,56 +348,52 @@ uint64_t CLP_LogEntry_PrivateData_MeasurementExtension.clearJammerCn0DbHz()(uint
 {
   v6 = v3;
   v7 = *(a1(0) + 20);
-  v8 = *(v3 + v7);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v10 = *(v3 + v7);
+  v9 = *(v3 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v11 = a2(0);
-    v12 = *(v11 + 48);
-    v13 = *(v11 + 52);
-    v14 = swift_allocObject();
-    v15 = v10;
-    v10 = v14;
-    a3(v15);
-    *(v6 + v7) = v14;
+    a2(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    a3(v11);
+    *(v6 + v7) = v10;
   }
 
   result = swift_beginAccess();
-  *(v10 + 16) = 0;
-  *(v10 + 20) = 1;
+  *(v9 + 16) = 0;
+  *(v9 + 20) = 1;
   return result;
 }
 
 uint64_t CLP_LogEntry_PrivateData_BeidouTimeInfo.leapSecondDeprecated.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v15 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__leapSecondDeprecated;
+  v5 = &v14 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__leapSecondDeprecated;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo(0);
+  v9 = *(*(v8 - 1) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo);
+    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo);
   }
 
   UnknownStorage.init()();
-  v11 = a1 + v9[5];
-  *v11 = 0;
-  *(v11 + 4) = 1;
-  *(a1 + v9[6]) = 5;
-  v12 = v9[7];
-  v13 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondChange(0);
-  (*(*(v13 - 8) + 56))(a1 + v12, 1, 1, v13);
-  result = (v10)(v6, 1, v9);
+  v10 = a1 + v8[5];
+  *v10 = 0;
+  *(v10 + 4) = 1;
+  *(a1 + v8[6]) = 5;
+  v11 = v8[7];
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondChange(0);
+  (*(*(v12 - 8) + 56))(a1 + v11, 1, 1, v12);
+  result = (v9)(v5, 1, v8);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
   }
 
   return result;
@@ -1183,31 +403,27 @@ uint64_t CLP_LogEntry_PrivateData_BeidouTimeInfo.leapSecondDeprecated.setter(uin
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo);
-  v17 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__leapSecondDeprecated;
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__leapSecondDeprecated;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
   return swift_endAccess();
 }
 
@@ -1301,74 +517,68 @@ void CLP_LogEntry_PrivateData_BeidouTimeInfo.leapSecondDeprecated.modify(uint64_
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_GlonassSlotInfo(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__leapSecondDeprecated;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__leapSecondDeprecated;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo);
+    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__leapSecondDeprecated;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__leapSecondDeprecated;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -1376,47 +586,42 @@ void CLP_LogEntry_PrivateData_BeidouTimeInfo.leapSecondDeprecated.modify(uint64_
 BOOL CLP_LogEntry_PrivateData_BeidouTimeInfo.hasLeapSecondDeprecated.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__leapSecondDeprecated;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__leapSecondDeprecated;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_BeidouTimeInfo.clearLeapSecondDeprecated()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v17 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v14);
-    *(v1 + v6) = v13;
+    type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
   }
 
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__leapSecondDeprecated;
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__leapSecondDeprecated;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v16, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
   swift_endAccess();
 }
 
@@ -1424,31 +629,27 @@ uint64_t CLP_LogEntry_PrivateData_BeidouTimeInfo.gpsTimeConversion.setter(uint64
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
-  v17 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsTimeConversion;
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsTimeConversion;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
   return swift_endAccess();
 }
 
@@ -1544,74 +745,68 @@ void CLP_LogEntry_PrivateData_BeidouTimeInfo.gpsTimeConversion.modify(uint64_t *
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_GlonassSlotInfo(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsTimeConversion;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsTimeConversion;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsTimeConversion;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsTimeConversion;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -1619,47 +814,42 @@ void CLP_LogEntry_PrivateData_BeidouTimeInfo.gpsTimeConversion.modify(uint64_t *
 BOOL CLP_LogEntry_PrivateData_BeidouTimeInfo.hasGpsTimeConversion.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsTimeConversion;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsTimeConversion;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_BeidouTimeInfo.clearGpsTimeConversion()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v17 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v14);
-    *(v1 + v6) = v13;
+    type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
   }
 
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsTimeConversion;
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsTimeConversion;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v16, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
   swift_endAccess();
 }
 
@@ -1667,31 +857,27 @@ uint64_t CLP_LogEntry_PrivateData_BeidouTimeInfo.glonassTimeConversion.setter(ui
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
-  v17 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassTimeConversion;
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassTimeConversion;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
   return swift_endAccess();
 }
 
@@ -1787,74 +973,68 @@ void CLP_LogEntry_PrivateData_BeidouTimeInfo.glonassTimeConversion.modify(uint64
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_GlonassSlotInfo(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassTimeConversion;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassTimeConversion;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassTimeConversion;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassTimeConversion;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -1862,47 +1042,42 @@ void CLP_LogEntry_PrivateData_BeidouTimeInfo.glonassTimeConversion.modify(uint64
 BOOL CLP_LogEntry_PrivateData_BeidouTimeInfo.hasGlonassTimeConversion.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassTimeConversion;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassTimeConversion;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_BeidouTimeInfo.clearGlonassTimeConversion()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v17 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v14);
-    *(v1 + v6) = v13;
+    type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
   }
 
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassTimeConversion;
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassTimeConversion;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v16, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
   swift_endAccess();
 }
 
@@ -1910,31 +1085,27 @@ uint64_t CLP_LogEntry_PrivateData_BeidouTimeInfo.galileoTimeConversion.setter(ui
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
-  v17 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoTimeConversion;
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoTimeConversion;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
   return swift_endAccess();
 }
 
@@ -2030,74 +1201,68 @@ void CLP_LogEntry_PrivateData_BeidouTimeInfo.galileoTimeConversion.modify(uint64
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_GlonassSlotInfo(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoTimeConversion;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoTimeConversion;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoTimeConversion;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoTimeConversion;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -2105,81 +1270,75 @@ void CLP_LogEntry_PrivateData_BeidouTimeInfo.galileoTimeConversion.modify(uint64
 BOOL CLP_LogEntry_PrivateData_BeidouTimeInfo.hasGalileoTimeConversion.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoTimeConversion;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoTimeConversion;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_BeidouTimeInfo.clearGalileoTimeConversion()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v17 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v14);
-    *(v1 + v6) = v13;
+    type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
   }
 
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoTimeConversion;
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoTimeConversion;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v16, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
   swift_endAccess();
 }
 
 uint64_t CLP_LogEntry_PrivateData_BeidouTimeInfo.gpsTimeConversion.getter@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v17 - v7;
-  v9 = *(v2 + *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20));
-  v10 = *a1;
+  v7 = &v16 - v6;
+  v8 = *(v2 + *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20));
+  v9 = *a1;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v9 + v10, v8, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v11 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
-  v12 = *(*(v11 - 1) + 48);
-  if (v12(v8, 1, v11) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v8 + v9, v7, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
+  v11 = *(*(v10 - 1) + 48);
+  if (v11(v7, 1, v10) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, a2, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, a2, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
   }
 
   UnknownStorage.init()();
-  v13 = a2 + v11[5];
+  v12 = a2 + v10[5];
+  *v12 = 0;
+  *(v12 + 8) = 1;
+  v13 = a2 + v10[6];
   *v13 = 0;
   *(v13 + 8) = 1;
-  v14 = a2 + v11[6];
+  v14 = a2 + v10[7];
   *v14 = 0;
   *(v14 + 8) = 1;
-  v15 = a2 + v11[7];
-  *v15 = 0;
-  *(v15 + 8) = 1;
-  result = (v12)(v8, 1, v11);
+  result = (v11)(v7, 1, v10);
   if (result != 1)
   {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+    return outlined destroy of Any?(v7, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
   }
 
   return result;
@@ -2189,31 +1348,27 @@ uint64_t CLP_LogEntry_PrivateData_BeidouTimeInfo.utcTimeConversionDeprecated.set
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
-  v17 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__utcTimeConversionDeprecated;
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__utcTimeConversionDeprecated;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
   return swift_endAccess();
 }
 
@@ -2309,74 +1464,68 @@ void CLP_LogEntry_PrivateData_BeidouTimeInfo.utcTimeConversionDeprecated.modify(
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_GlonassSlotInfo(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__utcTimeConversionDeprecated;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__utcTimeConversionDeprecated;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__utcTimeConversionDeprecated;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__utcTimeConversionDeprecated;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -2384,47 +1533,42 @@ void CLP_LogEntry_PrivateData_BeidouTimeInfo.utcTimeConversionDeprecated.modify(
 BOOL CLP_LogEntry_PrivateData_BeidouTimeInfo.hasUtcTimeConversionDeprecated.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__utcTimeConversionDeprecated;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__utcTimeConversionDeprecated;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_BeidouTimeInfo.clearUtcTimeConversionDeprecated()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v17 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v14);
-    *(v1 + v6) = v13;
+    type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
   }
 
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__utcTimeConversionDeprecated;
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__utcTimeConversionDeprecated;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v16, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
   swift_endAccess();
 }
 
@@ -2437,7 +1581,7 @@ uint64_t CLP_LogEntry_PrivateData_GalileoTimeInfo.week.setter(int a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_GalileoTimeInfo.week.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_GalileoTimeInfo.week.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo(0) + 20);
@@ -2467,30 +1611,29 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_GalileoTimeInfo.clearWeek()()
 uint64_t CLP_LogEntry_PrivateData_GpsTimeInfo.leapSecond.getter@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v16 - v7;
-  v9 = a1(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v2 + *(v9 + 24), v8, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
-  v10 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo(0);
-  v11 = *(*(v10 - 1) + 48);
-  if (v11(v8, 1, v10) != 1)
+  v7 = &v15 - v6;
+  v8 = a1(0);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v2 + *(v8 + 24), v7, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
+  v9 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo(0);
+  v10 = *(*(v9 - 1) + 48);
+  if (v10(v7, 1, v9) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, a2, type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo);
+    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, a2, type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo);
   }
 
   UnknownStorage.init()();
-  v12 = a2 + v10[5];
-  *v12 = 0;
-  *(v12 + 4) = 1;
-  *(a2 + v10[6]) = 5;
-  v13 = v10[7];
-  v14 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondChange(0);
-  (*(*(v14 - 8) + 56))(a2 + v13, 1, 1, v14);
-  result = (v11)(v8, 1, v10);
+  v11 = a2 + v9[5];
+  *v11 = 0;
+  *(v11 + 4) = 1;
+  *(a2 + v9[6]) = 5;
+  v12 = v9[7];
+  v13 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondChange(0);
+  (*(*(v13 - 8) + 56))(a2 + v12, 1, 1, v13);
+  result = (v10)(v7, 1, v9);
   if (result != 1)
   {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
+    return outlined destroy of Any?(v7, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_LeapSecondInfoVSgMR);
   }
 
   return result;
@@ -2507,7 +1650,7 @@ uint64_t CLP_LogEntry_PrivateData_GalileoTimeInfo.leapSecondDeprecated.setter(ui
   return v5(v1 + v3, 0, 1, v4);
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_GalileoTimeInfo.leapSecondDeprecated.modify(void *a1))()
+uint64_t (*CLP_LogEntry_PrivateData_GalileoTimeInfo.leapSecondDeprecated.modify(void *a1))(uint64_t a1, uint64_t a2)
 {
   v3 = MEMORY[0x277D84FD8];
   if (MEMORY[0x277D84FD8])
@@ -2587,32 +1730,31 @@ uint64_t (*CLP_LogEntry_PrivateData_GalileoTimeInfo.leapSecondDeprecated.modify(
 uint64_t CLP_LogEntry_PrivateData_GalileoTimeInfo.gpsTimeConversion.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + *(v7 + 28), v6, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v8 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
-  v9 = *(*(v8 - 1) + 48);
-  if (v9(v6, 1, v8) != 1)
+  v5 = &v13 - v4;
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo(0);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + *(v6 + 28), v5, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  v7 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
+  v8 = *(*(v7 - 1) + 48);
+  if (v8(v5, 1, v7) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
   }
 
   UnknownStorage.init()();
-  v10 = a1 + v8[5];
+  v9 = a1 + v7[5];
+  *v9 = 0;
+  *(v9 + 8) = 1;
+  v10 = a1 + v7[6];
   *v10 = 0;
   *(v10 + 8) = 1;
-  v11 = a1 + v8[6];
+  v11 = a1 + v7[7];
   *v11 = 0;
   *(v11 + 8) = 1;
-  v12 = a1 + v8[7];
-  *v12 = 0;
-  *(v12 + 8) = 1;
-  result = (v9)(v6, 1, v8);
+  result = (v8)(v5, 1, v7);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
   }
 
   return result;
@@ -2629,7 +1771,7 @@ uint64_t CLP_LogEntry_PrivateData_GalileoTimeInfo.gpsTimeConversion.setter(uint6
   return v5(v1 + v3, 0, 1, v4);
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_GalileoTimeInfo.gpsTimeConversion.modify(void *a1))()
+uint64_t (*CLP_LogEntry_PrivateData_GalileoTimeInfo.gpsTimeConversion.modify(void *a1))(uint64_t a1, uint64_t a2)
 {
   v3 = MEMORY[0x277D84FD8];
   if (MEMORY[0x277D84FD8])
@@ -2711,32 +1853,31 @@ uint64_t (*CLP_LogEntry_PrivateData_GalileoTimeInfo.gpsTimeConversion.modify(voi
 uint64_t CLP_LogEntry_PrivateData_GalileoTimeInfo.utcTimeConversionDeprecated.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + *(v7 + 32), v6, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v8 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
-  v9 = *(*(v8 - 1) + 48);
-  if (v9(v6, 1, v8) != 1)
+  v5 = &v13 - v4;
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo(0);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + *(v6 + 32), v5, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  v7 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
+  v8 = *(*(v7 - 1) + 48);
+  if (v8(v5, 1, v7) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
   }
 
   UnknownStorage.init()();
-  v10 = a1 + v8[5];
+  v9 = a1 + v7[5];
+  *v9 = 0;
+  *(v9 + 8) = 1;
+  v10 = a1 + v7[6];
   *v10 = 0;
   *(v10 + 8) = 1;
-  v11 = a1 + v8[6];
+  v11 = a1 + v7[7];
   *v11 = 0;
   *(v11 + 8) = 1;
-  v12 = a1 + v8[7];
-  *v12 = 0;
-  *(v12 + 8) = 1;
-  result = (v9)(v6, 1, v8);
+  result = (v8)(v5, 1, v7);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
   }
 
   return result;
@@ -2753,7 +1894,7 @@ uint64_t CLP_LogEntry_PrivateData_GalileoTimeInfo.utcTimeConversionDeprecated.se
   return v5(v1 + v3, 0, 1, v4);
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_GalileoTimeInfo.utcTimeConversionDeprecated.modify(void *a1))()
+uint64_t (*CLP_LogEntry_PrivateData_GalileoTimeInfo.utcTimeConversionDeprecated.modify(void *a1))(uint64_t a1, uint64_t a2)
 {
   v3 = MEMORY[0x277D84FD8];
   if (MEMORY[0x277D84FD8])
@@ -2854,32 +1995,31 @@ uint64_t CLP_LogEntry_PrivateData_GalileoTimeInfo.init()@<X0>(uint64_t a1@<X8>)
 uint64_t CLP_LogEntry_PrivateData_NavicTimeInfo.gpsTimeConversion.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + *(v7 + 20), v6, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
-  v8 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
-  v9 = *(*(v8 - 1) + 48);
-  if (v9(v6, 1, v8) != 1)
+  v5 = &v13 - v4;
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo(0);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + *(v6 + 20), v5, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+  v7 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
+  v8 = *(*(v7 - 1) + 48);
+  if (v8(v5, 1, v7) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
+    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion);
   }
 
   UnknownStorage.init()();
-  v10 = a1 + v8[5];
+  v9 = a1 + v7[5];
+  *v9 = 0;
+  *(v9 + 8) = 1;
+  v10 = a1 + v7[6];
   *v10 = 0;
   *(v10 + 8) = 1;
-  v11 = a1 + v8[6];
+  v11 = a1 + v7[7];
   *v11 = 0;
   *(v11 + 8) = 1;
-  v12 = a1 + v8[7];
-  *v12 = 0;
-  *(v12 + 8) = 1;
-  result = (v9)(v6, 1, v8);
+  result = (v8)(v5, 1, v7);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_SubSecondConversionVSgMR);
   }
 
   return result;
@@ -2896,7 +2036,7 @@ uint64_t CLP_LogEntry_PrivateData_NavicTimeInfo.gpsTimeConversion.setter(uint64_
   return v5(v1 + v3, 0, 1, v4);
 }
 
-void (*CLP_LogEntry_PrivateData_NavicTimeInfo.gpsTimeConversion.modify(void *a1))(uint64_t **a1, char a2)
+void (*CLP_LogEntry_PrivateData_NavicTimeInfo.gpsTimeConversion.modify(void *a1))(uint64_t **a1, uint64_t a2)
 {
   v3 = MEMORY[0x277D84FD8];
   if (MEMORY[0x277D84FD8])
@@ -2978,15 +2118,14 @@ void (*CLP_LogEntry_PrivateData_NavicTimeInfo.gpsTimeConversion.modify(void *a1)
 BOOL CLP_LogEntry_PrivateData_SignalCorrelationPeak.hasSvTime.getter(uint64_t *a1, uint64_t *a2, uint64_t (*a3)(void), uint64_t (*a4)(void))
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v17 - v11;
-  v13 = a3(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + *(v13 + 20), v12, a1, a2);
-  v14 = a4(0);
-  v15 = (*(*(v14 - 8) + 48))(v12, 1, v14) != 1;
-  outlined destroy of Any?(v12, a1, a2);
-  return v15;
+  v11 = &v16 - v10;
+  v12 = a3(0);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + *(v12 + 20), v11, a1, a2);
+  v13 = a4(0);
+  v14 = (*(*(v13 - 8) + 48))(v11, 1, v13) != 1;
+  outlined destroy of Any?(v11, a1, a2);
+  return v14;
 }
 
 uint64_t CLP_LogEntry_PrivateData_SignalCorrelationPeak.clearSvTime()(uint64_t (*a1)(void), uint64_t *a2, uint64_t *a3, uint64_t (*a4)(void))
@@ -3008,7 +2147,7 @@ uint64_t CLP_LogEntry_PrivateData_NavicTimeInfo.week.setter(int a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_NavicTimeInfo.week.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_NavicTimeInfo.week.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo(0) + 24);
@@ -3051,34 +2190,33 @@ uint64_t CLP_LogEntry_PrivateData_NavicTimeInfo.init()@<X0>(uint64_t a1@<X8>)
 uint64_t CLP_LogEntry_PrivateData_TimeConversionInfo.gps.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v17 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gps;
+  v5 = &v16 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gps;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo(0);
+  v9 = *(*(v8 - 1) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo);
+    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo);
   }
 
   UnknownStorage.init()();
-  v11 = a1 + v9[5];
-  *v11 = 0;
-  *(v11 + 4) = 1;
-  v12 = v9[6];
-  v13 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo(0);
-  (*(*(v13 - 8) + 56))(a1 + v12, 1, 1, v13);
-  v14 = v9[7];
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion(0);
-  (*(*(v15 - 8) + 56))(a1 + v14, 1, 1, v15);
-  result = (v10)(v6, 1, v9);
+  v10 = a1 + v8[5];
+  *v10 = 0;
+  *(v10 + 4) = 1;
+  v11 = v8[6];
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo(0);
+  (*(*(v12 - 8) + 56))(a1 + v11, 1, 1, v12);
+  v13 = v8[7];
+  v14 = type metadata accessor for CLP_LogEntry_PrivateData_GpsToUtcConversion(0);
+  (*(*(v14 - 8) + 56))(a1 + v13, 1, 1, v14);
+  result = (v9)(v5, 1, v8);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
   }
 
   return result;
@@ -3088,31 +2226,27 @@ uint64_t CLP_LogEntry_PrivateData_TimeConversionInfo.gps.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo);
-  v17 = type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gps;
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gps;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
   return swift_endAccess();
 }
 
@@ -3208,74 +2342,68 @@ void CLP_LogEntry_PrivateData_TimeConversionInfo.gps.modify(uint64_t *a1, char a
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_GlonassSlotInfo(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gps;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gps;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo);
+    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gps;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gps;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -3283,84 +2411,78 @@ void CLP_LogEntry_PrivateData_TimeConversionInfo.gps.modify(uint64_t *a1, char a
 BOOL CLP_LogEntry_PrivateData_TimeConversionInfo.hasGps.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gps;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gps;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_TimeConversionInfo.clearGps()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v17 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v14);
-    *(v1 + v6) = v13;
+    type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
   }
 
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gps;
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_GpsTimeInfo(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gps;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v16, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMd, &_s10ALProtobuf36CLP_LogEntry_PrivateData_GpsTimeInfoVSgMR);
   swift_endAccess();
 }
 
 uint64_t CLP_LogEntry_PrivateData_TimeConversionInfo.glonass.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v17 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonass;
+  v5 = &v16 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonass;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0);
+  v9 = *(*(v8 - 1) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo);
+    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo);
   }
 
   UnknownStorage.init()();
-  v11 = a1 + v9[5];
+  v10 = a1 + v8[5];
+  *v10 = 0;
+  *(v10 + 4) = 1;
+  v11 = a1 + v8[6];
   *v11 = 0;
   *(v11 + 4) = 1;
-  v12 = a1 + v9[6];
-  *v12 = 0;
-  *(v12 + 4) = 1;
-  *(a1 + v9[7]) = 6;
-  v13 = v9[8];
-  v14 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion(0);
-  v15 = *(*(v14 - 8) + 56);
-  v15(a1 + v13, 1, 1, v14);
-  v15(a1 + v9[9], 1, 1, v14);
-  result = (v10)(v6, 1, v9);
+  *(a1 + v8[7]) = 6;
+  v12 = v8[8];
+  v13 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassSubsecondConversion(0);
+  v14 = *(*(v13 - 8) + 56);
+  v14(a1 + v12, 1, 1, v13);
+  v14(a1 + v8[9], 1, 1, v13);
+  result = (v9)(v5, 1, v8);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
   }
 
   return result;
@@ -3370,31 +2492,27 @@ uint64_t CLP_LogEntry_PrivateData_TimeConversionInfo.glonass.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo);
-  v17 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonass;
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonass;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
   return swift_endAccess();
 }
 
@@ -3493,74 +2611,68 @@ void CLP_LogEntry_PrivateData_TimeConversionInfo.glonass.modify(uint64_t *a1, ch
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_GlonassSlotInfo(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonass;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonass;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo);
+    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonass;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonass;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -3568,80 +2680,74 @@ void CLP_LogEntry_PrivateData_TimeConversionInfo.glonass.modify(uint64_t *a1, ch
 BOOL CLP_LogEntry_PrivateData_TimeConversionInfo.hasGlonass.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonass;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonass;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_TimeConversionInfo.clearGlonass()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v17 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v14);
-    *(v1 + v6) = v13;
+    type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
   }
 
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonass;
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassTimeInfo(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonass;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v16, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassTimeInfoVSgMR);
   swift_endAccess();
 }
 
 uint64_t CLP_LogEntry_PrivateData_TimeConversionInfo.beidou.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidou;
+  v5 = &v13 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidou;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo);
+    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo);
   }
 
   UnknownStorage.init()();
-  v11 = *(v9 + 20);
+  v10 = *(v8 + 20);
   if (one-time initialization token for defaultInstance != -1)
   {
     swift_once();
   }
 
-  *(a1 + v11) = static CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.defaultInstance;
-  v12 = v10(v6, 1, v9);
+  *(a1 + v10) = static CLP_LogEntry_PrivateData_BeidouTimeInfo._StorageClass.defaultInstance;
+  v11 = v9(v5, 1, v8);
 
-  if (v12 != 1)
+  if (v11 != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
   }
 
   return result;
@@ -3651,31 +2757,27 @@ uint64_t CLP_LogEntry_PrivateData_TimeConversionInfo.beidou.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo);
-  v17 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidou;
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidou;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
   return swift_endAccess();
 }
 
@@ -3771,74 +2873,68 @@ void CLP_LogEntry_PrivateData_TimeConversionInfo.beidou.modify(uint64_t *a1, cha
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_GlonassSlotInfo(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidou;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidou;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo);
+    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidou;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidou;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -3846,83 +2942,77 @@ void CLP_LogEntry_PrivateData_TimeConversionInfo.beidou.modify(uint64_t *a1, cha
 BOOL CLP_LogEntry_PrivateData_TimeConversionInfo.hasBeidou.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidou;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidou;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_TimeConversionInfo.clearBeidou()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v17 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v14);
-    *(v1 + v6) = v13;
+    type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
   }
 
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidou;
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouTimeInfo(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidou;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v16, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoVSgMR);
   swift_endAccess();
 }
 
 uint64_t CLP_LogEntry_PrivateData_TimeConversionInfo.galileo.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v18 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileo;
+  v5 = &v17 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileo;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo(0);
+  v9 = *(*(v8 - 1) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo);
+    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo);
   }
 
   UnknownStorage.init()();
-  v11 = a1 + v9[5];
-  *v11 = 0;
-  *(v11 + 4) = 1;
-  v12 = v9[6];
-  v13 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo(0);
-  (*(*(v13 - 8) + 56))(a1 + v12, 1, 1, v13);
-  v14 = v9[7];
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
-  v16 = *(*(v15 - 8) + 56);
-  v16(a1 + v14, 1, 1, v15);
-  v16(a1 + v9[8], 1, 1, v15);
-  result = (v10)(v6, 1, v9);
+  v10 = a1 + v8[5];
+  *v10 = 0;
+  *(v10 + 4) = 1;
+  v11 = v8[6];
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_LeapSecondInfo(0);
+  (*(*(v12 - 8) + 56))(a1 + v11, 1, 1, v12);
+  v13 = v8[7];
+  v14 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
+  v15 = *(*(v14 - 8) + 56);
+  v15(a1 + v13, 1, 1, v14);
+  v15(a1 + v8[8], 1, 1, v14);
+  result = (v9)(v5, 1, v8);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
   }
 
   return result;
@@ -3932,31 +3022,27 @@ uint64_t CLP_LogEntry_PrivateData_TimeConversionInfo.galileo.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo);
-  v17 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileo;
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileo;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
   return swift_endAccess();
 }
 
@@ -4054,74 +3140,68 @@ void CLP_LogEntry_PrivateData_TimeConversionInfo.galileo.modify(uint64_t *a1, ch
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_GlonassSlotInfo(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileo;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileo;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo);
+    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileo;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileo;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -4129,78 +3209,72 @@ void CLP_LogEntry_PrivateData_TimeConversionInfo.galileo.modify(uint64_t *a1, ch
 BOOL CLP_LogEntry_PrivateData_TimeConversionInfo.hasGalileo.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileo;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileo;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_TimeConversionInfo.clearGalileo()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v17 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v14);
-    *(v1 + v6) = v13;
+    type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
   }
 
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileo;
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoTimeInfo(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileo;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v16, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GalileoTimeInfoVSgMR);
   swift_endAccess();
 }
 
 uint64_t CLP_LogEntry_PrivateData_TimeConversionInfo.navic.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v15 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navic;
+  v5 = &v14 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navic;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo);
+    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo);
   }
 
   UnknownStorage.init()();
-  v11 = *(v9 + 20);
-  v12 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
-  (*(*(v12 - 8) + 56))(a1 + v11, 1, 1, v12);
-  v13 = a1 + *(v9 + 24);
-  *v13 = 0;
-  *(v13 + 4) = 1;
-  result = (v10)(v6, 1, v9);
+  v10 = *(v8 + 20);
+  v11 = type metadata accessor for CLP_LogEntry_PrivateData_SubSecondConversion(0);
+  (*(*(v11 - 8) + 56))(a1 + v10, 1, 1, v11);
+  v12 = a1 + *(v8 + 24);
+  *v12 = 0;
+  *(v12 + 4) = 1;
+  result = (v9)(v5, 1, v8);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
   }
 
   return result;
@@ -4210,31 +3284,27 @@ uint64_t CLP_LogEntry_PrivateData_TimeConversionInfo.navic.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo);
-  v17 = type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navic;
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navic;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
   return swift_endAccess();
 }
 
@@ -4327,74 +3397,68 @@ void CLP_LogEntry_PrivateData_TimeConversionInfo.navic.modify(uint64_t *a1, char
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_GlonassSlotInfo(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navic;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navic;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo);
+    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navic;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navic;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -4402,47 +3466,42 @@ void CLP_LogEntry_PrivateData_TimeConversionInfo.navic.modify(uint64_t *a1, char
 BOOL CLP_LogEntry_PrivateData_TimeConversionInfo.hasNavic.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navic;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navic;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_TimeConversionInfo.clearNavic()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v17 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v14);
-    *(v1 + v6) = v13;
+    type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
   }
 
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navic;
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_NavicTimeInfo(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navic;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v16, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMd, &_s10ALProtobuf38CLP_LogEntry_PrivateData_NavicTimeInfoVSgMR);
   swift_endAccess();
 }
 
@@ -4455,7 +3514,7 @@ uint64_t CLP_LogEntry_PrivateData_KlobucharModelParameters.decodeTimeFullGpsNs.s
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_KlobucharModelParameters.decodeTimeFullGpsNs.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_KlobucharModelParameters.decodeTimeFullGpsNs.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters(0) + 20);
@@ -4491,7 +3550,7 @@ uint64_t CLP_LogEntry_PrivateData_KlobucharModelParameters.alpha0.setter(float a
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_KlobucharModelParameters.alpha0.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_KlobucharModelParameters.alpha0.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters(0) + 24);
@@ -4523,7 +3582,7 @@ uint64_t CLP_LogEntry_PrivateData_KlobucharModelParameters.alpha1.setter(float a
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_KlobucharModelParameters.alpha1.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_KlobucharModelParameters.alpha1.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters(0) + 28);
@@ -4555,7 +3614,7 @@ uint64_t CLP_LogEntry_PrivateData_KlobucharModelParameters.alpha2.setter(float a
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_KlobucharModelParameters.alpha2.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_KlobucharModelParameters.alpha2.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters(0) + 32);
@@ -4599,7 +3658,7 @@ uint64_t CLP_LogEntry_PrivateData_KlobucharModelParameters.alpha3.setter(float a
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_KlobucharModelParameters.alpha3.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_KlobucharModelParameters.alpha3.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters(0) + 36);
@@ -4643,7 +3702,7 @@ uint64_t CLP_LogEntry_PrivateData_KlobucharModelParameters.beta0.setter(float a1
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_KlobucharModelParameters.beta0.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_KlobucharModelParameters.beta0.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters(0) + 40);
@@ -4687,7 +3746,7 @@ uint64_t CLP_LogEntry_PrivateData_KlobucharModelParameters.beta1.setter(float a1
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_KlobucharModelParameters.beta1.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_KlobucharModelParameters.beta1.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters(0) + 44);
@@ -4731,7 +3790,7 @@ uint64_t CLP_LogEntry_PrivateData_KlobucharModelParameters.beta2.setter(float a1
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_KlobucharModelParameters.beta2.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_KlobucharModelParameters.beta2.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters(0) + 48);
@@ -4775,7 +3834,7 @@ uint64_t CLP_LogEntry_PrivateData_KlobucharModelParameters.beta3.setter(float a1
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_KlobucharModelParameters.beta3.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_KlobucharModelParameters.beta3.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters(0) + 52);
@@ -4841,7 +3900,7 @@ uint64_t CLP_LogEntry_PrivateData_SfcfXyz.x.setter(double a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_SfcfXyz.x.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_SfcfXyz.x.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_SfcfXyz(0) + 20);
@@ -4873,7 +3932,7 @@ uint64_t CLP_LogEntry_PrivateData_SfcfXyz.y.setter(double a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_SfcfXyz.y.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_SfcfXyz.y.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_SfcfXyz(0) + 24);
@@ -4905,7 +3964,7 @@ uint64_t CLP_LogEntry_PrivateData_SfcfXyz.z.setter(double a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_SfcfXyz.z.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_SfcfXyz.z.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_SfcfXyz(0) + 28);
@@ -4931,29 +3990,28 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_SfcfXyz.clearZ()()
 uint64_t CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset.id.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf29CLP_LogEntry_PrivateData_SvIdVSgMd, &_s10ALProtobuf29CLP_LogEntry_PrivateData_SvIdVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + *(v7 + 20), v6, &_s10ALProtobuf29CLP_LogEntry_PrivateData_SvIdVSgMd, &_s10ALProtobuf29CLP_LogEntry_PrivateData_SvIdVSgMR);
-  v8 = type metadata accessor for CLP_LogEntry_PrivateData_SvId(0);
-  v9 = *(*(v8 - 8) + 48);
-  if (v9(v6, 1, v8) != 1)
+  v5 = &v13 - v4;
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset(0);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + *(v6 + 20), v5, &_s10ALProtobuf29CLP_LogEntry_PrivateData_SvIdVSgMd, &_s10ALProtobuf29CLP_LogEntry_PrivateData_SvIdVSgMR);
+  v7 = type metadata accessor for CLP_LogEntry_PrivateData_SvId(0);
+  v8 = *(*(v7 - 8) + 48);
+  if (v8(v5, 1, v7) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_SvId);
+    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_SvId);
   }
 
   UnknownStorage.init()();
-  v10 = a1 + *(v8 + 20);
-  *v10 = 0;
-  *(v10 + 4) = 1;
-  v11 = *(v8 + 24);
-  v12 = type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0);
-  (*(*(v12 - 8) + 56))(a1 + v11, 1, 1, v12);
-  result = (v9)(v6, 1, v8);
+  v9 = a1 + *(v7 + 20);
+  *v9 = 0;
+  *(v9 + 4) = 1;
+  v10 = *(v7 + 24);
+  v11 = type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0);
+  (*(*(v11 - 8) + 56))(a1 + v10, 1, 1, v11);
+  result = (v8)(v5, 1, v7);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf29CLP_LogEntry_PrivateData_SvIdVSgMd, &_s10ALProtobuf29CLP_LogEntry_PrivateData_SvIdVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf29CLP_LogEntry_PrivateData_SvIdVSgMd, &_s10ALProtobuf29CLP_LogEntry_PrivateData_SvIdVSgMR);
   }
 
   return result;
@@ -4970,7 +4028,7 @@ uint64_t CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset.id.setter(uint64_t 
   return v5(v1 + v3, 0, 1, v4);
 }
 
-void (*CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset.id.modify(void *a1))(uint64_t **a1, char a2)
+void (*CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset.id.modify(void *a1))(uint64_t **a1, uint64_t a2)
 {
   v3 = MEMORY[0x277D84FD8];
   if (MEMORY[0x277D84FD8])
@@ -5067,7 +4125,7 @@ uint64_t CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset.band.setter(char a1
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset.band.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset.band.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset(0) + 24);
@@ -5103,7 +4161,7 @@ uint64_t CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset.svReferencePoint.se
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset.svReferencePoint.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset.svReferencePoint.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset(0) + 28);
@@ -5121,32 +4179,31 @@ uint64_t (*CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset.svReferencePoint.
 uint64_t CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset.offsetXyzM.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf32CLP_LogEntry_PrivateData_SfcfXyzVSgMd, &_s10ALProtobuf32CLP_LogEntry_PrivateData_SfcfXyzVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + *(v7 + 32), v6, &_s10ALProtobuf32CLP_LogEntry_PrivateData_SfcfXyzVSgMd, &_s10ALProtobuf32CLP_LogEntry_PrivateData_SfcfXyzVSgMR);
-  v8 = type metadata accessor for CLP_LogEntry_PrivateData_SfcfXyz(0);
-  v9 = *(*(v8 - 1) + 48);
-  if (v9(v6, 1, v8) != 1)
+  v5 = &v13 - v4;
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset(0);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + *(v6 + 32), v5, &_s10ALProtobuf32CLP_LogEntry_PrivateData_SfcfXyzVSgMd, &_s10ALProtobuf32CLP_LogEntry_PrivateData_SfcfXyzVSgMR);
+  v7 = type metadata accessor for CLP_LogEntry_PrivateData_SfcfXyz(0);
+  v8 = *(*(v7 - 1) + 48);
+  if (v8(v5, 1, v7) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_SfcfXyz);
+    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_SfcfXyz);
   }
 
   UnknownStorage.init()();
-  v10 = a1 + v8[5];
+  v9 = a1 + v7[5];
+  *v9 = 0;
+  *(v9 + 8) = 1;
+  v10 = a1 + v7[6];
   *v10 = 0;
   *(v10 + 8) = 1;
-  v11 = a1 + v8[6];
+  v11 = a1 + v7[7];
   *v11 = 0;
   *(v11 + 8) = 1;
-  v12 = a1 + v8[7];
-  *v12 = 0;
-  *(v12 + 8) = 1;
-  result = (v9)(v6, 1, v8);
+  result = (v8)(v5, 1, v7);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf32CLP_LogEntry_PrivateData_SfcfXyzVSgMd, &_s10ALProtobuf32CLP_LogEntry_PrivateData_SfcfXyzVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf32CLP_LogEntry_PrivateData_SfcfXyzVSgMd, &_s10ALProtobuf32CLP_LogEntry_PrivateData_SfcfXyzVSgMR);
   }
 
   return result;
@@ -5163,7 +4220,7 @@ uint64_t CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset.offsetXyzM.setter(u
   return v5(v1 + v3, 0, 1, v4);
 }
 
-void (*CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset.offsetXyzM.modify(void *a1))(uint64_t **a1, char a2)
+void (*CLP_LogEntry_PrivateData_AntennaPhaseCenterSvOffset.offsetXyzM.modify(void *a1))(uint64_t **a1, uint64_t a2)
 {
   v3 = MEMORY[0x277D84FD8];
   if (MEMORY[0x277D84FD8])
@@ -5300,7 +4357,7 @@ uint64_t CLP_LogEntry_PrivateData_ReceivedTimeStamp.iosAbsoluteSec.setter(double
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_ReceivedTimeStamp.iosAbsoluteSec.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_ReceivedTimeStamp.iosAbsoluteSec.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp(0) + 20);
@@ -5332,7 +4389,7 @@ uint64_t CLP_LogEntry_PrivateData_ReceivedTimeStamp.machAbsoluteSec.setter(doubl
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_ReceivedTimeStamp.machAbsoluteSec.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_ReceivedTimeStamp.machAbsoluteSec.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp(0) + 24);
@@ -5364,7 +4421,7 @@ uint64_t CLP_LogEntry_PrivateData_ReceivedTimeStamp.machContinuousSec.setter(dou
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_ReceivedTimeStamp.machContinuousSec.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_ReceivedTimeStamp.machContinuousSec.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp(0) + 28);
@@ -5390,34 +4447,33 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_ReceivedTimeStamp.clearMachCont
 uint64_t CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.receivedTimestamp.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v15 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__receivedTimestamp;
+  v5 = &v14 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__receivedTimestamp;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp(0);
+  v9 = *(*(v8 - 1) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp);
+    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp);
   }
 
   UnknownStorage.init()();
-  v11 = a1 + v9[5];
+  v10 = a1 + v8[5];
+  *v10 = 0;
+  *(v10 + 8) = 1;
+  v11 = a1 + v8[6];
   *v11 = 0;
   *(v11 + 8) = 1;
-  v12 = a1 + v9[6];
+  v12 = a1 + v8[7];
   *v12 = 0;
   *(v12 + 8) = 1;
-  v13 = a1 + v9[7];
-  *v13 = 0;
-  *(v13 + 8) = 1;
-  result = (v10)(v6, 1, v9);
+  result = (v9)(v5, 1, v8);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
   }
 
   return result;
@@ -5427,31 +4483,27 @@ uint64_t CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.receivedTime
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp);
-  v17 = type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__receivedTimestamp;
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__receivedTimestamp;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
   return swift_endAccess();
 }
 
@@ -5547,74 +4599,68 @@ void CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.receivedTimestam
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_GlonassSlotInfo(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__receivedTimestamp;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__receivedTimestamp;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp);
+    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__receivedTimestamp;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__receivedTimestamp;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -5622,80 +4668,74 @@ void CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.receivedTimestam
 BOOL CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.hasReceivedTimestamp.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__receivedTimestamp;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__receivedTimestamp;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.clearReceivedTimestamp()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v17 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v14);
-    *(v1 + v6) = v13;
+    type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
   }
 
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__receivedTimestamp;
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_ReceivedTimeStamp(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__receivedTimestamp;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v16, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_ReceivedTimeStampVSgMR);
   swift_endAccess();
 }
 
 uint64_t CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.measReport.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__measReport;
+  v5 = &v13 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__measReport;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport);
+    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport);
   }
 
   UnknownStorage.init()();
-  v11 = *(v9 + 20);
+  v10 = *(v8 + 20);
   if (one-time initialization token for defaultInstance != -1)
   {
     swift_once();
   }
 
-  *(a1 + v11) = static CLP_LogEntry_PrivateData_MeasurementReport._StorageClass.defaultInstance;
-  v12 = v10(v6, 1, v9);
+  *(a1 + v10) = static CLP_LogEntry_PrivateData_MeasurementReport._StorageClass.defaultInstance;
+  v11 = v9(v5, 1, v8);
 
-  if (v12 != 1)
+  if (v11 != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
   }
 
   return result;
@@ -5705,31 +4745,27 @@ uint64_t CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.measReport.s
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport);
-  v17 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__measReport;
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__measReport;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
   return swift_endAccess();
 }
 
@@ -5825,74 +4861,68 @@ void CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.measReport.modif
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_GlonassSlotInfo(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__measReport;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__measReport;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport);
+    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__measReport;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__measReport;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -5900,47 +4930,42 @@ void CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.measReport.modif
 BOOL CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.hasMeasReport.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__measReport;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__measReport;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.clearMeasReport()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v17 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v14);
-    *(v1 + v6) = v13;
+    type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
   }
 
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__measReport;
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReport(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__measReport;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v16, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_MeasurementReportVSgMR);
   swift_endAccess();
 }
 
@@ -5997,33 +5022,32 @@ void (*CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.rxBandCorrecti
 uint64_t CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.timeConversion.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__timeConversion;
+  v5 = &v13 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__timeConversion;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo);
+    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo);
   }
 
   UnknownStorage.init()();
-  v11 = *(v9 + 20);
+  v10 = *(v8 + 20);
   if (one-time initialization token for defaultInstance != -1)
   {
     swift_once();
   }
 
-  *(a1 + v11) = static CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.defaultInstance;
-  v12 = v10(v6, 1, v9);
+  *(a1 + v10) = static CLP_LogEntry_PrivateData_TimeConversionInfo._StorageClass.defaultInstance;
+  v11 = v9(v5, 1, v8);
 
-  if (v12 != 1)
+  if (v11 != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
   }
 
   return result;
@@ -6033,31 +5057,27 @@ uint64_t CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.timeConversi
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo);
-  v17 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__timeConversion;
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__timeConversion;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
   return swift_endAccess();
 }
 
@@ -6153,74 +5173,68 @@ void CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.timeConversion.m
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_GlonassSlotInfo(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__timeConversion;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__timeConversion;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo);
+    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__timeConversion;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__timeConversion;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -6228,51 +5242,46 @@ void CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.timeConversion.m
 BOOL CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.hasTimeConversion.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__timeConversion;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__timeConversion;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.clearTimeConversion()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v17 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v14);
-    *(v1 + v6) = v13;
+    type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
   }
 
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__timeConversion;
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_TimeConversionInfo(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__timeConversion;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v16, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_TimeConversionInfoVSgMR);
   swift_endAccess();
 }
 
-void (*CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.measApplicabilityTimeMachContinuousSec.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.measApplicabilityTimeMachContinuousSec.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6305,29 +5314,26 @@ uint64_t CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.measApplicab
 {
   v4 = v2;
   v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20);
-  v7 = *(v2 + v6);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v2 + v6);
+  v8 = *(v2 + v6);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v14);
-    *(v4 + v6) = v13;
+    type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
+    v9 = swift_allocObject();
+    v10 = v8;
+    v8 = v9;
+    CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v10);
+    *(v4 + v6) = v9;
   }
 
-  v15 = v9 + *a1;
+  v11 = v8 + *a1;
   result = swift_beginAccess();
-  *v15 = a2;
-  *(v15 + 8) = 0;
+  *v11 = a2;
+  *(v11 + 8) = 0;
   return result;
 }
 
-void (*CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.measApplicabilityTimeUncertaintySec.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.measApplicabilityTimeUncertaintySec.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6359,52 +5365,51 @@ void (*CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.measApplicabil
 uint64_t CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.klobucharModel.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v21 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__klobucharModel;
+  v5 = &v20 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__klobucharModel;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters(0);
+  v9 = *(*(v8 - 1) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters);
+    return outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters);
   }
 
   UnknownStorage.init()();
-  v11 = a1 + v9[5];
+  v10 = a1 + v8[5];
+  *v10 = 0;
+  *(v10 + 8) = 1;
+  v11 = a1 + v8[6];
   *v11 = 0;
-  *(v11 + 8) = 1;
-  v12 = a1 + v9[6];
+  *(v11 + 4) = 1;
+  v12 = a1 + v8[7];
   *v12 = 0;
   *(v12 + 4) = 1;
-  v13 = a1 + v9[7];
+  v13 = a1 + v8[8];
   *v13 = 0;
   *(v13 + 4) = 1;
-  v14 = a1 + v9[8];
+  v14 = a1 + v8[9];
   *v14 = 0;
   *(v14 + 4) = 1;
-  v15 = a1 + v9[9];
+  v15 = a1 + v8[10];
   *v15 = 0;
   *(v15 + 4) = 1;
-  v16 = a1 + v9[10];
+  v16 = a1 + v8[11];
   *v16 = 0;
   *(v16 + 4) = 1;
-  v17 = a1 + v9[11];
+  v17 = a1 + v8[12];
   *v17 = 0;
   *(v17 + 4) = 1;
-  v18 = a1 + v9[12];
+  v18 = a1 + v8[13];
   *v18 = 0;
   *(v18 + 4) = 1;
-  v19 = a1 + v9[13];
-  *v19 = 0;
-  *(v19 + 4) = 1;
-  result = (v10)(v6, 1, v9);
+  result = (v9)(v5, 1, v8);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
   }
 
   return result;
@@ -6414,31 +5419,27 @@ uint64_t CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.klobucharMod
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters);
-  v17 = type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__klobucharModel;
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__klobucharModel;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
   return swift_endAccess();
 }
 
@@ -6552,74 +5553,68 @@ void CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.klobucharModel.m
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_GlonassSlotInfo(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__klobucharModel;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__klobucharModel;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters);
+    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__klobucharModel;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__klobucharModel;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -6627,47 +5622,42 @@ void CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.klobucharModel.m
 BOOL CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.hasKlobucharModel.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__klobucharModel;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__klobucharModel;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.clearKlobucharModel()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v17 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v14);
-    *(v1 + v6) = v13;
+    type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_MeasurementReportCallbackContents._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
   }
 
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__klobucharModel;
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_KlobucharModelParameters(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf58CLP_LogEntry_PrivateData_MeasurementReportCallbackContentsP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__klobucharModel;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v16, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_KlobucharModelParametersVSgMR);
   swift_endAccess();
 }
 
@@ -6696,36 +5686,34 @@ void (*CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.apcSvOffset.mo
   return CLP_LogEntry_PrivateData_MeasurementReportCallbackContents.apcSvOffset.modify;
 }
 
-uint64_t variable initialization expression of CLP_LogEntry_PrivateData_SyncState._storage(void *a1, uint64_t *a2)
+uint64_t variable initialization expression of CLP_LogEntry_PrivateData_SyncState._storage(void *a1, uint64_t *a2, uint64_t a3)
 {
   if (*a1 == -1)
   {
-    v3 = *a2;
   }
 
   else
   {
     swift_once();
-    v6 = *a2;
   }
 }
 
-uint64_t CLP_LogEntry_PrivateData_GlonassSlotInfo.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_PrivateData_GlonassSlotInfo.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 1)
       {
-        v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo(0) + 20);
+        type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo(0);
         dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
       }
 
       else if (result == 2)
       {
-        v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo(0) + 24);
+        type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo(0);
         lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotSource and conformance CLP_LogEntry_PrivateData_GlonassSlotSource();
         dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
       }
@@ -6737,14 +5725,13 @@ uint64_t CLP_LogEntry_PrivateData_GlonassSlotInfo.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t CLP_LogEntry_PrivateData_GlonassSlotInfo.traverse<A>(visitor:)()
+uint64_t CLP_LogEntry_PrivateData_GlonassSlotInfo.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo(0);
-  v3 = result;
-  v4 = (v0 + *(result + 20));
-  if (v4[1])
+  v6 = result;
+  if (*(v3 + *(result + 20) + 4))
   {
-    if (v1)
+    if (v4)
     {
       return result;
     }
@@ -6752,17 +5739,15 @@ uint64_t CLP_LogEntry_PrivateData_GlonassSlotInfo.traverse<A>(visitor:)()
 
   else
   {
-    v5 = *v4;
     result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    if (v1)
+    if (v4)
     {
       return result;
     }
   }
 
-  if (*(v0 + *(v3 + 24)) != 5)
+  if (*(v3 + *(v6 + 24)) != 5)
   {
-    v6 = *(v0 + *(v3 + 24));
     lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotSource and conformance CLP_LogEntry_PrivateData_GlonassSlotSource();
     dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
   }
@@ -6783,21 +5768,21 @@ uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_Private
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo, type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo, type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GlonassSlotInfo);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo, type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo);
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo, type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GlonassSlotInfo);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo, type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo, type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GlonassSlotInfo);
 
   return MEMORY[0x28217E440](a1, a2, v4);
 }
@@ -6832,24 +5817,24 @@ uint64_t one-time initialization function for _protobuf_nameMap(uint64_t a1, uin
   return _NameMap.init(dictionaryLiteral:)();
 }
 
-uint64_t CLP_LogEntry_PrivateData_GlonassId.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_PrivateData_GlonassId.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 1)
       {
-        v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GlonassId(0) + 20);
+        type metadata accessor for CLP_LogEntry_PrivateData_GlonassId(0);
         dispatch thunk of Decoder.decodeSingularInt32Field(value:)();
       }
 
       else if (result == 2)
       {
-        v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_GlonassId(0) + 24);
+        type metadata accessor for CLP_LogEntry_PrivateData_GlonassId(0);
         type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo(0);
-        lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo, type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo);
+        lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo, type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GlonassSlotInfo);
         dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
       }
 
@@ -6862,59 +5847,57 @@ uint64_t CLP_LogEntry_PrivateData_GlonassId.decodeMessage<A>(decoder:)()
 
 uint64_t closure #2 in CLP_LogEntry_PrivateData_GlonassId.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassSlotInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassSlotInfoVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassId(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + *(v14 + 24), v8, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassSlotInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassSlotInfoVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassId(0);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + *(v12 + 24), v7, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassSlotInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassSlotInfoVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassSlotInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassSlotInfoVSgMR);
+    return outlined destroy of Any?(v7, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassSlotInfoVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GlonassSlotInfoVSgMR);
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, v13, type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo, type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo);
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo, type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GlonassSlotInfo);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v13, type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo);
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_GlonassSlotInfo);
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_GlonassId(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassId and conformance CLP_LogEntry_PrivateData_GlonassId, type metadata accessor for CLP_LogEntry_PrivateData_GlonassId);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassId and conformance CLP_LogEntry_PrivateData_GlonassId, type metadata accessor for CLP_LogEntry_PrivateData_GlonassId, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GlonassId);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_GlonassId(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassId and conformance CLP_LogEntry_PrivateData_GlonassId, type metadata accessor for CLP_LogEntry_PrivateData_GlonassId);
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassId and conformance CLP_LogEntry_PrivateData_GlonassId, type metadata accessor for CLP_LogEntry_PrivateData_GlonassId, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GlonassId);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_GlonassId(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassId and conformance CLP_LogEntry_PrivateData_GlonassId, type metadata accessor for CLP_LogEntry_PrivateData_GlonassId);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassId and conformance CLP_LogEntry_PrivateData_GlonassId, type metadata accessor for CLP_LogEntry_PrivateData_GlonassId, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GlonassId);
 
   return MEMORY[0x28217E440](a1, a2, v4);
 }
 
-uint64_t CLP_LogEntry_PrivateData_ConstellationId.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_PrivateData_ConstellationId.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
     while (1)
     {
-      if (v2)
+      if (v5)
       {
         return result;
       }
@@ -6924,56 +5907,23 @@ uint64_t CLP_LogEntry_PrivateData_ConstellationId.decodeMessage<A>(decoder:)()
         switch(result)
         {
           case 1:
-            v3 = v0;
-            v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0) + 20);
-LABEL_5:
-            v0 = v3;
-            dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-            break;
+            goto LABEL_4;
           case 2:
-            v10 = *(type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0) + 24);
+            type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0);
             type metadata accessor for CLP_LogEntry_PrivateData_GlonassId(0);
-            lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassId and conformance CLP_LogEntry_PrivateData_GlonassId, type metadata accessor for CLP_LogEntry_PrivateData_GlonassId);
+            lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassId and conformance CLP_LogEntry_PrivateData_GlonassId, type metadata accessor for CLP_LogEntry_PrivateData_GlonassId, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GlonassId);
             dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
             break;
           case 3:
-            v3 = v0;
-            v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0) + 28);
-            goto LABEL_5;
+            goto LABEL_4;
         }
       }
 
-      else
+      else if (result <= 6 || result == 7)
       {
-        if (result <= 5)
-        {
-          v3 = v0;
-          if (result == 4)
-          {
-            v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0) + 32);
-          }
-
-          else
-          {
-            v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0) + 36);
-          }
-
-          goto LABEL_5;
-        }
-
-        if (result == 6)
-        {
-          v3 = v0;
-          v9 = *(type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0) + 40);
-          goto LABEL_5;
-        }
-
-        if (result == 7)
-        {
-          v3 = v0;
-          v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0) + 44);
-          goto LABEL_5;
-        }
+LABEL_4:
+        type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0);
+        dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
       }
 
       result = dispatch thunk of Decoder.nextFieldNumber()();
@@ -6988,8 +5938,7 @@ uint64_t CLP_LogEntry_PrivateData_ConstellationId.traverse<A>(visitor:)(uint64_t
   v5 = v3;
   result = type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0);
   v10 = result;
-  v11 = (v5 + *(result + 20));
-  if (v11[1])
+  if (*(v5 + *(result + 20) + 4))
   {
     if (v4)
     {
@@ -6999,7 +5948,6 @@ uint64_t CLP_LogEntry_PrivateData_ConstellationId.traverse<A>(visitor:)(uint64_t
 
   else
   {
-    v12 = *v11;
     result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
     if (v4)
     {
@@ -7008,85 +5956,73 @@ uint64_t CLP_LogEntry_PrivateData_ConstellationId.traverse<A>(visitor:)(uint64_t
   }
 
   closure #2 in CLP_LogEntry_PrivateData_ConstellationId.traverse<A>(visitor:)(v5, a1, a2, a3);
-  v13 = (v5 + *(v10 + 28));
-  if ((v13[1] & 1) == 0)
+  if ((*(v5 + *(v10 + 28) + 4) & 1) == 0)
   {
-    v14 = *v13;
     dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
-  v15 = (v5 + *(v10 + 32));
-  if ((v15[1] & 1) == 0)
+  if ((*(v5 + *(v10 + 32) + 4) & 1) == 0)
   {
-    v16 = *v15;
     dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
-  closure #5 in CLP_LogEntry_PrivateData_ConstellationId.traverse<A>(visitor:)(v5);
-  closure #6 in CLP_LogEntry_PrivateData_ConstellationId.traverse<A>(visitor:)(v5);
-  closure #7 in CLP_LogEntry_PrivateData_ConstellationId.traverse<A>(visitor:)(v5);
+  closure #5 in CLP_LogEntry_PrivateData_ConstellationId.traverse<A>(visitor:)(v5, a1, a2, a3);
+  closure #6 in CLP_LogEntry_PrivateData_ConstellationId.traverse<A>(visitor:)(v5, a1, a2, a3);
+  closure #7 in CLP_LogEntry_PrivateData_ConstellationId.traverse<A>(visitor:)(v5, a1, a2, a3);
   return UnknownStorage.traverse<A>(visitor:)();
 }
 
 uint64_t closure #2 in CLP_LogEntry_PrivateData_ConstellationId.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_GlonassIdVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_GlonassIdVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassId(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + *(v14 + 24), v8, &_s10ALProtobuf34CLP_LogEntry_PrivateData_GlonassIdVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_GlonassIdVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassId(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + *(v12 + 24), v7, &_s10ALProtobuf34CLP_LogEntry_PrivateData_GlonassIdVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_GlonassIdVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf34CLP_LogEntry_PrivateData_GlonassIdVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_GlonassIdVSgMR);
+    return outlined destroy of Any?(v7, &_s10ALProtobuf34CLP_LogEntry_PrivateData_GlonassIdVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_GlonassIdVSgMR);
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, v13, type metadata accessor for CLP_LogEntry_PrivateData_GlonassId);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassId and conformance CLP_LogEntry_PrivateData_GlonassId, type metadata accessor for CLP_LogEntry_PrivateData_GlonassId);
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_GlonassId);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassId and conformance CLP_LogEntry_PrivateData_GlonassId, type metadata accessor for CLP_LogEntry_PrivateData_GlonassId, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GlonassId);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v13, type metadata accessor for CLP_LogEntry_PrivateData_GlonassId);
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_GlonassId);
 }
 
-uint64_t closure #5 in CLP_LogEntry_PrivateData_ConstellationId.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #5 in CLP_LogEntry_PrivateData_ConstellationId.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0);
-  v3 = (a1 + *(result + 36));
-  if ((v3[1] & 1) == 0)
+  if ((*(a1 + *(result + 36) + 4) & 1) == 0)
   {
-    v4 = *v3;
     return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
   return result;
 }
 
-uint64_t closure #6 in CLP_LogEntry_PrivateData_ConstellationId.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #6 in CLP_LogEntry_PrivateData_ConstellationId.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0);
-  v3 = (a1 + *(result + 40));
-  if ((v3[1] & 1) == 0)
+  if ((*(a1 + *(result + 40) + 4) & 1) == 0)
   {
-    v4 = *v3;
     return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
   return result;
 }
 
-uint64_t closure #7 in CLP_LogEntry_PrivateData_ConstellationId.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #7 in CLP_LogEntry_PrivateData_ConstellationId.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0);
-  v3 = (a1 + *(result + 44));
-  if ((v3[1] & 1) == 0)
+  if ((*(a1 + *(result + 44) + 4) & 1) == 0)
   {
-    v4 = *v3;
     return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
@@ -7124,43 +6060,43 @@ uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_Private
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_ConstellationId(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_ConstellationId and conformance CLP_LogEntry_PrivateData_ConstellationId, type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_ConstellationId and conformance CLP_LogEntry_PrivateData_ConstellationId, type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId, &protocol conformance descriptor for CLP_LogEntry_PrivateData_ConstellationId);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_ConstellationId(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_ConstellationId and conformance CLP_LogEntry_PrivateData_ConstellationId, type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId);
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_ConstellationId and conformance CLP_LogEntry_PrivateData_ConstellationId, type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId, &protocol conformance descriptor for CLP_LogEntry_PrivateData_ConstellationId);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_ConstellationId(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_ConstellationId and conformance CLP_LogEntry_PrivateData_ConstellationId, type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_ConstellationId and conformance CLP_LogEntry_PrivateData_ConstellationId, type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId, &protocol conformance descriptor for CLP_LogEntry_PrivateData_ConstellationId);
 
   return MEMORY[0x28217E440](a1, a2, v4);
 }
 
-uint64_t CLP_LogEntry_PrivateData_SvId.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_PrivateData_SvId.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 1)
       {
-        v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_SvId(0) + 20);
+        type metadata accessor for CLP_LogEntry_PrivateData_SvId(0);
         dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
       }
 
       else if (result == 2)
       {
-        v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_SvId(0) + 24);
+        type metadata accessor for CLP_LogEntry_PrivateData_SvId(0);
         type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0);
-        lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_ConstellationId and conformance CLP_LogEntry_PrivateData_ConstellationId, type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId);
+        lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_ConstellationId and conformance CLP_LogEntry_PrivateData_ConstellationId, type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId, &protocol conformance descriptor for CLP_LogEntry_PrivateData_ConstellationId);
         dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
       }
 
@@ -7199,28 +6135,26 @@ uint64_t CLP_LogEntry_PrivateData_GlonassId.traverse<A>(visitor:)(uint64_t a1, u
 
 uint64_t closure #2 in CLP_LogEntry_PrivateData_SvId.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_ConstellationIdVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_ConstellationIdVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for CLP_LogEntry_PrivateData_SvId(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + *(v14 + 24), v8, &_s10ALProtobuf40CLP_LogEntry_PrivateData_ConstellationIdVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_ConstellationIdVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_SvId(0);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + *(v12 + 24), v7, &_s10ALProtobuf40CLP_LogEntry_PrivateData_ConstellationIdVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_ConstellationIdVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf40CLP_LogEntry_PrivateData_ConstellationIdVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_ConstellationIdVSgMR);
+    return outlined destroy of Any?(v7, &_s10ALProtobuf40CLP_LogEntry_PrivateData_ConstellationIdVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_ConstellationIdVSgMR);
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, v13, type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_ConstellationId and conformance CLP_LogEntry_PrivateData_ConstellationId, type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId);
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_ConstellationId and conformance CLP_LogEntry_PrivateData_ConstellationId, type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId, &protocol conformance descriptor for CLP_LogEntry_PrivateData_ConstellationId);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v13, type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId);
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_ConstellationId);
 }
 
 uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_PrivateData_GlonassId@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X2>, uint64_t a3@<X8>)
@@ -7239,63 +6173,63 @@ uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_Private
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_SvId(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvId and conformance CLP_LogEntry_PrivateData_SvId, type metadata accessor for CLP_LogEntry_PrivateData_SvId);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvId and conformance CLP_LogEntry_PrivateData_SvId, type metadata accessor for CLP_LogEntry_PrivateData_SvId, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SvId);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_SvId(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvId and conformance CLP_LogEntry_PrivateData_SvId, type metadata accessor for CLP_LogEntry_PrivateData_SvId);
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvId and conformance CLP_LogEntry_PrivateData_SvId, type metadata accessor for CLP_LogEntry_PrivateData_SvId, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SvId);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_SvId(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvId and conformance CLP_LogEntry_PrivateData_SvId, type metadata accessor for CLP_LogEntry_PrivateData_SvId);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvId and conformance CLP_LogEntry_PrivateData_SvId, type metadata accessor for CLP_LogEntry_PrivateData_SvId, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SvId);
 
   return MEMORY[0x28217E440](a1, a2, v4);
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_GpsL1SyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL1SyncState and conformance CLP_LogEntry_PrivateData_GpsL1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL1SyncState and conformance CLP_LogEntry_PrivateData_GpsL1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GpsL1SyncState);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_GpsL1SyncState(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL1SyncState and conformance CLP_LogEntry_PrivateData_GpsL1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL1SyncState and conformance CLP_LogEntry_PrivateData_GpsL1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GpsL1SyncState);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_GpsL1SyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL1SyncState and conformance CLP_LogEntry_PrivateData_GpsL1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL1SyncState and conformance CLP_LogEntry_PrivateData_GpsL1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GpsL1SyncState);
 
   return MEMORY[0x28217E440](a1, a2, v4);
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_GpsL2CSyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL2CSyncState and conformance CLP_LogEntry_PrivateData_GpsL2CSyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL2CSyncState and conformance CLP_LogEntry_PrivateData_GpsL2CSyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_GpsL2CSyncState(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL2CSyncState and conformance CLP_LogEntry_PrivateData_GpsL2CSyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL2CSyncState and conformance CLP_LogEntry_PrivateData_GpsL2CSyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_GpsL2CSyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL2CSyncState and conformance CLP_LogEntry_PrivateData_GpsL2CSyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL2CSyncState and conformance CLP_LogEntry_PrivateData_GpsL2CSyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
 
   return MEMORY[0x28217E440](a1, a2, v4);
 }
@@ -7314,44 +6248,19 @@ uint64_t CLP_LogEntry_PrivateData_GpsL1SyncState.decodeMessage<A>(decoder:)(uint
 
       if (result > 2)
       {
-        if (result == 3)
+        if (result == 3 || result == 4)
         {
-          v8 = v4;
-          v12 = *(a4(0) + 28);
-        }
-
-        else
-        {
-          if (result != 4)
-          {
-            goto LABEL_13;
-          }
-
-          v8 = v4;
-          v10 = *(a4(0) + 32);
+LABEL_9:
+          a4(0);
+          dispatch thunk of Decoder.decodeSingularBoolField(value:)();
         }
       }
 
-      else if (result == 1)
+      else if (result == 1 || result == 2)
       {
-        v8 = v4;
-        v11 = *(a4(0) + 20);
+        goto LABEL_9;
       }
 
-      else
-      {
-        if (result != 2)
-        {
-          goto LABEL_13;
-        }
-
-        v8 = v4;
-        v9 = *(a4(0) + 24);
-      }
-
-      v4 = v8;
-      dispatch thunk of Decoder.decodeSingularBoolField(value:)();
-LABEL_13:
       result = dispatch thunk of Decoder.nextFieldNumber()();
     }
   }
@@ -7359,11 +6268,11 @@ LABEL_13:
   return result;
 }
 
-uint64_t CLP_LogEntry_PrivateData_GpsL1SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
+int *CLP_LogEntry_PrivateData_GpsL1SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
 {
   result = a4(0);
   v7 = result;
-  if (*(v4 + *(result + 20)) == 2)
+  if (*(v4 + result[5]) == 2)
   {
     if (v5)
     {
@@ -7400,21 +6309,21 @@ uint64_t CLP_LogEntry_PrivateData_GpsL1SyncState.traverse<A>(visitor:)(uint64_t 
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_GpsL5SyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL5SyncState and conformance CLP_LogEntry_PrivateData_GpsL5SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL5SyncState and conformance CLP_LogEntry_PrivateData_GpsL5SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GpsL5SyncState);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_GpsL5SyncState(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL5SyncState and conformance CLP_LogEntry_PrivateData_GpsL5SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState);
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL5SyncState and conformance CLP_LogEntry_PrivateData_GpsL5SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GpsL5SyncState);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_GpsL5SyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL5SyncState and conformance CLP_LogEntry_PrivateData_GpsL5SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL5SyncState and conformance CLP_LogEntry_PrivateData_GpsL5SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GpsL5SyncState);
 
   return MEMORY[0x28217E440](a1, a2, v4);
 }
@@ -7433,48 +6342,19 @@ uint64_t CLP_LogEntry_PrivateData_GpsL2CSyncState.decodeMessage<A>(decoder:)(uin
 
       if (result <= 2)
       {
-        if (result == 1)
+        if (result == 1 || result == 2)
         {
-          v8 = v4;
-          v13 = *(a4(0) + 20);
-        }
-
-        else
-        {
-          if (result != 2)
-          {
-            goto LABEL_15;
-          }
-
-          v8 = v4;
-          v10 = *(a4(0) + 24);
+LABEL_10:
+          a4(0);
+          dispatch thunk of Decoder.decodeSingularBoolField(value:)();
         }
       }
 
-      else
+      else if (result == 3 || result == 4 || result == 5)
       {
-        switch(result)
-        {
-          case 3:
-            v8 = v4;
-            v11 = *(a4(0) + 28);
-            break;
-          case 4:
-            v8 = v4;
-            v12 = *(a4(0) + 32);
-            break;
-          case 5:
-            v8 = v4;
-            v9 = *(a4(0) + 36);
-            break;
-          default:
-            goto LABEL_15;
-        }
+        goto LABEL_10;
       }
 
-      v4 = v8;
-      dispatch thunk of Decoder.decodeSingularBoolField(value:)();
-LABEL_15:
       result = dispatch thunk of Decoder.nextFieldNumber()();
     }
   }
@@ -7482,12 +6362,12 @@ LABEL_15:
   return result;
 }
 
-uint64_t CLP_LogEntry_PrivateData_GpsL2CSyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void))
+int *CLP_LogEntry_PrivateData_GpsL2CSyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void))
 {
   v8 = v5;
   result = a4(0);
   v13 = result;
-  if (*(v8 + *(result + 20)) == 2)
+  if (*(v8 + result[5]) == 2)
   {
     if (v6)
     {
@@ -7549,42 +6429,42 @@ uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_Private
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_GlonassL1fSyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassL1fSyncState and conformance CLP_LogEntry_PrivateData_GlonassL1fSyncState, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassL1fSyncState and conformance CLP_LogEntry_PrivateData_GlonassL1fSyncState, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_GlonassL1fSyncState(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassL1fSyncState and conformance CLP_LogEntry_PrivateData_GlonassL1fSyncState, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassL1fSyncState and conformance CLP_LogEntry_PrivateData_GlonassL1fSyncState, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_GlonassL1fSyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassL1fSyncState and conformance CLP_LogEntry_PrivateData_GlonassL1fSyncState, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassL1fSyncState and conformance CLP_LogEntry_PrivateData_GlonassL1fSyncState, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
 
   return MEMORY[0x28217E440](a1, a2, v4);
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_BeidouB1SyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_BeidouB1SyncState and conformance CLP_LogEntry_PrivateData_BeidouB1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_BeidouB1SyncState and conformance CLP_LogEntry_PrivateData_BeidouB1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_BeidouB1SyncState(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_BeidouB1SyncState and conformance CLP_LogEntry_PrivateData_BeidouB1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_BeidouB1SyncState and conformance CLP_LogEntry_PrivateData_BeidouB1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_BeidouB1SyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_BeidouB1SyncState and conformance CLP_LogEntry_PrivateData_BeidouB1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_BeidouB1SyncState and conformance CLP_LogEntry_PrivateData_BeidouB1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
 
   return MEMORY[0x28217E440](a1, a2, v4);
 }
@@ -7622,35 +6502,34 @@ uint64_t one-time initialization function for _protobuf_nameMap(uint64_t a1, uin
   *v15 = "subframe";
   *(v15 + 1) = 8;
   v15[16] = 2;
-  v16 = *MEMORY[0x277D21870];
   v12();
-  v17 = (v8 + 3 * v5);
-  v18 = v17 + v4[14];
-  *v17 = 4;
-  *v18 = "tow_decoded";
-  *(v18 + 1) = 11;
-  v18[16] = 2;
+  v16 = (v8 + 3 * v5);
+  v17 = v16 + v4[14];
+  *v16 = 4;
+  *v17 = "tow_decoded";
+  *(v17 + 1) = 11;
+  v17[16] = 2;
   v12();
   return _NameMap.init(dictionaryLiteral:)();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_BeidouB2SyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_BeidouB2SyncState and conformance CLP_LogEntry_PrivateData_BeidouB2SyncState, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_BeidouB2SyncState and conformance CLP_LogEntry_PrivateData_BeidouB2SyncState, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_BeidouB2SyncState(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_BeidouB2SyncState and conformance CLP_LogEntry_PrivateData_BeidouB2SyncState, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_BeidouB2SyncState and conformance CLP_LogEntry_PrivateData_BeidouB2SyncState, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_BeidouB2SyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_BeidouB2SyncState and conformance CLP_LogEntry_PrivateData_BeidouB2SyncState, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_BeidouB2SyncState and conformance CLP_LogEntry_PrivateData_BeidouB2SyncState, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
 
   return MEMORY[0x28217E440](a1, a2, v4);
 }
@@ -7669,131 +6548,71 @@ uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_Private
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_GalileoE1SyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GalileoE1SyncState and conformance CLP_LogEntry_PrivateData_GalileoE1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GalileoE1SyncState and conformance CLP_LogEntry_PrivateData_GalileoE1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_GalileoE1SyncState(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GalileoE1SyncState and conformance CLP_LogEntry_PrivateData_GalileoE1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GalileoE1SyncState and conformance CLP_LogEntry_PrivateData_GalileoE1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_GalileoE1SyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GalileoE1SyncState and conformance CLP_LogEntry_PrivateData_GalileoE1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GalileoE1SyncState and conformance CLP_LogEntry_PrivateData_GalileoE1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
 
   return MEMORY[0x28217E440](a1, a2, v4);
 }
 
-uint64_t CLP_LogEntry_PrivateData_GalileoE5SyncState.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_PrivateData_GalileoE5SyncState.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
     while (1)
     {
-      if (v2)
+      if (v5)
       {
         return result;
       }
 
       if (result > 5)
       {
-        if (result <= 7)
-        {
-          v3 = v0;
-          if (result == 6)
-          {
-            v9 = *(type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0) + 40);
-          }
-
-          else
-          {
-            v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0) + 44);
-          }
-        }
-
-        else
-        {
-          switch(result)
-          {
-            case 8:
-              v3 = v0;
-              v11 = *(type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0) + 48);
-              break;
-            case 9:
-              v3 = v0;
-              v13 = *(type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0) + 52);
-              break;
-            case 10:
-              v3 = v0;
-              v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0) + 56);
-              break;
-            default:
-              goto LABEL_25;
-          }
-        }
+        break;
       }
 
-      else if (result <= 2)
+      if (result > 2 || result == 1 || result == 2)
       {
-        if (result == 1)
-        {
-          v3 = v0;
-          v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0) + 20);
-        }
-
-        else
-        {
-          if (result != 2)
-          {
-            goto LABEL_25;
-          }
-
-          v3 = v0;
-          v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0) + 24);
-        }
+        goto LABEL_10;
       }
 
-      else if (result == 3)
-      {
-        v3 = v0;
-        v10 = *(type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0) + 28);
-      }
-
-      else
-      {
-        v3 = v0;
-        if (result == 4)
-        {
-          v12 = *(type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0) + 32);
-        }
-
-        else
-        {
-          v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0) + 36);
-        }
-      }
-
-      v0 = v3;
-      dispatch thunk of Decoder.decodeSingularBoolField(value:)();
-LABEL_25:
+LABEL_11:
       result = dispatch thunk of Decoder.nextFieldNumber()();
     }
+
+    if (result > 10)
+    {
+      goto LABEL_11;
+    }
+
+LABEL_10:
+    type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0);
+    dispatch thunk of Decoder.decodeSingularBoolField(value:)();
+    goto LABEL_11;
   }
 
   return result;
 }
 
-uint64_t CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
+int *CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = v3;
   result = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0);
   v10 = result;
-  if (*(v5 + *(result + 20)) == 2)
+  if (*(v5 + result[5]) == 2)
   {
     if (v4)
     {
@@ -7826,15 +6645,15 @@ uint64_t CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(uint6
   }
 
   closure #5 in CLP_LogEntry_PrivateData_GpsL2CSyncState.traverse<A>(visitor:)(v5, a1, a2, a3, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
-  closure #6 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(v5);
-  closure #7 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(v5);
-  closure #8 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(v5);
-  closure #9 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(v5);
-  closure #10 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(v5);
+  closure #6 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(v5, a1, a2, a3);
+  closure #7 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(v5, a1, a2, a3);
+  closure #8 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(v5, a1, a2, a3);
+  closure #9 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(v5, a1, a2, a3);
+  closure #10 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(v5, a1, a2, a3);
   return UnknownStorage.traverse<A>(visitor:)();
 }
 
-uint64_t closure #6 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #6 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0);
   if (*(a1 + *(result + 40)) != 2)
@@ -7845,7 +6664,7 @@ uint64_t closure #6 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(v
   return result;
 }
 
-uint64_t closure #7 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #7 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0);
   if (*(a1 + *(result + 44)) != 2)
@@ -7856,7 +6675,7 @@ uint64_t closure #7 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(v
   return result;
 }
 
-uint64_t closure #8 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #8 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0);
   if (*(a1 + *(result + 48)) != 2)
@@ -7867,7 +6686,7 @@ uint64_t closure #8 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(v
   return result;
 }
 
-uint64_t closure #9 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #9 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0);
   if (*(a1 + *(result + 52)) != 2)
@@ -7878,7 +6697,7 @@ uint64_t closure #9 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(v
   return result;
 }
 
-uint64_t closure #10 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #10 in CLP_LogEntry_PrivateData_GalileoE5SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0);
   if (*(a1 + *(result + 56)) != 2)
@@ -7912,60 +6731,52 @@ uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_Private
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_GalileoE5SyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GalileoE5SyncState and conformance CLP_LogEntry_PrivateData_GalileoE5SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GalileoE5SyncState and conformance CLP_LogEntry_PrivateData_GalileoE5SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_GalileoE5SyncState(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GalileoE5SyncState and conformance CLP_LogEntry_PrivateData_GalileoE5SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GalileoE5SyncState and conformance CLP_LogEntry_PrivateData_GalileoE5SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_GalileoE5SyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GalileoE5SyncState and conformance CLP_LogEntry_PrivateData_GalileoE5SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GalileoE5SyncState and conformance CLP_LogEntry_PrivateData_GalileoE5SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
 
   return MEMORY[0x28217E440](a1, a2, v4);
 }
 
-uint64_t CLP_LogEntry_PrivateData_SbasL1SyncState.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_PrivateData_SbasL1SyncState.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v3 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
-      return result;
+      break;
     }
 
-    switch(result)
+    if (result == 3 || result == 2 || result == 1)
     {
-      case 3:
-        v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState(0) + 28);
-LABEL_3:
-        v0 = 0;
-        dispatch thunk of Decoder.decodeSingularBoolField(value:)();
-        break;
-      case 2:
-        v1 = *(type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState(0) + 24);
-        goto LABEL_3;
-      case 1:
-        v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState(0) + 20);
-        goto LABEL_3;
+      type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState(0);
+      dispatch thunk of Decoder.decodeSingularBoolField(value:)();
     }
   }
+
+  return result;
 }
 
-uint64_t CLP_LogEntry_PrivateData_SbasL1SyncState.traverse<A>(visitor:)()
+uint64_t CLP_LogEntry_PrivateData_SbasL1SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState(0);
-  v3 = result;
-  if (*(v0 + *(result + 20)) == 2)
+  v6 = result;
+  if (*(v3 + *(result + 20)) == 2)
   {
-    if (v1)
+    if (v4)
     {
       return result;
     }
@@ -7974,18 +6785,18 @@ uint64_t CLP_LogEntry_PrivateData_SbasL1SyncState.traverse<A>(visitor:)()
   else
   {
     result = dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
-    if (v1)
+    if (v4)
     {
       return result;
     }
   }
 
-  if (*(v0 + *(v3 + 24)) != 2)
+  if (*(v3 + *(v6 + 24)) != 2)
   {
     dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
   }
 
-  if (*(v0 + *(v3 + 28)) != 2)
+  if (*(v3 + *(v6 + 28)) != 2)
   {
     dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
   }
@@ -8005,21 +6816,21 @@ uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_Private
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_SbasL1SyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SbasL1SyncState and conformance CLP_LogEntry_PrivateData_SbasL1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SbasL1SyncState and conformance CLP_LogEntry_PrivateData_SbasL1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SbasL1SyncState);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_SbasL1SyncState(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SbasL1SyncState and conformance CLP_LogEntry_PrivateData_SbasL1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState);
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SbasL1SyncState and conformance CLP_LogEntry_PrivateData_SbasL1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SbasL1SyncState);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_SbasL1SyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SbasL1SyncState and conformance CLP_LogEntry_PrivateData_SbasL1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SbasL1SyncState and conformance CLP_LogEntry_PrivateData_SbasL1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SbasL1SyncState);
 
   return MEMORY[0x28217E440](a1, a2, v4);
 }
@@ -8027,160 +6838,151 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_P
 uint64_t CLP_LogEntry_PrivateData_SyncState._StorageClass.init(copying:)(uint64_t a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v95 = &v78 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v94 = &v78 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
-  v10 = *(*(v9 - 8) + 64);
+  v86 = &v69 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
+  MEMORY[0x28223BE20](v5 - 8);
+  v85 = &v69 - v6;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
+  MEMORY[0x28223BE20](v7 - 8);
+  v84 = &v69 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
   MEMORY[0x28223BE20](v9 - 8);
-  v93 = &v78 - v11;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12 - 8);
-  v92 = &v78 - v14;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
-  v16 = *(*(v15 - 8) + 64);
+  v83 = &v69 - v10;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
+  MEMORY[0x28223BE20](v11 - 8);
+  v82 = &v69 - v12;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
+  MEMORY[0x28223BE20](v13 - 8);
+  v81 = &v69 - v14;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
   MEMORY[0x28223BE20](v15 - 8);
-  v91 = &v78 - v17;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
-  v19 = *(*(v18 - 8) + 64);
-  MEMORY[0x28223BE20](v18 - 8);
-  v90 = &v78 - v20;
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
-  v22 = *(*(v21 - 8) + 64);
-  MEMORY[0x28223BE20](v21 - 8);
-  v88 = &v78 - v23;
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
-  v25 = *(*(v24 - 8) + 64);
-  MEMORY[0x28223BE20](v24 - 8);
-  v83 = &v78 - v26;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-  v28 = *(*(v27 - 8) + 64);
-  MEMORY[0x28223BE20](v27 - 8);
-  v79 = &v78 - v29;
+  v79 = &v69 - v16;
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
+  MEMORY[0x28223BE20](v17 - 8);
+  v74 = &v69 - v18;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+  MEMORY[0x28223BE20](v19 - 8);
+  v70 = &v69 - v20;
   *(v1 + 16) = 13;
-  v30 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL1;
-  v31 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState(0);
-  v32 = *(*(v31 - 8) + 56);
-  v32(v1 + v30, 1, 1, v31);
-  v33 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL2C;
-  v34 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState(0);
-  (*(*(v34 - 8) + 56))(v1 + v33, 1, 1, v34);
-  v35 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL5;
-  v80 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL5;
-  v36 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState(0);
-  (*(*(v36 - 8) + 56))(v1 + v35, 1, 1, v36);
-  v37 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassL1F;
-  v81 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassL1F;
-  v38 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState(0);
-  (*(*(v38 - 8) + 56))(v1 + v37, 1, 1, v38);
-  v39 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB1;
-  v82 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB1;
-  v40 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState(0);
-  (*(*(v40 - 8) + 56))(v1 + v39, 1, 1, v40);
-  v41 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB2;
-  v84 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB2;
-  v42 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState(0);
-  (*(*(v42 - 8) + 56))(v1 + v41, 1, 1, v42);
-  v43 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE1;
-  v85 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE1;
-  v44 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState(0);
-  (*(*(v44 - 8) + 56))(v1 + v43, 1, 1, v44);
-  v45 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE5;
-  v86 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE5;
-  v46 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0);
-  (*(*(v46 - 8) + 56))(v1 + v45, 1, 1, v46);
-  v47 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__sbasL1;
-  v87 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__sbasL1;
-  v48 = type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState(0);
-  (*(*(v48 - 8) + 56))(v1 + v47, 1, 1, v48);
-  v89 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navicL5;
-  v32(v1 + OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navicL5, 1, 1, v31);
+  v21 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL1;
+  v22 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState(0);
+  v23 = *(*(v22 - 8) + 56);
+  v23(v1 + v21, 1, 1, v22);
+  v24 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL2C;
+  v25 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState(0);
+  (*(*(v25 - 8) + 56))(v1 + v24, 1, 1, v25);
+  v26 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL5;
+  v71 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL5;
+  v27 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState(0);
+  (*(*(v27 - 8) + 56))(v1 + v26, 1, 1, v27);
+  v28 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassL1F;
+  v72 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassL1F;
+  v29 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState(0);
+  (*(*(v29 - 8) + 56))(v1 + v28, 1, 1, v29);
+  v30 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB1;
+  v73 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB1;
+  v31 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState(0);
+  (*(*(v31 - 8) + 56))(v1 + v30, 1, 1, v31);
+  v32 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB2;
+  v75 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB2;
+  v33 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState(0);
+  (*(*(v33 - 8) + 56))(v1 + v32, 1, 1, v33);
+  v34 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE1;
+  v76 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE1;
+  v35 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState(0);
+  (*(*(v35 - 8) + 56))(v1 + v34, 1, 1, v35);
+  v36 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE5;
+  v77 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE5;
+  v37 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0);
+  (*(*(v37 - 8) + 56))(v1 + v36, 1, 1, v37);
+  v38 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__sbasL1;
+  v78 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__sbasL1;
+  v39 = type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState(0);
+  (*(*(v39 - 8) + 56))(v1 + v38, 1, 1, v39);
+  v80 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navicL5;
+  v23(v1 + OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navicL5, 1, 1, v22);
   swift_beginAccess();
-  v49 = *(a1 + 16);
+  v40 = *(a1 + 16);
   swift_beginAccess();
-  *(v1 + 16) = v49;
-  v50 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL1;
+  *(v1 + 16) = v40;
+  v41 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL1;
   swift_beginAccess();
-  v51 = v79;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v50, v79, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+  v42 = v70;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v41, v70, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v51, v1 + v30, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v42, v1 + v21, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
   swift_endAccess();
-  v52 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL2C;
+  v43 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL2C;
   swift_beginAccess();
-  v53 = v83;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v52, v83, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
+  v44 = v74;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v43, v74, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v53, v1 + v33, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v44, v1 + v24, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
   swift_endAccess();
-  v54 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL5;
+  v45 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL5;
   swift_beginAccess();
-  v55 = v88;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v54, v88, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
-  v56 = v80;
+  v46 = v79;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v45, v79, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
+  v47 = v71;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v55, v1 + v56, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v46, v1 + v47, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
   swift_endAccess();
-  v57 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassL1F;
+  v48 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassL1F;
   swift_beginAccess();
-  v58 = v90;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v57, v90, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
-  v59 = v81;
+  v49 = v81;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v48, v81, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
+  v50 = v72;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v58, v1 + v59, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v49, v1 + v50, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
   swift_endAccess();
-  v60 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB1;
+  v51 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB1;
   swift_beginAccess();
-  v61 = v91;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v60, v91, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
-  v62 = v82;
+  v52 = v82;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v51, v82, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
+  v53 = v73;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v61, v1 + v62, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v52, v1 + v53, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
   swift_endAccess();
-  v63 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB2;
+  v54 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB2;
   swift_beginAccess();
-  v64 = v92;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v63, v92, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
-  v65 = v84;
+  v55 = v83;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v54, v83, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
+  v56 = v75;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v64, v1 + v65, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v55, v1 + v56, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
   swift_endAccess();
-  v66 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE1;
+  v57 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE1;
   swift_beginAccess();
-  v67 = v93;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v66, v93, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
-  v68 = v85;
+  v58 = v84;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v57, v84, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
+  v59 = v76;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v67, v1 + v68, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v58, v1 + v59, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
   swift_endAccess();
-  v69 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE5;
+  v60 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE5;
   swift_beginAccess();
-  v70 = v94;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v69, v94, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
-  v71 = v86;
+  v61 = v85;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v60, v85, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
+  v62 = v77;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v70, v1 + v71, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v61, v1 + v62, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
   swift_endAccess();
-  v72 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__sbasL1;
+  v63 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__sbasL1;
   swift_beginAccess();
-  v73 = v95;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v72, v95, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
-  v74 = v87;
+  v64 = v86;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v63, v86, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
+  v65 = v78;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v73, v1 + v74, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v64, v1 + v65, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
   swift_endAccess();
-  v75 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navicL5;
+  v66 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navicL5;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v75, v51, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v66, v42, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
 
-  v76 = v89;
+  v67 = v80;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v51, v1 + v76, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v42, v1 + v67, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
   swift_endAccess();
   return v1;
 }
@@ -8203,29 +7005,26 @@ uint64_t CLP_LogEntry_PrivateData_SyncState._StorageClass.__deallocating_deinit(
   return MEMORY[0x2821FE8D8](v0, v1, v2);
 }
 
-uint64_t CLP_LogEntry_PrivateData_SyncState.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_PrivateData_SyncState.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = v0;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_SyncState(0) + 20);
-  v4 = *(v0 + v3);
+  v5 = v3;
+  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_SyncState(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *(v0 + v3);
+  v8 = *(v3 + v6);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v7 = type metadata accessor for CLP_LogEntry_PrivateData_SyncState._StorageClass(0);
-    v8 = *(v7 + 48);
-    v9 = *(v7 + 52);
-    v10 = swift_allocObject();
-    CLP_LogEntry_PrivateData_SyncState._StorageClass.init(copying:)(v6);
-    *(v2 + v3) = v10;
+    type metadata accessor for CLP_LogEntry_PrivateData_SyncState._StorageClass(0);
+    v9 = swift_allocObject();
+    CLP_LogEntry_PrivateData_SyncState._StorageClass.init(copying:)(v8);
+    *(v5 + v6) = v9;
   }
 
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v1)
+  if (!v4)
   {
     while (1)
     {
-      if (v12)
+      if (v11)
       {
         return result;
       }
@@ -8239,21 +7038,23 @@ uint64_t CLP_LogEntry_PrivateData_SyncState.decodeMessage<A>(decoder:)()
       {
         if (result == 3)
         {
-          v13 = v1;
+          v12 = v4;
           swift_beginAccess();
           type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState(0);
-          v14 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState;
+          v13 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState;
+          v14 = &protocol conformance descriptor for CLP_LogEntry_PrivateData_GpsL2CSyncState;
           v15 = &lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL2CSyncState and conformance CLP_LogEntry_PrivateData_GpsL2CSyncState;
         }
 
         else
         {
-          v13 = v1;
+          v12 = v4;
           if (result == 4)
           {
             swift_beginAccess();
             type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState(0);
-            v14 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState;
+            v13 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState;
+            v14 = &protocol conformance descriptor for CLP_LogEntry_PrivateData_GpsL5SyncState;
             v15 = &lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL5SyncState and conformance CLP_LogEntry_PrivateData_GpsL5SyncState;
           }
 
@@ -8261,7 +7062,8 @@ uint64_t CLP_LogEntry_PrivateData_SyncState.decodeMessage<A>(decoder:)()
           {
             swift_beginAccess();
             type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState(0);
-            v14 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState;
+            v13 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState;
+            v14 = &protocol conformance descriptor for CLP_LogEntry_PrivateData_GlonassL1fSyncState;
             v15 = &lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassL1fSyncState and conformance CLP_LogEntry_PrivateData_GlonassL1fSyncState;
           }
         }
@@ -8277,10 +7079,11 @@ uint64_t CLP_LogEntry_PrivateData_SyncState.decodeMessage<A>(decoder:)()
         }
 
 LABEL_21:
-        v13 = v1;
+        v12 = v4;
         swift_beginAccess();
         type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState(0);
-        v14 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState;
+        v13 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState;
+        v14 = &protocol conformance descriptor for CLP_LogEntry_PrivateData_GpsL1SyncState;
         v15 = &lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL1SyncState and conformance CLP_LogEntry_PrivateData_GpsL1SyncState;
         goto LABEL_29;
       }
@@ -8299,17 +7102,19 @@ LABEL_31:
       switch(result)
       {
         case 9:
-          v13 = v1;
+          v12 = v4;
           swift_beginAccess();
           type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0);
-          v14 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState;
+          v13 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState;
+          v14 = &protocol conformance descriptor for CLP_LogEntry_PrivateData_GalileoE5SyncState;
           v15 = &lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GalileoE5SyncState and conformance CLP_LogEntry_PrivateData_GalileoE5SyncState;
           break;
         case 10:
-          v13 = v1;
+          v12 = v4;
           swift_beginAccess();
           type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState(0);
-          v14 = type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState;
+          v13 = type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState;
+          v14 = &protocol conformance descriptor for CLP_LogEntry_PrivateData_SbasL1SyncState;
           v15 = &lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SbasL1SyncState and conformance CLP_LogEntry_PrivateData_SbasL1SyncState;
           break;
         case 11:
@@ -8321,21 +7126,23 @@ LABEL_31:
 
     else if (result == 6)
     {
-      v13 = v1;
+      v12 = v4;
       swift_beginAccess();
       type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState(0);
-      v14 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState;
+      v13 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState;
+      v14 = &protocol conformance descriptor for CLP_LogEntry_PrivateData_BeidouB1SyncState;
       v15 = &lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_BeidouB1SyncState and conformance CLP_LogEntry_PrivateData_BeidouB1SyncState;
     }
 
     else
     {
-      v13 = v1;
+      v12 = v4;
       if (result == 7)
       {
         swift_beginAccess();
         type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState(0);
-        v14 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState;
+        v13 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState;
+        v14 = &protocol conformance descriptor for CLP_LogEntry_PrivateData_BeidouB2SyncState;
         v15 = &lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_BeidouB2SyncState and conformance CLP_LogEntry_PrivateData_BeidouB2SyncState;
       }
 
@@ -8343,14 +7150,15 @@ LABEL_31:
       {
         swift_beginAccess();
         type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState(0);
-        v14 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState;
+        v13 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState;
+        v14 = &protocol conformance descriptor for CLP_LogEntry_PrivateData_GalileoE1SyncState;
         v15 = &lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GalileoE1SyncState and conformance CLP_LogEntry_PrivateData_GalileoE1SyncState;
       }
     }
 
 LABEL_29:
-    lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(v15, v14);
-    v1 = v13;
+    lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(v15, v13, v14);
+    v4 = v12;
     dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
     goto LABEL_30;
   }
@@ -8373,7 +7181,6 @@ uint64_t CLP_LogEntry_PrivateData_SyncState.traverse<A>(visitor:)(uint64_t a1, u
 
   else
   {
-    v11 = *(v9 + 16);
     lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_Band and conformance CLP_LogEntry_PrivateData_Band();
     result = dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
     if (v4)
@@ -8397,840 +7204,793 @@ uint64_t CLP_LogEntry_PrivateData_SyncState.traverse<A>(visitor:)(uint64_t a1, u
 
 uint64_t closure #2 in closure #1 in CLP_LogEntry_PrivateData_SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL1;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL1;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v14, v8, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v12, v7, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+    return outlined destroy of Any?(v7, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, v13, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL1SyncState and conformance CLP_LogEntry_PrivateData_GpsL1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL1SyncState and conformance CLP_LogEntry_PrivateData_GpsL1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GpsL1SyncState);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v13, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
 }
 
 uint64_t closure #3 in closure #1 in CLP_LogEntry_PrivateData_SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL2C;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL2C;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v14, v8, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v12, v7, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
+    return outlined destroy of Any?(v7, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, v13, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL2CSyncState and conformance CLP_LogEntry_PrivateData_GpsL2CSyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL2CSyncState and conformance CLP_LogEntry_PrivateData_GpsL2CSyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v13, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
 }
 
 uint64_t closure #4 in closure #1 in CLP_LogEntry_PrivateData_SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL5;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL5;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v14, v8, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v12, v7, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
+    return outlined destroy of Any?(v7, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, v13, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL5SyncState and conformance CLP_LogEntry_PrivateData_GpsL5SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState);
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL5SyncState and conformance CLP_LogEntry_PrivateData_GpsL5SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GpsL5SyncState);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v13, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState);
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState);
 }
 
 uint64_t closure #5 in closure #1 in CLP_LogEntry_PrivateData_SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassL1F;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassL1F;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v14, v8, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v12, v7, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
+    return outlined destroy of Any?(v7, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, v13, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassL1fSyncState and conformance CLP_LogEntry_PrivateData_GlonassL1fSyncState, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GlonassL1fSyncState and conformance CLP_LogEntry_PrivateData_GlonassL1fSyncState, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v13, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
 }
 
 uint64_t closure #6 in closure #1 in CLP_LogEntry_PrivateData_SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB1;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB1;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v14, v8, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v12, v7, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
+    return outlined destroy of Any?(v7, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, v13, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_BeidouB1SyncState and conformance CLP_LogEntry_PrivateData_BeidouB1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_BeidouB1SyncState and conformance CLP_LogEntry_PrivateData_BeidouB1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v13, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
 }
 
 uint64_t closure #7 in closure #1 in CLP_LogEntry_PrivateData_SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB2;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB2;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v14, v8, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v12, v7, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
+    return outlined destroy of Any?(v7, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, v13, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_BeidouB2SyncState and conformance CLP_LogEntry_PrivateData_BeidouB2SyncState, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_BeidouB2SyncState and conformance CLP_LogEntry_PrivateData_BeidouB2SyncState, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v13, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
 }
 
 uint64_t closure #8 in closure #1 in CLP_LogEntry_PrivateData_SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE1;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE1;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v14, v8, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v12, v7, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
+    return outlined destroy of Any?(v7, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, v13, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GalileoE1SyncState and conformance CLP_LogEntry_PrivateData_GalileoE1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GalileoE1SyncState and conformance CLP_LogEntry_PrivateData_GalileoE1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v13, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
 }
 
 uint64_t closure #9 in closure #1 in CLP_LogEntry_PrivateData_SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE5;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE5;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v14, v8, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v12, v7, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
+    return outlined destroy of Any?(v7, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, v13, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GalileoE5SyncState and conformance CLP_LogEntry_PrivateData_GalileoE5SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GalileoE5SyncState and conformance CLP_LogEntry_PrivateData_GalileoE5SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v13, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
 }
 
 uint64_t closure #10 in closure #1 in CLP_LogEntry_PrivateData_SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__sbasL1;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__sbasL1;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v14, v8, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v12, v7, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
+    return outlined destroy of Any?(v7, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, v13, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SbasL1SyncState and conformance CLP_LogEntry_PrivateData_SbasL1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState);
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SbasL1SyncState and conformance CLP_LogEntry_PrivateData_SbasL1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SbasL1SyncState);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v13, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState);
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState);
 }
 
 uint64_t closure #11 in closure #1 in CLP_LogEntry_PrivateData_SyncState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navicL5;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navicL5;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v14, v8, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v12, v7, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+    return outlined destroy of Any?(v7, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, v13, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL1SyncState and conformance CLP_LogEntry_PrivateData_GpsL1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_GpsL1SyncState and conformance CLP_LogEntry_PrivateData_GpsL1SyncState, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_GpsL1SyncState);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v13, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
 }
 
 BOOL closure #1 in static CLP_LogEntry_PrivateData_SyncState.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState(0);
-  v244 = *(v4 - 8);
-  v5 = *(v244 + 64);
+  v217 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
-  v7 = &v233 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v243 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSg_ADtMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSg_ADtMR);
-  v8 = *(*(v243 - 8) + 64);
-  MEMORY[0x28223BE20](v243);
-  v10 = &v233 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  v13 = MEMORY[0x28223BE20](v11 - 8);
-  v239 = &v233 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v206 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v216 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSg_ADtMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSg_ADtMR);
+  MEMORY[0x28223BE20](v216);
+  v8 = &v206 - v7;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
+  v10 = MEMORY[0x28223BE20](v9 - 8);
+  v212 = &v206 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10);
+  v219 = &v206 - v12;
+  v13 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0);
+  v221 = *(v13 - 8);
+  v222 = v13;
   MEMORY[0x28223BE20](v13);
-  v246 = &v233 - v15;
-  v16 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState(0);
-  v248 = *(v16 - 8);
-  v249 = v16;
-  v17 = *(v248 + 64);
-  MEMORY[0x28223BE20](v16);
-  v240 = &v233 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v247 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSg_ADtMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSg_ADtMR);
-  v19 = *(*(v247 - 8) + 64);
-  MEMORY[0x28223BE20](v247);
-  v250 = &v233 - v20;
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
-  v22 = *(*(v21 - 8) + 64);
-  v23 = MEMORY[0x28223BE20](v21 - 8);
-  v265 = &v233 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v23);
-  v252 = &v233 - v25;
-  v26 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState(0);
-  v255 = *(v26 - 8);
-  v256 = v26;
-  v27 = *(v255 + 64);
-  MEMORY[0x28223BE20](v26);
-  v245 = &v233 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v254 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSg_ADtMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSg_ADtMR);
-  v29 = *(*(v254 - 8) + 64);
-  MEMORY[0x28223BE20](v254);
-  v257 = &v233 - v30;
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
-  v32 = *(*(v31 - 8) + 64);
-  v33 = MEMORY[0x28223BE20](v31 - 8);
-  v251 = &v233 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v33);
-  v259 = &v233 - v35;
-  v36 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState(0);
-  v262 = *(v36 - 8);
-  v263 = v36;
-  v37 = *(v262 + 64);
-  MEMORY[0x28223BE20](v36);
-  v253 = &v233 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v261 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSg_ADtMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSg_ADtMR);
-  v39 = *(*(v261 - 8) + 64);
+  v213 = &v206 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v220 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSg_ADtMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSg_ADtMR);
+  MEMORY[0x28223BE20](v220);
+  v223 = &v206 - v15;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
+  v17 = MEMORY[0x28223BE20](v16 - 8);
+  v238 = &v206 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v17);
+  v225 = &v206 - v19;
+  v20 = type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState(0);
+  v228 = *(v20 - 8);
+  v229 = v20;
+  MEMORY[0x28223BE20](v20);
+  v218 = &v206 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v227 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSg_ADtMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSg_ADtMR);
+  MEMORY[0x28223BE20](v227);
+  v230 = &v206 - v22;
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
+  v24 = MEMORY[0x28223BE20](v23 - 8);
+  v224 = &v206 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v24);
+  v232 = &v206 - v26;
+  v27 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState(0);
+  v235 = *(v27 - 8);
+  v236 = v27;
+  MEMORY[0x28223BE20](v27);
+  v226 = &v206 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v234 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSg_ADtMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSg_ADtMR);
+  MEMORY[0x28223BE20](v234);
+  v237 = &v206 - v29;
+  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
+  v31 = MEMORY[0x28223BE20](v30 - 8);
+  v231 = &v206 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v31);
+  v240 = &v206 - v33;
+  v34 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState(0);
+  v243 = *(v34 - 8);
+  v244 = v34;
+  MEMORY[0x28223BE20](v34);
+  v233 = &v206 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v242 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSg_ADtMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSg_ADtMR);
+  MEMORY[0x28223BE20](v242);
+  v245 = &v206 - v36;
+  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
+  v38 = MEMORY[0x28223BE20](v37 - 8);
+  v239 = &v206 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v38);
+  v257 = &v206 - v40;
+  v41 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState(0);
+  v249 = *(v41 - 8);
+  v250 = v41;
+  MEMORY[0x28223BE20](v41);
+  v241 = &v206 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v248 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSg_ADtMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSg_ADtMR);
+  MEMORY[0x28223BE20](v248);
+  v251 = &v206 - v43;
+  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
+  v45 = MEMORY[0x28223BE20](v44 - 8);
+  v246 = &v206 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v45);
+  v258 = &v206 - v47;
+  v48 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState(0);
+  v254 = *(v48 - 8);
+  v255 = v48;
+  MEMORY[0x28223BE20](v48);
+  v247 = &v206 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v253 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSg_ADtMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSg_ADtMR);
+  MEMORY[0x28223BE20](v253);
+  v256 = &v206 - v50;
+  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
+  v52 = MEMORY[0x28223BE20](v51 - 8);
+  v265 = &v206 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v52);
+  v266 = &v206 - v54;
+  v55 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState(0);
+  v262 = *(v55 - 8);
+  v263 = v55;
+  MEMORY[0x28223BE20](v55);
+  v252 = &v206 - ((v56 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v261 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSg_ADtMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSg_ADtMR);
   MEMORY[0x28223BE20](v261);
-  v264 = &v233 - v40;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
-  v42 = *(*(v41 - 8) + 64);
-  v43 = MEMORY[0x28223BE20](v41 - 8);
-  v258 = &v233 - ((v44 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v43);
-  v267 = &v233 - v45;
-  v46 = type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState(0);
-  v270 = *(v46 - 8);
-  v271 = v46;
-  v47 = *(v270 + 64);
-  MEMORY[0x28223BE20](v46);
-  v260 = &v233 - ((v48 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v269 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSg_ADtMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSg_ADtMR);
-  v49 = *(*(v269 - 8) + 64);
-  MEMORY[0x28223BE20](v269);
-  v272 = &v233 - v50;
-  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
-  v52 = *(*(v51 - 8) + 64);
-  v53 = MEMORY[0x28223BE20](v51 - 8);
-  v266 = &v233 - ((v54 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v53);
-  v284 = &v233 - v55;
-  v56 = type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState(0);
-  v276 = *(v56 - 8);
-  v277 = v56;
-  v57 = *(v276 + 64);
-  MEMORY[0x28223BE20](v56);
-  v268 = &v233 - ((v58 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v275 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSg_ADtMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSg_ADtMR);
-  v59 = *(*(v275 - 8) + 64);
-  MEMORY[0x28223BE20](v275);
-  v278 = &v233 - v60;
-  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
-  v62 = *(*(v61 - 8) + 64);
-  v63 = MEMORY[0x28223BE20](v61 - 8);
-  v273 = &v233 - ((v64 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v63);
-  v285 = &v233 - v65;
-  v66 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState(0);
-  v281 = *(v66 - 8);
-  v282 = v66;
-  v67 = *(v281 + 64);
-  MEMORY[0x28223BE20](v66);
-  v274 = &v233 - ((v68 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v280 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSg_ADtMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSg_ADtMR);
-  v69 = *(*(v280 - 8) + 64);
-  MEMORY[0x28223BE20](v280);
-  v283 = &v233 - v70;
-  v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
-  v72 = *(*(v71 - 8) + 64);
-  v73 = MEMORY[0x28223BE20](v71 - 8);
-  v292 = &v233 - ((v74 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v73);
-  v293 = &v233 - v75;
-  v76 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState(0);
-  v289 = *(v76 - 8);
-  v290 = v76;
-  v77 = *(v289 + 64);
-  MEMORY[0x28223BE20](v76);
-  v279 = &v233 - ((v78 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v288 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSg_ADtMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSg_ADtMR);
-  v79 = *(*(v288 - 8) + 64);
-  MEMORY[0x28223BE20](v288);
-  v291 = &v233 - v80;
-  v81 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
-  v82 = *(*(v81 - 8) + 64);
-  v83 = MEMORY[0x28223BE20](v81 - 8);
-  v286 = &v233 - ((v84 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v83);
-  v294 = &v233 - v85;
-  v86 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState(0);
-  v87 = *(v86 - 8);
-  v296 = v86;
-  v297 = v87;
-  v88 = *(v87 + 64);
-  MEMORY[0x28223BE20](v86);
-  v287 = &v233 - ((v89 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v295 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSg_ADtMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSg_ADtMR);
-  v90 = *(*(v295 - 8) + 64);
-  v91 = MEMORY[0x28223BE20](v295);
-  v242 = &v233 - ((v92 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v91);
-  v94 = &v233 - v93;
-  v95 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-  v96 = *(*(v95 - 8) + 64);
-  v97 = MEMORY[0x28223BE20](v95 - 8);
-  v238 = &v233 - ((v98 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v99 = MEMORY[0x28223BE20](v97);
-  v241 = &v233 - v100;
-  v101 = MEMORY[0x28223BE20](v99);
-  v103 = &v233 - v102;
-  MEMORY[0x28223BE20](v101);
-  v105 = &v233 - v104;
+  v264 = &v206 - v57;
+  v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
+  v59 = MEMORY[0x28223BE20](v58 - 8);
+  v259 = &v206 - ((v60 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v59);
+  v267 = &v206 - v61;
+  v62 = type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState(0);
+  v63 = *(v62 - 8);
+  v269 = v62;
+  v270 = v63;
+  MEMORY[0x28223BE20](v62);
+  v260 = &v206 - ((v64 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v268 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSg_ADtMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSg_ADtMR);
+  v65 = MEMORY[0x28223BE20](v268);
+  v215 = &v206 - ((v66 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v65);
+  v68 = &v206 - v67;
+  v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+  v70 = MEMORY[0x28223BE20](v69 - 8);
+  v211 = &v206 - ((v71 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v72 = MEMORY[0x28223BE20](v70);
+  v214 = &v206 - v73;
+  v74 = MEMORY[0x28223BE20](v72);
+  v76 = &v206 - v75;
+  MEMORY[0x28223BE20](v74);
+  v78 = &v206 - v77;
   swift_beginAccess();
-  v106 = *(a1 + 16);
+  v79 = *(a1 + 16);
   swift_beginAccess();
-  v107 = *(a2 + 16);
-  if (v106 == 13)
+  v80 = *(a2 + 16);
+  if (v79 == 13)
   {
-    if (v107 != 13)
+    if (v80 != 13)
     {
       return 0;
     }
 
 LABEL_6:
-    v235 = v7;
-    v236 = v4;
-    v237 = v10;
-    v109 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL1;
+    v208 = v6;
+    v209 = v4;
+    v210 = v8;
+    v82 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL1;
     swift_beginAccess();
-    v110 = a1;
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v109, v105, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-    v111 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL1;
+    v83 = a1;
+    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v82, v78, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+    v84 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL1;
     swift_beginAccess();
-    v112 = *(v295 + 48);
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v105, v94, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v111, &v94[v112], &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-    v113 = v296;
-    v114 = v297 + 48;
-    v115 = *(v297 + 48);
-    if (v115(v94, 1, v296) == 1)
+    v85 = *(v268 + 48);
+    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v78, v68, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v84, &v68[v85], &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+    v86 = v269;
+    v87 = v270 + 48;
+    v88 = *(v270 + 48);
+    if (v88(v68, 1, v269) == 1)
     {
 
-      outlined destroy of Any?(v105, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-      v234 = v115;
-      v116 = v115(&v94[v112], 1, v113);
-      v117 = v110;
-      if (v116 == 1)
+      outlined destroy of Any?(v78, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+      v207 = v88;
+      v89 = v88(&v68[v85], 1, v86);
+      v90 = v83;
+      if (v89 == 1)
       {
-        v297 = v114;
-        outlined destroy of Any?(v94, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+        v270 = v87;
+        outlined destroy of Any?(v68, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
 LABEL_13:
-        v123 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL2C;
+        v96 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL2C;
         swift_beginAccess();
-        v124 = v294;
-        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v117 + v123, v294, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
-        v125 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL2C;
+        v97 = v267;
+        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v90 + v96, v267, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
+        v98 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL2C;
         swift_beginAccess();
-        v126 = *(v288 + 48);
-        v127 = v291;
-        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v124, v291, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
-        v128 = v127;
-        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v125, v127 + v126, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
-        v129 = *(v289 + 48);
-        v130 = v127;
-        v131 = v290;
-        if (v129(v130, 1, v290) == 1)
+        v99 = *(v261 + 48);
+        v100 = v264;
+        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v97, v264, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
+        v101 = v100;
+        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v98, v100 + v99, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
+        v102 = *(v262 + 48);
+        v103 = v100;
+        v104 = v263;
+        if (v102(v103, 1, v263) == 1)
         {
-          outlined destroy of Any?(v124, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
-          v132 = v129(v128 + v126, 1, v131);
-          v133 = v292;
-          v134 = v293;
-          if (v132 == 1)
+          outlined destroy of Any?(v97, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
+          v105 = v102(v101 + v99, 1, v104);
+          v106 = v265;
+          v107 = v266;
+          if (v105 == 1)
           {
-            outlined destroy of Any?(v128, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
+            outlined destroy of Any?(v101, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
             goto LABEL_20;
           }
         }
 
         else
         {
-          v135 = v286;
-          outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v128, v286, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
-          v136 = v129(v128 + v126, 1, v131);
-          v137 = v292;
-          v134 = v293;
-          if (v136 != 1)
+          v108 = v259;
+          outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v101, v259, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
+          v109 = v102(v101 + v99, 1, v104);
+          v110 = v265;
+          v107 = v266;
+          if (v109 != 1)
           {
-            v138 = v128 + v126;
-            v139 = v279;
-            outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v138, v279, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
-            LODWORD(v290) = specialized static CLP_LogEntry_PrivateData_GlonassL1fSyncState.== infix(_:_:)(v135, v139, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
-            outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v139, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
-            outlined destroy of Any?(v294, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
-            outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v135, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
-            outlined destroy of Any?(v128, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
-            v133 = v137;
-            if ((v290 & 1) == 0)
+            v111 = v101 + v99;
+            v112 = v252;
+            outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v111, v252, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
+            LODWORD(v263) = specialized static CLP_LogEntry_PrivateData_GlonassL1fSyncState.== infix(_:_:)(v108, v112, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
+            outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v112, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
+            outlined destroy of Any?(v267, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
+            outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v108, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
+            outlined destroy of Any?(v101, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
+            v106 = v110;
+            if ((v263 & 1) == 0)
             {
               goto LABEL_70;
             }
 
 LABEL_20:
-            v140 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL5;
+            v113 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL5;
             swift_beginAccess();
-            outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v117 + v140, v134, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
-            v141 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL5;
+            outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v90 + v113, v107, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
+            v114 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsL5;
             swift_beginAccess();
-            v142 = *(v280 + 48);
-            v143 = v283;
-            outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v134, v283, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
-            v144 = v143;
-            outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v141, v143 + v142, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
-            v145 = v282;
-            v146 = *(v281 + 48);
-            if (v146(v143, 1, v282) == 1)
+            v115 = *(v253 + 48);
+            v116 = v256;
+            outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v107, v256, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
+            v117 = v116;
+            outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v114, v116 + v115, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
+            v118 = v255;
+            v119 = *(v254 + 48);
+            if (v119(v116, 1, v255) == 1)
             {
-              outlined destroy of Any?(v134, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
-              v147 = v146(v143 + v142, 1, v145);
-              v149 = v284;
-              v148 = v285;
-              if (v147 == 1)
+              outlined destroy of Any?(v107, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
+              v120 = v119(v116 + v115, 1, v118);
+              v122 = v257;
+              v121 = v258;
+              if (v120 == 1)
               {
-                outlined destroy of Any?(v144, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
+                outlined destroy of Any?(v117, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
                 goto LABEL_27;
               }
             }
 
             else
             {
-              outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v143, v133, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
-              v150 = v146(v143 + v142, 1, v145);
-              v151 = v284;
-              v148 = v285;
-              if (v150 != 1)
+              outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v116, v106, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
+              v123 = v119(v116 + v115, 1, v118);
+              v124 = v257;
+              v121 = v258;
+              if (v123 != 1)
               {
-                v152 = v144 + v142;
-                v153 = v274;
-                outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v152, v274, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState);
-                LODWORD(v294) = specialized static CLP_LogEntry_PrivateData_GalileoE1SyncState.== infix(_:_:)(v133, v153, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState);
-                outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v153, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState);
-                outlined destroy of Any?(v293, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
-                v154 = v133;
-                v149 = v151;
-                outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v154, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState);
-                outlined destroy of Any?(v144, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
-                if ((v294 & 1) == 0)
+                v125 = v117 + v115;
+                v126 = v247;
+                outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v125, v247, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState);
+                LODWORD(v267) = specialized static CLP_LogEntry_PrivateData_GalileoE1SyncState.== infix(_:_:)(v106, v126, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState);
+                outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v126, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState);
+                outlined destroy of Any?(v266, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
+                v127 = v106;
+                v122 = v124;
+                outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v127, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState);
+                outlined destroy of Any?(v117, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
+                if ((v267 & 1) == 0)
                 {
                   goto LABEL_70;
                 }
 
 LABEL_27:
-                v155 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassL1F;
+                v128 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassL1F;
                 swift_beginAccess();
-                outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v117 + v155, v148, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
-                v156 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassL1F;
+                outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v90 + v128, v121, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
+                v129 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__glonassL1F;
                 swift_beginAccess();
-                v157 = *(v275 + 48);
-                v144 = v278;
-                outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v148, v278, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
-                outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v156, v144 + v157, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
-                v158 = v277;
-                v159 = *(v276 + 48);
-                if (v159(v144, 1, v277) == 1)
+                v130 = *(v248 + 48);
+                v117 = v251;
+                outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v121, v251, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
+                outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v129, v117 + v130, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
+                v131 = v250;
+                v132 = *(v249 + 48);
+                if (v132(v117, 1, v250) == 1)
                 {
-                  outlined destroy of Any?(v148, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
-                  if (v159(v144 + v157, 1, v158) == 1)
+                  outlined destroy of Any?(v121, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
+                  if (v132(v117 + v130, 1, v131) == 1)
                   {
-                    outlined destroy of Any?(v144, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
+                    outlined destroy of Any?(v117, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
                     goto LABEL_34;
                   }
                 }
 
                 else
                 {
-                  v160 = v273;
-                  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v144, v273, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
-                  if (v159(v144 + v157, 1, v158) != 1)
+                  v133 = v246;
+                  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v117, v246, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
+                  if (v132(v117 + v130, 1, v131) != 1)
                   {
-                    v161 = v144 + v157;
-                    v162 = v268;
-                    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v161, v268, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
-                    v163 = specialized static CLP_LogEntry_PrivateData_GlonassL1fSyncState.== infix(_:_:)(v160, v162, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
-                    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v162, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
-                    outlined destroy of Any?(v285, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
-                    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v160, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
-                    outlined destroy of Any?(v144, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
-                    if ((v163 & 1) == 0)
+                    v134 = v117 + v130;
+                    v135 = v241;
+                    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v134, v241, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
+                    v136 = specialized static CLP_LogEntry_PrivateData_GlonassL1fSyncState.== infix(_:_:)(v133, v135, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
+                    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v135, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
+                    outlined destroy of Any?(v258, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
+                    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v133, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
+                    outlined destroy of Any?(v117, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
+                    if ((v136 & 1) == 0)
                     {
                       goto LABEL_70;
                     }
 
 LABEL_34:
-                    v164 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB1;
+                    v137 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB1;
                     swift_beginAccess();
-                    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v117 + v164, v149, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
-                    v165 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB1;
+                    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v90 + v137, v122, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
+                    v138 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB1;
                     swift_beginAccess();
-                    v166 = *(v269 + 48);
-                    v167 = v272;
-                    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v149, v272, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
-                    v144 = v167;
-                    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v165, v167 + v166, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
-                    v168 = v271;
-                    v169 = *(v270 + 48);
-                    if (v169(v167, 1, v271) == 1)
+                    v139 = *(v242 + 48);
+                    v140 = v245;
+                    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v122, v245, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
+                    v117 = v140;
+                    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v138, v140 + v139, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
+                    v141 = v244;
+                    v142 = *(v243 + 48);
+                    if (v142(v140, 1, v244) == 1)
                     {
-                      outlined destroy of Any?(v149, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
-                      if (v169(v167 + v166, 1, v168) == 1)
+                      outlined destroy of Any?(v122, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
+                      if (v142(v140 + v139, 1, v141) == 1)
                       {
-                        outlined destroy of Any?(v167, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
+                        outlined destroy of Any?(v140, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
                         goto LABEL_41;
                       }
                     }
 
                     else
                     {
-                      v170 = v266;
-                      outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v167, v266, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
-                      if (v169(v167 + v166, 1, v168) != 1)
+                      v143 = v239;
+                      outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v140, v239, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
+                      if (v142(v140 + v139, 1, v141) != 1)
                       {
-                        v171 = v167 + v166;
-                        v172 = v260;
-                        outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v171, v260, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
-                        v173 = specialized static CLP_LogEntry_PrivateData_GalileoE1SyncState.== infix(_:_:)(v170, v172, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
-                        outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v172, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
-                        outlined destroy of Any?(v284, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
-                        outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v170, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
-                        outlined destroy of Any?(v167, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
-                        if ((v173 & 1) == 0)
+                        v144 = v140 + v139;
+                        v145 = v233;
+                        outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v144, v233, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
+                        v146 = specialized static CLP_LogEntry_PrivateData_GalileoE1SyncState.== infix(_:_:)(v143, v145, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
+                        outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v145, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
+                        outlined destroy of Any?(v257, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
+                        outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v143, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
+                        outlined destroy of Any?(v140, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
+                        if ((v146 & 1) == 0)
                         {
                           goto LABEL_70;
                         }
 
 LABEL_41:
-                        v174 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB2;
+                        v147 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB2;
                         swift_beginAccess();
-                        v175 = v267;
-                        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v117 + v174, v267, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
-                        v176 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB2;
+                        v148 = v240;
+                        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v90 + v147, v240, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
+                        v149 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__beidouB2;
                         swift_beginAccess();
-                        v177 = *(v261 + 48);
-                        v144 = v264;
-                        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v175, v264, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
-                        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v176, v144 + v177, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
-                        v178 = v263;
-                        v179 = *(v262 + 48);
-                        if (v179(v144, 1, v263) == 1)
+                        v150 = *(v234 + 48);
+                        v117 = v237;
+                        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v148, v237, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
+                        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v149, v117 + v150, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
+                        v151 = v236;
+                        v152 = *(v235 + 48);
+                        if (v152(v117, 1, v236) == 1)
                         {
-                          outlined destroy of Any?(v175, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
-                          v180 = v179(v144 + v177, 1, v178);
-                          v181 = v265;
-                          if (v180 == 1)
+                          outlined destroy of Any?(v148, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
+                          v153 = v152(v117 + v150, 1, v151);
+                          v154 = v238;
+                          if (v153 == 1)
                           {
-                            outlined destroy of Any?(v144, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
+                            outlined destroy of Any?(v117, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
                             goto LABEL_48;
                           }
                         }
 
                         else
                         {
-                          v182 = v258;
-                          outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v144, v258, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
-                          v183 = v177;
-                          v184 = v179(v144 + v177, 1, v178);
-                          v181 = v265;
-                          if (v184 != 1)
+                          v155 = v231;
+                          outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v117, v231, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
+                          v156 = v150;
+                          v157 = v152(v117 + v150, 1, v151);
+                          v154 = v238;
+                          if (v157 != 1)
                           {
-                            v185 = v144 + v183;
-                            v186 = v253;
-                            outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v185, v253, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
-                            v187 = specialized static CLP_LogEntry_PrivateData_GalileoE1SyncState.== infix(_:_:)(v182, v186, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
-                            outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v186, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
-                            outlined destroy of Any?(v267, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
-                            outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v182, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
-                            outlined destroy of Any?(v144, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
-                            if ((v187 & 1) == 0)
+                            v158 = v117 + v156;
+                            v159 = v226;
+                            outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v158, v226, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
+                            v160 = specialized static CLP_LogEntry_PrivateData_GalileoE1SyncState.== infix(_:_:)(v155, v159, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
+                            outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v159, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
+                            outlined destroy of Any?(v240, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
+                            outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v155, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
+                            outlined destroy of Any?(v117, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
+                            if ((v160 & 1) == 0)
                             {
                               goto LABEL_70;
                             }
 
 LABEL_48:
-                            v188 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE1;
+                            v161 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE1;
                             swift_beginAccess();
-                            v189 = v259;
-                            outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v117 + v188, v259, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
-                            v190 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE1;
+                            v162 = v232;
+                            outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v90 + v161, v232, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
+                            v163 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE1;
                             swift_beginAccess();
-                            v191 = *(v254 + 48);
-                            v192 = v257;
-                            outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v189, v257, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
-                            v144 = v192;
-                            outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v190, v192 + v191, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
-                            v193 = v256;
-                            v194 = *(v255 + 48);
-                            if (v194(v192, 1, v256) == 1)
+                            v164 = *(v227 + 48);
+                            v165 = v230;
+                            outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v162, v230, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
+                            v117 = v165;
+                            outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v163, v165 + v164, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
+                            v166 = v229;
+                            v167 = *(v228 + 48);
+                            if (v167(v165, 1, v229) == 1)
                             {
-                              outlined destroy of Any?(v189, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
-                              if (v194(v192 + v191, 1, v193) == 1)
+                              outlined destroy of Any?(v162, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
+                              if (v167(v165 + v164, 1, v166) == 1)
                               {
-                                outlined destroy of Any?(v192, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
+                                outlined destroy of Any?(v165, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
 LABEL_55:
-                                v199 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE5;
+                                v172 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE5;
                                 swift_beginAccess();
-                                v200 = v252;
-                                outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v117 + v199, v252, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
-                                v201 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE5;
+                                v173 = v225;
+                                outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v90 + v172, v225, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
+                                v174 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__galileoE5;
                                 swift_beginAccess();
-                                v202 = *(v247 + 48);
-                                v203 = v250;
-                                outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v200, v250, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
-                                v144 = v203;
-                                outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v201, v203 + v202, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
-                                v204 = v249;
-                                v205 = *(v248 + 48);
-                                if (v205(v203, 1, v249) == 1)
+                                v175 = *(v220 + 48);
+                                v176 = v223;
+                                outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v173, v223, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
+                                v117 = v176;
+                                outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v174, v176 + v175, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
+                                v177 = v222;
+                                v178 = *(v221 + 48);
+                                if (v178(v176, 1, v222) == 1)
                                 {
-                                  outlined destroy of Any?(v200, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
-                                  if (v205(v203 + v202, 1, v204) == 1)
+                                  outlined destroy of Any?(v173, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
+                                  if (v178(v176 + v175, 1, v177) == 1)
                                   {
-                                    outlined destroy of Any?(v203, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
+                                    outlined destroy of Any?(v176, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
 LABEL_62:
-                                    v209 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__sbasL1;
+                                    v182 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__sbasL1;
                                     swift_beginAccess();
-                                    v210 = v246;
-                                    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v117 + v209, v246, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
-                                    v211 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__sbasL1;
+                                    v183 = v219;
+                                    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v90 + v182, v219, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
+                                    v184 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__sbasL1;
                                     swift_beginAccess();
-                                    v212 = *(v243 + 48);
-                                    v213 = v210;
-                                    v214 = v237;
-                                    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v213, v237, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
-                                    v144 = v214;
-                                    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v211, v214 + v212, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
-                                    v215 = *(v244 + 48);
-                                    v216 = v236;
-                                    if (v215(v214, 1, v236) == 1)
+                                    v185 = *(v216 + 48);
+                                    v186 = v183;
+                                    v187 = v210;
+                                    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v186, v210, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
+                                    v117 = v187;
+                                    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v184, v187 + v185, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
+                                    v188 = *(v217 + 48);
+                                    v189 = v209;
+                                    if (v188(v187, 1, v209) == 1)
                                     {
-                                      outlined destroy of Any?(v246, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
-                                      if (v215(v214 + v212, 1, v216) == 1)
+                                      outlined destroy of Any?(v219, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
+                                      if (v188(v187 + v185, 1, v189) == 1)
                                       {
-                                        outlined destroy of Any?(v214, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
+                                        outlined destroy of Any?(v187, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
 LABEL_74:
-                                        v221 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navicL5;
+                                        v194 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navicL5;
                                         swift_beginAccess();
-                                        v222 = v241;
-                                        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v117 + v221, v241, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-                                        v223 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navicL5;
+                                        v195 = v214;
+                                        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v90 + v194, v214, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+                                        v196 = OBJC_IVAR____TtCV10ALProtobuf34CLP_LogEntry_PrivateData_SyncStateP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__navicL5;
                                         swift_beginAccess();
-                                        v224 = *(v295 + 48);
-                                        v225 = v242;
-                                        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v222, v242, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-                                        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v223, v225 + v224, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-                                        v226 = v296;
-                                        v227 = v234;
-                                        if (v234(v225, 1, v296) == 1)
+                                        v197 = *(v268 + 48);
+                                        v198 = v215;
+                                        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v195, v215, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+                                        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v196, v198 + v197, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+                                        v199 = v269;
+                                        v200 = v207;
+                                        if (v207(v198, 1, v269) == 1)
                                         {
 
-                                          outlined destroy of Any?(v241, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-                                          if (v227(v225 + v224, 1, v226) == 1)
+                                          outlined destroy of Any?(v214, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+                                          if (v200(v198 + v197, 1, v199) == 1)
                                           {
-                                            outlined destroy of Any?(v242, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+                                            outlined destroy of Any?(v215, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
                                             return 1;
                                           }
 
                                           goto LABEL_79;
                                         }
 
-                                        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v225, v238, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-                                        if (v227(v225 + v224, 1, v226) == 1)
+                                        outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v198, v211, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+                                        if (v200(v198 + v197, 1, v199) == 1)
                                         {
 
-                                          outlined destroy of Any?(v241, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-                                          outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v238, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+                                          outlined destroy of Any?(v214, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+                                          outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v211, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
 LABEL_79:
-                                          outlined destroy of Any?(v242, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSg_ADtMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSg_ADtMR);
+                                          outlined destroy of Any?(v215, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSg_ADtMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSg_ADtMR);
                                           return 0;
                                         }
 
-                                        v228 = v242;
-                                        v229 = v242 + v224;
-                                        v230 = v287;
-                                        outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v229, v287, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
-                                        v231 = v238;
-                                        v232 = specialized static CLP_LogEntry_PrivateData_GalileoE1SyncState.== infix(_:_:)(v238, v230, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+                                        v201 = v215;
+                                        v202 = v215 + v197;
+                                        v203 = v260;
+                                        outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v202, v260, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+                                        v204 = v211;
+                                        v205 = specialized static CLP_LogEntry_PrivateData_GalileoE1SyncState.== infix(_:_:)(v211, v203, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
 
-                                        outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v230, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
-                                        outlined destroy of Any?(v241, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-                                        outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v231, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
-                                        outlined destroy of Any?(v228, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-                                        return (v232 & 1) != 0;
+                                        outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v203, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+                                        outlined destroy of Any?(v214, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+                                        outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v204, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+                                        outlined destroy of Any?(v201, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+                                        return (v205 & 1) != 0;
                                       }
 
                                       goto LABEL_67;
                                     }
 
-                                    v217 = v239;
-                                    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v214, v239, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
-                                    if (v215(v214 + v212, 1, v216) == 1)
+                                    v190 = v212;
+                                    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v187, v212, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
+                                    if (v188(v187 + v185, 1, v189) == 1)
                                     {
-                                      outlined destroy of Any?(v246, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
-                                      outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v217, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState);
+                                      outlined destroy of Any?(v219, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
+                                      outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v190, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState);
 LABEL_67:
-                                      v118 = &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSg_ADtMd;
-                                      v119 = &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSg_ADtMR;
+                                      v91 = &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSg_ADtMd;
+                                      v92 = &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSg_ADtMR;
                                       goto LABEL_68;
                                     }
 
-                                    v218 = v214 + v212;
-                                    v219 = v235;
-                                    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v218, v235, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState);
-                                    v220 = specialized static CLP_LogEntry_PrivateData_SbasL1SyncState.== infix(_:_:)(v217, v219);
-                                    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v219, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState);
-                                    outlined destroy of Any?(v246, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
-                                    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v217, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState);
-                                    outlined destroy of Any?(v214, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
-                                    if (v220)
+                                    v191 = v187 + v185;
+                                    v192 = v208;
+                                    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v191, v208, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState);
+                                    v193 = specialized static CLP_LogEntry_PrivateData_SbasL1SyncState.== infix(_:_:)(v190, v192);
+                                    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v192, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState);
+                                    outlined destroy of Any?(v219, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
+                                    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v190, type metadata accessor for CLP_LogEntry_PrivateData_SbasL1SyncState);
+                                    outlined destroy of Any?(v187, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_SbasL1SyncStateVSgMR);
+                                    if (v193)
                                     {
                                       goto LABEL_74;
                                     }
@@ -9243,18 +8003,18 @@ LABEL_70:
 
                                 else
                                 {
-                                  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v203, v181, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
-                                  if (v205(v203 + v202, 1, v204) != 1)
+                                  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v176, v154, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
+                                  if (v178(v176 + v175, 1, v177) != 1)
                                   {
-                                    v206 = v203 + v202;
-                                    v207 = v240;
-                                    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v206, v240, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
-                                    v208 = specialized static CLP_LogEntry_PrivateData_GalileoE5SyncState.== infix(_:_:)(v181, v207);
-                                    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v207, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
-                                    outlined destroy of Any?(v252, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
-                                    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v181, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
-                                    outlined destroy of Any?(v203, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
-                                    if ((v208 & 1) == 0)
+                                    v179 = v176 + v175;
+                                    v180 = v213;
+                                    outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v179, v213, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
+                                    v181 = specialized static CLP_LogEntry_PrivateData_GalileoE5SyncState.== infix(_:_:)(v154, v180);
+                                    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v180, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
+                                    outlined destroy of Any?(v225, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
+                                    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v154, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
+                                    outlined destroy of Any?(v176, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
+                                    if ((v181 & 1) == 0)
                                     {
                                       goto LABEL_70;
                                     }
@@ -9262,33 +8022,33 @@ LABEL_70:
                                     goto LABEL_62;
                                   }
 
-                                  outlined destroy of Any?(v252, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
-                                  outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v181, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
+                                  outlined destroy of Any?(v225, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSgMR);
+                                  outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v154, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE5SyncState);
                                 }
 
-                                v118 = &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSg_ADtMd;
-                                v119 = &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSg_ADtMR;
+                                v91 = &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSg_ADtMd;
+                                v92 = &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE5SyncStateVSg_ADtMR;
 LABEL_68:
-                                v120 = v144;
+                                v93 = v117;
                                 goto LABEL_69;
                               }
                             }
 
                             else
                             {
-                              v195 = v251;
-                              outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v192, v251, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
-                              if (v194(v192 + v191, 1, v193) != 1)
+                              v168 = v224;
+                              outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v165, v224, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
+                              if (v167(v165 + v164, 1, v166) != 1)
                               {
-                                v196 = v192 + v191;
-                                v197 = v245;
-                                outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v196, v245, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
-                                v198 = specialized static CLP_LogEntry_PrivateData_GalileoE1SyncState.== infix(_:_:)(v195, v197, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
-                                outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v197, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
-                                outlined destroy of Any?(v259, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
-                                outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v195, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
-                                outlined destroy of Any?(v192, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
-                                if ((v198 & 1) == 0)
+                                v169 = v165 + v164;
+                                v170 = v218;
+                                outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v169, v218, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
+                                v171 = specialized static CLP_LogEntry_PrivateData_GalileoE1SyncState.== infix(_:_:)(v168, v170, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
+                                outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v170, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
+                                outlined destroy of Any?(v232, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
+                                outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v168, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
+                                outlined destroy of Any?(v165, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
+                                if ((v171 & 1) == 0)
                                 {
                                   goto LABEL_70;
                                 }
@@ -9296,81 +8056,81 @@ LABEL_68:
                                 goto LABEL_55;
                               }
 
-                              outlined destroy of Any?(v259, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
-                              outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v195, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
+                              outlined destroy of Any?(v232, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSgMR);
+                              outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v168, type metadata accessor for CLP_LogEntry_PrivateData_GalileoE1SyncState);
                             }
 
-                            v118 = &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSg_ADtMd;
-                            v119 = &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSg_ADtMR;
+                            v91 = &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSg_ADtMd;
+                            v92 = &_s10ALProtobuf43CLP_LogEntry_PrivateData_GalileoE1SyncStateVSg_ADtMR;
                             goto LABEL_68;
                           }
 
-                          outlined destroy of Any?(v267, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
-                          outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v182, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
+                          outlined destroy of Any?(v240, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSgMR);
+                          outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v155, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB2SyncState);
                         }
 
-                        v118 = &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSg_ADtMd;
-                        v119 = &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSg_ADtMR;
+                        v91 = &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSg_ADtMd;
+                        v92 = &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB2SyncStateVSg_ADtMR;
                         goto LABEL_68;
                       }
 
-                      outlined destroy of Any?(v284, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
-                      outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v170, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
+                      outlined destroy of Any?(v257, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSgMR);
+                      outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v143, type metadata accessor for CLP_LogEntry_PrivateData_BeidouB1SyncState);
                     }
 
-                    v118 = &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSg_ADtMd;
-                    v119 = &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSg_ADtMR;
+                    v91 = &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSg_ADtMd;
+                    v92 = &_s10ALProtobuf42CLP_LogEntry_PrivateData_BeidouB1SyncStateVSg_ADtMR;
                     goto LABEL_68;
                   }
 
-                  outlined destroy of Any?(v285, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
-                  outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v160, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
+                  outlined destroy of Any?(v258, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMd, &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSgMR);
+                  outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v133, type metadata accessor for CLP_LogEntry_PrivateData_GlonassL1fSyncState);
                 }
 
-                v118 = &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSg_ADtMd;
-                v119 = &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSg_ADtMR;
+                v91 = &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSg_ADtMd;
+                v92 = &_s10ALProtobuf44CLP_LogEntry_PrivateData_GlonassL1fSyncStateVSg_ADtMR;
                 goto LABEL_68;
               }
 
-              outlined destroy of Any?(v293, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
-              outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v133, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState);
+              outlined destroy of Any?(v266, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSgMR);
+              outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v106, type metadata accessor for CLP_LogEntry_PrivateData_GpsL5SyncState);
             }
 
-            v118 = &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSg_ADtMd;
-            v119 = &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSg_ADtMR;
+            v91 = &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSg_ADtMd;
+            v92 = &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL5SyncStateVSg_ADtMR;
             goto LABEL_68;
           }
 
-          outlined destroy of Any?(v294, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
-          outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v135, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
+          outlined destroy of Any?(v267, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSgMR);
+          outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v108, type metadata accessor for CLP_LogEntry_PrivateData_GpsL2CSyncState);
         }
 
-        v118 = &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSg_ADtMd;
-        v119 = &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSg_ADtMR;
-        v120 = v128;
+        v91 = &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSg_ADtMd;
+        v92 = &_s10ALProtobuf40CLP_LogEntry_PrivateData_GpsL2CSyncStateVSg_ADtMR;
+        v93 = v101;
 LABEL_69:
-        outlined destroy of Any?(v120, v118, v119);
+        outlined destroy of Any?(v93, v91, v92);
         goto LABEL_70;
       }
     }
 
     else
     {
-      outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v94, v103, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-      if (v115(&v94[v112], 1, v113) != 1)
+      outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v68, v76, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+      if (v88(&v68[v85], 1, v86) != 1)
       {
-        v234 = v115;
-        v297 = v114;
-        v121 = v287;
-        outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(&v94[v112], v287, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
-        v117 = v110;
+        v207 = v88;
+        v270 = v87;
+        v94 = v260;
+        outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(&v68[v85], v260, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+        v90 = v83;
 
-        v122 = specialized static CLP_LogEntry_PrivateData_GalileoE1SyncState.== infix(_:_:)(v103, v121, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
-        outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v121, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
-        outlined destroy of Any?(v105, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-        outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v103, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
-        outlined destroy of Any?(v94, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-        if ((v122 & 1) == 0)
+        v95 = specialized static CLP_LogEntry_PrivateData_GalileoE1SyncState.== infix(_:_:)(v76, v94, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+        outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v94, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+        outlined destroy of Any?(v78, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+        outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v76, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+        outlined destroy of Any?(v68, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+        if ((v95 & 1) == 0)
         {
           goto LABEL_70;
         }
@@ -9378,18 +8138,18 @@ LABEL_69:
         goto LABEL_13;
       }
 
-      outlined destroy of Any?(v105, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
-      outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v103, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
+      outlined destroy of Any?(v78, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSgMR);
+      outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v76, type metadata accessor for CLP_LogEntry_PrivateData_GpsL1SyncState);
     }
 
-    v118 = &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSg_ADtMd;
-    v119 = &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSg_ADtMR;
-    v120 = v94;
+    v91 = &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSg_ADtMd;
+    v92 = &_s10ALProtobuf39CLP_LogEntry_PrivateData_GpsL1SyncStateVSg_ADtMR;
+    v93 = v68;
     goto LABEL_69;
   }
 
   result = 0;
-  if (v107 != 13 && v106 == v107)
+  if (v80 != 13 && v79 == v80)
   {
     goto LABEL_6;
   }
@@ -9399,42 +8159,42 @@ LABEL_69:
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_SyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SyncState and conformance CLP_LogEntry_PrivateData_SyncState, type metadata accessor for CLP_LogEntry_PrivateData_SyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SyncState and conformance CLP_LogEntry_PrivateData_SyncState, type metadata accessor for CLP_LogEntry_PrivateData_SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SyncState);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_SyncState(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SyncState and conformance CLP_LogEntry_PrivateData_SyncState, type metadata accessor for CLP_LogEntry_PrivateData_SyncState);
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SyncState and conformance CLP_LogEntry_PrivateData_SyncState, type metadata accessor for CLP_LogEntry_PrivateData_SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SyncState);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_SyncState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SyncState and conformance CLP_LogEntry_PrivateData_SyncState, type metadata accessor for CLP_LogEntry_PrivateData_SyncState);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SyncState and conformance CLP_LogEntry_PrivateData_SyncState, type metadata accessor for CLP_LogEntry_PrivateData_SyncState, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SyncState);
 
   return MEMORY[0x28217E440](a1, a2, v4);
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_SvTime(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvTime and conformance CLP_LogEntry_PrivateData_SvTime, type metadata accessor for CLP_LogEntry_PrivateData_SvTime);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvTime and conformance CLP_LogEntry_PrivateData_SvTime, type metadata accessor for CLP_LogEntry_PrivateData_SvTime, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SvTime);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_SvTime(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvTime and conformance CLP_LogEntry_PrivateData_SvTime, type metadata accessor for CLP_LogEntry_PrivateData_SvTime);
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvTime and conformance CLP_LogEntry_PrivateData_SvTime, type metadata accessor for CLP_LogEntry_PrivateData_SvTime, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SvTime);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_SvTime(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvTime and conformance CLP_LogEntry_PrivateData_SvTime, type metadata accessor for CLP_LogEntry_PrivateData_SvTime);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvTime and conformance CLP_LogEntry_PrivateData_SvTime, type metadata accessor for CLP_LogEntry_PrivateData_SvTime, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SvTime);
 
   return MEMORY[0x28217E440](a1, a2, v4);
 }
@@ -9444,36 +8204,32 @@ uint64_t CLP_LogEntry_PrivateData_SvTime.decodeMessage<A>(decoder:)(uint64_t a1,
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v4 || (v8 & 1) != 0)
+    if (v4 || (v7 & 1) != 0)
     {
-      return result;
+      break;
     }
 
-    switch(result)
+    if (result == 3)
     {
-      case 3:
-        v6 = *(a4(0) + 28);
-        dispatch thunk of Decoder.decodeSingularBoolField(value:)();
-        break;
-      case 2:
-        v10 = *(a4(0) + 24);
-LABEL_10:
-        v4 = 0;
-        dispatch thunk of Decoder.decodeSingularDoubleField(value:)();
-        break;
-      case 1:
-        v9 = *(a4(0) + 20);
-        goto LABEL_10;
+      a4(0);
+      dispatch thunk of Decoder.decodeSingularBoolField(value:)();
+    }
+
+    else if (result == 2 || result == 1)
+    {
+      a4(0);
+      dispatch thunk of Decoder.decodeSingularDoubleField(value:)();
     }
   }
+
+  return result;
 }
 
 uint64_t CLP_LogEntry_PrivateData_SvTime.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
 {
   result = a4(0);
   v7 = result;
-  v8 = (v4 + *(result + 20));
-  if (v8[1])
+  if (*(v4 + *(result + 20) + 8))
   {
     if (v5)
     {
@@ -9483,7 +8239,6 @@ uint64_t CLP_LogEntry_PrivateData_SvTime.traverse<A>(visitor:)(uint64_t a1, uint
 
   else
   {
-    v9 = *v8;
     result = dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
     if (v5)
     {
@@ -9491,10 +8246,8 @@ uint64_t CLP_LogEntry_PrivateData_SvTime.traverse<A>(visitor:)(uint64_t a1, uint
     }
   }
 
-  v10 = (v4 + *(v7 + 24));
-  if ((v10[1] & 1) == 0)
+  if ((*(v4 + *(v7 + 24) + 8) & 1) == 0)
   {
-    v11 = *v10;
     dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
   }
 
@@ -9508,76 +8261,61 @@ uint64_t CLP_LogEntry_PrivateData_SvTime.traverse<A>(visitor:)(uint64_t a1, uint
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_FrequencyOffset(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FrequencyOffset and conformance CLP_LogEntry_PrivateData_FrequencyOffset, type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffset);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FrequencyOffset and conformance CLP_LogEntry_PrivateData_FrequencyOffset, type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffset, &protocol conformance descriptor for CLP_LogEntry_PrivateData_FrequencyOffset);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_FrequencyOffset(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FrequencyOffset and conformance CLP_LogEntry_PrivateData_FrequencyOffset, type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffset);
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FrequencyOffset and conformance CLP_LogEntry_PrivateData_FrequencyOffset, type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffset, &protocol conformance descriptor for CLP_LogEntry_PrivateData_FrequencyOffset);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_FrequencyOffset(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FrequencyOffset and conformance CLP_LogEntry_PrivateData_FrequencyOffset, type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffset);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FrequencyOffset and conformance CLP_LogEntry_PrivateData_FrequencyOffset, type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffset, &protocol conformance descriptor for CLP_LogEntry_PrivateData_FrequencyOffset);
 
   return MEMORY[0x28217E440](a1, a2, v4);
 }
 
-uint64_t CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v3 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
-      return result;
+      break;
     }
 
     if (result > 2)
     {
-      if (result == 3)
+      if (result == 3 || result == 4)
       {
-        v1 = *(type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking(0) + 28);
-        goto LABEL_3;
-      }
-
-      if (result == 4)
-      {
-        v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking(0) + 32);
-LABEL_3:
-        v0 = 0;
+        type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking(0);
         dispatch thunk of Decoder.decodeSingularBoolField(value:)();
       }
     }
 
-    else if (result == 1)
+    else if (result == 1 || result == 2)
     {
-      v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking(0) + 20);
-LABEL_14:
-      v0 = 0;
+      type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking(0);
       dispatch thunk of Decoder.decodeSingularDoubleField(value:)();
     }
-
-    else if (result == 2)
-    {
-      v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking(0) + 24);
-      goto LABEL_14;
-    }
   }
+
+  return result;
 }
 
-uint64_t CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking.traverse<A>(visitor:)()
+int *CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking(0);
-  v3 = result;
-  v4 = (v0 + *(result + 20));
-  if (v4[1])
+  v6 = result;
+  if (*(v3 + result[5] + 8))
   {
-    if (v1)
+    if (v4)
     {
       return result;
     }
@@ -9585,27 +8323,24 @@ uint64_t CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking.traverse<A>(v
 
   else
   {
-    v5 = *v4;
     result = dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
-    if (v1)
+    if (v4)
     {
       return result;
     }
   }
 
-  v6 = (v0 + v3[6]);
-  if ((v6[1] & 1) == 0)
+  if ((*(v3 + v6[6] + 8) & 1) == 0)
   {
-    v7 = *v6;
     dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
   }
 
-  if (*(v0 + v3[7]) != 2)
+  if (*(v3 + v6[7]) != 2)
   {
     dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
   }
 
-  if (*(v0 + v3[8]) != 2)
+  if (*(v3 + v6[8]) != 2)
   {
     dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
   }
@@ -9631,81 +8366,66 @@ uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_Private
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking and conformance CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking, type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking and conformance CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking, type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking, &protocol conformance descriptor for CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking and conformance CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking, type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking);
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking and conformance CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking, type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking, &protocol conformance descriptor for CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking and conformance CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking, type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking and conformance CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking, type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking, &protocol conformance descriptor for CLP_LogEntry_PrivateData_FrequencyOffsetFromPhaseTracking);
 
   return MEMORY[0x28217E440](a1, a2, v4);
 }
 
-uint64_t CLP_LogEntry_PrivateData_PhaseTracking.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_PrivateData_PhaseTracking.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v3 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
-      return result;
+      break;
     }
 
     if (result <= 2)
     {
-      if (result == 1)
+      if (result == 1 || result == 2)
       {
-        v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_PhaseTracking(0) + 20);
-LABEL_16:
-        v0 = 0;
+        type metadata accessor for CLP_LogEntry_PrivateData_PhaseTracking(0);
         dispatch thunk of Decoder.decodeSingularUInt64Field(value:)();
       }
-
-      else if (result == 2)
-      {
-        v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_PhaseTracking(0) + 24);
-        goto LABEL_16;
-      }
     }
 
-    else
+    else if (result == 3 || result == 4)
     {
-      switch(result)
-      {
-        case 3:
-          v1 = *(type metadata accessor for CLP_LogEntry_PrivateData_PhaseTracking(0) + 28);
-          goto LABEL_3;
-        case 4:
-          v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_PhaseTracking(0) + 32);
-LABEL_3:
-          v0 = 0;
-          dispatch thunk of Decoder.decodeSingularDoubleField(value:)();
-          break;
-        case 5:
-          v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_PhaseTracking(0) + 36);
-          dispatch thunk of Decoder.decodeSingularBoolField(value:)();
-          break;
-      }
+      type metadata accessor for CLP_LogEntry_PrivateData_PhaseTracking(0);
+      dispatch thunk of Decoder.decodeSingularDoubleField(value:)();
+    }
+
+    else if (result == 5)
+    {
+      type metadata accessor for CLP_LogEntry_PrivateData_PhaseTracking(0);
+      dispatch thunk of Decoder.decodeSingularBoolField(value:)();
     }
   }
+
+  return result;
 }
 
-uint64_t CLP_LogEntry_PrivateData_PhaseTracking.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
+int *CLP_LogEntry_PrivateData_PhaseTracking.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = v3;
   result = type metadata accessor for CLP_LogEntry_PrivateData_PhaseTracking(0);
   v10 = result;
-  v11 = v5 + *(result + 20);
-  if (*(v11 + 8))
+  if (*(v5 + result[5] + 8))
   {
     if (v4)
     {
@@ -9715,7 +8435,6 @@ uint64_t CLP_LogEntry_PrivateData_PhaseTracking.traverse<A>(visitor:)(uint64_t a
 
   else
   {
-    v12 = *v11;
     result = dispatch thunk of Visitor.visitSingularUInt64Field(value:fieldNumber:)();
     if (v4)
     {
@@ -9723,24 +8442,18 @@ uint64_t CLP_LogEntry_PrivateData_PhaseTracking.traverse<A>(visitor:)(uint64_t a
     }
   }
 
-  v13 = v5 + v10[6];
-  if ((*(v13 + 8) & 1) == 0)
+  if ((*(v5 + v10[6] + 8) & 1) == 0)
   {
-    v14 = *v13;
     dispatch thunk of Visitor.visitSingularUInt64Field(value:fieldNumber:)();
   }
 
-  v15 = v5 + v10[7];
-  if ((*(v15 + 8) & 1) == 0)
+  if ((*(v5 + v10[7] + 8) & 1) == 0)
   {
-    v16 = *v15;
     dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
   }
 
-  v17 = v5 + v10[8];
-  if ((*(v17 + 8) & 1) == 0)
+  if ((*(v5 + v10[8] + 8) & 1) == 0)
   {
-    v18 = *v17;
     dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
   }
 
@@ -9771,33 +8484,33 @@ uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_Private
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_PhaseTracking(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_PhaseTracking and conformance CLP_LogEntry_PrivateData_PhaseTracking, type metadata accessor for CLP_LogEntry_PrivateData_PhaseTracking);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_PhaseTracking and conformance CLP_LogEntry_PrivateData_PhaseTracking, type metadata accessor for CLP_LogEntry_PrivateData_PhaseTracking, &protocol conformance descriptor for CLP_LogEntry_PrivateData_PhaseTracking);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_PhaseTracking(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_PhaseTracking and conformance CLP_LogEntry_PrivateData_PhaseTracking, type metadata accessor for CLP_LogEntry_PrivateData_PhaseTracking);
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_PhaseTracking and conformance CLP_LogEntry_PrivateData_PhaseTracking, type metadata accessor for CLP_LogEntry_PrivateData_PhaseTracking, &protocol conformance descriptor for CLP_LogEntry_PrivateData_PhaseTracking);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_PhaseTracking(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_PhaseTracking and conformance CLP_LogEntry_PrivateData_PhaseTracking, type metadata accessor for CLP_LogEntry_PrivateData_PhaseTracking);
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_PhaseTracking and conformance CLP_LogEntry_PrivateData_PhaseTracking, type metadata accessor for CLP_LogEntry_PrivateData_PhaseTracking, &protocol conformance descriptor for CLP_LogEntry_PrivateData_PhaseTracking);
 
   return MEMORY[0x28217E440](a1, a2, v4);
 }
 
-uint64_t CLP_LogEntry_PrivateData_SignalCorrelationPeak.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_PrivateData_SignalCorrelationPeak.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
     while (1)
     {
-      if (v2)
+      if (v5)
       {
         return result;
       }
@@ -9805,29 +8518,31 @@ uint64_t CLP_LogEntry_PrivateData_SignalCorrelationPeak.decodeMessage<A>(decoder
       switch(result)
       {
         case 3:
-          v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak(0) + 28);
+          type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak(0);
           dispatch thunk of Decoder.decodeSingularFloatField(value:)();
           goto LABEL_5;
         case 2:
-          v4 = v0;
-          v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak(0) + 24);
+          v6 = v3;
+          type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak(0);
           type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffset(0);
-          v6 = type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffset;
-          v7 = &lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FrequencyOffset and conformance CLP_LogEntry_PrivateData_FrequencyOffset;
+          v7 = type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffset;
+          v8 = &protocol conformance descriptor for CLP_LogEntry_PrivateData_FrequencyOffset;
+          v9 = &lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FrequencyOffset and conformance CLP_LogEntry_PrivateData_FrequencyOffset;
           break;
         case 1:
-          v4 = v0;
-          v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak(0) + 20);
+          v6 = v3;
+          type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak(0);
           type metadata accessor for CLP_LogEntry_PrivateData_SvTime(0);
-          v6 = type metadata accessor for CLP_LogEntry_PrivateData_SvTime;
-          v7 = &lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvTime and conformance CLP_LogEntry_PrivateData_SvTime;
+          v7 = type metadata accessor for CLP_LogEntry_PrivateData_SvTime;
+          v8 = &protocol conformance descriptor for CLP_LogEntry_PrivateData_SvTime;
+          v9 = &lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvTime and conformance CLP_LogEntry_PrivateData_SvTime;
           break;
         default:
           goto LABEL_5;
       }
 
-      lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v6);
-      v0 = v4;
+      lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(v9, v7, v8);
+      v3 = v6;
       dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
 LABEL_5:
       result = dispatch thunk of Decoder.nextFieldNumber()();
@@ -9844,10 +8559,8 @@ uint64_t CLP_LogEntry_PrivateData_SignalCorrelationPeak.traverse<A>(visitor:)(ui
   if (!v4)
   {
     closure #2 in CLP_LogEntry_PrivateData_SignalCorrelationPeak.traverse<A>(visitor:)(v5, a1, a2, a3);
-    v10 = v5 + *(type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak(0) + 28);
-    if ((*(v10 + 4) & 1) == 0)
+    if ((*(v5 + *(type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak(0) + 28) + 4) & 1) == 0)
     {
-      v11 = *v10;
       dispatch thunk of Visitor.visitSingularFloatField(value:fieldNumber:)();
     }
 
@@ -9859,52 +8572,1403 @@ uint64_t CLP_LogEntry_PrivateData_SignalCorrelationPeak.traverse<A>(visitor:)(ui
 
 uint64_t closure #1 in CLP_LogEntry_PrivateData_SignalCorrelationPeak.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf31CLP_LogEntry_PrivateData_SvTimeVSgMd, &_s10ALProtobuf31CLP_LogEntry_PrivateData_SvTimeVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_SvTime(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + *(v14 + 20), v8, &_s10ALProtobuf31CLP_LogEntry_PrivateData_SvTimeVSgMd, &_s10ALProtobuf31CLP_LogEntry_PrivateData_SvTimeVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_SvTime(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak(0);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + *(v12 + 20), v7, &_s10ALProtobuf31CLP_LogEntry_PrivateData_SvTimeVSgMd, &_s10ALProtobuf31CLP_LogEntry_PrivateData_SvTimeVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf31CLP_LogEntry_PrivateData_SvTimeVSgMd, &_s10ALProtobuf31CLP_LogEntry_PrivateData_SvTimeVSgMR);
+    return outlined destroy of Any?(v7, &_s10ALProtobuf31CLP_LogEntry_PrivateData_SvTimeVSgMd, &_s10ALProtobuf31CLP_LogEntry_PrivateData_SvTimeVSgMR);
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, v13, type metadata accessor for CLP_LogEntry_PrivateData_SvTime);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvTime and conformance CLP_LogEntry_PrivateData_SvTime, type metadata accessor for CLP_LogEntry_PrivateData_SvTime);
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_SvTime);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvTime and conformance CLP_LogEntry_PrivateData_SvTime, type metadata accessor for CLP_LogEntry_PrivateData_SvTime, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SvTime);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v13, type metadata accessor for CLP_LogEntry_PrivateData_SvTime);
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_SvTime);
 }
 
 uint64_t closure #2 in CLP_LogEntry_PrivateData_SignalCorrelationPeak.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_FrequencyOffsetVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_FrequencyOffsetVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffset(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + *(v14 + 24), v8, &_s10ALProtobuf40CLP_LogEntry_PrivateData_FrequencyOffsetVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_FrequencyOffsetVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffset(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak(0);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + *(v12 + 24), v7, &_s10ALProtobuf40CLP_LogEntry_PrivateData_FrequencyOffsetVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_FrequencyOffsetVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf40CLP_LogEntry_PrivateData_FrequencyOffsetVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_FrequencyOffsetVSgMR);
+    return outlined destroy of Any?(v7, &_s10ALProtobuf40CLP_LogEntry_PrivateData_FrequencyOffsetVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_FrequencyOffsetVSgMR);
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v8, v13, type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffset);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FrequencyOffset and conformance CLP_LogEntry_PrivateData_FrequencyOffset, type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffset);
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffset);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FrequencyOffset and conformance CLP_LogEntry_PrivateData_FrequencyOffset, type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffset, &protocol conformance descriptor for CLP_LogEntry_PrivateData_FrequencyOffset);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v13, type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffset);
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffset);
+}
+
+uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_PrivateData_SignalCorrelationPeak@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
+{
+  UnknownStorage.init()();
+  v4 = a1[5];
+  v5 = type metadata accessor for CLP_LogEntry_PrivateData_SvTime(0);
+  (*(*(v5 - 8) + 56))(a2 + v4, 1, 1, v5);
+  v6 = a1[6];
+  v7 = type metadata accessor for CLP_LogEntry_PrivateData_FrequencyOffset(0);
+  result = (*(*(v7 - 8) + 56))(a2 + v6, 1, 1, v7);
+  v9 = a2 + a1[7];
+  *v9 = 0;
+  *(v9 + 4) = 1;
+  return result;
+}
+
+uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_SignalCorrelationPeak(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SignalCorrelationPeak and conformance CLP_LogEntry_PrivateData_SignalCorrelationPeak, type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SignalCorrelationPeak);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_SignalCorrelationPeak(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SignalCorrelationPeak and conformance CLP_LogEntry_PrivateData_SignalCorrelationPeak, type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SignalCorrelationPeak);
+
+  return MEMORY[0x28217E428](a1, v2);
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_SignalCorrelationPeak(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SignalCorrelationPeak and conformance CLP_LogEntry_PrivateData_SignalCorrelationPeak, type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SignalCorrelationPeak);
+
+  return MEMORY[0x28217E440](a1, a2, v4);
+}
+
+uint64_t CLP_LogEntry_PrivateData_FullSvTime.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while ((v5 & 1) == 0)
+    {
+      if (result == 3)
+      {
+        type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime(0);
+        lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_FullSvTimeSource and conformance CLP_LogEntry_PrivateData_FullSvTimeSource();
+        dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
+      }
+
+      else if (result == 2 || result == 1)
+      {
+        type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime(0);
+        dispatch thunk of Decoder.decodeSingularDoubleField(value:)();
+      }
+
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
+}
+
+uint64_t CLP_LogEntry_PrivateData_FullSvTime.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime(0);
+  v6 = result;
+  if (*(v3 + *(result + 20) + 8))
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  if ((*(v3 + *(v6 + 24) + 8) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
+  }
+
+  if (*(v3 + *(v6 + 28)) != 6)
+  {
+    lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_FullSvTimeSource and conformance CLP_LogEntry_PrivateData_FullSvTimeSource();
+    dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+  }
+
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_PrivateData_SvTime@<X0>(int *a1@<X0>, char a2@<W2>, uint64_t a3@<X8>)
+{
+  result = UnknownStorage.init()();
+  v7 = a1[6];
+  v8 = a3 + a1[5];
+  *v8 = 0;
+  *(v8 + 8) = 1;
+  v9 = a3 + v7;
+  *v9 = 0;
+  *(v9 + 8) = 1;
+  *(a3 + a1[7]) = a2;
+  return result;
+}
+
+uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_FullSvTime(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FullSvTime and conformance CLP_LogEntry_PrivateData_FullSvTime, type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime, &protocol conformance descriptor for CLP_LogEntry_PrivateData_FullSvTime);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_FullSvTime(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FullSvTime and conformance CLP_LogEntry_PrivateData_FullSvTime, type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime, &protocol conformance descriptor for CLP_LogEntry_PrivateData_FullSvTime);
+
+  return MEMORY[0x28217E428](a1, v2);
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_FullSvTime(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FullSvTime and conformance CLP_LogEntry_PrivateData_FullSvTime, type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime, &protocol conformance descriptor for CLP_LogEntry_PrivateData_FullSvTime);
+
+  return MEMORY[0x28217E440](a1, a2, v4);
+}
+
+uint64_t CLP_LogEntry_PrivateData_SvMeasurementUsage.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  while (1)
+  {
+    result = dispatch thunk of Decoder.nextFieldNumber()();
+    if (v3 || (v5 & 1) != 0)
+    {
+      break;
+    }
+
+    if (result == 3 || result == 2 || result == 1)
+    {
+      type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage(0);
+      dispatch thunk of Decoder.decodeSingularFloatField(value:)();
+    }
+  }
+
+  return result;
+}
+
+uint64_t CLP_LogEntry_PrivateData_SvMeasurementUsage.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage(0);
+  v6 = result;
+  if (*(v3 + *(result + 20) + 4))
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = dispatch thunk of Visitor.visitSingularFloatField(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  if ((*(v3 + *(v6 + 24) + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularFloatField(value:fieldNumber:)();
+  }
+
+  if ((*(v3 + *(v6 + 28) + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularFloatField(value:fieldNumber:)();
+  }
+
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_PrivateData_SvMeasurementUsage@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
+{
+  result = UnknownStorage.init()();
+  v5 = a1[6];
+  v6 = a2 + a1[5];
+  *v6 = 0;
+  *(v6 + 4) = 1;
+  v7 = a2 + v5;
+  *v7 = 0;
+  *(v7 + 4) = 1;
+  v8 = a2 + a1[7];
+  *v8 = 0;
+  *(v8 + 4) = 1;
+  return result;
+}
+
+uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_SvMeasurementUsage(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvMeasurementUsage and conformance CLP_LogEntry_PrivateData_SvMeasurementUsage, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_SvMeasurementUsage(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvMeasurementUsage and conformance CLP_LogEntry_PrivateData_SvMeasurementUsage, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+
+  return MEMORY[0x28217E428](a1, v2);
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_SvMeasurementUsage(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvMeasurementUsage and conformance CLP_LogEntry_PrivateData_SvMeasurementUsage, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+
+  return MEMORY[0x28217E440](a1, a2, v4);
+}
+
+double one-time initialization function for defaultInstance()
+{
+  type metadata accessor for CLP_LogEntry_PrivateData_MeasurementExtension._StorageClass(0);
+  v0 = swift_allocObject();
+  *(v0 + 16) = 0;
+  *(v0 + 20) = 1;
+  *(v0 + 24) = 0;
+  *(v0 + 28) = 1;
+  v1 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__fullSvTime;
+  v2 = type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime(0);
+  (*(*(v2 - 8) + 56))(v0 + v1, 1, 1, v2);
+  v3 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__svTimeUsageNanoseconds;
+  v4 = type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage(0);
+  v5 = *(*(v4 - 8) + 56);
+  v5(v0 + v3, 1, 1, v4);
+  v5(v0 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyOffsetUsagePpb, 1, 1, v4);
+  v5(v0 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__carrierPhaseUsageNanoseconds, 1, 1, v4);
+  v6 = v0 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__noncoherentIntervalCount;
+  *v6 = 0;
+  *(v6 + 4) = 1;
+  v7 = v0 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__coherentIntegrationMs;
+  *v7 = 0;
+  *(v7 + 4) = 1;
+  *(v0 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__svTimeDetectionMethod) = 7;
+  *(v0 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyDetectionMethod) = 7;
+  v8 = v0 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__channelID;
+  *v8 = 0;
+  *(v8 + 4) = 1;
+  v9 = v0 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__codeLockDurationSeconds;
+  *v9 = 0;
+  *(v9 + 4) = 1;
+  v10 = v0 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyLockDurationSeconds;
+  *v10 = 0;
+  *(v10 + 4) = 1;
+  result = 0.0;
+  *(v0 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__metadata) = xmmword_23D1B1460;
+  v12 = v0 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__metadataFormat;
+  *v12 = 0;
+  *(v12 + 4) = 1;
+  *(v0 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__topCorrelationPeaks) = MEMORY[0x277D84F90];
+  static CLP_LogEntry_PrivateData_MeasurementExtension._StorageClass.defaultInstance = v0;
+  return result;
+}
+
+{
+  type metadata accessor for CLP_LogEntry_PrivateData_InertialOdometrySample._StorageClass();
+  v0 = swift_allocObject();
+  *(v0 + 16) = 0;
+  *(v0 + 24) = 1;
+  *(v0 + 32) = 0;
+  *(v0 + 40) = 1;
+  *(v0 + 44) = 0;
+  *(v0 + 48) = 1;
+  *(v0 + 52) = 0;
+  *(v0 + 56) = 1;
+  *(v0 + 60) = 0;
+  *(v0 + 64) = 1;
+  *(v0 + 68) = 0;
+  *(v0 + 72) = 1;
+  *(v0 + 76) = 0;
+  *(v0 + 80) = 1;
+  *(v0 + 84) = 0;
+  *(v0 + 88) = 1;
+  *(v0 + 92) = 0;
+  *(v0 + 96) = 1;
+  *(v0 + 100) = 0;
+  *(v0 + 104) = 1;
+  *(v0 + 108) = 0;
+  *(v0 + 112) = 1;
+  *(v0 + 116) = 0;
+  *(v0 + 120) = 1;
+  *(v0 + 124) = 0;
+  *(v0 + 128) = 1;
+  *&result = 33686019;
+  *(v0 + 129) = 33686019;
+  *(v0 + 133) = 4;
+  *(v0 + 136) = 0;
+  *(v0 + 140) = 1;
+  static CLP_LogEntry_PrivateData_InertialOdometrySample._StorageClass.defaultInstance = v0;
+  return result;
+}
+
+{
+  type metadata accessor for Proto_Gnss_Emergency_SummaryReport._StorageClass();
+  v0 = swift_allocObject();
+  *(v0 + 16) = 0;
+  *(v0 + 24) = 1;
+  *(v0 + 32) = 0;
+  *(v0 + 40) = 1;
+  *(v0 + 48) = 0;
+  *(v0 + 56) = 1;
+  *(v0 + 64) = 0;
+  *(v0 + 72) = 1;
+  *(v0 + 80) = 0;
+  *(v0 + 88) = 1;
+  *(v0 + 96) = 0;
+  *(v0 + 104) = 1;
+  *(v0 + 108) = 0;
+  *(v0 + 112) = 1;
+  *(v0 + 113) = 1042;
+  *(v0 + 115) = 7;
+  *(v0 + 120) = 0;
+  *(v0 + 128) = 1;
+  *(v0 + 136) = 0;
+  *(v0 + 144) = 1;
+  *(v0 + 152) = 0;
+  *(v0 + 160) = 1;
+  *&result = 33689864;
+  *(v0 + 161) = 33689864;
+  *(v0 + 168) = 0;
+  *(v0 + 176) = 1;
+  *(v0 + 180) = 0;
+  *(v0 + 184) = 1;
+  static Proto_Gnss_Emergency_SummaryReport._StorageClass.defaultInstance = v0;
+  return result;
+}
+
+uint64_t CLP_LogEntry_PrivateData_MeasurementExtension._StorageClass.init(copying:)(uint64_t a1)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v61 = &v57 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMd, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMR);
+  MEMORY[0x28223BE20](v5 - 8);
+  v60 = &v57 - v6;
+  *(v1 + 16) = 0;
+  *(v1 + 20) = 1;
+  *(v1 + 24) = 0;
+  *(v1 + 28) = 1;
+  v7 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__fullSvTime;
+  v58 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__fullSvTime;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime(0);
+  (*(*(v8 - 8) + 56))(v1 + v7, 1, 1, v8);
+  v9 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__svTimeUsageNanoseconds;
+  v59 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__svTimeUsageNanoseconds;
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage(0);
+  v11 = *(*(v10 - 8) + 56);
+  v11(v1 + v9, 1, 1, v10);
+  v62 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyOffsetUsagePpb;
+  v11(v1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyOffsetUsagePpb, 1, 1, v10);
+  v63 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__carrierPhaseUsageNanoseconds;
+  v11(v1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__carrierPhaseUsageNanoseconds, 1, 1, v10);
+  v12 = v1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__noncoherentIntervalCount;
+  *v12 = 0;
+  *(v12 + 4) = 1;
+  v13 = v1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__coherentIntegrationMs;
+  *v13 = 0;
+  *(v13 + 4) = 1;
+  v64 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__svTimeDetectionMethod;
+  *(v1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__svTimeDetectionMethod) = 7;
+  v14 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyDetectionMethod;
+  *(v1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyDetectionMethod) = 7;
+  v15 = v1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__channelID;
+  v65 = v14;
+  v66 = v15;
+  *v15 = 0;
+  *(v15 + 4) = 1;
+  v16 = v1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__codeLockDurationSeconds;
+  v67 = v1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__codeLockDurationSeconds;
+  *v16 = 0;
+  *(v16 + 4) = 1;
+  v17 = v1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyLockDurationSeconds;
+  v68 = v1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyLockDurationSeconds;
+  *v17 = 0;
+  *(v17 + 4) = 1;
+  v69 = (v1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__metadata);
+  *(v1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__metadata) = xmmword_23D1B1460;
+  v18 = v1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__metadataFormat;
+  v70 = v1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__metadataFormat;
+  *v18 = 0;
+  *(v18 + 4) = 1;
+  v71 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__topCorrelationPeaks;
+  *(v1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__topCorrelationPeaks) = MEMORY[0x277D84F90];
+  swift_beginAccess();
+  v19 = *(a1 + 16);
+  v20 = *(a1 + 20);
+  swift_beginAccess();
+  *(v1 + 16) = v19;
+  *(v1 + 20) = v20;
+  swift_beginAccess();
+  v21 = *(a1 + 24);
+  LOBYTE(v19) = *(a1 + 28);
+  swift_beginAccess();
+  *(v1 + 24) = v21;
+  *(v1 + 28) = v19;
+  v22 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__fullSvTime;
+  swift_beginAccess();
+  v23 = v60;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v22, v60, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMd, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMR);
+  v24 = v58;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v23, v1 + v24, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMd, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMR);
+  swift_endAccess();
+  v25 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__svTimeUsageNanoseconds;
+  swift_beginAccess();
+  v26 = v61;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v25, v61, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  v27 = v59;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v26, v1 + v27, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  swift_endAccess();
+  v28 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyOffsetUsagePpb;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v28, v26, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  v29 = v62;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v26, v1 + v29, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  swift_endAccess();
+  v30 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__carrierPhaseUsageNanoseconds;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v30, v26, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  v31 = v63;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v26, v1 + v31, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  swift_endAccess();
+  v32 = (a1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__noncoherentIntervalCount);
+  swift_beginAccess();
+  v33 = *v32;
+  LOBYTE(v32) = *(v32 + 4);
+  swift_beginAccess();
+  *v12 = v33;
+  *(v12 + 4) = v32;
+  v34 = a1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__coherentIntegrationMs;
+  swift_beginAccess();
+  LODWORD(v32) = *v34;
+  LOBYTE(v34) = *(v34 + 4);
+  swift_beginAccess();
+  *v13 = v32;
+  *(v13 + 4) = v34;
+  v35 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__svTimeDetectionMethod;
+  swift_beginAccess();
+  LOBYTE(v35) = *(a1 + v35);
+  v36 = v64;
+  swift_beginAccess();
+  *(v1 + v36) = v35;
+  v37 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyDetectionMethod;
+  swift_beginAccess();
+  LOBYTE(v37) = *(a1 + v37);
+  v38 = v65;
+  swift_beginAccess();
+  *(v1 + v38) = v37;
+  v39 = a1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__channelID;
+  swift_beginAccess();
+  LODWORD(v38) = *v39;
+  LOBYTE(v39) = *(v39 + 4);
+  v40 = v66;
+  swift_beginAccess();
+  *v40 = v38;
+  *(v40 + 4) = v39;
+  v41 = a1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__codeLockDurationSeconds;
+  swift_beginAccess();
+  LODWORD(v38) = *v41;
+  LOBYTE(v41) = *(v41 + 4);
+  v42 = v67;
+  swift_beginAccess();
+  *v42 = v38;
+  *(v42 + 4) = v41;
+  v43 = a1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyLockDurationSeconds;
+  swift_beginAccess();
+  LODWORD(v38) = *v43;
+  LOBYTE(v43) = *(v43 + 4);
+  v44 = v68;
+  swift_beginAccess();
+  *v44 = v38;
+  *(v44 + 4) = v43;
+  v45 = (a1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__metadata);
+  swift_beginAccess();
+  v47 = *v45;
+  v46 = v45[1];
+  v48 = v69;
+  swift_beginAccess();
+  v49 = *v48;
+  v50 = v48[1];
+  *v48 = v47;
+  v48[1] = v46;
+  outlined copy of Data?(v47, v46);
+  outlined consume of Data?(v49, v50);
+  v51 = a1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__metadataFormat;
+  swift_beginAccess();
+  LODWORD(v47) = *v51;
+  LOBYTE(v51) = *(v51 + 4);
+  v52 = v70;
+  swift_beginAccess();
+  *v52 = v47;
+  *(v52 + 4) = v51;
+  v53 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__topCorrelationPeaks;
+  swift_beginAccess();
+  v54 = *(a1 + v53);
+
+  v55 = v71;
+  swift_beginAccess();
+  *(v1 + v55) = v54;
+
+  return v1;
+}
+
+uint64_t CLP_LogEntry_PrivateData_MeasurementExtension._StorageClass.__deallocating_deinit()
+{
+  outlined destroy of Any?(v0 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__fullSvTime, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMd, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMR);
+  outlined destroy of Any?(v0 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__svTimeUsageNanoseconds, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  outlined destroy of Any?(v0 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyOffsetUsagePpb, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  outlined destroy of Any?(v0 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__carrierPhaseUsageNanoseconds, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  outlined consume of Data?(*(v0 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__metadata), *(v0 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__metadata + 8));
+
+  v1 = *(*v0 + 48);
+  v2 = *(*v0 + 52);
+
+  return MEMORY[0x2821FE8D8](v0, v1, v2);
+}
+
+uint64_t CLP_LogEntry_PrivateData_MeasurementExtension.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementExtension(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v8 = *(v3 + v6);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_MeasurementExtension._StorageClass(0);
+    v9 = swift_allocObject();
+    CLP_LogEntry_PrivateData_MeasurementExtension._StorageClass.init(copying:)(v8);
+    *(v5 + v6) = v9;
+  }
+
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v4)
+  {
+    while ((v11 & 1) == 0)
+    {
+      switch(result)
+      {
+        case 1:
+        case 2:
+        case 12:
+        case 13:
+          swift_beginAccess();
+          dispatch thunk of Decoder.decodeSingularFloatField(value:)();
+          goto LABEL_16;
+        case 3:
+          swift_beginAccess();
+          type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime(0);
+          v12 = type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime;
+          v13 = &protocol conformance descriptor for CLP_LogEntry_PrivateData_FullSvTime;
+          v14 = &lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FullSvTime and conformance CLP_LogEntry_PrivateData_FullSvTime;
+          goto LABEL_11;
+        case 4:
+        case 5:
+        case 6:
+          swift_beginAccess();
+          type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage(0);
+          v12 = type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage;
+          v13 = &protocol conformance descriptor for CLP_LogEntry_PrivateData_SvMeasurementUsage;
+          v14 = &lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvMeasurementUsage and conformance CLP_LogEntry_PrivateData_SvMeasurementUsage;
+LABEL_11:
+          lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(v14, v12, v13);
+          dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
+          goto LABEL_16;
+        case 7:
+        case 8:
+        case 15:
+          swift_beginAccess();
+          dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+          goto LABEL_16;
+        case 9:
+        case 10:
+          swift_beginAccess();
+          lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_MeasurementDetectionMethod and conformance CLP_LogEntry_PrivateData_MeasurementDetectionMethod();
+          dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
+          goto LABEL_16;
+        case 11:
+          swift_beginAccess();
+          dispatch thunk of Decoder.decodeSingularInt32Field(value:)();
+          goto LABEL_16;
+        case 14:
+          swift_beginAccess();
+          dispatch thunk of Decoder.decodeSingularBytesField(value:)();
+          goto LABEL_16;
+        case 16:
+          swift_beginAccess();
+          type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak(0);
+          lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SignalCorrelationPeak and conformance CLP_LogEntry_PrivateData_SignalCorrelationPeak, type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SignalCorrelationPeak);
+          dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
+LABEL_16:
+          swift_endAccess();
+          break;
+        default:
+          break;
+      }
+
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
+}
+
+void CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  v9 = *(v5 + *(type metadata accessor for CLP_LogEntry_PrivateData_MeasurementExtension(0) + 20));
+  swift_beginAccess();
+  if (*(v9 + 20))
+  {
+    if (v4)
+    {
+      return;
+    }
+  }
+
+  else
+  {
+    dispatch thunk of Visitor.visitSingularFloatField(value:fieldNumber:)();
+    if (v4)
+    {
+      return;
+    }
+  }
+
+  swift_beginAccess();
+  if ((*(v9 + 28) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularFloatField(value:fieldNumber:)();
+  }
+
+  closure #3 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(v9, a1, a2, a3);
+  closure #4 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(v9, a1, a2, a3);
+  closure #5 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(v9, a1, a2, a3);
+  closure #6 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(v9, a1, a2, a3);
+  closure #7 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(v9, a1, a2, a3, &OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__noncoherentIntervalCount, 7, MEMORY[0x277D21860]);
+  closure #7 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(v9, a1, a2, a3, &OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__coherentIntegrationMs, 8, MEMORY[0x277D21860]);
+  closure #9 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(v9, a1, a2, a3, &OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__svTimeDetectionMethod, 9);
+  closure #9 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(v9, a1, a2, a3, &OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyDetectionMethod, 10);
+  closure #7 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(v9, a1, a2, a3, &OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__channelID, 11, MEMORY[0x277D21848]);
+  closure #12 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(v9, a1, a2, a3, &OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__codeLockDurationSeconds, 12);
+  closure #12 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(v9, a1, a2, a3, &OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyLockDurationSeconds, 13);
+  closure #14 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(v9, a1, a2, a3);
+  closure #7 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(v9, a1, a2, a3, &OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__metadataFormat, 15, MEMORY[0x277D21860]);
+  v10 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__topCorrelationPeaks;
+  swift_beginAccess();
+  if (*(*(v9 + v10) + 16))
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak(0);
+    lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SignalCorrelationPeak and conformance CLP_LogEntry_PrivateData_SignalCorrelationPeak, type metadata accessor for CLP_LogEntry_PrivateData_SignalCorrelationPeak, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SignalCorrelationPeak);
+
+    dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)();
+  }
+
+  UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t closure #3 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMd, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMR);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__fullSvTime;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v12, v7, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMd, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return outlined destroy of Any?(v7, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMd, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMR);
+  }
+
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_FullSvTime and conformance CLP_LogEntry_PrivateData_FullSvTime, type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime, &protocol conformance descriptor for CLP_LogEntry_PrivateData_FullSvTime);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime);
+}
+
+uint64_t closure #4 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__svTimeUsageNanoseconds;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v12, v7, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return outlined destroy of Any?(v7, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  }
+
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvMeasurementUsage and conformance CLP_LogEntry_PrivateData_SvMeasurementUsage, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+}
+
+uint64_t closure #5 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyOffsetUsagePpb;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v12, v7, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return outlined destroy of Any?(v7, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  }
+
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvMeasurementUsage and conformance CLP_LogEntry_PrivateData_SvMeasurementUsage, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+}
+
+uint64_t closure #6 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__carrierPhaseUsageNanoseconds;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v12, v7, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return outlined destroy of Any?(v7, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  }
+
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v7, v11, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GlonassSlotInfo and conformance CLP_LogEntry_PrivateData_GlonassSlotInfo(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_SvMeasurementUsage and conformance CLP_LogEntry_PrivateData_SvMeasurementUsage, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage, &protocol conformance descriptor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v11, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+}
+
+uint64_t closure #9 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6)
+{
+  v7 = *a5;
+  result = swift_beginAccess();
+  if (*(a1 + v7) != 7)
+  {
+    lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_MeasurementDetectionMethod and conformance CLP_LogEntry_PrivateData_MeasurementDetectionMethod();
+    return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+void closure #14 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = (a1 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__metadata);
+  swift_beginAccess();
+  v5 = v4[1];
+  if (v5 >> 60 != 15)
+  {
+    v6 = *v4;
+    outlined copy of Data._Representation(v6, v5);
+    dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
+    outlined consume of Data?(v6, v5);
+  }
+}
+
+uint64_t closure #7 in closure #1 in CLP_LogEntry_PrivateData_MeasurementExtension.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t (*a7)(void, uint64_t, uint64_t, uint64_t))
+{
+  v11 = (a1 + *a5);
+  result = swift_beginAccess();
+  if ((v11[1] & 1) == 0)
+  {
+    return a7(*v11, a6, a3, a4);
+  }
+
+  return result;
+}
+
+uint64_t closure #1 in static CLP_LogEntry_PrivateData_MeasurementExtension.== infix(_:_:)(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage(0);
+  v147 = *(v4 - 8);
+  v148 = v4;
+  MEMORY[0x28223BE20](v4);
+  v140 = &v136 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v149 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSg_ADtMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSg_ADtMR);
+  v6 = MEMORY[0x28223BE20](v149);
+  v8 = &v136 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = MEMORY[0x28223BE20](v6);
+  v139 = &v136 - v10;
+  MEMORY[0x28223BE20](v9);
+  v146 = &v136 - v11;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  v13 = MEMORY[0x28223BE20](v12 - 8);
+  v137 = &v136 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = MEMORY[0x28223BE20](v13);
+  v142 = &v136 - v16;
+  v17 = MEMORY[0x28223BE20](v15);
+  v138 = &v136 - v18;
+  v19 = MEMORY[0x28223BE20](v17);
+  v143 = &v136 - v20;
+  v21 = MEMORY[0x28223BE20](v19);
+  v141 = &v136 - v22;
+  MEMORY[0x28223BE20](v21);
+  v145 = &v136 - v23;
+  v24 = type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime(0);
+  v150 = *(v24 - 8);
+  MEMORY[0x28223BE20](v24);
+  v144 = &v136 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSg_ADtMd, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSg_ADtMR);
+  MEMORY[0x28223BE20](v26);
+  v28 = &v136 - v27;
+  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMd, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMR);
+  v30 = MEMORY[0x28223BE20](v29 - 8);
+  v32 = &v136 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v30);
+  v34 = &v136 - v33;
+  swift_beginAccess();
+  v35 = *(a1 + 16);
+  v152 = a1;
+  LOBYTE(a1) = *(a1 + 20);
+  swift_beginAccess();
+  v36 = *(a2 + 20);
+  if (a1)
+  {
+    if (!*(a2 + 20))
+    {
+      goto LABEL_35;
+    }
+  }
+
+  else
+  {
+    if (v35 != *(a2 + 16))
+    {
+      v36 = 1;
+    }
+
+    if (v36)
+    {
+      goto LABEL_35;
+    }
+  }
+
+  v37 = v152;
+  swift_beginAccess();
+  v38 = *(v37 + 24);
+  LOBYTE(v37) = *(v37 + 28);
+  swift_beginAccess();
+  v39 = *(a2 + 28);
+  if (v37)
+  {
+    if (!*(a2 + 28))
+    {
+      goto LABEL_35;
+    }
+  }
+
+  else
+  {
+    if (v38 != *(a2 + 24))
+    {
+      v39 = 1;
+    }
+
+    if (v39)
+    {
+      goto LABEL_35;
+    }
+  }
+
+  v136 = v8;
+  v151 = a2;
+  v40 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__fullSvTime;
+  v41 = v152;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v41 + v40, v34, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMd, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMR);
+  v42 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__fullSvTime;
+  swift_beginAccess();
+  v43 = *(v26 + 48);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v34, v28, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMd, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMR);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v151 + v42, &v28[v43], &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMd, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMR);
+  v44 = *(v150 + 6);
+  if (v44(v28, 1, v24) == 1)
+  {
+
+    outlined destroy of Any?(v34, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMd, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMR);
+    if (v44(&v28[v43], 1, v24) == 1)
+    {
+      outlined destroy of Any?(v28, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMd, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMR);
+      goto LABEL_20;
+    }
+
+LABEL_18:
+    v45 = &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSg_ADtMd;
+    v46 = &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSg_ADtMR;
+    v47 = v28;
+LABEL_33:
+    outlined destroy of Any?(v47, v45, v46);
+    goto LABEL_34;
+  }
+
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v28, v32, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMd, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMR);
+  if (v44(&v28[v43], 1, v24) == 1)
+  {
+
+    outlined destroy of Any?(v34, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMd, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMR);
+    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v32, type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime);
+    goto LABEL_18;
+  }
+
+  v48 = v144;
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(&v28[v43], v144, type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime);
+  v41 = v152;
+
+  v49 = specialized static CLP_LogEntry_PrivateData_FullSvTime.== infix(_:_:)(v32, v48);
+  outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v48, type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime);
+  outlined destroy of Any?(v34, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMd, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMR);
+  outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v32, type metadata accessor for CLP_LogEntry_PrivateData_FullSvTime);
+  outlined destroy of Any?(v28, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMd, &_s10ALProtobuf35CLP_LogEntry_PrivateData_FullSvTimeVSgMR);
+  if ((v49 & 1) == 0)
+  {
+    goto LABEL_34;
+  }
+
+LABEL_20:
+  v50 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__svTimeUsageNanoseconds;
+  swift_beginAccess();
+  v51 = v145;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v41 + v50, v145, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  v52 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__svTimeUsageNanoseconds;
+  swift_beginAccess();
+  v53 = *(v149 + 48);
+  v54 = v146;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v51, v146, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v151 + v52, v54 + v53, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  v55 = v148;
+  v56 = *(v147 + 48);
+  if (v56(v54, 1, v148) == 1)
+  {
+    outlined destroy of Any?(v51, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+    if (v56(v54 + v53, 1, v55) == 1)
+    {
+      v150 = v56;
+      outlined destroy of Any?(v54, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+      goto LABEL_27;
+    }
+
+    goto LABEL_25;
+  }
+
+  v57 = v141;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v54, v141, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  if (v56(v54 + v53, 1, v55) == 1)
+  {
+    outlined destroy of Any?(v51, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v57, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+LABEL_25:
+    v45 = &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSg_ADtMd;
+    v46 = &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSg_ADtMR;
+    v47 = v54;
+    goto LABEL_33;
+  }
+
+  v150 = v56;
+  v58 = v54 + v53;
+  v59 = v140;
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v58, v140, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+  LODWORD(v147) = specialized static CLP_LogEntry_PrivateData_SvMeasurementUsage.== infix(_:_:)(v57, v59);
+  outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v59, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+  outlined destroy of Any?(v51, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v57, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+  outlined destroy of Any?(v54, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  if ((v147 & 1) == 0)
+  {
+    goto LABEL_34;
+  }
+
+LABEL_27:
+  v60 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyOffsetUsagePpb;
+  swift_beginAccess();
+  v61 = v143;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v41 + v60, v143, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  v62 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyOffsetUsagePpb;
+  swift_beginAccess();
+  v63 = *(v149 + 48);
+  v64 = v139;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v61, v139, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  v65 = v64;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v151 + v62, v64 + v63, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  v66 = v150;
+  if (v150(v64, 1, v55) == 1)
+  {
+    outlined destroy of Any?(v61, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+    v67 = v66(v64 + v63, 1, v55);
+    v68 = v142;
+    if (v67 == 1)
+    {
+      v150 = v66;
+      outlined destroy of Any?(v65, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+      goto LABEL_38;
+    }
+
+    goto LABEL_32;
+  }
+
+  v69 = v64;
+  v70 = v66;
+  v71 = v138;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v69, v138, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  v150 = v70;
+  v72 = v70(v65 + v63, 1, v55);
+  v68 = v142;
+  if (v72 == 1)
+  {
+    outlined destroy of Any?(v143, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v71, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+LABEL_32:
+    v45 = &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSg_ADtMd;
+    v46 = &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSg_ADtMR;
+    v47 = v65;
+    goto LABEL_33;
+  }
+
+  v75 = v65 + v63;
+  v76 = v140;
+  outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v75, v140, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+  v77 = specialized static CLP_LogEntry_PrivateData_SvMeasurementUsage.== infix(_:_:)(v71, v76);
+  outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v76, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+  outlined destroy of Any?(v143, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v71, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+  outlined destroy of Any?(v65, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  if ((v77 & 1) == 0)
+  {
+    goto LABEL_34;
+  }
+
+LABEL_38:
+  v78 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__carrierPhaseUsageNanoseconds;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v41 + v78, v68, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  v79 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__carrierPhaseUsageNanoseconds;
+  v80 = v68;
+  v81 = v151;
+  swift_beginAccess();
+  v82 = *(v149 + 48);
+  v83 = v80;
+  v84 = v136;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v83, v136, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v81 + v79, v84 + v82, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  v85 = v150;
+  if (v150(v84, 1, v55) != 1)
+  {
+    v86 = v137;
+    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v84, v137, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+    if (v85(v84 + v82, 1, v55) != 1)
+    {
+      v87 = v140;
+      outlined init with take of CLP_LogEntry_PrivateData_GlonassSlotInfo(v84 + v82, v140, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+      v88 = specialized static CLP_LogEntry_PrivateData_SvMeasurementUsage.== infix(_:_:)(v86, v87);
+      outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v87, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+      outlined destroy of Any?(v142, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+      outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v86, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+      outlined destroy of Any?(v84, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+      if ((v88 & 1) == 0)
+      {
+        goto LABEL_34;
+      }
+
+      goto LABEL_46;
+    }
+
+    outlined destroy of Any?(v142, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+    outlined destroy of CLP_LogEntry_PrivateData_GlonassSlotInfo(v86, type metadata accessor for CLP_LogEntry_PrivateData_SvMeasurementUsage);
+LABEL_43:
+    outlined destroy of Any?(v84, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSg_ADtMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSg_ADtMR);
+    goto LABEL_34;
+  }
+
+  outlined destroy of Any?(v142, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+  if (v85(v84 + v82, 1, v55) != 1)
+  {
+    goto LABEL_43;
+  }
+
+  outlined destroy of Any?(v84, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMd, &_s10ALProtobuf43CLP_LogEntry_PrivateData_SvMeasurementUsageVSgMR);
+LABEL_46:
+  v89 = v41 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__noncoherentIntervalCount;
+  swift_beginAccess();
+  v90 = *v89;
+  v91 = *(v89 + 4);
+  v92 = v151 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__noncoherentIntervalCount;
+  swift_beginAccess();
+  if (v91)
+  {
+    if ((*(v92 + 4) & 1) == 0)
+    {
+      goto LABEL_34;
+    }
+  }
+
+  else if ((*(v92 + 4) & 1) != 0 || v90 != *v92)
+  {
+    goto LABEL_34;
+  }
+
+  v93 = v41 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__coherentIntegrationMs;
+  swift_beginAccess();
+  v94 = *v93;
+  v95 = *(v93 + 4);
+  v96 = v151 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__coherentIntegrationMs;
+  swift_beginAccess();
+  if (v95)
+  {
+    v97 = v151;
+    if ((*(v96 + 4) & 1) == 0)
+    {
+      goto LABEL_34;
+    }
+  }
+
+  else
+  {
+    if (*(v96 + 4))
+    {
+      goto LABEL_34;
+    }
+
+    v97 = v151;
+    if (v94 != *v96)
+    {
+      goto LABEL_34;
+    }
+  }
+
+  v98 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__svTimeDetectionMethod;
+  swift_beginAccess();
+  v99 = *(v41 + v98);
+  v100 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__svTimeDetectionMethod;
+  swift_beginAccess();
+  v101 = *(v97 + v100);
+  if (v99 == 7)
+  {
+    if (v101 != 7)
+    {
+      goto LABEL_34;
+    }
+  }
+
+  else if (v101 == 7 || v99 != v101)
+  {
+    goto LABEL_34;
+  }
+
+  v102 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyDetectionMethod;
+  swift_beginAccess();
+  v103 = *(v41 + v102);
+  v104 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyDetectionMethod;
+  swift_beginAccess();
+  v105 = *(v97 + v104);
+  if (v103 != 7)
+  {
+    if (v105 == 7 || v103 != v105)
+    {
+      goto LABEL_34;
+    }
+
+LABEL_66:
+    v106 = v41 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__channelID;
+    swift_beginAccess();
+    v107 = *v106;
+    v108 = v97;
+    v109 = *(v106 + 4);
+    v110 = v108 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__channelID;
+    swift_beginAccess();
+    if (v109)
+    {
+      if ((*(v110 + 4) & 1) == 0)
+      {
+        goto LABEL_34;
+      }
+    }
+
+    else if ((*(v110 + 4) & 1) != 0 || v107 != *v110)
+    {
+      goto LABEL_34;
+    }
+
+    v111 = v152 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__codeLockDurationSeconds;
+    swift_beginAccess();
+    v112 = *v111;
+    v113 = *(v111 + 4);
+    v114 = v151 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__codeLockDurationSeconds;
+    swift_beginAccess();
+    if (v113)
+    {
+      if ((*(v114 + 4) & 1) == 0)
+      {
+        goto LABEL_34;
+      }
+    }
+
+    else if ((*(v114 + 4) & 1) != 0 || v112 != *v114)
+    {
+      goto LABEL_34;
+    }
+
+    v115 = v152 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyLockDurationSeconds;
+    swift_beginAccess();
+    v116 = *v115;
+    v117 = *(v115 + 4);
+    v118 = v151 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__frequencyLockDurationSeconds;
+    swift_beginAccess();
+    if (v117)
+    {
+      if ((*(v118 + 4) & 1) == 0)
+      {
+        goto LABEL_34;
+      }
+    }
+
+    else if ((*(v118 + 4) & 1) != 0 || v116 != *v118)
+    {
+      goto LABEL_34;
+    }
+
+    v119 = (v152 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__metadata);
+    swift_beginAccess();
+    v121 = *v119;
+    v120 = v119[1];
+    v122 = (v151 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__metadata);
+    swift_beginAccess();
+    v123 = *v122;
+    v124 = v122[1];
+    outlined copy of Data?(v121, v120);
+    outlined copy of Data?(v123, v124);
+    if (v120 >> 60 == 15)
+    {
+      if (v124 >> 60 == 15)
+      {
+        outlined consume of Data?(v121, v120);
+        goto LABEL_89;
+      }
+    }
+
+    else
+    {
+      outlined copy of Data?(v121, v120);
+      outlined copy of Data?(v123, v124);
+      if (v124 >> 60 != 15)
+      {
+        v125 = specialized static Data.== infix(_:_:)(v121, v120, v123, v124);
+        outlined consume of Data?(v123, v124);
+        outlined consume of Data?(v121, v120);
+        outlined consume of Data?(v123, v124);
+        outlined consume of Data?(v121, v120);
+        if (!v125)
+        {
+          goto LABEL_34;
+        }
+
+LABEL_89:
+        v126 = v152 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__metadataFormat;
+        swift_beginAccess();
+        v127 = *v126;
+        v128 = *(v126 + 4);
+        v129 = v151 + OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__metadataFormat;
+        swift_beginAccess();
+        if (v128)
+        {
+          if ((*(v129 + 4) & 1) == 0)
+          {
+            goto LABEL_34;
+          }
+        }
+
+        else if ((*(v129 + 4) & 1) != 0 || v127 != *v129)
+        {
+          goto LABEL_34;
+        }
+
+        v130 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__topCorrelationPeaks;
+        v131 = v152;
+        swift_beginAccess();
+        v132 = *(v131 + v130);
+        v133 = OBJC_IVAR____TtCV10ALProtobuf45CLP_LogEntry_PrivateData_MeasurementExtensionP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__topCorrelationPeaks;
+        v134 = v151;
+        swift_beginAccess();
+        v135 = *(v134 + v133);
+
+        v73 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ10ALProtobuf46CLP_LogEntry_PrivateData_SignalCorrelationPeakV_Tt1g5(v132, v135);
+
+        return v73 & 1;
+      }
+
+      outlined consume of Data?(v123, v124);
+      outlined consume of Data?(v121, v120);
+    }
+
+    outlined consume of Data?(v121, v120);
+    outlined consume of Data?(v123, v124);
+    goto LABEL_35;
+  }
+
+  if (v105 == 7)
+  {
+    goto LABEL_66;
+  }
+
+LABEL_34:
+
+LABEL_35:
+  v73 = 0;
+  return v73 & 1;
 }

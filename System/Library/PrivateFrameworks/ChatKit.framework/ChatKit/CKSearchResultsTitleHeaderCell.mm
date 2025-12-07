@@ -175,7 +175,7 @@
   if (!CKIsRunningInMacCatalyst())
   {
     showAllButton = [(CKSearchResultsTitleHeaderCell *)self showAllButton];
-    v4 = CKFrameworkBundle();
+    v4 = CKFrameworkBundle(showAllButton);
     v5 = [v4 localizedStringForKey:@"SEARCH_SHOW_MORE" value:&stru_1F04268F8 table:@"ChatKit"];
     [showAllButton setTitle:v5 forState:0];
   }

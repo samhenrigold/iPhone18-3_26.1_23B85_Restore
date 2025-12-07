@@ -234,9 +234,7 @@ LABEL_10:
 
 - (void)setProactiveIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  proactiveIdentifier = self->_proactiveIdentifier;
-  self->_proactiveIdentifier = v4;
+  self->_proactiveIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

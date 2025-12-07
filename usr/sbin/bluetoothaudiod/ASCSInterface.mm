@@ -10,6 +10,7 @@
 - (id)sampleFreqString:(unsigned int)string;
 - (unsigned)determineChannelCountForASE:(unsigned int)e;
 - (unsigned)getLowestBitSet:(unsigned int)set;
+- (unsigned)sendConfigCodecRequestWithAudioConfig:(id)config withDirection:(BOOL)direction ForOptionalASE:(id *)e withLTVData:(id *)data;
 - (unsigned)sendConfigQoSRequestForDirection:(BOOL)direction OptionalASE:(id *)e withLTVData:(id *)data;
 - (unsigned)sendDisableRequestForASE:(BOOL)e OptionalASE:(id *)sE withLTVData:(id *)data;
 - (unsigned)sendEnableRequestForDirection:(BOOL)direction OptionalASE:(id *)e withLTVData:(id *)data;
@@ -87,18 +88,14 @@
 
 - (void)registerControlPointHandler:(id)handler
 {
-  v4 = objc_retainBlock(handler);
-  controlPointHandler = self->_controlPointHandler;
-  self->_controlPointHandler = v4;
+  self->_controlPointHandler = objc_retainBlock(handler);
 
   _objc_release_x1();
 }
 
 - (void)registerASEUpdateHandler:(id)handler
 {
-  v4 = objc_retainBlock(handler);
-  aseUpdateHandler = self->_aseUpdateHandler;
-  self->_aseUpdateHandler = v4;
+  self->_aseUpdateHandler = objc_retainBlock(handler);
 
   _objc_release_x1();
 }
@@ -462,6 +459,386 @@ LABEL_24:
     v10 = v8;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "didWriteValueForCharacteristic: %@", &v9, 0xCu);
   }
+}
+
+- (unsigned)sendConfigCodecRequestWithAudioConfig:(id)config withDirection:(BOOL)direction ForOptionalASE:(id *)e withLTVData:(id *)data
+{
+  directionCopy = direction;
+  configCopy = config;
+  if (directionCopy)
+  {
+    sinkASEMap = [(ASCSInterface *)self sinkASEMap];
+    [(ASCSInterface *)self pendingSinkASEList];
+  }
+
+  else
+  {
+    sinkASEMap = [(ASCSInterface *)self sourceASEMap];
+    [(ASCSInterface *)self pendingSourceASEList];
+  }
+  v74 = ;
+  v73 = [*e count];
+  eCopy = e;
+  if ([*e count])
+  {
+    v12 = *e;
+  }
+
+  else
+  {
+    allKeys = [sinkASEMap allKeys];
+    v12 = [allKeys mutableCopy];
+  }
+
+  audioChanConfigArray = [configCopy audioChanConfigArray];
+  v79 = [audioChanConfigArray mutableCopy];
+
+  v15 = *data;
+  if (directionCopy)
+  {
+    sinkAudioLocMask = [configCopy sinkAudioLocMask];
+    sinkAudioChanPerAse = [configCopy sinkAudioChanPerAse];
+  }
+
+  else
+  {
+    sinkAudioLocMask = [configCopy sourceAudioLocMask];
+    sinkAudioChanPerAse = [configCopy sourceAudioChanPerAse];
+  }
+
+  v77 = sinkAudioChanPerAse;
+  v70 = configCopy;
+  v107 = 0u;
+  v108 = 0u;
+  v105 = 0u;
+  v106 = 0u;
+  obj = v12;
+  v18 = [obj countByEnumeratingWithState:&v105 objects:v115 count:16];
+  if (v18)
+  {
+    v19 = v18;
+    v82 = 0;
+    v20 = *v106;
+    if (directionCopy)
+    {
+      v21 = @"Sink";
+    }
+
+    else
+    {
+      v21 = @"Source";
+    }
+
+    v72 = v21;
+    v75 = directionCopy;
+    selfCopy = self;
+    v86 = v15;
+    v76 = sinkASEMap;
+    v78 = *v106;
+    do
+    {
+      v22 = 0;
+      v80 = v19;
+      do
+      {
+        if (*v106 != v20)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v23 = *(*(&v105 + 1) + 8 * v22);
+        v24 = [sinkASEMap objectForKeyedSubscript:{v23, v70}];
+        v25 = v24;
+        if (v24 && [v24 state] <= 2)
+        {
+          v87 = v25;
+          v103 = 0u;
+          v104 = 0u;
+          v101 = 0u;
+          v102 = 0u;
+          v88 = v79;
+          v26 = [v88 countByEnumeratingWithState:&v101 objects:v114 count:16];
+          if (v26)
+          {
+            v27 = v26;
+            v28 = *v102;
+LABEL_22:
+            v29 = 0;
+            while (1)
+            {
+              if (*v102 != v28)
+              {
+                objc_enumerationMutation(v88);
+              }
+
+              v30 = *(*(&v101 + 1) + 8 * v29);
+              if ([v30 isSink] == directionCopy)
+              {
+                break;
+              }
+
+              if (v27 == ++v29)
+              {
+                v27 = [v88 countByEnumeratingWithState:&v101 objects:v114 count:16];
+                if (v27)
+                {
+                  goto LABEL_22;
+                }
+
+                goto LABEL_28;
+              }
+            }
+
+            [v74 addObject:v23];
+            [v87 setInUse:1];
+            v32 = qword_1000A9FE0;
+            if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138412546;
+              v111 = v23;
+              v112 = 2112;
+              v113 = v72;
+              _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "ASE ID %@ added to %@ pending list", buf, 0x16u);
+            }
+
+            v33 = v86;
+            [v86 writeUint8:{objc_msgSend(v87, "ASE_ID")}];
+            [v86 writeUint8:3];
+            [v86 writeUint8:2];
+            v100 = 0;
+            v99 = 6;
+            [v86 writeBytes:&v99 length:5];
+            if (sinkAudioLocMask)
+            {
+              v34 = 19;
+            }
+
+            else
+            {
+              v34 = 13;
+            }
+
+            [v86 writeUint8:v34];
+            samplingFrequency = 0;
+            v97 = 258;
+            samplingFrequency = [v30 samplingFrequency];
+            [v86 writeBytes:&v97 length:3];
+            frameDuration = 0;
+            v95 = 514;
+            frameDuration = [v30 frameDuration];
+            [v86 writeBytes:&v95 length:3];
+            if (sinkAudioLocMask)
+            {
+              acceptor = [(ASCSInterface *)self acceptor];
+              v36 = v77;
+              v37 = [acceptor isCISMuxed:v77 withDirection:directionCopy];
+
+              if (v37)
+              {
+                if (v77)
+                {
+                  v38 = 0;
+                  LOBYTE(v39) = 0;
+                  LOBYTE(v40) = 0;
+                  LOBYTE(v41) = 0;
+                  v42 = 0;
+                  do
+                  {
+                    v43 = [(ASCSInterface *)self getLowestBitSet:sinkAudioLocMask];
+                    v39 = v43 | (v42 << 24) | (v41 << 16) | (v40 << 8) | v39;
+                    v40 = v39 >> 8;
+                    v41 = HIWORD(v39);
+                    v42 = HIBYTE(v39);
+                    sinkAudioLocMask = (sinkAudioLocMask & ~v43);
+                    ++v38;
+                  }
+
+                  while (v77 > v38);
+                  v44 = BYTE2(v39);
+                  v36 = BYTE1(v39);
+                  v45 = v39;
+                }
+
+                else
+                {
+                  v42 = 0;
+                  v44 = 0;
+                  v45 = 0;
+                }
+              }
+
+              else
+              {
+                v47 = [(ASCSInterface *)self getLowestBitSet:sinkAudioLocMask];
+                v36 = BYTE1(v47);
+                v45 = v47;
+                v44 = BYTE2(v47);
+                v42 = HIBYTE(v47);
+                sinkAudioLocMask = (sinkAudioLocMask & ~v47);
+              }
+
+              *buf = 773;
+              buf[2] = v45;
+              buf[3] = v36;
+              LOBYTE(v111) = v44;
+              BYTE1(v111) = v42;
+              v33 = v86;
+              [v86 writeBytes:buf length:6];
+              v46 = v42 << 24;
+              LODWORD(v83) = v36 << 8;
+              HIDWORD(v83) = v44 << 16;
+              directionCopy = v75;
+            }
+
+            else
+            {
+              v46 = 0;
+              v83 = 0;
+              v45 = 0;
+            }
+
+            v81 = v45;
+            *buf = 1027;
+            buf[2] = [v30 octetsPerCodecFrame];
+            buf[3] = 0;
+            [v33 writeBytes:buf length:4];
+            codecFramePerSdu = 0;
+            v93 = 1282;
+            codecFramePerSdu = [v30 codecFramePerSdu];
+            [v33 writeBytes:&v93 length:3];
+            [v30 setAseID:{objc_msgSend(v87, "ASE_ID")}];
+            if (!v73)
+            {
+              v48 = *eCopy;
+              v49 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v87 ASE_ID]);
+              [v48 addObject:v49];
+            }
+
+            v31 = v30;
+            [v87 setClientSduInterval:{*(qword_1000A9FF8 + 20 * objc_msgSend(v31, "codecIndex") + 4)}];
+            [v87 setClientFraming:{*(qword_1000A9FF8 + 20 * objc_msgSend(v31, "codecIndex") + 8)}];
+            [v87 setClientRetransmissionNumber:{*(qword_1000A9FF8 + 20 * objc_msgSend(v31, "codecIndex") + 12)}];
+            [v87 setClientMaxTransportLatency:{*(qword_1000A9FF8 + 20 * objc_msgSend(v31, "codecIndex") + 13)}];
+            [v87 setClientPresentationDelay:{*(qword_1000A9FF8 + 20 * objc_msgSend(v31, "codecIndex") + 16)}];
+            acceptor2 = [(ASCSInterface *)selfCopy acceptor];
+            v51 = [acceptor2 isCISMuxed:v77 withDirection:directionCopy];
+
+            v52 = qword_1000A9FF8;
+            v53 = *(v52 + 20 * [v31 codecIndex] + 10);
+            if (v51)
+            {
+              v53 *= [(ASCSInterface *)selfCopy determineChannelCountForASE:HIDWORD(v83) | v46 | v83 | v45];
+            }
+
+            ++v82;
+            [v87 setClientMaxSdu:v53];
+            contextTypes = [v31 contextTypes];
+            metadata = [v87 metadata];
+            [metadata setContextType:contextTypes];
+
+            metadata2 = [v87 metadata];
+            ccidList = [metadata2 ccidList];
+            ccid = [v31 ccid];
+            [ccidList addObjectsFromArray:ccid];
+
+            sinkASEMap = v76;
+            if (v31)
+            {
+              self = selfCopy;
+              v59 = [(ASCSInterface *)selfCopy determineChannelCountForASE:HIDWORD(v83) | v46 | v83 | v81];
+              if (!v59)
+              {
+                goto LABEL_65;
+              }
+
+              v60 = v59;
+              do
+              {
+                v91 = 0u;
+                v92 = 0u;
+                v89 = 0u;
+                v90 = 0u;
+                v61 = v88;
+                v62 = [v61 countByEnumeratingWithState:&v89 objects:v109 count:16];
+                if (v62)
+                {
+                  v63 = v62;
+                  v64 = *v90;
+                  while (2)
+                  {
+                    for (i = 0; i != v63; i = i + 1)
+                    {
+                      if (*v90 != v64)
+                      {
+                        objc_enumerationMutation(v61);
+                      }
+
+                      v66 = *(*(&v89 + 1) + 8 * i);
+                      isSink = [v31 isSink];
+                      if (isSink == [v66 isSink])
+                      {
+                        codecIndex = [v31 codecIndex];
+                        if (codecIndex == [v66 codecIndex])
+                        {
+                          [v61 removeObject:v66];
+                          goto LABEL_62;
+                        }
+                      }
+                    }
+
+                    v63 = [v61 countByEnumeratingWithState:&v89 objects:v109 count:16];
+                    if (v63)
+                    {
+                      continue;
+                    }
+
+                    break;
+                  }
+                }
+
+LABEL_62:
+                --v60;
+              }
+
+              while (v60);
+              sinkASEMap = v76;
+              directionCopy = v75;
+            }
+
+            self = selfCopy;
+          }
+
+          else
+          {
+LABEL_28:
+
+            v31 = 0;
+          }
+
+LABEL_65:
+
+          v15 = v86;
+          v25 = v87;
+          v19 = v80;
+          v20 = v78;
+        }
+
+        v22 = v22 + 1;
+      }
+
+      while (v22 != v19);
+      v19 = [obj countByEnumeratingWithState:&v105 objects:v115 count:16];
+    }
+
+    while (v19);
+  }
+
+  else
+  {
+    v82 = 0;
+  }
+
+  return v82;
 }
 
 - (unsigned)sendConfigQoSRequestForDirection:(BOOL)direction OptionalASE:(id *)e withLTVData:(id *)data
@@ -1883,7 +2260,7 @@ LABEL_51:
   {
     if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEBUG))
     {
-      sub_10005A654(&v32);
+      sub_10005A654();
     }
 
     [aseCopy setFraming:v32];
@@ -1911,7 +2288,7 @@ LABEL_51:
   {
     if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEBUG))
     {
-      sub_10005A824(&v30);
+      sub_10005A824();
     }
 
     [aseCopy setPreferredRetransmissionNumber:v30];
@@ -1927,7 +2304,7 @@ LABEL_51:
   {
     if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEBUG))
     {
-      sub_10005A91C(&v29);
+      sub_10005A91C();
     }
 
     [aseCopy setMaxTransportLatency:v29];
@@ -1943,7 +2320,7 @@ LABEL_51:
   {
     if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEBUG))
     {
-      sub_10005AA18(&clientPresentationDelay);
+      sub_10005AA18();
     }
 
     [aseCopy setMinSupportedPresentationDelay:clientPresentationDelay];
@@ -1953,7 +2330,7 @@ LABEL_51:
   {
     if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEBUG))
     {
-      sub_10005AA80(&clientPresentationDelay);
+      sub_10005AA80();
     }
 
     [aseCopy setMaxSupportedPresentationDelay:clientPresentationDelay];
@@ -1963,7 +2340,7 @@ LABEL_51:
   {
     if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEBUG))
     {
-      sub_10005AAE8(&clientPresentationDelay);
+      sub_10005AAE8();
     }
 
     [aseCopy setMinPreferredPresentationDelay:clientPresentationDelay];
@@ -1973,7 +2350,7 @@ LABEL_51:
   {
     if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEBUG))
     {
-      sub_10005AB50(&clientPresentationDelay);
+      sub_10005AB50();
     }
 
     [aseCopy setMaxPreferredPresentationDelay:clientPresentationDelay];
@@ -2122,13 +2499,13 @@ LABEL_9:
   v21 = 0;
   if ([streamCopy readUint8:&v21] && os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEBUG))
   {
-    sub_10005ABB8(&v21);
+    sub_10005ABB8();
   }
 
   v20 = 0;
   if ([streamCopy readUint8:&v20] && os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEBUG))
   {
-    sub_10005AC20(&v20);
+    sub_10005AC20();
   }
 
   *buf = 0;
@@ -2452,7 +2829,7 @@ LABEL_25:
   [v6 readUint8:&v33];
   if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEBUG))
   {
-    sub_10005B1A8(&v33 + 1, &v33);
+    sub_10005B1A8();
   }
 
   v7 = v33;

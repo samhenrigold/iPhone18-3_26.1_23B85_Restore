@@ -124,27 +124,25 @@ void __52__UNOneTimeCodeServiceConnection_registerForUpdates__block_invoke_2()
 
 - (void)consumeCode:(id)code
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   codeCopy = code;
   v5 = UNLogConnections;
   if (os_log_type_enabled(UNLogConnections, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = codeCopy;
+    v11 = codeCopy;
     _os_log_impl(&dword_1B85E3000, v5, OS_LOG_TYPE_DEFAULT, "Consume OTC code: %@", buf, 0xCu);
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __46__UNOneTimeCodeServiceConnection_consumeCode___block_invoke;
-  v9[3] = &unk_1E7CFF910;
-  v9[4] = self;
-  v10 = codeCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __46__UNOneTimeCodeServiceConnection_consumeCode___block_invoke;
+  v8[3] = &unk_1E7CFF910;
+  v8[4] = self;
+  v9 = codeCopy;
   v7 = codeCopy;
-  dispatch_sync(queue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_sync(queue, v8);
 }
 
 void __46__UNOneTimeCodeServiceConnection_consumeCode___block_invoke(uint64_t a1)
@@ -282,49 +280,46 @@ void __57__UNOneTimeCodeServiceConnection__queue_ensureConnection__block_invoke_
 
 - (void)detectedOneTimeCodes:(id)codes
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   codesCopy = codes;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_observers;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) oneTimeCodeServiceConnection:self detectedOneTimeCodes:{codesCopy, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) oneTimeCodeServiceConnection:self detectedOneTimeCodes:{codesCopy, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __46__UNOneTimeCodeServiceConnection_consumeCode___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1B85E3000, a2, OS_LOG_TYPE_ERROR, "Failed to consume code: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1B85E3000, a2, OS_LOG_TYPE_ERROR, "Failed to consume code: %@", &v3, 0xCu);
 }
 
 @end

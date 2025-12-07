@@ -10,16 +10,16 @@
   [(PFPosterOrientedLayout *)self->_layout imageSize];
   [(PFPosterOrientedLayout *)self->_layout visibleFrame];
   [(PFPosterOrientedLayout *)self->_layout deviceResolution];
-  v12 = v5;
-  v13 = v4;
+  v11 = v5;
+  v12 = v4;
   NUPixelSizeToCGSize();
   NURectNormalize();
-  v6 = NURectDenormalize();
-  v9.n128_f64[0] = fmax(v13 / v7, v12 / v8);
+  NURectDenormalize();
+  v8.n128_f64[0] = fmax(v12 / v6, v11 / v7);
 
-  v10 = MEMORY[0x1EEE1FCA8](v6, v9);
-  result.var1 = v11;
-  result.var0 = v10;
+  v9 = MEMORY[0x1EEE1FCA8](v8);
+  result.var1 = v10;
+  result.var0 = v9;
   return result;
 }
 

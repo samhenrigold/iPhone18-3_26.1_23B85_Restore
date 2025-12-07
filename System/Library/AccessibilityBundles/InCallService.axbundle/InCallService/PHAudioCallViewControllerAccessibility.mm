@@ -6,6 +6,9 @@
 - (void)_accessibilitySubscribeForBottomBarNotificationsIfNecessary;
 - (void)_axSetPhoneToMiddleState:(unsigned __int16)state totalTimeTried:(double)tried;
 - (void)dealloc;
+- (void)setCurrentState:(unsigned __int16)state animated:(BOOL)animated;
+- (void)setMiddleViewState:(unsigned __int16)state animated:(BOOL)animated completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation PHAudioCallViewControllerAccessibility
@@ -62,9 +65,18 @@
   AXPerformBlockOnMainThreadAfterDelay();
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PHAudioCallViewControllerAccessibility;
+  [(PHAudioCallViewControllerAccessibility *)&v4 viewDidAppear:appear];
+  [(PHAudioCallViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+  [(PHAudioCallViewControllerAccessibility *)self _accessibilityAnnounceIncomingCall];
+}
+
 - (void)_accessibilityAnnounceIncomingCallUsingCurrentCallInfo:(BOOL)info
 {
-  v45[2] = *MEMORY[0x29EDCA608];
+  v44[2] = *MEMORY[0x29EDCA608];
   if (![(PHAudioCallViewControllerAccessibility *)self _accessibilityDidAnnounceIncomingCall])
   {
     [(PHAudioCallViewControllerAccessibility *)self _accessibilitySetDidAnnounceIncomingCall:1];
@@ -89,7 +101,7 @@
       v12 = [v11 safeValueForKey:@"view"];
       v13 = __UIAccessibilitySafeClass();
 
-      v42 = v13;
+      v41 = v13;
       v14 = axStringForCallParticipantsView(v13);
       mEMORY[0x29EDC6F78] = [MEMORY[0x29EDC6F78] sharedInstance];
       incomingCall = [mEMORY[0x29EDC6F78] incomingCall];
@@ -97,10 +109,10 @@
       handle = [incomingCall handle];
       if (!info)
       {
-        v37 = v5;
-        v38 = v11;
-        v39 = v10;
-        v40 = v8;
+        v36 = v5;
+        v37 = v11;
+        v38 = v10;
+        v39 = v8;
         isoCountryCode = [incomingCall isoCountryCode];
         v19 = [handle canonicalHandleForISOCountryCode:isoCountryCode];
 
@@ -118,17 +130,17 @@
         }
 
         v14 = localizedName;
-        v10 = v39;
-        v8 = v40;
-        v5 = v37;
-        v11 = v38;
+        v10 = v38;
+        v8 = v39;
+        v5 = v36;
+        v11 = v37;
       }
 
       if (incomingCall && v14)
       {
         v26 = MEMORY[0x29EDBA0F8];
         accessibilityLocalizedString(@"incoming.call");
-        v41 = v6;
+        v40 = v6;
         v27 = v5;
         v28 = handle;
         v30 = v29 = v11;
@@ -136,29 +148,27 @@
 
         v32 = objc_allocWithZone(MEMORY[0x29EDB9F30]);
         v33 = *MEMORY[0x29EDBD860];
-        v44[0] = *MEMORY[0x29EDBDA00];
-        v44[1] = v33;
-        v45[0] = MEMORY[0x29EDB8EB0];
-        v45[1] = &unk_2A21D3208;
-        v34 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
+        v43[0] = *MEMORY[0x29EDBDA00];
+        v43[1] = v33;
+        v44[0] = MEMORY[0x29EDB8EB0];
+        v44[1] = &unk_2A21D3208;
+        v34 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
         v35 = [v32 initWithString:v31 attributes:v34];
 
         v11 = v29;
         handle = v28;
         v5 = v27;
-        v6 = v41;
+        v6 = v40;
         UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], v35);
       }
 
       if ([v10 _accessibilityViewIsVisible])
       {
-        v43 = v10;
+        v42 = v10;
         AXPerformBlockOnMainThreadAfterDelay();
       }
     }
   }
-
-  v36 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __97__PHAudioCallViewControllerAccessibility__accessibilityAnnounceIncomingCallUsingCurrentCallInfo___block_invoke(uint64_t a1)
@@ -225,6 +235,26 @@ void __82__PHAudioCallViewControllerAccessibility__axSetPhoneToMiddleState_total
   }
 }
 
+- (void)setCurrentState:(unsigned __int16)state animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  stateCopy = state;
+  v7 = [(PHAudioCallViewControllerAccessibility *)self safeIntForKey:@"currentState"];
+  v8.receiver = self;
+  v8.super_class = PHAudioCallViewControllerAccessibility;
+  [(PHAudioCallViewControllerAccessibility *)&v8 setCurrentState:stateCopy animated:animatedCopy];
+  if (stateCopy != v7)
+  {
+    [(PHAudioCallViewControllerAccessibility *)self _axSetPhoneToMiddleState:stateCopy totalTimeTried:0.0];
+    UIAccessibilityPostNotification(*MEMORY[0x29EDC7F10], 0);
+  }
+
+  if (stateCopy == 3 && (v7 & 0xFFFE) == 4)
+  {
+    AXPerformBlockOnMainThreadAfterDelay();
+  }
+}
+
 uint64_t __67__PHAudioCallViewControllerAccessibility_setCurrentState_animated___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _accessibilitySetDidAnnounceIncomingCall:0];
@@ -241,6 +271,38 @@ uint64_t __67__PHAudioCallViewControllerAccessibility_setCurrentState_animated__
 
     [(PHAudioCallViewControllerAccessibility *)self _axSetPhoneToMiddleState:v4 totalTimeTried:0.0];
   }
+}
+
+- (void)setMiddleViewState:(unsigned __int16)state animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  stateCopy = state;
+  completionCopy = completion;
+  _accessibilityMiddleViewStateDepth = [(PHAudioCallViewControllerAccessibility *)self _accessibilityMiddleViewStateDepth];
+  v10 = [(PHAudioCallViewControllerAccessibility *)self safeIntForKey:@"middleViewState"];
+  v11 = v10 == stateCopy;
+  if (v10 != stateCopy)
+  {
+    [(PHAudioCallViewControllerAccessibility *)self _accessibilitySetMiddleViewStateDepth:_accessibilityMiddleViewStateDepth + 1];
+  }
+
+  objc_initWeak(&location, self);
+  v14[0] = MEMORY[0x29EDCA5F8];
+  v14[1] = 3221225472;
+  v14[2] = __81__PHAudioCallViewControllerAccessibility_setMiddleViewState_animated_completion___block_invoke;
+  v14[3] = &unk_29F2C8AE8;
+  v12 = completionCopy;
+  v15 = v12;
+  objc_copyWeak(&v16, &location);
+  v17 = v11;
+  v14[4] = self;
+  v13.receiver = self;
+  v13.super_class = PHAudioCallViewControllerAccessibility;
+  [(PHAudioCallViewControllerAccessibility *)&v13 setMiddleViewState:stateCopy animated:animatedCopy completion:v14];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
+  objc_destroyWeak(&v16);
+
+  objc_destroyWeak(&location);
 }
 
 void __81__PHAudioCallViewControllerAccessibility_setMiddleViewState_animated_completion___block_invoke(uint64_t a1)

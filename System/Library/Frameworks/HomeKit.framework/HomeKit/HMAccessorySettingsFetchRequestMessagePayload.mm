@@ -95,18 +95,16 @@ uint64_t __57__HMAccessorySettingsFetchRequestMessagePayload_isEqual___block_inv
 
 - (NSArray)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   accessoryUUID = [(HMAccessorySettingsFetchRequestMessagePayload *)self accessoryUUID];
   v5 = [v3 initWithName:@"accessoryUUID" value:accessoryUUID];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   keyPaths = [(HMAccessorySettingsFetchRequestMessagePayload *)self keyPaths];
   v8 = [v6 initWithName:@"keyPaths" value:keyPaths];
-  v12[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -120,24 +118,22 @@ uint64_t __57__HMAccessorySettingsFetchRequestMessagePayload_isEqual___block_inv
 
 - (id)payloadCopy
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v9[0] = @"HMAccessoryUUIDPayloadKey";
+  v9[2] = *MEMORY[0x1E69E9840];
+  v8[0] = @"HMAccessoryUUIDPayloadKey";
   accessoryUUID = [(HMAccessorySettingsFetchRequestMessagePayload *)self accessoryUUID];
   uUIDString = [accessoryUUID UUIDString];
-  v9[1] = @"HMImmutableSettingKeyPathsPayloadKey";
-  v10[0] = uUIDString;
+  v8[1] = @"HMImmutableSettingKeyPathsPayloadKey";
+  v9[0] = uUIDString;
   keyPaths = [(HMAccessorySettingsFetchRequestMessagePayload *)self keyPaths];
-  v10[1] = keyPaths;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[1] = keyPaths;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }
 
 - (HMAccessorySettingsFetchRequestMessagePayload)initWithPayload:(id)payload
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   v5 = [payloadCopy hmf_UUIDForKey:@"HMAccessoryUUIDPayloadKey"];
   v6 = [payloadCopy hmf_arrayForKey:@"HMImmutableSettingKeyPathsPayloadKey"];
@@ -156,18 +152,17 @@ uint64_t __57__HMAccessorySettingsFetchRequestMessagePayload_isEqual___block_inv
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v12;
-      v17 = 2112;
-      v18 = payloadCopy;
-      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode accessory settings fetch request message payload: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2112;
+      v17 = payloadCopy;
+      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode accessory settings fetch request message payload: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -216,12 +211,11 @@ LABEL_7:
 
 uint64_t __60__HMAccessorySettingsFetchRequestMessagePayload_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_19508;
-  logCategory__hmf_once_v2_19508 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_19508;
+  logCategory__hmf_once_v2_19508 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)shortDescription

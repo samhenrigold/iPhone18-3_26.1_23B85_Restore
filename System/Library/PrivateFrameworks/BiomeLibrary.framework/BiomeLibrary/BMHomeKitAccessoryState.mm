@@ -112,7 +112,7 @@ LABEL_23:
 
 - (id)jsonDictionary
 {
-  v26[5] = *MEMORY[0x1E69E9840];
+  v25[5] = *MEMORY[0x1E69E9840];
   mediaPropertyType = [(BMHomeKitAccessoryState *)self mediaPropertyType];
   v4 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMHomeKitAccessoryState valueType](self, "valueType")}];
   dataValue = [(BMHomeKitAccessoryState *)self dataValue];
@@ -132,48 +132,48 @@ LABEL_23:
     v10 = [v9 numberWithDouble:?];
   }
 
-  v21 = @"mediaPropertyType";
+  v20 = @"mediaPropertyType";
   null = mediaPropertyType;
   if (!mediaPropertyType)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = null;
-  v26[0] = null;
-  v22 = @"valueType";
+  v18 = null;
+  v25[0] = null;
+  v21 = @"valueType";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[1] = null2;
-  v23 = @"dataValue";
+  v25[1] = null2;
+  v22 = @"dataValue";
   null3 = v6;
   if (!v6)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[2] = null3;
-  v24 = @"stringValue";
+  v25[2] = null3;
+  v23 = @"stringValue";
   null4 = stringValue;
   if (!stringValue)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[3] = null4;
-  v25 = @"numValue";
+  v25[3] = null4;
+  v24 = @"numValue";
   null5 = v10;
   if (!v10)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[4] = null5;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v21 count:{5, v19}];
+  v25[4] = null5;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v20 count:{5, v18}];
   if (v10)
   {
     if (stringValue)
@@ -231,22 +231,21 @@ LABEL_19:
 LABEL_27:
 
 LABEL_20:
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (BMHomeKitAccessoryState)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v52[1] = *MEMORY[0x1E69E9840];
+  v51[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"mediaPropertyType"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v40 = 0;
+    v39 = 0;
 LABEL_4:
     v8 = [dictionaryCopy objectForKeyedSubscript:@"valueType"];
-    v39 = v8;
+    v38 = v8;
     if (v8 && (v9 = v8, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -266,14 +265,14 @@ LABEL_4:
             goto LABEL_45;
           }
 
-          v32 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v33 = *MEMORY[0x1E698F240];
-          v49 = *MEMORY[0x1E696A578];
+          v31 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v32 = *MEMORY[0x1E698F240];
+          v48 = *MEMORY[0x1E696A578];
           v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"valueType"];
-          v50 = v16;
-          v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+          v49 = v16;
+          v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
           v14 = 0;
-          *error = [v32 initWithDomain:v33 code:2 userInfo:v15];
+          *error = [v31 initWithDomain:v32 code:2 userInfo:v15];
           error = 0;
           goto LABEL_44;
         }
@@ -281,16 +280,16 @@ LABEL_4:
         v10 = [MEMORY[0x1E696AD98] numberWithInt:BMHomeKitAccessoryStateValueTypeFromString(v9)];
       }
 
-      v37 = v10;
+      v36 = v10;
     }
 
     else
     {
-      v37 = 0;
+      v36 = 0;
     }
 
     v15 = [dictionaryCopy objectForKeyedSubscript:@"dataValue"];
-    v38 = v7;
+    v37 = v7;
     if (!v15 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       v16 = 0;
@@ -328,16 +327,16 @@ LABEL_22:
           {
             v20 = 0;
 LABEL_25:
-            error = v37;
-            v14 = -[BMHomeKitAccessoryState initWithMediaPropertyType:valueType:dataValue:stringValue:numValue:](self, "initWithMediaPropertyType:valueType:dataValue:stringValue:numValue:", v40, [v37 intValue], v16, v18, v20);
+            error = v36;
+            v14 = -[BMHomeKitAccessoryState initWithMediaPropertyType:valueType:dataValue:stringValue:numValue:](self, "initWithMediaPropertyType:valueType:dataValue:stringValue:numValue:", v39, [v36 intValue], v16, v18, v20);
             self = v14;
 LABEL_42:
 
 LABEL_43:
-            v7 = v38;
+            v7 = v37;
 LABEL_44:
 
-            v9 = v39;
+            v9 = v38;
             goto LABEL_45;
           }
 
@@ -350,31 +349,31 @@ LABEL_44:
 
           if (error)
           {
-            v36 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v34 = *MEMORY[0x1E698F240];
-            v41 = *MEMORY[0x1E696A578];
+            v35 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v33 = *MEMORY[0x1E698F240];
+            v40 = *MEMORY[0x1E696A578];
             v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"numValue"];
-            v42 = v28;
-            v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-            *error = [v36 initWithDomain:v34 code:2 userInfo:v29];
+            v41 = v28;
+            v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+            *error = [v35 initWithDomain:v33 code:2 userInfo:v29];
           }
 
           v20 = 0;
           v14 = 0;
 LABEL_41:
-          error = v37;
+          error = v36;
           goto LABEL_42;
         }
 
         if (error)
         {
-          v35 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v34 = objc_alloc(MEMORY[0x1E696ABC0]);
           v26 = *MEMORY[0x1E698F240];
-          v43 = *MEMORY[0x1E696A578];
+          v42 = *MEMORY[0x1E696A578];
           v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"stringValue"];
-          v44 = v20;
-          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-          v27 = [v35 initWithDomain:v26 code:2 userInfo:v19];
+          v43 = v20;
+          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+          v27 = [v34 initWithDomain:v26 code:2 userInfo:v19];
           v18 = 0;
           v14 = 0;
           *error = v27;
@@ -384,7 +383,7 @@ LABEL_41:
         v18 = 0;
         v14 = 0;
 LABEL_54:
-        error = v37;
+        error = v36;
         goto LABEL_43;
       }
 
@@ -392,12 +391,12 @@ LABEL_54:
       {
         v21 = objc_alloc(MEMORY[0x1E696ABC0]);
         v22 = *MEMORY[0x1E698F240];
-        v47 = *MEMORY[0x1E696A578];
+        v46 = *MEMORY[0x1E696A578];
         v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected format for value of field '%@', expected base64 encoding", @"dataValue"];
-        v48 = v18;
+        v47 = v18;
         v23 = MEMORY[0x1E695DF20];
-        v24 = &v48;
-        v25 = &v47;
+        v24 = &v47;
+        v25 = &v46;
 LABEL_51:
         v17 = [v23 dictionaryWithObjects:v24 forKeys:v25 count:1];
         v16 = 0;
@@ -411,49 +410,48 @@ LABEL_51:
     {
       v21 = objc_alloc(MEMORY[0x1E696ABC0]);
       v22 = *MEMORY[0x1E698F240];
-      v45 = *MEMORY[0x1E696A578];
+      v44 = *MEMORY[0x1E696A578];
       v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type (%@) for value of field '%@', expected NSData or base64 encoded NSString", objc_opt_class(), @"dataValue"];
-      v46 = v18;
+      v45 = v18;
       v23 = MEMORY[0x1E695DF20];
-      v24 = &v46;
-      v25 = &v45;
+      v24 = &v45;
+      v25 = &v44;
       goto LABEL_51;
     }
 
     v16 = 0;
     v14 = 0;
-    error = v37;
+    error = v36;
     goto LABEL_44;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v40 = v7;
+    v39 = v7;
     goto LABEL_4;
   }
 
   if (!error)
   {
-    v40 = 0;
+    v39 = 0;
     v14 = 0;
     goto LABEL_46;
   }
 
   v11 = objc_alloc(MEMORY[0x1E696ABC0]);
   v12 = *MEMORY[0x1E698F240];
-  v51 = *MEMORY[0x1E696A578];
+  v50 = *MEMORY[0x1E696A578];
   v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"mediaPropertyType"];
-  v52[0] = v13;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
-  v40 = 0;
+  v51[0] = v13;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:&v50 count:1];
+  v39 = 0;
   v14 = 0;
   *error = [v11 initWithDomain:v12 code:2 userInfo:v9];
   error = v13;
 LABEL_45:
 
 LABEL_46:
-  v30 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -474,7 +472,6 @@ LABEL_46:
     PBDataWriterWriteStringField();
   }
 
-  valueType = self->_valueType;
   PBDataWriterWriteUint32Field();
   if (self->_dataValue)
   {
@@ -486,12 +483,11 @@ LABEL_46:
     PBDataWriterWriteStringField();
   }
 
-  v5 = toCopy;
+  v4 = toCopy;
   if (self->_hasNumValue)
   {
-    numValue = self->_numValue;
     PBDataWriterWriteDoubleField();
-    v5 = toCopy;
+    v4 = toCopy;
   }
 }
 
@@ -737,39 +733,35 @@ LABEL_51:
 
 + (id)protoFields
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"mediaPropertyType" number:1 type:13 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"valueType" number:2 type:4 subMessageClass:{0, v2}];
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"dataValue" number:3 type:14 subMessageClass:0];
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"stringValue" number:4 type:13 subMessageClass:0];
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"numValue" number:5 type:0 subMessageClass:0];
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
 + (id)columns
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"mediaPropertyType" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"valueType" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"dataValue" dataType:4 requestOnly:0 fieldNumber:3 protoDataType:14 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"stringValue" dataType:2 requestOnly:0 fieldNumber:4 protoDataType:13 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"numValue" dataType:1 requestOnly:0 fieldNumber:5 protoDataType:0 convertedType:0];
-  v10[0] = v2;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v2;
+  v9[1] = v3;
+  v9[2] = v4;
+  v9[3] = v5;
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }

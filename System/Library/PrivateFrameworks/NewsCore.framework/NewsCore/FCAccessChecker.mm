@@ -70,20 +70,20 @@
 
 - (void)checkAccessToItem:(id)item withQualityOfService:(int64_t)service completion:(id)completion
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   completionCopy = completion;
   if (!itemCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "item != nil"];
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "item != nil"];
     *buf = 136315906;
     *&buf[4] = "[FCAccessChecker checkAccessToItem:withQualityOfService:completion:]";
-    v15 = 2080;
-    v16 = "FCAccessChecker.m";
-    v17 = 1024;
-    v18 = 63;
-    v19 = 2114;
-    v20 = v11;
+    v14 = 2080;
+    v15 = "FCAccessChecker.m";
+    v16 = 1024;
+    v17 = 63;
+    v18 = 2114;
+    v19 = v10;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (completionCopy)
@@ -99,25 +99,23 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completion != nil"];
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completion != nil"];
     *buf = 136315906;
     *&buf[4] = "[FCAccessChecker checkAccessToItem:withQualityOfService:completion:]";
-    v15 = 2080;
-    v16 = "FCAccessChecker.m";
-    v17 = 1024;
-    v18 = 64;
-    v19 = 2114;
-    v20 = v12;
+    v14 = 2080;
+    v15 = "FCAccessChecker.m";
+    v16 = 1024;
+    v17 = 64;
+    v18 = 2114;
+    v19 = v11;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v13 = 0;
+  v12 = 0;
   *buf = 0;
-  v9 = [(FCAccessChecker *)self hasAccessToItem:itemCopy blockedReason:&v13 error:buf];
-  completionCopy[2](completionCopy, v9, v13, *buf);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = [(FCAccessChecker *)self hasAccessToItem:itemCopy blockedReason:&v12 error:buf];
+  completionCopy[2](completionCopy, v9, v12, *buf);
 }
 
 @end

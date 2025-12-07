@@ -45,37 +45,36 @@
 
 - (SATimeRange)initWithStart:(id)start end:(id)end
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (([start le:end] & 1) == 0)
   {
-    v11 = *__error();
-    v12 = _sa_logt();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v10 = *__error();
+    v11 = _sa_logt();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = [start debugDescription];
-      uTF8String = [v13 UTF8String];
-      v15 = [end debugDescription];
+      v12 = [start debugDescription];
+      uTF8String = [v12 UTF8String];
+      v14 = [end debugDescription];
       *buf = 136315394;
-      v27 = uTF8String;
-      v28 = 2080;
-      uTF8String2 = [v15 UTF8String];
-      _os_log_error_impl(&dword_1E0E2F000, v12, OS_LOG_TYPE_ERROR, "start time %s > end time %s", buf, 0x16u);
+      v20 = uTF8String;
+      v21 = 2080;
+      uTF8String2 = [v14 UTF8String];
+      _os_log_error_impl(&dword_1E0E2F000, v11, OS_LOG_TYPE_ERROR, "start time %s > end time %s", buf, 0x16u);
     }
 
-    *__error() = v11;
-    v16 = [start debugDescription];
-    uTF8String3 = [v16 UTF8String];
-    v18 = [end debugDescription];
-    [v18 UTF8String];
-    _SASetCrashLogMessage(570, "start time %s > end time %s", v19, v20, v21, v22, v23, v24, uTF8String3);
+    *__error() = v10;
+    v15 = [start debugDescription];
+    uTF8String3 = [v15 UTF8String];
+    v17 = [end debugDescription];
+    _SASetCrashLogMessage(570, "start time %s > end time %s", uTF8String3, [v17 UTF8String]);
 
     _os_crash();
     __break(1u);
   }
 
-  v25.receiver = self;
-  v25.super_class = SATimeRange;
-  v7 = [(SATimeRange *)&v25 init];
+  v18.receiver = self;
+  v18.super_class = SATimeRange;
+  v7 = [(SATimeRange *)&v18 init];
   v8 = v7;
   if (v7)
   {
@@ -83,7 +82,6 @@
     objc_storeStrong(&v8->_endTime, end);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -215,28 +213,26 @@
 
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ([(SATimeRange *)self sizeInBytesForSerializedVersion]!= length)
   {
-    v11 = *__error();
-    v12 = _sa_logt();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v10 = *__error();
+    v11 = _sa_logt();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = [(SATimeRange *)self debugDescription];
+      v12 = [(SATimeRange *)self debugDescription];
       *buf = 136315650;
-      uTF8String = [v13 UTF8String];
-      v24 = 2048;
+      uTF8String = [v12 UTF8String];
+      v16 = 2048;
       sizeInBytesForSerializedVersion = [(SATimeRange *)self sizeInBytesForSerializedVersion];
-      v26 = 2048;
+      v18 = 2048;
       lengthCopy = length;
-      _os_log_error_impl(&dword_1E0E2F000, v12, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
+      _os_log_error_impl(&dword_1E0E2F000, v11, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
     }
 
-    *__error() = v11;
-    v14 = [(SATimeRange *)self debugDescription];
-    uTF8String2 = [v14 UTF8String];
-    [(SATimeRange *)self sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(849, "%s: size %lu != buffer length %lu", v16, v17, v18, v19, v20, v21, uTF8String2);
+    *__error() = v10;
+    v13 = [(SATimeRange *)self debugDescription];
+    _SASetCrashLogMessage(849, "%s: size %lu != buffer length %lu", [v13 UTF8String], -[SATimeRange sizeInBytesForSerializedVersion](self, "sizeInBytesForSerializedVersion"), length);
 
     _os_crash();
     __break(1u);
@@ -245,7 +241,6 @@
   *&buffer->var0 = 257;
   *(&buffer->var1 + 1) = SASerializableIndexForPointerFromSerializationDictionary(self->_startTime, dictionary);
   *(&buffer->var2 + 2) = SASerializableIndexForPointerFromSerializationDictionary(self->_endTime, dictionary);
-  v9 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -265,7 +260,7 @@
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (*buffer >= 2u)
   {
     goto LABEL_9;
@@ -273,34 +268,32 @@
 
   if (length <= 0x11)
   {
-    v7 = *__error();
-    v8 = _sa_logt();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v6 = *__error();
+    v7 = _sa_logt();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy = length;
-      v18 = 2048;
-      v19 = 18;
-      _os_log_error_impl(&dword_1E0E2F000, v8, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATimeRange struct %lu", buf, 0x16u);
+      v11 = 2048;
+      v12 = 18;
+      _os_log_error_impl(&dword_1E0E2F000, v7, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATimeRange struct %lu", buf, 0x16u);
     }
 
-    *__error() = v7;
-    _SASetCrashLogMessage(874, "bufferLength %lu < serialized SATimeRange struct %lu", v9, v10, v11, v12, v13, v14, length);
+    *__error() = v6;
+    _SASetCrashLogMessage(874, "bufferLength %lu < serialized SATimeRange struct %lu", length, 18);
     _os_crash();
     __break(1u);
 LABEL_9:
-    v15 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SATimeRange version" userInfo:0];
-    objc_exception_throw(v15);
+    v8 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SATimeRange version" userInfo:0];
+    objc_exception_throw(v8);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return objc_alloc_init(SATimeRange);
 }
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (*buffer >= 2u)
   {
     goto LABEL_9;
@@ -308,24 +301,24 @@ LABEL_9:
 
   if (length <= 0x11)
   {
-    v20 = *__error();
-    v21 = _sa_logt();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v19 = *__error();
+    v20 = _sa_logt();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy = length;
-      v31 = 2048;
-      v32 = 18;
-      _os_log_error_impl(&dword_1E0E2F000, v21, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATimeRange struct %lu", buf, 0x16u);
+      v24 = 2048;
+      v25 = 18;
+      _os_log_error_impl(&dword_1E0E2F000, v20, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATimeRange struct %lu", buf, 0x16u);
     }
 
-    *__error() = v20;
-    _SASetCrashLogMessage(884, "bufferLength %lu < serialized SATimeRange struct %lu", v22, v23, v24, v25, v26, v27, length);
+    *__error() = v19;
+    _SASetCrashLogMessage(884, "bufferLength %lu < serialized SATimeRange struct %lu", length, 18);
     _os_crash();
     __break(1u);
 LABEL_9:
-    v28 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SATimeRange version" userInfo:0];
-    objc_exception_throw(v28);
+    v21 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SATimeRange version" userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v11 = *(buffer + 2);
@@ -339,7 +332,6 @@ LABEL_9:
   v17 = SASerializableNonnullInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v15, dictionary, bufferDictionary, v16);
   endTime = self->_endTime;
   self->_endTime = v17;
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

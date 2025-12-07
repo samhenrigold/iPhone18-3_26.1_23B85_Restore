@@ -7,7 +7,7 @@
 
 - (void)handleTouchDownWithTouchType:(int64_t)type
 {
-  v16[3] = *MEMORY[0x29EDCA608];
+  v15[3] = *MEMORY[0x29EDCA608];
   v5 = *MEMORY[0x29EDC0C90];
   if (os_signpost_enabled(*MEMORY[0x29EDC0C90]))
   {
@@ -20,21 +20,19 @@
   v7 = [MEMORY[0x29EDBA070] numberWithLongLong:mach_continuous_time()];
   v8 = *MEMORY[0x29EDBD538];
   v9 = *MEMORY[0x29EDBD548];
-  v15[0] = *MEMORY[0x29EDBD540];
-  v15[1] = v9;
-  v16[0] = v8;
-  v16[1] = v6;
-  v15[2] = *MEMORY[0x29EDBD550];
-  v16[2] = v7;
-  v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v14[0] = *MEMORY[0x29EDBD540];
+  v14[1] = v9;
+  v15[0] = v8;
+  v15[1] = v6;
+  v14[2] = *MEMORY[0x29EDBD550];
+  v15[2] = v7;
+  v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
   applicationIdentifier = [(CCUIAppLauncherModule *)self applicationIdentifier];
   AVCapturePrewarmWithOptions();
 
-  v13.receiver = self;
-  v13.super_class = CCUICameraModule;
-  [(CCUIAppLauncherModule *)&v13 handleTouchDownWithTouchType:type];
-
-  v12 = *MEMORY[0x29EDCA608];
+  v12.receiver = self;
+  v12.super_class = CCUICameraModule;
+  [(CCUIAppLauncherModule *)&v12 handleTouchDownWithTouchType:type];
 }
 
 - (void)handleTapWithTouchType:(int64_t)type

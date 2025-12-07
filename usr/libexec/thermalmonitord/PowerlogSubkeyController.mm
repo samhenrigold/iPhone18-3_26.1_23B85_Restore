@@ -67,54 +67,48 @@
             if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
             {
               subkey = self->_subkey;
-              v15 = 136315394;
-              v16 = "[PowerlogSubkeyController logToPowerlog:]";
-              v17 = 2112;
-              v18 = subkey;
-              _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "<Notice> %s: no change in subkey %@", &v15, 0x16u);
+              v12 = 136315394;
+              v13 = "[PowerlogSubkeyController logToPowerlog:]";
+              v14 = 2112;
+              v15 = subkey;
+              _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "<Notice> %s: no change in subkey %@", &v12, 0x16u);
             }
           }
         }
 
-        else
+        else if (PLShouldLogRegisteredEvent())
         {
-          v8 = self->_subkey;
-          if (PLShouldLogRegisteredEvent())
+          stateLastLogged = self->_stateLastLogged;
+          if (stateLastLogged)
           {
-            stateLastLogged = self->_stateLastLogged;
-            if (stateLastLogged)
-            {
-              CFRelease(stateLastLogged);
-            }
-
-            self->_stateLastLogged = CFDictionaryCreateCopy(kCFAllocatorDefault, self->_state);
-            if (powerlog)
-            {
-              CFDictionarySetValue(self->_state, @"Time", powerlog);
-            }
-
-            v10 = self->_subkey;
-            v11 = self->_state;
-            PLLogRegisteredEvent();
-            if (byte_1000AB2F8 == 1)
-            {
-              v12 = qword_1000AB718;
-              if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
-              {
-                v13 = self->_subkey;
-                v14 = self->_state;
-                v15 = 136315650;
-                v16 = "[PowerlogSubkeyController logToPowerlog:]";
-                v17 = 2112;
-                v18 = v13;
-                v19 = 2112;
-                v20 = v14;
-                _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "<Notice> %s: logged subkey %@, dict %@", &v15, 0x20u);
-              }
-            }
-
-            CFDictionaryRemoveValue(self->_state, @"Time");
+            CFRelease(stateLastLogged);
           }
+
+          self->_stateLastLogged = CFDictionaryCreateCopy(kCFAllocatorDefault, self->_state);
+          if (powerlog)
+          {
+            CFDictionarySetValue(self->_state, @"Time", powerlog);
+          }
+
+          PLLogRegisteredEvent();
+          if (byte_1000AB2F8 == 1)
+          {
+            v9 = qword_1000AB718;
+            if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
+            {
+              v10 = self->_subkey;
+              v11 = self->_state;
+              v12 = 136315650;
+              v13 = "[PowerlogSubkeyController logToPowerlog:]";
+              v14 = 2112;
+              v15 = v10;
+              v16 = 2112;
+              v17 = v11;
+              _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "<Notice> %s: logged subkey %@, dict %@", &v12, 0x20u);
+            }
+          }
+
+          CFDictionaryRemoveValue(self->_state, @"Time");
         }
       }
     }
@@ -138,51 +132,49 @@
 
 - (void)logToPowerlogLite
 {
-  subkey = self->_subkey;
   if (PLShouldLogRegisteredEvent())
   {
-    v15 = 0u;
-    v16 = 0u;
     v13 = 0u;
     v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     cacheArray = [(PowerlogSubkeyController *)self cacheArray];
-    v5 = [cacheArray countByEnumeratingWithState:&v13 objects:v19 count:16];
-    if (v5)
+    v4 = [cacheArray countByEnumeratingWithState:&v11 objects:v17 count:16];
+    if (v4)
     {
-      v6 = v5;
-      v7 = *v14;
+      v5 = v4;
+      v6 = *v12;
       do
       {
-        v8 = 0;
+        v7 = 0;
         do
         {
-          if (*v14 != v7)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(cacheArray);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * v8);
-          if (v9)
+          v8 = *(*(&v11 + 1) + 8 * v7);
+          if (v8)
           {
-            v17[0] = @"Time";
-            v18[0] = [v9 objectAtIndex:0];
-            v17[1] = @"thermalLevel";
-            v18[1] = [v9 objectAtIndex:1];
-            v17[2] = @"pressureLevel";
-            v18[2] = [v9 objectAtIndex:2];
-            [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:3];
-            v10 = self->_subkey;
+            v15[0] = @"Time";
+            v16[0] = [v8 objectAtIndex:0];
+            v15[1] = @"thermalLevel";
+            v16[1] = [v8 objectAtIndex:1];
+            v15[2] = @"pressureLevel";
+            v16[2] = [v8 objectAtIndex:2];
+            [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:3];
             PLLogRegisteredEvent();
           }
 
-          v8 = v8 + 1;
+          v7 = v7 + 1;
         }
 
-        while (v6 != v8);
-        v6 = [cacheArray countByEnumeratingWithState:&v13 objects:v19 count:16];
+        while (v5 != v7);
+        v5 = [cacheArray countByEnumeratingWithState:&v11 objects:v17 count:16];
       }
 
-      while (v6);
+      while (v5);
     }
 
     [-[PowerlogSubkeyController cacheArray](self "cacheArray")];
@@ -190,40 +182,38 @@
 
   else if (byte_1000AB2F8 == 1)
   {
-    v11 = qword_1000AB718;
+    v9 = qword_1000AB718;
     if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = self->_subkey;
+      subkey = self->_subkey;
       *buf = 138412290;
-      v21 = v12;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "<Notice> Denied to log to lite mode powerlog %@", buf, 0xCu);
+      v19 = subkey;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "<Notice> Denied to log to lite mode powerlog %@", buf, 0xCu);
     }
   }
 }
 
 - (void)logHIPStatusToPowerlogLite:(id)lite
 {
-  subkey = self->_subkey;
   if (PLShouldLogRegisteredEvent())
   {
-    v9[0] = @"Time";
-    v10[0] = [lite objectAtIndex:0];
-    v9[1] = @"status";
-    v10[1] = [lite objectAtIndex:1];
-    v9[2] = @"client";
-    v10[2] = [lite objectAtIndex:2];
-    [NSDictionary dictionaryWithObjects:v10 forKeys:v9 count:3];
-    v6 = self->_subkey;
+    v6[0] = @"Time";
+    v7[0] = [lite objectAtIndex:0];
+    v6[1] = @"status";
+    v7[1] = [lite objectAtIndex:1];
+    v6[2] = @"client";
+    v7[2] = [lite objectAtIndex:2];
+    [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:3];
     PLLogRegisteredEvent();
   }
 
   else if (byte_1000AB2F8 == 1)
   {
-    v7 = qword_1000AB718;
+    v4 = qword_1000AB718;
     if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "<Notice> Denied to log to lite mode powerlog", v8, 2u);
+      *v5 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "<Notice> Denied to log to lite mode powerlog", v5, 2u);
     }
   }
 }

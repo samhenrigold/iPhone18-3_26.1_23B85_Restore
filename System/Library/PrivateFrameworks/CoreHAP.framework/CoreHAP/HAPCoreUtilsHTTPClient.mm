@@ -37,7 +37,6 @@
 
   else
   {
-    httpClient = self->_httpClient;
     ClientID = HTTPClientGetClientID();
   }
 
@@ -77,7 +76,6 @@
 
   else
   {
-    httpClient = self->_httpClient;
     v4 = HTTPClientSendMessage();
   }
 
@@ -108,7 +106,6 @@
   os_unfair_lock_lock_with_options();
   if (![(HAPCoreUtilsHTTPClient *)self isInvalidated])
   {
-    httpClient = self->_httpClient;
     HTTPClientSetClientContext();
   }
 
@@ -120,7 +117,6 @@
   os_unfair_lock_lock_with_options();
   if (![(HAPCoreUtilsHTTPClient *)self isInvalidated])
   {
-    httpClient = self->_httpClient;
     HTTPClientSetConnectionProgressHandler();
   }
 
@@ -132,7 +128,6 @@
   os_unfair_lock_lock_with_options();
   if (![(HAPCoreUtilsHTTPClient *)self isInvalidated])
   {
-    httpClient = self->_httpClient;
     HTTPClientSetDebugDelegate();
   }
 
@@ -144,7 +139,6 @@
   os_unfair_lock_lock_with_options();
   if (![(HAPCoreUtilsHTTPClient *)self isInvalidated])
   {
-    httpClient = self->_httpClient;
     HTTPClientSetTransportDelegate();
   }
 
@@ -156,7 +150,6 @@
   os_unfair_lock_lock_with_options();
   if (![(HAPCoreUtilsHTTPClient *)self isInvalidated])
   {
-    httpClient = self->_httpClient;
     HTTPClientSetDelegate();
   }
 
@@ -173,7 +166,6 @@
 
   else
   {
-    httpClient = self->_httpClient;
     v5 = HTTPClientSetDestination();
   }
 
@@ -186,7 +178,6 @@
   os_unfair_lock_lock_with_options();
   if (![(HAPCoreUtilsHTTPClient *)self isInvalidated])
   {
-    httpClient = self->_httpClient;
     HTTPClientSetTimeout();
   }
 
@@ -198,7 +189,6 @@
   os_unfair_lock_lock_with_options();
   if (![(HAPCoreUtilsHTTPClient *)self isInvalidated])
   {
-    httpClient = self->_httpClient;
     HTTPClientSetFlags();
   }
 
@@ -211,7 +201,6 @@
   os_unfair_lock_lock_with_options();
   if (![(HAPCoreUtilsHTTPClient *)self isInvalidated])
   {
-    httpClient = self->_httpClient;
     HTTPClientSetDispatchQueue();
   }
 
@@ -228,7 +217,6 @@
 
   else
   {
-    httpClient = self->_httpClient;
     v5 = _HTTPClientSetProperty();
   }
 

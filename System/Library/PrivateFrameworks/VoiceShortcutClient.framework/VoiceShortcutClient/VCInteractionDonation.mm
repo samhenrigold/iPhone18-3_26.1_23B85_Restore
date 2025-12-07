@@ -182,7 +182,7 @@
 
 - (VCInteractionDonation)initWithEvent:(id)event
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   metadata = [eventCopy metadata];
   serializedInteraction = [MEMORY[0x1E6997990] serializedInteraction];
@@ -190,9 +190,9 @@
 
   if (v7)
   {
-    v18 = 0;
-    v8 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v7 error:&v18];
-    v9 = v18;
+    v17 = 0;
+    v8 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v7 error:&v17];
+    v9 = v17;
     if (v8)
     {
       uUID = [eventCopy UUID];
@@ -210,11 +210,11 @@
       if (os_log_type_enabled(uUID, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v20 = "[VCInteractionDonation initWithEvent:]";
-        v21 = 2112;
-        v22 = eventCopy;
-        v23 = 2112;
-        v24 = v9;
+        v19 = "[VCInteractionDonation initWithEvent:]";
+        v20 = 2112;
+        v21 = eventCopy;
+        v22 = 2112;
+        v23 = v9;
         _os_log_impl(&dword_1B1DE3000, uUID, OS_LOG_TYPE_DEFAULT, "%s Failed to unarchive interaction data for event: %@, error: %@", buf, 0x20u);
       }
 
@@ -229,16 +229,15 @@
     {
       metadata2 = [eventCopy metadata];
       *buf = 136315394;
-      v20 = "[VCInteractionDonation initWithEvent:]";
-      v21 = 2112;
-      v22 = metadata2;
+      v19 = "[VCInteractionDonation initWithEvent:]";
+      v20 = 2112;
+      v21 = metadata2;
       _os_log_impl(&dword_1B1DE3000, v9, OS_LOG_TYPE_DEFAULT, "%s Missing interaction data from event.metadata=%@", buf, 0x16u);
     }
 
     selfCopy = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

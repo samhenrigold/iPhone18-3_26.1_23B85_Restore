@@ -96,37 +96,37 @@ LABEL_15:
 
 - (id)serializeWithError:(id *)error
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
+  v38 = *MEMORY[0x1E69E9840];
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
+  v21 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v17 = 0u;
   TLV8BufferInit();
   identifier = [(HMNetworkRouterWANStatus *)self identifier];
 
   if (identifier)
   {
     identifier2 = [(HMNetworkRouterWANStatus *)self identifier];
-    v17 = 0;
-    v7 = [identifier2 serializeWithError:&v17];
-    v8 = v17;
+    v16 = 0;
+    v7 = [identifier2 serializeWithError:&v16];
+    v8 = v16;
 
     if (v8)
     {
@@ -158,15 +158,15 @@ LABEL_9:
   if (!status)
   {
 LABEL_11:
-    v13 = [MEMORY[0x1E695DEF0] dataWithBytes:v18 length:?];
+    v13 = [MEMORY[0x1E695DEF0] dataWithBytes:v17 length:?];
     v8 = 0;
     goto LABEL_14;
   }
 
   status2 = [(HMNetworkRouterWANStatus *)self status];
-  v16 = 0;
-  v7 = [status2 serializeWithError:&v16];
-  v8 = v16;
+  v15 = 0;
+  v7 = [status2 serializeWithError:&v15];
+  v8 = v15;
 
   if (!v8)
   {
@@ -196,8 +196,6 @@ LABEL_13:
   v13 = 0;
 LABEL_14:
   TLV8BufferFree();
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

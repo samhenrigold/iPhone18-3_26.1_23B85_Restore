@@ -1258,14 +1258,14 @@ LABEL_3:
       }
 
 LABEL_69:
-      v65 = 0.0;
+      v46 = 0.0;
       if ((v2 & 0x40000) != 0)
       {
         goto LABEL_7;
       }
 
 LABEL_70:
-      v64 = 0.0;
+      v45 = 0.0;
       if ((v2 & 2) != 0)
       {
         goto LABEL_10;
@@ -1297,7 +1297,7 @@ LABEL_4:
     v5 = 0.0;
   }
 
-  v65 = v5;
+  v46 = v5;
   if ((v2 & 0x40000) == 0)
   {
     goto LABEL_70;
@@ -1310,11 +1310,11 @@ LABEL_7:
     v6 = 0.0;
   }
 
-  v64 = v6;
+  v45 = v6;
   if ((v2 & 2) != 0)
   {
 LABEL_10:
-    v63 = *(this + 29);
+    v44 = *(this + 29);
     if ((v2 & 0x10) != 0)
     {
       goto LABEL_11;
@@ -1324,18 +1324,18 @@ LABEL_10:
   }
 
 LABEL_71:
-  v63 = 0;
+  v44 = 0;
   if ((v2 & 0x10) != 0)
   {
 LABEL_11:
-    v62 = *(this + 32);
+    v43 = *(this + 32);
     if ((v2 & 0x20) != 0)
     {
       goto LABEL_12;
     }
 
 LABEL_73:
-    v61 = 0.0;
+    v42 = 0.0;
     if ((v2 & 0x100) != 0)
     {
       goto LABEL_15;
@@ -1394,7 +1394,7 @@ LABEL_80:
   }
 
 LABEL_72:
-  v62 = 0;
+  v43 = 0;
   if ((v2 & 0x20) == 0)
   {
     goto LABEL_73;
@@ -1407,7 +1407,7 @@ LABEL_12:
     v7 = 0.0;
   }
 
-  v61 = v7;
+  v42 = v7;
   if ((v2 & 0x100) == 0)
   {
     goto LABEL_74;
@@ -1786,34 +1786,15 @@ LABEL_65:
 LABEL_66:
   v32 = *(this + 390);
 LABEL_99:
-  v33 = v4 ^ v3 ^ *&v65 ^ *&v64 ^ v63 ^ v62 ^ *&v61 ^ v8 ^ v9 ^ v10 ^ v11 ^ v12 ^ v13 ^ v14 ^ v15 ^ v16 ^ v17 ^ v18 ^ v19 ^ v20 ^ v21 ^ v22 ^ v23 ^ v24 ^ v25 ^ v26 ^ v27 ^ v28 ^ v29;
-  v34 = *(this + 4);
-  v35 = *(this + 5);
-  v36 = v33 ^ v30 ^ v31 ^ v32 ^ PBHashBytes();
-  v37 = *(this + 1);
-  v38 = *(this + 2);
-  v39 = PBHashBytes();
-  v40 = *(this + 7);
-  v41 = *(this + 8);
-  v42 = v39 ^ PBHashBytes();
-  v43 = *(this + 13);
-  v44 = *(this + 14);
-  v45 = v36 ^ v42 ^ PBHashBytes();
-  v46 = *(this + 10);
-  v47 = *(this + 11);
-  v48 = PBHashBytes();
-  v49 = *(this + 16);
-  v50 = *(this + 17);
-  v51 = v48 ^ PBHashBytes();
-  v52 = *(this + 22);
-  v53 = *(this + 23);
-  v54 = v51 ^ PBHashBytes();
-  v55 = *(this + 19);
-  v56 = *(this + 20);
-  v57 = v45 ^ v54 ^ PBHashBytes();
-  v58 = *(this + 25);
-  v59 = *(this + 26);
-  return v57 ^ PBHashBytes();
+  v33 = v4 ^ v3 ^ *&v46 ^ *&v45 ^ v44 ^ v43 ^ *&v42 ^ v8 ^ v9 ^ v10 ^ v11 ^ v12 ^ v13 ^ v14 ^ v15 ^ v16 ^ v17 ^ v18 ^ v19 ^ v20 ^ v21 ^ v22 ^ v23 ^ v24 ^ v25 ^ v26 ^ v27 ^ v28 ^ v29 ^ v30 ^ v31 ^ v32 ^ PBHashBytes();
+  v34 = PBHashBytes();
+  v35 = v34 ^ PBHashBytes();
+  v36 = v33 ^ v35 ^ PBHashBytes();
+  v37 = PBHashBytes();
+  v38 = v37 ^ PBHashBytes();
+  v39 = v38 ^ PBHashBytes();
+  v40 = v36 ^ v39 ^ PBHashBytes();
+  return v40 ^ PBHashBytes();
 }
 
 uint64_t CMMsl::FallDistanceReplay::FallDistanceReplay(uint64_t this)
@@ -3724,7 +3705,7 @@ float CMMsl::FallFalsePositiveSuppressionFeatures::FallFalsePositiveSuppressionF
   return result;
 }
 
-CMMsl *CMMsl::FallFalsePositiveSuppressionFeatures::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::FallFalsePositiveSuppressionFeatures::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -5802,7 +5783,7 @@ float CMMsl::FallMetaData::FallMetaData(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::FallMetaData::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::FallMetaData::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -7622,23 +7603,23 @@ void CMMsl::FallSnippet::~FallSnippet(CMMsl::FallSnippet *this)
   operator delete();
 }
 
-uint64_t CMMsl::FallSnippet::FallSnippet(uint64_t this, const CMMsl::FallSnippet *a2)
+CMMsl::FallSnippet *CMMsl::FallSnippet::FallSnippet(CMMsl::FallSnippet *this, const CMMsl::FallSnippet *a2)
 {
   *this = off_10041E428;
-  *(this + 8) = 0;
-  *(this + 32) = 0u;
-  *(this + 16) = 0;
-  *(this + 48) = 0u;
-  *(this + 64) = 0u;
-  *(this + 80) = 0u;
-  *(this + 96) = 0u;
-  *(this + 112) = 0u;
-  *(this + 128) = 0;
+  *(this + 1) = 0;
+  *(this + 2) = 0u;
+  *(this + 2) = 0;
+  *(this + 3) = 0u;
+  *(this + 4) = 0u;
+  *(this + 5) = 0u;
+  *(this + 6) = 0u;
+  *(this + 7) = 0u;
+  *(this + 32) = 0;
   if (*(a2 + 128))
   {
     v2 = *(a2 + 3);
     *(this + 128) = 1;
-    *(this + 24) = v2;
+    *(this + 3) = v2;
   }
 
   if (*(a2 + 11))
@@ -7714,7 +7695,7 @@ uint64_t CMMsl::FallSnippet::FallSnippet(uint64_t this, const CMMsl::FallSnippet
   return this;
 }
 
-uint64_t CMMsl::FallSnippet::operator=(uint64_t a1, const CMMsl::FallSnippet *a2)
+CMMsl *CMMsl::FallSnippet::operator=(CMMsl *a1, const CMMsl::FallSnippet *a2)
 {
   if (a1 != a2)
   {
@@ -8448,7 +8429,6 @@ uint64_t CMMsl::FallSnippet::writeTo(uint64_t this, PB::Writer *a2)
 
 BOOL CMMsl::FallSnippet::operator==(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a2 + 128);
   if (*(a1 + 128))
   {
     if ((*(a2 + 128) & 1) == 0 || *(a1 + 24) != *(a2 + 24))
@@ -8462,224 +8442,224 @@ BOOL CMMsl::FallSnippet::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v5 = *(a1 + 88);
-  v6 = *(a2 + 88);
-  if (v5)
+  v4 = *(a1 + 88);
+  v5 = *(a2 + 88);
+  if (v4)
   {
-    if (!v6 || !CMMsl::FallMetaData::operator==(v5, v6))
+    if (!v5 || !CMMsl::FallMetaData::operator==(v4, v5))
     {
       return 0;
     }
   }
 
-  else if (v6)
+  else if (v5)
   {
     return 0;
   }
 
-  v7 = *(a1 + 8);
-  v8 = *(a2 + 8);
-  if (v7)
+  v6 = *(a1 + 8);
+  v7 = *(a2 + 8);
+  if (v6)
   {
-    if (!v8 || !CMMsl::Accel::operator==(v7, v8))
+    if (!v7 || !CMMsl::Accel::operator==(v6, v7))
     {
       return 0;
     }
   }
 
-  else if (v8)
+  else if (v7)
   {
     return 0;
   }
 
-  v9 = *(a1 + 16);
-  v10 = *(a2 + 16);
-  if (v9)
+  v8 = *(a1 + 16);
+  v9 = *(a2 + 16);
+  if (v8)
   {
-    if (!v10 || !CMMsl::Accel::operator==(v9, v10))
+    if (!v9 || !CMMsl::Accel::operator==(v8, v9))
     {
       return 0;
     }
   }
 
-  else if (v10)
+  else if (v9)
   {
     return 0;
   }
 
-  v11 = *(a1 + 64);
-  v12 = *(a2 + 64);
-  if (v11)
+  v10 = *(a1 + 64);
+  v11 = *(a2 + 64);
+  if (v10)
   {
-    if (!v12 || !CMMsl::Gyro::operator==(v11, v12))
+    if (!v11 || !CMMsl::Gyro::operator==(v10, v11))
     {
       return 0;
     }
   }
 
-  else if (v12)
+  else if (v11)
   {
     return 0;
   }
 
-  v13 = *(a1 + 72);
-  v14 = *(a2 + 72);
-  if (v13)
+  v12 = *(a1 + 72);
+  v13 = *(a2 + 72);
+  if (v12)
   {
-    if (!v14 || !CMMsl::Gyro::operator==(v13, v14))
+    if (!v13 || !CMMsl::Gyro::operator==(v12, v13))
     {
       return 0;
     }
   }
 
-  else if (v14)
+  else if (v13)
   {
     return 0;
   }
 
-  v15 = *(a1 + 32);
-  v16 = *(a2 + 32);
-  if (v15)
+  v14 = *(a1 + 32);
+  v15 = *(a2 + 32);
+  if (v14)
   {
-    if (!v16 || !CMMsl::DeviceMotion::operator==(v15, v16))
+    if (!v15 || !CMMsl::DeviceMotion::operator==(v14, v15))
     {
       return 0;
     }
   }
 
-  else if (v16)
+  else if (v15)
   {
     return 0;
   }
 
-  v17 = *(a1 + 104);
-  v18 = *(a2 + 104);
-  if (v17)
+  v16 = *(a1 + 104);
+  v17 = *(a2 + 104);
+  if (v16)
   {
-    if (!v18 || !CMMsl::Pressure::operator==(v17, v18))
+    if (!v17 || !CMMsl::Pressure::operator==(v16, v17))
     {
       return 0;
     }
   }
 
-  else if (v18)
+  else if (v17)
   {
     return 0;
   }
 
-  v19 = *(a1 + 80);
-  v20 = *(a2 + 80);
-  if (v19)
+  v18 = *(a1 + 80);
+  v19 = *(a2 + 80);
+  if (v18)
   {
-    if (!v20)
+    if (!v19)
     {
       return 0;
     }
 
+    v20 = *(v18 + 8);
     v21 = *(v19 + 8);
-    v22 = *(v20 + 8);
-    if (v21)
+    if (v20)
     {
-      if (!v22 || !CMMsl::OnsetHeartRateData::operator==(v21, v22))
+      if (!v21 || !CMMsl::OnsetHeartRateData::operator==(v20, v21))
       {
         return 0;
       }
     }
 
-    else if (v22)
+    else if (v21)
     {
       return 0;
     }
   }
 
-  else if (v20)
+  else if (v19)
   {
     return 0;
   }
 
-  v23 = *(a1 + 120);
-  v24 = *(a2 + 120);
-  if (v23)
+  v22 = *(a1 + 120);
+  v23 = *(a2 + 120);
+  if (v22)
   {
-    if (!v24 || !CMMsl::WatchOnWristState::operator==(v23, v24))
+    if (!v23 || !CMMsl::WatchOnWristState::operator==(v22, v23))
     {
       return 0;
     }
   }
 
-  else if (v24)
+  else if (v23)
   {
     return 0;
   }
 
-  v25 = *(a1 + 48);
-  v26 = *(a2 + 48);
-  if (v25)
+  v24 = *(a1 + 48);
+  v25 = *(a2 + 48);
+  if (v24)
   {
-    if (!v26 || !CMMsl::FallState::operator==(v25, v26))
+    if (!v25 || !CMMsl::FallState::operator==(v24, v25))
     {
       return 0;
     }
   }
 
-  else if (v26)
+  else if (v25)
   {
     return 0;
   }
 
-  v27 = *(a1 + 56);
-  v28 = *(a2 + 56);
-  if (v27)
+  v26 = *(a1 + 56);
+  v27 = *(a2 + 56);
+  if (v26)
   {
-    if (!v28 || !CMMsl::FallStats::operator==(v27, v28))
+    if (!v27 || !CMMsl::FallStats::operator==(v26, v27))
     {
       return 0;
     }
   }
 
-  else if (v28)
+  else if (v27)
   {
     return 0;
   }
 
-  v29 = *(a1 + 112);
-  v30 = *(a2 + 112);
-  if (v29)
+  v28 = *(a1 + 112);
+  v29 = *(a2 + 112);
+  if (v28)
   {
-    if (!v30 || !CMMsl::FallFalsePositiveSuppressionFeatures::operator==(v29, v30))
+    if (!v29 || !CMMsl::FallFalsePositiveSuppressionFeatures::operator==(v28, v29))
     {
       return 0;
     }
   }
 
-  else if (v30)
+  else if (v29)
   {
     return 0;
   }
 
-  v31 = *(a1 + 40);
-  v32 = *(a2 + 40);
-  if (v31)
+  v30 = *(a1 + 40);
+  v31 = *(a2 + 40);
+  if (v30)
   {
-    if (!v32 || !CMMsl::DeviceMotion::operator==(v31, v32))
+    if (!v31 || !CMMsl::DeviceMotion::operator==(v30, v31))
     {
       return 0;
     }
   }
 
-  else if (v32)
+  else if (v31)
   {
     return 0;
   }
 
-  v33 = *(a2 + 96);
-  result = v33 == 0;
+  v32 = *(a2 + 96);
+  result = v32 == 0;
   if (!*(a1 + 96))
   {
     return result;
   }
 
-  return v33 && CMMsl::OdometerWithAltitude::operator==(*(a1 + 96), v33);
+  return v32 && CMMsl::OdometerWithAltitude::operator==(*(a1 + 96), v32);
 }
 
 BOOL CMMsl::Pressure::operator==(uint64_t a1, uint64_t a2)

@@ -125,30 +125,30 @@ double matrix4x4_rotation(float a1, float32x4_t a2)
   return *v5.i64;
 }
 
-void sub_1C7F101E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, ...)
+void sub_1C7F101E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F10598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C7F10598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v16 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
-  v20 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v23 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
 
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v14 - 112), 8);
+  _Block_object_dispose((v21 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F12C98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *__p, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, char a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, void *a62, uint64_t a63)
+void sub_1C7F12C98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *__p, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, void *a62, uint64_t a63)
 {
   if (__p)
   {
@@ -167,14 +167,12 @@ void sub_1C7F12C98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __n128 __Block_byref_object_copy__24(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -243,16 +241,16 @@ id _PKSignpostLog()
   return v1;
 }
 
-void sub_1C7F1A794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7F1A794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F1D984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1C7F1D984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -264,9 +262,9 @@ uint64_t __Block_byref_object_copy__25(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C7F1DCAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1C7F1DCAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -284,9 +282,9 @@ __CFString *PKTextInputDescriptionForReserveSpaceState(unint64_t a1)
   }
 }
 
-void sub_1C7F21290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C7F21290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -354,16 +352,16 @@ void versioned_document::Version::~Version(void ***this)
   JUMPOUT(0x1CCA6ECB0);
 }
 
-uint64_t versioned_document::Version::Version(uint64_t this, const versioned_document::Version *a2)
+versioned_document::Version *versioned_document::Version::Version(versioned_document::Version *this, const versioned_document::Version *a2)
 {
   *this = &unk_1F476A888;
-  *(this + 8) = 0;
-  *(this + 24) = 0;
+  *(this + 1) = 0;
+  *(this + 6) = 0;
   if ((*(a2 + 24) & 2) != 0)
   {
     v3 = *(a2 + 5);
     *(this + 24) = 2;
-    *(this + 20) = v3;
+    *(this + 5) = v3;
     v2 = 3;
     if ((*(a2 + 24) & 1) == 0)
     {
@@ -379,7 +377,7 @@ uint64_t versioned_document::Version::Version(uint64_t this, const versioned_doc
 LABEL_5:
     v4 = *(a2 + 4);
     *(this + 24) = v2;
-    *(this + 16) = v4;
+    *(this + 4) = v4;
   }
 
 LABEL_6:
@@ -509,7 +507,7 @@ uint64_t versioned_document::Version::formatText(versioned_document::Version *th
   return MEMORY[0x1EEE30A90](a2);
 }
 
-uint64_t versioned_document::Version::readFrom(versioned_document::Version *this, PB::Reader *a2)
+uint64_t versioned_document::Version::readFrom(void ***this, PB::Reader *a2)
 {
   v2 = *(a2 + 1);
   v3 = *(a2 + 2);
@@ -821,7 +819,7 @@ uint64_t versioned_document::Version::writeTo(uint64_t this, PB::Writer *a2)
   return this;
 }
 
-BOOL versioned_document::Version::operator==(uint64_t a1, uint64_t a2)
+BOOL versioned_document::Version::operator==(uint64_t a1, uint64_t a2, __n128 a3)
 {
   if ((*(a1 + 24) & 2) != 0)
   {
@@ -921,14 +919,14 @@ void sub_1C7F2A624(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F2ABF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7F2ABF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   PB::Writer::~Writer(va1);
   legacy_drawing::VectorTimestamp::~VectorTimestamp(va);
   _Unwind_Resume(a1);
@@ -953,9 +951,9 @@ uint64_t __Block_byref_object_copy__26(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C7F2C110(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7F2C110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   _Unwind_Resume(a1);
 }
@@ -972,10 +970,10 @@ uint64_t std::vector<float>::~vector[abi:ne200100](uint64_t a1)
   return a1;
 }
 
-void std::vector<float>::resize(uint64_t a1, unint64_t a2)
+void std::vector<float>::resize(uint64_t *a1, unint64_t a2)
 {
   v3 = *a1;
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   v5 = (v4 - *a1) >> 2;
   if (a2 <= v5)
   {
@@ -990,7 +988,7 @@ void std::vector<float>::resize(uint64_t a1, unint64_t a2)
   else
   {
     v6 = a2 - v5;
-    v7 = *(a1 + 16);
+    v7 = a1[2];
     if (v6 > (v7 - v4) >> 2)
     {
       if (!(a2 >> 62))
@@ -1018,23 +1016,23 @@ void std::vector<float>::resize(uint64_t a1, unint64_t a2)
       std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
     }
 
-    bzero(*(a1 + 8), 4 * v6);
+    bzero(a1[1], 4 * v6);
     v11 = v4 + 4 * v6;
   }
 
-  *(a1 + 8) = v11;
+  a1[1] = v11;
 }
 
-void sub_1C7F2DE24(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7F2DE24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F314C4(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C7F314C4(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<PKNamedShaderKey,PKMetalShader * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<PKNamedShaderKey,PKMetalShader * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -1159,6 +1157,13 @@ double PK_transformToConvertFromCoordinateSpaceToCoordinateSpace@<D0>(void *a1@<
   a3[4] = v10;
   a3[5] = v12;
   return result;
+}
+
+void sub_1C7F361EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 __CFString *PKTextInputDescriptionForResultCommandState(unint64_t a1)
@@ -1736,15 +1741,15 @@ void sub_1C7F3E744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a20)
   {
-    (*(*a20 + 40))(a20);
+    (*(*a20 + 40))(a20, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F40BB0(_Unwind_Exception *a1, void *a2, void *a3, void *a4, uint64_t a5, ...)
+void sub_1C7F40BB0(_Unwind_Exception *a1, void *a2, void *a3, void *a4, uint64_t a5, void *a6, void *a7, void *a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
 
   std::vector<PKOutputFunction>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -1814,9 +1819,9 @@ id PKProtobufUtilitiesNSDataFromArchiveWithHeader<drawing::Drawing>(uint64_t a1,
   return v5;
 }
 
-void sub_1C7F480DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1C7F480DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   PB::Writer::~Writer(va);
   _Unwind_Resume(a1);
 }
@@ -1828,15 +1833,15 @@ void sub_1C7F4829C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F48444(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7F48444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   legacy_drawing::Drawing::~Drawing(va);
 
   _Unwind_Resume(a1);
 }
 
-void *std::vector<PB::Data>::reserve(void *result, unint64_t a2)
+void ***std::vector<PB::Data>::reserve(void ***result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
@@ -1851,22 +1856,22 @@ void *std::vector<PB::Data>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_1C7F49C2C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7F49C2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<PB::Data>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F4A994(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7F4A994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  PB::Writer::~Writer((v2 - 40));
+  va_start(va, a3);
+  PB::Writer::~Writer((v3 - 40));
   drawingV1::Drawing::~Drawing(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<std::unique_ptr<drawing::Stroke>>::reserve(void *result, unint64_t a2)
+const void **std::vector<std::unique_ptr<drawing::Stroke>>::reserve(const void **result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 3)
   {
@@ -2543,24 +2548,31 @@ void __destructor_8_s0_s8_s16(uint64_t a1)
   v2 = *(a1 + 16);
 }
 
-void sub_1C7F5081C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1C7F5081C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   __destructor_8_s0_s8_s16(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F5095C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7F5095C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __destructor_8_s0_s8_s16(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F50A6C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7F50A6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __destructor_8_s0_s8_s16(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7F511AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2688,7 +2700,7 @@ BOOL PKRulerExtremaFilter::isReversal(PKRulerExtremaFilter *this)
   return result;
 }
 
-void sub_1C7F524A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location)
+void sub_1C7F524A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location)
 {
   _Block_object_dispose(&a16, 8);
   objc_destroyWeak((v26 + 40));
@@ -3391,9 +3403,9 @@ LABEL_4:
   return v2 ^ v1 ^ v3;
 }
 
-void sub_1C7F54F88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1C7F54F88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3412,35 +3424,34 @@ void sub_1C7F5515C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F55334(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C7F55334(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PKAutoRefineQuery;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void *std::vector<CGRect>::reserve(void *result, unint64_t a2)
+void std::vector<CGRect>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 5)
+  if (a2 > (a1[2] - *a1) >> 5)
   {
     if (!(a2 >> 59))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<CGRect>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<CGRect>>(a1, a2);
     }
 
     std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void sub_1C7F56AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1C7F56AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 160), 8);
-  _Block_object_dispose((v29 - 112), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 160), 8);
+  _Block_object_dispose((v28 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3738,7 +3749,7 @@ uint64_t drawing::StrokeData::StrokeData(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-drawing *drawing::StrokeData::operator=(drawing *a1, uint64_t a2)
+drawing *drawing::StrokeData::operator=(drawing *a1, drawing *a2)
 {
   if (a1 != a2)
   {
@@ -3823,7 +3834,7 @@ LABEL_5:
   return MEMORY[0x1EEE30A90](a2);
 }
 
-uint64_t drawing::StrokeData::readFrom(drawing::StrokeData *this, PB::Reader *a2)
+uint64_t drawing::StrokeData::readFrom(void ***this, PB::Reader *a2)
 {
   v2 = *(a2 + 1);
   v3 = *(a2 + 2);
@@ -3863,7 +3874,7 @@ uint64_t drawing::StrokeData::readFrom(drawing::StrokeData *this, PB::Reader *a2
         {
 LABEL_17:
           v22 = 0;
-          LODWORD(v23) = 0;
+          v23 = 0;
           goto LABEL_18;
         }
       }
@@ -4027,7 +4038,7 @@ LABEL_118:
             }
 
 LABEL_141:
-            *(this + 1) = v71;
+            this[1] = v71;
             goto LABEL_142;
           case 0xA:
             *(this + 84) |= 0x10u;
@@ -4112,7 +4123,7 @@ LABEL_102:
             }
 
 LABEL_135:
-            *(this + 7) = v39;
+            this[7] = v39;
             goto LABEL_142;
         }
       }
@@ -4131,7 +4142,7 @@ LABEL_135:
         v43 = *(a2 + 1);
         if (v43 <= 0xFFFFFFFFFFFFFFF7 && v43 + 8 <= *(a2 + 2))
         {
-          *(this + 9) = *(*a2 + v43);
+          this[9] = *(*a2 + v43);
           *(a2 + 1) += 8;
         }
 
@@ -4231,7 +4242,7 @@ LABEL_86:
           }
 
 LABEL_129:
-          *(this + 4) = v49;
+          this[4] = v49;
           goto LABEL_142;
         case 4:
           *(this + 84) |= 8u;
@@ -4316,7 +4327,7 @@ LABEL_110:
           }
 
 LABEL_138:
-          *(this + 6) = v62;
+          this[6] = v62;
           goto LABEL_142;
         case 5:
           *(this + 84) |= 2u;
@@ -4401,13 +4412,13 @@ LABEL_94:
           }
 
 LABEL_132:
-          *(this + 2) = v30;
+          this[2] = v30;
           goto LABEL_142;
       }
     }
 
 LABEL_18:
-    v24 = *(this + 11);
+    v24 = this[11];
     if (!v24)
     {
       operator new();
@@ -4428,9 +4439,9 @@ LABEL_142:
   return v106 & 1;
 }
 
-void sub_1C7F57C30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7F57C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<PKProtobufUnknownFields>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4808,9 +4819,9 @@ LABEL_25:
   return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ v7 ^ v8 ^ v9 ^ v10 ^ v11;
 }
 
-void sub_1C7F59F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7F59F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4866,14 +4877,14 @@ void sub_1C7F5CB98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F5CD6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1C7F5CD6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F5D2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1C7F5D2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -4939,7 +4950,7 @@ id drawingStrokesFromStrokes(void *a1, void *a2)
   return v12;
 }
 
-void sub_1C7F5FA74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1C7F5FA74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   v23 = v22;
 
@@ -4947,7 +4958,7 @@ void sub_1C7F5FA74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F5FC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1C7F5FC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   v22 = v21;
 
@@ -4955,7 +4966,7 @@ void sub_1C7F5FC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F5FE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1C7F5FE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -4993,28 +5004,28 @@ void sub_1C7F67374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F6804C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C7F6804C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F681F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C7F681F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F6A310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C7F6A310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 112), 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 112), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5161,13 +5172,13 @@ uint64_t PKFountainPenFilter::copyUpdatedRangeFromIndex(uint64_t a1, uint64_t a2
 
   else
   {
-    return (*(**(a1 + 8) + 24))();
+    return (*(**(a1 + 8) + 24))(*(a1 + 8), a2, a3);
   }
 }
 
-void sub_1C7F6D890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7F6D890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5183,7 +5194,7 @@ void __getPNPWelcomeControllerClass_block_invoke(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "PNPWelcomeController");
     PencilPairingUILibrary();
   }
 }
@@ -5213,14 +5224,14 @@ void PencilPairingUILibrary()
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
 }
 
-uint64_t __PencilPairingUILibraryCore_block_invoke()
+uint64_t __PencilPairingUILibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   PencilPairingUILibraryCore_frameworkLibrary = result;
@@ -5239,7 +5250,7 @@ PKPaletteContainerView *__getPNPWizardViewControllerClass_block_invoke(uint64_t 
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "PNPWizardViewController");
     return [(PKPaletteContainerView *)v3 initWithFrame:v4, v5];
   }
 
@@ -5277,7 +5288,7 @@ void sub_1C7F744CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F74B84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id location, id a37, id a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, void *__p, uint64_t a49)
+void sub_1C7F74B84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id location, id a37, id a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, void *__p, uint64_t a49)
 {
   objc_destroyWeak((v52 + 56));
   objc_destroyWeak((v55 + 48));
@@ -5317,14 +5328,12 @@ void sub_1C7F75274(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __n128 __Block_byref_object_copy__33(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -5347,7 +5356,7 @@ void sub_1C7F75428(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F75EE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, id location)
+void sub_1C7F75EE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location)
 {
   objc_destroyWeak((v26 + 64));
   _Block_object_dispose(&a22, 8);
@@ -5470,9 +5479,9 @@ LABEL_27:
   return v10;
 }
 
-void sub_1C7F77C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C7F77C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5658,36 +5667,36 @@ void sub_1C7F7D2D0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::vector<TimestampedPoint>::resize(void *a1, unint64_t a2)
+void std::vector<TimestampedPoint>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 3);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<TimestampedPoint>::__append(a1, v4);
+    std::vector<TimestampedPoint>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 24 * a2;
+    result[1] = *result + 24 * a2;
   }
 }
 
-void std::vector<TimestampedAngles>::resize(void *a1, unint64_t a2)
+void std::vector<TimestampedAngles>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 5;
+  v2 = (result[1] - *result) >> 5;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 32 * a2;
+      result[1] = *result + 32 * a2;
     }
   }
 
   else
   {
-    std::vector<TimestampedAngles>::__append(a1, a2 - v2);
+    std::vector<TimestampedAngles>::__append(result, a2 - v2);
   }
 }
 
@@ -6249,9 +6258,9 @@ LABEL_10:
   return Mutable;
 }
 
-void sub_1C7F8B228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7F8B228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6354,9 +6363,9 @@ uint64_t PKIsQuickNoteWindowScene(void *a1)
   return isKindOfClass & 1;
 }
 
-void sub_1C7F8CD1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7F8CD1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6753,7 +6762,7 @@ uint64_t PKCurrentEnvironmentSupportsProofreading()
   return result;
 }
 
-uint64_t PKIsToolPickerGlassEffectEnabled()
+uint64_t PKIsToolPickerGlassEffectEnabled(uint64_t a1, uint64_t a2)
 {
   result = _UISolariumEnabled();
   if (result)
@@ -6789,7 +6798,7 @@ Class __getSBSUISystemNotesWindowSceneClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -6800,33 +6809,33 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "SBSUISystemNotesWindowScene");
   }
 
   qword_1ED6A54F0 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t __SpringBoardUIServicesLibraryCore_block_invoke()
+uint64_t __SpringBoardUIServicesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED6A54F8 = result;
   return result;
 }
 
-uint64_t __MobileKeyBagLibraryCore_block_invoke()
+uint64_t __MobileKeyBagLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   MobileKeyBagLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-void sub_1C7F8DBC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C7F8DBC0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = PKSpaceInsertionView;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -6855,9 +6864,9 @@ void sub_1C7F91268(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F92FA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7F92FA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6869,9 +6878,9 @@ uint64_t __Block_byref_object_copy__35(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C7F94E98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7F94E98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6930,7 +6939,7 @@ void drawing::StrokeDelta::~StrokeDelta(drawing::StrokeDelta *this)
   JUMPOUT(0x1CCA6ECB0);
 }
 
-drawing::StrokeDelta *drawing::StrokeDelta::StrokeDelta(PB::Data **this, PB::Data **a2)
+PB::Data **drawing::StrokeDelta::StrokeDelta(PB::Data **this, PB::Data **a2)
 {
   *this = &unk_1F476AEE0;
   *(this + 1) = 0u;
@@ -7267,17 +7276,17 @@ uint64_t drawing::StrokeDelta::writeTo(uint64_t this, PB::Writer *a2)
   return this;
 }
 
-uint64_t drawing::StrokeDelta::operator==(void *a1, void *a2)
+uint64_t drawing::StrokeDelta::operator==(void *a1, void *a2, __n128 a3)
 {
-  v2 = a1[2];
-  v3 = a1[3];
-  v4 = a2[2];
-  if (v3 - v2 != a2[3] - v4)
+  v3 = a1[2];
+  v4 = a1[3];
+  v5 = a2[2];
+  if (v4 - v3 != a2[3] - v5)
   {
     return 0;
   }
 
-  while (v2 != v3)
+  while (v3 != v4)
   {
     result = PB::Data::operator==();
     if (!result)
@@ -7285,50 +7294,50 @@ uint64_t drawing::StrokeDelta::operator==(void *a1, void *a2)
       return result;
     }
 
-    v2 += 16;
-    v4 += 16;
+    v3 += 16;
+    v5 += 16;
   }
 
-  v8 = a1[1];
-  v9 = a2[1];
-  if (v8)
+  v9 = a1[1];
+  v10 = a2[1];
+  if (v9)
   {
-    if (!v9 || !drawing::Ink::operator==(v8, v9) && a1[1] | a2[1])
+    if (!v10 || !drawing::Ink::operator==(v9, v10) && a1[1] | a2[1])
     {
       return 0;
     }
   }
 
-  else if (v9)
+  else if (v10)
   {
     return 0;
   }
 
-  v10 = a1[5];
-  v11 = a2[5];
-  if (v10)
+  v11 = a1[5];
+  v12 = a2[5];
+  if (v11)
   {
-    if (!v11 || (drawing::Stroke::operator==(v10, v11) & 1) == 0 && a1[5] | a2[5])
+    if (!v12 || (drawing::Stroke::operator==(v11, v12) & 1) == 0 && a1[5] | a2[5])
     {
       return 0;
     }
   }
 
-  else if (v11)
+  else if (v12)
   {
     return 0;
   }
 
-  v12 = a1[6];
-  if (!v12)
+  v13 = a1[6];
+  if (!v13)
   {
     return a2[6] == 0;
   }
 
-  v13 = a2[6];
-  if (v13)
+  v14 = a2[6];
+  if (v14)
   {
-    if (drawing::StrokeData::operator==(v12, v13))
+    if (drawing::StrokeData::operator==(v13, v14))
     {
       return 1;
     }
@@ -7394,9 +7403,9 @@ unint64_t drawing::StrokeDelta::hash_value(drawing::StrokeDelta *this)
   return v6 ^ v4 ^ v8 ^ v9;
 }
 
-uint64_t drawing::StrokeDelta::makeInk(uint64_t this)
+void *drawing::StrokeDelta::makeInk(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -7404,9 +7413,9 @@ uint64_t drawing::StrokeDelta::makeInk(uint64_t this)
   return this;
 }
 
-uint64_t drawing::StrokeDelta::makeStroke(uint64_t this)
+void *drawing::StrokeDelta::makeStroke(void *this)
 {
-  if (!*(this + 40))
+  if (!this[5])
   {
     operator new();
   }
@@ -7414,9 +7423,9 @@ uint64_t drawing::StrokeDelta::makeStroke(uint64_t this)
   return this;
 }
 
-uint64_t drawing::StrokeDelta::makeStrokeData(uint64_t this)
+void *drawing::StrokeDelta::makeStrokeData(void *this)
 {
-  if (!*(this + 48))
+  if (!this[6])
   {
     operator new();
   }
@@ -7438,9 +7447,9 @@ void sub_1C7F98878(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C7F9A8B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7F9A8B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7542,12 +7551,12 @@ void sub_1C7FA532C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t __copy_helper_block_ea8_40c54_ZTSNSt3__16vectorI12PKInputPointNS_9allocatorIS1_EEEE(uint64_t a1, uint64_t a2)
+uint64_t *__copy_helper_block_ea8_40c54_ZTSNSt3__16vectorI12PKInputPointNS_9allocatorIS1_EEEE(uint64_t a1, uint64_t a2)
 {
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  v2 = a1 + 40;
-  *(v2 + 16) = 0;
+  v2 = (a1 + 40);
+  v2[2] = 0;
   return std::vector<PKInputPoint>::__init_with_size[abi:ne200100]<PKInputPoint*,PKInputPoint*>(v2, *(a2 + 40), *(a2 + 48), 0xF0F0F0F0F0F0F0F1 * ((*(a2 + 48) - *(a2 + 40)) >> 3));
 }
 
@@ -7595,7 +7604,7 @@ void sub_1C7FA70DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C7FA7330(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24)
+void sub_1C7FA7330(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -7647,7 +7656,7 @@ uint64_t PKPixelSmoothingFilter::copyUpdatedRangeFromIndex(uint64_t a1, uint64_t
 {
   v6 = *a3;
   v5 = a3[1];
-  v7 = (*(**(a1 + 8) + 24))(*(a1 + 8));
+  v7 = (*(**(a1 + 8) + 24))(*(a1 + 8), a2);
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if ([WeakRetained isSnappedToRuler])
   {
@@ -8312,7 +8321,7 @@ void PKEstimatedAltitudeAndAzimuthFilter::drawingBeganWithInk(uint64_t a1, void 
   *(a1 + 96) = v13 & 1;
 }
 
-uint64_t PKEstimatedAltitudeAndAzimuthFilter::copyUpdatedRangeFromIndex(uint64_t a1, unint64_t a2, void *a3)
+uint64_t PKEstimatedAltitudeAndAzimuthFilter::copyUpdatedRangeFromIndex(uint64_t a1, int64_t a2, void *a3)
 {
   v6 = (*(**(a1 + 8) + 24))(*(a1 + 8));
   if (*(a1 + 88) != 1 || *(a1 + 96) != 1)
@@ -9015,7 +9024,7 @@ unint64_t PKDirectionAngleCalculationFilter::copyUpdatedRangeFromIndex(uint64_t 
 {
   v6 = *a3;
   v5 = a3[1];
-  v7 = (*(**(a1 + 8) + 24))(*(a1 + 8));
+  v7 = (*(**(a1 + 8) + 24))(*(a1 + 8), a2);
   v8 = a3[1];
   v9 = v8 - *a3;
   if (v8 != *a3 && *(a1 + 32) > 0.0)
@@ -9539,64 +9548,29 @@ void PKInputToOutputFilter::run(PKInputToOutputFilter *this)
     {
       WeakRetained = objc_loadWeakRetained(this + 13);
       v8 = WeakRetained;
-      v9 = *(this + 7);
-      v10 = *(this + 6) + v6;
-      v30[0] = *v10;
-      v11 = *(v10 + 64);
-      v13 = *(v10 + 16);
-      v12 = *(v10 + 32);
-      v30[3] = *(v10 + 48);
-      v30[4] = v11;
-      v30[1] = v13;
-      v30[2] = v12;
-      v15 = *(v10 + 96);
-      v14 = *(v10 + 112);
-      v16 = *(v10 + 80);
-      v31 = *(v10 + 128);
-      v30[6] = v15;
-      v30[7] = v14;
-      v30[5] = v16;
-      v28[0] = *(v9 - 136);
-      v17 = *(v9 - 104);
-      v18 = *(v9 - 72);
-      v19 = *(v9 - 120);
-      v28[3] = *(v9 - 88);
-      v28[4] = v18;
-      v28[1] = v19;
-      v28[2] = v17;
-      v20 = *(v9 - 40);
-      v21 = *(v9 - 24);
-      v22 = *(v9 - 56);
-      v29 = *(v9 - 8);
-      v28[6] = v20;
-      v28[7] = v21;
-      v28[5] = v22;
       if (WeakRetained)
       {
-        [WeakRetained outputCurrentStrokePoint:v30 lastPoint:v28];
+        v9 = *(this + 7);
+        objc_msgSend_outputCurrentStrokePoint_lastPoint_(WeakRetained, *(v9 - 136), *(v9 - 120), *(v9 - 104), *(v9 - 88), *(v9 - 72), *(v9 - 56), *(v9 - 40), *(v9 - 24), *(v9 - 8));
       }
 
       else
       {
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
-        v35 = 0u;
-        v32 = 0u;
-        v33 = 0u;
+        v15 = 0u;
+        v16 = 0u;
+        v13 = 0u;
+        v14 = 0u;
+        v11 = 0u;
+        v12 = 0u;
       }
 
-      v23 = (*(this + 10) + v5);
-      v24 = v33;
-      *v23 = v32;
-      v23[1] = v24;
-      v25 = v34;
-      v26 = v35;
-      v27 = v37;
-      v23[4] = v36;
-      v23[5] = v27;
-      v23[2] = v25;
-      v23[3] = v26;
+      v10 = (*(this + 10) + v5);
+      *v10 = v11;
+      v10[1] = v12;
+      v10[4] = v15;
+      v10[5] = v16;
+      v10[2] = v13;
+      v10[3] = v14;
 
       v5 += 96;
       v6 += 136;
@@ -9722,4 +9696,31 @@ uint64_t PKInputBaseFilter<_PKStrokePoint,_PKStrokePoint>::reset(uint64_t a1)
 
   *(a1 + 16) = 0;
   return result;
+}
+
+void PKAnimationFilter::drawingBeganWithInk(uint64_t a1, void *a2, uint64_t a3, double a4)
+{
+  v15 = a2;
+  PKInputBaseFilter<_PKStrokePoint,_PKStrokePoint>::drawingBeganWithInk(a1, v15, a3, a4);
+  v7 = [v15 behavior];
+  v8 = [v7 animationDescriptor];
+
+  if (v8)
+  {
+    v9 = [v15 behavior];
+    v10 = [v9 animationDescriptor];
+    [v10 duration];
+    *(a1 + 32) = v11;
+
+    v12 = [v15 behavior];
+    v13 = [v12 animationDescriptor];
+    [v13 sizeDelta];
+    *(a1 + 40) = v14;
+  }
+
+  else
+  {
+    *(a1 + 32) = 0;
+    *(a1 + 40) = 0;
+  }
 }

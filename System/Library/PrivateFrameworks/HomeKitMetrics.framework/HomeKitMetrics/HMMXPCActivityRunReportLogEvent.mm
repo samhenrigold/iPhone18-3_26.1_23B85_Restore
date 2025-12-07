@@ -7,25 +7,23 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v12[5] = *MEMORY[0x277D85DE8];
-  v11[0] = @"activityName";
+  v11[5] = *MEMORY[0x277D85DE8];
+  v10[0] = @"activityName";
   activityName = [(HMMXPCActivityRunReportLogEvent *)self activityName];
-  v12[0] = activityName;
-  v11[1] = @"activityShouldWake";
+  v11[0] = activityName;
+  v10[1] = @"activityShouldWake";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMMXPCActivityRunReportLogEvent activityShouldWake](self, "activityShouldWake")}];
-  v12[1] = v4;
-  v11[2] = @"activityDefinedIntervalInMinutes";
+  v11[1] = v4;
+  v10[2] = @"activityDefinedIntervalInMinutes";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMMXPCActivityRunReportLogEvent activityDefinedIntervalInMinutes](self, "activityDefinedIntervalInMinutes")}];
-  v12[2] = v5;
-  v11[3] = @"activityRunHourOfDay";
+  v11[2] = v5;
+  v10[3] = @"activityRunHourOfDay";
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMMXPCActivityRunReportLogEvent activityRunHourOfDay](self, "activityRunHourOfDay")}];
-  v12[3] = v6;
-  v11[4] = @"activityTimeSinceLastRunInMinutes";
+  v11[3] = v6;
+  v10[4] = @"activityTimeSinceLastRunInMinutes";
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMMXPCActivityRunReportLogEvent activityTimeSinceLastRunInMinutes](self, "activityTimeSinceLastRunInMinutes")}];
-  v12[4] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[4] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
 }

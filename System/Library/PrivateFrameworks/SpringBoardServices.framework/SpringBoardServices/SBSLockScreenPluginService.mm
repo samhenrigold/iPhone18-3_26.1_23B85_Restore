@@ -23,48 +23,54 @@
 
 - (void)enableLockScreenBundle:(id)bundle withContext:(id)context
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   v7 = [(SBSLockScreenPluginService *)self _serializedDataForContext:context];
   v8 = SBSSpringBoardServerPort();
-  v9 = SBEnableLockScreenBundle(v8, 1, [bundleCopy UTF8String], objc_msgSend(v7, "bytes"), objc_msgSend(v7, "length"));
-  if (v9)
+  uTF8String = [bundleCopy UTF8String];
+  [v7 bytes];
+  [v7 length];
+  v10 = SBEnableLockScreenBundle(v8, 1, uTF8String);
+  if (v10)
   {
-    v10 = v9;
-    v11 = SBLogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v11 = v10;
+    v12 = SBLogCommon(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412802;
+      v13 = 138412802;
       selfCopy = self;
-      v14 = 2114;
-      v15 = bundleCopy;
-      v16 = 2082;
-      v17 = mach_error_string(v10);
-      _os_log_error_impl(&dword_19169D000, v11, OS_LOG_TYPE_ERROR, "%@: Unable to enable bundle name %{public}@: %{public}s", &v12, 0x20u);
+      v15 = 2114;
+      v16 = bundleCopy;
+      v17 = 2082;
+      v18 = mach_error_string(v11);
+      _os_log_error_impl(&dword_19169D000, v12, OS_LOG_TYPE_ERROR, "%@: Unable to enable bundle name %{public}@: %{public}s", &v13, 0x20u);
     }
   }
 }
 
 - (void)disableLockScreenBundle:(id)bundle withContext:(id)context
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   v7 = [(SBSLockScreenPluginService *)self _serializedDataForContext:context];
   v8 = SBSSpringBoardServerPort();
-  v9 = SBEnableLockScreenBundle(v8, 0, [bundleCopy UTF8String], objc_msgSend(v7, "bytes"), objc_msgSend(v7, "length"));
-  if (v9)
+  uTF8String = [bundleCopy UTF8String];
+  [v7 bytes];
+  [v7 length];
+  v10 = SBEnableLockScreenBundle(v8, 0, uTF8String);
+  if (v10)
   {
-    v10 = v9;
-    v11 = SBLogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v11 = v10;
+    v12 = SBLogCommon(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412802;
+      v13 = 138412802;
       selfCopy = self;
-      v14 = 2114;
-      v15 = bundleCopy;
-      v16 = 2082;
-      v17 = mach_error_string(v10);
-      _os_log_error_impl(&dword_19169D000, v11, OS_LOG_TYPE_ERROR, "%@ Unable to disable bundle name %{public}@: %{public}s", &v12, 0x20u);
+      v15 = 2114;
+      v16 = bundleCopy;
+      v17 = 2082;
+      v18 = mach_error_string(v11);
+      _os_log_error_impl(&dword_19169D000, v12, OS_LOG_TYPE_ERROR, "%@ Unable to disable bundle name %{public}@: %{public}s", &v13, 0x20u);
     }
   }
 }

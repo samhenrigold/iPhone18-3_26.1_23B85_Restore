@@ -1,9 +1,27 @@
 @interface _APRSBiomeAppLaunchTimeEvent
++ (id)eventWithAppBundleID:(id)d activationTime:(unsigned int)time launchReason:(unsigned int)reason;
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version;
 - (id)serialize;
 @end
 
 @implementation _APRSBiomeAppLaunchTimeEvent
+
++ (id)eventWithAppBundleID:(id)d activationTime:(unsigned int)time launchReason:(unsigned int)reason
+{
+  v5 = *&reason;
+  v6 = *&time;
+  dCopy = d;
+  v8 = objc_alloc_init(objc_opt_class());
+  v9 = v8;
+  if (v8)
+  {
+    [v8 setBundleID:dCopy];
+    [v9 setActivationTime:v6];
+    [v9 setLaunchReason:v5];
+  }
+
+  return v9;
+}
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version
 {

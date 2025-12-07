@@ -37,7 +37,7 @@
         v8 = *(*(&v15 + 1) + 8 * i);
         [v8 _populateMetadataForBackwardCompatibility];
         objc_initWeak(&location, self);
-        v9 = objc_alloc(getLPLinkMetadataObserverClass());
+        v9 = objc_alloc((getLPLinkMetadataObserverClass)());
         v12[0] = MEMORY[0x1E69E9820];
         v12[1] = 3221225472;
         v12[2] = __57__SFUILoadedMetadataCollection__listenForMetadataChanges__block_invoke;

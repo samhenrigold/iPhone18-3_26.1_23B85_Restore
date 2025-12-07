@@ -1,8 +1,10 @@
 @interface AWDMETRICSKCellularPowerLogLteNrTxPowerHistHist
 - (BOOL)isEqual:(id)equal;
+- (id)chanTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)ratAsString:(int)string;
 - (int)StringAsChanType:(id)type;
 - (int)StringAsRat:(id)rat;
 - (int)chanType;
@@ -54,6 +56,29 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)ratAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"NR";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"LTE";
+  }
+
+  return v4;
+}
+
 - (int)StringAsRat:(id)rat
 {
   ratCopy = rat;
@@ -81,6 +106,29 @@
   {
     return 0;
   }
+}
+
+- (id)chanTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"PUCCH";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"PUSCH";
+  }
+
+  return v4;
 }
 
 - (int)StringAsChanType:(id)type
@@ -191,35 +239,32 @@
 {
   toCopy = to;
   has = self->_has;
-  v11 = toCopy;
+  v8 = toCopy;
   if ((has & 2) != 0)
   {
-    rat = self->_rat;
     PBDataWriterWriteInt32Field();
-    toCopy = v11;
+    toCopy = v8;
     has = self->_has;
   }
 
   if (has)
   {
-    chanType = self->_chanType;
     PBDataWriterWriteInt32Field();
-    toCopy = v11;
+    toCopy = v8;
   }
 
   p_counts = &self->_counts;
   if (p_counts->count)
   {
-    v9 = 0;
+    v7 = 0;
     do
     {
-      v10 = p_counts->list[v9];
       PBDataWriterWriteUint32Field();
-      toCopy = v11;
-      ++v9;
+      toCopy = v8;
+      ++v7;
     }
 
-    while (v9 < p_counts->count);
+    while (v7 < p_counts->count);
   }
 }
 
@@ -286,7 +331,6 @@
     goto LABEL_13;
   }
 
-  v5 = *(equalCopy + 40);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 40) & 2) == 0 || self->_rat != *(equalCopy + 9))

@@ -6,17 +6,17 @@
 
 + (__CFString)hkhr_prettyStringForDateArray:()HKHRLearnHypertensionJournalEntry
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a3;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     v7 = @"[";
     do
     {
@@ -24,12 +24,12 @@
       v9 = v7;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = [MEMORY[0x277CBEAA8] hkhr_ISO8601StringForDate:*(*(&v14 + 1) + 8 * v8)];
+        v10 = [MEMORY[0x277CBEAA8] hkhr_ISO8601StringForDate:*(*(&v13 + 1) + 8 * v8)];
         v7 = [(__CFString *)v9 stringByAppendingFormat:@"%@, ", v10];
 
         ++v8;
@@ -37,7 +37,7 @@
       }
 
       while (v5 != v8);
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -49,8 +49,6 @@
   }
 
   v11 = [(__CFString *)v7 stringByAppendingFormat:@"]"];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

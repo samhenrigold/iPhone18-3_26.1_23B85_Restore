@@ -1,35 +1,32 @@
 @interface NSData(HomeKit)
-- (id)hm_generateSHA1;
 - (id)hm_generateSHA256;
 - (id)hm_stringInHexFormat;
+- (unsigned)hm_generateSHA1;
 @end
 
 @implementation NSData(HomeKit)
 
 - (id)hm_generateSHA256
 {
-  v5 = *MEMORY[0x1E69E9840];
-  memset(v4, 0, sizeof(v4));
-  CC_SHA256([self bytes], objc_msgSend(self, "length"), v4);
-  v1 = [MEMORY[0x1E695DEF0] dataWithBytes:v4 length:32];
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  memset(v3, 0, sizeof(v3));
+  CC_SHA256([self bytes], objc_msgSend(self, "length"), v3);
+  v1 = [MEMORY[0x1E695DEF0] dataWithBytes:v3 length:32];
 
   return v1;
 }
 
-- (id)hm_generateSHA1
+- (unsigned)hm_generateSHA1
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  v4[1] = 0;
-  LODWORD(v5) = 0;
-  v1 = CC_SHA1([self bytes], objc_msgSend(self, "length"), v4);
+  v5 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  v3[1] = 0;
+  LODWORD(v4) = 0;
+  v1 = CC_SHA1([self bytes], objc_msgSend(self, "length"), v3);
   if (v1)
   {
-    v1 = [MEMORY[0x1E695DEF0] dataWithBytes:v4 length:20];
+    v1 = [MEMORY[0x1E695DEF0] dataWithBytes:v3 length:20];
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 
   return v1;
 }

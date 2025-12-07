@@ -3,6 +3,7 @@
 - (AAAudioSessionControl)initWithCoder:(id)coder;
 - (id)_ensureXPCStarted;
 - (id)description;
+- (void)_activate:(BOOL)_activate;
 - (void)_activateDirect:(id)direct;
 - (void)_activateXPC:(id)c reactivate:(BOOL)reactivate;
 - (void)_interrupted;
@@ -12,6 +13,7 @@
 - (void)encodeWithCoder:(id)coder;
 - (void)invalidate;
 - (void)setConversationDetectSignal:(int)signal;
+- (void)setMuteAction:(int)action auditToken:(id *)token;
 - (void)setMuteAction:(int)action auditToken:(id *)token bundleIdentifier:(id)identifier;
 @end
 
@@ -60,27 +62,31 @@
 
 - (id)description
 {
-  clientID = self->_clientID;
+  v10 = 0;
   conversationDetectSignal = self->_conversationDetectSignal;
-  if (conversationDetectSignal <= 0xB)
+  if (conversationDetectSignal > 0xB)
   {
-    v5 = off_278CDD770[conversationDetectSignal];
+    v4 = "?";
   }
 
-  v10 = self->_clientID;
-  NSAppendPrintF();
-  v6 = 0;
-  v7 = v6;
+  else
+  {
+    v4 = off_278CDD770[conversationDetectSignal];
+  }
+
+  NSAppendPrintF(&v10, "AAAudioSessionControl, CID 0x%X, cds %s", self->_clientID, v4);
+  v5 = v10;
+  v6 = v5;
   if (self->_direct)
   {
-    v11 = v6;
-    NSAppendPrintF_safe();
-    v8 = v11;
+    v9 = v5;
+    NSAppendPrintF_safe(&v9, ", direct");
+    v7 = v9;
 
-    v7 = v8;
+    v6 = v7;
   }
 
-  return v7;
+  return v6;
 }
 
 - (AAAudioSessionControl)init
@@ -140,12 +146,20 @@ void __53__AAAudioSessionControl_setConversationDetectSignal___block_invoke(uint
   }
 }
 
+- (void)setMuteAction:(int)action auditToken:(id *)token
+{
+  v4 = *&token->var0[4];
+  v5[0] = *token->var0;
+  v5[1] = v4;
+  [(AAAudioSessionControl *)self setMuteAction:*&action auditToken:v5 bundleIdentifier:0];
+}
+
 - (void)setMuteAction:(int)action auditToken:(id *)token bundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
   if (gLogCategory_AAAudioSessionControl <= 30 && (gLogCategory_AAAudioSessionControl != -1 || _LogCategory_Initialize()))
   {
-    [AAAudioSessionControl setMuteAction:action auditToken:? bundleIdentifier:?];
+    [AAAudioSessionControl setMuteAction:auditToken:bundleIdentifier:];
   }
 
   selfCopy = self;
@@ -220,8 +234,7 @@ void __48__AAAudioSessionControl_activateWithCompletion___block_invoke(uint64_t 
   v2 = *(a1 + 32);
   if (*(v2 + 8) == 1)
   {
-    v3 = *MEMORY[0x277CCA590];
-    v8 = NSErrorF();
+    v7 = NSErrorF(*MEMORY[0x277CCA590], 4294960575, "Activate already called");
     if (gLogCategory_AAAudioSessionControl <= 90 && (gLogCategory_AAAudioSessionControl != -1 || _LogCategory_Initialize()))
     {
       __48__AAAudioSessionControl_activateWithCompletion___block_invoke_cold_1();
@@ -233,14 +246,73 @@ void __48__AAAudioSessionControl_activateWithCompletion___block_invoke(uint64_t 
   else
   {
     *(v2 + 8) = 1;
-    v4 = MEMORY[0x245CE9060](*(a1 + 40));
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 16);
-    *(v5 + 16) = v4;
+    v3 = MEMORY[0x245CE9060](*(a1 + 40));
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 16);
+    *(v4 + 16) = v3;
 
-    v7 = *(a1 + 32);
+    v6 = *(a1 + 32);
 
-    [v7 _activate:0];
+    [v6 _activate:0];
+  }
+}
+
+- (void)_activate:(BOOL)_activate
+{
+  _activateCopy = _activate;
+  if (gLogCategory_AAAudioSessionControl <= 30 && (gLogCategory_AAAudioSessionControl != -1 || _LogCategory_Initialize()))
+  {
+    [AAAudioSessionControl _activate:];
+  }
+
+  if (self->_testListenerEndpoint)
+  {
+    v5 = 1;
+  }
+
+  else
+  {
+    v5 = gAAServicesDaemon == 0;
+  }
+
+  v6 = !v5;
+  self->_direct = v6;
+  if (self->_invalidateCalled)
+  {
+    v10 = NSErrorF(*MEMORY[0x277CCA590], 4294896148, "Activate after invalidate");
+    if (gLogCategory_AAAudioSessionControl <= 90 && (gLogCategory_AAAudioSessionControl != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF();
+    }
+
+    v8 = MEMORY[0x245CE9060](self->_activateCompletion);
+    activateCompletion = self->_activateCompletion;
+    self->_activateCompletion = 0;
+
+    if (v8)
+    {
+      (v8)[2](v8, v10);
+    }
+  }
+
+  else
+  {
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __35__AAAudioSessionControl__activate___block_invoke;
+    v11[3] = &unk_278CDD660;
+    v11[4] = self;
+    v12 = _activateCopy;
+    v7 = MEMORY[0x245CE9060](v11);
+    if (self->_direct)
+    {
+      [(AAAudioSessionControl *)self _activateDirect:v7];
+    }
+
+    else
+    {
+      [(AAAudioSessionControl *)self _activateXPC:v7 reactivate:_activateCopy];
+    }
   }
 }
 
@@ -277,7 +349,7 @@ void __35__AAAudioSessionControl__activate___block_invoke(uint64_t a1, void *a2)
     goto LABEL_14;
   }
 
-  __35__AAAudioSessionControl__activate___block_invoke_cold_2(a1);
+  __35__AAAudioSessionControl__activate___block_invoke_cold_2();
 LABEL_14:
   v6 = MEMORY[0x245CE9060](*(*(a1 + 32) + 16));
   v7 = *(a1 + 32);
@@ -297,7 +369,7 @@ LABEL_17:
   directCopy = direct;
   if (gLogCategory_AAAudioSessionControl <= 30 && (gLogCategory_AAAudioSessionControl != -1 || _LogCategory_Initialize()))
   {
-    [AAAudioSessionControl _activateDirect:?];
+    [AAAudioSessionControl _activateDirect:];
   }
 
   v5 = gAAServicesDaemon;
@@ -370,7 +442,7 @@ LABEL_16:
 LABEL_9:
   if (gLogCategory_AAAudioSessionControl <= 30 && (gLogCategory_AAAudioSessionControl != -1 || _LogCategory_Initialize()))
   {
-    [AAAudioSessionControl _activateXPC:? reactivate:?];
+    [AAAudioSessionControl _activateXPC:reactivate:];
   }
 
 LABEL_12:
@@ -483,8 +555,8 @@ uint64_t __42__AAAudioSessionControl__ensureXPCStarted__block_invoke_2(uint64_t 
     [AAAudioSessionControl _interrupted];
   }
 
-  v3 = BTErrorF();
-  [(AAAudioSessionControl *)self _reportError:v3];
+  v9 = BTErrorF(4294960596, "XPC interrupted", v3, v4, v5, v6, v7, v8, v13);
+  [(AAAudioSessionControl *)self _reportError:v9];
 
   activateCompletion = self->_activateCompletion;
   self->_activateCompletion = 0;
@@ -497,9 +569,9 @@ uint64_t __42__AAAudioSessionControl__ensureXPCStarted__block_invoke_2(uint64_t 
   interruptionHandler = self->_interruptionHandler;
   if (interruptionHandler)
   {
-    v6 = *(interruptionHandler + 2);
+    v12 = *(interruptionHandler + 2);
 
-    v6();
+    v12();
   }
 }
 
@@ -538,15 +610,15 @@ void __35__AAAudioSessionControl_invalidate__block_invoke(uint64_t a1)
       v4 = *(a1 + 32);
     }
 
-    v8 = MEMORY[0x245CE9060](*(v4 + 16));
+    v15 = MEMORY[0x245CE9060](*(v4 + 16));
     v5 = *(a1 + 32);
     v6 = *(v5 + 16);
     *(v5 + 16) = 0;
 
-    if (v8)
+    if (v15)
     {
-      v7 = BTErrorF();
-      v8[2](v8, v7);
+      v13 = BTErrorF(4294896148, "Invalidate called", v7, v8, v9, v10, v11, v12, v14);
+      v15[2](v15, v13);
     }
 
     [*(a1 + 32) _invalidated];
@@ -576,23 +648,23 @@ void __42__AAAudioSessionControl__invalidateDirect__block_invoke(uint64_t a1)
 
     if (!self->_direct && !self->_xpcCnx)
     {
-      v8 = MEMORY[0x245CE9060](self->_activateCompletion, a2);
+      v15 = MEMORY[0x245CE9060](self->_activateCompletion, a2);
       activateCompletion = self->_activateCompletion;
       self->_activateCompletion = 0;
 
-      if (v8)
+      if (v15)
       {
-        v4 = BTErrorF();
-        v8[2](v8, v4);
+        v10 = BTErrorF(4294896148, "Unexpectedly invalidated", v4, v5, v6, v7, v8, v9, v14);
+        v15[2](v15, v10);
       }
 
-      v5 = MEMORY[0x245CE9060](self->_invalidationHandler);
+      v11 = MEMORY[0x245CE9060](self->_invalidationHandler);
       invalidationHandler = self->_invalidationHandler;
       self->_invalidationHandler = 0;
 
-      if (v5)
+      if (v11)
       {
-        v5[2](v5);
+        v11[2](v11);
       }
 
       xpcCnx = self->_xpcCnx;
@@ -623,16 +695,6 @@ void __42__AAAudioSessionControl__invalidateDirect__block_invoke(uint64_t a1)
   {
     (v4)[2](v4, errorCopy);
   }
-}
-
-- (uint64_t)setMuteAction:(unsigned int)a1 auditToken:bundleIdentifier:.cold.1(unsigned int a1)
-{
-  if (a1 <= 6)
-  {
-    v1 = off_278CDD7D0[a1];
-  }
-
-  return LogPrintF();
 }
 
 @end

@@ -70,7 +70,7 @@
   }
 
   v4 = [RBMovedDisplayListContents alloc];
-  RB::DisplayList::Builder::move_contents((self + 16), v5, &v10);
+  RB::DisplayList::Builder::move_contents(&v10, (self + 16), v5);
   v6 = v11[0];
   v11[0] = 0;
   v9 = v6;
@@ -87,27 +87,27 @@
 
 - (RBDisplayList)init
 {
-  v5.receiver = self;
-  v5.super_class = RBDisplayList;
-  v2 = [(RBDisplayList *)&v5 init];
-  v3 = v2;
+  v6.receiver = self;
+  v6.super_class = RBDisplayList;
+  v2 = [(RBDisplayList *)&v6 init];
+  v4 = v2;
   if (v2)
   {
     *(v2 + 93) = 0;
     *(v2 + 47) = 0x3FF0000000000000;
     *(*(v2 + 37) + 8) = v2;
-    if (RBXMLRecorderInstalled())
+    if (RBXMLRecorderInstalled(v2, v3))
     {
-      [(RBDisplayList *)v3 beginRecordingXML];
+      [(RBDisplayList *)v4 beginRecordingXML];
     }
   }
 
-  return v3;
+  return v4;
 }
 
 - (id).cxx_construct
 {
-  RB::DisplayList::Builder::Builder((self + 16));
+  RB::DisplayList::Builder::Builder(self + 2);
   *(self + 44) = 0;
   *(self + 20) = 0u;
   *(self + 45) = 0x100000000;
@@ -335,7 +335,7 @@ LABEL_7:
 {
   [(RBDisplayList *)self clearCaches];
   RB::DisplayList::Builder::~Builder((self + 16));
-  RB::DisplayList::Builder::Builder((self + 16));
+  RB::DisplayList::Builder::Builder(self + 2);
   *(*(self + 37) + 8) = self;
   if (*(self + 40))
   {
@@ -445,12 +445,13 @@ LABEL_7:
   RB::DisplayList::Builder::restore((self + 16), 1);
   v8 = *(self + 37);
   v9 = rb_blend_mode(mode);
-  RB::DisplayList::Builder::draw_layer(self + 16, v7, v8, v9, alpha);
-  v10 = *(self + 40);
-  if (v10)
+  v10.n128_f32[0] = alpha;
+  RB::DisplayList::Builder::draw_layer(self + 16, v7, v8, v9, v10);
+  v11 = *(self + 40);
+  if (v11)
   {
 
-    RB::XML::DisplayList::draw_layer(v10, mode, alpha);
+    RB::XML::DisplayList::draw_layer(v11, mode, alpha);
   }
 }
 
@@ -461,10 +462,11 @@ LABEL_7:
   v8 = *(self + 37);
   v9 = rb_clip_mode(mode);
   RB::DisplayList::Builder::clip_layer(self + 2, v7, v8, v9, alpha);
-  if (*(self + 40))
+  v10 = *(self + 40);
+  if (v10)
   {
 
-    RB::XML::DisplayList::clip_layer();
+    RB::XML::DisplayList::clip_layer(v10, mode, alpha);
   }
 }
 

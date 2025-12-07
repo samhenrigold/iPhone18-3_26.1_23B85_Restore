@@ -1,6 +1,5 @@
 @interface ClarityUIEnhancedEmergencyCoordinator
 - (id)getCurrentCall;
-- (void)addMediaRequestViewController:(id)controller;
 - (void)hideWebRTCViewController:(id)controller;
 - (void)removeMediaRequestViewController:(id)controller;
 - (void)requestHapticForRequest;
@@ -12,13 +11,6 @@
 @end
 
 @implementation ClarityUIEnhancedEmergencyCoordinator
-
-- (void)addMediaRequestViewController:(id)controller
-{
-  controllerCopy = controller;
-  selfCopy = self;
-  sub_1001FDFD0();
-}
 
 - (void)removeMediaRequestViewController:(id)controller
 {

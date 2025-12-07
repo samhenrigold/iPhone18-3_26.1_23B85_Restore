@@ -909,7 +909,7 @@ LABEL_37:
   [hearingTestModeCoordinator addSceneExtensionIfNeeded:sceneCopy];
 
   workspaceIdentifier = [sceneCopy workspaceIdentifier];
-  if (!workspaceIdentifier || ([(NSMutableSet *)self->_workspaceIdentifiersToIgnore containsObject:workspaceIdentifier]& 1) == 0)
+  if (!workspaceIdentifier || (objc_msgSend_containsObject_(self->_workspaceIdentifiersToIgnore) & 1) == 0)
   {
     [sceneCopy setDelegate:self];
     settings = [sceneCopy settings];
@@ -940,7 +940,7 @@ LABEL_37:
   sceneCopy = scene;
   settingsCopy = settings;
   workspaceIdentifier = [sceneCopy workspaceIdentifier];
-  if (!workspaceIdentifier || ([(NSMutableSet *)self->_workspaceIdentifiersToIgnore containsObject:workspaceIdentifier]& 1) == 0)
+  if (!workspaceIdentifier || (objc_msgSend_containsObject_(self->_workspaceIdentifiersToIgnore) & 1) == 0)
   {
     settings = [sceneCopy settings];
     sb_displayIdentityForSceneManagers = [settings sb_displayIdentityForSceneManagers];
@@ -1008,7 +1008,7 @@ LABEL_37:
   deactivateCopy = deactivate;
   contextCopy = context;
   workspaceIdentifier = [deactivateCopy workspaceIdentifier];
-  if (!workspaceIdentifier || ([(NSMutableSet *)self->_workspaceIdentifiersToIgnore containsObject:workspaceIdentifier]& 1) == 0)
+  if (!workspaceIdentifier || (objc_msgSend_containsObject_(self->_workspaceIdentifiersToIgnore) & 1) == 0)
   {
     settings = [deactivateCopy settings];
     sb_displayIdentityForSceneManagers = [settings sb_displayIdentityForSceneManagers];
@@ -1026,7 +1026,7 @@ LABEL_37:
   invalidateCopy = invalidate;
   contextCopy = context;
   workspaceIdentifier = [invalidateCopy workspaceIdentifier];
-  if (!workspaceIdentifier || ([(NSMutableSet *)self->_workspaceIdentifiersToIgnore containsObject:workspaceIdentifier]& 1) == 0)
+  if (!workspaceIdentifier || (objc_msgSend_containsObject_(self->_workspaceIdentifiersToIgnore) & 1) == 0)
   {
     settings = [invalidateCopy settings];
     sb_displayIdentityForSceneManagers = [settings sb_displayIdentityForSceneManagers];

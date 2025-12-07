@@ -1,227 +1,3 @@
-void ML3DAAPImportItem::getImportItemValue(ML3DAAPImportItem *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  *a3 = 0;
-  a3[1] = 0;
-  v6.n128_f64[0] = ML3DAAPImportItem::_getChildElement(&v12, this, a2);
-  if (!v12)
-  {
-    v7 = v13;
-    if (!v13)
-    {
-      return;
-    }
-
-    goto LABEL_7;
-  }
-
-  v7 = v13;
-  v9 = v12;
-  v10 = v13;
-  if (v13)
-  {
-    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  (*(*this + 216))(&v11, this, a2, &v9, v6);
-  v8 = v11;
-  v11 = 0uLL;
-  *a3 = v8;
-  if (v10)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
-  }
-
-  if (v7)
-  {
-LABEL_7:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
-  }
-}
-
-void sub_22D3C0A88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
-  }
-
-  if (v10)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-BOOL ML3DAAPImportItem::hasValue(ML3DAAPImportItem *this, uint64_t a2)
-{
-  ML3DAAPImportItem::_getChildElement(&v4, this, a2);
-  v2 = v4;
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-
-  return v2 != 0;
-}
-
-void ML3DAAPImportItem::getDataValue(ML3DAAPImportItem *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  *a3 = 0;
-  a3[1] = 0;
-  ML3DAAPImportItem::_getChildElement(&v3, this, a2);
-  if (v3)
-  {
-    operator new();
-  }
-
-  if (v4)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-}
-
-void sub_22D3C0B94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  MEMORY[0x2318CD250](v12, 0x1091C40934DB768);
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-float ML3DAAPImportItem::getFloatValue(ML3DAAPImportItem *this, uint64_t a2)
-{
-  ML3DAAPImportItem::_getChildElement(&v4, this, a2);
-  if (v4)
-  {
-    v2 = ML3CPP::Element::integerValue(v4);
-  }
-
-  else
-  {
-    v2 = 0.0;
-  }
-
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-
-  return v2;
-}
-
-uint64_t ML3DAAPChildImportItem::getIntegerValue(ML3DAAPImportItem *this, uint64_t a2)
-{
-  v2 = a2;
-  result = ML3DAAPImportItem::getIntegerValue(this, a2);
-  if (v2 == 385875974)
-  {
-    return *(this + 10);
-  }
-
-  return result;
-}
-
-uint64_t ML3DAAPImportItem::getIntegerValue(ML3DAAPImportItem *this, uint64_t a2)
-{
-  v2 = a2;
-  ML3DAAPImportItem::_getChildElement(&v6, this, a2);
-  if (v6)
-  {
-    v3 = ML3CPP::Element::integerValue(v6);
-    v4 = v3;
-    if (v2 == 268435459 && v3)
-    {
-      v4 = ((v3 / 1000) + -978307200.0);
-    }
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (v7)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
-  }
-
-  return v4;
-}
-
-void ML3DAAPImportItem::getStringValue(ML3DAAPImportItem *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  ML3DAAPImportItem::_getChildElement(&v8, this, a2);
-  if (v8)
-  {
-    ML3CPP::Element::stringValue(&v6, *(v8 + 48), *(v8 + 64));
-    *a3 = &unk_28408AC60;
-    *(a3 + 8) = 1;
-    if (SHIBYTE(v7) < 0)
-    {
-      v4 = v6;
-      std::string::__init_copy_ctor_external((a3 + 16), v6, *(&v6 + 1));
-      operator delete(v4);
-    }
-
-    else
-    {
-      *(a3 + 16) = v6;
-      *(a3 + 32) = v7;
-    }
-  }
-
-  else
-  {
-    *a3 = &unk_28408AC60;
-    *(a3 + 8) = 0;
-    *(a3 + 24) = 0;
-    *(a3 + 32) = 0;
-    *(a3 + 16) = 0;
-  }
-
-  v5 = v9;
-  if (v9)
-  {
-
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-}
-
-void sub_22D3C0E04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
-{
-  operator delete(v14);
-  if (a14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a14);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void ML3DAAPChildImportItem::~ML3DAAPChildImportItem(ML3DAAPImportItem *this)
-{
-  ML3DAAPImportItem::~ML3DAAPImportItem(this);
-
-  JUMPOUT(0x2318CD250);
-}
-
-uint64_t std::__shared_ptr_pointer<ML3DAAPPersonImportItem *,std::shared_ptr<ML3ImportItem>::__shared_ptr_default_delete<ML3ImportItem,ML3DAAPPersonImportItem>,std::allocator<ML3DAAPPersonImportItem>>::__get_deleter(uint64_t a1, uint64_t a2)
-{
-  if (std::type_info::operator==[abi:ne200100](*(a2 + 8), "NSt3__110shared_ptrI13ML3ImportItemE27__shared_ptr_default_deleteIS1_23ML3DAAPPersonImportItemEE"))
-  {
-    return a1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
 uint64_t std::__shared_ptr_pointer<ML3DAAPPersonImportItem *,std::shared_ptr<ML3ImportItem>::__shared_ptr_default_delete<ML3ImportItem,ML3DAAPPersonImportItem>,std::allocator<ML3DAAPPersonImportItem>>::__on_zero_shared(uint64_t a1)
 {
   result = *(a1 + 24);
@@ -424,7 +200,7 @@ float ML3DAAPTrackImportItem::getFloatValue(ML3DAAPImportItem *this, uint64_t a2
   return result;
 }
 
-unint64_t ML3DAAPTrackImportItem::getIntegerValue(ML3DAAPTrackImportItem *this, uint64_t a2)
+unint64_t ML3DAAPTrackImportItem::getIntegerValue(ML3DAAPImportItem *this, uint64_t a2)
 {
   v2 = a2;
   result = ML3DAAPImportItem::getIntegerValue(this, a2);
@@ -658,7 +434,7 @@ LABEL_75:
         v22 = v18->__r_.__value_.__s.__data_[2];
         if (v21 == 13421 && v22 == 118)
         {
-          ML3CPP::Element::childElementForCode(&v24, *(this + 8), 0x61654D6Bu);
+          ML3CPP::Element::childElementForCode(&v24, *(this + 8), 1634028907);
           if (v24 && (ML3CPP::Element::integerValue(v24) & 0x20) != 0)
           {
             v5 = 5;
@@ -823,7 +599,7 @@ uint64_t ML3DAAPTrackImportItem::_getItemRatingLevel(ML3DAAPTrackImportItem *thi
   __p[0] = 0;
   __p[1] = 0;
   v13 = 0;
-  ML3CPP::Element::childElementForCode(&v10, this, 0x61654352u);
+  ML3CPP::Element::childElementForCode(&v10, this, 1634026322);
   if (!v10)
   {
     goto LABEL_6;
@@ -946,22 +722,22 @@ void ML3DAAPDeleteImportItem::~ML3DAAPDeleteImportItem(ML3DAAPDeleteImportItem *
   std::__hash_table<std::__hash_value_type<unsigned int,ML3ImportValue<std::string>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,ML3ImportValue<std::string>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,ML3ImportValue<std::string>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,ML3ImportValue<std::string>>>>::~__hash_table(this + 24);
 }
 
-void ML3DAAPContainerImportItem::_createImportItemValue(unsigned int a1@<W1>, uint64_t a2@<X2>, void *a3@<X8>)
+void ML3DAAPContainerImportItem::_createImportItemValue(unsigned int a2@<W1>, uint64_t *a3@<X2>, void *a4@<X8>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  if (a1 == 218103812)
+  *a4 = 0;
+  a4[1] = 0;
+  if (a2 == 218103812)
   {
     operator new();
   }
 
-  v3 = *(a2 + 8);
-  if (v3)
+  v4 = a3[1];
+  if (v4)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
-  ML3DAAPImportItem::_createImportItemValue(a1, &v4);
+  ML3DAAPImportItem::_createImportItemValue(a2, &v5);
 }
 
 void sub_22D3C230C(_Unwind_Exception *exception_object)
@@ -1052,7 +828,7 @@ id ML3DAAPContainerImportItem::getDeduplicationPredicates(ML3DAAPContainerImport
     [v2 addObject:v4];
   }
 
-  ML3CPP::Element::childElementForCode(&v8, *(this + 8), 0x616A5069u);
+  ML3CPP::Element::childElementForCode(&v8, *(this + 8), 1634357353);
   if (v8)
   {
     v5 = ML3CPP::Element::integerValue(v8);
@@ -1315,10 +1091,10 @@ LABEL_33:
   return v5 & 1;
 }
 
-void ML3DAAPContainerImportItem::getDataValue(ML3DAAPImportItem *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void ML3DAAPContainerImportItem::getDataValue(ML3DAAPImportItem *this@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   v3 = a2;
-  ML3DAAPImportItem::getDataValue(this, a2, a3);
+  ML3DAAPImportItem::getDataValue(a3, this, a2);
   if (v3 == 184549407 && (*(this + 60) | 8) == 0xA)
   {
     if (*(this + 26))
@@ -2196,7 +1972,7 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  ML3CPP::Element::childElementForCode(&v14, *(this + 8), 0x61654D6Bu);
+  ML3CPP::Element::childElementForCode(&v14, *(this + 8), 1634028907);
   v6 = v15;
   if (v14)
   {
@@ -2249,7 +2025,7 @@ void ML3DAAPAlbumImportItem::getStringValue(ML3DAAPAlbumImportItem *this@<X0>, i
     switch(a2)
     {
       case 33554451:
-        ML3CPP::Element::childElementForCode(&__str, *(this + 8), 0x61677270u);
+        ML3CPP::Element::childElementForCode(&__str, *(this + 8), 1634169456);
         size = __str.__r_.__value_.__l.__size_;
         if (__str.__r_.__value_.__r.__words[0])
         {
@@ -2258,7 +2034,7 @@ void ML3DAAPAlbumImportItem::getStringValue(ML3DAAPAlbumImportItem *this@<X0>, i
 
         break;
       case 33554462:
-        ML3CPP::Element::childElementForCode(&__str, *(this + 8), 0x6177726Bu);
+        ML3CPP::Element::childElementForCode(&__str, *(this + 8), 1635218027);
         size = __str.__r_.__value_.__l.__size_;
         if (__str.__r_.__value_.__r.__words[0])
         {
@@ -2274,7 +2050,7 @@ LABEL_23:
 
         break;
       case 285212673:
-        ML3CPP::Element::childElementForCode(&__str, *(this + 8), 0x6173616Cu);
+        ML3CPP::Element::childElementForCode(&__str, *(this + 8), 1634951532);
         size = __str.__r_.__value_.__l.__size_;
         if (!__str.__r_.__value_.__r.__words[0])
         {
@@ -2291,7 +2067,7 @@ LABEL_23:
   {
     if (a2 == 285212697)
     {
-      ML3CPP::Element::childElementForCode(&__str, *(this + 8), 0x616A4169u);
+      ML3CPP::Element::childElementForCode(&__str, *(this + 8), 1634353513);
       size = __str.__r_.__value_.__l.__size_;
       if (__str.__r_.__value_.__r.__words[0])
       {
@@ -2306,7 +2082,7 @@ LABEL_23:
         return;
       }
 
-      ML3CPP::Element::childElementForCode(&__str, *(this + 8), 0x61736161u);
+      ML3CPP::Element::childElementForCode(&__str, *(this + 8), 1634951521);
       size = __str.__r_.__value_.__l.__size_;
       if (__str.__r_.__value_.__r.__words[0])
       {
@@ -2324,7 +2100,7 @@ LABEL_23:
         return;
       }
 
-      ML3CPP::Element::childElementForCode(&__str, *(this + 8), 0x61737075u);
+      ML3CPP::Element::childElementForCode(&__str, *(this + 8), 1634955381);
       size = __str.__r_.__value_.__l.__size_;
       if (!__str.__r_.__value_.__r.__words[0])
       {
@@ -2334,7 +2110,7 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    ML3CPP::Element::childElementForCode(&__str, *(this + 8), 0x61737375u);
+    ML3CPP::Element::childElementForCode(&__str, *(this + 8), 1634956149);
     size = __str.__r_.__value_.__l.__size_;
     if (__str.__r_.__value_.__r.__words[0])
     {
@@ -3722,7 +3498,7 @@ unint64_t ML3DAAPArtistImportItem::getIntegerValue(ML3DAAPArtistImportItem *this
   switch(a2)
   {
     case 16777217:
-      ML3CPP::Element::childElementForCode(&v8, *(this + 8), 0x61654D6Bu);
+      ML3CPP::Element::childElementForCode(&v8, *(this + 8), 1634028907);
       v5 = v9;
       if (v8)
       {
@@ -3787,7 +3563,7 @@ void ML3DAAPArtistImportItem::getStringValue(ML3DAAPArtistImportItem *this@<X0>,
     switch(a2)
     {
       case 318767106:
-        ML3CPP::Element::childElementForCode(&__str, *(this + 8), 0x61737361u);
+        ML3CPP::Element::childElementForCode(&__str, *(this + 8), 1634956129);
         size = __str.__r_.__value_.__l.__size_;
         if (__str.__r_.__value_.__r.__words[0])
         {
@@ -3796,7 +3572,7 @@ void ML3DAAPArtistImportItem::getStringValue(ML3DAAPArtistImportItem *this@<X0>,
 
         break;
       case 318767107:
-        ML3CPP::Element::childElementForCode(&__str, *(this + 8), 0x6165534Eu);
+        ML3CPP::Element::childElementForCode(&__str, *(this + 8), 1634030414);
         size = __str.__r_.__value_.__l.__size_;
         if (__str.__r_.__value_.__r.__words[0])
         {
@@ -3805,7 +3581,7 @@ void ML3DAAPArtistImportItem::getStringValue(ML3DAAPArtistImportItem *this@<X0>,
 
         break;
       case 318767108:
-        ML3CPP::Element::childElementForCode(&__str, *(this + 8), 0x61737373u);
+        ML3CPP::Element::childElementForCode(&__str, *(this + 8), 1634956147);
         size = __str.__r_.__value_.__l.__size_;
         if (__str.__r_.__value_.__r.__words[0])
         {
@@ -3823,7 +3599,7 @@ void ML3DAAPArtistImportItem::getStringValue(ML3DAAPArtistImportItem *this@<X0>,
     switch(a2)
     {
       case 301989889:
-        ML3CPP::Element::childElementForCode(&__str, *(this + 8), 0x61736161u);
+        ML3CPP::Element::childElementForCode(&__str, *(this + 8), 1634951521);
         size = __str.__r_.__value_.__l.__size_;
         if (__str.__r_.__value_.__r.__words[0])
         {
@@ -3832,7 +3608,7 @@ void ML3DAAPArtistImportItem::getStringValue(ML3DAAPArtistImportItem *this@<X0>,
 
         break;
       case 301989890:
-        ML3CPP::Element::childElementForCode(&__str, *(this + 8), 0x6173736Cu);
+        ML3CPP::Element::childElementForCode(&__str, *(this + 8), 1634956140);
         size = __str.__r_.__value_.__l.__size_;
         if (__str.__r_.__value_.__r.__words[0])
         {
@@ -3848,7 +3624,7 @@ LABEL_19:
 
         break;
       case 318767105:
-        ML3CPP::Element::childElementForCode(&__str, *(this + 8), 0x61736172u);
+        ML3CPP::Element::childElementForCode(&__str, *(this + 8), 1634951538);
         size = __str.__r_.__value_.__l.__size_;
         if (!__str.__r_.__value_.__r.__words[0])
         {
@@ -3900,7 +3676,7 @@ void ML3DAAPArtistImportItem::~ML3DAAPArtistImportItem(id *this)
   ML3DAAPImportItem::~ML3DAAPImportItem(this);
 }
 
-uint64_t ML3DAAPContainerImportItem::ML3DAAPContainerImportItem(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
+uint64_t ML3DAAPContainerImportItem::ML3DAAPContainerImportItem(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4)
 {
   v44 = *MEMORY[0x277D85DE8];
   v9 = *a2;
@@ -3931,18 +3707,18 @@ uint64_t ML3DAAPContainerImportItem::ML3DAAPContainerImportItem(uint64_t a1, uin
   *(a1 + 208) = v10;
   *a1 = &unk_28408A3C0;
   *(a1 + 224) = v10;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 216, *a3, a3[1], (a3[1] - *a3) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 216), *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 3);
   *(a1 + 248) = 0u;
   v11 = (a1 + 248);
   *(a1 + 264) = 0u;
   std::vector<std::unordered_set<std::string>>::__init_with_size[abi:ne200100]<std::unordered_set<std::string>*,std::unordered_set<std::string>*>(a1 + 256, *a4, a4[1], 0xCCCCCCCCCCCCCCCDLL * ((a4[1] - *a4) >> 3));
-  ML3CPP::Element::childElementForCode(&v34, *a2, 0x6D706572u);
+  ML3CPP::Element::childElementForCode(&v34, *a2, 1836082546);
   if (v34)
   {
     *(a1 + 280) = ML3CPP::Element::integerValue(v34);
   }
 
-  ML3CPP::Element::childElementForCode(&v32, *a2, 0x6165504Bu);
+  ML3CPP::Element::childElementForCode(&v32, *a2, 1634029643);
   if (v32)
   {
     v12 = ML3CPP::Element::integerValue(v32);
@@ -3963,7 +3739,7 @@ uint64_t ML3DAAPContainerImportItem::ML3DAAPContainerImportItem(uint64_t a1, uin
   *(a1 + 120) = 0u;
   if (v12 <= 0xA && ((1 << v12) & 0x40C) != 0)
   {
-    ML3CPP::Element::childElementForCode(&v43, *a2, 0x61655044u);
+    ML3CPP::Element::childElementForCode(&v43, *a2, 1634029636);
     if (v43)
     {
       v13 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:*(v43 + 48) length:*(v43 + 64) freeWhenDone:0];
@@ -4028,7 +3804,7 @@ uint64_t ML3DAAPContainerImportItem::ML3DAAPContainerImportItem(uint64_t a1, uin
 
     if (*(a1 + 240) == 3)
     {
-      ML3CPP::Element::childElementForCode(buf, *a2, 0x61654753u);
+      ML3CPP::Element::childElementForCode(buf, *a2, 1634027347);
       v22 = *buf;
       if (*buf)
       {
@@ -4103,35 +3879,35 @@ LABEL_38:
   return a1;
 }
 
-void sub_22D3C7610(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
+void sub_22D3C7610(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, uint64_t a6, std::__shared_weak_count *a7, uint64_t a8, std::__shared_weak_count *a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
 
-  v14 = *(v12 - 104);
-  if (v14)
+  v18 = *(v16 - 104);
+  if (v18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   }
 
-  if (a3)
+  if (a7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a7);
   }
 
-  if (a5)
+  if (a9)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a9);
   }
 
   std::vector<std::unordered_set<std::string>>::__destroy_vector::operator()[abi:ne200100](va);
-  v15 = *(v5 + 216);
-  if (v15)
+  v19 = *(v9 + 216);
+  if (v19)
   {
-    *(v5 + 224) = v15;
-    operator delete(v15);
+    *(v9 + 224) = v19;
+    operator delete(v19);
   }
 
-  ML3DAAPImportItem::~ML3DAAPImportItem(v5);
+  ML3DAAPImportItem::~ML3DAAPImportItem(v9);
   _Unwind_Resume(a1);
 }
 
@@ -4536,24 +4312,23 @@ void sub_22D3C8418(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<std::shared_ptr<ML3CPP::Parser::ParserContainer> *,std::allocator<std::shared_ptr<ML3CPP::Parser::ParserContainer> *>>::emplace_back<std::shared_ptr<ML3CPP::Parser::ParserContainer> *&>(void *result, void *a2)
+void std::__split_buffer<std::shared_ptr<ML3CPP::Parser::ParserContainer> *,std::allocator<std::shared_ptr<ML3CPP::Parser::ParserContainer> *>>::emplace_back<std::shared_ptr<ML3CPP::Parser::ParserContainer> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<ML3CPP::Parser::ParserContainer> *>>(v11);
@@ -4565,18 +4340,17 @@ void *std::__split_buffer<std::shared_ptr<ML3CPP::Parser::ParserContainer> *,std
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<ML3CPP::Parser::ParserContainer> *>>(unint64_t a1)
@@ -4597,9 +4371,9 @@ void std::__shared_ptr_emplace<ML3CPP::Parser::ParserContainer>::~__shared_ptr_e
   JUMPOUT(0x2318CD250);
 }
 
-void sub_22D3C8B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_22D3C8B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5234,32 +5008,32 @@ void sub_22D3CEF48(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_22D3CF4C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22D3CF4C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+  va_start(va, a7);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   std::ifstream::~ifstream(va);
 
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::ifstream::basic_ifstream(uint64_t *a1)
+uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t a2)
 {
   a1[59] = 0;
-  v2 = MEMORY[0x277D82858] + 64;
+  v3 = MEMORY[0x277D82858] + 64;
   a1[53] = MEMORY[0x277D82858] + 64;
-  v3 = *(MEMORY[0x277D82808] + 16);
-  v4 = *(MEMORY[0x277D82808] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
+  v4 = *(MEMORY[0x277D82808] + 16);
+  v5 = *(MEMORY[0x277D82808] + 8);
+  *a1 = v5;
+  *(a1 + *(v5 - 24)) = v4;
   a1[1] = 0;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 2);
-  v6 = MEMORY[0x277D82858] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
-  *a1 = v6;
-  a1[53] = v2;
+  v6 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v6, a1 + 2);
+  v7 = MEMORY[0x277D82858] + 24;
+  v6[1].__vftable = 0;
+  v6[1].__fmtflags_ = -1;
+  *a1 = v7;
+  a1[53] = v3;
   MEMORY[0x2318CD070](a1 + 2);
   if (!std::filebuf::open())
   {
@@ -5529,7 +5303,7 @@ LABEL_13:
 
       if (v19)
       {
-        [v19 _trackImportItemWithTrackElement:&v77];
+        objc_msgSend__trackImportItemWithTrackElement_(v19);
       }
 
       else
@@ -5894,7 +5668,7 @@ uint64_t std::vector<std::unordered_set<std::string>>::__emplace_back_slow_path<
     do
     {
       std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v6);
-      v6 += 40;
+      v6 += 5;
     }
 
     while (v6 != v7);
@@ -5913,9 +5687,9 @@ uint64_t std::vector<std::unordered_set<std::string>>::__emplace_back_slow_path<
   return v16;
 }
 
-void sub_22D3D0208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22D3D0208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::unordered_set<std::string>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5926,7 +5700,7 @@ uint64_t std::__split_buffer<std::unordered_set<std::string>>::~__split_buffer(u
   for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
   {
     *(a1 + 16) = i - 40;
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(i - 40);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((i - 40));
   }
 
   if (*a1)
@@ -6047,7 +5821,7 @@ void DAAPParserDelegate::DAAPParserDidParseData(DAAPParserDelegate *this, int a2
     if (a2 == 1936746852)
     {
       std::string::basic_string[abi:ne200100](&__p, __src, __len);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(this + 16, &__p);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(this + 16, &__p, &__p);
       if (v43 < 0)
       {
         operator delete(__p);
@@ -6315,20 +6089,20 @@ void sub_22D3D09D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t __len)
+void *std::string::basic_string[abi:ne200100](void *__dst, void *__src, size_t __len)
 {
   if (__len >= 0x17)
   {
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, __src, __len);
   }
 
-  __dst[__len] = 0;
+  *(__dst + __len) = 0;
   return __dst;
 }
 
@@ -6687,7 +6461,7 @@ void std::__shared_ptr_emplace<DAAPParserDelegate>::__on_zero_shared(uint64_t a1
 {
   v8 = (a1 + 192);
   std::vector<std::unordered_set<std::string>>::__destroy_vector::operator()[abi:ne200100](&v8);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(a1 + 152);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((a1 + 152));
   v2 = *(a1 + 128);
   if (v2)
   {
@@ -6851,10 +6625,10 @@ void std::__shared_ptr_emplace<ML3CPP::Parser>::~__shared_ptr_emplace(std::__sha
   JUMPOUT(0x2318CD250);
 }
 
-void sub_22D3D1A44(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22D3D1A44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  va_start(va, a3);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v4);
   std::ifstream::~ifstream(va);
 
   _Unwind_Resume(a1);
@@ -6914,10 +6688,10 @@ uint64_t DAAPParserDelegate::DAAPParserDelegate(uint64_t a1, void *a2, void *a3,
   return a1;
 }
 
-void sub_22D3D1E9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22D3D1E9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  va_start(va, a3);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v4);
   std::ifstream::~ifstream(va);
 
   _Unwind_Resume(a1);
@@ -7051,9 +6825,9 @@ void std::__shared_ptr_pointer<ML3DAAPPersonImportItem *,std::shared_ptr<ML3DAAP
   JUMPOUT(0x2318CD250);
 }
 
-void sub_22D3D267C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *__p)
+void sub_22D3D267C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *__p)
 {
-  (*(*v14 + 8))(v14);
+  (*(*v14 + 8))(v14, a2, a3, a4, a5, a6, a7, a8);
   *(v15 - 56) = &a10;
   std::vector<std::unordered_set<std::string>>::__destroy_vector::operator()[abi:ne200100]((v15 - 56));
   if (__p)
@@ -7174,45 +6948,45 @@ void _ML3DatabaseFunctionRunBlock(sqlite3_context *a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void sub_22D3D82C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22D3D82C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22D3D8828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_22D3D8828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22D3D96AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22D3D96AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22D3DABC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22D3DABC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 160), 8);
+  _Block_object_dispose((v20 - 160), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22D3DDE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22D3DDE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22D3DE3C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22D3DE3C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8158,8 +7932,7 @@ uint64_t std::optional<std::variant<long long,float,BOOL,std::string,std::shared
     v5 = *a2;
     *(a1 + 16) = *(a2 + 2);
     *a1 = v5;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     *(a1 + 24) = 3;
     *(a1 + 32) = 1;
@@ -8233,9 +8006,9 @@ id ML3CollectionBaseDatabaseImportDataSource::generateVTableInsertionFromClause(
   return v9;
 }
 
-void ML3DatabaseImportDataSource::setImportItems(uint64_t *a1, uint64_t **a2)
+void ML3DatabaseImportDataSource::setImportItems(void *a1, uint64_t **a2)
 {
-  v2 = (a1 + 6);
+  v2 = a1 + 6;
   if (a1 + 6 != a2)
   {
     v5 = *a2;
@@ -8298,7 +8071,7 @@ void ML3DatabaseImportDataSource::setImportItems(uint64_t *a1, uint64_t **a2)
   }
 }
 
-void *std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<ML3ImportItem> *,std::shared_ptr<ML3ImportItem> *,std::shared_ptr<ML3ImportItem> *>(uint64_t *a1, uint64_t *a2, void *a3)
+uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<ML3ImportItem> *,std::shared_ptr<ML3ImportItem> *,std::shared_ptr<ML3ImportItem> *>(uint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   if (a1 != a2)
   {

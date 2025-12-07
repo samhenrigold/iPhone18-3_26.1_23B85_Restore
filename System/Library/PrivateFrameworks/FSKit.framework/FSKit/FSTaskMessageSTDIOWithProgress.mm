@@ -24,20 +24,8 @@
   v10.super_class = FSTaskMessageSTDIOWithProgress;
   v2 = [(FSTaskMessageSTDIOWithProgress *)&v10 init];
   v3 = v2;
-  if (!v2)
+  if (!v2 || (*&v2->_progressShowing = 0, v2->_twiddleState = 0, completedError = v2->_completedError, v2->_completedError = 0, completedError, v9 = 0, ioctl(1, 0x40087468uLL, &v9)) || (v5 = WORD1(v9), WORD1(v9) < 0x28u) || (v3->screen_width = WORD1(v9) - 2, v6 = malloc_type_malloc((v5 - 1), 0x6F7F84E8uLL), (v3->progress_buffer = v6) != 0))
   {
-    goto LABEL_5;
-  }
-
-  *&v2->_progressShowing = 0;
-  v2->_twiddleState = 0;
-  completedError = v2->_completedError;
-  v2->_completedError = 0;
-
-  v9 = 0;
-  if (ioctl(1, 0x40087468uLL, &v9) || (v5 = WORD1(v9), WORD1(v9) < 0x28u) || (v3->screen_width = WORD1(v9) - 2, v6 = malloc_type_malloc((v5 - 1), 0x6F7F84E8uLL), (v3->progress_buffer = v6) != 0))
-  {
-LABEL_5:
     v7 = v3;
   }
 
@@ -349,7 +337,7 @@ LABEL_16:
   if (selfCopy->_progressShowing)
   {
     selfCopy->_progressShowing = 0;
-    locking_printf("\n", v9, v10, v11, v12, v13, v14, v15, v26);
+    locking_printf("\n");
   }
 
   objc_sync_exit(selfCopy);
@@ -357,9 +345,8 @@ LABEL_16:
   objc_storeStrong(&selfCopy->_completedError, completed);
   if (completedCopy)
   {
-    v16 = [completedCopy description];
-    uTF8String = [v16 UTF8String];
-    locking_printf("Completed with error: %s\n", v18, v19, v20, v21, v22, v23, v24, uTF8String);
+    v9 = [completedCopy description];
+    locking_printf("Completed with error: %s\n", [v9 UTF8String]);
   }
 
   dispatch_group = selfCopy->_dispatch_group;

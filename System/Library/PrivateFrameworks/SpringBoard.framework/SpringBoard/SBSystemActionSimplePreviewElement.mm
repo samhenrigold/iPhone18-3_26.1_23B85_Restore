@@ -13,7 +13,7 @@
   actionCopy = action;
   if (!actionCopy)
   {
-    [SBSystemActionSimplePreviewElement initWithSystemAction:a2];
+    [(SBSystemActionSimplePreviewElement *)a2 initWithSystemAction:?];
   }
 
   v6 = actionCopy;
@@ -58,7 +58,7 @@
   colorCopy = color;
   if (!actionCopy)
   {
-    [SBSystemActionSimplePreviewElement initWithSystemAction:a2 contentProvider:? keyColor:?];
+    [SBSystemActionSimplePreviewElement initWithSystemAction:a2 contentProvider:self keyColor:?];
   }
 
   v13 = colorCopy;
@@ -151,46 +151,46 @@
   __break(0);
 }
 
-- (void)initWithSystemAction:(const char *)a1 .cold.2(const char *a1)
+- (void)initWithSystemAction:(const char *)a1 .cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"systemAction != ((void *)0)"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"systemAction != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"SBSystemActionSimplePreviewElement.m";
-    v9 = 1024;
-    v10 = 37;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBSystemActionSimplePreviewElement.m";
+    v10 = 1024;
+    v11 = 37;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21ED4E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)initWithSystemAction:(const char *)a1 contentProvider:keyColor:.cold.1(const char *a1)
+- (void)initWithSystemAction:(const char *)a1 contentProvider:(uint64_t)a2 keyColor:.cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"systemAction != ((void *)0)"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"systemAction != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"SBSystemActionSimplePreviewElement.m";
-    v9 = 1024;
-    v10 = 54;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBSystemActionSimplePreviewElement.m";
+    v10 = 1024;
+    v11 = 54;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21ED4E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

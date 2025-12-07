@@ -1,5 +1,6 @@
 @interface NSPPrivacyProxyPolicy
 - (BOOL)isEqual:(id)equal;
+- (id)conditionsAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -35,6 +36,21 @@
   }
 
   return p_conditions->list[index];
+}
+
+- (id)conditionsAsString:(int)string
+{
+  if (string >= 0x1C)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7A310A0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsConditions:(id)conditions
@@ -249,7 +265,6 @@
       v6 = 0;
       do
       {
-        v7 = p_conditions->list[v6];
         PBDataWriterWriteInt32Field();
         ++v6;
       }

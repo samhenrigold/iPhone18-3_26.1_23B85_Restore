@@ -26,27 +26,26 @@
 
 - (id)_privateDataControllers
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   issueReadingHistory = self->_issueReadingHistory;
   personalizationData = self->_personalizationData;
   userEventHistory = self->_userEventHistory;
-  v12[0] = self->_audioPlaylist;
-  v12[1] = issueReadingHistory;
+  v11[0] = self->_audioPlaylist;
+  v11[1] = issueReadingHistory;
   privateChannelMembershipController = self->_privateChannelMembershipController;
   readingHistory = self->_readingHistory;
   userInfo = self->_userInfo;
-  v12[2] = self->_subscriptionList;
-  v12[3] = readingHistory;
+  v11[2] = self->_subscriptionList;
+  v11[3] = readingHistory;
   shortcutList = self->_shortcutList;
-  v15 = privateChannelMembershipController;
-  v16 = userInfo;
-  v17 = personalizationData;
-  v13 = *&self->_readingList;
+  v14 = privateChannelMembershipController;
+  v15 = userInfo;
+  v16 = personalizationData;
+  v12 = *&self->_readingList;
   recipeUserEventHistory = self->_recipeUserEventHistory;
-  v18 = userEventHistory;
-  v19 = recipeUserEventHistory;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:12];
-  v10 = *MEMORY[0x1E69E9840];
+  v17 = userEventHistory;
+  v18 = recipeUserEventHistory;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:12];
 
   return v9;
 }
@@ -61,21 +60,21 @@
 
 - (FCPrivateDataContextInternal)internalPrivateDataContext
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   internalPrivateDataContext = self->_internalPrivateDataContext;
   if (!internalPrivateDataContext)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_internalPrivateDataContext"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_internalPrivateDataContext"];
       *buf = 136315906;
-      v8 = "[FCPrivateDataContext internalPrivateDataContext]";
-      v9 = 2080;
-      v10 = "FCPrivateDataContext.m";
-      v11 = 1024;
-      v12 = 356;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCPrivateDataContext internalPrivateDataContext]";
+      v8 = 2080;
+      v9 = "FCPrivateDataContext.m";
+      v10 = 1024;
+      v11 = 356;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       internalPrivateDataContext = self->_internalPrivateDataContext;
@@ -87,28 +86,26 @@
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return internalPrivateDataContext;
 }
 
 - (NSString)privateDataDirectory
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   privateDataDirectory = self->_privateDataDirectory;
   if (!privateDataDirectory)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_privateDataDirectory"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_privateDataDirectory"];
       *buf = 136315906;
-      v8 = "[FCPrivateDataContext privateDataDirectory]";
-      v9 = 2080;
-      v10 = "FCPrivateDataContext.m";
-      v11 = 1024;
-      v12 = 350;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCPrivateDataContext privateDataDirectory]";
+      v8 = 2080;
+      v9 = "FCPrivateDataContext.m";
+      v10 = 1024;
+      v11 = 350;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       privateDataDirectory = self->_privateDataDirectory;
@@ -120,28 +117,26 @@
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return privateDataDirectory;
 }
 
 - (FCUserInfo)userInfo
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   userInfo = self->_userInfo;
   if (!userInfo)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_userInfo"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_userInfo"];
       *buf = 136315906;
-      v8 = "[FCPrivateDataContext userInfo]";
-      v9 = 2080;
-      v10 = "FCPrivateDataContext.m";
-      v11 = 1024;
-      v12 = 338;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCPrivateDataContext userInfo]";
+      v8 = 2080;
+      v9 = "FCPrivateDataContext.m";
+      v10 = 1024;
+      v11 = 338;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       userInfo = self->_userInfo;
@@ -153,28 +148,26 @@
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return userInfo;
 }
 
 - (FCPrivateChannelMembershipController)privateChannelMembershipController
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   privateChannelMembershipController = self->_privateChannelMembershipController;
   if (!privateChannelMembershipController)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_privateChannelMembershipController"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_privateChannelMembershipController"];
       *buf = 136315906;
-      v8 = "[FCPrivateDataContext privateChannelMembershipController]";
-      v9 = 2080;
-      v10 = "FCPrivateDataContext.m";
-      v11 = 1024;
-      v12 = 284;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCPrivateDataContext privateChannelMembershipController]";
+      v8 = 2080;
+      v9 = "FCPrivateDataContext.m";
+      v10 = 1024;
+      v11 = 284;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       privateChannelMembershipController = self->_privateChannelMembershipController;
@@ -186,28 +179,26 @@
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return privateChannelMembershipController;
 }
 
 - (FCPersonalizationData)personalizationData
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   personalizationData = self->_personalizationData;
   if (!personalizationData)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_personalizationData"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_personalizationData"];
       *buf = 136315906;
-      v8 = "[FCPrivateDataContext personalizationData]";
-      v9 = 2080;
-      v10 = "FCPrivateDataContext.m";
-      v11 = 1024;
-      v12 = 279;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCPrivateDataContext personalizationData]";
+      v8 = 2080;
+      v9 = "FCPrivateDataContext.m";
+      v10 = 1024;
+      v11 = 279;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       personalizationData = self->_personalizationData;
@@ -219,28 +210,26 @@
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return personalizationData;
 }
 
 - (FCReadingHistory)readingHistory
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   readingHistory = self->_readingHistory;
   if (!readingHistory)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_readingHistory"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_readingHistory"];
       *buf = 136315906;
-      v8 = "[FCPrivateDataContext readingHistory]";
-      v9 = 2080;
-      v10 = "FCPrivateDataContext.m";
-      v11 = 1024;
-      v12 = 290;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCPrivateDataContext readingHistory]";
+      v8 = 2080;
+      v9 = "FCPrivateDataContext.m";
+      v10 = 1024;
+      v11 = 290;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       readingHistory = self->_readingHistory;
@@ -252,28 +241,26 @@
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return readingHistory;
 }
 
 - (FCUserEventHistory)userEventHistory
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   userEventHistory = self->_userEventHistory;
   if (!userEventHistory)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_userEventHistory"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_userEventHistory"];
       *buf = 136315906;
-      v8 = "[FCPrivateDataContext userEventHistory]";
-      v9 = 2080;
-      v10 = "FCPrivateDataContext.m";
-      v11 = 1024;
-      v12 = 326;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCPrivateDataContext userEventHistory]";
+      v8 = 2080;
+      v9 = "FCPrivateDataContext.m";
+      v10 = 1024;
+      v11 = 326;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       userEventHistory = self->_userEventHistory;
@@ -285,28 +272,26 @@
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return userEventHistory;
 }
 
 - (FCSubscriptionList)subscriptionList
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   subscriptionList = self->_subscriptionList;
   if (!subscriptionList)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_subscriptionList"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_subscriptionList"];
       *buf = 136315906;
-      v8 = "[FCPrivateDataContext subscriptionList]";
-      v9 = 2080;
-      v10 = "FCPrivateDataContext.m";
-      v11 = 1024;
-      v12 = 332;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCPrivateDataContext subscriptionList]";
+      v8 = 2080;
+      v9 = "FCPrivateDataContext.m";
+      v10 = 1024;
+      v11 = 332;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       subscriptionList = self->_subscriptionList;
@@ -318,28 +303,26 @@
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return subscriptionList;
 }
 
 - (FCPuzzleHistory)puzzleHistory
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   puzzleHistory = self->_puzzleHistory;
   if (!puzzleHistory)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_puzzleHistory"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_puzzleHistory"];
       *buf = 136315906;
-      v8 = "[FCPrivateDataContext puzzleHistory]";
-      v9 = 2080;
-      v10 = "FCPrivateDataContext.m";
-      v11 = 1024;
-      v12 = 302;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCPrivateDataContext puzzleHistory]";
+      v8 = 2080;
+      v9 = "FCPrivateDataContext.m";
+      v10 = 1024;
+      v11 = 302;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       puzzleHistory = self->_puzzleHistory;
@@ -351,28 +334,26 @@
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return puzzleHistory;
 }
 
 - (FCIssueReadingHistory)issueReadingHistory
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   issueReadingHistory = self->_issueReadingHistory;
   if (!issueReadingHistory)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_issueReadingHistory"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_issueReadingHistory"];
       *buf = 136315906;
-      v8 = "[FCPrivateDataContext issueReadingHistory]";
-      v9 = 2080;
-      v10 = "FCPrivateDataContext.m";
-      v11 = 1024;
-      v12 = 274;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCPrivateDataContext issueReadingHistory]";
+      v8 = 2080;
+      v9 = "FCPrivateDataContext.m";
+      v10 = 1024;
+      v11 = 274;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       issueReadingHistory = self->_issueReadingHistory;
@@ -384,28 +365,26 @@
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return issueReadingHistory;
 }
 
 - (FCShortcutList)shortcutList
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   shortcutList = self->_shortcutList;
   if (!shortcutList)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_shortcutList"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_shortcutList"];
       *buf = 136315906;
-      v8 = "[FCPrivateDataContext shortcutList]";
-      v9 = 2080;
-      v10 = "FCPrivateDataContext.m";
-      v11 = 1024;
-      v12 = 308;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCPrivateDataContext shortcutList]";
+      v8 = 2080;
+      v9 = "FCPrivateDataContext.m";
+      v10 = 1024;
+      v11 = 308;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       shortcutList = self->_shortcutList;
@@ -417,28 +396,26 @@
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return shortcutList;
 }
 
 - (FCReadingList)readingList
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   readingList = self->_readingList;
   if (!readingList)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_readingList"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_readingList"];
       *buf = 136315906;
-      v8 = "[FCPrivateDataContext readingList]";
-      v9 = 2080;
-      v10 = "FCPrivateDataContext.m";
-      v11 = 1024;
-      v12 = 296;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCPrivateDataContext readingList]";
+      v8 = 2080;
+      v9 = "FCPrivateDataContext.m";
+      v10 = 1024;
+      v11 = 296;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       readingList = self->_readingList;
@@ -450,28 +427,26 @@
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return readingList;
 }
 
 - (FCAudioPlaylist)audioPlaylist
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   audioPlaylist = self->_audioPlaylist;
   if (!audioPlaylist)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_audioPlaylist"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_audioPlaylist"];
       *buf = 136315906;
-      v8 = "[FCPrivateDataContext audioPlaylist]";
-      v9 = 2080;
-      v10 = "FCPrivateDataContext.m";
-      v11 = 1024;
-      v12 = 320;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCPrivateDataContext audioPlaylist]";
+      v8 = 2080;
+      v9 = "FCPrivateDataContext.m";
+      v10 = 1024;
+      v11 = 320;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       audioPlaylist = self->_audioPlaylist;
@@ -483,28 +458,26 @@
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return audioPlaylist;
 }
 
 - (FCShortcutCategoryList)shortcutCategoryList
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   shortcutCategoryList = self->_shortcutCategoryList;
   if (!shortcutCategoryList)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_shortcutCategoryList"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_shortcutCategoryList"];
       *buf = 136315906;
-      v8 = "[FCPrivateDataContext shortcutCategoryList]";
-      v9 = 2080;
-      v10 = "FCPrivateDataContext.m";
-      v11 = 1024;
-      v12 = 314;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCPrivateDataContext shortcutCategoryList]";
+      v8 = 2080;
+      v9 = "FCPrivateDataContext.m";
+      v10 = 1024;
+      v11 = 314;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       shortcutCategoryList = self->_shortcutCategoryList;
@@ -515,8 +488,6 @@
       shortcutCategoryList = 0;
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return shortcutCategoryList;
 }
@@ -549,7 +520,7 @@
 
 - (FCPrivateDataContext)initWithConfiguration:(id)configuration context:(id)context privateDataHostDirectory:(id)directory privateDataActionProvider:(id)provider encryptionDelegate:(id)delegate networkBehaviorMonitor:(id)monitor privateDataSyncingEnabled:(BOOL)enabled
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   contextCopy = context;
   directoryCopy = directory;
@@ -558,29 +529,29 @@
   monitorCopy = monitor;
   if (!contextCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "context != nil"];
+    v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "context != nil"];
     *buf = 136315906;
-    v34 = "[FCPrivateDataContext initWithConfiguration:context:privateDataHostDirectory:privateDataActionProvider:encryptionDelegate:networkBehaviorMonitor:privateDataSyncingEnabled:]";
-    v35 = 2080;
-    v36 = "FCPrivateDataContext.m";
-    v37 = 1024;
-    v38 = 99;
-    v39 = 2114;
-    v40 = v29;
+    v33 = "[FCPrivateDataContext initWithConfiguration:context:privateDataHostDirectory:privateDataActionProvider:encryptionDelegate:networkBehaviorMonitor:privateDataSyncingEnabled:]";
+    v34 = 2080;
+    v35 = "FCPrivateDataContext.m";
+    v36 = 1024;
+    v37 = 99;
+    v38 = 2114;
+    v39 = v28;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   if (!directoryCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataHostDirectory != nil"];
+    v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataHostDirectory != nil"];
     *buf = 136315906;
-    v34 = "[FCPrivateDataContext initWithConfiguration:context:privateDataHostDirectory:privateDataActionProvider:encryptionDelegate:networkBehaviorMonitor:privateDataSyncingEnabled:]";
-    v35 = 2080;
-    v36 = "FCPrivateDataContext.m";
-    v37 = 1024;
-    v38 = 100;
-    v39 = 2114;
-    v40 = v30;
+    v33 = "[FCPrivateDataContext initWithConfiguration:context:privateDataHostDirectory:privateDataActionProvider:encryptionDelegate:networkBehaviorMonitor:privateDataSyncingEnabled:]";
+    v34 = 2080;
+    v35 = "FCPrivateDataContext.m";
+    v36 = 1024;
+    v37 = 100;
+    v38 = 2114;
+    v39 = v29;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -592,16 +563,15 @@
   privateDataContainerCombinationIdentifier = [configurationCopy privateDataContainerCombinationIdentifier];
   v25 = [directoryCopy URLByAppendingPathComponent:privateDataContainerCombinationIdentifier isDirectory:1];
 
-  LOBYTE(v31) = enabled;
-  v26 = [(FCPrivateDataContext *)self initWithConfiguration:configurationCopy context:contextCopy privateDatabase:v23 privateDataDirectory:v25 privateDataActionProvider:providerCopy encryptionDelegate:delegateCopy networkBehaviorMonitor:monitorCopy privateDataSyncingEnabled:v31];
+  LOBYTE(v30) = enabled;
+  v26 = [(FCPrivateDataContext *)self initWithConfiguration:configurationCopy context:contextCopy privateDatabase:v23 privateDataDirectory:v25 privateDataActionProvider:providerCopy encryptionDelegate:delegateCopy networkBehaviorMonitor:monitorCopy privateDataSyncingEnabled:v30];
 
-  v27 = *MEMORY[0x1E69E9840];
   return v26;
 }
 
 - (FCPrivateDataContext)initWithConfiguration:(id)configuration context:(id)context privateDatabase:(id)database privateDataDirectory:(id)directory privateDataActionProvider:(id)provider encryptionDelegate:(id)delegate networkBehaviorMonitor:(id)monitor privateDataSyncingEnabled:(BOOL)self0
 {
-  v96 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   contextCopy = context;
   databaseCopy = database;
@@ -611,37 +581,37 @@
   monitorCopy = monitor;
   if (!contextCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v68 = delegateCopy;
-    v69 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "context != nil"];
+    v67 = delegateCopy;
+    v68 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "context != nil"];
     *buf = 136315906;
-    v89 = "[FCPrivateDataContext initWithConfiguration:context:privateDatabase:privateDataDirectory:privateDataActionProvider:encryptionDelegate:networkBehaviorMonitor:privateDataSyncingEnabled:]";
-    v90 = 2080;
-    v91 = "FCPrivateDataContext.m";
-    v92 = 1024;
-    v93 = 130;
-    v94 = 2114;
-    v95 = v69;
+    v88 = "[FCPrivateDataContext initWithConfiguration:context:privateDatabase:privateDataDirectory:privateDataActionProvider:encryptionDelegate:networkBehaviorMonitor:privateDataSyncingEnabled:]";
+    v89 = 2080;
+    v90 = "FCPrivateDataContext.m";
+    v91 = 1024;
+    v92 = 130;
+    v93 = 2114;
+    v94 = v68;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
-    delegateCopy = v68;
+    delegateCopy = v67;
   }
 
   v21 = databaseCopy;
   if (!databaseCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v70 = delegateCopy;
-    v71 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDatabase != nil"];
+    v69 = delegateCopy;
+    v70 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDatabase != nil"];
     *buf = 136315906;
-    v89 = "[FCPrivateDataContext initWithConfiguration:context:privateDatabase:privateDataDirectory:privateDataActionProvider:encryptionDelegate:networkBehaviorMonitor:privateDataSyncingEnabled:]";
-    v90 = 2080;
-    v91 = "FCPrivateDataContext.m";
-    v92 = 1024;
-    v93 = 131;
-    v94 = 2114;
-    v95 = v71;
+    v88 = "[FCPrivateDataContext initWithConfiguration:context:privateDatabase:privateDataDirectory:privateDataActionProvider:encryptionDelegate:networkBehaviorMonitor:privateDataSyncingEnabled:]";
+    v89 = 2080;
+    v90 = "FCPrivateDataContext.m";
+    v91 = 1024;
+    v92 = 131;
+    v93 = 2114;
+    v94 = v70;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
-    delegateCopy = v70;
+    delegateCopy = v69;
     if (directoryCopy)
     {
       goto LABEL_9;
@@ -655,30 +625,30 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v72 = delegateCopy;
-    v73 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataDirectory != nil"];
+    v71 = delegateCopy;
+    v72 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataDirectory != nil"];
     *buf = 136315906;
-    v89 = "[FCPrivateDataContext initWithConfiguration:context:privateDatabase:privateDataDirectory:privateDataActionProvider:encryptionDelegate:networkBehaviorMonitor:privateDataSyncingEnabled:]";
-    v90 = 2080;
-    v91 = "FCPrivateDataContext.m";
-    v92 = 1024;
-    v93 = 132;
-    v94 = 2114;
-    v95 = v73;
+    v88 = "[FCPrivateDataContext initWithConfiguration:context:privateDatabase:privateDataDirectory:privateDataActionProvider:encryptionDelegate:networkBehaviorMonitor:privateDataSyncingEnabled:]";
+    v89 = 2080;
+    v90 = "FCPrivateDataContext.m";
+    v91 = 1024;
+    v92 = 132;
+    v93 = 2114;
+    v94 = v72;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
-    delegateCopy = v72;
+    delegateCopy = v71;
   }
 
 LABEL_9:
-  v86.receiver = self;
-  v86.super_class = FCPrivateDataContext;
-  v22 = [(FCPrivateDataContext *)&v86 init];
+  v85.receiver = self;
+  v85.super_class = FCPrivateDataContext;
+  v22 = [(FCPrivateDataContext *)&v85 init];
   v23 = v22;
   if (v22)
   {
-    v80 = delegateCopy;
-    v83 = configurationCopy;
+    v79 = delegateCopy;
+    v82 = configurationCopy;
     objc_storeStrong(&v22->_contentContext, context);
     v23->_privateDataSyncingEnabled = enabled;
     path = [directoryCopy path];
@@ -696,32 +666,32 @@ LABEL_9:
     [v29 setAppActivityMonitor:appActivityMonitor];
 
     [v29 setPrivateDatabase:v21];
-    v87[0] = @"AudioPlaylist";
-    v87[1] = @"IssueReadingHistory";
-    v87[2] = @"Subscriptions";
-    v87[3] = @"Shortcuts";
-    v87[4] = @"SensitiveSubscriptions";
-    v87[5] = @"ReadingList";
-    v87[6] = @"ReadingHistory";
-    v87[7] = @"ChannelMemberships";
-    v87[8] = @"UserInfo";
-    v87[9] = @"UserEventHistory";
-    v87[10] = @"PuzzleHistory";
-    v87[11] = @"RecipeUserEventHistory";
-    [MEMORY[0x1E695DEC8] arrayWithObjects:v87 count:12];
-    v78 = v82 = v21;
-    v31 = [[FCCKRecordZoneManager alloc] initWithDatabase:v21 recordZoneNames:v78];
-    v79 = v29;
+    v86[0] = @"AudioPlaylist";
+    v86[1] = @"IssueReadingHistory";
+    v86[2] = @"Subscriptions";
+    v86[3] = @"Shortcuts";
+    v86[4] = @"SensitiveSubscriptions";
+    v86[5] = @"ReadingList";
+    v86[6] = @"ReadingHistory";
+    v86[7] = @"ChannelMemberships";
+    v86[8] = @"UserInfo";
+    v86[9] = @"UserEventHistory";
+    v86[10] = @"PuzzleHistory";
+    v86[11] = @"RecipeUserEventHistory";
+    [MEMORY[0x1E695DEC8] arrayWithObjects:v86 count:12];
+    v77 = v81 = v21;
+    v31 = [[FCCKRecordZoneManager alloc] initWithDatabase:v21 recordZoneNames:v77];
+    v78 = v29;
     [v29 setRecordZoneManager:v31];
 
     v32 = [[FCSubscriptionList alloc] initWithContext:contextCopy pushNotificationCenter:v28 storeDirectory:path2];
     subscriptionList = v23->_subscriptionList;
     v23->_subscriptionList = v32;
 
-    v77 = [[FCIssueReadingHistory alloc] initWithContext:contextCopy pushNotificationCenter:v28 storeDirectory:path2];
-    objc_storeStrong(&v23->_issueReadingHistory, v77);
-    v76 = [[FCReadingHistory alloc] initWithContext:contextCopy pushNotificationCenter:v28 storeDirectory:path2];
-    objc_storeStrong(&v23->_readingHistory, v76);
+    v76 = [[FCIssueReadingHistory alloc] initWithContext:contextCopy pushNotificationCenter:v28 storeDirectory:path2];
+    objc_storeStrong(&v23->_issueReadingHistory, v76);
+    v75 = [[FCReadingHistory alloc] initWithContext:contextCopy pushNotificationCenter:v28 storeDirectory:path2];
+    objc_storeStrong(&v23->_readingHistory, v75);
     v34 = [[FCReadingList alloc] initWithContext:contextCopy pushNotificationCenter:v28 storeDirectory:path2];
     readingList = v23->_readingList;
     v23->_readingList = v34;
@@ -745,15 +715,15 @@ LABEL_9:
     v44 = [directoryCopy URLByAppendingPathComponent:@"personalization-sessions" isDirectory:1];
     v45 = [FCUserEventHistoryStorage alloc];
     appConfigurationManager = [contextCopy appConfigurationManager];
-    v75 = v44;
+    v74 = v44;
     v47 = [(FCUserEventHistoryStorage *)v45 initWithRootDirectory:v44 configurationManager:appConfigurationManager];
 
-    v74 = v47;
+    v73 = v47;
     v48 = [[FCUserEventHistory alloc] initWithContext:contextCopy pushNotificationCenter:v28 storeDirectory:path2 sessionStorage:v47];
     userEventHistory = v23->_userEventHistory;
     v23->_userEventHistory = v48;
 
-    v81 = directoryCopy;
+    v80 = directoryCopy;
     v50 = [directoryCopy URLByAppendingPathComponent:@"recipe-personalization-sessions" isDirectory:1];
     v51 = [FCUserEventHistoryStorage alloc];
     appConfigurationManager2 = [contextCopy appConfigurationManager];
@@ -796,36 +766,35 @@ LABEL_9:
       [(FCPushNotificationCenter *)v28 disableSyncing];
     }
 
-    [(FCCKPrivateDatabase *)v82 registerZoneRestorationSources:_privateDataControllers];
-    [(FCCKPrivateDatabase *)v82 registerZonePruningAssistants:_privateDataControllers];
+    [(FCCKPrivateDatabase *)v81 registerZoneRestorationSources:_privateDataControllers];
+    [(FCCKPrivateDatabase *)v81 registerZonePruningAssistants:_privateDataControllers];
 
-    v21 = v82;
-    configurationCopy = v83;
-    delegateCopy = v80;
-    directoryCopy = v81;
+    v21 = v81;
+    configurationCopy = v82;
+    delegateCopy = v79;
+    directoryCopy = v80;
   }
 
-  v66 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 - (FCPushNotificationHandling)privatePushNotificationHandler
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   privatePushNotificationHandler = self->_privatePushNotificationHandler;
   if (!privatePushNotificationHandler)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_privatePushNotificationHandler"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_privatePushNotificationHandler"];
       *buf = 136315906;
-      v8 = "[FCPrivateDataContext privatePushNotificationHandler]";
-      v9 = 2080;
-      v10 = "FCPrivateDataContext.m";
-      v11 = 1024;
-      v12 = 344;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCPrivateDataContext privatePushNotificationHandler]";
+      v8 = 2080;
+      v9 = "FCPrivateDataContext.m";
+      v10 = 1024;
+      v11 = 344;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       privatePushNotificationHandler = self->_privatePushNotificationHandler;
@@ -836,8 +805,6 @@ LABEL_9:
       privatePushNotificationHandler = 0;
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return privatePushNotificationHandler;
 }

@@ -95,13 +95,13 @@ LABEL_10:
 
 uint64_t __41__HDWorkoutRouteQueryServer__queue_start__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v73[1] = *MEMORY[0x277D85DE8];
-  v58 = a2;
+  v72[1] = *MEMORY[0x277D85DE8];
+  v57 = a2;
   v5 = *(a1 + 32);
   if (v5[27])
   {
-    v72 = v5[27];
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v72 count:1];
+    v71 = v5[27];
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v71 count:1];
   }
 
   else
@@ -136,18 +136,18 @@ uint64_t __41__HDWorkoutRouteQueryServer__queue_start__block_invoke(uint64_t a1,
 
     [v46 setPredicate:v42];
     v47 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"start_date" entityClass:objc_opt_class() ascending:1];
-    v73[0] = v47;
-    v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:1];
+    v72[0] = v47;
+    v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:1];
     [v46 setOrderingTerms:v48];
 
     [v46 setIgnoreEntityClassAdditionalPredicateForEnumeration:1];
-    v69[0] = MEMORY[0x277D85DD0];
-    v69[1] = 3221225472;
-    v69[2] = __67__HDWorkoutRouteQueryServer__workoutRoutesMatchingPredicate_error___block_invoke;
-    v69[3] = &unk_2786204C8;
-    v70 = v43;
+    v68[0] = MEMORY[0x277D85DD0];
+    v68[1] = 3221225472;
+    v68[2] = __67__HDWorkoutRouteQueryServer__workoutRoutesMatchingPredicate_error___block_invoke;
+    v68[3] = &unk_2786204C8;
+    v69 = v43;
     v6 = v43;
-    v49 = [v46 enumerateWithError:a3 handler:v69] ? v6 : 0;
+    v49 = [v46 enumerateWithError:a3 handler:v68] ? v6 : 0;
     v50 = v49;
 
     if (!v50)
@@ -158,36 +158,36 @@ LABEL_26:
     }
   }
 
-  v57 = [v58 databaseForEntityClass:objc_opt_class()];
+  v56 = [v57 databaseForEntityClass:objc_opt_class()];
+  v64 = 0u;
   v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
   obj = v6;
-  v7 = [obj countByEnumeratingWithState:&v65 objects:v71 count:16];
+  v7 = [obj countByEnumeratingWithState:&v64 objects:v70 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v66;
-    v55 = a3;
+    v9 = *v65;
+    v54 = a3;
     v10 = 0x280D58000uLL;
 LABEL_5:
     v11 = 0;
     while (1)
     {
-      if (*v66 != v9)
+      if (*v65 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v65 + 1) + 8 * v11);
+      v12 = *(*(&v64 + 1) + 8 * v11);
       v13 = *(v10 + 3916);
       if (!*(*(a1 + 32) + v13))
       {
         goto LABEL_13;
       }
 
-      v14 = [*(*(&v65 + 1) + 8 * v11) endDate];
+      v14 = [*(*(&v64 + 1) + 8 * v11) endDate];
       v15 = [*(*(a1 + 32) + v13) startDate];
       v16 = [v14 hk_isBeforeDate:v15];
 
@@ -206,7 +206,7 @@ LABEL_5:
 LABEL_17:
       if (v8 == ++v11)
       {
-        v8 = [obj countByEnumeratingWithState:&v65 objects:v71 count:16];
+        v8 = [obj countByEnumeratingWithState:&v64 objects:v70 count:16];
         if (v8)
         {
           goto LABEL_5;
@@ -234,18 +234,18 @@ LABEL_13:
     v24 = [v12 UUID];
     v25 = HDDataEntityPredicateForDataUUID();
 
-    v64 = 0;
-    v26 = [(HDDataEntity *)HDLocationSeriesSampleEntity anyInDatabase:v57 predicate:v25 error:&v64];
-    v27 = v64;
+    v63 = 0;
+    v26 = [(HDDataEntity *)HDLocationSeriesSampleEntity anyInDatabase:v56 predicate:v25 error:&v63];
+    v27 = v63;
     v28 = v27;
     if (!v26)
     {
       if (v27)
       {
-        if (v55)
+        if (v54)
         {
           v51 = v27;
-          *v55 = v28;
+          *v54 = v28;
         }
 
         else
@@ -258,7 +258,7 @@ LABEL_13:
       {
         v52 = MEMORY[0x277CCA9B8];
         v28 = [v12 UUID];
-        [v52 hk_assignError:v55 code:100 format:{@"Did not find the expected sample with UUID=%@", v28, v61}];
+        [v52 hk_assignError:v54 code:100 format:{@"Did not find the expected sample with UUID=%@", v28, v60}];
       }
 
 LABEL_32:
@@ -268,18 +268,18 @@ LABEL_32:
     }
 
     v29 = [*(*(a1 + 32) + v13) endDate];
-    v60[0] = MEMORY[0x277D85DD0];
-    v60[1] = 3221225472;
-    v61[0] = __41__HDWorkoutRouteQueryServer__queue_start__block_invoke_2;
-    v61[1] = &unk_278623C90;
+    v59[0] = MEMORY[0x277D85DD0];
+    v59[1] = 3221225472;
+    v60[0] = __41__HDWorkoutRouteQueryServer__queue_start__block_invoke_2;
+    v60[1] = &unk_278623C90;
     v30 = *(a1 + 56);
-    v59 = *(a1 + 32);
-    v31 = *(&v59 + 1);
+    v58 = *(a1 + 32);
+    v31 = *(&v58 + 1);
     *&v32 = *(a1 + 48);
     *(&v32 + 1) = v30;
-    v62 = v59;
-    v63 = v32;
-    LOBYTE(v30) = [v26 enumerateLocationDataInTransaction:v58 startDate:v23 endDate:v29 error:v55 handler:v60];
+    v61 = v58;
+    v62 = v32;
+    LOBYTE(v30) = [v26 enumerateLocationDataInTransaction:v57 startDate:v23 endDate:v29 error:v54 handler:v59];
 
     if ((v30 & 1) == 0)
     {
@@ -295,7 +295,6 @@ LABEL_19:
 LABEL_33:
 
 LABEL_34:
-  v53 = *MEMORY[0x277D85DE8];
   return v33;
 }
 

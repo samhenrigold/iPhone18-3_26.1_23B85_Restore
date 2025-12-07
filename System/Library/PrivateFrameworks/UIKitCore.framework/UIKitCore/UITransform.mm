@@ -125,8 +125,8 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [(UITransform *)self transform];
-    [(UITransform *)v5 transform];
+    objc_msgSend_transform(self);
+    objc_msgSend_transform(v5);
     v6 = CGAffineTransformEqualToTransform(&t1, &v8);
   }
 

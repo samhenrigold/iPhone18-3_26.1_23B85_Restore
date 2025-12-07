@@ -91,7 +91,7 @@ uint64_t __37__NHSSPrivacyDefaults_sharedInstance__block_invoke()
 
   else
   {
-    v5 = NHSSLogDefault();
+    v5 = NHSSLogDefault(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(NHSSPrivacyDefaults *)v5 microphonePermission];
@@ -129,7 +129,7 @@ void __47__NHSSPrivacyDefaults_setMicrophonePermission___block_invoke(uint64_t a
 
   else
   {
-    v7 = NHSSLogDefault();
+    v7 = NHSSLogDefault(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __47__NHSSPrivacyDefaults_setMicrophonePermission___block_invoke_cold_1(v7);
@@ -181,41 +181,39 @@ void __47__NHSSPrivacyDefaults_setMicrophonePermission___block_invoke(uint64_t a
 
 - (void)_mainQueue_notifyObserversDefaultsDidChange
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   allObjects = [(NSHashTable *)self->_lock_observers allObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = allObjects;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) privacyDefaultsDidChange];
+        [*(*(&v9 + 1) + 8 * v8++) privacyDefaultsDidChange];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

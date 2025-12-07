@@ -1,8 +1,10 @@
 @interface KCellularProtocolStackState
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)currStateAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)prevStateAsString:(int)string;
 - (int)StringAsCurrState:(id)state;
 - (int)StringAsPrevState:(id)state;
 - (int)currState;
@@ -60,6 +62,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)prevStateAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825E898[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPrevState:(id)state
@@ -159,6 +176,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)currStateAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825E898[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCurrState:(id)state
@@ -361,7 +393,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -381,7 +412,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -396,7 +426,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  prevState = self->_prevState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -411,12 +440,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  currState = self->_currState;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_6:
-    prevStateDurMs = self->_prevStateDurMs;
     PBDataWriterWriteUint32Field();
   }
 

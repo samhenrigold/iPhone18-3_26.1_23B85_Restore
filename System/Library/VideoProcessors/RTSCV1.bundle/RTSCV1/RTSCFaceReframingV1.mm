@@ -5,12 +5,12 @@
 - (float32x2_t)_computeNominalTrackingTimescaleFromViewPortMargins:(float32x2_t)margins faceBoxSize:;
 - (float32x2_t)_filterFramingOffset:(float32x2_t)offset smoothingPole:(float32x2_t)pole viewPortSize:;
 - (id)_updateOffsetOfViewPortBox:(double)box withinBoundingRect:(double)rect;
-- (id)updateFaceCorrectionAfterStabilization:(__n128)stabilization viewPort:(__n128)port boundingRect:(float64x2_t)rect boundingCircle:(float64_t)circle;
 - (void)_adjustFramingOffset:(RTSCFaceReframingV1 *)self;
 - (void)_computeViewPortSmoothingTimescaleForViewPortMargins:(double)margins predictedViewPortMargins:(double)portMargins centeredViewPortMargins:(double)viewPortMargins faceBoxSize:;
 - (void)_estimateMinShift:(RTSCFaceReframingV1 *)self maxShift:(SEL)shift forViewPortBox:withinBoundingRect:;
 - (void)dealloc;
 - (void)reset;
+- (void)updateFaceCorrectionAfterStabilization:(__n128)stabilization viewPort:(__n128)port boundingRect:(float64x2_t)rect boundingCircle:(float64_t)circle;
 - (void)updateFacesWithMetadata:(__n128)metadata bufferSize:(__n128)size cameraMatrix:(__n128)matrix rotationFromPrevFrame:(__n128)frame atTime:(__n128)time;
 @end
 
@@ -216,63 +216,63 @@ LABEL_6:
   *&self->_smoothedFramingOffset[8] = v3;
 }
 
-- (id)updateFaceCorrectionAfterStabilization:(__n128)stabilization viewPort:(__n128)port boundingRect:(float64x2_t)rect boundingCircle:(float64_t)circle
+- (void)updateFaceCorrectionAfterStabilization:(__n128)stabilization viewPort:(__n128)port boundingRect:(float64x2_t)rect boundingCircle:(float64_t)circle
 {
   a7.f64[1] = a8;
   rect.f64[1] = circle;
-  v41 = vmla_f32(vcvt_f32_f64(rect), 0x3F0000003F000000, vcvt_f32_f64(a7));
-  *&v42 = vcvt_hight_f32_f64(v41, a7).u64[0];
+  v35 = vmla_f32(vcvt_f32_f64(rect), 0x3F0000003F000000, vcvt_f32_f64(a7));
+  *&v36 = vcvt_hight_f32_f64(v35, a7).u64[0];
   [self _updateOffsetOfViewPortBox:? withinBoundingRect:?];
-  *(self + 40) = v21;
-  v23 = *(self + 64);
-  if (v23 > 0.0)
+  *(self + 40) = v15;
+  v17 = *(self + 64);
+  if (v17 > 0.0)
   {
-    v24 = 0;
-    v25 = *(self + 80);
-    v26 = *(self + 96);
-    v27 = *(self + 112);
-    v43 = a2;
+    v18 = 0;
+    v19 = *(self + 80);
+    v20 = *(self + 96);
+    v21 = *(self + 112);
+    v37 = a2;
     stabilizationCopy = stabilization;
     portCopy = port;
-    v46 = 0u;
-    v47 = 0u;
-    v48 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     do
     {
-      *(&v46 + v24 * 8) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v25, COERCE_FLOAT(*(&v43 + v24 * 8))), v26, v43.n128_u64[v24], 1), v27, *(&v43 + v24 * 8), 2);
-      v24 += 2;
+      *(&v40 + v18 * 8) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v19, COERCE_FLOAT(*(&v37 + v18 * 8))), v20, v37.n128_u64[v18], 1), v21, *(&v37 + v18 * 8), 2);
+      v18 += 2;
     }
 
-    while (v24 != 6);
-    v28 = 0;
-    v29 = v46;
-    v30 = v47;
-    v31 = v48;
-    v32 = *(self + 144);
-    v22 = *(self + 160);
-    v43 = *(self + 128);
-    stabilizationCopy = v32;
-    portCopy = v22;
-    v46 = 0u;
-    v47 = 0u;
-    v48 = 0u;
+    while (v18 != 6);
+    v22 = 0;
+    v23 = v40;
+    v24 = v41;
+    v25 = v42;
+    v26 = *(self + 144);
+    v16 = *(self + 160);
+    v37 = *(self + 128);
+    stabilizationCopy = v26;
+    portCopy = v16;
+    v40 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     do
     {
-      *(&v46 + v28 * 8) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v29, COERCE_FLOAT(*(&v43 + v28 * 8))), v30, v43.n128_u64[v28], 1), v31, *(&v43 + v28 * 8), 2);
-      v28 += 2;
+      *(&v40 + v22 * 8) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v23, COERCE_FLOAT(*(&v37 + v22 * 8))), v24, v37.n128_u64[v22], 1), v25, *(&v37 + v22 * 8), 2);
+      v22 += 2;
     }
 
-    while (v28 != 6);
-    v33.i32[1] = v47.i32[1];
-    v34 = vadd_f32(v41, v21);
-    v35 = vaddq_f32(v48, vmlaq_lane_f32(vmulq_n_f32(v46, v34.f32[0]), v47, v34, 1));
-    *v33.i32 = fmaxf(v35.f32[2], 0.00000011921);
-    v21 = vmla_n_f32(v21, vsub_f32(vsub_f32(vdiv_f32(*v35.f32, vdup_lane_s32(v33, 0)), v41), v21), v23);
+    while (v22 != 6);
+    v27.i32[1] = v41.i32[1];
+    v28 = vadd_f32(v35, v15);
+    v29 = vaddq_f32(v42, vmlaq_lane_f32(vmulq_n_f32(v40, v28.f32[0]), v41, v28, 1));
+    *v27.i32 = fmaxf(v29.f32[2], 0.00000011921);
+    v15 = vmla_n_f32(v15, vsub_f32(vsub_f32(vdiv_f32(*v29.f32, vdup_lane_s32(v27, 0)), v35), v15), v17);
   }
 
-  v22.n128_u32[0] = 1058642330;
-  result = [self _softClampShift:COERCE_DOUBLE(vmul_n_f32(v21 ofViewPortBox:*(self + 192))) toBoundingRect:v42 boundingCircle:a10 transitionThreshold:{a11, a12, a13, a14, v22.n128_f64[0]}];
-  *(self + 208) = v37;
+  v16.n128_u32[0] = 1058642330;
+  result = [self _softClampShift:COERCE_DOUBLE(vmul_n_f32(v15 ofViewPortBox:*(self + 192))) toBoundingRect:v36 boundingCircle:a10 transitionThreshold:{a11, a12, a13, a14, v16.n128_f64[0]}];
+  *(self + 208) = v31;
   return result;
 }
 
@@ -343,7 +343,7 @@ LABEL_6:
       v8 = self[24].f32[0] * 6.0;
     }
 
-    v14 = &self[6];
+    v14 = self + 6;
     self[6].f32[0] = v8;
     [(float32x2_t *)self _computeNominalTrackingTimescaleFromViewPortMargins:portMargins faceBoxSize:viewPortMargins];
     __asm { FMOV            V8.2S, #20.0 }
@@ -352,15 +352,13 @@ LABEL_6:
     self[6].f32[0] = fmaxf(fmaxf(self[6].f32[0], fminf(v17.f32[0], v17.f32[1]) * 0.05), 0.04);
     [(float32x2_t *)self _computeNominalTrackingTimescaleFromViewPortMargins:a2 faceBoxSize:viewPortMargins];
     v19 = vld1_dup_f32(v14);
-    v20 = vmaxnm_f32(vmaxnm_f32(vminnm_f32(v18, _D8), v19), vmul_n_f32(self[7], powf(0.000001, self[22].f32[0])));
+    vmaxnm_f32(vmaxnm_f32(vminnm_f32(v18, _D8), v19), vmul_n_f32(self[7], powf(0.000001, self[22].f32[0])));
     [(float32x2_t *)self _computeNominalTrackingTimescaleFromViewPortMargins:margins faceBoxSize:viewPortMargins];
-    v22 = vminnm_f32(v21, v20);
-    v23.i32[3] = 0;
-    v23.f32[0] = -self[22].f32[0];
-    *(v23.i64 + 4) = self[22].u32[0];
-    v24 = _simd_pow_f4(xmmword_11D10, v23).u64[0];
-    v25 = vld1_dup_f32(v14);
-    v26 = vmaxnm_f32(vminnm_f32(vminnm_f32(vmaxnm_f32(v22, vmul_n_f32(self[7], v24.f32[0])), vmul_lane_f32(self[7], v24, 1)), v20), v25);
+    v20.i32[3] = 0;
+    v20.f32[0] = -self[22].f32[0];
+    *(v20.i64 + 4) = self[22].u32[0];
+    _simd_pow_f4(xmmword_11D10, v20);
+    vld1_dup_f32(v14);
   }
 }
 
@@ -428,11 +426,11 @@ LABEL_6:
 - (double)_estimateRatiosOfProjectedCorners:(float32x4_t)corners cornerRadii:(double)radii toMaxCornerShifts:(float32x4_t)shifts maxRadius:(double)radius circleCenter:(float)center forRotation:(int32x2_t)rotation
 {
   v12 = 0;
-  _S0 = _Q7.u32[1];
-  _S2 = _Q7.u32[2];
+  _S0 = _Q7.i32[1];
+  _S2 = _Q7.i32[2];
   __asm { FMLS            S1, S2, V7.S[2] }
 
-  _S21 = _Q7.u32[3];
+  _S21 = _Q7.i32[3];
   __asm { FMLA            S1, S21, V7.S[3] }
 
   v22 = vmuls_lane_f32(_Q7.f32[2], _Q7, 3);
@@ -572,7 +570,7 @@ LABEL_6:
   *v27.f32 = vrsqrte_f32(v28);
   *v27.f32 = vmul_f32(*v27.f32, vrsqrts_f32(v28, vmul_f32(*v27.f32, *v27.f32)));
   v29 = vmulq_n_f32(v26, vmul_f32(*v27.f32, vrsqrts_f32(v28, vmul_f32(*v27.f32, *v27.f32))).f32[0]);
-  *v26.f32 = vadd_f32(*shift.i8, a2);
+  *v26.f32 = vadd_f32(*shift.i8, *&a2);
   v30 = vaddq_f32(v25, vmlaq_lane_f32(vmulq_n_f32(v24, v26.f32[0]), v23, *v26.f32, 1));
   v31 = vmulq_f32(v30, v30);
   v25.f32[0] = v31.f32[2] + vaddv_f32(*v31.f32);
@@ -590,7 +588,7 @@ LABEL_6:
   v37 = vmaxvq_f32(v36);
   *v34.f32 = vsub_f32(*v34.f32, *v35.f32);
   v35.f32[0] = v37 + -1.0;
-  v38 = [[RTSCWeightedInterpolationModel alloc] initWithPoint:*&a2 weights:COERCE_DOUBLE(vadd_f32(vadd_f32(vmaxnm_f32(*v34.f32, 0), vmaxnm_f32(vdup_lane_s32(*v35.f32, 0), 0)), 0x3400000034000000))];
+  v38 = [[RTSCWeightedInterpolationModel alloc] initWithPoint:a2 weights:COERCE_DOUBLE(vadd_f32(vadd_f32(vmaxnm_f32(*v34.f32, 0), vmaxnm_f32(vdup_lane_s32(*v35.f32, 0), 0)), 0x3400000034000000))];
   v41.i32[1] = HIDWORD(v82);
   v41.f32[0] = fmaxf(fmaxf(*&v82, v80), v37);
   if (v41.f32[0] > 1.0)
@@ -657,7 +655,7 @@ LABEL_6:
   *&v67 = v66.f32[2] + vaddv_f32(*v66.f32);
   *v66.f32 = vrsqrte_f32(v67);
   *v66.f32 = vmul_f32(*v66.f32, vrsqrts_f32(v67, vmul_f32(*v66.f32, *v66.f32)));
-  *&v68 = simd_quaternion(v74, vmulq_n_f32(v65, vmul_f32(*v66.f32, vrsqrts_f32(v67, vmul_f32(*v66.f32, *v66.f32))).f32[0]));
+  v68.n128_f64[0] = simd_quaternion(v74, vmulq_n_f32(v65, vmul_f32(*v66.f32, vrsqrts_f32(v67, vmul_f32(*v66.f32, *v66.f32))).f32[0]));
   v84 = v68;
 
   return v84;

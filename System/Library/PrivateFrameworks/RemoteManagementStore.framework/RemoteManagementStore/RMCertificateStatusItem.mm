@@ -1,4 +1,5 @@
 @interface RMCertificateStatusItem
++ (id)certificateStatusItemWithPersistentRef:(id)ref isIdentity:(BOOL)identity;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToCertificateStatus:(id)status;
 - (RMCertificateStatusItem)initWithCoder:(id)coder;
@@ -7,6 +8,15 @@
 @end
 
 @implementation RMCertificateStatusItem
+
++ (id)certificateStatusItemWithPersistentRef:(id)ref isIdentity:(BOOL)identity
+{
+  identityCopy = identity;
+  refCopy = ref;
+  v6 = [[RMCertificateStatusItem alloc] initWithWithPersistentRef:refCopy isIdentity:identityCopy];
+
+  return v6;
+}
 
 - (RMCertificateStatusItem)initWithWithPersistentRef:(id)ref isIdentity:(BOOL)identity
 {

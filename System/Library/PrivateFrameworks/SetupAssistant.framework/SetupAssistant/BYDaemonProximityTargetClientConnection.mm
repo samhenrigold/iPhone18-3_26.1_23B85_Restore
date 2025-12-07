@@ -3,6 +3,7 @@
 - (void)beginAdvertisingProximitySetup;
 - (void)beginSIMSetupExternalAuthentication;
 - (void)dismissProximityPinCode;
+- (void)displayProximityPinCode:(id)code visual:(BOOL)visual;
 - (void)endAdvertisingProximitySetup;
 - (void)endDeviceToDeviceMigration;
 - (void)endPairing;
@@ -150,6 +151,15 @@
 {
   v2 = +[BYDaemonProximityController sharedController];
   [v2 endSIMSetupExternalAuthentication];
+}
+
+- (void)displayProximityPinCode:(id)code visual:(BOOL)visual
+{
+  visualCopy = visual;
+  codeCopy = code;
+  connection = [(BYDaemonClientConnection *)self connection];
+  remoteObjectProxy = [connection remoteObjectProxy];
+  [remoteObjectProxy displayProximityPinCode:codeCopy visual:visualCopy];
 }
 
 - (void)dismissProximityPinCode

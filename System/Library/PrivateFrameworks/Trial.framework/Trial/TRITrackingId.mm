@@ -1,4 +1,6 @@
 @interface TRITrackingId
++ (id)trackingIdWithProjectId:(int)id paths:(id)paths;
++ (id)trackingIdWithProjectId:(int)id paths:(id)paths treatments:(id)treatments;
 - (BOOL)isEqual:(id)equal;
 - (TRISubject)subject;
 - (TRITrackingId)initWithCoder:(id)coder;
@@ -10,6 +12,42 @@
 @end
 
 @implementation TRITrackingId
+
++ (id)trackingIdWithProjectId:(int)id paths:(id)paths treatments:(id)treatments
+{
+  v6 = *&id;
+  treatmentsCopy = treatments;
+  pathsCopy = paths;
+  v9 = [TRITrackingId alloc];
+  uUID = [MEMORY[0x277CCAD78] UUID];
+  date = [MEMORY[0x277CBEAA8] date];
+  v12 = [TRISubjectProvider defaultProviderWithPaths:pathsCopy];
+
+  v13 = [(TRITrackingId *)v9 initWithUUID:uUID time:date treatments:treatmentsCopy subjectProvider:v12 projectId:v6];
+
+  return v13;
+}
+
++ (id)trackingIdWithProjectId:(int)id paths:(id)paths
+{
+  v4 = *&id;
+  pathsCopy = paths;
+  v7 = [TRILogTreatmentReader readerWithProjectId:v4 paths:pathsCopy];
+  v8 = v7;
+  if (v7)
+  {
+    treatments = [v7 treatments];
+  }
+
+  else
+  {
+    treatments = 0;
+  }
+
+  v10 = [self trackingIdWithProjectId:v4 paths:pathsCopy treatments:treatments];
+
+  return v10;
+}
 
 - (TRITrackingId)initWithUUID:(id)d time:(id)time treatments:(id)treatments subject:(id)subject
 {
@@ -197,7 +235,7 @@ LABEL_24:
 
 - (TRITrackingId)initWithCoder:(id)coder
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"uuid"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"time"];
@@ -209,9 +247,9 @@ LABEL_24:
     if ([v8 BOOLValue])
     {
       v10 = MEMORY[0x277CBEB98];
-      v19[0] = objc_opt_class();
-      v19[1] = objc_opt_class();
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+      v18[0] = objc_opt_class();
+      v18[1] = objc_opt_class();
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
       v12 = [v10 setWithArray:v11];
       v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"treatments"];
 
@@ -246,14 +284,13 @@ LABEL_11:
   v14 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    *v18 = 0;
-    _os_log_error_impl(&dword_22EA6B000, v14, OS_LOG_TYPE_ERROR, "failed to decode tracking id, some fields were nil", v18, 2u);
+    *v17 = 0;
+    _os_log_error_impl(&dword_22EA6B000, v14, OS_LOG_TYPE_ERROR, "failed to decode tracking id, some fields were nil", v17, 2u);
   }
 
   v15 = 0;
 LABEL_14:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

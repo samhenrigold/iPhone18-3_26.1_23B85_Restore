@@ -1446,7 +1446,7 @@ void __79__UIAssistantBarButtonItemProvider_defaultSystemLeadingBarButtonGroupsF
     {
 LABEL_7:
       identifier = [v15 identifier];
-      if (UIKeyboardShowsTransliterationCandidatesForInputMode())
+      if (UIKeyboardShowsTransliterationCandidatesForInputMode(identifier))
       {
         [v15 monolingualDisplayName];
       }
@@ -1493,7 +1493,7 @@ LABEL_7:
     currentLanguageIdentifier = UIKeyboardGetCurrentInputMode();
   }
 
-  if ([v18 isEqualToString:currentLanguageIdentifier])
+  if (objc_msgSend_isEqualToString_(v18))
   {
     [v16 setState:1];
   }
@@ -2146,7 +2146,7 @@ void __58__UIAssistantBarButtonItemProvider_languageIndicatorItem___block_invoke
   v14 = v10;
   v11 = [UIAction actionWithTitle:v9 image:v8 identifier:v10 handler:v13];
 
-  LODWORD(v9) = [v10 isEqualToString:inputModeCopy];
+  LODWORD(v9) = objc_msgSend_isEqualToString_(v10);
   if (v9)
   {
     [v11 setState:1];

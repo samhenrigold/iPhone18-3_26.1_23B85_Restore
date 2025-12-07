@@ -78,7 +78,7 @@
   {
     if (![mapCopy hasValueForFeature:?])
     {
-      v23 = 0;
+      v22 = 0;
       goto LABEL_27;
     }
 
@@ -88,70 +88,69 @@
 
   else
   {
-    threshold = self->_threshold;
     v12 = RECreateDoubleFeatureValueTaggedPointer();
   }
 
-  v14 = RECreateDoubleFeatureValueTaggedPointer();
+  v13 = RECreateDoubleFeatureValueTaggedPointer();
   relation = self->_relation;
-  v16 = RECompareFeatureValues(v14, v12);
-  v17 = v16 != -1;
-  v18 = v16 == 1;
-  v19 = v16 != 0;
+  v15 = RECompareFeatureValues(v13, v12);
+  v16 = v15 != -1;
+  v17 = v15 == 1;
+  v18 = v15 != 0;
   if (relation != 4)
   {
-    v19 = v16 != -1;
+    v18 = v15 != -1;
   }
 
   if (relation != 2)
   {
-    v18 = v19;
+    v17 = v18;
   }
 
   if (relation != 1)
   {
-    v17 = v18;
+    v16 = v17;
   }
 
-  v20 = v16 == -1;
-  v21 = v16 != 1;
-  v22 = v16 == 0;
+  v19 = v15 == -1;
+  v20 = v15 != 1;
+  v21 = v15 == 0;
   if (relation)
   {
-    v22 = v17;
+    v21 = v16;
   }
 
   if (relation != -1)
   {
-    v21 = v22;
+    v20 = v21;
   }
 
   if (relation != -2)
   {
-    v20 = v21;
+    v19 = v20;
   }
 
   if (relation <= 0)
   {
-    v23 = v20;
+    v22 = v19;
   }
 
   else
   {
-    v23 = v17;
+    v22 = v16;
   }
 
   REReleaseFeatureValueTaggedPointer(v12);
-  REReleaseFeatureValueTaggedPointer(v14);
-  if (explanation && (v23 & 1) != 0)
+  REReleaseFeatureValueTaggedPointer(v13);
+  if (explanation && (v22 & 1) != 0)
   {
     *explanation = [REMLExplanation explanationForCondition:self];
-    v23 = 1;
+    v22 = 1;
   }
 
 LABEL_27:
 
-  return v23 & 1;
+  return v22 & 1;
 }
 
 - (id)_inflectionFeatureValuePairs

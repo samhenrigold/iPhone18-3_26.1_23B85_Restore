@@ -3,6 +3,7 @@
 - (BOOL)isFeatureSupported:(unint64_t)supported;
 - (_NFFieldDetectSession)initWithRemoteObject:(id)object workQueue:(id)queue;
 - (void)didStartSession:(id)session;
+- (void)handleFieldChanged:(BOOL)changed;
 - (void)handleFieldNotification:(id)notification;
 - (void)handleFilteredFieldNotification:(id)notification;
 @end
@@ -156,6 +157,16 @@
   v4.receiver = self;
   v4.super_class = _NFFieldDetectSession;
   return [(_NFSession *)&v4 isFeatureSupported:supported];
+}
+
+- (void)handleFieldChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  if (!changed || ([(_NFFieldDetectSession *)self notificationConfig]& 2) == 0)
+  {
+    remoteObject = [(_NFXPCSession *)self remoteObject];
+    [remoteObject didDetectField:changedCopy];
+  }
 }
 
 @end

@@ -72,12 +72,12 @@
 
   if (v15)
   {
-    v16 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = MTMetricsKitOSLog(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       v19 = 138412290;
       v20 = nameCopy;
-      _os_log_impl(&dword_258F4B000, v16, OS_LOG_TYPE_DEBUG, "MetricsKit: registerEventHandlerName: Event handler named %@ is already registered. The previous event handler will be replaced.", &v19, 0xCu);
+      _os_log_impl(&dword_258F4B000, v17, OS_LOG_TYPE_DEBUG, "MetricsKit: registerEventHandlerName: Event handler named %@ is already registered. The previous event handler will be replaced.", &v19, 0xCu);
     }
   }
 
@@ -85,7 +85,6 @@
   [registrations2 setObject:v12 forKeyedSubscript:nameCopy];
 
   objc_sync_exit(selfCopy);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerEventHandlerName:(id)name eventData:(id)data
@@ -105,22 +104,20 @@
   v7 = [registrations objectForKeyedSubscript:subscriptCopy];
 
   objc_sync_exit(selfCopy);
-  if (!v7 || ([v7 eventHandler], (v8 = objc_claimAutoreleasedReturnValue()) == 0))
+  if (!v7 || ([v7 eventHandler], v8 = objc_claimAutoreleasedReturnValue(), (v9 = v8) == 0))
   {
-    v9 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = MTMetricsKitOSLog(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       v12 = 138412290;
       v13 = subscriptCopy;
-      _os_log_impl(&dword_258F4B000, v9, OS_LOG_TYPE_DEBUG, "MetricsKit: Event handler named %@ has not been registered. Use registerEventHandlerName to register it first.", &v12, 0xCu);
+      _os_log_impl(&dword_258F4B000, v10, OS_LOG_TYPE_DEBUG, "MetricsKit: Event handler named %@ has not been registered. Use registerEventHandlerName to register it first.", &v12, 0xCu);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v9;
 }
 
 @end

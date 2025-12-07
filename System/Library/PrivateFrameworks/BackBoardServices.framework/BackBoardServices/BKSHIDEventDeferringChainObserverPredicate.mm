@@ -42,7 +42,7 @@
       if (v3 != objc_opt_class())
       {
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-        [currentHandler handleFailureInMethod:sel__init object:v1 file:@"BKSHIDEventDeferringChainObserverPredicate.m" lineNumber:50 description:@"BKSHIDEventDeferringChainObserverPredicate cannot be subclassed"];
+        [currentHandler handleFailureInMethod:? object:? file:? lineNumber:? description:?];
       }
     }
 
@@ -75,28 +75,24 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = equalCopy;
-    v6 = v5[1];
-    display = self->_display;
+    v4 = equalCopy;
     if (BSEqualObjects())
     {
-      v8 = v5[2];
-      environment = self->_environment;
-      v10 = BSEqualObjects();
+      v5 = BSEqualObjects();
     }
 
     else
     {
-      v10 = 0;
+      v5 = 0;
     }
   }
 
   else
   {
-    v10 = 0;
+    v5 = 0;
   }
 
-  return v10;
+  return v5;
 }
 
 - (unint64_t)hash
@@ -110,19 +106,17 @@
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  display = self->_display;
-  v7 = coderCopy;
-  if (display)
+  v5 = coderCopy;
+  if (self->_display)
   {
-    [coderCopy encodeObject:display forKey:@"display"];
-    coderCopy = v7;
+    [coderCopy encodeObject:? forKey:?];
+    coderCopy = v5;
   }
 
-  environment = self->_environment;
-  if (environment)
+  if (self->_environment)
   {
-    [v7 encodeObject:environment forKey:@"environment"];
-    coderCopy = v7;
+    [v5 encodeObject:? forKey:?];
+    coderCopy = v5;
   }
 }
 
@@ -132,11 +126,13 @@
   v10.super_class = BKSHIDEventDeferringChainObserverPredicate;
   coderCopy = coder;
   v4 = [(BKSHIDEventDeferringChainObserverPredicate *)&v10 init];
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:{@"display", v10.receiver, v10.super_class}];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:v10.receiver forKey:v10.super_class];
   display = v4->_display;
   v4->_display = v5;
 
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"environment"];
+  objc_opt_class();
+  v7 = [coderCopy decodeObjectOfClass:? forKey:?];
 
   environment = v4->_environment;
   v4->_environment = v7;
@@ -147,8 +143,8 @@
 - (BKSHIDEventDeferringChainObserverPredicate)init
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[BKSHIDEventDeferringChainObserverPredicate init]"];
-  [currentHandler handleFailureInFunction:v4 file:@"BKSHIDEventDeferringChainObserverPredicate.m" lineNumber:39 description:@"cannot directly allocate BKSHIDEventDeferringChainObserverPredicate"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+  [currentHandler handleFailureInFunction:? file:? lineNumber:? description:?];
 
   return 0;
 }
@@ -156,8 +152,8 @@
 + (id)new
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[BKSHIDEventDeferringChainObserverPredicate new]"];
-  [currentHandler handleFailureInFunction:v3 file:@"BKSHIDEventDeferringChainObserverPredicate.m" lineNumber:44 description:@"cannot directly allocate BKSHIDEventDeferringChainObserverPredicate"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+  [currentHandler handleFailureInFunction:? file:? lineNumber:? description:?];
 
   return 0;
 }

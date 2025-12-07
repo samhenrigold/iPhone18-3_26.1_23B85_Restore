@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)selectionTypeAsString:(int)string;
 - (int)StringAsSelectionType:(id)type;
 - (int)selectionType;
 - (unint64_t)hash;
@@ -117,18 +118,17 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_uuidString)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    selectionType = self->_selectionType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -192,6 +192,29 @@ LABEL_9:
   else
   {
     v4 = [typeCopy isEqualToString:@"selectionTypeHomeUser"];
+  }
+
+  return v4;
+}
+
+- (id)selectionTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"selectionTypeHomeUser";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"selectionTypeHomePodAccount";
   }
 
   return v4;

@@ -32,19 +32,15 @@
 - (int64_t)hash
 {
   Hasher.init()();
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC11WorkoutCore36ManagedConfigurationSourcePickerItem_provider);
   swift_beginAccess();
-  v4 = *(v3 + 32);
-  v5 = *(v3 + 40);
   selfCopy = self;
 
   String.hash(into:)();
 
-  v7 = *(&selfCopy->super.isa + OBJC_IVAR____TtC11WorkoutCore36ManagedConfigurationSourcePickerItem_viewModel);
-  ManagedConfigurationsViewModel.hash(into:)(v10);
-  v8 = Hasher.finalize()();
+  ManagedConfigurationsViewModel.hash(into:)();
+  v4 = Hasher.finalize()();
 
-  return v8;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal

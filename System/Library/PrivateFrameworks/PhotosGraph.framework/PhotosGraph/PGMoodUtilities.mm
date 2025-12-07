@@ -14,7 +14,7 @@
 
 + (id)_momentNodesForAssetCollection:(id)collection inGraph:(id)graph moodOptions:(id)options
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
   graphCopy = graph;
   momentIDs = [options momentIDs];
@@ -43,30 +43,30 @@ LABEL_7:
 
   v13 = PGMomentsForAssetCollection(collectionCopy);
   v14 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(v13, "count")}];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v15 = v13;
-  v16 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v24;
+    v18 = *v23;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v24 != v18)
+        if (*v23 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        uuid2 = [*(*(&v23 + 1) + 8 * i) uuid];
+        uuid2 = [*(*(&v22 + 1) + 8 * i) uuid];
         [v14 addObject:uuid2];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v17);
@@ -75,7 +75,6 @@ LABEL_7:
   momentNodes = [PGGraphMomentNodeCollection momentNodesForUUIDs:v14 inGraph:graphCopy];
 
 LABEL_16:
-  v21 = *MEMORY[0x277D85DE8];
 
   return momentNodes;
 }
@@ -92,59 +91,59 @@ LABEL_16:
 
 + (id)moodGraphContextIdentifiersForMomentNodes:(id)nodes inGraph:(id)graph moodOptions:(id)options
 {
-  v162 = *MEMORY[0x277D85DE8];
+  v161 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   graphCopy = graph;
   optionsCopy = options;
   array = [MEMORY[0x277CBEB18] array];
-  v155 = 0;
-  v156 = &v155;
-  v157 = 0x2020000000;
-  v158 = 1;
-  v151 = 0;
-  v152 = &v151;
-  v153 = 0x2020000000;
-  v154 = 1;
-  v147 = 0;
-  v148 = &v147;
-  v149 = 0x2020000000;
-  v150 = 1;
-  v143 = 0;
-  v144 = &v143;
-  v145 = 0x2020000000;
-  v146 = 1;
-  v139 = 0;
-  v140 = &v139;
-  v141 = 0x2020000000;
-  v142 = 1;
-  v135 = 0;
-  v136 = &v135;
-  v137 = 0x2020000000;
-  v138 = 1;
-  v131 = 0;
-  v132 = &v131;
-  v133 = 0x2020000000;
-  v134 = 1;
-  v127 = 0;
-  v128 = &v127;
-  v129 = 0x2020000000;
-  v130 = 1;
-  v123 = 0;
-  v124 = &v123;
-  v125 = 0x2020000000;
-  v126 = 1;
-  v119 = 0;
-  v120 = &v119;
-  v121 = 0x2020000000;
-  v122 = 1;
-  v115 = 0;
-  v116 = &v115;
-  v117 = 0x2020000000;
-  v118 = 1;
-  v111 = 0;
-  v112 = &v111;
-  v113 = 0x2020000000;
-  v114 = 1;
+  v154 = 0;
+  v155 = &v154;
+  v156 = 0x2020000000;
+  v157 = 1;
+  v150 = 0;
+  v151 = &v150;
+  v152 = 0x2020000000;
+  v153 = 1;
+  v146 = 0;
+  v147 = &v146;
+  v148 = 0x2020000000;
+  v149 = 1;
+  v142 = 0;
+  v143 = &v142;
+  v144 = 0x2020000000;
+  v145 = 1;
+  v138 = 0;
+  v139 = &v138;
+  v140 = 0x2020000000;
+  v141 = 1;
+  v134 = 0;
+  v135 = &v134;
+  v136 = 0x2020000000;
+  v137 = 1;
+  v130 = 0;
+  v131 = &v130;
+  v132 = 0x2020000000;
+  v133 = 1;
+  v126 = 0;
+  v127 = &v126;
+  v128 = 0x2020000000;
+  v129 = 1;
+  v122 = 0;
+  v123 = &v122;
+  v124 = 0x2020000000;
+  v125 = 1;
+  v118 = 0;
+  v119 = &v118;
+  v120 = 0x2020000000;
+  v121 = 1;
+  v114 = 0;
+  v115 = &v114;
+  v116 = 0x2020000000;
+  v117 = 1;
+  v110 = 0;
+  v111 = &v110;
+  v112 = 0x2020000000;
+  v113 = 1;
   moodGenerationContext = [optionsCopy moodGenerationContext];
   v10 = moodGenerationContext;
   if (moodGenerationContext)
@@ -161,54 +160,54 @@ LABEL_16:
 
   meNode = [graphCopy meNode];
   v15 = meNode;
-  v105 = 0;
-  v106 = &v105;
-  v107 = 0x3032000000;
-  v108 = __Block_byref_object_copy__65086;
-  v109 = __Block_byref_object_dispose__65087;
-  v110 = 0;
+  v104 = 0;
+  v105 = &v104;
+  v106 = 0x3032000000;
+  v107 = __Block_byref_object_copy__65086;
+  v108 = __Block_byref_object_dispose__65087;
+  v109 = 0;
   if (meNode)
   {
-    v99 = 0;
-    v100 = &v99;
-    v101 = 0x3032000000;
-    v102 = __Block_byref_object_copy__65086;
-    v103 = __Block_byref_object_dispose__65087;
-    v104 = 0;
-    v98[0] = MEMORY[0x277D85DD0];
-    v98[1] = 3221225472;
-    v98[2] = __81__PGMoodUtilities_moodGraphContextIdentifiersForMomentNodes_inGraph_moodOptions___block_invoke;
-    v98[3] = &unk_278888DB0;
-    v98[4] = &v99;
-    [meNode enumeratePersonNodesWithRelationship:13 matchingQuery:3 usingBlock:v98];
-    v16 = v100[5];
+    v98 = 0;
+    v99 = &v98;
+    v100 = 0x3032000000;
+    v101 = __Block_byref_object_copy__65086;
+    v102 = __Block_byref_object_dispose__65087;
+    v103 = 0;
+    v97[0] = MEMORY[0x277D85DD0];
+    v97[1] = 3221225472;
+    v97[2] = __81__PGMoodUtilities_moodGraphContextIdentifiersForMomentNodes_inGraph_moodOptions___block_invoke;
+    v97[3] = &unk_278888DB0;
+    v97[4] = &v98;
+    [meNode enumeratePersonNodesWithRelationship:13 matchingQuery:3 usingBlock:v97];
+    v16 = v99[5];
     if (v16)
     {
       collection = [v16 collection];
       socialGroupNodes = [collection socialGroupNodes];
-      v97[0] = MEMORY[0x277D85DD0];
-      v97[1] = 3221225472;
-      v97[2] = __81__PGMoodUtilities_moodGraphContextIdentifiersForMomentNodes_inGraph_moodOptions___block_invoke_2;
-      v97[3] = &unk_278888DE0;
-      v97[4] = &v105;
-      [socialGroupNodes enumerateNodesUsingBlock:v97];
+      v96[0] = MEMORY[0x277D85DD0];
+      v96[1] = 3221225472;
+      v96[2] = __81__PGMoodUtilities_moodGraphContextIdentifiersForMomentNodes_inGraph_moodOptions___block_invoke_2;
+      v96[3] = &unk_278888DE0;
+      v96[4] = &v104;
+      [socialGroupNodes enumerateNodesUsingBlock:v96];
     }
 
-    _Block_object_dispose(&v99, 8);
+    _Block_object_dispose(&v98, 8);
   }
 
   else
   {
-    *(v156 + 24) = 0;
-    *(v152 + 24) = 0;
+    *(v155 + 24) = 0;
+    *(v151 + 24) = 0;
   }
 
   supersetCityNodes = [graphCopy supersetCityNodes];
   if (![supersetCityNodes count])
   {
-    *(v148 + 24) = 0;
-    *(v144 + 24) = 0;
-    *(v140 + 24) = 0;
+    *(v147 + 24) = 0;
+    *(v143 + 24) = 0;
+    *(v139 + 24) = 0;
   }
 
   v20 = MEMORY[0x277CBEB98];
@@ -217,81 +216,81 @@ LABEL_16:
 
   if (![v22 count])
   {
-    if (!v106[5])
+    if (!v105[5])
     {
-      *(v128 + 24) = 0;
+      *(v127 + 24) = 0;
     }
 
-    *(v124 + 24) = 0;
-    *(v120 + 24) = 0;
+    *(v123 + 24) = 0;
+    *(v119 + 24) = 0;
   }
 
-  v99 = 0;
-  v100 = &v99;
-  v101 = 0x3032000000;
-  v102 = __Block_byref_object_copy__65086;
-  v103 = __Block_byref_object_dispose__65087;
-  v104 = 0;
-  v91 = 0;
-  v92 = &v91;
-  v93 = 0x3032000000;
-  v94 = __Block_byref_object_copy__65086;
-  v95 = __Block_byref_object_dispose__65087;
-  v96 = 0;
-  v85 = 0;
-  v86 = &v85;
-  v87 = 0x3032000000;
-  v88 = __Block_byref_object_copy__65086;
-  v89 = __Block_byref_object_dispose__65087;
+  v98 = 0;
+  v99 = &v98;
+  v100 = 0x3032000000;
+  v101 = __Block_byref_object_copy__65086;
+  v102 = __Block_byref_object_dispose__65087;
+  v103 = 0;
   v90 = 0;
-  v63[0] = MEMORY[0x277D85DD0];
-  v63[1] = 3221225472;
-  v63[2] = __81__PGMoodUtilities_moodGraphContextIdentifiersForMomentNodes_inGraph_moodOptions___block_invoke_3;
-  v63[3] = &unk_278888E60;
-  v69 = &v115;
+  v91 = &v90;
+  v92 = 0x3032000000;
+  v93 = __Block_byref_object_copy__65086;
+  v94 = __Block_byref_object_dispose__65087;
+  v95 = 0;
+  v84 = 0;
+  v85 = &v84;
+  v86 = 0x3032000000;
+  v87 = __Block_byref_object_copy__65086;
+  v88 = __Block_byref_object_dispose__65087;
+  v89 = 0;
+  v62[0] = MEMORY[0x277D85DD0];
+  v62[1] = 3221225472;
+  v62[2] = __81__PGMoodUtilities_moodGraphContextIdentifiersForMomentNodes_inGraph_moodOptions___block_invoke_3;
+  v62[3] = &unk_278888E60;
+  v68 = &v114;
   v23 = v11;
-  v64 = v23;
-  v70 = &v111;
-  v71 = &v155;
-  v72 = &v151;
-  v73 = &v147;
-  v74 = &v143;
-  v75 = &v139;
-  v47 = v15;
+  v63 = v23;
+  v69 = &v110;
+  v70 = &v154;
+  v71 = &v150;
+  v72 = &v146;
+  v73 = &v142;
+  v74 = &v138;
+  v46 = v15;
+  v64 = v46;
+  v47 = supersetCityNodes;
   v65 = v47;
-  v48 = supersetCityNodes;
-  v66 = v48;
-  v76 = &v85;
-  v77 = &v135;
-  v78 = &v131;
+  v75 = &v84;
+  v76 = &v134;
+  v77 = &v130;
   v24 = v22;
-  v67 = v24;
-  v79 = &v105;
-  v80 = &v127;
-  v81 = &v123;
-  v82 = &v119;
+  v66 = v24;
+  v78 = &v104;
+  v79 = &v126;
+  v80 = &v122;
+  v81 = &v118;
   v25 = graphCopy;
-  v68 = v25;
-  v83 = &v91;
-  v84 = &v99;
-  [nodesCopy enumerateNodesUsingBlock:v63];
-  if (*(v116 + 24) == 1)
+  v67 = v25;
+  v82 = &v90;
+  v83 = &v98;
+  [nodesCopy enumerateNodesUsingBlock:v62];
+  if (*(v115 + 24) == 1)
   {
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
-    v26 = v92[5];
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
+    v26 = v91[5];
     v27 = 0;
-    v28 = [v26 countByEnumeratingWithState:&v59 objects:v161 count:{16, v47, v48}];
+    v28 = [v26 countByEnumeratingWithState:&v58 objects:v160 count:{16, v46, v47}];
     if (v28)
     {
-      v29 = *v60;
+      v29 = *v59;
       while (2)
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v60 != v29)
+          if (*v59 != v29)
           {
             objc_enumerationMutation(v26);
           }
@@ -302,10 +301,10 @@ LABEL_16:
             goto LABEL_27;
           }
 
-          v27 = [(PGMoodGenerationContext *)v23 socialGroupIsLongTimeNoSeeWithSocialGroupNode:*(*(&v59 + 1) + 8 * i)];
+          v27 = [(PGMoodGenerationContext *)v23 socialGroupIsLongTimeNoSeeWithSocialGroupNode:*(*(&v58 + 1) + 8 * i)];
         }
 
-        v28 = [v26 countByEnumeratingWithState:&v59 objects:v161 count:16];
+        v28 = [v26 countByEnumeratingWithState:&v58 objects:v160 count:16];
         if (v28)
         {
           continue;
@@ -317,20 +316,20 @@ LABEL_16:
 
 LABEL_27:
 
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
-    v31 = v100[5];
-    v32 = [v31 countByEnumeratingWithState:&v55 objects:v160 count:16];
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v31 = v99[5];
+    v32 = [v31 countByEnumeratingWithState:&v54 objects:v159 count:16];
     if (v32)
     {
-      v33 = *v56;
+      v33 = *v55;
       while (2)
       {
         for (j = 0; j != v32; ++j)
         {
-          if (*v56 != v33)
+          if (*v55 != v33)
           {
             objc_enumerationMutation(v31);
           }
@@ -341,10 +340,10 @@ LABEL_27:
             goto LABEL_37;
           }
 
-          v27 = [(PGMoodGenerationContext *)v23 personIsLongTimeNoSeeWithPersonNode:*(*(&v55 + 1) + 8 * j)];
+          v27 = [(PGMoodGenerationContext *)v23 personIsLongTimeNoSeeWithPersonNode:*(*(&v54 + 1) + 8 * j)];
         }
 
-        v32 = [v31 countByEnumeratingWithState:&v55 objects:v160 count:16];
+        v32 = [v31 countByEnumeratingWithState:&v54 objects:v159 count:16];
         if (v32)
         {
           continue;
@@ -362,25 +361,25 @@ LABEL_37:
     v27 = 0;
   }
 
-  if (*(v112 + 24) == 1)
+  if (*(v111 + 24) == 1)
   {
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
-    v35 = v86[5];
-    v36 = [v35 countByEnumeratingWithState:&v51 objects:v159 count:16];
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v35 = v85[5];
+    v36 = [v35 countByEnumeratingWithState:&v50 objects:v158 count:16];
     v37 = array;
     v38 = 0;
     if (v36)
     {
-      v39 = *v52;
+      v39 = *v51;
       while (2)
       {
         v40 = v25;
         for (k = 0; k != v36; ++k)
         {
-          if (*v52 != v39)
+          if (*v51 != v39)
           {
             objc_enumerationMutation(v35);
           }
@@ -392,10 +391,10 @@ LABEL_37:
             goto LABEL_50;
           }
 
-          v38 = [(PGMoodGenerationContext *)v23 locationIsLongTimeNoSeeWithLocationNode:*(*(&v51 + 1) + 8 * k)];
+          v38 = [(PGMoodGenerationContext *)v23 locationIsLongTimeNoSeeWithLocationNode:*(*(&v50 + 1) + 8 * k)];
         }
 
-        v36 = [v35 countByEnumeratingWithState:&v51 objects:v159 count:16];
+        v36 = [v35 countByEnumeratingWithState:&v50 objects:v158 count:16];
         v25 = v40;
         if (v36)
         {
@@ -416,29 +415,29 @@ LABEL_50:
     v38 = 0;
   }
 
-  if (v156[3])
+  if (v155[3])
   {
     v42 = @"AtHome";
   }
 
-  else if (v152[3])
+  else if (v151[3])
   {
     v42 = @"AtWork";
   }
 
-  else if (v148[3])
+  else if (v147[3])
   {
     v42 = @"CurrentSuperset";
   }
 
-  else if (v144[3])
+  else if (v143[3])
   {
     v42 = @"OtherSuperset";
   }
 
   else
   {
-    if (*(v140 + 24) != 1)
+    if (*(v139 + 24) != 1)
     {
       goto LABEL_62;
     }
@@ -446,16 +445,16 @@ LABEL_50:
     v42 = @"NoSuperset";
   }
 
-  [array addObject:{v42, v47}];
+  [array addObject:{v42, v46}];
 LABEL_62:
-  if (v136[3])
+  if (v135[3])
   {
     v43 = @"NoPeople";
   }
 
   else
   {
-    if (*(v132 + 24) != 1)
+    if (*(v131 + 24) != 1)
     {
       goto LABEL_67;
     }
@@ -463,21 +462,21 @@ LABEL_62:
     v43 = @"Crowd";
   }
 
-  [array addObject:{v43, v47}];
+  [array addObject:{v43, v46}];
 LABEL_67:
-  if (v128[3])
+  if (v127[3])
   {
     v44 = @"BestPairSocialGroup";
   }
 
-  else if (v124[3])
+  else if (v123[3])
   {
     v44 = @"BestSocialGroups";
   }
 
   else
   {
-    if (*(v120 + 24) != 1)
+    if (*(v119 + 24) != 1)
     {
       goto LABEL_74;
     }
@@ -485,7 +484,7 @@ LABEL_67:
     v44 = @"OtherSocialGroups";
   }
 
-  [array addObject:{v44, v47}];
+  [array addObject:{v44, v46}];
 LABEL_74:
   if (v27)
   {
@@ -497,26 +496,24 @@ LABEL_74:
     [array addObject:@"LongTimeNoSeeLocation"];
   }
 
-  _Block_object_dispose(&v85, 8);
-  _Block_object_dispose(&v91, 8);
+  _Block_object_dispose(&v84, 8);
+  _Block_object_dispose(&v90, 8);
 
-  _Block_object_dispose(&v99, 8);
-  _Block_object_dispose(&v105, 8);
+  _Block_object_dispose(&v98, 8);
+  _Block_object_dispose(&v104, 8);
 
-  _Block_object_dispose(&v111, 8);
-  _Block_object_dispose(&v115, 8);
-  _Block_object_dispose(&v119, 8);
-  _Block_object_dispose(&v123, 8);
-  _Block_object_dispose(&v127, 8);
-  _Block_object_dispose(&v131, 8);
-  _Block_object_dispose(&v135, 8);
-  _Block_object_dispose(&v139, 8);
-  _Block_object_dispose(&v143, 8);
-  _Block_object_dispose(&v147, 8);
-  _Block_object_dispose(&v151, 8);
-  _Block_object_dispose(&v155, 8);
-
-  v45 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v110, 8);
+  _Block_object_dispose(&v114, 8);
+  _Block_object_dispose(&v118, 8);
+  _Block_object_dispose(&v122, 8);
+  _Block_object_dispose(&v126, 8);
+  _Block_object_dispose(&v130, 8);
+  _Block_object_dispose(&v134, 8);
+  _Block_object_dispose(&v138, 8);
+  _Block_object_dispose(&v142, 8);
+  _Block_object_dispose(&v146, 8);
+  _Block_object_dispose(&v150, 8);
+  _Block_object_dispose(&v154, 8);
 
   return array;
 }
@@ -533,7 +530,7 @@ void __81__PGMoodUtilities_moodGraphContextIdentifiersForMomentNodes_inGraph_moo
 
 void __81__PGMoodUtilities_moodGraphContextIdentifiersForMomentNodes_inGraph_moodOptions___block_invoke_3(uint64_t a1, void *a2)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 72) + 8);
   if (*(v4 + 24) == 1)
@@ -573,21 +570,21 @@ void __81__PGMoodUtilities_moodGraphContextIdentifiersForMomentNodes_inGraph_moo
   v8 = [MEMORY[0x277CBEB58] set];
   v9 = [v3 collection];
   v10 = [v9 addressNodes];
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __81__PGMoodUtilities_moodGraphContextIdentifiersForMomentNodes_inGraph_moodOptions___block_invoke_4;
-  v41[3] = &unk_278888E30;
-  v42 = *(a1 + 40);
-  v46 = *(a1 + 88);
-  v43 = *(a1 + 48);
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __81__PGMoodUtilities_moodGraphContextIdentifiersForMomentNodes_inGraph_moodOptions___block_invoke_4;
+  v40[3] = &unk_278888E30;
+  v41 = *(a1 + 40);
+  v45 = *(a1 + 88);
+  v42 = *(a1 + 48);
   v11 = v8;
   v12 = *(a1 + 120);
-  v44 = v11;
-  v47 = v12;
+  v43 = v11;
+  v46 = v12;
   v13 = v3;
-  v45 = v13;
-  v48 = vextq_s8(*(a1 + 104), *(a1 + 104), 8uLL);
-  [v10 enumerateNodesUsingBlock:v41];
+  v44 = v13;
+  v47 = vextq_s8(*(a1 + 104), *(a1 + 104), 8uLL);
+  [v10 enumerateNodesUsingBlock:v40];
 
   v14 = *(*(a1 + 128) + 8);
   v17 = *(v14 + 40);
@@ -623,25 +620,25 @@ void __81__PGMoodUtilities_moodGraphContextIdentifiersForMomentNodes_inGraph_moo
     }
 
     v19 = [v13 socialGroupNodes];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v20 = [v19 countByEnumeratingWithState:&v37 objects:v49 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v36 objects:v48 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v38;
+      v22 = *v37;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v38 != v22)
+          if (*v37 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v37 + 1) + 8 * i);
+          v24 = *(*(&v36 + 1) + 8 * i);
           if (([v24 isSameNodeAsNode:*(*(*(a1 + 152) + 8) + 40)] & 1) == 0)
           {
             if (([*(a1 + 56) containsObject:v24] & 1) == 0)
@@ -662,7 +659,7 @@ LABEL_29:
           }
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v37 objects:v49 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v36 objects:v48 count:16];
       }
 
       while (v21);
@@ -697,8 +694,6 @@ LABEL_29:
     v35 = *(v34 + 40);
     *(v34 + 40) = v33;
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __81__PGMoodUtilities_moodGraphContextIdentifiersForMomentNodes_inGraph_moodOptions___block_invoke_4(uint64_t a1, void *a2)

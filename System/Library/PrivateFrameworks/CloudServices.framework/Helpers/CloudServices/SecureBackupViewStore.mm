@@ -617,7 +617,7 @@ LABEL_30:
           v30 = CloudServicesLog();
           if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
-            sub_1000493B0(&v38);
+            sub_1000493B0();
           }
 
           goto LABEL_25;

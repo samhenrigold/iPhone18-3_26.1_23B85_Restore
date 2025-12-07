@@ -550,7 +550,7 @@ void OUTLINED_FUNCTION_1_0(IOPCIDevice *a1)
   IOPCIDevice::ConfigurationWrite8(a1, 4uLL, v3);
 }
 
-uint64_t radix_tree_lookup(uint64_t *a1, uint64_t a2)
+uint64_t radix_tree_lookup(uint64_t *a1, unint64_t a2)
 {
   v2 = *(a1 + 2);
   if (~(-1 << (6 * v2)) < a2)
@@ -676,7 +676,7 @@ uint64_t radix_tree_delete(uint64_t a1, uint64_t a2)
   return v9;
 }
 
-uint64_t radix_tree_insert(char **a1, uint64_t a2, uint64_t a3)
+uint64_t radix_tree_insert(char **a1, unint64_t a2, uint64_t a3)
 {
   if (!a3)
   {
@@ -2213,13 +2213,13 @@ uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::updateCarrier(AppleEthernetMLX
   }
 
   VPortState = DriverKit_AppleEthernetMLX5_IVars::queryVPortState(this[2], 0, 0);
-  v4 = v2[391];
+  v4 = *(v2 + 391);
   if (VPortState == 1)
   {
-    v2[391] = v4 | 2;
+    *(v2 + 391) = v4 | 2;
     if (DriverKit_AppleEthernetMLX5_IVars::queryPortPTYS(this[2], v16, 64, 4))
     {
-      v2[392] = 32;
+      *(v2 + 392) = 32;
       return IOLog("mlx5: %s: query port ptys failed: 0x%x\n");
     }
 
@@ -2271,20 +2271,20 @@ uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::updateCarrier(AppleEthernetMLX
 
       v14 = *(v11 + 1);
       v15 = v13 | 0x100020;
-      v2[392] = v13 | 0x100020;
-      if (v2[389])
+      *(v2 + 392) = v13 | 0x100020;
+      if (*(v2 + 389))
       {
         v15 = v13 | 0x500020;
-        v2[392] = v13 | 0x500020;
+        *(v2 + 392) = v13 | 0x500020;
       }
 
       if (gMLX5DebugFlags)
       {
         IOLog("mlx5:%s:%d updateCarrier: setting Link Mode to %x, baud rate %lld\n", "updateCarrier", 379, v15, v14);
-        v15 = v2[392];
+        v15 = *(v2 + 392);
       }
 
-      DriverKit_AppleEthernetMLX5_NetIf_IVars::reportLinkStatus(this, v2[391], v15);
+      DriverKit_AppleEthernetMLX5_NetIf_IVars::reportLinkStatus(this, *(v2 + 391), v15);
       result = DriverKit_AppleEthernetMLX5_NetIf_IVars::reportLinkQuality(this, 100);
       if (gMLX5DebugFlags)
       {
@@ -2295,8 +2295,8 @@ uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::updateCarrier(AppleEthernetMLX
 
   else
   {
-    v2[391] = v4 & 0xFFFFFFFD;
-    v2[392] = 32;
+    *(v2 + 391) = v4 & 0xFFFFFFFD;
+    *(v2 + 392) = 32;
     DriverKit_AppleEthernetMLX5_NetIf_IVars::reportLinkStatus(this, v4 & 0xFFFFFFFD, 32);
     result = DriverKit_AppleEthernetMLX5_NetIf_IVars::reportLinkQuality(this, -2);
     if (gMLX5DebugFlags)
@@ -2306,17 +2306,6 @@ uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::updateCarrier(AppleEthernetMLX
   }
 
   return result;
-}
-
-void DriverKit_AppleEthernetMLX5_NetIf_IVars::createRQ(uint64_t a1)
-{
-  if (*(a1 + 38394) == 2)
-  {
-    v1 = *(a1 + 38442) << *(a1 + 38444);
-  }
-
-  *(a1 + 38393);
-  operator new[]();
 }
 
 uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::destroyRQ(uint64_t a1, uint64_t a2)
@@ -2451,7 +2440,6 @@ uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::createSQ(uint64_t a1, uint64_t
     if (!result)
     {
       *(a4 + 432) += 4;
-      v8 = *(a4 + 440) + 1;
       if (gMLX5DebugFlags)
       {
         IOLog("mlx5:%s:%d sq total # of entries is %d\n", "createSQ", 596, *(a4 + 440) + 1);
@@ -2820,7 +2808,7 @@ uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::openChannel(uint64_t a1, unsig
       if (!result)
       {
 
-        DriverKit_AppleEthernetMLX5_NetIf_IVars::openRQ(a1);
+        DriverKit_AppleEthernetMLX5_NetIf_IVars::openRQ(a1, a2, a3);
       }
     }
   }
@@ -3404,7 +3392,7 @@ uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::openTIR(AppleEthernetMLX5Cmd *
 uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::openTIRs(AppleEthernetMLX5Cmd ***this)
 {
   v2 = 0;
-  v3 = (this + 71);
+  v3 = this + 71;
   for (i = (this + 71); ; ++i)
   {
     memset(v9, 0, sizeof(v9));
@@ -3426,7 +3414,7 @@ uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::openTIRs(AppleEthernetMLX5Cmd 
   {
     for (j = 0; j != v2; ++j)
     {
-      DriverKit_AppleEthernetMLX5_IVars::destroyTIR(this[2], *&v3[4 * j]);
+      DriverKit_AppleEthernetMLX5_IVars::destroyTIR(this[2], *(v3 + j));
     }
   }
 
@@ -3436,10 +3424,10 @@ uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::openTIRs(AppleEthernetMLX5Cmd 
 uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::closeTIRs(AppleEthernetMLX5Cmd ***this)
 {
   v2 = 0;
-  v3 = (this + 71);
+  v3 = this + 71;
   do
   {
-    result = DriverKit_AppleEthernetMLX5_IVars::destroyTIR(this[2], *&v3[v2]);
+    result = DriverKit_AppleEthernetMLX5_IVars::destroyTIR(this[2], *(v3 + v2));
     v2 += 4;
   }
 
@@ -3447,7 +3435,7 @@ uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::closeTIRs(AppleEthernetMLX5Cmd
   return result;
 }
 
-uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::setDevPortMTU(AppleEthernetMLX5Cmd ***this, int a2)
+uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::setDevPortMTU(DriverKit_AppleEthernetMLX5_IVars **this, int a2)
 {
   result = DriverKit_AppleEthernetMLX5_IVars::setPortMTU(this[2], a2 + 22);
   if (!result)
@@ -3566,7 +3554,6 @@ void DriverKit_AppleEthernetMLX5_NetIf_IVars::startInterface(DriverKit_AppleEthe
   }
 
   *(v2 + 393) = (v11 & 0xEFFFFFFF | (((v8 >> 8) & 1) << 28)) ^ 0x30000007;
-  v12 = *(v2 + 766);
   operator new[]();
 }
 
@@ -3590,7 +3577,7 @@ uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::getHardwareAssists(DriverKit_A
   return (v1 & 0xEFFFFFFF | (((gMLX5DebugFlags >> 8) & 1) << 28)) ^ 0x30000007;
 }
 
-uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::getSupportedMediaArray(AppleEthernetMLX5Cmd ***this, unsigned int *a2, unsigned int *a3)
+uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::getSupportedMediaArray(DriverKit_AppleEthernetMLX5_IVars **this, unsigned int *a2, unsigned int *a3)
 {
   if (gMLX5DebugFlags)
   {
@@ -3664,7 +3651,7 @@ LABEL_22:
       v7 = 0;
       v8 = 0;
       v9 = bswap32(v29);
-      v10 = &mode_table;
+      v10 = mode_table;
       do
       {
         v12 = *v10;
@@ -4063,7 +4050,7 @@ LABEL_30:
   return PortPTYS;
 }
 
-uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::setMcastAddresses(DriverKit_AppleEthernetMLX5_NetIf_IVars *this, unsigned __int8 *a2)
+uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::setMcastAddresses(DriverKit_AppleEthernetMLX5_NetIf_IVars *this, unsigned __int8 *a2, int a3)
 {
   if (*(this + 6) == 2)
   {
@@ -5978,54 +5965,50 @@ void DriverKit_AppleEthernetMLX5_NetIf_IVars::dequeueTxPackets()
 void AppleEthernetMLX5EQ::queue_interrupt(AppleEthernetMLX5EQ *this)
 {
   v2 = *(this + 18);
-  v3 = *(this + 5);
-  v4 = *(this + 20);
-  if (v3)
+  if (*(this + 5))
   {
-    OUTLINED_FUNCTION_0_0(v3);
-    if ((v7 & 1) == 0)
+    OUTLINED_FUNCTION_0_0();
+    if ((v5 & 1) == 0)
     {
-      v8 = 0;
+      v6 = 0;
       do
       {
-        v9 = v2;
+        v7 = v2;
         do
         {
-          *(this + 18) = ++v9;
-          if (v8 >= 127)
+          *(this + 18) = ++v7;
+          if (v6 >= 127)
           {
             AppleEthernetMLX5EQ::updateCI(this, 0);
-            v8 = 0;
-            v5 = *(this + 5);
-            v9 = *(this + 18);
-            v6 = *(this + 20);
+            v6 = 0;
+            v3 = *(this + 5);
+            v7 = *(this + 18);
+            v4 = *(this + 20);
           }
 
           else
           {
-            ++v8;
+            ++v6;
           }
         }
 
-        while (v5 && ((((v6 & v9) != 0) ^ *(v5 + (((v6 - 1) & v9) << 6) + 63)) & 1) == 0);
-        if (v2 == v9)
+        while (v3 && ((((v4 & v7) != 0) ^ *(v3 + (((v4 - 1) & v7) << 6) + 63)) & 1) == 0);
+        if (v2 == v7)
         {
           break;
         }
 
         AppleEthernetMLX5EQ::updateCI(this, 0);
         v2 = *(this + 18);
-        v10 = *(this + 5);
-        v11 = *(this + 20);
-        if (!v10)
+        if (!*(this + 5))
         {
           break;
         }
 
-        OUTLINED_FUNCTION_0_0(v10);
+        OUTLINED_FUNCTION_0_0();
       }
 
-      while ((v12 & 1) == 0);
+      while ((v8 & 1) == 0);
     }
   }
 

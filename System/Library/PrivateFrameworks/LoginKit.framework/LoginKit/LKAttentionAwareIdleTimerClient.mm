@@ -36,11 +36,10 @@
     _os_log_impl(&dword_25618F000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating attention aware timer...", buf, 2u);
   }
 
-  handle = self->_handle;
   IOPMUnregisterNotification();
-  v5.receiver = self;
-  v5.super_class = LKAttentionAwareIdleTimerClient;
-  [(LKAttentionAwareIdleTimerClient *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = LKAttentionAwareIdleTimerClient;
+  [(LKAttentionAwareIdleTimerClient *)&v4 dealloc];
 }
 
 - (void)resume
@@ -52,28 +51,27 @@
     _os_log_impl(&dword_25618F000, v3, OS_LOG_TYPE_DEFAULT, "Resuming idle timer...", buf, 2u);
   }
 
-  queue = self->_queue;
   [(LKAttentionAwareIdleTimerClient *)self setHandle:IOPMScheduleUserActivityLevelNotificationWithTimeout(), MEMORY[0x277D85DD0], 3221225472, __41__LKAttentionAwareIdleTimerClient_resume__block_invoke, &unk_2798262E0, self, 30];
   if (!self->_handle)
   {
-    v5 = LKLogDefault;
+    v4 = LKLogDefault;
     if (os_log_type_enabled(LKLogDefault, OS_LOG_TYPE_ERROR))
     {
-      [(LKAttentionAwareIdleTimerClient *)v5 resume];
+      [(LKAttentionAwareIdleTimerClient *)v4 resume];
     }
   }
 }
 
 void __41__LKAttentionAwareIdleTimerClient_resume__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = LKLogDefault;
   if (os_log_type_enabled(LKLogDefault, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v21 = a2;
-    v22 = 2048;
-    v23 = a3;
+    v20 = a2;
+    v21 = 2048;
+    v22 = a3;
     _os_log_impl(&dword_25618F000, v6, OS_LOG_TYPE_DEFAULT, "Event received: %llu, mostSignificantActivity: %llu", buf, 0x16u);
   }
 
@@ -115,16 +113,14 @@ void __41__LKAttentionAwareIdleTimerClient_resume__block_invoke(uint64_t a1, uin
       handler[2] = __41__LKAttentionAwareIdleTimerClient_resume__block_invoke_3;
       handler[3] = &unk_2798262B8;
       v14 = *(a1 + 32);
-      v19 = v10;
+      v18 = v10;
       handler[4] = v14;
       v15 = v11;
-      v18 = v15;
+      v17 = v15;
       dispatch_source_set_event_handler(v15, handler);
       dispatch_resume(v15);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __41__LKAttentionAwareIdleTimerClient_resume__block_invoke_3(uint64_t a1)
@@ -151,7 +147,6 @@ void __41__LKAttentionAwareIdleTimerClient_resume__block_invoke_3(uint64_t a1)
 
 - (void)pause
 {
-  handle = self->_handle;
   IOPMUnregisterNotification();
 
   [(LKAttentionAwareIdleTimerClient *)self setHandle:0];
@@ -159,23 +154,23 @@ void __41__LKAttentionAwareIdleTimerClient_resume__block_invoke_3(uint64_t a1)
 
 - (void)_wakeupDeviceAfterInterval:(double)interval
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = LKLogDefault;
   if (os_log_type_enabled(LKLogDefault, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v14 = "[LKAttentionAwareIdleTimerClient _wakeupDeviceAfterInterval:]";
-    v15 = 2048;
+    v13 = "[LKAttentionAwareIdleTimerClient _wakeupDeviceAfterInterval:]";
+    v14 = 2048;
     intervalCopy = interval;
     _os_log_impl(&dword_25618F000, v4, OS_LOG_TYPE_DEFAULT, "%s %f", buf, 0x16u);
   }
 
-  v12[0] = @"logind";
+  v11[0] = @"logind";
   v5 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:{interval, @"scheduledby", @"time"}];
-  v11[2] = @"leeway";
-  v12[1] = v5;
-  v12[2] = &unk_28683CE88;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v10[2] = @"leeway";
+  v11[1] = v5;
+  v11[2] = &unk_28683CE88;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   v7 = IOPMRequestSysWake();
   if (v7)
@@ -187,8 +182,6 @@ void __41__LKAttentionAwareIdleTimerClient_resume__block_invoke_3(uint64_t a1)
       [(LKAttentionAwareIdleTimerClient *)v8 _wakeupDeviceAfterInterval:v9];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (LKAttentionAwareIdleTimerDelegate)clientDelegate
@@ -200,35 +193,32 @@ void __41__LKAttentionAwareIdleTimerClient_resume__block_invoke_3(uint64_t a1)
 
 void __41__LKAttentionAwareIdleTimerClient_resume__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218240;
-  v5 = a1;
-  v6 = 2048;
-  v7 = a2;
-  _os_log_debug_impl(&dword_25618F000, log, OS_LOG_TYPE_DEBUG, "Scheduling dispatch timer #%lu for %lds", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218240;
+  v4 = a1;
+  v5 = 2048;
+  v6 = a2;
+  _os_log_debug_impl(&dword_25618F000, log, OS_LOG_TYPE_DEBUG, "Scheduling dispatch timer #%lu for %lds", &v3, 0x16u);
 }
 
 void __41__LKAttentionAwareIdleTimerClient_resume__block_invoke_3_cold_1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   v3 = *(*(a1 + 32) + 40);
-  v5 = 134218240;
-  v6 = v2;
-  v7 = 2048;
-  v8 = v3;
-  _os_log_debug_impl(&dword_25618F000, a2, OS_LOG_TYPE_DEBUG, "dispatch timer fired. Token: %lu, idle timer index: %lu", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218240;
+  v5 = v2;
+  v6 = 2048;
+  v7 = v3;
+  _os_log_debug_impl(&dword_25618F000, a2, OS_LOG_TYPE_DEBUG, "dispatch timer fired. Token: %lu, idle timer index: %lu", &v4, 0x16u);
 }
 
 - (void)_wakeupDeviceAfterInterval:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_25618F000, a2, OS_LOG_TYPE_ERROR, "Failed to request system wake: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_25618F000, a2, OS_LOG_TYPE_ERROR, "Failed to request system wake: %d", v2, 8u);
 }
 
 @end

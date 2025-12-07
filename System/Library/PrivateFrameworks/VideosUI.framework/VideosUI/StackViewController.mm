@@ -41,7 +41,7 @@
 
   swift_unknownObjectRelease();
   (*(v10 + 8))(v5, v8);
-  sub_1E3280A90(0, &qword_1ECF309A8);
+  sub_1E3280A90(0, &qword_1ECF309A8, 0x1E69DC990);
   v15 = sub_1E42062A4();
 
   return v15;
@@ -71,7 +71,7 @@
 
 - (id)collectionView:(id)view dropSessionDidUpdate:(id)update withDestinationIndexPath:(id)path
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECF309A0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECF309A0, &qword_1E42A7870);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v17 - v9;
   if (path)
@@ -94,7 +94,7 @@
   v15 = sub_1E3A01A08();
 
   swift_unknownObjectRelease();
-  sub_1E325F748(v10, &qword_1ECF309A0);
+  sub_1E325F748(v10, &qword_1ECF309A0, &qword_1E42A7870);
 
   return v15;
 }
@@ -103,7 +103,7 @@
 {
   selfCopy = self;
   OUTLINED_FUNCTION_51();
-  sub_1E41CAD34();
+  sub_1E41CAD34(v3);
 }
 
 - (void)vui_viewDidAppear:(BOOL)appear
@@ -116,14 +116,14 @@
 {
   selfCopy = self;
   OUTLINED_FUNCTION_51();
-  sub_1E41CB5AC();
+  sub_1E41CB5AC(v3);
 }
 
 - (void)vui_viewWillLayoutSubviews
 {
   selfCopy = self;
   OUTLINED_FUNCTION_51();
-  sub_1E41CB6CC();
+  sub_1E41CB6CC(v3);
 }
 
 - (void)vui_viewDidLayoutSubviews
@@ -139,7 +139,8 @@
   width = size.width;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1E41CC934(coordinator, width, height);
+  v8.n128_f64[0] = width;
+  sub_1E41CC934(coordinator, v8, height);
   swift_unknownObjectRelease();
 }
 
@@ -213,19 +214,19 @@
   OUTLINED_FUNCTION_54_57();
   sub_1E41FE874();
   OUTLINED_FUNCTION_0_10();
-  MEMORY[0x1EEE9AC00](v7);
+  MEMORY[0x1EEE9AC00](v8);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_35_3();
   sub_1E41FE804();
-  v8 = v5;
-  v9 = v6;
-  v10 = OUTLINED_FUNCTION_50();
-  v11 = sub_1E41D1F80(v10);
+  v9 = v5;
+  v10 = v6;
+  v11 = OUTLINED_FUNCTION_50();
+  v12 = sub_1E41D1F80(v11, v7);
 
-  v12 = OUTLINED_FUNCTION_53();
-  v13(v12);
+  v13 = OUTLINED_FUNCTION_53();
+  v14(v13);
 
-  return v11;
+  return v12;
 }
 
 - (void)vuiCollectionView:(id)view willPerformPreviewActionForMenuWith:(id)with animator:(id)animator
@@ -285,10 +286,10 @@
   v13 = v5;
   v14 = v8;
   v15 = OUTLINED_FUNCTION_38();
-  v16 = sub_1E41D2828(v15);
+  v17 = sub_1E41D2828(v15, v16);
 
   (*(v11 + 8))(v6, v9);
-  return v16 & 1;
+  return v17 & 1;
 }
 
 - (void)vui_cellNeedsReloading:(id)reloading

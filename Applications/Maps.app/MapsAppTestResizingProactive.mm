@@ -29,8 +29,8 @@
 
 - (BOOL)runTest
 {
-  options = [(MapsAppTest *)self options];
-  _mapstest_isUsingSampleProactiveData = [options _mapstest_isUsingSampleProactiveData];
+  v3 = objc_msgSend_options(self, a2);
+  _mapstest_isUsingSampleProactiveData = [v3 _mapstest_isUsingSampleProactiveData];
 
   if (_mapstest_isUsingSampleProactiveData)
   {

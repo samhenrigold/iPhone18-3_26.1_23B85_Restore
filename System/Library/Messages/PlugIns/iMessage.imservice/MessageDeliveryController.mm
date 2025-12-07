@@ -48,6 +48,7 @@
 - (void)_checkStickerRepositioningMetadata:(id)metadata;
 - (void)_enqueueSendMessageWorkBlock:(id)block forURIs:(id)is;
 - (void)_enqueueUpdateBlock:(id)block willSendBlock:(id)sendBlock identifier:(id)identifier callbackID:(id)d messageCommandOption:(id)option;
+- (void)_sendAttachmentsForMessage:(id)message canSendInline:(BOOL)inline displayIDs:(id)ds additionalContext:(id)context fromID:(id)d recipients:(id)recipients uploadStartTime:(id)time fromAccount:(id)self0 completionBlock:(id)self1;
 - (void)_sendBackwardCompatibilityMessageForEditedMessage:(id)message usingMessageGUID:(id)d toBackwardCompatabilityDestinations:(id)destinations withOriginalDestinations:(id)originalDestinations chatIdentifier:(id)identifier fromAccount:(id)account fromID:(id)iD backwardCompatabilityText:(id)self0 completionBlock:(id)self1;
 - (void)_sendMessage:(id)message context:(id)context deliveryContext:(id)deliveryContext fromID:(id)d fromAccount:(id)account toID:(id)iD chatIdentifier:(id)identifier toSessionToken:(id)self0 toGroup:(id)self1 toParticipants:(id)self2 originallyToParticipants:(id)self3 requiredRegProperties:(id)self4 interestingRegProperties:(id)self5 requiresLackOfRegProperties:(id)self6 canInlineAttachments:(BOOL)self7 type:(int64_t)self8 msgPayloadUploadDictionary:(id)self9 originalPayload:(id)payload replyToMessageGUID:(id)uID fallbackCount:(unint64_t)count willSendBlock:(id)block completionBlock:(id)completionBlock;
 - (void)_sendNicknameToRecipientsIfNeededForChat:(id)chat forMessage:(id)message;
@@ -73,8 +74,10 @@
 - (void)service:(id)service account:(id)account identifier:(id)identifier alternateCallbackID:(id)d willSendToDestinations:(id)destinations skippedDestinations:(id)skippedDestinations registrationPropertyToDestinations:(id)toDestinations;
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account messageIdentifier:(id)identifier alternateCallbackID:(id)d updatedWithResponseCode:(int64_t)code error:(id)error lastCall:(BOOL)call messageContext:(id)self0;
+- (void)service:(id)service didCancelMessageWithSuccess:(BOOL)success error:(id)error identifier:(id)identifier;
 - (void)service:(id)service didFlushCacheForKTPeerURI:(id)i;
 - (void)service:(id)service didFlushCacheForRemoteURI:(id)i fromURI:(id)rI guid:(id)guid;
+- (void)updateLatestActiveDestination:(id)destination ForHandle:(id)handle incomingType:(unsigned __int8)type;
 @end
 
 @implementation MessageDeliveryController
@@ -3568,7 +3571,7 @@ LABEL_55:
     v52 = IMLogHandleForCategory();
     if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
-      sub_BC764(buf);
+      sub_BC764();
     }
   }
 
@@ -3715,6 +3718,14 @@ LABEL_55:
   v4 = +[IMDRecentsController sharedInstance];
 
   [(IMDRecentsController *)v4 noteRecentMessageForPeople:people];
+}
+
+- (void)updateLatestActiveDestination:(id)destination ForHandle:(id)handle incomingType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v8 = +[IMDRecentsController sharedInstance];
+
+  [(IMDRecentsController *)v8 updateLatestActiveDestination:destination ForHandle:handle incomingType:typeCopy];
 }
 
 - (id)activeDeviceForHandle:(id)handle
@@ -4179,7 +4190,7 @@ LABEL_3:
     v16 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
     if (v16)
     {
-      *v19 = 0;
+      v19[0] = 0;
       _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "Receiver is NOT capable for HQ transfer", v19, 2u);
       LOBYTE(v16) = 0;
     }
@@ -4923,6 +4934,84 @@ LABEL_3:
   }
 }
 
+- (void)service:(id)service didCancelMessageWithSuccess:(BOOL)success error:(id)error identifier:(id)identifier
+{
+  successCopy = success;
+  if (IMOSLoggingEnabled())
+  {
+    v11 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      v12 = @"NO";
+      *v19 = 138413058;
+      *&v19[4] = service;
+      *&v19[12] = 2112;
+      if (successCopy)
+      {
+        v12 = @"YES";
+      }
+
+      *&v19[14] = identifier;
+      v20 = 2112;
+      v21 = v12;
+      v22 = 2112;
+      errorCopy = error;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "Service %@ tried to cancel Message with ID %@ and sucess %@ with Error %@", v19, 0x2Au);
+    }
+  }
+
+  if ([(NSMutableDictionary *)self->_pendingCancelScheduledMessageGUIDs objectForKey:identifier, *v19, *&v19[8]])
+  {
+    v13 = [(NSMutableDictionary *)self->_pendingCancelScheduledMessageGUIDs objectForKey:identifier];
+    v14 = [v13 objectAtIndexedSubscript:0];
+    v15 = [objc_msgSend(v13 objectAtIndexedSubscript:{1), "integerValue"}];
+    v16 = [+[IMDMessageStore sharedInstance](IMDMessageStore messageWithGUID:"messageWithGUID:", v14];
+    if (v16)
+    {
+      scheduleType = [v16 scheduleType];
+      if (scheduleType == &dword_0 + 2)
+      {
+        [objc_msgSend(objc_loadWeak(&self->_session) "scheduledMessageCoordinator")];
+      }
+
+      else if (scheduleType == &dword_0 + 1)
+      {
+        [+[IMSafetyMonitorCoordinator sharedCoordinator](IMSafetyMonitorCoordinator "sharedCoordinator")];
+      }
+    }
+
+    [(NSMutableDictionary *)self->_pendingCancelScheduledMessageGUIDs removeObjectForKey:identifier];
+    if (![(NSMutableDictionary *)self->_pendingCancelScheduledMessageGUIDs count])
+    {
+
+      self->_pendingCancelScheduledMessageGUIDs = 0;
+    }
+  }
+
+  else if (IMOSLoggingEnabled())
+  {
+    v18 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    {
+      *v19 = 138412290;
+      *&v19[4] = identifier;
+      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "Failed to find a messageGUID for idsIdentifier: %@", v19, 0xCu);
+    }
+  }
+}
+
+- (void)_sendAttachmentsForMessage:(id)message canSendInline:(BOOL)inline displayIDs:(id)ds additionalContext:(id)context fromID:(id)d recipients:(id)recipients uploadStartTime:(id)time fromAccount:(id)self0 completionBlock:(id)self1
+{
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_515D8;
+  v11[3] = &unk_113178;
+  v11[4] = time;
+  v11[5] = self;
+  v11[6] = account;
+  [-[MessageDeliveryController attachmentController](self "attachmentController")];
+}
+
 - (void)sendEditedMessage:(id)message partIndex:(int64_t)index editType:(unint64_t)type destinations:(id)destinations chatIdentifier:(id)identifier account:(id)account fromID:(id)d backwardCompatabilityText:(id)self0 unsupportedDestinationsHandler:(id)self1 completionBlock:(id)self2
 {
   v54 = +[NSString stringGUID];
@@ -5414,14 +5503,14 @@ LABEL_3:
 
 - (void)cancelScheduledMessageWithGUID:(id)d fromID:(id)iD destinations:(id)destinations cancelType:(unint64_t)type
 {
-  v36 = 0;
-  v37 = 0;
+  v34 = 0;
+  v35 = 0;
   v11 = [(MessageDeliveryController *)self _getQueueIdentifierFromGUID:?];
-  v54[0] = IDSSendMessageOptionQueueOneIdentifierKey;
-  v54[1] = IDSSendMessageOptionFromIDKey;
-  v55[0] = v11;
-  v55[1] = iD;
-  v12 = [+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary mutableCopy:v55];
+  v52[0] = IDSSendMessageOptionQueueOneIdentifierKey;
+  v52[1] = IDSSendMessageOptionFromIDKey;
+  v53[0] = v11;
+  v53[1] = iD;
+  v12 = [+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary mutableCopy:v53];
   v13 = v12;
   if (type != 2)
   {
@@ -5429,82 +5518,80 @@ LABEL_3:
   }
 
   v14 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(destinations, "count")}];
-  v34 = 0u;
-  v35 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v15 = [destinations countByEnumeratingWithState:&v32 objects:v53 count:16];
+  v30 = 0u;
+  v31 = 0u;
+  v15 = [destinations countByEnumeratingWithState:&v30 objects:v51 count:16];
   if (v15)
   {
-    v16 = *v33;
+    v16 = *v31;
     do
     {
       v17 = 0;
       do
       {
-        if (*v33 != v16)
+        if (*v31 != v16)
         {
           objc_enumerationMutation(destinations);
         }
 
-        v18 = *(*(&v32 + 1) + 8 * v17);
         [v14 addObject:IMChatCanonicalIDSIDsForAddress()];
-        v17 = v17 + 1;
+        ++v17;
       }
 
       while (v15 != v17);
-      v15 = [destinations countByEnumeratingWithState:&v32 objects:v53 count:16];
+      v15 = [destinations countByEnumeratingWithState:&v30 objects:v51 count:16];
     }
 
     while (v15);
   }
 
+  v18 = objc_opt_respondsToSelector();
   idsService = self->_idsService;
-  v20 = objc_opt_respondsToSelector();
-  v21 = self->_idsService;
-  if (v20)
+  if (v18)
   {
-    v22 = [(IDSService *)v21 cancelMessageWithOptions:v13 destinations:v14 identifier:&v36 error:&v37];
+    v20 = [(IDSService *)idsService cancelMessageWithOptions:v13 destinations:v14 identifier:&v34 error:&v35];
   }
 
   else
   {
-    v22 = [(IDSService *)v21 cancelMessageWithOptions:v13 identifier:&v36 error:&v37];
+    v20 = [(IDSService *)idsService cancelMessageWithOptions:v13 identifier:&v34 error:&v35];
   }
 
-  v23 = v22;
+  v21 = v20;
 
   if (IMOSLoggingEnabled())
   {
-    v24 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v22 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v25 = [NSNumber numberWithUnsignedInteger:type];
-      v26 = @"NO";
+      v23 = [NSNumber numberWithUnsignedInteger:type];
+      v24 = @"NO";
       *buf = 138413826;
-      if (v23)
+      if (v21)
       {
-        v26 = @"YES";
+        v24 = @"YES";
       }
 
       dCopy3 = d;
-      v41 = 2112;
+      v39 = 2112;
       dCopy2 = iD;
-      v43 = 2112;
+      v41 = 2112;
       destinationsCopy = destinations;
+      v43 = 2112;
+      v44 = v23;
       v45 = 2112;
-      v46 = v25;
+      v46 = v24;
       v47 = 2112;
-      v48 = v26;
+      v48 = v34;
       v49 = 2112;
-      v50 = v36;
-      v51 = 2112;
-      v52 = v37;
-      _os_log_impl(&dword_0, v24, OS_LOG_TYPE_INFO, "Cancelling scheduled message with GUID: %@, fromID:%@, destination: %@, cancelType: %@ cancelSuccess: %@ idsIdentifier: %@ error: %@", buf, 0x48u);
+      v50 = v35;
+      _os_log_impl(&dword_0, v22, OS_LOG_TYPE_INFO, "Cancelling scheduled message with GUID: %@, fromID:%@, destination: %@, cancelType: %@ cancelSuccess: %@ idsIdentifier: %@ error: %@", buf, 0x48u);
     }
   }
 
-  if ([v36 length])
+  if ([v34 length])
   {
     pendingCancelScheduledMessageGUIDs = self->_pendingCancelScheduledMessageGUIDs;
     if (!pendingCancelScheduledMessageGUIDs)
@@ -5513,34 +5600,34 @@ LABEL_3:
       self->_pendingCancelScheduledMessageGUIDs = pendingCancelScheduledMessageGUIDs;
     }
 
-    if ([(NSMutableDictionary *)pendingCancelScheduledMessageGUIDs objectForKey:v36]&& IMOSLoggingEnabled())
+    if ([(NSMutableDictionary *)pendingCancelScheduledMessageGUIDs objectForKey:v34]&& IMOSLoggingEnabled())
     {
-      v28 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      v26 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        dCopy3 = v36;
-        v41 = 2112;
+        dCopy3 = v34;
+        v39 = 2112;
         dCopy2 = d;
-        _os_log_impl(&dword_0, v28, OS_LOG_TYPE_INFO, "We already have identifier (%@) for messageGUID (%@)", buf, 0x16u);
+        _os_log_impl(&dword_0, v26, OS_LOG_TYPE_INFO, "We already have identifier (%@) for messageGUID (%@)", buf, 0x16u);
       }
     }
 
-    v29 = self->_pendingCancelScheduledMessageGUIDs;
-    v38[0] = d;
-    v38[1] = [NSNumber numberWithUnsignedInteger:type];
-    v30 = [NSArray arrayWithObjects:v38 count:2];
-    [(NSMutableDictionary *)v29 setObject:v30 forKey:v36];
+    v27 = self->_pendingCancelScheduledMessageGUIDs;
+    v36[0] = d;
+    v36[1] = [NSNumber numberWithUnsignedInteger:type];
+    v28 = [NSArray arrayWithObjects:v36 count:2];
+    [(NSMutableDictionary *)v27 setObject:v28 forKey:v34];
   }
 
   else if (IMOSLoggingEnabled())
   {
-    v31 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    v29 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       dCopy3 = d;
-      _os_log_impl(&dword_0, v31, OS_LOG_TYPE_INFO, "Failed to get identifier from IDS for cancel scheduled message with GUID: %@", buf, 0xCu);
+      _os_log_impl(&dword_0, v29, OS_LOG_TYPE_INFO, "Failed to get identifier from IDS for cancel scheduled message with GUID: %@", buf, 0xCu);
     }
   }
 }
@@ -5681,7 +5768,7 @@ LABEL_3:
       v29 = IMLogHandleForCategory();
       if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        sub_BCCF8(&v41);
+        sub_BCCF8();
       }
     }
   }
@@ -5860,7 +5947,7 @@ LABEL_3:
       v8 = IMLogHandleForCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        sub_BCDA4(buf);
+        sub_BCDA4();
       }
     }
   }
@@ -5883,7 +5970,7 @@ LABEL_3:
     v11 = IMLogHandleForCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_BCE14(buf);
+      sub_BCE14();
     }
 
     return 0;

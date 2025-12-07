@@ -66,34 +66,34 @@
       return;
     }
 
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x2050000000;
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x2050000000;
     v5 = qword_FC238;
-    v17 = qword_FC238;
+    v18 = qword_FC238;
     if (!qword_FC238)
     {
-      v13[0] = _NSConcreteStackBlock;
-      v13[1] = 3221225472;
-      v13[2] = sub_2A3C;
-      v13[3] = &unk_EF500;
-      v13[4] = &v14;
-      sub_2A3C(v13);
-      v5 = v15[3];
+      v14[0] = _NSConcreteStackBlock;
+      v14[1] = 3221225472;
+      v14[2] = sub_2A3C;
+      v14[3] = &unk_EF500;
+      v14[4] = &v15;
+      sub_2A3C(v14);
+      v5 = v16[3];
     }
 
     v6 = v5;
-    _Block_object_dispose(&v14, 8);
+    _Block_object_dispose(&v15, 8);
     sharedInstance = [v5 sharedInstance];
     v8 = [sharedInstance acquireAssertionToDisableIdleTimerWithReason:@"LiveCaptions"];
     v9 = self->_disableIdleTimerAssertion;
     self->_disableIdleTimerAssertion = v8;
 
-    v10 = LCLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = LCLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13[0]) = 0;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Idle sleep assertion is acquired", v13, 2u);
+      LOWORD(v14[0]) = 0;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Idle sleep assertion is acquired", v14, 2u);
     }
   }
 
@@ -101,23 +101,23 @@
   {
     if (disableIdleTimerAssertion)
     {
-      v11 = LCLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = LCLog(self);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v13[0]) = 0;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Idle sleep assertion is invalidated", v13, 2u);
+        LOWORD(v14[0]) = 0;
+        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Idle sleep assertion is invalidated", v14, 2u);
       }
 
-      v12 = self->_disableIdleTimerAssertion;
+      v13 = self->_disableIdleTimerAssertion;
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
-    [(BSInvalidatable *)v12 invalidate];
-    v10 = self->_disableIdleTimerAssertion;
+    [(BSInvalidatable *)v13 invalidate];
+    v11 = self->_disableIdleTimerAssertion;
     self->_disableIdleTimerAssertion = 0;
   }
 }

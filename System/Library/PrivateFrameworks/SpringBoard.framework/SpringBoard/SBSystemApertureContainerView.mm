@@ -101,7 +101,7 @@ void __57__SBSystemApertureContainerView_containerViewDescription__block_invoke(
 
     if (!v7)
     {
-      __57__SBSystemApertureContainerView_containerViewDescription__block_invoke_cold_1(a1);
+      __57__SBSystemApertureContainerView_containerViewDescription__block_invoke_cold_1(a1, v5);
     }
   }
 
@@ -138,7 +138,7 @@ void __57__SBSystemApertureContainerView_containerViewDescription__block_invoke(
   v14 = *(a1 + 32);
   if (v14)
   {
-    [v14 renderingConfiguration];
+    objc_msgSend_renderingConfiguration(v14);
   }
 
   else
@@ -161,7 +161,7 @@ void __57__SBSystemApertureContainerView_containerViewDescription__block_invoke(
   result = self->_gainMapView;
   if (result)
   {
-    return [(SBSystemApertureContainerRenderingConfiguration *)result renderingConfiguration];
+    return objc_msgSend_renderingConfiguration(result, a3);
   }
 
   retstr->renderingStyle = 0;
@@ -195,7 +195,7 @@ void __57__SBSystemApertureContainerView_containerViewDescription__block_invoke(
   v5 = adaptiveKeyLineColorMatrix;
   if (adaptiveKeyLineColorMatrix)
   {
-    [adaptiveKeyLineColorMatrix colorMatrix];
+    objc_msgSend_colorMatrix(adaptiveKeyLineColorMatrix);
   }
 
   else
@@ -260,7 +260,7 @@ void __57__SBSystemApertureContainerView_containerViewDescription__block_invoke(
 - (void)_updateContentViewTransformImmediately
 {
   v3 = [(SBSystemApertureContainerView *)self activeElementInterfaceOrientationForSystemApertureElementOrientationObserver:self];
-  [SBSystemApertureViewControllerRotationTransitionContext transformForRotationToInterfaceOrientation:v3];
+  objc_msgSend_transformForRotationToInterfaceOrientation_(SBSystemApertureViewControllerRotationTransitionContext);
   v4 = v9;
   *&self->_activeContentRotationTransform.a = v8;
   *&self->_activeContentRotationTransform.c = v4;
@@ -320,7 +320,7 @@ void __57__SBSystemApertureContainerView_containerViewDescription__block_invoke(
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  [(SBSystemApertureContainerView *)self frame];
+  objc_msgSend_frame(self);
   v12 = v11;
   v14 = v13;
   v16 = v15;
@@ -683,7 +683,7 @@ uint64_t __51__SBSystemApertureContainerView_addContentSubview___block_invoke_2(
     geometryObservers = self->_geometryObservers;
   }
 
-  if (![(NSHashTable *)geometryObservers containsObject:observerCopy])
+  if ((objc_msgSend_containsObject_(geometryObservers, observerCopy, observerCopy) & 1) == 0)
   {
     [(NSHashTable *)self->_geometryObservers addObject:v8];
   }
@@ -791,7 +791,7 @@ uint64_t __51__SBSystemApertureContainerView_addContentSubview___block_invoke_2(
   y = frame.origin.y;
   x = frame.origin.x;
   v31 = *MEMORY[0x277D85DE8];
-  [(SBSystemApertureContainerView *)self frame];
+  objc_msgSend_frame(self, a2);
   v9 = v8;
   v11 = v10;
   v13 = v12;
@@ -799,7 +799,7 @@ uint64_t __51__SBSystemApertureContainerView_addContentSubview___block_invoke_2(
   v29.receiver = self;
   v29.super_class = SBSystemApertureContainerView;
   [(SBSystemApertureContainerView *)&v29 setFrame:x, y, width, height];
-  [(SBSystemApertureContainerView *)self frame];
+  objc_msgSend_frame(self);
   v33.origin.x = v16;
   v33.origin.y = v17;
   v33.size.width = v18;
@@ -1079,7 +1079,7 @@ uint64_t __51__SBSystemApertureContainerView_addContentSubview___block_invoke_2(
     v17 = 0u;
     if (coordinatorCopy)
     {
-      [coordinatorCopy targetTransform];
+      objc_msgSend_targetTransform(coordinatorCopy);
     }
 
     v9 = v17;
@@ -1173,32 +1173,33 @@ __n128 __86__SBSystemApertureContainerView_elementOrientationDidChangeWithTransi
 - (void)backgroundLumaView:(id)view didTransitionToLevel:(unint64_t)level
 {
   v23 = *MEMORY[0x277D85DE8];
-  if (_AXSClassicInvertColorsEnabled())
+  v6 = _AXSClassicInvertColorsEnabled();
+  if (v6)
   {
     if (level == 2)
     {
-      v6 = 1;
+      v7 = 1;
     }
 
     else
     {
-      v6 = 2;
+      v7 = 2;
     }
 
     goto LABEL_12;
   }
 
-  v7 = _AXSInvertColorsEnabled();
+  v6 = _AXSInvertColorsEnabled();
   v8 = level == 2;
   v9 = 1;
   if (level == 2)
   {
-    v6 = 2;
+    v7 = 2;
   }
 
   else
   {
-    v6 = 1;
+    v7 = 1;
   }
 
   if (!v8)
@@ -1206,9 +1207,9 @@ __n128 __86__SBSystemApertureContainerView_elementOrientationDidChangeWithTransi
     v9 = 2;
   }
 
-  if (v7)
+  if (v6)
   {
-    v6 = v9;
+    v7 = v9;
 LABEL_12:
     v10 = 1;
     goto LABEL_13;
@@ -1216,11 +1217,11 @@ LABEL_12:
 
   v10 = 0;
 LABEL_13:
-  v11 = SBLogSystemApertureController();
+  v11 = SBLogSystemApertureController(v6);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = SBStringFromSystemApertureBackgroundLuminanceLevel(self->_sampledBackgroundLuminanceLevel);
-    v13 = SBStringFromSystemApertureBackgroundLuminanceLevel(v6);
+    v13 = SBStringFromSystemApertureBackgroundLuminanceLevel(v7);
     v14 = v13;
     v15 = &stru_283094718;
     v17 = 138543874;
@@ -1237,9 +1238,9 @@ LABEL_13:
     _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Key Line: Sampled background luma (%{public}@) -> (%{public}@) %@", &v17, 0x20u);
   }
 
-  self->_sampledBackgroundLuminanceLevel = v6;
+  self->_sampledBackgroundLuminanceLevel = v7;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  [WeakRetained systemApertureContainerView:self sampledLuminanceLevelChangedTo:v6];
+  [WeakRetained systemApertureContainerView:self sampledLuminanceLevelChangedTo:v7];
 }
 
 + (double)_defaultCornerRadiusForBounds:(CGRect)bounds inWindow:(id)window
@@ -1333,16 +1334,16 @@ LABEL_13:
   [v4 handleFailureInMethod:a1 object:a2 file:@"SBSystemApertureContainerView.m" lineNumber:170 description:{@"Invalid parameter not satisfying: %@", @"interfaceElementIdentifier"}];
 }
 
-void __57__SBSystemApertureContainerView_containerViewDescription__block_invoke_cold_1(uint64_t a1)
+void __57__SBSystemApertureContainerView_containerViewDescription__block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v8 = [MEMORY[0x277CCA890] currentHandler];
-  v4 = a1 + 32;
-  v2 = *(a1 + 32);
-  v3 = *(v4 + 8);
-  v5 = NSClassFromString(&cfstr_Sbsacontainerv.isa);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  [v8 handleFailureInMethod:v3 object:v2 file:@"SBSystemApertureContainerView.m" lineNumber:363 description:{@"Unexpected class – expected '%@', got '%@'", v5, v7}];
+  v9 = [MEMORY[0x277CCA890] currentHandler];
+  v5 = a1 + 32;
+  v3 = *(a1 + 32);
+  v4 = *(v5 + 8);
+  v6 = NSClassFromString(&cfstr_Sbsacontainerv.isa);
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  [v9 handleFailureInMethod:v4 object:v3 file:@"SBSystemApertureContainerView.m" lineNumber:363 description:{@"Unexpected class – expected '%@', got '%@'", v6, v8}];
 }
 
 @end

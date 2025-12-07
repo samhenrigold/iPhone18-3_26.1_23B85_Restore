@@ -1,82 +1,28 @@
-void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v7 = a1;
-  v8 = *(a2 + 360);
-  v9 = *(a3 + 360);
-  if (v8 >= *(a1 + 360))
-  {
-    if (v9 < v8)
-    {
-      std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a2, a3);
-      if (*(a2 + 360) < *(v7 + 360))
-      {
-        a1 = v7;
-        v10 = a2;
-        goto LABEL_9;
-      }
-    }
-  }
-
-  else
-  {
-    if (v9 < v8)
-    {
-LABEL_5:
-      v10 = a3;
-LABEL_9:
-      std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1, v10);
-      goto LABEL_10;
-    }
-
-    std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1, a2);
-    if (*(a3 + 360) < *(a2 + 360))
-    {
-      a1 = a2;
-      goto LABEL_5;
-    }
-  }
-
-LABEL_10:
-  if (*(a4 + 360) < *(a3 + 360))
-  {
-    std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a3, a4);
-    if (*(a3 + 360) < *(a2 + 360))
-    {
-      std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a2, a3);
-      if (*(a2 + 360) < *(v7 + 360))
-      {
-
-        std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v7, a2);
-      }
-    }
-  }
-}
-
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *>(double *a1, double *a2)
 {
   v3 = a1;
-  v4 = 0x51B3BEA3677D46CFLL * ((a2 - a1) >> 3);
+  v4 = 0x51B3BEA3677D46CFLL * (a2 - a1);
   if (v4 > 2)
   {
     switch(v4)
     {
       case 3:
-        v8 = *(a1 + 736);
-        v9 = *(a2 - 16);
-        if (v8 < *(a1 + 360))
+        v8 = a1[92];
+        v9 = *(a2 - 2);
+        if (v8 < a1[45])
         {
           if (v9 >= v8)
           {
-            std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1, (a1 + 376));
-            if (*(a2 - 16) >= *(v3 + 736))
+            std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1, a1 + 376);
+            if (*(a2 - 2) >= v3[92])
             {
               return 1;
             }
 
-            a1 = v3 + 376;
+            a1 = v3 + 47;
           }
 
-          v5 = (a2 - 376);
+          v5 = (a2 - 47);
           goto LABEL_31;
         }
 
@@ -85,42 +31,42 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,RoseS
           return 1;
         }
 
-        v6 = (a1 + 376);
-        v7 = (a2 - 376);
+        v6 = (a1 + 47);
+        v7 = (a2 - 47);
         break;
       case 4:
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(a1, a1 + 376, a1 + 752, a2 - 376);
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(a1, (a1 + 47), (a1 + 94), (a2 - 47));
         return 1;
       case 5:
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(a1, a1 + 376, a1 + 752, a1 + 1128);
-        if (*(a2 - 16) >= *(v3 + 1488))
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(a1, (a1 + 47), (a1 + 94), (a1 + 141));
+        if (*(a2 - 2) >= v3[186])
         {
           return 1;
         }
 
-        std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>((v3 + 1128), (a2 - 376));
-        if (*(v3 + 1488) >= *(v3 + 1112))
+        std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v3 + 1128, a2 - 376);
+        if (v3[186] >= v3[139])
         {
           return 1;
         }
 
-        std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>((v3 + 752), (v3 + 1128));
-        if (*(v3 + 1112) >= *(v3 + 736))
+        std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v3 + 752, v3 + 1128);
+        if (v3[139] >= v3[92])
         {
           return 1;
         }
 
-        v6 = (v3 + 376);
-        v7 = (v3 + 752);
+        v6 = (v3 + 47);
+        v7 = (v3 + 94);
         break;
       default:
         goto LABEL_16;
     }
 
     std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v6, v7);
-    if (*(v3 + 736) < *(v3 + 360))
+    if (v3[92] < v3[45])
     {
-      v5 = (v3 + 376);
+      v5 = (v3 + 47);
       goto LABEL_24;
     }
 
@@ -134,9 +80,9 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,RoseS
 
   if (v4 == 2)
   {
-    if (*(a2 - 16) < *(a1 + 360))
+    if (*(a2 - 2) < a1[45])
     {
-      v5 = (a2 - 376);
+      v5 = (a2 - 47);
 LABEL_24:
       a1 = v3;
 LABEL_31:
@@ -148,32 +94,32 @@ LABEL_31:
   }
 
 LABEL_16:
-  v10 = a1 + 752;
-  v11 = *(a1 + 736);
-  v12 = *(a1 + 1112);
-  if (v11 < *(a1 + 360))
+  v10 = a1 + 94;
+  v11 = a1[92];
+  v12 = a1[139];
+  if (v11 < a1[45])
   {
     if (v12 >= v11)
     {
-      std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1, (a1 + 376));
-      if (*(v3 + 1112) >= *(v3 + 736))
+      std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1, a1 + 376);
+      if (v3[139] >= v3[92])
       {
         goto LABEL_36;
       }
 
-      a1 = v3 + 376;
+      a1 = v3 + 47;
     }
 
-    v13 = (v3 + 752);
+    v13 = (v3 + 94);
     goto LABEL_35;
   }
 
   if (v12 < v11)
   {
-    std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>((a1 + 376), (a1 + 752));
-    if (*(v3 + 736) < *(v3 + 360))
+    std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1 + 376, a1 + 752);
+    if (v3[92] < v3[45])
     {
-      v13 = (v3 + 376);
+      v13 = (v3 + 47);
       a1 = v3;
 LABEL_35:
       std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1, v13);
@@ -181,8 +127,8 @@ LABEL_35:
   }
 
 LABEL_36:
-  v14 = v3 + 1128;
-  if (v3 + 1128 == a2)
+  v14 = v3 + 141;
+  if (v3 + 141 == a2)
   {
     return 1;
   }
@@ -191,33 +137,33 @@ LABEL_36:
   v16 = 0;
   while (1)
   {
-    if (*(v14 + 360) < *(v10 + 360))
+    if (v14[45] < v10[45])
     {
       v21 = *v14;
-      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v22, v14 + 8);
-      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v23, v14 + 72);
-      cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v24, v14 + 136);
-      cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v25, v14 + 248);
-      v26 = *(v14 + 360);
-      v27 = *(v14 + 368);
+      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v22, (v14 + 1));
+      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v23, (v14 + 9));
+      cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v24, (v14 + 17));
+      cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v25, (v14 + 31));
+      v26 = v14[45];
+      v27 = *(v14 + 92);
       v17 = v15;
       while (1)
       {
         v18 = v3 + v17;
         *(v3 + v17 + 1128) = *(v3 + v17 + 752);
         cnmatrix::CNMatrixBase<double>::operator=(v3 + v17 + 1136, v3 + v17 + 760);
-        cnmatrix::CNMatrixBase<double>::operator=(v18 + 1200, v18 + 824);
-        cnmatrix::CNMatrixBase<double>::operator=(v18 + 1264, v18 + 888);
-        cnmatrix::CNMatrixBase<double>::operator=(v18 + 1376, v18 + 1000);
-        *(v18 + 1488) = *(v18 + 1112);
-        *(v18 + 1496) = *(v18 + 1120);
+        cnmatrix::CNMatrixBase<double>::operator=((v18 + 1200), (v18 + 824));
+        cnmatrix::CNMatrixBase<double>::operator=((v18 + 1264), (v18 + 888));
+        cnmatrix::CNMatrixBase<double>::operator=((v18 + 1376), (v18 + 1000));
+        *(v18 + 186) = *(v18 + 139);
+        *(v18 + 374) = *(v18 + 280);
         if (v17 == -752)
         {
           break;
         }
 
         v17 -= 376;
-        if (v26 >= *(v18 + 736))
+        if (v26 >= *(v18 + 92))
         {
           v19 = (v3 + v17 + 1128);
           goto LABEL_44;
@@ -227,21 +173,21 @@ LABEL_36:
       v19 = v3;
 LABEL_44:
       *v19 = v21;
-      cnmatrix::CNMatrixBase<double>::operator=(v18 + 760, v22);
-      cnmatrix::CNMatrixBase<double>::operator=(v18 + 824, v23);
-      cnmatrix::CNMatrixBase<double>::operator=(v18 + 888, v24);
-      cnmatrix::CNMatrixBase<double>::operator=(v18 + 1000, v25);
-      *(v18 + 1112) = v26;
-      *(v18 + 1120) = v27;
+      cnmatrix::CNMatrixBase<double>::operator=((v18 + 760), v22);
+      cnmatrix::CNMatrixBase<double>::operator=((v18 + 824), v23);
+      cnmatrix::CNMatrixBase<double>::operator=((v18 + 888), v24);
+      cnmatrix::CNMatrixBase<double>::operator=((v18 + 1000), v25);
+      *(v18 + 139) = v26;
+      *(v18 + 280) = v27;
       if (++v16 == 8)
       {
-        return v14 + 376 == a2;
+        return v14 + 47 == a2;
       }
     }
 
     v10 = v14;
     v15 += 376;
-    v14 += 376;
+    v14 += 47;
     if (v14 == a2)
     {
       return 1;
@@ -364,19 +310,19 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>
   return v12;
 }
 
-void sub_2613FA6B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2613FA6B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<RoseSyntheticApertureFiltering::FilterInitializationResult>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-double std::__introsort<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,false>(uint64_t a1, unint64_t a2, uint64_t a3, char a4)
+double std::__introsort<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,false>(unint64_t a1, double *a2, uint64_t a3, char a4, double result)
 {
   while (2)
   {
-    v7 = a2;
-    v125 = (a2 - 376);
+    v8 = a2;
+    v125 = (a2 - 47);
     k = a1;
     while (1)
     {
@@ -385,18 +331,18 @@ double std::__introsort<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::P
         while (1)
         {
           a1 = k;
-          v9 = v7 - k;
-          v10 = 0x51B3BEA3677D46CFLL * ((v7 - k) >> 3);
-          v11 = v10 - 2;
-          if (v10 > 2)
+          v10 = v8 - k;
+          v11 = 0x51B3BEA3677D46CFLL * ((v8 - k) >> 3);
+          v12 = v11 - 2;
+          if (v11 > 2)
           {
-            switch(v10)
+            switch(v11)
             {
               case 3:
                 return std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(a1, a1 + 376, v125);
               case 4:
                 result = std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(a1, a1 + 376, a1 + 752);
-                v49 = *(v7 - 8);
+                v49 = *(v8 - 2);
                 v50 = *(a1 + 1120);
                 if (v49 >= v50)
                 {
@@ -405,7 +351,7 @@ double std::__introsort<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::P
                     return result;
                   }
 
-                  result = *(a2 - 16);
+                  result = *(a2 - 2);
                   if (result >= *(a1 + 1112))
                   {
                     return result;
@@ -458,15 +404,15 @@ LABEL_107:
 
           else
           {
-            if (v10 < 2)
+            if (v11 < 2)
             {
               return result;
             }
 
-            v7 = a2;
-            if (v10 == 2)
+            v8 = a2;
+            if (v11 == 2)
             {
-              v57 = *(a2 - 8);
+              v57 = *(a2 - 2);
               v58 = *(a1 + 368);
               if (v57 >= v58)
               {
@@ -475,7 +421,7 @@ LABEL_107:
                   return result;
                 }
 
-                result = *(a2 - 16);
+                result = *(a2 - 2);
                 if (result >= *(a1 + 360))
                 {
                   return result;
@@ -483,19 +429,19 @@ LABEL_107:
               }
 
               v56 = a1;
-              v55 = (a2 - 376);
+              v55 = (a2 - 47);
               goto LABEL_107;
             }
           }
 
-          if (v9 <= 9023)
+          if (v10 <= 9023)
           {
             if (a4)
             {
-              if (a1 != v7)
+              if (a1 != v8)
               {
-                v59 = (a1 + 376);
-                if (a1 + 376 != a2)
+                v59 = a1 + 376;
+                if ((a1 + 376) != a2)
                 {
                   v60 = 0;
                   v61 = a1;
@@ -503,17 +449,17 @@ LABEL_107:
                   {
                     v62 = v61;
                     v61 = v59;
-                    v63 = *(v62 + 186);
-                    v64 = *(v62 + 92);
-                    if (v63 < v64 || v63 <= v64 && (result = *(v62 + 92), result < *(v62 + 45)))
+                    v63 = *(v62 + 744);
+                    v64 = *(v62 + 368);
+                    if (v63 < v64 || v63 <= v64 && (result = *(v62 + 736), result < *(v62 + 360)))
                     {
                       v134 = *v61;
-                      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v135, (v62 + 384));
-                      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v136, (v62 + 448));
-                      cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v137, (v62 + 512));
-                      cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v138, (v62 + 624));
-                      v139 = *(v62 + 92);
-                      v140 = *(v62 + 186);
+                      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v135, v62 + 384);
+                      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v136, v62 + 448);
+                      cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v137, v62 + 512);
+                      cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v138, v62 + 624);
+                      v139 = *(v62 + 736);
+                      v140 = *(v62 + 744);
                       for (i = v60; ; i -= 376)
                       {
                         v66 = a1 + i;
@@ -553,15 +499,15 @@ LABEL_125:
                     v60 += 376;
                   }
 
-                  while (v61 + 376 != a2);
+                  while ((v61 + 376) != a2);
                 }
               }
             }
 
-            else if (a1 != v7)
+            else if (a1 != v8)
             {
               v116 = a1 + 376;
-              if (a1 + 376 != a2)
+              if ((a1 + 376) != a2)
               {
                 v117 = a1 + 736;
                 do
@@ -609,7 +555,7 @@ LABEL_125:
                   v117 += 376;
                 }
 
-                while (a1 + 376 != a2);
+                while ((a1 + 376) != a2);
               }
             }
 
@@ -618,10 +564,10 @@ LABEL_125:
 
           if (!a3)
           {
-            if (a1 != v7)
+            if (a1 != v8)
             {
-              v70 = v11 >> 1;
-              v71 = v11 >> 1;
+              v70 = v12 >> 1;
+              v71 = v12 >> 1;
               do
               {
                 v72 = v71;
@@ -629,7 +575,7 @@ LABEL_125:
                 {
                   v73 = (2 * v71) | 1;
                   v74 = a1 + 376 * v73;
-                  if (2 * v71 + 2 < v10)
+                  if (2 * v71 + 2 < v11)
                   {
                     v75 = *(v74 + 368);
                     v76 = *(v74 + 744);
@@ -673,7 +619,7 @@ LABEL_125:
                       v73 = (2 * v73) | 1;
                       v74 = a1 + 376 * v73;
                       v84 = v83 + 2;
-                      if (v84 < v10)
+                      if (v84 < v11)
                       {
                         v85 = *(v74 + 368);
                         v86 = *(v74 + 744);
@@ -716,7 +662,7 @@ LABEL_125:
               }
 
               while (v72);
-              v89 = 0x51B3BEA3677D46CFLL * (v9 >> 3);
+              v89 = 0x51B3BEA3677D46CFLL * (v10 >> 3);
               do
               {
                 v90 = a2;
@@ -761,8 +707,8 @@ LABEL_125:
 
                 while (v91 <= ((v89 - 2) >> 1));
                 v101 = (v93 + 360);
-                a2 -= 376;
-                if (v93 == v90 - 376)
+                a2 -= 47;
+                if (v93 == v90 - 47)
                 {
                   *v93 = v127;
                   cnmatrix::CNMatrixBase<double>::operator=(v93 + 8, v128);
@@ -777,22 +723,22 @@ LABEL_125:
                 else
                 {
                   *v93 = *(v90 - 376);
-                  cnmatrix::CNMatrixBase<double>::operator=(v93 + 8, v90 - 368);
-                  cnmatrix::CNMatrixBase<double>::operator=(v93 + 72, v90 - 304);
-                  cnmatrix::CNMatrixBase<double>::operator=(v93 + 136, v90 - 240);
-                  cnmatrix::CNMatrixBase<double>::operator=(v93 + 248, v90 - 128);
-                  v102 = *(v90 - 16);
-                  *(v93 + 368) = *(v90 - 8);
+                  cnmatrix::CNMatrixBase<double>::operator=(v93 + 8, (v90 - 46));
+                  cnmatrix::CNMatrixBase<double>::operator=(v93 + 72, (v90 - 38));
+                  cnmatrix::CNMatrixBase<double>::operator=(v93 + 136, (v90 - 30));
+                  cnmatrix::CNMatrixBase<double>::operator=(v93 + 248, (v90 - 16));
+                  v102 = *(v90 - 2);
+                  *(v93 + 368) = *(v90 - 2);
                   v124 = (v93 + 360);
                   *v101 = v102;
                   *(v90 - 376) = v127;
-                  cnmatrix::CNMatrixBase<double>::operator=(v90 - 368, v128);
-                  cnmatrix::CNMatrixBase<double>::operator=(v90 - 304, v129);
-                  cnmatrix::CNMatrixBase<double>::operator=(v90 - 240, v130);
-                  *&result = cnmatrix::CNMatrixBase<double>::operator=(v90 - 128, v131).n128_u64[0];
+                  cnmatrix::CNMatrixBase<double>::operator=((v90 - 46), v128);
+                  cnmatrix::CNMatrixBase<double>::operator=((v90 - 38), v129);
+                  cnmatrix::CNMatrixBase<double>::operator=((v90 - 30), v130);
+                  *&result = cnmatrix::CNMatrixBase<double>::operator=((v90 - 16), v131).n128_u64[0];
                   v103 = v133;
-                  *(v90 - 16) = v132;
-                  *(v90 - 8) = v103;
+                  *(v90 - 2) = v132;
+                  *(v90 - 2) = v103;
                   v104 = v93 - a1 + 376;
                   if (v104 >= 377)
                   {
@@ -864,21 +810,21 @@ LABEL_125:
             return result;
           }
 
-          v12 = v10 >> 1;
-          v13 = (a1 + 376 * (v10 >> 1));
-          if (v9 < 0xBC01)
+          v13 = v11 >> 1;
+          v14 = (a1 + 376 * (v11 >> 1));
+          if (v10 < 0xBC01)
           {
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(v13, a1, v125);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(v14, a1, v125);
           }
 
           else
           {
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(a1, v13, v125);
-            v14 = 376 * v12;
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(a1 + 376, v14 + a1 - 376, a2 - 752);
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(a1 + 752, a1 + 376 + v14, a2 - 1128);
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(v14 + a1 - 376, v13, a1 + 376 + v14);
-            std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1, v13);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(a1, v14, v125);
+            v15 = 376 * v13;
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(a1 + 376, v15 + a1 - 376, (a2 - 94));
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(a1 + 752, a1 + 376 + v15, (a2 - 141));
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(v15 + a1 - 376, v14, a1 + 376 + v15);
+            std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1, v14);
           }
 
           --a3;
@@ -887,9 +833,9 @@ LABEL_125:
             break;
           }
 
-          v15 = *(a1 - 8);
-          v16 = *(a1 + 368);
-          if (v15 < v16 || v15 <= v16 && *(a1 - 16) < *(a1 + 360))
+          v16 = *(a1 - 8);
+          v17 = *(a1 + 368);
+          if (v16 < v17 || v16 <= v17 && *(a1 - 16) < *(a1 + 360))
           {
             break;
           }
@@ -902,8 +848,8 @@ LABEL_125:
           v36 = *(a1 + 360);
           v140 = *(a1 + 368);
           v139 = v36;
-          v37 = *(v7 - 8);
-          if (v140 < v37 || v140 <= v37 && v139 < *(v7 - 16))
+          v37 = *(v8 - 2);
+          if (v140 < v37 || v140 <= v37 && v139 < *(v8 - 2))
           {
             v38 = *(a1 + 744);
             if (v140 >= v38)
@@ -932,7 +878,7 @@ LABEL_125:
 
           else
           {
-            for (k = a1 + 376; k < v7; k += 376)
+            for (k = a1 + 376; k < v8; k += 376)
             {
               v39 = *(k + 368);
               if (v140 < v39 || v140 <= v39 && v139 < *(k + 360))
@@ -942,15 +888,15 @@ LABEL_125:
             }
           }
 
-          v41 = v7;
-          if (k < v7)
+          v41 = v8;
+          if (k < v8)
           {
-            for (m = a2 - 384; v140 < v37 || v140 <= v37 && v139 < *(m + 368); m -= 376)
+            for (m = a2 - 48; v140 < v37 || v140 <= v37 && v139 < m[46]; m -= 47)
             {
               v37 = *m;
             }
 
-            v41 = m + 8;
+            v41 = m + 1;
           }
 
           while (k < v41)
@@ -984,14 +930,14 @@ LABEL_125:
             {
               do
               {
-                v41 -= 376;
-                v45 = *(v41 + 368);
+                v41 -= 47;
+                v45 = *(v41 + 92);
               }
 
               while (v140 < v45);
             }
 
-            while (v140 <= v45 && v139 < *(v41 + 360));
+            while (v140 <= v45 && v139 < v41[45]);
           }
 
           v46 = (k - 376);
@@ -1016,7 +962,7 @@ LABEL_125:
           v48 = v140;
           *(k - 16) = v139;
           *(k - 8) = v48;
-          v7 = a2;
+          v8 = a2;
         }
 
         v134 = *a1;
@@ -1024,77 +970,77 @@ LABEL_125:
         cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v136, a1 + 72);
         cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v137, a1 + 136);
         cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v138, a1 + 248);
-        v17 = 0;
-        v18 = *(a1 + 360);
+        v18 = 0;
+        v19 = *(a1 + 360);
         v140 = *(a1 + 368);
-        v139 = v18;
+        v139 = v19;
         while (1)
         {
-          v19 = *(a1 + v17 + 744);
-          if (v19 >= v140 && (v19 > v140 || *(a1 + v17 + 736) >= v139))
+          v20 = *(a1 + v18 + 744);
+          if (v20 >= v140 && (v20 > v140 || *(a1 + v18 + 736) >= v139))
           {
             break;
           }
 
-          v17 += 376;
+          v18 += 376;
         }
 
-        v20 = a1 + v17 + 376;
-        if (v17)
+        v21 = a1 + v18 + 376;
+        if (v18)
         {
-          v21 = (a2 - 376);
-          v22 = *(a2 - 8);
-          v23 = a2 - 384;
-          if (v22 >= v140)
+          v22 = a2 - 47;
+          v23 = *(a2 - 2);
+          v24 = a2 - 48;
+          if (v23 >= v140)
           {
             do
             {
-              if (v22 <= v140 && *(v23 + 368) < v139)
+              if (v23 <= v140 && v24[46] < v139)
               {
                 break;
               }
 
-              v22 = *v23;
-              v23 -= 376;
+              v23 = *v24;
+              v24 -= 47;
             }
 
-            while (v22 >= v140);
+            while (v23 >= v140);
 LABEL_28:
-            v21 = (v23 + 8);
+            v22 = v24 + 1;
           }
         }
 
         else
         {
-          v21 = a2;
-          if (v20 < a2)
+          v22 = a2;
+          if (v21 < a2)
           {
-            v21 = (a2 - 376);
-            v24 = *(a2 - 8);
-            if (v24 >= v140)
+            v22 = a2 - 47;
+            v25 = *(a2 - 2);
+            if (v25 >= v140)
             {
-              v23 = a2 - 384;
-              v21 = (a2 - 376);
+              v24 = a2 - 48;
+              v22 = a2 - 47;
               while (1)
               {
-                v34 = v23 + 8;
-                if (v24 <= v140)
+                v34 = v24 + 1;
+                if (v25 <= v140)
                 {
-                  if (*(v23 + 368) < v139 || v20 >= v34)
+                  if (v24[46] < v139 || v21 >= v34)
                   {
                     break;
                   }
                 }
 
-                else if (v20 >= v34)
+                else if (v21 >= v34)
                 {
                   goto LABEL_28;
                 }
 
-                v21 -= 376;
-                v24 = *v23;
-                v23 -= 376;
-                if (v24 < v140)
+                v22 -= 47;
+                v25 = *v24;
+                v24 -= 47;
+                if (v25 < v140)
                 {
                   goto LABEL_28;
                 }
@@ -1103,99 +1049,99 @@ LABEL_28:
           }
         }
 
-        k = v20;
-        if (v20 < v21)
+        k = v21;
+        if (v21 < v22)
         {
-          v25 = v21;
+          v26 = v22;
           do
           {
-            std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(k, v25);
+            std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(k, v26);
             do
             {
               do
               {
                 k += 376;
-                v26 = *(k + 368);
+                v27 = *(k + 368);
               }
 
-              while (v26 < v140);
+              while (v27 < v140);
             }
 
-            while (v26 <= v140 && *(k + 360) < v139);
-            v27 = *(v25 - 2);
-            if (v27 >= v140)
+            while (v27 <= v140 && *(k + 360) < v139);
+            v28 = *(v26 - 2);
+            if (v28 >= v140)
             {
-              v28 = v25 - 384;
+              v29 = v26 - 384;
               do
               {
-                if (v27 <= v140 && *(v28 + 46) < v139)
+                if (v28 <= v140 && *(v29 + 46) < v139)
                 {
                   break;
                 }
 
-                v27 = *v28;
-                v28 -= 376;
+                v28 = *v29;
+                v29 -= 376;
               }
 
-              while (v27 >= v140);
-              v25 = v28 + 8;
+              while (v28 >= v140);
+              v26 = v29 + 8;
             }
 
             else
             {
-              v25 -= 376;
+              v26 -= 376;
             }
           }
 
-          while (k < v25);
+          while (k < v26);
         }
 
-        v29 = (k - 376);
+        v30 = (k - 376);
         if (k - 376 != a1)
         {
-          *a1 = *v29;
+          *a1 = *v30;
           cnmatrix::CNMatrixBase<double>::operator=(a1 + 8, k - 368);
           cnmatrix::CNMatrixBase<double>::operator=(a1 + 72, k - 304);
           cnmatrix::CNMatrixBase<double>::operator=(a1 + 136, k - 240);
           cnmatrix::CNMatrixBase<double>::operator=(a1 + 248, k - 128);
-          v30 = *(k - 8);
+          v31 = *(k - 8);
           *(a1 + 360) = *(k - 16);
-          *(a1 + 368) = v30;
+          *(a1 + 368) = v31;
         }
 
-        *v29 = v134;
+        *v30 = v134;
         cnmatrix::CNMatrixBase<double>::operator=(k - 368, v135);
         cnmatrix::CNMatrixBase<double>::operator=(k - 304, v136);
         cnmatrix::CNMatrixBase<double>::operator=(k - 240, v137);
-        cnmatrix::CNMatrixBase<double>::operator=(k - 128, v138);
-        v31 = v140;
+        *&result = cnmatrix::CNMatrixBase<double>::operator=(k - 128, v138).n128_u64[0];
+        v32 = v140;
         *(k - 16) = v139;
-        *(k - 8) = v31;
-        v7 = a2;
-        if (v20 >= v21)
+        *(k - 8) = v32;
+        v8 = a2;
+        if (v21 >= v22)
         {
           break;
         }
 
 LABEL_50:
-        std::__introsort<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,false>(a1, k - 376, a3, a4 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,false>(a1, (k - 376), a3, a4 & 1, result);
         a4 = 0;
       }
 
-      v32 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1, k - 376);
+      v33 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1, k - 376);
       if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *>(k, a2))
       {
         break;
       }
 
-      if (!v32)
+      if (!v33)
       {
         goto LABEL_50;
       }
     }
 
-    a2 = k - 376;
-    if (!v32)
+    a2 = (k - 376);
+    if (!v33)
     {
       continue;
     }
@@ -1479,7 +1425,7 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::InternalFilterState>::__bas
   return result;
 }
 
-uint64_t std::vector<RoseSyntheticApertureFiltering::InternalFilterState>::__construct_one_at_end[abi:ne200100]<cnmatrix::CNMatrix<3u,1u,double> const&,cnmatrix::CNMatrix<3u,1u,double> const&,cnmatrix::CNMatrix<3u,3u,double> const&,cnmatrix::CNMatrix<3u,3u,double> const&,double &,RoseSyntheticApertureFiltering::BatchSolutionType const&,cnmatrix::CNMatrix<3u,1u,double>&>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, double *a6, int *a7, uint64_t a8)
+uint64_t std::vector<RoseSyntheticApertureFiltering::InternalFilterState>::__construct_one_at_end[abi:ne200100]<cnmatrix::CNMatrix<3u,1u,double> const&,cnmatrix::CNMatrix<3u,1u,double> const&,cnmatrix::CNMatrix<3u,3u,double> const&,cnmatrix::CNMatrix<3u,3u,double> const&,double &,RoseSyntheticApertureFiltering::BatchSolutionType const&,cnmatrix::CNMatrix<3u,1u,double>&>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, double *a6, unsigned int *a7, uint64_t a8)
 {
   v13 = *(a1 + 8);
   v14 = *a6;
@@ -1490,21 +1436,21 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::InternalFilterState>::__con
   return result;
 }
 
-uint64_t std::vector<RoseSyntheticApertureFiltering::InternalFilterState>::__emplace_back_slow_path<cnmatrix::CNMatrix<3u,1u,double> const&,cnmatrix::CNMatrix<3u,1u,double> const&,cnmatrix::CNMatrix<3u,3u,double> const&,cnmatrix::CNMatrix<3u,3u,double> const&,double &,RoseSyntheticApertureFiltering::BatchSolutionType const&,cnmatrix::CNMatrix<3u,1u,double>&>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, double *a6, int *a7, uint64_t a8)
+uint64_t std::vector<RoseSyntheticApertureFiltering::InternalFilterState>::__emplace_back_slow_path<cnmatrix::CNMatrix<3u,1u,double> const&,cnmatrix::CNMatrix<3u,1u,double> const&,cnmatrix::CNMatrix<3u,3u,double> const&,cnmatrix::CNMatrix<3u,3u,double> const&,double &,RoseSyntheticApertureFiltering::BatchSolutionType const&,cnmatrix::CNMatrix<3u,1u,double>&>(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, double *a6, unsigned int *a7, uint64_t a8)
 {
-  v8 = 0x84BDA12F684BDA13 * ((*(a1 + 8) - *a1) >> 4);
+  v8 = 0x84BDA12F684BDA13 * ((a1[1] - *a1) >> 4);
   v9 = v8 + 1;
   if (v8 + 1 > 0x97B425ED097B42)
   {
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x97B425ED097B426 * ((*(a1 + 16) - *a1) >> 4) > v9)
+  if (0x97B425ED097B426 * ((a1[2] - *a1) >> 4) > v9)
   {
-    v9 = 0x97B425ED097B426 * ((*(a1 + 16) - *a1) >> 4);
+    v9 = 0x97B425ED097B426 * ((a1[2] - *a1) >> 4);
   }
 
-  if (0x84BDA12F684BDA13 * ((*(a1 + 16) - *a1) >> 4) >= 0x4BDA12F684BDA1)
+  if (0x84BDA12F684BDA13 * ((a1[2] - *a1) >> 4) >= 0x4BDA12F684BDA1)
   {
     v15 = 0x97B425ED097B42;
   }
@@ -1528,14 +1474,14 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::InternalFilterState>::__emp
   cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v28, a8);
   RoseSyntheticApertureFiltering::InternalFilterState::InternalFilterState(432 * v8, a2, a3, a4, a5, v17, v28, v16);
   *&v26 = 432 * v8 + 432;
-  v18 = *(a1 + 8);
+  v18 = a1[1];
   v19 = 432 * v8 + *a1 - v18;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<RoseSyntheticApertureFiltering::InternalFilterState>,RoseSyntheticApertureFiltering::InternalFilterState*>(a1, *a1, v18, v19);
   v20 = *a1;
   *a1 = v19;
-  v21 = *(a1 + 16);
+  v21 = a1[2];
   v23 = v26;
-  *(a1 + 8) = v26;
+  *(a1 + 1) = v26;
   *&v26 = v20;
   *(&v26 + 1) = v21;
   v24 = v20;
@@ -1544,9 +1490,9 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::InternalFilterState>::__emp
   return v23;
 }
 
-void sub_2613FC128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2613FC128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<RoseSyntheticApertureFiltering::InternalFilterState>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1712,7 +1658,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<RoseSyntheticAperture
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>,RoseSyntheticApertureFiltering::InternalExpectedAoAMeas*>(uint64_t a1, _OWORD *a2, _OWORD *a3, uint64_t a4)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>,RoseSyntheticApertureFiltering::InternalExpectedAoAMeas*>(uint64_t result, _OWORD *a2, _OWORD *a3, uint64_t a4)
 {
   if (a2 != a3)
   {
@@ -1721,7 +1667,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<RoseSy
     v9 = a2;
     do
     {
-      std::allocator<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>::construct[abi:ne200100]<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas,RoseSyntheticApertureFiltering::InternalExpectedAoAMeas const&>(a1, (a4 + v8), v9);
+      std::allocator<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>::construct[abi:ne200100]<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas,RoseSyntheticApertureFiltering::InternalExpectedAoAMeas const&>(result, (a4 + v8), v9);
       v9 += 12;
       v8 += 192;
     }
@@ -1732,9 +1678,9 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<RoseSy
       v10 = v6 + 104;
       do
       {
-        *(v6 + 13) = &unk_2873C4140;
-        *(v6 + 2) = &unk_2873C4140;
-        v6 += 12;
+        *(v6 + 104) = &unk_2873C4140;
+        *(v6 + 16) = &unk_2873C4140;
+        v6 += 192;
         v10 += 192;
       }
 
@@ -2029,21 +1975,21 @@ float64x2_t cnmatrix::Multiply<double>(uint64_t a1, uint64_t a2, double a3)
   return result;
 }
 
-uint64_t std::vector<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::__emplace_back_slow_path<double const&,cnmatrix::CNMatrix<1u,3u,double> const&,cnmatrix::CNMatrix<3u,1u,double> &>(uint64_t a1, double *a2, uint64_t a3, uint64_t a4)
+uint64_t std::vector<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::__emplace_back_slow_path<double const&,cnmatrix::CNMatrix<1u,3u,double> const&,cnmatrix::CNMatrix<3u,1u,double> &>(uint64_t *a1, double *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = 0xF0F0F0F0F0F0F0F1 * ((*(a1 + 8) - *a1) >> 3);
+  v4 = 0xF0F0F0F0F0F0F0F1 * ((a1[1] - *a1) >> 3);
   v5 = v4 + 1;
   if (v4 + 1 > 0x1E1E1E1E1E1E1E1)
   {
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0xE1E1E1E1E1E1E1E2 * ((*(a1 + 16) - *a1) >> 3) > v5)
+  if (0xE1E1E1E1E1E1E1E2 * ((a1[2] - *a1) >> 3) > v5)
   {
-    v5 = 0xE1E1E1E1E1E1E1E2 * ((*(a1 + 16) - *a1) >> 3);
+    v5 = 0xE1E1E1E1E1E1E1E2 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xF0F0F0F0F0F0F0F1 * ((*(a1 + 16) - *a1) >> 3) >= 0xF0F0F0F0F0F0F0)
+  if (0xF0F0F0F0F0F0F0F1 * ((a1[2] - *a1) >> 3) >= 0xF0F0F0F0F0F0F0)
   {
     v8 = 0x1E1E1E1E1E1E1E1;
   }
@@ -2064,14 +2010,14 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>:
   v17 = 136 * v4;
   RoseSyntheticApertureFiltering::InternalExpectedRangeMeas::InternalExpectedRangeMeas((136 * v4), a3, a4, *a2);
   *&v17 = 136 * v4 + 136;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = 136 * v4 + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>,RoseSyntheticApertureFiltering::InternalExpectedRangeMeas*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -2080,9 +2026,9 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>:
   return v14;
 }
 
-void sub_2613FCEE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2613FCEE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2090,27 +2036,27 @@ void sub_2613FCEE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 double *RoseSyntheticApertureFiltering::InternalExpectedRangeMeas::InternalExpectedRangeMeas(double *a1, uint64_t a2, uint64_t a3, double a4)
 {
   *a1 = a4;
-  v6 = (a1 + 9);
+  v6 = a1 + 9;
   cnmatrix::CNMatrix<1u,3u,double>::CNMatrix((a1 + 1), a2);
   cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v6, a3);
   return a1;
 }
 
-uint64_t std::vector<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>::__emplace_back_slow_path<double const&,double const&,cnmatrix::CNMatrix<2u,3u,double> const&,cnmatrix::CNMatrix<3u,2u,double> &>(uint64_t a1, double *a2, double *a3, uint64_t a4, uint64_t a5)
+uint64_t std::vector<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>::__emplace_back_slow_path<double const&,double const&,cnmatrix::CNMatrix<2u,3u,double> const&,cnmatrix::CNMatrix<3u,2u,double> &>(uint64_t *a1, double *a2, double *a3, uint64_t a4, uint64_t a5)
 {
-  v5 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 6);
+  v5 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 6);
   v6 = v5 + 1;
   if (v5 + 1 > 0x155555555555555)
   {
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 6) > v6)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 6) > v6)
   {
-    v6 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 6);
+    v6 = 0x5555555555555556 * ((a1[2] - *a1) >> 6);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 6) >= 0xAAAAAAAAAAAAAALL)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 6) >= 0xAAAAAAAAAAAAAALL)
   {
     v9 = 0x155555555555555;
   }
@@ -2131,14 +2077,14 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>::_
   v18 = 192 * v5;
   RoseSyntheticApertureFiltering::InternalExpectedAoAMeas::InternalExpectedAoAMeas((192 * v5), a4, a5, *a2, *a3);
   *&v18 = 192 * v5 + 192;
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   v11 = 192 * v5 + *a1 - v10;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>,RoseSyntheticApertureFiltering::InternalExpectedAoAMeas*>(a1, *a1, v10, v11);
   v12 = *a1;
   *a1 = v11;
-  v13 = *(a1 + 16);
+  v13 = a1[2];
   v15 = v18;
-  *(a1 + 8) = v18;
+  *(a1 + 1) = v18;
   *&v18 = v12;
   *(&v18 + 1) = v13;
   v16 = v12;
@@ -2147,9 +2093,9 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>::_
   return v15;
 }
 
-void sub_2613FD100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2613FD100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2173,15 +2119,15 @@ void std::vector<cnmatrix::CNMatrix<2u,1u,double>>::__destroy_vector::operator()
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 56;
-      v7 = v4 - 56;
-      v8 = v4 - 56;
+      v6 = v4 - 7;
+      v7 = v4 - 7;
+      v8 = v4 - 7;
       do
       {
         v9 = *v8;
-        v8 -= 56;
+        v8 -= 7;
         (*v9)(v7);
-        v6 -= 56;
+        v6 -= 7;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -2206,7 +2152,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<cnmatrix::CNMatrix<2u
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<cnmatrix::CNMatrix<2u,1u,double>>,cnmatrix::CNMatrix<2u,1u,double>*>(uint64_t a1, uint64_t a2, void (***a3)(void, __n128), uint64_t a4)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<cnmatrix::CNMatrix<2u,1u,double>>,cnmatrix::CNMatrix<2u,1u,double>*>(uint64_t a1, uint64_t (***a2)(void), uint64_t (***a3)(void), uint64_t a4)
 {
   if (a2 != a3)
   {
@@ -2216,7 +2162,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<cnmatr
     do
     {
       v9 = cnmatrix::CNMatrix<2u,1u,double>::CNMatrix(a4 + v7, v8);
-      v8 += 56;
+      v8 += 7;
       v7 += 56;
     }
 
@@ -2364,21 +2310,21 @@ uint64_t std::__split_buffer<cnmatrix::CNMatrix<2u,1u,double>>::~__split_buffer(
   return a1;
 }
 
-uint64_t std::vector<cnmatrix::CNMatrix<2u,1u,double>>::__emplace_back_slow_path<cnmatrix::CNMatrix<2u,1u,double> const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<cnmatrix::CNMatrix<2u,1u,double>>::__emplace_back_slow_path<cnmatrix::CNMatrix<2u,1u,double> const&>(uint64_t a1, uint64_t a2)
 {
-  v2 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 3);
+  v2 = 0x6DB6DB6DB6DB6DB7 * ((*(a1 + 8) - *a1) >> 3);
   v3 = v2 + 1;
   if ((v2 + 1) > 0x492492492492492)
   {
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 3) > v3)
+  if (0xDB6DB6DB6DB6DB6ELL * ((*(a1 + 16) - *a1) >> 3) > v3)
   {
-    v3 = 0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 3);
+    v3 = 0xDB6DB6DB6DB6DB6ELL * ((*(a1 + 16) - *a1) >> 3);
   }
 
-  if ((0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 3)) >= 0x249249249249249)
+  if ((0x6DB6DB6DB6DB6DB7 * ((*(a1 + 16) - *a1) >> 3)) >= 0x249249249249249)
   {
     v6 = 0x492492492492492;
   }
@@ -2398,14 +2344,14 @@ uint64_t std::vector<cnmatrix::CNMatrix<2u,1u,double>>::__emplace_back_slow_path
   v14 = 56 * v2;
   cnmatrix::CNMatrix<2u,1u,double>::CNMatrix(56 * v2, a2);
   v15 = (56 * v2 + 56);
-  v7 = a1[1];
+  v7 = *(a1 + 8);
   v8 = 56 * v2 + *a1 - v7;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<cnmatrix::CNMatrix<2u,1u,double>>,cnmatrix::CNMatrix<2u,1u,double>*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
-  v10 = a1[2];
+  v10 = *(a1 + 16);
   v12 = v15;
-  *(a1 + 1) = v15;
+  *(a1 + 8) = v15;
   *&v15 = v9;
   *(&v15 + 1) = v10;
   v13 = v9;
@@ -2414,18 +2360,11 @@ uint64_t std::vector<cnmatrix::CNMatrix<2u,1u,double>>::__emplace_back_slow_path
   return v12;
 }
 
-void sub_2613FD694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2613FD694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<cnmatrix::CNMatrix<2u,1u,double>>::~__split_buffer(va);
   _Unwind_Resume(a1);
-}
-
-void cnmatrix::CNMatrix<225u,1u,double>::TransposeDataFootprint(uint64_t a1)
-{
-  v3 = *MEMORY[0x277D85DE8];
-  cnmatrix::CNMatrix<3u,1u,double>::TransposeDataFootprint(a1, v2);
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t cnmatrix::CNMatrix<2u,2u,double>::CNMatrix(uint64_t result, unsigned int a2, unsigned int a3)
@@ -2488,7 +2427,7 @@ LABEL_6:
   return result;
 }
 
-double cnmatrix::Eig<double>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+double cnmatrix::Eig<double>(_DWORD *a1, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, _DWORD *a8, uint64_t a9)
 {
   if (a1 == a2)
   {
@@ -2670,36 +2609,36 @@ double cnmatrix::Eig<double>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
     cnmatrix::Eig<double>();
   }
 
-  v16 = *(a1 + 8);
-  if (v16 != *(a1 + 12))
+  v16 = a1[2];
+  if (v16 != a1[3])
   {
     cnmatrix::Eig<double>();
   }
 
-  v17 = *(a7 + 24);
-  if (*(a7 + 28) * v17 < v16)
+  v17 = a7[6];
+  if (a7[7] * v17 < v16)
   {
     cnmatrix::Eig<double>();
   }
 
-  v18 = *(a8 + 24);
-  if (*(a8 + 28) * v18 < v16)
+  v18 = a8[6];
+  if (a8[7] * v18 < v16)
   {
     cnmatrix::Eig<double>();
   }
 
-  v44 = *(a9 + 28) * *(a9 + 24);
-  if (v44 < 3 * v16)
+  v37 = *(a9 + 28) * *(a9 + 24);
+  if (v37 < 3 * v16)
   {
     cnmatrix::Eig<double>();
   }
 
-  if (*(a2 + 24) < v16)
+  if (a2[6] < v16)
   {
     cnmatrix::Eig<double>();
   }
 
-  if (*(a2 + 28) < v16)
+  if (a2[7] < v16)
   {
     cnmatrix::Eig<double>();
   }
@@ -2763,20 +2702,17 @@ double cnmatrix::Eig<double>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   cnmatrix::CNMatrixBase<double>::WriteValue(a5, 0.0);
   cnmatrix::FastResize<double>(a6, v16, v16);
   cnmatrix::CNMatrixBase<double>::WriteValue(a6, 0.0);
-  v19 = *(a3 + 32);
-  v20 = *(a4 + 32);
-  v21 = *(a7 + 32);
-  v22 = *(a8 + 32);
-  v23 = *(a9 + 32);
-  v24 = *(a2 + 32);
-  v25 = *(a2 + 8);
-  v26 = *(a5 + 32);
-  v27 = *(a5 + 8);
-  qmemcpy(v45, "NVNB", sizeof(v45));
-  v28 = dgeevx_NEWLAPACK();
-  if (v44 < **(a9 + 32) && cnprint::CNPrinter::GetLogLevel(v28) <= 1)
+  v19 = a2[2];
+  qmemcpy(v40, "NVNB", sizeof(v40));
+  v38 = v19;
+  v39 = v16;
+  v20 = dgeevx_NEWLAPACK();
+  v21 = **(a9 + 32);
+  if (v37 < v21 && cnprint::CNPrinter::GetLogLevel(v20) <= 1)
   {
-    cnprint::CNPrinter::Print();
+    LOWORD(v39) = 4;
+    LOBYTE(v38) = 1;
+    cnprint::CNPrinter::Print(&v39, &v38, "Warning: Eig optimal workspace size %u is greater than provided workspace size %u; performance may suffer.", v21, v37);
   }
 
   cnmatrix::FastResize<double>(a9, *(a9 + 24), *(a9 + 28));
@@ -2784,86 +2720,79 @@ double cnmatrix::Eig<double>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   cnmatrix::FastResize<double>(a7, v16, 1);
   if (v16)
   {
-    v30 = 0;
-    v31 = *(a4 + 32);
-    v32 = *(a5 + 32);
-    v33 = *(a6 + 32);
+    v23 = 0;
+    v24 = *(a4 + 32);
+    v25 = *(a5 + 32);
+    v26 = *(a6 + 32);
     do
     {
-      result = *(v31 + 8 * v30);
+      result = *(v24 + 8 * v23);
       if (result != 0.0)
       {
-        v34 = v30 * v16;
-        v35 = v16 + v30;
-        v36 = v16;
+        v27 = v23 * v16;
+        v28 = v16 + v23;
+        v29 = v16;
         do
         {
-          v37 = *(v32 + 8 * v35);
-          *(v33 + 8 * v34) = v37;
-          *(v33 + 8 * v35) = -v37;
-          result = *(v32 + 8 * v34);
-          *(v32 + 8 * v35) = result;
-          ++v34;
-          ++v35;
-          --v36;
+          v30 = *(v25 + 8 * v28);
+          *(v26 + 8 * v27) = v30;
+          *(v26 + 8 * v28) = -v30;
+          result = *(v25 + 8 * v27);
+          *(v25 + 8 * v28) = result;
+          ++v27;
+          ++v28;
+          --v29;
         }
 
-        while (v36);
-        ++v30;
+        while (v29);
+        ++v23;
       }
 
-      ++v30;
+      ++v23;
     }
 
-    while (v30 < v16);
-    v38 = v16 - 1;
+    while (v23 < v16);
+    v31 = v16 - 1;
     if (v16 != 1)
     {
-      v39 = *(a3 + 32);
-      v40 = *(a4 + 32);
-      v41 = (v40 + 8);
-      v42 = (v39 + 8);
-      v43 = v16 + 1;
+      v32 = *(a3 + 32);
+      v33 = *(a4 + 32);
+      v34 = (v33 + 8);
+      v35 = (v32 + 8);
+      v36 = v16 + 1;
       do
       {
-        *(v39 + 8 * v43) = *v42;
-        result = *v41;
-        *(v40 + 8 * v43) = *v41;
-        *v42++ = 0;
-        *v41++ = 0.0;
-        v43 += v16 + 1;
-        --v38;
+        *(v32 + 8 * v36) = *v35;
+        result = *v34;
+        *(v33 + 8 * v36) = *v34;
+        *v35++ = 0;
+        *v34++ = 0.0;
+        v36 += v16 + 1;
+        --v31;
       }
 
-      while (v38);
+      while (v31);
     }
   }
 
   return result;
 }
 
-void cnmatrix::CNMatrix<168u,1u,double>::TransposeDataFootprint(uint64_t a1)
+uint64_t std::vector<RoseSyntheticApertureFiltering::InternalAoAMeas>::__emplace_back_slow_path<RoseSyntheticApertureFiltering::InternalAoAMeas const&>(uint64_t *a1, _OWORD *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  cnmatrix::CNMatrix<3u,1u,double>::TransposeDataFootprint(a1, v2);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t std::vector<RoseSyntheticApertureFiltering::InternalAoAMeas>::__emplace_back_slow_path<RoseSyntheticApertureFiltering::InternalAoAMeas const&>(uint64_t a1, _OWORD *a2)
-{
-  v2 = 0x4EC4EC4EC4EC4EC5 * ((*(a1 + 8) - *a1) >> 4);
+  v2 = 0x4EC4EC4EC4EC4EC5 * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
   if ((v2 + 1) > 0x13B13B13B13B13BLL)
   {
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x9D89D89D89D89D8ALL * ((*(a1 + 16) - *a1) >> 4) > v3)
+  if (0x9D89D89D89D89D8ALL * ((a1[2] - *a1) >> 4) > v3)
   {
-    v3 = 0x9D89D89D89D89D8ALL * ((*(a1 + 16) - *a1) >> 4);
+    v3 = 0x9D89D89D89D89D8ALL * ((a1[2] - *a1) >> 4);
   }
 
-  if ((0x4EC4EC4EC4EC4EC5 * ((*(a1 + 16) - *a1) >> 4)) >= 0x9D89D89D89D89DLL)
+  if ((0x4EC4EC4EC4EC4EC5 * ((a1[2] - *a1) >> 4)) >= 0x9D89D89D89D89DLL)
   {
     v6 = 0x13B13B13B13B13BLL;
   }
@@ -2883,14 +2812,14 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::InternalAoAMeas>::__emplace
   v14 = 208 * v2;
   std::allocator<RoseSyntheticApertureFiltering::InternalAoAMeas>::construct[abi:ne200100]<RoseSyntheticApertureFiltering::InternalAoAMeas,RoseSyntheticApertureFiltering::InternalAoAMeas const&>(a1, (208 * v2), a2);
   v15 = (208 * v2 + 208);
-  v7 = *(a1 + 8);
+  v7 = a1[1];
   v8 = 208 * v2 + *a1 - v7;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<RoseSyntheticApertureFiltering::InternalAoAMeas>,RoseSyntheticApertureFiltering::InternalAoAMeas*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
-  v10 = *(a1 + 16);
+  v10 = a1[2];
   v12 = v15;
-  *(a1 + 8) = v15;
+  *(a1 + 1) = v15;
   *&v15 = v9;
   *(&v15 + 1) = v10;
   v13 = v9;
@@ -2899,9 +2828,9 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::InternalAoAMeas>::__emplace
   return v12;
 }
 
-void sub_2613FE168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2613FE168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<RoseSyntheticApertureFiltering::InternalAoAMeas>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3030,9 +2959,9 @@ double *RoseSyntheticApertureFiltering::measModelRange(uint64_t a1, uint64_t a2,
     v8 = cnmatrix::CNMatrixBase<double>::operator()(&v13, 0);
     v9 = 1.0 / v7;
     *cnmatrix::CNMatrixBase<double>::operator()(a4, 0, 0) = 1.0 / v7 * v8;
-    v10 = cnmatrix::CNMatrixBase<double>::operator()(&v13, 1u);
+    v10 = cnmatrix::CNMatrixBase<double>::operator()(&v13, 1);
     *cnmatrix::CNMatrixBase<double>::operator()(a4, 0, 1) = v9 * v10;
-    v11 = cnmatrix::CNMatrixBase<double>::operator()(&v13, 2u);
+    v11 = cnmatrix::CNMatrixBase<double>::operator()(&v13, 2);
     result = cnmatrix::CNMatrixBase<double>::operator()(a4, 0, 2);
     *result = v9 * v11;
   }
@@ -3067,14 +2996,14 @@ void RoseSyntheticApertureFiltering::measModelAoA(uint64_t a1, uint64_t a2, uint
   cnmatrix::Norm<double>(&v20, &v40, &v35, &v30, "2");
   v9 = v8;
   v10 = cnmatrix::CNMatrixBase<double>::operator()(&v20, 0);
-  v11 = cnmatrix::CNMatrixBase<double>::operator()(&v20, 1u);
-  v12 = cnmatrix::CNMatrixBase<double>::operator()(&v20, 2u);
+  v11 = cnmatrix::CNMatrixBase<double>::operator()(&v20, 1);
+  v12 = cnmatrix::CNMatrixBase<double>::operator()(&v20, 2);
   if (v9 != 0.0)
   {
     v13 = v12;
     v14 = cnmatrix::CNMatrixBase<double>::operator()(a4, 0);
     *v14 = atan2(v13, v11);
-    v15 = cnmatrix::CNMatrixBase<double>::operator()(a4, 1u);
+    v15 = cnmatrix::CNMatrixBase<double>::operator()(a4, 1);
     *v15 = asin(v10 / v9);
     v16 = v13 * v13 + v11 * v11;
     v17 = 1.0 / (v9 * v9);
@@ -3140,15 +3069,15 @@ void RoseSyntheticApertureFiltering::measModelAoAAlt(uint64_t a1, uint64_t a2, u
 double *RoseSyntheticApertureFiltering::rhoThPhi2pos(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = cnmatrix::CNMatrixBase<double>::operator()(a1, 0);
-  v7 = cnmatrix::CNMatrixBase<double>::operator()(a1, 1u);
-  v8 = cnmatrix::CNMatrixBase<double>::operator()(a1, 2u);
+  v7 = cnmatrix::CNMatrixBase<double>::operator()(a1, 1);
+  v8 = cnmatrix::CNMatrixBase<double>::operator()(a1, 2);
   v9 = __sincos_stret(v8);
   v10 = __sincos_stret(v7);
   v11 = v6 * v9.__cosval;
   *cnmatrix::CNMatrixBase<double>::operator()(a2, 0) = v10.__sinval * (v6 * v9.__cosval);
-  *cnmatrix::CNMatrixBase<double>::operator()(a2, 1u) = v6 * v9.__sinval;
+  *cnmatrix::CNMatrixBase<double>::operator()(a2, 1) = v6 * v9.__sinval;
   v12 = v10.__cosval * (v6 * v9.__cosval);
-  *cnmatrix::CNMatrixBase<double>::operator()(a2, 2u) = v12;
+  *cnmatrix::CNMatrixBase<double>::operator()(a2, 2) = v12;
   *cnmatrix::CNMatrixBase<double>::operator()(a3, 0, 0) = v10.__sinval * v9.__cosval;
   *cnmatrix::CNMatrixBase<double>::operator()(a3, 1, 0) = v9.__sinval;
   *cnmatrix::CNMatrixBase<double>::operator()(a3, 2, 0) = v10.__cosval * v9.__cosval;
@@ -3166,8 +3095,8 @@ double *RoseSyntheticApertureFiltering::rhoThPhi2pos(uint64_t a1, uint64_t a2, u
 void RoseSyntheticApertureFiltering::pos2rangeThPhi(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = cnmatrix::CNMatrixBase<double>::operator()(a1, 0);
-  v5 = cnmatrix::CNMatrixBase<double>::operator()(a1, 1u);
-  v6 = cnmatrix::CNMatrixBase<double>::operator()(a1, 2u);
+  v5 = cnmatrix::CNMatrixBase<double>::operator()(a1, 1);
+  v6 = cnmatrix::CNMatrixBase<double>::operator()(a1, 2);
   *(a2 + 24) = 0x100000003;
   *a2 = &unk_2873C40E8;
   *(a2 + 8) = xmmword_261415AA0;
@@ -3175,34 +3104,34 @@ void RoseSyntheticApertureFiltering::pos2rangeThPhi(uint64_t a1@<X0>, uint64_t a
   *cnmatrix::CNMatrixBase<double>::operator()(a2, 0) = sqrt(v5 * v5 + v4 * v4 + v6 * v6);
   if (*cnmatrix::CNMatrixBase<double>::operator()(a2, 0) <= 0.0)
   {
-    *cnmatrix::CNMatrixBase<double>::operator()(a2, 1u) = 0;
-    *cnmatrix::CNMatrixBase<double>::operator()(a2, 2u) = 0;
+    *cnmatrix::CNMatrixBase<double>::operator()(a2, 1) = 0;
+    *cnmatrix::CNMatrixBase<double>::operator()(a2, 2) = 0;
   }
 
   else
   {
-    v7 = cnmatrix::CNMatrixBase<double>::operator()(a2, 1u);
+    v7 = cnmatrix::CNMatrixBase<double>::operator()(a2, 1);
     *v7 = atan2(v4, v6);
     v8 = *cnmatrix::CNMatrixBase<double>::operator()(a2, 0);
-    v9 = cnmatrix::CNMatrixBase<double>::operator()(a2, 2u);
+    v9 = cnmatrix::CNMatrixBase<double>::operator()(a2, 2);
     *v9 = asin(v5 / v8);
   }
 }
 
-long double RoseSyntheticApertureFiltering::rangeAzEl2pos@<D0>(double a1@<D0>, long double a2@<D1>, long double a3@<D2>, uint64_t a4@<X8>)
+long double RoseSyntheticApertureFiltering::rangeAzEl2pos@<D0>(uint64_t *__return_ptr a1@<X8>, double a2@<D0>, long double a3@<D1>, long double a4@<D2>)
 {
-  *(a4 + 24) = 0x100000003;
-  *a4 = &unk_2873C40E8;
-  *(a4 + 8) = xmmword_261415AA0;
-  *(a4 + 32) = a4 + 40;
-  v9 = cnmatrix::CNMatrixBase<double>::operator()(a4, 0);
-  *v9 = sin(a2) * a1;
-  v10 = cnmatrix::CNMatrixBase<double>::operator()(a4, 1u);
-  v11 = cos(a2) * a1;
-  *v10 = v11 * cos(a3);
-  v12 = cnmatrix::CNMatrixBase<double>::operator()(a4, 2u);
-  result = v11 * sin(a3);
-  *v12 = result;
+  a1[3] = 0x100000003;
+  *a1 = &unk_2873C40E8;
+  *(a1 + 1) = xmmword_261415AA0;
+  a1[4] = (a1 + 5);
+  v8 = cnmatrix::CNMatrixBase<double>::operator()(a1, 0);
+  *v8 = sin(a3) * a2;
+  v9 = cnmatrix::CNMatrixBase<double>::operator()(a1, 1);
+  v10 = cos(a3) * a2;
+  *v9 = v10 * cos(a4);
+  v11 = cnmatrix::CNMatrixBase<double>::operator()(a1, 2);
+  result = v10 * sin(a4);
+  *v11 = result;
   return result;
 }
 
@@ -3215,9 +3144,9 @@ double RoseSyntheticApertureFiltering::quatn2rot@<D0>(uint64_t a1@<X0>, uint64_t
   cnmatrix::FastResize<double>(a2, 3, 3);
   cnmatrix::CNMatrixBase<double>::WriteValue(a2, 0.0);
   v4 = cnmatrix::CNMatrixBase<double>::operator()(a1, 0);
-  v5 = cnmatrix::CNMatrixBase<double>::operator()(a1, 1u);
-  v6 = cnmatrix::CNMatrixBase<double>::operator()(a1, 2u);
-  v7 = cnmatrix::CNMatrixBase<double>::operator()(a1, 3u);
+  v5 = cnmatrix::CNMatrixBase<double>::operator()(a1, 1);
+  v6 = cnmatrix::CNMatrixBase<double>::operator()(a1, 2);
+  v7 = cnmatrix::CNMatrixBase<double>::operator()(a1, 3);
   v14 = v5 * v5;
   v15 = v4 * v4;
   *cnmatrix::CNMatrixBase<double>::operator()(a2, 0, 0) = v4 * v4 - v5 * v5 - v6 * v6 + v7 * v7;
@@ -3267,9 +3196,9 @@ void sub_261400618(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_261400744(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+void sub_261400744(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id a10)
 {
-  MEMORY[0x2667015A0](v10, 0x1080C4011C7A211);
+  MEMORY[0x2667015A0](v10, 0x1080C4011C7A211, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
@@ -3297,9 +3226,9 @@ void sub_261400BC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_261400C90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+void sub_261400C90(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id a10)
 {
-  MEMORY[0x2667015A0](v10, 0x1080C4011C7A211);
+  MEMORY[0x2667015A0](v10, 0x1080C4011C7A211, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
@@ -3477,7 +3406,7 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::~PRRose
 
 BTFinding::PRRSSIFilter *BTFinding::PRRSSIFilter::PRRSSIFilter(BTFinding::PRRSSIFilter *this, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   *(this + 8) = 0;
   *(this + 2) = 0;
   *(this + 8) = 2;
@@ -3503,14 +3432,13 @@ BTFinding::PRRSSIFilter *BTFinding::PRRSSIFilter::PRRSSIFilter(BTFinding::PRRSSI
   {
     v4 = *(this + 6);
     v5 = *(this + 7);
-    v8[0] = 67109376;
-    v8[1] = v4;
-    v9 = 1024;
-    v10 = v5;
-    _os_log_impl(&dword_2613DF000, v3, OS_LOG_TYPE_DEFAULT, "Received Tx Power: %d dB, calculated Tx power adjustment: %d dB", v8, 0xEu);
+    v7[0] = 67109376;
+    v7[1] = v4;
+    v8 = 1024;
+    v9 = v5;
+    _os_log_impl(&dword_2613DF000, v3, OS_LOG_TYPE_DEFAULT, "Received Tx Power: %d dB, calculated Tx power adjustment: %d dB", v7, 0xEu);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -3536,21 +3464,21 @@ uint64_t BTFinding::PRRSSIFilter::reset(uint64_t this)
 
 void BTFinding::PRRSSIFilter::addRSSImeasurement(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v47 = *MEMORY[0x277D85DE8];
-  LODWORD(v39) = *a2 - *(a1 + 28);
+  v46 = *MEMORY[0x277D85DE8];
+  LODWORD(v38) = *a2 - *(a1 + 28);
   v5 = *(a2 + 8);
-  *(&v39 + 1) = v5;
-  v40 = *(a2 + 16);
+  *(&v38 + 1) = v5;
+  v39 = *(a2 + 16);
   v6 = *a1;
   v7 = os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT);
-  if ((v39 & 0x80000000) == 0)
+  if ((v38 & 0x80000000) == 0)
   {
     if (v7)
     {
       *buf = 67109376;
-      *v42 = v39;
-      *&v42[4] = 2048;
-      *&v42[6] = v5;
+      *v41 = v38;
+      *&v41[4] = 2048;
+      *&v41[6] = v5;
       v8 = "An invalid RSSI measurement with a value of %d dB has been received and ignored at time = %5.3f s";
       v9 = v6;
       v10 = 18;
@@ -3565,9 +3493,9 @@ LABEL_59:
   if (v7)
   {
     *buf = 67109376;
-    *v42 = v39;
-    *&v42[4] = 2048;
-    *&v42[6] = v5;
+    *v41 = v38;
+    *&v41[4] = 2048;
+    *&v41[6] = v5;
     _os_log_impl(&dword_2613DF000, v6, OS_LOG_TYPE_DEFAULT, "Processing measurement with an adjusted value of %d dB has at time = %5.3f s", buf, 0x12u);
   }
 
@@ -3700,7 +3628,7 @@ LABEL_30:
   }
 
 LABEL_42:
-  switch(v40)
+  switch(v39)
   {
     case 2:
       v23 = a1 + 88;
@@ -3722,7 +3650,7 @@ LABEL_42:
       }
 
 LABEL_52:
-      std::vector<BTFinding::RSSIMeasurement>::push_back[abi:ne200100](v23, &v39);
+      std::vector<BTFinding::RSSIMeasurement>::push_back[abi:ne200100](v23, &v38);
       break;
     case 0:
       v23 = a1 + 40;
@@ -3732,8 +3660,8 @@ LABEL_52:
         v23 = a1 + 40;
 LABEL_51:
         v25 = a1 + v24;
-        *v25 = v39;
-        *(v25 + 16) = v40;
+        *v25 = v38;
+        *(v25 + 16) = v39;
         goto LABEL_52;
       }
 
@@ -3758,7 +3686,7 @@ LABEL_51:
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      *v42 = v5;
+      *v41 = v5;
       v8 = "Not returning any solution yet at time = %5.3f s";
       v9 = v27;
       v10 = 12;
@@ -3771,27 +3699,37 @@ LABEL_60:
     goto LABEL_61;
   }
 
-  v30 = BTFinding::PRRSSIFilter::calculateAverageForChannel(a1, (a1 + 40));
-  v31 = BTFinding::PRRSSIFilter::calculateAverageForChannel(a1, (a1 + 64));
-  v32 = BTFinding::PRRSSIFilter::calculateAverageForChannel(a1, (a1 + 88));
-  v33 = *a1;
+  v29 = BTFinding::PRRSSIFilter::calculateAverageForChannel(a1, (a1 + 40));
+  v30 = BTFinding::PRRSSIFilter::calculateAverageForChannel(a1, (a1 + 64));
+  v31 = BTFinding::PRRSSIFilter::calculateAverageForChannel(a1, (a1 + 88));
+  v32 = *a1;
   if (os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218752;
-    *v42 = v30;
-    *&v42[8] = 2048;
-    *&v42[10] = v31;
-    v43 = 2048;
-    v44 = v32;
-    v45 = 2048;
-    v46 = v5;
-    _os_log_impl(&dword_2613DF000, v33, OS_LOG_TYPE_DEFAULT, "Averages calculated for channel 37, 38, and 39 are: %4.1f, %4.1f, and %4.1f dB at time = %5.3f s", buf, 0x2Au);
-    v33 = *a1;
+    *v41 = v29;
+    *&v41[8] = 2048;
+    *&v41[10] = v30;
+    v42 = 2048;
+    v43 = v31;
+    v44 = 2048;
+    v45 = v5;
+    _os_log_impl(&dword_2613DF000, v32, OS_LOG_TYPE_DEFAULT, "Averages calculated for channel 37, 38, and 39 are: %4.1f, %4.1f, and %4.1f dB at time = %5.3f s", buf, 0x2Au);
+    v32 = *a1;
   }
 
-  if (v30 >= v31)
+  if (v29 >= v30)
   {
-    v34 = v30;
+    v33 = v29;
+  }
+
+  else
+  {
+    v33 = v30;
+  }
+
+  if (v33 >= v31)
+  {
+    v34 = v33;
   }
 
   else
@@ -3799,59 +3737,48 @@ LABEL_60:
     v34 = v31;
   }
 
-  if (v34 >= v32)
-  {
-    v35 = v34;
-  }
-
-  else
-  {
-    v35 = v32;
-  }
-
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    *v42 = v35;
-    *&v42[8] = 2048;
-    *&v42[10] = v5;
-    _os_log_impl(&dword_2613DF000, v33, OS_LOG_TYPE_DEFAULT, "Max among channel is %4.1f dB at time = %5.3f s", buf, 0x16u);
+    *v41 = v34;
+    *&v41[8] = 2048;
+    *&v41[10] = v5;
+    _os_log_impl(&dword_2613DF000, v32, OS_LOG_TYPE_DEFAULT, "Max among channel is %4.1f dB at time = %5.3f s", buf, 0x16u);
   }
 
-  v36 = 0.0;
-  if (v35 > -100.0)
+  v35 = 0.0;
+  if (v34 > -100.0)
   {
-    v36 = 1.0;
-    if (v35 < -40.0)
+    v35 = 1.0;
+    if (v34 < -40.0)
     {
-      v36 = (v35 + 100.0) / 60.0;
+      v35 = (v34 + 100.0) / 60.0;
     }
   }
 
-  v37 = *a1;
+  v36 = *a1;
   if (os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    *v42 = v36;
-    *&v42[8] = 2048;
-    *&v42[10] = v5;
-    _os_log_impl(&dword_2613DF000, v37, OS_LOG_TYPE_DEFAULT, "Continuous proximity level %3.2f at time = %5.3f s", buf, 0x16u);
+    *v41 = v35;
+    *&v41[8] = 2048;
+    *&v41[10] = v5;
+    _os_log_impl(&dword_2613DF000, v36, OS_LOG_TYPE_DEFAULT, "Continuous proximity level %3.2f at time = %5.3f s", buf, 0x16u);
   }
 
-  BTFinding::PRRSSIFilter::updateProximityLevelWithHysteresis(a1, v35);
-  v38 = *(a1 + 32);
+  BTFinding::PRRSSIFilter::updateProximityLevelWithHysteresis(a1, v34);
+  v37 = *(a1 + 32);
   *(a1 + 48) = *(a1 + 40);
   *(a1 + 72) = *(a1 + 64);
   *(a1 + 96) = *(a1 + 88);
   *(a1 + 16) = v5;
-  *a3 = v35;
+  *a3 = v34;
   *(a3 + 8) = v5;
-  *(a3 + 16) = v38;
+  *(a3 + 16) = v37;
   v28 = 1;
-  *(a3 + 24) = v36;
+  *(a3 + 24) = v35;
 LABEL_61:
   *(a3 + 32) = v28;
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void std::vector<BTFinding::RSSIMeasurement>::push_back[abi:ne200100](uint64_t a1, __int128 *a2)
@@ -4415,17 +4342,22 @@ void cnmatrix::Subtract<double>()
   __assert_rtn("Subtract", "cnmatrixbase.h", 3677, "&(A) != &(C)");
 }
 
-void cnmatrix::Norm<double>()
+void cnmatrix::Norm<double>(const char *a1)
 {
-  cnprint::CNPrinter::Print();
+  v1 = 4;
+  v2 = 5;
+  cnprint::CNPrinter::Print(&v1, &v2, "Error using Norm: invalid %s-norm.", a1);
   __assert_rtn("Norm", "cnmatrixbase.h", 4716, "ret == 1");
 }
 
 {
-  cnprint::CNPrinter::Print();
+  v1 = 4;
+  v2 = 5;
+  cnprint::CNPrinter::Print(&v1, &v2, "Error using Norm: invalid %s-norm.", a1);
   __assert_rtn("Norm", "cnmatrixbase.h", 4640, "false");
 }
 
+void cnmatrix::Norm<double>()
 {
   __assert_rtn("Norm", "cnmatrixbase.h", 4512, "Acopy.num_elements_ >= A.num_elements_");
 }
@@ -4513,14 +4445,13 @@ void cnmatrix::SingularValues<double>()
 
 void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::addMeasurement(uint64_t a1, NSObject *a2, double a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 8);
-  v5 = 134218240;
-  v6 = v3;
-  v7 = 2048;
-  v8 = a3;
-  _os_log_error_impl(&dword_2613DF000, a2, OS_LOG_TYPE_ERROR, "Invalid measurement rejected by the batch filter filter, range passed: %f m, range uncertainty passed: %f m", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218240;
+  v5 = v3;
+  v6 = 2048;
+  v7 = a3;
+  _os_log_error_impl(&dword_2613DF000, a2, OS_LOG_TYPE_ERROR, "Invalid measurement rejected by the batch filter filter, range passed: %f m, range uncertainty passed: %f m", &v4, 0x16u);
 }
 
 void cnmatrix::CNMatrixBase<double>::operator()<int,int>()
@@ -4560,11 +4491,6 @@ void cnmatrix::Inv<double>()
 }
 
 {
-  cnprint::CNPrinter::Print();
-  __assert_rtn("Inv", "cnmatrixbase.h", 6127, "info >= 0");
-}
-
-{
   __assert_rtn("Inv", "cnmatrixbase.h", 6091, "B.max_num_cols_ >= A.num_cols_");
 }
 
@@ -4590,6 +4516,14 @@ void cnmatrix::Inv<double>()
 
 {
   __assert_rtn("Inv", "cnmatrixbase.h", 6077, "&A != &Work");
+}
+
+void cnmatrix::Inv<double>(int a1)
+{
+  v1 = 4;
+  v2 = 5;
+  cnprint::CNPrinter::Print(&v1, &v2, "Error using Inv: input argument %d invalid in getrf.", -a1);
+  __assert_rtn("Inv", "cnmatrixbase.h", 6127, "info >= 0");
 }
 
 uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<cnmatrix::CNMatrix<3u,1u,double>>,cnmatrix::CNMatrix<3u,1u,double>*>(uint64_t a1, uint64_t (***a2)(void))

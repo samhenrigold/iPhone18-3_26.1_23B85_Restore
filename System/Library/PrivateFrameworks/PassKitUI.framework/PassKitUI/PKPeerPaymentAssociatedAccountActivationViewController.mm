@@ -384,12 +384,12 @@ LABEL_35:
   }
 }
 
-void __68__PKPeerPaymentAssociatedAccountActivationViewController__setState___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4, int a5, int a6)
+void __68__PKPeerPaymentAssociatedAccountActivationViewController__setState___block_invoke(id *a1, uint64_t a2, void *a3, void *a4, int a5, int a6)
 {
   v18 = a3;
   v11 = a4;
-  [*(a1 + 32) setTitleText:a2];
-  v12 = *(a1 + 32);
+  [a1[4] setTitleText:a2];
+  v12 = a1[4];
   if (v18)
   {
     [v12 setBodyText:?];
@@ -400,25 +400,25 @@ void __68__PKPeerPaymentAssociatedAccountActivationViewController__setState___bl
     [v12 setAttributedBodyText:v11];
   }
 
-  v13 = [*(a1 + 40) primaryButton];
+  v13 = [a1[5] primaryButton];
   v14 = PKLocalizedPeerPaymentString(&cfstr_PeerPaymentAdd_11.isa);
   [v13 setTitle:v14 forState:0];
 
   if (a5)
   {
-    [*(a1 + 48) setManualEntryButton:0];
+    [a1[6] setManualEntryButton:0];
   }
 
-  [*(a1 + 48) setSetUpLaterButton:0];
-  v15 = *(*(a1 + 56) + 1120);
+  [a1[6] setSetUpLaterButton:0];
+  v15 = *(a1[7] + 140);
   if (a6)
   {
     [v15 setShowIconsView:1];
-    v16 = *(a1 + 56);
+    v16 = a1[7];
     v17 = v16[140];
     [v16 context];
     [v17 setShowWatchView:PKPaymentSetupContextIsBridge()];
-    [*(a1 + 32) setBodyView:*(*(a1 + 56) + 1120)];
+    [a1[4] setBodyView:*(a1[7] + 140)];
   }
 
   else
@@ -542,24 +542,24 @@ uint64_t __68__PKPeerPaymentAssociatedAccountActivationViewController__setState_
   }
 }
 
-uint64_t __81__PKPeerPaymentAssociatedAccountActivationViewController__startTimerIfNeccessary__block_invoke(uint64_t result)
+void *__81__PKPeerPaymentAssociatedAccountActivationViewController__startTimerIfNeccessary__block_invoke(void *result, uint64_t a2)
 {
-  if (*(*(result + 32) + 1136))
+  if (*(result[4] + 1136))
   {
-    v1 = result;
-    v2 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v2 = result;
+    v3 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Apple cash capabilities fetch timer fired.", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Apple cash capabilities fetch timer fired.", v6, 2u);
     }
 
-    v3 = *(v1 + 32);
-    v4 = *(v3 + 1136);
-    *(v3 + 1136) = 0;
+    v4 = v2[4];
+    v5 = *(v4 + 1136);
+    *(v4 + 1136) = 0;
 
-    *(*(v1 + 32) + 1144) = 1;
-    return [*(v1 + 32) _checkFamilyMemberAppleCashCapabilities];
+    *(v2[4] + 1144) = 1;
+    return [v2[4] _checkFamilyMemberAppleCashCapabilities];
   }
 
   return result;
@@ -1053,19 +1053,19 @@ LABEL_79:
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __124__PKPeerPaymentAssociatedAccountActivationViewController_deviceSharingCapabilitiesUpdated_newSharingCapabilties_forAppleID___block_invoke(uint64_t a1)
+uint64_t __124__PKPeerPaymentAssociatedAccountActivationViewController_deviceSharingCapabilitiesUpdated_newSharingCapabilties_forAppleID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v11 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v6 = 138412546;
-    v7 = v3;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "PKPeerPaymentAssociatedAccountActivationViewController deviceSharingCapabilitiesUpdated:newSharingCapabilties called for handle %@, %@", &v6, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "PKPeerPaymentAssociatedAccountActivationViewController deviceSharingCapabilitiesUpdated:newSharingCapabilties called for handle %@, %@", &v7, 0x16u);
   }
 
   return [*(a1 + 48) _checkFamilyMemberAppleCashCapabilities];
@@ -1087,19 +1087,19 @@ uint64_t __124__PKPeerPaymentAssociatedAccountActivationViewController_deviceSha
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __125__PKPeerPaymentAssociatedAccountActivationViewController_deviceSharingCapabilitiesUpdated_maximumPossibleDevices_forAppleID___block_invoke(uint64_t a1)
+uint64_t __125__PKPeerPaymentAssociatedAccountActivationViewController_deviceSharingCapabilitiesUpdated_maximumPossibleDevices_forAppleID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v11 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v6 = 138412546;
-    v7 = v3;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "PKPeerPaymentAssociatedAccountActivationViewController deviceSharingCapabilitiesUpdated:maximumPossibleDevices called for handle %@, %@", &v6, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "PKPeerPaymentAssociatedAccountActivationViewController deviceSharingCapabilitiesUpdated:maximumPossibleDevices called for handle %@, %@", &v7, 0x16u);
   }
 
   return [*(a1 + 48) _checkFamilyMemberAppleCashCapabilities];
@@ -1115,21 +1115,21 @@ uint64_t __125__PKPeerPaymentAssociatedAccountActivationViewController_deviceSha
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __104__PKPeerPaymentAssociatedAccountActivationViewController__handlePeerPaymentAccountDidChangeNotification__block_invoke(uint64_t a1)
+uint64_t __104__PKPeerPaymentAssociatedAccountActivationViewController__handlePeerPaymentAccountDidChangeNotification__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "PKPeerPaymentAssociatedAccountActivationViewController _handlePeerPaymentAccountDidChangeNotification", v9, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "PKPeerPaymentAssociatedAccountActivationViewController _handlePeerPaymentAccountDidChangeNotification", v10, 2u);
   }
 
-  v3 = [*(*(a1 + 32) + 1080) peerPaymentWebService];
-  v4 = [v3 targetDevice];
-  v5 = [v4 account];
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 1128);
-  *(v6 + 1128) = v5;
+  v4 = [*(*(a1 + 32) + 1080) peerPaymentWebService];
+  v5 = [v4 targetDevice];
+  v6 = [v5 account];
+  v7 = *(a1 + 32);
+  v8 = *(v7 + 1128);
+  *(v7 + 1128) = v6;
 
   return [*(a1 + 32) _checkFamilyMemberAppleCashCapabilities];
 }

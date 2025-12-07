@@ -8,23 +8,22 @@
 {
   v3 = sub_1BB1DB398();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BB1DB348();
-  v8 = static ActionDataProvider.parametersForAppStoreOptInNotification(deeplink:)();
-  (*(v4 + 8))(v7, v3);
-  if (v8)
+  v7 = static ActionDataProvider.parametersForAppStoreOptInNotification(deeplink:)();
+  (*(v4 + 8))(v6, v3);
+  if (v7)
   {
-    v9 = sub_1BB1DD2A8();
+    v8 = sub_1BB1DD2A8();
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 @end

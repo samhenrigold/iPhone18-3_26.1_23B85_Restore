@@ -19,9 +19,11 @@
 
 uint64_t __30__LACSDKHelper_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_13 = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedInstance_sharedInstance_13;
+  sharedInstance_sharedInstance_13 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)applicationIsRunningWithSDKVersionAtLeast:(int64_t)least
@@ -34,7 +36,7 @@ uint64_t __30__LACSDKHelper_sharedInstance__block_invoke()
 
   else
   {
-    v3 = LACLogDefault();
+    v3 = LACLogDefault(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [LACSDKHelper applicationIsRunningWithSDKVersionAtLeast:v3];

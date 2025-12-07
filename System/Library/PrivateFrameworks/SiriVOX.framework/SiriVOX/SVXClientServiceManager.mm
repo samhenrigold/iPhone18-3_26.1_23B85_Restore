@@ -61,16 +61,16 @@
   [(SVXPerforming *)performer performBlock:v7];
 }
 
-uint64_t __64__SVXClientServiceManager_clientServiceConnectionDidInvalidate___block_invoke(uint64_t result)
+void *__64__SVXClientServiceManager_clientServiceConnectionDidInvalidate___block_invoke(void *result)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   v3 = *(v2 + 24);
-  if (v3 == *(result + 40))
+  if (v3 == result[5])
   {
     v4 = result;
     *(v2 + 24) = 0;
 
-    v5 = *(v4 + 32);
+    v5 = v4[4];
 
     return [v5 _connect];
   }

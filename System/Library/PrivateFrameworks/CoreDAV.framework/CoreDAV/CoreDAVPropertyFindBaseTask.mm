@@ -92,30 +92,30 @@
 
 - (id)successfulValueForNameSpace:(id)space elementName:(id)name
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   spaceCopy = space;
   nameCopy = name;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   multiStatus = [(CoreDAVPropertyFindBaseTask *)self multiStatus];
   responses = [multiStatus responses];
 
-  v10 = [responses countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [responses countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
-    v11 = *v18;
+    v11 = *v17;
     while (2)
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(responses);
         }
 
-        successfulPropertiesToValues = [*(*(&v17 + 1) + 8 * i) successfulPropertiesToValues];
+        successfulPropertiesToValues = [*(*(&v16 + 1) + 8 * i) successfulPropertiesToValues];
         if (successfulPropertiesToValues)
         {
           v14 = successfulPropertiesToValues;
@@ -125,7 +125,7 @@
         }
       }
 
-      v10 = [responses countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [responses countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v10)
       {
         continue;
@@ -136,8 +136,6 @@
   }
 
 LABEL_11:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -171,40 +169,40 @@ LABEL_11:
 
 - (id)getTotalFailureError
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   [(CoreDAVPropertyFindBaseTask *)self updateMultiStatusFromResponse];
   multiStatus = [(CoreDAVPropertyFindBaseTask *)self multiStatus];
 
   if (multiStatus)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     multiStatus2 = [(CoreDAVPropertyFindBaseTask *)self multiStatus];
     responses = [multiStatus2 responses];
 
-    v6 = [responses countByEnumeratingWithState:&v27 objects:v33 count:16];
+    v6 = [responses countByEnumeratingWithState:&v26 objects:v32 count:16];
     if (v6)
     {
       v8 = v6;
       selfCopy = self;
       v9 = 0;
-      v10 = *v28;
+      v10 = *v27;
       v11 = 1;
       *&v7 = 138412290;
-      v24 = v7;
+      v23 = v7;
       obj = responses;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v28 != v10)
+          if (*v27 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v27 + 1) + 8 * i);
+          v13 = *(*(&v26 + 1) + 8 * i);
           successfulPropertiesToValues = [v13 successfulPropertiesToValues];
           v15 = [successfulPropertiesToValues count];
 
@@ -218,8 +216,8 @@ LABEL_11:
 
             if (v20 && os_log_type_enabled(v20, (2 * v16)))
             {
-              *buf = v24;
-              v32 = v13;
+              *buf = v23;
+              v31 = v13;
               _os_log_impl(&dword_2452FB000, v20, (2 * v16), "There were some failures fetching properties, according to the following response: [%@].", buf, 0xCu);
             }
 
@@ -229,7 +227,7 @@ LABEL_11:
           v11 &= v17;
         }
 
-        v8 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+        v8 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
       }
 
       while (v8);
@@ -248,14 +246,13 @@ LABEL_11:
 
   v21 = 0;
 LABEL_18:
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
 
 - (void)finishCoreDAVTaskWithError:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = errorCopy;
   if (errorCopy)
@@ -273,8 +270,8 @@ LABEL_18:
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v20 = objc_opt_class();
-          v11 = v20;
+          v19 = objc_opt_class();
+          v11 = v19;
           v12 = "%{public}@ cancelled";
           v13 = v10;
           v14 = OS_LOG_TYPE_INFO;
@@ -295,10 +292,10 @@ LABEL_9:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v20 = objc_opt_class();
-        v21 = 2112;
-        v22 = v5;
-        v11 = v20;
+        v19 = objc_opt_class();
+        v20 = 2112;
+        v21 = v5;
+        v11 = v19;
         v12 = "%{public}@ failed: %@";
         v13 = v16;
         v14 = OS_LOG_TYPE_ERROR;
@@ -311,11 +308,9 @@ LABEL_10:
   }
 
   [(CoreDAVPropertyFindBaseTask *)self updateMultiStatusFromResponse];
-  v18.receiver = self;
-  v18.super_class = CoreDAVPropertyFindBaseTask;
-  [(CoreDAVTask *)&v18 finishCoreDAVTaskWithError:v5];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = CoreDAVPropertyFindBaseTask;
+  [(CoreDAVTask *)&v17 finishCoreDAVTaskWithError:v5];
 }
 
 @end

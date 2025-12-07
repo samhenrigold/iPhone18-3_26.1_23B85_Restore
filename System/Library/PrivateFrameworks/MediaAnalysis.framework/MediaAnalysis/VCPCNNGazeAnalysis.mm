@@ -16,77 +16,78 @@
   resourceURL = [vcp_mediaAnalysisBundle resourceURL];
 
   v5 = [MEMORY[0x1E695DFF8] URLWithString:@"cnn_blink.espresso.net" relativeToURL:resourceURL];
-  v24.receiver = self;
-  v24.super_class = VCPCNNGazeAnalysis;
-  v6 = [(VCPCNNGazeAnalysis *)&v24 init];
+  v26.receiver = self;
+  v26.super_class = VCPCNNGazeAnalysis;
+  v6 = [(VCPCNNGazeAnalysis *)&v26 init];
+  v8 = v6;
   if (!v6)
   {
     goto LABEL_7;
   }
 
-  if (DeviceHasANE())
+  if (DeviceHasANE(v6, v7))
   {
-    v7 = [objc_opt_class() sharedModel:v5];
+    v9 = [objc_opt_class() sharedModel:v5];
   }
 
   else
   {
-    v7 = [[VCPCNNModelEspresso alloc] initWithParameters:v5 inputNames:0 outputNames:0 properties:0];
+    v9 = [[VCPCNNModelEspresso alloc] initWithParameters:v5 inputNames:0 outputNames:0 properties:0];
   }
 
-  modelEspresso = v6->_modelEspresso;
-  v6->_modelEspresso = v7;
+  modelEspresso = v8->_modelEspresso;
+  v8->_modelEspresso = v9;
 
-  v9 = v6->_modelEspresso;
-  if (!v9 || [(VCPCNNModelEspresso *)v9 prepareModelWithConfig:&stru_1F496CB30])
+  v11 = v8->_modelEspresso;
+  if (!v11 || [(VCPCNNModelEspresso *)v11 prepareModelWithConfig:&stru_1F496CB30])
   {
     goto LABEL_7;
   }
 
-  v13 = v6->_modelEspresso;
-  if (v13 && ([(VCPCNNModelEspresso *)v13 inputBlob], (v14 = v6->_modelEspresso) != 0))
+  v15 = v8->_modelEspresso;
+  if (v15 && (objc_msgSend_inputBlob(v15), (v16 = v8->_modelEspresso) != 0))
   {
-    [(VCPCNNModelEspresso *)v14 inputBlob];
-    v15 = v6->_modelEspresso;
-    v16 = v22 * v23;
-    if (v15)
+    objc_msgSend_inputBlob(v16);
+    v17 = v8->_modelEspresso;
+    v18 = v24 * v25;
+    if (v17)
     {
-      [(VCPCNNModelEspresso *)v15 inputBlob];
-      v17 = v21;
+      objc_msgSend_inputBlob(v17);
+      v19 = v23;
       goto LABEL_15;
     }
   }
 
   else
   {
-    v16 = 0;
+    v18 = 0;
   }
 
-  v17 = 0;
+  v19 = 0;
 LABEL_15:
-  v18 = v16 * v17;
-  if (v18 >> 62)
+  v20 = v18 * v19;
+  if (v20 >> 62)
   {
-    v19 = -1;
+    v21 = -1;
   }
 
   else
   {
-    v19 = 4 * v18;
+    v21 = 4 * v20;
   }
 
-  v20 = operator new[](v19, MEMORY[0x1E69E5398]);
-  v6->_inputData = v20;
-  v10 = v6;
-  if (!v20)
+  v22 = operator new[](v21, MEMORY[0x1E69E5398]);
+  v8->_inputData = v22;
+  v12 = v8;
+  if (!v22)
   {
 LABEL_7:
-    v10 = 0;
+    v12 = 0;
   }
 
-  v11 = v10;
+  v13 = v12;
 
-  return v11;
+  return v13;
 }
 
 + (id)sharedModel:(id)model
@@ -312,7 +313,7 @@ LABEL_7:
       result = [(VCPCNNModelEspresso *)self->_modelEspresso softmax];
       if (!result)
       {
-        [(VCPCNNModelEspresso *)self->_modelEspresso outputBlob];
+        objc_msgSend_outputBlob(self->_modelEspresso);
         v7 = *(v10 + 4) <= 0.6;
         goto LABEL_7;
       }

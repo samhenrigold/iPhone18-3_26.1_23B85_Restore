@@ -56,18 +56,16 @@
 
 - (void)setProperty:forKey:.cold.1()
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(&dword_241B0A000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "BiometricKitUI: Set new property key: %@ value: %@", v1, 0x16u);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_241B0A000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "BiometricKitUI: Set new property key: %@ value: %@", v0, 0x16u);
 }
 
 - (void)propertyForKey:.cold.1()
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(&dword_241B0A000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "BiometricKitUI: Property value: %@ of key: %@", v1, 0x16u);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_241B0A000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "BiometricKitUI: Property value: %@ of key: %@", v0, 0x16u);
 }
 
 @end

@@ -12,6 +12,7 @@
 - (void)handleTouchEndedAtPoint:(CGPoint)point;
 - (void)handleTouchMovedAtPoint:(CGPoint)point;
 - (void)processTouch:(CGPoint)touch;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setThumbstickPos:(CGPoint)pos center:(CGPoint)center;
 @end
 
@@ -406,30 +407,30 @@ LABEL_48:
 
 - (void)collectQuadDataInto:(id)into
 {
-  v138 = *MEMORY[0x277D85DE8];
+  v137 = *MEMORY[0x277D85DE8];
   intoCopy = into;
   if (self->_enabled)
   {
-    v132 = 0u;
-    v133 = 0u;
-    v130 = 0u;
     v131 = 0u;
+    v132 = 0u;
+    v129 = 0u;
+    v130 = 0u;
     images = [(TCControlContents *)self->_upContents images];
-    v6 = [images countByEnumeratingWithState:&v130 objects:v137 count:16];
+    v6 = [images countByEnumeratingWithState:&v129 objects:v136 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v131;
+      v8 = *v130;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v131 != v8)
+          if (*v130 != v8)
           {
             objc_enumerationMutation(images);
           }
 
-          v10 = *(*(&v130 + 1) + 8 * i);
+          v10 = *(*(&v129 + 1) + 8 * i);
           radial = self->_radial;
           [v10 size];
           v14 = v12;
@@ -477,32 +478,32 @@ LABEL_48:
           [intoCopy addObject:v18];
         }
 
-        v7 = [images countByEnumeratingWithState:&v130 objects:v137 count:16];
+        v7 = [images countByEnumeratingWithState:&v129 objects:v136 count:16];
       }
 
       while (v7);
     }
 
-    v128 = 0u;
-    v129 = 0u;
-    v126 = 0u;
     v127 = 0u;
+    v128 = 0u;
+    v125 = 0u;
+    v126 = 0u;
     images2 = [(TCControlContents *)self->_downContents images];
-    v34 = [images2 countByEnumeratingWithState:&v126 objects:v136 count:16];
+    v34 = [images2 countByEnumeratingWithState:&v125 objects:v135 count:16];
     if (v34)
     {
       v35 = v34;
-      v36 = *v127;
+      v36 = *v126;
       do
       {
         for (j = 0; j != v35; ++j)
         {
-          if (*v127 != v36)
+          if (*v126 != v36)
           {
             objc_enumerationMutation(images2);
           }
 
-          v38 = *(*(&v126 + 1) + 8 * j);
+          v38 = *(*(&v125 + 1) + 8 * j);
           v39 = self->_radial;
           [v38 size];
           v42 = v40;
@@ -560,32 +561,32 @@ LABEL_48:
           [intoCopy addObject:v46];
         }
 
-        v35 = [images2 countByEnumeratingWithState:&v126 objects:v136 count:16];
+        v35 = [images2 countByEnumeratingWithState:&v125 objects:v135 count:16];
       }
 
       while (v35);
     }
 
-    v124 = 0u;
-    v125 = 0u;
-    v122 = 0u;
     v123 = 0u;
+    v124 = 0u;
+    v121 = 0u;
+    v122 = 0u;
     images3 = [(TCControlContents *)self->_leftContents images];
-    v63 = [images3 countByEnumeratingWithState:&v122 objects:v135 count:16];
+    v63 = [images3 countByEnumeratingWithState:&v121 objects:v134 count:16];
     if (v63)
     {
       v64 = v63;
-      v65 = *v123;
+      v65 = *v122;
       do
       {
         for (k = 0; k != v64; ++k)
         {
-          if (*v123 != v65)
+          if (*v122 != v65)
           {
             objc_enumerationMutation(images3);
           }
 
-          v67 = *(*(&v122 + 1) + 8 * k);
+          v67 = *(*(&v121 + 1) + 8 * k);
           v68 = self->_radial;
           [v67 size];
           v71 = v69;
@@ -643,32 +644,32 @@ LABEL_48:
           [intoCopy addObject:v75];
         }
 
-        v64 = [images3 countByEnumeratingWithState:&v122 objects:v135 count:16];
+        v64 = [images3 countByEnumeratingWithState:&v121 objects:v134 count:16];
       }
 
       while (v64);
     }
 
-    v120 = 0u;
-    v121 = 0u;
-    v118 = 0u;
     v119 = 0u;
+    v120 = 0u;
+    v117 = 0u;
+    v118 = 0u;
     images4 = [(TCControlContents *)self->_rightContents images];
-    v91 = [images4 countByEnumeratingWithState:&v118 objects:v134 count:16];
+    v91 = [images4 countByEnumeratingWithState:&v117 objects:v133 count:16];
     if (v91)
     {
       v92 = v91;
-      v93 = *v119;
+      v93 = *v118;
       do
       {
         for (m = 0; m != v92; ++m)
         {
-          if (*v119 != v93)
+          if (*v118 != v93)
           {
             objc_enumerationMutation(images4);
           }
 
-          v95 = *(*(&v118 + 1) + 8 * m);
+          v95 = *(*(&v117 + 1) + 8 * m);
           v96 = self->_radial;
           [v95 size];
           v99 = v97;
@@ -716,14 +717,43 @@ LABEL_48:
           [intoCopy addObject:v103];
         }
 
-        v92 = [images4 countByEnumeratingWithState:&v118 objects:v134 count:16];
+        v92 = [images4 countByEnumeratingWithState:&v117 objects:v133 count:16];
       }
 
       while (v92);
     }
   }
+}
 
-  v117 = *MEMORY[0x277D85DE8];
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  usingIndividualButtons = self->_usingIndividualButtons;
+  WeakRetained = objc_loadWeakRetained(&self->_touchController);
+  v7 = WeakRetained;
+  if (usingIndividualButtons)
+  {
+    [WeakRetained _setButtonValue:self->_leftLabel forControl:0.0];
+
+    v8 = objc_loadWeakRetained(&self->_touchController);
+    [v8 _setButtonValue:self->_rightLabel forControl:0.0];
+
+    v9 = objc_loadWeakRetained(&self->_touchController);
+    [v9 _setButtonValue:self->_downLabel forControl:0.0];
+
+    v7 = objc_loadWeakRetained(&self->_touchController);
+    [v7 _setButtonValue:self->_upLabel forControl:0.0];
+  }
+
+  else
+  {
+    [WeakRetained _setDirectionPadPosition:self->_compositeLabel forControl:{0.0, 0.0}];
+  }
+
+  self->_enabled = enabledCopy;
+  collider = self->_collider;
+
+  [(TCCollider *)collider setEnabled:enabledCopy];
 }
 
 - (CGPoint)offset
@@ -788,31 +818,29 @@ LABEL_48:
 
 - (GCSJSONObject)jsonObject
 {
-  v14[7] = *MEMORY[0x277D85DE8];
-  v13[0] = @"size";
+  v13[7] = *MEMORY[0x277D85DE8];
+  v12[0] = @"size";
   v3 = JSONDictionaryFromCGSize(self->_size.width, self->_size.height);
-  v14[0] = v3;
-  v13[1] = @"offset";
+  v13[0] = v3;
+  v12[1] = @"offset";
   v4 = JSONDictionaryFromCGPoint(self->_offset.x, self->_offset.y);
-  v14[1] = v4;
-  v13[2] = @"enabled";
+  v13[1] = v4;
+  v12[2] = @"enabled";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:self->_enabled];
-  v14[2] = v5;
-  v13[3] = @"compositeLabel";
+  v13[2] = v5;
+  v12[3] = @"compositeLabel";
   jsonObject = [(TCControlLabel *)self->_compositeLabel jsonObject];
-  v14[3] = jsonObject;
-  v13[4] = @"anchor";
+  v13[3] = jsonObject;
+  v12[4] = @"anchor";
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:self->_anchor];
-  v14[4] = v7;
-  v13[5] = @"layer";
+  v13[4] = v7;
+  v12[5] = @"layer";
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:self->_zIndex];
-  v14[5] = v8;
-  v13[6] = @"colliderShape";
+  v13[5] = v8;
+  v12[6] = @"colliderShape";
   v9 = [MEMORY[0x277CCABB0] numberWithInteger:{-[TCCollider colliderShape](self->_collider, "colliderShape")}];
-  v14[6] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:7];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[6] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:7];
 
   return v10;
 }

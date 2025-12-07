@@ -1,6 +1,7 @@
 @interface KTValidateSelfOperation
 - (BOOL)hasDeviceErrorForUri:(id)uri;
 - (BOOL)validateOptInStatusWithAccountKey:(id)key error:(id *)error;
+- (KTValidateSelfOperation)initWithApplication:(id)application dependencies:(id)dependencies isOptInSelfValidation:(BOOL)validation;
 - (id)ktLogData:(id)data accountKey:(id)key;
 - (void)fillStatus;
 - (void)groupStart;
@@ -8,6 +9,45 @@
 @end
 
 @implementation KTValidateSelfOperation
+
+- (KTValidateSelfOperation)initWithApplication:(id)application dependencies:(id)dependencies isOptInSelfValidation:(BOOL)validation
+{
+  validationCopy = validation;
+  applicationCopy = application;
+  dependenciesCopy = dependencies;
+  v22.receiver = self;
+  v22.super_class = KTValidateSelfOperation;
+  v11 = [(KTGroupOperation *)&v22 init];
+  v12 = v11;
+  if (v11)
+  {
+    objc_storeStrong((v11 + 134), dependencies);
+    objc_storeStrong((v12 + 142), application);
+    v13 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v14 = dispatch_queue_create("ValidateSelf_URIWaiter", v13);
+    [v12 setUriQueue:v14];
+
+    v15 = +[NSMutableDictionary dictionary];
+    [v12 setTransparentDatas:v15];
+
+    v16 = +[NSMutableDictionary dictionary];
+    [v12 setSelfErrors:v16];
+
+    v17 = +[NSMutableDictionary dictionary];
+    [v12 setSelfResults:v17];
+
+    accountKeyService = [dependenciesCopy accountKeyService];
+    v19 = [accountKeyService accountKeyService:applicationCopy];
+    [v12 setAccountKeyServer:v19];
+
+    v20 = +[NSMutableDictionary dictionary];
+    [v12 setCachedTimes:v20];
+
+    [v12 setIsOptInSelfValidation:validationCopy];
+  }
+
+  return v12;
+}
 
 - (void)groupStart
 {

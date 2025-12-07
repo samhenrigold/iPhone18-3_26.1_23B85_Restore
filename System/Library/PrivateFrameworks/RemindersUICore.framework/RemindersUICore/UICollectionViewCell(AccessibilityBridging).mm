@@ -24,29 +24,29 @@
 
 - (uint64_t)ttriAccessibilityAdjustScrollOffsetForFocus
 {
-  v2 = [self ttriAccessibilityAXOutermostContainingViewOfType:objc_opt_class()];
   v3 = [self ttriAccessibilityAXOutermostContainingViewOfType:objc_opt_class()];
-  if (v3)
+  v4 = [self ttriAccessibilityAXOutermostContainingViewOfType:objc_opt_class()];
+  if (v4)
   {
-    v4 = v2 == 0;
+    v5 = v3 == 0;
   }
 
   else
   {
-    v4 = 1;
+    v5 = 1;
   }
 
-  if (!v4)
+  if (!v5)
   {
     [self bounds];
-    [self convertPoint:v3 toView:?];
-    v6 = v5;
-    [v2 contentOffset];
-    v8 = v7;
-    [v3 frame];
-    v10 = v6 + v9;
-    [v2 adjustedContentInset];
-    [v2 setContentOffset:1 animated:{v8, v10 - v11}];
+    [self convertPoint:v4 toView:?];
+    v7 = v6;
+    [v3 contentOffset];
+    v9 = v8;
+    [v4 frame];
+    v11 = v7 + v10;
+    [v3 adjustedContentInset];
+    [v3 setContentOffset:1 animated:{v9, v11 - v12}];
   }
 
   return 0;
@@ -57,20 +57,20 @@
   selfCopy = self;
   if (selfCopy)
   {
-    v2 = selfCopy;
-    v3 = 0;
+    v4 = selfCopy;
+    v5 = 0;
     do
     {
       if (objc_opt_isKindOfClass())
       {
-        v4 = v2;
+        v6 = v4;
 
-        v3 = v4;
+        v5 = v6;
       }
 
-      superview = [v2 superview];
+      superview = [v4 superview];
 
-      v2 = superview;
+      v4 = superview;
     }
 
     while (superview);
@@ -78,10 +78,10 @@
 
   else
   {
-    v3 = 0;
+    v5 = 0;
   }
 
-  return v3;
+  return v5;
 }
 
 @end

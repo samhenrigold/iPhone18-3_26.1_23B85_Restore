@@ -29,7 +29,7 @@ CFIndex __32___SPBucketSet_addValue_forKey___block_invoke(uint64_t a1)
 
 CFIndex __22___SPBucketSet_decay___block_invoke(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   Count = CFDictionaryGetCount(*(*(a1 + 32) + 8));
   if (Count)
   {
@@ -51,7 +51,7 @@ CFIndex __22___SPBucketSet_decay___block_invoke(uint64_t a1)
     }
 
     v6 = 8 * Count;
-    v7 = (v14 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0));
+    v7 = (v13 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0));
     bzero(v7, 8 * Count);
     v8 = v7;
     bzero(v7, v6);
@@ -85,7 +85,6 @@ CFIndex __22___SPBucketSet_decay___block_invoke(uint64_t a1)
 
   result = CFDictionaryGetCount(*(*(a1 + 32) + 8));
   *(*(a1 + 32) + 24) = result;
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 

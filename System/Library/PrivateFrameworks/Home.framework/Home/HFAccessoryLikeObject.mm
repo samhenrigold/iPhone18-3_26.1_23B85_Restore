@@ -32,6 +32,9 @@
 - (NSString)hf_tileSize;
 - (id)hf_moveToRoom:(id)room;
 - (id)hf_setTileSize:(id)size;
+- (id)hf_updateIsFavorite:(BOOL)favorite;
+- (id)hf_updateIsVisibleInHomeStatus:(BOOL)status;
+- (id)hf_updateShowInHomeDashboard:(BOOL)dashboard;
 @end
 
 @implementation HFAccessoryLikeObject
@@ -342,6 +345,15 @@ uint64_t __37__HFAccessoryLikeObject_hf_isInRoom___block_invoke(uint64_t a1, voi
   return v3;
 }
 
+- (id)hf_updateIsFavorite:(BOOL)favorite
+{
+  favoriteCopy = favorite;
+  dataSource = [(HFAccessoryLikeObject *)self dataSource];
+  v5 = [dataSource hf_updateValue:favoriteCopy forContextType:2];
+
+  return v5;
+}
+
 - (BOOL)hf_supportsHomeStatus
 {
   dataSource = [(HFAccessoryLikeObject *)self dataSource];
@@ -374,6 +386,15 @@ uint64_t __37__HFAccessoryLikeObject_hf_isInRoom___block_invoke(uint64_t a1, voi
   return hf_isForcedVisibleInHomeStatus;
 }
 
+- (id)hf_updateIsVisibleInHomeStatus:(BOOL)status
+{
+  statusCopy = status;
+  dataSource = [(HFAccessoryLikeObject *)self dataSource];
+  v5 = [dataSource hf_updateIsVisibleInHomeStatus:statusCopy];
+
+  return v5;
+}
+
 - (BOOL)hf_showInHomeDashboard
 {
   dataSource = [(HFAccessoryLikeObject *)self dataSource];
@@ -396,6 +417,15 @@ uint64_t __37__HFAccessoryLikeObject_hf_isInRoom___block_invoke(uint64_t a1, voi
   v3 = [dataSource hf_shouldBeOnForContextType:3];
 
   return v3;
+}
+
+- (id)hf_updateShowInHomeDashboard:(BOOL)dashboard
+{
+  dashboardCopy = dashboard;
+  dataSource = [(HFAccessoryLikeObject *)self dataSource];
+  v5 = [dataSource hf_updateValue:dashboardCopy forContextType:3];
+
+  return v5;
 }
 
 - (NSString)hf_tileSize

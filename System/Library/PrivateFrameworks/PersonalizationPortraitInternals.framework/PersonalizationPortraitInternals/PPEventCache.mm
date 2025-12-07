@@ -1,5 +1,6 @@
 @interface PPEventCache
 - (PPEventCache)initWithEventStorage:(id)storage;
+- (id)cachedEventHighlightForEvent:(id)event rankingOptions:(int)options trialWrapper:(id)wrapper;
 - (id)objectForRange:(_NSRange)range;
 - (id)refreshCacheWithChanges:(id)changes;
 - (void)_scheduleCacheBackingFileUpdate;
@@ -11,12 +12,68 @@
 
 @implementation PPEventCache
 
+- (id)cachedEventHighlightForEvent:(id)event rankingOptions:(int)options trialWrapper:(id)wrapper
+{
+  v6 = *&options;
+  eventCopy = event;
+  wrapperCopy = wrapper;
+  eventIdentifier = [eventCopy eventIdentifier];
+  if (eventIdentifier && ([eventCopy title], v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
+  {
+    *buf = 0;
+    v31 = buf;
+    v32 = 0x3032000000;
+    v33 = __Block_byref_object_copy__6604;
+    v34 = __Block_byref_object_dispose__6605;
+    v35 = 0;
+    data = self->_data;
+    v24 = MEMORY[0x277D85DD0];
+    v25 = 3221225472;
+    v26 = __73__PPEventCache_cachedEventHighlightForEvent_rankingOptions_trialWrapper___block_invoke;
+    v27 = &unk_278973AE0;
+    v29 = buf;
+    v28 = eventIdentifier;
+    [(_PASLock *)data runWithLockAcquired:&v24];
+    v13 = *(v31 + 5);
+    if (v13)
+    {
+      [v13 weightedScore];
+      v15 = v14;
+      v16 = [[PPEventScorer alloc] initWithTrialWrapper:wrapperCopy];
+      v17 = [(PPEventScorer *)v16 scoreIsExtraordinary:v6 rankingOptions:v15];
+
+      v18 = MEMORY[0x277D3A398];
+      prominentFeature = [*(v31 + 5) prominentFeature];
+      featureValues = [*(v31 + 5) featureValues];
+      v21 = [v18 eventHighlightWithEvent:eventCopy score:prominentFeature prominentFeature:featureValues features:v17 isExtraordinary:v15];
+    }
+
+    else
+    {
+      v21 = 0;
+    }
+
+    _Block_object_dispose(buf, 8);
+  }
+
+  else
+  {
+    v22 = pp_events_log_handle();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_23224A000, v22, OS_LOG_TYPE_DEFAULT, "PPEventCache: trying to retrieve cache with nil eventIdentifier or nil title.", buf, 2u);
+    }
+
+    v21 = 0;
+  }
+
+  return v21;
+}
+
 uint64_t __73__PPEventCache_cachedEventHighlightForEvent_rankingOptions_trialWrapper___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = [*(a2 + 32) objectForKeyedSubscript:*(a1 + 32)];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a2 + 32) objectForKeyedSubscript:*(a1 + 32)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -58,53 +115,51 @@ uint64_t __73__PPEventCache_cachedEventHighlightForEvent_rankingOptions_trialWra
 {
   length = range.length;
   location = range.location;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v6 = objc_opt_new();
   data = self->_data;
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __41__PPEventCache_evictAllEventsNotInRange___block_invoke;
-  v19 = &unk_278973A68;
-  v21 = location;
-  v22 = length;
-  v20 = v6;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __41__PPEventCache_evictAllEventsNotInRange___block_invoke;
+  v18 = &unk_278973A68;
+  v20 = location;
+  v21 = length;
+  v19 = v6;
   v8 = v6;
-  [(_PASLock *)data runWithLockAcquired:&v16];
+  [(_PASLock *)data runWithLockAcquired:&v15];
   v9 = v8;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
   v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
   v10 = self->_data;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __42__PPEventCache_evictAllEventsNotInRanges___block_invoke;
-  v23[3] = &unk_278973AB8;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __42__PPEventCache_evictAllEventsNotInRanges___block_invoke;
+  v22[3] = &unk_278973AB8;
   v11 = v9;
-  v24 = v11;
-  v25 = &v31;
-  v26 = &v27;
-  [(_PASLock *)v10 runWithLockAcquired:v23, v16, v17, v18, v19];
+  v23 = v11;
+  v24 = &v30;
+  v25 = &v26;
+  [(_PASLock *)v10 runWithLockAcquired:v22, v15, v16, v17, v18];
   v12 = pp_events_log_handle();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v14 = v32[3];
-    v15 = v28[3];
+    v13 = v31[3];
+    v14 = v27[3];
     *buf = 134218240;
-    v36 = v14;
-    v37 = 2048;
-    v38 = v15;
+    v35 = v13;
+    v36 = 2048;
+    v37 = v14;
     _os_log_debug_impl(&dword_23224A000, v12, OS_LOG_TYPE_DEBUG, "PPEventCache: evictions happened: %tu to %tu events", buf, 0x16u);
   }
 
-  _Block_object_dispose(&v27, 8);
-  _Block_object_dispose(&v31, 8);
-
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v30, 8);
 }
 
 void __41__PPEventCache_evictAllEventsNotInRange___block_invoke(uint64_t a1, uint64_t a2)
@@ -198,38 +253,38 @@ uint64_t __32__PPEventCache_removeAllObjects__block_invoke(uint64_t a1, void *a2
 
 - (id)refreshCacheWithChanges:(id)changes
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   selfCopy = self;
   [(PPCalendarInternPool *)self->_calendarInternPool clearPool];
   v5 = objc_opt_new();
-  v60 = objc_opt_new();
+  v59 = objc_opt_new();
   v6 = [changesCopy _pas_filteredArrayWithTest:&__block_literal_global_64];
   v7 = objc_alloc(MEMORY[0x277CBEAC0]);
   v8 = [v6 _pas_mappedArrayWithTransform:&__block_literal_global_69];
   v9 = [v6 _pas_mappedArrayWithTransform:&__block_literal_global_71];
-  v58 = [v7 initWithObjects:v8 forKeys:v9];
+  v57 = [v7 initWithObjects:v8 forKeys:v9];
 
-  v84 = 0u;
-  v85 = 0u;
-  v82 = 0u;
   v83 = 0u;
+  v84 = 0u;
+  v81 = 0u;
+  v82 = 0u;
   obj = changesCopy;
-  v10 = [obj countByEnumeratingWithState:&v82 objects:v87 count:16];
+  v10 = [obj countByEnumeratingWithState:&v81 objects:v86 count:16];
   if (v10)
   {
-    v11 = *v83;
+    v11 = *v82;
     do
     {
       v12 = 0;
       do
       {
-        if (*v83 != v11)
+        if (*v82 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v82 + 1) + 8 * v12);
+        v13 = *(*(&v81 + 1) + 8 * v12);
         v14 = objc_autoreleasePoolPush();
         objc_opt_class();
         if (v13)
@@ -274,7 +329,7 @@ uint64_t __32__PPEventCache_removeAllObjects__block_invoke(uint64_t a1, void *a2
               }
 
               changedObjectID2 = [v16 changedObjectID];
-              __40__PPEventCache_refreshCacheWithChanges___block_invoke(changedObjectID2, v60);
+              __40__PPEventCache_refreshCacheWithChanges___block_invoke(changedObjectID2, v59);
 
               originalItemID3 = [v16 originalItemID];
               LOBYTE(changedObjectID2) = originalItemID3 == 0;
@@ -298,7 +353,7 @@ uint64_t __32__PPEventCache_removeAllObjects__block_invoke(uint64_t a1, void *a2
               }
 
               changedObjectID = [v16 changedObjectID];
-              __40__PPEventCache_refreshCacheWithChanges___block_invoke(changedObjectID, v60);
+              __40__PPEventCache_refreshCacheWithChanges___block_invoke(changedObjectID, v59);
 LABEL_35:
             }
 
@@ -311,21 +366,10 @@ LABEL_36:
           if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
           {
             v21 = v13;
-            if ([v21 changeType] == 2)
+            if ([v21 changeType] == 2 || (v22 = selfCopy->_storage, objc_msgSend(v21, "ownerID"), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v57, "objectForKeyedSubscript:", v23), v24 = objc_claimAutoreleasedReturnValue(), LODWORD(v22) = -[PPEventStorage shouldIgnoreEventsOnCalendarWithObjectID:](v22, "shouldIgnoreEventsOnCalendarWithObjectID:", v24), v24, v23, !v22))
             {
-              goto LABEL_31;
-            }
-
-            v22 = selfCopy->_storage;
-            ownerID2 = [v21 ownerID];
-            v24 = [v58 objectForKeyedSubscript:ownerID2];
-            LODWORD(v22) = [(PPEventStorage *)v22 shouldIgnoreEventsOnCalendarWithObjectID:v24];
-
-            if (!v22)
-            {
-LABEL_31:
-              ownerID3 = [v21 ownerID];
-              __40__PPEventCache_refreshCacheWithChanges___block_invoke(ownerID3, v5);
+              ownerID2 = [v21 ownerID];
+              __40__PPEventCache_refreshCacheWithChanges___block_invoke(ownerID2, v5);
             }
 
             else
@@ -338,8 +382,8 @@ LABEL_31:
                 _os_log_debug_impl(&dword_23224A000, v25, OS_LOG_TYPE_DEBUG, "PPEventChange: filtered out subscribed calendar event participant change %@", buf, 0xCu);
               }
 
-              ownerID3 = [v21 changedObjectID];
-              __40__PPEventCache_refreshCacheWithChanges___block_invoke(ownerID3, v60);
+              ownerID2 = [v21 changedObjectID];
+              __40__PPEventCache_refreshCacheWithChanges___block_invoke(ownerID2, v59);
             }
           }
         }
@@ -358,7 +402,7 @@ LABEL_10:
       }
 
       while (v10 != v12);
-      v33 = [obj countByEnumeratingWithState:&v82 objects:v87 count:16];
+      v33 = [obj countByEnumeratingWithState:&v81 objects:v86 count:16];
       v10 = v33;
     }
 
@@ -366,7 +410,7 @@ LABEL_10:
   }
 
   v34 = objc_autoreleasePoolPush();
-  v35 = [v60 setByAddingObjectsFromSet:v5];
+  v35 = [v59 setByAddingObjectsFromSet:v5];
   objc_autoreleasePoolPop(v34);
   v36 = v35;
   if (selfCopy)
@@ -375,63 +419,63 @@ LABEL_10:
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __36__PPEventCache__deleteCachedEvents___block_invoke;
-    v89 = &unk_278973A18;
+    v88 = &unk_278973A18;
     v38 = v36;
-    *&v90 = v36;
+    *&v89 = v36;
     [(_PASLock *)data runWithLockAcquired:buf];
 
     v36 = v38;
   }
 
-  v57 = v36;
+  v56 = v36;
 
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x3032000000;
-  v79 = __Block_byref_object_copy__6604;
-  v80 = __Block_byref_object_dispose__6605;
-  v81 = 0;
+  v75 = 0;
+  v76 = &v75;
+  v77 = 0x3032000000;
+  v78 = __Block_byref_object_copy__6604;
+  v79 = __Block_byref_object_dispose__6605;
+  v80 = 0;
   v39 = selfCopy->_data;
-  v75[0] = MEMORY[0x277D85DD0];
-  v75[1] = 3221225472;
-  v75[2] = __40__PPEventCache_refreshCacheWithChanges___block_invoke_77;
-  v75[3] = &unk_2789739F0;
-  v75[4] = &v76;
-  [(_PASLock *)v39 runWithLockAcquired:v75];
-  v63 = objc_opt_new();
+  v74[0] = MEMORY[0x277D85DD0];
+  v74[1] = 3221225472;
+  v74[2] = __40__PPEventCache_refreshCacheWithChanges___block_invoke_77;
+  v74[3] = &unk_2789739F0;
+  v74[4] = &v75;
+  [(_PASLock *)v39 runWithLockAcquired:v74];
+  v62 = objc_opt_new();
   v40 = [v5 count];
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
-  v61 = v5;
-  v41 = [v61 countByEnumeratingWithState:&v71 objects:v86 count:16];
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v60 = v5;
+  v41 = [v60 countByEnumeratingWithState:&v70 objects:v85 count:16];
   if (v41)
   {
-    v42 = *v72;
+    v42 = *v71;
     do
     {
       v43 = 0;
-      v59 = v40 - v41;
+      v58 = v40 - v41;
       do
       {
-        if (*v72 != v42)
+        if (*v71 != v42)
         {
-          objc_enumerationMutation(v61);
+          objc_enumerationMutation(v60);
         }
 
-        v44 = *(*(&v71 + 1) + 8 * v43);
+        v44 = *(*(&v70 + 1) + 8 * v43);
         v45 = objc_autoreleasePoolPush();
         v46 = selfCopy->_storage;
-        v68[0] = MEMORY[0x277D85DD0];
-        v68[1] = 3221225472;
-        v68[2] = __40__PPEventCache_refreshCacheWithChanges___block_invoke_2_80;
-        v68[3] = &unk_2789763B0;
-        v68[4] = selfCopy;
-        v68[5] = v44;
-        v70 = &v76;
-        v69 = v63;
-        [(PPEventStorage *)v46 runBlockWithPurgerDisabled:v68];
+        v67[0] = MEMORY[0x277D85DD0];
+        v67[1] = 3221225472;
+        v67[2] = __40__PPEventCache_refreshCacheWithChanges___block_invoke_2_80;
+        v67[3] = &unk_2789763B0;
+        v67[4] = selfCopy;
+        v67[5] = v44;
+        v69 = &v75;
+        v68 = v62;
+        [(PPEventStorage *)v46 runBlockWithPurgerDisabled:v67];
         if (!(v40 % 0xA))
         {
           [(PPEventStorage *)selfCopy->_storage attemptToPurgeImmediately];
@@ -443,35 +487,35 @@ LABEL_10:
       }
 
       while (v41 != v43);
-      v41 = [v61 countByEnumeratingWithState:&v71 objects:v86 count:16];
-      v40 = v59;
+      v41 = [v60 countByEnumeratingWithState:&v70 objects:v85 count:16];
+      v40 = v58;
     }
 
     while (v41);
   }
 
   v47 = objc_opt_new();
-  v65[0] = MEMORY[0x277D85DD0];
-  v65[1] = 3221225472;
-  v65[2] = __40__PPEventCache_refreshCacheWithChanges___block_invoke_4_83;
-  v65[3] = &unk_278979190;
+  v64[0] = MEMORY[0x277D85DD0];
+  v64[1] = 3221225472;
+  v64[2] = __40__PPEventCache_refreshCacheWithChanges___block_invoke_4_83;
+  v64[3] = &unk_278979190;
   v48 = v47;
-  v66 = v48;
-  v67 = selfCopy;
-  v49 = [v63 _pas_mappedArrayWithTransform:v65];
+  v65 = v48;
+  v66 = selfCopy;
+  v49 = [v62 _pas_mappedArrayWithTransform:v64];
 
   v50 = pp_events_log_handle();
   if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
   {
-    v51 = v77[5];
+    v51 = v76[5];
     *buf = 138413059;
     *&buf[4] = v51;
     *&buf[12] = 2112;
-    *&buf[14] = v57;
+    *&buf[14] = v56;
     *&buf[22] = 2117;
-    v89 = v49;
-    LOWORD(v90) = 2112;
-    *(&v90 + 2) = obj;
+    v88 = v49;
+    LOWORD(v89) = 2112;
+    *(&v89 + 2) = obj;
     _os_log_impl(&dword_23224A000, v50, OS_LOG_TYPE_DEFAULT, "PPEventCache: dateInterval for cache: %@, affected object IDs: %@, resulting PPEvents: %{sensitive}@, changes %@", buf, 0x2Au);
   }
 
@@ -482,16 +526,15 @@ LABEL_10:
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __37__PPEventCache__refreshCachedEvents___block_invoke;
-    v89 = &unk_2789738F8;
-    *&v90 = v52;
-    *(&v90 + 1) = selfCopy;
+    v88 = &unk_2789738F8;
+    *&v89 = v52;
+    *(&v89 + 1) = selfCopy;
     [(_PASLock *)v53 runWithLockAcquired:buf];
   }
 
-  v54 = [MEMORY[0x277D42648] tupleWithFirst:v52 second:v57];
+  v54 = [MEMORY[0x277D42648] tupleWithFirst:v52 second:v56];
 
-  _Block_object_dispose(&v76, 8);
-  v55 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v75, 8);
 
   return v54;
 }
@@ -522,19 +565,17 @@ void __40__PPEventCache_refreshCacheWithChanges___block_invoke_77(uint64_t a1, v
 
 void __40__PPEventCache_refreshCacheWithChanges___block_invoke_2_80(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 8);
-  v8[0] = *(a1 + 40);
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = *(a1 + 40);
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v4 = *(*(*(a1 + 56) + 8) + 40);
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __40__PPEventCache_refreshCacheWithChanges___block_invoke_3_82;
-  v6[3] = &unk_278979168;
-  v7 = *(a1 + 48);
-  [v2 enumerateEventsFromEKObjectIDs:v3 expandingRecurrencesInRange:v4 usingBlock:v6];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __40__PPEventCache_refreshCacheWithChanges___block_invoke_3_82;
+  v5[3] = &unk_278979168;
+  v6 = *(a1 + 48);
+  [v2 enumerateEventsFromEKObjectIDs:v3 expandingRecurrencesInRange:v4 usingBlock:v5];
 }
 
 void __37__PPEventCache__refreshCachedEvents___block_invoke(uint64_t a1, void *a2)
@@ -573,47 +614,46 @@ void __37__PPEventCache__refreshCachedEvents___block_invoke(uint64_t a1, void *a
   }
 
   [(PPEventCache *)*(a1 + 40) _scheduleCacheBackingFileUpdate];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleCacheBackingFileUpdate
 {
   if (self)
   {
-    v2 = atomic_exchange((self + 32), 1u);
-    v3 = pp_events_log_handle();
-    v4 = v3;
-    if (v2)
+    v3 = atomic_exchange((self + 32), 1u);
+    v4 = pp_events_log_handle();
+    v5 = v4;
+    if (v3)
     {
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_debug_impl(&dword_23224A000, v4, OS_LOG_TYPE_DEBUG, "PPEventCache: cache backing plist file update already scheduled", buf, 2u);
+        _os_log_debug_impl(&dword_23224A000, v5, OS_LOG_TYPE_DEBUG, "PPEventCache: cache backing plist file update already scheduled", buf, 2u);
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&dword_23224A000, v4, OS_LOG_TYPE_DEFAULT, "PPEventCache: scheduling cache backing plist file update", buf, 2u);
+        _os_log_impl(&dword_23224A000, v5, OS_LOG_TYPE_DEFAULT, "PPEventCache: scheduling cache backing plist file update", buf, 2u);
       }
 
-      v5 = os_transaction_create();
+      v6 = os_transaction_create();
       objc_initWeak(buf, self);
-      v6 = [MEMORY[0x277D425A0] dispatchTimeWithSecondsFromNow:0.5];
-      v7 = *(self + 40);
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __47__PPEventCache__scheduleCacheBackingFileUpdate__block_invoke;
-      v9[3] = &unk_2789791D8;
-      objc_copyWeak(&v11, buf);
-      v10 = v5;
-      v8 = v5;
-      dispatch_after(v6, v7, v9);
+      v7 = [MEMORY[0x277D425A0] dispatchTimeWithSecondsFromNow:0.5];
+      v8 = *(self + 40);
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __47__PPEventCache__scheduleCacheBackingFileUpdate__block_invoke;
+      v10[3] = &unk_2789791D8;
+      objc_copyWeak(&v12, buf);
+      v11 = v6;
+      v9 = v6;
+      dispatch_after(v7, v8, v10);
 
-      objc_destroyWeak(&v11);
+      objc_destroyWeak(&v12);
       objc_destroyWeak(buf);
     }
   }
@@ -639,13 +679,12 @@ void __47__PPEventCache__scheduleCacheBackingFileUpdate__block_invoke(uint64_t a
 id __47__PPEventCache__scheduleCacheBackingFileUpdate__block_invoke_2(uint64_t a1)
 {
   atomic_store(0, (*(a1 + 32) + 32));
-  v2 = *(a1 + 32);
-  if (v2)
+  v1 = *(a1 + 32);
+  if (v1)
   {
-    [*(v2 + 16) runWithLockAcquired:&__block_literal_global_6635];
+    [*(v1 + 16) runWithLockAcquired:&__block_literal_global_6635];
   }
 
-  v3 = *(a1 + 40);
   return objc_opt_self();
 }
 
@@ -760,32 +799,31 @@ BOOL __40__PPEventCache_refreshCacheWithChanges___block_invoke_2(uint64_t a1, vo
 {
   length = range.length;
   location = range.location;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v6 = objc_opt_new();
   data = self->_data;
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __31__PPEventCache_objectForRange___block_invoke;
-  v18 = &unk_278973988;
-  v21 = location;
-  v22 = length;
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __31__PPEventCache_objectForRange___block_invoke;
+  v17 = &unk_278973988;
+  v20 = location;
+  v21 = length;
   selfCopy = self;
   v8 = v6;
-  v20 = v8;
-  [(_PASLock *)data runWithLockAcquired:&v15];
+  v19 = v8;
+  [(_PASLock *)data runWithLockAcquired:&v14];
   v9 = pp_events_log_handle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = [v8 count];
     *buf = 134217984;
-    v24 = v10;
+    v23 = v10;
     _os_log_impl(&dword_23224A000, v9, OS_LOG_TYPE_DEFAULT, "PPEventCache: cache returning %tu events", buf, 0xCu);
   }
 
-  v11 = v20;
+  v11 = v19;
   v12 = v8;
 
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -935,13 +973,13 @@ void __31__PPEventCache_objectForRange___block_invoke(uint64_t a1, void *a2)
       [(PPEventCache *)*(a1 + 32) _scheduleCacheBackingFileUpdate];
     }
 
-    v39 = pp_events_log_handle();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v40 = pp_events_log_handle();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
-      v40 = [v59[1] count];
+      v41 = [v59[1] count];
       *buf = 134217984;
-      v79 = v40;
-      _os_log_impl(&dword_23224A000, v39, OS_LOG_TYPE_DEFAULT, "PPEventCache: cached event count after backfill: %tu", buf, 0xCu);
+      v79 = v41;
+      _os_log_impl(&dword_23224A000, v40, OS_LOG_TYPE_DEFAULT, "PPEventCache: cached event count after backfill: %tu", buf, 0xCu);
     }
   }
 
@@ -949,59 +987,57 @@ void __31__PPEventCache_objectForRange___block_invoke(uint64_t a1, void *a2)
   v67 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v41 = v3[1];
-  v42 = [v41 countByEnumeratingWithState:&v64 objects:v77 count:16];
-  if (v42)
+  v42 = v3[1];
+  v43 = [v42 countByEnumeratingWithState:&v64 objects:v77 count:16];
+  if (v43)
   {
-    v43 = v42;
-    v44 = *v65;
+    v44 = v43;
+    v45 = *v65;
     do
     {
-      for (i = 0; i != v43; ++i)
+      for (i = 0; i != v44; ++i)
       {
-        if (*v65 != v44)
+        if (*v65 != v45)
         {
-          objc_enumerationMutation(v41);
+          objc_enumerationMutation(v42);
         }
 
-        v46 = *(*(&v64 + 1) + 8 * i);
-        v47 = [v46 startDate];
-        [v47 timeIntervalSinceReferenceDate];
-        v49 = v48;
+        v47 = *(*(&v64 + 1) + 8 * i);
+        v48 = [v47 startDate];
+        [v48 timeIntervalSinceReferenceDate];
+        v50 = v49;
 
-        v50 = [v46 endDate];
-        v51 = [v46 startDate];
-        [v50 timeIntervalSinceDate:v51];
-        v53 = v52;
+        v51 = [v47 endDate];
+        v52 = [v47 startDate];
+        [v51 timeIntervalSinceDate:v52];
+        v54 = v53;
 
-        if (v49 < 0.0 || v53 < 0.0)
+        if (v50 < 0.0 || v54 < 0.0)
         {
-          v54 = pp_events_log_handle();
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+          v55 = pp_events_log_handle();
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_error_impl(&dword_23224A000, v54, OS_LOG_TYPE_ERROR, "PPEventCache: Candidate event range is invalid", buf, 2u);
+            _os_log_error_impl(&dword_23224A000, v55, OS_LOG_TYPE_ERROR, "PPEventCache: Candidate event range is invalid", buf, 2u);
           }
         }
 
         else
         {
-          v94.location = v49;
-          v94.length = v53;
+          v94.location = v50;
+          v94.length = v54;
           if (NSIntersectionRange(*(a1 + 48), v94).length)
           {
-            [*(a1 + 40) addObject:v46];
+            [*(a1 + 40) addObject:v47];
           }
         }
       }
 
-      v43 = [v41 countByEnumeratingWithState:&v64 objects:v77 count:16];
+      v44 = [v42 countByEnumeratingWithState:&v64 objects:v77 count:16];
     }
 
-    while (v43);
+    while (v44);
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 void __31__PPEventCache_objectForRange___block_invoke_55(uint64_t a1, void *a2)

@@ -35,15 +35,15 @@
 
 - (void)finishWithError:(id)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v5 = getWFRemoteExecutionLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v22 = "[WFRemoteExecutionOutgoingRunRequestSession finishWithError:]";
-    v23 = 2112;
-    v24 = errorCopy;
+    v21 = "[WFRemoteExecutionOutgoingRunRequestSession finishWithError:]";
+    v22 = 2112;
+    v23 = errorCopy;
     _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s finishWithError: %@", buf, 0x16u);
   }
 
@@ -57,7 +57,7 @@
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v22 = "[WFRemoteExecutionOutgoingRunRequestSession finishWithError:]";
+        v21 = "[WFRemoteExecutionOutgoingRunRequestSession finishWithError:]";
         _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_INFO, "%s Sending stop...", buf, 0xCu);
       }
 
@@ -67,9 +67,9 @@
       v11 = [(WFRemoteExecutionStopRequest *)v8 initWithRequestIdentifier:identifier];
 
       coordinator = [(WFRemoteExecutionOutgoingRunRequestSession *)self coordinator];
-      v20 = 0;
-      LOBYTE(identifier) = [coordinator sendStopRequest:v11 error:&v20];
-      request = v20;
+      v19 = 0;
+      LOBYTE(identifier) = [coordinator sendStopRequest:v11 error:&v19];
+      request = v19;
 
       if ((identifier & 1) == 0)
       {
@@ -78,9 +78,9 @@
         if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315394;
-          v22 = "[WFRemoteExecutionOutgoingRunRequestSession finishWithError:]";
-          v23 = 2114;
-          v24 = request;
+          v21 = "[WFRemoteExecutionOutgoingRunRequestSession finishWithError:]";
+          v22 = 2114;
+          v23 = request;
           _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_FAULT, "%s Failed to send stop request: %{public}@", buf, 0x16u);
         }
       }
@@ -114,11 +114,9 @@
   }
 
   [(WFRemoteExecutionSession *)self setState:103];
-  v19.receiver = self;
-  v19.super_class = WFRemoteExecutionOutgoingRunRequestSession;
-  [(WFRemoteExecutionSession *)&v19 finish];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = WFRemoteExecutionOutgoingRunRequestSession;
+  [(WFRemoteExecutionSession *)&v18 finish];
 }
 
 - (void)handleTimeout
@@ -149,32 +147,32 @@
 
 - (void)handleIncomingProtobuf:(id)protobuf
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
   [(WFRemoteExecutionSession *)self setState:102];
   v5 = [WFRemoteExecutionRunRequestResponse alloc];
   data = [protobufCopy data];
 
-  v20 = 0;
-  v7 = [(WFRemoteExecutionRunRequestResponse *)v5 initWithData:data error:&v20];
-  v8 = v20;
+  v19 = 0;
+  v7 = [(WFRemoteExecutionRunRequestResponse *)v5 initWithData:data error:&v19];
+  v8 = v19;
 
   if (v7)
   {
     runRequestIdentifier = [(WFRemoteExecutionRunRequestResponse *)v7 runRequestIdentifier];
     request = [(WFRemoteExecutionSession *)self request];
     identifier = [request identifier];
-    v12 = [runRequestIdentifier isEqualToString:identifier];
+    isEqualToString = objc_msgSend_isEqualToString_(runRequestIdentifier);
 
-    if (v12)
+    if (isEqualToString)
     {
       fileCoordinator = [(WFRemoteExecutionOutgoingRunRequestSession *)self fileCoordinator];
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __69__WFRemoteExecutionOutgoingRunRequestSession_handleIncomingProtobuf___block_invoke;
-      v19[3] = &unk_1E8378958;
-      v19[4] = self;
-      [(WFRemoteExecutionRunRequestResponse *)v7 inflateWithFileCoordinator:fileCoordinator completion:v19];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __69__WFRemoteExecutionOutgoingRunRequestSession_handleIncomingProtobuf___block_invoke;
+      v18[3] = &unk_1E8378958;
+      v18[4] = self;
+      [(WFRemoteExecutionRunRequestResponse *)v7 inflateWithFileCoordinator:fileCoordinator completion:v18];
     }
 
     else
@@ -193,7 +191,7 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v22 = "[WFRemoteExecutionOutgoingRunRequestSession handleIncomingProtobuf:]";
+        v21 = "[WFRemoteExecutionOutgoingRunRequestSession handleIncomingProtobuf:]";
         _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_ERROR, "%s Encountered unsupported version of run request response", buf, 0xCu);
       }
 
@@ -205,9 +203,9 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v22 = "[WFRemoteExecutionOutgoingRunRequestSession handleIncomingProtobuf:]";
-        v23 = 2114;
-        v24 = v8;
+        v21 = "[WFRemoteExecutionOutgoingRunRequestSession handleIncomingProtobuf:]";
+        v22 = 2114;
+        v23 = v8;
         _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_FAULT, "%s Failed to read run request response: %{public}@", buf, 0x16u);
       }
 
@@ -217,13 +215,11 @@
     [(WFRemoteExecutionSession *)self setState:v17];
     [(WFRemoteExecutionOutgoingRunRequestSession *)self finishWithError:v8];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __69__WFRemoteExecutionOutgoingRunRequestSession_handleIncomingProtobuf___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) setState:103];
   v4 = [*(a1 + 32) completion];
@@ -243,26 +239,24 @@ void __69__WFRemoteExecutionOutgoingRunRequestSession_handleIncomingProtobuf___b
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v11 = "[WFRemoteExecutionOutgoingRunRequestSession handleIncomingProtobuf:]_block_invoke";
+      v10 = "[WFRemoteExecutionOutgoingRunRequestSession handleIncomingProtobuf:]_block_invoke";
       _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s completion is nil in handleIncomingProtobuf:", buf, 0xCu);
     }
   }
 
-  v9.receiver = *(a1 + 32);
-  v9.super_class = WFRemoteExecutionOutgoingRunRequestSession;
-  objc_msgSendSuper2(&v9, sel_finish);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8.receiver = *(a1 + 32);
+  v8.super_class = WFRemoteExecutionOutgoingRunRequestSession;
+  objc_msgSendSuper2(&v8, sel_finish);
 }
 
 - (void)sendToDestinations:(id)destinations options:(id)options
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   optionsCopy = options;
-  v32.receiver = self;
-  v32.super_class = WFRemoteExecutionOutgoingRunRequestSession;
-  [(WFRemoteExecutionSession *)&v32 sendToDestinations:destinationsCopy options:optionsCopy];
+  v31.receiver = self;
+  v31.super_class = WFRemoteExecutionOutgoingRunRequestSession;
+  [(WFRemoteExecutionSession *)&v31 sendToDestinations:destinationsCopy options:optionsCopy];
   [(WFRemoteExecutionSession *)self setState:100];
   v8 = objc_alloc_init(MEMORY[0x1E69C65C0]);
   coordinator = [(WFRemoteExecutionOutgoingRunRequestSession *)self coordinator];
@@ -270,9 +264,9 @@ void __69__WFRemoteExecutionOutgoingRunRequestSession_handleIncomingProtobuf___b
   [request setCoordinator:coordinator];
 
   request2 = [(WFRemoteExecutionSession *)self request];
-  v31 = 0;
-  v12 = [request2 writeTo:v8 error:&v31];
-  v13 = v31;
+  v30 = 0;
+  v12 = [request2 writeTo:v8 error:&v30];
+  v13 = v30;
 
   if (v12)
   {
@@ -286,19 +280,19 @@ void __69__WFRemoteExecutionOutgoingRunRequestSession_handleIncomingProtobuf___b
       request3 = [(WFRemoteExecutionSession *)self request];
       identifier = [request3 identifier];
       *buf = 136315394;
-      v34 = "[WFRemoteExecutionOutgoingRunRequestSession sendToDestinations:options:]";
-      v35 = 2114;
+      v33 = "[WFRemoteExecutionOutgoingRunRequestSession sendToDestinations:options:]";
+      v34 = 2114;
       selfCopy = identifier;
       _os_log_impl(&dword_1CA256000, v17, OS_LOG_TYPE_INFO, "%s <%{public}@> sending run request", buf, 0x16u);
     }
 
     [(WFRemoteExecutionSession *)self restartTimeout];
     service = [(WFRemoteExecutionSession *)self service];
+    v28 = 0;
     v29 = 0;
-    v30 = 0;
-    v21 = [service sendProtobuf:v16 toDestinations:destinationsCopy priority:300 options:optionsCopy identifier:&v30 error:&v29];
-    v22 = v30;
-    v23 = v29;
+    v21 = [service sendProtobuf:v16 toDestinations:destinationsCopy priority:300 options:optionsCopy identifier:&v29 error:&v28];
+    v22 = v29;
+    v23 = v28;
 
     if (v21)
     {
@@ -312,11 +306,11 @@ void __69__WFRemoteExecutionOutgoingRunRequestSession_handleIncomingProtobuf___b
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v34 = "[WFRemoteExecutionOutgoingRunRequestSession sendToDestinations:options:]";
-        v35 = 2114;
+        v33 = "[WFRemoteExecutionOutgoingRunRequestSession sendToDestinations:options:]";
+        v34 = 2114;
         selfCopy = self;
-        v37 = 2114;
-        v38 = v23;
+        v36 = 2114;
+        v37 = v23;
         _os_log_impl(&dword_1CA256000, v27, OS_LOG_TYPE_ERROR, "%s %{public}@ failed to send with error: %{public}@", buf, 0x20u);
       }
 
@@ -333,19 +327,17 @@ void __69__WFRemoteExecutionOutgoingRunRequestSession_handleIncomingProtobuf___b
       request4 = [(WFRemoteExecutionSession *)self request];
       identifier2 = [request4 identifier];
       *buf = 136315650;
-      v34 = "[WFRemoteExecutionOutgoingRunRequestSession sendToDestinations:options:]";
-      v35 = 2114;
+      v33 = "[WFRemoteExecutionOutgoingRunRequestSession sendToDestinations:options:]";
+      v34 = 2114;
       selfCopy = identifier2;
-      v37 = 2114;
-      v38 = v13;
+      v36 = 2114;
+      v37 = v13;
       _os_log_impl(&dword_1CA256000, v24, OS_LOG_TYPE_FAULT, "%s <%{public}@> failed to write protobuf with error: %{public}@", buf, 0x20u);
     }
 
     [(WFRemoteExecutionSession *)self setState:1];
     [(WFRemoteExecutionOutgoingRunRequestSession *)self finishWithError:v13];
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (WFRemoteExecutionOutgoingRunRequestSession)initWithService:(id)service request:(id)request userInterface:(id)interface parameterInputProvider:(id)provider coordinator:(id)coordinator completion:(id)completion

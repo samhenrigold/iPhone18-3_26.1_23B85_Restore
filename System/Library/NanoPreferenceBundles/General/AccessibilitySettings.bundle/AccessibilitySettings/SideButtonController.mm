@@ -7,6 +7,7 @@
 - (void)_updateCheckedStatusForCell:(id)cell;
 - (void)_vibrateSelectedRow;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SideButtonController
@@ -36,17 +37,41 @@
   return v9;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v16[1] = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = SideButtonController;
+  [(AccessibilityBridgeBaseController *)&v15 viewWillAppear:appear];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"BUTTON_CLICK_TITLE" table:@"SideButtonSettings" locale:currentLocale bundleURL:bundleURL];
+
+  v8 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL2 = [v3 bundleURL];
+  v11 = [v8 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale2 bundleURL:bundleURL2];
+
+  v12 = MEMORY[0x277CF3470];
+  v16[0] = v11;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v14 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=SideButton"];
+  [v12 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v7 localizedNavigationComponents:v13 deepLink:v14];
+}
+
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   pathCopy = path;
-  v29.receiver = self;
-  v29.super_class = SideButtonController;
-  [(SideButtonController *)&v29 tableView:viewCopy didSelectRowAtIndexPath:pathCopy];
   v28.receiver = self;
   v28.super_class = SideButtonController;
-  v8 = [(SideButtonController *)&v28 tableView:viewCopy cellForRowAtIndexPath:pathCopy];
+  [(SideButtonController *)&v28 tableView:viewCopy didSelectRowAtIndexPath:pathCopy];
+  v27.receiver = self;
+  v27.super_class = SideButtonController;
+  v8 = [(SideButtonController *)&v27 tableView:viewCopy cellForRowAtIndexPath:pathCopy];
   specifier = [v8 specifier];
   v10 = [specifier propertyForKey:*MEMORY[0x277D3FFF0]];
   [(SideButtonController *)self _sideClickSpeedFromSpecifierKey:v10];
@@ -55,31 +80,31 @@
   v13 = [MEMORY[0x277CCABB0] numberWithDouble:v12];
   [(AccessibilityBridgeBaseController *)self setGizmoAccessibilityPref:v13 forKey:@"SideButtonDoubleTapInterval"];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   visibleCells = [viewCopy visibleCells];
-  v15 = [visibleCells countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v15 = [visibleCells countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v24;
     do
     {
       v18 = 0;
       do
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(visibleCells);
         }
 
-        [(SideButtonController *)self _updateCheckedStatusForCell:*(*(&v24 + 1) + 8 * v18++)];
+        [(SideButtonController *)self _updateCheckedStatusForCell:*(*(&v23 + 1) + 8 * v18++)];
       }
 
       while (v16 != v18);
-      v16 = [visibleCells countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v16 = [visibleCells countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v16);
@@ -100,8 +125,6 @@
 
   v22 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel__flashSelectedRow selector:0 userInfo:0 repeats:0.699999988];
   [(SideButtonController *)self setFlashTimer:v22];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateCheckedStatusForCell:(id)cell
@@ -161,7 +184,7 @@
 
 - (id)_vibrationPattern
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCABB0];
   [(SideButtonController *)self _sideButtonDoubleTapInterval];
   v3 = MEMORY[0x277CE6898];
@@ -171,20 +194,18 @@
   v7 = *v3 * 1000.0 * 0.5;
   *&v7 = v7;
   v8 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
-  v14[0] = @"Intensity";
-  v14[1] = @"VibePattern";
-  v15[0] = &unk_284E7E420;
-  v13[0] = MEMORY[0x277CBEC38];
-  v13[1] = v8;
-  v13[2] = MEMORY[0x277CBEC28];
-  v13[3] = v6;
-  v13[4] = MEMORY[0x277CBEC38];
-  v13[5] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:6];
-  v15[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[0] = @"Intensity";
+  v13[1] = @"VibePattern";
+  v14[0] = &unk_284E7E420;
+  v12[0] = MEMORY[0x277CBEC38];
+  v12[1] = v8;
+  v12[2] = MEMORY[0x277CBEC28];
+  v12[3] = v6;
+  v12[4] = MEMORY[0x277CBEC38];
+  v12[5] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:6];
+  v14[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v10;
 }
@@ -215,14 +236,12 @@
 
 - (void)_vibrateSelectedRow
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = *MEMORY[0x277CBA658];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277CBA658];
   _vibrationPattern = [(SideButtonController *)self _vibrationPattern];
-  v5[0] = _vibrationPattern;
-  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v4[0] = _vibrationPattern;
+  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
   AudioServicesPlaySystemSoundWithOptions();
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

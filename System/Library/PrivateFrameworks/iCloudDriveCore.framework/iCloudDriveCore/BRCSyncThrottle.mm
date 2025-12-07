@@ -107,35 +107,17 @@ LABEL_13:
   return selfCopy;
 }
 
-- (void)_validateThrottleParams:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6(&dword_223E7A000, v0, v1, "[ERROR] Throttle %@ isn't a dictionary%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_validateThrottleParams:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6(&dword_223E7A000, v0, v1, "[ERROR] Platforms %@ isn't an array%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_validateThrottleParams:(NSObject *)a3 .cold.3(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = BRPlatform();
-  v8 = 138412802;
-  v9 = a1;
-  v10 = 2112;
-  v11 = v6;
-  v12 = 2112;
-  v13 = a2;
-  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] throttle dict %@ isn't for our platform %@%@", &v8, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412802;
+  v8 = a1;
+  v9 = 2112;
+  v10 = v6;
+  v11 = 2112;
+  v12 = a2;
+  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] throttle dict %@ isn't for our platform %@%@", &v7, 0x20u);
 }
 
 @end

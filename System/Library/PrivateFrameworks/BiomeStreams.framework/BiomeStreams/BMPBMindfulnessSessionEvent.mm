@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)sessionTypeAsString:(int)string;
+- (id)stateTypeAsString:(int)string;
 - (int)StringAsSessionType:(id)type;
 - (int)StringAsStateType:(id)type;
 - (int)sessionType;
@@ -27,6 +29,21 @@
   {
     return 0;
   }
+}
+
+- (id)sessionTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E53B88[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSessionType:(id)type
@@ -81,6 +98,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)stateTypeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E53BA0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsStateType:(id)type
@@ -176,20 +208,18 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    sessionType = self->_sessionType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    stateType = self->_stateType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

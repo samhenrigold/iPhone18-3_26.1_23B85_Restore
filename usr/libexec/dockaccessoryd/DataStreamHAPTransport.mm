@@ -82,7 +82,7 @@
   if ([(DataStreamHAPTransport *)self _isRunning])
   {
     selfCopy = self;
-    v4 = sub_10007FAA0();
+    v4 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = sub_10007FAFC(selfCopy);
@@ -104,7 +104,7 @@ LABEL_19:
       {
         v5 = [(DataStreamHAPTransport *)selfCopy characteristicOfType:@"00000139-0000-1000-8000-4D69736D6574" serviceType:@"00000129-0000-1000-8000-4D69736D6574"];
         selfCopy2 = self;
-        v8 = sub_10007FAA0();
+        v8 = sub_10007FAA0(selfCopy2);
         v9 = v8;
         if (v5)
         {
@@ -140,7 +140,7 @@ LABEL_19:
       else
       {
         selfCopy3 = self;
-        v15 = sub_10007FAA0();
+        v15 = sub_10007FAA0(selfCopy3);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           v16 = sub_10007FAFC(selfCopy3);
@@ -157,7 +157,7 @@ LABEL_19:
     }
 
     selfCopy4 = self;
-    v12 = sub_10007FAA0();
+    v12 = sub_10007FAA0(selfCopy4);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = sub_10007FAFC(selfCopy4);
@@ -175,7 +175,7 @@ LABEL_19:
 {
   _isRunning = [(DataStreamHAPTransport *)self _isRunning];
   selfCopy = self;
-  v5 = sub_10007FAA0();
+  v5 = sub_10007FAA0(selfCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
   if (_isRunning)
   {
@@ -259,7 +259,7 @@ LABEL_19:
     else
     {
       selfCopy = self;
-      v9 = sub_10007FAA0();
+      v9 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = sub_10007FAFC(selfCopy);
@@ -481,7 +481,7 @@ LABEL_5:
     v15 = [(HAPDataStreamHAPControllerPayload *)v14 serializeWithError:error];
     v16 = *error;
     selfCopy = self;
-    v18 = sub_10007FAA0();
+    v18 = sub_10007FAA0(selfCopy);
     v19 = v18;
     if (v16)
     {
@@ -518,7 +518,7 @@ LABEL_5:
   }
 
   selfCopy2 = self;
-  v13 = sub_10007FAA0();
+  v13 = sub_10007FAA0(selfCopy2);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     v24 = sub_10007FAFC(selfCopy2);
@@ -573,7 +573,7 @@ LABEL_16:
         if (v7)
         {
           selfCopy = self;
-          v9 = sub_10007FAA0();
+          v9 = sub_10007FAA0(selfCopy);
           if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
           {
             v10 = sub_10007FAFC(selfCopy);
@@ -611,7 +611,7 @@ LABEL_16:
       else
       {
         selfCopy2 = self;
-        v15 = sub_10007FAA0();
+        v15 = sub_10007FAA0(selfCopy2);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           v16 = sub_10007FAFC(selfCopy2);
@@ -628,7 +628,7 @@ LABEL_16:
     else
     {
       selfCopy3 = self;
-      v12 = sub_10007FAA0();
+      v12 = sub_10007FAA0(selfCopy3);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = sub_10007FAFC(selfCopy3);
@@ -648,7 +648,7 @@ LABEL_16:
   tuplesCopy = tuples;
   isWriteInProgress = [(DataStreamHAPTransport *)self isWriteInProgress];
   selfCopy = self;
-  v7 = sub_10007FAA0();
+  v7 = sub_10007FAA0(selfCopy);
   v8 = v7;
   if (isWriteInProgress)
   {
@@ -716,7 +716,7 @@ LABEL_6:
       if (error)
       {
         v22 = selfCopy;
-        v23 = sub_10007FAA0();
+        v23 = sub_10007FAA0(v22);
         tuplesCopy = v42;
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
@@ -743,7 +743,7 @@ LABEL_6:
         if (v32 || !v31)
         {
           v36 = selfCopy;
-          v37 = sub_10007FAA0();
+          v37 = sub_10007FAA0(v36);
           tuplesCopy = v42;
           if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
@@ -798,7 +798,7 @@ LABEL_12:
 
 LABEL_21:
       v27 = selfCopy;
-      v28 = sub_10007FAA0();
+      v28 = sub_10007FAA0(v27);
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         v29 = sub_10007FAFC(v27);
@@ -955,7 +955,7 @@ LABEL_13:
   if (hasFailed)
   {
     selfCopy = self;
-    v11 = sub_10007FAA0();
+    v11 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = sub_10007FAFC(selfCopy);
@@ -1019,7 +1019,7 @@ LABEL_13:
   if (!v8)
   {
     selfCopy = self;
-    v9 = sub_10007FAA0();
+    v9 = sub_10007FAA0(selfCopy);
     if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_19;
@@ -1040,7 +1040,7 @@ LABEL_18:
   if (selfCopy || !v9)
   {
     selfCopy3 = self;
-    v20 = sub_10007FAA0();
+    v20 = sub_10007FAA0(selfCopy3);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       v22 = sub_10007FAFC(selfCopy3);
@@ -1065,7 +1065,7 @@ LABEL_18:
 
   v17 = memchr(bytes, intValue, v14);
   selfCopy3 = self;
-  v19 = sub_10007FAA0();
+  v19 = sub_10007FAA0(selfCopy3);
   v20 = v19;
   if (!v17)
   {

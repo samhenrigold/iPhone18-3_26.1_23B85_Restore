@@ -114,17 +114,17 @@
       v14 = objc_opt_class();
       v15 = NSStringFromClass(v14);
       *buf = 67110402;
-      v38 = v9;
-      v39 = 2082;
-      v40 = "[CRLCanvasRenderable initWithCALayer:]";
-      v41 = 2082;
-      v42 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasRenderable.m";
-      v43 = 1024;
-      v44 = 22;
-      v45 = 2114;
-      v46 = v13;
-      v47 = 2114;
-      v48 = v15;
+      v31 = v9;
+      v32 = 2082;
+      v33 = "[CRLCanvasRenderable initWithCALayer:]";
+      v34 = 2082;
+      v35 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasRenderable.m";
+      v36 = 1024;
+      v37 = 22;
+      v38 = 2114;
+      v39 = v13;
+      v40 = 2114;
+      v41 = v15;
       _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Wrong renderable class (%{public}@) for layer class (%{public}@)!", buf, 0x36u);
     }
 
@@ -142,24 +142,24 @@
     v17 = objc_opt_class();
     v18 = NSStringFromClass(v17);
     v19 = objc_opt_class();
-    v35 = NSStringFromClass(v19);
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Wrong renderable class (%{public}@) for layer class (%{public}@)!", v20, v21, v22, v23, v24, v25, v26, "[CRLCanvasRenderable initWithCALayer:]");
+    v20 = NSStringFromClass(v19);
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Wrong renderable class (%{public}@) for layer class (%{public}@)!", "[CRLCanvasRenderable initWithCALayer:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasRenderable.m", 22, v18, v20);
 
-    v27 = [NSString stringWithUTF8String:"[CRLCanvasRenderable initWithCALayer:]"];
-    v28 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasRenderable.m"];
-    v29 = objc_opt_class();
-    v30 = NSStringFromClass(v29);
-    v31 = objc_opt_class();
-    v32 = NSStringFromClass(v31);
-    [CRLAssertionHandler handleFailureInFunction:v27 file:v28 lineNumber:22 isFatal:1 description:"Wrong renderable class (%{public}@) for layer class (%{public}@)!", v30, v32, 22, v18, v35];
+    v21 = [NSString stringWithUTF8String:"[CRLCanvasRenderable initWithCALayer:]"];
+    v22 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasRenderable.m"];
+    v23 = objc_opt_class();
+    v24 = NSStringFromClass(v23);
+    v25 = objc_opt_class();
+    v26 = NSStringFromClass(v25);
+    [CRLAssertionHandler handleFailureInFunction:v21 file:v22 lineNumber:22 isFatal:1 description:"Wrong renderable class (%{public}@) for layer class (%{public}@)!", v24, v26];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v33, v34);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v27, v28);
     abort();
   }
 
-  v36.receiver = self;
-  v36.super_class = CRLCanvasRenderable;
-  v6 = [(CRLCanvasRenderable *)&v36 init];
+  v29.receiver = self;
+  v29.super_class = CRLCanvasRenderable;
+  v6 = [(CRLCanvasRenderable *)&v29 init];
   v7 = v6;
   if (v6)
   {
@@ -577,7 +577,7 @@
   if (layer)
   {
     v6 = layer;
-    [layer affineTransform];
+    objc_msgSend_affineTransform(layer);
     layer = v6;
   }
 

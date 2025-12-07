@@ -3,7 +3,7 @@
 
 @implementation AXSFullKeyboardAccessPassthroughModeEnabled
 
-uint64_t ___AXSFullKeyboardAccessPassthroughModeEnabled_block_invoke()
+void *___AXSFullKeyboardAccessPassthroughModeEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

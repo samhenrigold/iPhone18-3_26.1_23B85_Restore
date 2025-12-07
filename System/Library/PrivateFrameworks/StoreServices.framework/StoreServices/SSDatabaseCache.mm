@@ -16,7 +16,7 @@
 
 - (SSDatabaseCache)initWithIdentifier:(id)identifier cacheName:(id)name database:(id)database cacheEntryClass:(Class)class
 {
-  v68[2] = *MEMORY[0x1E69E9840];
+  v70[2] = *MEMORY[0x1E69E9840];
   v10 = [(SSDatabaseCache *)self init];
   if (v10)
   {
@@ -38,13 +38,13 @@
       global_queue = dispatch_get_global_queue(0, 0);
       dispatch_set_target_queue(v17, global_queue);
       v19 = objc_alloc_init(MEMORY[0x1E696AC08]);
-      v60 = 0;
+      v62 = 0;
       v20 = *MEMORY[0x1E696A328];
-      v67[0] = *MEMORY[0x1E696A360];
-      v67[1] = v20;
-      v68[0] = @"mobile";
-      v68[1] = @"mobile";
-      if ([v19 createDirectoryAtPath:v12 withIntermediateDirectories:1 attributes:objc_msgSend(MEMORY[0x1E695DF20] error:{"dictionaryWithObjects:forKeys:count:", v68, v67, 2), &v60}])
+      v69[0] = *MEMORY[0x1E696A360];
+      v69[1] = v20;
+      v70[0] = @"mobile";
+      v70[1] = @"mobile";
+      if ([v19 createDirectoryAtPath:v12 withIntermediateDirectories:1 attributes:objc_msgSend(MEMORY[0x1E695DF20] error:{"dictionaryWithObjects:forKeys:count:", v70, v69, 2), &v62}])
       {
         v21 = [[SSPersistentCache alloc] initWithIdentifier:identifier cacheName:name];
         v10->_persistentCache = v21;
@@ -57,50 +57,55 @@
 
           else
           {
-            v39 = [objc_msgSend(v12 stringByAppendingPathComponent:{name), "stringByAppendingPathExtension:", @"db"}];
-            v40 = [SSSQLiteDatabase alloc];
-            v41 = -[SSSQLiteDatabase initWithDatabaseURL:](v40, "initWithDatabaseURL:", [MEMORY[0x1E695DFF8] fileURLWithPath:v39 isDirectory:0]);
-            v10->_database = v41;
-            if (!v41)
+            v40 = [objc_msgSend(v12 stringByAppendingPathComponent:{name), "stringByAppendingPathExtension:", @"db"}];
+            v41 = [SSSQLiteDatabase alloc];
+            v42 = -[SSSQLiteDatabase initWithDatabaseURL:](v41, "initWithDatabaseURL:", [MEMORY[0x1E695DFF8] fileURLWithPath:v40 isDirectory:0]);
+            v10->_database = v42;
+            if (!v42)
             {
-              v45 = +[SSLogConfig sharedStoreServicesConfig];
-              if (!v45)
+              v47 = +[SSLogConfig sharedStoreServicesConfig];
+              if (!v47)
               {
-                v45 = +[SSLogConfig sharedConfig];
+                v47 = +[SSLogConfig sharedConfig];
               }
 
-              shouldLog = [v45 shouldLog];
-              if ([v45 shouldLogToDisk])
+              shouldLog = [v47 shouldLog];
+              if ([v47 shouldLogToDisk])
               {
-                v47 = shouldLog | 2;
+                LODWORD(v49) = shouldLog | 2;
               }
 
               else
               {
-                v47 = shouldLog;
+                LODWORD(v49) = shouldLog;
               }
 
-              if (!os_log_type_enabled([v45 OSLogObject], OS_LOG_TYPE_DEFAULT))
+              oSLogObject = [v47 OSLogObject];
+              if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
               {
-                v47 &= 2u;
+                v49 = v49;
               }
 
-              if (v47)
+              else
               {
-                v48 = objc_opt_class();
-                v61 = 138412546;
-                v62 = v48;
-                v63 = 2112;
-                v64 = v39;
-                LODWORD(v59) = 22;
-                v58 = &v61;
-                v49 = _os_log_send_and_compose_impl();
-                if (v49)
+                v49 &= 2u;
+              }
+
+              if (v49)
+              {
+                v51 = objc_opt_class();
+                v63 = 138412546;
+                v64 = v51;
+                v65 = 2112;
+                v66 = v40;
+                LODWORD(v61) = 22;
+                v52 = _os_log_send_and_compose_impl(v49, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "[%@] -- Error setting up database: %@", &v63, v61);
+                if (v52)
                 {
-                  v50 = v49;
-                  v51 = [MEMORY[0x1E696AEC0] stringWithCString:v49 encoding:{4, &v61, v59}];
-                  free(v50);
-                  SSFileLog(v45, @"%@", v52, v53, v54, v55, v56, v57, v51);
+                  v53 = v52;
+                  v54 = [MEMORY[0x1E696AEC0] stringWithCString:v52 encoding:4];
+                  free(v53);
+                  SSFileLog(v47, @"%@", v55, v56, v57, v58, v59, v60, v54);
                 }
               }
             }
@@ -114,7 +119,7 @@
           v10->_cacheEntryClass = class;
           if ([(SSDatabaseCache *)v10 _setupDatabase])
           {
-            goto LABEL_30;
+            goto LABEL_33;
           }
 
           v22 = +[SSLogConfig sharedStoreServicesConfig];
@@ -126,71 +131,92 @@
           shouldLog2 = [v22 shouldLog];
           if ([v22 shouldLogToDisk])
           {
-            v43 = shouldLog2 | 2;
+            LODWORD(v44) = shouldLog2 | 2;
           }
 
           else
           {
-            v43 = shouldLog2;
+            LODWORD(v44) = shouldLog2;
           }
 
-          if (!os_log_type_enabled([v22 OSLogObject], OS_LOG_TYPE_DEFAULT))
+          oSLogObject2 = [v22 OSLogObject];
+          if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
           {
-            v43 &= 2u;
+            v44 = v44;
           }
 
-          if (!v43)
+          else
           {
-LABEL_29:
+            v44 &= 2u;
+          }
+
+          if (!v44)
+          {
+LABEL_32:
 
             v10 = 0;
-LABEL_30:
+LABEL_33:
 
             return v10;
           }
 
-          v44 = objc_opt_class();
-          v61 = 138412290;
-          v62 = v44;
-          LODWORD(v59) = 12;
+          v46 = objc_opt_class();
+          v63 = 138412290;
+          v64 = v46;
+          LODWORD(v61) = 12;
+          v30 = _os_log_send_and_compose_impl(v44, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 0, "[%@] -- Error setting up database.", &v63, v61);
+LABEL_30:
+          if (v30)
+          {
+            v31 = v30;
+            v32 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:4];
+            free(v31);
+            SSFileLog(v22, @"%@", v33, v34, v35, v36, v37, v38, v32);
+          }
+
+          goto LABEL_32;
+        }
+
+        v22 = +[SSLogConfig sharedStoreServicesConfig];
+        if (!v22)
+        {
+          v22 = +[SSLogConfig sharedConfig];
+        }
+
+        shouldLog3 = [v22 shouldLog];
+        if ([v22 shouldLogToDisk])
+        {
+          LODWORD(v24) = shouldLog3 | 2;
         }
 
         else
         {
-          v22 = +[SSLogConfig sharedStoreServicesConfig];
-          if (!v22)
-          {
-            v22 = +[SSLogConfig sharedConfig];
-          }
-
-          shouldLog3 = [v22 shouldLog];
-          if ([v22 shouldLogToDisk])
-          {
-            v27 = shouldLog3 | 2;
-          }
-
-          else
-          {
-            v27 = shouldLog3;
-          }
-
-          if (!os_log_type_enabled([v22 OSLogObject], OS_LOG_TYPE_DEFAULT))
-          {
-            v27 &= 2u;
-          }
-
-          if (!v27)
-          {
-            goto LABEL_29;
-          }
-
-          v28 = objc_opt_class();
-          v61 = 138412546;
-          v62 = v28;
-          v63 = 2112;
-          v64 = v12;
-          LODWORD(v59) = 22;
+          LODWORD(v24) = shouldLog3;
         }
+
+        oSLogObject3 = [v22 OSLogObject];
+        if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+        {
+          v24 = v24;
+        }
+
+        else
+        {
+          v24 &= 2u;
+        }
+
+        if (!v24)
+        {
+          goto LABEL_32;
+        }
+
+        v29 = objc_opt_class();
+        v63 = 138412546;
+        v64 = v29;
+        v65 = 2112;
+        v66 = v12;
+        LODWORD(v61) = 22;
+        v27 = "[%@] -- Error creating PersistentCache: %@";
       }
 
       else
@@ -204,44 +230,43 @@ LABEL_30:
         shouldLog4 = [v22 shouldLog];
         if ([v22 shouldLogToDisk])
         {
-          v24 = shouldLog4 | 2;
+          LODWORD(v24) = shouldLog4 | 2;
         }
 
         else
         {
-          v24 = shouldLog4;
+          LODWORD(v24) = shouldLog4;
         }
 
-        if (!os_log_type_enabled([v22 OSLogObject], OS_LOG_TYPE_DEFAULT))
+        oSLogObject3 = [v22 OSLogObject];
+        if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+        {
+          v24 = v24;
+        }
+
+        else
         {
           v24 &= 2u;
         }
 
         if (!v24)
         {
-          goto LABEL_29;
+          goto LABEL_32;
         }
 
-        v25 = objc_opt_class();
-        v61 = 138412802;
-        v62 = v25;
-        v63 = 2112;
-        v64 = v12;
+        v26 = objc_opt_class();
+        v63 = 138412802;
+        v64 = v26;
         v65 = 2112;
-        v66 = v60;
-        LODWORD(v59) = 32;
+        v66 = v12;
+        v67 = 2112;
+        v68 = v62;
+        LODWORD(v61) = 32;
+        v27 = "[%@] -- Error creating directory: %@ -- %@";
       }
 
-      v29 = _os_log_send_and_compose_impl();
-      if (v29)
-      {
-        v30 = v29;
-        v31 = [MEMORY[0x1E696AEC0] stringWithCString:v29 encoding:{4, &v61, v59}];
-        free(v30);
-        SSFileLog(v22, @"%@", v32, v33, v34, v35, v36, v37, v31);
-      }
-
-      goto LABEL_29;
+      v30 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &dword_1D48BA000, oSLogObject3, 0, v27, &v63, v61);
+      goto LABEL_30;
     }
 
     return 0;
@@ -428,7 +453,7 @@ uint64_t __29__SSDatabaseCache_statistics__block_invoke_2(void *a1, sqlite3_stmt
   return result;
 }
 
-uint64_t __29__SSDatabaseCache_statistics__block_invoke_3(uint64_t a1, sqlite3_stmt *a2)
+void *__29__SSDatabaseCache_statistics__block_invoke_3(uint64_t a1, sqlite3_stmt *a2)
 {
   v10[2] = *MEMORY[0x1E69E9840];
   result = [*(*(a1 + 32) + 56) statementHasRowAfterStepping:a2];
@@ -487,7 +512,7 @@ uint64_t __29__SSDatabaseCache_statistics__block_invoke_3(uint64_t a1, sqlite3_s
   objc_autoreleasePoolPop(v3);
 }
 
-uint64_t __24__SSDatabaseCache_clear__block_invoke(uint64_t a1, uint64_t a2)
+void *__24__SSDatabaseCache_clear__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(*(a1 + 32) + 56) statementDidFinishAfterStepping:a2];
   if (result)
@@ -698,7 +723,7 @@ uint64_t __35__SSDatabaseCache_clearRetiredData__block_invoke_2(uint64_t a1, sql
 
 - (id)setData:(id)data expiring:(double)expiring retiring:(double)retiring lookupKey:(id)key userInfo:(id)info
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   v13 = objc_autoreleasePoolPush();
   v14 = [data length];
   if (v14 && (v15 = v14, [key length]))
@@ -708,7 +733,7 @@ uint64_t __35__SSDatabaseCache_clearRetiredData__block_invoke_2(uint64_t a1, sql
     v18 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:10];
     maximumInlineBlobSize = [(SSDatabaseCache *)self maximumInlineBlobSize];
     dataCopy = data;
-    v61 = maximumInlineBlobSize;
+    v62 = maximumInlineBlobSize;
     if (v15 > maximumInlineBlobSize)
     {
       dataCopy = [MEMORY[0x1E695DFB0] null];
@@ -769,42 +794,41 @@ uint64_t __35__SSDatabaseCache_clearRetiredData__block_invoke_2(uint64_t a1, sql
       v34 = shouldLog;
     }
 
-    if (os_log_type_enabled([v32 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v32 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v35 = v34;
+      v36 = v34;
     }
 
     else
     {
-      v35 = v34 & 2;
+      v36 = v34 & 2;
     }
 
-    if (v35)
+    if (v36)
     {
-      v62 = 138413058;
-      v63 = v24;
-      v64 = 1024;
-      *v65 = v31;
-      *&v65[4] = 1024;
-      *&v65[6] = v15 > v61;
-      v66 = 2112;
+      v63 = 138413058;
+      v64 = v24;
+      v65 = 1024;
+      *v66 = v31;
+      *&v66[4] = 1024;
+      *&v66[6] = v15 > v62;
+      v67 = 2112;
       keyCopy = key;
-      LODWORD(v60) = 34;
-      v59 = &v62;
-      v36 = _os_log_send_and_compose_impl();
-      if (v36)
+      v37 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "[%@] [Updated: %d] [External: %d] [LookupKey: %@]", &v63, 34);
+      if (v37)
       {
-        v37 = v36;
-        v38 = [MEMORY[0x1E696AEC0] stringWithCString:v36 encoding:{4, &v62, v60}];
-        free(v37);
-        SSFileLog(v32, @"%@", v39, v40, v41, v42, v43, v44, v38);
+        v38 = v37;
+        v39 = [MEMORY[0x1E696AEC0] stringWithCString:v37 encoding:4];
+        free(v38);
+        SSFileLog(v32, @"%@", v40, v41, v42, v43, v44, v45, v39);
       }
     }
 
     if (v31)
     {
       persistentCache = self->_persistentCache;
-      if (v15 <= v61)
+      if (v15 <= v62)
       {
         [(SSPersistentCache *)persistentCache removeDataForKey:key];
       }
@@ -817,43 +841,49 @@ uint64_t __35__SSDatabaseCache_clearRetiredData__block_invoke_2(uint64_t a1, sql
 
     else
     {
-      v46 = +[SSLogConfig sharedStoreServicesConfig];
-      if (!v46)
+      v47 = +[SSLogConfig sharedStoreServicesConfig];
+      if (!v47)
       {
-        v46 = +[SSLogConfig sharedConfig];
+        v47 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v46 shouldLog];
-      if ([v46 shouldLogToDisk])
+      shouldLog2 = [v47 shouldLog];
+      if ([v47 shouldLogToDisk])
       {
-        v48 = shouldLog2 | 2;
+        LODWORD(v49) = shouldLog2 | 2;
       }
 
       else
       {
-        v48 = shouldLog2;
+        LODWORD(v49) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v46 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject2 = [v47 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v48 &= 2u;
+        v49 = v49;
       }
 
-      if (v48)
+      else
       {
-        v49 = objc_opt_class();
-        v62 = 138412546;
-        v63 = v49;
-        v64 = 2112;
-        *v65 = key;
-        LODWORD(v60) = 22;
-        v50 = _os_log_send_and_compose_impl();
-        if (v50)
+        v49 &= 2u;
+      }
+
+      if (v49)
+      {
+        v51 = objc_opt_class();
+        v63 = 138412546;
+        v64 = v51;
+        v65 = 2112;
+        *v66 = key;
+        LODWORD(v61) = 22;
+        v52 = _os_log_send_and_compose_impl(v49, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 0, "[%@] Failed to update SSDatabaseCacheEntry: %@", &v63, v61);
+        if (v52)
         {
-          v51 = v50;
-          v52 = [MEMORY[0x1E696AEC0] stringWithCString:v50 encoding:{4, &v62, v60}];
-          free(v51);
-          SSFileLog(v46, @"%@", v53, v54, v55, v56, v57, v58, v52);
+          v53 = v52;
+          v54 = [MEMORY[0x1E696AEC0] stringWithCString:v52 encoding:4];
+          free(v53);
+          SSFileLog(v47, @"%@", v55, v56, v57, v58, v59, v60, v54);
         }
       }
     }

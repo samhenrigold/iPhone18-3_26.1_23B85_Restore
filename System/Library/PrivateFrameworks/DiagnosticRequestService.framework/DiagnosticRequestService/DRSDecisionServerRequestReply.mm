@@ -1,6 +1,7 @@
 @interface DRSDecisionServerRequestReply
 - (DRSDecisionServerRequestReply)initWithOriginalRequest:(id)request errorString:(id)string;
 - (DRSDecisionServerRequestReply)initWithOriginalRequest:(id)request reply:(id)reply;
+- (DRSDecisionServerRequestReply)initWithOriginalRequest:(id)request requestAccepted:(BOOL)accepted rejectionReason:(id)reason;
 @end
 
 @implementation DRSDecisionServerRequestReply
@@ -38,6 +39,39 @@
 
     self = v11;
 
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
+
+- (DRSDecisionServerRequestReply)initWithOriginalRequest:(id)request requestAccepted:(BOOL)accepted rejectionReason:(id)reason
+{
+  acceptedCopy = accepted;
+  requestCopy = request;
+  reasonCopy = reason;
+  if (requestCopy)
+  {
+    v17.receiver = self;
+    v17.super_class = DRSDecisionServerRequestReply;
+    v11 = [(DRSDecisionServerRequestReply *)&v17 init];
+    v12 = v11;
+    if (v11)
+    {
+      objc_storeStrong(&v11->_request, request);
+      v13 = [MEMORY[0x277CCABB0] numberWithBool:acceptedCopy];
+      acceptedNum = v12->_acceptedNum;
+      v12->_acceptedNum = v13;
+
+      objc_storeStrong(&v12->_rejectionReason, reason);
+    }
+
+    self = v12;
     selfCopy = self;
   }
 

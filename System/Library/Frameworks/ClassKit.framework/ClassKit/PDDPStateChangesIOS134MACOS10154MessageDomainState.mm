@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)domainAsString:(int)string;
 - (int)StringAsDomain:(id)domain;
 - (int)domain;
 - (unint64_t)hash;
@@ -41,6 +42,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)domainAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1002057C0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsDomain:(id)domain
@@ -159,12 +175,11 @@
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    domain = self->_domain;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -183,22 +198,20 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  state = self->_state;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_4:
-    flags = self->_flags;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_note)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -301,7 +314,6 @@ LABEL_5:
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 36);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 36) & 2) == 0 || self->_domain != *(equalCopy + 4))
@@ -313,7 +325,7 @@ LABEL_5:
   else if ((*(equalCopy + 36) & 2) != 0)
   {
 LABEL_19:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_20;
   }
 
@@ -346,17 +358,17 @@ LABEL_19:
   note = self->_note;
   if (note | *(equalCopy + 3))
   {
-    v7 = [(NSString *)note isEqual:?];
+    v6 = [(NSString *)note isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_20:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

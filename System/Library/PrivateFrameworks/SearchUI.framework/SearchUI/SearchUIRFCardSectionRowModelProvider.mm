@@ -10,7 +10,7 @@
 {
   if (sections)
   {
-    sub_1DA173718(0, &unk_1EDAE5400);
+    sub_1DA173718(0, &unk_1EDAE5400, 0x1E69C9F08);
     sub_1DA25F324();
   }
 
@@ -24,14 +24,15 @@
 
 - (id)rowModelFor:(id)for result:(id)result isInline:(BOOL)inline queryId:(unint64_t)id itemIdentifier:(id)identifier
 {
-  sub_1DA25F244();
+  v12 = sub_1DA25F244();
+  v14 = v13;
   forCopy = for;
   resultCopy = result;
   selfCopy = self;
-  sub_1DA2383A0(forCopy, resultCopy, inline, id);
-  v16 = v15;
+  sub_1DA2383A0(forCopy, resultCopy, inline, id, v12, v14);
+  v19 = v18;
 
-  return v16;
+  return v19;
 }
 
 - (SearchUIRFCardSectionRowModelProvider)init

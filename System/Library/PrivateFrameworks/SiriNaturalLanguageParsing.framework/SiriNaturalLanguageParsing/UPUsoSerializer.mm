@@ -26,45 +26,46 @@
 
 - (void)_attachSharedEntity:(id)entity withCustomEntityEdge:(const void *)edge toGraphNode:(UsoGraphNode *)node forGraph:(void *)graph
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
-  SharedUsoVocabManager = siri::ontology::getSharedUsoVocabManager([MEMORY[0x277D5DF00] convertUsoGraphFromObjCToCpp:entityCopy]);
-  v10 = *SharedUsoVocabManager;
-  v9 = SharedUsoVocabManager[1];
-  if (v9)
+  v8 = objc_msgSend_convertUsoGraphFromObjCToCpp_(MEMORY[0x277D5DF00]);
+  SharedUsoVocabManager = siri::ontology::getSharedUsoVocabManager(v8);
+  v11 = *SharedUsoVocabManager;
+  v10 = SharedUsoVocabManager[1];
+  if (v10)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+    v28 = v11;
     v29 = v10;
-    v30 = v9;
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
   else
   {
-    v29 = v10;
-    v30 = 0;
+    v28 = v11;
+    v29 = 0;
   }
 
-  siri::ontology::UsoGraphProtoReader::fromProtobuf(&v28, &v29, v31);
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v23);
+  siri::ontology::UsoGraphProtoReader::fromProtobuf(&v27, &v28, v30);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v22);
   siri::ontology::UsoGraph::prettyPrint();
-  v11 = SNLPOSLoggerForCategory(3);
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = SNLPOSLoggerForCategory(3);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     std::stringbuf::str();
-    v12 = v22 >= 0 ? &__p : __p;
+    v13 = v21 >= 0 ? &__p : __p;
     *buf = 136642819;
-    v33 = v12;
-    _os_log_impl(&dword_22284A000, v11, OS_LOG_TYPE_DEBUG, "Attaching shared entity graph: %{sensitive}s", buf, 0xCu);
-    if (v22 < 0)
+    v32 = v13;
+    _os_log_impl(&dword_22284A000, v12, OS_LOG_TYPE_DEBUG, "Attaching shared entity graph: %{sensitive}s", buf, 0xCu);
+    if (v21 < 0)
     {
       operator delete(__p);
     }
   }
 
-  siri::ontology::UsoGraph::getSuccessors(&__p, *(*(v28 + 11) + 8), *(v28 + 11));
-  if (v21 - __p != 8)
+  siri::ontology::UsoGraph::getSuccessors(&__p, *(*(v27 + 11) + 8), *(v27 + 11));
+  if (v20 - __p != 8)
   {
     v16 = SNLPOSLoggerForCategory(3);
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -79,7 +80,7 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v13 = *__p;
+  v14 = *__p;
   if ((*(**__p + 16))(*__p) != 2)
   {
     v16 = SNLPOSLoggerForCategory(3);
@@ -93,10 +94,9 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v14 = **v13;
   if (v15)
   {
-    siri::ontology::UsoGraph::deepCopyToGraph(v28, v15, graph);
+    siri::ontology::UsoGraph::deepCopyToGraph(v27, v15, graph);
     siri::ontology::UsoGraphNode::setSuccessor();
     goto LABEL_22;
   }
@@ -114,36 +114,34 @@ LABEL_21:
 LABEL_22:
   if (__p)
   {
-    v21 = __p;
+    v20 = __p;
     operator delete(__p);
   }
 
-  v23 = *MEMORY[0x277D82828];
-  *(&v23 + *(v23 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v24 = MEMORY[0x277D82878] + 16;
-  if (v26 < 0)
+  v22 = *MEMORY[0x277D82828];
+  *(&v22 + *(v22 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v23 = MEMORY[0x277D82878] + 16;
+  if (v25 < 0)
   {
-    operator delete(v25[7].__locale_);
+    operator delete(v24[7].__locale_);
   }
 
-  v24 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v25);
+  v23 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v24);
   std::ostream::~ostream();
-  MEMORY[0x223DC4C10](&v27);
-  std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](&v28);
-  if (v30)
+  MEMORY[0x223DC4C10](&v26);
+  std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](&v27);
+  if (v29)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v29);
   }
 
-  v18 = v31;
-  v31 = 0;
+  v18 = v30;
+  v30 = 0;
   if (v18)
   {
     (*(*v18 + 8))(v18);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addPathForLabel:(id)label range:(_NSRange)range text:(id)text semanticValue:(id)value sharedEntityGraph:(id)graph toGraphNode:(UsoGraphNode *)node forGraph:(void *)forGraph
@@ -152,10 +150,9 @@ LABEL_22:
   textCopy = text;
   valueCopy = value;
   graphCopy = graph;
-  ptr = self->_usoVocabManager.__ptr_;
   std::string::basic_string[abi:ne200100]<0>(&__p, [labelCopy UTF8String]);
   siri::ontology::UsoVocabManager::createCustomEdgeName();
-  if (v19 < 0)
+  if (v17 < 0)
   {
     operator delete(__p);
   }
@@ -165,116 +162,112 @@ LABEL_22:
 
 - (void)_insertHigherLevelEntities:(id)entities intoGraph:(void *)graph underTaskNode:(UsoGraphNode *)node
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   [objc_opt_class() _groupHigherLevelEntities:entitiesCopy];
-  v50 = 0u;
-  v51 = 0u;
+  v47 = 0u;
   v48 = 0u;
-  obj = v49 = 0u;
-  v23 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
-  if (v23)
+  v45 = 0u;
+  obj = v46 = 0u;
+  v20 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
+  if (v20)
   {
-    v24 = *v49;
+    v21 = *v46;
     do
     {
-      for (i = 0; i != v23; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v49 != v24)
+        if (*v46 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = *(*(&v48 + 1) + 8 * i);
+        v27 = *(*(&v45 + 1) + 8 * i);
         v5 = [obj objectForKey:?];
-        v46 = 0u;
-        v47 = 0u;
+        v43 = 0u;
         v44 = 0u;
-        v45 = 0u;
-        v29 = v5;
-        v28 = [v29 countByEnumeratingWithState:&v44 objects:v53 count:16];
-        if (v28)
+        v41 = 0u;
+        v42 = 0u;
+        v26 = v5;
+        v25 = [v26 countByEnumeratingWithState:&v41 objects:v50 count:16];
+        if (v25)
         {
-          v27 = *v45;
+          v24 = *v42;
           do
           {
-            for (j = 0; j != v28; ++j)
+            for (j = 0; j != v25; ++j)
             {
-              if (*v45 != v27)
+              if (*v42 != v24)
               {
-                objc_enumerationMutation(v29);
+                objc_enumerationMutation(v26);
               }
 
-              v32 = [v29 objectForKey:*(*(&v44 + 1) + 8 * j)];
-              ptr = self->_usoVocabManager.__ptr_;
-              v43 = 19;
+              v29 = [v26 objectForKey:*(*(&v41 + 1) + 8 * j)];
+              v40 = 19;
               strcpy(__p, "unknownCustomEntity");
               siri::ontology::UsoVocabManager::createCustomEntityName();
-              if (v43 < 0)
+              if (v40 < 0)
               {
                 operator delete(*__p);
               }
 
-              v7 = self->_usoVocabManager.__ptr_;
-              v8 = v30;
-              std::string::basic_string[abi:ne200100]<0>(&v40, [v30 UTF8String]);
+              v6 = v27;
+              std::string::basic_string[abi:ne200100]<0>(&v37, [v27 UTF8String]);
               siri::ontology::UsoVocabManager::createCustomEdgeName();
-              if (v41 < 0)
+              if (v38 < 0)
               {
-                operator delete(v40);
+                operator delete(v37);
               }
 
               EntityNode = siri::ontology::UsoGraph::createEntityNode();
               siri::ontology::UsoGraphNode::setSuccessor();
-              v38 = 0u;
-              v39 = 0u;
+              v35 = 0u;
               v36 = 0u;
-              v37 = 0u;
-              v33 = v32;
-              v10 = [v33 countByEnumeratingWithState:&v36 objects:v52 count:16];
-              if (v10)
+              v33 = 0u;
+              v34 = 0u;
+              v30 = v29;
+              v8 = [v30 countByEnumeratingWithState:&v33 objects:v49 count:16];
+              if (v8)
               {
-                v11 = *v37;
+                v9 = *v34;
                 do
                 {
-                  for (k = 0; k != v10; ++k)
+                  for (k = 0; k != v8; ++k)
                   {
-                    if (*v37 != v11)
+                    if (*v34 != v9)
                     {
-                      objc_enumerationMutation(v33);
+                      objc_enumerationMutation(v30);
                     }
 
-                    v13 = *(*(&v36 + 1) + 8 * k);
-                    higherLevelChildLabel = [v13 higherLevelChildLabel];
-                    range = [v13 range];
-                    v17 = v16;
-                    text = [v13 text];
-                    semanticValue = [v13 semanticValue];
-                    sharedEntityGraph = [v13 sharedEntityGraph];
-                    [(UPUsoSerializer *)self _addPathForLabel:higherLevelChildLabel range:range text:v17 semanticValue:text sharedEntityGraph:semanticValue toGraphNode:sharedEntityGraph forGraph:EntityNode, graph, entitiesCopy];
+                    v11 = *(*(&v33 + 1) + 8 * k);
+                    higherLevelChildLabel = [v11 higherLevelChildLabel];
+                    range = [v11 range];
+                    v15 = v14;
+                    text = [v11 text];
+                    semanticValue = [v11 semanticValue];
+                    sharedEntityGraph = [v11 sharedEntityGraph];
+                    [(UPUsoSerializer *)self _addPathForLabel:higherLevelChildLabel range:range text:v15 semanticValue:text sharedEntityGraph:semanticValue toGraphNode:sharedEntityGraph forGraph:EntityNode, graph, entitiesCopy];
                   }
 
-                  v10 = [v33 countByEnumeratingWithState:&v36 objects:v52 count:16];
+                  v8 = [v30 countByEnumeratingWithState:&v33 objects:v49 count:16];
                 }
 
-                while (v10);
+                while (v8);
               }
             }
 
-            v28 = [v29 countByEnumeratingWithState:&v44 objects:v53 count:16];
+            v25 = [v26 countByEnumeratingWithState:&v41 objects:v50 count:16];
           }
 
-          while (v28);
+          while (v25);
         }
       }
 
-      v23 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+      v20 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
     }
 
-    while (v23);
+    while (v20);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_insertSimpleEntity:(id)entity intoGraph:(void *)graph underTaskNode:(UsoGraphNode *)node
@@ -294,19 +287,19 @@ LABEL_22:
   graphCopy = graph;
   cntrl = self->_usoVocabManager.__cntrl_;
   ptr = self->_usoVocabManager.__ptr_;
-  v44 = cntrl;
+  v41 = cntrl;
   if (cntrl)
   {
     atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
   }
 
-  v42 = 0;
+  v39 = 0;
   if (graphCopy)
   {
-    [graphCopy toCppUsoGraph:&ptr withError:&v42];
-    v6 = v42;
-    cntrl = v44;
-    if (!v44)
+    objc_msgSend_toCppUsoGraph_withError_(graphCopy);
+    v6 = v39;
+    cntrl = v41;
+    if (!v41)
     {
       goto LABEL_6;
     }
@@ -315,7 +308,7 @@ LABEL_22:
   }
 
   v6 = 0;
-  v45 = 0;
+  v42 = 0;
   if (cntrl)
   {
 LABEL_5:
@@ -323,142 +316,138 @@ LABEL_5:
   }
 
 LABEL_6:
-  v7 = *(v45 + 88);
-  v32 = v6;
+  v29 = v6;
   siri::ontology::oname::graph::ontology_init::Argument_task(cntrl);
-  v8 = *(v7 + 8);
   siri::ontology::UsoGraph::getSuccessors();
-  if (v41 == v40)
+  if (v38 == v37)
   {
     std::vector<unsigned long>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v9 = ***v40;
-  if (!v10)
+  if (!v7)
   {
     __cxa_bad_cast();
   }
 
-  v11 = v10;
-  var1 = v10[4].var1;
-  v13 = (var1 + 8);
+  v8 = v7;
+  var1 = v7[4].var1;
+  v10 = (var1 + 8);
   if (*(var1 + 31) < 0)
   {
-    v13 = *v13;
+    v10 = *v10;
   }
 
-  v30 = [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
-  siri::ontology::UsoGraph::getSuccessorsWithEdges(&v38, v11->var1, v11);
-  v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v16 = v38;
-  v15 = v39;
-  if (v38 != v39)
+  v27 = [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
+  siri::ontology::UsoGraph::getSuccessorsWithEdges(&v35, v8->var1, v8);
+  v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v13 = v35;
+  v12 = v36;
+  if (v35 != v36)
   {
     do
     {
-      v17 = *v16;
-      (*(**v16 + 48))(__p, *v16);
-      if ((*(*v17 + 16))(v17) == 2)
+      v14 = *v13;
+      (*(**v13 + 48))(__p, *v13);
+      if ((*(*v14 + 16))(v14) == 2)
       {
-        v18 = v37;
-        if ((v37 & 0x80u) != 0)
+        v15 = v34;
+        if ((v34 & 0x80u) != 0)
         {
-          v18 = __p[1];
+          v15 = __p[1];
         }
 
-        if (v18 == 19)
+        if (v15 == 19)
         {
-          v19 = __p;
-          if ((v37 & 0x80u) != 0)
+          v16 = __p;
+          if ((v34 & 0x80u) != 0)
           {
-            v19 = __p[0];
+            v16 = __p[0];
           }
 
-          v20 = *v19;
-          v21 = v19[1];
-          v22 = *(v19 + 11);
-          if (v20 == 0x436E776F6E6B6E75 && v21 == 0x746E456D6F747375 && v22 == 0x797469746E456D6FLL)
+          v17 = *v16;
+          v18 = v16[1];
+          v19 = *(v16 + 11);
+          if (v17 == 0x436E776F6E6B6E75 && v18 == 0x746E456D6F747375 && v19 == 0x797469746E456D6FLL)
           {
             std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::reference_wrapper<siri::ontology::UsoGraphNode>,std::reference_wrapper<siri::ontology::UsoGraphEdge const>>>>(1uLL);
           }
         }
       }
 
-      v25 = [UPUsoSerializer _leafNodeFromGraphEdge:v16[1] andGraphNode:*v16, v30];
-      [v14 addObject:v25];
+      v22 = [UPUsoSerializer _leafNodeFromGraphEdge:v13[1] andGraphNode:*v13, v27];
+      [v11 addObject:v22];
 
-      if (v37 < 0)
+      if (v34 < 0)
       {
         operator delete(__p[0]);
       }
 
-      v16 += 2;
+      v13 += 2;
     }
 
-    while (v16 != v15);
+    while (v13 != v12);
   }
 
-  v26 = [UPResultRootNode alloc];
-  v34 = 0;
-  v35 = 0;
-  v33 = 0;
-  v27 = [UPUsoSerializer _intermediateNodeRepresentations:&v33, v30];
-  v28 = [(UPResultRootNode *)v26 initWithLabel:v31 intermediateNodes:v27 directLeafNodes:v14];
+  v23 = [UPResultRootNode alloc];
+  v31 = 0;
+  v32 = 0;
+  v30 = 0;
+  v24 = [UPUsoSerializer _intermediateNodeRepresentations:&v30, v27];
+  v25 = [(UPResultRootNode *)v23 initWithLabel:v28 intermediateNodes:v24 directLeafNodes:v11];
 
-  if (v33)
+  if (v30)
   {
-    v34 = v33;
-    operator delete(v33);
+    v31 = v30;
+    operator delete(v30);
   }
 
-  if (v38)
+  if (v35)
   {
-    v39 = v38;
-    operator delete(v38);
+    v36 = v35;
+    operator delete(v35);
   }
 
-  if (v40)
+  if (v37)
   {
-    v41 = v40;
-    operator delete(v40);
+    v38 = v37;
+    operator delete(v37);
   }
 
-  std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](&v45);
+  std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](&v42);
 
-  return v28;
+  return v25;
 }
 
 - (id)serializeFromIntent:(id)intent andEntities:(id)entities forBundleId:(id)id
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   intentCopy = intent;
   entitiesCopy = entities;
   idCopy = id;
-  *(&v17.__r_.__value_.__s + 23) = 19;
-  strcpy(&v17, "unknownCustomEntity");
+  *(&v15.__r_.__value_.__s + 23) = 19;
+  strcpy(&v15, "unknownCustomEntity");
   if ([idCopy length])
   {
-    v10 = [UPUsoSerializer _convertBundleIdToEntity:idCopy];
-    MEMORY[0x223DC46D0](&v17, [v10 UTF8String]);
+    v9 = [UPUsoSerializer _convertBundleIdToEntity:idCopy];
+    MEMORY[0x223DC46D0](&v15, [v9 UTF8String]);
   }
 
-  v11 = intentCopy;
+  v10 = intentCopy;
   std::string::basic_string[abi:ne200100]<0>(__p, [intentCopy UTF8String]);
-  ptr = self->_usoVocabManager.__ptr_;
-  if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v15, v17.__r_.__value_.__l.__data_, v17.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v13, v15.__r_.__value_.__l.__data_, v15.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v15 = v17;
+    v13 = v15;
   }
 
   siri::ontology::UsoVocabManager::createCustomEntityName();
-  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v15.__r_.__value_.__l.__data_);
+    operator delete(v13.__r_.__value_.__l.__data_);
   }
 
   operator new();
@@ -492,48 +481,47 @@ LABEL_6:
 {
   labelCopy = label;
   siri::ontology::oname::graph::ontology_init::Argument_stringValue(labelCopy);
-  v6 = *(node + 1);
   siri::ontology::UsoGraph::getSuccessors();
-  if (v18 == v17)
+  if (v16 == v15)
   {
     std::vector<unsigned long>::__throw_out_of_range[abi:ne200100]();
   }
 
-  std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&__p, (*v17 + 104));
-  if ((v16 & 1) == 0)
+  std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&__p, (*v15 + 104));
+  if ((v14 & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  v7 = MEMORY[0x277CCACA8];
-  v8 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
-  v9 = __p.__r_.__value_.__r.__words[0];
+  v5 = MEMORY[0x277CCACA8];
+  v6 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+  v7 = __p.__r_.__value_.__r.__words[0];
   defaultCStringEncoding = [MEMORY[0x277CCACA8] defaultCStringEncoding];
-  if (v8 >= 0)
+  if (v6 >= 0)
   {
     p_p = &__p;
   }
 
   else
   {
-    p_p = v9;
+    p_p = v7;
   }
 
-  v12 = [v7 stringWithCString:p_p encoding:defaultCStringEncoding];
-  v13 = [[UPResultLeafNode alloc] initWithLabel:labelCopy andText:0 andSemanticValue:v12];
+  v10 = [v5 stringWithCString:p_p encoding:defaultCStringEncoding];
+  v11 = [[UPResultLeafNode alloc] initWithLabel:labelCopy andText:0 andSemanticValue:v10];
 
-  if (v16 == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  if (v14 == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v17)
+  if (v15)
   {
-    v18 = v17;
-    operator delete(v17);
+    v16 = v15;
+    operator delete(v15);
   }
 
-  return v13;
+  return v11;
 }
 
 + (id)_leafNodeFromLabel:(id)label andGraphStringNode:(const void *)node
@@ -579,28 +567,28 @@ LABEL_6:
 
 + (id)_groupHigherLevelEntities:(id)entities
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v4 = entitiesCopy;
-  v5 = [v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
-    v6 = *v24;
+    v6 = *v23;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v24 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * i);
+        v8 = *(*(&v22 + 1) + 8 * i);
         higherLevelParentLabel = [v8 higherLevelParentLabel];
         v10 = [dictionary objectForKey:higherLevelParentLabel];
         v11 = v10 == 0;
@@ -637,13 +625,11 @@ LABEL_6:
         [v19 addObject:v8];
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v5);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -658,47 +644,46 @@ LABEL_6:
     do
     {
       v7 = var0[1];
-      v8 = v7 + 4;
-      if (*(v7 + 55) < 0)
+      v8 = v7 + 32;
+      if (v7[55] < 0)
       {
         v8 = *v8;
       }
 
       v9 = *var0;
       v10 = [MEMORY[0x277CCACA8] stringWithCString:v8 encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
-      v11 = **v9;
-      if (!v12)
+      if (!v11)
       {
         __cxa_bad_cast();
       }
 
-      v13 = v12;
+      v12 = v11;
       array = [MEMORY[0x277CBEB18] array];
-      siri::ontology::UsoGraph::getSuccessorsWithEdges(&v20, v13[1], v13);
-      v16 = v20;
-      v15 = v21;
-      if (v20 != v21)
+      siri::ontology::UsoGraph::getSuccessorsWithEdges(&v19, v12[1], v12);
+      v15 = v19;
+      v14 = v20;
+      if (v19 != v20)
       {
         do
         {
-          v17 = [UPUsoSerializer _leafNodeFromGraphEdge:v16[1] andGraphNode:*v16];
-          [array addObject:v17];
+          v16 = [UPUsoSerializer _leafNodeFromGraphEdge:v15[1] andGraphNode:*v15];
+          [array addObject:v16];
 
-          v16 += 2;
+          v15 += 2;
         }
 
-        while (v16 != v15);
-        v16 = v20;
+        while (v15 != v14);
+        v15 = v19;
       }
 
-      if (v16)
+      if (v15)
       {
-        v21 = v16;
-        operator delete(v16);
+        v20 = v15;
+        operator delete(v15);
       }
 
-      v18 = [[UPResultIntermediateNode alloc] initWithLabel:v10 andLeafNodes:array];
-      [v4 addObject:v18];
+      v17 = [[UPResultIntermediateNode alloc] initWithLabel:v10 andLeafNodes:array];
+      [v4 addObject:v17];
 
       var0 += 2;
     }

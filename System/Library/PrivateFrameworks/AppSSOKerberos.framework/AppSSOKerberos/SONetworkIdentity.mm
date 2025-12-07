@@ -86,7 +86,7 @@
 - (void)evaluateVPNPath:(id)path
 {
   pathCopy = path;
-  v5 = SO_LOG_SONetworkIdentity();
+  v5 = SO_LOG_SONetworkIdentity(pathCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SONetworkIdentity evaluateVPNPath:];
@@ -101,19 +101,19 @@
     [bundleIdentifier2 UTF8String];
     nw_parameters_set_source_application_by_bundle_id();
 
-    memset(v18, 0, sizeof(v18));
+    memset(v19, 0, sizeof(v19));
     auditToken = [(SONetworkIdentity *)self auditToken];
     if (auditToken)
     {
       v10 = auditToken;
       v11 = MEMORY[0x277CEBF10];
       auditToken2 = [(SONetworkIdentity *)self auditToken];
-      LODWORD(v11) = [v11 auditTokenFromData:auditToken2 auditToken:v18];
+      LODWORD(v11) = [v11 auditTokenFromData:auditToken2 auditToken:v19];
 
       if (v11)
       {
-        v13 = SO_LOG_SONetworkIdentity();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v14 = SO_LOG_SONetworkIdentity(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           [SONetworkIdentity evaluateVPNPath:];
         }
@@ -124,9 +124,9 @@
   }
 
   evaluator_for_endpoint = nw_path_create_evaluator_for_endpoint();
-  v15 = nw_path_evaluator_copy_path();
-  v16 = SO_LOG_SONetworkIdentity();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v16 = nw_path_evaluator_copy_path();
+  v17 = SO_LOG_SONetworkIdentity(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     [SONetworkIdentity evaluateVPNPath:];
   }
@@ -139,12 +139,9 @@
 
 - (void)determineNetworkFingerprint
 {
-  v10 = *MEMORY[0x277D85DE8];
   networkFingerprint = [self networkFingerprint];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_24006C000, v2, v3, "VPN signature: %{private}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_24006C000, v2, v3, "VPN signature: %{private}@", v4, v5, v6, v7);
 }
 
 - (id)getVPNServerSignature:(id)signature
@@ -158,7 +155,7 @@
     {
       v7.s_addr = *(vpn_server + 4);
       v8 = inet_ntoa(v7);
-      v9 = SO_LOG_SONetworkIdentity();
+      v9 = SO_LOG_SONetworkIdentity(v8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         [SONetworkIdentity getVPNServerSignature:];
@@ -179,7 +176,7 @@
 - (id)getInterfaceSignature:(id)signature
 {
   signatureCopy = signature;
-  v5 = SO_LOG_SONetworkIdentity();
+  v5 = SO_LOG_SONetworkIdentity(signatureCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SONetworkIdentity getInterfaceSignature:];
@@ -207,7 +204,7 @@
 - (id)getInterfaceFingerprintForDynamicInterface:(const char *)interface
 {
   v40[2] = *MEMORY[0x277D85DE8];
-  v4 = SO_LOG_SONetworkIdentity();
+  v4 = SO_LOG_SONetworkIdentity(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [SONetworkIdentity getInterfaceFingerprintForDynamicInterface:];
@@ -259,61 +256,59 @@
   v31 = v14;
   v32 = &v37;
   v33 = &v34;
-  [(__CFDictionary *)v12 enumerateKeysAndObjectsUsingBlock:&v27];
-  v15 = *(v38[0] + 40);
-  v16 = SO_LOG_SONetworkIdentity();
-  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
-  if (v15)
+  v15 = [(__CFDictionary *)v12 enumerateKeysAndObjectsUsingBlock:&v27];
+  v16 = *(v38[0] + 40);
+  v17 = SO_LOG_SONetworkIdentity(v15);
+  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
+  if (v16)
   {
-    if (v17)
+    if (v18)
     {
-      [(SONetworkIdentity *)v38 getInterfaceFingerprintForDynamicInterface:v35, v16];
+      [(SONetworkIdentity *)v38 getInterfaceFingerprintForDynamicInterface:v35, v17];
     }
 
-    v18 = [*(v38[0] + 40) length];
-    v19 = *(v38[0] + 40);
-    if (v18 < 0x1D)
+    v19 = [*(v38[0] + 40) length];
+    v20 = *(v38[0] + 40);
+    if (v19 < 0x1D)
     {
-      v21 = v19;
+      v22 = v20;
     }
 
     else
     {
-      v20 = [v19 length];
-      v21 = [*(v38[0] + 40) substringWithRange:{23, v20 - 28}];
+      v21 = [v20 length];
+      v22 = [*(v38[0] + 40) substringWithRange:{23, v21 - 28}];
     }
 
-    v16 = v21;
+    v17 = v22;
     if (*(v35[0] + 40))
     {
-      v23 = *(v35[0] + 40);
+      v24 = *(v35[0] + 40);
     }
 
     else
     {
-      v23 = &stru_285206D08;
+      v24 = &stru_285206D08;
     }
 
-    v24 = [v21 stringByAppendingString:v23];
-    v22 = [v24 dataUsingEncoding:4];
+    v25 = [v22 stringByAppendingString:v24];
+    v23 = [v25 dataUsingEncoding:4];
   }
 
   else
   {
-    if (v17)
+    if (v18)
     {
       [SONetworkIdentity getInterfaceFingerprintForDynamicInterface:];
     }
 
-    v22 = 0;
+    v23 = 0;
   }
 
   _Block_object_dispose(&v34, 8);
   _Block_object_dispose(&v37, 8);
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v23;
 }
 
 void __64__SONetworkIdentity_getInterfaceFingerprintForDynamicInterface___block_invoke(void *a1, void *a2, void *a3, _BYTE *a4)
@@ -345,11 +340,9 @@ void __64__SONetworkIdentity_getInterfaceFingerprintForDynamicInterface___block_
 
 - (void)evaluateVPNPath:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)evaluateVPNPath:.cold.2()
@@ -361,20 +354,16 @@ void __64__SONetworkIdentity_getInterfaceFingerprintForDynamicInterface___block_
 
 - (void)evaluateVPNPath:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getVPNServerSignature:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getInterfaceSignature:.cold.1()
@@ -407,24 +396,21 @@ void __64__SONetworkIdentity_getInterfaceFingerprintForDynamicInterface___block_
 
 - (void)getInterfaceFingerprintForDynamicInterface:(os_log_t)log .cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *(*a1 + 40);
   v4 = *(*a2 + 40);
-  v6 = 138543618;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_debug_impl(&dword_24006C000, log, OS_LOG_TYPE_DEBUG, "Using key: %{public}@, Router: %@", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543618;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_debug_impl(&dword_24006C000, log, OS_LOG_TYPE_DEBUG, "Using key: %{public}@, Router: %@", &v5, 0x16u);
 }
 
 - (void)getInterfaceFingerprintForDynamicInterface:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

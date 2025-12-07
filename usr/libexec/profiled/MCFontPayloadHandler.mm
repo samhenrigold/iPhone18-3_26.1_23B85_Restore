@@ -47,7 +47,7 @@ LABEL_20:
       LOBYTE(v24) = 0;
       if (error)
       {
-        *error = [_errorFontInvalid MCCopyAsPrimaryError];
+        *error = objc_msgSend_MCCopyAsPrimaryError(_errorFontInvalid);
       }
     }
 
@@ -251,21 +251,7 @@ LABEL_57:
   [v47 copyItemAtURL:v15 toURL:v21 error:&v87];
   _errorFontInvalid = v87;
 
-  if (_errorFontInvalid)
-  {
-    goto LABEL_56;
-  }
-
-  v75 = +[NSFileManager defaultManager];
-  v92 = NSFileProtectionKey;
-  v93 = NSFileProtectionNone;
-  v72 = [NSDictionary dictionaryWithObjects:&v93 forKeys:&v92 count:1];
-  path2 = [v21 path];
-  v86 = 0;
-  [v75 setAttributes:v72 ofItemAtPath:path2 error:&v86];
-  _errorFontInvalid = v86;
-
-  if (_errorFontInvalid)
+  if (_errorFontInvalid || (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v75 = objc_claimAutoreleasedReturnValue(), v92 = NSFileProtectionKey, v93 = NSFileProtectionNone, +[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &v93, &v92, 1), v72 = objc_claimAutoreleasedReturnValue(), [v21 path], v48 = objc_claimAutoreleasedReturnValue(), v86 = 0, objc_msgSend(v75, "setAttributes:ofItemAtPath:error:", v72, v48, &v86), _errorFontInvalid = v86, v48, v72, v75, _errorFontInvalid))
   {
 LABEL_56:
     v43 = v66;

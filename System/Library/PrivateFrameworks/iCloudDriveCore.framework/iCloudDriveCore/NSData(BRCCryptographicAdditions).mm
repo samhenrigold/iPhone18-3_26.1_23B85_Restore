@@ -18,12 +18,12 @@
 
 - (id)brc_truncatedSHA256
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = [BRCUserDefaults defaultsForMangledID:0];
   validationKeyTruncationLength = [v2 validationKeyTruncationLength];
 
-  memset(v8, 0, sizeof(v8));
-  CC_SHA256([self bytes], objc_msgSend(self, "length"), v8);
+  memset(v7, 0, sizeof(v7));
+  CC_SHA256([self bytes], objc_msgSend(self, "length"), v7);
   if (validationKeyTruncationLength >= 0x20)
   {
     v4 = 32;
@@ -34,8 +34,7 @@
     v4 = validationKeyTruncationLength;
   }
 
-  v5 = [MEMORY[0x277CBEA90] dataWithBytes:v8 length:v4];
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = [MEMORY[0x277CBEA90] dataWithBytes:v7 length:v4];
 
   return v5;
 }
@@ -72,9 +71,9 @@
     +[NSData(BRCCryptographicAdditions) brc_generateBogusKey];
   }
 
-  v1 = brc_generateBogusKey_key;
+  v2 = brc_generateBogusKey_key;
 
-  return v1;
+  return v2;
 }
 
 @end

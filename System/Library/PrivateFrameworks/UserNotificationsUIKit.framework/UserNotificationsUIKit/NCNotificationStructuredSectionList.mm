@@ -420,49 +420,50 @@ void __62__NCNotificationStructuredSectionList_allNotificationRequests__block_in
   else
   {
     v5 = *MEMORY[0x277D77DD0];
-    if (os_log_type_enabled(*MEMORY[0x277D77DD0], OS_LOG_TYPE_FAULT))
+    v6 = os_log_type_enabled(*MEMORY[0x277D77DD0], OS_LOG_TYPE_FAULT);
+    if (v6)
     {
       [(NCNotificationListSupplementaryViewsGroup *)delegate animator];
     }
 
-    animator = NCDefaultAnimator();
+    animator = NCDefaultAnimator(v6);
   }
 
-  v6 = animator;
+  v7 = animator;
 
-  return v6;
+  return v7;
 }
 
 - (id)_collapsedSectionSummaryString
 {
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   notificationGroups = [(NCNotificationStructuredSectionList *)self notificationGroups];
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __69__NCNotificationStructuredSectionList__collapsedSectionSummaryString__block_invoke;
-  v18 = &unk_27836F7F8;
-  v20 = &v21;
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __69__NCNotificationStructuredSectionList__collapsedSectionSummaryString__block_invoke;
+  v19 = &unk_27836F7F8;
+  v21 = &v22;
   v5 = v3;
-  v19 = v5;
-  [notificationGroups enumerateObjectsUsingBlock:&v15];
+  v20 = v5;
+  [notificationGroups enumerateObjectsUsingBlock:&v16];
 
   v6 = [MEMORY[0x277CCAAF0] localizedStringByJoiningStrings:v5];
   v7 = MEMORY[0x277CCABB8];
-  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v22[3]];
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v23[3]];
   v9 = [v7 localizedStringFromNumber:v8 numberStyle:0];
 
   v10 = MEMORY[0x277CCACA8];
-  v11 = NCUserNotificationsUIKitFrameworkBundle();
-  v12 = [v11 localizedStringForKey:@"NOTIFICATION_LIST_STACK_SUMMARY" value:&stru_282FE84F8 table:0];
-  v13 = [v10 stringWithFormat:v12, v9, v6, v15, v16, v17, v18];
+  v12 = NCUserNotificationsUIKitFrameworkBundle(v11);
+  v13 = [v12 localizedStringForKey:@"NOTIFICATION_LIST_STACK_SUMMARY" value:&stru_282FE84F8 table:0];
+  v14 = [v10 stringWithFormat:v13, v9, v6, v16, v17, v18, v19];
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v22, 8);
 
-  return v13;
+  return v14;
 }
 
 uint64_t __69__NCNotificationStructuredSectionList__collapsedSectionSummaryString__block_invoke(uint64_t result, void *a2, unint64_t a3)
@@ -475,14 +476,18 @@ uint64_t __69__NCNotificationStructuredSectionList__collapsedSectionSummaryStrin
     v6 = [v5 leadingNotificationRequest];
 
     v7 = [v6 content];
-    v8 = [v7 defaultHeader];
+    v9 = [v7 defaultHeader];
 
-    if (v8 && ([*(v4 + 32) containsObject:v8] & 1) == 0)
+    if (v9)
     {
-      [*(v4 + 32) addObject:v8];
+      v8 = [*(v4 + 32) containsObject:v9];
+      if ((v8 & 1) == 0)
+      {
+        v8 = [*(v4 + 32) addObject:v9];
+      }
     }
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v8);
   }
 
   return result;
@@ -587,7 +592,7 @@ uint64_t __71__NCNotificationStructuredSectionList_notificationCountIncludingHid
   while (1)
   {
     v7 = v6;
-    if (protocol_isEqual(protocolCopy, *(&conformsToProtocol__defaultProtocols + v5)))
+    if (protocol_isEqual(protocolCopy, conformsToProtocol__defaultProtocols[v5]))
     {
       break;
     }
@@ -1492,7 +1497,7 @@ void __65__NCNotificationStructuredSectionList_itemCountWithExpandedGroup__block
     _os_log_impl(&dword_21E77E000, v34, OS_LOG_TYPE_DEFAULT, v33, v54, v35);
 
 LABEL_21:
-    v22 = [v26 insertNotificationRequest:{requestCopy, *v54, *&v54[16], v55, v56}];
+    v22 = [v26 insertNotificationRequest:{requestCopy, *v54, *&v54[8], v55, v56}];
     listView = [v26 listView];
     isGrouped = [listView isGrouped];
 
@@ -2173,7 +2178,7 @@ void __97__NCNotificationStructuredSectionList_updateNotificationSectionSettings
   return allNotificationGroups;
 }
 
-uint64_t __65__NCNotificationStructuredSectionList_containsNotificationGroup___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__65__NCNotificationStructuredSectionList_containsNotificationGroup___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isEqual:*(a1 + 32)];
   if (result)
@@ -2208,7 +2213,7 @@ uint64_t __65__NCNotificationStructuredSectionList_containsNotificationGroup___b
   return allNotificationGroups;
 }
 
-uint64_t __67__NCNotificationStructuredSectionList_containsNotificationRequest___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__67__NCNotificationStructuredSectionList_containsNotificationRequest___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 containsNotificationRequest:*(a1 + 32)];
   if (result)
@@ -4393,7 +4398,7 @@ void __87__NCNotificationStructuredSectionList__filterNotificationRequestsForSec
   }
 }
 
-void __79__NCNotificationStructuredSectionList__toggleDynamicGroupingIfNecessaryForced___block_invoke(id *a1, void *a2, uint64_t a3)
+void __79__NCNotificationStructuredSectionList__toggleDynamicGroupingIfNecessaryForced___block_invoke(id *a1, void *a2, void *a3)
 {
   v12 = a2;
   v5 = a1[4];
@@ -4795,7 +4800,7 @@ void __89__NCNotificationStructuredSectionList_mergeNotificationGroups_reorderGr
   v11 = [a3 listView];
   [v11 revealPercentage];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_21E77E000, v12, v13, "%{public}@ merged thread '%{public}@' in '%{public}@' is not reveal correctly; isRevealed: %{public}d; revealPercentage: %{public}f", v14, v15, v16, v17, v18);
+  OUTLINED_FUNCTION_1_1(&dword_21E77E000, v12, v13, "%{public}@ merged thread '%{public}@' in '%{public}@' is not reveal correctly; isRevealed: %{public}d; revealPercentage: %{public}f", v14, v15, v16, v17);
 }
 
 - (void)insertNotificationRequest:(void *)a3 .cold.1(void *a1, void *a2, void *a3)
@@ -4809,7 +4814,7 @@ void __89__NCNotificationStructuredSectionList_mergeNotificationGroups_reorderGr
   v10 = [a3 listView];
   [v10 revealPercentage];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_21E77E000, v11, v12, "%{public}@ thread '%{public}@' in '%{public}@' is not reveal correctly; isRevealed: %{public}d; revealPercentage: %{public}f", v13, v14, v15, v16, v17);
+  OUTLINED_FUNCTION_1_1(&dword_21E77E000, v11, v12, "%{public}@ thread '%{public}@' in '%{public}@' is not reveal correctly; isRevealed: %{public}d; revealPercentage: %{public}f", v13, v14, v15, v16);
 }
 
 @end

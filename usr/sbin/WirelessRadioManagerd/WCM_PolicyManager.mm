@@ -22,6 +22,7 @@
 - (void)audioRouteChanged;
 - (void)combineWifiChannelList:(id)list withChannelList:(id)channelList;
 - (void)combineWifiChannelList:(id)list withChannelList:(id)channelList inAllowedChannelSet:(id)set;
+- (void)configureAllWCI2:(BOOL)i2;
 - (void)configureBTAntennaSelection;
 - (void)configureForLTECDRXWiFiTimeSharing;
 - (void)configureTimeSharingWifiChannels;
@@ -34,6 +35,7 @@
 - (void)evaluateULCARestrictions;
 - (void)getPencilCoexCellRatBand:(char *)band band:(unsigned __int16 *)a4;
 - (void)getUpdatedWifiAntennaSelectionEnhConfigsWithbmWifiEnhAntTx000:(unsigned __int16 *)tx000 bmWiFiEnhAntTx001:(unsigned __int16 *)tx001 bmWiFiEnhAntTx010:(unsigned __int16 *)tx010 bmWiFiEnhAntTx011:(unsigned __int16 *)tx011 bmWiFiEnhAntTx100:(unsigned __int16 *)tx100 bmWiFiEnhAntTx101:(unsigned __int16 *)tx101 bmWiFiEnhAntTx110:(unsigned __int16 *)tx110 bmWiFiEnhAntTx111:(unsigned __int16 *)self0 bmWiFiBand:(unsigned __int16 *)self1;
+- (void)handle5GHzHostAPStateEvent:(BOOL)event;
 - (void)handleBTCoexConnectedDevicesEvent_numA2DP:(unint64_t)p numLLA:(unint64_t)a numHID:(unint64_t)d numSCO:(unint64_t)o numeSCO:(unint64_t)cO numLE:(unint64_t)e numLEA:(unint64_t)eA;
 - (void)handleBTCoexStatsEvent_tddCnt:(unsigned int)cnt hybridCnt:(unsigned int)hybridCnt btDurMs:(unsigned int)ms totDurMs:(unsigned int)durMs parallelCnt:(unsigned int)parallelCnt btDurAirMs:(unsigned int)airMs wlrssiCoex:(char)coex btrssiCoex:(char)self0;
 - (void)handleBTCoexWiFiStateEvent:(int)event wifiChannel:(unsigned int)channel;
@@ -44,12 +46,15 @@
 - (void)handleBTScanConfigChange;
 - (void)handleCCConnectionUpdate;
 - (void)handleCallLQMStateChange;
+- (void)handleCallLQMStateChangeType7:(BOOL)type7;
+- (void)handleCallLQMStateChangeType7WiFiEnh:(BOOL)enh;
 - (void)handleCameraStateIndication;
 - (void)handleCellularNetworkUpdate;
 - (void)handleControllerAvailability:(unint64_t)availability;
 - (void)handleFTCall;
 - (void)handleHPCellularSessionEnd;
 - (void)handleHPCellularSessionStart;
+- (void)handleHPCellularStateUpdate:(BOOL)update;
 - (void)handleLeADVePAStateChange;
 - (void)handleLow5GRate:(BOOL)rate forceReset:(BOOL)reset;
 - (void)handleMavCameraStateIndication;
@@ -75,24 +80,42 @@
 - (void)sendNRFrequencyBandUpdateForMic:(double)mic dlHighFreq:(double)freq ulLowFreq:(double)lowFreq ulHighFreq:(double)highFreq;
 - (void)sendRCU2UpdateMessage;
 - (void)sendULFrequencyUpdates:(int64_t)updates ulCenterFreq:(double)freq ulBandwidth:(double)bandwidth;
+- (void)sendWirelessBtLoad:(unsigned int)load;
 - (void)startHomeKitTimer;
 - (void)stopHomeKitTimer;
+- (void)submitWiFiBTCoexMetrics:(unsigned __int16)metrics;
 - (void)submitWifiAntselPolicyStats;
+- (void)updateAWDLState:(BOOL)state;
 - (void)updateAntselPolicyStatsArray:(id)array;
+- (void)updateBTAirplayCriticalState:(BOOL)state;
+- (void)updateBTCatsState:(unsigned __int8)state bitmap:(unint64_t)bitmap band:(int)band desiredBtDc:(int)dc;
+- (void)updateBTConnectedState:(BOOL)state;
+- (void)updateBTPowerState:(BOOL)state;
 - (void)updateBTRCU2TimingArray;
 - (void)updateBTStateChangeToCellular;
+- (void)updateCTSacDriver:(int)driver frequencyToAdd:(id)add frequencyToAddBw:(id)bw frequencytoRemove:(unsigned int)remove client:(unsigned __int8)client;
+- (void)updateCTSacDriverRemoveAllFrequenciesFromClient:(unsigned __int8)client;
 - (void)updateCTSacDriverRemoveAllFromWifiClient;
 - (void)updateCTSacDriverWifiInfo;
+- (void)updateCallStateActive:(BOOL)active;
 - (void)updateCellTxPowerLimit;
 - (void)updateCellularPencilCoex_TriggeredByPowerOnEvent:(BOOL)event;
+- (void)updateClamshellState:(BOOL)state;
+- (void)updateControllerSession:(id)session ofId:(int)id;
 - (void)updateControllerState:(unint64_t)state;
+- (void)updateGPSBandsInfo:(id)info CLUpdate:(BOOL)update;
+- (void)updateGPSRadioActiveState:(BOOL)state;
 - (void)updateGpsbandsInfoForBB;
 - (void)updateGpsbandsInfoForBBv2;
 - (void)updateHPCellularMetric;
 - (void)updateLqmState:(int)state deviceRRCState:(unsigned __int8)cState subscriptionSlot:(int64_t)slot;
+- (void)updateNANState:(BOOL)state;
 - (void)updatePHSWifiChannels;
 - (void)updatePencilCoexActivationCondition;
+- (void)updateThreadRadioState:(BOOL)state;
+- (void)updateWiFiAirplayCriticalState:(BOOL)state;
 - (void)updateWiFiBTConnectionReport;
+- (void)updateWiFiCatsState:(unsigned int)state;
 - (void)updateWiFiChannelForConditionalMitigation;
 - (void)updateWiFiCoexState;
 - (void)updateWiFiRCU1ModeChange;
@@ -103,10 +126,15 @@
 - (void)updateWiFiRCU2PMProtectionMode;
 - (void)updateWiFiRCU2TimingArray;
 - (void)updateWiFiRCU2ULOFDMAStatus;
+- (void)updateWiFiRadioState:(int)state;
 - (void)updateWifiAntennaSelectionV1V2Configs;
 - (void)updateWifiOCLChannelList;
+- (void)updatehostApState:(BOOL)state;
+- (void)wRMCACoexSubmit_AntSelPolicyStates:(unsigned int)states IssueType:(unsigned int)type IsCoexBand:(BOOL)band HasAntConstraint:(BOOL)constraint;
 - (void)wrmCACoexSubmit_BTAFHIssue:(unsigned int)issue issueType:(unsigned int)type;
 - (void)wrmCACoexSubmit_BTAFHMap:(id)map;
+- (void)wrmCACoexSubmit_BTAGCStats:(unsigned int)stats issueType:(unsigned int)type btAGCMode:(int)mode hasIssue:(BOOL)issue;
+- (void)wrmCACoexSubmit_WiFiAGCStats:(unsigned int)stats issueType:(unsigned int)type wifiAGCMode:(int)mode hasIssue:(BOOL)issue;
 @end
 
 @implementation WCM_PolicyManager
@@ -812,13 +840,13 @@ LABEL_79:
     v36 = 0;
   }
 
-  if (unk_1002B8148 != v36 || xmmword_1002B8150 != __PAIR128__(v34, v35) || qword_1002B8160 != v30 || unk_1002B8168 != v33 || xmmword_1002B8170 != __PAIR128__(v31, v32))
+  if (unk_1002B8148 != v36 || unk_1002B8150 != v35 || xmmword_1002B8158 != __PAIR128__(v30, v34) || unk_1002B8168 != v33 || xmmword_1002B8170 != __PAIR128__(v31, v32))
   {
     [WCM_Logging logLevel:2 message:@"updateBTConnectedDevices with numA2DP=%lu, numLLA=%lu, numHID=%lu, numSCO=%lu, numeSCO=%lu, numLE=%lu, numLEA=%lu", getNum2GHzAclA2DPDevices, numLLADevice, numHIDDevice, *(&v47 + 1), v47, numLEDevice, numLEADevice];
     [(WCM_PolicyManager *)self handleBTCoexConnectedDevicesEvent_numA2DP:getNum2GHzAclA2DPDevices numLLA:numLLADevice numHID:numHIDDevice numSCO:*(&v47 + 1) numeSCO:v47 numLE:numLEDevice numLEA:numLEADevice];
     [+[WCM_UCMClientManager WCM_UCMClientManagerSingleton](WCM_UCMClientManager "WCM_UCMClientManagerSingleton")];
     unk_1002B8148 = v50;
-    *(&xmmword_1002B8150 + 8) = v51;
+    xmmword_1002B8158 = v51;
     unk_1002B8168 = v52;
     *(&xmmword_1002B8170 + 1) = v53;
   }
@@ -4106,6 +4134,160 @@ LABEL_11:
   return 0;
 }
 
+- (void)updateClamshellState:(BOOL)state
+{
+  stateCopy = state;
+  if ([(WCM_PolicyManager *)self clamshellState]!= state)
+  {
+    v5 = "off";
+    if (stateCopy)
+    {
+      v5 = "on";
+    }
+
+    [WCM_Logging logLevel:2 message:@"ClamshellState is %s now", v5];
+    [(WCM_PolicyManager *)self setClamshellState:stateCopy];
+    if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
+    {
+      [(WCM_WiFiController *)[(WCM_PolicyManager *)self wifiController] downloadWiFiBTExtCoexProfiles:stateCopy];
+    }
+
+    v6 = +[WCM_PolicyManager singleton];
+
+    [v6 updateControllerState:1000];
+  }
+}
+
+- (void)updateGPSRadioActiveState:(BOOL)state
+{
+  stateCopy = state;
+  if ([(WCM_PolicyManager *)self gpsRadioActive]!= state)
+  {
+    v5 = "inactive";
+    if (stateCopy)
+    {
+      v5 = "active";
+    }
+
+    [WCM_Logging logLevel:1 message:@"GPS is %s now", v5];
+    [(WCM_PolicyManager *)self setGpsRadioActive:stateCopy];
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_1000D9A00;
+    block[3] = &unk_10023DB28;
+    block[4] = self;
+    dispatch_async([+[WCM_Server singleton](WCM_Server "singleton")], block);
+  }
+}
+
+- (void)updateGPSBandsInfo:(id)info CLUpdate:(BOOL)update
+{
+  updateCopy = update;
+  +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 3, @"updateGPSBandsInfo - counts %d %d", [info count], -[NSMutableArray count](-[WCM_PolicyManager gpsBandInfoList](self, "gpsBandInfoList"), "count"));
+  if (updateCopy)
+  {
+    v7 = [[NSSet setWithArray:?], "isEqualToSet:", [NSSet setWithArray:[(WCM_PolicyManager *)self gpsBandInfoList]]];
+    if (!v7)
+    {
+      [(NSMutableArray *)[(WCM_PolicyManager *)self gpsBandInfoList] removeAllObjects];
+      [(WCM_PolicyManager *)self setGpsBandInfoList:info];
+    }
+
+    v8 = v7 ^ 1;
+  }
+
+  else
+  {
+    v7 = 0;
+    v8 = 1;
+  }
+
+  [WCM_Logging logLevel:3 message:@"updateGPSBandsInfo-2 CLUpdate %d updateDriver %d %d", updateCopy, v8, v7];
+  v9 = [(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"CTSacDriverNeedGpsFreq"];
+  v10 = v8 ^ 1;
+  if (((v8 ^ 1) & 1) == 0)
+  {
+    if (v9)
+    {
+      [(WCM_PolicyManager *)self updateCTSacDriverRemoveAllFrequenciesFromClient:2];
+      if ([(NSMutableArray *)[(WCM_PolicyManager *)self gpsBandInfoList] count])
+      {
+        v11 = objc_alloc_init(NSMutableArray);
+        v12 = objc_alloc_init(NSMutableArray);
+        v24 = 0u;
+        v25 = 0u;
+        v26 = 0u;
+        v27 = 0u;
+        gpsBandInfoList = [(WCM_PolicyManager *)self gpsBandInfoList];
+        v14 = [(NSMutableArray *)gpsBandInfoList countByEnumeratingWithState:&v24 objects:v28 count:16];
+        if (v14)
+        {
+          v15 = v14;
+          v16 = *v25;
+          do
+          {
+            v17 = 0;
+            do
+            {
+              if (*v25 != v16)
+              {
+                objc_enumerationMutation(gpsBandInfoList);
+              }
+
+              v18 = *(*(&v24 + 1) + 8 * v17);
+              v22 = 0u;
+              v23 = 0u;
+              [v18 getValue:&v22];
+              [v11 addObject:{+[NSNumber numberWithDouble:](NSNumber, "numberWithDouble:", *(&v22 + 1))}];
+              [v12 addObject:{+[NSNumber numberWithDouble:](NSNumber, "numberWithDouble:", *&v23)}];
+              v17 = v17 + 1;
+            }
+
+            while (v15 != v17);
+            v15 = [(NSMutableArray *)gpsBandInfoList countByEnumeratingWithState:&v24 objects:v28 count:16];
+          }
+
+          while (v15);
+        }
+
+        if ([v11 count])
+        {
+          [(WCM_PolicyManager *)self updateCTSacDriver:1 frequencyToAdd:v11 frequencyToAddBw:v12 frequencytoRemove:0 client:2];
+        }
+
+        [v11 removeAllObjects];
+        [v12 removeAllObjects];
+      }
+    }
+  }
+
+  if ([(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"SacPolicySupport"]&& (([(WCM_SacManager *)self->_sacManager isTestMode]| v10) & 1) == 0)
+  {
+    v19 = [(NSMutableArray *)[(WCM_PolicyManager *)self gpsBandInfoList] copy];
+    getQueue = [(WCM_SacManager *)self->_sacManager getQueue];
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_1000D9E80;
+    block[3] = &unk_10023DC80;
+    block[4] = self;
+    block[5] = v19;
+    dispatch_async(getQueue, block);
+  }
+
+  if ([(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"AntennaTuningForGpsBB20"])
+  {
+    if ([(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"EnhancedCoreLocationGnssBandUse"])
+    {
+      [(WCM_PolicyManager *)self updateGpsbandsInfoForBBv2];
+    }
+
+    else
+    {
+      [(WCM_PolicyManager *)self updateGpsbandsInfoForBB];
+    }
+  }
+}
+
 - (BOOL)isCellularOnGPSIMDBand
 {
   cellularController = [(WCM_PolicyManager *)self cellularController];
@@ -4226,6 +4408,91 @@ LABEL_11:
   {
     return [(WCM_PolicyManager *)self rcu2Controller];
   }
+}
+
+- (void)updateControllerSession:(id)session ofId:(int)id
+{
+  v4 = *&id;
+  [WCM_Logging logLevel:2 message:@"Policy Manager update processId=%d with Controller = %p", *&id, session];
+  if (v4 <= 28)
+  {
+    if (v4 > 2)
+    {
+      if (v4 == 3)
+      {
+        [(WCM_PolicyManager *)self setCellularController:session];
+      }
+
+      else if (v4 == 4)
+      {
+        [(WCM_PolicyManager *)self setBtController:session];
+      }
+    }
+
+    else if (v4 == 1)
+    {
+      if ([(WCM_PolicyManager *)self wifiController])
+      {
+
+        [(WCM_PolicyManager *)self setWifiController:0];
+      }
+
+      if (session)
+      {
+        [(WCM_PolicyManager *)self setWifiController:session];
+      }
+    }
+
+    else if (v4 == 2)
+    {
+      [(WCM_PolicyManager *)self setFtController:session];
+    }
+  }
+
+  else if (v4 <= 30)
+  {
+    if (v4 == 29)
+    {
+      [(WCM_PolicyManager *)self setRcu1Controller:session];
+    }
+
+    else
+    {
+      [(WCM_PolicyManager *)self setRcu2Controller:session];
+    }
+  }
+
+  else
+  {
+    switch(v4)
+    {
+      case 0x1F:
+        [(WCM_PolicyManager *)self setAirplayController:session];
+        break;
+      case 0x26:
+        [(WCM_PolicyManager *)self setP2pAwdlController:session];
+        break;
+      case 0x27:
+        [(WCM_PolicyManager *)self setP2pNanController:session];
+        break;
+    }
+  }
+
+  cellularRc1PolicyManager = self->_cellularRc1PolicyManager;
+  if (cellularRc1PolicyManager)
+  {
+    [(WCM_CellularRc1PolicyManager *)cellularRc1PolicyManager updateControllerSession:session ofId:v4];
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:2 message:@"RC1 Policy Manager failed to update processId=%d with Controller = %p due to nil object", v4, session];
+  }
+
+  [(WCM_PolicyManager *)self handleControllerAvailability:v4];
+  cellularCoexBand = [(WCM_PolicyManager *)self cellularCoexBand];
+
+  [(WCM_PolicyManager *)self updateCoexMonitorState:cellularCoexBand];
 }
 
 - (void)updateControllerState:(unint64_t)state
@@ -4958,6 +5225,71 @@ LABEL_26:
   }
 }
 
+- (void)handleHPCellularStateUpdate:(BOOL)update
+{
+  updateCopy = update;
+  if ([(WCM_PolicyManager *)self isInHpSession]|| !updateCopy)
+  {
+    if ([(WCM_PolicyManager *)self isInHpSession]&& !updateCopy)
+    {
+      [(WCM_PolicyManager *)self handleHPCellularSessionEnd];
+    }
+  }
+
+  else
+  {
+    [(WCM_PolicyManager *)self handleHPCellularSessionStart];
+  }
+
+  [(WCM_PolicyManager *)self setIsInHpSession:updateCopy];
+  v5 = objc_autoreleasePoolPush();
+  if ([(WCM_PolicyManager *)self hpCellNeedMitigation]== updateCopy)
+  {
+    [WCM_Logging logLevel:4 message:@"HPCellular: HPCellularActive=%d, state unchanged. Skip sending indication to BT host.", [(WCM_PolicyManager *)self hpCellNeedMitigation]];
+  }
+
+  else if ([(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"hpcellularstatemonitorsupport"])
+  {
+    [(WCM_PolicyManager *)self setHpCellNeedMitigation:updateCopy];
+    if (_os_feature_enabled_impl())
+    {
+      [WCM_Logging logLevel:4 message:@"HPCellular: Sending indication to BT host for enable/disable"];
+      [(WCM_BTController *)[(WCM_PolicyManager *)self btController] updateHPCellularCoexMode:[(WCM_PolicyManager *)self hpCellNeedMitigation]];
+    }
+
+    else
+    {
+      if ([(WCM_PolicyManager *)self gpsRadioActive])
+      {
+        btPreferredChannelMapOnGpsRadioActive = [(WCM_PolicyManager *)self btPreferredChannelMapOnGpsRadioActive];
+      }
+
+      else
+      {
+        btPreferredChannelMapOnGpsRadioActive = [(WCM_PolicyManager *)self btPreferredChannelMap];
+      }
+
+      btPreferredChannelMapHPCellularActive = btPreferredChannelMapOnGpsRadioActive;
+      if ([(WCM_PolicyManager *)self hpCellNeedMitigation])
+      {
+        btPreferredChannelMapHPCellularActive = [(WCM_PolicyManager *)self btPreferredChannelMapHPCellularActive];
+      }
+
+      [WCM_Logging logLevel:4 message:@"HPCellular (handleHPCellularStateUpdate): HPCellularActive = (%d), set BT AFH map to (%@).", [(WCM_PolicyManager *)self hpCellNeedMitigation], btPreferredChannelMapHPCellularActive];
+      [(WCM_BTController *)[(WCM_PolicyManager *)self btController] updatePreferredAFHMap:btPreferredChannelMapHPCellularActive];
+      [WCM_Logging logLevel:4 message:@"HPCellular: Sending indication to BT host with HPCellular session status as %d.", updateCopy];
+      [(WCM_BTController *)[(WCM_PolicyManager *)self btController] updateHPCellularSessionStatus:[(WCM_PolicyManager *)self hpCellNeedMitigation]];
+    }
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:0 message:@"HPCellular: handleHPCellularStateUpdate gets called but HPCellularStateMonitorSupport feature flag is missing for this device. Not expected.", v8];
+  }
+
+  objc_autoreleasePoolPop(v5);
+}
+
 - (void)updateHPCellularMetric
 {
   [WCM_Logging logLevel:4 message:@"HPCellularCA: Update HPCellular Metric"];
@@ -5024,6 +5356,136 @@ LABEL_26:
     wifiController2 = [(WCM_PolicyManager *)self wifiController];
 
     [(WCM_WiFiController *)wifiController2 updateChannelsToEnableType7MSG2GWiFi:v4];
+  }
+}
+
+- (void)handleCallLQMStateChangeType7:(BOOL)type7
+{
+  type7Copy = type7;
+  if (![(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"BB25ASuppot"])
+  {
+    v5 = [NSMutableArray arrayWithArray:[(WCM_PolicyManager *)self wifi2GHzChannelsToEnableType7MSGCombined]];
+    v6 = [NSMutableArray arrayWithArray:[(WCM_PolicyManager *)self wifi5GHzChannelsToEnableType7MSGCombined]];
+    v7 = [NSMutableArray arrayWithArray:&off_100285EE0];
+    v8 = [NSMutableArray arrayWithArray:&off_100285EF8];
+    callActiveState = [(WCM_PolicyManager *)self callActiveState];
+    dataLqmState = [(WCM_PolicyManager *)self dataLqmState];
+    v17 = v8;
+    if (type7Copy)
+    {
+      type7Copy = [(NSMutableArray *)v5 isEqualToArray:v7];
+      v11 = [(NSMutableArray *)v6 isEqualToArray:v8];
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    v12 = dataLqmState;
+    [WCM_Logging logLevel:4 message:@" handleCallLQMStateChangeType7 : %d %d %d %d ", callActiveState, dataLqmState, type7Copy, v11];
+    v13 = v12 < 50 || callActiveState;
+    v14 = [(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"WiFi5GHzType7NR79AntBlocking"];
+    if (v13 == 1)
+    {
+      if ((v14 & 1) == 0 && ![(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"WiFiType7LTEMBAntBlocking"]&& ![(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"WlanConditionId"])
+      {
+        v15 = @"Combined WiFi bitmap for Type7 MSG (extended from LTEMB Only): callActiveState=%d, lqmCurrent = %d compared to lqmThreshold = %d. Thus using NoProtection instead of Snapshot version: wifi2GHzChannelType7Snapshot=%@, wifi5GHzChannelType7Snapshot=%@, wifi2GHzChannelType7NoProtection=%@, wifi5GHzChannelType7NoProtection=%@, skipIOVARAssert_2GHz=%d, skipIOVARAssert_5GHz=%d";
+        goto LABEL_23;
+      }
+
+      if ((v11 & 1) == 0)
+      {
+        [(WCM_WiFiController *)[(WCM_PolicyManager *)self wifiController] updateChannelsToEnableType7MSG:v17];
+      }
+
+      v15 = @"Combined WiFi bitmap for Type7 MSG (extended from LTEMB Only): callActiveState=%d, lqmCurrent = %d compared to lqmThreshold = %d. Thus using NoProtection instead of Snapshot version: wifi2GHzChannelType7Snapshot=%@, wifi5GHzChannelType7Snapshot=%@, wifi2GHzChannelType7NoProtection=%@, wifi5GHzChannelType7NoProtection=%@, skipIOVARAssert_2GHz=%d, skipIOVARAssert_5GHz=%d";
+      v16 = v7;
+      if (type7Copy)
+      {
+        goto LABEL_23;
+      }
+    }
+
+    else
+    {
+      if ((v14 & 1) == 0 && ![(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"WiFiType7LTEMBAntBlocking"]&& ![(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"WlanConditionId"])
+      {
+        v15 = @"Combined WiFi bitmap for Type7 MSG (extended from LTEMB Only):: callActiveState=%d, lqmCurrent = %d compared to lqmThreshold = %d. Thus using Snapshot version instead of NoProtection version: wifi2GHzChannelType7Snapshot=%@, wifi5GHzChannelType7Snapshot=%@, wifi2GHzChannelType7NoProtection=%@, wifi5GHzChannelType7NoProtection=%@, skipIOVARAssert_2GHz=%d, skipIOVARAssert_5GHz=%d";
+        goto LABEL_23;
+      }
+
+      if ((v11 & 1) == 0)
+      {
+        [(WCM_WiFiController *)[(WCM_PolicyManager *)self wifiController] updateChannelsToEnableType7MSG:v6];
+      }
+
+      v15 = @"Combined WiFi bitmap for Type7 MSG (extended from LTEMB Only):: callActiveState=%d, lqmCurrent = %d compared to lqmThreshold = %d. Thus using Snapshot version instead of NoProtection version: wifi2GHzChannelType7Snapshot=%@, wifi5GHzChannelType7Snapshot=%@, wifi2GHzChannelType7NoProtection=%@, wifi5GHzChannelType7NoProtection=%@, skipIOVARAssert_2GHz=%d, skipIOVARAssert_5GHz=%d";
+      v16 = v5;
+      if (type7Copy)
+      {
+        goto LABEL_23;
+      }
+    }
+
+    [(WCM_WiFiController *)[(WCM_PolicyManager *)self wifiController] updateChannelsToEnableType7MSG2GWiFi:v16];
+LABEL_23:
+    [WCM_Logging logLevel:4 message:v15, callActiveState, v12, 50, v5, v6, v7, v17, type7Copy, v11];
+  }
+}
+
+- (void)handleCallLQMStateChangeType7WiFiEnh:(BOOL)enh
+{
+  enhCopy = enh;
+  if (![(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"BB25ASuppot"])
+  {
+    v5 = [NSMutableArray arrayWithArray:[(WCM_PolicyManager *)self wifi2GHzChannelsToEnableType7MSGCombined]];
+    [(NSMutableArray *)v5 addObjectsFromArray:[(WCM_PolicyManager *)self wifi5GHzChannelsToEnableType7MSGCombined]];
+    v6 = [NSMutableArray arrayWithArray:[(WCM_PolicyManager *)self wifiEnhChannelsToEnableType7MSG]];
+    v7 = [NSMutableArray arrayWithArray:&off_100285F10];
+    v8 = [NSMutableArray arrayWithArray:&off_100285F28];
+    callActiveState = [(WCM_PolicyManager *)self callActiveState];
+    dataLqmState = [(WCM_PolicyManager *)self dataLqmState];
+    if (enhCopy)
+    {
+      enhCopy = [(NSMutableArray *)v5 isEqualToArray:v7];
+      v11 = [(NSMutableArray *)v6 isEqualToArray:v8];
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    [WCM_Logging logLevel:4 message:@"WiFiType7_WiFiEnh: handleCallLQMStateChangeType7Enh: callActiveState=%d, lqmCurrent=%d, skipIOVARAssert_2G5G=%d, skipIOVARAssert_Enh=%d, skipIOVARAssert_Enh=%d", callActiveState, dataLqmState, enhCopy, v11];
+    if ([(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"WiFi5GHzType7NR79AntBlocking"]|| [(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"WiFiType7LTEMBAntBlocking"]|| [(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"Type72GWiFiSupport"]|| [(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"WlanConditionId"])
+    {
+      if ([(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"WiFiEnhCoexSupport"])
+      {
+        v12 = dataLqmState < 50 || callActiveState;
+        if (v12 == 1)
+        {
+          if ((enhCopy & v11 & 1) == 0)
+          {
+            [(WCM_WiFiController *)[(WCM_PolicyManager *)self wifiController] updateChannelsToEnableType7MSGWiFiEnh:v7 WiFiEnhChannels:v8];
+          }
+
+          v13 = @"WiFiType7_WiFiEnh Combined WiFi bitmap for Type7 MSG: callActiveState=%d, lqmCurrent = %d compared to lqmThreshold = %d. Thus using NoProtection instead of Snapshot version: wifi2G5GChannelType7Snapshot=%@, wifiEnhChannelType7Snapshot=%@, wifi2G5GChannelType7NoProtection=%@, wifiEnhChannelType7NoProtection=%@, skipIOVARAssert_2G5G=%d, skipIOVARAssert_Enh=%d";
+        }
+
+        else
+        {
+          if ((enhCopy & v11 & 1) == 0)
+          {
+            [(WCM_WiFiController *)[(WCM_PolicyManager *)self wifiController] updateChannelsToEnableType7MSGWiFiEnh:v5 WiFiEnhChannels:v6];
+          }
+
+          v13 = @"Combined WiFi bitmap for Type7 MSG (extended from LTEMB Only):: callActiveState=%d, lqmCurrent = %d compared to lqmThreshold = %d. Thus using Snapshot version instead of NoProtection version: wifi2G5GChannelType7Snapshot=%@, wifiEnhChannelType7Snapshot=%@, wifi2G5GChannelType7NoProtection=%@, wifiEnhChannelType7NoProtection=%@, skipIOVARAssert_2G5G=%d, skipIOVARAssert_Enh=%d";
+        }
+
+        [WCM_Logging logLevel:4 message:v13, callActiveState, dataLqmState, 50, v5, v6, v7, v8, enhCopy, v11];
+      }
+    }
   }
 }
 
@@ -5672,6 +6134,79 @@ LABEL_29:
     [(WCM_PolicyManager *)self updateWiFiAirplayCriticalState:v6];
 
     [(WCM_PolicyManager *)self updateBTAirplayCriticalState:v6];
+  }
+}
+
+- (void)updateWiFiAirplayCriticalState:(BOOL)state
+{
+  stateCopy = state;
+  if ([(WCM_PolicyManager *)self wifiController]&& [(WCM_WiFiController *)[(WCM_PolicyManager *)self wifiController] powerState])
+  {
+    wifiController = [(WCM_PolicyManager *)self wifiController];
+    mAirplayDuration = [(WCM_AirplayController *)[(WCM_PolicyManager *)self airplayController] mAirplayDuration];
+    mAirplayCriticalityPercentage = [(WCM_AirplayController *)[(WCM_PolicyManager *)self airplayController] mAirplayCriticalityPercentage];
+    getProcessId = [(WCM_Controller *)[(WCM_PolicyManager *)self airplayController] getProcessId];
+
+    [(WCM_WiFiController *)wifiController setCriticalWiFiTraffic:stateCopy duration:mAirplayDuration criticalityPercentage:mAirplayCriticalityPercentage forProcessID:getProcessId];
+  }
+
+  else
+  {
+
+    [WCM_Logging logLevel:2 message:@"WiFi is OFF"];
+  }
+}
+
+- (void)updateBTCatsState:(unsigned __int8)state bitmap:(unint64_t)bitmap band:(int)band desiredBtDc:(int)dc
+{
+  v6 = *&dc;
+  v7 = *&band;
+  stateCopy = state;
+  if ([(WCM_PolicyManager *)self btController])
+  {
+    btController = [(WCM_PolicyManager *)self btController];
+
+    [(WCM_BTController *)btController updateWiFiCatsState:stateCopy bitmap:bitmap band:v7 desiredBtDc:v6];
+  }
+
+  else
+  {
+
+    [WCM_Logging logLevel:2 message:@"BT Controller is not alloc'd"];
+  }
+}
+
+- (void)updateWiFiCatsState:(unsigned int)state
+{
+  v3 = *&state;
+  if ([(WCM_PolicyManager *)self wifiController]&& [(WCM_WiFiController *)[(WCM_PolicyManager *)self wifiController] powerState])
+  {
+    wifiController = [(WCM_PolicyManager *)self wifiController];
+
+    [(WCM_WiFiController *)wifiController setHPovrLEscanGrantDuration:v3];
+  }
+
+  else
+  {
+
+    [WCM_Logging logLevel:2 message:@"WiFi is OFF"];
+  }
+}
+
+- (void)updateBTAirplayCriticalState:(BOOL)state
+{
+  stateCopy = state;
+  if ([(WCM_PolicyManager *)self btController]&& [(WCM_BTController *)[(WCM_PolicyManager *)self btController] powerState])
+  {
+    btController = [(WCM_PolicyManager *)self btController];
+
+    [(WCM_BTController *)btController updateWiFiCriticalEnabled:stateCopy];
+  }
+
+  else
+  {
+
+    [WCM_Logging logLevel:2 message:@"BT is OFF"];
   }
 }
 
@@ -7169,6 +7704,66 @@ LABEL_20:
   [(WCM_PolicyManager *)self handleWiFiConfigChange];
 }
 
+- (void)configureAllWCI2:(BOOL)i2
+{
+  i2Copy = i2;
+  [WCM_Logging logLevel:4 message:@"configureAllWCI2 gets called with input (BOOL)enable =%d", i2];
+  wifiController = [(WCM_PolicyManager *)self wifiController];
+  btController = [(WCM_PolicyManager *)self btController];
+  if (i2Copy)
+  {
+    if ([(WCM_WiFiController *)wifiController powerState])
+    {
+      if ([(WCM_PolicyManager *)self cellularWCI2CoexPolicyBitmap])
+      {
+        [(WCM_PolicyManager *)self refreshWiFiWCI2Bitmap];
+      }
+
+      [(WCM_CellularController *)[(WCM_PolicyManager *)self cellularController] updateWCI2CoexPolicy:[(WCM_PolicyManager *)self cellularWCI2CoexPolicyBitmap]];
+      if ([(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"WiFi5GHzType7NR79AntBlocking"]|| [(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"WiFiType7LTEMBAntBlocking"])
+      {
+        if ([(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"Type72GWiFiSupport"])
+        {
+          [(WCM_PolicyManager *)self combineWifiChannelList:[(WCM_PolicyManager *)self wifi2GHzChannelsToEnableType7MSGCombined] withChannelList:[(WCM_PolicyManager *)self wifi2GHzLTEB7IMD3ChannelsEnableType7] inAllowedChannelSet:&off_100285F40];
+        }
+
+        if ([(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"WiFiEnhCoexSupport"])
+        {
+          [(WCM_PolicyManager *)self handleCallLQMStateChangeType7WiFiEnh:1];
+        }
+
+        else
+        {
+          [(WCM_PolicyManager *)self handleCallLQMStateChangeType7:1];
+        }
+      }
+    }
+
+    if ([(WCM_BTController *)btController getBTState])
+    {
+      if ([(WCM_PolicyManager *)self cellularWCI2CoexPolicyBitmap])
+      {
+        [(WCM_BTController *)btController updateWCI2Mode:1];
+      }
+
+      cellularController = [(WCM_PolicyManager *)self cellularController];
+      cellularWCI2CoexPolicyBitmap = [(WCM_PolicyManager *)self cellularWCI2CoexPolicyBitmap];
+
+      [(WCM_CellularController *)cellularController updateWCI2CoexPolicy:cellularWCI2CoexPolicyBitmap];
+    }
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:4 message:@"updateWCI2CoexPolicy gets called by configureAllWCI2 with input 0 due to (BOOL)enable is False as input to configureAllWCI2"];
+    [(WCM_CellularController *)[(WCM_PolicyManager *)self cellularController] updateWCI2CoexPolicy:0];
+    [(WCM_BTController *)btController powerState];
+    [(WCM_WiFiController *)[(WCM_PolicyManager *)self wifiController] updateChannelsToEnableWCI2:&off_100285F58];
+
+    [WCM_Logging logLevel:4 message:@"AggdRemoval_ Since Aggd related keys ave been disabled on the server side, we will stop submitting metrics to Aggd. (configureAllWCI2)"];
+  }
+}
+
 - (BOOL)isWiFiChannel:(int)channel inChannelMap:(id)map
 {
   v11 = 0u;
@@ -7508,6 +8103,18 @@ LABEL_41:
 LABEL_46:
 }
 
+- (void)submitWiFiBTCoexMetrics:(unsigned __int16)metrics
+{
+  if ([(WCM_WiFiController *)[(WCM_PolicyManager *)self wifiController] powerState])
+  {
+    [(WCM_WiFiController *)[(WCM_PolicyManager *)self wifiController] getWiFiBTSharedAntennaDisabledStatus];
+  }
+
+  btController = [(WCM_PolicyManager *)self btController];
+
+  [(WCM_BTController *)btController powerState];
+}
+
 - (void)handleMedtronicConnection
 {
   [WCM_Logging logLevel:4 message:@"External : In handleMBTConnection; connection status = %d", [(WCM_ExternalAccessory *)self->_extAccessory eaConnection]];
@@ -7586,6 +8193,69 @@ LABEL_12:
   [v13 removeAllObjects];
 }
 
+- (void)updateCTSacDriver:(int)driver frequencyToAdd:(id)add frequencyToAddBw:(id)bw frequencytoRemove:(unsigned int)remove client:(unsigned __int8)client
+{
+  clientCopy = client;
+  v8 = *&remove;
+  driverCopy = driver;
+  [WCM_Logging logLevel:3 message:@"Sac Driver: updateCTSacDriver Operation = %d\n", *&driver];
+  v12 = _CTServerConnectionCreate();
+  _CTServerConnectionGetCommCenterInitializationState();
+  _CTServerConnectionSendBarrier();
+  [WCM_Logging logLevel:0 message:@"Sac Driver: WARNING!!! CommCenter is in a reset state!!"];
+  if (v12)
+  {
+    if ((driverCopy & 2) != 0)
+    {
+      if (v8)
+      {
+        v13 = _CTServerConnectionRemoveVictimFreq();
+        [WCM_Logging logLevel:2 message:@"Sac Driver: Removing frequency %lu for client %d \n", v8, clientCopy, 0, 0, 0, 0, 0];
+        if (HIDWORD(v13))
+        {
+          [WCM_Logging logLevel:0 message:@"Sac Driver:_CTServerConnectionRemoveVictimFreq: error: %d, domain: %d", HIDWORD(v13), v13];
+        }
+      }
+    }
+
+    _CTServerConnectionSendBarrier();
+    if ([add count])
+    {
+      v14 = 0;
+      v15 = 0;
+      v16 = 0;
+      v17 = 0;
+      do
+      {
+        v18 = [objc_msgSend(add objectAtIndex:{v14), "unsignedIntValue"}];
+        [objc_msgSend(bw objectAtIndex:{v14), "unsignedIntValue"}];
+        if ((driverCopy & 1) != 0 && v18)
+        {
+          v16 = _CTServerConnectionAddVictimFreq();
+          v17 = HIDWORD(v16);
+          [WCM_Logging logLevel:2 message:@"Sac Driver: Adding frequency  %d for client %d\n", v18, clientCopy];
+        }
+
+        if (v17)
+        {
+          [WCM_Logging logLevel:0 message:@"Sac Driver:_CTServerConnectionAddVictimFreq: error: %d, domain: %d", v17, v16];
+        }
+
+        v14 = ++v15;
+      }
+
+      while ([add count] > v15);
+    }
+
+    CFRelease(v12);
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:0 message:@"Sac Driver: Unable to create connection to CTServer - may be CommCenter is unloaded?\n"];
+  }
+}
+
 - (void)updateCTSacDriverRemoveAllFromWifiClient
 {
   if ([(WCM_PolicyManager *)self sacWifiFrequency])
@@ -7593,6 +8263,32 @@ LABEL_12:
     [(WCM_PolicyManager *)self updateCTSacDriverRemoveAllFrequenciesFromClient:1];
 
     [(WCM_PolicyManager *)self setSacWifiFrequency:0];
+  }
+}
+
+- (void)updateCTSacDriverRemoveAllFrequenciesFromClient:(unsigned __int8)client
+{
+  clientCopy = client;
+  [WCM_Logging logLevel:3 message:@"Sac Driver: Removing all frequencies"];
+  v4 = _CTServerConnectionCreate();
+  _CTServerConnectionGetCommCenterInitializationState();
+  _CTServerConnectionSendBarrier();
+  [WCM_Logging logLevel:0 message:@"Sac Driver: WARNING!!! CommCenter is in a reset state!!"];
+  if (v4)
+  {
+    v5 = _CTServerConnectionClearVictimFreq();
+    [WCM_Logging logLevel:4 message:@"Sac Driver: Clearning frequency for client %d", clientCopy];
+    if (HIDWORD(v5))
+    {
+      [WCM_Logging logLevel:0 message:@"Sac Driver:_CTServerConnectionRemoveVictimFreq: error: %d, domain: %d", HIDWORD(v5), v5, 0, 0, 0, 0, 0];
+    }
+
+    CFRelease(v4);
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:0 message:@"Sac Driver: Unable to create connection to CTServer - may be CommCenter is unloaded?\n"];
   }
 }
 
@@ -7786,6 +8482,19 @@ LABEL_37:
   }
 }
 
+- (void)updateCallStateActive:(BOOL)active
+{
+  activeCopy = active;
+  [WCM_Logging logLevel:3 message:@"BB20: updateCallStateActive: callActive = %d self.callActive %d", active, [(WCM_PolicyManager *)self callActiveState]];
+  if ([(WCM_PolicyManager *)self callActiveState]!= activeCopy)
+  {
+    [(WCM_PolicyManager *)self setCallActiveState:activeCopy];
+    v5 = +[WCM_PolicyManager singleton];
+
+    [v5 updateControllerState:105];
+  }
+}
+
 - (void)updateLqmState:(int)state deviceRRCState:(unsigned __int8)cState subscriptionSlot:(int64_t)slot
 {
   block[0] = _NSConcreteStackBlock;
@@ -7830,6 +8539,46 @@ LABEL_37:
 
         [mWatchCoexStats updateCABTPreferredMap:map];
       }
+    }
+  }
+}
+
+- (void)wrmCACoexSubmit_BTAGCStats:(unsigned int)stats issueType:(unsigned int)type btAGCMode:(int)mode hasIssue:(BOOL)issue
+{
+  issueCopy = issue;
+  v7 = *&mode;
+  if ([(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"WATCH_COEX_COREANALYTICS_SUPPORT"])
+  {
+    [WCM_Logging logLevel:2 message:@"wrmCACoexSubmit_BTAGCStats"];
+    v10 = +[WCM_CoreAnalyticsService singleton];
+    v11 = [NSString stringWithUTF8String:sub_10000BFB8(stats)];
+    v12 = [NSString stringWithUTF8String:sub_10000BF80(type)];
+    if (v10)
+    {
+      v13 = v12;
+      mWatchCoexStats = [v10 mWatchCoexStats];
+
+      [mWatchCoexStats updateCABTAGCStats:v11 issueType:v13 btAGCMode:v7 hasIssue:issueCopy];
+    }
+  }
+}
+
+- (void)wrmCACoexSubmit_WiFiAGCStats:(unsigned int)stats issueType:(unsigned int)type wifiAGCMode:(int)mode hasIssue:(BOOL)issue
+{
+  issueCopy = issue;
+  v7 = *&mode;
+  if ([(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"WATCH_COEX_COREANALYTICS_SUPPORT"])
+  {
+    [WCM_Logging logLevel:2 message:@"wrmCACoexSubmit_WiFiAGCStats"];
+    v10 = +[WCM_CoreAnalyticsService singleton];
+    v11 = [NSString stringWithUTF8String:sub_10000BFB8(stats)];
+    v12 = [NSString stringWithUTF8String:sub_10000BF80(type)];
+    if (v10)
+    {
+      v13 = v12;
+      mWatchCoexStats = [v10 mWatchCoexStats];
+
+      [mWatchCoexStats updateCAWiFiAGCStats:v11 issueType:v13 wifiAGCMode:v7 hasIssue:issueCopy];
     }
   }
 }
@@ -7927,6 +8676,33 @@ LABEL_14:
   objc_sync_exit(lockObjectWifiAntselPolicyStats);
 }
 
+- (void)wRMCACoexSubmit_AntSelPolicyStates:(unsigned int)states IssueType:(unsigned int)type IsCoexBand:(BOOL)band HasAntConstraint:(BOOL)constraint
+{
+  constraintCopy = constraint;
+  bandCopy = band;
+  v11 = sub_10000BFB8(states);
+  [WCM_Logging logLevel:4 message:@"AntSelPolicyStates: issueBand %s, issueType %s, isCoexBand %d, hasAntConstraint %d", v11, sub_10000BF80(type), bandCopy, constraintCopy];
+  v15[0] = @"IsCoexBand";
+  v16[0] = [NSNumber numberWithBool:bandCopy];
+  v15[1] = @"HasAntConstraint";
+  v16[1] = [NSNumber numberWithBool:constraintCopy];
+  v15[2] = @"IssueBand";
+  v16[2] = [NSString stringWithUTF8String:sub_10000BFB8(states)];
+  v15[3] = @"IssueType";
+  v15[4] = @"count";
+  v16[3] = [NSString stringWithUTF8String:sub_10000BF80(type)];
+  v16[4] = &off_100271688;
+  [(WCM_PolicyManager *)self updateAntselPolicyStatsArray:[NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:5]];
+  +[NSDate timeIntervalSinceReferenceDate];
+  v13 = v12;
+  [(WCM_PolicyManager *)self previousStartTime];
+  if (v13 - v14 > 300.0)
+  {
+    [(WCM_PolicyManager *)self submitWifiAntselPolicyStats];
+    [(WCM_PolicyManager *)self setPreviousStartTime:v13];
+  }
+}
+
 - (void)handleBTCoexWiFiStateEvent:(int)event wifiChannel:(unsigned int)channel
 {
   block[0] = _NSConcreteStackBlock;
@@ -7936,6 +8712,26 @@ LABEL_14:
   eventCopy = event;
   channelCopy = channel;
   dispatch_async([+[WCM_Server singleton](WCM_Server "singleton")], block);
+}
+
+- (void)handle5GHzHostAPStateEvent:(BOOL)event
+{
+  eventCopy = event;
+  if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
+  {
+    v5 = byte_1002B81B6 == eventCopy;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (!v5)
+  {
+    [(WCM_BTController *)[(WCM_PolicyManager *)self btController] update5GHzHostAP:eventCopy];
+    byte_1002B81B6 = eventCopy;
+  }
 }
 
 - (void)handleLow5GRate:(BOOL)rate forceReset:(BOOL)reset
@@ -8091,6 +8887,15 @@ LABEL_15:
   }
 }
 
+- (void)sendWirelessBtLoad:(unsigned int)load
+{
+  v3 = *&load;
+  [WCM_Logging logLevel:2 message:@"sendWirelessBtLoad Load:%u", *&load];
+  v4 = +[WCM_UCMClientManager WCM_UCMClientManagerSingleton];
+
+  [v4 updateWirelessBtLoad:v3];
+}
+
 - (void)startHomeKitTimer
 {
   [WCM_Logging logLevel:2 message:@"startHomeKitTimer"];
@@ -8209,6 +9014,83 @@ LABEL_15:
     leADVePAState = [(WCM_BTController *)[(WCM_PolicyManager *)self btController] leADVePAState];
 
     [(WCM_RadioStateIndicator *)wcmRadioStateIndicator updateBTLeADVePAStateChange:leADVePAState];
+  }
+}
+
+- (void)updateBTConnectedState:(BOOL)state
+{
+  stateCopy = state;
+  if ([(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"COEX_AWARE_CELL_SAR_BUDGET"]&& [(WCM_PolicyManager *)self wcmRadioStateIndicator])
+  {
+    wcmRadioStateIndicator = [(WCM_PolicyManager *)self wcmRadioStateIndicator];
+
+    [(WCM_RadioStateIndicator *)wcmRadioStateIndicator updateBTConnectedState:stateCopy];
+  }
+}
+
+- (void)updateBTPowerState:(BOOL)state
+{
+  stateCopy = state;
+  if ([(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"COEX_AWARE_CELL_SAR_BUDGET"]&& [(WCM_PolicyManager *)self wcmRadioStateIndicator])
+  {
+    wcmRadioStateIndicator = [(WCM_PolicyManager *)self wcmRadioStateIndicator];
+
+    [(WCM_RadioStateIndicator *)wcmRadioStateIndicator updateBTPowerState:stateCopy];
+  }
+}
+
+- (void)updateNANState:(BOOL)state
+{
+  stateCopy = state;
+  if ([(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"COEX_AWARE_CELL_SAR_BUDGET"]&& [(WCM_PolicyManager *)self wcmRadioStateIndicator])
+  {
+    wcmRadioStateIndicator = [(WCM_PolicyManager *)self wcmRadioStateIndicator];
+
+    [(WCM_RadioStateIndicator *)wcmRadioStateIndicator updateNANState:stateCopy];
+  }
+}
+
+- (void)updateWiFiRadioState:(int)state
+{
+  v3 = *&state;
+  if ([(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"COEX_AWARE_CELL_SAR_BUDGET"]&& [(WCM_PolicyManager *)self wcmRadioStateIndicator])
+  {
+    wcmRadioStateIndicator = [(WCM_PolicyManager *)self wcmRadioStateIndicator];
+
+    [(WCM_RadioStateIndicator *)wcmRadioStateIndicator updateWiFiRadioState:v3];
+  }
+}
+
+- (void)updatehostApState:(BOOL)state
+{
+  stateCopy = state;
+  if ([(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"COEX_AWARE_CELL_SAR_BUDGET"]&& [(WCM_PolicyManager *)self wcmRadioStateIndicator])
+  {
+    wcmRadioStateIndicator = [(WCM_PolicyManager *)self wcmRadioStateIndicator];
+
+    [(WCM_RadioStateIndicator *)wcmRadioStateIndicator updatehostApState:stateCopy];
+  }
+}
+
+- (void)updateAWDLState:(BOOL)state
+{
+  stateCopy = state;
+  if ([(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"COEX_AWARE_CELL_SAR_BUDGET"]&& [(WCM_PolicyManager *)self wcmRadioStateIndicator])
+  {
+    wcmRadioStateIndicator = [(WCM_PolicyManager *)self wcmRadioStateIndicator];
+
+    [(WCM_RadioStateIndicator *)wcmRadioStateIndicator updateAWDLState:stateCopy];
+  }
+}
+
+- (void)updateThreadRadioState:(BOOL)state
+{
+  stateCopy = state;
+  if ([(NSSet *)[(WCM_PolicyManager *)self activeCoexFeatures] containsObject:@"COEX_AWARE_CELL_SAR_BUDGET"]&& [(WCM_PolicyManager *)self wcmRadioStateIndicator])
+  {
+    wcmRadioStateIndicator = [(WCM_PolicyManager *)self wcmRadioStateIndicator];
+
+    [(WCM_RadioStateIndicator *)wcmRadioStateIndicator updateThreadRadioState:stateCopy];
   }
 }
 

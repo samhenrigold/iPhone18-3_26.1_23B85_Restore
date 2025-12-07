@@ -37,19 +37,19 @@
 
 - (SHSyncedLyrics)initWithCoder:(id)coder
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   coderCopy = coder;
-  v23[0] = objc_opt_class();
-  v23[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v22[0] = objc_opt_class();
+  v22[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
   v7 = [v4 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"lines"];
 
   v9 = MEMORY[0x277CBEB98];
-  v22[0] = objc_opt_class();
-  v22[1] = objc_opt_class();
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[0] = objc_opt_class();
+  v21[1] = objc_opt_class();
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
   v11 = [v9 setWithArray:v10];
   v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"songwriters"];
 
@@ -67,7 +67,6 @@
     v18->_timeWarp = v17;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -211,30 +210,30 @@
 
 - (id)currentLyricLineForOffset:(double)offset
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   lines = [(SHSyncedLyrics *)self lines];
-  v6 = [lines countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [lines countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       v10 = 0;
       v11 = v8;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(lines);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * v10);
+        v12 = *(*(&v15 + 1) + 8 * v10);
         [(SHSyncedLyrics *)self fireTimeForLine:v12];
         if (v13 > offset)
         {
@@ -249,7 +248,7 @@
       }
 
       while (v7 != v10);
-      v7 = [lines countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [lines countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -265,8 +264,6 @@
   }
 
 LABEL_12:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

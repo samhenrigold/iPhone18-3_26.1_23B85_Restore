@@ -14,17 +14,17 @@
 - (PTMetalTextureUtil)initWithMetalContext:(id)context
 {
   contextCopy = context;
-  v50.receiver = self;
-  v50.super_class = PTMetalTextureUtil;
-  v5 = [(PTMetalTextureUtil *)&v50 init];
+  v55.receiver = self;
+  v55.super_class = PTMetalTextureUtil;
+  v5 = [(PTMetalTextureUtil *)&v55 init];
   if (!v5)
   {
     goto LABEL_20;
   }
 
-  device = [contextCopy device];
+  v6 = objc_msgSend_device(contextCopy);
   device = v5->_device;
-  v5->_device = device;
+  v5->_device = v6;
 
   v5->_supportGPUFamilyApple7 = [contextCopy supportsFamily:1007];
   imageblocksSupported = [contextCopy imageblocksSupported];
@@ -37,32 +37,32 @@
 
     if (!v5->_copy)
     {
-      v11 = _PTLogSystem();
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = _PTLogSystem(v11);
+      if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
 LABEL_19:
 
 LABEL_20:
-        v27 = 0;
+        v32 = 0;
         goto LABEL_21;
       }
 
 LABEL_5:
-      [(PTMetalTextureUtil *)v11 initWithMetalContext:v12, v13, v14, v15, v16, v17, v18];
+      [(PTMetalTextureUtil *)v12 initWithMetalContext:v13, v14, v15, v16, v17, v18, v19];
       goto LABEL_19;
     }
   }
 
   else
   {
-    v19 = [contextCopy computePipelineStateFor:@"copyNoImageblocks" withConstants:0];
-    v20 = v5->_copy;
-    v5->_copy = v19;
+    v20 = [contextCopy computePipelineStateFor:@"copyNoImageblocks" withConstants:0];
+    v21 = v5->_copy;
+    v5->_copy = v20;
 
     if (!v5->_copy)
     {
-      v11 = _PTLogSystem();
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = _PTLogSystem(v22);
+      if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_19;
       }
@@ -71,55 +71,55 @@ LABEL_5:
     }
   }
 
-  v21 = [contextCopy computePipelineStateFor:@"multiply" withConstants:0];
+  v23 = [contextCopy computePipelineStateFor:@"multiply" withConstants:0];
   multiply = v5->_multiply;
-  v5->_multiply = v21;
+  v5->_multiply = v23;
 
   if (!v5->_multiply)
   {
-    v11 = _PTLogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = _PTLogSystem(v25);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(PTMetalTextureUtil *)v11 initWithMetalContext:v28, v29, v30, v31, v32, v33, v34];
+      [(PTMetalTextureUtil *)v12 initWithMetalContext:v33, v34, v35, v36, v37, v38, v39];
     }
 
     goto LABEL_19;
   }
 
-  v23 = [contextCopy computePipelineStateFor:@"mix" withConstants:0];
+  v26 = [contextCopy computePipelineStateFor:@"mix" withConstants:0];
   mix = v5->_mix;
-  v5->_mix = v23;
+  v5->_mix = v26;
 
   if (!v5->_mix)
   {
-    v11 = _PTLogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = _PTLogSystem(v28);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(PTMetalTextureUtil *)v11 initWithMetalContext:v35, v36, v37, v38, v39, v40, v41];
+      [(PTMetalTextureUtil *)v12 initWithMetalContext:v40, v41, v42, v43, v44, v45, v46];
     }
 
     goto LABEL_19;
   }
 
-  v25 = [contextCopy computePipelineStateFor:@"resample420To444" withConstants:0];
+  v29 = [contextCopy computePipelineStateFor:@"resample420To444" withConstants:0];
   resample420To444 = v5->_resample420To444;
-  v5->_resample420To444 = v25;
+  v5->_resample420To444 = v29;
 
   if (!v5->_resample420To444)
   {
-    v11 = _PTLogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = _PTLogSystem(v31);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(PTMetalTextureUtil *)v11 initWithMetalContext:v42, v43, v44, v45, v46, v47, v48];
+      [(PTMetalTextureUtil *)v12 initWithMetalContext:v47, v48, v49, v50, v51, v52, v53];
     }
 
     goto LABEL_19;
   }
 
-  v27 = v5;
+  v32 = v5;
 LABEL_21:
 
-  return v27;
+  return v32;
 }
 
 - (id)createWithWidth:(unint64_t)width height:(unint64_t)height pixelFormat:(unint64_t)format mipmapLevelCount:(unint64_t)count
@@ -190,10 +190,10 @@ LABEL_21:
 
   if (!computeCommandEncoder)
   {
-    v13 = _PTLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = _PTLogSystem(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(PTRaytracingUtils *)v13 disparityApplyPostModifier:v14 inDisparity:v15 outDisparity:v16 postModifier:v17, v18, v19, v20];
+      [(PTRaytracingUtils *)v14 disparityApplyPostModifier:v15 inDisparity:v16 outDisparity:v17 postModifier:v18, v19, v20, v21];
     }
   }
 
@@ -208,17 +208,17 @@ LABEL_21:
   [computeCommandEncoder setTexture:outTexCopy atIndex:1];
   if (v11)
   {
-    [(PTImageblockConfig *)v11 threads];
-    [(PTImageblockConfig *)v11 threadsPerGroup];
+    objc_msgSend_threads(v11);
+    objc_msgSend_threadsPerGroup(v11);
   }
 
   else
   {
+    memset(v24, 0, sizeof(v24));
     memset(v23, 0, sizeof(v23));
-    memset(v22, 0, sizeof(v22));
   }
 
-  [computeCommandEncoder dispatchThreads:v23 threadsPerThreadgroup:v22];
+  [computeCommandEncoder dispatchThreads:v24 threadsPerThreadgroup:v23];
   [computeCommandEncoder endEncoding];
 
   return 0;
@@ -232,7 +232,7 @@ LABEL_21:
   computeCommandEncoder = [multiply computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v12 = _PTLogSystem();
+    v12 = _PTLogSystem(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v12 disparityApplyPostModifier:v13 inDisparity:v14 outDisparity:v15 postModifier:v16, v17, v18, v19];
@@ -267,7 +267,7 @@ LABEL_21:
   computeCommandEncoder = [mix computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v15 = _PTLogSystem();
+    v15 = _PTLogSystem(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v15 disparityApplyPostModifier:v16 inDisparity:v17 outDisparity:v18 postModifier:v19, v20, v21, v22];
@@ -335,6 +335,34 @@ LABEL_21:
   }
 
   return v6;
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_copy";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_resample420To444";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_mix";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_multiply";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -1,229 +1,3 @@
-void Nightingale::slidingWindowBaseLuna::getSlidingWindowCAOut(Nightingale::slidingWindowBaseLuna *this)
-{
-  *(this + 65) = *(this + 66);
-  __p[0] = 0;
-  __p[1] = 0;
-  v10 = 0;
-  v2 = *(this + 20);
-  v3 = *(this + 21);
-  if (v2 == v3)
-  {
-    v7 = 0.0;
-  }
-
-  else
-  {
-    v4 = 0;
-    do
-    {
-      v5 = *v2;
-      v6 = v2[1];
-      if ((v6 - *v2) >= 0x19)
-      {
-        std::vector<float>::push_back[abi:nn200100](__p, v5 + 7);
-        v5 = *v2;
-        v6 = v2[1];
-      }
-
-      if (v6 != v5)
-      {
-        v4 += *v5;
-      }
-
-      v2 += 3;
-    }
-
-    while (v2 != v3);
-    v7 = v4 + v4;
-    if (__p[0] != __p[1])
-    {
-      Nightingale::removeNANFromVector(__p);
-      if (__p[0] != __p[1])
-      {
-        std::__sort<std::__less<float,float> &,float *>();
-        *(this + 63) = Nightingale::getPercentile(__p, 0, 0.5);
-      }
-    }
-  }
-
-  v8 = 0.0;
-  if (v7 <= (-1431655765 * ((*(this + 21) - *(this + 20)) >> 3)))
-  {
-    v8 = 1.0;
-  }
-
-  *(this + 61) = v8;
-  if (*(this + 232) == 1)
-  {
-    *(this + 62) = *(this + 56);
-  }
-
-  if (__p[0])
-  {
-    __p[1] = __p[0];
-    operator delete(__p[0]);
-  }
-}
-
-void *Nightingale::slidingWindowHistLuna::slidingWindowHistLuna(uint64_t a1, uint64_t a2)
-{
-  result = Nightingale::slidingWindowBaseLuna::slidingWindowBaseLuna(a1, a2);
-  *result = &unk_2869C60D8;
-  return result;
-}
-
-{
-  result = Nightingale::slidingWindowBaseLuna::slidingWindowBaseLuna(a1, a2);
-  *result = &unk_2869C60D8;
-  return result;
-}
-
-uint64_t Nightingale::slidingWindowDayStreamLuna::slidingWindowDayStreamLuna(uint64_t a1, uint64_t a2)
-{
-  v3 = Nightingale::slidingWindowBaseLuna::slidingWindowBaseLuna(a1, a2);
-  *v3 = &unk_2869C6128;
-  Nightingale::slidingWindowDayStreamLuna::setSlidingWinConfig(v3);
-  return a1;
-}
-
-{
-  v3 = Nightingale::slidingWindowBaseLuna::slidingWindowBaseLuna(a1, a2);
-  *v3 = &unk_2869C6128;
-  Nightingale::slidingWindowDayStreamLuna::setSlidingWinConfig(v3);
-  return a1;
-}
-
-double Nightingale::slidingWindowDayStreamLuna::setSlidingWinConfig(Nightingale::slidingWindowDayStreamLuna *this)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  *(this + 5) = 0x500000007;
-  v4 = xmmword_25895110C;
-  v5 = 1050337608;
-  std::vector<float>::__assign_with_size[abi:nn200100]<float const*,float const*>(this + 6, &v4, v6, 5uLL);
-  *(this + 72) = 0;
-  *(this + 19) = 3;
-  *(this + 10) = 0x3F3AE1483F09E83ELL;
-  *(this + 44) = 257;
-  *(this + 23) = 1058139013;
-  *(this + 12) = 0x300000002;
-  *(this + 27) = 1058139013;
-  *&result = 0x100000001;
-  *(this + 14) = 0x100000001;
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t Nightingale::slidingWindowDayStreamLuna::getSliceCenterOffsetRange(uint64_t this)
-{
-  v1 = *(this + 32);
-  v2 = *(v1 + 28) - (*(this + 44) + *v1);
-  *(this + 128) = v2;
-  *(this + 132) = 1;
-  v3 = *(this + 76);
-  *(this + 120) = v2 - v3 + 1;
-  *(this + 124) = 1;
-  if (*(v1 + 12) == 1)
-  {
-    v4 = *(v1 + 8) + -13.0;
-    if ((*(this + 140) & 1) == 0)
-    {
-      *(this + 140) = 1;
-    }
-
-    *(this + 136) = v4;
-  }
-
-  *(this + 144) = v3;
-  *(this + 148) = 1;
-  return this;
-}
-
-double Nightingale::slidingWindowDayStreamLuna::applyAlgorithm(uint64_t a1, uint64_t *a2)
-{
-  Nightingale::slidingWindowBaseLuna::findRollingOfRolling(a1, a2, *(a1 + 88), *(a1 + 76) - 1, 0, 1, &v4);
-  result = *&v4;
-  *(a1 + 216) = v4;
-  *(a1 + 232) = v5;
-  return result;
-}
-
-uint64_t Nightingale::slidingWindowDayStreamLuna::checkNumContinuousSlicesFailAvailabilityOverThreshold(Nightingale::slidingWindowDayStreamLuna *this)
-{
-  if (*(this + 148) != 1)
-  {
-    return 0;
-  }
-
-  v1 = *(this + 20);
-  v2 = *(this + 21);
-  if (v1 == v2)
-  {
-    return 0;
-  }
-
-  v3 = 0;
-  while (1)
-  {
-    if (**v1 != 1)
-    {
-      LODWORD(v2) = 0;
-      v4 = 1;
-      return v4 & v2;
-    }
-
-    if (++v3 >= *(this + 36))
-    {
-      break;
-    }
-
-    v1 += 3;
-    if (v1 == v2)
-    {
-      v4 = 0;
-      return v4 & v2;
-    }
-  }
-
-  v4 = 1;
-  LODWORD(v2) = 1;
-  return v4 & v2;
-}
-
-uint64_t Nightingale::slidingWindowDayStreamLuna::validateResults(uint64_t a1, uint64_t a2)
-{
-  if (*(a2 + 16) != 1)
-  {
-    return 0;
-  }
-
-  if (*(a1 + 124))
-  {
-    v3 = *(a1 + 32);
-    if (*(v3 + 12))
-    {
-      v7 = Nightingale::passLutealPhaseCheck((*(a1 + 120) + *a2), *(v3 + 8), *(a1 + 112));
-      std::vector<BOOL>::push_back(a1 + 192, &v7);
-      return v7;
-    }
-  }
-
-  v6 = std::__throw_bad_optional_access[abi:nn200100]();
-  return Nightingale::slidingWindowDayStreamLuna::getSlidingWindowCAOut(v6);
-}
-
-uint64_t Nightingale::slidingWindowDayStreamLuna::getSlidingWindowCAOut(Nightingale::slidingWindowDayStreamLuna *this)
-{
-  *(this + 65) = *(this + 66);
-  if (*(this + 232) == 1)
-  {
-    *(this + 62) = Nightingale::getLogit(this, *(this + 57));
-  }
-
-  result = (*(*this + 56))(this);
-  *(this + 256) = result ^ 1;
-  return result;
-}
-
 uint64_t Nightingale::slidingWindowBaseLuna::computeFwEndConfirmationFailureReason(Nightingale::slidingWindowBaseLuna *this)
 {
   if ((*(this + 232) & 1) == 0)
@@ -337,11 +111,11 @@ LABEL_19:
 
 Nightingale::slidingWindowBaseLuna::slidingWinConfigStruct *Nightingale::slidingWindowBaseLuna::slidingWinConfigStruct::slidingWinConfigStruct(Nightingale::slidingWindowBaseLuna::slidingWinConfigStruct *this)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   *this = 0x500000007;
-  v4 = xmmword_25895119C;
-  v5 = 1050337608;
-  std::vector<float>::vector[abi:nn200100](this + 1, &v4, 5uLL);
+  v3 = xmmword_25895119C;
+  v4 = 1050337608;
+  std::vector<float>::vector[abi:nn200100](this + 1, &v3, 5uLL);
   *(this + 32) = 0;
   *(this + 9) = 5;
   *(this + 5) = 0x3F3AE1483F0A3D71;
@@ -350,11 +124,10 @@ Nightingale::slidingWindowBaseLuna::slidingWinConfigStruct *Nightingale::sliding
   *(this + 7) = 0x500000003;
   *(this + 17) = 1058139013;
   *(this + 9) = 0x100000001;
-  v2 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-uint64_t std::vector<std::vector<float>>::__init_with_size[abi:nn200100]<std::vector<float>*,std::vector<float>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<float>>::__init_with_size[abi:nn200100]<std::vector<float>*,std::vector<float>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -364,7 +137,7 @@ uint64_t std::vector<std::vector<float>>::__init_with_size[abi:nn200100]<std::ve
   return result;
 }
 
-void std::vector<std::vector<float>>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<float>>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -437,7 +210,7 @@ uint64_t std::__count_BOOL[abi:nn200100]<true,std::vector<BOOL>,false>(uint64_t 
   return v5;
 }
 
-void *std::vector<float>::__assign_with_size[abi:nn200100]<float const*,float const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<float>::__assign_with_size[abi:nn200100]<float const*,float const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -509,8 +282,7 @@ void *std::vector<float>::__assign_with_size[abi:nn200100]<float const*,float co
       {
         v16 = *v13;
         v13 += 4;
-        *v15 = v16;
-        v15 += 4;
+        *v15++ = v16;
         v14 += 4;
       }
 
@@ -574,7 +346,7 @@ void Nightingale::ngtProjector::~ngtProjector(Nightingale::ngtProjector *this)
   Nightingale::structDLIn_hr::~structDLIn_hr((this + 128));
 }
 
-void Nightingale::ngtProjector::projector(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
+void Nightingale::ngtProjector::projector(uint64_t a1, uint64_t a2, void **a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   Nightingale::periodEstimatorAggregation::periodEstimatorAggregation(v68);
   Nightingale::periodEstimatorCalendarWithEnd::periodEstimatorCalendarWithEnd(v67, *(a1 + 112));
@@ -609,7 +381,7 @@ void Nightingale::ngtProjector::projector(uint64_t a1, uint64_t a2, uint64_t a3,
     }
   }
 
-  Nightingale::ngtProjector::get1stFwCompletePeriodProj(a1, a5, v38);
+  Nightingale::ngtProjector::get1stFwCompletePeriodProj(v38, a1, a5);
   v16 = v54;
   *(a1 + 32) = v53;
   *(a1 + 48) = v16;
@@ -719,10 +491,10 @@ void Nightingale::ngtProjector::projector(uint64_t a1, uint64_t a2, uint64_t a3,
       }
     }
 
-    Nightingale::ngtProjector::getDerivedFwProjs(v46, &v56[3], &v62);
-    Nightingale::ngtProjector::getDerivedFwProjs(v39, v56, v37);
+    Nightingale::ngtProjector::getDerivedFwProjs(&v62, v46, &v56[3]);
+    Nightingale::ngtProjector::getDerivedFwProjs(v37, v39, v56);
     Nightingale::ngtProjector::constructSurfacedFwProjs(v38, &v62, v37, v14, &v35);
-    std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:nn200100]<std::__wrap_iter<Nightingale::ngt_Prediction*>,std::__wrap_iter<Nightingale::ngt_Prediction*>>(a3, *(a3 + 8), v35, v36, 0x4EC4EC4EC4EC4EC5 * ((v36 - v35) >> 3));
+    std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:nn200100]<std::__wrap_iter<Nightingale::ngt_Prediction*>,std::__wrap_iter<Nightingale::ngt_Prediction*>>(a3, a3[1], v35, v36, 0x4EC4EC4EC4EC4EC5 * ((v36 - v35) >> 3));
     if (v35)
     {
       v36 = v35;
@@ -762,13 +534,13 @@ void Nightingale::ngtProjector::projector(uint64_t a1, uint64_t a2, uint64_t a3,
   v32 = *a3;
   if (*a3)
   {
-    *(a3 + 8) = v32;
+    a3[1] = v32;
     operator delete(v32);
     v32 = v56[0];
   }
 
   *a3 = *&v56[3];
-  *(a3 + 16) = v56[5];
+  a3[2] = v56[5];
   memset(&v56[3], 0, 24);
   if (v32)
   {
@@ -779,7 +551,7 @@ void Nightingale::ngtProjector::projector(uint64_t a1, uint64_t a2, uint64_t a3,
   if (a5)
   {
     Nightingale::ngtProjector::getCaContent(a1, v38, v29, v30, a6);
-    if (*a3 == *(a3 + 8))
+    if (*a3 == a3[1])
     {
       *(a6 + 232) = 4;
     }
@@ -867,7 +639,7 @@ void Nightingale::ngtProjector::get1stPeriodProjInPeriodNow(Nightingale::periodE
     v7 = v10;
     if (*(&v10 + 1) != v10)
     {
-      std::vector<int>::__vallocate[abi:nn200100](a3 + 80, (*(&v10 + 1) - v10) >> 2);
+      std::vector<int>::__vallocate[abi:nn200100]((a3 + 80), (*(&v10 + 1) - v10) >> 2);
     }
 
     *(a3 + 104) = v12[0];
@@ -970,8 +742,8 @@ void Nightingale::ngtProjector::periodEstimationOutStruct2NgtPrediction(uint64_t
     if ((*(a4 + 80) & 1) == 0)
     {
 LABEL_12:
-      v19 = std::__throw_bad_optional_access[abi:nn200100]();
-      std::vector<Nightingale::ngt_Prediction>::push_back[abi:nn200100](v19);
+      std::__throw_bad_optional_access[abi:nn200100]();
+      std::vector<Nightingale::ngt_Prediction>::push_back[abi:nn200100](v19, v20);
       return;
     }
 
@@ -1063,26 +835,26 @@ void std::vector<Nightingale::ngt_Prediction>::push_back[abi:nn200100](uint64_t 
   *(a1 + 8) = v11;
 }
 
-double Nightingale::ngtProjector::get1stFwCompletePeriodProj@<D0>(Nightingale::ngtProjector *this@<X0>, int a2@<W2>, uint64_t a3@<X8>)
+double Nightingale::ngtProjector::get1stFwCompletePeriodProj@<D0>(uint64_t *__return_ptr a1@<X8>, Nightingale::ngtProjector *this@<X0>, uint64_t a3@<X2>)
 {
-  Nightingale::ngtProjector::compute1stFWPeriodStart(this, a2, a3);
-  if (!Nightingale::CGradient::get_vGrad_empty((a3 + 200)))
+  Nightingale::ngtProjector::compute1stFWPeriodStart(this, a3, a1);
+  if (!Nightingale::CGradient::get_vGrad_empty((a1 + 25)))
   {
-    Nightingale::periodEstimatorCalendarWithEnd::getPeriodEndProjection(*(*(this + 12) + 8) - 96, (a3 + 200), &v9);
-    v8 = *(a3 + 280);
-    if (v8)
+    Nightingale::periodEstimatorCalendarWithEnd::getPeriodEndProjection(*(*(this + 12) + 8) - 96, (a1 + 25), &v7);
+    v6 = a1[35];
+    if (v6)
     {
-      *(a3 + 288) = v8;
-      operator delete(v8);
+      a1[36] = v6;
+      operator delete(v6);
     }
 
-    *(a3 + 280) = v9;
-    *(a3 + 296) = v10;
-    *(a3 + 304) = v11[0];
-    *(a3 + 313) = *(v11 + 9);
-    result = v12[0];
-    *(a3 + 336) = *v12;
-    *(a3 + 349) = *(&v12[1] + 5);
+    *(a1 + 35) = v7;
+    a1[37] = v8;
+    *(a1 + 19) = v9[0];
+    *(a1 + 313) = *(v9 + 9);
+    result = v10[0];
+    *(a1 + 21) = *v10;
+    *(a1 + 349) = *(&v10[1] + 5);
   }
 
   return result;
@@ -1110,7 +882,7 @@ void Nightingale::ngtProjector::getDerivedPeriodProjs(uint64_t a1@<X0>, uint64_t
   Nightingale::periodEstimatorAggregation::deriveRestPeriodProjs(*(a1 + 112), a2 + 200, *(a1 + 96), a3, 2, (v11 | adjusted) & 1, v11, &v18);
   if ((a4 + 24) != &v18)
   {
-    std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__assign_with_size[abi:nn200100]<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*>(a4 + 24, v18, v19, 0xCCCCCCCCCCCCCCCDLL * ((v19 - v18) >> 5));
+    std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__assign_with_size[abi:nn200100]<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*>((a4 + 24), v18, v19, 0xCCCCCCCCCCCCCCCDLL * ((v19 - v18) >> 5));
   }
 
   v16 = 0uLL;
@@ -1247,11 +1019,11 @@ void Nightingale::ngtProjector::constructSurfacedPeriodProjs(uint64_t a1@<X0>, u
   }
 }
 
-void Nightingale::ngtProjector::getDerivedFwProjs(Nightingale::CGradient *this@<X2>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void Nightingale::ngtProjector::getDerivedFwProjs(const void **__return_ptr a1@<X8>, Nightingale::CGradient *this@<X2>, uint64_t *a3@<X1>)
 {
-  *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (*(this + 76) == 1)
   {
     v6 = *(this + 18);
@@ -1280,9 +1052,9 @@ void Nightingale::ngtProjector::getDerivedFwProjs(Nightingale::CGradient *this@<
     }
   }
 
-  v9 = *a2;
-  v10 = a2[1];
-  if (*a2 != v10)
+  v9 = *a3;
+  v10 = a3[1];
+  if (*a3 != v10)
   {
     v11 = 0;
     v12 = roundf(v6);
@@ -1335,17 +1107,17 @@ LABEL_20:
         v16 = 0x100000000;
       }
 
-      v19 = *(a3 + 8);
-      v18 = *(a3 + 16);
+      v19 = a1[1];
+      v18 = a1[2];
       if (v19 >= v18)
       {
-        v21 = (v19 - *a3) >> 3;
+        v21 = (v19 - *a1) >> 3;
         if ((v21 + 1) >> 61)
         {
           std::string::__throw_length_error[abi:nn200100]();
         }
 
-        v22 = v18 - *a3;
+        v22 = v18 - *a1;
         v23 = v22 >> 2;
         if (v22 >> 2 <= (v21 + 1))
         {
@@ -1364,19 +1136,19 @@ LABEL_20:
 
         if (v24)
         {
-          std::__allocate_at_least[abi:nn200100]<std::allocator<std::optional<float>>>(a3, v24);
+          std::__allocate_at_least[abi:nn200100]<std::allocator<std::optional<float>>>(a1, v24);
         }
 
         v25 = (8 * v21);
         *v25 = v16 | v15 | (v11 << 8);
-        v20 = 8 * v21 + 8;
-        v26 = *(a3 + 8) - *a3;
+        v20 = (8 * v21 + 8);
+        v26 = a1[1] - *a1;
         v27 = v25 - v26;
-        memcpy(v25 - v26, *a3, v26);
-        v28 = *a3;
-        *a3 = v27;
-        *(a3 + 8) = v20;
-        *(a3 + 16) = 0;
+        memcpy(v25 - v26, *a1, v26);
+        v28 = *a1;
+        *a1 = v27;
+        a1[1] = v20;
+        a1[2] = 0;
         if (v28)
         {
           operator delete(v28);
@@ -1386,10 +1158,10 @@ LABEL_20:
       else
       {
         *v19 = v16 | v15 | (v11 << 8);
-        v20 = (v19 + 1);
+        v20 = v19 + 8;
       }
 
-      *(a3 + 8) = v20;
+      a1[1] = v20;
       if (*(v9 + 76) == 1)
       {
         v29 = *(v9 + 72);
@@ -1646,7 +1418,7 @@ LABEL_20:
   }
 }
 
-void Nightingale::ngtProjector::suppressPeriodFw_CycleFactor(_BOOL8 a1@<X0>, __int128 **a2@<X1>, __int128 **a3@<X2>, uint64_t *a4@<X3>, void *a5@<X8>)
+void Nightingale::ngtProjector::suppressPeriodFw_CycleFactor(_BOOL8 a1@<X0>, __int128 **a2@<X1>, __int128 **a3@<X2>, uint64_t *a4@<X3>, uint64_t *a5@<X8>)
 {
   __p = 0;
   v20 = 0;
@@ -1696,7 +1468,7 @@ void Nightingale::ngtProjector::suppressPeriodFw_CycleFactor(_BOOL8 a1@<X0>, __i
   a5[5] = 0;
   if (v17 != v16)
   {
-    std::vector<Nightingale::ngt_Prediction>::__vallocate[abi:nn200100]((a5 + 3), 0x4EC4EC4EC4EC4EC5 * ((v17 - v16) >> 3));
+    std::vector<Nightingale::ngt_Prediction>::__vallocate[abi:nn200100](a5 + 3, 0x4EC4EC4EC4EC4EC5 * ((v17 - v16) >> 3));
   }
 
   if (v16)
@@ -1712,16 +1484,16 @@ void Nightingale::ngtProjector::suppressPeriodFw_CycleFactor(_BOOL8 a1@<X0>, __i
   }
 }
 
-void Nightingale::ngtProjector::getCaContent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void Nightingale::ngtProjector::getCaContent(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v5 = *(a1 + 96);
+  v5 = *(result + 96);
   v6 = *(v5 + 8);
-  if (*v5 != v6 && *(*(a1 + 112) + 36) == 1)
+  if (*v5 != v6 && *(*(result + 112) + 36) == 1)
   {
     *a5 = *(v5 + 128);
     *(a5 + 120) = *(v6 - 24) != *(v6 - 16);
-    Nightingale::ngtProjector::get1stProjMetricsCa(a1, a1 + 664, a5 + 56);
-    Nightingale::ngtProjector::get1stProjMetricsCa(v10, a1 + 560, a5 + 8);
+    Nightingale::ngtProjector::get1stProjMetricsCa(result, result + 664, a5 + 56);
+    Nightingale::ngtProjector::get1stProjMetricsCa(v10, result + 560, a5 + 8);
     if (*(a2 + 513))
     {
       v12 = 3;
@@ -1756,19 +1528,19 @@ void Nightingale::ngtProjector::getCaContent(uint64_t a1, uint64_t a2, uint64_t 
     *(a5 + 196) = v18;
     *(a5 + 180) = v17;
     *(a5 + 164) = v16;
-    v19 = Nightingale::ngtProjector::runSensorBasedAlgDueToCycleFactors(v11, (*(*(a1 + 96) + 8) - 24));
+    v19 = Nightingale::ngtProjector::runSensorBasedAlgDueToCycleFactors(v11, (*(*(result + 96) + 8) - 24));
     if (v19)
     {
-      v20 = *(a1 + 112);
+      v20 = *(result + 112);
       if (*(v20 + 36) == 1)
       {
         v21 = *(v20 + 32);
         Nightingale::wristTemperatureInputProcess::wristTemperatureInputProcess(&v52);
         Nightingale::wristTemperatureInputAcquisition::wristTemperatureInputAcquisition(v51);
-        JDayIdx1stTmp = Nightingale::wristTemperatureInputAcquisition::getJDayIdx1stTmp(v22, *(a1 + 120));
+        JDayIdx1stTmp = Nightingale::wristTemperatureInputAcquisition::getJDayIdx1stTmp(v22, *(result + 120));
         if (v24)
         {
-          Nightingale::wristTemperatureInputAcquisition::extractKaliInputsJDayRange(*(a1 + 120), (v21 - 13), v21, JDayIdx1stTmp, v24, &v45);
+          Nightingale::wristTemperatureInputAcquisition::extractKaliInputsJDayRange(*(result + 120), (v21 - 13), v21, JDayIdx1stTmp, v24, &v45);
           if (v45 != v46)
           {
             *(a5 + 121) = 0xAAAAAAAAAAAAAAABLL * ((v46 - v45) >> 3) > 1;
@@ -1873,13 +1645,13 @@ void Nightingale::ngtProjector::getCaContent(uint64_t a1, uint64_t a2, uint64_t 
 
     CAPeriodPredictionMethod = Nightingale::ngtProjector::getCAPeriodPredictionMethod(v19, a2);
     *(a5 + 124) = CAPeriodPredictionMethod;
-    v34 = *(*(a1 + 96) + 8);
+    v34 = *(*(result + 96) + 8);
     if (*(v34 - 60) == 1)
     {
-      v35 = *(a1 + 112);
+      v35 = *(result + 112);
       if ((*(v35 + 36) & 1) == 0)
       {
-        v39 = std::__throw_bad_optional_access[abi:nn200100]();
+        std::__throw_bad_optional_access[abi:nn200100]();
         Nightingale::ngtProjector::compute1stFWPeriodStart(v39, v40, v41);
         return;
       }
@@ -1904,7 +1676,7 @@ void Nightingale::ngtProjector::getCaContent(uint64_t a1, uint64_t a2, uint64_t 
   }
 }
 
-void Nightingale::ngtProjector::compute1stFWPeriodStart(Nightingale::ngtProjector *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+void Nightingale::ngtProjector::compute1stFWPeriodStart(Nightingale::ngtProjector *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   *a3 = 0;
   *(a3 + 4) = 0;
@@ -1987,9 +1759,9 @@ void Nightingale::ngtProjector::compute1stFWPeriodStart(Nightingale::ngtProjecto
   v15 = *(v14 - 96);
   v16 = v13[13];
   v28 = _Q1;
-  Nightingale::wristTemperatureInputProcess::wristTemperatureInputProcess(v66);
-  Nightingale::wristTemperatureInputAcquisition::wristTemperatureInputAcquisition(v65);
-  Nightingale::ngtProjector::runLunaAlgorithm(this, a2, &v51);
+  Nightingale::wristTemperatureInputProcess::wristTemperatureInputProcess(v65);
+  Nightingale::wristTemperatureInputAcquisition::wristTemperatureInputAcquisition(v64);
+  Nightingale::ngtProjector::runLunaAlgorithm(&v51, this, a2);
   LOBYTE(v41) = 0;
   BYTE4(v41) = 0;
   BYTE8(v41) = 0;
@@ -2010,9 +1782,9 @@ void Nightingale::ngtProjector::compute1stFWPeriodStart(Nightingale::ngtProjecto
   v45[64] = 0;
   v45[68] = 0;
   v50[24] = 0;
-  if (v54 == 7 || v58 == 5)
+  if (v53 == 7 || v57 == 5)
   {
-    Nightingale::ngtProjector::runHrAlgorithm(this, a2, &v30);
+    Nightingale::ngtProjector::runHrAlgorithm(&v30, this, a2);
     v41 = v30;
     if (__p[0])
     {
@@ -2043,7 +1815,7 @@ void Nightingale::ngtProjector::compute1stFWPeriodStart(Nightingale::ngtProjecto
 
   Nightingale::fwEstimatorOPK::fwEstimatorOPK(v29);
   v17 = Nightingale::fwEstimatorOPK::getOnGoingjDayFwEndOpk(v29, v15, v16);
-  Nightingale::ngtProjector::runCalAlgs(this, &v30);
+  Nightingale::ngtProjector::runCalAlgs(&v30, this);
   Nightingale::ngtProjector::determineFinalFwEnd(this, a3, &v51, &v41, v17 & 0xFFFFFFFFFFLL, &v30, v15);
   Nightingale::ngtProjector::determineFinalPeriod(v18, a3, &v51, &v41, &v30, v15);
   if (a2)
@@ -2058,28 +1830,28 @@ LABEL_18:
       *(a3 + 460) = v24;
       *(a3 + 476) = *&v45[40];
       *(a3 + 492) = *&v45[56];
-      *v19 = v59[0];
-      *(a3 + 377) = *(v59 + 9);
-      if (v19 != v59)
+      *v19 = v58[0];
+      *(a3 + 377) = *(v58 + 9);
+      if (v19 != v58)
       {
-        std::vector<float>::__assign_with_size[abi:nn200100]<float *,float *>((a3 + 400), __src, v61, (v61 - __src) >> 2);
+        std::vector<float>::__assign_with_size[abi:nn200100]<float *,float *>((a3 + 400), __src, v60, (v60 - __src) >> 2);
       }
 
-      *(a3 + 424) = v62;
-      *(a3 + 432) = v63;
-      *(a3 + 440) = v64;
+      *(a3 + 424) = v61;
+      *(a3 + 432) = v62;
+      *(a3 + 440) = v63;
       v25 = v45[0];
       *(a3 + 512) = BYTE8(v41);
       *(a3 + 513) = v25;
-      v26 = v57;
-      *(a3 + 514) = v53;
+      v26 = v56;
+      *(a3 + 514) = v52;
       *(a3 + 515) = v26;
       goto LABEL_21;
     }
 
     v21 = *(v20 + 104);
     v22 = v21 + 1;
-    if (v52)
+    if ((v51 & 0x100000000) != 0)
     {
       v23 = &v51;
     }
@@ -2153,178 +1925,179 @@ LABEL_21:
 
   if (__src)
   {
-    v61 = __src;
+    v60 = __src;
     operator delete(__src);
   }
 
-  if (v55)
+  if (v54)
   {
-    v56 = v55;
-    operator delete(v55);
+    v55 = v54;
+    operator delete(v54);
   }
 
-  Nightingale::wristTemperatureInputAcquisition::~wristTemperatureInputAcquisition(v65);
-  Nightingale::wristTemperatureInputProcess::~wristTemperatureInputProcess(v66);
+  Nightingale::wristTemperatureInputAcquisition::~wristTemperatureInputAcquisition(v64);
+  Nightingale::wristTemperatureInputProcess::~wristTemperatureInputProcess(v65);
 }
 
-void Nightingale::ngtProjector::runLunaAlgorithm(Nightingale::ngtProjector *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+void Nightingale::ngtProjector::runLunaAlgorithm(uint64_t *__return_ptr a1@<X8>, Nightingale::ngtProjector *this@<X0>, uint64_t a3@<X1>)
 {
-  *a3 = 0;
-  *(a3 + 4) = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 12) = 7;
-  v6 = (a3 + 16);
-  v7 = Nightingale::CGradient::CGradient(a3 + 16);
-  *(a3 + 152) = -1;
-  *(a3 + 72) = 0;
-  *(a3 + 76) = 0;
-  *(a3 + 80) = 0;
-  *(a3 + 84) = 0;
-  *(a3 + 88) = 0;
-  *(a3 + 92) = 0x800000005;
-  *(a3 + 100) = 0;
-  *(a3 + 102) = 0;
-  *(a3 + 104) = -1;
-  *(a3 + 116) = 0;
-  *(a3 + 120) = 0;
-  *(a3 + 128) = 0;
-  *(a3 + 136) = 0;
-  *(a3 + 144) = 0;
-  *(a3 + 156) = 0;
-  *(a3 + 160) = 0;
-  *(a3 + 168) = 5;
+  v3 = a3;
+  *a1 = 0;
+  *(a1 + 4) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 3) = 7;
+  v6 = (a1 + 2);
+  v7 = Nightingale::CGradient::CGradient((a1 + 2));
+  *(a1 + 38) = -1;
+  *(a1 + 72) = 0;
+  *(a1 + 76) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 84) = 0;
+  *(a1 + 88) = 0;
+  *(a1 + 92) = 0x800000005;
+  *(a1 + 50) = 0;
+  *(a1 + 102) = 0;
+  a1[13] = -1;
+  *(a1 + 116) = 0;
+  *(a1 + 120) = 0;
+  a1[16] = 0;
+  a1[17] = 0;
+  a1[18] = 0;
+  *(a1 + 156) = 0;
+  *(a1 + 160) = 0;
+  *(a1 + 42) = 5;
   v8 = *(this + 12);
   if (*(v8 + 84) == 1 && Nightingale::ngtProjector::runSensorBasedAlgDueToCycleFactors(v7, (*(v8 + 8) - 24)))
   {
-    v9 = (a3 + 96);
-    Nightingale::wristTemperatureInputAcquisition::wristTemperatureInputAcquisition(v44);
+    v9 = a1 + 12;
+    Nightingale::wristTemperatureInputAcquisition::wristTemperatureInputAcquisition(v45);
     JDayIdx1stTmp = Nightingale::wristTemperatureInputAcquisition::getJDayIdx1stTmp(v10, *(this + 15));
     if (v12)
     {
       v13 = JDayIdx1stTmp;
-      Nightingale::fwEstimatorLuna::fwEstimatorLuna(v43);
-      Nightingale::fwEstimatorLuna::getFwEndLuna(*(this + 12), *(this + 15), *(this + 14), &v31);
-      *v9 = v38[0];
-      *(a3 + 105) = *(v38 + 9);
-      if (v9 != v38)
+      Nightingale::fwEstimatorLuna::fwEstimatorLuna(v44);
+      Nightingale::fwEstimatorLuna::getFwEndLuna(*(this + 12), *(this + 14), &v32);
+      *v9 = v39[0];
+      *(a1 + 105) = *(v39 + 9);
+      if (v9 != v39)
       {
-        std::vector<float>::__assign_with_size[abi:nn200100]<float *,float *>((a3 + 128), v39, v40, (v40 - v39) >> 2);
+        std::vector<float>::__assign_with_size[abi:nn200100]<float *,float *>(a1 + 16, v40, v41, (v41 - v40) >> 2);
       }
 
-      *(a3 + 152) = v41;
-      *(a3 + 160) = v42;
-      if (v33 == 1 && v37 == 1 && v35 == 1 && v31 != 7)
+      a1[19] = v42;
+      *(a1 + 160) = v43;
+      if (v34 == 1 && v38 == 1 && v36 == 1 && v32 != 7)
       {
-        Nightingale::periodEstimatorLuna::periodEstimatorLuna(v30, *(this + 14));
-        if ((v33 & 1) == 0 || (v35 & 1) == 0 || (v37 & 1) == 0)
+        Nightingale::periodEstimatorLuna::periodEstimatorLuna(v31, *(this + 14));
+        if ((v34 & 1) == 0 || (v36 & 1) == 0 || (v38 & 1) == 0)
         {
-          v16 = std::__throw_bad_optional_access[abi:nn200100]();
-          Nightingale::ngtProjector::runHrAlgorithm(v16, v17);
+          std::__throw_bad_optional_access[abi:nn200100]();
+          Nightingale::ngtProjector::runHrAlgorithm(v18, v16, v17);
           return;
         }
 
-        v14 = v34;
-        v15 = v36;
-        if (v32 > v34)
+        v14 = v35;
+        v15 = v37;
+        if (v33 > v35)
         {
-          v14 = v32;
+          v14 = v33;
         }
 
-        if (v32 + 20 < v36)
+        if (v33 + 20 < v37)
         {
-          v15 = v32 + 20;
+          v15 = v33 + 20;
         }
 
-        v28[2] = v15;
-        v28[3] = v32;
-        v29 = v33;
-        v28[0] = v31;
-        v28[1] = v14;
-        Nightingale::periodEstimatorLuna::estimatePeriodLuna(v30, *(this + 15), *(this + 12), *(this + 14), v13, v28, &__p);
-        *a3 = v32;
-        *(a3 + 4) = v33;
-        *(a3 + 12) = v31;
-        if (v27 == 1)
+        v29[2] = v15;
+        v29[3] = v33;
+        v30 = v34;
+        v29[0] = v32;
+        v29[1] = v14;
+        Nightingale::periodEstimatorLuna::estimatePeriodLuna(v31, *(this + 15), *(this + 12), *(this + 14), v13, v29, &__p);
+        *a1 = v33;
+        *(a1 + 4) = v34;
+        *(a1 + 3) = v32;
+        if (v28 == 1)
         {
-          *(a3 + 104) = -1;
+          *(a1 + 26) = -1;
         }
 
         else
         {
-          *(a3 + 8) = v33;
+          *(a1 + 8) = v34;
         }
 
         if (v6 != &__p)
         {
-          std::vector<float>::__assign_with_size[abi:nn200100]<float *,float *>((a3 + 16), __p, v19, (v19 - __p) >> 2);
+          std::vector<float>::__assign_with_size[abi:nn200100]<float *,float *>(a1 + 2, __p, v20, (v20 - __p) >> 2);
         }
 
-        *(a3 + 40) = v20[0];
-        *(a3 + 49) = *(v20 + 9);
-        *(a3 + 92) = v26;
-        *(a3 + 88) = v25;
+        *(a1 + 5) = v21[0];
+        *(a1 + 49) = *(v21 + 9);
+        *(a1 + 23) = v27;
+        *(a1 + 88) = v26;
         if ((Nightingale::CGradient::get_adjusted(&__p) & 1) == 0)
         {
-          if (*(a3 + 76) == v22)
+          if (*(a1 + 76) == v23)
           {
-            if (*(a3 + 76))
+            if (*(a1 + 76))
             {
-              *(a3 + 72) = v21;
+              *(a1 + 18) = v22;
             }
           }
 
-          else if (*(a3 + 76))
+          else if (*(a1 + 76))
           {
-            *(a3 + 76) = 0;
+            *(a1 + 76) = 0;
           }
 
           else
           {
-            *(a3 + 72) = v21;
-            *(a3 + 76) = 1;
+            *(a1 + 18) = v22;
+            *(a1 + 76) = 1;
           }
 
-          if (*(a3 + 84) == v24)
+          if (*(a1 + 84) == v25)
           {
-            if (*(a3 + 84))
+            if (*(a1 + 84))
             {
-              *(a3 + 80) = v23;
+              *(a1 + 20) = v24;
             }
           }
 
-          else if (*(a3 + 84))
+          else if (*(a1 + 84))
           {
-            *(a3 + 84) = 0;
+            *(a1 + 84) = 0;
           }
 
           else
           {
-            *(a3 + 80) = v23;
-            *(a3 + 84) = 1;
+            *(a1 + 20) = v24;
+            *(a1 + 84) = 1;
           }
         }
 
-        if (a2)
+        if (v3)
         {
-          *(a3 + 168) = v26;
+          *(a1 + 42) = v27;
         }
 
         if (__p)
         {
-          v19 = __p;
+          v20 = __p;
           operator delete(__p);
         }
 
-        Nightingale::periodEstimatorLuna::~periodEstimatorLuna(v30);
+        Nightingale::periodEstimatorLuna::~periodEstimatorLuna(v31);
       }
 
-      if (v39)
+      if (v40)
       {
-        v40 = v39;
-        operator delete(v39);
+        v41 = v40;
+        operator delete(v40);
       }
 
-      Nightingale::fwEstimatorLuna::~fwEstimatorLuna(v43);
+      Nightingale::fwEstimatorLuna::~fwEstimatorLuna(v44);
     }
 
     else
@@ -2332,92 +2105,92 @@ void Nightingale::ngtProjector::runLunaAlgorithm(Nightingale::ngtProjector *this
       *v9 = 1;
     }
 
-    Nightingale::wristTemperatureInputAcquisition::~wristTemperatureInputAcquisition(v44);
+    Nightingale::wristTemperatureInputAcquisition::~wristTemperatureInputAcquisition(v45);
   }
 }
 
-void Nightingale::ngtProjector::runHrAlgorithm(Nightingale::ngtProjector *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+void Nightingale::ngtProjector::runHrAlgorithm(uint64_t *__return_ptr a1@<X8>, Nightingale::ngtProjector *this@<X0>, int a3@<W1>)
 {
-  *a3 = 0;
-  *(a3 + 4) = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 12) = 7;
-  v6 = (a3 + 16);
-  v7 = Nightingale::CGradient::CGradient(a3 + 16);
-  *(a3 + 72) = 0;
-  *(a3 + 76) = 0;
-  *(a3 + 80) = 0;
-  *(a3 + 84) = 0;
-  *(a3 + 88) = 0;
-  *(a3 + 92) = 0xBF80000000000005;
-  *(a3 + 100) = -1;
-  *(a3 + 108) = -1;
+  *a1 = 0;
+  *(a1 + 4) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 3) = 7;
+  v6 = (a1 + 2);
+  v7 = Nightingale::CGradient::CGradient((a1 + 2));
+  *(a1 + 72) = 0;
+  *(a1 + 76) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 84) = 0;
+  *(a1 + 88) = 0;
+  *(a1 + 92) = 0xBF80000000000005;
+  *(a1 + 100) = -1;
+  *(a1 + 108) = -1;
   __asm { FMOV            V0.4S, #-1.0 }
 
-  *(a3 + 116) = _Q0;
+  *(a1 + 116) = _Q0;
   __asm { FMOV            V0.2S, #-1.0 }
 
-  *(a3 + 132) = _Q0;
-  *(a3 + 140) = -1;
-  *(a3 + 148) = 0;
-  *(a3 + 152) = 0;
-  *(a3 + 156) = 0;
-  *(a3 + 248) = 0;
+  *(a1 + 132) = _Q0;
+  *(a1 + 140) = -1;
+  *(a1 + 148) = 0;
+  *(a1 + 152) = 0;
+  *(a1 + 156) = 0;
+  *(a1 + 248) = 0;
   if (Nightingale::ngtProjector::runSensorBasedAlgDueToCycleFactors(v7, (*(*(this + 12) + 8) - 24)))
   {
-    Nightingale::lstmHrFw::lstmHrFw(v38, *(this + 15), *(this + 12), *(this + 14), *(this + 13));
-    Nightingale::lstmHrFw::getFWEndHr(v38, a2, &v29);
-    Nightingale::lstmHrPeriod::lstmHrPeriod(v28, *(this + 15), *(this + 12), *(this + 14), *(this + 13), v31);
-    Nightingale::lstmHrPeriod::estimatePeriodStartHr(v28, &__p);
-    Nightingale::lstmHrPeriod::getEnsembleTelemetry(v28, v18);
-    *a3 = v29;
-    v13 = v30;
-    *(a3 + 4) = v30;
-    *(a3 + 8) = v13;
+    Nightingale::lstmHrFw::lstmHrFw(v36, *(this + 15), *(this + 12), *(this + 14), *(this + 13));
+    Nightingale::lstmHrFw::getFWEndHr(v29, v36, a3);
+    Nightingale::lstmHrPeriod::lstmHrPeriod(v28, *(this + 15), *(this + 12), *(this + 14), *(this + 13), v29[2]);
+    Nightingale::lstmHrPeriod::estimatePeriodStartHr(&__p, v28);
+    Nightingale::lstmHrPeriod::getEnsembleTelemetry(v18, v28);
+    *a1 = v29[0];
+    v13 = BYTE4(v29[0]);
+    *(a1 + 4) = BYTE4(v29[0]);
+    *(a1 + 8) = v13;
     if (v13)
     {
-      *(a3 + 12) = 4;
+      *(a1 + 3) = 4;
     }
 
     if (v6 != &__p)
     {
-      std::vector<float>::__assign_with_size[abi:nn200100]<float *,float *>((a3 + 16), __p, v21, (v21 - __p) >> 2);
+      std::vector<float>::__assign_with_size[abi:nn200100]<float *,float *>(a1 + 2, __p, v21, (v21 - __p) >> 2);
     }
 
-    *(a3 + 40) = v22[0];
-    *(a3 + 49) = *(v22 + 9);
+    *(a1 + 5) = v22[0];
+    *(a1 + 49) = *(v22 + 9);
     if ((Nightingale::CGradient::get_adjusted(&__p) & 1) == 0)
     {
-      *(a3 + 72) = v23;
-      *(a3 + 76) = v24;
-      *(a3 + 80) = v25;
-      *(a3 + 84) = v26;
+      *(a1 + 18) = v23;
+      *(a1 + 76) = v24;
+      *(a1 + 20) = v25;
+      *(a1 + 84) = v26;
     }
 
     v14 = v27;
-    *(a3 + 88) = v27;
+    *(a1 + 88) = v27;
     if (v14 == 1 && !Nightingale::CGradient::get_vGrad_empty(&__p))
     {
-      *(a3 + 92) = 3;
+      *(a1 + 23) = 3;
     }
 
     v15 = v18[3];
-    *(a3 + 188) = v18[2];
-    *(a3 + 204) = v15;
-    *(a3 + 220) = v19[0];
-    *(a3 + 233) = *(v19 + 13);
+    *(a1 + 188) = v18[2];
+    *(a1 + 204) = v15;
+    *(a1 + 220) = v19[0];
+    *(a1 + 233) = *(v19 + 13);
     v16 = v18[1];
-    *(a3 + 156) = v18[0];
-    *(a3 + 172) = v16;
-    if (a2)
+    *(a1 + 156) = v18[0];
+    *(a1 + 172) = v16;
+    if (a3)
     {
-      *(a3 + 96) = v32;
-      *(a3 + 112) = v33;
-      *(a3 + 128) = v34;
-      v17 = v36;
-      *(a3 + 144) = v35;
-      *(a3 + 148) = v17;
-      *(a3 + 152) = v37;
+      *(a1 + 6) = v30;
+      *(a1 + 7) = v31;
+      *(a1 + 8) = v32;
+      v17 = v34;
+      *(a1 + 36) = v33;
+      *(a1 + 37) = v17;
+      *(a1 + 152) = v35;
     }
 
     if (__p)
@@ -2427,30 +2200,30 @@ void Nightingale::ngtProjector::runHrAlgorithm(Nightingale::ngtProjector *this@<
     }
 
     Nightingale::lstmHrPeriod::~lstmHrPeriod(v28);
-    Nightingale::lstmHrFw::~lstmHrFw(v38);
+    Nightingale::lstmHrFw::~lstmHrFw(v36);
   }
 }
 
-void Nightingale::ngtProjector::runCalAlgs(Nightingale::ngtProjector *this@<X0>, uint64_t a2@<X8>)
+void Nightingale::ngtProjector::runCalAlgs(uint64_t *__return_ptr a1@<X8>, Nightingale::ngtProjector *this@<X0>)
 {
-  *a2 = 0;
-  *(a2 + 4) = 0;
-  *(a2 + 8) = 3;
-  Nightingale::CGradient::CGradient(a2 + 16);
-  *(a2 + 72) = 0;
-  *(a2 + 76) = 0;
-  *(a2 + 80) = 0;
-  *(a2 + 84) = 0;
-  *(a2 + 88) = 0;
-  *(a2 + 92) = 0;
-  Nightingale::CGradient::CGradient(a2 + 96);
-  *(a2 + 152) = 0;
-  *(a2 + 156) = 0;
-  *(a2 + 160) = 0;
-  *(a2 + 164) = 0;
-  *(a2 + 168) = 0;
-  *(a2 + 172) = 0;
-  *(a2 + 176) = 3;
+  *a1 = 0;
+  *(a1 + 4) = 0;
+  a1[1] = 3;
+  Nightingale::CGradient::CGradient((a1 + 2));
+  *(a1 + 72) = 0;
+  *(a1 + 76) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 84) = 0;
+  *(a1 + 88) = 0;
+  *(a1 + 92) = 0;
+  Nightingale::CGradient::CGradient((a1 + 12));
+  *(a1 + 152) = 0;
+  *(a1 + 156) = 0;
+  *(a1 + 160) = 0;
+  *(a1 + 164) = 0;
+  *(a1 + 168) = 0;
+  *(a1 + 172) = 0;
+  a1[22] = 3;
   v4 = *(this + 12);
   v6 = *v4;
   v5 = v4[1];
@@ -2458,48 +2231,48 @@ void Nightingale::ngtProjector::runCalAlgs(Nightingale::ngtProjector *this@<X0>,
   {
     Nightingale::periodEstimatorCalendar::periodEstimatorCalendar(v16, *(this + 14));
     Nightingale::fwEstimatorCalendar::fwEstimatorCalendar(v15);
-    Nightingale::periodEstimatorCalendar::predict1stPeriodStartCal(v16, *(*(this + 12) + 8) - 96, *(*(this + 12) + 104), *(*(this + 12) + 96), *(*(this + 12) + 124) | 0x100000000, &v12);
-    v7 = *(a2 + 16);
+    Nightingale::periodEstimatorCalendar::predict1stPeriodStartCal(v16, (*(*(this + 12) + 8) - 96), *(*(this + 12) + 104), *(*(this + 12) + 96), &v12, *(*(this + 12) + 124) | 0x100000000);
+    v7 = a1[2];
     if (v7)
     {
-      *(a2 + 24) = v7;
+      a1[3] = v7;
       operator delete(v7);
     }
 
-    *(a2 + 16) = v12;
-    *(a2 + 32) = v13;
-    *(a2 + 40) = v14[0];
-    *(a2 + 49) = *(v14 + 9);
-    *(a2 + 176) = 3;
-    if (!Nightingale::CGradient::get_vGrad_empty((a2 + 16)))
+    *(a1 + 1) = v12;
+    a1[4] = v13;
+    *(a1 + 5) = v14[0];
+    *(a1 + 49) = *(v14 + 9);
+    *(a1 + 44) = 3;
+    if (!Nightingale::CGradient::get_vGrad_empty((a1 + 2)))
     {
       v8 = *(*(*(this + 12) + 8) - 96);
-      if (*(a2 + 92) == 1)
+      if (*(a1 + 92) == 1)
       {
-        expectation = *(a2 + 88);
+        expectation = *(a1 + 22);
       }
 
       else
       {
-        v10 = *(a2 + 52);
+        v10 = *(a1 + 52);
         if ((v10 & 0x100000000) != 0)
         {
-          *(a2 + 88) = v10;
+          *(a1 + 22) = v10;
           expectation = *&v10;
         }
 
         else
         {
-          expectation = Nightingale::CGradient::get_expectation((a2 + 16));
-          *(a2 + 88) = expectation;
+          expectation = Nightingale::CGradient::get_expectation(a1 + 2);
+          *(a1 + 22) = expectation;
         }
       }
 
-      *(a2 + 92) = 1;
+      *(a1 + 92) = 1;
       v11 = Nightingale::fwEstimatorCalendar::getjDayFwEndCal(v15, v8, (roundf(expectation) + v8));
-      *a2 = v11;
-      *(a2 + 4) = BYTE4(v11);
-      *(a2 + 8) = 3;
+      *a1 = v11;
+      *(a1 + 4) = BYTE4(v11);
+      *(a1 + 2) = 3;
     }
 
     Nightingale::fwEstimatorCalendar::~fwEstimatorCalendar(v15);
@@ -2697,7 +2470,7 @@ LABEL_25:
     goto LABEL_18;
   }
 
-  v35 = std::__throw_bad_optional_access[abi:nn200100]();
+  std::__throw_bad_optional_access[abi:nn200100]();
   Nightingale::ngtProjector::runSensorBasedAlgDueToCycleFactors(v35, v36);
 }
 
@@ -2795,14 +2568,7 @@ double Nightingale::ngtProjector::getAMetricFromperiodEstimationOut(uint64_t a1,
     result = *(this + 18);
     if (!*(this + 76))
     {
-      result = 0.0;
-    }
-
-    v6 = *(this + 14);
-    *(this + 60);
-    if (*(this + 68) == 1)
-    {
-      v7 = *(this + 16);
+      return 0.0;
     }
   }
 
@@ -2907,7 +2673,7 @@ BOOL Nightingale::ngtProjector::isFinite_aProj(_BOOL8 isFinite_aGrad, uint64_t a
     isFinite_aGrad = Nightingale::ngtProjector::isFinite_aGrad(isFinite_aGrad, (a2 + 8));
     if (!isFinite_aGrad)
     {
-      log = ha_get_log();
+      log = ha_get_log(isFinite_aGrad);
       result = os_log_type_enabled(log, OS_LOG_TYPE_FAULT);
       if (!result)
       {
@@ -2919,13 +2685,19 @@ BOOL Nightingale::ngtProjector::isFinite_aProj(_BOOL8 isFinite_aGrad, uint64_t a
     }
   }
 
-  if (*(a2 + 80) != 1 || Nightingale::ngtProjector::isFinite_aGrad(isFinite_aGrad, (a2 + 48)))
+  if (*(a2 + 80) != 1)
   {
     return 1;
   }
 
-  v5 = ha_get_log();
-  result = os_log_type_enabled(v5, OS_LOG_TYPE_FAULT);
+  v3 = Nightingale::ngtProjector::isFinite_aGrad(isFinite_aGrad, (a2 + 48));
+  if (v3)
+  {
+    return 1;
+  }
+
+  v6 = ha_get_log(v3);
+  result = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT);
   if (result)
   {
     Nightingale::ngtProjector::isFinite_aProj();
@@ -3183,7 +2955,7 @@ uint64_t Nightingale::ngtProjector::surfaceLunaCa(uint64_t a1, int *a2, int a3, 
   return result;
 }
 
-uint64_t Nightingale::ngtProjector::getCAtBoundedDaysBetweenFwEndAndNotification(Nightingale::ngtProjector *this, int a2)
+uint64_t Nightingale::ngtProjector::getCAtBoundedDaysBetweenFwEndAndNotification(Nightingale::ngtProjector *this, unsigned int a2)
 {
   if (a2 >= 0xA)
   {
@@ -3196,7 +2968,7 @@ uint64_t Nightingale::ngtProjector::getCAtBoundedDaysBetweenFwEndAndNotification
   }
 
   v3 = v2 >> 1;
-  if (a2 < 0)
+  if ((a2 & 0x80000000) != 0)
   {
     return 0xFFFFFFFFLL;
   }
@@ -3209,42 +2981,43 @@ uint64_t Nightingale::ngtProjector::getCAtBoundedDaysBetweenFwEndAndNotification
 
 uint64_t Nightingale::ngtProjector::getCAPeriodPredictionMethod(uint64_t a1, uint64_t a2)
 {
-  if (Nightingale::CGradient::get_vGrad_empty((a2 + 200)))
+  vGrad_empty = Nightingale::CGradient::get_vGrad_empty((a2 + 200));
+  if (vGrad_empty)
   {
     return 5;
   }
 
-  v4 = *(a2 + 360);
-  if (v4 == 1)
+  v5 = *(a2 + 360);
+  if (v5 == 1)
   {
-    v6 = *(a2 + 440);
-    if (v6 < 3)
+    v7 = *(a2 + 440);
+    if (v7 < 3)
     {
-      return dword_258951444[v6];
+      return dword_258951444[v7];
     }
 
     return 5;
   }
 
-  if (v4 == 3)
+  if (v5 == 3)
   {
     return 0;
   }
 
-  if (v4 != 2)
+  if (v5 != 2)
   {
     return 5;
   }
 
   if (*(a2 + 612) == 1)
   {
-    v5 = *(a2 + 608);
-    if (v5 < 3)
+    v6 = *(a2 + 608);
+    if (v6 < 3)
     {
-      return dword_258951438[v5];
+      return dword_258951438[v6];
     }
 
-    log = ha_get_log();
+    log = ha_get_log(vGrad_empty);
     if (os_log_type_enabled(log, OS_LOG_TYPE_FAULT))
     {
       Nightingale::ngtProjector::getCAPeriodPredictionMethod();
@@ -3396,18 +3169,18 @@ uint64_t Nightingale::ngtProjector::getCACurrentCycleFactor(uint64_t a1, unsigne
   return v4;
 }
 
-__n128 Nightingale::ngtProjector::getEnsembleTelemetry@<Q0>(Nightingale::ngtProjector *this@<X0>, _OWORD *a2@<X8>)
+__n128 Nightingale::ngtProjector::getEnsembleTelemetry@<Q0>(uint64_t *__return_ptr a1@<X8>, Nightingale::ngtProjector *this@<X0>)
 {
   v2 = *(this + 3);
-  a2[2] = *(this + 2);
-  a2[3] = v2;
+  *(a1 + 2) = *(this + 2);
+  *(a1 + 3) = v2;
   v3 = *(this + 5);
-  a2[4] = *(this + 4);
-  a2[5] = v3;
+  *(a1 + 4) = *(this + 4);
+  *(a1 + 5) = v3;
   result = *this;
   v5 = *(this + 1);
-  *a2 = *this;
-  a2[1] = v5;
+  *a1 = *this;
+  *(a1 + 1) = v5;
   return result;
 }
 
@@ -3431,37 +3204,36 @@ uint64_t Nightingale::phaseFactorProjector::failReproAProjection(uint64_t a1, in
   v4 = a2[23];
   if (v4 < 1)
   {
-    v9 = 1;
+    v8 = 1;
   }
 
   else
   {
     v5 = *a2;
     v6 = a2[22];
+    v11 = 0;
     v12 = 0;
-    v13 = 0;
     __p = 0;
     v7 = a3[1];
     if (v7 != *a3)
     {
       if (v7 - *a3 >= 0)
       {
-        v8 = v7 - *a3;
         operator new();
       }
 
       std::string::__throw_length_error[abi:nn200100]();
     }
 
-    v9 = Nightingale::phaseFactorProcessor::detectPhases(a1, (v6 + v5) | ((v4 + v6 + v5 - 1) << 32), &__p, a4);
+    v8 = Nightingale::phaseFactorProcessor::detectPhases(a1, (v6 + v5) | ((v4 + v6 + v5 - 1) << 32), &__p, a4);
     if (__p)
     {
-      v12 = __p;
+      v11 = __p;
       operator delete(__p);
     }
   }
 
-  return v9 & 1;
+  return v8 & 1;
 }
 
 uint64_t Nightingale::phaseFactorProjector::projectedPeriodFailRepro(uint64_t a1, unsigned int *a2, uint64_t *a3)
@@ -3508,60 +3280,57 @@ void Nightingale::phaseFactorProjector::~phaseFactorProjector(Nightingale::phase
   }
 }
 
-BOOL Nightingale::ngtProjector::isFinite_aGrad(uint64_t a1, uint64_t *a2)
+BOOL Nightingale::ngtProjector::isFinite_aGrad(uint64_t a1, void *a2)
 {
   if ((*a2 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
   {
-    log = ha_get_log();
+    log = ha_get_log(a1);
     result = os_log_type_enabled(log, OS_LOG_TYPE_FAULT);
     if (!result)
     {
       return result;
     }
 
-    Nightingale::ngtProjector::isFinite_aGrad(a2);
+    Nightingale::ngtProjector::isFinite_aGrad();
     return 0;
   }
 
-  v5 = a2 + 1;
   if ((a2[1] & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
   {
-    v6 = ha_get_log();
+    v4 = ha_get_log(a1);
+    result = os_log_type_enabled(v4, OS_LOG_TYPE_FAULT);
+    if (!result)
+    {
+      return result;
+    }
+
+    Nightingale::ngtProjector::isFinite_aGrad();
+    return 0;
+  }
+
+  if ((a2[2] & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+  {
+    v5 = ha_get_log(a1);
+    result = os_log_type_enabled(v5, OS_LOG_TYPE_FAULT);
+    if (!result)
+    {
+      return result;
+    }
+
+    Nightingale::ngtProjector::isFinite_aGrad();
+    return 0;
+  }
+
+  if ((a2[3] & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+  {
+    v6 = ha_get_log(a1);
     result = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT);
     if (!result)
     {
       return result;
     }
 
-    Nightingale::ngtProjector::isFinite_aGrad(v5);
-    return 0;
-  }
-
-  v7 = a2 + 2;
-  if ((a2[2] & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
-  {
-    v8 = ha_get_log();
-    result = os_log_type_enabled(v8, OS_LOG_TYPE_FAULT);
-    if (!result)
-    {
-      return result;
-    }
-
-    Nightingale::ngtProjector::isFinite_aGrad(v7);
-    return 0;
-  }
-
-  v9 = a2 + 3;
-  if ((a2[3] & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
-  {
-    v10 = ha_get_log();
-    result = os_log_type_enabled(v10, OS_LOG_TYPE_FAULT);
-    if (!result)
-    {
-      return result;
-    }
-
-    Nightingale::ngtProjector::isFinite_aGrad(v9);
+    Nightingale::ngtProjector::isFinite_aGrad();
     return 0;
   }
 
@@ -3665,7 +3434,7 @@ void Nightingale::structDLIn_hr::~structDLIn_hr(Nightingale::structDLIn_hr *this
   }
 }
 
-char *std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:nn200100]<std::__wrap_iter<Nightingale::ngt_Prediction*>,std::__wrap_iter<Nightingale::ngt_Prediction*>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:nn200100]<std::__wrap_iter<Nightingale::ngt_Prediction*>,std::__wrap_iter<Nightingale::ngt_Prediction*>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -3674,8 +3443,8 @@ char *std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:nn200100]
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (0x4EC4EC4EC4EC4EC5 * ((v9 - v10) >> 3) < a5)
   {
     v11 = *a1;
@@ -3731,17 +3500,17 @@ char *std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:nn200100]
     }
 
     while (v42);
-    memcpy(v43, v5, *(a1 + 8) - v5);
+    memcpy(v43, v5, a1[1] - v5);
     v50 = *a1;
-    v51 = &v43[*(a1 + 8) - v5];
-    *(a1 + 8) = v5;
+    v51 = &v43[a1[1] - v5];
+    a1[1] = v5;
     v52 = v5 - v50;
     v53 = (v41 - (v5 - v50));
     memcpy(v53, v50, v52);
     v54 = *a1;
     *a1 = v53;
-    *(a1 + 8) = v51;
-    *(a1 + 16) = 0;
+    a1[1] = v51;
+    a1[2] = 0;
     if (v54)
     {
       operator delete(v54);
@@ -3755,7 +3524,7 @@ char *std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:nn200100]
   {
     v33 = &__dst[104 * a5];
     v34 = v10 - 104 * a5;
-    v35 = *(a1 + 8);
+    v35 = a1[1];
     while (v34 < v10)
     {
       v36 = *v34;
@@ -3774,7 +3543,7 @@ char *std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:nn200100]
       v35 += 104;
     }
 
-    *(a1 + 8) = v35;
+    a1[1] = v35;
     if (v10 != v33)
     {
       memmove(&__dst[104 * a5], __dst, v10 - v33);
@@ -3789,11 +3558,11 @@ char *std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:nn200100]
   v18 = a4 - &__src[v16];
   if (a4 != &__src[v16])
   {
-    memmove(*(a1 + 8), &__src[v16], a4 - &__src[v16]);
+    memmove(a1[1], &__src[v16], a4 - &__src[v16]);
   }
 
   v19 = (v10 + v18);
-  *(a1 + 8) = v10 + v18;
+  a1[1] = v10 + v18;
   if (v16 >= 1)
   {
     v20 = &v5[104 * a5];
@@ -3825,7 +3594,7 @@ char *std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:nn200100]
       v21 = v22 - v7;
     }
 
-    *(a1 + 8) = v21;
+    a1[1] = v21;
     if (v19 != v20)
     {
       memmove(&v5[104 * a5], v5, v19 - v20);
@@ -3841,21 +3610,21 @@ LABEL_28:
   return v5;
 }
 
-void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__assign_with_size[abi:nn200100]<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__assign_with_size[abi:nn200100]<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*>(char **a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v8 = *a1;
-  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 5) < a4)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 5) < a4)
   {
     std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__vdeallocate(a1);
     if (a4 <= 0x199999999999999)
     {
-      v9 = 0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 5);
+      v9 = 0x999999999999999ALL * ((a1[2] - *a1) >> 5);
       if (v9 <= a4)
       {
         v9 = a4;
       }
 
-      if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 5) >= 0xCCCCCCCCCCCCCCLL)
+      if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 5) >= 0xCCCCCCCCCCCCCCLL)
       {
         v10 = 0x199999999999999;
       }
@@ -3871,12 +3640,12 @@ void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::p
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  v11 = *(a1 + 8) - v8;
+  v11 = a1[1] - v8;
   if (0xCCCCCCCCCCCCCCCDLL * (v11 >> 5) >= a4)
   {
     std::__copy_impl::operator()[abi:nn200100]<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct> *,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct> *,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct> *>(&v16, a2, a3, v8);
     v13 = v12;
-    v14 = *(a1 + 8);
+    v14 = a1[1];
     if (v14 != v12)
     {
       do
@@ -3888,17 +3657,17 @@ void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::p
       while (v14 != v13);
     }
 
-    *(a1 + 8) = v13;
+    a1[1] = v13;
   }
 
   else
   {
     std::__copy_impl::operator()[abi:nn200100]<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct> *,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct> *,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct> *>(&v15, a2, a2 + v11, v8);
-    *(a1 + 8) = std::__uninitialized_allocator_copy_impl[abi:nn200100]<std::allocator<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*>(a1, a2 + v11, a3, *(a1 + 8));
+    a1[1] = std::__uninitialized_allocator_copy_impl[abi:nn200100]<std::allocator<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*>(a1, a2 + v11, a3, a1[1]);
   }
 }
 
-void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__vdeallocate(void **a1)
+void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -3925,7 +3694,7 @@ void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::p
   }
 }
 
-void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x19999999999999ALL)
   {
@@ -4085,13 +3854,6 @@ BOOL std::operator==[abi:nn200100]<Nightingale::ngtGradientMetrics,Nightingale::
   return v3;
 }
 
-uint64_t *OUTLINED_FUNCTION_2_0@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
 uint64_t Nightingale::lstmLuna::lstmLuna(uint64_t a1, uint64_t a2, uint64_t a3, const Nightingale::ngt_Config *a4)
 {
   *a1 = &unk_2869C61B8;
@@ -4135,69 +3897,71 @@ uint64_t Nightingale::lstmLuna::lstmLuna(uint64_t a1, uint64_t a2, uint64_t a3, 
   return a1;
 }
 
-void Nightingale::lstmLuna::~lstmLuna(Nightingale::lstmLuna *this)
+void Nightingale::lstmLuna::~lstmLuna(id **this)
 {
   *this = &unk_2869C61B8;
-  Nightingale::lstmModelCommonFw::~lstmModelCommonFw((this + 384));
-  Nightingale::ngt_luna_fw_dl_tmp_process::~ngt_luna_fw_dl_tmp_process((this + 376));
+  Nightingale::lstmModelCommonFw::~lstmModelCommonFw((this + 48));
+  Nightingale::ngt_luna_fw_dl_tmp_process::~ngt_luna_fw_dl_tmp_process(this + 47);
   Nightingale::wristTemperatureInputValidation::~wristTemperatureInputValidation((this + 369));
-  Nightingale::wristTemperatureInputProcess::~wristTemperatureInputProcess((this + 368));
-  Nightingale::wristTemperatureInputAcquisition::~wristTemperatureInputAcquisition((this + 296));
-  v2 = *(this + 33);
+  Nightingale::wristTemperatureInputProcess::~wristTemperatureInputProcess((this + 46));
+  Nightingale::wristTemperatureInputAcquisition::~wristTemperatureInputAcquisition((this + 37));
+  v2 = this[33];
   if (v2)
   {
-    *(this + 34) = v2;
+    this[34] = v2;
     operator delete(v2);
   }
 
-  v3 = *(this + 29);
+  v3 = this[29];
   if (v3)
   {
-    *(this + 30) = v3;
+    this[30] = v3;
     operator delete(v3);
   }
 
-  v4 = *(this + 24);
+  v4 = this[24];
   if (v4)
   {
-    *(this + 25) = v4;
+    this[25] = v4;
     operator delete(v4);
   }
 
-  v5 = *(this + 19);
+  v5 = this[19];
   if (v5)
   {
-    *(this + 20) = v5;
+    this[20] = v5;
     operator delete(v5);
   }
 
-  v6 = *(this + 16);
+  v6 = this[16];
   if (v6)
   {
-    *(this + 17) = v6;
+    this[17] = v6;
     operator delete(v6);
   }
 
-  v7 = *(this + 13);
+  v7 = this[13];
   if (v7)
   {
-    *(this + 14) = v7;
+    this[14] = v7;
     operator delete(v7);
   }
 
-  v8 = *(this + 10);
+  v8 = this[10];
   if (v8)
   {
-    *(this + 11) = v8;
+    this[11] = v8;
     operator delete(v8);
   }
 
-  v9 = (this + 48);
+  v9 = (this + 6);
   std::vector<std::vector<std::pair<BOOL,float>>>::__destroy_vector::operator()[abi:nn200100](&v9);
 }
 
-BOOL Nightingale::lstmLuna::acquireWTmp(Nightingale::lstmLuna *this, int a2, int a3)
+BOOL Nightingale::lstmLuna::acquireWTmp(Nightingale::lstmLuna *this, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   Nightingale::wristTemperatureInputAcquisition::reset((this + 296));
   JDayIdx1stTmp = Nightingale::wristTemperatureInputAcquisition::getJDayIdx1stTmp(this + 296, *(this + 1));
   if (*(this + 40) == v7)
@@ -4228,7 +3992,7 @@ LABEL_8:
   *(this + 40) = 1;
 LABEL_10:
   memset(v24, 0, sizeof(v24));
-  Nightingale::wristTemperatureInputAcquisition::extractWTmp_removeOutlier_withBuf_fromCycleOffset(this + 37, a3 - a2 + 1, a3, *(*(*(this + 2) + 8) - 96) - 43, *(this + 1), *(this + 4), &v17);
+  Nightingale::wristTemperatureInputAcquisition::extractWTmp_removeOutlier_withBuf_fromCycleOffset(this + 37, (v3 - v4 + 1), v3, *(*(*(this + 2) + 8) - 96) - 43, *(this + 1), *(this + 4), &v17);
   std::vector<std::vector<float>>::__vdeallocate(this + 6);
   *(this + 3) = v17;
   v9 = v18;
@@ -4278,7 +4042,7 @@ LABEL_10:
   else
   {
     v13 = 1;
-    Nightingale::wristTemperatureInputProcess::constructVectorOfSlicesFromMultipleWatches(this + 48, 45, 1, a2, &v17);
+    Nightingale::wristTemperatureInputProcess::constructVectorOfSlicesFromMultipleWatches(this + 48, 45, 1, v4, &v17);
     v14 = v17;
     v8 = v17 != *(&v17 + 1);
     if (v17 == *(&v17 + 1))
@@ -4325,14 +4089,14 @@ LABEL_10:
   return v8;
 }
 
-void Nightingale::lstmLuna::validateWTmp(Nightingale::lstmLuna *this, float a2)
+void Nightingale::lstmLuna::validateWTmp(Nightingale::lstmLuna *this, int a2, float a3)
 {
   v20 = *MEMORY[0x277D85DE8];
   memset(v15, 0, sizeof(v15));
-  v4 = (this + 128);
+  v5 = (this + 128);
   LODWORD(v16) = (*(this + 17) - *(this + 16)) >> 2;
   std::vector<int>::vector[abi:nn200100](&v13, &v16, 1uLL);
-  *&v16 = a2;
+  *&v16 = a3;
   std::vector<float>::vector[abi:nn200100](&v12, &v16, 1uLL);
   v16 = &unk_2869C5CD8;
   v17 = Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::checkWTmpMissingCntHigh;
@@ -4348,32 +4112,31 @@ void Nightingale::lstmLuna::validateWTmp(Nightingale::lstmLuna *this, float a2)
     std::vector<int>::__vallocate[abi:nn200100](&__p, (v14 - v13) >> 2);
   }
 
-  v5 = *(this + 176);
-  v6 = *(this + 13);
-  if (v5 < (*(this + 14) - v6) >> 3)
+  v6 = *(this + 176);
+  v7 = *(this + 13);
+  if (v6 < (*(this + 14) - v7) >> 3)
   {
-    if ((*(v6 + 8 * v5 + 4) & 1) != 0 || **v4 >= 0.0)
+    if ((*(v7 + 8 * v6 + 4) & 1) != 0 || **v5 >= 0.0)
     {
-      Nightingale::wristTemperatureInputValidation::checkListOfConditions(this + 369, v15, v4, &__p, &v12, 1, &v16);
-      v7 = *v16;
+      Nightingale::wristTemperatureInputValidation::checkListOfConditions(this + 369, v15, v5, &__p, &v12, 1, &v16);
+      v8 = *v16;
       v17 = v16;
       operator delete(v16);
     }
 
     else
     {
-      v7 = 0x3F80000000000001;
+      v8 = 0x3F80000000000001;
     }
 
-    v16 = v7;
-    std::vector<std::pair<BOOL,float>>::push_back[abi:nn200100]((v4 + 8), &v16);
+    v16 = v8;
+    std::vector<std::pair<BOOL,float>>::push_back[abi:nn200100]((v5 + 8), &v16);
     if (__p)
     {
       __dst = __p;
       operator delete(__p);
     }
 
-    v8 = *(this + 17);
     v17 = 0;
     v18 = 0;
     v16 = 0;
@@ -4444,21 +4207,20 @@ void std::vector<std::pair<BOOL,float>>::push_back[abi:nn200100](uint64_t a1, vo
 
 void *std::function<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::operator=<std::pair<BOOL,float> (Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::*)(std::vector<float> const&,int,float),void>(void *a1, uint64_t *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v4 = a2[1];
-  v8 = 0;
+  v7 = 0;
   if (v4 & 1 | v3)
   {
-    v7[0] = &unk_2869C5CD8;
-    v7[1] = v3;
-    v7[2] = v4;
-    v8 = v7;
+    v6[0] = &unk_2869C5CD8;
+    v6[1] = v3;
+    v6[2] = v4;
+    v7 = v6;
   }
 
-  std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::swap[abi:nn200100](v7, a1);
-  std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::~__value_func[abi:nn200100](v7);
-  v5 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::swap[abi:nn200100](v6, a1);
+  std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::~__value_func[abi:nn200100](v6);
   return a1;
 }
 
@@ -4556,7 +4318,7 @@ void *Nightingale::lstmLunaFw::lstmLunaFw(uint64_t a1, uint64_t a2, uint64_t a3,
 
 uint64_t Nightingale::lstmLunaFw::getOngoingFwLstmLuna(Nightingale::lstmLunaFw *this, uint64_t a2)
 {
-  if (Nightingale::lstmLuna::acquireWTmp(this, a2 - 44, a2) && (**this)(this, a2, 0.3) && (*(*this + 8))(this, 36.048, 0.46548))
+  if (Nightingale::lstmLuna::acquireWTmp(this, (a2 - 44), a2) && (**this)(this, a2, 0.3) && (*(*this + 8))(this, 36.048, 0.46548))
   {
     Nightingale::lstmLunaFw::applyLunaAlgs(this);
   }
@@ -4566,46 +4328,44 @@ uint64_t Nightingale::lstmLunaFw::getOngoingFwLstmLuna(Nightingale::lstmLunaFw *
 
 void Nightingale::lstmLunaFw::applyLunaAlgs(Nightingale::lstmLunaFw *this)
 {
-  memset(v5, 0, sizeof(v5));
-  std::vector<double>::__assign_with_size[abi:nn200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(v5, *(this + 19), *(this + 20), (*(this + 20) - *(this + 19)) >> 2);
-  __p = 0;
-  v3 = 0;
-  v4 = 0;
-  Nightingale::ngt_luna_fw_dl_tmp_process::ngt_luna_fwEndFlagDLTmp(this + 47);
+  memset(v3, 0, sizeof(v3));
+  std::vector<double>::__assign_with_size[abi:nn200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(v3, *(this + 19), *(this + 20), (*(this + 20) - *(this + 19)) >> 2);
+  memset(__p, 0, sizeof(__p));
+  Nightingale::ngt_luna_fw_dl_tmp_process::ngt_luna_fwEndFlagDLTmp(this + 47, v3, __p);
 }
 
-uint64_t Nightingale::lstmLunaFw::validateLunaRslt(Nightingale::lstmLunaFw *this)
+uint64_t Nightingale::lstmLunaFw::validateLunaRslt(Nightingale::lstmLunaFw *this, int a2)
 {
   if (*(this + 220) == 1)
   {
-    v2 = *(this + 54);
-    if (v2 >= -2)
+    v3 = *(this + 54);
+    if (v3 >= -2)
     {
-      v3 = -2;
+      v4 = -2;
     }
 
     else
     {
-      v3 = *(this + 54);
+      v4 = *(this + 54);
     }
 
-    if (v3 <= 0xFFFFFFF1)
+    if (v4 <= 0xFFFFFFF1)
     {
-      v4 = -15;
+      v5 = -15;
     }
 
     else
     {
-      v4 = v3;
+      v5 = v4;
     }
 
-    LOBYTE(v6[0]) = v2 == v4;
-    *(v6 + 1) = v2;
-    std::vector<std::pair<BOOL,float>>::push_back[abi:nn200100](this + 264, v6);
-    if (v2 == v4 && 1 - ((*(this + 17) - *(this + 16)) >> 2) <= (v2 - 7))
+    LOBYTE(v7[0]) = v3 == v5;
+    *(v7 + 1) = v3;
+    std::vector<std::pair<BOOL,float>>::push_back[abi:nn200100](this + 264, v7);
+    if (v3 == v5 && 1 - ((*(this + 17) - *(this + 16)) >> 2) <= (v3 - 7))
     {
-      memset(v6, 0, sizeof(v6));
-      std::vector<int>::__vallocate[abi:nn200100](v6, (-4 * (v2 - 7)) >> 2);
+      memset(v7, 0, sizeof(v7));
+      std::vector<int>::__vallocate[abi:nn200100](v7, (-4 * (v3 - 7)) >> 2);
     }
   }
 
@@ -4619,7 +4379,7 @@ uint64_t Nightingale::lstmLunaFw::getOngoingFwLstmLunaAvailibilityFail(Nightinga
     return *(this + 184);
   }
 
-  if (Nightingale::lstmLuna::acquireWTmp(this, a2 - 44, a2))
+  if (Nightingale::lstmLuna::acquireWTmp(this, (a2 - 44), a2))
   {
     (**this)(this, a2, a3);
   }
@@ -4640,8 +4400,8 @@ uint64_t Nightingale::lstmLunaFw::adjustLSTMFwEnd(uint64_t a1, uint64_t a2, int 
   v9 = a3;
   while (a3 <= 0)
   {
-    std::vector<float>::vector[abi:nn200100]<float const*,0>(v15, v5 + *(a2 + 8) - 28, v5 + *(a2 + 8));
-    std::vector<float>::vector[abi:nn200100]<float const*,0>(__p, v5 + *(a2 + 8), *(a2 + 8));
+    std::vector<float>::vector[abi:nn200100]<float const*,0>(v15, (v5 + *(a2 + 8) - 28), (v5 + *(a2 + 8)));
+    std::vector<float>::vector[abi:nn200100]<float const*,0>(__p, (v5 + *(a2 + 8)), *(a2 + 8));
     MeanDiffOf2Windows = Nightingale::getMeanDiffOf2Windows(v15, __p, -1.0);
     if ((MeanDiffOf2Windows & 0x100000000) != 0)
     {
@@ -4693,7 +4453,7 @@ uint64_t Nightingale::lstmLunaFw::adjustLSTMFwEnd(uint64_t a1, uint64_t a2, int 
   return 0;
 }
 
-uint64_t Nightingale::lstmLunaFw::signalShiftHighCheck(float a1, float a2, uint64_t a3, int a4, uint64_t *a5)
+uint64_t Nightingale::lstmLunaFw::signalShiftHighCheck(float a1, float a2, uint64_t a3, int a4, char **a5)
 {
   v7 = *a5;
   __dst = 0;
@@ -4754,31 +4514,31 @@ unint64_t Nightingale::lstmLunaFw::closeToCalOvuCheck(Nightingale::lstmLunaFw *t
   return v7 | (LODWORD(v4) << 32);
 }
 
-unint64_t Nightingale::lstmLunaFw::missingRateAtDetectionCheck(uint64_t a1, int a2, void *a3)
+unint64_t Nightingale::lstmLunaFw::missingRateAtDetectionCheck(float a1, uint64_t a2, int a3, void *a4)
 {
-  if (a2 >= 1 && *a3 == a3[1])
+  if (a3 >= 1 && *a4 == a4[1])
   {
     return 0xBF80000000000000;
   }
 
   __p = 0;
   __dst = 0;
-  v9 = 0;
-  if (a2)
+  v10 = 0;
+  if (a3)
   {
-    std::vector<int>::__vallocate[abi:nn200100](&__p, (-4 * a2) >> 2);
+    std::vector<int>::__vallocate[abi:nn200100](&__p, (-4 * a3) >> 2);
   }
 
   MissingCnt = Nightingale::getMissingCnt(&__p);
-  v5 = MissingCnt == 0;
-  v6 = MissingCnt;
+  v6 = MissingCnt == 0;
+  v7 = MissingCnt;
   if (__p)
   {
     __dst = __p;
     operator delete(__p);
   }
 
-  return v5 | (LODWORD(v6) << 32);
+  return v6 | (LODWORD(v7) << 32);
 }
 
 float Nightingale::lstmLunaFw::getSignalShift(Nightingale::lstmLunaFw *this)
@@ -4898,59 +4658,59 @@ _BYTE *Nightingale::lstmLunaPeriod::lstmLunaPeriod(_BYTE *a1, uint64_t a2, uint6
   return a1;
 }
 
-void Nightingale::lstmLunaPeriod::~lstmLunaPeriod(Nightingale::lstmLunaPeriod *this)
+void Nightingale::lstmLunaPeriod::~lstmLunaPeriod(id **this)
 {
   *this = &unk_2869C61F8;
-  Nightingale::lstmModelCommonPeriod::~lstmModelCommonPeriod((this + 568));
-  Nightingale::ngt_luna_period_dl_tmp_process::~ngt_luna_period_dl_tmp_process((this + 560));
-  v2 = *(this + 59);
+  Nightingale::lstmModelCommonPeriod::~lstmModelCommonPeriod((this + 71));
+  Nightingale::ngt_luna_period_dl_tmp_process::~ngt_luna_period_dl_tmp_process(this + 70);
+  v2 = this[59];
   if (v2)
   {
-    *(this + 60) = v2;
+    this[60] = v2;
     operator delete(v2);
   }
 
-  v3 = *(this + 56);
+  v3 = this[56];
   if (v3)
   {
-    *(this + 57) = v3;
+    this[57] = v3;
     operator delete(v3);
   }
 
-  v4 = *(this + 53);
+  v4 = this[53];
   if (v4)
   {
-    *(this + 54) = v4;
+    this[54] = v4;
     operator delete(v4);
   }
 
-  v5 = *(this + 50);
+  v5 = this[50];
   if (v5)
   {
-    *(this + 51) = v5;
+    this[51] = v5;
     operator delete(v5);
   }
 
   Nightingale::lstmLuna::~lstmLuna(this);
 }
 
-__n128 Nightingale::lstmLunaPeriod::estimatePeriodStartLuna@<Q0>(Nightingale::lstmLunaPeriod *this@<X0>, uint64_t a2@<X8>)
+__n128 Nightingale::lstmLunaPeriod::estimatePeriodStartLuna@<Q0>(void *__return_ptr a1@<X8>, Nightingale::lstmLunaPeriod *this@<X0>)
 {
-  Nightingale::CGradient::CGradient(a2);
-  *(a2 + 56) = 0;
-  *(a2 + 60) = 0;
-  *(a2 + 64) = 0;
-  *(a2 + 68) = 0;
-  *(a2 + 72) = 0;
-  *(a2 + 76) = 0;
-  *(a2 + 80) = 0;
-  *(a2 + 84) = 0;
+  Nightingale::CGradient::CGradient(a1);
+  *(a1 + 56) = 0;
+  *(a1 + 60) = 0;
+  *(a1 + 64) = 0;
+  *(a1 + 68) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 76) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 84) = 0;
   v4 = *(this + 97);
   if (v4 <= *(this + 98))
   {
     do
     {
-      Nightingale::lstmLunaPeriod::getLunaPeriodEstimationADay(this, v4 - 44, v4);
+      Nightingale::lstmLunaPeriod::getLunaPeriodEstimationADay(this, (v4 - 44), v4);
       if (*(this + 556) == 1)
       {
         break;
@@ -4963,21 +4723,22 @@ __n128 Nightingale::lstmLunaPeriod::estimatePeriodStartLuna@<Q0>(Nightingale::ls
     while (v5);
   }
 
-  if ((this + 472) != a2)
+  if ((this + 472) != a1)
   {
-    std::vector<float>::__assign_with_size[abi:nn200100]<float *,float *>(a2, *(this + 59), *(this + 60), (*(this + 60) - *(this + 59)) >> 2);
+    std::vector<float>::__assign_with_size[abi:nn200100]<float *,float *>(a1, *(this + 59), *(this + 60), (*(this + 60) - *(this + 59)) >> 2);
   }
 
-  *(a2 + 24) = *(this + 31);
-  *(a2 + 33) = *(this + 505);
-  *(a2 + 56) = *(this + 33);
+  *(a1 + 3) = *(this + 31);
+  *(a1 + 33) = *(this + 505);
+  *(a1 + 7) = *(this + 33);
   result = *(this + 541);
-  *(a2 + 69) = result;
+  *(a1 + 69) = result;
   return result;
 }
 
-uint64_t Nightingale::lstmLunaPeriod::getLunaPeriodEstimationADay(Nightingale::lstmLunaPeriod *this, int a2, uint64_t a3)
+uint64_t Nightingale::lstmLunaPeriod::getLunaPeriodEstimationADay(Nightingale::lstmLunaPeriod *this, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   result = Nightingale::lstmLuna::acquireWTmp(this, a2, a3);
   if (result && (result = (**this)(this, a3, 0.3), (result & 1) != 0))
   {
@@ -4986,17 +4747,17 @@ uint64_t Nightingale::lstmLunaPeriod::getLunaPeriodEstimationADay(Nightingale::l
     {
       if (*(this + 40))
       {
-        result = Nightingale::lstmLunaPeriod::prepareUiVectors(this, a2, a3, *(this + 8));
+        result = Nightingale::lstmLunaPeriod::prepareUiVectors(this, v4, a3, *(this + 8));
         if (result)
         {
 
-          Nightingale::lstmLunaPeriod::applyAlgs(this);
+          Nightingale::lstmLunaPeriod::applyAlgs(this, a3);
         }
       }
 
       else
       {
-        v7 = std::__throw_bad_optional_access[abi:nn200100]();
+        std::__throw_bad_optional_access[abi:nn200100]();
         return Nightingale::lstmLunaPeriod::prepareUiVectors(v7, v8, v9, v10);
       }
     }
@@ -5055,25 +4816,25 @@ BOOL Nightingale::lstmLunaPeriod::prepareUiVectors(Nightingale::lstmLunaPeriod *
 
 uint64_t Nightingale::lstmLunaPeriod::validateWTmp(Nightingale::lstmLunaPeriod *this, float a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  memset(v21, 0, sizeof(v21));
+  v25 = *MEMORY[0x277D85DE8];
+  memset(v20, 0, sizeof(v20));
   v3 = (this + 128);
-  LODWORD(v22) = (*(this + 17) - *(this + 16)) >> 2;
-  std::vector<int>::vector[abi:nn200100](&v19, &v22, 1uLL);
-  LODWORD(v22) = 1050253722;
-  std::vector<float>::vector[abi:nn200100](v18, &v22, 1uLL);
-  v22 = &unk_2869C5CD8;
-  v23 = Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::checkWTmpMissingCntHigh;
-  v24 = 0;
-  v25 = &v22;
-  std::vector<std::function<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>>::push_back[abi:nn200100](v21, &v22);
-  std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::~__value_func[abi:nn200100](&v22);
+  LODWORD(v21) = (*(this + 17) - *(this + 16)) >> 2;
+  std::vector<int>::vector[abi:nn200100](&v18, &v21, 1uLL);
+  LODWORD(v21) = 1050253722;
+  std::vector<float>::vector[abi:nn200100](v17, &v21, 1uLL);
+  v21 = &unk_2869C5CD8;
+  v22 = Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::checkWTmpMissingCntHigh;
+  v23 = 0;
+  v24 = &v21;
+  std::vector<std::function<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>>::push_back[abi:nn200100](v20, &v21);
+  std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::~__value_func[abi:nn200100](&v21);
   __dst = 0;
-  v17 = 0;
+  v16 = 0;
   __p = 0;
-  if (v20 != v19)
+  if (v19 != v18)
   {
-    std::vector<int>::__vallocate[abi:nn200100](&__p, (v20 - v19) >> 2);
+    std::vector<int>::__vallocate[abi:nn200100](&__p, (v19 - v18) >> 2);
   }
 
   v4 = *(this + 176);
@@ -5085,10 +4846,10 @@ uint64_t Nightingale::lstmLunaPeriod::validateWTmp(Nightingale::lstmLunaPeriod *
 
   if ((*(v5 + 8 * v4 + 4) & 1) != 0 || **v3 >= 0.0)
   {
-    Nightingale::wristTemperatureInputValidation::checkListOfConditions(this + 369, v21, v3, &__p, v18, 1, &v22);
-    v6 = *v22;
-    v23 = v22;
-    operator delete(v22);
+    Nightingale::wristTemperatureInputValidation::checkListOfConditions(this + 369, v20, v3, &__p, v17, 1, &v21);
+    v6 = *v21;
+    v22 = v21;
+    operator delete(v21);
   }
 
   else
@@ -5096,8 +4857,8 @@ uint64_t Nightingale::lstmLunaPeriod::validateWTmp(Nightingale::lstmLunaPeriod *
     v6 = 0x3F80000000000001;
   }
 
-  v22 = v6;
-  std::vector<std::pair<BOOL,float>>::push_back[abi:nn200100]((v3 + 8), &v22);
+  v21 = v6;
+  std::vector<std::pair<BOOL,float>>::push_back[abi:nn200100]((v3 + 8), &v21);
   if (__p)
   {
     __dst = __p;
@@ -5128,44 +4889,40 @@ uint64_t Nightingale::lstmLunaPeriod::validateWTmp(Nightingale::lstmLunaPeriod *
     v7 = v11 ^ 1;
   }
 
-  if (v18[0])
+  if (v17[0])
   {
-    v18[1] = v18[0];
-    operator delete(v18[0]);
+    v17[1] = v17[0];
+    operator delete(v17[0]);
   }
 
-  if (v19)
+  if (v18)
   {
-    v20 = v19;
-    operator delete(v19);
+    v19 = v18;
+    operator delete(v18);
   }
 
-  v22 = v21;
-  std::vector<std::function<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>>::__destroy_vector::operator()[abi:nn200100](&v22);
-  v13 = *MEMORY[0x277D85DE8];
+  v21 = v20;
+  std::vector<std::function<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>>::__destroy_vector::operator()[abi:nn200100](&v21);
   return v7 & 1;
 }
 
-void Nightingale::lstmLunaPeriod::getPeriodProjFromLstmModel(Nightingale::lstmLunaPeriod *this, Nightingale::lstmModelCommonPeriod *a2)
+void Nightingale::lstmLunaPeriod::getPeriodProjFromLstmModel(float **this, Nightingale::lstmModelCommonPeriod *a2, int a3)
 {
-  v11 = 0;
-  v12 = 0;
-  v10 = 0;
-  v3 = *(*(*(this + 2) + 8) - 96);
+  memset(v10, 0, sizeof(v10));
   *__p = 0u;
   v9 = 0u;
   v6 = 0u;
   *v7 = 0u;
   *__src = 0u;
   *v5 = 0u;
-  std::vector<double>::__insert_with_size[abi:nn200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&__p[1], 0, *(this + 19), *(this + 20), (*(this + 20) - *(this + 19)) >> 2);
-  std::vector<double>::__insert_with_size[abi:nn200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(__src, 0, *(this + 50), *(this + 51), (*(this + 51) - *(this + 50)) >> 2);
-  std::vector<double>::__insert_with_size[abi:nn200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&v5[1], v5[1], *(this + 53), *(this + 54), (*(this + 54) - *(this + 53)) >> 2);
-  std::vector<double>::__insert_with_size[abi:nn200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(v7, v7[0], *(this + 56), *(this + 57), (*(this + 57) - *(this + 56)) >> 2);
-  Nightingale::ngt_luna_period_dl_tmp_process::ngt_luna_periodRegressorLSTM(this + 70);
+  std::vector<double>::__insert_with_size[abi:nn200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&__p[1], 0, this[19], this[20], this[20] - this[19]);
+  std::vector<double>::__insert_with_size[abi:nn200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(__src, 0, this[50], this[51], this[51] - this[50]);
+  std::vector<double>::__insert_with_size[abi:nn200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&v5[1], v5[1], this[53], this[54], this[54] - this[53]);
+  std::vector<double>::__insert_with_size[abi:nn200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(v7, v7[0], this[56], this[57], this[57] - this[56]);
+  Nightingale::ngt_luna_period_dl_tmp_process::ngt_luna_periodRegressorLSTM(this + 70, __src, v10);
 }
 
-double *std::vector<double>::__assign_with_size[abi:nn200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(double **a1, float *a2, float *a3, unint64_t a4)
+double *std::vector<double>::__assign_with_size[abi:nn200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(uint64_t *a1, float *a2, float *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -5240,7 +4997,7 @@ double *std::vector<double>::__assign_with_size[abi:nn200100]<std::__wrap_iter<f
       {
         v15 = *v12++;
         *v11++ = v15;
-        ++v14;
+        v14 += 8;
       }
 
       while (v12 != a3);
@@ -5254,7 +5011,7 @@ double *std::vector<double>::__assign_with_size[abi:nn200100]<std::__wrap_iter<f
 
 void *std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::swap[abi:nn200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -5264,15 +5021,15 @@ void *std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristT
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -5300,28 +5057,25 @@ void *std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristT
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 Nightingale::fwEstimatorLuna *Nightingale::fwEstimatorLuna::fwEstimatorLuna(Nightingale::fwEstimatorLuna *this)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = Nightingale::fwEstimatorBase::fwEstimatorBase(this);
-  v5 = xmmword_258951500;
-  v6 = 5;
-  std::vector<int>::vector[abi:nn200100](v2 + 3, &v5, 5uLL);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = xmmword_258951500;
+  v5 = 5;
+  std::vector<int>::vector[abi:nn200100](v2 + 3, &v4, 5uLL);
   return this;
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = Nightingale::fwEstimatorBase::fwEstimatorBase(this);
-  v5 = xmmword_258951500;
-  v6 = 5;
-  std::vector<int>::vector[abi:nn200100](v2 + 3, &v5, 5uLL);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = xmmword_258951500;
+  v5 = 5;
+  std::vector<int>::vector[abi:nn200100](v2 + 3, &v4, 5uLL);
   return this;
 }
 
@@ -5337,7 +5091,7 @@ void Nightingale::fwEstimatorLuna::~fwEstimatorLuna(Nightingale::fwEstimatorLuna
   Nightingale::fwEstimatorBase::~fwEstimatorBase(this);
 }
 
-void Nightingale::fwEstimatorLuna::getHistFwKali(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, void **a4@<X3>, int a5@<W4>, uint64_t *a6@<X5>, uint64_t a7@<X6>, uint64_t *a8@<X7>, uint64_t a9@<X8>, unsigned __int8 a10)
+void Nightingale::fwEstimatorLuna::getHistFwKali(uint64_t a1@<X0>, unsigned __int8 **a2@<X1>, uint64_t *a3@<X2>, void **a4@<X3>, int a5@<W4>, uint64_t *a6@<X5>, uint64_t a7@<X6>, uint64_t *a8@<X7>, uint64_t a9@<X8>, unsigned __int8 a10)
 {
   *a9 = 0;
   *(a9 + 4) = 0;
@@ -5367,12 +5121,12 @@ void Nightingale::fwEstimatorLuna::getHistFwKali(uint64_t a1@<X0>, uint64_t a2@<
   *(a9 + 156) = 0;
   if (a5)
   {
-    if ((*(a2 + 24) & 1) == 0)
+    if ((a2[3] & 1) == 0)
     {
       goto LABEL_48;
     }
 
-    Nightingale::wristTemperatureInputAcquisition::extractWTmp_removeOutlier_withBuf(a8, *(a2 + 20) - *a2 + 1, *(a2 + 20), a3, a4, &v41);
+    Nightingale::wristTemperatureInputAcquisition::extractWTmp_removeOutlier_withBuf(a8, *(a2 + 5) - *a2 + 1, *(a2 + 5), a3, a4, &v41);
     memset(v51, 0, 24);
     v17 = std::vector<std::vector<float>>::__init_with_size[abi:nn200100]<std::vector<float>*,std::vector<float>*>(v51, v41, v42, 0xAAAAAAAAAAAAAAABLL * ((v42 - v41) >> 3));
     v51[3] = v43;
@@ -5444,14 +5198,14 @@ LABEL_49:
     v23 = 1;
   }
 
-  if ((*(a2 + 24) & 1) == 0)
+  if ((a2[3] & 1) == 0)
   {
     goto LABEL_48;
   }
 
-  v24 = *(a2 + 20);
+  v24 = *(a2 + 5);
   v25 = *a2;
-  if (Nightingale::phaseFactorProcessor::vPhasesContainsAPhase(a1, (a2 + 72), 0))
+  if (Nightingale::phaseFactorProcessor::vPhasesContainsAPhase(a1, a2 + 9, 0))
   {
     if (v23 && (a7 & 0x100000000) == 0)
     {
@@ -5491,7 +5245,7 @@ LABEL_48:
   }
 
   v27 = *(a2 + 36);
-  v28 = *(a2 + 32);
+  v28 = *(a2 + 8);
   if (!*(a2 + 36))
   {
     v28 = 0;
@@ -5507,7 +5261,7 @@ LABEL_48:
   Nightingale::slidingWindowBaseLuna::process(&v41, a3, a10, &v36);
   if (v37)
   {
-    v29 = Nightingale::run_m_over_n_moving_target(a3, a7 + 1, *a2);
+    v29 = Nightingale::run_m_over_n_moving_target(a3, (a7 + 1), *a2);
     if ((v29 & 0x100000000) != 0)
     {
       v36 = v29;
@@ -5658,45 +5412,35 @@ unint64_t Nightingale::fwEstimatorLuna::getJDayCycleEnd(uint64_t a1, uint64_t a2
   return v5 | v4 | v3;
 }
 
-void Nightingale::fwEstimatorLuna::getFwEndLuna(void *a1@<X1>, void *a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
+void Nightingale::fwEstimatorLuna::getFwEndLuna(void *a2@<X1>, uint64_t a4@<X3>, int *a7@<X8>)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  *(a4 + 4) = 0;
-  *(a4 + 8) = 0;
-  *(a4 + 12) = 0;
-  *(a4 + 16) = 0;
-  *(a4 + 20) = 0;
-  *(a4 + 24) = 0;
-  *(a4 + 32) = 8;
-  *(a4 + 36) = 0;
-  *(a4 + 38) = 0;
-  *(a4 + 40) = -1;
-  *(a4 + 52) = 0;
-  *(a4 + 56) = 0;
-  *(a4 + 72) = 0;
-  *(a4 + 80) = 0;
-  *(a4 + 64) = 0;
-  *(a4 + 88) = -1;
-  *(a4 + 92) = 0;
-  *(a4 + 96) = 0;
-  *a4 = 7;
-  v4 = a1[1];
-  if (*a1 != v4 && *(v4 - 60) == 1 && *(a3 + 36) == 1)
+  *(a7 + 4) = 0;
+  *(a7 + 8) = 0;
+  *(a7 + 12) = 0;
+  *(a7 + 16) = 0;
+  *(a7 + 20) = 0;
+  *(a7 + 24) = 0;
+  a7[8] = 8;
+  *(a7 + 18) = 0;
+  *(a7 + 38) = 0;
+  *(a7 + 5) = -1;
+  *(a7 + 52) = 0;
+  *(a7 + 56) = 0;
+  *(a7 + 9) = 0;
+  *(a7 + 10) = 0;
+  *(a7 + 8) = 0;
+  a7[22] = -1;
+  *(a7 + 92) = 0;
+  *(a7 + 96) = 0;
+  *a7 = 7;
+  v7 = a2[1];
+  if (*a2 != v7 && *(v7 - 60) == 1 && *(a4 + 36) == 1)
   {
-    v5 = ((roundf(*(v4 - 64)) + *(v4 - 96)) + -13.0);
-    v6 = a2[1];
-    if (*a2 != v6 && *(v6 - 64) == *(a3 + 32))
-    {
-      *(v6 - 4);
-    }
-
     operator new();
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t Nightingale::fwEstimatorLuna::getJDayKEd(uint64_t a1, unsigned int a2, void *a3, int a4)
+uint64_t Nightingale::fwEstimatorLuna::getJDayKEd(uint64_t a1, signed int a2, void *a3, int a4)
 {
   v4 = a3[1];
   if (*a3 == v4)
@@ -5718,9 +5462,9 @@ uint64_t Nightingale::fwEstimatorLuna::getJDayKEd(uint64_t a1, unsigned int a2, 
     }
   }
 
-  else if (v5 >= (a2 - 1))
+  else if (v5 >= a2 - 1)
   {
-    return a2 - 1;
+    return (a2 - 1);
   }
 
   else
@@ -5852,9 +5596,9 @@ uint64_t Nightingale::fwEstimatorLuna::getKaliDay2DayNoiseAnchoredByToday(uint64
     return 0xFFFFFFFFLL;
   }
 
-  Nightingale::wristTemperatureInputProcess::wristTemperatureInputProcess(&v38);
-  Nightingale::wristTemperatureInputAcquisition::wristTemperatureInputAcquisition(v37);
-  Nightingale::wristTemperatureInputValidation::wristTemperatureInputValidation(&v36);
+  Nightingale::wristTemperatureInputProcess::wristTemperatureInputProcess(&v41);
+  Nightingale::wristTemperatureInputAcquisition::wristTemperatureInputAcquisition(v40);
+  Nightingale::wristTemperatureInputValidation::wristTemperatureInputValidation(&v39);
   if (*(a3 + 36))
   {
     v9 = *(a3 + 32);
@@ -5864,15 +5608,15 @@ uint64_t Nightingale::fwEstimatorLuna::getKaliDay2DayNoiseAnchoredByToday(uint64
       v9 -= *(v10 - 4) ^ 1;
     }
 
-    Nightingale::wristTemperatureInputAcquisition::extractWTmp_removeOutlier_withBuf_fromCycleOffset(v37, 20, v9, a5 - 43, a2, a4, &v30);
-    if (v30 == v31)
+    Nightingale::wristTemperatureInputAcquisition::extractWTmp_removeOutlier_withBuf_fromCycleOffset(v40, 20, v9, a5 - 43, a2, a4, &v33);
+    if (v33 == v34)
     {
       goto LABEL_33;
     }
 
-    v11 = *v30;
-    v12 = v30[1];
-    if (*v30 == v12)
+    v11 = *v33;
+    v12 = v33[1];
+    if (*v33 == v12)
     {
       v13 = 0;
     }
@@ -5880,7 +5624,7 @@ uint64_t Nightingale::fwEstimatorLuna::getKaliDay2DayNoiseAnchoredByToday(uint64
     else
     {
       v13 = 0;
-      v14 = *v30;
+      v14 = *v33;
       do
       {
         v15 = *v14++;
@@ -5893,7 +5637,7 @@ uint64_t Nightingale::fwEstimatorLuna::getKaliDay2DayNoiseAnchoredByToday(uint64
       while (v14 != v12);
     }
 
-    v17 = 0xAAAAAAAAAAAAAAABLL * (v31 - v30);
+    v17 = 0xAAAAAAAAAAAAAAABLL * (v34 - v33);
     if (v17 < 2)
     {
       v18 = 0;
@@ -5904,7 +5648,7 @@ uint64_t Nightingale::fwEstimatorLuna::getKaliDay2DayNoiseAnchoredByToday(uint64
       v18 = 0;
       for (i = 1; i != v17; ++i)
       {
-        v20 = &v30[3 * i];
+        v20 = &v33[3 * i];
         v21 = *v20;
         v22 = v20[1];
         if (v21 == v22)
@@ -5939,7 +5683,7 @@ uint64_t Nightingale::fwEstimatorLuna::getKaliDay2DayNoiseAnchoredByToday(uint64
         }
       }
 
-      v26 = &v30[3 * v18];
+      v26 = &v33[3 * v18];
       v11 = *v26;
       v12 = v26[1];
     }
@@ -5952,7 +5696,7 @@ LABEL_33:
 
     else
     {
-      v27 = sqrtf(COERCE_FLOAT(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::computeDay2DayNoise(&v30[3 * v18])));
+      v27 = sqrtf(COERCE_FLOAT(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::computeDay2DayNoise(&v33[3 * v18])));
       if (v27 >= 0.35)
       {
         v16 = 7;
@@ -5966,29 +5710,29 @@ LABEL_33:
 
     if (__p)
     {
-      v35 = __p;
+      v38 = __p;
       operator delete(__p);
     }
 
-    if (v32)
+    if (v35)
     {
-      v33 = v32;
-      operator delete(v32);
+      v36 = v35;
+      operator delete(v35);
     }
 
-    v39 = &v30;
-    std::vector<std::vector<std::pair<BOOL,float>>>::__destroy_vector::operator()[abi:nn200100](&v39);
-    Nightingale::wristTemperatureInputValidation::~wristTemperatureInputValidation(&v36);
-    Nightingale::wristTemperatureInputAcquisition::~wristTemperatureInputAcquisition(v37);
-    Nightingale::wristTemperatureInputProcess::~wristTemperatureInputProcess(&v38);
+    v42 = &v33;
+    std::vector<std::vector<std::pair<BOOL,float>>>::__destroy_vector::operator()[abi:nn200100](&v42);
+    Nightingale::wristTemperatureInputValidation::~wristTemperatureInputValidation(&v39);
+    Nightingale::wristTemperatureInputAcquisition::~wristTemperatureInputAcquisition(v40);
+    Nightingale::wristTemperatureInputProcess::~wristTemperatureInputProcess(&v41);
     return v16;
   }
 
-  v29 = std::__throw_bad_optional_access[abi:nn200100]();
-  return Nightingale::fwEstimatorLuna::getJDayLastDayToRunLuna(v29);
+  std::__throw_bad_optional_access[abi:nn200100]();
+  return Nightingale::fwEstimatorLuna::getJDayLastDayToRunLuna(v29, v30, v31, v32);
 }
 
-uint64_t Nightingale::fwEstimatorLuna::getJDayLastDayToRunLuna(uint64_t a1, int *a2, uint64_t a3, int a4)
+void Nightingale::fwEstimatorLuna::getJDayLastDayToRunLuna(uint64_t a1, int *a2, uint64_t a3, int a4)
 {
   if (*(a3 + 36))
   {
@@ -6010,42 +5754,29 @@ uint64_t Nightingale::fwEstimatorLuna::getJDayLastDayToRunLuna(uint64_t a1, int 
     v5 = -1;
   }
 
-  v6 = v5 + v4;
-  if (v6 >= a4 || (*(a3 + 36) & 1) != 0)
+  if (v5 + v4 < a4 && (*(a3 + 36) & 1) == 0)
   {
-    if (v6 < a4)
-    {
-      return *(a3 + 32);
-    }
-
-    else
-    {
-      return v6;
-    }
-  }
-
-  else
-  {
-    v8 = std::__throw_bad_optional_access[abi:nn200100]();
-    return Nightingale::fwEstimatorLuna::getDaysWristTempInPassNDaysAndDaysPassedEPAvailability(v8);
+    std::__throw_bad_optional_access[abi:nn200100]();
+    Nightingale::fwEstimatorLuna::getDaysWristTempInPassNDaysAndDaysPassedEPAvailability(v6, v7, v8, v9, v10, v11, v12);
   }
 }
 
-void Nightingale::fwEstimatorLuna::getDaysWristTempInPassNDaysAndDaysPassedEPAvailability(uint64_t a1, void *a2, unint64_t a3, int a4, int a5, int a6, uint64_t a7)
+void Nightingale::fwEstimatorLuna::getDaysWristTempInPassNDaysAndDaysPassedEPAvailability(uint64_t a1, void *a2, unint64_t a3, int a4, uint64_t a5, int a6, uint64_t a7)
 {
-  v41 = *MEMORY[0x277D85DE8];
-  Nightingale::wristTemperatureInputAcquisition::wristTemperatureInputAcquisition(v38);
-  Nightingale::wristTemperatureInputAcquisition::extractWTmp_removeOutlier_withBuf_fromCycleOffset(v38, 45, a5, a6 - 43, a2, a3, v33);
-  v39 = 0x130000000CLL;
-  v40 = 45;
-  NumWristTempAvailRegardlessOf1stTemp = std::vector<int>::vector[abi:nn200100](&__p, &v39, 3uLL);
+  v9 = a5;
+  v40 = *MEMORY[0x277D85DE8];
+  Nightingale::wristTemperatureInputAcquisition::wristTemperatureInputAcquisition(v37);
+  Nightingale::wristTemperatureInputAcquisition::extractWTmp_removeOutlier_withBuf_fromCycleOffset(v37, 45, v9, a6 - 43, a2, a3, v32);
+  v38 = 0x130000000CLL;
+  v39 = 45;
+  NumWristTempAvailRegardlessOf1stTemp = std::vector<int>::vector[abi:nn200100](&__p, &v38, 3uLL);
   v13 = __p;
-  v14 = v32;
-  if (__p != v32)
+  v14 = v31;
+  if (__p != v31)
   {
     do
     {
-      NumWristTempAvailRegardlessOf1stTemp = Nightingale::fwEstimatorLuna::getNumWristTempAvailRegardlessOf1stTemp(NumWristTempAvailRegardlessOf1stTemp, v33, *v13, *v13);
+      NumWristTempAvailRegardlessOf1stTemp = Nightingale::fwEstimatorLuna::getNumWristTempAvailRegardlessOf1stTemp(NumWristTempAvailRegardlessOf1stTemp, v32, *v13, *v13);
       v16 = *(a7 + 40);
       v15 = *(a7 + 48);
       if (v16 >= v15)
@@ -6109,12 +5840,12 @@ void Nightingale::fwEstimatorLuna::getDaysWristTempInPassNDaysAndDaysPassedEPAva
     while (v13 != v14);
   }
 
-  if (a5 - a4 == 8)
+  if (v9 - a4 == 8)
   {
     v27 = 0;
     for (i = 12; i != 18; ++i)
     {
-      NumWristTempAvailRegardlessOf1stTemp = Nightingale::fwEstimatorLuna::getNumWristTempAvailRegardlessOf1stTemp(NumWristTempAvailRegardlessOf1stTemp, v33, i, 12);
+      NumWristTempAvailRegardlessOf1stTemp = Nightingale::fwEstimatorLuna::getNumWristTempAvailRegardlessOf1stTemp(NumWristTempAvailRegardlessOf1stTemp, v32, i, 12);
       if (NumWristTempAvailRegardlessOf1stTemp > 8)
       {
         ++v27;
@@ -6126,26 +5857,25 @@ void Nightingale::fwEstimatorLuna::getDaysWristTempInPassNDaysAndDaysPassedEPAva
 
   if (__p)
   {
-    v32 = __p;
+    v31 = __p;
     operator delete(__p);
   }
 
-  if (v36)
+  if (v35)
   {
-    v37 = v36;
-    operator delete(v36);
+    v36 = v35;
+    operator delete(v35);
   }
 
-  if (v34)
+  if (v33)
   {
-    v35 = v34;
-    operator delete(v34);
+    v34 = v33;
+    operator delete(v33);
   }
 
-  __p = v33;
+  __p = v32;
   std::vector<std::vector<std::pair<BOOL,float>>>::__destroy_vector::operator()[abi:nn200100](&__p);
-  Nightingale::wristTemperatureInputAcquisition::~wristTemperatureInputAcquisition(v38);
-  v29 = *MEMORY[0x277D85DE8];
+  Nightingale::wristTemperatureInputAcquisition::~wristTemperatureInputAcquisition(v37);
 }
 
 uint64_t Nightingale::fwEstimatorLuna::combineEpRfLstmFailureReasons(uint64_t a1, int **a2)
@@ -6446,13 +6176,13 @@ uint64_t std::optional<std::vector<float>>::operator=[abi:nn200100]<std::vector<
   return a1;
 }
 
-uint64_t Nightingale::fwEstimatorLuna::getNumWristTempAvailRegardlessOf1stTemp(uint64_t a1, uint64_t a2, int a3, int a4)
+uint64_t Nightingale::fwEstimatorLuna::getNumWristTempAvailRegardlessOf1stTemp(uint64_t a1, uint64_t *a2, int a3, int a4)
 {
   v26 = 0;
   v27 = 0;
   v28 = 0;
   v4 = *a2;
-  v5 = *(a2 + 8);
+  v5 = a2[1];
   if (*a2 == v5)
   {
     return 0;
@@ -6564,7 +6294,7 @@ LABEL_29:
   return v21;
 }
 
-uint64_t Nightingale::fwEstimatorLuna::getDaysPassedEPAvailability(uint64_t NumWristTempAvailRegardlessOf1stTemp, uint64_t a2, int a3)
+uint64_t Nightingale::fwEstimatorLuna::getDaysPassedEPAvailability(uint64_t NumWristTempAvailRegardlessOf1stTemp, uint64_t *a2, int a3)
 {
   if (a3 < 1)
   {
@@ -6594,7 +6324,7 @@ uint64_t Nightingale::fwEstimatorLuna::getDaysPassedEPAvailability(uint64_t NumW
   return v6;
 }
 
-void std::vector<std::optional<float>>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<std::optional<float>>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -6625,9 +6355,9 @@ __n128 std::vector<float>::__move_assign(uint64_t a1, __n128 *a2)
   return result;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -6661,7 +6391,7 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,st
   }
 }
 
-void Nightingale::preprocess_temperature_inputs_for_hist_cycle(uint64_t *a1@<X0>, int a2@<W1>, int a3@<W2>, uint64_t a4@<X8>)
+void Nightingale::preprocess_temperature_inputs_for_hist_cycle(uint64_t *a1@<X0>, int a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v5 = a2 - 43;
   Nightingale::extract_and_validate_temperature_data(a1, a3, __p);
@@ -6812,14 +6542,14 @@ void Nightingale::extract_and_validate_temperature_data(uint64_t *a1@<X0>, int a
               if (*(v20 + 16) == v21)
               {
                 v53[0] = v20 + 2;
-                v24 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, v23);
+                v24 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, v23, &std::piecewise_construct, v53);
                 *v53 = v22;
               }
 
               else
               {
                 v53[0] = v20 + 2;
-                v24 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, v23);
+                v24 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, v23, &std::piecewise_construct, v53);
                 LODWORD(v53[0]) = 2143289344;
               }
 
@@ -6839,7 +6569,7 @@ void Nightingale::extract_and_validate_temperature_data(uint64_t *a1@<X0>, int a
           for (i = v45; i; i = *i)
           {
             v53[0] = i + 16;
-            v26 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, i + 16);
+            v26 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, i + 16, &std::piecewise_construct, v53);
             LODWORD(v53[0]) = 2143289344;
             std::vector<float>::push_back[abi:nn200100](v26 + 3, v53);
           }
@@ -6858,7 +6588,7 @@ void Nightingale::extract_and_validate_temperature_data(uint64_t *a1@<X0>, int a
       do
       {
         v53[0] = v27 + 16;
-        v29 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, v27 + 16);
+        v29 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, v27 + 16, &std::piecewise_construct, v53);
         v30 = v29[3];
         v31 = v29[4] - v30;
         if ((v31 >> 2) < 1)
@@ -6899,7 +6629,7 @@ void Nightingale::extract_and_validate_temperature_data(uint64_t *a1@<X0>, int a
           for (k = v45; k; k = *k)
           {
             v53[0] = k + 16;
-            v36 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, k + 16);
+            v36 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, k + 16, &std::piecewise_construct, v53);
             v36[4] = (v36[4] - 4);
           }
         }
@@ -7008,12 +6738,12 @@ LABEL_7:
       v14 = 4 * v11 + 4;
       do
       {
-        v21 = v13 + 16;
-        v15 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(a1 + 3, v13 + 16);
+        v21 = (v13 + 2);
+        v15 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(a1 + 3, v13 + 16, &std::piecewise_construct, &v21);
         std::vector<int>::vector[abi:nn200100](&v21, v15 + 3);
-        std::vector<float>::vector[abi:nn200100]<float const*,0>(&v19, v21, v21 + v14);
-        v24 = v13 + 16;
-        v16 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a3 + 24), v13 + 16);
+        std::vector<float>::vector[abi:nn200100]<float const*,0>(&v19, v21, (v21 + v14));
+        v24 = v13 + 2;
+        v16 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a3 + 24), v13 + 16, &std::piecewise_construct, &v24);
         v17 = v16[3];
         if (v17)
         {
@@ -7139,14 +6869,14 @@ void Nightingale::preprocess_all_temperature_data(uint64_t a1@<X0>, uint64_t a2@
 
     v35 = &v34;
     v2 = a2;
-    v22 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a2 + 24), &v34) + 3;
+    v22 = (std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a2 + 24), &v34, &std::piecewise_construct, &v35) + 3);
     if (v22 != &__p)
     {
       std::vector<float>::__assign_with_size[abi:nn200100]<float *,float *>(v22, __p, v28, (v28 - __p) >> 2);
     }
 
     v35 = &v34;
-    v23 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(v26, &v34) + 3;
+    v23 = (std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(v26, &v34, &std::piecewise_construct, &v35) + 3);
     if (v23 != &__src)
     {
       std::vector<float>::__assign_with_size[abi:nn200100]<float *,float *>(v23, __src, v32, (v32 - __src) >> 2);
@@ -7289,7 +7019,7 @@ void Nightingale::prepare_temperature_input_slice_for_kdays(void *a1@<X0>, int a
 
             v41 = 0;
             v42 = 0uLL;
-            std::vector<float>::__init_with_size[abi:nn200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(&v41, v21 + v20, v21 + 4 * v22, (4 * v22 - v20) >> 2);
+            std::vector<float>::__init_with_size[abi:nn200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(&v41, (v21 + v20), v21 + v22, (4 * v22 - v20) >> 2);
             v23 = 0.0;
             if (v41 != v42)
             {
@@ -7324,7 +7054,7 @@ void Nightingale::prepare_temperature_input_slice_for_kdays(void *a1@<X0>, int a
           {
             v41 = &v43;
             a3 = v39;
-            v27 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(v39 + 3, &v43);
+            v27 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(v39 + 3, &v43, &std::piecewise_construct, &v41);
             v28 = v27[3];
             v29 = (v27[4] - v28) >> 2;
             if (v19 < v29)
@@ -7332,7 +7062,7 @@ void Nightingale::prepare_temperature_input_slice_for_kdays(void *a1@<X0>, int a
               LODWORD(v29) = v40 + a2;
             }
 
-            std::vector<float>::vector[abi:nn200100]<float const*,0>(&v41, v28 + v20, v28 + 4 * v29);
+            std::vector<float>::vector[abi:nn200100]<float const*,0>(&v41, (v28 + v20), v28 + v29);
             if (__p)
             {
               __dst[0] = __p;
@@ -7411,11 +7141,11 @@ LABEL_42:
   }
 }
 
-uint64_t std::vector<std::vector<float>>::push_back[abi:nn200100](uint64_t result, uint64_t a2)
+const void **std::vector<std::vector<float>>::push_back[abi:nn200100](const void **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v7 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 3);
@@ -7457,8 +7187,8 @@ uint64_t std::vector<std::vector<float>>::push_back[abi:nn200100](uint64_t resul
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
-    v12 = *(result + 8) - *result;
-    v13 = v11 - v12;
+    v12 = result[1] - *result;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -7475,14 +7205,14 @@ uint64_t std::vector<std::vector<float>>::push_back[abi:nn200100](uint64_t resul
   else
   {
     *v4 = 0;
-    v4[1] = 0;
-    v4[2] = 0;
+    *(v4 + 1) = 0;
+    *(v4 + 2) = 0;
     *v4 = *a2;
-    v4[2] = *(a2 + 16);
+    *(v4 + 2) = *(a2 + 16);
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v6 = (v4 + 3);
+    v6 = (v4 + 24);
   }
 
   v3[1] = v6;
@@ -7544,7 +7274,7 @@ void Nightingale::remove_outlier_via_sliding_window_r(uint64_t *a1@<X0>, int a2@
           std::vector<int>::__vallocate[abi:nn200100](&v25, v14);
         }
 
-        std::vector<float>::vector[abi:nn200100]<float const*,0>(__p, v13 + v12, v13 + v12 + 4);
+        std::vector<float>::vector[abi:nn200100]<float const*,0>(__p, (v13 + v12), (v13 + v12 + 4));
         Nightingale::get_sw_difference(&v25, __p);
         v16 = v15 < a4 && v15 > -a4;
         if (v16)
@@ -7602,11 +7332,11 @@ LABEL_26:
   }
 }
 
-int *Nightingale::get_sw_difference(char **a1, int **a2)
+void Nightingale::get_sw_difference(char **a1, char **a2)
 {
   v3 = *a1;
   v2 = a1[1];
-  result = *a2;
+  v4 = *a2;
   v5 = a2[1];
   v6 = (v5 - *a2) >> 2;
   for (i = (v2 - v3) >> 2; v3 != v2; LODWORD(i) = i - ((v8 & 0x7FFFFFFFu) > 0x7F7FFFFF))
@@ -7616,10 +7346,10 @@ int *Nightingale::get_sw_difference(char **a1, int **a2)
   }
 
   v9 = v6;
-  if (result != v5)
+  if (v4 != v5)
   {
     v9 = v6;
-    v10 = result;
+    v10 = v4;
     do
     {
       v11 = *v10++;
@@ -7636,22 +7366,20 @@ int *Nightingale::get_sw_difference(char **a1, int **a2)
       Nightingale::vMean<float>();
     }
   }
-
-  return result;
 }
 
-char *Nightingale::calculate_snr_noise_power(char **a1, int **a2)
+void Nightingale::calculate_snr_noise_power(char **a1, int **a2)
 {
-  result = *a1;
+  v2 = *a1;
   v3 = a1[1];
   v6 = *a2;
   v5 = a2[1];
   v7 = (v5 - *a2) >> 2;
-  v8 = (v3 - result) >> 2;
-  if (v3 != result)
+  v8 = (v3 - v2) >> 2;
+  if (v3 != v2)
   {
-    v8 = (v3 - result) >> 2;
-    v9 = result;
+    v8 = (v3 - v2) >> 2;
+    v9 = v2;
     do
     {
       v10 = *v9;
@@ -7671,8 +7399,6 @@ char *Nightingale::calculate_snr_noise_power(char **a1, int **a2)
   {
     Nightingale::vVar<float>();
   }
-
-  return result;
 }
 
 void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__move_assign(uint64_t a1, uint64_t *a2)
@@ -7739,7 +7465,7 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
   }
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:nn200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:nn200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7757,13 +7483,13 @@ uint64_t std::unordered_map<unsigned char,std::vector<float>>::unordered_map(uin
   std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char const,std::vector<float>> const&>(a1, i + 16);
+    std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char const,std::vector<float>> const&>(a1, i + 16, i + 16);
   }
 
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -7779,7 +7505,7 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -7787,7 +7513,7 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -7811,7 +7537,7 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -7838,33 +7564,33 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
   *(a1 + 8) = 0;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char const,std::vector<float>> const&>(void *a1, unsigned __int8 *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char const,std::vector<float>> const&>(void *a1, unsigned __int8 *a2, _BYTE *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % a1[1];
+      v6 = v3 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -7872,44 +7598,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 16) != v2)
+  if (*(v8 + 16) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t std::unordered_map<unsigned char,std::vector<int>>::unordered_map(uint64_t a1, uint64_t a2)
@@ -7920,39 +7646,39 @@ uint64_t std::unordered_map<unsigned char,std::vector<int>>::unordered_map(uint6
   std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char const,std::vector<int>> const&>(a1, i + 16);
+    std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char const,std::vector<int>> const&>(a1, i + 16, i + 16);
   }
 
   return a1;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char const,std::vector<int>> const&>(void *a1, unsigned __int8 *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char const,std::vector<int>> const&>(void *a1, unsigned __int8 *a2, _BYTE *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % a1[1];
+      v6 = v3 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -7960,73 +7686,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 16) != v2)
+  if (*(v8 + 16) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(void *a1, unsigned __int8 *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(void *a1, unsigned __int8 *a2, uint64_t a3, _BYTE **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -8034,47 +7760,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 16) != v2)
+  if (*(v9 + 16) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::find<unsigned char>(void *a1, unsigned __int8 *a2)
+uint64_t ***std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::find<unsigned char>(void *a1, unsigned __int8 *a2)
 {
   v2 = a1[1];
   if (!*&v2)
@@ -8204,7 +7930,7 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
 
   if (v4 != a3)
   {
-    std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_multi<std::pair<unsigned char const,std::vector<float>> const&>();
+    std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_multi<std::pair<unsigned char const,std::vector<float>> const&>(a1, v4 + 16);
   }
 }
 
@@ -8384,7 +8110,7 @@ LABEL_19:
   return result;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__rehash<false>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__rehash<false>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -8400,7 +8126,7 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -8408,7 +8134,7 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -8432,7 +8158,7 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__do_rehash<false>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__do_rehash<false>(result, prime);
     }
   }
 }
@@ -8459,33 +8185,33 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
   *(a1 + 8) = 0;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(void *a1, unsigned __int8 *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(void *a1, unsigned __int8 *a2, uint64_t a3, _BYTE **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -8493,44 +8219,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 16) != v2)
+  if (*(v9 + 16) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void Nightingale::fwHEstimation::processPerCycle(uint64_t a1@<X1>, uint64_t *a2@<X2>, void **a3@<X3>, int a4@<W4>, uint64_t *a5@<X5>, uint64_t *a6@<X6>, int a7@<W7>, uint64_t a8@<X8>)
@@ -8749,7 +8475,7 @@ LABEL_28:
     goto LABEL_50;
   }
 
-  v29 = std::__throw_bad_optional_access[abi:nn200100]();
+  std::__throw_bad_optional_access[abi:nn200100]();
   std::__optional_storage_base<std::vector<float>,false>::__assign_from[abi:nn200100]<std::__optional_copy_assign_base<std::vector<float>,false> const&>(v29, v30);
 }
 
@@ -8786,223 +8512,220 @@ void std::__optional_storage_base<std::vector<float>,false>::__assign_from[abi:n
   }
 }
 
-uint64_t Nightingale::run_m_over_n_moving_target(uint64_t *a1, int a2, int a3)
+uint64_t Nightingale::run_m_over_n_moving_target(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v44[5] = *MEMORY[0x277D85DE8];
-  if ((a3 | a2) < 0)
+  v49[5] = *MEMORY[0x277D85DE8];
+  if (((a3 | a2) & 0x80000000) != 0)
   {
-    result = 0;
-    goto LABEL_49;
+    return 0;
   }
 
-  Nightingale::prepare_input_slices_for_mt(a1, a3, a2, &v42);
-  Nightingale::day2day_noise_check_per_slice(&v42, v41, 0.16);
-  Nightingale::signal2noise_check_per_slice(&v42, v40, 0.3025);
-  Nightingale::missing_spec_check_for_each_window(&v42, v37, 8.0, 8.0);
+  Nightingale::prepare_input_slices_for_mt(a1, a3, a2, &v47);
+  Nightingale::day2day_noise_check_per_slice(&v47, v46, 0.16);
+  Nightingale::signal2noise_check_per_slice(&v47, v45, 0.3025);
+  Nightingale::missing_spec_check_for_each_window(&v47, v42, 8.0, 8.0);
   __src = 0;
-  v35 = 0;
-  v36 = 0;
-  v44[0] = 0xEEEEEEEEEEEEEEEFLL * ((v43 - v42) >> 3);
-  v44[1] = v41[1];
-  v44[2] = v40[1];
-  v44[3] = v37[1];
-  v44[4] = v39;
-  std::vector<unsigned long>::vector[abi:nn200100](&v32, v44, 5uLL);
-  v3 = v32;
-  if (v32 != v33)
+  v40 = 0;
+  v41 = 0;
+  v49[0] = 0xEEEEEEEEEEEEEEEFLL * ((v48 - v47) >> 3);
+  v49[1] = v46[1];
+  v49[2] = v45[1];
+  v49[3] = v42[1];
+  v49[4] = v44;
+  std::vector<unsigned long>::vector[abi:nn200100](&v37, v49, 5uLL);
+  v9 = v37;
+  if (v37 != v38)
   {
-    LOBYTE(v4) = 1;
+    LOBYTE(v10) = 1;
     do
     {
-      v5 = *v3++;
-      v4 = (v5 == *v32) & v4;
+      v11 = *v9++;
+      v10 = (v11 == *v37) & v10;
     }
 
-    while (v3 != v33);
-    if (!v4)
+    while (v9 != v38);
+    if (!v10)
     {
       goto LABEL_35;
     }
   }
 
-  if (v43 == v42)
+  if (v48 == v47)
   {
-    v7 = v35;
+    v13 = v40;
   }
 
   else
   {
-    v6 = 0;
-    v7 = v35;
+    v12 = 0;
+    v13 = v40;
     do
     {
-      v8 = (v6 >> 3) & 0x1FFFFFFFFFFFFFF8;
-      v9 = (*(v41[0] + v8) & (1 << v6)) != 0;
-      v10 = (*(v40[0] + v8) & (1 << v6)) != 0;
-      v11 = (*(v37[0] + v8) & (1 << v6)) != 0;
-      v12 = (*(v38 + v8) & (1 << v6)) != 0;
-      if (v7 >= v36)
+      v14 = (v12 >> 3) & 0x1FFFFFFFFFFFFFF8;
+      v15 = (*(v46[0] + v14) & (1 << v12)) != 0;
+      v16 = (*(v45[0] + v14) & (1 << v12)) != 0;
+      v17 = (*(v42[0] + v14) & (1 << v12)) != 0;
+      v18 = (*(v43 + v14) & (1 << v12)) != 0;
+      if (v13 >= v41)
       {
-        v13 = __src;
-        v14 = v7 - __src;
-        v15 = 0xCCCCCCCCCCCCCCCDLL * (v7 - __src);
-        v16 = v15 + 1;
-        if (v15 + 1 >= 0x3333333333333334)
+        v19 = __src;
+        v20 = v13 - __src;
+        v21 = 0xCCCCCCCCCCCCCCCDLL * (v13 - __src);
+        v22 = v21 + 1;
+        if (v21 + 1 >= 0x3333333333333334)
         {
           std::string::__throw_length_error[abi:nn200100]();
         }
 
-        if (0x999999999999999ALL * (v36 - __src) > v16)
+        if (0x999999999999999ALL * (v41 - __src) > v22)
         {
-          v16 = 0x999999999999999ALL * (v36 - __src);
+          v22 = 0x999999999999999ALL * (v41 - __src);
         }
 
-        if (0xCCCCCCCCCCCCCCCDLL * (v36 - __src) >= 0x1999999999999999)
+        if (0xCCCCCCCCCCCCCCCDLL * (v41 - __src) >= 0x1999999999999999)
         {
-          v17 = 0x3333333333333333;
+          v23 = 0x3333333333333333;
         }
 
         else
         {
-          v17 = v16;
+          v23 = v22;
         }
 
-        if (v17)
+        if (v23)
         {
-          std::__allocate_at_least[abi:nn200100]<std::allocator<Nightingale::lunaMTSpecs>>(&__src, v17);
+          std::__allocate_at_least[abi:nn200100]<std::allocator<Nightingale::lunaMTSpecs>>(&__src, v23);
         }
 
-        v18 = 5 * v15;
-        *v18 = 1;
-        *(v18 + 1) = v9;
-        *(v18 + 2) = v10;
-        *(v18 + 3) = v11;
-        *(v18 + 4) = v12;
-        v7 = (5 * v15 + 5);
-        v19 = (v18 - v14);
-        memcpy((v18 - v14), v13, v14);
-        v20 = __src;
-        __src = v19;
-        v35 = v7;
-        v36 = 0;
-        if (v20)
+        v24 = 5 * v21;
+        *v24 = 1;
+        *(v24 + 1) = v15;
+        *(v24 + 2) = v16;
+        *(v24 + 3) = v17;
+        *(v24 + 4) = v18;
+        v13 = (5 * v21 + 5);
+        v25 = (v24 - v20);
+        memcpy((v24 - v20), v19, v20);
+        v26 = __src;
+        __src = v25;
+        v40 = v13;
+        v41 = 0;
+        if (v26)
         {
-          operator delete(v20);
+          operator delete(v26);
         }
       }
 
       else
       {
-        *v7 = 1;
-        v7[1] = v9;
-        v7[2] = v10;
-        v7[3] = v11;
-        v7[4] = v12;
-        v7 += 5;
+        *v13 = 1;
+        v13[1] = v15;
+        v13[2] = v16;
+        v13[3] = v17;
+        v13[4] = v18;
+        v13 += 5;
       }
 
-      v35 = v7;
-      ++v6;
+      v40 = v13;
+      ++v12;
     }
 
-    while (0xEEEEEEEEEEEEEEEFLL * ((v43 - v42) >> 3) > v6);
+    while (0xEEEEEEEEEEEEEEEFLL * ((v48 - v47) >> 3) > v12);
   }
 
   __p = 0;
   __dst = 0;
-  v31 = 0;
-  if (v7 != __src)
+  v36 = 0;
+  if (v13 != __src)
   {
-    std::vector<Nightingale::lunaMTSpecs>::__vallocate[abi:nn200100](&__p, 0xCCCCCCCCCCCCCCCDLL * (v7 - __src));
+    std::vector<Nightingale::lunaMTSpecs>::__vallocate[abi:nn200100](&__p, 0xCCCCCCCCCCCCCCCDLL * (v13 - __src));
   }
 
-  v22 = Nightingale::predict_on_day_range_historical(&v42, &__p);
-  v24 = v23;
+  v28 = Nightingale::predict_on_day_range_historical(&v47, &__p, v3, v4, v5, v6, v7, v8);
+  v30 = v29;
   if (__p)
   {
     __dst = __p;
     operator delete(__p);
   }
 
-  if ((v22 & 0x100000000) != 0)
+  if ((v28 & 0x100000000) != 0)
   {
-    v27 = v22 & 0xFFFFFF00;
-    v26 = v22;
-    v25 = 0x100000000;
+    v33 = v28 & 0xFFFFFF00;
+    v32 = v28;
+    v31 = 0x100000000;
     goto LABEL_36;
   }
 
-  if ((v24 & 0x100000000) != 0)
+  if ((v30 & 0x100000000) != 0)
   {
-    if (v24 == 1)
+    if (v30 == 1)
     {
-      v25 = 0;
-      v26 = 0;
-      v27 = 0;
+      v31 = 0;
+      v32 = 0;
+      v33 = 0;
       goto LABEL_36;
     }
 
-    if (v24 == 3)
+    if (v30 == 3)
     {
-      v25 = 0;
-      v26 = 0;
-      v27 = 0;
+      v31 = 0;
+      v32 = 0;
+      v33 = 0;
       goto LABEL_36;
     }
 
 LABEL_35:
-    v25 = 0;
-    v26 = 0;
-    v27 = 0;
+    v31 = 0;
+    v32 = 0;
+    v33 = 0;
     goto LABEL_36;
   }
 
-  v25 = 0;
-  v26 = 0;
-  v27 = 0;
+  v31 = 0;
+  v32 = 0;
+  v33 = 0;
 LABEL_36:
-  if (v32)
+  if (v37)
   {
-    v33 = v32;
-    operator delete(v32);
+    v38 = v37;
+    operator delete(v37);
   }
 
   if (__src)
   {
-    v35 = __src;
+    v40 = __src;
     operator delete(__src);
   }
 
-  if (v38)
+  if (v43)
   {
-    operator delete(v38);
+    operator delete(v43);
   }
 
-  if (v37[0])
+  if (v42[0])
   {
-    operator delete(v37[0]);
+    operator delete(v42[0]);
   }
 
-  if (v40[0])
+  if (v45[0])
   {
-    operator delete(v40[0]);
+    operator delete(v45[0]);
   }
 
-  if (v41[0])
+  if (v46[0])
   {
-    operator delete(v41[0]);
+    operator delete(v46[0]);
   }
 
-  v37[0] = &v42;
-  std::vector<Nightingale::lunaMTPreparedData>::__destroy_vector::operator()[abi:nn200100](v37);
-  result = v27 | v26 | v25;
-LABEL_49:
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+  v42[0] = &v47;
+  std::vector<Nightingale::lunaMTPreparedData>::__destroy_vector::operator()[abi:nn200100](v42);
+  return v33 | v32 | v31;
 }
 
-void Nightingale::prepare_input_slices_for_mt(uint64_t *a1@<X0>, int a2@<W1>, int a3@<W2>, uint64_t *a4@<X8>)
+void Nightingale::prepare_input_slices_for_mt(uint64_t *a1@<X0>, int a2@<W1>, uint64_t a3@<X2>, unint64_t *a4@<X8>)
 {
+  v4 = a3;
   *a4 = 0;
   a4[1] = 0;
   a4[2] = 0;
@@ -9052,14 +8775,15 @@ void Nightingale::prepare_input_slices_for_mt(uint64_t *a1@<X0>, int a2@<W1>, in
     v61 = xmmword_258951548;
     do
     {
-      *(&v61 + v16) += a3 - 13;
+      *(&v61 + v16) += v4 - 13;
       v16 += 4;
     }
 
     while (v16 != 24);
-    v17 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(v66, &v63);
     v49 = &v63;
-    v18 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(v67, &v63);
+    v17 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(v66, &v63, &std::piecewise_construct, &v49);
+    v49 = &v63;
+    v18 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(v67, &v63, &std::piecewise_construct, &v49);
     for (i = 0; i != 24; i += 4)
     {
       v20 = v65 - v64;
@@ -9085,8 +8809,8 @@ void Nightingale::prepare_input_slices_for_mt(uint64_t *a1@<X0>, int a2@<W1>, in
           v23 = 4 * v21;
           LODWORD(v49) = *(v64 + v23);
           v24 = v23 + 4;
-          std::vector<float>::vector[abi:nn200100]<float const*,0>(&v47, v17[3], v17[3] + v23 + 4);
-          std::vector<float>::vector[abi:nn200100]<float const*,0>(&v45, v17[3] + v24, v17[4]);
+          std::vector<float>::vector[abi:nn200100]<float const*,0>(&v47, v17[3], (v17[3] + v23 + 4));
+          std::vector<float>::vector[abi:nn200100]<float const*,0>(&v45, (v17[3] + v24), v17[4]);
           v50 = 0;
           __dst = 0;
           v52 = 0;
@@ -9243,7 +8967,7 @@ void Nightingale::prepare_input_slices_for_mt(uint64_t *a1@<X0>, int a2@<W1>, in
             *(v40 + 24) = 0;
             if (__dst != v50)
             {
-              std::vector<int>::__vallocate[abi:nn200100](v40 + 8, (__dst - v50) >> 2);
+              std::vector<int>::__vallocate[abi:nn200100]((v40 + 8), (__dst - v50) >> 2);
             }
 
             *(v40 + 32) = 0;
@@ -9251,7 +8975,7 @@ void Nightingale::prepare_input_slices_for_mt(uint64_t *a1@<X0>, int a2@<W1>, in
             *(v40 + 48) = 0;
             if (v54 != v53)
             {
-              std::vector<int>::__vallocate[abi:nn200100](v40 + 32, (v54 - v53) >> 2);
+              std::vector<int>::__vallocate[abi:nn200100]((v40 + 32), (v54 - v53) >> 2);
             }
 
             std::vector<BOOL>::vector((v40 + 56), &v56);
@@ -9307,11 +9031,11 @@ LABEL_79:
   }
 }
 
-void Nightingale::day2day_noise_check_per_slice(uint64_t *a1@<X0>, void *a2@<X8>, float a3@<S0>)
+void Nightingale::day2day_noise_check_per_slice(uint64_t *a1@<X0>, uint64_t a2@<X8>, float a3@<S0>)
 {
   *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
   std::vector<BOOL>::reserve(a2, 0xEEEEEEEEEEEEEEEFLL * ((a1[1] - *a1) >> 3));
   v7 = *a1;
   for (i = a1[1]; v7 != i; v7 += 120)
@@ -9330,42 +9054,40 @@ void Nightingale::day2day_noise_check_per_slice(uint64_t *a1@<X0>, void *a2@<X8>
   }
 }
 
-uint64_t Nightingale::signal2noise_check_per_slice@<X0>(uint64_t *a1@<X0>, void *a2@<X8>, float a3@<S0>)
+void Nightingale::signal2noise_check_per_slice(uint64_t *a1@<X0>, uint64_t a2@<X8>, float a3@<S0>)
 {
   *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  result = std::vector<BOOL>::reserve(a2, 0xEEEEEEEEEEEEEEEFLL * ((a1[1] - *a1) >> 3));
-  v8 = *a1;
-  for (i = a1[1]; v8 != i; v8 += 120)
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  std::vector<BOOL>::reserve(a2, 0xEEEEEEEEEEEEEEEFLL * ((a1[1] - *a1) >> 3));
+  v7 = *a1;
+  for (i = a1[1]; v7 != i; v7 += 120)
   {
-    Nightingale::calculate_snr_noise_power((v8 + 8), (v8 + 32));
-    v10 = v9;
-    v11 = v9;
-    Nightingale::get_sw_difference((v8 + 8), (v8 + 32));
-    if ((LODWORD(v11) & 0x7FFFFFFFu) <= 0x7F7FFFFF)
+    Nightingale::calculate_snr_noise_power((v7 + 8), (v7 + 32));
+    v9 = v8;
+    v10 = v8;
+    Nightingale::get_sw_difference((v7 + 8), (v7 + 32));
+    if ((LODWORD(v10) & 0x7FFFFFFFu) <= 0x7F7FFFFF)
     {
-      v13 = NAN;
-      if ((LODWORD(v12) & 0x7FFFFFFFu) <= 0x7F7FFFFF && v10 != 0.0)
+      v12 = NAN;
+      if ((LODWORD(v11) & 0x7FFFFFFFu) <= 0x7F7FFFFF && v9 != 0.0)
       {
-        v13 = (v12 * v12) / v10;
+        v12 = (v11 * v11) / v9;
       }
     }
 
     else
     {
-      v13 = NAN;
+      v12 = NAN;
     }
 
-    v15 = (LODWORD(v13) & 0x7FFFFFFFu) < 0x7F800000 && v13 >= a3;
-    v16 = v15;
-    result = std::vector<BOOL>::push_back(a2, &v16);
+    v14 = (LODWORD(v12) & 0x7FFFFFFFu) < 0x7F800000 && v12 >= a3;
+    v15 = v14;
+    std::vector<BOOL>::push_back(a2, &v15);
   }
-
-  return result;
 }
 
-void Nightingale::missing_spec_check_for_each_window(void *a1@<X0>, void *a2@<X8>, float a3@<S0>, float a4@<S1>)
+void Nightingale::missing_spec_check_for_each_window(void *a1@<X0>, uint64_t *a2@<X8>, float a3@<S0>, float a4@<S1>)
 {
   memset(v30, 0, sizeof(v30));
   memset(__p, 0, sizeof(__p));
@@ -9470,88 +9192,88 @@ void Nightingale::missing_spec_check_for_each_window(void *a1@<X0>, void *a2@<X8
   }
 }
 
-uint64_t Nightingale::predict_on_day_range_historical(int **a1, uint64_t *a2)
+uint64_t Nightingale::predict_on_day_range_historical(int **a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
 {
-  v3 = *a1;
-  v2 = a1[1];
-  if (v2 != *a1)
+  v9 = *a1;
+  v8 = a1[1];
+  if (v8 != *a1)
   {
-    v5 = *v3;
-    v6 = *v3;
-    v7 = *a1;
+    v11 = *v9;
+    v12 = *v9;
+    v13 = *a1;
     do
     {
-      v9 = *v7;
-      v7 += 30;
-      v8 = v9;
-      if (v9 < v6)
+      v15 = *v13;
+      v13 += 120;
+      v14 = v15;
+      if (v15 < v12)
       {
-        v5 = v8;
-        v6 = v8;
+        v11 = v14;
+        v12 = v14;
       }
     }
 
-    while (v7 != v2);
-    v10 = 0;
-    v11 = 0;
-    v12 = 0;
-    v13 = 0;
-    v14 = 0;
-    v22 = 0;
-    v23 = 0;
-    __p = 0;
+    while (v13 != v8);
+    v16 = 0;
+    v17 = 0;
+    v18 = 0;
+    v19 = 0;
+    v20 = 0;
     v28 = 0;
     v29 = 0;
+    __p = 0;
+    v34 = 0;
+    v35 = 0;
     do
     {
-      v15 = *a2;
+      v21 = *a2;
       Sigmoid = NAN;
-      v16 = __p;
-      v17 = v28;
-      v18 = v28 - __p;
-      if (((v28 - __p) >> 2) >= 1)
+      v22 = __p;
+      v23 = v34;
+      v24 = v34 - __p;
+      if (((v34 - __p) >> 2) >= 1)
       {
-        if (v18 != 4)
+        if (v24 != 4)
         {
-          v16 = memmove(__p, __p + 4, v18 - 4);
+          v22 = memmove(__p, __p + 4, v24 - 4);
         }
 
-        v28 = v17 - 4;
+        v34 = v23 - 4;
       }
 
-      if (*(v15 + v11))
+      if (*(v21 + v17))
       {
-        if (((v12 != 0) & ~v14) != 0)
+        if (((v18 != 0) & ~v20) != 0)
         {
           break;
         }
 
-        sw_difference = Nightingale::get_sw_difference(&v3[v10 + 2], &v3[v10 + 8]);
-        Sigmoid = v20;
-        Sigmoid = Nightingale::getSigmoid(sw_difference, v20);
+        Nightingale::get_sw_difference(&v9[v16 + 8], &v9[v16 + 32]);
+        Sigmoid = v25;
+        Sigmoid = Nightingale::getSigmoid(v26, v25);
         std::vector<float>::push_back[abi:nn200100](&__p, &Sigmoid);
-        v14 = 1;
+        v20 = 1;
       }
 
       else
       {
-        v25 = 2143289344;
-        std::vector<float>::push_back[abi:nn200100](&__p, &v25);
-        ++v13;
+        v31 = 2143289344;
+        std::vector<float>::push_back[abi:nn200100](&__p, &v31);
+        ++v19;
       }
 
-      if (v3[v10] >= v5)
+      if (*&v9[v16] >= v11)
       {
-        if (*(v15 + v11 + 4))
+        if (*(v21 + v17 + 4))
         {
-          if (*(v15 + v11 + 3))
+          if (*(v21 + v17 + 3))
           {
-            if (*(v15 + v11 + 1))
+            if (*(v21 + v17 + 1))
             {
-              if (*(v15 + v11 + 2))
+              if (*(v21 + v17 + 2))
               {
-                v16 = __p;
-                if (v28 != __p)
+                v22 = __p;
+                if (v34 != __p)
                 {
                   Nightingale::vMean<float>();
                 }
@@ -9559,39 +9281,39 @@ uint64_t Nightingale::predict_on_day_range_historical(int **a1, uint64_t *a2)
 
               else
               {
-                LODWORD(v22) = v22 + 1;
+                LODWORD(v28) = v28 + 1;
               }
             }
 
             else
             {
-              ++HIDWORD(v22);
+              ++HIDWORD(v28);
             }
           }
 
           else
           {
-            LODWORD(v23) = v23 + 1;
+            LODWORD(v29) = v29 + 1;
           }
         }
 
         else
         {
-          ++HIDWORD(v23);
+          ++HIDWORD(v29);
         }
       }
 
-      ++v12;
-      v3 = *a1;
-      v11 += 5;
-      v10 += 30;
+      ++v18;
+      v9 = *a1;
+      v17 += 5;
+      v16 += 120;
     }
 
-    while (0xEEEEEEEEEEEEEEEFLL * ((a1[1] - *a1) >> 3) > v12);
-    Nightingale::get_failure_reasons_for_historical(v16, v13, SHIDWORD(v22), v22, 0, SHIDWORD(v23), v23);
+    while (0xEEEEEEEEEEEEEEEFLL * ((a1[1] - *a1) >> 3) > v18);
+    Nightingale::get_failure_reasons_for_historical(v22, v19, SHIDWORD(v28), v28, 0, SHIDWORD(v29), v29);
     if (__p)
     {
-      v28 = __p;
+      v34 = __p;
       operator delete(__p);
     }
   }
@@ -9601,22 +9323,22 @@ uint64_t Nightingale::predict_on_day_range_historical(int **a1, uint64_t *a2)
 
 uint64_t Nightingale::get_failure_reasons_for_historical(Nightingale *this, int a2, int a3, int a4, int a5, int a6, int a7)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v29[0] = a2;
-  v29[1] = a3;
-  v29[2] = a4;
-  v29[3] = a5;
-  v29[4] = a6;
-  v29[5] = a7;
-  std::vector<int>::vector[abi:nn200100](&v27, v29, 6uLL);
-  v13 = v27 + 4;
-  v14 = v27 == v28 || v13 == v28;
-  v15 = v27;
+  v29 = *MEMORY[0x277D85DE8];
+  v28[0] = a2;
+  v28[1] = a3;
+  v28[2] = a4;
+  v28[3] = a5;
+  v28[4] = a6;
+  v28[5] = a7;
+  std::vector<int>::vector[abi:nn200100](&v26, v28, 6uLL);
+  v13 = v26 + 4;
+  v14 = v26 == v27 || v13 == v27;
+  v15 = v26;
   if (!v14)
   {
-    v16 = *v27;
-    v15 = v27;
-    v17 = v27 + 4;
+    v16 = *v26;
+    v15 = v26;
+    v17 = v26 + 4;
     do
     {
       v19 = *v17;
@@ -9636,16 +9358,16 @@ uint64_t Nightingale::get_failure_reasons_for_historical(Nightingale *this, int 
       v13 = v17;
     }
 
-    while (v17 != v28);
+    while (v17 != v27);
   }
 
   v21 = *v15;
   if (*v15 == a2)
   {
     v22 = 1;
-    if (!v27)
+    if (!v26)
     {
-      goto LABEL_31;
+      return v22;
     }
 
     goto LABEL_30;
@@ -9654,9 +9376,9 @@ uint64_t Nightingale::get_failure_reasons_for_historical(Nightingale *this, int 
   if (v21 == a5)
   {
     v22 = 2;
-    if (!v27)
+    if (!v26)
     {
-      goto LABEL_31;
+      return v22;
     }
 
     goto LABEL_30;
@@ -9665,9 +9387,9 @@ uint64_t Nightingale::get_failure_reasons_for_historical(Nightingale *this, int 
   if (v21 == a3)
   {
     v22 = 3;
-    if (!v27)
+    if (!v26)
     {
-      goto LABEL_31;
+      return v22;
     }
 
     goto LABEL_30;
@@ -9703,15 +9425,13 @@ uint64_t Nightingale::get_failure_reasons_for_historical(Nightingale *this, int 
     v22 = v24;
   }
 
-  if (v27)
+  if (v26)
   {
 LABEL_30:
-    v28 = v27;
-    operator delete(v27);
+    v27 = v26;
+    operator delete(v26);
   }
 
-LABEL_31:
-  v25 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -9787,15 +9507,15 @@ void Nightingale::extract_temperature_data_for_given_range(int a1@<W0>, int a2@<
         for (i = a3[5]; i; i = *i)
         {
           v58 = (i + 16);
-          v14 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(a4 + 3, i + 16);
-          std::vector<float>::push_back[abi:nn200100](v14 + 3, (*(i + 3) + 4 * v11));
+          v14 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(a4 + 3, (i + 16), &std::piecewise_construct, &v58);
+          std::vector<float>::push_back[abi:nn200100](v14 + 3, (*(i + 24) + 4 * v11));
         }
 
         for (j = a3[10]; j; j = *j)
         {
           v58 = (j + 16);
-          v16 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(v7, j + 16);
-          std::vector<int>::push_back[abi:nn200100](v16 + 3, (*(j + 3) + 4 * v11));
+          v16 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(v7, (j + 16), &std::piecewise_construct, &v58);
+          std::vector<int>::push_back[abi:nn200100](v16 + 3, (*(j + 24) + 4 * v11));
         }
       }
 
@@ -9951,4 +9671,237 @@ void Nightingale::extract_temperature_data_for_given_range(int a1@<W0>, int a2@<
       while (!v42);
     }
   }
+}
+
+uint64_t *std::vector<unsigned long>::vector[abi:nn200100](uint64_t *a1, uint64_t *a2, unint64_t a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a3)
+  {
+    std::vector<Nightingale::PhaseSet>::__vallocate[abi:nn200100](a1, a3);
+  }
+
+  return a1;
+}
+
+void std::__allocate_at_least[abi:nn200100]<std::allocator<Nightingale::lunaMTSpecs>>(uint64_t a1, unint64_t a2)
+{
+  if (a2 < 0x3333333333333334)
+  {
+    operator new();
+  }
+
+  std::string::__throw_length_error[abi:nn200100]();
+}
+
+void std::vector<Nightingale::lunaMTSpecs>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
+{
+  if (a2 < 0x3333333333333334)
+  {
+    std::__allocate_at_least[abi:nn200100]<std::allocator<Nightingale::lunaMTSpecs>>(a1, a2);
+  }
+
+  std::string::__throw_length_error[abi:nn200100]();
+}
+
+void std::vector<Nightingale::lunaMTPreparedData>::__destroy_vector::operator()[abi:nn200100](void ***a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = **a1;
+    if (v4 != v2)
+    {
+      do
+      {
+        v4 -= 15;
+        std::allocator_traits<std::allocator<Nightingale::lunaMTPreparedData>>::destroy[abi:nn200100]<Nightingale::lunaMTPreparedData,void,0>(v1, v4);
+      }
+
+      while (v4 != v2);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+
+    operator delete(v5);
+  }
+}
+
+void std::allocator_traits<std::allocator<Nightingale::lunaMTPreparedData>>::destroy[abi:nn200100]<Nightingale::lunaMTPreparedData,void,0>(uint64_t a1, void *a2)
+{
+  v3 = a2[10];
+  if (v3)
+  {
+    operator delete(v3);
+  }
+
+  v4 = a2[7];
+  if (v4)
+  {
+    operator delete(v4);
+  }
+
+  v5 = a2[4];
+  if (v5)
+  {
+    a2[5] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a2[1];
+  if (v6)
+  {
+    a2[2] = v6;
+
+    operator delete(v6);
+  }
+}
+
+char *std::vector<float>::__insert_with_size[abi:nn200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
+{
+  v5 = __dst;
+  if (a5 < 1)
+  {
+    return v5;
+  }
+
+  v7 = __src;
+  v10 = a1[1];
+  v9 = a1[2];
+  if (a5 > (v9 - v10) >> 2)
+  {
+    v11 = *a1;
+    v12 = a5 + (&v10[-*a1] >> 2);
+    if (v12 >> 62)
+    {
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    v13 = __dst - v11;
+    v14 = v9 - v11;
+    if (v14 >> 1 > v12)
+    {
+      v12 = v14 >> 1;
+    }
+
+    if (v14 >= 0x7FFFFFFFFFFFFFFCLL)
+    {
+      v15 = 0x3FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v15 = v12;
+    }
+
+    v16 = v13 >> 2;
+    if (v15)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<int>>(a1, v15);
+    }
+
+    v33 = 4 * v16;
+    v34 = 4 * a5;
+    v35 = (4 * v16);
+    do
+    {
+      v36 = *v7;
+      v7 += 4;
+      *v35++ = v36;
+      v34 -= 4;
+    }
+
+    while (v34);
+    memcpy((v33 + 4 * a5), v5, a1[1] - v5);
+    v37 = *a1;
+    v38 = v33 + 4 * a5 + a1[1] - v5;
+    a1[1] = v5;
+    v39 = v5 - v37;
+    v40 = (v33 - (v5 - v37));
+    memcpy(v40, v37, v39);
+    v41 = *a1;
+    *a1 = v40;
+    a1[1] = v38;
+    a1[2] = 0;
+    if (v41)
+    {
+      operator delete(v41);
+    }
+
+    return (4 * v16);
+  }
+
+  v17 = (v10 - __dst) >> 2;
+  if (v17 >= a5)
+  {
+    v22 = &__dst[4 * a5];
+    v23 = &v10[-4 * a5];
+    v24 = a1[1];
+    while (v23 < v10)
+    {
+      v25 = *v23;
+      v23 += 4;
+      *v24++ = v25;
+    }
+
+    a1[1] = v24;
+    if (v10 != v22)
+    {
+      memmove(&__dst[4 * a5], __dst, v10 - v22);
+    }
+
+    v30 = 4 * a5;
+    v31 = v5;
+    v32 = v7;
+    goto LABEL_34;
+  }
+
+  v18 = &__src[v10 - __dst];
+  v19 = a1[1];
+  v20 = v19;
+  while (v18 != a4)
+  {
+    v21 = *v18;
+    v18 += 4;
+    *v20 = v21;
+    v20 += 4;
+    v19 += 4;
+  }
+
+  a1[1] = v19;
+  if (v17 >= 1)
+  {
+    v26 = &__dst[4 * a5];
+    v27 = &v19[-4 * a5];
+    v28 = v19;
+    while (v27 < v10)
+    {
+      v29 = *v27;
+      v27 += 4;
+      *v28 = v29;
+      v28 += 4;
+    }
+
+    a1[1] = v28;
+    if (v20 != v26)
+    {
+      memmove(&__dst[4 * a5], __dst, v19 - v26);
+    }
+
+    if (v10 != v5)
+    {
+      v31 = v5;
+      v32 = v7;
+      v30 = v10 - v5;
+LABEL_34:
+      memmove(v31, v32, v30);
+    }
+  }
+
+  return v5;
 }

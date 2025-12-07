@@ -60,7 +60,7 @@
 
 void __40__ICSearchIndexer_startObservingChanges__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) isObservingChanges];
   v3 = os_log_create("com.apple.notes", "SearchIndexer");
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
@@ -79,41 +79,41 @@ void __40__ICSearchIndexer_startObservingChanges__block_invoke(uint64_t a1)
       __40__ICSearchIndexer_startObservingChanges__block_invoke_cold_1();
     }
 
-    [*(a1 + 32) setObservingChanges:1];
-    if ((ICUseCoreDataCoreSpotlightIntegration() & 1) == 0)
+    v5 = [*(a1 + 32) setObservingChanges:1];
+    if ((ICUseCoreDataCoreSpotlightIntegration(v5, v6) & 1) == 0)
     {
-      v5 = [MEMORY[0x1E696AD88] defaultCenter];
-      [v5 addObserver:*(a1 + 32) selector:sel_dataSourceDidChange_ name:@"ICSearchIndexerDataSourceDidChangeNotification" object:0];
+      v7 = [MEMORY[0x1E696AD88] defaultCenter];
+      [v7 addObserver:*(a1 + 32) selector:sel_dataSourceDidChange_ name:@"ICSearchIndexerDataSourceDidChangeNotification" object:0];
     }
 
+    v14 = 0u;
+    v15 = 0u;
     v12 = 0u;
     v13 = 0u;
-    v10 = 0u;
-    v11 = 0u;
     v3 = [*(a1 + 32) _dataSources];
-    v6 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
-    if (v6)
+    v8 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    if (v8)
     {
-      v7 = v6;
-      v8 = *v11;
+      v9 = v8;
+      v10 = *v13;
       do
       {
-        v9 = 0;
+        v11 = 0;
         do
         {
-          if (*v11 != v8)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v3);
           }
 
-          [*(*(&v10 + 1) + 8 * v9++) startObservingChanges];
+          [*(*(&v12 + 1) + 8 * v11++) startObservingChanges];
         }
 
-        while (v7 != v9);
-        v7 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        while (v9 != v11);
+        v9 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
-      while (v7);
+      while (v9);
     }
   }
 }
@@ -154,7 +154,7 @@ void __32__ICSearchIndexer_sharedIndexer__block_invoke()
 
 void __39__ICSearchIndexer_stopObservingChanges__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) isObservingChanges];
   v3 = os_log_create("com.apple.notes", "SearchIndexer");
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
@@ -165,39 +165,39 @@ void __39__ICSearchIndexer_stopObservingChanges__block_invoke(uint64_t a1)
       __39__ICSearchIndexer_stopObservingChanges__block_invoke_cold_2();
     }
 
-    [*(a1 + 32) setObservingChanges:0];
-    if ((ICUseCoreDataCoreSpotlightIntegration() & 1) == 0)
+    v5 = [*(a1 + 32) setObservingChanges:0];
+    if ((ICUseCoreDataCoreSpotlightIntegration(v5, v6) & 1) == 0)
     {
-      v5 = [MEMORY[0x1E696AD88] defaultCenter];
-      [v5 removeObserver:*(a1 + 32) name:@"ICSearchIndexerDataSourceDidChangeNotification" object:0];
+      v7 = [MEMORY[0x1E696AD88] defaultCenter];
+      [v7 removeObserver:*(a1 + 32) name:@"ICSearchIndexerDataSourceDidChangeNotification" object:0];
     }
 
+    v14 = 0u;
+    v15 = 0u;
     v12 = 0u;
     v13 = 0u;
-    v10 = 0u;
-    v11 = 0u;
     v3 = [*(a1 + 32) _dataSources];
-    v6 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
-    if (v6)
+    v8 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    if (v8)
     {
-      v7 = v6;
-      v8 = *v11;
+      v9 = v8;
+      v10 = *v13;
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v11 != v8)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v3);
           }
 
-          [*(*(&v10 + 1) + 8 * i) stopObservingChanges];
+          [*(*(&v12 + 1) + 8 * i) stopObservingChanges];
         }
 
-        v7 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v9 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
-      while (v7);
+      while (v9);
     }
   }
 
@@ -217,9 +217,9 @@ void __39__ICSearchIndexer_stopObservingChanges__block_invoke_cold_1()
 - (ICSearchIndexer)initWithSearchIndex:(id)index
 {
   indexCopy = index;
-  v19.receiver = self;
-  v19.super_class = ICSearchIndexer;
-  v5 = [(ICSearchIndexer *)&v19 init];
+  v21.receiver = self;
+  v21.super_class = ICSearchIndexer;
+  v5 = [(ICSearchIndexer *)&v21 init];
   v6 = v5;
   if (v5)
   {
@@ -252,10 +252,10 @@ void __39__ICSearchIndexer_stopObservingChanges__block_invoke_cold_1()
     dictionary = [MEMORY[0x1E695DF20] dictionary];
     [(ICSearchIndexer *)v6 setDataSourcesByIdentifier:dictionary];
 
-    if ((ICUseCoreDataCoreSpotlightIntegration() & 1) == 0)
+    if ((ICUseCoreDataCoreSpotlightIntegration(v15, v16) & 1) == 0)
     {
-      v15 = [[ICSelectorDelayer alloc] initWithTarget:v6 selector:sel_processChanges delay:1 waitToFireUntilRequestsStop:1 callOnMainThread:1.0];
-      [(ICSearchIndexer *)v6 setChangeProcessingDelayer:v15];
+      v17 = [[ICSelectorDelayer alloc] initWithTarget:v6 selector:sel_processChanges delay:1 waitToFireUntilRequestsStop:1 callOnMainThread:1.0];
+      [(ICSearchIndexer *)v6 setChangeProcessingDelayer:v17];
     }
 
     [(ICSearchIndexer *)v6 setObservingChanges:0];
@@ -353,7 +353,7 @@ void __41__ICSearchIndexer_processReindexRequest___block_invoke(uint64_t a1, voi
 - (void)dataSourceDidChange:(id)change
 {
   changeCopy = change;
-  if ((ICUseCoreDataCoreSpotlightIntegration() & 1) == 0 && [(ICSearchIndexer *)self isObservingChanges])
+  if ((ICUseCoreDataCoreSpotlightIntegration(changeCopy, v5) & 1) == 0 && [(ICSearchIndexer *)self isObservingChanges])
   {
     object = [changeCopy object];
     objc_initWeak(&location, object);
@@ -363,11 +363,11 @@ void __41__ICSearchIndexer_processReindexRequest___block_invoke(uint64_t a1, voi
     block[1] = 3221225472;
     block[2] = __39__ICSearchIndexer_dataSourceDidChange___block_invoke;
     block[3] = &unk_1E8485100;
-    objc_copyWeak(&v8, &location);
+    objc_copyWeak(&v9, &location);
     block[4] = self;
     dispatch_async(indexingQueue, block);
 
-    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(&location);
   }
 }
@@ -1010,22 +1010,22 @@ uint64_t __45__ICSearchIndexer_pendingReindexingOperation__block_invoke(uint64_t
 
 - (void)reindexAllSearchableItemsInIndex:(id)index completionHandler:(id)handler
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   indexCopy = index;
   handlerCopy = handler;
-  if ((ICUseCoreDataCoreSpotlightIntegration() & 1) == 0)
+  if ((ICUseCoreDataCoreSpotlightIntegration(handlerCopy, v8) & 1) == 0)
   {
     if ([(ICSearchIndexer *)self isDisabled])
     {
-      v8 = MEMORY[0x1E696ABC0];
-      v15 = @"FailureReason";
-      v16[0] = @"Indexing is disabled";
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-      v10 = [v8 errorWithDomain:@"NotesErrorDomain" code:300 userInfo:v9];
+      v9 = MEMORY[0x1E696ABC0];
+      v16 = @"FailureReason";
+      v17[0] = @"Indexing is disabled";
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v11 = [v9 errorWithDomain:@"NotesErrorDomain" code:300 userInfo:v10];
 
       if (handlerCopy)
       {
-        handlerCopy[2](handlerCopy, v10);
+        handlerCopy[2](handlerCopy, v11);
       }
     }
 
@@ -1033,14 +1033,14 @@ uint64_t __45__ICSearchIndexer_pendingReindexingOperation__block_invoke(uint64_t
     {
       [ICIndexerStateHandler logMethodCall:1];
       indexingQueue = [(ICSearchIndexer *)self indexingQueue];
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __70__ICSearchIndexer_reindexAllSearchableItemsInIndex_completionHandler___block_invoke;
-      v12[3] = &unk_1E84851E0;
-      v12[4] = self;
-      v14 = handlerCopy;
-      v13 = indexCopy;
-      dispatch_async(indexingQueue, v12);
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __70__ICSearchIndexer_reindexAllSearchableItemsInIndex_completionHandler___block_invoke;
+      v13[3] = &unk_1E84851E0;
+      v13[4] = self;
+      v15 = handlerCopy;
+      v14 = indexCopy;
+      dispatch_async(indexingQueue, v13);
     }
   }
 }
@@ -1186,23 +1186,23 @@ void __70__ICSearchIndexer_reindexAllSearchableItemsInIndex_completionHandler___
 
 - (void)reindexSearchableItemsWithObjectIDURIs:(id)is inIndex:(id)index completionHandler:(id)handler
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   isCopy = is;
   indexCopy = index;
   handlerCopy = handler;
-  if ((ICUseCoreDataCoreSpotlightIntegration() & 1) == 0)
+  if ((ICUseCoreDataCoreSpotlightIntegration(handlerCopy, v11) & 1) == 0)
   {
     if ([(ICSearchIndexer *)self isDisabled])
     {
-      v11 = MEMORY[0x1E696ABC0];
-      v20 = @"FailureReason";
-      v21[0] = @"Indexing is disabled";
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
-      v13 = [v11 errorWithDomain:@"NotesErrorDomain" code:300 userInfo:v12];
+      v12 = MEMORY[0x1E696ABC0];
+      v21 = @"FailureReason";
+      v22[0] = @"Indexing is disabled";
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v14 = [v12 errorWithDomain:@"NotesErrorDomain" code:300 userInfo:v13];
 
       if (handlerCopy)
       {
-        handlerCopy[2](handlerCopy, v13);
+        handlerCopy[2](handlerCopy, v14);
       }
     }
 
@@ -1214,13 +1214,13 @@ void __70__ICSearchIndexer_reindexAllSearchableItemsInIndex_completionHandler___
       block[1] = 3221225472;
       block[2] = __84__ICSearchIndexer_reindexSearchableItemsWithObjectIDURIs_inIndex_completionHandler___block_invoke;
       block[3] = &unk_1E8485230;
-      v16 = indexCopy;
+      v17 = indexCopy;
       selfCopy = self;
-      v18 = isCopy;
-      v19 = handlerCopy;
+      v19 = isCopy;
+      v20 = handlerCopy;
       dispatch_async(indexingQueue, block);
 
-      v13 = v16;
+      v14 = v17;
     }
   }
 }
@@ -1585,14 +1585,16 @@ LABEL_20:
 void __58__ICSearchIndexer_objectForManagedObjectIDURI_inContexts___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) objectForManagedObjectIDURI:*(a1 + 40) context:*(a1 + 48)];
-  v3 = *(*(a1 + 56) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v4 = *(a1 + 56);
+  v3 = a1 + 56;
+  v5 = *(v4 + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v2;
 
-  v5 = os_log_create("com.apple.notes", "SearchIndexer");
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = os_log_create("com.apple.notes", "SearchIndexer");
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    __58__ICSearchIndexer_objectForManagedObjectIDURI_inContexts___block_invoke_cold_1();
+    __58__ICSearchIndexer_objectForManagedObjectIDURI_inContexts___block_invoke_cold_1(v3);
   }
 }
 
@@ -1940,13 +1942,13 @@ void __84__ICSearchIndexer_reindexSearchableItemsWithObjectIDURIs_inIndex_comple
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __58__ICSearchIndexer_objectForManagedObjectIDURI_inContexts___block_invoke_cold_1()
+void __58__ICSearchIndexer_objectForManagedObjectIDURI_inContexts___block_invoke_cold_1(uint64_t a1)
 {
   objc_opt_class();
   OUTLINED_FUNCTION_1();
-  v1 = v0;
+  v2 = v1;
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)retrySelector:.cold.1()

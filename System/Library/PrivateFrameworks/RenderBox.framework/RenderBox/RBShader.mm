@@ -9,6 +9,7 @@
 - (id).cxx_construct;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)encodedDataForDelegate:(id)delegate error:(id *)error;
+- (size_t)setRBClosure:(size_t *)result;
 - (void)removeAllArguments;
 - (void)setArgumentBytes:(const void *)bytes atIndex:(unint64_t)index type:(unsigned int)type count:(unint64_t)count flags:(unsigned int)flags;
 - (void)setArgumentColorSpace:(int)space atIndex:(unint64_t)index;
@@ -16,7 +17,6 @@
 - (void)setArgumentHeadroom:(float)headroom atIndex:(unint64_t)index;
 - (void)setCIFilterCTM:(CGAffineTransform *)m;
 - (void)setCIFilterProvider:(id)provider;
-- (void)setRBClosure:(void *)result;
 @end
 
 @implementation RBShader
@@ -114,7 +114,7 @@
 {
   flagsCopy = flags;
   typeCopy = type;
-  RB::CustomShader::Closure::ensure_arg(&self->_fn_args, index);
+  RB::CustomShader::Closure::ensure_arg(&self->_fn_args.function._p, index);
   p_2 = self->_fn_args.args._p_2;
   if (!p_2)
   {
@@ -142,7 +142,7 @@
 {
   flagsCopy = flags;
   typeCopy = type;
-  RB::CustomShader::Closure::ensure_arg(&self->_fn_args, index);
+  RB::CustomShader::Closure::ensure_arg(&self->_fn_args.function._p, index);
   p_2 = self->_fn_args.args._p_2;
   if (!p_2)
   {
@@ -168,7 +168,7 @@
 
 - (void)setArgumentColorSpace:(int)space atIndex:(unint64_t)index
 {
-  RB::CustomShader::Closure::ensure_arg(&self->_fn_args, index);
+  RB::CustomShader::Closure::ensure_arg(&self->_fn_args.function._p, index);
   v7 = rb_color_space(space);
   p_args = &self->_fn_args.args;
   if (self->_fn_args.args._p_2)
@@ -182,7 +182,7 @@
 - (void)setArgumentHeadroom:(float)headroom atIndex:(unint64_t)index
 {
   _S8 = headroom;
-  RB::CustomShader::Closure::ensure_arg(&self->_fn_args, index);
+  RB::CustomShader::Closure::ensure_arg(&self->_fn_args.function._p, index);
   __asm { FCVT            H0, S8 }
 
   p = self->_fn_args.args._p;
@@ -364,7 +364,7 @@
 
 + (id)decodedObjectWithData:(id)data delegate:(id)delegate error:(id *)error
 {
-  MEMORY[0x1EEE9AC00](self, a2);
+  MEMORY[0x1EEE9AC00](self);
   v6 = v5;
   v8 = v7;
   v40 = *MEMORY[0x1E69E9840];
@@ -410,7 +410,7 @@
   v15 = v31;
   v16 = v25;
   v17 = v26;
-  RB::ObjectTable::~ObjectTable((v36 + 8));
+  RB::ObjectTable::~ObjectTable(v36 + 1);
   if (v35[0])
   {
     free(v35[0]);
@@ -449,7 +449,7 @@
   return v19;
 }
 
-- (void)setRBClosure:(void *)result
+- (size_t)setRBClosure:(size_t *)result
 {
   if (result)
   {

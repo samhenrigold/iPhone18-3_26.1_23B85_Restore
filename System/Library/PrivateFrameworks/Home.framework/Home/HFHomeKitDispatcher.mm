@@ -32,6 +32,7 @@
 - (void)_setDelegationEnabled:(BOOL)enabled forAccessoryHierarchy:(id)hierarchy;
 - (void)_setDelegationEnabled:(BOOL)enabled forMediaProfileContainer:(id)container session:(id)session;
 - (void)_setDelegationEnabled:(BOOL)enabled forUser:(id)user;
+- (void)_setDelegationEnabledForObjectsInCurrentHome:(BOOL)home;
 - (void)_setHomePersonManagerObservationEnabled:(BOOL)enabled;
 - (void)_setSoftwareUpateControllerV2DelegationEnabled:(BOOL)enabled;
 - (void)_setupAccessoryObserver;
@@ -73,6 +74,7 @@
 - (void)addWalletKeyDeviceStateObserver:(id)observer;
 - (void)configureHomeStateStreamWithHome:(id)home;
 - (void)configureHomeStateStreamWithHomeManager:(id)manager;
+- (void)coordinator:(id)coordinator locationSensingAvailabilityDidChange:(BOOL)change;
 - (void)dealloc;
 - (void)disconnectDataModelDelegatesWithReason:(id)reason;
 - (void)disconnectHomeStateStream;
@@ -131,6 +133,7 @@
 - (void)setHomeManagerAndUpdateDelegate:(id)delegate;
 - (void)setOverrideHome:(id)home;
 - (void)setSelectedHome:(id)home userInitiated:(BOOL)initiated;
+- (void)setSelectedHomeFollowsLocation:(BOOL)location;
 - (void)stateRestorationSettings:(id)settings selectedHomeIdentifierDidUpdateExternally:(id)externally;
 - (void)updateHome;
 - (void)updateHomeManagerConfiguration:(id)configuration;
@@ -156,51 +159,49 @@
 {
   v4 = sub_20DD639C4();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_20DD63B44();
   managerCopy = manager;
   if (sub_20DD639E4())
   {
     MEMORY[0x20F324A90]();
-    (*(v5 + 104))(v8, *MEMORY[0x277D15390], v4);
+    (*(v5 + 104))(v7, *MEMORY[0x277D15390], v4);
     sub_20DD63AC4();
 
-    (*(v5 + 8))(v8, v4);
+    (*(v5 + 8))(v7, v4);
   }
 
   else
   {
-    v9 = managerCopy;
+    v8 = managerCopy;
   }
 }
 
 - (void)configureHomeStateStreamWithHome:(id)home
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C8443F0, &qword_20DD93820);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v13 - v6;
+  v6 = &v12 - v5;
   sub_20DD63B44();
   homeCopy = home;
   if (sub_20DD639E4())
   {
     sub_20DD63BB4();
-    v8 = sub_20DD65114();
-    (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
-    v9 = swift_allocObject();
-    v10 = homeCopy;
-    *(v9 + 16) = homeCopy;
-    v11 = v10;
+    v7 = sub_20DD65114();
+    (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+    v8 = swift_allocObject();
+    v9 = homeCopy;
+    *(v8 + 16) = homeCopy;
+    v10 = v9;
     sub_20DD63B94();
 
-    sub_20D9D76EC(v7, &qword_27C8443F0, &qword_20DD93820);
+    sub_20D9D76EC(v6, &qword_27C8443F0, &qword_20DD93820);
   }
 
   else
   {
-    v12 = homeCopy;
+    v11 = homeCopy;
   }
 }
 
@@ -365,28 +366,28 @@ void __39__HFHomeKitDispatcher_sharedDispatcher__block_invoke(uint64_t a1)
 
 void __27__HFHomeKitDispatcher_init__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         v9 = [*(a1 + 32) homeObserverDispatcher];
         v10 = [v9 proxy];
         [v8 setDelegate:v10];
@@ -395,13 +396,11 @@ void __27__HFHomeKitDispatcher_init__block_invoke(uint64_t a1, void *a2)
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __27__HFHomeKitDispatcher_init__block_invoke_2(uint64_t a1)
@@ -419,14 +418,14 @@ void __27__HFHomeKitDispatcher_init__block_invoke_2(uint64_t a1)
 
 - (void)disconnectDataModelDelegatesWithReason:(id)reason
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   v5 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = reasonCopy;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Disabling data model delegates with reason: %@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = reasonCopy;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Disabling data model delegates with reason: %@", &v16, 0xCu);
   }
 
   mEMORY[0x277D16F78] = [MEMORY[0x277D16F78] shared];
@@ -460,21 +459,20 @@ void __27__HFHomeKitDispatcher_init__block_invoke_2(uint64_t a1)
   [(HFHomeKitDispatcher *)self removeSymptomsHandlerObserver:mEMORY[0x277D16F78]10];
 
   [(HFHomeKitDispatcher *)self disconnectHomeStateStream];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reconnectDataModelDelegatesWithReason:(id)reason
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   if ([objc_opt_class() synchronizesHomeDataModel])
   {
     v5 = HFLogForCategory(0x27uLL);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412290;
-      v19 = reasonCopy;
-      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Enabling data model delegates with reason: %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = reasonCopy;
+      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Enabling data model delegates with reason: %@", &v17, 0xCu);
     }
 
     _dataModelContextForCurrentEnvironment = [(HFHomeKitDispatcher *)self _dataModelContextForCurrentEnvironment];
@@ -511,8 +509,6 @@ void __27__HFHomeKitDispatcher_init__block_invoke_2(uint64_t a1)
 
     [(HFHomeKitDispatcher *)self registerHomeStateStream];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initializeObservers
@@ -850,7 +846,7 @@ void __48__HFHomeKitDispatcher__setupHomeManagerObserver__block_invoke_3(uint64_
 
 uint64_t __48__HFHomeKitDispatcher__setupHomeManagerObserver__block_invoke_273(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) uniqueIdentifier];
   v3 = [*(a1 + 40) overrideHome];
   v4 = [v3 uniqueIdentifier];
@@ -877,7 +873,7 @@ uint64_t __48__HFHomeKitDispatcher__setupHomeManagerObserver__block_invoke_273(u
 
   v12 = [*(a1 + 32) uniqueIdentifier];
   v13 = [*(a1 + 40) pinCodeManager];
-  v14 = [v13 home];
+  v14 = objc_msgSend_home(v13);
   v15 = [v14 uniqueIdentifier];
   v16 = [v12 isEqual:v15];
 
@@ -888,28 +884,26 @@ uint64_t __48__HFHomeKitDispatcher__setupHomeManagerObserver__block_invoke_273(u
     {
       v18 = *(a1 + 40);
       v19 = NSStringFromSelector(*(a1 + 56));
-      v20 = [*(a1 + 40) home];
+      v20 = objc_msgSend_home(*(a1 + 40));
       v21 = *(a1 + 32);
-      v27 = 138413058;
-      v28 = v18;
-      v29 = 2112;
-      v30 = v19;
-      v31 = 2112;
-      v32 = v20;
-      v33 = 2112;
-      v34 = v21;
-      _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "%@:%@: Reseting HFPinCodeManager to use current home {%@} now that home {%@} was removed.", &v27, 0x2Au);
+      v26 = 138413058;
+      v27 = v18;
+      v28 = 2112;
+      v29 = v19;
+      v30 = 2112;
+      v31 = v20;
+      v32 = 2112;
+      v33 = v21;
+      _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "%@:%@: Reseting HFPinCodeManager to use current home {%@} now that home {%@} was removed.", &v26, 0x2Au);
     }
 
     v22 = [HFPinCodeManager alloc];
-    v23 = [*(a1 + 40) home];
+    v23 = objc_msgSend_home(*(a1 + 40));
     v24 = [(HFPinCodeManager *)v22 initWithHome:v23];
     [*(a1 + 40) setPinCodeManager:v24];
   }
 
-  result = (*(*(a1 + 48) + 16))();
-  v26 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)_setupHomeObserver
@@ -970,7 +964,7 @@ void __41__HFHomeKitDispatcher__setupHomeObserver__block_invoke(uint64_t a1, voi
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = [v11 objectAtIndexedSubscript:0];
-  v8 = [WeakRetained home];
+  v8 = objc_msgSend_home(WeakRetained);
   v9 = [v7 isEqual:v8];
 
   if (v9)
@@ -988,7 +982,7 @@ void __41__HFHomeKitDispatcher__setupHomeObserver__block_invoke_2(uint64_t a1, v
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = [v13 objectAtIndexedSubscript:0];
-  v8 = [WeakRetained home];
+  v8 = objc_msgSend_home(WeakRetained);
   v9 = [v7 isEqual:v8];
 
   if (v9)
@@ -1023,7 +1017,7 @@ void __41__HFHomeKitDispatcher__setupHomeObserver__block_invoke_4(uint64_t a1, v
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = [v11 objectAtIndexedSubscript:0];
-  v8 = [WeakRetained home];
+  v8 = objc_msgSend_home(WeakRetained);
   v9 = [v7 isEqual:v8];
 
   if (v9)
@@ -1041,7 +1035,7 @@ void __41__HFHomeKitDispatcher__setupHomeObserver__block_invoke_5(uint64_t a1, v
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = [v11 objectAtIndexedSubscript:0];
-  v8 = [WeakRetained home];
+  v8 = objc_msgSend_home(WeakRetained);
   v9 = [v7 isEqual:v8];
 
   if (v9)
@@ -1168,7 +1162,7 @@ void __51__HFHomeKitDispatcher__setupResidentDeviceObserver__block_invoke(uint64
   v7 = [v6 objectAtIndexedSubscript:0];
 
   v5[2](v5);
-  v8 = [v7 home];
+  v8 = objc_msgSend_home(v7);
   [WeakRetained _updateRemoteAccessStateForHome:v8 notifyingObservers:1];
 }
 
@@ -1180,7 +1174,7 @@ void __51__HFHomeKitDispatcher__setupResidentDeviceObserver__block_invoke_2(uint
   v7 = [v6 objectAtIndexedSubscript:0];
 
   v5[2](v5);
-  v8 = [v7 home];
+  v8 = objc_msgSend_home(v7);
   [WeakRetained _updateRemoteAccessStateForHome:v8 notifyingObservers:1];
 }
 
@@ -1291,7 +1285,7 @@ __CFString *__49__HFHomeKitDispatcher__setupMediaSessionObserver__block_invoke(u
 
 void __60__HFHomeKitDispatcher__setupSofwareUpdateControllerObserver__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -1320,15 +1314,14 @@ void __60__HFHomeKitDispatcher__setupSofwareUpdateControllerObserver__block_invo
   {
     v15 = [v8 hf_prettyDescription];
     v16 = [v11 hf_prettyDescription];
-    v18 = 138412546;
-    v19 = v15;
-    v20 = 2112;
-    v21 = v16;
-    _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "[HFHomeKitDispatcher softwareUpdateController:]", &v18, 0x16u);
+    v17 = 138412546;
+    v18 = v15;
+    v19 = 2112;
+    v20 = v16;
+    _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "[HFHomeKitDispatcher softwareUpdateController:]", &v17, 0x16u);
   }
 
   v5[2](v5);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupSofwareUpdateControllerV2Observer
@@ -1341,8 +1334,8 @@ void __60__HFHomeKitDispatcher__setupSofwareUpdateControllerObserver__block_invo
 
   softwareUpdateControllerV2ObserverDispatcher = [(HFHomeKitDispatcher *)self softwareUpdateControllerV2ObserverDispatcher];
   proxy = [softwareUpdateControllerV2ObserverDispatcher proxy];
-  home = [(HFHomeKitDispatcher *)self home];
-  softwareUpdateController = [home softwareUpdateController];
+  v8 = objc_msgSend_home(self);
+  softwareUpdateController = [v8 softwareUpdateController];
   [softwareUpdateController setDelegate:proxy];
 }
 
@@ -1360,8 +1353,8 @@ void __60__HFHomeKitDispatcher__setupSofwareUpdateControllerObserver__block_invo
     proxy = 0;
   }
 
-  home = [(HFHomeKitDispatcher *)self home];
-  softwareUpdateController = [home softwareUpdateController];
+  v6 = objc_msgSend_home(self);
+  softwareUpdateController = [v6 softwareUpdateController];
   [softwareUpdateController setDelegate:proxy];
 
   if (enabledCopy)
@@ -1426,7 +1419,7 @@ id __46__HFHomeKitDispatcher__setupStateDumpHandlers__block_invoke(uint64_t a1)
 
 id __46__HFHomeKitDispatcher__setupStateDumpHandlers__block_invoke_2()
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   if (+[HFUtilities isProxHandOffV2Config])
   {
     v0 = 0;
@@ -1449,16 +1442,14 @@ id __46__HFHomeKitDispatcher__setupStateDumpHandlers__block_invoke_2()
     }
   }
 
-  v9[0] = @"Home.framework";
+  v8[0] = @"Home.framework";
   v3 = HFHomeBundle();
   v4 = __46__HFHomeKitDispatcher__setupStateDumpHandlers__block_invoke_3(v3);
-  v9[1] = @"Home.app";
-  v10[0] = v4;
+  v8[1] = @"Home.app";
+  v9[0] = v4;
   v5 = __46__HFHomeKitDispatcher__setupStateDumpHandlers__block_invoke_3(v0);
-  v10[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }
@@ -1531,14 +1522,14 @@ __CFString *__46__HFHomeKitDispatcher__setupStateDumpHandlers__block_invoke_3(vo
 
 - (void)setHomeManagerAndUpdateDelegate:(id)delegate
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   v6 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412290;
-    v15 = delegateCopy;
-    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Setting home manager to %@ and awaiting home update", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = delegateCopy;
+    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Setting home manager to %@ and awaiting home update", &v13, 0xCu);
   }
 
   self->_hasLoadedHomes = 0;
@@ -1569,13 +1560,11 @@ __CFString *__46__HFHomeKitDispatcher__setupStateDumpHandlers__block_invoke_3(vo
   {
     [(HFHomeKitDispatcher *)self _initializeObservers];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateHomeManagerConfiguration:(id)configuration
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v5 = +[HFHomeKitDispatcher configuration];
   options = [v5 options];
@@ -1588,9 +1577,9 @@ __CFString *__46__HFHomeKitDispatcher__setupStateDumpHandlers__block_invoke_3(vo
     {
       [configurationCopy options];
       v9 = HMHomeManagerOptionsToString();
-      v14 = 138412290;
-      v15 = v9;
-      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Updating Home Manager configuration with options [%@]", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v9;
+      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Updating Home Manager configuration with options [%@]", &v13, 0xCu);
     }
 
     [HFHomeKitDispatcher setConfiguration:configurationCopy];
@@ -1605,8 +1594,6 @@ __CFString *__46__HFHomeKitDispatcher__setupStateDumpHandlers__block_invoke_3(vo
       [(HFHomeKitDispatcher *)self setHomeManagerAndUpdateDelegate:createHomeManagerIfNeeded];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeManagerWasCreated:(id)created
@@ -1713,36 +1700,34 @@ __CFString *__46__HFHomeKitDispatcher__setupStateDumpHandlers__block_invoke_3(vo
 
 - (void)addMediaProfileObserver:(id)observer
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   v6 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v8 = NSStringFromSelector(a2);
-    v9 = 138412290;
-    v10 = v8;
-    _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "This selector, %@, has been deprecated! Please move to addMediaObjectObserver: and move to HFMediaObjectObserver away from HFMediaProfileObserver!", &v9, 0xCu);
+    v7 = NSStringFromSelector(a2);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "This selector, %@, has been deprecated! Please move to addMediaObjectObserver: and move to HFMediaObjectObserver away from HFMediaProfileObserver!", &v8, 0xCu);
   }
 
   [(HFHomeKitDispatcher *)self addMediaObjectObserver:observerCopy];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeMediaProfileObserver:(id)observer
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   v6 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v8 = NSStringFromSelector(a2);
-    v9 = 138412290;
-    v10 = v8;
-    _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "This selector, %@, has been deprecated! Please move to removeMediaObjectObserver: and move to HFMediaObjectObserver away from HFMediaProfileObserver!", &v9, 0xCu);
+    v7 = NSStringFromSelector(a2);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "This selector, %@, has been deprecated! Please move to removeMediaObjectObserver: and move to HFMediaObjectObserver away from HFMediaProfileObserver!", &v8, 0xCu);
   }
 
   [(HFHomeKitDispatcher *)self removeMediaObjectObserver:observerCopy];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMediaSessionObserver:(id)observer
@@ -2153,7 +2138,7 @@ __CFString *__46__HFHomeKitDispatcher__setupStateDumpHandlers__block_invoke_3(vo
 
 - (void)updateHome
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   overrideHome = [(HFHomeKitDispatcher *)self overrideHome];
   v4 = overrideHome;
   if (overrideHome)
@@ -2168,8 +2153,8 @@ __CFString *__46__HFHomeKitDispatcher__setupStateDumpHandlers__block_invoke_3(vo
 
   v6 = selectedHome;
 
-  home = [(HFHomeKitDispatcher *)self home];
-  uniqueIdentifier = [home uniqueIdentifier];
+  v7 = objc_msgSend_home(self);
+  uniqueIdentifier = [v7 uniqueIdentifier];
   uniqueIdentifier2 = [v6 uniqueIdentifier];
   v10 = [uniqueIdentifier isEqual:uniqueIdentifier2];
 
@@ -2179,18 +2164,18 @@ __CFString *__46__HFHomeKitDispatcher__setupStateDumpHandlers__block_invoke_3(vo
     v11 = HFLogForCategory(0x27uLL);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = 138412546;
-      v28 = v6;
-      v29 = 1024;
+      v26 = 138412546;
+      v27 = v6;
+      v28 = 1024;
       synchronizesHomeDataModel = [objc_opt_class() synchronizesHomeDataModel];
-      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Updating dispatcher home to %@. synchronizesHomeDataModel is %{BOOL}d", &v27, 0x12u);
+      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Updating dispatcher home to %@. synchronizesHomeDataModel is %{BOOL}d", &v26, 0x12u);
     }
 
     [(HFHomeKitDispatcher *)self setHome:v6];
     [(HFHomeKitDispatcher *)self _setDelegationEnabledForObjectsInCurrentHome:1];
-    home2 = [(HFHomeKitDispatcher *)self home];
+    v12 = objc_msgSend_home(self);
 
-    if (home2)
+    if (v12)
     {
       firstHomeAddedPromises = [(HFHomeKitDispatcher *)self firstHomeAddedPromises];
       [(HFHomeKitDispatcher *)self _finishFirstHomeAddedPromises:firstHomeAddedPromises];
@@ -2204,13 +2189,13 @@ __CFString *__46__HFHomeKitDispatcher__setupStateDumpHandlers__block_invoke_3(vo
       homeManagerObserverDispatcher = [(HFHomeKitDispatcher *)self homeManagerObserverDispatcher];
       proxy = [homeManagerObserverDispatcher proxy];
       homeManager = [(HFHomeKitDispatcher *)self homeManager];
-      home3 = [(HFHomeKitDispatcher *)self home];
-      [proxy homeKitDispatcher:self manager:homeManager didChangeHome:home3];
+      v18 = objc_msgSend_home(self);
+      [proxy homeKitDispatcher:self manager:homeManager didChangeHome:v18];
     }
 
     v19 = MEMORY[0x277CBEB98];
-    home4 = [(HFHomeKitDispatcher *)self home];
-    hf_allLightProfiles = [home4 hf_allLightProfiles];
+    v20 = objc_msgSend_home(self);
+    hf_allLightProfiles = [v20 hf_allLightProfiles];
     v22 = [v19 setWithArray:hf_allLightProfiles];
 
     [(HFHomeKitDispatcher *)self fetchSettingsForLightProfiles:v22];
@@ -2218,21 +2203,19 @@ __CFString *__46__HFHomeKitDispatcher__setupStateDumpHandlers__block_invoke_3(vo
 
   if ([objc_opt_class() synchronizesHomeDataModel])
   {
-    home5 = [(HFHomeKitDispatcher *)self home];
+    v23 = objc_msgSend_home(self);
     mEMORY[0x277D16F78] = [MEMORY[0x277D16F78] shared];
-    [mEMORY[0x277D16F78] setCurrentHome:home5];
+    [mEMORY[0x277D16F78] setCurrentHome:v23];
 
-    home6 = [(HFHomeKitDispatcher *)self home];
-    [(HFHomeKitDispatcher *)self configureHomeStateStreamWithHome:home6];
+    v25 = objc_msgSend_home(self);
+    [(HFHomeKitDispatcher *)self configureHomeStateStreamWithHome:v25];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSelectedHome:(id)home userInitiated:(BOOL)initiated
 {
   initiatedCopy = initiated;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   uniqueIdentifier = [(HMHome *)self->_selectedHome uniqueIdentifier];
   [(HFHomeKitDispatcher *)self _requestSelectedHome:homeCopy];
@@ -2254,11 +2237,11 @@ __CFString *__46__HFHomeKitDispatcher__setupStateDumpHandlers__block_invoke_3(vo
           name = [(HMHome *)self->_selectedHome name];
           uniqueIdentifier3 = [(HMHome *)self->_selectedHome uniqueIdentifier];
           uUIDString = [uniqueIdentifier3 UUIDString];
-          v17 = 138478083;
-          v18 = name;
-          v19 = 2114;
-          v20 = uUIDString;
-          _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "User initiated change to home: %{private}@ %{public}@", &v17, 0x16u);
+          v16 = 138478083;
+          v17 = name;
+          v18 = 2114;
+          v19 = uUIDString;
+          _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "User initiated change to home: %{private}@ %{public}@", &v16, 0x16u);
         }
 
         notify_post(HFHomeSelectedHomeChangedNotification);
@@ -2272,8 +2255,6 @@ __CFString *__46__HFHomeKitDispatcher__setupStateDumpHandlers__block_invoke_3(vo
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)setSelectedHomeWithName:(id)name
@@ -2307,100 +2288,100 @@ uint64_t __47__HFHomeKitDispatcher_setSelectedHomeWithName___block_invoke(uint64
 
 - (void)_requestSelectedHome:(id)home
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v5 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [(HMHome *)homeCopy name];
     uniqueIdentifier = [(HMHome *)homeCopy uniqueIdentifier];
-    v42 = 138478083;
-    v43 = name;
-    v44 = 2114;
-    v45 = uniqueIdentifier;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "_requestSelectedHome %{private}@ %{public}@", &v42, 0x16u);
+    v41 = 138478083;
+    v42 = name;
+    v43 = 2114;
+    v44 = uniqueIdentifier;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "_requestSelectedHome %{private}@ %{public}@", &v41, 0x16u);
   }
 
   homeManager = [(HFHomeKitDispatcher *)self homeManager];
   currentAccessory = [homeManager currentAccessory];
 
-  home2 = homeCopy;
+  _primaryHome = homeCopy;
   if (currentAccessory)
   {
     homeManager2 = [(HFHomeKitDispatcher *)self homeManager];
     currentAccessory2 = [homeManager2 currentAccessory];
-    home = [currentAccessory2 home];
+    v13 = objc_msgSend_home(currentAccessory2);
 
-    if (home != homeCopy)
+    if (v13 != homeCopy)
     {
       v14 = HFLogForCategory(0x27uLL);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         name2 = [(HMHome *)homeCopy name];
         uniqueIdentifier2 = [(HMHome *)homeCopy uniqueIdentifier];
-        v42 = 138478083;
-        v43 = name2;
-        v44 = 2114;
-        v45 = uniqueIdentifier2;
-        _os_log_error_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_ERROR, "Current accessory set, Ignoring requested home - %{private}@ %{public}@", &v42, 0x16u);
+        v41 = 138478083;
+        v42 = name2;
+        v43 = 2114;
+        v44 = uniqueIdentifier2;
+        _os_log_error_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_ERROR, "Current accessory set, Ignoring requested home - %{private}@ %{public}@", &v41, 0x16u);
       }
     }
 
     homeManager3 = [(HFHomeKitDispatcher *)self homeManager];
     currentAccessory3 = [homeManager3 currentAccessory];
-    home2 = [currentAccessory3 home];
+    _primaryHome = objc_msgSend_home(currentAccessory3);
 
     v17 = HFLogForCategory(0x27uLL);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       name3 = [(HMHome *)homeCopy name];
       uniqueIdentifier3 = [(HMHome *)homeCopy uniqueIdentifier];
-      v42 = 138478083;
-      v43 = name3;
-      v44 = 2114;
-      v45 = uniqueIdentifier3;
-      _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "Selected home defaulting to currentAccessory Home - %{private}@ %{public}@", &v42, 0x16u);
+      v41 = 138478083;
+      v42 = name3;
+      v43 = 2114;
+      v44 = uniqueIdentifier3;
+      _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "Selected home defaulting to currentAccessory Home - %{private}@ %{public}@", &v41, 0x16u);
     }
   }
 
-  if (!home2)
+  if (!_primaryHome)
   {
-    home2 = [(HFHomeKitDispatcher *)self _primaryHome];
+    _primaryHome = [(HFHomeKitDispatcher *)self _primaryHome];
     v20 = HFLogForCategory(0x27uLL);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       name4 = [(HMHome *)homeCopy name];
       uniqueIdentifier4 = [(HMHome *)homeCopy uniqueIdentifier];
-      v42 = 138478083;
-      v43 = name4;
-      v44 = 2114;
-      v45 = uniqueIdentifier4;
-      _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "Selected home not specified - using primary home %{private}@ %{public}@", &v42, 0x16u);
+      v41 = 138478083;
+      v42 = name4;
+      v43 = 2114;
+      v44 = uniqueIdentifier4;
+      _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "Selected home not specified - using primary home %{private}@ %{public}@", &v41, 0x16u);
     }
 
-    if (!home2)
+    if (!_primaryHome)
     {
       homeManager4 = [(HFHomeKitDispatcher *)self homeManager];
       homes = [homeManager4 homes];
-      home2 = [homes firstObject];
+      _primaryHome = [homes firstObject];
 
       v25 = HFLogForCategory(0x27uLL);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         name5 = [(HMHome *)homeCopy name];
         uniqueIdentifier5 = [(HMHome *)homeCopy uniqueIdentifier];
-        v42 = 138478083;
-        v43 = name5;
-        v44 = 2114;
-        v45 = uniqueIdentifier5;
-        _os_log_impl(&dword_20D9BF000, v25, OS_LOG_TYPE_DEFAULT, "Primary home not specified - using first home %{private}@ %{public}@", &v42, 0x16u);
+        v41 = 138478083;
+        v42 = name5;
+        v43 = 2114;
+        v44 = uniqueIdentifier5;
+        _os_log_impl(&dword_20D9BF000, v25, OS_LOG_TYPE_DEFAULT, "Primary home not specified - using first home %{private}@ %{public}@", &v41, 0x16u);
       }
     }
   }
 
-  if (home2 != self->_selectedHome)
+  if (_primaryHome != self->_selectedHome)
   {
-    uniqueIdentifier6 = [(HMHome *)home2 uniqueIdentifier];
+    uniqueIdentifier6 = [(HMHome *)_primaryHome uniqueIdentifier];
     uniqueIdentifier7 = [(HMHome *)self->_selectedHome uniqueIdentifier];
     v30 = [uniqueIdentifier6 isEqual:uniqueIdentifier7];
 
@@ -2409,31 +2390,31 @@ uint64_t __47__HFHomeKitDispatcher_setSelectedHomeWithName___block_invoke(uint64
       v31 = HFLogForCategory(0x27uLL);
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
-        name6 = [(HMHome *)home2 name];
-        uniqueIdentifier8 = [(HMHome *)home2 uniqueIdentifier];
-        v42 = 138478083;
-        v43 = name6;
-        v44 = 2114;
-        v45 = uniqueIdentifier8;
-        _os_log_impl(&dword_20D9BF000, v31, OS_LOG_TYPE_DEFAULT, "Selected home is now %{private}@ %{public}@", &v42, 0x16u);
+        name6 = [(HMHome *)_primaryHome name];
+        uniqueIdentifier8 = [(HMHome *)_primaryHome uniqueIdentifier];
+        v41 = 138478083;
+        v42 = name6;
+        v43 = 2114;
+        v44 = uniqueIdentifier8;
+        _os_log_impl(&dword_20D9BF000, v31, OS_LOG_TYPE_DEFAULT, "Selected home is now %{private}@ %{public}@", &v41, 0x16u);
       }
 
-      objc_storeStrong(&self->_selectedHome, home2);
+      objc_storeStrong(&self->_selectedHome, _primaryHome);
       if ([(HFHomeKitDispatcher *)self _shouldPersistSelectedHomeToDefaults]&& !+[HFUtilities isInternalTest])
       {
         v34 = HFLogForCategory(0x27uLL);
         if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
-          name7 = [(HMHome *)home2 name];
-          uniqueIdentifier9 = [(HMHome *)home2 uniqueIdentifier];
-          v42 = 138478083;
-          v43 = name7;
-          v44 = 2114;
-          v45 = uniqueIdentifier9;
-          _os_log_impl(&dword_20D9BF000, v34, OS_LOG_TYPE_DEFAULT, "Notifying local clients of selected home change and saving to preferences %{private}@ %{public}@", &v42, 0x16u);
+          name7 = [(HMHome *)_primaryHome name];
+          uniqueIdentifier9 = [(HMHome *)_primaryHome uniqueIdentifier];
+          v41 = 138478083;
+          v42 = name7;
+          v43 = 2114;
+          v44 = uniqueIdentifier9;
+          _os_log_impl(&dword_20D9BF000, v34, OS_LOG_TYPE_DEFAULT, "Notifying local clients of selected home change and saving to preferences %{private}@ %{public}@", &v41, 0x16u);
         }
 
-        uniqueIdentifier10 = [(HMHome *)home2 uniqueIdentifier];
+        uniqueIdentifier10 = [(HMHome *)_primaryHome uniqueIdentifier];
         v38 = +[HFStateRestorationSettings sharedInstance];
         [v38 setSelectedHomeIdentifier:uniqueIdentifier10];
       }
@@ -2441,39 +2422,36 @@ uint64_t __47__HFHomeKitDispatcher_setSelectedHomeWithName___block_invoke(uint64
       [(HFHomeKitDispatcher *)self updateHome];
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setOverrideHome:(id)home
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v5 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = homeCopy;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Override home is now %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = homeCopy;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Override home is now %@", &v7, 0xCu);
   }
 
   overrideHome = self->_overrideHome;
   self->_overrideHome = homeCopy;
 
   [(HFHomeKitDispatcher *)self updateHome];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (NAFuture)homeFuture
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if ([(HFHomeKitDispatcher *)self willAcceptHomeFutures])
   {
-    if ([(HFHomeKitDispatcher *)self hasLoadedHomes]|| ([(HFHomeKitDispatcher *)self home], v3 = objc_claimAutoreleasedReturnValue(), v3, v3))
+    if ([(HFHomeKitDispatcher *)self hasLoadedHomes]|| (objc_msgSend_home(self), v3 = objc_claimAutoreleasedReturnValue(), v3, v3))
     {
       v4 = objc_alloc_init(MEMORY[0x277D2C918]);
-      v10[0] = v4;
-      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+      v9[0] = v4;
+      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
       [(HFHomeKitDispatcher *)self _finishHomePromises:v5];
     }
 
@@ -2492,24 +2470,22 @@ uint64_t __47__HFHomeKitDispatcher_setSelectedHomeWithName___block_invoke(uint64
     future = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return future;
 }
 
 - (NAFuture)firstHomeAddedFuture
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if ([(HFHomeKitDispatcher *)self willAcceptHomeFutures])
   {
-    home = [(HFHomeKitDispatcher *)self home];
+    v3 = objc_msgSend_home(self);
 
     v4 = objc_alloc_init(MEMORY[0x277D2C918]);
     v5 = v4;
-    if (home)
+    if (v3)
     {
-      v11[0] = v4;
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+      v10[0] = v4;
+      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
       [(HFHomeKitDispatcher *)self _finishFirstHomeAddedPromises:v6];
     }
 
@@ -2527,14 +2503,12 @@ uint64_t __47__HFHomeKitDispatcher_setSelectedHomeWithName___block_invoke(uint64
     future = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return future;
 }
 
 - (NAFuture)allHomesFuture
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if ([(HFHomeKitDispatcher *)self willAcceptHomeFutures])
   {
     hasLoadedHomes = [(HFHomeKitDispatcher *)self hasLoadedHomes];
@@ -2542,8 +2516,8 @@ uint64_t __47__HFHomeKitDispatcher_setSelectedHomeWithName___block_invoke(uint64
     v5 = v4;
     if (hasLoadedHomes)
     {
-      v11[0] = v4;
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+      v10[0] = v4;
+      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
       [(HFHomeKitDispatcher *)self _finishAllHomesPromises:v6];
     }
 
@@ -2560,8 +2534,6 @@ uint64_t __47__HFHomeKitDispatcher_setSelectedHomeWithName___block_invoke(uint64
   {
     future = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return future;
 }
@@ -2583,122 +2555,21 @@ uint64_t __47__HFHomeKitDispatcher_setSelectedHomeWithName___block_invoke(uint64
 
 id __42__HFHomeKitDispatcher_homeFutureWithUser___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v3 = a2;
-  v21 = [v3 countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v21)
-  {
-    v4 = *v28;
-    v22 = v3;
-    v20 = *v28;
-    do
-    {
-      for (i = 0; i != v21; ++i)
-      {
-        if (*v28 != v4)
-        {
-          objc_enumerationMutation(v3);
-        }
-
-        v6 = *(*(&v27 + 1) + 8 * i);
-        v23 = 0u;
-        v24 = 0u;
-        v25 = 0u;
-        v26 = 0u;
-        v7 = [v6 hf_allUsersIncludingCurrentUser];
-        v8 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
-        if (v8)
-        {
-          v9 = v8;
-          v10 = *v24;
-          while (2)
-          {
-            for (j = 0; j != v9; ++j)
-            {
-              if (*v24 != v10)
-              {
-                objc_enumerationMutation(v7);
-              }
-
-              v12 = [*(*(&v23 + 1) + 8 * j) uniqueIdentifier];
-              v13 = [*(a1 + 32) uniqueIdentifier];
-              v14 = [v12 hmf_isEqualToUUID:v13];
-
-              if (v14)
-              {
-                v17 = [MEMORY[0x277D2C900] futureWithResult:v6];
-
-                v3 = v22;
-                v16 = v22;
-                goto LABEL_18;
-              }
-            }
-
-            v9 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
-            if (v9)
-            {
-              continue;
-            }
-
-            break;
-          }
-        }
-
-        v3 = v22;
-        v4 = v20;
-      }
-
-      v21 = [v22 countByEnumeratingWithState:&v27 objects:v32 count:16];
-    }
-
-    while (v21);
-  }
-
-  v15 = MEMORY[0x277D2C900];
-  v16 = [MEMORY[0x277CCA9B8] hf_errorWithCode:30];
-  v17 = [v15 futureWithError:v16];
-LABEL_18:
-
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v17;
-}
-
-- (id)userFutureWithUniqueIdentifierStr:(id)str
-{
-  strCopy = str;
-  allHomesFuture = [(HFHomeKitDispatcher *)self allHomesFuture];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __57__HFHomeKitDispatcher_userFutureWithUniqueIdentifierStr___block_invoke;
-  v9[3] = &unk_277DF5938;
-  v10 = strCopy;
-  v6 = strCopy;
-  v7 = [allHomesFuture flatMap:v9];
-
-  return v7;
-}
-
-id __57__HFHomeKitDispatcher_userFutureWithUniqueIdentifierStr___block_invoke(uint64_t a1, void *a2)
-{
   v32 = *MEMORY[0x277D85DE8];
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v3 = a2;
-  v21 = [v3 countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (v21)
+  v20 = [v3 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  if (v20)
   {
     v4 = *v27;
-    v20 = *v27;
+    v21 = v3;
+    v19 = *v27;
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v20; ++i)
       {
         if (*v27 != v4)
         {
@@ -2725,15 +2596,16 @@ id __57__HFHomeKitDispatcher_userFutureWithUniqueIdentifierStr___block_invoke(ui
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v22 + 1) + 8 * j);
-              v13 = [v12 uniqueIdentifier];
-              v14 = [v13 hmf_isEqualToUUIDString:*(a1 + 32)];
+              v12 = [*(*(&v22 + 1) + 8 * j) uniqueIdentifier];
+              v13 = [*(a1 + 32) uniqueIdentifier];
+              v14 = [v12 hmf_isEqualToUUID:v13];
 
               if (v14)
               {
-                v17 = [MEMORY[0x277D2C900] futureWithResult:v12];
+                v17 = [MEMORY[0x277D2C900] futureWithResult:v6];
 
-                v16 = v3;
+                v3 = v21;
+                v16 = v21;
                 goto LABEL_18;
               }
             }
@@ -2748,13 +2620,14 @@ id __57__HFHomeKitDispatcher_userFutureWithUniqueIdentifierStr___block_invoke(ui
           }
         }
 
-        v4 = v20;
+        v3 = v21;
+        v4 = v19;
       }
 
-      v21 = [v3 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v20 = [v21 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
 
   v15 = MEMORY[0x277D2C900];
@@ -2762,7 +2635,102 @@ id __57__HFHomeKitDispatcher_userFutureWithUniqueIdentifierStr___block_invoke(ui
   v17 = [v15 futureWithError:v16];
 LABEL_18:
 
-  v18 = *MEMORY[0x277D85DE8];
+  return v17;
+}
+
+- (id)userFutureWithUniqueIdentifierStr:(id)str
+{
+  strCopy = str;
+  allHomesFuture = [(HFHomeKitDispatcher *)self allHomesFuture];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __57__HFHomeKitDispatcher_userFutureWithUniqueIdentifierStr___block_invoke;
+  v9[3] = &unk_277DF5938;
+  v10 = strCopy;
+  v6 = strCopy;
+  v7 = [allHomesFuture flatMap:v9];
+
+  return v7;
+}
+
+id __57__HFHomeKitDispatcher_userFutureWithUniqueIdentifierStr___block_invoke(uint64_t a1, void *a2)
+{
+  v31 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v3 = a2;
+  v20 = [v3 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  if (v20)
+  {
+    v4 = *v26;
+    v19 = *v26;
+    do
+    {
+      for (i = 0; i != v20; ++i)
+      {
+        if (*v26 != v4)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v6 = *(*(&v25 + 1) + 8 * i);
+        v21 = 0u;
+        v22 = 0u;
+        v23 = 0u;
+        v24 = 0u;
+        v7 = [v6 hf_allUsersIncludingCurrentUser];
+        v8 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        if (v8)
+        {
+          v9 = v8;
+          v10 = *v22;
+          while (2)
+          {
+            for (j = 0; j != v9; ++j)
+            {
+              if (*v22 != v10)
+              {
+                objc_enumerationMutation(v7);
+              }
+
+              v12 = *(*(&v21 + 1) + 8 * j);
+              v13 = [v12 uniqueIdentifier];
+              v14 = [v13 hmf_isEqualToUUIDString:*(a1 + 32)];
+
+              if (v14)
+              {
+                v17 = [MEMORY[0x277D2C900] futureWithResult:v12];
+
+                v16 = v3;
+                goto LABEL_18;
+              }
+            }
+
+            v9 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
+            if (v9)
+            {
+              continue;
+            }
+
+            break;
+          }
+        }
+
+        v4 = v19;
+      }
+
+      v20 = [v3 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    }
+
+    while (v20);
+  }
+
+  v15 = MEMORY[0x277D2C900];
+  v16 = [MEMORY[0x277CCA9B8] hf_errorWithCode:30];
+  v17 = [v15 futureWithError:v16];
+LABEL_18:
 
   return v17;
 }
@@ -2791,6 +2759,18 @@ LABEL_18:
   homeSensingEnabled = [locationCoordinator homeSensingEnabled];
 
   return homeSensingEnabled;
+}
+
+- (void)setSelectedHomeFollowsLocation:(BOOL)location
+{
+  locationCopy = location;
+  if ([(HFHomeKitDispatcher *)self selectedHomeFollowsLocation]!= location)
+  {
+    locationCoordinator = [(HFHomeKitDispatcher *)self locationCoordinator];
+    [locationCoordinator setHomeSensingEnabled:locationCopy];
+
+    [(HFHomeKitDispatcher *)self updateHomeSensingState];
+  }
 }
 
 - (id)_setupLocationSensingCoordinator
@@ -2893,8 +2873,8 @@ id __55__HFHomeKitDispatcher__setupLocationSensingCoordinator__block_invoke_610(
 {
   homeCopy = home;
   pinCodeManager = [(HFHomeKitDispatcher *)self pinCodeManager];
-  home = [pinCodeManager home];
-  uniqueIdentifier = [home uniqueIdentifier];
+  v6 = objc_msgSend_home(pinCodeManager);
+  uniqueIdentifier = [v6 uniqueIdentifier];
   uniqueIdentifier2 = [homeCopy uniqueIdentifier];
   v9 = [uniqueIdentifier isEqual:uniqueIdentifier2];
 
@@ -2906,8 +2886,8 @@ id __55__HFHomeKitDispatcher__setupLocationSensingCoordinator__block_invoke_610(
   else
   {
     pinCodeManager2 = [[HFPinCodeManager alloc] initWithHome:homeCopy];
-    home2 = [(HFHomeKitDispatcher *)self home];
-    uniqueIdentifier3 = [home2 uniqueIdentifier];
+    v11 = objc_msgSend_home(self);
+    uniqueIdentifier3 = [v11 uniqueIdentifier];
     uniqueIdentifier4 = [homeCopy uniqueIdentifier];
     v14 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
 
@@ -2924,8 +2904,8 @@ id __55__HFHomeKitDispatcher__setupLocationSensingCoordinator__block_invoke_610(
 {
   homeCopy = home;
   securityActivityLogCoordinator = [(HFHomeKitDispatcher *)self securityActivityLogCoordinator];
-  home = [securityActivityLogCoordinator home];
-  uniqueIdentifier = [home uniqueIdentifier];
+  v6 = objc_msgSend_home(securityActivityLogCoordinator);
+  uniqueIdentifier = [v6 uniqueIdentifier];
   uniqueIdentifier2 = [homeCopy uniqueIdentifier];
   v9 = [uniqueIdentifier isEqual:uniqueIdentifier2];
 
@@ -2937,8 +2917,8 @@ id __55__HFHomeKitDispatcher__setupLocationSensingCoordinator__block_invoke_610(
   else
   {
     securityActivityLogCoordinator2 = [[HFActivityLogCoordinator alloc] initWithHome:homeCopy targetKind:0];
-    home2 = [(HFHomeKitDispatcher *)self home];
-    uniqueIdentifier3 = [home2 uniqueIdentifier];
+    v11 = objc_msgSend_home(self);
+    uniqueIdentifier3 = [v11 uniqueIdentifier];
     uniqueIdentifier4 = [homeCopy uniqueIdentifier];
     v14 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
 
@@ -2955,8 +2935,8 @@ id __55__HFHomeKitDispatcher__setupLocationSensingCoordinator__block_invoke_610(
 {
   homeCopy = home;
   climateActivityLogCoordinator = [(HFHomeKitDispatcher *)self climateActivityLogCoordinator];
-  home = [climateActivityLogCoordinator home];
-  uniqueIdentifier = [home uniqueIdentifier];
+  v6 = objc_msgSend_home(climateActivityLogCoordinator);
+  uniqueIdentifier = [v6 uniqueIdentifier];
   uniqueIdentifier2 = [homeCopy uniqueIdentifier];
   v9 = [uniqueIdentifier isEqual:uniqueIdentifier2];
 
@@ -2968,8 +2948,8 @@ id __55__HFHomeKitDispatcher__setupLocationSensingCoordinator__block_invoke_610(
   else
   {
     climateActivityLogCoordinator2 = [[HFActivityLogCoordinator alloc] initWithHome:homeCopy targetKind:1];
-    home2 = [(HFHomeKitDispatcher *)self home];
-    uniqueIdentifier3 = [home2 uniqueIdentifier];
+    v11 = objc_msgSend_home(self);
+    uniqueIdentifier3 = [v11 uniqueIdentifier];
     uniqueIdentifier4 = [homeCopy uniqueIdentifier];
     v14 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
 
@@ -2984,12 +2964,12 @@ id __55__HFHomeKitDispatcher__setupLocationSensingCoordinator__block_invoke_610(
 
 - (void)updateSelectedHome
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   homeManager = [(HFHomeKitDispatcher *)self homeManager];
   currentAccessory = [homeManager currentAccessory];
-  home = [currentAccessory home];
+  v5 = objc_msgSend_home(currentAccessory);
 
-  if (home)
+  if (v5)
   {
     v6 = HFLogForCategory(0x27uLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -2998,22 +2978,22 @@ id __55__HFHomeKitDispatcher__setupLocationSensingCoordinator__block_invoke_610(
       currentAccessory2 = [homeManager2 currentAccessory];
       homeManager3 = [(HFHomeKitDispatcher *)self homeManager];
       currentAccessory3 = [homeManager3 currentAccessory];
-      home2 = [currentAccessory3 home];
+      v11 = objc_msgSend_home(currentAccessory3);
       *buf = 138413058;
       selfCopy3 = self;
-      v42 = 2080;
-      v43 = "[HFHomeKitDispatcher updateSelectedHome]";
-      v44 = 2112;
-      v45 = currentAccessory2;
-      v46 = 2112;
-      v47 = home2;
+      v41 = 2080;
+      v42 = "[HFHomeKitDispatcher updateSelectedHome]";
+      v43 = 2112;
+      v44 = currentAccessory2;
+      v45 = 2112;
+      v46 = v11;
       _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "(%@:%s) selected home is currentAccessory %@ home %@", buf, 0x2Au);
     }
 
     homeManager4 = [(HFHomeKitDispatcher *)self homeManager];
     currentAccessory4 = [homeManager4 currentAccessory];
-    home3 = [currentAccessory4 home];
-    uniqueIdentifier = [home3 uniqueIdentifier];
+    v14 = objc_msgSend_home(currentAccessory4);
+    uniqueIdentifier = [v14 uniqueIdentifier];
 
 LABEL_5:
     goto LABEL_6;
@@ -3039,12 +3019,12 @@ LABEL_5:
           uniqueIdentifier2 = [currentHome3 uniqueIdentifier];
           *buf = 138413059;
           selfCopy3 = self;
-          v42 = 2080;
-          v43 = "[HFHomeKitDispatcher updateSelectedHome]";
-          v44 = 2113;
-          v45 = name;
-          v46 = 2114;
-          v47 = uniqueIdentifier2;
+          v41 = 2080;
+          v42 = "[HFHomeKitDispatcher updateSelectedHome]";
+          v43 = 2113;
+          v44 = name;
+          v45 = 2114;
+          v46 = uniqueIdentifier2;
           _os_log_impl(&dword_20D9BF000, v27, OS_LOG_TYPE_DEFAULT, "(%@:%s) selected home is current home %{private}@ %{public}@", buf, 0x2Au);
         }
 
@@ -3064,10 +3044,10 @@ LABEL_5:
   {
     *buf = 138412802;
     selfCopy3 = self;
-    v42 = 2080;
-    v43 = "[HFHomeKitDispatcher updateSelectedHome]";
-    v44 = 2114;
-    v45 = uniqueIdentifier;
+    v41 = 2080;
+    v42 = "[HFHomeKitDispatcher updateSelectedHome]";
+    v43 = 2114;
+    v44 = uniqueIdentifier;
     _os_log_impl(&dword_20D9BF000, homeManager4, OS_LOG_TYPE_DEFAULT, "(%@:%s) selected home is synced identifier %{public}@", buf, 0x20u);
   }
 
@@ -3077,13 +3057,13 @@ LABEL_6:
   {
     homeManager8 = [(HFHomeKitDispatcher *)self homeManager];
     homes = [homeManager8 homes];
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __41__HFHomeKitDispatcher_updateSelectedHome__block_invoke;
-    v38[3] = &unk_277DF5E78;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __41__HFHomeKitDispatcher_updateSelectedHome__block_invoke;
+    v37[3] = &unk_277DF5E78;
     v18 = uniqueIdentifier;
     p_super = &v18->super;
-    _primaryHome = [homes na_firstObjectPassingTest:v38];
+    _primaryHome = [homes na_firstObjectPassingTest:v37];
 
     v20 = HFLogForCategory(0x27uLL);
     v21 = v20;
@@ -3095,8 +3075,8 @@ LABEL_6:
         uniqueIdentifier3 = [_primaryHome uniqueIdentifier];
         *buf = 138478083;
         selfCopy3 = name2;
-        v42 = 2114;
-        v43 = uniqueIdentifier3;
+        v41 = 2114;
+        v42 = uniqueIdentifier3;
         _os_log_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_DEFAULT, "Loaded synced selected home %{private}@ %{public}@", buf, 0x16u);
       }
 
@@ -3135,8 +3115,6 @@ LABEL_26:
   }
 
   [(HFHomeKitDispatcher *)self _requestSelectedHome:_primaryHome];
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __41__HFHomeKitDispatcher_updateSelectedHome__block_invoke(uint64_t a1, void *a2)
@@ -3150,7 +3128,7 @@ uint64_t __41__HFHomeKitDispatcher_updateSelectedHome__block_invoke(uint64_t a1,
 
 - (void)_handleHomeManagerDidUpdateHomes:(id)homes
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   homesCopy = homes;
   v5 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -3160,11 +3138,11 @@ uint64_t __41__HFHomeKitDispatcher_updateSelectedHome__block_invoke(uint64_t a1,
     currentHome2 = [homesCopy currentHome];
     uniqueIdentifier = [currentHome2 uniqueIdentifier];
     *buf = 138412803;
-    v52 = homesCopy;
-    v53 = 2113;
-    v54 = name;
-    v55 = 2114;
-    v56 = uniqueIdentifier;
+    v51 = homesCopy;
+    v52 = 2113;
+    v53 = name;
+    v54 = 2114;
+    v55 = uniqueIdentifier;
     _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "homeManagerDidUpdateHomes: %@, manager's currentHome: %{private}@ %{public}@", buf, 0x20u);
   }
 
@@ -3178,28 +3156,28 @@ uint64_t __41__HFHomeKitDispatcher_updateSelectedHome__block_invoke(uint64_t a1,
       _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "homeManagerDidFinishUnknownChange", buf, 2u);
     }
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     homeManagerObserverDispatcher = [(HFHomeKitDispatcher *)self homeManagerObserverDispatcher];
     observers = [homeManagerObserverDispatcher observers];
 
-    v13 = [observers countByEnumeratingWithState:&v44 objects:v50 count:16];
+    v13 = [observers countByEnumeratingWithState:&v43 objects:v49 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v45;
+      v15 = *v44;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v45 != v15)
+          if (*v44 != v15)
           {
             objc_enumerationMutation(observers);
           }
 
-          v17 = *(*(&v44 + 1) + 8 * i);
+          v17 = *(*(&v43 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
             [v17 homeManagerDidFinishUnknownChange:homesCopy];
@@ -3211,7 +3189,7 @@ uint64_t __41__HFHomeKitDispatcher_updateSelectedHome__block_invoke(uint64_t a1,
           }
         }
 
-        v14 = [observers countByEnumeratingWithState:&v44 objects:v50 count:16];
+        v14 = [observers countByEnumeratingWithState:&v43 objects:v49 count:16];
       }
 
       while (v14);
@@ -3248,28 +3226,28 @@ uint64_t __41__HFHomeKitDispatcher_updateSelectedHome__block_invoke(uint64_t a1,
       _os_log_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_DEFAULT, "homeManagerDidFinishInitialDatabaseLoad", buf, 2u);
     }
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     homeManagerObserverDispatcher2 = [(HFHomeKitDispatcher *)self homeManagerObserverDispatcher];
     observers2 = [homeManagerObserverDispatcher2 observers];
 
-    v26 = [observers2 countByEnumeratingWithState:&v40 objects:v49 count:16];
+    v26 = [observers2 countByEnumeratingWithState:&v39 objects:v48 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v41;
+      v28 = *v40;
       do
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v41 != v28)
+          if (*v40 != v28)
           {
             objc_enumerationMutation(observers2);
           }
 
-          v30 = *(*(&v40 + 1) + 8 * j);
+          v30 = *(*(&v39 + 1) + 8 * j);
           if (objc_opt_respondsToSelector())
           {
             [v30 homeManagerDidFinishInitialDatabaseLoad:homesCopy];
@@ -3281,48 +3259,55 @@ uint64_t __41__HFHomeKitDispatcher_updateSelectedHome__block_invoke(uint64_t a1,
           }
         }
 
-        v27 = [observers2 countByEnumeratingWithState:&v40 objects:v49 count:16];
+        v27 = [observers2 countByEnumeratingWithState:&v39 objects:v48 count:16];
       }
 
       while (v27);
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     observers = [homesCopy homes];
-    v31 = [observers countByEnumeratingWithState:&v36 objects:v48 count:16];
+    v31 = [observers countByEnumeratingWithState:&v35 objects:v47 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v37;
+      v33 = *v36;
       do
       {
         for (k = 0; k != v32; ++k)
         {
-          if (*v37 != v33)
+          if (*v36 != v33)
           {
             objc_enumerationMutation(observers);
           }
 
-          [(HFHomeKitDispatcher *)self _updateRemoteAccessStateForHome:*(*(&v36 + 1) + 8 * k) notifyingObservers:0];
+          [(HFHomeKitDispatcher *)self _updateRemoteAccessStateForHome:*(*(&v35 + 1) + 8 * k) notifyingObservers:0];
         }
 
-        v32 = [observers countByEnumeratingWithState:&v36 objects:v48 count:16];
+        v32 = [observers countByEnumeratingWithState:&v35 objects:v47 count:16];
       }
 
       while (v32);
     }
   }
+}
 
-  v35 = *MEMORY[0x277D85DE8];
+- (void)coordinator:(id)coordinator locationSensingAvailabilityDidChange:(BOOL)change
+{
+  changeCopy = change;
+  homeManagerObserverDispatcher = [(HFHomeKitDispatcher *)self homeManagerObserverDispatcher];
+  proxy = [homeManagerObserverDispatcher proxy];
+  homeManager = [(HFHomeKitDispatcher *)self homeManager];
+  [proxy homeManager:homeManager didUpdateLocationSensingAvailability:changeCopy];
 }
 
 - (void)_updateRemoteAccessStateForHome:(id)home notifyingObservers:(BOOL)observers
 {
   observersCopy = observers;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   if (homeCopy)
   {
@@ -3352,93 +3337,89 @@ uint64_t __41__HFHomeKitDispatcher_updateSelectedHome__block_invoke(uint64_t a1,
     v17 = HFLogForCategory(0x27uLL);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v19 = NSStringFromSelector(a2);
-      v20 = 138412546;
+      v18 = NSStringFromSelector(a2);
+      v19 = 138412546;
       selfCopy = self;
-      v22 = 2112;
-      v23 = v19;
-      _os_log_error_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_ERROR, "%@:%@: Unexpected nil home", &v20, 0x16u);
+      v21 = 2112;
+      v22 = v18;
+      _os_log_error_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_ERROR, "%@:%@: Unexpected nil home", &v19, 0x16u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishHomePromises:(id)promises
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   promisesCopy = promises;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [promisesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [promisesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(promisesCopy);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
-        home = [(HFHomeKitDispatcher *)self home];
+        v9 = *(*(&v12 + 1) + 8 * v8);
+        v10 = objc_msgSend_home(self);
 
-        if (home)
+        if (v10)
         {
-          home2 = [(HFHomeKitDispatcher *)self home];
-          [v9 finishWithResult:home2];
+          v11 = objc_msgSend_home(self);
+          [v9 finishWithResult:v11];
         }
 
         else
         {
-          home2 = [MEMORY[0x277CCA9B8] hf_errorWithCode:30];
-          [v9 finishWithError:home2];
+          v11 = [MEMORY[0x277CCA9B8] hf_errorWithCode:30];
+          [v9 finishWithError:v11];
         }
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [promisesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [promisesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishAllHomesPromises:(id)promises
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   promisesCopy = promises;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v5 = [promisesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [promisesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       v8 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(promisesCopy);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * v8);
+        v9 = *(*(&v15 + 1) + 8 * v8);
         homeManager = [(HFHomeKitDispatcher *)self homeManager];
         homes = [homeManager homes];
 
@@ -3460,13 +3441,11 @@ uint64_t __41__HFHomeKitDispatcher_updateSelectedHome__block_invoke(uint64_t a1,
       }
 
       while (v6 != v8);
-      v6 = [promisesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [promisesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__HFHomeKitDispatcher__finishAllHomesPromises___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3481,11 +3460,11 @@ uint64_t __47__HFHomeKitDispatcher__finishAllHomesPromises___block_invoke(uint64
 
 - (void)_finishFirstHomeAddedPromises:(id)promises
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   promisesCopy = promises;
-  home = [(HFHomeKitDispatcher *)self home];
+  v6 = objc_msgSend_home(self);
 
-  if (!home)
+  if (!v6)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"HFHomeKitDispatcher.m" lineNumber:1693 description:{@"Invalid parameter not satisfying: %@", @"self.home != nil"}];
@@ -3501,41 +3480,39 @@ uint64_t __47__HFHomeKitDispatcher__finishAllHomesPromises___block_invoke(uint64
     }
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = promisesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * v12);
-        home2 = [(HFHomeKitDispatcher *)self home];
-        [v13 finishWithResult:home2];
+        v13 = *(*(&v16 + 1) + 8 * v12);
+        v14 = objc_msgSend_home(self);
+        [v13 finishWithResult:v14];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_primaryHome
@@ -3556,6 +3533,155 @@ uint64_t __47__HFHomeKitDispatcher__finishAllHomesPromises___block_invoke(uint64
   }
 
   return primaryHome;
+}
+
+- (void)_setDelegationEnabledForObjectsInCurrentHome:(BOOL)home
+{
+  homeCopy = home;
+  v52 = *MEMORY[0x277D85DE8];
+  [(HFHomeKitDispatcher *)self _setSoftwareUpateControllerV2DelegationEnabled:?];
+  v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v5 = objc_msgSend_home(self);
+  accessories = [v5 accessories];
+
+  v7 = [accessories countByEnumeratingWithState:&v44 objects:v51 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v45;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v45 != v9)
+        {
+          objc_enumerationMutation(accessories);
+        }
+
+        [(HFHomeKitDispatcher *)self _setDelegationEnabled:homeCopy forAccessoryHierarchy:*(*(&v44 + 1) + 8 * v10++)];
+      }
+
+      while (v8 != v10);
+      v8 = [accessories countByEnumeratingWithState:&v44 objects:v51 count:16];
+    }
+
+    while (v8);
+  }
+
+  v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v11 = objc_msgSend_home(self);
+  mediaSystems = [v11 mediaSystems];
+
+  v13 = [mediaSystems countByEnumeratingWithState:&v40 objects:v50 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v41;
+    do
+    {
+      v16 = 0;
+      do
+      {
+        if (*v41 != v15)
+        {
+          objc_enumerationMutation(mediaSystems);
+        }
+
+        [(HFHomeKitDispatcher *)self _setDelegationEnabled:homeCopy forMediaProfileContainer:*(*(&v40 + 1) + 8 * v16++) session:0];
+      }
+
+      while (v14 != v16);
+      v14 = [mediaSystems countByEnumeratingWithState:&v40 objects:v50 count:16];
+    }
+
+    while (v14);
+  }
+
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v17 = objc_msgSend_home(self);
+  residentDevices = [v17 residentDevices];
+
+  v19 = [residentDevices countByEnumeratingWithState:&v36 objects:v49 count:16];
+  if (v19)
+  {
+    v20 = v19;
+    v21 = *v37;
+    do
+    {
+      v22 = 0;
+      do
+      {
+        if (*v37 != v21)
+        {
+          objc_enumerationMutation(residentDevices);
+        }
+
+        v23 = *(*(&v36 + 1) + 8 * v22);
+        if (homeCopy)
+        {
+          residentDeviceObserverDispatcher = [(HFHomeKitDispatcher *)self residentDeviceObserverDispatcher];
+          proxy = [residentDeviceObserverDispatcher proxy];
+          [v23 setDelegate:proxy];
+        }
+
+        else
+        {
+          [*(*(&v36 + 1) + 8 * v22) setDelegate:0];
+        }
+
+        ++v22;
+      }
+
+      while (v20 != v22);
+      v20 = [residentDevices countByEnumeratingWithState:&v36 objects:v49 count:16];
+    }
+
+    while (v20);
+  }
+
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v26 = objc_msgSend_home(self, 0);
+  hf_allUsersIncludingCurrentUser = [v26 hf_allUsersIncludingCurrentUser];
+
+  v28 = [hf_allUsersIncludingCurrentUser countByEnumeratingWithState:&v32 objects:v48 count:16];
+  if (v28)
+  {
+    v29 = v28;
+    v30 = *v33;
+    do
+    {
+      v31 = 0;
+      do
+      {
+        if (*v33 != v30)
+        {
+          objc_enumerationMutation(hf_allUsersIncludingCurrentUser);
+        }
+
+        [(HFHomeKitDispatcher *)self _setDelegationEnabled:homeCopy forUser:*(*(&v32 + 1) + 8 * v31++)];
+      }
+
+      while (v29 != v31);
+      v29 = [hf_allUsersIncludingCurrentUser countByEnumeratingWithState:&v32 objects:v48 count:16];
+    }
+
+    while (v29);
+  }
+
+  [(HFHomeKitDispatcher *)self _setHomePersonManagerObservationEnabled:homeCopy];
 }
 
 - (void)addObservationForCameraClipManager:(id)manager
@@ -3585,25 +3711,25 @@ uint64_t __47__HFHomeKitDispatcher__finishAllHomesPromises___block_invoke(uint64
 - (void)_setDelegationEnabled:(BOOL)enabled forAccessoryHierarchy:(id)hierarchy
 {
   enabledCopy = enabled;
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   hierarchyCopy = hierarchy;
-  home = [hierarchyCopy home];
-  home2 = [(HFHomeKitDispatcher *)self home];
-  v9 = [home isEqual:home2];
+  v7 = objc_msgSend_home(hierarchyCopy);
+  v8 = objc_msgSend_home(self);
+  v9 = [v7 isEqual:v8];
 
   if ((v9 & 1) == 0)
   {
     v10 = HFLogForCategory(0x27uLL);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      home3 = [hierarchyCopy home];
-      home4 = [(HFHomeKitDispatcher *)self home];
+      v59 = objc_msgSend_home(hierarchyCopy);
+      v60 = objc_msgSend_home(self);
       *buf = 138412802;
-      v80 = hierarchyCopy;
-      v81 = 2112;
-      v82 = home3;
-      v83 = 2112;
-      v84 = home4;
+      v79 = hierarchyCopy;
+      v80 = 2112;
+      v81 = v59;
+      v82 = 2112;
+      v83 = v60;
       _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "Setting delegate for accessory %@ with home %@ not in current home %@", buf, 0x20u);
     }
   }
@@ -3620,27 +3746,27 @@ uint64_t __47__HFHomeKitDispatcher__finishAllHomesPromises___block_invoke(uint64
     [hierarchyCopy setDelegate:0];
   }
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
   v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
   cameraProfiles = [hierarchyCopy cameraProfiles];
-  v14 = [cameraProfiles countByEnumeratingWithState:&v72 objects:v78 count:16];
+  v14 = [cameraProfiles countByEnumeratingWithState:&v71 objects:v77 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v73;
+    v16 = *v72;
     do
     {
       v17 = 0;
       do
       {
-        if (*v73 != v16)
+        if (*v72 != v16)
         {
           objc_enumerationMutation(cameraProfiles);
         }
 
-        v18 = *(*(&v72 + 1) + 8 * v17);
+        v18 = *(*(&v71 + 1) + 8 * v17);
         if (enabledCopy)
         {
           cameraObserverDispatcher = [(HFHomeKitDispatcher *)self cameraObserverDispatcher];
@@ -3665,7 +3791,7 @@ uint64_t __47__HFHomeKitDispatcher__finishAllHomesPromises___block_invoke(uint64
       }
 
       while (v15 != v17);
-      v15 = [cameraProfiles countByEnumeratingWithState:&v72 objects:v78 count:16];
+      v15 = [cameraProfiles countByEnumeratingWithState:&v71 objects:v77 count:16];
     }
 
     while (v15);
@@ -3673,35 +3799,35 @@ uint64_t __47__HFHomeKitDispatcher__finishAllHomesPromises___block_invoke(uint64
 
   profiles = [hierarchyCopy profiles];
   v25 = [profiles na_map:&__block_literal_global_632];
-  v70[0] = MEMORY[0x277D85DD0];
-  v70[1] = 3221225472;
-  v70[2] = __67__HFHomeKitDispatcher__setDelegationEnabled_forAccessoryHierarchy___block_invoke_2;
-  v70[3] = &unk_277E02620;
-  v71 = enabledCopy;
-  v70[4] = self;
-  [v25 na_each:v70];
+  v69[0] = MEMORY[0x277D85DD0];
+  v69[1] = 3221225472;
+  v69[2] = __67__HFHomeKitDispatcher__setDelegationEnabled_forAccessoryHierarchy___block_invoke_2;
+  v69[3] = &unk_277E02620;
+  v70 = enabledCopy;
+  v69[4] = self;
+  [v25 na_each:v69];
 
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
   v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   televisionProfiles = [hierarchyCopy televisionProfiles];
-  v27 = [televisionProfiles countByEnumeratingWithState:&v66 objects:v77 count:16];
+  v27 = [televisionProfiles countByEnumeratingWithState:&v65 objects:v76 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v67;
+    v29 = *v66;
     do
     {
       v30 = 0;
       do
       {
-        if (*v67 != v29)
+        if (*v66 != v29)
         {
           objc_enumerationMutation(televisionProfiles);
         }
 
-        v31 = *(*(&v66 + 1) + 8 * v30);
+        v31 = *(*(&v65 + 1) + 8 * v30);
         if (enabledCopy)
         {
           televisionObserverDispatcher = [(HFHomeKitDispatcher *)self televisionObserverDispatcher];
@@ -3711,14 +3837,14 @@ uint64_t __47__HFHomeKitDispatcher__finishAllHomesPromises___block_invoke(uint64
 
         else
         {
-          [*(*(&v66 + 1) + 8 * v30) setDelegate:0];
+          [*(*(&v65 + 1) + 8 * v30) setDelegate:0];
         }
 
         ++v30;
       }
 
       while (v28 != v30);
-      v28 = [televisionProfiles countByEnumeratingWithState:&v66 objects:v77 count:16];
+      v28 = [televisionProfiles countByEnumeratingWithState:&v65 objects:v76 count:16];
     }
 
     while (v28);
@@ -3833,26 +3959,26 @@ uint64_t __47__HFHomeKitDispatcher__finishAllHomesPromises___block_invoke(uint64
   }
 
   lightProfiles = [hierarchyCopy lightProfiles];
+  v61 = 0u;
   v62 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
-  v52 = [lightProfiles countByEnumeratingWithState:&v62 objects:v76 count:16];
+  v52 = [lightProfiles countByEnumeratingWithState:&v61 objects:v75 count:16];
   if (v52)
   {
     v53 = v52;
-    v54 = *v63;
+    v54 = *v62;
     do
     {
       v55 = 0;
       do
       {
-        if (*v63 != v54)
+        if (*v62 != v54)
         {
           objc_enumerationMutation(lightProfiles);
         }
 
-        v56 = *(*(&v62 + 1) + 8 * v55);
+        v56 = *(*(&v61 + 1) + 8 * v55);
         if (enabledCopy)
         {
           lightObserverDispatcher = [(HFHomeKitDispatcher *)self lightObserverDispatcher];
@@ -3862,20 +3988,18 @@ uint64_t __47__HFHomeKitDispatcher__finishAllHomesPromises___block_invoke(uint64
 
         else
         {
-          [*(*(&v62 + 1) + 8 * v55) setDelegate:0];
+          [*(*(&v61 + 1) + 8 * v55) setDelegate:0];
         }
 
         ++v55;
       }
 
       while (v53 != v55);
-      v53 = [lightProfiles countByEnumeratingWithState:&v62 objects:v76 count:16];
+      v53 = [lightProfiles countByEnumeratingWithState:&v61 objects:v75 count:16];
     }
 
     while (v53);
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 void *__67__HFHomeKitDispatcher__setDelegationEnabled_forAccessoryHierarchy___block_invoke(uint64_t a1, void *a2)
@@ -4034,10 +4158,10 @@ void __78__HFHomeKitDispatcher__setDelegationEnabled_forMediaProfileContainer_se
 - (void)_setDelegationEnabled:(BOOL)enabled forUser:(id)user
 {
   enabledCopy = enabled;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   userCopy = user;
-  home = [(HFHomeKitDispatcher *)self home];
-  v8 = [userCopy userSettingsForHome:home];
+  v7 = objc_msgSend_home(self);
+  v8 = [userCopy userSettingsForHome:v7];
 
   settings = [v8 settings];
   rootGroup = [settings rootGroup];
@@ -4047,9 +4171,9 @@ void __78__HFHomeKitDispatcher__setDelegationEnabled_forMediaProfileContainer_se
     v11 = HFLogForCategory(0x27uLL);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v21 = 138412290;
-      v22 = userCopy;
-      _os_log_error_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, "Attempting to set delegate for user %@ settings - but settings are invalid", &v21, 0xCu);
+      v20 = 138412290;
+      v21 = userCopy;
+      _os_log_error_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, "Attempting to set delegate for user %@ settings - but settings are invalid", &v20, 0xCu);
     }
   }
 
@@ -4072,9 +4196,9 @@ LABEL_7:
     privateSettings = HFLogForCategory(0x27uLL);
     if (os_log_type_enabled(privateSettings, OS_LOG_TYPE_ERROR))
     {
-      v21 = 138412290;
-      v22 = userCopy;
-      _os_log_error_impl(&dword_20D9BF000, privateSettings, OS_LOG_TYPE_ERROR, "Attempting to set delegate for user %@ private settings - but private settings are invalid", &v21, 0xCu);
+      v20 = 138412290;
+      v21 = userCopy;
+      _os_log_error_impl(&dword_20D9BF000, privateSettings, OS_LOG_TYPE_ERROR, "Attempting to set delegate for user %@ private settings - but private settings are invalid", &v20, 0xCu);
     }
 
     if (enabledCopy)
@@ -4115,15 +4239,13 @@ LABEL_12:
   {
     [userCopy setDelegate:0];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setHomePersonManagerObservationEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  home = [(HFHomeKitDispatcher *)self home];
-  personManager = [home personManager];
+  v5 = objc_msgSend_home(self, a2);
+  personManager = [v5 personManager];
 
   if (personManager)
   {
@@ -4228,7 +4350,7 @@ void __45__HFHomeKitDispatcher_updateHomeSensingState__block_invoke(uint64_t a1,
 
 void __45__HFHomeKitDispatcher_updateHomeSensingState__block_invoke_639(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [WeakRetained homeManager];
@@ -4242,23 +4364,23 @@ void __45__HFHomeKitDispatcher_updateHomeSensingState__block_invoke_639(uint64_t
     v10 = [v7 hf_displayName];
     v11 = [v7 uniqueIdentifier];
     [WeakRetained selectedHome];
-    v12 = v24 = v3;
+    v12 = v23 = v3;
     v13 = [v12 hf_displayName];
     v14 = [WeakRetained selectedHome];
     v15 = [v14 uniqueIdentifier];
     *buf = 67110147;
-    *v26 = v9;
-    *&v26[4] = 2113;
-    *&v26[6] = v10;
-    *&v26[14] = 2114;
-    *&v26[16] = v11;
-    v27 = 2113;
-    v28 = v13;
-    v29 = 2114;
-    v30 = v15;
+    *v25 = v9;
+    *&v25[4] = 2113;
+    *&v25[6] = v10;
+    *&v25[14] = 2114;
+    *&v25[16] = v11;
+    v26 = 2113;
+    v27 = v13;
+    v28 = 2114;
+    v29 = v15;
     _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "updateHomeSensingState - Home Sensing: isSensingEnabled? %{BOOL}d homeManager.currentHome: %{private}@ %{public}@ selectedHome: %{private}@ %{public}@", buf, 0x30u);
 
-    v3 = v24;
+    v3 = v23;
   }
 
   if ([v3 BOOLValue])
@@ -4278,9 +4400,9 @@ void __45__HFHomeKitDispatcher_updateHomeSensingState__block_invoke_639(uint64_t
           v21 = [v7 name];
           v22 = [v7 uniqueIdentifier];
           *buf = 138478083;
-          *v26 = v21;
-          *&v26[8] = 2114;
-          *&v26[10] = v22;
+          *v25 = v21;
+          *&v25[8] = 2114;
+          *&v25[10] = v22;
           _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "updateHomeSensingState Home Sensing: requesting home %{private}@ %{public}@", buf, 0x16u);
         }
 
@@ -4288,17 +4410,15 @@ void __45__HFHomeKitDispatcher_updateHomeSensingState__block_invoke_639(uint64_t
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldPersistSelectedHomeToDefaults
 {
   homeManager = [(HFHomeKitDispatcher *)self homeManager];
   currentAccessory = [homeManager currentAccessory];
-  home = [currentAccessory home];
+  v4 = objc_msgSend_home(currentAccessory);
 
-  if (home)
+  if (v4)
   {
     return 0;
   }
@@ -4311,9 +4431,9 @@ void __45__HFHomeKitDispatcher_updateHomeSensingState__block_invoke_639(uint64_t
 - (void)fetchSettingsForLightProfiles:(id)profiles
 {
   profilesCopy = profiles;
-  home = [(HFHomeKitDispatcher *)self home];
+  v5 = objc_msgSend_home(self);
 
-  if (home)
+  if (v5)
   {
     if (+[HFUtilities isInternalTest])
     {
@@ -4347,18 +4467,18 @@ void __53__HFHomeKitDispatcher_fetchSettingsForLightProfiles___block_invoke(uint
 - (void)_fetchSettingsForLightProfiles:(id)profiles
 {
   profilesCopy = profiles;
-  home = [(HFHomeKitDispatcher *)self home];
+  v5 = objc_msgSend_home(self);
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
   v6[2] = __54__HFHomeKitDispatcher__fetchSettingsForLightProfiles___block_invoke;
   v6[3] = &unk_277E026E8;
   v6[4] = self;
-  [home fetchSettingsForLightProfiles:profilesCopy withCompletion:v6];
+  [v5 fetchSettingsForLightProfiles:profilesCopy withCompletion:v6];
 }
 
 void __54__HFHomeKitDispatcher__fetchSettingsForLightProfiles___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -4367,32 +4487,32 @@ void __54__HFHomeKitDispatcher__fetchSettingsForLightProfiles___block_invoke(uin
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v26 = v6;
+      v25 = v6;
       _os_log_error_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_ERROR, "Received error trying to fetch settings for light profiles. %@", buf, 0xCu);
     }
   }
 
-  v19 = v6;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
+  v18 = v6;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         v14 = [v8 objectForKey:v13];
         v15 = *(a1 + 32);
         v16 = [v14 settings];
@@ -4400,18 +4520,16 @@ void __54__HFHomeKitDispatcher__fetchSettingsForLightProfiles___block_invoke(uin
         [v15 dispatchLightProfileUpdate:v13 settings:v16 error:v17];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchLightProfileUpdate:(id)update settings:(id)settings error:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   settingsCopy = settings;
   errorCopy = error;
@@ -4421,9 +4539,9 @@ void __54__HFHomeKitDispatcher__fetchSettingsForLightProfiles___block_invoke(uin
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v17 = updateCopy;
-      v18 = 2112;
-      v19 = errorCopy;
+      v16 = updateCopy;
+      v17 = 2112;
+      v18 = errorCopy;
       _os_log_error_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, "Received error trying to fetch light profile settings. Profile: %@ %@", buf, 0x16u);
     }
 
@@ -4432,19 +4550,17 @@ void __54__HFHomeKitDispatcher__fetchSettingsForLightProfiles___block_invoke(uin
 
   if ([settingsCopy supportedFeatures])
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __65__HFHomeKitDispatcher_dispatchLightProfileUpdate_settings_error___block_invoke;
-    v13[3] = &unk_277E02710;
-    v14 = updateCopy;
-    v15 = settingsCopy;
-    [(HFHomeKitDispatcher *)self dispatchLightObserverMessage:v13 sender:0];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __65__HFHomeKitDispatcher_dispatchLightProfileUpdate_settings_error___block_invoke;
+    v12[3] = &unk_277E02710;
+    v13 = updateCopy;
+    v14 = settingsCopy;
+    [(HFHomeKitDispatcher *)self dispatchLightObserverMessage:v12 sender:0];
 
-    v11 = v14;
+    v11 = v13;
 LABEL_6:
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_dataModelContextForCurrentEnvironment
@@ -4499,18 +4615,17 @@ LABEL_6:
 
 - (void)stateRestorationSettings:(id)settings selectedHomeIdentifierDidUpdateExternally:(id)externally
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   externallyCopy = externally;
   v6 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = externallyCopy;
-    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Received selected home changed notification. New selected home identifier: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = externallyCopy;
+    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Received selected home changed notification. New selected home identifier: %@", &v7, 0xCu);
   }
 
   [(HFHomeKitDispatcher *)self updateSelectedHome];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateHomeActivityStateForHome:(id)home

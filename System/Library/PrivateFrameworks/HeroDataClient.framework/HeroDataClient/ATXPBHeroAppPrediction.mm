@@ -306,14 +306,12 @@ LABEL_21:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    latitude = self->_latitude;
     PBDataWriterWriteDoubleField();
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    longitude = self->_longitude;
     PBDataWriterWriteDoubleField();
   }
 
@@ -322,17 +320,15 @@ LABEL_21:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x200) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x200) != 0)
   {
-    isTouristApp = self->_isTouristApp;
     PBDataWriterWriteBOOLField();
-    v7 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v7 & 0x100) != 0)
+  if ((v5 & 0x100) != 0)
   {
-    score = self->_score;
     PBDataWriterWriteDoubleField();
   }
 
@@ -346,16 +342,15 @@ LABEL_21:
     PBDataWriterWriteDataField();
   }
 
-  v10 = self->_has;
-  if (v10)
+  v6 = self->_has;
+  if (v6)
   {
-    adamId = self->_adamId;
     PBDataWriterWriteInt64Field();
-    v10 = self->_has;
-    if ((v10 & 0x80) == 0)
+    v6 = self->_has;
+    if ((v6 & 0x80) == 0)
     {
 LABEL_17:
-      if ((v10 & 0x40) == 0)
+      if ((v6 & 0x40) == 0)
       {
         goto LABEL_18;
       }
@@ -364,18 +359,17 @@ LABEL_17:
     }
   }
 
-  else if ((v10 & 0x80) == 0)
+  else if ((v6 & 0x80) == 0)
   {
     goto LABEL_17;
   }
 
-  rank = self->_rank;
   PBDataWriterWriteInt64Field();
-  v10 = self->_has;
-  if ((v10 & 0x40) == 0)
+  v6 = self->_has;
+  if ((v6 & 0x40) == 0)
   {
 LABEL_18:
-    if ((v10 & 4) == 0)
+    if ((v6 & 4) == 0)
     {
       goto LABEL_19;
     }
@@ -384,13 +378,12 @@ LABEL_18:
   }
 
 LABEL_30:
-  radius = self->_radius;
   PBDataWriterWriteInt64Field();
-  v10 = self->_has;
-  if ((v10 & 4) == 0)
+  v6 = self->_has;
+  if ((v6 & 4) == 0)
   {
 LABEL_19:
-    if ((v10 & 0x10) == 0)
+    if ((v6 & 0x10) == 0)
     {
       goto LABEL_21;
     }
@@ -399,12 +392,10 @@ LABEL_19:
   }
 
 LABEL_31:
-  latitudeAtPredictionTime = self->_latitudeAtPredictionTime;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_20:
-    longitudeAtPredictionTime = self->_longitudeAtPredictionTime;
     PBDataWriterWriteDoubleField();
   }
 
@@ -416,7 +407,6 @@ LABEL_21:
 
   if ((*&self->_has & 0x20) != 0)
   {
-    poiMuid = self->_poiMuid;
     PBDataWriterWriteUint64Field();
   }
 }
@@ -714,7 +704,6 @@ LABEL_15:
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 58);
   if ((has & 0x200) != 0)
   {
     if ((*(equalCopy + 58) & 0x200) == 0)
@@ -722,7 +711,6 @@ LABEL_15:
       goto LABEL_65;
     }
 
-    v9 = *(equalCopy + 112);
     if (self->_isTouristApp)
     {
       if ((*(equalCopy + 112) & 1) == 0)
@@ -770,69 +758,69 @@ LABEL_15:
     }
   }
 
-  v12 = self->_has;
-  v13 = *(equalCopy + 58);
-  if (v12)
+  v10 = self->_has;
+  v11 = *(equalCopy + 58);
+  if (v10)
   {
-    if ((v13 & 1) == 0 || self->_adamId != *(equalCopy + 1))
+    if ((v11 & 1) == 0 || self->_adamId != *(equalCopy + 1))
     {
       goto LABEL_65;
     }
   }
 
-  else if (v13)
+  else if (v11)
   {
     goto LABEL_65;
   }
 
-  if ((v12 & 0x80) != 0)
+  if ((v10 & 0x80) != 0)
   {
-    if ((v13 & 0x80) == 0 || self->_rank != *(equalCopy + 8))
+    if ((v11 & 0x80) == 0 || self->_rank != *(equalCopy + 8))
     {
       goto LABEL_65;
     }
   }
 
-  else if ((v13 & 0x80) != 0)
+  else if ((v11 & 0x80) != 0)
   {
     goto LABEL_65;
   }
 
-  if ((v12 & 0x40) != 0)
+  if ((v10 & 0x40) != 0)
   {
-    if ((v13 & 0x40) == 0 || self->_radius != *(equalCopy + 7))
+    if ((v11 & 0x40) == 0 || self->_radius != *(equalCopy + 7))
     {
       goto LABEL_65;
     }
   }
 
-  else if ((v13 & 0x40) != 0)
+  else if ((v11 & 0x40) != 0)
   {
     goto LABEL_65;
   }
 
-  if ((v12 & 4) != 0)
+  if ((v10 & 4) != 0)
   {
-    if ((v13 & 4) == 0 || self->_latitudeAtPredictionTime != *(equalCopy + 3))
+    if ((v11 & 4) == 0 || self->_latitudeAtPredictionTime != *(equalCopy + 3))
     {
       goto LABEL_65;
     }
   }
 
-  else if ((v13 & 4) != 0)
+  else if ((v11 & 4) != 0)
   {
     goto LABEL_65;
   }
 
-  if ((v12 & 0x10) != 0)
+  if ((v10 & 0x10) != 0)
   {
-    if ((v13 & 0x10) == 0 || self->_longitudeAtPredictionTime != *(equalCopy + 5))
+    if ((v11 & 0x10) == 0 || self->_longitudeAtPredictionTime != *(equalCopy + 5))
     {
       goto LABEL_65;
     }
   }
 
-  else if ((v13 & 0x10) != 0)
+  else if ((v11 & 0x10) != 0)
   {
     goto LABEL_65;
   }
@@ -842,35 +830,35 @@ LABEL_15:
   {
     if ([(NSString *)poiCategory isEqual:?])
     {
-      v12 = self->_has;
+      v10 = self->_has;
       goto LABEL_60;
     }
 
 LABEL_65:
-    v16 = 0;
+    v14 = 0;
     goto LABEL_66;
   }
 
 LABEL_60:
-  v15 = *(equalCopy + 58);
-  if ((v12 & 0x20) != 0)
+  v13 = *(equalCopy + 58);
+  if ((v10 & 0x20) != 0)
   {
-    if ((v15 & 0x20) == 0 || self->_poiMuid != *(equalCopy + 6))
+    if ((v13 & 0x20) == 0 || self->_poiMuid != *(equalCopy + 6))
     {
       goto LABEL_65;
     }
 
-    v16 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v16 = (v15 & 0x20) == 0;
+    v14 = (v13 & 0x20) == 0;
   }
 
 LABEL_66:
 
-  return v16;
+  return v14;
 }
 
 - (unint64_t)hash

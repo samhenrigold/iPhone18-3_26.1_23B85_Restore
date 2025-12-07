@@ -93,7 +93,7 @@
       v22 = target3;
       if (target3)
       {
-        [target3 transform];
+        objc_msgSend_transform(target3);
       }
 
       else
@@ -152,7 +152,7 @@
       v7 = target;
       if (target)
       {
-        [target transform];
+        objc_msgSend_transform(target);
       }
 
       else
@@ -356,7 +356,7 @@ void __39__UITargetedDragPreview_imageComponent__block_invoke_2(uint64_t a1, voi
     v20 = view;
     if (view)
     {
-      [view transform];
+      objc_msgSend_transform(view);
     }
 
     else

@@ -405,7 +405,7 @@ void __50__SFMediaPlayerView_speedUpRemainderOfCurrentItem__block_invoke(uint64_
   v4 = *(a1 + 40);
   if (v4)
   {
-    [v4 duration];
+    objc_msgSend_duration(v4);
   }
 
   else
@@ -416,7 +416,7 @@ void __50__SFMediaPlayerView_speedUpRemainderOfCurrentItem__block_invoke(uint64_
   v5 = *(*(a1 + 32) + 416);
   if (v5)
   {
-    [v5 currentTime];
+    objc_msgSend_currentTime(v5);
   }
 
   else
@@ -806,7 +806,7 @@ void __50__SFMediaPlayerView_speedUpRemainderOfCurrentItem__block_invoke(uint64_
           memset(&buf, 0, sizeof(buf));
           if (v12)
           {
-            [v12 CMTimeRangeValue];
+            objc_msgSend_CMTimeRangeValue(v12);
           }
 
           *&range.start.value = *&buf.start.value;
@@ -884,7 +884,7 @@ void __56__SFMediaPlayerView_setUpTimeRangeNotificationsForItem___block_invoke(u
   avQueuePlayer = self->_avQueuePlayer;
   if (avQueuePlayer)
   {
-    [(AVQueuePlayer *)avQueuePlayer currentTime];
+    objc_msgSend_currentTime(avQueuePlayer);
   }
 
   memset(&v20, 0, sizeof(v20));
@@ -903,7 +903,7 @@ void __56__SFMediaPlayerView_setUpTimeRangeNotificationsForItem___block_invoke(u
       memset(&v19, 0, sizeof(v19));
       if (v10)
       {
-        [v10 CMTimeRangeValue];
+        objc_msgSend_CMTimeRangeValue(v10);
       }
 
       start = v19.start;

@@ -113,14 +113,14 @@
 
 - (_HMDLocalDeviceHandle)initWithDestination:(id)destination
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   destinationCopy = destination;
   v5 = destinationCopy;
   if (destinationCopy)
   {
-    v26 = 0;
-    v6 = __parseLocalDestination(destinationCopy, &v26);
-    v7 = v26;
+    v25 = 0;
+    v6 = __parseLocalDestination(destinationCopy, &v25);
+    v7 = v25;
     if (v6)
     {
       v8 = objc_alloc(MEMORY[0x277CCAD78]);
@@ -128,12 +128,12 @@
       v10 = [v5 dataUsingEncoding:4];
       v11 = [v8 initWithNamespace:v9 data:v10];
 
-      v25.receiver = self;
-      v25.super_class = _HMDLocalDeviceHandle;
-      v12 = [(_HMDDeviceHandle *)&v25 initWithIdentifier:v11];
+      v24.receiver = self;
+      v24.super_class = _HMDLocalDeviceHandle;
+      v12 = [(_HMDDeviceHandle *)&v24 initWithIdentifier:v11];
       if (v12)
       {
-        v13 = [v6 copy];
+        v13 = objc_msgSend_copy(v6);
         deviceIdentifier = v12->_deviceIdentifier;
         v12->_deviceIdentifier = v13;
       }
@@ -152,11 +152,11 @@
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v28 = v22;
-        v29 = 2112;
-        v30 = v5;
-        v31 = 2112;
-        v32 = v7;
+        v27 = v22;
+        v28 = 2112;
+        v29 = v5;
+        v30 = 2112;
+        v31 = v7;
         _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to parse destination, %@, with error: %@", buf, 0x20u);
       }
 
@@ -174,7 +174,7 @@
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v19;
+      v27 = v19;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Missing destination parameter", buf, 0xCu);
     }
 
@@ -182,13 +182,12 @@
     v16 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (_HMDLocalDeviceHandle)initWithDeviceIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = identifierCopy;
   if (identifierCopy)
@@ -208,16 +207,15 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v12;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Missing device identifier parameter", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v12;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Missing device identifier parameter", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

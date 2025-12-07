@@ -4,12 +4,12 @@
 - (id)_makeQueue;
 - (id)generateSuggestionsForContactAutoFill:(id)fill textPrefix:(id)prefix;
 - (id)initPrivate;
-- (uint64_t)shouldAuthenticateToAcceptAutoFill;
 - (void)authenticateIfNecessaryForCreditCardSuggestion:(id)suggestion withPayload:(id)payload documentTraits:(id)traits completionHandler:(id)handler;
 - (void)authenticateIfNecessaryForSuggestion:(id)suggestion documentTraits:(id)traits completionHandler:(id)handler;
 - (void)generateAutoFillSuggestionsWithAutoFillMode:(unint64_t)mode textPrefix:(id)prefix documentTraits:(id)traits externalizedContext:(id)context completionHandler:(id)handler;
 - (void)generateContactAutoFillSuggestionsWithTextPrefix:(id)prefix documentTraits:(id)traits completionHandler:(id)handler;
 - (void)generateCreditCardAutoFillWithCompletionHandler:(id)handler externalizedContext:(id)context;
+- (void)shouldAuthenticateToAcceptAutoFill;
 @end
 
 @implementation AFSuggestionGenerationManager
@@ -266,45 +266,45 @@ void __141__AFSuggestionGenerationManager_generateAutoFillSuggestionsWithAutoFil
 
 void __101__AFSuggestionGenerationManager_generateCreditCardAutoFillWithCompletionHandler_externalizedContext___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
-    v5 = [v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v5 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v22;
+      v7 = *v21;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v22 != v7)
+          if (*v21 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v21 + 1) + 8 * i);
+          v9 = *(*(&v20 + 1) + 8 * i);
           dispatch_group_enter(*(a1 + 32));
           v10 = *(a1 + 40);
           v11 = *(a1 + 48);
           v12 = *(a1 + 72);
-          v18[0] = MEMORY[0x277D85DD0];
-          v18[1] = 3221225472;
-          v18[2] = __101__AFSuggestionGenerationManager_generateCreditCardAutoFillWithCompletionHandler_externalizedContext___block_invoke_2;
-          v18[3] = &unk_278CF68D8;
-          v18[4] = v9;
-          v19 = *(a1 + 56);
-          v20 = *(a1 + 32);
-          [v10 credentialForFPANCard:v9 authorization:v11 options:v12 merchantHost:0 completion:v18];
+          v17[0] = MEMORY[0x277D85DD0];
+          v17[1] = 3221225472;
+          v17[2] = __101__AFSuggestionGenerationManager_generateCreditCardAutoFillWithCompletionHandler_externalizedContext___block_invoke_2;
+          v17[3] = &unk_278CF68D8;
+          v17[4] = v9;
+          v18 = *(a1 + 56);
+          v19 = *(a1 + 32);
+          [v10 credentialForFPANCard:v9 authorization:v11 options:v12 merchantHost:0 completion:v17];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v6);
@@ -315,8 +315,8 @@ void __101__AFSuggestionGenerationManager_generateCreditCardAutoFillWithCompleti
     block[1] = 3221225472;
     block[2] = __101__AFSuggestionGenerationManager_generateCreditCardAutoFillWithCompletionHandler_externalizedContext___block_invoke_3;
     block[3] = &unk_278CF6900;
-    v16 = *(a1 + 56);
-    v17 = *(a1 + 64);
+    v15 = *(a1 + 56);
+    v16 = *(a1 + 64);
     dispatch_group_notify(v13, MEMORY[0x277D85CD0], block);
   }
 
@@ -325,8 +325,6 @@ void __101__AFSuggestionGenerationManager_generateCreditCardAutoFillWithCompleti
     NSLog(&cfstr_NoActiveCardsF.isa);
     (*(*(a1 + 64) + 16))();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __101__AFSuggestionGenerationManager_generateCreditCardAutoFillWithCompletionHandler_externalizedContext___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -405,13 +403,12 @@ void __101__AFSuggestionGenerationManager_generateCreditCardAutoFillWithCompleti
 
 uint64_t __101__AFSuggestionGenerationManager_generateCreditCardAutoFillWithCompletionHandler_externalizedContext___block_invoke_3(uint64_t a1)
 {
-  v2 = AFSuggestionGenerationManagerOSLogFacility();
+  v2 = AFSuggestionGenerationManagerOSLogFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __101__AFSuggestionGenerationManager_generateCreditCardAutoFillWithCompletionHandler_externalizedContext___block_invoke_3_cold_1(a1);
   }
 
-  v3 = *(a1 + 32);
   return (*(*(a1 + 40) + 16))();
 }
 
@@ -429,12 +426,13 @@ uint64_t __101__AFSuggestionGenerationManager_generateCreditCardAutoFillWithComp
   v40 = __Block_byref_object_copy_;
   v41 = __Block_byref_object_dispose_;
   array = [MEMORY[0x277CBEB18] array];
-  if (_os_feature_enabled_impl())
+  v12 = _os_feature_enabled_impl();
+  if (v12)
   {
     v43 = 0;
     v44 = &v43;
     v45 = 0x2050000000;
-    v12 = get_ICProactiveTriggerClass_softClass;
+    v13 = get_ICProactiveTriggerClass_softClass;
     v46 = get_ICProactiveTriggerClass_softClass;
     if (!get_ICProactiveTriggerClass_softClass)
     {
@@ -444,17 +442,17 @@ uint64_t __101__AFSuggestionGenerationManager_generateCreditCardAutoFillWithComp
       v50 = &unk_278CF6A18;
       v51 = &v43;
       __get_ICProactiveTriggerClass_block_invoke(buf);
-      v12 = v44[3];
+      v13 = v44[3];
     }
 
-    v13 = v12;
+    v14 = v13;
     _Block_object_dispose(&v43, 8);
-    v14 = [v12 alloc];
+    v15 = [v13 alloc];
     textInputTraits = [traitsCopy textInputTraits];
     textContentType = [textInputTraits textContentType];
-    v17 = [v14 initWithContext:prefixCopy inputContextHistory:0 contentType:textContentType];
+    v18 = [v15 initWithContext:prefixCopy inputContextHistory:0 contentType:textContentType];
 
-    [v38[5] addObject:v17];
+    [v38[5] addObject:v18];
     v32[0] = MEMORY[0x277D85DD0];
     v32[1] = 3221225472;
     v32[2] = __115__AFSuggestionGenerationManager_generateContactAutoFillSuggestionsWithTextPrefix_documentTraits_completionHandler___block_invoke;
@@ -463,15 +461,15 @@ uint64_t __101__AFSuggestionGenerationManager_generateCreditCardAutoFillWithComp
     v36 = handlerCopy;
     selfCopy = self;
     v35 = prefixCopy;
-    v18 = MEMORY[0x245CF1A60](v32);
+    v19 = MEMORY[0x245CF1A60](v32);
     if (_os_feature_enabled_impl())
     {
-      v19 = 3;
+      v20 = 3;
     }
 
     else
     {
-      v19 = 2;
+      v20 = 2;
     }
 
     queue = self->_queue;
@@ -482,29 +480,27 @@ uint64_t __101__AFSuggestionGenerationManager_generateCreditCardAutoFillWithComp
     block[4] = self;
     v29 = &v37;
     v30 = 0;
-    v31 = v19;
+    v31 = v20;
     v27 = traitsCopy;
-    v28 = v18;
-    v21 = v18;
-    v22 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, block);
-    AFDispatchAsync(queue, v22);
+    v28 = v19;
+    v22 = v19;
+    v23 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, block);
+    AFDispatchAsync(queue, v23);
   }
 
   else
   {
-    v23 = AFSuggestionGenerationManagerOSLogFacility();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v24 = AFSuggestionGenerationManagerOSLogFacility(v12);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
-      v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Proactive Quicktype 2 feature flag not enabled", "-[AFSuggestionGenerationManager generateContactAutoFillSuggestionsWithTextPrefix:documentTraits:completionHandler:]"];
-      [AFSuggestionGenerationManager generateContactAutoFillSuggestionsWithTextPrefix:v24 documentTraits:buf completionHandler:v23];
+      v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Proactive Quicktype 2 feature flag not enabled", "-[AFSuggestionGenerationManager generateContactAutoFillSuggestionsWithTextPrefix:documentTraits:completionHandler:]"];
+      [AFSuggestionGenerationManager generateContactAutoFillSuggestionsWithTextPrefix:v25 documentTraits:buf completionHandler:v24];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0);
   }
 
   _Block_object_dispose(&v37, 8);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __115__AFSuggestionGenerationManager_generateContactAutoFillSuggestionsWithTextPrefix_documentTraits_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -512,30 +508,31 @@ void __115__AFSuggestionGenerationManager_generateContactAutoFillSuggestionsWith
   v5 = a2;
   v6 = a3;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  [*(a1 + 32) timeIntervalSinceNow];
+  v7 = [*(a1 + 32) timeIntervalSinceNow];
   if (v6)
   {
-    v8 = v7;
-    v9 = AFSuggestionGenerationManagerOSLogFacility();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v9 = v8;
+    v10 = AFSuggestionGenerationManagerOSLogFacility(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __115__AFSuggestionGenerationManager_generateContactAutoFillSuggestionsWithTextPrefix_documentTraits_completionHandler___block_invoke_cold_1(v6, -v8);
+      __115__AFSuggestionGenerationManager_generateContactAutoFillSuggestionsWithTextPrefix_documentTraits_completionHandler___block_invoke_cold_1(v6, -v9);
     }
   }
 
   else
   {
-    if ([v5 count] >= 1)
+    v11 = [v5 count];
+    if (v11 >= 1)
     {
-      v10 = [*(a1 + 40) generateSuggestionsForContactAutoFill:v5 textPrefix:*(a1 + 48)];
-      v11 = [v10 mutableCopy];
+      v12 = [*(a1 + 40) generateSuggestionsForContactAutoFill:v5 textPrefix:*(a1 + 48)];
+      v13 = [v12 mutableCopy];
 
       (*(*(a1 + 56) + 16))();
       goto LABEL_7;
     }
 
-    v9 = AFSuggestionGenerationManagerOSLogFacility();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = AFSuggestionGenerationManagerOSLogFacility(v11);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       __115__AFSuggestionGenerationManager_generateContactAutoFillSuggestionsWithTextPrefix_documentTraits_completionHandler___block_invoke_cold_2();
     }
@@ -573,10 +570,10 @@ void __115__AFSuggestionGenerationManager_generateContactAutoFillSuggestionsWith
 
 - (id)generateSuggestionsForContactAutoFill:(id)fill textPrefix:(id)prefix
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   fillCopy = fill;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v62 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(fillCopy, "count")}];
+  v63 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(fillCopy, "count")}];
   if ([fillCopy count] >= 2)
   {
     v5 = 1;
@@ -588,7 +585,7 @@ void __115__AFSuggestionGenerationManager_generateContactAutoFillSuggestionsWith
       identifier2 = [v8 identifier];
       v10 = [identifier isEqualToString:identifier2];
 
-      v60 = v10;
+      v61 = v10;
       if ((v10 & 1) == 0)
       {
         break;
@@ -602,30 +599,30 @@ void __115__AFSuggestionGenerationManager_generateContactAutoFillSuggestionsWith
 
   else
   {
-    v60 = 1;
+    v61 = 1;
   }
 
   _truncationSentinel = [(AFLocalizationManager *)self->_localizationManager _truncationSentinel];
-  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
+  v72 = 0u;
   obj = fillCopy;
-  v63 = [obj countByEnumeratingWithState:&v68 objects:v72 count:16];
-  if (v63)
+  v64 = [obj countByEnumeratingWithState:&v69 objects:v73 count:16];
+  if (v64)
   {
-    v61 = *v69;
+    v62 = *v70;
     do
     {
       v11 = 0;
       do
       {
-        if (*v69 != v61)
+        if (*v70 != v62)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v68 + 1) + 8 * v11);
+        v12 = *(*(&v69 + 1) + 8 * v11);
         operationData = [v12 operationData];
         value = &stru_28537ABC8;
         if (!operationData)
@@ -643,11 +640,11 @@ void __115__AFSuggestionGenerationManager_generateContactAutoFillSuggestionsWith
           {
             v18 = [(AFLocalizationManager *)self->_localizationManager localizedStringForKey:@"LOCATION_AGGREGATED_NAME_AND_ADDRESS"];
             v19 = MEMORY[0x277CCACA8];
-            v67 = 0;
+            v68 = 0;
             label2 = [v12 label];
             value2 = [v12 value];
-            v22 = [v19 stringWithValidatedFormat:v18 validFormatSpecifiers:@"%@%@" error:&v67, label2, value2];
-            v23 = v67;
+            v22 = [v19 stringWithValidatedFormat:v18 validFormatSpecifiers:@"%@%@" error:&v68, label2, value2];
+            v23 = v68;
             v24 = &stru_28537ABC8;
             if (v22)
             {
@@ -658,8 +655,8 @@ void __115__AFSuggestionGenerationManager_generateContactAutoFillSuggestionsWith
 
             if (v23)
             {
-              v26 = AFSuggestionGenerationManagerOSLogFacility();
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+              v27 = AFSuggestionGenerationManagerOSLogFacility(v26);
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
               {
                 [AFSuggestionGenerationManager generateSuggestionsForContactAutoFill:textPrefix:];
               }
@@ -669,44 +666,44 @@ void __115__AFSuggestionGenerationManager_generateContactAutoFillSuggestionsWith
           }
         }
 
-        v27 = AFSuggestionGenerationManagerOSLogFacility();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        v28 = AFSuggestionGenerationManagerOSLogFacility(label);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           [AFSuggestionGenerationManager generateSuggestionsForContactAutoFill:textPrefix:];
         }
 
-        v28 = [(AFLocalizationManager *)self->_localizationManager localizedStringForKey:@"PARENTHESIZED_LABEL"];
-        v29 = [obj count];
+        v29 = [(AFLocalizationManager *)self->_localizationManager localizedStringForKey:@"PARENTHESIZED_LABEL"];
+        v30 = [obj count];
         flags = [v12 flags];
         label3 = [v12 label];
         if ([label3 length])
         {
-          if (v29 > 1)
+          if (v30 > 1)
           {
-            v32 = v60;
+            v33 = v61;
           }
 
           else
           {
-            v32 = 0;
+            v33 = 0;
           }
 
           label4 = [v12 label];
-          v34 = [label4 isEqualToString:@"unlabeled"];
+          v35 = [label4 isEqualToString:@"unlabeled"];
 
-          v35 = 0;
           v36 = 0;
-          if (((v32 | flags) & 1) != 0 && (v34 & 1) == 0)
+          v37 = 0;
+          if (((v33 | flags) & 1) != 0 && (v35 & 1) == 0)
           {
             label5 = [v12 label];
-            v35 = label5;
-            v36 = label5 != 0;
+            v36 = label5;
+            v37 = label5 != 0;
             if (flags)
             {
               if (label5)
               {
-                v38 = label5;
-                v35 = v38;
+                v39 = label5;
+                v36 = v39;
                 goto LABEL_48;
               }
             }
@@ -716,32 +713,32 @@ void __115__AFSuggestionGenerationManager_generateContactAutoFillSuggestionsWith
         else
         {
 
+          v37 = 0;
           v36 = 0;
-          v35 = 0;
         }
 
         name = [v12 name];
 
-        if (name && v36)
+        if (name && v37)
         {
-          v40 = MEMORY[0x277CCACA8];
-          v66 = 0;
+          v41 = MEMORY[0x277CCACA8];
+          v67 = 0;
           name2 = [v12 name];
-          v42 = [name2 stringByAppendingString:_truncationSentinel];
-          v43 = [v40 stringWithValidatedFormat:v28 validFormatSpecifiers:@"%@%@" error:&v66, v42, v35];
-          v44 = v66;
-          v45 = &stru_28537ABC8;
-          if (v43)
-          {
-            v45 = v43;
-          }
-
-          v38 = v45;
-
+          v43 = [name2 stringByAppendingString:_truncationSentinel];
+          v44 = [v41 stringWithValidatedFormat:v29 validFormatSpecifiers:@"%@%@" error:&v67, v43, v36];
+          v45 = v67;
+          v46 = &stru_28537ABC8;
           if (v44)
           {
-            v46 = AFSuggestionGenerationManagerOSLogFacility();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+            v46 = v44;
+          }
+
+          v39 = v46;
+
+          if (v45)
+          {
+            v48 = AFSuggestionGenerationManagerOSLogFacility(v47);
+            if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
             {
               [AFSuggestionGenerationManager generateSuggestionsForContactAutoFill:textPrefix:];
             }
@@ -749,9 +746,9 @@ void __115__AFSuggestionGenerationManager_generateContactAutoFillSuggestionsWith
 
 LABEL_48:
           value3 = [v12 value];
-          v51 = [(__CFString *)v38 isEqualToString:value3];
+          v53 = [(__CFString *)v39 isEqualToString:value3];
 
-          if (!v51)
+          if (!v53)
           {
             goto LABEL_50;
           }
@@ -772,14 +769,14 @@ LABEL_48:
 
           if (!label6)
           {
-            v38 = 0;
+            v39 = 0;
             goto LABEL_49;
           }
 
           name4 = [v12 label];
         }
 
-        v38 = name4;
+        v39 = name4;
         if (name4)
         {
           goto LABEL_48;
@@ -787,7 +784,7 @@ LABEL_48:
 
 LABEL_49:
 
-        v38 = &stru_28537ABC8;
+        v39 = &stru_28537ABC8;
 LABEL_50:
         value4 = [v12 value];
         if (([v12 flags] & 4) != 0)
@@ -796,27 +793,25 @@ LABEL_50:
 
           name5 = [v12 name];
 
-          v38 = label7;
+          v39 = label7;
           value4 = name5;
         }
 
-        v55 = [[AFSuggestion alloc] initWithTitle:v38 subTitle:value usernameAndPasswordPayload:0 leadingImage:0 trailingImage:0 customInfoType:0];
-        [v62 addObject:v55];
+        v57 = [[AFSuggestion alloc] initWithTitle:v39 subTitle:value usernameAndPasswordPayload:0 leadingImage:0 trailingImage:0 customInfoType:0];
+        [v63 addObject:v57];
 
         ++v11;
       }
 
-      while (v63 != v11);
-      v56 = [obj countByEnumeratingWithState:&v68 objects:v72 count:16];
-      v63 = v56;
+      while (v64 != v11);
+      v58 = [obj countByEnumeratingWithState:&v69 objects:v73 count:16];
+      v64 = v58;
     }
 
-    while (v56);
+    while (v58);
   }
 
-  v57 = *MEMORY[0x277D85DE8];
-
-  return v62;
+  return v63;
 }
 
 - (void)authenticateIfNecessaryForSuggestion:(id)suggestion documentTraits:(id)traits completionHandler:(id)handler
@@ -874,50 +869,51 @@ LABEL_6:
 
 - (BOOL)shouldAuthenticateToAcceptAutoFill
 {
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2050000000;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2050000000;
   v2 = getMCProfileConnectionClass_softClass;
-  v19 = getMCProfileConnectionClass_softClass;
+  v20 = getMCProfileConnectionClass_softClass;
   if (!getMCProfileConnectionClass_softClass)
   {
-    v11 = MEMORY[0x277D85DD0];
-    v12 = 3221225472;
-    v13 = __getMCProfileConnectionClass_block_invoke;
-    v14 = &unk_278CF6A18;
-    v15 = &v16;
-    __getMCProfileConnectionClass_block_invoke(&v11);
-    v2 = v17[3];
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __getMCProfileConnectionClass_block_invoke;
+    v15 = &unk_278CF6A18;
+    v16 = &v17;
+    __getMCProfileConnectionClass_block_invoke(&v12);
+    v2 = v18[3];
   }
 
   v3 = v2;
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v17, 8);
   sharedConnection = [v2 sharedConnection];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
   v5 = getMCFeatureAuthenticationBeforeAutoFillRequiredSymbolLoc_ptr;
-  v19 = getMCFeatureAuthenticationBeforeAutoFillRequiredSymbolLoc_ptr;
+  v20 = getMCFeatureAuthenticationBeforeAutoFillRequiredSymbolLoc_ptr;
   if (!getMCFeatureAuthenticationBeforeAutoFillRequiredSymbolLoc_ptr)
   {
-    v11 = MEMORY[0x277D85DD0];
-    v12 = 3221225472;
-    v13 = __getMCFeatureAuthenticationBeforeAutoFillRequiredSymbolLoc_block_invoke;
-    v14 = &unk_278CF6A18;
-    v15 = &v16;
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __getMCFeatureAuthenticationBeforeAutoFillRequiredSymbolLoc_block_invoke;
+    v15 = &unk_278CF6A18;
+    v16 = &v17;
     v6 = ManagedConfigurationLibrary();
     v7 = dlsym(v6, "MCFeatureAuthenticationBeforeAutoFillRequired");
-    *(v15[1] + 24) = v7;
-    getMCFeatureAuthenticationBeforeAutoFillRequiredSymbolLoc_ptr = *(v15[1] + 24);
-    v5 = v17[3];
+    *(v16[1] + 24) = v7;
+    getMCFeatureAuthenticationBeforeAutoFillRequiredSymbolLoc_ptr = *(v16[1] + 24);
+    v5 = v18[3];
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v17, 8);
   if (!v5)
   {
-    shouldAuthenticateToAcceptAutoFill = [AFSuggestionGenerationManager shouldAuthenticateToAcceptAutoFill];
-    _Block_object_dispose(&v16, 8);
-    _Unwind_Resume(shouldAuthenticateToAcceptAutoFill);
+    [AFSuggestionGenerationManager shouldAuthenticateToAcceptAutoFill];
+    v11 = v10;
+    _Block_object_dispose(&v17, 8);
+    _Unwind_Resume(v11);
   }
 
   v8 = [sharedConnection effectiveBoolValueForSetting:*v5] == 1;
@@ -979,8 +975,8 @@ LABEL_6:
 
       if (v37)
       {
-        v25 = AFCredentialManagerOSLogFacility();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v26 = AFCredentialManagerOSLogFacility(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           [AFSuggestionGenerationManager authenticateIfNecessaryForCreditCardSuggestion:v37 withPayload:? documentTraits:? completionHandler:?];
         }
@@ -1000,9 +996,9 @@ LABEL_6:
         v51[2] = MEMORY[0x277CBEC38];
         v50[2] = &unk_28537C480;
         v50[3] = &unk_28537C498;
-        v26 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(traitsCopy, "processId")}];
-        v51[3] = v26;
-        v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:4];
+        v27 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(traitsCopy, "processId")}];
+        v51[3] = v27;
+        v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:4];
       }
 
       else
@@ -1013,31 +1009,31 @@ LABEL_6:
         v49[1] = v35;
         v48[2] = &unk_28537C480;
         v49[2] = MEMORY[0x277CBEC38];
-        v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:3];
+        v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:3];
       }
 
       laContext = [(AFSuggestionGenerationManager *)self laContext];
       v41 = 0;
-      v29 = [laContext canEvaluatePolicy:2 error:&v41];
-      v30 = v41;
+      v30 = [laContext canEvaluatePolicy:2 error:&v41];
+      v31 = v41;
 
       [(AFSuggestionGenerationManager *)self laContext];
-      if (v29)
-        v31 = {;
+      if (v30)
+        v32 = {;
         v39[0] = MEMORY[0x277D85DD0];
         v39[1] = 3221225472;
         v39[2] = __125__AFSuggestionGenerationManager_authenticateIfNecessaryForCreditCardSuggestion_withPayload_documentTraits_completionHandler___block_invoke;
         v39[3] = &unk_278CF69F0;
         v39[4] = self;
         v40 = handlerCopy;
-        [v31 evaluatePolicy:2 options:v27 reply:v39];
+        [v32 evaluatePolicy:2 options:v28 reply:v39];
 
-        v32 = v40;
+        v33 = v40;
       }
 
       else
-        v32 = {;
-        externalizedContext = [v32 externalizedContext];
+        v33 = {;
+        externalizedContext = [v33 externalizedContext];
         (*(handlerCopy + 2))(handlerCopy, 1, externalizedContext);
       }
     }
@@ -1047,8 +1043,6 @@ LABEL_6:
       (*(handlerCopy + 2))(handlerCopy, 1, 0);
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __125__AFSuggestionGenerationManager_authenticateIfNecessaryForCreditCardSuggestion_withPayload_documentTraits_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1078,13 +1072,8 @@ void __125__AFSuggestionGenerationManager_authenticateIfNecessaryForCreditCardSu
 
 void __101__AFSuggestionGenerationManager_generateCreditCardAutoFillWithCompletionHandler_externalizedContext___block_invoke_3_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = MEMORY[0x277CCACA8];
-  v10 = [*(a1 + 32) count];
-  v2 = [v1 stringWithFormat:@"%s Generated %lu credit card suggestions"];
-  OUTLINED_FUNCTION_2(&dword_2418BE000, v3, v4, "%@", v5, v6, v7, v8, "[AFSuggestionGenerationManager generateCreditCardAutoFillWithCompletionHandler:externalizedContext:]_block_invoke_3", v10, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Generated %lu credit card suggestions", "-[AFSuggestionGenerationManager generateCreditCardAutoFillWithCompletionHandler:externalizedContext:]_block_invoke_3", objc_msgSend(*(a1 + 32), "count")];
+  OUTLINED_FUNCTION_2(&dword_2418BE000, v1, v2, "%@", v3, v4, v5, v6, v7, v8);
 }
 
 - (void)generateContactAutoFillSuggestionsWithTextPrefix:(void *)a1 documentTraits:(uint8_t *)buf completionHandler:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -1096,21 +1085,15 @@ void __101__AFSuggestionGenerationManager_generateCreditCardAutoFillWithCompleti
 
 void __115__AFSuggestionGenerationManager_generateContactAutoFillSuggestionsWithTextPrefix_documentTraits_completionHandler___block_invoke_cold_1(uint64_t a1, double a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Error returned from InputContext: %@, response time = %lf seconds", "-[AFSuggestionGenerationManager generateContactAutoFillSuggestionsWithTextPrefix:documentTraits:completionHandler:]_block_invoke", a1, *&a2];
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Error returned from InputContext: %@, response time = %lf seconds", "-[AFSuggestionGenerationManager generateContactAutoFillSuggestionsWithTextPrefix:documentTraits:completionHandler:]_block_invoke", a1, *&a2];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __115__AFSuggestionGenerationManager_generateContactAutoFillSuggestionsWithTextPrefix_documentTraits_completionHandler___block_invoke_cold_2()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s There were no prediction results."];
-  OUTLINED_FUNCTION_2(&dword_2418BE000, v1, v2, "%@", v3, v4, v5, v6, "[AFSuggestionGenerationManager generateContactAutoFillSuggestionsWithTextPrefix:documentTraits:completionHandler:]_block_invoke", v8, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s There were no prediction results.", "-[AFSuggestionGenerationManager generateContactAutoFillSuggestionsWithTextPrefix:documentTraits:completionHandler:]_block_invoke"];
+  OUTLINED_FUNCTION_2(&dword_2418BE000, v0, v1, "%@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)generateSuggestionsForContactAutoFill:textPrefix:.cold.1()
@@ -1144,21 +1127,18 @@ void __115__AFSuggestionGenerationManager_generateContactAutoFillSuggestionsWith
   _os_log_error_impl(v4, v5, v6, v7, v1, 0xCu);
 }
 
-- (uint64_t)shouldAuthenticateToAcceptAutoFill
+- (void)shouldAuthenticateToAcceptAutoFill
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [AFSuggestionGenerationManager authenticateIfNecessaryForCreditCardSuggestion:v0 withPayload:? documentTraits:? completionHandler:?];
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  [AFSuggestionGenerationManager authenticateIfNecessaryForCreditCardSuggestion:v1 withPayload:? documentTraits:? completionHandler:?];
 }
 
 - (void)authenticateIfNecessaryForCreditCardSuggestion:(uint64_t)a1 withPayload:documentTraits:completionHandler:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s invalid localized format for key CREDIT_CARD_AUTH_PASSCODE_TITLE: %@", "-[AFSuggestionGenerationManager authenticateIfNecessaryForCreditCardSuggestion:withPayload:documentTraits:completionHandler:]", a1];
+  v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s invalid localized format for key CREDIT_CARD_AUTH_PASSCODE_TITLE: %@", "-[AFSuggestionGenerationManager authenticateIfNecessaryForCreditCardSuggestion:withPayload:documentTraits:completionHandler:]", a1];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

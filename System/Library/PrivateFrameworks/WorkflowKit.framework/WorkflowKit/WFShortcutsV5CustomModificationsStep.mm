@@ -6,16 +6,16 @@
 
 - (BOOL)performModificationsWithContext:(id)context error:(id *)error
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v6 = objc_autoreleasePoolPush();
   v7 = [MEMORY[0x1E695D5E0] fetchRequestWithEntityName:@"Shortcut"];
   [v7 setFetchLimit:5];
   [v7 setPropertiesToFetch:&unk_1F4A9B548];
-  v39 = 0;
-  v29 = v7;
-  v8 = [contextCopy executeFetchRequest:v7 error:&v39];
-  v9 = v39;
+  v38 = 0;
+  v28 = v7;
+  v8 = [contextCopy executeFetchRequest:v7 error:&v38];
+  v9 = v38;
   if (![v8 count])
   {
 LABEL_13:
@@ -36,32 +36,32 @@ LABEL_13:
   {
     v11 = v10;
     errorCopy = error;
-    v28 = v6;
+    v27 = v6;
     do
     {
-      v31 = v9;
+      v30 = v9;
       v12 = contextCopy;
       context = objc_autoreleasePoolPush();
+      v34 = 0u;
       v35 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v38 = 0u;
       obj = v8;
-      v13 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v13 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v36;
+        v15 = *v35;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v36 != v15)
+            if (*v35 != v15)
             {
               objc_enumerationMutation(obj);
             }
 
-            v17 = *(*(&v35 + 1) + 8 * i);
+            v17 = *(*(&v34 + 1) + 8 * i);
             v18 = objc_autoreleasePoolPush();
             v19 = [objc_alloc(MEMORY[0x1E695D620]) initWithEntity:v11 insertIntoManagedObjectContext:v12];
             v20 = [v17 valueForKey:@"actionsData"];
@@ -72,22 +72,22 @@ LABEL_13:
             objc_autoreleasePoolPop(v18);
           }
 
-          v14 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+          v14 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
         }
 
         while (v14);
       }
 
-      v34 = v31;
+      v33 = v30;
       contextCopy = v12;
-      [v12 save:&v34];
-      v21 = v34;
+      [v12 save:&v33];
+      v21 = v33;
 
       [v12 reset];
-      [v29 setFetchOffset:{objc_msgSend(v29, "fetchOffset") + objc_msgSend(v29, "fetchLimit")}];
-      v33 = v21;
-      v8 = [v12 executeFetchRequest:v29 error:&v33];
-      v9 = v33;
+      [v28 setFetchOffset:{objc_msgSend(v28, "fetchOffset") + objc_msgSend(v28, "fetchLimit")}];
+      v32 = v21;
+      v8 = [v12 executeFetchRequest:v28 error:&v32];
+      v9 = v32;
 
       objc_autoreleasePoolPop(context);
     }
@@ -95,7 +95,7 @@ LABEL_13:
     while ([v8 count]);
 
     error = errorCopy;
-    v6 = v28;
+    v6 = v27;
     goto LABEL_13;
   }
 
@@ -103,7 +103,7 @@ LABEL_13:
   if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315138;
-    v42 = "[WFShortcutsV5CustomModificationsStep performModificationsWithContext:error:]";
+    v41 = "[WFShortcutsV5CustomModificationsStep performModificationsWithContext:error:]";
     _os_log_impl(&dword_1CA256000, v24, OS_LOG_TYPE_FAULT, "%s Couldn't make a ShortcutActions entity description", buf, 0xCu);
   }
 
@@ -111,7 +111,6 @@ LABEL_13:
   v23 = 0;
 LABEL_19:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v23;
 }
 

@@ -224,7 +224,7 @@
     original = self->_original;
     if (original)
     {
-      objc_msgSend_scale(original, a2, v2, v3, v4);
+      objc_msgSend_scale(original, v2, v3, v4, a2);
     }
 
     else
@@ -255,7 +255,7 @@
     original = self->_original;
     if (original)
     {
-      objc_msgSend_samples(original, a2, v2, v3, v4);
+      objc_msgSend_samples(original, v2, v3, v4, a2);
     }
 
     else
@@ -307,12 +307,12 @@
 
 - (float)renderScale
 {
-  objc_msgSend_samples(self, a2, v2, v3, v4);
+  objc_msgSend_samples(self, v2, v3, v4, a2);
   v7 = *&v6;
-  objc_msgSend_scale(self, v8, v6, v9, v10);
-  v12 = v7 * *&v11;
-  objc_msgSend_superSamples(self, v13, v11, v14, v15);
-  return v12 * v16;
+  objc_msgSend_scale(self, v6, v8, v9);
+  v11 = v7 * *&v10;
+  objc_msgSend_superSamples(self, v12, v10, v13, v14);
+  return v11 * v15;
 }
 
 - (void)setPreserveFramebufferContent:(BOOL)content
@@ -422,15 +422,15 @@
       }
 
       v70 = objc_msgSend_processor(self, v51, v52, v53, v54);
-      objc_msgSend_backgroundClearColor(self, v71, v72, v73, v74);
-      objc_msgSend_wipeActiveFramebuffer_(v70, v75, v76, v77, v78, &v79);
+      objc_msgSend_backgroundClearColor(self, v71, v72, v73);
+      objc_msgSend_wipeActiveFramebuffer_(v70, v74, v75, v76, v77, &v78);
     }
   }
 }
 
 - (BOOL)activateFramebuffer:(id)framebuffer
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   framebufferCopy = framebuffer;
   if (!framebufferCopy)
   {
@@ -451,49 +451,49 @@
     if (v35)
     {
       v39 = objc_msgSend_processor(self, v34, v36, v37, v38);
-      v44 = v39;
+      v43 = v39;
       if (v39)
       {
-        objc_msgSend_renderState(v39, v40, v41, v42, v43);
+        objc_msgSend_renderState(v39, v40, v41, v42);
       }
 
       else
       {
-        v95 = 0u;
-        v96 = 0u;
+        v93 = 0u;
+        v94 = 0u;
       }
     }
 
     else
     {
-      *&v95 = 0;
-      DWORD2(v95) = 16843008;
-      BYTE12(v95) = 0;
-      v96 = 0uLL;
+      *&v93 = 0;
+      DWORD2(v93) = 16843008;
+      BYTE12(v93) = 0;
+      v94 = 0uLL;
     }
 
-    BYTE9(v95) = 1;
-    BYTE8(v95) = (*objc_msgSend_framebufferAttributes(framebufferCopy, v45, v46, v47, v48) & 2) != 0;
-    LOBYTE(v95) = 0;
-    v53 = objc_msgSend_processor(self, v49, v50, v51, v52);
-    objc_msgSend_setActiveFramebuffer_(v53, v54, v55, v56, v57, framebufferCopy);
+    BYTE9(v93) = 1;
+    BYTE8(v93) = (*objc_msgSend_framebufferAttributes(framebufferCopy, v44, v45, v46, v47) & 2) != 0;
+    LOBYTE(v93) = 0;
+    v52 = objc_msgSend_processor(self, v48, v49, v50, v51);
+    objc_msgSend_setActiveFramebuffer_(v52, v53, v54, v55, v56, framebufferCopy);
 
-    v62 = objc_msgSend_processor(self, v58, v59, v60, v61);
-    objc_msgSend_setRenderState_(v62, v63, v64, v65, v66, &v95);
+    v61 = objc_msgSend_processor(self, v57, v58, v59, v60);
+    objc_msgSend_setRenderState_(v61, v62, v63, v64, v65, &v93);
 
-    v71 = objc_msgSend_processor(self, v67, v68, v69, v70);
-    objc_msgSend_updateRenderState(v71, v72, v73, v74, v75);
+    v70 = objc_msgSend_processor(self, v66, v67, v68, v69);
+    objc_msgSend_updateRenderState(v70, v71, v72, v73, v74);
 
-    if (objc_msgSend_preserveFramebufferContent(self, v76, v77, v78, v79))
+    if (objc_msgSend_preserveFramebufferContent(self, v75, v76, v77, v78))
     {
-      objc_msgSend_resetClearBufferTypes(framebufferCopy, v80, v81, v82, v83);
+      objc_msgSend_resetClearBufferTypes(framebufferCopy, v79, v80, v81, v82);
     }
 
     else
     {
-      v84 = objc_msgSend_processor(self, v80, v81, v82, v83);
-      objc_msgSend_backgroundClearColor(self, v85, v86, v87, v88);
-      objc_msgSend_wipeActiveFramebuffer_(v84, v89, v90, v91, v92, v94);
+      v83 = objc_msgSend_processor(self, v79, v80, v81, v82);
+      objc_msgSend_backgroundClearColor(self, v84, v85, v86);
+      objc_msgSend_wipeActiveFramebuffer_(v83, v87, v88, v89, v90, v92);
     }
   }
 

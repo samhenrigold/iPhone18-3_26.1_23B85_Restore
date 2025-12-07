@@ -247,34 +247,34 @@ void __27__RKUtilities_removeEmoji___block_invoke(uint64_t a1, uint64_t a2, uint
 
 + (BOOL)tokenInArray:(id)array withArray:(id)withArray
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   withArrayCopy = withArray;
-  v7 = [withArrayCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [withArrayCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(withArrayCopy);
         }
 
-        if ([arrayCopy containsString:{*(*(&v12 + 1) + 8 * i), v12}])
+        if ([arrayCopy containsString:{*(*(&v11 + 1) + 8 * i), v11}])
         {
           LOBYTE(v7) = 1;
           goto LABEL_11;
         }
       }
 
-      v7 = [withArrayCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [withArrayCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v7)
       {
         continue;
@@ -286,40 +286,39 @@ void __27__RKUtilities_removeEmoji___block_invoke(uint64_t a1, uint64_t a2, uint
 
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 + (BOOL)prefixInArray:(id)array withArray:(id)withArray
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   withArrayCopy = withArray;
-  v7 = [withArrayCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [withArrayCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(withArrayCopy);
         }
 
-        if ([arrayCopy hasPrefix:{*(*(&v12 + 1) + 8 * i), v12}])
+        if ([arrayCopy hasPrefix:{*(*(&v11 + 1) + 8 * i), v11}])
         {
           LOBYTE(v7) = 1;
           goto LABEL_11;
         }
       }
 
-      v7 = [withArrayCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [withArrayCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v7)
       {
         continue;
@@ -331,40 +330,39 @@ LABEL_11:
 
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 + (BOOL)suffixInArray:(id)array withArray:(id)withArray
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   withArrayCopy = withArray;
-  v7 = [withArrayCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [withArrayCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(withArrayCopy);
         }
 
-        if ([arrayCopy hasSuffix:{*(*(&v12 + 1) + 8 * i), v12}])
+        if ([arrayCopy hasSuffix:{*(*(&v11 + 1) + 8 * i), v11}])
         {
           LOBYTE(v7) = 1;
           goto LABEL_11;
         }
       }
 
-      v7 = [withArrayCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [withArrayCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v7)
       {
         continue;
@@ -376,7 +374,6 @@ LABEL_11:
 
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -411,40 +408,40 @@ void __29__RKUtilities_getDeviceModel__block_invoke()
 
 + (BOOL)isDeviceSupportedForLSTMBasedLanguageIdentification:(id)identification
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identificationCopy = identification;
   if (isDeviceSupportedForLSTMBasedLanguageIdentification__onceToken != -1)
   {
     +[RKUtilities isDeviceSupportedForLSTMBasedLanguageIdentification:];
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v4 = isDeviceSupportedForLSTMBasedLanguageIdentification__preH8;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([identificationCopy hasPrefix:{*(*(&v12 + 1) + 8 * i), v12}])
+        if ([identificationCopy hasPrefix:{*(*(&v11 + 1) + 8 * i), v11}])
         {
           v9 = 0;
           goto LABEL_13;
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -457,7 +454,6 @@ void __29__RKUtilities_getDeviceModel__block_invoke()
   v9 = 1;
 LABEL_13:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -470,20 +466,18 @@ uint64_t __67__RKUtilities_isDeviceSupportedForLSTMBasedLanguageIdentification__
 
 + (id)addLikelySubtagsForLocaleIdentifier:(id)identifier
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   [identifierCopy UTF8String];
   uloc_addLikelySubtags();
-  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:v7];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:v6];
 
   return v4;
 }
 
 + (id)canonicalLanguageAndScriptCodeIdentifierForIdentifier:(id)identifier
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   v3 = [RKUtilities addLikelySubtagsForLocaleIdentifier:identifier];
   v4 = [MEMORY[0x277CBEAF8] componentsFromLocaleIdentifier:v3];
   v5 = *MEMORY[0x277CBE6C8];
@@ -503,13 +497,13 @@ uint64_t __67__RKUtilities_isDeviceSupportedForLSTMBasedLanguageIdentification__
 
   if (!v10)
   {
-    v23[0] = v5;
-    v23[1] = v7;
-    v24[0] = v6;
-    v24[1] = v8;
+    v22[0] = v5;
+    v22[1] = v7;
+    v23[0] = v6;
+    v23[1] = v8;
     v11 = MEMORY[0x277CBEAC0];
-    v12 = v24;
-    v13 = v23;
+    v12 = v23;
+    v13 = v22;
     v14 = 2;
 LABEL_8:
     v15 = [v11 dictionaryWithObjects:v12 forKeys:v13 count:v14];
@@ -518,11 +512,11 @@ LABEL_8:
 
   if (v6)
   {
-    v21 = v5;
-    v22 = v6;
+    v20 = v5;
+    v21 = v6;
     v11 = MEMORY[0x277CBEAC0];
-    v12 = &v22;
-    v13 = &v21;
+    v12 = &v21;
+    v13 = &v20;
     v14 = 1;
     goto LABEL_8;
   }
@@ -532,8 +526,6 @@ LABEL_9:
   v16 = MEMORY[0x277CBEAF8];
   v17 = [MEMORY[0x277CBEAF8] localeIdentifierFromComponents:v15];
   v18 = [v16 canonicalLanguageIdentifierFromString:v17];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

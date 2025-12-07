@@ -234,17 +234,17 @@ LABEL_14:
     }
 
     v59 = std::string::append(&v77, p_p, size);
-    v60 = v59->__r_.__value_.__r.__words[0];
+    v61 = v59->__r_.__value_.__r.__words[0];
     v78[0] = v59->__r_.__value_.__l.__size_;
     *(v78 + 7) = *(&v59->__r_.__value_.__r.__words[1] + 7);
-    v61 = SHIBYTE(v59->__r_.__value_.__r.__words[2]);
+    v62 = SHIBYTE(v59->__r_.__value_.__r.__words[2]);
     v59->__r_.__value_.__l.__size_ = 0;
     v59->__r_.__value_.__r.__words[2] = 0;
     v59->__r_.__value_.__r.__words[0] = 0;
     *(&v73 + 7) = *(v78 + 7);
-    v72 = v60;
+    v72 = v61;
     *&v73 = v78[0];
-    HIBYTE(v73) = v61;
+    HIBYTE(v73) = v62;
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -265,27 +265,27 @@ LABEL_14:
       operator delete(v68.__r_.__value_.__l.__data_);
     }
 
-    v62 = hws_get_log();
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+    v63 = hws_get_log(v59, v60);
+    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
     {
-      v63 = &v72;
-      if (v61 < 0)
+      v64 = &v72;
+      if (v62 < 0)
       {
-        v63 = v60;
+        v64 = v61;
       }
 
       LODWORD(v77.__r_.__value_.__l.__data_) = 136446210;
-      *(v77.__r_.__value_.__r.__words + 4) = v63;
-      _os_log_impl(&dword_23E83E000, v62, OS_LOG_TYPE_DEFAULT, "%{public}s", &v77, 0xCu);
+      *(v77.__r_.__value_.__r.__words + 4) = v64;
+      _os_log_impl(&dword_23E83E000, v63, OS_LOG_TYPE_DEFAULT, "%{public}s", &v77, 0xCu);
     }
 
-    v64 = 0.930000007;
+    v65 = 0.930000007;
     if (*be_mode)
     {
-      v64 = 0.150000006;
+      v65 = 0.150000006;
     }
 
-    v29 = v40 > v64;
+    v29 = v40 > v65;
     if (SHIBYTE(v73) < 0)
     {
       operator delete(v72);
@@ -298,31 +298,30 @@ LABEL_14:
     operator delete(v74);
   }
 
-  v65 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
 - (void)resample:(void *)resample output:(void *)output
 {
   __p = 0;
-  v19 = 0;
-  v20 = 0;
+  v17 = 0;
+  v18 = 0;
   std::vector<double>::reserve(output, 0xF0uLL);
   v6 = *resample;
   v7 = *(resample + 1);
   if (v7 - *resample != 8)
   {
-    v15 = 0;
+    v14 = 0;
     do
     {
-      v17 = 60.0 / (v6[v15 + 1] - v6[v15]);
-      std::vector<double>::push_back[abi:ne200100](&__p, &v17);
+      v15 = 60.0 / (v6[v14 + 1] - v6[v14]);
+      std::vector<double>::push_back[abi:ne200100](&__p, &v15);
       v6 = *resample;
-      v16 = *(*resample + 8 * v15++);
+      ++v14;
       v7 = *(resample + 1);
     }
 
-    while (((v7 - *resample) >> 3) - 1 > v15);
+    while (((v7 - *resample) >> 3) - 1 > v14);
   }
 
   v8 = v7 - 8;
@@ -332,8 +331,8 @@ LABEL_14:
   {
     do
     {
-      v17 = 0.0;
-      std::vector<double>::push_back[abi:ne200100](output, &v17);
+      v15 = 0.0;
+      std::vector<double>::push_back[abi:ne200100](output, &v15);
       v9 = v9 + 0.25;
       v6 = *resample;
     }
@@ -348,8 +347,8 @@ LABEL_14:
     v11 = 0;
     do
     {
-      v17 = *(__p + v10) + (*(__p + v11 + 1) - *(__p + v10)) / (v6[v11 + 1] - v6[v10]) * (v9 - v6[v10]);
-      std::vector<double>::push_back[abi:ne200100](output, &v17);
+      v15 = *(__p + v10) + (*(__p + v11 + 1) - *(__p + v10)) / (v6[v11 + 1] - v6[v10]) * (v9 - v6[v10]);
+      std::vector<double>::push_back[abi:ne200100](output, &v15);
       v9 = v9 + 0.25;
       v6 = *resample;
       if (v9 >= *(*resample + 8 * (v11 + 1)))
@@ -365,27 +364,27 @@ LABEL_14:
 
   v13 = *output;
   v12 = *(output + 1);
-  if (v12 - *output <= 0x77F)
+  if ((v12 - *output) <= 0x77F)
   {
     do
     {
-      v17 = 0.0;
-      std::vector<double>::push_back[abi:ne200100](output, &v17);
+      v15 = 0.0;
+      std::vector<double>::push_back[abi:ne200100](output, &v15);
       v13 = *output;
       v12 = *(output + 1);
     }
 
-    while (v12 - *output < 0x780);
+    while ((v12 - *output) < 0x780);
   }
 
   while (v13 != v12)
   {
-    v14 = *v13++;
+    v13 += 8;
   }
 
   if (__p)
   {
-    v19 = __p;
+    v17 = __p;
     operator delete(__p);
   }
 }

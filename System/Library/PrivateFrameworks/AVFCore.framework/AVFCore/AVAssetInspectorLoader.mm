@@ -64,13 +64,14 @@
 
 - (id)_createAVErrorForError:(id)error andFigErrorCode:(int)code
 {
+  v4 = *&code;
   v6 = [(AVAssetInspectorLoader *)self URL];
   if (v6)
   {
     v6 = [MEMORY[0x1E695DF20] dictionaryWithObject:v6 forKey:*MEMORY[0x1E696A998]];
   }
 
-  return AVErrorWithNSErrorAndOSStatus(error, code, v6);
+  return AVErrorWithNSErrorAndOSStatus(error, v4, v6);
 }
 
 @end

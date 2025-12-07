@@ -7,8 +7,8 @@
 
 - (NSString)_wp_stringByRemovingTrackingInformationFromURLs
 {
-  checkForURLUsingFastPath(self, v7);
-  if (v7[0])
+  checkForURLUsingFastPath(&v7, self);
+  if (v7)
   {
     v2 = v8;
     if (v8)
@@ -19,7 +19,7 @@
 
     else
     {
-      WebPrivacy::findOrderedReplacementRanges(self, v6);
+      WebPrivacy::findOrderedReplacementRanges(v6, self);
       selfCopy = WebPrivacy::applyOrderedReplacements<NSString>(self, v6);
       v9 = v6;
       std::vector<std::pair<_NSRange,NSString * {__strong}>>::__destroy_vector::operator()[abi:nn200100](&v9);
@@ -39,8 +39,8 @@
 - (void)_wp_removeTrackingInformationFromURLs:()WebPrivacyExtras
 {
   v4 = a3;
-  checkForURLUsingFastPath(self, v11);
-  if (v11[0])
+  checkForURLUsingFastPath(&v11, self);
+  if (v11)
   {
     v5 = v12;
     if (!v12)

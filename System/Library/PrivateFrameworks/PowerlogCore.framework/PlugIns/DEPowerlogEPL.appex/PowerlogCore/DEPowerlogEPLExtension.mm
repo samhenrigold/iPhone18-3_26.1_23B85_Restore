@@ -49,7 +49,7 @@
 
   else
   {
-    v8 = PLLogDE();
+    v8 = PLLogDE(v5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100002D70();
@@ -81,7 +81,7 @@
 
   else
   {
-    v8 = PLLogDE();
+    v8 = PLLogDE(v5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100002DE0();
@@ -106,60 +106,61 @@
 
     if (v6)
     {
-      v7 = [(DEPowerlogEPLExtension *)self getTimestampString:v6];
-      v8 = [NSString stringWithFormat:@"/tmp/BatteryUI-EPL-%@.plist", v7];
-      v9 = [v4 writeToFile:v8 atomically:1];
-      v10 = PLLogDE();
+      v8 = [(DEPowerlogEPLExtension *)self getTimestampString:v6];
+      v9 = [NSString stringWithFormat:@"/tmp/BatteryUI-EPL-%@.plist", v8];
+      v10 = [v4 writeToFile:v9 atomically:1];
       v11 = v10;
-      if (v9)
+      v12 = PLLogDE(v10);
+      v13 = v12;
+      if (v11)
       {
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           sub_100002EC0();
         }
 
         PLTalkToPowerlogHelper();
-        v12 = v8;
+        v14 = v9;
       }
 
       else
       {
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           sub_100002E50();
         }
 
         PLTalkToPowerlogHelper();
-        v12 = 0;
+        v14 = 0;
       }
     }
 
     else
     {
-      v14 = PLLogDE();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = PLLogDE(v7);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_100002F28();
       }
 
       PLTalkToPowerlogHelper();
-      v12 = 0;
+      v14 = 0;
     }
   }
 
   else
   {
-    v13 = PLLogDE();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = PLLogDE(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_100002F68();
     }
 
     PLTalkToPowerlogHelper();
-    v12 = 0;
+    v14 = 0;
   }
 
-  return v12;
+  return v14;
 }
 
 - (id)getArchives
@@ -183,7 +184,7 @@
 
   else
   {
-    v8 = PLLogDE();
+    v8 = PLLogDE(v5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100002FA8();
@@ -238,7 +239,7 @@
 {
   v4 = +[NSMutableArray array];
   getPowerlog = [(DEPowerlogEPLExtension *)self getPowerlog];
-  v6 = PLLogDE();
+  v6 = PLLogDE(getPowerlog);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_100003018();
@@ -246,235 +247,235 @@
 
   if (getPowerlog)
   {
-    v7 = [getPowerlog objectForKeyedSubscript:@"path"];
+    v8 = [getPowerlog objectForKeyedSubscript:@"path"];
 
-    if (v7)
+    if (v8)
     {
-      v8 = [getPowerlog objectForKeyedSubscript:@"path"];
-      v9 = [DEAttachmentItem attachmentWithPath:v8];
+      v9 = [getPowerlog objectForKeyedSubscript:@"path"];
+      v10 = [DEAttachmentItem attachmentWithPath:v9];
 
-      [v9 setDeleteOnAttach:&__kCFBooleanTrue];
-      [v9 setShouldCompress:&__kCFBooleanTrue];
-      [v4 addObject:v9];
+      [v10 setDeleteOnAttach:&__kCFBooleanTrue];
+      [v10 setShouldCompress:&__kCFBooleanTrue];
+      [v4 addObject:v10];
     }
   }
 
-  v10 = PLLogDE();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = PLLogDE(v7);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     sub_100003080();
   }
 
-  v55 = getPowerlog;
+  v62 = getPowerlog;
 
   getQuarantinedPowerlogs = [(DEPowerlogEPLExtension *)self getQuarantinedPowerlogs];
-  v12 = PLLogDE();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = PLLogDE(getQuarantinedPowerlogs);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     sub_1000030E8();
   }
 
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
-  v69 = 0u;
-  v13 = getQuarantinedPowerlogs;
-  v14 = [v13 countByEnumeratingWithState:&v68 objects:v79 count:16];
-  if (v14)
+  v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
+  v14 = getQuarantinedPowerlogs;
+  v15 = [v14 countByEnumeratingWithState:&v75 objects:v86 count:16];
+  if (v15)
   {
-    v15 = v14;
-    v16 = *v69;
+    v16 = v15;
+    v17 = *v76;
     do
     {
-      for (i = 0; i != v15; i = i + 1)
+      for (i = 0; i != v16; i = i + 1)
       {
-        if (*v69 != v16)
+        if (*v76 != v17)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v68 + 1) + 8 * i);
-        [v18 setDeleteOnAttach:&__kCFBooleanTrue];
-        [v18 setShouldCompress:&__kCFBooleanTrue];
-        [v4 addObject:v18];
+        v19 = *(*(&v75 + 1) + 8 * i);
+        [v19 setDeleteOnAttach:&__kCFBooleanTrue];
+        [v19 setShouldCompress:&__kCFBooleanTrue];
+        [v4 addObject:v19];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v68 objects:v79 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v75 objects:v86 count:16];
     }
 
-    while (v15);
+    while (v16);
   }
 
-  v19 = PLLogDE();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v21 = PLLogDE(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     sub_100003150();
   }
 
   getArchives = [(DEPowerlogEPLExtension *)self getArchives];
-  v21 = PLLogDE();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  v23 = PLLogDE(getArchives);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
     sub_1000031B8();
   }
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v22 = getArchives;
-  v23 = [v22 countByEnumeratingWithState:&v64 objects:v78 count:16];
-  if (v23)
+  v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
+  v24 = getArchives;
+  v25 = [v24 countByEnumeratingWithState:&v71 objects:v85 count:16];
+  if (v25)
   {
-    v24 = v23;
-    v25 = *v65;
+    v26 = v25;
+    v27 = *v72;
     do
     {
-      for (j = 0; j != v24; j = j + 1)
+      for (j = 0; j != v26; j = j + 1)
       {
-        if (*v65 != v25)
+        if (*v72 != v27)
         {
-          objc_enumerationMutation(v22);
+          objc_enumerationMutation(v24);
         }
 
-        v27 = *(*(&v64 + 1) + 8 * j);
-        [v27 setDeleteOnAttach:&__kCFBooleanTrue];
-        [v27 setShouldCompress:&__kCFBooleanTrue];
-        [v4 addObject:v27];
+        v29 = *(*(&v71 + 1) + 8 * j);
+        [v29 setDeleteOnAttach:&__kCFBooleanTrue];
+        [v29 setShouldCompress:&__kCFBooleanTrue];
+        [v4 addObject:v29];
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v64 objects:v78 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v71 objects:v85 count:16];
     }
 
-    while (v24);
+    while (v26);
   }
 
-  v28 = PLLogDE();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+  v31 = PLLogDE(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
   {
     sub_100003220();
   }
 
   generateBatteryUIPlistFile = [(DEPowerlogEPLExtension *)self generateBatteryUIPlistFile];
-  v30 = PLLogDE();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+  v33 = PLLogDE(generateBatteryUIPlistFile);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
   {
     sub_100003288();
   }
 
   if (generateBatteryUIPlistFile)
   {
-    v31 = [DEAttachmentItem attachmentWithPath:generateBatteryUIPlistFile];
-    [v31 setDeleteOnAttach:&__kCFBooleanTrue];
-    [v31 setShouldCompress:&__kCFBooleanTrue];
-    [v4 addObject:v31];
+    v35 = [DEAttachmentItem attachmentWithPath:generateBatteryUIPlistFile];
+    [v35 setDeleteOnAttach:&__kCFBooleanTrue];
+    [v35 setShouldCompress:&__kCFBooleanTrue];
+    [v4 addObject:v35];
   }
 
-  v32 = PLLogDE();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+  v36 = PLLogDE(v34);
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
   {
     sub_1000032F0();
   }
 
-  v54 = generateBatteryUIPlistFile;
+  v61 = generateBatteryUIPlistFile;
 
   getBatteryUIPlists = [(DEPowerlogEPLExtension *)self getBatteryUIPlists];
-  v34 = PLLogDE();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+  v38 = PLLogDE(getBatteryUIPlists);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
   {
     sub_100003358();
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  v35 = getBatteryUIPlists;
-  v36 = [v35 countByEnumeratingWithState:&v60 objects:v77 count:16];
-  if (v36)
+  v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  v39 = getBatteryUIPlists;
+  v40 = [v39 countByEnumeratingWithState:&v67 objects:v84 count:16];
+  if (v40)
   {
-    v37 = v36;
-    v38 = *v61;
+    v41 = v40;
+    v42 = *v68;
     do
     {
-      for (k = 0; k != v37; k = k + 1)
+      for (k = 0; k != v41; k = k + 1)
       {
-        if (*v61 != v38)
+        if (*v68 != v42)
         {
-          objc_enumerationMutation(v35);
+          objc_enumerationMutation(v39);
         }
 
-        v40 = *(*(&v60 + 1) + 8 * k);
-        [v40 setDeleteOnAttach:{&__kCFBooleanTrue, v54, v55}];
-        [v40 setShouldCompress:&__kCFBooleanTrue];
-        [v4 addObject:v40];
+        v44 = *(*(&v67 + 1) + 8 * k);
+        [v44 setDeleteOnAttach:{&__kCFBooleanTrue, v61, v62}];
+        [v44 setShouldCompress:&__kCFBooleanTrue];
+        [v4 addObject:v44];
       }
 
-      v37 = [v35 countByEnumeratingWithState:&v60 objects:v77 count:16];
+      v41 = [v39 countByEnumeratingWithState:&v67 objects:v84 count:16];
     }
 
-    while (v37);
+    while (v41);
   }
 
-  v41 = PLLogDE();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+  v46 = PLLogDE(v45);
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
   {
     sub_1000033C0();
   }
 
   getUpgradeLogs = [(DEPowerlogEPLExtension *)self getUpgradeLogs];
-  v43 = PLLogDE();
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+  v48 = PLLogDE(getUpgradeLogs);
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
   {
     sub_100003428();
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v44 = getUpgradeLogs;
-  v45 = [v44 countByEnumeratingWithState:&v56 objects:v76 count:16];
-  if (v45)
+  v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
+  v49 = getUpgradeLogs;
+  v50 = [v49 countByEnumeratingWithState:&v63 objects:v83 count:16];
+  if (v50)
   {
-    v46 = v45;
-    v47 = *v57;
+    v51 = v50;
+    v52 = *v64;
     do
     {
-      for (m = 0; m != v46; m = m + 1)
+      for (m = 0; m != v51; m = m + 1)
       {
-        if (*v57 != v47)
+        if (*v64 != v52)
         {
-          objc_enumerationMutation(v44);
+          objc_enumerationMutation(v49);
         }
 
-        v49 = *(*(&v56 + 1) + 8 * m);
-        [v49 setDeleteOnAttach:{&__kCFBooleanTrue, v54}];
-        [v49 setShouldCompress:&__kCFBooleanTrue];
-        [v4 addObject:v49];
+        v54 = *(*(&v63 + 1) + 8 * m);
+        [v54 setDeleteOnAttach:{&__kCFBooleanTrue, v61}];
+        [v54 setShouldCompress:&__kCFBooleanTrue];
+        [v4 addObject:v54];
       }
 
-      v46 = [v44 countByEnumeratingWithState:&v56 objects:v76 count:16];
+      v51 = [v49 countByEnumeratingWithState:&v63 objects:v83 count:16];
     }
 
-    while (v46);
+    while (v51);
   }
 
-  v50 = PLLogDE();
-  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+  v56 = PLLogDE(v55);
+  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
   {
     sub_100003490();
   }
 
-  v51 = PLLogDE();
-  if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+  v58 = PLLogDE(v57);
+  if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
   {
-    v52 = [v4 count];
+    v59 = [v4 count];
     *buf = 134218242;
-    v73 = v52;
-    v74 = 2112;
-    v75 = v4;
-    _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_INFO, "Attachment contents are %lu and as follows - %@", buf, 0x16u);
+    v80 = v59;
+    v81 = 2112;
+    v82 = v4;
+    _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_INFO, "Attachment contents are %lu and as follows - %@", buf, 0x16u);
   }
 
   return v4;

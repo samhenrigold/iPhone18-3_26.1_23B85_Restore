@@ -46,84 +46,84 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v14 = 0;
-  v6 = [MEMORY[0x1E698E750] encodeObject:self error:&v14];
-  v7 = v14;
+  v13 = 0;
+  v6 = [MEMORY[0x1E698E750] encodeObject:? error:?];
+  v7 = v13;
   v8 = [v6 copy];
 
   if (!v8)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"transform container encode error: %@", v7];
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:v7];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v11 = NSStringFromSelector(a2);
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v10 = NSStringFromSelector(a2);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       *buf = 138544642;
-      v16 = v11;
-      v17 = 2114;
-      v18 = v13;
-      v19 = 2048;
+      v15 = v10;
+      v16 = 2114;
+      v17 = v12;
+      v18 = 2048;
       selfCopy = self;
-      v21 = 2114;
-      v22 = @"BKSTouchEventService.m";
-      v23 = 1024;
-      v24 = 100;
-      v25 = 2114;
-      v26 = v10;
+      v20 = 2114;
+      v21 = @"BKSTouchEventService.m";
+      v22 = 1024;
+      v23 = 100;
+      v24 = 2114;
+      v25 = v9;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v10 UTF8String];
+    [v9 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863B4D18);
   }
 
-  [coderCopy encodeObject:v8 forKey:@"backboarddSelfData"];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (_BKSCATransform3DContainer)initWithCoder:(id)coder
 {
   v14 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"backboarddSelfData"];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
 
   if (!v5)
   {
-    v7 = BKLogEventDelivery();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = BKLogEventDelivery();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_186345000, v7, OS_LOG_TYPE_ERROR, "transform container data decode failure", buf, 2u);
+      _os_log_error_impl(&dword_186345000, v8, OS_LOG_TYPE_ERROR, "transform container data decode failure", buf, 2u);
     }
 
     goto LABEL_8;
   }
 
+  v6 = MEMORY[0x1E698E750];
+  objc_opt_class();
   v11 = 0;
-  v6 = [MEMORY[0x1E698E750] decodeObjectOfClass:objc_opt_class() fromData:v5 error:&v11];
-  v7 = v11;
-  if (!v6)
+  v7 = [v6 decodeObjectOfClass:? fromData:? error:?];
+  v8 = v11;
+  if (!v7)
   {
-    v8 = BKLogEventDelivery();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = BKLogEventDelivery();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v13 = v7;
-      _os_log_error_impl(&dword_186345000, v8, OS_LOG_TYPE_ERROR, "transform container protobuf decode failure: %{public}@", buf, 0xCu);
+      v13 = v8;
+      _os_log_error_impl(&dword_186345000, v9, OS_LOG_TYPE_ERROR, "transform container protobuf decode failure: %{public}@", buf, 0xCu);
     }
 
 LABEL_8:
-    v6 = 0;
+    v7 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-  return v6;
+  return v7;
 }
 
 - (_BKSCATransform3DContainer)init

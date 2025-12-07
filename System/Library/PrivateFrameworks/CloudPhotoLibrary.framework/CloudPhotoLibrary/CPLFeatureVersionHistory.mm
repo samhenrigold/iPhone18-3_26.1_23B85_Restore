@@ -48,32 +48,32 @@ LABEL_8:
 
 - (id)description
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"<%@ %ld", objc_opt_class(), self->_currentFeatureVersion];
   allKeys = [(NSMutableDictionary *)self->_versionToAnchor allKeys];
   v5 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 1;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         integerValue = [v11 integerValue];
         v13 = [(NSMutableDictionary *)self->_versionToAnchor objectForKeyedSubscript:v11];
         v14 = [(NSMutableDictionary *)self->_anchorToVersion objectForKeyedSubscript:v13];
@@ -94,7 +94,7 @@ LABEL_8:
         v8 = 0;
       }
 
-      v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
       v8 = 0;
     }
 
@@ -102,7 +102,6 @@ LABEL_8:
   }
 
   [v3 appendString:@">"];
-  v17 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -317,59 +316,53 @@ void __42__CPLFeatureVersionHistory_initWithCoder___block_invoke_2(uint64_t a1, 
 
 void __42__CPLFeatureVersionHistory_initWithCoder___block_invoke_9(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v2 = __CPLGenericOSLogDomain();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v1 = __CPLGenericOSLogDomain();
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
-      v3 = *(a1 + 32);
-      v6 = 138412290;
-      v7 = objc_opt_class();
-      v4 = v7;
-      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_ERROR, "Failed to deserialize %@ - missing versionToAnchor", &v6, 0xCu);
+      v3 = 138412290;
+      v4 = objc_opt_class();
+      v2 = v4;
+      _os_log_impl(&dword_1DC05A000, v1, OS_LOG_TYPE_ERROR, "Failed to deserialize %@ - missing versionToAnchor", &v3, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __42__CPLFeatureVersionHistory_initWithCoder___block_invoke_3(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v2 = __CPLGenericOSLogDomain();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v3 = a1[4];
-      v4 = objc_opt_class();
-      v5 = a1[5];
-      v6 = a1[6];
-      v9 = 138412802;
+      v3 = objc_opt_class();
+      v4 = a1[5];
+      v5 = a1[6];
+      v7 = 138412802;
+      v8 = v3;
+      v9 = 2112;
       v10 = v4;
       v11 = 2112;
       v12 = v5;
-      v13 = 2112;
-      v14 = v6;
-      v7 = v4;
-      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_ERROR, "Failed to deserialize %@ - invalid versionToAnchor dictionary %@: %@", &v9, 0x20u);
+      v6 = v3;
+      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_ERROR, "Failed to deserialize %@ - invalid versionToAnchor dictionary %@: %@", &v7, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __42__CPLFeatureVersionHistory_initWithCoder___block_invoke()
+uint64_t __42__CPLFeatureVersionHistory_initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x1E695DFD8];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
-  v3 = [v0 setWithObjects:{v1, v2, objc_opt_class(), 0}];
-  v4 = initWithCoder__versionsClasses;
-  initWithCoder__versionsClasses = v3;
+  v2 = MEMORY[0x1E695DFD8];
+  v3 = objc_opt_class();
+  v4 = objc_opt_class();
+  v5 = [v2 setWithObjects:{v3, v4, objc_opt_class(), 0}];
+  v6 = initWithCoder__versionsClasses;
+  initWithCoder__versionsClasses = v5;
 
-  return MEMORY[0x1EEE66BB8](v3, v4);
+  return MEMORY[0x1EEE66BB8](v5, v6);
 }
 
 @end

@@ -11,7 +11,7 @@
 {
   v4 = type metadata accessor for SearchResultsContextCardView.Style(0);
   __chkstk_darwin(v4);
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = (&v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
   v8 = OBJC_IVAR____TtC20ProductPageExtension32ContextualContentUnavailableView_queryContext;
   if (qword_10093F770 != -1)
   {

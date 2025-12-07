@@ -28,8 +28,8 @@
       [v6 setObject:message2 forKeyedSubscript:@"kMapsInterruptionMessage"];
     }
 
-    options = [v5 options];
-    v12 = [options count];
+    v11 = objc_msgSend_options(v5);
+    v12 = [v11 count];
 
     if (v12)
     {
@@ -40,8 +40,8 @@
       v31 = 0u;
       v32 = 0u;
       v28 = v5;
-      options2 = [v5 options];
-      v15 = [options2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v14 = objc_msgSend_options(v5);
+      v15 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
       if (v15)
       {
         v16 = v15;
@@ -52,7 +52,7 @@
           {
             if (*v30 != v17)
             {
-              objc_enumerationMutation(options2);
+              objc_enumerationMutation(v14);
             }
 
             v19 = *(*(&v29 + 1) + 8 * i);
@@ -64,7 +64,7 @@
             [v13 addObject:v23];
           }
 
-          v16 = [options2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
         }
 
         while (v16);

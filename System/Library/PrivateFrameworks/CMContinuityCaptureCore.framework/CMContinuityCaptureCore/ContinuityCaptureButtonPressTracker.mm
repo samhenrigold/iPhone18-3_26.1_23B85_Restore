@@ -69,14 +69,14 @@
 
     buttonPressStateByUsage = self->_buttonPressStateByUsage;
     v6 = [MEMORY[0x277CCABB0] numberWithInteger:?];
-    [(NSMutableSet *)buttonPressStateByUsage removeObject:v6];
+    [(NSMutableSet *)buttonPressStateByUsage removeObject:?];
   }
 
   else
   {
     v4 = self->_buttonPressStateByUsage;
     v6 = [MEMORY[0x277CCABB0] numberWithInteger:?];
-    [(NSMutableSet *)v4 addObject:v6];
+    [(NSMutableSet *)v4 addObject:?];
   }
 }
 

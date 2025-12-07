@@ -21,7 +21,7 @@
   expectedDuration = [(HMDHAPMetricsReachabilityTimerLateEvent *)self expectedDuration];
   [dictionary setObject:expectedDuration forKeyedSubscript:@"expectedDuration"];
 
-  v9 = [dictionary copy];
+  v9 = objc_msgSend_copy(dictionary);
 
   return v9;
 }

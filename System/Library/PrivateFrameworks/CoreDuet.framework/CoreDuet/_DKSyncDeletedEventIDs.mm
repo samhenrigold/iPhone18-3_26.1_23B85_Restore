@@ -25,43 +25,40 @@
 
 - (uint64_t)count
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if (self)
+  v15 = *MEMORY[0x1E69E9840];
+  if (!self)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
-    v12 = 0u;
-    v2 = *(self + 8);
-    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
-    if (v3)
-    {
-      v4 = v3;
-      v5 = 0;
-      v6 = *v12;
-      do
-      {
-        for (i = 0; i != v4; ++i)
-        {
-          if (*v12 != v6)
-          {
-            objc_enumerationMutation(v2);
-          }
+    return 0;
+  }
 
-          v8 = [*(self + 8) objectForKeyedSubscript:{*(*(&v11 + 1) + 8 * i), v11}];
-          v5 += [v8 count];
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v2 = *(self + 8);
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v3)
+  {
+    v4 = v3;
+    v5 = 0;
+    v6 = *v11;
+    do
+    {
+      for (i = 0; i != v4; ++i)
+      {
+        if (*v11 != v6)
+        {
+          objc_enumerationMutation(v2);
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v8 = [*(self + 8) objectForKeyedSubscript:{*(*(&v10 + 1) + 8 * i), v10}];
+        v5 += [v8 count];
       }
 
-      while (v4);
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    else
-    {
-      v5 = 0;
-    }
+    while (v4);
   }
 
   else
@@ -69,7 +66,6 @@
     v5 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

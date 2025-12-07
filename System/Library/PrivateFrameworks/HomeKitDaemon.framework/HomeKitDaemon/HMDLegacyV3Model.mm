@@ -9,7 +9,7 @@
 
 - (id)encodeWithExistingRecord:(id)record cloudZone:(id)zone modelContainer:(id)container error:(id *)error
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   zoneCopy = zone;
   containerCopy = container;
@@ -27,20 +27,20 @@
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v19 = v44 = error;
+        v19 = v43 = error;
         [recordCopy recordID];
-        v20 = v43 = v16;
+        v20 = v42 = v16;
         recordName2 = [v20 recordName];
         *buf = 138543874;
-        v48 = v19;
-        v49 = 2112;
-        v50 = recordName2;
-        v51 = 2112;
-        v52 = @"BC9706E1-E72E-4152-A2A6-417AD742DC41";
+        v47 = v19;
+        v48 = 2112;
+        v49 = recordName2;
+        v50 = 2112;
+        v51 = @"BC9706E1-E72E-4152-A2A6-417AD742DC41";
         _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@UNEXPECTED RECORD NAME MISMATCH (V3) %@ != %@", buf, 0x20u);
 
-        v16 = v43;
-        error = v44;
+        v16 = v42;
+        error = v43;
       }
 
       objc_autoreleasePoolPop(v16);
@@ -76,9 +76,9 @@
   }
 
   cloudBlob = [(HMDLegacyV3Model *)self cloudBlob];
-  v46 = 0;
-  v29 = [containerCopy encryptData:cloudBlob compress:1 error:&v46];
-  v30 = v46;
+  v45 = 0;
+  v29 = [containerCopy encryptData:cloudBlob compress:1 error:&v45];
+  v30 = v45;
 
   if (v30 || !v29)
   {
@@ -90,20 +90,20 @@
       v35 = HMFGetLogIdentifier();
       v36 = objc_opt_class();
       NSStringFromClass(v36);
-      v45 = containerCopy;
+      v44 = containerCopy;
       v37 = zoneCopy;
       v39 = v38 = error;
       *buf = 138543874;
-      v48 = v35;
-      v49 = 2112;
-      v50 = v39;
-      v51 = 2112;
-      v52 = v30;
+      v47 = v35;
+      v48 = 2112;
+      v49 = v39;
+      v50 = 2112;
+      v51 = v30;
       _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_ERROR, "%{public}@[%@ encodeForCloudZone:error:] failed encryption: %@", buf, 0x20u);
 
       error = v38;
       zoneCopy = v37;
-      containerCopy = v45;
+      containerCopy = v44;
     }
 
     objc_autoreleasePoolPop(v32);
@@ -126,8 +126,6 @@
     v31 = recordCopy;
   }
 
-  v41 = *MEMORY[0x277D85DE8];
-
   return v31;
 }
 
@@ -144,7 +142,7 @@
 
 + (id)createWithLegacyRecord:(id)record modelContainer:(id)container error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   containerCopy = container;
   objc_opt_class();
@@ -176,9 +174,9 @@
       v15 = [recordCopy objectForKeyedSubscript:@"kRecordEncodedDataBlobKey"];
       if (v15)
       {
-        v29 = 0;
-        v16 = [v11 decryptData:v15 decompress:1 error:&v29];
-        v17 = v29;
+        v28 = 0;
+        v16 = [v11 decryptData:v15 decompress:1 error:&v28];
+        v17 = v28;
         if (v17)
         {
           v18 = v17;
@@ -187,18 +185,18 @@
           v20 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            v27 = HMFGetLogIdentifier();
+            v26 = HMFGetLogIdentifier();
             NSStringFromClass(selfCopy);
-            v21 = v26 = v16;
+            v21 = v25 = v16;
             *buf = 138543874;
-            v31 = v27;
-            v32 = 2112;
-            v33 = v21;
-            v34 = 2112;
-            v35 = v18;
+            v30 = v26;
+            v31 = 2112;
+            v32 = v21;
+            v33 = 2112;
+            v34 = v18;
             _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@ unable to decrypt data: %@", buf, 0x20u);
 
-            v16 = v26;
+            v16 = v25;
           }
 
           objc_autoreleasePoolPop(context);
@@ -235,8 +233,6 @@ LABEL_20:
 
 LABEL_21:
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
@@ -254,15 +250,13 @@ LABEL_21:
 
 void __33__HMDLegacyV3Model_hmbProperties__block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"cloudBlob";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"cloudBlob";
   v0 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
   v2 = hmbProperties__properties_118482;
   hmbProperties__properties_118482 = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

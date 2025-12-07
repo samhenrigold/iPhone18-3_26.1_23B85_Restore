@@ -30,18 +30,19 @@
 {
   self->_fromCentral = central;
   v5 = [(EPResourceManager *)self newResourceWithDelegate:delegate];
+  v6 = v5;
   if (!self->_fromCentral && self->_stashedPeer)
   {
-    v6 = sub_1000A98C0();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v7 = sub_1000A98C0(v5);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-    if (v7)
+    if (v8)
     {
-      v8 = sub_1000A98C0();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_1000A98C0(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        *v11 = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Found stashed peer, retrying", v11, 2u);
+        *v13 = 0;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Found stashed peer, retrying", v13, 2u);
       }
     }
 
@@ -53,7 +54,7 @@
     [(EPPairingAgentManager *)self resetStashVariables];
   }
 
-  return v5;
+  return v6;
 }
 
 - (id)newCentralManagerWithDelegate:(id)delegate
@@ -99,21 +100,21 @@
 
 - (void)destroyResource
 {
-  v10.receiver = self;
-  v10.super_class = EPPairingAgentManager;
-  [(EPResourceManager *)&v10 destroyResource];
+  v12.receiver = self;
+  v12.super_class = EPPairingAgentManager;
+  destroyResource = [(EPResourceManager *)&v12 destroyResource];
   if (self->_agent)
   {
-    v3 = sub_1000A98C0();
-    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    v4 = sub_1000A98C0(destroyResource);
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-    if (v4)
+    if (v5)
     {
-      v5 = sub_1000A98C0();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_1000A98C0(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Dellocating sharedPairingAgent", v9, 2u);
+        *v11 = 0;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Dellocating sharedPairingAgent", v11, 2u);
       }
     }
 
@@ -149,18 +150,18 @@
         goto LABEL_26;
       }
 
-      v9 = sub_1000A98C0();
-      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+      v10 = sub_1000A98C0(v9);
+      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-      if (v10)
+      if (v11)
       {
-        v11 = sub_1000A98C0();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v13 = sub_1000A98C0(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = 0;
-          v12 = &v22;
+          v28 = 0;
+          v14 = &v28;
 LABEL_16:
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Dellocating sharedPairingAgent", v12, 2u);
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Dellocating sharedPairingAgent", v14, 2u);
           goto LABEL_17;
         }
 
@@ -170,22 +171,22 @@ LABEL_16:
 
     else
     {
-      [(EPResourceManager *)self setAvailability:0 withError:0];
+      v15 = [(EPResourceManager *)self setAvailability:0 withError:0];
       if (!self->_agent)
       {
         goto LABEL_26;
       }
 
-      v13 = sub_1000A98C0();
-      v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+      v16 = sub_1000A98C0(v15);
+      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
-      if (v14)
+      if (v17)
       {
-        v11 = sub_1000A98C0();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v13 = sub_1000A98C0(v18);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = 0;
-          v12 = &v21;
+          v27 = 0;
+          v14 = &v27;
           goto LABEL_16;
         }
 
@@ -216,21 +217,21 @@ LABEL_25:
 
     agent = manager2;
 
-    v16 = sub_1000A98C0();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+    v21 = sub_1000A98C0(v20);
+    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
 
-    if (v17)
+    if (v22)
     {
-      v18 = sub_1000A98C0();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v24 = sub_1000A98C0(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Retrieving sharedPairingAgent", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Retrieving sharedPairingAgent", buf, 2u);
       }
     }
 
     sharedPairingAgent = [(CBPairingAgent *)agent sharedPairingAgent];
-    v20 = self->_agent;
+    v26 = self->_agent;
     self->_agent = sharedPairingAgent;
 
     [(CBPairingAgent *)self->_agent setDelegate:self];
@@ -257,91 +258,91 @@ LABEL_26:
 - (void)pairingAgent:(id)agent peerDidUnpair:(id)unpair
 {
   unpairCopy = unpair;
-  v6 = sub_1000A98C0();
+  v6 = sub_1000A98C0(unpairCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = sub_1000A98C0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_1000A98C0(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [unpairCopy identifier];
       uUIDString = [identifier UUIDString];
       *buf = 138412290;
-      v15 = uUIDString;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "CoreBluetooth pairingAgent:peerDidUnpair:%@ received", buf, 0xCu);
+      v16 = uUIDString;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "CoreBluetooth pairingAgent:peerDidUnpair:%@ received", buf, 0xCu);
     }
   }
 
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_1000EF978;
-  v12[3] = &unk_100175998;
-  v12[4] = self;
-  v13 = unpairCopy;
-  v11 = unpairCopy;
-  [(EPResourceManager *)self enumerateResourcesWithBlock:v12];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_1000EF978;
+  v13[3] = &unk_100175998;
+  v13[4] = self;
+  v14 = unpairCopy;
+  v12 = unpairCopy;
+  [(EPResourceManager *)self enumerateResourcesWithBlock:v13];
 }
 
 - (void)pairingAgent:(id)agent peerDidCompletePairing:(id)pairing
 {
   pairingCopy = pairing;
-  v6 = sub_1000A98C0();
+  v6 = sub_1000A98C0(pairingCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = sub_1000A98C0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_1000A98C0(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [pairingCopy identifier];
       uUIDString = [identifier UUIDString];
       *buf = 138412290;
-      v15 = uUIDString;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "CoreBluetooth pairingAgent:peerDidCompletePairing:%@ received", buf, 0xCu);
+      v16 = uUIDString;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "CoreBluetooth pairingAgent:peerDidCompletePairing:%@ received", buf, 0xCu);
     }
   }
 
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_1000EFAF8;
-  v12[3] = &unk_100175998;
-  v12[4] = self;
-  v13 = pairingCopy;
-  v11 = pairingCopy;
-  [(EPResourceManager *)self enumerateResourcesWithBlock:v12];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_1000EFAF8;
+  v13[3] = &unk_100175998;
+  v13[4] = self;
+  v14 = pairingCopy;
+  v12 = pairingCopy;
+  [(EPResourceManager *)self enumerateResourcesWithBlock:v13];
 }
 
 - (void)pairingAgent:(id)agent peerDidFailToCompletePairing:(id)pairing error:(id)error
 {
   pairingCopy = pairing;
   errorCopy = error;
-  v9 = sub_1000A98C0();
+  v9 = sub_1000A98C0(errorCopy);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
   if (v10)
   {
-    v11 = sub_1000A98C0();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_1000A98C0(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [pairingCopy identifier];
       uUIDString = [identifier UUIDString];
       *buf = 138412290;
-      v20 = uUIDString;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "CoreBluetooth pairingAgent:peerDidFailToCompletePairing:%@ received", buf, 0xCu);
+      v21 = uUIDString;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "CoreBluetooth pairingAgent:peerDidFailToCompletePairing:%@ received", buf, 0xCu);
     }
   }
 
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_1000EFC9C;
-  v16[3] = &unk_1001759C0;
-  v16[4] = self;
-  v17 = pairingCopy;
-  v18 = errorCopy;
-  v14 = errorCopy;
-  v15 = pairingCopy;
-  [(EPResourceManager *)self enumerateResourcesWithBlock:v16];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_1000EFC9C;
+  v17[3] = &unk_1001759C0;
+  v17[4] = self;
+  v18 = pairingCopy;
+  v19 = errorCopy;
+  v15 = errorCopy;
+  v16 = pairingCopy;
+  [(EPResourceManager *)self enumerateResourcesWithBlock:v17];
 }
 
 - (void)pairingAgent:(id)agent peerDidRequestPairing:(id)pairing type:(int64_t)type passkey:(id)passkey
@@ -349,50 +350,50 @@ LABEL_26:
   agentCopy = agent;
   pairingCopy = pairing;
   passkeyCopy = passkey;
-  v13 = sub_1000A98C0();
+  v13 = sub_1000A98C0(passkeyCopy);
   v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
   if (v14)
   {
-    v15 = sub_1000A98C0();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_1000A98C0(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [pairingCopy identifier];
       uUIDString = [identifier UUIDString];
       LODWORD(buf) = 138412290;
       *(&buf + 4) = uUIDString;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "CoreBluetooth pairingAgent:peerDidRequestPairing:%@ received", &buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "CoreBluetooth pairingAgent:peerDidRequestPairing:%@ received", &buf, 0xCu);
     }
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v36 = 0x2020000000;
-  v37 = 0;
-  v30[0] = _NSConcreteStackBlock;
-  v30[1] = 3221225472;
-  v30[2] = sub_1000F0060;
-  v30[3] = &unk_100179D08;
+  v39 = 0x2020000000;
+  v40 = 0;
+  v33[0] = _NSConcreteStackBlock;
+  v33[1] = 3221225472;
+  v33[2] = sub_1000F0060;
+  v33[3] = &unk_100179D08;
   p_buf = &buf;
-  v30[4] = self;
-  v18 = pairingCopy;
-  v31 = v18;
+  v33[4] = self;
+  v19 = pairingCopy;
+  v34 = v19;
   typeCopy = type;
-  v19 = passkeyCopy;
-  v32 = v19;
-  [(EPResourceManager *)self enumerateResourcesWithBlock:v30];
+  v20 = passkeyCopy;
+  v35 = v20;
+  v21 = [(EPResourceManager *)self enumerateResourcesWithBlock:v33];
   if ((*(*(&buf + 1) + 24) & 1) == 0)
   {
-    v20 = sub_1000A98C0();
-    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+    v22 = sub_1000A98C0(v21);
+    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
 
-    if (v21)
+    if (v23)
     {
-      v22 = sub_1000A98C0();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v25 = sub_1000A98C0(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v29) = 0;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Unable to handle pairing request.  Stashing to try again later", &v29, 2u);
+        LOWORD(v32) = 0;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Unable to handle pairing request.  Stashing to try again later", &v32, 2u);
       }
     }
 
@@ -403,19 +404,19 @@ LABEL_26:
     timer = self->_timer;
     self->_timer = 0;
 
-    objc_initWeak(&v29, self);
-    v24 = +[EPFactory queue];
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_1000F00F0;
-    v27[3] = &unk_100175EB8;
-    objc_copyWeak(&v28, &v29);
-    v25 = [TimerFactory timerWithIdentifier:@"com.apple.nanoregistry.migration.missedbtrequest" delay:1 gracePeriod:v24 waking:v27 handlerQueue:60.0 handlerBlock:0.0];
-    v26 = self->_timer;
-    self->_timer = v25;
+    objc_initWeak(&v32, self);
+    v27 = +[EPFactory queue];
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_1000F00F0;
+    v30[3] = &unk_100175EB8;
+    objc_copyWeak(&v31, &v32);
+    v28 = [TimerFactory timerWithIdentifier:@"com.apple.nanoregistry.migration.missedbtrequest" delay:1 gracePeriod:v27 waking:v30 handlerQueue:60.0 handlerBlock:0.0];
+    v29 = self->_timer;
+    self->_timer = v28;
 
-    objc_destroyWeak(&v28);
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v32);
   }
 
   _Block_object_dispose(&buf, 8);

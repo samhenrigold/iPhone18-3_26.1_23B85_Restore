@@ -2,6 +2,7 @@
 - (BOOL)processData:(id)data CRC:(unsigned int *)c isDone:(BOOL)done queue:(id)queue handler:(id)handler;
 - (BOOL)readFileHeaderFromData:(id)data headerLength:(unint64_t *)length;
 - (TSUZipReadChannel)initWithEntry:(id)entry archiveReadChannel:(id)channel;
+- (void)close;
 - (void)handleFailureWithQueue:(id)queue handler:(id)handler error:(id)error;
 - (void)readWithHeaderLength:(unint64_t)length queue:(id)queue handler:(id)handler;
 - (void)readWithQueue:(id)queue handler:(id)handler;
@@ -363,6 +364,13 @@ uint64_t __58__TSUZipReadChannel_processData_CRC_isDone_queue_handler___block_in
   v10 = errorCopy;
   v11 = handlerCopy;
   dispatch_async(queueCopy, v12);
+}
+
+- (void)close
+{
+  archiveReadChannel = self->_archiveReadChannel;
+  self->_archiveReadChannel = 0;
+  MEMORY[0x2821F96F8](self, archiveReadChannel);
 }
 
 void __58__TSUZipReadChannel_processData_CRC_isDone_queue_handler___block_invoke_cold_1()

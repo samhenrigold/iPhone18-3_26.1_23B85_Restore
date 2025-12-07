@@ -76,10 +76,9 @@ void __61__AXSDKShotRecordingManager_initWithSampleLength_bufferSize___block_inv
 
 uint64_t __61__AXSDKShotRecordingManager_initWithSampleLength_bufferSize___block_invoke_2(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return [v2 cleanupKShotFiles];
+  return [v1 cleanupKShotFiles];
 }
 
 - (void)reset
@@ -116,7 +115,7 @@ uint64_t __61__AXSDKShotRecordingManager_initWithSampleLength_bufferSize___block
 
 + (void)cleanupKShotFiles
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   defaults = [objc_opt_class() defaults];
   v4 = [defaults objectForKey:@"com.apple.accessibility.kshot.last_cleanup_key"];
 
@@ -128,9 +127,9 @@ uint64_t __61__AXSDKShotRecordingManager_initWithSampleLength_bufferSize___block
     v11 = AXLogUltronKShot();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v13 = 138412290;
-      v14 = v4;
-      _os_log_impl(&dword_23D62D000, v11, OS_LOG_TYPE_INFO, "Not cleaning up KShot Files - last cleanup was recent: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v4;
+      _os_log_impl(&dword_23D62D000, v11, OS_LOG_TYPE_INFO, "Not cleaning up KShot Files - last cleanup was recent: %@", &v12, 0xCu);
     }
   }
 
@@ -146,62 +145,60 @@ uint64_t __61__AXSDKShotRecordingManager_initWithSampleLength_bufferSize___block
     v10 = [MEMORY[0x277CBEAA8] now];
     [defaults2 setObject:v10 forKey:@"com.apple.accessibility.kshot.last_cleanup_key"];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_cleanupKShotFiles:(id)files
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   filesCopy = files;
   v4 = AXLogUltronKShot();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v26 = filesCopy;
+    v25 = filesCopy;
     _os_log_impl(&dword_23D62D000, v4, OS_LOG_TYPE_INFO, "Cleaning up KShot Files - at paths %@", buf, 0xCu);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v5 = filesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v6)
   {
     v8 = v6;
     v9 = 0;
-    v10 = *v22;
+    v10 = *v21;
     v11 = 1;
     *&v7 = 138412546;
-    v19 = v7;
+    v18 = v7;
     do
     {
       v12 = 0;
       v13 = v9;
       do
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v5);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * v12);
+        v14 = *(*(&v20 + 1) + 8 * v12);
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-        v20 = v13;
-        [defaultManager removeItemAtPath:v14 error:&v20];
-        v9 = v20;
+        v19 = v13;
+        [defaultManager removeItemAtPath:v14 error:&v19];
+        v9 = v19;
 
         if (v9)
         {
           v16 = AXLogUltronKShot();
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
-            *buf = v19;
-            v26 = v14;
-            v27 = 2112;
-            v28 = v9;
+            *buf = v18;
+            v25 = v14;
+            v26 = 2112;
+            v27 = v9;
             _os_log_error_impl(&dword_23D62D000, v16, OS_LOG_TYPE_ERROR, "KShot cleanup: failed to remove: %@. Error: %@", buf, 0x16u);
           }
 
@@ -213,7 +210,7 @@ uint64_t __61__AXSDKShotRecordingManager_initWithSampleLength_bufferSize___block
       }
 
       while (v8 != v12);
-      v8 = [v5 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v8);
@@ -225,13 +222,12 @@ uint64_t __61__AXSDKShotRecordingManager_initWithSampleLength_bufferSize___block
     v11 = 1;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v11 & 1;
 }
 
 + (id)_retrieveFilesOlderThan:(double)than
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   if (than <= 0.0)
   {
     thanCopy = than;
@@ -243,33 +239,33 @@ uint64_t __61__AXSDKShotRecordingManager_initWithSampleLength_bufferSize___block
   }
 
   date = [MEMORY[0x277CBEAA8] date];
-  v32 = [date dateByAddingTimeInterval:thanCopy];
+  v31 = [date dateByAddingTimeInterval:thanCopy];
 
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   mEMORY[0x277CE6F98] = [MEMORY[0x277CE6F98] sharedInstance];
   decodedKShotDetectors = [mEMORY[0x277CE6F98] decodedKShotDetectors];
   allValues = [decodedKShotDetectors allValues];
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v9 = allValues;
-  v10 = [v9 countByEnumeratingWithState:&v38 objects:v47 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v37 objects:v46 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v39;
+    v12 = *v38;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v39 != v12)
+        if (*v38 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v38 + 1) + 8 * i);
+        v14 = *(*(&v37 + 1) + 8 * i);
         if ([v14 isModelReady])
         {
           identifier = [v14 identifier];
@@ -279,39 +275,39 @@ uint64_t __61__AXSDKShotRecordingManager_initWithSampleLength_bufferSize___block
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v38 objects:v47 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v37 objects:v46 count:16];
     }
 
     while (v11);
   }
 
-  v30 = v9;
+  v29 = v9;
 
-  v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v17 = v5;
-  v18 = [v17 countByEnumeratingWithState:&v34 objects:v46 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v33 objects:v45 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v35;
+    v20 = *v34;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v35 != v20)
+        if (*v34 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v34 + 1) + 8 * j);
+        v22 = *(*(&v33 + 1) + 8 * j);
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-        v33 = 0;
-        v24 = [defaultManager attributesOfItemAtPath:v22 error:&v33];
-        v25 = v33;
+        v32 = 0;
+        v24 = [defaultManager attributesOfItemAtPath:v22 error:&v32];
+        v25 = v32;
         fileCreationDate = [v24 fileCreationDate];
 
         if (v25)
@@ -320,28 +316,26 @@ uint64_t __61__AXSDKShotRecordingManager_initWithSampleLength_bufferSize___block
           if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v43 = v22;
-            v44 = 2112;
-            v45 = v25;
+            v42 = v22;
+            v43 = 2112;
+            v44 = v25;
             _os_log_error_impl(&dword_23D62D000, v27, OS_LOG_TYPE_ERROR, "KShot cleanup: failed to find creation date for file %@. error: %@", buf, 0x16u);
           }
         }
 
-        else if ([fileCreationDate compare:v32] == -1)
+        else if ([fileCreationDate compare:v31] == -1)
         {
-          [v31 addObject:v22];
+          [v30 addObject:v22];
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v34 objects:v46 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v33 objects:v45 count:16];
     }
 
     while (v19);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v31;
+  return v30;
 }
 
 + (id)defaults
@@ -422,14 +416,14 @@ uint64_t __61__AXSDKShotRecordingManager_initWithSampleLength_bufferSize___block
 
 - (id)_directory
 {
-  v17[1] = *MEMORY[0x277D85DE8];
-  v16 = *MEMORY[0x277CCA140];
-  v17[0] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
-  v15 = 1;
+  v16[1] = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277CCA140];
+  v16[0] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v14 = 1;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [(AXSDKShotRecordingManager *)self path];
-  v6 = [defaultManager fileExistsAtPath:path isDirectory:&v15];
+  v6 = [defaultManager fileExistsAtPath:path isDirectory:&v14];
 
   if ((v6 & 1) == 0)
   {
@@ -440,9 +434,9 @@ uint64_t __61__AXSDKShotRecordingManager_initWithSampleLength_bufferSize___block
     }
 
     path2 = [(AXSDKShotRecordingManager *)self path];
-    v14 = 0;
-    [defaultManager createDirectoryAtPath:path2 withIntermediateDirectories:1 attributes:v3 error:&v14];
-    v9 = v14;
+    v13 = 0;
+    [defaultManager createDirectoryAtPath:path2 withIntermediateDirectories:1 attributes:v3 error:&v13];
+    v9 = v13;
 
     if (v9)
     {
@@ -455,8 +449,6 @@ uint64_t __61__AXSDKShotRecordingManager_initWithSampleLength_bufferSize___block
   }
 
   path3 = [(AXSDKShotRecordingManager *)self path];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return path3;
 }
@@ -612,16 +604,16 @@ void __55__AXSDKShotRecordingManager__saveCachedAudioFileTimer___block_invoke(ui
 
 - (void)saveDetectionResult:(id)result
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   identifier = [resultCopy identifier];
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[AXSDKShotRecordingManager nRecordingsSoFar](self, "nRecordingsSoFar")}];
   v7 = AXLogUltronKShot();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = resultCopy;
-    _os_log_impl(&dword_23D62D000, v7, OS_LOG_TYPE_DEFAULT, "KSHOT: Detected an electronic sound, adding audio from detection result: %@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = resultCopy;
+    _os_log_impl(&dword_23D62D000, v7, OS_LOG_TYPE_DEFAULT, "KSHOT: Detected an electronic sound, adding audio from detection result: %@", &v16, 0xCu);
   }
 
   [(AXSDKShotRecordingManager *)self setCurrentDetectionType:identifier];
@@ -651,15 +643,13 @@ void __55__AXSDKShotRecordingManager__saveCachedAudioFileTimer___block_invoke(ui
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       [resultCopy confidence];
-      v17 = 138412546;
-      v18 = v6;
-      v19 = 2048;
-      v20 = v15;
-      _os_log_impl(&dword_23D62D000, v14, OS_LOG_TYPE_DEFAULT, "KSHOT: Beginning audio save for sound number %@ with confidence %f", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = v6;
+      v18 = 2048;
+      v19 = v15;
+      _os_log_impl(&dword_23D62D000, v14, OS_LOG_TYPE_DEFAULT, "KSHOT: Beginning audio save for sound number %@ with confidence %f", &v16, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cacheResultAndWaitForSave:(id)save
@@ -747,7 +737,7 @@ void __55__AXSDKShotRecordingManager__saveCachedAudioFileTimer___block_invoke(ui
 
 void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke(uint64_t a1)
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   v1 = (a1 + 32);
   v2 = [*(a1 + 32) cachedDetectionResult];
   v3 = [v2 identifier];
@@ -771,19 +761,19 @@ void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke(uin
       [v12 timeIntervalSince1970];
       v14 = [v11 stringWithFormat:@"%ld", v13];
 
-      v72 = v14;
-      v71 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@_%@", v9, v3, v14];
-      v70 = [v71 stringByAppendingPathExtension:@"wav"];
-      v69 = [v10 stringByAppendingPathComponent:?];
+      v71 = v14;
+      v70 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@_%@", v9, v3, v14];
+      v69 = [v70 stringByAppendingPathExtension:@"wav"];
+      v68 = [v10 stringByAppendingPathComponent:?];
       v15 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
       v16 = objc_alloc(MEMORY[0x277CB8398]);
       v17 = [*v1 audioFileSettings];
-      v68 = v15;
-      v78 = [v16 initForWriting:v15 settings:v17 commonFormat:1 interleaved:1 error:0];
+      v67 = v15;
+      v77 = [v16 initForWriting:v15 settings:v17 commonFormat:1 interleaved:1 error:0];
 
       v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*v1, "nRecordingsSoFar")}];
       v19 = [*v1 cachedCurrentResults];
-      v67 = v18;
+      v66 = v18;
       v20 = [v19 objectForKey:v18];
       v21 = [v20 content];
       v22 = [v21 reverseObjectEnumerator];
@@ -794,38 +784,38 @@ void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke(uin
       v26 = v25;
       if (v25)
       {
-        [v25 timeRange];
-        v27 = v98;
+        objc_msgSend_timeRange(v25);
+        v27 = v97;
       }
 
       else
       {
         v27 = 0;
-        v99 = 0u;
-        v100 = 0u;
         v98 = 0u;
+        v99 = 0u;
+        v97 = 0u;
       }
 
-      v76 = v5;
-      v77 = v3;
-      v74 = v10;
-      v75 = v9;
+      v75 = v5;
+      v76 = v3;
+      v73 = v10;
+      v74 = v9;
       if (v27 >= v24)
       {
         v30 = [*v1 cachedDetectionResult];
         v31 = v30;
         if (v30)
         {
-          [v30 timeRange];
-          v32 = v95;
+          objc_msgSend_timeRange(v30);
+          v32 = v94;
         }
 
         else
         {
           v32 = 0;
-          v96 = 0u;
-          v97 = 0u;
           v95 = 0u;
+          v96 = 0u;
+          v94 = 0u;
         }
 
         v29 = v32 - v24;
@@ -840,16 +830,16 @@ void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke(uin
       v34 = v33;
       if (v33)
       {
-        [v33 timeRange];
-        v35 = v92;
+        objc_msgSend_timeRange(v33);
+        v35 = v91;
       }
 
       else
       {
         v35 = 0;
-        v93 = 0u;
-        v94 = 0u;
         v92 = 0u;
+        v93 = 0u;
+        v91 = 0u;
       }
 
       v36 = 5.0 / v23;
@@ -857,16 +847,16 @@ void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke(uin
       v38 = v37;
       if (v37)
       {
-        [v37 timeRange];
-        v39 = *(&v90 + 1);
+        objc_msgSend_timeRange(v37);
+        v39 = *(&v89 + 1);
       }
 
       else
       {
         v39 = 0;
-        v90 = 0u;
-        v91 = 0u;
         v89 = 0u;
+        v90 = 0u;
+        v88 = 0u;
       }
 
       v40 = vcvtpd_s64_f64(v36);
@@ -893,42 +883,42 @@ void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke(uin
           }
         }
 
-        [v42 timeRange];
-        [v42 timeRange];
-        v41 = v87 + v88;
+        objc_msgSend_timeRange(v42);
+        objc_msgSend_timeRange(v42);
+        v41 = v86 + v87[0];
         break;
       }
 
-      v65 = v42;
-      v66 = v22;
+      v64 = v42;
+      v65 = v22;
       v45 = AXLogUltronKShot();
       if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
       {
         __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke_cold_1(v1, v45);
       }
 
-      v85 = 0u;
-      v86 = 0u;
-      v83 = 0u;
       v84 = 0u;
-      v73 = v1;
+      v85 = 0u;
+      v82 = 0u;
+      v83 = 0u;
+      v72 = v1;
       v46 = [*v1 cachedCurrentAudio];
-      v47 = [v46 countByEnumeratingWithState:&v83 objects:v103 count:16];
+      v47 = [v46 countByEnumeratingWithState:&v82 objects:v102 count:16];
       if (v47)
       {
         v48 = v47;
         v49 = v41 + v40;
-        v50 = *v84;
+        v50 = *v83;
         do
         {
           for (i = 0; i != v48; ++i)
           {
-            if (*v84 != v50)
+            if (*v83 != v50)
             {
               objc_enumerationMutation(v46);
             }
 
-            v52 = *(*(&v83 + 1) + 8 * i);
+            v52 = *(*(&v82 + 1) + 8 * i);
             v53 = [v52 time];
             if ([v53 sampleTime] >= v29)
             {
@@ -941,9 +931,9 @@ void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke(uin
               }
 
               v56 = [v52 buffer];
-              v82 = 0;
-              [v78 writeFromBuffer:v56 error:&v82];
-              v53 = v82;
+              v81 = 0;
+              [v77 writeFromBuffer:v56 error:&v81];
+              v53 = v81;
 
               if (v53)
               {
@@ -951,14 +941,14 @@ void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke(uin
                 if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v102 = v53;
+                  v101 = v53;
                   _os_log_error_impl(&dword_23D62D000, v57, OS_LOG_TYPE_ERROR, "Error writing KShot audio to file: %@", buf, 0xCu);
                 }
               }
             }
           }
 
-          v48 = [v46 countByEnumeratingWithState:&v83 objects:v103 count:16];
+          v48 = [v46 countByEnumeratingWithState:&v82 objects:v102 count:16];
         }
 
         while (v48);
@@ -971,22 +961,22 @@ void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke(uin
       }
 
       v59 = dispatch_time(0, 1000000000);
-      v60 = *v73;
-      v61 = *(*v73 + 2);
+      v60 = *v72;
+      v61 = *(*v72 + 2);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke_41;
       block[3] = &unk_278BDD338;
       block[4] = v60;
-      v80 = v69;
-      v81 = v68;
-      v62 = v68;
-      v63 = v69;
+      v79 = v68;
+      v80 = v67;
+      v62 = v67;
+      v63 = v68;
       dispatch_after(v59, v61, block);
 
-      v5 = v76;
-      v3 = v77;
-      v28 = v75;
+      v5 = v75;
+      v3 = v76;
+      v28 = v74;
     }
 
     else
@@ -1007,8 +997,6 @@ void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke(uin
       __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke_cold_4();
     }
   }
-
-  v64 = *MEMORY[0x277D85DE8];
 }
 
 void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke_41(uint64_t a1)
@@ -1016,8 +1004,7 @@ void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke_41(
   v2 = [*(a1 + 32) targetDetector];
   [v2 addRecording:*(a1 + 40)];
 
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 48);
+  v3 = *(a1 + 48);
   AXPerformBlockOnMainThread();
 }
 
@@ -1047,35 +1034,35 @@ void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke_2(u
 
 - (void)updateShouldSendSimilarityWarning:(id)warning
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   warningCopy = warning;
   [(AXSDKShotRecordingManager *)self setShouldSendSimilarityWarning:0];
   mEMORY[0x277CE6F98] = [MEMORY[0x277CE6F98] sharedInstance];
   decodedKShotDetectors = [mEMORY[0x277CE6F98] decodedKShotDetectors];
   allValues = [decodedKShotDetectors allValues];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v8 = allValues;
-  v9 = [v8 countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v31;
+    v12 = *v30;
     *&v10 = 138412290;
-    v27 = v10;
+    v26 = v10;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v31 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v30 + 1) + 8 * i);
+        v14 = *(*(&v29 + 1) + 8 * i);
         if ([v14 isModelReady])
         {
           v15 = AXLogUltronKShot();
@@ -1084,16 +1071,16 @@ void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke_2(u
             name = [v14 name];
             identifier = [v14 identifier];
             *buf = 138412546;
-            v35 = name;
-            v36 = 2112;
-            v37 = identifier;
+            v34 = name;
+            v35 = 2112;
+            v36 = identifier;
             _os_log_debug_impl(&dword_23D62D000, v15, OS_LOG_TYPE_DEBUG, "CONFIDENCE FOR DETECTOR %@ %@", buf, 0x16u);
           }
 
           v16 = objc_alloc(MEMORY[0x277CDC8D8]);
-          v29 = 0;
-          v17 = [v16 initWithURL:warningCopy error:&v29];
-          v18 = v29;
+          v28 = 0;
+          v17 = [v16 initWithURL:warningCopy error:&v28];
+          v18 = v28;
           if (v18)
           {
             v24 = v18;
@@ -1107,16 +1094,16 @@ void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke_2(u
           }
 
           v19 = [AXSDKShotRecordingManager requestForDetector:v14];
-          v28 = 0;
-          [v17 addRequest:v19 withObserver:self error:&v28];
-          v20 = v28;
+          v27 = 0;
+          [v17 addRequest:v19 withObserver:self error:&v27];
+          v20 = v27;
           if (v20)
           {
             v21 = AXLogUltronKShot();
             if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v27;
-              v35 = v20;
+              *buf = v26;
+              v34 = v20;
               _os_log_debug_impl(&dword_23D62D000, v21, OS_LOG_TYPE_DEBUG, "KSHOT MODEL CHECK ERROR adding request %@", buf, 0xCu);
             }
           }
@@ -1133,7 +1120,7 @@ void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke_2(u
         }
       }
 
-      v11 = [v8 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v11 = [v8 countByEnumeratingWithState:&v29 objects:v37 count:16];
       if (v11)
       {
         continue;
@@ -1144,8 +1131,6 @@ void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke_2(u
   }
 
 LABEL_22:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (id)requestForDetector:(id)detector
@@ -1213,27 +1198,27 @@ LABEL_22:
 
 - (void)request:(id)request didProduceResult:(id)result
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   classifications = [result classifications];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v6 = [classifications countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [classifications countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(classifications);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         identifier = [v10 identifier];
         if ([identifier isEqualToString:@"1"])
         {
@@ -1251,32 +1236,29 @@ LABEL_22:
         }
       }
 
-      v7 = [classifications countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [classifications countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)audioFileSettings
 {
-  v8[5] = *MEMORY[0x277D85DE8];
+  v7[5] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CB8288];
-  v7[0] = *MEMORY[0x277CB8280];
-  v7[1] = v2;
-  v8[0] = &unk_284FB2C18;
-  v8[1] = &unk_284FB2C30;
+  v6[0] = *MEMORY[0x277CB8280];
+  v6[1] = v2;
+  v7[0] = &unk_284FB2C18;
+  v7[1] = &unk_284FB2C30;
   v3 = *MEMORY[0x277CB82B0];
-  v7[2] = *MEMORY[0x277CB82A0];
-  v7[3] = v3;
-  v8[2] = MEMORY[0x277CBEC38];
-  v8[3] = &unk_284FB2C48;
-  v7[4] = *MEMORY[0x277CB82E0];
-  v8[4] = &unk_284FB2C60;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:5];
-  v5 = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277CB82A0];
+  v6[3] = v3;
+  v7[2] = MEMORY[0x277CBEC38];
+  v7[3] = &unk_284FB2C48;
+  v6[4] = *MEMORY[0x277CB82E0];
+  v7[4] = &unk_284FB2C60;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:5];
 
   return v4;
 }
@@ -1290,58 +1272,51 @@ LABEL_22:
 
 - (void)_directory
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_23D62D000, v0, OS_LOG_TYPE_ERROR, "Error creating KShot directory: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23D62D000, v0, OS_LOG_TYPE_ERROR, "Error creating KShot directory: %@", v1, 0xCu);
 }
 
 void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke_cold_1(id *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [*a1 path];
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(&dword_23D62D000, a2, OS_LOG_TYPE_DEBUG, "KSHOT Recording result to file at path %@.", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_23D62D000, a2, OS_LOG_TYPE_DEBUG, "KSHOT Recording result to file at path %@.", v4, 0xCu);
 }
 
 void __54__AXSDKShotRecordingManager__recordCachedResultToFile__block_invoke_cold_4()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_23D62D000, v0, OS_LOG_TYPE_ERROR, "We shouldn't get here unless listening type category wasn't found %@.", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23D62D000, v0, OS_LOG_TYPE_ERROR, "We shouldn't get here unless listening type category wasn't found %@.", v1, 0xCu);
 }
 
 - (void)updateShouldSendSimilarityWarning:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(&dword_23D62D000, v0, OS_LOG_TYPE_DEBUG, "KSHOT MODEL CHECK ERROR audioAnalyzer init %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_23D62D000, v0, OS_LOG_TYPE_DEBUG, "KSHOT MODEL CHECK ERROR audioAnalyzer init %@", v1, 0xCu);
 }
 
 + (void)requestForDetector:(void *)a1 .cold.1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [a1 name];
   v3 = [a1 identifier];
+  LODWORD(v10) = 138412802;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_3_0(&dword_23D62D000, v4, v5, "Unable to create request from detector %@ %@. error: %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_23D62D000, v4, v5, "Unable to create request from detector %@ %@. error: %@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 + (void)requestForDetector:(void *)a1 .cold.2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [a1 name];
   v3 = [a1 identifier];
+  LODWORD(v10) = 138412802;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_3_0(&dword_23D62D000, v4, v5, "Unable to create model from compiled model for detector %@ %@. error: %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_23D62D000, v4, v5, "Unable to create model from compiled model for detector %@ %@. error: %@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 @end

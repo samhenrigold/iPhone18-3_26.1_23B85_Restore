@@ -18,7 +18,7 @@ void __89___SBContinuitySessionStateMachineStateWaitingForRemoteUnlock_appendDes
   [v4 appendProem:v3 block:v6];
 }
 
-uint64_t __89___SBContinuitySessionStateMachineStateWaitingForRemoteUnlock_appendDescriptionToStream___block_invoke_2(uint64_t a1)
+id __89___SBContinuitySessionStateMachineStateWaitingForRemoteUnlock_appendDescriptionToStream___block_invoke_2(uint64_t a1)
 {
   v2 = [*(a1 + 32) appendBool:*(*(a1 + 40) + 25) withName:@"isCurrentState"];
   result = [*(a1 + 32) hasSuccinctStyle];

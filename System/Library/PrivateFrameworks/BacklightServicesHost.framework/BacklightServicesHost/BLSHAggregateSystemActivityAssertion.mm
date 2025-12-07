@@ -5,6 +5,7 @@
 - (void)_lock_addSystemActivityAcquisitionHandler:(id)handler;
 - (void)acquireIndividualAssertion:(id)assertion handler:(id)handler;
 - (void)dealloc;
+- (void)didAcquireSystemActivityIsActive:(BOOL)active error:(id)error details:(id)details;
 - (void)invalidateIndividualAssertion:(id)assertion;
 - (void)performConfigurator:(id)configurator;
 - (void)setAcquireWaitsToAbortSleepImminent:(BOOL)imminent;
@@ -44,13 +45,13 @@
   return v7;
 }
 
-uint64_t __61__BLSHAggregateSystemActivityAssertion_initWithConfigurator___block_invoke(uint64_t a1)
+uint64_t __61__BLSHAggregateSystemActivityAssertion_initWithConfigurator___block_invoke(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = [WeakRetained description];
-  v3 = BLSStateDataWithTitleDescriptionAndHints();
+  v3 = [WeakRetained description];
+  v4 = BLSStateDataWithTitleDescriptionAndHints();
 
-  return v3;
+  return v4;
 }
 
 - (NSString)description
@@ -98,7 +99,7 @@ void __51__BLSHAggregateSystemActivityAssertion_description__block_invoke_2(uint
 {
   if (!self->_initializing)
   {
-    [BLSHAggregateSystemActivityAssertion setAcquireWaitsToAbortSleepRequested:a2];
+    [(BLSHAggregateSystemActivityAssertion *)a2 setAcquireWaitsToAbortSleepRequested:?];
   }
 
   self->_acquireWaitsToAbortSleepRequested = requested;
@@ -108,7 +109,7 @@ void __51__BLSHAggregateSystemActivityAssertion_description__block_invoke_2(uint
 {
   if (!self->_initializing)
   {
-    [BLSHAggregateSystemActivityAssertion setAcquireWaitsToAbortSleepImminent:a2];
+    [(BLSHAggregateSystemActivityAssertion *)a2 setAcquireWaitsToAbortSleepImminent:?];
   }
 
   self->_acquireWaitsToAbortSleepImminent = imminent;
@@ -119,7 +120,7 @@ void __51__BLSHAggregateSystemActivityAssertion_description__block_invoke_2(uint
   providerCopy = provider;
   if (!self->_initializing)
   {
-    [BLSHAggregateSystemActivityAssertion setOSInterfaceProvider:a2];
+    [(BLSHAggregateSystemActivityAssertion *)a2 setOSInterfaceProvider:?];
   }
 
   osInterfaceProvider = self->_osInterfaceProvider;
@@ -130,16 +131,14 @@ void __51__BLSHAggregateSystemActivityAssertion_description__block_invoke_2(uint
 
 - (void)dealloc
 {
-  v11 = *self;
-  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"dealloced while assertion was active:%@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"dealloced while assertion was active:%@", *self];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_4();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_4(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12, v13);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v3 UTF8String];
@@ -191,6 +190,24 @@ void __82__BLSHAggregateSystemActivityAssertion__lock_addSystemActivityAcquisiti
   v10 = a3;
   v8(v7, a2, v10, v9);
   (*(*(a1 + 40) + 16))();
+}
+
+- (void)didAcquireSystemActivityIsActive:(BOOL)active error:(id)error details:(id)details
+{
+  activeCopy = active;
+  detailsCopy = details;
+  errorCopy = error;
+  os_unfair_lock_lock(&self->_lock);
+  v13 = MEMORY[0x223D70730](self->_lock_acquisitionHandler);
+  lock_acquisitionHandler = self->_lock_acquisitionHandler;
+  self->_lock_acquisitionHandler = 0;
+
+  lock_systemActivityAcquisitionDetails = self->_lock_systemActivityAcquisitionDetails;
+  self->_lock_systemActivityAcquisitionDetails = detailsCopy;
+  v12 = detailsCopy;
+
+  os_unfair_lock_unlock(&self->_lock);
+  v13[2](v13, activeCopy, errorCopy, v12);
 }
 
 - (void)acquireIndividualAssertion:(id)assertion handler:(id)handler
@@ -300,15 +317,14 @@ void __75__BLSHAggregateSystemActivityAssertion_acquireIndividualAssertion_handl
 
 - (void)initWithConfigurator:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_osInterfaceProvider != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_osInterfaceProvider != nil", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -316,62 +332,62 @@ void __75__BLSHAggregateSystemActivityAssertion_acquireIndividualAssertion_handl
   __break(0);
 }
 
-- (void)setAcquireWaitsToAbortSleepRequested:(const char *)a1 .cold.1(const char *a1)
+- (void)setAcquireWaitsToAbortSleepRequested:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277CCACA8];
-  v12 = NSStringFromSelector(a1);
-  v3 = [v2 stringWithFormat:@"%@ called after initialization"];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a1);
+  v5 = [v3 stringWithFormat:@"%@ called after initialization", v4];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v4 = NSStringFromSelector(a1);
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
+    v6 = NSStringFromSelector(a1);
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
     OUTLINED_FUNCTION_16();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, v14);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
-  [v3 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)setAcquireWaitsToAbortSleepImminent:(const char *)a1 .cold.1(const char *a1)
+- (void)setAcquireWaitsToAbortSleepImminent:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277CCACA8];
-  v12 = NSStringFromSelector(a1);
-  v3 = [v2 stringWithFormat:@"%@ called after initialization"];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a1);
+  v5 = [v3 stringWithFormat:@"%@ called after initialization", v4];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v4 = NSStringFromSelector(a1);
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
+    v6 = NSStringFromSelector(a1);
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
     OUTLINED_FUNCTION_16();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, v14);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
-  [v3 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)setOSInterfaceProvider:(const char *)a1 .cold.1(const char *a1)
+- (void)setOSInterfaceProvider:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277CCACA8];
-  v12 = NSStringFromSelector(a1);
-  v3 = [v2 stringWithFormat:@"%@ called after initialization"];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a1);
+  v5 = [v3 stringWithFormat:@"%@ called after initialization", v4];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v4 = NSStringFromSelector(a1);
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
+    v6 = NSStringFromSelector(a1);
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
     OUTLINED_FUNCTION_16();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, v14);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
-  [v3 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

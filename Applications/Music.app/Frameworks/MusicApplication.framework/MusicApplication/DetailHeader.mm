@@ -13,7 +13,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_29D0B4();
+  sub_29D0B4(selfCopy);
 }
 
 - (CGRect)bounds

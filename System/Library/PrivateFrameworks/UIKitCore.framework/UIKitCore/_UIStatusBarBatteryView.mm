@@ -124,7 +124,7 @@
   [(_UIStatusBarBatteryView *)self setPercentFillLayer:layer5];
 
   v14 = objc_alloc_init(MEMORY[0x1E6979398]);
-  v11 = +[UIColor blackColor];
+  v11 = objc_msgSend_blackColor(UIColor);
   [v14 setBackgroundColor:{objc_msgSend(v11, "CGColor")}];
 
   percentFillLayer = [(_UIStatusBarBatteryView *)self percentFillLayer];
@@ -148,7 +148,7 @@
   boltMaskShapeLayer = [(_UIStatusBarBatteryView *)self boltMaskShapeLayer];
   [boltMaskShapeLayer setPath:cGPath];
 
-  v11 = +[UIColor blackColor];
+  v11 = objc_msgSend_blackColor(UIColor);
   cGColor = [v11 CGColor];
   boltMaskShapeLayer2 = [(_UIStatusBarBatteryView *)self boltMaskShapeLayer];
   [boltMaskShapeLayer2 setFillColor:cGColor];
@@ -1621,9 +1621,9 @@ LABEL_25:
 
     v4 = [MEMORY[0x1E696AEC0] localizedStringWithFormat:@"%.0f", *&v3];
     text = [(UILabel *)self->_percentageLabel text];
-    v6 = [v4 isEqualToString:text];
+    isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-    if ((v6 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       [MEMORY[0x1E6979518] begin];
       [MEMORY[0x1E6979518] setDisableActions:1];
@@ -1707,7 +1707,7 @@ LABEL_25:
     boltLayer = self->_boltLayer;
     if (boltLayer)
     {
-      [(CALayer *)boltLayer transform];
+      objc_msgSend_transform(boltLayer);
     }
 
     else
@@ -1723,7 +1723,7 @@ LABEL_25:
     boltMaskLayer = self->_boltMaskLayer;
     if (boltMaskLayer)
     {
-      [(CALayer *)boltMaskLayer transform];
+      objc_msgSend_transform(boltMaskLayer);
     }
 
     else
@@ -2302,7 +2302,7 @@ LABEL_25:
 
   else
   {
-    +[UIColor blackColor];
+    objc_msgSend_blackColor(UIColor);
   }
   v7 = ;
 

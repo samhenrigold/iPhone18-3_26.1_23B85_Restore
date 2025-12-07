@@ -10,7 +10,7 @@
 
 - (void)drawWithRect:()NSExtendedStringDrawing options:context:
 {
-  v15 = MEMORY[0x193AD39D0](0.15);
+  v15 = MEMORY[0x193AD39D0](self, a6, 0.15);
   v16 = MEMORY[0x193AD39E0](0.0);
   _NSStringDrawingCore(self, 0, a7, 0, a2, a3, a4, a5, 0.0, v17, a8);
   v18 = MEMORY[0x193AD39D0](v15);
@@ -33,7 +33,7 @@
 
 - (double)boundingRectWithSize:()NSExtendedStringDrawing options:context:
 {
-  v11 = MEMORY[0x193AD39D0](0.15);
+  v11 = MEMORY[0x193AD39D0](self, a4, 0.15);
   v12 = MEMORY[0x193AD39E0](0.0);
   v13 = [-[__CFString string](self "string")];
   if (!a6 || (v14 = v13) == 0 || ([a6 minimumScaleFactor], v15 <= 0.0) || (v82 = 0, v83 = 0, (v16 = objc_msgSend(-[__CFString attribute:atIndex:longestEffectiveRange:inRange:](self, "attribute:atIndex:longestEffectiveRange:inRange:", @"NSParagraphStyle", 0, &v82, 0, objc_msgSend(-[__CFString string](self, "string"), "length")), "mutableCopy")) != 0) && ((v17 = v16, objc_msgSend(v16, "lineBreakMode") <= 1) && objc_msgSend(a6, "maximumNumberOfLines") != 1 || (v18 = v83, v18 != objc_msgSend(-[__CFString string](self, "string"), "length")) || (objc_msgSend(v17, "firstLineHeadIndent"), v19 != 0.0)))

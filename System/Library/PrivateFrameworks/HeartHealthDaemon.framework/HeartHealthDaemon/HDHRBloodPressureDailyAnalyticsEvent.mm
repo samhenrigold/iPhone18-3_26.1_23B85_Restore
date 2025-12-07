@@ -17,7 +17,6 @@
 - (id)makeUnrestrictedEventPayloadWithDataSource:(id)source error:(id *)error;
 - (int64_t)_bucketedWeeksSinceDate:(id)date dataSource:(id)source;
 - (int64_t)numberOfDaysBetweenStartDate:(id)date endDate:(id)endDate withCalendar:(id)calendar;
-- (void)_fetchBloodPressureJournals;
 - (void)_observePregnancy;
 @end
 
@@ -465,34 +464,34 @@ BOOL __83__HDHRBloodPressureDailyAnalyticsEvent__calculateJournalStateAnalytics_
 
 - (id)_numDaysSinceLastLoggedinBPJWithDataSource:(id)source
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__3;
-  v28 = __Block_byref_object_dispose__3;
-  v29 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__3;
+  v27 = __Block_byref_object_dispose__3;
+  v28 = 0;
   v5 = [MEMORY[0x277CCD250] correlationTypeForIdentifier:*MEMORY[0x277CCBBA8]];
   v6 = MEMORY[0x277D10848];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   v8 = [v6 entityEnumeratorWithType:v5 profile:WeakRetained];
 
   v9 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277CCCD50] ascending:0];
-  v30[0] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+  v29[0] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
   [v8 setSortDescriptors:v10];
 
   [v8 setLimitCount:1];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __83__HDHRBloodPressureDailyAnalyticsEvent__numDaysSinceLastLoggedinBPJWithDataSource___block_invoke;
-  v22[3] = &unk_2786603A0;
-  v22[4] = &v24;
-  v23 = 0;
-  [v8 enumerateWithError:&v23 handler:v22];
-  v11 = v23;
-  if (v25[5])
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __83__HDHRBloodPressureDailyAnalyticsEvent__numDaysSinceLastLoggedinBPJWithDataSource___block_invoke;
+  v21[3] = &unk_2786603A0;
+  v21[4] = &v23;
+  v22 = 0;
+  [v8 enumerateWithError:&v22 handler:v21];
+  v11 = v22;
+  if (v24[5])
   {
     environmentDataSource = [sourceCopy environmentDataSource];
     currentDate = [environmentDataSource currentDate];
@@ -502,7 +501,7 @@ BOOL __83__HDHRBloodPressureDailyAnalyticsEvent__calculateJournalStateAnalytics_
     currentCalendar = [calendarCache currentCalendar];
 
     v17 = MEMORY[0x277CCABB0];
-    startDate = [v25[5] startDate];
+    startDate = [v24[5] startDate];
     v19 = [v17 numberWithInteger:{-[HDHRBloodPressureDailyAnalyticsEvent numberOfDaysBetweenStartDate:endDate:withCalendar:](self, "numberOfDaysBetweenStartDate:endDate:withCalendar:", startDate, currentDate, currentCalendar)}];
   }
 
@@ -511,8 +510,7 @@ BOOL __83__HDHRBloodPressureDailyAnalyticsEvent__calculateJournalStateAnalytics_
     v19 = *MEMORY[0x277CCB7A0];
   }
 
-  _Block_object_dispose(&v24, 8);
-  v20 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
 
   return v19;
 }
@@ -624,22 +622,6 @@ BOOL __83__HDHRBloodPressureDailyAnalyticsEvent__calculateJournalStateAnalytics_
   v6 = [v5 day];
 
   return v6;
-}
-
-- (void)_fetchBloodPressureJournals
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@] Failed to fetch all blood pressure journals with error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_fetchMostRecentBPJCycleWithBloodPressureJournals:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@] Failed to fetch active blood pressure journal with error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

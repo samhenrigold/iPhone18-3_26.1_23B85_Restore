@@ -24,9 +24,11 @@
 
 uint64_t __53__STUIStatusBarRegionAxisFillingLayout_fillingLayout__block_invoke(uint64_t a1)
 {
-  qword_280C1E878 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = qword_280C1E878;
+  qword_280C1E878 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (id)constraintsForDisplayItems:(id)items layoutGuides:(id)guides inContainerItem:(id)item axis:(int64_t)axis

@@ -539,96 +539,94 @@ LABEL_7:
 - (void)populateFeatureStatusFromPast
 {
   v3 = +[_DASPPSDataManager sharedInstance];
-  v37 = [NSPredicate predicateWithFormat:@"FeatureState == %@ OR FeatureState == %@", &off_1001CA0D8, &off_1001CA0F0];
-  v38 = v3;
+  v35 = [NSPredicate predicateWithFormat:@"FeatureState == %@ OR FeatureState == %@", &off_1001CA0D8, &off_1001CA0F0];
+  v36 = v3;
   v4 = [v3 getPPSTimeSeries:@"BackgroundProcessing" category:@"FeatureCheckpoint" valueFilter:0 metrics:? timeFilter:? filepath:? error:?];
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
   {
     sub_100124218();
   }
 
-  v40 = objc_opt_new();
-  v39 = objc_opt_new();
+  v38 = objc_opt_new();
+  v37 = objc_opt_new();
+  v45 = 0u;
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
-  v50 = 0u;
   v5 = v4;
-  v46 = [v5 countByEnumeratingWithState:&v47 objects:v57 count:16];
-  if (v46)
+  v44 = [v5 countByEnumeratingWithState:&v45 objects:v55 count:16];
+  if (v44)
   {
-    v6 = *v48;
+    v6 = *v46;
     v7 = &NSLocalizedDescriptionKey_ptr;
     selfCopy = self;
-    v42 = *v48;
-    v44 = v5;
+    v40 = *v46;
+    v42 = v5;
     do
     {
-      for (i = 0; i != v46; i = i + 1)
+      for (i = 0; i != v44; i = i + 1)
       {
-        if (*v48 != v6)
+        if (*v46 != v6)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v47 + 1) + 8 * i);
+        v9 = *(*(&v45 + 1) + 8 * i);
         metricKeysAndValues = [v9 metricKeysAndValues];
         v11 = [metricKeysAndValues objectForKeyedSubscript:@"FeatureCode"];
-        v12 = v7[20];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           integerValue = [v11 integerValue];
-          v13 = [metricKeysAndValues objectForKeyedSubscript:@"FeatureState"];
-          v14 = v7[20];
+          v12 = [metricKeysAndValues objectForKeyedSubscript:@"FeatureState"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v15 = v13;
-            v16 = [metricKeysAndValues objectForKeyedSubscript:@"StateChangedDate"];
+            v13 = v12;
+            v14 = [metricKeysAndValues objectForKeyedSubscript:@"StateChangedDate"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v17 = v16;
-              v43 = v15;
-              if ([v15 unsignedIntegerValue] == 50)
+              v15 = v14;
+              v41 = v13;
+              if ([v13 unsignedIntegerValue] == 50)
               {
-                v18 = [(NSErrorUserInfoKey *)v7[20] numberWithInteger:integerValue];
-                stringValue = [v18 stringValue];
-                v20 = [(NSMutableDictionary *)v40 objectForKeyedSubscript:stringValue];
+                v16 = [(NSErrorUserInfoKey *)v7[20] numberWithInteger:integerValue];
+                stringValue = [v16 stringValue];
+                v18 = [(NSMutableDictionary *)v38 objectForKeyedSubscript:stringValue];
 
-                if (!v20)
+                if (!v18)
                 {
-                  v21 = [NSNumber numberWithInteger:integerValue];
-                  stringValue2 = [v21 stringValue];
-                  v23 = v40;
+                  v19 = [NSNumber numberWithInteger:integerValue];
+                  stringValue2 = [v19 stringValue];
+                  v21 = v38;
                   goto LABEL_24;
                 }
 
                 goto LABEL_25;
               }
 
-              if ([v15 unsignedIntegerValue] == 30)
+              if ([v13 unsignedIntegerValue] == 30)
               {
-                v27 = [(NSErrorUserInfoKey *)v7[20] numberWithInteger:integerValue];
-                stringValue3 = [v27 stringValue];
-                v29 = [(NSMutableDictionary *)v39 objectForKeyedSubscript:stringValue3];
+                v25 = [(NSErrorUserInfoKey *)v7[20] numberWithInteger:integerValue];
+                stringValue3 = [v25 stringValue];
+                v27 = [(NSMutableDictionary *)v37 objectForKeyedSubscript:stringValue3];
 
-                if (!v29)
+                if (!v27)
                 {
-                  v21 = [(NSErrorUserInfoKey *)v7[20] numberWithInteger:integerValue];
-                  stringValue2 = [v21 stringValue];
-                  v23 = v39;
+                  v19 = [(NSErrorUserInfoKey *)v7[20] numberWithInteger:integerValue];
+                  stringValue2 = [v19 stringValue];
+                  v21 = v37;
 LABEL_24:
-                  [(NSMutableDictionary *)v23 setObject:v17 forKeyedSubscript:stringValue2];
+                  [(NSMutableDictionary *)v21 setObject:v15 forKeyedSubscript:stringValue2];
                 }
 
 LABEL_25:
                 self = selfCopy;
-                v6 = v42;
+                v6 = v40;
               }
 
-              v15 = v43;
+              v13 = v41;
             }
 
             else
@@ -636,36 +634,36 @@ LABEL_25:
               log = self->_log;
               if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
               {
-                v30 = log;
-                v31 = objc_opt_class();
+                v28 = log;
+                v29 = objc_opt_class();
                 *buf = 134218498;
-                v52 = integerValue;
+                v50 = integerValue;
+                v51 = 2112;
+                v52 = v14;
                 v53 = 2112;
-                v54 = v16;
-                v55 = 2112;
-                v56 = v31;
-                v32 = v31;
-                _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "populateFeatureStatusFromPast: StateChangedDate for FeatureCode %ld is not an NSDate or is missing. Value: %@, Class: %@", buf, 0x20u);
+                v54 = v29;
+                v30 = v29;
+                _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "populateFeatureStatusFromPast: StateChangedDate for FeatureCode %ld is not an NSDate or is missing. Value: %@, Class: %@", buf, 0x20u);
 
-                v6 = v42;
+                v6 = v40;
               }
 
-              v17 = 0;
+              v15 = 0;
             }
 
-            v5 = v44;
+            v5 = v42;
           }
 
           else
           {
-            v25 = self->_log;
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            v23 = self->_log;
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218242;
-              v52 = integerValue;
-              v53 = 2112;
-              v54 = v9;
-              _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "populateFeatureStatusFromPast: Invalid or missing FeatureState for FeatureCode %ld. Event: %@", buf, 0x16u);
+              v50 = integerValue;
+              v51 = 2112;
+              v52 = v9;
+              _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "populateFeatureStatusFromPast: Invalid or missing FeatureState for FeatureCode %ld. Event: %@", buf, 0x16u);
             }
           }
 
@@ -673,21 +671,21 @@ LABEL_25:
           goto LABEL_29;
         }
 
-        v24 = self->_log;
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v22 = self->_log;
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v52 = v9;
-          _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "populateFeatureStatusFromPast: Invalid or missing FeatureCode. Event: %@", buf, 0xCu);
+          v50 = v9;
+          _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "populateFeatureStatusFromPast: Invalid or missing FeatureCode. Event: %@", buf, 0xCu);
         }
 
 LABEL_29:
       }
 
-      v46 = [v5 countByEnumeratingWithState:&v47 objects:v57 count:16];
+      v44 = [v5 countByEnumeratingWithState:&v45 objects:v55 count:16];
     }
 
-    while (v46);
+    while (v44);
   }
 
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
@@ -701,12 +699,12 @@ LABEL_29:
   }
 
   availableStatus = self->_availableStatus;
-  self->_availableStatus = v40;
-  v34 = v40;
+  self->_availableStatus = v38;
+  v32 = v38;
 
   previewAvailableStatus = self->_previewAvailableStatus;
-  self->_previewAvailableStatus = v39;
-  v36 = v39;
+  self->_previewAvailableStatus = v37;
+  v34 = v37;
 
   [(NSUserDefaults *)self->_defaults setObject:self->_availableStatus forKey:@"availableStatus"];
   [(NSUserDefaults *)self->_defaults setObject:self->_previewAvailableStatus forKey:@"previewAvailableStatus"];
@@ -831,7 +829,7 @@ LABEL_29:
     v34 = +[_DASPPSDataManager sharedInstance];
     v35 = [v34 getPPSTimeSeries:@"BackgroundProcessing" category:@"TaskMetadata" valueFilter:v33 metrics:0 timeFilter:0 filepath:0 error:0];
 
-    if (v35 && ([v35 array], v36 = objc_claimAutoreleasedReturnValue(), v37 = objc_msgSend(v36, "count"), v36, v37) || -[_DASClientMetricsRecorder sendDataToPPS:subsystem:category:](self, "sendDataToPPS:subsystem:category:", v8, @"BackgroundProcessing", @"TaskMetadata"))
+    if (v35 && ([v35 array], v36 = objc_claimAutoreleasedReturnValue(), v37 = objc_msgSend_count(v36), v36, v37) || -[_DASClientMetricsRecorder sendDataToPPS:subsystem:category:](self, "sendDataToPPS:subsystem:category:", v8, @"BackgroundProcessing", @"TaskMetadata"))
     {
       v38 = self->_taskMetadataCache;
       v39 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v41 taskID]);
@@ -888,7 +886,7 @@ LABEL_29:
   [v4 setObject:suspendRequestDate forKeyedSubscript:@"SuspendRequestDate"];
 
   limitationResponse = [terminationCopy limitationResponse];
-  v16 = [limitationResponse count];
+  v16 = objc_msgSend_count(limitationResponse);
 
   if (v16)
   {

@@ -11,6 +11,7 @@
 - (void)getAllPlaylistsWithCompletion:(id)completion;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HPRFSessionTrackerMusicViewController
@@ -86,6 +87,14 @@
   [(HPRFSessionTrackerMusicViewController *)self getAllPlaylistsWithCompletion:v3];
   objc_destroyWeak(&v4);
   objc_destroyWeak(&location);
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = HPRFSessionTrackerMusicViewController;
+  [(HPRFSessionTrackerMusicViewController *)&v3 viewWillAppear:appear];
+  +[HPRFSessionTrackerAppSettingsNavigationDonation donateUserVisitForWorkoutPlaylistSettings];
 }
 
 - (id)localizedPaneTitle

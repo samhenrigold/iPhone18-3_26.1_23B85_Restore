@@ -1,11 +1,14 @@
 @interface TRINamespaceStatus
 + (id)statusFromData:(id)data;
++ (id)statusWithNamespaceName:(id)name compatibilityVersion:(unsigned int)version lastFetchAttempt:(id)attempt lastFetchWasSuccess:(BOOL)success;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToStatus:(id)status;
 - (TRINamespaceStatus)initWithCoder:(id)coder;
 - (TRINamespaceStatus)initWithNamespaceName:(id)name compatibilityVersion:(unsigned int)version lastFetchAttempt:(id)attempt lastFetchWasSuccess:(BOOL)success;
 - (id)asData;
+- (id)copyWithReplacementCompatibilityVersion:(unsigned int)version;
 - (id)copyWithReplacementLastFetchAttempt:(id)attempt;
+- (id)copyWithReplacementLastFetchWasSuccess:(BOOL)success;
 - (id)copyWithReplacementNamespaceName:(id)name;
 - (id)description;
 - (unint64_t)hash;
@@ -157,12 +160,34 @@ LABEL_14:
   return v15;
 }
 
++ (id)statusWithNamespaceName:(id)name compatibilityVersion:(unsigned int)version lastFetchAttempt:(id)attempt lastFetchWasSuccess:(BOOL)success
+{
+  successCopy = success;
+  v7 = *&version;
+  attemptCopy = attempt;
+  nameCopy = name;
+  v12 = [[self alloc] initWithNamespaceName:nameCopy compatibilityVersion:v7 lastFetchAttempt:attemptCopy lastFetchWasSuccess:successCopy];
+
+  return v12;
+}
+
 - (id)copyWithReplacementNamespaceName:(id)name
 {
   nameCopy = name;
   v5 = [objc_alloc(objc_opt_class()) initWithNamespaceName:nameCopy compatibilityVersion:self->_compatibilityVersion lastFetchAttempt:self->_lastFetchAttempt lastFetchWasSuccess:self->_lastFetchWasSuccess];
 
   return v5;
+}
+
+- (id)copyWithReplacementCompatibilityVersion:(unsigned int)version
+{
+  v3 = *&version;
+  v5 = objc_alloc(objc_opt_class());
+  namespaceName = self->_namespaceName;
+  lastFetchAttempt = self->_lastFetchAttempt;
+  lastFetchWasSuccess = self->_lastFetchWasSuccess;
+
+  return [v5 initWithNamespaceName:namespaceName compatibilityVersion:v3 lastFetchAttempt:lastFetchAttempt lastFetchWasSuccess:lastFetchWasSuccess];
 }
 
 - (id)copyWithReplacementLastFetchAttempt:(id)attempt
@@ -173,49 +198,23 @@ LABEL_14:
   return v5;
 }
 
+- (id)copyWithReplacementLastFetchWasSuccess:(BOOL)success
+{
+  successCopy = success;
+  v5 = objc_alloc(objc_opt_class());
+  compatibilityVersion = self->_compatibilityVersion;
+  namespaceName = self->_namespaceName;
+  lastFetchAttempt = self->_lastFetchAttempt;
+
+  return [v5 initWithNamespaceName:namespaceName compatibilityVersion:compatibilityVersion lastFetchAttempt:lastFetchAttempt lastFetchWasSuccess:successCopy];
+}
+
 - (BOOL)isEqualToStatus:(id)status
 {
   statusCopy = status;
   v5 = statusCopy;
-  if (!statusCopy)
+  if (!statusCopy || (v6 = self->_namespaceName == 0, [statusCopy namespaceName], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (namespaceName = self->_namespaceName) != 0 && (objc_msgSend(v5, "namespaceName"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](namespaceName, "isEqual:", v10), v10, !v11) || (compatibilityVersion = self->_compatibilityVersion, compatibilityVersion != objc_msgSend(v5, "compatibilityVersion")) || (v13 = self->_lastFetchAttempt == 0, objc_msgSend(v5, "lastFetchAttempt"), v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 != 0, v14, v13 == v15) || (lastFetchAttempt = self->_lastFetchAttempt) != 0 && (objc_msgSend(v5, "lastFetchAttempt"), v17 = objc_claimAutoreleasedReturnValue(), v18 = -[NSDate isEqual:](lastFetchAttempt, "isEqual:", v17), v17, !v18))
   {
-    goto LABEL_10;
-  }
-
-  v6 = self->_namespaceName == 0;
-  namespaceName = [statusCopy namespaceName];
-  v8 = namespaceName != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_10;
-  }
-
-  namespaceName = self->_namespaceName;
-  if (namespaceName)
-  {
-    namespaceName2 = [v5 namespaceName];
-    v11 = [(NSString *)namespaceName isEqual:namespaceName2];
-
-    if (!v11)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  compatibilityVersion = self->_compatibilityVersion;
-  if (compatibilityVersion != [v5 compatibilityVersion])
-  {
-    goto LABEL_10;
-  }
-
-  v13 = self->_lastFetchAttempt == 0;
-  lastFetchAttempt = [v5 lastFetchAttempt];
-  v15 = lastFetchAttempt != 0;
-
-  if (v13 == v15 || (lastFetchAttempt = self->_lastFetchAttempt) != 0 && ([v5 lastFetchAttempt], v17 = objc_claimAutoreleasedReturnValue(), v18 = -[NSDate isEqual:](lastFetchAttempt, "isEqual:", v17), v17, !v18))
-  {
-LABEL_10:
     v20 = 0;
   }
 
@@ -255,7 +254,7 @@ LABEL_10:
 
 - (TRINamespaceStatus)initWithCoder:(id)coder
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"namespaceName"];
   if (!v5)
@@ -267,9 +266,9 @@ LABEL_10:
       goto LABEL_10;
     }
 
-    v31 = *MEMORY[0x277CCA450];
-    v32[0] = @"Retrieved nil serialized value for nonnull TRINamespaceStatus.namespaceName";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+    v30 = *MEMORY[0x277CCA450];
+    v31[0] = @"Retrieved nil serialized value for nonnull TRINamespaceStatus.namespaceName";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
     v16 = objc_alloc(MEMORY[0x277CCA9B8]);
     v17 = 2;
 LABEL_17:
@@ -302,9 +301,9 @@ LABEL_3:
           v10 = objc_opt_class();
           v11 = NSStringFromClass(v10);
           v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRINamespaceStatus key lastFetchAttempt (expected %@, decoded %@)", v9, v11, 0];
-          v27 = *MEMORY[0x277CCA450];
-          v28 = v12;
-          v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+          v26 = *MEMORY[0x277CCA450];
+          v27 = v12;
+          v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
           v14 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRINamespaceStatusOCNTErrorDomain" code:3 userInfo:v13];
           [coderCopy failWithError:v14];
 
@@ -351,17 +350,17 @@ LABEL_20:
         goto LABEL_21;
       }
 
-      v25 = *MEMORY[0x277CCA450];
-      v26 = @"Missing serialized value for TRINamespaceStatus.lastFetchWasSuccess";
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      v24 = *MEMORY[0x277CCA450];
+      v25 = @"Missing serialized value for TRINamespaceStatus.lastFetchWasSuccess";
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
       v11 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRINamespaceStatusOCNTErrorDomain" code:1 userInfo:v9];
       [coderCopy failWithError:v11];
       goto LABEL_6;
     }
 
-    v29 = *MEMORY[0x277CCA450];
-    v30 = @"Missing serialized value for TRINamespaceStatus.compatibilityVersion";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v28 = *MEMORY[0x277CCA450];
+    v29 = @"Missing serialized value for TRINamespaceStatus.compatibilityVersion";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     v16 = objc_alloc(MEMORY[0x277CCA9B8]);
     v17 = 1;
     goto LABEL_17;
@@ -371,7 +370,6 @@ LABEL_10:
   selfCopy = 0;
 LABEL_21:
 
-  v22 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

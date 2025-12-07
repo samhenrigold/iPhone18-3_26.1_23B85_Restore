@@ -1,6 +1,7 @@
 @interface FBAInformationCell
 - (void)awakeFromNib;
 - (void)setQuestion:(id)question;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 @end
 
 @implementation FBAInformationCell
@@ -10,6 +11,13 @@
   v2.receiver = self;
   v2.super_class = FBAInformationCell;
   [(FBAInformationCell *)&v2 awakeFromNib];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = FBAInformationCell;
+  [(FBAInformationCell *)&v4 setSelected:selected animated:animated];
 }
 
 - (void)setQuestion:(id)question

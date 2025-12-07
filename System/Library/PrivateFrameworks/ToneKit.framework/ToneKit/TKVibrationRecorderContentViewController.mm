@@ -14,6 +14,7 @@
 - (void)_saveButtonTapped:(id)tapped;
 - (void)_startVibratingWithVibrationPattern:(id)pattern;
 - (void)_stopRecordingOrPlayingForApplicationSuspension;
+- (void)_storeVibrationComponentOfTypePause:(BOOL)pause;
 - (void)_updateStateSaveButtonInAlert;
 - (void)applicationWillSuspend;
 - (void)dealloc;
@@ -24,6 +25,10 @@
 - (void)vibrationRecorderView:(id)view didExitRecordingModeWithContextObject:(id)object;
 - (void)vibrationRecorderViewDidFinishReplayingVibration:(id)vibration;
 - (void)vibrationRecorderViewDidReachVibrationRecordingMaximumDuration:(id)duration;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation TKVibrationRecorderContentViewController
@@ -113,6 +118,44 @@
   v5 = self->_vibrationRecorderView;
 
   [(TKVibrationRecorderContentViewController *)self setView:v5];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TKVibrationRecorderContentViewController;
+  [(TKVibrationRecorderContentViewController *)&v4 viewDidAppear:appear];
+  [(TKVibrationRecorderContentViewController *)self becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(TKVibrationRecorderContentViewController *)self resignFirstResponder];
+  [(TKVibrationRecorderContentViewController *)self _finishedWithRecorder];
+  v5.receiver = self;
+  v5.super_class = TKVibrationRecorderContentViewController;
+  [(TKVibrationRecorderContentViewController *)&v5 viewWillDisappear:disappearCopy];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  self->_mode = 0;
+  [(UIBarButtonItem *)self->_saveButton setEnabled:0];
+  v5.receiver = self;
+  v5.super_class = TKVibrationRecorderContentViewController;
+  [(TKVibrationRecorderContentViewController *)&v5 viewWillAppear:appearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = TKVibrationRecorderContentViewController;
+  [(TKVibrationRecorderContentViewController *)&v5 viewDidDisappear:disappear];
+  [(TKVibrationRecorderContentViewController *)self _finishedWithRecorder];
+  indefiniteVibrationPattern = self->_indefiniteVibrationPattern;
+  self->_indefiniteVibrationPattern = 0;
 }
 
 - (void)_cancelButtonTapped:(id)tapped
@@ -264,6 +307,16 @@
   patternCopy = pattern;
   [(TKVibrationRecorderContentViewController *)self _stopVibrating];
   [(TKVibratorController *)self->_vibratorController turnOnWithVibrationPattern:patternCopy];
+}
+
+- (void)_storeVibrationComponentOfTypePause:(BOOL)pause
+{
+  pauseCopy = pause;
+  [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+  [(TLVibrationPattern *)self->_recordedVibrationPattern appendVibrationComponentWithDuration:pauseCopy isPause:v5 - self->_currentVibrationComponentDidStartTimeStamp];
+  [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+  self->_currentVibrationComponentDidStartTimeStamp = v6;
+  self->_isWaitingForEndOfCurrentVibrationComponent = pauseCopy;
 }
 
 - (void)vibrationComponentDidStartForVibrationRecorderView:(id)view

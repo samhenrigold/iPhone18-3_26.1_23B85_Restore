@@ -22,63 +22,63 @@
 
     if (httpHeaders)
     {
-      v11 = sub_100063A54();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100063A54(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Received custom http headers to use.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Received custom http headers to use.", buf, 2u);
       }
 
-      v29 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v30 = 0u;
-      v27 = 0u;
-      v28 = 0u;
+      v31 = 0u;
       httpHeaders2 = [(MSDS3SessionTaskInfo *)self httpHeaders];
-      v13 = [httpHeaders2 countByEnumeratingWithState:&v27 objects:v35 count:16];
-      if (v13)
+      v15 = [httpHeaders2 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      if (v15)
       {
-        v14 = v13;
-        v15 = 0;
-        v16 = *v28;
+        v16 = v15;
+        v17 = 0;
+        v18 = *v31;
         do
         {
-          v17 = 0;
-          v18 = v15;
+          v19 = 0;
+          v20 = v17;
           do
           {
-            if (*v28 != v16)
+            if (*v31 != v18)
             {
               objc_enumerationMutation(httpHeaders2);
             }
 
-            v15 = *(*(&v27 + 1) + 8 * v17);
+            v17 = *(*(&v30 + 1) + 8 * v19);
 
-            v19 = sub_100063A54();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+            v22 = sub_100063A54(v21);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
             {
               httpHeaders3 = [(MSDS3SessionTaskInfo *)self httpHeaders];
-              v24 = [httpHeaders3 objectForKey:v15];
+              v27 = [httpHeaders3 objectForKey:v17];
               *buf = 138412546;
-              v32 = v15;
-              v33 = 2112;
-              v34 = v24;
-              _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "Http Header: %@, Value: %@", buf, 0x16u);
+              v35 = v17;
+              v36 = 2112;
+              v37 = v27;
+              _os_log_debug_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "Http Header: %@, Value: %@", buf, 0x16u);
             }
 
             request3 = [(MSDSessionTaskInfo *)self request];
             httpHeaders4 = [(MSDS3SessionTaskInfo *)self httpHeaders];
-            v22 = [httpHeaders4 objectForKey:v15];
-            [request3 setValue:v22 forHTTPHeaderField:v15];
+            v25 = [httpHeaders4 objectForKey:v17];
+            [request3 setValue:v25 forHTTPHeaderField:v17];
 
-            v17 = v17 + 1;
-            v18 = v15;
+            v19 = v19 + 1;
+            v20 = v17;
           }
 
-          while (v14 != v17);
-          v14 = [httpHeaders2 countByEnumeratingWithState:&v27 objects:v35 count:16];
+          while (v16 != v19);
+          v16 = [httpHeaders2 countByEnumeratingWithState:&v30 objects:v38 count:16];
         }
 
-        while (v14);
+        while (v16);
       }
     }
 
@@ -93,7 +93,7 @@
 
   else
   {
-    sub_1000D1590();
+    sub_1000D1590(v9);
     request4 = 0;
   }
 

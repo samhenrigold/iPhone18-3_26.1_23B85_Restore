@@ -1,36 +1,34 @@
-void sub_2717B0C64(uint64_t a1, int a2)
+void sub_2717B17EC(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (a2 == 27)
+  if (a2 == 28)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -40,8 +38,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -50,13 +48,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -69,18 +67,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -89,13 +87,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -104,39 +102,37 @@ LABEL_9:
   goto LABEL_9;
 }
 
-void sub_2717B0F64(uint64_t a1, int a2)
+void sub_2717B1AEC(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (a2 == 27)
+  if (a2 == 28)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -146,8 +142,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -156,13 +152,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -175,18 +171,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -195,451 +191,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
-  if ((byte_28087C430 & 1) == 0)
-  {
-    goto LABEL_25;
-  }
-
-  goto LABEL_9;
-}
-
-uint64_t sub_2717B1264(uint64_t result)
-{
-  if (*(result + 72))
-  {
-    v1 = result;
-    free(*(result + 72));
-    result = v1;
-  }
-
-  *(result + 72) = 0;
-  return result;
-}
-
-void sub_2717B12A0(uint64_t a1)
-{
-  if (*(a1 + 72))
-  {
-    v2 = a1;
-    free(*(a1 + 72));
-    a1 = v2;
-    v1 = vars8;
-  }
-
-  *(a1 + 72) = 0;
-
-  JUMPOUT(0x2743BF050);
-}
-
-uint64_t sub_2717B12F8(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
-{
-  v23 = *MEMORY[0x277D85DE8];
-  *a1 = &unk_288112918;
-  if (*(a2 + 28))
-  {
-    v5 = *(a2 + 24) == 0;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  v7 = *(a2 + 24);
-  v6 = *(a2 + 32);
-  if (v5)
-  {
-    v7 = 0;
-  }
-
-  *&v22[4] = v7;
-  *v22 = 4;
-  v8 = *v22;
-  v9 = HIDWORD(v7);
-  *v22 = 1;
-  *&v22[4] = v6;
-  v10 = *v22;
-  v11 = HIDWORD(v6);
-  *(a1 + 8) = v8;
-  *(a1 + 16) = HIDWORD(v7);
-  *(a1 + 20) = v10;
-  *(a1 + 28) = HIDWORD(v6);
-  *(a1 + 32) = v7;
-  *(a1 + 40) = v6;
-  *(a1 + 48) = 0;
-  *(a1 + 60) = 0;
-  *v22 = v10;
-  *&v22[8] = HIDWORD(v6);
-  if (HIDWORD(v8))
-  {
-    v12 = v8 == 0;
-  }
-
-  else
-  {
-    v12 = 1;
-  }
-
-  v13 = v12;
-  if (v9)
-  {
-    v14 = v13;
-  }
-
-  else
-  {
-    v14 = 1;
-  }
-
-  if (v14)
-  {
-    v15 = 0;
-  }
-
-  else
-  {
-    v15 = v8;
-  }
-
-  v20 = v15;
-  if (v13)
-  {
-    v16 = 0;
-  }
-
-  else
-  {
-    v16 = v9;
-  }
-
-  v21 = v16;
-  if (((4 * v11) & (4 * v11 - 1)) != 0)
-  {
-    v17 = 4;
-  }
-
-  else
-  {
-    v17 = 4 * v11;
-  }
-
-  sub_2717D6318(a1 + 64, &v20, v22, 1, a3, 1, v17, a4);
-  v18 = *MEMORY[0x277D85DE8];
-  return a1;
-}
-
-void sub_2717B1504(uint64_t a1, char **lpsrc)
-{
-  v29 = *MEMORY[0x277D85DE8];
-  v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_288123908, &unk_288123718, 0);
-  if (!v6)
-  {
-    (*(v4 + 9))(&v23, lpsrc, 28);
-    v9 = *(v23 + 16);
-    v8 = *(v23 + 32);
-    v22[0] = *v23;
-    v22[1] = v9;
-    v22[2] = v8;
-    *&v23 = 0;
-    MEMORY[0x2743BF050]();
-    v10 = *(a1 + 72);
-    if (*(a1 + 36))
-    {
-      v11 = *(a1 + 32) == 0;
-    }
-
-    else
-    {
-      v11 = 1;
-    }
-
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v11)
-    {
-      v12 = 0;
-    }
-
-    LODWORD(v23) = 4;
-    *(&v23 + 4) = v12;
-    v14 = v12;
-    v15 = v23;
-    v16 = HIDWORD(v12);
-    LODWORD(v23) = 1;
-    *(&v23 + 4) = v13;
-    v17 = v23;
-    if (HIDWORD(v13) * HIDWORD(v12) != -1)
-    {
-      goto LABEL_19;
-    }
-
-    v21 = v10;
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
-    if (byte_28087C430 == 1)
-    {
-      if (byte_28087C438 != 1 || (v19 = qword_28087C408, v18 = qword_28087C410, qword_28087C408 == qword_28087C410))
-      {
-LABEL_18:
-        qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v10 = v21;
-LABEL_19:
-        *&v23 = v10;
-        *(&v23 + 1) = v15;
-        v24 = v16;
-        v25 = v17;
-        v26 = HIDWORD(v13);
-        v27 = v14;
-        v28 = v13;
-        sub_271245B78(v22, &v23);
-        v20 = *MEMORY[0x277D85DE8];
-        return;
-      }
-    }
-
-    else
-    {
-      v19 = qword_28087C408;
-      v18 = qword_28087C410;
-      if (qword_28087C408 == qword_28087C410)
-      {
-        goto LABEL_20;
-      }
-    }
-
-    do
-    {
-      (*v19)(*(v19 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v19 += 16;
-    }
-
-    while (v19 != v18);
-    if (byte_28087C430)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_20:
-    abort();
-  }
-
-  v7 = *MEMORY[0x277D85DE8];
-
-  sub_2712A8BDC(a1 + 8, (v6 + 8));
-}
-
-void sub_2717B17EC(uint64_t a1, int a2)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  if (a2 == 28)
-  {
-LABEL_10:
-    if (*(a1 + 36))
-    {
-      v7 = *(a1 + 32) == 0;
-    }
-
-    else
-    {
-      v7 = 1;
-    }
-
-    v8 = *(a1 + 32);
-    if (v7)
-    {
-      HIDWORD(v8) = 0;
-    }
-
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
-    {
-LABEL_24:
-      operator new();
-    }
-
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
-    if (byte_28087C430 == 1)
-    {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
-      {
-LABEL_23:
-        qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        goto LABEL_24;
-      }
-    }
-
-    else
-    {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
-      if (qword_28087C408 == qword_28087C410)
-      {
-        goto LABEL_25;
-      }
-    }
-
-    do
-    {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-    }
-
-    while (v9 != v10);
-    if (byte_28087C430)
-    {
-      goto LABEL_23;
-    }
-
-LABEL_25:
-    abort();
-  }
-
-  sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, "", 0, sub_271852CA8);
-  if (byte_28087C430 == 1)
-  {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
-    {
-LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
-      goto LABEL_10;
-    }
-  }
-
-  else
-  {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
-    if (qword_28087C408 == qword_28087C410)
-    {
-      goto LABEL_25;
-    }
-  }
-
-  do
-  {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
-  }
-
-  while (v3 != v4);
-  if ((byte_28087C430 & 1) == 0)
-  {
-    goto LABEL_25;
-  }
-
-  goto LABEL_9;
-}
-
-void sub_2717B1AEC(uint64_t a1, int a2)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  if (a2 == 28)
-  {
-LABEL_10:
-    if (*(a1 + 36))
-    {
-      v7 = *(a1 + 32) == 0;
-    }
-
-    else
-    {
-      v7 = 1;
-    }
-
-    v8 = *(a1 + 32);
-    if (v7)
-    {
-      HIDWORD(v8) = 0;
-    }
-
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
-    {
-LABEL_24:
-      operator new();
-    }
-
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
-    if (byte_28087C430 == 1)
-    {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
-      {
-LABEL_23:
-        qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        goto LABEL_24;
-      }
-    }
-
-    else
-    {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
-      if (qword_28087C408 == qword_28087C410)
-      {
-        goto LABEL_25;
-      }
-    }
-
-    do
-    {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-    }
-
-    while (v9 != v10);
-    if (byte_28087C430)
-    {
-      goto LABEL_23;
-    }
-
-LABEL_25:
-    abort();
-  }
-
-  sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, "", 0, sub_271852CA8);
-  if (byte_28087C430 == 1)
-  {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
-    {
-LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
-      goto LABEL_10;
-    }
-  }
-
-  else
-  {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
-    if (qword_28087C408 == qword_28087C410)
-    {
-      goto LABEL_25;
-    }
-  }
-
-  do
-  {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
-  }
-
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -678,7 +236,7 @@ void sub_2717B1E28(uint64_t a1)
 
 uint64_t sub_2717B1E80(uint64_t a1, uint64_t a2, char *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   *a1 = &unk_288112898;
   if (*(a2 + 28))
   {
@@ -697,13 +255,13 @@ uint64_t sub_2717B1E80(uint64_t a1, uint64_t a2, char *a3)
     v6 = 0;
   }
 
-  *&v21[4] = v6;
-  *v21 = 4;
-  v7 = *v21;
+  *&v20[4] = v6;
+  *v20 = 4;
+  v7 = *v20;
   v8 = HIDWORD(v6);
-  *v21 = 1;
-  *&v21[4] = v5;
-  v9 = *v21;
+  *v20 = 1;
+  *&v20[4] = v5;
+  v9 = *v20;
   v10 = HIDWORD(v5);
   *(a1 + 8) = v7;
   *(a1 + 16) = HIDWORD(v6);
@@ -713,8 +271,8 @@ uint64_t sub_2717B1E80(uint64_t a1, uint64_t a2, char *a3)
   *(a1 + 40) = v5;
   *(a1 + 48) = 0;
   *(a1 + 60) = 0;
-  *v21 = v9;
-  *&v21[8] = HIDWORD(v5);
+  *v20 = v9;
+  *&v20[8] = HIDWORD(v5);
   if (HIDWORD(v7))
   {
     v11 = v7 == 0;
@@ -746,7 +304,7 @@ uint64_t sub_2717B1E80(uint64_t a1, uint64_t a2, char *a3)
     v14 = v7;
   }
 
-  v19 = v14;
+  v18 = v14;
   if (v12)
   {
     v15 = 0;
@@ -757,7 +315,7 @@ uint64_t sub_2717B1E80(uint64_t a1, uint64_t a2, char *a3)
     v15 = v8;
   }
 
-  v20 = v15;
+  v19 = v15;
   if ((v10 & (v10 - 1)) != 0)
   {
     v16 = 1;
@@ -768,85 +326,82 @@ uint64_t sub_2717B1E80(uint64_t a1, uint64_t a2, char *a3)
     v16 = v10;
   }
 
-  sub_2717D4B20(a1 + 64, &v19, v21, 1, a3, 1, v16);
-  v17 = *MEMORY[0x277D85DE8];
+  sub_2717D4B20(a1 + 64, &v18, v20, 1, a3, 1, v16);
   return a1;
 }
 
-void sub_2717B2088(uint64_t a1, char **lpsrc)
+void sub_2717B2088(uint64_t a1, uint64_t *lpsrc)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_288123908, &unk_288123700, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_288123908, &unk_288123700, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v23, lpsrc, 29);
-    v9 = *(v23 + 16);
-    v8 = *(v23 + 32);
-    v22[0] = *v23;
-    v22[1] = v9;
-    v22[2] = v8;
-    *&v23 = 0;
+    (*(v4 + 72))(&v20, lpsrc, 29);
+    v7 = *(v20 + 16);
+    v6 = *(v20 + 32);
+    v19[0] = *v20;
+    v19[1] = v7;
+    v19[2] = v6;
+    *&v20 = 0;
     MEMORY[0x2743BF050]();
-    v10 = *(a1 + 72);
+    v8 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v11 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v11 = 1;
+      v9 = 1;
     }
 
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v11)
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    if (v9)
     {
-      v12 = 0;
+      v10 = 0;
     }
 
-    LODWORD(v23) = 4;
-    *(&v23 + 4) = v12;
-    v14 = v12;
-    v15 = v23;
-    v16 = HIDWORD(v12);
-    LODWORD(v23) = 1;
-    *(&v23 + 4) = v13;
-    v17 = v23;
-    if (HIDWORD(v13) * HIDWORD(v12) != -1)
+    LODWORD(v20) = 4;
+    *(&v20 + 4) = v10;
+    v12 = v10;
+    v13 = v20;
+    v14 = HIDWORD(v10);
+    LODWORD(v20) = 1;
+    *(&v20 + 4) = v11;
+    v15 = v20;
+    if (HIDWORD(v11) * HIDWORD(v10) != -1)
     {
       goto LABEL_19;
     }
 
-    v21 = v10;
+    v18 = v8;
     sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v19 = qword_28087C408, v18 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v17 = qword_28087C408, v16 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_18:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v10 = v21;
+        v8 = v18;
 LABEL_19:
-        *&v23 = v10;
-        *(&v23 + 1) = v15;
-        v24 = v16;
-        v25 = v17;
-        v26 = HIDWORD(v13);
-        v27 = v14;
-        v28 = v13;
-        sub_2712A6008(v22, &v23);
-        v20 = *MEMORY[0x277D85DE8];
+        *&v20 = v8;
+        *(&v20 + 1) = v13;
+        v21 = v14;
+        v22 = v15;
+        v23 = HIDWORD(v11);
+        v24 = v12;
+        v25 = v11;
+        sub_2712A6008(v19, &v20);
         return;
       }
     }
 
     else
     {
-      v19 = qword_28087C408;
-      v18 = qword_28087C410;
+      v17 = qword_28087C408;
+      v16 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_20;
@@ -855,11 +410,11 @@ LABEL_19:
 
     do
     {
-      (*v19)(*(v19 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v19 += 16;
+      (*v17)(*(v17 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v17 += 16;
     }
 
-    while (v19 != v18);
+    while (v17 != v16);
     if (byte_28087C430)
     {
       goto LABEL_18;
@@ -869,44 +424,40 @@ LABEL_20:
     abort();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  sub_2712A6454(a1 + 8, (v6 + 8));
+  sub_2712A6454(a1 + 8, (v5 + 8));
 }
 
-void sub_2717B2370(uint64_t a1, int a2)
+void sub_2717B2370(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 29)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -916,8 +467,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -926,13 +477,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -945,18 +496,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -965,13 +516,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -980,39 +531,37 @@ LABEL_9:
   goto LABEL_9;
 }
 
-void sub_2717B2670(uint64_t a1, int a2)
+void sub_2717B2670(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 29)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -1022,8 +571,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -1032,13 +581,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -1051,18 +600,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -1071,13 +620,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -1116,7 +665,7 @@ void sub_2717B29AC(uint64_t a1)
 
 uint64_t sub_2717B2A04(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   *a1 = &unk_288112798;
   if (*(a2 + 28))
   {
@@ -1135,13 +684,13 @@ uint64_t sub_2717B2A04(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
     v6 = 0;
   }
 
-  *&v21[4] = v6;
-  *v21 = 4;
-  v7 = *v21;
+  *&v20[4] = v6;
+  *v20 = 4;
+  v7 = *v20;
   v8 = HIDWORD(v6);
-  *v21 = 1;
-  *&v21[4] = v5;
-  v9 = *v21;
+  *v20 = 1;
+  *&v20[4] = v5;
+  v9 = *v20;
   v10 = HIDWORD(v5);
   *(a1 + 8) = v7;
   *(a1 + 16) = HIDWORD(v6);
@@ -1151,8 +700,8 @@ uint64_t sub_2717B2A04(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
   *(a1 + 40) = v5;
   *(a1 + 48) = 0;
   *(a1 + 60) = 0;
-  *v21 = v9;
-  *&v21[8] = HIDWORD(v5);
+  *v20 = v9;
+  *&v20[8] = HIDWORD(v5);
   if (HIDWORD(v7))
   {
     v11 = v7 == 0;
@@ -1184,7 +733,7 @@ uint64_t sub_2717B2A04(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
     v14 = v7;
   }
 
-  v19 = v14;
+  v18 = v14;
   if (v12)
   {
     v15 = 0;
@@ -1195,7 +744,7 @@ uint64_t sub_2717B2A04(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
     v15 = v8;
   }
 
-  v20 = v15;
+  v19 = v15;
   if (((2 * v10) & (2 * v10 - 1)) != 0)
   {
     v16 = 2;
@@ -1206,85 +755,82 @@ uint64_t sub_2717B2A04(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
     v16 = 2 * v10;
   }
 
-  sub_2717D5090(a1 + 64, &v19, v21, 1, a3, 1, v16);
-  v17 = *MEMORY[0x277D85DE8];
+  sub_2717D5090(a1 + 64, &v18, v20, 1, a3, 1, v16);
   return a1;
 }
 
-void sub_2717B2C14(uint64_t a1, char **lpsrc)
+void sub_2717B2C14(uint64_t a1, uint64_t *lpsrc)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_288123908, &unk_2881236D0, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_288123908, &unk_2881236D0, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v23, lpsrc, 30);
-    v9 = *(v23 + 16);
-    v8 = *(v23 + 32);
-    v22[0] = *v23;
-    v22[1] = v9;
-    v22[2] = v8;
-    *&v23 = 0;
+    (*(v4 + 72))(&v20, lpsrc, 30);
+    v7 = *(v20 + 16);
+    v6 = *(v20 + 32);
+    v19[0] = *v20;
+    v19[1] = v7;
+    v19[2] = v6;
+    *&v20 = 0;
     MEMORY[0x2743BF050]();
-    v10 = *(a1 + 72);
+    v8 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v11 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v11 = 1;
+      v9 = 1;
     }
 
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v11)
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    if (v9)
     {
-      v12 = 0;
+      v10 = 0;
     }
 
-    LODWORD(v23) = 4;
-    *(&v23 + 4) = v12;
-    v14 = v12;
-    v15 = v23;
-    v16 = HIDWORD(v12);
-    LODWORD(v23) = 1;
-    *(&v23 + 4) = v13;
-    v17 = v23;
-    if (HIDWORD(v13) * HIDWORD(v12) != -1)
+    LODWORD(v20) = 4;
+    *(&v20 + 4) = v10;
+    v12 = v10;
+    v13 = v20;
+    v14 = HIDWORD(v10);
+    LODWORD(v20) = 1;
+    *(&v20 + 4) = v11;
+    v15 = v20;
+    if (HIDWORD(v11) * HIDWORD(v10) != -1)
     {
       goto LABEL_19;
     }
 
-    v21 = v10;
+    v18 = v8;
     sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v19 = qword_28087C408, v18 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v17 = qword_28087C408, v16 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_18:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v10 = v21;
+        v8 = v18;
 LABEL_19:
-        *&v23 = v10;
-        *(&v23 + 1) = v15;
-        v24 = v16;
-        v25 = v17;
-        v26 = HIDWORD(v13);
-        v27 = v14;
-        v28 = v13;
-        sub_271244900(v22, &v23);
-        v20 = *MEMORY[0x277D85DE8];
+        *&v20 = v8;
+        *(&v20 + 1) = v13;
+        v21 = v14;
+        v22 = v15;
+        v23 = HIDWORD(v11);
+        v24 = v12;
+        v25 = v11;
+        sub_271244900(v19, &v20);
         return;
       }
     }
 
     else
     {
-      v19 = qword_28087C408;
-      v18 = qword_28087C410;
+      v17 = qword_28087C408;
+      v16 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_20;
@@ -1293,11 +839,11 @@ LABEL_19:
 
     do
     {
-      (*v19)(*(v19 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v19 += 16;
+      (*v17)(*(v17 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v17 += 16;
     }
 
-    while (v19 != v18);
+    while (v17 != v16);
     if (byte_28087C430)
     {
       goto LABEL_18;
@@ -1307,44 +853,40 @@ LABEL_20:
     abort();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  sub_2712A6AE0(a1 + 8, (v6 + 8));
+  sub_2712A6AE0(a1 + 8, (v5 + 8));
 }
 
-void sub_2717B2EFC(uint64_t a1, int a2)
+void sub_2717B2EFC(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 30)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -1354,8 +896,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -1364,13 +906,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -1383,18 +925,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -1403,13 +945,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -1418,39 +960,37 @@ LABEL_9:
   goto LABEL_9;
 }
 
-void sub_2717B31FC(uint64_t a1, int a2)
+void sub_2717B31FC(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 30)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -1460,8 +1000,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -1470,13 +1010,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -1489,18 +1029,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -1509,13 +1049,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -1692,7 +1232,7 @@ LABEL_20:
 
 uint64_t sub_2717B37EC(uint64_t a1, uint64_t a2, __int16 *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   *a1 = &unk_288112718;
   if (*(a2 + 28))
   {
@@ -1711,13 +1251,13 @@ uint64_t sub_2717B37EC(uint64_t a1, uint64_t a2, __int16 *a3)
     v6 = 0;
   }
 
-  *&v21[4] = v6;
-  *v21 = 4;
-  v7 = *v21;
+  *&v20[4] = v6;
+  *v20 = 4;
+  v7 = *v20;
   v8 = HIDWORD(v6);
-  *v21 = 1;
-  *&v21[4] = v5;
-  v9 = *v21;
+  *v20 = 1;
+  *&v20[4] = v5;
+  v9 = *v20;
   v10 = HIDWORD(v5);
   *(a1 + 8) = v7;
   *(a1 + 16) = HIDWORD(v6);
@@ -1727,8 +1267,8 @@ uint64_t sub_2717B37EC(uint64_t a1, uint64_t a2, __int16 *a3)
   *(a1 + 40) = v5;
   *(a1 + 48) = 0;
   *(a1 + 60) = 0;
-  *v21 = v9;
-  *&v21[8] = HIDWORD(v5);
+  *v20 = v9;
+  *&v20[8] = HIDWORD(v5);
   if (HIDWORD(v7))
   {
     v11 = v7 == 0;
@@ -1760,7 +1300,7 @@ uint64_t sub_2717B37EC(uint64_t a1, uint64_t a2, __int16 *a3)
     v14 = v7;
   }
 
-  v19 = v14;
+  v18 = v14;
   if (v12)
   {
     v15 = 0;
@@ -1771,7 +1311,7 @@ uint64_t sub_2717B37EC(uint64_t a1, uint64_t a2, __int16 *a3)
     v15 = v8;
   }
 
-  v20 = v15;
+  v19 = v15;
   if (((2 * v10) & (2 * v10 - 1)) != 0)
   {
     v16 = 2;
@@ -1782,87 +1322,84 @@ uint64_t sub_2717B37EC(uint64_t a1, uint64_t a2, __int16 *a3)
     v16 = 2 * v10;
   }
 
-  sub_2717D5BBC(a1 + 64, &v19, v21, 1, a3, 1, v16);
-  v17 = *MEMORY[0x277D85DE8];
+  sub_2717D5BBC(a1 + 64, &v18, v20, 1, a3, 1, v16);
   return a1;
 }
 
-void sub_2717B39FC(uint64_t a1, char **lpsrc)
+double sub_2717B39FC(uint64_t a1, uint64_t *lpsrc)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_288123908, &unk_2881236B8, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_288123908, &unk_2881236B8, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v24, lpsrc, 31);
-    v9 = *(v24 + 16);
-    v8 = *(v24 + 32);
-    v22[0] = *v24;
-    v22[1] = v9;
-    v22[2] = v8;
-    *&v24 = 0;
+    (*(v4 + 72))(&v22, lpsrc, 31);
+    v8 = *(v22 + 16);
+    v7 = *(v22 + 32);
+    v20[0] = *v22;
+    v20[1] = v8;
+    v20[2] = v7;
+    *&v22 = 0;
     MEMORY[0x2743BF050]();
-    v10 = *(a1 + 72);
+    v9 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v11 = *(a1 + 32) == 0;
+      v10 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v11 = 1;
+      v10 = 1;
     }
 
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v11)
+    v11 = *(a1 + 32);
+    v12 = *(a1 + 40);
+    if (v10)
     {
-      v12 = 0;
+      v11 = 0;
     }
 
-    LODWORD(v24) = 4;
-    *(&v24 + 4) = v12;
-    v14 = v12;
-    v15 = v24;
-    v16 = HIDWORD(v12);
-    LODWORD(v24) = 1;
-    *(&v24 + 4) = v13;
-    v17 = v24;
-    if (HIDWORD(v13) * HIDWORD(v12) != -1)
+    LODWORD(v22) = 4;
+    *(&v22 + 4) = v11;
+    v13 = v11;
+    v14 = v22;
+    v15 = HIDWORD(v11);
+    LODWORD(v22) = 1;
+    *(&v22 + 4) = v12;
+    v16 = v22;
+    if (HIDWORD(v12) * HIDWORD(v11) != -1)
     {
       goto LABEL_19;
     }
 
-    v21 = v10;
+    v19 = v9;
     sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v19 = qword_28087C408, v18 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v18 = qword_28087C408, v17 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_18:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v10 = v21;
+        v9 = v19;
 LABEL_19:
-        *&v24 = v10;
-        *(&v24 + 1) = v15;
-        v25 = v16;
-        v26 = v17;
-        v27 = HIDWORD(v13);
-        v28 = v14;
-        v29 = v13;
-        v23[0] = v22;
-        v23[1] = &v24;
-        sub_2712A6EAC(v23);
-        v20 = *MEMORY[0x277D85DE8];
-        return;
+        *&v22 = v9;
+        *(&v22 + 1) = v14;
+        v23 = v15;
+        v24 = v16;
+        v25 = HIDWORD(v12);
+        v26 = v13;
+        v27 = v12;
+        v21[0] = v20;
+        v21[1] = &v22;
+        *&result = sub_2712A6EAC(v21);
+        return result;
       }
     }
 
     else
     {
-      v19 = qword_28087C408;
-      v18 = qword_28087C410;
+      v18 = qword_28087C408;
+      v17 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_20;
@@ -1871,11 +1408,11 @@ LABEL_19:
 
     do
     {
-      (*v19)(*(v19 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v19 += 16;
+      (*v18)(*(v18 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v18 += 16;
     }
 
-    while (v19 != v18);
+    while (v18 != v17);
     if (byte_28087C430)
     {
       goto LABEL_18;
@@ -1885,44 +1422,41 @@ LABEL_20:
     abort();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  sub_2712A7ABC(a1 + 8, (v6 + 8));
+  sub_2712A7ABC(a1 + 8, (v5 + 8));
+  return result;
 }
 
-void sub_2717B3CEC(uint64_t a1, int a2)
+void sub_2717B3CEC(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 31)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -1932,8 +1466,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -1942,13 +1476,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -1961,18 +1495,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -1981,13 +1515,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -1996,39 +1530,37 @@ LABEL_9:
   goto LABEL_9;
 }
 
-void sub_2717B3FEC(uint64_t a1, int a2)
+void sub_2717B3FEC(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 31)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -2038,8 +1570,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -2048,13 +1580,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -2067,18 +1599,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -2087,13 +1619,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -2130,9 +1662,9 @@ void sub_2717B4328(uint64_t a1)
   JUMPOUT(0x2743BF050);
 }
 
-uint64_t sub_2717B4380(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
+uint64_t sub_2717B4380(uint64_t a1, uint64_t a2, __int32 *a3, double a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   *a1 = &unk_288112698;
   if (*(a2 + 28))
   {
@@ -2151,13 +1683,13 @@ uint64_t sub_2717B4380(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
     v7 = 0;
   }
 
-  *&v22[4] = v7;
-  *v22 = 4;
-  v8 = *v22;
+  *&v21[4] = v7;
+  *v21 = 4;
+  v8 = *v21;
   v9 = HIDWORD(v7);
-  *v22 = 1;
-  *&v22[4] = v6;
-  v10 = *v22;
+  *v21 = 1;
+  *&v21[4] = v6;
+  v10 = *v21;
   v11 = HIDWORD(v6);
   *(a1 + 8) = v8;
   *(a1 + 16) = HIDWORD(v7);
@@ -2167,8 +1699,8 @@ uint64_t sub_2717B4380(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
   *(a1 + 40) = v6;
   *(a1 + 48) = 0;
   *(a1 + 60) = 0;
-  *v22 = v10;
-  *&v22[8] = HIDWORD(v6);
+  *v21 = v10;
+  *&v21[8] = HIDWORD(v6);
   if (HIDWORD(v8))
   {
     v12 = v8 == 0;
@@ -2200,7 +1732,7 @@ uint64_t sub_2717B4380(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
     v15 = v8;
   }
 
-  v20 = v15;
+  v19 = v15;
   if (v13)
   {
     v16 = 0;
@@ -2211,7 +1743,7 @@ uint64_t sub_2717B4380(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
     v16 = v9;
   }
 
-  v21 = v16;
+  v20 = v16;
   if (((4 * v11) & (4 * v11 - 1)) != 0)
   {
     v17 = 4;
@@ -2222,85 +1754,82 @@ uint64_t sub_2717B4380(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
     v17 = 4 * v11;
   }
 
-  sub_2717D6318(a1 + 64, &v20, v22, 1, a3, 1, v17, a4);
-  v18 = *MEMORY[0x277D85DE8];
+  sub_2717D6318(a1 + 64, &v19, v21, 1, a3, 1, v17, a4);
   return a1;
 }
 
-void sub_2717B458C(uint64_t a1, char **lpsrc)
+void sub_2717B458C(uint64_t a1, uint64_t *lpsrc)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_288123908, &unk_2881236A0, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_288123908, &unk_2881236A0, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v23, lpsrc, 32);
-    v9 = *(v23 + 16);
-    v8 = *(v23 + 32);
-    v22[0] = *v23;
-    v22[1] = v9;
-    v22[2] = v8;
-    *&v23 = 0;
+    (*(v4 + 72))(&v20, lpsrc, 32);
+    v7 = *(v20 + 16);
+    v6 = *(v20 + 32);
+    v19[0] = *v20;
+    v19[1] = v7;
+    v19[2] = v6;
+    *&v20 = 0;
     MEMORY[0x2743BF050]();
-    v10 = *(a1 + 72);
+    v8 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v11 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v11 = 1;
+      v9 = 1;
     }
 
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v11)
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    if (v9)
     {
-      v12 = 0;
+      v10 = 0;
     }
 
-    LODWORD(v23) = 4;
-    *(&v23 + 4) = v12;
-    v14 = v12;
-    v15 = v23;
-    v16 = HIDWORD(v12);
-    LODWORD(v23) = 1;
-    *(&v23 + 4) = v13;
-    v17 = v23;
-    if (HIDWORD(v13) * HIDWORD(v12) != -1)
+    LODWORD(v20) = 4;
+    *(&v20 + 4) = v10;
+    v12 = v10;
+    v13 = v20;
+    v14 = HIDWORD(v10);
+    LODWORD(v20) = 1;
+    *(&v20 + 4) = v11;
+    v15 = v20;
+    if (HIDWORD(v11) * HIDWORD(v10) != -1)
     {
       goto LABEL_19;
     }
 
-    v21 = v10;
+    v18 = v8;
     sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v19 = qword_28087C408, v18 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v17 = qword_28087C408, v16 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_18:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v10 = v21;
+        v8 = v18;
 LABEL_19:
-        *&v23 = v10;
-        *(&v23 + 1) = v15;
-        v24 = v16;
-        v25 = v17;
-        v26 = HIDWORD(v13);
-        v27 = v14;
-        v28 = v13;
-        sub_271245B78(v22, &v23);
-        v20 = *MEMORY[0x277D85DE8];
+        *&v20 = v8;
+        *(&v20 + 1) = v13;
+        v21 = v14;
+        v22 = v15;
+        v23 = HIDWORD(v11);
+        v24 = v12;
+        v25 = v11;
+        sub_271245B78(v19, &v20);
         return;
       }
     }
 
     else
     {
-      v19 = qword_28087C408;
-      v18 = qword_28087C410;
+      v17 = qword_28087C408;
+      v16 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_20;
@@ -2309,11 +1838,11 @@ LABEL_19:
 
     do
     {
-      (*v19)(*(v19 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v19 += 16;
+      (*v17)(*(v17 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v17 += 16;
     }
 
-    while (v19 != v18);
+    while (v17 != v16);
     if (byte_28087C430)
     {
       goto LABEL_18;
@@ -2323,44 +1852,40 @@ LABEL_20:
     abort();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  sub_2712A8BDC(a1 + 8, (v6 + 8));
+  sub_2712A8BDC(a1 + 8, (v5 + 8));
 }
 
-void sub_2717B4874(uint64_t a1, int a2)
+void sub_2717B4874(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 32)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -2370,8 +1895,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -2380,13 +1905,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -2399,18 +1924,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -2419,13 +1944,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -2434,39 +1959,37 @@ LABEL_9:
   goto LABEL_9;
 }
 
-void sub_2717B4B74(uint64_t a1, int a2)
+void sub_2717B4B74(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 32)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -2476,8 +1999,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -2486,13 +2009,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -2505,18 +2028,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -2525,13 +2048,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -2570,7 +2093,7 @@ void sub_2717B4EB0(uint64_t a1)
 
 uint64_t sub_2717B4F08(uint64_t a1, uint64_t a2, char *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   *a1 = &unk_288112618;
   if (*(a2 + 28))
   {
@@ -2589,13 +2112,13 @@ uint64_t sub_2717B4F08(uint64_t a1, uint64_t a2, char *a3)
     v6 = 0;
   }
 
-  *&v21[4] = v6;
-  *v21 = 4;
-  v7 = *v21;
+  *&v20[4] = v6;
+  *v20 = 4;
+  v7 = *v20;
   v8 = HIDWORD(v6);
-  *v21 = 1;
-  *&v21[4] = v5;
-  v9 = *v21;
+  *v20 = 1;
+  *&v20[4] = v5;
+  v9 = *v20;
   v10 = HIDWORD(v5);
   *(a1 + 8) = v7;
   *(a1 + 16) = HIDWORD(v6);
@@ -2605,8 +2128,8 @@ uint64_t sub_2717B4F08(uint64_t a1, uint64_t a2, char *a3)
   *(a1 + 40) = v5;
   *(a1 + 48) = 0;
   *(a1 + 60) = 0;
-  *v21 = v9;
-  *&v21[8] = HIDWORD(v5);
+  *v20 = v9;
+  *&v20[8] = HIDWORD(v5);
   if (HIDWORD(v7))
   {
     v11 = v7 == 0;
@@ -2638,7 +2161,7 @@ uint64_t sub_2717B4F08(uint64_t a1, uint64_t a2, char *a3)
     v14 = v7;
   }
 
-  v19 = v14;
+  v18 = v14;
   if (v12)
   {
     v15 = 0;
@@ -2649,7 +2172,7 @@ uint64_t sub_2717B4F08(uint64_t a1, uint64_t a2, char *a3)
     v15 = v8;
   }
 
-  v20 = v15;
+  v19 = v15;
   if ((v10 & (v10 - 1)) != 0)
   {
     v16 = 1;
@@ -2660,85 +2183,82 @@ uint64_t sub_2717B4F08(uint64_t a1, uint64_t a2, char *a3)
     v16 = v10;
   }
 
-  sub_2717D4B20(a1 + 64, &v19, v21, 1, a3, 1, v16);
-  v17 = *MEMORY[0x277D85DE8];
+  sub_2717D4B20(a1 + 64, &v18, v20, 1, a3, 1, v16);
   return a1;
 }
 
-void sub_2717B5110(uint64_t a1, char **lpsrc)
+void sub_2717B5110(uint64_t a1, uint64_t *lpsrc)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_288123908, &unk_288123688, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_288123908, &unk_288123688, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v23, lpsrc, 33);
-    v9 = *(v23 + 16);
-    v8 = *(v23 + 32);
-    v22[0] = *v23;
-    v22[1] = v9;
-    v22[2] = v8;
-    *&v23 = 0;
+    (*(v4 + 72))(&v20, lpsrc, 33);
+    v7 = *(v20 + 16);
+    v6 = *(v20 + 32);
+    v19[0] = *v20;
+    v19[1] = v7;
+    v19[2] = v6;
+    *&v20 = 0;
     MEMORY[0x2743BF050]();
-    v10 = *(a1 + 72);
+    v8 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v11 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v11 = 1;
+      v9 = 1;
     }
 
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v11)
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    if (v9)
     {
-      v12 = 0;
+      v10 = 0;
     }
 
-    LODWORD(v23) = 4;
-    *(&v23 + 4) = v12;
-    v14 = v12;
-    v15 = v23;
-    v16 = HIDWORD(v12);
-    LODWORD(v23) = 1;
-    *(&v23 + 4) = v13;
-    v17 = v23;
-    if (HIDWORD(v13) * HIDWORD(v12) != -1)
+    LODWORD(v20) = 4;
+    *(&v20 + 4) = v10;
+    v12 = v10;
+    v13 = v20;
+    v14 = HIDWORD(v10);
+    LODWORD(v20) = 1;
+    *(&v20 + 4) = v11;
+    v15 = v20;
+    if (HIDWORD(v11) * HIDWORD(v10) != -1)
     {
       goto LABEL_19;
     }
 
-    v21 = v10;
+    v18 = v8;
     sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v19 = qword_28087C408, v18 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v17 = qword_28087C408, v16 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_18:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v10 = v21;
+        v8 = v18;
 LABEL_19:
-        *&v23 = v10;
-        *(&v23 + 1) = v15;
-        v24 = v16;
-        v25 = v17;
-        v26 = HIDWORD(v13);
-        v27 = v14;
-        v28 = v13;
-        sub_2712A6008(v22, &v23);
-        v20 = *MEMORY[0x277D85DE8];
+        *&v20 = v8;
+        *(&v20 + 1) = v13;
+        v21 = v14;
+        v22 = v15;
+        v23 = HIDWORD(v11);
+        v24 = v12;
+        v25 = v11;
+        sub_2712A6008(v19, &v20);
         return;
       }
     }
 
     else
     {
-      v19 = qword_28087C408;
-      v18 = qword_28087C410;
+      v17 = qword_28087C408;
+      v16 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_20;
@@ -2747,11 +2267,11 @@ LABEL_19:
 
     do
     {
-      (*v19)(*(v19 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v19 += 16;
+      (*v17)(*(v17 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v17 += 16;
     }
 
-    while (v19 != v18);
+    while (v17 != v16);
     if (byte_28087C430)
     {
       goto LABEL_18;
@@ -2761,44 +2281,40 @@ LABEL_20:
     abort();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  sub_2712A6454(a1 + 8, (v6 + 8));
+  sub_2712A6454(a1 + 8, (v5 + 8));
 }
 
-void sub_2717B53F8(uint64_t a1, int a2)
+void sub_2717B53F8(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 33)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -2808,8 +2324,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -2818,13 +2334,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -2837,18 +2353,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -2857,13 +2373,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -2872,39 +2388,37 @@ LABEL_9:
   goto LABEL_9;
 }
 
-void sub_2717B56F8(uint64_t a1, int a2)
+void sub_2717B56F8(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 33)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -2914,8 +2428,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -2924,13 +2438,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -2943,18 +2457,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -2963,13 +2477,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -3008,7 +2522,7 @@ void sub_2717B5A34(uint64_t a1)
 
 uint64_t sub_2717B5A8C(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   *a1 = &unk_288112598;
   if (*(a2 + 28))
   {
@@ -3027,13 +2541,13 @@ uint64_t sub_2717B5A8C(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
     v6 = 0;
   }
 
-  *&v21[4] = v6;
-  *v21 = 4;
-  v7 = *v21;
+  *&v20[4] = v6;
+  *v20 = 4;
+  v7 = *v20;
   v8 = HIDWORD(v6);
-  *v21 = 1;
-  *&v21[4] = v5;
-  v9 = *v21;
+  *v20 = 1;
+  *&v20[4] = v5;
+  v9 = *v20;
   v10 = HIDWORD(v5);
   *(a1 + 8) = v7;
   *(a1 + 16) = HIDWORD(v6);
@@ -3043,8 +2557,8 @@ uint64_t sub_2717B5A8C(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
   *(a1 + 40) = v5;
   *(a1 + 48) = 0;
   *(a1 + 60) = 0;
-  *v21 = v9;
-  *&v21[8] = HIDWORD(v5);
+  *v20 = v9;
+  *&v20[8] = HIDWORD(v5);
   if (HIDWORD(v7))
   {
     v11 = v7 == 0;
@@ -3076,7 +2590,7 @@ uint64_t sub_2717B5A8C(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
     v14 = v7;
   }
 
-  v19 = v14;
+  v18 = v14;
   if (v12)
   {
     v15 = 0;
@@ -3087,7 +2601,7 @@ uint64_t sub_2717B5A8C(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
     v15 = v8;
   }
 
-  v20 = v15;
+  v19 = v15;
   if (((2 * v10) & (2 * v10 - 1)) != 0)
   {
     v16 = 2;
@@ -3098,85 +2612,82 @@ uint64_t sub_2717B5A8C(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
     v16 = 2 * v10;
   }
 
-  sub_2717D5090(a1 + 64, &v19, v21, 1, a3, 1, v16);
-  v17 = *MEMORY[0x277D85DE8];
+  sub_2717D5090(a1 + 64, &v18, v20, 1, a3, 1, v16);
   return a1;
 }
 
-void sub_2717B5C9C(uint64_t a1, char **lpsrc)
+void sub_2717B5C9C(uint64_t a1, uint64_t *lpsrc)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_288123908, &unk_288123670, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_288123908, &unk_288123670, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v23, lpsrc, 34);
-    v9 = *(v23 + 16);
-    v8 = *(v23 + 32);
-    v22[0] = *v23;
-    v22[1] = v9;
-    v22[2] = v8;
-    *&v23 = 0;
+    (*(v4 + 72))(&v20, lpsrc, 34);
+    v7 = *(v20 + 16);
+    v6 = *(v20 + 32);
+    v19[0] = *v20;
+    v19[1] = v7;
+    v19[2] = v6;
+    *&v20 = 0;
     MEMORY[0x2743BF050]();
-    v10 = *(a1 + 72);
+    v8 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v11 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v11 = 1;
+      v9 = 1;
     }
 
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v11)
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    if (v9)
     {
-      v12 = 0;
+      v10 = 0;
     }
 
-    LODWORD(v23) = 4;
-    *(&v23 + 4) = v12;
-    v14 = v12;
-    v15 = v23;
-    v16 = HIDWORD(v12);
-    LODWORD(v23) = 1;
-    *(&v23 + 4) = v13;
-    v17 = v23;
-    if (HIDWORD(v13) * HIDWORD(v12) != -1)
+    LODWORD(v20) = 4;
+    *(&v20 + 4) = v10;
+    v12 = v10;
+    v13 = v20;
+    v14 = HIDWORD(v10);
+    LODWORD(v20) = 1;
+    *(&v20 + 4) = v11;
+    v15 = v20;
+    if (HIDWORD(v11) * HIDWORD(v10) != -1)
     {
       goto LABEL_19;
     }
 
-    v21 = v10;
+    v18 = v8;
     sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v19 = qword_28087C408, v18 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v17 = qword_28087C408, v16 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_18:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v10 = v21;
+        v8 = v18;
 LABEL_19:
-        *&v23 = v10;
-        *(&v23 + 1) = v15;
-        v24 = v16;
-        v25 = v17;
-        v26 = HIDWORD(v13);
-        v27 = v14;
-        v28 = v13;
-        sub_271244900(v22, &v23);
-        v20 = *MEMORY[0x277D85DE8];
+        *&v20 = v8;
+        *(&v20 + 1) = v13;
+        v21 = v14;
+        v22 = v15;
+        v23 = HIDWORD(v11);
+        v24 = v12;
+        v25 = v11;
+        sub_271244900(v19, &v20);
         return;
       }
     }
 
     else
     {
-      v19 = qword_28087C408;
-      v18 = qword_28087C410;
+      v17 = qword_28087C408;
+      v16 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_20;
@@ -3185,11 +2696,11 @@ LABEL_19:
 
     do
     {
-      (*v19)(*(v19 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v19 += 16;
+      (*v17)(*(v17 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v17 += 16;
     }
 
-    while (v19 != v18);
+    while (v17 != v16);
     if (byte_28087C430)
     {
       goto LABEL_18;
@@ -3199,44 +2710,40 @@ LABEL_20:
     abort();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  sub_2712A6AE0(a1 + 8, (v6 + 8));
+  sub_2712A6AE0(a1 + 8, (v5 + 8));
 }
 
-void sub_2717B5F84(uint64_t a1, int a2)
+void sub_2717B5F84(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 34)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -3246,8 +2753,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -3256,13 +2763,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -3275,18 +2782,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -3295,13 +2802,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -3310,39 +2817,37 @@ LABEL_9:
   goto LABEL_9;
 }
 
-void sub_2717B6284(uint64_t a1, int a2)
+void sub_2717B6284(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 34)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -3352,8 +2857,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -3362,13 +2867,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -3381,18 +2886,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -3401,13 +2906,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -3584,7 +3089,7 @@ LABEL_20:
 
 uint64_t sub_2717B6874(uint64_t a1, uint64_t a2, __int16 *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   *a1 = &unk_288112518;
   if (*(a2 + 28))
   {
@@ -3603,13 +3108,13 @@ uint64_t sub_2717B6874(uint64_t a1, uint64_t a2, __int16 *a3)
     v6 = 0;
   }
 
-  *&v21[4] = v6;
-  *v21 = 4;
-  v7 = *v21;
+  *&v20[4] = v6;
+  *v20 = 4;
+  v7 = *v20;
   v8 = HIDWORD(v6);
-  *v21 = 1;
-  *&v21[4] = v5;
-  v9 = *v21;
+  *v20 = 1;
+  *&v20[4] = v5;
+  v9 = *v20;
   v10 = HIDWORD(v5);
   *(a1 + 8) = v7;
   *(a1 + 16) = HIDWORD(v6);
@@ -3619,8 +3124,8 @@ uint64_t sub_2717B6874(uint64_t a1, uint64_t a2, __int16 *a3)
   *(a1 + 40) = v5;
   *(a1 + 48) = 0;
   *(a1 + 60) = 0;
-  *v21 = v9;
-  *&v21[8] = HIDWORD(v5);
+  *v20 = v9;
+  *&v20[8] = HIDWORD(v5);
   if (HIDWORD(v7))
   {
     v11 = v7 == 0;
@@ -3652,7 +3157,7 @@ uint64_t sub_2717B6874(uint64_t a1, uint64_t a2, __int16 *a3)
     v14 = v7;
   }
 
-  v19 = v14;
+  v18 = v14;
   if (v12)
   {
     v15 = 0;
@@ -3663,7 +3168,7 @@ uint64_t sub_2717B6874(uint64_t a1, uint64_t a2, __int16 *a3)
     v15 = v8;
   }
 
-  v20 = v15;
+  v19 = v15;
   if (((2 * v10) & (2 * v10 - 1)) != 0)
   {
     v16 = 2;
@@ -3674,87 +3179,84 @@ uint64_t sub_2717B6874(uint64_t a1, uint64_t a2, __int16 *a3)
     v16 = 2 * v10;
   }
 
-  sub_2717D5BBC(a1 + 64, &v19, v21, 1, a3, 1, v16);
-  v17 = *MEMORY[0x277D85DE8];
+  sub_2717D5BBC(a1 + 64, &v18, v20, 1, a3, 1, v16);
   return a1;
 }
 
-void sub_2717B6A84(uint64_t a1, char **lpsrc)
+double sub_2717B6A84(uint64_t a1, uint64_t *lpsrc)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_288123908, &unk_288123658, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_288123908, &unk_288123658, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v24, lpsrc, 35);
-    v9 = *(v24 + 16);
-    v8 = *(v24 + 32);
-    v22[0] = *v24;
-    v22[1] = v9;
-    v22[2] = v8;
-    *&v24 = 0;
+    (*(v4 + 72))(&v22, lpsrc, 35);
+    v8 = *(v22 + 16);
+    v7 = *(v22 + 32);
+    v20[0] = *v22;
+    v20[1] = v8;
+    v20[2] = v7;
+    *&v22 = 0;
     MEMORY[0x2743BF050]();
-    v10 = *(a1 + 72);
+    v9 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v11 = *(a1 + 32) == 0;
+      v10 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v11 = 1;
+      v10 = 1;
     }
 
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v11)
+    v11 = *(a1 + 32);
+    v12 = *(a1 + 40);
+    if (v10)
     {
-      v12 = 0;
+      v11 = 0;
     }
 
-    LODWORD(v24) = 4;
-    *(&v24 + 4) = v12;
-    v14 = v12;
-    v15 = v24;
-    v16 = HIDWORD(v12);
-    LODWORD(v24) = 1;
-    *(&v24 + 4) = v13;
-    v17 = v24;
-    if (HIDWORD(v13) * HIDWORD(v12) != -1)
+    LODWORD(v22) = 4;
+    *(&v22 + 4) = v11;
+    v13 = v11;
+    v14 = v22;
+    v15 = HIDWORD(v11);
+    LODWORD(v22) = 1;
+    *(&v22 + 4) = v12;
+    v16 = v22;
+    if (HIDWORD(v12) * HIDWORD(v11) != -1)
     {
       goto LABEL_19;
     }
 
-    v21 = v10;
+    v19 = v9;
     sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v19 = qword_28087C408, v18 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v18 = qword_28087C408, v17 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_18:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v10 = v21;
+        v9 = v19;
 LABEL_19:
-        *&v24 = v10;
-        *(&v24 + 1) = v15;
-        v25 = v16;
-        v26 = v17;
-        v27 = HIDWORD(v13);
-        v28 = v14;
-        v29 = v13;
-        v23[0] = v22;
-        v23[1] = &v24;
-        sub_2712A6EAC(v23);
-        v20 = *MEMORY[0x277D85DE8];
-        return;
+        *&v22 = v9;
+        *(&v22 + 1) = v14;
+        v23 = v15;
+        v24 = v16;
+        v25 = HIDWORD(v12);
+        v26 = v13;
+        v27 = v12;
+        v21[0] = v20;
+        v21[1] = &v22;
+        *&result = sub_2712A6EAC(v21);
+        return result;
       }
     }
 
     else
     {
-      v19 = qword_28087C408;
-      v18 = qword_28087C410;
+      v18 = qword_28087C408;
+      v17 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_20;
@@ -3763,11 +3265,11 @@ LABEL_19:
 
     do
     {
-      (*v19)(*(v19 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v19 += 16;
+      (*v18)(*(v18 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v18 += 16;
     }
 
-    while (v19 != v18);
+    while (v18 != v17);
     if (byte_28087C430)
     {
       goto LABEL_18;
@@ -3777,44 +3279,41 @@ LABEL_20:
     abort();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  sub_2712A7ABC(a1 + 8, (v6 + 8));
+  sub_2712A7ABC(a1 + 8, (v5 + 8));
+  return result;
 }
 
-void sub_2717B6D74(uint64_t a1, int a2)
+void sub_2717B6D74(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 35)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -3824,8 +3323,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -3834,13 +3333,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -3853,18 +3352,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -3873,13 +3372,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -3888,39 +3387,37 @@ LABEL_9:
   goto LABEL_9;
 }
 
-void sub_2717B7074(uint64_t a1, int a2)
+void sub_2717B7074(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 35)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -3930,8 +3427,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -3940,13 +3437,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -3959,18 +3456,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -3979,13 +3476,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -4022,9 +3519,9 @@ void sub_2717B73B0(uint64_t a1)
   JUMPOUT(0x2743BF050);
 }
 
-uint64_t sub_2717B7408(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
+uint64_t sub_2717B7408(uint64_t a1, uint64_t a2, __int32 *a3, double a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   *a1 = &unk_288112498;
   if (*(a2 + 28))
   {
@@ -4043,13 +3540,13 @@ uint64_t sub_2717B7408(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
     v7 = 0;
   }
 
-  *&v22[4] = v7;
-  *v22 = 4;
-  v8 = *v22;
+  *&v21[4] = v7;
+  *v21 = 4;
+  v8 = *v21;
   v9 = HIDWORD(v7);
-  *v22 = 1;
-  *&v22[4] = v6;
-  v10 = *v22;
+  *v21 = 1;
+  *&v21[4] = v6;
+  v10 = *v21;
   v11 = HIDWORD(v6);
   *(a1 + 8) = v8;
   *(a1 + 16) = HIDWORD(v7);
@@ -4059,8 +3556,8 @@ uint64_t sub_2717B7408(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
   *(a1 + 40) = v6;
   *(a1 + 48) = 0;
   *(a1 + 60) = 0;
-  *v22 = v10;
-  *&v22[8] = HIDWORD(v6);
+  *v21 = v10;
+  *&v21[8] = HIDWORD(v6);
   if (HIDWORD(v8))
   {
     v12 = v8 == 0;
@@ -4092,7 +3589,7 @@ uint64_t sub_2717B7408(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
     v15 = v8;
   }
 
-  v20 = v15;
+  v19 = v15;
   if (v13)
   {
     v16 = 0;
@@ -4103,7 +3600,7 @@ uint64_t sub_2717B7408(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
     v16 = v9;
   }
 
-  v21 = v16;
+  v20 = v16;
   if (((4 * v11) & (4 * v11 - 1)) != 0)
   {
     v17 = 4;
@@ -4114,85 +3611,82 @@ uint64_t sub_2717B7408(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
     v17 = 4 * v11;
   }
 
-  sub_2717D6318(a1 + 64, &v20, v22, 1, a3, 1, v17, a4);
-  v18 = *MEMORY[0x277D85DE8];
+  sub_2717D6318(a1 + 64, &v19, v21, 1, a3, 1, v17, a4);
   return a1;
 }
 
-void sub_2717B7614(uint64_t a1, char **lpsrc)
+void sub_2717B7614(uint64_t a1, uint64_t *lpsrc)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_288123908, &unk_288123640, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_288123908, &unk_288123640, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v23, lpsrc, 36);
-    v9 = *(v23 + 16);
-    v8 = *(v23 + 32);
-    v22[0] = *v23;
-    v22[1] = v9;
-    v22[2] = v8;
-    *&v23 = 0;
+    (*(v4 + 72))(&v20, lpsrc, 36);
+    v7 = *(v20 + 16);
+    v6 = *(v20 + 32);
+    v19[0] = *v20;
+    v19[1] = v7;
+    v19[2] = v6;
+    *&v20 = 0;
     MEMORY[0x2743BF050]();
-    v10 = *(a1 + 72);
+    v8 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v11 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v11 = 1;
+      v9 = 1;
     }
 
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v11)
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    if (v9)
     {
-      v12 = 0;
+      v10 = 0;
     }
 
-    LODWORD(v23) = 4;
-    *(&v23 + 4) = v12;
-    v14 = v12;
-    v15 = v23;
-    v16 = HIDWORD(v12);
-    LODWORD(v23) = 1;
-    *(&v23 + 4) = v13;
-    v17 = v23;
-    if (HIDWORD(v13) * HIDWORD(v12) != -1)
+    LODWORD(v20) = 4;
+    *(&v20 + 4) = v10;
+    v12 = v10;
+    v13 = v20;
+    v14 = HIDWORD(v10);
+    LODWORD(v20) = 1;
+    *(&v20 + 4) = v11;
+    v15 = v20;
+    if (HIDWORD(v11) * HIDWORD(v10) != -1)
     {
       goto LABEL_19;
     }
 
-    v21 = v10;
+    v18 = v8;
     sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v19 = qword_28087C408, v18 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v17 = qword_28087C408, v16 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_18:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v10 = v21;
+        v8 = v18;
 LABEL_19:
-        *&v23 = v10;
-        *(&v23 + 1) = v15;
-        v24 = v16;
-        v25 = v17;
-        v26 = HIDWORD(v13);
-        v27 = v14;
-        v28 = v13;
-        sub_271245B78(v22, &v23);
-        v20 = *MEMORY[0x277D85DE8];
+        *&v20 = v8;
+        *(&v20 + 1) = v13;
+        v21 = v14;
+        v22 = v15;
+        v23 = HIDWORD(v11);
+        v24 = v12;
+        v25 = v11;
+        sub_271245B78(v19, &v20);
         return;
       }
     }
 
     else
     {
-      v19 = qword_28087C408;
-      v18 = qword_28087C410;
+      v17 = qword_28087C408;
+      v16 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_20;
@@ -4201,11 +3695,11 @@ LABEL_19:
 
     do
     {
-      (*v19)(*(v19 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v19 += 16;
+      (*v17)(*(v17 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v17 += 16;
     }
 
-    while (v19 != v18);
+    while (v17 != v16);
     if (byte_28087C430)
     {
       goto LABEL_18;
@@ -4215,44 +3709,40 @@ LABEL_20:
     abort();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  sub_2712A8BDC(a1 + 8, (v6 + 8));
+  sub_2712A8BDC(a1 + 8, (v5 + 8));
 }
 
-void sub_2717B78FC(uint64_t a1, int a2)
+void sub_2717B78FC(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 36)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -4262,8 +3752,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -4272,13 +3762,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -4291,18 +3781,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -4311,13 +3801,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -4326,39 +3816,37 @@ LABEL_9:
   goto LABEL_9;
 }
 
-void sub_2717B7BFC(uint64_t a1, int a2)
+void sub_2717B7BFC(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 36)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -4368,8 +3856,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -4378,13 +3866,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -4397,18 +3885,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -4417,13 +3905,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -4462,7 +3950,7 @@ void sub_2717B7F38(uint64_t a1)
 
 uint64_t sub_2717B7F90(uint64_t a1, uint64_t a2, char *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   *a1 = &unk_288112418;
   if (*(a2 + 28))
   {
@@ -4481,13 +3969,13 @@ uint64_t sub_2717B7F90(uint64_t a1, uint64_t a2, char *a3)
     v6 = 0;
   }
 
-  *&v21[4] = v6;
-  *v21 = 4;
-  v7 = *v21;
+  *&v20[4] = v6;
+  *v20 = 4;
+  v7 = *v20;
   v8 = HIDWORD(v6);
-  *v21 = 1;
-  *&v21[4] = v5;
-  v9 = *v21;
+  *v20 = 1;
+  *&v20[4] = v5;
+  v9 = *v20;
   v10 = HIDWORD(v5);
   *(a1 + 8) = v7;
   *(a1 + 16) = HIDWORD(v6);
@@ -4497,8 +3985,8 @@ uint64_t sub_2717B7F90(uint64_t a1, uint64_t a2, char *a3)
   *(a1 + 40) = v5;
   *(a1 + 48) = 0;
   *(a1 + 60) = 0;
-  *v21 = v9;
-  *&v21[8] = HIDWORD(v5);
+  *v20 = v9;
+  *&v20[8] = HIDWORD(v5);
   if (HIDWORD(v7))
   {
     v11 = v7 == 0;
@@ -4530,7 +4018,7 @@ uint64_t sub_2717B7F90(uint64_t a1, uint64_t a2, char *a3)
     v14 = v7;
   }
 
-  v19 = v14;
+  v18 = v14;
   if (v12)
   {
     v15 = 0;
@@ -4541,7 +4029,7 @@ uint64_t sub_2717B7F90(uint64_t a1, uint64_t a2, char *a3)
     v15 = v8;
   }
 
-  v20 = v15;
+  v19 = v15;
   if ((v10 & (v10 - 1)) != 0)
   {
     v16 = 1;
@@ -4552,85 +4040,82 @@ uint64_t sub_2717B7F90(uint64_t a1, uint64_t a2, char *a3)
     v16 = v10;
   }
 
-  sub_2717D4B20(a1 + 64, &v19, v21, 1, a3, 1, v16);
-  v17 = *MEMORY[0x277D85DE8];
+  sub_2717D4B20(a1 + 64, &v18, v20, 1, a3, 1, v16);
   return a1;
 }
 
-void sub_2717B8198(uint64_t a1, char **lpsrc)
+void sub_2717B8198(uint64_t a1, uint64_t *lpsrc)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_288123908, &unk_288123628, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_288123908, &unk_288123628, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v23, lpsrc, 37);
-    v9 = *(v23 + 16);
-    v8 = *(v23 + 32);
-    v22[0] = *v23;
-    v22[1] = v9;
-    v22[2] = v8;
-    *&v23 = 0;
+    (*(v4 + 72))(&v20, lpsrc, 37);
+    v7 = *(v20 + 16);
+    v6 = *(v20 + 32);
+    v19[0] = *v20;
+    v19[1] = v7;
+    v19[2] = v6;
+    *&v20 = 0;
     MEMORY[0x2743BF050]();
-    v10 = *(a1 + 72);
+    v8 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v11 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v11 = 1;
+      v9 = 1;
     }
 
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v11)
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    if (v9)
     {
-      v12 = 0;
+      v10 = 0;
     }
 
-    LODWORD(v23) = 4;
-    *(&v23 + 4) = v12;
-    v14 = v12;
-    v15 = v23;
-    v16 = HIDWORD(v12);
-    LODWORD(v23) = 1;
-    *(&v23 + 4) = v13;
-    v17 = v23;
-    if (HIDWORD(v13) * HIDWORD(v12) != -1)
+    LODWORD(v20) = 4;
+    *(&v20 + 4) = v10;
+    v12 = v10;
+    v13 = v20;
+    v14 = HIDWORD(v10);
+    LODWORD(v20) = 1;
+    *(&v20 + 4) = v11;
+    v15 = v20;
+    if (HIDWORD(v11) * HIDWORD(v10) != -1)
     {
       goto LABEL_19;
     }
 
-    v21 = v10;
+    v18 = v8;
     sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v19 = qword_28087C408, v18 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v17 = qword_28087C408, v16 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_18:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v10 = v21;
+        v8 = v18;
 LABEL_19:
-        *&v23 = v10;
-        *(&v23 + 1) = v15;
-        v24 = v16;
-        v25 = v17;
-        v26 = HIDWORD(v13);
-        v27 = v14;
-        v28 = v13;
-        sub_2712A6008(v22, &v23);
-        v20 = *MEMORY[0x277D85DE8];
+        *&v20 = v8;
+        *(&v20 + 1) = v13;
+        v21 = v14;
+        v22 = v15;
+        v23 = HIDWORD(v11);
+        v24 = v12;
+        v25 = v11;
+        sub_2712A6008(v19, &v20);
         return;
       }
     }
 
     else
     {
-      v19 = qword_28087C408;
-      v18 = qword_28087C410;
+      v17 = qword_28087C408;
+      v16 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_20;
@@ -4639,11 +4124,11 @@ LABEL_19:
 
     do
     {
-      (*v19)(*(v19 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v19 += 16;
+      (*v17)(*(v17 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v17 += 16;
     }
 
-    while (v19 != v18);
+    while (v17 != v16);
     if (byte_28087C430)
     {
       goto LABEL_18;
@@ -4653,44 +4138,40 @@ LABEL_20:
     abort();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  sub_2712A6454(a1 + 8, (v6 + 8));
+  sub_2712A6454(a1 + 8, (v5 + 8));
 }
 
-void sub_2717B8480(uint64_t a1, int a2)
+void sub_2717B8480(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 37)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -4700,8 +4181,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -4710,13 +4191,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -4729,18 +4210,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -4749,13 +4230,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -4764,39 +4245,37 @@ LABEL_9:
   goto LABEL_9;
 }
 
-void sub_2717B8780(uint64_t a1, int a2)
+void sub_2717B8780(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 37)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -4806,8 +4285,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -4816,13 +4295,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -4835,18 +4314,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -4855,13 +4334,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -4900,7 +4379,7 @@ void sub_2717B8ABC(uint64_t a1)
 
 uint64_t sub_2717B8B14(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   *a1 = &unk_288112398;
   if (*(a2 + 28))
   {
@@ -4919,13 +4398,13 @@ uint64_t sub_2717B8B14(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
     v6 = 0;
   }
 
-  *&v21[4] = v6;
-  *v21 = 4;
-  v7 = *v21;
+  *&v20[4] = v6;
+  *v20 = 4;
+  v7 = *v20;
   v8 = HIDWORD(v6);
-  *v21 = 1;
-  *&v21[4] = v5;
-  v9 = *v21;
+  *v20 = 1;
+  *&v20[4] = v5;
+  v9 = *v20;
   v10 = HIDWORD(v5);
   *(a1 + 8) = v7;
   *(a1 + 16) = HIDWORD(v6);
@@ -4935,8 +4414,8 @@ uint64_t sub_2717B8B14(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
   *(a1 + 40) = v5;
   *(a1 + 48) = 0;
   *(a1 + 60) = 0;
-  *v21 = v9;
-  *&v21[8] = HIDWORD(v5);
+  *v20 = v9;
+  *&v20[8] = HIDWORD(v5);
   if (HIDWORD(v7))
   {
     v11 = v7 == 0;
@@ -4968,7 +4447,7 @@ uint64_t sub_2717B8B14(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
     v14 = v7;
   }
 
-  v19 = v14;
+  v18 = v14;
   if (v12)
   {
     v15 = 0;
@@ -4979,7 +4458,7 @@ uint64_t sub_2717B8B14(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
     v15 = v8;
   }
 
-  v20 = v15;
+  v19 = v15;
   if (((2 * v10) & (2 * v10 - 1)) != 0)
   {
     v16 = 2;
@@ -4990,85 +4469,82 @@ uint64_t sub_2717B8B14(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
     v16 = 2 * v10;
   }
 
-  sub_2717D5090(a1 + 64, &v19, v21, 1, a3, 1, v16);
-  v17 = *MEMORY[0x277D85DE8];
+  sub_2717D5090(a1 + 64, &v18, v20, 1, a3, 1, v16);
   return a1;
 }
 
-void sub_2717B8D24(uint64_t a1, char **lpsrc)
+void sub_2717B8D24(uint64_t a1, uint64_t *lpsrc)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_288123908, &unk_288123610, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_288123908, &unk_288123610, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v23, lpsrc, 38);
-    v9 = *(v23 + 16);
-    v8 = *(v23 + 32);
-    v22[0] = *v23;
-    v22[1] = v9;
-    v22[2] = v8;
-    *&v23 = 0;
+    (*(v4 + 72))(&v20, lpsrc, 38);
+    v7 = *(v20 + 16);
+    v6 = *(v20 + 32);
+    v19[0] = *v20;
+    v19[1] = v7;
+    v19[2] = v6;
+    *&v20 = 0;
     MEMORY[0x2743BF050]();
-    v10 = *(a1 + 72);
+    v8 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v11 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v11 = 1;
+      v9 = 1;
     }
 
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v11)
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    if (v9)
     {
-      v12 = 0;
+      v10 = 0;
     }
 
-    LODWORD(v23) = 4;
-    *(&v23 + 4) = v12;
-    v14 = v12;
-    v15 = v23;
-    v16 = HIDWORD(v12);
-    LODWORD(v23) = 1;
-    *(&v23 + 4) = v13;
-    v17 = v23;
-    if (HIDWORD(v13) * HIDWORD(v12) != -1)
+    LODWORD(v20) = 4;
+    *(&v20 + 4) = v10;
+    v12 = v10;
+    v13 = v20;
+    v14 = HIDWORD(v10);
+    LODWORD(v20) = 1;
+    *(&v20 + 4) = v11;
+    v15 = v20;
+    if (HIDWORD(v11) * HIDWORD(v10) != -1)
     {
       goto LABEL_19;
     }
 
-    v21 = v10;
+    v18 = v8;
     sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v19 = qword_28087C408, v18 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v17 = qword_28087C408, v16 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_18:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v10 = v21;
+        v8 = v18;
 LABEL_19:
-        *&v23 = v10;
-        *(&v23 + 1) = v15;
-        v24 = v16;
-        v25 = v17;
-        v26 = HIDWORD(v13);
-        v27 = v14;
-        v28 = v13;
-        sub_271244900(v22, &v23);
-        v20 = *MEMORY[0x277D85DE8];
+        *&v20 = v8;
+        *(&v20 + 1) = v13;
+        v21 = v14;
+        v22 = v15;
+        v23 = HIDWORD(v11);
+        v24 = v12;
+        v25 = v11;
+        sub_271244900(v19, &v20);
         return;
       }
     }
 
     else
     {
-      v19 = qword_28087C408;
-      v18 = qword_28087C410;
+      v17 = qword_28087C408;
+      v16 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_20;
@@ -5077,11 +4553,11 @@ LABEL_19:
 
     do
     {
-      (*v19)(*(v19 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v19 += 16;
+      (*v17)(*(v17 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v17 += 16;
     }
 
-    while (v19 != v18);
+    while (v17 != v16);
     if (byte_28087C430)
     {
       goto LABEL_18;
@@ -5091,44 +4567,40 @@ LABEL_20:
     abort();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  sub_2712A6AE0(a1 + 8, (v6 + 8));
+  sub_2712A6AE0(a1 + 8, (v5 + 8));
 }
 
-void sub_2717B900C(uint64_t a1, int a2)
+void sub_2717B900C(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 38)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -5138,8 +4610,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -5148,13 +4620,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -5167,18 +4639,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -5187,13 +4659,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -5202,39 +4674,37 @@ LABEL_9:
   goto LABEL_9;
 }
 
-void sub_2717B930C(uint64_t a1, int a2)
+void sub_2717B930C(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 38)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -5244,8 +4714,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -5254,13 +4724,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -5273,18 +4743,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -5293,13 +4763,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -5476,7 +4946,7 @@ LABEL_20:
 
 uint64_t sub_2717B98FC(uint64_t a1, uint64_t a2, __int16 *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   *a1 = &unk_288112318;
   if (*(a2 + 28))
   {
@@ -5495,13 +4965,13 @@ uint64_t sub_2717B98FC(uint64_t a1, uint64_t a2, __int16 *a3)
     v6 = 0;
   }
 
-  *&v21[4] = v6;
-  *v21 = 4;
-  v7 = *v21;
+  *&v20[4] = v6;
+  *v20 = 4;
+  v7 = *v20;
   v8 = HIDWORD(v6);
-  *v21 = 1;
-  *&v21[4] = v5;
-  v9 = *v21;
+  *v20 = 1;
+  *&v20[4] = v5;
+  v9 = *v20;
   v10 = HIDWORD(v5);
   *(a1 + 8) = v7;
   *(a1 + 16) = HIDWORD(v6);
@@ -5511,8 +4981,8 @@ uint64_t sub_2717B98FC(uint64_t a1, uint64_t a2, __int16 *a3)
   *(a1 + 40) = v5;
   *(a1 + 48) = 0;
   *(a1 + 60) = 0;
-  *v21 = v9;
-  *&v21[8] = HIDWORD(v5);
+  *v20 = v9;
+  *&v20[8] = HIDWORD(v5);
   if (HIDWORD(v7))
   {
     v11 = v7 == 0;
@@ -5544,7 +5014,7 @@ uint64_t sub_2717B98FC(uint64_t a1, uint64_t a2, __int16 *a3)
     v14 = v7;
   }
 
-  v19 = v14;
+  v18 = v14;
   if (v12)
   {
     v15 = 0;
@@ -5555,7 +5025,7 @@ uint64_t sub_2717B98FC(uint64_t a1, uint64_t a2, __int16 *a3)
     v15 = v8;
   }
 
-  v20 = v15;
+  v19 = v15;
   if (((2 * v10) & (2 * v10 - 1)) != 0)
   {
     v16 = 2;
@@ -5566,87 +5036,84 @@ uint64_t sub_2717B98FC(uint64_t a1, uint64_t a2, __int16 *a3)
     v16 = 2 * v10;
   }
 
-  sub_2717D5BBC(a1 + 64, &v19, v21, 1, a3, 1, v16);
-  v17 = *MEMORY[0x277D85DE8];
+  sub_2717D5BBC(a1 + 64, &v18, v20, 1, a3, 1, v16);
   return a1;
 }
 
-void sub_2717B9B0C(uint64_t a1, char **lpsrc)
+double sub_2717B9B0C(uint64_t a1, uint64_t *lpsrc)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_288123908, &unk_2881235F8, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_288123908, &unk_2881235F8, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v24, lpsrc, 39);
-    v9 = *(v24 + 16);
-    v8 = *(v24 + 32);
-    v22[0] = *v24;
-    v22[1] = v9;
-    v22[2] = v8;
-    *&v24 = 0;
+    (*(v4 + 72))(&v22, lpsrc, 39);
+    v8 = *(v22 + 16);
+    v7 = *(v22 + 32);
+    v20[0] = *v22;
+    v20[1] = v8;
+    v20[2] = v7;
+    *&v22 = 0;
     MEMORY[0x2743BF050]();
-    v10 = *(a1 + 72);
+    v9 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v11 = *(a1 + 32) == 0;
+      v10 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v11 = 1;
+      v10 = 1;
     }
 
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v11)
+    v11 = *(a1 + 32);
+    v12 = *(a1 + 40);
+    if (v10)
     {
-      v12 = 0;
+      v11 = 0;
     }
 
-    LODWORD(v24) = 4;
-    *(&v24 + 4) = v12;
-    v14 = v12;
-    v15 = v24;
-    v16 = HIDWORD(v12);
-    LODWORD(v24) = 1;
-    *(&v24 + 4) = v13;
-    v17 = v24;
-    if (HIDWORD(v13) * HIDWORD(v12) != -1)
+    LODWORD(v22) = 4;
+    *(&v22 + 4) = v11;
+    v13 = v11;
+    v14 = v22;
+    v15 = HIDWORD(v11);
+    LODWORD(v22) = 1;
+    *(&v22 + 4) = v12;
+    v16 = v22;
+    if (HIDWORD(v12) * HIDWORD(v11) != -1)
     {
       goto LABEL_19;
     }
 
-    v21 = v10;
+    v19 = v9;
     sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v19 = qword_28087C408, v18 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v18 = qword_28087C408, v17 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_18:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v10 = v21;
+        v9 = v19;
 LABEL_19:
-        *&v24 = v10;
-        *(&v24 + 1) = v15;
-        v25 = v16;
-        v26 = v17;
-        v27 = HIDWORD(v13);
-        v28 = v14;
-        v29 = v13;
-        v23[0] = v22;
-        v23[1] = &v24;
-        sub_2712A6EAC(v23);
-        v20 = *MEMORY[0x277D85DE8];
-        return;
+        *&v22 = v9;
+        *(&v22 + 1) = v14;
+        v23 = v15;
+        v24 = v16;
+        v25 = HIDWORD(v12);
+        v26 = v13;
+        v27 = v12;
+        v21[0] = v20;
+        v21[1] = &v22;
+        *&result = sub_2712A6EAC(v21);
+        return result;
       }
     }
 
     else
     {
-      v19 = qword_28087C408;
-      v18 = qword_28087C410;
+      v18 = qword_28087C408;
+      v17 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_20;
@@ -5655,11 +5122,11 @@ LABEL_19:
 
     do
     {
-      (*v19)(*(v19 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v19 += 16;
+      (*v18)(*(v18 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v18 += 16;
     }
 
-    while (v19 != v18);
+    while (v18 != v17);
     if (byte_28087C430)
     {
       goto LABEL_18;
@@ -5669,44 +5136,41 @@ LABEL_20:
     abort();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  sub_2712A7ABC(a1 + 8, (v6 + 8));
+  sub_2712A7ABC(a1 + 8, (v5 + 8));
+  return result;
 }
 
-void sub_2717B9DFC(uint64_t a1, int a2)
+void sub_2717B9DFC(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 39)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -5716,8 +5180,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -5726,13 +5190,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -5745,18 +5209,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -5765,13 +5229,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -5780,39 +5244,37 @@ LABEL_9:
   goto LABEL_9;
 }
 
-void sub_2717BA0FC(uint64_t a1, int a2)
+void sub_2717BA0FC(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 39)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -5822,8 +5284,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -5832,13 +5294,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -5851,18 +5313,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -5871,13 +5333,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -5914,9 +5376,9 @@ void sub_2717BA438(uint64_t a1)
   JUMPOUT(0x2743BF050);
 }
 
-uint64_t sub_2717BA490(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
+uint64_t sub_2717BA490(uint64_t a1, uint64_t a2, __int32 *a3, double a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   *a1 = &unk_288112218;
   if (*(a2 + 28))
   {
@@ -5935,13 +5397,13 @@ uint64_t sub_2717BA490(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
     v7 = 0;
   }
 
-  *&v22[4] = v7;
-  *v22 = 4;
-  v8 = *v22;
+  *&v21[4] = v7;
+  *v21 = 4;
+  v8 = *v21;
   v9 = HIDWORD(v7);
-  *v22 = 1;
-  *&v22[4] = v6;
-  v10 = *v22;
+  *v21 = 1;
+  *&v21[4] = v6;
+  v10 = *v21;
   v11 = HIDWORD(v6);
   *(a1 + 8) = v8;
   *(a1 + 16) = HIDWORD(v7);
@@ -5951,8 +5413,8 @@ uint64_t sub_2717BA490(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
   *(a1 + 40) = v6;
   *(a1 + 48) = 0;
   *(a1 + 60) = 0;
-  *v22 = v10;
-  *&v22[8] = HIDWORD(v6);
+  *v21 = v10;
+  *&v21[8] = HIDWORD(v6);
   if (HIDWORD(v8))
   {
     v12 = v8 == 0;
@@ -5984,7 +5446,7 @@ uint64_t sub_2717BA490(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
     v15 = v8;
   }
 
-  v20 = v15;
+  v19 = v15;
   if (v13)
   {
     v16 = 0;
@@ -5995,7 +5457,7 @@ uint64_t sub_2717BA490(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
     v16 = v9;
   }
 
-  v21 = v16;
+  v20 = v16;
   if (((4 * v11) & (4 * v11 - 1)) != 0)
   {
     v17 = 4;
@@ -6006,85 +5468,82 @@ uint64_t sub_2717BA490(uint64_t a1, uint64_t a2, __int32 *a3, int32x2_t a4)
     v17 = 4 * v11;
   }
 
-  sub_2717D6318(a1 + 64, &v20, v22, 1, a3, 1, v17, a4);
-  v18 = *MEMORY[0x277D85DE8];
+  sub_2717D6318(a1 + 64, &v19, v21, 1, a3, 1, v17, a4);
   return a1;
 }
 
-void sub_2717BA69C(uint64_t a1, char **lpsrc)
+void sub_2717BA69C(uint64_t a1, uint64_t *lpsrc)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_288123908, &unk_2881235C8, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_288123908, &unk_2881235C8, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v23, lpsrc, 40);
-    v9 = *(v23 + 16);
-    v8 = *(v23 + 32);
-    v22[0] = *v23;
-    v22[1] = v9;
-    v22[2] = v8;
-    *&v23 = 0;
+    (*(v4 + 72))(&v20, lpsrc, 40);
+    v7 = *(v20 + 16);
+    v6 = *(v20 + 32);
+    v19[0] = *v20;
+    v19[1] = v7;
+    v19[2] = v6;
+    *&v20 = 0;
     MEMORY[0x2743BF050]();
-    v10 = *(a1 + 72);
+    v8 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v11 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v11 = 1;
+      v9 = 1;
     }
 
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v11)
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    if (v9)
     {
-      v12 = 0;
+      v10 = 0;
     }
 
-    LODWORD(v23) = 4;
-    *(&v23 + 4) = v12;
-    v14 = v12;
-    v15 = v23;
-    v16 = HIDWORD(v12);
-    LODWORD(v23) = 1;
-    *(&v23 + 4) = v13;
-    v17 = v23;
-    if (HIDWORD(v13) * HIDWORD(v12) != -1)
+    LODWORD(v20) = 4;
+    *(&v20 + 4) = v10;
+    v12 = v10;
+    v13 = v20;
+    v14 = HIDWORD(v10);
+    LODWORD(v20) = 1;
+    *(&v20 + 4) = v11;
+    v15 = v20;
+    if (HIDWORD(v11) * HIDWORD(v10) != -1)
     {
       goto LABEL_19;
     }
 
-    v21 = v10;
+    v18 = v8;
     sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v19 = qword_28087C408, v18 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v17 = qword_28087C408, v16 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_18:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v10 = v21;
+        v8 = v18;
 LABEL_19:
-        *&v23 = v10;
-        *(&v23 + 1) = v15;
-        v24 = v16;
-        v25 = v17;
-        v26 = HIDWORD(v13);
-        v27 = v14;
-        v28 = v13;
-        sub_271245B78(v22, &v23);
-        v20 = *MEMORY[0x277D85DE8];
+        *&v20 = v8;
+        *(&v20 + 1) = v13;
+        v21 = v14;
+        v22 = v15;
+        v23 = HIDWORD(v11);
+        v24 = v12;
+        v25 = v11;
+        sub_271245B78(v19, &v20);
         return;
       }
     }
 
     else
     {
-      v19 = qword_28087C408;
-      v18 = qword_28087C410;
+      v17 = qword_28087C408;
+      v16 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_20;
@@ -6093,11 +5552,11 @@ LABEL_19:
 
     do
     {
-      (*v19)(*(v19 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v19 += 16;
+      (*v17)(*(v17 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v17 += 16;
     }
 
-    while (v19 != v18);
+    while (v17 != v16);
     if (byte_28087C430)
     {
       goto LABEL_18;
@@ -6107,44 +5566,40 @@ LABEL_20:
     abort();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  sub_2712A8BDC(a1 + 8, (v6 + 8));
+  sub_2712A8BDC(a1 + 8, (v5 + 8));
 }
 
-void sub_2717BA984(uint64_t a1, int a2)
+void sub_2717BA984(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 40)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -6154,8 +5609,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -6164,13 +5619,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -6183,18 +5638,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -6203,13 +5658,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -6218,39 +5673,37 @@ LABEL_9:
   goto LABEL_9;
 }
 
-void sub_2717BAC84(uint64_t a1, int a2)
+void sub_2717BAC84(uint64_t a1, int a2, double d0_0)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 40)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v9 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v10) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v10) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
+    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8, d0_0);
     if (byte_28087C430 == 1)
     {
-      if (byte_28087C438 != 1 || (v9 = qword_28087C408, v10 = qword_28087C410, qword_28087C408 == qword_28087C410))
+      if (byte_28087C438 != 1 || (v11 = qword_28087C408, v12 = qword_28087C410, qword_28087C408 == qword_28087C410))
       {
 LABEL_23:
         qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -6260,8 +5713,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_28087C408;
-      v10 = qword_28087C410;
+      v11 = qword_28087C408;
+      v12 = qword_28087C410;
       if (qword_28087C408 == qword_28087C410)
       {
         goto LABEL_25;
@@ -6270,13 +5723,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 = *v11;
+      v13 = *(v11 + 8);
+      v11 += 16;
+      v14(v13, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
     if (byte_28087C430)
     {
       goto LABEL_23;
@@ -6289,18 +5742,18 @@ LABEL_25:
   sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, "", 0, sub_271852CA8);
   if (byte_28087C430 == 1)
   {
-    if (byte_28087C438 != 1 || (v3 = qword_28087C408, v4 = qword_28087C410, qword_28087C408 == qword_28087C410))
+    if (byte_28087C438 != 1 || (v5 = qword_28087C408, v6 = qword_28087C410, qword_28087C408 == qword_28087C410))
     {
 LABEL_9:
-      qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
+      d0_0 = qword_28087C420(*algn_28087C428, "F == format", 11, "", 0);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v3 = qword_28087C408;
-    v4 = qword_28087C410;
+    v5 = qword_28087C408;
+    v6 = qword_28087C410;
     if (qword_28087C408 == qword_28087C410)
     {
       goto LABEL_25;
@@ -6309,13 +5762,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, "", 0);
+    v8 = *v5;
+    v7 = *(v5 + 8);
+    v5 += 16;
+    v8(v7, "F == format", 11, "", 0);
   }
 
-  while (v3 != v4);
+  while (v5 != v6);
   if ((byte_28087C430 & 1) == 0)
   {
     goto LABEL_25;
@@ -7140,7 +6593,7 @@ void sub_2717BB7DC(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 
 void sub_2717BB914(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (*(a1 + 28))
   {
     v3 = *(a1 + 24) == 0;
@@ -7210,7 +6663,7 @@ void sub_2717BB914(uint64_t a1@<X1>, uint64_t a2@<X8>)
 
   if (v15)
   {
-    v25 = v12;
+    v24 = v12;
     *memptr = 0;
     v20 = malloc_type_posix_memalign(memptr, v19, (v13 * HIDWORD(v5)), 0x63222AC6uLL);
     if (v20)
@@ -7219,7 +6672,7 @@ void sub_2717BB914(uint64_t a1@<X1>, uint64_t a2@<X8>)
     }
 
     v21 = *memptr;
-    v12 = v25;
+    v12 = v24;
   }
 
   else
@@ -7263,12 +6716,11 @@ void sub_2717BB914(uint64_t a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 96) = v13;
   *(a2 + 100) = v9;
   *(a2 + 108) = HIDWORD(v5);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 double sub_2717BBAD0@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v4 = *a1 == 0;
@@ -7287,13 +6739,13 @@ double sub_2717BBAD0@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
 
   v6 = 2 * (v5 != 0);
   LODWORD(v7) = v6 * v5;
-  *v27 = 2;
-  *&v27[4] = v5;
-  v8 = *v27;
+  *v26 = 2;
+  *&v26[4] = v5;
+  v8 = *v26;
   v9 = HIDWORD(v5);
-  if (HIDWORD(*v27))
+  if (HIDWORD(*v26))
   {
-    v10 = *v27 == 0;
+    v10 = *v26 == 0;
   }
 
   else
@@ -7313,19 +6765,19 @@ double sub_2717BBAD0@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
   }
 
   v12 = v6 & 0x1FFFFFFFFLL | ((v7 >> 1) << 33);
-  *v27 = 1;
-  *&v27[4] = v12;
-  v13 = *v27;
-  *v27 = v8;
-  *&v27[8] = HIDWORD(v5);
-  *&v27[12] = v13;
-  *&v27[20] = v7;
-  *&v27[24] = v5;
-  *&v28 = v12;
-  BYTE8(v28) = 0;
-  BYTE4(v29) = 0;
-  v25 = v13;
-  v26 = v7;
+  *v26 = 1;
+  *&v26[4] = v12;
+  v13 = *v26;
+  *v26 = v8;
+  *&v26[8] = HIDWORD(v5);
+  *&v26[12] = v13;
+  *&v26[20] = v7;
+  *&v26[24] = v5;
+  *&v27 = v12;
+  BYTE8(v27) = 0;
+  BYTE4(v28) = 0;
+  v24 = v13;
+  v25 = v7;
   if (v9)
   {
     v14 = v11;
@@ -7346,7 +6798,7 @@ double sub_2717BBAD0@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
     v15 = v8;
   }
 
-  v23 = v15;
+  v22 = v15;
   if (v11)
   {
     v16 = 0;
@@ -7357,7 +6809,7 @@ double sub_2717BBAD0@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
     v16 = v9;
   }
 
-  v24 = v16;
+  v23 = v16;
   if ((v7 & (v7 - 1)) != 0)
   {
     v17 = 1;
@@ -7368,28 +6820,27 @@ double sub_2717BBAD0@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
     v17 = v7;
   }
 
-  sub_2717D4B20(v30, &v23, &v25, 1, a2, 1, v17);
-  v18 = *&v27[16];
-  *(a3 + 8) = *v27;
+  sub_2717D4B20(v29, &v22, &v24, 1, a2, 1, v17);
+  v18 = *&v26[16];
+  *(a3 + 8) = *v26;
   *a3 = &unk_288112118;
   *(a3 + 24) = v18;
-  *(a3 + 40) = v28;
-  v19 = v30[0];
-  *(a3 + 56) = v29;
+  *(a3 + 40) = v27;
+  v19 = v29[0];
+  *(a3 + 56) = v28;
   *(a3 + 64) = v19;
-  v20 = v30[2];
-  *(a3 + 72) = v30[1];
+  v20 = v29[2];
+  *(a3 + 72) = v29[1];
   *(a3 + 80) = v20;
-  *(a3 + 104) = v32;
-  result = *&v31;
-  *(a3 + 88) = v31;
-  v22 = *MEMORY[0x277D85DE8];
+  *(a3 + 104) = v31;
+  result = *&v30;
+  *(a3 + 88) = v30;
   return result;
 }
 
 void sub_2717BBC6C(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -7511,12 +6962,11 @@ void sub_2717BBC6C(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 96) = v13;
   *(a2 + 100) = v11;
   *(a2 + 108) = v8;
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2717BBE44(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (*(a1 + 28))
   {
     v3 = *(a1 + 24) == 0;
@@ -7590,7 +7040,7 @@ void sub_2717BBE44(uint64_t a1@<X1>, uint64_t a2@<X8>)
 
   if (v13 * HIDWORD(v5))
   {
-    v25 = v12;
+    v24 = v12;
     *memptr = 0;
     v20 = malloc_type_posix_memalign(memptr, v19, v14, 0x63222AC6uLL);
     if (v20)
@@ -7599,7 +7049,7 @@ void sub_2717BBE44(uint64_t a1@<X1>, uint64_t a2@<X8>)
     }
 
     v21 = *memptr;
-    v12 = v25;
+    v12 = v24;
     v14 = 2 * (v13 * HIDWORD(v5));
   }
 
@@ -7644,12 +7094,11 @@ void sub_2717BBE44(uint64_t a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 96) = v13;
   *(a2 + 100) = (2 * v9) & 0xFFFFFFFEFFFFFFFELL;
   *(a2 + 108) = 2 * HIDWORD(v5);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 double sub_2717BC018@<D0>(_DWORD *a1@<X1>, unsigned __int16 *a2@<X2>, uint64_t a3@<X8>)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v4 = *a1 == 0;
@@ -7672,13 +7121,13 @@ double sub_2717BC018@<D0>(_DWORD *a1@<X1>, unsigned __int16 *a2@<X2>, uint64_t a
 
   v6 = 2 * (v5 != 0);
   LODWORD(v7) = v6 * v5;
-  *v27 = 2;
-  *&v27[4] = v5;
-  v8 = *v27;
+  *v26 = 2;
+  *&v26[4] = v5;
+  v8 = *v26;
   v9 = HIDWORD(v5);
-  if (HIDWORD(*v27))
+  if (HIDWORD(*v26))
   {
-    v10 = *v27 == 0;
+    v10 = *v26 == 0;
   }
 
   else
@@ -7698,19 +7147,19 @@ double sub_2717BC018@<D0>(_DWORD *a1@<X1>, unsigned __int16 *a2@<X2>, uint64_t a
   }
 
   v12 = v6 & 0x1FFFFFFFFLL | ((v7 >> 1) << 33);
-  *v27 = 1;
-  *&v27[4] = v12;
-  v13 = *v27;
-  *v27 = v8;
-  *&v27[8] = HIDWORD(v5);
-  *&v27[12] = v13;
-  *&v27[20] = v7;
-  *&v27[24] = v5;
-  *&v28 = v12;
-  BYTE8(v28) = 0;
-  BYTE4(v29) = 0;
-  v25 = v13;
-  v26 = v7;
+  *v26 = 1;
+  *&v26[4] = v12;
+  v13 = *v26;
+  *v26 = v8;
+  *&v26[8] = HIDWORD(v5);
+  *&v26[12] = v13;
+  *&v26[20] = v7;
+  *&v26[24] = v5;
+  *&v27 = v12;
+  BYTE8(v27) = 0;
+  BYTE4(v28) = 0;
+  v24 = v13;
+  v25 = v7;
   if (v9)
   {
     v14 = v11;
@@ -7731,7 +7180,7 @@ double sub_2717BC018@<D0>(_DWORD *a1@<X1>, unsigned __int16 *a2@<X2>, uint64_t a
     v15 = v8;
   }
 
-  v23 = v15;
+  v22 = v15;
   if (v11)
   {
     v16 = 0;
@@ -7742,7 +7191,7 @@ double sub_2717BC018@<D0>(_DWORD *a1@<X1>, unsigned __int16 *a2@<X2>, uint64_t a
     v16 = v9;
   }
 
-  v24 = v16;
+  v23 = v16;
   if (((2 * v7) & (2 * v7 - 1)) != 0)
   {
     v17 = 2;
@@ -7753,28 +7202,27 @@ double sub_2717BC018@<D0>(_DWORD *a1@<X1>, unsigned __int16 *a2@<X2>, uint64_t a
     v17 = 2 * v7;
   }
 
-  sub_2717D5090(v30, &v23, &v25, 1, a2, 1, v17);
-  v18 = *&v27[16];
-  *(a3 + 8) = *v27;
+  sub_2717D5090(v29, &v22, &v24, 1, a2, 1, v17);
+  v18 = *&v26[16];
+  *(a3 + 8) = *v26;
   *a3 = &unk_288112098;
   *(a3 + 24) = v18;
-  *(a3 + 40) = v28;
-  v19 = v30[0];
-  *(a3 + 56) = v29;
+  *(a3 + 40) = v27;
+  v19 = v29[0];
+  *(a3 + 56) = v28;
   *(a3 + 64) = v19;
-  v20 = v30[2];
-  *(a3 + 72) = v30[1];
+  v20 = v29[2];
+  *(a3 + 72) = v29[1];
   *(a3 + 80) = v20;
-  *(a3 + 104) = v32;
-  result = *&v31;
-  *(a3 + 88) = v31;
-  v22 = *MEMORY[0x277D85DE8];
+  *(a3 + 104) = v31;
+  result = *&v30;
+  *(a3 + 88) = v30;
   return result;
 }
 
 double sub_2717BC1B8@<D0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (*(a1 + 28))
   {
     v3 = *(a1 + 24) == 0;
@@ -7796,23 +7244,23 @@ double sub_2717BC1B8@<D0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
     v5 = *(a1 + 24);
   }
 
-  *&v25[4] = v5;
+  *&v24[4] = v5;
   v6 = HIDWORD(v4);
-  *v25 = 2;
-  v7 = *v25;
+  *v24 = 2;
+  v7 = *v24;
   v8 = HIDWORD(v5);
-  *v25 = 1;
-  *&v25[4] = v4;
-  v9 = *v25;
-  *v25 = v7;
-  *&v25[12] = v9;
-  *&v25[20] = HIDWORD(v4);
-  *&v25[24] = v5;
-  *&v26 = v4;
-  BYTE8(v26) = 0;
-  BYTE4(v27) = 0;
-  v23 = v9;
-  v24 = HIDWORD(v4);
+  *v24 = 1;
+  *&v24[4] = v4;
+  v9 = *v24;
+  *v24 = v7;
+  *&v24[12] = v9;
+  *&v24[20] = HIDWORD(v4);
+  *&v24[24] = v5;
+  *&v25 = v4;
+  BYTE8(v25) = 0;
+  BYTE4(v26) = 0;
+  v22 = v9;
+  v23 = HIDWORD(v4);
   if (HIDWORD(v7))
   {
     v10 = v7 == 0;
@@ -7844,7 +7292,7 @@ double sub_2717BC1B8@<D0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
     v13 = v7;
   }
 
-  v21 = v13;
+  v20 = v13;
   if (v11)
   {
     v14 = 0;
@@ -7855,7 +7303,7 @@ double sub_2717BC1B8@<D0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
     v14 = v8;
   }
 
-  v22 = v14;
+  v21 = v14;
   if (((2 * v6) & (2 * v6 - 1)) != 0)
   {
     v15 = 2;
@@ -7866,28 +7314,27 @@ double sub_2717BC1B8@<D0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
     v15 = 2 * v6;
   }
 
-  sub_2717D5BBC(v28, &v21, &v23, 1, 0, 0, v15);
-  v16 = *&v25[16];
-  *(a2 + 8) = *v25;
+  sub_2717D5BBC(v27, &v20, &v22, 1, 0, 0, v15);
+  v16 = *&v24[16];
+  *(a2 + 8) = *v24;
   *a2 = &unk_288112018;
   *(a2 + 24) = v16;
-  *(a2 + 40) = v26;
-  v17 = v28[0];
-  *(a2 + 56) = v27;
+  *(a2 + 40) = v25;
+  v17 = v27[0];
+  *(a2 + 56) = v26;
   *(a2 + 64) = v17;
-  v18 = v28[2];
-  *(a2 + 72) = v28[1];
+  v18 = v27[2];
+  *(a2 + 72) = v27[1];
   *(a2 + 80) = v18;
-  *(a2 + 104) = v30;
-  result = *&v29;
-  *(a2 + 88) = v29;
-  v20 = *MEMORY[0x277D85DE8];
+  *(a2 + 104) = v29;
+  result = *&v28;
+  *(a2 + 88) = v28;
   return result;
 }
 
 double sub_2717BC340@<D0>(_DWORD *a1@<X1>, __int16 *a2@<X2>, uint64_t a3@<X8>)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v4 = *a1 == 0;
@@ -7910,13 +7357,13 @@ double sub_2717BC340@<D0>(_DWORD *a1@<X1>, __int16 *a2@<X2>, uint64_t a3@<X8>)
 
   v6 = 2 * (v5 != 0);
   LODWORD(v7) = v6 * v5;
-  *v27 = 2;
-  *&v27[4] = v5;
-  v8 = *v27;
+  *v26 = 2;
+  *&v26[4] = v5;
+  v8 = *v26;
   v9 = HIDWORD(v5);
-  if (HIDWORD(*v27))
+  if (HIDWORD(*v26))
   {
-    v10 = *v27 == 0;
+    v10 = *v26 == 0;
   }
 
   else
@@ -7936,19 +7383,19 @@ double sub_2717BC340@<D0>(_DWORD *a1@<X1>, __int16 *a2@<X2>, uint64_t a3@<X8>)
   }
 
   v12 = v6 & 0x1FFFFFFFFLL | ((v7 >> 1) << 33);
-  *v27 = 1;
-  *&v27[4] = v12;
-  v13 = *v27;
-  *v27 = v8;
-  *&v27[8] = HIDWORD(v5);
-  *&v27[12] = v13;
-  *&v27[20] = v7;
-  *&v27[24] = v5;
-  *&v28 = v12;
-  BYTE8(v28) = 0;
-  BYTE4(v29) = 0;
-  v25 = v13;
-  v26 = v7;
+  *v26 = 1;
+  *&v26[4] = v12;
+  v13 = *v26;
+  *v26 = v8;
+  *&v26[8] = HIDWORD(v5);
+  *&v26[12] = v13;
+  *&v26[20] = v7;
+  *&v26[24] = v5;
+  *&v27 = v12;
+  BYTE8(v27) = 0;
+  BYTE4(v28) = 0;
+  v24 = v13;
+  v25 = v7;
   if (v9)
   {
     v14 = v11;
@@ -7969,7 +7416,7 @@ double sub_2717BC340@<D0>(_DWORD *a1@<X1>, __int16 *a2@<X2>, uint64_t a3@<X8>)
     v15 = v8;
   }
 
-  v23 = v15;
+  v22 = v15;
   if (v11)
   {
     v16 = 0;
@@ -7980,7 +7427,7 @@ double sub_2717BC340@<D0>(_DWORD *a1@<X1>, __int16 *a2@<X2>, uint64_t a3@<X8>)
     v16 = v9;
   }
 
-  v24 = v16;
+  v23 = v16;
   if (((2 * v7) & (2 * v7 - 1)) != 0)
   {
     v17 = 2;
@@ -7991,28 +7438,27 @@ double sub_2717BC340@<D0>(_DWORD *a1@<X1>, __int16 *a2@<X2>, uint64_t a3@<X8>)
     v17 = 2 * v7;
   }
 
-  sub_2717D5BBC(v30, &v23, &v25, 1, a2, 1, v17);
-  v18 = *&v27[16];
-  *(a3 + 8) = *v27;
+  sub_2717D5BBC(v29, &v22, &v24, 1, a2, 1, v17);
+  v18 = *&v26[16];
+  *(a3 + 8) = *v26;
   *a3 = &unk_288112018;
   *(a3 + 24) = v18;
-  *(a3 + 40) = v28;
-  v19 = v30[0];
-  *(a3 + 56) = v29;
+  *(a3 + 40) = v27;
+  v19 = v29[0];
+  *(a3 + 56) = v28;
   *(a3 + 64) = v19;
-  v20 = v30[2];
-  *(a3 + 72) = v30[1];
+  v20 = v29[2];
+  *(a3 + 72) = v29[1];
   *(a3 + 80) = v20;
-  *(a3 + 104) = v32;
-  result = *&v31;
-  *(a3 + 88) = v31;
-  v22 = *MEMORY[0x277D85DE8];
+  *(a3 + 104) = v31;
+  result = *&v30;
+  *(a3 + 88) = v30;
   return result;
 }
 
 double sub_2717BC4E0@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -8035,13 +7481,13 @@ double sub_2717BC4E0@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 
   v5 = 2 * (v4 != 0);
   LODWORD(v6) = v5 * v4;
-  *v26 = 2;
-  *&v26[4] = v4;
-  v7 = *v26;
+  *v25 = 2;
+  *&v25[4] = v4;
+  v7 = *v25;
   v8 = HIDWORD(v4);
-  if (HIDWORD(*v26))
+  if (HIDWORD(*v25))
   {
-    v9 = *v26 == 0;
+    v9 = *v25 == 0;
   }
 
   else
@@ -8061,19 +7507,19 @@ double sub_2717BC4E0@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   }
 
   v11 = v5 & 0x1FFFFFFFFLL | ((v6 >> 1) << 33);
-  *v26 = 1;
-  *&v26[4] = v11;
-  v12 = *v26;
-  *v26 = v7;
-  *&v26[8] = HIDWORD(v4);
-  *&v26[12] = v12;
-  *&v26[20] = v6;
-  *&v26[24] = v4;
-  *&v27 = v11;
-  BYTE8(v27) = 0;
-  BYTE4(v28) = 0;
-  v24 = v12;
-  v25 = v6;
+  *v25 = 1;
+  *&v25[4] = v11;
+  v12 = *v25;
+  *v25 = v7;
+  *&v25[8] = HIDWORD(v4);
+  *&v25[12] = v12;
+  *&v25[20] = v6;
+  *&v25[24] = v4;
+  *&v26 = v11;
+  BYTE8(v26) = 0;
+  BYTE4(v27) = 0;
+  v23 = v12;
+  v24 = v6;
   if (v8)
   {
     v13 = v10;
@@ -8094,7 +7540,7 @@ double sub_2717BC4E0@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v14 = v7;
   }
 
-  v22 = v14;
+  v21 = v14;
   if (v10)
   {
     v15 = 0;
@@ -8105,7 +7551,7 @@ double sub_2717BC4E0@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v15 = v8;
   }
 
-  v23 = v15;
+  v22 = v15;
   if (((2 * v6) & (2 * v6 - 1)) != 0)
   {
     v16 = 2;
@@ -8116,28 +7562,27 @@ double sub_2717BC4E0@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v16 = 2 * v6;
   }
 
-  sub_2717D5BBC(v29, &v22, &v24, 1, 0, 0, v16);
-  v17 = *&v26[16];
-  *(a2 + 8) = *v26;
+  sub_2717D5BBC(v28, &v21, &v23, 1, 0, 0, v16);
+  v17 = *&v25[16];
+  *(a2 + 8) = *v25;
   *a2 = &unk_288112018;
   *(a2 + 24) = v17;
-  *(a2 + 40) = v27;
-  v18 = v29[0];
-  *(a2 + 56) = v28;
+  *(a2 + 40) = v26;
+  v18 = v28[0];
+  *(a2 + 56) = v27;
   *(a2 + 64) = v18;
-  v19 = v29[2];
-  *(a2 + 72) = v29[1];
+  v19 = v28[2];
+  *(a2 + 72) = v28[1];
   *(a2 + 80) = v19;
-  *(a2 + 104) = v31;
-  result = *&v30;
-  *(a2 + 88) = v30;
-  v21 = *MEMORY[0x277D85DE8];
+  *(a2 + 104) = v30;
+  result = *&v29;
+  *(a2 + 88) = v29;
   return result;
 }
 
 void sub_2717BC680(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (*(a1 + 28))
   {
     v3 = *(a1 + 24) == 0;
@@ -8207,7 +7652,7 @@ void sub_2717BC680(uint64_t a1@<X1>, uint64_t a2@<X8>)
 
   if (v13 * HIDWORD(v5))
   {
-    v25 = v12;
+    v24 = v12;
     *memptr = 0;
     v20 = malloc_type_posix_memalign(memptr, v19, v14, 0x63222AC6uLL);
     if (v20)
@@ -8216,7 +7661,7 @@ void sub_2717BC680(uint64_t a1@<X1>, uint64_t a2@<X8>)
     }
 
     v21 = *memptr;
-    v12 = v25;
+    v12 = v24;
     v14 = 4 * (v13 * HIDWORD(v5));
   }
 
@@ -8261,12 +7706,11 @@ void sub_2717BC680(uint64_t a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 96) = v13;
   *(a2 + 100) = (4 * v9) & 0xFFFFFFFCFFFFFFFCLL;
   *(a2 + 108) = 4 * HIDWORD(v5);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-double sub_2717BC858@<D0>(_DWORD *a1@<X1>, __int32 *a2@<X2>, uint64_t a3@<X8>, int32x2_t a4@<D0>)
+double sub_2717BC858@<D0>(_DWORD *a1@<X1>, __int32 *a2@<X2>, uint64_t a3@<X8>, double a4@<D0>)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v5 = *a1 == 0;
@@ -8285,13 +7729,13 @@ double sub_2717BC858@<D0>(_DWORD *a1@<X1>, __int32 *a2@<X2>, uint64_t a3@<X8>, i
 
   v7 = 2 * (v6 != 0);
   LODWORD(v8) = v7 * v6;
-  *v28 = 2;
-  *&v28[4] = v6;
-  v9 = *v28;
+  *v27 = 2;
+  *&v27[4] = v6;
+  v9 = *v27;
   v10 = HIDWORD(v6);
-  if (HIDWORD(*v28))
+  if (HIDWORD(*v27))
   {
-    v11 = *v28 == 0;
+    v11 = *v27 == 0;
   }
 
   else
@@ -8311,19 +7755,19 @@ double sub_2717BC858@<D0>(_DWORD *a1@<X1>, __int32 *a2@<X2>, uint64_t a3@<X8>, i
   }
 
   v13 = v7 & 0x1FFFFFFFFLL | ((v8 >> 1) << 33);
-  *v28 = 1;
-  *&v28[4] = v13;
-  v14 = *v28;
-  *v28 = v9;
-  *&v28[8] = HIDWORD(v6);
-  *&v28[12] = v14;
-  *&v28[20] = v8;
-  *&v28[24] = v6;
-  *&v29 = v13;
-  BYTE8(v29) = 0;
-  BYTE4(v30) = 0;
-  v26 = v14;
-  v27 = v8;
+  *v27 = 1;
+  *&v27[4] = v13;
+  v14 = *v27;
+  *v27 = v9;
+  *&v27[8] = HIDWORD(v6);
+  *&v27[12] = v14;
+  *&v27[20] = v8;
+  *&v27[24] = v6;
+  *&v28 = v13;
+  BYTE8(v28) = 0;
+  BYTE4(v29) = 0;
+  v25 = v14;
+  v26 = v8;
   if (v10)
   {
     v15 = v12;
@@ -8344,7 +7788,7 @@ double sub_2717BC858@<D0>(_DWORD *a1@<X1>, __int32 *a2@<X2>, uint64_t a3@<X8>, i
     v16 = v9;
   }
 
-  v24 = v16;
+  v23 = v16;
   if (v12)
   {
     v17 = 0;
@@ -8355,7 +7799,7 @@ double sub_2717BC858@<D0>(_DWORD *a1@<X1>, __int32 *a2@<X2>, uint64_t a3@<X8>, i
     v17 = v10;
   }
 
-  v25 = v17;
+  v24 = v17;
   if (((4 * v8) & (4 * v8 - 1)) != 0)
   {
     v18 = 4;
@@ -8366,28 +7810,27 @@ double sub_2717BC858@<D0>(_DWORD *a1@<X1>, __int32 *a2@<X2>, uint64_t a3@<X8>, i
     v18 = 4 * v8;
   }
 
-  sub_2717D6318(v31, &v24, &v26, 1, a2, 1, v18, a4);
-  v19 = *&v28[16];
-  *(a3 + 8) = *v28;
+  sub_2717D6318(v30, &v23, &v25, 1, a2, 1, v18, a4);
+  v19 = *&v27[16];
+  *(a3 + 8) = *v27;
   *a3 = &unk_288111F98;
   *(a3 + 24) = v19;
-  *(a3 + 40) = v29;
-  v20 = v31[0];
-  *(a3 + 56) = v30;
+  *(a3 + 40) = v28;
+  v20 = v30[0];
+  *(a3 + 56) = v29;
   *(a3 + 64) = v20;
-  v21 = v31[2];
-  *(a3 + 72) = v31[1];
+  v21 = v30[2];
+  *(a3 + 72) = v30[1];
   *(a3 + 80) = v21;
-  *(a3 + 104) = v33;
-  result = *&v32;
-  *(a3 + 88) = v32;
-  v23 = *MEMORY[0x277D85DE8];
+  *(a3 + 104) = v32;
+  result = *&v31;
+  *(a3 + 88) = v31;
   return result;
 }
 
 void sub_2717BC9FC(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (*(a1 + 28))
   {
     v3 = *(a1 + 24) == 0;
@@ -8457,7 +7900,7 @@ void sub_2717BC9FC(uint64_t a1@<X1>, uint64_t a2@<X8>)
 
   if (v15)
   {
-    v25 = v12;
+    v24 = v12;
     *memptr = 0;
     v20 = malloc_type_posix_memalign(memptr, v19, (v13 * HIDWORD(v5)), 0x63222AC6uLL);
     if (v20)
@@ -8466,7 +7909,7 @@ void sub_2717BC9FC(uint64_t a1@<X1>, uint64_t a2@<X8>)
     }
 
     v21 = *memptr;
-    v12 = v25;
+    v12 = v24;
   }
 
   else
@@ -8510,12 +7953,11 @@ void sub_2717BC9FC(uint64_t a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 96) = v13;
   *(a2 + 100) = v9;
   *(a2 + 108) = HIDWORD(v5);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 double sub_2717BCBB8@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v4 = *a1 == 0;
@@ -8532,8 +7974,8 @@ double sub_2717BCBB8@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
     v5 = 0;
   }
 
-  *v27 = 3;
-  *&v27[4] = v5;
+  *v26 = 3;
+  *&v26[4] = v5;
   if (v5)
   {
     v6 = 3;
@@ -8545,13 +7987,13 @@ double sub_2717BCBB8@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
   }
 
   LODWORD(v7) = v6 * v5;
-  *v27 = 3;
-  *&v27[4] = v5;
-  v8 = *v27;
+  *v26 = 3;
+  *&v26[4] = v5;
+  v8 = *v26;
   v9 = HIDWORD(v5);
-  if (HIDWORD(*v27))
+  if (HIDWORD(*v26))
   {
-    v10 = *v27 == 0;
+    v10 = *v26 == 0;
   }
 
   else
@@ -8571,19 +8013,19 @@ double sub_2717BCBB8@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
   }
 
   v12 = v6 | (v7 << 32);
-  *v27 = 1;
-  *&v27[4] = v12;
-  v13 = *v27;
-  *v27 = v8;
-  *&v27[8] = HIDWORD(v5);
-  *&v27[12] = v13;
-  *&v27[20] = v7;
-  *&v27[24] = v5;
-  *&v28 = v12;
-  BYTE8(v28) = 0;
-  BYTE4(v29) = 0;
-  v25 = v13;
-  v26 = v7;
+  *v26 = 1;
+  *&v26[4] = v12;
+  v13 = *v26;
+  *v26 = v8;
+  *&v26[8] = HIDWORD(v5);
+  *&v26[12] = v13;
+  *&v26[20] = v7;
+  *&v26[24] = v5;
+  *&v27 = v12;
+  BYTE8(v27) = 0;
+  BYTE4(v28) = 0;
+  v24 = v13;
+  v25 = v7;
   if (v9)
   {
     v14 = v11;
@@ -8604,7 +8046,7 @@ double sub_2717BCBB8@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
     v15 = v8;
   }
 
-  v23 = v15;
+  v22 = v15;
   if (v11)
   {
     v16 = 0;
@@ -8615,7 +8057,7 @@ double sub_2717BCBB8@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
     v16 = v9;
   }
 
-  v24 = v16;
+  v23 = v16;
   if ((v7 & (v7 - 1)) != 0)
   {
     v17 = 1;
@@ -8626,28 +8068,27 @@ double sub_2717BCBB8@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
     v17 = v7;
   }
 
-  sub_2717D4B20(v30, &v23, &v25, 1, a2, 1, v17);
-  v18 = *&v27[16];
-  *(a3 + 8) = *v27;
+  sub_2717D4B20(v29, &v22, &v24, 1, a2, 1, v17);
+  v18 = *&v26[16];
+  *(a3 + 8) = *v26;
   *a3 = &unk_288111F18;
   *(a3 + 24) = v18;
-  *(a3 + 40) = v28;
-  v19 = v30[0];
-  *(a3 + 56) = v29;
+  *(a3 + 40) = v27;
+  v19 = v29[0];
+  *(a3 + 56) = v28;
   *(a3 + 64) = v19;
-  v20 = v30[2];
-  *(a3 + 72) = v30[1];
+  v20 = v29[2];
+  *(a3 + 72) = v29[1];
   *(a3 + 80) = v20;
-  *(a3 + 104) = v32;
-  result = *&v31;
-  *(a3 + 88) = v31;
-  v22 = *MEMORY[0x277D85DE8];
+  *(a3 + 104) = v31;
+  result = *&v30;
+  *(a3 + 88) = v30;
   return result;
 }
 
 void sub_2717BCD4C(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -8778,12 +8219,11 @@ void sub_2717BCD4C(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 96) = v13;
   *(a2 + 100) = v11;
   *(a2 + 108) = v8;
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2717BCF1C(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (*(a1 + 28))
   {
     v3 = *(a1 + 24) == 0;
@@ -8857,7 +8297,7 @@ void sub_2717BCF1C(uint64_t a1@<X1>, uint64_t a2@<X8>)
 
   if (v13 * HIDWORD(v5))
   {
-    v25 = v12;
+    v24 = v12;
     *memptr = 0;
     v20 = malloc_type_posix_memalign(memptr, v19, v14, 0x63222AC6uLL);
     if (v20)
@@ -8866,7 +8306,7 @@ void sub_2717BCF1C(uint64_t a1@<X1>, uint64_t a2@<X8>)
     }
 
     v21 = *memptr;
-    v12 = v25;
+    v12 = v24;
     v14 = 2 * (v13 * HIDWORD(v5));
   }
 
@@ -8911,12 +8351,11 @@ void sub_2717BCF1C(uint64_t a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 96) = v13;
   *(a2 + 100) = (2 * v9) & 0xFFFFFFFEFFFFFFFELL;
   *(a2 + 108) = 2 * HIDWORD(v5);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 double sub_2717BD0F0@<D0>(_DWORD *a1@<X1>, unsigned __int16 *a2@<X2>, uint64_t a3@<X8>)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v4 = *a1 == 0;
@@ -8933,8 +8372,8 @@ double sub_2717BD0F0@<D0>(_DWORD *a1@<X1>, unsigned __int16 *a2@<X2>, uint64_t a
     v5 = 0;
   }
 
-  *v27 = 3;
-  *&v27[4] = v5;
+  *v26 = 3;
+  *&v26[4] = v5;
   if (v5)
   {
     v6 = 3;
@@ -8946,13 +8385,13 @@ double sub_2717BD0F0@<D0>(_DWORD *a1@<X1>, unsigned __int16 *a2@<X2>, uint64_t a
   }
 
   LODWORD(v7) = v6 * v5;
-  *v27 = 3;
-  *&v27[4] = v5;
-  v8 = *v27;
+  *v26 = 3;
+  *&v26[4] = v5;
+  v8 = *v26;
   v9 = HIDWORD(v5);
-  if (HIDWORD(*v27))
+  if (HIDWORD(*v26))
   {
-    v10 = *v27 == 0;
+    v10 = *v26 == 0;
   }
 
   else
@@ -8972,19 +8411,19 @@ double sub_2717BD0F0@<D0>(_DWORD *a1@<X1>, unsigned __int16 *a2@<X2>, uint64_t a
   }
 
   v12 = v6 | (v7 << 32);
-  *v27 = 1;
-  *&v27[4] = v12;
-  v13 = *v27;
-  *v27 = v8;
-  *&v27[8] = HIDWORD(v5);
-  *&v27[12] = v13;
-  *&v27[20] = v7;
-  *&v27[24] = v5;
-  *&v28 = v12;
-  BYTE8(v28) = 0;
-  BYTE4(v29) = 0;
-  v25 = v13;
-  v26 = v7;
+  *v26 = 1;
+  *&v26[4] = v12;
+  v13 = *v26;
+  *v26 = v8;
+  *&v26[8] = HIDWORD(v5);
+  *&v26[12] = v13;
+  *&v26[20] = v7;
+  *&v26[24] = v5;
+  *&v27 = v12;
+  BYTE8(v27) = 0;
+  BYTE4(v28) = 0;
+  v24 = v13;
+  v25 = v7;
   if (v9)
   {
     v14 = v11;
@@ -9005,7 +8444,7 @@ double sub_2717BD0F0@<D0>(_DWORD *a1@<X1>, unsigned __int16 *a2@<X2>, uint64_t a
     v15 = v8;
   }
 
-  v23 = v15;
+  v22 = v15;
   if (v11)
   {
     v16 = 0;
@@ -9016,7 +8455,7 @@ double sub_2717BD0F0@<D0>(_DWORD *a1@<X1>, unsigned __int16 *a2@<X2>, uint64_t a
     v16 = v9;
   }
 
-  v24 = v16;
+  v23 = v16;
   if (((2 * v7) & (2 * v7 - 1)) != 0)
   {
     v17 = 2;
@@ -9027,28 +8466,27 @@ double sub_2717BD0F0@<D0>(_DWORD *a1@<X1>, unsigned __int16 *a2@<X2>, uint64_t a
     v17 = 2 * v7;
   }
 
-  sub_2717D5090(v30, &v23, &v25, 1, a2, 1, v17);
-  v18 = *&v27[16];
-  *(a3 + 8) = *v27;
+  sub_2717D5090(v29, &v22, &v24, 1, a2, 1, v17);
+  v18 = *&v26[16];
+  *(a3 + 8) = *v26;
   *a3 = &unk_288113298;
   *(a3 + 24) = v18;
-  *(a3 + 40) = v28;
-  v19 = v30[0];
-  *(a3 + 56) = v29;
+  *(a3 + 40) = v27;
+  v19 = v29[0];
+  *(a3 + 56) = v28;
   *(a3 + 64) = v19;
-  v20 = v30[2];
-  *(a3 + 72) = v30[1];
+  v20 = v29[2];
+  *(a3 + 72) = v29[1];
   *(a3 + 80) = v20;
-  *(a3 + 104) = v32;
-  result = *&v31;
-  *(a3 + 88) = v31;
-  v22 = *MEMORY[0x277D85DE8];
+  *(a3 + 104) = v31;
+  result = *&v30;
+  *(a3 + 88) = v30;
   return result;
 }
 
 double sub_2717BD28C@<D0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (*(a1 + 28))
   {
     v3 = *(a1 + 24) == 0;
@@ -9066,23 +8504,23 @@ double sub_2717BD28C@<D0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
     v5 = 0;
   }
 
-  *&v25[4] = v5;
+  *&v24[4] = v5;
   v6 = HIDWORD(v4);
-  *v25 = 3;
-  v7 = *v25;
+  *v24 = 3;
+  v7 = *v24;
   v8 = HIDWORD(v5);
-  *v25 = 1;
-  *&v25[4] = v4;
-  v9 = *v25;
-  *v25 = v7;
-  *&v25[12] = v9;
-  *&v25[20] = HIDWORD(v4);
-  *&v25[24] = v5;
-  *&v26 = v4;
-  BYTE8(v26) = 0;
-  BYTE4(v27) = 0;
-  v23 = v9;
-  v24 = HIDWORD(v4);
+  *v24 = 1;
+  *&v24[4] = v4;
+  v9 = *v24;
+  *v24 = v7;
+  *&v24[12] = v9;
+  *&v24[20] = HIDWORD(v4);
+  *&v24[24] = v5;
+  *&v25 = v4;
+  BYTE8(v25) = 0;
+  BYTE4(v26) = 0;
+  v22 = v9;
+  v23 = HIDWORD(v4);
   if (HIDWORD(v7))
   {
     v10 = v7 == 0;
@@ -9114,7 +8552,7 @@ double sub_2717BD28C@<D0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
     v13 = v7;
   }
 
-  v21 = v13;
+  v20 = v13;
   if (v11)
   {
     v14 = 0;
@@ -9125,7 +8563,7 @@ double sub_2717BD28C@<D0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
     v14 = v8;
   }
 
-  v22 = v14;
+  v21 = v14;
   if (((2 * v6) & (2 * v6 - 1)) != 0)
   {
     v15 = 2;
@@ -9136,28 +8574,27 @@ double sub_2717BD28C@<D0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
     v15 = 2 * v6;
   }
 
-  sub_2717D5BBC(v28, &v21, &v23, 1, 0, 0, v15);
-  v16 = *&v25[16];
-  *(a2 + 8) = *v25;
+  sub_2717D5BBC(v27, &v20, &v22, 1, 0, 0, v15);
+  v16 = *&v24[16];
+  *(a2 + 8) = *v24;
   *a2 = &unk_288113218;
   *(a2 + 24) = v16;
-  *(a2 + 40) = v26;
-  v17 = v28[0];
-  *(a2 + 56) = v27;
+  *(a2 + 40) = v25;
+  v17 = v27[0];
+  *(a2 + 56) = v26;
   *(a2 + 64) = v17;
-  v18 = v28[2];
-  *(a2 + 72) = v28[1];
+  v18 = v27[2];
+  *(a2 + 72) = v27[1];
   *(a2 + 80) = v18;
-  *(a2 + 104) = v30;
-  result = *&v29;
-  *(a2 + 88) = v29;
-  v20 = *MEMORY[0x277D85DE8];
+  *(a2 + 104) = v29;
+  result = *&v28;
+  *(a2 + 88) = v28;
   return result;
 }
 
 double sub_2717BD418@<D0>(_DWORD *a1@<X1>, __int16 *a2@<X2>, uint64_t a3@<X8>)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v4 = *a1 == 0;
@@ -9174,8 +8611,8 @@ double sub_2717BD418@<D0>(_DWORD *a1@<X1>, __int16 *a2@<X2>, uint64_t a3@<X8>)
     v5 = 0;
   }
 
-  *v27 = 3;
-  *&v27[4] = v5;
+  *v26 = 3;
+  *&v26[4] = v5;
   if (v5)
   {
     v6 = 3;
@@ -9187,13 +8624,13 @@ double sub_2717BD418@<D0>(_DWORD *a1@<X1>, __int16 *a2@<X2>, uint64_t a3@<X8>)
   }
 
   LODWORD(v7) = v6 * v5;
-  *v27 = 3;
-  *&v27[4] = v5;
-  v8 = *v27;
+  *v26 = 3;
+  *&v26[4] = v5;
+  v8 = *v26;
   v9 = HIDWORD(v5);
-  if (HIDWORD(*v27))
+  if (HIDWORD(*v26))
   {
-    v10 = *v27 == 0;
+    v10 = *v26 == 0;
   }
 
   else
@@ -9213,19 +8650,19 @@ double sub_2717BD418@<D0>(_DWORD *a1@<X1>, __int16 *a2@<X2>, uint64_t a3@<X8>)
   }
 
   v12 = v6 | (v7 << 32);
-  *v27 = 1;
-  *&v27[4] = v12;
-  v13 = *v27;
-  *v27 = v8;
-  *&v27[8] = HIDWORD(v5);
-  *&v27[12] = v13;
-  *&v27[20] = v7;
-  *&v27[24] = v5;
-  *&v28 = v12;
-  BYTE8(v28) = 0;
-  BYTE4(v29) = 0;
-  v25 = v13;
-  v26 = v7;
+  *v26 = 1;
+  *&v26[4] = v12;
+  v13 = *v26;
+  *v26 = v8;
+  *&v26[8] = HIDWORD(v5);
+  *&v26[12] = v13;
+  *&v26[20] = v7;
+  *&v26[24] = v5;
+  *&v27 = v12;
+  BYTE8(v27) = 0;
+  BYTE4(v28) = 0;
+  v24 = v13;
+  v25 = v7;
   if (v9)
   {
     v14 = v11;
@@ -9246,7 +8683,7 @@ double sub_2717BD418@<D0>(_DWORD *a1@<X1>, __int16 *a2@<X2>, uint64_t a3@<X8>)
     v15 = v8;
   }
 
-  v23 = v15;
+  v22 = v15;
   if (v11)
   {
     v16 = 0;
@@ -9257,7 +8694,7 @@ double sub_2717BD418@<D0>(_DWORD *a1@<X1>, __int16 *a2@<X2>, uint64_t a3@<X8>)
     v16 = v9;
   }
 
-  v24 = v16;
+  v23 = v16;
   if (((2 * v7) & (2 * v7 - 1)) != 0)
   {
     v17 = 2;
@@ -9268,28 +8705,27 @@ double sub_2717BD418@<D0>(_DWORD *a1@<X1>, __int16 *a2@<X2>, uint64_t a3@<X8>)
     v17 = 2 * v7;
   }
 
-  sub_2717D5BBC(v30, &v23, &v25, 1, a2, 1, v17);
-  v18 = *&v27[16];
-  *(a3 + 8) = *v27;
+  sub_2717D5BBC(v29, &v22, &v24, 1, a2, 1, v17);
+  v18 = *&v26[16];
+  *(a3 + 8) = *v26;
   *a3 = &unk_288113218;
   *(a3 + 24) = v18;
-  *(a3 + 40) = v28;
-  v19 = v30[0];
-  *(a3 + 56) = v29;
+  *(a3 + 40) = v27;
+  v19 = v29[0];
+  *(a3 + 56) = v28;
   *(a3 + 64) = v19;
-  v20 = v30[2];
-  *(a3 + 72) = v30[1];
+  v20 = v29[2];
+  *(a3 + 72) = v29[1];
   *(a3 + 80) = v20;
-  *(a3 + 104) = v32;
-  result = *&v31;
-  *(a3 + 88) = v31;
-  v22 = *MEMORY[0x277D85DE8];
+  *(a3 + 104) = v31;
+  result = *&v30;
+  *(a3 + 88) = v30;
   return result;
 }
 
 double sub_2717BD5B4@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -9306,8 +8742,8 @@ double sub_2717BD5B4@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v4 = 0;
   }
 
-  *v26 = 3;
-  *&v26[4] = v4;
+  *v25 = 3;
+  *&v25[4] = v4;
   if (v4)
   {
     v5 = 3;
@@ -9319,13 +8755,13 @@ double sub_2717BD5B4@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   }
 
   LODWORD(v6) = v5 * v4;
-  *v26 = 3;
-  *&v26[4] = v4;
-  v7 = *v26;
+  *v25 = 3;
+  *&v25[4] = v4;
+  v7 = *v25;
   v8 = HIDWORD(v4);
-  if (HIDWORD(*v26))
+  if (HIDWORD(*v25))
   {
-    v9 = *v26 == 0;
+    v9 = *v25 == 0;
   }
 
   else
@@ -9345,19 +8781,19 @@ double sub_2717BD5B4@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   }
 
   v11 = v5 | (v6 << 32);
-  *v26 = 1;
-  *&v26[4] = v11;
-  v12 = *v26;
-  *v26 = v7;
-  *&v26[8] = HIDWORD(v4);
-  *&v26[12] = v12;
-  *&v26[20] = v6;
-  *&v26[24] = v4;
-  *&v27 = v11;
-  BYTE8(v27) = 0;
-  BYTE4(v28) = 0;
-  v24 = v12;
-  v25 = v6;
+  *v25 = 1;
+  *&v25[4] = v11;
+  v12 = *v25;
+  *v25 = v7;
+  *&v25[8] = HIDWORD(v4);
+  *&v25[12] = v12;
+  *&v25[20] = v6;
+  *&v25[24] = v4;
+  *&v26 = v11;
+  BYTE8(v26) = 0;
+  BYTE4(v27) = 0;
+  v23 = v12;
+  v24 = v6;
   if (v8)
   {
     v13 = v10;
@@ -9378,7 +8814,7 @@ double sub_2717BD5B4@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v14 = v7;
   }
 
-  v22 = v14;
+  v21 = v14;
   if (v10)
   {
     v15 = 0;
@@ -9389,7 +8825,7 @@ double sub_2717BD5B4@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v15 = v8;
   }
 
-  v23 = v15;
+  v22 = v15;
   if (((2 * v6) & (2 * v6 - 1)) != 0)
   {
     v16 = 2;
@@ -9400,28 +8836,27 @@ double sub_2717BD5B4@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v16 = 2 * v6;
   }
 
-  sub_2717D5BBC(v29, &v22, &v24, 1, 0, 0, v16);
-  v17 = *&v26[16];
-  *(a2 + 8) = *v26;
+  sub_2717D5BBC(v28, &v21, &v23, 1, 0, 0, v16);
+  v17 = *&v25[16];
+  *(a2 + 8) = *v25;
   *a2 = &unk_288113218;
   *(a2 + 24) = v17;
-  *(a2 + 40) = v27;
-  v18 = v29[0];
-  *(a2 + 56) = v28;
+  *(a2 + 40) = v26;
+  v18 = v28[0];
+  *(a2 + 56) = v27;
   *(a2 + 64) = v18;
-  v19 = v29[2];
-  *(a2 + 72) = v29[1];
+  v19 = v28[2];
+  *(a2 + 72) = v28[1];
   *(a2 + 80) = v19;
-  *(a2 + 104) = v31;
-  result = *&v30;
-  *(a2 + 88) = v30;
-  v21 = *MEMORY[0x277D85DE8];
+  *(a2 + 104) = v30;
+  result = *&v29;
+  *(a2 + 88) = v29;
   return result;
 }
 
 void sub_2717BD750(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (*(a1 + 28))
   {
     v3 = *(a1 + 24) == 0;
@@ -9495,7 +8930,7 @@ void sub_2717BD750(uint64_t a1@<X1>, uint64_t a2@<X8>)
 
   if (v13 * HIDWORD(v5))
   {
-    v25 = v12;
+    v24 = v12;
     *memptr = 0;
     v20 = malloc_type_posix_memalign(memptr, v19, v14, 0x63222AC6uLL);
     if (v20)
@@ -9504,7 +8939,7 @@ void sub_2717BD750(uint64_t a1@<X1>, uint64_t a2@<X8>)
     }
 
     v21 = *memptr;
-    v12 = v25;
+    v12 = v24;
     v14 = 4 * (v13 * HIDWORD(v5));
   }
 
@@ -9549,12 +8984,11 @@ void sub_2717BD750(uint64_t a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 96) = v13;
   *(a2 + 100) = (4 * v9) & 0xFFFFFFFCFFFFFFFCLL;
   *(a2 + 108) = 4 * HIDWORD(v5);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-double sub_2717BD924@<D0>(_DWORD *a1@<X1>, __int32 *a2@<X2>, uint64_t a3@<X8>, int32x2_t a4@<D0>)
+double sub_2717BD924@<D0>(_DWORD *a1@<X1>, __int32 *a2@<X2>, uint64_t a3@<X8>, double a4@<D0>)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v5 = *a1 == 0;
@@ -9571,8 +9005,8 @@ double sub_2717BD924@<D0>(_DWORD *a1@<X1>, __int32 *a2@<X2>, uint64_t a3@<X8>, i
     v6 = 0;
   }
 
-  *v28 = 3;
-  *&v28[4] = v6;
+  *v27 = 3;
+  *&v27[4] = v6;
   if (v6)
   {
     v7 = 3;
@@ -9584,13 +9018,13 @@ double sub_2717BD924@<D0>(_DWORD *a1@<X1>, __int32 *a2@<X2>, uint64_t a3@<X8>, i
   }
 
   LODWORD(v8) = v7 * v6;
-  *v28 = 3;
-  *&v28[4] = v6;
-  v9 = *v28;
+  *v27 = 3;
+  *&v27[4] = v6;
+  v9 = *v27;
   v10 = HIDWORD(v6);
-  if (HIDWORD(*v28))
+  if (HIDWORD(*v27))
   {
-    v11 = *v28 == 0;
+    v11 = *v27 == 0;
   }
 
   else
@@ -9610,19 +9044,19 @@ double sub_2717BD924@<D0>(_DWORD *a1@<X1>, __int32 *a2@<X2>, uint64_t a3@<X8>, i
   }
 
   v13 = v7 | (v8 << 32);
-  *v28 = 1;
-  *&v28[4] = v13;
-  v14 = *v28;
-  *v28 = v9;
-  *&v28[8] = HIDWORD(v6);
-  *&v28[12] = v14;
-  *&v28[20] = v8;
-  *&v28[24] = v6;
-  *&v29 = v13;
-  BYTE8(v29) = 0;
-  BYTE4(v30) = 0;
-  v26 = v14;
-  v27 = v8;
+  *v27 = 1;
+  *&v27[4] = v13;
+  v14 = *v27;
+  *v27 = v9;
+  *&v27[8] = HIDWORD(v6);
+  *&v27[12] = v14;
+  *&v27[20] = v8;
+  *&v27[24] = v6;
+  *&v28 = v13;
+  BYTE8(v28) = 0;
+  BYTE4(v29) = 0;
+  v25 = v14;
+  v26 = v8;
   if (v10)
   {
     v15 = v12;
@@ -9643,7 +9077,7 @@ double sub_2717BD924@<D0>(_DWORD *a1@<X1>, __int32 *a2@<X2>, uint64_t a3@<X8>, i
     v16 = v9;
   }
 
-  v24 = v16;
+  v23 = v16;
   if (v12)
   {
     v17 = 0;
@@ -9654,7 +9088,7 @@ double sub_2717BD924@<D0>(_DWORD *a1@<X1>, __int32 *a2@<X2>, uint64_t a3@<X8>, i
     v17 = v10;
   }
 
-  v25 = v17;
+  v24 = v17;
   if (((4 * v8) & (4 * v8 - 1)) != 0)
   {
     v18 = 4;
@@ -9665,28 +9099,27 @@ double sub_2717BD924@<D0>(_DWORD *a1@<X1>, __int32 *a2@<X2>, uint64_t a3@<X8>, i
     v18 = 4 * v8;
   }
 
-  sub_2717D6318(v31, &v24, &v26, 1, a2, 1, v18, a4);
-  v19 = *&v28[16];
-  *(a3 + 8) = *v28;
+  sub_2717D6318(v30, &v23, &v25, 1, a2, 1, v18, a4);
+  v19 = *&v27[16];
+  *(a3 + 8) = *v27;
   *a3 = &unk_288113198;
   *(a3 + 24) = v19;
-  *(a3 + 40) = v29;
-  v20 = v31[0];
-  *(a3 + 56) = v30;
+  *(a3 + 40) = v28;
+  v20 = v30[0];
+  *(a3 + 56) = v29;
   *(a3 + 64) = v20;
-  v21 = v31[2];
-  *(a3 + 72) = v31[1];
+  v21 = v30[2];
+  *(a3 + 72) = v30[1];
   *(a3 + 80) = v21;
-  *(a3 + 104) = v33;
-  result = *&v32;
-  *(a3 + 88) = v32;
-  v23 = *MEMORY[0x277D85DE8];
+  *(a3 + 104) = v32;
+  result = *&v31;
+  *(a3 + 88) = v31;
   return result;
 }
 
 void sub_2717BDAC0(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (*(a1 + 28))
   {
     v3 = *(a1 + 24) == 0;
@@ -9756,7 +9189,7 @@ void sub_2717BDAC0(uint64_t a1@<X1>, uint64_t a2@<X8>)
 
   if (v15)
   {
-    v25 = v12;
+    v24 = v12;
     *memptr = 0;
     v20 = malloc_type_posix_memalign(memptr, v19, (v13 * HIDWORD(v5)), 0x63222AC6uLL);
     if (v20)
@@ -9765,7 +9198,7 @@ void sub_2717BDAC0(uint64_t a1@<X1>, uint64_t a2@<X8>)
     }
 
     v21 = *memptr;
-    v12 = v25;
+    v12 = v24;
   }
 
   else
@@ -9809,12 +9242,11 @@ void sub_2717BDAC0(uint64_t a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 96) = v13;
   *(a2 + 100) = v9;
   *(a2 + 108) = HIDWORD(v5);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 double sub_2717BDC7C@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v4 = *a1 == 0;
@@ -9833,13 +9265,13 @@ double sub_2717BDC7C@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
 
   v6 = 4 * (v5 != 0);
   LODWORD(v7) = v6 * v5;
-  *v27 = 4;
-  *&v27[4] = v5;
-  v8 = *v27;
+  *v26 = 4;
+  *&v26[4] = v5;
+  v8 = *v26;
   v9 = HIDWORD(v5);
-  if (HIDWORD(*v27))
+  if (HIDWORD(*v26))
   {
-    v10 = *v27 == 0;
+    v10 = *v26 == 0;
   }
 
   else
@@ -9859,19 +9291,19 @@ double sub_2717BDC7C@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
   }
 
   v12 = v6 & 0x3FFFFFFFFLL | ((v7 >> 2) << 34);
-  *v27 = 1;
-  *&v27[4] = v12;
-  v13 = *v27;
-  *v27 = v8;
-  *&v27[8] = HIDWORD(v5);
-  *&v27[12] = v13;
-  *&v27[20] = v7;
-  *&v27[24] = v5;
-  *&v28 = v12;
-  BYTE8(v28) = 0;
-  BYTE4(v29) = 0;
-  v25 = v13;
-  v26 = v7;
+  *v26 = 1;
+  *&v26[4] = v12;
+  v13 = *v26;
+  *v26 = v8;
+  *&v26[8] = HIDWORD(v5);
+  *&v26[12] = v13;
+  *&v26[20] = v7;
+  *&v26[24] = v5;
+  *&v27 = v12;
+  BYTE8(v27) = 0;
+  BYTE4(v28) = 0;
+  v24 = v13;
+  v25 = v7;
   if (v9)
   {
     v14 = v11;
@@ -9892,7 +9324,7 @@ double sub_2717BDC7C@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
     v15 = v8;
   }
 
-  v23 = v15;
+  v22 = v15;
   if (v11)
   {
     v16 = 0;
@@ -9903,7 +9335,7 @@ double sub_2717BDC7C@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
     v16 = v9;
   }
 
-  v24 = v16;
+  v23 = v16;
   if ((v7 & (v7 - 1)) != 0)
   {
     v17 = 1;
@@ -9914,21 +9346,626 @@ double sub_2717BDC7C@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
     v17 = v7;
   }
 
-  sub_2717D4B20(v30, &v23, &v25, 1, a2, 1, v17);
-  v18 = *&v27[16];
-  *(a3 + 8) = *v27;
+  sub_2717D4B20(v29, &v22, &v24, 1, a2, 1, v17);
+  v18 = *&v26[16];
+  *(a3 + 8) = *v26;
   *a3 = &unk_288113118;
   *(a3 + 24) = v18;
-  *(a3 + 40) = v28;
-  v19 = v30[0];
-  *(a3 + 56) = v29;
+  *(a3 + 40) = v27;
+  v19 = v29[0];
+  *(a3 + 56) = v28;
   *(a3 + 64) = v19;
-  v20 = v30[2];
-  *(a3 + 72) = v30[1];
+  v20 = v29[2];
+  *(a3 + 72) = v29[1];
   *(a3 + 80) = v20;
-  *(a3 + 104) = v32;
-  result = *&v31;
-  *(a3 + 88) = v31;
-  v22 = *MEMORY[0x277D85DE8];
+  *(a3 + 104) = v31;
+  result = *&v30;
+  *(a3 + 88) = v30;
+  return result;
+}
+
+void sub_2717BDE18(_DWORD *a1@<X1>, uint64_t a2@<X8>)
+{
+  v25 = *MEMORY[0x277D85DE8];
+  if (a1[1])
+  {
+    v3 = *a1 == 0;
+  }
+
+  else
+  {
+    v3 = 1;
+  }
+
+  v4 = *a1;
+  if (v3)
+  {
+    v4 = 0;
+  }
+
+  *memptr = 4;
+  *&memptr[4] = v4;
+  v5 = v4;
+  v6 = 4 * (v4 != 0);
+  v7 = v6 * v4;
+  if (HIDWORD(v5))
+  {
+    v8 = v7;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = v6 & 0x3FFFFFFFFLL | ((v8 >> 2) << 34);
+  v10 = __PAIR64__(*&memptr[4], 4);
+  *memptr = 1;
+  *&memptr[4] = v9;
+  v11 = *memptr;
+  v12 = __PAIR64__(v5, 4) >> 32 == 0;
+  if (__PAIR64__(v5, 4) >> 32)
+  {
+    v13 = HIDWORD(v5);
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  v14 = v8 - 1;
+  v15 = (v13 * v8);
+  if ((v8 & (v8 - 1)) != 0)
+  {
+    v14 = 0;
+  }
+
+  v16 = v14 | (v14 >> 1) | ((v14 | (v14 >> 1)) >> 2);
+  v17 = v16 | (v16 >> 4) | ((v16 | (v16 >> 4)) >> 8);
+  v18 = v17 | (v17 >> 16) | ((v17 | (v17 >> 16)) >> 32);
+  if (v18 + 1 > 8)
+  {
+    v19 = v18 + 1;
+  }
+
+  else
+  {
+    v19 = 8;
+  }
+
+  if (v15)
+  {
+    *memptr = 0;
+    v20 = malloc_type_posix_memalign(memptr, v19, (v13 * v8), 0x63222AC6uLL);
+    if (v20)
+    {
+      sub_2718084E8(v20, v19, (v13 * v8));
+    }
+
+    v21 = *memptr;
+    v12 = __PAIR64__(v5, 4) >> 32 == 0;
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  if (HIDWORD(v5))
+  {
+    v22 = v12;
+  }
+
+  else
+  {
+    v22 = 1;
+  }
+
+  *a2 = &unk_288113118;
+  *(a2 + 8) = v10;
+  *(a2 + 16) = HIDWORD(v5);
+  if (v22)
+  {
+    v23 = 0;
+  }
+
+  else
+  {
+    v23 = v10;
+  }
+
+  *(a2 + 20) = v11;
+  *(a2 + 28) = v8;
+  *(a2 + 32) = v5;
+  *(a2 + 40) = v9;
+  *(a2 + 48) = 0;
+  *(a2 + 60) = 0;
+  *(a2 + 64) = v15;
+  *(a2 + 72) = v21;
+  *(a2 + 80) = v19;
+  *(a2 + 88) = v23;
+  *(a2 + 96) = v13;
+  *(a2 + 100) = v11;
+  *(a2 + 108) = v8;
+}
+
+void sub_2717BDFF0(uint64_t a1@<X1>, uint64_t a2@<X8>)
+{
+  v26 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 28))
+  {
+    v3 = *(a1 + 24) == 0;
+  }
+
+  else
+  {
+    v3 = 1;
+  }
+
+  v4 = *(a1 + 24);
+  v5 = *(a1 + 32);
+  if (v3)
+  {
+    v4 = 0;
+  }
+
+  *memptr = 4;
+  *&memptr[4] = v4;
+  v6 = v4;
+  v7 = *memptr;
+  v8 = HIDWORD(v4);
+  *memptr = 1;
+  *&memptr[4] = v5;
+  v9 = *memptr;
+  v10 = HIDWORD(v5);
+  if (HIDWORD(v7))
+  {
+    v11 = v7 == 0;
+  }
+
+  else
+  {
+    v11 = 1;
+  }
+
+  v12 = v11;
+  if (v11)
+  {
+    v13 = 0;
+  }
+
+  else
+  {
+    v13 = HIDWORD(v4);
+  }
+
+  v14 = 2 * (v13 * HIDWORD(v5));
+  if (((2 * v10) & (2 * v10 - 1)) != 0)
+  {
+    v15 = 1;
+  }
+
+  else
+  {
+    v15 = 2 * v10 - 1;
+  }
+
+  v16 = v15 | (v15 >> 1) | ((v15 | (v15 >> 1)) >> 2);
+  v17 = v16 | (v16 >> 4) | ((v16 | (v16 >> 4)) >> 8);
+  v18 = v17 | (v17 >> 16) | ((v17 | (v17 >> 16)) >> 32);
+  if (v18 + 1 > 8)
+  {
+    v19 = v18 + 1;
+  }
+
+  else
+  {
+    v19 = 8;
+  }
+
+  if (v13 * HIDWORD(v5))
+  {
+    v24 = v12;
+    *memptr = 0;
+    v20 = malloc_type_posix_memalign(memptr, v19, v14, 0x63222AC6uLL);
+    if (v20)
+    {
+      sub_2718084E8(v20, v19, 2 * (v13 * HIDWORD(v5)));
+    }
+
+    v21 = *memptr;
+    v12 = v24;
+    v14 = 2 * (v13 * HIDWORD(v5));
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  if (v8)
+  {
+    v22 = v12;
+  }
+
+  else
+  {
+    v22 = 1;
+  }
+
+  if (v22)
+  {
+    v23 = 0;
+  }
+
+  else
+  {
+    v23 = v7;
+  }
+
+  *a2 = &unk_288113098;
+  *(a2 + 8) = v7;
+  *(a2 + 16) = v8;
+  *(a2 + 20) = v9;
+  *(a2 + 28) = HIDWORD(v5);
+  *(a2 + 32) = v6;
+  *(a2 + 40) = v5;
+  *(a2 + 48) = 0;
+  *(a2 + 60) = 0;
+  *(a2 + 64) = v14;
+  *(a2 + 72) = v21;
+  *(a2 + 80) = v19;
+  *(a2 + 88) = v23;
+  *(a2 + 96) = v13;
+  *(a2 + 100) = (2 * v9) & 0xFFFFFFFEFFFFFFFELL;
+  *(a2 + 108) = 2 * HIDWORD(v5);
+}
+
+double sub_2717BE1C4@<D0>(_DWORD *a1@<X1>, unsigned __int16 *a2@<X2>, uint64_t a3@<X8>)
+{
+  v32 = *MEMORY[0x277D85DE8];
+  if (a1[1])
+  {
+    v4 = *a1 == 0;
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  v5 = *a1;
+  if (v4)
+  {
+    v5 = 0;
+  }
+
+  v6 = 4 * (v5 != 0);
+  LODWORD(v7) = v6 * v5;
+  *v26 = 4;
+  *&v26[4] = v5;
+  v8 = *v26;
+  v9 = HIDWORD(v5);
+  if (HIDWORD(*v26))
+  {
+    v10 = *v26 == 0;
+  }
+
+  else
+  {
+    v10 = 1;
+  }
+
+  v11 = v10;
+  if (v9)
+  {
+    v7 = v7;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v12 = v6 & 0x3FFFFFFFFLL | ((v7 >> 2) << 34);
+  *v26 = 1;
+  *&v26[4] = v12;
+  v13 = *v26;
+  *v26 = v8;
+  *&v26[8] = HIDWORD(v5);
+  *&v26[12] = v13;
+  *&v26[20] = v7;
+  *&v26[24] = v5;
+  *&v27 = v12;
+  BYTE8(v27) = 0;
+  BYTE4(v28) = 0;
+  v24 = v13;
+  v25 = v7;
+  if (v9)
+  {
+    v14 = v11;
+  }
+
+  else
+  {
+    v14 = 1;
+  }
+
+  if (v14)
+  {
+    v15 = 0;
+  }
+
+  else
+  {
+    v15 = v8;
+  }
+
+  v22 = v15;
+  if (v11)
+  {
+    v16 = 0;
+  }
+
+  else
+  {
+    v16 = v9;
+  }
+
+  v23 = v16;
+  if (((2 * v7) & (2 * v7 - 1)) != 0)
+  {
+    v17 = 2;
+  }
+
+  else
+  {
+    v17 = 2 * v7;
+  }
+
+  sub_2717D5090(v29, &v22, &v24, 1, a2, 1, v17);
+  v18 = *&v26[16];
+  *(a3 + 8) = *v26;
+  *a3 = &unk_288113098;
+  *(a3 + 24) = v18;
+  *(a3 + 40) = v27;
+  v19 = v29[0];
+  *(a3 + 56) = v28;
+  *(a3 + 64) = v19;
+  v20 = v29[2];
+  *(a3 + 72) = v29[1];
+  *(a3 + 80) = v20;
+  *(a3 + 104) = v31;
+  result = *&v30;
+  *(a3 + 88) = v30;
+  return result;
+}
+
+double sub_2717BE368@<D0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+{
+  v30 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 28))
+  {
+    v3 = *(a1 + 24) == 0;
+  }
+
+  else
+  {
+    v3 = 1;
+  }
+
+  v5 = *(a1 + 24);
+  v4 = *(a1 + 32);
+  if (v3)
+  {
+    v5 = 0;
+  }
+
+  *&v24[4] = v5;
+  v6 = HIDWORD(v4);
+  *v24 = 4;
+  v7 = *v24;
+  v8 = HIDWORD(v5);
+  *v24 = 1;
+  *&v24[4] = v4;
+  v9 = *v24;
+  *v24 = v7;
+  *&v24[12] = v9;
+  *&v24[20] = HIDWORD(v4);
+  *&v24[24] = v5;
+  *&v25 = v4;
+  BYTE8(v25) = 0;
+  BYTE4(v26) = 0;
+  v22 = v9;
+  v23 = HIDWORD(v4);
+  if (HIDWORD(v7))
+  {
+    v10 = v7 == 0;
+  }
+
+  else
+  {
+    v10 = 1;
+  }
+
+  v11 = v10;
+  if (v8)
+  {
+    v12 = v11;
+  }
+
+  else
+  {
+    v12 = 1;
+  }
+
+  if (v12)
+  {
+    v13 = 0;
+  }
+
+  else
+  {
+    v13 = v7;
+  }
+
+  v20 = v13;
+  if (v11)
+  {
+    v14 = 0;
+  }
+
+  else
+  {
+    v14 = v8;
+  }
+
+  v21 = v14;
+  if (((2 * v6) & (2 * v6 - 1)) != 0)
+  {
+    v15 = 2;
+  }
+
+  else
+  {
+    v15 = 2 * v6;
+  }
+
+  sub_2717D5BBC(v27, &v20, &v22, 1, 0, 0, v15);
+  v16 = *&v24[16];
+  *(a2 + 8) = *v24;
+  *a2 = &unk_288113018;
+  *(a2 + 24) = v16;
+  *(a2 + 40) = v25;
+  v17 = v27[0];
+  *(a2 + 56) = v26;
+  *(a2 + 64) = v17;
+  v18 = v27[2];
+  *(a2 + 72) = v27[1];
+  *(a2 + 80) = v18;
+  *(a2 + 104) = v29;
+  result = *&v28;
+  *(a2 + 88) = v28;
+  return result;
+}
+
+double sub_2717BE4F4@<D0>(_DWORD *a1@<X1>, __int16 *a2@<X2>, uint64_t a3@<X8>)
+{
+  v32 = *MEMORY[0x277D85DE8];
+  if (a1[1])
+  {
+    v4 = *a1 == 0;
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  v5 = *a1;
+  if (v4)
+  {
+    v5 = 0;
+  }
+
+  v6 = 4 * (v5 != 0);
+  LODWORD(v7) = v6 * v5;
+  *v26 = 4;
+  *&v26[4] = v5;
+  v8 = *v26;
+  v9 = HIDWORD(v5);
+  if (HIDWORD(*v26))
+  {
+    v10 = *v26 == 0;
+  }
+
+  else
+  {
+    v10 = 1;
+  }
+
+  v11 = v10;
+  if (v9)
+  {
+    v7 = v7;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v12 = v6 & 0x3FFFFFFFFLL | ((v7 >> 2) << 34);
+  *v26 = 1;
+  *&v26[4] = v12;
+  v13 = *v26;
+  *v26 = v8;
+  *&v26[8] = HIDWORD(v5);
+  *&v26[12] = v13;
+  *&v26[20] = v7;
+  *&v26[24] = v5;
+  *&v27 = v12;
+  BYTE8(v27) = 0;
+  BYTE4(v28) = 0;
+  v24 = v13;
+  v25 = v7;
+  if (v9)
+  {
+    v14 = v11;
+  }
+
+  else
+  {
+    v14 = 1;
+  }
+
+  if (v14)
+  {
+    v15 = 0;
+  }
+
+  else
+  {
+    v15 = v8;
+  }
+
+  v22 = v15;
+  if (v11)
+  {
+    v16 = 0;
+  }
+
+  else
+  {
+    v16 = v9;
+  }
+
+  v23 = v16;
+  if (((2 * v7) & (2 * v7 - 1)) != 0)
+  {
+    v17 = 2;
+  }
+
+  else
+  {
+    v17 = 2 * v7;
+  }
+
+  sub_2717D5BBC(v29, &v22, &v24, 1, a2, 1, v17);
+  v18 = *&v26[16];
+  *(a3 + 8) = *v26;
+  *a3 = &unk_288113018;
+  *(a3 + 24) = v18;
+  *(a3 + 40) = v27;
+  v19 = v29[0];
+  *(a3 + 56) = v28;
+  *(a3 + 64) = v19;
+  v20 = v29[2];
+  *(a3 + 72) = v29[1];
+  *(a3 + 80) = v20;
+  *(a3 + 104) = v31;
+  result = *&v30;
+  *(a3 + 88) = v30;
   return result;
 }

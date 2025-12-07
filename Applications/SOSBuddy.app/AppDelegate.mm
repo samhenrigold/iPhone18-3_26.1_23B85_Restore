@@ -13,7 +13,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_1000276E8(&qword_100354990, type metadata accessor for LaunchOptionsKey);
+    sub_1000276E8(&qword_100354990, type metadata accessor for LaunchOptionsKey, &unk_1002777C0);
     v5 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

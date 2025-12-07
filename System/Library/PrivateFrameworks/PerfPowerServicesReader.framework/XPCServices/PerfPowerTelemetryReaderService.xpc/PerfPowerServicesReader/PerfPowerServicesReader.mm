@@ -1,6 +1,6 @@
 void sub_10000102C(id a1)
 {
-  v1 = PPSLogReaderService();
+  v1 = PPSLogReaderService(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     *v2 = 0;
@@ -10,7 +10,7 @@ void sub_10000102C(id a1)
 
 void sub_100001094(uint64_t a1)
 {
-  v2 = PPSLogReaderService();
+  v2 = PPSLogReaderService(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -29,16 +29,16 @@ int main(int argc, const char **argv, const char **envp)
   exit(1);
 }
 
-id PPSLogReaderService()
+id PPSLogReaderService(uint64_t a1)
 {
   if (qword_100008618 != -1)
   {
     sub_1000015F0();
   }
 
-  v1 = qword_100008610;
+  v2 = qword_100008610;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000011CC(id a1)
@@ -83,7 +83,7 @@ void sub_10000167C(void *a1, uint64_t a2, void *a3, NSObject **a4)
   v6 = objc_begin_catch(a1);
   *a3 = v6;
   v7 = v6;
-  v8 = PPSLogReaderService();
+  v8 = PPSLogReaderService(v7);
   *a4 = v8;
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {

@@ -61,7 +61,7 @@
   adapterType = [v1 adapterType];
   std::string::basic_string[abi:ne200100]<0>(retstr, [adapterType UTF8String]);
   symbolName = [v2 symbolName];
-  std::string::basic_string[abi:ne200100]<0>(retstr[1].var0.var0.var0.var0, [symbolName UTF8String]);
+  std::string::basic_string[abi:ne200100]<0>(&retstr[1].var0.var0.var1.var0, [symbolName UTF8String]);
   mutableWeightsFilePath = [v2 mutableWeightsFilePath];
   uTF8String = [mutableWeightsFilePath UTF8String];
   std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&retstr[2], &uTF8String);

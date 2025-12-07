@@ -19,16 +19,15 @@
 {
   v4 = sub_24A076108();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_24A0761C8();
-  v11 = v10;
+  MEMORY[0x28223BE20](v4);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_24A0761C8();
+  v10 = v9;
   sub_24A0760F8();
 
-  SessionManager.session(_:didUpdateCollectionProgress:)(v9, v11, v8);
+  SessionManager.session(_:didUpdateCollectionProgress:)(v8, v10, v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)session:(id)session didEndWithError:(id)error

@@ -65,7 +65,7 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = sub_2393D9044(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -76,23 +76,21 @@
 
   if (sub_2393D5398(2u))
   {
-    selfCopy2 = self;
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "MTRDevice dealloc: %p", self);
   }
 
   [(MTRDeviceController *)self->_deviceController deviceDeallocated];
   os_unfair_lock_lock(&self->_lock);
   [(MTRDevice *)self _cancelAllAttributeValueWaiters];
   os_unfair_lock_unlock(&self->_lock);
-  v6.receiver = self;
-  v6.super_class = MTRDevice;
-  [(MTRDevice *)&v6 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = MTRDevice;
+  [(MTRDevice *)&v4 dealloc];
 }
 
 + (MTRDevice)deviceWithNodeID:(NSNumber *)nodeID controller:(MTRDeviceController *)controller
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = nodeID;
   v6 = controller;
   v7 = v6;
@@ -107,28 +105,26 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v13 = v5;
-      v14 = 2112;
-      v15 = v7;
+      v12 = v5;
+      v13 = 2112;
+      v14 = v7;
       _os_log_impl(&dword_238DAE000, v9, OS_LOG_TYPE_ERROR, "Can't create device with nodeID: %@, controller: %@", buf, 0x16u);
     }
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "Can't create device with nodeID: %@, controller: %@", v5, v7);
     }
 
     v8 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (void)setDelegate:(id)delegate queue:(dispatch_queue_t)queue
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = delegate;
   v7 = queue;
   v8 = sub_2393D9044(0);
@@ -136,26 +132,22 @@
   {
     *buf = 138412546;
     selfCopy = self;
-    v14 = 2112;
-    v15 = v6;
+    v11 = 2112;
+    v12 = v6;
     _os_log_impl(&dword_238DAE000, v8, OS_LOG_TYPE_DEFAULT, "%@ setDelegate %@", buf, 0x16u);
   }
 
   if (sub_2393D5398(2u))
   {
-    selfCopy2 = self;
-    v11 = v6;
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ setDelegate %@", self, v6);
   }
 
-  [(MTRDevice *)self _addDelegate:v6 queue:v7 interestedPathsForAttributes:0 interestedPathsForEvents:0, selfCopy2, v11];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(MTRDevice *)self _addDelegate:v6 queue:v7 interestedPathsForAttributes:0 interestedPathsForEvents:0];
 }
 
 - (void)addDelegate:(id)delegate queue:(id)queue
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   queueCopy = queue;
   v8 = sub_2393D9044(0);
@@ -163,26 +155,22 @@
   {
     *buf = 138412546;
     selfCopy = self;
-    v14 = 2112;
-    v15 = delegateCopy;
+    v11 = 2112;
+    v12 = delegateCopy;
     _os_log_impl(&dword_238DAE000, v8, OS_LOG_TYPE_DEFAULT, "%@ addDelegate %@", buf, 0x16u);
   }
 
   if (sub_2393D5398(2u))
   {
-    selfCopy2 = self;
-    v11 = delegateCopy;
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ addDelegate %@", self, delegateCopy);
   }
 
-  [(MTRDevice *)self _addDelegate:delegateCopy queue:queueCopy interestedPathsForAttributes:0 interestedPathsForEvents:0, selfCopy2, v11];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(MTRDevice *)self _addDelegate:delegateCopy queue:queueCopy interestedPathsForAttributes:0 interestedPathsForEvents:0];
 }
 
 - (void)addDelegate:(id)delegate queue:(id)queue interestedPathsForAttributes:(id)attributes interestedPathsForEvents:(id)events
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   queueCopy = queue;
   attributesCopy = attributes;
@@ -192,27 +180,21 @@
   {
     *buf = 138413058;
     selfCopy = self;
-    v22 = 2112;
-    v23 = delegateCopy;
-    v24 = 2112;
-    v25 = attributesCopy;
-    v26 = 2112;
-    v27 = eventsCopy;
+    v17 = 2112;
+    v18 = delegateCopy;
+    v19 = 2112;
+    v20 = attributesCopy;
+    v21 = 2112;
+    v22 = eventsCopy;
     _os_log_impl(&dword_238DAE000, v14, OS_LOG_TYPE_DEFAULT, "%@ addDelegate %@ with interested attribute paths %@ event paths %@", buf, 0x2Au);
   }
 
   if (sub_2393D5398(2u))
   {
-    v18 = attributesCopy;
-    v19 = eventsCopy;
-    selfCopy2 = self;
-    v17 = delegateCopy;
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ addDelegate %@ with interested attribute paths %@ event paths %@", self, delegateCopy, attributesCopy, eventsCopy);
   }
 
-  [(MTRDevice *)self _addDelegate:delegateCopy queue:queueCopy interestedPathsForAttributes:attributesCopy interestedPathsForEvents:eventsCopy, selfCopy2, v17, v18, v19];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [(MTRDevice *)self _addDelegate:delegateCopy queue:queueCopy interestedPathsForAttributes:attributesCopy interestedPathsForEvents:eventsCopy];
 }
 
 - (void)_addDelegate:(id)delegate queue:(id)queue interestedPathsForAttributes:(id)attributes interestedPathsForEvents:(id)events
@@ -311,12 +293,11 @@
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v19 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v17 = objc_opt_class();
+    v18 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v17, v18);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -346,17 +327,15 @@
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
+    v23 = objc_opt_class();
     v24 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v23, v24);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)readAttributePaths:(id)paths
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   v5 = sub_2393D9044(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
@@ -364,56 +343,53 @@
     v6 = objc_opt_class();
     v7 = NSStringFromSelector(a2);
     *buf = 138412546;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v7;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v7;
     _os_log_impl(&dword_238DAE000, v5, OS_LOG_TYPE_ERROR, "%@ or some ancestor must implement %@", buf, 0x16u);
   }
 
   if (sub_2393D5398(1u))
   {
     v8 = objc_opt_class();
-    NSStringFromSelector(a2);
-    v13 = v12 = v8;
-    sub_2393D5320(0, 1);
+    v9 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v8, v9);
   }
 
   array = [MEMORY[0x277CBEA60] array];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)descriptorClusters
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
-  v16 = [MTRAttributeRequestPath requestPathWithEndpointID:0 clusterID:&unk_284C43C10 attributeID:0];
-  v25[0] = v16;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
-  v17 = [(MTRDevice *)self readAttributePaths:v3];
+  v15 = [MTRAttributeRequestPath requestPathWithEndpointID:0 clusterID:&unk_284C43C10 attributeID:0];
+  v24[0] = v15;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v16 = [(MTRDevice *)self readAttributePaths:v3];
 
-  v18 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v17, "count")}];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
+  v17 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v16, "count")}];
   v21 = 0u;
-  obj = v17;
-  v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  obj = v16;
+  v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
-    v5 = *v21;
+    v5 = *v20;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v21 != v5)
+        if (*v20 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v20 + 1) + 8 * i);
+        v7 = *(*(&v19 + 1) + 8 * i);
         v8 = [v7 objectForKeyedSubscript:@"attributePath"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -435,7 +411,7 @@
 
               v8 = [v7 objectForKeyedSubscript:@"data"];
               v9 = [v7 objectForKeyedSubscript:@"attributePath"];
-              [v18 setObject:v8 forKeyedSubscript:v9];
+              [v17 setObject:v8 forKeyedSubscript:v9];
             }
 
             else
@@ -445,21 +421,20 @@
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v4);
   }
 
   objc_autoreleasePoolPop(context);
-  v13 = *MEMORY[0x277D85DE8];
 
-  return v18;
+  return v17;
 }
 
 - (void)invokeCommandWithEndpointID:(id)d clusterID:(id)iD commandID:(id)commandID commandFields:(id)fields expectedValues:(id)values expectedValueInterval:(id)interval queue:(id)queue completion:(id)self0
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   commandIDCopy = commandID;
@@ -470,24 +445,22 @@
   completionCopy = completion;
   if (!fieldsCopy)
   {
-    v25[0] = @"type";
-    v25[1] = @"value";
-    v26[0] = @"Structure";
-    v26[1] = MEMORY[0x277CBEBF8];
-    fieldsCopy = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+    v24[0] = @"type";
+    v24[1] = @"value";
+    v25[0] = @"Structure";
+    v25[1] = MEMORY[0x277CBEBF8];
+    fieldsCopy = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
   }
 
   [(MTRDevice *)self invokeCommandWithEndpointID:dCopy clusterID:iDCopy commandID:commandIDCopy commandFields:fieldsCopy expectedValues:valuesCopy expectedValueInterval:intervalCopy timedInvokeTimeout:0 queue:queueCopy completion:completionCopy];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invokeCommandWithEndpointID:(NSNumber *)endpointID clusterID:(NSNumber *)clusterID commandID:(NSNumber *)commandID commandFields:(id)commandFields expectedValues:(NSArray *)expectedValues expectedValueInterval:(NSNumber *)expectedValueInterval timedInvokeTimeout:(NSNumber *)timeout queue:(dispatch_queue_t)queue completion:(MTRDeviceResponseHandler)completion
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v30 = endpointID;
-  v31 = clusterID;
-  v32 = commandID;
+  v36 = *MEMORY[0x277D85DE8];
+  v29 = endpointID;
+  v30 = clusterID;
+  v31 = commandID;
   v17 = commandFields;
   v18 = expectedValues;
   v19 = expectedValueInterval;
@@ -503,7 +476,7 @@
 
     if (v25)
     {
-      [(MTRDevice *)self _invokeCommandWithEndpointID:v30 clusterID:v31 commandID:v32 commandFields:v23 expectedValues:v18 expectedValueInterval:v19 timedInvokeTimeout:v20 serverSideProcessingTimeout:0 queue:v21 completion:v22];
+      [(MTRDevice *)self _invokeCommandWithEndpointID:v29 clusterID:v30 commandID:v31 commandFields:v23 expectedValues:v18 expectedValueInterval:v19 timedInvokeTimeout:v20 serverSideProcessingTimeout:0 queue:v21 completion:v22];
     }
 
     else
@@ -513,14 +486,14 @@
       {
         *buf = 138412546;
         selfCopy2 = self;
-        v35 = 2112;
-        v36 = v23;
+        v34 = 2112;
+        v35 = v23;
         _os_log_impl(&dword_238DAE000, v27, OS_LOG_TYPE_ERROR, "%@ invokeCommandWithEndpointID passed a commandFields (%@) that is not a structure-typed data-value object", buf, 0x16u);
       }
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "%@ invokeCommandWithEndpointID passed a commandFields (%@) that is not a structure-typed data-value object", self, v23);
       }
 
       v28 = sub_23921C1E4(MTRError, 0x1650000002FLL, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDevice.mm");
@@ -535,21 +508,19 @@
     {
       *buf = 138412546;
       selfCopy2 = self;
-      v35 = 2112;
-      v36 = v17;
+      v34 = 2112;
+      v35 = v17;
       _os_log_impl(&dword_238DAE000, v26, OS_LOG_TYPE_ERROR, "%@ invokeCommandWithEndpointID passed a commandFields (%@) that is not a data-value NSDictionary object", buf, 0x16u);
     }
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ invokeCommandWithEndpointID passed a commandFields (%@) that is not a data-value NSDictionary object", self, v17);
     }
 
     v23 = sub_23921C1E4(MTRError, 0x15D0000002FLL, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDevice.mm");
     v22[2](v22, 0, v23);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invokeCommandWithEndpointID:(id)d clusterID:(id)iD commandID:(id)commandID commandFields:(id)fields expectedValues:(id)values expectedValueInterval:(id)interval timedInvokeTimeout:(id)timeout serverSideProcessingTimeout:(id)self0 queue:(id)self1 completion:(id)self2
@@ -582,12 +553,10 @@
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
+    v27 = objc_opt_class();
     v28 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v27, v28);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invokeKnownCommandWithEndpointID:(id)d clusterID:(id)iD commandID:(id)commandID commandPayload:(id)payload expectedValues:(id)values expectedValueInterval:(id)interval timedInvokeTimeout:(id)timeout serverSideProcessingTimeout:(id)self0 responseClass:(Class)self1 queue:(id)self2 completion:(id)self3
@@ -671,9 +640,9 @@
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v16 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v14 = objc_opt_class();
+    v15 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v14, v15);
   }
 
   block[0] = MEMORY[0x277D85DD0];
@@ -681,10 +650,8 @@
   block[2] = sub_2393B26BC;
   block[3] = &unk_278A72B88;
   v18 = completionCopy;
-  v14 = completionCopy;
+  v16 = completionCopy;
   dispatch_async(queueCopy, block);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openCommissioningWindowWithSetupPasscode:(NSNumber *)setupPasscode discriminator:(NSNumber *)discriminator duration:(NSNumber *)duration queue:(dispatch_queue_t)queue completion:(MTRDeviceOpenCommissioningWindowHandler)completion
@@ -709,9 +676,9 @@
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v22 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v20 = objc_opt_class();
+    v21 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v20, v21);
   }
 
   block[0] = MEMORY[0x277D85DD0];
@@ -719,10 +686,8 @@
   block[2] = sub_2393B2964;
   block[3] = &unk_278A72B88;
   v24 = v16;
-  v20 = v16;
+  v22 = v16;
   dispatch_async(v15, block);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openCommissioningWindowWithDiscriminator:(NSNumber *)discriminator duration:(NSNumber *)duration queue:(dispatch_queue_t)queue completion:(MTRDeviceOpenCommissioningWindowHandler)completion
@@ -746,9 +711,9 @@
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v19 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v17 = objc_opt_class();
+    v18 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v17, v18);
   }
 
   block[0] = MEMORY[0x277D85DD0];
@@ -756,10 +721,8 @@
   block[2] = sub_2393B2BF8;
   block[3] = &unk_278A72B88;
   v21 = v13;
-  v17 = v13;
+  v19 = v13;
   dispatch_async(v12, block);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)downloadLogOfType:(int64_t)type timeout:(double)timeout queue:(id)queue completion:(id)completion
@@ -781,9 +744,9 @@
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v15 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v13 = objc_opt_class();
+    v14 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v13, v14);
   }
 
   block[0] = MEMORY[0x277D85DD0];
@@ -791,10 +754,8 @@
   block[2] = sub_2393B2E5C;
   block[3] = &unk_278A72B88;
   v17 = completionCopy;
-  v13 = completionCopy;
+  v15 = completionCopy;
   dispatch_async(queueCopy, block);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (NSNumber)estimatedSubscriptionLatency
@@ -814,12 +775,11 @@
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v8 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v6 = objc_opt_class();
+    v7 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v6, v7);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -840,12 +800,11 @@
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v8 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v6 = objc_opt_class();
+    v7 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v6, v7);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -866,12 +825,11 @@
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v8 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v6 = objc_opt_class();
+    v7 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v6, v7);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -892,18 +850,17 @@
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v8 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v6 = objc_opt_class();
+    v7 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v6, v7);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (BOOL)_attributeDataValue:(id)value isEqualToDataValue:(id)dataValue
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   dataValueCopy = dataValue;
   v8 = dataValueCopy;
@@ -951,17 +908,16 @@
     v9 = 1;
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ attribute data-value comparison does not expect comparing two nil dictionaries", self);
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)_attributeDataValue:(id)value satisfiesValueExpectation:(id)expectation
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   expectationCopy = expectation;
   v8 = expectationCopy;
@@ -969,26 +925,32 @@
   {
     if (!valueCopy || !expectationCopy)
     {
-      v31 = sub_2393D9044(0);
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v27 = sub_2393D9044(0);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v32 = "observed";
+        v28 = "observed";
         if (valueCopy)
         {
-          v32 = "expected";
+          v28 = "expected";
         }
 
         *buf = 136315138;
-        selfCopy8 = v32;
-        _os_log_impl(&dword_238DAE000, v31, OS_LOG_TYPE_ERROR, "@ observed to expected attribute data-value comparison does not expect a nil %s", buf, 0xCu);
+        selfCopy8 = v28;
+        _os_log_impl(&dword_238DAE000, v27, OS_LOG_TYPE_ERROR, "@ observed to expected attribute data-value comparison does not expect a nil %s", buf, 0xCu);
       }
 
-      if (!sub_2393D5398(1u))
+      if (sub_2393D5398(1u))
       {
-        goto LABEL_70;
+        v29 = "observed";
+        if (valueCopy)
+        {
+          v29 = "expected";
+        }
+
+        sub_2393D5320(0, 1, "@ observed to expected attribute data-value comparison does not expect a nil %s", v29);
       }
 
-      goto LABEL_69;
+      goto LABEL_72;
     }
 
     v9 = [valueCopy objectForKeyedSubscript:@"type"];
@@ -997,9 +959,9 @@
 
     if ((v11 & 1) == 0)
     {
-LABEL_70:
+LABEL_72:
       v21 = 0;
-      goto LABEL_71;
+      goto LABEL_73;
     }
 
     v12 = [v8 objectForKeyedSubscript:@"type"];
@@ -1017,113 +979,110 @@ LABEL_70:
 
         if (isKindOfClass)
         {
-          v76 = [valueCopy objectForKeyedSubscript:@"value"];
-          v75 = [v8 objectForKeyedSubscript:@"value"];
-          v17 = [v76 count];
-          if (v17 == [v75 count])
+          v72 = [valueCopy objectForKeyedSubscript:@"value"];
+          v71 = [v8 objectForKeyedSubscript:@"value"];
+          v17 = [v72 count];
+          if (v17 == [v71 count])
           {
             v18 = 0;
             v19 = 0x277CBE000uLL;
             while (1)
             {
-              v20 = [v76 count];
+              v20 = [v72 count];
               v21 = v18 >= v20;
               if (v18 >= v20)
               {
-                goto LABEL_107;
+                goto LABEL_109;
               }
 
-              obj = [v76 objectAtIndexedSubscript:v18];
-              v78 = [v75 objectAtIndexedSubscript:v18];
-              v22 = *(v19 + 2752);
+              obj = [v72 objectAtIndexedSubscript:v18];
+              v74 = [v71 objectAtIndexedSubscript:v18];
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) == 0 || (v23 = *(v19 + 2752), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+              if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
               {
-                v61 = sub_2393D9044(0);
-                if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+                v57 = sub_2393D9044(0);
+                if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412802;
                   selfCopy8 = self;
-                  v91 = 2112;
-                  v92 = obj;
-                  v93 = 2112;
-                  v94 = v78;
-                  _os_log_impl(&dword_238DAE000, v61, OS_LOG_TYPE_ERROR, "%@ expected or observed array-value contains entries that are not NSDictionary: %@, %@", buf, 0x20u);
+                  v87 = 2112;
+                  v88 = obj;
+                  v89 = 2112;
+                  v90 = v74;
+                  _os_log_impl(&dword_238DAE000, v57, OS_LOG_TYPE_ERROR, "%@ expected or observed array-value contains entries that are not NSDictionary: %@, %@", buf, 0x20u);
                 }
 
                 if (sub_2393D5398(1u))
                 {
-                  sub_2393D5320(0, 1);
+                  sub_2393D5320(0, 1, "%@ expected or observed array-value contains entries that are not NSDictionary: %@, %@", self, obj, v74);
                 }
 
-                goto LABEL_96;
+                goto LABEL_98;
               }
 
-              v24 = [obj objectForKeyedSubscript:@"data"];
-              v25 = v19;
-              v26 = *(v19 + 2752);
+              v22 = [obj objectForKeyedSubscript:@"data"];
+              v23 = v19;
+              objc_opt_class();
+              if ((objc_opt_isKindOfClass() & (v22 != 0)) == 0)
+              {
+                v58 = sub_2393D9044(0);
+                if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+                {
+                  *buf = 138412546;
+                  selfCopy8 = self;
+                  v87 = 2112;
+                  v88 = v22;
+                  _os_log_impl(&dword_238DAE000, v58, OS_LOG_TYPE_ERROR, "%@ observed data-value is not an NSDictionary: %@", buf, 0x16u);
+                }
+
+                v59 = v22;
+                if (sub_2393D5398(1u))
+                {
+                  sub_2393D5320(0, 1, "%@ observed data-value is not an NSDictionary: %@", self, v22);
+                }
+
+                goto LABEL_97;
+              }
+
+              v24 = [v74 objectForKeyedSubscript:@"data"];
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & (v24 != 0)) == 0)
               {
-                v62 = sub_2393D9044(0);
-                if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+                v60 = sub_2393D9044(0);
+                if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412546;
                   selfCopy8 = self;
-                  v91 = 2112;
-                  v92 = v24;
-                  _os_log_impl(&dword_238DAE000, v62, OS_LOG_TYPE_ERROR, "%@ observed data-value is not an NSDictionary: %@", buf, 0x16u);
-                }
-
-                v63 = v24;
-                if (sub_2393D5398(1u))
-                {
-                  sub_2393D5320(0, 1);
-                }
-
-                goto LABEL_95;
-              }
-
-              v27 = [v78 objectForKeyedSubscript:@"data"];
-              v28 = *(v25 + 2752);
-              objc_opt_class();
-              if ((objc_opt_isKindOfClass() & (v27 != 0)) == 0)
-              {
-                v64 = sub_2393D9044(0);
-                if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
-                {
-                  *buf = 138412546;
-                  selfCopy8 = self;
-                  v91 = 2112;
-                  v92 = v27;
-                  _os_log_impl(&dword_238DAE000, v64, OS_LOG_TYPE_ERROR, "%@ expected data-value is not an NSDictionary: %@", buf, 0x16u);
+                  v87 = 2112;
+                  v88 = v24;
+                  _os_log_impl(&dword_238DAE000, v60, OS_LOG_TYPE_ERROR, "%@ expected data-value is not an NSDictionary: %@", buf, 0x16u);
                 }
 
                 if (sub_2393D5398(1u))
                 {
-                  sub_2393D5320(0, 1);
+                  sub_2393D5320(0, 1, "%@ expected data-value is not an NSDictionary: %@", self, v24);
                 }
 
-                v63 = v24;
-                goto LABEL_95;
+                v59 = v22;
+                goto LABEL_97;
               }
 
-              v29 = [(MTRDevice *)self _attributeDataValue:v24 satisfiesValueExpectation:v27];
+              v25 = [(MTRDevice *)self _attributeDataValue:v22 satisfiesValueExpectation:v24];
 
               ++v18;
-              v19 = v25;
-              if (!v29)
+              v19 = v23;
+              if (!v25)
               {
-                goto LABEL_107;
+                goto LABEL_109;
               }
             }
           }
 
-LABEL_72:
+LABEL_74:
           v21 = 0;
-LABEL_107:
+LABEL_109:
 
-          goto LABEL_71;
+          goto LABEL_73;
         }
       }
 
@@ -1131,266 +1090,266 @@ LABEL_107:
       {
       }
 
-      v57 = sub_2393D9044(0);
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v54 = sub_2393D9044(0);
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
         selfCopy8 = self;
-        v91 = 2112;
-        v92 = valueCopy;
-        v93 = 2112;
-        v94 = v8;
-        _os_log_impl(&dword_238DAE000, v57, OS_LOG_TYPE_ERROR, "%@ at least one of observed and expected value is not an NSArrray: %@, %@", buf, 0x20u);
+        v87 = 2112;
+        v88 = valueCopy;
+        v89 = 2112;
+        v90 = v8;
+        _os_log_impl(&dword_238DAE000, v54, OS_LOG_TYPE_ERROR, "%@ at least one of observed and expected value is not an NSArrray: %@, %@", buf, 0x20u);
       }
 
       if (!sub_2393D5398(1u))
       {
-        goto LABEL_70;
+        goto LABEL_72;
       }
 
-      goto LABEL_69;
+      goto LABEL_71;
     }
 
-    v33 = [v8 objectForKeyedSubscript:@"type"];
-    v34 = [@"Structure" isEqual:v33];
+    v30 = [v8 objectForKeyedSubscript:@"type"];
+    v31 = [@"Structure" isEqual:v30];
 
-    if (v34)
+    if (v31)
     {
-      v35 = [valueCopy objectForKeyedSubscript:@"value"];
+      v32 = [valueCopy objectForKeyedSubscript:@"value"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v36 = [v8 objectForKeyedSubscript:@"value"];
+        v33 = [v8 objectForKeyedSubscript:@"value"];
         objc_opt_class();
-        v37 = objc_opt_isKindOfClass();
+        v34 = objc_opt_isKindOfClass();
 
-        if (v37)
+        if (v34)
         {
-          v76 = [valueCopy objectForKeyedSubscript:@"value"];
-          v75 = [v8 objectForKeyedSubscript:@"value"];
-          v38 = [v76 count];
-          if (v38 == [v75 count])
+          v72 = [valueCopy objectForKeyedSubscript:@"value"];
+          v71 = [v8 objectForKeyedSubscript:@"value"];
+          v35 = [v72 count];
+          if (v35 == [v71 count])
           {
-            v85 = 0u;
-            v86 = 0u;
-            v83 = 0u;
-            v84 = 0u;
-            obj = v75;
-            v68 = [obj countByEnumeratingWithState:&v83 objects:v88 count:16];
-            if (v68)
+            v81 = 0u;
+            v82 = 0u;
+            v79 = 0u;
+            v80 = 0u;
+            obj = v71;
+            v64 = [obj countByEnumeratingWithState:&v79 objects:v84 count:16];
+            if (v64)
             {
-              v69 = *v84;
+              v65 = *v80;
               while (1)
               {
-                v70 = 0;
-LABEL_34:
-                if (*v84 != v69)
+                v66 = 0;
+LABEL_36:
+                if (*v80 != v65)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v39 = *(*(&v83 + 1) + 8 * v70);
+                v36 = *(*(&v79 + 1) + 8 * v66);
                 objc_opt_class();
-                v73 = v39;
-                if ((objc_opt_isKindOfClass() & (v39 != 0)) != 1)
+                v69 = v36;
+                if ((objc_opt_isKindOfClass() & (v36 != 0)) != 1)
                 {
-                  goto LABEL_100;
+                  goto LABEL_102;
                 }
 
-                v40 = [v39 objectForKeyedSubscript:@"contextTag"];
-                objc_opt_class();
-                if ((objc_opt_isKindOfClass() & 1) == 0)
-                {
-                  goto LABEL_99;
-                }
-
-                v41 = [v39 objectForKeyedSubscript:@"contextTag"];
-                if (!v41)
-                {
-                  goto LABEL_99;
-                }
-
-                v42 = [v73 objectForKeyedSubscript:@"data"];
+                v37 = [v36 objectForKeyedSubscript:@"contextTag"];
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
+                  goto LABEL_101;
+                }
 
-LABEL_99:
-LABEL_100:
-                  v67 = sub_2393D9044(0);
-                  if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+                v38 = [v36 objectForKeyedSubscript:@"contextTag"];
+                if (!v38)
+                {
+                  goto LABEL_101;
+                }
+
+                v39 = [v69 objectForKeyedSubscript:@"data"];
+                objc_opt_class();
+                if ((objc_opt_isKindOfClass() & 1) == 0)
+                {
+
+LABEL_101:
+LABEL_102:
+                  v63 = sub_2393D9044(0);
+                  if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412546;
                     selfCopy8 = self;
-                    v91 = 2112;
-                    v92 = v73;
-                    _os_log_impl(&dword_238DAE000, v67, OS_LOG_TYPE_ERROR, "%@ expected structure-value contains invalid field %@", buf, 0x16u);
+                    v87 = 2112;
+                    v88 = v69;
+                    _os_log_impl(&dword_238DAE000, v63, OS_LOG_TYPE_ERROR, "%@ expected structure-value contains invalid field %@", buf, 0x16u);
                   }
 
                   if (sub_2393D5398(1u))
                   {
-                    sub_2393D5320(0, 1);
+                    sub_2393D5320(0, 1, "%@ expected structure-value contains invalid field %@", self, v69);
                   }
 
                   v21 = 0;
-                  goto LABEL_105;
+                  goto LABEL_107;
                 }
 
-                v43 = [v73 objectForKeyedSubscript:@"data"];
-                v44 = v43 == 0;
+                v40 = [v69 objectForKeyedSubscript:@"data"];
+                v41 = v40 == 0;
 
-                if (v44)
+                if (v41)
                 {
-                  goto LABEL_100;
+                  goto LABEL_102;
                 }
 
-                v78 = [v73 objectForKeyedSubscript:@"contextTag"];
-                v81 = 0u;
-                v82 = 0u;
-                v79 = 0u;
-                v80 = 0u;
-                v71 = v76;
-                v45 = [v71 countByEnumeratingWithState:&v79 objects:v87 count:16];
-                if (!v45)
+                v74 = [v69 objectForKeyedSubscript:@"contextTag"];
+                v77 = 0u;
+                v78 = 0u;
+                v75 = 0u;
+                v76 = 0u;
+                v67 = v72;
+                v42 = [v67 countByEnumeratingWithState:&v75 objects:v83 count:16];
+                if (!v42)
                 {
                   break;
                 }
 
-                v72 = v45;
-                v74 = *v80;
-LABEL_43:
-                v46 = 0;
+                v68 = v42;
+                v70 = *v76;
+LABEL_45:
+                v43 = 0;
                 while (1)
                 {
-                  if (*v80 != v74)
+                  if (*v76 != v70)
                   {
-                    objc_enumerationMutation(v71);
+                    objc_enumerationMutation(v67);
                   }
 
-                  v47 = *(*(&v79 + 1) + 8 * v46);
+                  v44 = *(*(&v75 + 1) + 8 * v43);
                   objc_opt_class();
-                  if ((objc_opt_isKindOfClass() & (v47 != 0)) != 1)
+                  if ((objc_opt_isKindOfClass() & (v44 != 0)) != 1)
                   {
-                    goto LABEL_89;
+                    goto LABEL_91;
                   }
 
-                  v48 = [v47 objectForKeyedSubscript:@"contextTag"];
-                  objc_opt_class();
-                  if ((objc_opt_isKindOfClass() & 1) == 0)
-                  {
-                    goto LABEL_88;
-                  }
-
-                  v49 = [v47 objectForKeyedSubscript:@"contextTag"];
-                  if (!v49)
-                  {
-                    goto LABEL_88;
-                  }
-
-                  v50 = [v47 objectForKeyedSubscript:@"data"];
+                  v45 = [v44 objectForKeyedSubscript:@"contextTag"];
                   objc_opt_class();
                   if ((objc_opt_isKindOfClass() & 1) == 0)
                   {
+                    goto LABEL_90;
+                  }
 
-LABEL_88:
-LABEL_89:
-                    v65 = sub_2393D9044(0);
-                    if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+                  v46 = [v44 objectForKeyedSubscript:@"contextTag"];
+                  if (!v46)
+                  {
+                    goto LABEL_90;
+                  }
+
+                  v47 = [v44 objectForKeyedSubscript:@"data"];
+                  objc_opt_class();
+                  if ((objc_opt_isKindOfClass() & 1) == 0)
+                  {
+
+LABEL_90:
+LABEL_91:
+                    v61 = sub_2393D9044(0);
+                    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138412546;
                       selfCopy8 = self;
-                      v91 = 2112;
-                      v92 = v47;
-                      _os_log_impl(&dword_238DAE000, v65, OS_LOG_TYPE_ERROR, "%@ observed structure-value contains invalid field %@", buf, 0x16u);
+                      v87 = 2112;
+                      v88 = v44;
+                      _os_log_impl(&dword_238DAE000, v61, OS_LOG_TYPE_ERROR, "%@ observed structure-value contains invalid field %@", buf, 0x16u);
                     }
 
-                    v63 = v71;
+                    v59 = v67;
                     if (sub_2393D5398(1u))
                     {
-                      sub_2393D5320(0, 1);
+                      sub_2393D5320(0, 1, "%@ observed structure-value contains invalid field %@", self, v44);
                     }
 
-                    v66 = obj;
-                    goto LABEL_94;
+                    v62 = obj;
+                    goto LABEL_96;
                   }
 
-                  v51 = [v47 objectForKeyedSubscript:@"data"];
-                  v52 = v51 == 0;
+                  v48 = [v44 objectForKeyedSubscript:@"data"];
+                  v49 = v48 == 0;
 
-                  if (v52)
+                  if (v49)
                   {
-                    goto LABEL_89;
+                    goto LABEL_91;
                   }
 
-                  v53 = [v47 objectForKeyedSubscript:@"contextTag"];
-                  if ([v78 isEqual:v53])
+                  v50 = [v44 objectForKeyedSubscript:@"contextTag"];
+                  if ([v74 isEqual:v50])
                   {
                     break;
                   }
 
-                  if (v72 == ++v46)
+                  if (v68 == ++v43)
                   {
-                    v72 = [v71 countByEnumeratingWithState:&v79 objects:v87 count:16];
-                    if (v72)
+                    v68 = [v67 countByEnumeratingWithState:&v75 objects:v83 count:16];
+                    if (v68)
                     {
-                      goto LABEL_43;
+                      goto LABEL_45;
                     }
 
-                    goto LABEL_97;
+                    goto LABEL_99;
                   }
                 }
 
-                v54 = [v47 objectForKeyedSubscript:@"data"];
-                v55 = [v73 objectForKeyedSubscript:@"data"];
-                v56 = [(MTRDevice *)self _attributeDataValue:v54 satisfiesValueExpectation:v55];
+                v51 = [v44 objectForKeyedSubscript:@"data"];
+                v52 = [v69 objectForKeyedSubscript:@"data"];
+                v53 = [(MTRDevice *)self _attributeDataValue:v51 satisfiesValueExpectation:v52];
 
-                if (!v56)
+                if (!v53)
                 {
-                  v75 = obj;
-                  v76 = v71;
-                  goto LABEL_96;
+                  v71 = obj;
+                  v72 = v67;
+                  goto LABEL_98;
                 }
 
-                if (++v70 != v68)
+                if (++v66 != v64)
                 {
-                  goto LABEL_34;
+                  goto LABEL_36;
                 }
 
-                v68 = [obj countByEnumeratingWithState:&v83 objects:v88 count:16];
+                v64 = [obj countByEnumeratingWithState:&v79 objects:v84 count:16];
                 v21 = 1;
-                if (!v68)
+                if (!v64)
                 {
-                  v75 = obj;
-                  v76 = v71;
-                  goto LABEL_106;
+                  v71 = obj;
+                  v72 = v67;
+                  goto LABEL_108;
                 }
               }
 
-LABEL_97:
-              v66 = obj;
-              v63 = v71;
-LABEL_94:
-              v75 = v66;
-              v76 = v63;
-LABEL_95:
-
+LABEL_99:
+              v62 = obj;
+              v59 = v67;
 LABEL_96:
+              v71 = v62;
+              v72 = v59;
+LABEL_97:
+
+LABEL_98:
               v21 = 0;
             }
 
             else
             {
               v21 = 1;
-LABEL_105:
-              v75 = obj;
+LABEL_107:
+              v71 = obj;
             }
 
-LABEL_106:
+LABEL_108:
 
-            goto LABEL_107;
+            goto LABEL_109;
           }
 
-          goto LABEL_72;
+          goto LABEL_74;
         }
       }
 
@@ -1398,26 +1357,26 @@ LABEL_106:
       {
       }
 
-      v58 = sub_2393D9044(0);
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+      v55 = sub_2393D9044(0);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
         selfCopy8 = self;
-        v91 = 2112;
-        v92 = valueCopy;
-        v93 = 2112;
-        v94 = v8;
-        _os_log_impl(&dword_238DAE000, v58, OS_LOG_TYPE_ERROR, "%@ at least one of observed and expected value is not an NSArrray: %@, %@", buf, 0x20u);
+        v87 = 2112;
+        v88 = valueCopy;
+        v89 = 2112;
+        v90 = v8;
+        _os_log_impl(&dword_238DAE000, v55, OS_LOG_TYPE_ERROR, "%@ at least one of observed and expected value is not an NSArrray: %@, %@", buf, 0x20u);
       }
 
       if (!sub_2393D5398(1u))
       {
-        goto LABEL_70;
+        goto LABEL_72;
       }
 
-LABEL_69:
-      sub_2393D5320(0, 1);
-      goto LABEL_70;
+LABEL_71:
+      sub_2393D5320(0, 1, "%@ at least one of observed and expected value is not an NSArrray: %@, %@", self, valueCopy, v8);
+      goto LABEL_72;
     }
 
     v21 = [(MTRDevice *)self _attributeDataValue:valueCopy isEqualToDataValue:v8];
@@ -1425,130 +1384,129 @@ LABEL_69:
 
   else
   {
-    v30 = sub_2393D9044(0);
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v26 = sub_2393D9044(0);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       selfCopy8 = self;
-      _os_log_impl(&dword_238DAE000, v30, OS_LOG_TYPE_ERROR, "%@ observed to expected attribute data-value comparison does not expect comparing two nil dictionaries", buf, 0xCu);
+      _os_log_impl(&dword_238DAE000, v26, OS_LOG_TYPE_ERROR, "%@ observed to expected attribute data-value comparison does not expect comparing two nil dictionaries", buf, 0xCu);
     }
 
     v21 = 1;
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ observed to expected attribute data-value comparison does not expect comparing two nil dictionaries", self);
     }
   }
 
-LABEL_71:
+LABEL_73:
 
-  v59 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (id)waitForAttributeValues:(id)values timeout:(double)timeout queue:(id)queue completion:(id)completion
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   queueCopy = queue;
   completionCopy = completion;
-  v58 = 0u;
-  v59 = 0u;
-  v60 = 0u;
-  v61 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   obj = valuesCopy;
-  v11 = [obj countByEnumeratingWithState:&v58 objects:v70 count:16];
+  v11 = [obj countByEnumeratingWithState:&v54 objects:v66 count:16];
   if (v11)
   {
-    v12 = *v59;
+    v12 = *v55;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v59 != v12)
+        if (*v55 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v58 + 1) + 8 * i);
+        v14 = *(*(&v54 + 1) + 8 * i);
         v15 = [obj objectForKeyedSubscript:v14];
         v16 = sub_238EE7184(v15);
 
         if (!v16)
         {
-          v38 = MEMORY[0x277CCACA8];
+          v37 = MEMORY[0x277CCACA8];
           [obj objectForKeyedSubscript:v14];
-          v39 = [v38 stringWithFormat:@"waitForAttributeValues handed invalid data-value %@ for path %@", v14, objc_claimAutoreleasedReturnValue()];
-          sub_23921D8FC(v39);
+          v38 = [v37 stringWithFormat:@"waitForAttributeValues handed invalid data-value %@ for path %@", v14, objc_claimAutoreleasedReturnValue()];
+          sub_23921D8FC(v38);
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v58 objects:v70 count:16];
+      v11 = [obj countByEnumeratingWithState:&v54 objects:v66 count:16];
     }
 
     while (v11);
   }
 
-  v48 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(obj, "count")}];
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v47 = obj;
-  v17 = [v47 countByEnumeratingWithState:&v54 objects:v69 count:16];
+  v44 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(obj, "count")}];
+  v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v43 = obj;
+  v17 = [v43 countByEnumeratingWithState:&v50 objects:v65 count:16];
   if (v17)
   {
-    v18 = *v55;
+    v18 = *v51;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v55 != v18)
+        if (*v51 != v18)
         {
-          objc_enumerationMutation(v47);
+          objc_enumerationMutation(v43);
         }
 
-        v20 = *(*(&v54 + 1) + 8 * j);
+        v20 = *(*(&v50 + 1) + 8 * j);
         endpoint = [v20 endpoint];
         cluster = [v20 cluster];
         attribute = [v20 attribute];
         v24 = [MTRAttributeRequestPath requestPathWithEndpointID:endpoint clusterID:cluster attributeID:attribute];
-        [v48 addObject:v24];
+        [v44 addObject:v24];
       }
 
-      v17 = [v47 countByEnumeratingWithState:&v54 objects:v69 count:16];
+      v17 = [v43 countByEnumeratingWithState:&v50 objects:v65 count:16];
     }
 
     while (v17);
   }
 
-  v44 = [(MTRDevice *)self readAttributePaths:v48];
-  v25 = [[MTRAttributeValueWaiter alloc] initWithDevice:self values:v47 queue:queueCopy completion:completionCopy];
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v26 = v44;
-  v27 = [v26 countByEnumeratingWithState:&v50 objects:v68 count:16];
+  v40 = [(MTRDevice *)self readAttributePaths:v44];
+  v25 = [[MTRAttributeValueWaiter alloc] initWithDevice:self values:v43 queue:queueCopy completion:completionCopy];
+  v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v26 = v40;
+  v27 = [v26 countByEnumeratingWithState:&v46 objects:v64 count:16];
   if (v27)
   {
-    v28 = *v51;
+    v28 = *v47;
     do
     {
       for (k = 0; k != v27; ++k)
       {
-        if (*v51 != v28)
+        if (*v47 != v28)
         {
           objc_enumerationMutation(v26);
         }
 
-        v30 = *(*(&v50 + 1) + 8 * k);
+        v30 = *(*(&v46 + 1) + 8 * k);
         v31 = [v30 objectForKeyedSubscript:@"data"];
         v32 = [v30 objectForKeyedSubscript:@"attributePath"];
         [(MTRAttributeValueWaiter *)v25 _attributeValue:v31 reportedForPath:v32 byDevice:self];
       }
 
-      v27 = [v26 countByEnumeratingWithState:&v50 objects:v68 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v46 objects:v64 count:16];
     }
 
     while (v27);
@@ -1560,20 +1518,18 @@ LABEL_71:
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      selfCopy3 = self;
-      v64 = 2112;
-      timeoutCopy = *&v47;
+      selfCopy2 = self;
+      v60 = 2112;
+      timeoutCopy = *&v43;
       _os_log_impl(&dword_238DAE000, v33, OS_LOG_TYPE_DEFAULT, "%@ waitForAttributeValues no need to wait, values already match: %@", buf, 0x16u);
     }
 
     if (sub_2393D5398(2u))
     {
-      selfCopy4 = self;
-      timeoutCopy2 = *&v47;
-      sub_2393D5320(0, 2);
+      sub_2393D5320(0, 2, "%@ waitForAttributeValues no need to wait, values already match: %@", self, v43);
     }
 
-    [(MTRAttributeValueWaiter *)v25 _notifyWithError:0, selfCopy4, *&timeoutCopy2];
+    [(MTRAttributeValueWaiter *)v25 _notifyWithError:0];
   }
 
   else
@@ -1601,33 +1557,28 @@ LABEL_71:
     if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      selfCopy3 = self;
-      v64 = 2048;
+      selfCopy2 = self;
+      v60 = 2048;
       timeoutCopy = timeout;
-      v66 = 2112;
-      v67 = v47;
+      v62 = 2112;
+      v63 = v43;
       _os_log_impl(&dword_238DAE000, v35, OS_LOG_TYPE_DEFAULT, "%@ waitForAttributeValues will wait up to %f seconds for %@", buf, 0x20u);
     }
 
     if (sub_2393D5398(2u))
     {
-      v43 = v47;
-      timeoutCopy2 = timeout;
-      selfCopy4 = self;
-      sub_2393D5320(0, 2);
+      sub_2393D5320(0, 2, "%@ waitForAttributeValues will wait up to %f seconds for %@", self, *&timeout, v43);
     }
 
-    [(MTRAttributeValueWaiter *)v25 _startTimerWithTimeout:timeout, selfCopy4, *&timeoutCopy2, v43];
+    [(MTRAttributeValueWaiter *)v25 _startTimerWithTimeout:timeout];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
 
 - (void)_cancelAllAttributeValueWaiters
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_lock);
   if (self)
   {
@@ -1641,36 +1592,34 @@ LABEL_71:
 
   v4 = attributeValueWaiters;
   sub_23952E21C(self, 0);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v5 = v4;
-  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v6)
   {
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) _notifyCancellation];
+        [*(*(&v9 + 1) + 8 * v8++) _notifyCancellation];
       }
 
       while (v6 != v8);
-      v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (MTRDevice)deviceWithNodeID:(uint64_t)nodeID deviceController:(MTRDeviceController *)deviceController
@@ -1684,14 +1633,14 @@ LABEL_71:
 
 - (void)_attributeValue:(id)value reportedForPath:(id)path
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   pathCopy = path;
   os_unfair_lock_assert_owner(&self->_lock);
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   if (self)
   {
     attributeValueWaiters = self->_attributeValueWaiters;
@@ -1704,20 +1653,20 @@ LABEL_71:
 
   v9 = attributeValueWaiters;
   array = 0;
-  v11 = [(NSHashTable *)v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v11 = [(NSHashTable *)v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v11)
   {
-    v12 = *v29;
+    v12 = *v28;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
+        v14 = *(*(&v27 + 1) + 8 * i);
         if ([v14 _attributeValue:valueCopy reportedForPath:pathCopy byDevice:self] && objc_msgSend(v14, "allValuesSatisfied"))
         {
           if (!array)
@@ -1729,27 +1678,27 @@ LABEL_71:
         }
       }
 
-      v11 = [(NSHashTable *)v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v11 = [(NSHashTable *)v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v11);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v15 = array;
-  v16 = [v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v16)
   {
-    v17 = *v25;
+    v17 = *v24;
     do
     {
       v18 = 0;
       do
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(v15);
         }
@@ -1764,23 +1713,21 @@ LABEL_71:
           v19 = 0;
         }
 
-        v20 = *(*(&v24 + 1) + 8 * v18);
+        v20 = *(*(&v23 + 1) + 8 * v18);
         v21 = v19;
-        [(NSHashTable *)v21 removeObject:v20, v24];
+        [(NSHashTable *)v21 removeObject:v20, v23];
 
         [v20 _notifyWithError:0];
         ++v18;
       }
 
       while (v16 != v18);
-      v22 = [v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v22 = [v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
       v16 = v22;
     }
 
     while (v22);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_forgetAttributeWaiter:(id)waiter

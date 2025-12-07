@@ -56,7 +56,7 @@
     *buf = 0u;
     if (eventCopy)
     {
-      [eventCopy time];
+      objc_msgSend_time(eventCopy);
     }
 
     else
@@ -262,7 +262,7 @@
 - (id)description
 {
   v3 = *MEMORY[0x1E695E480];
-  [(AVInterstitialTimeRange *)self timeRange];
+  objc_msgSend_timeRange(self, a2);
   v4 = CMTimeRangeCopyDescription(v3, &range);
   v5 = v4;
   if (!self->_playerInterstitialEvent)
@@ -281,7 +281,7 @@
 
   if (v7)
   {
-    [(AVPlayerInterstitialEvent *)v7 time];
+    objc_msgSend_time(v7);
   }
 
   else
@@ -312,7 +312,7 @@ LABEL_10:
     goto LABEL_13;
   }
 
-  [(AVPlayerInterstitialEvent *)v7 resumptionOffset];
+  objc_msgSend_resumptionOffset(v7);
   if ((~HIDWORD(v28) & 0x11) != 0)
   {
     goto LABEL_10;
@@ -416,8 +416,8 @@ LABEL_34:
   rangeCopy = range;
   memset(v12, 0, sizeof(v12));
   v11 = 0u;
-  [(AVInterstitialTimeRange *)self timeRange];
-  if (rangeCopy && (memset(v10, 0, sizeof(v10)), v9 = 0u, [rangeCopy timeRange], *&time1.value = v11, time1.epoch = *&v12[0], *&v7.value = v9, v7.epoch = *&v10[0], !CMTimeCompare(&time1, &v7)))
+  objc_msgSend_timeRange(self);
+  if (rangeCopy && (memset(v10, 0, sizeof(v10)), v9 = 0u, objc_msgSend_timeRange(rangeCopy), *&time1.value = v11, time1.epoch = *&v12[0], *&v7.value = v9, v7.epoch = *&v10[0], !CMTimeCompare(&time1, &v7)))
   {
     time1 = *(v12 + 8);
     v7 = *(v10 + 8);
@@ -436,7 +436,7 @@ LABEL_34:
 {
   memset(v9, 0, sizeof(v9));
   v8 = 0u;
-  [(AVInterstitialTimeRange *)self timeRange];
+  objc_msgSend_timeRange(self, a2);
   *&v7.value = v8;
   v7.epoch = *&v9[0];
   v2 = [MEMORY[0x1E696AD98] numberWithDouble:CMTimeGetSeconds(&v7)];
@@ -460,7 +460,7 @@ LABEL_34:
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [AVInterstitialTimeRange allocWithZone:zone];
-  [(AVInterstitialTimeRange *)self timeRange];
+  objc_msgSend_timeRange(self);
   v5 = [(AVInterstitialTimeRange *)v4 initWithTimeRange:&v7];
   v5->_hidden = [(AVInterstitialTimeRange *)self isHidden];
   v5->_collapsedInTimeLine = [(AVInterstitialTimeRange *)self isCollapsedInTimeLine];
@@ -470,7 +470,7 @@ LABEL_34:
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  [(AVInterstitialTimeRange *)self timeRange];
+  objc_msgSend_timeRange(self);
   v5 = CMTimeRangeCopyAsDictionary(&v6, *MEMORY[0x1E695E480]);
   [coderCopy encodeObject:v5 forKey:@"AVTimeRange"];
 }

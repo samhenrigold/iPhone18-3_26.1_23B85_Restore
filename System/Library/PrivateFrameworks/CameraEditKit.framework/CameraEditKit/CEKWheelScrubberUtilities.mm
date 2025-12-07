@@ -6,7 +6,7 @@
 
 + (double)dotIndicatorDiameter
 {
-  v2 = CEKIsSmallPhone();
+  v2 = CEKIsSmallPhone(self, a2);
   result = 5.0;
   if (v2)
   {

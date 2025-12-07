@@ -62,13 +62,19 @@
 
   if (v9)
   {
-    *(swift_allocObject() + 16) = v9;
+    v10 = swift_allocObject();
+    *(v10 + 16) = v9;
     v9 = sub_100011C50;
   }
 
+  else
+  {
+    v10 = 0;
+  }
+
   selfCopy = self;
-  sub_100053B14(selfCopy, v11, v12, v13, v14, v15, v9);
-  sub_100010FE8(v9);
+  sub_100053B14(selfCopy, v12, v13, v14, v15, v16, v9);
+  sub_100010FE8(v9, v10);
 }
 
 - (void)activateWithCompletion:(id)completion
@@ -90,7 +96,7 @@
 
   selfCopy = self;
   sub_100054660(v7, v6, &unk_10008FCA8, sub_100056094, &unk_10008FCC0);
-  sub_100010FE8(v7);
+  sub_100010FE8(v7, v6);
 }
 
 - (void)invalidate

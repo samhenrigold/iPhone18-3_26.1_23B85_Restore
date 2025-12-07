@@ -64,7 +64,7 @@
 
 - (void)finishWithError:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   operationQueue = [(HAP2AccessoryServerPairingDriverWorkItem *)self operationQueue];
   [operationQueue assertCurrentQueue];
@@ -79,31 +79,29 @@
   {
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412546;
+      v8 = 138412546;
       selfCopy2 = self;
-      v11 = 2112;
-      v12 = errorCopy;
-      _os_log_error_impl(&dword_22AADC000, v6, OS_LOG_TYPE_ERROR, "%@ Finished with error: %@", &v9, 0x16u);
+      v10 = 2112;
+      v11 = errorCopy;
+      _os_log_error_impl(&dword_22AADC000, v6, OS_LOG_TYPE_ERROR, "%@ Finished with error: %@", &v8, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
+    v8 = 138412290;
     selfCopy2 = self;
-    _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEFAULT, "%@ Finished successfully", &v9, 0xCu);
+    _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEFAULT, "%@ Finished successfully", &v8, 0xCu);
   }
 
   pairingDriver = [(HAP2AccessoryServerPairingDriverWorkItem *)self pairingDriver];
   objc_storeWeak(&self->_pairingDriver, 0);
   [pairingDriver workItem:self finishedWithError:errorCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startWithPairingDriver:(id)driver
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   driverCopy = driver;
   operationQueue = [(HAP2AccessoryServerPairingDriverWorkItem *)self operationQueue];
   [operationQueue assertCurrentQueue];
@@ -124,14 +122,12 @@
   v9 = hap2Log_accessory;
   if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
+    v10 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_DEFAULT, "%@ Starting", &v11, 0xCu);
+    _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_DEFAULT, "%@ Starting", &v10, 0xCu);
   }
 
   [(HAP2AccessoryServerPairingDriverWorkItem *)self runForPairingDriver:driverCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HAP2AccessoryServerPairingDriverWorkItemInfo)pairingDriver

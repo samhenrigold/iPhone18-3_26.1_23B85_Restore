@@ -1,6 +1,7 @@
 @interface LACUIFaceIDSpinnerView
 - (LACUIFaceIDSpinnerView)initWithInitialState:(int64_t)state;
 - (void)_setup;
+- (void)setState:(int64_t)state animated:(BOOL)animated completion:(id)completion;
 @end
 
 @implementation LACUIFaceIDSpinnerView
@@ -43,30 +44,53 @@
 
 - (void)_setup
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   [(LACUIFaceIDSpinnerView *)self addSubview:self->_packagedView];
   [(LACUIPackagedView *)self->_packagedView setTranslatesAutoresizingMaskIntoConstraints:0];
-  v14 = MEMORY[0x277CCAAD0];
+  v13 = MEMORY[0x277CCAAD0];
   leadingAnchor = [(LACUIPackagedView *)self->_packagedView leadingAnchor];
   leadingAnchor2 = [(LACUIFaceIDSpinnerView *)self leadingAnchor];
-  v15 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v18[0] = v15;
+  v14 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v17[0] = v14;
   trailingAnchor = [(LACUIPackagedView *)self->_packagedView trailingAnchor];
   trailingAnchor2 = [(LACUIFaceIDSpinnerView *)self trailingAnchor];
   v5 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v18[1] = v5;
+  v17[1] = v5;
   topAnchor = [(LACUIPackagedView *)self->_packagedView topAnchor];
   topAnchor2 = [(LACUIFaceIDSpinnerView *)self topAnchor];
   v8 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v18[2] = v8;
+  v17[2] = v8;
   bottomAnchor = [(LACUIPackagedView *)self->_packagedView bottomAnchor];
   bottomAnchor2 = [(LACUIFaceIDSpinnerView *)self bottomAnchor];
   v11 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v18[3] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
-  [v14 activateConstraints:v12];
+  v17[3] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
+  [v13 activateConstraints:v12];
+}
 
-  v13 = *MEMORY[0x277D85DE8];
+- (void)setState:(int64_t)state animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  self->_state = state;
+  packagedView = self->_packagedView;
+  if (state > 3)
+  {
+    v10 = @"Invalid";
+  }
+
+  else
+  {
+    v10 = off_27981EAB8[state];
+  }
+
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __55__LACUIFaceIDSpinnerView_setState_animated_completion___block_invoke;
+  v12[3] = &unk_27981E958;
+  v13 = completionCopy;
+  v11 = completionCopy;
+  [(LACUIPackagedView *)packagedView setStateNamed:v10 animated:animatedCopy completion:v12];
 }
 
 uint64_t __55__LACUIFaceIDSpinnerView_setState_animated_completion___block_invoke(uint64_t a1)

@@ -6,7 +6,7 @@
 
 + (void)signatureFromData:(id)data completion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   dataCopy = data;
   v7 = +[FCAMSBag bag];
@@ -16,15 +16,13 @@
   CC_SHA1(bytes, v9, md);
   v10 = [MEMORY[0x1E695DEF0] dataWithBytes:md length:20];
   v11 = [MEMORY[0x1E698C9F0] signaturePromiseFromData:v10 type:1 bag:v7];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __50__FCMescalSignature_signatureFromData_completion___block_invoke;
-  v14[3] = &unk_1E7C3F2D8;
-  v15 = completionCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __50__FCMescalSignature_signatureFromData_completion___block_invoke;
+  v13[3] = &unk_1E7C3F2D8;
+  v14 = completionCopy;
   v12 = completionCopy;
-  [v11 addFinishBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [v11 addFinishBlock:v13];
 }
 
 void __50__FCMescalSignature_signatureFromData_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -56,23 +54,22 @@ void __50__FCMescalSignature_signatureFromData_completion___block_invoke(uint64_
 
 uint64_t __50__FCMescalSignature_signatureFromData_completion___block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v5;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "Mescal signing failed to sign data with error: %{public}@", &v6, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "Mescal signing failed to sign data with error: %{public}@", &v5, 0xCu);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, 0, *(a1 + 32));
+    return (*(result + 16))(result, 0, *(a1 + 32));
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 

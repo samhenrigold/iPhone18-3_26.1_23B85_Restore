@@ -263,8 +263,8 @@ LABEL_18:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                lowercaseString = [v13 lowercaseString];
-                v15 = [v7 containsObject:lowercaseString];
+                v14 = objc_msgSend_lowercaseString(v13);
+                v15 = [v7 containsObject:v14];
 
                 if (v15)
                 {
@@ -350,8 +350,8 @@ LABEL_21:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                lowercaseString = [v13 lowercaseString];
-                v15 = [v7 containsObject:lowercaseString];
+                v14 = objc_msgSend_lowercaseString(v13);
+                v15 = [v7 containsObject:v14];
 
                 if (v15)
                 {
@@ -412,66 +412,65 @@ LABEL_21:
     v7 = [(MAKVStore *)self columnNamesWithError:error];
     if (v7 && !*error)
     {
-      v36 = 0u;
-      v37 = 0u;
       v34 = 0u;
       v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v9 = requestCopy;
-      v10 = [v9 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v32 objects:v37 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v35;
-        v13 = &_s8CloudKit12CKSyncEngineC5EventO13AccountChangeV0G4TypeO6signInyAISo10CKRecordIDC_tcAImFWC_ptr;
+        v12 = *v33;
         while (2)
         {
-          v14 = 0;
-          v27 = v11;
+          v13 = 0;
+          v25 = v11;
           do
           {
-            if (*v35 != v12)
+            if (*v33 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v28 = v14;
-            v15 = *(*(&v34 + 1) + 8 * v14);
-            if (!v15 || (v16 = v13[100], objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ![v15 count])
+            v26 = v13;
+            v14 = *(*(&v32 + 1) + 8 * v13);
+            if (!v14 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ![v14 count])
             {
               createManagedAssetError();
               *error = v8 = 0;
               goto LABEL_29;
             }
 
-            v32 = 0u;
-            v33 = 0u;
             v30 = 0u;
             v31 = 0u;
-            v17 = v15;
-            v18 = [v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
-            if (v18)
+            v28 = 0u;
+            v29 = 0u;
+            v15 = v14;
+            v16 = [v15 countByEnumeratingWithState:&v28 objects:v36 count:16];
+            if (v16)
             {
-              v19 = v18;
-              v20 = *v31;
-              v29 = v9;
-              v26 = v12;
+              v17 = v16;
+              v18 = *v29;
+              v27 = v9;
+              v24 = v12;
               while (2)
               {
-                for (i = 0; i != v19; i = i + 1)
+                for (i = 0; i != v17; i = i + 1)
                 {
-                  if (*v31 != v20)
+                  if (*v29 != v18)
                   {
-                    objc_enumerationMutation(v17);
+                    objc_enumerationMutation(v15);
                   }
 
-                  v22 = *(*(&v30 + 1) + 8 * i);
+                  v20 = *(*(&v28 + 1) + 8 * i);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    lowercaseString = [v22 lowercaseString];
-                    v24 = [v7 containsObject:lowercaseString];
+                    v21 = objc_msgSend_lowercaseString(v20);
+                    v22 = [v7 containsObject:v21];
 
-                    if (v24)
+                    if (v22)
                     {
                       continue;
                     }
@@ -480,14 +479,14 @@ LABEL_21:
                   *error = createManagedAssetError();
 
                   v8 = 0;
-                  v9 = v29;
+                  v9 = v27;
                   goto LABEL_29;
                 }
 
-                v19 = [v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
-                v9 = v29;
-                v12 = v26;
-                if (v19)
+                v17 = [v15 countByEnumeratingWithState:&v28 objects:v36 count:16];
+                v9 = v27;
+                v12 = v24;
+                if (v17)
                 {
                   continue;
                 }
@@ -496,12 +495,11 @@ LABEL_21:
               }
             }
 
-            v14 = v28 + 1;
-            v13 = &_s8CloudKit12CKSyncEngineC5EventO13AccountChangeV0G4TypeO6signInyAISo10CKRecordIDC_tcAImFWC_ptr;
+            v13 = v26 + 1;
           }
 
-          while ((v28 + 1) != v27);
-          v11 = [v9 countByEnumeratingWithState:&v34 objects:v39 count:16];
+          while ((v26 + 1) != v25);
+          v11 = [v9 countByEnumeratingWithState:&v32 objects:v37 count:16];
           v8 = 1;
           if (v11)
           {
@@ -570,8 +568,8 @@ LABEL_29:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                lowercaseString = [v15 lowercaseString];
-                v17 = [v8 containsObject:lowercaseString];
+                v16 = objc_msgSend_lowercaseString(v15);
+                v17 = [v8 containsObject:v16];
 
                 if (v17)
                 {
@@ -877,8 +875,6 @@ LABEL_15:
   {
     if (self->_cloudSync && ([valueCopy objectForKeyedSubscript:self->_recordHandleField], v15 = objc_claimAutoreleasedReturnValue(), v15, v15))
     {
-      recordHandleField = self->_recordHandleField;
-      name = self->_name;
       createManagedAssetError();
       *error = v16 = 0;
     }
@@ -901,9 +897,9 @@ LABEL_15:
       }
 
       v19 = objc_loadWeakRetained(&self->_db);
-      v20 = self->_name;
+      name = self->_name;
       v21 = [(MAKVStore *)self applyStagingFilterOnKeys:forCopy attributes:attributesCopy];
-      v16 = [v19 updateData:v20 key:v21 value:valueCopy tsOptions:v18 error:error];
+      v16 = [v19 updateData:name key:v21 value:valueCopy tsOptions:v18 error:error];
     }
   }
 
@@ -936,7 +932,6 @@ LABEL_15:
 
       if (![(NSArray *)v15 count])
       {
-        name = self->_name;
         createManagedAssetError();
         *error = v16 = 0;
 LABEL_31:
@@ -956,7 +951,6 @@ LABEL_24:
 
         if (![v27 count])
         {
-          v35 = self->_name;
           createManagedAssetError();
           *error = v16 = 0;
           goto LABEL_30;
@@ -964,9 +958,9 @@ LABEL_24:
       }
 
       v28 = objc_loadWeakRetained(&self->_db);
-      v29 = self->_name;
+      name = self->_name;
       v30 = [(MAKVStore *)self applyStagingFilterOnKeys:forCopy attributes:attributesCopy];
-      v16 = [v28 query:v29 keys:v30 desiredKeys:v15 nonNullKeys:v27 records:records error:error];
+      v16 = [v28 query:name keys:v30 desiredKeys:v15 nonNullKeys:v27 records:records error:error];
 
 LABEL_30:
       goto LABEL_31;
@@ -979,7 +973,7 @@ LABEL_30:
       goto LABEL_24;
     }
 
-    v36 = kMAKVStoreOptionsKey;
+    v34 = kMAKVStoreOptionsKey;
     v18 = [(NSArray *)v17 objectForKeyedSubscript:?];
     if (v18)
     {
@@ -1011,11 +1005,11 @@ LABEL_16:
       if (os_log_type_enabled(off_100127CE8, OS_LOG_TYPE_ERROR))
       {
         v32 = v23;
-        v37 = [(NSArray *)v15 objectForKeyedSubscript:v36];
+        v35 = [(NSArray *)v15 objectForKeyedSubscript:v34];
         *buf = 138412546;
-        v39 = v37;
-        v40 = 2112;
-        v41 = v22;
+        v37 = v35;
+        v38 = 2112;
+        v39 = v22;
         _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "invalid kvstore options in attributes: %@ error: %@", buf, 0x16u);
       }
     }
@@ -1028,9 +1022,9 @@ LABEL_16:
         exportableColumns = self->_exportableColumns;
         v26 = self->_name;
         *buf = 138412546;
-        v39 = exportableColumns;
-        v40 = 2112;
-        v41 = v26;
+        v37 = exportableColumns;
+        v38 = 2112;
+        v39 = v26;
         _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Set kMAKVStoreDesiredKeys=%@ for export query for store: %@", buf, 0x16u);
       }
 
@@ -1116,7 +1110,7 @@ LABEL_32:
   {
     if (os_log_type_enabled(off_100127CE8, OS_LOG_TYPE_ERROR))
     {
-      sub_100026094(error);
+      sub_100026094();
     }
 
     v21 = 0;
@@ -1282,7 +1276,7 @@ LABEL_32:
     *error = createManagedAssetError();
     if (os_log_type_enabled(off_100127CE8, OS_LOG_TYPE_ERROR))
     {
-      sub_1000260FC(error);
+      sub_1000260FC();
     }
 
     v11 = 0;
@@ -1350,7 +1344,7 @@ LABEL_22:
         *error = createManagedAssetError();
         if (os_log_type_enabled(off_100127CE8, OS_LOG_TYPE_ERROR))
         {
-          sub_1000260FC(error);
+          sub_1000260FC();
         }
       }
     }
@@ -1383,7 +1377,7 @@ LABEL_22:
       v8 = 0;
       if (os_log_type_enabled(off_100127CE8, OS_LOG_TYPE_ERROR))
       {
-        sub_1000260FC(error);
+        sub_1000260FC();
         v8 = 0;
       }
     }
@@ -1463,7 +1457,7 @@ LABEL_22:
     *error = createManagedAssetError();
     if (os_log_type_enabled(off_100127CE8, OS_LOG_TYPE_ERROR))
     {
-      sub_1000260FC(error);
+      sub_1000260FC();
     }
   }
 

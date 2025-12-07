@@ -12,6 +12,7 @@
 - (void)didDisplayPhotoPickerSourceType:(id)type;
 - (void)didSelectMediaWithInfoDictionary:(id)dictionary;
 - (void)didSelectMultipleMediaItemsWithInfoDictionaries:(id)dictionaries;
+- (void)didSetOnboardingHeaderDismissed:(BOOL)dismissed;
 - (void)dismissCurrentViewControllerFromPhotoPickerAnimated:(id)animated;
 - (void)initiatePhotoPickerSelection;
 - (void)invalidatePhotoPickerHostServices;
@@ -187,11 +188,11 @@ LABEL_3:
 
 - (id)_UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:(id)dictionary
 {
-  v142[1] = *MEMORY[0x1E69E9840];
+  v141[1] = *MEMORY[0x1E69E9840];
   v4 = [dictionary mutableCopy];
   v5 = *MEMORY[0x1E69DE968];
-  v116 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69DE968]];
-  if (v116)
+  v115 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69DE968]];
+  if (v115)
   {
     [v4 setObject:0 forKeyedSubscript:v5];
     if (([MEMORY[0x1E69789A8] authorizationStatusForAccessLevel:2] - 3) <= 1)
@@ -199,8 +200,8 @@ LABEL_3:
       imagePickerPhotoLibrary = [MEMORY[0x1E69789A8] imagePickerPhotoLibrary];
       v7 = [MEMORY[0x1E6978830] fetchOptionsWithInclusiveDefaultsForPhotoLibrary:imagePickerPhotoLibrary];
       v8 = MEMORY[0x1E6978630];
-      v142[0] = v116;
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v142 count:1];
+      v141[0] = v115;
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v141 count:1];
       v10 = [v8 fetchAssetsWithLocalIdentifiers:v9 options:v7];
 
       firstObject = [v10 firstObject];
@@ -217,7 +218,7 @@ LABEL_3:
   [v4 setObject:0 forKeyedSubscript:@"PUPhotoPickerSavingOptions"];
   v14 = *MEMORY[0x1E69DE940];
   v15 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69DE940]];
-  v114 = v15;
+  v113 = v15;
   if (v15)
   {
     integerValue2 = [v15 integerValue];
@@ -233,18 +234,18 @@ LABEL_3:
   v18 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69DDE10]];
   if (v18)
   {
-    v132 = 0;
-    v19 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v18 error:&v132];
-    v20 = v132;
+    v131 = 0;
+    v19 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v18 error:&v131];
+    v20 = v131;
     if (v20)
     {
       v21 = PLUIGetLog();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v135 = "[PUPhotoPickerExtensionHostContext _UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:]";
-        v136 = 2112;
-        v137 = v20;
+        v134 = "[PUPhotoPickerExtensionHostContext _UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:]";
+        v135 = 2112;
+        v136 = v20;
         _os_log_impl(&dword_1D2128000, v21, OS_LOG_TYPE_ERROR, "%s Unable to create image %@", buf, 0x16u);
       }
     }
@@ -254,17 +255,17 @@ LABEL_3:
 
   v22 = MEMORY[0x1E695DFF8];
   v23 = NSTemporaryDirectory();
-  v121 = [v22 fileURLWithPath:v23];
+  v120 = [v22 fileURLWithPath:v23];
 
   uUID = [MEMORY[0x1E696AFB0] UUID];
   uUIDString = [uUID UUIDString];
 
   v25 = [v4 objectForKeyedSubscript:@"PUPhotoPickerOriginalImagePath"];
-  v115 = v18;
-  v113 = v25;
+  v114 = v18;
+  v112 = v25;
   if (!v25)
   {
-    v122 = 0;
+    v121 = 0;
     v32 = 0;
     goto LABEL_57;
   }
@@ -273,8 +274,8 @@ LABEL_3:
   [v4 setObject:0 forKeyedSubscript:@"PUPhotoPickerOriginalImagePath"];
   v27 = [MEMORY[0x1E695DFF8] fileURLWithPath:v26];
   [v4 objectForKeyedSubscript:@"PUPhotoPickerOriginalImagePathSandboxExtensionToken"];
-  v118 = v123 = v27;
-  v28 = [objc_alloc(MEMORY[0x1E69BF2E8]) initWithURL:v27 sandboxExtensionToken:v118 consume:1];
+  v117 = v122 = v27;
+  v28 = [objc_alloc(MEMORY[0x1E69BF2E8]) initWithURL:v27 sandboxExtensionToken:v117 consume:1];
   if ((integerValue & 2) != 0 && ([v4 objectForKeyedSubscript:v17], v29 = objc_claimAutoreleasedReturnValue(), v29, !v29))
   {
     v30 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v28];
@@ -378,16 +379,16 @@ LABEL_38:
   v42 = [(PUPhotoPickerExtensionHostContext *)self _pathExtensionFromData:v40 url:0 exportPreset:0];
 LABEL_46:
   selfCopy4 = self;
-  v44 = [v121 URLByAppendingPathComponent:uUIDString];
+  v44 = [v120 URLByAppendingPathComponent:uUIDString];
   v32 = v42;
   v45 = [v44 URLByAppendingPathExtension:v42];
 
-  v122 = v45;
+  v121 = v45;
   if (v41)
   {
-    v131 = 0;
-    v46 = [v41 writeToURL:v45 options:1 error:&v131];
-    v47 = v131;
+    v130 = 0;
+    v46 = [v41 writeToURL:v45 options:1 error:&v130];
+    v47 = v130;
     if ((v46 & 1) == 0)
     {
       v48 = PLUIGetLog();
@@ -401,9 +402,9 @@ LABEL_55:
       [v47 localizedDescription];
       v50 = v49 = v31;
       *buf = 136315394;
-      v135 = "[PUPhotoPickerExtensionHostContext _UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:]";
-      v136 = 2112;
-      v137 = v50;
+      v134 = "[PUPhotoPickerExtensionHostContext _UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:]";
+      v135 = 2112;
+      v136 = v50;
       _os_log_impl(&dword_1D2128000, v48, OS_LOG_TYPE_ERROR, "%s Unable to copy data with error: %@", buf, 0x16u);
 
 LABEL_54:
@@ -418,9 +419,9 @@ LABEL_54:
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     v52 = v45;
     v53 = defaultManager;
-    v130 = 0;
-    v54 = [defaultManager copyItemAtURL:v28 toURL:v52 error:&v130];
-    v47 = v130;
+    v129 = 0;
+    v54 = [defaultManager copyItemAtURL:v28 toURL:v52 error:&v129];
+    v47 = v129;
 
     if ((v54 & 1) == 0)
     {
@@ -428,13 +429,13 @@ LABEL_54:
       if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315906;
-        v135 = "[PUPhotoPickerExtensionHostContext _UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:]";
-        v136 = 2112;
-        v137 = v28;
-        v138 = 2112;
-        v139 = v122;
-        v140 = 2112;
-        v141 = v47;
+        v134 = "[PUPhotoPickerExtensionHostContext _UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:]";
+        v135 = 2112;
+        v136 = v28;
+        v137 = 2112;
+        v138 = v121;
+        v139 = 2112;
+        v140 = v47;
         _os_log_impl(&dword_1D2128000, v48, OS_LOG_TYPE_ERROR, "%s Unable to copy from %@ to %@ %@", buf, 0x2Au);
       }
 
@@ -446,27 +447,27 @@ LABEL_54:
 
 LABEL_56:
 
-  [v4 setObject:v122 forKeyedSubscript:*MEMORY[0x1E69DDDF0]];
-  v18 = v115;
+  [v4 setObject:v121 forKeyedSubscript:*MEMORY[0x1E69DDDF0]];
+  v18 = v114;
   self = selfCopy4;
 LABEL_57:
   [v4 setObject:0 forKeyedSubscript:@"PUPhotoPickerOriginalImagePathSandboxExtensionToken"];
   v55 = *MEMORY[0x1E69DDDE8];
-  v119 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69DDDE8]];
-  if (v119)
+  v118 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69DDDE8]];
+  if (v118)
   {
-    v129 = 0;
-    v56 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v119 error:&v129];
-    v57 = v129;
+    v128 = 0;
+    v56 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v118 error:&v128];
+    v57 = v128;
     if (v57)
     {
       v58 = PLUIGetLog();
       if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v135 = "[PUPhotoPickerExtensionHostContext _UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:]";
-        v136 = 2112;
-        v137 = v57;
+        v134 = "[PUPhotoPickerExtensionHostContext _UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:]";
+        v135 = 2112;
+        v136 = v57;
         _os_log_impl(&dword_1D2128000, v58, OS_LOG_TYPE_ERROR, "%s Unable to create edited image %@", buf, 0x16u);
       }
     }
@@ -478,9 +479,9 @@ LABEL_57:
   v60 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69DE938]];
   if (v60)
   {
-    v128 = 0;
-    v61 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v60 error:&v128];
-    v62 = v128;
+    v127 = 0;
+    v61 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v60 error:&v127];
+    v62 = v127;
     if (v62)
     {
       v63 = v32;
@@ -489,9 +490,9 @@ LABEL_57:
       if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v135 = "[PUPhotoPickerExtensionHostContext _UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:]";
-        v136 = 2112;
-        v137 = v62;
+        v134 = "[PUPhotoPickerExtensionHostContext _UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:]";
+        v135 = 2112;
+        v136 = v62;
         _os_log_impl(&dword_1D2128000, v65, OS_LOG_TYPE_ERROR, "%s Unable to create fullScreenImage %@", buf, 0x16u);
       }
 
@@ -505,18 +506,18 @@ LABEL_57:
   v66 = [v4 objectForKeyedSubscript:@"PUPhotoPickerCropRectData"];
   if (v66)
   {
-    v127 = 0;
-    v67 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v66 error:&v127];
-    v68 = v127;
+    v126 = 0;
+    v67 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v66 error:&v126];
+    v68 = v126;
     if (v68)
     {
       v69 = PLUIGetLog();
       if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v135 = "[PUPhotoPickerExtensionHostContext _UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:]";
-        v136 = 2112;
-        v137 = v68;
+        v134 = "[PUPhotoPickerExtensionHostContext _UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:]";
+        v135 = 2112;
+        v136 = v68;
         _os_log_impl(&dword_1D2128000, v69, OS_LOG_TYPE_ERROR, "%s Unable to create crop rect %@", buf, 0x16u);
       }
     }
@@ -534,14 +535,14 @@ LABEL_57:
   }
 
   v72 = [v4 objectForKeyedSubscript:@"PUPhotoPickerMediaPath"];
-  v124 = v72;
+  v123 = v72;
   if (v72)
   {
     v73 = [v4 objectForKeyedSubscript:@"PUPhotoPickerMediaPathSandboxExtensionToken"];
     v74 = [(PUPhotoPickerExtensionHostContext *)self _createURLFromPath:v72 token:v73];
     [v4 setObject:v74 forKeyedSubscript:*MEMORY[0x1E69DDE08]];
 
-    v72 = v124;
+    v72 = v123;
   }
 
   [v4 setObject:0 forKeyedSubscript:@"PUPhotoPickerMediaPath"];
@@ -553,10 +554,10 @@ LABEL_57:
     v77 = [(PUPhotoPickerExtensionHostContext *)self _createURLFromPath:v75 token:v76];
     [v4 setObject:v77 forKeyedSubscript:*MEMORY[0x1E69DE948]];
 
-    v72 = v124;
+    v72 = v123;
   }
 
-  v112 = v75;
+  v111 = v75;
   [v4 setObject:0 forKeyedSubscript:@"PUPhotoPickerOriginalIrisVideoFilePath"];
   [v4 setObject:0 forKeyedSubscript:@"PUPhotoPickerOriginalIrisVideoFilePathSandboxExtensionToken"];
   v78 = [v4 objectForKeyedSubscript:@"PUPhotoPickerGIFPath"];
@@ -566,10 +567,10 @@ LABEL_57:
     [v4 setObject:v79 forKeyedSubscript:*MEMORY[0x1E69DE8E0]];
   }
 
-  v111 = v78;
+  v110 = v78;
   [v4 setObject:0 forKeyedSubscript:@"PUPhotoPickerGIFPath"];
-  v117 = [v4 objectForKeyedSubscript:@"_UIImagePickerDebugSidecarFileURLsData"];
-  if (v117)
+  v116 = [v4 objectForKeyedSubscript:@"_UIImagePickerDebugSidecarFileURLsData"];
+  if (v116)
   {
     selfCopy5 = self;
     v81 = v32;
@@ -578,9 +579,9 @@ LABEL_57:
     v84 = MEMORY[0x1E695DFD8];
     v85 = objc_opt_class();
     v86 = [v84 setWithObjects:{v85, objc_opt_class(), 0}];
-    v126 = 0;
-    v87 = [v83 unarchivedObjectOfClasses:v86 fromData:v117 error:&v126];
-    v88 = v126;
+    v125 = 0;
+    v87 = [v83 unarchivedObjectOfClasses:v86 fromData:v116 error:&v125];
+    v88 = v125;
     [v4 setObject:v87 forKeyedSubscript:@"_UIImagePickerDebugSidecarFileURLs"];
 
     if (v88)
@@ -589,9 +590,9 @@ LABEL_57:
       if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v135 = "[PUPhotoPickerExtensionHostContext _UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:]";
-        v136 = 2112;
-        v137 = v88;
+        v134 = "[PUPhotoPickerExtensionHostContext _UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:]";
+        v135 = 2112;
+        v136 = v88;
         _os_log_impl(&dword_1D2128000, v89, OS_LOG_TYPE_ERROR, "%s Unable to create debug sidecar files %@", buf, 0x16u);
       }
     }
@@ -601,45 +602,45 @@ LABEL_57:
     v70 = v82;
     v32 = v81;
     self = selfCopy5;
-    v72 = v124;
+    v72 = v123;
   }
 
   v90 = [v4 objectForKeyedSubscript:@"PUPhotoPickerLivePhotoExists"];
   if (v90)
   {
-    v108 = v70;
-    v109 = v66;
-    v110 = v60;
+    v107 = v70;
+    v108 = v66;
+    v109 = v60;
     v91 = [v4 objectForKeyedSubscript:@"PUPhotoPickerLivePhotoImagePath"];
     v92 = [v4 objectForKeyedSubscript:@"PUPhotoPickerLivePhotoImagePathSandboxExtensionToken"];
     v93 = [v4 objectForKeyedSubscript:@"PUPhotoPickerLivePhotoVideoPath"];
     v94 = [v4 objectForKeyedSubscript:@"PUPhotoPickerLivePhotoVideoPathSandboxExtensionToken"];
-    v107 = v92;
+    v106 = v92;
     v95 = [(PUPhotoPickerExtensionHostContext *)self _createURLFromPath:v91 token:v92];
-    v106 = v93;
+    v105 = v93;
     v96 = [(PUPhotoPickerExtensionHostContext *)self _createURLFromPath:v93 token:v94];
-    v133[0] = v95;
-    v133[1] = v96;
-    v97 = [MEMORY[0x1E695DEC8] arrayWithObjects:v133 count:2];
-    v125 = 0;
-    v98 = [MEMORY[0x1E69788C8] livePhotoWithResourceFileURLs:v97 error:&v125];
-    v99 = v125;
+    v132[0] = v95;
+    v132[1] = v96;
+    v97 = [MEMORY[0x1E695DEC8] arrayWithObjects:v132 count:2];
+    v124 = 0;
+    v98 = [MEMORY[0x1E69788C8] livePhotoWithResourceFileURLs:v97 error:&v124];
+    v99 = v124;
     if (v99)
     {
-      v105 = v91;
+      v104 = v91;
       v100 = v32;
       v101 = PLUIGetLog();
       if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v135 = "[PUPhotoPickerExtensionHostContext _UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:]";
-        v136 = 2112;
-        v137 = v99;
+        v134 = "[PUPhotoPickerExtensionHostContext _UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:]";
+        v135 = 2112;
+        v136 = v99;
         _os_log_impl(&dword_1D2128000, v101, OS_LOG_TYPE_ERROR, "%s Unable to create live photo - %@", buf, 0x16u);
       }
 
       v32 = v100;
-      v91 = v105;
+      v91 = v104;
     }
 
     if (v98)
@@ -647,11 +648,11 @@ LABEL_57:
       [v4 setObject:v98 forKeyedSubscript:*MEMORY[0x1E69DDDF8]];
     }
 
-    v18 = v115;
-    v66 = v109;
-    v60 = v110;
-    v70 = v108;
-    v72 = v124;
+    v18 = v114;
+    v66 = v108;
+    v60 = v109;
+    v70 = v107;
+    v72 = v123;
   }
 
   [v4 setObject:0 forKeyedSubscript:@"PUPhotoPickerLivePhotoExists"];
@@ -660,8 +661,6 @@ LABEL_57:
   [v4 setObject:0 forKeyedSubscript:@"PUPhotoPickerLivePhotoVideoPath"];
   [v4 setObject:0 forKeyedSubscript:@"PUPhotoPickerLivePhotoVideoPathSandboxExtensionToken"];
   v102 = [v4 copy];
-
-  v103 = *MEMORY[0x1E69E9840];
 
   return v102;
 }
@@ -713,7 +712,7 @@ LABEL_57:
 
 - (void)didSelectMultipleMediaItemsWithInfoDictionaries:(id)dictionaries
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dictionariesCopy = dictionaries;
   v5 = PLPhotoPickerGetLog();
   v6 = os_signpost_id_generate(v5);
@@ -722,35 +721,35 @@ LABEL_57:
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     *buf = 134349056;
-    v29 = [dictionariesCopy count];
+    v28 = [dictionariesCopy count];
     _os_signpost_emit_with_name_impl(&dword_1D2128000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "ReceivingSelections", "%{public}ld", buf, 0xCu);
   }
 
   v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(dictionariesCopy, "count")}];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v10 = dictionariesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v24;
+    v13 = *v23;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [(PUPhotoPickerExtensionHostContext *)self _UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:*(*(&v23 + 1) + 8 * i), v23];
+        v15 = [(PUPhotoPickerExtensionHostContext *)self _UIImagePickerControllerInfoDictionaryFromPhotoPickerInfoDictionary:*(*(&v22 + 1) + 8 * i), v22];
         [v9 addObject:v15];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v12);
@@ -773,8 +772,6 @@ LABEL_57:
     delegate2 = [(PUPhotoPickerExtensionHostContext *)self delegate];
     [delegate2 didSelectMultipleMediaItemsWithInfoDictionaries:v20];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didDisplayPhotoPickerPreview
@@ -818,6 +815,13 @@ LABEL_57:
   animatedCopy = animated;
   delegate = [(PUPhotoPickerExtensionHostContext *)self delegate];
   [delegate dismissCurrentViewControllerFromPhotoPickerAnimated:animatedCopy];
+}
+
+- (void)didSetOnboardingHeaderDismissed:(BOOL)dismissed
+{
+  dismissedCopy = dismissed;
+  standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
+  [standardUserDefaults setBool:dismissedCopy forKey:@"com.apple.photos.picker.header"];
 }
 
 - (void)invalidatePhotoPickerHostServices

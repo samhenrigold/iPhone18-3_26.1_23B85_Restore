@@ -78,7 +78,7 @@ LABEL_14:
 
 - (void)fetchNewServerData
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_url(self, a2, v2, v3);
   v9 = objc_msgSend_absoluteString(v5, v6, v7, v8);
   v13 = objc_msgSend_sha256hash(v9, v10, v11, v12);
@@ -91,9 +91,9 @@ LABEL_14:
 
   v27 = [APStorageManager alloc];
   v30 = objc_msgSend_initWithPathPrefix_(v27, v28, @"s/s", v29);
-  v65 = 0;
-  v32 = objc_msgSend_fileExistsAtPath_error_(v30, v31, v13, &v65);
-  v33 = v65;
+  v64 = 0;
+  v32 = objc_msgSend_fileExistsAtPath_error_(v30, v31, v13, &v64);
+  v33 = v64;
   v35 = v33;
   if ((v32 & 1) == 0)
   {
@@ -102,9 +102,9 @@ LABEL_14:
     goto LABEL_12;
   }
 
-  v64 = v33;
-  v23 = objc_msgSend_lastModifiedDateForFileAtPath_error_(v30, v34, v13, &v64);
-  v36 = v64;
+  v63 = v33;
+  v23 = objc_msgSend_lastModifiedDateForFileAtPath_error_(v30, v34, v13, &v63);
+  v36 = v63;
 
   if (v36)
   {
@@ -149,21 +149,21 @@ LABEL_12:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v67 = sub_1BAF01124;
-    v68 = sub_1BAF01134;
+    v66 = sub_1BAF01124;
+    v67 = sub_1BAF01134;
     v52 = objc_msgSend_sharedAPNetworkClient(APNetworkClient, v49, v50, v51);
-    v69 = objc_msgSend_temporarySessionForDaemon(v52, v53, v54, v55);
+    v68 = objc_msgSend_temporarySessionForDaemon(v52, v53, v54, v55);
 
     v56 = *(*&buf[8] + 40);
-    v60[0] = MEMORY[0x1E69E9820];
-    v60[1] = 3221225472;
-    v60[2] = sub_1BAF0113C;
-    v60[3] = &unk_1E7F1CC00;
-    v60[4] = self;
-    v61 = v13;
-    v62 = v5;
-    v63 = buf;
-    v58 = objc_msgSend_GET_headers_withCompletionHandler_(v56, v57, v62, v48, v60);
+    v59[0] = MEMORY[0x1E69E9820];
+    v59[1] = 3221225472;
+    v59[2] = sub_1BAF0113C;
+    v59[3] = &unk_1E7F1CC00;
+    v59[4] = self;
+    v60 = v13;
+    v61 = v5;
+    v62 = buf;
+    v58 = objc_msgSend_GET_headers_withCompletionHandler_(v56, v57, v61, v48, v59);
 
     _Block_object_dispose(buf, 8);
     goto LABEL_18;
@@ -178,21 +178,19 @@ LABEL_2:
 
   objc_msgSend_setDidFetchFromServer_(self, v24, 0, v25);
 LABEL_18:
-
-  v59 = *MEMORY[0x1E69E9840];
 }
 
 - (void)retrieveServerData
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v3 = [APStorageManager alloc];
   v6 = objc_msgSend_initWithPathPrefix_(v3, v4, @"s/s", v5);
   v10 = objc_msgSend_url(self, v7, v8, v9);
   v14 = objc_msgSend_absoluteString(v10, v11, v12, v13);
   v18 = objc_msgSend_sha256hash(v14, v15, v16, v17);
-  v39 = 0;
-  v20 = objc_msgSend_fileExistsAtPath_error_(v6, v19, v18, &v39);
-  v21 = v39;
+  v38 = 0;
+  v20 = objc_msgSend_fileExistsAtPath_error_(v6, v19, v18, &v38);
+  v21 = v38;
   if (v21)
   {
     v25 = v21;
@@ -200,9 +198,9 @@ LABEL_18:
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 138478083;
-      v41 = v18;
-      v42 = 2114;
-      v43 = v25;
+      v40 = v18;
+      v41 = 2114;
+      v42 = v25;
       _os_log_impl(&dword_1BADC1000, v26, OS_LOG_TYPE_ERROR, "Error determining status of file %{private}@. Error: %{public}@", buf, 0x16u);
     }
 
@@ -213,9 +211,9 @@ LABEL_18:
   {
     v26 = objc_msgSend_lock(self, v22, v23, v24);
     objc_msgSend_lock(v26, v27, v28, v29);
-    v38 = 0;
-    v31 = objc_msgSend_objectStoredAtPath_error_(v6, v30, v18, &v38);
-    v25 = v38;
+    v37 = 0;
+    v31 = objc_msgSend_objectStoredAtPath_error_(v6, v30, v18, &v37);
+    v25 = v37;
     objc_msgSend_setServerData_(self, v32, v31, v33);
 
     objc_msgSend_unlock(v26, v34, v35, v36);
@@ -223,8 +221,6 @@ LABEL_6:
   }
 
   objc_msgSend_fetchNewServerData(self, v22, v23, v24);
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (APSettingsStorageServer)initWithURL:(id)l headers:(id)headers defaultValues:(id)values

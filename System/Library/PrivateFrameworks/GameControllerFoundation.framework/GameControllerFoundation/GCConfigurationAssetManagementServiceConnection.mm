@@ -1,4 +1,5 @@
 @interface GCConfigurationAssetManagementServiceConnection
+- (id)checkForNewAssets:(BOOL)assets forceCatalogRefresh:(BOOL)refresh completion:(id)completion;
 - (id)currentAsset:(BOOL)asset;
 @end
 
@@ -51,6 +52,17 @@ void __65__GCConfigurationAssetManagementServiceConnection_lastUpdateDate__block
   v7 = v4;
   v5 = v4;
   [a2 lastUpdateDateWithReply:v6];
+}
+
+- (id)checkForNewAssets:(BOOL)assets forceCatalogRefresh:(BOOL)refresh completion:(id)completion
+{
+  refreshCopy = refresh;
+  assetsCopy = assets;
+  completionCopy = completion;
+  serviceVendor = [(_GCDeviceDriverServiceConnection *)self serviceVendor];
+  v11 = [serviceVendor checkForNewAssets:assetsCopy forceCatalogRefresh:refreshCopy reply:completionCopy];
+
+  return v11;
 }
 
 @end

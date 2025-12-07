@@ -56,7 +56,7 @@
     }
 
     secureKeyDeliveryType = [viewElementCopy secureKeyDeliveryType];
-    v9->_shouldUseITunesStoreSecureKeyDelivery = [secureKeyDeliveryType isEqualToString:0x286AECC40];
+    v9->_shouldUseITunesStoreSecureKeyDelivery = objc_msgSend_isEqualToString_(secureKeyDeliveryType);
 
     v9->_ITunesStream = [viewElementCopy isITunesStream];
     keyCertificateURL = [viewElementCopy keyCertificateURL];

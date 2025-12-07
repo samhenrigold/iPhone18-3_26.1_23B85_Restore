@@ -177,26 +177,12 @@
     goto LABEL_15;
   }
 
-  if (vpnConnectionType != &dword_0 + 3)
+  if (vpnConnectionType != &dword_0 + 3 || (v34 = 0, +[VPNConnectionStore sharedInstance](VPNConnectionStore, "sharedInstance"), v11 = objc_claimAutoreleasedReturnValue(), +[VPNConnectionStore sharedInstance](VPNConnectionStore, "sharedInstance"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v11 isTypeEnabledWithServiceID:serviceID withGrade:objc_msgSend(v12 outProviderAvailable:{"currentOnlyConnectionGrade"), &v34}], v12, v11, v13) && (v34 & 1) != 0)
   {
-    goto LABEL_6;
-  }
-
-  v34 = 0;
-  v11 = +[VPNConnectionStore sharedInstance];
-  v12 = +[VPNConnectionStore sharedInstance];
-  v13 = [v11 isTypeEnabledWithServiceID:serviceID withGrade:objc_msgSend(v12 outProviderAvailable:{"currentOnlyConnectionGrade"), &v34}];
-
-  if (v13)
-  {
-    if (v34)
-    {
-LABEL_6:
-      [v7 connect];
+    [v7 connect];
 LABEL_7:
-      [(VPNBundleController *)self vpnStatusChanged:0];
-      goto LABEL_15;
-    }
+    [(VPNBundleController *)self vpnStatusChanged:0];
+    goto LABEL_15;
   }
 
   NSLog(@"%s: Trying to start an SSL VPN service that is not eligible", "[VPNBundleController setVPNActive:]");
@@ -707,41 +693,41 @@ LABEL_60:
 
 - (VPNBundleController)initWithParentListController:(id)controller properties:(id)properties
 {
-  v15.receiver = self;
-  v15.super_class = VPNBundleController;
+  v16.receiver = self;
+  v16.super_class = VPNBundleController;
   propertiesCopy = properties;
-  v6 = [(VPNBundleController *)&v15 initWithParentListController:controller];
+  v6 = [(VPNBundleController *)&v16 initWithParentListController:controller];
   if (v6)
   {
-    v7 = [VPNConnectionStore sharedInstance:v15.receiver];
+    v7 = [VPNConnectionStore sharedInstance:v16.receiver];
 
     if (!v7)
     {
-      v8 = sub_46D8();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = sub_46D8(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        sub_29EB0(v8);
+        sub_29EB0(v9);
       }
     }
 
-    v9 = +[NSNotificationCenter defaultCenter];
-    [v9 addObserver:v6 selector:"vpnStatusChanged:" name:off_49D50 object:0];
-
     v10 = +[NSNotificationCenter defaultCenter];
-    [v10 addObserver:v6 selector:"vpnConfigurationChanged:" name:@"VPNNEConfigurationChangedNotification" object:0];
+    [v10 addObserver:v6 selector:"vpnStatusChanged:" name:off_49D50 object:0];
 
     v11 = +[NSNotificationCenter defaultCenter];
-    [v11 addObserver:v6 selector:"vpnStatusChanged:" name:@"VPNConnectionsChangedNotification" object:0];
+    [v11 addObserver:v6 selector:"vpnConfigurationChanged:" name:@"VPNNEConfigurationChangedNotification" object:0];
+
+    v12 = +[NSNotificationCenter defaultCenter];
+    [v12 addObserver:v6 selector:"vpnStatusChanged:" name:@"VPNConnectionsChangedNotification" object:0];
 
     [(VPNBundleController *)v6 setRegistered:1];
   }
 
-  v12 = [propertiesCopy objectForKeyedSubscript:{@"isTopLevel", v15.receiver, v15.super_class}];
-  -[VPNBundleController setRootMenuItem:](v6, "setRootMenuItem:", [v12 BOOLValue]);
+  v13 = [propertiesCopy objectForKeyedSubscript:{@"isTopLevel", v16.receiver, v16.super_class}];
+  -[VPNBundleController setRootMenuItem:](v6, "setRootMenuItem:", [v13 BOOLValue]);
 
-  v13 = [propertiesCopy objectForKeyedSubscript:@"isDeviceManagement"];
+  v14 = [propertiesCopy objectForKeyedSubscript:@"isDeviceManagement"];
 
-  -[VPNBundleController setDeviceManagement:](v6, "setDeviceManagement:", [v13 BOOLValue]);
+  -[VPNBundleController setDeviceManagement:](v6, "setDeviceManagement:", [v14 BOOLValue]);
   return v6;
 }
 

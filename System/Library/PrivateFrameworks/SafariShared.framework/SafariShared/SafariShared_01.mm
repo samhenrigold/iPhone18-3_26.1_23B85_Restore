@@ -539,37 +539,21 @@ void sub_1BB783BA8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1BB783E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1BB783E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1BB784884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1BB784884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1BB784FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
-{
-  _Block_object_dispose(&a15, 8);
-
-  _Block_object_dispose((v20 - 48), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1BB785208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
-{
-  _Block_object_dispose(&a15, 8);
-
-  _Block_object_dispose((v20 - 64), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1BB785454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1BB784FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -577,7 +561,7 @@ void sub_1BB785454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1BB785668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1BB785208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -585,10 +569,26 @@ void sub_1BB785668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(SortEntry const&,SortEntry const&),SortEntry*,false>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4, char a5)
+void sub_1BB785454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+{
+  _Block_object_dispose(&a15, 8);
+
+  _Block_object_dispose((v20 - 48), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BB785668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+{
+  _Block_object_dispose(&a15, 8);
+
+  _Block_object_dispose((v20 - 64), 8);
+  _Unwind_Resume(a1);
+}
+
+void std::__introsort<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(SortEntry const&,SortEntry const&),SortEntry*,false>(uint64_t *result, uint64_t *a2, uint64_t *a3, uint64_t a4, char a5)
 {
 LABEL_1:
-  v9 = a1;
+  v9 = result;
   for (i = 1 - a4; ; ++i)
   {
     v11 = a2 - v9;
@@ -698,7 +698,7 @@ LABEL_9:
     if (((*(*a3 + 16))() & 1) == 0)
     {
       std::__partition_with_equals_on_left[abi:sn200100]<std::_ClassicAlgPolicy,SortEntry *,BOOL({block_pointer} {__strong}&)(SortEntry const&,SortEntry const&)>(v9, a2, a3);
-      a1 = v30;
+      result = v30;
       goto LABEL_23;
     }
 
@@ -711,7 +711,7 @@ LABEL_16:
     }
 
     v29 = std::__insertion_sort_incomplete[abi:sn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(SortEntry const&,SortEntry const&),SortEntry*>(v9, v26, a3);
-    a1 = (v27 + 3);
+    result = v27 + 3;
     if (!std::__insertion_sort_incomplete[abi:sn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(SortEntry const&,SortEntry const&),SortEntry*>(v27 + 3, a2, a3))
     {
       a4 = -i;
@@ -722,7 +722,7 @@ LABEL_16:
 
 LABEL_21:
       std::__introsort<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(SortEntry const&,SortEntry const&),SortEntry*,false>(v9, v27, a3, -i, a5 & 1);
-      a1 = (v27 + 3);
+      result = v27 + 3;
 LABEL_23:
       a5 = 0;
       a4 = -i;
@@ -896,11 +896,11 @@ void std::__sort5[abi:sn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer} {__s
   }
 }
 
-void std::__insertion_sort[abi:sn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(SortEntry const&,SortEntry const&),SortEntry*>(uint64_t a1, _OWORD *a2, uint64_t a3)
+void std::__insertion_sort[abi:sn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(SortEntry const&,SortEntry const&),SortEntry*>(_OWORD *a1, _OWORD *a2, uint64_t a3)
 {
   if (a1 != a2)
   {
-    v5 = (a1 + 24);
+    v5 = a1 + 24;
     if ((a1 + 24) != a2)
     {
       v7 = 0;
@@ -922,14 +922,14 @@ void std::__insertion_sort[abi:sn200100]<std::_ClassicAlgPolicy,BOOL({block_poin
             v13 = *(a1 + v11);
             *v12 = 0;
             v14 = *(a1 + v11 + 24);
-            *(v12 + 24) = v13;
+            *(v12 + 3) = v13;
 
             v15 = *(a1 + v11 + 8);
-            *(v12 + 8) = 0;
+            *(v12 + 1) = 0;
             v16 = *(a1 + v11 + 32);
-            *(v12 + 32) = v15;
+            *(v12 + 4) = v15;
 
-            *(v12 + 40) = *(v12 + 16);
+            *(v12 + 10) = *(v12 + 4);
             if (!v11)
             {
               break;
@@ -938,7 +938,7 @@ void std::__insertion_sort[abi:sn200100]<std::_ClassicAlgPolicy,BOOL({block_poin
             v11 -= 24;
             if (((*(*a3 + 16))() & 1) == 0)
             {
-              v17 = a1 + v11 + 24;
+              v17 = (a1 + v11 + 24);
               goto LABEL_10;
             }
           }
@@ -952,13 +952,13 @@ LABEL_10:
 
           v20 = *(&v22 + 1);
           *(&v22 + 1) = 0;
-          v21 = *(v17 + 8);
-          *(v17 + 8) = v20;
+          v21 = *(v17 + 1);
+          *(v17 + 1) = v20;
 
-          *(v17 + 16) = v23;
+          *(v17 + 4) = v23;
         }
 
-        v5 = (v9 + 24);
+        v5 = v9 + 24;
         v7 += 24;
         v8 = v9;
       }
@@ -1087,7 +1087,7 @@ LABEL_9:
   {
     while (v10 != a1)
     {
-      v10 -= 24;
+      v10 -= 3;
       v19 = v10;
       if (((*(*a3 + 16))() & 1) == 0)
       {
@@ -1116,7 +1116,7 @@ LABEL_14:
       {
         while (v19 != a1)
         {
-          v19 -= 24;
+          v19 -= 3;
           if (((*(*a3 + 16))() & 1) == 0)
           {
             v7 = v20;
@@ -1163,13 +1163,12 @@ LABEL_20:
   *(v7 - 2) = v18;
 }
 
-void std::__partition_with_equals_on_right[abi:sn200100]<std::_ClassicAlgPolicy,SortEntry *,BOOL({block_pointer} {__strong}&)(SortEntry const&,SortEntry const&)>(__int128 *a1, uint64_t *a2, uint64_t *a3)
+void std::__partition_with_equals_on_right[abi:sn200100]<std::_ClassicAlgPolicy,SortEntry *,BOOL({block_pointer} {__strong}&)(SortEntry const&,SortEntry const&)>(__int128 *a1, __int128 *a2, uint64_t *a3)
 {
   v6 = 0;
   v20 = a2;
   v7 = *a1;
-  *a1 = 0;
-  *(a1 + 1) = 0;
+  *a1 = 0uLL;
   v18 = v7;
   v19 = *(a1 + 4);
   do
@@ -1189,7 +1188,7 @@ void std::__partition_with_equals_on_right[abi:sn200100]<std::_ClassicAlgPolicy,
   {
     while (v8 != a1)
     {
-      v8 -= 24;
+      v8 = (v8 - 24);
       v20 = v8;
       if ((*(*a3 + 16))())
       {
@@ -1210,7 +1209,7 @@ void std::__partition_with_equals_on_right[abi:sn200100]<std::_ClassicAlgPolicy,
     }
 
     v10 = *a3;
-    v8 -= 24;
+    v8 = (v8 - 24);
     v20 = v8;
   }
 
@@ -1233,7 +1232,7 @@ LABEL_12:
       {
         while (v20 != a1)
         {
-          v20 -= 24;
+          v20 = (v20 - 24);
           if ((*(*a3 + 16))())
           {
             v11 = v21;
@@ -1280,7 +1279,7 @@ LABEL_18:
   *(v11 - 2) = v19;
 }
 
-uint64_t std::__insertion_sort_incomplete[abi:sn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(SortEntry const&,SortEntry const&),SortEntry*>(uint64_t *a1, uint64_t *a2, void *a3)
+BOOL std::__insertion_sort_incomplete[abi:sn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(SortEntry const&,SortEntry const&),SortEntry*>(uint64_t *a1, uint64_t *a2, void *a3)
 {
   v27 = a2;
   v28 = a1;
@@ -1842,7 +1841,7 @@ void recordValueForDateField(void *a1, int a2, void *a3, void *a4)
         v14 = [v12 safari_stringByRemovingCharactersInSet:v13];
 
         {
-          v23 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"dmyDMY/.-"];
+          v23 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x1E696AB08]);
           canonicalizedDateTemplate(NSString *)::invalidCharacterSet = [v23 invertedSet];
         }
 
@@ -2054,13 +2053,13 @@ uint64_t WTF::Vector<SortEntry,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::a
   return 1;
 }
 
-unint64_t WTF::Vector<SortEntry,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<SortEntry,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 24 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v5 + 24 * *(a1 + 3) <= a3)
   {
-    v10 = *(a1 + 8);
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -2092,7 +2091,7 @@ unint64_t WTF::Vector<SortEntry,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::
   else
   {
     v6 = a3 - v5;
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -2162,8 +2161,7 @@ __int128 *WTF::VectorMover<false,SortEntry>::move(__int128 *result, __int128 *a2
   for (; result != a2; result = (v6 + 24))
   {
     v5 = *result;
-    *result = 0;
-    *(result + 1) = 0;
+    *result = 0uLL;
     *a3 = v5;
     *(a3 + 16) = *(result + 4);
     SortEntry::~SortEntry(result);
@@ -2278,7 +2276,7 @@ LABEL_18:
 
 uint64_t SafariShared::FrameMetadata::FrameMetadata(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   *(a1 + 8) = 0u;
@@ -2289,20 +2287,21 @@ uint64_t SafariShared::FrameMetadata::FrameMetadata(uint64_t a1, void *a2, void 
   *(a1 + 48) = v7;
   v8 = v6;
   *(a1 + 56) = v8;
-  if (+[WBSFormMetadataController isAutoFillDrivenByUIProcess])
+  v9 = +[WBSFormMetadataController isAutoFillDrivenByUIProcess];
+  if (v9)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = WBS_LOG_CHANNEL_PREFIXAutoFill(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_DEFAULT, "Will not inject JavaScript in injected bundle", buf, 2u);
+      _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_DEFAULT, "Will not inject JavaScript in injected bundle", buf, 2u);
     }
 
     goto LABEL_21;
   }
 
-  v10 = [*(a1 + 48) jsContextForMetadataControllerScriptWorld];
-  if (!v10)
+  v12 = [*(a1 + 48) jsContextForMetadataControllerScriptWorld];
+  if (!v12)
   {
     goto LABEL_21;
   }
@@ -2312,18 +2311,18 @@ uint64_t SafariShared::FrameMetadata::FrameMetadata(uint64_t a1, void *a2, void 
     SafariShared::FrameMetadata::FrameMetadata();
   }
 
-  v11 = &qword_1EBC78F28;
-  v12 = 4;
+  v13 = &qword_1EBC78F28;
+  v14 = 4;
   while (1)
   {
-    if (!strcmp(*(v11 - 3), "WAS") && [v8 pageTestType] != 1)
+    if (!strcmp(*(v13 - 3), "WAS") && [v8 pageTestType] != 1)
     {
       goto LABEL_19;
     }
 
-    GlobalObject = JSContextGetGlobalObject(v10);
-    SafariShared::JSUtilities::jsString(*(v11 - 3), buf);
-    HasProperty = JSObjectHasProperty(v10, GlobalObject, *buf);
+    GlobalObject = JSContextGetGlobalObject(v12);
+    SafariShared::JSUtilities::jsString(buf, *(v13 - 3));
+    HasProperty = JSObjectHasProperty(v12, GlobalObject, *buf);
     if (*buf)
     {
       JSStringRelease(*buf);
@@ -2334,7 +2333,7 @@ uint64_t SafariShared::FrameMetadata::FrameMetadata(uint64_t a1, void *a2, void 
       goto LABEL_19;
     }
 
-    if (!*v11)
+    if (!*v13)
     {
       break;
     }
@@ -2343,40 +2342,40 @@ LABEL_16:
     *buf = 0;
     if (!JSScriptEvaluate() && *buf)
     {
-      v16 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      SafariShared::JSUtilities::logExceptionInChannel(v16, v10, *buf);
+      v20 = WBS_LOG_CHANNEL_PREFIXAutoFill(0, v19);
+      SafariShared::JSUtilities::logExceptionInChannel(v20, v12, *buf);
     }
 
 LABEL_19:
-    v11 += 5;
-    if (!--v12)
+    v13 += 5;
+    if (!--v14)
     {
-      SafariShared::JSController::addScriptObjectToGlobalObject(a1, v10);
-      SafariShared::JSController::scriptObjectReady(a1, v10);
+      SafariShared::JSController::addScriptObjectToGlobalObject(a1, v12);
+      SafariShared::JSController::scriptObjectReady(a1, v12);
       goto LABEL_21;
     }
   }
 
-  JSContextGetGroup(v10);
+  JSContextGetGroup(v12);
   ReferencingImmortalASCIIText = JSScriptCreateReferencingImmortalASCIIText();
   if (ReferencingImmortalASCIIText)
   {
-    *v11 = ReferencingImmortalASCIIText;
+    *v13 = ReferencingImmortalASCIIText;
 
     goto LABEL_16;
   }
 
-  v18 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v22 = WBS_LOG_CHANNEL_PREFIXAutoFill(0, v17);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
-    v19 = *(v11 - 4);
+    v23 = *(v13 - 4);
     *buf = 136446722;
-    *&buf[4] = v19;
-    v21 = 1024;
-    v22 = 0;
-    v23 = 2114;
-    v24 = 0;
-    _os_log_error_impl(&dword_1BB6F3000, v18, OS_LOG_TYPE_ERROR, "Failed to create script %{public}s: line %i: %{public}@", buf, 0x1Cu);
+    *&buf[4] = v23;
+    v25 = 1024;
+    v26 = 0;
+    v27 = 2114;
+    v28 = 0;
+    _os_log_error_impl(&dword_1BB6F3000, v22, OS_LOG_TYPE_ERROR, "Failed to create script %{public}s: line %i: %{public}@", buf, 0x1Cu);
   }
 
 LABEL_21:
@@ -2385,7 +2384,7 @@ LABEL_21:
 
 void sub_1BB78CB30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, JSStringRef string)
 {
-  SafariShared::JSController::~JSController(v11);
+  SafariShared::JSController::~JSController(v11, v16, v17);
 
   _Unwind_Resume(a1);
 }
@@ -2478,7 +2477,7 @@ JSValueRef SafariShared::jsSetInputElementSpellCheckEnabled(JSContextRef ctx, co
   }
 }
 
-JSValueRef SafariShared::jsSpecifierForAutocompleteTokensAndAddressBookLabel(SafariShared *this, const OpaqueJSContext *a2, NSString *a3, OpaqueJSValue *a4, JSValueRef *a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef SafariShared::jsSpecifierForAutocompleteTokensAndAddressBookLabel(SafariShared *this, const OpaqueJSContext *a2, NSString *a3, OpaqueJSValue *a4, JSValueRef *a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v35 = *MEMORY[0x1E69E9840];
   if (a4 != 2)
@@ -2634,7 +2633,7 @@ JSValueRef SafariShared::jsSetInputElementAutoFilledAndObscured(SafariShared *th
   }
 }
 
-JSValueRef SafariShared::jsDateFormatFromTemplate(SafariShared *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, const OpaqueJSContext **a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef SafariShared::jsDateFormatFromTemplate(SafariShared *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, const OpaqueJSContext **a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   if (a4 == 2)
   {
@@ -2688,7 +2687,7 @@ LABEL_9:
   return JSValueMakeUndefined(this);
 }
 
-JSValueRef SafariShared::jsStringFromDateFormat(SafariShared *this, const OpaqueJSContext *a2, NSString *a3, OpaqueJSValue *a4, JSValueRef *a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef SafariShared::jsStringFromDateFormat(SafariShared *this, const OpaqueJSContext *a2, NSString *a3, OpaqueJSValue *a4, JSValueRef *a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   if (a4 != 2)
   {
@@ -3737,7 +3736,7 @@ LABEL_47:
 LABEL_53:
 }
 
-JSValueRef SafariShared::FrameMetadata::currentMetadataForForm(uint64_t a1, OpaqueJSValue *a2, unint64_t a3)
+JSValueRef SafariShared::FrameMetadata::currentMetadataForForm(uint64_t a1, JSObjectRef a2, unint64_t a3)
 {
   v58[16] = *MEMORY[0x1E69E9840];
   value = 0;
@@ -3755,7 +3754,7 @@ JSValueRef SafariShared::FrameMetadata::currentMetadataForForm(uint64_t a1, Opaq
 
   ctx = v5;
   v40 = JSValueToObject(v5, value, 0);
-  SafariShared::JSUtilities::jsString("length", v58);
+  SafariShared::JSUtilities::jsString(v58, "length");
   Property = JSObjectGetProperty(ctx, v40, v58[0], 0);
   v7 = JSValueToNumber(ctx, Property, 0);
   if (v58[0])
@@ -3934,7 +3933,7 @@ JSValueRef SafariShared::FrameMetadata::lockedMetadataForForm(id *this, OpaqueJS
   }
 
   v4 = v3;
-  SafariShared::JSUtilities::jsString("_safariLockedFormMetadata", &propertyName);
+  SafariShared::JSUtilities::jsString(&propertyName, "_safariLockedFormMetadata");
   if (JSObjectHasProperty(v4, a2, propertyName))
   {
     Property = JSObjectGetProperty(v4, a2, propertyName, 0);
@@ -4057,9 +4056,9 @@ void sub_1BB790F0C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1BB7925F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BB7925F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -4192,9 +4191,9 @@ LABEL_26:
   return result;
 }
 
-void sub_1BB792EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, void *a9, void *a10, uint64_t a11, ...)
+void sub_1BB792EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -4245,18 +4244,18 @@ void sub_1BB793FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1BB794784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BB794784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v10 - 80), 8);
+  _Block_object_dispose((v17 - 80), 8);
 
   _Unwind_Resume(a1);
 }
 
 BOOL SafariShared::jsObjectHasOnBeforeUnloadProperty(SafariShared *this, const OpaqueJSContext *a2, OpaqueJSValue *a3)
 {
-  SafariShared::JSUtilities::jsString("onbeforeunload", &propertyName);
+  SafariShared::JSUtilities::jsString(&propertyName, "onbeforeunload");
   Property = JSObjectGetProperty(this, a2, propertyName, 0);
   if (propertyName)
   {
@@ -4276,7 +4275,7 @@ void sub_1BB7949BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1BB795C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1BB795C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -4286,12 +4285,12 @@ void sub_1BB795C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void SafariShared::FrameMetadata::~FrameMetadata(id *this)
 {
 
-  SafariShared::JSController::~JSController(this);
+  SafariShared::JSController::~JSController(this, v2, v3);
 }
 
 {
 
-  SafariShared::JSController::~JSController(this);
+  SafariShared::JSController::~JSController(this, v2, v3);
 
   JUMPOUT(0x1BFB13480);
 }
@@ -4472,7 +4471,7 @@ JSObjectRef makeJSFieldPatternMatcherArray(const OpaqueJSContext *a1, const __WB
 {
   v18 = *MEMORY[0x1E69E9840];
   Count = WBSFieldLabelPatternMatcherArrayGetCount(a2);
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](Count);
   v6 = (&v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
   if (v5 >= 0x200)
   {
@@ -4745,7 +4744,7 @@ uint64_t WTF::HashTable<OpaqueFormAutoFillFrame *,WTF::KeyValuePair<OpaqueFormAu
         *v4 = 0;
         if (v5)
         {
-          (*(*v5 + 8))(v5);
+          (*(*v5 + 8))(v5, a2);
         }
       }
 
@@ -4782,8 +4781,9 @@ uint64_t WTF::HashTable<OpaqueFormAutoFillFrame *,WTF::KeyValuePair<OpaqueFormAu
   return result;
 }
 
-uint64_t WTF::HashTable<OpaqueFormAutoFillFrame *,WTF::KeyValuePair<OpaqueFormAutoFillFrame *,std::unique_ptr<SafariShared::FrameMetadata>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<OpaqueFormAutoFillFrame *,std::unique_ptr<SafariShared::FrameMetadata>>>,WTF::DefaultHash<OpaqueFormAutoFillFrame *>,WTF::HashMap<OpaqueFormAutoFillFrame *,std::unique_ptr<SafariShared::FrameMetadata>,WTF::DefaultHash<OpaqueFormAutoFillFrame *>,WTF::HashTraits<OpaqueFormAutoFillFrame *>,WTF::HashTraits<std::unique_ptr<SafariShared::FrameMetadata>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<OpaqueFormAutoFillFrame *>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t *a3)
+uint64_t WTF::HashTable<OpaqueFormAutoFillFrame *,WTF::KeyValuePair<OpaqueFormAutoFillFrame *,std::unique_ptr<SafariShared::FrameMetadata>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<OpaqueFormAutoFillFrame *,std::unique_ptr<SafariShared::FrameMetadata>>>,WTF::DefaultHash<OpaqueFormAutoFillFrame *>,WTF::HashMap<OpaqueFormAutoFillFrame *,std::unique_ptr<SafariShared::FrameMetadata>,WTF::DefaultHash<OpaqueFormAutoFillFrame *>,WTF::HashTraits<OpaqueFormAutoFillFrame *>,WTF::HashTraits<std::unique_ptr<SafariShared::FrameMetadata>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<OpaqueFormAutoFillFrame *>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -4799,8 +4799,8 @@ uint64_t WTF::HashTable<OpaqueFormAutoFillFrame *,WTF::KeyValuePair<OpaqueFormAu
 
   v9 = WTF::fastZeroedMalloc((16 * a2 + 16));
   *a1 = (v9 + 4);
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -4944,7 +4944,7 @@ uint64_t WTF::HashTable<OpaqueFormAutoFillFrame *,WTF::KeyValuePair<OpaqueFormAu
   v3 = *a1;
   if (*a1 && (v4 = *(v3 - 4)) != 0)
   {
-    v5 = v4 << (6 * *(v3 - 12) >= (2 * v4));
+    v5 = (v4 << (6 * *(v3 - 12) >= (2 * v4)));
   }
 
   else
@@ -4968,19 +4968,20 @@ __CFString *WBSStringFromAutoFillFormType(uint64_t a1)
   }
 }
 
-void sub_1BB798B74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_1BB798B74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
 {
+  va_start(va, a46);
   _Block_object_dispose(&a23, 8);
   _Block_object_dispose(&a27, 8);
   _Block_object_dispose(&a31, 8);
   _Block_object_dispose(&a35, 8);
   _Block_object_dispose(&a39, 8);
   _Block_object_dispose(&a43, 8);
-  _Block_object_dispose(&a47, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BB79941C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61, uint64_t a62, uint64_t a63)
+void sub_1BB79941C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a29, 8);
   _Block_object_dispose(&a33, 8);
@@ -5144,23 +5145,23 @@ void *findEntry<SafariShared::AddressBookAutoCompleteMappingData::SynonymCollect
   return v5;
 }
 
-uint64_t WTF::Vector<NSString const* {__strong},0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,NSString const* {__strong}&>(uint64_t a1, unint64_t a2)
+uint64_t WTF::Vector<NSString const* {__strong},0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,NSString const* {__strong}&>(unint64_t *a1, unint64_t a2)
 {
-  v3 = WTF::Vector<NSString const* {__strong},0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a1, *(a1 + 12) + 1, a2);
-  v4 = *(a1 + 12);
+  v3 = WTF::Vector<NSString const* {__strong},0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a1, *(a1 + 3) + 1, a2);
+  v4 = *(a1 + 3);
   v5 = *a1;
   *(v5 + 8 * v4) = *v3;
-  ++*(a1 + 12);
+  ++*(a1 + 3);
   return 1;
 }
 
-unint64_t WTF::Vector<NSString const* {__strong},0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<NSString const* {__strong},0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 8 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v5 + 8 * *(a1 + 3) <= a3)
   {
-    v10 = *(a1 + 8);
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -5192,7 +5193,7 @@ unint64_t WTF::Vector<NSString const* {__strong},0ul,WTF::CrashOnOverflow,16ul,W
   else
   {
     v6 = a3 - v5;
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -5416,7 +5417,7 @@ id **std::unique_ptr<SafariShared::SuddenTerminationDisabler>::~unique_ptr[abi:s
   return a1;
 }
 
-void sub_1BB79C8F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1BB79C8F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -5430,14 +5431,14 @@ void sub_1BB79E00C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1BB79F2B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_1BB79F2B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a23, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1BB7A0558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
+void sub_1BB7A0558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
 {
   _Block_object_dispose(&a24, 8);
 
@@ -5458,9 +5459,9 @@ void sub_1BB7A292C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1BB7A4FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BB7A4FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5502,30 +5503,30 @@ void sub_1BB7ACB50(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1BB7AD94C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1BB7AD94C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BB7AE6E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BB7AE6E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BB7AE8E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BB7AE8E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BB7AEBB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BB7AEBB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5634,12 +5635,12 @@ LABEL_11:
   return v8;
 }
 
-unsigned int *WBSHistoryCollapseDailyVisitsToWeekly(unsigned int *result, _DWORD *a2)
+unsigned int *WBSHistoryCollapseDailyVisitsToWeekly(unsigned int *result, uint64_t a2)
 {
   v3 = result[3];
   if (v3 <= 0xD)
   {
-    v12 = a2[3];
+    v12 = *(a2 + 12);
   }
 
   else
@@ -5668,11 +5669,11 @@ unsigned int *WBSHistoryCollapseDailyVisitsToWeekly(unsigned int *result, _DWORD
 
       while (v8);
       v4[3] = v3 - 7;
-      v9 = a2[3];
-      if (v9 == a2[2])
+      v9 = *(a2 + 12);
+      if (v9 == *(a2 + 8))
       {
         v10 = WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a2, v9 + 1, &v13);
-        v9 = a2[3];
+        v9 = *(a2 + 12);
       }
 
       else
@@ -5683,8 +5684,8 @@ unsigned int *WBSHistoryCollapseDailyVisitsToWeekly(unsigned int *result, _DWORD
       v11 = *a2;
       result = memmove((*a2 + 4), *a2, 4 * v9);
       *v11 = *v10;
-      v12 = a2[3] + 1;
-      a2[3] = v12;
+      v12 = *(a2 + 12) + 1;
+      *(a2 + 12) = v12;
       v3 = v4[3];
     }
 
@@ -5693,30 +5694,30 @@ unsigned int *WBSHistoryCollapseDailyVisitsToWeekly(unsigned int *result, _DWORD
 
   if (v12 > 5uLL)
   {
-    a2[3] = 5;
+    *(a2 + 12) = 5;
   }
 
   return result;
 }
 
-uint64_t WBSHistoryPadDailyCountsForNewVisitAtTime(unsigned int *a1, unsigned int *a2, double a3, double a4)
+uint64_t WBSHistoryPadDailyCountsForNewVisitAtTime(uint64_t a1, WTF *a2, double a3, double a4)
 {
-  v8 = a1[3];
+  v8 = *(a1 + 12);
   if (!v8)
   {
-    LODWORD(v17) = 0;
-    if (a1[2])
+    LODWORD(v18) = 0;
+    if (*(a1 + 8))
     {
       **a1 = 0;
     }
 
     else
     {
-      *(*a1 + 4 * a1[3]) = *WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a1, 1uLL, &v17);
+      *(*a1 + 4 * *(a1 + 12)) = *WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a1, 1uLL, &v18);
     }
 
-    v8 = a1[3] + 1;
-    a1[3] = v8;
+    v8 = *(a1 + 12) + 1;
+    *(a1 + 12) = v8;
   }
 
   if (a3 == 0.0)
@@ -5734,59 +5735,59 @@ uint64_t WBSHistoryPadDailyCountsForNewVisitAtTime(unsigned int *a1, unsigned in
 
   if (v11 > 49)
   {
-    WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(a1, 0);
-    LODWORD(v17) = 0;
-    v12 = a1[3];
-    if (v12 == a1[2])
+    WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(a1, 0, v11);
+    LODWORD(v18) = 0;
+    v13 = *(a1 + 12);
+    if (v13 == *(a1 + 8))
     {
-      *(*a1 + 4 * a1[3]) = *WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a1, v12 + 1, &v17);
+      *(*a1 + 4 * *(a1 + 12)) = *WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a1, v13 + 1, &v18);
     }
 
     else
     {
-      *(*a1 + 4 * v12) = 0;
+      *(*a1 + 4 * v13) = 0;
     }
 
-    ++a1[3];
-    WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(a2, 0);
+    ++*(a1 + 12);
+    WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(a2, 0, v12);
     return 0;
   }
 
-  v13 = v10 - v9;
-  if (v13 > 49)
+  v14 = v10 - v9;
+  if (v14 > 49)
   {
     return 0xFFFFFFFFLL;
   }
 
-  v17 = v19;
-  v18 = 32;
+  v18 = v20;
+  v19 = 32;
   if (v11 < 1)
   {
-    if (v8 <= v13)
+    if (v8 <= v14)
     {
-      v16 = 0;
-      WTF::Vector<int,32ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::fill(&v17, &v16, 1 - v8 - v11);
-      WTF::Vector<int,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendVector<int,32ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>(a1, &v17);
+      v17 = 0;
+      WTF::Vector<int,32ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::fill(&v18, &v17, 1 - v8 - v11);
+      WTF::Vector<int,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendVector<int,32ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>(a1, &v18);
     }
   }
 
   else
   {
-    v16 = 0;
-    WTF::Vector<int,32ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::fill(&v17, &v16, v11);
-    WTF::Vector<int,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::insertSpan<int const,18446744073709551615ul>(a1, 0, v17, HIDWORD(v18));
-    v13 = 0;
-  }
-
-  v15 = v17;
-  if (v19 != v17 && v17)
-  {
     v17 = 0;
-    LODWORD(v18) = 0;
-    WTF::fastFree(v15, a2);
+    WTF::Vector<int,32ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::fill(&v18, &v17, v11);
+    WTF::Vector<int,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::insertSpan<int const,18446744073709551615ul>(a1, 0, v18, HIDWORD(v19));
+    v14 = 0;
   }
 
-  return v13;
+  v16 = v18;
+  if (v20 != v18 && v18)
+  {
+    v18 = 0;
+    LODWORD(v19) = 0;
+    WTF::fastFree(v16, a2);
+  }
+
+  return v14;
 }
 
 void sub_1BB7B0EB0(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF *a11, int a12)
@@ -5802,15 +5803,15 @@ void sub_1BB7B0EB0(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WTF::Vector<int,32ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::fill(uint64_t result, int *a2, unint64_t a3)
+unsigned int *WTF::Vector<int,32ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::fill(unsigned int *result, int *a2, unint64_t a3)
 {
   v5 = result;
-  v6 = *(result + 12);
+  v6 = result[3];
   if (v6 <= a3)
   {
-    if (*(result + 8) < a3)
+    if (result[2] < a3)
     {
-      WTF::Vector<int,32ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(result, 0);
+      WTF::Vector<int,32ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(result, 0, a3);
       result = WTF::Vector<int,32ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(v5, a3);
       LODWORD(v6) = *(v5 + 12);
     }
@@ -5818,7 +5819,7 @@ uint64_t WTF::Vector<int,32ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::fill(u
 
   else
   {
-    *(result + 12) = a3;
+    result[3] = a3;
     LODWORD(v6) = a3;
   }
 
@@ -5947,7 +5948,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t WBSHistoryAddVisitToScore(int a1, unsigned int *a2, unsigned int *a3, double a4, double a5)
+uint64_t WBSHistoryAddVisitToScore(int a1, unsigned int *a2, WTF *a3, double a4, double a5)
 {
   result = WBSHistoryPadDailyCountsForNewVisitAtTime(a2, a3, a4, a5);
   if ((result & 0x80000000) == 0)
@@ -5996,11 +5997,11 @@ uint64_t WBSHistoryUpdateScoreOfVisit(uint64_t result, int a2, uint64_t a3, doub
   return result;
 }
 
-unsigned int *WBSHistoryTimesOfVisitsToSynthesizeFromDailyCounts@<X0>(unsigned int *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, double a4@<D0>)
+unsigned int *WBSHistoryTimesOfVisitsToSynthesizeFromDailyCounts@<X0>(unsigned int *result@<X0>, unint64_t a2@<X1>, unsigned int **a3@<X8>, double a4@<D0>)
 {
   v5 = result;
   *a3 = 0;
-  *(a3 + 8) = 0;
+  a3[1] = 0;
   v8 = result[3];
   if (v8)
   {
@@ -6053,7 +6054,7 @@ unsigned int *WBSHistoryTimesOfVisitsToSynthesizeFromDailyCounts@<X0>(unsigned i
     }
 
     result = WTF::fastMalloc((8 * v18));
-    *(a3 + 8) = v18;
+    *(a3 + 2) = v18;
     *a3 = result;
     v8 = v5[3];
   }
@@ -6073,10 +6074,10 @@ unsigned int *WBSHistoryTimesOfVisitsToSynthesizeFromDailyCounts@<X0>(unsigned i
           v23 = a4;
         }
 
-        timesForVisits(86400.0 * v21, v23, v22 - (i == 0), &v47);
+        timesForVisits(&v47, 86400.0 * v21, v23, v22 - (i == 0));
         v25 = v49;
-        v26 = *(a3 + 8);
-        v27 = v49 + *(a3 + 12);
+        v26 = *(a3 + 2);
+        v27 = v49 + *(a3 + 3);
         if (v27 > v26)
         {
           v28 = v26 + (v26 >> 1);
@@ -6087,7 +6088,7 @@ unsigned int *WBSHistoryTimesOfVisitsToSynthesizeFromDailyCounts@<X0>(unsigned i
 
           if (v28 <= v27)
           {
-            v28 = v49 + *(a3 + 12);
+            v28 = v49 + *(a3 + 3);
           }
 
           if (v28 <= 0x10)
@@ -6108,7 +6109,7 @@ unsigned int *WBSHistoryTimesOfVisitsToSynthesizeFromDailyCounts@<X0>(unsigned i
         if (v25)
         {
           v30 = *a3;
-          v31 = *(a3 + 12);
+          v31 = *(a3 + 3);
           v32 = 8 * v25;
           v33 = v47;
           do
@@ -6120,7 +6121,7 @@ unsigned int *WBSHistoryTimesOfVisitsToSynthesizeFromDailyCounts@<X0>(unsigned i
           }
 
           while (v32);
-          *(a3 + 12) = v31;
+          *(a3 + 3) = v31;
         }
 
         if (result)
@@ -6147,10 +6148,10 @@ unsigned int *WBSHistoryTimesOfVisitsToSynthesizeFromDailyCounts@<X0>(unsigned i
     v35 = 0;
     do
     {
-      timesForVisits(86400.0 * (v21 - 7), 86400.0 * v21, *(*a2 + 4 * v35), &v47);
+      timesForVisits(&v47, 86400.0 * (v21 - 7), 86400.0 * v21, *(*a2 + 4 * v35));
       v37 = v49;
-      v38 = *(a3 + 8);
-      v39 = v49 + *(a3 + 12);
+      v38 = *(a3 + 2);
+      v39 = v49 + *(a3 + 3);
       if (v39 > v38)
       {
         v40 = v38 + (v38 >> 1);
@@ -6161,7 +6162,7 @@ unsigned int *WBSHistoryTimesOfVisitsToSynthesizeFromDailyCounts@<X0>(unsigned i
 
         if (v40 <= v39)
         {
-          v40 = v49 + *(a3 + 12);
+          v40 = v49 + *(a3 + 3);
         }
 
         if (v40 <= 0x10)
@@ -6182,7 +6183,7 @@ unsigned int *WBSHistoryTimesOfVisitsToSynthesizeFromDailyCounts@<X0>(unsigned i
       if (v37)
       {
         v42 = *a3;
-        v43 = *(a3 + 12);
+        v43 = *(a3 + 3);
         v44 = 8 * v37;
         v45 = v47;
         do
@@ -6194,7 +6195,7 @@ unsigned int *WBSHistoryTimesOfVisitsToSynthesizeFromDailyCounts@<X0>(unsigned i
         }
 
         while (v44);
-        *(a3 + 12) = v43;
+        *(a3 + 3) = v43;
       }
 
       if (result)
@@ -6227,19 +6228,19 @@ void sub_1BB7B14D8(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   _Unwind_Resume(exception_object);
 }
 
-uint64_t timesForVisits@<X0>(double a1@<D0>, double a2@<D1>, unint64_t a3@<X0>, uint64_t a4@<X8>)
+double **timesForVisits@<X0>(uint64_t *__return_ptr a1@<X8>, double a2@<D0>, double a3@<D1>, unint64_t a4@<X0>)
 {
-  v6 = a3;
-  result = WTF::Vector<double,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(a4, a3);
+  v6 = a4;
+  result = WTF::Vector<double,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(a1, a4);
   if (v6)
   {
-    v8 = (a2 - a1) / (v6 + 1);
-    v9 = *(result + 12);
+    v8 = (a3 - a2) / (v6 + 1);
+    v9 = *(result + 3);
     v10 = *result;
     while (v9)
     {
-      a1 = v8 + a1;
-      *v10++ = a1;
+      a2 = v8 + a2;
+      *v10++ = a2;
       --v9;
       if (!--v6)
       {
@@ -6283,56 +6284,56 @@ uint64_t WTF::Vector<double,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vect
   return result;
 }
 
-uint64_t WTF::Vector<int,32ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(uint64_t result, unint64_t a2)
+unsigned int *WTF::Vector<int,32ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(unsigned int *result, unint64_t a2, unint64_t a3)
 {
-  if (*(result + 8) > a2)
+  if (result[2] > a2)
   {
-    v2 = result;
-    v3 = *(result + 12);
-    if (v3 > a2)
+    v3 = result;
+    v4 = result[3];
+    if (v4 > a2)
     {
-      *(result + 12) = a2;
-      LODWORD(v3) = a2;
+      result[3] = a2;
+      LODWORD(v4) = a2;
     }
 
-    v4 = *result;
     v5 = *result;
+    v6 = *result;
     if (a2)
     {
       if (a2 >= 0x21)
       {
-        *(result + 8) = a2;
-        result = WTF::fastRealloc(v4, (4 * a2));
-        *v2 = result;
+        result[2] = a2;
+        result = WTF::fastRealloc(v5, (4 * a2));
+        *v3 = result;
         return result;
       }
 
-      *result = result + 16;
-      *(result + 8) = 32;
-      v5 = v4;
-      if ((result + 16) != v4)
+      *result = result + 4;
+      result[2] = 32;
+      v6 = v5;
+      if (result + 4 != v5)
       {
-        result = memcpy((result + 16), v4, 4 * v3);
-        v5 = (v2 + 16);
+        result = memcpy(result + 4, v5, 4 * v4);
+        v6 = (v3 + 4);
       }
     }
 
-    if ((v2 + 16) != v4 && v4 != 0)
+    if (v3 + 4 != v5 && v5 != 0)
     {
-      if (v5 == v4)
+      if (v6 == v5)
       {
-        *v2 = 0;
-        *(v2 + 8) = 0;
+        *v3 = 0;
+        v3[2] = 0;
       }
 
-      result = WTF::fastFree(v4, a2);
-      v5 = *v2;
+      result = WTF::fastFree(v5, a2);
+      v6 = *v3;
     }
 
-    if (!v5)
+    if (!v6)
     {
-      *v2 = v2 + 16;
-      *(v2 + 8) = 32;
+      *v3 = v3 + 4;
+      v3[2] = 32;
     }
   }
 
@@ -6531,77 +6532,69 @@ void *std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__str
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -6609,49 +6602,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_1BB7B4468(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BB7B4468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,void *>>>>::~unique_ptr[abi:sn200100](va);
   _Unwind_Resume(a1);
 }
@@ -6672,7 +6665,7 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<long long,WBSHi
   return a1;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__erase_unique<long long>(void *a1, unint64_t *a2)
+uint64_t std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__erase_unique<long long>(void *a1, unint64_t *a2)
 {
   result = std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::find<long long>(a1, a2);
   if (result)
@@ -6684,12 +6677,12 @@ uint64_t *std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {_
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::erase(void *result, uint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::erase(void *a1, uint64_t *a2)
 {
   if (a2)
   {
     v2 = *a2;
-    std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::remove(result, a2, v3);
+    std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::remove(a1, a2, v3);
     std::unique_ptr<std::__hash_node<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,void *>>>>::~unique_ptr[abi:sn200100](v3);
     return v2;
   }
@@ -6699,7 +6692,7 @@ void *std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__str
     __break(1u);
   }
 
-  return result;
+  return a1;
 }
 
 void *std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::remove@<X0>(void *result@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
@@ -6812,33 +6805,33 @@ LABEL_19:
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__emplace_unique_key_args<long long,std::pair<long long,WBSHistoryItem * {__strong}>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__emplace_unique_key_args<long long,std::pair<long long,WBSHistoryItem * {__strong}>>(void *a1, unint64_t *a2, uint64_t *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -6846,80 +6839,80 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void sub_1BB7B48C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BB7B48C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,void *>>>>::~unique_ptr[abi:sn200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -6927,49 +6920,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_1BB7B4B24(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BB7B4B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,void *>>>>::~unique_ptr[abi:sn200100](va);
   _Unwind_Resume(a1);
 }
@@ -7009,33 +7002,33 @@ void *std::__hash_table<std::__hash_value_type<long long,WBSHistoryVisit * {__we
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>>>::__emplace_unique_key_args<long long,std::pair<long long,WBSHistoryVisit * {__strong}>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>>>::__emplace_unique_key_args<long long,std::pair<long long,WBSHistoryVisit * {__strong}>>(void *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -7043,69 +7036,69 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void sub_1BB7B4E14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BB7B4E14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,void *>>>>::~unique_ptr[abi:sn200100](va);
   _Unwind_Resume(a1);
 }
 
-void std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::clear(uint64_t a1)
+void std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::clear(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__deallocate_node(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
@@ -7126,22 +7119,22 @@ void std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__stro
   }
 }
 
-void std::__hash_table<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>>>::clear(uint64_t a1)
+void std::__hash_table<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>>>::clear(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    std::__hash_table<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    std::__hash_table<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>>>::__deallocate_node(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
@@ -7188,7 +7181,7 @@ uint64_t std::__hash_table<std::__hash_value_type<long long,WBSHistoryVisit * {_
   return a1;
 }
 
-void sub_1BB7B6FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, id a25)
+void sub_1BB7B6FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, id a25)
 {
   _Block_object_dispose(&a16, 8);
   _Block_object_dispose(&a20, 8);
@@ -7202,56 +7195,56 @@ uint64_t WBSHistoryServiceMain(WTF *a1)
   v1 = objc_autoreleasePoolPush();
   v2 = [MEMORY[0x1E69635E0] applicationProxyForIdentifier:*MEMORY[0x1E69C8DA8] placeholder:0];
   v3 = [v2 dataContainerURL];
-  v4 = v3;
+  v5 = v3;
   if (v3)
   {
-    v5 = [v3 path];
-    setenv("HOME", [v5 fileSystemRepresentation], 1);
+    v6 = [v3 path];
+    setenv("HOME", [v6 fileSystemRepresentation], 1);
 
-    v6 = [v4 path];
-    setenv("CFFIXED_USER_HOME", [v6 fileSystemRepresentation], 1);
+    v7 = [v5 path];
+    setenv("CFFIXED_USER_HOME", [v7 fileSystemRepresentation], 1);
 
-    v7 = [v4 URLByAppendingPathComponent:@"tmp"];
-    v8 = [v7 path];
-    setenv("TMPDIR", [v8 fileSystemRepresentation], 1);
+    v8 = [v5 URLByAppendingPathComponent:@"tmp"];
+    v9 = [v8 path];
+    setenv("TMPDIR", [v9 fileSystemRepresentation], 1);
   }
 
-  v9 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v18[0]) = 0;
-    _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "History service launched", v18, 2u);
+    LOWORD(v19[0]) = 0;
+    _os_log_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_INFO, "History service launched", v19, 2u);
   }
 
   +[WBSURLCompletionDatabase initializeURLCompletionOnMainThread];
-  v10 = objc_alloc_init(WBSHistoryService);
-  v11 = objc_alloc_init(WBSCloudHistoryPushAgent);
-  v12 = v10;
-  v13 = qos_class_self();
-  v14 = dispatch_get_global_queue(v13, 0);
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = ___ZL19setUpSignalHandlersP17WBSHistoryService_block_invoke;
-  v18[3] = &unk_1E7FB6F80;
-  v15 = v12;
-  v19 = v15;
+  v11 = objc_alloc_init(WBSHistoryService);
+  v12 = objc_alloc_init(WBSCloudHistoryPushAgent);
+  v13 = v11;
+  v14 = qos_class_self();
+  v15 = dispatch_get_global_queue(v14, 0);
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = ___ZL19setUpSignalHandlersP17WBSHistoryService_block_invoke;
+  v19[3] = &unk_1E7FB6F80;
+  v16 = v13;
+  v20 = v16;
   WBSSetSignalHandler();
 
   objc_autoreleasePoolPop(v1);
-  [(WBSHistoryService *)v15 resume];
-  v16 = [MEMORY[0x1E695DFD0] currentRunLoop];
-  [v16 run];
+  [(WBSHistoryService *)v16 resume];
+  v17 = [MEMORY[0x1E695DFD0] currentRunLoop];
+  [v17 run];
 
   return 0;
 }
 
-void ___ZL19setUpSignalHandlersP17WBSHistoryService_block_invoke(uint64_t a1)
+void ___ZL19setUpSignalHandlersP17WBSHistoryService_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = WBS_LOG_CHANNEL_PREFIXHistory(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_1BB6F3000, v2, OS_LOG_TYPE_INFO, "Received termination signal. Closing databases and terminating", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_1BB6F3000, v3, OS_LOG_TYPE_INFO, "Received termination signal. Closing databases and terminating", v4, 2u);
   }
 
   [*(a1 + 32) shutdown];
@@ -7326,16 +7319,16 @@ double SafariShared::DeletionPlan::DeletionPlan(SafariShared::DeletionPlan *this
   return result;
 }
 
-uint64_t *SafariShared::DeletionPlan::sanitizeItemTouched(uint64_t *this)
+uint64_t SafariShared::DeletionPlan::sanitizeItemTouched(uint64_t this)
 {
-  v1 = this[7];
+  v1 = *(this + 56);
   if (v1)
   {
     v2 = this;
     do
     {
       v3 = v1[2];
-      this = std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__erase_unique<long long>(v2 + 10, &v3);
+      this = std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__erase_unique<long long>((v2 + 80), &v3);
       v1 = *v1;
     }
 
@@ -7403,9 +7396,9 @@ void *SafariShared::DeletionPlan::findItemIDForVisitID(SafariShared::DeletionPla
   return result;
 }
 
-void sub_1BB7B8384(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BB7B8384(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -7428,9 +7421,9 @@ void sub_1BB7B9A8C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1BB7BA268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1BB7BA268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
 
   std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(va);
   _Unwind_Resume(a1);
@@ -7470,16 +7463,18 @@ id createQueryWithList(void *a1, uint64_t a2, void *a3)
   return v7;
 }
 
-void sub_1BB7BAFD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_1BB7BAFD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
+  va_start(va, a40);
+
   std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(&a13);
   std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(&a19);
-  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v44 - 144);
+  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v43 - 144);
 
   SafariShared::HistoryObjectStreamWriter::~HistoryObjectStreamWriter(&a26);
   std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(&a29);
   std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(&a35);
-  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(&a41);
+  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(va);
 
   _Unwind_Resume(a1);
 }
@@ -7510,7 +7505,7 @@ void sub_1BB7BBF24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1BB7BC7F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, void *a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, id a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, id a46)
+void sub_1BB7BC7F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, void *a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, id a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, id a46)
 {
   _Block_object_dispose(&a35, 8);
 
@@ -7588,7 +7583,7 @@ id SafariShared::WBSSQLiteDatabaseFetch<long long &,long long &>(void *a1, void 
   return v10;
 }
 
-void sub_1BB7BF13C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, void *a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, id a46)
+void sub_1BB7BF13C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, void *a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, id a46)
 {
   _Block_object_dispose(&a41, 8);
 
@@ -7729,7 +7724,7 @@ uint64_t SafariShared::WBSSQLiteDatabaseEnumerate<NSString * {__strong},double,s
   return v16;
 }
 
-void sub_1BB7C3B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_1BB7C3B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -7806,10 +7801,12 @@ uint64_t SafariShared::WBSSQLiteDatabaseEnumerate<void({block_pointer} {__strong
   return v12;
 }
 
-void sub_1BB7C5578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_1BB7C5578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  SafariShared::DeletionPlan::~DeletionPlan((v34 + 48));
+  va_start(va, a30);
+
+  _Block_object_dispose(va, 8);
+  SafariShared::DeletionPlan::~DeletionPlan((v33 + 48));
   _Block_object_dispose(&a21, 8);
 
   _Unwind_Resume(a1);
@@ -7852,12 +7849,12 @@ void SafariShared::DeletionPlan::~DeletionPlan(id *this)
   std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(this);
 }
 
-void sub_1BB7C5AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, void *a17, ...)
+void sub_1BB7C5AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, void *a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
 
   _Block_object_dispose(va, 8);
-  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v17 + 48);
+  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v24 + 48);
   _Unwind_Resume(a1);
 }
 
@@ -7886,9 +7883,9 @@ uint64_t SafariShared::WBSSQLiteDatabaseEnumerate<NSDate * {__strong}&,NSDate * 
   return v16;
 }
 
-void sub_1BB7C71E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, id a61, id a62, uint64_t a63)
+void sub_1BB7C71E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, id a61, id a62, uint64_t a63)
 {
-  SafariShared::DeletionPlan::~DeletionPlan(&a69);
+  SafariShared::DeletionPlan::~DeletionPlan(&a65);
 
   _Block_object_dispose(&a50, 8);
   std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(&a56);
@@ -7956,12 +7953,12 @@ uint64_t SafariShared::WBSSQLiteDatabaseEnumerate<void({block_pointer} {__strong
   return v12;
 }
 
-void sub_1BB7C91A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, ...)
+void sub_1BB7C91A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
 
   _Block_object_dispose(va, 8);
-  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v9 + 48);
+  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v16 + 48);
 
   _Unwind_Resume(a1);
 }
@@ -7988,20 +7985,20 @@ uint64_t SafariShared::WBSSQLiteDatabaseEnumerate<std::tuple<long long &>>(void 
   return v12;
 }
 
-void sub_1BB7C9914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1BB7C9914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
-  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v12 + 48);
+  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v19 + 48);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1BB7C9C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BB7C9C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v10 + 48);
+  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v17 + 48);
 
   _Unwind_Resume(a1);
 }
@@ -8053,12 +8050,12 @@ uint64_t SafariShared::WBSSQLiteDatabaseEnumerate<void({block_pointer} {__strong
   return v12;
 }
 
-void sub_1BB7CBF2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1BB7CBF2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
 
-  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v8 - 192);
-  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v8 - 144);
+  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v12 - 192);
+  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v12 - 144);
   SafariShared::DeletionPlan::~DeletionPlan(va);
 
   _Unwind_Resume(a1);
@@ -8158,7 +8155,7 @@ __n128 __Block_byref_object_copy__381(__n128 *a1, __n128 *a2)
   return result;
 }
 
-void sub_1BB7CE190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36, uint64_t a37, uint64_t a38, uint64_t a39, id a40)
+void sub_1BB7CE190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36, uint64_t a37, uint64_t a38, uint64_t a39, id a40)
 {
   std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::~__hash_table(&a27);
   std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v43 - 144);
@@ -8268,7 +8265,7 @@ uint64_t std::__hash_table<std::__hash_value_type<long long,long long>,std::__un
   return result;
 }
 
-uint64_t *std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__erase_unique<long long>(void *a1, unint64_t *a2)
+uint64_t std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__erase_unique<long long>(void *a1, unint64_t *a2)
 {
   result = std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::find<long long>(a1, a2);
   if (result)
@@ -8335,77 +8332,69 @@ void *std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v3 == v8)
     {
-      v8 = result[1];
-      if (v3 == v8)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(void *a1, unint64_t *a2)
+void *std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(void *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -8413,44 +8402,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t SafariShared::_WBSSQLiteStatementBindOrStep<0,0,std::tuple<void({block_pointer} {__strong})(int,NSDate *)>>(void *a1, sqlite3_stmt *a2, uint64_t a3, void **a4)
@@ -8920,33 +8909,33 @@ void SafariShared::_WBSSQLiteStatementBindAllParameters<8,int,unsigned long>(voi
   [v5 bindInt64:*a3 atParameterIndex:9];
 }
 
-void *std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -8954,44 +8943,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t SafariShared::_WBSSQLiteStatementBindOrStep<0,1,std::tuple<double,std::tuple<long long &>>>(void *a1, sqlite3_stmt *a2, uint64_t a3, double *a4)

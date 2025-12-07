@@ -18,7 +18,7 @@
 - (ATXBackgroundSystemTask)initWithBackgroundSystemTask:(id)task
 {
   taskCopy = task;
-  v5 = __atxlog_handle_default();
+  v5 = __atxlog_handle_default(taskCopy);
   v6 = [(ATXBackgroundSystemTask *)self initWithBackgroundSystemTask:taskCopy logHandle:v5];
 
   return v6;
@@ -271,7 +271,7 @@ void __66__ATXBackgroundSystemTask_initWithBackgroundSystemTask_logHandle___bloc
   bgSystemTask = [self bgSystemTask];
   identifier = [bgSystemTask identifier];
   OUTLINED_FUNCTION_0_17();
-  OUTLINED_FUNCTION_1_4(&dword_1BF549000, v3, v4, "Failed to call setTaskExpiredWithRetryAfter for %@ : %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_4(&dword_1BF549000, v3, v4, "Failed to call setTaskExpiredWithRetryAfter for %@ : %@", v5, v6, v7, v8);
 }
 
 - (void)shouldDefer
@@ -289,7 +289,7 @@ void __66__ATXBackgroundSystemTask_initWithBackgroundSystemTask_logHandle___bloc
   v1 = [a1 bgSystemTask];
   v2 = [v1 identifier];
   OUTLINED_FUNCTION_0_17();
-  OUTLINED_FUNCTION_1_4(&dword_1BF549000, v3, v4, "Failed to report progress for %@ to bgst: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_4(&dword_1BF549000, v3, v4, "Failed to report progress for %@ to bgst: %@", v5, v6, v7, v8);
 }
 
 @end

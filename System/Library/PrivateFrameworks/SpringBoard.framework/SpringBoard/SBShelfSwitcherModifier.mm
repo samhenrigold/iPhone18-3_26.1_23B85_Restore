@@ -600,7 +600,7 @@ LABEL_9:
   if (phase == 1)
   {
     v13 = [(SBShelfSwitcherModifier *)self _responseForDismissingIfNeededGestureInitiated:0];
-    v14 = SBAppendSwitcherModifierResponse(v13, v5);
+    v14 = SBAppendSwitcherModifierResponse();
 
     v5 = v14;
   }
@@ -621,7 +621,7 @@ LABEL_13:
   v8.super_class = SBShelfSwitcherModifier;
   v4 = [(SBSwitcherModifier *)&v8 handleGestureEvent:event];
   v5 = [(SBShelfSwitcherModifier *)self _responseForDismissingIfNeededGestureInitiated:1];
-  v6 = SBAppendSwitcherModifierResponse(v5, v4);
+  v6 = SBAppendSwitcherModifierResponse();
 
   return v6;
 }

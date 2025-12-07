@@ -4,6 +4,7 @@
 - (void)searchBar:(id)bar textDidChange:(id)change;
 - (void)searchBarTextDidBeginEditing:(id)editing;
 - (void)searchBarTextDidEndEditing:(id)editing;
+- (void)togglePickerMode:(BOOL)mode;
 @end
 
 @implementation NavControllerAccessibility
@@ -31,6 +32,14 @@
 
   v7 = accessibilityLocalizedString(@"listmode.label");
   [v6 setAccessibilityLabel:v7];
+}
+
+- (void)togglePickerMode:(BOOL)mode
+{
+  v3.receiver = self;
+  v3.super_class = NavControllerAccessibility;
+  [(NavControllerAccessibility *)&v3 togglePickerMode:mode];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
 }
 
 - (void)searchBarTextDidBeginEditing:(id)editing

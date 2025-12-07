@@ -26,9 +26,11 @@
 
 uint64_t __52__AXFirstResponderValueChangeManager_sharedInstance__block_invoke()
 {
-  sharedInstance_SharedInstance = objc_alloc_init(AXFirstResponderValueChangeManager);
+  v0 = objc_alloc_init(AXFirstResponderValueChangeManager);
+  v1 = sharedInstance_SharedInstance;
+  sharedInstance_SharedInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)outputValueChangeForNewValue:(id)value oldValue:(id)oldValue selectedTextRange:(_NSRange)range shouldEchoDeletion:(BOOL)deletion isSingleInsert:(BOOL)insert feedbackType:(unint64_t)type lastKeyboardKeyPress:(double)press

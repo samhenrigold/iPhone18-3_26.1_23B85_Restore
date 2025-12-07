@@ -1,28 +1,28 @@
-void RealTimeAudioIssueDetectorCreate()
+void RealTimeAudioIssueDetectorCreate(int a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   SingletonManagerInstance();
   std::mutex::lock(&SingletonManagerInstance(void)::sInstance);
   atomic_fetch_add(&dword_27E547F78, 1u);
-  v0 = qword_27E547F70;
+  v1 = qword_27E547F70;
   while (1)
   {
-    v1 = (v0 + 1) > 1 ? v0 + 1 : 1;
-    qword_27E547F70 = v1;
-    v2 = std::__hash_table<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>>>::find<long long>(v1);
-    if (!v2)
+    v2 = (v1 + 1) > 1 ? v1 + 1 : 1;
+    qword_27E547F70 = v2;
+    v3 = std::__hash_table<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>>>::find<long long>(v2);
+    if (!v3)
     {
       break;
     }
 
-    v4 = v2[3];
-    v3 = v2[4];
-    if (v3)
+    v5 = v3[3];
+    v4 = v3[4];
+    if (v4)
     {
-      atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
-      std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-      v0 = qword_27E547F70;
-      if (!v4)
+      atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+      v1 = qword_27E547F70;
+      if (!v5)
       {
         break;
       }
@@ -30,8 +30,8 @@ void RealTimeAudioIssueDetectorCreate()
 
     else
     {
-      v0 = v1;
-      if (!v4)
+      v1 = v2;
+      if (!v5)
       {
         break;
       }
@@ -41,10 +41,11 @@ void RealTimeAudioIssueDetectorCreate()
   operator new();
 }
 
-void sub_241558640(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count **a10)
+void sub_241558640(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
-  std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,void *>>>::operator()[abi:ne200100](0, v10);
-  std::unique_ptr<rtaid::Detector>::~unique_ptr[abi:ne200100](&a10);
+  va_start(va, a9);
+  std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,void *>>>::operator()[abi:ne200100](0, v9);
+  std::unique_ptr<rtaid::Detector>::~unique_ptr[abi:ne200100](va);
   std::mutex::unlock(&SingletonManagerInstance(void)::sInstance);
   _Unwind_Resume(a1);
 }
@@ -53,14 +54,14 @@ void SingletonManagerInstance(void)
 {
   {
     {
-      _ZNSt3__111make_uniqueB8ne200100IN5rtaid19DependencyInjectionEJELi0EEENS_10unique_ptrIT_NS_14default_deleteIS4_EEEEDpOT0_();
+      _ZNSt3__111make_uniqueB8ne200100IN5rtaid19DependencyInjectionEJELi0EEENS_10unique_ptrIT_NS_14default_deleteIS4_EEEEDpOT0_(&v0);
     }
   }
 }
 
-void sub_2415586F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2415586F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<rtaid::DependencyInjection>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -71,24 +72,24 @@ void sub_241558B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   *(a13 + 32) = 0;
   if (v14)
   {
-    (*(*v14 + 8))(v14);
+    (*(*v14 + 8))(v14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v15 = *(a13 + 24);
   *(a13 + 24) = 0;
   if (v15)
   {
-    (*(*v15 + 8))(v15);
+    (*(*v15 + 8))(v15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v16 = *a11;
   *a11 = 0;
   if (v16)
   {
-    (*(*v16 + 8))(v16);
+    (*(*v16 + 8))(v16, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  MEMORY[0x245CE96E0](a13, 0x1020C40C6E6B0D4);
+  MEMORY[0x245CE96E0](a13, 0x1020C40C6E6B0D4, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -301,20 +302,20 @@ LABEL_37:
 
 uint64_t RealTimeAudioIssueDetectorInitialize(unint64_t a1)
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   SingletonManagerInstance();
   std::mutex::lock(&SingletonManagerInstance(void)::sInstance);
   v2 = std::__hash_table<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>>>::find<long long>(a1);
   if (!v2)
   {
     v12 = 0xFFFFFFFFLL;
-    goto LABEL_225;
+    goto LABEL_222;
   }
 
   v3 = *(v2 + 3);
   v4 = *(v2 + 4);
-  v90 = v3;
-  v91 = v4;
+  v84 = v3;
+  v85 = v4;
   if (v4)
   {
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -325,10 +326,10 @@ uint64_t RealTimeAudioIssueDetectorInitialize(unint64_t a1)
     v12 = 0xFFFFFFFFLL;
     if (v4)
     {
-      goto LABEL_224;
+      goto LABEL_221;
     }
 
-    goto LABEL_225;
+    goto LABEL_222;
   }
 
   rtaid::GetClientIDMap(v2);
@@ -361,10 +362,10 @@ uint64_t RealTimeAudioIssueDetectorInitialize(unint64_t a1)
     _os_log_impl(&dword_241557000, v8, OS_LOG_TYPE_DEBUG, "%s:%-5d initialize called on %s's detector", buf, 0x1Cu);
   }
 
-  v9 = v90;
-  rtaid::ConfigurationManager::DetermineConfiguration(qword_27E547FE0, v90, 1);
-  rtaid::Manager::applyConfiguration(qword_27E547FE0, v90);
-  rtaid::Manager::applyTelephonyResets(*(qword_27E547FE0 + 48), *(qword_27E547FE0 + 56), &v90);
+  v9 = v84;
+  rtaid::ConfigurationManager::DetermineConfiguration(qword_27E547FE0, v84, 1);
+  rtaid::Manager::applyConfiguration(qword_27E547FE0, v84);
+  rtaid::Manager::applyTelephonyResets(*(qword_27E547FE0 + 48), *(qword_27E547FE0 + 56), &v84);
   *buf = &unk_28533B448;
   *&buf[8] = &SingletonManagerInstance(void)::sInstance;
   *&buf[24] = buf;
@@ -608,9 +609,9 @@ LABEL_43:
       {
         CA::StreamDescription::AsString(&__p, (v17 + 40), v27, v28);
         p_p = &__p;
-        if (v95 < 0)
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          p_p = *&__p.componentType;
+          p_p = __p.__r_.__value_.__r.__words[0];
         }
 
         *buf = 136316418;
@@ -623,12 +624,12 @@ LABEL_43:
         *&buf[26] = "rtaid::NodeFormatConverter]";
         *&buf[34] = 2048;
         *&buf[36] = v17 + 40;
-        v98 = 2080;
-        v99 = p_p;
+        v90 = 2080;
+        v91 = p_p;
         _os_log_impl(&dword_241557000, v26, OS_LOG_TYPE_DEFAULT, "[%s:%-5d %.*s:%p] AudioConverterNew wasn't needed since incoming and outgoing format are equivalent: %s", buf, 0x36u);
-        if (v95 < 0)
+        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(*&__p.componentType);
+          operator delete(__p.__r_.__value_.__l.__data_);
         }
       }
 
@@ -648,21 +649,21 @@ LABEL_106:
       if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         CA::StreamDescription::AsString(&__p, (v17 + 40), v49, v50);
-        if (v95 >= 0)
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           v53 = &__p;
         }
 
         else
         {
-          v53 = *&__p.componentType;
+          v53 = __p.__r_.__value_.__r.__words[0];
         }
 
-        CA::StreamDescription::AsString(outInstance, (v17 + 80), v51, v52);
-        v54 = outInstance;
-        if (v93 < 0)
+        CA::StreamDescription::AsString(&outInstance, (v17 + 80), v51, v52);
+        p_outInstance = &outInstance;
+        if ((outInstance.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v54 = outInstance[0];
+          p_outInstance = outInstance.__r_.__value_.__r.__words[0];
         }
 
         *buf = 136316674;
@@ -675,19 +676,19 @@ LABEL_106:
         *&buf[26] = "rtaid::NodeFormatConverter]";
         *&buf[34] = 2048;
         *&buf[36] = v17 + 40;
-        v98 = 2080;
-        v99 = v53;
-        v100 = 2080;
-        v101 = v54;
+        v90 = 2080;
+        v91 = v53;
+        v92 = 2080;
+        v93 = p_outInstance;
         _os_log_impl(&dword_241557000, v48, OS_LOG_TYPE_DEFAULT, "[%s:%-5d %.*s:%p] AudioConverterNew succeeded with incoming format %s and outgoing format %s", buf, 0x40u);
-        if (v93 < 0)
+        if (SHIBYTE(outInstance.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(outInstance[0]);
+          operator delete(outInstance.__r_.__value_.__l.__data_);
         }
 
-        if (v95 < 0)
+        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(*&__p.componentType);
+          operator delete(__p.__r_.__value_.__l.__data_);
         }
 
         v7 = &rtaid::ConfigurationManager::GetDefaultConfiguration(void)::sDefaultConfig;
@@ -698,7 +699,7 @@ LABEL_106:
         goto LABEL_140;
       }
 
-      __p.componentType = 1;
+      LODWORD(__p.__r_.__value_.__l.__data_) = 1;
       v12 = AudioConverterSetProperty(*(v17 + 128), 0x646D6978u, 4u, &__p);
       if (!v12)
       {
@@ -725,47 +726,31 @@ LABEL_106:
 LABEL_140:
         if (*(v17 + 128))
         {
-          if ((*(v17 + 92) & 0x20) == 0)
+          v65 = ExtendedAudioBufferList_CreateWithFormat();
+          v66 = v65;
+          v67 = *(v17 + 88);
+          if ((v67 == 1885564203 || v67 == 1819304813) && (*(v17 + 92) & 0x20) != 0)
           {
-            v65 = *(v17 + 108);
-          }
-
-          v66 = (4 * *v17);
-          v67 = ExtendedAudioBufferList_CreateWithFormat();
-          v68 = v67;
-          v69 = *(v17 + 88);
-          if ((v69 == 1885564203 || v69 == 1819304813) && (*(v17 + 92) & 0x20) != 0)
-          {
-            if (!v67)
+            if (!v65)
             {
-LABEL_226:
+LABEL_223:
               exception = __cxa_allocate_exception(0x10uLL);
               std::logic_error::logic_error(exception, "ExtendedAudioBufferList_CreateWithFormat failed");
             }
           }
 
-          else
+          else if (!v65)
           {
-            v70 = *(v17 + 108);
-            if (!v67)
-            {
-              goto LABEL_226;
-            }
+            goto LABEL_223;
           }
 
-          v71 = *(v67 + 4);
           ExtendedAudioBufferList_Prepare();
-          if (*(v17 + 144) == 1)
-          {
-            v72 = *(v17 + 136);
-          }
-
-          else
+          if (*(v17 + 144) != 1)
           {
             *(v17 + 144) = 1;
           }
 
-          *(v17 + 136) = v68;
+          *(v17 + 136) = v66;
           ExtendedAudioBufferList_Destroy();
         }
 
@@ -775,8 +760,8 @@ LABEL_226:
             v7[58] = os_log_create("com.apple.coreaudio", "aid");
           }
 
-          v73 = v7[58];
-          if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
+          v68 = v7[58];
+          if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
           {
             *buf = 136316162;
             *&buf[4] = "DetectorNode.cpp";
@@ -788,25 +773,25 @@ LABEL_226:
             *&buf[26] = "rtaid::DetectorNode]";
             *&buf[34] = 2048;
             *&buf[36] = v17;
-            _os_log_impl(&dword_241557000, v73, OS_LOG_TYPE_INFO, "[%s:%-5d %.*s:%p] adding silenceNonFiniteAnalyzer", buf, 0x2Cu);
+            _os_log_impl(&dword_241557000, v68, OS_LOG_TYPE_INFO, "[%s:%-5d %.*s:%p] adding silenceNonFiniteAnalyzer", buf, 0x2Cu);
           }
 
-          __p.componentFlagsMask = 0;
-          *&__p.componentType = *"xfuaalislppa";
+          LODWORD(__p.__r_.__value_.__r.__words[2]) = 0;
+          *&__p.__r_.__value_.__l.__data_ = *"xfuaalislppa";
           Next = AudioComponentFindNext(0, &__p);
-          outInstance[0] = 0;
-          v75 = AudioComponentInstanceNew(Next, outInstance);
-          if (outInstance[0])
+          outInstance.__r_.__value_.__r.__words[0] = 0;
+          v70 = AudioComponentInstanceNew(Next, &outInstance);
+          if (outInstance.__r_.__value_.__r.__words[0])
           {
-            std::unique_ptr<OpaqueAudioComponentInstance,applesauce::raii::v1::detail::opaque_deletion_functor<OpaqueAudioComponentInstance*,&(AudioComponentInstanceDispose)>>::reset[abi:ne200100]((v17 + 32), outInstance[0]);
-            v76 = *(v17 + 96);
+            std::unique_ptr<OpaqueAudioComponentInstance,applesauce::raii::v1::detail::opaque_deletion_functor<OpaqueAudioComponentInstance*,&(AudioComponentInstanceDispose)>>::reset[abi:ne200100]((v17 + 32), outInstance.__r_.__value_.__l.__data_);
+            v71 = *(v17 + 96);
             *buf = *(v17 + 80);
-            *&buf[16] = v76;
+            *&buf[16] = v71;
             *&buf[32] = *(v17 + 112);
-            AudioUnitSetProperty(outInstance[0], 8u, 1u, 0, buf, 0x28u);
-            AudioUnitSetProperty(outInstance[0], 8u, 2u, 0, buf, 0x28u);
-            AudioUnitSetProperty(outInstance[0], 0xEu, 0, 0, v17, 4u);
-            v12 = AudioUnitInitialize(outInstance[0]);
+            AudioUnitSetProperty(outInstance.__r_.__value_.__l.__data_, 8u, 1u, 0, buf, 0x28u);
+            AudioUnitSetProperty(outInstance.__r_.__value_.__l.__data_, 8u, 2u, 0, buf, 0x28u);
+            AudioUnitSetProperty(outInstance.__r_.__value_.__l.__data_, 0xEu, 0, 0, v17, 4u);
+            v12 = AudioUnitInitialize(outInstance.__r_.__value_.__l.__data_);
             if (v12)
             {
               std::unique_ptr<OpaqueAudioComponentInstance,applesauce::raii::v1::detail::opaque_deletion_functor<OpaqueAudioComponentInstance*,&(AudioComponentInstanceDispose)>>::reset[abi:ne200100]((v17 + 32), 0);
@@ -817,36 +802,36 @@ LABEL_226:
               if ((*(v17 + 160) & 1) == 0 && (*(v17 + 153) & 1) == 0 && (*(v17 + 161) & 1) == 0 && (*(v17 + 154) & 1) == 0)
               {
                 inData = 1;
-                AudioUnitSetProperty(outInstance[0], 0xFA01u, 0, 0, &inData, 4u);
+                AudioUnitSetProperty(outInstance.__r_.__value_.__l.__data_, 0xFA01u, 0, 0, &inData, 4u);
               }
 
               if ((*(v17 + 161) & 1) != 0 || *(v17 + 154) == 1)
               {
                 inData = 1;
-                AudioUnitSetProperty(outInstance[0], 0xFA03u, 0, 0, &inData, 4u);
+                AudioUnitSetProperty(outInstance.__r_.__value_.__l.__data_, 0xFA03u, 0, 0, &inData, 4u);
               }
 
               if (*(v17 + 48) == 1819304813 && *(v17 + 60) == 1)
               {
-                v77 = *(v17 + 64);
-                if (v77 == *(v17 + 56))
+                v72 = *(v17 + 64);
+                if (v72 == *(v17 + 56))
                 {
-                  v78 = *(v17 + 72);
-                  if (v77 >= v78 >> 3)
+                  v73 = *(v17 + 72);
+                  if (v72 >= v73 >> 3)
                   {
-                    v79 = *(v17 + 68);
-                    if (v79)
+                    v74 = *(v17 + 68);
+                    if (v74)
                     {
-                      v80 = *(v17 + 52);
-                      if ((v80 & 0x20) != 0 || (v25 = v77 == v77 / v79 * v79, v77 /= v79, v25))
+                      v75 = *(v17 + 52);
+                      if ((v75 & 0x20) != 0 || (v25 = v72 == v72 / v74 * v74, v72 /= v74, v25))
                       {
-                        if ((*(v17 + 52) & 7) == 4 && 8 * v77 == v78)
+                        if ((*(v17 + 52) & 7) == 4 && 8 * v72 == v73)
                         {
-                          v81 = (v80 >> 7) & 0x3F;
-                          if ((v81 != 24 || v77 != 4) && !v81 && v77 == 2)
+                          v76 = (v75 >> 7) & 0x3F;
+                          if ((v76 != 24 || v72 != 4) && !v76 && v72 == 2)
                           {
                             inData = 1;
-                            AudioUnitSetProperty(outInstance[0], 0xFA02u, 0, 0, &inData, 4u);
+                            AudioUnitSetProperty(outInstance.__r_.__value_.__l.__data_, 0xFA02u, 0, 0, &inData, 4u);
                           }
                         }
                       }
@@ -859,7 +844,7 @@ LABEL_226:
 
           else
           {
-            v12 = v75;
+            v12 = v70;
           }
         }
 
@@ -869,7 +854,7 @@ LABEL_226:
           v12 = 0;
         }
 
-        goto LABEL_190;
+        goto LABEL_187;
       }
 
       {
@@ -889,8 +874,8 @@ LABEL_226:
         *&buf[26] = "rtaid::NodeFormatConverter]";
         *&buf[34] = 2048;
         *&buf[36] = v17 + 40;
-        v98 = 1024;
-        LODWORD(v99) = v12;
+        v90 = 1024;
+        LODWORD(v91) = v12;
         _os_log_impl(&dword_241557000, v56, OS_LOG_TYPE_ERROR, "[%s:%-5d %.*s:%p] AudioConverterSetProperty for downmixing failed with error : %d", buf, 0x32u);
       }
     }
@@ -905,21 +890,21 @@ LABEL_226:
       if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
       {
         CA::StreamDescription::AsString(&__p, (v17 + 40), v58, v59);
-        if (v95 >= 0)
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           v62 = &__p;
         }
 
         else
         {
-          v62 = *&__p.componentType;
+          v62 = __p.__r_.__value_.__r.__words[0];
         }
 
-        CA::StreamDescription::AsString(outInstance, (v17 + 80), v60, v61);
-        v63 = outInstance;
-        if (v93 < 0)
+        CA::StreamDescription::AsString(&outInstance, (v17 + 80), v60, v61);
+        v63 = &outInstance;
+        if ((outInstance.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v63 = outInstance[0];
+          v63 = outInstance.__r_.__value_.__r.__words[0];
         }
 
         *buf = 136316674;
@@ -932,19 +917,19 @@ LABEL_226:
         *&buf[26] = "rtaid::NodeFormatConverter]";
         *&buf[34] = 2048;
         *&buf[36] = v17 + 40;
-        v98 = 2080;
-        v99 = v62;
-        v100 = 2080;
-        v101 = v63;
+        v90 = 2080;
+        v91 = v62;
+        v92 = 2080;
+        v93 = v63;
         _os_log_impl(&dword_241557000, v57, OS_LOG_TYPE_ERROR, "[%s:%-5d %.*s:%p] AudioConverterNew failed with incoming format %s and outgoing format %s", buf, 0x40u);
-        if (v93 < 0)
+        if (SHIBYTE(outInstance.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(outInstance[0]);
+          operator delete(outInstance.__r_.__value_.__l.__data_);
         }
 
-        if (v95 < 0)
+        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(*&__p.componentType);
+          operator delete(__p.__r_.__value_.__l.__data_);
         }
 
         v12 = 4294967293;
@@ -957,31 +942,31 @@ LABEL_226:
       }
     }
 
-LABEL_190:
+LABEL_187:
     if (**(v17 + 416) == 1)
     {
       if (*(v17 + 108) >= 4u)
       {
-        v82 = 4;
+        v77 = 4;
       }
 
       else
       {
-        v82 = *(v17 + 108);
+        v77 = *(v17 + 108);
       }
     }
 
     else
     {
-      v82 = 1;
+      v77 = 1;
     }
 
     {
       v7[58] = os_log_create("com.apple.coreaudio", "aid");
     }
 
-    v83 = v7[58];
-    if (os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG))
+    v78 = v7[58];
+    if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136316418;
       *&buf[4] = "DetectorNode.cpp";
@@ -993,23 +978,23 @@ LABEL_190:
       *&buf[26] = "rtaid::DetectorNode]";
       *&buf[34] = 2048;
       *&buf[36] = v17;
-      v98 = 1024;
-      LODWORD(v99) = v82;
-      _os_log_impl(&dword_241557000, v83, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] rms analysis setup for %d channels", buf, 0x32u);
+      v90 = 1024;
+      LODWORD(v91) = v77;
+      _os_log_impl(&dword_241557000, v78, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] rms analysis setup for %d channels", buf, 0x32u);
     }
 
-    std::vector<float>::resize((v17 + 192), v82);
-    std::vector<float>::resize((v17 + 216), v82);
-    v84 = *(v17 + 40) * 0.5;
+    std::vector<float>::resize((v17 + 192), v77);
+    std::vector<float>::resize((v17 + 216), v77);
+    v79 = *(v17 + 40) * 0.5;
     *(v17 + 240) = (*(v17 + 92) & 0x20) == 0;
-    *(v17 + 252) = v84;
+    *(v17 + 252) = v79;
     *(v17 + 4) = v12 == 0;
     {
       v7[58] = os_log_create("com.apple.coreaudio", "aid");
     }
 
-    v85 = v7[58];
-    if (os_log_type_enabled(v85, OS_LOG_TYPE_INFO))
+    v80 = v7[58];
+    if (os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
     {
       *buf = 136316418;
       *&buf[4] = "DetectorNode.cpp";
@@ -1021,25 +1006,25 @@ LABEL_190:
       *&buf[26] = "rtaid::DetectorNode]";
       *&buf[34] = 2048;
       *&buf[36] = v17;
-      v98 = 1024;
-      LODWORD(v99) = v12;
-      _os_log_impl(&dword_241557000, v85, OS_LOG_TYPE_INFO, "[%s:%-5d %.*s:%p] initialized with err = %d", buf, 0x32u);
+      v90 = 1024;
+      LODWORD(v91) = v12;
+      _os_log_impl(&dword_241557000, v80, OS_LOG_TYPE_INFO, "[%s:%-5d %.*s:%p] initialized with err = %d", buf, 0x32u);
     }
 
     if (v12)
     {
-      goto LABEL_220;
+      goto LABEL_217;
     }
   }
 
   v12 = 0;
-LABEL_220:
+LABEL_217:
   {
     v7[58] = os_log_create("com.apple.coreaudio", "aid");
   }
 
-  v86 = v7[58];
-  if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
+  v81 = v7[58];
+  if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316418;
     *&buf[4] = "Detector.cpp";
@@ -1051,21 +1036,20 @@ LABEL_220:
     *&buf[26] = "rtaid::Detector]";
     *&buf[34] = 2048;
     *&buf[36] = v9;
-    v98 = 1024;
-    LODWORD(v99) = v12;
-    _os_log_impl(&dword_241557000, v86, OS_LOG_TYPE_DEFAULT, "[%s:%-5d %.*s:%p] initialized with error = %d", buf, 0x32u);
+    v90 = 1024;
+    LODWORD(v91) = v12;
+    _os_log_impl(&dword_241557000, v81, OS_LOG_TYPE_DEFAULT, "[%s:%-5d %.*s:%p] initialized with error = %d", buf, 0x32u);
   }
 
-  v4 = v91;
-  if (v91)
+  v4 = v85;
+  if (v85)
   {
-LABEL_224:
+LABEL_221:
     std::__shared_weak_count::__release_shared[abi:ne200100](v4);
   }
 
-LABEL_225:
+LABEL_222:
   std::mutex::unlock(&SingletonManagerInstance(void)::sInstance);
-  v87 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -1081,7 +1065,7 @@ void sub_24155A068(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t RealTimeAudioIssueDetectorReset(unint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   SingletonManagerInstance();
   std::mutex::lock(&SingletonManagerInstance(void)::sInstance);
   v2 = std::__hash_table<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>>>::find<long long>(a1);
@@ -1111,7 +1095,7 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v16 = v3;
+  v15 = v3;
   for (i = *(v4 + 24); i; i = *i)
   {
     rtaid::Detector::checkAndResetAnalyzers(v4, i + 3);
@@ -1152,15 +1136,15 @@ LABEL_24:
     if (os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_INFO))
     {
       *buf = 136316162;
-      v18 = "DetectorNode.cpp";
-      v19 = 1024;
-      v20 = 165;
-      v21 = 1040;
-      v22 = 19;
-      v23 = 2080;
-      v24 = "rtaid::DetectorNode]";
-      v25 = 2048;
-      v26 = v6;
+      v17 = "DetectorNode.cpp";
+      v18 = 1024;
+      v19 = 165;
+      v20 = 1040;
+      v21 = 19;
+      v22 = 2080;
+      v23 = "rtaid::DetectorNode]";
+      v24 = 2048;
+      v25 = v6;
       _os_log_impl(&dword_241557000, v11, OS_LOG_TYPE_INFO, "[%s:%-5d %.*s:%p] reset", buf, 0x2Cu);
     }
   }
@@ -1170,31 +1154,30 @@ LABEL_24:
   }
 
   v12 = rtaid::get_log(void)::rtaid_os_log;
-  v3 = v16;
+  v3 = v15;
   if (os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_INFO))
   {
     *buf = 136316162;
-    v18 = "Detector.cpp";
-    v19 = 1024;
-    v20 = 71;
-    v21 = 1040;
-    v22 = 15;
-    v23 = 2080;
-    v24 = "rtaid::Detector]";
-    v25 = 2048;
-    v26 = v4;
+    v17 = "Detector.cpp";
+    v18 = 1024;
+    v19 = 71;
+    v20 = 1040;
+    v21 = 15;
+    v22 = 2080;
+    v23 = "rtaid::Detector]";
+    v24 = 2048;
+    v25 = v4;
     _os_log_impl(&dword_241557000, v12, OS_LOG_TYPE_INFO, "[%s:%-5d %.*s:%p] reset", buf, 0x2Cu);
   }
 
   v13 = 0;
-  if (v16)
+  if (v15)
   {
     goto LABEL_24;
   }
 
 LABEL_25:
   std::mutex::unlock(&SingletonManagerInstance(void)::sInstance);
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1209,17 +1192,19 @@ void sub_24155A3E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t RealTimeAudioIssueDetectorSetNodeFormat(unint64_t a1, void *a2, size_t a3)
+uint64_t RealTimeAudioIssueDetectorSetNodeFormat(unint64_t a1, void *a2, size_t a3, uint64_t a4, double *a5, uint64_t a6)
 {
+  v6 = a6;
+  v8 = a4;
   SingletonManagerInstance();
-  std::string::basic_string[abi:ne200100](&__p, a2, a3);
-  v6 = rtaid::Manager::SetNodeFormatWithDirectionOnDetector(a1);
-  if (v9 < 0)
+  std::string::basic_string[abi:ne200100](__p, a2, a3);
+  v12 = rtaid::Manager::SetNodeFormatWithDirectionOnDetector(a1, __p, v8, 0, a5, v6);
+  if (v15 < 0)
   {
-    operator delete(__p);
+    operator delete(__p[0]);
   }
 
-  return v6;
+  return v12;
 }
 
 void sub_24155A4A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1232,7 +1217,7 @@ void sub_24155A4A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t __len)
+void *std::string::basic_string[abi:ne200100](void *__dst, void *__src, size_t __len)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -1244,13 +1229,13 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, __src, __len);
   }
 
-  __dst[__len] = 0;
+  *(__dst + __len) = 0;
   return __dst;
 }
 
@@ -1267,17 +1252,19 @@ std::logic_error *std::length_error::length_error[abi:ne200100](std::logic_error
   return result;
 }
 
-uint64_t RealTimeAudioIssueDetectorSetNodeFormatWithDirection(unint64_t a1, void *a2, size_t a3)
+uint64_t RealTimeAudioIssueDetectorSetNodeFormatWithDirection(unint64_t a1, void *a2, size_t a3, uint64_t a4, int a5, double *a6, uint64_t a7)
 {
+  v7 = a7;
+  v10 = a4;
   SingletonManagerInstance();
-  std::string::basic_string[abi:ne200100](&__p, a2, a3);
-  v6 = rtaid::Manager::SetNodeFormatWithDirectionOnDetector(a1);
-  if (v9 < 0)
+  std::string::basic_string[abi:ne200100](__p, a2, a3);
+  v14 = rtaid::Manager::SetNodeFormatWithDirectionOnDetector(a1, __p, v10, a5 == 1, a6, v7);
+  if (v17 < 0)
   {
-    operator delete(__p);
+    operator delete(__p[0]);
   }
 
-  return v6;
+  return v14;
 }
 
 void sub_24155A6B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1290,7 +1277,7 @@ void sub_24155A6B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t RealTimeAudioIssueDetectorUpdateReportingSessions(unint64_t a1, uint64_t a2, unint64_t a3)
+uint64_t RealTimeAudioIssueDetectorUpdateReportingSessions(unint64_t a1, uint64_t *a2, unint64_t a3)
 {
   memset(__src, 0, sizeof(__src));
   if (a2 && a3)
@@ -1366,7 +1353,7 @@ LABEL_8:
             v13 = v12;
           }
 
-          std::vector<long long>::__vallocate[abi:ne200100](v6 + 592, v13);
+          std::vector<long long>::__vallocate[abi:ne200100]((v6 + 592), v13);
         }
 
         std::vector<long long>::__throw_length_error[abi:ne200100]();
@@ -1556,7 +1543,7 @@ void sub_24155AAA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<long long>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<long long>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1572,8 +1559,9 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-uint64_t RealTimeAudioIssueDetectorAnalyzeBuffer(unint64_t a1, unsigned int a2, const AudioTimeStamp *a3, const AudioBufferList *a4, unsigned int a5)
+uint64_t RealTimeAudioIssueDetectorAnalyzeBuffer(unint64_t a1, uint64_t a2, const AudioTimeStamp *a3, const AudioBufferList *a4, unsigned int a5)
 {
+  v8 = a2;
   SingletonManagerInstance();
   v10 = 4294967291;
   if (a3 && a4)
@@ -1597,7 +1585,7 @@ uint64_t RealTimeAudioIssueDetectorAnalyzeBuffer(unint64_t a1, unsigned int a2, 
 
         if (v15)
         {
-          if (a2 != 49 || *v15 != 3 || (v16 = atomic_load(&unk_27E547FB4), (v16 & 1) == 0))
+          if (v8 != 49 || *v15 != 3 || (v16 = atomic_load(&unk_27E547FB4), (v16 & 1) == 0))
           {
             mNumberBuffers = a4->mNumberBuffers;
             if ((mNumberBuffers - 33) >= 0xFFFFFFE0)
@@ -1608,7 +1596,7 @@ uint64_t RealTimeAudioIssueDetectorAnalyzeBuffer(unint64_t a1, unsigned int a2, 
                 p_mData += 2;
                 if (!--mNumberBuffers)
                 {
-                  v19 = std::__hash_table<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>>>::find<unsigned int>((v15 + 8), a2);
+                  v19 = std::__hash_table<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>>>::find<unsigned int>((v15 + 8), v8);
                   if (!v19)
                   {
                     v10 = 4294967294;
@@ -1674,9 +1662,10 @@ void sub_24155AD04(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t RealTimeAudioIssueDetectorRemoveNode(unint64_t a1, unsigned int a2)
+uint64_t RealTimeAudioIssueDetectorRemoveNode(unint64_t a1, uint64_t a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v28 = *MEMORY[0x277D85DE8];
   SingletonManagerInstance();
   std::mutex::lock(&SingletonManagerInstance(void)::sInstance);
   v4 = std::__hash_table<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>>>::find<long long>(a1);
@@ -1704,7 +1693,7 @@ uint64_t RealTimeAudioIssueDetectorRemoveNode(unint64_t a1, unsigned int a2)
     goto LABEL_15;
   }
 
-  v7 = std::__hash_table<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>>>::find<unsigned int>((v6 + 8), a2);
+  v7 = std::__hash_table<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>>>::find<unsigned int>((v6 + 8), v2);
   if (!v7)
   {
     v12 = 4294967294;
@@ -1731,25 +1720,25 @@ uint64_t RealTimeAudioIssueDetectorRemoveNode(unint64_t a1, unsigned int a2)
       v11 = *v11;
     }
 
-    v15 = 136316674;
-    v16 = "Detector.cpp";
-    v17 = 1024;
-    v18 = 144;
-    v19 = 1040;
-    v20 = 15;
-    v21 = 2080;
-    v22 = "rtaid::Detector]";
-    v23 = 2048;
-    v24 = v6;
-    v25 = 2080;
-    v26 = v11;
-    v27 = 1024;
-    v28 = a2;
-    _os_log_impl(&dword_241557000, v9, OS_LOG_TYPE_DEFAULT, "[%s:%-5d %.*s:%p] Removing node %s with nodeID %d", &v15, 0x3Cu);
+    v14 = 136316674;
+    v15 = "Detector.cpp";
+    v16 = 1024;
+    v17 = 144;
+    v18 = 1040;
+    v19 = 15;
+    v20 = 2080;
+    v21 = "rtaid::Detector]";
+    v22 = 2048;
+    v23 = v6;
+    v24 = 2080;
+    v25 = v11;
+    v26 = 1024;
+    v27 = v2;
+    _os_log_impl(&dword_241557000, v9, OS_LOG_TYPE_DEFAULT, "[%s:%-5d %.*s:%p] Removing node %s with nodeID %d", &v14, 0x3Cu);
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>>>::remove(&v15, (v6 + 8), v8);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,void *>>>>::~unique_ptr[abi:ne200100](&v15);
+  std::__hash_table<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>>>::remove(&v14, (v6 + 8), v8);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,void *>>>>::~unique_ptr[abi:ne200100](&v14);
   v12 = 0;
   if (v5)
   {
@@ -1759,7 +1748,6 @@ LABEL_15:
 
 LABEL_16:
   std::mutex::unlock(&SingletonManagerInstance(void)::sInstance);
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -1808,10 +1796,18 @@ void std::__tree<rtaid::AnalyzerType>::destroy(void *a1)
   }
 }
 
-uint64_t std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(uint64_t result, unsigned int a2)
+uint64_t ___ZN5rtaid20ConfigurationManager23GetDefaultConfigurationEv_block_invoke()
 {
-  v2 = *(result + 8);
-  if (!v2)
+  v2 = 0;
+  std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(&rtaid::ConfigurationManager::GetDefaultConfiguration(void)::sDefaultConfig, 0, &v2);
+  v1 = 4;
+  return std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(&rtaid::ConfigurationManager::GetDefaultConfiguration(void)::sDefaultConfig, 4u, &v1);
+}
+
+uint64_t std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(uint64_t result, unsigned int a2, _DWORD *a3)
+{
+  v3 = *(result + 8);
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -1821,34 +1817,34 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = *(v2 + 28);
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 28);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
       return result;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
   }
 }
 
-uint64_t *std::__tree<rtaid::AnalyzerType>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<rtaid::AnalyzerType>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -1874,12 +1870,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -1893,22 +1889,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -1942,13 +1938,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -1992,7 +1988,7 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
 void rtaid::ConfigurationManager::DetermineConfiguration(rtaid::ConfigurationManager *this, rtaid::Detector *a2, char a3)
 {
-  v132 = *MEMORY[0x277D85DE8];
+  v131 = *MEMORY[0x277D85DE8];
   *(this + 117) = 0;
   *(this + 28) = 0;
   *(this + 7) = *(this + 6);
@@ -2004,7 +2000,7 @@ void rtaid::ConfigurationManager::DetermineConfiguration(rtaid::ConfigurationMan
   *v5 = 0;
   v6 = (this + 32);
   std::__tree<std::map<rtaid::AnalyzerType,unsigned int>>::destroy(*(this + 4));
-  v125 = this;
+  v123 = this;
   *(this + 3) = this + 32;
   j = this + 24;
   *v6 = 0;
@@ -2026,19 +2022,19 @@ void rtaid::ConfigurationManager::DetermineConfiguration(rtaid::ConfigurationMan
     dispatch_once(&rtaid::ConfigurationManager::GetDefaultConfiguration(void)::onceToken, &__block_literal_global);
   }
 
-  v124 = j;
-  if (v125 == &rtaid::ConfigurationManager::GetDefaultConfiguration(void)::sDefaultConfig)
+  v122 = j;
+  if (v123 == &rtaid::ConfigurationManager::GetDefaultConfiguration(void)::sDefaultConfig)
   {
     goto LABEL_94;
   }
 
   v9 = rtaid::ConfigurationManager::GetDefaultConfiguration(void)::sDefaultConfig;
-  i = v125;
-  if (*(v125 + 2))
+  i = v123;
+  if (*(v123 + 2))
   {
-    v11 = *v125;
-    v12 = *(v125 + 1);
-    *v125 = v5;
+    v11 = *v123;
+    v12 = *(v123 + 1);
+    *v123 = v5;
     *(v12 + 16) = 0;
     *v5 = 0;
     v5[1] = 0;
@@ -2100,7 +2096,7 @@ void rtaid::ConfigurationManager::DetermineConfiguration(rtaid::ConfigurationMan
           }
 
 LABEL_18:
-          std::__tree<rtaid::AnalyzerType>::__insert_node_at(v125, v19, v20, v15);
+          std::__tree<rtaid::AnalyzerType>::__insert_node_at(v123, v19, v20, v15);
           if (v14)
           {
             v14 = std::__tree<rtaid::AnalyzerType>::_DetachedTreeCache::__detach_next(v14);
@@ -2150,12 +2146,12 @@ LABEL_18:
       std::__tree<rtaid::AnalyzerType>::destroy(v13);
       if (!v14)
       {
-        i = v125;
+        i = v123;
         goto LABEL_37;
       }
 
       v23 = v14[2];
-      for (i = v125; v23; v23 = v23[2])
+      for (i = v123; v23; v23 = v23[2])
       {
         v14 = v23;
       }
@@ -2196,12 +2192,12 @@ LABEL_37:
       size = v25;
     }
 
-    v127.__r_.__value_.__r.__words[0] = j;
-    v127.__r_.__value_.__l.__size_ = size;
-    v127.__r_.__value_.__r.__words[2] = size;
+    v126.__r_.__value_.__r.__words[0] = j;
+    v126.__r_.__value_.__l.__size_ = size;
+    v126.__r_.__value_.__r.__words[2] = size;
     if (size)
     {
-      v127.__r_.__value_.__l.__size_ = std::__tree<rtaid::AnalyzerType>::_DetachedTreeCache::__detach_next(size);
+      v126.__r_.__value_.__l.__size_ = std::__tree<rtaid::AnalyzerType>::_DetachedTreeCache::__detach_next(size);
       if (v24 == &unk_27E548020)
       {
         v44 = &unk_27E548020;
@@ -2332,7 +2328,7 @@ LABEL_59:
                 if (v33)
                 {
                   v41 = v33[2];
-                  for (j = v124; v41; v41 = v41[2])
+                  for (j = v122; v41; v41 = v41[2])
                   {
                     v33 = v41;
                   }
@@ -2342,14 +2338,14 @@ LABEL_59:
 
                 else
                 {
-                  j = v124;
+                  j = v122;
                 }
               }
 
               else
               {
                 std::__tree<rtaid::AnalyzerType>::destroy(0);
-                j = v124;
+                j = v122;
               }
             }
 
@@ -2359,13 +2355,13 @@ LABEL_59:
             }
           }
 
-          leaf_high = std::__tree<std::map<rtaid::AnalyzerType,unsigned int>>::__find_leaf_high(j, &v130, (size + 32));
-          std::__tree<rtaid::AnalyzerType>::__insert_node_at(j, v130, leaf_high, size);
-          size = v127.__r_.__value_.__l.__size_;
-          v127.__r_.__value_.__r.__words[2] = v127.__r_.__value_.__l.__size_;
-          if (v127.__r_.__value_.__l.__size_)
+          leaf_high = std::__tree<std::map<rtaid::AnalyzerType,unsigned int>>::__find_leaf_high(j, &v129, (size + 32));
+          std::__tree<rtaid::AnalyzerType>::__insert_node_at(j, v129, leaf_high, size);
+          size = v126.__r_.__value_.__l.__size_;
+          v126.__r_.__value_.__r.__words[2] = v126.__r_.__value_.__l.__size_;
+          if (v126.__r_.__value_.__l.__size_)
           {
-            v127.__r_.__value_.__l.__size_ = std::__tree<rtaid::AnalyzerType>::_DetachedTreeCache::__detach_next(v127.__r_.__value_.__l.__size_);
+            v126.__r_.__value_.__l.__size_ = std::__tree<rtaid::AnalyzerType>::_DetachedTreeCache::__detach_next(v126.__r_.__value_.__l.__size_);
           }
 
           v43 = *(v24 + 8);
@@ -2409,26 +2405,26 @@ LABEL_59:
       v44 = v24;
     }
 
-    IsSilenceAnalyzerBypassedThroughDefaults = std::__tree<std::map<rtaid::AnalyzerType,unsigned int>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](&v127);
+    IsSilenceAnalyzerBypassedThroughDefaults = std::__tree<std::map<rtaid::AnalyzerType,unsigned int>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](&v126);
     v24 = v44;
   }
 
   a3 = __p;
   if (v24 != &unk_27E548020)
   {
-    std::__tree<std::map<rtaid::AnalyzerType,unsigned int>>::__construct_node<std::map<rtaid::AnalyzerType,unsigned int> const&>();
+    std::__tree<std::map<rtaid::AnalyzerType,unsigned int>>::__construct_node<std::map<rtaid::AnalyzerType,unsigned int> const&>(&v126, j, (v24 + 32));
   }
 
 LABEL_94:
   v45 = *a2;
-  v46 = v125;
+  v46 = v123;
   if ((*a2 - 3) > 1 || (a3 & 1) == 0)
   {
     v47 = *(a2 + 74);
     v48 = *(a2 + 75);
     if (v47 == v48)
     {
-      v52 = *(v125 + 10);
+      v52 = *(v123 + 10);
     }
 
     else
@@ -2478,11 +2474,11 @@ LABEL_94:
           *(2 * v55) = v49;
           v52 = 2 * v55 + 2;
           memcpy(0, v53, v54);
-          IsSilenceAnalyzerBypassedThroughDefaults = *(v125 + 9);
-          *(v125 + 9) = 0;
-          *(v125 + 10) = v52;
-          *(v125 + 11) = 0;
-          v46 = v125;
+          IsSilenceAnalyzerBypassedThroughDefaults = *(v123 + 9);
+          *(v123 + 9) = 0;
+          *(v123 + 10) = v52;
+          *(v123 + 11) = 0;
+          v46 = v123;
           if (IsSilenceAnalyzerBypassedThroughDefaults)
           {
             operator delete(IsSilenceAnalyzerBypassedThroughDefaults);
@@ -2562,7 +2558,6 @@ LABEL_133:
       goto LABEL_226;
     }
 
-    v68 = *(v46 + 118);
     if (*(v46 + 114) != 1)
     {
       if ((*(v46 + 118) & 1) == 0)
@@ -2582,13 +2577,13 @@ LABEL_133:
       goto LABEL_226;
     }
 
-    rtaid::Detector::GetNodeIDs(&v130, a2);
-    v69 = v131;
-    __pa = v130;
-    if (v130 == v131)
+    rtaid::Detector::GetNodeIDs(&v129, a2);
+    v68 = v130;
+    __pa = v129;
+    if (v129 == v130)
     {
 LABEL_210:
-      v46 = v125;
+      v46 = v123;
       IsSilenceAnalyzerBypassedThroughDefaults = __pa;
       if (__pa)
       {
@@ -2598,77 +2593,77 @@ LABEL_210:
       goto LABEL_226;
     }
 
-    v70 = v130;
+    v69 = v129;
     while (1)
     {
-      v71 = *v70;
-      v72 = *(a2 + 1);
-      v73 = *(a2 + 2);
-      v74 = std::__hash_table<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>>>::find<unsigned int>(v72, v73, *v70);
-      if (v74)
+      v70 = *v69;
+      v71 = *(a2 + 1);
+      v72 = *(a2 + 2);
+      v73 = std::__hash_table<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>>>::find<unsigned int>(v71, v72, *v69);
+      if (v73)
       {
-        v75 = *(v74[3] + 188) == 1;
+        v74 = *(v73[3] + 188) == 1;
       }
 
       else
       {
-        v75 = 0;
+        v74 = 0;
       }
 
-      v76 = std::__hash_table<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>>>::find<unsigned int>(v72, v73, v71);
-      if (v76)
+      v75 = std::__hash_table<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>>>::find<unsigned int>(v71, v72, v70);
+      if (v75)
       {
-        v77 = v76[3];
-        if (*(v77 + 31) < 0)
+        v76 = v75[3];
+        if (*(v76 + 31) < 0)
         {
-          std::string::__init_copy_ctor_external(&v127, *(v77 + 8), *(v77 + 16));
+          std::string::__init_copy_ctor_external(&v126, *(v76 + 8), *(v76 + 16));
         }
 
         else
         {
-          v78 = *(v77 + 8);
-          v127.__r_.__value_.__r.__words[2] = *(v77 + 24);
-          *&v127.__r_.__value_.__l.__data_ = v78;
+          v77 = *(v76 + 8);
+          v126.__r_.__value_.__r.__words[2] = *(v76 + 24);
+          *&v126.__r_.__value_.__l.__data_ = v77;
         }
 
-        v128 = 1;
-        v79 = HIBYTE(v127.__r_.__value_.__r.__words[2]);
-        if ((v127.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v127 = 1;
+        v78 = HIBYTE(v126.__r_.__value_.__r.__words[2]);
+        if ((v126.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v80 = &v127;
-        }
-
-        else
-        {
-          v80 = v127.__r_.__value_.__r.__words[0];
-        }
-
-        if ((v127.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v81 = SHIBYTE(v127.__r_.__value_.__r.__words[2]);
+          v79 = &v126;
         }
 
         else
         {
-          v81 = v127.__r_.__value_.__l.__size_;
+          v79 = v126.__r_.__value_.__r.__words[0];
         }
 
-        if (v81 >= 8)
+        if ((v126.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v82 = v80 + v81;
-          v83 = v80;
+          v80 = SHIBYTE(v126.__r_.__value_.__r.__words[2]);
+        }
+
+        else
+        {
+          v80 = v126.__r_.__value_.__l.__size_;
+        }
+
+        if (v80 >= 8)
+        {
+          v81 = v79 + v80;
+          v82 = v79;
           do
           {
-            v84 = memchr(v83, 66, v81 - 7);
-            if (!v84)
+            v83 = memchr(v82, 66, v80 - 7);
+            if (!v83)
             {
               break;
             }
 
-            if (*v84 == 0x646E616265736142)
+            if (*v83 == 0x646E616265736142)
             {
-              v85 = v84 != v82 && v84 - v80 != -1;
-              if (v75 != v85)
+              v84 = v83 != v81 && v83 - v79 != -1;
+              if (v74 != v84)
               {
                 goto LABEL_173;
               }
@@ -2676,19 +2671,19 @@ LABEL_210:
               goto LABEL_207;
             }
 
-            v83 = (v84 + 1);
-            v81 = v82 - v83;
+            v82 = (v83 + 1);
+            v80 = v81 - v82;
           }
 
-          while (v82 - v83 > 7);
+          while (v81 - v82 > 7);
         }
 
-        if ((v75 & 1) == 0)
+        if ((v74 & 1) == 0)
         {
 LABEL_207:
-          if (v79 < 0)
+          if (v78 < 0)
           {
-            operator delete(v127.__r_.__value_.__l.__data_);
+            operator delete(v126.__r_.__value_.__l.__data_);
           }
 
           goto LABEL_209;
@@ -2697,137 +2692,137 @@ LABEL_207:
 
       else
       {
-        v127.__r_.__value_.__s.__data_[0] = 0;
-        v128 = 0;
-        if ((v75 & 1) == 0)
+        v126.__r_.__value_.__s.__data_[0] = 0;
+        v127 = 0;
+        if ((v74 & 1) == 0)
         {
           goto LABEL_209;
         }
       }
 
-      v85 = 0;
+      v84 = 0;
 LABEL_173:
-      v129[0] = 5;
-      v129[1] = *v70;
-      std::map<rtaid::AnalyzerType,unsigned int>::map[abi:ne200100](v126, v129, 1);
-      std::__tree<std::map<rtaid::AnalyzerType,unsigned int>>::__emplace_unique_key_args<std::map<rtaid::AnalyzerType,unsigned int>,std::map<rtaid::AnalyzerType,unsigned int> const&>(v124, v126);
-      v87 = *(v125 + 7);
-      v86 = *(v125 + 8);
-      if ((v85 | v75 ^ 1))
+      v128[0] = 5;
+      v128[1] = *v69;
+      std::map<rtaid::AnalyzerType,unsigned int>::map[abi:ne200100](v124, v128, 1);
+      std::__tree<std::map<rtaid::AnalyzerType,unsigned int>>::__emplace_unique_key_args<std::map<rtaid::AnalyzerType,unsigned int>,std::map<rtaid::AnalyzerType,unsigned int> const&>(v122, v124, v124);
+      v86 = *(v123 + 7);
+      v85 = *(v123 + 8);
+      if ((v84 | v74 ^ 1))
       {
-        if (v87 < v86)
+        if (v86 < v85)
         {
-          *v87 = 1;
-          v88 = v87 + 4;
+          *v86 = 1;
+          v87 = v86 + 4;
           goto LABEL_206;
         }
 
-        v89 = *(v125 + 6);
-        v90 = v87 - v89;
-        v91 = (v87 - v89) >> 2;
-        v92 = v91 + 1;
-        if ((v91 + 1) >> 62)
+        v88 = *(v123 + 6);
+        v89 = v86 - v88;
+        v90 = (v86 - v88) >> 2;
+        v91 = v90 + 1;
+        if ((v90 + 1) >> 62)
         {
           std::vector<long long>::__throw_length_error[abi:ne200100]();
         }
 
-        v93 = v86 - v89;
-        if (v93 >> 1 > v92)
+        v92 = v85 - v88;
+        if (v92 >> 1 > v91)
         {
-          v92 = v93 >> 1;
+          v91 = v92 >> 1;
         }
 
-        if (v93 >= 0x7FFFFFFFFFFFFFFCLL)
+        if (v92 >= 0x7FFFFFFFFFFFFFFCLL)
         {
-          v94 = 0x3FFFFFFFFFFFFFFFLL;
+          v93 = 0x3FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v94 = v92;
+          v93 = v91;
         }
 
-        if (v94)
+        if (v93)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<rtaid::TelephonyResetDetector>>(v94);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<rtaid::TelephonyResetDetector>>(v93);
         }
 
-        v100 = v91;
-        v101 = v125;
-        v102 = (4 * v91);
-        v103 = &v102[-v100];
-        *v102 = 1;
-        v88 = v102 + 1;
+        v99 = v90;
+        v100 = v123;
+        v101 = (4 * v90);
+        v102 = &v101[-v99];
+        *v101 = 1;
+        v87 = v101 + 1;
       }
 
       else
       {
-        if (v87 < v86)
+        if (v86 < v85)
         {
-          *v87 = 2;
-          v88 = v87 + 4;
+          *v86 = 2;
+          v87 = v86 + 4;
           goto LABEL_206;
         }
 
-        v89 = *(v125 + 6);
-        v90 = v87 - v89;
-        v95 = (v87 - v89) >> 2;
-        v96 = v95 + 1;
-        if ((v95 + 1) >> 62)
+        v88 = *(v123 + 6);
+        v89 = v86 - v88;
+        v94 = (v86 - v88) >> 2;
+        v95 = v94 + 1;
+        if ((v94 + 1) >> 62)
         {
           std::vector<long long>::__throw_length_error[abi:ne200100]();
         }
 
-        v97 = v86 - v89;
-        if (v97 >> 1 > v96)
+        v96 = v85 - v88;
+        if (v96 >> 1 > v95)
         {
-          v96 = v97 >> 1;
+          v95 = v96 >> 1;
         }
 
-        if (v97 >= 0x7FFFFFFFFFFFFFFCLL)
+        if (v96 >= 0x7FFFFFFFFFFFFFFCLL)
         {
-          v98 = 0x3FFFFFFFFFFFFFFFLL;
+          v97 = 0x3FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v98 = v96;
+          v97 = v95;
         }
 
-        if (v98)
+        if (v97)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<rtaid::TelephonyResetDetector>>(v98);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<rtaid::TelephonyResetDetector>>(v97);
         }
 
-        v104 = v95;
-        v101 = v125;
-        v105 = (4 * v95);
-        v103 = &v105[-v104];
-        *v105 = 2;
-        v88 = v105 + 1;
+        v103 = v94;
+        v100 = v123;
+        v104 = (4 * v94);
+        v102 = &v104[-v103];
+        *v104 = 2;
+        v87 = v104 + 1;
       }
 
-      memcpy(v103, v89, v90);
-      v106 = *(v101 + 6);
-      *(v101 + 6) = v103;
-      *(v101 + 7) = v88;
-      *(v101 + 8) = 0;
-      if (v106)
+      memcpy(v102, v88, v89);
+      v105 = *(v100 + 6);
+      *(v100 + 6) = v102;
+      *(v100 + 7) = v87;
+      *(v100 + 8) = 0;
+      if (v105)
       {
-        operator delete(v106);
+        operator delete(v105);
       }
 
 LABEL_206:
-      *(v125 + 7) = v88;
-      std::__tree<rtaid::AnalyzerType>::destroy(v126[1]);
-      v79 = HIBYTE(v127.__r_.__value_.__r.__words[2]);
-      if (v128)
+      *(v123 + 7) = v87;
+      std::__tree<rtaid::AnalyzerType>::destroy(v125);
+      v78 = HIBYTE(v126.__r_.__value_.__r.__words[2]);
+      if (v127)
       {
         goto LABEL_207;
       }
 
 LABEL_209:
-      if (++v70 == v69)
+      if (++v69 == v68)
       {
         goto LABEL_210;
       }
@@ -2843,56 +2838,56 @@ LABEL_209:
   {
     if (*(v46 + 114) == 1 && (*(v46 + 118) & 1) == 0)
     {
-      v130 = 0x300000005;
-      std::map<rtaid::AnalyzerType,unsigned int>::map[abi:ne200100](&v127, &v130, 1);
-      std::__tree<std::map<rtaid::AnalyzerType,unsigned int>>::__emplace_unique_key_args<std::map<rtaid::AnalyzerType,unsigned int>,std::map<rtaid::AnalyzerType,unsigned int> const&>(v124, &v127);
-      v66 = *(v125 + 7);
-      v65 = *(v125 + 8);
+      v129 = 0x300000005;
+      std::map<rtaid::AnalyzerType,unsigned int>::map[abi:ne200100](&v126, &v129, 1);
+      std::__tree<std::map<rtaid::AnalyzerType,unsigned int>>::__emplace_unique_key_args<std::map<rtaid::AnalyzerType,unsigned int>,std::map<rtaid::AnalyzerType,unsigned int> const&>(v122, &v126, &v126);
+      v66 = *(v123 + 7);
+      v65 = *(v123 + 8);
       if (v66 >= v65)
       {
-        v107 = *(v125 + 6);
-        v108 = v66 - v107;
-        v109 = (v66 - v107) >> 2;
-        v110 = v109 + 1;
-        if ((v109 + 1) >> 62)
+        v106 = *(v123 + 6);
+        v107 = v66 - v106;
+        v108 = (v66 - v106) >> 2;
+        v109 = v108 + 1;
+        if ((v108 + 1) >> 62)
         {
           std::vector<long long>::__throw_length_error[abi:ne200100]();
         }
 
-        v111 = v65 - v107;
-        if (v111 >> 1 > v110)
+        v110 = v65 - v106;
+        if (v110 >> 1 > v109)
         {
-          v110 = v111 >> 1;
+          v109 = v110 >> 1;
         }
 
-        if (v111 >= 0x7FFFFFFFFFFFFFFCLL)
+        if (v110 >= 0x7FFFFFFFFFFFFFFCLL)
         {
-          v112 = 0x3FFFFFFFFFFFFFFFLL;
+          v111 = 0x3FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v112 = v110;
+          v111 = v109;
         }
 
-        if (v112)
+        if (v111)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<rtaid::TelephonyResetDetector>>(v112);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<rtaid::TelephonyResetDetector>>(v111);
         }
 
-        v113 = v109;
-        v114 = (4 * v109);
-        v115 = &v114[-v113];
-        *v114 = 0;
-        v67 = v114 + 1;
-        memcpy(v115, v107, v108);
-        v116 = *(v125 + 6);
-        *(v125 + 6) = v115;
-        *(v125 + 7) = v67;
-        *(v125 + 8) = 0;
-        if (v116)
+        v112 = v108;
+        v113 = (4 * v108);
+        v114 = &v113[-v112];
+        *v113 = 0;
+        v67 = v113 + 1;
+        memcpy(v114, v106, v107);
+        v115 = *(v123 + 6);
+        *(v123 + 6) = v114;
+        *(v123 + 7) = v67;
+        *(v123 + 8) = 0;
+        if (v115)
         {
-          operator delete(v116);
+          operator delete(v115);
         }
       }
 
@@ -2902,40 +2897,40 @@ LABEL_209:
         v67 = v66 + 4;
       }
 
-      *(v125 + 7) = v67;
-      v46 = v125;
-      std::__tree<rtaid::AnalyzerType>::destroy(v127.__r_.__value_.__l.__size_);
+      *(v123 + 7) = v67;
+      v46 = v123;
+      std::__tree<rtaid::AnalyzerType>::destroy(v126.__r_.__value_.__l.__size_);
     }
   }
 
   else if (v45 == 8 && (*(v46 + 118) & 1) == 0)
   {
 LABEL_138:
-    LODWORD(v127.__r_.__value_.__l.__data_) = 6;
-    IsSilenceAnalyzerBypassedThroughDefaults = std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(v46, 6u);
-    v46 = v125;
+    LODWORD(v126.__r_.__value_.__l.__data_) = 6;
+    IsSilenceAnalyzerBypassedThroughDefaults = std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(v46, 6u, &v126);
+    v46 = v123;
   }
 
 LABEL_226:
   if (*(v46 + 114) == 1)
   {
-    v117 = v46;
+    v116 = v46;
     if ((*(v46 + 118) & 1) == 0)
     {
       IsSilenceAnalyzerBypassedThroughDefaults = rtaid::ConfigurationManager::IsSilenceAnalyzerBypassedThroughDefaults(IsSilenceAnalyzerBypassedThroughDefaults);
       if ((IsSilenceAnalyzerBypassedThroughDefaults & 1) == 0)
       {
-        LODWORD(v127.__r_.__value_.__l.__data_) = 1;
-        IsSilenceAnalyzerBypassedThroughDefaults = std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(v125, 1u);
+        LODWORD(v126.__r_.__value_.__l.__data_) = 1;
+        IsSilenceAnalyzerBypassedThroughDefaults = std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(v123, 1u, &v126);
       }
 
-      v117 = v125;
+      v116 = v123;
       if (((v45 < 9) & (0x10Cu >> v45)) != 0)
       {
-        LODWORD(v127.__r_.__value_.__l.__data_) = 6;
-        IsSilenceAnalyzerBypassedThroughDefaults = std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(v125, 6u);
+        LODWORD(v126.__r_.__value_.__l.__data_) = 6;
+        IsSilenceAnalyzerBypassedThroughDefaults = std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(v123, 6u, &v126);
 LABEL_238:
-        v117 = v125;
+        v116 = v123;
       }
     }
   }
@@ -2944,7 +2939,7 @@ LABEL_238:
   {
     if (*(v46 + 113) != 1)
     {
-      v117 = v46;
+      v116 = v46;
       if (*(v46 + 112) != 1)
       {
         goto LABEL_239;
@@ -2955,65 +2950,63 @@ LABEL_238:
     }
 
     IsSilenceAnalyzerBypassedThroughDefaults = rtaid::ConfigurationManager::IsSilenceAnalyzerBypassedThroughDefaults(IsSilenceAnalyzerBypassedThroughDefaults);
-    v117 = v125;
-    if ((IsSilenceAnalyzerBypassedThroughDefaults & 1) == 0 && (*(v125 + 118) & 1) == 0)
+    v116 = v123;
+    if ((IsSilenceAnalyzerBypassedThroughDefaults & 1) == 0 && (*(v123 + 118) & 1) == 0)
     {
-      LODWORD(v127.__r_.__value_.__l.__data_) = 1;
-      std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(v125, 1u);
-      LODWORD(v127.__r_.__value_.__l.__data_) = 6;
-      IsSilenceAnalyzerBypassedThroughDefaults = std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(v125, 6u);
+      LODWORD(v126.__r_.__value_.__l.__data_) = 1;
+      std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(v123, 1u, &v126);
+      LODWORD(v126.__r_.__value_.__l.__data_) = 6;
+      IsSilenceAnalyzerBypassedThroughDefaults = std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(v123, 6u, &v126);
       goto LABEL_238;
     }
   }
 
 LABEL_239:
-  v118 = *(v117 + 115);
-  v119 = v117;
-  if (v118 == 1)
+  v117 = *(v116 + 115);
+  v118 = v116;
+  if (v117 == 1)
   {
     if ((rtaid::ConfigurationManager::IsSilenceAnalyzerBypassedThroughDefaults(IsSilenceAnalyzerBypassedThroughDefaults) & 1) == 0)
     {
-      LODWORD(v127.__r_.__value_.__l.__data_) = 1;
-      std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(v125, 1u);
-      LODWORD(v127.__r_.__value_.__l.__data_) = 6;
-      std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(v125, 6u);
+      LODWORD(v126.__r_.__value_.__l.__data_) = 1;
+      std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(v123, 1u, &v126);
+      LODWORD(v126.__r_.__value_.__l.__data_) = 6;
+      std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(v123, 6u, &v126);
     }
 
-    v119 = v125;
-    v118 = *(v125 + 115);
+    v118 = v123;
+    v117 = *(v123 + 115);
   }
 
-  if (v45 == 2 && v118 != *(v119 + 116))
+  if (v45 == 2 && v117 != *(v118 + 116))
   {
-    *(v119 + 116) = v118;
-    *(v119 + 117) = 1;
+    *(v118 + 116) = v117;
+    *(v118 + 117) = 1;
   }
-
-  v120 = *MEMORY[0x277D85DE8];
 }
 
 void rtaid::ConfigurationManager::addSiriConfiguration(rtaid::ConfigurationManager *this, const rtaid::Detector *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ((rtaid::ConfigurationManager::IsSilenceAnalyzerBypassedThroughDefaults(this) & 1) == 0)
   {
-    rtaid::Detector::GetNodeIDs(&v11, a2);
-    v4 = v11;
-    v5 = v12;
-    if (v11 != v12)
+    rtaid::Detector::GetNodeIDs(&v10, a2);
+    v4 = v10;
+    v5 = v11;
+    if (v10 != v11)
     {
-      v6 = v11;
+      v6 = v10;
       do
       {
         v7 = *v6;
         v8 = std::__hash_table<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>>>::find<unsigned int>(*(a2 + 1), *(a2 + 2), *v6);
         if (!v8 || !*(v8[3] + 188))
         {
-          v13[0] = 2;
-          v13[1] = v7;
-          std::map<rtaid::AnalyzerType,unsigned int>::map[abi:ne200100](v10, v13, 1);
-          std::__tree<std::map<rtaid::AnalyzerType,unsigned int>>::__emplace_unique_key_args<std::map<rtaid::AnalyzerType,unsigned int>,std::map<rtaid::AnalyzerType,unsigned int> const&>(this + 24, v10);
-          std::__tree<rtaid::AnalyzerType>::destroy(v10[1]);
+          v12[0] = 2;
+          v12[1] = v7;
+          std::map<rtaid::AnalyzerType,unsigned int>::map[abi:ne200100](v9, v12, 1);
+          std::__tree<std::map<rtaid::AnalyzerType,unsigned int>>::__emplace_unique_key_args<std::map<rtaid::AnalyzerType,unsigned int>,std::map<rtaid::AnalyzerType,unsigned int> const&>(this + 24, v9, v9);
+          std::__tree<rtaid::AnalyzerType>::destroy(v9[1]);
         }
 
         ++v6;
@@ -3027,13 +3020,11 @@ void rtaid::ConfigurationManager::addSiriConfiguration(rtaid::ConfigurationManag
       operator delete(v4);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t rtaid::ConfigurationManager::IsSilenceAnalyzerBypassedThroughDefaults(rtaid::ConfigurationManager *this)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   {
     rtaid::ConfigurationManager::IsSilenceAnalyzerBypassedThroughDefaults(void)::disableSilenceDetection = CFPreferencesGetAppBooleanValue(@"DisableAudio", @"com.apple.audio.virtualaudio", 0) != 0;
   }
@@ -3049,13 +3040,13 @@ uint64_t rtaid::ConfigurationManager::IsSilenceAnalyzerBypassedThroughDefaults(r
     v3 = rtaid::ConfigurationManager::IsSilenceAnalyzerBypassedThroughDefaults(void)::disableSilenceDetection;
     if (v2)
     {
-      v6 = 136315650;
-      v7 = "ConfigurationManager.cpp";
-      v8 = 1024;
-      v9 = 408;
-      v10 = 1024;
-      v11 = rtaid::ConfigurationManager::IsSilenceAnalyzerBypassedThroughDefaults(void)::disableSilenceDetection;
-      _os_log_impl(&dword_241557000, v1, OS_LOG_TYPE_DEFAULT, "%s:%-5d Defaults write for DisableAudio set to %d - silence detection will be bypassed", &v6, 0x18u);
+      v5 = 136315650;
+      v6 = "ConfigurationManager.cpp";
+      v7 = 1024;
+      v8 = 408;
+      v9 = 1024;
+      v10 = rtaid::ConfigurationManager::IsSilenceAnalyzerBypassedThroughDefaults(void)::disableSilenceDetection;
+      _os_log_impl(&dword_241557000, v1, OS_LOG_TYPE_DEFAULT, "%s:%-5d Defaults write for DisableAudio set to %d - silence detection will be bypassed", &v5, 0x18u);
       v3 = rtaid::ConfigurationManager::IsSilenceAnalyzerBypassedThroughDefaults(void)::disableSilenceDetection;
     }
   }
@@ -3065,22 +3056,21 @@ uint64_t rtaid::ConfigurationManager::IsSilenceAnalyzerBypassedThroughDefaults(r
     v3 = 0;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3 & 1;
 }
 
-void *std::map<rtaid::AnalyzerType,unsigned int>::map[abi:ne200100](void *a1, unsigned int *a2, uint64_t a3)
+uint64_t **std::map<rtaid::AnalyzerType,unsigned int>::map[abi:ne200100](uint64_t **a1, unsigned int *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 8 * a3;
     do
     {
-      std::__tree<std::__value_type<rtaid::AnalyzerType,unsigned int>,std::__map_value_compare<rtaid::AnalyzerType,std::__value_type<rtaid::AnalyzerType,unsigned int>,std::less<rtaid::AnalyzerType>,true>,std::allocator<std::__value_type<rtaid::AnalyzerType,unsigned int>>>::__emplace_hint_unique_key_args<rtaid::AnalyzerType,std::pair<rtaid::AnalyzerType const,unsigned int> const&>(a1, v4, *a2);
+      std::__tree<std::__value_type<rtaid::AnalyzerType,unsigned int>,std::__map_value_compare<rtaid::AnalyzerType,std::__value_type<rtaid::AnalyzerType,unsigned int>,std::less<rtaid::AnalyzerType>,true>,std::allocator<std::__value_type<rtaid::AnalyzerType,unsigned int>>>::__emplace_hint_unique_key_args<rtaid::AnalyzerType,std::pair<rtaid::AnalyzerType const,unsigned int> const&>(a1, v4, *a2, a2);
       a2 += 2;
       v6 -= 8;
     }
@@ -3091,43 +3081,43 @@ void *std::map<rtaid::AnalyzerType,unsigned int>::map[abi:ne200100](void *a1, un
   return a1;
 }
 
-uint64_t std::__tree<std::map<rtaid::AnalyzerType,unsigned int>>::__emplace_unique_key_args<std::map<rtaid::AnalyzerType,unsigned int>,std::map<rtaid::AnalyzerType,unsigned int> const&>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::map<rtaid::AnalyzerType,unsigned int>>::__emplace_unique_key_args<std::map<rtaid::AnalyzerType,unsigned int>,std::map<rtaid::AnalyzerType,unsigned int> const&>(uint64_t a1, uint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v5 = *(a1 + 8);
+  if (!v5)
   {
 LABEL_8:
-    std::__tree<std::map<rtaid::AnalyzerType,unsigned int>>::__construct_node<std::map<rtaid::AnalyzerType,unsigned int> const&>();
+    std::__tree<std::map<rtaid::AnalyzerType,unsigned int>>::__construct_node<std::map<rtaid::AnalyzerType,unsigned int> const&>(v11, a1, a3);
   }
 
-  v3 = a2 + 1;
-  v4 = *a2;
+  v6 = a2 + 1;
+  v7 = *a2;
   while (1)
   {
     while (1)
     {
-      v5 = v2;
-      v6 = v2[4];
-      if ((_ZNSt3__145__lexicographical_compare_three_way_slow_pathB8ne200100INS_20__map_const_iteratorINS_21__tree_const_iteratorINS_12__value_typeIN5rtaid12AnalyzerTypeEjEEPNS_11__tree_nodeIS6_PvEElEEEESC_NS_17__synth_three_wayMUlTyTyRKT_RKT0_E_EEEDTclfp3_defp_defp1_EESD_SD_SG_SG_RT1_(v4, v3, v6, v2 + 5) & 0x80) == 0)
+      v8 = v5;
+      v9 = v5[4];
+      if ((_ZNSt3__145__lexicographical_compare_three_way_slow_pathB8ne200100INS_20__map_const_iteratorINS_21__tree_const_iteratorINS_12__value_typeIN5rtaid12AnalyzerTypeEjEEPNS_11__tree_nodeIS6_PvEElEEEESC_NS_17__synth_three_wayMUlTyTyRKT_RKT0_E_EEEDTclfp3_defp_defp1_EESD_SD_SG_SG_RT1_(v7, v6, v9, v5 + 5) & 0x80) == 0)
       {
         break;
       }
 
-      v2 = *v5;
-      if (!*v5)
+      v5 = *v8;
+      if (!*v8)
       {
         goto LABEL_8;
       }
     }
 
-    result = _ZNSt3__145__lexicographical_compare_three_way_slow_pathB8ne200100INS_20__map_const_iteratorINS_21__tree_const_iteratorINS_12__value_typeIN5rtaid12AnalyzerTypeEjEEPNS_11__tree_nodeIS6_PvEElEEEESC_NS_17__synth_three_wayMUlTyTyRKT_RKT0_E_EEEDTclfp3_defp_defp1_EESD_SD_SG_SG_RT1_(v6, v5 + 5, v4, v3);
+    result = _ZNSt3__145__lexicographical_compare_three_way_slow_pathB8ne200100INS_20__map_const_iteratorINS_21__tree_const_iteratorINS_12__value_typeIN5rtaid12AnalyzerTypeEjEEPNS_11__tree_nodeIS6_PvEElEEEESC_NS_17__synth_three_wayMUlTyTyRKT_RKT0_E_EEEDTclfp3_defp_defp1_EESD_SD_SG_SG_RT1_(v9, v8 + 5, v7, v6);
     if ((result & 0x80) == 0)
     {
       return result;
     }
 
-    v2 = v5[1];
-    if (!v2)
+    v5 = v8[1];
+    if (!v5)
     {
       goto LABEL_8;
     }
@@ -3167,160 +3157,160 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::map<rtaid:
   operator delete(a2);
 }
 
-void *std::__tree<std::__value_type<rtaid::AnalyzerType,unsigned int>,std::__map_value_compare<rtaid::AnalyzerType,std::__value_type<rtaid::AnalyzerType,unsigned int>,std::less<rtaid::AnalyzerType>,true>,std::allocator<std::__value_type<rtaid::AnalyzerType,unsigned int>>>::__emplace_hint_unique_key_args<rtaid::AnalyzerType,std::pair<rtaid::AnalyzerType const,unsigned int> const&>(void *result, uint64_t *a2, unsigned int a3)
+uint64_t **std::__tree<std::__value_type<rtaid::AnalyzerType,unsigned int>,std::__map_value_compare<rtaid::AnalyzerType,std::__value_type<rtaid::AnalyzerType,unsigned int>,std::less<rtaid::AnalyzerType>,true>,std::allocator<std::__value_type<rtaid::AnalyzerType,unsigned int>>>::__emplace_hint_unique_key_args<rtaid::AnalyzerType,std::pair<rtaid::AnalyzerType const,unsigned int> const&>(uint64_t **result, uint64_t *a2, unsigned int a3, void *a4)
 {
-  v3 = result + 1;
-  if (result + 1 == a2 || (v4 = *(a2 + 7), v4 > a3))
+  v4 = (result + 1);
+  if (result + 1 == a2 || (v5 = *(a2 + 7), v5 > a3))
   {
-    v5 = *a2;
+    v6 = *a2;
     if (*result == a2)
     {
-      v7 = a2;
+      v8 = a2;
 LABEL_16:
-      if (v5)
+      if (v6)
       {
-        v8 = v7 + 1;
+        v9 = v8 + 1;
       }
 
       else
       {
-        v8 = a2;
+        v9 = a2;
       }
 
       goto LABEL_19;
     }
 
-    if (v5)
+    if (v6)
     {
-      v6 = *a2;
+      v7 = *a2;
       do
       {
-        v7 = v6;
-        v6 = v6[1];
+        v8 = v7;
+        v7 = v7[1];
       }
 
-      while (v6);
+      while (v7);
     }
 
     else
     {
-      v11 = a2;
+      v12 = a2;
       do
       {
-        v7 = v11[2];
-        v12 = *v7 == v11;
-        v11 = v7;
+        v8 = v12[2];
+        v13 = *v8 == v12;
+        v12 = v8;
       }
 
-      while (v12);
+      while (v13);
     }
 
-    if (*(v7 + 7) < a3)
+    if (*(v8 + 7) < a3)
     {
       goto LABEL_16;
     }
 
-    v13 = *v3;
-    if (*v3)
+    v14 = *v4;
+    if (*v4)
     {
       while (1)
       {
         while (1)
         {
-          v14 = v13;
-          v15 = *(v13 + 28);
-          if (v15 <= a3)
+          v15 = v14;
+          v16 = *(v14 + 28);
+          if (v16 <= a3)
           {
             break;
           }
 
-          v13 = *v14;
-          v3 = v14;
-          if (!*v14)
+          v14 = *v15;
+          v4 = v15;
+          if (!*v15)
           {
             goto LABEL_38;
           }
         }
 
-        if (v15 >= a3)
+        if (v16 >= a3)
         {
           break;
         }
 
-        v3 = v14 + 1;
-        v13 = v14[1];
-        if (!v13)
+        v4 = v15 + 1;
+        v14 = v15[1];
+        if (!v14)
         {
           goto LABEL_38;
         }
       }
 
 LABEL_39:
-      v8 = v3;
+      v9 = v4;
       goto LABEL_19;
     }
 
     goto LABEL_38;
   }
 
-  if (v4 >= a3)
+  if (v5 >= a3)
   {
     return result;
   }
 
-  v8 = a2 + 1;
-  v9 = a2[1];
-  if (v9)
+  v9 = a2 + 1;
+  v10 = a2[1];
+  if (v10)
   {
     do
     {
-      v8 = v9;
-      v9 = *v9;
-      v10 = v8;
+      v9 = v10;
+      v10 = *v10;
+      v11 = v9;
     }
 
-    while (v9);
+    while (v10);
   }
 
   else
   {
-    v10 = a2;
+    v11 = a2;
     do
     {
-      v16 = v10;
-      v10 = v10[2];
+      v17 = v11;
+      v11 = v11[2];
     }
 
-    while (*v10 != v16);
+    while (*v11 != v17);
   }
 
-  if (v10 != v3 && *(v10 + 7) <= a3)
+  if (v11 != v4 && *(v11 + 7) <= a3)
   {
-    for (i = *v3; i; i = v18[1])
+    for (i = *v4; i; i = v19[1])
     {
       while (1)
       {
-        v18 = i;
-        v19 = *(i + 28);
-        if (v19 <= a3)
+        v19 = i;
+        v20 = *(i + 28);
+        if (v20 <= a3)
         {
           break;
         }
 
-        i = *v18;
-        v3 = v18;
-        if (!*v18)
+        i = *v19;
+        v4 = v19;
+        if (!*v19)
         {
           goto LABEL_38;
         }
       }
 
-      if (v19 >= a3)
+      if (v20 >= a3)
       {
         goto LABEL_39;
       }
 
-      v3 = v18 + 1;
+      v4 = v19 + 1;
     }
 
 LABEL_38:
@@ -3328,7 +3318,7 @@ LABEL_38:
   }
 
 LABEL_19:
-  if (!*v8)
+  if (!*v9)
   {
     goto LABEL_38;
   }
@@ -3605,7 +3595,7 @@ void std::vector<std::unique_ptr<rtaid::CaulkSPIImplementation::Message>>::__des
 
 uint64_t rtaid::CaulkSPIImplementation::Message::perform(rtaid::CaulkSPIImplementation::Message *this)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   memcpy(__dst, this + 56, sizeof(__dst));
   v2 = *(this + 6);
   if (!v2)
@@ -3615,7 +3605,6 @@ uint64_t rtaid::CaulkSPIImplementation::Message::perform(rtaid::CaulkSPIImplemen
 
   result = (*(*v2 + 48))(v2, __dst);
   atomic_store(0, this + 552);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3694,38 +3683,38 @@ LABEL_6:
 
 uint64_t rtaid::CaulkSPIImplementation::SetMessagePerform(uint64_t result, uint64_t a2)
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   v2 = *(result + 24);
   for (i = *(result + 32); v2 != i; ++v2)
   {
     v5 = *v2;
-    std::__function::__value_func<void ()(rtaid::IssueDictionary const&)>::__value_func[abi:ne200100](v10, a2);
-    std::__function::__value_func<void ()(rtaid::IssueDictionary const&)>::__value_func[abi:ne200100](v11, v10);
+    std::__function::__value_func<void ()(rtaid::IssueDictionary const&)>::__value_func[abi:ne200100](v9, a2);
+    std::__function::__value_func<void ()(rtaid::IssueDictionary const&)>::__value_func[abi:ne200100](v10, v9);
     v6 = v5 + 24;
-    if ((v5 + 24) != v11)
+    if ((v5 + 24) != v10)
     {
-      v7 = v12;
+      v7 = v11;
       v8 = *(v5 + 48);
-      if (v12 == v11)
+      if (v11 == v10)
       {
         if (v8 == v6)
         {
-          (*(*v12 + 24))();
-          (*(*v12 + 32))(v12);
-          v12 = 0;
-          (*(**(v5 + 48) + 24))(*(v5 + 48), v11);
+          (*(*v11 + 24))();
+          (*(*v11 + 32))(v11);
+          v11 = 0;
+          (*(**(v5 + 48) + 24))(*(v5 + 48), v10);
           (*(**(v5 + 48) + 32))(*(v5 + 48));
           *(v5 + 48) = 0;
-          v12 = v11;
-          (*(v13[0] + 24))(v13, v5 + 24);
-          (*(v13[0] + 32))(v13);
+          v11 = v10;
+          (*(v12[0] + 24))(v12, v5 + 24);
+          (*(v12[0] + 32))(v12);
         }
 
         else
         {
-          (*(*v12 + 24))();
-          (*(*v12 + 32))(v12);
-          v12 = *(v5 + 48);
+          (*(*v11 + 24))();
+          (*(*v11 + 32))(v11);
+          v11 = *(v5 + 48);
         }
 
         *(v5 + 48) = v6;
@@ -3733,24 +3722,23 @@ uint64_t rtaid::CaulkSPIImplementation::SetMessagePerform(uint64_t result, uint6
 
       else if (v8 == v6)
       {
-        (*(*v8 + 24))(*(v5 + 48), v11);
+        (*(*v8 + 24))(*(v5 + 48), v10);
         (*(**(v5 + 48) + 32))(*(v5 + 48));
-        *(v5 + 48) = v12;
-        v12 = v11;
+        *(v5 + 48) = v11;
+        v11 = v10;
       }
 
       else
       {
-        v12 = *(v5 + 48);
+        v11 = *(v5 + 48);
         *(v5 + 48) = v7;
       }
     }
 
-    std::__function::__value_func<void ()(rtaid::IssueDictionary const&)>::~__value_func[abi:ne200100](v11);
-    result = std::__function::__value_func<void ()(rtaid::IssueDictionary const&)>::~__value_func[abi:ne200100](v10);
+    std::__function::__value_func<void ()(rtaid::IssueDictionary const&)>::~__value_func[abi:ne200100](v10);
+    result = std::__function::__value_func<void ()(rtaid::IssueDictionary const&)>::~__value_func[abi:ne200100](v9);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4278,7 +4266,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<apples
     do
     {
       std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::destroy[abi:ne200100]<applesauce::CF::TypeRefPair,void,0>(v5);
-      v5 += 16;
+      v5 += 2;
     }
 
     while (v5 != a3);
@@ -4328,20 +4316,17 @@ void applesauce::CF::TypeRef::~TypeRef(const void **this)
   }
 }
 
-void *std::vector<void const*>::reserve(void *result, unint64_t a2)
+void std::vector<void const*>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<void const*>>(a2);
     }
 
     std::vector<long long>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<void const*>>(unint64_t a1)
@@ -4375,11 +4360,11 @@ uint64_t rtaid::AudioStatisticsSPIImplementation::GetAudioServiceType(rtaid::Aud
 void rtaid::Detector::checkAndResetAnalyzers(uint64_t a1, void *a2)
 {
   v3 = 0;
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   v4 = a1 + 416;
   v5 = (a1 + 364);
-  v63 = (a1 + 384);
-  v64 = (a1 + 364);
+  v62 = (a1 + 384);
+  v63 = (a1 + 364);
   do
   {
     v6 = 0;
@@ -4460,25 +4445,25 @@ void rtaid::Detector::checkAndResetAnalyzers(uint64_t a1, void *a2)
         v31 = *(v7 + 244);
         if (v31)
         {
-          v66 = *(v7 + 244);
+          v65 = *(v7 + 244);
           v33 = *(v7 + 192);
           v32 = *(v7 + 200);
-          v65 = v32 - v33;
+          v64 = v32 - v33;
           if (v32 != v33)
           {
             v34 = v31;
             v35 = *(v7 + 216);
-            if ((v65 >> 2) <= 1)
+            if ((v64 >> 2) <= 1)
             {
               v36 = 1;
             }
 
             else
             {
-              v36 = v65 >> 2;
+              v36 = v64 >> 2;
             }
 
-            v37 = v63;
+            v37 = v62;
             v38 = *(v7 + 192);
             do
             {
@@ -4495,11 +4480,11 @@ void rtaid::Detector::checkAndResetAnalyzers(uint64_t a1, void *a2)
             while (v36);
           }
 
-          v5 = v64;
-          *(a1 + 372) = v65 >> 2;
+          v5 = v63;
+          *(a1 + 372) = v64 >> 2;
           *(a1 + 364) = *(v7 + 256);
           *(a1 + 368) = *(v7 + 248);
-          v31 = v66;
+          v31 = v65;
         }
 
         else
@@ -4548,9 +4533,9 @@ LABEL_92:
           goto LABEL_93;
         }
 
-        v68 = 0.0;
-        Parameter = AudioUnitGetParameter(v43, 4u, 0, 0, &v68);
-        v45 = v68;
+        v67 = 0.0;
+        Parameter = AudioUnitGetParameter(v43, 4u, 0, 0, &v67);
+        v45 = v67;
         if (Parameter)
         {
           v45 = 0.0;
@@ -4567,9 +4552,9 @@ LABEL_92:
           v47 = v46;
         }
 
-        v69 = 0.0;
-        v48 = AudioUnitGetParameter(v43, 5u, 0, 0, &v69);
-        v49 = v69;
+        v68 = 0.0;
+        v48 = AudioUnitGetParameter(v43, 5u, 0, 0, &v68);
+        v49 = v68;
         if (v48)
         {
           v49 = 0.0;
@@ -4628,9 +4613,9 @@ LABEL_92:
           v13 = v12;
         }
 
-        v71 = 0.0;
-        v14 = AudioUnitGetParameter(v9, 1u, 0, 0, &v71);
-        v15 = v71;
+        v70 = 0.0;
+        v14 = AudioUnitGetParameter(v9, 1u, 0, 0, &v70);
+        v15 = v70;
         if (v14)
         {
           v15 = 0.0;
@@ -4647,9 +4632,9 @@ LABEL_92:
           v17 = v16;
         }
 
-        v72 = 0.0;
-        v18 = AudioUnitGetParameter(v9, 2u, 0, 0, &v72);
-        v19 = v72;
+        v71 = 0.0;
+        v18 = AudioUnitGetParameter(v9, 2u, 0, 0, &v71);
+        v19 = v71;
         if (v18)
         {
           v19 = 0.0;
@@ -4666,9 +4651,9 @@ LABEL_92:
           v21 = v20;
         }
 
-        v73 = 0.0;
-        v22 = AudioUnitGetParameter(v9, 3u, 0, 0, &v73);
-        v23 = v73;
+        v72 = 0.0;
+        v22 = AudioUnitGetParameter(v9, 3u, 0, 0, &v72);
+        v23 = v72;
         if (v22)
         {
           v23 = 0.0;
@@ -4690,9 +4675,9 @@ LABEL_92:
           *(a1 + 376) = v24;
           v27 = *(v7 + 80);
           *(a1 + 380) = v27;
-          v74 = 0.0;
-          v28 = AudioUnitGetParameter(v9, 6u, 0, 0, &v74);
-          v29 = v74;
+          v73 = 0.0;
+          v28 = AudioUnitGetParameter(v9, 6u, 0, 0, &v73);
+          v29 = v73;
           if (v28)
           {
             v29 = 0.0;
@@ -4766,7 +4751,6 @@ LABEL_93:
 
   while (v3 != 7);
   a2[3] = 0;
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::__function::__value_func<void ()(rtaid::IssueDictionary)>::~__value_func[abi:ne200100](uint64_t a1)
@@ -4801,7 +4785,7 @@ rtaid::DetectorNode *std::__destroy_at[abi:ne200100]<std::pair<unsigned int cons
 
 void rtaid::Detector::~Detector(std::__shared_weak_count **this)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   for (i = this + 3; ; rtaid::Detector::checkAndResetAnalyzers(this, i + 3))
   {
     i = *i;
@@ -4818,17 +4802,17 @@ void rtaid::Detector::~Detector(std::__shared_weak_count **this)
   v3 = rtaid::get_log(void)::rtaid_os_log;
   if (os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_INFO))
   {
-    v11 = 136316162;
-    v12 = "Detector.cpp";
-    v13 = 1024;
-    v14 = 35;
-    v15 = 1040;
-    v16 = 15;
-    v17 = 2080;
-    v18 = "rtaid::Detector]";
-    v19 = 2048;
-    v20 = this;
-    _os_log_impl(&dword_241557000, v3, OS_LOG_TYPE_INFO, "[%s:%-5d %.*s:%p] destroyed", &v11, 0x2Cu);
+    v10 = 136316162;
+    v11 = "Detector.cpp";
+    v12 = 1024;
+    v13 = 35;
+    v14 = 1040;
+    v15 = 15;
+    v16 = 2080;
+    v17 = "rtaid::Detector]";
+    v18 = 2048;
+    v19 = this;
+    _os_log_impl(&dword_241557000, v3, OS_LOG_TYPE_INFO, "[%s:%-5d %.*s:%p] destroyed", &v10, 0x2Cu);
   }
 
   v4 = this[81];
@@ -4872,8 +4856,6 @@ void rtaid::Detector::~Detector(std::__shared_weak_count **this)
   {
     operator delete(v9);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24155EC54(_Unwind_Exception *a1, int a2)
@@ -4886,7 +4868,7 @@ void sub_24155EC54(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-uint64_t *rtaid::Detector::ResetTelephonyRMSState(uint64_t *this)
+uint64_t **rtaid::Detector::ResetTelephonyRMSState(uint64_t **this)
 {
   for (; this; this = *this)
   {
@@ -5198,7 +5180,7 @@ BOOL std::regex_iterator<std::__wrap_iter<char const*>,char,std::regex_traits<ch
   return v10;
 }
 
-uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, std::sub_match<const char *> *a2, std::sub_match<const char *> *a3, std::vector<std::csub_match> *this, int a5)
+uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, std::sub_match<const char *> *a2, std::sub_match<const char *> *a3, std::vector<std::csub_match> *this, unsigned int a5)
 {
   if ((a5 & 0x80) != 0)
   {
@@ -5240,7 +5222,7 @@ uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator
       do
       {
         std::vector<std::sub_match<char const*>>::assign(this, 0xAAAAAAAAAAAAAAABLL * ((this->__end_ - this->__begin_) >> 3), v11);
-        v19 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v18, a3, this, v9 | 0x80u, 0);
+        v19 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v18, a3, this, v9 | 0x80, 0);
         begin = this->__begin_;
         end = this->__end_;
         if (v19)
@@ -5255,7 +5237,7 @@ uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator
     }
 
     std::vector<std::sub_match<char const*>>::assign(this, 0xAAAAAAAAAAAAAAABLL * ((this->__end_ - this->__begin_) >> 3), v11);
-    if (!std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v18, a3, this, v9 | 0x80u, 0))
+    if (!std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v18, a3, this, v9 | 0x80, 0))
     {
 LABEL_18:
       result = 0;
@@ -5286,50 +5268,49 @@ LABEL_8:
   return 1;
 }
 
-void *std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(void *result, uint64_t a2, uint64_t a3, uint64_t *a4, char a5)
+void std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t *a4, char a5)
 {
-  v5 = result;
-  v6 = a4[6];
-  v7 = a4[1] - *a4;
-  v8 = 0xAAAAAAAAAAAAAAABLL * (v7 >> 3);
-  v9 = *result;
-  v10 = result[1];
-  v11 = v10;
-  v12 = v10 - *result;
-  v13 = 0xAAAAAAAAAAAAAAABLL * (v12 >> 3);
-  v14 = v8 - v13;
-  if (v8 <= v13)
+  v5 = a4[6];
+  v6 = a4[1] - *a4;
+  v7 = 0xAAAAAAAAAAAAAAABLL * (v6 >> 3);
+  v8 = *a1;
+  v9 = a1[1];
+  v10 = v9;
+  v11 = v9 - *a1;
+  v12 = 0xAAAAAAAAAAAAAAABLL * (v11 >> 3);
+  v13 = v7 - v12;
+  if (v7 <= v12)
   {
-    if (v8 < v13)
+    if (v7 < v12)
     {
-      v11 = v9 + v7;
-      result[1] = v9 + v7;
+      v10 = v8 + v6;
+      a1[1] = v8 + v6;
     }
   }
 
   else
   {
-    v15 = result[2];
-    if (0xAAAAAAAAAAAAAAABLL * ((v15 - v10) >> 3) < v14)
+    v14 = a1[2];
+    if (0xAAAAAAAAAAAAAAABLL * ((v14 - v9) >> 3) < v13)
     {
-      if (v8 <= 0xAAAAAAAAAAAAAAALL)
+      if (v7 <= 0xAAAAAAAAAAAAAAALL)
       {
-        if (0x5555555555555556 * ((v15 - v9) >> 3) > v8)
+        if (0x5555555555555556 * ((v14 - v8) >> 3) > v7)
         {
-          v8 = 0x5555555555555556 * ((v15 - v9) >> 3);
+          v7 = 0x5555555555555556 * ((v14 - v8) >> 3);
         }
 
-        if (0xAAAAAAAAAAAAAAABLL * ((v15 - v9) >> 3) >= 0x555555555555555)
+        if (0xAAAAAAAAAAAAAAABLL * ((v14 - v8) >> 3) >= 0x555555555555555)
         {
-          v16 = 0xAAAAAAAAAAAAAAALL;
+          v15 = 0xAAAAAAAAAAAAAAALL;
         }
 
         else
         {
-          v16 = v8;
+          v15 = v7;
         }
 
-        if (v16 <= 0xAAAAAAAAAAAAAAALL)
+        if (v15 <= 0xAAAAAAAAAAAAAAALL)
         {
           operator new();
         }
@@ -5340,101 +5321,99 @@ void *std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<
       std::vector<long long>::__throw_length_error[abi:ne200100]();
     }
 
-    v17 = 8 * (v7 >> 3) - 8 * (v12 >> 3);
+    v16 = 8 * (v6 >> 3) - 8 * (v11 >> 3);
     do
     {
-      *v11 = 0;
-      *(v11 + 8) = 0;
-      *(v11 + 16) = 0;
-      v11 += 24;
-      v17 -= 24;
+      *v10 = 0;
+      *(v10 + 8) = 0;
+      *(v10 + 16) = 0;
+      v10 += 24;
+      v16 -= 24;
     }
 
-    while (v17);
-    result[1] = v10 + 24 * v14;
-    v11 = v10 + 24 * v14;
+    while (v16);
+    a1[1] = v9 + 24 * v13;
+    v10 = v9 + 24 * v13;
   }
 
-  v18 = *result;
-  if (v11 == *result)
+  v17 = *a1;
+  if (v10 == *a1)
   {
-    v21 = a2 - v6;
+    v20 = a2 - v5;
   }
 
   else
   {
+    v18 = 0;
     v19 = 0;
-    v20 = 0;
-    v21 = a2 - v6;
-    v23 = *a4;
-    v22 = a4[1];
+    v20 = a2 - v5;
+    v22 = *a4;
+    v21 = a4[1];
     do
     {
-      v24 = 0xAAAAAAAAAAAAAAABLL * ((v22 - v23) >> 3);
-      v25 = (v23 + v19);
-      if (v24 <= v20)
+      v23 = 0xAAAAAAAAAAAAAAABLL * ((v21 - v22) >> 3);
+      v24 = (v22 + v18);
+      if (v23 <= v19)
+      {
+        v25 = a4 + 3;
+      }
+
+      else
+      {
+        v25 = v24;
+      }
+
+      *(v17 + v18) = v20 + *v25;
+      if (0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 3) <= v19)
       {
         v26 = a4 + 3;
       }
 
       else
       {
-        v26 = v25;
+        v26 = (*a4 + v18);
       }
 
-      *(v18 + v19) = v21 + *v26;
-      if (0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 3) <= v20)
+      *(*a1 + v18 + 8) = v20 + v26[1];
+      v22 = *a4;
+      v21 = a4[1];
+      if (0xAAAAAAAAAAAAAAABLL * ((v21 - *a4) >> 3) <= v19)
       {
         v27 = a4 + 3;
       }
 
       else
       {
-        v27 = (*a4 + v19);
+        v27 = (*a4 + v18);
       }
 
-      *(*v5 + v19 + 8) = v21 + v27[1];
-      v23 = *a4;
-      v22 = a4[1];
-      if (0xAAAAAAAAAAAAAAABLL * ((v22 - *a4) >> 3) <= v20)
-      {
-        v28 = a4 + 3;
-      }
-
-      else
-      {
-        v28 = (*a4 + v19);
-      }
-
-      v29 = *(v28 + 16);
-      v18 = *v5;
-      v30 = v5[1];
-      result = (*v5 + v19);
-      *(result + 16) = v29;
-      ++v20;
-      v19 += 24;
+      v28 = *(v27 + 16);
+      v17 = *a1;
+      v29 = a1[1];
+      *(*a1 + v18 + 16) = v28;
+      ++v19;
+      v18 += 24;
     }
 
-    while (v20 < 0xAAAAAAAAAAAAAAABLL * ((v30 - v18) >> 3));
+    while (v19 < 0xAAAAAAAAAAAAAAABLL * ((v29 - v17) >> 3));
   }
 
-  v5[3] = a3;
-  v5[4] = a3;
-  *(v5 + 40) = 0;
-  v31 = v21 + a4[6];
-  v5[6] = v31;
-  v5[7] = v21 + a4[7];
-  *(v5 + 64) = *(a4 + 64);
-  v5[9] = v21 + a4[9];
-  v5[10] = v21 + a4[10];
-  *(v5 + 88) = *(a4 + 88);
+  a1[3] = a3;
+  a1[4] = a3;
+  *(a1 + 40) = 0;
+  v30 = v20 + a4[6];
+  a1[6] = v30;
+  a1[7] = v20 + a4[7];
+  *(a1 + 64) = *(a4 + 64);
+  a1[9] = v20 + a4[9];
+  a1[10] = v20 + a4[10];
+  *(a1 + 88) = *(a4 + 88);
   if ((a5 & 1) == 0)
   {
-    v5[13] = v31;
+    a1[13] = v30;
   }
 
-  *(v5 + 96) = *(a4 + 96);
-  return result;
+  *(a1 + 96) = *(a4 + 96);
 }
 
 uint64_t std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(uint64_t a1, const char *a2, const char *a3, uint64_t *a4, int a5, char a6)
@@ -5486,7 +5465,7 @@ LABEL_184:
     v123 = 0;
     v69 = 0;
     v121 = 0;
-    v70 = a3 - a2;
+    v70 = (a3 - a2);
     v71 = *&v124[40];
     v72 = *&v124[8];
     v73 = *&v124[40] + *&v124[32] - 1;
@@ -5610,7 +5589,7 @@ LABEL_170:
               }
 
               v123 = 1;
-              v121 = a3 - a2;
+              v121 = (a3 - a2);
               break;
             }
 
@@ -5776,7 +5755,7 @@ LABEL_180:
         {
           v116 = *v119;
           *v116 = a2;
-          *(v116 + 8) = &a2[v121];
+          *(v116 + 8) = &v121[a2];
           v62 = 1;
           *(v116 + 16) = 1;
         }
@@ -5837,7 +5816,7 @@ LABEL_92:
   v16 = 0;
   v120 = a3;
   v122 = a2;
-  v17 = a3 - a2;
+  v17 = (a3 - a2);
   v18 = v132;
   *(v132 - 2) = v12;
   *(v18 - 2) = a5;
@@ -6142,7 +6121,7 @@ LABEL_45:
 
   v56 = *v118;
   *v56 = v122;
-  *(v56 + 8) = &v122[v14];
+  *(v56 + 8) = &v14[v122];
   *(v56 + 16) = 1;
   if (v129 != *&v128[32])
   {
@@ -6181,7 +6160,7 @@ LABEL_93:
   return v62;
 }
 
-void sub_2415605A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38)
+void sub_2415605A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38)
 {
   operator delete(v38);
   if (__p)
@@ -6285,7 +6264,7 @@ void std::vector<std::sub_match<char const*>>::assign(std::vector<std::csub_matc
   }
 }
 
-void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -6480,7 +6459,7 @@ void sub_241560BD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+void std::vector<std::__state<char>>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   v4 = a1[2];
@@ -6783,7 +6762,7 @@ void std::__destroy_at[abi:ne200100]<std::__state<char>,0>(void *a1)
   }
 }
 
-uint64_t std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6805,7 +6784,7 @@ void sub_241561250(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6859,7 +6838,7 @@ void std::vector<std::__state<char>>::__destroy_vector::operator()[abi:ne200100]
   }
 }
 
-void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -6879,33 +6858,32 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned lo
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-__n128 std::deque<std::__state<char>>::push_back(uint64_t a1, uint64_t a2)
+__n128 std::deque<std::__state<char>>::push_back(unint64_t *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = v5 - v6;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = v4 - v5;
+  if (v4 == v5)
   {
-    v8 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v8 = 42 * ((v5 - v6) >> 3) - 1;
+    v7 = 42 * ((v4 - v5) >> 3) - 1;
   }
 
-  v9 = *(a1 + 32);
-  v10 = *(a1 + 40) + v9;
-  if (v8 == v10)
+  v8 = a1[4];
+  v9 = a1[5] + v8;
+  if (v7 == v9)
   {
-    if (v9 < 0x2A)
+    if (v8 < 0x2A)
     {
-      v11 = *(a1 + 24);
-      v12 = &v11[-*a1];
-      if (v7 < v12)
+      v10 = a1[3];
+      v11 = v10 - *a1;
+      if (v6 < v11)
       {
-        if (v11 != v5)
+        if (v10 != v4)
         {
           operator new();
         }
@@ -6913,53 +6891,53 @@ __n128 std::deque<std::__state<char>>::push_back(uint64_t a1, uint64_t a2)
         operator new();
       }
 
-      if (v11 == *a1)
+      if (v10 == *a1)
       {
-        v13 = 1;
+        v12 = 1;
       }
 
       else
       {
-        v13 = v12 >> 2;
+        v12 = v11 >> 2;
       }
 
-      v19 = a1;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(v13);
+      v18 = a1;
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(v12);
     }
 
-    *(a1 + 32) = v9 - 42;
-    *&v18 = *v6;
-    *(a1 + 8) = v6 + 8;
-    std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v18);
-    v6 = *(a1 + 8);
-    v10 = *(a1 + 40) + *(a1 + 32);
+    a1[4] = v8 - 42;
+    *&v17 = *v5;
+    a1[1] = (v5 + 8);
+    std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v17);
+    v5 = a1[1];
+    v9 = a1[5] + a1[4];
   }
 
-  v14 = *&v6[8 * (v10 / 0x2A)] - 4032 * (v10 / 0x2A) + 96 * v10;
-  v15 = *(a2 + 16);
-  *v14 = *a2;
-  *(v14 + 16) = v15;
-  *(v14 + 40) = 0;
-  *(v14 + 48) = 0;
-  *(v14 + 32) = 0;
-  *(v14 + 32) = *(a2 + 32);
-  *(v14 + 48) = *(a2 + 48);
+  v13 = *&v5[8 * (v9 / 0x2A)] - 4032 * (v9 / 0x2A) + 96 * v9;
+  v14 = *(a2 + 16);
+  *v13 = *a2;
+  *(v13 + 16) = v14;
+  *(v13 + 40) = 0;
+  *(v13 + 48) = 0;
+  *(v13 + 32) = 0;
+  *(v13 + 32) = *(a2 + 32);
+  *(v13 + 48) = *(a2 + 48);
   *(a2 + 32) = 0;
   *(a2 + 40) = 0;
   *(a2 + 48) = 0;
-  *(v14 + 56) = 0;
-  *(v14 + 64) = 0;
-  *(v14 + 72) = 0;
+  *(v13 + 56) = 0;
+  *(v13 + 64) = 0;
+  *(v13 + 72) = 0;
   result = *(a2 + 56);
-  *(v14 + 56) = result;
-  *(v14 + 72) = *(a2 + 72);
+  *(v13 + 56) = result;
+  *(v13 + 72) = *(a2 + 72);
   *(a2 + 56) = 0;
   *(a2 + 64) = 0;
   *(a2 + 72) = 0;
-  v17 = *(a2 + 80);
-  *(v14 + 85) = *(a2 + 85);
-  *(v14 + 80) = v17;
-  ++*(a1 + 40);
+  v16 = *(a2 + 80);
+  *(v13 + 85) = *(a2 + 85);
+  *(v13 + 80) = v16;
+  ++a1[5];
   return result;
 }
 
@@ -7099,14 +7077,13 @@ LABEL_17:
   return a1;
 }
 
-const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(const void **result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7126,22 +7103,21 @@ const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__stat
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(unint64_t a1)
@@ -7154,24 +7130,23 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(void *result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(v11);
@@ -7183,18 +7158,17 @@ void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char>
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 uint64_t std::sub_match<std::__wrap_iter<char const*>>::compare[abi:ne200100](uint64_t a1, uint64_t a2)
@@ -7431,7 +7405,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_r
   return v3;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
+std::basic_regex<char>::value_type *std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(std::basic_regex<char> *a1, std::basic_regex<char>::value_type *a2, std::basic_regex<char>::value_type *a3)
 {
   end = a1->__end_;
   v7 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, a2, a3);
@@ -7535,7 +7509,7 @@ void std::__owns_two_states<char>::~__owns_two_states(void (__cdecl ***a1)(std::
   JUMPOUT(0x245CE96E0);
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
+std::basic_regex<char>::value_type *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(std::basic_regex<char> *a1, std::basic_regex<char>::value_type *a2, std::basic_regex<char>::value_type *a3)
 {
   v6 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(a1, a2, a3);
   if (v6 == a2)
@@ -7559,7 +7533,7 @@ void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)15
   MEMORY[0x245CE9560](exception, 15);
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(std::basic_regex<char> *this, unsigned __int8 *a2, unsigned __int8 *a3)
+std::basic_regex<char>::value_type *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(std::basic_regex<char> *this, std::basic_regex<char>::value_type *a2, std::basic_regex<char>::value_type *a3)
 {
   end = this->__end_;
   marked_count = this->__marked_count_;
@@ -7604,7 +7578,7 @@ LABEL_13:
   }
 
 LABEL_4:
-  v10 = a2 + 1;
+  v10 = (a2 + 1);
   v11 = a2;
   if (a2 + 1 == a3)
   {
@@ -7669,7 +7643,7 @@ LABEL_26:
         std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(this);
         v19 = this->__marked_count_;
         ++this->__open_count_;
-        v20 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(this, v11 + 1, a3);
+        v20 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(this, (v11 + 1), a3);
         if (v20 == a3 || (v11 = v20, *v20 != 41))
         {
           std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)6>();
@@ -9285,7 +9259,7 @@ LABEL_14:
   return v6 + 2;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t *a4, uint64_t a5)
 {
   if (a2 == a3)
   {
@@ -9318,7 +9292,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_e
       {
         if (*(a4 + 23) < 0)
         {
-          *(a4 + 8) = 1;
+          a4[1] = 1;
           a4 = *a4;
         }
 
@@ -9349,7 +9323,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_e
     {
       if (*(a4 + 23) < 0)
       {
-        *(a4 + 8) = 1;
+        a4[1] = 1;
         a4 = *a4;
       }
 
@@ -9669,11 +9643,11 @@ LABEL_39:
   return v7;
 }
 
-void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, unsigned __int8 a2, uint64_t a3)
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 169) == 1)
   {
-    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
     v11 = v5 | ((*(**(a1 + 24) + 40))(*(a1 + 24), a3) << 8);
     v6 = a1 + 112;
     v7 = &v11;
@@ -9700,7 +9674,7 @@ void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:
   std::vector<std::pair<char,char>>::push_back[abi:ne200100](v6, v7);
 }
 
-void std::vector<std::pair<char,char>>::push_back[abi:ne200100](uint64_t a1, _WORD *a2)
+void std::vector<std::pair<char,char>>::push_back[abi:ne200100](uint64_t a1, __int16 *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -9846,19 +9820,16 @@ void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](vo
     v12 = 48 * v8;
     *v12 = *a2;
     *(v12 + 16) = *(a2 + 2);
-    *a2 = 0;
-    *(a2 + 1) = 0;
+    *a2 = 0uLL;
     v13 = *(a2 + 24);
-    *(a2 + 2) = 0;
-    *(a2 + 3) = 0;
+    a2[1] = 0uLL;
     *(v12 + 40) = *(a2 + 5);
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
-    v7 = 48 * v8 + 48;
+    a2[2] = 0uLL;
+    v7 = (48 * v8 + 48);
     v14 = *a1;
     v15 = a1[1] - *a1;
     *(v12 + 24) = v13;
-    v16 = 48 * v8 - v15;
+    v16 = (48 * v8 - v15);
     memcpy((v12 - v15), v14, v15);
     *a1 = v16;
     a1[1] = v7;
@@ -9874,16 +9845,14 @@ void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](vo
     v5 = *a2;
     *(v3 + 2) = *(a2 + 2);
     *v3 = v5;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = *(a2 + 24);
     *(v3 + 5) = *(a2 + 5);
     *(v3 + 24) = v6;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
-    v7 = (v3 + 48);
+    v7 = v3 + 48;
   }
 
   a1[1] = v7;

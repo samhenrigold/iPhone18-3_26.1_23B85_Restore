@@ -109,28 +109,28 @@
 
   if (type != 268435488 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xF30, @"MPSCNNConvolutionWeightsAndBiases state expect weights data type to be either float32 or float16", v25, v26, v27, v28);
   }
 
 LABEL_16:
   if (((v16 - 1) & offset) != 0 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xF31, @"weightsOffsets must be aligned to size of element in weights buffers", v29, v30, v31, v32);
   }
 
   if ((biasesOffset & 3) != 0 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xF32, @"biasesOffsets must be aligned to size of element in biases buffers", v33, v34, v35, v36);
   }
 
   if (offset + v16 * count > v23 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xF33, @"Not enough elements in weights buffer", v37, v38, v39, v40);
   }
 
   if (biasesOffset + 4 * biasesCount > v24 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xF34, @"Not enough elements in biases buffer", v41, v42, v43, v44);
   }
 
   self->_weightsDataType = type;
@@ -256,7 +256,7 @@ LABEL_16:
   v15 = objc_autoreleasePoolPush();
   if (v5 != 268435472 && v5 != 268435488 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xF47, @"MPSCNNConvolutionWeightsAndBiases state expect weights data type to be either float32 or float16", v11, v12, v13, v14);
   }
 
   v16 = *(descriptor + 4);
@@ -309,7 +309,7 @@ LABEL_16:
   v17 = objc_autoreleasePoolPush();
   if (v7 != 268435472 && v7 != 268435488 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xF47, @"MPSCNNConvolutionWeightsAndBiases state expect weights data type to be either float32 or float16", v13, v14, v15, v16);
   }
 
   v18 = *(descriptor + 4);
@@ -360,7 +360,7 @@ LABEL_16:
   v15 = objc_autoreleasePoolPush();
   if (type != 268435472 && type != 268435488 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xF47, @"MPSCNNConvolutionWeightsAndBiases state expect weights data type to be either float32 or float16", v11, v12, v13, v14);
   }
 
   v16 = *(descriptor + 4);
@@ -415,7 +415,7 @@ LABEL_16:
   v17 = objc_autoreleasePoolPush();
   if (type != 268435472 && type != 268435488 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xF47, @"MPSCNNConvolutionWeightsAndBiases state expect weights data type to be either float32 or float16", v13, v14, v15, v16);
   }
 
   v18 = *(descriptor + 4);

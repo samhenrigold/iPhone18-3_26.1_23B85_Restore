@@ -10,21 +10,22 @@
 - (void)simStatusChanged;
 - (void)tableView:(id)view accessoryButtonTappedForRowWithIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation PSUICarrierSpacePlansController
 
 - (void)simStatusChanged
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICarrierSpacePlansController *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "[PSUICarrierSpacePlansController simStatusChanged]";
-    v11 = 2112;
-    v12 = 0x287737BB8;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s received notification %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[PSUICarrierSpacePlansController simStatusChanged]";
+    v10 = 2112;
+    v11 = 0x287737BB8;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s received notification %@", &v8, 0x16u);
   }
 
   mEMORY[0x277D4D868] = [MEMORY[0x277D4D868] sharedInstance];
@@ -35,25 +36,22 @@
     WeakRetained = objc_loadWeakRetained((&self->super.super.super.super.super.isa + *MEMORY[0x277D3FD10]));
     v7 = [WeakRetained popViewControllerAnimated:1];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)carrierSpaceChanged
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICarrierSpacePlansController *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "[PSUICarrierSpacePlansController carrierSpaceChanged]";
-    v7 = 2112;
-    v8 = 0x287737B98;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s received notification: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[PSUICarrierSpacePlansController carrierSpaceChanged]";
+    v6 = 2112;
+    v7 = 0x287737B98;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s received notification: %@", &v4, 0x16u);
   }
 
   [(PSUICarrierSpacePlansController *)self reloadSpecifiers];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (PSUICarrierSpacePlansController)initWithNibName:(id)name bundle:(id)bundle
@@ -102,76 +100,119 @@
   return v8;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v18 = *MEMORY[0x277D85DE8];
+  getLogger = [(PSUICarrierSpacePlansController *)self getLogger];
+  if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
+  {
+    LODWORD(buf) = 136315138;
+    *(&buf + 4) = "[PSUICarrierSpacePlansController viewDidAppear:]";
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s", &buf, 0xCu);
+  }
+
+  v9.receiver = self;
+  v9.super_class = PSUICarrierSpacePlansController;
+  [(PSUICarrierSpacePlansController *)&v9 viewDidAppear:appearCopy];
+  v6 = @"com.apple.Preferences.CarrierSpacePlansEvent";
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v7 = off_28156A638;
+  v13 = off_28156A638;
+  if (!off_28156A638)
+  {
+    *&buf = MEMORY[0x277D85DD0];
+    *(&buf + 1) = 3221225472;
+    v15 = __getAnalyticsSendEventSymbolLoc_block_invoke_3;
+    v16 = &unk_279BA9F68;
+    v17 = &v10;
+    __getAnalyticsSendEventSymbolLoc_block_invoke_3(&buf);
+    v7 = v11[3];
+  }
+
+  _Block_object_dispose(&v10, 8);
+  if (!v7)
+  {
+    v8 = dlerror();
+    abort_report_np("%s", v8);
+    __break(1u);
+  }
+
+  v7(v6, MEMORY[0x277CBEC10]);
+}
+
 - (id)specifiers
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v3)
   {
-    v46 = *MEMORY[0x277D3FC48];
+    v45 = *MEMORY[0x277D3FC48];
     v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v5 = [v4 localizedStringForKey:@"PLANS" value:&stru_287733598 table:@"CarrierSpacePlans"];
     [(PSUICarrierSpacePlansController *)self setTitle:v5];
 
     v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
     +[PSUICarrierSpaceManager sharedManager];
+    v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
-    v45 = v61 = 0u;
-    plansInfo = [v45 plansInfo];
+    v44 = v60 = 0u;
+    plansInfo = [v44 plansInfo];
     planGroupsList = [plansInfo planGroupsList];
 
     obj = planGroupsList;
-    v49 = [planGroupsList countByEnumeratingWithState:&v58 objects:v65 count:16];
-    if (v49)
+    v48 = [planGroupsList countByEnumeratingWithState:&v57 objects:v64 count:16];
+    if (v48)
     {
-      v48 = *v59;
-      v53 = *MEMORY[0x277D3FE58];
-      v52 = *MEMORY[0x277D3FD68];
+      v47 = *v58;
+      v52 = *MEMORY[0x277D3FE58];
+      v51 = *MEMORY[0x277D3FD68];
       do
       {
         v9 = 0;
         do
         {
-          if (*v59 != v48)
+          if (*v58 != v47)
           {
             objc_enumerationMutation(obj);
           }
 
-          v50 = v9;
-          v10 = *(*(&v58 + 1) + 8 * v9);
+          v49 = v9;
+          v10 = *(*(&v57 + 1) + 8 * v9);
           v11 = MEMORY[0x277D3FAD8];
           v12 = -[PSUICarrierSpacePlansController stringFromGroupCategory:](self, "stringFromGroupCategory:", [v10 planCategory]);
           v13 = [v11 groupSpecifierWithName:v12];
           [v6 addObject:v13];
 
-          v56 = 0u;
-          v57 = 0u;
-          v54 = 0u;
           v55 = 0u;
+          v56 = 0u;
+          v53 = 0u;
+          v54 = 0u;
           groupOptionsList = [v10 groupOptionsList];
-          v14 = [groupOptionsList countByEnumeratingWithState:&v54 objects:v64 count:16];
+          v14 = [groupOptionsList countByEnumeratingWithState:&v53 objects:v63 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v55;
+            v16 = *v54;
             do
             {
               for (i = 0; i != v15; ++i)
               {
                 v18 = v6;
-                if (*v55 != v16)
+                if (*v54 != v16)
                 {
                   objc_enumerationMutation(groupOptionsList);
                 }
 
-                v19 = *(*(&v54 + 1) + 8 * i);
+                v19 = *(*(&v53 + 1) + 8 * i);
                 v20 = MEMORY[0x277D3FAD8];
                 planLabel = [v19 planLabel];
                 v22 = [v20 preferenceSpecifierNamed:planLabel target:self set:0 get:0 detail:0 cell:4 edit:0];
 
-                [v22 setProperty:objc_opt_class() forKey:v53];
+                [v22 setProperty:objc_opt_class() forKey:v52];
                 v23 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v19, "planPurchasable")}];
                 [v22 setProperty:v23 forKey:0x2877360D8];
 
@@ -192,12 +233,12 @@
 
                 if (v29)
                 {
-                  [v22 setProperty:&unk_2877491A0 forKey:v52];
+                  [v22 setProperty:&unk_2877491A0 forKey:v51];
                 }
 
                 else
                 {
-                  [v22 removePropertyForKey:v52];
+                  [v22 removePropertyForKey:v51];
                 }
 
                 [v22 setProperty:v19 forKey:@"PSUICarrierSpacePlanKey"];
@@ -207,28 +248,28 @@
                 if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v63 = v19;
+                  v62 = v19;
                   _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Creating specifier for plan: %@", buf, 0xCu);
                 }
               }
 
-              v15 = [groupOptionsList countByEnumeratingWithState:&v54 objects:v64 count:16];
+              v15 = [groupOptionsList countByEnumeratingWithState:&v53 objects:v63 count:16];
             }
 
             while (v15);
           }
 
-          v9 = v50 + 1;
+          v9 = v49 + 1;
         }
 
-        while (v50 + 1 != v49);
-        v49 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
+        while (v49 + 1 != v48);
+        v48 = [obj countByEnumeratingWithState:&v57 objects:v64 count:16];
       }
 
-      while (v49);
+      while (v48);
     }
 
-    plansInfo2 = [v45 plansInfo];
+    plansInfo2 = [v44 plansInfo];
     morePlansURL = [plansInfo2 morePlansURL];
     v33 = [morePlansURL length];
 
@@ -250,13 +291,11 @@
     }
 
     [MEMORY[0x277D4D878] logSpecifiers:v6 origin:@"[PSUICarrierSpacePlansController specifiers] end"];
-    v42 = *(&self->super.super.super.super.super.isa + v46);
-    *(&self->super.super.super.super.super.isa + v46) = v6;
+    v42 = *(&self->super.super.super.super.super.isa + v45);
+    *(&self->super.super.super.super.super.isa + v45) = v6;
 
-    v3 = *(&self->super.super.super.super.super.isa + v46);
+    v3 = *(&self->super.super.super.super.super.isa + v45);
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -386,7 +425,7 @@ LABEL_10:
 
 - (void)tableView:(id)view accessoryButtonTappedForRowWithIndexPath:(id)path
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   pathCopy = path;
   v8 = [(PSUICarrierSpacePlansController *)self specifierAtIndex:[(PSUICarrierSpacePlansController *)self indexForIndexPath:pathCopy]];
@@ -400,24 +439,24 @@ LABEL_10:
     planDetailsURL2 = [v9 planDetailsURL];
     v14 = [v12 URLWithString:planDetailsURL2];
 
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2050000000;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x2050000000;
     v15 = qword_28156A648;
-    v31 = qword_28156A648;
+    v30 = qword_28156A648;
     if (!qword_28156A648)
     {
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v33 = __getRemoteUIControllerClass_block_invoke_0;
-      v34 = &unk_279BA9F68;
-      v35 = &v28;
+      v32 = __getRemoteUIControllerClass_block_invoke_0;
+      v33 = &unk_279BA9F68;
+      v34 = &v27;
       __getRemoteUIControllerClass_block_invoke_0(&buf);
-      v15 = v29[3];
+      v15 = v28[3];
     }
 
     v16 = v15;
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v27, 8);
     v17 = objc_alloc_init(v15);
     remoteUIController = self->_remoteUIController;
     self->_remoteUIController = v17;
@@ -438,14 +477,14 @@ LABEL_10:
     }
 
     v23 = self->_remoteUIController;
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __86__PSUICarrierSpacePlansController_tableView_accessoryButtonTappedForRowWithIndexPath___block_invoke;
-    v26[3] = &unk_279BAA348;
-    v26[4] = self;
-    v27 = v14;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __86__PSUICarrierSpacePlansController_tableView_accessoryButtonTappedForRowWithIndexPath___block_invoke;
+    v25[3] = &unk_279BAA348;
+    v25[4] = self;
+    v26 = v14;
     getLogger = v14;
-    [(RemoteUIController *)v23 loadURL:getLogger postBody:0 completion:v26];
+    [(RemoteUIController *)v23 loadURL:getLogger postBody:0 completion:v25];
   }
 
   else
@@ -458,13 +497,11 @@ LABEL_10:
       _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "No plan detail url for plan: %@", &buf, 0xCu);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __86__PSUICarrierSpacePlansController_tableView_accessoryButtonTappedForRowWithIndexPath___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5 || (a2 & 1) == 0)
   {
@@ -473,17 +510,15 @@ void __86__PSUICarrierSpacePlansController_tableView_accessoryButtonTappedForRow
     {
       v7 = *(a1 + 40);
       v8 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-      v10 = 138412802;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_impl(&dword_2658DE000, v6, OS_LOG_TYPE_DEFAULT, "Could not load plan detail url: %@, success: %@, error: %@", &v10, 0x20u);
+      v9 = 138412802;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v5;
+      _os_log_impl(&dword_2658DE000, v6, OS_LOG_TYPE_DEFAULT, "Could not load plan detail url: %@, success: %@, error: %@", &v9, 0x20u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
@@ -513,7 +548,7 @@ void __86__PSUICarrierSpacePlansController_tableView_accessoryButtonTappedForRow
 
 void __69__PSUICarrierSpacePlansController_tableView_didSelectRowAtIndexPath___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) getLogger];
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -522,7 +557,7 @@ void __69__PSUICarrierSpacePlansController_tableView_didSelectRowAtIndexPath___b
     if (v5)
     {
       *buf = 138412290;
-      v12 = v3;
+      v11 = v3;
       v6 = "Plan purchase finished with error: %@";
       v7 = v4;
       v8 = 12;
@@ -546,8 +581,6 @@ LABEL_6:
   block[3] = &unk_279BA9D58;
   block[4] = *(a1 + 32);
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dismissPlanDetail

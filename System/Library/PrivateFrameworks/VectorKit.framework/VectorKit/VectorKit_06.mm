@@ -3669,9 +3669,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x5E4DB6CB13CB5848;
-    v2[1] = "md::ls::FlyoverClipConstantDataHandle]";
-    v2[2] = 37;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::FlyoverClipConstantDataHandle]";
+    *(v2 + 2) = 37;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -3746,9 +3746,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x695C99F828CA9E84;
-    v2[1] = "md::ls::BaseMapTileHandle]";
-    v2[2] = 25;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::BaseMapTileHandle]";
+    *(v2 + 2) = 25;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -4582,9 +4582,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x5FF8F613B2E16249;
-    v2[1] = "md::ls::UniqueMaterialAlbedoTexture]";
-    v2[2] = 35;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::UniqueMaterialAlbedoTexture]";
+    *(v2 + 2) = 35;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -4912,9 +4912,9 @@ void gdc::typelist_as_vector<std::tuple<md::ls::AssociationHandle>>(void **a1)
   else
   {
     *v2 = 0x523816724122CCE2;
-    v2[1] = "md::ls::AssociationHandle]";
-    v2[2] = 25;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::AssociationHandle]";
+    *(v2 + 2) = 25;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -4974,7 +4974,7 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
     *v9 = 0xE0AB1B46607846E6;
     v9[1] = "md::ls::EnteringView]";
     v9[2] = 20;
-    v4 = v9 + 3;
+    v4 = (v9 + 3);
     v10 = v9 - v6;
     memcpy(v9 - v6, v5, v6);
     *a1 = v10;
@@ -4990,9 +4990,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0xE0AB1B46607846E6;
-    v2[1] = "md::ls::EnteringView]";
-    v2[2] = 20;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::EnteringView]";
+    *(v2 + 2) = 20;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -5031,7 +5031,7 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
     *v16 = 0xE690FF1B9655D152;
     v16[1] = "md::ls::SupportsShadows]";
     v16[2] = 23;
-    v11 = v16 + 3;
+    v11 = (v16 + 3);
     v17 = v16 - v13;
     memcpy(v16 - v13, v12, v13);
     *a1 = v17;
@@ -5047,9 +5047,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v4 = 0xE690FF1B9655D152;
-    v4[1] = "md::ls::SupportsShadows]";
-    v4[2] = 23;
-    v11 = v4 + 3;
+    *(v4 + 1) = "md::ls::SupportsShadows]";
+    *(v4 + 2) = 23;
+    v11 = v4 + 24;
   }
 
   a1[1] = v11;
@@ -5088,7 +5088,7 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
     *v23 = 0x24B7D588576BB14ELL;
     v23[1] = "md::ls::AssociationTileHandle]";
     v23[2] = 29;
-    v18 = v23 + 3;
+    v18 = (v23 + 3);
     v24 = v23 - v20;
     memcpy(v23 - v20, v19, v20);
     *a1 = v24;
@@ -5104,9 +5104,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v11 = 0x24B7D588576BB14ELL;
-    v11[1] = "md::ls::AssociationTileHandle]";
-    v11[2] = 29;
-    v18 = v11 + 3;
+    *(v11 + 1) = "md::ls::AssociationTileHandle]";
+    *(v11 + 2) = 29;
+    v18 = v11 + 24;
   }
 
   a1[1] = v18;
@@ -5145,7 +5145,7 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
     *v30 = 0x695C99F828CA9E84;
     v30[1] = "md::ls::BaseMapTileHandle]";
     v30[2] = 25;
-    v25 = v30 + 3;
+    v25 = (v30 + 3);
     v31 = v30 - v27;
     memcpy(v30 - v27, v26, v27);
     *a1 = v31;
@@ -5161,9 +5161,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v18 = 0x695C99F828CA9E84;
-    v18[1] = "md::ls::BaseMapTileHandle]";
-    v18[2] = 25;
-    v25 = v18 + 3;
+    *(v18 + 1) = "md::ls::BaseMapTileHandle]";
+    *(v18 + 2) = 25;
+    v25 = v18 + 24;
   }
 
   a1[1] = v25;
@@ -5202,7 +5202,7 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
     *v37 = 0x414BF8D9069621AELL;
     v37[1] = "md::ls::TileViewConstantDataHandle]";
     v37[2] = 34;
-    v32 = v37 + 3;
+    v32 = (v37 + 3);
     v38 = v37 - v34;
     memcpy(v37 - v34, v33, v34);
     *a1 = v38;
@@ -5218,9 +5218,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v25 = 0x414BF8D9069621AELL;
-    v25[1] = "md::ls::TileViewConstantDataHandle]";
-    v25[2] = 34;
-    v32 = v25 + 3;
+    *(v25 + 1) = "md::ls::TileViewConstantDataHandle]";
+    *(v25 + 2) = 34;
+    v32 = v25 + 24;
   }
 
   a1[1] = v32;
@@ -5259,7 +5259,7 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
     *v44 = 0xD270E8E58701C515;
     v44[1] = "md::ls::TileTransformConstantDataHandle]";
     v44[2] = 39;
-    v39 = v44 + 3;
+    v39 = (v44 + 3);
     v45 = v44 - v41;
     memcpy(v44 - v41, v40, v41);
     *a1 = v45;
@@ -5275,9 +5275,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v32 = 0xD270E8E58701C515;
-    v32[1] = "md::ls::TileTransformConstantDataHandle]";
-    v32[2] = 39;
-    v39 = v32 + 3;
+    *(v32 + 1) = "md::ls::TileTransformConstantDataHandle]";
+    *(v32 + 2) = 39;
+    v39 = v32 + 24;
   }
 
   a1[1] = v39;
@@ -5316,7 +5316,7 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
     *v51 = 0xBCC33905201D8160;
     v51[1] = "md::ls::TileMatrix]";
     v51[2] = 18;
-    v46 = v51 + 3;
+    v46 = (v51 + 3);
     v52 = v51 - v48;
     memcpy(v51 - v48, v47, v48);
     *a1 = v52;
@@ -5332,18 +5332,18 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v39 = 0xBCC33905201D8160;
-    v39[1] = "md::ls::TileMatrix]";
-    v39[2] = 18;
-    v46 = v39 + 3;
+    *(v39 + 1) = "md::ls::TileMatrix]";
+    *(v39 + 2) = 18;
+    v46 = v39 + 24;
   }
 
   a1[1] = v46;
   if (v46 < v3)
   {
     *v46 = 0xF2296D6406C155CBLL;
-    v46[1] = "md::ls::TileShadowConstantDataHandle]";
-    v46[2] = 36;
-    v53 = v46 + 3;
+    *(v46 + 1) = "md::ls::TileShadowConstantDataHandle]";
+    *(v46 + 2) = 36;
+    v53 = v46 + 24;
     goto LABEL_97;
   }
 
@@ -8801,12 +8801,12 @@ uint64_t std::__split_buffer<std::pair<md::StylesheetKey,std::shared_ptr<gss::St
   return a1;
 }
 
-void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<std::pair<md::StylesheetKey,std::shared_ptr<gss::StyleSheet<gss::PropertyID>>>>,std::pair<md::StylesheetKey,std::shared_ptr<gss::StyleSheet<gss::PropertyID>>>*>(uint64_t a1, uint64_t a2, uint64_t a3)
+void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<std::pair<md::StylesheetKey,std::shared_ptr<gss::StyleSheet<gss::PropertyID>>>>,std::pair<md::StylesheetKey,std::shared_ptr<gss::StyleSheet<gss::PropertyID>>>*>(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (a1 != a2)
+  if (result != a2)
   {
-    v4 = a1;
-    v5 = a1;
+    v4 = result;
+    v5 = result;
     do
     {
       v6 = *v5;
@@ -8891,7 +8891,7 @@ void std::vector<std::map<std::string,std::string>>::__destroy_vector::operator(
     {
       do
       {
-        v6 = v4 - 24;
+        v6 = v4 - 3;
         std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(*(v4 - 2));
         v4 = v6;
       }
@@ -8906,26 +8906,23 @@ void std::vector<std::map<std::string,std::string>>::__destroy_vector::operator(
   }
 }
 
-void *std::shared_ptr<gss::StylesheetManager<gss::PropertyID>>::shared_ptr[abi:nn200100]<gss::StylesheetManager<gss::PropertyID>,0>(void *a1, uint64_t a2, std::__shared_weak_count *this)
+void std::shared_ptr<gss::StylesheetManager<gss::PropertyID>>::shared_ptr[abi:nn200100]<gss::StylesheetManager<gss::PropertyID>,0>(void *a1, uint64_t a2, std::__shared_weak_count *this)
 {
   *a1 = a2;
-  if (this)
-  {
-    v4 = std::__shared_weak_count::lock(this);
-    a1[1] = v4;
-    if (v4)
-    {
-      return a1;
-    }
-  }
-
-  else
+  if (!this)
   {
     a1[1] = 0;
+    goto LABEL_5;
   }
 
-  v6 = std::__throw_bad_weak_ptr[abi:nn200100]();
-  return ggl::AlphaAtlas::generateTexture(v6, v7, v8, v9, v10, v11, v12, v13, v14);
+  v4 = std::__shared_weak_count::lock(this);
+  a1[1] = v4;
+  if (!v4)
+  {
+LABEL_5:
+    std::__throw_bad_weak_ptr[abi:nn200100]();
+    ggl::AlphaAtlas::generateTexture(v5, v6, v7, v8, v9, v10, v11);
+  }
 }
 
 uint64_t ggl::Texture2DLoadItem::Texture2DLoadItem(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -9048,10 +9045,11 @@ void std::vector<NSObject  {objcproto10MTLTexture}* {__strong},geo::allocator_ad
   {
     if (a2 < v6)
     {
-      v26 = &v3[a2];
+      v26 = v3 + 8 * a2;
       while (v4 != v26)
       {
-        v27 = *--v4;
+        v27 = *(v4 - 8);
+        v4 -= 8;
       }
 
       *(a1 + 1) = v26;
@@ -9065,7 +9063,7 @@ void std::vector<NSObject  {objcproto10MTLTexture}* {__strong},geo::allocator_ad
     if (v7 <= (v8 - v4) >> 3)
     {
       bzero(*(a1 + 1), 8 * v7);
-      *(a1 + 1) = &v4[v7];
+      *(a1 + 1) = v4 + 8 * v7;
     }
 
     else
@@ -9156,20 +9154,20 @@ ggl::MetalTextureResource *ggl::MetalTextureResource::MetalTextureResource(ggl::
   return this;
 }
 
-void sub_1B27E206C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B27E206C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v4 = 112;
+  va_start(va, a3);
+  v5 = 112;
   while (1)
   {
-    v5 = *(v2 + v4);
-    if (v5)
+    v6 = *(v3 + v5);
+    if (v6)
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v5);
+      std::__shared_weak_count::__release_shared[abi:nn200100](v6);
     }
 
-    v4 -= 16;
-    if (v4 == 64)
+    v5 -= 16;
+    if (v5 == 64)
     {
       std::vector<NSObject  {objcproto10MTLTexture}* {__strong},geo::allocator_adapter<NSObject  {objcproto10MTLTexture}* {__strong},ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](va);
       _Unwind_Resume(a1);
@@ -9339,7 +9337,7 @@ ggl::zone_mallocator *std::vector<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorr
   return result;
 }
 
-void *std::unique_ptr<ggl::FragmentedPool<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFactor>>>::reset[abi:nn200100](void **a1, void *a2)
+void *std::unique_ptr<ggl::FragmentedPool<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFactor>>>::reset[abi:nn200100](uint64_t *a1, uint64_t a2)
 {
   result = *a1;
   *a1 = a2;
@@ -9579,6 +9577,28 @@ void ggl::SpecularBuildingTopShader::typedReflection(ggl::SpecularBuildingTopSha
       unk_1ED66B578 = 0;
       qword_1ED66B580 = &ggl::specularBuildingTopShaderShaderSamplers(void)::ref;
       unk_1ED66B588 = 0;
+    }
+  }
+}
+
+void ggl::StandardPostchainSplitFrameShader::typedReflection(ggl::StandardPostchainSplitFrameShader *this)
+{
+  {
+    if (v1)
+    {
+      ggl::StandardPostchainSplitFrameShader::typedReflection(void)::ref = "StandardPostchainSplitFrameShader";
+      ggl::standardPostchainSplitFrameShaderVertexFunctionDescriptor(v1);
+      qword_1ED65DFD0 = &ggl::standardPostchainSplitFrameShaderVertexFunctionDescriptor(void)::ref;
+      dword_1ED65DFD8 = 1892780714;
+      ggl::standardPostchainSplitFrameShaderFragmentFunctionDescriptor(v2);
+      qword_1ED65DFE0 = &ggl::standardPostchainSplitFrameShaderFragmentFunctionDescriptor(void)::ref;
+      dword_1ED65DFE8 = 432060863;
+      qword_1ED65DFF0 = ggl::standardPostchainSplitFrameShaderShaderConstants(void)::ref;
+      unk_1ED65DFF8 = 1;
+      qword_1ED65E000 = ggl::standardPostchainSplitFrameShaderShaderTextures(void)::ref;
+      unk_1ED65E008 = 2;
+      qword_1ED65E010 = ggl::standardPostchainSplitFrameShaderShaderSamplers(void)::ref;
+      unk_1ED65E018 = 2;
     }
   }
 }

@@ -51,12 +51,11 @@
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14NSUnitDurationCGMd, &_s10Foundation11MeasurementVySo14NSUnitDurationCGMR);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v9 - v7;
+  v7 = &v8 - v6;
   type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for NSUnitDuration, NSUnitDuration_ptr);
   static Measurement._unconditionallyBridgeFromObjectiveC(_:)();
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 @end

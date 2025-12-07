@@ -9,6 +9,7 @@
 - (id)validUTTypes;
 - (void)_setMostRecentPasteboardItem:(id)item;
 - (void)dealloc;
+- (void)refreshMostRecentPasteboardItemFromNotification:(BOOL)notification explanationSet:(id)set;
 @end
 
 @implementation PPConnectionsPasteboardSource
@@ -46,7 +47,7 @@ void __58__PPConnectionsPasteboardSource__mostRecentPasteboardItem__block_invoke
 
 - (id)locationItemsWithCriteria:(id)criteria earliest:(id)earliest latest:(id)latest limit:(unint64_t)limit consumer:(unint64_t)consumer explanationSet:(id)set
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   criteriaCopy = criteria;
   earliestCopy = earliest;
   setCopy = set;
@@ -132,9 +133,9 @@ LABEL_28:
     v28 = [text length];
     bundleIdentifier = [_mostRecentPasteboardItem2 bundleIdentifier];
     *buf = 134218242;
-    v56 = v28;
-    v57 = 2112;
-    v58 = bundleIdentifier;
+    v55 = v28;
+    v56 = 2112;
+    v57 = bundleIdentifier;
     _os_log_impl(&dword_23224A000, v26, OS_LOG_TYPE_DEFAULT, "PPConnectionsPasteboardSource: most recent pasteboard item has text length %tu from bundle %@", buf, 0x16u);
   }
 
@@ -190,15 +191,15 @@ LABEL_28:
       if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
         [v41 originatingBundleID];
-        v48 = v53 = v38;
+        v48 = v52 = v38;
         createdAt3 = [v41 createdAt];
         *buf = 138412546;
-        v56 = v48;
-        v57 = 2112;
-        v58 = createdAt3;
+        v55 = v48;
+        v56 = 2112;
+        v57 = createdAt3;
         _os_log_impl(&dword_23224A000, v47, OS_LOG_TYPE_DEFAULT, "PPConnectionsPasteboardSource: returning location item from %@ created at %@", buf, 0x16u);
 
-        v38 = v53;
+        v38 = v52;
       }
 
       if (!v41)
@@ -207,17 +208,17 @@ LABEL_28:
         goto LABEL_37;
       }
 
-      v54 = v41;
-      bundleIdentifier2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+      v53 = v41;
+      bundleIdentifier2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
       text2 = v41;
       goto LABEL_36;
     }
 
-    v52 = pp_connections_log_handle();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+    v51 = pp_connections_log_handle();
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23224A000, v52, OS_LOG_TYPE_DEFAULT, "PPConnectionsPasteboardSource: no address value", buf, 2u);
+      _os_log_impl(&dword_23224A000, v51, OS_LOG_TYPE_DEFAULT, "PPConnectionsPasteboardSource: no address value", buf, 2u);
     }
 
 LABEL_35:
@@ -228,7 +229,6 @@ LABEL_36:
 LABEL_37:
 
 LABEL_29:
-  v50 = *MEMORY[0x277D85DE8];
 
   return bundleIdentifier2;
 }
@@ -268,17 +268,15 @@ void __54__PPConnectionsPasteboardSource_supportedSemanticTags__block_invoke()
 
 void __45__PPConnectionsPasteboardSource_validUTTypes__block_invoke()
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   v0 = [*MEMORY[0x277CE1EB0] identifier];
   v1 = [*MEMORY[0x277CE1EA8] identifier];
-  v6[1] = v1;
+  v5[1] = v1;
   v2 = [*MEMORY[0x277CE1E88] identifier];
-  v6[2] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
+  v5[2] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
   v4 = validUTTypes__stringPasteboardUTTypes;
   validUTTypes__stringPasteboardUTTypes = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addressPasteboardTextItemFromNotification:(BOOL)notification
@@ -334,36 +332,36 @@ LABEL_12:
 
 - (id)fetchedPasteboardItem
 {
-  v65 = *MEMORY[0x277D85DE8];
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x3032000000;
-  v61 = __Block_byref_object_copy__18635;
-  v62 = __Block_byref_object_dispose__18636;
-  v63 = 0;
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x3032000000;
-  v55 = __Block_byref_object_copy__18635;
-  v56 = __Block_byref_object_dispose__18636;
+  v64 = *MEMORY[0x277D85DE8];
   v57 = 0;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__18635;
-  v50 = __Block_byref_object_dispose__18636;
+  v58 = &v57;
+  v59 = 0x3032000000;
+  v60 = __Block_byref_object_copy__18635;
+  v61 = __Block_byref_object_dispose__18636;
+  v62 = 0;
   v51 = 0;
+  v52 = &v51;
+  v53 = 0x3032000000;
+  v54 = __Block_byref_object_copy__18635;
+  v55 = __Block_byref_object_dispose__18636;
+  v56 = 0;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy__18635;
+  v49 = __Block_byref_object_dispose__18636;
+  v50 = 0;
   v3 = dispatch_semaphore_create(0);
   defaultConnection = [MEMORY[0x277D38BC0] defaultConnection];
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __54__PPConnectionsPasteboardSource_fetchedPasteboardItem__block_invoke;
-  v42[3] = &unk_278976BD0;
-  v44 = &v52;
-  v45 = &v46;
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __54__PPConnectionsPasteboardSource_fetchedPasteboardItem__block_invoke;
+  v41[3] = &unk_278976BD0;
+  v43 = &v51;
+  v44 = &v45;
   v5 = v3;
-  v43 = v5;
-  [defaultConnection localGeneralPasteboardCompletionBlock:v42];
+  v42 = v5;
+  [defaultConnection localGeneralPasteboardCompletionBlock:v41];
 
   if ([MEMORY[0x277D425A0] waitForSemaphore:v5 timeoutSeconds:5.0] == 1)
   {
@@ -382,7 +380,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if ([v47[5] isEqualToString:*MEMORY[0x277D3A6B0]])
+  if ([v46[5] isEqualToString:*MEMORY[0x277D3A6B0]])
   {
     firstObject = pp_connections_log_handle();
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_INFO))
@@ -399,31 +397,31 @@ LABEL_8:
     goto LABEL_20;
   }
 
-  items = [v53[5] items];
+  items = [v52[5] items];
   firstObject = [items firstObject];
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   validUTTypes = [(PPConnectionsPasteboardSource *)self validUTTypes];
-  v13 = [validUTTypes countByEnumeratingWithState:&v37 objects:v64 count:16];
+  v13 = [validUTTypes countByEnumeratingWithState:&v36 objects:v63 count:16];
   if (v13)
   {
-    v14 = *v38;
+    v14 = *v37;
     obj = validUTTypes;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v38 != v14)
+        if (*v37 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v37 + 1) + 8 * i);
+        v16 = *(*(&v36 + 1) + 8 * i);
         v17 = objc_autoreleasePoolPush();
-        if ([firstObject hasRepresentationConformingToType:v16]&& !v59[5])
+        if ([firstObject hasRepresentationConformingToType:v16]&& !v58[5])
         {
           v18 = [firstObject representationConformingToType:v16];
           v19 = MEMORY[0x277CE1CB8];
@@ -431,21 +429,21 @@ LABEL_8:
           v21 = [v19 typeWithIdentifier:typeIdentifier];
 
           v22 = dispatch_semaphore_create(0);
-          v29[0] = MEMORY[0x277D85DD0];
-          v29[1] = 3221225472;
-          v29[2] = __54__PPConnectionsPasteboardSource_fetchedPasteboardItem__block_invoke_32;
-          v29[3] = &unk_278976BF8;
+          v28[0] = MEMORY[0x277D85DD0];
+          v28[1] = 3221225472;
+          v28[2] = __54__PPConnectionsPasteboardSource_fetchedPasteboardItem__block_invoke_32;
+          v28[3] = &unk_278976BF8;
           v23 = v21;
-          v34 = &v58;
-          v35 = &v52;
-          v36 = &v46;
-          v30 = v23;
-          v31 = v16;
+          v33 = &v57;
+          v34 = &v51;
+          v35 = &v45;
+          v29 = v23;
+          v30 = v16;
           v24 = v18;
-          v32 = v24;
+          v31 = v24;
           v5 = v22;
-          v33 = v5;
-          v25 = [v24 loadDataWithCompletion:v29];
+          v32 = v5;
+          v25 = [v24 loadDataWithCompletion:v28];
           [MEMORY[0x277D425A0] waitForSemaphore:v5 timeoutSeconds:5.0];
         }
 
@@ -453,20 +451,19 @@ LABEL_8:
       }
 
       validUTTypes = obj;
-      v13 = [obj countByEnumeratingWithState:&v37 objects:v64 count:16];
+      v13 = [obj countByEnumeratingWithState:&v36 objects:v63 count:16];
     }
 
     while (v13);
   }
 
-  v10 = v59[5];
+  v10 = v58[5];
 LABEL_20:
 
-  _Block_object_dispose(&v46, 8);
-  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v51, 8);
 
-  _Block_object_dispose(&v58, 8);
-  v26 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v57, 8);
 
   return v10;
 }
@@ -492,7 +489,7 @@ void __54__PPConnectionsPasteboardSource_fetchedPasteboardItem__block_invoke(uin
 
 void __54__PPConnectionsPasteboardSource_fetchedPasteboardItem__block_invoke_32(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -510,8 +507,8 @@ void __54__PPConnectionsPasteboardSource_fetchedPasteboardItem__block_invoke_32(
     v7 = pp_default_log_handle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v25) = 0;
-      _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "PPConnectionsPasteboardSource: pasteboard text type resolves to UTF-8", &v25, 2u);
+      LOWORD(v24) = 0;
+      _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "PPConnectionsPasteboardSource: pasteboard text type resolves to UTF-8", &v24, 2u);
     }
 
     v8 = MEMORY[0x277CCACA8];
@@ -527,8 +524,8 @@ LABEL_11:
     v11 = pp_default_log_handle();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v25) = 0;
-      _os_log_debug_impl(&dword_23224A000, v11, OS_LOG_TYPE_DEBUG, "PPConnectionsPasteboardSource: pasteboard text type resolves to UTF-16", &v25, 2u);
+      LOWORD(v24) = 0;
+      _os_log_debug_impl(&dword_23224A000, v11, OS_LOG_TYPE_DEBUG, "PPConnectionsPasteboardSource: pasteboard text type resolves to UTF-16", &v24, 2u);
     }
 
     v8 = MEMORY[0x277CCACA8];
@@ -545,8 +542,8 @@ LABEL_11:
   v19 = pp_default_log_handle();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v25) = 0;
-    _os_log_debug_impl(&dword_23224A000, v19, OS_LOG_TYPE_DEBUG, "PPConnectionsPasteboardSource: pasteboard text type does not resolve to UTF-8 or UTF-16", &v25, 2u);
+    LOWORD(v24) = 0;
+    _os_log_debug_impl(&dword_23224A000, v19, OS_LOG_TYPE_DEBUG, "PPConnectionsPasteboardSource: pasteboard text type does not resolve to UTF-8 or UTF-16", &v24, 2u);
   }
 
   v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v5 usedEncoding:0];
@@ -567,10 +564,10 @@ LABEL_12:
     v18 = pp_connections_log_handle();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v24 = [*(*(*(a1 + 64) + 8) + 40) text];
-      v25 = 138739971;
-      v26 = v24;
-      _os_log_debug_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEBUG, "PPConnectionsPasteboardSource: pasteboard text: %{sensitive}@", &v25, 0xCu);
+      v23 = [*(*(*(a1 + 64) + 8) + 40) text];
+      v24 = 138739971;
+      v25 = v23;
+      _os_log_debug_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEBUG, "PPConnectionsPasteboardSource: pasteboard text: %{sensitive}@", &v24, 0xCu);
     }
 
     goto LABEL_23;
@@ -582,25 +579,58 @@ LABEL_20:
   {
     v21 = *(a1 + 40);
     v22 = [*(a1 + 48) typeIdentifier];
-    v25 = 138412802;
-    v26 = v21;
-    v27 = 2112;
-    v28 = v22;
-    v29 = 2112;
-    v30 = 0;
-    _os_log_impl(&dword_23224A000, v20, OS_LOG_TYPE_DEFAULT, "PPConnectionsPasteboardSource: Could not load text representation from pasteboard. Type = %@, resolved type = %@, Error: %@", &v25, 0x20u);
+    v24 = 138412802;
+    v25 = v21;
+    v26 = 2112;
+    v27 = v22;
+    v28 = 2112;
+    v29 = 0;
+    _os_log_impl(&dword_23224A000, v20, OS_LOG_TYPE_DEFAULT, "PPConnectionsPasteboardSource: Could not load text representation from pasteboard. Type = %@, resolved type = %@, Error: %@", &v24, 0x20u);
   }
 
   +[PPQuickTypeMetrics frameworkError:errorCode:](PPQuickTypeMetrics, "frameworkError:errorCode:", @"PB", [0 code]);
 LABEL_23:
   dispatch_semaphore_signal(*(a1 + 56));
+}
 
-  v23 = *MEMORY[0x277D85DE8];
+- (void)refreshMostRecentPasteboardItemFromNotification:(BOOL)notification explanationSet:(id)set
+{
+  notificationCopy = notification;
+  setCopy = set;
+  v7 = [(PPConnectionsPasteboardSource *)self addressPasteboardTextItemFromNotification:notificationCopy];
+  [(PPConnectionsPasteboardSource *)self _setMostRecentPasteboardItem:v7];
+
+  dispatch_semaphore_signal(self->_init_sem);
+  v8 = pp_connections_log_handle();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *v16 = 0;
+    _os_log_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEFAULT, "PPConnectionsPasteboardSource: initial pasteboard fetch completed", v16, 2u);
+  }
+
+  v9 = os_transaction_create();
+  v10 = objc_autoreleasePoolPush();
+  _mostRecentPasteboardItem = [(PPConnectionsPasteboardSource *)self _mostRecentPasteboardItem];
+
+  if (_mostRecentPasteboardItem)
+  {
+    v12 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-10.0];
+    v13 = [(PPConnectionsPasteboardSource *)self locationItemsWithCriteria:0 earliest:v12 latest:0 limit:1 consumer:0 explanationSet:setCopy];
+    firstObject = [v13 firstObject];
+
+    delegate = [(PPConnectionsSource *)self delegate];
+    if (objc_opt_respondsToSelector())
+    {
+      [delegate source:self updatedLocation:firstObject];
+    }
+  }
+
+  objc_autoreleasePoolPop(v10);
 }
 
 - (void)_setMostRecentPasteboardItem:(id)item
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   memoryFootprintEstimate = [itemCopy memoryFootprintEstimate];
   if (memoryFootprintEstimate >= 0x4000)
@@ -610,7 +640,7 @@ LABEL_23:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v14 = v6;
+      v13 = v6;
       _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEFAULT, "PPConnectionsPasteboardSource: dropping pasteboard item because it uses too much memory (estimated footprint %tu)", buf, 0xCu);
     }
 
@@ -618,15 +648,13 @@ LABEL_23:
   }
 
   lock = self->_lock;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __62__PPConnectionsPasteboardSource__setMostRecentPasteboardItem___block_invoke;
-  v11[3] = &unk_278976BA0;
-  v12 = itemCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __62__PPConnectionsPasteboardSource__setMostRecentPasteboardItem___block_invoke;
+  v10[3] = &unk_278976BA0;
+  v11 = itemCopy;
   v9 = itemCopy;
-  [(_PASLock *)lock runWithLockAcquired:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(_PASLock *)lock runWithLockAcquired:v10];
 }
 
 void __62__PPConnectionsPasteboardSource__setMostRecentPasteboardItem___block_invoke(uint64_t a1, uint64_t a2)

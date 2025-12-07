@@ -191,32 +191,33 @@
               v52 = 0;
               LODWORD(v35) = [v36 acquireWithError:&v52];
               v37 = v52;
+              v38 = v37;
               if (v35)
               {
-                v38 = val[7];
-                if (!v38)
+                v39 = val[7];
+                if (!v39)
                 {
-                  v39 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:v49];
-                  v40 = val[7];
-                  val[7] = v39;
+                  v40 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:v49];
+                  v41 = val[7];
+                  val[7] = v40;
 
-                  v38 = val[7];
+                  v39 = val[7];
                 }
 
-                [v38 setObject:v36 forKey:v31];
+                [v39 setObject:v36 forKey:v31];
                 [val[8] addProcessIdentifier:v31];
               }
 
               else
               {
-                v41 = FBLogProcessWorkspace();
-                if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+                v42 = FBLogProcessWorkspace(v37);
+                if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412546;
                   v62 = v31;
                   v63 = 2112;
-                  v64 = v37;
-                  _os_log_error_impl(&dword_1A89DD000, v41, OS_LOG_TYPE_ERROR, "failed to acquire restart assertion on %@ : %@", buf, 0x16u);
+                  v64 = v38;
+                  _os_log_error_impl(&dword_1A89DD000, v42, OS_LOG_TYPE_ERROR, "failed to acquire restart assertion on %@ : %@", buf, 0x16u);
                 }
 
                 [v36 invalidate];
@@ -248,7 +249,6 @@
     val = 0;
   }
 
-  v42 = *MEMORY[0x1E69E9840];
   return val;
 }
 
@@ -296,7 +296,7 @@ void __86__FBWorkspaceEventDispatcher__initWithDomain_connectionStore_preregiste
         v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"already have a source registered for %@: %@", v9, v10];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          [FBWorkspaceEventDispatcher registerSourceWithProcessHandle:?];
+          [(FBWorkspaceEventDispatcher *)sel_registerSourceWithProcessHandle_ registerSourceWithProcessHandle:handle];
         }
 
         v23 = v22;
@@ -321,10 +321,11 @@ void __86__FBWorkspaceEventDispatcher__initWithDomain_connectionStore_preregiste
       objc_copyWeak(&v26, &location);
       v14 = v9;
       v25 = v14;
-      v10 = [(FBWorkspaceEventDispatcherSource *)v13 _initWithProcessHandle:v6 invalidationBlock:v24];
-      v15 = *(handle + 32);
-      v12 = v15 == 0;
-      if (v15)
+      v15 = [(FBWorkspaceEventDispatcherSource *)v13 _initWithProcessHandle:v6 invalidationBlock:v24];
+      v10 = v15;
+      v16 = *(handle + 32);
+      v12 = v16 == 0;
+      if (v16)
       {
         v11 = [*(handle + 56) objectForKey:v14];
         if (v11)
@@ -332,20 +333,19 @@ void __86__FBWorkspaceEventDispatcher__initWithDomain_connectionStore_preregiste
           [*(handle + 56) removeObjectForKey:v14];
           if (![*(handle + 56) count])
           {
-            v16 = *(handle + 56);
+            v17 = *(handle + 56);
             *(handle + 56) = 0;
           }
         }
 
-        [*(handle + 32) setObject:v10 forKey:v14];
-        v17 = FBLogProcessWorkspace();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v18 = FBLogProcessWorkspace([*(handle + 32) setObject:v10 forKey:v14]);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
           v29 = v14;
           v30 = 2114;
           v31 = v10;
-          _os_log_impl(&dword_1A89DD000, v17, OS_LOG_TYPE_DEFAULT, "Registering Source for %{public}@ : %{public}@", buf, 0x16u);
+          _os_log_impl(&dword_1A89DD000, v18, OS_LOG_TYPE_DEFAULT, "Registering Source for %{public}@ : %{public}@", buf, 0x16u);
         }
 
         rbs_pid = [v14 rbs_pid];
@@ -357,8 +357,8 @@ void __86__FBWorkspaceEventDispatcher__initWithDomain_connectionStore_preregiste
 
       else
       {
-        v19 = FBLogProcessWorkspace();
-        [(FBWorkspaceEventDispatcher *)v19 registerSourceWithProcessHandle:v14, v10];
+        v20 = FBLogProcessWorkspace(v15);
+        [(FBWorkspaceEventDispatcher *)v20 registerSourceWithProcessHandle:v14, v10];
         v11 = 0;
       }
 
@@ -379,8 +379,6 @@ void __86__FBWorkspaceEventDispatcher__initWithDomain_connectionStore_preregiste
     v10 = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
@@ -393,8 +391,10 @@ void __86__FBWorkspaceEventDispatcher__initWithDomain_connectionStore_preregiste
     objc_claimAutoreleasedReturnValue();
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
+    LODWORD(v10) = 138544642;
+    *(&v10 + 4) = self;
     OUTLINED_FUNCTION_5_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
   }
 
   [v2 UTF8String];
@@ -404,7 +404,7 @@ void __86__FBWorkspaceEventDispatcher__initWithDomain_connectionStore_preregiste
 
 - (id)registerTarget:(uint64_t)target
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (target)
   {
@@ -420,57 +420,56 @@ void __86__FBWorkspaceEventDispatcher__initWithDomain_connectionStore_preregiste
     workspaceIdentifier = [v3 workspaceIdentifier];
     objc_initWeak(&location, v3);
     v6 = objc_alloc(MEMORY[0x1E698E778]);
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke;
-    v26[3] = &unk_1E783B378;
-    objc_copyWeak(v28, &location);
-    v26[4] = target;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke;
+    v24[3] = &unk_1E783B378;
+    objc_copyWeak(v26, &location);
+    v24[4] = target;
     v7 = workspaceIdentifier;
-    v27 = v7;
-    v28[1] = sel_registerTarget_;
-    v8 = [v6 initWithIdentifier:@"com.apple.frontboard.workspace-events.registration.target" forReason:v7 invalidationBlock:v26];
+    v25 = v7;
+    v26[1] = sel_registerTarget_;
+    v8 = [v6 initWithIdentifier:@"com.apple.frontboard.workspace-events.registration.target" forReason:v7 invalidationBlock:v24];
     os_unfair_lock_lock((target + 72));
     v9 = [*(target + 40) objectForKey:v7];
     if (v9)
     {
-      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"already have a target registered for %@: %@", v7, v9];
+      v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"already have a target registered for %@: %@", v7, v9];
+      v15 = MEMORY[0x1E69E9C10];
       v16 = MEMORY[0x1E69E9C10];
-      v17 = MEMORY[0x1E69E9C10];
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v18 = NSStringFromSelector(sel_registerTarget_);
-        v19 = objc_opt_class();
-        v20 = NSStringFromClass(v19);
+        v17 = NSStringFromSelector(sel_registerTarget_);
+        v18 = objc_opt_class();
+        v19 = NSStringFromClass(v18);
         *buf = 138544642;
-        v31 = v18;
-        v32 = 2114;
-        v33 = v20;
-        v34 = 2048;
+        v29 = v17;
+        v30 = 2114;
+        v31 = v19;
+        v32 = 2048;
         targetCopy = target;
-        v36 = 2114;
-        v37 = @"FBWorkspaceEventDispatcher.m";
-        v38 = 1024;
-        v39 = 196;
-        v40 = 2114;
-        v41 = v15;
+        v34 = 2114;
+        v35 = @"FBWorkspaceEventDispatcher.m";
+        v36 = 1024;
+        v37 = 196;
+        v38 = 2114;
+        v39 = v14;
         _os_log_error_impl(&dword_1A89DD000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v21 = v15;
-      [v15 UTF8String];
-      v22 = _bs_set_crash_log_message();
-      [FBWorkspaceEventDispatcher registerTarget:v22];
+      v20 = v14;
+      [v14 UTF8String];
+      _bs_set_crash_log_message();
+      [FBWorkspaceEventDispatcher registerTarget:];
     }
 
-    [*(target + 40) setObject:v3 forKey:v7];
-    v10 = FBLogProcessWorkspace();
+    v10 = FBLogProcessWorkspace([*(target + 40) setObject:v3 forKey:v7]);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v31 = v7;
-      v32 = 2114;
-      v33 = v3;
+      v29 = v7;
+      v30 = 2114;
+      v31 = v3;
       _os_log_impl(&dword_1A89DD000, v10, OS_LOG_TYPE_DEFAULT, "Registering Target for %{public}@: %{public}@", buf, 0x16u);
     }
 
@@ -478,18 +477,18 @@ void __86__FBWorkspaceEventDispatcher__initWithDomain_connectionStore_preregiste
     [*(target + 48) addObject:v7];
     objc_opt_self();
     mainQueue2 = [MEMORY[0x1E698F4D0] mainQueue];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_80;
-    v23[3] = &unk_1E783B3A0;
-    objc_copyWeak(&v25, &location);
-    v23[4] = target;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_80;
+    v21[3] = &unk_1E783B3A0;
+    objc_copyWeak(&v23, &location);
+    v21[4] = target;
     v12 = v7;
-    v24 = v12;
-    [mainQueue2 performAsync:v23];
+    v22 = v12;
+    [mainQueue2 performAsync:v21];
 
-    objc_destroyWeak(&v25);
-    objc_destroyWeak(v28);
+    objc_destroyWeak(&v23);
+    objc_destroyWeak(v26);
     objc_destroyWeak(&location);
   }
 
@@ -497,8 +496,6 @@ void __86__FBWorkspaceEventDispatcher__initWithDomain_connectionStore_preregiste
   {
     v8 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -525,7 +522,7 @@ void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke(uint64_t a1,
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_cold_1(a1, (a1 + 32));
+      __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_cold_1(a1, (a1 + 32), v12);
     }
 
     [v12 UTF8String];
@@ -534,24 +531,22 @@ void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke(uint64_t a1,
     JUMPOUT(0x1A89EEAB4);
   }
 
-  v6 = FBLogProcessWorkspace();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = FBLogProcessWorkspace(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 40);
+    v8 = *(a1 + 40);
     *buf = 138543362;
-    v14 = v7;
-    _os_log_impl(&dword_1A89DD000, v6, OS_LOG_TYPE_DEFAULT, "Removing target registration for workspaceIdentifier: %{public}@", buf, 0xCu);
+    v14 = v8;
+    _os_log_impl(&dword_1A89DD000, v7, OS_LOG_TYPE_DEFAULT, "Removing target registration for workspaceIdentifier: %{public}@", buf, 0xCu);
   }
 
   [*(*(a1 + 32) + 40) removeObjectForKey:*(a1 + 40)];
   os_unfair_lock_unlock((*(a1 + 32) + 72));
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_80(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   os_unfair_lock_lock((*(a1 + 32) + 72));
   if (WeakRetained && ([*(*(a1 + 32) + 40) objectForKey:*(a1 + 40)], v3 = objc_claimAutoreleasedReturnValue(), v3, v3 == WeakRetained))
@@ -567,22 +562,22 @@ void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_80(uint64_t 
 
   os_unfair_lock_unlock((*(a1 + 32) + 72));
   [*(*(a1 + 32) + 48) removeObject:*(a1 + 40)];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       v10 = 0;
       do
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v6);
         }
@@ -591,28 +586,28 @@ void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_80(uint64_t 
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v8);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v11 = v6;
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       v15 = 0;
       do
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
@@ -621,13 +616,11 @@ void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_80(uint64_t 
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __62__FBWorkspaceEventDispatcher_registerSourceWithProcessHandle___block_invoke(uint64_t a1, void *a2)
@@ -658,7 +651,7 @@ void __62__FBWorkspaceEventDispatcher_registerSourceWithProcessHandle___block_in
 
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          [FBWorkspaceEventDispatcher _noteSourceDidInvalidate:? withPIDNumber:?];
+          [FBWorkspaceEventDispatcher _noteSourceDidInvalidate:self withPIDNumber:?];
         }
 
         [v28 UTF8String];
@@ -667,79 +660,79 @@ void __62__FBWorkspaceEventDispatcher_registerSourceWithProcessHandle___block_in
         JUMPOUT(0x1A89EF03CLL);
       }
 
-      v9 = FBLogProcessWorkspace();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = FBLogProcessWorkspace(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         processHandle = [v5 processHandle];
         *buf = 138543362;
         v40 = processHandle;
-        _os_log_impl(&dword_1A89DD000, v9, OS_LOG_TYPE_DEFAULT, "Removing source registration for processHandle: %{public}@", buf, 0xCu);
+        _os_log_impl(&dword_1A89DD000, v10, OS_LOG_TYPE_DEFAULT, "Removing source registration for processHandle: %{public}@", buf, 0xCu);
       }
 
       [*(self + 32) removeObjectForKey:invalidateCopy];
-      v11 = objc_opt_new();
-      v12 = *(self + 64);
-      *(self + 64) = v11;
+      v12 = objc_opt_new();
+      v13 = *(self + 64);
+      *(self + 64) = v12;
 
       v35 = 0u;
       v36 = 0u;
       v33 = 0u;
       v34 = 0u;
-      v13 = *(self + 32);
-      v14 = [v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
-      if (v14)
+      v14 = *(self + 32);
+      v15 = [v14 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      if (v15)
       {
-        v15 = v14;
-        v16 = *v34;
+        v16 = v15;
+        v17 = *v34;
         do
         {
-          for (i = 0; i != v15; ++i)
+          for (i = 0; i != v16; ++i)
           {
-            if (*v34 != v16)
+            if (*v34 != v17)
             {
-              objc_enumerationMutation(v13);
+              objc_enumerationMutation(v14);
             }
 
-            v18 = *(*(&v33 + 1) + 8 * i);
-            rbs_pid = [v18 rbs_pid];
+            v19 = *(*(&v33 + 1) + 8 * i);
+            rbs_pid = [v19 rbs_pid];
             if (rbs_pid != getpid())
             {
-              [*(self + 64) addProcessIdentifier:v18];
+              [*(self + 64) addProcessIdentifier:v19];
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v33 objects:v38 count:16];
         }
 
-        while (v15);
+        while (v16);
       }
 
       v31 = 0u;
       v32 = 0u;
       v29 = 0u;
       v30 = 0u;
-      v20 = *(self + 56);
-      v21 = [v20 countByEnumeratingWithState:&v29 objects:v37 count:16];
-      if (v21)
+      v21 = *(self + 56);
+      v22 = [v21 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      if (v22)
       {
-        v22 = v21;
-        v23 = *v30;
+        v23 = v22;
+        v24 = *v30;
         do
         {
-          for (j = 0; j != v22; ++j)
+          for (j = 0; j != v23; ++j)
           {
-            if (*v30 != v23)
+            if (*v30 != v24)
             {
-              objc_enumerationMutation(v20);
+              objc_enumerationMutation(v21);
             }
 
             [*(self + 64) addProcessIdentifier:*(*(&v29 + 1) + 8 * j)];
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v29 objects:v37 count:16];
+          v23 = [v21 countByEnumeratingWithState:&v29 objects:v37 count:16];
         }
 
-        while (v22);
+        while (v23);
       }
 
       [(FBWorkspaceConnectionsStateStore *)*(self + 16) setState:?];
@@ -747,13 +740,11 @@ void __62__FBWorkspaceEventDispatcher_registerSourceWithProcessHandle___block_in
 
     os_unfair_lock_unlock((self + 72));
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)noteHandshakeFromSource:(void *)source withRemnants:
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   sourceCopy = source;
   if (self)
@@ -784,51 +775,49 @@ void __62__FBWorkspaceEventDispatcher_registerSourceWithProcessHandle___block_in
       [FBWorkspaceEventDispatcher noteHandshakeFromSource:v10 withRemnants:sel_noteHandshakeFromSource_withRemnants_];
     }
 
-    v19 = sel_noteHandshakeFromSource_withRemnants_;
+    v18 = sel_noteHandshakeFromSource_withRemnants_;
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v12)
     {
-      v14 = v12;
-      v15 = *v22;
+      v13 = v12;
+      v14 = *v21;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v22 != v15)
+          if (*v21 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v21 + 1) + 8 * i);
-          if (!v17)
+          v16 = *(*(&v20 + 1) + 8 * i);
+          if (!v16)
           {
-            [FBWorkspaceEventDispatcher noteHandshakeFromSource:v19 withRemnants:?];
+            [FBWorkspaceEventDispatcher noteHandshakeFromSource:v18 withRemnants:?];
           }
 
-          v18 = v17;
+          v17 = v16;
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            [FBWorkspaceEventDispatcher noteHandshakeFromSource:v18 withRemnants:v19];
+            [FBWorkspaceEventDispatcher noteHandshakeFromSource:v17 withRemnants:v18];
           }
         }
 
-        v14 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:{16, v19}];
+        v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:{16, v18}];
       }
 
-      while (v14);
+      while (v13);
     }
 
-    [(FBWorkspaceEventDispatcher *)v11 noteHandshakeFromSource:v20 withRemnants:self, v8];
+    [(FBWorkspaceEventDispatcher *)v11 noteHandshakeFromSource:v19 withRemnants:self, v8];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)handleSceneRequest:(void *)request fromSource:
@@ -922,7 +911,7 @@ uint64_t __81__FBWorkspaceEventDispatcher__callOutQueue_dispatchHandshakeFromSou
 
 - (void)_noteReceivedInvalidationHandlerForAssertion:(uint64_t)assertion
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (assertion)
   {
@@ -930,37 +919,37 @@ uint64_t __81__FBWorkspaceEventDispatcher__callOutQueue_dispatchHandshakeFromSou
     if (*(assertion + 32))
     {
       v4 = *(assertion + 56);
-      v43[0] = MEMORY[0x1E69E9820];
-      v43[1] = 3221225472;
-      v43[2] = __75__FBWorkspaceEventDispatcher__noteReceivedInvalidationHandlerForAssertion___block_invoke;
-      v43[3] = &unk_1E783B3F0;
-      v44 = v3;
-      v5 = [v4 keysOfEntriesPassingTest:v43];
+      v42[0] = MEMORY[0x1E69E9820];
+      v42[1] = 3221225472;
+      v42[2] = __75__FBWorkspaceEventDispatcher__noteReceivedInvalidationHandlerForAssertion___block_invoke;
+      v42[3] = &unk_1E783B3F0;
+      v43 = v3;
+      v5 = [v4 keysOfEntriesPassingTest:v42];
       if ([v5 count])
       {
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
         v40 = 0u;
+        v41 = 0u;
+        v38 = 0u;
+        v39 = 0u;
         v6 = v5;
-        v7 = [v6 countByEnumeratingWithState:&v39 objects:v47 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v38 objects:v46 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v40;
+          v9 = *v39;
           do
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v40 != v9)
+              if (*v39 != v9)
               {
                 objc_enumerationMutation(v6);
               }
 
-              v11 = [*(assertion + 56) removeObjectForKey:*(*(&v39 + 1) + 8 * i)];
+              v11 = [*(assertion + 56) removeObjectForKey:*(*(&v38 + 1) + 8 * i)];
             }
 
-            v8 = OUTLINED_FUNCTION_11(v11, v12, &v39, v47);
+            v8 = OUTLINED_FUNCTION_11(v11, v12, &v38, v46);
           }
 
           while (v8);
@@ -970,26 +959,26 @@ uint64_t __81__FBWorkspaceEventDispatcher__callOutQueue_dispatchHandshakeFromSou
         v14 = *(assertion + 64);
         *(assertion + 64) = v13;
 
-        v37 = 0u;
-        v38 = 0u;
-        v35 = 0u;
         v36 = 0u;
+        v37 = 0u;
+        v34 = 0u;
+        v35 = 0u;
         v15 = *(assertion + 32);
-        v16 = [v15 countByEnumeratingWithState:&v35 objects:v46 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v34 objects:v45 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v36;
+          v18 = *v35;
           do
           {
             for (j = 0; j != v17; ++j)
             {
-              if (*v36 != v18)
+              if (*v35 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v20 = *(*(&v35 + 1) + 8 * j);
+              v20 = *(*(&v34 + 1) + 8 * j);
               rbs_pid = [v20 rbs_pid];
               v22 = getpid();
               if (rbs_pid != v22)
@@ -998,7 +987,7 @@ uint64_t __81__FBWorkspaceEventDispatcher__callOutQueue_dispatchHandshakeFromSou
               }
             }
 
-            v17 = OUTLINED_FUNCTION_11(v22, v23, &v35, v46);
+            v17 = OUTLINED_FUNCTION_11(v22, v23, &v34, v45);
           }
 
           while (v17);
@@ -1006,24 +995,24 @@ uint64_t __81__FBWorkspaceEventDispatcher__callOutQueue_dispatchHandshakeFromSou
 
         OUTLINED_FUNCTION_10();
         v24 = *(assertion + 56);
-        v25 = [v24 countByEnumeratingWithState:v33 objects:v45 count:16];
+        v25 = [v24 countByEnumeratingWithState:v32 objects:v44 count:16];
         if (v25)
         {
           v26 = v25;
-          v27 = *v34;
+          v27 = *v33;
           do
           {
             for (k = 0; k != v26; ++k)
             {
-              if (*v34 != v27)
+              if (*v33 != v27)
               {
                 objc_enumerationMutation(v24);
               }
 
-              v29 = [*(assertion + 64) addProcessIdentifier:*(v33[1] + 8 * k)];
+              v29 = [*(assertion + 64) addProcessIdentifier:*(v32[1] + 8 * k)];
             }
 
-            v26 = OUTLINED_FUNCTION_11(v29, v30, v33, v45);
+            v26 = OUTLINED_FUNCTION_11(v29, v30, v32, v44);
           }
 
           while (v26);
@@ -1041,8 +1030,6 @@ uint64_t __81__FBWorkspaceEventDispatcher__callOutQueue_dispatchHandshakeFromSou
 
     os_unfair_lock_unlock((assertion + 72));
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_callOutQueue_dispatchHandshakeFromSource:(void *)source toTarget:
@@ -1073,7 +1060,6 @@ uint64_t __81__FBWorkspaceEventDispatcher__callOutQueue_dispatchHandshakeFromSou
 
 - (void)_callOutQueue_dispatchSceneRequestsFromSource:(void *)source toTarget:
 {
-  v53 = *MEMORY[0x1E69E9840];
   v5 = a2;
   sourceCopy = source;
   if (self)
@@ -1085,22 +1071,22 @@ uint64_t __81__FBWorkspaceEventDispatcher__callOutQueue_dispatchHandshakeFromSou
     workspaceIdentifier = [sourceCopy workspaceIdentifier];
     v9 = [v5 dequeueSceneRequestsForTargetIdentifier:workspaceIdentifier];
 
-    v18 = OUTLINED_FUNCTION_13(v10, v11, v12, v13, v14, v15, v16, v17, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51);
+    v18 = OUTLINED_FUNCTION_13(v10, v11, v12, v13, v14, v15, v16, v17, v32, v34, v36, v38, v40, v42, v44, v46, v48);
     if (v18)
     {
       v19 = v18;
-      v20 = *v38;
+      v20 = *v37;
       do
       {
         v21 = 0;
         do
         {
-          if (*v38 != v20)
+          if (*v37 != v20)
           {
             objc_enumerationMutation(v9);
           }
 
-          v22 = *(v36 + 8 * v21);
+          v22 = *(v35 + 8 * v21);
           processHandle = [v5 processHandle];
           [sourceCopy didReceiveSceneRequest:v22 fromHandle:processHandle];
 
@@ -1108,14 +1094,12 @@ uint64_t __81__FBWorkspaceEventDispatcher__callOutQueue_dispatchHandshakeFromSou
         }
 
         while (v19 != v21);
-        v19 = OUTLINED_FUNCTION_13(v24, v25, v26, v27, v28, v29, v30, v31, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52);
+        v19 = OUTLINED_FUNCTION_13(v24, v25, v26, v27, v28, v29, v30, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49);
       }
 
       while (v19);
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_callOutQueue_noteHandshakeFromSource:(void *)source withRemnants:
@@ -1126,14 +1110,13 @@ uint64_t __81__FBWorkspaceEventDispatcher__callOutQueue_dispatchHandshakeFromSou
   if (self)
   {
     os_unfair_lock_lock((self + 72));
-    v7 = *(self + 32);
-    v8 = MEMORY[0x1E696AD98];
+    v7 = MEMORY[0x1E696AD98];
     processHandle = [v5 processHandle];
-    [v8 numberWithInt:{objc_msgSend(processHandle, "rbs_pid")}];
+    [v7 numberWithInt:{objc_msgSend(processHandle, "rbs_pid")}];
     objc_claimAutoreleasedReturnValue();
-    v10 = [OUTLINED_FUNCTION_7() objectForKey:?];
+    v9 = [OUTLINED_FUNCTION_7() objectForKey:?];
 
-    if (v10 == v5)
+    if (v9 == v5)
     {
       v21 = [v5 noteHandshakeWithRemnants:sourceCopy];
       v22 = NSAllMapTableValues(*(self + 40));
@@ -1147,42 +1130,42 @@ uint64_t __81__FBWorkspaceEventDispatcher__callOutQueue_dispatchHandshakeFromSou
         v35 = 0u;
         v36 = 0u;
         v14 = v13;
-        v23 = [v14 countByEnumeratingWithState:&v35 objects:v42 count:16];
-        if (v23)
+        v24 = [v14 countByEnumeratingWithState:&v35 objects:v42 count:16];
+        if (v24)
         {
-          v24 = v23;
-          v25 = *v36;
+          v25 = v24;
+          v26 = *v36;
           do
           {
-            for (i = 0; i != v24; ++i)
+            for (i = 0; i != v25; ++i)
             {
-              if (*v36 != v25)
+              if (*v36 != v26)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v27 = *(*(&v35 + 1) + 8 * i);
-              v28 = *(self + 48);
-              workspaceIdentifier = [v27 workspaceIdentifier];
-              LOBYTE(v28) = [v28 containsObject:workspaceIdentifier];
+              v28 = *(*(&v35 + 1) + 8 * i);
+              v29 = *(self + 48);
+              workspaceIdentifier = [v28 workspaceIdentifier];
+              LOBYTE(v29) = [v29 containsObject:workspaceIdentifier];
 
-              if ((v28 & 1) == 0)
+              if ((v29 & 1) == 0)
               {
-                [(FBWorkspaceEventDispatcher *)self _callOutQueue_dispatchHandshakeFromSource:v5 toTarget:v27];
+                [(FBWorkspaceEventDispatcher *)self _callOutQueue_dispatchHandshakeFromSource:v5 toTarget:v28];
               }
             }
 
-            v24 = OUTLINED_FUNCTION_11(v30, v31, &v35, v42);
+            v25 = OUTLINED_FUNCTION_11(v31, v32, &v35, v42);
           }
 
-          while (v24);
+          while (v25);
         }
 
         v13 = v14;
         goto LABEL_25;
       }
 
-      v11 = FBLogProcessWorkspace();
+      v11 = FBLogProcessWorkspace(v23);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -1193,7 +1176,7 @@ uint64_t __81__FBWorkspaceEventDispatcher__callOutQueue_dispatchHandshakeFromSou
     else
     {
       os_unfair_lock_unlock((self + 72));
-      v11 = FBLogProcessWorkspace();
+      v11 = FBLogProcessWorkspace(v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         processHandle2 = [v5 processHandle];
@@ -1232,13 +1215,11 @@ uint64_t __81__FBWorkspaceEventDispatcher__callOutQueue_dispatchHandshakeFromSou
 
 LABEL_25:
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_callOutQueue_handleSceneRequest:(void *)request fromSource:
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   requestCopy = request;
   if (self)
@@ -1255,21 +1236,21 @@ LABEL_25:
 
     if (v13 == requestCopy)
     {
-      v16 = [*(self + 40) objectForKey:targetIdentifier];
-      if (v8 | v16)
+      v17 = [*(self + 40) objectForKey:targetIdentifier];
+      if (v8 | v17)
       {
-        v17 = v16;
+        v18 = v17;
         [requestCopy enqueueSceneRequest:v5];
         os_unfair_lock_unlock((self + 72));
-        if (v17)
+        if (v18)
         {
-          v18 = *(self + 48);
-          workspaceIdentifier = [v17 workspaceIdentifier];
-          LOBYTE(v18) = [v18 containsObject:workspaceIdentifier];
+          v20 = *(self + 48);
+          workspaceIdentifier = [v18 workspaceIdentifier];
+          LOBYTE(v20) = [v20 containsObject:workspaceIdentifier];
 
-          if ((v18 & 1) == 0)
+          if ((v20 & 1) == 0)
           {
-            [(FBWorkspaceEventDispatcher *)self _callOutQueue_dispatchSceneRequestsFromSource:requestCopy toTarget:v17];
+            [(FBWorkspaceEventDispatcher *)self _callOutQueue_dispatchSceneRequestsFromSource:requestCopy toTarget:v18];
           }
 
           goto LABEL_15;
@@ -1278,7 +1259,7 @@ LABEL_25:
         if (v8)
         {
 LABEL_14:
-          v17 = 0;
+          v18 = 0;
 LABEL_15:
 
           goto LABEL_16;
@@ -1290,37 +1271,35 @@ LABEL_15:
         os_unfair_lock_unlock((self + 72));
       }
 
-      v14 = FBLogProcessWorkspace();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = FBLogProcessWorkspace(v19);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v23 = targetIdentifier;
-        _os_log_impl(&dword_1A89DD000, v14, OS_LOG_TYPE_DEFAULT, "Denying scene request because target workspace %{public}@ does not exist", buf, 0xCu);
+        v24 = targetIdentifier;
+        _os_log_impl(&dword_1A89DD000, v15, OS_LOG_TYPE_DEFAULT, "Denying scene request because target workspace %{public}@ does not exist", buf, 0xCu);
       }
     }
 
     else
     {
       os_unfair_lock_unlock((self + 72));
-      v14 = FBLogProcessWorkspace();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = FBLogProcessWorkspace(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         processHandle2 = [requestCopy processHandle];
         *buf = 67240192;
-        LODWORD(v23) = [processHandle2 rbs_pid];
-        _os_log_impl(&dword_1A89DD000, v14, OS_LOG_TYPE_DEFAULT, "Ignoring scene request from invalid source registration for %{public}i", buf, 8u);
+        LODWORD(v24) = [processHandle2 rbs_pid];
+        _os_log_impl(&dword_1A89DD000, v15, OS_LOG_TYPE_DEFAULT, "Ignoring scene request from invalid source registration for %{public}i", buf, 8u);
       }
     }
 
-    v20 = FBSWorkspaceErrorCreate();
-    [v5 invalidateWithError:v20];
+    v22 = FBSWorkspaceErrorCreate();
+    [v5 invalidateWithError:v22];
 
     goto LABEL_14;
   }
 
 LABEL_16:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)canCreateLocalSceneWithIdentity:(uint64_t)identity
@@ -1340,26 +1319,25 @@ LABEL_16:
   v6 = [*(identity + 24) objectForKey:workspaceIdentifier];
 
   os_unfair_lock_lock((identity + 72));
-  v7 = *(identity + 32);
-  v8 = MEMORY[0x1E696AD98];
+  v7 = MEMORY[0x1E696AD98];
   [MEMORY[0x1E696AD98] numberWithInt:getpid()];
   objc_claimAutoreleasedReturnValue();
-  v9 = [OUTLINED_FUNCTION_7() objectForKey:?];
+  v8 = [OUTLINED_FUNCTION_7() objectForKey:?];
 
-  if (v9)
+  if (v8)
   {
-    v10 = [*(identity + 40) objectForKey:workspaceIdentifier];
-    v11 = (v6 | v10) != 0;
+    v9 = [*(identity + 40) objectForKey:workspaceIdentifier];
+    v10 = (v6 | v9) != 0;
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
   os_unfair_lock_unlock((identity + 72));
 
-  return v11;
+  return v10;
 }
 
 - (void)handleLocalSceneRequest:(uint64_t)request
@@ -1379,30 +1357,29 @@ LABEL_16:
     os_unfair_lock_unlock((request + 72));
     if (v7)
     {
-      v10 = [MEMORY[0x1E695DFD8] set];
-      [(FBWorkspaceEventDispatcher *)request _callOutQueue_noteHandshakeFromSource:v7 withRemnants:v10];
+      v11 = [MEMORY[0x1E695DFD8] set];
+      [(FBWorkspaceEventDispatcher *)request _callOutQueue_noteHandshakeFromSource:v7 withRemnants:v11];
 
       [(FBWorkspaceEventDispatcher *)request _callOutQueue_handleSceneRequest:v3 fromSource:v7];
     }
 
     else
     {
-      v8 = FBLogProcessWorkspace();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = FBLogProcessWorkspace(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v11 = 0;
-        _os_log_impl(&dword_1A89DD000, v8, OS_LOG_TYPE_DEFAULT, "Ignoring scene request from local source as we've already been invalidated", v11, 2u);
+        *v12 = 0;
+        _os_log_impl(&dword_1A89DD000, v9, OS_LOG_TYPE_DEFAULT, "Ignoring scene request from local source as we've already been invalidated", v12, 2u);
       }
 
-      v9 = FBSWorkspaceErrorCreate();
-      [v3 invalidateWithError:v9];
+      v10 = FBSWorkspaceErrorCreate();
+      [v3 invalidateWithError:v10];
     }
   }
 }
 
 - (void)_initWithDomain:(void *)a1 connectionStore:(char *)a2 preregisteredWorkspaces:.cold.1(void *a1, char *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = [a1 classForCoder];
   if (!v4)
@@ -1412,29 +1389,27 @@ LABEL_16:
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v17 = v16 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"domain", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"domain", v16, v17, v18, v19);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v17, v18, v19, v20);
   }
 
-  v15 = v7;
-  [v7 UTF8String];
+  v16 = v8;
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)_initWithDomain:(void *)a1 connectionStore:(char *)a2 preregisteredWorkspaces:.cold.2(void *a1, char *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = [a1 classForCoder];
   if (!v4)
@@ -1444,29 +1419,27 @@ LABEL_16:
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v17 = v16 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"store", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"store", v16, v17, v18, v19);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v17, v18, v19, v20);
   }
 
-  v15 = v7;
-  [v7 UTF8String];
+  v16 = v8;
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)_initWithDomain:(void *)a1 connectionStore:(char *)a2 preregisteredWorkspaces:.cold.3(void *a1, char *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = [a1 classForCoder];
   if (!v4)
@@ -1476,94 +1449,90 @@ LABEL_16:
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v17 = v16 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"preregisteredWorkspaces", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"preregisteredWorkspaces", v16, v17, v18, v19);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v17, v18, v19, v20);
   }
 
-  v15 = v7;
-  [v7 UTF8String];
+  v16 = v8;
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)_initWithDomain:(char *)a1 connectionStore:preregisteredWorkspaces:.cold.4(char *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
-  v13 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"preregisteredWorkspaces", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_9();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_9();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"preregisteredWorkspaces", v13, v14);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v14, v15);
   }
 
-  v12 = v4;
-  [v4 UTF8String];
+  v13 = v5;
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)_initWithDomain:(char *)a1 connectionStore:preregisteredWorkspaces:.cold.5(char *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
-  v13 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"store", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_9();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_9();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"store", v13, v14);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v14, v15);
   }
 
-  v12 = v4;
-  [v4 UTF8String];
+  v13 = v5;
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)_initWithDomain:(char *)a1 connectionStore:preregisteredWorkspaces:.cold.6(char *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
-  v13 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"domain", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_9();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_9();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"domain", v13, v14);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v14, v15);
   }
 
-  v12 = v4;
-  [v4 UTF8String];
+  v13 = v5;
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1576,7 +1545,6 @@ LABEL_16:
 
 - (void)registerSourceWithProcessHandle:(void *)a1 .cold.1(void *a1, char *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = [a1 classForCoder];
   if (!v4)
@@ -1586,42 +1554,39 @@ LABEL_16:
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v17 = v16 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"processHandle", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"processHandle", v16, v17, v18, v19);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v17, v18, v19, v20);
   }
 
-  v15 = v7;
-  [v7 UTF8String];
+  v16 = v8;
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)registerSourceWithProcessHandle:(const char *)a1 .cold.2(const char *a1)
+- (void)registerSourceWithProcessHandle:(const char *)a1 .cold.2(const char *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  LODWORD(v10) = 138544642;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)registerSourceWithProcessHandle:(uint64_t)a1 .cold.3(uint64_t a1, char *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid pid for %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid pid for %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -1629,7 +1594,7 @@ LABEL_16:
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v13, v14);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v12, v13);
   }
 
   v11 = v3;
@@ -1640,47 +1605,43 @@ LABEL_16:
 
 - (void)registerSourceWithProcessHandle:(char *)a1 .cold.4(char *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
-  v13 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"processHandle", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_9();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_9();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"processHandle", v13, v14);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v14, v15);
   }
 
-  v12 = v4;
-  [v4 UTF8String];
+  v13 = v5;
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)registerSourceWithProcessHandle:(uint64_t)a3 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543618;
-    v8 = a2;
-    v9 = 2114;
-    v10 = a3;
-    _os_log_impl(&dword_1A89DD000, a1, OS_LOG_TYPE_DEFAULT, "Immediately invalidating new source %{public}@ due to previous dispatcher invalidation : %{public}@", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = a2;
+    v8 = 2114;
+    v9 = a3;
+    _os_log_impl(&dword_1A89DD000, a1, OS_LOG_TYPE_DEFAULT, "Immediately invalidating new source %{public}@ due to previous dispatcher invalidation : %{public}@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerTarget:(char *)a1 .cold.2(char *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"target"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1688,7 +1649,7 @@ LABEL_16:
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"target", v11, v12);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -1697,48 +1658,50 @@ LABEL_16:
   __break(0);
 }
 
-void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
+void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = NSStringFromSelector(*(a1 + 56));
-  v4 = *a2;
-  v5 = objc_opt_class();
-  v12 = NSStringFromClass(v5);
-  v13 = *a2;
-  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  v5 = NSStringFromSelector(*(a1 + 56));
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  *v13 = 138544642;
+  *&v13[4] = v5;
+  *&v13[12] = 2114;
+  *&v13[14] = v7;
+  *&v13[22] = 2048;
+  LOWORD(v14) = 2114;
+  *(&v14 + 2) = @"FBWorkspaceEventDispatcher.m";
+  WORD5(v14) = 1024;
+  HIDWORD(v14) = 185;
+  LOWORD(v15) = 2114;
+  *(&v15 + 2) = a3;
+  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16], *a2, v14, v15, HIWORD(a3));
 }
 
-void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_cold_2(uint64_t a1, uint64_t *a2)
+void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_cold_2(uint64_t a1, void *a2)
 {
-  v13 = *(a1 + 40);
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"target for %@ dealloced before invalidation"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"target for %@ dealloced before invalidation", *(a1 + 40)];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(*(a1 + 56));
-    v6 = *a2;
-    v7 = objc_opt_class();
-    v15 = NSStringFromClass(v7);
-    v16 = *a2;
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14, 2u);
+    v4 = NSStringFromSelector(*(a1 + 56));
+    v5 = objc_opt_class();
+    v13 = NSStringFromClass(v5);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
-  [v4 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_noteSourceDidInvalidate:(const char *)a1 withPIDNumber:.cold.1(const char *a1)
+- (void)_noteSourceDidInvalidate:(const char *)a1 withPIDNumber:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  LODWORD(v10) = 138544642;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)noteHandshakeFromSource:(void *)a1 withRemnants:(char *)a2 .cold.1(void *a1, char *a2)
@@ -1752,21 +1715,20 @@ void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_cold_2(uint6
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v16 = v15 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"source", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"source", v15, v16, v17, v18);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v7 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1782,21 +1744,20 @@ void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_cold_2(uint6
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v16 = v15 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"remnants", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"remnants", v15, v16, v17, v18);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v7 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1812,21 +1773,20 @@ void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_cold_2(uint6
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v16 = v15 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"remnant", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"remnant", v15, v16, v17, v18);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v7 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1835,20 +1795,20 @@ void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_cold_2(uint6
 {
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
-  v12 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"remnant", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_9();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_9();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"remnant", v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1857,20 +1817,20 @@ void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_cold_2(uint6
 {
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
-  v12 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"remnants", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_9();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_9();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"remnants", v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1879,20 +1839,20 @@ void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_cold_2(uint6
 {
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
-  v12 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"source", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_9();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_9();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"source", v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1922,21 +1882,20 @@ void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_cold_2(uint6
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v16 = v15 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"request", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"request", v15, v16, v17, v18);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v7 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1952,21 +1911,20 @@ void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_cold_2(uint6
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v16 = v15 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"source", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"source", v15, v16, v17, v18);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v7 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1975,20 +1933,20 @@ void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_cold_2(uint6
 {
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
-  v12 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"source", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_9();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_9();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"source", v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1997,20 +1955,20 @@ void __45__FBWorkspaceEventDispatcher_registerTarget___block_invoke_cold_2(uint6
 {
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
-  v12 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"request", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_9();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_9();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"request", v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

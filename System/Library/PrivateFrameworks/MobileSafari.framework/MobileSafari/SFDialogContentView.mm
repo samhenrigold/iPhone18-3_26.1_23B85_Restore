@@ -172,7 +172,7 @@
 
 - (BOOL)becomeFirstResponder
 {
-  if (!self->_hasAttemptedHardwareKeyboardFocus && _SFDeviceIsPad())
+  if (!self->_hasAttemptedHardwareKeyboardFocus && _SFDeviceIsPad(self, a2))
   {
     mEMORY[0x1E69DCBE0] = [MEMORY[0x1E69DCBE0] sharedInstance];
     if ([mEMORY[0x1E69DCBE0] isInHardwareKeyboardMode])

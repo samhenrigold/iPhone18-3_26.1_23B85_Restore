@@ -11,22 +11,20 @@
 
 - (NSArray)attributeDescriptions
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   v4 = MEMORY[0x1E696AD98];
   [(HMSoftwareUpdateProgressV2 *)self percentageComplete];
   v5 = [v4 numberWithFloat:?];
   v6 = [v3 initWithName:@"percentageComplete" value:v5];
-  v14[0] = v6;
+  v13[0] = v6;
   v7 = objc_alloc(MEMORY[0x1E69A29C8]);
   v8 = MEMORY[0x1E696AD98];
   [(HMSoftwareUpdateProgressV2 *)self estimatedTimeRemaining];
   v9 = [v8 numberWithDouble:?];
   v10 = [v7 initWithName:@"estimatedTimeRemaining" value:v9];
-  v14[1] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v13[1] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
 
   return v11;
 }

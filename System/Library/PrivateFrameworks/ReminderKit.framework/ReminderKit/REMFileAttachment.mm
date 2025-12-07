@@ -5,7 +5,6 @@
 - (REMFileAttachment)initWithCoder:(id)coder;
 - (REMFileAttachment)initWithObjectID:(id)d accountID:(id)iD reminderID:(id)reminderID UTI:(id)i fileSize:(unint64_t)size fileURL:(id)l data:(id)data;
 - (id)_deepCopy;
-- (void)_deepCopy;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -44,10 +43,38 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "Unable to remove temporary file because {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  if ([(REMFileAttachment *)self isTemporaryFileURL])
+  {
+    fileURL = [(REMFileAttachment *)self fileURL];
+
+    if (fileURL)
+    {
+      fileURL2 = [(REMFileAttachment *)self fileURL];
+      [fileURL2 startAccessingSecurityScopedResource];
+
+      defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+      fileURL3 = [(REMFileAttachment *)self fileURL];
+      v11 = 0;
+      [defaultManager removeItemAtURL:fileURL3 error:&v11];
+      v7 = v11;
+
+      if (v7)
+      {
+        v8 = +[REMLogStore write];
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        {
+          [REMFileAttachment dealloc];
+        }
+      }
+
+      fileURL4 = [(REMFileAttachment *)self fileURL];
+      [fileURL4 stopAccessingSecurityScopedResource];
+    }
+  }
+
+  v10.receiver = self;
+  v10.super_class = REMFileAttachment;
+  [(REMFileAttachment *)&v10 dealloc];
 }
 
 + (id)createTemporaryFileURLWithUTI:(id)i
@@ -260,30 +287,6 @@ LABEL_9:
 LABEL_10:
 
   return v13;
-}
-
-+ (void)createTemporaryFileURLWithUTI:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "Unable to create temporary directory because {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)createTemporaryFileWithData:UTI:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "Unable to write temporary file because {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_deepCopy
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "Unable to link temporary file because {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

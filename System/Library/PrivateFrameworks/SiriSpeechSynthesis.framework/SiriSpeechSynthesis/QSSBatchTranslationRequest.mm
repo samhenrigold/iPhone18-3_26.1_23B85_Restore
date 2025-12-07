@@ -46,7 +46,7 @@ flatbuffers::DetachedBuffer *__42__QSSBatchTranslationRequest_flatbuffData__bloc
 
 - (Offset<siri::speech::schema_fb::BatchTranslationRequest>)addObjectToBuffer:(void *)buffer
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   request_id = [(QSSBatchTranslationRequest *)self request_id];
   v6 = request_id;
   if (!request_id)
@@ -56,7 +56,7 @@ flatbuffers::DetachedBuffer *__42__QSSBatchTranslationRequest_flatbuffData__bloc
 
   uTF8String = [(__CFString *)request_id UTF8String];
   v8 = strlen(uTF8String);
-  HIDWORD(v49) = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String, v8);
+  HIDWORD(v47) = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String, v8);
 
   task = [(QSSBatchTranslationRequest *)self task];
   v10 = task;
@@ -67,7 +67,7 @@ flatbuffers::DetachedBuffer *__42__QSSBatchTranslationRequest_flatbuffData__bloc
 
   uTF8String2 = [(__CFString *)task UTF8String];
   v12 = strlen(uTF8String2);
-  LODWORD(v49) = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v12);
+  LODWORD(v47) = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v12);
 
   source_language = [(QSSBatchTranslationRequest *)self source_language];
   v14 = source_language;
@@ -78,7 +78,7 @@ flatbuffers::DetachedBuffer *__42__QSSBatchTranslationRequest_flatbuffData__bloc
 
   uTF8String3 = [(__CFString *)source_language UTF8String];
   v16 = strlen(uTF8String3);
-  HIDWORD(v48) = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v16);
+  HIDWORD(v46) = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v16);
 
   target_language = [(QSSBatchTranslationRequest *)self target_language];
   v18 = target_language;
@@ -89,7 +89,7 @@ flatbuffers::DetachedBuffer *__42__QSSBatchTranslationRequest_flatbuffData__bloc
 
   uTF8String4 = [(__CFString *)target_language UTF8String];
   v20 = strlen(uTF8String4);
-  LODWORD(v48) = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String4, v20);
+  LODWORD(v46) = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String4, v20);
 
   paragraphs = [(QSSBatchTranslationRequest *)self paragraphs];
   v22 = [paragraphs count];
@@ -103,16 +103,11 @@ flatbuffers::DetachedBuffer *__42__QSSBatchTranslationRequest_flatbuffData__bloc
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
+  memset(v49, 0, sizeof(v49));
   obj = [(QSSBatchTranslationRequest *)self paragraphs];
-  if ([obj countByEnumeratingWithState:&v51 objects:v55 count:16])
+  if ([obj countByEnumeratingWithState:v49 objects:v50 count:16])
   {
-    *v52;
-    *v52;
-    [**(&v51 + 1) addObjectToBuffer:{buffer, v48, v49}];
+    [**(&v49[0] + 1) addObjectToBuffer:{buffer, v46, v47}];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -158,10 +153,10 @@ flatbuffers::DetachedBuffer *__42__QSSBatchTranslationRequest_flatbuffData__bloc
   v41 = *(bufferCopy + 8);
   v42 = *(bufferCopy + 12);
   v43 = *(bufferCopy + 10);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(bufferCopy, 4, HIDWORD(v49));
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(bufferCopy, 6, v49);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(bufferCopy, 8, HIDWORD(v48));
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(bufferCopy, 10, v48);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(bufferCopy, 4, HIDWORD(v47));
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(bufferCopy, 6, v47);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(bufferCopy, 8, HIDWORD(v46));
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(bufferCopy, 10, v46);
   if (v24)
   {
     v44 = flatbuffers::FlatBufferBuilder::ReferTo(bufferCopy, v24);
@@ -172,9 +167,7 @@ flatbuffers::DetachedBuffer *__42__QSSBatchTranslationRequest_flatbuffData__bloc
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(bufferCopy, 16, v34);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(bufferCopy, 18, v39);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(bufferCopy, 20, opt_in_status);
-  v45.var0 = flatbuffers::FlatBufferBuilder::EndTable(bufferCopy, v41 - v42 + v43);
-  v46 = *MEMORY[0x277D85DE8];
-  return v45;
+  return flatbuffers::FlatBufferBuilder::EndTable(bufferCopy, v41 - v42 + v43);
 }
 
 - (int64_t)opt_in_status

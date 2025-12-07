@@ -6,7 +6,7 @@
 
 - (uint64_t)isConfigurable
 {
-  if (!NTKUseComplicationEditor())
+  if (!NTKUseComplicationEditor(self, a2))
   {
     return 0;
   }
@@ -17,21 +17,21 @@
     intentRecommendations = [self intentRecommendations];
     if ([intentRecommendations count])
     {
-      v3 = 0;
+      v4 = 0;
     }
 
     else
     {
-      v3 = [self isLinkedOnOrAfter:2];
+      v4 = [self isLinkedOnOrAfter:2];
     }
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 @end

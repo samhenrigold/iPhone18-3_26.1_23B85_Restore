@@ -30,7 +30,7 @@
 {
   distributorCopy = distributor;
   notifyType = self->_notifyType;
-  v10 = distributorCopy;
+  v9 = distributorCopy;
   if (notifyType > 4)
   {
     if (notifyType > 6)
@@ -42,13 +42,13 @@
 
       else if (notifyType == 8)
       {
-        objc_msgSend_didChangeGroupByStructure(distributorCopy, v5, v6, v7, v8);
+        objc_msgSend_didChangeGroupByStructure(distributorCopy, v5, v6, v7);
       }
     }
 
     else if (notifyType == 5)
     {
-      objc_msgSend_didRemoveGroup_(distributorCopy, v5, self->_groupNode, v7, v8);
+      objc_msgSend_didRemoveGroup_(distributorCopy, v5, self->_groupNode, v7);
     }
 
     else
@@ -61,23 +61,23 @@
   {
     if (notifyType == 3)
     {
-      objc_msgSend_didCreateGroup_(distributorCopy, v5, self->_groupNode, v7, v8);
+      objc_msgSend_didCreateGroup_(distributorCopy, v5, self->_groupNode, v7);
     }
 
     else
     {
-      objc_msgSend_willRemoveGroup_(distributorCopy, v5, self->_groupNode, v7, v8);
+      objc_msgSend_willRemoveGroup_(distributorCopy, v5, self->_groupNode, v7);
     }
   }
 
   else if (notifyType == 1)
   {
-    objc_msgSend_startOfGroupingChangesBatch(distributorCopy, v5, v6, v7, v8);
+    objc_msgSend_startOfGroupingChangesBatch(distributorCopy, v5, v6, v7);
   }
 
   else if (notifyType == 2)
   {
-    objc_msgSend_endOfGroupingChangesBatch(distributorCopy, v5, v6, v7, v8);
+    objc_msgSend_endOfGroupingChangesBatch(distributorCopy, v5, v6, v7);
   }
 }
 

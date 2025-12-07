@@ -162,9 +162,9 @@ uint64_t __42__MPCPlaybackAccountManager_sharedManager__block_invoke()
 {
   aCopy = a;
   selfCopy = self;
-  v8 = sub_1C5CB997C(aCopy);
+  v9 = sub_1C5CB997C(aCopy, d);
 
-  return v8;
+  return v9;
 }
 
 - (void)updateCredentialsWithDelegateTokenE:(_MPCProtoDelegateInfoTokenE *)e forDSID:(unint64_t)d completion:(id)completion

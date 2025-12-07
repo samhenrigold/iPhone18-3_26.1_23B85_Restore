@@ -1,369 +1,3 @@
-uint64_t TI::Favonius::BeamSearch::choose_hit_test_node(uint64_t a1, uint64_t a2, void *a3, void *a4)
-{
-  v5 = *a4;
-  v6 = *(*a4 + 48);
-  if (!v6)
-  {
-    goto LABEL_4;
-  }
-
-  v7 = a4;
-  if (a2)
-  {
-    if (v6 != a2)
-    {
-      goto LABEL_4;
-    }
-  }
-
-  v9 = *a3;
-  if (*a3)
-  {
-    v10 = *(v6 + 32);
-    v11 = *(v9 + 48);
-    v12 = *(v11 + 32);
-    if ((v10 * 4.0) > v12 || v10 <= v12)
-    {
-      if ((v10 * 4.0) > v12)
-      {
-        return *v7;
-      }
-    }
-
-    else if ((*(v5 + 144) + (*(v5 + 136) * 0.18)) > (*(v9 + 144) + (*(v9 + 136) * 0.18)))
-    {
-      return *v7;
-    }
-
-    v14 = *(v5 + 32);
-    v15 = v6 != v11 || v14 == 0;
-    v16 = !v15 && v14 == a1;
-    if (!v16 || (v17 = *(v5 + 56)) == 0 || (**v17)(v17) != *(*(v5 + 32) + 56))
-    {
-LABEL_4:
-      v7 = a3;
-    }
-  }
-
-  return *v7;
-}
-
-void TI::Favonius::BeamSearch::extend_with_backspace(atomic_uint **a1@<X1>, uint64_t *a2@<X2>, void *a3@<X3>, void *a4@<X8>)
-{
-  v5 = *a2;
-  *a2 = 0;
-  v6 = *a1;
-  *a1 = 0;
-  v44 = 0;
-  v45 = 0;
-  v46 = 0;
-  v7 = (a3[1] - *a3) >> 4;
-  if (v7 >= 1)
-  {
-    v49 = &v44;
-    std::__allocate_at_least[abi:nn200100]<std::allocator<std::shared_ptr<KB::LanguageModel::PredictionEnumerator>>>(v7);
-  }
-
-  v8 = (*(*v6 + 64))(v6);
-  v10 = *v8;
-  v9 = v8[1];
-  if (*v8)
-  {
-    v11 = 8 * v10;
-    v12 = &v9[v10];
-    while ((*(*(*v9 + 1) + 60) & 0x80) == 0)
-    {
-      ++v9;
-      v11 -= 8;
-      if (!v11)
-      {
-        v9 = v12;
-        break;
-      }
-    }
-  }
-
-  v13 = *v9;
-  v43 = v13;
-  if (v13)
-  {
-    atomic_fetch_add(v13, 1u);
-    v47 = 0uLL;
-    std::vector<std::pair<WTF::RefPtr<TI::Favonius::TouchHistory>,WTF::RefPtr<TI::Favonius::KeyMatch>>>::push_back[abi:nn200100](&v44, &v47);
-    if (*(&v47 + 1))
-    {
-      WTF::RefCounted<TI::Favonius::KeyMatch>::deref(*(&v47 + 1));
-    }
-
-    if (v47)
-    {
-      v14 = atomic_load((v47 + 8));
-      if (v14 == 1)
-      {
-        (*(*v47 + 8))();
-      }
-
-      else
-      {
-        atomic_fetch_add((v47 + 8), 0xFFFFFFFF);
-      }
-    }
-
-    v16 = v45;
-    atomic_fetch_add(v6 + 2, 1u);
-    v17 = *(v16 - 16);
-    *(v16 - 16) = v6;
-    if (v17)
-    {
-      v18 = atomic_load(v17 + 2);
-      if (v18 == 1)
-      {
-        (*(*v17 + 8))(v17);
-      }
-
-      else
-      {
-        atomic_fetch_add(v17 + 2, 0xFFFFFFFF);
-      }
-    }
-
-    v19 = v45;
-    if (v43)
-    {
-      atomic_fetch_add(v43, 1u);
-    }
-
-    v20 = *(v19 - 8);
-    *(v19 - 8) = v43;
-    if (v20)
-    {
-      WTF::RefCounted<TI::Favonius::KeyMatch>::deref(v20);
-    }
-
-    v41 = 0;
-    v42 = 0uLL;
-    for (i = *(v5 + 200); i != *(v5 + 208); ++i)
-    {
-      v22 = *i;
-      v38 = 0;
-      v39 = 0;
-      v40 = 0;
-      TI::Favonius::SearchNode::create_key_sequence_extensions(v22, &v38, &v44);
-      v24 = v38;
-      v23 = v39;
-      v25 = v39 - v38;
-      v26 = v39 - v38;
-      if (v26 >= 1)
-      {
-        v27 = v42;
-        if (*(&v42 + 1) - v42 >= v25)
-        {
-          while (v24 != v23)
-          {
-            v30 = *v24;
-            *v24++ = 0;
-            *v27 = v30;
-            v27 += 2;
-          }
-
-          *&v42 = v27;
-        }
-
-        else
-        {
-          v28 = v26 + ((v42 - v41) >> 3);
-          if (v28 >> 61)
-          {
-            std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
-          }
-
-          if ((*(&v42 + 1) - v41) >> 2 > v28)
-          {
-            v28 = (*(&v42 + 1) - v41) >> 2;
-          }
-
-          if (*(&v42 + 1) - v41 >= 0x7FFFFFFFFFFFFFF8uLL)
-          {
-            v29 = 0x1FFFFFFFFFFFFFFFLL;
-          }
-
-          else
-          {
-            v29 = v28;
-          }
-
-          v49 = &v41;
-          if (v29)
-          {
-            std::__allocate_at_least[abi:nn200100]<std::allocator<language_modeling::v1::CompletionStem>>(v29);
-          }
-
-          v31 = (8 * ((v42 - v41) >> 3));
-          *&v47 = 0;
-          *(&v47 + 1) = v31;
-          *(&v48 + 1) = 0;
-          v32 = (v31 + v25);
-          do
-          {
-            v33 = *v24;
-            *v24++ = 0;
-            *v31++ = v33;
-            v25 -= 8;
-          }
-
-          while (v25);
-          *&v48 = v32;
-          std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<WTF::RefPtr<TI::Favonius::SearchNodeSource>>,WTF::RefPtr<TI::Favonius::SearchNodeSource>*>(v27, v42, v32);
-          *&v48 = v48 + v42 - v27;
-          *&v42 = v27;
-          v34 = (*(&v47 + 1) + v41 - v27);
-          std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<WTF::RefPtr<TI::Favonius::SearchNodeSource>>,WTF::RefPtr<TI::Favonius::SearchNodeSource>*>(v41, v27, v34);
-          v35 = v41;
-          v36 = *(&v42 + 1);
-          v41 = v34;
-          v42 = v48;
-          *&v48 = v35;
-          *(&v48 + 1) = v36;
-          *&v47 = v35;
-          *(&v47 + 1) = v35;
-          std::__split_buffer<WTF::RefPtr<TI::Favonius::SearchNodeSource>>::~__split_buffer(&v47);
-        }
-      }
-
-      *&v47 = &v38;
-      std::vector<WTF::RefPtr<TI::Favonius::SearchNodeSource>>::__destroy_vector::operator()[abi:nn200100](&v47);
-    }
-
-    operator new();
-  }
-
-  *a4 = 0;
-  *&v47 = &v44;
-  std::vector<std::pair<WTF::RefPtr<TI::Favonius::TouchHistory>,WTF::RefPtr<TI::Favonius::KeyMatch>>>::__destroy_vector::operator()[abi:nn200100](&v47);
-  v15 = atomic_load(v6 + 2);
-  if (v15 == 1)
-  {
-    (*(*v6 + 8))(v6);
-    if (!v5)
-    {
-      return;
-    }
-  }
-
-  else
-  {
-    atomic_fetch_add(v6 + 2, 0xFFFFFFFF);
-    if (!v5)
-    {
-      return;
-    }
-  }
-
-  v37 = atomic_load((v5 + 8));
-  if (v37 == 1)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  else
-  {
-    atomic_fetch_add((v5 + 8), 0xFFFFFFFF);
-  }
-}
-
-uint64_t *std::vector<std::pair<WTF::RefPtr<TI::Favonius::TouchHistory>,WTF::RefPtr<TI::Favonius::KeyMatch>>>::push_back[abi:nn200100](uint64_t *result, __int128 *a2)
-{
-  v2 = result;
-  v4 = result[1];
-  v3 = result[2];
-  if (v4 >= v3)
-  {
-    v7 = *result;
-    v8 = (v4 - *result) >> 4;
-    v9 = v8 + 1;
-    if ((v8 + 1) >> 60)
-    {
-      std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
-    }
-
-    v10 = v3 - v7;
-    if (v10 >> 3 > v9)
-    {
-      v9 = v10 >> 3;
-    }
-
-    if (v10 >= 0x7FFFFFFFFFFFFFF0)
-    {
-      v11 = 0xFFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v11 = v9;
-    }
-
-    v21[4] = v2;
-    if (v11)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<std::shared_ptr<KB::LanguageModel::PredictionEnumerator>>>(v11);
-    }
-
-    v12 = v8;
-    v13 = (16 * v8);
-    v14 = *a2;
-    *a2 = 0;
-    *(a2 + 1) = 0;
-    v15 = &v13[-v12];
-    *v13 = v14;
-    v6 = v13 + 1;
-    if (v7 != v4)
-    {
-      v16 = v7;
-      v17 = v15;
-      do
-      {
-        v18 = *v16;
-        *v16 = 0;
-        *(v16 + 8) = 0;
-        v16 += 16;
-        *v17++ = v18;
-      }
-
-      while (v16 != v4);
-      do
-      {
-        std::allocator_traits<std::allocator<std::pair<WTF::RefPtr<TI::Favonius::TouchHistory>,WTF::RefPtr<TI::Favonius::KeyMatch>>>>::destroy[abi:nn200100]<std::pair<WTF::RefPtr<TI::Favonius::TouchHistory>,WTF::RefPtr<TI::Favonius::KeyMatch>>,void,0>(v7);
-        v7 += 16;
-      }
-
-      while (v7 != v4);
-    }
-
-    v19 = *v2;
-    *v2 = v15;
-    v2[1] = v6;
-    v20 = v2[2];
-    v2[2] = 0;
-    v21[2] = v19;
-    v21[3] = v20;
-    v21[0] = v19;
-    v21[1] = v19;
-    result = std::__split_buffer<std::pair<WTF::RefPtr<TI::Favonius::TouchHistory>,WTF::RefPtr<TI::Favonius::KeyMatch>>>::~__split_buffer(v21);
-  }
-
-  else
-  {
-    v5 = *a2;
-    *a2 = 0;
-    *(a2 + 1) = 0;
-    *v4 = v5;
-    v6 = v4 + 1;
-  }
-
-  v2[1] = v6;
-  return result;
-}
-
 uint64_t std::__split_buffer<std::pair<WTF::RefPtr<TI::Favonius::TouchHistory>,WTF::RefPtr<TI::Favonius::KeyMatch>>>::~__split_buffer(uint64_t a1)
 {
   v3 = *(a1 + 8);
@@ -383,135 +17,130 @@ uint64_t std::__split_buffer<std::pair<WTF::RefPtr<TI::Favonius::TouchHistory>,W
 
 void TI::Favonius::BeamSearch::extend(void *a1, atomic_uint **a2)
 {
-  v3 = *a2;
+  v6 = *a2;
   *a2 = 0;
-  v4 = *((*(*v3 + 56))(v3) + 56);
-  v5 = *(v4 + 200);
-  v6 = ((*(v4 + 16) - *(v4 + 8)) >> 3) >> 1;
-  atomic_fetch_add(v3 + 2, 1u);
-  v7 = a1[25];
-  if (v7 == a1[26])
+  (*(*v6 + 56))(v6);
+  atomic_fetch_add(v6 + 2, 1u);
+  v9 = a1[25];
+  if (v9 == a1[26])
   {
 LABEL_11:
-    v9 = a1[2];
-    if (v9)
+    v10 = a1[2];
+    if (v10)
     {
-      atomic_fetch_add((v9 + 8), 1u);
-      for (i = *(v9 + 200); i != *(v9 + 208); ++i)
+      atomic_fetch_add((v10 + 8), 1u);
+      for (i = *(v10 + 200); i != *(v10 + 208); i += 8)
       {
-        if (TI::Favonius::BeamSearch::should_extend_for_hit_testing(v9, i, *(a1[3] + 12)))
+        if (TI::Favonius::BeamSearch::should_extend_for_hit_testing(v10, i, *(a1[3] + 12), v7, v8))
         {
-          v11 = *(a1[3] + 12);
-          v12 = *i;
-          v13 = a1[5];
-          if (v13)
+          v12 = a1[5];
+          if (v12)
           {
-            atomic_fetch_add((v13 + 8), 1u);
+            atomic_fetch_add((v12 + 8), 1u);
           }
 
-          if (v3)
+          if (v6)
           {
-            atomic_fetch_add(v3 + 2, 1u);
+            atomic_fetch_add(v6 + 2, 1u);
           }
 
           operator new();
         }
       }
 
-      v14 = atomic_load((v9 + 8));
-      if (v14 == 1)
+      v13 = atomic_load((v10 + 8));
+      if (v13 == 1)
       {
-        (*(*v9 + 8))(v9);
+        (*(*v10 + 8))(v10);
       }
 
       else
       {
-        atomic_fetch_add((v9 + 8), 0xFFFFFFFF);
+        atomic_fetch_add((v10 + 8), 0xFFFFFFFF);
       }
     }
 
-    if (v3)
+    if (v6)
     {
-      v15 = atomic_load(v3 + 2);
-      if (v15 == 1)
+      v14 = atomic_load(v6 + 2);
+      if (v14 == 1)
       {
-        (*(*v3 + 8))(v3);
+        (*(*v6 + 8))(v6);
       }
 
       else
       {
-        atomic_fetch_add(v3 + 2, 0xFFFFFFFF);
+        atomic_fetch_add(v6 + 2, 0xFFFFFFFF);
       }
     }
 
     operator new();
   }
 
-  while (!TI::Favonius::BeamSearch::should_extend_for_hit_testing(a1, v7, *(a1[3] + 12)))
+  while (!TI::Favonius::BeamSearch::should_extend_for_hit_testing(a1, v9, *(a1[3] + 12), v7, v8))
   {
-    v7 += 8;
-    if (v7 == a1[26])
+    v9 += 8;
+    if (v9 == a1[26])
     {
       goto LABEL_11;
     }
   }
 
-  if (a1[2] && (*(*v7 + 120) & 0x20) != 0)
+  if (a1[2] && (*(*v9 + 120) & 0x20) != 0)
   {
-    v8 = (*(a1[35] + 120) & 0x20) == 0;
-    if (!v3)
+    if (!v6)
     {
 LABEL_7:
       operator new();
     }
   }
 
-  else if (!v3)
+  else if (!v6)
   {
     goto LABEL_7;
   }
 
-  atomic_fetch_add(v3 + 2, 1u);
+  atomic_fetch_add(v6 + 2, 1u);
   goto LABEL_7;
 }
 
-uint64_t TI::Favonius::BeamSearch::should_extend_for_hit_testing(void *a1, uint64_t a2, uint64_t a3)
+uint64_t TI::Favonius::BeamSearch::should_extend_for_hit_testing(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = *(*a2 + 120);
+  v8 = *(*a2 + 120);
   should_extend_for_hit_testing = 1;
-  if (!KB::String::equal((*a2 + 88), (a1[35] + 88), 1) && (v6 & 0xE) == 0)
+  if (!KB::String::equal((*a2 + 88), (a1[35] + 88), 1, a4, a5) && (v8 & 0xE) == 0)
   {
-    v8 = *a2;
-    if ((v6 & 0x20) == 0 || !a3 || (v9 = v8[4], (*(v9 + 120) & 0x4E) == 0) || !*(v9 + 56) || (*(v9 + 140) & 0x7FFFFFFFu) >= 0x7F800000)
+    v10 = *a2;
+    if ((v8 & 0x20) == 0 || !a3 || (v11 = v10[4], (*(v11 + 120) & 0x4E) == 0) || !*(v11 + 56) || (*(v11 + 140) & 0x7FFFFFFFu) >= 0x7F800000)
     {
-      if (!(*(*v8 + 64))(v8) && (*(*a1 + 24))(a1) && *(*a2 + 32))
+      if (!(*(*v10 + 64))(v10) && (*(*a1 + 24))(a1) && *(*a2 + 32))
       {
-        v11 = (*(*a1 + 24))(a1);
-        v12 = *(*a2 + 32);
-        v15 = v12;
-        if (v12)
+        v13 = (*(*a1 + 24))(a1);
+        v14 = *(*a2 + 32);
+        v17 = v14;
+        if (v14)
         {
-          atomic_fetch_add((v12 + 8), 1u);
-          v13 = v15;
-          should_extend_for_hit_testing = TI::Favonius::BeamSearch::should_extend_for_hit_testing(v11, &v15, a3);
-          if (v13)
+          atomic_fetch_add((v14 + 8), 1u);
+          v15 = v17;
+          should_extend_for_hit_testing = TI::Favonius::BeamSearch::should_extend_for_hit_testing(v13, &v17, a3);
+          if (v15)
           {
-            v14 = atomic_load(v13 + 2);
-            if (v14 == 1)
+            v16 = atomic_load(v15 + 2);
+            if (v16 == 1)
             {
-              (*(*v13 + 8))(v13);
+              (*(*v15 + 8))(v15);
             }
 
             else
             {
-              atomic_fetch_add(v13 + 2, 0xFFFFFFFF);
+              atomic_fetch_add(v15 + 2, 0xFFFFFFFF);
             }
           }
         }
 
         else
         {
-          return TI::Favonius::BeamSearch::should_extend_for_hit_testing(v11, &v15, a3);
+          return TI::Favonius::BeamSearch::should_extend_for_hit_testing(v13, &v17, a3);
         }
       }
 
@@ -576,7 +205,7 @@ uint64_t TI::Favonius::SearchNodeSourceQueue::insert(TI::Favonius::SearchNodeSou
   else
   {
     *v4 = 0;
-    v6 = (v4 + 8);
+    v6 = (v4 + 2);
   }
 
   *(this + 4) = v6;
@@ -625,9 +254,9 @@ uint64_t TI::Favonius::BeamSearch::input_geometry_hypothesis@<X0>(uint64_t this@
   return this;
 }
 
-void TI::Favonius::BeamSearch::alignment_for_accepted_text(TI::Favonius::BeamSearch *this@<X0>, const KB::String *a2@<X1>, const KB::String *a3@<X2>, KB::String *a4@<X3>, void *a5@<X8>)
+void TI::Favonius::BeamSearch::alignment_for_accepted_text(TI::Favonius::BeamSearch *this@<X0>, const KB::String *a2@<X1>, const KB::String *a3@<X2>, KB::String *a4@<X3>, uint64_t *a5@<X8>)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v10 = *(this + 35);
   v11 = v10;
   do
@@ -637,17 +266,17 @@ void TI::Favonius::BeamSearch::alignment_for_accepted_text(TI::Favonius::BeamSea
   }
 
   while (v11);
+  v48 = 0;
   v49 = 0;
   v50 = 0;
-  v51 = 0;
-  v48 = 0;
+  v47 = 0;
   v13 = *(v10 + 128);
   if (v13)
   {
     atomic_fetch_add(v13 + 2, 1u);
   }
 
-  (*(*v13 + 88))(v13, &v49, &v48);
+  (*(*v13 + 88))(v13, &v48, &v47);
   v14 = atomic_load(v13 + 2);
   if (v14 == 1)
   {
@@ -659,8 +288,8 @@ void TI::Favonius::BeamSearch::alignment_for_accepted_text(TI::Favonius::BeamSea
     atomic_fetch_add(v13 + 2, 0xFFFFFFFF);
   }
 
-  KB::String::String(v56, a4);
-  memset(&v47, 0, sizeof(v47));
+  KB::String::String(v55, a4);
+  memset(&v46, 0, sizeof(v46));
   v15 = *(a4 + 2);
   if (!*(a4 + 2))
   {
@@ -670,12 +299,12 @@ void TI::Favonius::BeamSearch::alignment_for_accepted_text(TI::Favonius::BeamSea
 
   __x[0] = -1;
   v16.__i_ = 0;
-  std::vector<unsigned int>::insert(&v47, v16, v15, __x);
-  (*(**(*(this + 35) + 56) + 200))(*(*(this + 35) + 56), v56, &v47, *(v12 + 56));
+  std::vector<unsigned int>::insert(&v46, v16, v15, __x);
+  (*(**(*(this + 35) + 56) + 200))(*(*(this + 35) + 56), v55, &v46, *(v12 + 56));
   memset(&__p, 0, sizeof(__p));
   *__x = &unk_283FDCF10;
-  v55 = 1;
-  if ((KB::InputSegmentFilter::string_preserves_surface_form_features(__x, a2, v56, 0, &__p) & 1) == 0)
+  v54 = 1;
+  if ((KB::InputSegmentFilter::string_preserves_surface_form_features(__x, a2, v55, 0, &__p) & 1) == 0)
   {
     *a5 = 0;
     a5[1] = 0;
@@ -712,12 +341,12 @@ void TI::Favonius::BeamSearch::alignment_for_accepted_text(TI::Favonius::BeamSea
         v23 = a4 + 16;
       }
 
-      *&v42 = v23;
+      *&v41 = v23;
       v24 = *a4;
-      DWORD2(v42) = 0;
-      HIDWORD(v42) = v24;
-      LODWORD(v43) = 0;
-      KB::String::iterator::initialize(&v42);
+      DWORD2(v41) = 0;
+      HIDWORD(v41) = v24;
+      LODWORD(v42) = 0;
+      KB::String::iterator::initialize(&v41);
       v25 = *(a3 + 2);
       if (!*(a3 + 2))
       {
@@ -727,9 +356,9 @@ void TI::Favonius::BeamSearch::alignment_for_accepted_text(TI::Favonius::BeamSea
         v22 = *(a4 + 1);
       }
 
+      v43 = v41;
       v44 = v42;
-      v45 = v43;
-      std::__advance[abi:nn200100]<KB::String::iterator>(&v44, v25);
+      std::__advance[abi:nn200100]<KB::String::iterator>(&v43, v25);
       if (v22)
       {
         v26 = v22;
@@ -740,38 +369,38 @@ void TI::Favonius::BeamSearch::alignment_for_accepted_text(TI::Favonius::BeamSea
         v26 = a4 + 16;
       }
 
-      v38 = v26;
+      v37 = v26;
+      v38 = v24;
       v39 = v24;
-      v40 = v24;
-      v41 = 0;
-      KB::String::iterator::initialize(&v38);
-      KB::String::String(&v52, &v44, &v38);
+      v40 = 0;
+      KB::String::iterator::initialize(&v37);
+      KB::String::String(&v51, &v43, &v37);
       v27 = KB::String::String(__x, a2);
-      KB::String::append(v27, &v52);
+      KB::String::append(v27, &v51);
       KB::String::operator=(a4, __x);
-      if (v55 && BYTE2(__x[1]) == 1)
+      if (v54 && BYTE2(__x[1]) == 1)
       {
-        free(v55);
+        free(v54);
       }
 
-      v28 = *v53;
-      if (!*v53)
+      v28 = *v52;
+      if (!*v52)
       {
         goto LABEL_44;
       }
 
-      v29 = BYTE6(v52);
+      v29 = BYTE6(v51);
     }
 
     else
     {
       begin = __p.__begin_;
       end = __p.__end_;
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 0x40000000;
-      v35 = ___ZNK2TI8Favonius10BeamSearch27alignment_for_accepted_textERKN2KB6StringES5_RS3__block_invoke;
-      v36 = &__block_descriptor_tmp_32;
-      v37 = a4;
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 0x40000000;
+      v34 = ___ZNK2TI8Favonius10BeamSearch27alignment_for_accepted_textERKN2KB6StringES5_RS3__block_invoke;
+      v35 = &__block_descriptor_tmp_32;
+      v36 = a4;
       if (__p.__begin_ == __p.__end_)
       {
         v21 = __p.__begin_;
@@ -779,7 +408,7 @@ void TI::Favonius::BeamSearch::alignment_for_accepted_text(TI::Favonius::BeamSea
 
       else
       {
-        while (((v35)(v34, *begin) & 1) == 0)
+        while (((v34)(v33, *begin) & 1) == 0)
         {
           if (++begin == end)
           {
@@ -803,23 +432,23 @@ void TI::Favonius::BeamSearch::alignment_for_accepted_text(TI::Favonius::BeamSea
         v31 = a2 + 16;
       }
 
-      v52 = v31;
+      v51 = v31;
       v32 = *a2;
-      *v53 = 0;
-      *&v53[4] = v32;
-      KB::String::iterator::initialize(&v52);
-      *&v42 = v31;
-      DWORD2(v42) = 0;
-      HIDWORD(v42) = v32;
-      LODWORD(v43) = 0;
-      KB::String::iterator::initialize(&v42);
+      *v52 = 0;
+      *&v52[4] = v32;
+      KB::String::iterator::initialize(&v51);
+      *&v41 = v31;
+      DWORD2(v41) = 0;
+      HIDWORD(v41) = v32;
+      LODWORD(v42) = 0;
+      KB::String::iterator::initialize(&v41);
+      v43 = v41;
       v44 = v42;
-      v45 = v43;
-      std::__advance[abi:nn200100]<KB::String::iterator>(&v44, (v30 >> 2));
-      KB::String::String(__x, &v52, &v44);
+      std::__advance[abi:nn200100]<KB::String::iterator>(&v43, (v30 >> 2));
+      KB::String::String(__x, &v51, &v43);
       KB::String::operator=(a4, __x);
-      v28 = v55;
-      if (!v55)
+      v28 = v54;
+      if (!v54)
       {
         goto LABEL_44;
       }
@@ -834,11 +463,11 @@ void TI::Favonius::BeamSearch::alignment_for_accepted_text(TI::Favonius::BeamSea
   }
 
 LABEL_44:
-  KB::Alignment::operator*(__x, &__p, &v47);
-  KB::Alignment::operator*(a5, __x, &v49);
+  KB::Alignment::operator*(__x, &__p, &v46);
+  KB::Alignment::operator*(a5, __x, &v48);
   if (*__x)
   {
-    v55 = *__x;
+    v54 = *__x;
     operator delete(*__x);
   }
 
@@ -849,24 +478,22 @@ LABEL_46:
     operator delete(__p.__begin_);
   }
 
-  if (v47.__begin_)
+  if (v46.__begin_)
   {
-    v47.__end_ = v47.__begin_;
-    operator delete(v47.__begin_);
+    v46.__end_ = v46.__begin_;
+    operator delete(v46.__begin_);
   }
 
-  if (v58 && v57 == 1)
+  if (v57 && v56 == 1)
   {
-    free(v58);
+    free(v57);
   }
 
-  if (v49)
+  if (v48)
   {
-    v50 = v49;
-    operator delete(v49);
+    v49 = v48;
+    operator delete(v48);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 std::vector<unsigned int>::iterator std::vector<unsigned int>::insert(std::vector<unsigned int> *this, std::vector<unsigned int>::const_iterator __position, std::vector<unsigned int>::size_type __n, std::vector<unsigned int>::const_reference __x)
@@ -1230,21 +857,21 @@ void TI::Favonius::BeamSearch::~BeamSearch(TI::Favonius::BeamSearch *this)
   }
 }
 
-void TI::Favonius::BeamSearchAlgorithm::create_search(uint64_t a1, uint64_t a2, uint64_t a3, void (****a4)(void, unint64_t *), uint64_t *a5, uint64_t *a6)
+void TI::Favonius::BeamSearchAlgorithm::create_search(uint64_t a1, KB::LanguageModelContext *a2, void x2_0, unsigned int **a3, atomic_uint **a4, uint64_t *a5)
 {
-  v7 = *a4;
+  v7 = *a3;
+  *a3 = 0;
+  v8 = *a4;
   *a4 = 0;
-  v8 = *a5;
+  v9 = *a5;
   *a5 = 0;
-  v9 = *a6;
-  *a6 = 0;
+  v19 = 0;
   v20 = 0;
   v21 = 0;
-  v22 = 0;
-  (**v7)(v7, &v20);
-  v19[0] = &__block_literal_global_39;
-  v10 = 126 - 2 * __clz(v20);
-  if (v20)
+  (**v7)(v7, &v19);
+  v18[0] = &__block_literal_global_39;
+  v10 = 126 - 2 * __clz(v19);
+  if (v19)
   {
     v11 = v10;
   }
@@ -1254,23 +881,23 @@ void TI::Favonius::BeamSearchAlgorithm::create_search(uint64_t a1, uint64_t a2, 
     v11 = 0;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,BOOL({block_pointer}&)(WTF::RefPtr<TI::Favonius::TypingHypothesis> const&,WTF::RefPtr<TI::Favonius::TypingHypothesis> const&),WTF::RefPtr<TI::Favonius::TypingHypothesis>*,false>(v21, (v21 + 8 * v20), v19, v11, 1);
-  v12 = v20;
-  v13 = v21;
-  v18 = a1;
-  if (v20 >= 4)
+  std::__introsort<std::_ClassicAlgPolicy,BOOL({block_pointer}&)(WTF::RefPtr<TI::Favonius::TypingHypothesis> const&,WTF::RefPtr<TI::Favonius::TypingHypothesis> const&),WTF::RefPtr<TI::Favonius::TypingHypothesis>*,false>(v20, (v20 + 8 * v19), v18, v11, 1);
+  v12 = v19;
+  v13 = v20;
+  v17 = a1;
+  if (v19 >= 4)
   {
-    v14 = (v21 + 8 * v20);
-    WTF::VectorDestructor<true,WTF::RefPtr<TI::Favonius::TypingHypothesis>>::destruct((v21 + 24), v14);
-    v16 = v20;
-    v15 = v21;
-    memmove(v13 + 3, &v13[v12], v21 + 8 * v20 - v14);
+    v14 = (v20 + 8 * v19);
+    WTF::VectorDestructor<true,WTF::RefPtr<TI::Favonius::TypingHypothesis>>::destruct((v20 + 24), v14);
+    v16 = v19;
+    v15 = v20;
+    memmove(v13 + 3, &v13[v12], v20 + 8 * v19 - v14);
     v12 = v16 - v12 + 3;
-    v20 = v12;
+    v19 = v12;
     v13 = v15;
   }
 
-  memset(v19, 0, sizeof(v19));
+  memset(v18, 0, sizeof(v18));
   if (v12)
   {
     if (v9)
@@ -1278,14 +905,13 @@ void TI::Favonius::BeamSearchAlgorithm::create_search(uint64_t a1, uint64_t a2, 
       atomic_fetch_add((v9 + 8), 1u);
     }
 
-    v17 = *v13;
     *v13 = 0;
     operator new();
   }
 
-  if (v18)
+  if (v17)
   {
-    atomic_fetch_add((v18 + 8), 1u);
+    atomic_fetch_add((v17 + 8), 1u);
   }
 
   if (v8)
@@ -1324,7 +950,7 @@ uint64_t TI::Favonius::BeamSearchAlgorithm::BeamSearchAlgorithm(uint64_t this, c
   return this;
 }
 
-void TI::Favonius::FavoniusStrokeBuildManager::get_it_recognizer_state(uint64_t a1@<X0>, int a2@<W1>, __CFString **a3@<X8>)
+void TI::Favonius::FavoniusStrokeBuildManager::get_it_recognizer_state(uint64_t a1@<X0>, int a2@<W1>, CFMutableStringRef *a3@<X8>)
 {
   v3 = *(a1 + 720);
   if (v3)
@@ -1360,7 +986,7 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::continuous_path_usage_count(T
   return result;
 }
 
-uint64_t TI::Favonius::FavoniusStrokeBuildManager::set_continuous_path_ensemble_source_scales(uint64_t this, CFArrayRef theArray)
+CFIndex TI::Favonius::FavoniusStrokeBuildManager::set_continuous_path_ensemble_source_scales(CFIndex this, CFArrayRef theArray)
 {
   if (theArray)
   {
@@ -1671,9 +1297,9 @@ LABEL_6:
   v8 = *(*(*(this + 7) + 8 * v7) + 8);
   v9 = (*(*v8 + 64))(v8);
   v10 = *(*(this + 10) + 8 * v7);
-  v11 = *((*(*v10 + 32))(v10) + 8);
-  v12 = *(**(v9 + 8) + 8);
-  return v11 != v12 && !KB::String::equal((v11 + 8), (v12 + 8), 1);
+  v13 = *((*(*v10 + 32))(v10) + 8);
+  v14 = *(**(v9 + 8) + 8);
+  return v13 != v14 && !KB::String::equal((v13 + 8), (v14 + 8), 1, v11, v12);
 }
 
 uint64_t TI::Favonius::FavoniusStrokeBuildManager::set_skip_language_layout_check_cp_ml(uint64_t this, int a2)
@@ -1688,113 +1314,109 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::set_skip_language_layout_chec
 
 void TI::Favonius::FavoniusStrokeBuildManager::append_debug_data(TI::Favonius::FavoniusStrokeBuildManager *this, __CFString *a2, int a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  if (!a3 || !(*(*this + 288))(this) || (v6 = *(this + 88)) == 0)
+  v31 = *MEMORY[0x277D85DE8];
+  if (a3 && (*(*this + 288))(this) && (v6 = *(this + 88)) != 0)
   {
-    v9 = *(this + 40);
-    if (v9 && *(this + 9) > v9)
+    v7 = *(v6 + 64);
+    if (v7)
     {
-      v28 = 0x100000;
+
+      TI::CP::Search::append_debug_data(v7, a2, v5);
+    }
+  }
+
+  else
+  {
+    v8 = *(this + 40);
+    if (v8 && *(this + 9) > v8)
+    {
+      v26 = 0x100000;
+      v27 = 0;
+      v28 = 0;
       v29 = 0;
       v30 = 0;
-      v31 = 0;
-      v32 = 0;
-      v10 = *(*(*(this + 7) + 8 * v9) + 8);
-      (*(*v10 + 104))(v10, &v28);
-      v11 = v31;
-      if (!v31)
+      v9 = *(*(*(this + 7) + 8 * v8) + 8);
+      (*(*v9 + 104))(v9, &v26);
+      v10 = v29;
+      if (!v29)
       {
-        v11 = &v32;
+        v10 = &v30;
       }
 
-      if (v28)
+      if (v26)
       {
-        v12 = v11;
+        v11 = v10;
       }
 
       else
       {
-        v12 = "";
+        v11 = "";
       }
 
-      CFStringAppendCString(a2, v12, 0x8000100u);
-      v23 = 0x100000;
+      CFStringAppendCString(a2, v11, 0x8000100u);
+      v21 = 0x100000;
+      v22 = 0;
+      v23 = 0;
       v24 = 0;
       v25 = 0;
-      v26 = 0;
-      v27 = 0;
-      KB::LanguageModelContext::description(this + 28, v19);
-      v13 = v21;
-      if (!v21)
+      KB::LanguageModelContext::description(this + 28, v17);
+      v12 = v19;
+      if (!v19)
       {
-        v13 = &v22;
+        v12 = &v20;
       }
 
-      if (v19[0])
+      if (v17[0])
       {
-        v14 = v13;
-      }
-
-      else
-      {
-        v14 = "";
-      }
-
-      KB::String::append_format(&v23, "CONTEXT: %s\n", v14);
-      if (v21 && v20 == 1)
-      {
-        free(v21);
-      }
-
-      v15 = v26;
-      if (!v26)
-      {
-        v15 = &v27;
-      }
-
-      if (v23)
-      {
-        v16 = v15;
+        v13 = v12;
       }
 
       else
       {
-        v16 = "";
+        v13 = "";
       }
 
-      CFStringAppendCString(a2, v16, 0x8000100u);
-      v17 = *(*(this + 10) + 8 * *(this + 40));
-      (*(*v17 + 144))(v17, a2);
-      if (v26 && v25 == 1)
+      KB::String::append_format(&v21, "CONTEXT: %s\n", v13);
+      if (v19 && v18 == 1)
       {
-        free(v26);
+        free(v19);
       }
 
-      if (v31 && v30 == 1)
+      v14 = v24;
+      if (!v24)
       {
-        free(v31);
+        v14 = &v25;
+      }
+
+      if (v21)
+      {
+        v15 = v14;
+      }
+
+      else
+      {
+        v15 = "";
+      }
+
+      CFStringAppendCString(a2, v15, 0x8000100u);
+      v16 = *(*(this + 10) + 8 * *(this + 40));
+      (*(*v16 + 144))(v16, a2);
+      if (v24 && v23 == 1)
+      {
+        free(v24);
+      }
+
+      if (v29 && v28 == 1)
+      {
+        free(v29);
       }
     }
-
-    goto LABEL_34;
   }
-
-  v7 = *(v6 + 64);
-  if (!v7)
-  {
-LABEL_34:
-    v18 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-
-  TI::CP::Search::append_debug_data(v7, a2, v5);
 }
 
 void TI::Favonius::FavoniusStrokeBuildManager::initialize_search_if_necessary_from_last_touch(TI::Favonius::FavoniusStrokeBuildManager *this)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (*(this + 209) == 1)
   {
     v2 = *(this + 40);
@@ -1809,46 +1431,44 @@ void TI::Favonius::FavoniusStrokeBuildManager::initialize_search_if_necessary_fr
       v3 = 0;
     }
 
-    v11 = 0;
-    v9 = 0u;
-    v10 = 0u;
-    v7 = 0u;
+    v10 = 0;
     v8 = 0u;
-    v5 = 0u;
+    v9 = 0u;
+    v6 = 0u;
+    v7 = 0u;
+    v4 = 0u;
     *__p = 0u;
-    language_modeling::v1::LinguisticContext::LinguisticContext(&v9);
-    language_modeling::v1::LinguisticContext::LinguisticContext((&v9 + 8));
-    v10 = 0uLL;
-    v11 = 0;
-    LODWORD(v12) = 0x100000;
-    WORD2(v12) = 0;
-    BYTE6(v12) = 0;
+    language_modeling::v1::LinguisticContext::LinguisticContext(&v8);
+    language_modeling::v1::LinguisticContext::LinguisticContext((&v8 + 8));
+    v9 = 0uLL;
+    v10 = 0;
+    LODWORD(v11) = 0x100000;
+    WORD2(v11) = 0;
+    BYTE6(v11) = 0;
+    v12 = 0;
     v13 = 0;
-    v14 = 0;
-    (*(*this + 144))(this, &v5, &v12, 0, 0);
+    (*(*this + 144))(this, &v4, &v11, 0, 0);
     *(this + 40) = v3;
-    if (v13 && BYTE6(v12) == 1)
+    if (v12 && BYTE6(v11) == 1)
     {
-      free(v13);
+      free(v12);
     }
 
-    v12 = &v10;
-    std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v12);
-    language_modeling::v1::LinguisticContext::~LinguisticContext((&v9 + 8));
-    language_modeling::v1::LinguisticContext::~LinguisticContext(&v9);
+    v11 = &v9;
+    std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v11);
+    language_modeling::v1::LinguisticContext::~LinguisticContext((&v8 + 8));
+    language_modeling::v1::LinguisticContext::~LinguisticContext(&v8);
     if (__p[0])
     {
       __p[1] = __p[0];
       operator delete(__p[0]);
     }
 
-    if (*(&v5 + 1))
+    if (*(&v4 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](*(&v5 + 1));
+      std::__shared_weak_count::__release_shared[abi:nn200100](*(&v4 + 1));
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t TI::Favonius::FavoniusStrokeBuildManager::keys_for_input(TI::Favonius::FavoniusStrokeBuildManager *this, unsigned int a2)
@@ -2086,28 +1706,28 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::language_model_uses_input_con
   return result;
 }
 
-void TI::Favonius::FavoniusStrokeBuildManager::sync_with_input_from_UI(TI::Favonius::FavoniusStrokeBuildManager *this, const KB::LanguageModelContext *a2, const KB::String *a3, unsigned int a4, unsigned int a5)
+void TI::Favonius::FavoniusStrokeBuildManager::sync_with_input_from_UI(std::vector<unsigned int> *this, const KB::LanguageModelContext *a2, const KB::String *a3, unsigned int a4, unsigned int a5)
 {
-  v56[2] = *MEMORY[0x277D85DE8];
-  if (*(this + 209) == 1)
+  v55[2] = *MEMORY[0x277D85DE8];
+  if (BYTE1(this[8].__end_cap_.__value_) == 1)
   {
     __n = 0;
-    v55 = 0;
-    v56[0] = 0;
-    TI::Favonius::FavoniusStrokeBuildManager::pop_touches_from_history(this, *(this + 40), &__n);
-    v10 = *(this + 6);
-    v11 = *(this + 7);
-    v12 = (this + 48);
-    v13 = &v11[v10];
-    v14 = *v11;
-    *v11 = *(v13 - 1);
+    v54 = 0;
+    v55[0] = 0;
+    TI::Favonius::FavoniusStrokeBuildManager::pop_touches_from_history(this, this[6].__end_cap_.__value_, &__n);
+    begin = this[2].__begin_;
+    end = this[2].__end_;
+    v12 = this + 2;
+    v13 = &end[2 * begin];
+    v14 = *end;
+    *end = *(v13 - 1);
     *(v13 - 1) = v14;
-    if (v10)
+    if (begin)
     {
-      if (v10 != 1)
+      if (begin != 1)
       {
-        v15 = (*(this + 7) + 8);
-        v16 = 8 * v10 - 8;
+        v15 = (this[2].__end_ + 2);
+        v16 = 8 * begin - 8;
         do
         {
           if (*v15)
@@ -2125,66 +1745,66 @@ void TI::Favonius::FavoniusStrokeBuildManager::sync_with_input_from_UI(TI::Favon
 
     else
     {
-      if (!*(this + 8))
+      if (!this[2].__end_cap_.__value_)
       {
-        WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::reserveCapacity(this + 6, 1uLL);
+        WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::reserveCapacity(&this[2].__begin_, 1uLL);
       }
 
-      v20 = *(this + 7);
+      v20 = this[2].__end_;
       if (v20)
       {
-        bzero((v20 + 8 * *v12), 8 - 8 * *v12);
+        bzero(&v20[2 * v12->__begin_], 8 - 8 * v12->__begin_);
       }
     }
 
-    *(this + 6) = 1;
-    WTF::Vector<WTF::RefPtr<TI::Favonius::Search>,0ul>::shrinkCapacity(this + 72);
-    v21 = *(this + 21);
-    *(this + 208) = 0;
-    *(this + 22) = v21;
-    *(this + 48) = 0;
-    KB::String::operator=((this + 128), a3);
+    this[2].__begin_ = 1;
+    WTF::Vector<WTF::RefPtr<TI::Favonius::Search>,0ul>::shrinkCapacity(&this[3].__begin_);
+    v21 = this[7].__begin_;
+    LOBYTE(this[8].__end_cap_.__value_) = 0;
+    this[7].__end_ = v21;
+    LODWORD(this[8].__begin_) = 0;
+    KB::String::operator=(&this[5].__end_, a3);
     __x[0] = -1;
-    v22.__i_ = (*(this + 21) + 4 * *(this + 48));
+    v22.__i_ = &this[7].__begin_[LODWORD(this[8].__begin_)];
     std::vector<unsigned int>::insert(this + 7, v22, a5, __x);
-    *(this + 48) = a4;
-    KB::LanguageModelContext::operator=(this + 224, a2);
+    LODWORD(this[8].__begin_) = a4;
+    KB::LanguageModelContext::operator=(&this[9].__end_, a2);
     if (a4 > 0x7F)
     {
       goto LABEL_59;
     }
 
-    v23 = *(this + 1);
+    v23 = this->__end_;
     if (!v23)
     {
       goto LABEL_59;
     }
 
-    v24 = *(this + 5);
-    if (!v24)
+    value = this[1].__end_cap_.__value_;
+    if (!value)
     {
       goto LABEL_59;
     }
 
-    v52 = *(this + 1);
-    atomic_fetch_add((v23 + 8), 1u);
-    v25 = *(this + 2);
-    v51 = v25;
+    v51 = this->__end_;
+    atomic_fetch_add(v23 + 2, 1u);
+    v25 = this->__end_cap_.__value_;
+    v50 = v25;
     if (v25)
     {
-      atomic_fetch_add((v25 + 8), 1u);
+      atomic_fetch_add(v25 + 2, 1u);
     }
 
-    v26 = *(*(*(this + 7) + 8 * *(this + 6) - 8) + 8);
-    v50 = v26;
+    v26 = *(*&this[2].__end_[2 * this[2].__begin_ - 2] + 8);
+    v49 = v26;
     if (v26)
     {
       atomic_fetch_add((v26 + 8), 1u);
     }
 
-    (**v24)(__x);
-    v27 = *(this + 9);
-    if (v27 == *(this + 11))
+    (**value)(__x);
+    v27 = this[3].__begin_;
+    if (v27 == this[3].__end_cap_.__value_)
     {
       v28 = v27 + (v27 >> 1);
       if (v27 < 0x100)
@@ -2202,14 +1822,14 @@ void TI::Favonius::FavoniusStrokeBuildManager::sync_with_input_from_UI(TI::Favon
         v29 = v28;
       }
 
-      WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::reserveCapacity(this + 9, v29);
-      v30 = *(this + 10);
+      WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::reserveCapacity(&this[3].__begin_, v29);
+      v30 = this[3].__end_;
       if (!v30)
       {
         if (*__x)
         {
-          v48 = atomic_load((*__x + 8));
-          if (v48 == 1)
+          v47 = atomic_load((*__x + 8));
+          if (v47 == 1)
           {
             (*(**__x + 8))();
           }
@@ -2223,23 +1843,37 @@ void TI::Favonius::FavoniusStrokeBuildManager::sync_with_input_from_UI(TI::Favon
         goto LABEL_47;
       }
 
-      v27 = *(this + 9);
+      v27 = this[3].__begin_;
     }
 
     else
     {
-      v30 = *(this + 10);
+      v30 = this[3].__end_;
     }
 
     v38 = *__x;
     *__x = 0;
-    *(v30 + 8 * v27) = v38;
-    *(this + 9) = v27 + 1;
+    *&v30[2 * v27] = v38;
+    this[3].__begin_ = (v27 + 1);
 LABEL_47:
+    if (v49)
+    {
+      v39 = atomic_load(v49 + 2);
+      if (v39 == 1)
+      {
+        (*(*v49 + 8))();
+      }
+
+      else
+      {
+        atomic_fetch_add(v49 + 2, 0xFFFFFFFF);
+      }
+    }
+
     if (v50)
     {
-      v39 = atomic_load(v50 + 2);
-      if (v39 == 1)
+      v40 = atomic_load(v50 + 2);
+      if (v40 == 1)
       {
         (*(*v50 + 8))();
       }
@@ -2252,10 +1886,10 @@ LABEL_47:
 
     if (v51)
     {
-      v40 = atomic_load(v51 + 2);
-      if (v40 == 1)
+      v41 = atomic_load(v51 + 2);
+      if (v41 == 1)
       {
-        (*(*v51 + 8))();
+        (*(*v51 + 40))();
       }
 
       else
@@ -2264,51 +1898,37 @@ LABEL_47:
       }
     }
 
-    if (v52)
-    {
-      v41 = atomic_load(v52 + 2);
-      if (v41 == 1)
-      {
-        (*(*v52 + 40))();
-      }
-
-      else
-      {
-        atomic_fetch_add(v52 + 2, 0xFFFFFFFF);
-      }
-    }
-
 LABEL_59:
-    *(this + 40) = 0;
+    LODWORD(this[6].__end_cap_.__value_) = 0;
     TI::Favonius::FavoniusStrokeBuildManager::push_touches_to_history(this, &__n);
-    if (*(this + 6) >= 2uLL)
+    if (this[2].__begin_ >= 2)
     {
       v43 = 2;
       do
       {
-        TI::Favonius::FavoniusStrokeBuildManager::perform_search(this, v43 - 1, &v49);
-        if (v49)
+        TI::Favonius::FavoniusStrokeBuildManager::perform_search(&v48, this, v43 - 1);
+        if (v48)
         {
-          WTF::RefCounted<TI::Favonius::Key>::deref(v49);
+          WTF::RefCounted<TI::Favonius::Key>::deref(v48);
         }
       }
 
-      while (*v12 > v43++);
+      while (v12->__begin_ > v43++);
     }
 
-    v45 = *(this + 90);
+    v45 = this[30].__begin_;
     if (v45)
     {
       TI::TIInputRecognizer::sync_with_input_from_UI(v45, v42, a2);
     }
 
-    v46 = *(this + 88);
+    v46 = this[29].__end_;
     if (v46)
     {
       (*(*v46 + 120))(v46, a2);
     }
 
-    std::__optional_destruct_base<std::pair<KB::String,KB::String>,false>::reset[abi:nn200100](this + 920);
+    std::__optional_destruct_base<std::pair<KB::String,KB::String>,false>::reset[abi:nn200100](&this[38].__end_);
     WTF::Vector<WTF::RefPtr<TI::Favonius::StrokeBuildManagerInternals::TouchRefWithKeycode>,0ul>::~Vector(&__n);
     goto LABEL_69;
   }
@@ -2326,15 +1946,15 @@ LABEL_59:
         v32 = a3 + 16;
       }
 
-      v19 = v55;
-      if (v55)
+      v19 = v54;
+      if (v54)
       {
-        v33 = v55;
+        v33 = v54;
       }
 
       else
       {
-        v33 = v56;
+        v33 = v55;
       }
 
       v18 = strncmp(&v32[v31], v33, __n) == 0;
@@ -2343,7 +1963,7 @@ LABEL_59:
     else
     {
       v18 = 0;
-      v19 = v55;
+      v19 = v54;
     }
 
     if (v19 && BYTE6(__n) == 1)
@@ -2353,28 +1973,27 @@ LABEL_59:
 
     if (!v18)
     {
-      --*(this + 40);
-      v34 = *(this + 9);
-      v35 = v34 - 1;
-      WTF::VectorDestructor<true,WTF::RefPtr<TI::Favonius::Search>>::destruct((*(this + 10) + 8 * (v34 - 1)), (*(this + 10) + 8 * v34));
-      *(this + 9) = v35;
-      v36 = *(this + 6) - 1;
-      v37 = *(*(this + 7) + 8 * v36);
+      --LODWORD(this[6].__end_cap_.__value_);
+      v34 = this[3].__begin_;
+      v35 = (v34 - 1);
+      WTF::VectorDestructor<true,WTF::RefPtr<TI::Favonius::Search>>::destruct(&this[3].__end_[2 * (v34 - 1)], &this[3].__end_[2 * v34]);
+      this[3].__begin_ = v35;
+      v36 = (this[2].__begin_ - 1);
+      v37 = *&this[2].__end_[2 * v36];
       if (v37)
       {
         WTF::RefCounted<TI::Favonius::StrokeBuildManagerInternals::TouchHistoryRefWithKeycode>::deref(v37);
       }
 
-      *(this + 6) = v36;
+      this[2].__begin_ = v36;
     }
   }
 
 LABEL_69:
-  *(this + 209) = 0;
-  v47 = *MEMORY[0x277D85DE8];
+  BYTE1(this[8].__end_cap_.__value_) = 0;
 }
 
-void TI::Favonius::FavoniusStrokeBuildManager::pop_touches_from_history(uint64_t a1, int a2, void *a3)
+void TI::Favonius::FavoniusStrokeBuildManager::pop_touches_from_history(uint64_t a1, int a2, unint64_t *a3)
 {
   v4 = (a2 + 1);
   WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::reserveCapacity(a3, *a3 - v4 + *(a1 + 48));
@@ -2388,7 +2007,6 @@ void TI::Favonius::FavoniusStrokeBuildManager::pop_touches_from_history(uint64_t
       atomic_fetch_add(v7, 1u);
     }
 
-    v8 = *(*(*(a1 + 56) + 8 * *(a1 + 48) - 8) + 16);
     operator new();
   }
 }
@@ -2420,49 +2038,48 @@ uint64_t WTF::RefCounted<TI::Favonius::StrokeBuildManagerInternals::TouchHistory
   return result;
 }
 
-void WTF::Vector<WTF::RefPtr<TI::Favonius::Search>,0ul>::shrinkCapacity(uint64_t a1)
+void WTF::Vector<WTF::RefPtr<TI::Favonius::Search>,0ul>::shrinkCapacity(void *a1)
 {
-  if (*(a1 + 16))
+  if (a1[2])
   {
     if (*a1)
     {
-      WTF::VectorDestructor<true,WTF::RefPtr<TI::Favonius::Search>>::destruct(*(a1 + 8), (*(a1 + 8) + 8 * *a1));
+      WTF::VectorDestructor<true,WTF::RefPtr<TI::Favonius::Search>>::destruct(a1[1], (a1[1] + 8 * *a1));
       *a1 = 0;
     }
 
-    v2 = *(a1 + 8);
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
+    v2 = a1[1];
+    a1[1] = 0;
+    a1[2] = 0;
 
     free(v2);
   }
 }
 
-uint64_t TI::Favonius::FavoniusStrokeBuildManager::push_touches_to_history(uint64_t result, void *a2)
+uint64_t TI::Favonius::FavoniusStrokeBuildManager::push_touches_to_history(uint64_t result, uint64_t *a2)
 {
   if (*a2)
   {
     v2 = *(*(result + 56) + 8 * *(result + 48) - 8);
     v3 = *(a2[1] + 8 * *a2 - 8);
     v4 = *(v3 + 8);
-    v6 = v4;
+    v5 = v4;
     if (v4)
     {
       atomic_fetch_add(v4, 1u);
       v3 = *(a2[1] + 8 * *a2 - 8);
     }
 
-    v5 = *(v3 + 16);
-    TI::Favonius::StrokeBuildManagerInternals::TouchHistoryRefWithKeycode::history_by_appending_touch_keycode(&v7, *(v2 + 8), &v6);
+    TI::Favonius::StrokeBuildManagerInternals::TouchHistoryRefWithKeycode::history_by_appending_touch_keycode(&v6, *(v2 + 8), &v5, *(v3 + 16));
   }
 
   return result;
 }
 
-uint64_t TI::Favonius::FavoniusStrokeBuildManager::perform_search@<X0>(TI::Favonius::FavoniusStrokeBuildManager *this@<X0>, unsigned int a2@<W1>, atomic_uint **a3@<X8>)
+uint64_t *TI::Favonius::FavoniusStrokeBuildManager::perform_search@<X0>(atomic_uint **__return_ptr a1@<X8>, TI::Favonius::FavoniusStrokeBuildManager *this@<X0>, unsigned int a3@<W1>)
 {
-  v6 = a2;
-  v7 = *(*(this + 7) + 8 * a2);
+  v6 = a3;
+  v7 = *(*(this + 7) + 8 * a3);
   if (v7)
   {
     atomic_fetch_add(v7, 1u);
@@ -2475,7 +2092,7 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::perform_search@<X0>(TI::Favon
     atomic_fetch_add(v9 + 2, 1u);
     if (v8 < 0xFFFFFFFE)
     {
-      v42 = v9;
+      v40 = v9;
       atomic_fetch_add(v9 + 2, 1u);
       v10 = v9;
       goto LABEL_6;
@@ -2485,16 +2102,16 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::perform_search@<X0>(TI::Favon
   else if (v8 < 0xFFFFFFFE)
   {
     v10 = 0;
-    v42 = 0;
+    v40 = 0;
 LABEL_6:
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 0x40000000;
-    v40[2] = ___ZN2TI8Favonius26FavoniusStrokeBuildManager14perform_searchEj_block_invoke;
-    v40[3] = &__block_descriptor_tmp_16;
-    v41 = v8;
-    TI::Favonius::FavoniusStrokeBuildManager::key_near_touch_passing_test(&v42, v40, &v43);
-    v11 = v43;
-    v43 = 0;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 0x40000000;
+    v38[2] = ___ZN2TI8Favonius26FavoniusStrokeBuildManager14perform_searchEj_block_invoke;
+    v38[3] = &__block_descriptor_tmp_16;
+    v39 = v8;
+    TI::Favonius::FavoniusStrokeBuildManager::key_near_touch_passing_test(&v40, v38, &v41);
+    v11 = v41;
+    v41 = 0;
     if (v10)
     {
       v12 = atomic_load(v10 + 2);
@@ -2509,7 +2126,7 @@ LABEL_6:
       }
     }
 
-    if (TI::Favonius::FavoniusStrokeBuildManager::can_update_existing_search(this, a2))
+    if (TI::Favonius::FavoniusStrokeBuildManager::can_update_existing_search(this, a3))
     {
       v13 = (*(this + 10) + 8 * v6);
       v14 = *v13;
@@ -2526,7 +2143,7 @@ LABEL_6:
     goto LABEL_27;
   }
 
-  if (TI::Favonius::FavoniusStrokeBuildManager::can_update_existing_search(this, a2))
+  if (TI::Favonius::FavoniusStrokeBuildManager::can_update_existing_search(this, a3))
   {
     v11 = 0;
     v13 = (*(this + 10) + 8 * v6);
@@ -2534,11 +2151,11 @@ LABEL_6:
     if (v8 == -2)
     {
 LABEL_76:
-      v35 = (*(*v14 + 32))(v14);
-      v36 = v35;
-      if (v35)
+      v33 = (*(*v14 + 32))(v14);
+      v34 = v33;
+      if (v33)
       {
-        atomic_fetch_add(v35, 1u);
+        atomic_fetch_add(v33, 1u);
       }
 
       if (v11)
@@ -2546,7 +2163,7 @@ LABEL_76:
         WTF::RefCounted<TI::Favonius::KeyMatch>::deref(v11);
       }
 
-      v11 = v36;
+      v11 = v34;
       goto LABEL_81;
     }
 
@@ -2561,36 +2178,35 @@ LABEL_18:
       atomic_fetch_add(v11, 1u);
     }
 
-    v17 = *(this + 208);
-    (*(*v14 + 88))(&v43);
-    v18 = *v13;
-    v19 = v43;
-    v43 = 0;
-    *v13 = v19;
-    if (v18)
+    (*(*v14 + 88))(&v41);
+    v17 = *v13;
+    v18 = v41;
+    v41 = 0;
+    *v13 = v18;
+    if (v17)
     {
-      v20 = atomic_load(v18 + 2);
-      if (v20 == 1)
+      v19 = atomic_load(v17 + 2);
+      if (v19 == 1)
       {
-        (*(*v18 + 8))(v18);
+        (*(*v17 + 8))(v17);
       }
 
       else
       {
-        atomic_fetch_add(v18 + 2, 0xFFFFFFFF);
+        atomic_fetch_add(v17 + 2, 0xFFFFFFFF);
       }
 
-      if (v43)
+      if (v41)
       {
-        v21 = atomic_load(v43 + 2);
-        if (v21 == 1)
+        v20 = atomic_load(v41 + 2);
+        if (v20 == 1)
         {
-          (*(*v43 + 8))();
+          (*(*v41 + 8))();
         }
 
         else
         {
-          atomic_fetch_add(v43 + 2, 0xFFFFFFFF);
+          atomic_fetch_add(v41 + 2, 0xFFFFFFFF);
         }
       }
     }
@@ -2602,8 +2218,8 @@ LABEL_18:
 
     if (v9)
     {
-      v22 = atomic_load(v9 + 2);
-      if (v22 == 1)
+      v21 = atomic_load(v9 + 2);
+      if (v21 == 1)
       {
         (*(*v9 + 8))();
       }
@@ -2626,44 +2242,44 @@ LABEL_18:
 LABEL_27:
     if (v16 == v6)
     {
-      v16 = a2 + 1;
-      if (a2 == -1)
+      v16 = a3 + 1;
+      if (a3 == -1)
       {
         WTF::VectorDestructor<true,WTF::RefPtr<TI::Favonius::Search>>::destruct((*(this + 10) + 8 * v16), (*(this + 10) + 8 * v6));
       }
 
       else
       {
-        v23 = *(this + 11);
-        if (v23 < v16)
+        v22 = *(this + 11);
+        if (v22 < v16)
         {
-          if (v23 >= 0x100)
+          if (v22 >= 0x100)
           {
-            v24 = v23 + (v23 >> 1);
+            v23 = v22 + (v22 >> 1);
           }
 
           else
           {
-            v24 = 2 * v23;
+            v23 = 2 * v22;
           }
 
-          if (v24 <= v16)
+          if (v23 <= v16)
           {
-            v25 = a2 + 1;
+            v24 = a3 + 1;
           }
 
           else
           {
-            v25 = v24;
+            v24 = v23;
           }
 
-          WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::reserveCapacity(v15, v25);
+          WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::reserveCapacity(v15, v24);
         }
 
-        v26 = *(this + 10);
-        if (v26)
+        v25 = *(this + 10);
+        if (v25)
         {
-          bzero((v26 + 8 * *v15), 8 * (v16 - *v15));
+          bzero((v25 + 8 * *v15), 8 * (v16 - *v15));
         }
       }
 
@@ -2672,7 +2288,7 @@ LABEL_27:
 
     if (v16 > v6)
     {
-      v27 = *(*(this + 10) + 8 * (a2 - 1));
+      v26 = *(*(this + 10) + 8 * (a3 - 1));
       if (v9)
       {
         atomic_fetch_add(v9 + 2, 1u);
@@ -2683,37 +2299,36 @@ LABEL_27:
         atomic_fetch_add(v11, 1u);
       }
 
-      v28 = *(this + 208);
-      (*(*v27 + 72))(&v43);
-      v29 = *(this + 10);
-      v30 = *(v29 + 8 * v6);
-      v31 = v43;
-      v43 = 0;
-      *(v29 + 8 * v6) = v31;
-      if (v30)
+      (*(*v26 + 72))(&v41);
+      v27 = *(this + 10);
+      v28 = *(v27 + 8 * v6);
+      v29 = v41;
+      v41 = 0;
+      *(v27 + 8 * v6) = v29;
+      if (v28)
       {
-        v32 = atomic_load(v30 + 2);
-        if (v32 == 1)
+        v30 = atomic_load(v28 + 2);
+        if (v30 == 1)
         {
-          (*(*v30 + 8))(v30);
+          (*(*v28 + 8))(v28);
         }
 
         else
         {
-          atomic_fetch_add(v30 + 2, 0xFFFFFFFF);
+          atomic_fetch_add(v28 + 2, 0xFFFFFFFF);
         }
 
-        if (v43)
+        if (v41)
         {
-          v33 = atomic_load(v43 + 2);
-          if (v33 == 1)
+          v31 = atomic_load(v41 + 2);
+          if (v31 == 1)
           {
-            (*(*v43 + 8))();
+            (*(*v41 + 8))();
           }
 
           else
           {
-            atomic_fetch_add(v43 + 2, 0xFFFFFFFF);
+            atomic_fetch_add(v41 + 2, 0xFFFFFFFF);
           }
         }
       }
@@ -2725,8 +2340,8 @@ LABEL_27:
 
       if (v9)
       {
-        v34 = atomic_load(v9 + 2);
-        if (v34 == 1)
+        v32 = atomic_load(v9 + 2);
+        if (v32 == 1)
         {
           (*(*v9 + 8))();
         }
@@ -2755,18 +2370,18 @@ LABEL_61:
   }
 
 LABEL_81:
-  v37 = *(v11 + 1);
-  *a3 = v37;
-  if (v37)
+  v35 = *(v11 + 1);
+  *a1 = v35;
+  if (v35)
   {
-    atomic_fetch_add(v37, 1u);
+    atomic_fetch_add(v35, 1u);
   }
 
   WTF::RefCounted<TI::Favonius::KeyMatch>::deref(v11);
   if (v9)
   {
-    v38 = atomic_load(v9 + 2);
-    if (v38 == 1)
+    v36 = atomic_load(v9 + 2);
+    if (v36 == 1)
     {
       (*(*v9 + 8))(v9);
     }
@@ -3025,12 +2640,12 @@ BOOL TI::Favonius::FavoniusStrokeBuildManager::can_update_existing_search(TI::Fa
   return v13;
 }
 
-void TI::Favonius::StrokeBuildManagerInternals::TouchHistoryRefWithKeycode::history_by_appending_touch_keycode(uint64_t a1, uint64_t a2, uint64_t *a3)
+void TI::Favonius::StrokeBuildManagerInternals::TouchHistoryRefWithKeycode::history_by_appending_touch_keycode(uint64_t *a1, uint64_t a2, uint64_t *a3, int a4)
 {
-  v3 = *a3;
+  v4 = *a3;
   *a3 = 0;
-  v4 = v3;
-  (*(*a2 + 80))(&v5, a2, &v4);
+  v5 = v4;
+  (*(*a2 + 80))(&v6, a2, &v5);
   operator new();
 }
 
@@ -3062,17 +2677,18 @@ uint64_t ___ZN2TI8Favonius26FavoniusStrokeBuildManager24input_disruption_from_UI
   return result;
 }
 
-void TI::Favonius::FavoniusStrokeBuildManager::drop_input_prefix(TI::Favonius::FavoniusStrokeBuildManager *this, const KB::LanguageModelContext *a2, unsigned int a3, const KB::String *a4)
+void TI::Favonius::FavoniusStrokeBuildManager::drop_input_prefix(TI::Favonius::FavoniusStrokeBuildManager *this, const KB::LanguageModelContext *a2, uint64_t a3, const KB::String *a4)
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v4 = a3;
+  v100 = *MEMORY[0x277D85DE8];
   v7 = (this + 48);
   v8 = *(this + 6) - 1;
-  LOBYTE(v99) = 0;
-  std::vector<BOOL>::vector(__p, v8);
-  TI::Favonius::FavoniusStrokeBuildManager::InputTouchAlignment::drop_input_prefix((v7 + 15), a3, __p);
+  LOBYTE(v98) = 0;
+  std::vector<BOOL>::vector(__p, v8, &v98);
+  TI::Favonius::FavoniusStrokeBuildManager::InputTouchAlignment::drop_input_prefix((v7 + 15), v4, __p);
+  v94 = 0;
   v95 = 0;
   v96 = 0;
-  v97 = 0;
   v9 = *v7;
   if (*v7 <= 1)
   {
@@ -3092,22 +2708,22 @@ void TI::Favonius::FavoniusStrokeBuildManager::drop_input_prefix(TI::Favonius::F
       goto LABEL_22;
     }
 
-    v14 = v95;
-    if (!v95)
+    v14 = v94;
+    if (!v94)
     {
       v15 = (*(this + 7) + 8 * v13);
-      if (v97)
+      if (v96)
       {
         v14 = 0;
-        v16 = v96;
+        v16 = v95;
       }
 
       else
       {
-        v17 = WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::expandCapacity(&v95, 1uLL, v15);
-        v14 = v95;
-        v16 = v96;
-        if (!v96)
+        v17 = WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::expandCapacity(&v94, 1uLL, v15);
+        v14 = v94;
+        v16 = v95;
+        if (!v95)
         {
           goto LABEL_12;
         }
@@ -3120,36 +2736,36 @@ void TI::Favonius::FavoniusStrokeBuildManager::drop_input_prefix(TI::Favonius::F
       if (v18)
       {
         atomic_fetch_add(v18, 1u);
-        v14 = v95;
+        v14 = v94;
       }
 
-      v95 = ++v14;
+      v94 = ++v14;
     }
 
 LABEL_12:
     v19 = (*(this + 7) + 8 * v12);
-    if (v14 != v97)
+    if (v14 != v96)
     {
-      v21 = v96;
+      v21 = v95;
       goto LABEL_16;
     }
 
-    v20 = WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::expandCapacity(&v95, v14 + 1, v19);
-    v21 = v96;
-    if (v96)
+    v20 = WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::expandCapacity(&v94, v14 + 1, v19);
+    v21 = v95;
+    if (v95)
     {
       v19 = v20;
-      v14 = v95;
+      v14 = v94;
 LABEL_16:
       v22 = *v19;
       v21[v14] = *v19;
       if (v22)
       {
         atomic_fetch_add(v22, 1u);
-        v14 = v95;
+        v14 = v94;
       }
 
-      v95 = v14 + 1;
+      v94 = v14 + 1;
     }
 
     if (v13 < *(this + 40))
@@ -3163,33 +2779,33 @@ LABEL_22:
   }
 
   while (v9 > v11++);
-  if (!v95)
+  if (!v94)
   {
     v24 = (*(this + 7) + 8 * v9 - 8);
-    if (v97)
+    if (v96)
     {
       v25 = 0;
-      v26 = v96;
+      v26 = v95;
       goto LABEL_29;
     }
 
 LABEL_27:
-    v27 = WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::expandCapacity(&v95, 1uLL, v24);
-    v26 = v96;
-    if (v96)
+    v27 = WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::expandCapacity(&v94, 1uLL, v24);
+    v26 = v95;
+    if (v95)
     {
       v24 = v27;
-      v25 = v95;
+      v25 = v94;
 LABEL_29:
       v28 = *v24;
       v26[v25] = *v24;
       if (v28)
       {
         atomic_fetch_add(v28, 1u);
-        v25 = v95;
+        v25 = v94;
       }
 
-      v95 = v25 + 1;
+      v94 = v25 + 1;
     }
   }
 
@@ -3200,7 +2816,7 @@ LABEL_29:
     v29 = *(this + 66);
   }
 
-  if (v29 <= a3)
+  if (v29 <= v4)
   {
     KB::String::clear((this + 128));
   }
@@ -3218,25 +2834,25 @@ LABEL_29:
       v31 = this + 144;
     }
 
-    *&v91 = v31;
+    *&v90 = v31;
     v32 = *(this + 64);
-    DWORD2(v91) = 0;
-    HIDWORD(v91) = v32;
-    LODWORD(v92) = 0;
-    KB::String::iterator::initialize(&v91);
+    DWORD2(v90) = 0;
+    HIDWORD(v90) = v32;
+    LODWORD(v91) = 0;
+    KB::String::iterator::initialize(&v90);
+    v92 = v90;
     v93 = v91;
-    v94 = v92;
-    std::__advance[abi:nn200100]<KB::String::iterator>(&v93, a3);
-    *&v89 = v31;
-    DWORD2(v89) = v32;
-    HIDWORD(v89) = v32;
-    LODWORD(v90) = 0;
-    KB::String::iterator::initialize(&v89);
-    KB::String::String(&v99, &v93, &v89);
-    KB::String::operator=(this + 128, &v99);
-    if (v100 && BYTE6(v99) == 1)
+    std::__advance[abi:nn200100]<KB::String::iterator>(&v92, v4);
+    *&v88 = v31;
+    DWORD2(v88) = v32;
+    HIDWORD(v88) = v32;
+    LODWORD(v89) = 0;
+    KB::String::iterator::initialize(&v88);
+    KB::String::String(&v98, &v92, &v88);
+    KB::String::operator=(this + 128, &v98);
+    if (v99 && BYTE6(v98) == 1)
     {
-      free(v100);
+      free(v99);
     }
 
     v33 = *(this + 21);
@@ -3266,36 +2882,36 @@ LABEL_29:
       v30 = *(this + 17);
     }
 
-    *&v93 = v30;
+    *&v92 = v30;
     v38 = *(this + 64);
-    DWORD2(v93) = 0;
-    HIDWORD(v93) = v38;
-    LODWORD(v94) = 0;
-    KB::String::iterator::initialize(&v93);
-    *&v89 = v30;
-    DWORD2(v89) = 0;
-    HIDWORD(v89) = v38;
-    LODWORD(v90) = 0;
-    KB::String::iterator::initialize(&v89);
+    DWORD2(v92) = 0;
+    HIDWORD(v92) = v38;
+    LODWORD(v93) = 0;
+    KB::String::iterator::initialize(&v92);
+    *&v88 = v30;
+    DWORD2(v88) = 0;
+    HIDWORD(v88) = v38;
+    LODWORD(v89) = 0;
+    KB::String::iterator::initialize(&v88);
+    v90 = v88;
     v91 = v89;
-    v92 = v90;
-    std::__advance[abi:nn200100]<KB::String::iterator>(&v91, (v37 >> 2));
-    KB::String::String(&v99, &v93, &v91);
-    KB::String::operator=(this + 128, &v99);
-    if (v100 && BYTE6(v99) == 1)
+    std::__advance[abi:nn200100]<KB::String::iterator>(&v90, (v37 >> 2));
+    KB::String::String(&v98, &v92, &v90);
+    KB::String::operator=(this + 128, &v98);
+    if (v99 && BYTE6(v98) == 1)
     {
-      free(v100);
+      free(v99);
     }
   }
 
-  if (&v95 != v7)
+  if (&v94 != v7)
   {
     v39 = *v7;
-    v40 = v95;
-    if (*v7 <= v95)
+    v40 = v94;
+    if (*v7 <= v94)
     {
       v43 = *(this + 8);
-      if (v95 <= v43)
+      if (v94 <= v43)
       {
         v40 = *v7;
         goto LABEL_72;
@@ -3326,7 +2942,7 @@ LABEL_29:
         *(this + 7) = 0;
         *(this + 8) = 0;
         free(v46);
-        v40 = v95;
+        v40 = v94;
       }
 
       WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::reserveCapacity(v7, v40);
@@ -3339,8 +2955,8 @@ LABEL_29:
 
     else
     {
-      v41 = (*(this + 7) + 8 * v95);
-      v42 = 8 * v39 - 8 * v95;
+      v41 = (*(this + 7) + 8 * v94);
+      v42 = 8 * v39 - 8 * v94;
       do
       {
         if (*v41)
@@ -3355,7 +2971,7 @@ LABEL_29:
       while (v42);
       *v7 = v40;
 LABEL_72:
-      v47 = v96;
+      v47 = v95;
       if (v40)
       {
         v48 = *(this + 7);
@@ -3381,7 +2997,7 @@ LABEL_72:
         }
 
         while (v49);
-        v47 = v96;
+        v47 = v95;
         v52 = *v7;
       }
 
@@ -3390,11 +3006,11 @@ LABEL_72:
         v52 = 0;
       }
 
-      if (v52 != v95)
+      if (v52 != v94)
       {
         v53 = (*(this + 7) + 8 * v52);
         v54 = &v47[v52];
-        v55 = 8 * v95 - 8 * v52;
+        v55 = 8 * v94 - 8 * v52;
         do
         {
           v56 = *v54;
@@ -3410,7 +3026,7 @@ LABEL_72:
         }
 
         while (v55);
-        v52 = v95;
+        v52 = v94;
       }
 
       *v7 = v52;
@@ -3445,7 +3061,7 @@ LABEL_72:
     {
       if (*(this + 5))
       {
-        v99 = 0;
+        v98 = 0;
         v62 = (this + 72);
         v61 = *(this + 9);
         if (!v61)
@@ -3454,20 +3070,20 @@ LABEL_72:
         }
 
         v63 = *(*(this + 10) + 8 * v61 - 8);
-        v88 = v60;
+        v87 = v60;
         atomic_fetch_add((v60 + 8), 1u);
         v64 = *(this + 2);
-        v87 = v64;
+        v86 = v64;
         if (v64)
         {
           atomic_fetch_add((v64 + 8), 1u);
         }
 
-        (*(*v63 + 112))(&v93);
-        v65 = v99;
-        v66 = v93;
-        *&v93 = 0;
-        v99 = v66;
+        (*(*v63 + 112))(&v92);
+        v65 = v98;
+        v66 = v92;
+        *&v92 = 0;
+        v98 = v66;
         if (v65)
         {
           v67 = atomic_load(v65 + 2);
@@ -3481,55 +3097,55 @@ LABEL_72:
             atomic_fetch_add(v65 + 2, 0xFFFFFFFF);
           }
 
-          if (v93)
+          if (v92)
           {
-            v68 = atomic_load((v93 + 8));
+            v68 = atomic_load((v92 + 8));
             if (v68 == 1)
             {
-              (*(*v93 + 8))();
+              (*(*v92 + 8))();
             }
 
             else
             {
-              atomic_fetch_add((v93 + 8), 0xFFFFFFFF);
+              atomic_fetch_add((v92 + 8), 0xFFFFFFFF);
             }
           }
         }
 
-        if (v87)
+        if (v86)
         {
-          v69 = atomic_load(v87 + 2);
+          v69 = atomic_load(v86 + 2);
           if (v69 == 1)
           {
-            (*(*v87 + 8))();
+            (*(*v86 + 8))();
           }
 
           else
           {
-            atomic_fetch_add(v87 + 2, 0xFFFFFFFF);
+            atomic_fetch_add(v86 + 2, 0xFFFFFFFF);
           }
         }
 
-        v70 = atomic_load(v88 + 2);
+        v70 = atomic_load(v87 + 2);
         if (v70 == 1)
         {
-          (*(*v88 + 40))();
+          (*(*v87 + 40))();
         }
 
         else
         {
-          atomic_fetch_add(v88 + 2, 0xFFFFFFFF);
+          atomic_fetch_add(v87 + 2, 0xFFFFFFFF);
         }
 
-        v71 = v99;
-        if (!v99)
+        v71 = v98;
+        if (!v98)
         {
 LABEL_140:
           (*(*this + 136))(this);
           goto LABEL_141;
         }
 
-        WTF::Vector<WTF::RefPtr<TI::Favonius::Search>,0ul>::shrinkCapacity(this + 72);
+        WTF::Vector<WTF::RefPtr<TI::Favonius::Search>,0ul>::shrinkCapacity(this + 9);
         while (1)
         {
           v72 = *(this + 9);
@@ -3538,7 +3154,7 @@ LABEL_140:
             break;
           }
 
-          v73 = WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::expandCapacity(this + 9, v72 + 1, &v99);
+          v73 = WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::expandCapacity(this + 9, v72 + 1, &v98);
           v74 = *(this + 10);
           if (v74)
           {
@@ -3554,15 +3170,15 @@ LABEL_140:
           }
 
 LABEL_124:
-          v76 = (*(*v99 + 24))(v99);
+          v76 = (*(*v98 + 24))(v98);
           v71 = v76;
           if (v76)
           {
             atomic_fetch_add((v76 + 8), 1u);
           }
 
-          v77 = v99;
-          v99 = v71;
+          v77 = v98;
+          v98 = v71;
           if (v77)
           {
             v78 = atomic_load(v77 + 2);
@@ -3576,7 +3192,7 @@ LABEL_124:
               atomic_fetch_add(v77 + 2, 0xFFFFFFFF);
             }
 
-            v71 = v99;
+            v71 = v98;
           }
 
           if (!v71)
@@ -3599,17 +3215,17 @@ LABEL_124:
                 }
 
                 while (!v84);
-                if (v99)
+                if (v98)
                 {
-                  v85 = atomic_load(v99 + 2);
+                  v85 = atomic_load(v98 + 2);
                   if (v85 == 1)
                   {
-                    (*(*v99 + 8))();
+                    (*(*v98 + 8))();
                   }
 
                   else
                   {
-                    atomic_fetch_add(v99 + 2, 0xFFFFFFFF);
+                    atomic_fetch_add(v98 + 2, 0xFFFFFFFF);
                   }
                 }
               }
@@ -3631,13 +3247,11 @@ LABEL_123:
   }
 
 LABEL_141:
-  WTF::Vector<WTF::RefPtr<TI::Favonius::StrokeBuildManagerInternals::TouchHistoryRefWithKeycode>,0ul>::~Vector(&v95);
+  WTF::Vector<WTF::RefPtr<TI::Favonius::StrokeBuildManagerInternals::TouchHistoryRefWithKeycode>,0ul>::~Vector(&v94);
   if (__p[0])
   {
     operator delete(__p[0]);
   }
-
-  v86 = *MEMORY[0x277D85DE8];
 }
 
 void TI::Favonius::FavoniusStrokeBuildManager::InputTouchAlignment::drop_input_prefix(uint64_t a1, unsigned int a2, uint64_t a3)
@@ -3915,9 +3529,9 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::remove_text_usage(TI::Favoniu
   return result;
 }
 
-void TI::Favonius::FavoniusStrokeBuildManager::text_accepted_from_UI(TI::Favonius::FavoniusStrokeBuildManager *this@<X0>, const KB::String *a2@<X1>, const KB::String *a3@<X2>, const KB::String *a4@<X3>, const KB::String *a5@<X5>, uint64_t a6@<X4>, int a7@<W6>, void *a8@<X8>)
+void TI::Favonius::FavoniusStrokeBuildManager::text_accepted_from_UI(TI::Favonius::FavoniusStrokeBuildManager *this@<X0>, const KB::String *a2@<X1>, const KB::String *a3@<X2>, const KB::String *a4@<X3>, const KB::String *a5@<X5>, uint64_t a6@<X4>, uint64_t a7@<X6>, uint64_t *a8@<X8>)
 {
-  v78[3] = *MEMORY[0x277D85DE8];
+  v82[3] = *MEMORY[0x277D85DE8];
   if (*(this + 88))
   {
     v13 = a7 == 0;
@@ -3948,11 +3562,11 @@ void TI::Favonius::FavoniusStrokeBuildManager::text_accepted_from_UI(TI::Favoniu
     else
     {
       KB::String::String(__p, a3);
-      KB::String::String(&v72, a5);
+      KB::String::String(&v76, a5);
       if (*(this + 984) == 1)
       {
         KB::String::operator=(this + 920, __p);
-        KB::String::operator=(this + 952, &v72);
+        KB::String::operator=(this + 952, &v76);
       }
 
       else
@@ -3966,13 +3580,13 @@ void TI::Favonius::FavoniusStrokeBuildManager::text_accepted_from_UI(TI::Favoniu
         *(this + 478) = 0;
         *(this + 958) = 0;
         *(this + 120) = 0;
-        KB::String::operator=(this + 952, &v72);
+        KB::String::operator=(this + 952, &v76);
         *(this + 984) = 1;
       }
 
-      if (*(&v72 + 1) && BYTE6(v72) == 1)
+      if (*(&v76 + 1) && BYTE6(v76) == 1)
       {
-        free(*(&v72 + 1));
+        free(*(&v76 + 1));
       }
 
       if (__p[1] && BYTE6(__p[0]) == 1)
@@ -3981,201 +3595,201 @@ void TI::Favonius::FavoniusStrokeBuildManager::text_accepted_from_UI(TI::Favoniu
       }
     }
 
-    v29 = *(this + 90);
-    if (v29)
+    v34 = *(this + 90);
+    if (v34)
     {
-      v30 = *(v29 + 40);
-      if (v30)
+      v35 = *(v34 + 40);
+      if (v35)
       {
-        v31 = (*(*v30 + 48))(v30);
-        TI::TIInputRecognizer::load_lexicons_if_needed(v29, *(*v31 + 24));
+        v36 = (*(*v35 + 48))(v35);
+        TI::TIInputRecognizer::load_lexicons_if_needed(v34, *(*v36 + 24));
       }
     }
 
     __p[0] = 0;
     __p[1] = 0;
-    *&v71 = 0;
-    v32 = *(this + 9);
-    if (v32)
+    *&v75 = 0;
+    v37 = *(this + 9);
+    if (v37)
     {
-      v33 = *(*(this + 10) + 8 * v32 - 8);
-      if (v33)
+      v38 = *(*(this + 10) + 8 * v37 - 8);
+      if (v38)
       {
-        atomic_fetch_add(v33 + 2, 1u);
+        atomic_fetch_add(v38 + 2, 1u);
       }
 
-      if (a2 != a4 && !KB::String::equal(a2, a4, 1))
+      if (a2 != a4 && !KB::String::equal(a2, a4, 1, v17, v18))
       {
-        (*(*v33 + 104))(&v77, v33, a2, a6);
-        v34 = v77;
-        *&v77 = 0;
-        v35 = atomic_load(v33 + 2);
-        if (v35 == 1)
+        (*(*v38 + 104))(&v81, v38, a2, a6);
+        v39 = v81;
+        *&v81 = 0;
+        v40 = atomic_load(v38 + 2);
+        if (v40 == 1)
         {
-          (*(*v33 + 8))(v33);
+          (*(*v38 + 8))(v38);
         }
 
         else
         {
-          atomic_fetch_add(v33 + 2, 0xFFFFFFFF);
+          atomic_fetch_add(v38 + 2, 0xFFFFFFFF);
         }
 
-        if (v77)
+        if (v81)
         {
-          v36 = atomic_load((v77 + 8));
-          if (v36 == 1)
+          v41 = atomic_load((v81 + 8));
+          if (v41 == 1)
           {
-            (*(*v77 + 8))();
+            (*(*v81 + 8))();
           }
 
           else
           {
-            atomic_fetch_add((v77 + 8), 0xFFFFFFFF);
+            atomic_fetch_add((v81 + 8), 0xFFFFFFFF);
           }
         }
 
-        v33 = v34;
+        v38 = v39;
       }
 
-      if (v33)
+      if (v38)
       {
-        v37 = *(this + 9);
-        if (v37 >= 1)
+        v42 = *(this + 9);
+        if (v42 >= 1)
         {
-          v38 = *(this + 9) & 0x7FFFFFFFLL;
+          v43 = *(this + 9) & 0x7FFFFFFFLL;
           do
           {
-            v39 = *(this + 10) + 8 * v38;
-            atomic_fetch_add(v33 + 2, 1u);
-            v40 = *(v39 - 8);
-            *(v39 - 8) = v33;
-            if (v40)
+            v44 = *(this + 10) + 8 * v43;
+            atomic_fetch_add(v38 + 2, 1u);
+            v45 = *(v44 - 8);
+            *(v44 - 8) = v38;
+            if (v45)
             {
-              v41 = atomic_load(v40 + 2);
-              if (v41 == 1)
+              v46 = atomic_load(v45 + 2);
+              if (v46 == 1)
               {
-                (*(*v40 + 8))(v40);
+                (*(*v45 + 8))(v45);
               }
 
               else
               {
-                atomic_fetch_add(v40 + 2, 0xFFFFFFFF);
+                atomic_fetch_add(v45 + 2, 0xFFFFFFFF);
               }
             }
 
-            v42 = (*(*v33 + 24))(v33);
-            v43 = v42;
-            if (v42)
+            v47 = (*(*v38 + 24))(v38);
+            v48 = v47;
+            if (v47)
             {
-              atomic_fetch_add((v42 + 8), 1u);
+              atomic_fetch_add((v47 + 8), 1u);
             }
 
-            v44 = atomic_load(v33 + 2);
-            if (v44 == 1)
+            v49 = atomic_load(v38 + 2);
+            if (v49 == 1)
             {
-              (*(*v33 + 8))(v33);
-            }
-
-            else
-            {
-              atomic_fetch_add(v33 + 2, 0xFFFFFFFF);
-            }
-
-            if (v43)
-            {
-              v45 = v38 > 1;
+              (*(*v38 + 8))(v38);
             }
 
             else
             {
-              v45 = 0;
+              atomic_fetch_add(v38 + 2, 0xFFFFFFFF);
             }
 
-            --v38;
-            v33 = v43;
+            if (v48)
+            {
+              v50 = v43 > 1;
+            }
+
+            else
+            {
+              v50 = 0;
+            }
+
+            --v43;
+            v38 = v48;
           }
 
-          while (v45);
-          v37 = *(this + 9);
-          v33 = v43;
+          while (v50);
+          v42 = *(this + 9);
+          v38 = v48;
         }
 
-        (*(**(*(this + 10) + 8 * v37 - 8) + 48))(&v77);
+        (*(**(*(this + 10) + 8 * v42 - 8) + 48))(&v81);
         if (__p[0])
         {
           operator delete(__p[0]);
         }
 
-        *__p = v77;
-        *&v71 = v78[0];
-        (*(**(*(this + 10) + 8 * *(this + 9) - 8) + 56))(&v77);
+        *__p = v81;
+        *&v75 = v82[0];
+        (*(**(*(this + 10) + 8 * *(this + 9) - 8) + 56))(&v81);
       }
 
       else
       {
-        (*(**(*(this + 10) + 8 * *(this + 9) - 8) + 64))(&v77);
+        (*(**(*(this + 10) + 8 * *(this + 9) - 8) + 64))(&v81);
       }
 
-      v63 = v77;
-      (*(**(*(*(this + 7) + 8 * *(this + 6) - 8) + 8) + 88))(&v77);
-      v46 = *(*(this + 7) + 8 * *(this + 6) - 8);
-      v47 = *(v46 + 8);
-      v48 = v77;
-      *&v77 = 0;
-      *(v46 + 8) = v48;
-      if (v47)
+      v67 = v81;
+      (*(**(*(*(this + 7) + 8 * *(this + 6) - 8) + 8) + 88))(&v81);
+      v51 = *(*(this + 7) + 8 * *(this + 6) - 8);
+      v52 = *(v51 + 8);
+      v53 = v81;
+      *&v81 = 0;
+      *(v51 + 8) = v53;
+      if (v52)
       {
-        v49 = atomic_load(v47 + 2);
-        if (v49 == 1)
+        v54 = atomic_load(v52 + 2);
+        if (v54 == 1)
         {
-          (*(*v47 + 8))(v47);
+          (*(*v52 + 8))(v52);
         }
 
         else
         {
-          atomic_fetch_add(v47 + 2, 0xFFFFFFFF);
+          atomic_fetch_add(v52 + 2, 0xFFFFFFFF);
         }
 
-        if (v77)
+        if (v81)
         {
-          v50 = atomic_load((v77 + 8));
-          if (v50 == 1)
+          v55 = atomic_load((v81 + 8));
+          if (v55 == 1)
           {
-            (*(*v77 + 8))();
+            (*(*v81 + 8))();
           }
 
           else
           {
-            atomic_fetch_add((v77 + 8), 0xFFFFFFFF);
+            atomic_fetch_add((v81 + 8), 0xFFFFFFFF);
           }
         }
       }
 
-      if (v63)
+      if (v67)
       {
-        v51 = atomic_load(v63 + 2);
-        if (v51 == 1)
+        v56 = atomic_load(v67 + 2);
+        if (v56 == 1)
         {
-          (*(*v63 + 8))();
+          (*(*v67 + 8))();
         }
 
         else
         {
-          atomic_fetch_add(v63 + 2, 0xFFFFFFFF);
+          atomic_fetch_add(v67 + 2, 0xFFFFFFFF);
         }
       }
 
-      if (v33)
+      if (v38)
       {
-        v52 = atomic_load(v33 + 2);
-        if (v52 == 1)
+        v57 = atomic_load(v38 + 2);
+        if (v57 == 1)
         {
-          (*(*v33 + 8))(v33);
+          (*(*v38 + 8))(v38);
         }
 
         else
         {
-          atomic_fetch_add(v33 + 2, 0xFFFFFFFF);
+          atomic_fetch_add(v38 + 2, 0xFFFFFFFF);
         }
       }
     }
@@ -4185,26 +3799,26 @@ void TI::Favonius::FavoniusStrokeBuildManager::text_accepted_from_UI(TI::Favoniu
       goto LABEL_98;
     }
 
-    v53 = *(a4 + 2);
+    v58 = *(a4 + 2);
     if (!*(a4 + 2))
     {
       KB::String::compute_length(a4);
-      v53 = *(a4 + 2);
+      v58 = *(a4 + 2);
     }
 
-    v54 = (*(this + 22) - *(this + 21)) >> 2;
-    if (v54 < v53)
+    v59 = (*(this + 22) - *(this + 21)) >> 2;
+    if (v59 < v58)
     {
 LABEL_98:
-      v55 = this + 209;
+      v60 = this + 209;
     }
 
     else
     {
-      v55 = this + 209;
-      if (*(this + 48) <= v54)
+      v60 = this + 209;
+      if (*(this + 48) <= v59)
       {
-        if ((*v55 & 1) == 0)
+        if ((*v60 & 1) == 0)
         {
           TI::Favonius::FavoniusStrokeBuildManager::align_candidate_to_input(this, a2, a4, __p, a8);
 LABEL_102:
@@ -4213,7 +3827,7 @@ LABEL_102:
             operator delete(__p[0]);
           }
 
-          goto LABEL_104;
+          return;
         }
 
 LABEL_101:
@@ -4224,98 +3838,98 @@ LABEL_101:
       }
     }
 
-    *v55 = 1;
+    *v60 = 1;
     goto LABEL_101;
   }
 
-  if ((*(*this + 384))(this, a2, a3, a4, a6, a5))
+  if ((*(*this + 384))(this, a2, a3, a4, a6, a5, a7))
   {
     if (*a2)
     {
-      KB::word_ranges(a2, 0, &v68);
-      v18 = v68;
-      v19 = v69;
-      if (v68 != v69)
+      KB::word_ranges(&v72, a2, 0);
+      v20 = v72;
+      v21 = v73;
+      if (v72 != v73)
       {
-        v20 = *(a2 + 1);
-        if (!v20)
+        v22 = *(a2 + 1);
+        if (!v22)
         {
-          v20 = a2 + 16;
+          v22 = a2 + 16;
         }
 
-        __p[0] = v20;
-        v21 = *a2;
+        __p[0] = v22;
+        v23 = *a2;
         LODWORD(__p[1]) = 0;
-        HIDWORD(__p[1]) = v21;
-        LODWORD(v71) = 0;
+        HIDWORD(__p[1]) = v23;
+        LODWORD(v75) = 0;
         KB::String::iterator::initialize(__p);
-        v22 = *(v19 - 2);
-        v66 = *__p;
-        v67 = v71;
-        std::__advance[abi:nn200100]<KB::String::iterator>(&v66, v22);
-        v23 = *(v19 - 1);
-        v64 = v66;
-        v65 = v67;
-        std::__advance[abi:nn200100]<KB::String::iterator>(&v64, v23);
-        KB::String::String(__p, &v66, &v64);
-        KB::lower_string(__p, 0, &v77);
-        v24 = *(this + 98);
-        if (!v24)
+        v24 = *(v21 - 2);
+        v70 = *__p;
+        v71 = v75;
+        std::__advance[abi:nn200100]<KB::String::iterator>(&v70, v24);
+        v25 = *(v21 - 1);
+        v68 = v70;
+        v69 = v71;
+        std::__advance[abi:nn200100]<KB::String::iterator>(&v68, v25);
+        KB::String::String(__p, &v70, &v68);
+        KB::lower_string(&v81, __p, 0, v26, v27, v28);
+        v29 = *(this + 98);
+        if (!v29)
         {
 LABEL_107:
           operator new();
         }
 
-        if (*(&v77 + 1))
+        if (*(&v81 + 1))
         {
-          v25 = *(&v77 + 1);
+          v30 = *(&v81 + 1);
         }
 
         else
         {
-          v25 = v78;
+          v30 = v82;
         }
 
         while (1)
         {
           while (1)
           {
-            v26 = v24;
-            v27 = v24[5];
-            v28 = v27 ? v27 : (v26 + 6);
-            if ((strcmp(v25, v28) & 0x80000000) == 0)
+            v31 = v29;
+            v32 = *(v29 + 5);
+            v33 = v32 ? v32 : (v31 + 6);
+            if ((strcmp(v30, v33) & 0x80000000) == 0)
             {
               break;
             }
 
-            v24 = *v26;
-            if (!*v26)
+            v29 = *v31;
+            if (!*v31)
             {
               goto LABEL_107;
             }
           }
 
-          if ((strcmp(v28, v25) & 0x80000000) == 0)
+          if ((strcmp(v33, v30) & 0x80000000) == 0)
           {
             break;
           }
 
-          v24 = v26[1];
-          if (!v24)
+          v29 = v31[1];
+          if (!v29)
           {
             goto LABEL_107;
           }
         }
 
-        std::vector<KB::Candidate>::__vdeallocate(v26 + 8);
-        *(v26 + 4) = *(this + 50);
-        v26[10] = *(this + 102);
+        std::vector<KB::Candidate>::__vdeallocate(v31 + 8);
+        *(v31 + 4) = *(this + 50);
+        v31[10] = *(this + 102);
         *(this + 100) = 0;
         *(this + 101) = 0;
         *(this + 102) = 0;
-        if (*(&v77 + 1) && BYTE6(v77) == 1)
+        if (*(&v81 + 1) && BYTE6(v81) == 1)
         {
-          free(*(&v77 + 1));
+          free(*(&v81 + 1));
         }
 
         if (__p[1] && BYTE6(__p[0]) == 1)
@@ -4323,98 +3937,95 @@ LABEL_107:
           free(__p[1]);
         }
 
-        v18 = v68;
+        v20 = v72;
       }
 
-      v76 = 0;
+      v80 = 0;
       *__p = 0u;
-      v71 = 0u;
-      v72 = 0u;
-      v73 = 0u;
-      v74 = 0u;
       v75 = 0u;
+      v76 = 0u;
+      v77 = 0u;
+      v78 = 0u;
+      v79 = 0u;
       KB::CandidateCollection::operator=(this + 800, __p);
-      *&v77 = &v74 + 8;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v77);
-      *&v77 = &v73;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v77);
-      *&v77 = &v71 + 8;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v77);
-      *&v77 = __p;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v77);
-      if (v18)
+      *&v81 = &v78 + 8;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v81);
+      *&v81 = &v77;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v81);
+      *&v81 = &v75 + 8;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v81);
+      *&v81 = __p;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v81);
+      if (v20)
       {
-        operator delete(v18);
+        operator delete(v20);
       }
     }
 
     else
     {
-      v76 = 0;
+      v80 = 0;
       *__p = 0u;
-      v71 = 0u;
-      v72 = 0u;
-      v73 = 0u;
-      v74 = 0u;
       v75 = 0u;
+      v76 = 0u;
+      v77 = 0u;
+      v78 = 0u;
+      v79 = 0u;
       KB::CandidateCollection::operator=(this + 800, __p);
-      *&v77 = &v74 + 8;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v77);
-      *&v77 = &v73;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v77);
-      *&v77 = &v71 + 8;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v77);
-      *&v77 = __p;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v77);
+      *&v81 = &v78 + 8;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v81);
+      *&v81 = &v77;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v81);
+      *&v81 = &v75 + 8;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v81);
+      *&v81 = __p;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v81);
       std::__tree<std::__value_type<KB::String,KB::CandidateCollection>,std::__map_value_compare<KB::String,std::__value_type<KB::String,KB::CandidateCollection>,std::less<KB::String>,true>,std::allocator<std::__value_type<KB::String,KB::CandidateCollection>>>::destroy(*(this + 98));
       *(this + 97) = this + 784;
       *(this + 49) = 0u;
     }
   }
 
-  v57 = *(this + 90);
-  if (v57)
+  v61 = *(this + 90);
+  if (v61)
   {
-    v58 = *(v57 + 40);
-    if (v58)
+    v62 = *(v61 + 40);
+    if (v62)
     {
-      v59 = (*(*v58 + 48))(v58);
-      TI::TIInputRecognizer::load_lexicons_if_needed(v57, *(*v59 + 24));
+      v63 = (*(*v62 + 48))(v62);
+      TI::TIInputRecognizer::load_lexicons_if_needed(v61, *(*v63 + 24));
     }
   }
 
-  v60 = *(this + 88);
-  if (v60)
+  v64 = *(this + 88);
+  if (v64)
   {
-    (*(*v60 + 88))(v60, a2, a3, a6, 0);
+    (*(*v64 + 88))(v64, a2, a3, a6, 0);
   }
 
-  v61 = 0;
+  v65 = 0;
   *(this + 209) = 1;
   a8[1] = 0;
   a8[2] = 0;
   *a8 = 0;
   while (1)
   {
-    v62 = *(a2 + 2);
+    v66 = *(a2 + 2);
     if (!*(a2 + 2))
     {
       KB::String::compute_length(a2);
-      v62 = *(a2 + 2);
+      v66 = *(a2 + 2);
     }
 
-    if (v61 >= v62)
+    if (v65 >= v66)
     {
       break;
     }
 
     LODWORD(__p[0]) = -1;
     std::vector<unsigned int>::push_back[abi:nn200100](a8, __p);
-    ++v61;
+    ++v65;
   }
-
-LABEL_104:
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 void std::__tree<std::__value_type<KB::String,KB::CandidateCollection>,std::__map_value_compare<KB::String,std::__value_type<KB::String,KB::CandidateCollection>,std::less<KB::String>,true>,std::allocator<std::__value_type<KB::String,KB::CandidateCollection>>>::destroy(char *a1)
@@ -4441,7 +4052,7 @@ void std::__tree<std::__value_type<KB::String,KB::CandidateCollection>,std::__ma
   }
 }
 
-void TI::Favonius::FavoniusStrokeBuildManager::align_candidate_to_input(uint64_t a1@<X0>, unsigned __int16 *a2@<X1>, unsigned __int16 *a3@<X2>, int **a4@<X3>, void *a5@<X8>)
+void TI::Favonius::FavoniusStrokeBuildManager::align_candidate_to_input(uint64_t a1@<X0>, unsigned __int16 *a2@<X1>, unsigned __int16 *a3@<X2>, char **a4@<X3>, uint64_t *a5@<X8>)
 {
   std::vector<unsigned int>::vector[abi:nn200100](&__p, (a1 + 168));
   v10 = *(a1 + 192);
@@ -4687,7 +4298,7 @@ LABEL_61:
   }
 }
 
-void TI::Favonius::FavoniusStrokeBuildManager::InputTouchAlignment::replace_alignment(uint64_t a1, unsigned int a2, int a3, int **a4)
+void TI::Favonius::FavoniusStrokeBuildManager::InputTouchAlignment::replace_alignment(uint64_t a1, unsigned int a2, unsigned int a3, char **a4)
 {
   v8 = *a1;
   if (a3)
@@ -4748,7 +4359,8 @@ void TI::Favonius::FavoniusStrokeBuildManager::InputTouchAlignment::replace_alig
       v40 = v38;
       do
       {
-        v41 = *v14++;
+        v41 = *v14;
+        v14 += 4;
         *v40++ = v41;
         v15 -= 4;
       }
@@ -4797,7 +4409,7 @@ void TI::Favonius::FavoniusStrokeBuildManager::InputTouchAlignment::replace_alig
       goto LABEL_37;
     }
 
-    v24 = (v14 + v19 - v17);
+    v24 = &v14[v19 - v17];
     v25 = *(a1 + 8);
     while (v24 != v13)
     {
@@ -4838,164 +4450,160 @@ LABEL_38:
   *(a1 + 24) = *(a1 + 24) - a3 + ((a4[1] - *a4) >> 2);
 }
 
-void *TI::Favonius::FavoniusStrokeBuildManager::delete_from_stroke_history_for_UI(uint64_t a1, uint64_t *a2)
+void *TI::Favonius::FavoniusStrokeBuildManager::delete_from_stroke_history_for_UI(uint64_t a1, atomic_uint **a2)
 {
-  v4 = *(a1 + 160);
-  memset(v10, 0, 24);
-  TI::Favonius::FavoniusStrokeBuildManager::pop_touches_from_history(a1, v4, v10);
-  TI::Favonius::KeyboardLayout::key_for_char(*a2, 8u, &v9);
-  if (v9)
+  v3 = *(a1 + 160);
+  memset(v6, 0, 24);
+  TI::Favonius::FavoniusStrokeBuildManager::pop_touches_from_history(a1, v3, v6);
+  TI::Favonius::KeyboardLayout::key_for_char(&v5, *a2, 8u);
+  if (v5)
   {
-    v5 = *(v9 + 96);
-    v6 = *(v9 + 104);
-    v7 = *(a1 + 200);
     operator new();
   }
 
-  return WTF::Vector<WTF::RefPtr<TI::Favonius::StrokeBuildManagerInternals::TouchRefWithKeycode>,0ul>::~Vector(v10);
+  return WTF::Vector<WTF::RefPtr<TI::Favonius::StrokeBuildManagerInternals::TouchRefWithKeycode>,0ul>::~Vector(v6);
 }
 
-void TI::Favonius::FavoniusStrokeBuildManager::lookup_inline_completions_for_UI(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X4>, uint64_t a4@<X8>)
+void TI::Favonius::FavoniusStrokeBuildManager::lookup_inline_completions_for_UI(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if ((*(**(a1 + 24) + 24))(*(a1 + 24)))
   {
-    WORD2(v32) = 0;
-    BYTE6(v32) = 0;
-    v33 = " \t\n";
-    LODWORD(v32) = 1048579;
-    v34 = 0;
-    KB::sbs_string_tokenize(a2, &v32, v18);
-    v8 = v33;
-    if (v33 && BYTE6(v32) == 1)
+    WORD2(v34) = 0;
+    BYTE6(v34) = 0;
+    v35 = " \t\n";
+    LODWORD(v34) = 1048579;
+    v36 = 0;
+    KB::sbs_string_tokenize(v19, a2, &v34);
+    v10 = v35;
+    if (v35 && BYTE6(v34) == 1)
     {
-      free(v33);
+      free(v35);
     }
 
-    v10 = *v18;
-    v9 = v19;
-    if ((v19 - *v18) == 32 && **v18 < *a2)
+    v12 = *v19;
+    v11 = v20;
+    if ((v20 - *v19) == 32 && **v19 < *a2)
     {
-      KB::String::space(v8);
-      KB::String::String(&v32, v10);
-      KB::String::append(&v32, &KB::String::space(void)::space);
-      KB::String::operator=(*v18, &v32);
-      if (v33 && BYTE6(v32) == 1)
+      KB::String::space(v10);
+      KB::String::String(&v34, v12);
+      KB::String::append(&v34, &KB::String::space(void)::space);
+      KB::String::operator=(*v19, &v34);
+      if (v35 && BYTE6(v34) == 1)
       {
-        free(v33);
+        free(v35);
       }
 
-      v10 = *v18;
-      v9 = v19;
+      v12 = *v19;
+      v11 = v20;
     }
 
-    if (v9 == v10)
+    if (v11 == v12)
     {
-      KB::String::String(v20, "");
+      KB::String::String(v21, "");
     }
 
     else
     {
-      KB::String::String(v20, (v9 - 32));
+      KB::String::String(v21, (v11 - 32));
     }
 
-    KB::Word::Word(&v27, v20, &kTITokenIDUNK, 0);
-    KB::Candidate::Candidate(&v32, &v27);
-    KB::Word::~Word(&v27);
-    if (v20[1] && BYTE6(v20[0]) == 1)
+    KB::Word::Word(&v28, v21, &kTITokenIDUNK, 0);
+    KB::Candidate::Candidate(&v34, &v28);
+    KB::Word::~Word(&v28);
+    if (v21[1] && BYTE6(v21[0]) == 1)
     {
-      free(v20[1]);
+      free(v21[1]);
     }
 
     if ((*(*a1 + 152))(a1))
     {
-      v14 = &TI::Favonius::SearchParameters::k_linguistic_context_power;
+      v16 = &TI::Favonius::SearchParameters::k_linguistic_context_power;
       if (*(a1 + 336) == 1)
       {
-        v15 = *(a1 + 332);
-        if (v15 <= 1.0 && v15 >= 0.0)
+        v17 = *(a1 + 332);
+        if (v17 <= 1.0 && v17 >= 0.0)
         {
-          v14 = (a1 + 332);
+          v16 = (a1 + 332);
         }
       }
     }
 
     else
     {
-      v14 = &TI::Favonius::SearchParameters::k_predictive_spell_power;
+      v16 = &TI::Favonius::SearchParameters::k_predictive_spell_power;
     }
 
-    v36 = *v14;
-    v37 = -8388608;
-    v35 = 0u;
-    KB::Candidate::Candidate(&v27, &v32);
-    v20[0] = 0;
-    v20[1] = 0;
+    v38 = *v16;
+    v39 = -8388608;
+    v37 = 0u;
+    KB::Candidate::Candidate(&v28, &v34);
+    v21[0] = 0;
+    v21[1] = 0;
     __p[0] = 0;
-    std::vector<KB::Candidate>::__init_with_size[abi:nn200100]<KB::Candidate const*,KB::Candidate const*>();
+    std::vector<KB::Candidate>::__init_with_size[abi:nn200100]<KB::Candidate const*,KB::Candidate const*>(v21, &v28, &v33);
   }
 
-  HIDWORD(v31) = 0;
-  v27 = 0u;
-  memset(v28, 0, sizeof(v28));
-  v29 = 0u;
-  memset(v30, 0, sizeof(v30));
-  bzero(&v32, 0x3E8uLL);
-  KB::Candidate::Candidate(&v32);
-  v26 = 0;
-  v24 = 0u;
+  HIDWORD(v32) = 0;
+  v28 = 0u;
+  memset(v29, 0, sizeof(v29));
+  v30 = 0u;
+  memset(v31, 0, sizeof(v31));
+  bzero(&v34, 0x3E8uLL);
+  KB::Candidate::Candidate(&v34);
+  v27 = 0;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  *v20 = 0u;
+  v24 = 0u;
+  *v21 = 0u;
   *__p = 0u;
-  language_modeling::v1::LinguisticContext::LinguisticContext(&v24);
-  language_modeling::v1::LinguisticContext::LinguisticContext((&v24 + 8));
-  v25 = 0uLL;
-  v26 = 0;
-  std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>::operator()(*(a3 + 24), &v27, &v32, v20, 0);
-  *v18 = &v25;
-  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v18);
-  language_modeling::v1::LinguisticContext::~LinguisticContext((&v24 + 8));
-  language_modeling::v1::LinguisticContext::~LinguisticContext(&v24);
+  language_modeling::v1::LinguisticContext::LinguisticContext(&v25);
+  language_modeling::v1::LinguisticContext::LinguisticContext((&v25 + 8));
+  v26 = 0uLL;
+  v27 = 0;
+  std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>::operator()(*(a5 + 24), &v28, &v34, v21, 0);
+  *v19 = &v26;
+  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v19);
+  language_modeling::v1::LinguisticContext::~LinguisticContext((&v25 + 8));
+  language_modeling::v1::LinguisticContext::~LinguisticContext(&v25);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  if (v20[1])
+  if (v21[1])
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v20[1]);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v21[1]);
   }
 
-  KB::Candidate::~Candidate(&v32);
-  *a4 = v27;
-  v11 = v28[3];
-  *(a4 + 16) = v28[0];
-  v27 = 0uLL;
-  *(a4 + 24) = *&v28[1];
-  *(a4 + 40) = v11;
-  memset(v28, 0, sizeof(v28));
-  *(a4 + 48) = v29;
-  v12 = v30[3];
-  v13 = v31;
-  *(a4 + 64) = v30[0];
-  v29 = 0uLL;
-  *(a4 + 72) = *&v30[1];
-  memset(v30, 0, sizeof(v30));
-  *(a4 + 88) = v12;
-  *(a4 + 96) = v13;
-  *(a4 + 104) = 1;
-  v32 = &v30[1];
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v32);
-  v32 = &v29;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v32);
-  v32 = &v28[1];
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v32);
-  v32 = &v27;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v32);
-  v17 = *MEMORY[0x277D85DE8];
+  KB::Candidate::~Candidate(&v34);
+  *a6 = v28;
+  v13 = v29[3];
+  *(a6 + 16) = v29[0];
+  v28 = 0uLL;
+  *(a6 + 24) = *&v29[1];
+  *(a6 + 40) = v13;
+  memset(v29, 0, sizeof(v29));
+  *(a6 + 48) = v30;
+  v14 = v31[3];
+  v15 = v32;
+  *(a6 + 64) = v31[0];
+  v30 = 0uLL;
+  *(a6 + 72) = *&v31[1];
+  memset(v31, 0, sizeof(v31));
+  *(a6 + 88) = v14;
+  *(a6 + 96) = v15;
+  *(a6 + 104) = 1;
+  v34 = &v31[1];
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v34);
+  v34 = &v30;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v34);
+  v34 = &v29[1];
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v34);
+  v34 = &v28;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v34);
 }
 
 uint64_t std::__function::__value_func<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>::__value_func[abi:nn200100](uint64_t a1, uint64_t a2)
@@ -5023,29 +4631,28 @@ uint64_t std::__function::__value_func<void ()(KB::CandidateCollection &,KB::Can
   return a1;
 }
 
-void TI::Favonius::FavoniusStrokeBuildManager::lm_inline_predictions_for_favonious(uint64_t a1@<X0>, const KB::LanguageModelContext *a2@<X1>, const KB::String **a3@<X3>, uint64_t a4@<X5>, uint64_t a5@<X8>)
+void TI::Favonius::FavoniusStrokeBuildManager::lm_inline_predictions_for_favonious(uint64_t a1@<X0>, const KB::LanguageModelContext *a2@<X1>, const KB::String **a4@<X3>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
   v55[5] = *MEMORY[0x277D85DE8];
   KB::LanguageModelContext::LanguageModelContext(v26, a2);
-  v9 = *a3;
-  v10 = a3[1];
-  if (*a3 == v10)
+  v11 = *a4;
+  v12 = a4[1];
+  if (*a4 == v12)
   {
 LABEL_13:
-    v14 = *(a1 + 24);
-    std::__function::__value_func<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>::__value_func[abi:nn200100](v34, a4);
+    std::__function::__value_func<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>::__value_func[abi:nn200100](v34, a6);
     operator new();
   }
 
   while (1)
   {
-    v11 = (*(**(a1 + 24) + 120))(*(a1 + 24));
-    KB::DictionaryContainer::word_with_string(v11, v9, 0, v47);
-    if (!v47[0])
+    v13 = (*(**(a1 + 24) + 120))(*(a1 + 24));
+    KB::DictionaryContainer::word_with_string(v47, v13, v11, 0);
+    if (!LOWORD(v47[0]))
     {
-      KB::string_to_lowercase(v9, 0, v42);
-      v12 = (*(**(a1 + 24) + 120))(*(a1 + 24));
-      KB::DictionaryContainer::word_with_string(v12, v42, 0, v35);
+      KB::string_to_lowercase(v42, v11, 0);
+      v14 = (*(**(a1 + 24) + 120))(*(a1 + 24));
+      KB::DictionaryContainer::word_with_string(v35, v14, v42, 0);
       KB::String::operator=(v47, v35);
       if (v48 >= 0xFu && *(&v48 + 1))
       {
@@ -5074,17 +4681,17 @@ LABEL_13:
         free(v42[1]);
       }
 
-      if (!v47[0])
+      if (!LOWORD(v47[0]))
       {
         break;
       }
     }
 
-    v13 = *(&v52 + 1);
-    KB::LanguageModelContext::append(v26, v13, v9, 0);
+    v15 = *(&v52 + 1);
+    KB::LanguageModelContext::append(v26, v15, v11, 0);
     KB::Word::~Word(v47);
-    v9 = (v9 + 32);
-    if (v9 == v10)
+    v11 = (v11 + 32);
+    if (v11 == v12)
     {
       goto LABEL_13;
     }
@@ -5108,7 +4715,7 @@ LABEL_13:
   language_modeling::v1::LinguisticContext::LinguisticContext((&v23 + 8));
   v24 = 0uLL;
   v25 = 0;
-  std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>::operator()(*(a4 + 24), v42, v35, &v19, 0);
+  std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>::operator()(*(a6 + 24), v42, v35, &v19, 0);
   v33 = &v24;
   std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v33);
   language_modeling::v1::LinguisticContext::~LinguisticContext((&v23 + 8));
@@ -5125,24 +4732,24 @@ LABEL_13:
   }
 
   KB::Candidate::~Candidate(v35);
-  *a5 = *v42;
+  *a7 = *v42;
   v16 = *(&v43[1] + 1);
-  *(a5 + 16) = *&v43[0];
+  *(a7 + 16) = *&v43[0];
   v42[0] = 0;
   v42[1] = 0;
-  *(a5 + 24) = *(v43 + 8);
-  *(a5 + 40) = v16;
+  *(a7 + 24) = *(v43 + 8);
+  *(a7 + 40) = v16;
   memset(v43, 0, sizeof(v43));
-  *(a5 + 48) = v44;
+  *(a7 + 48) = v44;
   v17 = *(&v45[1] + 1);
-  *(a5 + 64) = *&v45[0];
+  *(a7 + 64) = *&v45[0];
   v44 = 0uLL;
-  *(a5 + 72) = *(v45 + 8);
+  *(a7 + 72) = *(v45 + 8);
   memset(v45, 0, sizeof(v45));
   v18 = v46;
-  *(a5 + 88) = v17;
-  *(a5 + 96) = v18;
-  *(a5 + 104) = 1;
+  *(a7 + 88) = v17;
+  *(a7 + 96) = v18;
+  *(a7 + 104) = 1;
   v35[0] = v45 + 1;
   std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v35);
   v35[0] = &v44;
@@ -5166,20 +4773,18 @@ LABEL_13:
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v27);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
 {
-  v7 = a5;
+  v11 = a5;
   if (a1)
   {
-    return (*(*a1 + 48))(a1, a2, a3, a4, &v7);
+    return (*(*a1 + 48))(a1, a2, a3, a4, &v11);
   }
 
   v6 = std::__throw_bad_function_call[abi:nn200100]();
-  return std::__function::__func<TI::Favonius::FavoniusStrokeBuildManager::lm_inline_predictions_for_favonious(KB::LanguageModelContext const&,std::vector<KB::Candidate> const&,std::vector<KB::String> const&,BOOL,std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>)::$_0,std::allocator<TI::Favonius::FavoniusStrokeBuildManager::lm_inline_predictions_for_favonious(KB::LanguageModelContext const&,std::vector<KB::Candidate> const&,std::vector<KB::String> const&,BOOL,std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>)::$_0>,void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>::operator()(v6);
+  return std::__function::__func<TI::Favonius::FavoniusStrokeBuildManager::lm_inline_predictions_for_favonious(KB::LanguageModelContext const&,std::vector<KB::Candidate> const&,std::vector<KB::String> const&,BOOL,std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>)::$_0,std::allocator<TI::Favonius::FavoniusStrokeBuildManager::lm_inline_predictions_for_favonious(KB::LanguageModelContext const&,std::vector<KB::Candidate> const&,std::vector<KB::String> const&,BOOL,std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>)::$_0>,void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>::operator()(v6, v7, v8, v9, v10);
 }
 
 uint64_t std::__function::__func<TI::Favonius::FavoniusStrokeBuildManager::lm_inline_predictions_for_favonious(KB::LanguageModelContext const&,std::vector<KB::Candidate> const&,std::vector<KB::String> const&,BOOL,std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>)::$_0,std::allocator<TI::Favonius::FavoniusStrokeBuildManager::lm_inline_predictions_for_favonious(KB::LanguageModelContext const&,std::vector<KB::Candidate> const&,std::vector<KB::String> const&,BOOL,std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>)::$_0>,void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>::operator()(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, char *a5)
@@ -5223,12 +4828,12 @@ uint64_t std::__function::__func<TI::Favonius::FavoniusStrokeBuildManager::lm_in
 
 void update_lookup_suggestions_omega_factors(uint64_t a1, uint64_t a2, int a3, float a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v6 = *a2;
   v7 = *(a2 + 8);
   v8 = *(a2 + 12);
-  v18 = *(a2 + 16);
-  v19 = *(a2 + 24);
+  v17 = *(a2 + 16);
+  v18 = *(a2 + 24);
   v9 = logf(a4);
   v10 = v6 + (v8 * (v9 + v7));
   if (a3)
@@ -5261,43 +4866,43 @@ void update_lookup_suggestions_omega_factors(uint64_t a1, uint64_t a2, int a3, f
   {
     if (*(a1 + 888))
     {
-      v17 = *(a1 + 896);
-      if (!v17)
+      v16 = *(a1 + 896);
+      if (!v16)
       {
-        v17 = (a1 + 904);
+        v16 = (a1 + 904);
       }
     }
 
     else
     {
       KB::Candidate::compute_string(a1);
-      v16 = *(a1 + 896);
-      if (!v16)
+      v15 = *(a1 + 896);
+      if (!v15)
       {
-        v16 = (a1 + 904);
+        v15 = (a1 + 904);
       }
 
       if (*(a1 + 888))
       {
-        v17 = v16;
+        v16 = v15;
       }
 
       else
       {
-        v17 = "";
+        v16 = "";
       }
     }
 
     *buf = 136316162;
-    v21 = "update_lookup_suggestions_omega_factors";
-    v22 = 2080;
-    v23 = v17;
-    v24 = 2048;
-    v25 = v6;
-    v26 = 2048;
-    v27 = v9;
-    v28 = 2048;
-    v29 = v10;
+    v20 = "update_lookup_suggestions_omega_factors";
+    v21 = 2080;
+    v22 = v16;
+    v23 = 2048;
+    v24 = v6;
+    v25 = 2048;
+    v26 = v9;
+    v27 = 2048;
+    v28 = v10;
     _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  LM_SPI_changes candidate = %s, omega_factors.geometry = %f, omega_factors.word = %f recalculated log_omega = %f", buf, 0x34u);
   }
 
@@ -5306,10 +4911,9 @@ void update_lookup_suggestions_omega_factors(uint64_t a1, uint64_t a2, int a3, f
   *(a1 + 752) = v9;
   *(a1 + 756) = v7;
   *(a1 + 760) = v8;
-  *(a1 + 772) = v19;
-  *(a1 + 764) = v18;
+  *(a1 + 772) = v18;
+  *(a1 + 764) = v17;
   *(a1 + 992) = 1;
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void std::__function::__func<TI::Favonius::FavoniusStrokeBuildManager::lm_inline_predictions_for_favonious(KB::LanguageModelContext const&,std::vector<KB::Candidate> const&,std::vector<KB::String> const&,BOOL,std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>)::$_0,std::allocator<TI::Favonius::FavoniusStrokeBuildManager::lm_inline_predictions_for_favonious(KB::LanguageModelContext const&,std::vector<KB::Candidate> const&,std::vector<KB::String> const&,BOOL,std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>)::$_0>,void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>::destroy_deallocate(void *a1)
@@ -5334,38 +4938,42 @@ void *std::__function::__func<TI::Favonius::FavoniusStrokeBuildManager::lm_inlin
   return a1;
 }
 
-void TI::Favonius::FavoniusStrokeBuildManager::lookup_suggestions_for_UI(KB::String *a1@<X1>, KB::String *this@<X4>, uint64_t a3@<X0>, uint64_t *a4@<X2>, unsigned int a5@<W3>, uint64_t a6@<X5>, uint64_t a7@<X6>, char a8@<W7>, uint64_t a9@<X8>)
+void TI::Favonius::FavoniusStrokeBuildManager::lookup_suggestions_for_UI(KB::String *a1@<X1>, KB::String *this@<X4>, uint64_t a3@<X0>, const KB::LanguageModelContext *a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X5>, uint64_t a7@<X6>, char a8@<W7>, uint64_t a9@<X8>)
 {
-  v78 = *MEMORY[0x277D85DE8];
-  v64 = a6;
+  v10 = a5;
+  v75 = *MEMORY[0x277D85DE8];
+  v61 = a6;
   if (a6 == 5)
   {
-    KB::String::String(v76, a1);
+    KB::String::String(v73, a1);
     v14 = *(a7 + 24);
     if (v14)
     {
       if (v14 == a7)
       {
-        v75 = v74;
-        (*(*v14 + 24))(v14, v74);
+        v72 = v71;
+        (*(*v14 + 24))(v14, v71);
       }
 
       else
       {
-        v75 = (*(*v14 + 16))(v14);
+        v72 = (*(*v14 + 16))(v14);
       }
     }
 
     else
     {
-      v75 = 0;
+      v72 = 0;
     }
 
-    TI::Favonius::FavoniusStrokeBuildManager::latham_conversions(a3, a5, v76, a4, a9);
-    std::__function::__value_func<void ()(KB::CandidateCollection &,KB::CandidateFilterFlags,BOOL)>::~__value_func[abi:nn200100](v74);
-    if (v77 && v76[6] == 1)
+    TI::Favonius::FavoniusStrokeBuildManager::latham_conversions(a3, v10, v73, a9, a4);
+    std::__function::__value_func<void ()(KB::CandidateCollection &,KB::CandidateFilterFlags,BOOL)>::~__value_func[abi:nn200100](v71);
+    if (v74)
     {
-      free(v77);
+      if (v73[6] == 1)
+      {
+        free(v74);
+      }
     }
   }
 
@@ -5383,157 +4991,157 @@ void TI::Favonius::FavoniusStrokeBuildManager::lookup_suggestions_for_UI(KB::Str
     v18 = *(a3 + 160);
     if (*(a3 + 72) > v18 && (*(a3 + 209) & 1) == 0)
     {
-      v49 = a8;
-      v50 = *(a3 + 80);
-      v69 = 0x100000;
+      v48 = a8;
+      v49 = *(a3 + 80);
+      v66 = 0x100000;
+      v67 = 0;
+      v68 = 0;
+      v69 = 0;
       v70 = 0;
-      v71 = 0;
-      v72 = 0;
-      v73 = 0;
       v19 = (*(*a3 + 432))(a3);
-      v63 = v19;
+      v60 = v19;
       if (v16 < 2 || v16 == 4)
       {
-        v26 = *(v50 + 8 * v18);
+        v25 = *(v49 + 8 * v18);
         if ((v16 & 0xFFFFFFFD) == 1)
         {
-          v27 = 1.0;
+          v26 = 1.0;
         }
 
         else
         {
-          v27 = 0.0;
+          v26 = 0.0;
         }
 
         if ((*(*a3 + 152))(a3))
         {
-          v28 = &TI::Favonius::SearchParameters::k_linguistic_context_power;
+          v27 = &TI::Favonius::SearchParameters::k_linguistic_context_power;
           if (*(a3 + 336) == 1)
           {
-            v29 = *(a3 + 332);
-            if (v29 <= 1.0 && v29 >= 0.0)
+            v28 = *(a3 + 332);
+            if (v28 <= 1.0 && v28 >= 0.0)
             {
-              v28 = (a3 + 332);
+              v27 = (a3 + 332);
             }
           }
         }
 
         else
         {
-          v28 = &TI::Favonius::SearchParameters::k_predictive_spell_power;
+          v27 = &TI::Favonius::SearchParameters::k_predictive_spell_power;
         }
 
-        v48 = a5;
-        (*(*v26 + 128))(&v57, v26, a5, &v69, v16, 1, *v28);
-        v32 = v57;
-        v31 = v58;
-        if (v57 != v58)
+        v47 = v10;
+        (*(*v25 + 128))(&v56, v25, v10, &v66, v16, 1, *v27);
+        v31 = v56;
+        v30 = v57;
+        if (v56 != v57)
         {
-          while (*v32)
+          while (*v31)
           {
-            v33 = v32[1] + 240 * *v32;
-            v34 = *(v33 - 232);
-            v35 = (v33 - 224);
-            if (v34)
+            v32 = v31[1] + 240 * *v31;
+            v33 = *(v32 - 232);
+            v34 = (v32 - 224);
+            if (v33)
             {
-              v35 = v34;
+              v34 = v33;
             }
 
-            if (*v35 == 32 && !v35[1])
+            if (*v34 == 32 && !v34[1])
             {
               break;
             }
 
-            v32 += 125;
-            if (v32 == v58)
+            v31 += 125;
+            if (v31 == v57)
             {
-              v32 = v58;
+              v31 = v57;
               goto LABEL_55;
             }
           }
 
-          if (v32 != v58)
+          if (v31 != v57)
           {
-            v47 = a4;
-            v36 = v32 + 125;
-            if (v32 + 125 != v58)
+            v46 = a4;
+            v35 = v31 + 125;
+            if (v31 + 125 != v57)
             {
               do
               {
-                if (*v36)
+                if (*v35)
                 {
-                  v37 = v36[1] + 240 * *v36;
-                  v38 = *(v37 - 232);
-                  v39 = (v37 - 224);
-                  if (v38)
+                  v36 = v35[1] + 240 * *v35;
+                  v37 = *(v36 - 232);
+                  v38 = (v36 - 224);
+                  if (v37)
                   {
-                    v39 = v38;
+                    v38 = v37;
                   }
 
-                  if (*v39 != 32 || v39[1])
+                  if (*v38 != 32 || v38[1])
                   {
-                    KB::Candidate::operator=(v32, v36);
-                    v32 += 125;
+                    KB::Candidate::operator=(v31, v35);
+                    v31 += 125;
                   }
                 }
 
-                v36 += 125;
+                v35 += 125;
               }
 
-              while (v36 != v31);
-              v31 = v58;
-              v16 = v64;
+              while (v35 != v30);
+              v30 = v57;
+              v16 = v61;
             }
 
-            a4 = v47;
+            a4 = v46;
           }
         }
 
 LABEL_55:
-        std::vector<KB::Candidate>::erase(&v57, v32, v31);
+        std::vector<KB::Candidate>::erase(&v56, v31, v30);
         if (v16 == 1 && ((*(**(a3 + 24) + 48))(*(a3 + 24)) & 1) != 0)
         {
           goto LABEL_70;
         }
 
-        v40 = a4;
-        v41 = *(v50 + 8 * v18);
+        v39 = a4;
+        v40 = *(v49 + 8 * v18);
         if ((*(*a3 + 152))(a3))
         {
-          v42 = &TI::Favonius::SearchParameters::k_linguistic_context_power;
-          v43 = v49;
+          v41 = &TI::Favonius::SearchParameters::k_linguistic_context_power;
+          v42 = v48;
           if (*(a3 + 336) == 1)
           {
-            v44 = *(a3 + 332);
-            if (v44 <= 1.0 && v44 >= 0.0)
+            v43 = *(a3 + 332);
+            if (v43 <= 1.0 && v43 >= 0.0)
             {
-              v42 = (a3 + 332);
+              v41 = (a3 + 332);
             }
           }
         }
 
         else
         {
-          v42 = &TI::Favonius::SearchParameters::k_predictive_spell_power;
-          v43 = v49;
+          v41 = &TI::Favonius::SearchParameters::k_predictive_spell_power;
+          v42 = v48;
         }
 
-        (*(*v41 + 120))(v53, v41, v48, &v69, v16, *v42);
-        KB::CandidateCollection::operator=(a9, v53);
-        v65 = &v56;
-        std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v65);
-        v65 = &v55;
-        std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v65);
-        v65 = &v54;
-        std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v65);
-        v65 = v53;
-        std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v65);
-        if ((v43 & 1) == 0 && (0x1CAC083126E978D5 * ((*(a9 + 8) - *a9) >> 3)) >= 0x1F)
+        (*(*v40 + 120))(v52, v40, v47, &v66, v16, *v41);
+        KB::CandidateCollection::operator=(a9, v52);
+        v62 = &v55;
+        std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v62);
+        v62 = &v54;
+        std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v62);
+        v62 = &v53;
+        std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v62);
+        v62 = v52;
+        std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v62);
+        if ((v42 & 1) == 0 && (0x1CAC083126E978D5 * ((*(a9 + 8) - *a9) >> 3)) >= 0x1F)
         {
           std::vector<KB::Candidate>::resize(a9, 0x1EuLL);
         }
 
-        a4 = v40;
+        a4 = v39;
         if (v16 == 1)
         {
 LABEL_70:
@@ -5541,17 +5149,17 @@ LABEL_70:
         }
 
         (*(**(a3 + 24) + 64))(*(a3 + 24), a9, 1);
-        KB::String::append(this, &v69);
-        (*(**(a3 + 24) + 72))(*(a3 + 24), &v57, a4, a9, v16, v27);
-        LODWORD(v53[0]) = 0;
-        std::vector<KB::FilterFlagType>::vector[abi:nn200100](&v51, v53, 1uLL);
-        KB::CandidateFilterFlags::CandidateFilterFlags(&__p);
+        KB::String::append(this, &v66);
+        (*(**(a3 + 24) + 72))(*(a3 + 24), &v56, a4, a9, v16, v26);
+        v52[0] = 0;
+        std::vector<KB::FilterFlagType>::vector[abi:nn200100](&v50, v52, 1uLL);
+        KB::CandidateFilterFlags::CandidateFilterFlags(&__p, &v50);
       }
 
       if (v16 == 3)
       {
         v20 = v19;
-        v21 = *(v50 + 8 * v18);
+        v21 = *(v49 + 8 * v18);
         if ((*(*a3 + 152))(a3))
         {
           v22 = &TI::Favonius::SearchParameters::k_linguistic_context_power;
@@ -5570,26 +5178,22 @@ LABEL_70:
           v22 = &TI::Favonius::SearchParameters::k_predictive_spell_power;
         }
 
-        (*(*v21 + 136))(v53, v21, a5, &v69, 3, *v22);
-        KB::String::append(this, &v69);
-        v46 = *(a3 + 24);
-        v66 = &unk_283FDB970;
-        v67 = v20;
-        v68 = &v66;
-        (*(*v46 + 80))(v46, v53, a4, a9, &v66);
-        std::__function::__value_func<void ()(KB::Candidate &,float)>::~__value_func[abi:nn200100](&v66);
-        v59 = 0;
-        v60 = 0;
-        v61 = 0;
-        KB::CandidateFilterFlags::CandidateFilterFlags(&v62);
+        (*(*v21 + 136))(v52, v21, v10, &v66, 3, *v22);
+        KB::String::append(this, &v66);
+        v45 = *(a3 + 24);
+        v63 = &unk_283FDB970;
+        v64 = v20;
+        v65 = &v63;
+        (*(*v45 + 80))(v45, v52, a4, a9, &v63);
+        std::__function::__value_func<void ()(KB::Candidate &,float)>::~__value_func[abi:nn200100](&v63);
+        memset(v58, 0, sizeof(v58));
+        KB::CandidateFilterFlags::CandidateFilterFlags(&v59, v58);
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t TI::Favonius::FavoniusStrokeBuildManager::latham_conversions@<X0>(uint64_t a1@<X0>, unsigned int a2@<W1>, KB *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X8>)
+void TI::Favonius::FavoniusStrokeBuildManager::latham_conversions(uint64_t a1@<X0>, unsigned int a2@<W1>, KB *a3@<X2>, uint64_t a5@<X8>, uint64_t *x3_0@<X3>)
 {
   *(a5 + 100) = 0;
   *a5 = 0u;
@@ -5598,32 +5202,32 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::latham_conversions@<X0>(uint6
   *(a5 + 48) = 0u;
   *(a5 + 64) = 0u;
   *(a5 + 80) = 0u;
-  result = *(a1 + 704);
-  if (result)
+  v7 = *(a1 + 704);
+  if (v7)
   {
-    (*(*result + 80))(result, a5, 0);
-    v11 = *(a1 + 8);
-    if (v11 && *(*(*v11 + 48))(v11) && (*(*(*(**(a1 + 8) + 48))(*(a1 + 8)) + 65) & 1) == 0)
+    (*(*v7 + 80))(v7, a5, 0);
+    v12 = *(a1 + 8);
+    if (v12 && *(*(*v12 + 48))(v12) && (*(*(*(**(a1 + 8) + 48))(*(a1 + 8)) + 65) & 1) == 0)
     {
-      v28 = 0;
-      memset(v26, 0, sizeof(v26));
+      v29 = 0;
       memset(v27, 0, sizeof(v27));
-      v12 = *a5;
-      v13 = *(a5 + 8);
-      if (*a5 != v13)
+      memset(v28, 0, sizeof(v28));
+      v13 = *a5;
+      v14 = *(a5 + 8);
+      if (*a5 != v14)
       {
         do
         {
-          v14 = *v12;
-          if (*v12)
+          v15 = *v13;
+          if (*v13)
           {
-            v15 = 240 * v14;
-            v16 = *(v12 + 1);
-            while ((*(v16 + 192) & 1) == 0)
+            v16 = 240 * v15;
+            v17 = *(v13 + 1);
+            while ((*(v17 + 192) & 1) == 0)
             {
-              v16 += 240;
-              v15 -= 240;
-              if (!v15)
+              v17 += 240;
+              v16 -= 240;
+              if (!v16)
               {
                 goto LABEL_13;
               }
@@ -5632,49 +5236,49 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::latham_conversions@<X0>(uint6
 
           else
           {
-            v16 = *(v12 + 1);
+            v17 = *(v13 + 1);
           }
 
-          if (v16 == *(v12 + 1) + 240 * v14)
+          if (v17 == *(v13 + 1) + 240 * v15)
           {
 LABEL_13:
-            std::vector<KB::Candidate>::push_back[abi:nn200100](v26, v12);
+            std::vector<KB::Candidate>::push_back[abi:nn200100](v27, v13);
           }
 
-          v12 = (v12 + 1000);
+          v13 = (v13 + 1000);
         }
 
-        while (v12 != v13);
+        while (v13 != v14);
       }
 
-      KB::CandidateCollection::operator=(a5, v26);
-      v24[0] = &v27[1] + 1;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v24);
-      v24[0] = v27;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v24);
-      v24[0] = &v26[3];
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v24);
-      v24[0] = v26;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v24);
+      KB::CandidateCollection::operator=(a5, v27);
+      v25[0] = &v28[1] + 1;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v25);
+      v25[0] = v28;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v25);
+      v25[0] = &v27[3];
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v25);
+      v25[0] = v27;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v25);
     }
 
-    v17 = a2;
-    v18 = *(a1 + 904);
-    (*(**(a1 + 24) + 112))(v24);
-    if (v25)
+    v18 = a2;
+    v19 = *(a1 + 904);
+    (*(**(a1 + 24) + 112))(v25);
+    if (v26)
     {
-      v18 = v24[1];
-      v19 = v24[0];
+      v19 = v25[1];
+      v20 = v25[0];
     }
 
     else
     {
-      v19 = v17;
+      v20 = v18;
     }
 
-    if (0x1CAC083126E978D5 * ((*(a5 + 8) - *a5) >> 3) > v19)
+    if (0x1CAC083126E978D5 * ((*(a5 + 8) - *a5) >> 3) > v20)
     {
-      std::vector<KB::Candidate>::resize(a5, v19);
+      std::vector<KB::Candidate>::resize(a5, v20);
     }
 
     if (a1 + 800 != a5)
@@ -5684,18 +5288,16 @@ LABEL_13:
 
     if ((*(*a1 + 384))(a1))
     {
-      TI::Favonius::FavoniusStrokeBuildManager::extended_latham_conversions(a3, a1, a5, a4, a1 + 776, v18, v26);
-      LODWORD(v29) = 0;
-      std::vector<KB::FilterFlagType>::vector[abi:nn200100](&v22, &v29, 1uLL);
-      KB::CandidateFilterFlags::CandidateFilterFlags(&__p);
+      TI::Favonius::FavoniusStrokeBuildManager::extended_latham_conversions(v27, a3, a1, a5, x3_0, a1 + 776, v19);
+      LODWORD(v30) = 0;
+      std::vector<KB::FilterFlagType>::vector[abi:nn200100](&v23, &v30, 1uLL);
+      KB::CandidateFilterFlags::CandidateFilterFlags(&__p, &v23);
     }
 
-    LODWORD(v26[0]) = 0;
-    std::vector<KB::FilterFlagType>::vector[abi:nn200100](&v20, v26, 1uLL);
-    KB::CandidateFilterFlags::CandidateFilterFlags(&v21);
+    LODWORD(v27[0]) = 0;
+    std::vector<KB::FilterFlagType>::vector[abi:nn200100](&v21, v27, 1uLL);
+    KB::CandidateFilterFlags::CandidateFilterFlags(&v22, &v21);
   }
-
-  return result;
 }
 
 void std::vector<KB::Candidate>::resize(uint64_t *a1, unint64_t a2)
@@ -5764,11 +5366,11 @@ void std::vector<KB::Candidate>::resize(uint64_t *a1, unint64_t a2)
   }
 }
 
-void *std::vector<KB::FilterFlagType>::vector[abi:nn200100](void *result, uint64_t a2, unint64_t a3)
+void *std::vector<KB::FilterFlagType>::vector[abi:nn200100](void *a1, int *a2, unint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3)
   {
     if (!(a3 >> 62))
@@ -5779,7 +5381,7 @@ void *std::vector<KB::FilterFlagType>::vector[abi:nn200100](void *result, uint64
     std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
   }
 
-  return result;
+  return a1;
 }
 
 void TI::Favonius::FavoniusStrokeBuildManager::update_autocorrection_candidates_with_ensemble(TI::Favonius::FavoniusStrokeBuildManager *this, KB::Candidate **a2, const KB::String *a3, const KB::LanguageModelContext *a4)
@@ -5839,83 +5441,83 @@ void TI::Favonius::FavoniusStrokeBuildManager::update_candidates_with_ml_tap_typ
 {
   if (TI::Favonius::FavoniusStrokeBuildManager::is_ml_tap_typing_enabled(this))
   {
-    TI::Favonius::FavoniusStrokeBuildManager::ml_tap_typing_autocorrection_candidates(this, a3, a4, 1u, v13);
-    v8 = v13[0];
-    if (v13[0] != v13[1])
+    TI::Favonius::FavoniusStrokeBuildManager::ml_tap_typing_autocorrection_candidates(v15, this, a3, 1u, a4);
+    v10 = v15[0];
+    if (v15[0] != v15[1])
     {
-      v9 = *a2;
+      v11 = *a2;
       if (*a2 == a2[1])
       {
-        std::vector<KB::Candidate>::push_back[abi:nn200100](a2, v13[0]);
+        std::vector<KB::Candidate>::push_back[abi:nn200100](a2, v15[0]);
       }
 
       else
       {
-        if (!*(v9 + 444))
+        if (!*(v11 + 444))
         {
           KB::Candidate::compute_string(*a2);
         }
 
-        if (!*(v8 + 444))
+        if (!*(v10 + 444))
         {
-          KB::Candidate::compute_string(v8);
+          KB::Candidate::compute_string(v10);
         }
 
-        if (v9 != v8 && !KB::String::equal((v9 + 888), (v8 + 222), 1) && *(v9 + 188) < v8[188])
+        if (v11 != v10 && !KB::String::equal((v11 + 888), (v10 + 222), 1, v8, v9) && *(v11 + 188) < v10[188])
         {
-          std::vector<KB::Candidate>::push_back[abi:nn200100](a2, v8);
-          v10 = a2[1];
-          v11 = 126 - 2 * __clz(0x1CAC083126E978D5 * ((v10 - *a2) >> 3));
-          if (v10 == *a2)
+          std::vector<KB::Candidate>::push_back[abi:nn200100](a2, v10);
+          v12 = a2[1];
+          v13 = 126 - 2 * __clz(0x1CAC083126E978D5 * ((v12 - *a2) >> 3));
+          if (v12 == *a2)
           {
-            v12 = 0;
+            v14 = 0;
           }
 
           else
           {
-            v12 = v11;
+            v14 = v13;
           }
 
-          std::__introsort<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,false>(*a2, v10, v12, 1);
+          std::__introsort<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,false>(*a2, v12, v14, 1);
         }
       }
     }
 
-    v17 = &v16;
-    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v17);
-    v17 = &v15;
-    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v17);
-    v17 = &v14;
-    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v17);
-    v17 = v13;
-    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v17);
+    v19 = &v18;
+    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v19);
+    v19 = &v17;
+    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v19);
+    v19 = &v16;
+    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v19);
+    v19 = v15;
+    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v19);
   }
 }
 
 void TI::Favonius::FavoniusStrokeBuildManager::update_candidates_with_exact_typed_string(TI::Favonius::FavoniusStrokeBuildManager *this, KB::CandidateCollection *a2, const KB::String *a3, const KB::LanguageModelContext *a4)
 {
-  v29[27] = *MEMORY[0x277D85DE8];
+  v28[27] = *MEMORY[0x277D85DE8];
   if (((TI::Favonius::FavoniusStrokeBuildManager::is_ml_tap_typing_enabled(this) & 1) != 0 || (*(**(this + 3) + 40))(*(this + 3)) && *(this + 212) == 1) && *a2 != *(a2 + 1) && *a3 != 0)
   {
     (*(**(this + 3) + 128))(&__p);
     v9 = __p;
-    if (__p != v22)
+    if (__p != v21)
     {
       v10 = *a2;
-      KB::Candidate::Candidate(v28, a3, 0);
-      KB::LanguageModelContext::operator=(v29, a4);
-      v20 = 0;
+      KB::Candidate::Candidate(v27, a3, 0);
+      KB::LanguageModelContext::operator=(v28, a4);
+      v19 = 0;
+      memset(v17, 0, sizeof(v17));
       memset(v18, 0, sizeof(v18));
-      memset(v19, 0, sizeof(v19));
       v11 = __p;
-      v12 = v22;
+      v12 = v21;
       while (v11 != v12)
       {
-        KB::Candidate::Candidate(v25, v28);
-        if (*&v25[0])
+        KB::Candidate::Candidate(v24, v27);
+        if (*&v24[0])
         {
-          v13 = 240 * *&v25[0];
-          v14 = (*(&v25[0] + 1) + 136);
+          v13 = 240 * *&v24[0];
+          v14 = (*(&v24[0] + 1) + 136);
           do
           {
             *v14 = *v11;
@@ -5926,54 +5528,52 @@ void TI::Favonius::FavoniusStrokeBuildManager::update_candidates_with_exact_type
           while (v13);
         }
 
-        std::vector<KB::Candidate>::push_back[abi:nn200100](v18, v25);
-        KB::Candidate::~Candidate(v25);
+        std::vector<KB::Candidate>::push_back[abi:nn200100](v17, v24);
+        KB::Candidate::~Candidate(v24);
         ++v11;
       }
 
-      v17 = 0.0;
+      v16 = 0.0;
       v15 = *(this + 3);
-      v24[0] = &unk_283FDB928;
-      v24[1] = &v17;
-      v24[3] = v24;
-      (*(*v15 + 56))(v15, v18, v24);
-      std::__function::__value_func<void ()(KB::Candidate &,float)>::~__value_func[abi:nn200100](v24);
-      if (logf(v17) >= *(v10 + 752))
+      v23[0] = &unk_283FDB928;
+      v23[1] = &v16;
+      v23[3] = v23;
+      (*(*v15 + 56))(v15, v17, v23);
+      std::__function::__value_func<void ()(KB::Candidate &,float)>::~__value_func[abi:nn200100](v23);
+      if (logf(v16) >= *(v10 + 752))
       {
-        v27 = 0;
+        v26 = 0;
+        memset(v24, 0, sizeof(v24));
         memset(v25, 0, sizeof(v25));
-        memset(v26, 0, sizeof(v26));
-        KB::CandidateCollection::operator=(a2, v25);
-        v23 = &v26[1] + 1;
-        std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v23);
-        v23 = v26;
-        std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v23);
-        v23 = &v25[1] + 1;
-        std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v23);
-        v23 = v25;
-        std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v23);
+        KB::CandidateCollection::operator=(a2, v24);
+        v22 = &v25[1] + 1;
+        std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v22);
+        v22 = v25;
+        std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v22);
+        v22 = &v24[1] + 1;
+        std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v22);
+        v22 = v24;
+        std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v22);
       }
 
-      *&v25[0] = &v19[1] + 8;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v25);
-      *&v25[0] = v19;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v25);
-      *&v25[0] = &v18[1] + 8;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v25);
-      *&v25[0] = v18;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v25);
-      KB::Candidate::~Candidate(v28);
+      *&v24[0] = &v18[1] + 8;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v24);
+      *&v24[0] = v18;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v24);
+      *&v24[0] = &v17[1] + 8;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v24);
+      *&v24[0] = v17;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v24);
+      KB::Candidate::~Candidate(v27);
       v9 = __p;
     }
 
     if (v9)
     {
-      v22 = v9;
+      v21 = v9;
       operator delete(v9);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t TI::Favonius::FavoniusStrokeBuildManager::is_ml_tap_typing_enabled(TI::Favonius::FavoniusStrokeBuildManager *this)
@@ -6046,28 +5646,28 @@ uint64_t std::__function::__func<TI::Favonius::FavoniusStrokeBuildManager::updat
   return result;
 }
 
-void TI::Favonius::FavoniusStrokeBuildManager::ml_tap_typing_autocorrection_candidates(TI::Favonius::FavoniusStrokeBuildManager *this@<X0>, const KB::String *a2@<X2>, const KB::LanguageModelContext *a3@<X3>, unsigned int a4@<W1>, uint64_t a5@<X8>)
+void TI::Favonius::FavoniusStrokeBuildManager::ml_tap_typing_autocorrection_candidates(uint64_t *__return_ptr a1@<X8>, TI::Favonius::FavoniusStrokeBuildManager *this@<X0>, const KB::String *a3@<X2>, unsigned int a4@<W1>, uint64_t *a5@<X3>)
 {
-  v38[3] = *MEMORY[0x277D85DE8];
-  TI::TIInputRecognizer::generate_mltt_autocorrection_candidates(*(this + 90), a2, this + 920, &__p);
+  v46[3] = *MEMORY[0x277D85DE8];
+  TI::TIInputRecognizer::generate_mltt_autocorrection_candidates(*(this + 90), a3, this + 920, &__p);
   v10 = __p;
-  v11 = v31;
-  if (__p != v31)
+  v11 = v39;
+  if (__p != v39)
   {
     v12 = __p;
     while (*(v12 + 4) != *(v12 + 5))
     {
       v12 += 136;
-      if (v12 == v31)
+      if (v12 == v39)
       {
         goto LABEL_14;
       }
     }
 
-    if (v12 != v31)
+    if (v12 != v39)
     {
       v13 = (v12 + 136);
-      if (v12 + 136 != v31)
+      if (v12 + 136 != v39)
       {
         do
         {
@@ -6083,7 +5683,7 @@ void TI::Favonius::FavoniusStrokeBuildManager::ml_tap_typing_autocorrection_cand
 
         while (v13 != v11);
         v10 = __p;
-        v11 = v31;
+        v11 = v39;
       }
     }
 
@@ -6091,149 +5691,149 @@ void TI::Favonius::FavoniusStrokeBuildManager::ml_tap_typing_autocorrection_cand
     {
       std::vector<TI::MLTTAutocorrectionCandidateInfo>::__base_destruct_at_end[abi:nn200100](&__p, v12);
       v10 = __p;
-      v11 = v31;
+      v11 = v39;
     }
   }
 
 LABEL_14:
-  *(a5 + 100) = 0;
-  *a5 = 0u;
-  *(a5 + 16) = 0u;
-  *(a5 + 32) = 0u;
-  *(a5 + 48) = 0u;
-  *(a5 + 64) = 0u;
-  *(a5 + 80) = 0u;
+  *(a1 + 25) = 0;
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *(a1 + 3) = 0u;
+  *(a1 + 4) = 0u;
+  *(a1 + 5) = 0u;
   if (v10 != v11)
   {
     do
     {
-      v38[0] = 0;
-      v38[1] = 0;
-      v37 = v38;
-      TI::Favonius::FavoniusStrokeBuildManager::extended_latham_conversions(v10, this, v10 + 4, a3, &v37, *(this + 113), &v32);
-      std::__tree<std::__value_type<KB::String,KB::CandidateCollection>,std::__map_value_compare<KB::String,std::__value_type<KB::String,KB::CandidateCollection>,std::less<KB::String>,true>,std::allocator<std::__value_type<KB::String,KB::CandidateCollection>>>::destroy(v38[0]);
-      KB::CandidateCollection::add(a5, &v32);
-      v37 = &v36;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v37);
-      v37 = &v35;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v37);
-      v37 = &v34;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v37);
-      v37 = &v32;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v37);
+      v46[0] = 0;
+      v46[1] = 0;
+      v45 = v46;
+      TI::Favonius::FavoniusStrokeBuildManager::extended_latham_conversions(&v40, v10, this, v10 + 4, a5, &v45, *(this + 113));
+      std::__tree<std::__value_type<KB::String,KB::CandidateCollection>,std::__map_value_compare<KB::String,std::__value_type<KB::String,KB::CandidateCollection>,std::less<KB::String>,true>,std::allocator<std::__value_type<KB::String,KB::CandidateCollection>>>::destroy(v46[0]);
+      KB::CandidateCollection::add(a1, &v40);
+      v45 = &v44;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v45);
+      v45 = &v43;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v45);
+      v45 = &v42;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v45);
+      v45 = &v40;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v45);
       v10 += 17;
     }
 
     while (v10 != v11);
-    v14 = *a5;
-    v15 = *(a5 + 8);
-    if (*a5 != v15)
+    v17 = *a1;
+    v18 = a1[1];
+    if (*a1 != v18)
     {
-      v16 = (v14 + 888);
+      v19 = (v17 + 888);
       while (1)
       {
-        if (!*v16)
+        if (!*v19)
         {
-          KB::Candidate::compute_string((v16 - 888));
+          KB::Candidate::compute_string((v19 - 888));
         }
 
-        KB::lower_string(v16, 0, &v32);
-        KB::lower_string(a2, 0, &v37);
-        v17 = KB::String::equal(&v32, &v37, 1);
-        if (v38[0] && BYTE6(v37) == 1)
+        KB::lower_string(&v40, v19, 0, v14, v15, v16);
+        KB::lower_string(&v45, a3, 0, v20, v21, v22);
+        v25 = KB::String::equal(&v40, &v45, 1, v23, v24);
+        if (v46[0] && BYTE6(v45) == 1)
         {
-          free(v38[0]);
+          free(v46[0]);
         }
 
-        if (v33 && BYTE6(v32) == 1)
+        if (v41 && BYTE6(v40) == 1)
         {
-          free(v33);
+          free(v41);
         }
 
-        if (v17)
+        if (v25)
         {
           break;
         }
 
-        v18 = (v16 + 112);
-        v16 = (v16 + 1000);
-        if (v18 == v15)
+        v26 = v19 + 112;
+        v19 = (v19 + 1000);
+        if (v26 == v18)
         {
           goto LABEL_31;
         }
       }
 
-      v15 = (v16 - 888);
+      v18 = v19 - 888;
 LABEL_31:
-      v14 = v15;
-      v15 = *(a5 + 8);
+      v17 = v18;
+      v18 = a1[1];
     }
 
-    if (v14 != v15)
+    if (v17 != v18)
     {
-      KB::Candidate::Candidate(&v32, v14);
-      v19 = *a5;
-      if (*(a5 + 16) == *a5)
+      KB::Candidate::Candidate(&v40, v17);
+      v27 = *a1;
+      if (a1[2] == *a1)
       {
-        std::vector<KB::Candidate>::__vdeallocate(a5);
-        v24 = 0x395810624DD2F1AALL * ((*(a5 + 16) - *a5) >> 3);
-        if (v24 <= 1)
+        std::vector<KB::Candidate>::__vdeallocate(a1);
+        v32 = 0x395810624DD2F1AALL * ((a1[2] - *a1) >> 3);
+        if (v32 <= 1)
         {
-          v24 = 1;
+          v32 = 1;
         }
 
-        if ((0x1CAC083126E978D5 * ((*(a5 + 16) - *a5) >> 3)) >= 0x20C49BA5E353F7)
+        if ((0x1CAC083126E978D5 * ((a1[2] - *a1) >> 3)) >= 0x20C49BA5E353F7)
         {
-          v25 = 0x4189374BC6A7EFLL;
+          v33 = 0x4189374BC6A7EFLL;
         }
 
         else
         {
-          v25 = v24;
+          v33 = v32;
         }
 
-        std::vector<KB::Candidate>::__vallocate[abi:nn200100](a5, v25);
+        std::vector<KB::Candidate>::__vallocate[abi:nn200100](a1, v33);
       }
 
-      v20 = *(a5 + 8);
-      v21 = v20 - v19;
-      if (v20 == v19)
+      v28 = a1[1];
+      v29 = v28 - v27;
+      if (v28 == v27)
       {
-        KB::Candidate::Candidate(*(a5 + 8), &v32);
-        v22 = v21 + v20 + 1000;
+        KB::Candidate::Candidate(a1[1], &v40);
+        v30 = v29 + v28 + 1000;
       }
 
       else
       {
-        v22 = v19 + 1000;
-        KB::Candidate::operator=(v19, &v32);
+        v30 = (v27 + 125);
+        KB::Candidate::operator=(v27, &v40);
           ;
         }
       }
 
-      *(a5 + 8) = v22;
-      KB::Candidate::~Candidate(&v32);
+      a1[1] = v30;
+      KB::Candidate::~Candidate(&v40);
     }
   }
 
-  TI::Favonius::FavoniusStrokeBuildManager::refine_latham_conversions(this, a5, 0);
-  KB::CandidateCollection::normalize_scores(a5);
-  v26 = *(a5 + 8);
-  v27 = 126 - 2 * __clz(0x1CAC083126E978D5 * ((v26 - *a5) >> 3));
-  if (v26 == *a5)
+  TI::Favonius::FavoniusStrokeBuildManager::refine_latham_conversions(this, a1, 0);
+  KB::CandidateCollection::normalize_scores(a1);
+  v35 = a1[1];
+  v36 = 126 - 2 * __clz(0x1CAC083126E978D5 * ((v35 - *a1) >> 3));
+  if (v35 == *a1)
   {
-    v28 = 0;
+    v37 = 0;
   }
 
   else
   {
-    v28 = v27;
+    v37 = v36;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *,false>(*a5, v26, v28, 1);
-  if (0x1CAC083126E978D5 * ((*(a5 + 8) - *a5) >> 3) > a4)
+  std::__introsort<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *,false>(*a1, v35, v37, 1, v34);
+  if (0x1CAC083126E978D5 * ((a1[1] - *a1) >> 3) > a4)
   {
-    std::vector<KB::Candidate>::resize(a5, a4);
+    std::vector<KB::Candidate>::resize(a1, a4);
   }
 
   if (__p)
@@ -6241,57 +5841,55 @@ LABEL_31:
     std::vector<TI::MLTTAutocorrectionCandidateInfo>::__base_destruct_at_end[abi:nn200100](&__p, __p);
     operator delete(__p);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
-unsigned int *TI::Favonius::FavoniusStrokeBuildManager::extended_latham_conversions@<X0>(KB *this@<X2>, uint64_t a2@<X0>, const KB::Candidate **a3@<X1>, uint64_t *a4@<X3>, uint64_t a5@<X4>, unint64_t a6@<X5>, uint64_t a7@<X8>)
+unsigned int *TI::Favonius::FavoniusStrokeBuildManager::extended_latham_conversions@<X0>(unint64_t **__return_ptr a1@<X8>, KB *this@<X2>, uint64_t a3@<X0>, unint64_t **a4@<X1>, uint64_t *a5@<X3>, uint64_t a6@<X4>, unint64_t a7@<X5>)
 {
-  v180 = *MEMORY[0x277D85DE8];
-  *(a7 + 100) = 0;
-  *a7 = 0u;
-  *(a7 + 16) = 0u;
-  *(a7 + 32) = 0u;
-  *(a7 + 48) = 0u;
-  *(a7 + 64) = 0u;
-  *(a7 + 80) = 0u;
-  v10 = *(*(a2 + 16) + 16);
+  v187 = *MEMORY[0x277D85DE8];
+  *(a1 + 25) = 0;
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *(a1 + 3) = 0u;
+  *(a1 + 4) = 0u;
+  *(a1 + 5) = 0u;
+  v10 = *(*(a3 + 16) + 16);
   atomic_fetch_add(v10, 1u);
-  v88 = v10;
-  v89 = *(v10 + 8);
-  KB::word_ranges(this, 1, &__p);
-  LODWORD(v158[0]) = 0x100000;
-  WORD2(v158[0]) = 0;
-  BYTE6(v158[0]) = 0;
-  v158[1] = 0;
-  v159 = 0;
-  v160[0] = 0;
-  v161 = 0x3F80000000000000;
-  v162 = 1065353216;
-  v163 = 0x100000;
-  v164 = 0;
-  v165 = 0;
+  v95 = v10;
+  v96 = *(v10 + 8);
+  KB::word_ranges(&__p, this, 1);
+  LODWORD(v165[0]) = 0x100000;
+  WORD2(v165[0]) = 0;
+  BYTE6(v165[0]) = 0;
+  v165[1] = 0;
   v166 = 0;
-  v167 = 0;
-  __asm { FMOV            V9.2S, #1.0 }
-
-  *&v168 = _D9;
-  *(&v171 + 1) = 0;
-  v169 = 0u;
-  v170 = 0u;
-  DWORD2(v168) = 0;
-  LODWORD(v171) = 0;
-  v172 = 0x100000;
+  v167[0] = 0;
+  v168 = 0x3F80000000000000;
+  v169 = 1065353216;
+  v170 = 0x100000;
+  v171 = 0;
+  v172 = 0;
   v173 = 0;
   v174 = 0;
-  v175 = 0;
-  v176 = 0;
-  v177 = 0;
-  memset(v178, 0, sizeof(v178));
-  v179 = 1065353216;
+  __asm { FMOV            V9.2S, #1.0 }
+
+  *&v175 = _D9;
+  *(&v178 + 1) = 0;
+  v176 = 0u;
+  v177 = 0u;
+  DWORD2(v175) = 0;
+  LODWORD(v178) = 0;
+  v179 = 0x100000;
+  v180 = 0;
+  v181 = 0;
+  v182 = 0;
+  v183 = 0;
+  v184 = 0;
+  memset(v185, 0, sizeof(v185));
+  v186 = 1065353216;
   v16 = __p;
-  v17 = v104;
-  if (__p == v104)
+  v17 = v111;
+  if (__p == v111)
   {
     v19 = *this;
     if (*(this + 1))
@@ -6304,11 +5902,11 @@ unsigned int *TI::Favonius::FavoniusStrokeBuildManager::extended_latham_conversi
       v18 = this + 16;
     }
 
-    *&v101 = v18;
-    DWORD2(v101) = v19;
-    HIDWORD(v101) = v19;
-    LODWORD(v102) = 0;
-    KB::String::iterator::initialize(&v101);
+    *&v108 = v18;
+    DWORD2(v108) = v19;
+    HIDWORD(v108) = v19;
+    LODWORD(v109) = 0;
+    KB::String::iterator::initialize(&v108);
   }
 
   else
@@ -6323,589 +5921,587 @@ unsigned int *TI::Favonius::FavoniusStrokeBuildManager::extended_latham_conversi
       v18 = this + 16;
     }
 
-    *&v118 = v18;
+    *&v125 = v18;
     v19 = *this;
-    DWORD2(v118) = 0;
-    HIDWORD(v118) = v19;
-    LODWORD(v119) = 0;
-    KB::String::iterator::initialize(&v118);
+    DWORD2(v125) = 0;
+    HIDWORD(v125) = v19;
+    LODWORD(v126) = 0;
+    KB::String::iterator::initialize(&v125);
     v20 = *(v17 - 2);
-    v101 = v118;
-    v102 = v119;
-    std::__advance[abi:nn200100]<KB::String::iterator>(&v101, v20);
+    v108 = v125;
+    v109 = v126;
+    std::__advance[abi:nn200100]<KB::String::iterator>(&v108, v20);
   }
 
-  *&v118 = v18;
-  DWORD2(v118) = 0;
-  HIDWORD(v118) = v19;
-  LODWORD(v119) = 0;
-  KB::String::iterator::initialize(&v118);
-  if (DWORD2(v118) != DWORD2(v101))
+  *&v125 = v18;
+  DWORD2(v125) = 0;
+  HIDWORD(v125) = v19;
+  LODWORD(v126) = 0;
+  KB::String::iterator::initialize(&v125);
+  if (DWORD2(v125) != DWORD2(v108))
   {
-    *&v118 = v18;
-    DWORD2(v118) = 0;
-    HIDWORD(v118) = v19;
-    LODWORD(v119) = 0;
-    KB::String::iterator::initialize(&v118);
-    KB::String::String(&v113, &v118, &v101);
-    v21 = KB::Word::Word(&v118, &v113, &kTITokenIDUNK, 0);
+    *&v125 = v18;
+    DWORD2(v125) = 0;
+    HIDWORD(v125) = v19;
+    LODWORD(v126) = 0;
+    KB::String::iterator::initialize(&v125);
+    KB::String::String(&v120, &v125, &v108);
+    v21 = KB::Word::Word(&v125, &v120, &kTITokenIDUNK, 0);
     KB::String::space(v21);
-    if (KB::String::equal(&v113, &KB::String::space(void)::space, 1))
+    if (KB::String::equal(&v120, &KB::String::space(void)::space, 1, v22, v23))
     {
-      DWORD1(v126) |= 0x4000000u;
+      DWORD1(v133) |= 0x4000000u;
     }
 
-    DWORD2(v124) |= 0x800000u;
-    KB::String::operator=(v158, &v118);
-    KB::ByteString::operator=(v160, v120);
-    v161 = v121;
-    v162 = v122;
-    KB::String::operator=(&v163, v123);
-    v168 = v124;
-    v169 = v125;
-    v170 = v126;
-    v171 = v127;
-    KB::String::operator=(&v172, v128);
-    v177 = v129;
-    v179 = v131;
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>(v178, v130);
-    KB::Word::~Word(&v118);
-    if (*(&v113 + 1) && BYTE6(v113) == 1)
+    DWORD2(v131) |= 0x800000u;
+    KB::String::operator=(v165, &v125);
+    KB::ByteString::operator=(v167, v127);
+    v168 = v128;
+    v169 = v129;
+    KB::String::operator=(&v170, v130);
+    v175 = v131;
+    v176 = v132;
+    v177 = v133;
+    v178 = v134;
+    KB::String::operator=(&v179, v135);
+    v184 = v136;
+    v186 = v138;
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>(v185, v137);
+    KB::Word::~Word(&v125);
+    if (*(&v120 + 1) && BYTE6(v120) == 1)
     {
-      free(*(&v113 + 1));
+      free(*(&v120 + 1));
     }
   }
 
-  LODWORD(v136[0]) = 0x100000;
-  WORD2(v136[0]) = 0;
-  BYTE6(v136[0]) = 0;
-  v136[1] = 0;
-  v137 = 0;
-  v138[0] = 0;
-  v139 = 0x3F80000000000000;
-  v140 = 1065353216;
-  v141 = 0x100000;
-  v142 = 0;
-  v143 = 0;
+  LODWORD(v143[0]) = 0x100000;
+  WORD2(v143[0]) = 0;
+  BYTE6(v143[0]) = 0;
+  v143[1] = 0;
   v144 = 0;
-  v145 = 0;
-  *&v146 = _D9;
-  *(&v149 + 1) = 0;
-  v147 = 0u;
-  v148 = 0u;
-  DWORD2(v146) = 0;
-  LODWORD(v149) = 0;
-  v150 = 0x100000;
+  v145[0] = 0;
+  v146 = 0x3F80000000000000;
+  v147 = 1065353216;
+  v148 = 0x100000;
+  v149 = 0;
+  v150 = 0;
   v151 = 0;
   v152 = 0;
-  v153 = 0;
-  v154 = 0;
-  v155 = 0;
-  memset(v156, 0, sizeof(v156));
-  v157 = 1065353216;
-  v22 = a5;
+  *&v153 = _D9;
+  *(&v156 + 1) = 0;
+  v154 = 0u;
+  v155 = 0u;
+  DWORD2(v153) = 0;
+  LODWORD(v156) = 0;
+  v157 = 0x100000;
+  v158 = 0;
+  v159 = 0;
+  v160 = 0;
+  v161 = 0;
+  v162 = 0;
+  memset(v163, 0, sizeof(v163));
+  v164 = 1065353216;
+  v24 = a6;
   if (v16 == v17)
   {
-    v99 = v101;
-    v100 = v102;
-    v25 = *this;
-    v23 = *(this + 1);
+    v106 = v108;
+    v107 = v109;
+    v27 = *this;
+    v25 = *(this + 1);
   }
 
   else
   {
-    v23 = *(this + 1);
-    if (v23)
+    v25 = *(this + 1);
+    if (v25)
     {
-      v24 = *(this + 1);
+      v26 = *(this + 1);
     }
 
     else
     {
-      v24 = this + 16;
+      v26 = this + 16;
     }
 
-    *&v113 = v24;
-    v25 = *this;
-    DWORD2(v113) = 0;
-    HIDWORD(v113) = v25;
-    LODWORD(v114) = 0;
-    KB::String::iterator::initialize(&v113);
-    v26 = *(v17 - 2);
-    v118 = v113;
-    v119 = v114;
-    std::__advance[abi:nn200100]<KB::String::iterator>(&v118, v26);
-    v27 = *(v17 - 1);
-    v99 = v118;
-    v100 = v119;
-    std::__advance[abi:nn200100]<KB::String::iterator>(&v99, v27);
+    *&v120 = v26;
+    v27 = *this;
+    DWORD2(v120) = 0;
+    HIDWORD(v120) = v27;
+    LODWORD(v121) = 0;
+    KB::String::iterator::initialize(&v120);
+    v28 = *(v17 - 2);
+    v125 = v120;
+    v126 = v121;
+    std::__advance[abi:nn200100]<KB::String::iterator>(&v125, v28);
+    v29 = *(v17 - 1);
+    v106 = v125;
+    v107 = v126;
+    std::__advance[abi:nn200100]<KB::String::iterator>(&v106, v29);
   }
 
-  if (v23)
+  if (v25)
   {
-    v28 = v23;
+    v30 = v25;
   }
 
   else
   {
-    v28 = this + 16;
+    v30 = this + 16;
   }
 
-  *&v118 = v28;
-  DWORD2(v118) = v25;
-  HIDWORD(v118) = v25;
-  LODWORD(v119) = 0;
-  KB::String::iterator::initialize(&v118);
-  if (DWORD2(v99) != DWORD2(v118))
+  *&v125 = v30;
+  DWORD2(v125) = v27;
+  HIDWORD(v125) = v27;
+  LODWORD(v126) = 0;
+  KB::String::iterator::initialize(&v125);
+  if (DWORD2(v106) != DWORD2(v125))
   {
-    *&v118 = v28;
-    DWORD2(v118) = v25;
-    HIDWORD(v118) = v25;
-    LODWORD(v119) = 0;
-    KB::String::iterator::initialize(&v118);
-    KB::String::String(&v113, &v99, &v118);
-    v29 = KB::Word::Word(&v118, &v113, &kTITokenIDUNK, 0);
-    KB::String::space(v29);
-    if (KB::String::equal(&v113, &KB::String::space(void)::space, 1))
+    *&v125 = v30;
+    DWORD2(v125) = v27;
+    HIDWORD(v125) = v27;
+    LODWORD(v126) = 0;
+    KB::String::iterator::initialize(&v125);
+    KB::String::String(&v120, &v106, &v125);
+    v31 = KB::Word::Word(&v125, &v120, &kTITokenIDUNK, 0);
+    KB::String::space(v31);
+    if (KB::String::equal(&v120, &KB::String::space(void)::space, 1, v32, v33))
     {
-      DWORD1(v126) |= 0x4000000u;
+      DWORD1(v133) |= 0x4000000u;
     }
 
     else
     {
-      DWORD2(v124) |= 0x800000u;
+      DWORD2(v131) |= 0x800000u;
     }
 
-    KB::String::operator=(v136, &v118);
-    KB::ByteString::operator=(v138, v120);
-    v139 = v121;
-    v140 = v122;
-    KB::String::operator=(&v141, v123);
-    v146 = v124;
-    v147 = v125;
-    v148 = v126;
-    v149 = v127;
-    KB::String::operator=(&v150, v128);
-    v155 = v129;
-    v157 = v131;
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>(v156, v130);
-    KB::Word::~Word(&v118);
-    if (*(&v113 + 1))
+    KB::String::operator=(v143, &v125);
+    KB::ByteString::operator=(v145, v127);
+    v146 = v128;
+    v147 = v129;
+    KB::String::operator=(&v148, v130);
+    v153 = v131;
+    v154 = v132;
+    v155 = v133;
+    v156 = v134;
+    KB::String::operator=(&v157, v135);
+    v162 = v136;
+    v164 = v138;
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>(v163, v137);
+    KB::Word::~Word(&v125);
+    if (*(&v120 + 1))
     {
-      if (BYTE6(v113) == 1)
+      if (BYTE6(v120) == 1)
       {
-        free(*(&v113 + 1));
+        free(*(&v120 + 1));
       }
     }
   }
 
-  v98 = a4;
+  v105 = a5;
   if (v16 == v17)
   {
-    if (LOWORD(v158[0]) | LOWORD(v136[0]))
+    if (LOWORD(v165[0]) | LOWORD(v143[0]))
     {
-      KB::Candidate::Candidate(&v118);
-      v132 = 0u;
-      v133 = 0xFF8000003F800000;
-      v51 = *a3;
-      v50 = a3[1];
-      if (*a3 != v50)
+      KB::Candidate::Candidate(&v125);
+      v139 = 0u;
+      v140 = 0xFF8000003F800000;
+      v59 = *a4;
+      v58 = a4[1];
+      if (*a4 != v58)
       {
         do
         {
-          KB::Candidate::Candidate(&v113, v51);
-          TI::Favonius::FavoniusStrokeBuildManager::extended_latham_conversions(KB::CandidateCollection const&,KB::String const&,KB::LanguageModelContext const&,std::map<KB::String,KB::CandidateCollection> const&,unsigned long)const::$_0::operator()(v110, &v98, v158, &v118, v136, &v113);
-          v52 = *(a7 + 8);
-          v53 = *(a7 + 16);
-          if (v52 >= v53)
+          KB::Candidate::Candidate(&v120, v59);
+          TI::Favonius::FavoniusStrokeBuildManager::extended_latham_conversions(KB::CandidateCollection const&,KB::String const&,KB::LanguageModelContext const&,std::map<KB::String,KB::CandidateCollection> const&,unsigned long)const::$_0::operator()(v117, &v105, v165, &v125, v143, &v120);
+          v60 = a1[1];
+          v61 = a1[2];
+          if (v60 >= v61)
           {
-            v55 = 0x1CAC083126E978D5 * ((v52 - *a7) >> 3);
-            v56 = v55 + 1;
-            if ((v55 + 1) > 0x4189374BC6A7EFLL)
+            v63 = 0x1CAC083126E978D5 * ((v60 - *a1) >> 3);
+            v64 = v63 + 1;
+            if ((v63 + 1) > 0x4189374BC6A7EFLL)
             {
               goto LABEL_125;
             }
 
-            v57 = 0x1CAC083126E978D5 * ((v53 - *a7) >> 3);
-            if (2 * v57 > v56)
+            v65 = 0x1CAC083126E978D5 * ((v61 - *a1) >> 3);
+            if (2 * v65 > v64)
             {
-              v56 = 2 * v57;
+              v64 = 2 * v65;
             }
 
-            if (v57 >= 0x20C49BA5E353F7)
+            if (v65 >= 0x20C49BA5E353F7)
             {
-              v58 = 0x4189374BC6A7EFLL;
+              v66 = 0x4189374BC6A7EFLL;
             }
 
             else
             {
-              v58 = v56;
+              v66 = v64;
             }
 
-            v109 = a7;
-            if (v58)
+            v116 = a1;
+            if (v66)
             {
-              std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Candidate>>(v58);
+              std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Candidate>>(v66);
             }
 
-            v59 = 1000 * v55;
-            KB::Candidate::Candidate(v59, v110);
-            v54 = v59 + 1000;
-            v60 = *(a7 + 8);
-            v61 = v59 + *a7 - v60;
-            std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::Candidate>,KB::Candidate*>(*a7, v60, v61);
-            v62 = *a7;
-            *a7 = v61;
-            *(a7 + 8) = v54;
-            v63 = *(a7 + 16);
-            *(a7 + 16) = 0;
-            v107 = v62;
-            v108 = v63;
-            v105 = v62;
-            v106 = v62;
-            std::__split_buffer<KB::Candidate>::~__split_buffer(&v105);
+            v67 = 1000 * v63;
+            KB::Candidate::Candidate(v67, v117);
+            v62 = v67 + 1000;
+            v68 = a1[1];
+            v69 = v67 + *a1 - v68;
+            std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::Candidate>,KB::Candidate*>(*a1, v68, v69);
+            v70 = *a1;
+            *a1 = v69;
+            a1[1] = v62;
+            v71 = a1[2];
+            a1[2] = 0;
+            v114 = v70;
+            v115 = v71;
+            v112 = v70;
+            v113 = v70;
+            std::__split_buffer<KB::Candidate>::~__split_buffer(&v112);
           }
 
           else
           {
-            v54 = KB::Candidate::Candidate(v52, v110) + 1000;
+            v62 = KB::Candidate::Candidate(v60, v117) + 1000;
           }
 
-          *(a7 + 8) = v54;
-          KB::Candidate::~Candidate(v110);
-          KB::Candidate::~Candidate(&v113);
-          v51 = (v51 + 1000);
+          a1[1] = v62;
+          KB::Candidate::~Candidate(v117);
+          KB::Candidate::~Candidate(&v120);
+          v59 += 125;
         }
 
-        while (v51 != v50);
+        while (v59 != v58);
       }
 
-      KB::Candidate::~Candidate(&v118);
+      KB::Candidate::~Candidate(&v125);
     }
 
-    else if (a7 != a3)
+    else if (a1 != a4)
     {
-      std::vector<KB::Candidate>::__assign_with_size[abi:nn200100]<KB::Candidate*,KB::Candidate*>(a7, *a3, a3[1], 0x1CAC083126E978D5 * ((a3[1] - *a3) >> 3));
+      std::vector<KB::Candidate>::__assign_with_size[abi:nn200100]<KB::Candidate*,KB::Candidate*>(a1, *a4, a4[1], 0x1CAC083126E978D5 * (a4[1] - *a4));
     }
   }
 
   else
   {
-    v30 = *(this + 1);
-    if (!v30)
+    v34 = *(this + 1);
+    if (!v34)
     {
-      v30 = this + 16;
+      v34 = this + 16;
     }
 
-    *&v118 = v30;
-    v31 = *this;
-    DWORD2(v118) = 0;
-    HIDWORD(v118) = v31;
-    LODWORD(v119) = 0;
-    KB::String::iterator::initialize(&v118);
-    v32 = *(v17 - 2);
-    v96 = v118;
-    v97 = v119;
-    std::__advance[abi:nn200100]<KB::String::iterator>(&v96, v32);
-    v33 = *(v17 - 1);
-    v94 = v96;
-    v95 = v97;
-    std::__advance[abi:nn200100]<KB::String::iterator>(&v94, v33);
-    KB::String::String(v134, &v96, &v94);
-    v112 = 0;
-    memset(v110, 0, sizeof(v110));
-    memset(v111, 0, sizeof(v111));
-    KB::lower_string(v134, 0, &v118);
-    v34 = v22 + 8;
-    v35 = *(v22 + 8);
-    v36 = *(&v118 + 1);
-    if (!v35)
+    *&v125 = v34;
+    v35 = *this;
+    DWORD2(v125) = 0;
+    HIDWORD(v125) = v35;
+    LODWORD(v126) = 0;
+    KB::String::iterator::initialize(&v125);
+    v36 = *(v17 - 2);
+    v103 = v125;
+    v104 = v126;
+    std::__advance[abi:nn200100]<KB::String::iterator>(&v103, v36);
+    v37 = *(v17 - 1);
+    v101 = v103;
+    v102 = v104;
+    std::__advance[abi:nn200100]<KB::String::iterator>(&v101, v37);
+    KB::String::String(v141, &v103, &v101);
+    v119 = 0;
+    memset(v117, 0, sizeof(v117));
+    memset(v118, 0, sizeof(v118));
+    KB::lower_string(&v125, v141, 0, v38, v39, v40);
+    v41 = v24 + 8;
+    v42 = *(v24 + 8);
+    v43 = *(&v125 + 1);
+    if (!v42)
     {
       goto LABEL_51;
     }
 
-    v37 = *(&v118 + 1) ? *(&v118 + 1) : &v119;
-    v38 = v22 + 8;
+    v44 = *(&v125 + 1) ? *(&v125 + 1) : &v126;
+    v45 = v24 + 8;
     do
     {
-      if (*(v35 + 40))
+      if (*(v42 + 40))
       {
-        v39 = *(v35 + 40);
+        v46 = *(v42 + 40);
       }
 
       else
       {
-        v39 = (v35 + 48);
+        v46 = (v42 + 48);
       }
 
-      v40 = strcmp(v39, v37);
-      if (v40 >= 0)
+      v47 = strcmp(v46, v44);
+      if (v47 >= 0)
       {
-        v38 = v35;
+        v45 = v42;
       }
 
-      v35 = *(v35 + ((v40 >> 28) & 8));
+      v42 = *(v42 + ((v47 >> 28) & 8));
     }
 
-    while (v35);
-    if (v34 == v38 || (*(v38 + 40) ? (v41 = *(v38 + 40)) : (v41 = (v38 + 48)), strcmp(v37, v41) < 0))
+    while (v42);
+    if (v41 == v45 || (*(v45 + 40) ? (v48 = *(v45 + 40)) : (v48 = (v45 + 48)), strcmp(v44, v48) < 0))
     {
 LABEL_51:
-      v38 = v22 + 8;
+      v45 = v24 + 8;
     }
 
-    if (v36 && BYTE6(v118) == 1)
+    if (v43 && BYTE6(v125) == 1)
     {
-      free(v36);
+      free(v43);
     }
 
-    if (v34 == v38 || (KB::CandidateCollection::operator=(v110, v38 + 64), v44 = *(&v110[0] + 1), v43 = *&v110[0], *&v110[0] == *(&v110[0] + 1)))
+    if (v41 == v45 || (KB::CandidateCollection::operator=(v117, v45 + 64), v52 = *(&v117[0] + 1), v51 = *&v117[0], *&v117[0] == *(&v117[0] + 1)))
     {
-      KB::Word::Word(&v113, v134, &kTITokenIDUNK, 0);
-      v117 |= 0x800000u;
-      KB::Candidate::Candidate(&v118, &v113);
-      v132 = 0u;
-      v133 = 0xFF8000003F800000;
-      v45 = a3;
-      if (*(&v110[0] + 1) >= *&v110[1])
+      KB::Word::Word(&v120, v141, &kTITokenIDUNK, 0);
+      v124 |= 0x800000u;
+      KB::Candidate::Candidate(&v125, &v120);
+      v139 = 0u;
+      v140 = 0xFF8000003F800000;
+      v53 = a4;
+      if (*(&v117[0] + 1) >= *&v117[1])
       {
-        v47 = 0x1CAC083126E978D5 * ((*(&v110[0] + 1) - *&v110[0]) >> 3);
-        v48 = v47 + 1;
-        if ((v47 + 1) > 0x4189374BC6A7EFLL)
+        v55 = 0x1CAC083126E978D5 * ((*(&v117[0] + 1) - *&v117[0]) >> 3);
+        v56 = v55 + 1;
+        if ((v55 + 1) > 0x4189374BC6A7EFLL)
         {
 LABEL_125:
           std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
         }
 
-        if (0x395810624DD2F1AALL * ((*&v110[1] - *&v110[0]) >> 3) > v48)
+        if (0x395810624DD2F1AALL * ((*&v117[1] - *&v117[0]) >> 3) > v56)
         {
-          v48 = 0x395810624DD2F1AALL * ((*&v110[1] - *&v110[0]) >> 3);
+          v56 = 0x395810624DD2F1AALL * ((*&v117[1] - *&v117[0]) >> 3);
         }
 
-        if ((0x1CAC083126E978D5 * ((*&v110[1] - *&v110[0]) >> 3)) >= 0x20C49BA5E353F7)
+        if ((0x1CAC083126E978D5 * ((*&v117[1] - *&v117[0]) >> 3)) >= 0x20C49BA5E353F7)
         {
-          v49 = 0x4189374BC6A7EFLL;
+          v57 = 0x4189374BC6A7EFLL;
         }
 
         else
         {
-          v49 = v48;
+          v57 = v56;
         }
 
-        v109 = v110;
-        if (v49)
+        v116 = v117;
+        if (v57)
         {
-          std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Candidate>>(v49);
+          std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Candidate>>(v57);
         }
 
-        v64 = 8 * ((*(&v110[0] + 1) - *&v110[0]) >> 3);
-        KB::Candidate::Candidate(v64, &v118);
-        v46 = 1000 * v47 + 1000;
-        v65 = v64 + *&v110[0] - *(&v110[0] + 1);
-        std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::Candidate>,KB::Candidate*>(*&v110[0], *(&v110[0] + 1), v65);
-        v66 = *&v110[0];
-        v67 = *&v110[1];
-        *&v110[0] = v65;
-        *(&v110[0] + 1) = v46;
-        *&v110[1] = 0;
-        v107 = v66;
-        v108 = v67;
-        v105 = v66;
-        v106 = v66;
-        std::__split_buffer<KB::Candidate>::~__split_buffer(&v105);
+        v72 = 8 * ((*(&v117[0] + 1) - *&v117[0]) >> 3);
+        KB::Candidate::Candidate(v72, &v125);
+        v54 = 1000 * v55 + 1000;
+        v73 = v72 + *&v117[0] - *(&v117[0] + 1);
+        std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::Candidate>,KB::Candidate*>(*&v117[0], *(&v117[0] + 1), v73);
+        v74 = *&v117[0];
+        v75 = *&v117[1];
+        *&v117[0] = v73;
+        *(&v117[0] + 1) = v54;
+        *&v117[1] = 0;
+        v114 = v74;
+        v115 = v75;
+        v112 = v74;
+        v113 = v74;
+        std::__split_buffer<KB::Candidate>::~__split_buffer(&v112);
       }
 
       else
       {
-        v46 = KB::Candidate::Candidate(*(&v110[0] + 1), &v118) + 1000;
+        v54 = KB::Candidate::Candidate(*(&v117[0] + 1), &v125) + 1000;
       }
 
-      *(&v110[0] + 1) = v46;
-      KB::Candidate::~Candidate(&v118);
-      KB::Word::~Word(&v113);
-      v44 = *(&v110[0] + 1);
-      v43 = *&v110[0];
+      *(&v117[0] + 1) = v54;
+      KB::Candidate::~Candidate(&v125);
+      KB::Word::~Word(&v120);
+      v52 = *(&v117[0] + 1);
+      v51 = *&v117[0];
     }
 
     else
     {
-      v45 = a3;
+      v53 = a4;
     }
 
-    v68 = 0x1CAC083126E978D5 * ((v44 - v43) >> 3);
-    if (v68 >= a6)
+    v76 = 0x1CAC083126E978D5 * ((v52 - v51) >> 3);
+    if (v76 >= a7)
     {
-      v68 = a6;
+      v76 = a7;
     }
 
-    v92 = v68;
-    if (v44 != v43)
+    v99 = v76;
+    if (v52 != v51)
     {
-      v69 = 0;
+      v77 = 0;
       do
       {
-        v70 = v43 + 1000 * v69;
-        if (v69 < v92)
+        v78 = v51 + 1000 * v77;
+        if (v77 < v99)
         {
           goto LABEL_102;
         }
 
-        if (!*(v70 + 888))
+        if (!*(v78 + 888))
         {
-          KB::Candidate::compute_string(v70);
+          KB::Candidate::compute_string(v78);
         }
 
-        if (!KB::CollatorWrapper::sortkey_compare_strings((v89 + 72), (v70 + 888), v134, v42))
+        if (!KB::CollatorWrapper::sortkey_compare_strings((v96 + 72), (v78 + 888), v141, v49))
         {
 LABEL_102:
-          if ((0x1CAC083126E978D5 * ((v45[1] - *v45) >> 3)) >= *(a2 + 912))
+          if ((0x1CAC083126E978D5 * (v53[1] - *v53)) >= *(a3 + 912))
           {
-            v71 = *(a2 + 912);
+            v79 = *(a3 + 912);
           }
 
           else
           {
-            v71 = 0x1CAC083126E978D5 * ((v45[1] - *v45) >> 3);
+            v79 = 0x1CAC083126E978D5 * (v53[1] - *v53);
           }
 
-          if (!*(v70 + 888))
+          if (!*(v78 + 888))
           {
-            KB::Candidate::compute_string(v70);
+            KB::Candidate::compute_string(v78);
           }
 
-          if (KB::String::equal(v134, (v70 + 888), 0))
+          if (KB::String::equal(v141, (v78 + 888), 0, v49, v50))
           {
-            v71 = 0x1CAC083126E978D5 * ((v45[1] - *v45) >> 3);
+            v79 = 0x1CAC083126E978D5 * (v53[1] - *v53);
           }
 
-          if (v71)
+          if (v79)
           {
-            v72 = 0;
+            v80 = 0;
             do
             {
-              TI::Favonius::FavoniusStrokeBuildManager::extended_latham_conversions(KB::CandidateCollection const&,KB::String const&,KB::LanguageModelContext const&,std::map<KB::String,KB::CandidateCollection> const&,unsigned long)const::$_0::operator()(&v118, &v98, v158, v70, v136, *v45 + v72);
-              v73 = *(a7 + 8);
-              v74 = *(a7 + 16);
-              if (v73 >= v74)
+              TI::Favonius::FavoniusStrokeBuildManager::extended_latham_conversions(KB::CandidateCollection const&,KB::String const&,KB::LanguageModelContext const&,std::map<KB::String,KB::CandidateCollection> const&,unsigned long)const::$_0::operator()(&v125, &v105, v165, v78, v143, &(*v53)[v80]);
+              v81 = a1[1];
+              v82 = a1[2];
+              if (v81 >= v82)
               {
-                v76 = 0x1CAC083126E978D5 * ((v73 - *a7) >> 3);
-                v77 = v76 + 1;
-                if ((v76 + 1) > 0x4189374BC6A7EFLL)
+                v84 = 0x1CAC083126E978D5 * ((v81 - *a1) >> 3);
+                v85 = v84 + 1;
+                if ((v84 + 1) > 0x4189374BC6A7EFLL)
                 {
                   goto LABEL_125;
                 }
 
-                v78 = 0x1CAC083126E978D5 * ((v74 - *a7) >> 3);
-                if (2 * v78 > v77)
+                v86 = 0x1CAC083126E978D5 * ((v82 - *a1) >> 3);
+                if (2 * v86 > v85)
                 {
-                  v77 = 2 * v78;
+                  v85 = 2 * v86;
                 }
 
-                if (v78 >= 0x20C49BA5E353F7)
+                if (v86 >= 0x20C49BA5E353F7)
                 {
-                  v79 = 0x4189374BC6A7EFLL;
+                  v87 = 0x4189374BC6A7EFLL;
                 }
 
                 else
                 {
-                  v79 = v77;
+                  v87 = v85;
                 }
 
-                v116 = a7;
-                if (v79)
+                v123 = a1;
+                if (v87)
                 {
-                  std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Candidate>>(v79);
+                  std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Candidate>>(v87);
                 }
 
-                v80 = 1000 * v76;
-                KB::Candidate::Candidate(v80, &v118);
-                v75 = v80 + 1000;
-                v81 = *(a7 + 8);
-                v82 = v80 + *a7 - v81;
-                std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::Candidate>,KB::Candidate*>(*a7, v81, v82);
-                v83 = *a7;
-                *a7 = v82;
-                *(a7 + 8) = v75;
-                v84 = *(a7 + 16);
-                *(a7 + 16) = 0;
-                v114 = v83;
-                v115 = v84;
-                *(&v113 + 1) = v83;
-                *&v113 = v83;
-                std::__split_buffer<KB::Candidate>::~__split_buffer(&v113);
-                v45 = a3;
+                v88 = 1000 * v84;
+                KB::Candidate::Candidate(v88, &v125);
+                v83 = v88 + 1000;
+                v89 = a1[1];
+                v90 = v88 + *a1 - v89;
+                std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::Candidate>,KB::Candidate*>(*a1, v89, v90);
+                v91 = *a1;
+                *a1 = v90;
+                a1[1] = v83;
+                v92 = a1[2];
+                a1[2] = 0;
+                v121 = v91;
+                v122 = v92;
+                *(&v120 + 1) = v91;
+                *&v120 = v91;
+                std::__split_buffer<KB::Candidate>::~__split_buffer(&v120);
+                v53 = a4;
               }
 
               else
               {
-                v75 = KB::Candidate::Candidate(v73, &v118) + 1000;
+                v83 = KB::Candidate::Candidate(v81, &v125) + 1000;
               }
 
-              *(a7 + 8) = v75;
-              KB::Candidate::~Candidate(&v118);
-              v72 += 1000;
-              --v71;
+              a1[1] = v83;
+              KB::Candidate::~Candidate(&v125);
+              v80 += 125;
+              --v79;
             }
 
-            while (v71);
+            while (v79);
           }
         }
 
-        ++v69;
-        v43 = *&v110[0];
+        ++v77;
+        v51 = *&v117[0];
       }
 
-      while (v69 < 0x1CAC083126E978D5 * ((*(&v110[0] + 1) - *&v110[0]) >> 3));
+      while (v77 < 0x1CAC083126E978D5 * ((*(&v117[0] + 1) - *&v117[0]) >> 3));
     }
 
-    *&v118 = &v111[1] + 8;
-    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v118);
-    *&v118 = v111;
-    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v118);
-    *&v118 = &v110[1] + 8;
-    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v118);
-    *&v118 = v110;
-    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v118);
-    if (v135 && v134[6] == 1)
+    *&v125 = &v118[1] + 8;
+    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v125);
+    *&v125 = v118;
+    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v125);
+    *&v125 = &v117[1] + 8;
+    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v125);
+    *&v125 = v117;
+    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v125);
+    if (v142 && v141[6] == 1)
     {
-      free(v135);
+      free(v142);
     }
   }
 
-  KB::Word::~Word(v136);
-  KB::Word::~Word(v158);
+  KB::Word::~Word(v143);
+  KB::Word::~Word(v165);
   if (__p)
   {
     operator delete(__p);
   }
 
-  result = v88;
-  if (v88)
+  result = v95;
+  if (v95)
   {
-    result = WTF::RefCounted<KB::DictionaryContainer>::deref(v88);
+    return WTF::RefCounted<KB::DictionaryContainer>::deref(v95);
   }
 
-  v86 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void *TI::Favonius::FavoniusStrokeBuildManager::refine_latham_conversions(void *this, KB::CandidateCollection *a2, int a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (this[3])
   {
     v5 = this;
     v6 = (*(*this + 432))(this);
     (*(*v5[3] + 64))(v5[3], a2, a3 ^ 1u);
     v7 = v5[3];
-    v9 = &unk_283FDBA48;
-    v10 = v6;
-    v11 = &v9;
-    (*(*v7 + 56))(v7, a2, &v9);
-    this = std::__function::__value_func<void ()(KB::Candidate &,float)>::~__value_func[abi:nn200100](&v9);
+    v8 = &unk_283FDBA48;
+    v9 = v6;
+    v10 = &v8;
+    (*(*v7 + 56))(v7, a2, &v8);
+    return std::__function::__value_func<void ()(KB::Candidate &,float)>::~__value_func[abi:nn200100](&v8);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -7063,7 +6659,7 @@ uint64_t std::__function::__func<TI::Favonius::FavoniusStrokeBuildManager::refin
 
 uint64_t TI::Favonius::FavoniusStrokeBuildManager::extended_latham_conversions(KB::CandidateCollection const&,KB::String const&,KB::LanguageModelContext const&,std::map<KB::String,KB::CandidateCollection> const&,unsigned long)const::$_0::operator()(uint64_t a1, uint64_t **a2, size_t *a3, uint64_t a4, size_t *a5, uint64_t a6)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v12 = KB::Candidate::Candidate(a1);
   KB::LanguageModelContext::operator=(v12 + 784, *a2);
   KB::Candidate::append(a1, a3);
@@ -7076,10 +6672,10 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::extended_latham_conversions(K
   if (*a1 && (*(*(a1 + 8) + 240 * *a1 - 105) & 4) == 0)
   {
     KB::String::space(v14);
-    KB::Word::Word(v21, &KB::String::space(void)::space, &kTITokenIDUNK, 0);
-    v22 |= 0x4000000u;
-    KB::Candidate::append(a1, v21);
-    KB::Word::~Word(v21);
+    KB::Word::Word(v20, &KB::String::space(void)::space, &kTITokenIDUNK, 0);
+    v21 |= 0x4000000u;
+    KB::Candidate::append(a1, v20);
+    KB::Word::~Word(v20);
   }
 
   KB::Candidate::append(a1, a6);
@@ -7094,7 +6690,6 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::extended_latham_conversions(K
   v18 = *(a6 + 780);
   result = KB::Candidate::length(a4);
   *(a1 + 780) = (v18 << (result + 1)) | v17;
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7302,7 +6897,7 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::add_touch_cancel(TI::Favonius
     {
       do
       {
-        TI::Favonius::FavoniusStrokeBuildManager::perform_search(this, i, &v16);
+        TI::Favonius::FavoniusStrokeBuildManager::perform_search(&v16, this, i);
         if (v16)
         {
           WTF::RefCounted<TI::Favonius::Key>::deref(v16);
@@ -7361,9 +6956,9 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::add_touch_up(uint64_t a1, uin
   {
     *(a1 + 200) = *(v5 + 32);
     v9 = *(*(a1 + 56) + 8 * v6 - 8);
-    v41 = v5;
+    v40 = v5;
     atomic_fetch_add(v5, 1u);
-    TI::Favonius::StrokeBuildManagerInternals::TouchHistoryRefWithKeycode::history_by_appending_touch_keycode(v40, *(v9 + 8), &v41);
+    TI::Favonius::StrokeBuildManagerInternals::TouchHistoryRefWithKeycode::history_by_appending_touch_keycode(v39, *(v9 + 8), &v40, a3);
   }
 
   if (*(a1 + 72) <= v6 || TI::Favonius::FavoniusStrokeBuildManager::can_update_existing_search(a1, v6))
@@ -7373,33 +6968,33 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::add_touch_up(uint64_t a1, uin
       goto LABEL_25;
     }
 
-    memset(v40, 0, sizeof(v40));
+    memset(v39, 0, sizeof(v39));
     if (*(a1 + 48) > (v7 + 1))
     {
-      TI::Favonius::FavoniusStrokeBuildManager::pop_touches_from_history(a1, v7, v40);
+      TI::Favonius::FavoniusStrokeBuildManager::pop_touches_from_history(a1, v7, v39);
     }
 
+    v36 = 0;
     v37 = 0;
     v38 = 0;
-    v39 = 0;
-    TI::Favonius::FavoniusStrokeBuildManager::pop_touches_from_history(a1, v7 - 1, &v37);
-    memset(v36, 0, sizeof(v36));
+    TI::Favonius::FavoniusStrokeBuildManager::pop_touches_from_history(a1, v7 - 1, &v36);
+    memset(v35, 0, sizeof(v35));
     v10 = *(a1 + 160);
     if (*(a1 + 48) > (v10 + 1))
     {
-      TI::Favonius::FavoniusStrokeBuildManager::pop_touches_from_history(a1, v10, v36);
+      TI::Favonius::FavoniusStrokeBuildManager::pop_touches_from_history(a1, v10, v35);
     }
 
-    v11 = v40[0];
-    if (v40[0])
+    v11 = v39[0];
+    if (v39[0])
     {
-      v12 = v40;
+      v12 = v39;
     }
 
     else
     {
-      v11 = v36[0];
-      if (!v36[0])
+      v11 = v35[0];
+      if (!v35[0])
       {
 LABEL_17:
         v13 = *(a1 + 72);
@@ -7410,18 +7005,18 @@ LABEL_17:
           *(a1 + 72) = v14;
         }
 
-        TI::Favonius::FavoniusStrokeBuildManager::push_touches_to_history(a1, &v37);
-        TI::Favonius::FavoniusStrokeBuildManager::push_touches_to_history(a1, v36);
-        TI::Favonius::FavoniusStrokeBuildManager::push_touches_to_history(a1, v40);
+        TI::Favonius::FavoniusStrokeBuildManager::push_touches_to_history(a1, &v36);
+        TI::Favonius::FavoniusStrokeBuildManager::push_touches_to_history(a1, v35);
+        TI::Favonius::FavoniusStrokeBuildManager::push_touches_to_history(a1, v39);
         v15 = *(a1 + 160) + 1;
         if (v15 <= v7)
         {
           do
           {
-            TI::Favonius::FavoniusStrokeBuildManager::perform_search(a1, v15, &v35);
-            if (v35)
+            TI::Favonius::FavoniusStrokeBuildManager::perform_search(&v34, a1, v15);
+            if (v34)
             {
-              WTF::RefCounted<TI::Favonius::Key>::deref(v35);
+              WTF::RefCounted<TI::Favonius::Key>::deref(v34);
             }
 
             ++v15;
@@ -7431,25 +7026,25 @@ LABEL_17:
           v15 = *(a1 + 160) + 1;
         }
 
-        WTF::Vector<WTF::RefPtr<TI::Favonius::StrokeBuildManagerInternals::TouchRefWithKeycode>,0ul>::~Vector(v36);
-        WTF::Vector<WTF::RefPtr<TI::Favonius::StrokeBuildManagerInternals::TouchRefWithKeycode>,0ul>::~Vector(&v37);
-        WTF::Vector<WTF::RefPtr<TI::Favonius::StrokeBuildManagerInternals::TouchRefWithKeycode>,0ul>::~Vector(v40);
+        WTF::Vector<WTF::RefPtr<TI::Favonius::StrokeBuildManagerInternals::TouchRefWithKeycode>,0ul>::~Vector(v35);
+        WTF::Vector<WTF::RefPtr<TI::Favonius::StrokeBuildManagerInternals::TouchRefWithKeycode>,0ul>::~Vector(&v36);
+        WTF::Vector<WTF::RefPtr<TI::Favonius::StrokeBuildManagerInternals::TouchRefWithKeycode>,0ul>::~Vector(v39);
         v8 = v15;
         v7 = v15;
         goto LABEL_25;
       }
 
-      v12 = v36;
+      v12 = v35;
     }
 
-    *(*(*(v38 + 8 * v37 - 8) + 8) + 32) = *(*(*&v12[1][2 * v11 - 2] + 8) + 32);
+    *(*(*(v37 + 8 * v36 - 8) + 8) + 32) = *(*(*(v12[1] + 8 * v11 - 8) + 8) + 32);
     goto LABEL_17;
   }
 
-  TI::Favonius::FavoniusStrokeBuildManager::perform_search(a1, v7, &v34);
-  if (v34)
+  TI::Favonius::FavoniusStrokeBuildManager::perform_search(&v33, a1, v7);
+  if (v33)
   {
-    WTF::RefCounted<TI::Favonius::Key>::deref(v34);
+    WTF::RefCounted<TI::Favonius::Key>::deref(v33);
   }
 
 LABEL_25:
@@ -7460,12 +7055,12 @@ LABEL_25:
 
   else
   {
-    TI::Favonius::FavoniusStrokeBuildManager::forced_hit_key(a1, *(v5 + 56), v7, a3, v40);
-    v16 = v40[0];
+    TI::Favonius::FavoniusStrokeBuildManager::forced_hit_key(v39, a1, *(v5 + 56), v7, a3);
+    v16 = v39[0];
     v17 = *(a1 + 80);
     v18 = *(v17 + 8 * v8);
     v19 = *(v17 + 8 * (v7 - 1));
-    v33 = v19;
+    v32 = v19;
     if (v19)
     {
       atomic_fetch_add((v19 + 8), 1u);
@@ -7476,11 +7071,11 @@ LABEL_25:
       atomic_fetch_add(v16, 1u);
     }
 
-    (*(*v18 + 96))(v40);
+    (*(*v18 + 96))(v39);
     v20 = *(a1 + 80);
     v21 = *(v20 + 8 * v8);
-    v22 = v40[0];
-    v40[0] = 0;
+    v22 = v39[0];
+    v39[0] = 0;
     *(v20 + 8 * v8) = v22;
     if (v21)
     {
@@ -7495,17 +7090,17 @@ LABEL_25:
         atomic_fetch_add(v21 + 2, 0xFFFFFFFF);
       }
 
-      if (v40[0])
+      if (v39[0])
       {
-        v25 = atomic_load(v40[0] + 2);
+        v25 = atomic_load(v39[0] + 2);
         if (v25 == 1)
         {
-          (*(*v40[0] + 8))();
+          (*(*v39[0] + 8))();
         }
 
         else
         {
-          atomic_fetch_add(v40[0] + 2, 0xFFFFFFFF);
+          atomic_fetch_add(v39[0] + 2, 0xFFFFFFFF);
         }
       }
     }
@@ -7515,17 +7110,17 @@ LABEL_25:
       WTF::RefCounted<TI::Favonius::KeyMatch>::deref(v16);
     }
 
-    if (v33)
+    if (v32)
     {
-      v26 = atomic_load(v33 + 2);
+      v26 = atomic_load(v32 + 2);
       if (v26 == 1)
       {
-        (*(*v33 + 8))();
+        (*(*v32 + 8))();
       }
 
       else
       {
-        atomic_fetch_add(v33 + 2, 0xFFFFFFFF);
+        atomic_fetch_add(v32 + 2, 0xFFFFFFFF);
       }
     }
 
@@ -7558,8 +7153,7 @@ LABEL_25:
   v30 = *(a1 + 720);
   if (v30)
   {
-    v31 = *(v5 + 32);
-    TI::TIInputRecognizer::add_touch(v30, 2, *(v5 + 8), *(v5 + 16));
+    TI::TIInputRecognizer::add_touch(v30, 2, *(v5 + 8), *(v5 + 16), *(v5 + 32), 0.0);
   }
 
   if (v24)
@@ -7575,20 +7169,20 @@ LABEL_25:
   return a3;
 }
 
-uint64_t TI::Favonius::FavoniusStrokeBuildManager::forced_hit_key@<X0>(uint64_t this@<X0>, const TI::Favonius::KeyboardLayout *a2@<X2>, unsigned int a3@<W1>, int a4@<W3>, atomic_uint **a5@<X8>)
+uint64_t *TI::Favonius::FavoniusStrokeBuildManager::forced_hit_key@<X0>(atomic_uint **__return_ptr a1@<X8>, uint64_t *this@<X0>, const TI::Favonius::KeyboardLayout *a3@<X2>, unsigned int a4@<W1>, int a5@<W3>)
 {
-  if (a4 == -1)
+  if (a5 == -1)
   {
     v15 = 0;
   }
 
   else
   {
-    v9 = *(this + 56);
-    v10 = *(*(v9 + 8 * a3) + 8);
-    if (*((*(*v10 + 56))(v10) + 56) == a2)
+    v9 = this[7];
+    v10 = *(*(v9 + 8 * a4) + 8);
+    if (*((*(*v10 + 56))(v10) + 56) == a3)
     {
-      v17 = *(*(v9 + 8 * a3) + 8);
+      v17 = *(*(v9 + 8 * a4) + 8);
       v36 = v17;
       if (v17)
       {
@@ -7605,7 +7199,7 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::forced_hit_key@<X0>(uint64_t 
       v34[1] = 0x40000000;
       v34[2] = ___ZNK2TI8Favonius26FavoniusStrokeBuildManager14forced_hit_keyEjPKNS0_14KeyboardLayoutEi_block_invoke;
       v34[3] = &__block_descriptor_tmp_11_12449;
-      v35 = a4;
+      v35 = a5;
       this = TI::Favonius::FavoniusStrokeBuildManager::key_near_touch_passing_test(&v36, v34, &v28);
       v15 = v28;
       v28 = 0;
@@ -7636,10 +7230,10 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::forced_hit_key@<X0>(uint64_t 
       v23[1] = 0x40000000;
       v24 = ___ZNK2TI8Favonius26FavoniusStrokeBuildManager14forced_hit_keyEjPKNS0_14KeyboardLayoutEi_block_invoke_12;
       v25 = &unk_278731BF8;
-      v27 = a4;
+      v27 = a5;
       v26 = &v28;
-      v11 = *(a2 + 1);
-      v12 = *(a2 + 2);
+      v11 = *(a3 + 1);
+      v12 = *(a3 + 2);
       if (v11 == v12)
       {
         goto LABEL_12;
@@ -7659,7 +7253,7 @@ LABEL_12:
 
       else
       {
-        v13 = *(*(v9 + 8 * a3) + 8);
+        v13 = *(*(v9 + 8 * a4) + 8);
         v21 = v13;
         if (v13)
         {
@@ -7704,7 +7298,7 @@ LABEL_12:
     }
   }
 
-  *a5 = v15;
+  *a1 = v15;
   return this;
 }
 
@@ -7745,16 +7339,16 @@ uint64_t ___ZNK2TI8Favonius26FavoniusStrokeBuildManager14forced_hit_keyEjPKNS0_1
   return result;
 }
 
-BOOL ___ZNK2TI8Favonius26FavoniusStrokeBuildManager14forced_hit_keyEjPKNS0_14KeyboardLayoutEi_block_invoke_2(uint64_t a1, uint64_t a2)
+BOOL ___ZNK2TI8Favonius26FavoniusStrokeBuildManager14forced_hit_keyEjPKNS0_14KeyboardLayoutEi_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *(*a2 + 8);
-  v3 = *(*(*(a1 + 32) + 8) + 40);
-  return v2 == v3 || KB::String::equal((v2 + 8), (v3 + 8), 1);
+  v5 = *(*a2 + 8);
+  v6 = *(*(*(a1 + 32) + 8) + 40);
+  return v5 == v6 || KB::String::equal((v5 + 8), (v6 + 8), 1, a4, a5);
 }
 
 uint64_t TI::Favonius::FavoniusStrokeBuildManager::add_touch_down_or_drag(uint64_t a1, uint64_t *a2, uint64_t a3, char a4)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v8 = *a2;
   *(a1 + 200) = *(*a2 + 32);
   v9 = *(v8 + 8);
@@ -7763,7 +7357,7 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::add_touch_down_or_drag(uint64
   *(a1 + 216) = TI::Favonius::KeyboardLayout::median_key_half_width(v11);
   v12 = *(v8 + 48);
   v13 = *(v8 + 40);
-  v35 = v11;
+  v33 = v11;
   if (v11)
   {
     atomic_fetch_add(v11, 1u);
@@ -7776,15 +7370,15 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::add_touch_down_or_drag(uint64
     v16 = *(*(a1 + 56) + 8 * v14 - 8);
     v17 = *a2;
     *a2 = 0;
-    v34 = v17;
-    TI::Favonius::StrokeBuildManagerInternals::TouchHistoryRefWithKeycode::history_by_appending_touch_keycode(&v45, *(v16 + 8), &v34);
+    v32 = v17;
+    TI::Favonius::StrokeBuildManagerInternals::TouchHistoryRefWithKeycode::history_by_appending_touch_keycode(&v43, *(v16 + 8), &v32, a3);
   }
 
+  v43 = 0;
+  v44 = 0;
   v45 = 0;
-  v46 = 0;
-  v47 = 0;
-  TI::Favonius::FavoniusStrokeBuildManager::pop_touches_from_history(a1, v14 - 1, &v45);
-  v18 = v46[v45 - 1];
+  TI::Favonius::FavoniusStrokeBuildManager::pop_touches_from_history(a1, v14 - 1, &v43);
+  v18 = v44[v43 - 1];
   v19 = *(v18 + 8);
   v20 = *a2;
   *a2 = 0;
@@ -7794,14 +7388,14 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::add_touch_down_or_drag(uint64
     WTF::RefCounted<TI::Favonius::Touch>::deref(v19);
   }
 
-  TI::Favonius::FavoniusStrokeBuildManager::push_touches_to_history(a1, &v45);
-  WTF::Vector<WTF::RefPtr<TI::Favonius::StrokeBuildManagerInternals::TouchRefWithKeycode>,0ul>::~Vector(&v45);
+  TI::Favonius::FavoniusStrokeBuildManager::push_touches_to_history(a1, &v43);
+  WTF::Vector<WTF::RefPtr<TI::Favonius::StrokeBuildManagerInternals::TouchRefWithKeycode>,0ul>::~Vector(&v43);
   *(*(*(a1 + 56) + 8 * v15) + 16) = a3;
   if ((a4 & 1) != 0 || v13 != 1)
   {
-    TI::Favonius::FavoniusStrokeBuildManager::perform_search(a1, v15, &v45);
-    v21 = v45;
-    a3 = *(v45 + 31);
+    TI::Favonius::FavoniusStrokeBuildManager::perform_search(&v43, a1, v15);
+    v21 = v43;
+    a3 = *(v43 + 31);
   }
 
   else
@@ -7812,16 +7406,16 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::add_touch_down_or_drag(uint64
   v22 = *(a1 + 704);
   if (v22)
   {
-    if (v35)
+    if (v33)
     {
-      atomic_fetch_add(v35, 1u);
-      TI::CP::TIPathRecognizerInterface::set_key_layout(v22, v35);
-      WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(v35);
+      atomic_fetch_add(v33, 1u);
+      TI::CP::TIPathRecognizerInterface::set_key_layout(v22, v33);
+      WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(v33);
       if (v13)
       {
 LABEL_15:
         (*(**(a1 + 704) + 32))(*(a1 + 704), v13, v12, v9, v10, *(a1 + 200), 0.0);
-        if (v35)
+        if (v33)
         {
           v23 = atomic_load((*(a1 + 704) + 633));
           if ((v23 & 1) == 0)
@@ -7833,15 +7427,15 @@ LABEL_15:
               atomic_fetch_add_explicit(&v25->__shared_weak_owners_, 1uLL, memory_order_relaxed);
             }
 
-            KB::String::String(&v45, (v35 + 52));
+            KB::String::String(&v43, (v33 + 52));
             if (*(a1 + 471) < 0)
             {
-              std::string::__init_copy_ctor_external(&v33, *(a1 + 448), *(a1 + 456));
+              std::string::__init_copy_ctor_external(&v31, *(a1 + 448), *(a1 + 456));
             }
 
             else
             {
-              v33 = *(a1 + 448);
+              v31 = *(a1 + 448);
             }
 
             if (TI::Favonius::FavoniusStrokeBuildManager::background_task_queue(void)::onceToken != -1)
@@ -7849,33 +7443,33 @@ LABEL_15:
               dispatch_once(&TI::Favonius::FavoniusStrokeBuildManager::background_task_queue(void)::onceToken, &__block_literal_global_19_12454);
             }
 
-            v36 = MEMORY[0x277D85DD0];
-            v37 = 1174405120;
-            v38 = ___ZN2TI8Favonius26FavoniusStrokeBuildManager22add_touch_down_or_dragEN3WTF10PassRefPtrINS0_5TouchEEEib_block_invoke;
-            v39 = &__block_descriptor_tmp_3_12455;
-            v40 = v24;
-            v41 = v25;
+            v34 = MEMORY[0x277D85DD0];
+            v35 = 1174405120;
+            v36 = ___ZN2TI8Favonius26FavoniusStrokeBuildManager22add_touch_down_or_dragEN3WTF10PassRefPtrINS0_5TouchEEEib_block_invoke;
+            v37 = &__block_descriptor_tmp_3_12455;
+            v38 = v24;
+            v39 = v25;
             if (v25)
             {
               atomic_fetch_add_explicit(&v25->__shared_weak_owners_, 1uLL, memory_order_relaxed);
             }
 
-            v26 = SHIBYTE(v33.__r_.__value_.__r.__words[2]);
-            if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+            v26 = SHIBYTE(v31.__r_.__value_.__r.__words[2]);
+            if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
             {
-              std::string::__init_copy_ctor_external(&__p, v33.__r_.__value_.__l.__data_, v33.__r_.__value_.__l.__size_);
+              std::string::__init_copy_ctor_external(&__p, v31.__r_.__value_.__l.__data_, v31.__r_.__value_.__l.__size_);
             }
 
             else
             {
-              __p = v33;
+              __p = v31;
             }
 
-            KB::String::String(v43, &v45);
+            KB::String::String(v41, &v43);
             TIDispatchAsync();
-            if (v44 && v43[6] == 1)
+            if (v42 && v41[6] == 1)
             {
-              free(v44);
+              free(v42);
             }
 
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7883,19 +7477,19 @@ LABEL_15:
               operator delete(__p.__r_.__value_.__l.__data_);
             }
 
-            if (v41)
+            if (v39)
             {
-              std::__shared_weak_count::__release_weak(v41);
+              std::__shared_weak_count::__release_weak(v39);
             }
 
             if (v26 < 0)
             {
-              operator delete(v33.__r_.__value_.__l.__data_);
+              operator delete(v31.__r_.__value_.__l.__data_);
             }
 
-            if (v46 && BYTE6(v45) == 1)
+            if (v44 && BYTE6(v43) == 1)
             {
-              free(v46);
+              free(v44);
             }
 
             if (v25)
@@ -7928,10 +7522,10 @@ LABEL_43:
   {
     KB::LanguageModelContext::operator=(v27 + 104, (a1 + 224));
     v28 = *(a1 + 720);
-    v29 = v35;
-    if (v35)
+    v29 = v33;
+    if (v33)
     {
-      atomic_fetch_add(v35, 1u);
+      atomic_fetch_add(v33, 1u);
       TI::CP::TIPathRecognizerInterface::set_key_layout(v28, v29);
       WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(v29);
     }
@@ -7941,8 +7535,7 @@ LABEL_43:
       TI::CP::TIPathRecognizerInterface::set_key_layout(v28, 0);
     }
 
-    v30 = *(a1 + 200);
-    TI::TIInputRecognizer::add_touch(*(a1 + 720), v13, v9, v10);
+    TI::TIInputRecognizer::add_touch(*(a1 + 720), v13, v9, v10, *(a1 + 200), 0.0);
   }
 
   if (v21)
@@ -7950,18 +7543,17 @@ LABEL_43:
     WTF::RefCounted<TI::Favonius::Key>::deref(v21);
   }
 
-  if (v35)
+  if (v33)
   {
-    WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(v35);
+    WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(v33);
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return a3;
 }
 
-void TI::Favonius::FavoniusStrokeBuildManager::initialize_it_recognizer(uint64_t a1, uint64_t *a2)
+void TI::Favonius::FavoniusStrokeBuildManager::initialize_it_recognizer(uint64_t a1, atomic_uint **a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (*(a1 + 330) == 1 && !*(a1 + 720))
   {
     v4 = *(a1 + 8);
@@ -7987,12 +7579,12 @@ void TI::Favonius::FavoniusStrokeBuildManager::initialize_it_recognizer(uint64_t
 
     KB::String::String(&buf, v6);
     v7 = *a2;
-    v11 = v5;
+    v10 = v5;
     if (v5)
     {
       atomic_fetch_add(v5, 1u);
-      v8 = v11;
-      v9 = TI::TIInputRecognizer::ml_based_tap_typing_enabled(&buf, v7 + 208, &v11, a1 + 736);
+      v8 = v10;
+      v9 = TI::TIInputRecognizer::ml_based_tap_typing_enabled(&buf, v7 + 208, &v10, a1 + 736);
       if (v8)
       {
         WTF::RefCounted<KB::DictionaryContainer>::deref(v8);
@@ -8001,7 +7593,7 @@ void TI::Favonius::FavoniusStrokeBuildManager::initialize_it_recognizer(uint64_t
 
     else
     {
-      v9 = TI::TIInputRecognizer::ml_based_tap_typing_enabled(&buf, v7 + 208, &v11, a1 + 736);
+      v9 = TI::TIInputRecognizer::ml_based_tap_typing_enabled(&buf, v7 + 208, &v10, a1 + 736);
     }
 
     if (*&buf_4[4] && buf_4[2] == 1)
@@ -8026,13 +7618,11 @@ void TI::Favonius::FavoniusStrokeBuildManager::initialize_it_recognizer(uint64_t
       WTF::RefCounted<KB::DictionaryContainer>::deref(v5);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t TI::Favonius::FavoniusStrokeBuildManager::initialize_ensemble_path_recognizer(uint64_t this)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (*(this + 328) == 1)
   {
     v1 = this;
@@ -8066,11 +7656,10 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::initialize_ensemble_path_reco
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-uint64_t TI::CP::TIPathRecognizerInterface::set_key_layout(void *a1, atomic_uint *a2)
+atomic_uint *TI::CP::TIPathRecognizerInterface::set_key_layout(void *a1, atomic_uint *a2)
 {
   result = a1[1];
   if (result != a2)
@@ -8204,10 +7793,10 @@ void std::__shared_ptr_emplace<TI::CP::TIPathRecognizerEnsemble>::~__shared_ptr_
 
 uint64_t TI::Favonius::FavoniusStrokeBuildManager::engineType(TI::Favonius::FavoniusStrokeBuildManager *this)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (!*(this + 90))
   {
-    goto LABEL_16;
+    return 1;
   }
 
   v2 = this + 448;
@@ -8216,48 +7805,47 @@ uint64_t TI::Favonius::FavoniusStrokeBuildManager::engineType(TI::Favonius::Favo
     v2 = *v2;
   }
 
-  KB::String::String(v11, v2);
-  KB::String::String(v9, (*(*(this + 90) + 8) + 208));
+  KB::String::String(v10, v2);
+  KB::String::String(v8, (*(*(this + 90) + 8) + 208));
   v3 = *(this + 1);
   if (v3 && (v4 = *(*(*v3 + 48))(v3)) != 0)
   {
     atomic_fetch_add(v4, 1u);
-    v8 = v4;
+    v7 = v4;
     atomic_fetch_add(v4, 1u);
-    v5 = TI::TIInputRecognizer::ml_based_tap_typing_enabled(v11, v9, &v8, this + 736);
+    v5 = TI::TIInputRecognizer::ml_based_tap_typing_enabled(v10, v8, &v7, this + 736);
     WTF::RefCounted<KB::DictionaryContainer>::deref(v4);
     WTF::RefCounted<KB::DictionaryContainer>::deref(v4);
   }
 
   else
   {
-    v8 = 0;
-    v5 = TI::TIInputRecognizer::ml_based_tap_typing_enabled(v11, v9, &v8, this + 736);
+    v7 = 0;
+    v5 = TI::TIInputRecognizer::ml_based_tap_typing_enabled(v10, v8, &v7, this + 736);
   }
 
-  if (v10 && v9[6] == 1)
+  if (v9 && v8[6] == 1)
   {
-    free(v10);
+    free(v9);
   }
 
-  if (v13 && v12 == 1)
+  if (v12)
   {
-    free(v13);
+    if (v11 == 1)
+    {
+      free(v12);
+    }
   }
 
   if (v5)
   {
-    result = 2;
+    return 2;
   }
 
   else
   {
-LABEL_16:
-    result = 1;
+    return 1;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void TI::Favonius::FavoniusStrokeBuildManager::~FavoniusStrokeBuildManager(TI::Favonius::FavoniusStrokeBuildManager *this)
@@ -8554,7 +8142,8 @@ void TI::Favonius::FavoniusStrokeBuildManager::FavoniusStrokeBuildManager(TI::Fa
 {
   *this = &unk_283FDB660;
   *(this + 8) = 0u;
-  std::allocate_shared[abi:nn200100]<KB::UnigramCandidateRefinery,std::allocator<KB::UnigramCandidateRefinery>,WTF::RefPtr<KB::DictionaryContainer> const&,0>();
+  v1 = 0;
+  std::allocate_shared[abi:nn200100]<KB::UnigramCandidateRefinery,std::allocator<KB::UnigramCandidateRefinery>,WTF::RefPtr<KB::DictionaryContainer> const&,0>(&v2, &v1);
 }
 
 uint64_t TI::Favonius::FavoniusStrokeBuildManager::background_task_queue(TI::Favonius::FavoniusStrokeBuildManager *this)
@@ -8736,7 +8325,7 @@ uint64_t TI::CP::TIPathRecognizerEnsemble::remove_text_usage(uint64_t this, cons
   return this;
 }
 
-uint64_t *TI::CP::TIPathRecognizerEnsemble::text_accepted_from_UI(TI::CP::TIPathRecognizerEnsemble *this, const KB::String *a2, const KB::String *a3, uint64_t a4, uint64_t a5)
+void TI::CP::TIPathRecognizerEnsemble::text_accepted_from_UI(TI::CP::TIPathRecognizerEnsemble *this, const KB::String *a2, const KB::String *a3, uint64_t a4, uint64_t a5)
 {
   for (i = *(this + 4); i; i = *i)
   {
@@ -8750,79 +8339,76 @@ uint64_t *TI::CP::TIPathRecognizerEnsemble::text_accepted_from_UI(TI::CP::TIPath
     v11 = *(a2 + 2);
   }
 
-  if (v11 > 2 || (v12 = *(this + 8)) != 0 && (*(*v12 + 72))(v12, a2, a3) > *(this + 14))
+  if (v11 > 2 || (v12 = *(this + 8)) != 0 && (*(*v12 + 72))(v12, a2, a3, a4, a5) > *(this + 14))
   {
     ++*(this + 150);
   }
 
-  return TI::CP::TIPathRecognizerEnsemble::load_ml_source_if_needed(this);
+  TI::CP::TIPathRecognizerEnsemble::load_ml_source_if_needed(this);
 }
 
-uint64_t *TI::CP::TIPathRecognizerEnsemble::load_ml_source_if_needed(TI::CP::TIPathRecognizerEnsemble *this)
+void TI::CP::TIPathRecognizerEnsemble::load_ml_source_if_needed(TI::CP::TIPathRecognizerEnsemble *this)
 {
-  result = std::__hash_table<std::__hash_value_type<int,std::unordered_map<KB::String,std::unordered_set<KB::String>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_map<KB::String,std::unordered_set<KB::String>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_map<KB::String,std::unordered_set<KB::String>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_map<KB::String,std::unordered_set<KB::String>>>>>::find<int>(this + 2, 1);
-  if (result)
+  if (std::__hash_table<std::__hash_value_type<int,std::unordered_map<KB::String,std::unordered_set<KB::String>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_map<KB::String,std::unordered_set<KB::String>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_map<KB::String,std::unordered_set<KB::String>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_map<KB::String,std::unordered_set<KB::String>>>>>::find<int>(this + 2, 1))
   {
-    return result;
+    return;
   }
 
   if ((*(this + 55) & 2) == 0)
   {
-    return result;
+    return;
   }
 
-  v3 = *(this + 55) & 5;
-  if (v3)
+  v2 = *(this + 55) & 5;
+  if (v2)
   {
     if (*(this + 150) < *(this + 53))
     {
-      return result;
+      return;
     }
   }
 
   if (*(this + 216) == 1)
   {
-    if (v3 && *(this + 5))
+    if (v2 && *(this + 5))
     {
       goto LABEL_14;
     }
 
-    v4 = *(this + 1);
-    if (!v4)
+    v3 = *(this + 1);
+    if (!v3)
     {
       goto LABEL_14;
     }
 
-    v5 = atomic_load(this + 632);
-    if (v5)
+    v4 = atomic_load(this + 632);
+    if (v4)
     {
       goto LABEL_14;
     }
 
-    v6 = this + 633;
-    v7 = atomic_load(this + 633);
-    if (v7)
+    v5 = this + 633;
+    v6 = atomic_load(this + 633);
+    if (v6)
     {
       goto LABEL_14;
     }
 
-    atomic_store(TI::TIInputRecognizer::is_language_and_layout_supported(this + 224, (v4 + 208)), this + 632);
+    atomic_store(TI::TIInputRecognizer::is_language_and_layout_supported(this + 224, (v3 + 208)), this + 632);
   }
 
   else
   {
-    v6 = this + 632;
+    v5 = this + 632;
   }
 
-  atomic_store(1u, v6);
+  atomic_store(1u, v5);
 LABEL_14:
-  v8 = atomic_load(this + 632);
-  if ((v8 & 1) != 0 || (keyExistsAndHasValidFormat[0] = 0, result = CFPreferencesGetAppBooleanValue(@"kbForceCPMLLan", @"com.apple.keyboard", keyExistsAndHasValidFormat), keyExistsAndHasValidFormat[0]) && result)
+  v7 = atomic_load(this + 632);
+  if ((v7 & 1) != 0 || (keyExistsAndHasValidFormat[0] = 0, AppBooleanValue = CFPreferencesGetAppBooleanValue(@"kbForceCPMLLan", @"com.apple.keyboard", keyExistsAndHasValidFormat), keyExistsAndHasValidFormat[0]) && AppBooleanValue)
   {
     operator new();
   }
-
-  return result;
 }
 
 void TI::CP::TIPathRecognizerEnsemble::add_recognizer(void *a1, void *a2)
@@ -8964,7 +8550,7 @@ void std::__shared_ptr_emplace<TI::TIInputRecognizer>::~__shared_ptr_emplace(std
   JUMPOUT(0x2318BE270);
 }
 
-void TI::CP::TIPathRecognizerEnsemble::generate_candidates(uint64_t a1, float32x2_t **a2, uint64_t a3)
+void TI::CP::TIPathRecognizerEnsemble::generate_candidates(uint64_t a1, KB::Candidate **a2, uint64_t a3)
 {
   if (!TI::CP::TIPathRecognizerInterface::should_generate_candidates(a1))
   {
@@ -8988,7 +8574,7 @@ void TI::CP::TIPathRecognizerEnsemble::generate_candidates(uint64_t a1, float32x
       v31 = 0u;
       v32 = 0u;
       v10 = (*(*v9[3] + 80))(v9[3], &v31, a3);
-      v11 = TI::ConfidenceModel::compute_confidence1(v10, &v31, 2u);
+      v11 = TI::ConfidenceModel::compute_confidence1(v10, &v31, 2);
       v12 = *(a1 + 204);
       if (!__p[1])
       {
@@ -9026,11 +8612,11 @@ LABEL_36:
           if (*(v23 + 4) == v12)
           {
             KB::CandidateCollection::operator=((v23 + 3), &v31);
-            v41[0] = &v35 + 1;
+            v41[0] = &v35 + 2;
             std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v41);
             v41[0] = &v34;
             std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v41);
-            v41[0] = &v32 + 1;
+            v41[0] = &v32 + 2;
             std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v41);
             v41[0] = &v31;
             std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v41);
@@ -9088,17 +8674,17 @@ LABEL_37:
         (*(*i[3] + 80))(i[3], &v31, a3);
         v30 = (*(*i[3] + 16))(i[3]);
         v41[0] = &v30;
-        v26 = std::__hash_table<std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>,std::__unordered_map_hasher<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>,std::hash<int>,std::equal_to<TI::CP::TIPathRecognizerType>,true>,std::__unordered_map_equal<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>,std::equal_to<TI::CP::TIPathRecognizerType>,std::hash<int>,true>,std::allocator<std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>>>::__emplace_unique_key_args<TI::CP::TIPathRecognizerType,std::piecewise_construct_t const&,std::tuple<TI::CP::TIPathRecognizerType&&>,std::tuple<>>(__p, v30);
+        v26 = std::__hash_table<std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>,std::__unordered_map_hasher<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>,std::hash<int>,std::equal_to<TI::CP::TIPathRecognizerType>,true>,std::__unordered_map_equal<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>,std::equal_to<TI::CP::TIPathRecognizerType>,std::hash<int>,true>,std::allocator<std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>>>::__emplace_unique_key_args<TI::CP::TIPathRecognizerType,std::piecewise_construct_t const&,std::tuple<TI::CP::TIPathRecognizerType&&>,std::tuple<>>(__p, v30, v41);
         KB::CandidateCollection::operator=((v26 + 3), &v31);
       }
     }
 
     TI::CP::TIPathRecognizerEnsemble::combine_candidates_from_sources(a1, __p, a2, *(a1 + 120), 0);
-    v41[0] = &v35 + 1;
+    v41[0] = &v35 + 2;
     std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v41);
     v41[0] = &v34;
     std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v41);
-    v41[0] = &v32 + 1;
+    v41[0] = &v32 + 2;
     std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v41);
     v41[0] = &v31;
     std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v41);
@@ -9109,7 +8695,7 @@ LABEL_37:
   {
     v7 = *(a1 + 208);
     *&v31 = a1 + 208;
-    v8 = std::__hash_table<std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>,std::__unordered_map_hasher<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>,std::hash<int>,std::equal_to<TI::CP::TIPathRecognizerType>,true>,std::__unordered_map_equal<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>,std::equal_to<TI::CP::TIPathRecognizerType>,std::hash<int>,true>,std::allocator<std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>>>::__emplace_unique_key_args<TI::CP::TIPathRecognizerType,std::piecewise_construct_t const&,std::tuple<TI::CP::TIPathRecognizerType const&>,std::tuple<>>((a1 + 16), v7);
+    v8 = std::__hash_table<std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>,std::__unordered_map_hasher<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>,std::hash<int>,std::equal_to<TI::CP::TIPathRecognizerType>,true>,std::__unordered_map_equal<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>,std::equal_to<TI::CP::TIPathRecognizerType>,std::hash<int>,true>,std::allocator<std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>>>::__emplace_unique_key_args<TI::CP::TIPathRecognizerType,std::piecewise_construct_t const&,std::tuple<TI::CP::TIPathRecognizerType const&>,std::tuple<>>((a1 + 16), v7, &v31);
     (*(*v8[3] + 80))(v8[3], a2, a3);
     KB::CandidateCollection::normalize_scores(a2);
     goto LABEL_47;
@@ -9150,16 +8736,16 @@ LABEL_37:
     {
       v30 = (*(*v15[3] + 16))(v15[3]);
       v41[0] = &v30;
-      v18 = std::__hash_table<std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>,std::__unordered_map_hasher<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>,std::hash<int>,std::equal_to<TI::CP::TIPathRecognizerType>,true>,std::__unordered_map_equal<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>,std::equal_to<TI::CP::TIPathRecognizerType>,std::hash<int>,true>,std::allocator<std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>>>::__emplace_unique_key_args<TI::CP::TIPathRecognizerType,std::piecewise_construct_t const&,std::tuple<TI::CP::TIPathRecognizerType&&>,std::tuple<>>(__p, v30);
+      v18 = std::__hash_table<std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>,std::__unordered_map_hasher<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>,std::hash<int>,std::equal_to<TI::CP::TIPathRecognizerType>,true>,std::__unordered_map_equal<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>,std::equal_to<TI::CP::TIPathRecognizerType>,std::hash<int>,true>,std::allocator<std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>>>::__emplace_unique_key_args<TI::CP::TIPathRecognizerType,std::piecewise_construct_t const&,std::tuple<TI::CP::TIPathRecognizerType&&>,std::tuple<>>(__p, v30, v41);
       KB::CandidateCollection::operator=((v18 + 3), &v31);
     }
 
 LABEL_18:
-    v41[0] = &v35 + 1;
+    v41[0] = &v35 + 2;
     std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v41);
     v41[0] = &v34;
     std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v41);
-    v41[0] = &v32 + 1;
+    v41[0] = &v32 + 2;
     std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v41);
     v41[0] = &v31;
     std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v41);
@@ -9211,25 +8797,25 @@ LABEL_47:
   }
 }
 
-void TI::CP::TIPathRecognizerEnsemble::combine_candidates_from_sources(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5)
+void TI::CP::TIPathRecognizerEnsemble::combine_candidates_from_sources(uint64_t a1, uint64_t a2, KB::Candidate **a3, int a4, int a5)
 {
-  v169 = *MEMORY[0x277D85DE8];
+  v174 = *MEMORY[0x277D85DE8];
   if (a4)
   {
     if ((a4 & 2) == 0)
     {
       if ((a4 & 8) == 0)
       {
-        v158 = 0uLL;
-        v159 = 0uLL;
-        v160 = 1065353216;
-        *v155 = 0uLL;
-        *v156 = 0uLL;
-        v157 = 1065353216;
+        v163 = 0uLL;
+        v164 = 0uLL;
+        v165 = 1065353216;
+        *v160 = 0uLL;
+        *v161 = 0uLL;
+        v162 = 1065353216;
         v7 = *(a2 + 16);
         if (v7)
         {
-          v147 = 0;
+          v152 = 0;
           v8 = a1 + 152;
           do
           {
@@ -9263,11 +8849,11 @@ void TI::CP::TIPathRecognizerEnsemble::combine_candidates_from_sources(uint64_t 
             }
 
             KB::CandidateCollection::normalize_scores(&v7[3]);
-            LODWORD(v166) = 0x7FFFFFFF;
-            if (KB::CandidateCollection::contains_secondary_language_candidates(&v7[3], &v166, 6u))
+            LODWORD(v171) = 0x7FFFFFFF;
+            if (KB::CandidateCollection::contains_secondary_language_candidates(&v7[3], &v171, 6))
             {
               TI::ConfidenceModel::update_confidence_for_candidates((a1 + 604), &v7[3]);
-              v147 |= v166 < 4;
+              v152 |= v171 < 4;
             }
 
             v7 = *v7;
@@ -9277,8 +8863,8 @@ void TI::CP::TIPathRecognizerEnsemble::combine_candidates_from_sources(uint64_t 
           v17 = *(a2 + 16);
           if (v17)
           {
-            v146 = *(a2 + 24);
-            v149 = 1;
+            v151 = *(a2 + 24);
+            v154 = 1;
             do
             {
               v18 = *(v17 + 4);
@@ -9289,20 +8875,20 @@ void TI::CP::TIPathRecognizerEnsemble::combine_candidates_from_sources(uint64_t 
                 v21 = *(a1 + 176 + 8 * v18);
                 if (*(*(*v20 + 48))(v20))
                 {
-                  if (*(*(*(**(a1 + 480) + 48))(*(a1 + 480)) + 65) & v147)
+                  if (*(*(*(**(a1 + 480) + 48))(*(a1 + 480)) + 65) & v152)
                   {
                     v19 = v21;
                   }
                 }
               }
 
-              v166 = 0u;
-              v167 = 0u;
-              v168 = 1065353216;
+              v171 = 0u;
+              v172 = 0u;
+              v173 = 1065353216;
               v22 = v17[3];
               if (v17[4] != v22)
               {
-                if (v146 == 1)
+                if (v151 == 1)
                 {
                   v23 = 1.0;
                 }
@@ -9319,8 +8905,8 @@ void TI::CP::TIPathRecognizerEnsemble::combine_candidates_from_sources(uint64_t 
                 while (1)
                 {
                   v28 = &v22[125 * v26];
-                  TI::CP::TIPathRecognizerEnsemble::dictionary_key_for_candidate(v28, &v163);
-                  if (!std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::find<KB::String>(v166, *(&v166 + 1), &v163))
+                  TI::CP::TIPathRecognizerEnsemble::dictionary_key_for_candidate(&v168, v28);
+                  if (!std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::find<KB::String>(v171, *(&v171 + 1), &v168))
                   {
                     goto LABEL_34;
                   }
@@ -9332,7 +8918,7 @@ void TI::CP::TIPathRecognizerEnsemble::combine_candidates_from_sources(uint64_t 
                   }
 
                   v30 = 240 * v29;
-                  v31 = *(v28 + 8);
+                  v31 = *(v28 + 1);
                   do
                   {
                     if (*(v31 + 106))
@@ -9346,19 +8932,19 @@ void TI::CP::TIPathRecognizerEnsemble::combine_candidates_from_sources(uint64_t 
 
                   while (v30);
 LABEL_110:
-                  if (v164)
+                  if (v169)
                   {
-                    v71 = BYTE6(v163) == 1;
+                    v73 = BYTE6(v168) == 1;
                   }
 
                   else
                   {
-                    v71 = 0;
+                    v73 = 0;
                   }
 
-                  if (v71)
+                  if (v73)
                   {
-                    free(v164);
+                    free(v169);
                   }
 
                   v22 = v17[3];
@@ -9369,24 +8955,24 @@ LABEL_110:
                   }
                 }
 
-                v31 = *(v28 + 8);
+                v31 = *(v28 + 1);
 LABEL_33:
-                if (v31 == *(v28 + 8) + 240 * v29)
+                if (v31 == *(v28 + 1) + 240 * v29)
                 {
                   goto LABEL_110;
                 }
 
 LABEL_34:
-                if ((v149 & 1) == 0)
+                if ((v154 & 1) == 0)
                 {
-                  v32 = std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::find<KB::String>(v158, *(&v158 + 1), &v163);
+                  v32 = std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::find<KB::String>(v163, *(&v163 + 1), &v168);
                   if (v32)
                   {
                     v33 = v32[198];
                     v34 = v32[199];
-                    if (*(v28 + 984))
+                    if (*(v28 + 123))
                     {
-                      Count = CFDictionaryGetCount(*(v28 + 984));
+                      Count = CFDictionaryGetCount(*(v28 + 123));
                       if (Count >= 1)
                       {
                         if (!(Count >> 61))
@@ -9398,7 +8984,7 @@ LABEL_34:
                       }
                     }
 
-                    v36 = v25 + *(v28 + 744);
+                    v36 = v25 + v28[186];
                     if (v33 != -INFINITY)
                     {
                       if (v36 == -INFINITY)
@@ -9410,88 +8996,88 @@ LABEL_34:
                       {
                         if (v33 >= v36)
                         {
-                          v49 = v33;
+                          v51 = v33;
                         }
 
                         else
                         {
-                          v49 = v25 + *(v28 + 744);
+                          v51 = v25 + v28[186];
                         }
 
                         if (v33 >= v36)
                         {
-                          v50 = v25 + *(v28 + 744);
+                          v52 = v25 + v28[186];
                         }
 
                         else
                         {
-                          v50 = v33;
+                          v52 = v33;
                         }
 
-                        v51 = expf(v50 - v49);
-                        v36 = v49 + log1pf(v51);
+                        v53 = expf(v52 - v51);
+                        v36 = v51 + log1pf(v53);
                       }
                     }
 
-                    v47 = (v28 + 744);
-                    v48 = v25 + *(v28 + 748);
+                    v49 = v28 + 186;
+                    v50 = v25 + v28[187];
                     if (v34 != -INFINITY)
                     {
-                      if (v48 == -INFINITY)
+                      if (v50 == -INFINITY)
                       {
-                        v48 = v34;
+                        v50 = v34;
                       }
 
                       else
                       {
-                        if (v34 >= v48)
+                        if (v34 >= v50)
                         {
-                          v52 = v34;
+                          v54 = v34;
                         }
 
                         else
                         {
-                          v52 = v25 + *(v28 + 748);
+                          v54 = v25 + v28[187];
                         }
 
-                        if (v34 >= v48)
+                        if (v34 >= v50)
                         {
-                          v53 = v25 + *(v28 + 748);
+                          v55 = v25 + v28[187];
                         }
 
                         else
                         {
-                          v53 = v34;
+                          v55 = v34;
                         }
 
-                        v54 = expf(v53 - v52);
-                        v48 = v52 + log1pf(v54);
+                        v56 = expf(v55 - v54);
+                        v50 = v54 + log1pf(v56);
                       }
                     }
 
 LABEL_82:
-                    valuePtr = COERCE_DOUBLE(&v163);
-                    v55 = std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String const&>,std::tuple<>>(&v158, &v163);
-                    *(v55 + 198) = v36;
-                    v56 = v55[100];
-                    v57 = *(v55 + 202);
-                    v153 = *(v55 + 812);
-                    v154 = *(v55 + 205);
+                    valuePtr = COERCE_DOUBLE(&v168);
+                    v57 = std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String const&>,std::tuple<>>(&v163, &v168, &valuePtr);
+                    *(v57 + 198) = v36;
+                    v58 = v57[100];
+                    v59 = *(v57 + 202);
+                    v158 = *(v57 + 812);
+                    v159 = *(v57 + 205);
                     if (v23 == 1.0)
                     {
-                      v57 = *(v28 + 760);
+                      v59 = *(v28 + 190);
                     }
 
-                    v58 = *v28;
+                    v60 = *v28;
                     if (*v28)
                     {
-                      v59 = 240 * v58;
-                      v60 = *(v28 + 8);
-                      while ((*(v60 + 106) & 1) == 0)
+                      v61 = 240 * v60;
+                      v62 = *(v28 + 1);
+                      while ((*(v62 + 106) & 1) == 0)
                       {
-                        v60 += 240;
-                        v59 -= 240;
-                        if (!v59)
+                        v62 += 240;
+                        v61 -= 240;
+                        if (!v61)
                         {
                           goto LABEL_92;
                         }
@@ -9500,56 +9086,56 @@ LABEL_82:
 
                     else
                     {
-                      v60 = *(v28 + 8);
+                      v62 = *(v28 + 1);
                     }
 
-                    if (v60 != *(v28 + 8) + 240 * v58)
+                    if (v62 != *(v28 + 1) + 240 * v60)
                     {
-                      *(v55[7] + 104) |= 0x10000u;
+                      *(v57[7] + 104) |= 0x10000u;
                     }
 
 LABEL_92:
-                    *(v55 + 199) = v48;
-                    v55[100] = v56;
-                    *(v55 + 202) = v57;
-                    *(v55 + 812) = v153;
-                    *(v55 + 205) = v154;
-                    valuePtr = COERCE_DOUBLE(&v163);
-                    v61 = std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String const&>,std::tuple<>>(&v166, &v163);
-                    KB::Candidate::operator=((v61 + 6), v28);
+                    *(v57 + 199) = v50;
+                    v57[100] = v58;
+                    *(v57 + 202) = v59;
+                    *(v57 + 812) = v158;
+                    *(v57 + 205) = v159;
+                    valuePtr = COERCE_DOUBLE(&v168);
+                    v63 = std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String const&>,std::tuple<>>(&v171, &v168, &valuePtr);
+                    KB::Candidate::operator=(v63 + 6, v28);
                     if (a5 < 1)
                     {
                       goto LABEL_110;
                     }
 
-                    v62 = expf(*v47);
-                    valuePtr = COERCE_DOUBLE(&v163);
-                    v63 = std::__hash_table<std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String const&>,std::tuple<>>(v155, &v163);
-                    v64 = *(v17 + 4);
-                    v65 = v63[7];
-                    if (!*&v65)
+                    v64 = expf(*v49);
+                    valuePtr = COERCE_DOUBLE(&v168);
+                    v65 = std::__hash_table<std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String const&>,std::tuple<>>(v160, &v168, &valuePtr);
+                    v66 = *(v17 + 4);
+                    v67 = v65[7];
+                    if (!*&v67)
                     {
                       goto LABEL_109;
                     }
 
-                    v66 = vcnt_s8(v65);
-                    v66.i16[0] = vaddlv_u8(v66);
-                    if (v66.u32[0] > 1uLL)
+                    v68 = vcnt_s8(v67);
+                    v68.i16[0] = vaddlv_u8(v68);
+                    if (v68.u32[0] > 1uLL)
                     {
-                      v67 = *(v17 + 4);
-                      if (*&v65 <= v64)
+                      v69 = *(v17 + 4);
+                      if (*&v67 <= v66)
                       {
-                        v67 = v64 % *&v65;
+                        v69 = v66 % *&v67;
                       }
                     }
 
                     else
                     {
-                      v67 = (*&v65 - 1) & v64;
+                      v69 = (*&v67 - 1) & v66;
                     }
 
-                    v68 = *(v63[6] + 8 * v67);
-                    if (!v68 || (v69 = *v68) == 0)
+                    v70 = *(v65[6] + 8 * v69);
+                    if (!v70 || (v71 = *v70) == 0)
                     {
 LABEL_109:
                       operator new();
@@ -9557,40 +9143,40 @@ LABEL_109:
 
                     while (1)
                     {
-                      v70 = v69[1];
-                      if (v70 == v64)
+                      v72 = v71[1];
+                      if (v72 == v66)
                       {
-                        if (*(v69 + 4) == v64)
+                        if (*(v71 + 4) == v66)
                         {
-                          *(v69 + 5) = v27;
-                          *(v69 + 6) = v62;
+                          *(v71 + 5) = v27;
+                          *(v71 + 6) = v64;
                           goto LABEL_110;
                         }
                       }
 
                       else
                       {
-                        if (v66.u32[0] > 1uLL)
+                        if (v68.u32[0] > 1uLL)
                         {
-                          if (v70 >= *&v65)
+                          if (v72 >= *&v67)
                           {
-                            v70 %= *&v65;
+                            v72 %= *&v67;
                           }
                         }
 
                         else
                         {
-                          v70 &= *&v65 - 1;
+                          v72 &= *&v67 - 1;
                         }
 
-                        if (v70 != v67)
+                        if (v72 != v69)
                         {
                           goto LABEL_109;
                         }
                       }
 
-                      v69 = *v69;
-                      if (!v69)
+                      v71 = *v71;
+                      if (!v71)
                       {
                         goto LABEL_109;
                       }
@@ -9598,43 +9184,43 @@ LABEL_109:
                   }
                 }
 
-                if (v164)
+                if (v169)
                 {
-                  v37 = v164;
+                  v37 = v169;
                 }
 
                 else
                 {
-                  v37 = v165;
+                  v37 = v170;
                 }
 
-                v38 = KB::String::hash(v37, v163);
-                v39 = v38;
-                v40 = *(&v158 + 1);
-                if (!*(&v158 + 1))
+                v38 = KB::String::hash(v37, v168);
+                v41 = v38;
+                v42 = *(&v163 + 1);
+                if (!*(&v163 + 1))
                 {
                   goto LABEL_63;
                 }
 
-                v41 = vcnt_s8(*(&v158 + 8));
-                v41.i16[0] = vaddlv_u8(v41);
-                v42 = v41.u32[0];
-                if (v41.u32[0] > 1uLL)
+                v43 = vcnt_s8(*(&v163 + 8));
+                v43.i16[0] = vaddlv_u8(v43);
+                v44 = v43.u32[0];
+                if (v43.u32[0] > 1uLL)
                 {
-                  v43 = v38;
-                  if (*(&v158 + 1) <= v38)
+                  v45 = v38;
+                  if (*(&v163 + 1) <= v38)
                   {
-                    v43 = v38 % DWORD2(v158);
+                    v45 = v38 % DWORD2(v163);
                   }
                 }
 
                 else
                 {
-                  v43 = (DWORD2(v158) - 1) & v38;
+                  v45 = (DWORD2(v163) - 1) & v38;
                 }
 
-                v44 = *(v158 + 8 * v43);
-                if (!v44 || (v45 = *v44) == 0)
+                v46 = *(v163 + 8 * v45);
+                if (!v46 || (v47 = *v46) == 0)
                 {
 LABEL_63:
                   operator new();
@@ -9642,41 +9228,41 @@ LABEL_63:
 
                 while (1)
                 {
-                  v46 = v45[1];
-                  if (v46 == v39)
+                  v48 = v47[1];
+                  if (v48 == v41)
                   {
-                    if (v45 + 2 == &v163 || KB::String::equal((v45 + 2), &v163, 1))
+                    if (v47 + 2 == &v168 || KB::String::equal((v47 + 2), &v168, 1, v39, v40))
                     {
-                      v47 = (v28 + 744);
-                      v36 = v25 + *(v28 + 744);
-                      v48 = v25 + *(v28 + 748);
+                      v49 = v28 + 186;
+                      v36 = v25 + v28[186];
+                      v50 = v25 + v28[187];
                       goto LABEL_82;
                     }
                   }
 
                   else
                   {
-                    if (v42 > 1)
+                    if (v44 > 1)
                     {
-                      if (v46 >= v40)
+                      if (v48 >= v42)
                       {
-                        v46 %= v40;
+                        v48 %= v42;
                       }
                     }
 
                     else
                     {
-                      v46 &= v40 - 1;
+                      v48 &= v42 - 1;
                     }
 
-                    if (v46 != v43)
+                    if (v48 != v45)
                     {
                       goto LABEL_63;
                     }
                   }
 
-                  v45 = *v45;
-                  if (!v45)
+                  v47 = *v47;
+                  if (!v47)
                   {
                     goto LABEL_63;
                   }
@@ -9684,54 +9270,54 @@ LABEL_63:
               }
 
 LABEL_117:
-              std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::~__hash_table(&v166);
-              v149 = 0;
+              std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::~__hash_table(&v171);
+              v154 = 0;
               v17 = *v17;
             }
 
             while (v17);
-            v72 = v159;
-            if (v159)
+            v74 = v164;
+            if (v164)
             {
-              v73 = *MEMORY[0x277CBECE8];
-              v74 = MEMORY[0x277CBF150];
+              v75 = *MEMORY[0x277CBECE8];
+              v76 = MEMORY[0x277CBF150];
               while (1)
               {
-                TI::CP::TIPathRecognizerEnsemble::dictionary_key_for_candidate((v72 + 12), &v163);
-                v75 = v72[199];
-                v76 = fabsf(v75) == INFINITY ? v72[200] : (v72[198] - v75) / v72[202];
-                v72[200] = v76;
-                v72[201] = 0.0;
+                TI::CP::TIPathRecognizerEnsemble::dictionary_key_for_candidate(&v168, (v74 + 12));
+                v77 = v74[199];
+                v78 = fabsf(v77) == INFINITY ? v74[200] : (v74[198] - v77) / v74[202];
+                v74[200] = v78;
+                v74[201] = 0.0;
                 if (a5 >= 1)
                 {
-                  v77 = (v164 ? v164 : v165);
-                  v78 = KB::String::hash(v77, v163);
-                  v79 = v155[1];
-                  if (v155[1])
+                  v79 = (v169 ? v169 : v170);
+                  v80 = KB::String::hash(v79, v168);
+                  v83 = v160[1];
+                  if (v160[1])
                   {
-                    v80 = v78;
-                    v81 = vcnt_s8(v155[1]);
-                    v81.i16[0] = vaddlv_u8(v81);
-                    v82 = v81.u32[0];
-                    if (v81.u32[0] > 1uLL)
+                    v84 = v80;
+                    v85 = vcnt_s8(v160[1]);
+                    v85.i16[0] = vaddlv_u8(v85);
+                    v86 = v85.u32[0];
+                    if (v85.u32[0] > 1uLL)
                     {
-                      v83 = v78;
-                      if (v155[1] <= v78)
+                      v87 = v80;
+                      if (v160[1] <= v80)
                       {
-                        v83 = v78 % LODWORD(v155[1]);
+                        v87 = v80 % LODWORD(v160[1]);
                       }
                     }
 
                     else
                     {
-                      v83 = (LODWORD(v155[1]) - 1) & v78;
+                      v87 = (LODWORD(v160[1]) - 1) & v80;
                     }
 
-                    v84 = *(v155[0] + v83);
-                    if (v84)
+                    v88 = *(v160[0] + v87);
+                    if (v88)
                     {
-                      v85 = *v84;
-                      if (*v84)
+                      v89 = *v88;
+                      if (*v88)
                       {
                         break;
                       }
@@ -9740,65 +9326,65 @@ LABEL_117:
                 }
 
 LABEL_188:
-                std::vector<KB::Candidate>::push_back[abi:nn200100](a3, (v72 + 12));
-                if (v164 && BYTE6(v163) == 1)
+                std::vector<KB::Candidate>::push_back[abi:nn200100](a3, (v74 + 12));
+                if (v169 && BYTE6(v168) == 1)
                 {
-                  free(v164);
+                  free(v169);
                 }
 
-                v72 = *v72;
-                if (!v72)
+                v74 = *v74;
+                if (!v74)
                 {
                   goto LABEL_192;
                 }
               }
 
-              v86 = v155[1] - 1;
+              v90 = v160[1] - 1;
               while (1)
               {
-                v87 = v85[1];
-                if (v87 == v80)
+                v91 = v89[1];
+                if (v91 == v84)
                 {
-                  if (v85 + 2 == &v163 || KB::String::equal((v85 + 2), &v163, 1))
+                  if (v89 + 2 == &v168 || KB::String::equal((v89 + 2), &v168, 1, v81, v82))
                   {
-                    valuePtr = COERCE_DOUBLE(&v163);
-                    v88 = std::__hash_table<std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String const&>,std::tuple<>>(v155, &v163);
-                    v166 = 0u;
-                    v167 = 0u;
-                    v168 = *(v88 + 20);
-                    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(&v166, v88[7]);
-                    v89 = v88[8];
-                    if (!v89)
+                    valuePtr = COERCE_DOUBLE(&v168);
+                    v92 = std::__hash_table<std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String const&>,std::tuple<>>(v160, &v168, &valuePtr);
+                    v171 = 0u;
+                    v172 = 0u;
+                    v173 = *(v92 + 20);
+                    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(&v171, v92[7]);
+                    v93 = v92[8];
+                    if (!v93)
                     {
                       goto LABEL_165;
                     }
 
                     while (1)
                     {
-                      v90 = *(v89 + 4);
-                      if (!*(&v166 + 1))
+                      v94 = *(v93 + 4);
+                      if (!*(&v171 + 1))
                       {
                         goto LABEL_163;
                       }
 
-                      v91 = vcnt_s8(*(&v166 + 8));
-                      v91.i16[0] = vaddlv_u8(v91);
-                      if (v91.u32[0] > 1uLL)
+                      v95 = vcnt_s8(*(&v171 + 8));
+                      v95.i16[0] = vaddlv_u8(v95);
+                      if (v95.u32[0] > 1uLL)
                       {
-                        v92 = *(v89 + 4);
-                        if (*(&v166 + 1) <= v90)
+                        v96 = *(v93 + 4);
+                        if (*(&v171 + 1) <= v94)
                         {
-                          v92 = v90 % *(&v166 + 1);
+                          v96 = v94 % *(&v171 + 1);
                         }
                       }
 
                       else
                       {
-                        v92 = (*(&v166 + 1) - 1) & v90;
+                        v96 = (*(&v171 + 1) - 1) & v94;
                       }
 
-                      v93 = *(v166 + 8 * v92);
-                      if (!v93 || (v94 = *v93) == 0)
+                      v97 = *(v171 + 8 * v96);
+                      if (!v97 || (v98 = *v97) == 0)
                       {
 LABEL_163:
                         operator new();
@@ -9806,119 +9392,119 @@ LABEL_163:
 
                       while (1)
                       {
-                        v95 = v94[1];
-                        if (v95 == v90)
+                        v99 = v98[1];
+                        if (v99 == v94)
                         {
                           break;
                         }
 
-                        if (v91.u32[0] > 1uLL)
+                        if (v95.u32[0] > 1uLL)
                         {
-                          if (v95 >= *(&v166 + 1))
+                          if (v99 >= *(&v171 + 1))
                           {
-                            v95 %= *(&v166 + 1);
+                            v99 %= *(&v171 + 1);
                           }
                         }
 
                         else
                         {
-                          v95 &= *(&v166 + 1) - 1;
+                          v99 &= *(&v171 + 1) - 1;
                         }
 
-                        if (v95 != v92)
+                        if (v99 != v96)
                         {
                           goto LABEL_163;
                         }
 
 LABEL_162:
-                        v94 = *v94;
-                        if (!v94)
+                        v98 = *v98;
+                        if (!v98)
                         {
                           goto LABEL_163;
                         }
                       }
 
-                      if (*(v94 + 4) != v90)
+                      if (*(v98 + 4) != v94)
                       {
                         goto LABEL_162;
                       }
 
-                      v89 = *v89;
-                      if (!v89)
+                      v93 = *v93;
+                      if (!v93)
                       {
 LABEL_165:
-                        Mutable = CFDictionaryCreateMutable(v73, 0, MEMORY[0x277CBF138], v74);
-                        for (i = v167; i; i = *i)
+                        Mutable = CFDictionaryCreateMutable(v75, 0, MEMORY[0x277CBF138], v76);
+                        for (i = v172; i; i = *i)
                         {
-                          v98 = CFDictionaryCreateMutable(v73, 0, MEMORY[0x277CBF138], v74);
-                          LODWORD(v99) = *(i + 5);
-                          valuePtr = v99;
-                          v100 = CFNumberCreate(v73, kCFNumberDoubleType, &valuePtr);
-                          CFDictionarySetValue(v98, @"cand_index", v100);
-                          if (v100)
+                          v102 = CFDictionaryCreateMutable(v75, 0, MEMORY[0x277CBF138], v76);
+                          LODWORD(v103) = *(i + 5);
+                          valuePtr = v103;
+                          v104 = CFNumberCreate(v75, kCFNumberDoubleType, &valuePtr);
+                          CFDictionarySetValue(v102, @"cand_index", v104);
+                          if (v104)
                           {
-                            CFRelease(v100);
+                            CFRelease(v104);
                           }
 
                           valuePtr = *(i + 6);
-                          v101 = CFNumberCreate(v73, kCFNumberDoubleType, &valuePtr);
-                          CFDictionarySetValue(v98, @"cand_omega", v101);
-                          if (v101)
+                          v105 = CFNumberCreate(v75, kCFNumberDoubleType, &valuePtr);
+                          CFDictionarySetValue(v102, @"cand_omega", v105);
+                          if (v105)
                           {
-                            CFRelease(v101);
+                            CFRelease(v105);
                           }
 
                           std::string::basic_string[abi:nn200100]<0>(__p, off_278731CE0[*(i + 4)]);
-                          if (v152 >= 0)
+                          if (v157 >= 0)
                           {
-                            v102 = __p;
+                            v106 = __p;
                           }
 
                           else
                           {
-                            v102 = __p[0];
+                            v106 = __p[0];
                           }
 
-                          KB::String::String(&valuePtr, v102);
-                          if (v152 < 0)
+                          KB::String::String(&valuePtr, v106);
+                          if (v157 < 0)
                           {
                             operator delete(__p[0]);
                           }
 
                           KB::cf_string_impl<KB::String>(__p, &valuePtr);
-                          v103 = __p[0];
-                          CFDictionarySetValue(Mutable, __p[0], v98);
-                          if (v103)
+                          v107 = __p[0];
+                          CFDictionarySetValue(Mutable, __p[0], v102);
+                          if (v107)
                           {
-                            CFRelease(v103);
+                            CFRelease(v107);
                           }
 
-                          if (v162 && BYTE6(valuePtr) == 1)
+                          if (v167 && BYTE6(valuePtr) == 1)
                           {
-                            free(v162);
+                            free(v167);
                           }
 
-                          if (v98)
+                          if (v102)
                           {
-                            CFRelease(v98);
+                            CFRelease(v102);
                           }
                         }
 
-                        valuePtr = expf(v72[198]);
-                        v104 = CFNumberCreate(v73, kCFNumberDoubleType, &valuePtr);
-                        CFDictionarySetValue(Mutable, @"ensemble_omega", v104);
-                        if (v104)
+                        valuePtr = expf(v74[198]);
+                        v108 = CFNumberCreate(v75, kCFNumberDoubleType, &valuePtr);
+                        CFDictionarySetValue(Mutable, @"ensemble_omega", v108);
+                        if (v108)
                         {
-                          CFRelease(v104);
+                          CFRelease(v108);
                         }
 
-                        KB::Candidate::add_sources_info((v72 + 12), @"ensemble", Mutable);
+                        KB::Candidate::add_sources_info((v74 + 12), @"ensemble", Mutable);
                         if (Mutable)
                         {
                           CFRelease(Mutable);
                         }
 
-                        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v166);
+                        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v171);
                         goto LABEL_188;
                       }
                     }
@@ -9927,27 +9513,27 @@ LABEL_165:
 
                 else
                 {
-                  if (v82 > 1)
+                  if (v86 > 1)
                   {
-                    if (v87 >= v79)
+                    if (v91 >= v83)
                     {
-                      v87 %= v79;
+                      v91 %= v83;
                     }
                   }
 
                   else
                   {
-                    v87 &= v86;
+                    v91 &= v90;
                   }
 
-                  if (v87 != v83)
+                  if (v91 != v87)
                   {
                     goto LABEL_188;
                   }
                 }
 
-                v85 = *v85;
-                if (!v85)
+                v89 = *v89;
+                if (!v89)
                 {
                   goto LABEL_188;
                 }
@@ -9957,182 +9543,182 @@ LABEL_165:
         }
 
 LABEL_192:
-        v105 = v156[0];
-        if (v156[0])
+        v109 = v161[0];
+        if (v161[0])
         {
           do
           {
-            v106 = v105;
-            v105 = *v105;
-            std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table((v106 + 6));
-            v107 = v106[3];
-            if (v107 && *(v106 + 22) == 1)
+            v110 = v109;
+            v109 = *v109;
+            std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table((v110 + 6));
+            v111 = v110[3];
+            if (v111 && *(v110 + 22) == 1)
             {
-              free(v107);
+              free(v111);
             }
 
-            operator delete(v106);
+            operator delete(v110);
           }
 
-          while (v105);
+          while (v109);
         }
 
         goto LABEL_260;
       }
 
-      v158 = 0uLL;
-      v159 = 0uLL;
-      v160 = 1065353216;
-      *v155 = 0uLL;
-      *v156 = 0uLL;
-      v157 = 1065353216;
-      v118 = *(a2 + 16);
-      if (!v118)
+      v163 = 0uLL;
+      v164 = 0uLL;
+      v165 = 1065353216;
+      *v160 = 0uLL;
+      *v161 = 0uLL;
+      v162 = 1065353216;
+      v122 = *(a2 + 16);
+      if (!v122)
       {
         goto LABEL_255;
       }
 
       do
       {
-        v119 = v118[3];
-        if (v118[4] != v119)
+        v123 = v122[3];
+        if (v122[4] != v123)
         {
-          v120 = 0;
-          v121 = 1;
+          v124 = 0;
+          v125 = 1;
           do
           {
-            v122 = (v119 + 1000 * v120);
-            KB::Candidate::capitalized_string(v122, &v166);
-            v123 = std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::find<KB::String>(v158, *(&v158 + 1), &v166);
-            if (*(&v166 + 1))
+            v126 = (v123 + 1000 * v124);
+            KB::Candidate::capitalized_string(&v171, v126);
+            v127 = std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::find<KB::String>(v163, *(&v163 + 1), &v171);
+            if (*(&v171 + 1))
             {
-              v124 = BYTE6(v166) == 1;
+              v128 = BYTE6(v171) == 1;
             }
 
             else
             {
-              v124 = 0;
+              v128 = 0;
             }
 
-            if (v124)
+            if (v128)
             {
-              free(*(&v166 + 1));
+              free(*(&v171 + 1));
             }
 
-            if (v123)
+            if (v127)
             {
-              KB::Candidate::capitalized_string(v122, &v166);
-              v163 = &v166;
-              v125 = std::__hash_table<std::__hash_value_type<KB::String,unsigned int>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned int>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned int>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned int>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String&&>,std::tuple<>>(v155, &v166);
-              ++*(v125 + 12);
+              KB::Candidate::capitalized_string(&v171, v126);
+              v168 = &v171;
+              v129 = std::__hash_table<std::__hash_value_type<KB::String,unsigned int>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned int>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned int>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned int>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String&&>,std::tuple<>>(v160, &v171, &v168);
+              ++*(v129 + 12);
             }
 
             else
             {
-              KB::Candidate::capitalized_string(v122, &v166);
-              v163 = &v166;
-              *(std::__hash_table<std::__hash_value_type<KB::String,unsigned int>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned int>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned int>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned int>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String&&>,std::tuple<>>(v155, &v166) + 12) = 1;
-              if (*(&v166 + 1) && BYTE6(v166) == 1)
+              KB::Candidate::capitalized_string(&v171, v126);
+              v168 = &v171;
+              *(std::__hash_table<std::__hash_value_type<KB::String,unsigned int>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned int>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned int>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned int>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String&&>,std::tuple<>>(v160, &v171, &v168) + 12) = 1;
+              if (*(&v171 + 1) && BYTE6(v171) == 1)
               {
-                free(*(&v166 + 1));
+                free(*(&v171 + 1));
               }
 
-              KB::Candidate::capitalized_string(v122, &v166);
-              v163 = &v166;
-              v126 = std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String&&>,std::tuple<>>(&v158, &v166);
-              KB::Candidate::operator=((v126 + 6), v122);
+              KB::Candidate::capitalized_string(&v171, v126);
+              v168 = &v171;
+              v130 = std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String&&>,std::tuple<>>(&v163, &v171, &v168);
+              KB::Candidate::operator=(v130 + 6, v126);
             }
 
-            if (*(&v166 + 1) && BYTE6(v166) == 1)
+            if (*(&v171 + 1) && BYTE6(v171) == 1)
             {
-              free(*(&v166 + 1));
+              free(*(&v171 + 1));
             }
 
-            v120 = v121;
-            v119 = v118[3];
-            v112 = 0x1CAC083126E978D5 * ((v118[4] - v119) >> 3) > v121++;
+            v124 = v125;
+            v123 = v122[3];
+            v116 = 0x1CAC083126E978D5 * ((v122[4] - v123) >> 3) > v125++;
           }
 
-          while (v112);
+          while (v116);
         }
 
-        v118 = *v118;
+        v122 = *v122;
       }
 
-      while (v118);
-      v127 = v159;
-      if (!v159)
+      while (v122);
+      v131 = v164;
+      if (!v164)
       {
 LABEL_255:
-        v138 = v156[0];
-        if (v156[0])
+        v144 = v161[0];
+        if (v161[0])
         {
           do
           {
-            v139 = v138;
-            v138 = *v138;
-            v140 = v139[3];
-            if (v140 && *(v139 + 22) == 1)
+            v145 = v144;
+            v144 = *v144;
+            v146 = v145[3];
+            if (v146 && *(v145 + 22) == 1)
             {
-              free(v140);
+              free(v146);
             }
 
-            operator delete(v139);
+            operator delete(v145);
           }
 
-          while (v138);
+          while (v144);
         }
 
 LABEL_260:
-        v141 = v155[0];
-        v155[0] = 0;
-        if (v141)
+        v147 = v160[0];
+        v160[0] = 0;
+        if (v147)
         {
-          operator delete(v141);
+          operator delete(v147);
         }
 
-        std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::~__hash_table(&v158);
+        std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::~__hash_table(&v163);
         goto LABEL_263;
       }
 
 LABEL_231:
-      if (*(v127 + 3))
+      if (*(v131 + 3))
       {
-        v128 = *(v127 + 3);
+        v132 = *(v131 + 3);
       }
 
       else
       {
-        v128 = (v127 + 8);
+        v132 = (v131 + 8);
       }
 
-      v129 = KB::String::hash(v128, *(v127 + 8));
-      v130 = v129;
-      v131 = v155[1];
-      if (!v155[1])
+      v133 = KB::String::hash(v132, *(v131 + 8));
+      v136 = v133;
+      v137 = v160[1];
+      if (!v160[1])
       {
         goto LABEL_251;
       }
 
-      v132 = vcnt_s8(v155[1]);
-      v132.i16[0] = vaddlv_u8(v132);
-      v133 = v132.u32[0];
-      if (v132.u32[0] > 1uLL)
+      v138 = vcnt_s8(v160[1]);
+      v138.i16[0] = vaddlv_u8(v138);
+      v139 = v138.u32[0];
+      if (v138.u32[0] > 1uLL)
       {
-        v134 = v129;
-        if (v155[1] <= v129)
+        v140 = v133;
+        if (v160[1] <= v133)
         {
-          v134 = v129 % LODWORD(v155[1]);
+          v140 = v133 % LODWORD(v160[1]);
         }
       }
 
       else
       {
-        v134 = (LODWORD(v155[1]) - 1) & v129;
+        v140 = (LODWORD(v160[1]) - 1) & v133;
       }
 
-      v135 = *(v155[0] + v134);
-      if (!v135 || (v136 = *v135) == 0)
+      v141 = *(v160[0] + v140);
+      if (!v141 || (v142 = *v141) == 0)
       {
 LABEL_251:
         operator new();
@@ -10140,15 +9726,15 @@ LABEL_251:
 
       while (1)
       {
-        v137 = *(v136 + 1);
-        if (v137 == v130)
+        v143 = *(v142 + 1);
+        if (v143 == v136)
         {
-          if (v136 == v127 || KB::String::equal((v136 + 4), (v127 + 4), 1))
+          if (v142 == v131 || KB::String::equal((v142 + 4), (v131 + 4), 1, v134, v135))
           {
-            v127[198] = logf(v136[12]);
-            std::vector<KB::Candidate>::push_back[abi:nn200100](a3, (v127 + 12));
-            v127 = *v127;
-            if (!v127)
+            v131[198] = logf(v142[12]);
+            std::vector<KB::Candidate>::push_back[abi:nn200100](a3, (v131 + 12));
+            v131 = *v131;
+            if (!v131)
             {
               goto LABEL_255;
             }
@@ -10159,27 +9745,27 @@ LABEL_251:
 
         else
         {
-          if (v133 > 1)
+          if (v139 > 1)
           {
-            if (v137 >= v131)
+            if (v143 >= v137)
             {
-              v137 %= v131;
+              v143 %= v137;
             }
           }
 
           else
           {
-            v137 &= v131 - 1;
+            v143 &= v137 - 1;
           }
 
-          if (v137 != v134)
+          if (v143 != v140)
           {
             goto LABEL_251;
           }
         }
 
-        v136 = *v136;
-        if (!v136)
+        v142 = *v142;
+        if (!v142)
         {
           goto LABEL_251;
         }
@@ -10188,22 +9774,22 @@ LABEL_251:
 
     for (j = *(a2 + 16); j; j = *j)
     {
-      v114 = j[3];
-      if (j[4] != v114)
+      v118 = j[3];
+      if (j[4] != v118)
       {
-        v115 = 0;
-        v116 = 1;
+        v119 = 0;
+        v120 = 1;
         do
         {
-          v117 = (v114 + 1000 * v115);
-          *(v117 + 186) = 0;
-          std::vector<KB::Candidate>::push_back[abi:nn200100](a3, v117);
-          v115 = v116;
-          v114 = j[3];
-          v112 = 0x1CAC083126E978D5 * ((j[4] - v114) >> 3) > v116++;
+          v121 = (v118 + 1000 * v119);
+          *(v121 + 186) = 0;
+          std::vector<KB::Candidate>::push_back[abi:nn200100](a3, v121);
+          v119 = v120;
+          v118 = j[3];
+          v116 = 0x1CAC083126E978D5 * ((j[4] - v118) >> 3) > v120++;
         }
 
-        while (v112);
+        while (v116);
       }
     }
   }
@@ -10212,37 +9798,36 @@ LABEL_251:
   {
     for (k = *(a2 + 16); k; k = *k)
     {
-      v109 = k[3];
-      if (k[4] != v109)
+      v113 = k[3];
+      if (k[4] != v113)
       {
-        v110 = 0;
-        v111 = 1;
+        v114 = 0;
+        v115 = 1;
         do
         {
-          std::vector<KB::Candidate>::push_back[abi:nn200100](a3, (v109 + 1000 * v110));
-          v110 = v111;
-          v109 = k[3];
-          v112 = 0x1CAC083126E978D5 * ((k[4] - v109) >> 3) > v111++;
+          std::vector<KB::Candidate>::push_back[abi:nn200100](a3, (v113 + 1000 * v114));
+          v114 = v115;
+          v113 = k[3];
+          v116 = 0x1CAC083126E978D5 * ((k[4] - v113) >> 3) > v115++;
         }
 
-        while (v112);
+        while (v116);
       }
     }
   }
 
 LABEL_263:
-  v142 = *(a3 + 8);
-  v143 = 126 - 2 * __clz(0x1CAC083126E978D5 * ((v142 - *a3) >> 3));
-  if (v142 == *a3)
+  v148 = a3[1];
+  v149 = 126 - 2 * __clz(0x1CAC083126E978D5 * ((v148 - *a3) >> 3));
+  if (v148 == *a3)
   {
-    v144 = 0;
+    v150 = 0;
   }
 
   else
   {
-    v144 = v143;
+    v150 = v149;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,false>(*a3, v142, v144, 1);
-  v145 = *MEMORY[0x277D85DE8];
+  std::__introsort<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,false>(*a3, v148, v150, 1);
 }

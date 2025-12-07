@@ -4,6 +4,7 @@
 + (uint64_t)_deleteUnderlyingDatabaseWithURL:(uint64_t)l error:;
 - (BOOL)isAvailable;
 - (BOOL)obliterateWithReason:(id)reason error:(id *)error;
+- (BOOL)performOntologyTransactionForWrite:(BOOL)write profile:(id)profile databaseTransaction:(id)transaction error:(id *)error transactionHandler:(id)handler;
 - (HDDaemon)daemon;
 - (HDOntologyBackingStore)init;
 - (HDOntologyBackingStore)initWithDaemon:(id)daemon;
@@ -159,6 +160,34 @@
   return v4;
 }
 
+- (BOOL)performOntologyTransactionForWrite:(BOOL)write profile:(id)profile databaseTransaction:(id)transaction error:(id *)error transactionHandler:(id)handler
+{
+  writeCopy = write;
+  profileCopy = profile;
+  handlerCopy = handler;
+  if (transaction)
+  {
+    v16 = [(HDOntologyBackingStore *)self _performOntologyTransactionWithProfile:profileCopy databaseTransaction:transaction write:writeCopy error:error transactionHandler:handlerCopy];
+  }
+
+  else
+  {
+    database = [profileCopy database];
+    contextForReadingProtectedData = [MEMORY[0x277D106B8] contextForReadingProtectedData];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __114__HDOntologyBackingStore_performOntologyTransactionForWrite_profile_databaseTransaction_error_transactionHandler___block_invoke;
+    v18[3] = &unk_2796BA118;
+    v18[4] = self;
+    v19 = profileCopy;
+    v21 = writeCopy;
+    v20 = handlerCopy;
+    v16 = [database performTransactionWithContext:contextForReadingProtectedData error:error block:v18 inaccessibilityHandler:0];
+  }
+
+  return v16;
+}
+
 - (BOOL)isAvailable
 {
   os_unfair_lock_lock(&self->_availabilityLock);
@@ -185,7 +214,7 @@
 
 - (BOOL)obliterateWithReason:(id)reason error:(id *)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   flush = [(HDDatabaseConnectionPool *)self->_databaseConnectionPool flush];
   [(NSConditionLock *)self->_activeDatabaseConnectionLock lockWhenCondition:0];
@@ -193,17 +222,16 @@
   v8 = HKLogHealthOntology();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543618;
+    v11 = 138543618;
     selfCopy = self;
-    v14 = 2114;
-    v15 = reasonCopy;
-    _os_log_impl(&dword_2514A1000, v8, OS_LOG_TYPE_DEFAULT, "Obliterate %{public}@ for %{public}@", &v12, 0x16u);
+    v13 = 2114;
+    v14 = reasonCopy;
+    _os_log_impl(&dword_2514A1000, v8, OS_LOG_TYPE_DEFAULT, "Obliterate %{public}@ for %{public}@", &v11, 0x16u);
   }
 
   v9 = [HDOntologyBackingStore _deleteUnderlyingDatabaseWithURL:error error:?];
   [(NSConditionLock *)self->_activeDatabaseConnectionLock unlock];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -225,43 +253,43 @@
 
 - (id)sizeOfUnderlyingDatabaseInBytes
 {
-  v38[3] = *MEMORY[0x277D85DE8];
+  v37[3] = *MEMORY[0x277D85DE8];
   lastPathComponent = [(NSURL *)self->_ontologyURL lastPathComponent];
   uRLByDeletingLastPathComponent = [(NSURL *)self->_ontologyURL URLByDeletingLastPathComponent];
-  v38[0] = self->_ontologyURL;
+  v37[0] = self->_ontologyURL;
   v5 = [lastPathComponent stringByAppendingString:@"-wal"];
   v6 = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:v5];
-  v38[1] = v6;
-  v25 = lastPathComponent;
+  v37[1] = v6;
+  v24 = lastPathComponent;
   v7 = [lastPathComponent stringByAppendingString:@"-shm"];
   v8 = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:v7];
-  v38[2] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:3];
+  v37[2] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:3];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v26 objects:v36 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = 0;
-    v14 = *v28;
+    v14 = *v27;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v28 != v14)
+        if (*v27 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v27 + 1) + 8 * i);
-        v26 = 0;
-        v17 = [v16 hk_fileSizeWithError:&v26];
-        v18 = v26;
+        v16 = *(*(&v26 + 1) + 8 * i);
+        v25 = 0;
+        v17 = [v16 hk_fileSizeWithError:&v25];
+        v18 = v25;
         v19 = v18;
         if (!v17 && ([v18 hk_isCocoaNoSuchFileError] & 1) == 0)
         {
@@ -272,10 +300,10 @@
             path = [v16 path];
             *buf = 138543874;
             selfCopy = self;
-            v33 = 2114;
-            v34 = path;
-            v35 = 2114;
-            v36 = v19;
+            v32 = 2114;
+            v33 = path;
+            v34 = 2114;
+            v35 = v19;
             _os_log_error_impl(&dword_2514A1000, v20, OS_LOG_TYPE_ERROR, "%{public}@: error getting size of %{public}@: %{public}@", buf, 0x20u);
           }
 
@@ -286,7 +314,7 @@
         v13 += [v17 longLongValue];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v27 objects:v37 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v26 objects:v36 count:16];
       if (v12)
       {
         continue;
@@ -303,8 +331,6 @@
 
   v21 = [MEMORY[0x277CCABB0] numberWithLongLong:v13];
 LABEL_16:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -401,10 +427,7 @@ void __90__HDOntologyBackingStore_requestProtectedResourceAccessAssertionForOwne
   {
     if (![v5 count])
     {
-      v6 = [MEMORY[0x277CCA9B8] hk_protectedDataInaccessibilityError];
-      v7 = *(*(a1 + 56) + 8);
-      v8 = *(v7 + 40);
-      *(v7 + 40) = v6;
+      *(*(*(a1 + 56) + 8) + 40) = [MEMORY[0x277CCA9B8] hk_protectedDataInaccessibilityError];
 
       MEMORY[0x2821F96F8]();
       return;
@@ -413,27 +436,27 @@ void __90__HDOntologyBackingStore_requestProtectedResourceAccessAssertionForOwne
 
   else
   {
-    v9 = [v5 cacheSize];
-    *(*(*(a1 + 48) + 8) + 24) = v9 - [*(*(a1 + 32) + 64) count];
+    v6 = [v5 cacheSize];
+    *(*(*(a1 + 48) + 8) + 24) = v6 - [*(*(a1 + 32) + 64) count];
   }
 
-  v10 = [objc_alloc(MEMORY[0x277D10AB8]) initWithAssertionIdentifier:@"OntologyDatabaseAccessibility" ownerIdentifier:*(a1 + 40)];
-  v11 = *(*(a1 + 64) + 8);
-  v12 = *(v11 + 40);
-  *(v11 + 40) = v10;
+  v7 = [objc_alloc(MEMORY[0x277D10AB8]) initWithAssertionIdentifier:@"OntologyDatabaseAccessibility" ownerIdentifier:*(a1 + 40)];
+  v8 = *(*(a1 + 64) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v7;
 
   if (([*(*(a1 + 32) + 88) takeAssertion:*(*(*(a1 + 64) + 8) + 40)] & 1) == 0)
   {
-    v13 = MEMORY[0x277CCA9B8];
-    v14 = *(*(a1 + 56) + 8);
-    obj = *(v14 + 40);
-    v15 = [*(a1 + 32) protectedResourceIdentifier];
-    [v13 hk_assignError:&obj code:100 format:{@"Unable to check out protected resource /'%@/' for owner %@", v15, *(a1 + 40)}];
-    objc_storeStrong((v14 + 40), obj);
+    v10 = MEMORY[0x277CCA9B8];
+    v11 = *(*(a1 + 56) + 8);
+    obj = *(v11 + 40);
+    v12 = [*(a1 + 32) protectedResourceIdentifier];
+    [v10 hk_assignError:&obj code:100 format:{@"Unable to check out protected resource /'%@/' for owner %@", v12, *(a1 + 40)}];
+    objc_storeStrong((v11 + 40), obj);
 
-    v16 = *(*(a1 + 64) + 8);
-    v17 = *(v16 + 40);
-    *(v16 + 40) = 0;
+    v13 = *(*(a1 + 64) + 8);
+    v14 = *(v13 + 40);
+    *(v13 + 40) = 0;
   }
 }
 
@@ -646,14 +669,14 @@ LABEL_5:
 
 - (void)_primeDatabaseConnectionCacheForOwner:(uint64_t)owner
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (owner)
   {
     v4 = *(owner + 64);
-    v9 = 0;
-    v5 = [v4 checkOutConnectionWithOptions:10 error:&v9];
-    v6 = v9;
+    v8 = 0;
+    v5 = [v4 checkOutConnectionWithOptions:10 error:&v8];
+    v6 = v8;
     if (v5)
     {
       [*(owner + 64) checkInConnection:v5 flushImmediately:0];
@@ -666,15 +689,13 @@ LABEL_5:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v11 = v3;
-        v12 = 2114;
-        v13 = v6;
+        v10 = v3;
+        v11 = 2114;
+        v12 = v6;
         _os_log_impl(&dword_2514A1000, v7, OS_LOG_TYPE_DEFAULT, "Failed to pre-emptively check out ontology connection for accessibility assertion owner %{public}@: %{public}@", buf, 0x16u);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contentProtectionStateChanged:(int64_t)changed previousState:(int64_t)state
@@ -773,34 +794,34 @@ LABEL_5:
 
 - (void)databasePool:(id)pool didFlushConnections:(id)connections
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   connectionsCopy = connections;
   [(NSConditionLock *)self->_activeDatabaseConnectionLock lock];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = connectionsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * i);
-        [(NSMutableSet *)self->_activeDatabaseConnections removeObject:v11, v13];
+        v11 = *(*(&v12 + 1) + 8 * i);
+        [(NSMutableSet *)self->_activeDatabaseConnections removeObject:v11, v12];
         [v11 close];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
@@ -808,8 +829,6 @@ LABEL_5:
 
   [(NSConditionLock *)self->_activeDatabaseConnectionLock unlockWithCondition:[(NSMutableSet *)self->_activeDatabaseConnections count]!= 0];
   [(HDOntologyBackingStore *)self _updateAvailability];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_ontologyIsAvailableWithError:(uint64_t)error
@@ -919,13 +938,12 @@ LABEL_10:
 
 - (void)obliterateWithReason:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_2514A1000, log, OS_LOG_TYPE_ERROR, "%{public}@: unable to obliterate database: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_2514A1000, log, OS_LOG_TYPE_ERROR, "%{public}@: unable to obliterate database: %{public}@", &v3, 0x16u);
 }
 
 @end

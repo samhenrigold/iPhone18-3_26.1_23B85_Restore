@@ -1,5 +1,6 @@
 @interface _MRAdjustVolumeMessageProtobuf
 - (BOOL)isEqual:(id)equal;
+- (id)adjustmentAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -26,35 +27,50 @@
   }
 }
 
+- (id)adjustmentAsString:(int)string
+{
+  if ((string - 1) >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E769F198[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsAdjustment:(id)adjustment
 {
   adjustmentCopy = adjustment;
-  if ([adjustmentCopy isEqualToString:@"IncrementSmall"])
+  if (objc_msgSend_isEqualToString_(adjustmentCopy))
   {
     v4 = 1;
   }
 
-  else if ([adjustmentCopy isEqualToString:@"IncrementMedium"])
+  else if (objc_msgSend_isEqualToString_(adjustmentCopy))
   {
     v4 = 2;
   }
 
-  else if ([adjustmentCopy isEqualToString:@"IncrementLarge"])
+  else if (objc_msgSend_isEqualToString_(adjustmentCopy))
   {
     v4 = 3;
   }
 
-  else if ([adjustmentCopy isEqualToString:@"DecrementSmall"])
+  else if (objc_msgSend_isEqualToString_(adjustmentCopy))
   {
     v4 = 4;
   }
 
-  else if ([adjustmentCopy isEqualToString:@"DecrementMedium"])
+  else if (objc_msgSend_isEqualToString_(adjustmentCopy))
   {
     v4 = 5;
   }
 
-  else if ([adjustmentCopy isEqualToString:@"DecrementLarge"])
+  else if (objc_msgSend_isEqualToString_(adjustmentCopy))
   {
     v4 = 6;
   }
@@ -117,24 +133,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    adjustment = self->_adjustment;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_outputDeviceUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_details)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -190,7 +205,6 @@
     goto LABEL_11;
   }
 
-  v5 = *(equalCopy + 32);
   if (*&self->_has)
   {
     if ((*(equalCopy + 32) & 1) == 0 || self->_adjustment != *(equalCopy + 2))
@@ -202,7 +216,7 @@
   else if (*(equalCopy + 32))
   {
 LABEL_11:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_12;
   }
 
@@ -215,17 +229,17 @@ LABEL_11:
   details = self->_details;
   if (details | *(equalCopy + 2))
   {
-    v8 = [(_MRRequestDetailsProtobuf *)details isEqual:?];
+    v7 = [(_MRRequestDetailsProtobuf *)details isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_12:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

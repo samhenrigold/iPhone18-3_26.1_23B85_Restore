@@ -1,5 +1,6 @@
 @interface _PSShareSheetEphemeralFeatureManager
 - (_PSShareSheetEphemeralFeatureManager)initWithContext:(id)context candidates:(id)candidates caches:(id)caches store:(id)store;
+- (id)callFeatureFunctionWithFeature:(int)feature histogramFeatureData:(id)data;
 - (id)computeFeaturesWithHistogramFeatures:(id)features;
 - (id)loadPSConfig;
 - (void)setCandidates:(id)candidates;
@@ -55,7 +56,7 @@
 
 - (void)setFeatureManagerProperties
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   loadPSConfig = [(_PSShareSheetEphemeralFeatureManager *)self loadPSConfig];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
@@ -74,35 +75,34 @@
 
     v11 = v10;
 
-    v34 = 0u;
-    v35 = 0u;
     v32 = 0u;
     v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v12 = v11;
-    v13 = [v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v33;
+      v15 = *v31;
       do
       {
         v16 = 0;
         do
         {
-          if (*v33 != v15)
+          if (*v31 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v32 + 1) + 8 * v16);
-          v18 = [MEMORY[0x1E696AD98] numberWithInt:{BMMLSEVirtualFeatureStoreFeaturefeatureNameFromString(), v32}];
-          [(NSSet *)v7 addObject:v18];
+          v17 = [MEMORY[0x1E696AD98] numberWithInt:{BMMLSEVirtualFeatureStoreFeaturefeatureNameFromString(), v30}];
+          [(NSSet *)v7 addObject:v17];
 
           ++v16;
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v14);
@@ -110,34 +110,32 @@
 
     features = self->_features;
     self->_features = v7;
-    v20 = v7;
+    v19 = v7;
 
-    v21 = MEMORY[0x1E696AD98];
-    v22 = [v6 objectForKeyedSubscript:@"histogramFeatureSmoothingK"];
-    [v22 doubleValue];
-    if (v23 == 0.0)
+    v20 = MEMORY[0x1E696AD98];
+    v21 = [v6 objectForKeyedSubscript:@"histogramFeatureSmoothingK"];
+    [v21 doubleValue];
+    if (v22 == 0.0)
     {
-      v23 = 1.0;
+      v22 = 1.0;
     }
 
-    v24 = [v21 numberWithDouble:{v23, v32}];
+    v23 = [v20 numberWithDouble:{v22, v30}];
     histogramSmoothingParameterK = self->_histogramSmoothingParameterK;
-    self->_histogramSmoothingParameterK = v24;
+    self->_histogramSmoothingParameterK = v23;
 
-    v26 = MEMORY[0x1E696AD98];
-    v27 = [v6 objectForKeyedSubscript:@"histogramFeatureSmoothingV"];
-    [v27 doubleValue];
-    if (v28 == 0.0)
+    v25 = MEMORY[0x1E696AD98];
+    v26 = [v6 objectForKeyedSubscript:@"histogramFeatureSmoothingV"];
+    [v26 doubleValue];
+    if (v27 == 0.0)
     {
-      v28 = 10.0;
+      v27 = 10.0;
     }
 
-    v29 = [v26 numberWithDouble:v28];
+    v28 = [v25 numberWithDouble:v27];
     histogramSmoothingParameterV = self->_histogramSmoothingParameterV;
-    self->_histogramSmoothingParameterV = v29;
+    self->_histogramSmoothingParameterV = v28;
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCandidates:(id)candidates
@@ -190,6 +188,325 @@
   v14 = v12;
 
   return v12;
+}
+
+- (id)callFeatureFunctionWithFeature:(int)feature histogramFeatureData:(id)data
+{
+  v4 = *&feature;
+  dataCopy = data;
+  v7 = MEMORY[0x1E695E0F8];
+  if (v4 <= 345)
+  {
+    if (v4 <= 340)
+    {
+      if (v4 == 328)
+      {
+        v8 = [_PSDeviceStateFeatures isInMeetingWithCandidates:self->_candidates caches:self->_caches];
+      }
+
+      else
+      {
+        if (v4 == 329)
+        {
+          candidates = self->_candidates;
+          caches = self->_caches;
+          store = self->_store;
+          v12 = 0;
+        }
+
+        else
+        {
+          if (v4 != 330)
+          {
+            goto LABEL_43;
+          }
+
+          candidates = self->_candidates;
+          caches = self->_caches;
+          store = self->_store;
+          v12 = 1;
+        }
+
+        v8 = [_PSDeviceStateFeatures isInCallWithCandidates:candidates facetimeRequest:v12 caches:caches store:store];
+      }
+
+      goto LABEL_42;
+    }
+
+    if (v4 <= 342)
+    {
+      if (v4 == 341)
+      {
+        [_PSContentFeatures utiTypesFromPredictionContext:self->_context candidates:self->_candidates];
+      }
+
+      else
+      {
+        [_PSContentFeatures sourceAppFromPredictionContext:self->_context candidates:self->_candidates];
+      }
+      v8 = ;
+      goto LABEL_42;
+    }
+
+    if (v4 == 343)
+    {
+      context = self->_context;
+      v14 = self->_candidates;
+      v15 = 0;
+    }
+
+    else
+    {
+      if (v4 != 344)
+      {
+        goto LABEL_43;
+      }
+
+      context = self->_context;
+      v14 = self->_candidates;
+      v15 = 1;
+    }
+  }
+
+  else
+  {
+    switch(v4)
+    {
+      case 507:
+        v16 = self->_candidates;
+        v17 = self->_caches;
+        v18 = &unk_1F2D8C678;
+        goto LABEL_37;
+      case 508:
+        v16 = self->_candidates;
+        v17 = self->_caches;
+        v18 = &unk_1F2D8C690;
+        goto LABEL_37;
+      case 509:
+        v16 = self->_candidates;
+        v17 = self->_caches;
+        v18 = &unk_1F2D8C6A8;
+        goto LABEL_37;
+      case 510:
+        v16 = self->_candidates;
+        v17 = self->_caches;
+        v18 = &unk_1F2D8C6C0;
+        goto LABEL_37;
+      case 511:
+        v16 = self->_candidates;
+        v17 = self->_caches;
+        v18 = &unk_1F2D8C780;
+        goto LABEL_37;
+      case 512:
+        v16 = self->_candidates;
+        v17 = self->_caches;
+        v18 = &unk_1F2D8C6D8;
+        goto LABEL_37;
+      case 513:
+        v16 = self->_candidates;
+        v17 = self->_caches;
+        v18 = &unk_1F2D8C708;
+        goto LABEL_40;
+      case 514:
+        v16 = self->_candidates;
+        v17 = self->_caches;
+        v18 = &unk_1F2D8C720;
+        goto LABEL_40;
+      case 515:
+        v16 = self->_candidates;
+        v17 = self->_caches;
+        v18 = &unk_1F2D8C750;
+        goto LABEL_40;
+      case 516:
+        v16 = self->_candidates;
+        v17 = self->_caches;
+        v18 = &unk_1F2D8C738;
+LABEL_37:
+        v19 = 0;
+        goto LABEL_41;
+      case 517:
+        v16 = self->_candidates;
+        v17 = self->_caches;
+        v18 = &unk_1F2D8C768;
+        goto LABEL_40;
+      case 518:
+        v16 = self->_candidates;
+        v17 = self->_caches;
+        v18 = &unk_1F2D8C6F0;
+LABEL_40:
+        v19 = 1;
+LABEL_41:
+        v8 = [_PSLastCommunicatedFeatures lastCommunicationFromCandidates:v16 direction:v19 mechanisms:v18 caches:v17];
+        goto LABEL_42;
+      case 519:
+      case 520:
+      case 521:
+      case 522:
+      case 523:
+      case 584:
+      case 585:
+      case 586:
+      case 587:
+      case 588:
+      case 589:
+      case 590:
+      case 591:
+      case 592:
+      case 593:
+      case 594:
+      case 595:
+      case 596:
+      case 597:
+      case 598:
+      case 599:
+      case 600:
+      case 601:
+      case 602:
+      case 603:
+      case 624:
+      case 625:
+      case 626:
+      case 627:
+      case 628:
+      case 629:
+      case 630:
+      case 631:
+      case 632:
+      case 633:
+        goto LABEL_43;
+      case 524:
+      case 526:
+      case 528:
+      case 530:
+      case 532:
+      case 534:
+      case 536:
+      case 538:
+      case 540:
+      case 542:
+      case 544:
+      case 546:
+      case 548:
+      case 550:
+      case 552:
+      case 554:
+      case 556:
+      case 558:
+      case 560:
+      case 562:
+      case 564:
+      case 566:
+      case 568:
+      case 570:
+      case 572:
+      case 574:
+      case 576:
+      case 578:
+      case 580:
+      case 582:
+      case 604:
+      case 606:
+      case 608:
+      case 610:
+      case 612:
+      case 614:
+      case 616:
+      case 618:
+      case 620:
+      case 622:
+      case 634:
+      case 636:
+      case 638:
+      case 640:
+      case 642:
+        v8 = [_PSHistogramFeatures conditionedProbabilityAcrossAllBucketsWithCandidates:self->_candidates featureName:v4 predictionContext:self->_context histogramFeatureData:dataCopy histogramSmoothingParameterK:self->_histogramSmoothingParameterK histogramSmoothingParameterV:self->_histogramSmoothingParameterV];
+        goto LABEL_42;
+      case 525:
+      case 527:
+      case 529:
+      case 531:
+      case 533:
+      case 535:
+      case 537:
+      case 539:
+      case 541:
+      case 543:
+      case 545:
+      case 547:
+      case 549:
+      case 551:
+      case 553:
+      case 555:
+      case 557:
+      case 559:
+      case 561:
+      case 563:
+      case 565:
+      case 567:
+      case 569:
+      case 571:
+      case 573:
+      case 575:
+      case 577:
+      case 579:
+      case 581:
+      case 583:
+      case 605:
+      case 607:
+      case 609:
+      case 611:
+      case 613:
+      case 615:
+      case 617:
+      case 619:
+      case 621:
+      case 623:
+      case 635:
+      case 637:
+      case 639:
+      case 641:
+      case 643:
+        v8 = [_PSHistogramFeatures conditionedProbabilityAcrossAllCandidatesWithCandidates:self->_candidates featureName:v4 predictionContext:self->_context histogramFeatureData:dataCopy histogramSmoothingParameterK:self->_histogramSmoothingParameterK histogramSmoothingParameterV:self->_histogramSmoothingParameterV];
+        goto LABEL_42;
+      case 644:
+      case 645:
+      case 646:
+      case 647:
+      case 648:
+      case 649:
+      case 650:
+      case 651:
+      case 652:
+      case 653:
+      case 654:
+      case 655:
+        v8 = [_PSHistogramFeatures hasEverInBucketWithCandidates:self->_candidates featureName:v4 predictionContext:self->_context histogramFeatureData:dataCopy];
+        goto LABEL_42;
+      default:
+        if (v4 == 346)
+        {
+          v8 = [_PSContentFeatures urlTopLevelDomainFromPredictionContext:self->_context candidates:self->_candidates];
+          goto LABEL_42;
+        }
+
+        if (v4 != 349)
+        {
+          goto LABEL_43;
+        }
+
+        context = self->_context;
+        v14 = self->_candidates;
+        v15 = 3;
+        break;
+    }
+  }
+
+  v8 = [_PSContentFeatures numberOfContentFromPredictionContext:context contentType:v15 candidates:v14];
+LABEL_42:
+  v7 = v8;
+LABEL_43:
+
+  return v7;
 }
 
 @end

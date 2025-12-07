@@ -4,6 +4,7 @@
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)loadView;
 - (void)resetSecondLabel;
+- (void)setSecondLabelText:(id)text withTextColor:(id)color animated:(BOOL)animated completion:(id)completion;
 @end
 
 @implementation SFAirDropMagicHeadViewControllerAccessibility
@@ -40,6 +41,29 @@
   v3.super_class = SFAirDropMagicHeadViewControllerAccessibility;
   [(SFAirDropMagicHeadViewControllerAccessibility *)&v3 loadView];
   [(SFAirDropMagicHeadViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)setSecondLabelText:(id)text withTextColor:(id)color animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  textCopy = text;
+  completionCopy = completion;
+  v18[0] = MEMORY[0x29EDCA5F8];
+  v18[1] = 3221225472;
+  v18[2] = __102__SFAirDropMagicHeadViewControllerAccessibility_setSecondLabelText_withTextColor_animated_completion___block_invoke;
+  v18[3] = &unk_29F2F7A30;
+  v19 = textCopy;
+  v20 = completionCopy;
+  v12 = completionCopy;
+  v13 = textCopy;
+  colorCopy = color;
+  v15 = MEMORY[0x29ED35260](v18);
+  v17.receiver = self;
+  v17.super_class = SFAirDropMagicHeadViewControllerAccessibility;
+  [(SFAirDropMagicHeadViewControllerAccessibility *)&v17 setSecondLabelText:v13 withTextColor:colorCopy animated:animatedCopy completion:v15];
+
+  _axWheelView = [(SFAirDropMagicHeadViewControllerAccessibility *)self _axWheelView];
+  [_axWheelView _axSetStatusText:v13];
 }
 
 uint64_t __102__SFAirDropMagicHeadViewControllerAccessibility_setSecondLabelText_withTextColor_animated_completion___block_invoke(uint64_t a1)

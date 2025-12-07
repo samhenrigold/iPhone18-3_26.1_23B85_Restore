@@ -11,6 +11,7 @@
 - (void)setTraceFileRootName:(id)name;
 - (void)startRecording;
 - (void)stopRecording;
+- (void)vTraceTarget:(int)target signature:(const char *)signature callout:(const char *)callout item:(const char *)item fmt:(char *)fmt params:(char *)params;
 @end
 
 @implementation TraceRecorder
@@ -445,9 +446,88 @@ LABEL_59:
   return v5;
 }
 
+- (void)vTraceTarget:(int)target signature:(const char *)signature callout:(const char *)callout item:(const char *)item fmt:(char *)fmt params:(char *)params
+{
+  v13 = *&target;
+  v34 = *MEMORY[0x277D85DE8];
+  v15 = apparentTimeLogHandle;
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  {
+    v16 = apparentTime();
+    if (v16 <= 0.0)
+    {
+      v18 = @"<unspecified>";
+    }
+
+    else
+    {
+      v17 = apparentTime();
+      v18 = dateStringMillisecondsFromTimeInterval(v17);
+    }
+
+    *buf = 138413058;
+    v27 = v18;
+    v28 = 1024;
+    v29 = v13;
+    v30 = 2080;
+    signatureCopy = signature;
+    v32 = 2080;
+    fmtCopy = fmt;
+    _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "vTraceTarget:at:signature:fmt:params  at %@ target  %d signature %s fmt %s", buf, 0x26u);
+    if (v16 > 0.0)
+    {
+    }
+  }
+
+  if (self->_traceFD)
+  {
+    v19 = [objc_alloc(MEMORY[0x277CCAB68]) initWithFormat:@"    {\n        target:         %d, \n        call:           %s, \n        fmt:            %s", v13, signature, fmt];
+    v20 = v19;
+    if (callout)
+    {
+      [v19 appendFormat:@", \n        callout:        %s", callout];
+    }
+
+    if (item)
+    {
+      [v20 appendFormat:@", \n        item:           %s", item];
+    }
+
+    if (fmt)
+    {
+      v21 = [(TraceRecorder *)self _parseFormat:fmt args:params];
+      if (v21)
+      {
+        [v20 appendString:v21];
+      }
+    }
+
+    [v20 appendString:{@"\n    }, \n"}];
+    uTF8String = [v20 UTF8String];
+    if (uTF8String)
+    {
+      v23 = uTF8String;
+      v24 = strlen(uTF8String);
+      if (write(self->_traceFD, v23, v24) < 0)
+      {
+        v25 = apparentTimeLogHandle;
+        if (os_log_type_enabled(apparentTimeLogHandle, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_ERROR, "CallRecorder, trace failed", buf, 2u);
+        }
+
+        close(self->_traceFD);
+        self->_traceFD = 0;
+        self->_traceFileActive = 0;
+      }
+    }
+  }
+}
+
 - (void)startRecording
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (!self->_traceFileActive && self->_traceFileRootName)
   {
     v3 = formattedDateStringForCurrentTime();
@@ -464,7 +544,7 @@ LABEL_59:
       if (os_log_type_enabled(apparentTimeLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v15 = v8;
+        v14 = v8;
         _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Unable to open trace file %@", buf, 0xCu);
       }
     }
@@ -475,7 +555,7 @@ LABEL_59:
       if (os_log_type_enabled(apparentTimeLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v15 = v8;
+        v14 = v8;
         _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "Opened trace file %@", buf, 0xCu);
       }
 
@@ -498,8 +578,6 @@ LABEL_59:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopRecording
@@ -552,7 +630,6 @@ LABEL_7:
     goto LABEL_6;
   }
 
-  traceFileActive = self->_traceFileActive;
   if (!self->_traceFileRootName)
   {
     if (!self->_traceFileActive)
@@ -580,7 +657,7 @@ LABEL_6:
 
 - (void)setTimerCallbackWithDelay:(double)delay queue:(id)queue reference:(id)reference
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   referenceCopy = reference;
   v9 = apparentTimeLogHandle;
@@ -588,8 +665,8 @@ LABEL_6:
   {
     *buf = 134218242;
     delayCopy = delay;
-    v17 = 2112;
-    v18 = referenceCopy;
+    v16 = 2112;
+    v17 = referenceCopy;
     _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "TraceRecorder setTimerCallbackWithDelay %.3f for reference %@", buf, 0x16u);
   }
 
@@ -598,31 +675,27 @@ LABEL_6:
   block[1] = 3221225472;
   block[2] = __59__TraceRecorder_setTimerCallbackWithDelay_queue_reference___block_invoke;
   block[3] = &unk_27898A0C8;
-  v14 = referenceCopy;
+  v13 = referenceCopy;
   v11 = referenceCopy;
   dispatch_after(v10, queueCopy, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __59__TraceRecorder_setTimerCallbackWithDelay_queue_reference___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = apparentTimeLogHandle;
   if (os_log_type_enabled(apparentTimeLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "TraceRecorder setTimerCallbackWithDelay, delay has happened for reference %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "TraceRecorder setTimerCallbackWithDelay, delay has happened for reference %@", &v6, 0xCu);
   }
 
   v4 = +[ApparentTimeHandler sharedInstance];
   v5 = *(a1 + 32);
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   [v4 timerCallbackWithReference:v5 at:?];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (int)configureInstance:(id)instance
@@ -657,7 +730,7 @@ void __59__TraceRecorder_setTimerCallbackWithDelay_queue_reference___block_invok
 
 void __35__TraceRecorder_configureInstance___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (!v4 || MEMORY[0x238389170](v4) != MEMORY[0x277D864C0])
@@ -665,18 +738,18 @@ void __35__TraceRecorder_configureInstance___block_invoke(uint64_t a1, uint64_t 
     goto LABEL_3;
   }
 
-  v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:xpc_string_get_string_ptr(v5)];
-  v10 = *(*(a1 + 40) + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = v9;
+  v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:xpc_string_get_string_ptr(v5)];
+  v9 = *(*(a1 + 40) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v8;
 
-  v12 = apparentTimeLogHandle;
+  v11 = apparentTimeLogHandle;
   if (os_log_type_enabled(apparentTimeLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = *(*(*(a1 + 40) + 8) + 40);
-    v16 = 138412290;
-    v17 = v13;
-    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "Processing flow_trace_file base name %@", &v16, 0xCu);
+    v12 = *(*(*(a1 + 40) + 8) + 40);
+    v15 = 138412290;
+    v16 = v12;
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "Processing flow_trace_file base name %@", &v15, 0xCu);
   }
 
   if (![*(*(*(a1 + 40) + 8) + 40) length])
@@ -696,63 +769,61 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v14 = apparentTimeLogHandle;
+  v13 = apparentTimeLogHandle;
   if (os_log_type_enabled(apparentTimeLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v15 = *(*(*(a1 + 40) + 8) + 40);
-    v16 = 138412290;
-    v17 = v15;
-    _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "trace file path not absolute, %@", &v16, 0xCu);
+    v14 = *(*(*(a1 + 40) + 8) + 40);
+    v15 = 138412290;
+    v16 = v14;
+    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "trace file path not absolute, %@", &v15, 0xCu);
   }
 
 LABEL_5:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __35__TraceRecorder_configureInstance___block_invoke_110(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86498])
   {
     value = xpc_int64_get_value(v5);
-    v12 = *(a1 + 32);
+    v11 = *(a1 + 32);
     if (value < 0)
     {
-      [v12 setTraceTargets:0];
-      v14 = apparentTimeLogHandle;
+      [v11 setTraceTargets:0];
+      v13 = apparentTimeLogHandle;
       if (!os_log_type_enabled(apparentTimeLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_7;
       }
 
-      *v15 = 134218240;
-      *&v15[4] = value;
-      *&v15[12] = 2048;
-      *&v15[14] = 0;
+      *v14 = 134218240;
+      *&v14[4] = value;
+      *&v14[12] = 2048;
+      *&v14[14] = 0;
       v7 = "Setting new active trace targets (%lld). Resetting to default value (0x%llx)";
-      v8 = v14;
+      v8 = v13;
       v9 = 22;
       goto LABEL_6;
     }
 
-    [v12 setTraceTargets:value];
-    v13 = apparentTimeLogHandle;
+    [v11 setTraceTargets:value];
+    v12 = apparentTimeLogHandle;
     if (!os_log_type_enabled(apparentTimeLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_7;
     }
 
-    *v15 = 134217984;
-    *&v15[4] = value;
+    *v14 = 134217984;
+    *&v14[4] = value;
     v7 = "Setting new active trace targets (0x%llx)";
-    v8 = v13;
+    v8 = v12;
 LABEL_5:
     v9 = 12;
 LABEL_6:
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, v7, v15, v9);
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, v7, v14, v9);
     goto LABEL_7;
   }
 
@@ -760,8 +831,8 @@ LABEL_6:
   v6 = apparentTimeLogHandle;
   if (os_log_type_enabled(apparentTimeLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    *v15 = 134217984;
-    *&v15[4] = 0;
+    *v14 = 134217984;
+    *&v14[4] = 0;
     v7 = "Setting new nil active trace targets. Setting to default value instead (0x%llx)";
     v8 = v6;
     goto LABEL_5;
@@ -769,8 +840,6 @@ LABEL_6:
 
 LABEL_7:
   [*(a1 + 32) assessStartStop];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)configureClass:(id)class
@@ -813,18 +882,17 @@ void __31__TraceRecorder_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)_jsonForObject:(void *)a1 .cold.1(void *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v1 = objc_begin_catch(a1);
   v2 = apparentTimeLogHandle;
   if (os_log_type_enabled(apparentTimeLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v4 = 138412290;
-    v5 = v1;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_ERROR, "Symptom exception trying to create JSON object from object %@", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = v1;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_ERROR, "Symptom exception trying to create JSON object from object %@", &v3, 0xCu);
   }
 
   objc_end_catch();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

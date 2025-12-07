@@ -72,15 +72,14 @@
 
 - (id)kt_sha256
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   ccsha256_di();
   [self length];
   [self bytes];
   ccdigest();
-  v2 = [MEMORY[0x1E695DEF0] dataWithBytes:&v5 length:32];
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v7 length:32];
 
-  return v2;
+  return v5;
 }
 
 - (id)kt_sha256WithSalt:()TransparencyData
@@ -110,11 +109,10 @@
 
 + (id)kt_random
 {
-  v4 = *MEMORY[0x1E69E9840];
-  memset(v3, 0, sizeof(v3));
-  SecRandomCopyBytes(*MEMORY[0x1E697B308], 0x20uLL, v3);
-  v0 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v3 length:32];
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  memset(v2, 0, sizeof(v2));
+  SecRandomCopyBytes(*MEMORY[0x1E697B308], 0x20uLL, v2);
+  v0 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v2 length:32];
 
   return v0;
 }

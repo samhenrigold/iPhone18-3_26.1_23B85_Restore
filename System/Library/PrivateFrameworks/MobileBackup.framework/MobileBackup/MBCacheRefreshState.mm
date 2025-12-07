@@ -178,12 +178,10 @@
 {
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v3 = objc_opt_class();
-  refreshedSnapshotIDs = selfCopy->_refreshedSnapshotIDs;
-  v5 = [NSString stringWithFormat:@"<%@: %p expiryDate=%@, refreshedSnapshotIDs=%@, queryCursors=%@", v3, selfCopy, selfCopy->_expiryDate, refreshedSnapshotIDs, selfCopy->_queryCursorsBySnapshotIDs];;
+  v3 = [NSString stringWithFormat:@"<%@: %p expiryDate=%@, refreshedSnapshotIDs=%@, queryCursors=%@", objc_opt_class(), selfCopy, selfCopy->_expiryDate, selfCopy->_refreshedSnapshotIDs, selfCopy->_queryCursorsBySnapshotIDs];;
   objc_sync_exit(selfCopy);
 
-  return v5;
+  return v3;
 }
 
 + (id)loadFromCache:(id)cache
@@ -196,7 +194,7 @@
     if (!v3)
     {
       v7 = objc_opt_new();
-      goto LABEL_19;
+      goto LABEL_18;
     }
 
     v8 = [[NSData alloc] initWithBase64EncodedString:v3 options:0];
@@ -215,11 +213,11 @@
           *buf = 138412290;
           v19 = v9;
           _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Loaded cache refresh state: %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"Df", "Loaded cache refresh state: %@", v9);
         }
 
         v14 = v9;
-        goto LABEL_18;
+        goto LABEL_17;
       }
 
       if (v13)
@@ -227,8 +225,7 @@
         *buf = 138412290;
         v19 = v9;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Not using expired cache refresh state: %@", buf, 0xCu);
-LABEL_13:
-        _MBLog();
+        _MBLog(@"Df", "Not using expired cache refresh state: %@", v9);
       }
     }
 
@@ -240,15 +237,15 @@ LABEL_13:
         *buf = 138412290;
         v19 = v10;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Not using invalid cache refresh state: %@", buf, 0xCu);
-        goto LABEL_13;
+        _MBLog(@"E ", "Not using invalid cache refresh state: %@", v10);
       }
     }
 
     v14 = objc_opt_new();
-LABEL_18:
+LABEL_17:
     v7 = v14;
 
-    goto LABEL_19;
+    goto LABEL_18;
   }
 
   v5 = v4;
@@ -258,11 +255,11 @@ LABEL_18:
     *buf = 138412290;
     v19 = v5;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to load cache refresh state from cache: %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"E ", "Failed to load cache refresh state from cache: %@", v5);
   }
 
   v7 = objc_opt_new();
-LABEL_19:
+LABEL_18:
 
   return v7;
 }
@@ -277,7 +274,7 @@ LABEL_19:
     *buf = 138412290;
     v23 = stateCopy;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Saving cache refresh state: %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Saving cache refresh state: %@", stateCopy);
   }
 
   if (stateCopy)
@@ -308,7 +305,7 @@ LABEL_19:
         v24 = 2112;
         v25 = v11;
         _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Failed to serialize %@: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"Df", "Failed to serialize %@: %@", stateCopy, v11);
       }
 
       if (error)

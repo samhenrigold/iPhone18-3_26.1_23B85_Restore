@@ -88,20 +88,18 @@
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"MAPPINGS";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"MAPPINGS";
   mappings = [(SGStringMappingTransformer *)self mappings];
-  v8[0] = mappings;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = mappings;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }
 
 - (id)transform:(id)transform
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   transformCopy = transform;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -110,26 +108,26 @@
   }
 
   v5 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = transformCopy;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         mappings = [(SGStringMappingTransformer *)self mappings];
         v13 = [mappings objectForKey:v11];
 
@@ -146,13 +144,11 @@
         [v5 addObject:v14];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

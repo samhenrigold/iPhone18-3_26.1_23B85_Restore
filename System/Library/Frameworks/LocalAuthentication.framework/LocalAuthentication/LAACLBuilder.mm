@@ -7,31 +7,31 @@
 
 + (id)customACL:(id)l
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   lCopy = l;
   error = 0;
   if ([lCopy authType] != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v57[0] = MEMORY[0x1E69E9820];
-    v57[1] = 3221225472;
-    v57[2] = __26__LAACLBuilder_customACL___block_invoke;
-    v57[3] = &unk_1E77CB998;
+    v58[0] = MEMORY[0x1E69E9820];
+    v58[1] = 3221225472;
+    v58[2] = __26__LAACLBuilder_customACL___block_invoke;
+    v58[3] = &unk_1E77CB998;
     v7 = lCopy;
-    v58 = v7;
-    v8 = __26__LAACLBuilder_customACL___block_invoke(v57);
+    v59 = v7;
+    v8 = __26__LAACLBuilder_customACL___block_invoke(v58);
     v9 = v8;
     v10 = SecAccessControlCreateWithFlags(0, *MEMORY[0x1E697AC28], v8, &error);
     if (!v10)
     {
-      v12 = LA_LOG_1();
-      v40 = LALogTypeForInternalError();
-      if (os_log_type_enabled(v12, v40))
+      v12 = LA_LOG_1(0);
+      v42 = LALogTypeForInternalError();
+      if (os_log_type_enabled(v12, v42))
       {
         *buf = 67109378;
         *&buf[4] = v9;
         *&buf[8] = 2114;
         *&buf[10] = error;
-        _os_log_impl(&dword_1A784E000, v12, v40, "Could not initialize ACL (flags=%d) (%{public}@)", buf, 0x12u);
+        _os_log_impl(&dword_1A784E000, v12, v42, "Could not initialize ACL (flags=%d) (%{public}@)", buf, 0x12u);
       }
 
       v6 = 0;
@@ -39,45 +39,45 @@
     }
 
     v11 = v10;
-    v47 = lCopy;
+    v48 = lCopy;
     v12 = objc_opt_new();
-    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
+    v57 = 0u;
     credentials = [v7 credentials];
     allKeys = [credentials allKeys];
 
-    v15 = [allKeys countByEnumeratingWithState:&v53 objects:v65 count:16];
+    v15 = [allKeys countByEnumeratingWithState:&v54 objects:v66 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v54;
+      v17 = *v55;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v54 != v17)
+          if (*v55 != v17)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v19 = *(*(&v53 + 1) + 8 * i);
+          v19 = *(*(&v54 + 1) + 8 * i);
           credentials2 = [v7 credentials];
           v21 = [credentials2 objectForKeyedSubscript:v19];
 
           -[NSObject setCredential:type:](v12, "setCredential:type:", v21, [v19 integerValue]);
         }
 
-        v16 = [allKeys countByEnumeratingWithState:&v53 objects:v65 count:16];
+        v16 = [allKeys countByEnumeratingWithState:&v54 objects:v66 count:16];
       }
 
       while (v16);
     }
 
-    v63 = &unk_1F1A6FC20;
-    v64 = MEMORY[0x1E695E118];
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+    v64 = &unk_1F1A6FC20;
+    v65 = MEMORY[0x1E695E118];
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
     obj = error;
     v23 = [v12 evaluateAccessControl:v11 operation:2 options:v22 error:&obj];
     objc_storeStrong(&error, obj);
@@ -85,41 +85,41 @@
     v24 = [MEMORY[0x1E69AD210] constraintsFromACL:v11];
     RequirePassword = SecAccessControlGetRequirePassword();
     CFRelease(v11);
-    v50 = 0u;
     v51 = 0u;
-    v48 = 0u;
+    v52 = 0u;
     v49 = 0u;
+    v50 = 0u;
     allKeys2 = [v24 allKeys];
-    v26 = [allKeys2 countByEnumeratingWithState:&v48 objects:v62 count:16];
+    v26 = [allKeys2 countByEnumeratingWithState:&v49 objects:v63 count:16];
     if (!v26)
     {
 LABEL_21:
 
 LABEL_32:
-      v33 = LA_LOG_1();
-      v39 = LALogTypeForInternalError();
-      if (os_log_type_enabled(v33, v39))
+      v34 = LA_LOG_1(v33);
+      v41 = LALogTypeForInternalError();
+      if (os_log_type_enabled(v34, v41))
       {
         *buf = 138543362;
         *&buf[4] = v24;
-        _os_log_impl(&dword_1A784E000, v33, v39, "Could not derive auth constraints (%{public}@)", buf, 0xCu);
+        _os_log_impl(&dword_1A784E000, v34, v41, "Could not derive auth constraints (%{public}@)", buf, 0xCu);
       }
 
       goto LABEL_43;
     }
 
     v27 = v26;
-    v28 = *v49;
+    v28 = *v50;
 LABEL_15:
     v29 = 0;
     while (1)
     {
-      if (*v49 != v28)
+      if (*v50 != v28)
       {
         objc_enumerationMutation(allKeys2);
       }
 
-      v30 = *(*(&v48 + 1) + 8 * v29);
+      v30 = *(*(&v49 + 1) + 8 * v29);
       v31 = [v24 objectForKeyedSubscript:v30];
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
@@ -131,7 +131,7 @@ LABEL_15:
 
       if (v27 == ++v29)
       {
-        v27 = [allKeys2 countByEnumeratingWithState:&v48 objects:v62 count:16];
+        v27 = [allKeys2 countByEnumeratingWithState:&v49 objects:v63 count:16];
         if (v27)
         {
           goto LABEL_15;
@@ -141,52 +141,53 @@ LABEL_15:
       }
     }
 
-    v33 = [v24 objectForKeyedSubscript:v30];
+    v34 = [v24 objectForKeyedSubscript:v30];
 
-    if (!v33)
+    if (!v34)
     {
       goto LABEL_32;
     }
 
-    v34 = LA_LOG_1();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    v35 = LA_LOG_1(v33);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
     {
-      [LAACLBuilder customACL:v34];
+      [LAACLBuilder customACL:v35];
     }
 
-    v35 = SecAccessControlCreate();
-    if (v35)
+    v36 = SecAccessControlCreate();
+    if (v36)
     {
-      v36 = v35;
-      if (SecAccessControlSetProtection())
+      v37 = v36;
+      v38 = SecAccessControlSetProtection();
+      if (v38)
       {
-        v60[0] = @"osgn";
-        v60[1] = @"od";
-        v61[0] = v33;
-        v61[1] = v33;
-        v60[2] = @"ock";
-        v60[3] = @"odel";
-        v61[2] = v33;
-        v61[3] = MEMORY[0x1E695E118];
-        v60[4] = @"oa";
-        v61[4] = MEMORY[0x1E695E118];
-        [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:5];
+        v61[0] = @"osgn";
+        v61[1] = @"od";
+        v62[0] = v34;
+        v62[1] = v34;
+        v61[2] = @"ock";
+        v61[3] = @"odel";
+        v62[2] = v34;
+        v62[3] = MEMORY[0x1E695E118];
+        v61[4] = @"oa";
+        v62[4] = MEMORY[0x1E695E118];
+        [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:v61 count:5];
         SecAccessControlSetConstraints();
         if (RequirePassword)
         {
           SecAccessControlSetRequirePassword();
         }
 
-        v37 = [LAACL alloc];
-        if (v37)
+        v39 = [LAACL alloc];
+        if (v39)
         {
-          *buf = v37;
+          *buf = v39;
           *&buf[8] = LAACL;
-          v38 = objc_msgSendSuper2(buf, sel_init);
-          v6 = v38;
-          if (v38)
+          v40 = objc_msgSendSuper2(buf, sel_init);
+          v6 = v40;
+          if (v40)
           {
-            *(v38 + 1) = v36;
+            *(v40 + 1) = v37;
           }
 
           goto LABEL_44;
@@ -195,42 +196,42 @@ LABEL_15:
 LABEL_43:
         v6 = 0;
 LABEL_44:
-        lCopy = v47;
+        lCopy = v48;
 
 LABEL_45:
-        v4 = v58;
+        v4 = v59;
         goto LABEL_46;
       }
 
-      v41 = LA_LOG_1();
-      v42 = LALogTypeForInternalError();
-      if (os_log_type_enabled(v41, v42))
+      v43 = LA_LOG_1(v38);
+      v44 = LALogTypeForInternalError();
+      if (os_log_type_enabled(v43, v44))
       {
         *buf = 138543362;
         *&buf[4] = error;
-        v43 = "Could not set ACL protection (%{public}@)";
+        v45 = "Could not set ACL protection (%{public}@)";
         goto LABEL_41;
       }
     }
 
     else
     {
-      v41 = LA_LOG_1();
-      v42 = LALogTypeForInternalError();
-      if (os_log_type_enabled(v41, v42))
+      v43 = LA_LOG_1(0);
+      v44 = LALogTypeForInternalError();
+      if (os_log_type_enabled(v43, v44))
       {
         *buf = 138543362;
         *&buf[4] = error;
-        v43 = "Could not initialize trivial ACL (%{public}@)";
+        v45 = "Could not initialize trivial ACL (%{public}@)";
 LABEL_41:
-        _os_log_impl(&dword_1A784E000, v41, v42, v43, buf, 0xCu);
+        _os_log_impl(&dword_1A784E000, v43, v44, v45, buf, 0xCu);
       }
     }
 
     goto LABEL_43;
   }
 
-  v4 = LA_LOG_1();
+  v4 = LA_LOG_1(0x7FFFFFFFFFFFFFFFLL);
   v5 = LALogTypeForInternalError();
   if (os_log_type_enabled(v4, v5))
   {
@@ -240,8 +241,6 @@ LABEL_41:
 
   v6 = 0;
 LABEL_46:
-
-  v44 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

@@ -13,17 +13,17 @@
 
 - (VSSubscriptionPropertyListStore)initWithPersistentStoreCoordinator:(id)coordinator configurationName:(id)name URL:(id)l options:(id)options
 {
-  v12.receiver = self;
-  v12.super_class = VSSubscriptionPropertyListStore;
-  v6 = [(NSAtomicStore *)&v12 initWithPersistentStoreCoordinator:coordinator configurationName:name URL:l options:options];
+  v13.receiver = self;
+  v13.super_class = VSSubscriptionPropertyListStore;
+  v6 = [(NSAtomicStore *)&v13 initWithPersistentStoreCoordinator:coordinator configurationName:name URL:l options:options];
   if (v6)
   {
     v7 = objc_alloc(MEMORY[0x277CBEB38]);
     metadata = [(NSAtomicStore *)v6 metadata];
     v9 = [v7 initWithDictionary:metadata];
 
-    v10 = VSSubscriptionPropertyListStoreType();
-    [v9 setObject:v10 forKey:*MEMORY[0x277CBE2F8]];
+    v11 = VSSubscriptionPropertyListStoreType(v10);
+    [v9 setObject:v11 forKey:*MEMORY[0x277CBE2F8]];
 
     [(NSAtomicStore *)v6 setMetadata:v9];
   }

@@ -110,7 +110,7 @@
     v77 = 0u;
     v78 = 0u;
     v76 = 0u;
-    [(MapRoutePageRenderer *)self _overviewAffineTransformForRect:v31 zoomLevel:?];
+    objc_msgSend__overviewAffineTransformForRect_zoomLevel_(self, v31);
     zoomLevel = self->super.super._zoomLevel;
     v73 = v76;
     v74 = v77;

@@ -29,7 +29,7 @@
 
 - (id)workItemsNeedingProcessingInLibrary:(id)library validCriterias:(id)criterias
 {
-  sub_19BF3B340(0, &qword_1EAFF3EF0);
+  sub_19BF3B340(0, &qword_1EAFF3EF0, off_1E755F720);
   sub_19BF41C1C();
   v6 = sub_19C5C46BC();
   libraryCopy = library;

@@ -122,7 +122,7 @@ void __77___UIDragSetDownItemAnimation_configureCrossfadingAnimationToTargetedPr
   v4 = *(a1 + 32);
   if (v4)
   {
-    [v4 targetTransformIncludingAppliedTransform:0];
+    objc_msgSend_targetTransformIncludingAppliedTransform_(v4);
     v3 = 0uLL;
   }
 
@@ -136,7 +136,7 @@ void __77___UIDragSetDownItemAnimation_configureCrossfadingAnimationToTargetedPr
   v7 = v6;
   if (v6)
   {
-    [v6 transform];
+    objc_msgSend_transform(v6);
   }
 
   else
@@ -181,7 +181,7 @@ void __77___UIDragSetDownItemAnimation_configureCrossfadingAnimationToTargetedPr
     v8 = *(a1 + 32);
     if (v8)
     {
-      [v8 transform];
+      objc_msgSend_transform(v8);
       v9 = *(a1 + 32);
     }
 
@@ -214,7 +214,7 @@ void __77___UIDragSetDownItemAnimation_configureCrossfadingAnimationToTargetedPr
     v12 = v13;
     if (v13)
     {
-      [v13 transform];
+      objc_msgSend_transform(v13);
     }
 
     else
@@ -227,7 +227,7 @@ void __77___UIDragSetDownItemAnimation_configureCrossfadingAnimationToTargetedPr
     v16 = v15;
     if (v15)
     {
-      [v15 transform];
+      objc_msgSend_transform(v15);
     }
 
     else
@@ -315,17 +315,17 @@ uint64_t __55___UIDragSetDownItemAnimation_performSpringAnimations___block_invok
   return [UIView _modifyAnimationsWithPreferredFrameRateRange:1048615 updateReason:v2 animations:*&v5.minimum, *&v5.maximum, *&v5.preferred];
 }
 
-uint64_t __57___UIDragSetDownItemAnimation_animationCompletionHandler__block_invoke(uint64_t result)
+void *__57___UIDragSetDownItemAnimation_animationCompletionHandler__block_invoke(void *result)
 {
-  --*(*(result + 32) + 20);
-  v3 = *(result + 32);
+  --*(result[4] + 20);
+  v3 = result[4];
   if (!*(v3 + 20) && (*(v3 + 18) & 1) == 0)
   {
     v11 = v1;
     v12 = v2;
     v4 = result;
     has_internal_diagnostics = os_variant_has_internal_diagnostics();
-    v6 = *(*(v4 + 32) + 112);
+    v6 = *(v4[4] + 112);
     if (has_internal_diagnostics)
     {
       if (!v6)
@@ -349,7 +349,7 @@ uint64_t __57___UIDragSetDownItemAnimation_animationCompletionHandler__block_inv
       }
     }
 
-    return [*(v4 + 32) executeCompletionHandler];
+    return [v4[4] executeCompletionHandler];
   }
 
   return result;
@@ -386,43 +386,43 @@ void __57___UIDragSetDownItemAnimation_updateTargetedDropPreview___block_invoke(
   [WeakRetained updateTargetedDropPreview:*(a1 + 32)];
 }
 
-uint64_t __57___UIDragSetDownItemAnimation_updateTargetedDropPreview___block_invoke_2(uint64_t a1)
+uint64_t __57___UIDragSetDownItemAnimation_updateTargetedDropPreview___block_invoke_2(uint64_t a1, const char *a2)
 {
-  memset(&v11, 0, sizeof(v11));
-  v2 = *(*(a1 + 32) + 144);
-  if (v2)
-  {
-    [v2 targetTransform];
-  }
-
-  else
-  {
-    memset(&v9, 0, sizeof(v9));
-  }
-
-  CATransform3DGetAffineTransform(&t1, &v9);
-  v3 = [*(*(a1 + 32) + 80) target];
-  v4 = v3;
+  memset(&v12, 0, sizeof(v12));
+  v3 = *(*(a1 + 32) + 144);
   if (v3)
   {
-    [v3 transform];
+    objc_msgSend_targetTransform(v3, a2);
   }
 
   else
   {
-    memset(&v9, 0, 48);
+    memset(&v10, 0, sizeof(v10));
   }
 
-  CGAffineTransformConcat(&v11, &t1, &v9);
+  CATransform3DGetAffineTransform(&t1, &v10);
+  v4 = [*(*(a1 + 32) + 80) target];
+  v5 = v4;
+  if (v4)
+  {
+    objc_msgSend_transform(v4);
+  }
 
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 160);
-  v7 = [*(v5 + 80) _duiPreview];
-  [v7 unscaledSize];
-  *&v9.m11 = *&v11.a;
-  *&v9.m13 = *&v11.c;
-  *&v9.m21 = *&v11.tx;
-  [v6 applyTransform:&v9 withSize:?];
+  else
+  {
+    memset(&v10, 0, 48);
+  }
+
+  CGAffineTransformConcat(&v12, &t1, &v10);
+
+  v6 = *(a1 + 32);
+  v7 = *(v6 + 160);
+  v8 = [*(v6 + 80) _duiPreview];
+  [v8 unscaledSize];
+  *&v10.m11 = *&v12.a;
+  *&v10.m13 = *&v12.c;
+  *&v10.m21 = *&v12.tx;
+  [v7 applyTransform:&v10 withSize:?];
 
   [*(*(a1 + 32) + 144) setAlpha:1.0];
   return [*(*(a1 + 32) + 136) setAlpha:0.0];

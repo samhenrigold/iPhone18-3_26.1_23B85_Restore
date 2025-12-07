@@ -15,7 +15,7 @@
   }
 
   selfCopy = self;
-  sub_247C372A8();
+  sub_247C372A8(v3);
 }
 
 @end

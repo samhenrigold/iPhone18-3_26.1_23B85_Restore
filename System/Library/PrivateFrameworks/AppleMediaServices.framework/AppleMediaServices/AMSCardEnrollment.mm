@@ -2549,7 +2549,7 @@ id __68__AMSCardEnrollment_isCardEligibleForAutoEnrollmentWithCountryCode___bloc
 
   v12 = 0;
 LABEL_13:
-  v19 = [AMSBoolean BOOLeanWithBool:v12, *v22, *&v22[16], v23];
+  v19 = [AMSBoolean BOOLeanWithBool:v12, *v22, *&v22[8], v23];
   v20 = [AMSPromise promiseWithResult:v19];
 
   return v20;

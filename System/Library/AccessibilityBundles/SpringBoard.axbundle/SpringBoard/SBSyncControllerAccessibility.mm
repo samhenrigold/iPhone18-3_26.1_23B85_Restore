@@ -208,7 +208,7 @@ LABEL_35:
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_29C37A000, v1, v2, "failed to F_FULLSYNC data reset state directory: %{public}s", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&dword_29C37A000, v1, v2, "failed to F_FULLSYNC data reset state directory: %{public}s", v3, v4, v5, v6);
 }
 
 - (void)_accessibilityWriteOutDataResetForAXSettings:.cold.4()
@@ -216,7 +216,7 @@ LABEL_35:
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_29C37A000, v1, v2, "Failed to open data reset state directory: %{public}s", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&dword_29C37A000, v1, v2, "Failed to open data reset state directory: %{public}s", v3, v4, v5, v6);
 }
 
 - (void)_accessibilityWriteOutDataResetForAXSettings:.cold.5()
@@ -224,7 +224,7 @@ LABEL_35:
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_29C37A000, v1, v2, "Failed to open data reset State file. errno: %{public}s", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&dword_29C37A000, v1, v2, "Failed to open data reset State file. errno: %{public}s", v3, v4, v5, v6);
 }
 
 @end

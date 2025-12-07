@@ -7,18 +7,16 @@
 
 + (id)sublibraries
 {
-  v10[4] = *MEMORY[0x1E69E9840];
+  v9[4] = *MEMORY[0x1E69E9840];
   domino = [self Domino];
-  v10[0] = domino;
+  v9[0] = domino;
   externalDisplay = [self ExternalDisplay];
-  v10[1] = externalDisplay;
+  v9[1] = externalDisplay;
   gestureEducation = [self GestureEducation];
-  v10[2] = gestureEducation;
+  v9[2] = gestureEducation;
   windowManagement = [self WindowManagement];
-  v10[3] = windowManagement;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:4];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[3] = windowManagement;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
 
   return v7;
 }

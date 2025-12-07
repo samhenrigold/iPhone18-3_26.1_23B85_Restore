@@ -366,11 +366,11 @@ LABEL_39:
 
 - (SFResponseWrapperCardSection)initWithProtobuf:(id)protobuf
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v31.receiver = self;
-  v31.super_class = SFResponseWrapperCardSection;
-  v5 = [(SFCardSection *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = SFResponseWrapperCardSection;
+  v5 = [(SFCardSection *)&v30 init];
   if (v5)
   {
     catModel = [protobufCopy catModel];
@@ -412,33 +412,33 @@ LABEL_39:
       v17 = 0;
     }
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     pattern_models2 = [protobufCopy pattern_models];
-    v19 = [pattern_models2 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v19 = [pattern_models2 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v28;
+      v21 = *v27;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v28 != v21)
+          if (*v27 != v21)
           {
             objc_enumerationMutation(pattern_models2);
           }
 
-          v23 = [[SFPatternModel alloc] initWithProtobuf:*(*(&v27 + 1) + 8 * i)];
+          v23 = [[SFPatternModel alloc] initWithProtobuf:*(*(&v26 + 1) + 8 * i)];
           if (v23)
           {
             [v17 addObject:v23];
           }
         }
 
-        v20 = [pattern_models2 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v20 = [pattern_models2 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v20);
@@ -448,7 +448,6 @@ LABEL_39:
     v24 = v5;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

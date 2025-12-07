@@ -12,28 +12,27 @@
   ObjectType = swift_getObjectType();
   v8 = sub_1D9176C2C();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v12 = &v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v23 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D9176B9C();
-  v13 = sub_1D917820C();
-  v15 = v14;
+  v12 = sub_1D917820C();
+  v14 = v13;
   tokenCopy = token;
-  v17 = sub_1D9176C8C();
-  v19 = v18;
+  v16 = sub_1D9176C8C();
+  v18 = v17;
 
-  (*(v9 + 16))(self + OBJC_IVAR____TtC18PodcastsFoundation23PushSubscriptionRequest_endpointURL, v12, v8);
-  v20 = (self + OBJC_IVAR____TtC18PodcastsFoundation23PushSubscriptionRequest_action);
-  *v20 = v13;
-  v20[1] = v15;
-  v21 = (self + OBJC_IVAR____TtC18PodcastsFoundation23PushSubscriptionRequest_apnsToken);
-  *v21 = v17;
-  v21[1] = v19;
-  v24.receiver = self;
-  v24.super_class = ObjectType;
-  v22 = [(PushSubscriptionRequest *)&v24 init];
-  (*(v9 + 8))(v12, v8);
-  return v22;
+  (*(v9 + 16))(self + OBJC_IVAR____TtC18PodcastsFoundation23PushSubscriptionRequest_endpointURL, v11, v8);
+  v19 = (self + OBJC_IVAR____TtC18PodcastsFoundation23PushSubscriptionRequest_action);
+  *v19 = v12;
+  v19[1] = v14;
+  v20 = (self + OBJC_IVAR____TtC18PodcastsFoundation23PushSubscriptionRequest_apnsToken);
+  *v20 = v16;
+  v20[1] = v18;
+  v23.receiver = self;
+  v23.super_class = ObjectType;
+  v21 = [(PushSubscriptionRequest *)&v23 init];
+  (*(v9 + 8))(v11, v8);
+  return v21;
 }
 
 - (NSDictionary)parameters
@@ -50,16 +49,15 @@
 {
   v4 = sub_1D917653C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  PushSubscriptionRequest.buildURLRequest()(v8);
+  PushSubscriptionRequest.buildURLRequest()(v7);
 
-  v10 = sub_1D91764BC();
-  (*(v5 + 8))(v8, v4);
+  v9 = sub_1D91764BC();
+  (*(v5 + 8))(v7, v4);
 
-  return v10;
+  return v9;
 }
 
 - (_TtC18PodcastsFoundation23PushSubscriptionRequest)init

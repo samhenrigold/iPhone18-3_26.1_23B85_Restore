@@ -1,382 +1,6 @@
-CFStringRef NetworkNode::copyAppleID(NetworkNode *this)
-{
-  pthread_mutex_lock((this + 464));
-  v2 = *(this + 8);
-  if (v2)
-  {
-    Copy = CFStringCreateCopy(0, v2);
-  }
-
-  else
-  {
-    Copy = 0;
-  }
-
-  pthread_mutex_unlock((this + 464));
-  return Copy;
-}
-
-CFStringRef NetworkNode::copyTransportBundleID(NetworkNode *this)
-{
-  pthread_mutex_lock((this + 464));
-  v2 = *(this + 27);
-  if (v2)
-  {
-    Copy = CFStringCreateCopy(0, v2);
-  }
-
-  else
-  {
-    Copy = 0;
-  }
-
-  pthread_mutex_unlock((this + 464));
-  return Copy;
-}
-
-CFSetRef NetworkNode::copyHandles(NetworkNode *this)
-{
-  pthread_mutex_lock((this + 464));
-  v2 = *(this + 44);
-  if (v2)
-  {
-    Copy = CFSetCreateCopy(0, v2);
-  }
-
-  else
-  {
-    Copy = 0;
-  }
-
-  pthread_mutex_unlock((this + 464));
-  return Copy;
-}
-
-CFStringRef NetworkNode::copySharePointBrowserID(NetworkNode *this)
-{
-  pthread_mutex_lock((this + 464));
-  v2 = *(this + 26);
-  if (v2)
-  {
-    Copy = CFStringCreateCopy(0, v2);
-  }
-
-  else
-  {
-    Copy = 0;
-  }
-
-  pthread_mutex_unlock((this + 464));
-  return Copy;
-}
-
-CFStringRef NetworkNode::copyIDSDeviceIdentifier(NetworkNode *this)
-{
-  pthread_mutex_lock((this + 464));
-  v2 = *(this + 19);
-  if (v2)
-  {
-    Copy = CFStringCreateCopy(0, v2);
-  }
-
-  else
-  {
-    Copy = 0;
-  }
-
-  pthread_mutex_unlock((this + 464));
-  return Copy;
-}
-
-uint64_t SFBrowserGetTypeID()
-{
-  if (SFBrowserGetTypeID_once != -1)
-  {
-    SFBrowserGetTypeID_cold_1();
-  }
-
-  return _kSFBrowserTypeID;
-}
-
-void *__SFBrowserGetTypeID_block_invoke()
-{
-  result = malloc_type_calloc(1uLL, 0x60uLL, 0x10D00408820D60FuLL);
-  _kSFBrowserClass = result;
-  if (result)
-  {
-    *result = 0;
-    result[1] = "SFBrowser";
-    result[4] = _SFBrowserFinalize;
-    result[5] = _SFBrowserEqual;
-    result[6] = _SFBrowserHash;
-    result[8] = _SFBrowserCopyDebugDesc;
-    result = _CFRuntimeRegisterClass();
-    _kSFBrowserTypeID = result;
-  }
-
-  return result;
-}
-
-uint64_t SFBrowserCreate(const __CFAllocator *a1, const void *a2)
-{
-  v4 = browser_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-  {
-    SFBrowserCreate_cold_1();
-  }
-
-  if (SFBrowserGetTypeID_once != -1)
-  {
-    SFBrowserCreate_cold_2();
-  }
-
-  if (!_kSFBrowserTypeID)
-  {
-    return 0;
-  }
-
-  Instance = _CFRuntimeCreateInstance();
-  v6 = Instance;
-  if (Instance)
-  {
-    *(Instance + 192) = 0u;
-    *(Instance + 208) = 0u;
-    *(Instance + 160) = 0u;
-    *(Instance + 176) = 0u;
-    *(Instance + 128) = 0u;
-    *(Instance + 144) = 0u;
-    *(Instance + 96) = 0u;
-    *(Instance + 112) = 0u;
-    *(Instance + 64) = 0u;
-    *(Instance + 80) = 0u;
-    *(Instance + 32) = 0u;
-    *(Instance + 48) = 0u;
-    *(Instance + 16) = 0u;
-    pthread_mutex_init((Instance + 88), 0);
-    *(v6 + 56) = CFRetain(a2);
-    if (CFEqual(a2, @"Network"))
-    {
-      v7 = copyLocalizedStringForKey(@"Network");
-      v8 = SFNodeCreate();
-      SFNodeAddKind(v8, @"Domain");
-      v9 = kSFNodeKindWorkgroup;
-    }
-
-    else
-    {
-      if (!CFEqual(a2, @"AirDrop"))
-      {
-        if (!CFEqual(a2, @"Remote Disc"))
-        {
-          if (!CFEqual(a2, @"Printer"))
-          {
-            v8 = 0;
-            goto LABEL_17;
-          }
-
-          v8 = SFNodeCreate();
-          if (!v8)
-          {
-            goto LABEL_17;
-          }
-
-LABEL_16:
-          SFNodeAddKind(v8, @"Root");
-LABEL_17:
-          *(v6 + 208) = v8;
-          v12 = MEMORY[0x1E695E9D8];
-          v13 = MEMORY[0x1E695E9E8];
-          *(v6 + 48) = CFDictionaryCreateMutable(a1, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-          *(v6 + 40) = CFDictionaryCreateMutable(a1, 0, v12, v13);
-          *(v6 + 32) = CFDictionaryCreateMutable(a1, 0, v12, v13);
-          CFDictionarySetValue(*(v6 + 40), *(v6 + 208), *(v6 + 208));
-          return v6;
-        }
-
-        v7 = copyLocalizedStringForKey(@"Remote Disc");
-        v11 = SFNodeCreate();
-        v8 = v11;
-        v10 = @"Domain";
-LABEL_13:
-        SFNodeAddKind(v11, v10);
-        SFNodeAddDomain(v8, @"local");
-        if (v7)
-        {
-          CFRelease(v7);
-        }
-
-        if (!v8)
-        {
-          goto LABEL_17;
-        }
-
-        goto LABEL_16;
-      }
-
-      v7 = copyLocalizedStringForKey(@"AirDrop");
-      v8 = SFNodeCreate();
-      SFNodeAddKind(v8, @"Domain");
-      v9 = kSFNodeKindAirDrop;
-    }
-
-    v10 = *v9;
-    v11 = v8;
-    goto LABEL_13;
-  }
-
-  return v6;
-}
-
-uint64_t SFBrowserSetClient(uint64_t a1, uint64_t a2, __int128 *a3)
-{
-  v19 = *MEMORY[0x1E69E9840];
-  v6 = browser_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-  {
-    v13 = 134218496;
-    v14 = a1;
-    v15 = 2048;
-    v16 = a2;
-    v17 = 2048;
-    v18 = a3;
-    _os_log_debug_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEBUG, "SFBrowserSetClient (browser = %p, callback = %p, context = %p)", &v13, 0x20u);
-  }
-
-  pthread_mutex_lock((a1 + 88));
-  if (*(a1 + 168))
-  {
-    v7 = *(a1 + 184);
-    if (v7)
-    {
-      v7();
-    }
-  }
-
-  *(a1 + 152) = a2;
-  v8 = *a3;
-  v9 = a3[1];
-  *(a1 + 192) = *(a3 + 4);
-  *(a1 + 160) = v8;
-  *(a1 + 176) = v9;
-  if (*(a1 + 168))
-  {
-    v10 = *(a1 + 176);
-    if (v10)
-    {
-      *(a1 + 168) = v10();
-    }
-  }
-
-  result = pthread_mutex_unlock((a1 + 88));
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t SFBrowserSetDispatchQueue(uint64_t a1, NSObject *a2)
-{
-  v4 = browser_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-  {
-    SFBrowserSetDispatchQueue_cold_1();
-  }
-
-  pthread_mutex_lock((a1 + 88));
-  v5 = *(a1 + 80);
-  if (v5 != a2)
-  {
-    if (v5)
-    {
-      dispatch_release(v5);
-    }
-
-    if (a2)
-    {
-      dispatch_retain(a2);
-    }
-
-    *(a1 + 80) = a2;
-  }
-
-  return pthread_mutex_unlock((a1 + 88));
-}
-
-uint64_t SFBrowserSetMode(uint64_t a1, uint64_t a2)
-{
-  v4 = browser_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-  {
-    SFBrowserSetMode_cold_1();
-  }
-
-  pthread_mutex_lock((a1 + 88));
-  if (*(a1 + 216) || (Connection = _SFBrowserCreateConnection(a1), (*(a1 + 216) = Connection) != 0))
-  {
-    v6 = _os_activity_create(&dword_1A9662000, "Sharing/SFBrowser/setMode", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-    v9.opaque[0] = 0;
-    v9.opaque[1] = 0;
-    os_activity_scope_enter(v6, &v9);
-    os_release(v6);
-    *(a1 + 200) = a2;
-    v7 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_string(v7, "Object", "Browser");
-    xpc_dictionary_set_string(v7, "Function", "SetMode");
-    xpc_dictionary_set_uint64(v7, "Mode", a2);
-    xpc_connection_send_message(*(a1 + 216), v7);
-    xpc_release(v7);
-    os_activity_scope_leave(&v9);
-  }
-
-  return pthread_mutex_unlock((a1 + 88));
-}
-
-_xpc_connection_s *_SFBrowserCreateConnection(void *a1)
-{
-  v2 = _os_activity_create(&dword_1A9662000, "Sharing/SFBrowser/createConnection", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  state.opaque[0] = 0;
-  state.opaque[1] = 0;
-  os_activity_scope_enter(v2, &state);
-  os_release(v2);
-  v3 = xpc_dictionary_create(0, 0, 0);
-  v4 = a1[7];
-  v5 = _CFXPCCreateXPCObjectFromCFObject();
-  v6 = _SFNodeXPCObjectCreate(a1[26]);
-  xpc_dictionary_set_value(v3, "Kind", v5);
-  xpc_dictionary_set_value(v3, "Node", v6);
-  xpc_dictionary_set_string(v3, "Object", "Browser");
-  xpc_dictionary_set_string(v3, "Function", "Create");
-  if (a1[10])
-  {
-    v7 = a1[10];
-  }
-
-  else
-  {
-    v7 = MEMORY[0x1E69E96A0];
-  }
-
-  mach_service = xpc_connection_create_mach_service("com.apple.sharingd", v7, 0);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 0x40000000;
-  v11[2] = ___SFBrowserCreateConnection_block_invoke;
-  v11[3] = &__block_descriptor_tmp_75;
-  v11[4] = a1;
-  v11[5] = mach_service;
-  xpc_connection_set_event_handler(mach_service, v11);
-  xpc_connection_send_message(mach_service, v3);
-  v9 = CFRetain(a1);
-  xpc_connection_set_context(mach_service, v9);
-  xpc_connection_set_finalizer_f(mach_service, MEMORY[0x1E695D7C0]);
-  xpc_connection_resume(mach_service);
-  xpc_release(v5);
-  xpc_release(v6);
-  xpc_release(v3);
-  os_activity_scope_leave(&state);
-  return mach_service;
-}
-
 uint64_t SFBrowserSetOptions(uint64_t a1, uint64_t a2)
 {
-  v4 = browser_log();
+  v4 = browser_log(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     SFBrowserSetOptions_cold_1();
@@ -408,8 +32,9 @@ uint64_t SFBrowserSetOptions(uint64_t a1, uint64_t a2)
 void SFBrowserScheduleWithRunLoop(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v15 = *MEMORY[0x1E69E9840];
-  v6 = browser_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v6 = browser_log(a1);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
+  if (v7)
   {
     v9 = 134218496;
     v10 = a1;
@@ -420,18 +45,16 @@ void SFBrowserScheduleWithRunLoop(uint64_t a1, uint64_t a2, uint64_t a3)
     _os_log_debug_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEBUG, "SFBrowserScheduleWithRunLoop (browser = %p, runLoop = %p, runLoopMode = %p)", &v9, 0x20u);
   }
 
-  v7 = browser_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = browser_log(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     SFBrowserScheduleWithRunLoop_cold_1();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t SFBrowserGetRootNode(uint64_t a1)
 {
-  v2 = browser_log();
+  v2 = browser_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     SFBrowserGetRootNode_cold_1();
@@ -446,7 +69,7 @@ uint64_t SFBrowserGetRootNode(uint64_t a1)
 const void *SFBrowserCopyChildren(uint64_t a1, const void *a2)
 {
   v16 = *MEMORY[0x1E69E9840];
-  v4 = browser_log();
+  v4 = browser_log(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     SFBrowserCopyChildren_cold_1();
@@ -466,15 +89,16 @@ const void *SFBrowserCopyChildren(uint64_t a1, const void *a2)
   v7 = Mutable;
   v8 = CFCopyDescription(Mutable);
   v9 = CFEqual(*(a1 + 56), @"AirDrop");
-  v10 = browser_log();
-  v11 = v10;
-  if (v9)
+  v10 = v9;
+  v11 = browser_log(v9);
+  v12 = v11;
+  if (v10)
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v14 = 138412290;
       v15 = v8;
-      _os_log_impl(&dword_1A9662000, v11, OS_LOG_TYPE_DEFAULT, "%@", &v14, 0xCu);
+      _os_log_impl(&dword_1A9662000, v12, OS_LOG_TYPE_DEFAULT, "%@", &v14, 0xCu);
       if (!v8)
       {
         goto LABEL_15;
@@ -484,7 +108,7 @@ const void *SFBrowserCopyChildren(uint64_t a1, const void *a2)
     }
   }
 
-  else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     SFBrowserCopyChildren_cold_2();
     if (!v8)
@@ -503,13 +127,12 @@ LABEL_14:
 
 LABEL_15:
   pthread_mutex_unlock((a1 + 88));
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 const void *SFBrowserCopySidebarChildren(uint64_t a1)
 {
-  v2 = browser_log();
+  v2 = browser_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     SFBrowserCopySidebarChildren_cold_1();
@@ -523,7 +146,7 @@ const void *SFBrowserCopySidebarChildren(uint64_t a1)
   }
 
   v4 = CFCopyDescription(v3);
-  v5 = browser_log();
+  v5 = browser_log(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     SFBrowserCopyChildren_cold_2();
@@ -549,7 +172,7 @@ LABEL_8:
 uint64_t SFBrowserOpenNode(uint64_t a1, const void *a2, const void *a3, uint64_t a4)
 {
   valuePtr = a4;
-  v8 = browser_log();
+  v8 = browser_log(a1);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     SFBrowserOpenNode_cold_1();
@@ -616,7 +239,7 @@ uint64_t SFBrowserOpenNode(uint64_t a1, const void *a2, const void *a3, uint64_t
 
 uint64_t SFBrowserAddNode(uint64_t a1, uint64_t a2)
 {
-  v4 = browser_log();
+  v4 = browser_log(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     SFBrowserAddNode_cold_1();
@@ -687,7 +310,7 @@ void _SFBrowserCancelConnectionIfNeccesary(uint64_t a1)
 
 uint64_t SFBrowserRemoveNode(uint64_t a1, uint64_t a2)
 {
-  v4 = browser_log();
+  v4 = browser_log(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     SFBrowserRemoveNode_cold_1();
@@ -740,7 +363,7 @@ uint64_t SFBrowserRemoveNode(uint64_t a1, uint64_t a2)
 
 uint64_t SFBrowserCloseNode(uint64_t a1, const void *a2)
 {
-  v4 = browser_log();
+  v4 = browser_log(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     SFBrowserCloseNode_cold_1();
@@ -790,7 +413,7 @@ uint64_t SFBrowserCloseNode(uint64_t a1, const void *a2)
 
 uint64_t SFBrowserInvalidate(uint64_t a1)
 {
-  v2 = browser_log();
+  v2 = browser_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     SFBrowserInvalidate_cold_1();
@@ -826,7 +449,7 @@ void __SFBrowserInvalidate_block_invoke(uint64_t a1)
 
 CFTypeRef SFBrowserCopyNodeForURL(uint64_t a1, const __CFURL *a2)
 {
-  v4 = browser_log();
+  v4 = browser_log(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     SFBrowserCopyNodeForURL_cold_1();
@@ -834,30 +457,31 @@ CFTypeRef SFBrowserCopyNodeForURL(uint64_t a1, const __CFURL *a2)
 
   pthread_mutex_lock((a1 + 88));
   v5 = CFURLCopyScheme(a2);
-  if (CFEqual(v5, @"nwnode"))
+  v6 = CFEqual(v5, @"nwnode");
+  if (v6)
   {
-    v6 = CFURLCopyHostName(a2);
-    if (v6)
+    v7 = CFURLCopyHostName(a2);
+    if (v7)
     {
-      v7 = v6;
-      HasPrefix = CFStringHasPrefix(v6, @"server-");
-      v9 = CFStringHasPrefix(v7, @"domain-");
-      if (HasPrefix | v9)
+      v8 = v7;
+      HasPrefix = CFStringHasPrefix(v7, @"server-");
+      v10 = CFStringHasPrefix(v8, @"domain-");
+      if (HasPrefix | v10)
       {
-        v10 = v9;
-        v11 = CFGetAllocator(a1);
-        v28.length = CFStringGetLength(v7) - 7;
-        v28.location = 7;
-        v12 = CFStringCreateWithSubstring(v11, v7, v28);
-        if (v12)
+        v11 = v10;
+        v12 = CFGetAllocator(a1);
+        v29.length = CFStringGetLength(v8) - 7;
+        v29.location = 7;
+        v13 = CFStringCreateWithSubstring(v12, v8, v29);
+        if (v13)
         {
-          v13 = v12;
-          v14 = CFGetAllocator(a1);
-          v15 = copyValuesFromDictionary(v14, *(a1 + 40));
-          Count = CFArrayGetCount(v15);
+          v14 = v13;
+          v15 = CFGetAllocator(a1);
+          v16 = copyValuesFromDictionary(v15, *(a1 + 40));
+          Count = CFArrayGetCount(v16);
           if (Count < 1)
           {
-            if (!v10)
+            if (!v11)
             {
               goto LABEL_40;
             }
@@ -865,56 +489,56 @@ CFTypeRef SFBrowserCopyNodeForURL(uint64_t a1, const __CFURL *a2)
 
           else
           {
-            v17 = Count;
-            v27 = v5;
-            v18 = 1;
+            v18 = Count;
+            v28 = v5;
+            v19 = 1;
             do
             {
-              ValueAtIndex = CFArrayGetValueAtIndex(v15, v18 - 1);
-              v20 = SFNodeCopyRealName(ValueAtIndex);
-              if ((HasPrefix && (SFNodeIsServer(ValueAtIndex) || SFNodeIsSharePoint(ValueAtIndex)) || v10 && SFNodeIsNeighborhood(ValueAtIndex)) && CFEqual(v20, v13))
+              ValueAtIndex = CFArrayGetValueAtIndex(v16, v19 - 1);
+              v21 = SFNodeCopyRealName(ValueAtIndex);
+              if ((HasPrefix && (SFNodeIsServer(ValueAtIndex) || SFNodeIsSharePoint(ValueAtIndex)) || v11 && SFNodeIsNeighborhood(ValueAtIndex)) && CFEqual(v21, v14))
               {
-                v21 = CFRetain(ValueAtIndex);
+                v22 = CFRetain(ValueAtIndex);
               }
 
               else
               {
-                v21 = 0;
+                v22 = 0;
               }
 
-              CFRelease(v20);
-              if (v18 >= v17)
+              CFRelease(v21);
+              if (v19 >= v18)
               {
                 break;
               }
 
-              ++v18;
+              ++v19;
             }
 
-            while (!v21);
-            v5 = v27;
-            if (v21 || !v10)
+            while (!v22);
+            v5 = v28;
+            if (v22 || !v11)
             {
               goto LABEL_41;
             }
           }
 
-          if (CFEqual(*(a1 + 56), @"Network") && CFEqual(v13, @"Network") || CFEqual(*(a1 + 56), @"AirDrop") && CFEqual(v13, @"AirDrop") || CFEqual(*(a1 + 56), @"Remote Disc") && CFEqual(v13, @"Remote Disc"))
+          if (CFEqual(*(a1 + 56), @"Network") && CFEqual(v14, @"Network") || CFEqual(*(a1 + 56), @"AirDrop") && CFEqual(v14, @"AirDrop") || CFEqual(*(a1 + 56), @"Remote Disc") && CFEqual(v14, @"Remote Disc"))
           {
-            v21 = CFRetain(*(a1 + 208));
+            v22 = CFRetain(*(a1 + 208));
 LABEL_41:
-            CFRelease(v15);
-            CFRelease(v13);
+            CFRelease(v16);
+            CFRelease(v14);
             goto LABEL_42;
           }
 
 LABEL_40:
-          v21 = 0;
+          v22 = 0;
           goto LABEL_41;
         }
 
-        v25 = browser_log();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v26 = browser_log(0);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           SFBrowserCopyNodeForURL_cold_3();
         }
@@ -922,21 +546,21 @@ LABEL_40:
 
       else
       {
-        v24 = browser_log();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v25 = browser_log(v10);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           SFBrowserCopyNodeForURL_cold_2();
         }
       }
 
-      v21 = 0;
+      v22 = 0;
 LABEL_42:
-      CFRelease(v7);
+      CFRelease(v8);
       goto LABEL_43;
     }
 
-    v23 = browser_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = browser_log(0);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       SFBrowserCopyNodeForURL_cold_4();
     }
@@ -944,18 +568,18 @@ LABEL_42:
 
   else
   {
-    v22 = browser_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = browser_log(v6);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       SFBrowserCopyNodeForURL_cold_5();
     }
   }
 
-  v21 = 0;
+  v22 = 0;
 LABEL_43:
   CFRelease(v5);
   pthread_mutex_unlock((a1 + 88));
-  return v21;
+  return v22;
 }
 
 uint64_t _SFBrowserFinalize(uint64_t a1)
@@ -1098,7 +722,7 @@ LABEL_9:
       }
 
       *(a1 + 24) = Mutable;
-      goto LABEL_26;
+      return;
     }
   }
 
@@ -1111,25 +735,25 @@ LABEL_9:
       if (v17 >= 2001 && v17 * 0.75 > Count)
       {
         CFDictionaryRemoveAllValues(*(a1 + 40));
-        v19 = browser_log();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v20 = browser_log(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           v25[0] = 67109120;
           v25[1] = v18;
-          _os_log_impl(&dword_1A9662000, v19, OS_LOG_TYPE_DEFAULT, "Compacting NetworkBrowser cache (%d)", v25, 8u);
+          _os_log_impl(&dword_1A9662000, v20, OS_LOG_TYPE_DEFAULT, "Compacting NetworkBrowser cache (%d)", v25, 8u);
         }
 
         CFDictionarySetValue(*(a1 + 40), a2, a2);
         if (a3)
         {
-          v20 = CFArrayGetCount(a3);
-          if (v20 >= 1)
+          v21 = CFArrayGetCount(a3);
+          if (v21 >= 1)
           {
-            v21 = v20;
-            for (i = 0; i != v21; ++i)
+            v22 = v21;
+            for (i = 0; i != v22; ++i)
             {
-              v23 = CFArrayGetValueAtIndex(Mutable, i);
-              CFDictionarySetValue(*(a1 + 40), v23, v23);
+              v24 = CFArrayGetValueAtIndex(Mutable, i);
+              CFDictionarySetValue(*(a1 + 40), v24, v24);
             }
           }
         }
@@ -1145,11 +769,9 @@ LABEL_9:
 
   CFDictionarySetValue(*(a1 + 32), a2, Mutable);
   CFRelease(Mutable);
-LABEL_26:
-  v24 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t SFNodeGetTypeID()
+uint64_t SFNodeGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (SFNodeGetTypeID::once != -1)
   {
@@ -1179,7 +801,7 @@ void *__SFNodeGetTypeID_block_invoke()
   return result;
 }
 
-uint64_t SFNodeCreate()
+uint64_t SFNodeCreate(uint64_t a1, const __CFString *a2, const __CFString *a3)
 {
   if (SFNodeGetTypeID::once != -1)
   {
@@ -1192,7 +814,7 @@ uint64_t SFNodeCreate()
   }
 
   Instance = _CFRuntimeCreateInstance();
-  v1 = Instance;
+  v4 = Instance;
   if (Instance)
   {
     *(Instance + 112) = 0;
@@ -1205,7 +827,7 @@ uint64_t SFNodeCreate()
     operator new();
   }
 
-  return v1;
+  return v4;
 }
 
 uint64_t SFNodeCreateCopy(uint64_t a1, uint64_t a2)
@@ -1307,455 +929,458 @@ uint64_t _SFNodeUpdateCachedChildNode(uint64_t a1, uint64_t a2)
   return pthread_mutex_unlock(v4);
 }
 
-uint64_t _SFNodeCreateWithXPCObject(int a1, void *a2)
+uint64_t _SFNodeCreateWithXPCObject(uint64_t a1, void *a2)
 {
-  v3 = xpcDictionaryCopyCFStringForKey(a2, "RealName");
-  if (!v3)
+  v4 = xpcDictionaryCopyCFStringForKey(a2, "RealName");
+  if (!v4)
   {
     return 0;
   }
 
-  v4 = v3;
-  v5 = xpcDictionaryCopyCFStringForKey(a2, "DisplayName");
-  if (!v5)
+  v5 = v4;
+  v6 = xpcDictionaryCopyCFStringForKey(a2, "DisplayName");
+  if (!v6)
   {
-    CFRelease(v4);
+    CFRelease(v5);
     return 0;
   }
 
-  v6 = v5;
-  v7 = SFNodeCreate();
-  CFRelease(v6);
-  CFRelease(v4);
-  if (v7)
+  v7 = v6;
+  v8 = SFNodeCreate(a1, v6, v5);
+  CFRelease(v7);
+  CFRelease(v5);
+  if (v8)
   {
-    v8 = xpcDictionaryCopyCFStringForKey(a2, "ComputerName");
-    if (v8)
+    v9 = xpcDictionaryCopyCFStringForKey(a2, "ComputerName");
+    if (v9)
     {
-      v9 = v8;
-      NetworkNode::setComputerName(*(v7 + 112), v8);
-      CFRelease(v9);
+      v10 = v9;
+      NetworkNode::setComputerName(*(v8 + 112), v9);
+      CFRelease(v10);
     }
 
-    v10 = xpcDictionaryCopyCFStringForKey(a2, "ServiceName");
-    if (v10)
+    v11 = xpcDictionaryCopyCFStringForKey(a2, "ServiceName");
+    if (v11)
     {
-      v11 = v10;
-      NetworkNode::setServiceName(*(v7 + 112), v10);
-      CFRelease(v11);
+      v12 = v11;
+      NetworkNode::setServiceName(*(v8 + 112), v11);
+      CFRelease(v12);
     }
 
-    v12 = xpcDictionaryCopyCFStringForKey(a2, "NetbiosName");
-    if (v12)
+    v13 = xpcDictionaryCopyCFStringForKey(a2, "NetbiosName");
+    if (v13)
     {
-      v13 = v12;
-      NetworkNode::setNetbiosName(*(v7 + 112), v12);
-      CFRelease(v13);
+      v14 = v13;
+      NetworkNode::setNetbiosName(*(v8 + 112), v13);
+      CFRelease(v14);
     }
 
-    v14 = xpcDictionaryCopyCFStringForKey(a2, "HostName");
-    if (v14)
+    v15 = xpcDictionaryCopyCFStringForKey(a2, "HostName");
+    if (v15)
     {
-      v15 = v14;
-      NetworkNode::setHostName(*(v7 + 112), v14);
-      CFRelease(v15);
+      v16 = v15;
+      NetworkNode::setHostName(*(v8 + 112), v15);
+      CFRelease(v16);
     }
 
-    v16 = xpcDictionaryCopyCFStringForKey(a2, "Comment");
-    if (v16)
+    v17 = xpcDictionaryCopyCFStringForKey(a2, "Comment");
+    if (v17)
     {
-      v17 = v16;
-      NetworkNode::setSecondaryName(*(v7 + 112), v16);
-      CFRelease(v17);
+      v18 = v17;
+      NetworkNode::setSecondaryName(*(v8 + 112), v17);
+      CFRelease(v18);
     }
 
-    v18 = xpcDictionaryCopyCFStringForKey(a2, "Domain");
-    if (v18)
+    v19 = xpcDictionaryCopyCFStringForKey(a2, "Domain");
+    if (v19)
     {
-      v19 = v18;
-      NetworkNode::setDomain(*(v7 + 112), v18);
-      CFRelease(v19);
+      v20 = v19;
+      NetworkNode::setDomain(*(v8 + 112), v19);
+      CFRelease(v20);
     }
 
-    v20 = xpcDictionaryCopyCFStringForKey(a2, "Workgroup");
-    if (v20)
+    v21 = xpcDictionaryCopyCFStringForKey(a2, "Workgroup");
+    if (v21)
     {
-      v21 = v20;
-      NetworkNode::setWorkgroup(*(v7 + 112), v20);
-      CFRelease(v21);
+      v22 = v21;
+      NetworkNode::setWorkgroup(*(v8 + 112), v21);
+      CFRelease(v22);
     }
 
-    v22 = xpcDictionaryCopyCFStringForKey(a2, "Path");
-    if (v22)
+    v23 = xpcDictionaryCopyCFStringForKey(a2, "Path");
+    if (v23)
     {
-      v23 = v22;
-      NetworkNode::setPath(*(v7 + 112), v22);
-      CFRelease(v23);
+      v24 = v23;
+      NetworkNode::setPath(*(v8 + 112), v23);
+      CFRelease(v24);
     }
 
-    v24 = xpcDictionaryCopyCFStringForKey(a2, "Model");
-    if (v24)
+    v25 = xpcDictionaryCopyCFStringForKey(a2, "Model");
+    if (v25)
     {
-      v25 = v24;
-      NetworkNode::setModel(*(v7 + 112), v24);
-      CFRelease(v25);
+      v26 = v25;
+      NetworkNode::setModel(*(v8 + 112), v25);
+      CFRelease(v26);
     }
 
-    v26 = xpcDictionaryCopyCFStringForKey(a2, "ModelIdentifier");
-    if (v26)
+    v27 = xpcDictionaryCopyCFStringForKey(a2, "ModelIdentifier");
+    if (v27)
     {
-      v27 = v26;
-      NetworkNode::setModelIdentifier(*(v7 + 112), v26);
-      CFRelease(v27);
+      v28 = v27;
+      NetworkNode::setModelIdentifier(*(v8 + 112), v27);
+      CFRelease(v28);
     }
 
-    v28 = xpcDictionaryCopyCFStringForKey(a2, "IDSDeviceIdentifier");
-    if (v28)
+    v29 = xpcDictionaryCopyCFStringForKey(a2, "IDSDeviceIdentifier");
+    if (v29)
     {
-      v29 = v28;
-      NetworkNode::setIDSDeviceIdentifier(*(v7 + 112), v28);
-      CFRelease(v29);
+      v30 = v29;
+      NetworkNode::setIDSDeviceIdentifier(*(v8 + 112), v29);
+      CFRelease(v30);
     }
 
-    v30 = xpcDictionaryCopyCFStringForKey(a2, "IconHash");
-    if (v30)
+    v31 = xpcDictionaryCopyCFStringForKey(a2, "IconHash");
+    if (v31)
     {
-      v31 = v30;
-      NetworkNode::setIconHash(*(v7 + 112), v30);
-      CFRelease(v31);
+      v32 = v31;
+      NetworkNode::setIconHash(*(v8 + 112), v31);
+      CFRelease(v32);
     }
 
-    v32 = xpcDictionaryCopyCFStringForKey(a2, "ContactIdentifier");
-    if (v32)
+    v33 = xpcDictionaryCopyCFStringForKey(a2, "ContactIdentifier");
+    if (v33)
     {
-      v33 = v32;
-      NetworkNode::setContactIdentifier(*(v7 + 112), v32);
-      CFRelease(v33);
+      v34 = v33;
+      NetworkNode::setContactIdentifier(*(v8 + 112), v33);
+      CFRelease(v34);
     }
 
-    v34 = xpcDictionaryCopyCFArrayForKey(a2, "ContactIdentifiers");
-    if (v34)
+    v35 = xpcDictionaryCopyCFArrayForKey(a2, "ContactIdentifiers");
+    if (v35)
     {
-      v35 = v34;
-      SetFromArray = createSetFromArray(0, v34);
+      v36 = v35;
+      SetFromArray = createSetFromArray(0, v35);
       if (SetFromArray)
       {
-        v37 = SetFromArray;
-        NetworkNode::setContactIdentifiers(*(v7 + 112), SetFromArray);
-        CFRelease(v37);
+        v38 = SetFromArray;
+        NetworkNode::setContactIdentifiers(*(v8 + 112), SetFromArray);
+        CFRelease(v38);
       }
 
-      CFRelease(v35);
+      CFRelease(v36);
     }
 
-    v38 = xpcDictionaryCopyCFStringForKey(a2, "UserName");
-    if (v38)
+    v39 = xpcDictionaryCopyCFStringForKey(a2, "UserName");
+    if (v39)
     {
-      v39 = v38;
-      NetworkNode::setUserName(*(v7 + 112), v38);
-      CFRelease(v39);
+      v40 = v39;
+      NetworkNode::setUserName(*(v8 + 112), v39);
+      CFRelease(v40);
     }
 
-    v40 = xpcDictionaryCopyCFStringForKey(a2, "Password");
-    if (v40)
+    v41 = xpcDictionaryCopyCFStringForKey(a2, "Password");
+    if (v41)
     {
-      v41 = v40;
-      NetworkNode::setPassword(*(v7 + 112), v40);
-      CFRelease(v41);
+      v42 = v41;
+      NetworkNode::setPassword(*(v8 + 112), v41);
+      CFRelease(v42);
     }
 
-    v42 = xpcDictionaryCopyCFStringForKey(a2, "NickName");
-    if (v42)
+    v43 = xpcDictionaryCopyCFStringForKey(a2, "NickName");
+    if (v43)
     {
-      v43 = v42;
-      NetworkNode::setNickName(*(v7 + 112), v42);
-      CFRelease(v43);
+      v44 = v43;
+      NetworkNode::setNickName(*(v8 + 112), v43);
+      CFRelease(v44);
     }
 
-    v44 = xpcDictionaryCopyCFStringForKey(a2, "FirstName");
-    if (v44)
+    v45 = xpcDictionaryCopyCFStringForKey(a2, "FirstName");
+    if (v45)
     {
-      v45 = v44;
-      NetworkNode::setFirstName(*(v7 + 112), v44);
-      CFRelease(v45);
+      v46 = v45;
+      NetworkNode::setFirstName(*(v8 + 112), v45);
+      CFRelease(v46);
     }
 
-    v46 = xpcDictionaryCopyCFStringForKey(a2, "LastName");
-    if (v46)
+    v47 = xpcDictionaryCopyCFStringForKey(a2, "LastName");
+    if (v47)
     {
-      v47 = v46;
-      NetworkNode::setLastName(*(v7 + 112), v46);
-      CFRelease(v47);
+      v48 = v47;
+      NetworkNode::setLastName(*(v8 + 112), v47);
+      CFRelease(v48);
     }
 
-    v48 = xpcDictionaryCopyCFStringForKey(a2, "AppleID");
-    if (v48)
+    v49 = xpcDictionaryCopyCFStringForKey(a2, "AppleID");
+    if (v49)
     {
-      v49 = v48;
-      NetworkNode::setAppleID(*(v7 + 112), v48);
-      CFRelease(v49);
+      v50 = v49;
+      NetworkNode::setAppleID(*(v8 + 112), v49);
+      CFRelease(v50);
     }
 
-    v50 = xpcDictionaryCopyCFStringForKey(a2, "EmailHash");
-    if (v50)
+    v51 = xpcDictionaryCopyCFStringForKey(a2, "EmailHash");
+    if (v51)
     {
-      v51 = v50;
-      NetworkNode::setEmailHash(*(v7 + 112), v50);
-      CFRelease(v51);
+      v52 = v51;
+      NetworkNode::setEmailHash(*(v8 + 112), v51);
+      CFRelease(v52);
     }
 
-    v52 = xpcDictionaryCopyCFStringForKey(a2, "PhoneHash");
-    if (v52)
+    v53 = xpcDictionaryCopyCFStringForKey(a2, "PhoneHash");
+    if (v53)
     {
-      v53 = v52;
-      NetworkNode::setPhoneHash(*(v7 + 112), v52);
-      CFRelease(v53);
+      v54 = v53;
+      NetworkNode::setPhoneHash(*(v8 + 112), v53);
+      CFRelease(v54);
     }
 
-    v54 = xpcDictionaryCopyCFStringForKey(a2, "ParentIdentifier");
-    if (v54)
+    v55 = xpcDictionaryCopyCFStringForKey(a2, "ParentIdentifier");
+    if (v55)
     {
-      v55 = v54;
-      NetworkNode::setParentIdentifier(*(v7 + 112), v54);
-      CFRelease(v55);
+      v56 = v55;
+      NetworkNode::setParentIdentifier(*(v8 + 112), v55);
+      CFRelease(v56);
     }
 
-    v56 = xpcDictionaryCopyCFStringForKey(a2, "DiskType");
-    if (v56)
+    v57 = xpcDictionaryCopyCFStringForKey(a2, "DiskType");
+    if (v57)
     {
-      v57 = v56;
-      NetworkNode::setDiskType(*(v7 + 112), v56);
-      CFRelease(v57);
+      v58 = v57;
+      NetworkNode::setDiskType(*(v8 + 112), v57);
+      CFRelease(v58);
     }
 
-    v58 = xpcDictionaryCopyCFStringForKey(a2, "SharePointBrowserID");
-    if (v58)
+    v59 = xpcDictionaryCopyCFStringForKey(a2, "SharePointBrowserID");
+    if (v59)
     {
-      v59 = v58;
-      NetworkNode::setSharePointBrowserID(*(v7 + 112), v58);
-      CFRelease(v59);
+      v60 = v59;
+      NetworkNode::setSharePointBrowserID(*(v8 + 112), v59);
+      CFRelease(v60);
     }
 
-    v60 = xpcDictionaryCopyCFStringForKey(a2, "TransportBundleID");
-    if (v60)
+    v61 = xpcDictionaryCopyCFStringForKey(a2, "TransportBundleID");
+    if (v61)
     {
-      v61 = v60;
-      NetworkNode::setTransportBundleID(*(v7 + 112), v60);
-      CFRelease(v61);
+      v62 = v61;
+      NetworkNode::setTransportBundleID(*(v8 + 112), v61);
+      CFRelease(v62);
     }
 
-    v62 = xpcDictionaryCopyCFDataForKey(a2, "IconData");
-    if (v62)
+    v63 = xpcDictionaryCopyCFDataForKey(a2, "IconData");
+    if (v63)
     {
-      v63 = v62;
-      NetworkNode::setIconData(*(v7 + 112), v62);
-      CFRelease(v63);
+      v64 = v63;
+      NetworkNode::setIconData(*(v8 + 112), v63);
+      CFRelease(v64);
     }
 
-    v64 = xpcDictionaryCopyCFDataForKey(a2, "MediaCapabilities");
-    if (v64)
+    v65 = xpcDictionaryCopyCFDataForKey(a2, "MediaCapabilities");
+    if (v65)
     {
-      v65 = v64;
-      NetworkNode::setMediaCapabilities(*(v7 + 112), v64);
-      CFRelease(v65);
+      v66 = v65;
+      NetworkNode::setMediaCapabilities(*(v8 + 112), v65);
+      CFRelease(v66);
     }
 
-    v66 = xpcDictionaryCopyCFNumberForKey(a2, "Flags");
-    if (v66)
+    v67 = xpcDictionaryCopyCFNumberForKey(a2, "Flags");
+    if (v67)
     {
-      v67 = v66;
-      NetworkNode::setFlags(*(v7 + 112), v66);
-      CFRelease(v67);
+      v68 = v67;
+      NetworkNode::setFlags(*(v8 + 112), v67);
+      CFRelease(v68);
     }
 
-    v68 = xpcDictionaryCopyCFNumberForKey(a2, "RapportFlags");
-    if (v68)
+    v69 = xpcDictionaryCopyCFNumberForKey(a2, "RapportFlags");
+    if (v69)
     {
-      v69 = v68;
-      NetworkNode::setRapportFlags(*(v7 + 112), v68);
-      CFRelease(v69);
+      v70 = v69;
+      NetworkNode::setRapportFlags(*(v8 + 112), v69);
+      CFRelease(v70);
     }
 
-    v70 = xpcDictionaryCopyCFNumberForKey(a2, "AccessRights");
-    if (v70)
+    v71 = xpcDictionaryCopyCFNumberForKey(a2, "AccessRights");
+    if (v71)
     {
-      v71 = v70;
-      NetworkNode::setAccessRights(*(v7 + 112), v70);
-      CFRelease(v71);
+      v72 = v71;
+      NetworkNode::setAccessRights(*(v8 + 112), v71);
+      CFRelease(v72);
     }
 
-    v72 = xpcDictionaryCopyCFDataForKey(a2, "RangingData");
-    if (v72)
+    v73 = xpcDictionaryCopyCFDataForKey(a2, "RangingData");
+    if (v73)
     {
-      v73 = v72;
-      NetworkNode::setRangingData(*(v7 + 112), v72);
-      CFRelease(v73);
+      v74 = v73;
+      NetworkNode::setRangingData(*(v8 + 112), v73);
+      CFRelease(v74);
     }
 
-    v74 = xpcDictionaryCopyCFURLForKey(a2, "URL");
-    if (v74)
+    v75 = xpcDictionaryCopyCFURLForKey(a2, "URL");
+    if (v75)
     {
-      v75 = v74;
-      NetworkNode::setURL(*(v7 + 112), v74);
-      CFRelease(v75);
+      v76 = v75;
+      NetworkNode::setURL(*(v8 + 112), v75);
+      CFRelease(v76);
     }
 
-    v76 = xpcDictionaryCopyCFURLForKey(a2, "MountPoint");
-    if (v76)
+    v77 = xpcDictionaryCopyCFURLForKey(a2, "MountPoint");
+    if (v77)
     {
-      v77 = v76;
-      NetworkNode::setMountPoint(*(v7 + 112), v76);
-      CFRelease(v77);
+      v78 = v77;
+      NetworkNode::setMountPoint(*(v8 + 112), v77);
+      CFRelease(v78);
     }
 
-    if (MEMORY[0x1AC58D590](a2) == MEMORY[0x1E69E9E80])
+    v79 = MEMORY[0x1AC58D590](a2);
+    if (v79 == MEMORY[0x1E69E9E80])
     {
       if (xpc_dictionary_get_value(a2, "URLs"))
       {
-        v107 = _CFXPCCreateCFObjectFromXPCObject();
-        if (v107)
+        v109 = _CFXPCCreateCFObjectFromXPCObject();
+        if (v109)
         {
-          v108 = v107;
-          v109 = CFGetTypeID(v107);
-          if (v109 == CFDictionaryGetTypeID())
+          v110 = v109;
+          v111 = CFGetTypeID(v109);
+          TypeID = CFDictionaryGetTypeID();
+          if (v111 == TypeID)
           {
-            NetworkNode::setURLs(*(v7 + 112), v108);
+            NetworkNode::setURLs(*(v8 + 112), v110);
           }
 
           else
           {
-            v110 = framework_log();
-            if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
+            v113 = framework_log(TypeID);
+            if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
             {
               _SFNodeCreateWithXPCObject_cold_2();
             }
           }
 
-          CFRelease(v108);
+          CFRelease(v110);
         }
       }
     }
 
     else
     {
-      v78 = framework_log();
-      if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+      v80 = framework_log(v79);
+      if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
       {
         _SFNodeCreateWithXPCObject_cold_1();
       }
     }
 
-    v79 = xpcDictionaryCopyCFArrayForKey(a2, "Domains");
-    if (v79)
+    v81 = xpcDictionaryCopyCFArrayForKey(a2, "Domains");
+    if (v81)
     {
-      v80 = v79;
-      v81 = createSetFromArray(0, v79);
-      if (v81)
+      v82 = v81;
+      v83 = createSetFromArray(0, v81);
+      if (v83)
       {
-        v82 = v81;
-        NetworkNode::setDomains(*(v7 + 112), v81);
-        CFRelease(v82);
+        v84 = v83;
+        NetworkNode::setDomains(*(v8 + 112), v83);
+        CFRelease(v84);
       }
 
-      CFRelease(v80);
+      CFRelease(v82);
     }
 
-    v83 = xpcDictionaryCopyCFArrayForKey(a2, "Workgroups");
-    if (v83)
+    v85 = xpcDictionaryCopyCFArrayForKey(a2, "Workgroups");
+    if (v85)
     {
-      v84 = v83;
-      v85 = createSetFromArray(0, v83);
-      if (v85)
+      v86 = v85;
+      v87 = createSetFromArray(0, v85);
+      if (v87)
       {
-        v86 = v85;
-        NetworkNode::setWorkgroups(*(v7 + 112), v85);
-        CFRelease(v86);
+        v88 = v87;
+        NetworkNode::setWorkgroups(*(v8 + 112), v87);
+        CFRelease(v88);
       }
 
-      CFRelease(v84);
+      CFRelease(v86);
     }
 
-    v87 = xpcDictionaryCopyCFArrayForKey(a2, "Handles");
-    if (v87)
+    v89 = xpcDictionaryCopyCFArrayForKey(a2, "Handles");
+    if (v89)
     {
-      v88 = v87;
-      v89 = createSetFromArray(0, v87);
-      if (v89)
+      v90 = v89;
+      v91 = createSetFromArray(0, v89);
+      if (v91)
       {
-        v90 = v89;
-        NetworkNode::setHandles(*(v7 + 112), v89);
-        CFRelease(v90);
+        v92 = v91;
+        NetworkNode::setHandles(*(v8 + 112), v91);
+        CFRelease(v92);
       }
 
-      CFRelease(v88);
+      CFRelease(v90);
     }
 
-    v91 = xpcDictionaryCopyCFArrayForKey(a2, "BonjourProtocols");
-    if (v91)
+    v93 = xpcDictionaryCopyCFArrayForKey(a2, "BonjourProtocols");
+    if (v93)
     {
-      v92 = v91;
-      BagFromArray = createBagFromArray(0, v91);
+      v94 = v93;
+      BagFromArray = createBagFromArray(0, v93);
       if (BagFromArray)
       {
-        v94 = BagFromArray;
-        NetworkNode::setBonjourProtocols(*(v7 + 112), BagFromArray);
-        CFRelease(v94);
+        v96 = BagFromArray;
+        NetworkNode::setBonjourProtocols(*(v8 + 112), BagFromArray);
+        CFRelease(v96);
       }
 
-      CFRelease(v92);
+      CFRelease(v94);
     }
 
-    v95 = xpcDictionaryCopyCFArrayForKey(a2, "Color");
-    if (v95)
+    v97 = xpcDictionaryCopyCFArrayForKey(a2, "Color");
+    if (v97)
     {
-      v96 = v95;
-      NetworkNode::setColor(*(v7 + 112), v95);
-      CFRelease(v96);
+      v98 = v97;
+      NetworkNode::setColor(*(v8 + 112), v97);
+      CFRelease(v98);
     }
 
     value = xpc_dictionary_get_value(a2, "SiblingNodes");
     if (value)
     {
       SFNodeArrayForXPCArray = createSFNodeArrayForXPCArray(value);
-      NetworkNode::setSiblingNodes(*(v7 + 112), SFNodeArrayForXPCArray);
+      NetworkNode::setSiblingNodes(*(v8 + 112), SFNodeArrayForXPCArray);
       CFRelease(SFNodeArrayForXPCArray);
     }
 
-    v99 = xpc_dictionary_get_value(a2, "Kinds");
-    SFNodeKindsFromXPCArray = createSFNodeKindsFromXPCArray(0, v99);
+    v101 = xpc_dictionary_get_value(a2, "Kinds");
+    SFNodeKindsFromXPCArray = createSFNodeKindsFromXPCArray(0, v101);
     if (SFNodeKindsFromXPCArray)
     {
-      v101 = SFNodeKindsFromXPCArray;
-      NetworkNode::setKinds(*(v7 + 112), SFNodeKindsFromXPCArray);
-      CFRelease(v101);
+      v103 = SFNodeKindsFromXPCArray;
+      NetworkNode::setKinds(*(v8 + 112), SFNodeKindsFromXPCArray);
+      CFRelease(v103);
     }
 
     int64 = xpc_dictionary_get_int64(a2, "ConnectionState");
-    NetworkNode::setConnectionState(*(v7 + 112), int64);
-    v103 = xpc_dictionary_get_int64(a2, "PortNumber");
-    if (v103)
+    NetworkNode::setConnectionState(*(v8 + 112), int64);
+    v105 = xpc_dictionary_get_int64(a2, "PortNumber");
+    if (v105)
     {
-      NetworkNode::setPortNumber(*(v7 + 112), v103);
+      NetworkNode::setPortNumber(*(v8 + 112), v105);
     }
 
-    v104 = xpc_dictionary_get_int64(a2, "SelectionReason");
-    NetworkNode::setSelectionReason(*(v7 + 112), v104);
+    v106 = xpc_dictionary_get_int64(a2, "SelectionReason");
+    NetworkNode::setSelectionReason(*(v8 + 112), v106);
     uint64 = xpc_dictionary_get_uint64(a2, "SupportedMedia");
     if (uint64)
     {
-      NetworkNode::setSupportedMedia(*(v7 + 112), uint64);
+      NetworkNode::setSupportedMedia(*(v8 + 112), uint64);
     }
   }
 
-  return v7;
+  return v8;
 }
 
 const void *xpcDictionaryCopyCFStringForKey(void *a1, const char *a2)
 {
-  if (MEMORY[0x1AC58D590]() != MEMORY[0x1E69E9E80])
+  v4 = MEMORY[0x1AC58D590]();
+  if (v4 != MEMORY[0x1E69E9E80])
   {
-    v4 = framework_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = framework_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       xpcDictionaryCopyCFStringForKey();
     }
@@ -1768,33 +1393,35 @@ const void *xpcDictionaryCopyCFStringForKey(void *a1, const char *a2)
     return 0;
   }
 
-  v7 = _CFXPCCreateCFObjectFromXPCObject();
-  v5 = v7;
-  if (v7)
+  v8 = _CFXPCCreateCFObjectFromXPCObject();
+  v6 = v8;
+  if (v8)
   {
-    v8 = CFGetTypeID(v7);
-    if (v8 != CFStringGetTypeID())
+    v9 = CFGetTypeID(v8);
+    TypeID = CFStringGetTypeID();
+    if (v9 != TypeID)
     {
-      v9 = framework_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = framework_log(TypeID);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         xpcDictionaryCopyCFStringForKey();
       }
 
-      CFRelease(v5);
+      CFRelease(v6);
       return 0;
     }
   }
 
-  return v5;
+  return v6;
 }
 
 const void *xpcDictionaryCopyCFArrayForKey(void *a1, const char *a2)
 {
-  if (MEMORY[0x1AC58D590]() != MEMORY[0x1E69E9E80])
+  v4 = MEMORY[0x1AC58D590]();
+  if (v4 != MEMORY[0x1E69E9E80])
   {
-    v4 = framework_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = framework_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       xpcDictionaryCopyCFArrayForKey();
     }
@@ -1807,33 +1434,35 @@ const void *xpcDictionaryCopyCFArrayForKey(void *a1, const char *a2)
     return 0;
   }
 
-  v7 = _CFXPCCreateCFObjectFromXPCObject();
-  v5 = v7;
-  if (v7)
+  v8 = _CFXPCCreateCFObjectFromXPCObject();
+  v6 = v8;
+  if (v8)
   {
-    v8 = CFGetTypeID(v7);
-    if (v8 != CFArrayGetTypeID())
+    v9 = CFGetTypeID(v8);
+    TypeID = CFArrayGetTypeID();
+    if (v9 != TypeID)
     {
-      v9 = framework_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = framework_log(TypeID);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         xpcDictionaryCopyCFArrayForKey();
       }
 
-      CFRelease(v5);
+      CFRelease(v6);
       return 0;
     }
   }
 
-  return v5;
+  return v6;
 }
 
 const void *xpcDictionaryCopyCFDataForKey(void *a1, const char *a2)
 {
-  if (MEMORY[0x1AC58D590]() != MEMORY[0x1E69E9E80])
+  v4 = MEMORY[0x1AC58D590]();
+  if (v4 != MEMORY[0x1E69E9E80])
   {
-    v4 = framework_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = framework_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       xpcDictionaryCopyCFDataForKey();
     }
@@ -1846,33 +1475,35 @@ const void *xpcDictionaryCopyCFDataForKey(void *a1, const char *a2)
     return 0;
   }
 
-  v7 = _CFXPCCreateCFObjectFromXPCObject();
-  v5 = v7;
-  if (v7)
+  v8 = _CFXPCCreateCFObjectFromXPCObject();
+  v6 = v8;
+  if (v8)
   {
-    v8 = CFGetTypeID(v7);
-    if (v8 != CFDataGetTypeID())
+    v9 = CFGetTypeID(v8);
+    TypeID = CFDataGetTypeID();
+    if (v9 != TypeID)
     {
-      v9 = framework_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = framework_log(TypeID);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         xpcDictionaryCopyCFDataForKey();
       }
 
-      CFRelease(v5);
+      CFRelease(v6);
       return 0;
     }
   }
 
-  return v5;
+  return v6;
 }
 
 const void *xpcDictionaryCopyCFNumberForKey(void *a1, const char *a2)
 {
-  if (MEMORY[0x1AC58D590]() != MEMORY[0x1E69E9E80])
+  v4 = MEMORY[0x1AC58D590]();
+  if (v4 != MEMORY[0x1E69E9E80])
   {
-    v4 = framework_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = framework_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       xpcDictionaryCopyCFNumberForKey();
     }
@@ -1885,33 +1516,35 @@ const void *xpcDictionaryCopyCFNumberForKey(void *a1, const char *a2)
     return 0;
   }
 
-  v7 = _CFXPCCreateCFObjectFromXPCObject();
-  v5 = v7;
-  if (v7)
+  v8 = _CFXPCCreateCFObjectFromXPCObject();
+  v6 = v8;
+  if (v8)
   {
-    v8 = CFGetTypeID(v7);
-    if (v8 != CFNumberGetTypeID())
+    v9 = CFGetTypeID(v8);
+    TypeID = CFNumberGetTypeID();
+    if (v9 != TypeID)
     {
-      v9 = framework_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = framework_log(TypeID);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         xpcDictionaryCopyCFNumberForKey();
       }
 
-      CFRelease(v5);
+      CFRelease(v6);
       return 0;
     }
   }
 
-  return v5;
+  return v6;
 }
 
 const void *xpcDictionaryCopyCFURLForKey(void *a1, const char *a2)
 {
-  if (MEMORY[0x1AC58D590]() != MEMORY[0x1E69E9E80])
+  v4 = MEMORY[0x1AC58D590]();
+  if (v4 != MEMORY[0x1E69E9E80])
   {
-    v4 = framework_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = framework_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       xpcDictionaryCopyCFURLForKey();
     }
@@ -1924,25 +1557,26 @@ const void *xpcDictionaryCopyCFURLForKey(void *a1, const char *a2)
     return 0;
   }
 
-  v7 = _CFXPCCreateCFObjectFromXPCObject();
-  v5 = v7;
-  if (v7)
+  v8 = _CFXPCCreateCFObjectFromXPCObject();
+  v6 = v8;
+  if (v8)
   {
-    v8 = CFGetTypeID(v7);
-    if (v8 != CFURLGetTypeID())
+    v9 = CFGetTypeID(v8);
+    v10 = CFURLGetTypeID();
+    if (v9 != v10)
     {
-      v9 = framework_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = framework_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         xpcDictionaryCopyCFURLForKey();
       }
 
-      CFRelease(v5);
+      CFRelease(v6);
       return 0;
     }
   }
 
-  return v5;
+  return v6;
 }
 
 __CFArray *createSFNodeArrayForXPCArray(void *a1)
@@ -3107,7 +2741,7 @@ CFStringRef _SFNodeCopyDebugDesc(__SFNode *a1)
     }
 
     cf = CFStringCreateMutable(0, 0);
-    CFAppendPrintF();
+    CFAppendPrintF(&cf, "%##@", v12);
     v19 = CFStringCreateWithFormat(0, 0, @"<SFNode {%@,id=%@,dev=%@,t=%s,sib=%@}>", v26, v8, v9, v18, cf);
     CFRelease(cf);
   }
@@ -3195,16 +2829,16 @@ void setSupportedCFTypeForKeyInXPCDictionary(void *a1, const char *a2, const voi
   }
 }
 
-void sub_1A9688388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A9688388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A9688B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A9688B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3225,50 +2859,42 @@ Class __getCKContainerIDClass_block_invoke(uint64_t a1)
 
 void CloudKitLibrary()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1[0] = 0;
+  v3 = *MEMORY[0x1E69E9840];
+  v0[0] = 0;
   if (!CloudKitLibraryCore_frameworkLibrary)
   {
-    v1[1] = MEMORY[0x1E69E9820];
-    v1[2] = 3221225472;
-    v1[3] = __CloudKitLibraryCore_block_invoke;
-    v1[4] = &__block_descriptor_40_e5_v8__0l;
-    v1[5] = v1;
-    v2 = xmmword_1E788A958;
-    v3 = 0;
+    v0[1] = MEMORY[0x1E69E9820];
+    v0[2] = 3221225472;
+    v0[3] = __CloudKitLibraryCore_block_invoke;
+    v0[4] = &__block_descriptor_40_e5_v8__0l;
+    v0[5] = v0;
+    v1 = xmmword_1E788A958;
+    v2 = 0;
     CloudKitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!CloudKitLibraryCore_frameworkLibrary)
   {
-    CloudKitLibrary_cold_1(v1);
+    CloudKitLibrary_cold_1(v0);
   }
 
-  if (v1[0])
+  if (v0[0])
   {
-    free(v1[0]);
+    free(v0[0]);
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __CloudKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CloudKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __SharedWithYouCoreLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SharedWithYouCoreLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3300,7 +2926,7 @@ Class __getCKContainerSetupInfoClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t SFOperationGetTypeID()
+uint64_t SFOperationGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (SFOperationGetTypeID_once[0] != -1)
   {
@@ -3331,7 +2957,7 @@ void *__SFOperationGetTypeID_block_invoke()
 
 void *SFOperationCreate(const __CFAllocator *a1, const void *a2)
 {
-  v4 = framework_log();
+  v4 = framework_log(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     SFOperationCreate_cold_1();
@@ -3342,7 +2968,7 @@ void *SFOperationCreate(const __CFAllocator *a1, const void *a2)
 
 void *_SFOperationCreateInternal(const __CFAllocator *a1, const void *a2, uint64_t a3)
 {
-  v6 = framework_log();
+  v6 = framework_log(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     _SFOperationCreateInternal_cold_1();
@@ -3394,17 +3020,17 @@ void *_SFOperationCreateInternal(const __CFAllocator *a1, const void *a2, uint64
 
 uint64_t SFOperationSetClient(uint64_t a1, uint64_t a2, __int128 *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v6 = framework_log();
+  v18 = *MEMORY[0x1E69E9840];
+  v6 = framework_log(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 138412802;
-    v14 = a1;
-    v15 = 2048;
-    v16 = a2;
-    v17 = 2048;
-    v18 = a3;
-    _os_log_debug_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEBUG, "SFOperationSetClient (%@, callback = %p, context = %p)", &v13, 0x20u);
+    v12 = 138412802;
+    v13 = a1;
+    v14 = 2048;
+    v15 = a2;
+    v16 = 2048;
+    v17 = a3;
+    _os_log_debug_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEBUG, "SFOperationSetClient (%@, callback = %p, context = %p)", &v12, 0x20u);
   }
 
   pthread_mutex_lock((a1 + 64));
@@ -3432,14 +3058,12 @@ uint64_t SFOperationSetClient(uint64_t a1, uint64_t a2, __int128 *a3)
     }
   }
 
-  result = pthread_mutex_unlock((a1 + 64));
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return pthread_mutex_unlock((a1 + 64));
 }
 
 uint64_t SFOperationSetDispatchQueue(uint64_t a1, NSObject *a2)
 {
-  v4 = framework_log();
+  v4 = framework_log(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     SFOperationSetDispatchQueue_cold_1();
@@ -3467,24 +3091,22 @@ uint64_t SFOperationSetDispatchQueue(uint64_t a1, NSObject *a2)
 
 uint64_t SFOperationSetProperty(pthread_mutex_t *a1, const void *a2, const void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v6 = framework_log();
+  v14 = *MEMORY[0x1E69E9840];
+  v6 = framework_log(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412802;
-    v10 = a1;
-    v11 = 2112;
-    v12 = a2;
-    v13 = 2112;
-    v14 = a3;
-    _os_log_debug_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEBUG, "SFOperationSetProperty (%@, name = %@, value = %@)", &v9, 0x20u);
+    v8 = 138412802;
+    v9 = a1;
+    v10 = 2112;
+    v11 = a2;
+    v12 = 2112;
+    v13 = a3;
+    _os_log_debug_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEBUG, "SFOperationSetProperty (%@, name = %@, value = %@)", &v8, 0x20u);
   }
 
   pthread_mutex_lock(a1 + 1);
   _SFOperationSetProperty(a1, a2, a3);
-  result = pthread_mutex_unlock(a1 + 1);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return pthread_mutex_unlock(a1 + 1);
 }
 
 uint64_t _SFOperationSetProperty(uint64_t a1, const void *a2, const void *a3)
@@ -3584,7 +3206,7 @@ LABEL_13:
 
 const void *SFOperationCopyProperty(uint64_t a1, const void *a2)
 {
-  v4 = framework_log();
+  v4 = framework_log(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     SFOperationCopyProperty_cold_1();
@@ -3616,7 +3238,7 @@ LABEL_6:
 
 uint64_t SFOperationResume(uint64_t a1)
 {
-  v2 = framework_log();
+  v2 = framework_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     SFOperationResume_cold_1();
@@ -3706,33 +3328,32 @@ _xpc_connection_s *_SFOperationCreateConnection(void *a1, uint64_t a2)
     xpc_release(v6);
   }
 
-  v7 = a1[6];
-  v8 = _CFXPCCreateXPCObjectFromCFObject();
-  xpc_dictionary_set_value(v5, "Kind", v8);
+  v7 = _CFXPCCreateXPCObjectFromCFObject();
+  xpc_dictionary_set_value(v5, "Kind", v7);
   if (a1[7])
   {
-    v9 = a1[7];
+    v8 = a1[7];
   }
 
   else
   {
-    v9 = MEMORY[0x1E69E96A0];
+    v8 = MEMORY[0x1E69E96A0];
   }
 
-  mach_service = xpc_connection_create_mach_service("com.apple.sharingd", v9, 0);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 0x40000000;
-  v13[2] = ___SFOperationCreateConnection_block_invoke;
-  v13[3] = &__block_descriptor_tmp_318;
-  v13[4] = a1;
-  v13[5] = mach_service;
-  xpc_connection_set_event_handler(mach_service, v13);
+  mach_service = xpc_connection_create_mach_service("com.apple.sharingd", v8, 0);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 0x40000000;
+  v12[2] = ___SFOperationCreateConnection_block_invoke;
+  v12[3] = &__block_descriptor_tmp_318;
+  v12[4] = a1;
+  v12[5] = mach_service;
+  xpc_connection_set_event_handler(mach_service, v12);
   xpc_connection_send_message(mach_service, v5);
-  v11 = CFRetain(a1);
-  xpc_connection_set_context(mach_service, v11);
+  v10 = CFRetain(a1);
+  xpc_connection_set_context(mach_service, v10);
   xpc_connection_set_finalizer_f(mach_service, MEMORY[0x1E695D7C0]);
   xpc_connection_resume(mach_service);
-  xpc_release(v8);
+  xpc_release(v7);
   xpc_release(v5);
   os_activity_scope_leave(&state);
   return mach_service;
@@ -3805,56 +3426,57 @@ CFStringRef _SFOperationCopyDebugDesc(uint64_t a1)
 
 void _SFOperationAddSandboxExtensionForFileURL(const __CFURL *a1, __CFDictionary *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   bzero(buffer, 0x400uLL);
   v4 = CFURLCopyFileSystemPath(a1, kCFURLPOSIXPathStyle);
   if (v4)
   {
     v5 = v4;
     CString = CFStringGetCString(v4, buffer, 1024, 0x8000100u);
-    v7 = framework_log();
-    v8 = v7;
-    if (CString)
+    v7 = CString;
+    v8 = framework_log(CString);
+    v9 = v8;
+    if (v7)
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 136315138;
-        v20 = buffer;
-        _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "Trying to issue sandbox extension for %s", &v19, 0xCu);
+        v20 = 136315138;
+        v21 = buffer;
+        _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_DEFAULT, "Trying to issue sandbox extension for %s", &v20, 0xCu);
       }
 
-      v9 = sandbox_extension_issue_file();
-      if (v9)
+      v10 = sandbox_extension_issue_file();
+      if (v10)
       {
-        v10 = v9;
-        v11 = CFURLCopyAbsoluteURL(a1);
-        v12 = strlen(v10);
-        v13 = CFDataCreate(0, v10, v12);
-        v14 = CFURLGetString(v11);
-        CFDictionaryAddValue(a2, v14, v13);
-        CFRelease(v11);
-        CFRelease(v13);
-        free(v10);
-        v15 = framework_log();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v11 = v10;
+        v12 = CFURLCopyAbsoluteURL(a1);
+        v13 = strlen(v11);
+        v14 = CFDataCreate(0, v11, v13);
+        v15 = CFURLGetString(v12);
+        CFDictionaryAddValue(a2, v15, v14);
+        CFRelease(v12);
+        CFRelease(v14);
+        free(v11);
+        v17 = framework_log(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = 136315138;
-          v20 = buffer;
-          _os_log_impl(&dword_1A9662000, v15, OS_LOG_TYPE_DEFAULT, "Successfully issued sandbox extension for %s", &v19, 0xCu);
+          v20 = 136315138;
+          v21 = buffer;
+          _os_log_impl(&dword_1A9662000, v17, OS_LOG_TYPE_DEFAULT, "Successfully issued sandbox extension for %s", &v20, 0xCu);
         }
       }
 
       else
       {
-        v17 = framework_log();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v19 = framework_log(0);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          _SFOperationAddSandboxExtensionForFileURL_cold_1(buffer, v17);
+          _SFOperationAddSandboxExtensionForFileURL_cold_1(buffer, v19);
         }
       }
     }
 
-    else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       _SFOperationAddSandboxExtensionForFileURL_cold_2();
     }
@@ -3864,19 +3486,17 @@ void _SFOperationAddSandboxExtensionForFileURL(const __CFURL *a1, __CFDictionary
 
   else
   {
-    v16 = framework_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = framework_log(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       _SFOperationAddSandboxExtensionForFileURL_cold_3();
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t _SFOperationNotifyClient(uint64_t result, uint64_t a2, const __CFDictionary *cf2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!*(result + 16))
   {
     v5 = result;
@@ -3885,7 +3505,7 @@ uint64_t _SFOperationNotifyClient(uint64_t result, uint64_t a2, const __CFDictio
       if (a2 != 7)
       {
         v6 = CFStringCreateWithFormat(0, 0, @"<SFOperation %p>{kind = %@}", v5, *(v5 + 48));
-        v7 = framework_log();
+        v7 = framework_log(v6);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
           if ((a2 - 1) > 0xE)
@@ -3899,11 +3519,11 @@ uint64_t _SFOperationNotifyClient(uint64_t result, uint64_t a2, const __CFDictio
           }
 
           *buf = 138412802;
-          v13 = v6;
-          v14 = 2112;
-          v15 = v8;
-          v16 = 2112;
-          v17 = cf2;
+          v12 = v6;
+          v13 = 2112;
+          v14 = v8;
+          v15 = 2112;
+          v16 = cf2;
           _os_log_impl(&dword_1A9662000, v7, OS_LOG_TYPE_INFO, "SFOperationCallBack (%@, event = %@, results = %@)", buf, 0x20u);
         }
 
@@ -3924,11 +3544,10 @@ uint64_t _SFOperationNotifyClient(uint64_t result, uint64_t a2, const __CFDictio
       }
 
       *(v5 + 24) = Copy;
-      result = (*(v5 + 128))(v5, a2, cf2, *(v5 + 144));
+      return (*(v5 + 128))(v5, a2, cf2, *(v5 + 144));
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3988,44 +3607,44 @@ void sub_1A968CFD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A968D49C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A968D49C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A968D738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A968D738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getAFPreferencesClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!AssistantServicesLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __AssistantServicesLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E788B010;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __AssistantServicesLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E788B010;
+    v5 = 0;
     AssistantServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!AssistantServicesLibraryCore_frameworkLibrary)
   {
-    __getAFPreferencesClass_block_invoke_cold_2(v4);
+    __getAFPreferencesClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("AFPreferences");
@@ -4036,44 +3655,40 @@ Class __getAFPreferencesClass_block_invoke(uint64_t a1)
   }
 
   getAFPreferencesClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __AssistantServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AssistantServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getVTPreferencesClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!VoiceTriggerLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __VoiceTriggerLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E788B028;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __VoiceTriggerLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E788B028;
+    v5 = 0;
     VoiceTriggerLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!VoiceTriggerLibraryCore_frameworkLibrary)
   {
-    __getVTPreferencesClass_block_invoke_cold_2(v4);
+    __getVTPreferencesClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("VTPreferences");
@@ -4084,17 +3699,13 @@ Class __getVTPreferencesClass_block_invoke(uint64_t a1)
   }
 
   getVTPreferencesClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __VoiceTriggerLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   VoiceTriggerLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4114,40 +3725,35 @@ Class __getUNNotificationSettingsCenterClass_block_invoke(uint64_t a1)
 
 void UserNotificationsSettingsLibrary()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1[0] = 0;
+  v3 = *MEMORY[0x1E69E9840];
+  v0[0] = 0;
   if (!UserNotificationsSettingsLibraryCore_frameworkLibrary)
   {
-    v1[1] = MEMORY[0x1E69E9820];
-    v1[2] = 3221225472;
-    v1[3] = __UserNotificationsSettingsLibraryCore_block_invoke;
-    v1[4] = &__block_descriptor_40_e5_v8__0l;
-    v1[5] = v1;
-    v2 = xmmword_1E788B040;
-    v3 = 0;
+    v0[1] = MEMORY[0x1E69E9820];
+    v0[2] = 3221225472;
+    v0[3] = __UserNotificationsSettingsLibraryCore_block_invoke;
+    v0[4] = &__block_descriptor_40_e5_v8__0l;
+    v0[5] = v0;
+    v1 = xmmword_1E788B040;
+    v2 = 0;
     UserNotificationsSettingsLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!UserNotificationsSettingsLibraryCore_frameworkLibrary)
   {
-    UserNotificationsSettingsLibrary_cold_1(v1);
+    UserNotificationsSettingsLibrary_cold_1(v0);
   }
 
-  if (v1[0])
+  if (v0[0])
   {
-    free(v1[0]);
+    free(v0[0]);
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __UserNotificationsSettingsLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UserNotificationsSettingsLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4167,28 +3773,28 @@ Class __getUNMutableNotificationSystemSettingsClass_block_invoke(uint64_t a1)
 
 Class __getTUUserConfigurationClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!TelephonyUtilitiesLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __TelephonyUtilitiesLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E788B058;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __TelephonyUtilitiesLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E788B058;
+    v5 = 0;
     TelephonyUtilitiesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!TelephonyUtilitiesLibraryCore_frameworkLibrary)
   {
-    __getTUUserConfigurationClass_block_invoke_cold_2(v4);
+    __getTUUserConfigurationClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("TUUserConfiguration");
@@ -4199,17 +3805,13 @@ Class __getTUUserConfigurationClass_block_invoke(uint64_t a1)
   }
 
   getTUUserConfigurationClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __TelephonyUtilitiesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   TelephonyUtilitiesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4397,86 +3999,80 @@ void __getSharingFrameworkBundle_block_invoke()
 
 __CFSet *createMutableSetFromBag(const __CFAllocator *a1, CFIndex a2, const __CFBag *a3)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  if (a3 && (v6 = MEMORY[0x1AC58A940](a3)) != 0)
+  v13[1] = *MEMORY[0x1E69E9840];
+  if (!a3)
   {
-    v7 = v6;
-    MEMORY[0x1EEE9AC00](v6);
-    v9 = (v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-    bzero(v9, v8);
-    CFBagGetValues(a3, v9);
-    Mutable = CFSetCreateMutable(a1, a2, MEMORY[0x1E695E9F8]);
-    if (v7 >= 1)
+    return 0;
+  }
+
+  v6 = MEMORY[0x1AC58A940](a3);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  v7 = v6;
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = (v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  bzero(v9, v8);
+  CFBagGetValues(a3, v9);
+  Mutable = CFSetCreateMutable(a1, a2, MEMORY[0x1E695E9F8]);
+  if (v7 >= 1)
+  {
+    do
     {
-      do
-      {
-        v11 = *v9++;
-        CFSetSetValue(Mutable, v11);
-        --v7;
-      }
-
-      while (v7);
+      v11 = *v9++;
+      CFSetSetValue(Mutable, v11);
+      --v7;
     }
+
+    while (v7);
   }
 
-  else
-  {
-    Mutable = 0;
-  }
-
-  v12 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
-uint64_t copyValuesFromSet(const __CFAllocator *a1, CFSetRef theSet)
+CFArrayRef copyValuesFromSet(const __CFAllocator *a1, CFSetRef theSet)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  if (theSet)
+  v8[1] = *MEMORY[0x1E69E9840];
+  if (!theSet)
   {
-    result = CFSetGetCount(theSet);
-    if (result)
-    {
-      v5 = result;
-      MEMORY[0x1EEE9AC00](result);
-      v7 = v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-      bzero(v7, v6);
-      CFSetGetValues(theSet, v7);
-      result = CFArrayCreate(a1, v7, v5, MEMORY[0x1E695E9C0]);
-    }
+    return 0;
   }
 
-  else
+  result = CFSetGetCount(theSet);
+  if (result)
   {
-    result = 0;
+    v5 = result;
+    MEMORY[0x1EEE9AC00](result);
+    v7 = v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+    bzero(v7, v6);
+    CFSetGetValues(theSet, v7);
+    return CFArrayCreate(a1, v7, v5, MEMORY[0x1E695E9C0]);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 CFArrayRef copyValuesFromBag(const __CFAllocator *a1, const __CFBag *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  if (a2)
+  v8[1] = *MEMORY[0x1E69E9840];
+  if (!a2)
   {
-    result = MEMORY[0x1AC58A940](a2);
-    if (result)
-    {
-      v5 = result;
-      MEMORY[0x1EEE9AC00](result);
-      v7 = v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-      bzero(v7, v6);
-      CFBagGetValues(a2, v7);
-      result = CFArrayCreate(a1, v7, v5, MEMORY[0x1E695E9C0]);
-    }
+    return 0;
   }
 
-  else
+  result = MEMORY[0x1AC58A940](a2);
+  if (result)
   {
-    result = 0;
+    v5 = result;
+    MEMORY[0x1EEE9AC00](result);
+    v7 = v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+    bzero(v7, v6);
+    CFBagGetValues(a2, v7);
+    return CFArrayCreate(a1, v7, v5, MEMORY[0x1E695E9C0]);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4551,93 +4147,87 @@ __CFSet *createSFNodeKindsFromXPCArray(const __CFAllocator *a1, xpc_object_t xar
 
 xpc_object_t createXPCArrayFromSFNodeKinds(const __CFSet *a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  if (a1 && (Count = CFSetGetCount(a1)) != 0)
+  v10[1] = *MEMORY[0x1E69E9840];
+  if (!a1)
   {
-    v3 = Count;
-    MEMORY[0x1EEE9AC00](Count);
-    v5 = (v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-    bzero(v5, v4);
-    v6 = xpc_array_create(0, 0);
-    CFSetGetValues(a1, v5);
-    if (v3 >= 1)
-    {
-      do
-      {
-        v7 = *v5;
-        if (gKindMapOnce != -1)
-        {
-          createXPCArrayFromSFNodeKinds_cold_1();
-        }
+    return 0;
+  }
 
-        Value = CFDictionaryGetValue(gKindMap, v7);
-        xpc_array_set_int64(v6, 0xFFFFFFFFFFFFFFFFLL, Value);
-        ++v5;
-        --v3;
+  Count = CFSetGetCount(a1);
+  if (!Count)
+  {
+    return 0;
+  }
+
+  v3 = Count;
+  MEMORY[0x1EEE9AC00](Count);
+  v5 = (v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  bzero(v5, v4);
+  v6 = xpc_array_create(0, 0);
+  CFSetGetValues(a1, v5);
+  if (v3 >= 1)
+  {
+    do
+    {
+      v7 = *v5;
+      if (gKindMapOnce != -1)
+      {
+        createXPCArrayFromSFNodeKinds_cold_1();
       }
 
-      while (v3);
+      Value = CFDictionaryGetValue(gKindMap, v7);
+      xpc_array_set_int64(v6, 0xFFFFFFFFFFFFFFFFLL, Value);
+      ++v5;
+      --v3;
     }
+
+    while (v3);
   }
 
-  else
-  {
-    v6 = 0;
-  }
-
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
-uint64_t copyKeysFromDictionary(const __CFAllocator *a1, CFDictionaryRef theDict)
+CFArrayRef copyKeysFromDictionary(const __CFAllocator *a1, CFDictionaryRef theDict)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  if (theDict)
+  v8[1] = *MEMORY[0x1E69E9840];
+  if (!theDict)
   {
-    result = CFDictionaryGetCount(theDict);
-    if (result)
-    {
-      v5 = result;
-      MEMORY[0x1EEE9AC00](result);
-      v7 = v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-      bzero(v7, v6);
-      CFDictionaryGetKeysAndValues(theDict, v7, 0);
-      result = CFArrayCreate(a1, v7, v5, MEMORY[0x1E695E9C0]);
-    }
+    return 0;
   }
 
-  else
+  result = CFDictionaryGetCount(theDict);
+  if (result)
   {
-    result = 0;
+    v5 = result;
+    MEMORY[0x1EEE9AC00](result);
+    v7 = v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+    bzero(v7, v6);
+    CFDictionaryGetKeysAndValues(theDict, v7, 0);
+    return CFArrayCreate(a1, v7, v5, MEMORY[0x1E695E9C0]);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t copyValuesFromDictionary(const __CFAllocator *a1, CFDictionaryRef theDict)
+CFArrayRef copyValuesFromDictionary(const __CFAllocator *a1, CFDictionaryRef theDict)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  if (theDict)
+  v8[1] = *MEMORY[0x1E69E9840];
+  if (!theDict)
   {
-    result = CFDictionaryGetCount(theDict);
-    if (result)
-    {
-      v5 = result;
-      MEMORY[0x1EEE9AC00](result);
-      v7 = v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-      bzero(v7, v6);
-      CFDictionaryGetKeysAndValues(theDict, 0, v7);
-      result = CFArrayCreate(a1, v7, v5, MEMORY[0x1E695E9C0]);
-    }
+    return 0;
   }
 
-  else
+  result = CFDictionaryGetCount(theDict);
+  if (result)
   {
-    result = 0;
+    v5 = result;
+    MEMORY[0x1EEE9AC00](result);
+    v7 = v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+    bzero(v7, v6);
+    CFDictionaryGetKeysAndValues(theDict, 0, v7);
+    return CFArrayCreate(a1, v7, v5, MEMORY[0x1E695E9C0]);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4727,7 +4317,7 @@ const __CFString *createStringByAddingPercentEscapes(const __CFString *originalS
   return originalString;
 }
 
-const __CFURL *createURL(__CFString *a1, const __CFString *a2, const __CFString *a3, __CFString *MutableCopy, int a5, const __CFString *a6, const __CFDictionary *a7, int a8)
+const __CFURL *createURL(__CFString *a1, const __CFString *a2, const __CFString *a3, __CFString *MutableCopy, unsigned int a5, const __CFString *a6, const __CFDictionary *a7, int a8)
 {
   error[1] = *MEMORY[0x1E69E9840];
   if (CFEqual(a1, @"webdav") || CFEqual(a1, @"odisk"))
@@ -4880,17 +4470,18 @@ LABEL_20:
   if (a8)
   {
     error[0] = 0;
-    if (!CFURLSetResourcePropertyForKey(v33, *MEMORY[0x1E695EB28], *MEMORY[0x1E695E4D0], error))
+    v35 = CFURLSetResourcePropertyForKey(v33, *MEMORY[0x1E695EB28], *MEMORY[0x1E695E4D0], error);
+    if (!v35)
     {
-      v35 = v21;
-      v36 = utilities_log();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v36 = v21;
+      v37 = utilities_log(v35);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
-        createURL_cold_1(error, v36);
+        createURL_cold_1(error, v37);
       }
 
       CFRelease(error[0]);
-      LOBYTE(v21) = v35;
+      LOBYTE(v21) = v36;
     }
   }
 
@@ -4906,7 +4497,6 @@ LABEL_20:
     CFRelease(a3);
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v34;
 }
 
@@ -4923,7 +4513,7 @@ CGImageRef createCGImageWithURL(const __CFURL *a1)
 
     else
     {
-      v5 = utilities_log();
+      v5 = utilities_log(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         createCGImageWithURL_cold_1();
@@ -4937,7 +4527,7 @@ CGImageRef createCGImageWithURL(const __CFURL *a1)
 
   else
   {
-    v4 = utilities_log();
+    v4 = utilities_log(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       createCGImageWithURL_cold_2();
@@ -4965,8 +4555,8 @@ CGImageRef createCGImageWithDataInternal(const __CFData *a1, int a2)
     v7 = v6;
     if (!CGImageSourceGetCount(v6))
     {
-      v13 = utilities_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = utilities_log(0);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         createCGImageWithDataInternal_cold_4();
       }
@@ -4977,10 +4567,11 @@ CGImageRef createCGImageWithDataInternal(const __CFData *a1, int a2)
     if (a2)
     {
       Type = CGImageSourceGetType(v7);
-      if (!CFEqual(Type, *MEMORY[0x1E6963810]))
+      v9 = CFEqual(Type, *MEMORY[0x1E6963810]);
+      if (!v9)
       {
-        v14 = utilities_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = utilities_log(v9);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           createCGImageWithDataInternal_cold_3();
         }
@@ -4991,14 +4582,14 @@ CGImageRef createCGImageWithDataInternal(const __CFData *a1, int a2)
       ImageAtIndex = CGImageSourceCreateImageAtIndex(v7, 0, 0);
       if (!ImageAtIndex)
       {
-        v10 = utilities_log();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v11 = utilities_log(0);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           createCGImageWithDataInternal_cold_2();
         }
 
 LABEL_21:
-        v12 = 0;
+        v13 = 0;
         goto LABEL_22;
       }
     }
@@ -5008,8 +4599,8 @@ LABEL_21:
       ImageAtIndex = CGImageSourceCreateImageAtIndex(v7, 0, 0);
       if (!ImageAtIndex)
       {
-        v15 = utilities_log();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = utilities_log(0);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           createCGImageWithDataInternal_cold_1();
         }
@@ -5018,22 +4609,22 @@ LABEL_21:
       }
     }
 
-    v12 = ImageAtIndex;
+    v13 = ImageAtIndex;
 LABEL_22:
     CFRelease(v7);
     goto LABEL_23;
   }
 
-  v11 = utilities_log();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = utilities_log(0);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     createCGImageWithDataInternal_cold_5();
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_23:
   CFRelease(v5);
-  return v12;
+  return v13;
 }
 
 CGImageRef createCGImageWithDataOrURL(const void *a1)
@@ -5041,30 +4632,31 @@ CGImageRef createCGImageWithDataOrURL(const void *a1)
   v2 = CFGetTypeID(a1);
   if (v2 == CFURLGetTypeID())
   {
-    v3 = CGImageSourceCreateWithURL(a1, 0);
+    TypeID = CGImageSourceCreateWithURL(a1, 0);
   }
 
   else
   {
-    if (v2 != CFDataGetTypeID())
+    TypeID = CFDataGetTypeID();
+    if (v2 != TypeID)
     {
       goto LABEL_8;
     }
 
-    v3 = CGImageSourceCreateWithData(a1, 0);
+    TypeID = CGImageSourceCreateWithData(a1, 0);
   }
 
-  v4 = v3;
-  if (v3)
+  v4 = TypeID;
+  if (TypeID)
   {
-    if (CGImageSourceGetCount(v3))
+    if (CGImageSourceGetCount(TypeID))
     {
       ImageAtIndex = CGImageSourceCreateImageAtIndex(v4, 0, 0);
     }
 
     else
     {
-      v7 = utilities_log();
+      v7 = utilities_log(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         createCGImageWithDataOrURL_cold_1();
@@ -5078,7 +4670,7 @@ CGImageRef createCGImageWithDataOrURL(const void *a1)
   }
 
 LABEL_8:
-  v6 = utilities_log();
+  v6 = utilities_log(TypeID);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     createCGImageWithDataOrURL_cold_2();
@@ -5101,8 +4693,8 @@ __CFData *copyImageData(void *a1, uint64_t a2)
 
   else
   {
-    v14 = 1065353216;
-    v7 = CFNumberCreate(v4, kCFNumberFloatType, &v14);
+    v15 = 1065353216;
+    v7 = CFNumberCreate(v4, kCFNumberFloatType, &v15);
     v8 = MEMORY[0x1E696D338];
   }
 
@@ -5113,10 +4705,11 @@ __CFData *copyImageData(void *a1, uint64_t a2)
   {
     v10 = v9;
     CGImageDestinationAddImage(v9, a1, v6);
-    if (!CGImageDestinationFinalize(v10))
+    v11 = CGImageDestinationFinalize(v10);
+    if (!v11)
     {
-      v11 = utilities_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = utilities_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         copyImageData_cold_1();
       }
@@ -5130,8 +4723,8 @@ __CFData *copyImageData(void *a1, uint64_t a2)
 
   else
   {
-    v12 = utilities_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = utilities_log(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       copyImageData_cold_2();
     }
@@ -5172,7 +4765,7 @@ __CFData *createImageDataWithSize(uint64_t a1, uint64_t a2)
 
       else
       {
-        v14 = utilities_log();
+        v14 = utilities_log(0);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           createImageDataWithSize_cold_1();
@@ -5186,7 +4779,7 @@ __CFData *createImageDataWithSize(uint64_t a1, uint64_t a2)
 
     else
     {
-      v12 = utilities_log();
+      v12 = utilities_log(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         createImageDataWithSize_cold_2();
@@ -5200,7 +4793,7 @@ __CFData *createImageDataWithSize(uint64_t a1, uint64_t a2)
 
   else
   {
-    v10 = utilities_log();
+    v10 = utilities_log(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       createImageDataWithSize_cold_3();
@@ -5478,7 +5071,7 @@ LABEL_16:
   return CFAutorelease(v4);
 }
 
-uint64_t getOrderedTypes()
+uint64_t getOrderedTypes(uint64_t a1, uint64_t a2)
 {
   if (gArrayOnce != -1)
   {
@@ -5490,46 +5083,45 @@ uint64_t getOrderedTypes()
 
 CFArrayRef initArrays()
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v14 = @"_adisk._tcp.";
-  v15 = @"_afpovertcp._tcp.";
-  v16 = @"_smb._tcp.";
-  v17 = @"_rfb._tcp.";
-  v18 = @"_odisk._tcp.";
-  v19 = @"_http._tcp.";
-  v20 = airDropServiceType();
-  v21 = @"_file._tcp.";
-  v22 = @"_netbios._udp.";
-  v23 = @"_workgroups._udp.";
-  v24 = @"_nwnode._tcp.";
+  v24 = *MEMORY[0x1E69E9840];
+  v13 = @"_adisk._tcp.";
+  v14 = @"_afpovertcp._tcp.";
+  v15 = @"_smb._tcp.";
+  v16 = @"_rfb._tcp.";
+  v17 = @"_odisk._tcp.";
+  v18 = @"_http._tcp.";
+  v19 = airDropServiceType();
+  v20 = @"_file._tcp.";
+  v21 = @"_netbios._udp.";
+  v22 = @"_workgroups._udp.";
+  v23 = @"_nwnode._tcp.";
   values = @"adisk";
-  v4 = @"afp";
-  v5 = @"smb";
-  v6 = @"vnc";
-  v7 = @"odisk";
-  v8 = @"http";
-  v9 = @"airdrop";
-  v10 = @"file";
-  v11 = @"netbios";
-  v12 = @"workgroups";
-  v13 = @"nwnode";
+  v3 = @"afp";
+  v4 = @"smb";
+  v5 = @"vnc";
+  v6 = @"odisk";
+  v7 = @"http";
+  v8 = @"airdrop";
+  v9 = @"file";
+  v10 = @"netbios";
+  v11 = @"workgroups";
+  v12 = @"nwnode";
   if (BOOLeanValueForPreference(@"PreferSMBFileSharing", 0))
   {
-    v15 = @"_smb._tcp.";
-    v16 = @"_afpovertcp._tcp.";
-    v4 = @"smb";
-    v5 = @"afp";
+    v14 = @"_smb._tcp.";
+    v15 = @"_afpovertcp._tcp.";
+    v3 = @"smb";
+    v4 = @"afp";
   }
 
   v0 = MEMORY[0x1E695E9C0];
   gOrderedProtocols = CFArrayCreate(0, &values, 11, MEMORY[0x1E695E9C0]);
-  result = CFArrayCreate(0, &v14, 11, v0);
+  result = CFArrayCreate(0, &v13, 11, v0);
   gOrderedTypes = result;
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t getOrderedProtocols()
+uint64_t getOrderedProtocols(uint64_t a1, uint64_t a2)
 {
   if (gArrayOnce != -1)
   {
@@ -5551,37 +5143,36 @@ const void *getServiceTypeForProtocol(void *key)
   return CFDictionaryGetValue(v2, key);
 }
 
-CFDictionaryRef initDictionaries()
+CFDictionaryRef initDictionaries(uint64_t a1, uint64_t a2)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   if (gArrayOnce != -1)
   {
     getOrderedTypes_cold_1();
   }
 
-  v0 = gOrderedTypes;
-  v1 = gOrderedProtocols;
+  v2 = gOrderedTypes;
+  v3 = gOrderedProtocols;
   Count = CFArrayGetCount(gOrderedTypes);
-  v3 = CFArrayGetCount(v1);
-  MEMORY[0x1EEE9AC00](v3);
-  v5 = v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  bzero(v5, v4);
-  MEMORY[0x1EEE9AC00](v6);
-  v8 = v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  bzero(v8, v7);
-  v15.location = 0;
-  v15.length = Count;
-  CFArrayGetValues(v0, v15, v5);
+  v5 = CFArrayGetCount(v3);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  bzero(v7, v6);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  bzero(v10, v9);
   v16.location = 0;
-  v16.length = v3;
-  CFArrayGetValues(v1, v16, v8);
-  v9 = *MEMORY[0x1E695E480];
-  v10 = MEMORY[0x1E695E528];
-  v11 = MEMORY[0x1E695E9E8];
-  gTypeForProtocol = CFDictionaryCreate(*MEMORY[0x1E695E480], v8, v5, Count, MEMORY[0x1E695E528], MEMORY[0x1E695E9E8]);
-  result = CFDictionaryCreate(v9, v5, v8, v3, v10, v11);
+  v16.length = Count;
+  CFArrayGetValues(v2, v16, v7);
+  v17.location = 0;
+  v17.length = v5;
+  CFArrayGetValues(v3, v17, v10);
+  v11 = *MEMORY[0x1E695E480];
+  v12 = MEMORY[0x1E695E528];
+  v13 = MEMORY[0x1E695E9E8];
+  gTypeForProtocol = CFDictionaryCreate(*MEMORY[0x1E695E480], v10, v7, Count, MEMORY[0x1E695E528], MEMORY[0x1E695E9E8]);
+  result = CFDictionaryCreate(v11, v7, v10, v5, v12, v13);
   gProtocolForType = result;
-  v13 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5625,55 +5216,54 @@ CFDictionaryRef initKindMap()
   values[21] = @"Suggestion";
   values[22] = @"Rapport";
   values[23] = @"All";
-  memset(v5, 0, sizeof(v5));
+  memset(v4, 0, sizeof(v4));
   v1 = xmmword_1A998EED0;
   v2 = vdupq_n_s64(2uLL);
   do
   {
-    v5[v0] = v1;
+    v4[v0] = v1;
     v1 = vaddq_s64(v1, v2);
     ++v0;
   }
 
   while (v0 != 12);
   gOrderedKinds = CFArrayCreate(0, values, 24, MEMORY[0x1E695E9C0]);
-  result = CFDictionaryCreate(0, values, v5, 24, &kSharingFastDictionaryKeyCallBacks, 0);
+  result = CFDictionaryCreate(0, values, v4, 24, &kSharingFastDictionaryKeyCallBacks, 0);
   gKindMap = result;
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1A96A08C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A96A08C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A96A1F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A96A1F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A96A3600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1A96A3600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A96A3A44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1A96A3A44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A96A3E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1A96A3E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6075,27 +5665,27 @@ id SFStringFromTimeInterval(int a1, double a2)
 
 id SFNonBreakingStringFromDeviceName(void *a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v1 = a1;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v20 = [&unk_1F1D7D808 countByEnumeratingWithState:&v21 objects:v25 count:16];
-  if (v20)
+  v19 = [&unk_1F1D7D808 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v19)
   {
-    v19 = *v22;
+    v18 = *v21;
     do
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v22 != v19)
+        if (*v21 != v18)
         {
           objc_enumerationMutation(&unk_1F1D7D808);
         }
 
-        v3 = *(*(&v21 + 1) + 8 * i);
-        v4 = [v3 stringByAppendingString:{@" ", v19}];
+        v3 = *(*(&v20 + 1) + 8 * i);
+        v4 = [v3 stringByAppendingString:{@" ", v18}];
         v5 = [@" " stringByAppendingString:v3];
         v6 = [v5 stringByAppendingString:@" "];
         v7 = [v3 stringByReplacingOccurrencesOfString:@" " withString:@" "];
@@ -6121,31 +5711,30 @@ id SFNonBreakingStringFromDeviceName(void *a1)
         v1 = [v1 stringByReplacingOccurrencesOfString:v6 withString:v16];
       }
 
-      v20 = [&unk_1F1D7D808 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v19 = [&unk_1F1D7D808 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
-    while (v20);
+    while (v19);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v1;
 }
 
-uint64_t SFIsBluetoothEnabled()
+BOOL SFIsBluetoothEnabled()
 {
   if (SFDeviceIsVirtualMachine())
   {
     return 1;
   }
 
-  v5 = 0;
-  v1 = [MEMORY[0x1E695D268] controllerInfoAndReturnError:&v5];
-  v2 = v5;
+  v6 = 0;
+  v1 = [MEMORY[0x1E695D268] controllerInfoAndReturnError:&v6];
+  v2 = v6;
+  v3 = v2;
   if (v2)
   {
-    v3 = framework_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = framework_log(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       SFIsBluetoothEnabled_cold_1();
     }
@@ -6168,7 +5757,7 @@ uint64_t __SFIsDeviceAudioAccessory_block_invoke()
   return result;
 }
 
-uint64_t SFIsGreenTeaDevice()
+uint64_t SFIsGreenTeaDevice(uint64_t a1, uint64_t a2)
 {
   if (SFIsGreenTeaDevice_onceToken[0] != -1)
   {
@@ -6202,7 +5791,7 @@ uint64_t SFIsClassroomEnabled()
   return v1;
 }
 
-uint64_t SFIsPureGreenTeaDevice()
+uint64_t SFIsPureGreenTeaDevice(uint64_t a1, uint64_t a2)
 {
   if (SFIsPureGreenTeaDevice_onceToken != -1)
   {
@@ -6219,7 +5808,7 @@ uint64_t __SFIsPureGreenTeaDevice_block_invoke()
   return result;
 }
 
-uint64_t SFDeviceSupportsForceTouch()
+uint64_t SFDeviceSupportsForceTouch(uint64_t a1, uint64_t a2)
 {
   if (SFDeviceSupportsForceTouch_onceToken != -1)
   {
@@ -6236,7 +5825,7 @@ uint64_t __SFDeviceSupportsForceTouch_block_invoke()
   return result;
 }
 
-uint64_t SFIsDevicePhone()
+uint64_t SFIsDevicePhone(uint64_t a1, uint64_t a2)
 {
   if (SFIsDevicePhone_onceToken != -1)
   {
@@ -6253,7 +5842,7 @@ uint64_t __SFIsDevicePhone_block_invoke()
   return result;
 }
 
-uint64_t SFIsFMFAllowed()
+uint64_t SFIsFMFAllowed(uint64_t a1, uint64_t a2)
 {
   if (SFIsFMFAllowed_onceToken != -1)
   {
@@ -6289,16 +5878,16 @@ void __SFDeviceModel_block_invoke()
   }
 }
 
-id SFDeviceProductVersion()
+id SFDeviceProductVersion(uint64_t a1)
 {
   if (SFDeviceProductVersion_onceToken != -1)
   {
     SFDeviceProductVersion_cold_1();
   }
 
-  v1 = SFDeviceProductVersion_result;
+  v2 = SFDeviceProductVersion_result;
 
-  return v1;
+  return v2;
 }
 
 void __SFDeviceProductVersion_block_invoke()
@@ -6345,28 +5934,30 @@ uint64_t SFDeviceSupportsLegacyAirDrop()
   return result;
 }
 
-uint64_t SFDeviceSupportsSiriWatchAuth()
+uint64_t SFDeviceSupportsSiriWatchAuth(uint64_t a1, uint64_t a2)
 {
-  v0 = SFDeviceClassCodeGet();
-  v1 = SFDeviceClassCodeGet();
-  if (v0 != 7 && v1 != 1)
+  v2 = SFDeviceClassCodeGet(a1, a2);
+  v3 = v2;
+  v5 = SFDeviceClassCodeGet(v2, v4);
+  if (v3 != 7 && v5 != 1)
   {
     return 0;
   }
 
-  return SFDeviceSupportsAutoUnlock();
+  return SFDeviceSupportsAutoUnlock(v5, v6);
 }
 
-BOOL SFDeviceSupportsNanoWallet()
+BOOL SFDeviceSupportsNanoWallet(uint64_t a1, uint64_t a2)
 {
-  v0 = SFDeviceClassCodeGet();
-  v1 = SFDeviceClassCodeGet();
-  return v0 == 7 || v1 == 1;
+  v2 = SFDeviceClassCodeGet(a1, a2);
+  v3 = v2;
+  v5 = SFDeviceClassCodeGet(v2, v4);
+  return v3 == 7 || v5 == 1;
 }
 
-uint64_t SFDeviceSupportsUnlockClassC()
+uint64_t SFDeviceSupportsUnlockClassC(uint64_t a1, uint64_t a2)
 {
-  result = SFDeviceIsRealityDevice();
+  result = SFDeviceIsRealityDevice(a1, a2);
   if (result)
   {
 
@@ -6376,11 +5967,12 @@ uint64_t SFDeviceSupportsUnlockClassC()
   return result;
 }
 
-uint64_t SFDeviceSupportsMacUnlockPhonePairing()
+uint64_t SFDeviceSupportsMacUnlockPhonePairing(uint64_t a1, uint64_t a2)
 {
-  v0 = SFDeviceClassCodeGet();
-  v1 = SFDeviceClassCodeGet();
-  if (v0 != 5 && v1 != 1)
+  v2 = SFDeviceClassCodeGet(a1, a2);
+  v3 = v2;
+  v5 = SFDeviceClassCodeGet(v2, v4);
+  if (v3 != 5 && v5 != 1)
   {
     return 0;
   }
@@ -6388,25 +5980,28 @@ uint64_t SFDeviceSupportsMacUnlockPhonePairing()
   return _os_feature_enabled_impl();
 }
 
-uint64_t SFDeviceSupportsGuestModeUnlockPairing()
+uint64_t SFDeviceSupportsGuestModeUnlockPairing(uint64_t a1, uint64_t a2)
 {
-  v0 = SFDeviceClassCodeGet();
-  v1 = SFDeviceClassCodeGet();
-  result = SFDeviceIsRealityDevice();
-  if (v0 == 1 || v1 == 3 || result)
+  v2 = SFDeviceClassCodeGet(a1, a2);
+  v3 = v2;
+  v5 = SFDeviceClassCodeGet(v2, v4);
+  v6 = v5;
+  result = SFDeviceIsRealityDevice(v5, v7);
+  if (v3 == 1 || v6 == 3 || result)
   {
-    if (_os_feature_enabled_impl())
+    v9 = _os_feature_enabled_impl();
+    if (v9)
     {
       return 1;
     }
 
     else
     {
-      v3 = auto_unlock_log();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v10 = auto_unlock_log(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        *v4 = 0;
-        _os_log_impl(&dword_1A9662000, v3, OS_LOG_TYPE_DEFAULT, "FeatureFlag DeviceSharing/GuestUserHandover is not enabled", v4, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_1A9662000, v10, OS_LOG_TYPE_DEFAULT, "FeatureFlag DeviceSharing/GuestUserHandover is not enabled", v11, 2u);
       }
 
       return 0;
@@ -6416,10 +6011,10 @@ uint64_t SFDeviceSupportsGuestModeUnlockPairing()
   return result;
 }
 
-uint64_t SFDeviceSupportsTVAudio()
+uint64_t SFDeviceSupportsTVAudio(uint64_t a1, uint64_t a2)
 {
-  v0 = SFDeviceClassCodeGet();
-  if (SFDeviceIsVirtualMachine() && v0 == 4)
+  v2 = SFDeviceClassCodeGet(a1, a2);
+  if (SFDeviceIsVirtualMachine() && v2 == 4)
   {
     return 1;
   }
@@ -6450,7 +6045,7 @@ uint64_t SFManagedLostMode()
   return v1;
 }
 
-uint64_t SFIsRunningUnitTests()
+uint64_t SFIsRunningUnitTests(uint64_t a1, uint64_t a2)
 {
   if (SFIsRunningUnitTests_onceToken != -1)
   {
@@ -6616,59 +6211,58 @@ uint64_t __SFStoreDemoMode_block_invoke()
 
 id SFCreateLivePhotoBundle(void *a1, void *a2, void *a3, void *a4)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v7 = a1;
   v8 = a4;
   v9 = a3;
   v10 = [a2 path];
   v11 = [v9 path];
 
-  v12 = 0;
+  v13 = 0;
   if (v8 && v10 && v11)
   {
-    v13 = airdrop_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = airdrop_log(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = [v11 lastPathComponent];
-      v15 = [v10 lastPathComponent];
+      v15 = [v11 lastPathComponent];
+      v16 = [v10 lastPathComponent];
       *buf = 138412546;
-      v27 = v14;
-      v28 = 2112;
       v29 = v15;
-      _os_log_impl(&dword_1A9662000, v13, OS_LOG_TYPE_DEFAULT, "Creating live photo bundle with image %@ and video %@", buf, 0x16u);
+      v30 = 2112;
+      v31 = v16;
+      _os_log_impl(&dword_1A9662000, v14, OS_LOG_TYPE_DEFAULT, "Creating live photo bundle with image %@ and video %@", buf, 0x16u);
     }
 
-    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.pvt", v8];
-    v12 = [v7 URLByAppendingPathComponent:v16];
-    v17 = [MEMORY[0x1E696AC08] defaultManager];
+    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.pvt", v8];
+    v13 = [v7 URLByAppendingPathComponent:v17];
+    v18 = [MEMORY[0x1E696AC08] defaultManager];
     buf[0] = 0;
-    v18 = [v12 path];
-    v19 = [v17 fileExistsAtPath:v18 isDirectory:buf];
+    v19 = [v13 path];
+    v20 = [v18 fileExistsAtPath:v19 isDirectory:buf];
 
-    if ((v19 & 1) != 0 || buf[0] == 1)
+    if ((v20 & 1) != 0 || buf[0] == 1)
     {
-      [v17 removeItemAtURL:v12 error:0];
+      v21 = [v18 removeItemAtURL:v13 error:0];
     }
 
-    v20 = [objc_alloc(getPFVideoComplementClass()) initWithPathToVideo:v10 pathToImage:v11];
-    v25 = 0;
-    [v20 writeToBundleAtURL:v12 error:&v25];
-    v21 = v25;
-    if (v21)
+    v22 = [objc_alloc(getPFVideoComplementClass(v21)) initWithPathToVideo:v10 pathToImage:v11];
+    v27 = 0;
+    [v22 writeToBundleAtURL:v13 error:&v27];
+    v23 = v27;
+    v24 = v23;
+    if (v23)
     {
-      v22 = airdrop_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v25 = airdrop_log(v23);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        SFCreateLivePhotoBundle_cold_1(v12, v21, v22);
+        SFCreateLivePhotoBundle_cold_1(v13, v24, v25);
       }
 
-      v12 = 0;
+      v13 = 0;
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v13;
 }
 
 uint64_t SFShouldShowRepairProxCard(void *a1)
@@ -6716,48 +6310,46 @@ uint64_t MGDeviceClassFromSFDeviceClassCode(char a1)
 
 id SFGenerateTypeList(void *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [MEMORY[0x1E696AD60] string];
   objc_msgSend(v2, "appendString:", @"(\n");
-  v15 = 0u;
-  v16 = 0u;
   v13 = 0u;
   v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
-        [v2 appendFormat:@"\t%@\n", v10];
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
+        [v2 appendFormat:@"\t%@\n", v9];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
   [v2 appendString:@""]);
-  v11 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
-uint64_t __SFShouldLogSensitiveDescriptions_block_invoke()
+uint64_t __SFShouldLogSensitiveDescriptions_block_invoke(uint64_t a1, uint64_t a2)
 {
   result = IsAppleInternalBuild();
   if (result || (result = CFPrefs_GetInt64()) != 0)
@@ -6815,33 +6407,33 @@ uint64_t SFSupportsNetworkConnection(_OWORD *a1)
 
 void SFFakeFilesAndItemsArrayForURLs(void *a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [MEMORY[0x1E695DF70] array];
-  v35 = [MEMORY[0x1E695DF70] array];
+  v34 = [MEMORY[0x1E695DF70] array];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v38;
+    v8 = *v37;
     v9 = @"file";
     do
     {
       v10 = 0;
-      v36 = v7;
+      v35 = v7;
       do
       {
-        if (*v38 != v8)
+        if (*v37 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v37 + 1) + 8 * v10);
+        v11 = *(*(&v36 + 1) + 8 * v10);
         v12 = [v11 scheme];
         v13 = [v12 isEqualToString:v9];
 
@@ -6888,14 +6480,14 @@ void SFFakeFilesAndItemsArrayForURLs(void *a1, void *a2, void *a3)
             v8 = v25;
             v9 = v24;
 
-            v7 = v36;
+            v7 = v35;
             v31 = SFGenerateFileInfoForURL(v30);
             [v4 addObject:v31];
           }
 
           else
           {
-            [v35 addObject:v11];
+            [v34 addObject:v11];
           }
         }
 
@@ -6903,16 +6495,14 @@ void SFFakeFilesAndItemsArrayForURLs(void *a1, void *a2, void *a3)
       }
 
       while (v7 != v10);
-      v7 = [v5 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v7);
   }
 
   *a2 = [v4 copy];
-  *a3 = [v35 copy];
-
-  v32 = *MEMORY[0x1E69E9840];
+  *a3 = [v34 copy];
 }
 
 id SFGenerateFileInfoForURL(void *a1)
@@ -6938,21 +6528,21 @@ id SFGenerateFileInfoForURL(void *a1)
 
 id SFContentTypes(void *a1, void *a2, void *a3, _BYTE *a4, _BYTE *a5)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v6 = a1;
-  v39 = a2;
+  v38 = a2;
   v7 = [MEMORY[0x1E695DF90] dictionary];
-  v46 = [MEMORY[0x1E695DF90] dictionary];
+  v45 = [MEMORY[0x1E695DF90] dictionary];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   obj = v6;
-  v8 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+  v8 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
   if (v8)
   {
     v9 = v8;
-    v45 = *v52;
+    v44 = *v51;
     inConformsToUTI = *MEMORY[0x1E6963818];
     v10 = *MEMORY[0x1E69637F8];
     v11 = *MEMORY[0x1E6963850];
@@ -6960,12 +6550,12 @@ id SFContentTypes(void *a1, void *a2, void *a3, _BYTE *a4, _BYTE *a5)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v52 != v45)
+        if (*v51 != v44)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v51 + 1) + 8 * i);
+        v13 = *(*(&v50 + 1) + 8 * i);
         v14 = [v13 objectForKeyedSubscript:@"FileName"];
         v15 = [v14 pathExtension];
         v16 = [v13 objectForKeyedSubscript:@"FileType"];
@@ -7005,7 +6595,7 @@ id SFContentTypes(void *a1, void *a2, void *a3, _BYTE *a4, _BYTE *a5)
 
         v22 = v21;
 
-        [v46 setObject:v22 forKeyedSubscript:v15];
+        [v45 setObject:v22 forKeyedSubscript:v15];
         if ([v7 count])
         {
           v23 = [v7 objectForKeyedSubscript:v22];
@@ -7040,32 +6630,32 @@ id SFContentTypes(void *a1, void *a2, void *a3, _BYTE *a4, _BYTE *a5)
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+      v9 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
     }
 
     while (v9);
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
-  v27 = v39;
-  v28 = [v27 countByEnumeratingWithState:&v47 objects:v55 count:16];
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v27 = v38;
+  v28 = [v27 countByEnumeratingWithState:&v46 objects:v54 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v48;
+    v30 = *v47;
     do
     {
       for (j = 0; j != v29; ++j)
       {
-        if (*v48 != v30)
+        if (*v47 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = *(*(&v47 + 1) + 8 * j);
+        v32 = *(*(&v46 + 1) + 8 * j);
         if (([v32 isFileURL] & 1) == 0)
         {
           v33 = [v32 scheme];
@@ -7094,14 +6684,13 @@ id SFContentTypes(void *a1, void *a2, void *a3, _BYTE *a4, _BYTE *a5)
         }
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v47 objects:v55 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v46 objects:v54 count:16];
     }
 
     while (v29);
   }
 
-  *a3 = [v46 copy];
-  v37 = *MEMORY[0x1E69E9840];
+  *a3 = [v45 copy];
 
   return v7;
 }
@@ -7122,11 +6711,11 @@ BOOL SFIsImage(void *a1)
   return v2;
 }
 
-uint64_t SFUpTicksDiffFromNowToString()
+uint64_t SFUpTicksDiffFromNowToString(uint64_t a1)
 {
   mach_absolute_time();
   UpTicksToSecondsF();
-  return [MEMORY[0x1E696AEC0] stringWithFormat:@"%fms", v0 * 1000.0];
+  return [MEMORY[0x1E696AEC0] stringWithFormat:@"%fms", v1 * 1000.0];
 }
 
 id SFDateToStringRFC3339(void *a1)
@@ -7232,7 +6821,7 @@ uint64_t SFIsCredential(void *a1)
 {
   v1 = getSFSharablePasswordURLSchemeForAirDrop;
   v2 = a1;
-  v3 = v1();
+  v3 = v1(v2);
   v4 = [v2 isEqual:v3];
 
   return v4;
@@ -7241,50 +6830,50 @@ uint64_t SFIsCredential(void *a1)
 uint64_t SFIsiCloudFamilyLink(void *a1)
 {
   v1 = a1;
-  v15 = 0;
-  v2 = [MEMORY[0x1E69635C0] appLinksWithURL:v1 limit:1 error:&v15];
-  v3 = v15;
+  v17 = 0;
+  v2 = [MEMORY[0x1E69635C0] appLinksWithURL:v1 limit:1 error:&v17];
+  v3 = v17;
   v4 = [v2 firstObject];
 
-  v5 = airdrop_log();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+  v6 = airdrop_log(v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
   if (v4)
   {
-    if (v6)
+    if (v7)
     {
       SFIsiCloudFamilyLink_cold_1(v4);
     }
 
-    v7 = [v4 targetApplicationProxy];
-    v8 = [v7 bundleIdentifier];
-    v9 = v8;
-    v10 = @"com.apple.family";
+    v8 = [v4 targetApplicationProxy];
+    v9 = [v8 bundleIdentifier];
+    v10 = v9;
+    v11 = @"com.apple.family";
   }
 
   else
   {
-    if (v6)
+    if (v7)
     {
       SFIsiCloudFamilyLink_cold_2(v1, v3);
     }
 
-    v11 = [MEMORY[0x1E6963608] defaultWorkspace];
-    v7 = [v11 URLOverrideForURL:v1];
+    v12 = [MEMORY[0x1E6963608] defaultWorkspace];
+    v8 = [v12 URLOverrideForURL:v1];
 
-    v12 = airdrop_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v14 = airdrop_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      SFIsiCloudFamilyLink_cold_3(v7);
+      SFIsiCloudFamilyLink_cold_3(v8);
     }
 
-    v8 = [v7 scheme];
-    v9 = v8;
-    v10 = @"family";
+    v9 = [v8 scheme];
+    v10 = v9;
+    v11 = @"family";
   }
 
-  v13 = [v8 isEqualToString:v10];
+  v15 = [v9 isEqualToString:v11];
 
-  return v13;
+  return v15;
 }
 
 uint64_t SFIsManagedConfigurationType(void *a1)
@@ -7514,77 +7103,76 @@ id SFSharablePasswordCreateAirDropURL(uint64_t a1, __SecKey *a2)
     v15 = 0;
     v3 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:a1 requiringSecureCoding:1 error:&v15];
     v4 = v15;
+    v5 = v4;
     if (v4)
     {
-      v5 = airdrop_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = airdrop_log(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v18 = v4;
-        _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "### Failed to archive credential with error: %@", buf, 0xCu);
+        v18 = v5;
+        _os_log_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEFAULT, "### Failed to archive credential with error: %@", buf, 0xCu);
       }
 
-      v6 = 0;
+      v7 = 0;
     }
 
     else
     {
       if (a2)
       {
-        v7 = SFEncryptData(a2, v3);
+        v8 = SFEncryptData(a2, v3);
       }
 
       else
       {
-        v7 = v3;
+        v8 = v3;
       }
 
-      v5 = v7;
-      if (v7)
+      v6 = v8;
+      if (v8)
       {
-        v8 = [v7 base64EncodedStringWithOptions:0];
-        v9 = objc_alloc_init(MEMORY[0x1E696AF20]);
-        v10 = [MEMORY[0x1E696AF60] queryItemWithName:@"dataBlob" value:v8];
-        v16 = v10;
-        v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
-        [v9 setQueryItems:v11];
+        v9 = [v8 base64EncodedStringWithOptions:0];
+        v10 = objc_alloc_init(MEMORY[0x1E696AF20]);
+        v11 = [MEMORY[0x1E696AF60] queryItemWithName:@"dataBlob" value:v9];
+        v16 = v11;
+        v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
+        [v10 setQueryItems:v12];
 
         if (a2)
         {
-          v12 = @"EncryptedCredential";
+          v13 = @"EncryptedCredential";
         }
 
         else
         {
-          v12 = @"safaricredential";
+          v13 = @"safaricredential";
         }
 
-        [v9 setScheme:v12];
-        v6 = [v9 URL];
+        [v10 setScheme:v13];
+        v7 = [v10 URL];
       }
 
       else
       {
-        v8 = airdrop_log();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = airdrop_log(0);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "### Failed to encrypt data", buf, 2u);
+          _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_DEFAULT, "### Failed to encrypt data", buf, 2u);
         }
 
-        v6 = 0;
+        v7 = 0;
       }
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
-  return v6;
+  return v7;
 }
 
 id SFEncryptData(__SecKey *a1, void *a2)
@@ -7623,10 +7211,11 @@ id SFEncryptData(__SecKey *a1, void *a2)
             v15 = *(*(&v21 + 1) + 8 * i);
             error = 0;
             v16 = SecKeyCreateEncryptedData(a1, v13, v15, &error);
+            v17 = v16;
             if (error)
             {
-              v17 = airdrop_log();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+              v18 = airdrop_log(v16);
+              if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
               {
                 SFEncryptData_cold_1();
               }
@@ -7664,8 +7253,6 @@ LABEL_19:
     v6 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
@@ -7689,7 +7276,7 @@ id SFSharablePasswordForAirDropURL(uint64_t a1, __SecKey *a2)
 {
   if (!a1)
   {
-    v10 = 0;
+    v11 = 0;
     goto LABEL_25;
   }
 
@@ -7700,22 +7287,22 @@ id SFSharablePasswordForAirDropURL(uint64_t a1, __SecKey *a2)
 
   if (!v6)
   {
-    v8 = airdrop_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = airdrop_log(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       SFSharablePasswordForAirDropURL_cold_3();
     }
 
-    v10 = 0;
+    v11 = 0;
     goto LABEL_24;
   }
 
-  v7 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:v6 options:0];
-  v8 = v7;
-  if (!v7 || ![v7 length])
+  v8 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:v6 options:0];
+  v9 = v8;
+  if (!v8 || (v8 = [v8 length]) == 0)
   {
-    v9 = airdrop_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = airdrop_log(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       SFSharablePasswordForAirDropURL_cold_2();
     }
@@ -7725,25 +7312,25 @@ id SFSharablePasswordForAirDropURL(uint64_t a1, __SecKey *a2)
 
   if (!a2)
   {
-    v9 = v8;
+    v10 = v9;
     goto LABEL_17;
   }
 
-  v9 = SFDecryptData(a2, v8);
-  if (v9)
+  v10 = SFDecryptData(a2, v9);
+  if (v10)
   {
 LABEL_17:
-    v11 = [(objc_class *)getSFSharablePasswordClass() sharablePasswordFromData:v9];
-    v10 = v11;
-    if (v11)
+    v12 = [(objc_class *)getSFSharablePasswordClass() sharablePasswordFromData:v10];
+    v11 = v12;
+    if (v12)
     {
-      v12 = v11;
+      v13 = v12;
     }
 
     else
     {
-      v13 = airdrop_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = airdrop_log(0);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         SFSharablePasswordForAirDropURL_cold_1();
       }
@@ -7752,21 +7339,21 @@ LABEL_17:
     goto LABEL_23;
   }
 
-  v9 = airdrop_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = airdrop_log(0);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    *v15 = 0;
-    _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_DEFAULT, "### Failed to decrypt data", v15, 2u);
+    *v16 = 0;
+    _os_log_impl(&dword_1A9662000, v10, OS_LOG_TYPE_DEFAULT, "### Failed to decrypt data", v16, 2u);
   }
 
 LABEL_12:
-  v10 = 0;
+  v11 = 0;
 LABEL_23:
 
 LABEL_24:
 LABEL_25:
 
-  return v10;
+  return v11;
 }
 
 id SFDecryptData(__SecKey *a1, void *a2)
@@ -7774,9 +7361,9 @@ id SFDecryptData(__SecKey *a1, void *a2)
   v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
-  if (!v3 || ![v3 length])
+  if (!v3 || (v3 = [v3 length]) == 0)
   {
-    v8 = airdrop_log();
+    v8 = airdrop_log(v3);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       SFDecryptData_cold_3();
@@ -7787,14 +7374,14 @@ id SFDecryptData(__SecKey *a1, void *a2)
 
   if (!a1)
   {
-    v8 = airdrop_log();
+    v8 = airdrop_log(v3);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       SFDecryptData_cold_2();
     }
 
 LABEL_15:
-    v16 = 0;
+    v17 = 0;
     goto LABEL_22;
   }
 
@@ -7824,10 +7411,11 @@ LABEL_15:
         v14 = *(*(&v21 + 1) + 8 * i);
         error = 0;
         v15 = SecKeyCreateDecryptedData(a1, v12, v14, &error);
+        v16 = v15;
         if (error)
         {
-          v17 = airdrop_log();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v18 = airdrop_log(v15);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             SFDecryptData_cold_1();
           }
@@ -7838,7 +7426,7 @@ LABEL_15:
             error = 0;
           }
 
-          v16 = 0;
+          v17 = 0;
           goto LABEL_21;
         }
 
@@ -7855,13 +7443,12 @@ LABEL_15:
     }
   }
 
-  v16 = SFJoinDataChunks(v7);
+  v17 = SFJoinDataChunks(v7);
 LABEL_21:
 
 LABEL_22:
-  v18 = *MEMORY[0x1E69E9840];
 
-  return v16;
+  return v17;
 }
 
 id SFSharablePasswordForURL(void *a1)
@@ -7883,7 +7470,7 @@ id SFSharablePasswordForURL(void *a1)
 
 id SFSplitDataChunks(void *a1, unint64_t a2)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v5 = 0;
@@ -7891,8 +7478,8 @@ id SFSplitDataChunks(void *a1, unint64_t a2)
   {
     if ([v3 length] <= a2)
     {
-      v13[0] = v3;
-      v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+      v12[0] = v3;
+      v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
     }
 
     else
@@ -7928,45 +7515,41 @@ id SFSplitDataChunks(void *a1, unint64_t a2)
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 id SFJoinDataChunks(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x1E695DF88]);
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [v2 appendData:{*(*(&v10 + 1) + 8 * i), v10}];
+        [v2 appendData:{*(*(&v9 + 1) + 8 * i), v9}];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -7985,69 +7568,69 @@ NSObject *SFFullTextFromRTIDataPayload(void *a1)
 
     if (v6)
     {
-      v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:&stru_1F1D30528];
-      v8 = [v6 documentState];
-      v9 = [v8 documentState];
+      v8 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:&stru_1F1D30528];
+      v9 = [v6 documentState];
+      v10 = [v9 documentState];
 
-      if (v9)
+      if (v10)
       {
-        v10 = [v9 contextBeforeInput];
-
-        if (v10)
-        {
-          v11 = [v9 contextBeforeInput];
-          [v7 appendString:v11];
-        }
-
-        v12 = [v9 markedText];
+        v12 = [v10 contextBeforeInput];
 
         if (v12)
         {
-          v13 = [v9 markedText];
-          [v7 appendString:v13];
+          v13 = [v10 contextBeforeInput];
+          [v8 appendString:v13];
         }
 
-        v14 = [v9 contextAfterInput];
+        v14 = [v10 markedText];
 
         if (v14)
         {
-          v15 = [v9 contextAfterInput];
-          [v7 appendString:v15];
+          v15 = [v10 markedText];
+          [v8 appendString:v15];
         }
 
-        v16 = v7;
+        v16 = [v10 contextAfterInput];
+
+        if (v16)
+        {
+          v17 = [v10 contextAfterInput];
+          [v8 appendString:v17];
+        }
+
+        v18 = v8;
       }
 
       else
       {
-        v17 = remote_log();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v19 = remote_log(v11);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           SFFullTextFromRTIDataPayload_cold_1();
         }
 
-        v16 = 0;
+        v18 = 0;
       }
     }
 
     else
     {
-      v7 = remote_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = remote_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         SFFullTextFromRTIDataPayload_cold_2();
       }
 
-      v16 = 0;
+      v18 = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    v18 = 0;
   }
 
-  return v16;
+  return v18;
 }
 
 uint64_t SFMinorWatchHardwareVersion(void *a1)
@@ -8055,7 +7638,7 @@ uint64_t SFMinorWatchHardwareVersion(void *a1)
   v1 = [a1 componentsSeparatedByString:{@", "}];
   if ([v1 count] < 2)
   {
-    v3 = 0;
+    v4 = 0;
     goto LABEL_10;
   }
 
@@ -8066,47 +7649,48 @@ uint64_t SFMinorWatchHardwareVersion(void *a1)
   }
 
   v3 = [v2 intValue];
+  v4 = v3;
   if (!v3)
   {
-    v4 = auto_unlock_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = auto_unlock_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       SFMinorWatchHardwareVersion_cold_1();
     }
 
 LABEL_7:
-    v3 = 0;
+    v4 = 0;
   }
 
 LABEL_10:
-  return v3;
+  return v4;
 }
 
 id SFSandboxExtensionDataByFileURLPathForURLs(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [MEMORY[0x1E695DF90] dictionary];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         if ([v8 isFileURL])
         {
           v9 = [v8 issueSandboxExtensionData];
@@ -8115,21 +7699,20 @@ id SFSandboxExtensionDataByFileURLPathForURLs(void *a1)
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
 
   v11 = [v2 copy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 BOOL SFRemoteDeviceCanConnectOn5GHz(void *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [v1 componentsSeparatedByString:{@", "}];
   if ([v2 count] < 2)
@@ -8164,7 +7747,7 @@ BOOL SFRemoteDeviceCanConnectOn5GHz(void *a1)
   v10 = v9 != 0;
   if (!v9)
   {
-    v11 = tethering_log();
+    v11 = tethering_log(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       SFRemoteDeviceCanConnectOn5GHz_cold_1();
@@ -8175,12 +7758,12 @@ BOOL SFRemoteDeviceCanConnectOn5GHz(void *a1)
 
   if (v9 >= 6 && (v9 != 6 || (v8 - 10) >= 4))
   {
-    v11 = tethering_log();
+    v11 = tethering_log(v9);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = v1;
-      _os_log_impl(&dword_1A9662000, v11, OS_LOG_TYPE_DEFAULT, "Watch model %@ supports 5GHz.", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v1;
+      _os_log_impl(&dword_1A9662000, v11, OS_LOG_TYPE_DEFAULT, "Watch model %@ supports 5GHz.", &v13, 0xCu);
     }
 
 LABEL_16:
@@ -8191,50 +7774,51 @@ LABEL_16:
   v10 = 0;
 LABEL_17:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
-id SFRemoteTextInputPayloadFromLegacyAPI(int a1, void *a2)
+id SFRemoteTextInputPayloadFromLegacyAPI(uint64_t a1, void *a2)
 {
+  v2 = a1;
   v3 = a2;
-  if (a1 <= 4)
+  v4 = v3;
+  if (v2 <= 4)
   {
-    if (a1 != 2)
+    if (v2 != 2)
     {
-      if (a1 == 3)
+      if (v2 == 3)
       {
-        v5 = objc_alloc_init(getRTITextOperationsClass());
-        v7 = [v5 keyboardOutput];
-        [v7 setDeletionCount:1];
+        v6 = objc_alloc_init(getRTITextOperationsClass());
+        v8 = [v6 keyboardOutput];
+        [v8 setDeletionCount:1];
         goto LABEL_19;
       }
 
-      if (a1 == 4)
+      if (v2 == 4)
       {
-        v4 = objc_alloc_init(getRTITextOperationsClass());
-        v5 = v4;
-        if (v3)
+        v5 = objc_alloc_init(getRTITextOperationsClass());
+        v6 = v5;
+        if (v4)
         {
-          v6 = [v4 keyboardOutput];
-          v7 = v6;
-          v8 = v3;
+          v7 = [v5 keyboardOutput];
+          v8 = v7;
+          v9 = v4;
 LABEL_11:
-          [v6 setInsertionText:v8];
+          [v7 setInsertionText:v9];
 LABEL_19:
 
 LABEL_23:
-          v12 = objc_alloc_init(getRTIInputSystemDataPayloadClass());
-          [v12 setTextOperations:v5];
-          RTIDataPayloadClass = getRTIDataPayloadClass();
-          v14 = [v12 data];
-          v15 = [(objc_class *)RTIDataPayloadClass payloadWithData:v14];
+          v15 = objc_alloc_init(getRTIInputSystemDataPayloadClass());
+          v16 = [v15 setTextOperations:v6];
+          RTIDataPayloadClass = getRTIDataPayloadClass(v16);
+          v18 = [v15 data];
+          v19 = [RTIDataPayloadClass payloadWithData:v18];
 
           goto LABEL_32;
         }
 
-        v11 = remote_log();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v13 = remote_log(v5);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           SFRemoteTextInputPayloadFromLegacyAPI_cold_3();
         }
@@ -8243,8 +7827,8 @@ LABEL_23:
       }
 
 LABEL_16:
-      v5 = remote_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = remote_log(v3);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         SFRemoteTextInputPayloadFromLegacyAPI_cold_4();
       }
@@ -8252,52 +7836,54 @@ LABEL_16:
       goto LABEL_29;
     }
 
-    v9 = objc_alloc_init(getRTITextOperationsClass());
-    v5 = v9;
-    v10 = &stru_1F1D30528;
+    v10 = objc_alloc_init(getRTITextOperationsClass());
+    v6 = v10;
+    v11 = &stru_1F1D30528;
 LABEL_22:
-    [v9 setTextToAssert:v10];
+    [v10 setTextToAssert:v11];
     goto LABEL_23;
   }
 
-  switch(a1)
+  switch(v2)
   {
     case 5:
-      v5 = objc_alloc_init(getRTITextOperationsClass());
-      if (v3)
+      v12 = objc_alloc_init(getRTITextOperationsClass());
+      v6 = v12;
+      if (v4)
       {
 LABEL_21:
-        v9 = v5;
-        v10 = v3;
+        v10 = v6;
+        v11 = v4;
         goto LABEL_22;
       }
 
-      v11 = remote_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = remote_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         SFRemoteTextInputPayloadFromLegacyAPI_cold_2();
       }
 
       break;
     case 8:
-      v5 = objc_alloc_init(getRTITextOperationsClass());
-      if (v3)
+      v14 = objc_alloc_init(getRTITextOperationsClass());
+      v6 = v14;
+      if (v4)
       {
         goto LABEL_21;
       }
 
-      v11 = remote_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = remote_log(v14);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         SFRemoteTextInputPayloadFromLegacyAPI_cold_1();
       }
 
       break;
     case 9:
-      v5 = objc_alloc_init(getRTITextOperationsClass());
-      v6 = [v5 keyboardOutput];
-      v7 = v6;
-      v8 = @"\n";
+      v6 = objc_alloc_init(getRTITextOperationsClass());
+      v7 = [v6 keyboardOutput];
+      v8 = v7;
+      v9 = @"\n";
       goto LABEL_11;
     default:
       goto LABEL_16;
@@ -8306,16 +7892,16 @@ LABEL_21:
 LABEL_28:
 
 LABEL_29:
-  v16 = remote_log();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v21 = remote_log(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     SFRemoteTextInputPayloadFromLegacyAPI_cold_5();
   }
 
-  v15 = 0;
+  v19 = 0;
 LABEL_32:
 
-  return v15;
+  return v19;
 }
 
 void SFRemoteTextInputPayloadToLegacyAPI(void *a1, char *a2, void *a3)
@@ -8333,7 +7919,7 @@ void SFRemoteTextInputPayloadToLegacyAPI(void *a1, char *a2, void *a3)
 
     if (v11 && [v11 length] && !objc_msgSend(v11, "isEqualToString:", @"\n"))
     {
-      v18 = 4;
+      v19 = 4;
       goto LABEL_20;
     }
 
@@ -8350,8 +7936,8 @@ LABEL_16:
       goto LABEL_27;
     }
 
-    v17 = [v8 textOperations];
-    v11 = [v17 textToAssert];
+    v18 = [v8 textOperations];
+    v11 = [v18 textToAssert];
 
     if (v11)
     {
@@ -8364,40 +7950,40 @@ LABEL_16:
 
       if ([v11 length])
       {
-        v18 = 5;
+        v19 = 5;
 LABEL_20:
-        v19 = [v11 copy];
+        v20 = [v11 copy];
 
-        *a2 = v18;
-        if (v19)
+        *a2 = v19;
+        if (v20)
         {
-          *a3 = [v19 copy];
+          *a3 = [v20 copy];
         }
 
         goto LABEL_27;
       }
     }
 
-    v20 = [v8 textOperations];
-    v21 = [v20 keyboardOutput];
-    v22 = [v21 insertionText];
+    v21 = [v8 textOperations];
+    v22 = [v21 keyboardOutput];
+    v23 = [v22 insertionText];
 
-    if (v22)
+    if (v23)
     {
-      v23 = [v22 isEqualToString:@"\n"];
-      v24 = v23;
-      if (v23)
+      v24 = [v23 isEqualToString:@"\n"];
+      v25 = v24;
+      if (v24)
       {
-        v25 = 9;
+        v26 = 9;
       }
 
       else
       {
-        v25 = 0;
+        v26 = 0;
       }
 
-      *a2 = v25;
-      if (v24)
+      *a2 = v26;
+      if (v25)
       {
         goto LABEL_27;
       }
@@ -8408,18 +7994,18 @@ LABEL_20:
 
   else
   {
-    v8 = remote_log();
+    v8 = remote_log(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v26 = 0;
-      _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "### Cannot convert RTI payload: no payload", v26, 2u);
+      *v27 = 0;
+      _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "### Cannot convert RTI payload: no payload", v27, 2u);
     }
   }
 
   *a2 = 0;
 LABEL_10:
-  v16 = remote_log();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v17 = remote_log(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     SFRemoteTextInputPayloadToLegacyAPI_cold_1();
   }
@@ -8461,7 +8047,7 @@ id SFRTIDataPayloadForData(void *a1)
   v4 = v3;
   if (v1 && v2 | v3)
   {
-    v6 = -[objc_class payloadWithData:version:](getRTIDataPayloadClass(), "payloadWithData:version:", v2, [v3 unsignedLongValue]);
+    v6 = [getRTIDataPayloadClass(v3) payloadWithData:v2 version:{objc_msgSend(v3, "unsignedLongValue")}];
     v5 = v6;
     if (v6)
     {
@@ -8470,7 +8056,7 @@ id SFRTIDataPayloadForData(void *a1)
 
     else
     {
-      v8 = remote_log();
+      v8 = remote_log(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         SFRTIDataPayloadForData_cold_1();
@@ -8584,14 +8170,14 @@ void _SFShimSetUnderbarIsContentManaged(void *a1, uint64_t a2)
 id SFAirDropDownloadsURL()
 {
   v0 = [MEMORY[0x1E696AC08] defaultManager];
-  v5 = 0;
-  v1 = [v0 URLForDirectory:15 inDomain:1 appropriateForURL:0 create:1 error:&v5];
-  v2 = v5;
+  v6 = 0;
+  v1 = [v0 URLForDirectory:15 inDomain:1 appropriateForURL:0 create:1 error:&v6];
+  v2 = v6;
 
   if (!v1)
   {
-    v3 = framework_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = framework_log(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       SFAirDropDownloadsURL_cold_1();
     }
@@ -8602,12 +8188,13 @@ id SFAirDropDownloadsURL()
 
 id SFRealpathForFileURL(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  if (([v1 isFileURL] & 1) == 0)
+  v2 = [v1 isFileURL];
+  if ((v2 & 1) == 0)
   {
-    v5 = framework_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = framework_log(v2);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       SFRealpathForFileURL_cold_1();
     }
@@ -8615,11 +8202,11 @@ id SFRealpathForFileURL(void *a1)
     goto LABEL_12;
   }
 
-  v2 = [v1 fileSystemRepresentation];
-  if (!v2)
+  v3 = [v1 fileSystemRepresentation];
+  if (!v3)
   {
-    v5 = framework_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = framework_log(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       SFRealpathForFileURL_cold_4();
     }
@@ -8627,50 +8214,49 @@ id SFRealpathForFileURL(void *a1)
     goto LABEL_12;
   }
 
-  v3 = v2;
-  if (!*v2)
+  v4 = v3;
+  if (!*v3)
   {
-    v5 = framework_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = framework_log(v3);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       SFRealpathForFileURL_cold_3();
     }
 
 LABEL_12:
-    v6 = 0;
+    v8 = 0;
     goto LABEL_13;
   }
 
-  v4 = realpath_DARWIN_EXTSN(v2, 0);
+  v5 = realpath_DARWIN_EXTSN(v3, 0);
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __SFRealpathForFileURL_block_invoke;
   aBlock[3] = &__block_descriptor_40_e5_v8__0l;
-  aBlock[4] = v4;
-  v5 = _Block_copy(aBlock);
-  if (v4)
+  aBlock[4] = v5;
+  v6 = _Block_copy(aBlock);
+  v7 = v6;
+  if (v5)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v4];
+    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v5];
   }
 
   else
   {
-    v9 = framework_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = framework_log(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      v10 = __error();
-      SFRealpathForFileURL_cold_2(v3, v10, buf, v9);
+      v11 = __error();
+      SFRealpathForFileURL_cold_2(v4, v11, buf, v10);
     }
 
-    v6 = 0;
+    v8 = 0;
   }
 
-  (*(v5 + 16))(v5);
+  (*(v7 + 16))(v7);
 LABEL_13:
 
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v6;
+  return v8;
 }
 
 uint64_t SFCopyTypeIdentifierForColorArrayAndModelCode(const __CFArray *a1, uint64_t a2)
@@ -8730,99 +8316,100 @@ LABEL_17:
 
 uint64_t SFCreateThumbnailForAirDropItem(void *a1, void *a2, unsigned int a3, double a4)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v7 = a1;
   v8 = a2;
   mach_absolute_time();
   v9 = [v8 pathExtension];
-  v10 = [v9 length] == 0;
-  v11 = airdrop_log();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
-  if (v10)
+  v10 = [v9 length];
+  v11 = v10 == 0;
+  v12 = airdrop_log(v10);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
+  if (v11)
   {
-    if (v12)
+    if (v13)
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = v7;
-      _os_log_impl(&dword_1A9662000, v11, OS_LOG_TYPE_INFO, "Genrating thumbnail for UTI: %@", &buf, 0xCu);
+      _os_log_impl(&dword_1A9662000, v12, OS_LOG_TYPE_INFO, "Genrating thumbnail for UTI: %@", &buf, 0xCu);
     }
 
-    v13 = [objc_alloc(MEMORY[0x1E69A8A00]) initWithType:v7];
+    v14 = [objc_alloc(MEMORY[0x1E69A8A00]) initWithType:v7];
   }
 
   else
   {
-    if (v12)
+    if (v13)
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = v9;
-      _os_log_impl(&dword_1A9662000, v11, OS_LOG_TYPE_INFO, "Generating thumbnail for path extension: %@", &buf, 0xCu);
+      _os_log_impl(&dword_1A9662000, v12, OS_LOG_TYPE_INFO, "Generating thumbnail for path extension: %@", &buf, 0xCu);
     }
 
-    v13 = [objc_alloc(MEMORY[0x1E69A8A00]) initWithFileExtension:v9];
+    v14 = [objc_alloc(MEMORY[0x1E69A8A00]) initWithFileExtension:v9];
   }
 
-  v14 = v13;
-  if (v13)
+  v15 = v14;
+  if (v14)
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v33 = 0x2020000000;
-    v34 = 0;
-    v15 = dispatch_semaphore_create(0);
-    v16 = dispatch_get_global_queue(a3, 0);
+    v34 = 0x2020000000;
+    v35 = 0;
+    v16 = dispatch_semaphore_create(0);
+    v17 = dispatch_get_global_queue(a3, 0);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __SFCreateThumbnailForAirDropItem_block_invoke;
     block[3] = &unk_1E788C080;
-    v27 = v14;
-    v17 = v15;
-    v28 = v17;
+    v28 = v15;
+    v18 = v16;
+    v29 = v18;
     p_buf = &buf;
-    dispatch_async(v16, block);
+    dispatch_async(v17, block);
 
-    v18 = dispatch_time(0, (a4 * 1000000.0));
-    if (dispatch_semaphore_wait(v17, v18))
+    v19 = dispatch_time(0, (a4 * 1000000.0));
+    v20 = dispatch_semaphore_wait(v18, v19);
+    if (v20)
     {
-      v19 = airdrop_log();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = airdrop_log(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         SFCreateThumbnailForAirDropItem_cold_1();
       }
     }
 
-    v20 = airdrop_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v22 = airdrop_log(v20);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       mach_absolute_time();
-      v21 = UpTicksToMilliseconds();
-      *v30 = 134217984;
-      v31 = v21;
-      _os_log_impl(&dword_1A9662000, v20, OS_LOG_TYPE_DEFAULT, "Thumbnail generation took %ld ms", v30, 0xCu);
+      v23 = UpTicksToMilliseconds();
+      *v31 = 134217984;
+      v32 = v23;
+      _os_log_impl(&dword_1A9662000, v22, OS_LOG_TYPE_DEFAULT, "Thumbnail generation took %ld ms", v31, 0xCu);
     }
 
-    v22 = *(*(&buf + 1) + 24);
+    v24 = *(*(&buf + 1) + 24);
     _Block_object_dispose(&buf, 8);
   }
 
   else
   {
-    v23 = airdrop_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v25 = airdrop_log(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       SFCreateThumbnailForAirDropItem_cold_2();
     }
 
-    v22 = 0;
+    v24 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-  return v22;
+  return v24;
 }
 
-void sub_1A96ABDDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1A96ABDDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8848,8 +8435,9 @@ void __SFCreateThumbnailForAirDropItem_block_invoke_2(uint64_t a1, CGImage *a2)
   aBlock[1] = 3221225472;
   aBlock[2] = __SFCreateThumbnailForAirDropItem_block_invoke_3;
   aBlock[3] = &unk_1E788B198;
-  v7 = *(a1 + 32);
+  v8 = *(a1 + 32);
   v4 = _Block_copy(aBlock);
+  v5 = v4;
   if (a2)
   {
     *(*(*(a1 + 48) + 8) + 24) = CGImageRetain(a2);
@@ -8857,14 +8445,14 @@ void __SFCreateThumbnailForAirDropItem_block_invoke_2(uint64_t a1, CGImage *a2)
 
   else
   {
-    v5 = airdrop_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = airdrop_log(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __SFCreateThumbnailForAirDropItem_block_invoke_2_cold_1(a1);
+      __SFCreateThumbnailForAirDropItem_block_invoke_2_cold_1();
     }
   }
 
-  v4[2](v4);
+  v5[2](v5);
 }
 
 id SFCurrentAppName()
@@ -8979,9 +8567,9 @@ uint64_t SFPerformDataMigrationIfNeeded()
   return v0();
 }
 
-void sub_1A96AC44C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A96AC44C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9069,7 +8657,7 @@ id SFSaveDataToTempFile(void *a1, uint64_t a2, void *a3, void *a4, uint64_t a5)
 
 __CFString *SFAirDropModelImageNameFromModelString(void *a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if ([v1 hasPrefix:@"iPhone"])
   {
@@ -9234,34 +8822,35 @@ LABEL_52:
 
     else
     {
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
-      v17 = [&unk_1F1D7D838 countByEnumeratingWithState:&v23 objects:v27 count:16];
-      if (v17)
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
+      v16 = [&unk_1F1D7D838 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      if (v16)
       {
-        v18 = v17;
-        v19 = *v24;
+        v17 = v16;
+        v18 = *v23;
 LABEL_85:
-        v20 = 0;
+        v19 = 0;
         while (1)
         {
-          if (*v24 != v19)
+          if (*v23 != v18)
           {
             objc_enumerationMutation(&unk_1F1D7D838);
           }
 
-          v21 = *(*(&v23 + 1) + 8 * v20);
-          if ([v1 hasPrefix:v21])
+          v20 = *(*(&v22 + 1) + 8 * v19);
+          if ([v1 hasPrefix:v20])
           {
             break;
           }
 
-          if (v18 == ++v20)
+          if (v17 == ++v19)
           {
-            v18 = [&unk_1F1D7D838 countByEnumeratingWithState:&v23 objects:v27 count:16];
-            if (v18)
+            v16 = [&unk_1F1D7D838 countByEnumeratingWithState:&v22 objects:v26 count:16];
+            v17 = v16;
+            if (v16)
             {
               goto LABEL_85;
             }
@@ -9270,16 +8859,17 @@ LABEL_85:
           }
         }
 
-        v2 = v21;
-        if (v2)
+        v16 = v20;
+        v2 = v16;
+        if (v16)
         {
           goto LABEL_35;
         }
       }
 
 LABEL_93:
-      v22 = airdrop_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v21 = airdrop_log(v16);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         SFAirDropModelImageNameFromModelString_cold_1();
       }
@@ -9289,8 +8879,6 @@ LABEL_93:
   }
 
 LABEL_35:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -9355,16 +8943,16 @@ void *__PhotosFormatsLibrary_block_invoke()
   return result;
 }
 
-id initValSFSharablePasswordURLSchemeForAirDrop()
+id initValSFSharablePasswordURLSchemeForAirDrop(uint64_t a1)
 {
   if (softLinkOnceSFSharablePasswordURLSchemeForAirDrop != -1)
   {
     initValSFSharablePasswordURLSchemeForAirDrop_cold_1();
   }
 
-  v1 = constantValSFSharablePasswordURLSchemeForAirDrop;
+  v2 = constantValSFSharablePasswordURLSchemeForAirDrop;
 
-  return v1;
+  return v2;
 }
 
 void __initValSFSharablePasswordURLSchemeForAirDrop_block_invoke()
@@ -9451,45 +9039,41 @@ Class initRTIDataPayload()
 
 void *__getDMPerformMigrationIfNeededSymbolLoc_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!DataMigrationLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __DataMigrationLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E788C0C8;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __DataMigrationLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E788C0C8;
+    v6 = 0;
     DataMigrationLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v2 = DataMigrationLibraryCore_frameworkLibrary;
   if (!DataMigrationLibraryCore_frameworkLibrary)
   {
-    __getDMPerformMigrationIfNeededSymbolLoc_block_invoke_cold_1(v5);
+    __getDMPerformMigrationIfNeededSymbolLoc_block_invoke_cold_1(v4);
   }
 
-  if (v5[0])
+  if (v4[0])
   {
-    free(v5[0]);
+    free(v4[0]);
   }
 
   result = dlsym(v2, "DMPerformMigrationIfNeeded");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getDMPerformMigrationIfNeededSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __DataMigrationLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   DataMigrationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9526,10 +9110,11 @@ void sub_1A96AFF38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A96B260C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_1A96B260C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  objc_sync_exit(v15);
-  _Block_object_dispose(&a15, 8);
+  va_start(va, a14);
+  objc_sync_exit(v14);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -9538,4 +9123,417 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
+}
+
+void sub_1A96B3258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v16 - 80), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1A96B3978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v16 - 80), 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __SFAppleIDClientCopyCertificate_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *(a1 + 40);
+  v6 = NSErrorToOSStatus();
+  (*(v5 + 16))(v5, a2, v6);
+  v7 = *(a1 + 32);
+
+  return [v7 invalidate];
+}
+
+uint64_t __SFAppleIDClientCopyIdentity_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *(a1 + 40);
+  v6 = NSErrorToOSStatus();
+  (*(v5 + 16))(v5, a2, v6);
+  v7 = *(a1 + 32);
+
+  return [v7 invalidate];
+}
+
+uint64_t __SFAppleIDClientCopyMyAppleID_block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v5 = *(a1 + 40);
+  v6 = a3;
+  v7 = [a2 appleID];
+  v8 = NSErrorToOSStatus();
+
+  (*(v5 + 16))(v5, v7, v8);
+  v9 = *(a1 + 32);
+
+  return [v9 invalidate];
+}
+
+uint64_t OUTLINED_FUNCTION_6_2@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+{
+  if (result)
+  {
+    a2 = result;
+  }
+
+  *v2 = a2;
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_7(unsigned __int16 a1)
+{
+
+  return DebugGetErrorString();
+}
+
+void OUTLINED_FUNCTION_10(uint64_t a1)
+{
+  v3 = *(*(v1 + 32) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = a1;
+}
+
+void OUTLINED_FUNCTION_13(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14)
+{
+  a13 = a1;
+  a14 = v15;
+
+  dispatch_async(v14, &a9);
+}
+
+void OUTLINED_FUNCTION_18(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14)
+{
+  a13 = a1;
+  a14 = -6762;
+
+  dispatch_async(v14, &a9);
+}
+
+uint64_t OUTLINED_FUNCTION_19()
+{
+
+  return [v0 setObject:v1 forKeyedSubscript:?];
+}
+
+uint64_t OUTLINED_FUNCTION_20(void *a1, const char *a2)
+{
+
+  return [a1 setDispatchQueue:v2];
+}
+
+id OUTLINED_FUNCTION_21(uint64_t a1, void *a2)
+{
+
+  return a2;
+}
+
+void sub_1A96B6670(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, os_activity_scope_state_s state)
+{
+  os_activity_scope_leave(&state);
+  objc_sync_exit(v11);
+  _Unwind_Resume(a1);
+}
+
+void sub_1A96B79A4(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v3 + 32));
+  objc_destroyWeak((v2 + 32));
+  objc_destroyWeak((v1 + 32));
+  objc_destroyWeak((v4 - 56));
+  _Unwind_Resume(a1);
+}
+
+Class initACAccountStore()
+{
+  if (AccountsLibrary_sOnce != -1)
+  {
+    initACAccountStore_cold_1();
+  }
+
+  result = objc_getClass("ACAccountStore");
+  classACAccountStore = result;
+  getACAccountStoreClass = ACAccountStoreFunction;
+  return result;
+}
+
+void *__AccountsLibrary_block_invoke()
+{
+  result = dlopen("/System/Library/Frameworks/Accounts.framework/Accounts", 2);
+  AccountsLibrary_sLib = result;
+  return result;
+}
+
+Class initTRSetupCompanionAuthenticationRequest()
+{
+  if (TouchRemoteLibrary_sOnce != -1)
+  {
+    initTRSetupCompanionAuthenticationRequest_cold_1();
+  }
+
+  result = objc_getClass("TRSetupCompanionAuthenticationRequest");
+  classTRSetupCompanionAuthenticationRequest = result;
+  getTRSetupCompanionAuthenticationRequestClass = TRSetupCompanionAuthenticationRequestFunction;
+  return result;
+}
+
+void *__TouchRemoteLibrary_block_invoke()
+{
+  result = dlopen("/System/Library/PrivateFrameworks/TouchRemote.framework/TouchRemote", 2);
+  TouchRemoteLibrary_sLib = result;
+  return result;
+}
+
+Class initTRSetupProxyDeviceRequest()
+{
+  if (TouchRemoteLibrary_sOnce != -1)
+  {
+    initTRSetupCompanionAuthenticationRequest_cold_1();
+  }
+
+  result = objc_getClass("TRSetupProxyDeviceRequest");
+  classTRSetupProxyDeviceRequest = result;
+  getTRSetupProxyDeviceRequestClass = TRSetupProxyDeviceRequestFunction;
+  return result;
+}
+
+Class initTRSetupProxyAuthenticationRequest()
+{
+  if (TouchRemoteLibrary_sOnce != -1)
+  {
+    initTRSetupCompanionAuthenticationRequest_cold_1();
+  }
+
+  result = objc_getClass("TRSetupProxyAuthenticationRequest");
+  classTRSetupProxyAuthenticationRequest = result;
+  getTRSetupProxyAuthenticationRequestClass = TRSetupProxyAuthenticationRequestFunction;
+  return result;
+}
+
+Class initHMDeviceSetupOperationHandler()
+{
+  if (HomeKitLibrary_sOnce != -1)
+  {
+    initHMDeviceSetupOperationHandler_cold_1();
+  }
+
+  result = objc_getClass("HMDeviceSetupOperationHandler");
+  classHMDeviceSetupOperationHandler = result;
+  getHMDeviceSetupOperationHandlerClass = HMDeviceSetupOperationHandlerFunction;
+  return result;
+}
+
+void *__HomeKitLibrary_block_invoke()
+{
+  result = dlopen("/System/Library/Frameworks/HomeKit.framework/HomeKit", 2);
+  HomeKitLibrary_sLib = result;
+  return result;
+}
+
+Class initTRAnisetteDataProvider()
+{
+  if (TouchRemoteLibrary_sOnce != -1)
+  {
+    initTRSetupCompanionAuthenticationRequest_cold_1();
+  }
+
+  result = objc_getClass("TRAnisetteDataProvider");
+  classTRAnisetteDataProvider = result;
+  getTRAnisetteDataProviderClass = TRAnisetteDataProviderFunction;
+  return result;
+}
+
+Class initTRSetupAuthenticationResponse()
+{
+  if (TouchRemoteLibrary_sOnce != -1)
+  {
+    initTRSetupCompanionAuthenticationRequest_cold_1();
+  }
+
+  result = objc_getClass("TRSetupAuthenticationResponse");
+  classTRSetupAuthenticationResponse = result;
+  getTRSetupAuthenticationResponseClass = TRSetupAuthenticationResponseFunction;
+  return result;
+}
+
+Class initAKDevice()
+{
+  if (AuthKitLibrary_sOnce != -1)
+  {
+    initAKDevice_cold_1();
+  }
+
+  result = objc_getClass("AKDevice");
+  classAKDevice = result;
+  getAKDeviceClass = AKDeviceFunction;
+  return result;
+}
+
+void *__AuthKitLibrary_block_invoke()
+{
+  result = dlopen("/System/Library/PrivateFrameworks/AuthKit.framework/AuthKit", 2);
+  AuthKitLibrary_sLib = result;
+  return result;
+}
+
+Class initTRSetupProxyDeviceResponse()
+{
+  if (TouchRemoteLibrary_sOnce != -1)
+  {
+    initTRSetupCompanionAuthenticationRequest_cold_1();
+  }
+
+  result = objc_getClass("TRSetupProxyDeviceResponse");
+  classTRSetupProxyDeviceResponse = result;
+  getTRSetupProxyDeviceResponseClass = TRSetupProxyDeviceResponseFunction;
+  return result;
+}
+
+Class initAKAppleIDAuthenticationContext()
+{
+  if (AuthKitLibrary_sOnce != -1)
+  {
+    initAKDevice_cold_1();
+  }
+
+  result = objc_getClass("AKAppleIDAuthenticationContext");
+  classAKAppleIDAuthenticationContext = result;
+  getAKAppleIDAuthenticationContextClass = AKAppleIDAuthenticationContextFunction;
+  return result;
+}
+
+Class initAKAppleIDAuthenticationController()
+{
+  if (AuthKitLibrary_sOnce != -1)
+  {
+    initAKDevice_cold_1();
+  }
+
+  result = objc_getClass("AKAppleIDAuthenticationController");
+  classAKAppleIDAuthenticationController = result;
+  getAKAppleIDAuthenticationControllerClass = AKAppleIDAuthenticationControllerFunction;
+  return result;
+}
+
+id initValSSServerErrorDomain(uint64_t a1)
+{
+  if (softLinkOnceSSServerErrorDomain != -1)
+  {
+    initValSSServerErrorDomain_cold_1();
+  }
+
+  v2 = constantValSSServerErrorDomain;
+
+  return v2;
+}
+
+void __initValSSServerErrorDomain_block_invoke()
+{
+  if (StoreServicesLibrary_sOnce != -1)
+  {
+    __initValSSServerErrorDomain_block_invoke_cold_1();
+  }
+
+  v0 = dlsym(StoreServicesLibrary_sLib, "SSServerErrorDomain");
+  if (v0)
+  {
+    objc_storeStrong(&constantValSSServerErrorDomain, *v0);
+  }
+
+  getSSServerErrorDomain = SSServerErrorDomainFunction;
+}
+
+void *__StoreServicesLibrary_block_invoke()
+{
+  result = dlopen("/System/Library/PrivateFrameworks/StoreServices.framework/StoreServices", 2);
+  StoreServicesLibrary_sLib = result;
+  return result;
+}
+
+id initValAKAuthenticationAlternateDSIDKey(uint64_t a1)
+{
+  if (softLinkOnceAKAuthenticationAlternateDSIDKey != -1)
+  {
+    initValAKAuthenticationAlternateDSIDKey_cold_1();
+  }
+
+  v2 = constantValAKAuthenticationAlternateDSIDKey;
+
+  return v2;
+}
+
+void __initValAKAuthenticationAlternateDSIDKey_block_invoke()
+{
+  if (AuthKitLibrary_sOnce != -1)
+  {
+    initAKDevice_cold_1();
+  }
+
+  v0 = dlsym(AuthKitLibrary_sLib, "AKAuthenticationAlternateDSIDKey");
+  if (v0)
+  {
+    objc_storeStrong(&constantValAKAuthenticationAlternateDSIDKey, *v0);
+  }
+
+  getAKAuthenticationAlternateDSIDKey = AKAuthenticationAlternateDSIDKeyFunction;
+}
+
+id initValAKAuthenticationUsernameKey(uint64_t a1)
+{
+  if (softLinkOnceAKAuthenticationUsernameKey != -1)
+  {
+    initValAKAuthenticationUsernameKey_cold_1();
+  }
+
+  v2 = constantValAKAuthenticationUsernameKey;
+
+  return v2;
+}
+
+void __initValAKAuthenticationUsernameKey_block_invoke()
+{
+  if (AuthKitLibrary_sOnce != -1)
+  {
+    initAKDevice_cold_1();
+  }
+
+  v0 = dlsym(AuthKitLibrary_sLib, "AKAuthenticationUsernameKey");
+  if (v0)
+  {
+    objc_storeStrong(&constantValAKAuthenticationUsernameKey, *v0);
+  }
+
+  getAKAuthenticationUsernameKey = AKAuthenticationUsernameKeyFunction;
+}
+
+id initValAASignInErrorDomain(uint64_t a1)
+{
+  if (softLinkOnceAASignInErrorDomain != -1)
+  {
+    initValAASignInErrorDomain_cold_1();
+  }
+
+  v2 = constantValAASignInErrorDomain;
+
+  return v2;
+}
+
+void __initValAASignInErrorDomain_block_invoke()
+{
+  if (AppleAccountLibrary_sOnce != -1)
+  {
+    __initValAASignInErrorDomain_block_invoke_cold_1();
+  }
+
+  v0 = dlsym(AppleAccountLibrary_sLib, "AASignInErrorDomain");
+  if (v0)
+  {
+    objc_storeStrong(&constantValAASignInErrorDomain, *v0);
+  }
+
+  getAASignInErrorDomain = AASignInErrorDomainFunction;
 }

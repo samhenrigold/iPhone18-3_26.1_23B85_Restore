@@ -49,7 +49,7 @@
 {
   presenterCopy = presenter;
   completionCopy = completion;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -90,71 +90,71 @@ void __67__AAUITwoFactorCodeHook_generateLoginCodeWithPresenter_completion___blo
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __67__AAUITwoFactorCodeHook_generateLoginCodeWithPresenter_completion___block_invoke_2(uint64_t a1)
+void __67__AAUITwoFactorCodeHook_generateLoginCodeWithPresenter_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
-    v2 = _AAUILogSystem();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = _AAUILogSystem(a1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       *buf = 138412290;
-      v27 = v3;
-      _os_log_impl(&dword_1C5355000, v2, OS_LOG_TYPE_DEFAULT, "Failed to generate login code. Error: %@", buf, 0xCu);
+      v29 = v4;
+      _os_log_impl(&dword_1C5355000, v3, OS_LOG_TYPE_DEFAULT, "Failed to generate login code. Error: %@", buf, 0xCu);
     }
 
-    v4 = MEMORY[0x1E69DC650];
-    v5 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v6 = [v5 localizedStringForKey:@"HSA2_CODE_GENERATOR_FAILED_TITLE" value:&stru_1F447F790 table:@"Localizable"];
-    v7 = [v4 alertWithTitle:v6 message:0];
+    v5 = MEMORY[0x1E69DC650];
+    v6 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v7 = [v6 localizedStringForKey:@"HSA2_CODE_GENERATOR_FAILED_TITLE" value:&stru_1F447F790 table:@"Localizable"];
+    v8 = [v5 alertWithTitle:v7 message:0];
 
-    v8 = *(a1 + 48);
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __67__AAUITwoFactorCodeHook_generateLoginCodeWithPresenter_completion___block_invoke_46;
-    v23[3] = &unk_1E820B7A8;
-    v25 = *(a1 + 64);
-    v24 = *(a1 + 32);
-    [v8 presentViewController:v7 animated:1 completion:v23];
+    v9 = *(a1 + 48);
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __67__AAUITwoFactorCodeHook_generateLoginCodeWithPresenter_completion___block_invoke_46;
+    v25[3] = &unk_1E820B7A8;
+    v27 = *(a1 + 64);
+    v26 = *(a1 + 32);
+    [v9 presentViewController:v8 animated:1 completion:v25];
   }
 
   else
   {
-    v9 = MEMORY[0x1E698DD90];
-    v10 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v11 = [v10 localizedStringForKey:@"HSA2_CODE_GENERATOR_TITLE_REBRAND" value:&stru_1F447F790 table:@"Localizable"];
-    v12 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v13 = [v12 localizedStringForKey:@"HSA2_CODE_GENERATOR_BODY" value:&stru_1F447F790 table:@"Localizable"];
-    v14 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v15 = [v14 localizedStringForKey:@"HSA2_CODE_GENERATOR_FOOTER" value:&stru_1F447F790 table:@"Localizable"];
-    v16 = [v9 buildLoginCodeNotificationWithTitle:v11 body:v13 footer:v15 loginCode:*(a1 + 56)];
+    v10 = MEMORY[0x1E698DD90];
+    v11 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v12 = [v11 localizedStringForKey:@"HSA2_CODE_GENERATOR_TITLE_REBRAND" value:&stru_1F447F790 table:@"Localizable"];
+    v13 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v14 = [v13 localizedStringForKey:@"HSA2_CODE_GENERATOR_BODY" value:&stru_1F447F790 table:@"Localizable"];
+    v15 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v16 = [v15 localizedStringForKey:@"HSA2_CODE_GENERATOR_FOOTER" value:&stru_1F447F790 table:@"Localizable"];
+    v17 = [v10 buildLoginCodeNotificationWithTitle:v12 body:v14 footer:v16 loginCode:*(a1 + 56)];
 
-    if (v16)
+    if (v17)
     {
-      v17 = MEMORY[0x1E698B9E0];
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __67__AAUITwoFactorCodeHook_generateLoginCodeWithPresenter_completion___block_invoke_2_59;
-      v20[3] = &unk_1E820CE88;
-      v22 = v16;
-      v21 = *(a1 + 64);
-      [v17 waitForResponseToNotification:v16 completion:v20];
+      v19 = MEMORY[0x1E698B9E0];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __67__AAUITwoFactorCodeHook_generateLoginCodeWithPresenter_completion___block_invoke_2_59;
+      v22[3] = &unk_1E820CE88;
+      v24 = v17;
+      v23 = *(a1 + 64);
+      [v19 waitForResponseToNotification:v17 completion:v22];
     }
 
     else
     {
-      v18 = _AAUILogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = _AAUILogSystem(v18);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C5355000, v18, OS_LOG_TYPE_DEFAULT, "Unable to create CFUserNotificationRef!", buf, 2u);
+        _os_log_impl(&dword_1C5355000, v20, OS_LOG_TYPE_DEFAULT, "Unable to create CFUserNotificationRef!", buf, 2u);
       }
 
-      v19 = *(a1 + 64);
-      if (v19)
+      v21 = *(a1 + 64);
+      if (v21)
       {
-        (*(v19 + 16))(v19, 0, 0);
+        (*(v21 + 16))(v21, 0, 0);
       }
     }
   }

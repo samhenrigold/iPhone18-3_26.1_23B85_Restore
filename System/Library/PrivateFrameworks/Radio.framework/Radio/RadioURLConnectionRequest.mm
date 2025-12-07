@@ -75,13 +75,13 @@ void __62__RadioURLConnectionRequest_startWithConnectionResponseBlock___block_in
 
 void __62__RadioURLConnectionRequest_startWithConnectionResponseBlock___block_invoke_3(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = os_log_create("com.apple.amp.radio", "Requests");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
-    v13 = [v3 authenticateResponseType];
+    v12 = [v3 authenticateResponseType];
     _os_log_impl(&dword_261792000, v4, OS_LOG_TYPE_ERROR, "[RadioURLConnectionRequest] Authentication response type: %ld", buf, 0xCu);
   }
 
@@ -97,9 +97,9 @@ void __62__RadioURLConnectionRequest_startWithConnectionResponseBlock___block_in
     }
 
     v8 = *(a1 + 56);
-    v11.receiver = *(a1 + 32);
-    v11.super_class = RadioURLConnectionRequest;
-    objc_msgSendSuper2(&v11, sel_startWithConnectionResponseBlock_, v8);
+    v10.receiver = *(a1 + 32);
+    v10.super_class = RadioURLConnectionRequest;
+    objc_msgSendSuper2(&v10, sel_startWithConnectionResponseBlock_, v8);
   }
 
   else
@@ -116,8 +116,6 @@ void __62__RadioURLConnectionRequest_startWithConnectionResponseBlock___block_in
       (*(v9 + 16))(v9, *(a1 + 40), *(a1 + 48));
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

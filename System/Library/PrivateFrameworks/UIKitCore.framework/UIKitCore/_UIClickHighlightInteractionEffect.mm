@@ -70,7 +70,7 @@
     memset(&v26, 0, sizeof(v26));
     if (v13)
     {
-      [v13 transform];
+      objc_msgSend_transform(v13);
     }
 
     else
@@ -201,7 +201,7 @@ LABEL_10:
     v11 = target;
     if (target)
     {
-      [target transform];
+      objc_msgSend_transform(target);
     }
 
     else

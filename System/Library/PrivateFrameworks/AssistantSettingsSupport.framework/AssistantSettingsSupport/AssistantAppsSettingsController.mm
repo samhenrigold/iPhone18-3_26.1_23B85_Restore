@@ -2,7 +2,9 @@
 + (id)bundle;
 - (id)specifiers;
 - (void)specifiers;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation AssistantAppsSettingsController
@@ -22,6 +24,13 @@
   return v2;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = AssistantAppsSettingsController;
+  [(AssistantAppsSettingsController *)&v3 viewWillAppear:appear];
+}
+
 - (void)viewDidLoad
 {
   v5.receiver = self;
@@ -32,31 +41,75 @@
   [(AssistantAppsSettingsController *)self setTitle:v4];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v25[2] = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = AssistantAppsSettingsController;
+  [(AssistantAppsSettingsController *)&v24 viewDidAppear:appear];
+  v23 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.Siri/ASSISTANT_APPS_SETTINGS_ID"];
+  v4 = +[_TtC24AssistantSettingsSupport21GMEligibilityProvider shared];
+  deviceSupported = [v4 deviceSupported];
+
+  if (deviceSupported)
+  {
+    v6 = @"Apple Intelligence & Siri";
+  }
+
+  else
+  {
+    v6 = @"Siri";
+  }
+
+  v7 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL = [v9 bundleURL];
+  v11 = [v7 initWithKey:v6 table:0 locale:currentLocale bundleURL:bundleURL];
+
+  v12 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL2 = [v14 bundleURL];
+  v16 = [v12 initWithKey:@"Apps" table:0 locale:currentLocale2 bundleURL:bundleURL2];
+
+  v17 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+  v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL3 = [v19 bundleURL];
+  v21 = [v17 initWithKey:v6 table:0 locale:currentLocale3 bundleURL:bundleURL3];
+
+  v25[0] = v11;
+  v25[1] = v16;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+  [(AssistantAppsSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.siri" title:v21 localizedNavigationComponents:v22 deepLink:v23];
+}
+
 - (id)specifiers
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   if (!self->_disabledSpotlightBundles)
   {
-    v47 = 0;
-    v48 = &v47;
-    v49 = 0x2020000000;
+    v46 = 0;
+    v47 = &v46;
+    v48 = 0x2020000000;
     v2 = getSPGetDisabledBundleSetSymbolLoc_ptr;
-    v50 = getSPGetDisabledBundleSetSymbolLoc_ptr;
+    v49 = getSPGetDisabledBundleSetSymbolLoc_ptr;
     if (!getSPGetDisabledBundleSetSymbolLoc_ptr)
     {
-      v42 = MEMORY[0x277D85DD0];
-      v43 = 3221225472;
-      v44 = __getSPGetDisabledBundleSetSymbolLoc_block_invoke;
-      v45 = &unk_278CD1658;
-      v46 = &v47;
+      v41 = MEMORY[0x277D85DD0];
+      v42 = 3221225472;
+      v43 = __getSPGetDisabledBundleSetSymbolLoc_block_invoke;
+      v44 = &unk_278CD1658;
+      v45 = &v46;
       v3 = SearchLibrary();
-      v48[3] = dlsym(v3, "SPGetDisabledBundleSet");
-      getSPGetDisabledBundleSetSymbolLoc_ptr = *(v46[1] + 24);
-      v2 = v48[3];
+      v47[3] = dlsym(v3, "SPGetDisabledBundleSet");
+      getSPGetDisabledBundleSetSymbolLoc_ptr = *(v45[1] + 24);
+      v2 = v47[3];
     }
 
-    _Block_object_dispose(&v47, 8);
+    _Block_object_dispose(&v46, 8);
     if (!v2)
     {
       [AssistantAppsSettingsController specifiers];
@@ -71,25 +124,25 @@
 
   if (!self->_disabledSpotlightDomains)
   {
-    v47 = 0;
-    v48 = &v47;
-    v49 = 0x2020000000;
+    v46 = 0;
+    v47 = &v46;
+    v48 = 0x2020000000;
     v6 = getSPGetDisabledDomainSetSymbolLoc_ptr;
-    v50 = getSPGetDisabledDomainSetSymbolLoc_ptr;
+    v49 = getSPGetDisabledDomainSetSymbolLoc_ptr;
     if (!getSPGetDisabledDomainSetSymbolLoc_ptr)
     {
-      v42 = MEMORY[0x277D85DD0];
-      v43 = 3221225472;
-      v44 = __getSPGetDisabledDomainSetSymbolLoc_block_invoke;
-      v45 = &unk_278CD1658;
-      v46 = &v47;
+      v41 = MEMORY[0x277D85DD0];
+      v42 = 3221225472;
+      v43 = __getSPGetDisabledDomainSetSymbolLoc_block_invoke;
+      v44 = &unk_278CD1658;
+      v45 = &v46;
       v7 = SearchLibrary();
-      v48[3] = dlsym(v7, "SPGetDisabledDomainSet");
-      getSPGetDisabledDomainSetSymbolLoc_ptr = *(v46[1] + 24);
-      v6 = v48[3];
+      v47[3] = dlsym(v7, "SPGetDisabledDomainSet");
+      getSPGetDisabledDomainSetSymbolLoc_ptr = *(v45[1] + 24);
+      v6 = v47[3];
     }
 
-    _Block_object_dispose(&v47, 8);
+    _Block_object_dispose(&v46, 8);
     if (!v6)
     {
       [AssistantAppsSettingsController specifiers];
@@ -118,27 +171,27 @@
     objc_storeStrong(&selfCopy->_appSettingsBundleIDs, visibleBundleIds);
     v13 = [visibleBundleIds mutableCopy];
     array = [MEMORY[0x277CBEB18] array];
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     obj = v13;
-    v14 = [obj countByEnumeratingWithState:&v38 objects:v52 count:16];
+    v14 = [obj countByEnumeratingWithState:&v37 objects:v51 count:16];
     if (v14)
     {
-      v15 = *v39;
+      v15 = *v38;
       v16 = *MEMORY[0x277D3FF08];
       v17 = *MEMORY[0x277D3FF38];
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v39 != v15)
+          if (*v38 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v38 + 1) + 8 * i);
+          v19 = *(*(&v37 + 1) + 8 * i);
           v20 = [MEMORY[0x277CC1E60] applicationProxyForIdentifier:v19];
           v21 = PSApplicationSpecifierForAssistantSection();
           if (v21)
@@ -151,7 +204,7 @@
           }
         }
 
-        v14 = [obj countByEnumeratingWithState:&v38 objects:v52 count:16];
+        v14 = [obj countByEnumeratingWithState:&v37 objects:v51 count:16];
       }
 
       while (v14);
@@ -164,8 +217,8 @@
 
   v24 = [(NSArray *)selfCopy->_allAppsSpecifiers sortedArrayUsingComparator:&__block_literal_global_8];
   v25 = [MEMORY[0x277D3FAD8] groupSpecifierWithName:0];
-  v51 = v25;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
+  v50 = v25;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
   v27 = [v26 arrayByAddingObjectsFromArray:v24];
   v28 = *MEMORY[0x277D3FC48];
   v29 = *(&selfCopy->super.super.super.super.super.isa + v28);
@@ -174,7 +227,6 @@
   v30 = *(&selfCopy->super.super.super.super.super.isa + v28);
   v31 = v30;
 
-  v32 = *MEMORY[0x277D85DE8];
   return v30;
 }
 

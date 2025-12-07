@@ -318,18 +318,18 @@ void __53__FIUIWorkoutDataProvider__fetchAllWorkoutsFromDate___block_invoke_305(
   }
 }
 
-uint64_t __53__FIUIWorkoutDataProvider__fetchAllWorkoutsFromDate___block_invoke_306(uint64_t result)
+void *__53__FIUIWorkoutDataProvider__fetchAllWorkoutsFromDate___block_invoke_306(void *result)
 {
-  if (!*(result + 32))
+  if (!*(result + 4))
   {
     return result;
   }
 
   v1 = result;
-  if ([*(result + 40) count])
+  if ([*(result + 5) count])
   {
-    [*(v1 + 32) _handleRemovedObjects:*(v1 + 40)];
-    if (![*(v1 + 48) count])
+    [v1[4] _handleRemovedObjects:v1[5]];
+    if (![v1[6] count])
     {
       goto LABEL_7;
     }
@@ -337,24 +337,24 @@ uint64_t __53__FIUIWorkoutDataProvider__fetchAllWorkoutsFromDate___block_invoke_
 
   else
   {
-    result = [*(v1 + 48) count];
+    result = [v1[6] count];
     if (!result)
     {
       return result;
     }
   }
 
-  [*(v1 + 32) _handleAddedSamples:*(v1 + 48)];
+  [v1[4] _handleAddedSamples:v1[6]];
 LABEL_7:
   _HKInitializeLogging();
   v2 = *MEMORY[0x1E696B928];
   if (os_log_type_enabled(*MEMORY[0x1E696B928], OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
+    v3[0] = 0;
     _os_log_impl(&dword_1E5D0F000, v2, OS_LOG_TYPE_DEFAULT, "FIUIWorkoutDataProvider - workouts did update. Running update handlers", v3, 2u);
   }
 
-  return [*(v1 + 32) _runUpdateHandlers];
+  return [v1[4] _runUpdateHandlers];
 }
 
 - (void)addUpdateHandler:(id)handler

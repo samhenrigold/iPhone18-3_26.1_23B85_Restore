@@ -9,6 +9,7 @@
 
 - (uint64_t)_updateStateAnimated:(double)animated withDelay:
 {
+  v4 = a2;
   memset(&v21, 0, sizeof(v21));
   if (*(self + 408) == 1)
   {
@@ -35,7 +36,7 @@
   v10 = *(self + 416);
   if (v10)
   {
-    [v10 transform3D];
+    objc_msgSend_transform3D(v10);
   }
 
   a = v20;
@@ -43,7 +44,7 @@
   result = CATransform3DEqualToTransform(&a, &b);
   if ((result & 1) == 0)
   {
-    if (a2)
+    if (v4)
     {
       v12 = [objc_alloc(MEMORY[0x1E69BC7A0]) initWithMass:2.0 stiffness:100.0 damping:10.0];
       v13 = [v12 springAnimationWithKeyPath:@"transform"];
@@ -81,20 +82,28 @@
 
 - (void)layoutSubviews
 {
-  v16.receiver = self;
-  v16.super_class = PKExpressBannerTrailingView;
-  [(PKExpressBannerTrailingView *)&v16 layoutSubviews];
+  v29.receiver = self;
+  v29.super_class = PKExpressBannerTrailingView;
+  [(PKExpressBannerTrailingView *)&v29 layoutSubviews];
   [(PKExpressBannerTrailingView *)self bounds];
-  [(PKExpressGlyphView *)self->_glyphView sizeThatFits:v3, v4];
-  PKSizeAlignedInRect();
+  v4 = v3;
   v6 = v5;
-  v8 = v7;
-  v10 = v9;
-  v12 = v11;
+  v8 = *&v7;
+  v10 = *&v9;
+  [(PKExpressGlyphView *)self->_glyphView sizeThatFits:v7, v9];
+  v11.n128_u64[0] = v4;
+  v12.n128_u64[0] = v6;
+  v13.n128_u64[0] = v8;
+  v14.n128_u64[0] = v10;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v15, v16, v11, v12, v13, v14, v17);
+  v19 = v18;
+  v21 = v20;
+  v23 = v22;
+  v25 = v24;
   [(PKExpressGlyphView *)self->_glyphView setBounds:?];
   glyphView = self->_glyphView;
   [(PKExpressGlyphView *)glyphView anchorPoint];
-  [(PKExpressGlyphView *)glyphView setCenter:v6 + v14 * v10, v8 + v15 * v12];
+  [(PKExpressGlyphView *)glyphView setCenter:v19 + v27 * v23, v21 + v28 * v25];
 }
 
 uint64_t __62__PKExpressBannerTrailingView__updateStateAnimated_withDelay___block_invoke(uint64_t a1)

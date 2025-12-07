@@ -3,7 +3,7 @@
 - (uint64_t)hf_hasSetForContextType:()HFIncludedContextProtocol;
 - (uint64_t)hf_isOnForContextType:()HFIncludedContextProtocol;
 - (uint64_t)hf_shouldBeOnForContextType:()HFIncludedContextProtocol;
-- (uint64_t)hf_shouldHideForContextType:()HFIncludedContextProtocol;
+- (unint64_t)hf_shouldHideForContextType:()HFIncludedContextProtocol;
 @end
 
 @implementation HMMediaSystem(HFIncludedContextProtocol)
@@ -73,7 +73,7 @@ LABEL_9:
   return [self hf_isOnForContextType:v5];
 }
 
-- (uint64_t)hf_shouldHideForContextType:()HFIncludedContextProtocol
+- (unint64_t)hf_shouldHideForContextType:()HFIncludedContextProtocol
 {
   if ((a3 - 2) >= 2)
   {
@@ -103,42 +103,42 @@ LABEL_4:
 
 - (id)hf_updateValue:()HFIncludedContextProtocol forContextType:
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v7 = HFLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
     selfCopy = self;
-    v28 = 2080;
-    v29 = "[HMMediaSystem(HFIncludedContextProtocol) hf_updateValue:forContextType:]";
-    v30 = 1024;
-    v31 = a3;
-    v32 = 2048;
-    v33 = a4;
+    v27 = 2080;
+    v28 = "[HMMediaSystem(HFIncludedContextProtocol) hf_updateValue:forContextType:]";
+    v29 = 1024;
+    v30 = a3;
+    v31 = 2048;
+    v32 = a4;
     _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "(%@:%s) Updating value to %{BOOL}d for context %lu", buf, 0x26u);
   }
 
   array = [MEMORY[0x277CBEB18] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   accessories = [self accessories];
-  v10 = [accessories countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = [accessories countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         if (a4 != 1 || ([self hf_shouldHideForContextType:1] & 1) == 0)
         {
           v15 = [v14 hf_updateValue:a3 forContextType:a4];
@@ -146,7 +146,7 @@ LABEL_4:
         }
       }
 
-      v11 = [accessories countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [accessories countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v11);
@@ -155,8 +155,6 @@ LABEL_4:
   v16 = MEMORY[0x277D2C900];
   mainThreadScheduler = [MEMORY[0x277D2C938] mainThreadScheduler];
   v18 = [v16 combineAllFutures:array ignoringErrors:0 scheduler:mainThreadScheduler];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

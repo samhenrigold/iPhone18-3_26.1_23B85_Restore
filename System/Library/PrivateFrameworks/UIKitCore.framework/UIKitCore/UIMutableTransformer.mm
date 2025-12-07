@@ -187,7 +187,7 @@ void __62__UIMutableTransformer_descriptionBuilderWithMultilinePrefix___block_in
         v9 = *(*(&v15 + 1) + 8 * v8);
         if (v9)
         {
-          [v9 transform];
+          objc_msgSend_transform(v9);
         }
 
         else

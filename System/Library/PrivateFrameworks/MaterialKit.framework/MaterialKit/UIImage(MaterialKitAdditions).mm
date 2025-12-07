@@ -6,14 +6,14 @@
 
 + (id)mt_shadowTemplateImageWithAttributes:()MaterialKitAdditions scale:maskCornerRadius:continuousCorners:maskSize:resizableCapInsets:
 {
-  LODWORD(v8) = *a4;
-  v9 = *(a4 + 8);
-  v10 = *(a4 + 24);
-  v5 = MTShadowImageCreateWithCoreMaterialShadowProperties();
-  v6 = [MEMORY[0x277D755B8] imageWithCGImage:v5 scale:0 orientation:{self, v8, v9, v10}];
-  CGImageRelease(v5);
+  LODWORD(v9) = *a4;
+  v10 = *(a4 + 2);
+  v11 = *(a4 + 3);
+  v6 = MTShadowImageCreateWithCoreMaterialShadowProperties();
+  v7 = [MEMORY[0x277D755B8] imageWithCGImage:v9 scale:v10 orientation:v11];
+  CGImageRelease(v6);
 
-  return v6;
+  return v7;
 }
 
 @end

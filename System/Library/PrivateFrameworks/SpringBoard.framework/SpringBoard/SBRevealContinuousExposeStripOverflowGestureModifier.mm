@@ -146,7 +146,7 @@
     {
       v33 = [SBSwitcherTransitionRequest requestForActivatingAppLayout:self->_initialAppLayout];
       v34 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v33 gestureInitiated:1];
-      v23 = SBAppendSwitcherModifierResponse(v34, v5);
+      v23 = SBAppendSwitcherModifierResponse();
 
 LABEL_26:
       v5 = v23;
@@ -157,7 +157,7 @@ LABEL_26:
     v21 = +[SBSwitcherTransitionRequest requestForActivatingAppSwitcher];
     v22 = [(SBPerformTransitionSwitcherEventResponse *)v20 initWithTransitionRequest:v21 gestureInitiated:1];
 
-    v23 = SBAppendSwitcherModifierResponse(v22, v5);
+    v23 = SBAppendSwitcherModifierResponse();
 
     v37 = 0u;
     v38 = 0u;
@@ -207,7 +207,7 @@ LABEL_14:
       }
 
       v31 = [[SBScrollToAppLayoutSwitcherEventResponse alloc] initWithAppLayout:v27 alignment:0 animated:0];
-      v32 = SBAppendSwitcherModifierResponse(v31, v23);
+      v32 = SBAppendSwitcherModifierResponse();
 
       v23 = v32;
     }
@@ -294,7 +294,7 @@ LABEL_3:
   return v13;
 }
 
-uint64_t __70__SBRevealContinuousExposeStripOverflowGestureModifier_scaleForIndex___block_invoke(void *a1)
+void *__70__SBRevealContinuousExposeStripOverflowGestureModifier_scaleForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) scaleForIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = v3;
@@ -430,7 +430,7 @@ uint64_t __70__SBRevealContinuousExposeStripOverflowGestureModifier_scaleForInde
   return result;
 }
 
-uint64_t __70__SBRevealContinuousExposeStripOverflowGestureModifier_frameForIndex___block_invoke(void *a1)
+void *__70__SBRevealContinuousExposeStripOverflowGestureModifier_frameForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) frameForIndex:a1[6]];
   v3 = *(a1[5] + 8);
@@ -484,7 +484,7 @@ uint64_t __70__SBRevealContinuousExposeStripOverflowGestureModifier_frameForInde
   return result;
 }
 
-uint64_t __76__SBRevealContinuousExposeStripOverflowGestureModifier_anchorPointForIndex___block_invoke(void *a1)
+void *__76__SBRevealContinuousExposeStripOverflowGestureModifier_anchorPointForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) anchorPointForIndex:a1[6]];
   v3 = *(a1[5] + 8);
@@ -546,7 +546,7 @@ uint64_t __76__SBRevealContinuousExposeStripOverflowGestureModifier_anchorPointF
   return result;
 }
 
-uint64_t __76__SBRevealContinuousExposeStripOverflowGestureModifier_cornerRadiiForIndex___block_invoke(void *a1)
+void *__76__SBRevealContinuousExposeStripOverflowGestureModifier_cornerRadiiForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) cornerRadiiForIndex:a1[6]];
   v3 = *(a1[5] + 8);
@@ -616,7 +616,7 @@ uint64_t __76__SBRevealContinuousExposeStripOverflowGestureModifier_cornerRadiiF
   return result;
 }
 
-uint64_t __81__SBRevealContinuousExposeStripOverflowGestureModifier_perspectiveAngleForIndex___block_invoke(void *a1)
+void *__81__SBRevealContinuousExposeStripOverflowGestureModifier_perspectiveAngleForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) perspectiveAngleForIndex:a1[6]];
   v3 = *(a1[5] + 8);
@@ -734,7 +734,7 @@ void __73__SBRevealContinuousExposeStripOverflowGestureModifier_visibleAppLayout
   return result;
 }
 
-uint64_t __98__SBRevealContinuousExposeStripOverflowGestureModifier_frameForLayoutRole_inAppLayout_withBounds___block_invoke(uint64_t a1)
+void *__98__SBRevealContinuousExposeStripOverflowGestureModifier_frameForLayoutRole_inAppLayout_withBounds___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 176) frameForLayoutRole:*(a1 + 56) inAppLayout:*(a1 + 40) withBounds:{*(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88)}];
   v3 = *(*(a1 + 48) + 8);
@@ -783,7 +783,7 @@ uint64_t __98__SBRevealContinuousExposeStripOverflowGestureModifier_frameForLayo
   return v9;
 }
 
-uint64_t __87__SBRevealContinuousExposeStripOverflowGestureModifier_scaleForLayoutRole_inAppLayout___block_invoke(void *a1)
+void *__87__SBRevealContinuousExposeStripOverflowGestureModifier_scaleForLayoutRole_inAppLayout___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) scaleForLayoutRole:a1[7] inAppLayout:a1[5]];
   *(*(a1[6] + 8) + 24) = v3;
@@ -822,7 +822,7 @@ uint64_t __87__SBRevealContinuousExposeStripOverflowGestureModifier_scaleForLayo
   return v4 & 1;
 }
 
-uint64_t __84__SBRevealContinuousExposeStripOverflowGestureModifier_shouldPinLayoutRolesToSpace___block_invoke(void *a1)
+void *__84__SBRevealContinuousExposeStripOverflowGestureModifier_shouldPinLayoutRolesToSpace___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) shouldPinLayoutRolesToSpace:a1[6]];
   *(*(a1[5] + 8) + 24) = result;
@@ -868,7 +868,7 @@ uint64_t __84__SBRevealContinuousExposeStripOverflowGestureModifier_shouldPinLay
   return v11;
 }
 
-uint64_t __97__SBRevealContinuousExposeStripOverflowGestureModifier_opacityForLayoutRole_inAppLayout_atIndex___block_invoke(void *a1)
+void *__97__SBRevealContinuousExposeStripOverflowGestureModifier_opacityForLayoutRole_inAppLayout_atIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) opacityForLayoutRole:a1[7] inAppLayout:a1[5] atIndex:a1[8]];
   *(*(a1[6] + 8) + 24) = v3;
@@ -909,7 +909,7 @@ uint64_t __97__SBRevealContinuousExposeStripOverflowGestureModifier_opacityForLa
   return v5;
 }
 
-uint64_t __91__SBRevealContinuousExposeStripOverflowGestureModifier_shadowOpacityForLayoutRole_atIndex___block_invoke(void *a1)
+void *__91__SBRevealContinuousExposeStripOverflowGestureModifier_shadowOpacityForLayoutRole_atIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) shadowOpacityForLayoutRole:a1[6] atIndex:a1[7]];
   *(*(a1[5] + 8) + 24) = v3;
@@ -964,7 +964,7 @@ uint64_t __91__SBRevealContinuousExposeStripOverflowGestureModifier_shadowOpacit
   return result;
 }
 
-uint64_t __109__SBRevealContinuousExposeStripOverflowGestureModifier_wallpaperGradientAttributesForLayoutRole_inAppLayout___block_invoke(void *a1)
+void *__109__SBRevealContinuousExposeStripOverflowGestureModifier_wallpaperGradientAttributesForLayoutRole_inAppLayout___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) wallpaperGradientAttributesForLayoutRole:a1[7] inAppLayout:a1[5]];
   v3 = *(a1[6] + 8);
@@ -1011,7 +1011,7 @@ uint64_t __109__SBRevealContinuousExposeStripOverflowGestureModifier_wallpaperGr
   return v9;
 }
 
-uint64_t __99__SBRevealContinuousExposeStripOverflowGestureModifier_contentPageViewScaleForAppLayout_withScale___block_invoke(uint64_t a1)
+void *__99__SBRevealContinuousExposeStripOverflowGestureModifier_contentPageViewScaleForAppLayout_withScale___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 176) contentPageViewScaleForAppLayout:*(a1 + 40) withScale:*(a1 + 56)];
   *(*(*(a1 + 48) + 8) + 24) = v3;
@@ -1056,7 +1056,7 @@ uint64_t __99__SBRevealContinuousExposeStripOverflowGestureModifier_contentPageV
   return v9;
 }
 
-uint64_t __94__SBRevealContinuousExposeStripOverflowGestureModifier_dimmingAlphaForLayoutRole_inAppLayout___block_invoke(void *a1)
+void *__94__SBRevealContinuousExposeStripOverflowGestureModifier_dimmingAlphaForLayoutRole_inAppLayout___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) dimmingAlphaForLayoutRole:a1[7] inAppLayout:a1[5]];
   *(*(a1[6] + 8) + 24) = v3;
@@ -1096,7 +1096,7 @@ uint64_t __94__SBRevealContinuousExposeStripOverflowGestureModifier_dimmingAlpha
   return v4;
 }
 
-uint64_t __77__SBRevealContinuousExposeStripOverflowGestureModifier_titleOpacityForIndex___block_invoke(void *a1)
+void *__77__SBRevealContinuousExposeStripOverflowGestureModifier_titleOpacityForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) titleOpacityForIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = v3;
@@ -1135,7 +1135,7 @@ uint64_t __77__SBRevealContinuousExposeStripOverflowGestureModifier_titleOpacity
   return v4 & 1;
 }
 
-uint64_t __100__SBRevealContinuousExposeStripOverflowGestureModifier_shouldUseAnchorPointToPinLayoutRolesToSpace___block_invoke(void *a1)
+void *__100__SBRevealContinuousExposeStripOverflowGestureModifier_shouldUseAnchorPointToPinLayoutRolesToSpace___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) shouldPinLayoutRolesToSpace:a1[6]];
   *(*(a1[5] + 8) + 24) = result;
@@ -1207,7 +1207,7 @@ uint64_t __100__SBRevealContinuousExposeStripOverflowGestureModifier_shouldUseAn
   return result;
 }
 
-uint64_t __101__SBRevealContinuousExposeStripOverflowGestureModifier_adjustedSpaceAccessoryViewFrame_forAppLayout___block_invoke(uint64_t a1)
+void *__101__SBRevealContinuousExposeStripOverflowGestureModifier_adjustedSpaceAccessoryViewFrame_forAppLayout___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 176) adjustedSpaceAccessoryViewFrame:*(a1 + 40) forAppLayout:{*(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80)}];
   v3 = *(*(a1 + 48) + 8);
@@ -1269,7 +1269,7 @@ uint64_t __101__SBRevealContinuousExposeStripOverflowGestureModifier_adjustedSpa
   return result;
 }
 
-uint64_t __107__SBRevealContinuousExposeStripOverflowGestureModifier_adjustedSpaceAccessoryViewAnchorPoint_forAppLayout___block_invoke(uint64_t a1)
+void *__107__SBRevealContinuousExposeStripOverflowGestureModifier_adjustedSpaceAccessoryViewAnchorPoint_forAppLayout___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 176) adjustedSpaceAccessoryViewAnchorPoint:*(a1 + 40) forAppLayout:{*(a1 + 56), *(a1 + 64)}];
   v3 = *(*(a1 + 48) + 8);

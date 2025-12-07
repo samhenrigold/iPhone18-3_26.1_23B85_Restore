@@ -13,7 +13,7 @@
 
 - (NSSet)childNodeIDs
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (!self->_childNodeIDs && [(PLEntry *)self existsInDB])
   {
     [(PLEntry *)self loadDynamicKeys];
@@ -25,27 +25,27 @@
     allKeys = [v7 allKeys];
     v9 = [v4 setWithArray:allKeys];
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     keys = [(PLEntry *)self keys];
-    v11 = [keys countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v11 = [keys countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v24;
+      v13 = *v23;
       v14 = *MEMORY[0x277D3F448];
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v24 != v13)
+          if (*v23 != v13)
           {
             objc_enumerationMutation(keys);
           }
 
-          v16 = *(*(&v23 + 1) + 8 * i);
+          v16 = *(*(&v22 + 1) + 8 * i);
           if (([v9 containsObject:v16] & 1) == 0)
           {
             objc_opt_class();
@@ -67,7 +67,7 @@
           }
         }
 
-        v12 = [keys countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v12 = [keys countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v12);
@@ -78,7 +78,6 @@
   }
 
   v20 = self->_childNodeIDs;
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -117,7 +116,7 @@
 
 - (PLAccountingQualificationEventEntry)initWithQualificationID:(id)d withChildNodeIDs:(id)ds withRange:(id)range
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dsCopy = ds;
   rangeCopy = range;
@@ -134,9 +133,9 @@ LABEL_10:
   selfCopy = 0;
   if (dsCopy && v12)
   {
-    v38.receiver = self;
-    v38.super_class = PLAccountingQualificationEventEntry;
-    v14 = [(PLAccountingEventEntry *)&v38 initWithRange:rangeCopy];
+    v37.receiver = self;
+    v37.super_class = PLAccountingQualificationEventEntry;
+    v14 = [(PLAccountingEventEntry *)&v37 initWithRange:rangeCopy];
     self = v14;
     if (v14)
     {
@@ -161,42 +160,42 @@ LABEL_10:
         goto LABEL_10;
       }
 
-      v33 = dsCopy;
+      v32 = dsCopy;
       objc_storeStrong(&self->_childNodeIDs, ds);
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       v23 = self->_childNodeIDs;
-      v24 = [(NSSet *)v23 countByEnumeratingWithState:&v34 objects:v41 count:16];
+      v24 = [(NSSet *)v23 countByEnumeratingWithState:&v33 objects:v40 count:16];
       if (v24)
       {
         v25 = v24;
-        v26 = *v35;
+        v26 = *v34;
         v27 = *MEMORY[0x277D3F448];
         do
         {
           for (i = 0; i != v25; ++i)
           {
-            if (*v35 != v26)
+            if (*v34 != v26)
             {
               objc_enumerationMutation(v23);
             }
 
-            v29 = *(*(&v34 + 1) + 8 * i);
-            v39 = v27;
-            v40 = v29;
-            v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+            v29 = *(*(&v33 + 1) + 8 * i);
+            v38 = v27;
+            v39 = v29;
+            v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
             [(PLEntry *)self setObject:&unk_2870F80C0 forKeyedSubscript:v30];
           }
 
-          v25 = [(NSSet *)v23 countByEnumeratingWithState:&v34 objects:v41 count:16];
+          v25 = [(NSSet *)v23 countByEnumeratingWithState:&v33 objects:v40 count:16];
         }
 
         while (v25);
       }
 
-      dsCopy = v33;
+      dsCopy = v32;
     }
 
     self = self;
@@ -205,34 +204,33 @@ LABEL_10:
 
 LABEL_20:
 
-  v31 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (NSSet)childNodeNames
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   childNodeIDs = [(PLAccountingQualificationEventEntry *)self childNodeIDs];
-  v5 = [childNodeIDs countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [childNodeIDs countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(childNodeIDs);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = +[PLAccountingNodeManager sharedInstance];
         v11 = [v10 nodeNameForNodeID:v9];
 
@@ -242,13 +240,11 @@ LABEL_20:
         }
       }
 
-      v6 = [childNodeIDs countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [childNodeIDs countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

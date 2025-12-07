@@ -29,7 +29,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_124934();
+  sub_124934(selfCopy);
 }
 
 @end

@@ -9,7 +9,7 @@
 
 + (id)normalizedExpungeableResourceStatesFromExpungeableResourceStates:(id)states
 {
-  v32[16] = *MEMORY[0x1E69E9840];
+  v31[16] = *MEMORY[0x1E69E9840];
   statesCopy = states;
   v4 = statesCopy;
   if (statesCopy)
@@ -17,55 +17,55 @@
     if ([statesCopy count])
     {
       v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v27 = 0u;
       v28 = 0u;
       v29 = 0u;
       v30 = 0u;
-      v31 = 0u;
       v6 = v4;
-      v7 = [v6 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v7)
       {
-        v8 = *v29;
+        v8 = *v28;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v29 != v8)
+            if (*v28 != v8)
             {
               objc_enumerationMutation(v6);
             }
 
-            v10 = *(*(&v28 + 1) + 8 * i);
+            v10 = *(*(&v27 + 1) + 8 * i);
             v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v10, "resourceType")}];
             [v5 setObject:v10 forKey:v11];
           }
 
-          v7 = [v6 countByEnumeratingWithState:&v28 objects:v32 count:16];
+          v7 = [v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
         }
 
         while (v7);
       }
 
       v12 = +[CPLResource countOfResourceTypes];
-      v13 = &v20[-1] - ((8 * v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v13 = &v19[-1] - ((8 * v12 + 15) & 0xFFFFFFFFFFFFFFF0);
       bzero(v13, 8 * v12);
-      v24 = 0;
-      v25 = &v24;
-      v26 = 0x2020000000;
-      v27 = 0;
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __96__CPLExpungeableResourceState_normalizedExpungeableResourceStatesFromExpungeableResourceStates___block_invoke;
-      v20[3] = &unk_1E861D9E0;
+      v23 = 0;
+      v24 = &v23;
+      v25 = 0x2020000000;
+      v26 = 0;
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __96__CPLExpungeableResourceState_normalizedExpungeableResourceStatesFromExpungeableResourceStates___block_invoke;
+      v19[3] = &unk_1E861D9E0;
       v14 = v5;
-      v22 = &v24;
-      v23 = v13;
-      v21 = v14;
-      [CPLResource enumerateResourceTypesWithBlock:v20];
-      if (v25[3])
+      v21 = &v23;
+      v22 = v13;
+      v20 = v14;
+      [CPLResource enumerateResourceTypesWithBlock:v19];
+      if (v24[3])
       {
         v15 = objc_alloc(MEMORY[0x1E695DEC8]);
-        v16 = [v15 initWithObjects:v13 count:v25[3]];
+        v16 = [v15 initWithObjects:v13 count:v24[3]];
       }
 
       else
@@ -73,7 +73,7 @@
         v16 = MEMORY[0x1E695E0F0];
       }
 
-      _Block_object_dispose(&v24, 8);
+      _Block_object_dispose(&v23, 8);
     }
 
     else
@@ -86,8 +86,6 @@
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

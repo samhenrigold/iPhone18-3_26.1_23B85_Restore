@@ -43,7 +43,7 @@
   trailingAlpha = attributes.trailingAlpha;
   leadingAlpha = attributes.leadingAlpha;
   p_attributes = &self->_attributes;
-  if ((SBSwitcherWallpaperGradientAttributesEqual() & 1) == 0)
+  if ((SBSwitcherWallpaperGradientAttributesEqual(self, attributes.leadingAlpha, attributes.trailingAlpha, self->_attributes.leadingAlpha, self->_attributes.trailingAlpha) & 1) == 0)
   {
     p_attributes->leadingAlpha = leadingAlpha;
     p_attributes->trailingAlpha = trailingAlpha;

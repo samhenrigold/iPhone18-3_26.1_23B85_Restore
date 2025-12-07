@@ -163,10 +163,10 @@
     {
       if (v5)
       {
-        v32 = ci_logger_api();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v33 = ci_logger_api(v5, v6);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          [(CIDualRedEyeRepairTuning *)v32 repairParametersForTuning:v33, v34, v35, v36, v37, v38, v39];
+          [(CIDualRedEyeRepairTuning *)v33 repairParametersForTuning:v34, v35, v36, v37, v38, v39, v40];
         }
       }
 
@@ -175,8 +175,8 @@
       [v4 setObject:&unk_1F10836E8 forKeyedSubscript:@"inputCentroidRadiusSmall"];
       [v4 setObject:&unk_1F1083708 forKeyedSubscript:@"inputIntersect"];
       [v4 setObject:&unk_1F1083818 forKeyedSubscript:@"inputSkinThresholdMed"];
-      v14 = &unk_1F10835F8;
-      v15 = @"inputScleraThreshold";
+      v15 = &unk_1F10835F8;
+      v16 = @"inputScleraThreshold";
       goto LABEL_32;
     }
 
@@ -184,10 +184,10 @@
     {
       if (v5)
       {
-        v56 = ci_logger_api();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+        v57 = ci_logger_api(v5, v6);
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
         {
-          [(CIDualRedEyeRepairTuning *)v56 repairParametersForTuning:v57, v58, v59, v60, v61, v62, v63];
+          [(CIDualRedEyeRepairTuning *)v57 repairParametersForTuning:v58, v59, v60, v61, v62, v63, v64];
         }
       }
 
@@ -212,8 +212,8 @@
       [v4 setObject:&unk_1F10835E8 forKeyedSubscript:@"inputMidSpectrumWhiteOffsetsY"];
       [v4 setObject:&unk_1F1083648 forKeyedSubscript:@"inputSpecIntensity"];
       [v4 setObject:&unk_1F10836B8 forKeyedSubscript:@"inputSpecArea"];
-      v14 = &unk_1F1083888;
-      v15 = @"inputSpecular";
+      v15 = &unk_1F1083888;
+      v16 = @"inputSpecular";
       goto LABEL_32;
     }
 
@@ -224,10 +224,10 @@
 
     if (v5)
     {
-      v16 = ci_logger_api();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = ci_logger_api(v5, v6);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [(CIDualRedEyeRepairTuning *)v16 repairParametersForTuning:v17, v18, v19, v20, v21, v22, v23];
+        [(CIDualRedEyeRepairTuning *)v17 repairParametersForTuning:v18, v19, v20, v21, v22, v23, v24];
       }
     }
   }
@@ -239,10 +239,10 @@
       case 1uLL:
         if (v5)
         {
-          v24 = ci_logger_api();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v25 = ci_logger_api(v5, v6);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
-            [(CIDualRedEyeRepairTuning *)v24 repairParametersForTuning:v25, v26, v27, v28, v29, v30, v31];
+            [(CIDualRedEyeRepairTuning *)v25 repairParametersForTuning:v26, v27, v28, v29, v30, v31, v32];
           }
         }
 
@@ -250,10 +250,10 @@
       case 2uLL:
         if (v5)
         {
-          v48 = ci_logger_api();
-          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+          v49 = ci_logger_api(v5, v6);
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
           {
-            [(CIDualRedEyeRepairTuning *)v48 repairParametersForTuning:v49, v50, v51, v52, v53, v54, v55];
+            [(CIDualRedEyeRepairTuning *)v49 repairParametersForTuning:v50, v51, v52, v53, v54, v55, v56];
           }
         }
 
@@ -261,10 +261,10 @@
       case 3uLL:
         if (v5)
         {
-          v6 = ci_logger_api();
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+          v7 = ci_logger_api(v5, v6);
+          if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
           {
-            [(CIDualRedEyeRepairTuning *)v6 repairParametersForTuning:v7, v8, v9, v10, v11, v12, v13];
+            [(CIDualRedEyeRepairTuning *)v7 repairParametersForTuning:v8, v9, v10, v11, v12, v13, v14];
           }
         }
 
@@ -294,19 +294,19 @@
         [v4 setObject:&unk_1F1083758 forKeyedSubscript:@"inputSpecMin"];
         [v4 setObject:&unk_1F1083638 forKeyedSubscript:@"inputSpecular"];
         [v4 setObject:&unk_1F1081C80 forKeyedSubscript:@"inputTargetClosing"];
-        v14 = &unk_1F1083808;
-        v15 = @"inputWhiteCutoff";
+        v15 = &unk_1F1083808;
+        v16 = @"inputWhiteCutoff";
 LABEL_32:
-        [v4 setObject:v14 forKeyedSubscript:v15];
+        [v4 setObject:v15 forKeyedSubscript:v16];
         return v4;
       default:
 LABEL_22:
         if (v5)
         {
-          v40 = ci_logger_api();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          v41 = ci_logger_api(v5, v6);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
-            [(CIDualRedEyeRepairTuning *)v40 repairParametersForTuning:v41, v42, v43, v44, v45, v46, v47];
+            [(CIDualRedEyeRepairTuning *)v41 repairParametersForTuning:v42, v43, v44, v45, v46, v47, v48];
           }
         }
 
@@ -325,24 +325,10 @@ LABEL_22:
   {
     if (tuning == 1)
     {
-      if (CI_LOG_DUALRED())
+      v41 = CI_LOG_DUALRED();
+      if (v41)
       {
-        v35 = ci_logger_api();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
-        {
-          [(CIDualRedEyeRepairTuning *)v35 sessionParametersForTuning:v36, v37, v38, v39, v40, v41, v42];
-        }
-      }
-
-      return v5;
-    }
-
-    if (tuning != 2)
-    {
-LABEL_25:
-      if (CI_LOG_DUALRED())
-      {
-        v43 = ci_logger_api();
+        v43 = ci_logger_api(v41, v42);
         if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
           [(CIDualRedEyeRepairTuning *)v43 sessionParametersForTuning:v44, v45, v46, v47, v48, v49, v50];
@@ -352,12 +338,29 @@ LABEL_25:
       return v5;
     }
 
-    if (CI_LOG_DUALRED())
+    if (tuning != 2)
     {
-      v10 = ci_logger_api();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+LABEL_25:
+      v51 = CI_LOG_DUALRED();
+      if (v51)
       {
-        [(CIDualRedEyeRepairTuning *)v10 sessionParametersForTuning:v11, v12, v13, v14, v15, v16, v17];
+        v53 = ci_logger_api(v51, v52);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+        {
+          [(CIDualRedEyeRepairTuning *)v53 sessionParametersForTuning:v54, v55, v56, v57, v58, v59, v60];
+        }
+      }
+
+      return v5;
+    }
+
+    v10 = CI_LOG_DUALRED();
+    if (v10)
+    {
+      v12 = ci_logger_api(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        [(CIDualRedEyeRepairTuning *)v12 sessionParametersForTuning:v13, v14, v15, v16, v17, v18, v19];
       }
     }
 
@@ -370,12 +373,13 @@ LABEL_16:
 
   if (tuning == 3)
   {
-    if (CI_LOG_DUALRED())
+    v20 = CI_LOG_DUALRED();
+    if (v20)
     {
-      v18 = ci_logger_api();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v22 = ci_logger_api(v20, v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        [(CIDualRedEyeRepairTuning *)v18 sessionParametersForTuning:v19, v20, v21, v22, v23, v24, v25];
+        [(CIDualRedEyeRepairTuning *)v22 sessionParametersForTuning:v23, v24, v25, v26, v27, v28, v29];
       }
     }
 
@@ -404,12 +408,13 @@ LABEL_17:
     goto LABEL_25;
   }
 
-  if (CI_LOG_DUALRED())
+  v31 = CI_LOG_DUALRED();
+  if (v31)
   {
-    v27 = ci_logger_api();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v33 = ci_logger_api(v31, v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      [(CIDualRedEyeRepairTuning *)v27 sessionParametersForTuning:v28, v29, v30, v31, v32, v33, v34];
+      [(CIDualRedEyeRepairTuning *)v33 sessionParametersForTuning:v34, v35, v36, v37, v38, v39, v40];
     }
   }
 
@@ -424,29 +429,121 @@ LABEL_17:
     [(CIDualRedEyeRepairTuning *)self setSessionTuning:v7];
   }
 
-  else if (CI_LOG_DUALRED())
+  else
   {
-    v8 = ci_logger_api();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v8 = CI_LOG_DUALRED();
+    if (v8)
     {
-      [CIDualRedEyeRepairTuning updateWithCaptureSetup:portType:];
+      v10 = ci_logger_api(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        [CIDualRedEyeRepairTuning updateWithCaptureSetup:portType:];
+      }
     }
   }
 
-  v9 = updatedTuningFromSetup([(CIDualRedEyeRepairTuning *)self repairTuning], setup, type, &cfstr_Input.isa, &cfstr_Repair_0.isa);
-  if (v9)
+  v11 = updatedTuningFromSetup([(CIDualRedEyeRepairTuning *)self repairTuning], setup, type, &cfstr_Input.isa, &cfstr_Repair_0.isa);
+  if (v11)
   {
-    [(CIDualRedEyeRepairTuning *)self setRepairTuning:v9];
+    [(CIDualRedEyeRepairTuning *)self setRepairTuning:v11];
   }
 
-  else if (CI_LOG_DUALRED())
+  else
   {
-    v10 = ci_logger_api();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = CI_LOG_DUALRED();
+    if (v12)
     {
-      [CIDualRedEyeRepairTuning updateWithCaptureSetup:portType:];
+      v14 = ci_logger_api(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        [CIDualRedEyeRepairTuning updateWithCaptureSetup:portType:];
+      }
     }
   }
+}
+
++ (void)repairParametersForTuning:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIDualRedEyeRepairTuning repairParametersForTuning:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Repair tuning set to B", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)repairParametersForTuning:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIDualRedEyeRepairTuning repairParametersForTuning:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Repair tuning set to A portrait", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)repairParametersForTuning:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIDualRedEyeRepairTuning repairParametersForTuning:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Repair tuning set to A tele", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)repairParametersForTuning:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIDualRedEyeRepairTuning repairParametersForTuning:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Repair tuning set to A wide", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)repairParametersForTuning:(uint64_t)a3 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIDualRedEyeRepairTuning repairParametersForTuning:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Repair tuning passing through", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)repairParametersForTuning:(uint64_t)a3 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIDualRedEyeRepairTuning repairParametersForTuning:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Repair tuning set to C", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)repairParametersForTuning:(uint64_t)a3 .cold.7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIDualRedEyeRepairTuning repairParametersForTuning:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Repair tuning set to default", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)sessionParametersForTuning:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIDualRedEyeRepairTuning sessionParametersForTuning:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Session tuning set to B", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)sessionParametersForTuning:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIDualRedEyeRepairTuning sessionParametersForTuning:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Session tuning set to A portrait", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)sessionParametersForTuning:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIDualRedEyeRepairTuning sessionParametersForTuning:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Session tuning set to A tele", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)sessionParametersForTuning:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIDualRedEyeRepairTuning sessionParametersForTuning:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Session tuning set to A wide", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)sessionParametersForTuning:(uint64_t)a3 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[CIDualRedEyeRepairTuning sessionParametersForTuning:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Session tuning set to default", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)updateWithCaptureSetup:portType:.cold.1()

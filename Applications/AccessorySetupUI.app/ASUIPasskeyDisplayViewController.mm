@@ -8,7 +8,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100037AE0();
+  sub_100037AE0(selfCopy, v2);
 }
 
 - (_TtC16AccessorySetupUI32ASUIPasskeyDisplayViewController)initWithContentView:(id)view

@@ -91,7 +91,7 @@ LABEL_8:
 
 - (void)_addSelectionBadgeIfNeeded
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   if ([(MUPlaceTileCellConfiguration *)self->_cellConfiguration showSelectionControlWhileEditing])
   {
     selectionBadgeView = self->_selectionBadgeView;
@@ -129,8 +129,8 @@ LABEL_8:
       contentView3 = [(MUPlaceTileCollectionViewCell *)self contentView];
       v15 = [(MUBoxLayout *)v13 initWithContainer:contentView3];
 
-      v18[0] = self->_selectionBadgeView;
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+      v17[0] = self->_selectionBadgeView;
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
       [(MUBoxLayout *)v15 setArrangedLayoutItems:v16];
 
       [(MUBoxLayout *)v15 setHorizontalAlignment:3];
@@ -142,8 +142,6 @@ LABEL_8:
 
     [(MUPlaceTileCollectionViewCell *)self _updateSelectionBadgeState];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateAccessoryViewsForCurrentCellConfiguration

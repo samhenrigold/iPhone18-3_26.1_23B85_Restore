@@ -14,7 +14,7 @@
 
 - (void)_startFlushCacheTimer
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v6 = objc_msgSend_flushCacheTimer(selfCopy, v3, v4, v5);
@@ -25,25 +25,25 @@
     if (v6)
     {
       objc_initWeak(&location, selfCopy);
-      v21 = MEMORY[0x1E69E9820];
-      v22 = 3221225472;
-      v23 = sub_1BADC6CC8;
-      v24 = &unk_1E7F1CF68;
-      objc_copyWeak(&v25, &location);
-      v9 = _Block_copy(&v21);
+      v20 = MEMORY[0x1E69E9820];
+      v21 = 3221225472;
+      v22 = sub_1BADC6CC8;
+      v23 = &unk_1E7F1CF68;
+      objc_copyWeak(&v24, &location);
+      v9 = _Block_copy(&v20);
       dispatch_source_set_timer(v6, 0, 0xDF8475800uLL, 0x37E11D600uLL);
       dispatch_source_set_event_handler(v6, v9);
       dispatch_resume(v6);
       v10 = APLogForCategory(0x15uLL);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v14 = objc_msgSend_queueLabel(selfCopy, v11, v12, v13, v21, v22, v23, v24);
+        v14 = objc_msgSend_queueLabel(selfCopy, v11, v12, v13, v20, v21, v22, v23);
         *buf = 138543362;
-        v28 = v14;
+        v27 = v14;
         _os_log_impl(&dword_1BADC1000, v10, OS_LOG_TYPE_DEBUG, "[%{public}@] Starting Cache Eviction Timer", buf, 0xCu);
       }
 
-      objc_destroyWeak(&v25);
+      objc_destroyWeak(&v24);
       objc_destroyWeak(&location);
     }
 
@@ -54,7 +54,7 @@
       {
         v19 = objc_msgSend_queueLabel(selfCopy, v16, v17, v18);
         *buf = 138543362;
-        v28 = v19;
+        v27 = v19;
         _os_log_impl(&dword_1BADC1000, v15, OS_LOG_TYPE_ERROR, "[%{public}@] Error: Could not create eviction timer!", buf, 0xCu);
       }
 
@@ -64,24 +64,23 @@
   }
 
   objc_sync_exit(selfCopy);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_flushCacheStorage
 {
-  v123 = *MEMORY[0x1E69E9840];
-  v107 = os_transaction_create();
-  v108 = objc_msgSend_lock(self, v3, v4, v5);
-  objc_msgSend_lock(v108, v6, v7, v8);
+  v122 = *MEMORY[0x1E69E9840];
+  v106 = os_transaction_create();
+  v107 = objc_msgSend_lock(self, v3, v4, v5);
+  objc_msgSend_lock(v107, v6, v7, v8);
   v9 = APLogForCategory(0x15uLL);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v13 = objc_msgSend_queueLabel(self, v10, v11, v12);
     v17 = objc_msgSend_weakEntryRefs(self, v14, v15, v16);
     *buf = 138543619;
-    v120 = v13;
-    v121 = 2049;
-    v122 = objc_msgSend_count(v17, v18, v19, v20);
+    v119 = v13;
+    v120 = 2049;
+    v121 = objc_msgSend_count(v17, v18, v19, v20);
     _os_log_impl(&dword_1BADC1000, v9, OS_LOG_TYPE_INFO, "[%{public}@] Attempting to evict objects from cache. %{private}lu entries remain", buf, 0x16u);
   }
 
@@ -91,26 +90,26 @@
 
   v30 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v31 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v112 = 0u;
   v113 = 0u;
   v114 = 0u;
   v115 = 0u;
-  v116 = 0u;
   v35 = objc_msgSend_weakEntryRefs(self, v32, v33, v34);
-  v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v36, &v113, v118, 16);
+  v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v36, &v112, v117, 16);
   if (v37)
   {
     v41 = v37;
-    v42 = *v114;
+    v42 = *v113;
     do
     {
       for (i = 0; i != v41; ++i)
       {
-        if (*v114 != v42)
+        if (*v113 != v42)
         {
           objc_enumerationMutation(v35);
         }
 
-        v44 = *(*(&v113 + 1) + 8 * i);
+        v44 = *(*(&v112 + 1) + 8 * i);
         objc_msgSend_timestamp(v44, v38, v39, v40);
         v46 = v29 - v45;
         objc_msgSend_timeout(self, v47, v48, v49);
@@ -127,37 +126,37 @@
         }
       }
 
-      v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v38, &v113, v118, 16);
+      v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v38, &v112, v117, 16);
     }
 
     while (v41);
   }
 
-  v111 = 0u;
-  v112 = 0u;
-  v109 = 0u;
   v110 = 0u;
+  v111 = 0u;
+  v108 = 0u;
+  v109 = 0u;
   v66 = v30;
-  v68 = objc_msgSend_countByEnumeratingWithState_objects_count_(v66, v67, &v109, v117, 16);
+  v68 = objc_msgSend_countByEnumeratingWithState_objects_count_(v66, v67, &v108, v116, 16);
   if (v68)
   {
     v72 = v68;
-    v73 = *v110;
+    v73 = *v109;
     do
     {
       for (j = 0; j != v72; ++j)
       {
-        if (*v110 != v73)
+        if (*v109 != v73)
         {
           objc_enumerationMutation(v66);
         }
 
-        v75 = *(*(&v109 + 1) + 8 * j);
+        v75 = *(*(&v108 + 1) + 8 * j);
         v76 = objc_msgSend_weakEntryRefs(self, v69, v70, v71);
         objc_msgSend_removeObject_(v76, v77, v75, v78);
       }
 
-      v72 = objc_msgSend_countByEnumeratingWithState_objects_count_(v66, v69, &v109, v117, 16);
+      v72 = objc_msgSend_countByEnumeratingWithState_objects_count_(v66, v69, &v108, v116, 16);
     }
 
     while (v72);
@@ -169,9 +168,9 @@
     v83 = objc_msgSend_queueLabel(self, v80, v81, v82);
     v87 = objc_msgSend_count(v66, v84, v85, v86);
     *buf = 138543619;
-    v120 = v83;
-    v121 = 2049;
-    v122 = v87;
+    v119 = v83;
+    v120 = 2049;
+    v121 = v87;
     _os_log_impl(&dword_1BADC1000, v79, OS_LOG_TYPE_INFO, "[%{public}@] Cache evicted %{private}lu entries due to expiration", buf, 0x16u);
   }
 
@@ -189,14 +188,12 @@
     objc_msgSend__stopFlushCacheTimer(self, v100, v101, v102);
   }
 
-  objc_msgSend_unlock(v108, v103, v104, v105);
-
-  v106 = *MEMORY[0x1E69E9840];
+  objc_msgSend_unlock(v107, v103, v104, v105);
 }
 
 - (void)_stopFlushCacheTimer
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v6 = objc_msgSend_flushCacheTimer(selfCopy, v3, v4, v5);
@@ -209,14 +206,13 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       v14 = objc_msgSend_queueLabel(selfCopy, v11, v12, v13);
-      v16 = 138543362;
-      v17 = v14;
-      _os_log_impl(&dword_1BADC1000, v10, OS_LOG_TYPE_DEBUG, "[%{public}@] Stopping Cache Eviction Timer", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v14;
+      _os_log_impl(&dword_1BADC1000, v10, OS_LOG_TYPE_DEBUG, "[%{public}@] Stopping Cache Eviction Timer", &v15, 0xCu);
     }
   }
 
   objc_sync_exit(selfCopy);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (APInMemoryTTLCache)initWithExpirationInterval:(double)interval flushQueue:(id)queue

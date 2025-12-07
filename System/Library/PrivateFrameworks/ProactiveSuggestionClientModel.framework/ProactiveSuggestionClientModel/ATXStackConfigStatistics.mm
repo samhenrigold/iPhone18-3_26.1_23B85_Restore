@@ -62,7 +62,7 @@ LABEL_6:
     }
   }
 
-  v20 = __atxlog_handle_timeline();
+  v20 = __atxlog_handle_timeline(widgetBundleId);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     [(ATXStackConfigStatistics *)builderCopy initWithBuilder:v20];
@@ -125,18 +125,16 @@ LABEL_11:
 
 - (void)initWithBuilder:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = [a1 widgetBundleId];
   v5 = [a1 widgetKind];
-  v7 = 138412802;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  v11 = 2048;
-  v12 = [a1 widgetFamily];
-  _os_log_error_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_ERROR, "Error initializing ATXStackConfigStatistics; %@, %@ and %ld must be non-null", &v7, 0x20u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412802;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  v10 = 2048;
+  v11 = [a1 widgetFamily];
+  _os_log_error_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_ERROR, "Error initializing ATXStackConfigStatistics; %@, %@ and %ld must be non-null", &v6, 0x20u);
 }
 
 @end

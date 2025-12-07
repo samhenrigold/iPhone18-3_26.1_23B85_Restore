@@ -201,7 +201,7 @@ void __53__GKScoreChallenge_loadDetailsWithCompletionHandler___block_invoke(uint
 
 void __53__GKScoreChallenge_loadDetailsWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) internal];
   if (v3)
@@ -222,21 +222,19 @@ void __53__GKScoreChallenge_loadDetailsWithCompletionHandler___block_invoke_2(ui
     v7 = +[GKDaemonProxy proxyForLocalPlayer];
     v8 = [v7 gameStatServicePrivate];
     v9 = [*(*(a1 + 32) + 16) internal];
-    v17[0] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v16[0] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
     v11 = [*(a1 + 32) game];
     v12 = [v11 gameDescriptor];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __53__GKScoreChallenge_loadDetailsWithCompletionHandler___block_invoke_3;
-    v15[3] = &unk_2785DDC38;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __53__GKScoreChallenge_loadDetailsWithCompletionHandler___block_invoke_3;
+    v14[3] = &unk_2785DDC38;
     v13 = *(a1 + 40);
-    v15[4] = *(a1 + 32);
-    v16 = v13;
-    [v8 getHypotheticalLeaderboardRanksForScores:v10 forGameDescriptor:v12 handler:v15];
+    v14[4] = *(a1 + 32);
+    v15 = v13;
+    [v8 getHypotheticalLeaderboardRanksForScores:v10 forGameDescriptor:v12 handler:v14];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __53__GKScoreChallenge_loadDetailsWithCompletionHandler___block_invoke_3(uint64_t a1, void *a2)

@@ -19,12 +19,12 @@
 - (MPSCNNConvolutionGradientNode)initWithSourceGradient:(id)gradient sourceImage:(id)image gradientState:(id)state weights:(id)weights
 {
   weightsCopy = weights;
-  v75[1] = *MEMORY[0x277D85DE8];
+  v91[1] = *MEMORY[0x277D85DE8];
   if (!state && MTLReportFailureTypeEnabled())
   {
     v68 = objc_opt_class();
-    v72 = NSStringFromClass(v68);
-    MTLReportFailure();
+    v88 = NSStringFromClass(v68);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSCNNConvolutionGraphNodes.mm", 0x15F, @"[%@ initWithSourceGradient:sourceImage:convolutionGradientState:weights:] Error: gradient state may not be nil\n", v69, v70, v71, v72);
   }
 
   v13 = *(state + 2);
@@ -47,14 +47,14 @@
         {
           if (MTLReportFailureTypeEnabled())
           {
-            v71 = objc_opt_class();
-            v72 = NSStringFromClass(v71);
-            MTLReportFailure();
+            v83 = objc_opt_class();
+            v88 = NSStringFromClass(v83);
+            MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSCNNConvolutionGraphNodes.mm", 0x17B, @"[%@ initWithSourceGradient:sourceImage:convolutionGradientState:weights:] Error: dataSource is nil, and gradientState creator isn't a convolution or convolution transpose node.\n\tThere are no weights to use here and MPS can not continue.\n", v84, v85, v86, v87);
           }
         }
       }
 
-      v21 = objc_msgSend_weights(v13, v14, v15, v16, v17, v18, v19, v20, v72);
+      v21 = objc_msgSend_weights(v13, v14, v15, v16, v17, v18, v19, v20, v88);
       if (objc_msgSend_conformsToProtocol_(weightsCopy, v22, &unk_284D09FA0, v23, v24, v25, v26, v27))
       {
         v28 = objc_opt_class();
@@ -70,9 +70,9 @@
   {
     if (!v13 && MTLReportFailureTypeEnabled())
     {
-      v69 = objc_opt_class();
-      v72 = NSStringFromClass(v69);
-      MTLReportFailure();
+      v73 = objc_opt_class();
+      v88 = NSStringFromClass(v73);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSCNNConvolutionGraphNodes.mm", 0x166, @"[%@ initWithSourceGradient:sourceImage:convolutionGradientState:weights:] Error: dataSource is nil, and gradientState doesn't have a parent convolution with a dataSource.\n\tThere are no weights to use here and MPS can not continue.\n", v74, v75, v76, v77);
     }
 
     objc_opt_class();
@@ -80,12 +80,12 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
     {
-      v70 = objc_opt_class();
-      v72 = NSStringFromClass(v70);
-      MTLReportFailure();
+      v78 = objc_opt_class();
+      v88 = NSStringFromClass(v78);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSCNNConvolutionGraphNodes.mm", 0x16A, @"[%@ initWithSourceGradient:sourceImage:convolutionGradientState:weights:] Error: dataSource is nil, and gradientState creator isn't a convolution or convolution transpose node.\n\tThere are no weights to use here and MPS can not continue.\n", v79, v80, v81, v82);
     }
 
-    v43 = objc_msgSend_weights(v13, v36, v37, v38, v39, v40, v41, v42, v72);
+    v43 = objc_msgSend_weights(v13, v36, v37, v38, v39, v40, v41, v42, v88);
     if (objc_msgSend_conformsToProtocol_(v43, v44, &unk_284D09FA0, v45, v46, v47, v48, v49))
     {
       v50 = objc_opt_class();
@@ -95,13 +95,13 @@
     weightsCopy = 0;
   }
 
-  v75[0] = gradient;
-  v58 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v75, 1, state, weights, v6, v7, v72);
+  v91[0] = gradient;
+  v58 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v91, 1, state, weights, v6, v7, v88);
   imageCopy = image;
   v64 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v59, &imageCopy, 1, v60, v61, v62, v63);
-  v73.receiver = self;
-  v73.super_class = MPSCNNConvolutionGradientNode;
-  result = [(MPSNNGradientFilterNode *)&v73 initWithGradientImages:v58 sourceImages:v64 gradientState:state paddingPolicy:0];
+  v89.receiver = self;
+  v89.super_class = MPSCNNConvolutionGradientNode;
+  result = [(MPSNNGradientFilterNode *)&v89 initWithGradientImages:v58 sourceImages:v64 gradientState:state paddingPolicy:0];
   if (result)
   {
     v66 = result;
@@ -157,7 +157,7 @@
     {
       v80 = objc_opt_class();
       NSStringFromClass(v80);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSCNNConvolutionGraphNodes.mm", 0x1A5, @"[%@ initWithGradientImages:forwardFilter:] Errr: filter is not a MPSCNNConvolutionNode", v81, v82, v83, v84);
     }
 
     return 0;

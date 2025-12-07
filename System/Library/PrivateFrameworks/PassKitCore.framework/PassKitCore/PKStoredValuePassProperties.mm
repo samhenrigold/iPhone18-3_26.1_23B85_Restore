@@ -115,9 +115,9 @@
                   {
                     v35 = [[PKStoredValuePassBalance alloc] initWithTransitAppletBalance:v31 balanceField:v25];
                     balanceType = [(PKStoredValuePassBalance *)v35 balanceType];
-                    v37 = [balanceType isEqualToString:@"com.apple.wallet.storedvaluepassbalancetype.unknown"];
+                    isEqualToString = objc_msgSend_isEqualToString_(balanceType);
 
-                    if ((v37 & 1) == 0)
+                    if ((isEqualToString & 1) == 0)
                     {
                       [(NSArray *)v65 safelyAddObject:v35];
                     }
@@ -510,9 +510,9 @@ LABEL_32:
 
           v9 = *(*(&v13 + 1) + 8 * i);
           identifier = [v9 identifier];
-          v11 = [identifier isEqualToString:identifierCopy];
+          isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-          if (v11)
+          if (isEqualToString)
           {
             v6 = v9;
             goto LABEL_12;

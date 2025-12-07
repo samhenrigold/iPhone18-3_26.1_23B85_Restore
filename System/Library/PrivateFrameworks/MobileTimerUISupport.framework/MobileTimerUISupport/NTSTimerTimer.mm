@@ -435,61 +435,56 @@ void __38__NTSTimerTimer__updateTimerForRetry___block_invoke_4(uint64_t a1)
 
 - (void)_invokeHandlers
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy_;
-  v18 = __Block_byref_object_dispose_;
-  v19 = 0;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __32__NTSTimerTimer__invokeHandlers__block_invoke;
-  v13[3] = &unk_279919770;
-  v13[4] = self;
-  v13[5] = &v14;
-  [(NTSTimerTimer *)self _withTimerLock:v13];
-  v11 = 0u;
-  v12 = 0u;
+  v18 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy_;
+  v15 = __Block_byref_object_dispose_;
+  v16 = 0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __32__NTSTimerTimer__invokeHandlers__block_invoke;
+  v10[3] = &unk_279919770;
+  v10[4] = self;
+  v10[5] = &v11;
+  [(NTSTimerTimer *)self _withTimerLock:v10];
+  v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  v3 = v15[5];
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v20 count:16];
-  if (v4)
+  v6 = 0u;
+  v7 = 0u;
+  v2 = v12[5];
+  v3 = [v2 countByEnumeratingWithState:&v6 objects:v17 count:16];
+  if (v3)
   {
-    v5 = *v10;
+    v4 = *v7;
     do
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v7 != v4)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v2);
         }
 
-        timerManager = self->_timerManager;
-        (*(*(*(&v9 + 1) + 8 * v6) + 16))(*(*(&v9 + 1) + 8 * v6));
-        ++v6;
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
+        ++v5;
       }
 
-      while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v9 objects:v20 count:16];
+      while (v3 != v5);
+      v3 = [v2 countByEnumeratingWithState:&v6 objects:v17 count:16];
     }
 
-    while (v4);
+    while (v3);
   }
 
-  _Block_object_dispose(&v14, 8);
-  v8 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v11, 8);
 }
 
 uint64_t __32__NTSTimerTimer__invokeHandlers__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 16) allValues];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 16) allValues];
 
   return MEMORY[0x2821F96F8]();
 }

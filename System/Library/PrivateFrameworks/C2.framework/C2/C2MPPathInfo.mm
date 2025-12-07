@@ -113,25 +113,24 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_interfaceType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_radioType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    applicationBytesSent = self->_applicationBytesSent;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -150,15 +149,13 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  applicationBytesReceived = self->_applicationBytesReceived;
   PBDataWriterWriteUint64Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_8:
-    transportSmoothedRttMillis = self->_transportSmoothedRttMillis;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_9:

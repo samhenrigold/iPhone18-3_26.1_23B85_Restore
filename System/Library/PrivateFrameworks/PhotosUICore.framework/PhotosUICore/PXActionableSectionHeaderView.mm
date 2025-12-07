@@ -125,7 +125,7 @@
 
     if (dataCopy)
     {
-      [dataCopy sectionIndexPath];
+      objc_msgSend_sectionIndexPath(dataCopy);
     }
 
     else
@@ -480,11 +480,11 @@ uint64_t __59__PXActionableSectionHeaderView__updateBackgroundAnimated___block_i
   return [v2 setAlpha:?];
 }
 
-uint64_t __59__PXActionableSectionHeaderView__updateBackgroundAnimated___block_invoke_7(uint64_t result, int a2)
+void *__59__PXActionableSectionHeaderView__updateBackgroundAnimated___block_invoke_7(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 688) setHidden:1];
+    return [*(result[4] + 688) setHidden:1];
   }
 
   return result;
@@ -492,8 +492,7 @@ uint64_t __59__PXActionableSectionHeaderView__updateBackgroundAnimated___block_i
 
 - (void)_updateSpacerLabelHiddenState
 {
-  primaryText = [(PXActionableSectionHeaderView *)self primaryText];
-  v6 = !primaryText || (v4 = primaryText, [(PXActionableSectionHeaderView *)self secondaryText], v5 = objc_claimAutoreleasedReturnValue(), v5, v4, !v5) || [(PXActionableSectionHeaderView *)self layoutMode]== 1;
+  v6 = !primaryText || (v4 = primaryText, [(PXActionableSectionHeaderView *)self secondaryText], v5 = primaryText = [(PXActionableSectionHeaderView *)self primaryText];
   spacerLabel = [(PXActionableSectionHeaderView *)self spacerLabel];
   [spacerLabel setHidden:v6];
 

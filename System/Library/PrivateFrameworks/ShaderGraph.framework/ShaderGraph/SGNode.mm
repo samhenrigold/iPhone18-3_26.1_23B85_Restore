@@ -1,4 +1,5 @@
 @interface SGNode
++ (SGNode)nodeWithConstantBoolean:(BOOL)boolean name:(id)name error:(id *)error;
 + (SGNode)nodeWithConstantString:(id)string type:(unint64_t)type name:(id)name error:(id *)error;
 + (SGNode)nodeWithGraph:(id)graph name:(id)name error:(id *)error;
 + (SGNode)nodeWithNodeDefName:(id)name name:(id)a4 error:(id *)error;
@@ -84,6 +85,29 @@ LABEL_6:
   v13._countAndFlagsBits = v6;
   v13._object = v8;
   v10 = specialized static SGNode.create(graph:name:)(graph, v13);
+
+  return v10;
+}
+
++ (SGNode)nodeWithConstantBoolean:(BOOL)boolean name:(id)name error:(id *)error
+{
+  booleanCopy = boolean;
+  if (name)
+  {
+    v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v8 = v7;
+  }
+
+  else
+  {
+    v6 = 0;
+    v8 = 0;
+  }
+
+  initWithBool_ = [objc_allocWithZone(MEMORY[0x277CCABB0]) initWithBool_];
+  v13._countAndFlagsBits = v6;
+  v13._object = v8;
+  v10 = specialized static SGNode.create(_:type:name:)(initWithBool_, 1, v13);
 
   return v10;
 }

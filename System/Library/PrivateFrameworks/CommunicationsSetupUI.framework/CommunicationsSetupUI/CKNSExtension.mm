@@ -16,25 +16,23 @@
 
 - (void)beginMatchingExtensions:(id)extensions
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   extensionsCopy = extensions;
   if (!self->_beginMappingID)
   {
-    v12 = *MEMORY[0x277CCA0F8];
-    v13[0] = *MEMORY[0x277CD2C10];
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA0F8];
+    v12[0] = *MEMORY[0x277CD2C10];
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v6 = MEMORY[0x277CCA9C8];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __41__CKNSExtension_beginMatchingExtensions___block_invoke;
-    v10[3] = &unk_278DE8B90;
-    v11 = extensionsCopy;
-    v7 = [v6 beginMatchingExtensionsWithAttributes:v5 completion:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __41__CKNSExtension_beginMatchingExtensions___block_invoke;
+    v9[3] = &unk_278DE8B90;
+    v10 = extensionsCopy;
+    v7 = [v6 beginMatchingExtensionsWithAttributes:v5 completion:v9];
     beginMappingID = self->_beginMappingID;
     self->_beginMappingID = v7;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __41__CKNSExtension_beginMatchingExtensions___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -55,7 +53,7 @@ void __41__CKNSExtension_beginMatchingExtensions___block_invoke(uint64_t a1, voi
 
 void __41__CKNSExtension_beginMatchingExtensions___block_invoke_2(void *a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
   if (!a1[4])
   {
@@ -66,27 +64,27 @@ void __41__CKNSExtension_beginMatchingExtensions___block_invoke_2(void *a1)
       v5 = a1[5];
       if (v4)
       {
-        v19 = a1;
-        v22 = 0u;
-        v23 = 0u;
+        v17 = a1;
         v20 = 0u;
         v21 = 0u;
+        v18 = 0u;
+        v19 = 0u;
         v6 = v5;
-        v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v21;
+          v9 = *v19;
           do
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v21 != v9)
+              if (*v19 != v9)
               {
                 objc_enumerationMutation(v6);
               }
 
-              v11 = [*(*(&v20 + 1) + 8 * i) _plugIn];
+              v11 = [*(*(&v18 + 1) + 8 * i) _plugIn];
               v12 = [v11 localizedContainingName];
 
               v13 = [v2 objectForKey:v12];
@@ -106,21 +104,18 @@ void __41__CKNSExtension_beginMatchingExtensions___block_invoke_2(void *a1)
               }
             }
 
-            v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+            v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
           }
 
           while (v8);
         }
 
-        a1 = v19;
-        v17 = v19[5];
+        a1 = v17;
       }
     }
 
     (*(a1[6] + 16))();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endMatchingExtensions

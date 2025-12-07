@@ -138,32 +138,32 @@
 
 - (void)updateQueryDependentProbabilityAndBlocklistSetWith:(id)with
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   withCopy = with;
   [(PRSRankingConfiguration *)self lock];
-  v24 = withCopy;
+  v23 = withCopy;
   v5 = [withCopy prs_dictionaryForKey:@"stats"];
   v6 = [v5 prs_arrayForKey:@"cep_long"];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = v6;
-  v26 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  if (v25)
   {
-    v7 = *v28;
+    v7 = *v27;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v28 != v7)
+        if (*v27 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * i);
+        v9 = *(*(&v26 + 1) + 8 * i);
         v10 = [v9 objectForKey:@"cid"];
         lowercaseString = [v10 lowercaseString];
 
@@ -198,14 +198,13 @@
 LABEL_10:
       }
 
-      v26 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v25 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
   [(PRSRankingConfiguration *)self unlock];
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (float)engagementProbabilityForCategory:(id)category
@@ -271,29 +270,29 @@ LABEL_10:
 
 - (float)maxEngagementProbability
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   [(PRSRankingConfiguration *)self lock];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   allKeys = [(NSMutableDictionary *)self->_queryDependentCategoryProbabilities allKeys];
-  v4 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     v7 = -1.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = [(NSMutableDictionary *)self->_queryDependentCategoryProbabilities objectForKey:*(*(&v16 + 1) + 8 * i)];
+        v9 = [(NSMutableDictionary *)self->_queryDependentCategoryProbabilities objectForKey:*(*(&v15 + 1) + 8 * i)];
         v10 = v9;
         if (v9)
         {
@@ -305,7 +304,7 @@ LABEL_10:
         }
       }
 
-      v5 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
@@ -318,7 +317,6 @@ LABEL_10:
   }
 
   [(PRSRankingConfiguration *)self unlock];
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

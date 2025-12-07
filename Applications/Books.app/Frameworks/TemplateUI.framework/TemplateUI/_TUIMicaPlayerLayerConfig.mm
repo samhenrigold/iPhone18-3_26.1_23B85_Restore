@@ -101,7 +101,7 @@
     {
       v15 = self->_gravity;
       gravity2 = [v8 gravity];
-      if (![(NSString *)v15 isEqualToString:gravity2])
+      if (!objc_msgSend_isEqualToString_(v15))
       {
         v12 = 0;
 LABEL_34:
@@ -129,7 +129,7 @@ LABEL_36:
       textKey2 = [v8 textKey];
       v20 = v18;
       v21 = textKey2;
-      if (![(NSString *)v20 isEqualToString:textKey2])
+      if (!objc_msgSend_isEqualToString_(v20))
       {
         v12 = 0;
 LABEL_32:
@@ -154,7 +154,7 @@ LABEL_33:
     {
       v24 = self->_textValue;
       textValue2 = [v8 textValue];
-      if (![(NSString *)v24 isEqualToString:?])
+      if (!objc_msgSend_isEqualToString_(v24))
       {
         v12 = 0;
         gravity2 = v42;
@@ -181,7 +181,7 @@ LABEL_31:
     triggerName = self->_triggerName;
     [v8 triggerName];
     v38 = v37 = triggerName;
-    if (triggerName == v38 || (v27 = self->_triggerName, [v8 triggerName], v36 = objc_claimAutoreleasedReturnValue(), -[NSString isEqualToString:](v27, "isEqualToString:")))
+    if (triggerName == v38 || (v27 = self->_triggerName, [v8 triggerName], v36 = objc_claimAutoreleasedReturnValue(), objc_msgSend_isEqualToString_(v27)))
     {
       targetTriggerState = self->_targetTriggerState;
       if (targetTriggerState == [v8 targetTriggerState] && (triggerDelay = self->_triggerDelay, objc_msgSend(v8, "triggerDelay"), triggerDelay == v31))

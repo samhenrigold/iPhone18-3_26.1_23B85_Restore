@@ -124,15 +124,13 @@ LABEL_49:
 
 void __44__IPTenseDetector_tenseOfString_languageID___block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v0 = objc_alloc(MEMORY[0x277CCAAE8]);
-  v5[0] = *MEMORY[0x277CCAEC8];
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = *MEMORY[0x277CCAEC8];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   v2 = [v0 initWithTagSchemes:v1 options:6];
   v3 = tenseOfString_languageID__tagger;
   tenseOfString_languageID__tagger = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __44__IPTenseDetector_tenseOfString_languageID___block_invoke_180(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)

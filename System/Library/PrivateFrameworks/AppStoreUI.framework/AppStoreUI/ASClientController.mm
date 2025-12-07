@@ -22,9 +22,9 @@
 - (ASClientController)initWithClientInterface:(id)interface
 {
   values[1] = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = ASClientController;
-  v3 = [(SUClientController *)&v7 initWithClientInterface:interface];
+  v6.receiver = self;
+  v6.super_class = ASClientController;
+  v3 = [(SUClientController *)&v6 initWithClientInterface:interface];
   if (v3)
   {
     values[0] = 9;
@@ -33,7 +33,6 @@
     CFRelease(v4);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

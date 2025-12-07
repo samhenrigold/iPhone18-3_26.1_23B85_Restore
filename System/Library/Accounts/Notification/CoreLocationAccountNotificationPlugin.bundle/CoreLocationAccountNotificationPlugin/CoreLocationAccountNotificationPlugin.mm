@@ -1,5 +1,6 @@
 @interface CoreLocationAccountNotificationPlugin
 - (BOOL)accountIsManagedAppleID:(id)d;
+- (void)account:(id)account didChangeWithType:(int)type inStore:(id)store oldAccount:(id)oldAccount;
 @end
 
 @implementation CoreLocationAccountNotificationPlugin
@@ -13,6 +14,17 @@
   }
 
   return MEMORY[0x2A1C70FE8](d, sel_aa_isManagedAppleID);
+}
+
+- (void)account:(id)account didChangeWithType:(int)type inStore:(id)store oldAccount:(id)oldAccount
+{
+  store = [(CoreLocationAccountNotificationPlugin *)self accountIsManagedAppleID:oldAccount, *&type, store];
+  if (store != [(CoreLocationAccountNotificationPlugin *)self accountIsManagedAppleID:account])
+  {
+    DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+
+    CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.locationd.appleAccountDidChange", 0, 0, 1u);
+  }
 }
 
 @end

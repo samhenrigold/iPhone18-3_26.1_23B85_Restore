@@ -36,8 +36,8 @@
   [(PXStoryAnimation *)&v8 timeDidChange];
   curveInfo = [(PXStoryValueAnimation *)self curveInfo];
   v5 = v4;
-  [(PXStoryAnimation *)self time];
-  [(PXStoryValueAnimation *)self duration];
+  objc_msgSend_time(self);
+  objc_msgSend_duration(self);
   [(PXStoryValueAnimation *)self updateCurrentValueWithProgress:PXStoryAnimationCurveGetProgress(curveInfo, v5, &v7, &v6)];
 }
 

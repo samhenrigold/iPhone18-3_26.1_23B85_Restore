@@ -24,117 +24,117 @@
 - (void)migrateWorkflow
 {
   selfCopy = self;
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   obj = [(WFWorkflowMigration *)self actions];
-  v3 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
+  v3 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = @"is.workflow.actions.round";
-    v6 = *v44;
-    v40 = *v44;
+    v6 = *v43;
+    v39 = *v43;
     do
     {
       v7 = 0;
-      v39 = v4;
+      v38 = v4;
       do
       {
-        if (*v44 != v6)
+        if (*v43 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v43 + 1) + 8 * v7);
+        v8 = *(*(&v42 + 1) + 8 * v7);
         actionIdentifierKey = [(WFWorkflowMigration *)selfCopy actionIdentifierKey];
         v10 = [v8 objectForKey:actionIdentifierKey];
 
-        if ([v10 isEqualToString:v5])
+        if (objc_msgSend_isEqualToString_(v10))
         {
           actionParametersKey = [(WFWorkflowMigration *)selfCopy actionParametersKey];
           v12 = [v8 objectForKeyedSubscript:actionParametersKey];
 
-          v42 = [v12 objectForKeyedSubscript:@"WFRoundType"];
-          v13 = [v42 isEqualToString:@"Left of Decimal"];
-          v14 = v13;
-          v47[0] = &unk_1F4A9A5D0;
-          v47[1] = &unk_1F4A9A5E8;
+          v41 = [v12 objectForKeyedSubscript:@"WFRoundType"];
+          isEqualToString = objc_msgSend_isEqualToString_(v41);
+          v14 = isEqualToString;
+          v46[0] = &unk_1F4A9A5D0;
+          v46[1] = &unk_1F4A9A5E8;
           v15 = @"Tenths";
-          if (v13)
+          if (isEqualToString)
           {
             v15 = @"Tens Place";
           }
 
-          v48[0] = @"Ones Place";
-          v48[1] = v15;
+          v47[0] = @"Ones Place";
+          v47[1] = v15;
           v16 = @"Hundredths";
-          if (v13)
+          if (isEqualToString)
           {
             v16 = @"Hundreds Place";
           }
 
-          v47[2] = &unk_1F4A9A600;
-          v47[3] = &unk_1F4A9A618;
+          v46[2] = &unk_1F4A9A600;
+          v46[3] = &unk_1F4A9A618;
           v17 = @"Thousandths";
-          if (v13)
+          if (isEqualToString)
           {
             v17 = @"Thousands";
           }
 
-          v48[2] = v16;
-          v48[3] = v17;
+          v47[2] = v16;
+          v47[3] = v17;
           v18 = @"Ten Thousandths";
-          if (v13)
+          if (isEqualToString)
           {
             v18 = @"Ten Thousands";
           }
 
-          v47[4] = &unk_1F4A9A630;
-          v47[5] = &unk_1F4A9A648;
+          v46[4] = &unk_1F4A9A630;
+          v46[5] = &unk_1F4A9A648;
           v19 = @"Hundred Thousandths";
-          if (v13)
+          if (isEqualToString)
           {
             v19 = @"Hundred Thousands";
           }
 
-          v48[4] = v18;
-          v48[5] = v19;
+          v47[4] = v18;
+          v47[5] = v19;
           v20 = @"Millionths";
-          if (v13)
+          if (isEqualToString)
           {
             v20 = @"Millions";
           }
 
-          v47[6] = &unk_1F4A9A660;
-          v47[7] = &unk_1F4A9A678;
+          v46[6] = &unk_1F4A9A660;
+          v46[7] = &unk_1F4A9A678;
           v21 = @"Ten Millionths";
-          if (v13)
+          if (isEqualToString)
           {
             v21 = @"10 ^";
           }
 
-          v48[6] = v20;
-          v48[7] = v21;
+          v47[6] = v20;
+          v47[7] = v21;
           v22 = @"Hundred Millionths";
-          if (v13)
+          if (isEqualToString)
           {
             v22 = @"10 ^";
           }
 
-          v47[8] = &unk_1F4A9A690;
-          v47[9] = &unk_1F4A9A6A8;
+          v46[8] = &unk_1F4A9A690;
+          v46[9] = &unk_1F4A9A6A8;
           v23 = @"Billionths";
-          if (v13)
+          if (isEqualToString)
           {
             v23 = @"10 ^";
           }
 
-          v48[8] = v22;
-          v48[9] = v23;
-          v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:10];
+          v47[8] = v22;
+          v47[9] = v23;
+          v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:10];
           v25 = [v12 objectForKey:@"WFRoundType"];
 
           if (v25)
@@ -166,7 +166,7 @@ LABEL_28:
               v33 = [MEMORY[0x1E696AD98] numberWithInteger:v32];
               v27 = [v24 objectForKey:v33];
 
-              if (v27 && ([v27 isEqualToString:@"10 ^"] & 1) == 0)
+              if (v27 && (objc_msgSend_isEqualToString_(v27) & 1) == 0)
               {
                 [v12 setObject:v27 forKey:@"WFRoundTo"];
               }
@@ -190,7 +190,7 @@ LABEL_28:
 
               v5 = v29;
               selfCopy = v28;
-              v4 = v39;
+              v4 = v38;
             }
 
             v36 = [v12 objectForKey:@"WFRoundType"];
@@ -219,21 +219,20 @@ LABEL_28:
             }
           }
 
-          v6 = v40;
+          v6 = v39;
         }
 
         ++v7;
       }
 
       while (v4 != v7);
-      v4 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
+      v4 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
     }
 
     while (v4);
   }
 
   [(WFWorkflowMigration *)selfCopy finish];
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 @end

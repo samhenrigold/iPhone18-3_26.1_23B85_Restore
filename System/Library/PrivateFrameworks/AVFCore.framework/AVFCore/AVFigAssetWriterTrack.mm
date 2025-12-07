@@ -201,7 +201,7 @@ LABEL_12:
   }
 }
 
-uint64_t __113__AVFigAssetWriterTrack__figAssetWriterFinalHDRMetadataGenerationStateAvailable_finalHDRMetadataGenerationState___block_invoke(uint64_t a1)
+void *__113__AVFigAssetWriterTrack__figAssetWriterFinalHDRMetadataGenerationStateAvailable_finalHDRMetadataGenerationState___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 40) copy];
   *(*(a1 + 32) + 80) = result;
@@ -357,7 +357,7 @@ id __56__AVFigAssetWriterTrack_finalHDRMetadataGenerationState__block_invoke(uin
 
   else
   {
-    v8 = -12782;
+    v8 = 4294954514;
     if (!error)
     {
       return v8 == 0;

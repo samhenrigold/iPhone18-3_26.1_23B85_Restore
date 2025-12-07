@@ -120,44 +120,45 @@
 
   if (![contextCopy hasChanges])
   {
-    v18 = 0;
-LABEL_14:
     v19 = 0;
+LABEL_14:
+    v20 = 0;
     goto LABEL_15;
   }
 
-  v23 = 0;
-  v17 = [contextCopy save:&v23];
-  v18 = v23;
+  v25 = 0;
+  v17 = [contextCopy save:&v25];
+  v18 = v25;
+  v19 = v18;
   if ((v17 & 1) == 0)
   {
-    v20 = BCIMLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
-    {
-      *buf = 136315650;
-      v25 = "[IMUbiquitousDataProvider saveManagedObjectContext:]";
-      v26 = 2080;
-      v27 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Database/BCUbiquitousDataProvider.m";
-      v28 = 1024;
-      v29 = 140;
-      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
-    }
-
-    v21 = BCIMLog();
+    v21 = BCIMLog(v18);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
+      *buf = 136315650;
+      v27 = "[IMUbiquitousDataProvider saveManagedObjectContext:]";
+      v28 = 2080;
+      v29 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Database/BCUbiquitousDataProvider.m";
+      v30 = 1024;
+      v31 = 140;
+      _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
+    }
+
+    v23 = BCIMLog(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    {
       *buf = 138412290;
-      v25 = v18;
-      _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "@Failed to save syncMOC with error: %@", buf, 0xCu);
+      v27 = v19;
+      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_INFO, "@Failed to save syncMOC with error: %@", buf, 0xCu);
     }
 
     goto LABEL_14;
   }
 
-  v19 = 1;
+  v20 = 1;
 LABEL_15:
 
-  return v19;
+  return v20;
 }
 
 - (id)newManagedObjectContextWithClass:(Class)class concurrencyType:(unint64_t)type

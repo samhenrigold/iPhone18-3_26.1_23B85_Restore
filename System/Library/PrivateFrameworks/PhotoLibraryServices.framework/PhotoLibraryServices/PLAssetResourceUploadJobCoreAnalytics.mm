@@ -434,7 +434,7 @@ void __52__PLAssetResourceUploadJobCoreAnalytics__assetCount__block_invoke(uint6
   [v53 sortUsingSelector:sel_localizedCaseInsensitiveCompare_];
   [v52 sortUsingSelector:sel_localizedCaseInsensitiveCompare_];
   v21 = [v53 arrayByAddingObjectsFromArray:v52];
-  v22 = [v21 count];
+  v22 = objc_msgSend_count(v21);
   if (v22 >= 5)
   {
     v23 = 5;

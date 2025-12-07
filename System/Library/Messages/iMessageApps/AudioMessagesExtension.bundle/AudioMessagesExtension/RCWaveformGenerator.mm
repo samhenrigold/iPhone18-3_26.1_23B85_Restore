@@ -820,7 +820,8 @@
     dispatch_semaphore_signal(self->_digestPausedSemaphore);
     if (!self->_canceled)
     {
-      v6 = RCTimeRangeMake(self->_totalFlushedTime, time);
+      RCTimeRangeMake();
+      v6 = v5;
       v8 = v7;
       if (self->_powerLevelBuffer.__end_ == self->_powerLevelBuffer.__begin_)
       {
@@ -930,7 +931,7 @@
         self->_isSampleRateKnown = 1;
         mSampleRate = format->mSampleRate;
         sub_11030(&self->_samplePowerMeter, format->mSampleRate);
-        v12 = mSampleRate * self->_segmentFlushInterval;
+        v12 = (mSampleRate * self->_segmentFlushInterval);
         self->_framesNeededForNextDB = (mSampleRate / self->_overviewUnitsPerSecond);
         self->_framesNeededForNextFlush = v12;
       }

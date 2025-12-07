@@ -167,19 +167,17 @@
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCRealTimeThread_Initialize for session stats controller thread FAILED", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCRealTimeThread_Initialize for session stats controller thread FAILED", v2, v3, v4, v5);
 }
 
-double __57__VCSessionStatsController_startLocalSessionStatsReceive__block_invoke(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
+void __57__VCSessionStatsController_startLocalSessionStatsReceive__block_invoke(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
 {
   if (a2)
   {
     _VCSessionStatsController_HandleRemoteSessionStats(a2, a3);
 
-    return _VCSessionStatsController_HealthPrintForServerStats(a2);
+    _VCSessionStatsController_HealthPrintForServerStats(a2, v4);
   }
-
-  return result;
 }
 
 - (void)startLocalSessionStatsSend
@@ -226,50 +224,50 @@ double __57__VCSessionStatsController_startLocalSessionStatsReceive__block_invok
   }
 }
 
-void __54__VCSessionStatsController_startLocalSessionStatsSend__block_invoke(uint64_t a1)
+void __54__VCSessionStatsController_startLocalSessionStatsSend__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v2 = micro();
+  v16 = *MEMORY[0x1E69E9840];
+  v3 = micro(a1, a2);
   [*(a1 + 32) sendLocalStats];
-  v3 = VCConnectionManager_CopyPrimaryConnection(*(*(a1 + 32) + 80));
-  v4 = v3;
-  v5 = *(a1 + 32);
-  if (*(v5 + 152) != 1 || v3 == 0)
+  v4 = VCConnectionManager_CopyPrimaryConnection(*(*(a1 + 32) + 80));
+  v5 = v4;
+  v6 = *(a1 + 32);
+  if (*(v6 + 152) != 1 || v4 == 0)
   {
-    if (!v3)
+    if (!v4)
     {
       goto LABEL_14;
     }
   }
 
-  else if (v2 - *(v5 + 96) > 0.546)
+  else if (v3 - *(v6 + 96) > 0.546)
   {
-    *&v13 = -1;
-    *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v14 = 0xAAAAAAAAAAAAAAAALL;
-    v7 = [*(v5 + 80) statsRecorder];
-    if (v7)
+    *&v14 = -1;
+    *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v15 = 0xAAAAAAAAAAAAAAAALL;
+    v8 = [*(v6 + 80) statsRecorder];
+    if (v8)
     {
-      [v7 getMostRecentLocalStats];
+      objc_msgSend_getMostRecentLocalStats(v8);
     }
 
     else
     {
-      v13 = 0uLL;
-      v14 = 0;
+      v14 = 0uLL;
+      v15 = 0;
     }
 
-    v10 = *(a1 + 32);
-    v11 = v13;
+    v11 = *(a1 + 32);
     v12 = v14;
-    _VCSessionStatsController_TriggerRateControl(v10, &v11, 1, 0, v2, v8, v9);
-    *(*(a1 + 32) + 96) = v2;
+    v13 = v15;
+    _VCSessionStatsController_TriggerRateControl(v11, &v12, 1, 0, v3, v9, v10);
+    *(*(a1 + 32) + 96) = v3;
   }
 
-  CFRelease(v4);
-  v5 = *(a1 + 32);
+  CFRelease(v5);
+  v6 = *(a1 + 32);
 LABEL_14:
-  ++*(v5 + 72);
+  ++*(v6 + 72);
 }
 
 - (void)stopLocalSessionStatsUpdate
@@ -341,7 +339,7 @@ intptr_t __55__VCSessionStatsController_stopLocalSessionStatsUpdate__block_invok
 
 - (void)periodicTask:(void *)task
 {
-  v5 = micro();
+  v5 = micro(self, a2);
   v6 = v5 - self->_lastUpdateTime;
   self->_lastUpdateTime = v5;
   uplinkServerStatsByteUsed = self->_uplinkServerStatsByteUsed;

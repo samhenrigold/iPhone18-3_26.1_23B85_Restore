@@ -54,11 +54,10 @@
     }
 
     v4 = *&self->tapBack_MessageSummaryInfo[OBJC_IVAR___BlastDoorTapBack_MessageSummaryInfo_tapBack_MessageSummaryInfo + 32];
-    v5 = *&self->tapBack_MessageSummaryInfo[OBJC_IVAR___BlastDoorTapBack_MessageSummaryInfo_tapBack_MessageSummaryInfo + 40];
 
-    v6 = sub_2146D9588();
+    v5 = sub_2146D9588();
     sub_213FDC6D0(v4, v2);
-    v3 = v6;
+    v3 = v5;
   }
 
   else

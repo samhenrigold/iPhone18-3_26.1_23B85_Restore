@@ -1,3 +1,7562 @@
+void sub_3101A8(uint64_t a1, std::string *a2)
+{
+  sub_30F188(__dst);
+  sub_53E8(&__p, "HAL");
+  sub_30F2B4(a1, __dst, &__p, a2);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  if (v6 < 0)
+  {
+    operator delete(__dst[0]);
+  }
+}
+
+void sub_310220(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a20 < 0)
+  {
+    operator delete(a15);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_310254(caulk::build::detail *a1)
+{
+  v1 = a1;
+  kind = caulk::build::detail::get_kind(a1);
+  if ((kind & 1) == 0 && (caulk::build::detail::get_kind(kind) & 2) == 0)
+  {
+    return 0;
+  }
+
+  CFPreferencesAppSynchronize(@"com.apple.coreaudio");
+  result = sub_4650DC(@"EnableTelephonyMonitor", @"com.apple.coreaudio", 0);
+  if (result)
+  {
+    if (v1 == 3)
+    {
+      v4 = @"com.apple.audio.virtualaudio";
+      CFPreferencesAppSynchronize(@"com.apple.audio.virtualaudio");
+      v5 = @"EnableEANCTelephonyMonitor";
+    }
+
+    else if (v1 == 2)
+    {
+      v4 = @"com.apple.coreaudio";
+      CFPreferencesAppSynchronize(@"com.apple.coreaudio");
+      v5 = @"EnableHALTelephonyMonitor";
+    }
+
+    else
+    {
+      v4 = @"com.apple.audio.virtualaudio";
+      CFPreferencesAppSynchronize(@"com.apple.audio.virtualaudio");
+      v5 = @"EnableVADTelephonyMonitor";
+    }
+
+    return sub_4650DC(v5, v4, 0) != 0;
+  }
+
+  return result;
+}
+
+void sub_310328(uint64_t a1)
+{
+  v7 = 0;
+  v2 = MGCopyAnswerWithError();
+  v3 = v2;
+  v6 = v2;
+  if (v2)
+  {
+    v4 = CFGetTypeID(v2);
+    if (v4 == CFDataGetTypeID())
+    {
+      sub_28D4E0(&v5, &v6);
+      *a1 = v5;
+      *(a1 + 8) = 1;
+    }
+
+    else
+    {
+      *a1 = 0;
+      *(a1 + 8) = 0;
+    }
+
+    CFRelease(v3);
+  }
+
+  else
+  {
+    *a1 = 0;
+    *(a1 + 8) = 0;
+  }
+}
+
+id sub_3103F4()
+{
+  if (MGGetBoolAnswer())
+  {
+    v0 = sub_106F10(@"cBy4BcYs5YWtFHbBpt4C6A");
+    v1 = 0;
+    if (v0 >= 0x100u && (v0 & 1) != 0)
+    {
+      v1 = [CPMSAgent isCPMSSupportedForClient:6];
+    }
+
+    v2 = *sub_5544(17);
+    v3 = v2;
+    if (v2 && os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = "unsupported";
+      v11 = "CPMSInterface.mm";
+      v10 = 136315650;
+      if (v1)
+      {
+        v4 = "supported";
+      }
+
+      v12 = 1024;
+      v13 = 91;
+      v14 = 2080;
+      v15 = v4;
+      v5 = "%25s:%-5d CPMS for Haptics is %s";
+LABEL_19:
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, v5, &v10, 0x1Cu);
+    }
+  }
+
+  else
+  {
+    if ((atomic_load_explicit(&qword_6E9B58, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_6E9B58))
+    {
+      sub_3107F0(&v10);
+      v9 = sub_28D638();
+      sub_310938(&v10);
+      byte_6E9B50 = v9;
+      __cxa_guard_release(&qword_6E9B58);
+    }
+
+    if (byte_6E9B50 == 1)
+    {
+      v1 = [CPMSAgent isCPMSSupportedForClient:5];
+    }
+
+    else
+    {
+      v1 = 0;
+    }
+
+    v6 = *sub_5544(17);
+    v3 = v6;
+    if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = "unsupported";
+      v11 = "CPMSInterface.mm";
+      v10 = 136315650;
+      if (v1)
+      {
+        v7 = "supported";
+      }
+
+      v12 = 1024;
+      v13 = 78;
+      v14 = 2080;
+      v15 = v7;
+      v5 = "%25s:%-5d CPMS for Speaker is %s";
+      goto LABEL_19;
+    }
+  }
+
+  return v1;
+}
+
+void sub_310628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  sub_310938(&a9);
+  __cxa_guard_abort(&qword_6E9B58);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_310658()
+{
+  if ((atomic_load_explicit(&qword_6E9B08, memory_order_acquire) & 1) == 0)
+  {
+    v1 = __cxa_guard_acquire(&qword_6E9B08);
+    if (v1)
+    {
+      byte_6E9B00 = caulk::product::get_device_class(v1) == 6;
+      __cxa_guard_release(&qword_6E9B08);
+    }
+  }
+
+  return byte_6E9B00;
+}
+
+uint64_t sub_3106D4(uint64_t a1)
+{
+  v1 = a1;
+  if (!sub_71704())
+  {
+    return HIBYTE(v1) & 1u & v1;
+  }
+
+  return MGGetBoolAnswer();
+}
+
+unint64_t sub_310728()
+{
+  v0 = sub_DD858();
+  v1 = vdupq_n_s32(v0);
+  LOBYTE(v2) = 1;
+  if ((vmaxv_u16(vmovn_s32(vorrq_s8(vceqq_s32((*&v1 & __PAIR128__(0xFFFFFFFEFFFFFFFELL, 0xFFFFFFFEFFFFFFFELL)), xmmword_5172D0), vceqq_s32(v1, xmmword_5172E0)))) & 1) == 0 && v0 != 75 && v0 != 83)
+  {
+    v3 = v0 & 0xFFFFFFFE;
+    if ((v0 & 0xFFFFFFFE) != 0x5C && v3 != 80 && v0 != 84 && (v0 & 0xFFFFFFFB) - 73 >= 2 && v3 != 94 && v0 - 85 >= 2)
+    {
+      v4 = sub_DD858();
+      if (v4 > 0x2E)
+      {
+        LOBYTE(v2) = 0;
+      }
+
+      else
+      {
+        v2 = 0x43FF9C1E0600uLL >> v4;
+      }
+    }
+  }
+
+  return v2 & 1;
+}
+
+char *sub_3107F0(char *a1)
+{
+  sub_53E8(a1, "IODeviceTree:/product/audio");
+  v2 = a1;
+  if (a1[23] < 0)
+  {
+    v2 = *a1;
+  }
+
+  v3 = IORegistryEntryFromPath(kIOMainPortDefault, v2);
+  *(a1 + 6) = v3;
+  if (!v3)
+  {
+    v4 = *sub_5544(14);
+    v5 = v4;
+    if (v4 && os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = a1;
+      if (a1[23] < 0)
+      {
+        v6 = *a1;
+      }
+
+      v8 = 136315650;
+      v9 = "StandardUtilities.h";
+      v10 = 1024;
+      v11 = 1236;
+      v12 = 2080;
+      v13 = v6;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d IORegistryEntryFromPath %s returned MACH_PORT_NULL (i.e. failed).", &v8, 0x1Cu);
+    }
+  }
+
+  return a1;
+}
+
+uint64_t sub_310938(uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2)
+  {
+    IOObjectRelease(v2);
+  }
+
+  if (*(a1 + 23) < 0)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+uint64_t sub_31097C()
+{
+  if ((atomic_load_explicit(&qword_6E9B68, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_6E9B68))
+  {
+    sub_3107F0(v2);
+    v1 = sub_28D154(v3, "supports-secure-microphone");
+    sub_310938(v2);
+    byte_6E9B60 = v1;
+    __cxa_guard_release(&qword_6E9B68);
+  }
+
+  return byte_6E9B60;
+}
+
+void sub_310A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  sub_310938(&a9);
+  __cxa_guard_abort(&qword_6E9B68);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_310A30()
+{
+  if ((atomic_load_explicit(&qword_6E9B88, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_6E9B88))
+  {
+    sub_3107F0(v2);
+    v1 = sub_28D154(v3, "supports-concurrent-hp-lp-mics");
+    sub_310938(v2);
+    byte_6E9B80 = v1;
+    __cxa_guard_release(&qword_6E9B88);
+  }
+
+  return MGGetBoolAnswer() & byte_6E9B80;
+}
+
+void sub_310ACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  sub_310938(&a9);
+  __cxa_guard_abort(&qword_6E9B88);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_310AF4()
+{
+  v0 = &unk_6E9000;
+  if ((atomic_load_explicit(&qword_6E9B98, memory_order_acquire) & 1) == 0)
+  {
+    v2 = __cxa_guard_acquire(&qword_6E9B98);
+    v0 = &unk_6E9000;
+    if (v2)
+    {
+      v3 = sub_30F540(@"MicrophoneCount");
+      if ((v3 & 0x100000000) != 0)
+      {
+        v4 = v3;
+      }
+
+      else
+      {
+        v4 = 0;
+      }
+
+      dword_6E9B90 = v4;
+      __cxa_guard_release(&qword_6E9B98);
+      v0 = &unk_6E9000;
+    }
+  }
+
+  return v0[740];
+}
+
+uint64_t sub_310B68()
+{
+  if ((atomic_load_explicit(&qword_6E9BA8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_6E9BA8))
+  {
+    if (sub_71704())
+    {
+      v1 = sub_30EBC8() >> 4 > 0x1F4;
+    }
+
+    else
+    {
+      v1 = 0;
+    }
+
+    byte_6E9BA0 = v1;
+    __cxa_guard_release(&qword_6E9BA8);
+  }
+
+  return byte_6E9BA0;
+}
+
+uint64_t sub_310BF8(void *prime, uint64_t a2)
+{
+  v2 = 0;
+  *__p = 0u;
+  v18 = 0u;
+  v19 = 1065353216;
+  do
+  {
+    v3 = dword_51942C[v2];
+    if (!__p[1])
+    {
+      goto LABEL_18;
+    }
+
+    v4 = vcnt_s8(__p[1]);
+    v4.i16[0] = vaddlv_u8(v4);
+    if (v4.u32[0] > 1uLL)
+    {
+      v5 = dword_51942C[v2];
+      if (__p[1] <= v3)
+      {
+        v5 = v3 % LODWORD(__p[1]);
+      }
+    }
+
+    else
+    {
+      v5 = (LODWORD(__p[1]) - 1) & v3;
+    }
+
+    v6 = *(__p[0] + v5);
+    if (!v6 || (v7 = *v6) == 0)
+    {
+LABEL_18:
+      operator new();
+    }
+
+    while (1)
+    {
+      v8 = v7[1];
+      if (v8 == v3)
+      {
+        break;
+      }
+
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= __p[1])
+        {
+          v8 %= __p[1];
+        }
+      }
+
+      else
+      {
+        v8 &= __p[1] - 1;
+      }
+
+      if (v8 != v5)
+      {
+        goto LABEL_18;
+      }
+
+LABEL_17:
+      v7 = *v7;
+      if (!v7)
+      {
+        goto LABEL_18;
+      }
+    }
+
+    if (*(v7 + 4) != v3)
+    {
+      goto LABEL_17;
+    }
+
+    ++v2;
+  }
+
+  while (v2 != 47);
+  v9 = sub_99D84(prime, a2);
+  v10 = vcnt_s8(__p[1]);
+  v10.i16[0] = vaddlv_u8(v10);
+  if (v10.u32[0] > 1uLL)
+  {
+    v11 = v9;
+    if (__p[1] <= v9)
+    {
+      v11 = v9 % LODWORD(__p[1]);
+    }
+  }
+
+  else
+  {
+    v11 = (LODWORD(__p[1]) + 255) & v9;
+  }
+
+  v12 = *(__p[0] + v11);
+  if (!v12 || (v13 = *v12) == 0)
+  {
+LABEL_36:
+    v16 = 1;
+    goto LABEL_37;
+  }
+
+  while (2)
+  {
+    v14 = v13[1];
+    if (v14 != v9)
+    {
+      if (v10.u32[0] > 1uLL)
+      {
+        if (v14 >= __p[1])
+        {
+          v14 %= __p[1];
+        }
+      }
+
+      else
+      {
+        v14 &= __p[1] - 1;
+      }
+
+      if (v14 != v11)
+      {
+        goto LABEL_36;
+      }
+
+      goto LABEL_35;
+    }
+
+    if (*(v13 + 4) != v9)
+    {
+LABEL_35:
+      v13 = *v13;
+      if (!v13)
+      {
+        goto LABEL_36;
+      }
+
+      continue;
+    }
+
+    break;
+  }
+
+  v16 = 0;
+LABEL_37:
+  sub_DDE50(__p);
+  return v16;
+}
+
+uint64_t sub_311110()
+{
+  v0 = &unk_6E9000;
+  if ((atomic_load_explicit(&qword_6E9BC8, memory_order_acquire) & 1) == 0)
+  {
+    v2 = __cxa_guard_acquire(&qword_6E9BC8);
+    v0 = &unk_6E9000;
+    if (v2)
+    {
+      v3 = sub_106F10(@"U+73bmG4kBGj6kpreQXUTQ");
+      byte_6E9BC0 = (v3 > 0xFFu) & v3;
+      __cxa_guard_release(&qword_6E9BC8);
+      v0 = &unk_6E9000;
+    }
+  }
+
+  return v0[3008];
+}
+
+uint64_t sub_31118C()
+{
+  if ((atomic_load_explicit(&qword_6E9BE8, memory_order_acquire) & 1) == 0)
+  {
+    v1 = __cxa_guard_acquire(&qword_6E9BE8);
+    if (v1)
+    {
+      if (caulk::product::get_device_class(v1) == 3)
+      {
+        v2 = sub_45168();
+        if (v2)
+        {
+          LOBYTE(v2) = _os_feature_enabled_impl();
+        }
+      }
+
+      else
+      {
+        LOBYTE(v2) = 0;
+      }
+
+      byte_6E9BE0 = v2;
+      __cxa_guard_release(&qword_6E9BE8);
+    }
+  }
+
+  return byte_6E9BE0;
+}
+
+uint64_t sub_31122C()
+{
+  if ((atomic_load_explicit(&qword_6E9C08, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_6E9C08))
+  {
+    if (sub_48EDC())
+    {
+      v2 = 1;
+    }
+
+    else
+    {
+      v2 = sub_1FB17C();
+    }
+
+    byte_6E9C00 = v2;
+    __cxa_guard_release(&qword_6E9C08);
+  }
+
+  if (byte_6E9C00)
+  {
+    if ((atomic_load_explicit(&qword_6E9C18, memory_order_acquire) & 1) == 0)
+    {
+      v3 = __cxa_guard_acquire(&qword_6E9C18);
+      if (v3)
+      {
+        byte_6E9C10 = sub_311310(v3);
+        __cxa_guard_release(&qword_6E9C18);
+      }
+    }
+
+    v0 = byte_6E9C10;
+  }
+
+  else
+  {
+    v0 = 0;
+  }
+
+  return v0 & 1;
+}
+
+uint64_t sub_311310(caulk::product *a1)
+{
+  if (caulk::product::get_device_class(a1) != 1)
+  {
+    return 1;
+  }
+
+  return _os_feature_enabled_impl();
+}
+
+uint64_t sub_31135C()
+{
+  if ((atomic_load_explicit(&qword_6E9C38, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_6E9C38))
+  {
+    byte_6E9C30 = sub_3113D0();
+    __cxa_guard_release(&qword_6E9C38);
+  }
+
+  return byte_6E9C30;
+}
+
+BOOL sub_3113D0()
+{
+  Version = VoiceProcessorGetVersion();
+  v1 = *sub_5544(21);
+  v2 = v1;
+  if (v1 && os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
+  {
+    v4 = 136315650;
+    v5 = "PlatformUtilities_Aspen.mm";
+    v6 = 1024;
+    v7 = 820;
+    v8 = 1024;
+    v9 = Version;
+    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d VoiceProcessor version is %u", &v4, 0x18u);
+  }
+
+  return Version > 9;
+}
+
+uint64_t sub_3114B0()
+{
+  if ((atomic_load_explicit(&qword_6E9C58, memory_order_acquire) & 1) == 0)
+  {
+    v1 = __cxa_guard_acquire(&qword_6E9C58);
+    if (v1)
+    {
+      if (caulk::product::get_device_class(v1) == 1)
+      {
+        v2 = _os_feature_enabled_impl();
+      }
+
+      else
+      {
+        v2 = 1;
+      }
+
+      byte_6E9C50 = v2;
+      __cxa_guard_release(&qword_6E9C58);
+    }
+  }
+
+  return byte_6E9C50;
+}
+
+caulk::product *sub_311548()
+{
+  result = _os_feature_enabled_impl();
+  if (result)
+  {
+    return (caulk::product::get_device_class(result) == 1);
+  }
+
+  return result;
+}
+
+uint64_t sub_3115C4()
+{
+  if ((atomic_load_explicit(&qword_6E9C88, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_6E9C88))
+  {
+    byte_6E9C80 = sub_311638();
+    __cxa_guard_release(&qword_6E9C88);
+  }
+
+  return byte_6E9C80;
+}
+
+uint64_t sub_311638()
+{
+  if ((atomic_load_explicit(&qword_6E9C98, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_6E9C98))
+  {
+    byte_6E9C90 = _os_feature_enabled_impl();
+    __cxa_guard_release(&qword_6E9C98);
+  }
+
+  if ((atomic_load_explicit(&qword_6E9CA8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_6E9CA8))
+  {
+    byte_6E9CA0 = sub_31180C();
+    __cxa_guard_release(&qword_6E9CA8);
+  }
+
+  v0 = byte_6E9C90 & byte_6E9CA0;
+  v1 = *sub_5544(25);
+  v2 = v1;
+  if (v1 && os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = "will not";
+    if (v0)
+    {
+      v3 = "will";
+    }
+
+    v5 = 136316162;
+    v6 = "PlatformUtilities_Aspen.mm";
+    v7 = 1024;
+    v8 = 1037;
+    v9 = 2080;
+    v10 = v3;
+    v11 = 1024;
+    v12 = byte_6E9C90;
+    v13 = 1024;
+    v14 = byte_6E9CA0;
+    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Product %s use DSP graph v2. Enabled system wide? %d. Enabled for product in VA? %d", &v5, 0x28u);
+  }
+
+  return v0 & 1;
+}
+
+uint64_t sub_31180C()
+{
+  if (_os_feature_enabled_impl())
+  {
+    return 1;
+  }
+
+  if (!_os_feature_enabled_impl())
+  {
+    return 0;
+  }
+
+  v0 = 1;
+  v1 = sub_DD858();
+  if ((v1 - 4013) >= 5 && (v1 - 8021) >= 4 && (v1 - 2028) >= 2)
+  {
+    return 0;
+  }
+
+  return v0;
+}
+
+void sub_3118A8(void *a1@<X8>)
+{
+  sub_20301C(a1, 1);
+  v2 = sub_8703C();
+  (*(*v2 + 344))(buf);
+  v3 = *buf;
+  if (*buf)
+  {
+    sub_27A4();
+    v37 = (*(qword_6E94F8 + 16))();
+    sub_27A4();
+    v4 = atomic_load(&qword_6E9558);
+    if (v4 != pthread_self())
+    {
+      v27 = sub_5544(14);
+      v28 = *v27;
+      if (*v27 && os_log_type_enabled(*v27, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        *&buf[4] = "RoutingManager.cpp";
+        v39 = 1024;
+        v40 = 4274;
+        _os_log_impl(&dword_0, v28, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::runtime_error): Unable to acquire routing mutex.", buf, 0x12u);
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Unable to acquire routing mutex.");
+    }
+
+    v5 = sub_5544(8);
+    v6 = sub_5544(35);
+    v7 = 0;
+    *buf = 0x100000002;
+    v8 = *(v5 + 8);
+    while (1)
+    {
+      v9 = *&buf[v7];
+      if (((v8 & v9) != 0) != ((*(v6 + 8) & v9) != 0))
+      {
+        break;
+      }
+
+      v7 += 4;
+      if (v7 == 8)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    if ((v8 & v9) == 0)
+    {
+      v5 = v6;
+    }
+
+LABEL_13:
+    v15 = *v5;
+    if (v15 && os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      *buf = 136315394;
+      *&buf[4] = "RoutingManager.cpp";
+      v39 = 1024;
+      v40 = 4276;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "%25s:%-5d Silent mode update.", buf, 0x12u);
+    }
+
+    v16 = *(*v3 + 8);
+    if (!v16)
+    {
+      goto LABEL_36;
+    }
+
+    v17 = *(v3 + 32);
+    v18 = *v3 + 8;
+    do
+    {
+      v19 = *(v16 + 32);
+      v20 = v19 >= v17;
+      v21 = v19 < v17;
+      if (v20)
+      {
+        v18 = v16;
+      }
+
+      v16 = *(v16 + 8 * v21);
+    }
+
+    while (v16);
+    if (v18 == *v3 + 8 || v17 < *(v18 + 32))
+    {
+LABEL_36:
+      v24 = sub_5544(14);
+      v25 = *v24;
+      if (*v24 && os_log_type_enabled(*v24, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        *&buf[4] = "RoutingManager.cpp";
+        v39 = 1024;
+        v40 = 4279;
+        _os_log_impl(&dword_0, v25, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::runtime_error): Corruption in the routing database. Calling find(mCurrentCategory) returned an invalid iterator.", buf, 0x12u);
+      }
+
+      v26 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v26, "Corruption in the routing database. Calling find(mCurrentCategory) returned an invalid iterator.");
+    }
+
+    if (*(v18 + 76) == 1)
+    {
+      sub_7B03C(&v36, (v3 + 72));
+      v22 = *(v3 + 184);
+      v34[0] = *(v3 + 176);
+      v34[1] = v22;
+      if (v22)
+      {
+        atomic_fetch_add_explicit((v22 + 16), 1uLL, memory_order_relaxed);
+      }
+
+      v35 = *(v3 + 192);
+      LOBYTE(v30) = *(v3 + 408);
+      sub_C25C0(buf, v3, (v3 + 32), (v3 + 48), &v36, (v3 + 120), *(v3 + 144), (v3 + 152), v3 + 200, (v3 + 240), v30, (v3 + 416), 1919050611, (v3 + 440), (v3 + 472), *(v3 + 410), v34);
+    }
+
+    sub_20301C(v31, 1);
+    sub_210C50(&v37);
+    sub_256828(a1, v31);
+    if (v33 == 1)
+    {
+      sub_175F78(v32);
+    }
+  }
+
+  else
+  {
+    v10 = sub_5544(9);
+    v11 = sub_5544(16);
+    v12 = 0;
+    *buf = 0x100000002;
+    v13 = *(v10 + 8);
+    while (1)
+    {
+      v14 = *&buf[v12];
+      if (((v13 & v14) != 0) != ((*(v11 + 8) & v14) != 0))
+      {
+        break;
+      }
+
+      v12 += 4;
+      if (v12 == 8)
+      {
+        goto LABEL_32;
+      }
+    }
+
+    if ((v13 & v14) == 0)
+    {
+      v10 = v11;
+    }
+
+LABEL_32:
+    v23 = *v10;
+    if (*v10 && os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      *&buf[4] = "SystemSettingsCommands_Aspen.cpp";
+      v39 = 1024;
+      v40 = 21;
+      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_ERROR, "%25s:%-5d Routing manager does not exist -- cannot execute command", buf, 0x12u);
+    }
+  }
+}
+
+void sub_311DE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, char a42)
+{
+  __cxa_free_exception(v43);
+  sub_210C50(&a41);
+  if (*(v42 + 56) == 1)
+  {
+    sub_175F78((v42 + 24));
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_311ED0(uint64_t a1@<X0>, void *a2@<X8>)
+{
+  sub_20301C(a2, 1);
+  v4 = sub_8703C();
+  (*(*v4 + 344))(v37);
+  v5 = *v37;
+  if (*v37)
+  {
+    v6 = *(a1 + 12);
+    sub_27A4();
+    v34 = (*(qword_6E94F8 + 16))();
+    sub_27A4();
+    v7 = atomic_load(&qword_6E9558);
+    if (v7 != pthread_self())
+    {
+      v31 = sub_5544(14);
+      v32 = *v31;
+      if (*v31 && os_log_type_enabled(*v31, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        *&buf[4] = "RoutingManager.cpp";
+        v43 = 1024;
+        v44 = 4299;
+        _os_log_impl(&dword_0, v32, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::runtime_error): Unable to acquire routing mutex.", buf, 0x12u);
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Unable to acquire routing mutex.");
+    }
+
+    v8 = sub_5544(8);
+    v9 = sub_5544(35);
+    v10 = 0;
+    *buf = 0x100000002;
+    v11 = *(v8 + 8);
+    while (1)
+    {
+      v12 = *&buf[v10];
+      if (((v11 & v12) != 0) != ((*(v9 + 8) & v12) != 0))
+      {
+        break;
+      }
+
+      v10 += 4;
+      if (v10 == 8)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    if ((v11 & v12) == 0)
+    {
+      v8 = v9;
+    }
+
+LABEL_13:
+    v18 = *v8;
+    if (v18 && os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    {
+      *buf = 136315394;
+      *&buf[4] = "RoutingManager.cpp";
+      v43 = 1024;
+      v44 = 4301;
+      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "%25s:%-5d System Audio Effects Settings update.", buf, 0x12u);
+    }
+
+    if (v6 && *(v5 + 36) == 1836281204)
+    {
+      goto LABEL_23;
+    }
+
+    *buf = off_6BC378;
+    v45 = buf;
+    sub_C3354(&v35, v5 + 480);
+    v19 = v35;
+    v20 = v36;
+    v21 = sub_C493C(1986291046, v35, v36);
+    if (v20 == v21)
+    {
+      v22 = 0;
+      if (!v19)
+      {
+        goto LABEL_22;
+      }
+    }
+
+    else
+    {
+      if (!v45)
+      {
+        sub_46A74();
+      }
+
+      v22 = (*(*v45 + 48))(v45, *v21);
+      if (!v19)
+      {
+LABEL_22:
+        sub_271240(buf);
+        if ((v22 & 1) == 0)
+        {
+          v23 = sub_C2CA8(*v5, (v5 + 32));
+          if (v23 >= 0x100u && (v23 & 1) != 0)
+          {
+            v24 = sub_5544(8);
+            v25 = sub_5544(35);
+            v26 = 0;
+            *buf = 0x100000002;
+            v27 = *(v24 + 8);
+            while (1)
+            {
+              v28 = *&buf[v26];
+              if (((v27 & v28) != 0) != ((*(v25 + 8) & v28) != 0))
+              {
+                break;
+              }
+
+              v26 += 4;
+              if (v26 == 8)
+              {
+                goto LABEL_42;
+              }
+            }
+
+            if ((v27 & v28) == 0)
+            {
+              v24 = v25;
+            }
+
+LABEL_42:
+            v30 = *v24;
+            if (v30 && os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 136315394;
+              *&buf[4] = "RoutingManager.cpp";
+              v43 = 1024;
+              v44 = 4328;
+              _os_log_impl(&dword_0, v30, OS_LOG_TYPE_DEFAULT, "%25s:%-5d System Audio Effects Settings update ignored.", buf, 0x12u);
+            }
+
+            sub_21991C(v37, 1920099684);
+            sub_210C50(&v34);
+            sub_256828(a2, v37);
+            if (v41 == 1)
+            {
+              sub_175F78(v40);
+            }
+
+            return;
+          }
+        }
+
+LABEL_23:
+        sub_271104(v37, v5, 1919185776);
+      }
+    }
+
+    operator delete(v19);
+    goto LABEL_22;
+  }
+
+  v13 = sub_5544(9);
+  v14 = sub_5544(16);
+  v15 = 0;
+  *v37 = 0x100000002;
+  v16 = *(v13 + 8);
+  while (1)
+  {
+    v17 = *&v37[v15];
+    if (((v16 & v17) != 0) != ((*(v14 + 8) & v17) != 0))
+    {
+      break;
+    }
+
+    v15 += 4;
+    if (v15 == 8)
+    {
+      goto LABEL_34;
+    }
+  }
+
+  if ((v16 & v17) == 0)
+  {
+    v13 = v14;
+  }
+
+LABEL_34:
+  v29 = *v13;
+  if (*v13 && os_log_type_enabled(*v13, OS_LOG_TYPE_ERROR))
+  {
+    *v37 = 136315394;
+    *&v37[4] = "SystemSettingsCommands_Aspen.cpp";
+    v38 = 1024;
+    v39 = 57;
+    _os_log_impl(&dword_0, v29, OS_LOG_TYPE_ERROR, "%25s:%-5d Routing manager does not exist -- cannot execute command", v37, 0x12u);
+  }
+}
+
+void sub_312418(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, __int16 a10, char a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, char a26)
+{
+  __cxa_free_exception(v27);
+  sub_210C50(&a12);
+  if (*(v26 + 56) == 1)
+  {
+    sub_175F78((v26 + 24));
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_3124F4(void *a1@<X8>)
+{
+  sub_20301C(a1, 1);
+  v2 = sub_8703C();
+  (*(*v2 + 344))(v28);
+  v3 = *v28;
+  if (*v28)
+  {
+    sub_27A4();
+    v27 = (*(qword_6E94F8 + 16))();
+    sub_27A4();
+    v4 = atomic_load(&qword_6E9558);
+    if (v4 != pthread_self())
+    {
+      v24 = sub_5544(14);
+      v25 = *v24;
+      if (*v24 && os_log_type_enabled(*v24, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        *&buf[4] = "RoutingManager.cpp";
+        v34 = 1024;
+        v35 = 4618;
+        _os_log_impl(&dword_0, v25, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::runtime_error): Unable to acquire routing mutex.", buf, 0x12u);
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Unable to acquire routing mutex.");
+    }
+
+    v5 = sub_5544(8);
+    v6 = sub_5544(35);
+    v7 = 0;
+    *buf = 0x100000002;
+    v8 = *(v5 + 8);
+    while (1)
+    {
+      v9 = *&buf[v7];
+      if (((v8 & v9) != 0) != ((*(v6 + 8) & v9) != 0))
+      {
+        break;
+      }
+
+      v7 += 4;
+      if (v7 == 8)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    if ((v8 & v9) == 0)
+    {
+      v5 = v6;
+    }
+
+LABEL_13:
+    v15 = *v5;
+    if (v15 && os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      *buf = 136315394;
+      *&buf[4] = "RoutingManager.cpp";
+      v34 = 1024;
+      v35 = 4620;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "%25s:%-5d Hearing Aids Call Audio System Settings update.", buf, 0x12u);
+    }
+
+    v16 = *(v3 + 32);
+    if (v16 > 1668313714)
+    {
+      if (v16 == 1668703084 || v16 == 1668576377)
+      {
+        goto LABEL_42;
+      }
+
+      v17 = 29299;
+    }
+
+    else
+    {
+      if (v16 == 1668301427 || v16 == 1668309362)
+      {
+        goto LABEL_24;
+      }
+
+      v17 = 29250;
+    }
+
+    if (v16 != (v17 | 0x63700000))
+    {
+      goto LABEL_43;
+    }
+
+LABEL_24:
+    v18 = *(v3 + 36);
+    if (v18 > 1919776354)
+    {
+      if (v18 > 1987081832)
+      {
+        if (v18 == 1987081839)
+        {
+          goto LABEL_42;
+        }
+
+        v21 = 30313;
+      }
+
+      else
+      {
+        if (v18 == 1919776355)
+        {
+          goto LABEL_42;
+        }
+
+        v21 = 26467;
+      }
+
+      v19 = v21 | 0x76700000;
+    }
+
+    else
+    {
+      if (v18 <= 1768779618)
+      {
+        if (v18 != 1735222132)
+        {
+          v19 = 1768057203;
+          goto LABEL_41;
+        }
+
+LABEL_42:
+        v22 = sub_8703C();
+        v23 = (*(*v22 + 104))(v22);
+        sub_271424(v3, v23);
+LABEL_43:
+        sub_21991C(v28, 1920099684);
+        sub_210C50(&v27);
+        sub_256828(a1, v28);
+        if (v32 == 1)
+        {
+          sub_175F78(v31);
+        }
+
+        return;
+      }
+
+      if (v18 == 1768779619)
+      {
+        goto LABEL_42;
+      }
+
+      v19 = 1768781411;
+    }
+
+LABEL_41:
+    if (v18 != v19)
+    {
+      goto LABEL_43;
+    }
+
+    goto LABEL_42;
+  }
+
+  v10 = sub_5544(9);
+  v11 = sub_5544(16);
+  v12 = 0;
+  *v28 = 0x100000002;
+  v13 = *(v10 + 8);
+  while (1)
+  {
+    v14 = *&v28[v12];
+    if (((v13 & v14) != 0) != ((*(v11 + 8) & v14) != 0))
+    {
+      break;
+    }
+
+    v12 += 4;
+    if (v12 == 8)
+    {
+      goto LABEL_30;
+    }
+  }
+
+  if ((v13 & v14) == 0)
+  {
+    v10 = v11;
+  }
+
+LABEL_30:
+  v20 = *v10;
+  if (*v10 && os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR))
+  {
+    *v28 = 136315394;
+    *&v28[4] = "SystemSettingsCommands_Aspen.cpp";
+    v29 = 1024;
+    v30 = 75;
+    _os_log_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d Routing manager does not exist -- cannot execute command", v28, 0x12u);
+  }
+}
+
+void sub_3129A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+{
+  __cxa_free_exception(v22);
+  sub_210C50(&a13);
+  if (*(v21 + 56) == 1)
+  {
+    sub_175F78((v21 + 24));
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_312A54(void *a1@<X8>)
+{
+  sub_20301C(a1, 1);
+  v2 = sub_8703C();
+  (*(*v2 + 344))(v24);
+  v3 = *v24;
+  if (*v24)
+  {
+    sub_27A4();
+    v23 = (*(qword_6E94F8 + 16))();
+    sub_27A4();
+    v4 = atomic_load(&qword_6E9558);
+    if (v4 != pthread_self())
+    {
+      v20 = sub_5544(14);
+      v21 = *v20;
+      if (*v20 && os_log_type_enabled(*v20, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        *&buf[4] = "RoutingManager.cpp";
+        v30 = 1024;
+        v31 = 4635;
+        _os_log_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::runtime_error): Unable to acquire routing mutex.", buf, 0x12u);
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Unable to acquire routing mutex.");
+    }
+
+    v5 = sub_5544(8);
+    v6 = sub_5544(35);
+    v7 = 0;
+    *buf = 0x100000002;
+    v8 = *(v5 + 8);
+    while (1)
+    {
+      v9 = *&buf[v7];
+      if (((v8 & v9) != 0) != ((*(v6 + 8) & v9) != 0))
+      {
+        break;
+      }
+
+      v7 += 4;
+      if (v7 == 8)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    if ((v8 & v9) == 0)
+    {
+      v5 = v6;
+    }
+
+LABEL_13:
+    v15 = *v5;
+    if (v15 && os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      *buf = 136315394;
+      *&buf[4] = "RoutingManager.cpp";
+      v30 = 1024;
+      v31 = 4637;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "%25s:%-5d Hearing Aids Media Audio System Settings update.", buf, 0x12u);
+    }
+
+    v16 = *(v3 + 32);
+    if (v16 == 1668505974 || v16 == 1668182896)
+    {
+      v17 = sub_8703C();
+      v18 = (*(*v17 + 112))(v17);
+      sub_271424(v3, v18);
+    }
+
+    sub_21991C(v24, 1920099684);
+    sub_210C50(&v23);
+    sub_256828(a1, v24);
+    if (v28 == 1)
+    {
+      sub_175F78(v27);
+    }
+  }
+
+  else
+  {
+    v10 = sub_5544(9);
+    v11 = sub_5544(16);
+    v12 = 0;
+    *v24 = 0x100000002;
+    v13 = *(v10 + 8);
+    while (1)
+    {
+      v14 = *&v24[v12];
+      if (((v13 & v14) != 0) != ((*(v11 + 8) & v14) != 0))
+      {
+        break;
+      }
+
+      v12 += 4;
+      if (v12 == 8)
+      {
+        goto LABEL_23;
+      }
+    }
+
+    if ((v13 & v14) == 0)
+    {
+      v10 = v11;
+    }
+
+LABEL_23:
+    v19 = *v10;
+    if (*v10 && os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR))
+    {
+      *v24 = 136315394;
+      *&v24[4] = "SystemSettingsCommands_Aspen.cpp";
+      v25 = 1024;
+      v26 = 93;
+      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d Routing manager does not exist -- cannot execute command", v24, 0x12u);
+    }
+  }
+}
+
+void sub_312E18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+{
+  __cxa_free_exception(v22);
+  sub_210C50(&a13);
+  if (*(v21 + 56) == 1)
+  {
+    sub_175F78((v21 + 24));
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_312EC8(void *a1@<X8>)
+{
+  sub_20301C(a1, 1);
+  v2 = sub_8703C();
+  (*(*v2 + 344))(buf);
+  v3 = *buf;
+  if (*buf)
+  {
+    sub_27A4();
+    v25 = (*(qword_6E94F8 + 16))();
+    sub_27A4();
+    v4 = atomic_load(&qword_6E9558);
+    if (v4 != pthread_self())
+    {
+      v18 = sub_5544(14);
+      v19 = *v18;
+      if (*v18 && os_log_type_enabled(*v18, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        *&buf[4] = "RoutingManager.cpp";
+        *&buf[12] = 1024;
+        *&buf[14] = 4652;
+        _os_log_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::runtime_error): Unable to acquire routing mutex.", buf, 0x12u);
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Unable to acquire routing mutex.");
+    }
+
+    v5 = sub_5544(8);
+    v6 = sub_5544(35);
+    v7 = 0;
+    *buf = 0x100000002;
+    v8 = *(v5 + 8);
+    while (1)
+    {
+      v9 = *&buf[v7];
+      if (((v8 & v9) != 0) != ((*(v6 + 8) & v9) != 0))
+      {
+        break;
+      }
+
+      v7 += 4;
+      if (v7 == 8)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    if ((v8 & v9) == 0)
+    {
+      v5 = v6;
+    }
+
+LABEL_13:
+    v15 = *v5;
+    if (v15 && os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      *buf = 136315394;
+      *&buf[4] = "RoutingManager.cpp";
+      *&buf[12] = 1024;
+      *&buf[14] = 4654;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "%25s:%-5d Hearing Aids System Sounds System Settings update.", buf, 0x12u);
+    }
+
+    memset(buf, 0, sizeof(buf));
+    strcpy(v28, "cwdv");
+    v28[8] = 0;
+    v29 = 3;
+    v31[0] = 0;
+    v31[1] = 0;
+    v30 = v31;
+    v32 = 44739242;
+    v34 = 0;
+    v35 = 0;
+    __p = 0;
+    LODWORD(v26[0]) = 1886152047;
+    sub_AFD28(buf, v26);
+    v32 &= 0xFFFFFFF0;
+    v16 = sub_809C0();
+    v26[0] = off_6BC4E0;
+    v26[3] = v26;
+    sub_256FB0(v24, v16, buf, v26);
+    sub_85148(v26);
+    if (v24[2])
+    {
+      sub_271104(v21, v3, 1919185776);
+    }
+
+    sub_21991C(v21, 1920099684);
+    sub_65310(v24);
+    if (SHIBYTE(v35) < 0)
+    {
+      operator delete(__p);
+    }
+
+    sub_477A0(v31[0]);
+    if (*buf)
+    {
+      *&buf[8] = *buf;
+      operator delete(*buf);
+    }
+
+    sub_210C50(&v25);
+    sub_256828(a1, v21);
+    if (v23 == 1)
+    {
+      sub_175F78(v22);
+    }
+  }
+
+  else
+  {
+    v10 = sub_5544(9);
+    v11 = sub_5544(16);
+    v12 = 0;
+    *buf = 0x100000002;
+    v13 = *(v10 + 8);
+    while (1)
+    {
+      v14 = *&buf[v12];
+      if (((v13 & v14) != 0) != ((*(v11 + 8) & v14) != 0))
+      {
+        break;
+      }
+
+      v12 += 4;
+      if (v12 == 8)
+      {
+        goto LABEL_26;
+      }
+    }
+
+    if ((v13 & v14) == 0)
+    {
+      v10 = v11;
+    }
+
+LABEL_26:
+    v17 = *v10;
+    if (*v10 && os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      *&buf[4] = "SystemSettingsCommands_Aspen.cpp";
+      *&buf[12] = 1024;
+      *&buf[14] = 111;
+      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d Routing manager does not exist -- cannot execute command", buf, 0x12u);
+    }
+  }
+}
+
+void sub_313340(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+{
+  __cxa_free_exception(v31);
+  sub_210C50(&a25);
+  if (*(v30 + 56) == 1)
+  {
+    sub_175F78((v30 + 24));
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_31341C(void *a1@<X8>)
+{
+  sub_20301C(a1, 1);
+  v1 = sub_8703C();
+  (*(*v1 + 344))(v19);
+  v2 = *v19;
+  if (*v19)
+  {
+    sub_27A4();
+    (*(qword_6E94F8 + 16))();
+    sub_27A4();
+    v3 = atomic_load(&qword_6E9558);
+    if (v3 != pthread_self())
+    {
+      v16 = sub_5544(14);
+      v17 = *v16;
+      if (*v16 && os_log_type_enabled(*v16, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        *&buf[4] = "RoutingManager.cpp";
+        v23 = 1024;
+        v24 = 4357;
+        _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::runtime_error): Unable to acquire routing mutex.", buf, 0x12u);
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Unable to acquire routing mutex.");
+    }
+
+    v4 = sub_5544(8);
+    v5 = sub_5544(35);
+    v6 = 0;
+    *buf = 0x100000002;
+    v7 = *(v4 + 8);
+    while (1)
+    {
+      v8 = *&buf[v6];
+      if (((v7 & v8) != 0) != ((*(v5 + 8) & v8) != 0))
+      {
+        break;
+      }
+
+      v6 += 4;
+      if (v6 == 8)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    if ((v7 & v8) == 0)
+    {
+      v4 = v5;
+    }
+
+LABEL_13:
+    v14 = *v4;
+    if (v14)
+    {
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136315394;
+        *&buf[4] = "RoutingManager.cpp";
+        v23 = 1024;
+        v24 = 4359;
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Bluetooth required a route configuration change.", buf, 0x12u);
+      }
+    }
+
+    sub_271104(v19, v2, 1651799408);
+  }
+
+  v9 = sub_5544(9);
+  v10 = sub_5544(16);
+  v11 = 0;
+  *v19 = 0x100000002;
+  v12 = *(v9 + 8);
+  while (1)
+  {
+    v13 = *&v19[v11];
+    if (((v12 & v13) != 0) != ((*(v10 + 8) & v13) != 0))
+    {
+      break;
+    }
+
+    v11 += 4;
+    if (v11 == 8)
+    {
+      goto LABEL_19;
+    }
+  }
+
+  if ((v12 & v13) == 0)
+  {
+    v9 = v10;
+  }
+
+LABEL_19:
+  v15 = *v9;
+  if (*v9 && os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
+  {
+    *v19 = 136315394;
+    *&v19[4] = "SystemSettingsCommands_Aspen.cpp";
+    v20 = 1024;
+    v21 = 148;
+    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d Routing manager does not exist -- cannot execute command", v19, 0x12u);
+  }
+}
+
+void sub_31378C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+{
+  __cxa_free_exception(v22);
+  sub_210C50(&a13);
+  if (*(v21 + 56) == 1)
+  {
+    sub_175F78((v21 + 24));
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_31384C(std::__shared_weak_count *a1)
+{
+  a1->__vftable = off_6DB910;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  operator delete();
+}
+
+void sub_3138C0(void *a1, uint64_t **a2)
+{
+  v4 = (a1 + 12);
+  v5 = (*(*a1 + 120))(a1);
+  std::mutex::lock(v4);
+  v6 = *a2;
+  v7 = a2[1];
+  if (*a2 != v7)
+  {
+    v8 = (a1 + 21);
+    while (1)
+    {
+      v9 = *v6;
+      v36.mElement = *(v6 + 8);
+      *&v36.mSelector = v9;
+      v10 = *v8;
+      if (!*v8)
+      {
+        goto LABEL_11;
+      }
+
+      v11 = a1 + 21;
+      do
+      {
+        v12 = *(v10 + 8);
+        v13 = v12 >= v36.mSelector;
+        v14 = v12 < v36.mSelector;
+        if (v13)
+        {
+          v11 = v10;
+        }
+
+        v10 = v10[v14];
+      }
+
+      while (v10);
+      if (v11 == v8 || v36.mSelector < *(v11 + 8))
+      {
+        goto LABEL_11;
+      }
+
+      sub_4E890();
+      v15 = sub_74D2C(v5, &v36, sub_313C44, a1);
+      if (!v15)
+      {
+        break;
+      }
+
+      v16 = sub_5544(18);
+      v17 = *v16;
+      if (*v16 && os_log_type_enabled(*v16, OS_LOG_TYPE_INFO))
+      {
+        sub_22170(__p, v36.mSelector);
+        v18 = __p;
+        if (v35 < 0)
+        {
+          v18 = __p[0];
+        }
+
+        *buf = 136316162;
+        v38 = "PhysicalDevice.cpp";
+        v39 = 1024;
+        v40 = 671;
+        v41 = 1024;
+        v42 = v5;
+        v43 = 2080;
+        v44 = v18;
+        v45 = 2048;
+        v46 = v15;
+        v19 = v17;
+        v20 = "%25s:%-5d Device [%u] FAILED to remove device property [%s] listener with error code: %llx";
+        v21 = 44;
+LABEL_40:
+        _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, v20, buf, v21);
+        if (v35 < 0)
+        {
+          operator delete(__p[0]);
+        }
+      }
+
+LABEL_11:
+      v6 += 12;
+      if (v6 == v7)
+      {
+        goto LABEL_42;
+      }
+    }
+
+    v22 = *v8;
+    if (*v8)
+    {
+      v23 = a1 + 21;
+      v24 = *v8;
+      do
+      {
+        v25 = *(v24 + 8);
+        v13 = v25 >= v36.mSelector;
+        v26 = v25 < v36.mSelector;
+        if (v13)
+        {
+          v23 = v24;
+        }
+
+        v24 = v24[v26];
+      }
+
+      while (v24);
+      if (v23 != v8 && v36.mSelector >= *(v23 + 8))
+      {
+        v27 = v23[1];
+        v28 = v23;
+        if (v27)
+        {
+          do
+          {
+            v29 = v27;
+            v27 = *v27;
+          }
+
+          while (v27);
+        }
+
+        else
+        {
+          do
+          {
+            v29 = v28[2];
+            v30 = *v29 == v28;
+            v28 = v29;
+          }
+
+          while (!v30);
+        }
+
+        if (a1[20] == v23)
+        {
+          a1[20] = v29;
+        }
+
+        --a1[22];
+        sub_75234(v22, v23);
+        sub_477A0(v23[6]);
+        operator delete(v23);
+      }
+    }
+
+    v31 = sub_5544(18);
+    v32 = *v31;
+    if (!*v31 || !os_log_type_enabled(*v31, OS_LOG_TYPE_INFO))
+    {
+      goto LABEL_11;
+    }
+
+    sub_22170(__p, v36.mSelector);
+    v33 = __p;
+    if (v35 < 0)
+    {
+      v33 = __p[0];
+    }
+
+    *buf = 136315906;
+    v38 = "PhysicalDevice.cpp";
+    v39 = 1024;
+    v40 = 676;
+    v41 = 1024;
+    v42 = v5;
+    v43 = 2080;
+    v44 = v33;
+    v19 = v32;
+    v20 = "%25s:%-5d Device [%u] removed device property [%s] listener";
+    v21 = 34;
+    goto LABEL_40;
+  }
+
+LABEL_42:
+  std::mutex::unlock(v4);
+}
+
+uint64_t sub_313C44(int a1, unsigned int a2, unsigned int *a3, void *a4)
+{
+  v7 = sub_5544(18);
+  v8 = *v7;
+  if (*v7 && os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315650;
+    *&buf[4] = "PhysicalDevice.cpp";
+    v23 = 1024;
+    v24 = 687;
+    v25 = 1024;
+    LODWORD(v26) = a1;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d CommonPropertyChangeListener called on device : %u", buf, 0x18u);
+  }
+
+  if (a2)
+  {
+    v9 = sub_5544(18);
+    v10 = *v9;
+    if (*v9 && os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
+    {
+      sub_22170(v20, *a3);
+      v11 = v21;
+      v12 = v20[0];
+      (*(*a4 + 128))(__p, a4);
+      v13 = v20;
+      if (v11 < 0)
+      {
+        v13 = v12;
+      }
+
+      v14 = __p;
+      if (v19 < 0)
+      {
+        v14 = __p[0];
+      }
+
+      *buf = 136316162;
+      *&buf[4] = "PhysicalDevice.cpp";
+      v23 = 1024;
+      v24 = 692;
+      v25 = 2080;
+      v26 = v13;
+      v27 = 1024;
+      v28 = a1;
+      v29 = 2080;
+      v30 = v14;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Received notification (%s) from audio device %u with UID %s", buf, 0x2Cu);
+      if (v19 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      if (v21 < 0)
+      {
+        operator delete(v20[0]);
+      }
+    }
+
+    *buf = *a3;
+    *&buf[8] = a3[2];
+    v15 = a4[11];
+    if (v15)
+    {
+      atomic_fetch_add_explicit((v15 + 16), 1uLL, memory_order_relaxed);
+    }
+
+    sub_68E60();
+    operator new();
+  }
+
+  return 0;
+}
+
+void sub_313EEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+{
+  if (a21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t *sub_313F34(uint64_t *a1)
+{
+  v1 = *a1;
+  *a1 = 0;
+  if (v1)
+  {
+    v2 = *(v1 + 32);
+    if (v2)
+    {
+      std::__shared_weak_count::__release_weak(v2);
+    }
+
+    operator delete();
+  }
+
+  return a1;
+}
+
+uint64_t *sub_313F88(uint64_t *a1)
+{
+  v23 = a1;
+  v2 = a1[4];
+  if (v2)
+  {
+    v3 = *a1;
+    v4 = std::__shared_weak_count::lock(v2);
+    if (v4)
+    {
+      v5 = v4;
+      if (a1[3])
+      {
+        v6 = (*(*v3 + 120))(v3);
+        std::mutex::lock((v3 + 96));
+        v7 = *(v3 + 168);
+        if (!v7)
+        {
+          goto LABEL_28;
+        }
+
+        v8 = *(a1 + 2);
+        v9 = v3 + 168;
+        do
+        {
+          v10 = *(v7 + 32);
+          v11 = v10 >= v8;
+          v12 = v10 < v8;
+          if (v11)
+          {
+            v9 = v7;
+          }
+
+          v7 = *(v7 + 8 * v12);
+        }
+
+        while (v7);
+        if (v9 != v3 + 168 && v8 >= *(v9 + 32) && *(v9 + 56))
+        {
+          v13 = sub_5544(18);
+          v14 = *v13;
+          if (*v13 && os_log_type_enabled(*v13, OS_LOG_TYPE_INFO))
+          {
+            sub_22170(__p, *(a1 + 2));
+            v15 = v25 >= 0 ? __p : __p[0];
+            *buf = 136315906;
+            v27 = "PhysicalDevice.cpp";
+            v28 = 1024;
+            v29 = 719;
+            v30 = 2080;
+            v31 = v15;
+            v32 = 1024;
+            v33 = v6;
+            _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "%25s:%-5d Handle property (%s) change from device: %u", buf, 0x22u);
+            if (v25 < 0)
+            {
+              operator delete(__p[0]);
+            }
+          }
+
+          v16 = *(v9 + 40);
+          if (v16 != (v9 + 48))
+          {
+            do
+            {
+              (v16[4])(v6, 1, a1 + 1, v16[5]);
+              v17 = v16[1];
+              if (v17)
+              {
+                do
+                {
+                  v18 = v17;
+                  v17 = *v17;
+                }
+
+                while (v17);
+              }
+
+              else
+              {
+                do
+                {
+                  v18 = v16[2];
+                  v19 = *v18 == v16;
+                  v16 = v18;
+                }
+
+                while (!v19);
+              }
+
+              v16 = v18;
+            }
+
+            while (v18 != (v9 + 48));
+          }
+        }
+
+        else
+        {
+LABEL_28:
+          v20 = sub_5544(18);
+          v21 = *v20;
+          if (*v20 && os_log_type_enabled(*v20, OS_LOG_TYPE_INFO))
+          {
+            *buf = 136315650;
+            v27 = "PhysicalDevice.cpp";
+            v28 = 1024;
+            v29 = 712;
+            v30 = 1024;
+            LODWORD(v31) = v6;
+            _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "%25s:%-5d No property change handler registered on device: %u", buf, 0x18u);
+          }
+        }
+
+        std::mutex::unlock((v3 + 96));
+      }
+
+      sub_1A8C0(v5);
+    }
+  }
+
+  return sub_313F34(&v23);
+}
+
+void sub_3142EC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, __int128 buf, __int128 a19, int a20, __int16 a21, __int16 a22, int a23)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  std::mutex::unlock((v24 + 96));
+  sub_1A8C0(v23);
+  if (a2 == 3)
+  {
+    v27 = __cxa_begin_catch(a1);
+    v28 = sub_5544(14);
+    v29 = *v28;
+    if (*v28 && os_log_type_enabled(*v28, OS_LOG_TYPE_ERROR))
+    {
+      sub_22170(&__p, v27[2]);
+      p_p = __p;
+      if (a17 >= 0)
+      {
+        p_p = &__p;
+      }
+
+      LODWORD(buf) = 136316162;
+      *(&buf + 4) = "StandardUtilities.h";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 660;
+      WORD1(a19) = 2080;
+      *(&a19 + 4) = p_p;
+      WORD6(a19) = 2080;
+      *(&a19 + 14) = "";
+      a22 = 1024;
+      a23 = 98;
+      _os_log_impl(&dword_0, v29, OS_LOG_TYPE_ERROR, "%25s:%-5d CAException caught by ExceptionBarrier: '%s' (%s:%d).", &buf, 0x2Cu);
+      if (a17 < 0)
+      {
+        operator delete(__p);
+      }
+    }
+
+LABEL_17:
+    __cxa_end_catch();
+    JUMPOUT(0x3142A8);
+  }
+
+  v31 = __cxa_begin_catch(a1);
+  if (a2 == 2)
+  {
+    v32 = v31;
+    v33 = sub_5544(14);
+    v34 = *v33;
+    if (!*v33 || !os_log_type_enabled(*v33, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_17;
+    }
+
+    v35 = (*(*v32 + 16))(v32);
+    LODWORD(buf) = 136316162;
+    *(&buf + 4) = "StandardUtilities.h";
+    WORD6(buf) = 1024;
+    *(&buf + 14) = 665;
+    WORD1(a19) = 2080;
+    *(&a19 + 4) = v35;
+    WORD6(a19) = 2080;
+    *(&a19 + 14) = "";
+    a22 = 1024;
+    a23 = 98;
+    v36 = "%25s:%-5d Standard Library exception caught by ExceptionBarrier: %s (%s:%d).";
+    v37 = v34;
+    v38 = 44;
+  }
+
+  else
+  {
+    v39 = sub_5544(14);
+    v40 = *v39;
+    if (!*v39 || !os_log_type_enabled(*v39, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_17;
+    }
+
+    LODWORD(buf) = 136315906;
+    *(&buf + 4) = "StandardUtilities.h";
+    WORD6(buf) = 1024;
+    *(&buf + 14) = 670;
+    WORD1(a19) = 2080;
+    *(&a19 + 4) = "";
+    WORD6(a19) = 1024;
+    *(&a19 + 14) = 98;
+    v36 = "%25s:%-5d Unknown exception caught by ExceptionBarrier (%s:%d).";
+    v37 = v40;
+    v38 = 34;
+  }
+
+  _os_log_impl(&dword_0, v37, OS_LOG_TYPE_ERROR, v36, &buf, v38);
+  goto LABEL_17;
+}
+
+void sub_314588(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+{
+  va_start(va, a4);
+  __cxa_end_catch();
+  sub_313F34(va);
+  JUMPOUT(0x3145CCLL);
+}
+
+uint64_t *sub_3145D4(uint64_t **a1, uint64_t *a2)
+{
+  v2 = a2[1];
+  if (v2)
+  {
+    do
+    {
+      v3 = v2;
+      v2 = *v2;
+    }
+
+    while (v2);
+  }
+
+  else
+  {
+    v4 = a2;
+    do
+    {
+      v3 = v4[2];
+      v5 = *v3 == v4;
+      v4 = v3;
+    }
+
+    while (!v5);
+  }
+
+  if (*a1 == a2)
+  {
+    *a1 = v3;
+  }
+
+  v6 = a1[1];
+  a1[2] = (a1[2] - 1);
+  sub_75234(v6, a2);
+  return v3;
+}
+
+void sub_314648(unint64_t a1)
+{
+  v2 = (*(*a1 + 120))(a1);
+  std::mutex::lock((a1 + 96));
+  v3 = *(a1 + 160);
+  v35 = a1;
+  v4 = (a1 + 168);
+  if (v3 != v4)
+  {
+    v30 = v4;
+    while (1)
+    {
+      v40.mSelector = *(v3 + 8);
+      *&v40.mScope = 1735159650;
+      if (!v3[7])
+      {
+        goto LABEL_39;
+      }
+
+      v5 = v2;
+      sub_2288C(v50);
+      v6 = v3[5];
+      if (v6 != v3 + 6)
+      {
+        do
+        {
+          v7 = std::ostream::operator<<();
+          sub_22564(v7, " ", 1);
+          v8 = v6[1];
+          if (v8)
+          {
+            do
+            {
+              v9 = v8;
+              v8 = *v8;
+            }
+
+            while (v8);
+          }
+
+          else
+          {
+            do
+            {
+              v9 = v6[2];
+              v10 = *v9 == v6;
+              v6 = v9;
+            }
+
+            while (!v10);
+          }
+
+          v6 = v9;
+        }
+
+        while (v9 != v3 + 6);
+      }
+
+      v11 = sub_5544(18);
+      v12 = *v11;
+      v2 = v5;
+      if (*v11)
+      {
+        if (os_log_type_enabled(*v11, OS_LOG_TYPE_INFO))
+        {
+          break;
+        }
+      }
+
+LABEL_36:
+      *v50 = v34;
+      *&v50[*(v34 - 24)] = v33;
+      *&v52[2] = v32;
+      if (v60 < 0)
+      {
+        operator delete(v59);
+      }
+
+      std::locale::~locale(&v53[8]);
+      std::iostream::~basic_iostream();
+      std::ios::~ios();
+LABEL_39:
+      sub_4E890();
+      v18 = sub_74D2C(v2, &v40, sub_313C44, v35);
+      if (v18)
+      {
+        v19 = sub_5544(18);
+        v20 = *v19;
+        if (*v19 && os_log_type_enabled(*v19, OS_LOG_TYPE_INFO))
+        {
+          sub_22170(buf, v40.mSelector);
+          v21 = buf;
+          if (v45 < 0)
+          {
+            v21 = *buf;
+          }
+
+          *v50 = 136316162;
+          *&v50[4] = "PhysicalDevice.cpp";
+          v51 = 1024;
+          *v52 = 640;
+          *&v52[4] = 1024;
+          *&v52[6] = v2;
+          *v53 = 2080;
+          *&v53[2] = v21;
+          v54 = 2048;
+          *v55 = v18;
+          v22 = v20;
+          v23 = "%25s:%-5d Device [%u] FAILED to remove device property [%s] listener with error code: %llx";
+          v24 = 44;
+LABEL_50:
+          _os_log_impl(&dword_0, v22, OS_LOG_TYPE_INFO, v23, v50, v24);
+          if (SHIBYTE(v45) < 0)
+          {
+            operator delete(*buf);
+          }
+        }
+      }
+
+      else
+      {
+        v25 = sub_5544(18);
+        v26 = *v25;
+        if (*v25 && os_log_type_enabled(*v25, OS_LOG_TYPE_INFO))
+        {
+          sub_22170(buf, v40.mSelector);
+          v27 = buf;
+          if (v45 < 0)
+          {
+            v27 = *buf;
+          }
+
+          *v50 = 136315906;
+          *&v50[4] = "PhysicalDevice.cpp";
+          v51 = 1024;
+          *v52 = 644;
+          *&v52[4] = 1024;
+          *&v52[6] = v2;
+          *v53 = 2080;
+          *&v53[2] = v27;
+          v22 = v26;
+          v23 = "%25s:%-5d Device [%u] removed device property [%s] listener";
+          v24 = 34;
+          goto LABEL_50;
+        }
+      }
+
+      v28 = v3[1];
+      if (v28)
+      {
+        do
+        {
+          v29 = v28;
+          v28 = *v28;
+        }
+
+        while (v28);
+      }
+
+      else
+      {
+        do
+        {
+          v29 = v3[2];
+          v10 = *v29 == v3;
+          v3 = v29;
+        }
+
+        while (!v10);
+      }
+
+      v3 = v29;
+      if (v29 == v4)
+      {
+        goto LABEL_58;
+      }
+    }
+
+    sub_22170(__p, v40.mSelector);
+    if (v39 >= 0)
+    {
+      v13 = __p;
+    }
+
+    else
+    {
+      v13 = __p[0];
+    }
+
+    if ((v62 & 0x10) != 0)
+    {
+      v15 = v61;
+      if (v61 < v58)
+      {
+        v61 = v58;
+        v15 = v58;
+      }
+
+      v16 = __src;
+    }
+
+    else
+    {
+      if ((v62 & 8) == 0)
+      {
+        v14 = 0;
+        v37 = 0;
+LABEL_30:
+        *(&__dst + v14) = 0;
+        p_dst = &__dst;
+        if (v37 < 0)
+        {
+          p_dst = __dst;
+        }
+
+        *buf = 136316162;
+        *&buf[4] = "PhysicalDevice.cpp";
+        v42 = 1024;
+        v43 = 631;
+        v44 = 1024;
+        v45 = v5;
+        v46 = 2080;
+        v47 = v13;
+        v48 = 2080;
+        v49 = p_dst;
+        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "%25s:%-5d Device [%u] contains property [%s] listeners that have not been un-registered by clients: %s", buf, 0x2Cu);
+        if (v37 < 0)
+        {
+          operator delete(__dst);
+        }
+
+        v4 = v30;
+        if (v39 < 0)
+        {
+          operator delete(__p[0]);
+        }
+
+        goto LABEL_36;
+      }
+
+      v16 = *&v55[4];
+      v15 = v56;
+    }
+
+    v14 = v15 - v16;
+    if (v15 - v16 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      sub_755AC();
+    }
+
+    v31 = v13;
+    if (v14 >= 0x17)
+    {
+      operator new();
+    }
+
+    v37 = v15 - v16;
+    if (v14)
+    {
+      memmove(&__dst, v16, v14);
+    }
+
+    v13 = v31;
+    goto LABEL_30;
+  }
+
+LABEL_58:
+  sub_2492C0(*(v35 + 168));
+  *(v35 + 168) = 0;
+  *(v35 + 176) = 0;
+  *(v35 + 160) = v4;
+  std::mutex::unlock((v35 + 96));
+}
+
+void sub_314C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
+{
+  if (SHIBYTE(a27) < 0)
+  {
+    operator delete(a25);
+  }
+
+  sub_1D3DAC(&a36);
+  std::ios::~ios();
+  std::mutex::unlock((a21 + 96));
+  _Unwind_Resume(a1);
+}
+
+void sub_314D00(uint64_t **a1, unsigned int **a2)
+{
+  v2 = *a2;
+  v3 = a2[1];
+  if (*a2 != v3)
+  {
+    v5 = a1 + 21;
+    do
+    {
+      if (((*a1)[2])(a1, v2))
+      {
+        v6 = *v2;
+        v55.mElement = v2[2];
+        *&v55.mSelector = v6;
+        v7 = *v5;
+        if (!*v5)
+        {
+          goto LABEL_12;
+        }
+
+        v8 = v5;
+        do
+        {
+          v9 = *(v7 + 32);
+          v10 = v9 >= v55.mSelector;
+          v11 = v9 < v55.mSelector;
+          if (v10)
+          {
+            v8 = v7;
+          }
+
+          v7 = *(v7 + 8 * v11);
+        }
+
+        while (v7);
+        if (v8 != v5 && v55.mSelector >= *(v8 + 8))
+        {
+          v47 = sub_5544(18);
+          v48 = *v47;
+          if (*v47 && os_log_type_enabled(*v47, OS_LOG_TYPE_INFO))
+          {
+            v49 = ((*a1)[15])(a1);
+            sub_22170(v58, v55.mSelector);
+            v50 = v59;
+            v51 = v58[0];
+            sub_22170(__p, v55.mScope);
+            if (v50 >= 0)
+            {
+              v52 = v58;
+            }
+
+            else
+            {
+              v52 = v51;
+            }
+
+            v53 = __p;
+            if (v57 < 0)
+            {
+              v53 = __p[0];
+            }
+
+            *buf = 136316162;
+            *&buf[4] = "PhysicalDevice.cpp";
+            v61 = 1024;
+            v62 = 585;
+            v63 = 1024;
+            v64 = v49;
+            v65 = 2080;
+            v66 = v52;
+            v67 = 2080;
+            v68 = v53;
+            v21 = v48;
+            v22 = OS_LOG_TYPE_INFO;
+            v23 = "%25s:%-5d Device %d already added listener for property '%s' '%s'";
+            goto LABEL_58;
+          }
+        }
+
+        else
+        {
+LABEL_12:
+          sub_4E890();
+          v12 = ((*a1)[15])(a1);
+          v13 = sub_73838(v12, &v55, sub_313C44, a1);
+          if (!v13)
+          {
+            *buf = &v55;
+            v32 = sub_31532C(a1 + 20, v55.mSelector, buf);
+            if (v32[7])
+            {
+              v34 = v32[6];
+              v33 = v32 + 6;
+              v35 = *(v33 - 1);
+              *(v33 - 1) = v33;
+              *(v34 + 16) = 0;
+              *v33 = 0;
+              v33[1] = 0;
+              if (v35[1])
+              {
+                v36 = v35[1];
+              }
+
+              else
+              {
+                v36 = v35;
+              }
+
+              if (v36)
+              {
+                v37 = v36[2];
+                if (v37)
+                {
+                  v38 = *v37;
+                  if (*v37 == v36)
+                  {
+                    *v37 = 0;
+                    while (1)
+                    {
+                      v54 = v37[1];
+                      if (!v54)
+                      {
+                        break;
+                      }
+
+                      do
+                      {
+                        v37 = v54;
+                        v54 = *v54;
+                      }
+
+                      while (v54);
+                    }
+                  }
+
+                  else
+                  {
+                    for (v37[1] = 0; v38; v38 = v37[1])
+                    {
+                      do
+                      {
+                        v37 = v38;
+                        v38 = *v38;
+                      }
+
+                      while (v38);
+                    }
+                  }
+
+                  sub_477A0(v36);
+                  for (i = v37[2]; i; i = i[2])
+                  {
+                    v37 = i;
+                  }
+
+                  v36 = v37;
+                }
+              }
+
+              sub_477A0(v36);
+            }
+
+            v40 = sub_5544(18);
+            v41 = *v40;
+            if (!*v40 || !os_log_type_enabled(*v40, OS_LOG_TYPE_INFO))
+            {
+              goto LABEL_63;
+            }
+
+            v42 = ((*a1)[15])(a1);
+            sub_22170(v58, v55.mSelector);
+            v43 = v59;
+            v44 = v58[0];
+            sub_22170(__p, v55.mScope);
+            v45 = v58;
+            if (v43 < 0)
+            {
+              v45 = v44;
+            }
+
+            v46 = __p;
+            if (v57 < 0)
+            {
+              v46 = __p[0];
+            }
+
+            *buf = 136316162;
+            *&buf[4] = "PhysicalDevice.cpp";
+            v61 = 1024;
+            v62 = 579;
+            v63 = 1024;
+            v64 = v42;
+            v65 = 2080;
+            v66 = v45;
+            v67 = 2080;
+            v68 = v46;
+            v21 = v41;
+            v22 = OS_LOG_TYPE_INFO;
+            v23 = "%25s:%-5d Device %d added property listener for '%s' '%s'";
+LABEL_58:
+            v24 = 44;
+LABEL_59:
+            _os_log_impl(&dword_0, v21, v22, v23, buf, v24);
+            if (v57 < 0)
+            {
+              operator delete(__p[0]);
+            }
+
+            if (v59 < 0)
+            {
+              operator delete(v58[0]);
+            }
+
+            goto LABEL_63;
+          }
+
+          v14 = sub_5544(18);
+          v15 = *v14;
+          if (*v14 && os_log_type_enabled(*v14, OS_LOG_TYPE_ERROR))
+          {
+            v16 = ((*a1)[15])(a1);
+            sub_22170(v58, *v2);
+            v17 = v59;
+            v18 = v58[0];
+            sub_22170(__p, v2[1]);
+            if (v17 >= 0)
+            {
+              v19 = v58;
+            }
+
+            else
+            {
+              v19 = v18;
+            }
+
+            v20 = __p;
+            if (v57 < 0)
+            {
+              v20 = __p[0];
+            }
+
+            *buf = 136316418;
+            *&buf[4] = "PhysicalDevice.cpp";
+            v61 = 1024;
+            v62 = 600;
+            v63 = 1024;
+            v64 = v16;
+            v65 = 2080;
+            v66 = v19;
+            v67 = 2080;
+            v68 = v20;
+            v69 = 1024;
+            v70 = v13;
+            v21 = v15;
+            v22 = OS_LOG_TYPE_ERROR;
+            v23 = "%25s:%-5d Device %d failed to add property '%s' '%s', reason: %u";
+            v24 = 50;
+            goto LABEL_59;
+          }
+        }
+      }
+
+      else
+      {
+        v25 = sub_5544(18);
+        v26 = *v25;
+        if (*v25 && os_log_type_enabled(*v25, OS_LOG_TYPE_DEFAULT))
+        {
+          v27 = ((*a1)[15])(a1);
+          sub_22170(v58, *v2);
+          v28 = v59;
+          v29 = v58[0];
+          sub_22170(__p, v2[1]);
+          if (v28 >= 0)
+          {
+            v30 = v58;
+          }
+
+          else
+          {
+            v30 = v29;
+          }
+
+          v31 = __p;
+          if (v57 < 0)
+          {
+            v31 = __p[0];
+          }
+
+          *buf = 136316162;
+          *&buf[4] = "PhysicalDevice.cpp";
+          v61 = 1024;
+          v62 = 606;
+          v63 = 1024;
+          v64 = v27;
+          v65 = 2080;
+          v66 = v30;
+          v67 = 2080;
+          v68 = v31;
+          v21 = v26;
+          v22 = OS_LOG_TYPE_DEFAULT;
+          v23 = "%25s:%-5d Device %d does not have property '%s' '%s', cannot register listener";
+          goto LABEL_58;
+        }
+      }
+
+LABEL_63:
+      v2 += 3;
+    }
+
+    while (v2 != v3);
+  }
+}
+
+void sub_3152FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+{
+  if (a23 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t *sub_31532C(uint64_t **a1, unsigned int a2, _DWORD **a3)
+{
+  v3 = a1[1];
+  if (!v3)
+  {
+LABEL_7:
+    operator new();
+  }
+
+  while (1)
+  {
+    while (1)
+    {
+      v4 = v3;
+      v5 = *(v3 + 8);
+      if (v5 <= a2)
+      {
+        break;
+      }
+
+      v3 = *v4;
+      if (!*v4)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    if (v5 >= a2)
+    {
+      return v4;
+    }
+
+    v3 = v4[1];
+    if (!v3)
+    {
+      goto LABEL_7;
+    }
+  }
+}
+
+void *sub_31541C(uint64_t a1, void *a2, unint64_t a3, unint64_t a4)
+{
+  v6 = *(a1 + 8);
+  result = (a1 + 8);
+  v5 = v6;
+  if (v6)
+  {
+    do
+    {
+      while (1)
+      {
+        v7 = v5;
+        v8 = v5[4];
+        v9 = v7[5];
+        v10 = v9 > a4;
+        if (v8 != a3)
+        {
+          v10 = v8 > a3;
+        }
+
+        if (!v10)
+        {
+          break;
+        }
+
+        v5 = *v7;
+        result = v7;
+        if (!*v7)
+        {
+          goto LABEL_13;
+        }
+      }
+
+      v11 = v9 < a4;
+      v12 = v8 == a3;
+      v13 = v8 < a3;
+      if (v12)
+      {
+        v13 = v11;
+      }
+
+      if (!v13)
+      {
+        break;
+      }
+
+      result = v7 + 1;
+      v5 = v7[1];
+    }
+
+    while (v5);
+  }
+
+  else
+  {
+    v7 = result;
+  }
+
+LABEL_13:
+  *a2 = v7;
+  return result;
+}
+
+void sub_315494(uint64_t a1, void *a2)
+{
+  if (*a2 != a2[1])
+  {
+    v2 = sub_5544(14);
+    v3 = *v2;
+    if (*v2)
+    {
+      if (os_log_type_enabled(*v2, OS_LOG_TYPE_ERROR))
+      {
+        v5 = 136315394;
+        v6 = "PhysicalDevice.cpp";
+        v7 = 1024;
+        v8 = 477;
+        _os_log_impl(&dword_0, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", &v5, 0x12u);
+      }
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(exception, "Precondition failure.");
+  }
+}
+
+void sub_3155B4(uint64_t a1, unsigned int *a2, uint64_t a3)
+{
+  std::mutex::lock((a1 + 96));
+  v6 = *(a1 + 168);
+  if (!v6)
+  {
+    goto LABEL_9;
+  }
+
+  v7 = *a2;
+  v8 = a1 + 168;
+  do
+  {
+    v9 = *(v6 + 32);
+    v10 = v9 >= v7;
+    v11 = v9 < v7;
+    if (v10)
+    {
+      v8 = v6;
+    }
+
+    v6 = *(v6 + 8 * v11);
+  }
+
+  while (v6);
+  if (v8 == a1 + 168 || v7 < *(v8 + 32))
+  {
+LABEL_9:
+    v12 = sub_5544(18);
+    v13 = *v12;
+    if (!*v12 || !os_log_type_enabled(*v12, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_38;
+    }
+
+    v14 = (*(*a1 + 120))(a1);
+    sub_22170(v37, *a2);
+    v15 = v38;
+    v16 = v37[0];
+    sub_22170(__p, a2[1]);
+    v17 = v37;
+    if (v15 < 0)
+    {
+      v17 = v16;
+    }
+
+    if (v36 >= 0)
+    {
+      v18 = __p;
+    }
+
+    else
+    {
+      v18 = __p[0];
+    }
+
+    *buf = 136316418;
+    v40 = "PhysicalDevice.cpp";
+    v41 = 1024;
+    v42 = 561;
+    v43 = 1024;
+    v44 = v14;
+    v45 = 2048;
+    v46 = a3;
+    v47 = 2080;
+    v48 = v17;
+    v49 = 2080;
+    v50 = v18;
+    v19 = "%25s:%-5d Device %d has NOT added listener for client: '%p' '%s' '%s'";
+    v20 = v13;
+    v21 = OS_LOG_TYPE_DEFAULT;
+    goto LABEL_17;
+  }
+
+  v24 = *(v8 + 40);
+  v22 = (v8 + 40);
+  v23 = v24;
+  if (v24 != (v22 + 1))
+  {
+    while (v23[5] != a3)
+    {
+      v25 = v23[1];
+      if (v25)
+      {
+        do
+        {
+          v26 = v25;
+          v25 = *v25;
+        }
+
+        while (v25);
+      }
+
+      else
+      {
+        do
+        {
+          v26 = v23[2];
+          v27 = *v26 == v23;
+          v23 = v26;
+        }
+
+        while (!v27);
+      }
+
+      v23 = v26;
+      if (v26 == v22 + 1)
+      {
+        goto LABEL_38;
+      }
+    }
+
+    sub_3145D4(v22, v23);
+    operator delete(v23);
+    v28 = sub_5544(18);
+    v29 = *v28;
+    if (*v28)
+    {
+      if (os_log_type_enabled(*v28, OS_LOG_TYPE_INFO))
+      {
+        v30 = (*(*a1 + 120))(a1);
+        sub_22170(v37, *a2);
+        v31 = v38;
+        v32 = v37[0];
+        sub_22170(__p, a2[1]);
+        v33 = v37;
+        if (v31 < 0)
+        {
+          v33 = v32;
+        }
+
+        if (v36 >= 0)
+        {
+          v34 = __p;
+        }
+
+        else
+        {
+          v34 = __p[0];
+        }
+
+        *buf = 136316418;
+        v40 = "PhysicalDevice.cpp";
+        v41 = 1024;
+        v42 = 549;
+        v43 = 1024;
+        v44 = v30;
+        v45 = 2048;
+        v46 = a3;
+        v47 = 2080;
+        v48 = v33;
+        v49 = 2080;
+        v50 = v34;
+        v19 = "%25s:%-5d Device %d removed listener for client: '%p' '%s' '%s'";
+        v20 = v29;
+        v21 = OS_LOG_TYPE_INFO;
+LABEL_17:
+        _os_log_impl(&dword_0, v20, v21, v19, buf, 0x36u);
+        if (v36 < 0)
+        {
+          operator delete(__p[0]);
+        }
+
+        if (v38 < 0)
+        {
+          operator delete(v37[0]);
+        }
+      }
+    }
+  }
+
+LABEL_38:
+  std::mutex::unlock((a1 + 96));
+}
+
+void sub_315900(_Unwind_Exception *a1)
+{
+  if (v3 < 0)
+  {
+    operator delete(v2);
+  }
+
+  std::mutex::unlock((v1 + 96));
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_315940(uint64_t a1, unsigned int *a2, unint64_t a3, unint64_t a4)
+{
+  std::mutex::lock((a1 + 96));
+  v8 = *(a1 + 168);
+  if (v8)
+  {
+    v9 = *a2;
+    v10 = a1 + 168;
+    do
+    {
+      v11 = *(v8 + 32);
+      v12 = v11 >= v9;
+      v13 = v11 < v9;
+      if (v12)
+      {
+        v10 = v8;
+      }
+
+      v8 = *(v8 + 8 * v13);
+    }
+
+    while (v8);
+    if (v10 != a1 + 168 && v9 >= *(v10 + 32))
+    {
+      *buf = a2;
+      v23 = sub_31532C((a1 + 160), v9, buf);
+      if (!*sub_31541C((v23 + 5), buf, a3, a4))
+      {
+        operator new();
+      }
+
+      v24 = sub_5544(18);
+      v25 = *v24;
+      if (*v24)
+      {
+        v21 = 1;
+        if (!os_log_type_enabled(*v24, OS_LOG_TYPE_INFO))
+        {
+          goto LABEL_21;
+        }
+
+        v26 = (*(*a1 + 120))(a1);
+        sub_22170(v33, *a2);
+        v27 = v34;
+        v28 = v33[0];
+        sub_22170(__p, a2[1]);
+        v29 = v33;
+        if (v27 < 0)
+        {
+          v29 = v28;
+        }
+
+        if (v32 >= 0)
+        {
+          v30 = __p;
+        }
+
+        else
+        {
+          v30 = __p[0];
+        }
+
+        *buf = 136316418;
+        *&buf[4] = "PhysicalDevice.cpp";
+        v36 = 1024;
+        v37 = 522;
+        v38 = 1024;
+        v39 = v26;
+        v40 = 2048;
+        v41 = a4;
+        v42 = 2080;
+        v43 = v29;
+        v44 = 2080;
+        v45 = v30;
+        _os_log_impl(&dword_0, v25, OS_LOG_TYPE_INFO, "%25s:%-5d PlaybackDosimetry: Device %d registered listener for client: '%p' '%s' '%s'", buf, 0x36u);
+        if (v32 < 0)
+        {
+          operator delete(__p[0]);
+        }
+
+        if (v34 < 0)
+        {
+          operator delete(v33[0]);
+        }
+      }
+
+      v21 = 1;
+      goto LABEL_21;
+    }
+  }
+
+  v14 = sub_5544(18);
+  v15 = *v14;
+  if (*v14 && os_log_type_enabled(*v14, OS_LOG_TYPE_DEFAULT))
+  {
+    v16 = (*(*a1 + 120))(a1);
+    sub_22170(v33, *a2);
+    v17 = v34;
+    v18 = v33[0];
+    sub_22170(__p, a2[1]);
+    v19 = v33;
+    if (v17 < 0)
+    {
+      v19 = v18;
+    }
+
+    if (v32 >= 0)
+    {
+      v20 = __p;
+    }
+
+    else
+    {
+      v20 = __p[0];
+    }
+
+    *buf = 136316418;
+    *&buf[4] = "PhysicalDevice.cpp";
+    v36 = 1024;
+    v37 = 528;
+    v38 = 1024;
+    v39 = v16;
+    v40 = 2048;
+    v41 = a4;
+    v42 = 2080;
+    v43 = v19;
+    v44 = 2080;
+    v45 = v20;
+    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Device %d has NOT added listener for client: '%p' '%s' '%s'", buf, 0x36u);
+    if (v32 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    if (v34 < 0)
+    {
+      operator delete(v33[0]);
+    }
+  }
+
+  v21 = 0;
+LABEL_21:
+  std::mutex::unlock((a1 + 96));
+  return v21;
+}
+
+void sub_315CC0(_Unwind_Exception *a1)
+{
+  if (v3 < 0)
+  {
+    operator delete(v2);
+  }
+
+  std::mutex::unlock((v1 + 96));
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_315D08(uint64_t a1)
+{
+  v2 = (*(*a1 + 88))(a1, 1);
+  if (!v2)
+  {
+LABEL_11:
+    v10 = 0;
+    v11 = 0;
+    return v11 | v10;
+  }
+
+  v3 = v2;
+  v4 = 0;
+  while (1)
+  {
+    (*(*a1 + 264))(&v13, a1, 1, v4);
+    if (v14)
+    {
+      break;
+    }
+
+LABEL_10:
+    v4 = (v4 + 1);
+    if (v3 == v4)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  v5 = std::__shared_weak_count::lock(v14);
+  if (!v5)
+  {
+LABEL_8:
+    if (v14)
+    {
+      std::__shared_weak_count::__release_weak(v14);
+    }
+
+    goto LABEL_10;
+  }
+
+  v6 = v5;
+  if (!v13 || (v15 = 0x676C6F627465726DLL, v16 = 0, v7 = sub_59410(v13, &v15, 0, 0), *(&v9 + 1) = v8, *&v9 = v7, ((v9 >> 32) & 0x1FFFFFFFFLL) != 0x1696E6A6DLL))
+  {
+    sub_1A8C0(v6);
+    goto LABEL_8;
+  }
+
+  sub_1A8C0(v6);
+  if (v14)
+  {
+    std::__shared_weak_count::__release_weak(v14);
+  }
+
+  v11 = v4;
+  v10 = 0x100000000;
+  return v11 | v10;
+}
+
+void sub_315E5C(void *a1@<X8>)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+}
+
+uint64_t sub_315E70()
+{
+  if ((atomic_load_explicit(&qword_6E9DD8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_6E9DD8))
+  {
+    sub_316034();
+    __cxa_guard_release(&qword_6E9DD8);
+  }
+
+  if ((atomic_load_explicit(&qword_6EA7A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_6EA7A8))
+  {
+    v10 = std::random_device::operator()(&stru_6E9DD4);
+    dword_6E9DE0[0] = v10;
+    for (i = 1; i != 624; ++i)
+    {
+      v10 = i + 1812433253 * (v10 ^ (v10 >> 30));
+      dword_6E9DE0[i] = v10;
+    }
+
+    qword_6EA7A0 = 0;
+    __cxa_guard_release(&qword_6EA7A8);
+  }
+
+  if ((atomic_load_explicit(&qword_6EA7B8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_6EA7B8))
+  {
+    qword_6EA7B0 = 0xFFFFFFFE00000001;
+    __cxa_guard_release(&qword_6EA7B8);
+  }
+
+  v1 = qword_6EA7B0;
+  result = HIDWORD(qword_6EA7B0);
+  v2 = HIDWORD(qword_6EA7B0) - qword_6EA7B0;
+  if (HIDWORD(qword_6EA7B0) != qword_6EA7B0)
+  {
+    v3 = v2 + 1;
+    if (v2 == -1)
+    {
+
+      return sub_3160A4();
+    }
+
+    else
+    {
+      v4 = __clz(v3);
+      v5 = 31;
+      if (((v3 << v4) & 0x7FFFFFFF) != 0)
+      {
+        v5 = 32;
+      }
+
+      v6 = v5 - v4;
+      v7 = v6 >> 5;
+      if ((v6 & 0x1F) != 0)
+      {
+        ++v7;
+      }
+
+      if (v7 <= v6)
+      {
+        v8 = 0xFFFFFFFF >> -(v6 / v7);
+      }
+
+      else
+      {
+        v8 = 0;
+      }
+
+      do
+      {
+        v9 = sub_3160A4() & v8;
+      }
+
+      while (v9 >= v3);
+      return v1 + v9;
+    }
+  }
+
+  return result;
+}
+
+void sub_316034()
+{
+  sub_53E8(&__token, "/dev/urandom");
+  std::random_device::random_device(&stru_6E9DD4, &__token);
+  if (SHIBYTE(__token.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__token.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_316088(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_3160A4()
+{
+  v0 = (qword_6EA7A0 + 1) % 0x270uLL;
+  v1 = dword_6E9DE0[v0];
+  if (v1)
+  {
+    v2 = -1727483681;
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  v3 = v2 ^ dword_6E9DE0[(qword_6EA7A0 + 397) % 0x270uLL] ^ ((v1 & 0x7FFFFFFE | dword_6E9DE0[qword_6EA7A0] & 0x80000000) >> 1);
+  dword_6E9DE0[qword_6EA7A0] = v3;
+  qword_6EA7A0 = v0;
+  v4 = ((v3 ^ (v3 >> 11)) << 7) & 0x9D2C5680 ^ v3 ^ (v3 >> 11);
+  return (v4 << 15) & 0xEFC60000 ^ v4 ^ (((v4 << 15) & 0xEFC60000 ^ v4) >> 18);
+}
+
+void sub_31614C(uint64_t *a1, uint64_t *a2, uint64_t a3)
+{
+  sub_5659C(&v13, a2, "", 71);
+  if (*(a3 + 184))
+  {
+    v8 = sub_5544(14);
+    v9 = *v8;
+    if (*v8 && os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v16 = "PhysicalDevice.cpp";
+      v17 = 1024;
+      v18 = 73;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", buf, 0x12u);
+    }
+
+LABEL_17:
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(exception, "Precondition failure.");
+  }
+
+  v6 = v13;
+  if (!(*(*v13 + 88))(v13, 1))
+  {
+    v10 = sub_5544(14);
+    v11 = *v10;
+    if (*v10 && os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v16 = "PhysicalDevice.cpp";
+      v17 = 1024;
+      v18 = 74;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", buf, 0x12u);
+    }
+
+    goto LABEL_17;
+  }
+
+  sub_102FB0(a1, a2);
+  if ((*(*v6 + 88))(v6, 1))
+  {
+    sub_103218(a1, a3, 0);
+  }
+
+  v7 = v14;
+  if (v14)
+  {
+
+    sub_1A8C0(v7);
+  }
+}
+
+void sub_3163D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  __cxa_free_exception(v10);
+  if (a10)
+  {
+    sub_1A8C0(a10);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_316420(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+{
+  if (*(a3 + 184))
+  {
+    sub_5659C(v16, a2, "", 88);
+    v8 = (*(**v16 + 88))(*v16, 0);
+    if (*&v16[8])
+    {
+      sub_1A8C0(*&v16[8]);
+    }
+
+    if (v8 == 1)
+    {
+      v9 = sub_102FB0(a1, a2);
+      sub_3166A0(v9, a3, a4, 0);
+    }
+
+    v13 = sub_5544(14);
+    v14 = *v13;
+    if (*v13)
+    {
+      if (os_log_type_enabled(*v13, OS_LOG_TYPE_ERROR))
+      {
+        *v16 = 136315394;
+        *&v16[4] = "PhysicalDevice.cpp";
+        *&v16[12] = 1024;
+        *&v16[14] = 88;
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", v16, 0x12u);
+      }
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(exception, "Precondition failure.");
+  }
+
+  v10 = sub_5544(14);
+  v11 = *v10;
+  if (*v10 && os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR))
+  {
+    *v16 = 136315394;
+    *&v16[4] = "PhysicalDevice.cpp";
+    *&v16[12] = 1024;
+    *&v16[14] = 87;
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", v16, 0x12u);
+  }
+
+  v12 = __cxa_allocate_exception(0x10uLL);
+  std::logic_error::logic_error(v12, "Precondition failure.");
+}
+
+void sub_3166A0(uint64_t *a1, uint64_t a2, uint64_t a3, unsigned int a4)
+{
+  sub_5659C(&v34, a1, "", 247);
+  sub_8BD14(&v32, *(a2 + 80), *(a2 + 88));
+  v7 = v33;
+  *buf = v32;
+  *&buf[8] = v33;
+  if (v33)
+  {
+    atomic_fetch_add_explicit(&v33->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    v8 = sub_C4FD4((a1 + 8), buf);
+    std::__shared_weak_count::__release_weak(v7);
+    if (a1 + 9 == v8)
+    {
+LABEL_3:
+      v9 = v33;
+      *buf = v32;
+      *&buf[8] = v33;
+      if (v33)
+      {
+        atomic_fetch_add_explicit(&v33->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+        v10 = sub_C4FD4((a1 + 11), buf);
+        std::__shared_weak_count::__release_weak(v9);
+        if (a1 + 12 == v10)
+        {
+LABEL_5:
+          v11 = a1[2];
+          v12 = a1[3];
+          v13 = v34;
+          if (0xAAAAAAAAAAAAAAABLL * ((v12 - v11) >> 3) == (*(*v34 + 88))(v34, 0))
+          {
+            v14 = a1[5];
+            v15 = a1[6];
+            if (0xAAAAAAAAAAAAAAABLL * ((v15 - v14) >> 3) == (*(*v13 + 88))(v13, 1))
+            {
+              if (*(v32 + 184))
+              {
+                v16 = a1 + 2;
+              }
+
+              else
+              {
+                v16 = a1 + 5;
+              }
+
+              if (0xAAAAAAAAAAAAAAABLL * ((v16[1] - *v16) >> 3) > a4)
+              {
+                v17 = *(a2 + 88);
+                if (v17)
+                {
+                  atomic_fetch_add_explicit(&v17->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+                  v18 = std::__shared_weak_count::lock(v17);
+                  v19 = v18;
+                  if (v18)
+                  {
+                    atomic_fetch_add_explicit(&v18->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+                    std::__shared_weak_count::__release_weak(v17);
+                    sub_1A8C0(v19);
+                  }
+
+                  else
+                  {
+                    std::__shared_weak_count::__release_weak(v17);
+                  }
+                }
+
+                operator new();
+              }
+
+              v29 = sub_5544(14);
+              v30 = *v29;
+              if (*v29 && os_log_type_enabled(*v29, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 136315394;
+                *&buf[4] = "PhysicalDevice.cpp";
+                *&buf[12] = 1024;
+                *&buf[14] = 259;
+                _os_log_impl(&dword_0, v30, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", buf, 0x12u);
+              }
+
+              exception = __cxa_allocate_exception(0x10uLL);
+              std::logic_error::logic_error(exception, "Precondition failure.");
+            }
+
+            v27 = sub_5544(14);
+            v28 = *v27;
+            if (*v27 && os_log_type_enabled(*v27, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 136315394;
+              *&buf[4] = "PhysicalDevice.cpp";
+              *&buf[12] = 1024;
+              *&buf[14] = 255;
+              _os_log_impl(&dword_0, v28, OS_LOG_TYPE_ERROR, "%25s:%-5d INVARIANT FAILURE (std::logic_error).", buf, 0x12u);
+            }
+          }
+
+          else
+          {
+            v25 = sub_5544(14);
+            v26 = *v25;
+            if (*v25 && os_log_type_enabled(*v25, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 136315394;
+              *&buf[4] = "PhysicalDevice.cpp";
+              *&buf[12] = 1024;
+              *&buf[14] = 254;
+              _os_log_impl(&dword_0, v26, OS_LOG_TYPE_ERROR, "%25s:%-5d INVARIANT FAILURE (std::logic_error).", buf, 0x12u);
+            }
+          }
+
+          v22 = __cxa_allocate_exception(0x10uLL);
+          std::logic_error::logic_error(v22, "Invariant failure.");
+LABEL_35:
+        }
+      }
+
+      else if (a1 + 12 == sub_C4FD4((a1 + 11), buf))
+      {
+        goto LABEL_5;
+      }
+
+      v23 = sub_5544(14);
+      v24 = *v23;
+      if (*v23 && os_log_type_enabled(*v23, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        *&buf[4] = "PhysicalDevice.cpp";
+        *&buf[12] = 1024;
+        *&buf[14] = 253;
+        _os_log_impl(&dword_0, v24, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", buf, 0x12u);
+      }
+
+LABEL_18:
+      v22 = __cxa_allocate_exception(0x10uLL);
+      std::logic_error::logic_error(v22, "Precondition failure.");
+      goto LABEL_35;
+    }
+  }
+
+  else if (a1 + 9 == sub_C4FD4((a1 + 8), buf))
+  {
+    goto LABEL_3;
+  }
+
+  v20 = sub_5544(14);
+  v21 = *v20;
+  if (*v20 && os_log_type_enabled(*v20, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315394;
+    *&buf[4] = "PhysicalDevice.cpp";
+    *&buf[12] = 1024;
+    *&buf[14] = 251;
+    _os_log_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", buf, 0x12u);
+  }
+
+  goto LABEL_18;
+}
+
+void sub_316ED0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, std::__shared_weak_count *a16, char a17)
+{
+  if (a14)
+  {
+    sub_1A8C0(a14);
+  }
+
+  if (a16)
+  {
+    sub_1A8C0(a16);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_317060(uint64_t *a1, uint64_t *a2, uint64_t a3, unsigned int a4, uint64_t a5)
+{
+  if (*(a3 + 184))
+  {
+    sub_5659C(v18, a2, "", 102);
+    v10 = (*(**v18 + 88))(*v18, 0);
+    if (*&v18[8])
+    {
+      sub_1A8C0(*&v18[8]);
+    }
+
+    if (v10 > a4)
+    {
+      v11 = sub_102FB0(a1, a2);
+      sub_3166A0(v11, a3, a5, a4);
+    }
+
+    v15 = sub_5544(14);
+    v16 = *v15;
+    if (*v15)
+    {
+      if (os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR))
+      {
+        *v18 = 136315394;
+        *&v18[4] = "PhysicalDevice.cpp";
+        *&v18[12] = 1024;
+        *&v18[14] = 102;
+        _os_log_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", v18, 0x12u);
+      }
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(exception, "Precondition failure.");
+  }
+
+  v12 = sub_5544(14);
+  v13 = *v12;
+  if (*v12 && os_log_type_enabled(*v12, OS_LOG_TYPE_ERROR))
+  {
+    *v18 = 136315394;
+    *&v18[4] = "PhysicalDevice.cpp";
+    *&v18[12] = 1024;
+    *&v18[14] = 101;
+    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", v18, 0x12u);
+  }
+
+  v14 = __cxa_allocate_exception(0x10uLL);
+  std::logic_error::logic_error(v14, "Precondition failure.");
+}
+
+void sub_3172E4(uint64_t *a1, uint64_t *a2, uint64_t a3)
+{
+  sub_5659C(&v13, a2, "", 112);
+  if ((*(a3 + 184) & 1) == 0)
+  {
+    v8 = sub_5544(14);
+    v9 = *v8;
+    if (*v8 && os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v16 = "PhysicalDevice.cpp";
+      v17 = 1024;
+      v18 = 114;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", buf, 0x12u);
+    }
+
+LABEL_17:
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(exception, "Precondition failure.");
+  }
+
+  v6 = v13;
+  if (!(*(*v13 + 88))(v13, 0))
+  {
+    v10 = sub_5544(14);
+    v11 = *v10;
+    if (*v10 && os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v16 = "PhysicalDevice.cpp";
+      v17 = 1024;
+      v18 = 115;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", buf, 0x12u);
+    }
+
+    goto LABEL_17;
+  }
+
+  sub_102FB0(a1, a2);
+  if ((*(*v6 + 88))(v6, 0))
+  {
+    sub_103218(a1, a3, 0);
+  }
+
+  v7 = v14;
+  if (v14)
+  {
+
+    sub_1A8C0(v7);
+  }
+}
+
+void sub_31756C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  __cxa_free_exception(v10);
+  if (a10)
+  {
+    sub_1A8C0(a10);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_3175B8(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+{
+  sub_5659C(&v21, a2, "", 128);
+  v8 = v21;
+  v9 = (*(*v21 + 312))(v21);
+  v10 = 0;
+  memset(v19, 0, sizeof(v19));
+  v20 = 1065353216;
+  while (1)
+  {
+    v18 = v10;
+    if (v10 >= (*(*v8 + 88))(v8, 0))
+    {
+      break;
+    }
+
+    if ((v9 & 0x100000000) == 0 || (v11 = v9, v18 != v9))
+    {
+      v12 = *(a3 + 80);
+      v13 = *(a3 + 88);
+      if (v13)
+      {
+        atomic_fetch_add_explicit((v13 + 16), 1uLL, memory_order_relaxed);
+      }
+
+      *v15 = v12;
+      __p[1] = 0;
+      v17 = 0;
+      __p[0] = 0;
+      sub_46980(__p, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 2);
+      v23 = &v18;
+      v14 = sub_FE3C0(v19, v18, &v23);
+      sub_F7F0C((v14 + 24), v15);
+      if (__p[0])
+      {
+        operator delete(__p[0]);
+      }
+
+      if (v15[1])
+      {
+        std::__shared_weak_count::__release_weak(v15[1]);
+      }
+
+      v11 = v18;
+    }
+
+    v10 = v11 + 1;
+  }
+
+  *v15 = 0u;
+  *__p = 0u;
+  LODWORD(v17) = 1065353216;
+  sub_F8204(a1, a2, v19, v15);
+  sub_167DD4(v15);
+  sub_167E38(v19);
+  if (v22)
+  {
+    sub_1A8C0(v22);
+  }
+}
+
+void sub_317788(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, std::__shared_weak_count *a21)
+{
+  sub_167DD4(&a9);
+  sub_167E38(&a15);
+  if (a21)
+  {
+    sub_1A8C0(a21);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_3177E4(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  sub_5659C(&v20, a2, "", 149);
+  if (*(a3 + 184))
+  {
+    if (*(a4 + 184))
+    {
+      v13 = sub_5544(14);
+      v14 = *v13;
+      if (*v13 && os_log_type_enabled(*v13, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        v22 = "PhysicalDevice.cpp";
+        v23 = 1024;
+        v24 = 152;
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", buf, 0x12u);
+      }
+    }
+
+    else
+    {
+      v10 = v20;
+      if ((*(*v20 + 88))(v20, 0) == 1)
+      {
+        if ((*(*v10 + 88))(v10, 1) == 1)
+        {
+          sub_102FB0(a1, a2);
+          sub_3166A0(a1, a3, a5, 0);
+        }
+
+        v17 = sub_5544(14);
+        v18 = *v17;
+        if (*v17)
+        {
+          if (os_log_type_enabled(*v17, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 136315394;
+            v22 = "PhysicalDevice.cpp";
+            v23 = 1024;
+            v24 = 154;
+            _os_log_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", buf, 0x12u);
+          }
+        }
+      }
+
+      else
+      {
+        v15 = sub_5544(14);
+        v16 = *v15;
+        if (*v15 && os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315394;
+          v22 = "PhysicalDevice.cpp";
+          v23 = 1024;
+          v24 = 153;
+          _os_log_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", buf, 0x12u);
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v11 = sub_5544(14);
+    v12 = *v11;
+    if (*v11 && os_log_type_enabled(*v11, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v22 = "PhysicalDevice.cpp";
+      v23 = 1024;
+      v24 = 151;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", buf, 0x12u);
+    }
+  }
+
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::logic_error::logic_error(exception, "Precondition failure.");
+}
+
+void sub_317BA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  __cxa_free_exception(v10);
+  if (a10)
+  {
+    sub_1A8C0(a10);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_317BFC(uint64_t *a1, uint64_t *a2, uint64_t a3, unsigned int a4, uint64_t a5, uint64_t a6)
+{
+  sub_5659C(&v22, a2, "", 170);
+  if (*(a3 + 184))
+  {
+    if (*(a5 + 184))
+    {
+      v15 = sub_5544(14);
+      v16 = *v15;
+      if (*v15 && os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        v24 = "PhysicalDevice.cpp";
+        v25 = 1024;
+        v26 = 173;
+        _os_log_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", buf, 0x12u);
+      }
+    }
+
+    else
+    {
+      v12 = v22;
+      if ((*(*v22 + 88))(v22, 0) <= a4)
+      {
+        v17 = sub_5544(14);
+        v18 = *v17;
+        if (*v17 && os_log_type_enabled(*v17, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315394;
+          v24 = "PhysicalDevice.cpp";
+          v25 = 1024;
+          v26 = 174;
+          _os_log_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", buf, 0x12u);
+        }
+      }
+
+      else
+      {
+        if ((*(*v12 + 88))(v12, 1))
+        {
+          sub_102FB0(a1, a2);
+          sub_3166A0(a1, a3, a6, a4);
+        }
+
+        v19 = sub_5544(14);
+        v20 = *v19;
+        if (*v19)
+        {
+          if (os_log_type_enabled(*v19, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 136315394;
+            v24 = "PhysicalDevice.cpp";
+            v25 = 1024;
+            v26 = 175;
+            _os_log_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", buf, 0x12u);
+          }
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v13 = sub_5544(14);
+    v14 = *v13;
+    if (*v13 && os_log_type_enabled(*v13, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v24 = "PhysicalDevice.cpp";
+      v25 = 1024;
+      v26 = 172;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", buf, 0x12u);
+    }
+  }
+
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::logic_error::logic_error(exception, "Precondition failure.");
+}
+
+void sub_317FC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  __cxa_free_exception(v10);
+  if (a10)
+  {
+    sub_1A8C0(a10);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_318020(uint64_t a1)
+{
+  *a1 = off_6C17D8;
+  v2 = atomic_load(qword_70A338);
+  if (v2 != pthread_self())
+  {
+    v5 = sub_5544(14);
+    v6 = *v5;
+    if (*v5)
+    {
+      if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
+      {
+        v7 = 136315650;
+        v8 = "PhysicalDevice.cpp";
+        v9 = 1024;
+        v10 = 328;
+        v11 = 2048;
+        v12 = a1;
+        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d ASSERTION FAILURE: The PhysicalDevice at %p is being destroyed by something other than the Object Destruction Handler", &v7, 0x1Cu);
+      }
+    }
+  }
+
+  sub_87980((a1 + 232));
+  sub_2537F4(*(a1 + 216));
+  sub_2537F4(*(a1 + 192));
+  sub_2492C0(*(a1 + 168));
+  std::mutex::~mutex((a1 + 96));
+  sub_13BFA8(a1);
+  v3 = *(a1 + 88);
+  if (v3)
+  {
+    std::__shared_weak_count::__release_weak(v3);
+  }
+
+  return a1;
+}
+
+void sub_318164(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    sub_1CC130(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t *sub_318174(uint64_t *result, unsigned int a2, uint64_t a3, uint64_t a4)
+{
+  v4 = result + 29;
+  v5 = result[30];
+  if (v5 != result + 29)
+  {
+    while (v5[2] != a4)
+    {
+      v5 = v5[1];
+      if (v5 == v4)
+      {
+        goto LABEL_4;
+      }
+    }
+  }
+
+  if (v5 == v4)
+  {
+LABEL_4:
+    v6 = sub_5544(14);
+    v7 = *v6;
+    if (*v6)
+    {
+      if (os_log_type_enabled(*v6, OS_LOG_TYPE_ERROR))
+      {
+        v16 = 136315394;
+        v17 = "PhysicalDevice.cpp";
+        v18 = 1024;
+        v19 = 458;
+        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::logic_error): muteControl does not exist in mControlDeleteList.", &v16, 0x12u);
+      }
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(exception, "muteControl does not exist in mControlDeleteList.");
+  }
+
+  v9 = result[24];
+  if (!v9)
+  {
+LABEL_27:
+    operator new();
+  }
+
+  while (1)
+  {
+    while (1)
+    {
+      v10 = v9;
+      v11 = *(v9 + 32);
+      if (v11 == a2)
+      {
+        break;
+      }
+
+      if (v11 > a2)
+      {
+        goto LABEL_20;
+      }
+
+      if (v11 >= a2)
+      {
+        v15 = 1;
+      }
+
+      else
+      {
+        v15 = -1;
+      }
+
+      if ((v15 & 0x80) == 0)
+      {
+        return result;
+      }
+
+LABEL_26:
+      v9 = *(v10 + 8);
+      if (!v9)
+      {
+        goto LABEL_27;
+      }
+    }
+
+    v12 = *(v10 + 36);
+    v13 = v12 == a3;
+    if (v12 <= a3)
+    {
+      break;
+    }
+
+LABEL_20:
+    v9 = *v10;
+    if (!*v10)
+    {
+      goto LABEL_27;
+    }
+  }
+
+  if (v12 >= a3)
+  {
+    v14 = 1;
+  }
+
+  else
+  {
+    v14 = -1;
+  }
+
+  if (v13)
+  {
+    v14 = 0;
+  }
+
+  if (v14 < 0)
+  {
+    goto LABEL_26;
+  }
+
+  return result;
+}
+
+void sub_3183B8(void *a1, unsigned int a2, uint64_t a3, uint64_t a4)
+{
+  v4 = a1 + 29;
+  v5 = a1[30];
+  if (v5 != a1 + 29)
+  {
+    while (v5[2] != a4)
+    {
+      v5 = v5[1];
+      if (v5 == v4)
+      {
+        goto LABEL_4;
+      }
+    }
+  }
+
+  if (v5 == v4)
+  {
+LABEL_4:
+    v6 = sub_5544(14);
+    v7 = *v6;
+    if (*v6)
+    {
+      if (os_log_type_enabled(*v6, OS_LOG_TYPE_ERROR))
+      {
+        v17 = 136315394;
+        v18 = "PhysicalDevice.cpp";
+        v19 = 1024;
+        v20 = 467;
+        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::logic_error): volumeControl does not exist in mControlDeleteList.", &v17, 0x12u);
+      }
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(exception, "volumeControl does not exist in mControlDeleteList.");
+  }
+
+  v9 = v5[3];
+  if (v9)
+  {
+    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v10 = a1[27];
+  if (!v10)
+  {
+LABEL_29:
+    operator new();
+  }
+
+  while (1)
+  {
+    while (1)
+    {
+      v11 = v10;
+      v12 = *(v10 + 32);
+      if (v12 == a2)
+      {
+        break;
+      }
+
+      if (v12 > a2)
+      {
+        goto LABEL_22;
+      }
+
+      if (v12 >= a2)
+      {
+        v16 = 1;
+      }
+
+      else
+      {
+        v16 = -1;
+      }
+
+      if ((v16 & 0x80) == 0)
+      {
+        goto LABEL_30;
+      }
+
+LABEL_28:
+      v10 = v11[1];
+      if (!v10)
+      {
+        goto LABEL_29;
+      }
+    }
+
+    v13 = *(v11 + 9);
+    v14 = v13 == a3;
+    if (v13 <= a3)
+    {
+      break;
+    }
+
+LABEL_22:
+    v10 = *v11;
+    if (!*v11)
+    {
+      goto LABEL_29;
+    }
+  }
+
+  if (v13 >= a3)
+  {
+    v15 = 1;
+  }
+
+  else
+  {
+    v15 = -1;
+  }
+
+  if (v14)
+  {
+    v15 = 0;
+  }
+
+  if (v15 < 0)
+  {
+    goto LABEL_28;
+  }
+
+LABEL_30:
+  if (v9)
+  {
+
+    sub_1A8C0(v9);
+  }
+}
+
+void sub_318648(_Unwind_Exception *exception_object)
+{
+  if (v1)
+  {
+    sub_1A8C0(v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_318678(void *a1, __n128 *a2)
+{
+  v3 = a1 + 29;
+  v4 = a1[30];
+  v6 = a2->n128_u64[0];
+  v5 = a2->n128_u64[1];
+  if (v5)
+  {
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v7 = v3;
+  if (v4 != v3)
+  {
+    v7 = v4;
+    while (v7[2] != v6)
+    {
+      v7 = v7[1];
+      if (v7 == v3)
+      {
+        v7 = v3;
+        break;
+      }
+    }
+  }
+
+  if (v5)
+  {
+    sub_1A8C0(v5);
+  }
+
+  if (v7 == v3)
+  {
+    v8 = sub_5544(18);
+    v9 = *v8;
+    if (*v8)
+    {
+      if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
+      {
+        v10 = a2->n128_u64[0];
+        v11 = 136315650;
+        v12 = "PhysicalDevice.cpp";
+        v13 = 1024;
+        v14 = 500;
+        v15 = 2048;
+        v16 = v10;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Adding control %p to delete list", &v11, 0x1Cu);
+      }
+    }
+
+    operator new();
+  }
+}
+
+void sub_3187EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(exception_object);
+    v10 = v9[1];
+    *v9 = 0;
+    v9[1] = 0;
+    if (v10)
+    {
+      sub_1A8C0(v10);
+    }
+
+    v11 = sub_5544(18);
+    v12 = *v11;
+    if (*v11)
+    {
+      if (os_log_type_enabled(*v11, OS_LOG_TYPE_ERROR))
+      {
+        LODWORD(a9) = 136315394;
+        *(&a9 + 4) = "PhysicalDevice.cpp";
+        WORD6(a9) = 1024;
+        *(&a9 + 14) = 507;
+        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d Exception thrown adding control to the delete list. Deleting control.", &a9, 0x12u);
+      }
+    }
+
+    __cxa_rethrow();
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_318928(uint64_t a1)
+{
+  __chkstk_darwin(a1);
+  v2 = v1;
+  *v1 = 0;
+  *(v1 + 4) = 0;
+  *(v1 + 8) = 0;
+  *(v1 + 12) = 0;
+  *(v1 + 16) = sub_310AF4();
+  *(v2 + 20) = 1;
+  *(v2 + 24) = 0u;
+  *(v2 + 40) = 0u;
+  *(v2 + 56) = 0u;
+  *(v2 + 72) = 0;
+  v3 = sub_106F10(@"XxnEk9uiIk5vCdbWEGt7lA");
+  *(v2 + 104) = 0;
+  *(v2 + 96) = v2 + 104;
+  *(v2 + 76) = (v3 > 0xFFu) & v3;
+  *(v2 + 77) = 1;
+  *(v2 + 78) = 0;
+  *(v2 + 86) = 0;
+  *(v2 + 88) = 16777473;
+  *(v2 + 112) = 0;
+  *(v2 + 120) = 0;
+  *(v2 + 122) = 0;
+  *(v2 + 128) = -1044381696;
+  *(v2 + 132) = 1;
+  *(v2 + 136) = -1044381696;
+  *(v2 + 140) = 1;
+  *(v2 + 144) = 0;
+  *(v2 + 148) = 1;
+  *(v2 + 152) = -1056964608;
+  *(v2 + 156) = 1;
+  *(v2 + 160) = -1033371648;
+  *(v2 + 164) = 1;
+  *(v2 + 168) = 0;
+  *(v2 + 172) = 1;
+  *(v2 + 176) = -1033371648;
+  *(v2 + 180) = 1;
+  *(v2 + 184) = 0;
+  *(v2 + 188) = 1;
+  *(v2 + 192) = -1044381696;
+  *(v2 + 196) = 1;
+  *(v2 + 200) = 0;
+  *(v2 + 204) = 1;
+  *(v2 + 208) = -1033371648;
+  *(v2 + 212) = 1;
+  *(v2 + 216) = 0;
+  *(v2 + 220) = 1;
+  *(v2 + 224) = -1033371648;
+  *(v2 + 228) = 1;
+  *(v2 + 232) = -1055916032;
+  *(v2 + 236) = 1;
+  *(v2 + 240) = -1033371648;
+  *(v2 + 244) = 1;
+  *(v2 + 248) = 0;
+  *(v2 + 252) = 1;
+  *(v2 + 256) = -1055916032;
+  *(v2 + 260) = 1;
+  *(v2 + 264) = -1033371648;
+  *(v2 + 268) = 1;
+  *(v2 + 272) = -1055916032;
+  *(v2 + 276) = 1;
+  *(v2 + 280) = -1033371648;
+  *(v2 + 284) = 1;
+  *(v2 + 288) = 0;
+  *(v2 + 292) = 1;
+  *(v2 + 296) = -1055916032;
+  *(v2 + 300) = 1;
+  *(v2 + 304) = -1043333120;
+  *(v2 + 308) = 1;
+  *(v2 + 312) = 0x40000000;
+  *(v2 + 316) = 1;
+  *(v2 + 320) = 16777472;
+  *(v2 + 324) = 0;
+  *(v2 + 328) = 1;
+  *(v2 + 332) = 0;
+  *(v2 + 336) = 1;
+  *(v2 + 340) = 1103626240;
+  *(v2 + 344) = 1;
+  *(v2 + 348) = 0;
+  *(v2 + 352) = 1;
+  *(v2 + 356) = 1094713344;
+  *(v2 + 360) = 1;
+  *(v2 + 364) = 1094713344;
+  *(v2 + 368) = 1;
+  *(v2 + 372) = 1094713344;
+  *(v2 + 376) = 1;
+  *(v2 + 380) = -1061158912;
+  *(v2 + 384) = 1;
+  *(v2 + 388) = 1107296256;
+  *(v2 + 392) = 1;
+  *(v2 + 396) = 1107296256;
+  *(v2 + 400) = 1;
+  *(v2 + 404) = 1092616192;
+  *(v2 + 408) = 1;
+  *(v2 + 412) = 0;
+  *(v2 + 416) = 1;
+  *(v2 + 420) = 0;
+  *(v2 + 424) = 1;
+  *(v2 + 428) = 16777472;
+  *(v2 + 432) = 0;
+  *(v2 + 504) = 0;
+  *(v2 + 512) = 0;
+  *(v2 + 552) = 0;
+  *(v2 + 560) = 0;
+  *(v2 + 632) = 0;
+  *(v2 + 640) = 0;
+  *(v2 + 680) = 0;
+  *(v2 + 688) = 0;
+  *(v2 + 692) = 0;
+  *(v2 + 696) = 0;
+  *(v2 + 700) = 0;
+  *(v2 + 704) = 0;
+  *(v2 + 708) = 0;
+  *(v2 + 712) = 0;
+  *(v2 + 716) = 0;
+  *(v2 + 720) = 0;
+  *(v2 + 724) = 0;
+  *(v2 + 728) = 0;
+  *(v2 + 732) = 0;
+  *(v2 + 736) = 0;
+  *(v2 + 740) = 0;
+  *(v2 + 744) = 0;
+  *(v2 + 748) = 0;
+  *(v2 + 752) = 0;
+  *(v2 + 756) = 0;
+  *(v2 + 760) = 0;
+  *(v2 + 764) = 0;
+  *(v2 + 768) = 0;
+  *(v2 + 772) = 0;
+  *(v2 + 776) = 0;
+  *(v2 + 780) = 0;
+  *(v2 + 784) = 0;
+  *(v2 + 788) = 0;
+  *(v2 + 792) = 0;
+  *(v2 + 796) = 0;
+  *(v2 + 800) = 0;
+  *(v2 + 804) = 0;
+  *(v2 + 808) = 0;
+  *(v2 + 812) = 0;
+  *(v2 + 816) = 1;
+  *(v2 + 820) = 0;
+  *(v2 + 824) = 0;
+  *(v2 + 828) = 0;
+  *(v2 + 832) = 0;
+  *(v2 + 836) = 0;
+  *(v2 + 840) = 0;
+  *(v2 + 844) = 0;
+  *(v2 + 848) = 0;
+  *(v2 + 852) = 0;
+  *(v2 + 856) = 0;
+  *(v2 + 860) = 0;
+  *(v2 + 864) = 0;
+  *(v2 + 868) = 0;
+  *(v2 + 872) = 0;
+  *(v2 + 876) = 0;
+  *(v2 + 880) = 0;
+  *(v2 + 884) = 0;
+  *(v2 + 888) = 0;
+  *(v2 + 892) = 0;
+  *(v2 + 896) = 0;
+  *(v2 + 900) = 0;
+  *(v2 + 904) = 0;
+  *(v2 + 908) = 0;
+  *(v2 + 912) = 0;
+  *(v2 + 916) = 0;
+  *(v2 + 920) = 0;
+  *(v2 + 924) = 0;
+  *(v2 + 928) = 0;
+  *(v2 + 932) = 0;
+  *(v2 + 936) = 0;
+  *(v2 + 940) = 0;
+  *(v2 + 944) = 0;
+  *(v2 + 948) = 0;
+  *(v2 + 952) = 0;
+  *(v2 + 976) = 0;
+  *(v2 + 984) = 0;
+  *(v2 + 1008) = 0;
+  *(v2 + 1016) = 0;
+  *(v2 + 1040) = 0;
+  *(v2 + 1048) = 0;
+  *(v2 + 1072) = 0;
+  *(v2 + 1080) = 256;
+  *(v2 + 1084) = 0;
+  *(v2 + 1088) = 0;
+  *(v2 + 1092) = 0;
+  *(v2 + 1096) = 0;
+  *(v2 + 1100) = 0;
+  *(v2 + 1104) = 0;
+  *(v2 + 1112) = 0;
+  *(v2 + 80) = 257;
+  *(v2 + 72) = 257;
+  *(v2 + 76) = 257;
+  *(v2 + 82) = 16843009;
+  if ((*(v2 + 20) & 1) == 0)
+  {
+    *(v2 + 20) = 1;
+  }
+
+  *(v2 + 16) = 4;
+  *&v22 = 0x300000002;
+  sub_1F8148((v2 + 48), &v22, &v22 + 8, 2uLL);
+  LODWORD(v22) = 4;
+  sub_1F8148((v2 + 24), &v22, &v22 + 4, 1uLL);
+  *(v2 + 90) = 257;
+  v22 = xmmword_517160;
+  sub_1DFEA0((v2 + 96), &v22, &v23);
+  *(v2 + 404) = 1077936128;
+  *(v2 + 408) = 1;
+  *(v2 + 322) = 257;
+  *(v2 + 912) = 15;
+  *(v2 + 916) = 1;
+  *(v2 + 828) = 15;
+  *(v2 + 832) = 1;
+  *(v2 + 904) = 7;
+  *(v2 + 908) = 1;
+  *(v2 + 728) = 13;
+  *(v2 + 732) = 1;
+  *(v2 + 736) = 13;
+  *(v2 + 740) = 1;
+  *(v2 + 744) = 13;
+  *(v2 + 748) = 1;
+  *(v2 + 752) = 13;
+  *(v2 + 756) = 1;
+  *(v2 + 768) = 13;
+  *(v2 + 772) = 1;
+  if ((*(v2 + 948) & 1) == 0)
+  {
+    *(v2 + 948) = 1;
+  }
+
+  *(v2 + 944) = 2;
+  if ((*(v2 + 700) & 1) == 0)
+  {
+    *(v2 + 700) = 1;
+  }
+
+  *(v2 + 696) = 2;
+  if ((*(v2 + 708) & 1) == 0)
+  {
+    *(v2 + 708) = 1;
+  }
+
+  *(v2 + 704) = 2;
+  if ((*(v2 + 716) & 1) == 0)
+  {
+    *(v2 + 716) = 1;
+  }
+
+  *(v2 + 712) = 4;
+  if ((*(v2 + 868) & 1) == 0)
+  {
+    *(v2 + 868) = 1;
+  }
+
+  *(v2 + 864) = 4;
+  if ((*(v2 + 884) & 1) == 0)
+  {
+    *(v2 + 884) = 1;
+  }
+
+  *(v2 + 880) = 2;
+  if ((*(v2 + 876) & 1) == 0)
+  {
+    *(v2 + 876) = 1;
+  }
+
+  *(v2 + 872) = 2;
+  sub_46AC8C();
+  sub_ABF48();
+  sub_2806FC(2);
+  sub_53E8(&v7, "speaker_general");
+  v9 = 0;
+  v8 = 0;
+  v10 = 0;
+  sub_53E8(v11, "speaker_general");
+  sub_53E8(v12, "speaker_general");
+  memset(&v12[3], 0, 24);
+  v13 = 1668051824;
+  sub_88CE8(v19, "SetTelemetryDataSources");
+  v19[1] = kCFBooleanTrue;
+  v6[0] = v19;
+  v6[1] = 1;
+  v4 = sub_69CE8(v6);
+  v20 = 1936749683;
+  v21 = v4;
+  v6[2] = 0;
+  v14 = 0x6473706700000001;
+  v15 = 1869768046;
+  memset(v17, 0, sizeof(v17));
+  sub_4625C(v17, &v14, &v16, 3uLL);
+  memset(v5, 0, sizeof(v5));
+  sub_2DDE10(v5, v17, &v18);
+}
+
+void sub_31DAA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, const void *a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, const void *a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, const void *a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, const void *a53, uint64_t a54, uint64_t a55, uint64_t a56, const void *a57, uint64_t a58, uint64_t a59, uint64_t a60, const void *a61, uint64_t a62, uint64_t a63)
+{
+  sub_1D5FAC((v69 + 8));
+  sub_1D5FE0(&STACK[0xA40]);
+  if (SLOBYTE(STACK[0xAE7]) < 0)
+  {
+    operator delete(v68[12]);
+  }
+
+  if (SLOBYTE(STACK[0xACF]) < 0)
+  {
+    operator delete(v68[9]);
+  }
+
+  if (SLOBYTE(STACK[0xAB7]) < 0)
+  {
+    operator delete(v68[6]);
+  }
+
+  if (SLOBYTE(STACK[0xA9F]) < 0)
+  {
+    operator delete(v68[3]);
+  }
+
+  if (SLOBYTE(STACK[0xA87]) < 0)
+  {
+    operator delete(*v68);
+  }
+
+  sub_1E0258(&STACK[0xBE0]);
+  sub_2DE774(&STACK[0xBD0]);
+  sub_4BA7C(&a32);
+  sub_1D5D20(&STACK[0xBC0]);
+  STACK[0xA50] = &a27;
+  sub_282684(&STACK[0xA50]);
+  sub_46228(&STACK[0xBB8]);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  sub_1E0258(&STACK[0xD50]);
+  sub_2DE774(&STACK[0xD40]);
+  sub_4BA7C(&a38);
+  sub_1D5D20(&STACK[0xD30]);
+  if (a33)
+  {
+    operator delete(a33);
+  }
+
+  sub_1E0258(&STACK[0xF10]);
+  v73 = -32;
+  v74 = v67;
+  do
+  {
+    v74 = sub_2DE774(v74) - 16;
+    v73 += 16;
+  }
+
+  while (v73);
+  sub_4BA7C(&a44);
+  sub_1D5D20(&STACK[0xEC0]);
+  STACK[0xA50] = &a39;
+  sub_A9CA4(&STACK[0xA50]);
+  v75 = *(v70 + 344);
+  if (v75)
+  {
+    *(v70 + 352) = v75;
+    operator delete(v75);
+  }
+
+  sub_4BA7C(&a53);
+  sub_1D5D20(&STACK[0xEE0]);
+  STACK[0xA50] = &a48;
+  sub_282684(&STACK[0xA50]);
+  sub_46228(&STACK[0xED8]);
+  v76 = *(v71 + 96);
+  if (v76)
+  {
+    operator delete(v76);
+  }
+
+  sub_1E0258(&STACK[0x1090]);
+  v77 = &STACK[0x1080];
+  v78 = -32;
+  do
+  {
+    v77 = (sub_2DE774(v77) - 16);
+    v78 += 16;
+  }
+
+  while (v78);
+  sub_4BA7C(&a57);
+  sub_1D5D20(&STACK[0x1050]);
+  sub_4BA7C(&a61);
+  sub_1D5D20(&STACK[0x1060]);
+  sub_1E0258(&STACK[0x11D0]);
+  sub_1E0258(&STACK[0x1350]);
+  v79 = &STACK[0x1340];
+  v80 = -32;
+  do
+  {
+    v79 = (sub_2DE774(v79) - 16);
+    v80 += 16;
+  }
+
+  while (v80);
+  sub_4BA7C(&a65);
+  sub_1D5D20(&STACK[0x1310]);
+  sub_4BA7C(&a66);
+  sub_1D5D20(&STACK[0x1320]);
+  sub_1E0258(&STACK[0x14D0]);
+  v81 = &STACK[0x14C0];
+  v82 = -32;
+  do
+  {
+    v81 = (sub_2DE774(v81) - 16);
+    v82 += 16;
+  }
+
+  while (v82);
+  sub_4BA7C(&STACK[0x200]);
+  sub_1D5D20(&STACK[0x1490]);
+  sub_4BA7C(&STACK[0x220]);
+  sub_1D5D20(&STACK[0x14A0]);
+  sub_1E0258(&STACK[0x1640]);
+  sub_2DE774(&STACK[0x1630]);
+  sub_4BA7C(&STACK[0x240]);
+  for (i = 16; i != -16; i -= 16)
+  {
+    sub_1D5D20(&STACK[0x1610] + i);
+  }
+
+  sub_1E0258(&STACK[0x17B0]);
+  sub_2DE774(&STACK[0x17A0]);
+  sub_4BA7C(&STACK[0x260]);
+  for (j = 16; j != -16; j -= 16)
+  {
+    sub_1D5D20(&STACK[0x1780] + j);
+  }
+
+  sub_1E0258(&STACK[0x1930]);
+  v85 = &STACK[0x1920];
+  v86 = -32;
+  do
+  {
+    v85 = (sub_2DE774(v85) - 16);
+    v86 += 16;
+  }
+
+  while (v86);
+  sub_4BA7C(&STACK[0x280]);
+  sub_1D5D20(&STACK[0x18F0]);
+  sub_4BA7C(&STACK[0x2A0]);
+  sub_1D5D20(&STACK[0x1900]);
+  sub_1E0258(&STACK[0x1AA0]);
+  sub_2DE774(&STACK[0x1A90]);
+  sub_4BA7C(&STACK[0x2C0]);
+  for (k = 16; k != -16; k -= 16)
+  {
+    sub_1D5D20(&STACK[0x1A70] + k);
+  }
+
+  sub_1E0258(&STACK[0x1C10]);
+  sub_2DE774(&STACK[0x1C00]);
+  sub_4BA7C(&STACK[0x2E0]);
+  for (m = 16; m != -16; m -= 16)
+  {
+    sub_1D5D20(&STACK[0x1BE0] + m);
+  }
+
+  sub_1E0258(&STACK[0x1D80]);
+  sub_2DE774(&STACK[0x1D70]);
+  sub_4BA7C(&STACK[0x300]);
+  for (n = 16; n != -16; n -= 16)
+  {
+    sub_1D5D20(&STACK[0x1D50] + n);
+  }
+
+  sub_1E0258(&STACK[0x1EF0]);
+  sub_2DE774(&STACK[0x1EE0]);
+  sub_4BA7C(&STACK[0x320]);
+  for (ii = 16; ii != -16; ii -= 16)
+  {
+    sub_1D5D20(&STACK[0x1EC0] + ii);
+  }
+
+  sub_1E0258(&STACK[0x2070]);
+  v91 = &STACK[0x2060];
+  v92 = -32;
+  do
+  {
+    v91 = (sub_2DE774(v91) - 16);
+    v92 += 16;
+  }
+
+  while (v92);
+  sub_4BA7C(&STACK[0x340]);
+  sub_1D5D20(&STACK[0x2030]);
+  sub_4BA7C(&STACK[0x360]);
+  sub_1D5D20(&STACK[0x2040]);
+  sub_1E0258(&STACK[0x21E0]);
+  sub_2DE774(&STACK[0x21D0]);
+  sub_4BA7C(&STACK[0x380]);
+  for (jj = 16; jj != -16; jj -= 16)
+  {
+    sub_1D5D20(&STACK[0x21B0] + jj);
+  }
+
+  sub_1E0258(&STACK[0x2350]);
+  sub_2DE774(&STACK[0x2340]);
+  sub_4BA7C(&STACK[0x3A0]);
+  for (kk = 16; kk != -16; kk -= 16)
+  {
+    sub_1D5D20(&STACK[0x2320] + kk);
+  }
+
+  sub_1E0258(&STACK[0x24C0]);
+  sub_2DE774(&STACK[0x24B0]);
+  sub_4BA7C(&STACK[0x3C0]);
+  for (mm = 16; mm != -16; mm -= 16)
+  {
+    sub_1D5D20(&STACK[0x2490] + mm);
+  }
+
+  sub_1E0258(&STACK[0x2630]);
+  sub_2DE774(&STACK[0x2620]);
+  sub_4BA7C(&STACK[0x3E0]);
+  for (nn = 16; nn != -16; nn -= 16)
+  {
+    sub_1D5D20(&STACK[0x2600] + nn);
+  }
+
+  sub_1E0258(&STACK[0x27A0]);
+  sub_2DE774(&STACK[0x2790]);
+  sub_4BA7C(&STACK[0x400]);
+  for (i1 = 16; i1 != -16; i1 -= 16)
+  {
+    sub_1D5D20(&STACK[0x2770] + i1);
+  }
+
+  sub_1E0258(&STACK[0x2950]);
+  v98 = &STACK[0x2940];
+  v99 = -32;
+  do
+  {
+    v98 = (sub_2DE774(v98) - 16);
+    v99 += 16;
+  }
+
+  while (v99);
+  sub_4BA7C(&STACK[0x430]);
+  sub_1D5D20(&STACK[0x2910]);
+  STACK[0x2770] = &STACK[0x408];
+  sub_A9CA4(&STACK[0x2770]);
+  v100 = STACK[0x28F8];
+  if (STACK[0x28F8])
+  {
+    STACK[0x2900] = v100;
+    operator delete(v100);
+  }
+
+  sub_4BA7C(&STACK[0x448]);
+  sub_1D5D20(&STACK[0x2920]);
+  sub_1E0258(&STACK[0x2B00]);
+  v101 = &STACK[0x2AF0];
+  v102 = -32;
+  do
+  {
+    v101 = (sub_2DE774(v101) - 16);
+    v102 += 16;
+  }
+
+  while (v102);
+  sub_4BA7C(&STACK[0x480]);
+  sub_1D5D20(&STACK[0x2AC0]);
+  STACK[0x2930] = &STACK[0x458];
+  sub_A9CA4(&STACK[0x2930]);
+  v103 = STACK[0x2AA8];
+  if (STACK[0x2AA8])
+  {
+    STACK[0x2AB0] = v103;
+    operator delete(v103);
+  }
+
+  sub_4BA7C(&STACK[0x498]);
+  sub_1D5D20(&STACK[0x2AD0]);
+  sub_1E0258(&STACK[0x2CB0]);
+  v104 = &STACK[0x2CA0];
+  v105 = -32;
+  do
+  {
+    v104 = (sub_2DE774(v104) - 16);
+    v105 += 16;
+  }
+
+  while (v105);
+  sub_4BA7C(&STACK[0x4D0]);
+  sub_1D5D20(&STACK[0x2C70]);
+  STACK[0x2AE0] = &STACK[0x4A8];
+  sub_A9CA4(&STACK[0x2AE0]);
+  v106 = STACK[0x2C58];
+  if (STACK[0x2C58])
+  {
+    STACK[0x2C60] = v106;
+    operator delete(v106);
+  }
+
+  sub_4BA7C(&STACK[0x4E8]);
+  sub_1D5D20(&STACK[0x2C80]);
+  sub_1E0258(&STACK[0x2E60]);
+  v107 = &STACK[0x2E50];
+  v108 = -32;
+  do
+  {
+    v107 = (sub_2DE774(v107) - 16);
+    v108 += 16;
+  }
+
+  while (v108);
+  sub_4BA7C(&STACK[0x518]);
+  sub_1D5D20(&STACK[0x2E20]);
+  STACK[0x2C90] = &STACK[0x4F0];
+  sub_A9CA4(&STACK[0x2C90]);
+  v109 = STACK[0x2E08];
+  if (STACK[0x2E08])
+  {
+    STACK[0x2E10] = v109;
+    operator delete(v109);
+  }
+
+  sub_4BA7C(&STACK[0x530]);
+  sub_1D5D20(&STACK[0x2E30]);
+  sub_1E0258(&STACK[0x3010]);
+  v110 = &STACK[0x3000];
+  v111 = -32;
+  do
+  {
+    v110 = (sub_2DE774(v110) - 16);
+    v111 += 16;
+  }
+
+  while (v111);
+  sub_4BA7C(&STACK[0x560]);
+  sub_1D5D20(&STACK[0x2FD0]);
+  STACK[0x2E40] = &STACK[0x538];
+  sub_A9CA4(&STACK[0x2E40]);
+  v112 = STACK[0x2FB8];
+  if (STACK[0x2FB8])
+  {
+    STACK[0x2FC0] = v112;
+    operator delete(v112);
+  }
+
+  sub_4BA7C(&STACK[0x578]);
+  sub_1D5D20(&STACK[0x2FE0]);
+  sub_1E0258(&STACK[0x31C0]);
+  v113 = &STACK[0x31B0];
+  v114 = -32;
+  do
+  {
+    v113 = (sub_2DE774(v113) - 16);
+    v114 += 16;
+  }
+
+  while (v114);
+  sub_4BA7C(&STACK[0x5A8]);
+  sub_1D5D20(&STACK[0x3180]);
+  STACK[0x2FF0] = &STACK[0x580];
+  sub_A9CA4(&STACK[0x2FF0]);
+  v115 = STACK[0x3168];
+  if (STACK[0x3168])
+  {
+    STACK[0x3170] = v115;
+    operator delete(v115);
+  }
+
+  sub_4BA7C(&STACK[0x5C0]);
+  sub_1D5D20(&STACK[0x3190]);
+  sub_1E0258(&STACK[0x3370]);
+  v116 = &STACK[0x3360];
+  v117 = -32;
+  do
+  {
+    v116 = (sub_2DE774(v116) - 16);
+    v117 += 16;
+  }
+
+  while (v117);
+  sub_4BA7C(&STACK[0x5F0]);
+  sub_1D5D20(&STACK[0x3330]);
+  STACK[0x31A0] = &STACK[0x5C8];
+  sub_A9CA4(&STACK[0x31A0]);
+  v118 = STACK[0x3318];
+  if (STACK[0x3318])
+  {
+    STACK[0x3320] = v118;
+    operator delete(v118);
+  }
+
+  sub_4BA7C(&STACK[0x608]);
+  sub_1D5D20(&STACK[0x3340]);
+  sub_1E0258(&STACK[0x658]);
+  v119 = &STACK[0x3510];
+  v120 = -32;
+  do
+  {
+    v119 = (sub_2DE774(v119) - 16);
+    v120 += 16;
+  }
+
+  while (v120);
+  sub_4BA7C(&STACK[0x638]);
+  sub_1D5D20(&STACK[0x34E0]);
+  STACK[0x3350] = &STACK[0x610];
+  sub_A9CA4(&STACK[0x3350]);
+  v121 = STACK[0x34C8];
+  if (STACK[0x34C8])
+  {
+    STACK[0x34D0] = v121;
+    operator delete(v121);
+  }
+
+  sub_4BA7C(&STACK[0x650]);
+  sub_1D5D20(&STACK[0x34F0]);
+  while (v66 != &STACK[0x3520])
+  {
+    v66 -= 41;
+    sub_1E1930(v66);
+  }
+
+  sub_1E0000(a10);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_321C64(uint64_t a1, int *a2)
+{
+  sub_88CE8(a1, "BeamIndex");
+  valuePtr = *a2;
+  v4 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+  *(a1 + 8) = v4;
+  if (!v4)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Could not construct");
+  }
+
+  return a1;
+}
+
+void sub_321D04(_Unwind_Exception *a1)
+{
+  sub_1D5FAC(v1 + 1);
+  sub_1D5FE0(v1);
+  _Unwind_Resume(a1);
+}
+
+void sub_321D38(uint64_t a1)
+{
+  if (*(a1 + 24))
+  {
+    v2 = sub_5544(17);
+    if (*(v2 + 8))
+    {
+      v3 = *v2;
+      if (*v2)
+      {
+        if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEBUG))
+        {
+          v5 = 136315394;
+          v6 = "AggregateDevice.cpp";
+          v7 = 1024;
+          v8 = 224;
+          _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d Closing VAD Captures", &v5, 0x12u);
+        }
+      }
+    }
+
+    v4 = *(a1 + 24);
+    *(a1 + 24) = 0;
+    if (v4)
+    {
+      (*(*v4 + 8))(v4);
+    }
+  }
+
+  sub_68E60();
+  operator new();
+}
+
+void sub_321E78(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    sub_1CC130(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_321E84(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = sub_5544(17);
+  if (*(v2 + 8))
+  {
+    v3 = *v2;
+    if (*v2)
+    {
+      if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 136315394;
+        v5 = "AggregateDevice.cpp";
+        v6 = 1024;
+        v7 = 230;
+        _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d deleting IOMonitorCloseMessage", buf, 0x12u);
+      }
+    }
+  }
+
+  if (v1)
+  {
+    (*(*v1 + 8))(v1);
+  }
+
+  operator delete();
+}
+
+void sub_321F9C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, __int128 buf, __int128 a17, int a18, __int16 a19, __int16 a20, int a21)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  if (a2 == 3)
+  {
+    v22 = __cxa_begin_catch(a1);
+    v23 = sub_5544(14);
+    v24 = *v23;
+    if (*v23 && os_log_type_enabled(*v23, OS_LOG_TYPE_ERROR))
+    {
+      sub_22170(&__p, v22[2]);
+      p_p = __p;
+      if (a15 >= 0)
+      {
+        p_p = &__p;
+      }
+
+      LODWORD(buf) = 136316162;
+      *(&buf + 4) = "StandardUtilities.h";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 660;
+      WORD1(a17) = 2080;
+      *(&a17 + 4) = p_p;
+      WORD6(a17) = 2080;
+      *(&a17 + 14) = "";
+      a20 = 1024;
+      a21 = 98;
+      _os_log_impl(&dword_0, v24, OS_LOG_TYPE_ERROR, "%25s:%-5d CAException caught by ExceptionBarrier: '%s' (%s:%d).", &buf, 0x2Cu);
+      if (a15 < 0)
+      {
+        operator delete(__p);
+      }
+    }
+
+LABEL_17:
+    __cxa_end_catch();
+    JUMPOUT(0x321F54);
+  }
+
+  v26 = __cxa_begin_catch(a1);
+  if (a2 == 2)
+  {
+    v27 = v26;
+    v28 = sub_5544(14);
+    v29 = *v28;
+    if (!*v28 || !os_log_type_enabled(*v28, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_17;
+    }
+
+    v30 = (*(*v27 + 16))(v27);
+    LODWORD(buf) = 136316162;
+    *(&buf + 4) = "StandardUtilities.h";
+    WORD6(buf) = 1024;
+    *(&buf + 14) = 665;
+    WORD1(a17) = 2080;
+    *(&a17 + 4) = v30;
+    WORD6(a17) = 2080;
+    *(&a17 + 14) = "";
+    a20 = 1024;
+    a21 = 98;
+    v31 = "%25s:%-5d Standard Library exception caught by ExceptionBarrier: %s (%s:%d).";
+    v32 = v29;
+    v33 = 44;
+  }
+
+  else
+  {
+    v34 = sub_5544(14);
+    v35 = *v34;
+    if (!*v34 || !os_log_type_enabled(*v34, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_17;
+    }
+
+    LODWORD(buf) = 136315906;
+    *(&buf + 4) = "StandardUtilities.h";
+    WORD6(buf) = 1024;
+    *(&buf + 14) = 670;
+    WORD1(a17) = 2080;
+    *(&a17 + 4) = "";
+    WORD6(a17) = 1024;
+    *(&a17 + 14) = 98;
+    v31 = "%25s:%-5d Unknown exception caught by ExceptionBarrier (%s:%d).";
+    v32 = v35;
+    v33 = 34;
+  }
+
+  _os_log_impl(&dword_0, v32, OS_LOG_TYPE_ERROR, v31, &buf, v33);
+  goto LABEL_17;
+}
+
+void sub_322240(caulk::concurrent::message *this)
+{
+  *this = off_6D0708;
+  v2 = *(this + 3);
+  *(this + 3) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  caulk::concurrent::message::~message(this);
+}
+
+void sub_3222D8(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  if (a3)
+  {
+    if ((*(*a3 + 96))(a3))
+    {
+      v5 = *(a2 + 16);
+      v6[0] = *a2;
+      v6[1] = v5;
+      v7 = *(a2 + 32);
+      v8 = 1;
+      sub_32235C(result, v6);
+    }
+  }
+}
+
+void sub_32235C(uint64_t a1, uint64_t a2)
+{
+  v36 = *(a1 + 276);
+  v4 = sub_5544(17);
+  sub_68108(__p, &v36);
+  if (__p[23] >= 0)
+  {
+    v5 = __p;
+  }
+
+  else
+  {
+    v5 = *__p;
+  }
+
+  sub_51E48(3, v4, "", 846, "", "Updating time sync device for VAD %s", v5);
+  if ((__p[23] & 0x80000000) != 0)
+  {
+    operator delete(*__p);
+  }
+
+  if (!(*(*a1 + 88))(a1, 1))
+  {
+    goto LABEL_33;
+  }
+
+  if (*(a2 + 40) == 1)
+  {
+    v6 = *(a2 + 16);
+    *__p = *a2;
+    *&__p[16] = v6;
+    v40 = *(a2 + 32);
+    if (*&__p[8] != 1819304813)
+    {
+LABEL_33:
+      sub_53E8(__dst, "");
+      goto LABEL_34;
+    }
+  }
+
+  else
+  {
+    v7 = (*(*a1 + 96))(a1, 1, 0);
+    if ((*(*v7 + 128))(v7, __p, 1885762592))
+    {
+      v8 = 0;
+    }
+
+    else
+    {
+      v8 = *&__p[8] == 1819304813;
+    }
+
+    if (!v8)
+    {
+      goto LABEL_33;
+    }
+  }
+
+  __dst[0] = 0;
+  __dst[1] = 0;
+  v9 = *(a1 + 216);
+  if (v9)
+  {
+    v10 = std::__shared_weak_count::lock(v9);
+    v11 = v10;
+    if (v10)
+    {
+      v12 = *(a1 + 208);
+      atomic_fetch_add_explicit(&v10->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      __dst[0] = v12;
+      __dst[1] = v10;
+      sub_1A8C0(v10);
+    }
+
+    else
+    {
+      __dst[0] = 0;
+      __dst[1] = 0;
+    }
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v13 = sub_CE3DC((a1 + 272));
+  v14 = sub_3BE5C4(__dst, v13);
+  if (v11)
+  {
+    std::__shared_weak_count::__release_weak(v11);
+  }
+
+  if (!v14)
+  {
+    goto LABEL_33;
+  }
+
+  v15 = *(a1 + 535);
+  if (v15 < 0)
+  {
+    v15 = *(a1 + 520);
+  }
+
+  v16 = v15 == 0;
+  v17 = sub_5544(17);
+  v18 = *v17;
+  if (!v16)
+  {
+    v19 = (a1 + 512);
+    if (v18 && os_log_type_enabled(*v17, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = a1 + 512;
+      if (*(a1 + 535) < 0)
+      {
+        v20 = *v19;
+      }
+
+      *__p = 136315650;
+      *&__p[4] = "AggregateDevice.cpp";
+      *&__p[12] = 1024;
+      *&__p[14] = 1059;
+      *&__p[18] = 2080;
+      *&__p[20] = v20;
+      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Selected clock is %s", __p, 0x1Cu);
+    }
+
+    if (*(a1 + 535) < 0)
+    {
+      sub_54A0(__dst, *(a1 + 512), *(a1 + 520));
+      goto LABEL_34;
+    }
+
+    goto LABEL_72;
+  }
+
+  v19 = (a1 + 488);
+  if (v18 && os_log_type_enabled(*v17, OS_LOG_TYPE_DEFAULT))
+  {
+    v30 = a1 + 488;
+    if (*(a1 + 511) < 0)
+    {
+      v30 = *v19;
+    }
+
+    *__p = 136315650;
+    *&__p[4] = "AggregateDevice.cpp";
+    *&__p[12] = 1024;
+    *&__p[14] = 1063;
+    *&__p[18] = 2080;
+    *&__p[20] = v30;
+    _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Selected clock is %s", __p, 0x1Cu);
+  }
+
+  if ((*(a1 + 511) & 0x80000000) == 0)
+  {
+LABEL_72:
+    *__dst = *v19;
+    v35 = v19[2];
+    goto LABEL_34;
+  }
+
+  sub_54A0(__dst, *(a1 + 488), *(a1 + 496));
+LABEL_34:
+  v21 = (*(*a1 + 120))(a1);
+  v22 = sub_5544(17);
+  sub_68108(__p, &v36);
+  if (__p[23] >= 0)
+  {
+    v23 = __p;
+  }
+
+  else
+  {
+    v23 = *__p;
+  }
+
+  if (SHIBYTE(v35) < 0)
+  {
+    if (__dst[1])
+    {
+      v24 = __dst[0];
+    }
+
+    else
+    {
+      v24 = "None";
+    }
+  }
+
+  else
+  {
+    v24 = __dst;
+    if (!HIBYTE(v35))
+    {
+      v24 = "None";
+    }
+  }
+
+  sub_51E48(3, v22, "", 143, "", "Setting clock for VAD '%s' to %s", v23, v24);
+  if ((__p[23] & 0x80000000) != 0)
+  {
+    operator delete(*__p);
+  }
+
+  strcpy(__p, "dcpabolg");
+  __p[9] = 0;
+  *&__p[10] = 0;
+  if (!sub_66E40(v21, __p))
+  {
+    v31 = sub_5544(14);
+    v32 = *v31;
+    if (*v31 && os_log_type_enabled(*v31, OS_LOG_TYPE_ERROR))
+    {
+      *__p = 136315394;
+      *&__p[4] = "AggregateDevice.cpp";
+      *&__p[12] = 1024;
+      *&__p[14] = 135;
+      _os_log_impl(&dword_0, v32, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::logic_error): Default VAD's clock device is not settable", __p, 0x12u);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(exception, "Default VAD's clock device is not settable");
+  }
+
+  if (v35 >= 0)
+  {
+    v25 = __dst;
+  }
+
+  else
+  {
+    v25 = __dst[0];
+  }
+
+  if (v25)
+  {
+    if (v35 >= 0)
+    {
+      v26 = HIBYTE(v35);
+    }
+
+    else
+    {
+      v26 = __dst[1];
+    }
+
+    v27 = CFStringCreateWithBytes(0, v25, v26, 0x8000100u, 0);
+    cf = v27;
+    if (!v27)
+    {
+      v28 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v28, "Could not construct");
+    }
+  }
+
+  else
+  {
+    v27 = 0;
+    cf = 0;
+  }
+
+  inData = v27;
+  strcpy(__p, "dcpabolg");
+  __p[9] = 0;
+  *&__p[10] = 0;
+  AudioObjectSetPropertyData(v21, __p, 0, 0, 8u, &inData);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  v29 = sub_127A6C(__dst);
+  if (HIDWORD(v29))
+  {
+    *(a1 + 432) = v29;
+    *(a1 + 436) = 1;
+  }
+
+  else if (*(a1 + 436) == 1)
+  {
+    *(a1 + 436) = 0;
+  }
+
+  if (SHIBYTE(v35) < 0)
+  {
+    operator delete(__dst[0]);
+  }
+}
+
+void sub_32297C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+{
+  __cxa_free_exception(v25);
+  if (a16 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_322A34(id a1)
+{
+  v1 = dlopen("/usr/lib/libAudioIssueDetector.dylib", 1);
+  if (v1 || (v1 = dlopen("/usr/local/lib/libAudioIssueDetector.dylib", 1)) != 0)
+  {
+    v2 = v1;
+    off_6FCB88 = dlsym(v1, "AudioIssueDetectorCreate");
+    off_6FCB90 = dlsym(v2, "AudioIssueDetectorInitialize");
+    off_6FCB98 = dlsym(v2, "AudioIssueDetectorDispose");
+    qword_6FCBA0 = dlsym(v2, "AudioIssueDetectorSetNodeFormat");
+    off_6FCBA8 = dlsym(v2, "AudioIssueDetectorSetNodeFormatWithDirection");
+    qword_6FCBB0 = dlsym(v2, "AudioIssueDetectorReset");
+    off_6FCBB8 = dlsym(v2, "AudioIssueDetectorAnalyzeBuffer");
+    off_6FCBC0 = dlsym(v2, "AudioIssueDetectorUpdateReportingSessions");
+    qword_6FCBC8 = dlsym(v2, "AudioIssueDetectorRemoveNode");
+    qword_6FCBD0 = dlsym(v2, "AudioIssueDetectorSetUplinkMute");
+    qword_6FCBD8 = dlsym(v2, "AudioIssueDetectorSetDownlinkVolume");
+    qword_6FCBE0 = dlsym(v2, "AudioIssueDetectorSetRouteSpecificDownlinkGainAdjustment");
+    off_6FCBE8 = dlsym(v2, "AudioIssueDetectorSetSmartCaseMicMute");
+    qword_6FCBF0 = dlsym(v2, "AudioIssueDetectorFlush");
+  }
+
+  v3 = dlopen("/System/Library/Frameworks/AudioToolbox.framework/libAudioDSP.dylib", 1);
+  if (v3)
+  {
+    v4 = dlsym(v3, "RegisterAudioUnits_Analyzer");
+    if (v4)
+    {
+
+      v4();
+    }
+  }
+}
+
+uint64_t sub_322C08@<X0>(uint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t *a3@<X8>)
+{
+  *a3 = a3;
+  a3[1] = a3;
+  a3[2] = 0;
+  v5 = sub_809C0();
+  v34[0] = off_6C1C48;
+  v34[3] = v34;
+  sub_2574C4(&v28, v5, a2, v34);
+  v6 = v29;
+  if (v29 == &v28)
+  {
+    goto LABEL_45;
+  }
+
+  v7 = (a1 + 184);
+  v27 = a1;
+  do
+  {
+    v8 = v6[3];
+    if (!v8)
+    {
+      v9 = 0;
+LABEL_36:
+      v23 = sub_5544(17);
+      v24 = *v23;
+      if (*v23 && os_log_type_enabled(*v23, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136315394;
+        v31 = "AggregateDevice.cpp";
+        v32 = 1024;
+        v33 = 366;
+        _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Expired port in connected port list.", buf, 0x12u);
+      }
+
+      goto LABEL_42;
+    }
+
+    v9 = std::__shared_weak_count::lock(v8);
+    if (!v9)
+    {
+      goto LABEL_36;
+    }
+
+    v10 = v6[2];
+    if (!v10)
+    {
+      goto LABEL_36;
+    }
+
+    v11 = *(a1 + 192);
+    if (v11 == v7)
+    {
+      goto LABEL_43;
+    }
+
+    while (1)
+    {
+      v12 = *(v10 + 200);
+      if (v12)
+      {
+        v13 = *(v10 + 192);
+        atomic_fetch_add_explicit(&v12->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+        v14 = std::__shared_weak_count::lock(v12);
+        v15 = v14;
+        if (v14)
+        {
+          atomic_fetch_add_explicit(&v14->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+          std::__shared_weak_count::__release_weak(v12);
+          sub_1A8C0(v15);
+        }
+
+        else
+        {
+          std::__shared_weak_count::__release_weak(v12);
+          v13 = 0;
+        }
+      }
+
+      else
+      {
+        v13 = 0;
+        v15 = 0;
+      }
+
+      v16 = v11[3];
+      if (v16)
+      {
+        v17 = std::__shared_weak_count::lock(v16);
+        v18 = v17;
+        if (v17)
+        {
+          v19 = v11[2];
+          atomic_fetch_add_explicit(&v17->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+          sub_1A8C0(v17);
+          if (!v15)
+          {
+            goto LABEL_22;
+          }
+        }
+
+        else
+        {
+          v19 = 0;
+          if (!v15)
+          {
+LABEL_22:
+            v13 = 0;
+            v20 = 0;
+            if (!v18)
+            {
+              goto LABEL_26;
+            }
+
+            goto LABEL_23;
+          }
+        }
+      }
+
+      else
+      {
+        v19 = 0;
+        v18 = 0;
+        if (!v15)
+        {
+          goto LABEL_22;
+        }
+      }
+
+      v20 = std::__shared_weak_count::lock(v15);
+      if (!v20)
+      {
+        v13 = 0;
+      }
+
+      if (!v18)
+      {
+LABEL_26:
+        v22 = v13 == 0;
+        if (!v20)
+        {
+          goto LABEL_28;
+        }
+
+LABEL_27:
+        sub_1A8C0(v20);
+        goto LABEL_28;
+      }
+
+LABEL_23:
+      v21 = std::__shared_weak_count::lock(v18);
+      if (!v21)
+      {
+        goto LABEL_26;
+      }
+
+      v22 = v13 == v19;
+      sub_1A8C0(v21);
+      if (v20)
+      {
+        goto LABEL_27;
+      }
+
+LABEL_28:
+      if (v18)
+      {
+        std::__shared_weak_count::__release_weak(v18);
+      }
+
+      if (v15)
+      {
+        std::__shared_weak_count::__release_weak(v15);
+      }
+
+      if (v22)
+      {
+        break;
+      }
+
+      v11 = v11[1];
+      if (v11 == v7)
+      {
+        goto LABEL_41;
+      }
+    }
+
+    if (v11 != v7)
+    {
+      sub_652A0(a3, v6 + 2);
+    }
+
+LABEL_41:
+    a1 = v27;
+LABEL_42:
+    if (v9)
+    {
+LABEL_43:
+      sub_1A8C0(v9);
+    }
+
+    v6 = v6[1];
+  }
+
+  while (v6 != &v28);
+LABEL_45:
+  sub_65310(&v28);
+  return sub_85148(v34);
+}
+
+void sub_322F04(_Unwind_Exception *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va1, a11);
+  va_start(va, a11);
+  v13 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  if (v11)
+  {
+    sub_1A8C0(v11);
+  }
+
+  sub_65310(va);
+  sub_85148(va1);
+  sub_65310(a7);
+  _Unwind_Resume(a1);
+}
+
+void sub_322FD8()
+{
+  v0 = sub_5544(14);
+  v1 = *v0;
+  if (*v0)
+  {
+    if (os_log_type_enabled(*v0, OS_LOG_TYPE_ERROR))
+    {
+      v3 = 136315394;
+      v4 = "AggregateDevice.cpp";
+      v5 = 1024;
+      v6 = 353;
+      _os_log_impl(&dword_0, v1, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::logic_error): DefinesCustomPreferredOutputChannelsForStereo returned false; calling this function is illegal.", &v3, 0x12u);
+    }
+  }
+
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::logic_error::logic_error(exception, "DefinesCustomPreferredOutputChannelsForStereo returned false; calling this function is illegal.");
+}
+
+double sub_3230D0(uint64_t a1, unint64_t *a2)
+{
+  v2 = *sub_871F0(a1, &v4, a2);
+  if (!v2)
+  {
+    sub_DE7DC("map::at:  key not found");
+  }
+
+  return *(v2 + 48);
+}
+
+uint64_t sub_323110(void *a1)
+{
+  if (sub_1278D8())
+  {
+    v36 = 1886216809;
+    v38 = 0;
+    v37 = 0uLL;
+    sub_4625C(&v37, &v36, &v37, 1uLL);
+    *v23 = v37;
+    v24 = v38;
+    strcpy(v25, "cwdv");
+    v25[8] = 0;
+    v26 = 3;
+    v28[0] = 0;
+    v28[1] = 0;
+    v27 = v28;
+    v29 = 44739242;
+    v31 = 0;
+    v32 = 0;
+    __p = 0;
+    (*(*a1 + 512))(&v33, a1, v23);
+    if (SHIBYTE(v32) < 0)
+    {
+      operator delete(__p);
+    }
+
+    sub_477A0(v28[0]);
+    if (v23[0])
+    {
+      v23[1] = v23[0];
+      operator delete(v23[0]);
+    }
+
+    if (v35)
+    {
+      v2 = v34;
+      v3 = *(v34 + 24);
+      if (v3)
+      {
+        v4 = std::__shared_weak_count::lock(v3);
+        if (v4)
+        {
+          v5 = v4;
+          v6 = *(v2 + 16);
+          if (v6)
+          {
+            LODWORD(v37) = sub_A82E4(v6);
+            LODWORD(v23[0]) = 1768843845;
+            *(v23 + 4) = qword_6EA868;
+            v7 = sub_542F0(&v37, v23, 0, 0);
+            *(&v10 + 1) = v8;
+            *&v10 = v7;
+            v9 = v10 >> 32;
+            if ((v9 & 0x100000000) != 0)
+            {
+              if (v9)
+              {
+                v11 = 0;
+LABEL_35:
+                sub_1A8C0(v5);
+LABEL_36:
+                sub_65310(&v33);
+                return v11;
+              }
+            }
+          }
+
+          sub_1A8C0(v5);
+        }
+      }
+    }
+
+    v12 = a1[28];
+    v13 = a1 + 29;
+    if (v12 != a1 + 29)
+    {
+      while ((*(v12 + 7) & 0xFBFFFFFF) != 0x6870696E)
+      {
+        v14 = v12[1];
+        if (v14)
+        {
+          do
+          {
+            v15 = v14;
+            v14 = *v14;
+          }
+
+          while (v14);
+        }
+
+        else
+        {
+          do
+          {
+            v15 = v12[2];
+            v16 = *v15 == v12;
+            v12 = v15;
+          }
+
+          while (!v16);
+        }
+
+        v12 = v15;
+        if (v15 == v13)
+        {
+          goto LABEL_26;
+        }
+      }
+    }
+
+    if (v12 == v13)
+    {
+LABEL_26:
+      v17 = a1 + 23;
+      for (i = a1[24]; i != v17; i = i[1])
+      {
+        v19 = i[3];
+        if (!v19 || (v20 = std::__shared_weak_count::lock(v19)) == 0)
+        {
+          v11 = 1;
+          goto LABEL_36;
+        }
+
+        v5 = v20;
+        v21 = i[2];
+        if (!v21 || *(v21 + 520) != 1)
+        {
+          v11 = 1;
+          goto LABEL_35;
+        }
+
+        sub_1A8C0(v20);
+      }
+    }
+
+    v11 = 0;
+    goto LABEL_36;
+  }
+
+  return 0;
+}
+
+void sub_323390(_Unwind_Exception *a1)
+{
+  sub_1A8C0(v1);
+  sub_65310((v2 - 96));
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_3233BC(uint64_t a1, unsigned int a2, int *a3, uint64_t a4)
+{
+  if (!a2)
+  {
+    v15 = sub_5544(14);
+    v16 = *v15;
+    if (*v15 && os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR))
+    {
+      v18 = 136315394;
+      v19 = "AggregateDevice.cpp";
+      v20 = 1024;
+      v21 = 240;
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::logic_error): inNumberAddresses is 0.", &v18, 0x12u);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(exception, "inNumberAddresses is 0.");
+  }
+
+  if (!a4)
+  {
+    v9 = sub_5544(14);
+    v10 = *v9;
+    if (*v9 && os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
+    {
+      v18 = 136315394;
+      v19 = "AggregateDevice.cpp";
+      v20 = 1024;
+      v21 = 241;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::logic_error) [inClientData is NULL]: inClientData is NULL.", &v18, 0x12u);
+    }
+
+    v11 = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(v11, "inClientData is NULL.");
+  }
+
+  v5 = a3;
+  if (!a3)
+  {
+    v12 = sub_5544(14);
+    v13 = *v12;
+    if (*v12 && os_log_type_enabled(*v12, OS_LOG_TYPE_ERROR))
+    {
+      v18 = 136315394;
+      v19 = "AggregateDevice.cpp";
+      v20 = 1024;
+      v21 = 242;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::logic_error) [inAddresses is NULL]: inAddresses is NULL.", &v18, 0x12u);
+    }
+
+    v14 = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(v14, "inAddresses is NULL.");
+  }
+
+  v6 = a2;
+  do
+  {
+    v7 = *v5;
+    v5 += 3;
+    if (v7 == 1768843845)
+    {
+      *(a4 + 484) = sub_323110(a4);
+    }
+
+    --v6;
+  }
+
+  while (v6);
+  return 0;
+}
+
+uint64_t sub_323674(uint64_t a1, __int128 *a2)
+{
+  *a1 = 0;
+  *(a1 + 56) = 0;
+  if (*(a2 + 56) == 1)
+  {
+    v3 = *a2;
+    *(a1 + 16) = *(a2 + 2);
+    *a1 = v3;
+    v4 = *(a2 + 4);
+    *(a1 + 24) = *(a2 + 3);
+    *(a1 + 32) = v4;
+    if (v4)
+    {
+      atomic_fetch_add_explicit((v4 + 16), 1uLL, memory_order_relaxed);
+    }
+
+    *(a1 + 40) = *(a2 + 40);
+    v5 = *(a2 + 6);
+    if (v5)
+    {
+      CFRetain(*(a2 + 6));
+    }
+
+    *(a1 + 48) = v5;
+    *(a1 + 56) = 1;
+  }
+
+  return a1;
+}
+
+void sub_3236FC(uint64_t a1, const std::string *a2)
+{
+  v4 = sub_5544(17);
+  v5 = *v4;
+  if (*v4 && os_log_type_enabled(*v4, OS_LOG_TYPE_DEFAULT))
+  {
+    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v6 = a2;
+    }
+
+    else
+    {
+      v6 = a2->__r_.__value_.__r.__words[0];
+    }
+
+    v7 = 136315650;
+    v8 = "AggregateDevice.cpp";
+    v9 = 1024;
+    v10 = 1048;
+    v11 = 2080;
+    v12 = v6;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d media clock is %s", &v7, 0x1Cu);
+  }
+
+  std::string::operator=((a1 + 512), a2);
+  LOBYTE(v7) = 0;
+  v13 = 0;
+  sub_32235C(a1, &v7);
+}
+
+void sub_323804(uint64_t result)
+{
+  v1 = (result + 16);
+  if (atomic_load((result + 16)))
+  {
+    sub_3635D4(result);
+    v4 = atomic_load(v1);
+    if (!v4 && (atomic_exchange((result + 64), 0) & 1) != 0)
+    {
+      v5 = *(result + 72);
+      if (v5)
+      {
+        v6 = *(result + 80);
+        if (v6)
+        {
+          v7 = *(v5 + 8);
+          if (v7)
+          {
+            (*(*v7 + 32))(v7);
+            v5 = *(result + 72);
+            v6 = *(result + 80);
+          }
+
+          *(result + 72) = 0;
+          v8 = *(v6 + 24);
+          *(v6 + 24) = v5;
+          if (v8)
+          {
+            (*(*v8 + 8))(v8);
+          }
+
+          if (*(result + 72))
+          {
+            v10 = sub_5544(14);
+            v11 = *v10;
+            if (*v10)
+            {
+              if (os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR))
+              {
+                v13 = 136315394;
+                v14 = "HapticDebugIODelegate.cpp";
+                v15 = 1024;
+                v16 = 226;
+                _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d POSTCONDITION FAILURE (std::logic_error).", &v13, 0x12u);
+              }
+            }
+
+            exception = __cxa_allocate_exception(0x10uLL);
+            std::logic_error::logic_error(exception, "Postcondition failure.");
+          }
+
+          v9 = *(result + 80);
+          sub_4F08C();
+          caulk::concurrent::messenger::enqueue(&unk_70A4E0, v9);
+          *(result + 80) = 0;
+        }
+      }
+    }
+  }
+}
+
+void sub_3239D8(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4)
+{
+  v5 = atomic_load((a1 + 64));
+  if (v5)
+  {
+    v6 = *(a1 + 72);
+    if (v6)
+    {
+      v7 = sub_4EFA20(v6, a4);
+      if (v7)
+      {
+        v8 = v7;
+        v9 = sub_5544(17);
+        v10 = *v9;
+        if (*v9)
+        {
+          if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
+          {
+            sub_22170(__p, v8);
+            v11 = v15 >= 0 ? __p : __p[0];
+            *buf = 136315906;
+            v17 = "HapticDebugIODelegate.cpp";
+            v18 = 1024;
+            v19 = 190;
+            v20 = 1024;
+            v21 = v8;
+            v22 = 2080;
+            v23 = v11;
+            _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d error writing buffer to file: %d %s", buf, 0x22u);
+            if (v15 < 0)
+            {
+              operator delete(__p[0]);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  while (atomic_load((a1 + 68)))
+  {
+    atomic_fetch_add((a1 + 68), 0xFFFFFFFF);
+    sub_323804(a1);
+  }
+}
+
+void sub_323B40(uint64_t a1)
+{
+  v2 = sub_5544(17);
+  v3 = *v2;
+  if (*v2 && os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = 136315394;
+    v6 = "HapticDebugIODelegate.cpp";
+    v7 = 1024;
+    v8 = 48;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Closing Haptic IO Monitor", &v5, 0x12u);
+  }
+
+  v4 = *(a1 + 24);
+  if (v4)
+  {
+    *(a1 + 24) = 0;
+    (*(*v4 + 8))(v4);
+  }
+
+  sub_68E60();
+  operator new();
+}
+
+void sub_323C70(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    sub_1CC130(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_323C7C(uint64_t *a1)
+{
+  v1 = *a1;
+  if (v1)
+  {
+    (*(*v1 + 8))(v1);
+  }
+
+  operator delete();
+}
+
+void sub_323CEC(caulk::concurrent::message *this)
+{
+  *this = off_6C1CF8;
+  v2 = *(this + 3);
+  *(this + 3) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  caulk::concurrent::message::~message(this);
+
+  operator delete();
+}
+
+void sub_323D80(caulk::concurrent::message *this)
+{
+  *this = off_6C1CF8;
+  v2 = *(this + 3);
+  *(this + 3) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  caulk::concurrent::message::~message(this);
+}
+
+void sub_323E00(uint64_t a1)
+{
+  sub_323E38(a1);
+
+  operator delete();
+}
+
+uint64_t sub_323E38(uint64_t a1)
+{
+  v2 = sub_5544(17);
+  v3 = *v2;
+  if (*v2 && os_log_type_enabled(*v2, OS_LOG_TYPE_INFO))
+  {
+    v7 = 136315394;
+    v8 = "HapticDebugIODelegate.cpp";
+    v9 = 1024;
+    v10 = 82;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "%25s:%-5d Deleting haptic debug delegate", &v7, 0x12u);
+  }
+
+  v4 = *(a1 + 80);
+  *(a1 + 80) = 0;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  v5 = *(a1 + 72);
+  *(a1 + 72) = 0;
+  if (v5)
+  {
+    (*(*v5 + 8))(v5);
+  }
+
+  sub_65310((a1 + 40));
+  *a1 = off_6D8AC0;
+  sub_1F7248((a1 + 24));
+  sub_1F71EC((a1 + 8));
+  return a1;
+}
+
+void sub_323F94(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  sub_1CC130(a1);
+}
+
+uint64_t sub_323FA0(uint64_t a1)
+{
+  *a1 = off_6D8AC0;
+  v2 = (a1 + 8);
+  sub_1F7248((a1 + 24));
+  sub_1F71EC(v2);
+  return a1;
+}
+
+void sub_323FF8(uint64_t a1)
+{
+  sub_324030(a1);
+
+  operator delete();
+}
+
+uint64_t sub_324030(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  *(a1 + 32) = 0;
+  if (v2)
+  {
+    sub_323E38(v2);
+    operator delete();
+  }
+
+  *a1 = off_6D8AC0;
+  sub_1F7248((a1 + 24));
+  sub_1F71EC((a1 + 8));
+  return a1;
+}
+
+uint64_t sub_3240AC(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  if (!a7)
+  {
+    v8 = sub_5544(14);
+    v9 = *v8;
+    if (*v8 && os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
+    {
+      v11 = 136315394;
+      v12 = "HapticDebugIODelegate.cpp";
+      v13 = 1024;
+      v14 = 169;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", &v11, 0x12u);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(exception, "Precondition failure.");
+  }
+
+  sub_3239D8(a7, a2, a3, a3);
+  return 0;
+}
+
+void sub_3241D4(AudioObjectID a1, unsigned int **a2)
+{
+  v4 = sub_5544(27);
+  if (*(v4 + 8))
+  {
+    v5 = *v4;
+    if (*v4)
+    {
+      if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEBUG))
+      {
+        sub_10898C(&v81, *a2, a2[1]);
+        v6 = v81.__m_.__opaque[15] >= 0 ? &v81 : v81.__m_.__sig;
+        buf.mSelector = 136315650;
+        *&buf.mScope = "HapticDebugIODelegate.cpp";
+        v74 = 1024;
+        v75 = 30;
+        v76 = 2080;
+        v77 = v6;
+        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d Setting input data sources: [%s]", &buf, 0x1Cu);
+        if (v81.__m_.__opaque[15] < 0)
+        {
+          operator delete(v81.__m_.__sig);
+        }
+      }
+    }
+  }
+
+  *&v40.mSelector = 0x696E707473737263;
+  v40.mElement = 0;
+  v7 = sub_5544(14);
+  if ((*(v7 + 8) & 1) != 0 && *v7 && os_log_type_enabled(*v7, OS_LOG_TYPE_DEBUG))
+  {
+    v80.__cv_.__sig = *&v40.mSelector;
+    *v80.__cv_.__opaque = v40.mElement;
+    sub_22CE0(&v81, &v80);
+  }
+
+  buf = v40;
+  if (AudioObjectHasProperty(a1, &buf))
+  {
+    memset(v81.__m_.__opaque, 0, sizeof(v81.__m_.__opaque));
+    v81.__m_.__sig = 850045863;
+    memset(v80.__cv_.__opaque, 0, sizeof(v80.__cv_.__opaque));
+    v80.__cv_.__sig = 1018212795;
+    v72 = 0;
+    sub_745E8(v71, a1, &v40, &v80, &v81, &v72);
+    v68 = v40;
+    v67 = a1;
+    v69 = 0;
+    v70 = 0;
+    buf = v40;
+    if (!sub_66E40(a1, &buf))
+    {
+      v14 = sub_5544(14);
+      if (*v14 && os_log_type_enabled(*v14, OS_LOG_TYPE_ERROR))
+      {
+        __p = *&v40.mSelector;
+        LODWORD(v50) = v40.mElement;
+        sub_22CE0(&v64, &__p);
+      }
+
+LABEL_114:
+      sub_73C20(v71);
+      std::condition_variable::~condition_variable(&v80);
+      std::mutex::~mutex(&v81);
+      return;
+    }
+
+    sub_3250DC(&v64, &v67);
+    if (v66)
+    {
+      goto LABEL_16;
+    }
+
+    v61 = 0;
+    v62 = 0;
+    v63 = 0;
+    sub_46980(&v61, v64, v65, (v65 - v64) >> 2);
+    v58 = 0;
+    v59 = 0;
+    v60 = 0;
+    sub_46980(&v58, *a2, a2[1], a2[1] - *a2);
+    v15 = v61;
+    v16 = v58;
+    if (v62 - v61 == v59 - v58)
+    {
+      v17 = memcmp(v61, v58, v62 - v61) == 0;
+      if (!v16)
+      {
+LABEL_36:
+        if (v15)
+        {
+          v62 = v15;
+          operator delete(v15);
+          if (v17)
+          {
+LABEL_40:
+            v18 = sub_5544(14);
+            if (*(v18 + 8))
+            {
+              v12 = *v18;
+              if (!*v18)
+              {
+                goto LABEL_45;
+              }
+
+              if (os_log_type_enabled(*v18, OS_LOG_TYPE_DEBUG))
+              {
+                buf.mSelector = 136315650;
+                *&buf.mScope = "HALPropertySynchronizer.h";
+                v74 = 1024;
+                v75 = 294;
+                v76 = 1024;
+                LODWORD(v77) = a1;
+                _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d Read-back value was the same as the set-to value, so we didn't need to wait on a sync primitive for a notification on id %u.", &buf, 0x18u);
+              }
+            }
+
+LABEL_44:
+            LOBYTE(v12) = 0;
+LABEL_45:
+            if (v64)
+            {
+              operator delete(v64);
+            }
+
+            if (v12)
+            {
+              sub_3250DC(&v64, &v67);
+              if (v66)
+              {
+LABEL_49:
+                v19 = 2000;
+                while (1)
+                {
+                  sub_3250DC(&__p, &v67);
+                  v20 = __p;
+                  if (v51)
+                  {
+                    goto LABEL_51;
+                  }
+
+                  v46 = 0;
+                  v47 = 0;
+                  v48 = 0;
+                  sub_46980(&v46, __p, v50, (v50 - __p) >> 2);
+                  v43 = 0;
+                  v44 = 0;
+                  v45 = 0;
+                  sub_46980(&v43, *a2, a2[1], a2[1] - *a2);
+                  v22 = v46;
+                  v23 = v43;
+                  if (v47 - v46 == v44 - v43)
+                  {
+                    break;
+                  }
+
+                  v24 = 0;
+                  if (v43)
+                  {
+                    goto LABEL_57;
+                  }
+
+LABEL_58:
+                  if (v22)
+                  {
+                    v47 = v22;
+                    operator delete(v22);
+                  }
+
+                  if (v24)
+                  {
+                    v21 = 16;
+                    if (!v20)
+                    {
+                      goto LABEL_63;
+                    }
+
+                    goto LABEL_62;
+                  }
+
+                  if (v19 <= 0)
+                  {
+                    v33 = sub_5544(14);
+                    if (*v33 && os_log_type_enabled(*v33, OS_LOG_TYPE_ERROR))
+                    {
+                      v41 = v40;
+                      sub_22CE0(&v42, &v41.mSelector);
+                    }
+
+LABEL_51:
+                    v21 = 1;
+                    if (!v20)
+                    {
+                      goto LABEL_63;
+                    }
+
+LABEL_62:
+                    operator delete(v20);
+                    goto LABEL_63;
+                  }
+
+                  v25.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
+                  v26 = sub_5544(14);
+                  if (*(v26 + 8))
+                  {
+                    v27 = *v26;
+                    if (*v26)
+                    {
+                      if (os_log_type_enabled(*v26, OS_LOG_TYPE_DEBUG))
+                      {
+                        buf.mSelector = 136315906;
+                        *&buf.mScope = "HALPropertySynchronizer.h";
+                        v74 = 1024;
+                        v75 = 354;
+                        v76 = 2080;
+                        v77 = "with timeout";
+                        v78 = 1024;
+                        v79 = a1;
+                        _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEBUG, "%25s:%-5d Waiting (%s) for sync primitive to be unlocked on id %u.", &buf, 0x22u);
+                      }
+                    }
+                  }
+
+                  sub_27A4();
+                  LOBYTE(v42.mSelector) = sub_2E6B08();
+                  *&buf.mSelector = &v81;
+                  LOBYTE(buf.mElement) = 1;
+                  std::mutex::lock(&v81);
+                  v28.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_ + 150000000;
+                  while ((v72 & 1) == 0 && v28.__d_.__rep_ > std::chrono::steady_clock::now().__d_.__rep_)
+                  {
+                    v29.__d_.__rep_ = v28.__d_.__rep_ - std::chrono::steady_clock::now().__d_.__rep_;
+                    if (v29.__d_.__rep_ >= 1)
+                    {
+                      std::chrono::steady_clock::now();
+                      v30.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
+                      if (v30.__d_.__rep_)
+                      {
+                        if (v30.__d_.__rep_ < 1)
+                        {
+                          if (v30.__d_.__rep_ >= 0xFFDF3B645A1CAC09)
+                          {
+                            goto LABEL_81;
+                          }
+
+                          v31 = 0x8000000000000000;
+                        }
+
+                        else
+                        {
+                          if (v30.__d_.__rep_ > 0x20C49BA5E353F7)
+                          {
+                            v31 = 0x7FFFFFFFFFFFFFFFLL;
+                            goto LABEL_82;
+                          }
+
+LABEL_81:
+                          v31 = 1000 * v30.__d_.__rep_;
+LABEL_82:
+                          if (v31 > (v29.__d_.__rep_ ^ 0x7FFFFFFFFFFFFFFFLL))
+                          {
+                            v32.__d_.__rep_ = 0x7FFFFFFFFFFFFFFFLL;
+LABEL_85:
+                            std::condition_variable::__do_timed_wait(&v80, &buf, v32);
+                            std::chrono::steady_clock::now();
+                            goto LABEL_86;
+                          }
+                        }
+                      }
+
+                      else
+                      {
+                        v31 = 0;
+                      }
+
+                      v32.__d_.__rep_ = v31 + v29.__d_.__rep_;
+                      goto LABEL_85;
+                    }
+
+LABEL_86:
+                    if (std::chrono::steady_clock::now().__d_.__rep_ >= v28.__d_.__rep_)
+                    {
+                      break;
+                    }
+                  }
+
+                  if (LOBYTE(buf.mElement) == 1)
+                  {
+                    std::mutex::unlock(*&buf.mSelector);
+                  }
+
+                  sub_1DB4C4(&v42);
+                  v21 = 0;
+                  v19 += (std::chrono::system_clock::now().__d_.__rep_ - v25.__d_.__rep_) / -1000;
+                  if (v20)
+                  {
+                    goto LABEL_62;
+                  }
+
+LABEL_63:
+                  if (v21)
+                  {
+                    if (v21 == 16)
+                    {
+                      v34 = sub_5544(14);
+                      if ((*(v34 + 8) & 1) != 0 && *v34 && os_log_type_enabled(*v34, OS_LOG_TYPE_DEBUG))
+                      {
+                        v42 = v40;
+                        sub_22CE0(&__p, &v42.mSelector);
+                      }
+                    }
+
+                    goto LABEL_112;
+                  }
+                }
+
+                v24 = memcmp(v46, v43, v47 - v46) == 0;
+                if (!v23)
+                {
+                  goto LABEL_58;
+                }
+
+LABEL_57:
+                v44 = v23;
+                operator delete(v23);
+                goto LABEL_58;
+              }
+
+              v55 = 0;
+              v56 = 0;
+              v57 = 0;
+              sub_46980(&v55, v64, v65, (v65 - v64) >> 2);
+              v52 = 0;
+              v53 = 0;
+              v54 = 0;
+              sub_46980(&v52, *a2, a2[1], a2[1] - *a2);
+              v35 = v55;
+              v36 = v52;
+              v37 = v56 - v55 == v53 - v52 && memcmp(v55, v52, v56 - v55) == 0;
+              if (v36)
+              {
+                v53 = v36;
+                operator delete(v36);
+              }
+
+              if (v35)
+              {
+                v56 = v35;
+                operator delete(v35);
+                if (!v37)
+                {
+                  goto LABEL_49;
+                }
+              }
+
+              else if (!v37)
+              {
+                goto LABEL_49;
+              }
+
+              v38 = sub_5544(14);
+              if (*(v38 + 8))
+              {
+                v39 = *v38;
+                if (*v38)
+                {
+                  if (os_log_type_enabled(*v38, OS_LOG_TYPE_DEBUG))
+                  {
+                    buf.mSelector = 136315650;
+                    *&buf.mScope = "HALPropertySynchronizer.h";
+                    v74 = 1024;
+                    v75 = 322;
+                    v76 = 1024;
+                    LODWORD(v77) = a1;
+                    _os_log_impl(&dword_0, v39, OS_LOG_TYPE_DEBUG, "%25s:%-5d Read-back value was the same as the set-to value, so we didn't need to wait on a sync primitive for a notification on id %u.", &buf, 0x18u);
+                  }
+                }
+              }
+
+LABEL_112:
+              if (v64)
+              {
+                operator delete(v64);
+              }
+            }
+
+            goto LABEL_114;
+          }
+        }
+
+        else if (v17)
+        {
+          goto LABEL_40;
+        }
+
+LABEL_16:
+        v8 = sub_5544(14);
+        if ((*(v8 + 8) & 1) != 0 && *v8 && os_log_type_enabled(*v8, OS_LOG_TYPE_DEBUG))
+        {
+          v55 = *&v40.mSelector;
+          LODWORD(v56) = v40.mElement;
+          sub_22CE0(&__p, &v55);
+        }
+
+        buf = v40;
+        v9 = sub_1F79B8(a1, &buf, *a2, a2[1]);
+        if (!v9)
+        {
+          LOBYTE(v12) = 1;
+          goto LABEL_45;
+        }
+
+        v10 = v9;
+        v11 = sub_5544(14);
+        v12 = *v11;
+        if (!*v11)
+        {
+          goto LABEL_45;
+        }
+
+        if (os_log_type_enabled(*v11, OS_LOG_TYPE_ERROR))
+        {
+          sub_22170(&__p, v10);
+          v52 = *&v40.mSelector;
+          LODWORD(v53) = v40.mElement;
+          sub_22CE0(&v55, &v52);
+        }
+
+        goto LABEL_44;
+      }
+    }
+
+    else
+    {
+      v17 = 0;
+      if (!v58)
+      {
+        goto LABEL_36;
+      }
+    }
+
+    v59 = v16;
+    operator delete(v16);
+    goto LABEL_36;
+  }
+
+  v13 = sub_5544(14);
+  if (*v13 && os_log_type_enabled(*v13, OS_LOG_TYPE_ERROR))
+  {
+    v80.__cv_.__sig = *&v40.mSelector;
+    *v80.__cv_.__opaque = v40.mElement;
+    sub_22CE0(&v81, &v80);
+  }
+}
+
+void sub_324FAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *__p, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, unsigned int a63)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  sub_73C20(&a63);
+  std::condition_variable::~condition_variable((v63 - 216));
+  std::mutex::~mutex((v63 - 168));
+  _Unwind_Resume(a1);
+}
+
+void sub_3250DC(uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 4);
+  *buf = *(a2 + 4);
+  v4 = *(a2 + 16);
+  *&buf[8] = *(a2 + 12);
+  sub_127F10(&v13, a2, buf, v4, *(a2 + 24));
+  v5 = v13;
+  if (v13)
+  {
+    v6 = sub_5544(14);
+    if (*v6)
+    {
+      if (os_log_type_enabled(*v6, OS_LOG_TYPE_ERROR))
+      {
+        sub_22170(&v12, v5);
+        v9 = *v3;
+        v10 = *(v3 + 2);
+        sub_22CE0(&__p, &v9);
+      }
+    }
+  }
+
+  if (v16 == 1)
+  {
+    memset(buf, 0, sizeof(buf));
+    v18 = 0;
+    v7 = v14;
+    sub_46980(buf, v14, v15, (v15 - v14) >> 2);
+    v8 = v18;
+    *a1 = *buf;
+    *(a1 + 16) = v8;
+    *(a1 + 24) = v5;
+    if (v7)
+    {
+      operator delete(v7);
+    }
+  }
+
+  else
+  {
+    *a1 = 0;
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
+    *(a1 + 24) = v5;
+  }
+}
+
+void sub_3252DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, char a22)
+{
+  if (v23 < 0)
+  {
+    operator delete(v22);
+  }
+
+  if (a22 == 1)
+  {
+    if (__p)
+    {
+      operator delete(__p);
+    }
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_32531C(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  if (!v1)
+  {
+    v3 = sub_5544(17);
+    v4 = *v3;
+    if (*v3 && os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
+    {
+      buf.mSelector = 136315394;
+      *&buf.mScope = "HapticDebugIODelegate.cpp";
+      v43 = 1024;
+      *__p = 242;
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d HapticDebugDelegate not instantiated yet", &buf, 0x12u);
+    }
+
+    v1 = *(a1 + 32);
+    if (!v1)
+    {
+      return;
+    }
+  }
+
+  if (!*(v1 + 56))
+  {
+    v35 = sub_5544(14);
+    v36 = *v35;
+    if (*v35 && os_log_type_enabled(*v35, OS_LOG_TYPE_ERROR))
+    {
+      buf.mSelector = 136315394;
+      *&buf.mScope = "HapticDebugIODelegate.cpp";
+      v43 = 1024;
+      *__p = 87;
+      _os_log_impl(&dword_0, v36, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", &buf, 0x12u);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(exception, "Precondition failure.");
+  }
+
+  v5 = (v1 + 40);
+  v6 = *(v1 + 48);
+  if (v6 != (v1 + 40))
+  {
+    do
+    {
+      v7 = v6[3];
+      if (v7)
+      {
+        v8 = std::__shared_weak_count::lock(v7);
+        if (v8)
+        {
+          v9 = v8;
+          v10 = v6[2];
+          if (v10)
+          {
+            v11 = (*(*v10 + 480))(v10);
+            sub_1A8C0(v9);
+            if (v11)
+            {
+              goto LABEL_18;
+            }
+          }
+
+          else
+          {
+            sub_1A8C0(v9);
+          }
+        }
+      }
+
+      v6 = v6[1];
+    }
+
+    while (v6 != v5);
+    goto LABEL_15;
+  }
+
+LABEL_18:
+  v14 = v6 == v5;
+  v5 = v6;
+  if (v14)
+  {
+LABEL_15:
+    v12 = sub_5544(14);
+    v13 = *v12;
+    if (*v12 && os_log_type_enabled(*v12, OS_LOG_TYPE_ERROR))
+    {
+      buf.mSelector = 136315394;
+      *&buf.mScope = "HapticDebugIODelegate.cpp";
+      v43 = 1024;
+      *__p = 98;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d ASSERTION FAILURE: Cannot find master haptic debug device", &buf, 0x12u);
+    }
+  }
+
+  sub_5659C(&v40, v5 + 2, "", 102);
+  v15 = v40;
+  v16 = (*(*v40 + 120))(v40);
+  strcpy(&buf, "crsstpni");
+  BYTE1(buf.mElement) = 0;
+  HIWORD(buf.mElement) = 0;
+  if (AudioObjectHasProperty(v16, &buf))
+  {
+    (*(*v15 + 488))(&v38, v15);
+    if (v38 == v39)
+    {
+      v22 = sub_5544(17);
+      v23 = sub_5544(27);
+      v24 = 0;
+      *&buf.mSelector = 0x100000002;
+      v25 = *(v22 + 8);
+      while (1)
+      {
+        v26 = *(&buf.mSelector + v24);
+        if (((v25 & v26) != 0) != ((*(v23 + 8) & v26) != 0))
+        {
+          break;
+        }
+
+        v24 += 4;
+        if (v24 == 8)
+        {
+          goto LABEL_49;
+        }
+      }
+
+      if ((v25 & v26) == 0)
+      {
+        v22 = v23;
+      }
+
+LABEL_49:
+      v34 = *v22;
+      if (v34 && os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+      {
+        buf.mSelector = 136315394;
+        *&buf.mScope = "HapticDebugIODelegate.cpp";
+        v43 = 1024;
+        *__p = 110;
+        _os_log_impl(&dword_0, v34, OS_LOG_TYPE_INFO, "%25s:%-5d No valid input data sources found for this device", &buf, 0x12u);
+      }
+    }
+
+    else
+    {
+      v17 = sub_5544(17);
+      v18 = sub_5544(27);
+      v19 = 0;
+      *&buf.mSelector = 0x100000002;
+      v20 = *(v17 + 8);
+      while (1)
+      {
+        v21 = *(&buf.mSelector + v19);
+        if (((v20 & v21) != 0) != ((*(v18 + 8) & v21) != 0))
+        {
+          break;
+        }
+
+        v19 += 4;
+        if (v19 == 8)
+        {
+          goto LABEL_31;
+        }
+      }
+
+      if ((v20 & v21) == 0)
+      {
+        v17 = v18;
+      }
+
+LABEL_31:
+      v27 = *v17;
+      if (v27 && os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      {
+        sub_10898C(&v46, v38, v39);
+        v28 = (v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v46 : v46.__r_.__value_.__r.__words[0];
+        buf.mSelector = 136315650;
+        *&buf.mScope = "HapticDebugIODelegate.cpp";
+        v43 = 1024;
+        *__p = 114;
+        *&__p[4] = 2080;
+        *&__p[6] = v28;
+        _os_log_impl(&dword_0, v27, OS_LOG_TYPE_INFO, "%25s:%-5d Setting input data sources: %s", &buf, 0x1Cu);
+        if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v46.__r_.__value_.__l.__data_);
+        }
+      }
+
+      v29 = (*(*v15 + 120))(v15);
+      *&buf.mSelector = sub_3241D4;
+      buf.mElement = v29;
+      *&__p[10] = 0;
+      v45 = 0;
+      *&__p[2] = 0;
+      sub_46980(&__p[2], v38, v39, (v39 - v38) >> 2);
+      v30 = sub_5544(17);
+      v31 = *v30;
+      if (*v30 && os_log_type_enabled(*v30, OS_LOG_TYPE_DEFAULT))
+      {
+        v32 = atomic_load((v1 + 16));
+        LODWORD(v46.__r_.__value_.__l.__data_) = 136315650;
+        *(v46.__r_.__value_.__r.__words + 4) = "AggregateDevice_IODelegate.h";
+        WORD2(v46.__r_.__value_.__r.__words[1]) = 1024;
+        *(&v46.__r_.__value_.__r.__words[1] + 6) = 50;
+        WORD1(v46.__r_.__value_.__r.__words[2]) = 1024;
+        HIDWORD(v46.__r_.__value_.__r.__words[2]) = v32;
+        _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "%25s:%-5d executing function with device stopped. start count is %d", &v46, 0x18u);
+      }
+
+      if (atomic_load((v1 + 16)))
+      {
+        if (sub_363A44(v1))
+        {
+          (*&buf.mSelector)(buf.mElement, &__p[2]);
+          sub_364108(v1);
+        }
+      }
+
+      else
+      {
+        (*&buf.mSelector)(buf.mElement, &__p[2]);
+      }
+
+      if (*&__p[2])
+      {
+        *&__p[10] = *&__p[2];
+        operator delete(*&__p[2]);
+      }
+    }
+
+    if (v38)
+    {
+      v39 = v38;
+      operator delete(v38);
+    }
+  }
+
+  if (v41)
+  {
+    sub_1A8C0(v41);
+  }
+}
+
 void sub_325960(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18)
 {
   if (__p)
@@ -51,7 +7610,7 @@ void sub_325AD0()
   *v8 = 0u;
   v9 = 0u;
   *v10 = 0;
-  v0 = sub_106F10();
+  v0 = sub_106F10(@"XxnEk9uiIk5vCdbWEGt7lA");
   v10[4] = (v0 > 0xFFu) & v0;
   v10[5] = 1;
   *&v10[6] = 0;
@@ -397,7 +7956,7 @@ void sub_3262B4(uint64_t a1@<X0>, void *a2@<X8>)
   std::mutex::unlock((a1 + 936));
 }
 
-void sub_326328(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void sub_326328(void *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -697,21 +8256,22 @@ LABEL_51:
   }
 }
 
-void sub_326B5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, char a16)
+void sub_326B5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, ...)
 {
-  __cxa_free_exception(v17);
-  sub_2B50D0(&a16);
-  v19 = *v16;
-  if (*v16)
+  va_start(va, a15);
+  __cxa_free_exception(v16);
+  sub_2B50D0(va);
+  v18 = *v15;
+  if (*v15)
   {
-    *(v16 + 8) = v19;
-    operator delete(v19);
+    *(v15 + 8) = v18;
+    operator delete(v18);
   }
 
   _Unwind_Resume(a1);
 }
 
-void *sub_326BE0@<X0>(void *result@<X0>, unsigned int a2@<W1>, void *a3@<X8>)
+uint64_t *sub_326BE0@<X0>(uint64_t *result@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   if (a2 == 1886216809)
   {
@@ -760,11 +8320,12 @@ LABEL_8:
 
   else
   {
+    v7 = a2;
     v8 = result[110];
     if (v8)
     {
 
-      return sub_40AC30(a3, v8, a2);
+      return sub_40AC30(a3, v8, v7);
     }
 
     else
@@ -866,36 +8427,36 @@ void sub_327034(_Unwind_Exception *exception_object, int a2, int a3, int a4, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_327058(_DWORD *a1)
+void sub_327058(uint64_t *a1)
 {
   sub_4ADCC0(a1);
-  HIBYTE(v25[6]) = 0;
-  v25[7] = 0;
-  strcpy(v25, "Ms2icrscbolg");
-  if ((*(*a1 + 16))(a1, &v25[2]))
+  HIBYTE(v24[6]) = 0;
+  v24[7] = 0;
+  strcpy(v24, "Ms2icrscbolg");
+  if ((*(*a1 + 16))(a1, &v24[2]))
   {
-    (*(*a1 + 48))(a1, &v25[2], 0, 0, 4, v25);
+    (*(*a1 + 48))(a1, &v24[2], 0, 0, 4, v24);
   }
 
   sub_147688();
-  inAddress = 0x696E70746D757465;
-  LODWORD(inAddress_8) = 0;
+  *&inAddress = 0x696E70746D757465;
+  DWORD2(inAddress) = 0;
   v2 = (*(*a1 + 120))(a1);
   if (AudioObjectHasProperty(v2, &inAddress))
   {
-    v33[0] = 0x676C6F626D757465;
-    LODWORD(v33[1]) = 0;
+    v31[0] = 0x676C6F626D757465;
+    LODWORD(v31[1]) = 0;
     operator new();
   }
 
-  *&v32.mSelector = 0x696E7074766F6C64;
-  v32.mElement = 0;
+  *&v30.mSelector = 0x696E7074766F6C64;
+  v30.mElement = 0;
   v3 = (*(*a1 + 120))(a1);
-  if (AudioObjectHasProperty(v3, &v32))
+  if (AudioObjectHasProperty(v3, &v30))
   {
-    v4 = *(a1 + 11);
-    v33[0] = *(a1 + 10);
-    v33[1] = v4;
+    v4 = a1[11];
+    v31[0] = a1[10];
+    v31[1] = v4;
     if (v4)
     {
       atomic_fetch_add_explicit(v4 + 2, 1uLL, memory_order_relaxed);
@@ -904,7 +8465,7 @@ void sub_327058(_DWORD *a1)
     operator new();
   }
 
-  if (sub_40ADD4(*(a1 + 110), 0x696D6963u) || sub_40ADD4(*(a1 + 110), 0x696D6931u))
+  if (sub_40ADD4(a1[110], 1768778083) || sub_40ADD4(a1[110], 1768778033))
   {
     v5 = sub_5544(18);
     v6 = *v5;
@@ -917,7 +8478,7 @@ void sub_327058(_DWORD *a1)
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d creating an internal microphone port", buf, 0x12u);
     }
 
-    sub_33E58C(v33);
+    sub_33E58C(v31);
     v7 = sub_5544(18);
     if (*(v7 + 8))
     {
@@ -926,10 +8487,10 @@ void sub_327058(_DWORD *a1)
       {
         if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEBUG))
         {
-          v9 = v33;
-          if (v34 < 0)
+          v9 = v31;
+          if (v32 < 0)
           {
-            v9 = v33[0];
+            v9 = v31[0];
           }
 
           *buf = 136315650;
@@ -943,143 +8504,140 @@ void sub_327058(_DWORD *a1)
       }
     }
 
-    v10 = *(a1 + 11);
-    theDict[0] = *(a1 + 10);
+    v10 = a1[11];
+    theDict[0] = a1[10];
     theDict[1] = v10;
     if (v10)
     {
       atomic_fetch_add_explicit(v10 + 2, 1uLL, memory_order_relaxed);
     }
 
-    inAddress = 0;
-    inAddress_8 = 0;
-    v28 = 0;
-    if (SHIBYTE(v34) < 0)
+    inAddress = 0uLL;
+    v26 = 0;
+    if (SHIBYTE(v32) < 0)
     {
-      sub_54A0(buf, v33[0], v33[1]);
+      sub_54A0(buf, v31[0], v31[1]);
     }
 
     else
     {
-      *buf = *v33;
-      *&buf[16] = v34;
+      *buf = *v31;
+      *&buf[16] = v32;
     }
 
-    v37 = 0u;
-    v36 = 0u;
+    v35 = 0u;
+    v34 = 0u;
     *&buf[24] = 0u;
-    sub_46AC8C();
-    sub_2360B8();
+    v11 = sub_46AC8C();
+    sub_2360B8(&v28, theDict, &inAddress, buf, "Built-In Microphone", v11);
   }
 
   sub_4B77B0(a1, &qword_6EA980, 0);
-  inAddress = 0x707472755354656ELL;
-  LODWORD(inAddress_8) = 0;
+  *&inAddress = 0x707472755354656ELL;
+  DWORD2(inAddress) = 0;
   if ((*(*a1 + 16))(a1, &inAddress))
   {
     *buf = 0;
     (*(*a1 + 48))(a1, &inAddress, 0, 0, 4, buf);
   }
 
-  *&v32.mSelector = 0x6F7574706D757465;
-  v32.mElement = 5;
-  if ((*(*a1 + 16))(a1, &v32))
-  {
-    *buf = 1;
-    (*(*a1 + 48))(a1, &v32, 0, 0, 4, buf);
-  }
-
-  v30 = 0x676C6F624D434373;
-  v31 = 0;
+  *&v30.mSelector = 0x6F7574706D757465;
+  v30.mElement = 5;
   if ((*(*a1 + 16))(a1, &v30))
   {
+    *buf = 1;
+    (*(*a1 + 48))(a1, &v30, 0, 0, 4, buf);
+  }
+
+  v28 = 0x676C6F624D434373;
+  v29 = 0;
+  if ((*(*a1 + 16))(a1, &v28))
+  {
     theDict[0] = 0;
-    v24 = 8;
-    (*(*a1 + 40))(a1, &v30, 0, 0, &v24, theDict);
-    v11 = theDict[0];
+    v23 = 8;
+    (*(*a1 + 40))(a1, &v28, 0, 0, &v23, theDict);
+    v12 = theDict[0];
     if (!theDict[0])
     {
-      v21 = sub_5544(14);
-      v22 = *v21;
-      if (*v21 && os_log_type_enabled(*v21, OS_LOG_TYPE_ERROR))
+      v20 = sub_5544(14);
+      v21 = *v20;
+      if (*v20 && os_log_type_enabled(*v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
         *&buf[4] = "Device_HPMic_Aspen.cpp";
         *&buf[12] = 1024;
         *&buf[14] = 490;
-        _os_log_impl(&dword_0, v22, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::runtime_error) [maxChannelInfo is NULL]: Invalid Maximum Channel Info", buf, 0x12u);
+        _os_log_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::runtime_error) [maxChannelInfo is NULL]: Invalid Maximum Channel Info", buf, 0x12u);
       }
 
       exception = __cxa_allocate_exception(0x10uLL);
       std::runtime_error::runtime_error(exception, "Invalid Maximum Channel Info");
     }
 
-    v33[0] = theDict[0];
-    LOWORD(v33[1]) = 1;
+    v31[0] = theDict[0];
+    LOWORD(v31[1]) = 1;
     if (CFDictionaryContainsKey(theDict[0], @"MaxInputChannelCount"))
     {
-      if ((sub_2E7334(v11, @"MaxInputChannelCount", a1 + 225) & 1) == 0)
+      if ((sub_2E7334(v12, @"MaxInputChannelCount", a1 + 900) & 1) == 0)
       {
-        v12 = sub_5544(18);
-        v13 = *v12;
-        if (*v12)
+        v13 = sub_5544(18);
+        v14 = *v13;
+        if (*v13)
         {
-          if (os_log_type_enabled(*v12, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(*v13, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
             *&buf[4] = "Device_HPMic_Aspen.cpp";
             *&buf[12] = 1024;
             *&buf[14] = 497;
-            _os_log_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d Unable to convert max num input channels to UInt32", buf, 0x12u);
+            _os_log_impl(&dword_0, v14, OS_LOG_TYPE_ERROR, "%25s:%-5d Unable to convert max num input channels to UInt32", buf, 0x12u);
           }
         }
       }
 
-      v14 = sub_5544(18);
-      if (*(v14 + 8))
+      v15 = sub_5544(18);
+      if (*(v15 + 8))
       {
-        v15 = *v14;
-        if (*v14)
+        v16 = *v15;
+        if (*v15)
         {
-          if (os_log_type_enabled(*v14, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(*v15, OS_LOG_TYPE_DEBUG))
           {
-            v16 = a1[225];
+            v17 = *(a1 + 225);
             *buf = 136315650;
             *&buf[4] = "Device_HPMic_Aspen.cpp";
             *&buf[12] = 1024;
             *&buf[14] = 501;
             *&buf[18] = 1024;
-            *&buf[20] = v16;
-            _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEBUG, "%25s:%-5d Codec specified a maximum number of input channels: %u", buf, 0x18u);
+            *&buf[20] = v17;
+            _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d Codec specified a maximum number of input channels: %u", buf, 0x18u);
           }
         }
       }
     }
 
-    sub_A1D30(v33);
+    sub_A1D30(v31);
   }
 
   if (_os_feature_enabled_impl())
   {
-    v17 = sub_46AC8C();
-    (*(*a1 + 408))(a1, v17 + 96, 1);
+    v18 = sub_46AC8C();
+    (*(*a1 + 408))(a1, v18 + 96, 1);
   }
 
-  v18 = *(a1 + 10);
-  v19 = *(a1 + 11);
+  v19 = a1[11];
   if (v19)
   {
     atomic_fetch_add_explicit((v19 + 16), 1uLL, memory_order_relaxed);
   }
 
-  v20 = *(a1 + 125);
   operator new();
 }
 
-uint64_t *sub_327A9C(uint64_t *result)
+uint64_t *sub_327A9C(uint64_t *a1)
 {
-  v1 = *result;
-  *result = 0;
+  v1 = *a1;
+  *a1 = 0;
   if (v1)
   {
     v2 = *(v1 + 8);
@@ -1091,7 +8649,7 @@ uint64_t *sub_327A9C(uint64_t *result)
     operator delete();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t *sub_327AF0(uint64_t a1)
@@ -1255,16 +8813,16 @@ void sub_328400(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-BOOL sub_328424(uint64_t a1, unsigned int *a2, OSStatus (__cdecl *a3)(AudioObjectID, UInt32, const AudioObjectPropertyAddress *, void *), void *a4)
+BOOL sub_328424(uint64_t a1, AudioObjectPropertyAddress *a2, OSStatus (__cdecl *a3)(AudioObjectID, UInt32, const AudioObjectPropertyAddress *, void *), void *a4)
 {
   if (((*(*a1 + 16))(a1) & 1) == 0)
   {
     v9 = sub_5544(14);
     if (*v9 && os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = *a2;
-      v12 = a2[2];
-      sub_22CE0(&__p);
+      v11 = *&a2->mSelector;
+      mElement = a2->mElement;
+      sub_22CE0(&__p, &v11);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1275,7 +8833,7 @@ BOOL sub_328424(uint64_t a1, unsigned int *a2, OSStatus (__cdecl *a3)(AudioObjec
   return sub_17C9AC(a1, a2, a3, a4);
 }
 
-void sub_3285D8(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, uint64_t a5, unsigned int *a6)
+void sub_3285D8(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, uint64_t a5, float *a6)
 {
   if (((*(*a1 + 16))(a1) & 1) == 0)
   {
@@ -1284,7 +8842,7 @@ void sub_3285D8(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, uint64_t 
     {
       v90.__cv_.__sig = *a2;
       *v90.__cv_.__opaque = *(a2 + 8);
-      sub_22CE0(&v91);
+      sub_22CE0(&v91, &v90);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1299,7 +8857,7 @@ void sub_3285D8(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, uint64_t 
     {
       v90.__cv_.__sig = *a2;
       *v90.__cv_.__opaque = *(a2 + 8);
-      sub_22CE0(&v91);
+      sub_22CE0(&v91, &v90);
     }
 
     v56 = __cxa_allocate_exception(0x10uLL);
@@ -1314,7 +8872,7 @@ void sub_3285D8(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, uint64_t 
     {
       v90.__cv_.__sig = *a2;
       *v90.__cv_.__opaque = *(a2 + 8);
-      sub_22CE0(&v91);
+      sub_22CE0(&v91, &v90);
     }
 
     v58 = __cxa_allocate_exception(0x10uLL);
@@ -1367,7 +8925,7 @@ void sub_3285D8(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, uint64_t 
           {
             v90.__cv_.__sig = *a2;
             *v90.__cv_.__opaque = *(a2 + 8);
-            sub_22CE0(&v91);
+            sub_22CE0(&v91, &v90);
           }
 
           v64 = __cxa_allocate_exception(0x10uLL);
@@ -1400,7 +8958,7 @@ void sub_3285D8(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, uint64_t 
         {
           v90.__cv_.__sig = *a2;
           *v90.__cv_.__opaque = *(a2 + 8);
-          sub_22CE0(&v91);
+          sub_22CE0(&v91, &v90);
         }
 
         v62 = __cxa_allocate_exception(0x10uLL);
@@ -1416,7 +8974,7 @@ void sub_3285D8(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, uint64_t 
       {
         v90.__cv_.__sig = *a2;
         *v90.__cv_.__opaque = *(a2 + 8);
-        sub_22CE0(&v91);
+        sub_22CE0(&v91, &v90);
       }
 
       v16 = __cxa_allocate_exception(0x10uLL);
@@ -1436,7 +8994,7 @@ void sub_3285D8(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, uint64_t 
       {
         v90.__cv_.__sig = *a2;
         *v90.__cv_.__opaque = *(a2 + 8);
-        sub_22CE0(&v91);
+        sub_22CE0(&v91, &v90);
       }
 
       v60 = __cxa_allocate_exception(0x10uLL);
@@ -1465,7 +9023,7 @@ LABEL_33:
       {
         v90.__cv_.__sig = *a2;
         *v90.__cv_.__opaque = *(a2 + 8);
-        sub_22CE0(&v91);
+        sub_22CE0(&v91, &v90);
       }
 
       v66 = __cxa_allocate_exception(0x10uLL);
@@ -1533,7 +9091,7 @@ LABEL_33:
     {
       v90.__cv_.__sig = *a2;
       *v90.__cv_.__opaque = *(a2 + 8);
-      sub_22CE0(&v91);
+      sub_22CE0(&v91, &v90);
     }
 
     buf = *a2;
@@ -1558,7 +9116,7 @@ LABEL_33:
         {
           v73 = *a2;
           v74 = *(a2 + 8);
-          sub_22CE0(__p);
+          sub_22CE0(__p, &v73);
         }
 
         goto LABEL_118;
@@ -1599,7 +9157,7 @@ LABEL_118:
       {
         v73 = *a2;
         v74 = *(a2 + 8);
-        sub_22CE0(__p);
+        sub_22CE0(__p, &v73);
       }
 
       buf = *a2;
@@ -1612,7 +9170,7 @@ LABEL_118:
           sub_22170(__p, v37);
           v71 = *a2;
           v72 = *(a2 + 8);
-          sub_22CE0(&v73);
+          sub_22CE0(&v73, &v71);
         }
 
         goto LABEL_118;
@@ -1657,7 +9215,7 @@ LABEL_84:
         {
           v73 = *a2;
           v74 = *(a2 + 8);
-          sub_22CE0(__p);
+          sub_22CE0(__p, &v73);
         }
 
         goto LABEL_118;
@@ -1670,7 +9228,7 @@ LABEL_84:
         {
           v73 = *a2;
           v74 = *(a2 + 8);
-          sub_22CE0(__p);
+          sub_22CE0(__p, &v73);
         }
 
         goto LABEL_118;
@@ -1776,7 +9334,7 @@ LABEL_105:
     {
       v90.__cv_.__sig = *a2;
       *v90.__cv_.__opaque = *(a2 + 8);
-      sub_22CE0(&v91);
+      sub_22CE0(&v91, &v90);
     }
   }
 
@@ -1795,12 +9353,12 @@ LABEL_105:
   }
 }
 
-void sub_32A00C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_32A00C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   sub_73C20(va);
-  std::condition_variable::~condition_variable((v17 - 216));
-  std::mutex::~mutex((v17 - 168));
+  std::condition_variable::~condition_variable((v24 - 216));
+  std::mutex::~mutex((v24 - 168));
   _Unwind_Resume(a1);
 }
 
@@ -1822,7 +9380,7 @@ unint64_t sub_32A0F0(uint64_t a1)
         sub_22170(&v12, v3);
         v9 = *v1;
         v10 = *(v1 + 2);
-        sub_22CE0(&__p);
+        sub_22CE0(&__p, &v9);
       }
     }
   }
@@ -1846,7 +9404,7 @@ void sub_32A29C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_32A2BC(uint64_t a1, uint64_t *a2, uint64_t a3, const void *a4, UInt32 *a5, float *a6)
+void sub_32A2BC(uint64_t a1, unsigned int *a2, uint64_t a3, const void *a4, UInt32 *a5, float *a6)
 {
   if (((*(*a1 + 16))(a1) & 1) == 0)
   {
@@ -1854,8 +9412,8 @@ void sub_32A2BC(uint64_t a1, uint64_t *a2, uint64_t a3, const void *a4, UInt32 *
     if (*v21 && os_log_type_enabled(*v21, OS_LOG_TYPE_ERROR))
     {
       v33 = *a2;
-      v34 = *(a2 + 2);
-      sub_22CE0(&__p);
+      v34 = a2[2];
+      sub_22CE0(&__p, &v33);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1869,8 +9427,8 @@ void sub_32A2BC(uint64_t a1, uint64_t *a2, uint64_t a3, const void *a4, UInt32 *
     if (*v23 && os_log_type_enabled(*v23, OS_LOG_TYPE_ERROR))
     {
       v33 = *a2;
-      v34 = *(a2 + 2);
-      sub_22CE0(&__p);
+      v34 = a2[2];
+      sub_22CE0(&__p, &v33);
     }
 
     v24 = __cxa_allocate_exception(0x10uLL);
@@ -1884,8 +9442,8 @@ void sub_32A2BC(uint64_t a1, uint64_t *a2, uint64_t a3, const void *a4, UInt32 *
     if (*v25 && os_log_type_enabled(*v25, OS_LOG_TYPE_ERROR))
     {
       v33 = *a2;
-      v34 = *(a2 + 2);
-      sub_22CE0(&__p);
+      v34 = a2[2];
+      sub_22CE0(&__p, &v33);
     }
 
     v26 = __cxa_allocate_exception(0x10uLL);
@@ -1937,8 +9495,8 @@ LABEL_13:
         if (*v29 && os_log_type_enabled(*v29, OS_LOG_TYPE_ERROR))
         {
           v33 = *a2;
-          v34 = *(a2 + 2);
-          sub_22CE0(&__p);
+          v34 = a2[2];
+          sub_22CE0(&__p, &v33);
         }
 
         v30 = __cxa_allocate_exception(0x10uLL);
@@ -1947,7 +9505,7 @@ LABEL_13:
       }
 
       __p.mSelector = 1986290211;
-      *&__p.mScope = *(a2 + 4);
+      *&__p.mScope = *(a2 + 1);
       LODWORD(v33) = 16;
       sub_5C0D8(a1, &__p, 0, 0, &v33, buf);
       v16 = *buf;
@@ -1970,8 +9528,8 @@ LABEL_13:
             if (os_log_type_enabled(*v27, OS_LOG_TYPE_ERROR))
             {
               v33 = *a2;
-              v34 = *(a2 + 2);
-              sub_22CE0(&__p);
+              v34 = a2[2];
+              sub_22CE0(&__p, &v33);
             }
           }
 
@@ -1980,7 +9538,7 @@ LABEL_13:
           v28[2] = 561211770;
         }
 
-        v14 = *(a2 + 1);
+        v14 = a2[1];
         *buf = 1987013732;
         *&buf[4] = v14;
         *&buf[8] = 0;
@@ -1998,8 +9556,8 @@ LABEL_13:
       if (*v31 && os_log_type_enabled(*v31, OS_LOG_TYPE_ERROR))
       {
         v33 = *a2;
-        v34 = *(a2 + 2);
-        sub_22CE0(&__p);
+        v34 = a2[2];
+        sub_22CE0(&__p, &v33);
       }
 
       v32 = __cxa_allocate_exception(0x10uLL);
@@ -2030,7 +9588,7 @@ uint64_t sub_32AD9C(uint64_t a1, const AudioObjectPropertyAddress *a2, UInt32 a3
     {
       v15 = *&a2->mSelector;
       mElement = a2->mElement;
-      sub_22CE0(__p);
+      sub_22CE0(__p, &v15);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -2045,9 +9603,9 @@ LABEL_27:
     v14 = sub_5544(14);
     if (*v14 && os_log_type_enabled(*v14, OS_LOG_TYPE_ERROR))
     {
-      v16 = *&a2->mSelector;
-      v18 = a2->mElement;
-      sub_22CE0(__p);
+      v15 = *&a2->mSelector;
+      mElement = a2->mElement;
+      sub_22CE0(__p, &v15);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -2135,7 +9693,7 @@ BOOL sub_32B12C(uint64_t a1, const AudioObjectPropertyAddress *a2)
   return sub_BE734(a1, a2);
 }
 
-uint64_t sub_32B198(uint64_t a1, const AudioObjectPropertyAddress *a2)
+BOOL sub_32B198(uint64_t a1, const AudioObjectPropertyAddress *a2)
 {
   mSelector = a2->mSelector;
   if (a2->mSelector > 1836414052)
@@ -2203,8142 +9761,4 @@ uint64_t sub_32B2D4(uint64_t a1)
   sub_13A300(a1 + 536);
 
   return sub_4B2820(a1);
-}
-
-uint64_t sub_32B384(uint64_t a1, UInt32 a2, uint64_t a3)
-{
-  v6 = sub_4B1A68(a1, a2, a3, a3, 0);
-  *v6 = off_6C1D20;
-  sub_165D0C((v6 + 67));
-  if ((atomic_load_explicit(&qword_709640, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_709640))
-  {
-    byte_709638 = MGGetBoolAnswer();
-    __cxa_guard_release(&qword_709640);
-  }
-
-  if (byte_709638 != 1)
-  {
-    *inAddress = &inAddress[8];
-    *&inAddress[8] = 0;
-    v24[0] = 0;
-    v24[1] = 0;
-    *&inAddress[16] = 0;
-    v23 = v24;
-    sub_407194(inAddress, 0x706D6269u, 1768778083);
-    sub_407194(inAddress, 0x706D6269u, 1768778033);
-    sub_407194(inAddress, 0x706D7769u, 1701669219);
-    sub_407194(inAddress, 0x70747469u, 1701669219);
-    sub_40736C(inAddress, 0x656D6963u, 1886222185);
-    sub_40736C(inAddress, 0x656D6963u, 1886680169);
-    sub_40736C(inAddress, 0x696D6963u, 1886216809);
-    sub_40736C(inAddress, 0x696D6931u, 1886216809);
-    sub_40736C(inAddress, 0x736D6963u, 1886216809);
-    sub_40736C(inAddress, 0x696D6932u, 1886216809);
-    sub_40736C(inAddress, 0x6C6D6963u, 1886216809);
-    sub_40736C(inAddress, 0x666D6963u, 1886216809);
-    sub_40736C(inAddress, 0x6265616Du, 1886216809);
-    operator new();
-  }
-
-  *(a1 + 880) = 0;
-  *(a1 + 888) = sub_46AC8C();
-  *(a1 + 896) = 0;
-  *(a1 + 900) = 2;
-  *(a1 + 904) = 0;
-  *(a1 + 932) = 0;
-  *(a1 + 916) = 0;
-  *(a1 + 924) = 0;
-  *(a1 + 908) = 0;
-  *(a1 + 936) = 850045863;
-  *(a1 + 944) = 0u;
-  *(a1 + 960) = 0u;
-  *(a1 + 976) = 0u;
-  *(a1 + 992) = 0;
-  *(a1 + 1000) = dispatch_queue_create("Repaired Mic Check Queue", 0);
-  if (!a2)
-  {
-    v13 = sub_5544(14);
-    v14 = *v13;
-    if (*v13 && os_log_type_enabled(*v13, OS_LOG_TYPE_ERROR))
-    {
-      *inAddress = 136315394;
-      *&inAddress[4] = "Device_HPMic_Aspen.cpp";
-      *&inAddress[12] = 1024;
-      *&inAddress[14] = 163;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", inAddress, 0x12u);
-    }
-
-    goto LABEL_18;
-  }
-
-  v7 = *(a3 + 23);
-  if ((v7 & 0x80u) != 0)
-  {
-    v7 = *(a3 + 8);
-  }
-
-  if (!v7)
-  {
-    v16 = sub_5544(14);
-    v17 = *v16;
-    if (*v16 && os_log_type_enabled(*v16, OS_LOG_TYPE_ERROR))
-    {
-      *inAddress = 136315394;
-      *&inAddress[4] = "Device_HPMic_Aspen.cpp";
-      *&inAddress[12] = 1024;
-      *&inAddress[14] = 164;
-      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", inAddress, 0x12u);
-    }
-
-LABEL_18:
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(exception, "Precondition failure.");
-    goto LABEL_28;
-  }
-
-  v8 = (*(*a1 + 120))(a1);
-  if (AudioObjectHasProperty(v8, &qword_6EA9B0))
-  {
-    v9 = (*(*a1 + 120))(a1);
-    inData = 0;
-    strcpy(inAddress, "dneitpni");
-    inAddress[9] = 0;
-    *&inAddress[10] = 0;
-    v10 = AudioObjectSetPropertyData(v9, inAddress, 0, 0, 4u, &inData);
-    if (v10)
-    {
-      v18 = __cxa_allocate_exception(0x10uLL);
-      *v18 = &off_6DDDD0;
-      v18[2] = v10;
-    }
-
-    if (atomic_load((a1 + 908)))
-    {
-      v19 = sub_5544(14);
-      v20 = *v19;
-      if (*v19 && os_log_type_enabled(*v19, OS_LOG_TYPE_ERROR))
-      {
-        *inAddress = 136315394;
-        *&inAddress[4] = "Device_HPMic_Aspen.cpp";
-        *&inAddress[12] = 1024;
-        *&inAddress[14] = 172;
-        _os_log_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d POSTCONDITION FAILURE (std::logic_error).", inAddress, 0x12u);
-      }
-
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::logic_error::logic_error(exception, "Postcondition failure.");
-LABEL_28:
-    }
-  }
-
-  return a1;
-}
-
-void sub_32B910(_Unwind_Exception *a1)
-{
-  __cxa_guard_abort(&qword_709640);
-  sub_13A300(v1 + 536);
-  sub_4B2820(v1);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_32BA1C(uint64_t a1)
-{
-  result = (*(**(a1 + 8) + 16))(*(a1 + 8), &qword_6EA9B0);
-  if (result)
-  {
-    v3 = sub_5544(18);
-    v4 = *v3;
-    if (*v3)
-    {
-      if (os_log_type_enabled(*v3, OS_LOG_TYPE_INFO))
-      {
-        v6 = 136315394;
-        v7 = "Device_HPMic_Aspen.cpp";
-        v8 = 1024;
-        v9 = 101;
-        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "%25s:%-5d Requesting HPMic power to be disabled.", &v6, 0x12u);
-      }
-    }
-
-    v5 = *(a1 + 8);
-    v6 = 0;
-    return sub_2C152C(v5);
-  }
-
-  return result;
-}
-
-uint64_t sub_32BB28(uint64_t a1)
-{
-  result = (*(**(a1 + 8) + 16))(*(a1 + 8), &qword_6EA9B0);
-  if (result)
-  {
-    v3 = sub_5544(18);
-    v4 = *v3;
-    if (*v3)
-    {
-      if (os_log_type_enabled(*v3, OS_LOG_TYPE_INFO))
-      {
-        v6 = 136315394;
-        v7 = "Device_HPMic_Aspen.cpp";
-        v8 = 1024;
-        v9 = 89;
-        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "%25s:%-5d Requesting HPMic power to be enabled.", &v6, 0x12u);
-      }
-    }
-
-    v5 = *(a1 + 8);
-    v6 = 1;
-    return sub_2C152C(v5);
-  }
-
-  return result;
-}
-
-void sub_32BC78(std::__shared_weak_count *a1)
-{
-  a1->__vftable = off_6C1F10;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  operator delete();
-}
-
-void sub_32BCEC(uint64_t a1, int a2)
-{
-  v3 = sub_5544(18);
-  v4 = *v3;
-  if (*v3)
-  {
-    if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEBUG))
-    {
-      v5 = 136315650;
-      v6 = "Device_USB_iAP_Aspen.cpp";
-      v7 = 1024;
-      v8 = 420;
-      v9 = 1024;
-      v10 = a2;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d stream ID = %u", &v5, 0x18u);
-    }
-  }
-
-  operator new();
-}
-
-void sub_32BE2C(_Unwind_Exception *a1)
-{
-  std::__shared_weak_count::~__shared_weak_count(v1);
-  operator delete(v3);
-  _Unwind_Resume(a1);
-}
-
-void sub_32BE74(std::__shared_weak_count *a1)
-{
-  a1->__vftable = off_6C21C8;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  operator delete();
-}
-
-uint64_t sub_32BEE8(uint64_t a1, unsigned int a2)
-{
-  if (a2 != 1886745455)
-  {
-    v3 = sub_5544(18);
-    v4 = *v3;
-    if (*v3 && os_log_type_enabled(*v3, OS_LOG_TYPE_ERROR))
-    {
-      sub_22170(__p, a2);
-      v5 = v11 >= 0 ? __p : __p[0];
-      *buf = 136315650;
-      v13 = "Device_USB_iAP_Aspen.cpp";
-      v14 = 1024;
-      v15 = 407;
-      v16 = 2080;
-      v17 = v5;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d Cannot locate AudioObjectPropertyElement for the given VirtualAudioPortType (%s).", buf, 0x1Cu);
-      if (v11 < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    v6 = sub_5544(14);
-    v7 = *v6;
-    if (*v6 && os_log_type_enabled(*v6, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v13 = "Device_USB_iAP_Aspen.cpp";
-      v14 = 1024;
-      v15 = 408;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::logic_error): Unsupported VirtualAudioPortType.", buf, 0x12u);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(exception, "Unsupported VirtualAudioPortType.");
-  }
-
-  return 0;
-}
-
-void sub_32C0BC(uint64_t a1, uint64_t a2, int a3)
-{
-  if (a3)
-  {
-    v4 = sub_5544(18);
-    v5 = sub_5544(38);
-    v6 = 0;
-    *buf = 0x100000002;
-    v7 = *(v4 + 8);
-    while (1)
-    {
-      v8 = *&buf[v6];
-      if (((v7 & v8) != 0) != ((*(v5 + 8) & v8) != 0))
-      {
-        break;
-      }
-
-      v6 += 4;
-      if (v6 == 8)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    if ((v7 & v8) == 0)
-    {
-      v4 = v5;
-    }
-
-LABEL_8:
-    v9 = sub_5544(37);
-    v10 = 0;
-    *buf = 0x100000002;
-    v11 = *(v4 + 8);
-    while (1)
-    {
-      v12 = *&buf[v10];
-      if (((v11 & v12) != 0) != ((*(v9 + 8) & v12) != 0))
-      {
-        break;
-      }
-
-      v10 += 4;
-      if (v10 == 8)
-      {
-        goto LABEL_14;
-      }
-    }
-
-    if ((v11 & v12) == 0)
-    {
-      v4 = v9;
-    }
-
-LABEL_14:
-    v13 = *v4;
-    if (v13 && os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 136315394;
-      *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-      v42 = 1024;
-      v43 = 382;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d Getting sample rate from USB HAL device.", buf, 0x12u);
-    }
-
-    outData = 0.0;
-    ioDataSize = 8;
-    v14 = (*(*a1 + 120))(a1);
-    PropertyData = AudioObjectGetPropertyData(v14, &qword_6EAA38, 0, 0, &ioDataSize, &outData);
-    if (PropertyData)
-    {
-      v16 = sub_5544(18);
-      v17 = *v16;
-      if (*v16)
-      {
-        if (os_log_type_enabled(*v16, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315394;
-          *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-          v42 = 1024;
-          v43 = 386;
-          _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d HAL reported an error attempting to get the sample rate.", buf, 0x12u);
-        }
-      }
-    }
-
-    v18 = sub_5544(18);
-    v19 = sub_5544(38);
-    v20 = 0;
-    *buf = 0x100000002;
-    v21 = *(v18 + 8);
-    while (1)
-    {
-      v22 = *&buf[v20];
-      if (((v21 & v22) != 0) != ((*(v19 + 8) & v22) != 0))
-      {
-        break;
-      }
-
-      v20 += 4;
-      if (v20 == 8)
-      {
-        goto LABEL_27;
-      }
-    }
-
-    if ((v21 & v22) == 0)
-    {
-      v18 = v19;
-    }
-
-LABEL_27:
-    v23 = sub_5544(37);
-    v24 = 0;
-    *buf = 0x100000002;
-    v25 = *(v18 + 8);
-    while (1)
-    {
-      v26 = *&buf[v24];
-      if (((v25 & v26) != 0) != ((*(v23 + 8) & v26) != 0))
-      {
-        break;
-      }
-
-      v24 += 4;
-      if (v24 == 8)
-      {
-        goto LABEL_33;
-      }
-    }
-
-    if ((v25 & v26) == 0)
-    {
-      v18 = v23;
-    }
-
-LABEL_33:
-    v27 = *v18;
-    if (v27 && os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
-    {
-      v28 = (*(*a1 + 120))(a1);
-      *buf = 136315906;
-      *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-      v42 = 1024;
-      v43 = 387;
-      v44 = 1024;
-      LODWORD(v45[0]) = v28;
-      WORD2(v45[0]) = 2048;
-      *(v45 + 6) = outData;
-      _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEBUG, "%25s:%-5d USB HAL device %u reported a sample rate of %f.", buf, 0x22u);
-    }
-
-    if (!PropertyData)
-    {
-      v29 = sub_5544(18);
-      v30 = sub_5544(38);
-      v31 = 0;
-      *buf = 0x100000002;
-      v32 = *(v29 + 8);
-      while (1)
-      {
-        v33 = *&buf[v31];
-        if (((v32 & v33) != 0) != ((*(v30 + 8) & v33) != 0))
-        {
-          break;
-        }
-
-        v31 += 4;
-        if (v31 == 8)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      if ((v32 & v33) == 0)
-      {
-        v29 = v30;
-      }
-
-LABEL_43:
-      v34 = sub_5544(37);
-      v35 = 0;
-      *buf = 0x100000002;
-      v36 = *(v29 + 8);
-      while (1)
-      {
-        v37 = *&buf[v35];
-        if (((v36 & v37) != 0) != ((*(v34 + 8) & v37) != 0))
-        {
-          break;
-        }
-
-        v35 += 4;
-        if (v35 == 8)
-        {
-          goto LABEL_49;
-        }
-      }
-
-      if ((v36 & v37) == 0)
-      {
-        v29 = v34;
-      }
-
-LABEL_49:
-      v38 = *v29;
-      if (v38)
-      {
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 136315650;
-          *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-          v42 = 1024;
-          v43 = 391;
-          v44 = 2048;
-          *v45 = outData;
-          _os_log_impl(&dword_0, v38, OS_LOG_TYPE_DEBUG, "%25s:%-5d Calling SetSampleRate() to value reported by USB HAL device (%f).", buf, 0x1Cu);
-        }
-      }
-
-      sub_32C584(a1, 0, outData);
-    }
-  }
-}
-
-void sub_32C584(uint64_t a1, int a2, double a3)
-{
-  v6 = sub_5544(18);
-  v7 = sub_5544(38);
-  v8 = 0;
-  *buf = 0x100000002;
-  v9 = *(v6 + 8);
-  while (1)
-  {
-    v10 = *&buf[v8];
-    if (((v9 & v10) != 0) != ((*(v7 + 8) & v10) != 0))
-    {
-      break;
-    }
-
-    v8 += 4;
-    if (v8 == 8)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  if ((v9 & v10) == 0)
-  {
-    v6 = v7;
-  }
-
-LABEL_7:
-  v11 = sub_5544(37);
-  v13 = 0;
-  *buf = 0x100000002;
-  v14 = *(v6 + 8);
-  while (1)
-  {
-    v15 = *&buf[v13];
-    if (((v14 & v15) != 0) != ((*(v11 + 8) & v15) != 0))
-    {
-      break;
-    }
-
-    v13 += 4;
-    if (v13 == 8)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  if ((v14 & v15) == 0)
-  {
-    v6 = v11;
-  }
-
-LABEL_13:
-  v16 = *v6;
-  if (v16 && os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 136315906;
-    *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-    v71 = 1024;
-    v72 = 500;
-    v73 = 2048;
-    *v74 = a3;
-    *&v74[8] = 1024;
-    *&v74[10] = a2;
-    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d Entered Device_USB_iAP_Aspen::SetSampleRate(sampleRate %f, synchronous %u).", buf, 0x22u);
-  }
-
-  v12.n128_u64[0] = 0;
-  if (a3 >= 0.0)
-  {
-    v12.n128_f64[0] = a3;
-  }
-
-  if (a3 <= 4294967300.0)
-  {
-    v17 = v12.n128_f64[0];
-  }
-
-  else
-  {
-    v17 = 4294967300.0;
-  }
-
-  inData = v17;
-  v18 = (*(*a1 + 104))(a1, v12);
-  v19 = sub_5544(18);
-  v20 = sub_5544(38);
-  v21 = 0;
-  *buf = 0x100000002;
-  v22 = *(v19 + 8);
-  while (1)
-  {
-    v23 = *&buf[v21];
-    if (((v22 & v23) != 0) != ((*(v20 + 8) & v23) != 0))
-    {
-      break;
-    }
-
-    v21 += 4;
-    if (v21 == 8)
-    {
-      goto LABEL_27;
-    }
-  }
-
-  if ((v22 & v23) == 0)
-  {
-    v19 = v20;
-  }
-
-LABEL_27:
-  v24 = sub_5544(37);
-  v25 = 0;
-  *buf = 0x100000002;
-  v26 = *(v19 + 8);
-  while (1)
-  {
-    v27 = *&buf[v25];
-    if (((v26 & v27) != 0) != ((*(v24 + 8) & v27) != 0))
-    {
-      break;
-    }
-
-    v25 += 4;
-    if (v25 == 8)
-    {
-      goto LABEL_33;
-    }
-  }
-
-  if ((v26 & v27) == 0)
-  {
-    v19 = v24;
-  }
-
-LABEL_33:
-  v28 = *v19;
-  if (v28 && os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 136315650;
-    *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-    v71 = 1024;
-    v72 = 509;
-    v73 = 1024;
-    *v74 = v17;
-    _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEBUG, "%25s:%-5d Calling IAPManager::SetSampleRateForUSB() with %u", buf, 0x18u);
-  }
-
-  if (!sub_3435DC(v17))
-  {
-    v67 = sub_5544(14);
-    v68 = *v67;
-    if (*v67 && os_log_type_enabled(*v67, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-      v71 = 1024;
-      v72 = 511;
-      _os_log_impl(&dword_0, v68, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (kAudioHardwareUnspecifiedError): IAPDigitalAudioSetSampleRate() failed.", buf, 0x12u);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    *exception = &off_6DDDD0;
-    exception[2] = 2003329396;
-LABEL_95:
-  }
-
-  if (v17 != v18)
-  {
-    v29 = sub_5544(18);
-    v30 = sub_5544(38);
-    v31 = 0;
-    if (a2)
-    {
-      *buf = 0x100000002;
-      v32 = *(v29 + 8);
-      while (1)
-      {
-        v33 = *&buf[v31];
-        if (((v32 & v33) != 0) != ((*(v30 + 8) & v33) != 0))
-        {
-          break;
-        }
-
-        v31 += 4;
-        if (v31 == 8)
-        {
-          goto LABEL_49;
-        }
-      }
-
-      if ((v32 & v33) == 0)
-      {
-        v29 = v30;
-      }
-
-LABEL_49:
-      v36 = sub_5544(37);
-      v37 = 0;
-      *buf = 0x100000002;
-      v38 = *(v29 + 8);
-      while (1)
-      {
-        v39 = *&buf[v37];
-        if (((v38 & v39) != 0) != ((*(v36 + 8) & v39) != 0))
-        {
-          break;
-        }
-
-        v37 += 4;
-        if (v37 == 8)
-        {
-          goto LABEL_61;
-        }
-      }
-
-      if ((v38 & v39) == 0)
-      {
-        v29 = v36;
-      }
-
-LABEL_61:
-      v44 = *v29;
-      if (*v29 && os_log_type_enabled(*v29, OS_LOG_TYPE_DEBUG))
-      {
-        v45 = (*(*a1 + 120))(a1);
-        *buf = 136315906;
-        *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-        v71 = 1024;
-        v72 = 519;
-        v73 = 1024;
-        *v74 = v45;
-        *&v74[4] = 2048;
-        *&v74[6] = v17;
-        _os_log_impl(&dword_0, v44, OS_LOG_TYPE_DEBUG, "%25s:%-5d Calling Device_HAL_Common::SetSampleRateSynchronously() on USB HAL device %u with rate %f.", buf, 0x22u);
-      }
-
-      v46 = sub_4AF738(a1, v17);
-      if (v46)
-      {
-        v47 = v46;
-        v48 = sub_5544(14);
-        v49 = *v48;
-        if (!*v48 || !os_log_type_enabled(*v48, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_94;
-        }
-
-        *buf = 136315394;
-        *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-        v71 = 1024;
-        v72 = 521;
-        v50 = "%25s:%-5d EXCEPTION (status) [error status is an error]: Device_HAL_Common::SetSampleRateSynchronously() failed to set sample rate.";
-LABEL_93:
-        _os_log_impl(&dword_0, v49, OS_LOG_TYPE_ERROR, v50, buf, 0x12u);
-LABEL_94:
-        exception = __cxa_allocate_exception(0x10uLL);
-        *exception = &off_6DDDD0;
-        exception[2] = v47;
-        goto LABEL_95;
-      }
-    }
-
-    else
-    {
-      *buf = 0x100000002;
-      v34 = *(v29 + 8);
-      while (1)
-      {
-        v35 = *&buf[v31];
-        if (((v34 & v35) != 0) != ((*(v30 + 8) & v35) != 0))
-        {
-          break;
-        }
-
-        v31 += 4;
-        if (v31 == 8)
-        {
-          goto LABEL_55;
-        }
-      }
-
-      if ((v34 & v35) == 0)
-      {
-        v29 = v30;
-      }
-
-LABEL_55:
-      v40 = sub_5544(37);
-      v41 = 0;
-      *buf = 0x100000002;
-      v42 = *(v29 + 8);
-      while (1)
-      {
-        v43 = *&buf[v41];
-        if (((v42 & v43) != 0) != ((*(v40 + 8) & v43) != 0))
-        {
-          break;
-        }
-
-        v41 += 4;
-        if (v41 == 8)
-        {
-          goto LABEL_70;
-        }
-      }
-
-      if ((v42 & v43) == 0)
-      {
-        v29 = v40;
-      }
-
-LABEL_70:
-      v51 = *v29;
-      if (*v29 && os_log_type_enabled(*v29, OS_LOG_TYPE_DEBUG))
-      {
-        v52 = (*(*a1 + 120))(a1);
-        *buf = 136315906;
-        *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-        v71 = 1024;
-        v72 = 525;
-        v73 = 1024;
-        *v74 = v52;
-        *&v74[4] = 2048;
-        *&v74[6] = v17;
-        _os_log_impl(&dword_0, v51, OS_LOG_TYPE_DEBUG, "%25s:%-5d Calling AudioObjectSetPropertyData() on USB HAL device %u with rate %f.", buf, 0x22u);
-      }
-
-      v53 = (*(*a1 + 120))(a1);
-      v54 = AudioObjectSetPropertyData(v53, &qword_6EAA38, 0, 0, 8u, &inData);
-      if (v54)
-      {
-        v47 = v54;
-        v65 = sub_5544(14);
-        v49 = *v65;
-        if (!*v65 || !os_log_type_enabled(*v65, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_94;
-        }
-
-        *buf = 136315394;
-        *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-        v71 = 1024;
-        v72 = 528;
-        v50 = "%25s:%-5d EXCEPTION (status) [error status is an error]: AudioObjectSetPropertyData() failed to set sample rate.";
-        goto LABEL_93;
-      }
-    }
-  }
-
-  v55 = sub_5544(18);
-  v56 = sub_5544(38);
-  v57 = 0;
-  *buf = 0x100000002;
-  v58 = *(v55 + 8);
-  while (1)
-  {
-    v59 = *&buf[v57];
-    if (((v58 & v59) != 0) != ((*(v56 + 8) & v59) != 0))
-    {
-      break;
-    }
-
-    v57 += 4;
-    if (v57 == 8)
-    {
-      goto LABEL_80;
-    }
-  }
-
-  if ((v58 & v59) == 0)
-  {
-    v55 = v56;
-  }
-
-LABEL_80:
-  v60 = sub_5544(37);
-  v61 = 0;
-  *buf = 0x100000002;
-  v62 = *(v55 + 8);
-  while (1)
-  {
-    v63 = *&buf[v61];
-    if (((v62 & v63) != 0) != ((*(v60 + 8) & v63) != 0))
-    {
-      break;
-    }
-
-    v61 += 4;
-    if (v61 == 8)
-    {
-      goto LABEL_86;
-    }
-  }
-
-  if ((v62 & v63) == 0)
-  {
-    v55 = v60;
-  }
-
-LABEL_86:
-  v64 = *v55;
-  if (v64 && os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 136315394;
-    *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-    v71 = 1024;
-    v72 = 532;
-    _os_log_impl(&dword_0, v64, OS_LOG_TYPE_DEBUG, "%25s:%-5d Exited Device_USB_iAP_Aspen::SetSampleRate().", buf, 0x12u);
-  }
-}
-
-void sub_32CE40(uint64_t a1)
-{
-  sub_4ADCC0(a1);
-  v2 = *(a1 + 88);
-  __p = *(a1 + 80);
-  v4 = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 16), 1uLL, memory_order_relaxed);
-  }
-
-  operator new();
-}
-
-void sub_32D1A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
-{
-  if (a14)
-  {
-    sub_1A8C0(a14);
-  }
-
-  if (a21 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v25)
-  {
-    std::__shared_weak_count::__release_weak(v25);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_32D23C(int a1, os_unfair_lock_s *a2)
-{
-  if (!a2)
-  {
-    v59 = sub_5544(14);
-    v60 = *v59;
-    if (*v59)
-    {
-      if (os_log_type_enabled(*v59, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 136315394;
-        *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-        *&buf[12] = 1024;
-        *&buf[14] = 444;
-        _os_log_impl(&dword_0, v60, OS_LOG_TYPE_ERROR, "%25s:%-5d ASSERTION FAILURE: IAPManager passed clientData as NULL.", buf, 0x12u);
-      }
-    }
-  }
-
-  if (a1 == 1684500341)
-  {
-    v77 = 1886745455;
-    v79 = 0;
-    outData = 0uLL;
-    sub_4625C(&outData, &v77, &outData, 1uLL);
-    *buf = outData;
-    *&buf[16] = v79;
-    strcpy(&buf[24], "cwdv");
-    BYTE2(v81) = 0;
-    LODWORD(v83) = 3;
-    v85[0] = 0;
-    v85[1] = 0;
-    v84 = v85;
-    v86 = 44739242;
-    v88 = 0;
-    v89 = 0;
-    __p = 0;
-    sub_161C7C(ioDataSize, a2, buf);
-    sub_B0484(&v74, ioDataSize);
-    sub_65310(ioDataSize);
-    if (SHIBYTE(v89) < 0)
-    {
-      operator delete(__p);
-    }
-
-    sub_477A0(v85[0]);
-    if (*buf)
-    {
-      *&buf[8] = *buf;
-      operator delete(*buf);
-    }
-
-    if (v76 != 1)
-    {
-      v64 = sub_5544(14);
-      v65 = *v64;
-      if (*v64 && os_log_type_enabled(*v64, OS_LOG_TYPE_ERROR))
-      {
-        v66 = v76;
-        sub_22170(&outData, 0x7075736Fu);
-        v67 = SHIBYTE(v79);
-        v68 = outData;
-        sub_23148(ioDataSize, a2 + 2);
-        p_outData = &outData;
-        if (v67 < 0)
-        {
-          p_outData = v68;
-        }
-
-        if (v73 >= 0)
-        {
-          v70 = ioDataSize;
-        }
-
-        else
-        {
-          v70 = *ioDataSize;
-        }
-
-        *buf = 136316162;
-        *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-        *&buf[12] = 1024;
-        *&buf[14] = 457;
-        *&buf[18] = 2048;
-        *&buf[20] = v66;
-        *&buf[28] = 2080;
-        v81 = p_outData;
-        v82 = 2080;
-        v83 = v70;
-        _os_log_impl(&dword_0, v65, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::runtime_error): Found %lu ports of type '%s' in device %s (looking for exactly 1)", buf, 0x30u);
-        if (v73 < 0)
-        {
-          operator delete(*ioDataSize);
-        }
-
-        if (SHIBYTE(v79) < 0)
-        {
-          operator delete(outData);
-        }
-      }
-
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Found %lu ports of type '%s' in device %s (looking for exactly 1)");
-    }
-
-    v5 = *(v75 + 16);
-    v4 = *(v75 + 24);
-    if (v4)
-    {
-      atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v6 = (*(*v5 + 152))(v5);
-    sub_2AAE6C(v5);
-    if (v6 != (*(*v5 + 152))(v5))
-    {
-      if ((v6 & 1) == 0)
-      {
-        v7 = sub_5544(18);
-        v8 = sub_5544(38);
-        v9 = 0;
-        *buf = 0x100000002;
-        v10 = *(v7 + 8);
-        while (1)
-        {
-          v11 = *&buf[v9];
-          if (((v10 & v11) != 0) != ((*(v8 + 8) & v11) != 0))
-          {
-            break;
-          }
-
-          v9 += 4;
-          if (v9 == 8)
-          {
-            goto LABEL_18;
-          }
-        }
-
-        if ((v10 & v11) == 0)
-        {
-          v7 = v8;
-        }
-
-LABEL_18:
-        v12 = sub_5544(37);
-        v13 = 0;
-        *buf = 0x100000002;
-        v14 = *(v7 + 8);
-        while (1)
-        {
-          v15 = *&buf[v13];
-          if (((v14 & v15) != 0) != ((*(v12 + 8) & v15) != 0))
-          {
-            break;
-          }
-
-          v13 += 4;
-          if (v13 == 8)
-          {
-            goto LABEL_24;
-          }
-        }
-
-        if ((v14 & v15) == 0)
-        {
-          v7 = v12;
-        }
-
-LABEL_24:
-        v16 = *v7;
-        if (v16 && os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 136315394;
-          *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-          *&buf[12] = 1024;
-          *&buf[14] = 75;
-          _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d Entered Device_USB_iAP_Aspen::ReconcileSampleRates().", buf, 0x12u);
-        }
-
-        v17 = sub_5544(18);
-        v18 = sub_5544(38);
-        v19 = 0;
-        *buf = 0x100000002;
-        v20 = *(v17 + 8);
-        while (1)
-        {
-          v21 = *&buf[v19];
-          if (((v20 & v21) != 0) != ((*(v18 + 8) & v21) != 0))
-          {
-            break;
-          }
-
-          v19 += 4;
-          if (v19 == 8)
-          {
-            goto LABEL_33;
-          }
-        }
-
-        if ((v20 & v21) == 0)
-        {
-          v17 = v18;
-        }
-
-LABEL_33:
-        v22 = sub_5544(37);
-        v23 = 0;
-        *buf = 0x100000002;
-        v24 = *(v17 + 8);
-        while (1)
-        {
-          v25 = *&buf[v23];
-          if (((v24 & v25) != 0) != ((*(v22 + 8) & v25) != 0))
-          {
-            break;
-          }
-
-          v23 += 4;
-          if (v23 == 8)
-          {
-            goto LABEL_39;
-          }
-        }
-
-        if ((v24 & v25) == 0)
-        {
-          v17 = v22;
-        }
-
-LABEL_39:
-        v26 = *v17;
-        if (v26 && os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 136315650;
-          *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-          *&buf[12] = 1024;
-          *&buf[14] = 79;
-          *&buf[18] = 2048;
-          *&buf[20] = 0x40E5888000000000;
-          _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEBUG, "%25s:%-5d Setting iAP and driver to default sample rate of %f kHz.", buf, 0x1Cu);
-        }
-
-        sub_32C584(a2, 1, 44100.0);
-        v27 = sub_5544(18);
-        v28 = sub_5544(38);
-        v29 = 0;
-        *buf = 0x100000002;
-        v30 = v27[1];
-        while (1)
-        {
-          v31 = *&buf[v29];
-          if (((v30 & v31) != 0) != ((*(v28 + 8) & v31) != 0))
-          {
-            break;
-          }
-
-          v29 += 4;
-          if (v29 == 8)
-          {
-            goto LABEL_48;
-          }
-        }
-
-        if ((v30 & v31) == 0)
-        {
-          v27 = v28;
-        }
-
-LABEL_48:
-        v32 = sub_5544(37);
-        v33 = 0;
-        *buf = 0x100000002;
-        v34 = v27[1];
-        while (1)
-        {
-          v35 = *&buf[v33];
-          if (((v34 & v35) != 0) != ((*(v32 + 8) & v35) != 0))
-          {
-            break;
-          }
-
-          v33 += 4;
-          if (v33 == 8)
-          {
-            goto LABEL_54;
-          }
-        }
-
-        if ((v34 & v35) == 0)
-        {
-          v27 = v32;
-        }
-
-LABEL_54:
-        if (*v27)
-        {
-          *&outData = 0;
-          ioDataSize[0] = 8;
-          v36 = (*(*&a2->_os_unfair_lock_opaque + 120))(a2);
-          PropertyData = AudioObjectGetPropertyData(v36, &qword_6EAA38, 0, 0, ioDataSize, &outData);
-          if (PropertyData)
-          {
-            v61 = sub_5544(14);
-            v62 = *v61;
-            if (*v61 && os_log_type_enabled(*v61, OS_LOG_TYPE_ERROR))
-            {
-              *buf = 136315394;
-              *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 88;
-              _os_log_impl(&dword_0, v62, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (status) [error status is an error]: AudioObjectGetPropertyData() failed to get sample rate.", buf, 0x12u);
-            }
-
-            v63 = __cxa_allocate_exception(0x10uLL);
-            *v63 = &off_6DDDD0;
-            v63[2] = PropertyData;
-          }
-
-          if (*&outData != 44100.0)
-          {
-            v38 = sub_5544(18);
-            v39 = sub_5544(38);
-            v40 = 0;
-            *buf = 0x100000002;
-            v41 = *(v38 + 8);
-            while (1)
-            {
-              v42 = *&buf[v40];
-              if (((v41 & v42) != 0) != ((*(v39 + 8) & v42) != 0))
-              {
-                break;
-              }
-
-              v40 += 4;
-              if (v40 == 8)
-              {
-                goto LABEL_63;
-              }
-            }
-
-            if ((v41 & v42) == 0)
-            {
-              v38 = v39;
-            }
-
-LABEL_63:
-            v43 = sub_5544(37);
-            v44 = 0;
-            *buf = 0x100000002;
-            v45 = *(v38 + 8);
-            while (1)
-            {
-              v46 = *&buf[v44];
-              if (((v45 & v46) != 0) != ((*(v43 + 8) & v46) != 0))
-              {
-                break;
-              }
-
-              v44 += 4;
-              if (v44 == 8)
-              {
-                goto LABEL_69;
-              }
-            }
-
-            if ((v45 & v46) == 0)
-            {
-              v38 = v43;
-            }
-
-LABEL_69:
-            v47 = *v38;
-            if (v47 && os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
-            {
-              *buf = 136315906;
-              *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 89;
-              *&buf[18] = 2048;
-              *&buf[20] = 0x40E5888000000000;
-              *&buf[28] = 1024;
-              LODWORD(v81) = *&outData;
-              _os_log_impl(&dword_0, v47, OS_LOG_TYPE_ERROR, "%25s:%-5d iAP USB: Driver sample rate was not successfully set. target: %f; actual: %u", buf, 0x22u);
-            }
-          }
-        }
-
-        v48 = sub_5544(18);
-        v49 = sub_5544(38);
-        v50 = 0;
-        *buf = 0x100000002;
-        v51 = *(v48 + 8);
-        while (1)
-        {
-          v52 = *&buf[v50];
-          if (((v51 & v52) != 0) != ((*(v49 + 8) & v52) != 0))
-          {
-            break;
-          }
-
-          v50 += 4;
-          if (v50 == 8)
-          {
-            goto LABEL_78;
-          }
-        }
-
-        if ((v51 & v52) == 0)
-        {
-          v48 = v49;
-        }
-
-LABEL_78:
-        v53 = sub_5544(37);
-        v54 = 0;
-        *buf = 0x100000002;
-        v55 = *(v48 + 8);
-        while (1)
-        {
-          v56 = *&buf[v54];
-          if (((v55 & v56) != 0) != ((*(v53 + 8) & v56) != 0))
-          {
-            break;
-          }
-
-          v54 += 4;
-          if (v54 == 8)
-          {
-            goto LABEL_84;
-          }
-        }
-
-        if ((v55 & v56) == 0)
-        {
-          v48 = v53;
-        }
-
-LABEL_84:
-        v57 = *v48;
-        if (v57 && os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 136315394;
-          *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-          *&buf[12] = 1024;
-          *&buf[14] = 92;
-          _os_log_impl(&dword_0, v57, OS_LOG_TYPE_DEBUG, "%25s:%-5d Exited Device_USB_iAP_Aspen::ReconcileSampleRates().", buf, 0x12u);
-        }
-      }
-
-      v58 = sub_809C0();
-      *buf = v5;
-      *&buf[8] = v4;
-      if (v4)
-      {
-        atomic_fetch_add_explicit(&v4->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      sub_257CE8(v58, buf);
-      if (v4)
-      {
-        std::__shared_weak_count::__release_weak(v4);
-      }
-    }
-
-    if (v4)
-    {
-      sub_1A8C0(v4);
-    }
-
-    sub_87980(&v74);
-  }
-}
-
-void sub_32DC80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
-{
-  if (v22 < 0)
-  {
-    operator delete(v21);
-  }
-
-  sub_87980(&a13);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_32DD14(uint64_t a1, double a2)
-{
-  v4 = sub_5544(18);
-  v5 = sub_5544(37);
-  v6 = 0;
-  *v11 = 0x100000002;
-  v7 = *(v4 + 8);
-  while (1)
-  {
-    v8 = *&v11[v6];
-    if (((v7 & v8) != 0) != ((*(v5 + 8) & v8) != 0))
-    {
-      break;
-    }
-
-    v6 += 4;
-    if (v6 == 8)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  if ((v7 & v8) == 0)
-  {
-    v4 = v5;
-  }
-
-LABEL_7:
-  v9 = *v4;
-  if (v9 && os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
-  {
-    *v11 = 136315650;
-    *&v11[4] = "Device_USB_iAP_Aspen.cpp";
-    v12 = 1024;
-    v13 = 355;
-    v14 = 2048;
-    v15 = a2;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d Setting iAP sample rate to %f Hz", v11, 0x1Cu);
-  }
-
-  sub_32C584(a1, 1, a2);
-  return 0;
-}
-
-void sub_32DE60(_Unwind_Exception *a1, int a2)
-{
-  if (a2)
-  {
-    v3 = __cxa_begin_catch(a1);
-    if (a2 == 2)
-    {
-      v4 = v3[2];
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x32DE2CLL);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_32DE90(uint64_t a1)
-{
-  v2 = sub_5544(18);
-  v3 = sub_5544(38);
-  v4 = 0;
-  *buf = 0x100000002;
-  v5 = *(v2 + 8);
-  while (1)
-  {
-    v6 = *&buf[v4];
-    if (((v5 & v6) != 0) != ((*(v3 + 8) & v6) != 0))
-    {
-      break;
-    }
-
-    v4 += 4;
-    if (v4 == 8)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  if ((v5 & v6) == 0)
-  {
-    v2 = v3;
-  }
-
-LABEL_7:
-  v7 = sub_5544(37);
-  v8 = 0;
-  *buf = 0x100000002;
-  v9 = *(v2 + 8);
-  while (1)
-  {
-    v10 = *&buf[v8];
-    if (((v9 & v10) != 0) != ((*(v7 + 8) & v10) != 0))
-    {
-      break;
-    }
-
-    v8 += 4;
-    if (v8 == 8)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  if ((v9 & v10) == 0)
-  {
-    v2 = v7;
-  }
-
-LABEL_13:
-  v11 = *v2;
-  if (v11 && os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 136315394;
-    *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-    v42 = 1024;
-    v43 = 336;
-    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d Entered Device_USB_iAP_Aspen::GetSampleRate().", buf, 0x12u);
-  }
-
-  outData = 0;
-  ioDataSize = 8;
-  v12 = (*(*a1 + 120))(a1);
-  PropertyData = AudioObjectGetPropertyData(v12, &qword_6EAA38, 0, 0, &ioDataSize, &outData);
-  if (PropertyData)
-  {
-    v35 = PropertyData;
-    v36 = sub_5544(14);
-    v37 = *v36;
-    if (*v36 && os_log_type_enabled(*v36, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-      v42 = 1024;
-      v43 = 342;
-      _os_log_impl(&dword_0, v37, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (status) [error status is an error]: AudioObjectGetPropertyData() failed to get sample rate.", buf, 0x12u);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    *exception = &off_6DDDD0;
-    exception[2] = v35;
-  }
-
-  v14 = sub_5544(18);
-  v15 = sub_5544(38);
-  v16 = 0;
-  *buf = 0x100000002;
-  v17 = *(v14 + 8);
-  while (1)
-  {
-    v18 = *&buf[v16];
-    if (((v17 & v18) != 0) != ((*(v15 + 8) & v18) != 0))
-    {
-      break;
-    }
-
-    v16 += 4;
-    if (v16 == 8)
-    {
-      goto LABEL_23;
-    }
-  }
-
-  if ((v17 & v18) == 0)
-  {
-    v14 = v15;
-  }
-
-LABEL_23:
-  v19 = sub_5544(37);
-  v20 = 0;
-  *buf = 0x100000002;
-  v21 = *(v14 + 8);
-  while (1)
-  {
-    v22 = *&buf[v20];
-    if (((v21 & v22) != 0) != ((*(v19 + 8) & v22) != 0))
-    {
-      break;
-    }
-
-    v20 += 4;
-    if (v20 == 8)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  if ((v21 & v22) == 0)
-  {
-    v14 = v19;
-  }
-
-LABEL_29:
-  v23 = *v14;
-  if (v23 && os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
-  {
-    v24 = (*(*a1 + 120))(a1);
-    *buf = 136315906;
-    *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-    v42 = 1024;
-    v43 = 343;
-    v44 = 1024;
-    v45 = v24;
-    v46 = 2048;
-    v47 = outData;
-    _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEBUG, "%25s:%-5d USB HAL device %u reports a sample rate of %f.", buf, 0x22u);
-  }
-
-  v25 = sub_5544(18);
-  v26 = sub_5544(38);
-  v27 = 0;
-  *buf = 0x100000002;
-  v28 = *(v25 + 8);
-  while (1)
-  {
-    v29 = *&buf[v27];
-    if (((v28 & v29) != 0) != ((*(v26 + 8) & v29) != 0))
-    {
-      break;
-    }
-
-    v27 += 4;
-    if (v27 == 8)
-    {
-      goto LABEL_38;
-    }
-  }
-
-  if ((v28 & v29) == 0)
-  {
-    v25 = v26;
-  }
-
-LABEL_38:
-  v30 = sub_5544(37);
-  v31 = 0;
-  *buf = 0x100000002;
-  v32 = *(v25 + 8);
-  while (1)
-  {
-    v33 = *&buf[v31];
-    if (((v32 & v33) != 0) != ((*(v30 + 8) & v33) != 0))
-    {
-      break;
-    }
-
-    v31 += 4;
-    if (v31 == 8)
-    {
-      goto LABEL_44;
-    }
-  }
-
-  if ((v32 & v33) == 0)
-  {
-    v25 = v30;
-  }
-
-LABEL_44:
-  v34 = *v25;
-  if (v34)
-  {
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 136315394;
-      *&buf[4] = "Device_USB_iAP_Aspen.cpp";
-      v42 = 1024;
-      v43 = 345;
-      _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEBUG, "%25s:%-5d Exited Device_USB_iAP_Aspen::GetSampleRate().", buf, 0x12u);
-    }
-  }
-}
-
-unsigned __int8 *sub_32E370(uint64_t a1)
-{
-  v2 = sub_3419E4();
-  sub_341E40(v2, sub_32D23C);
-  v3 = sub_3419E4();
-  sub_342570(v3, 1684500341, sub_32E3DC);
-
-  return sub_4B08A4(a1);
-}
-
-uint64_t sub_32E3DC(uint64_t result, uint64_t a2)
-{
-  if (result == 1684500341)
-  {
-    if (!a2)
-    {
-      v3 = sub_5544(14);
-      v4 = *v3;
-      if (*v3)
-      {
-        if (os_log_type_enabled(*v3, OS_LOG_TYPE_ERROR))
-        {
-          v5 = 136315394;
-          v6 = "Device_USB_iAP_Aspen.cpp";
-          v7 = 1024;
-          v8 = 488;
-          _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d ASSERTION FAILURE: IAPManager passed clientData as NULL.", &v5, 0x12u);
-        }
-      }
-    }
-
-    result = sub_6FE08(a2 + 536, &qword_6EAA68);
-    if (result)
-    {
-      return sub_6FF5C(a2 + 536, &qword_6EAA68);
-    }
-  }
-
-  return result;
-}
-
-BOOL sub_32E4D8(uint64_t a1, AudioObjectPropertyAddress *a2, OSStatus (__cdecl *a3)(AudioObjectID, UInt32, const AudioObjectPropertyAddress *, void *), unint64_t a4)
-{
-  mScope = a2->mScope;
-  if (*&a2->mSelector == qword_6EAA48 && a2->mElement == dword_6EAA50 || *&a2->mSelector == qword_6EAA58 && a2->mElement == dword_6EAA60 || *&a2->mSelector == qword_6EAA68 && a2->mElement == dword_6EAA70)
-  {
-    v14 = v4;
-    v15 = v5;
-    v12 = *&a2->mSelector;
-    mElement = a2->mElement;
-    v8 = *&a2->mSelector;
-    v9 = a2->mElement;
-    v10 = a3;
-    v11 = a4;
-    sub_185D3C((a1 + 536), &v12, &v8);
-    return 1;
-  }
-
-  else
-  {
-
-    return sub_187634(a1, a2, a3, a4);
-  }
-}
-
-BOOL sub_32E5E8(uint64_t a1, unsigned int *a2, OSStatus (__cdecl *a3)(AudioObjectID, UInt32, const AudioObjectPropertyAddress *, void *), void *a4)
-{
-  v6 = a2[1];
-  if (*a2 == qword_6EAA48 && a2[2] == dword_6EAA50 || *a2 == qword_6EAA58 && a2[2] == dword_6EAA60 || *a2 == qword_6EAA68 && a2[2] == dword_6EAA70)
-  {
-    v14 = v4;
-    v15 = v5;
-    v12 = *a2;
-    v13 = a2[2];
-    v8 = *a2;
-    v9 = a2[2];
-    v10 = a3;
-    v11 = a4;
-    sub_17C118((a1 + 536), &v12, &v8);
-  }
-
-  return sub_17C9AC(a1, a2, a3, a4);
-}
-
-void sub_32E6F8(uint64_t a1, const AudioObjectPropertyAddress *a2, UInt32 a3, const void *a4, UInt32 a5, unsigned int *a6)
-{
-  if (((*(*a1 + 16))(a1) & 1) == 0)
-  {
-    v21 = sub_5544(14);
-    if (*v21 && os_log_type_enabled(*v21, OS_LOG_TYPE_ERROR))
-    {
-      v32 = *&a2->mSelector;
-      mElement = a2->mElement;
-      sub_22CE0(__p);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    *exception = &off_6DDDD0;
-    exception[2] = 2003332927;
-  }
-
-  if ((a3 == 0) == (a4 != 0))
-  {
-    v23 = sub_5544(14);
-    if (*v23 && os_log_type_enabled(*v23, OS_LOG_TYPE_ERROR))
-    {
-      v33 = *&a2->mSelector;
-      v37 = a2->mElement;
-      sub_22CE0(__p);
-    }
-
-    v24 = __cxa_allocate_exception(0x10uLL);
-    *v24 = &off_6DDDD0;
-    v24[2] = 561211770;
-  }
-
-  if (!a6)
-  {
-    v25 = sub_5544(14);
-    if (*v25 && os_log_type_enabled(*v25, OS_LOG_TYPE_ERROR))
-    {
-      v34 = *&a2->mSelector;
-      v38 = a2->mElement;
-      sub_22CE0(__p);
-    }
-
-    v26 = __cxa_allocate_exception(0x10uLL);
-    *v26 = &off_6DDDD0;
-    v26[2] = 561211770;
-  }
-
-  if (((*(*a1 + 24))(a1, a2) & 1) == 0)
-  {
-    v27 = sub_5544(14);
-    if (*v27 && os_log_type_enabled(*v27, OS_LOG_TYPE_ERROR))
-    {
-      v35 = *&a2->mSelector;
-      v39 = a2->mElement;
-      sub_22CE0(__p);
-    }
-
-    v28 = __cxa_allocate_exception(0x10uLL);
-    *v28 = &off_6DDDD0;
-    v28[2] = 1852797029;
-  }
-
-  mSelector = a2->mSelector;
-  if (a2->mSelector <= 1853059699)
-  {
-    if (mSelector != 1836414053)
-    {
-      if (mSelector == 1853059619)
-      {
-        v29 = sub_5544(14);
-        v30 = *v29;
-        if (*v29 && os_log_type_enabled(*v29, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315394;
-          v42 = "Device_USB_iAP_Aspen.cpp";
-          v43 = 1024;
-          v44 = 241;
-          _os_log_impl(&dword_0, v30, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (kAudioHardwareUnsupportedOperationError): kAudioDevicePropertyAvailableNominalSampleRates cannot be set (kAudioHardwareUnsupportedOperationError).", buf, 0x12u);
-        }
-
-        v31 = __cxa_allocate_exception(0x10uLL);
-        *v31 = &off_6DDDD0;
-        v31[2] = 1970171760;
-      }
-
-LABEL_25:
-
-      sub_FDAC4(a1, a2, a3, a4, a5, a6);
-      return;
-    }
-
-    v16 = sub_3419E4();
-    v17 = *a6 != 0;
-
-    sub_34332C(v16, v17);
-  }
-
-  else
-  {
-    if (mSelector != 1853059700)
-    {
-      if (mSelector == 1987013732)
-      {
-        v13 = sub_3419E4();
-        if (sub_3428D4(v13))
-        {
-          v14 = (*a6 + 100.0) / 100.0;
-          v15 = sub_3419E4();
-          sub_342CD8(v15, v14);
-          if (sub_6FE08(a1 + 536, &qword_6EAA48))
-          {
-            sub_6FF5C(a1 + 536, &qword_6EAA48);
-          }
-
-          if (sub_6FE08(a1 + 536, &qword_6EAA58))
-          {
-
-            sub_6FF5C(a1 + 536, &qword_6EAA58);
-          }
-        }
-
-        return;
-      }
-
-      goto LABEL_25;
-    }
-
-    if (a5 != 8)
-    {
-      v19 = sub_5544(14);
-      v20 = *v19;
-      if (*v19)
-      {
-        if (os_log_type_enabled(*v19, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315394;
-          v42 = "StandardUtilities.h";
-          v43 = 1024;
-          v44 = 155;
-          _os_log_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d ASSERTION FAILURE: sizeof(T) == inDataSize", buf, 0x12u);
-        }
-      }
-    }
-
-    v18 = *a6;
-
-    sub_32C584(a1, 0, v18);
-  }
-}
-
-void sub_32EF70(uint64_t a1, const AudioObjectPropertyAddress *a2, UInt32 a3, const void *a4, UInt32 *a5, float *a6)
-{
-  if (((*(*a1 + 16))(a1) & 1) == 0)
-  {
-    v22 = sub_5544(14);
-    if (*v22 && os_log_type_enabled(*v22, OS_LOG_TYPE_ERROR))
-    {
-      v31 = *&a2->mSelector;
-      mElement = a2->mElement;
-      sub_22CE0(theArray);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    *exception = &off_6DDDD0;
-    exception[2] = 2003332927;
-  }
-
-  if ((a3 == 0) == (a4 != 0))
-  {
-    v24 = sub_5544(14);
-    if (*v24 && os_log_type_enabled(*v24, OS_LOG_TYPE_ERROR))
-    {
-      v32 = *&a2->mSelector;
-      v35 = a2->mElement;
-      sub_22CE0(theArray);
-    }
-
-    v25 = __cxa_allocate_exception(0x10uLL);
-    *v25 = &off_6DDDD0;
-    v25[2] = 561211770;
-  }
-
-  if (!a6)
-  {
-    v26 = sub_5544(14);
-    if (*v26 && os_log_type_enabled(*v26, OS_LOG_TYPE_ERROR))
-    {
-      v33 = *&a2->mSelector;
-      v36 = a2->mElement;
-      sub_22CE0(theArray);
-    }
-
-    v27 = __cxa_allocate_exception(0x10uLL);
-    *v27 = &off_6DDDD0;
-    v27[2] = 561211770;
-  }
-
-  mSelector = a2->mSelector;
-  if (a2->mSelector > 1986229103)
-  {
-    if (mSelector != 1986229104)
-    {
-      if (mSelector == 1986290211)
-      {
-        *a6 = xmmword_517240;
-        return;
-      }
-
-      if (mSelector == 1987013732)
-      {
-        v14 = sub_3419E4();
-        *a6 = (sub_342A00(v14) * 100.0) + -100.0;
-        return;
-      }
-
-LABEL_18:
-
-      sub_5C0D8(a1, a2, a3, a4, a5, a6);
-      return;
-    }
-
-    v17 = sub_3419E4();
-    v16 = sub_3428D4(v17);
-LABEL_17:
-    *a6 = v16;
-    return;
-  }
-
-  if (mSelector == 1836414053)
-  {
-    v15 = sub_3419E4();
-    v16 = sub_343174(v15);
-    goto LABEL_17;
-  }
-
-  if (mSelector != 1853059619)
-  {
-    if (mSelector == 1853059700)
-    {
-      (*(*a1 + 104))(a1);
-
-      sub_2161C0(a5, a6, v13);
-      return;
-    }
-
-    goto LABEL_18;
-  }
-
-  sub_343744(theArray);
-  if (theArray[0] && (Count = CFArrayGetCount(theArray[0]), v19 = Count, Count))
-  {
-    if (((16 * Count) & 0xFFFFFFFF0uLL) > *a5)
-    {
-      *a5 = 0;
-      v28 = sub_5544(14);
-      v29 = *v28;
-      if (*v28 && os_log_type_enabled(*v28, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 136315394;
-        v39 = "Device_USB_iAP_Aspen.cpp";
-        v40 = 1024;
-        v41 = 549;
-        _os_log_impl(&dword_0, v29, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (kAudioHardwareBadPropertySizeError): ioDataSize is insufficient (kAudioHardwareBadPropertySizeError).", buf, 0x12u);
-      }
-
-      v30 = __cxa_allocate_exception(0x10uLL);
-      *v30 = &off_6DDDD0;
-      v30[2] = 561211770;
-    }
-
-    v20 = 0;
-    *a5 = 16 * Count;
-    do
-    {
-      *buf = 0;
-      sub_2E4528(theArray, v20, buf);
-      LODWORD(v21) = *buf;
-      *&a6[4 * v20++] = vdupq_lane_s64(COERCE__INT64(v21), 0);
-    }
-
-    while (v19 != v20);
-  }
-
-  else
-  {
-    *a5 = 0;
-  }
-
-  sub_A0804(theArray);
-}
-
-void sub_32F62C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  sub_A0804(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_32F650(uint64_t a1, const AudioObjectPropertyAddress *a2, UInt32 a3, const void *a4)
-{
-  if (((*(*a1 + 16))(a1) & 1) == 0)
-  {
-    v11 = sub_5544(14);
-    if (*v11 && os_log_type_enabled(*v11, OS_LOG_TYPE_ERROR))
-    {
-      v15 = *&a2->mSelector;
-      mElement = a2->mElement;
-      sub_22CE0(__p);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    *exception = &off_6DDDD0;
-    exception[2] = 2003332927;
-  }
-
-  if ((a3 == 0) == (a4 != 0))
-  {
-    v13 = sub_5544(14);
-    if (*v13 && os_log_type_enabled(*v13, OS_LOG_TYPE_ERROR))
-    {
-      v16 = *&a2->mSelector;
-      v18 = a2->mElement;
-      sub_22CE0(__p);
-    }
-
-    v14 = __cxa_allocate_exception(0x10uLL);
-    *v14 = &off_6DDDD0;
-    v14[2] = 561211770;
-  }
-
-  mSelector = a2->mSelector;
-  v9 = 4;
-  if (a2->mSelector > 1986229103)
-  {
-    if (mSelector == 1986229104 || mSelector == 1987013732)
-    {
-      return v9;
-    }
-
-    if (mSelector == 1986290211)
-    {
-      return 16;
-    }
-  }
-
-  else
-  {
-    switch(mSelector)
-    {
-      case 0x6D757465u:
-        return v9;
-      case 0x6E737223u:
-        sub_343744(&theArray);
-        if (theArray)
-        {
-          v9 = 16 * CFArrayGetCount(theArray);
-        }
-
-        else
-        {
-          v9 = 0;
-        }
-
-        sub_A0804(&theArray);
-        return v9;
-      case 0x6E737274u:
-        return 8;
-    }
-  }
-
-  return sub_5BD20(a1, a2, a3, a4);
-}
-
-void sub_32FA28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  sub_A0804(va);
-  _Unwind_Resume(a1);
-}
-
-BOOL sub_32FA44(uint64_t a1, const AudioObjectPropertyAddress *a2)
-{
-  mSelector = a2->mSelector;
-  v3 = 1;
-  if (a2->mSelector <= 1986229103)
-  {
-    if (mSelector == 1836414053)
-    {
-      return v3;
-    }
-
-    if (mSelector != 1853059619)
-    {
-      if (mSelector != 1853059700)
-      {
-        return sub_BE734(a1, a2);
-      }
-
-      return v3;
-    }
-
-    return 0;
-  }
-
-  switch(mSelector)
-  {
-    case 0x76637370u:
-      return 0;
-    case 0x766F6C64u:
-      return v3;
-    case 0x76646223u:
-      return 0;
-  }
-
-  return sub_BE734(a1, a2);
-}
-
-BOOL sub_32FAD0(uint64_t a1, const AudioObjectPropertyAddress *a2)
-{
-  mSelector = a2->mSelector;
-  result = 1;
-  if (a2->mSelector > 1986229103)
-  {
-    v6 = mSelector == 1986229104 || mSelector == 1986290211;
-    v7 = 1987013732;
-  }
-
-  else
-  {
-    v6 = mSelector == 1836414053 || mSelector == 1853059619;
-    v7 = 1853059700;
-  }
-
-  if (!v6 && mSelector != v7)
-  {
-    sub_4DFC0(a1);
-    return AudioObjectHasProperty(*(a1 + 268), a2) != 0;
-  }
-
-  return result;
-}
-
-void sub_32FB78(void *a1)
-{
-  *a1 = off_6C1FD8;
-  sub_13A300((a1 + 67));
-  sub_4B2820(a1);
-
-  operator delete();
-}
-
-uint64_t sub_32FBE4(void *a1)
-{
-  *a1 = off_6C1FD8;
-  sub_13A300((a1 + 67));
-
-  return sub_4B2820(a1);
-}
-
-uint64_t sub_32FC3C(uint64_t a1, UInt32 a2, __int128 *a3)
-{
-  v4 = sub_4B1A68(a1, a2, a3, a3, 0);
-  *v4 = off_6C1FD8;
-  *(v4 + 536) = 0u;
-  *(v4 + 552) = 0u;
-  *(v4 + 568) = 0u;
-  *(v4 + 584) = 0u;
-  *(v4 + 600) = 0u;
-  *(v4 + 616) = 0u;
-  *(v4 + 632) = 0u;
-  *(v4 + 648) = 0u;
-  *(v4 + 664) = 0u;
-  *(v4 + 680) = 0u;
-  *(v4 + 696) = 0u;
-  *(v4 + 712) = 0u;
-  *(v4 + 728) = 0u;
-  *(v4 + 744) = 0u;
-  *(v4 + 760) = 0u;
-  *(v4 + 776) = 0u;
-  *(v4 + 792) = 0u;
-  *(v4 + 808) = 0u;
-  *(v4 + 824) = 0u;
-  *(v4 + 840) = 0u;
-  *(v4 + 856) = 0u;
-  *(v4 + 872) = 0;
-  sub_165D0C(v4 + 536);
-  v5 = sub_3419E4();
-  sub_342180(v5, 1684500341, sub_32E3DC, a1);
-  return a1;
-}
-
-uint64_t sub_32FD18(uint64_t a1, unsigned int a2)
-{
-  if (a2 != 1886155119 && a2 != 1886155113)
-  {
-    v4 = sub_5544(18);
-    v5 = *v4;
-    if (*v4 && os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
-    {
-      sub_22170(__p, a2);
-      v6 = v12 >= 0 ? __p : __p[0];
-      *buf = 136315650;
-      v14 = "Device_LDCM_Aspen.cpp";
-      v15 = 1024;
-      v16 = 111;
-      v17 = 2080;
-      v18 = v6;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Cannot locate AudioObjectPropertyElement for the given VirtualAudioPortType (%s).", buf, 0x1Cu);
-      if (v12 < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    v7 = sub_5544(14);
-    v8 = *v7;
-    if (*v7)
-    {
-      if (os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 136315394;
-        v14 = "Device_LDCM_Aspen.cpp";
-        v15 = 1024;
-        v16 = 112;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::logic_error): Unsupported VirtualAudioPortType.", buf, 0x12u);
-      }
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(exception, "Unsupported VirtualAudioPortType.");
-  }
-
-  return 0;
-}
-
-void sub_32FEF8(caulk::build::detail *a1)
-{
-  sub_4ADCC0(a1);
-  if (qword_6E8528 != -1)
-  {
-    dispatch_once(&qword_6E8528, &stru_6BD0C8);
-  }
-
-  LOBYTE(v1) = byte_6E8520;
-  sub_2BBB5C();
-}
-
-void sub_330300(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21)
-{
-  if (a19 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v21)
-  {
-    std::__shared_weak_count::__release_weak(v21);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_3303B0(void *a1, AudioObjectID a2, double a3)
-{
-  v12 = a2;
-  inAddress.mSelector = 1936941859;
-  *&inAddress.mScope = a3;
-  sub_127F10(&v7, &v12, &inAddress, 0, 0);
-  v4 = v7;
-  if (v7 || (v10 & 1) == 0)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    *exception = &off_6DDDD0;
-    exception[2] = v4;
-  }
-
-  *a1 = 0;
-  a1[1] = 0;
-  a1[2] = 0;
-  v5 = v8;
-  sub_46980(a1, v8, v9, (v9 - v8) >> 2);
-  if (v5)
-  {
-    operator delete(v5);
-  }
-}
-
-void sub_330488(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, char a14)
-{
-  if (a14 == 1)
-  {
-    if (__p)
-    {
-      operator delete(__p);
-    }
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_3304AC(AudioObjectID a1, uint64_t a2, uint64_t *a3)
-{
-  v6 = sub_5544(14);
-  if ((*(v6 + 8) & 1) != 0 && *v6 && os_log_type_enabled(*v6, OS_LOG_TYPE_DEBUG))
-  {
-    v82.__cv_.__sig = *a2;
-    *v82.__cv_.__opaque = *(a2 + 8);
-    sub_22CE0(&v83);
-  }
-
-  buf = *a2;
-  if (AudioObjectHasProperty(a1, &buf))
-  {
-    memset(v83.__m_.__opaque, 0, sizeof(v83.__m_.__opaque));
-    v83.__m_.__sig = 850045863;
-    memset(v82.__cv_.__opaque, 0, sizeof(v82.__cv_.__opaque));
-    v82.__cv_.__sig = 1018212795;
-    v74 = 0;
-    sub_745E8(v73, a1, a2, &v82, &v83, &v74);
-    v69 = *a2;
-    v7 = *(a2 + 8);
-    v68 = a1;
-    v70 = v7;
-    v71 = 0;
-    v72 = 0;
-    buf = *a2;
-    if (!sub_66E40(a1, &buf))
-    {
-      v14 = sub_5544(14);
-      if (*v14 && os_log_type_enabled(*v14, OS_LOG_TYPE_ERROR))
-      {
-        __p = *a2;
-        LODWORD(v51) = *(a2 + 8);
-        sub_22CE0(&v65);
-      }
-
-LABEL_106:
-      sub_73C20(v73);
-      std::condition_variable::~condition_variable(&v82);
-      std::mutex::~mutex(&v83);
-      return;
-    }
-
-    sub_331310(&v65, &v68);
-    if (v67)
-    {
-      goto LABEL_8;
-    }
-
-    v62 = 0;
-    v63 = 0;
-    v64 = 0;
-    sub_46980(&v62, v65, v66, (v66 - v65) >> 2);
-    v59 = 0;
-    v60 = 0;
-    v61 = 0;
-    sub_46980(&v59, *a3, a3[1], (a3[1] - *a3) >> 2);
-    v15 = v62;
-    v16 = v59;
-    if (v63 - v62 == v60 - v59)
-    {
-      v17 = memcmp(v62, v59, v63 - v62) == 0;
-      if (!v16)
-      {
-LABEL_28:
-        if (v15)
-        {
-          v63 = v15;
-          operator delete(v15);
-          if (v17)
-          {
-LABEL_32:
-            v18 = sub_5544(14);
-            if (*(v18 + 8))
-            {
-              v12 = *v18;
-              if (!*v18)
-              {
-                goto LABEL_37;
-              }
-
-              if (os_log_type_enabled(*v18, OS_LOG_TYPE_DEBUG))
-              {
-                buf.mSelector = 136315650;
-                *&buf.mScope = "HALPropertySynchronizer.h";
-                v76 = 1024;
-                v77 = 294;
-                v78 = 1024;
-                LODWORD(v79) = a1;
-                _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d Read-back value was the same as the set-to value, so we didn't need to wait on a sync primitive for a notification on id %u.", &buf, 0x18u);
-              }
-            }
-
-LABEL_36:
-            LOBYTE(v12) = 0;
-LABEL_37:
-            if (v65)
-            {
-              operator delete(v65);
-            }
-
-            if (v12)
-            {
-              sub_331310(&v65, &v68);
-              if (v67)
-              {
-LABEL_41:
-                v39 = 2000;
-                while (1)
-                {
-                  sub_331310(&__p, &v68);
-                  v19 = __p;
-                  if (v52)
-                  {
-                    goto LABEL_43;
-                  }
-
-                  v47 = 0;
-                  v48 = 0;
-                  v49 = 0;
-                  sub_46980(&v47, __p, v51, (v51 - __p) >> 2);
-                  v44 = 0;
-                  v45 = 0;
-                  v46 = 0;
-                  sub_46980(&v44, *a3, a3[1], (a3[1] - *a3) >> 2);
-                  v21 = v47;
-                  v22 = v44;
-                  if (v48 - v47 == v45 - v44)
-                  {
-                    break;
-                  }
-
-                  v23 = 0;
-                  if (v44)
-                  {
-                    goto LABEL_49;
-                  }
-
-LABEL_50:
-                  if (v21)
-                  {
-                    v48 = v21;
-                    operator delete(v21);
-                  }
-
-                  if (v23)
-                  {
-                    v20 = 16;
-                    if (!v19)
-                    {
-                      goto LABEL_55;
-                    }
-
-                    goto LABEL_54;
-                  }
-
-                  if (v39 <= 0)
-                  {
-                    v32 = sub_5544(14);
-                    if (*v32 && os_log_type_enabled(*v32, OS_LOG_TYPE_ERROR))
-                    {
-                      v40 = *a2;
-                      v41 = *(a2 + 8);
-                      sub_22CE0(&v42);
-                    }
-
-LABEL_43:
-                    v20 = 1;
-                    if (!v19)
-                    {
-                      goto LABEL_55;
-                    }
-
-LABEL_54:
-                    operator delete(v19);
-                    goto LABEL_55;
-                  }
-
-                  v24.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-                  v25 = sub_5544(14);
-                  if (*(v25 + 8))
-                  {
-                    v26 = *v25;
-                    if (*v25)
-                    {
-                      if (os_log_type_enabled(*v25, OS_LOG_TYPE_DEBUG))
-                      {
-                        buf.mSelector = 136315906;
-                        *&buf.mScope = "HALPropertySynchronizer.h";
-                        v76 = 1024;
-                        v77 = 354;
-                        v78 = 2080;
-                        v79 = "with timeout";
-                        v80 = 1024;
-                        v81 = a1;
-                        _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEBUG, "%25s:%-5d Waiting (%s) for sync primitive to be unlocked on id %u.", &buf, 0x22u);
-                      }
-                    }
-                  }
-
-                  sub_27A4();
-                  LOBYTE(v42) = sub_2E6B08();
-                  *&buf.mSelector = &v83;
-                  LOBYTE(buf.mElement) = 1;
-                  std::mutex::lock(&v83);
-                  v27.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_ + 150000000;
-                  while ((v74 & 1) == 0 && v27.__d_.__rep_ > std::chrono::steady_clock::now().__d_.__rep_)
-                  {
-                    v28.__d_.__rep_ = v27.__d_.__rep_ - std::chrono::steady_clock::now().__d_.__rep_;
-                    if (v28.__d_.__rep_ >= 1)
-                    {
-                      std::chrono::steady_clock::now();
-                      v29.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-                      if (v29.__d_.__rep_)
-                      {
-                        if (v29.__d_.__rep_ < 1)
-                        {
-                          if (v29.__d_.__rep_ >= 0xFFDF3B645A1CAC09)
-                          {
-                            goto LABEL_73;
-                          }
-
-                          v30 = 0x8000000000000000;
-                        }
-
-                        else
-                        {
-                          if (v29.__d_.__rep_ > 0x20C49BA5E353F7)
-                          {
-                            v30 = 0x7FFFFFFFFFFFFFFFLL;
-                            goto LABEL_74;
-                          }
-
-LABEL_73:
-                          v30 = 1000 * v29.__d_.__rep_;
-LABEL_74:
-                          if (v30 > (v28.__d_.__rep_ ^ 0x7FFFFFFFFFFFFFFFLL))
-                          {
-                            v31.__d_.__rep_ = 0x7FFFFFFFFFFFFFFFLL;
-LABEL_77:
-                            std::condition_variable::__do_timed_wait(&v82, &buf, v31);
-                            std::chrono::steady_clock::now();
-                            goto LABEL_78;
-                          }
-                        }
-                      }
-
-                      else
-                      {
-                        v30 = 0;
-                      }
-
-                      v31.__d_.__rep_ = v30 + v28.__d_.__rep_;
-                      goto LABEL_77;
-                    }
-
-LABEL_78:
-                    if (std::chrono::steady_clock::now().__d_.__rep_ >= v27.__d_.__rep_)
-                    {
-                      break;
-                    }
-                  }
-
-                  if (LOBYTE(buf.mElement) == 1)
-                  {
-                    std::mutex::unlock(*&buf.mSelector);
-                  }
-
-                  sub_1DB4C4(&v42);
-                  v20 = 0;
-                  v39 += (std::chrono::system_clock::now().__d_.__rep_ - v24.__d_.__rep_) / -1000;
-                  if (v19)
-                  {
-                    goto LABEL_54;
-                  }
-
-LABEL_55:
-                  if (v20)
-                  {
-                    if (v20 == 16)
-                    {
-                      v33 = sub_5544(14);
-                      if ((*(v33 + 8) & 1) != 0 && *v33 && os_log_type_enabled(*v33, OS_LOG_TYPE_DEBUG))
-                      {
-                        v42 = *a2;
-                        v43 = *(a2 + 8);
-                        sub_22CE0(&__p);
-                      }
-                    }
-
-                    goto LABEL_104;
-                  }
-                }
-
-                v23 = memcmp(v47, v44, v48 - v47) == 0;
-                if (!v22)
-                {
-                  goto LABEL_50;
-                }
-
-LABEL_49:
-                v45 = v22;
-                operator delete(v22);
-                goto LABEL_50;
-              }
-
-              v56 = 0;
-              v57 = 0;
-              v58 = 0;
-              sub_46980(&v56, v65, v66, (v66 - v65) >> 2);
-              v53 = 0;
-              v54 = 0;
-              v55 = 0;
-              sub_46980(&v53, *a3, a3[1], (a3[1] - *a3) >> 2);
-              v34 = v56;
-              v35 = v53;
-              v36 = v57 - v56 == v54 - v53 && memcmp(v56, v53, v57 - v56) == 0;
-              if (v35)
-              {
-                v54 = v35;
-                operator delete(v35);
-              }
-
-              if (v34)
-              {
-                v57 = v34;
-                operator delete(v34);
-                if (!v36)
-                {
-                  goto LABEL_41;
-                }
-              }
-
-              else if (!v36)
-              {
-                goto LABEL_41;
-              }
-
-              v37 = sub_5544(14);
-              if (*(v37 + 8))
-              {
-                v38 = *v37;
-                if (*v37)
-                {
-                  if (os_log_type_enabled(*v37, OS_LOG_TYPE_DEBUG))
-                  {
-                    buf.mSelector = 136315650;
-                    *&buf.mScope = "HALPropertySynchronizer.h";
-                    v76 = 1024;
-                    v77 = 322;
-                    v78 = 1024;
-                    LODWORD(v79) = a1;
-                    _os_log_impl(&dword_0, v38, OS_LOG_TYPE_DEBUG, "%25s:%-5d Read-back value was the same as the set-to value, so we didn't need to wait on a sync primitive for a notification on id %u.", &buf, 0x18u);
-                  }
-                }
-              }
-
-LABEL_104:
-              if (v65)
-              {
-                operator delete(v65);
-              }
-            }
-
-            goto LABEL_106;
-          }
-        }
-
-        else if (v17)
-        {
-          goto LABEL_32;
-        }
-
-LABEL_8:
-        v8 = sub_5544(14);
-        if ((*(v8 + 8) & 1) != 0 && *v8 && os_log_type_enabled(*v8, OS_LOG_TYPE_DEBUG))
-        {
-          v56 = *a2;
-          LODWORD(v57) = *(a2 + 8);
-          sub_22CE0(&__p);
-        }
-
-        buf = *a2;
-        v9 = sub_1F79B8(a1, &buf, *a3, a3[1]);
-        if (!v9)
-        {
-          LOBYTE(v12) = 1;
-          goto LABEL_37;
-        }
-
-        v10 = v9;
-        v11 = sub_5544(14);
-        v12 = *v11;
-        if (!*v11)
-        {
-          goto LABEL_37;
-        }
-
-        if (os_log_type_enabled(*v11, OS_LOG_TYPE_ERROR))
-        {
-          sub_22170(&__p, v10);
-          v53 = *a2;
-          LODWORD(v54) = *(a2 + 8);
-          sub_22CE0(&v56);
-        }
-
-        goto LABEL_36;
-      }
-    }
-
-    else
-    {
-      v17 = 0;
-      if (!v59)
-      {
-        goto LABEL_28;
-      }
-    }
-
-    v60 = v16;
-    operator delete(v16);
-    goto LABEL_28;
-  }
-
-  v13 = sub_5544(14);
-  if (*v13 && os_log_type_enabled(*v13, OS_LOG_TYPE_ERROR))
-  {
-    v82.__cv_.__sig = *a2;
-    *v82.__cv_.__opaque = *(a2 + 8);
-    sub_22CE0(&v83);
-  }
-}
-
-void sub_3311E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *__p, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, AudioObjectPropertySelector a61)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  sub_73C20(&a61);
-  std::condition_variable::~condition_variable((v61 - 216));
-  std::mutex::~mutex((v61 - 168));
-  _Unwind_Resume(a1);
-}
-
-void sub_331310(uint64_t a1, uint64_t a2)
-{
-  v3 = (a2 + 4);
-  *buf = *(a2 + 4);
-  v4 = *(a2 + 16);
-  *&buf[8] = *(a2 + 12);
-  sub_127F10(&v13, a2, buf, v4, *(a2 + 24));
-  v5 = v13;
-  if (v13)
-  {
-    v6 = sub_5544(14);
-    if (*v6)
-    {
-      if (os_log_type_enabled(*v6, OS_LOG_TYPE_ERROR))
-      {
-        sub_22170(&v12, v5);
-        v9 = *v3;
-        v10 = *(v3 + 2);
-        sub_22CE0(&__p);
-      }
-    }
-  }
-
-  if (v16 == 1)
-  {
-    memset(buf, 0, sizeof(buf));
-    v18 = 0;
-    v7 = v14;
-    sub_46980(buf, v14, v15, (v15 - v14) >> 2);
-    v8 = v18;
-    *a1 = *buf;
-    *(a1 + 16) = v8;
-    *(a1 + 24) = v5;
-    if (v7)
-    {
-      operator delete(v7);
-    }
-  }
-
-  else
-  {
-    *a1 = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
-    *(a1 + 24) = v5;
-  }
-}
-
-void sub_331510(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, char a22)
-{
-  if (v23 < 0)
-  {
-    operator delete(v22);
-  }
-
-  if (a22 == 1)
-  {
-    if (__p)
-    {
-      operator delete(__p);
-    }
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_331550(uint64_t a1)
-{
-  sub_4B2820(a1);
-
-  operator delete();
-}
-
-uint64_t sub_33158C(uint64_t a1, __int128 *a2, AudioObjectPropertySelector a3)
-{
-  v3 = sub_331660(a1, a2, 1, a3);
-  if (v3)
-  {
-    v4 = sub_5544(23);
-    v5 = *v4;
-    if (*v4)
-    {
-      if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
-      {
-        v7 = 136315394;
-        v8 = "Stream_USB_iAP_Aspen.cpp";
-        v9 = 1024;
-        v10 = 159;
-        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Error setting the USB format", &v7, 0x12u);
-      }
-    }
-  }
-
-  return v3;
-}
-
-uint64_t sub_331660(uint64_t a1, __int128 *a2, int a3, AudioObjectPropertySelector a4)
-{
-  v8 = *a2;
-  v9 = sub_5544(11);
-  if (*(v9 + 8))
-  {
-    v10 = *v9;
-    if (*v9)
-    {
-      if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 136315650;
-        v30 = "IAPManager.cpp";
-        v31 = 1024;
-        v32 = 398;
-        v33 = 1024;
-        v34 = v8;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d +- IAPManager::GetNearestSampleRateForUSB(inSampleRate: %u)", buf, 0x18u);
-      }
-    }
-  }
-
-  v11 = IAPDigitalAudioSupportedSampleRate();
-  v12 = sub_5544(11);
-  v13 = *v12;
-  if (*v12 && os_log_type_enabled(*v12, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 136315906;
-    v30 = "IAPManager.cpp";
-    v31 = 1024;
-    v32 = 401;
-    v33 = 1024;
-    v34 = v8;
-    v35 = 1024;
-    LODWORD(v36) = v11;
-    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d IAPDigitalAudioSupportedSampleRate(%u) returned %u.", buf, 0x1Eu);
-  }
-
-  if (v11 != v8)
-  {
-    v15 = 560226676;
-    v16 = sub_5544(23);
-    v17 = *v16;
-    if (!*v16 || !os_log_type_enabled(*v16, OS_LOG_TYPE_ERROR))
-    {
-      return v15;
-    }
-
-    *buf = 136315906;
-    v30 = "Stream_USB_iAP_Aspen.cpp";
-    v31 = 1024;
-    v32 = 208;
-    v33 = 1024;
-    v34 = v8;
-    v35 = 1024;
-    LODWORD(v36) = v11;
-    v18 = "%25s:%-5d Format's sample rate %u Hz is not a supported iAP digital audio rate (nearest is %u Hz)";
-    v19 = v17;
-    v20 = 30;
-LABEL_18:
-    _os_log_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, v18, buf, v20);
-    return v15;
-  }
-
-  if (!sub_3435DC(v8))
-  {
-    v15 = 2003329396;
-    v21 = sub_5544(23);
-    v22 = *v21;
-    if (!*v21 || !os_log_type_enabled(*v21, OS_LOG_TYPE_ERROR))
-    {
-      return v15;
-    }
-
-    *buf = 136315394;
-    v30 = "Stream_USB_iAP_Aspen.cpp";
-    v31 = 1024;
-    v32 = 202;
-    v18 = "%25s:%-5d Error setting the iAP digital audio sample rate";
-    v19 = v22;
-    v20 = 18;
-    goto LABEL_18;
-  }
-
-  if (a3)
-  {
-    v14 = sub_2ACD60(a1, a2, a4);
-  }
-
-  else
-  {
-    v14 = sub_2ADE94(a1, a2, a4);
-  }
-
-  v15 = v14;
-  if (v14)
-  {
-    v23 = sub_5544(23);
-    v24 = *v23;
-    if (*v23)
-    {
-      if (os_log_type_enabled(*v23, OS_LOG_TYPE_ERROR))
-      {
-        sub_22170(__p, v15);
-        if (v28 >= 0)
-        {
-          v25 = __p;
-        }
-
-        else
-        {
-          v25 = __p[0];
-        }
-
-        *buf = 136315906;
-        v30 = "Stream_USB_iAP_Aspen.cpp";
-        v31 = 1024;
-        v32 = 198;
-        v33 = 1024;
-        v34 = v15;
-        v35 = 2080;
-        v36 = v25;
-        _os_log_impl(&dword_0, v24, OS_LOG_TYPE_ERROR, "%25s:%-5d Error %d ('%s') setting the HAL stream format", buf, 0x22u);
-        if (v28 < 0)
-        {
-          operator delete(__p[0]);
-        }
-      }
-    }
-  }
-
-  return v15;
-}
-
-uint64_t sub_3319CC(uint64_t a1, __int128 *a2)
-{
-  v2 = sub_331660(a1, a2, 1, 0x73666D74u);
-  if (v2)
-  {
-    v3 = sub_5544(23);
-    v4 = *v3;
-    if (*v3)
-    {
-      if (os_log_type_enabled(*v3, OS_LOG_TYPE_ERROR))
-      {
-        v6 = 136315394;
-        v7 = "Stream_USB_iAP_Aspen.cpp";
-        v8 = 1024;
-        v9 = 170;
-        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d Error setting the USB format", &v6, 0x12u);
-      }
-    }
-  }
-
-  return v2;
-}
-
-uint64_t sub_331AA4(uint64_t a1, __int128 *a2, AudioObjectPropertySelector a3)
-{
-  v3 = sub_331660(a1, a2, 0, a3);
-  if (v3)
-  {
-    v4 = sub_5544(23);
-    v5 = *v4;
-    if (*v4)
-    {
-      if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
-      {
-        v7 = 136315394;
-        v8 = "Stream_USB_iAP_Aspen.cpp";
-        v9 = 1024;
-        v10 = 148;
-        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Error setting the USB format", &v7, 0x12u);
-      }
-    }
-  }
-
-  return v3;
-}
-
-uint64_t sub_331B78(uint64_t a1, __int128 *a2)
-{
-  v2 = sub_331660(a1, a2, 0, 0x73666D74u);
-  if (v2)
-  {
-    v3 = sub_5544(23);
-    v4 = *v3;
-    if (*v3)
-    {
-      if (os_log_type_enabled(*v3, OS_LOG_TYPE_ERROR))
-      {
-        v6 = 136315394;
-        v7 = "Stream_USB_iAP_Aspen.cpp";
-        v8 = 1024;
-        v9 = 137;
-        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d Error setting the USB format", &v6, 0x12u);
-      }
-    }
-  }
-
-  return v2;
-}
-
-uint64_t sub_331C50(uint64_t a1, uint64_t a2, AudioObjectPropertySelector a3)
-{
-  if (*a2 != *(a2 + 8))
-  {
-    v40 = sub_5544(14);
-    v41 = *v40;
-    if (*v40 && os_log_type_enabled(*v40, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v50 = "Stream_USB_iAP_Aspen.cpp";
-      v51 = 1024;
-      v52 = 81;
-      _os_log_impl(&dword_0, v41, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::runtime_error): specified StreamFormatList is not empty", buf, 0x12u);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "specified StreamFormatList is not empty");
-  }
-
-  sub_343744(theArray);
-  if (theArray[0])
-  {
-    Count = CFArrayGetCount(theArray[0]);
-    if (!Count)
-    {
-      v14 = sub_5544(23);
-      v15 = *v14;
-      if (*v14)
-      {
-        if (os_log_type_enabled(*v14, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136315394;
-          v50 = "Stream_USB_iAP_Aspen.cpp";
-          v51 = 1024;
-          v52 = 91;
-          _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "%25s:%-5d IAPDigitalAudioCopySupportSampleRates() returned a CFArrayRef with a count of 0", buf, 0x12u);
-        }
-      }
-    }
-
-    v45 = 0;
-    v46 = 0;
-    v47 = 0;
-    v7 = sub_D5304(a1, &v45, a3);
-    if (v7)
-    {
-      v8 = sub_5544(23);
-      v9 = *v8;
-      if (*v8 && os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
-      {
-        sub_22170(__p, v7);
-        v10 = v44 >= 0 ? __p : __p[0];
-        v11 = *(a1 + 80);
-        *buf = 136316162;
-        v50 = "Stream_USB_iAP_Aspen.cpp";
-        v51 = 1024;
-        v52 = 96;
-        v53 = 1024;
-        v54 = v7;
-        v55 = 2080;
-        v56 = v10;
-        v57 = 1024;
-        v58 = v11;
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d Error %d ('%s') getting the HAL stream formats for stream %u", buf, 0x28u);
-        if (v44 < 0)
-        {
-          operator delete(__p[0]);
-        }
-      }
-    }
-
-    else if (Count)
-    {
-      for (i = 0; i != Count; ++i)
-      {
-        LODWORD(__p[0]) = 0;
-        if (sub_2E4528(theArray, i, __p))
-        {
-          v17 = sub_5544(23);
-          v18 = *v17;
-          if (*v17 && os_log_type_enabled(*v17, OS_LOG_TYPE_DEBUG))
-          {
-            *buf = 136315650;
-            v50 = "Stream_USB_iAP_Aspen.cpp";
-            v51 = 1024;
-            v52 = 107;
-            v53 = 1024;
-            v54 = __p[0];
-            _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEBUG, "%25s:%-5d Attempting to resolve iAP digital audio sample rate %u Hz to a HAL stream format", buf, 0x18u);
-          }
-
-          v19 = v45;
-          if (v46 != v45)
-          {
-            while (LODWORD(__p[0]) < v19[5] || LODWORD(__p[0]) > v19[6])
-            {
-              v19 += 7;
-              if (v19 == v46)
-              {
-                goto LABEL_46;
-              }
-            }
-          }
-
-          if (v46 != v19)
-          {
-            v22 = *(a2 + 8);
-            v23 = *(a2 + 16);
-            if (v22 >= v23)
-            {
-              v28 = 0x6DB6DB6DB6DB6DB7 * ((v22 - *a2) >> 3);
-              v29 = v28 + 1;
-              if ((v28 + 1) > 0x492492492492492)
-              {
-                sub_189A00();
-              }
-
-              v30 = 0x6DB6DB6DB6DB6DB7 * ((v23 - *a2) >> 3);
-              if (2 * v30 > v29)
-              {
-                v29 = 2 * v30;
-              }
-
-              if (v30 >= 0x249249249249249)
-              {
-                v31 = 0x492492492492492;
-              }
-
-              else
-              {
-                v31 = v29;
-              }
-
-              if (v31)
-              {
-                sub_2AE238(v31);
-              }
-
-              v32 = 56 * v28;
-              v33 = *v19;
-              v34 = *(v19 + 1);
-              v35 = *(v19 + 2);
-              *(v32 + 48) = v19[6];
-              *(v32 + 16) = v34;
-              *(v32 + 32) = v35;
-              *v32 = v33;
-              v27 = 56 * v28 + 56;
-              v36 = *(a2 + 8) - *a2;
-              v37 = v32 - v36;
-              memcpy((v32 - v36), *a2, v36);
-              v38 = *a2;
-              *a2 = v37;
-              *(a2 + 8) = v27;
-              *(a2 + 16) = 0;
-              if (v38)
-              {
-                operator delete(v38);
-              }
-            }
-
-            else
-            {
-              v24 = *v19;
-              v25 = *(v19 + 1);
-              v26 = *(v19 + 2);
-              *(v22 + 48) = v19[6];
-              *(v22 + 16) = v25;
-              *(v22 + 32) = v26;
-              *v22 = v24;
-              v27 = v22 + 56;
-            }
-
-            *(a2 + 8) = v27;
-          }
-        }
-
-        else
-        {
-          v20 = sub_5544(23);
-          v21 = *v20;
-          if (*v20 && os_log_type_enabled(*v20, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 136315394;
-            v50 = "Stream_USB_iAP_Aspen.cpp";
-            v51 = 1024;
-            v52 = 117;
-            _os_log_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d Could not convert to a UInt32 array value from the CFArrayRef returned by IAPDigitalAudioCopySupportSampleRates()", buf, 0x12u);
-          }
-        }
-
-LABEL_46:
-        ;
-      }
-    }
-
-    if (v45)
-    {
-      operator delete(v45);
-    }
-  }
-
-  else
-  {
-    v12 = sub_5544(23);
-    v7 = 2003329396;
-    v13 = *v12;
-    if (*v12 && os_log_type_enabled(*v12, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v50 = "Stream_USB_iAP_Aspen.cpp";
-      v51 = 1024;
-      v52 = 124;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d IAPDigitalAudioCopySupportSampleRates() returned a NULL CFArrayRef", buf, 0x12u);
-    }
-  }
-
-  sub_A0804(theArray);
-  return v7;
-}
-
-void sub_3321F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, char a19)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  sub_A0804(&a19);
-  _Unwind_Resume(a1);
-}
-
-void sub_332280(void *a1)
-{
-  *a1 = off_6BF930;
-  sub_13BFA8(a1);
-
-  operator delete();
-}
-
-unsigned __int8 *sub_3322F4(_WORD *a1)
-{
-  v28[0] = 0;
-  v29 = 0;
-  atomic_fetch_add((sub_809C0() + 656), 1u);
-  v30 = 0x706D776970687077;
-  v32 = 0;
-  v31 = 0uLL;
-  sub_4625C(&v31, &v30, &v31, 2uLL);
-  *v11 = v31;
-  v12 = v32;
-  v32 = 0;
-  v31 = 0uLL;
-  strcpy(v13, "cwdv");
-  v14 = 0;
-  v15 = 3;
-  v17 = 0;
-  v18 = 0;
-  v16 = &v17;
-  v19 = 44739242;
-  v21 = 0;
-  v22 = 0;
-  __p = 0;
-  sub_161C7C(&v23, a1, v11);
-  sub_B0484(&cf, &v23);
-  for (i = v26; i != &cf; i = *(i + 8))
-  {
-    (*(**(i + 16) + 512))(*(i + 16), 0, 0, 0);
-    v3 = sub_809C0();
-    v4 = *(i + 24);
-    v10[0] = *(i + 16);
-    v10[1] = v4;
-    if (v4)
-    {
-      atomic_fetch_add_explicit(&v4->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    sub_257CE8(v3, v10);
-    if (v4)
-    {
-      std::__shared_weak_count::__release_weak(v4);
-    }
-  }
-
-  sub_87980(&cf);
-  sub_65310(&v23);
-  if (SHIBYTE(v22) < 0)
-  {
-    operator delete(__p);
-  }
-
-  sub_477A0(v17);
-  if (v11[0])
-  {
-    v11[1] = v11[0];
-    operator delete(v11[0]);
-  }
-
-  *&v31 = 0x7075736F70687077;
-  v24 = 0;
-  v23 = 0uLL;
-  sub_4625C(&v23, &v31, &v31 + 8, 2uLL);
-  *v11 = v23;
-  v12 = v24;
-  strcpy(v13, "cwdv");
-  v14 = 0;
-  v15 = 3;
-  v17 = 0;
-  v18 = 0;
-  v16 = &v17;
-  v19 = 44739242;
-  v21 = 0;
-  v22 = 0;
-  __p = 0;
-  sub_161C7C(&cf, a1, v11);
-  v5 = v27;
-  sub_65310(&cf);
-  if (SHIBYTE(v22) < 0)
-  {
-    operator delete(__p);
-  }
-
-  sub_477A0(v17);
-  if (v11[0])
-  {
-    v11[1] = v11[0];
-    operator delete(v11[0]);
-  }
-
-  if (v5)
-  {
-    sub_1F82A0();
-    (*(*a1 + 128))(v11, a1);
-    if (v12 >= 0)
-    {
-      v6 = v11;
-    }
-
-    else
-    {
-      v6 = v11[0];
-    }
-
-    if (v6)
-    {
-      if (v12 >= 0)
-      {
-        v7 = HIBYTE(v12);
-      }
-
-      else
-      {
-        v7 = v11[1];
-      }
-
-      cf = CFStringCreateWithBytes(0, v6, v7, 0x8000100u, 0);
-      if (!cf)
-      {
-        exception = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(exception, "Could not construct");
-      }
-    }
-
-    else
-    {
-      cf = 0;
-    }
-
-    (*(qword_6E6648 + 64))(&qword_6E6648, &cf);
-    if (cf)
-    {
-      CFRelease(cf);
-    }
-
-    if (SHIBYTE(v12) < 0)
-    {
-      operator delete(v11[0]);
-    }
-  }
-
-  sub_4B08E8(a1);
-  a1[266] = 0;
-  return sub_240CCC(v28);
-}
-
-void sub_3326C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, const void *a32)
-{
-  sub_1DB0E0(&a32);
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  sub_240CCC((v32 - 136));
-  _Unwind_Resume(a1);
-}
-
-void sub_332784(uint64_t a1, int **a2, char a3)
-{
-  v3 = *a2;
-  v4 = a2[1];
-  if ((v4 - *a2) >= 5)
-  {
-    v23 = sub_5544(14);
-    v24 = *v23;
-    if (*v23 && os_log_type_enabled(*v23, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v38 = "Device_USB_Aspen.cpp";
-      v39 = 1024;
-      v40 = 1373;
-      _os_log_impl(&dword_0, v24, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", buf, 0x12u);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(exception, "Precondition failure.");
-  }
-
-  if (v3 != v4)
-  {
-    v7 = *v3;
-    v36 = *v3;
-    v8 = sub_5544(18);
-    if (*(v8 + 8))
-    {
-      v9 = *v8;
-      if (*v8)
-      {
-        if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 136315650;
-          v38 = "Device_USB_Aspen.cpp";
-          v39 = 1024;
-          v40 = 1380;
-          v41 = 1024;
-          LODWORD(v42) = v7;
-          _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d Attempting to activate sub-port with ID %u", buf, 0x18u);
-        }
-      }
-    }
-
-    sub_4B4674(v33, a1);
-    sub_76388(&v34, v33);
-    v10 = v35;
-    if (v35 == &v34)
-    {
-      sub_87980(&v34);
-      sub_65310(v33);
-      goto LABEL_51;
-    }
-
-    v11 = 0;
-    while (1)
-    {
-      (*(*v10[2] + 168))(&v31);
-      v12 = v31;
-      v13 = v31;
-      if (v31 != v32)
-      {
-        v13 = v31;
-        while (*v13 != v36)
-        {
-          if (++v13 == v32)
-          {
-            goto LABEL_22;
-          }
-        }
-      }
-
-      if (v13 == v32)
-      {
-LABEL_22:
-        v17 = 1;
-        if (!v31)
-        {
-          goto LABEL_24;
-        }
-
-LABEL_23:
-        v32 = v12;
-        operator delete(v12);
-        goto LABEL_24;
-      }
-
-      v14 = *(v10[2] + 144);
-      if (v14 > 1886740851)
-      {
-        if (v14 != 1886740852 && v14 != 1886745449)
-        {
-LABEL_20:
-          if (a3)
-          {
-            goto LABEL_38;
-          }
-
-          v16 = 1869968496;
-          goto LABEL_34;
-        }
-      }
-
-      else if (v14 != 1885894516 && v14 != 1886222185)
-      {
-        goto LABEL_20;
-      }
-
-      if ((a3 & 1) == 0)
-      {
-LABEL_38:
-        v19 = sub_5544(14);
-        v20 = *v19;
-        if (*v19 && os_log_type_enabled(*v19, OS_LOG_TYPE_ERROR))
-        {
-          sub_23148(__p, (v10[2] + 8));
-          v21 = v30 >= 0 ? __p : __p[0];
-          *buf = 136315650;
-          v38 = "Device_USB_Aspen.cpp";
-          v39 = 1024;
-          v40 = 1398;
-          v41 = 2080;
-          v42 = v21;
-          _os_log_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::logic_error): Scope of Port (%s) does not match scope of input parameter", buf, 0x1Cu);
-          if (v30 < 0)
-          {
-            operator delete(__p[0]);
-          }
-        }
-
-        v22 = __cxa_allocate_exception(0x10uLL);
-        std::logic_error::logic_error(v22, "Scope of Port (%s) does not match scope of input parameter");
-      }
-
-      v16 = 1768845428;
-LABEL_34:
-      *buf = 1936945763;
-      v38 = v16;
-      (*(*a1 + 48))(a1, buf, 0, 0, 4, &v36);
-      v17 = 0;
-      v11 = 1;
-      v12 = v31;
-      if (v31)
-      {
-        goto LABEL_23;
-      }
-
-LABEL_24:
-      if (v17)
-      {
-        v10 = v10[1];
-        if (v10 != &v34)
-        {
-          continue;
-        }
-      }
-
-      sub_87980(&v34);
-      sub_65310(v33);
-      if (v11)
-      {
-        return;
-      }
-
-LABEL_51:
-      v26 = sub_5544(14);
-      v27 = *v26;
-      if (*v26)
-      {
-        if (os_log_type_enabled(*v26, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315650;
-          v38 = "Device_USB_Aspen.cpp";
-          v39 = 1024;
-          v40 = 1408;
-          v41 = 1024;
-          LODWORD(v42) = v36;
-          _os_log_impl(&dword_0, v27, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::logic_error): Could not locate sub-port with ID: %u in order to activate it.", buf, 0x18u);
-        }
-      }
-
-      v28 = __cxa_allocate_exception(0x10uLL);
-      std::logic_error::logic_error(v28, "Could not locate sub-port with ID: %u in order to activate it.");
-    }
-  }
-}
-
-void sub_332C90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  sub_87980(&a19);
-  sub_65310(&a16);
-  _Unwind_Resume(a1);
-}
-
-void sub_332D0C(uint64_t a1)
-{
-  v25 = 0;
-  v26 = 0;
-  v27 = 0;
-  strcpy(v28, "cwdv");
-  v28[8] = 0;
-  v29 = 3;
-  v31[0] = 0;
-  v31[1] = 0;
-  v30 = v31;
-  v34 = 0;
-  v35 = 0;
-  __p = 0;
-  v32 = 44739210;
-  sub_161C7C(v24, a1, &v25);
-  if (v24[2])
-  {
-    v2 = sub_5544(18);
-    v3 = *v2;
-    if (*v2 && os_log_type_enabled(*v2, OS_LOG_TYPE_INFO))
-    {
-      *buf = 136315394;
-      *&buf[4] = "Device_USB_Aspen.cpp";
-      *&buf[12] = 1024;
-      *&buf[14] = 894;
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "%25s:%-5d USB Device- tearing down current output ref port", buf, 0x12u);
-    }
-
-    sub_B0484(buf, v24);
-    v4 = *&buf[8];
-    if (*&buf[8] != buf)
-    {
-      while (1)
-      {
-        v5 = *(v4 + 16);
-        v6 = v5[36];
-        if (v6 == 1886745449)
-        {
-          goto LABEL_12;
-        }
-
-        if (v6 == 1886222185)
-        {
-          break;
-        }
-
-LABEL_16:
-        v11 = *(v4 + 24);
-        v23[0] = v5;
-        v23[1] = v11;
-        if (v11)
-        {
-          atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        sub_4B0AE8(a1, v23);
-        if (v11)
-        {
-          sub_1A8C0(v11);
-        }
-
-        v4 = *(v4 + 8);
-        if (v4 == buf)
-        {
-          goto LABEL_21;
-        }
-      }
-
-      (*(*v5 + 512))(v5, 0, 0, 0);
-      v7 = sub_809C0();
-      v8 = *(v4 + 24);
-      *v36 = *(v4 + 16);
-      *&v36[8] = v8;
-      if (v8)
-      {
-        atomic_fetch_add_explicit(&v8->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      sub_257CE8(v7, v36);
-      if (v8)
-      {
-        std::__shared_weak_count::__release_weak(v8);
-      }
-
-LABEL_12:
-      v9 = sub_5544(18);
-      v10 = *v9;
-      if (*v9 && os_log_type_enabled(*v9, OS_LOG_TYPE_INFO))
-      {
-        *v36 = 136315394;
-        *&v36[4] = "Device_USB_Aspen.cpp";
-        *&v36[12] = 1024;
-        *&v36[14] = 910;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "%25s:%-5d USB Device- tearing down current input port of output device", v36, 0x12u);
-      }
-
-      *(a1 + 533) = 0;
-      v5 = *(v4 + 16);
-      goto LABEL_16;
-    }
-
-LABEL_21:
-    sub_87980(buf);
-  }
-
-  v12 = sub_333248(a1);
-  if (v12)
-  {
-    sub_161C7C(buf, v12, &v25);
-    if (*&buf[16])
-    {
-      v13 = *&buf[8];
-      v14 = *(*&buf[8] + 24);
-      if (v14)
-      {
-        v15 = std::__shared_weak_count::lock(v14);
-        if (v15)
-        {
-          v16 = v15;
-          v17 = *(v13 + 16);
-          if (v17)
-          {
-            v18 = v17[36];
-            if (v18 == 1886745449)
-            {
-              goto LABEL_30;
-            }
-
-            if (v18 == 1886222185)
-            {
-              (*(*v17 + 512))(v17, 0, 0, 0);
-              v19 = sub_809C0();
-              *v36 = v17;
-              *&v36[8] = v16;
-              atomic_fetch_add_explicit(&v16->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-              sub_257CE8(v19, v36);
-              std::__shared_weak_count::__release_weak(v16);
-LABEL_30:
-              v20 = sub_5544(18);
-              v21 = *v20;
-              if (*v20 && os_log_type_enabled(*v20, OS_LOG_TYPE_INFO))
-              {
-                *v36 = 136315394;
-                *&v36[4] = "Device_USB_Aspen.cpp";
-                *&v36[12] = 1024;
-                *&v36[14] = 937;
-                _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "%25s:%-5d USB Device- tearing down input port", v36, 0x12u);
-              }
-
-              v22[0] = v17;
-              v22[1] = v16;
-              atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
-              sub_4B0AE8(v12, v22);
-              sub_1A8C0(v16);
-              *(v12 + 533) = 0;
-              sub_3334F8(v12);
-            }
-          }
-
-          sub_1A8C0(v16);
-        }
-      }
-    }
-  }
-
-  else
-  {
-    *buf = buf;
-    *&buf[8] = buf;
-    *&buf[16] = 0;
-  }
-
-  sub_65310(buf);
-  sub_65310(v24);
-  if (SHIBYTE(v35) < 0)
-  {
-    operator delete(__p);
-  }
-
-  sub_477A0(v31[0]);
-  if (v25)
-  {
-    v26 = v25;
-    operator delete(v25);
-  }
-}
-
-void sub_3331A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
-{
-  std::__shared_weak_count::__release_weak(v18);
-  sub_1A8C0(v18);
-  sub_65310((v19 - 128));
-  sub_65310(&a15);
-  sub_46934(&a18);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_333248(uint64_t a1)
-{
-  v1 = a1;
-  strcpy(v13, "DIclbolg");
-  BYTE1(v13[1]) = 0;
-  WORD1(v13[1]) = 0;
-  sub_339DEC(&v18, a1);
-  LOBYTE(v14) = 0;
-  v15 = 0;
-  v2 = v20;
-  if ((v20 & 1) == 0)
-  {
-    goto LABEL_31;
-  }
-
-  v3 = cf;
-  v14 = cf;
-  v15 = 1;
-  if (cf)
-  {
-    CFRetain(cf);
-  }
-
-  v13[3] = v3;
-  sub_CE168();
-  sub_2E2774(v13);
-  v4 = v13[1];
-  if (v3)
-  {
-    CFRetain(v3);
-  }
-
-  if (v4 != v13)
-  {
-    while (1)
-    {
-      v5 = v4[3];
-      if (v5)
-      {
-        v6 = std::__shared_weak_count::lock(v5);
-        if (v6)
-        {
-          v7 = v6;
-          v8 = v4[2];
-          if (v8)
-          {
-            if (v8 != v1)
-            {
-              v9 = (*(*v8 + 120))(v8);
-              inAddress.mElement = 0;
-              v17 = v9;
-              *&inAddress.mSelector = 0x676C6F626C634944;
-              sub_33A098(&v18, &v17, &inAddress, 0, 0);
-              if (v20 == 1)
-              {
-                v10 = cf;
-                if (!v3)
-                {
-                  if (!cf)
-                  {
-                    sub_1A8C0(v7);
-                    goto LABEL_23;
-                  }
-
-                  v11 = 0;
-                  goto LABEL_20;
-                }
-
-                if (cf)
-                {
-                  v11 = CFNumberCompare(v3, cf, 0) == kCFCompareEqualTo;
-LABEL_20:
-                  CFRelease(v10);
-                  sub_1A8C0(v7);
-                  if (v11)
-                  {
-                    break;
-                  }
-
-                  goto LABEL_16;
-                }
-              }
-            }
-          }
-
-          sub_1A8C0(v7);
-        }
-      }
-
-LABEL_16:
-      v4 = v4[1];
-      if (v4 == v13)
-      {
-        v4 = v13;
-        break;
-      }
-    }
-  }
-
-  if (v3)
-  {
-    CFRelease(v3);
-  }
-
-LABEL_23:
-  if (v4 != v13)
-  {
-    sub_5659C(&v18, v4 + 2, "", 1544);
-    v1 = v18;
-    if (cf)
-    {
-      sub_1A8C0(cf);
-    }
-  }
-
-  sub_65310(v13);
-  if (v3)
-  {
-    CFRelease(v3);
-  }
-
-  if (v4 == v13)
-  {
-LABEL_31:
-    v1 = 0;
-    if (!v2)
-    {
-      return v1;
-    }
-  }
-
-  else if (!v2)
-  {
-    return v1;
-  }
-
-  if (v14)
-  {
-    CFRelease(v14);
-  }
-
-  return v1;
-}
-
-void sub_3334A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va2, a4);
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  va_copy(va2, va1);
-  v9 = va_arg(va2, const void *);
-  sub_65310(va);
-  sub_21794C(va1);
-  sub_339B0C(va2);
-  _Unwind_Resume(a1);
-}
-
-void sub_3334F8(uint64_t a1)
-{
-  if (!_os_feature_enabled_impl() || (strcpy(buf, "ndihbolg"), buf[9] = 0, *&buf[10] = 0, v2 = sub_59410(a1), *(&v5 + 1) = v3, *&v5 = v2, v4 = v5 >> 32, (v4 & 0x100000000) == 0) || !v4)
-  {
-    if (*(a1 + 532) != 1 || (*(a1 + 533) & 1) == 0)
-    {
-      v42 = sub_3364F8(a1);
-      v6 = (*(*a1 + 88))(a1, 1);
-      v7 = (*(*a1 + 88))(a1, 0);
-      v8 = sub_3364F8(a1);
-      v9 = sub_5544(18);
-      v10 = *v9;
-      if (*v9 && os_log_type_enabled(*v9, OS_LOG_TYPE_DEBUG))
-      {
-        p_str = &__str;
-        (*(*a1 + 128))(&__str, a1);
-        if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-        {
-          p_str = __str.__r_.__value_.__r.__words[0];
-        }
-
-        v12 = (*(*a1 + 88))(a1, 0);
-        v13 = (*(*a1 + 88))(a1, 1);
-        *buf = 136316418;
-        *&buf[4] = "Device_USB_Aspen.cpp";
-        *&buf[12] = 1024;
-        *&buf[14] = 1067;
-        *&buf[18] = 2080;
-        *&buf[20] = p_str;
-        v48 = 1024;
-        v49 = v42;
-        v50 = 1024;
-        v51 = v12;
-        v52[0] = 1024;
-        *&v52[1] = v13;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d Device %s hasSpeakerTapStream %d num input streams %u num output streams %u", buf, 0x2Eu);
-        if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__str.__r_.__value_.__l.__data_);
-        }
-      }
-
-      v14 = sub_333248(a1);
-      if (v14)
-      {
-        sub_3364F8(v14);
-        if (v6)
-        {
-          goto LABEL_20;
-        }
-      }
-
-      else if (v6)
-      {
-        goto LABEL_20;
-      }
-
-      if (v7 <= v8)
-      {
-        v15 = sub_5544(18);
-        v16 = *v15;
-        if (*v15)
-        {
-          if (os_log_type_enabled(*v15, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 136315394;
-            *&buf[4] = "Device_USB_Aspen.cpp";
-            *&buf[12] = 1024;
-            *&buf[14] = 1074;
-            _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "%25s:%-5d USB audio device has no streams", buf, 0x12u);
-          }
-        }
-      }
-
-LABEL_20:
-      v17 = sub_5544(18);
-      v18 = *v17;
-      if (*v17 && os_log_type_enabled(*v17, OS_LOG_TYPE_DEBUG))
-      {
-        (*(*a1 + 128))(&__str, a1);
-        v19 = SHIBYTE(__str.__r_.__value_.__r.__words[2]);
-        v20 = __str.__r_.__value_.__r.__words[0];
-        v21 = sub_33658C(a1);
-        *buf = 136315906;
-        *&buf[4] = "Device_USB_Aspen.cpp";
-        v22 = v19 >= 0 ? &__str : v20;
-        *&buf[12] = 1024;
-        *&buf[14] = 1075;
-        *&buf[18] = 2080;
-        *&buf[20] = v22;
-        v48 = 1024;
-        v49 = v21;
-        _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEBUG, "%25s:%-5d USB device %s HasHeadsetInfo: %d", buf, 0x22u);
-        if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__str.__r_.__value_.__l.__data_);
-        }
-      }
-
-      if (sub_336780(a1) || (sub_292208(a1) & 1) != 0)
-      {
-        v23 = 1;
-        if (!v6)
-        {
-          goto LABEL_106;
-        }
-      }
-
-      else
-      {
-        v23 = *(a1 + 535);
-        if (!v6)
-        {
-LABEL_106:
-          if (v7 > v8 && (*(a1 + 533) & 1) == 0)
-          {
-            (*(*a1 + 448))(a1, 0);
-            sub_4B8CE4();
-          }
-
-          return;
-        }
-      }
-
-      if ((*(a1 + 532) & 1) == 0)
-      {
-        v24 = (*(*a1 + 448))(a1, 1);
-        v25 = (*(*a1 + 88))(a1, 1);
-        v27 = v24 > 2 || v25 != 1;
-        if (((v27 | v23) & 1) == 0 && *(a1 + 524) != 0xA00000001EDBLL)
-        {
-          (*(*a1 + 456))(&__str, a1);
-          memset(&v54, 0, sizeof(v54));
-          strcpy(v43, "manlbolg");
-          BYTE1(v43[1]) = 0;
-          WORD1(v43[1]) = 0;
-          sub_3397D8(buf, a1);
-          LOBYTE(cf) = 0;
-          LOBYTE(v46) = 0;
-          if (buf[24] == 1)
-          {
-            v28 = *&buf[16];
-            *&buf[16] = 0;
-            cf = &off_6DACD8;
-            theString = v28;
-            LOBYTE(v46) = 1;
-            sub_8AAAC(&buf[8]);
-            sub_48540(buf, theString);
-            if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(v54.__r_.__value_.__l.__data_);
-            }
-
-            v54 = *buf;
-          }
-
-          else
-          {
-            std::string::operator=(&v54, &__str);
-          }
-
-          if (v46 == 1)
-          {
-            sub_8AAAC(&cf);
-          }
-
-          sub_1F82A0();
-          if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            v29 = &__str;
-          }
-
-          else
-          {
-            v29 = __str.__r_.__value_.__r.__words[0];
-          }
-
-          if (v29)
-          {
-            if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-            {
-              size = HIBYTE(__str.__r_.__value_.__r.__words[2]);
-            }
-
-            else
-            {
-              size = __str.__r_.__value_.__l.__size_;
-            }
-
-            *buf = CFStringCreateWithBytes(0, v29, size, 0x8000100u, 0);
-            if (!*buf)
-            {
-              exception = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(exception, "Could not construct");
-            }
-          }
-
-          else
-          {
-            *buf = 0;
-          }
-
-          v32 = (*(qword_6E6648 + 40))(&qword_6E6648, buf);
-          if (*buf)
-          {
-            CFRelease(*buf);
-          }
-
-          if ((v32 & 0x100) != 0 && !v32)
-          {
-            sub_1F82A0();
-            if ((v54.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-            {
-              v33 = &v54;
-            }
-
-            else
-            {
-              v33 = v54.__r_.__value_.__r.__words[0];
-            }
-
-            if (v33)
-            {
-              if ((v54.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-              {
-                v34 = HIBYTE(v54.__r_.__value_.__r.__words[2]);
-              }
-
-              else
-              {
-                v34 = v54.__r_.__value_.__l.__size_;
-              }
-
-              *buf = CFStringCreateWithBytes(0, v33, v34, 0x8000100u, 0);
-              if (!*buf)
-              {
-                v35 = __cxa_allocate_exception(0x10uLL);
-                std::runtime_error::runtime_error(v35, "Could not construct");
-              }
-            }
-
-            else
-            {
-              *buf = 0;
-            }
-
-            if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-            {
-              v36 = &__str;
-            }
-
-            else
-            {
-              v36 = __str.__r_.__value_.__r.__words[0];
-            }
-
-            if (v36)
-            {
-              if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-              {
-                v37 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
-              }
-
-              else
-              {
-                v37 = __str.__r_.__value_.__l.__size_;
-              }
-
-              cf = CFStringCreateWithBytes(0, v36, v37, 0x8000100u, 0);
-              if (!cf)
-              {
-                v38 = __cxa_allocate_exception(0x10uLL);
-                std::runtime_error::runtime_error(v38, "Could not construct");
-              }
-            }
-
-            else
-            {
-              cf = 0;
-            }
-
-            (*(qword_6E6648 + 48))(&qword_6E6648, buf, &cf);
-            if (cf)
-            {
-              CFRelease(cf);
-            }
-
-            if (*buf)
-            {
-              CFRelease(*buf);
-            }
-          }
-
-          if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v54.__r_.__value_.__l.__data_);
-          }
-
-          if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(__str.__r_.__value_.__l.__data_);
-          }
-        }
-
-        sub_1F82A0();
-        (*(*a1 + 128))(buf, a1);
-        if (buf[23] >= 0)
-        {
-          v39 = buf;
-        }
-
-        else
-        {
-          v39 = *buf;
-        }
-
-        if (v39)
-        {
-          if (buf[23] >= 0)
-          {
-            v40 = buf[23];
-          }
-
-          else
-          {
-            v40 = *&buf[8];
-          }
-
-          __str.__r_.__value_.__r.__words[0] = CFStringCreateWithBytes(0, v39, v40, 0x8000100u, 0);
-          if (!__str.__r_.__value_.__r.__words[0])
-          {
-            v41 = __cxa_allocate_exception(0x10uLL);
-            std::runtime_error::runtime_error(v41, "Could not construct");
-          }
-        }
-
-        else
-        {
-          __str.__r_.__value_.__r.__words[0] = 0;
-        }
-
-        (*(qword_6E6648 + 64))(&qword_6E6648, &__str, 1);
-        if (__str.__r_.__value_.__r.__words[0])
-        {
-          CFRelease(__str.__r_.__value_.__l.__data_);
-        }
-
-        if ((buf[23] & 0x80000000) != 0)
-        {
-          operator delete(*buf);
-        }
-
-        (*(*a1 + 448))(a1, 1);
-        sub_4B7D7C();
-      }
-
-      goto LABEL_106;
-    }
-  }
-}
-
-void sub_335E88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, char a29, int a30, __int16 a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, int a41, __int16 a42, char a43, char a44)
-{
-  __cxa_free_exception(v44);
-  sub_452F0(v49);
-  sub_1A8C0(v50);
-  std::__shared_weak_count::__release_weak(v48);
-  *v47 = off_6BD250;
-  sub_24EBDC(v47);
-  std::__shared_weak_count::~__shared_weak_count(v46);
-  operator delete(v52);
-  if (a26 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v45)
-  {
-    std::__shared_weak_count::__release_weak(v45);
-  }
-
-  sub_1E19A0(&a38);
-  _Unwind_Resume(a1);
-}
-
-BOOL sub_3364F8(uint64_t a1)
-{
-  v2 = sub_59410(a1);
-  result = 0;
-  *(&v6 + 1) = v4;
-  *&v6 = v2;
-  v5 = v6 >> 32;
-  if ((v5 & 0x100000000) != 0)
-  {
-    if (v5)
-    {
-      return (*(*a1 + 88))(a1, 1) != 0;
-    }
-  }
-
-  return result;
-}
-
-BOOL sub_33658C(uint64_t a1)
-{
-  sub_339EE8(&v7, a1, COERCE_DOUBLE(1735159650));
-  v1 = sub_5544(18);
-  v2 = *v1;
-  if (*v1 && os_log_type_enabled(*v1, OS_LOG_TYPE_INFO))
-  {
-    if (v9 == 1)
-    {
-      sub_B1190(&__p, theDict);
-      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        p_p = &__p;
-      }
-
-      else
-      {
-        p_p = __p.__r_.__value_.__r.__words[0];
-      }
-
-      *buf = 136315650;
-      v11 = "Device_USB_Aspen.cpp";
-      v12 = 1024;
-      v13 = 1742;
-      v14 = 2080;
-      v15 = p_p;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "%25s:%-5d Contents of HeadsetInfo: %s", buf, 0x1Cu);
-      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__p.__r_.__value_.__l.__data_);
-      }
-    }
-
-    else
-    {
-      *buf = 136315650;
-      v11 = "Device_USB_Aspen.cpp";
-      v12 = 1024;
-      v13 = 1742;
-      v14 = 2080;
-      v15 = "empty";
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "%25s:%-5d Contents of HeadsetInfo: %s", buf, 0x1Cu);
-    }
-  }
-
-  if (v9 != 1)
-  {
-    return 0;
-  }
-
-  if (theDict)
-  {
-    v4 = CFDictionaryGetCount(theDict) != 0;
-    if ((v9 & 1) == 0)
-    {
-      return v4;
-    }
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  sub_8AAAC(&v7);
-  return v4;
-}
-
-void sub_33674C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
-{
-  if (a14 == 1)
-  {
-    sub_8AAAC(&a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-BOOL sub_336780(uint64_t a1)
-{
-  v1 = (a1 + 524);
-  if (*(a1 + 524) == 0x110A000005ACLL)
-  {
-    return 0;
-  }
-
-  v3 = sub_3398F0(a1, 1869968496);
-  if (HIDWORD(v3))
-  {
-    if (v3 != 1751412840)
-    {
-      return 0;
-    }
-  }
-
-  v4 = sub_3398F0(a1, 1768845428);
-  if (HIDWORD(v4))
-  {
-    if (*v1 != 0x110C000005ACLL && v4 != 1752000867)
-    {
-      return 0;
-    }
-  }
-
-  strcpy(v14, "CFAubolg");
-  v14[9] = 0;
-  v15 = 0;
-  sub_339DEC(v11, a1);
-  if (v13 != 1)
-  {
-    return 0;
-  }
-
-  v5 = v12;
-  if (!v12)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-    goto LABEL_21;
-  }
-
-  v6 = sub_339B4C(v12);
-  if (v6 <= 0xFFu)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not convert");
-LABEL_21:
-  }
-
-  v8 = v6 == 4 || v6 == 13;
-  CFRelease(v5);
-  return v8;
-}
-
-void sub_33690C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
-{
-  __cxa_free_exception(v10);
-  sub_339B0C(&a10);
-  _Unwind_Resume(a1);
-}
-
-BOOL sub_336938(uint64_t a1, int a2)
-{
-  v3 = sub_338BCC(a2 == 1768845428, a1);
-  v4 = sub_5544(22);
-  v5 = sub_5544(31);
-  v6 = 0;
-  *buf = 0x100000002;
-  v7 = *(v4 + 8);
-  while (1)
-  {
-    v8 = *&buf[v6];
-    if (((v7 & v8) != 0) != ((*(v5 + 8) & v8) != 0))
-    {
-      break;
-    }
-
-    v6 += 4;
-    if (v6 == 8)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  if ((v7 & v8) == 0)
-  {
-    v4 = v5;
-  }
-
-LABEL_7:
-  v9 = *v4;
-  if (v9 && os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-  {
-    v10 = a2 == 1768845428 ? "Input" : "Output";
-    sub_22170(__p, v3);
-    v11 = v15 >= 0 ? __p : __p[0];
-    *buf = 136315906;
-    *&buf[4] = "Device_USB_Aspen.cpp";
-    v17 = 1024;
-    v18 = 1576;
-    v19 = 2080;
-    v20 = v10;
-    v21 = 2080;
-    v22 = v11;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s using headset value: '%s'", buf, 0x26u);
-    if (v15 < 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-
-  if (v3)
-  {
-    v12 = v3 == 1786082146;
-  }
-
-  else
-  {
-    v12 = 1;
-  }
-
-  return !v12;
-}
-
-uint64_t sub_336AF0(_BYTE *a1, int a2, int a3)
-{
-  v5 = sub_336C34(a2, a1);
-  v6 = sub_5544(18);
-  v7 = *v6;
-  if (*v6 && os_log_type_enabled(*v6, OS_LOG_TYPE_INFO))
-  {
-    v8 = "output";
-    v11 = 136315906;
-    v12 = "Device_USB_Aspen.cpp";
-    if (a2 == 1768845428)
-    {
-      v8 = "input";
-    }
-
-    v13 = 1024;
-    v14 = 1565;
-    v15 = 2080;
-    v16 = v8;
-    if (v5 == 1)
-    {
-      v9 = "Supported";
-    }
-
-    else
-    {
-      v9 = "Not Supported";
-    }
-
-    v17 = 2080;
-    v18 = v9;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "%25s:%-5d USB %s device Telephony format: %s", &v11, 0x26u);
-  }
-
-  if (v5 == 1)
-  {
-    return sub_31122C() ^ 1 | a3;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t sub_336C34(int a1, _BYTE *a2)
-{
-  if (sub_48EDC())
-  {
-    v4 = 1;
-  }
-
-  else if (MGGetBoolAnswer())
-  {
-    v4 = MGGetBoolAnswer();
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (qword_6E8380 != -1)
-  {
-    dispatch_once(&qword_6E8380, &stru_6BD048);
-  }
-
-  result = 2;
-  if (a2 && ((v4 | byte_6E837A) & 1) != 0)
-  {
-    if (a2[535])
-    {
-      return 1;
-    }
-
-    else if (a1 == 1869968496)
-    {
-      v9 = (*(*a2 + 448))(a2, 1);
-      if ((*(*a2 + 88))(a2, 1) != 1 || v9 >= 3)
-      {
-        return 2;
-      }
-
-      else
-      {
-        return 1;
-      }
-    }
-
-    else if (a1 == 1768845428)
-    {
-      v6 = sub_4DADAC(a2, 0);
-      v7 = (*(*a2 + 88))(a2, 0);
-      if (v7 + (((*(*a2 + 312))(a2) >> 1) >> 31) != 1 || v6 >= 3)
-      {
-        return 2;
-      }
-
-      else
-      {
-        return 1;
-      }
-    }
-  }
-
-  return result;
-}
-
-void sub_336E14(void *a1)
-{
-  v2 = (*(*a1 + 120))(a1);
-  sub_24FF44(v6, 0x706D7769u, v2);
-  v5 = a1;
-  if (sub_7E96C())
-  {
-    v3 = a1[11];
-    v8 = a1[10];
-    v9 = v3;
-    if (v3)
-    {
-      atomic_fetch_add_explicit((v3 + 16), 1uLL, memory_order_relaxed);
-    }
-
-    sub_3394D4(v10, &v5);
-    (*(*a1 + 128))(&__p, a1);
-    operator new();
-  }
-
-  v4 = a1[11];
-  v8 = a1[10];
-  v9 = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit((v4 + 16), 1uLL, memory_order_relaxed);
-  }
-
-  sub_3394D4(v10, &v5);
-  (*(*a1 + 128))(&__p, a1);
-  operator new();
-}
-
-void sub_337740(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38)
-{
-  if (*(&a9 + 1))
-  {
-    sub_1A8C0(*(&a9 + 1));
-  }
-
-  sub_1E19A0(&a14);
-  _Unwind_Resume(a1);
-}
-
-void sub_3378D0(uint64_t a1, uint64_t a2, void *a3)
-{
-  v5 = qword_6EABA0;
-  v6 = (*(*a3 + 120))(a3);
-  sub_24FF44(v18, v5, v6);
-  v7 = sub_5544(18);
-  v8 = *v7;
-  if (*v7 && os_log_type_enabled(*v7, OS_LOG_TYPE_DEBUG))
-  {
-    sub_2500F8(v21, v18);
-    v9 = v22;
-    v10 = v21[0];
-    (*(*a3 + 128))(__p, a3);
-    v11 = v21;
-    if (v9 < 0)
-    {
-      v11 = v10;
-    }
-
-    if (v20 >= 0)
-    {
-      v12 = __p;
-    }
-
-    else
-    {
-      v12 = __p[0];
-    }
-
-    *buf = 136315906;
-    *&buf[4] = "Device_USB_Aspen.cpp";
-    v28 = 1024;
-    v29 = 814;
-    v30 = 2080;
-    v31 = v11;
-    v32 = 2080;
-    v33 = v12;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d creating a USB output port with name %s and UID %s", buf, 0x26u);
-    if (v20 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (v22 < 0)
-    {
-      operator delete(v21[0]);
-    }
-  }
-
-  if (sub_289798() & 1) != 0 || (sub_31122C())
-  {
-    v15 = 0;
-    v16 = 0;
-    v17 = 0;
-  }
-
-  else
-  {
-    qmemcpy(buf, "gcrvmorvtshv", sizeof(buf));
-    v16 = 0;
-    v17 = 0;
-    v15 = 0;
-    sub_4625C(&v15, buf, &v28, 3uLL);
-  }
-
-  if (sub_4DAD0C(a2))
-  {
-    v13 = a3[11];
-    v23 = a3[10];
-    v24 = v13;
-    if (v13)
-    {
-      atomic_fetch_add_explicit((v13 + 16), 1uLL, memory_order_relaxed);
-    }
-
-    (*(*a3 + 128))(v21, a3);
-    sub_4B6FF0(__p, a3, 0x6F757470u);
-    operator new();
-  }
-
-  v14 = a3[11];
-  v25 = a3[10];
-  v26 = v14;
-  if (v14)
-  {
-    atomic_fetch_add_explicit((v14 + 16), 1uLL, memory_order_relaxed);
-  }
-
-  (*(*a3 + 128))(buf, a3);
-  sub_4B6FF0(v21, a3, 0x6F757470u);
-  sub_227ADC();
-}
-
-void sub_337E80(uint64_t a1, void *a2)
-{
-  v3 = qword_6EAC00;
-  v4 = (*(*a2 + 120))(a2);
-  sub_24FF44(v15, v3, v4);
-  v5 = sub_5544(18);
-  v6 = *v5;
-  if (*v5 && os_log_type_enabled(*v5, OS_LOG_TYPE_DEBUG))
-  {
-    sub_2500F8(v16, v15);
-    v7 = v18;
-    v8 = *v16;
-    (*(*a2 + 128))(__p, a2);
-    v9 = v16;
-    if (v7 < 0)
-    {
-      v9 = v8;
-    }
-
-    if (v14 >= 0)
-    {
-      v10 = __p;
-    }
-
-    else
-    {
-      v10 = __p[0];
-    }
-
-    *buf = 136315906;
-    *&buf[4] = "Device_USB_Aspen.cpp";
-    *&buf[12] = 1024;
-    *&buf[14] = 868;
-    *&buf[18] = 2080;
-    *&buf[20] = v9;
-    v20 = 2080;
-    v21 = v10;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d creating a USB tap input port with name %s and UID %s", buf, 0x26u);
-    if (v14 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (v18 < 0)
-    {
-      operator delete(*v16);
-    }
-  }
-
-  if ((sub_286E80() & 1) != 0 || sub_31122C())
-  {
-    memset(buf, 0, 24);
-  }
-
-  else
-  {
-    qmemcpy(v16, "gcrvmorvtshv", sizeof(v16));
-    memset(buf, 0, 24);
-    sub_4625C(buf, v16, &v17, 3uLL);
-  }
-
-  v11 = a2[11];
-  v12 = a2[10];
-  if (v11)
-  {
-    atomic_fetch_add_explicit((v11 + 16), 1uLL, memory_order_relaxed);
-  }
-
-  (*(*a2 + 128))(v16, a2);
-  sub_4B6FF0(__p, a2, 0x696E7074u);
-  sub_227ADC();
-}
-
-void sub_3381D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va, a10);
-  sub_1E19A0(va);
-  _Unwind_Resume(a1);
-}
-
-const __CFArray *sub_338284(uint64_t a1)
-{
-  v13 = 0x7074727561736573;
-  v14 = 0;
-  result = (*(*a1 + 16))(a1, &v13);
-  if (result)
-  {
-    theArray = 0;
-    v10 = 1;
-    v11 = 8;
-    (*(*a1 + 40))(a1, &v13, 0, 0, &v11, &theArray);
-    result = theArray;
-    if (theArray)
-    {
-      v3 = 0;
-      v8 = theArray;
-      v9 = 1;
-LABEL_4:
-      LODWORD(result) = CFArrayGetCount(result);
-      while (v3 < result)
-      {
-        v7 = 0;
-        if ((sub_2E4528(&v8, v3, &v7) & 1) == 0)
-        {
-          v4 = sub_5544(14);
-          v5 = *v4;
-          if (*v4)
-          {
-            if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
-            {
-              *buf = 136315394;
-              *&buf[4] = "Device_USB_Aspen.cpp";
-              v16 = 1024;
-              v17 = 1514;
-              _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (kAudioHardwareUnspecifiedError): Channels CFArray contained a non-UInt32 value.", buf, 0x12u);
-            }
-          }
-
-          exception = __cxa_allocate_exception(0x10uLL);
-          *exception = &off_6DDDD0;
-          exception[2] = 2003329396;
-        }
-
-        *buf = 0x707472756D757465;
-        *&buf[8] = v7;
-        (*(*a1 + 48))(a1, buf, 0, 0, 4, &v10);
-        ++v3;
-        result = v8;
-        if (v8)
-        {
-          goto LABEL_4;
-        }
-      }
-
-      return sub_A0804(&v8);
-    }
-  }
-
-  return result;
-}
-
-void sub_3384F8(unsigned int a1, uint64_t a2, uint64_t a3)
-{
-  *inAddress = 1936941859;
-  *&inAddress[4] = a1;
-  *&inAddress[8] = 0;
-  sub_4DFC0(a3);
-  if (AudioObjectHasProperty(*(a3 + 268), inAddress))
-  {
-    *inAddress = 1936945763;
-    *&inAddress[4] = a1;
-    *&inAddress[8] = 0;
-    LODWORD(v20[0]) = 4;
-    LODWORD(v18[0]) = 0;
-    (*(*a3 + 40))(a3, inAddress, 0, 0, v20, v18);
-    v6 = LODWORD(v18[0]);
-    v7 = sub_5544(18);
-    v8 = *v7;
-    if (*v7 && os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
-    {
-      v9 = v20;
-      sub_23148(v20, (a2 + 8));
-      if (v21 < 0)
-      {
-        v9 = v20[0];
-      }
-
-      sub_23148(v18, (a3 + 8));
-      v10 = v19;
-      v11 = v18[0];
-      sub_22170(__p, a1);
-      v12 = v18;
-      if (v10 < 0)
-      {
-        v12 = v11;
-      }
-
-      if (v17 >= 0)
-      {
-        v13 = __p;
-      }
-
-      else
-      {
-        v13 = __p[0];
-      }
-
-      *inAddress = 136316418;
-      *&inAddress[4] = "Device_USB_Aspen.cpp";
-      *&inAddress[12] = 1024;
-      *&inAddress[14] = 191;
-      v23 = 2048;
-      v24 = v6;
-      v25 = 2080;
-      v26 = v9;
-      v27 = 2080;
-      v28 = v12;
-      v29 = 2080;
-      v30 = v13;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Activating sub-port for active data source with ID: %lu for port: '%s' on USB device: '%s'. Scope: '%s'.", inAddress, 0x3Au);
-      if (v17 < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      if (v19 < 0)
-      {
-        operator delete(v18[0]);
-      }
-
-      if (v21 < 0)
-      {
-        operator delete(v20[0]);
-      }
-    }
-
-    LODWORD(v18[0]) = v6;
-    sub_1E54B0(inAddress, v18, 1);
-    v14 = *(a2 + 80);
-    v15 = *(a2 + 88);
-    v20[0] = v14;
-    v20[1] = v15;
-    if (v15)
-    {
-      atomic_fetch_add_explicit(&v15->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    sub_FC464(inAddress, v20, a3);
-    if (v15)
-    {
-      std::__shared_weak_count::__release_weak(v15);
-    }
-
-    if (*inAddress)
-    {
-      *&inAddress[8] = *inAddress;
-      operator delete(*inAddress);
-    }
-  }
-}
-
-void sub_338770(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26)
-{
-  if (a18 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a24 < 0)
-  {
-    operator delete(a19);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_3387F4(std::__shared_weak_count *a1)
-{
-  a1->__vftable = off_6D7FA0;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  operator delete();
-}
-
-void sub_338868(uint64_t a1)
-{
-  v15 = 1885892727;
-  v16[1] = 0;
-  v17 = 0;
-  v16[0] = 0;
-  sub_4625C(v16, &v15, v16, 1uLL);
-  *buf = *v16;
-  *&buf[16] = v17;
-  strcpy(v19, "cwdv");
-  v19[8] = 0;
-  v20 = 3;
-  v22[0] = 0;
-  v22[1] = 0;
-  v21 = v22;
-  v23 = 44739242;
-  v25 = 0;
-  v26 = 0;
-  __p = 0;
-  sub_161C7C(v11, a1, buf);
-  sub_B0484(&v12, v11);
-  sub_65310(v11);
-  if (SHIBYTE(v26) < 0)
-  {
-    operator delete(__p);
-  }
-
-  sub_477A0(v22[0]);
-  if (*buf)
-  {
-    *&buf[8] = *buf;
-    operator delete(*buf);
-  }
-
-  if (v14 == 1)
-  {
-    goto LABEL_6;
-  }
-
-  v7 = sub_5544(14);
-  v8 = *v7;
-  if (*v7 && os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
-  {
-    v9 = v14;
-    sub_22170(v16, 0x70687077u);
-    v10 = v17 >= 0 ? v16 : v16[0];
-    *buf = 136315906;
-    *&buf[4] = "Device_USB_Aspen.cpp";
-    *&buf[12] = 1024;
-    *&buf[14] = 1479;
-    *&buf[18] = 1024;
-    *&buf[20] = v9;
-    *v19 = 2080;
-    *&v19[2] = v10;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d ASSERTION FAILURE: Found %u ports of type '%s' (expected 1)", buf, 0x22u);
-    if (SHIBYTE(v17) < 0)
-    {
-      operator delete(v16[0]);
-    }
-  }
-
-  if (v14 == 1)
-  {
-LABEL_6:
-    v2 = sub_338BCC(1, a1);
-    if (*(a1 + 535) == 1)
-    {
-      v3 = sub_5544(18);
-      v4 = *v3;
-      if (*v3)
-      {
-        if (os_log_type_enabled(*v3, OS_LOG_TYPE_INFO))
-        {
-          *buf = 136315394;
-          *&buf[4] = "Device_USB_Aspen.cpp";
-          *&buf[12] = 1024;
-          *&buf[14] = 1485;
-          _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "%25s:%-5d Detected a USB display device (speaker)", buf, 0x12u);
-        }
-      }
-    }
-
-    (*(**(v13 + 16) + 512))(*(v13 + 16), 1, 1, v2);
-    v5 = sub_809C0();
-    v6 = *(v13 + 24);
-    *buf = *(v13 + 16);
-    *&buf[8] = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    sub_257CE8(v5, buf);
-    if (v6)
-    {
-      std::__shared_weak_count::__release_weak(v6);
-    }
-  }
-
-  sub_87980(&v12);
-}
-
-void sub_338B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
-  sub_87980(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_338BCC(uint64_t a1, uint64_t a2)
-{
-  if (*(a2 + 535) != 1)
-  {
-    v3 = a1;
-    v6 = sub_291720(a1, 1, a2);
-    v7 = v6;
-    if (v6 && v6 != 1784965235 && v6 != 1784965232)
-    {
-      return v7;
-    }
-
-    v8 = sub_333248(a2);
-    v9 = v8;
-    if (v8)
-    {
-      (*(*v8 + 456))(&v41, v8);
-      v10 = HIBYTE(v43);
-      if (v43 < 0)
-      {
-        v10 = v42;
-      }
-
-      if (v10)
-      {
-        sub_1F82A0();
-        if (v43 >= 0)
-        {
-          v11 = &v41;
-        }
-
-        else
-        {
-          v11 = v41;
-        }
-
-        if (v11)
-        {
-          if (v43 >= 0)
-          {
-            v12 = HIBYTE(v43);
-          }
-
-          else
-          {
-            v12 = v42;
-          }
-
-          *buf = CFStringCreateWithBytes(0, v11, v12, 0x8000100u, 0);
-          if (!*buf)
-          {
-            exception = __cxa_allocate_exception(0x10uLL);
-            std::runtime_error::runtime_error(exception, "Could not construct");
-          }
-        }
-
-        else
-        {
-          *buf = 0;
-        }
-
-        v15 = (*(qword_6E6648 + 32))();
-        if (*buf)
-        {
-          CFRelease(*buf);
-        }
-
-        v14 = *&v15 & ((v15 & 0x100) >> 8);
-      }
-
-      else
-      {
-        LOBYTE(v14) = 0;
-      }
-    }
-
-    else
-    {
-      LOBYTE(v14) = 0;
-      v41 = 0;
-      v42 = 0;
-      v43 = 0;
-    }
-
-    v16 = (*(*a2 + 448))(a2, 1);
-    v17 = (*(*a2 + 88))(a2, 1);
-    if (v16 > 2 || v17 != 1)
-    {
-      v19 = HIBYTE(v43);
-      if (v43 < 0)
-      {
-        v19 = v42;
-      }
-
-      if (v19)
-      {
-        v20 = sub_5544(18);
-        v3 = *v20;
-        if (*v20 && os_log_type_enabled(*v20, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136315394;
-          *&buf[4] = "Device_USB_Aspen.cpp";
-          v45 = 1024;
-          v46 = 1660;
-          _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Checking USB for Headphone parity", buf, 0x12u);
-        }
-
-        if ((v14 & 1) != 0 || sub_336780(v9))
-        {
-          v21 = sub_5544(18);
-          v3 = 1784965235;
-          v22 = *v21;
-          if (*v21 && os_log_type_enabled(*v21, OS_LOG_TYPE_DEFAULT))
-          {
-            sub_23148(__p, (a2 + 8));
-            v23 = (v40 & 0x80u) == 0 ? __p : __p[0];
-            *buf = 136315650;
-            *&buf[4] = "Device_USB_Aspen.cpp";
-            v45 = 1024;
-            v46 = 1664;
-            v47 = 2080;
-            v48 = v23;
-            _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Partner device meets Parity Guidelines - Forcing Headset sub type for %s", buf, 0x1Cu);
-            if (v40 < 0)
-            {
-              operator delete(__p[0]);
-            }
-          }
-
-          goto LABEL_94;
-        }
-      }
-
-      goto LABEL_86;
-    }
-
-    if (sub_336780(a2))
-    {
-      v24 = 0;
-      if (v3)
-      {
-        v3 = 1784965235;
-      }
-
-      else
-      {
-        v3 = 1784965232;
-      }
-
-      goto LABEL_95;
-    }
-
-    (*(*a2 + 456))(__p, a2);
-    sub_1F82A0();
-    if ((v40 & 0x80u) == 0)
-    {
-      v25 = __p;
-    }
-
-    else
-    {
-      v25 = __p[0];
-    }
-
-    if (v25)
-    {
-      if ((v40 & 0x80u) == 0)
-      {
-        v26 = v40;
-      }
-
-      else
-      {
-        v26 = __p[1];
-      }
-
-      *buf = CFStringCreateWithBytes(0, v25, v26, 0x8000100u, 0);
-      if (!*buf)
-      {
-        v27 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v27, "Could not construct");
-      }
-    }
-
-    else
-    {
-      *buf = 0;
-    }
-
-    v28 = (*(qword_6E6648 + 32))();
-    if (*buf)
-    {
-      CFRelease(*buf);
-    }
-
-    if ((v28 & 0x100) != 0)
-    {
-      v30 = sub_5544(18);
-      v31 = *v30;
-      if (*v30 && os_log_type_enabled(*v30, OS_LOG_TYPE_DEFAULT))
-      {
-        v32 = __p;
-        if ((v40 & 0x80u) != 0)
-        {
-          v32 = __p[0];
-        }
-
-        *&buf[4] = "Device_USB_Aspen.cpp";
-        v45 = 1024;
-        v46 = 1630;
-        v33 = "is";
-        *buf = 136315906;
-        if ((v28 & 1) == 0)
-        {
-          v33 = "is not";
-        }
-
-        v47 = 2080;
-        v48 = v32;
-        v49 = 2080;
-        v50 = v33;
-        _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "%25s:%-5d According to ADAM, device %s %s headphones", buf, 0x26u);
-      }
-
-      if (v28)
-      {
-        v34 = 0;
-        if (v3)
-        {
-          v3 = 1784965235;
-        }
-
-        else
-        {
-          v3 = 1784965232;
-        }
-
-LABEL_84:
-        if (v40 < 0)
-        {
-          operator delete(__p[0]);
-          if (v34)
-          {
-            goto LABEL_86;
-          }
-        }
-
-        else if (v34)
-        {
-LABEL_86:
-          v35 = sub_31122C() ^ 1;
-          if (!v7)
-          {
-            LOBYTE(v35) = 0;
-          }
-
-          if ((v35 & 1) == 0)
-          {
-            v36 = sub_5544(18);
-            v7 = 1786082146;
-            v37 = *v36;
-            if (*v36)
-            {
-              if (os_log_type_enabled(*v36, OS_LOG_TYPE_DEFAULT))
-              {
-                *buf = 136315394;
-                *&buf[4] = "Device_USB_Aspen.cpp";
-                v45 = 1024;
-                v46 = 1676;
-                _os_log_impl(&dword_0, v37, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Forcing USB Default sub type", buf, 0x12u);
-              }
-            }
-          }
-
-          v24 = 1;
-LABEL_95:
-          if (SHIBYTE(v43) < 0)
-          {
-            operator delete(v41);
-            if ((v24 & 1) == 0)
-            {
-              return v3;
-            }
-          }
-
-          else if ((v24 & 1) == 0)
-          {
-            return v3;
-          }
-
-          return v7;
-        }
-
-LABEL_94:
-        v24 = 0;
-        goto LABEL_95;
-      }
-
-      v7 = 0;
-    }
-
-    else
-    {
-      v29 = sub_5544(18);
-      v3 = *v29;
-      if (*v29)
-      {
-        v29 = os_log_type_enabled(*v29, OS_LOG_TYPE_DEFAULT);
-        if (v29)
-        {
-          *buf = 136315394;
-          *&buf[4] = "Device_USB_Aspen.cpp";
-          v45 = 1024;
-          v46 = 1645;
-          _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Not registered with ADAM as headphones", buf, 0x12u);
-        }
-      }
-
-      if (caulk::product::get_device_class(v29) == 1)
-      {
-        v7 = v7;
-      }
-
-      else
-      {
-        v7 = 0;
-      }
-    }
-
-    v34 = 1;
-    goto LABEL_84;
-  }
-
-  v3 = 1781740087;
-  if (*(a2 + 524) != 0x1114000005ACLL)
-  {
-    v4 = sub_5544(18);
-    v5 = *v4;
-    if (*v4)
-    {
-      if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 136315394;
-        *&buf[4] = "Device_USB_Aspen.cpp";
-        v45 = 1024;
-        v46 = 1590;
-        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Apple Studio Display has kJackDescriptor_Unknown.", buf, 0x12u);
-      }
-    }
-  }
-
-  return v3;
-}
-
-void sub_339358(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21)
-{
-  if (a20 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_339460(std::__shared_weak_count *a1)
-{
-  a1->__vftable = off_6C26A8;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  operator delete();
-}
-
-void sub_3394D4(void **a1, uint64_t *a2)
-{
-  LODWORD(v33) = 1701669219;
-  v31 = 0;
-  v32 = 0;
-  v30 = 0;
-  sub_4625C(&v30, &v33, &v33 + 4, 1uLL);
-  v4 = v30;
-  sub_4D8CD4(a1, v30, v31);
-  if (v4)
-  {
-    operator delete(v4);
-  }
-
-  sub_4B6FF0(&v28, *a2, 0x696E7074u);
-  v6 = v28;
-  v5 = v29;
-  v7 = v29 - v28;
-  v8 = (v29 - v28) >> 4;
-  if (v8 >= 1)
-  {
-    v10 = a1[1];
-    v9 = a1[2];
-    if (v9 - v10 >= v7)
-    {
-      v38 = a1[1];
-      v39 = v10;
-      v33 = a1;
-      v34 = &v38;
-      v35 = &v39;
-      if (v29 != v28)
-      {
-        do
-        {
-          *v10 = *v6;
-          v17 = v6[1];
-          v10[1] = v17;
-          if (v17)
-          {
-            atomic_fetch_add_explicit((v17 + 8), 1uLL, memory_order_relaxed);
-          }
-
-          v6 += 2;
-          v10 += 2;
-        }
-
-        while (v6 != v5);
-        v39 = v10;
-      }
-
-      LOBYTE(v36) = 1;
-      sub_119534(&v33);
-      a1[1] = v10;
-    }
-
-    else
-    {
-      v11 = *a1;
-      v12 = v10 - *a1;
-      v13 = v8 + (v12 >> 4);
-      if (v13 >> 60)
-      {
-        sub_189A00();
-      }
-
-      v14 = v9 - v11;
-      v15 = (v9 - v11) >> 3;
-      if (v15 > v13)
-      {
-        v13 = v15;
-      }
-
-      if (v14 >= 0x7FFFFFFFFFFFFFF0)
-      {
-        v16 = 0xFFFFFFFFFFFFFFFLL;
-      }
-
-      else
-      {
-        v16 = v13;
-      }
-
-      v37 = a1;
-      if (v16)
-      {
-        sub_1DC690(v16);
-      }
-
-      v18 = 16 * (v12 >> 4);
-      v36 = 0;
-      v19 = (v18 + v7);
-      v20 = v18;
-      do
-      {
-        *v20 = *v6;
-        v21 = v6[1];
-        *(v20 + 1) = v21;
-        if (v21)
-        {
-          atomic_fetch_add_explicit((v21 + 8), 1uLL, memory_order_relaxed);
-        }
-
-        v20 += 16;
-        v6 += 2;
-      }
-
-      while (v20 != v19);
-      memcpy(v19, v10, a1[1] - v10);
-      v22 = *a1;
-      v23 = &v19[a1[1] - v10];
-      a1[1] = v10;
-      v24 = v10 - v22;
-      v25 = (v18 - (v10 - v22));
-      memcpy(v25, v22, v24);
-      v26 = *a1;
-      *a1 = v25;
-      a1[1] = v23;
-      v27 = a1[2];
-      a1[2] = v36;
-      v35 = v26;
-      v36 = v27;
-      v33 = v26;
-      v34 = v26;
-      sub_A0650(&v33);
-    }
-  }
-
-  v33 = &v28;
-  sub_72C14(&v33);
-}
-
-void sub_3396F8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  *(v2 - 56) = va;
-  sub_72C14((v2 - 56));
-  sub_72C14(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_339764(std::__shared_weak_count *a1)
-{
-  a1->__vftable = off_6DD270;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  operator delete();
-}
-
-uint64_t sub_3397D8(uint64_t a1, uint64_t a2)
-{
-  result = sub_5BA08(a2);
-  if (result)
-  {
-    *a1 = 2003329396;
-    *(a1 + 8) = 0;
-    *(a1 + 24) = 0;
-    result = sub_59580(a2);
-    v8 = result;
-    if (result)
-    {
-      v7 = 0;
-      result = sub_5C060(a2);
-      *a1 = result;
-      if (!result)
-      {
-        v5 = v7;
-        v6[0] = &off_6DACD8;
-        v6[1] = 0;
-        *(a1 + 8) = &off_6DACD8;
-        *(a1 + 16) = v5;
-        *(a1 + 24) = 1;
-        return sub_8AAAC(v6);
-      }
-    }
-  }
-
-  else
-  {
-    *a1 = 2003332927;
-    *(a1 + 8) = 0;
-    *(a1 + 24) = 0;
-  }
-
-  return result;
-}
-
-uint64_t sub_3398F0(uint64_t a1, int a2)
-{
-  if (!(*(*a1 + 88))(a1, a2 != 1768845428))
-  {
-    goto LABEL_5;
-  }
-
-  v4 = (*(*a1 + 96))(a1, a2 != 1768845428, 0);
-  if (!v4)
-  {
-    v18 = sub_5544(14);
-    v19 = *v18;
-    if (*v18 && os_log_type_enabled(*v18, OS_LOG_TYPE_ERROR))
-    {
-      v21[0] = 136315394;
-      *&v21[1] = "Device_USB_Aspen.cpp";
-      v22 = 1024;
-      v23 = 247;
-      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", v21, 0x12u);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(exception, "Precondition failure.");
-  }
-
-  v5 = v4;
-  strcpy(v21, "spatbolg");
-  BYTE1(v21[2]) = 0;
-  HIWORD(v21[2]) = 0;
-  v6 = sub_59410(v4);
-  *(&v9 + 1) = v7;
-  *&v9 = v6;
-  v8 = v9 >> 32;
-  if ((v8 & 0x100000000) == 0)
-  {
-    goto LABEL_6;
-  }
-
-  if (v8)
-  {
-LABEL_5:
-    v10 = 0;
-    v11 = 0;
-    v12 = 0;
-  }
-
-  else
-  {
-LABEL_6:
-    v21[0] = 1952805485;
-    v21[1] = a2;
-    v21[2] = 0;
-    v13 = sub_59410(v5);
-    *(&v16 + 1) = v14;
-    *&v16 = v13;
-    v15 = v16 >> 32;
-    if ((v15 & 0x100000000) == 0)
-    {
-      LODWORD(v15) = 0;
-    }
-
-    v12 = v15 & 0xFFFFFF00;
-    v11 = v15;
-    v10 = 0x100000000;
-  }
-
-  return v10 | v12 | v11;
-}
-
-uint64_t sub_339B0C(uint64_t a1)
-{
-  if (*(a1 + 8) == 1)
-  {
-    v2 = *a1;
-    if (*a1)
-    {
-      CFRelease(v2);
-    }
-  }
-
-  return a1;
-}
-
-uint64_t sub_339B4C(const __CFNumber *a1)
-{
-  TypeID = CFNumberGetTypeID();
-  if (TypeID == CFGetTypeID(a1))
-  {
-    switch(CFNumberGetType(a1))
-    {
-      case kCFNumberSInt8Type:
-        LOBYTE(valuePtr) = 0;
-        Value = CFNumberGetValue(a1, kCFNumberSInt8Type, &valuePtr);
-        goto LABEL_23;
-      case kCFNumberSInt16Type:
-        LOWORD(valuePtr) = 0;
-        Value = CFNumberGetValue(a1, kCFNumberSInt16Type, &valuePtr);
-        goto LABEL_23;
-      case kCFNumberSInt32Type:
-        LODWORD(valuePtr) = 0;
-        Value = CFNumberGetValue(a1, kCFNumberSInt32Type, &valuePtr);
-        goto LABEL_23;
-      case kCFNumberSInt64Type:
-        valuePtr = 0;
-        Value = CFNumberGetValue(a1, kCFNumberSInt64Type, &valuePtr);
-        goto LABEL_23;
-      case kCFNumberFloat32Type:
-        v5 = sub_339D6C(a1, kCFNumberFloat32Type);
-        goto LABEL_18;
-      case kCFNumberFloat64Type:
-        v5 = sub_339DAC(a1, kCFNumberFloat64Type);
-        goto LABEL_18;
-      case kCFNumberCharType:
-        LOBYTE(valuePtr) = 0;
-        Value = CFNumberGetValue(a1, kCFNumberCharType, &valuePtr);
-        goto LABEL_23;
-      case kCFNumberShortType:
-        LOWORD(valuePtr) = 0;
-        Value = CFNumberGetValue(a1, kCFNumberShortType, &valuePtr);
-        goto LABEL_23;
-      case kCFNumberIntType:
-        LODWORD(valuePtr) = 0;
-        Value = CFNumberGetValue(a1, kCFNumberIntType, &valuePtr);
-        goto LABEL_23;
-      case kCFNumberLongType:
-        valuePtr = 0;
-        Value = CFNumberGetValue(a1, kCFNumberLongType, &valuePtr);
-        goto LABEL_23;
-      case kCFNumberLongLongType:
-        valuePtr = 0;
-        Value = CFNumberGetValue(a1, kCFNumberLongLongType, &valuePtr);
-        goto LABEL_23;
-      case kCFNumberFloatType:
-        v5 = sub_339D6C(a1, kCFNumberFloatType);
-        goto LABEL_18;
-      case kCFNumberDoubleType:
-        v5 = sub_339DAC(a1, kCFNumberDoubleType);
-        goto LABEL_18;
-      case kCFNumberCFIndexType:
-        valuePtr = 0;
-        Value = CFNumberGetValue(a1, kCFNumberCFIndexType, &valuePtr);
-        goto LABEL_23;
-      case kCFNumberNSIntegerType:
-        valuePtr = 0;
-        Value = CFNumberGetValue(a1, kCFNumberNSIntegerType, &valuePtr);
-LABEL_23:
-        v6 = Value != 0;
-        if (Value)
-        {
-          LOBYTE(v5) = valuePtr;
-        }
-
-        else
-        {
-          LOBYTE(v5) = 0;
-        }
-
-        break;
-      case kCFNumberCGFloatType:
-        v5 = sub_339DAC(a1, kCFNumberCGFloatType);
-LABEL_18:
-        v6 = HIBYTE(v5);
-        break;
-      default:
-        goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v4 = CFBooleanGetTypeID();
-    if (v4 == CFGetTypeID(a1))
-    {
-      LOBYTE(v5) = CFBooleanGetValue(a1);
-      v6 = 1;
-    }
-
-    else
-    {
-LABEL_6:
-      v6 = 0;
-      LOBYTE(v5) = 0;
-    }
-  }
-
-  return v5 | (v6 << 8);
-}
-
-uint64_t sub_339D6C(const __CFNumber *a1, CFNumberType a2)
-{
-  valuePtr = 0.0;
-  Value = CFNumberGetValue(a1, a2, &valuePtr);
-  v3 = valuePtr;
-  if (!Value)
-  {
-    v3 = 0;
-  }
-
-  return v3 | ((Value != 0) << 8);
-}
-
-uint64_t sub_339DAC(const __CFNumber *a1, CFNumberType a2)
-{
-  valuePtr = 0.0;
-  Value = CFNumberGetValue(a1, a2, &valuePtr);
-  v3 = valuePtr;
-  if (!Value)
-  {
-    v3 = 0;
-  }
-
-  return v3 | ((Value != 0) << 8);
-}
-
-void sub_339DEC(uint64_t a1, uint64_t a2)
-{
-  if (sub_5BA08(a2))
-  {
-    *a1 = 2003329396;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
-    if (sub_59580(a2))
-    {
-      v9 = 0;
-      v4 = sub_5C060(a2);
-      *a1 = v4;
-      if (!v4)
-      {
-        v5 = v9;
-        v8 = v9;
-        sub_290014(&v7, &v8);
-        v6 = v7;
-        *(a1 + 16) = 1;
-        *(a1 + 8) = v6;
-        if (v5)
-        {
-          CFRelease(v5);
-        }
-      }
-    }
-  }
-
-  else
-  {
-    *a1 = 2003332927;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
-  }
-}
-
-void *sub_339EE8(uint64_t a1, uint64_t a2, double a3)
-{
-  v10 = 1751474532;
-  v11 = a3;
-  result = sub_339F80(&v6, a2);
-  *a1 = 0;
-  *(a1 + 16) = 0;
-  if (v9 == 1)
-  {
-    v5 = v8;
-    v8 = 0;
-    *a1 = &off_6DDB78;
-    *(a1 + 8) = v5;
-    *(a1 + 16) = 1;
-    return sub_8AAAC(&v7);
-  }
-
-  return result;
-}
-
-uint64_t sub_339F80(uint64_t a1, uint64_t a2)
-{
-  result = sub_5BA08(a2);
-  if (result)
-  {
-    *a1 = 2003329396;
-    *(a1 + 8) = 0;
-    *(a1 + 24) = 0;
-    result = sub_59580(a2);
-    v8 = result;
-    if (result)
-    {
-      v7 = 0;
-      result = sub_5C060(a2);
-      *a1 = result;
-      if (!result)
-      {
-        v5 = v7;
-        v6[0] = &off_6DDB78;
-        v6[1] = 0;
-        *(a1 + 8) = &off_6DDB78;
-        *(a1 + 16) = v5;
-        *(a1 + 24) = 1;
-        return sub_8AAAC(v6);
-      }
-    }
-  }
-
-  else
-  {
-    *a1 = 2003332927;
-    *(a1 + 8) = 0;
-    *(a1 + 24) = 0;
-  }
-
-  return result;
-}
-
-void sub_33A098(uint64_t a1, AudioObjectID *a2, AudioObjectPropertyAddress *inAddress, UInt32 a4, const void *a5)
-{
-  if (AudioObjectHasProperty(*a2, inAddress))
-  {
-    *a1 = 2003329396;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
-    ioDataSize = sub_543D0(*a2, inAddress, a4, a5);
-    if (ioDataSize)
-    {
-      outData = 0;
-      PropertyData = AudioObjectGetPropertyData(*a2, inAddress, a4, a5, &ioDataSize, &outData);
-      *a1 = PropertyData;
-      if (!PropertyData)
-      {
-        v11 = outData;
-        v14 = outData;
-        sub_290014(&v13, &v14);
-        v12 = v13;
-        *(a1 + 16) = 1;
-        *(a1 + 8) = v12;
-        if (v11)
-        {
-          CFRelease(v11);
-        }
-      }
-    }
-  }
-
-  else
-  {
-    *a1 = 2003332927;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
-  }
-}
-
-uint64_t sub_33A19C(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  if (v2)
-  {
-    CFRelease(v2);
-  }
-
-  return a1;
-}
-
-void sub_33A1D0(_BYTE *a1)
-{
-  v29 = 0;
-  v30 = 0;
-  v31 = 0;
-  strcpy(v32, "cwdv");
-  v32[8] = 0;
-  v33 = 3;
-  v35[0] = 0;
-  v35[1] = 0;
-  v34 = v35;
-  v38 = 0;
-  v39 = 0;
-  __p = 0;
-  v36 = 44739226;
-  sub_161C7C(&v26, a1, &v29);
-  if (v28)
-  {
-    v2 = v27;
-    v3 = *(v27 + 24);
-    if (v3)
-    {
-      v4 = std::__shared_weak_count::lock(v3);
-      if (v4)
-      {
-        v5 = *(v2 + 16);
-        if (v5)
-        {
-          v6 = sub_336938(a1, 1869968496);
-          v7 = v5[36];
-          v8 = sub_31122C();
-          if (v7 == 1885892727)
-          {
-            v9 = v8;
-          }
-
-          else
-          {
-            v9 = 1;
-          }
-
-          if (v9)
-          {
-            v10 = sub_5544(18);
-            v11 = *v10;
-            if (*v10 && os_log_type_enabled(*v10, OS_LOG_TYPE_INFO))
-            {
-              *buf = 136315906;
-              *&buf[4] = "Device_USB_Aspen.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 1002;
-              v41 = 1024;
-              v42 = v7 == 1885892727;
-              v43 = 1024;
-              v44 = v6;
-              _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "%25s:%-5d USB Device Currently headphones? %u. Should be headphones? %u", buf, 0x1Eu);
-            }
-
-            if (v6 != (v7 == 1885892727))
-            {
-              v24[0] = 0;
-              v25 = 0;
-              atomic_fetch_add((sub_809C0() + 656), 1u);
-              v12 = sub_5544(18);
-              v13 = *v12;
-              if (*v12 && os_log_type_enabled(*v12, OS_LOG_TYPE_INFO))
-              {
-                *buf = 136315394;
-                *&buf[4] = "Device_USB_Aspen.cpp";
-                *&buf[12] = 1024;
-                *&buf[14] = 1009;
-                _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "%25s:%-5d USB Device- tearing down current output port", buf, 0x12u);
-              }
-
-              if (v7 == 1885892727)
-              {
-                (*(*v5 + 512))(v5, 0, 0, 0);
-                v14 = sub_809C0();
-                *buf = v5;
-                *&buf[8] = v4;
-                atomic_fetch_add_explicit(&v4->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-                sub_257CE8(v14, buf);
-                std::__shared_weak_count::__release_weak(v4);
-              }
-
-              if (v6)
-              {
-                (*(*a1 + 368))(a1);
-              }
-
-              v23[0] = v5;
-              v23[1] = v4;
-              atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-              sub_4B0AE8(a1, v23);
-              sub_1A8C0(v4);
-              a1[532] = 0;
-              sub_3334F8(a1);
-              sub_240CCC(v24);
-            }
-          }
-
-          else
-          {
-            v17 = v5[76];
-            v18 = sub_5544(18);
-            v19 = v17 & 0xDFFFFFFF;
-            v20 = *v18;
-            if (*v18 && os_log_type_enabled(*v18, OS_LOG_TYPE_INFO))
-            {
-              *buf = 136315906;
-              *&buf[4] = "Device_USB_Aspen.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 991;
-              v41 = 1024;
-              v42 = v19 == 1214539380;
-              v43 = 1024;
-              v44 = v6;
-              _os_log_impl(&dword_0, v20, OS_LOG_TYPE_INFO, "%25s:%-5d USB Device- Currently headphones? %u. Should be headphones? %u", buf, 0x1Eu);
-            }
-
-            if (v6 != (v19 == 1214539380))
-            {
-              v21 = sub_5544(18);
-              v22 = *v21;
-              if (*v21 && os_log_type_enabled(*v21, OS_LOG_TYPE_INFO))
-              {
-                *buf = 136315394;
-                *&buf[4] = "Device_USB_Aspen.cpp";
-                *&buf[12] = 1024;
-                *&buf[14] = 995;
-                _os_log_impl(&dword_0, v22, OS_LOG_TYPE_INFO, "%25s:%-5d Updating subport type on headphones port", buf, 0x12u);
-              }
-
-              sub_338868(a1);
-            }
-          }
-
-LABEL_26:
-          sub_1A8C0(v4);
-          goto LABEL_27;
-        }
-      }
-    }
-
-    else
-    {
-      v4 = 0;
-    }
-
-    v15 = sub_5544(18);
-    v16 = *v15;
-    if (*v15 && os_log_type_enabled(*v15, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 136315394;
-      *&buf[4] = "Device_USB_Aspen.cpp";
-      *&buf[12] = 1024;
-      *&buf[14] = 971;
-      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "%25s:%-5d USB Device - port expired", buf, 0x12u);
-    }
-
-    if (v4)
-    {
-      goto LABEL_26;
-    }
-  }
-
-LABEL_27:
-  sub_65310(&v26);
-  if (SHIBYTE(v39) < 0)
-  {
-    operator delete(__p);
-  }
-
-  sub_477A0(v35[0]);
-  if (v29)
-  {
-    v30 = v29;
-    operator delete(v29);
-  }
-}
-
-void sub_33A6D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
-{
-  std::__shared_weak_count::__release_weak(v16);
-  sub_240CCC(&a11);
-  sub_1A8C0(v16);
-  sub_65310(&a13);
-  sub_46934(&a16);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_33A760(uint64_t a1)
-{
-  v2 = (*(*a1 + 88))(a1, 0);
-  v3 = (*(*a1 + 88))(a1, 1);
-  if (v2)
-  {
-    v4 = v3 == 0;
-  }
-
-  else
-  {
-    v4 = 1;
-  }
-
-  if (v4 || (v5 = (v2 - 1), (v6 = (*(*a1 + 96))(a1, 0, v5)) == 0))
-  {
-    v9 = 0;
-    v8 = 0;
-    v10 = 0;
-  }
-
-  else
-  {
-    v7 = sub_59410(v6);
-    v8 = 0;
-    v9 = 0;
-    v10 = 0;
-    *(&v13 + 1) = v11;
-    *&v13 = v7;
-    v12 = v13 >> 32;
-    if ((v12 & 0x100000000) != 0 && v12)
-    {
-      v10 = v5 & 0xFFFFFF00;
-      v9 = v5;
-      v8 = 0x100000000;
-    }
-  }
-
-  return v8 | v10 | v9;
-}
-
-void sub_33A884(uint64_t a1@<X0>, int a2@<W1>, void *a3@<X8>)
-{
-  v5 = 1768845428;
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  if (a2 > 1886740851)
-  {
-    if (a2 != 1886745455)
-    {
-      if (a2 == 1886745449)
-      {
-        goto LABEL_12;
-      }
-
-      if (a2 != 1886740852)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    goto LABEL_9;
-  }
-
-  if (a2 == 1885892727)
-  {
-LABEL_9:
-    if (a2 == 1886740852)
-    {
-      v5 = 1768845428;
-    }
-
-    else
-    {
-      v5 = 1869968496;
-    }
-
-    goto LABEL_12;
-  }
-
-  if (a2 != 1885894516 && a2 != 1886222185)
-  {
-LABEL_15:
-    v7 = sub_5544(14);
-    v8 = *v7;
-    if (*v7)
-    {
-      if (os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
-      {
-        inAddress.mSelector = 136315650;
-        *&inAddress.mScope = "Device_USB_Aspen.cpp";
-        v14 = 1024;
-        v15 = 1435;
-        v16 = 1024;
-        v17 = a2;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::logic_error): Request for default sub-ports for invalid port type: %u", &inAddress, 0x18u);
-      }
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(exception, "Request for default sub-ports for invalid port type: %u");
-  }
-
-LABEL_12:
-  inAddress.mSelector = 1936945763;
-  inAddress.mScope = v5;
-  inAddress.mElement = 0;
-  sub_4DFC0(a1);
-  if (AudioObjectHasProperty(*(a1 + 268), &inAddress))
-  {
-    inAddress.mSelector = 1936945763;
-    inAddress.mScope = v5;
-    inAddress.mElement = 0;
-    v11 = 0;
-    v12 = 4;
-    (*(*a1 + 40))(a1, &inAddress, 0, 0, &v12, &v11);
-    v10 = v11;
-    sub_9EF84(a3, &v10);
-  }
-}
-
-uint64_t sub_33AAF0(uint64_t a1, signed int a2)
-{
-  if (a2 > 1886740851)
-  {
-    if (a2 == 1886740852 || a2 == 1886745455)
-    {
-      return 0;
-    }
-
-    v2 = 1886745449;
-  }
-
-  else
-  {
-    if (a2 == 1885892727 || a2 == 1885894516)
-    {
-      return 0;
-    }
-
-    v2 = 1886222185;
-  }
-
-  if (a2 != v2)
-  {
-    v4 = sub_5544(18);
-    v5 = *v4;
-    if (*v4 && os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
-    {
-      sub_22170(__p, a2);
-      v6 = v12 >= 0 ? __p : __p[0];
-      *buf = 136315650;
-      v14 = "Device_USB_Aspen.cpp";
-      v15 = 1024;
-      v16 = 1363;
-      v17 = 2080;
-      v18 = v6;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Cannot locate AudioObjectPropertyElement for the given VirtualAudioPortType (%s).", buf, 0x1Cu);
-      if (v12 < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    v7 = sub_5544(14);
-    v8 = *v7;
-    if (*v7 && os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v14 = "Device_USB_Aspen.cpp";
-      v15 = 1024;
-      v16 = 1364;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::logic_error): Unsupported VirtualAudioPortType.", buf, 0x12u);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(exception, "Unsupported VirtualAudioPortType.");
-  }
-
-  return 0;
-}
-
-void sub_33AD20(caulk::build::detail *a1)
-{
-  sub_4ADCC0(a1);
-  LOBYTE(__p) = 0;
-  v3 = 0;
-  atomic_fetch_add((sub_809C0() + 656), 1u);
-  sub_3334F8(a1);
-  sub_240CCC(&__p);
-  v5 = xmmword_517300;
-  v6 = 1735159650;
-  v3 = 0;
-  v4 = 0;
-  __p = 0;
-  sub_2C8104(&__p, &v5, &v7, 2uLL);
-}
-
-void sub_33AF30(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
-{
-  if (a2)
-  {
-    sub_1CC130(exception_object);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_33AF74(os_unfair_lock_s **a1)
-{
-  v1 = *a1;
-  v2 = sub_4B5C4C(*a1);
-  sub_33B2AC(v1, v2);
-  sub_33B318(v1);
-  operator delete();
-}
-
-unsigned __int8 *sub_33B2AC(unsigned __int8 *result, int a2)
-{
-  if (a2 == 1)
-  {
-    v2 = result;
-    v3[0] = 0;
-    v4 = 0;
-    atomic_fetch_add((sub_809C0() + 656), 1u);
-    sub_3334F8(v2);
-    return sub_240CCC(v3);
-  }
-
-  return result;
-}
-
-unsigned __int8 *sub_33B318(os_unfair_lock_s *a1)
-{
-  result = _os_feature_enabled_impl();
-  if (result)
-  {
-    v7 = 0x676C6F626869646ELL;
-    v8 = 0;
-    v5 = 0;
-    v6 = 4;
-    (*(*&a1->_os_unfair_lock_opaque + 40))(a1, &v7, 0, 0, &v6, &v5);
-    if (v5)
-    {
-      return (*(*&a1->_os_unfair_lock_opaque + 440))(a1);
-    }
-
-    else
-    {
-      sub_4B5C4C(a1);
-      v3[0] = 0;
-      v4 = 0;
-      atomic_fetch_add((sub_809C0() + 656), 1u);
-      sub_3334F8(a1);
-      return sub_240CCC(v3);
-    }
-  }
-
-  return result;
-}
-
-void sub_33B418(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_240CCC(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_33B42C(uint64_t a1, uint64_t a2, uint64_t a3, os_unfair_lock_s *a4)
-{
-  if (!a4)
-  {
-    v5 = sub_5544(14);
-    v6 = *v5;
-    if (*v5 && os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
-    {
-      v8 = 136315394;
-      v9 = "Device_USB_Aspen.cpp";
-      v10 = 1024;
-      v11 = 626;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", &v8, 0x12u);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(exception, "Precondition failure.");
-  }
-
-  sub_33B318(a4);
-  return 0;
-}
-
-uint64_t sub_33B550(uint64_t a1, uint64_t a2, uint64_t a3, os_unfair_lock_s *a4)
-{
-  if (!a4)
-  {
-    v7 = sub_5544(14);
-    v8 = *v7;
-    if (*v7 && os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
-    {
-      v10 = 136315394;
-      v11 = "Device_USB_Aspen.cpp";
-      v12 = 1024;
-      v13 = 662;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION FAILURE (std::logic_error).", &v10, 0x12u);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(exception, "Precondition failure.");
-  }
-
-  v5 = sub_4B5C4C(a4);
-  sub_33B2AC(a4, v5);
-  return 0;
-}
-
-unsigned __int8 *sub_33B684(uint64_t a1)
-{
-  (*(*a1 + 424))(a1);
-  (*(*a1 + 440))(a1);
-
-  return sub_4B08A4(a1);
-}
-
-uint64_t sub_33B714(uint64_t a1, const AudioObjectPropertyAddress *a2, UInt32 a3, const void *a4, UInt32 a5, unsigned int *a6)
-{
-  if (((*(*a1 + 16))(a1) & 1) == 0)
-  {
-    v16 = sub_5544(14);
-    if (*v16 && os_log_type_enabled(*v16, OS_LOG_TYPE_ERROR))
-    {
-      v22 = *&a2->mSelector;
-      mElement = a2->mElement;
-      sub_22CE0(__p);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    *exception = &off_6DDDD0;
-    v18 = 2003332927;
-LABEL_30:
-    exception[2] = v18;
-  }
-
-  if ((a3 == 0) == (a4 != 0))
-  {
-    v19 = sub_5544(14);
-    if (*v19 && os_log_type_enabled(*v19, OS_LOG_TYPE_ERROR))
-    {
-      v23 = *&a2->mSelector;
-      v27 = a2->mElement;
-      sub_22CE0(__p);
-    }
-
-    goto LABEL_25;
-  }
-
-  if (!a6)
-  {
-    v20 = sub_5544(14);
-    if (*v20 && os_log_type_enabled(*v20, OS_LOG_TYPE_ERROR))
-    {
-      v24 = *&a2->mSelector;
-      v28 = a2->mElement;
-      sub_22CE0(__p);
-    }
-
-LABEL_25:
-    exception = __cxa_allocate_exception(0x10uLL);
-    *exception = &off_6DDDD0;
-    v18 = 561211770;
-    goto LABEL_30;
-  }
-
-  if (((*(*a1 + 24))(a1, a2) & 1) == 0)
-  {
-    v21 = sub_5544(14);
-    if (*v21 && os_log_type_enabled(*v21, OS_LOG_TYPE_ERROR))
-    {
-      v25 = *&a2->mSelector;
-      v29 = a2->mElement;
-      sub_22CE0(__p);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    *exception = &off_6DDDD0;
-    v18 = 1852797029;
-    goto LABEL_30;
-  }
-
-  if (a2->mSelector == 1684304756)
-  {
-    v12 = *a6;
-    v13 = a1;
-    v14 = 1869968496;
-    goto LABEL_9;
-  }
-
-  if (a2->mSelector == 1685287523)
-  {
-    v12 = *a6;
-    v13 = a1;
-    v14 = 1768845428;
-LABEL_9:
-
-    return sub_4B6D4C(v13, v14, v12);
-  }
-
-  return sub_FDAC4(a1, a2, a3, a4, a5, a6);
-}
-
-void sub_33BC68(_BYTE *a1, uint64_t a2, uint64_t a3, const void *a4, UInt32 *a5, float *a6)
-{
-  if (((*(*a1 + 16))(a1) & 1) == 0)
-  {
-    v25 = sub_5544(14);
-    if (*v25 && os_log_type_enabled(*v25, OS_LOG_TYPE_ERROR))
-    {
-      *ioDataSize = *a2;
-      v35 = *(a2 + 8);
-      sub_22CE0(&inAddress);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    *exception = &off_6DDDD0;
-    exception[2] = 2003332927;
-  }
-
-  if ((a3 == 0) == (a4 != 0))
-  {
-    v27 = sub_5544(14);
-    if (*v27 && os_log_type_enabled(*v27, OS_LOG_TYPE_ERROR))
-    {
-      *ioDataSize = *a2;
-      v35 = *(a2 + 8);
-      sub_22CE0(&inAddress);
-    }
-
-    v28 = __cxa_allocate_exception(0x10uLL);
-    *v28 = &off_6DDDD0;
-    v28[2] = 561211770;
-  }
-
-  if (!a6)
-  {
-    v29 = sub_5544(14);
-    if (*v29 && os_log_type_enabled(*v29, OS_LOG_TYPE_ERROR))
-    {
-      *ioDataSize = *a2;
-      v35 = *(a2 + 8);
-      sub_22CE0(&inAddress);
-    }
-
-    v30 = __cxa_allocate_exception(0x10uLL);
-    *v30 = &off_6DDDD0;
-    v30[2] = 561211770;
-  }
-
-  v12 = *a2;
-  if (*a2 <= 1818446147)
-  {
-    switch(v12)
-    {
-      case 1684304756:
-        v20 = a1;
-        v21 = 1869968496;
-        break;
-      case 1685287523:
-        v20 = a1;
-        v21 = 1768845428;
-        break;
-      case 1685288051:
-        v17 = a1;
-        v18 = 1869968496;
-        goto LABEL_20;
-      default:
-LABEL_22:
-
-        sub_5C0D8(a1, a2, a3, a4, a5, a6);
-        return;
-    }
-
-    v19 = sub_4B6BA0(v20, v21);
-    goto LABEL_33;
-  }
-
-  if (v12 > 1936876402)
-  {
-    if (v12 == 1967211588)
-    {
-      if (a1[535])
-      {
-        v24 = &kCFBooleanTrue;
-      }
-
-      else
-      {
-        v24 = &kCFBooleanFalse;
-      }
-
-      *a6 = *v24;
-      return;
-    }
-
-    if (v12 != 1936876403)
-    {
-      goto LABEL_22;
-    }
-
-    v17 = a1;
-    v18 = 1768845428;
-LABEL_20:
-    v19 = sub_4B6798(v17, v18);
-LABEL_33:
-    *a6 = v19;
-    return;
-  }
-
-  if (v12 != 1818446148)
-  {
-    if (v12 == 1835103844)
-    {
-      v13 = *a5;
-      if (v13 != (*(*a1 + 32))(a1, a2, a3, a4))
-      {
-        v31 = sub_5544(14);
-        if (*v31)
-        {
-          if (os_log_type_enabled(*v31, OS_LOG_TYPE_ERROR))
-          {
-            *ioDataSize = *a2;
-            v35 = *(a2 + 8);
-            sub_22CE0(&inAddress);
-          }
-        }
-
-        v32 = __cxa_allocate_exception(0x10uLL);
-        *v32 = &off_6DDDD0;
-        v32[2] = 561211770;
-      }
-
-      v14 = (*(*a1 + 120))(a1);
-      inAddress.mSelector = 1986290211;
-      *&inAddress.mScope = *(a2 + 4);
-      if (AudioObjectHasProperty(v14, &inAddress))
-      {
-        ioDataSize[0] = sub_543D0(v14, &inAddress, 0, 0);
-        if (ioDataSize[0])
-        {
-          PropertyData = AudioObjectGetPropertyData(v14, &inAddress, 0, 0, ioDataSize, &outData);
-          if (!PropertyData)
-          {
-            v16 = outData;
-            *a6 = v16;
-            return;
-          }
-        }
-
-        else
-        {
-          PropertyData = 2003329396;
-        }
-      }
-
-      else
-      {
-        PropertyData = 2003332927;
-      }
-
-      v33 = __cxa_allocate_exception(0x10uLL);
-      *v33 = &off_6DDDD0;
-      v33[2] = PropertyData;
-    }
-
-    goto LABEL_22;
-  }
-
-  v22 = (*(*a1 + 120))(a1);
-  sub_33C4EC(&outData, v22, COERCE_DOUBLE(1735159650));
-  v23 = outData;
-  *a6 = outData;
-  if (v23 != 0.0)
-  {
-    CFRelease(*&v23);
-  }
-}
-
-void sub_33C4B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_33C4EC(void *a1, AudioObjectID a2, double a3)
-{
-  v11 = a2;
-  inAddress.mSelector = 1818446148;
-  *&inAddress.mScope = a3;
-  sub_33A098(&v7, &v11, &inAddress, 0, 0);
-  v4 = v7;
-  if (v7 || (v9 & 1) == 0)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    *exception = &off_6DDDD0;
-    exception[2] = v4;
-  }
-
-  v5 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-    *a1 = v5;
-    CFRelease(v5);
-  }
-
-  else
-  {
-    *a1 = 0;
-  }
-}
-
-void sub_33C5C4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_33C5D8(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_33C5D8(uint64_t a1)
-{
-  if (*(a1 + 16) == 1)
-  {
-    v2 = *(a1 + 8);
-    if (v2)
-    {
-      CFRelease(v2);
-    }
-  }
-
-  return a1;
-}
-
-uint64_t sub_33C618(uint64_t a1, const AudioObjectPropertyAddress *a2, UInt32 a3, const void *a4)
-{
-  if (((*(*a1 + 16))(a1) & 1) == 0)
-  {
-    v10 = sub_5544(14);
-    if (*v10 && os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR))
-    {
-      v14 = *&a2->mSelector;
-      mElement = a2->mElement;
-      sub_22CE0(__p);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    *exception = &off_6DDDD0;
-    v12 = 2003332927;
-LABEL_20:
-    exception[2] = v12;
-  }
-
-  if ((a3 == 0) == (a4 != 0))
-  {
-    v13 = sub_5544(14);
-    if (*v13 && os_log_type_enabled(*v13, OS_LOG_TYPE_ERROR))
-    {
-      v15 = *&a2->mSelector;
-      v17 = a2->mElement;
-      sub_22CE0(__p);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    *exception = &off_6DDDD0;
-    v12 = 561211770;
-    goto LABEL_20;
-  }
-
-  if (a2->mSelector == 1818446148 || a2->mSelector == 1835103844)
-  {
-    return 4;
-  }
-
-  return sub_5BD20(a1, a2, a3, a4);
-}
-
-BOOL sub_33C930(uint64_t a1, const AudioObjectPropertyAddress *a2)
-{
-  v4 = 0;
-  mSelector = a2->mSelector;
-  if (a2->mSelector > 1818446147)
-  {
-    if (mSelector > 1936876402)
-    {
-      v6 = mSelector == 1936876403;
-      v7 = 2020898165;
-    }
-
-    else
-    {
-      v6 = mSelector == 1818446148;
-      v7 = 1835103844;
-    }
-
-    if (!v6 && mSelector != v7)
-    {
-      goto LABEL_18;
-    }
-
-    return v4;
-  }
-
-  if (mSelector == 1684304756 || mSelector == 1685287523)
-  {
-    v13 = v2;
-    v14 = v3;
-    mScope = a2->mScope;
-    v12.mSelector = 1936945763;
-    v12.mScope = mScope;
-    v12.mElement = 0;
-    return sub_BE734(a1, &v12);
-  }
-
-  if (mSelector == 1685288051)
-  {
-    return v4;
-  }
-
-LABEL_18:
-
-  return sub_BE734(a1, a2);
-}
-
-uint64_t sub_33CA10(uint64_t a1, AudioObjectPropertyAddress *a2)
-{
-  mSelector = a2->mSelector;
-  if (a2->mSelector > 1818446147)
-  {
-    if (mSelector == 1818446148 || mSelector == 1835103844)
-    {
-      return 1;
-    }
-
-    v10 = 1936876403;
-  }
-
-  else
-  {
-    if (mSelector == 1684304756 || mSelector == 1685287523)
-    {
-      mScope = a2->mScope;
-      v7 = 1936945763;
-      goto LABEL_16;
-    }
-
-    v10 = 1685288051;
-  }
-
-  if (mSelector != v10)
-  {
-    sub_4DFC0(a1);
-    v11 = *(a1 + 268);
-    p_inAddress = a2;
-    return AudioObjectHasProperty(v11, p_inAddress) != 0;
-  }
-
-  mScope = a2->mScope;
-  v7 = 1936941859;
-LABEL_16:
-  inAddress.mSelector = v7;
-  inAddress.mScope = mScope;
-  inAddress.mElement = 0;
-  sub_4DFC0(a1);
-  v11 = *(a1 + 268);
-  p_inAddress = &inAddress;
-  return AudioObjectHasProperty(v11, p_inAddress) != 0;
-}
-
-void sub_33CB04(uint64_t a1)
-{
-  sub_4B2820(a1);
-
-  operator delete();
-}
-
-void *sub_33CB40(uint64_t a1, AudioObjectID a2, double a3)
-{
-  v11 = a2;
-  inAddress.mSelector = 1836411236;
-  *&inAddress.mScope = a3;
-  result = sub_12794C(&v6, &v11, &inAddress, 0, 0);
-  *a1 = 0;
-  *(a1 + 16) = 0;
-  if (v9 == 1)
-  {
-    v5 = v8;
-    v8 = 0;
-    *a1 = &off_6DACD8;
-    *(a1 + 8) = v5;
-    *(a1 + 16) = 1;
-    return sub_8AAAC(&v7);
-  }
-
-  return result;
-}
-
-const void *sub_33CBE0(void *a1, const void **a2)
-{
-  result = *a2;
-  if (!*a2)
-  {
-    goto LABEL_6;
-  }
-
-  v5 = CFGetTypeID(result);
-  result = CFBooleanGetTypeID();
-  if (v5 != result)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    sub_1DB154(exception);
-  }
-
-  v6 = *a2;
-  if (v6)
-  {
-    CFRetain(v6);
-    *a1 = v6;
-    v7 = CFGetTypeID(v6);
-    result = CFBooleanGetTypeID();
-    if (v7 != result)
-    {
-      v8 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v8, "Could not construct");
-    }
-  }
-
-  else
-  {
-LABEL_6:
-    *a1 = 0;
-  }
-
-  return result;
-}
-
-void sub_33CCC4(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v2);
-  sub_30F6A4(v1);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_33CD04(uint64_t a1, AudioObjectID a2, void **a3)
-{
-  sub_33C4EC(&v112, a2, COERCE_DOUBLE(1735159650));
-  sub_53E8(&outData, ":");
-  sub_33CB40(&__str, a2, COERCE_DOUBLE(1735159650));
-  if (__str.__r_.__value_.__s.__data_[16] == 1)
-  {
-    sub_65388(&cf, __str.__r_.__value_.__l.__size_);
-    if (!cf.__r_.__value_.__r.__words[0])
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Could not construct");
-    }
-
-    sub_53E8(v110, "");
-    v6 = cf.__r_.__value_.__r.__words[0];
-    if (SHIBYTE(v111) < 0)
-    {
-      sub_54A0(__p, v110[0], v110[1]);
-    }
-
-    else
-    {
-      *__p = *v110;
-      *&__p[16] = v111;
-    }
-
-    if (v6 && (TypeID = CFStringGetTypeID(), TypeID == CFGetTypeID(v6)))
-    {
-      sub_1DAFFC(&v113, v6);
-      if ((__p[23] & 0x80000000) != 0)
-      {
-        operator delete(*__p);
-      }
-    }
-
-    else
-    {
-      v113 = *__p;
-    }
-
-    if (SHIBYTE(v111) < 0)
-    {
-      operator delete(v110[0]);
-    }
-
-    if (cf.__r_.__value_.__r.__words[0])
-    {
-      CFRelease(cf.__r_.__value_.__l.__data_);
-    }
-
-    std::operator+<char>();
-    v8 = std::string::append(__p, ":", 1uLL);
-    v9 = v8->__r_.__value_.__r.__words[0];
-    cf.__r_.__value_.__r.__words[0] = v8->__r_.__value_.__l.__size_;
-    *(cf.__r_.__value_.__r.__words + 7) = *(&v8->__r_.__value_.__r.__words[1] + 7);
-    v10 = HIBYTE(v8->__r_.__value_.__r.__words[2]);
-    v8->__r_.__value_.__l.__size_ = 0;
-    v8->__r_.__value_.__r.__words[2] = 0;
-    v8->__r_.__value_.__r.__words[0] = 0;
-    if (v117 < 0)
-    {
-      operator delete(outData);
-    }
-
-    outData = v9;
-    *v116 = cf.__r_.__value_.__r.__words[0];
-    *&v116[7] = *(cf.__r_.__value_.__r.__words + 7);
-    v117 = v10;
-    if ((__p[23] & 0x80000000) != 0)
-    {
-      operator delete(*__p);
-    }
-
-    if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v113.__r_.__value_.__l.__data_);
-    }
-
-    if (__str.__r_.__value_.__s.__data_[16])
-    {
-      sub_8AAAC(&__str);
-    }
-  }
-
-  v11 = v112;
-  if (v112)
-  {
-    CFRetain(v112);
-  }
-
-  v109 = v11;
-  sub_2288C(__p);
-  *&__p[*(*&__p[16] - 24) + 24] = *&__p[*(*&__p[16] - 24) + 24] & 0xFFFFFFB5 | 8;
-  if (!v11)
-  {
-    v105 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v105, "Could not construct");
-  }
-
-  sub_4A8F8(v11);
-  std::ostream::operator<<();
-  if ((v128 & 0x10) != 0)
-  {
-    v13 = v127;
-    if (v127 < v124)
-    {
-      v127 = v124;
-      v13 = v124;
-    }
-
-    v14 = __src;
-  }
-
-  else
-  {
-    if ((v128 & 8) == 0)
-    {
-      v12 = 0;
-      *(&cf.__r_.__value_.__s + 23) = 0;
-      goto LABEL_39;
-    }
-
-    v14 = v121;
-    v13 = v122;
-  }
-
-  v12 = v13 - v14;
-  if (v13 - v14 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    sub_755AC();
-  }
-
-  if (v12 >= 0x17)
-  {
-    operator new();
-  }
-
-  *(&cf.__r_.__value_.__s + 23) = v13 - v14;
-  if (v12)
-  {
-    memmove(&cf, v14, v12);
-  }
-
-LABEL_39:
-  cf.__r_.__value_.__s.__data_[v12] = 0;
-  *&__p[16] = v15;
-  if (v126 < 0)
-  {
-    operator delete(v125);
-  }
-
-  std::locale::~locale(&__p[32]);
-  std::iostream::~basic_iostream();
-  std::ios::~ios();
-  v16 = std::string::insert(&cf, 0, ":", 1uLL);
-  v17 = *&v16->__r_.__value_.__l.__data_;
-  v113.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
-  *&v113.__r_.__value_.__l.__data_ = v17;
-  v16->__r_.__value_.__l.__size_ = 0;
-  v16->__r_.__value_.__r.__words[2] = 0;
-  v16->__r_.__value_.__r.__words[0] = 0;
-  v18 = std::string::append(&v113, ":", 1uLL);
-  v19 = *&v18->__r_.__value_.__l.__data_;
-  __str.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
-  *&__str.__r_.__value_.__l.__data_ = v19;
-  v18->__r_.__value_.__l.__size_ = 0;
-  v18->__r_.__value_.__r.__words[2] = 0;
-  v18->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v113.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(cf.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(cf.__r_.__value_.__l.__data_);
-  }
-
-  if (v109)
-  {
-    CFRelease(v109);
-  }
-
-  v20 = *(a3 + 23);
-  v21 = v20 < 0;
-  if (v20 >= 0)
-  {
-    v22 = a3;
-  }
-
-  else
-  {
-    v22 = *a3;
-  }
-
-  if (v21)
-  {
-    v23 = a3[1];
-  }
-
-  else
-  {
-    v23 = *(a3 + 23);
-  }
-
-  size = HIBYTE(__str.__r_.__value_.__r.__words[2]);
-  p_str = __str.__r_.__value_.__r.__words[0];
-  if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-  {
-    size = __str.__r_.__value_.__l.__size_;
-  }
-
-  else
-  {
-    p_str = &__str;
-  }
-
-  v26 = &v23[v22];
-  if (v23 && size)
-  {
-    v29 = p_str->__r_.__value_.__s.__data_[0];
-    v27 = &p_str->__r_.__value_.__s.__data_[1];
-    v28 = v29;
-    v30 = v22;
-    v31 = &v23[v22];
-    do
-    {
-      v32 = v30 + 1;
-      while (*v30 != v28)
-      {
-        ++v30;
-        ++v32;
-        if (v30 == v26)
-        {
-          goto LABEL_72;
-        }
-      }
-
-      v33 = size - 1;
-      v34 = v27;
-      while (v33)
-      {
-        if (v32 == v26)
-        {
-          goto LABEL_72;
-        }
-
-        v36 = *v32++;
-        v35 = v36;
-        v37 = *v34++;
-        --v33;
-        if (v35 != v37)
-        {
-          goto LABEL_69;
-        }
-      }
-
-      v31 = v30;
-LABEL_69:
-      ++v30;
-    }
-
-    while (v30 != v26);
-  }
-
-  else
-  {
-    v31 = &v23[v22];
-  }
-
-LABEL_72:
-  v38 = v31 - v22;
-  if (v31 != v26 || size == 0)
-  {
-    v40 = v38;
-  }
-
-  else
-  {
-    v40 = -1;
-  }
-
-  v41 = sub_5544(18);
-  v42 = *v41;
-  if (*v41 && os_log_type_enabled(*v41, OS_LOG_TYPE_DEFAULT))
-  {
-    if (*(a3 + 23) >= 0)
-    {
-      v43 = a3;
-    }
-
-    else
-    {
-      v43 = *a3;
-    }
-
-    v44 = &__str;
-    if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v44 = __str.__r_.__value_.__r.__words[0];
-    }
-
-    p_outData = &outData;
-    if ((v117 & 0x80u) != 0)
-    {
-      p_outData = outData;
-    }
-
-    *__p = 136316162;
-    *&__p[4] = "Device_USB_Aspen.cpp";
-    *&__p[12] = 1024;
-    *&__p[14] = 341;
-    *&__p[18] = 2080;
-    *&__p[20] = v43;
-    *&__p[28] = 2080;
-    *&__p[30] = v44;
-    v120 = 2080;
-    v121 = p_outData;
-    _os_log_impl(&dword_0, v42, OS_LOG_TYPE_DEFAULT, "%25s:%-5d UID is %s will search for last occurrence of %s, and replace it with %s", __p, 0x30u);
-  }
-
-  v46 = *(a3 + 23);
-  if (v40 == -1)
-  {
-    if (v46 < 0)
-    {
-      sub_54A0(&v108, *a3, a3[1]);
-    }
-
-    else
-    {
-      v108 = *a3;
-    }
-  }
-
-  else
-  {
-    if (v46 < 0)
-    {
-      sub_54A0(&v108, *a3, a3[1]);
-    }
-
-    else
-    {
-      v108 = *a3;
-    }
-
-    if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v47 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      v47 = __str.__r_.__value_.__l.__size_;
-    }
-
-    if ((v117 & 0x80u) == 0)
-    {
-      v48 = &outData;
-    }
-
-    else
-    {
-      v48 = outData;
-    }
-
-    if ((v117 & 0x80u) == 0)
-    {
-      v49 = v117;
-    }
-
-    else
-    {
-      v49 = *v116;
-    }
-
-    std::string::replace(&v108, v40, v47, v48, v49);
-    v50 = sub_5544(18);
-    v51 = *v50;
-    if (*v50 && os_log_type_enabled(*v50, OS_LOG_TYPE_DEFAULT))
-    {
-      v52 = &v108;
-      if ((v108.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-      {
-        v52 = v108.__r_.__value_.__r.__words[0];
-      }
-
-      *__p = 136315650;
-      *&__p[4] = "Device_USB_Aspen.cpp";
-      *&__p[12] = 1024;
-      *&__p[14] = 350;
-      *&__p[18] = 2080;
-      *&__p[20] = v52;
-      _os_log_impl(&dword_0, v51, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Updated USB UID is %s", __p, 0x1Cu);
-    }
-  }
-
-  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__str.__r_.__value_.__l.__data_);
-  }
-
-  if (v117 < 0)
-  {
-    operator delete(outData);
-  }
-
-  if (v112)
-  {
-    CFRelease(v112);
-  }
-
-  sub_33CB40(&outData, a2, COERCE_DOUBLE(1735159650));
-  if (v116[8] != 1)
-  {
-    v54 = 0;
-    goto LABEL_169;
-  }
-
-  sub_65388(v110, *v116);
-  if (!v110[0])
-  {
-    v107 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v107, "Could not construct");
-  }
-
-  sub_53E8(&v113, "");
-  v53 = v110[0];
-  if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
-  {
-    sub_54A0(__p, v113.__r_.__value_.__l.__data_, v113.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    *__p = v113;
-  }
-
-  if (v53 && (v55 = CFStringGetTypeID(), v55 == CFGetTypeID(v53)))
-  {
-    sub_1DAFFC(&__str, v53);
-    if ((__p[23] & 0x80000000) != 0)
-    {
-      operator delete(*__p);
-    }
-  }
-
-  else
-  {
-    __str = *__p;
-  }
-
-  if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v113.__r_.__value_.__l.__data_);
-  }
-
-  if (v110[0])
-  {
-    CFRelease(v110[0]);
-  }
-
-  v57 = __str.__r_.__value_.__l.__size_;
-  v56 = __str.__r_.__value_.__r.__words[0];
-  v58 = &__str;
-  if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v59 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
-  }
-
-  else
-  {
-    v59 = __str.__r_.__value_.__l.__size_;
-    v58 = __str.__r_.__value_.__r.__words[0];
-  }
-
-  if (!v59)
-  {
-    goto LABEL_164;
-  }
-
-  v60 = v58 + v59;
-  v61 = v58;
-  v62 = v60;
-  do
-  {
-    v63 = v61;
-    v64 = v61;
-    while (1)
-    {
-      v65 = *v64++;
-      if (v65 == 58)
-      {
-        break;
-      }
-
-      v63 = v64;
-      if (v64 == v60)
-      {
-        v63 = v62;
-        goto LABEL_140;
-      }
-    }
-
-    v61 = (&v63->__r_.__value_.__l.__data_ + 1);
-    v62 = v63;
-  }
-
-  while (v64 != v60);
-LABEL_140:
-  v66 = v63 - v58;
-  if (v63 == v60)
-  {
-    v66 = -1;
-  }
-
-  v67 = v66 + 1;
-  if ((v66 + 1) < 2)
-  {
-    goto LABEL_164;
-  }
-
-  if ((*(&__str.__r_.__value_.__s + 23) & 0x80) != 0)
-  {
-    if (v66 == __str.__r_.__value_.__l.__size_ - 1)
-    {
-      goto LABEL_164;
-    }
-  }
-
-  else
-  {
-    if (v66 == HIBYTE(__str.__r_.__value_.__r.__words[2]) - 1)
-    {
-      goto LABEL_164;
-    }
-
-    v56 = &__str;
-    v57 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
-  }
-
-  v68 = v66 - 1;
-  if (v57 >= v66 - 1)
-  {
-    v69 = v66 - 1;
-  }
-
-  else
-  {
-    v69 = v57;
-  }
-
-  if (v57 - v69 > 1)
-  {
-    v57 = v69 + 1;
-  }
-
-  if (v57)
-  {
-    v70 = v56 + v57;
-    v71 = v56;
-    v72 = v70;
-    do
-    {
-      v73 = v71;
-      v74 = v71;
-      while (1)
-      {
-        v75 = *v74++;
-        if (v75 == 58)
-        {
-          break;
-        }
-
-        v73 = v74;
-        if (v74 == v70)
-        {
-          v73 = v72;
-          goto LABEL_159;
-        }
-      }
-
-      v71 = (&v73->__r_.__value_.__l.__data_ + 1);
-      v72 = v73;
-    }
-
-    while (v74 != v70);
-LABEL_159:
-    v54 = 0;
-    if (v73 == v70)
-    {
-      goto LABEL_165;
-    }
-
-    v76 = v73 - v56;
-    if (v76 == -1)
-    {
-      goto LABEL_165;
-    }
-
-    v77 = v76 - v66;
-    if (v77 < 0)
-    {
-      v77 = -v77;
-    }
-
-    if (v77 >= 2)
-    {
-      std::string::basic_string(__p, &__str, v76 + 1, v68, &v112);
-      v103 = std::stoul(__p, 0, 16);
-      if ((__p[23] & 0x80000000) != 0)
-      {
-        operator delete(*__p);
-      }
-
-      std::string::basic_string(__p, &__str, v67, 0xFFFFFFFFFFFFFFFFLL, &v112);
-      v104 = std::stoul(__p, 0, 16);
-      if ((__p[23] & 0x80000000) != 0)
-      {
-        operator delete(*__p);
-      }
-
-      v54 = v103 | (v104 << 32);
-      goto LABEL_165;
-    }
-  }
-
-LABEL_164:
-  v54 = 0;
-LABEL_165:
-  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__str.__r_.__value_.__l.__data_);
-  }
-
-  if (v116[8])
-  {
-    sub_8AAAC(&outData);
-  }
-
-LABEL_169:
-  sub_4B1A68(a1, a2, a3, &v108, v54);
-  if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v108.__r_.__value_.__l.__data_);
-  }
-
-  *a1 = off_6C24B8;
-  *(a1 + 532) = 0;
-  *(a1 + 534) = 0;
-  strcpy(__p, "DDAubolg");
-  __p[9] = 0;
-  *&__p[10] = 0;
-  if (!AudioObjectHasProperty(a2, __p))
-  {
-    goto LABEL_174;
-  }
-
-  LODWORD(cf.__r_.__value_.__l.__data_) = sub_543D0(a2, __p, 0, 0);
-  if (!LODWORD(cf.__r_.__value_.__l.__data_))
-  {
-    goto LABEL_174;
-  }
-
-  outData = 0;
-  if (AudioObjectGetPropertyData(a2, __p, 0, 0, &cf, &outData))
-  {
-    goto LABEL_174;
-  }
-
-  v97 = outData;
-  __str.__r_.__value_.__r.__words[0] = outData;
-  sub_33CBE0(&v113, &__str.__r_.__value_.__l.__data_);
-  v98 = v113.__r_.__value_.__r.__words[0];
-  if (v97)
-  {
-    CFRelease(v97);
-  }
-
-  v110[0] = v98;
-  if (v98)
-  {
-    v99 = sub_27CA94(v98);
-    CFRelease(v98);
-    *(a1 + 535) = v99;
-    if (v99)
-    {
-      v100 = sub_5544(18);
-      v101 = *v100;
-      if (*v100)
-      {
-        if (os_log_type_enabled(*v100, OS_LOG_TYPE_INFO))
-        {
-          (*(*a1 + 128))(&outData, a1);
-          v102 = (v117 & 0x80u) == 0 ? &outData : outData;
-          *__p = 136315650;
-          *&__p[4] = "Device_USB_Aspen.cpp";
-          *&__p[12] = 1024;
-          *&__p[14] = 378;
-          *&__p[18] = 2080;
-          *&__p[20] = v102;
-          _os_log_impl(&dword_0, v101, OS_LOG_TYPE_INFO, "%25s:%-5d Device with UID %s is Apple Display", __p, 0x1Cu);
-          if (v117 < 0)
-          {
-            operator delete(outData);
-          }
-        }
-      }
-    }
-  }
-
-  else
-  {
-LABEL_174:
-    *(a1 + 535) = 0;
-  }
-
-  if (*(a1 + 535) == 1)
-  {
-    v78 = __p;
-    (*(*a1 + 464))(__p, a1);
-    v79 = __p[23];
-    v81 = *__p;
-    v80 = *&__p[8];
-    if (__p[23] < 0)
-    {
-      v78 = *__p;
-    }
-
-    if (__p[23] >= 0)
-    {
-      v80 = __p[23];
-    }
-
-    v82 = &v78[v80];
-    if (v80 >= 14)
-    {
-      v83 = v78;
-      do
-      {
-        v84 = memchr(v83, 65, v80 - 13);
-        if (!v84)
-        {
-          break;
-        }
-
-        if (*v84 == 0x6F4C206F69647541 && *(v84 + 6) == 0x6B636162706F6F4CLL)
-        {
-          goto LABEL_189;
-        }
-
-        v83 = v84 + 1;
-        v80 = v82 - v83;
-      }
-
-      while (v82 - v83 > 13);
-    }
-
-    v84 = v82;
-LABEL_189:
-    if (v84 == v82)
-    {
-      v86 = -1;
-    }
-
-    else
-    {
-      v86 = v84 - v78;
-    }
-
-    if (v79 < 0)
-    {
-      operator delete(v81);
-    }
-
-    v87 = sub_5544(18);
-    v88 = *v87;
-    if (*v87 && os_log_type_enabled(*v87, OS_LOG_TYPE_INFO))
-    {
-      (*(*a1 + 464))(&outData, a1);
-      if ((v117 & 0x80u) == 0)
-      {
-        v89 = &outData;
-      }
-
-      else
-      {
-        v89 = outData;
-      }
-
-      v90 = "yes";
-      *&__p[4] = "Device_USB_Aspen.cpp";
-      *&__p[12] = 1024;
-      *__p = 136315906;
-      if (v86 == -1)
-      {
-        v90 = "no";
-      }
-
-      *&__p[14] = 1733;
-      *&__p[18] = 2080;
-      *&__p[20] = v89;
-      *&__p[28] = 2080;
-      *&__p[30] = v90;
-      _os_log_impl(&dword_0, v88, OS_LOG_TYPE_INFO, "%25s:%-5d IsAudioLoopbackDevice() - modelUID is %s. Loopback found: %s", __p, 0x26u);
-      if (v117 < 0)
-      {
-        operator delete(outData);
-      }
-    }
-
-    v91 = 1869968496;
-    if (v86 == -1)
-    {
-      v95 = *(a1 + 268);
-      strcpy(__p, "#mtsptuo");
-      __p[9] = 0;
-      *&__p[10] = 0;
-      LODWORD(outData) = 0;
-      AudioObjectGetPropertyDataSize(v95, __p, 0, 0, &outData);
-      v92 = outData < 4;
-      if (outData >= 4)
-      {
-        v91 = 1869968496;
-      }
-
-      else
-      {
-        v91 = 1768845428;
-      }
-
-      v93 = 2;
-    }
-
-    else
-    {
-      v92 = 0;
-      v93 = 1;
-    }
-
-    goto LABEL_211;
-  }
-
-  v94 = *(a1 + 268);
-  strcpy(__p, "#mtsptuo");
-  __p[9] = 0;
-  *&__p[10] = 0;
-  LODWORD(outData) = 0;
-  AudioObjectGetPropertyDataSize(v94, __p, 0, 0, &outData);
-  if (outData >= 4)
-  {
-    v93 = 0;
-    v92 = 0;
-    v91 = 1869968496;
-LABEL_211:
-    sub_4B4F1C(a1, v93, v91, v92);
-  }
-
-  return a1;
 }

@@ -240,7 +240,7 @@ void __49__SKUIMetricsController_activeImpressionsSession__block_invoke(uint64_t
   v11 = [v10 metricsActionTypeForItem:itemCopy];
 
   [v7 setActionType:v11];
-  if ([v11 isEqualToString:*MEMORY[0x277D6A450]])
+  if (objc_msgSend_isEqualToString_(v11))
   {
     bundleIdentifier = [itemCopy bundleIdentifier];
     [v7 setActionDetails:bundleIdentifier];
@@ -249,7 +249,7 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  if ([v11 isEqualToString:*MEMORY[0x277D6A438]])
+  if (objc_msgSend_isEqualToString_(v11))
   {
     primaryItemOffer = [itemCopy primaryItemOffer];
     bundleIdentifier = [primaryItemOffer actionParameters];
@@ -677,7 +677,7 @@ LABEL_18:
 
 - (void)_insertEvent:(id)event
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (self->_loggingEnabled)
   {
@@ -706,11 +706,9 @@ LABEL_18:
 
     if (v9)
     {
-      v18 = 138412290;
-      v19 = eventCopy;
-      LODWORD(v17) = 12;
-      v16 = &v18;
-      v10 = _os_log_send_and_compose_impl();
+      v17 = 138412290;
+      v18 = eventCopy;
+      v10 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_215BAE000, oSLogObject, 1, "[Metrics]: Record %@", &v17, 12);
 
       if (!v10)
       {
@@ -719,7 +717,7 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:{4, &v18, v17}];
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:4];
       free(v10);
       v16 = oSLogObject;
       SSFileLog();

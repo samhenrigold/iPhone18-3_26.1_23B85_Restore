@@ -1,10 +1,18 @@
 @interface FCNetworkActivity
++ (FCNetworkActivity)activityWithLabel:(unsigned int)label;
 - (FCNetworkActivity)initWithLabel:(unsigned int)label;
 - (NSUUID)token;
 - (void)completeActivityWithSuccess:(BOOL)success;
 @end
 
 @implementation FCNetworkActivity
+
++ (FCNetworkActivity)activityWithLabel:(unsigned int)label
+{
+  v3 = [[FCNetworkActivity alloc] initWithLabel:*&label];
+
+  return v3;
+}
 
 - (FCNetworkActivity)initWithLabel:(unsigned int)label
 {
@@ -42,15 +50,13 @@
 
 - (NSUUID)token
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
-  v6[1] = 0;
-  activity = self->_activity;
+  v4[2] = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
+  v4[1] = 0;
   nw_activity_get_token();
-  v3 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v6];
-  v4 = *MEMORY[0x1E69E9840];
+  v2 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v4];
 
-  return v3;
+  return v2;
 }
 
 @end

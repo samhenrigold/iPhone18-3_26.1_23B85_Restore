@@ -3,13 +3,13 @@
 
 @implementation VCNWConnectionMonitor
 
-void __VCNWConnectionMonitor_Create_block_invoke(uint64_t a1)
+void __VCNWConnectionMonitor_Create_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = VTP_NWConnectionQueue();
-  dispatch_assert_queue_V2(v2);
-  v3 = malloc_type_calloc(1uLL, 0x5E68uLL, 0x10A0040E7F0E380uLL);
-  if (!v3)
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = VTP_NWConnectionQueue(a1, a2);
+  dispatch_assert_queue_V2(v3);
+  v4 = malloc_type_calloc(1uLL, 0x5E68uLL, 0x10A0040E7F0E380uLL);
+  if (!v4)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
@@ -23,9 +23,9 @@ void __VCNWConnectionMonitor_Create_block_invoke(uint64_t a1)
     goto LABEL_12;
   }
 
-  v4 = v3;
+  v5 = v4;
   interface_status_monitor = nw_connection_create_interface_status_monitor();
-  *v4 = interface_status_monitor;
+  *v5 = interface_status_monitor;
   if (!interface_status_monitor)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -37,126 +37,126 @@ void __VCNWConnectionMonitor_Create_block_invoke(uint64_t a1)
       }
     }
 
-    free(v4);
+    free(v5);
 LABEL_12:
-    v4 = 0;
+    v5 = 0;
     goto LABEL_13;
   }
 
-  v4[6041] = 5000;
+  v5[6041] = 5000;
   keyExistsAndHasValidFormat = 0;
   AppIntegerValue = CFPreferencesGetAppIntegerValue(@"ReportingFrequency", @"com.apple.VideoConference", &keyExistsAndHasValidFormat);
   if (keyExistsAndHasValidFormat)
   {
-    v4[6041] = 1000 * AppIntegerValue;
+    v5[6041] = 1000 * AppIntegerValue;
   }
 
 LABEL_13:
-  *(*(*(a1 + 32) + 8) + 24) = v4;
+  *(*(*(a1 + 32) + 8) + 24) = v5;
 }
 
-void __VCNWConnectionMonitor_CreateWithInterfaceName_block_invoke(uint64_t a1)
+void __VCNWConnectionMonitor_CreateWithInterfaceName_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v45 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 64);
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 56);
-  v6 = VTP_NWConnectionQueue();
-  dispatch_assert_queue_V2(v6);
-  v7 = malloc_type_calloc(1uLL, 0x5E68uLL, 0x10A0040E7F0E380uLL);
+  v41 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 64);
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 48);
+  v6 = *(a1 + 56);
+  v7 = VTP_NWConnectionQueue(a1, a2);
+  dispatch_assert_queue_V2(v7);
+  v8 = malloc_type_calloc(1uLL, 0x5E68uLL, 0x10A0040E7F0E380uLL);
   ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
-  if (v7)
+  if (v8)
   {
-    v9 = MEMORY[0x1E6986650];
+    v10 = MEMORY[0x1E6986650];
     if (ErrorLogLevelForModule >= 7)
     {
-      v10 = VRTraceErrorLogLevelToCSTR();
-      v11 = *v9;
-      if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
+      v11 = VRTraceErrorLogLevelToCSTR();
+      v12 = *v10;
+      if (os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136316162;
-        *&buf[4] = v10;
+        *&buf[4] = v11;
         *&buf[12] = 2080;
         *&buf[14] = "_VCNWConnectionMonitor_DispatchedCreateWithInterfaceName";
         *&buf[22] = 1024;
-        LODWORD(v43) = 106;
-        WORD2(v43) = 2048;
-        *(&v43 + 6) = v7;
-        HIWORD(v43) = 2080;
-        v44 = v4;
-        _os_log_impl(&dword_1DB56E000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Creating monitor=%p with interfaceName=%s", buf, 0x30u);
+        LODWORD(v39) = 106;
+        WORD2(v39) = 2048;
+        *(&v39 + 6) = v8;
+        HIWORD(v39) = 2080;
+        v40 = v5;
+        _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Creating monitor=%p with interfaceName=%s", buf, 0x30u);
       }
     }
 
-    memset(v41, 170, 22);
+    memset(v37, 170, 22);
     *__str = 0xAAAAAAAAAAAAAAAALL;
-    snprintf(__str, 0x1EuLL, "%p-%s", v7, v4);
-    v12 = LogDump_OpenLog(__str, "VCNWConnectionMonitor", ".nwmonitordump", ", 9, ");
-    *(v7 + 2) = v12;
-    VRLogfilePrintSync(v12, "STime\tTimestamp\tVersion\tDirection\tByteCount\tQSize1\tQSize2\tDelay\tThroughput\tTxRate\tRateTrend\tFrequencyBand\tIntermittentState\tIntermittentPeriod\tSingleOutagePeriod\tBtCoex\tRadioCoex\tScoreDelayTx\tScoreDelayRx\tScoreLossTx\tScoreLossRx\tScoreChannel\tOffChannelRatio\tWlanDutyCycle\tWifiObservedTxBitrate(BE)\tWifiObservedTxBitrate(BK)\tWifiObservedTxBitrate(VI)\tWifiObservedTxBitrate(VO)\tWifiObservedTxBitrate(LLW0)\tWifiObservedTxBitrate(LLW1)\n", v13, v14, v15, v16, v17, v18, v29);
+    snprintf(__str, 0x1EuLL, "%p-%s", v8, v5);
+    v13 = LogDump_OpenLog(__str, "VCNWConnectionMonitor", ".nwmonitordump", ", 9, ");
+    *(v8 + 2) = v13;
+    VRLogfilePrintSync(v13, "STime\tTimestamp\tVersion\tDirection\tByteCount\tQSize1\tQSize2\tDelay\tThroughput\tTxRate\tRateTrend\tFrequencyBand\tIntermittentState\tIntermittentPeriod\tSingleOutagePeriod\tBtCoex\tRadioCoex\tScoreDelayTx\tScoreDelayRx\tScoreLossTx\tScoreLossRx\tScoreChannel\tOffChannelRatio\tWlanDutyCycle\tWifiObservedTxBitrate(BE)\tWifiObservedTxBitrate(BK)\tWifiObservedTxBitrate(VI)\tWifiObservedTxBitrate(VO)\tWifiObservedTxBitrate(LLW0)\tWifiObservedTxBitrate(LLW1)\n");
     secure_udp = nw_parameters_create_secure_udp(*MEMORY[0x1E6977EC0], *MEMORY[0x1E6977EB8]);
-    VTP_NWConnectionContext();
+    VTP_NWConnectionContext(secure_udp, v15);
     nw_parameters_set_context();
-    v20 = nw_interface_create_with_name();
-    nw_parameters_require_interface(secure_udp, v20);
-    if (v2)
+    v16 = nw_interface_create_with_name();
+    nw_parameters_require_interface(secure_udp, v16);
+    if (v3)
     {
-      v21 = "1234::1234";
+      v17 = "1234::1234";
     }
 
     else
     {
-      v21 = "120.0.0.1";
+      v17 = "120.0.0.1";
     }
 
-    host = nw_endpoint_create_host(v21, "1234");
-    v23 = nw_connection_create(host, secure_udp);
-    *(v7 + 1) = v23;
-    if (v5)
+    host = nw_endpoint_create_host(v17, "1234");
+    v19 = nw_connection_create(host, secure_udp);
+    *(v8 + 1) = v19;
+    if (v6)
     {
-      *(v7 + 3017) = v5;
-      dispatch_retain(v5);
-      v24 = *(v7 + 1);
+      *(v8 + 3017) = v6;
+      dispatch_retain(v6);
+      v21 = *(v8 + 1);
     }
 
     else
     {
-      v24 = v23;
+      v21 = v19;
     }
 
-    v25 = VTP_NWConnectionQueue();
-    nw_connection_set_queue(v24, v25);
-    v26 = *(v7 + 1);
+    v22 = VTP_NWConnectionQueue(v19, v20);
+    nw_connection_set_queue(v21, v22);
+    v23 = *(v8 + 1);
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 0x40000000;
     *&buf[16] = ___VCNWConnectionMonitor_DispatchedCreateWithInterfaceName_block_invoke;
-    *&v43 = &unk_1E85F5270;
-    *(&v43 + 1) = v3;
-    v44 = v7;
-    nw_connection_set_state_changed_handler(v26, buf);
-    nw_connection_start(*(v7 + 1));
+    *&v39 = &unk_1E85F5270;
+    *(&v39 + 1) = v4;
+    v40 = v8;
+    nw_connection_set_state_changed_handler(v23, buf);
+    nw_connection_start(*(v8 + 1));
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v27 = VRTraceErrorLogLevelToCSTR();
-      v28 = *v9;
-      if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
+      v24 = VRTraceErrorLogLevelToCSTR();
+      v25 = *v10;
+      if (os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT))
       {
-        *v30 = 136316162;
-        v31 = v27;
-        v32 = 2080;
-        v33 = "_VCNWConnectionMonitor_DispatchedCreateWithInterfaceName";
-        v34 = 1024;
-        v35 = 161;
-        v36 = 2048;
-        v37 = v7;
-        v38 = 2080;
-        v39 = v4;
-        _os_log_impl(&dword_1DB56E000, v28, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Starting NWConnection for monitor=%p with interfaceName=%s", v30, 0x30u);
+        *v26 = 136316162;
+        v27 = v24;
+        v28 = 2080;
+        v29 = "_VCNWConnectionMonitor_DispatchedCreateWithInterfaceName";
+        v30 = 1024;
+        v31 = 161;
+        v32 = 2048;
+        v33 = v8;
+        v34 = 2080;
+        v35 = v5;
+        _os_log_impl(&dword_1DB56E000, v25, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Starting NWConnection for monitor=%p with interfaceName=%s", v26, 0x30u);
       }
     }
 
-    nw_release(v20);
+    nw_release(v16);
     nw_release(secure_udp);
     nw_release(host);
   }
@@ -170,15 +170,15 @@ void __VCNWConnectionMonitor_CreateWithInterfaceName_block_invoke(uint64_t a1)
     }
   }
 
-  *(*(*(a1 + 40) + 8) + 24) = v7;
+  *(*(*(a1 + 40) + 8) + 24) = v8;
 }
 
-void __VCNWConnectionMonitor_Destroy_block_invoke(uint64_t a1)
+void __VCNWConnectionMonitor_Destroy_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = VTP_NWConnectionQueue();
-  dispatch_assert_queue_V2(v2);
-  if (*(v1 + 24128) == 1)
+  v2 = *(a1 + 32);
+  v3 = VTP_NWConnectionQueue(a1, a2);
+  dispatch_assert_queue_V2(v3);
+  if (*(v2 + 24128) == 1)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
@@ -192,52 +192,52 @@ void __VCNWConnectionMonitor_Destroy_block_invoke(uint64_t a1)
 
   else
   {
-    *(v1 + 24128) = 1;
-    if (*v1)
+    *(v2 + 24128) = 1;
+    if (*v2)
     {
       nw_interface_status_monitor_cancel();
     }
 
-    v3 = *(v1 + 8);
-    if (v3)
-    {
-      nw_connection_cancel(v3);
-    }
-
-    v4 = *(v1 + 16);
+    v4 = *(v2 + 8);
     if (v4)
     {
-      LogDump_CloseLog(v4);
-      *(v1 + 16) = 0;
+      nw_connection_cancel(v4);
+    }
+
+    v5 = *(v2 + 16);
+    if (v5)
+    {
+      LogDump_CloseLog(v5);
+      *(v2 + 16) = 0;
     }
   }
 }
 
-uint64_t __VCNWConnectionMonitor_SetNotificationHandler_block_invoke()
+uint64_t __VCNWConnectionMonitor_SetNotificationHandler_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = VTP_NWConnectionQueue();
-  dispatch_assert_queue_V2(v0);
-  VTP_NWConnectionQueue();
+  v2 = VTP_NWConnectionQueue(a1, a2);
+  dispatch_assert_queue_V2(v2);
+  VTP_NWConnectionQueue(v3, v4);
   return nw_interface_status_monitor_set_update_handler();
 }
 
-uint64_t __VCNWConnectionMonitor_SetPacketEventHandler_block_invoke()
+uint64_t __VCNWConnectionMonitor_SetPacketEventHandler_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = VTP_NWConnectionQueue();
-  dispatch_assert_queue_V2(v0);
-  VTP_NWConnectionQueue();
+  v2 = VTP_NWConnectionQueue(a1, a2);
+  dispatch_assert_queue_V2(v2);
+  VTP_NWConnectionQueue(v3, v4);
   return nw_interface_status_monitor_set_packet_event_handler();
 }
 
-uint64_t __VCNWConnectionMonitor_SetStatisticsHandler_block_invoke()
+uint64_t __VCNWConnectionMonitor_SetStatisticsHandler_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = VTP_NWConnectionQueue();
-  dispatch_assert_queue_V2(v0);
-  VTP_NWConnectionQueue();
+  v2 = VTP_NWConnectionQueue(a1, a2);
+  dispatch_assert_queue_V2(v2);
+  VTP_NWConnectionQueue(v3, v4);
   return nw_interface_status_monitor_set_update_handler();
 }
 
-void ___VCNWConnectionMonitor_DispatchedCreateWithInterfaceName_block_invoke(uint64_t a1, int a2)
+void ___VCNWConnectionMonitor_DispatchedCreateWithInterfaceName_block_invoke(uint64_t a1, uint64_t a2)
 {
   v27 = *MEMORY[0x1E69E9840];
   switch(a2)
@@ -272,7 +272,7 @@ void ___VCNWConnectionMonitor_DispatchedCreateWithInterfaceName_block_invoke(uin
         *(*v8 + 8) = 0;
       }
 
-      _VCNWConnectionMonitor_CheckAndReleaseNWMonitor(v8);
+      _VCNWConnectionMonitor_CheckAndReleaseNWMonitor(v8, a2);
       break;
     case 4:
       if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -356,46 +356,46 @@ void ___VCNWConnectionMonitor_DispatchedCreateWithInterfaceName_block_invoke(uin
 
 void ___VCNWConnectionMonitor_DispatchedSetNotificationHandler_block_invoke(uint64_t a1, __int128 *a2, uint64_t a3, int a4)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v8 = VTP_NWConnectionQueue();
+  v34 = *MEMORY[0x1E69E9840];
+  v8 = VTP_NWConnectionQueue(a1, a2);
   dispatch_assert_queue_V2(v8);
-  v10 = (a1 + 32);
-  v9 = *(a1 + 32);
-  if (v9)
+  v11 = (a1 + 32);
+  v10 = *(a1 + 32);
+  if (v10)
   {
     if (a4)
     {
       if (a4 == 89)
       {
-        if (*v9)
+        if (*v10)
         {
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
-            v11 = VRTraceErrorLogLevelToCSTR();
-            v12 = *MEMORY[0x1E6986650];
+            v12 = VRTraceErrorLogLevelToCSTR();
+            v13 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
-              v13 = *v10;
-              v14 = **v10;
-              v25 = 136316162;
-              v26 = v11;
-              v27 = 2080;
-              v28 = "_VCNWConnectionMonitor_DispatchedSetNotificationHandler_block_invoke";
-              v29 = 1024;
-              v30 = 245;
-              v31 = 2048;
-              *v32 = v14;
-              *&v32[8] = 2048;
-              *&v32[10] = v13;
-              _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d monitor->nwMonitor=%p is released, monitor=%p", &v25, 0x30u);
+              v14 = *v11;
+              v15 = **v11;
+              v26 = 136316162;
+              v27 = v12;
+              v28 = 2080;
+              v29 = "_VCNWConnectionMonitor_DispatchedSetNotificationHandler_block_invoke";
+              v30 = 1024;
+              v31 = 245;
+              v32 = 2048;
+              *v33 = v15;
+              *&v33[8] = 2048;
+              *&v33[10] = v14;
+              _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d monitor->nwMonitor=%p is released, monitor=%p", &v26, 0x30u);
             }
           }
 
-          nw_release(**v10);
-          **v10 = 0;
+          nw_release(**v11);
+          **v11 = 0;
         }
 
-        _VCNWConnectionMonitor_CheckAndReleaseNWMonitor((a1 + 32));
+        _VCNWConnectionMonitor_CheckAndReleaseNWMonitor((a1 + 32), v9);
         return;
       }
 
@@ -404,33 +404,33 @@ void ___VCNWConnectionMonitor_DispatchedSetNotificationHandler_block_invoke(uint
         return;
       }
 
-      v15 = VRTraceErrorLogLevelToCSTR();
-      v16 = *MEMORY[0x1E6986650];
+      v16 = VRTraceErrorLogLevelToCSTR();
+      v17 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
         return;
       }
 
-      v17 = *v10;
-      v25 = 136316162;
-      v26 = v15;
-      v27 = 2080;
-      v28 = "_VCNWConnectionMonitor_DispatchedSetNotificationHandler_block_invoke";
-      v29 = 1024;
-      v30 = 251;
-      v31 = 1024;
-      *v32 = a4;
-      *&v32[4] = 2048;
-      *&v32[6] = v17;
-      v18 = " [%s] %s:%d NWConnection notification returns error %d, monitor=%p";
-      v19 = v16;
-      v20 = 44;
+      v18 = *v11;
+      v26 = 136316162;
+      v27 = v16;
+      v28 = 2080;
+      v29 = "_VCNWConnectionMonitor_DispatchedSetNotificationHandler_block_invoke";
+      v30 = 1024;
+      v31 = 251;
+      v32 = 1024;
+      *v33 = a4;
+      *&v33[4] = 2048;
+      *&v33[6] = v18;
+      v19 = " [%s] %s:%d NWConnection notification returns error %d, monitor=%p";
+      v20 = v17;
+      v21 = 44;
 LABEL_28:
-      _os_log_error_impl(&dword_1DB56E000, v19, OS_LOG_TYPE_ERROR, v18, &v25, v20);
+      _os_log_error_impl(&dword_1DB56E000, v20, OS_LOG_TYPE_ERROR, v19, &v26, v21);
       return;
     }
 
-    if (*(v9 + 24128) == 1)
+    if (*(v10 + 24128) == 1)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
@@ -451,35 +451,35 @@ LABEL_28:
           return;
         }
 
-        v23 = VRTraceErrorLogLevelToCSTR();
-        v24 = *MEMORY[0x1E6986650];
+        v24 = VRTraceErrorLogLevelToCSTR();
+        v25 = *MEMORY[0x1E6986650];
         if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
           return;
         }
 
-        v25 = 136316418;
-        v26 = v23;
-        v27 = 2080;
-        v28 = "_VCNWConnectionMonitor_DispatchedSetNotificationHandler_block_invoke";
-        v29 = 1024;
-        v30 = 261;
-        v31 = 1024;
-        *v32 = 96;
-        *&v32[4] = 1024;
-        *&v32[6] = a3;
-        *&v32[10] = 2048;
-        *&v32[12] = a2;
-        v18 = " [%s] %s:%d NWConnection notification size mismatch. (expected size: %u, actual size: %u) status_data: %p";
-        v19 = v24;
-        v20 = 50;
+        v26 = 136316418;
+        v27 = v24;
+        v28 = 2080;
+        v29 = "_VCNWConnectionMonitor_DispatchedSetNotificationHandler_block_invoke";
+        v30 = 1024;
+        v31 = 261;
+        v32 = 1024;
+        *v33 = 96;
+        *&v33[4] = 1024;
+        *&v33[6] = a3;
+        *&v33[10] = 2048;
+        *&v33[12] = a2;
+        v19 = " [%s] %s:%d NWConnection notification size mismatch. (expected size: %u, actual size: %u) status_data: %p";
+        v20 = v25;
+        v21 = 50;
         goto LABEL_28;
       }
 
-      v21 = *(a1 + 40);
-      v22 = *(a1 + 48);
+      v22 = *(a1 + 40);
+      v23 = *(a1 + 48);
 
-      _VCNWConnectionMonitor_DispatchedProcessInterfaceAdvisoryNotification(v21, v22, a2);
+      _VCNWConnectionMonitor_DispatchedProcessInterfaceAdvisoryNotification(v22, v23, a2);
     }
   }
 
@@ -493,12 +493,14 @@ LABEL_28:
   }
 }
 
-void ___VCNWConnectionMonitor_DispatchedSetPacketEventHandler_block_invoke(void *a1, int a2, uint64_t a3, unint64_t a4, int a5)
+void ___VCNWConnectionMonitor_DispatchedSetPacketEventHandler_block_invoke(void *a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5)
 {
+  v5 = a5;
+  v8 = a2;
   v21[2] = *MEMORY[0x1E69E9840];
-  v10 = VTP_NWConnectionQueue();
+  v10 = VTP_NWConnectionQueue(a1, a2);
   dispatch_assert_queue_V2(v10);
-  if (a5)
+  if (v5)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
@@ -512,7 +514,7 @@ void ___VCNWConnectionMonitor_DispatchedSetPacketEventHandler_block_invoke(void 
     return;
   }
 
-  if (a2 == 1)
+  if (v8 == 1)
   {
     if (!a4)
     {
@@ -581,7 +583,7 @@ void ___VCNWConnectionMonitor_DispatchedSetPacketEventHandler_block_invoke(void 
       *&buf[22] = 1024;
       LODWORD(v21[0]) = 307;
       WORD2(v21[0]) = 1024;
-      *(v21 + 6) = a2;
+      *(v21 + 6) = v8;
       _os_log_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Receive other unknown event type %d", buf, 0x22u);
     }
   }
@@ -596,46 +598,46 @@ void ___VCNWConnectionMonitor_DispatchedSetPacketEventHandler_block_invoke_27(ui
 
 void ___VCNWConnectionMonitor_DispatchedSetStatisticsHandler_block_invoke(void *a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v42 = *MEMORY[0x1E69E9840];
-  v8 = VTP_NWConnectionQueue();
+  v43 = *MEMORY[0x1E69E9840];
+  v8 = VTP_NWConnectionQueue(a1, a2);
   dispatch_assert_queue_V2(v8);
-  v10 = (a1 + 4);
-  v9 = a1[4];
-  if (v9)
+  v11 = (a1 + 4);
+  v10 = a1[4];
+  if (v10)
   {
     if (a4)
     {
       if (a4 == 89)
       {
-        if (*v9)
+        if (*v10)
         {
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
-            v11 = VRTraceErrorLogLevelToCSTR();
-            v12 = *MEMORY[0x1E6986650];
+            v12 = VRTraceErrorLogLevelToCSTR();
+            v13 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
-              v13 = *v10;
-              v14 = **v10;
+              v14 = *v11;
+              v15 = **v11;
               *buf = 136316162;
-              *&buf[4] = v11;
+              *&buf[4] = v12;
               *&buf[12] = 2080;
               *&buf[14] = "_VCNWConnectionMonitor_DispatchedSetStatisticsHandler_block_invoke";
               *&buf[22] = 1024;
               *&buf[24] = 539;
               *&buf[28] = 2048;
-              *&buf[30] = v14;
+              *&buf[30] = v15;
               *&buf[38] = 2048;
-              *&buf[40] = v13;
-              _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d monitor->nwMonitor=%p is released, monitor=%p", buf, 0x30u);
+              *&buf[40] = v14;
+              _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d monitor->nwMonitor=%p is released, monitor=%p", buf, 0x30u);
             }
           }
 
-          nw_release(**v10);
-          **v10 = 0;
+          nw_release(**v11);
+          **v11 = 0;
         }
 
-        _VCNWConnectionMonitor_CheckAndReleaseNWMonitor(v10);
+        _VCNWConnectionMonitor_CheckAndReleaseNWMonitor(v11, v9);
         return;
       }
 
@@ -644,16 +646,16 @@ void ___VCNWConnectionMonitor_DispatchedSetStatisticsHandler_block_invoke(void *
         return;
       }
 
-      v15 = VRTraceErrorLogLevelToCSTR();
-      v16 = *MEMORY[0x1E6986650];
+      v16 = VRTraceErrorLogLevelToCSTR();
+      v17 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
         return;
       }
 
-      v17 = *v10;
+      v18 = *v11;
       *buf = 136316162;
-      *&buf[4] = v15;
+      *&buf[4] = v16;
       *&buf[12] = 2080;
       *&buf[14] = "_VCNWConnectionMonitor_DispatchedSetStatisticsHandler_block_invoke";
       *&buf[22] = 1024;
@@ -661,16 +663,16 @@ void ___VCNWConnectionMonitor_DispatchedSetStatisticsHandler_block_invoke(void *
       *&buf[28] = 1024;
       *&buf[30] = a4;
       *&buf[34] = 2048;
-      *&buf[36] = v17;
-      v18 = " [%s] %s:%d NWConnection notification returns error %d, monitor=%p";
-      v19 = v16;
-      v20 = 44;
+      *&buf[36] = v18;
+      v19 = " [%s] %s:%d NWConnection notification returns error %d, monitor=%p";
+      v20 = v17;
+      v21 = 44;
 LABEL_28:
-      _os_log_error_impl(&dword_1DB56E000, v19, OS_LOG_TYPE_ERROR, v18, buf, v20);
+      _os_log_error_impl(&dword_1DB56E000, v20, OS_LOG_TYPE_ERROR, v19, buf, v21);
       return;
     }
 
-    if (*(v9 + 24128) == 1)
+    if (*(v10 + 24128) == 1)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
@@ -691,15 +693,15 @@ LABEL_28:
           return;
         }
 
-        v24 = VRTraceErrorLogLevelToCSTR();
-        v25 = *MEMORY[0x1E6986650];
+        v25 = VRTraceErrorLogLevelToCSTR();
+        v26 = *MEMORY[0x1E6986650];
         if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
           return;
         }
 
         *buf = 136316418;
-        *&buf[4] = v24;
+        *&buf[4] = v25;
         *&buf[12] = 2080;
         *&buf[14] = "_VCNWConnectionMonitor_DispatchedSetStatisticsHandler_block_invoke";
         *&buf[22] = 1024;
@@ -710,40 +712,40 @@ LABEL_28:
         *&buf[36] = a3;
         *&buf[40] = 2048;
         *&buf[42] = a2;
-        v18 = " [%s] %s:%d NWConnection notification size mismatch. (expected size: %u, actual size: %u) status_data: %p";
-        v19 = v25;
-        v20 = 50;
+        v19 = " [%s] %s:%d NWConnection notification size mismatch. (expected size: %u, actual size: %u) status_data: %p";
+        v20 = v26;
+        v21 = 50;
         goto LABEL_28;
       }
 
-      memset(v39, 170, sizeof(v39));
-      v40 = xmmword_1DBD475B0;
-      v41 = unk_1DBD475C0;
-      v38 = unk_1DBD47580;
+      memset(v40, 170, sizeof(v40));
+      v41 = xmmword_1DBD475B0;
+      v42 = unk_1DBD475C0;
+      v39 = unk_1DBD47580;
       memset(buf, 170, sizeof(buf));
-      _VCNWConnectionMonitor_ProcessNotification(v9, a2, buf);
-      v21 = a1[5];
-      if (v21 && *&buf[8])
+      _VCNWConnectionMonitor_ProcessNotification(v10, a2, buf);
+      v22 = a1[5];
+      if (v22 && *&buf[8])
       {
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 0x40000000;
-        v26[2] = ___VCNWConnectionMonitor_DispatchedSetStatisticsHandler_block_invoke_32;
-        v26[3] = &__block_descriptor_tmp_33;
-        v22 = a1[6];
-        v23 = a1[7];
-        v26[4] = v21;
-        v26[5] = v23;
-        v33 = v39[0];
-        v34 = v39[1];
-        v35 = v40;
+        v27[0] = MEMORY[0x1E69E9820];
+        v27[1] = 0x40000000;
+        v27[2] = ___VCNWConnectionMonitor_DispatchedSetStatisticsHandler_block_invoke_32;
+        v27[3] = &__block_descriptor_tmp_33;
+        v23 = a1[6];
+        v24 = a1[7];
+        v27[4] = v22;
+        v27[5] = v24;
+        v34 = v40[0];
+        v35 = v40[1];
         v36 = v41;
-        v29 = *&buf[32];
-        v30 = *&buf[48];
-        v31 = *&buf[64];
-        v32 = v38;
-        v27 = *buf;
-        v28 = *&buf[16];
-        dispatch_async(v22, v26);
+        v37 = v42;
+        v30 = *&buf[32];
+        v31 = *&buf[48];
+        v32 = *&buf[64];
+        v33 = v39;
+        v28 = *buf;
+        v29 = *&buf[16];
+        dispatch_async(v23, v27);
       }
     }
   }
@@ -792,21 +794,21 @@ void __VCNWConnectionMonitor_Create_block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate memory for monitor", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate memory for monitor", v2, v3, v4, v5);
 }
 
 void __VCNWConnectionMonitor_CreateWithInterfaceName_block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate memory for monitor", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate memory for monitor", v2, v3, v4, v5);
 }
 
 void __VCNWConnectionMonitor_Destroy_block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Monitor is already destroyed!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Monitor is already destroyed!", v2, v3, v4, v5);
 }
 
 void ___VCNWConnectionMonitor_DispatchedCreateWithInterfaceName_block_invoke_cold_2()
@@ -842,7 +844,7 @@ void ___VCNWConnectionMonitor_DispatchedSetNotificationHandler_block_invoke_cold
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d monitor is null!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d monitor is null!", v2, v3, v4, v5);
 }
 
 void ___VCNWConnectionMonitor_DispatchedSetPacketEventHandler_block_invoke_cold_1()
@@ -856,7 +858,7 @@ void ___VCNWConnectionMonitor_DispatchedSetPacketEventHandler_block_invoke_cold_
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate memory for packetEvent!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate memory for packetEvent!", v2, v3, v4, v5);
 }
 
 void ___VCNWConnectionMonitor_DispatchedSetStatisticsHandler_block_invoke_cold_1()
@@ -873,7 +875,7 @@ void ___VCNWConnectionMonitor_DispatchedSetStatisticsHandler_block_invoke_cold_2
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d monitor is null!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d monitor is null!", v2, v3, v4, v5);
 }
 
 @end

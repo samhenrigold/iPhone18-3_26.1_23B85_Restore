@@ -20,7 +20,7 @@
 
 - (void)invalidateWithReason:(id)reason
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -33,23 +33,23 @@
       if (v7)
       {
         name = selfCopy->_name;
-        v15 = 138412546;
-        v16 = name;
-        v17 = 2112;
-        v18 = reasonCopy;
+        v14 = 138412546;
+        v15 = name;
+        v16 = 2112;
+        v17 = reasonCopy;
         v9 = "[MSVPersistentTimer] Timer <%@> invalidated because <%@>";
         v10 = v6;
         v11 = 22;
 LABEL_7:
-        _os_log_impl(&dword_1AC81F000, v10, OS_LOG_TYPE_DEFAULT, v9, &v15, v11);
+        _os_log_impl(&dword_1AC81F000, v10, OS_LOG_TYPE_DEFAULT, v9, &v14, v11);
       }
     }
 
     else if (v7)
     {
       v12 = selfCopy->_name;
-      v15 = 138412290;
-      v16 = v12;
+      v14 = 138412290;
+      v15 = v12;
       v9 = "[MSVPersistentTimer] Timer <%@> invalidated";
       v10 = v6;
       v11 = 12;
@@ -62,13 +62,11 @@ LABEL_7:
   }
 
   objc_sync_exit(selfCopy);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleTimerElapsed:(id)elapsed
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   elapsedCopy = elapsed;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -81,13 +79,13 @@ LABEL_7:
       date = [MEMORY[0x1E695DF00] date];
       [date timeIntervalSinceDate:selfCopy->_startDate];
       interval = selfCopy->_interval;
-      v14 = 138412802;
-      v15 = name;
-      v16 = 2048;
-      v17 = v10;
-      v18 = 2048;
-      v19 = interval;
-      _os_log_impl(&dword_1AC81F000, v6, OS_LOG_TYPE_DEFAULT, "[MSVPersistentTimer] Timer <%@> elapased after <%lf> seconds (<%lf> expected)", &v14, 0x20u);
+      v13 = 138412802;
+      v14 = name;
+      v15 = 2048;
+      v16 = v10;
+      v17 = 2048;
+      v18 = interval;
+      _os_log_impl(&dword_1AC81F000, v6, OS_LOG_TYPE_DEFAULT, "[MSVPersistentTimer] Timer <%@> elapased after <%lf> seconds (<%lf> expected)", &v13, 0x20u);
     }
 
     [(MSVPersistentTimer *)selfCopy invalidateWithReason:@"TimerElapsed"];
@@ -108,8 +106,6 @@ LABEL_7:
   {
     v12[2](v12);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -122,13 +118,13 @@ LABEL_7:
 
 - (MSVPersistentTimer)initWithInterval:(double)interval name:(id)name queue:(id)queue block:(id)block
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   queueCopy = queue;
   blockCopy = block;
-  v34.receiver = self;
-  v34.super_class = MSVPersistentTimer;
-  v13 = [(MSVPersistentTimer *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = MSVPersistentTimer;
+  v13 = [(MSVPersistentTimer *)&v33 init];
   v14 = v13;
   if (v13)
   {
@@ -180,14 +176,13 @@ LABEL_7:
     {
       v31 = v14->_name;
       *buf = 138412546;
-      v36 = v31;
-      v37 = 2048;
+      v35 = v31;
+      v36 = 2048;
       intervalCopy = interval;
       _os_log_impl(&dword_1AC81F000, v30, OS_LOG_TYPE_DEFAULT, "[MSVPersistentTimer] Setting timer <%@> for <%lf> seconds", buf, 0x16u);
     }
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

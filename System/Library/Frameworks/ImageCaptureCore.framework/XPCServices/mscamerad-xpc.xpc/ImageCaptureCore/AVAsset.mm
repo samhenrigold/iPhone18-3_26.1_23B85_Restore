@@ -70,7 +70,7 @@ void __45__AVAsset_VideoOrientation__videoOrientation__block_invoke(uint64_t a1,
     v5 = v4;
     if (v4)
     {
-      [v4 preferredTransform];
+      objc_msgSend_preferredTransform(v4);
     }
 
     else
@@ -179,7 +179,7 @@ void __62__AVAsset_VideoOrientation__decodableVideoNamed_width_height___block_in
         v12 = *(*(a1 + 56) + 8);
         if (v9)
         {
-          [v9 preferredTransform];
+          objc_msgSend_preferredTransform(v9);
           v13 = *buf;
           v14 = *&buf[16];
         }

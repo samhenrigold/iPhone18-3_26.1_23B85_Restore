@@ -30,9 +30,11 @@
 
 uint64_t __34__JFXMediaSettings_sharedInstance__block_invoke()
 {
-  sharedInstance_s_sharedInstance_0 = objc_alloc_init(JFXMediaSettings);
+  v0 = objc_alloc_init(JFXMediaSettings);
+  v1 = sharedInstance_s_sharedInstance_0;
+  sharedInstance_s_sharedInstance_0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (JFXMediaSettingsProvider)providerDelegate

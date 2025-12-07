@@ -6,7 +6,7 @@
 
 - (WFSystemContextualAction)initWithType:(unint64_t)type identifier:(id)identifier displayString:(id)string inputTypes:(id)types
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   stringCopy = string;
   typesCopy = types;
@@ -19,9 +19,9 @@
   else
   {
     v14 = off_1E7B021C8[type - 1];
-    v24[0] = @"com.apple.shortcuts.systemContextualAction";
-    v24[1] = v14;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+    v23[0] = @"com.apple.shortcuts.systemContextualAction";
+    v23[1] = v14;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
     v16 = [v15 mutableCopy];
 
     if (v13)
@@ -43,10 +43,9 @@
     v19 = +[WFContextualActionFilteringBehavior matchAllFiles];
   }
 
-  LOBYTE(v23) = (type > 9) | (4u >> type) & 1;
-  v20 = [(WFContextualAction *)self initWithIdentifier:v17 wfActionIdentifier:0 type:0 correspondingSystemActionType:type associatedAppBundleIdentifier:0 resultFileOperation:1 alternate:v23 filteringBehavior:v19 parameters:0 displayString:stringCopy title:stringCopy subtitle:0 icon:0];
+  LOBYTE(v22) = (type > 9) | (4u >> type) & 1;
+  v20 = [(WFContextualAction *)self initWithIdentifier:v17 wfActionIdentifier:0 type:0 correspondingSystemActionType:type associatedAppBundleIdentifier:0 resultFileOperation:1 alternate:v22 filteringBehavior:v19 parameters:0 displayString:stringCopy title:stringCopy subtitle:0 icon:0];
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

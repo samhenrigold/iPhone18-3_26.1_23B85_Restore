@@ -103,10 +103,10 @@
 
 - (void)viewDidLoad
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = PSUIPerAppUsageListController;
-  [(PSUIPerAppUsageListController *)&v20 viewDidLoad];
+  v22 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = PSUIPerAppUsageListController;
+  [(PSUIPerAppUsageListController *)&v19 viewDidLoad];
   v3 = [*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FD20]) propertyForKey:*MEMORY[0x277D4D898]];
   self->_usageType = [v3 unsignedIntegerValue];
 
@@ -155,12 +155,11 @@
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = v17;
+    v21 = v17;
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "viewDidLoad, asking to calculate %@ usage.", buf, 0xCu);
   }
 
   [(PSUICellularUsageSchedulingGroup *)self->_schedulingGroup calculateUsageWithForcedRefresh:0];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -175,7 +174,7 @@
 
 - (id)specifiers
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (self->_usageType == 1 && (-[PSUISatelliteSubgroup specifiers](self->_satelliteSubgroup, "specifiers"), v4 = objc_claimAutoreleasedReturnValue(), [v3 addObjectsFromArray:v4], v4, +[SettingsCellularUtils satelliteDataPlanTier](SettingsCellularUtils, "satelliteDataPlanTier") <= 3))
   {
@@ -188,34 +187,34 @@
     specifiers = [(PSUICellularUsageSchedulingGroup *)self->_schedulingGroup specifiers];
     [v3 addObjectsFromArray:specifiers];
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v7 = v3;
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * i);
+          v12 = *(*(&v17 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v12 setHostController:{self, v18}];
+            [v12 setHostController:{self, v17}];
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v9);
@@ -235,7 +234,6 @@
   v14 = *v5;
   v15 = *v5;
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -291,33 +289,33 @@ void __57__PSUIPerAppUsageListController_reloadAfterDelayIfNeeded__block_invoke(
 
 - (BOOL)specifiersContainsSpinner
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) cellType] == 15)
+        if ([*(*(&v7 + 1) + 8 * i) cellType] == 15)
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -329,7 +327,6 @@ void __57__PSUIPerAppUsageListController_reloadAfterDelayIfNeeded__block_invoke(
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -398,26 +395,26 @@ LABEL_11:
 
 - (id)activeDataPlanLabel
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   planItems = [(PSUICellularPlanManagerCache *)self->_cellularPlanManagerCache planItems];
-  label = [planItems countByEnumeratingWithState:&v10 objects:v14 count:16];
+  label = [planItems countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (label)
   {
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != label; i = i + 1)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(planItems);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         if ([v6 isActiveDataPlan])
         {
           userLabel = [v6 userLabel];
@@ -427,7 +424,7 @@ LABEL_11:
         }
       }
 
-      label = [planItems countByEnumeratingWithState:&v10 objects:v14 count:16];
+      label = [planItems countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (label)
       {
         continue;
@@ -438,8 +435,6 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return label;
 }

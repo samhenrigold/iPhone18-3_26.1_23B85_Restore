@@ -1,6 +1,5 @@
 @interface SUSUISoftwareUpdateController
 + (SUSUISoftwareUpdateController)sharedInstance;
-- (BOOL)_badgingQueue_isBadgedForSoftwareUpdate;
 - (BOOL)_createAutoInstallKeybagWithPasscode:(id)passcode;
 - (BOOL)_doesStateContainNonInstallableReasons:(int64_t)reasons reasonsToCheck:(id)check outMatchingReasonsString:(id *)string;
 - (BOOL)_isMultiUserAppleId;
@@ -35,7 +34,6 @@
 - (void)_autoInstallOperationDidExpire:(id)expire withRepopStrategy:(unint64_t)strategy error:(id)error;
 - (void)_autoInstallOperationWasCancelled:(id)cancelled withRepopStrategy:(unint64_t)strategy;
 - (void)_badgingQueue_badgeSettingsWithValue:(int64_t)value;
-- (void)_badgingQueue_savePreferencesBadgeEnabled:(BOOL)enabled;
 - (void)_bootedAfterRollback:(id)rollback;
 - (void)_clearLegacyBadgeIfNecessary:(id)necessary;
 - (void)_createInstallTonightForecastWithResult:(id)result;
@@ -1993,7 +1991,6 @@
   location[0] = 0;
   objc_storeStrong(location, consent);
   dispatch_assert_queue_V2(selfCopy->_clientQueue);
-  scheduledTryTonightAutoInstallOperation = selfCopy->_scheduledTryTonightAutoInstallOperation;
   objc_storeStrong(location, 0);
 }
 
@@ -5255,38 +5252,23 @@ LABEL_14:
   objc_storeStrong(v9, 0);
 }
 
-- (BOOL)_badgingQueue_isBadgedForSoftwareUpdate
-{
-  badgingQueue = self->_badgingQueue;
-  BSDispatchQueueAssert();
-  return [(SUSUIExternalSettingsAppDefaults *)self->_settingsAppDefaults isBadgedForSoftwareUpdate];
-}
-
 - (void)_badgingQueue_badgeSettingsWithValue:(int64_t)value
 {
   selfCopy = self;
-  v7 = a2;
+  v6 = a2;
   valueCopy = value;
-  badgingQueue = self->_badgingQueue;
   BSDispatchQueueAssert();
-  v5 = [[NSNumber alloc] initWithInteger:valueCopy];
+  v4 = [[NSNumber alloc] initWithInteger:valueCopy];
   oslog = SUSUILog();
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    sub_1FCC(v9, v5);
-    _os_log_impl(&dword_0, oslog, OS_LOG_TYPE_DEFAULT, "[Settings Badge] Asking badgingQueue systemService to set badge value to %@", v9, 0xCu);
+    sub_1FCC(v8, v4);
+    _os_log_impl(&dword_0, oslog, OS_LOG_TYPE_DEFAULT, "[Settings Badge] Asking badgingQueue systemService to set badge value to %@", v8, 0xCu);
   }
 
   objc_storeStrong(&oslog, 0);
-  [(FBSSystemService *)selfCopy->_badgingQueue_systemService setBadgeValue:v5 forBundleID:SUSUISettingsBundleIdentifier];
-  objc_storeStrong(&v5, 0);
-}
-
-- (void)_badgingQueue_savePreferencesBadgeEnabled:(BOOL)enabled
-{
-  badgingQueue = self->_badgingQueue;
-  BSDispatchQueueAssert();
-  [(SUSUIExternalSettingsAppDefaults *)self->_settingsAppDefaults setBadgedForSoftwareUpdate:enabled];
+  [(FBSSystemService *)selfCopy->_badgingQueue_systemService setBadgeValue:v4 forBundleID:SUSUISettingsBundleIdentifier];
+  objc_storeStrong(&v4, 0);
 }
 
 - (BOOL)settingsForeground

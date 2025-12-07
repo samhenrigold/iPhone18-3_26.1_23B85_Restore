@@ -218,7 +218,7 @@ void __53__ICDelegateAccountStoreReader_tokenForUserIdentity___block_invoke_2(ui
   return v4;
 }
 
-uint64_t __59__ICDelegateAccountStoreReader_overestimatedNumberOfTokens__block_invoke(uint64_t a1, void *a2)
+void *__59__ICDelegateAccountStoreReader_overestimatedNumberOfTokens__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 firstInt64Value];
   *(*(*(a1 + 32) + 8) + 24) = result;

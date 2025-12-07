@@ -12,9 +12,9 @@
 - (CSAudioLatencyEstimatorClient)initWithActiveMessageClient:(id)client
 {
   clientCopy = client;
-  v28.receiver = self;
-  v28.super_class = CSAudioLatencyEstimatorClient;
-  v6 = [(CSAudioLatencyEstimatorClient *)&v28 init];
+  v29.receiver = self;
+  v29.super_class = CSAudioLatencyEstimatorClient;
+  v6 = [(CSAudioLatencyEstimatorClient *)&v29 init];
   v7 = v6;
   if (v6)
   {
@@ -32,32 +32,32 @@
     dispatchQueue = [activeMessageClient dispatchQueue];
     [(CUMessageSessionServer *)v12 setDispatchQueue:dispatchQueue];
 
-    v15 = ContinuitySingLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = ContinuitySingLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v27 = "[CSAudioLatencyEstimatorClient initWithActiveMessageClient:]";
-      _os_log_impl(&dword_2441FB000, v15, OS_LOG_TYPE_DEFAULT, "%s: Activate server", buf, 0xCu);
+      v28 = "[CSAudioLatencyEstimatorClient initWithActiveMessageClient:]";
+      _os_log_impl(&dword_2441FB000, v16, OS_LOG_TYPE_DEFAULT, "%s: Activate server", buf, 0xCu);
     }
 
     objc_initWeak(buf, v7);
-    v16 = v7->_server;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __61__CSAudioLatencyEstimatorClient_initWithActiveMessageClient___block_invoke;
-    v24[3] = &unk_278E0BF50;
-    objc_copyWeak(&v25, buf);
-    [(CUMessageSessionServer *)v16 setRegisterRequestHandler:v24];
     v17 = v7->_server;
-    v19 = MEMORY[0x277D85DD0];
-    v20 = 3221225472;
-    v21 = __61__CSAudioLatencyEstimatorClient_initWithActiveMessageClient___block_invoke_6;
-    v22 = &unk_278E0BF78;
-    objc_copyWeak(&v23, buf);
-    [(CUMessageSessionServer *)v17 setSendRequestHandler:&v19];
-    [(CUMessageSessionServer *)v7->_server activate:v19];
-    objc_destroyWeak(&v23);
-    objc_destroyWeak(&v25);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __61__CSAudioLatencyEstimatorClient_initWithActiveMessageClient___block_invoke;
+    v25[3] = &unk_278E0BF50;
+    objc_copyWeak(&v26, buf);
+    [(CUMessageSessionServer *)v17 setRegisterRequestHandler:v25];
+    v18 = v7->_server;
+    v20 = MEMORY[0x277D85DD0];
+    v21 = 3221225472;
+    v22 = __61__CSAudioLatencyEstimatorClient_initWithActiveMessageClient___block_invoke_6;
+    v23 = &unk_278E0BF78;
+    objc_copyWeak(&v24, buf);
+    [(CUMessageSessionServer *)v18 setSendRequestHandler:&v20];
+    [(CUMessageSessionServer *)v7->_server activate:v20];
+    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(buf);
   }
 
@@ -68,7 +68,7 @@ void __61__CSAudioLatencyEstimatorClient_initWithActiveMessageClient___block_inv
 {
   v6 = a2;
   v7 = a4;
-  v8 = ContinuitySingLog();
+  v8 = ContinuitySingLog(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -110,7 +110,7 @@ void __61__CSAudioLatencyEstimatorClient_initWithActiveMessageClient___block_inv
 {
   v7 = a3;
   v8 = a4;
-  v9 = ContinuitySingLog();
+  v9 = ContinuitySingLog(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = *(a1 + 32);
@@ -139,7 +139,7 @@ void __61__CSAudioLatencyEstimatorClient_initWithActiveMessageClient___block_inv
   v8 = a2;
   v9 = a5;
   v10 = a4;
-  v11 = ContinuitySingLog();
+  v11 = ContinuitySingLog(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -168,7 +168,7 @@ void __61__CSAudioLatencyEstimatorClient_initWithActiveMessageClient___block_inv
   v7 = a4;
   v8 = a3;
   v9 = a2;
-  v10 = ContinuitySingLog();
+  v10 = ContinuitySingLog(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = *(a1 + 32);
@@ -222,7 +222,7 @@ uint64_t __40__CSAudioLatencyEstimatorClient_dealloc__block_invoke(uint64_t a1)
 - (void)start:(id)start
 {
   startCopy = start;
-  v5 = ContinuitySingLog();
+  v5 = ContinuitySingLog(startCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -243,7 +243,7 @@ uint64_t __40__CSAudioLatencyEstimatorClient_dealloc__block_invoke(uint64_t a1)
 
 - (void)cancel
 {
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -266,38 +266,38 @@ uint64_t __40__CSAudioLatencyEstimatorClient_dealloc__block_invoke(uint64_t a1)
   estimatorQueue = [(CSAudioLatencyEstimatorClient *)self estimatorQueue];
   dispatch_assert_queue_V2(estimatorQueue);
 
-  v6 = ContinuitySingLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = ContinuitySingLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v21 = "[CSAudioLatencyEstimatorClient _start:]";
-    _os_log_impl(&dword_2441FB000, v6, OS_LOG_TYPE_DEFAULT, "%s: startAudioLatencyEstimator", buf, 0xCu);
+    v22 = "[CSAudioLatencyEstimatorClient _start:]";
+    _os_log_impl(&dword_2441FB000, v7, OS_LOG_TYPE_DEFAULT, "%s: startAudioLatencyEstimator", buf, 0xCu);
   }
 
   if (!self->_estimator)
   {
-    v7 = objc_alloc(MEMORY[0x277D6C488]);
+    v8 = objc_alloc(MEMORY[0x277D6C488]);
     server = [(CSAudioLatencyEstimatorClient *)self server];
     templateSession = [server templateSession];
-    v10 = [v7 initWithMessageSession:templateSession];
+    v11 = [v8 initWithMessageSession:templateSession];
     estimator = self->_estimator;
-    self->_estimator = v10;
+    self->_estimator = v11;
   }
 
   estimator = [(CSAudioLatencyEstimatorClient *)self estimator];
   [estimator activate];
   objc_initWeak(buf, self);
-  v14 = MEMORY[0x277D85DD0];
-  v15 = 3221225472;
-  v16 = __40__CSAudioLatencyEstimatorClient__start___block_invoke;
-  v17 = &unk_278E0BFA0;
-  objc_copyWeak(&v19, buf);
-  v13 = _startCopy;
-  v18 = v13;
-  [estimator setProgressEventHandler:&v14];
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __40__CSAudioLatencyEstimatorClient__start___block_invoke;
+  v18 = &unk_278E0BFA0;
+  objc_copyWeak(&v20, buf);
+  v14 = _startCopy;
+  v19 = v14;
+  [estimator setProgressEventHandler:&v15];
   [estimator estimate];
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(buf);
 }
 

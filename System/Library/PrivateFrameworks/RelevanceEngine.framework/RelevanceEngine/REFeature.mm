@@ -222,14 +222,12 @@
 
 - (id)featureByUsingTransformer:(id)transformer
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v3 = MEMORY[0x277CBEA60];
   transformerCopy = transformer;
   v5 = [v3 arrayWithObjects:&selfCopy count:1];
-  v6 = [REFeature transformedFeatureWithTransformer:transformerCopy features:v5, selfCopy, v10];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = [REFeature transformedFeatureWithTransformer:transformerCopy features:v5, selfCopy, v9];
 
   return v6;
 }

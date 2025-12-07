@@ -9,7 +9,7 @@
 {
   changedCopy = changed;
   selfCopy = self;
-  DOCFolderIconCustomizationApplicator.changed(_:for:)(changedCopy, for);
+  DOCFolderIconCustomizationApplicator.changed(_:for:)(changedCopy, for, v7);
 }
 
 - (_TtC26DocumentManagerExecutables36DOCFolderIconCustomizationApplicator)init

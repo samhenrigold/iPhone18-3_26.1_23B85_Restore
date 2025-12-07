@@ -18,9 +18,11 @@
 
 uint64_t __22__DOCUISession_shared__block_invoke()
 {
-  shared_session = objc_alloc_init(DOCUISession);
+  v0 = objc_alloc_init(DOCUISession);
+  v1 = shared_session;
+  shared_session = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UIWindow)anyWindowPreferingKeyWindow

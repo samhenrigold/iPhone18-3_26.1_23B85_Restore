@@ -58,18 +58,18 @@
   var1 = slot.var1;
   v5 = *&slot.var0;
   createInfo = [dialog createInfo];
-  v8 = createInfo;
+  v9 = createInfo;
   if (v5 >= 1 && var1)
   {
     [createInfo setSlot:{v5, var1}];
-    v9 = [(WBSTabDialogManager *)self _enqueueDialog:v8];
-    if (v9 == 1)
+    v10 = [(WBSTabDialogManager *)self _enqueueDialog:v9];
+    if (v10 == 1)
     {
-      [v8 presentIfNeeded];
+      [v9 presentIfNeeded];
       goto LABEL_9;
     }
 
-    if (v9)
+    if (v10)
     {
       goto LABEL_9;
     }
@@ -77,14 +77,14 @@
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXTabDialogs();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = WBS_LOG_CHANNEL_PREFIXTabDialogs(createInfo, v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      [(WBSTabDialogManager *)v10 enqueueOrPresentDialog:v5 inSlot:var1];
+      [(WBSTabDialogManager *)v11 enqueueOrPresentDialog:v5 inSlot:var1];
     }
   }
 
-  [v8 dismissWithResponse:0];
+  [v9 dismissWithResponse:0];
 LABEL_9:
 }
 

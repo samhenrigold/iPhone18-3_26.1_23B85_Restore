@@ -36,7 +36,7 @@
 
   selfCopy = self;
   sub_1BEE095C8(v6, v8, v5, v9);
-  sub_1BEB326F8(v5);
+  sub_1BEB326F8(v5, v9);
 }
 
 - (_TtC15SpringBoardHome37IconModelApplicationDataSourceAdapter)init

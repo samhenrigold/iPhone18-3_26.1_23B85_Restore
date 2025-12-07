@@ -85,7 +85,7 @@ uint64_t __41__HDCloudSyncIgnoredErrorsOperation_main__block_invoke(uint64_t a1,
 
 void __41__HDCloudSyncIgnoredErrorsOperation_main__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [a2 cloudState];
   [*(a1 + 32) setCloudState:v6];
@@ -95,16 +95,14 @@ void __41__HDCloudSyncIgnoredErrorsOperation_main__block_invoke_2(uint64_t a1, v
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Underlying operation failed with an ignored error: %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2114;
+    v12 = v5;
+    _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Underlying operation failed with an ignored error: %{public}@", &v9, 0x16u);
   }
 
   [*(a1 + 32) finishWithSuccess:1 error:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)skip

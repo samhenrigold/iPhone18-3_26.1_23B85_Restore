@@ -11,22 +11,21 @@
 
 - (void)_handleEvent:(id)event withUnknownIntervalName:(id)name
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   eventCopy = event;
   v8 = CPAnalyticsLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412290;
-    v13 = nameCopy;
-    _os_log_debug_impl(&dword_24260A000, v8, OS_LOG_TYPE_DEBUG, "Unknown interval: %@. Add this interval to 'interval' destination in CP Analytics config.", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = nameCopy;
+    _os_log_debug_impl(&dword_24260A000, v8, OS_LOG_TYPE_DEBUG, "Unknown interval: %@. Add this interval to 'interval' destination in CP Analytics config.", &v11, 0xCu);
   }
 
   cpAnalyticsInstance = [(CPAnalyticsDashboardDestination *)self cpAnalyticsInstance];
   copyRawPayload = [eventCopy copyRawPayload];
 
   [cpAnalyticsInstance sendEvent:@"com.apple.photos.CPAnalytics.unknownInterval" withPayload:copyRawPayload];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_intervalNamesForKey:(id)key inConfiguration:(id)configuration
@@ -121,7 +120,7 @@ id __69__CPAnalyticsIntervalDestination_sendDashboardIntervalEventForEvent___blo
 
 - (void)updateWithConfig:(id)config
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   configCopy = config;
   v5 = [(CPAnalyticsIntervalDestination *)self _intervalNamesForKey:@"trackIntervals" inConfiguration:configCopy];
   ignoredIntervalNames = [(CPAnalyticsIntervalDestination *)self ignoredIntervalNames];
@@ -150,9 +149,9 @@ id __69__CPAnalyticsIntervalDestination_sendDashboardIntervalEventForEvent___blo
     if (os_log_type_enabled(allObjects2, OS_LOG_TYPE_ERROR))
     {
       allObjects = [v8 allObjects];
-      v18 = 138412290;
-      v19 = allObjects;
-      _os_log_error_impl(&dword_24260A000, allObjects2, OS_LOG_TYPE_ERROR, "Ignored intervals names: %@ intersect with tracked interval names.", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = allObjects;
+      _os_log_error_impl(&dword_24260A000, allObjects2, OS_LOG_TYPE_ERROR, "Ignored intervals names: %@ intersect with tracked interval names.", &v17, 0xCu);
     }
 
     goto LABEL_7;
@@ -162,15 +161,13 @@ id __69__CPAnalyticsIntervalDestination_sendDashboardIntervalEventForEvent___blo
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     allObjects2 = [v5 allObjects];
-    v18 = 138412290;
-    v19 = allObjects2;
-    _os_log_error_impl(&dword_24260A000, v8, OS_LOG_TYPE_ERROR, "Tracked intervals names: %@ intersect with ignored interval names.", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = allObjects2;
+    _os_log_error_impl(&dword_24260A000, v8, OS_LOG_TYPE_ERROR, "Tracked intervals names: %@ intersect with ignored interval names.", &v17, 0xCu);
 LABEL_7:
   }
 
 LABEL_9:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (CPAnalyticsIntervalDestination)initWithConfig:(id)config cpAnalyticsInstance:(id)instance

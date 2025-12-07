@@ -91,42 +91,42 @@
   if (v30)
   {
     objc_storeStrong(&v30->_plans, plansCopy);
-    if ([plansCopy2 count] == 1)
+    v32 = [plansCopy2 count];
+    if (v32 == 1)
     {
-      v32 = [plansCopy2 objectAtIndexedSubscript:0];
-      if ([v32 activatingState] != 3)
+      v33 = [plansCopy2 objectAtIndexedSubscript:0];
+      if ([v33 activatingState] != 3)
       {
         v31->_postArrivalInstallation = 1;
       }
     }
 
-    v33 = _TSLogDomain();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v34 = _TSLogDomain(v32);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = v31->_homeIccid;
+      v35 = v31->_homeIccid;
       if (v31->_postArrivalInstallation)
       {
-        v35 = @"MAYBE";
+        v36 = @"MAYBE";
       }
 
       else
       {
-        v35 = @"NO";
+        v36 = @"NO";
       }
 
       *buf = 138412802;
-      v40 = v34;
+      v40 = v35;
       v41 = 2112;
-      v42 = v35;
+      v42 = v36;
       v43 = 2080;
       v44 = "[TSTravelBuddyViewController initWithPlans:homeIccid:]";
-      _os_log_impl(&dword_262AA8000, v33, OS_LOG_TYPE_DEFAULT, "home eSIM iccid (%@) post arrival installation (%@) @%s", buf, 0x20u);
+      _os_log_impl(&dword_262AA8000, v34, OS_LOG_TYPE_DEFAULT, "home eSIM iccid (%@) post arrival installation (%@) @%s", buf, 0x20u);
     }
   }
 
   [(CoreTelephonyClient *)v31->_client setDelegate:v31];
 
-  v36 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
@@ -177,8 +177,8 @@
     objc_storeStrong(&v26->_homeIccid, iccid);
     objc_storeStrong(&v26->_voiceIccid, voiceIccid);
     v26->_postArrivalInstallation = installation;
-    v27 = _TSLogDomain();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v28 = _TSLogDomain(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       travelIccid = v26->_travelIccid;
       homeIccid = v26->_homeIccid;
@@ -191,13 +191,12 @@
       voiceIccidCopy2 = voiceIccid;
       v42 = 2080;
       v43 = "[TSTravelBuddyViewController initWithIccids:homeIccid:voiceIccid:postArrivalInstallation:]";
-      _os_log_impl(&dword_262AA8000, v27, OS_LOG_TYPE_DEFAULT, "travel eSIM iccid (%@) home eSIM iccid (%@) default voice iccid (%@) @%s", buf, 0x2Au);
+      _os_log_impl(&dword_262AA8000, v28, OS_LOG_TYPE_DEFAULT, "travel eSIM iccid (%@) home eSIM iccid (%@) default voice iccid (%@) @%s", buf, 0x2Au);
     }
   }
 
   [(CoreTelephonyClient *)v26->_client setDelegate:v26];
 
-  v31 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -207,7 +206,7 @@
   prepareCopy = prepare;
   if (_os_feature_enabled_impl())
   {
-    if (self->_postArrivalInstallation || ![(NSString *)self->_travelIccid length])
+    if (self->_postArrivalInstallation || (v5 = [(NSString *)self->_travelIccid length]) == 0)
     {
       objc_initWeak(buf, self);
       v7[0] = MEMORY[0x277D85DD0];
@@ -224,12 +223,12 @@
 
     else
     {
-      v5 = _TSLogDomain();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = _TSLogDomain(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
         v11 = "[TSTravelBuddyViewController prepare:]";
-        _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "Showing travel buddy pane from post arrival notification @%s", buf, 0xCu);
+        _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "Showing travel buddy pane from post arrival notification @%s", buf, 0xCu);
       }
 
       (*(prepareCopy + 2))(prepareCopy, 1);
@@ -240,14 +239,13 @@
   {
     (*(prepareCopy + 2))(prepareCopy, 0);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __39__TSTravelBuddyViewController_prepare___block_invoke(uint64_t a1, char a2)
 {
   v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (!WeakRetained)
   {
 LABEL_8:
@@ -257,12 +255,12 @@ LABEL_8:
 
   if ((a2 & 1) == 0)
   {
-    v5 = _TSLogDomain();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _TSLogDomain(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v10 = "[TSTravelBuddyViewController prepare:]_block_invoke";
-      _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "Skip showing travel buddy pane @%s", buf, 0xCu);
+      _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "Skip showing travel buddy pane @%s", buf, 0xCu);
     }
 
     goto LABEL_8;
@@ -279,19 +277,17 @@ LABEL_8:
   }
 
 LABEL_9:
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)backToCurrentTopPane
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = _TSLogDomain();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = _TSLogDomain(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[TSTravelBuddyViewController backToCurrentTopPane]";
-    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "Resetting didUserClickContinue @%s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[TSTravelBuddyViewController backToCurrentTopPane]";
+    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "Resetting didUserClickContinue @%s", &v5, 0xCu);
   }
 
   delegate = [(CoreTelephonyClient *)self->_client delegate];
@@ -306,7 +302,6 @@ LABEL_9:
   [(OBBoldTrayButton *)self->_continueButton setEnabled:1];
   [(OBLinkTrayButton *)self->_laterButton setEnabled:1];
   [(OBWelcomeController *)self _hideButtonTraySpinner];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidLoad
@@ -557,18 +552,19 @@ LABEL_23:
     goto LABEL_10;
   }
 
-  if ([pathCopy section])
+  section = [pathCopy section];
+  if (section)
   {
     self->_travelOnlySelected = 0;
     self->_isSubTextSelected = 0;
-    v6 = _TSLogDomain();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _TSLogDomain(section);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 136315138;
       *&v9[4] = "[TSTravelBuddyViewController tableView:didSelectRowAtIndexPath:]";
-      v7 = "User chose to keep travel & home SIMs. @%s";
+      v8 = "User chose to keep travel & home SIMs. @%s";
 LABEL_8:
-      _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, v7, v9, 0xCu);
+      _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, v8, v9, 0xCu);
     }
   }
 
@@ -576,12 +572,12 @@ LABEL_8:
   {
     self->_travelOnlySelected = 1;
     self->_isSubTextSelected = 0;
-    v6 = _TSLogDomain();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _TSLogDomain(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 136315138;
       *&v9[4] = "[TSTravelBuddyViewController tableView:didSelectRowAtIndexPath:]";
-      v7 = "User chose to keep travel SIM only. @%s";
+      v8 = "User chose to keep travel SIM only. @%s";
       goto LABEL_8;
     }
   }
@@ -593,9 +589,7 @@ LABEL_10:
     [(SSOBBoldTrayButton *)self->_continueButton setUserInteractionEnabled:1];
   }
 
-  [(TSTravelBuddyViewController *)self _refreshTableView];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(TSTravelBuddyViewController *)self _refreshTableView:*v9];
 }
 
 - (id)tableView:(id)view viewForHeaderInSection:(int64_t)section
@@ -608,116 +602,114 @@ LABEL_10:
 
 - (void)subscriptionInfoDidChange
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v3 = _TSLogDomain();
+  v38 = *MEMORY[0x277D85DE8];
+  v3 = _TSLogDomain(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v32 = "[TSTravelBuddyViewController subscriptionInfoDidChange]";
+    v34 = "[TSTravelBuddyViewController subscriptionInfoDidChange]";
     _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "subscriptionInfoDidChange @%s", buf, 0xCu);
   }
 
   if (self->_didUserClickContinue)
   {
     mEMORY[0x277CF96D8] = [MEMORY[0x277CF96D8] sharedManager];
-    v5 = [mEMORY[0x277CF96D8] planItemsShouldUpdate:0];
+    v6 = [mEMORY[0x277CF96D8] planItemsShouldUpdate:0];
     planItems = self->_planItems;
-    self->_planItems = v5;
+    self->_planItems = v6;
 
+    v31 = 0u;
+    v32 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v7 = self->_planItems;
-    v8 = 0;
-    v9 = [(NSArray *)v7 countByEnumeratingWithState:&v27 objects:v35 count:16];
-    if (v9)
+    v8 = self->_planItems;
+    v9 = 0;
+    v10 = [(NSArray *)v8 countByEnumeratingWithState:&v29 objects:v37 count:16];
+    if (v10)
     {
-      v11 = *v28;
-      *&v10 = 138412546;
-      v23 = v10;
+      v12 = *v30;
+      *&v11 = 138412546;
+      v25 = v11;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v28 != v11)
+          if (*v30 != v12)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v27 + 1) + 8 * i);
-          if ([v13 isSelected])
+          v14 = *(*(&v29 + 1) + 8 * i);
+          if ([v14 isSelected])
           {
-            iccid = [v13 iccid];
-            v15 = [iccid isEqualToString:self->_travelIccid];
+            iccid = [v14 iccid];
+            v16 = [iccid isEqualToString:self->_travelIccid];
 
-            if (v15)
+            if (v16)
             {
-              v16 = _TSLogDomain();
-              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+              v18 = _TSLogDomain(v17);
+              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
               {
-                *buf = v23;
-                v32 = v13;
-                v33 = 2080;
-                v34 = "[TSTravelBuddyViewController subscriptionInfoDidChange]";
-                _os_log_impl(&dword_262AA8000, v16, OS_LOG_TYPE_DEFAULT, "Set plan item to (%@) @%s", buf, 0x16u);
+                *buf = v25;
+                v34 = v14;
+                v35 = 2080;
+                v36 = "[TSTravelBuddyViewController subscriptionInfoDidChange]";
+                _os_log_impl(&dword_262AA8000, v18, OS_LOG_TYPE_DEFAULT, "Set plan item to (%@) @%s", buf, 0x16u);
               }
 
-              v17 = v13;
-              v8 = v17;
+              v19 = v14;
+              v9 = v19;
             }
           }
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
 
-    v18 = +[TSCellularPlanManagerCache sharedInstance];
-    v19 = [v18 getSubscriptionContextUUIDforPlan:v8];
+    v20 = +[TSCellularPlanManagerCache sharedInstance];
+    v21 = [v20 getSubscriptionContextUUIDforPlan:v9];
 
-    if (v19)
+    if (v21)
     {
       objc_initWeak(buf, self);
-      v20 = +[TSCoreTelephonyClientCache sharedInstance];
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __56__TSTravelBuddyViewController_subscriptionInfoDidChange__block_invoke;
-      v24[3] = &unk_279B44D18;
-      objc_copyWeak(&v26, buf);
-      v25 = v19;
-      [v20 getSubscriptionInfo:v24];
+      v23 = +[TSCoreTelephonyClientCache sharedInstance];
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __56__TSTravelBuddyViewController_subscriptionInfoDidChange__block_invoke;
+      v26[3] = &unk_279B44D18;
+      objc_copyWeak(&v28, buf);
+      v27 = v21;
+      [v23 getSubscriptionInfo:v26];
 
-      objc_destroyWeak(&v26);
+      objc_destroyWeak(&v28);
       objc_destroyWeak(buf);
     }
 
     else
     {
-      v21 = _TSLogDomain();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v24 = _TSLogDomain(v22);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v32 = "[TSTravelBuddyViewController subscriptionInfoDidChange]";
-        _os_log_impl(&dword_262AA8000, v21, OS_LOG_TYPE_DEFAULT, "Subscription context UUID is not ready, continue waiting... @%s", buf, 0xCu);
+        v34 = "[TSTravelBuddyViewController subscriptionInfoDidChange]";
+        _os_log_impl(&dword_262AA8000, v24, OS_LOG_TYPE_DEFAULT, "Subscription context UUID is not ready, continue waiting... @%s", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v8 = _TSLogDomain();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _TSLogDomain(v4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v32 = "[TSTravelBuddyViewController subscriptionInfoDidChange]";
-      _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "Wait until user makes a decision @%s", buf, 0xCu);
+      v34 = "[TSTravelBuddyViewController subscriptionInfoDidChange]";
+      _os_log_impl(&dword_262AA8000, v9, OS_LOG_TYPE_DEFAULT, "Wait until user makes a decision @%s", buf, 0xCu);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __56__TSTravelBuddyViewController_subscriptionInfoDidChange__block_invoke(uint64_t a1, void *a2)
@@ -752,15 +744,15 @@ void __56__TSTravelBuddyViewController_subscriptionInfoDidChange__block_invoke(u
 
           if (v12)
           {
-            v13 = _TSLogDomain();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+            v14 = _TSLogDomain(v13);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
-              v14 = WeakRetained[166];
+              v15 = WeakRetained[166];
               *buf = 138412546;
-              v28 = v14;
+              v28 = v15;
               v29 = 2080;
               v30 = "[TSTravelBuddyViewController subscriptionInfoDidChange]_block_invoke";
-              _os_log_impl(&dword_262AA8000, v13, OS_LOG_TYPE_DEFAULT, "Found subscription context for (%@) @%s", buf, 0x16u);
+              _os_log_impl(&dword_262AA8000, v14, OS_LOG_TYPE_DEFAULT, "Found subscription context for (%@) @%s", buf, 0x16u);
             }
 
             [WeakRetained _dismissViewController];
@@ -781,16 +773,14 @@ void __56__TSTravelBuddyViewController_subscriptionInfoDidChange__block_invoke(u
 
   else
   {
-    v5 = _TSLogDomain();
+    v5 = _TSLogDomain(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __56__TSTravelBuddyViewController_subscriptionInfoDidChange__block_invoke_cold_1(v5, v15, v16, v17, v18, v19, v20, v21);
+      __56__TSTravelBuddyViewController_subscriptionInfoDidChange__block_invoke_cold_1(v5, v16, v17, v18, v19, v20, v21, v22);
     }
   }
 
 LABEL_16:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dismissViewController
@@ -882,33 +872,33 @@ LABEL_16:
 
 - (void)_continueButtonTapped:(id)tapped
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   tappedCopy = tapped;
   self->_didUserClickContinue = 1;
-  v36 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v37 = objc_alloc_init(MEMORY[0x277CBEB18]);
   [(NSString *)self->_travelIccid isEqualToString:self->_voiceIccid];
-  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
   obj = self->_planItems;
-  v4 = [(NSArray *)obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+  v4 = [(NSArray *)obj countByEnumeratingWithState:&v45 objects:v53 count:16];
   if (v4)
   {
-    v39 = 0;
     v40 = 0;
-    v38 = 0;
-    v5 = *v45;
+    v41 = 0;
+    v39 = 0;
+    v5 = *v46;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v45 != v5)
+        if (*v46 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v44 + 1) + 8 * i);
+        v7 = *(*(&v45 + 1) + 8 * i);
         iccid = [v7 iccid];
         v9 = [iccid isEqualToString:self->_voiceIccid];
 
@@ -916,7 +906,7 @@ LABEL_16:
         {
           v10 = v7;
 
-          v38 = v10;
+          v39 = v10;
         }
 
         iccid2 = [v7 iccid];
@@ -926,7 +916,7 @@ LABEL_16:
         {
           v13 = v7;
 
-          v40 = v13;
+          v41 = v13;
         }
 
         iccid3 = [v7 iccid];
@@ -936,16 +926,16 @@ LABEL_16:
         {
           v16 = v7;
 
-          v39 = v16;
+          v40 = v16;
         }
 
         if ([v7 isSelected])
         {
-          [v36 addObject:v7];
+          [v37 addObject:v7];
         }
       }
 
-      v4 = [(NSArray *)obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+      v4 = [(NSArray *)obj countByEnumeratingWithState:&v45 objects:v53 count:16];
     }
 
     while (v4);
@@ -953,28 +943,27 @@ LABEL_16:
 
   else
   {
-    v39 = 0;
     v40 = 0;
-    v38 = 0;
+    v41 = 0;
+    v39 = 0;
   }
 
   v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  [v17 addObject:v40];
-  if (!self->_travelOnlySelected && v39)
+  [v17 addObject:v41];
+  if (!self->_travelOnlySelected && v40)
   {
-    [v17 addObject:v39];
+    [v17 addObject:v40];
   }
 
   if ([v17 count])
   {
-    [(OBWelcomeController *)self _showButtonTraySpinnerWithBusyText:@" "];
-    v18 = _TSLogDomain();
+    v18 = _TSLogDomain([(OBWelcomeController *)self _showButtonTraySpinnerWithBusyText:@" "]);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v49 = v17;
-      v50 = 2080;
-      v51 = "[TSTravelBuddyViewController _continueButtonTapped:]";
+      v50 = v17;
+      v51 = 2080;
+      v52 = "[TSTravelBuddyViewController _continueButtonTapped:]";
       _os_log_impl(&dword_262AA8000, v18, OS_LOG_TYPE_DEFAULT, "selectedItems %@ @%s", buf, 0x16u);
     }
 
@@ -983,24 +972,24 @@ LABEL_16:
 
     if (delegate2)
     {
-      v21 = _TSLogDomain();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v22 = _TSLogDomain(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        [(TSTravelBuddyViewController *)v17 _continueButtonTapped:delegate2, v21];
+        [(TSTravelBuddyViewController *)v17 _continueButtonTapped:delegate2, v22];
       }
     }
 
-    v22 = +[TSCellularPlanManagerCache sharedInstance];
-    [v22 selectPlanForVoice:v38];
-    [v22 selectPlanForData:v40];
+    v23 = +[TSCellularPlanManagerCache sharedInstance];
+    [v23 selectPlanForVoice:v39];
+    v24 = [v23 selectPlanForData:v41];
     if (self->_backFromNextPane && self->_prevTravelOnlySelection == self->_travelOnlySelected)
     {
-      v23 = _TSLogDomain();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v25 = _TSLogDomain(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v49 = "[TSTravelBuddyViewController _continueButtonTapped:]";
-        _os_log_impl(&dword_262AA8000, v23, OS_LOG_TYPE_DEFAULT, "Same selection after tapping back from low data mode pane. @%s", buf, 0xCu);
+        v50 = "[TSTravelBuddyViewController _continueButtonTapped:]";
+        _os_log_impl(&dword_262AA8000, v25, OS_LOG_TYPE_DEFAULT, "Same selection after tapping back from low data mode pane. @%s", buf, 0xCu);
       }
 
       delegate = [(TSTravelBuddyViewController *)self delegate];
@@ -1012,13 +1001,13 @@ LABEL_16:
       if (self->_isTravelSIMOnPhySlot)
       {
         objc_initWeak(buf, self);
-        v42[0] = MEMORY[0x277D85DD0];
-        v42[1] = 3221225472;
-        v42[2] = __53__TSTravelBuddyViewController__continueButtonTapped___block_invoke;
-        v42[3] = &unk_279B44D40;
-        objc_copyWeak(&v43, buf);
-        [(TSTravelBuddyViewController *)self _isSubscriptionReadyForTravel4FF:v42];
-        objc_destroyWeak(&v43);
+        v43[0] = MEMORY[0x277D85DD0];
+        v43[1] = 3221225472;
+        v43[2] = __53__TSTravelBuddyViewController__continueButtonTapped___block_invoke;
+        v43[3] = &unk_279B44D40;
+        objc_copyWeak(&v44, buf);
+        [(TSTravelBuddyViewController *)self _isSubscriptionReadyForTravel4FF:v43];
+        objc_destroyWeak(&v44);
         objc_destroyWeak(buf);
       }
 
@@ -1033,55 +1022,52 @@ LABEL_16:
 
   else
   {
-    v25 = _TSLogDomain();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v27 = _TSLogDomain(0);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      [(TSTravelBuddyViewController *)v25 _continueButtonTapped:v26, v27, v28, v29, v30, v31, v32];
+      [(TSTravelBuddyViewController *)v27 _continueButtonTapped:v28, v29, v30, v31, v32, v33, v34];
     }
 
     delegate2 = [(TSTravelBuddyViewController *)self delegate];
     [delegate2 viewControllerDidComplete:self];
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __53__TSTravelBuddyViewController__continueButtonTapped___block_invoke(uint64_t a1, int a2)
 {
   v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
     if (a2)
     {
-      v4 = _TSLogDomain();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = _TSLogDomain(WeakRetained);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v5 = WeakRetained[166];
+        v6 = v4[166];
         v15 = 138412546;
-        v16 = v5;
+        v16 = v6;
         v17 = 2080;
         v18 = "[TSTravelBuddyViewController _continueButtonTapped:]_block_invoke";
-        _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "Subscription context for travel 4FF (%@) is ready. @%s", &v15, 0x16u);
+        _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "Subscription context for travel 4FF (%@) is ready. @%s", &v15, 0x16u);
       }
 
-      [WeakRetained _dismissViewController];
+      [v4 _dismissViewController];
     }
   }
 
   else
   {
-    v6 = _TSLogDomain();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _TSLogDomain(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __53__TSTravelBuddyViewController__continueButtonTapped___block_invoke_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+      __53__TSTravelBuddyViewController__continueButtonTapped___block_invoke_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __53__TSTravelBuddyViewController__continueButtonTapped___block_invoke_116(uint64_t a1)
+void *__53__TSTravelBuddyViewController__continueButtonTapped___block_invoke_116(uint64_t a1)
 {
   [*(*(a1 + 32) + 1392) setEnabled:0];
   result = [*(*(a1 + 32) + 1400) setEnabled:0];
@@ -1091,7 +1077,7 @@ uint64_t __53__TSTravelBuddyViewController__continueButtonTapped___block_invoke_
 
 - (id)_getPlanItemsToLimitService:(id)service
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v5 = serviceCopy;
   if (self->_travelOnlySelected)
@@ -1102,40 +1088,40 @@ uint64_t __53__TSTravelBuddyViewController__continueButtonTapped___block_invoke_
   else if ([serviceCopy count] == 2)
   {
     v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v18 = v7;
-      v11 = *v20;
+      v17 = v7;
+      v11 = *v19;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * i);
+          v13 = *(*(&v18 + 1) + 8 * i);
           iccid = [v13 iccid];
           v15 = [iccid isEqualToString:self->_homeIccid];
 
           if (v15)
           {
-            v7 = v18;
-            [v18 addObject:v13];
-            v6 = v18;
+            v7 = v17;
+            [v17 addObject:v13];
+            v6 = v17;
             goto LABEL_16;
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v10)
         {
           continue;
@@ -1145,7 +1131,7 @@ uint64_t __53__TSTravelBuddyViewController__continueButtonTapped___block_invoke_
       }
 
       v6 = 0;
-      v7 = v18;
+      v7 = v17;
     }
 
     else
@@ -1161,8 +1147,6 @@ LABEL_16:
     v6 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
@@ -1176,20 +1160,21 @@ LABEL_16:
 {
   location[3] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  if ([(NSArray *)self->_plans count]== 1)
+  v5 = [(NSArray *)self->_plans count];
+  if (v5 == 1)
   {
-    v5 = [(NSArray *)self->_plans objectAtIndexedSubscript:0];
+    v6 = [(NSArray *)self->_plans objectAtIndexedSubscript:0];
     objc_initWeak(location, self);
     client = self->_client;
-    targetIccid = [v5 targetIccid];
+    targetIccid = [v6 targetIccid];
     v11[0] = MEMORY[0x277D85DD0];
     v11[1] = 3221225472;
     v11[2] = __65__TSTravelBuddyViewController__getTraveleSIMStateWithCompletion___block_invoke;
     v11[3] = &unk_279B44D68;
     objc_copyWeak(&v14, location);
     v13 = completionCopy;
-    v8 = v5;
-    v12 = v8;
+    v9 = v6;
+    v12 = v9;
     [(CoreTelephonyClient *)client getTravelInfoForIccid:targetIccid completion:v11];
 
     objc_destroyWeak(&v14);
@@ -1198,41 +1183,40 @@ LABEL_16:
 
   else
   {
-    v9 = _TSLogDomain();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _TSLogDomain(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(location[0]) = 136315138;
       *(location + 4) = "[TSTravelBuddyViewController _getTraveleSIMStateWithCompletion:]";
-      _os_log_impl(&dword_262AA8000, v9, OS_LOG_TYPE_DEFAULT, "Not a single SIM installation. @%s", location, 0xCu);
+      _os_log_impl(&dword_262AA8000, v10, OS_LOG_TYPE_DEFAULT, "Not a single SIM installation. @%s", location, 0xCu);
     }
 
     (*(completionCopy + 2))(completionCopy, 0);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __65__TSTravelBuddyViewController__getTraveleSIMStateWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v5 = WeakRetained;
   if (!WeakRetained)
   {
     goto LABEL_19;
   }
 
-  v5 = _TSLogDomain();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _TSLogDomain(WeakRetained);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [*(a1 + 32) targetIccid];
-    v22 = 138412802;
-    v23 = v6;
-    v24 = 2112;
-    v25 = v3;
-    v26 = 2080;
-    v27 = "[TSTravelBuddyViewController _getTraveleSIMStateWithCompletion:]_block_invoke";
-    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "CTPlanTravelDetails for %@: %@ @%s", &v22, 0x20u);
+    v7 = [*(a1 + 32) targetIccid];
+    v23 = 138412802;
+    v24 = v7;
+    v25 = 2112;
+    v26 = v3;
+    v27 = 2080;
+    v28 = "[TSTravelBuddyViewController _getTraveleSIMStateWithCompletion:]_block_invoke";
+    _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "CTPlanTravelDetails for %@: %@ @%s", &v23, 0x20u);
   }
 
   if (([v3 isTraveleSIM] & 1) == 0 || (objc_msgSend(v3, "isUserTraveling") & 1) == 0)
@@ -1242,91 +1226,89 @@ void __65__TSTravelBuddyViewController__getTraveleSIMStateWithCompletion___block
 
   if (![TSUtilities numActivePlansOnDeviceExcept:0])
   {
-    v10 = _TSLogDomain();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _TSLogDomain(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 136315138;
-      v23 = "[TSTravelBuddyViewController _getTraveleSIMStateWithCompletion:]_block_invoke";
-      v11 = "Travel eSIM is installed while abroad and it's the only SIM @%s";
+      v23 = 136315138;
+      v24 = "[TSTravelBuddyViewController _getTraveleSIMStateWithCompletion:]_block_invoke";
+      v12 = "Travel eSIM is installed while abroad and it's the only SIM @%s";
 LABEL_17:
-      _os_log_impl(&dword_262AA8000, v10, OS_LOG_TYPE_DEFAULT, v11, &v22, 0xCu);
+      _os_log_impl(&dword_262AA8000, v11, OS_LOG_TYPE_DEFAULT, v12, &v23, 0xCu);
     }
 
 LABEL_18:
 
 LABEL_19:
-    v17 = *(*(a1 + 40) + 16);
+    v18 = *(*(a1 + 40) + 16);
     goto LABEL_20;
   }
 
-  v7 = [v3 isDataOnly];
-  if (v7)
+  v8 = [v3 isDataOnly];
+  if (v8)
   {
-    v8 = [v3 isDataOnly];
-    v9 = (a1 + 32);
-    [*(a1 + 32) setIsDataOnly:{objc_msgSend(v8, "BOOLValue")}];
+    v9 = [v3 isDataOnly];
+    v10 = (a1 + 32);
+    [*(a1 + 32) setIsDataOnly:{objc_msgSend(v9, "BOOLValue")}];
   }
 
   else
   {
-    v9 = (a1 + 32);
+    v10 = (a1 + 32);
     [*(a1 + 32) setIsDataOnly:0];
   }
 
-  if (![WeakRetained[167] length])
+  if (![*(v5 + 167) length])
   {
-    v10 = _TSLogDomain();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _TSLogDomain(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 136315138;
-      v23 = "[TSTravelBuddyViewController _getTraveleSIMStateWithCompletion:]_block_invoke";
-      v11 = "Default voice iccid is not set. @%s";
+      v23 = 136315138;
+      v24 = "[TSTravelBuddyViewController _getTraveleSIMStateWithCompletion:]_block_invoke";
+      v12 = "Default voice iccid is not set. @%s";
       goto LABEL_17;
     }
 
     goto LABEL_18;
   }
 
-  v12 = [*v9 targetIccid];
-  v13 = WeakRetained[166];
-  WeakRetained[166] = v12;
+  v13 = [*v10 targetIccid];
+  v14 = *(v5 + 166);
+  *(v5 + 166) = v13;
 
-  v14 = [*v9 isDataOnly];
-  v15 = v14;
-  if (v14)
+  v15 = [*v10 isDataOnly];
+  v16 = v15;
+  if (v15)
   {
-    v16 = WeakRetained[167];
+    v17 = *(v5 + 167);
   }
 
   else
   {
-    v16 = [*v9 targetIccid];
+    v17 = [*v10 targetIccid];
   }
 
-  objc_storeStrong(WeakRetained + 168, v16);
-  if ((v15 & 1) == 0)
+  objc_storeStrong(v5 + 168, v17);
+  if ((v16 & 1) == 0)
   {
   }
 
-  v19 = _TSLogDomain();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = _TSLogDomain(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = WeakRetained[166];
-    v21 = WeakRetained[168];
-    v22 = 138412802;
-    v23 = v20;
-    v24 = 2112;
-    v25 = v21;
-    v26 = 2080;
-    v27 = "[TSTravelBuddyViewController _getTraveleSIMStateWithCompletion:]_block_invoke";
-    _os_log_impl(&dword_262AA8000, v19, OS_LOG_TYPE_DEFAULT, "travelIccid (%@) voiceIccid (%@) @%s", &v22, 0x20u);
+    v21 = *(v5 + 166);
+    v22 = *(v5 + 168);
+    v23 = 138412802;
+    v24 = v21;
+    v25 = 2112;
+    v26 = v22;
+    v27 = 2080;
+    v28 = "[TSTravelBuddyViewController _getTraveleSIMStateWithCompletion:]_block_invoke";
+    _os_log_impl(&dword_262AA8000, v20, OS_LOG_TYPE_DEFAULT, "travelIccid (%@) voiceIccid (%@) @%s", &v23, 0x20u);
   }
 
-  v17 = *(*(a1 + 40) + 16);
+  v18 = *(*(a1 + 40) + 16);
 LABEL_20:
-  v17();
-
-  v18 = *MEMORY[0x277D85DE8];
+  v18();
 }
 
 - (BOOL)_isPlanRegisteredForIMessage:(id)message
@@ -1366,7 +1348,7 @@ LABEL_20:
 
             if (v14)
             {
-              v7 = _TSLogDomain();
+              v7 = _TSLogDomain(v15);
               if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
@@ -1395,10 +1377,10 @@ LABEL_20:
 
   else
   {
-    accounts = _TSLogDomain();
+    accounts = _TSLogDomain(0);
     if (os_log_type_enabled(accounts, OS_LOG_TYPE_ERROR))
     {
-      [(TSTravelBuddyViewController *)accounts _isPlanRegisteredForIMessage:v15, v16, v17, v18, v19, v20, v21];
+      [(TSTravelBuddyViewController *)accounts _isPlanRegisteredForIMessage:v16, v17, v18, v19, v20, v21, v22];
     }
 
     LOBYTE(v7) = 0;
@@ -1406,13 +1388,12 @@ LABEL_20:
 
 LABEL_18:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)_getDetailsTextWithIccid:(id)iccid
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   iccidCopy = iccid;
   v5 = [TSUtilities getCellularPlanItem:self->_planItems withIccid:iccidCopy];
   v6 = v5;
@@ -1426,31 +1407,31 @@ LABEL_18:
     homeIccidCarrierName = self->_homeIccidCarrierName;
     self->_homeIccidCarrierName = name;
 
-    v43 = v6;
+    v44 = v6;
     objc_storeStrong(&self->_homeIccidPlanItem, v6);
-    v46 = 0u;
     v47 = 0u;
-    v44 = 0u;
+    v48 = 0u;
     v45 = 0u;
+    v46 = 0u;
     v11 = self->_planItems;
-    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v44 objects:v52 count:16];
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v45 objects:v53 count:16];
     if (!v12)
     {
       goto LABEL_18;
     }
 
     v13 = v12;
-    v14 = *v45;
+    v14 = *v46;
     while (1)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v45 != v14)
+        if (*v46 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v44 + 1) + 8 * i);
+        v16 = *(*(&v45 + 1) + 8 * i);
         iccid = [v16 iccid];
         v18 = [iccid isEqualToString:iccidCopy];
 
@@ -1461,19 +1442,19 @@ LABEL_18:
 
           if (v20)
           {
-            v21 = _TSLogDomain();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+            v22 = _TSLogDomain(v21);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v49 = v16;
-              v50 = 2080;
-              v51 = "[TSTravelBuddyViewController _getDetailsTextWithIccid:]";
-              _os_log_impl(&dword_262AA8000, v21, OS_LOG_TYPE_DEFAULT, "Setting _travelIccidPlanItem (%@) @%s", buf, 0x16u);
+              v50 = v16;
+              v51 = 2080;
+              v52 = "[TSTravelBuddyViewController _getDetailsTextWithIccid:]";
+              _os_log_impl(&dword_262AA8000, v22, OS_LOG_TYPE_DEFAULT, "Setting _travelIccidPlanItem (%@) @%s", buf, 0x16u);
             }
 
-            v22 = v16;
+            v23 = v16;
             travelIccidPlanItem = self->_travelIccidPlanItem;
-            self->_travelIccidPlanItem = v22;
+            self->_travelIccidPlanItem = v23;
 LABEL_12:
 
             continue;
@@ -1491,11 +1472,11 @@ LABEL_12:
             self->_secondHomeIccidCarrierName = name2;
 
             objc_storeStrong(&self->_secondHomeIccidPlanItem, v16);
-            travelIccidPlanItem = _TSLogDomain();
+            travelIccidPlanItem = _TSLogDomain(v29);
             if (os_log_type_enabled(travelIccidPlanItem, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315138;
-              v49 = "[TSTravelBuddyViewController _getDetailsTextWithIccid:]";
+              v50 = "[TSTravelBuddyViewController _getDetailsTextWithIccid:]";
               _os_log_impl(&dword_262AA8000, travelIccidPlanItem, OS_LOG_TYPE_DEFAULT, "User is in dual SIM config (non travel SIM) @%s", buf, 0xCu);
             }
 
@@ -1504,44 +1485,42 @@ LABEL_12:
         }
       }
 
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v44 objects:v52 count:16];
+      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v45 objects:v53 count:16];
       if (!v13)
       {
 LABEL_18:
 
         isTravelSIMOnPhySlot = self->_isTravelSIMOnPhySlot;
-        v29 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v30 = v29;
+        v31 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v32 = v31;
         if (isTravelSIMOnPhySlot)
         {
-          v31 = @"TRAVEL_PSIM_SETUP_COMPLETE_ABROAD_DETAILS_NO_INFO";
+          v33 = @"TRAVEL_PSIM_SETUP_COMPLETE_ABROAD_DETAILS_NO_INFO";
         }
 
         else
         {
-          v31 = @"TRAVEL_ESIM_SETUP_COMPLETE_ABROAD_DETAILS_NO_INFO";
+          v33 = @"TRAVEL_ESIM_SETUP_COMPLETE_ABROAD_DETAILS_NO_INFO";
         }
 
-        v40 = [v29 localizedStringForKey:v31 value:&stru_28753DF48 table:@"Localizable"];
-        v6 = v43;
+        v42 = [v31 localizedStringForKey:v33 value:&stru_28753DF48 table:@"Localizable"];
+        v6 = v44;
         goto LABEL_25;
       }
     }
   }
 
-  v32 = _TSLogDomain();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+  v34 = _TSLogDomain(0);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
   {
-    [(TSTravelBuddyViewController *)v32 _getDetailsTextWithIccid:v33, v34, v35, v36, v37, v38, v39];
+    [(TSTravelBuddyViewController *)v34 _getDetailsTextWithIccid:v35, v36, v37, v38, v39, v40, v41];
   }
 
-  v30 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v40 = [v30 localizedStringForKey:@"TRAVEL_ESIM_SETUP_COMPLETE_ABROAD_DETAILS" value:&stru_28753DF48 table:@"Localizable"];
+  v32 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v42 = [v32 localizedStringForKey:@"TRAVEL_ESIM_SETUP_COMPLETE_ABROAD_DETAILS" value:&stru_28753DF48 table:@"Localizable"];
 LABEL_25:
 
-  v41 = *MEMORY[0x277D85DE8];
-
-  return v40;
+  return v42;
 }
 
 - (void)_setTravelIccidInfo:(id)info
@@ -1573,14 +1552,14 @@ LABEL_25:
 
         if (v12)
         {
-          v13 = _TSLogDomain();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v14 = _TSLogDomain(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
             v24 = infoCopy;
             v25 = 2080;
             v26 = "[TSTravelBuddyViewController _setTravelIccidInfo:]";
-            _os_log_impl(&dword_262AA8000, v13, OS_LOG_TYPE_DEFAULT, "Setting travel iccid info for %@ @%s", buf, 0x16u);
+            _os_log_impl(&dword_262AA8000, v14, OS_LOG_TYPE_DEFAULT, "Setting travel iccid info for %@ @%s", buf, 0x16u);
           }
 
           phoneNumber = [v10 phoneNumber];
@@ -1593,8 +1572,8 @@ LABEL_25:
           {
             [v10 name];
           }
-          v15 = ;
-          objc_storeStrong(&self->_travelIccidInfo, v15);
+          v16 = ;
+          objc_storeStrong(&self->_travelIccidInfo, v16);
 
           iccid2 = [v10 iccid];
           travelIccid = self->_travelIccid;
@@ -1615,8 +1594,6 @@ LABEL_25:
   }
 
 LABEL_16:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_maybeUpdateHomeIccid:(id)iccid homeIccid:(id)homeIccid
@@ -1661,15 +1638,15 @@ LABEL_16:
 
               if ((v19 & 1) == 0)
               {
-                v21 = _TSLogDomain();
-                if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+                v22 = _TSLogDomain(v20);
+                if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
                 {
                   iccid2 = [v16 iccid];
                   *buf = 138412546;
                   v31 = iccid2;
                   v32 = 2080;
                   v33 = "[TSTravelBuddyViewController _maybeUpdateHomeIccid:homeIccid:]";
-                  _os_log_impl(&dword_262AA8000, v21, OS_LOG_TYPE_DEFAULT, "Home ICCID needs to be updated to %@ @%s", buf, 0x16u);
+                  _os_log_impl(&dword_262AA8000, v22, OS_LOG_TYPE_DEFAULT, "Home ICCID needs to be updated to %@ @%s", buf, 0x16u);
                 }
 
                 iccid3 = [v16 iccid];
@@ -1704,8 +1681,6 @@ LABEL_18:
   {
     iccid3 = homeIccidCopy;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return iccid3;
 }
@@ -1903,54 +1878,53 @@ LABEL_45:
 {
   location[3] = *MEMORY[0x277D85DE8];
   fCopy = f;
+  v5 = fCopy;
   if (self->_travelIccidPlanItem)
   {
-    v5 = +[TSCellularPlanManagerCache sharedInstance];
-    v6 = [v5 getSubscriptionContextUUIDforPlan:self->_travelIccidPlanItem];
+    v6 = +[TSCellularPlanManagerCache sharedInstance];
+    v7 = [v6 getSubscriptionContextUUIDforPlan:self->_travelIccidPlanItem];
 
-    if (v6)
+    if (v7)
     {
       objc_initWeak(location, self);
-      v7 = +[TSCoreTelephonyClientCache sharedInstance];
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __64__TSTravelBuddyViewController__isSubscriptionReadyForTravel4FF___block_invoke;
-      v18[3] = &unk_279B444E0;
-      objc_copyWeak(&v21, location);
-      v20 = fCopy;
-      v19 = v6;
-      [v7 getSubscriptionInfo:v18];
+      v9 = +[TSCoreTelephonyClientCache sharedInstance];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __64__TSTravelBuddyViewController__isSubscriptionReadyForTravel4FF___block_invoke;
+      v19[3] = &unk_279B444E0;
+      objc_copyWeak(&v22, location);
+      v21 = v5;
+      v20 = v7;
+      [v9 getSubscriptionInfo:v19];
 
-      objc_destroyWeak(&v21);
+      objc_destroyWeak(&v22);
       objc_destroyWeak(location);
     }
 
     else
     {
-      v16 = _TSLogDomain();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = _TSLogDomain(v8);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(location[0]) = 136315138;
         *(location + 4) = "[TSTravelBuddyViewController _isSubscriptionReadyForTravel4FF:]";
-        _os_log_impl(&dword_262AA8000, v16, OS_LOG_TYPE_DEFAULT, "Subscription context UUID is not ready for travel plan item @%s", location, 0xCu);
+        _os_log_impl(&dword_262AA8000, v18, OS_LOG_TYPE_DEFAULT, "Subscription context UUID is not ready for travel plan item @%s", location, 0xCu);
       }
 
-      (*(fCopy + 2))(fCopy, 0);
+      v5[2](v5, 0);
     }
   }
 
   else
   {
-    v8 = _TSLogDomain();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = _TSLogDomain(fCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(TSTravelBuddyViewController *)v8 _isSubscriptionReadyForTravel4FF:v9, v10, v11, v12, v13, v14, v15];
+      [(TSTravelBuddyViewController *)v10 _isSubscriptionReadyForTravel4FF:v11, v12, v13, v14, v15, v16, v17];
     }
 
-    (*(fCopy + 2))(fCopy, 0);
+    v5[2](v5, 0);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __64__TSTravelBuddyViewController__isSubscriptionReadyForTravel4FF___block_invoke(uint64_t a1, void *a2)
@@ -2001,31 +1975,29 @@ void __64__TSTravelBuddyViewController__isSubscriptionReadyForTravel4FF___block_
       }
     }
 
-    v13 = _TSLogDomain();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = _TSLogDomain(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = WeakRetained[166];
+      v15 = WeakRetained[166];
       *buf = 138412546;
-      v28 = v14;
+      v28 = v15;
       v29 = 2080;
       v30 = "[TSTravelBuddyViewController _isSubscriptionReadyForTravel4FF:]_block_invoke";
-      _os_log_impl(&dword_262AA8000, v13, OS_LOG_TYPE_DEFAULT, "Subscription is not ready for travel 4FF (%@) @%s", buf, 0x16u);
+      _os_log_impl(&dword_262AA8000, v14, OS_LOG_TYPE_DEFAULT, "Subscription is not ready for travel 4FF (%@) @%s", buf, 0x16u);
     }
   }
 
   else
   {
-    v13 = _TSLogDomain();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = _TSLogDomain(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __64__TSTravelBuddyViewController__isSubscriptionReadyForTravel4FF___block_invoke_cold_1(v13, v15, v16, v17, v18, v19, v20, v21);
+      __64__TSTravelBuddyViewController__isSubscriptionReadyForTravel4FF___block_invoke_cold_1(v14, v16, v17, v18, v19, v20, v21, v22);
     }
   }
 
   (*(*(a1 + 40) + 16))();
 LABEL_16:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (TSSIMSetupFlowDelegate)delegate
@@ -2037,64 +2009,63 @@ LABEL_16:
 
 void __56__TSTravelBuddyViewController_subscriptionInfoDidChange__block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Self doesnt exist @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSTravelBuddyViewController subscriptionInfoDidChange]_block_invoke";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Self doesnt exist @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_continueButtonTapped:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 138412802;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  v8 = 2080;
-  v9 = "[TSTravelBuddyViewController _continueButtonTapped:]";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]Enabling plans: %@, error: %@ @%s", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 138412802;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  v7 = 2080;
+  v8 = "[TSTravelBuddyViewController _continueButtonTapped:]";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]Enabling plans: %@, error: %@ @%s", &v3, 0x20u);
 }
 
 - (void)_continueButtonTapped:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]No selected items! @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSTravelBuddyViewController _continueButtonTapped:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]No selected items! @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __53__TSTravelBuddyViewController__continueButtonTapped___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Self doesnt exist @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSTravelBuddyViewController _continueButtonTapped:]_block_invoke";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Self doesnt exist @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_isPlanRegisteredForIMessage:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Failed to get iMessageService. @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSTravelBuddyViewController _isPlanRegisteredForIMessage:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Failed to get iMessageService. @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_getDetailsTextWithIccid:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Failed to find a plan item for home iccid @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSTravelBuddyViewController _getDetailsTextWithIccid:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Failed to find a plan item for home iccid @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_isSubscriptionReadyForTravel4FF:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Failed to find plan item for travel 4FF @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSTravelBuddyViewController _isSubscriptionReadyForTravel4FF:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Failed to find plan item for travel 4FF @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __64__TSTravelBuddyViewController__isSubscriptionReadyForTravel4FF___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Self doesnt exist @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSTravelBuddyViewController _isSubscriptionReadyForTravel4FF:]_block_invoke";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Self doesnt exist @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

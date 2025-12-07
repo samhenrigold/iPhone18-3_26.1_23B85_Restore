@@ -39,9 +39,9 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9.receiver = self;
-    v9.super_class = MPSCNNCrossChannelNormalizationGradientNode;
-    result = [(MPSNNGradientFilterNode *)&v9 initWithGradientImages:images forwardFilter:filter];
+    v13.receiver = self;
+    v13.super_class = MPSCNNCrossChannelNormalizationGradientNode;
+    result = [(MPSNNGradientFilterNode *)&v13 initWithGradientImages:images forwardFilter:filter];
     if (result)
     {
       result->_kernelSize = *(filter + 9);
@@ -54,7 +54,7 @@
     {
       v8 = objc_opt_class();
       NSStringFromClass(v8);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSCNNNormalizationNodes.mm", 0x1DF, @"[%@ initWithGradientImages:forwardFilter:] Errr: filter is not a MPSCNNSpatialNormalizationNode", v9, v10, v11, v12);
     }
 
     return 0;

@@ -28,7 +28,7 @@
 
 - (void)writeData:(id)data atOffset:(unint64_t)offset
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v9 = dataCopy;
   if (dataCopy)
@@ -44,13 +44,13 @@
       v13 = ck_log_facility_ck;
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
       {
-        v30 = v13;
-        v35.location = offset;
-        v35.length = v10;
-        v31 = NSStringFromRange(v35);
-        v32 = 138543362;
-        v33 = v31;
-        _os_log_error_impl(&dword_1883EA000, v30, OS_LOG_TYPE_ERROR, "range %{public}@ overlaps with previous range", &v32, 0xCu);
+        v29 = v13;
+        v34.location = offset;
+        v34.length = v10;
+        v30 = NSStringFromRange(v34);
+        v31 = 138543362;
+        v32 = v30;
+        _os_log_error_impl(&dword_1883EA000, v29, OS_LOG_TYPE_ERROR, "range %{public}@ overlaps with previous range", &v31, 0xCu);
       }
     }
 
@@ -67,8 +67,6 @@
     v27 = objc_msgSend_length(v9, v25, v26);
     objc_msgSend_replaceBytesInRange_withBytes_length_(assetContent, v28, offset, v10, v24, v27);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isContiguous

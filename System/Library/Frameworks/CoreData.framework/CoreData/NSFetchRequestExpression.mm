@@ -1,4 +1,5 @@
 @interface NSFetchRequestExpression
++ (NSExpression)expressionForFetch:(NSExpression *)fetch context:(NSExpression *)context countOnly:(BOOL)countFlag;
 - (BOOL)isEqual:(id)equal;
 - (NSFetchRequestExpression)initWithCoder:(id)coder;
 - (id)_expressionWithSubstitutionVariables:(id)variables;
@@ -35,6 +36,13 @@
   v3.receiver = self;
   v3.super_class = NSFetchRequestExpression;
   [(NSFetchRequestExpression *)&v3 dealloc];
+}
+
++ (NSExpression)expressionForFetch:(NSExpression *)fetch context:(NSExpression *)context countOnly:(BOOL)countFlag
+{
+  v5 = [[NSFetchRequestExpression alloc] initForFetch:fetch context:context countOnly:countFlag];
+
+  return v5;
 }
 
 - (void)allowEvaluation
@@ -159,18 +167,18 @@
   {
     selfCopy = self;
     v3 = objc_autoreleasePoolPush();
-    v4 = selfCopy[8];
+    v4 = selfCopy[7];
     if (selfCopy[9])
     {
-      v5 = @"YES";
+      v5 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v4, selfCopy[8], @"YES");
     }
 
     else
     {
-      v5 = @"NO";
+      v5 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v4, selfCopy[8], @"NO");
     }
 
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"FETCH(%@, %@, %@)", selfCopy[7], selfCopy[8], v5];
+    v6 = v5;
     objc_autoreleasePoolPop(v3);
 
     return v6;

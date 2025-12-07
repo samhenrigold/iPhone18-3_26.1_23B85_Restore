@@ -12,16 +12,16 @@ uint64_t start()
 void sub_100000D14(id a1, _lockdown_connection *a2, __CFDictionary *a3)
 {
   context = objc_autoreleasePoolPush();
-  v80 = 0;
-  v81 = &v80;
-  v82 = 0x2020000000;
-  v83 = 0;
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x3032000000;
-  v77 = sub_100001B1C;
-  v78 = sub_100001B2C;
   v79 = 0;
+  v80 = &v79;
+  v81 = 0x2020000000;
+  v82 = 0;
+  v73 = 0;
+  v74 = &v73;
+  v75 = 0x3032000000;
+  v76 = sub_100001B1C;
+  v77 = sub_100001B2C;
+  v78 = 0;
   v5 = malloc_type_calloc(1uLL, 0x38uLL, 0x1060040262EED4CuLL);
   *v5 = a2;
   v6 = CFRetain(a3);
@@ -30,23 +30,22 @@ void sub_100000D14(id a1, _lockdown_connection *a2, __CFDictionary *a3)
   *(v5 + 48) = 0;
   v5[5] = 0;
   v5[3] = 0;
-  v67 = mach_absolute_time();
+  v66 = mach_absolute_time();
   *cf = 0;
-  v7 = *v5;
-  v8 = lockdown_receive_message();
-  v9 = v8;
-  v10 = *cf;
-  if (v8 || !*cf)
+  v7 = lockdown_receive_message();
+  v8 = v7;
+  v9 = *cf;
+  if (v7 || !*cf)
   {
-    if (v8)
+    if (v7)
     {
-      v17 = qword_10000C108;
+      v16 = qword_10000C108;
       if (os_log_type_enabled(qword_10000C108, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v85) = v9;
-        _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "lockdown_receive_message returned error %x", buf, 8u);
-        v10 = *cf;
+        LODWORD(v84) = v8;
+        _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "lockdown_receive_message returned error %x", buf, 8u);
+        v9 = *cf;
         if (!*cf)
         {
           goto LABEL_23;
@@ -57,20 +56,20 @@ void sub_100000D14(id a1, _lockdown_connection *a2, __CFDictionary *a3)
     }
 
 LABEL_21:
-    if (!v10)
+    if (!v9)
     {
       goto LABEL_23;
     }
 
 LABEL_22:
-    CFRelease(v10);
+    CFRelease(v9);
     goto LABEL_23;
   }
 
-  v11 = CFGetTypeID(*cf);
+  v10 = CFGetTypeID(*cf);
   TypeID = CFDictionaryGetTypeID();
-  v10 = *cf;
-  if (v11 != TypeID)
+  v9 = *cf;
+  if (v10 != TypeID)
   {
     goto LABEL_21;
   }
@@ -78,122 +77,122 @@ LABEL_22:
   if (!*cf)
   {
 LABEL_23:
-    v18 = qword_10000C108;
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = qword_10000C108;
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       Value = CFDictionaryGetValue(a3, kLockdownCheckinClientNameKey);
       *cf = 138412290;
       *&cf[4] = Value;
-      _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Failed to receive initial message from client %@", cf, 0xCu);
+      _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to receive initial message from client %@", cf, 0xCu);
     }
 
     sub_100001B34(v5, @"NoInitialMessage");
-    v10 = 0;
+    v9 = 0;
     goto LABEL_26;
   }
 
-  v73 = [*cf objectForKeyedSubscript:@"MediaSubdir"];
-  if (!v73)
+  v72 = [*cf objectForKeyedSubscript:@"MediaSubdir"];
+  if (!v72)
   {
-    v23 = qword_10000C108;
+    v22 = qword_10000C108;
     if (os_log_type_enabled(qword_10000C108, OS_LOG_TYPE_ERROR))
     {
       *cf = 0;
-      _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Failed to get destination directory from client message", cf, 2u);
+      _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Failed to get destination directory from client message", cf, 2u);
     }
 
     sub_100001B34(v5, @"MalformedSetupMessage");
 LABEL_26:
+    v18 = 0;
     v19 = 0;
+    v15 = 0;
     v20 = 0;
-    v16 = 0;
-    v21 = 0;
-    v14 = 0;
+    v13 = 0;
+    v68 = 0;
     v69 = 0;
+    v21 = 0;
     v70 = 0;
-    v22 = 0;
     v71 = 0;
     v72 = 0;
-    v73 = 0;
     goto LABEL_27;
   }
 
-  v13 = NSHomeDirectory();
-  v71 = [v13 stringByAppendingPathComponent:@"Media"];
+  v12 = NSHomeDirectory();
+  v70 = [v12 stringByAppendingPathComponent:@"Media"];
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v25 = qword_10000C108;
+    v24 = qword_10000C108;
     if (os_log_type_enabled(qword_10000C108, OS_LOG_TYPE_ERROR))
     {
       *cf = 0;
-      _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Destination directory in client message was not a string", cf, 2u);
+      _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Destination directory in client message was not a string", cf, 2u);
     }
 
     sub_100001B34(v5, @"MalformedSetupMessage");
+    v18 = 0;
     v19 = 0;
+    v15 = 0;
     v20 = 0;
-    v16 = 0;
-    v21 = 0;
-    v14 = 0;
+    v13 = 0;
+    v68 = 0;
     v69 = 0;
-    v70 = 0;
-    v22 = 0;
-    v72 = 0;
+    v21 = 0;
+    v71 = 0;
     goto LABEL_27;
   }
 
-  v70 = [v71 stringByAppendingPathComponent:v73];
-  v72 = [v70 stringByResolvingSymlinksInPath];
-  if (([v72 hasPrefix:v71] & 1) == 0)
+  v69 = [v70 stringByAppendingPathComponent:v72];
+  v71 = [v69 stringByResolvingSymlinksInPath];
+  if (([v71 hasPrefix:v70] & 1) == 0)
   {
-    v26 = qword_10000C108;
+    v25 = qword_10000C108;
     if (os_log_type_enabled(qword_10000C108, OS_LOG_TYPE_ERROR))
     {
       *cf = 138412290;
-      *&cf[4] = v72;
-      _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Dest path specified resolved to unpermitted path: %@", cf, 0xCu);
+      *&cf[4] = v71;
+      _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Dest path specified resolved to unpermitted path: %@", cf, 0xCu);
     }
 
     sub_100001B34(v5, @"InvalidPath");
+    v18 = 0;
     v19 = 0;
+    v15 = 0;
     v20 = 0;
-    v16 = 0;
-    v21 = 0;
-    v14 = 0;
-    v69 = 0;
+    v13 = 0;
+    v68 = 0;
     goto LABEL_102;
   }
 
-  v69 = [v10 objectForKeyedSubscript:@"InstallTransferredDirectory"];
-  if (v69)
+  v68 = [v9 objectForKeyedSubscript:@"InstallTransferredDirectory"];
+  if (v68)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if ([v69 BOOLValue])
+      if ([v68 BOOLValue])
       {
-        v5[2] = v72;
+        v5[2] = v71;
       }
     }
   }
 
-  v14 = [v10 objectForKeyedSubscript:@"UserInitiatedTransfer"];
-  if (v14)
+  v13 = [v9 objectForKeyedSubscript:@"UserInitiatedTransfer"];
+  if (v13)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if ([v14 BOOLValue])
+      if ([v13 BOOLValue])
       {
         *(v5 + 49) = 1;
       }
     }
   }
 
-  v15 = [v10 objectForKeyedSubscript:@"SpringBoardIconLayoutData"];
-  if (!v15)
+  v14 = [v9 objectForKeyedSubscript:@"SpringBoardIconLayoutData"];
+  if (!v14)
   {
     goto LABEL_43;
   }
@@ -201,302 +200,302 @@ LABEL_26:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v27 = qword_10000C108;
+    v26 = qword_10000C108;
     if (os_log_type_enabled(qword_10000C108, OS_LOG_TYPE_ERROR))
     {
       *cf = 0;
-      _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "SpringBoard icon layout value was not data; ignoring", cf, 2u);
+      _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "SpringBoard icon layout value was not data; ignoring", cf, 2u);
     }
 
 LABEL_43:
-    v16 = 0;
+    v15 = 0;
     goto LABEL_44;
   }
 
-  v16 = v15;
-  v5[3] = v16;
+  v15 = v14;
+  v5[3] = v15;
 LABEL_44:
-  v20 = [v10 objectForKeyedSubscript:@"InstallOptionsDictionary"];
-  if (v20)
+  v19 = [v9 objectForKeyedSubscript:@"InstallOptionsDictionary"];
+  if (v19)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v28 = v20;
-      v5[4] = v28;
-      v29 = [v28 objectForKeyedSubscript:@"IsUserInitiated"];
-      if (v29)
+      v27 = v19;
+      v5[4] = v27;
+      v28 = [v27 objectForKeyedSubscript:@"IsUserInitiated"];
+      if (v28)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          if ([v29 BOOLValue])
+          if ([v28 BOOLValue])
           {
             *(v5 + 49) = 1;
           }
         }
       }
 
-      v30 = [v28 objectForKeyedSubscript:@"PackageType"];
-      if ((MGGetBoolAnswer() & 1) == 0 && [v30 isEqualToString:@"System"])
+      v29 = [v27 objectForKeyedSubscript:@"PackageType"];
+      if ((MGGetBoolAnswer() & 1) == 0 && [v29 isEqualToString:@"System"])
       {
-        v31 = qword_10000C108;
+        v30 = qword_10000C108;
         if (os_log_type_enabled(qword_10000C108, OS_LOG_TYPE_ERROR))
         {
           *cf = 0;
-          _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "Installing system apps from the host is prohibited.", cf, 2u);
+          _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Installing system apps from the host is prohibited.", cf, 2u);
         }
 
         sub_100001B34(v5, @"InstallationProhibited");
-        v66 = v29;
+        v65 = v28;
 
-        v19 = 0;
-        v21 = 0;
+        v18 = 0;
+        v20 = 0;
         goto LABEL_88;
       }
     }
   }
 
-  v21 = [v10 objectForKeyedSubscript:@"PassThroughFileWithLength"];
-  if (v21)
+  v20 = [v9 objectForKeyedSubscript:@"PassThroughFileWithLength"];
+  if (v20)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v5[5] = [v21 longLongValue];
+      v5[5] = [v20 longLongValue];
     }
   }
 
+  v31 = +[NSFileManager defaultManager];
+  [v31 removeItemAtPath:v71 error:0];
+
   v32 = +[NSFileManager defaultManager];
-  [v32 removeItemAtPath:v72 error:0];
+  v33 = [v32 fileExistsAtPath:v71];
 
-  v33 = +[NSFileManager defaultManager];
-  v34 = [v33 fileExistsAtPath:v72];
-
-  if (v34)
+  if (v33)
   {
-    v35 = qword_10000C108;
+    v34 = qword_10000C108;
     if (os_log_type_enabled(qword_10000C108, OS_LOG_TYPE_ERROR))
     {
       *cf = 138412290;
-      *&cf[4] = v72;
-      _os_log_error_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Item exists at destination path %@", cf, 0xCu);
+      *&cf[4] = v71;
+      _os_log_error_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Item exists at destination path %@", cf, 0xCu);
     }
 
     sub_100001B34(v5, @"DestinationExists");
-    v19 = 0;
+    v18 = 0;
     goto LABEL_102;
   }
 
-  if (!v21)
+  if (!v20)
   {
-    v42 = v72;
-    v43 = mkpath_np([v72 fileSystemRepresentation], 0x1EDu);
-    v44 = v43;
-    if (v43 == 17)
+    v41 = v71;
+    v42 = mkpath_np([v71 fileSystemRepresentation], 0x1EDu);
+    v43 = v42;
+    if (v42 == 17)
     {
       goto LABEL_73;
     }
 
-    if (v43)
+    if (v42)
     {
-      v54 = qword_10000C108;
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+      v53 = qword_10000C108;
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
       {
-        v63 = strerror(v44);
+        v62 = strerror(v43);
         *cf = 138412546;
-        *&cf[4] = v72;
+        *&cf[4] = v71;
         *&cf[12] = 2080;
-        *&cf[14] = v63;
-        _os_log_error_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "Failed to create dest path %@ : %s", cf, 0x16u);
+        *&cf[14] = v62;
+        _os_log_error_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "Failed to create dest path %@ : %s", cf, 0x16u);
       }
 
-      if (v44 == 28)
+      if (v43 == 28)
       {
-        v55 = @"NoSpace";
+        v54 = @"NoSpace";
       }
 
       else
       {
-        v55 = @"InvalidPath";
+        v54 = @"InvalidPath";
       }
 
       goto LABEL_101;
     }
 
-    if (sub_100001C20(v72))
+    if (sub_100001C20(v71))
     {
 LABEL_73:
-      v45 = [SZExtractor alloc];
-      v91 = SZExtractorOptionsDenyInvalidSymlinks;
-      v92 = &__kCFBooleanTrue;
-      v46 = [NSDictionary dictionaryWithObjects:&v92 forKeys:&v91 count:1];
-      v22 = [v45 initWithPath:v72 options:v46];
+      v44 = [SZExtractor alloc];
+      v90 = SZExtractorOptionsDenyInvalidSymlinks;
+      v91 = &__kCFBooleanTrue;
+      v45 = [NSDictionary dictionaryWithObjects:&v91 forKeys:&v90 count:1];
+      v21 = [v44 initWithPath:v71 options:v45];
 
-      if (v22)
+      if (v21)
       {
-        v47 = dispatch_semaphore_create(0);
+        v46 = dispatch_semaphore_create(0);
         *cf = _NSConcreteStackBlock;
         *&cf[8] = 3221225472;
         *&cf[16] = sub_100001DF8;
-        v87 = &unk_1000083B8;
-        v89 = &v74;
-        v90 = &v80;
-        v19 = v47;
-        v88 = v19;
-        [v22 prepareForExtraction:cf];
-        dispatch_semaphore_wait(v19, 0xFFFFFFFFFFFFFFFFLL);
-        if (v75[5])
+        v86 = &unk_1000083B8;
+        v88 = &v73;
+        v89 = &v79;
+        v18 = v46;
+        v87 = v18;
+        [v21 prepareForExtraction:cf];
+        dispatch_semaphore_wait(v18, 0xFFFFFFFFFFFFFFFFLL);
+        if (v74[5])
         {
-          v48 = v75[5];
-          v49 = qword_10000C108;
+          v47 = v74[5];
+          v48 = qword_10000C108;
           if (os_log_type_enabled(qword_10000C108, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v85 = v48;
-            _os_log_error_impl(&_mh_execute_header, v49, OS_LOG_TYPE_ERROR, "-prepareForExtraction returned error %@", buf, 0xCu);
+            v84 = v47;
+            _os_log_error_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "-prepareForExtraction returned error %@", buf, 0xCu);
           }
 
-          v50 = @"SetupFailed";
+          v49 = @"SetupFailed";
         }
 
         else
         {
-          if (!v81[3])
+          if (!v80[3])
           {
-            v65 = -1;
+            v64 = -1;
 
             goto LABEL_68;
           }
 
-          v59 = qword_10000C108;
+          v58 = qword_10000C108;
           if (os_log_type_enabled(qword_10000C108, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v85 = v72;
-            _os_log_error_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "Item exists at destination path %@", buf, 0xCu);
+            v84 = v71;
+            _os_log_error_impl(&_mh_execute_header, v58, OS_LOG_TYPE_ERROR, "Item exists at destination path %@", buf, 0xCu);
           }
 
-          v50 = @"DestinationExists";
+          v49 = @"DestinationExists";
         }
 
-        sub_100001B34(v5, v50);
-        v21 = 0;
+        sub_100001B34(v5, v49);
+        v20 = 0;
 
         goto LABEL_27;
       }
 
-      v57 = qword_10000C108;
+      v56 = qword_10000C108;
       if (!os_log_type_enabled(qword_10000C108, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_100;
       }
 
       *cf = 0;
-      v58 = "Failed to set up extractor";
+      v57 = "Failed to set up extractor";
     }
 
     else
     {
-      v57 = qword_10000C108;
+      v56 = qword_10000C108;
       if (!os_log_type_enabled(qword_10000C108, OS_LOG_TYPE_ERROR))
       {
 LABEL_100:
-        v55 = @"SetupFailed";
+        v54 = @"SetupFailed";
 LABEL_101:
-        sub_100001B34(v5, v55);
-        v19 = 0;
-        v21 = 0;
+        sub_100001B34(v5, v54);
+        v18 = 0;
+        v20 = 0;
 LABEL_102:
-        v22 = 0;
+        v21 = 0;
         goto LABEL_27;
       }
 
       *cf = 0;
-      v58 = "Failed to set protection class";
+      v57 = "Failed to set protection class";
     }
 
-    _os_log_error_impl(&_mh_execute_header, v57, OS_LOG_TYPE_ERROR, v58, cf, 2u);
+    _os_log_error_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, v57, cf, 2u);
     goto LABEL_100;
   }
 
-  v66 = [v72 stringByDeletingLastPathComponent];
-  v36 = v66;
-  v37 = mkpath_np([v66 fileSystemRepresentation], 0x1EDu);
-  v38 = v37;
-  if (v37 && v37 != 17)
+  v65 = [v71 stringByDeletingLastPathComponent];
+  v35 = v65;
+  v36 = mkpath_np([v65 fileSystemRepresentation], 0x1EDu);
+  v37 = v36;
+  if (v36 && v36 != 17)
   {
-    v51 = qword_10000C108;
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    v50 = qword_10000C108;
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
     {
-      v60 = strerror(v38);
+      v59 = strerror(v37);
       *cf = 138412802;
-      *&cf[4] = v72;
+      *&cf[4] = v71;
       *&cf[12] = 2112;
-      *&cf[14] = v66;
+      *&cf[14] = v65;
       *&cf[22] = 2080;
-      v87 = v60;
-      _os_log_error_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "Failed to make parent directory of %@ at %@: %s", cf, 0x20u);
+      v86 = v59;
+      _os_log_error_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "Failed to make parent directory of %@ at %@: %s", cf, 0x20u);
     }
 
-    if (v38 == 28)
+    if (v37 == 28)
     {
-      v52 = @"NoSpace";
+      v51 = @"NoSpace";
     }
 
     else
     {
-      v52 = @"SetupFailed";
+      v51 = @"SetupFailed";
     }
 
-    sub_100001B34(v5, v52);
+    sub_100001B34(v5, v51);
     goto LABEL_87;
   }
 
-  v39 = v72;
-  v40 = open_dprotected_np([v72 fileSystemRepresentation], 2818, 4, 0, 420);
-  if (v40 < 0)
+  v38 = v71;
+  v39 = open_dprotected_np([v71 fileSystemRepresentation], 2818, 4, 0, 420);
+  if (v39 < 0)
   {
-    v53 = qword_10000C108;
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+    v52 = qword_10000C108;
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
-      v61 = __error();
-      v62 = strerror(*v61);
+      v60 = __error();
+      v61 = strerror(*v60);
       *cf = 138412546;
-      *&cf[4] = v72;
+      *&cf[4] = v71;
       *&cf[12] = 2080;
-      *&cf[14] = v62;
-      _os_log_error_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "Failed to open pass through file at %@ : %s", cf, 0x16u);
+      *&cf[14] = v61;
+      _os_log_error_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "Failed to open pass through file at %@ : %s", cf, 0x16u);
     }
 
     sub_100001B34(v5, @"SetupFailed");
 LABEL_87:
-    v19 = 0;
+    v18 = 0;
 LABEL_88:
-    v22 = 0;
+    v21 = 0;
 
     goto LABEL_27;
   }
 
-  v65 = v40;
-  v19 = 0;
-  v22 = 0;
+  v64 = v39;
+  v18 = 0;
+  v21 = 0;
 
 LABEL_68:
   socket = lockdown_get_socket();
   if ((socket & 0x80000000) == 0)
   {
-    sub_100001E78(socket, v67, v22, v65, v5);
+    sub_100001E78(socket, v66, v21, v64, v5);
     goto LABEL_28;
   }
 
-  v56 = qword_10000C108;
-  if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+  v55 = qword_10000C108;
+  if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
   {
-    v64 = CFDictionaryGetValue(a3, kLockdownCheckinClientNameKey);
+    v63 = CFDictionaryGetValue(a3, kLockdownCheckinClientNameKey);
     *buf = 138412290;
-    v85 = v64;
-    _os_log_error_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "Failed to get socket for connection from client %@", buf, 0xCu);
+    v84 = v63;
+    _os_log_error_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "Failed to get socket for connection from client %@", buf, 0xCu);
   }
 
   sub_100001B34(v5, @"NoSocket");
@@ -504,22 +503,22 @@ LABEL_27:
   sub_100002184(v5);
 LABEL_28:
 
-  _Block_object_dispose(&v74, 8);
-  _Block_object_dispose(&v80, 8);
+  _Block_object_dispose(&v73, 8);
+  _Block_object_dispose(&v79, 8);
 
   objc_autoreleasePoolPop(context);
 }
 
-void sub_100001ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100001ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -925,68 +924,65 @@ LABEL_18:
 
 void sub_1000028B0(uint64_t a1)
 {
-  v2 = *(a1 + 80);
-  v3 = **(a1 + 72);
-  v4 = *(a1 + 88);
-  v5 = lockdown_recv();
-  v6 = v5;
-  if (v5 < 0)
+  v2 = lockdown_recv();
+  v3 = v2;
+  if (v2 < 0)
   {
-    v12 = qword_10000C108;
+    v9 = qword_10000C108;
     if (os_log_type_enabled(qword_10000C108, OS_LOG_TYPE_ERROR))
     {
-      v13 = v12;
-      v14 = __error();
-      v15 = strerror(*v14);
+      v10 = v9;
+      v11 = __error();
+      v12 = strerror(*v11);
       *buf = 134218242;
-      *&buf[4] = v6;
+      *&buf[4] = v3;
       *&buf[12] = 2080;
-      *&buf[14] = v15;
-      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "lockdown_recv returned %zd and error %s", buf, 0x16u);
+      *&buf[14] = v12;
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "lockdown_recv returned %zd and error %s", buf, 0x16u);
     }
 
     goto LABEL_14;
   }
 
-  if (!v5)
+  if (!v2)
   {
-    v16 = qword_10000C108;
+    v13 = qword_10000C108;
     if (os_log_type_enabled(qword_10000C108, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_debug_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "lockdown_recv returned 0; canceling", buf, 2u);
+      _os_log_debug_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "lockdown_recv returned 0; canceling", buf, 2u);
     }
 
     goto LABEL_14;
   }
 
-  *(*(*(a1 + 56) + 8) + 24) += v5;
-  v7 = qword_10000C108;
+  *(*(*(a1 + 56) + 8) + 24) += v2;
+  v4 = qword_10000C108;
   if (os_log_type_enabled(qword_10000C108, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    *&buf[4] = v6;
-    _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "lockdown_recv returned %zd", buf, 0xCu);
+    *&buf[4] = v3;
+    _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "lockdown_recv returned %zd", buf, 0xCu);
   }
 
-  v8 = *(a1 + 96);
-  if (v8 < 0 || *(a1 + 40))
+  v5 = *(a1 + 96);
+  if (v5 < 0 || *(a1 + 40))
   {
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v39) = 0;
-    v9 = [NSData dataWithBytesNoCopy:*(a1 + 80) length:v6 freeWhenDone:0];
-    v34[0] = _NSConcreteStackBlock;
-    v34[1] = 3221225472;
-    v34[2] = sub_100002D00;
-    v34[3] = &unk_100008478;
-    v10 = *(a1 + 64);
-    v36 = buf;
-    v37 = v10;
-    v11 = *(a1 + 40);
-    v35 = *(a1 + 48);
-    [v11 supplyBytes:v9 withCompletionBlock:v34];
+    LOBYTE(v36) = 0;
+    v6 = [NSData dataWithBytesNoCopy:*(a1 + 80) length:v3 freeWhenDone:0];
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_100002D00;
+    v31[3] = &unk_100008478;
+    v7 = *(a1 + 64);
+    v33 = buf;
+    v34 = v7;
+    v8 = *(a1 + 40);
+    v32 = *(a1 + 48);
+    [v8 supplyBytes:v6 withCompletionBlock:v31];
     dispatch_semaphore_wait(*(a1 + 48), 0xFFFFFFFFFFFFFFFFLL);
     if (*(*&buf[8] + 24) == 1)
     {
@@ -997,59 +993,59 @@ void sub_1000028B0(uint64_t a1)
     return;
   }
 
-  v17 = *(a1 + 72);
-  v18 = *(v17 + 40);
-  v19 = v18 - v6;
-  if (v18 < v6)
+  v14 = *(a1 + 72);
+  v15 = *(v14 + 40);
+  v16 = v15 - v3;
+  if (v15 < v3)
   {
-    v20 = qword_10000C108;
+    v17 = qword_10000C108;
     if (os_log_type_enabled(qword_10000C108, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
-      *&buf[4] = v6;
+      *&buf[4] = v3;
       *&buf[12] = 2048;
-      *&buf[14] = v18;
-      _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Received %ld bytes but only %lld bytes remain!", buf, 0x16u);
+      *&buf[14] = v15;
+      _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Received %ld bytes but only %lld bytes remain!", buf, 0x16u);
     }
 
-    v21 = [NSError errorWithDomain:NSPOSIXErrorDomain code:5 userInfo:0];
-    v22 = *(*(a1 + 64) + 8);
-    v23 = *(v22 + 40);
-    *(v22 + 40) = v21;
+    v18 = [NSError errorWithDomain:NSPOSIXErrorDomain code:5 userInfo:0];
+    v19 = *(*(a1 + 64) + 8);
+    v20 = *(v19 + 40);
+    *(v19 + 40) = v18;
 
 LABEL_14:
     dispatch_source_cancel(*(a1 + 32));
     return;
   }
 
-  v24 = 0;
-  *(v17 + 40) = v19;
-  v25 = *(a1 + 80);
-  while (v6 != v24)
+  v21 = 0;
+  *(v14 + 40) = v16;
+  v22 = *(a1 + 80);
+  while (v3 != v21)
   {
-    v26 = write(v8, (v25 + v24), v6 - v24);
-    v24 += v26;
-    if (v26 < 0)
+    v23 = write(v5, (v22 + v21), v3 - v21);
+    v21 += v23;
+    if (v23 < 0)
     {
-      v27 = *__error();
-      v28 = qword_10000C108;
+      v24 = *__error();
+      v25 = qword_10000C108;
       if (os_log_type_enabled(qword_10000C108, OS_LOG_TYPE_ERROR))
       {
-        v32 = v28;
-        v33 = strerror(v27);
+        v29 = v25;
+        v30 = strerror(v24);
         *buf = 134218498;
-        *&buf[4] = v6;
+        *&buf[4] = v3;
         *&buf[12] = 2048;
         *&buf[14] = -1;
         *&buf[22] = 2080;
-        v39 = v33;
-        _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Failed to write %ld bytes to passthrough file: write returned %ld : %s", buf, 0x20u);
+        v36 = v30;
+        _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Failed to write %ld bytes to passthrough file: write returned %ld : %s", buf, 0x20u);
       }
 
-      v29 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v27 userInfo:0];
-      v30 = *(*(a1 + 64) + 8);
-      v31 = *(v30 + 40);
-      *(v30 + 40) = v29;
+      v26 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v24 userInfo:0];
+      v27 = *(*(a1 + 64) + 8);
+      v28 = *(v27 + 40);
+      *(v27 + 40) = v26;
 
       dispatch_source_cancel(*(a1 + 32));
       break;
@@ -1062,9 +1058,9 @@ LABEL_14:
   }
 }
 
-void sub_100002CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100002CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1208,17 +1204,16 @@ uint64_t sub_100003258(uint64_t a1, void *a2)
   v3 = a2;
   if (a1)
   {
-    v4 = *a1;
-    v5 = lockdown_send_message();
-    if (v5)
+    v4 = lockdown_send_message();
+    if (v4)
     {
-      v6 = v5;
-      v7 = qword_10000C108;
+      v5 = v4;
+      v6 = qword_10000C108;
       if (os_log_type_enabled(qword_10000C108, OS_LOG_TYPE_ERROR))
       {
-        v9[0] = 67109120;
-        v9[1] = v6;
-        _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Got error %x from lockdown_send_message", v9, 8u);
+        v8[0] = 67109120;
+        v8[1] = v5;
+        _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Got error %x from lockdown_send_message", v8, 8u);
       }
 
       a1 = 0;

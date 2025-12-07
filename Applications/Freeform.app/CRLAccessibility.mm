@@ -191,10 +191,10 @@
 
       else
       {
-        v16 = [[NSNumber alloc] initWithInt:v7];
-        v17 = [[NSDictionary alloc] initWithObjectsAndKeys:{v16, @"UIAccessibilityTokenAnnouncementPriority", 0}];
+        v17 = [[NSNumber alloc] initWithInt:v7];
+        v18 = [[NSDictionary alloc] initWithObjectsAndKeys:{v17, @"UIAccessibilityTokenAnnouncementPriority", 0}];
 
-        argument = [[NSAttributedString alloc] initWithString:announcement attributes:v17];
+        argument = [[NSAttributedString alloc] initWithString:announcement attributes:v18];
       }
 
       UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, argument);
@@ -202,13 +202,13 @@
 
     else
     {
-      ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks();
+      ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(0, v9);
       if (!sound)
       {
         if (ShouldPerformValidationChecks)
         {
-          ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-          if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Nil or empty announcement requested without sound played.", v11, v12, v13, v14, v15, v18))
+          ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+          if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Nil or empty announcement requested without sound played.", v12, v13, v14, v15, v16, v19))
           {
             abort();
           }
@@ -222,8 +222,8 @@
 {
   if (![(CRLAccessibility *)self quickSpeakSupportLoaded]&& NSClassFromString(@"AXQuickSpeak"))
   {
-    [(CRLAccessibility *)self setQuickSpeakSupportLoaded:1];
-    if (CRLAccessibilityShouldPerformValidationChecks())
+    v3 = [(CRLAccessibility *)self setQuickSpeakSupportLoaded:1];
+    if (CRLAccessibilityShouldPerformValidationChecks(v3, v4))
     {
       __CRLAccessibilityValidateInstanceMethod(@"AXQuickSpeak", @"isSpeaking");
     }
@@ -406,68 +406,71 @@
     v2 = &off_1018E1ED8;
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v25;
+    v6 = *v30;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v25 != v6)
+        if (*v30 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v24 + 1) + 8 * i);
+        v8 = *(*(&v29 + 1) + 8 * i);
         v9 = NSClassFromString(v8);
         if (v9)
         {
-          v10 = v9;
-          if ([(objc_class *)v9 conformsToProtocol:&OBJC_PROTOCOL___CRLAccessibilityValidator])
+          v11 = v9;
+          v12 = [(objc_class *)v9 conformsToProtocol:&OBJC_PROTOCOL___CRLAccessibilityValidator];
+          if (v12)
           {
-            [(objc_class *)v10 performValidations];
-            if ([(objc_class *)v10 conformsToProtocol:&OBJC_PROTOCOL___CRLAccessibilityValidatorExtras])
+            [(objc_class *)v11 performValidations];
+            if ([(objc_class *)v11 conformsToProtocol:&OBJC_PROTOCOL___CRLAccessibilityValidatorExtras])
             {
-              [(objc_class *)v10 performPlatformSpecificValidations];
+              [(objc_class *)v11 performPlatformSpecificValidations];
             }
 
             continue;
           }
 
-          if (!CRLAccessibilityShouldPerformValidationChecks())
+          ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(v12, v13);
+          if (!ShouldPerformValidationChecks)
           {
             continue;
           }
 
-          ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-          v17 = __CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"%@ must conform to the CRLAccessibilityValidator protocol", v19, v20, v21, v22, v23, v8);
+          ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+          v21 = __CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"%@ must conform to the CRLAccessibilityValidator protocol", v24, v25, v26, v27, v28, v8);
         }
 
         else
         {
-          if (!CRLAccessibilityShouldPerformValidationChecks())
+          v14 = CRLAccessibilityShouldPerformValidationChecks(0, v10);
+          if (!v14)
           {
             continue;
           }
 
-          v11 = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-          v17 = __CRLAccessibilityHandleValidationErrorWithDescription(v11, 0, @"Couldn't find validator class %@", v12, v13, v14, v15, v16, v8);
+          v15 = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(v14);
+          v21 = __CRLAccessibilityHandleValidationErrorWithDescription(v15, 0, @"Couldn't find validator class %@", v16, v17, v18, v19, v20, v8);
         }
 
-        if (v17)
+        if (v21)
         {
           abort();
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v5);
@@ -560,9 +563,10 @@
 
 - (void)loadAccessibilitySupport
 {
-  if (![(CRLAccessibility *)self accessibilitySupportLoaded])
+  accessibilitySupportLoaded = [(CRLAccessibility *)self accessibilitySupportLoaded];
+  if ((accessibilitySupportLoaded & 1) == 0)
   {
-    if (CRLAccessibilityShouldPerformValidationChecks())
+    if (CRLAccessibilityShouldPerformValidationChecks(accessibilitySupportLoaded, v4))
     {
       [(CRLAccessibility *)self performValidation];
       if ([(CRLAccessibility *)self conformsToProtocol:&OBJC_PROTOCOL___CRLAccessibilityExtras])
@@ -574,14 +578,14 @@
       }
     }
 
-    v3 = objc_opt_new();
+    v5 = objc_opt_new();
     [(CRLAccessibility *)self addSafeCategoryNamesToCollection:?];
     if ([(CRLAccessibility *)self conformsToProtocol:&OBJC_PROTOCOL___CRLAccessibilityExtras]&& (objc_opt_respondsToSelector() & 1) != 0)
     {
-      [(CRLAccessibility *)self addExtraSafeCategoryNamesToCollection:v3];
+      [(CRLAccessibility *)self addExtraSafeCategoryNamesToCollection:v5];
     }
 
-    CRLAccessibilityInstallSafeCategories(v3);
+    CRLAccessibilityInstallSafeCategories(v5);
     if ([(CRLAccessibility *)self conformsToProtocol:&OBJC_PROTOCOL___CRLAccessibilityExtras]&& (objc_opt_respondsToSelector() & 1) != 0)
     {
       [(CRLAccessibility *)self loadExtraAccessibilitySupport];

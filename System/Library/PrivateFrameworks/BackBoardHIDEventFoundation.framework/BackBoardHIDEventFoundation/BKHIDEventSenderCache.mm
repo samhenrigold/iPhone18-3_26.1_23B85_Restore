@@ -13,32 +13,32 @@
 
 - (void)removeSenderInfo:(id)info
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   if (!infoCopy)
   {
-    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"senders != ((void*)0)"];
+    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"senders != ((void*)0)"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v11 = NSStringFromSelector(a2);
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v10 = NSStringFromSelector(a2);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       *buf = 138544642;
-      v18 = v11;
-      v19 = 2114;
-      v20 = v13;
-      v21 = 2048;
+      v17 = v10;
+      v18 = 2114;
+      v19 = v12;
+      v20 = 2048;
       selfCopy = self;
-      v23 = 2114;
-      v24 = @"BKHIDEventSenderCache.m";
-      v25 = 1024;
-      v26 = 123;
-      v27 = 2114;
-      v28 = v10;
+      v22 = 2114;
+      v23 = @"BKHIDEventSenderCache.m";
+      v24 = 1024;
+      v25 = 123;
+      v26 = 2114;
+      v27 = v9;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v10 UTF8String];
+    [v9 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CDB9ACLL);
@@ -47,47 +47,46 @@
   v6 = infoCopy;
   os_unfair_lock_lock(&self->_lock);
   v7 = [(NSMutableDictionary *)self->_senderIDToSenderInfo copy];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __42__BKHIDEventSenderCache_removeSenderInfo___block_invoke;
-  v14[3] = &unk_2784F6BC0;
-  v15 = v6;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __42__BKHIDEventSenderCache_removeSenderInfo___block_invoke;
+  v13[3] = &unk_2784F6BC0;
+  v14 = v6;
   selfCopy2 = self;
   v8 = v6;
-  [v7 enumerateKeysAndObjectsUsingBlock:v14];
+  [v7 enumerateKeysAndObjectsUsingBlock:v13];
 
   os_unfair_lock_unlock(&self->_lock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __42__BKHIDEventSenderCache_removeSenderInfo___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v7 = *(a1 + 32);
-  v8 = [v7 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v28;
+    v10 = *v27;
     v11 = 0x277CCA000uLL;
     do
     {
       v12 = 0;
-      v26 = v9;
+      v25 = v9;
       do
       {
-        if (*v28 != v10)
+        if (*v27 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        if (*(*(&v27 + 1) + 8 * v12) == v6)
+        if (*(*(&v26 + 1) + 8 * v12) == v6)
         {
           v13 = [v5 unsignedLongLongValue];
           v14 = BKLogHID();
@@ -95,9 +94,9 @@ void __42__BKHIDEventSenderCache_removeSenderInfo___block_invoke(uint64_t a1, vo
           {
             v15 = objc_opt_class();
             *buf = 134218242;
-            v32 = v13;
-            v33 = 2114;
-            v34 = v15;
+            v31 = v13;
+            v32 = 2114;
+            v33 = v15;
             v16 = v10;
             v17 = v6;
             v18 = v7;
@@ -113,7 +112,7 @@ void __42__BKHIDEventSenderCache_removeSenderInfo___block_invoke(uint64_t a1, vo
             v7 = v18;
             v6 = v17;
             v10 = v16;
-            v9 = v26;
+            v9 = v25;
           }
 
           v23 = *(*(a1 + 40) + 24);
@@ -125,85 +124,81 @@ void __42__BKHIDEventSenderCache_removeSenderInfo___block_invoke(uint64_t a1, vo
       }
 
       while (v9 != v12);
-      v9 = [v7 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v9);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSenderInfo:(id)info
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   if (!infoCopy)
   {
-    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"senders != ((void*)0)"];
+    v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"senders != ((void*)0)"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v13 = NSStringFromSelector(a2);
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
+      v12 = NSStringFromSelector(a2);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
       *buf = 138544642;
-      v22 = v13;
-      v23 = 2114;
-      v24 = v15;
-      v25 = 2048;
+      v21 = v12;
+      v22 = 2114;
+      v23 = v14;
+      v24 = 2048;
       selfCopy = self;
-      v27 = 2114;
-      v28 = @"BKHIDEventSenderCache.m";
-      v29 = 1024;
-      v30 = 114;
-      v31 = 2114;
-      v32 = v12;
+      v26 = 2114;
+      v27 = @"BKHIDEventSenderCache.m";
+      v28 = 1024;
+      v29 = 114;
+      v30 = 2114;
+      v31 = v11;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v12 UTF8String];
+    [v11 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CDBDC4);
   }
 
   v6 = infoCopy;
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
-  v7 = [infoCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v7 = [infoCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        -[BKHIDEventSenderCache addSenderInfo:forSenderID:](self, "addSenderInfo:forSenderID:", *(*(&v16 + 1) + 8 * v10), [*(*(&v16 + 1) + 8 * v10) senderID]);
+        -[BKHIDEventSenderCache addSenderInfo:forSenderID:](self, "addSenderInfo:forSenderID:", *(*(&v15 + 1) + 8 * v10), [*(*(&v15 + 1) + 8 * v10) senderID]);
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSenderInfo:(id)info forSenderID:(unint64_t)d
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   os_unfair_lock_assert_not_owner(&self->_lock);
   os_unfair_lock_lock(&self->_lock);
@@ -216,9 +211,9 @@ void __42__BKHIDEventSenderCache_removeSenderInfo___block_invoke(uint64_t a1, vo
   {
     if (v10)
     {
-      *v13 = 134217984;
-      *&v13[4] = d;
-      _os_log_impl(&dword_223CBE000, v9, OS_LOG_TYPE_DEFAULT, "we already have a service for senderID:%llX", v13, 0xCu);
+      *v12 = 134217984;
+      *&v12[4] = d;
+      _os_log_impl(&dword_223CBE000, v9, OS_LOG_TYPE_DEFAULT, "we already have a service for senderID:%llX", v12, 0xCu);
     }
   }
 
@@ -226,12 +221,12 @@ void __42__BKHIDEventSenderCache_removeSenderInfo___block_invoke(uint64_t a1, vo
   {
     if (v10)
     {
-      *v13 = 134218242;
-      *&v13[4] = d;
-      *&v13[12] = 2114;
-      *&v13[14] = objc_opt_class();
-      v11 = *&v13[14];
-      _os_log_impl(&dword_223CBE000, v9, OS_LOG_TYPE_DEFAULT, "cache sender info for senderID:%llX -- %{public}@", v13, 0x16u);
+      *v12 = 134218242;
+      *&v12[4] = d;
+      *&v12[12] = 2114;
+      *&v12[14] = objc_opt_class();
+      v11 = *&v12[14];
+      _os_log_impl(&dword_223CBE000, v9, OS_LOG_TYPE_DEFAULT, "cache sender info for senderID:%llX -- %{public}@", v12, 0x16u);
     }
 
     objc_opt_class();
@@ -240,17 +235,15 @@ void __42__BKHIDEventSenderCache_removeSenderInfo___block_invoke(uint64_t a1, vo
       [infoCopy addDisappearanceObserver:self queue:self->_queue];
     }
 
-    [(NSMutableDictionary *)self->_senderIDToSenderInfo setObject:infoCopy forKeyedSubscript:v7, *v13, *&v13[16], v14];
+    [(NSMutableDictionary *)self->_senderIDToSenderInfo setObject:infoCopy forKeyedSubscript:v7, *v12, *&v12[8], v13];
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)senderInfoForSenderID:(unint64_t)d
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   senderIDToSenderInfo = self->_senderIDToSenderInfo;
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:d];
@@ -262,15 +255,13 @@ void __42__BKHIDEventSenderCache_removeSenderInfo___block_invoke(uint64_t a1, vo
     v8 = BKLogHID();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 134217984;
+      v10 = 134217984;
       dCopy = d;
-      _os_log_impl(&dword_223CBE000, v8, OS_LOG_TYPE_DEFAULT, "unknown senderID: 0x%llX", &v11, 0xCu);
+      _os_log_impl(&dword_223CBE000, v8, OS_LOG_TYPE_DEFAULT, "unknown senderID: 0x%llX", &v10, 0xCu);
     }
 
     v7 = +[BKHIDUnknownSender unknownSenderInfo];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -296,14 +287,13 @@ void __29__BKHIDEventSenderCache_sync__block_invoke(uint64_t a1)
 
 - (void)serviceDidDisappear:(id)disappear
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   disappearCopy = disappear;
   v4 = MEMORY[0x277CBEA60];
   disappearCopy2 = disappear;
   v6 = [v4 arrayWithObjects:&disappearCopy count:1];
 
-  [(BKHIDEventSenderCache *)self removeSenderInfo:v6, disappearCopy, v9];
-  v7 = *MEMORY[0x277D85DE8];
+  [(BKHIDEventSenderCache *)self removeSenderInfo:v6, disappearCopy, v8];
 }
 
 - (NSString)description

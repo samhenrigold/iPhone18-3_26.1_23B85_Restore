@@ -253,7 +253,7 @@ LABEL_2:
     goto LABEL_10;
   }
 
-  if (self->_shortcutData && WorkflowKitLibraryCore())
+  if (self->_shortcutData && WorkflowKitLibraryCore(0))
   {
     v12 = 0;
     v13 = &v12;
@@ -356,33 +356,33 @@ LABEL_10:
 
 + (BOOL)isSupportedForHome:(id)home
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   residentDevices = [home residentDevices];
-  v4 = [residentDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [residentDevices countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(residentDevices);
         }
 
-        if (([*(*(&v9 + 1) + 8 * i) capabilities] & 0x100) != 0)
+        if (([*(*(&v8 + 1) + 8 * i) capabilities] & 0x100) != 0)
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [residentDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [residentDevices countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -394,7 +394,6 @@ LABEL_10:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

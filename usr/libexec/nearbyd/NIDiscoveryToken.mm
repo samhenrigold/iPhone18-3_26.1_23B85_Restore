@@ -3,6 +3,7 @@
 + (id)deserialize:(id)deserialize;
 + (id)generateDiscoveryTokenFromBeaconIdentifier:(id)identifier;
 + (id)generateFindingTokenWithIRK:(id)k;
++ (id)generateFindingTokenWithIRK:(id)k forExternalUse:(BOOL)use;
 + (id)generateTokenWithUUID:(id)d;
 + (id)serialize:(id)serialize;
 - (BOOL)isEqual:(id)equal;
@@ -96,23 +97,22 @@
   keyCopy = key;
   if (!keyCopy)
   {
-    v10 = +[NSAssertionHandler currentHandler];
-    [v10 handleFailureInMethod:a2 object:self file:@"NIConfiguration.mm" lineNumber:116 description:{@"Invalid parameter not satisfying: %@", @"key"}];
+    v9 = +[NSAssertionHandler currentHandler];
+    [v9 handleFailureInMethod:a2 object:self file:@"NIConfiguration.mm" lineNumber:116 description:{@"Invalid parameter not satisfying: %@", @"key"}];
   }
 
-  rawToken = self->_rawToken;
-  v7 = OPACKDecodeData();
-  if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v6 = OPACKDecodeData();
+  if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v8 = [v7 objectForKey:keyCopy];
+    v7 = [v6 objectForKey:keyCopy];
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 - (int64_t)tokenVariant
@@ -479,6 +479,13 @@ LABEL_11:
   v10 = [[NIDiscoveryToken alloc] initWithBytes:Data];
 
   return v10;
+}
+
++ (id)generateFindingTokenWithIRK:(id)k forExternalUse:(BOOL)use
+{
+  v4 = [NIDiscoveryToken generateFindingTokenWithIRK:k, use];
+
+  return v4;
 }
 
 @end

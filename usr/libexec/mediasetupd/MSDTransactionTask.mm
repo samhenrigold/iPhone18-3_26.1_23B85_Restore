@@ -36,7 +36,7 @@
 
   else
   {
-    v6 = sub_100030FE4();
+    v6 = sub_100030FE4(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_100022AE8(v6);

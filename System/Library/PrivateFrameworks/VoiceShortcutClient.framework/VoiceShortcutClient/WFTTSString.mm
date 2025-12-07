@@ -99,7 +99,7 @@ LABEL_7:
 
 + (id)parseAnnotatedString:(id)string
 {
-  v37[2] = *MEMORY[0x1E69E9840];
+  v36[2] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if (!stringCopy)
   {
@@ -108,16 +108,16 @@ LABEL_7:
   }
 
   selfCopy = self;
-  v37[0] = objc_opt_class();
-  v37[1] = objc_opt_class();
-  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
-  v28 = objc_opt_new();
+  v36[0] = objc_opt_class();
+  v36[1] = objc_opt_class();
+  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
+  v27 = objc_opt_new();
   v6 = [stringCopy rangeOfString:@"[Siri " options:0 range:{0, objc_msgSend(stringCopy, "length")}];
-  v30 = 0;
+  v29 = 0;
   if (v6 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v8 = v6;
-    v30 = 0;
+    v29 = 0;
     do
     {
       v9 = v8 + v7;
@@ -125,47 +125,47 @@ LABEL_7:
       if (v10 != 0x7FFFFFFFFFFFFFFFLL)
       {
         v12 = v10;
-        v31 = v11;
+        v30 = v11;
         v13 = [stringCopy substringWithRange:{v9, v10 - v9}];
+        v31 = 0u;
         v32 = 0u;
         v33 = 0u;
         v34 = 0u;
-        v35 = 0u;
-        v14 = v29;
-        v15 = [v14 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v14 = v28;
+        v15 = [v14 countByEnumeratingWithState:&v31 objects:v35 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v33;
+          v17 = *v32;
           while (2)
           {
             for (i = 0; i != v16; ++i)
             {
-              if (*v33 != v17)
+              if (*v32 != v17)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v19 = [*(*(&v32 + 1) + 8 * i) parseAnnotationString:v13];
+              v19 = [*(*(&v31 + 1) + 8 * i) parseAnnotationString:v13];
               if (v19)
               {
                 v20 = v19;
 
-                v21 = [stringCopy substringWithRange:{v30, v8 - v30}];
+                v21 = [stringCopy substringWithRange:{v29, v8 - v29}];
                 if ([v21 length])
                 {
-                  [v28 addObject:v21];
+                  [v27 addObject:v21];
                 }
 
-                [v28 addObject:v20];
-                v9 = v12 + v31;
+                [v27 addObject:v20];
+                v9 = v12 + v30;
 
-                v30 = v12 + v31;
+                v29 = v12 + v30;
                 goto LABEL_18;
               }
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v32 objects:v36 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v31 objects:v35 count:16];
             if (v16)
             {
               continue;
@@ -183,15 +183,13 @@ LABEL_18:
     while (v8 != 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  if (v30 != [stringCopy length])
+  if (v29 != [stringCopy length])
   {
-    v22 = [stringCopy substringWithRange:{v30, objc_msgSend(stringCopy, "length") - v30}];
-    [v28 addObject:v22];
+    v22 = [stringCopy substringWithRange:{v29, objc_msgSend(stringCopy, "length") - v29}];
+    [v27 addObject:v22];
   }
 
-  v23 = [[selfCopy alloc] initWithComponents:v28];
-
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = [[selfCopy alloc] initWithComponents:v27];
 
   return v23;
 }

@@ -48,7 +48,7 @@
   changeCopy = change;
   v5 = v7.receiver;
   [(DeprecatedText.StackView *)&v7 traitCollectionDidChange:changeCopy];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1C3168);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1C3168, &qword_151A40);
   sub_14509C();
   traitCollection = [v5 traitCollection];
   sub_144DCC();

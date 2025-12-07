@@ -135,17 +135,16 @@ LABEL_10:
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,CSCallFrameInfoForBinary::ParseEHFrameData(void)::$_0 &,CSCallFrameInfoForBinary::FDE *>(uint64_t a1, uint64_t a2, __n128 a3)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,CSCallFrameInfoForBinary::ParseEHFrameData(void)::$_0 &,CSCallFrameInfoForBinary::FDE *>(uint64_t a1, uint64_t *a2, __n128 a3)
 {
-  v75 = *MEMORY[0x1E69E9840];
   v3 = (a2 - a1) >> 5;
   if (v3 > 2)
   {
     if (v3 == 3)
     {
-      v7 = (a2 - 32);
+      v7 = (a2 - 4);
       v8 = *(a1 + 40);
-      v9 = *(a2 - 24);
+      v9 = *(a2 - 3);
       if (v8 < *(a1 + 8))
       {
         if (v9 >= v8)
@@ -157,14 +156,14 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,CSCal
           *(a1 + 16) = v43;
           *(a1 + 32) = v42;
           *(a1 + 48) = v41;
-          if (*(a2 - 24) >= *(a1 + 40))
+          if (*(a2 - 3) >= *(a1 + 40))
           {
-            goto LABEL_52;
+            return 1;
           }
 
           v11 = *(a1 + 32);
           v10 = *(a1 + 48);
-          v44 = *(a2 - 16);
+          v44 = *(a2 - 1);
           *(a1 + 32) = *v7;
           *(a1 + 48) = v44;
         }
@@ -173,30 +172,28 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,CSCal
         {
           v11 = *a1;
           v10 = *(a1 + 16);
-          v12 = *(a2 - 16);
+          v12 = *(a2 - 1);
           *a1 = *v7;
           *(a1 + 16) = v12;
         }
 
         *v7 = v11;
-        *(a2 - 16) = v10;
-        goto LABEL_52;
+        *(a2 - 1) = v10;
+        return 1;
       }
 
       if (v9 >= v8)
       {
-LABEL_52:
-        result = 1;
-        goto LABEL_53;
+        return 1;
       }
 
       v27 = *(a1 + 32);
       v26 = *(a1 + 48);
-      v28 = *(a2 - 16);
+      v28 = *(a2 - 1);
       *(a1 + 32) = *v7;
       *(a1 + 48) = v28;
       *v7 = v27;
-      *(a2 - 16) = v26;
+      *(a2 - 1) = v26;
 LABEL_50:
       if (*(a1 + 40) < *(a1 + 8))
       {
@@ -209,7 +206,7 @@ LABEL_50:
         *(a1 + 48) = v69;
       }
 
-      goto LABEL_52;
+      return 1;
     }
 
     if (v3 != 4)
@@ -219,8 +216,8 @@ LABEL_50:
         goto LABEL_13;
       }
 
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,CSCallFrameInfoForBinary::ParseEHFrameData(void)::$_0 &,CSCallFrameInfoForBinary::FDE *,0>(a1, (a1 + 32), (a1 + 64), (a1 + 96), (a2 - 32), a3);
-      goto LABEL_52;
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,CSCallFrameInfoForBinary::ParseEHFrameData(void)::$_0 &,CSCallFrameInfoForBinary::FDE *,0>(a1, (a1 + 32), (a1 + 64), (a1 + 96), a2 - 2, a3);
+      return 1;
     }
 
     v20 = *(a1 + 40);
@@ -285,22 +282,22 @@ LABEL_50:
     *(a1 + 64) = v24;
     *(a1 + 80) = v23;
 LABEL_47:
-    if (*(a2 - 24) >= *(a1 + 72))
+    if (*(a2 - 3) >= *(a1 + 72))
     {
-      goto LABEL_52;
+      return 1;
     }
 
-    v62 = (a2 - 32);
+    v62 = a2 - 4;
     v64 = *(a1 + 64);
     v63 = *(a1 + 80);
-    v65 = *(a2 - 16);
-    *(a1 + 64) = *(a2 - 32);
+    v65 = *(a2 - 1);
+    *(a1 + 64) = *(a2 - 2);
     *(a1 + 80) = v65;
     *v62 = v64;
-    v62[1] = v63;
+    *(v62 + 1) = v63;
     if (*(a1 + 72) >= *(a1 + 40))
     {
-      goto LABEL_52;
+      return 1;
     }
 
     v67 = *(a1 + 32);
@@ -315,27 +312,27 @@ LABEL_47:
 
   if (v3 < 2)
   {
-    goto LABEL_52;
+    return 1;
   }
 
   if (v3 == 2)
   {
-    if (*(a2 - 24) < *(a1 + 8))
+    if (*(a2 - 3) < *(a1 + 8))
     {
       v5 = *a1;
       v4 = *(a1 + 16);
-      v6 = *(a2 - 16);
-      *a1 = *(a2 - 32);
+      v6 = *(a2 - 1);
+      *a1 = *(a2 - 2);
       *(a1 + 16) = v6;
-      *(a2 - 32) = v5;
-      *(a2 - 16) = v4;
+      *(a2 - 2) = v5;
+      *(a2 - 1) = v4;
     }
 
-    goto LABEL_52;
+    return 1;
   }
 
 LABEL_13:
-  v13 = a1 + 64;
+  v13 = (a1 + 64);
   v14 = *(a1 + 40);
   v15 = *(a1 + 8);
   v16 = *(a1 + 72);
@@ -400,21 +397,21 @@ LABEL_13:
   }
 
 LABEL_33:
-  v49 = a1 + 96;
-  if (a1 + 96 == a2)
+  v49 = (a1 + 96);
+  if ((a1 + 96) == a2)
   {
-    goto LABEL_52;
+    return 1;
   }
 
   v50 = 0;
   v51 = 0;
   while (1)
   {
-    v52 = *(v49 + 8);
-    if (v52 < *(v13 + 8))
+    v52 = v49[1];
+    if (v52 < v13[1])
     {
       v53 = *v49;
-      v74 = *(v49 + 16);
+      v73 = *(v49 + 1);
       v54 = v50;
       while (1)
       {
@@ -439,39 +436,34 @@ LABEL_33:
 LABEL_41:
       *v57 = v53;
       *(v57 + 8) = v52;
-      *(v57 + 16) = v74;
+      *(v57 + 16) = v73;
       if (++v51 == 8)
       {
-        break;
+        return v49 + 4 == a2;
       }
     }
 
     v13 = v49;
     v50 += 32;
-    v49 += 32;
+    v49 += 4;
     if (v49 == a2)
     {
-      goto LABEL_52;
+      return 1;
     }
   }
-
-  result = v49 + 32 == a2;
-LABEL_53:
-  v73 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-void *std::vector<CSCallFrameInfoForBinary::RegLocation>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<CSCallFrameInfoForBinary::RegLocation>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<CSCallFrameInfoForBinary::RegLocation>::__vallocate[abi:ne200100](result, a2);
+    std::vector<CSCallFrameInfoForBinary::RegLocation>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1D97D365C(_Unwind_Exception *exception_object)
@@ -486,7 +478,7 @@ void sub_1D97D365C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<CSCallFrameInfoForBinary::RegLocation>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<CSCallFrameInfoForBinary::RegLocation>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -549,7 +541,7 @@ void sub_1D97D37D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<CSCallFrameInfoForBinary::RegLocation>::__assign_with_size[abi:ne200100]<CSCallFrameInfoForBinary::RegLocation*,CSCallFrameInfoForBinary::RegLocation*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<CSCallFrameInfoForBinary::RegLocation>::__assign_with_size[abi:ne200100]<CSCallFrameInfoForBinary::RegLocation*,CSCallFrameInfoForBinary::RegLocation*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -626,20 +618,20 @@ void *std::vector<CSCallFrameInfoForBinary::RegLocation>::__assign_with_size[abi
   return result;
 }
 
-void std::__list_imp<CSCallFrameInfoForBinary::RegLocations>::clear(uint64_t *a1)
+void std::__list_imp<CSCallFrameInfoForBinary::RegLocations>::clear(uint64_t *result)
 {
-  if (a1[2])
+  if (result[2])
   {
-    v2 = a1[1];
-    v3 = *(*a1 + 8);
+    v2 = result[1];
+    v3 = *(*result + 8);
     v4 = *v2;
     *(v4 + 8) = v3;
     *v3 = v4;
-    a1[2] = 0;
-    while (v2 != a1)
+    result[2] = 0;
+    while (v2 != result)
     {
       v5 = v2[1];
-      std::__list_imp<CSCallFrameInfoForBinary::RegLocations>::__delete_node[abi:ne200100](a1, v2);
+      std::__list_imp<CSCallFrameInfoForBinary::RegLocations>::__delete_node[abi:ne200100](result, v2);
       v2 = v5;
     }
   }
@@ -657,48 +649,48 @@ void std::__list_imp<CSCallFrameInfoForBinary::RegLocations>::__delete_node[abi:
   operator delete(__p);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,CSCallFrameInfoForBinary::CIE>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,CSCallFrameInfoForBinary::CIE>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,CSCallFrameInfoForBinary::CIE>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,CSCallFrameInfoForBinary::CIE>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,CSCallFrameInfoForBinary::CIE>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,CSCallFrameInfoForBinary::CIE>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 28);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t std::vector<CSCallFrameInfoForBinary::RegLocation>::__init_with_size[abi:ne200100]<CSCallFrameInfoForBinary::RegLocation*,CSCallFrameInfoForBinary::RegLocation*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CSCallFrameInfoForBinary::RegLocation>::__init_with_size[abi:ne200100]<CSCallFrameInfoForBinary::RegLocation*,CSCallFrameInfoForBinary::RegLocation*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -837,9 +829,9 @@ void sub_1D97D3E7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void AS::Operator::generate_owner(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = *(a3 + 56) + 96 * *a2;
-  v5 = 0;
-  v4 = *(v3 + 88) | 0x420;
+  v4 = *(a3 + 56) + 96 * *a2;
+  v6 = 0;
+  v5 = *(v4 + 88) | 0x420;
   std::allocate_shared[abi:ne200100]<CSCppSymbolOwner,std::allocator<CSCppSymbolOwner>,UUID const*,int,unsigned long long const&,unsigned long long const&,unsigned int,_CSArchitecture const&,char const* const&,0>();
 }
 
@@ -854,9 +846,9 @@ void sub_1D97D411C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AS::LoadOperator::operator()(uint64_t a1, uint64_t a2, SymbolicationSession *a3)
+void AS::LoadOperator::operator()(AS::LoadOperator *a1, uint64_t a2, SymbolicationSession *a3)
 {
-  AS::LoadOperator::generate_owners(a1, a3, &v6);
+  AS::LoadOperator::generate_owners(&v6, a1, a3);
   v4[0] = MEMORY[0x1E69E9820];
   v4[1] = 1174405120;
   v4[2] = ___ZNK2AS12LoadOperatorclER17CSCppSymbolicatorR20SymbolicationSession_block_invoke;
@@ -875,24 +867,22 @@ void sub_1D97D41F4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t AS::LoadOperator::generate_owners@<X0>(uint64_t this@<X0>, const SymbolicationSession *a2@<X1>, void *a3@<X8>)
+void AS::LoadOperator::generate_owners(uint64_t *__return_ptr a1@<X8>, AS::LoadOperator *this@<X0>, const SymbolicationSession *a3@<X1>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (*(this + 40) != 1)
   {
-    AS::Operator::generate_owner(this, (this + 16), a2);
+    AS::Operator::generate_owner(this, this + 2, a3);
   }
 
-  v3 = *(this + 16);
-  if (v3 != *(this + 24))
+  v3 = *(this + 2);
+  if (v3 != *(this + 3))
   {
     v4 = *v3;
-    AS::Operator::generate_owner(this, &v4, a2);
+    AS::Operator::generate_owner(this, &v4, a3);
   }
-
-  return this;
 }
 
 void sub_1D97D42EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void **a11, std::__shared_weak_count *a12)
@@ -954,12 +944,12 @@ void sub_1D97D43C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t __copy_helper_block_e8_32c76_ZTSNSt3__16vectorINS_10shared_ptrI16CSCppSymbolOwnerEENS_9allocatorIS3_EEEE(uint64_t a1, uint64_t a2)
+uint64_t *__copy_helper_block_e8_32c76_ZTSNSt3__16vectorINS_10shared_ptrI16CSCppSymbolOwnerEENS_9allocatorIS3_EEEE(uint64_t a1, uint64_t a2)
 {
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
-  v2 = a1 + 32;
-  *(v2 + 16) = 0;
+  v2 = (a1 + 32);
+  v2[2] = 0;
   return std::vector<std::shared_ptr<CSCppSymbolOwner>>::__init_with_size[abi:ne200100]<std::shared_ptr<CSCppSymbolOwner>*,std::shared_ptr<CSCppSymbolOwner>*>(v2, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 4);
 }
 
@@ -1060,12 +1050,12 @@ void AS::LoadOperator::~LoadOperator(AS::LoadOperator *this)
   JUMPOUT(0x1DA736760);
 }
 
-void *AS::FullCreationOperator::generate_owners@<X0>(void *this@<X0>, const SymbolicationSession *a2@<X1>, void *a3@<X8>)
+void AS::FullCreationOperator::generate_owners(void **__return_ptr a1@<X8>, AS::FullCreationOperator *this@<X0>, const SymbolicationSession *a3@<X1>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  v3 = *(a2 + 15) + 40 * this[2];
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v3 = *(a3 + 15) + 40 * *(this + 2);
   v4 = *(v3 + 16);
   if (v4 != *(v3 + 24))
   {
@@ -1075,14 +1065,12 @@ void *AS::FullCreationOperator::generate_owners@<X0>(void *this@<X0>, const Symb
     std::allocate_shared[abi:ne200100]<CSCppSymbolOwner,std::allocator<CSCppSymbolOwner>,UUID const*,int,unsigned long long const&,unsigned long long const&,unsigned int,_CSArchitecture const&,char const* const&,0>();
   }
 
-  v5 = this[5];
-  if (v5 != this[6])
+  v5 = *(this + 5);
+  if (v5 != *(this + 6))
   {
     *__p = *v5;
-    AS::Operator::generate_owner(this, __p, a2);
+    AS::Operator::generate_owner(this, __p, a3);
   }
-
-  return this;
 }
 
 void sub_1D97D47B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15)
@@ -1129,12 +1117,12 @@ void AS::FullCreationOperator::~FullCreationOperator(AS::FullCreationOperator *t
   JUMPOUT(0x1DA736760);
 }
 
-void *std::__shared_ptr_emplace<CSCppSymbolOwner>::__shared_ptr_emplace[abi:ne200100]<UUID const*,int,unsigned long long const&,unsigned long long const&,unsigned int,_CSArchitecture const&,char const* const&,std::allocator<CSCppSymbolOwner>,0>(void *a1, void *a2, unsigned int *a3, void *a4, void *a5, unsigned int *a6, void *a7, void *a8)
+void *std::__shared_ptr_emplace<CSCppSymbolOwner>::__shared_ptr_emplace[abi:ne200100]<UUID const*,int,unsigned long long const&,unsigned long long const&,unsigned int,_CSArchitecture const&,char const* const&,std::allocator<CSCppSymbolOwner>,0>(void *a1, __int128 **a2, int *a3, uint64_t *a4, uint64_t *a5, int *a6, uint64_t *a7, const char **a8)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F5504DE8;
-  CSCppSymbolOwner::CSCppSymbolOwner(a1 + 3, *a2, *a3, *a4, *a5, *a6, *a7, *a8);
+  CSCppSymbolOwner::CSCppSymbolOwner((a1 + 3), *a2, *a3, *a4, *a5, *a6, *a7, *a8);
   return a1;
 }
 
@@ -1194,16 +1182,14 @@ void sub_1D97D4B7C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-CSCppMutableContext *CSCppMutableContext::add_symbol_owner@<X0>(CSCppMutableContext *this@<X0>, CSCppSymbolOwner *a2@<X1>, void *a3@<X8>)
+void CSCppMutableContext::add_symbol_owner(__int128 *__return_ptr a1@<X8>, CSCppSymbolOwner *a3@<X1>)
 {
-  if ((*(a2 + 111) & 1) == 0)
+  if ((*(a3 + 111) & 1) == 0)
   {
-    CSCppMutableContext::copy_symbol_owner(this, a2);
+    CSCppMutableContext::copy_symbol_owner();
   }
 
-  *a3 = 0;
-  a3[1] = 0;
-  return this;
+  *a1 = 0uLL;
 }
 
 void sub_1D97D4BDC(_Unwind_Exception *exception_object)
@@ -1319,19 +1305,19 @@ uint64_t *_findSymbolOwnerInList(uint64_t **a1, uint64_t a2)
   return v2;
 }
 
-uint64_t CSCppMutableContext::replace_symbol_owner(CSCppMutableContext *this, CSCppSymbolOwner *a2, CSCppSymbolOwner *a3)
+uint64_t CSCppMutableContext::replace_symbol_owner(void **this, CSCppSymbolOwner *a2, CSCppSymbolOwner *a3)
 {
-  CSCppMutableContext::add_symbol_owner(this, a2, &v8);
+  CSCppMutableContext::add_symbol_owner(&v8, a2);
   SymbolOwnerInList = _findSymbolOwnerInList(this, a3);
-  if (*(this + 1) != SymbolOwnerInList)
+  if (this[1] != SymbolOwnerInList)
   {
     CSCppMutableContext::remove_symbol_owner(this, SymbolOwnerInList);
   }
 
   v6 = v8;
-  if (v9)
+  if (*(&v8 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v8 + 1));
   }
 
   return v6;
@@ -1354,29 +1340,29 @@ uint64_t CSCppMutableContext::make_symbol_owner_mutable(CSCppMutableContext *thi
     SymbolOwnerInList = _findSymbolOwnerInList(this, a2);
     if (*(this + 1) != SymbolOwnerInList)
     {
-      v5 = SymbolOwnerInList;
+      v4 = SymbolOwnerInList;
       std::vector<std::shared_ptr<CSCppSymbolOwner>>::push_back[abi:ne200100](this + 3, SymbolOwnerInList);
-      std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::shared_ptr<CSCppSymbolOwner> *,std::shared_ptr<CSCppSymbolOwner> *,std::shared_ptr<CSCppSymbolOwner> *>(&v11, (v5 + 16), *(this + 1), v5);
-      v7 = v6;
-      v8 = *(this + 1);
-      if (v8 != v6)
+      std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::shared_ptr<CSCppSymbolOwner> *,std::shared_ptr<CSCppSymbolOwner> *,std::shared_ptr<CSCppSymbolOwner> *>(&v10, (v4 + 16), *(this + 1), v4);
+      v6 = v5;
+      v7 = *(this + 1);
+      if (v7 != v5)
       {
         do
         {
-          v9 = *(v8 - 8);
-          if (v9)
+          v8 = *(v7 - 8);
+          if (v8)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v8);
           }
 
-          v8 -= 16;
+          v7 -= 16;
         }
 
-        while (v8 != v7);
+        while (v7 != v6);
       }
 
-      *(this + 1) = v7;
-      CSCppMutableContext::copy_symbol_owner(this, a2);
+      *(this + 1) = v6;
+      CSCppMutableContext::copy_symbol_owner();
     }
   }
 
@@ -1455,7 +1441,7 @@ void *CSGetBinaryPathForExclaveWithUUIDBytes(void *a1)
 
 void get_exclave_core_uuid_to_path_map(void)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_2, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_2, memory_order_acquire) & 1) == 0)
   {
     get_exclave_core_uuid_to_path_map();
   }
@@ -1470,7 +1456,7 @@ void get_exclave_core_uuid_to_path_map(void)
 
 void get_exclave_kit_uuid_to_path_map(void)
 {
-  if ((atomic_load_explicit(&qword_1EDADA858, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1EDADA858, memory_order_acquire) & 1) == 0)
   {
     get_exclave_kit_uuid_to_path_map();
   }
@@ -1483,41 +1469,40 @@ void get_exclave_kit_uuid_to_path_map(void)
   }
 }
 
-uint64_t CSSymbolicatorCreateWithExclaveUUIDAndFlags(void *a1, int a2)
+uint64_t CSSymbolicatorCreateWithExclaveUUIDAndFlags(void *a1, uint64_t a2)
 {
   if (!a1)
   {
     return 0;
   }
 
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3802000000;
-  v12 = __Block_byref_object_copy__16;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3802000000;
+  v11 = __Block_byref_object_copy__16;
+  v13 = 0;
   v14 = 0;
-  v15 = 0;
-  v13 = __Block_byref_object_dispose__16;
+  v12 = __Block_byref_object_dispose__16;
   v4 = CSGetBinaryPathForExclaveWithUUIDBytes(a1);
   if (v4)
   {
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 0x40000000;
-    v8[2] = __CSSymbolicatorCreateWithExclaveUUIDAndFlags_block_invoke;
-    v8[3] = &unk_1E8584B40;
-    v8[4] = &v9;
-    v8[5] = a1;
-    CSSymbolicatorForeachSymbolicatorWithPathFlagsAndNotification(v4, a2, 0, v8);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 0x40000000;
+    v7[2] = __CSSymbolicatorCreateWithExclaveUUIDAndFlags_block_invoke;
+    v7[3] = &unk_1E8584B40;
+    v7[4] = &v8;
+    v7[5] = a1;
+    CSSymbolicatorForeachSymbolicatorWithPathFlagsAndNotification(v4, a2, 0, v7);
   }
 
-  v5 = v10[5];
-  v6 = v10[6];
-  _Block_object_dispose(&v9, 8);
+  v5 = v9[5];
+  _Block_object_dispose(&v8, 8);
   return v5;
 }
 
-void sub_1D97D51E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1D97D51E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1547,7 +1532,7 @@ void *__CSSymbolicatorCreateWithExclaveUUIDAndFlags_block_invoke(uint64_t a1, ui
   return result;
 }
 
-uint64_t CSSymbolicatorForeachExclaveCoreSymbolicatorWithFlags(int a1, uint64_t a2)
+uint64_t CSSymbolicatorForeachExclaveCoreSymbolicatorWithFlags(uint64_t a1, uint64_t a2)
 {
   get_exclave_core_uuid_to_path_map();
   v11 = 0;
@@ -1564,7 +1549,7 @@ uint64_t CSSymbolicatorForeachExclaveCoreSymbolicatorWithFlags(int a1, uint64_t 
       v5 = (v4 + 32);
       if (!std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::find<std::string>(v9, (v4 + 32)))
       {
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(v9, (v4 + 32));
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(v9, (v4 + 32), v4 + 32);
         if (*(v4 + 55) < 0)
         {
           v5 = *v5;
@@ -1596,16 +1581,16 @@ uint64_t CSSymbolicatorForeachExclaveCoreSymbolicatorWithFlags(int a1, uint64_t 
   return v6;
 }
 
-void sub_1D97D53C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D97D53C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void *);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(va);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1618,7 +1603,7 @@ uint64_t __CSSymbolicatorForeachExclaveCoreSymbolicatorWithFlags_block_invoke(ui
   return result;
 }
 
-uint64_t CSSymbolicatorForeachExclaveKitSymbolicatorWithFlags(int a1, uint64_t a2)
+uint64_t CSSymbolicatorForeachExclaveKitSymbolicatorWithFlags(uint64_t a1, uint64_t a2)
 {
   get_exclave_kit_uuid_to_path_map();
   v11 = 0;
@@ -1635,7 +1620,7 @@ uint64_t CSSymbolicatorForeachExclaveKitSymbolicatorWithFlags(int a1, uint64_t a
       v5 = (v4 + 32);
       if (!std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::find<std::string>(v9, (v4 + 32)))
       {
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(v9, (v4 + 32));
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(v9, (v4 + 32), v4 + 32);
         if (*(v4 + 55) < 0)
         {
           v5 = *v5;
@@ -1667,16 +1652,16 @@ uint64_t CSSymbolicatorForeachExclaveKitSymbolicatorWithFlags(int a1, uint64_t a
   return v6;
 }
 
-void sub_1D97D5578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D97D5578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void *);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(va);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1691,13 +1676,13 @@ uint64_t __CSSymbolicatorForeachExclaveKitSymbolicatorWithFlags_block_invoke(uin
 
 void std::__call_once_proxy[abi:ne200100]<std::tuple<get_exclave_core_uuid_to_path_map(void)::$_0 &&>>()
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   std::string::basic_string[abi:ne200100]<0>(__p, "/System/ExclaveCore/");
+  v5 = 0;
   v6 = 0;
   v7 = 0;
-  v8 = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v6, __p, v12, 1uLL);
-  if (v11 < 0)
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v5, __p, v11, 1uLL);
+  if (v10 < 0)
   {
     operator delete(__p[0]);
   }
@@ -1711,8 +1696,8 @@ void std::__call_once_proxy[abi:ne200100]<std::tuple<get_exclave_core_uuid_to_pa
       if (!is_root_directory(v0))
       {
         std::string::basic_string[abi:ne200100]<0>(__p, v1);
-        std::vector<std::string>::push_back[abi:ne200100](&v6, __p);
-        if (v11 < 0)
+        std::vector<std::string>::push_back[abi:ne200100](&v5, __p);
+        if (v10 < 0)
         {
           operator delete(__p[0]);
         }
@@ -1720,8 +1705,8 @@ void std::__call_once_proxy[abi:ne200100]<std::tuple<get_exclave_core_uuid_to_pa
     }
   }
 
-  v2 = v6;
-  for (i = v7; v2 != i; v2 += 24)
+  v2 = v5;
+  for (i = v6; v2 != i; v2 += 24)
   {
     v4 = v2;
     if (*(v2 + 23) < 0)
@@ -1730,14 +1715,13 @@ void std::__call_once_proxy[abi:ne200100]<std::tuple<get_exclave_core_uuid_to_pa
     }
 
     __p[0] = &unk_1F5508BB8;
-    v12[0] = __p;
+    v11[0] = __p;
     recursively_list_files_and_uuids_in_directory(v4, __p);
     std::__function::__value_func<void ()(std::string const&,UUID const&)>::~__value_func[abi:ne200100](__p);
   }
 
-  v9 = &v6;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v9);
-  v5 = *MEMORY[0x1E69E9840];
+  v8 = &v5;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v8);
 }
 
 void sub_1D97D573C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, char *a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -1754,166 +1738,165 @@ void sub_1D97D573C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void recursively_list_files_and_uuids_in_directory(std::string *a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v17 = a1;
+  v23 = *MEMORY[0x1E69E9840];
+  v16 = a1;
   if (access(a1, 4) && os_variant_has_internal_content())
   {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
-      *(buf.__r_.__value_.__r.__words + 4) = a1;
-      v4 = MEMORY[0x1E69E9C10];
-      v5 = "Failed to access directory: %s\n";
+      return;
+    }
+
+    LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
+    *(buf.__r_.__value_.__r.__words + 4) = a1;
+    v4 = MEMORY[0x1E69E9C10];
+    v5 = "Failed to access directory: %s\n";
 LABEL_13:
-      _os_log_impl(&dword_1D96E9000, v4, OS_LOG_TYPE_DEFAULT, v5, &buf, 0xCu);
+    _os_log_impl(&dword_1D96E9000, v4, OS_LOG_TYPE_DEFAULT, v5, &buf, 0xCu);
+    return;
+  }
+
+  v6 = std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&buf, &v16);
+  std::__fs::filesystem::__status(v6, 0);
+  if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(buf.__r_.__value_.__l.__data_);
+  }
+
+  if (v15.__r_.__value_.__s.__data_[0] != 2)
+  {
+    if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
+    *(buf.__r_.__value_.__r.__words + 4) = v16;
+    v4 = MEMORY[0x1E69E9C10];
+    v5 = "Path is not a directory: %s\n";
+    goto LABEL_13;
+  }
+
+  std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&v15, &v16);
+  MEMORY[0x1DA736650](&buf, &v15, 0, 0);
+  v7 = *&buf.__r_.__value_.__l.__data_;
+  if (buf.__r_.__value_.__l.__size_)
+  {
+    atomic_fetch_add_explicit((buf.__r_.__value_.__l.__size_ + 8), 1uLL, memory_order_relaxed);
+    size = buf.__r_.__value_.__l.__size_;
+    v21.__imp_ = v7;
+    v21.__rec_ = buf.__r_.__value_.__s.__data_[16];
+    if (buf.__r_.__value_.__l.__size_)
+    {
+      atomic_fetch_add_explicit((buf.__r_.__value_.__l.__size_ + 8), 1uLL, memory_order_relaxed);
+      std::__shared_weak_count::__release_shared[abi:ne200100](size);
     }
   }
 
   else
   {
-    v6 = std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&buf, &v17);
-    std::__fs::filesystem::__status(v6, 0);
-    if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
+    v21.__imp_.__ptr_ = buf.__r_.__value_.__r.__words[0];
+    v21.__imp_.__cntrl_ = 0;
+    v21.__rec_ = buf.__r_.__value_.__s.__data_[16];
+  }
+
+  while (v21.__imp_.__ptr_)
+  {
+    v9 = std::__fs::filesystem::recursive_directory_iterator::__dereference(&v21);
+    if (SHIBYTE(v9->__p_.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(buf.__r_.__value_.__l.__data_);
+      std::string::__init_copy_ctor_external(&p, v9->__p_.__pn_.__r_.__value_.__l.__data_, v9->__p_.__pn_.__r_.__value_.__l.__size_);
     }
 
-    if (v16.__r_.__value_.__s.__data_[0] == 2)
+    else
     {
-      std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&v16, &v17);
-      MEMORY[0x1DA736650](&buf, &v16, 0, 0);
-      v7 = *&buf.__r_.__value_.__l.__data_;
-      if (buf.__r_.__value_.__l.__size_)
-      {
-        atomic_fetch_add_explicit((buf.__r_.__value_.__l.__size_ + 8), 1uLL, memory_order_relaxed);
-        size = buf.__r_.__value_.__l.__size_;
-        v22.__imp_ = v7;
-        v22.__rec_ = buf.__r_.__value_.__s.__data_[16];
-        if (buf.__r_.__value_.__l.__size_)
-        {
-          atomic_fetch_add_explicit((buf.__r_.__value_.__l.__size_ + 8), 1uLL, memory_order_relaxed);
-          std::__shared_weak_count::__release_shared[abi:ne200100](size);
-        }
-      }
+      p = v9->__p_;
+    }
 
-      else
-      {
-        v22.__imp_.__ptr_ = buf.__r_.__value_.__r.__words[0];
-        v22.__imp_.__cntrl_ = 0;
-        v22.__rec_ = buf.__r_.__value_.__s.__data_[16];
-      }
+    std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v13.__pn_, &p);
+    std::__fs::filesystem::__status(&v13, 0);
+    v10 = v17;
+    if (SHIBYTE(v13.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v13.__pn_.__r_.__value_.__l.__data_);
+    }
 
-      while (v22.__imp_.__ptr_)
+    if (v10 != 2)
+    {
+      v11 = (p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &p : p.__r_.__value_.__r.__words[0];
+      if (CSFileIsSuitableForCS(v11))
       {
-        v9 = std::__fs::filesystem::recursive_directory_iterator::__dereference(&v22);
-        if (SHIBYTE(v9->__p_.__pn_.__r_.__value_.__r.__words[2]) < 0)
+        if ((p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          std::string::__init_copy_ctor_external(&p, v9->__p_.__pn_.__r_.__value_.__l.__data_, v9->__p_.__pn_.__r_.__value_.__l.__size_);
+          p_p = &p;
         }
 
         else
         {
-          p = v9->__p_;
+          p_p = p.__r_.__value_.__r.__words[0];
         }
 
-        std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v14.__pn_, &p);
-        std::__fs::filesystem::__status(&v14, 0);
-        v10 = v18;
-        if (SHIBYTE(v14.__pn_.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v14.__pn_.__r_.__value_.__l.__data_);
-        }
-
-        if (v10 != 2)
-        {
-          v11 = (p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &p : p.__r_.__value_.__r.__words[0];
-          if (CSFileIsSuitableForCS(v11))
-          {
-            if ((p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-            {
-              p_p = &p;
-            }
-
-            else
-            {
-              p_p = p.__r_.__value_.__r.__words[0];
-            }
-
-            v14.__pn_.__r_.__value_.__r.__words[0] = -1;
-            v19[0] = MEMORY[0x1E69E9820];
-            v19[1] = 1174405120;
-            v19[2] = ___ZL45recursively_list_files_and_uuids_in_directoryPKcNSt3__18functionIFvRKNS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERK4UUIDEEE_block_invoke;
-            v19[3] = &__block_descriptor_tmp_10_5;
-            std::__function::__value_func<void ()(std::string const&,UUID const&)>::__value_func[abi:ne200100](v20, a2);
-            if (SHIBYTE(p.__r_.__value_.__r.__words[2]) < 0)
-            {
-              std::string::__init_copy_ctor_external(&__p, p.__r_.__value_.__l.__data_, p.__r_.__value_.__l.__size_);
-            }
-
-            else
-            {
-              __p = p;
-            }
-
-            iterate_symbol_owners_from_path(p_p, 0, 0, &v14, 0, v19);
-            if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(__p.__r_.__value_.__l.__data_);
-            }
-
-            std::__function::__value_func<void ()(std::string const&,UUID const&)>::~__value_func[abi:ne200100](v20);
-          }
-        }
-
+        v13.__pn_.__r_.__value_.__r.__words[0] = -1;
+        v18[0] = MEMORY[0x1E69E9820];
+        v18[1] = 1174405120;
+        v18[2] = ___ZL45recursively_list_files_and_uuids_in_directoryPKcNSt3__18functionIFvRKNS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERK4UUIDEEE_block_invoke;
+        v18[3] = &__block_descriptor_tmp_10_5;
+        std::__function::__value_func<void ()(std::string const&,UUID const&)>::__value_func[abi:ne200100](v19, a2);
         if (SHIBYTE(p.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(p.__r_.__value_.__l.__data_);
+          std::string::__init_copy_ctor_external(&__p, p.__r_.__value_.__l.__data_, p.__r_.__value_.__l.__size_);
         }
 
-        std::__fs::filesystem::recursive_directory_iterator::__increment(&v22, 0);
-      }
+        else
+        {
+          __p = p;
+        }
 
-      if (v22.__imp_.__cntrl_)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v22.__imp_.__cntrl_);
-      }
+        iterate_symbol_owners_from_path(p_p, 0, 0, &v13, 0, v18);
+        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p.__r_.__value_.__l.__data_);
+        }
 
-      if (buf.__r_.__value_.__l.__size_)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](buf.__r_.__value_.__l.__size_);
-      }
-
-      if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v16.__r_.__value_.__l.__data_);
+        std::__function::__value_func<void ()(std::string const&,UUID const&)>::~__value_func[abi:ne200100](v19);
       }
     }
 
-    else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    if (SHIBYTE(p.__r_.__value_.__r.__words[2]) < 0)
     {
-      LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
-      *(buf.__r_.__value_.__r.__words + 4) = v17;
-      v4 = MEMORY[0x1E69E9C10];
-      v5 = "Path is not a directory: %s\n";
-      goto LABEL_13;
+      operator delete(p.__r_.__value_.__l.__data_);
     }
+
+    std::__fs::filesystem::recursive_directory_iterator::__increment(&v21, 0);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
+  if (v21.__imp_.__cntrl_)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v21.__imp_.__cntrl_);
+  }
+
+  if (buf.__r_.__value_.__l.__size_)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](buf.__r_.__value_.__l.__size_);
+  }
+
+  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v15.__r_.__value_.__l.__data_);
+  }
 }
 
-uint64_t ___ZL45recursively_list_files_and_uuids_in_directoryPKcNSt3__18functionIFvRKNS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERK4UUIDEEE_block_invoke(uint64_t a1, uint64_t *a2)
+uint64_t ___ZL45recursively_list_files_and_uuids_in_directoryPKcNSt3__18functionIFvRKNS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERK4UUIDEEE_block_invoke(uint64_t a1)
 {
-  v3 = *(a1 + 56);
-  if (!v3)
+  v2 = *(a1 + 56);
+  if (!v2)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  v4 = *a2;
-  v5 = *(*v3 + 48);
+  v3 = *(*v2 + 48);
 
-  return v5();
+  return v3();
 }
 
 void __copy_helper_block_e8_32c93_ZTSNSt3__18functionIFvRKNS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEERK4UUIDEEE64c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE(uint64_t a1, uint64_t a2)
@@ -2076,7 +2059,7 @@ void sub_1D97D5FD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -2089,21 +2072,20 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYT
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
 std::string *std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(std::string *a1, std::string *a2)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   v3 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
   size = a2->__r_.__value_.__l.__size_;
@@ -2168,7 +2150,8 @@ void std::__function::__func<get_exclave_core_uuid_to_path_map(void)::$_0::opera
   {
     if ((UUID::is_null(this) & 1) == 0)
     {
-      v6 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,UUIDHashFunctor,UUIDEqualsFunctor,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,UUIDEqualsFunctor,UUIDHashFunctor,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(&xmmword_1EDADA860, this);
+      v7 = this;
+      v6 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,UUIDHashFunctor,UUIDEqualsFunctor,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,UUIDEqualsFunctor,UUIDHashFunctor,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(&xmmword_1EDADA860, this, &std::piecewise_construct, &v7);
       std::string::operator=((v6 + 4), a2);
     }
   }
@@ -2186,33 +2169,33 @@ uint64_t std::__function::__func<get_exclave_core_uuid_to_path_map(void)::$_0::o
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,UUIDHashFunctor,UUIDEqualsFunctor,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,UUIDEqualsFunctor,UUIDHashFunctor,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,UUIDHashFunctor,UUIDEqualsFunctor,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,UUIDEqualsFunctor,UUIDHashFunctor,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = a2[1] ^ *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = a2[1] ^ *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_22;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = a2[1] ^ *a2;
-    if (v2 >= *&v3)
+    v7 = a2[1] ^ *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_22:
     operator new();
@@ -2220,44 +2203,44 @@ LABEL_22:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_22;
     }
   }
 
-  if (v7[2] != *a2 || v7[3] != a2[1])
+  if (v9[2] != *a2 || v9[3] != a2[1])
   {
     goto LABEL_21;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t std::__function::__value_func<void ()(std::string const&,UUID const&)>::~__value_func[abi:ne200100](uint64_t a1)
@@ -2278,48 +2261,48 @@ uint64_t std::__function::__value_func<void ()(std::string const&,UUID const&)>:
 
 void std::__call_once_proxy[abi:ne200100]<std::tuple<get_exclave_kit_uuid_to_path_map(void)::$_0 &&>>()
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v10 = 0;
   v11 = 0;
   v12 = 0;
-  v13 = 0;
-  find_accessible_exclave_cryptex(&v9);
-  if (v10 == 1)
+  find_accessible_exclave_cryptex(&v8);
+  if (v9 == 1)
   {
-    if ((v9.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v8.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v9.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v8.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v9.__r_.__value_.__l.__size_;
+      size = v8.__r_.__value_.__l.__size_;
     }
 
     v1 = __p;
     std::string::basic_string[abi:ne200100](__p, size + 19);
-    if (v15 < 0)
+    if (v14 < 0)
     {
       v1 = __p[0];
     }
 
     if (size)
     {
-      if ((v9.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v8.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v2 = &v9;
+        v2 = &v8;
       }
 
       else
       {
-        v2 = v9.__r_.__value_.__r.__words[0];
+        v2 = v8.__r_.__value_.__r.__words[0];
       }
 
       memmove(v1, v2, size);
     }
 
     strcpy(v1 + size, "/System/ExclaveKit/");
-    std::vector<std::string>::push_back[abi:ne200100](&v11, __p);
-    if (v15 < 0)
+    std::vector<std::string>::push_back[abi:ne200100](&v10, __p);
+    if (v14 < 0)
     {
       operator delete(__p[0]);
     }
@@ -2340,8 +2323,8 @@ void std::__call_once_proxy[abi:ne200100]<std::tuple<get_exclave_kit_uuid_to_pat
       if (!is_root_directory(v3))
       {
         std::string::basic_string[abi:ne200100]<0>(__p, v4);
-        std::vector<std::string>::push_back[abi:ne200100](&v11, __p);
-        if (v15 < 0)
+        std::vector<std::string>::push_back[abi:ne200100](&v10, __p);
+        if (v14 < 0)
         {
           operator delete(__p[0]);
         }
@@ -2349,8 +2332,8 @@ void std::__call_once_proxy[abi:ne200100]<std::tuple<get_exclave_kit_uuid_to_pat
     }
   }
 
-  v5 = v11;
-  for (i = v12; v5 != i; v5 += 24)
+  v5 = v10;
+  for (i = v11; v5 != i; v5 += 24)
   {
     v7 = v5;
     if (*(v5 + 23) < 0)
@@ -2359,20 +2342,19 @@ void std::__call_once_proxy[abi:ne200100]<std::tuple<get_exclave_kit_uuid_to_pat
     }
 
     __p[0] = &unk_1F5508C88;
-    v16 = __p;
+    v15 = __p;
     recursively_list_files_and_uuids_in_directory(v7, __p);
     std::__function::__value_func<void ()(std::string const&,UUID const&)>::~__value_func[abi:ne200100](__p);
   }
 
   CSSymbolicatorForeachSharedCache();
-  if (v10 == 1 && SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
+  if (v9 == 1 && SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v9.__r_.__value_.__l.__data_);
+    operator delete(v8.__r_.__value_.__l.__data_);
   }
 
-  v9.__r_.__value_.__r.__words[0] = &v11;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v9);
-  v8 = *MEMORY[0x1E69E9840];
+  v8.__r_.__value_.__r.__words[0] = &v10;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v8);
 }
 
 void sub_1D97D6834(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int16 *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
@@ -2404,7 +2386,8 @@ UUID *___ZZL32get_exclave_kit_uuid_to_path_mapvENK3__0clEv_block_invoke_2(uint64
       result = strncmp(Path, "/System/ExclaveKit/", 0x13uLL);
       if (!result)
       {
-        v8 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,UUIDHashFunctor,UUIDEqualsFunctor,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,UUIDEqualsFunctor,UUIDHashFunctor,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(&xmmword_1EDADA888, v7);
+        v9 = v7;
+        v8 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,UUIDHashFunctor,UUIDEqualsFunctor,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,UUIDEqualsFunctor,UUIDHashFunctor,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(&xmmword_1EDADA888, v7, &std::piecewise_construct, &v9);
         return std::string::__assign_external((v8 + 4), Path);
       }
     }
@@ -2425,7 +2408,8 @@ void std::__function::__func<get_exclave_kit_uuid_to_path_map(void)::$_0::operat
   {
     if ((UUID::is_null(this) & 1) == 0)
     {
-      v6 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,UUIDHashFunctor,UUIDEqualsFunctor,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,UUIDEqualsFunctor,UUIDHashFunctor,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(&xmmword_1EDADA888, this);
+      v7 = this;
+      v6 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,UUIDHashFunctor,UUIDEqualsFunctor,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,UUIDEqualsFunctor,UUIDHashFunctor,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(&xmmword_1EDADA888, this, &std::piecewise_construct, &v7);
       std::string::operator=((v6 + 4), a2);
     }
   }
@@ -2541,39 +2525,37 @@ void sub_1D97D6C08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void make_dsym_data_from_path_and_uuid(const char *a1@<X0>, const CFUUIDBytes *a2@<X1>, uint64_t a3@<X8>)
+void make_dsym_data_from_path_and_uuid(uint64_t *__return_ptr a1@<X8>, const char *a2@<X0>, const CFUUIDBytes *a3@<X1>)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  if (a1 && a2 && !access(a1, 0))
+  v12 = *MEMORY[0x1E69E9840];
+  if (a2 && a3 && !access(a2, 0))
   {
-    CSCppDsymData::CSCppDsymData(&v6, a1);
-    *a3 = v6;
-    *(a3 + 16) = v7;
-    v6 = 0uLL;
-    *(a3 + 24) = v8;
-    *(a3 + 40) = v9;
-    v7 = 0;
-    v8 = 0uLL;
-    v9 = 0;
-    *(a3 + 48) = v10;
-    *(a3 + 64) = v11;
-    v11 = 0;
-    v10 = 0uLL;
-    memcpy((a3 + 72), v12, 0x400uLL);
-    *(a3 + 1096) = 1;
-    CSCppDsymData::~CSCppDsymData(&v6);
+    CSCppDsymData::CSCppDsymData(&v5, a2);
+    *a1 = v5;
+    a1[2] = v6;
+    v5 = 0uLL;
+    *(a1 + 3) = v7;
+    a1[5] = v8;
+    v6 = 0;
+    v7 = 0uLL;
+    v8 = 0;
+    *(a1 + 3) = v9;
+    a1[8] = v10;
+    v10 = 0;
+    v9 = 0uLL;
+    memcpy(a1 + 9, v11, 0x400uLL);
+    *(a1 + 1096) = 1;
+    CSCppDsymData::~CSCppDsymData(&v5);
   }
 
   else
   {
-    *a3 = 0;
-    *(a3 + 1096) = 0;
+    *a1 = 0;
+    *(a1 + 1096) = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t CSCppInternedPathTransformer::CSCppInternedPathTransformer(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
+uint64_t CSCppInternedPathTransformer::CSCppInternedPathTransformer(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   *a1 = &unk_1F5508D08;
   *(a1 + 8) = a2;
@@ -2596,8 +2578,7 @@ uint64_t CSCppInternedPathTransformer::CSCppInternedPathTransformer(uint64_t a1,
     v9 = 0;
     do
     {
-      v10 = *a4;
-      std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::string const&,std::string const&>(v5, (*a3 + v9));
+      std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::string const&,std::string const&>(v5, (*a3 + v9), *a3 + v9, *a4 + v9);
       v9 += 24;
       --v6;
     }
@@ -2732,35 +2713,35 @@ void CSCppInternedPathTransformer::~CSCppInternedPathTransformer(CSCppInternedPa
   JUMPOUT(0x1DA736760);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::string const&,std::string const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::string const&,std::string const&>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__construct_node_hash<std::string const&,std::string const&>();
@@ -2768,49 +2749,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
-void sub_1D97D72A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D97D72A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2892,30 +2873,30 @@ uint64_t _UUIDBytesToPath<CFUUIDBytes>(unsigned __int8 *a1, char *__str, size_t 
   return v5;
 }
 
-uint64_t CSSymbolicationSessionCreateSymbolicatorForPidWithFlags(char a1, uint64_t a2, int a3)
+uint64_t CSSymbolicationSessionCreateSymbolicatorForPidWithFlags(char a1, uint64_t a2, int a3, int a4)
 {
   if (!(a1 & 7 | (8 * (a2 & 3))))
   {
     return 0;
   }
 
-  result = SymbolicationSession::create_pid_symbolicator((a2 & 0xFFFFFFFFFFFFFFFCLL), a3);
-  v4 = result;
+  result = SymbolicationSession::create_pid_symbolicator((a2 & 0xFFFFFFFFFFFFFFFCLL), a3, a4);
+  v6 = result;
   if (result)
   {
-    CSCppReferenceCount::retain(result);
-    CSCppReferenceCount::release(v4, 1);
+    CSCppReferenceCount::retain(result, v5);
+    CSCppReferenceCount::release(v6, 1);
     return 2;
   }
 
   return result;
 }
 
-uint64_t CSSymbolicationSessionCreateNonFaultingSymbolicatorForPid(char a1, uint64_t a2, int a3)
+uint64_t CSSymbolicationSessionCreateNonFaultingSymbolicatorForPid(char a1, uint64_t a2, int a3, int a4)
 {
   CSSymbolicatorGetFlagsForNonFaultingBehavior();
 
-  return CSSymbolicationSessionCreateSymbolicatorForPidWithFlags(a1, a2, a3);
+  return CSSymbolicationSessionCreateSymbolicatorForPidWithFlags(a1, a2, a3, a4);
 }
 
 uint64_t CSSymbolicationSessionProcessATRCProcessAndDSCChunks(uint64_t result, uint64_t a2, __CFData *a3, __CFData *a4)
@@ -2938,14 +2919,12 @@ uint64_t CSSymbolicationSessionProcessATRCKernelChunk(uint64_t result, uint64_t 
   return result;
 }
 
-uint64_t CSSymbolicationSessionProcessKernelPlistChunkAndArchitecture(uint64_t result, uint64_t a2, const __CFData *a3)
+void CSSymbolicationSessionProcessKernelPlistChunkAndArchitecture(char a1, uint64_t a2, const __CFData *a3, uint64_t a4)
 {
-  if (result & 7 | (8 * (a2 & 3)))
+  if (a1 & 7 | (8 * (a2 & 3)))
   {
-    SymbolicationSession::process_kernel_plist_chunk((a2 & 0xFFFFFFFFFFFFFFFCLL), a3);
+    SymbolicationSession::process_kernel_plist_chunk((a2 & 0xFFFFFFFFFFFFFFFCLL), a3, a4);
   }
-
-  return result;
 }
 
 __CFString *CSSymbolicationSessionCopyDescriptionWithIndent(char a1, uint64_t a2, int a3)
@@ -2988,7 +2967,7 @@ uint64_t CSSymbolicationSessionForeachPid(char a1, uint64_t a2, uint64_t a3)
   }
 }
 
-char **CSSymbolicationSessionGetDSCSlideForPid(char a1, uint64_t a2, int a3)
+void *CSSymbolicationSessionGetDSCSlideForPid(char a1, uint64_t a2, int a3)
 {
   if (a1 & 7 | (8 * (a2 & 3)))
   {
@@ -3049,9 +3028,9 @@ _OWORD *kCSTypeRetainCallBack(const __CFAllocator *a1, uint64_t *a2)
   return v3;
 }
 
-void kCSTypeReleaseCallBack(const __CFAllocator *a1, void *a2)
+void kCSTypeReleaseCallBack(const __CFAllocator *a1, atomic_uint **a2)
 {
-  CSRelease(*a2, *(a2 + 1));
+  CSRelease(*a2, a2[1]);
 
   free(a2);
 }
@@ -3071,65 +3050,65 @@ uint64_t _copyMMapArchiveFromCacheWithUUID<CFUUIDBytes>(__n128 *a1, void *a2, un
     return 0;
   }
 
-  return CSCppMMapArchiveCache::archive_for_uuid(a1, 0, 1, a2, a3, a4, 0, v8);
+  return CSCppMMapArchiveCache::archive_for_uuid(a1, 0, 1uLL, a2, a3, a4, 0, v8);
 }
 
 void CSCppDyldSharedCacheMemory::CSCppDyldSharedCacheMemory(uint64_t a1, uint64_t a2, char *a3, char *a4, _OWORD *a5)
 {
   *a1 = &unk_1F5508D48;
-  v8 = (a1 + 40);
+  v9 = (a1 + 40);
   std::string::basic_string[abi:ne200100]<0>((a1 + 16), a3);
   if (a4)
   {
-    v9 = a4;
+    v10 = a4;
   }
 
   else
   {
-    v9 = "";
+    v10 = "";
   }
 
-  v10 = std::string::basic_string[abi:ne200100]<0>(v8, v9);
+  v11 = std::string::basic_string[abi:ne200100]<0>(v9, v10);
   *(a1 + 64) = 0u;
   *(a1 + 144) = 0;
   *(a1 + 152) = 0;
   *(a1 + 160) = 0;
   *(a1 + 80) = 0u;
   *(a1 + 89) = 0u;
-  *(a1 + 168) = *UUID::null_uuid(v10);
+  *(a1 + 168) = *UUID::null_uuid(v11);
   *(a1 + 184) = *a5;
   *(a1 + 216) = 0u;
   *(a1 + 200) = 0u;
-  new_partial_file_memory();
+  new_partial_file_memory(a3, 0, 0, &__block_literal_global_5);
 }
 
-void sub_1D97D7DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1D97D7DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  v15 = *(v13 - 72);
-  *(v13 - 72) = 0;
-  if (v15)
+  v22 = *(v20 - 72);
+  *(v20 - 72) = 0;
+  if (v22)
   {
-    (*(*v15 + 8))(v15);
+    (*(*v22 + 8))(v22);
   }
 
   std::vector<CSCppDyldSharedCacheMemory::CSCppAddressTranslation>::__destroy_vector::operator()[abi:ne200100](va);
-  v16 = *(v11 + 96);
-  *(v11 + 96) = 0;
-  if (v16)
+  v23 = *(v18 + 96);
+  *(v18 + 96) = 0;
+  if (v23)
   {
-    (*(*v16 + 8))(v16);
+    (*(*v23 + 8))(v23);
   }
 
-  if (*(v11 + 63) < 0)
+  if (*(v18 + 63) < 0)
   {
-    operator delete(*v12);
+    operator delete(*v19);
   }
 
-  if (*(v11 + 39) < 0)
+  if (*(v18 + 39) < 0)
   {
-    operator delete(*(v11 + 16));
+    operator delete(*(v18 + 16));
   }
 
   _Unwind_Resume(a1);
@@ -3144,49 +3123,64 @@ void CSCppDyldSharedCacheMemory::CSCppDyldSharedCacheMemory(UUID *a1, uint64_t a
 
 uint64_t CSCppDyldSharedCacheMemory::TEXT_address_of_path(CSCppDyldSharedCacheMemory *this, const char *a2, unint64_t *a3)
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2000000000;
   v18 = 0;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2000000000;
+  v19 = &v18;
+  v20 = 0x2000000000;
+  v21 = 0;
   v14 = 0;
-  v9[0] = 0;
-  v9[1] = v9;
-  v9[2] = 0x2000000000;
-  v10 = 0;
+  v15 = &v14;
+  v16 = 0x2000000000;
+  v17 = 0;
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x2000000000;
+  v13 = 0;
   v6 = _dyld_shared_cache_real_path();
   if (v6)
   {
-    strcmp(a2, v6);
+    v7 = strcmp(a2, v6) != 0;
   }
 
-  CSCppDyldSharedCacheMemory::foreach_text_segment(this);
+  else
+  {
+    v7 = 0;
+  }
+
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 0x40000000;
+  v10[2] = ___ZNK26CSCppDyldSharedCacheMemory20TEXT_address_of_pathEPKcPy_block_invoke;
+  v10[3] = &unk_1E8584C90;
+  v10[4] = v12;
+  v10[5] = &v18;
+  v10[6] = &v14;
+  v10[7] = a2;
+  v11 = v7;
+  v10[8] = v6;
+  CSCppDyldSharedCacheMemory::foreach_text_segment(this, v10);
   if (a3)
   {
-    *a3 = v12[3];
+    *a3 = v15[3];
   }
 
-  v7 = v16[3];
-  _Block_object_dispose(v9, 8);
-  _Block_object_dispose(&v11, 8);
-  _Block_object_dispose(&v15, 8);
-  return v7;
+  v8 = v19[3];
+  _Block_object_dispose(v12, 8);
+  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v18, 8);
+  return v8;
 }
 
-void sub_1D97D8074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1D97D8074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
-  _Block_object_dispose((v11 - 64), 8);
+  _Block_object_dispose((v18 - 96), 8);
+  _Block_object_dispose((v18 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t ___ZN26CSCppDyldSharedCacheMemoryC2E17CSCppArchitecturePKcS2_PK4UUID_block_invoke_2(uint64_t result, unint64_t *a2)
+void *___ZN26CSCppDyldSharedCacheMemoryC2E17CSCppArchitecturePKcS2_PK4UUID_block_invoke_2(void *result, unint64_t *a2)
 {
-  v2 = *(result + 40);
+  v2 = result[5];
   v3 = *a2;
   v4 = *(v2 + 72);
   if (v4)
@@ -3194,17 +3188,13 @@ uint64_t ___ZN26CSCppDyldSharedCacheMemoryC2E17CSCppArchitecturePKcS2_PK4UUID_bl
     v5 = *(v2 + 64);
     if (v5 >= v3 && v5 + v4 <= a2[1] + v3)
     {
-      *(*(*(result + 32) + 8) + 24) = v5 - v3 + a2[2];
-      v8 = *(*(*(result + 32) + 8) + 24);
-      v9 = *(v2 + 72);
+      *(*(result[4] + 8) + 24) = v5 - v3 + a2[2];
       operator new();
     }
   }
 
   if (*(a2 + 7) == 1)
   {
-    v7 = a2[1];
-    v6 = a2[2];
     operator new();
   }
 
@@ -3289,19 +3279,19 @@ unint64_t CSCppDyldSharedCacheMemory::file_range_for_memory_range(uint64_t a1, u
   return v11 + *(v3 - 2);
 }
 
-uint64_t CSCppDyldSharedCacheMemory::foreach_text_segment(uint64_t a1)
+uint64_t CSCppDyldSharedCacheMemory::foreach_text_segment(uint64_t a1, uint64_t a2)
 {
   v16[2] = *MEMORY[0x1E69E9840];
   v12 = 0;
   v13 = &v12;
   v14 = 0x2000000000;
   v15 = 0;
-  v2 = *(a1 + 39);
-  if (v2 < 0)
+  v3 = *(a1 + 39);
+  if (v3 < 0)
   {
-    v3 = *(a1 + 16);
-    v2 = *(a1 + 24);
-    if (!v2)
+    v4 = *(a1 + 16);
+    v3 = *(a1 + 24);
+    if (!v3)
     {
       goto LABEL_10;
     }
@@ -3309,27 +3299,27 @@ uint64_t CSCppDyldSharedCacheMemory::foreach_text_segment(uint64_t a1)
 
   else
   {
-    v3 = a1 + 16;
+    v4 = a1 + 16;
     if (!*(a1 + 39))
     {
       goto LABEL_10;
     }
   }
 
-  v4 = ~v2;
-  v5 = (v2 + v3 - 1);
-  while (v4 != -1)
+  v5 = ~v3;
+  v6 = (v3 + v4 - 1);
+  while (v5 != -1)
   {
-    v6 = *v5--;
-    ++v4;
-    if (v6 == 47)
+    v7 = *v6--;
+    ++v5;
+    if (v7 == 47)
     {
-      if (!v4)
+      if (!v5)
       {
         break;
       }
 
-      std::string::basic_string(&v11, (a1 + 16), 0, -v4, v16);
+      std::string::basic_string(&v11, (a1 + 16), 0, -v5, v16);
       goto LABEL_11;
     }
   }
@@ -3337,66 +3327,63 @@ uint64_t CSCppDyldSharedCacheMemory::foreach_text_segment(uint64_t a1)
 LABEL_10:
   std::string::basic_string[abi:ne200100]<0>(&v11, "");
 LABEL_11:
-  v7 = &v11;
+  v8 = &v11;
   if ((v11.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v7 = v11.__r_.__value_.__r.__words[0];
+    v8 = v11.__r_.__value_.__r.__words[0];
   }
 
-  v16[0] = v7;
+  v16[0] = v8;
   v16[1] = 0;
   UUID::is_null((a1 + 184));
   dyld_shared_cache_find_iterate_text();
-  v8 = v13[3];
+  v9 = v13[3];
   if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v11.__r_.__value_.__l.__data_);
   }
 
   _Block_object_dispose(&v12, 8);
-  v9 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v9;
 }
 
-uint64_t ___ZNK26CSCppDyldSharedCacheMemory20foreach_text_segmentEU13block_pointerFvPKcyyE_block_invoke(uint64_t a1, void *a2)
+uint64_t ___ZNK26CSCppDyldSharedCacheMemory20foreach_text_segmentEU13block_pointerFvPKcyyE_block_invoke(uint64_t a1)
 {
-  v3 = a2[5];
-  v4 = a2[1];
-  v5 = a2[2];
   result = (*(*(a1 + 32) + 16))();
   ++*(*(*(a1 + 40) + 8) + 24);
   return result;
 }
 
+uint64_t CSCppDyldSharedCacheMemory::foreach_text_memory(uint64_t a1, uint64_t a2)
+{
+  v3[0] = MEMORY[0x1E69E9820];
+  v3[1] = 0x40000000;
+  v3[2] = ___ZNK26CSCppDyldSharedCacheMemory19foreach_text_memoryEU13block_pointerFvPKcP15CSCppFileMemoryE_block_invoke;
+  v3[3] = &unk_1E8584C68;
+  v3[4] = a2;
+  v3[5] = a1;
+  return CSCppDyldSharedCacheMemory::foreach_text_segment(a1, v3);
+}
+
 uint64_t ___ZNK26CSCppDyldSharedCacheMemory19foreach_text_memoryEU13block_pointerFvPKcP15CSCppFileMemoryE_block_invoke(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
 {
   v6 = *(a1 + 40);
-  v12[0] = a3;
-  v12[1] = a4;
-  CSCppDyldSharedCacheMemory::file_range_for_memory_range(v6, v12, 0);
+  v10[0] = a3;
+  v10[1] = a4;
+  CSCppDyldSharedCacheMemory::file_range_for_memory_range(v6, v10, 0);
   if (v7)
   {
-    if (*(v6 + 39) < 0)
-    {
-      v8 = *(v6 + 16);
-    }
-
     operator new();
   }
 
   if (a3 - *(v6 + 216) < *(v6 + 224))
   {
-    if (*(v6 + 39) < 0)
-    {
-      v9 = *(v6 + 16);
-    }
-
     operator new();
   }
 
-  v10 = *(*(a1 + 32) + 16);
+  v8 = *(*(a1 + 32) + 16);
 
-  return v10();
+  return v8();
 }
 
 uint64_t ___ZNK26CSCppDyldSharedCacheMemory20TEXT_address_of_pathEPKcPy_block_invoke(uint64_t result, char *__s1, uint64_t a3, uint64_t a4)
@@ -3570,15 +3557,15 @@ LABEL_28:
   return MEMORY[0x1DA7366F0](&v25);
 }
 
-void sub_1D97D8CD8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D97D8CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va, MEMORY[0x1E69E54E8]);
-  MEMORY[0x1DA7366F0](v2 + 112);
+  MEMORY[0x1DA7366F0](v3 + 112);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<CSCppDyldSharedCacheMemory::CSCppAddressTranslation>::__emplace_back_slow_path<unsigned long long &,unsigned long long &,unsigned long long &,std::unique_ptr<CSCppFileMemory>>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
+uint64_t std::vector<CSCppDyldSharedCacheMemory::CSCppAddressTranslation>::__emplace_back_slow_path<unsigned long long &,unsigned long long &,unsigned long long &,std::unique_ptr<CSCppFileMemory>>(void *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
 {
   v7 = *a1;
   v8 = a1[1];
@@ -3633,9 +3620,9 @@ uint64_t std::vector<CSCppDyldSharedCacheMemory::CSCppAddressTranslation>::__emp
   return v21;
 }
 
-void sub_1D97D8E34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D97D8E34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CSCppDyldSharedCacheMemory::CSCppAddressTranslation>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3821,14 +3808,14 @@ uint64_t std::vector<CSCppDyldSharedCacheMemory::CSCppAddressTranslation>::__emp
   return v21;
 }
 
-void sub_1D97D91E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D97D91E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CSCppDyldSharedCacheMemory::CSCppAddressTranslation>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppDyldSharedCacheMemory::CSCppAddressTranslation *,false>(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppDyldSharedCacheMemory::CSCppAddressTranslation *,false>(uint64_t result, char *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v7 = a2;
   v8 = result;
@@ -3848,7 +3835,7 @@ LABEL_2:
       if (v10 == 2)
       {
         v48 = *(v7 - 4);
-        v55 = v7 - 2;
+        v55 = (v7 - 4);
         if (v48 < *v8)
         {
           v49 = &v56;
@@ -3869,18 +3856,18 @@ LABEL_2:
 
     if (v10 == 4)
     {
-      v55 = v7 - 2;
+      v55 = (v7 - 4);
       return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppDyldSharedCacheMemory::CSCppAddressTranslation *,0>(v8, (v8 + 32), (v8 + 64), v7 - 4);
     }
 
     if (v10 == 5)
     {
-      v55 = v7 - 2;
+      v55 = (v7 - 4);
       v60 = (v8 + 32);
       *&v61 = v8;
       v58 = (v8 + 96);
       v59 = (v8 + 64);
-      v57 = v7 - 2;
+      v57 = v7 - 4;
       result = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppDyldSharedCacheMemory::CSCppAddressTranslation *,0>(v8, (v8 + 32), (v8 + 64), (v8 + 96));
       if (*(v7 - 4) < *(v8 + 96))
       {
@@ -3927,12 +3914,12 @@ LABEL_10:
 
     v11 = (v8 + 32 * (v10 >> 1));
     v12 = v11;
-    v13 = v7 - 2;
+    v13 = v7 - 4;
     if (v10 < 0x81)
     {
       v60 = v8;
       *&v61 = v8 + 32 * (v10 >> 1);
-      v59 = v7 - 2;
+      v59 = (v7 - 4);
       v18 = *v8;
       v19 = *v13;
       if (*v8 >= *v11)
@@ -3978,7 +3965,7 @@ LABEL_35:
 
     v60 = (v8 + 32 * (v10 >> 1));
     *&v61 = v8;
-    v59 = v7 - 2;
+    v59 = (v7 - 4);
     v14 = *v11;
     v15 = *v13;
     if (*v11 < *v8)
@@ -4018,7 +4005,7 @@ LABEL_27:
     v60 = v11 - 2;
     *&v61 = v8 + 32;
     v25 = *(v7 - 8);
-    v59 = v7 - 4;
+    v59 = (v7 - 8);
     if (v22 < v24)
     {
       v26 = &v61;
@@ -4057,7 +4044,7 @@ LABEL_42:
     v60 = v29;
     *&v61 = v8 + 64;
     v32 = *(v7 - 12);
-    v59 = v7 - 6;
+    v59 = (v7 - 12);
     if (v30 < v31)
     {
       v33 = &v61;
@@ -4201,7 +4188,7 @@ LABEL_75:
         goto LABEL_2;
       }
 
-      v56 = v45 + 2;
+      v56 = (v45 + 2);
       v8 = (v45 + 2);
     }
   }
@@ -4210,7 +4197,7 @@ LABEL_75:
   v60 = (v8 + 32);
   *&v61 = v8;
   v54 = *(v7 - 4);
-  v59 = v7 - 2;
+  v59 = (v7 - 4);
   if (v53 < *v8)
   {
     v49 = &v61;
@@ -4416,15 +4403,15 @@ LABEL_12:
   return result;
 }
 
-uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppDyldSharedCacheMemory::CSCppAddressTranslation *>(uint64_t result, uint64_t a2)
+uint64_t *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppDyldSharedCacheMemory::CSCppAddressTranslation *>(uint64_t *result, uint64_t *a2)
 {
   if (result != a2)
   {
     v3 = result;
-    v4 = result + 32;
-    if (result + 32 != a2)
+    v4 = (result + 4);
+    if (result + 4 != a2)
     {
-      v5 = (result + 56);
+      v5 = result + 7;
       do
       {
         v6 = v3;
@@ -4469,7 +4456,7 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,st
         v5 += 4;
       }
 
-      while (v3 + 32 != a2);
+      while ((v3 + 32) != a2);
     }
   }
 
@@ -4487,7 +4474,7 @@ __int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   v6 = v3;
   if (v3 >= *(a2 - 32))
   {
-    v9 = (a1 + 32);
+    v9 = a1 + 32;
     do
     {
       v7 = v9;
@@ -4496,7 +4483,7 @@ __int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
         break;
       }
 
-      v9 += 2;
+      v9 += 32;
     }
 
     while (v3 >= *v7);
@@ -4871,7 +4858,7 @@ LABEL_33:
         v24 -= 32;
         if (v22 >= v29)
         {
-          v30 = a1 + v24 + 96;
+          v30 = (a1 + v24 + 96);
           goto LABEL_43;
         }
       }
@@ -4880,8 +4867,8 @@ LABEL_33:
 LABEL_43:
       *v30 = v22;
       *(v30 + 8) = v33;
-      v31 = *(v30 + 24);
-      *(v30 + 24) = v23;
+      v31 = *(v30 + 3);
+      *(v30 + 3) = v23;
       if (v31)
       {
         (*(*v31 + 8))(v31);
@@ -4903,7 +4890,7 @@ LABEL_43:
   }
 }
 
-__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppDyldSharedCacheMemory::CSCppAddressTranslation *,CSCppDyldSharedCacheMemory::CSCppAddressTranslation *>(unint64_t *a1, __int128 *a2, __int128 *a3, uint64_t a4)
+__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppDyldSharedCacheMemory::CSCppAddressTranslation *,CSCppDyldSharedCacheMemory::CSCppAddressTranslation *>(__int128 *a1, char *a2, __int128 *a3, uint64_t a4)
 {
   v17 = a1;
   if (a1 != a2)
@@ -4915,7 +4902,7 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = &a1[4 * v9];
+      v11 = &a1[2 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppDyldSharedCacheMemory::CSCppAddressTranslation *>(v7, a4, v8, v11);
@@ -5023,7 +5010,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,
           v18[3] = v20;
           if (v21)
           {
-            (*(*v21 + 8))(v21);
+            (*(*v21 + 8))(v21, a2);
           }
 
           if (v8 < v11)
@@ -5181,7 +5168,7 @@ uint64_t std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less
     *(a1 + 24) = v11;
     if (v12)
     {
-      (*(*v12 + 8))(v12);
+      (*(*v12 + 8))(v12, a2);
     }
 
     a1 = v7;
@@ -5281,24 +5268,24 @@ void *std::vector<CSCppDyldSharedCacheMemory::CSCppAddressTranslation>::clear[ab
 TMMapArchive *CSCppMMapArchiveCache::_augment_mmap_archive_to_include_text_section_locked(CSCppMMapArchiveCache *this, TMMapArchive *a2, CSCppSymbolOwner *a3)
 {
   v3 = a2;
-  v24 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     if (!*(this + 20))
     {
-      CSCppTextSectionDataDescriptor::CSCppTextSectionDataDescriptor(v19, a2);
-      v16 = *(v3 + 14);
-      if (CSCppArchitecture::is_64_bit(&v16))
+      CSCppTextSectionDataDescriptor::CSCppTextSectionDataDescriptor(v15, a2);
+      v12 = *(v3 + 14);
+      if (CSCppArchitecture::is_64_bit(&v12))
       {
-        CSCppTextSectionDataDescriptor::get_text_section<Pointer64>(v19, v3, &v16);
-        v5 = v16;
-        v6 = v17;
-        v7 = v18;
+        CSCppTextSectionDataDescriptor::get_text_section<Pointer64>(v15, v3, &v12);
+        v5 = v12;
+        v6 = v13;
+        v7 = v14;
       }
 
       else
       {
-        text = CSCppTextSectionDataDescriptor::get_text_section<Pointer32>(v19, v3);
+        text = CSCppTextSectionDataDescriptor::get_text_section<Pointer32>(v15, v3);
         v7 = v9;
         v5 = text;
         v6 = HIDWORD(text);
@@ -5307,55 +5294,39 @@ TMMapArchive *CSCppMMapArchiveCache::_augment_mmap_archive_to_include_text_secti
       new_mmap_archive_with_text = this;
       if (v7)
       {
-        v16 = v5;
-        v17 = v6;
-        v18 = v7;
-        v16 = (CSCppMMapArchiveCache::compute_text_section_slide_for_mmap<Pointer64>(this, v3, &v16) + v5);
-        v17 = v6;
-        v18 = v7;
-        new_mmap_archive_with_text = _create_new_mmap_archive_with_text_data<TRangeValue<Pointer64,unsigned char *>>(this, &v16);
+        v12 = v5;
+        v13 = v6;
+        v14 = v7;
+        v12 = (CSCppMMapArchiveCache::compute_text_section_slide_for_mmap<Pointer64>(this, v3, &v12) + v5);
+        v13 = v6;
+        v14 = v7;
+        new_mmap_archive_with_text = _create_new_mmap_archive_with_text_data<TRangeValue<Pointer64,unsigned char *>>(this, &v12);
       }
 
-      std::mutex::~mutex(&v23);
-      v16 = &v22;
-      std::vector<std::unique_ptr<CSCppMemory>>::__destroy_vector::operator()[abi:ne200100](&v16);
-      if (v21 < 0)
+      std::mutex::~mutex(&v19);
+      v12 = &v18;
+      std::vector<std::unique_ptr<CSCppMemory>>::__destroy_vector::operator()[abi:ne200100](&v12);
+      if (v17 < 0)
       {
-        operator delete(v20[4]);
+        operator delete(v16[4]);
       }
 
-      std::__tree<TRange<Pointer64>>::destroy(v20, v20[1]);
+      std::__tree<TRange<Pointer64>>::destroy(v16, v16[1]);
       if (new_mmap_archive_with_text != this)
       {
-        v11 = *(new_mmap_archive_with_text + 1);
-        v12 = *(v3 + 1);
-        if (*(v12 + 64))
-        {
-          if (*(v12 + 56))
-          {
-            v13 = *(v12 + 56);
-          }
-
-          else
-          {
-            v13 = *(v3 + 1);
-          }
-        }
-
-        CSCppMMapArchiveCache::make_archive_wrapper();
+        CSCppMMapArchiveCache::make_archive_wrapper(new_mmap_archive_with_text, 0);
       }
     }
 
-    v3 = 0;
+    return 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
-void sub_1D97DABFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1D97DABFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   CSCppTextSectionDataDescriptor::~CSCppTextSectionDataDescriptor(va);
   _Unwind_Resume(a1);
 }
@@ -5391,8 +5362,9 @@ CSCppMMapArchiveCache *CSCppMMapArchiveCache::augment_mmap_archive_to_include_te
   return this;
 }
 
-TMMapArchive *CSCppMMapArchiveCache::_lookup_archive_wrapper_in_local_cache_locked(__n128 *this, const UUID *a2, int a3, void *a4, unint64_t *a5, __int16 *a6, __int16 *a7, CSCppSymbolOwner *a8)
+TMMapArchive *CSCppMMapArchiveCache::_lookup_archive_wrapper_in_local_cache_locked(__n128 *this, const UUID *a2, unint64_t a3, void *a4, unint64_t *a5, __int16 *a6, __int16 *a7, CSCppSymbolOwner *a8)
 {
+  v12 = a3;
   if ((UUID::is_null(this) & 1) == 0)
   {
     if (!_mmap_archive_cache)
@@ -5483,13 +5455,13 @@ LABEL_25:
         if ((v26 & v19 & 1) == 0 && !v28)
         {
 LABEL_30:
-          CSCppReferenceCount::retain(v20);
+          CSCppReferenceCount::retain(v20, v16);
           result = v20;
           goto LABEL_31;
         }
 
         v32 = *(v20 + 16);
-        result = CSCppMMapArchiveCache::_lookup_archive_wrapper_in_daemon_cache_locked(this, a2, a3, a4, a5, a6, a7, v17);
+        result = CSCppMMapArchiveCache::_lookup_archive_wrapper_in_daemon_cache_locked(this, a2, v12, a4, a5, a6, a7, v17);
         if (!result)
         {
           if (!v19)
@@ -5571,19 +5543,17 @@ LABEL_12:
 
 TMMapArchive *CSCppMMapArchiveCache::_lookup_archive_wrapper_in_daemon_cache_locked(__n128 *this, const UUID *a2, int a3, void *a4, unint64_t *a5, __int16 *a6, __int16 *a7, CSCppSymbolOwner *a8)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (!a3)
   {
-    goto LABEL_9;
+    return 0;
   }
 
   if (a2)
   {
     if (*(a7 + 18))
     {
-LABEL_9:
-      v18 = 0;
-      goto LABEL_10;
+      return 0;
     }
 
     goto LABEL_6;
@@ -5599,23 +5569,23 @@ LABEL_6:
 
   v14 = 1;
 LABEL_8:
-  v24 = 0;
-  v15 = geteuid();
-  MMapArchiveFileSystem::ArchiveEntry::ArchiveEntry(v25, this, 0, v15, 0, 7, 0xFFFF);
   v23 = 0;
-  *v22 = 0;
+  v15 = geteuid();
+  MMapArchiveFileSystem::ArchiveEntry::ArchiveEntry(v24, this, 0, v15, 0, 7, 0xFFFF);
+  v22 = 0;
+  *v21 = 0;
   v16 = mmap_storage_daemon();
-  if (CSCppDaemonConnection::read_mmap_archive(v16, v25, &v24, &v23, &v22[1], v22))
+  if (CSCppDaemonConnection::read_mmap_archive(v16, v24, &v23, &v22, &v21[1], v21))
   {
-    goto LABEL_9;
+    return 0;
   }
 
-  if ((*(v24 + 29) & 0x10) != 0 || (HIDWORD(*(v24 + 76)) ? (v21 = 1) : (v21 = v14), (v21 & 1) != 0 || (v18 = CSCppMMapArchiveCache::_augment_mmap_archive_to_include_text_section_locked(v24, a7, v17)) == 0))
+  if ((*(v23 + 29) & 0x10) != 0 || (HIDWORD(*(v23 + 76)) ? (v20 = 1) : (v20 = v14), (v20 & 1) != 0 || (v18 = CSCppMMapArchiveCache::_augment_mmap_archive_to_include_text_section_locked(v23, a7, v17)) == 0))
   {
     operator new();
   }
 
-  munmap(v24, v23);
+  munmap(v23, v22);
   if (a4)
   {
     *a4 = *(*(v18 + 2) + 4);
@@ -5623,20 +5593,18 @@ LABEL_8:
 
   if (a5)
   {
-    *a5 = v22[1];
+    *a5 = v21[1];
   }
 
   if (a6)
   {
-    *a6 = v22[0];
+    *a6 = v21[0];
   }
 
-LABEL_10:
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
-uint64_t mmap_storage_daemon(void)
+CSCppDaemonConnection *mmap_storage_daemon(void)
 {
   if (!_mmap_storage_daemon)
   {
@@ -5646,7 +5614,7 @@ uint64_t mmap_storage_daemon(void)
   return _mmap_storage_daemon;
 }
 
-uint64_t CSCppMMapArchiveCache::archive_for_uuid(__n128 *this, const UUID *a2, int a3, void *a4, unint64_t *a5, __int16 *a6, __int16 *a7, CSCppSymbolOwner *a8)
+uint64_t CSCppMMapArchiveCache::archive_for_uuid(__n128 *this, const UUID *a2, unint64_t a3, void *a4, unint64_t *a5, __int16 *a6, __int16 *a7, CSCppSymbolOwner *a8)
 {
   atomic_fetch_add(allowed_disconnect_sequence_number, 1u);
   pthread_mutex_lock(&_cache_lock);
@@ -5697,13 +5665,14 @@ uint64_t *CSCppMMapArchiveCache::_kill_existing_matching_entries_locked(CSCppMMa
 
 void CSCppMMapArchiveCache::_add_archive_wrapper_locked_no_kill(CSCppMMapArchiveCache *this, TMMapArchive *a2, ArchiveWrapper *a3)
 {
+  v3 = a2;
   atomic_fetch_add(allowed_disconnect_sequence_number, 1u);
   if (!_mmap_archive_cache)
   {
     operator new();
   }
 
-  std::__hash_table<std::__hash_value_type<UUID,ArchiveWrapper *>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,ArchiveWrapper *>,UUIDHashFunctor,UUIDEqualsFunctor,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,ArchiveWrapper *>,UUIDEqualsFunctor,UUIDHashFunctor,true>,std::allocator<std::__hash_value_type<UUID,ArchiveWrapper *>>>::__emplace_multi<UUID const&,ArchiveWrapper *&>();
+  std::__hash_table<std::__hash_value_type<UUID,ArchiveWrapper *>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,ArchiveWrapper *>,UUIDHashFunctor,UUIDEqualsFunctor,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,ArchiveWrapper *>,UUIDEqualsFunctor,UUIDHashFunctor,true>,std::allocator<std::__hash_value_type<UUID,ArchiveWrapper *>>>::__emplace_multi<UUID const&,ArchiveWrapper *&>(_mmap_archive_cache, (this + 52), &v3);
 }
 
 void CSCppMMapArchiveCache::add_archive_wrapper(CSCppMMapArchiveCache *this, TMMapArchive *a2, ArchiveWrapper *a3)
@@ -5715,43 +5684,42 @@ void CSCppMMapArchiveCache::add_archive_wrapper(CSCppMMapArchiveCache *this, TMM
 
 TMMapArchive *CSCppMMapArchiveCache::_add_archive_to_daemon_locked(TMMapArchive *a1, unint64_t *a2, _DWORD *a3, char *__source)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   atomic_fetch_add(allowed_disconnect_sequence_number, 1u);
   if (CSCppMMapArchiveCache::_should_store_to_daemon == 1)
   {
     *__dst = 0;
     strlcpy(__dst, __source, 8uLL);
-    MMapArchiveFileSystem::ArchiveEntry::ArchiveEntry(v13, (a1 + 52), *__dst, -1, 0, 7, 0);
-    v11 = 0;
-    v10 = a1;
+    MMapArchiveFileSystem::ArchiveEntry::ArchiveEntry(v12, (a1 + 52), *__dst, -1, 0, 7, 0);
+    v10 = 0;
+    v9 = a1;
     v7 = mmap_storage_daemon();
-    if (CSCppDaemonConnection::write_mmap_archive(v7, v13, &v11, &v10, a2))
+    if (CSCppDaemonConnection::write_mmap_archive(v7, v12, &v10, &v9, a2))
     {
-      if (v11 == 4)
+      if (v10 == 4)
       {
         CSCppMMapArchiveCache::_should_store_to_daemon = 0;
       }
     }
 
-    else if (!v11)
+    else if (!v10)
     {
       mach_vm_deallocate(*MEMORY[0x1E69E9A60], a1, *(a1 + 1));
-      a1 = v10;
+      a1 = v9;
       *a3 = 2;
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
-void CSCppMMapArchiveCache::add_archive(unsigned int *a1, int a2, TMMapArchive *a3, int a4, char *a5)
+void CSCppMMapArchiveCache::add_archive(CSCppMMapArchiveCache *a1, int a2, TMMapArchive *a3, int a4, char *a5)
 {
   v10 = a2;
   atomic_fetch_add(allowed_disconnect_sequence_number, 1u);
   pthread_mutex_lock(&_cache_lock);
   CSCppMMapArchiveCache::_kill_existing_matching_entries_locked(a1, a3);
-  v9 = a1[1];
+  v9 = *(a1 + 1);
   if (a4)
   {
     if (v10 == 1)
@@ -5857,7 +5825,7 @@ LABEL_27:
   return this;
 }
 
-void CSCppMMapArchiveCache::add_signature_archive<__CFData const*>(unsigned int *a1, uint64_t a2, TMMapArchive *a3, int a4)
+void CSCppMMapArchiveCache::add_signature_archive<__CFData const*>(TMMapArchive *a1, const void *a2, TMMapArchive *a3, int a4)
 {
   v12 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock(&_cache_lock);
@@ -5872,14 +5840,14 @@ void CSCppMMapArchiveCache::add_signature_archive<__CFData const*>(unsigned int 
   atomic_fetch_add(allowed_disconnect_sequence_number, 1u);
   if (a4)
   {
-    v7 = a1[1];
+    v7 = *(a1 + 1);
     address[0] = 0;
     address[1] = v7;
     mach_vm_allocate(*MEMORY[0x1E69E9A60], address, v7, 3);
     v8 = address[0];
     if (address[0])
     {
-      memcpy(address[0], a1, a1[1]);
+      memcpy(address[0], a1, *(a1 + 1));
       v8 = address[0];
     }
 
@@ -5895,9 +5863,9 @@ void CSCppMMapArchiveCache::add_signature_archive<__CFData const*>(unsigned int 
   operator new();
 }
 
-void sub_1D97DBB1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1D97DBB1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   MachVMAllocatePtr<TMMapArchive>::~MachVMAllocatePtr(va);
   pthread_mutex_unlock(&_cache_lock);
   _Unwind_Resume(a1);
@@ -5962,10 +5930,10 @@ uint64_t CSCppMMapArchiveCache::compute_text_section_slide_for_mmap<Pointer64>(u
   return *(i - 2) - *v4;
 }
 
-TMMapArchive *_create_new_mmap_archive_with_text_data<TRangeValue<Pointer64,unsigned char *>>(unsigned int *a1, unsigned int *a2)
+TMMapArchive *_create_new_mmap_archive_with_text_data<TRangeValue<Pointer64,unsigned char *>>(TMMapArchive *a1, unsigned int *a2)
 {
   v3 = a1;
-  v4 = (*(a2 + 1) + a1[1]);
+  v4 = (*(a2 + 1) + *(a1 + 1));
   v18[0] = 0;
   v18[1] = v4;
   mach_vm_allocate(*MEMORY[0x1E69E9A60], v18, v4, 3);
@@ -6401,14 +6369,14 @@ void CSCppDaemonConnection::CSCppDaemonConnection(CSCppDaemonConnection *this)
 
 void ___ZN21CSCppDaemonConnectionC2Ev_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (MEMORY[0x1DA737450](a2) == MEMORY[0x1E69E9E98])
   {
     if (a2 == MEMORY[0x1E69E9E20] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
-      v4 = 136315138;
-      v5 = "com.apple.coresymbolicationd";
-      _os_log_impl(&dword_1D96E9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Connection invalidated: %s\n", &v4, 0xCu);
+      v3 = 136315138;
+      v4 = "com.apple.coresymbolicationd";
+      _os_log_impl(&dword_1D96E9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Connection invalidated: %s\n", &v3, 0xCu);
     }
   }
 
@@ -6416,14 +6384,12 @@ void ___ZN21CSCppDaemonConnectionC2Ev_block_invoke(uint64_t a1, uint64_t a2)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v4) = 0;
-      _os_log_impl(&dword_1D96E9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Client side event: Unhandled xpc type\n", &v4, 2u);
+      LOWORD(v3) = 0;
+      _os_log_impl(&dword_1D96E9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Client side event: Unhandled xpc type\n", &v3, 2u);
     }
 
     fwrite("Client side event: Unhandled xpc type\n", 0x26uLL, 1uLL, *MEMORY[0x1E69E9848]);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void CSCppDaemonConnection::close(xpc_object_t *this)
@@ -6458,14 +6424,14 @@ uint64_t CSCppDaemonConnection::read_mmap_archive(_xpc_connection_s **this, int8
 {
   XPCDictionary::XPCDictionary(&v52);
   XPCDictionary::set_uint64(&v52, "cmd", 4uLL);
-  MMapArchiveFileSystem::ArchiveEntry::encode(a2, &region);
+  MMapArchiveFileSystem::ArchiveEntry::encode(&region, a2);
   v12 = XPCObject::operator*(&region);
   XPCDictionary::set_object(&v52, "entry", v12);
   XPCObject::~XPCObject(&region);
   *a3 = 0;
-  XPCObject::XPCObject(v50, &v52);
-  CSCppDaemonConnection::send_sync_message(this, v50, &v51);
-  XPCObject::~XPCObject(v50);
+  XPCObject::XPCObject(&v50, &v52);
+  CSCppDaemonConnection::send_sync_message(this, &v50, &v51);
+  XPCObject::~XPCObject(&v50);
   if (!XPCObject::operator BOOL(&v51) || (v13 = XPCObject::operator*(&v51), MEMORY[0x1DA737450](v13) != MEMORY[0x1E69E9E80]))
   {
     XPCObject::~XPCObject(&v51);
@@ -6618,11 +6584,11 @@ LABEL_4:
   return v14;
 }
 
-void sub_1D97DCD04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D97DCD04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8 = va_arg(va1, void *);
   XPCObject::~XPCObject(va);
   XPCObject::~XPCObject(va1);
   _Unwind_Resume(a1);
@@ -6630,99 +6596,98 @@ void sub_1D97DCD04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t CSCppDaemonConnection::write_mmap_archive(_xpc_connection_s **this, int8x16_t *a2, int *a3, TMMapArchive **a4, unint64_t *a5)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v10 = *a4;
-  XPCDictionary::XPCDictionary(&v29);
-  XPCDictionary::set_uint64(&v29, "cmd", 5uLL);
-  MMapArchiveFileSystem::ArchiveEntry::encode(a2, v30);
-  v11 = XPCObject::operator*(v30);
-  XPCDictionary::set_object(&v29, "entry", v11);
-  XPCObject::~XPCObject(v30);
+  XPCDictionary::XPCDictionary(&v28);
+  XPCDictionary::set_uint64(&v28, "cmd", 5uLL);
+  MMapArchiveFileSystem::ArchiveEntry::encode(v29[0].i64, a2);
+  v11 = XPCObject::operator*(v29);
+  XPCDictionary::set_object(&v28, "entry", v11);
+  XPCObject::~XPCObject(v29);
   v12 = xpc_shmem_create(v10, v10[1]);
-  XPCDictionary::set_object(&v29, "archive_shmem", v12);
+  XPCDictionary::set_object(&v28, "archive_shmem", v12);
   xpc_release(v12);
-  XPCObject::XPCObject(v27, &v29);
-  CSCppDaemonConnection::send_sync_message(this, v27, &v28);
-  XPCObject::~XPCObject(v27);
-  if (XPCObject::operator BOOL(&v28))
+  XPCObject::XPCObject(&v26, &v28);
+  CSCppDaemonConnection::send_sync_message(this, &v26, &v27);
+  XPCObject::~XPCObject(&v26);
+  if (XPCObject::operator BOOL(&v27))
   {
-    v13 = XPCObject::operator*(&v28);
+    v13 = XPCObject::operator*(&v27);
     if (MEMORY[0x1DA737450](v13) == MEMORY[0x1E69E9E80])
     {
-      XPCObject::XPCObject(&v26, &v28);
-      uint64 = XPCDictionary::get_uint64(&v26, "write_errno");
+      XPCObject::XPCObject(&v25, &v27);
+      uint64 = XPCDictionary::get_uint64(&v25, "write_errno");
       *a3 = uint64;
       if (!uint64)
       {
-        XPCDictionary::get_object(&v26, "results", &v25);
-        if (XPCObject::operator BOOL(&v25) && XPCObject::xpc_type(&v25) == MEMORY[0x1E69E9E50])
+        XPCDictionary::get_object(&v25, "results", &v24);
+        if (XPCObject::operator BOOL(&v24) && XPCObject::xpc_type(&v24) == MEMORY[0x1E69E9E50])
         {
-          v18 = XPCObject::operator*(&v28);
-          value = xpc_dictionary_get_value(v18, "shmem");
+          v17 = XPCObject::operator*(&v27);
+          value = xpc_dictionary_get_value(v17, "shmem");
           if (value)
           {
             region = 0;
-            v20 = xpc_shmem_map(value, &region);
-            if (v20)
+            v19 = xpc_shmem_map(value, &region);
+            if (v19)
             {
-              v21 = region;
+              v20 = region;
               if (TMMapArchive::validate(region))
               {
-                XPCObject::XPCObject(v23, &v25);
-                MMapArchiveFileSystem::ArchiveEntry::ArchiveEntry(v30, v23);
-                v22 = v30[1];
-                *a2 = v30[0];
-                a2[1] = v22;
-                a2[2] = v30[2];
-                a2[3].i8[0] = v31;
-                XPCObject::~XPCObject(v23);
-                *a4 = v21;
-                *a5 = v20;
-                XPCObject::~XPCObject(&v25);
+                XPCObject::XPCObject(&v22, &v24);
+                MMapArchiveFileSystem::ArchiveEntry::ArchiveEntry(v29, &v22);
+                v21 = v29[1];
+                *a2 = v29[0];
+                a2[1] = v21;
+                a2[2] = v29[2];
+                a2[3].i8[0] = v30;
+                XPCObject::~XPCObject(&v22);
+                *a4 = v20;
+                *a5 = v19;
+                XPCObject::~XPCObject(&v24);
                 v14 = 0;
                 goto LABEL_10;
               }
 
-              munmap(region, v20);
+              munmap(region, v19);
             }
           }
         }
 
-        XPCObject::~XPCObject(&v25);
+        XPCObject::~XPCObject(&v24);
       }
 
       v14 = 3;
 LABEL_10:
-      XPCObject::~XPCObject(&v26);
-      XPCObject::~XPCObject(&v28);
+      XPCObject::~XPCObject(&v25);
+      XPCObject::~XPCObject(&v27);
       goto LABEL_4;
     }
   }
 
-  XPCObject::~XPCObject(&v28);
+  XPCObject::~XPCObject(&v27);
   v14 = 1;
 LABEL_4:
-  XPCObject::~XPCObject(&v29);
-  v15 = *MEMORY[0x1E69E9840];
+  XPCObject::~XPCObject(&v28);
   return v14;
 }
 
-void sub_1D97DCFCC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D97DCFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va4, a2);
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va4, a3);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
+  v6 = va_arg(va1, void);
   va_copy(va2, va1);
-  v6 = va_arg(va2, void);
+  v7 = va_arg(va2, void *);
   va_copy(va3, va2);
-  v8 = va_arg(va3, void *);
-  v10 = va_arg(va3, void);
+  v9 = va_arg(va3, void *);
+  v11 = va_arg(va3, void);
   va_copy(va4, va3);
-  v11 = va_arg(va4, void);
+  v12 = va_arg(va4, void *);
   XPCObject::~XPCObject(va);
   XPCObject::~XPCObject(va1);
   XPCObject::~XPCObject(va2);
@@ -6731,7 +6696,7 @@ void sub_1D97DCFCC(_Unwind_Exception *a1, uint64_t a2, ...)
   _Unwind_Resume(a1);
 }
 
-BOOL TMMapArchive::validate(int32x4_t *this)
+uint64_t TMMapArchive::validate(int32x4_t *this)
 {
   if (!this->i32[1])
   {
@@ -6894,49 +6859,40 @@ int8x16_t *MMapArchiveFileSystem::ArchiveEntry::ArchiveEntry(int8x16_t *a1, void
   return a1;
 }
 
-void sub_1D97DD588(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D97DD588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   XPCObject::~XPCObject(va);
   _Unwind_Resume(a1);
 }
 
-void MMapArchiveFileSystem::ArchiveEntry::encode(int8x16_t *this@<X0>, void *a2@<X8>)
+void MMapArchiveFileSystem::ArchiveEntry::encode(uint64_t *__return_ptr a1@<X8>, int8x16_t *this@<X0>)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  XPCArray::XPCArray(&v7);
+  v8 = *MEMORY[0x1E69E9840];
+  XPCArray::XPCArray(&v6);
   if (this[2].i16[6] == 3)
   {
     UUID::get_complement(this);
-    *&v8.byte0 = v4;
-    *&v8.byte8 = v5;
-    XPCArray::set_uuid(&v7, 0xFFFFFFFFFFFFFFFFLL, &v8);
+    *&v7.byte0 = v4;
+    *&v7.byte8 = v5;
+    XPCArray::set_uuid(&v6, 0xFFFFFFFFFFFFFFFFLL, &v7);
   }
 
   else
   {
-    XPCArray::set_uuid(&v7, 0xFFFFFFFFFFFFFFFFLL, this);
+    XPCArray::set_uuid(&v6, 0xFFFFFFFFFFFFFFFFLL, this);
   }
 
-  XPCArray::set_uint64(&v7, 0xFFFFFFFFFFFFFFFFLL, this[1].u64[0]);
-  XPCArray::set_uint64(&v7, 0xFFFFFFFFFFFFFFFFLL, this[1].u64[1]);
-  XPCArray::set_uint64(&v7, 0xFFFFFFFFFFFFFFFFLL, this[2].u32[0]);
-  XPCArray::set_uint64(&v7, 0xFFFFFFFFFFFFFFFFLL, this[2].u32[1]);
-  XPCArray::set_uint64(&v7, 0xFFFFFFFFFFFFFFFFLL, this[2].u32[2]);
-  XPCArray::set_uint64(&v7, 0xFFFFFFFFFFFFFFFFLL, this[2].u16[6]);
-  XPCArray::set_uint64(&v7, 0xFFFFFFFFFFFFFFFFLL, this[2].u16[7]);
-  XPCArray::set_uint64(&v7, 0xFFFFFFFFFFFFFFFFLL, this[3].u8[0]);
-  XPCObject::XPCObject(a2, &v7);
-  XPCObject::~XPCObject(&v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-BOOL CSCppDyldSharedCache::uses_unmapped_symbols_file(CSCppDyldSharedCache *this)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  result = *(this + 4) > 0x18Fu && *(this + 25) != 0;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  XPCArray::set_uint64(&v6, 0xFFFFFFFFFFFFFFFFLL, this[1].u64[0]);
+  XPCArray::set_uint64(&v6, 0xFFFFFFFFFFFFFFFFLL, this[1].u64[1]);
+  XPCArray::set_uint64(&v6, 0xFFFFFFFFFFFFFFFFLL, this[2].u32[0]);
+  XPCArray::set_uint64(&v6, 0xFFFFFFFFFFFFFFFFLL, this[2].u32[1]);
+  XPCArray::set_uint64(&v6, 0xFFFFFFFFFFFFFFFFLL, this[2].u32[2]);
+  XPCArray::set_uint64(&v6, 0xFFFFFFFFFFFFFFFFLL, this[2].u16[6]);
+  XPCArray::set_uint64(&v6, 0xFFFFFFFFFFFFFFFFLL, this[2].u16[7]);
+  XPCArray::set_uint64(&v6, 0xFFFFFFFFFFFFFFFFLL, this[3].u8[0]);
+  XPCObject::XPCObject(a1, &v6);
+  XPCObject::~XPCObject(&v6);
 }
 
 uint64_t CSCppDyldSharedCache::for_each_subcache_entry_uuid(_DWORD *a1, uint64_t a2)
@@ -6974,64 +6930,52 @@ LABEL_10:
 uint64_t _for_each_subcache_entry_uuid<CSCppDyldSharedCache const,dyld_subcache_entry,void({block_pointer})(unsigned char const*)>(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
   LODWORD(v5) = a3;
-  v11 = *MEMORY[0x1E69E9840];
   if (*(a1 + 16) >= 0x190u && *(a1 + 400) != 0)
   {
     (*(a4 + 16))(a4, a1 + 400);
   }
 
-  if (v5)
+  if (!v5)
   {
-    v5 = v5;
-    v8 = v5;
-    do
-    {
-      (*(a4 + 16))(a4, a2);
-      a2 += 56;
-      --v8;
-    }
-
-    while (v8);
+    return 0;
   }
 
-  else
+  v5 = v5;
+  v8 = v5;
+  do
   {
-    v5 = 0;
+    (*(a4 + 16))(a4, a2);
+    a2 += 56;
+    --v8;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
+  while (v8);
   return v5;
 }
 
 uint64_t _for_each_subcache_entry_uuid<CSCppDyldSharedCache const,dyld_subcache_entry_v1,void({block_pointer})(unsigned char const*)>(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
   LODWORD(v5) = a3;
-  v11 = *MEMORY[0x1E69E9840];
   if (*(a1 + 16) >= 0x190u && *(a1 + 400) != 0)
   {
     (*(a4 + 16))(a4, a1 + 400);
   }
 
-  if (v5)
+  if (!v5)
   {
-    v5 = v5;
-    v8 = v5;
-    do
-    {
-      (*(a4 + 16))(a4, a2);
-      a2 += 24;
-      --v8;
-    }
-
-    while (v8);
+    return 0;
   }
 
-  else
+  v5 = v5;
+  v8 = v5;
+  do
   {
-    v5 = 0;
+    (*(a4 + 16))(a4, a2);
+    a2 += 24;
+    --v8;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
+  while (v8);
   return v5;
 }
 
@@ -7061,7 +7005,7 @@ _DWORD *CSCppDyldSharedCache::extract_universal_subcache_paths@<X0>(_DWORD *this
           else
           {
             this = std::allocator_traits<std::allocator<std::string>>::construct[abi:ne200100]<std::string,char const(&)[32],void,0>(a2, v4, v6);
-            v4 += 24;
+            v4 += 3;
           }
 
           a2[1] = v4;
@@ -7144,7 +7088,7 @@ uint64_t CSCppDyldSharedCache::for_each_mapped_cache(char *a1, uint64_t a2)
   return result;
 }
 
-void CSCppDyldSharedCache::ranges_with_permissions(CSCppDyldSharedCache *this@<X0>, int a2@<W1>, int a3@<W2>, void *a4@<X8>)
+void CSCppDyldSharedCache::ranges_with_permissions(CSCppDyldSharedCache *this@<X0>, int a2@<W1>, int a3@<W2>, uint64_t *a4@<X8>)
 {
   v5 = &v21;
   v21 = 0;
@@ -7227,7 +7171,7 @@ void CSCppDyldSharedCache::ranges_with_permissions(CSCppDyldSharedCache *this@<X
   }
 }
 
-void sub_1D97DDDB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21)
+void sub_1D97DDDB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21)
 {
   _Block_object_dispose(&a15, 8);
   if (__p)
@@ -7340,7 +7284,6 @@ uint64_t CSCppDyldSharedCache::text_segment_range(CSCppDyldSharedCache *this)
 {
   CSCppDyldSharedCache::ranges_with_permissions(this, 4, 0, __p);
   v1 = *__p[0];
-  v2 = *(__p[0] + 1);
   __p[1] = __p[0];
   operator delete(__p[0]);
   return v1;
@@ -7482,7 +7425,7 @@ uint64_t std::vector<std::string>::__emplace_back_slow_path<char const(&)[32]>(u
   return v7;
 }
 
-unint64_t std::allocator_traits<std::allocator<std::string>>::construct[abi:ne200100]<std::string,char const(&)[32],void,0>(int a1, _BYTE *a2, char *__s)
+unint64_t std::allocator_traits<std::allocator<std::string>>::construct[abi:ne200100]<std::string,char const(&)[32],void,0>(int a1, void *a2, char *__s)
 {
   result = strlen(__s);
   if (result >= 0x7FFFFFFFFFFFFFF8)
@@ -7496,17 +7439,17 @@ unint64_t std::allocator_traits<std::allocator<std::string>>::construct[abi:ne20
     operator new();
   }
 
-  a2[23] = result;
+  *(a2 + 23) = result;
   if (result)
   {
     result = memmove(a2, __s, result);
   }
 
-  a2[v6] = 0;
+  *(a2 + v6) = 0;
   return result;
 }
 
-uint64_t std::vector<TRange<Pointer64>>::__init_with_size[abi:ne200100]<TRange<Pointer64>*,TRange<Pointer64>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TRange<Pointer64>>::__init_with_size[abi:ne200100]<TRange<Pointer64>*,TRange<Pointer64>*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7564,10 +7507,6 @@ uint64_t _Xmach_exception_raise(uint64_t a1, uint64_t a2)
   v6 = *(a1 + 64);
   if (v6 <= 2 && v6 <= (v3 - 68) >> 3 && v3 == ((8 * v6) | 0x44))
   {
-    v7 = *(a1 + 12);
-    v8 = *(a1 + 28);
-    v9 = *(a1 + 40);
-    v10 = *(a1 + 60);
     result = catch_mach_exception_raise();
   }
 
@@ -7585,26 +7524,7 @@ LABEL_7:
 
 uint64_t _Xmach_exception_raise_state(uint64_t result, uint64_t a2)
 {
-  if ((*result & 0x80000000) != 0)
-  {
-    goto LABEL_14;
-  }
-
-  v3 = *(result + 4);
-  if (v3 - 5249 < 0xFFFFEBAF)
-  {
-    goto LABEL_14;
-  }
-
-  v4 = *(result + 36);
-  if (v4 > 2)
-  {
-    goto LABEL_14;
-  }
-
-  v5 = 8 * v4;
-  v6 = v4 <= (v3 - 48) >> 3 && v3 >= 8 * v4 + 48;
-  if (v6 && (v7 = result + v5, v8 = *(v7 + 44), v8 <= 0x510) && ((v9 = v3 - v5, v8 <= (v9 - 48) >> 2) ? (v10 = v9 == 4 * v8 + 48) : (v10 = 0), v10))
+  if ((*result & 0x80000000) == 0 && (v3 = *(result + 4), v3 - 5249 >= 0xFFFFEBAF) && (v4 = *(result + 36), v4 <= 2) && ((v5 = 8 * v4, v4 <= (v3 - 48) >> 3) ? (v6 = v3 >= 8 * v4 + 48) : (v6 = 0), v6 && (v7 = result + v5, v8 = *(v7 + 44), v8 <= 0x510) && ((v9 = v3 - v5, v8 <= (v9 - 48) >> 2) ? (v10 = v9 == 4 * v8 + 48) : (v10 = 0), v10)))
   {
     v11 = v7 - 16;
     *(a2 + 40) = 1296;
@@ -7620,7 +7540,6 @@ uint64_t _Xmach_exception_raise_state(uint64_t result, uint64_t a2)
 
   else
   {
-LABEL_14:
     *(a2 + 32) = -304;
     *(a2 + 24) = *MEMORY[0x1E69E99E0];
   }
@@ -7679,10 +7598,6 @@ LABEL_7:
 
   *(a2 + 40) = 1296;
   v11 = v8 - 16;
-  v12 = *(result + 12);
-  v13 = *(result + 28);
-  v14 = *(result + 40);
-  v15 = *(result + 60);
   result = catch_mach_exception_raise();
   *(a2 + 32) = result;
   *(a2 + 24) = *MEMORY[0x1E69E99E0];
@@ -7796,51 +7711,49 @@ void CSCppReferenceCount::release()
 
 void CSRangeOfDyldSharedCacheInCurrentProcess_cold_1()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals))
+  if (__cxa_guard_acquire(_MergedGlobals))
   {
     qword_1EDADA6F8 = 0;
     unk_1EDADA700 = 0;
 
-    __cxa_guard_release(&_MergedGlobals);
+    __cxa_guard_release(_MergedGlobals);
   }
 }
 
 void new_file_memory_for_uuid_and_arch(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v1 = __cxa_begin_catch(a1);
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     v2 = (*(*v1 + 16))(v1);
-    v4 = 136315394;
-    v5 = "CSCppFileMemory *new_file_memory_for_uuid_and_arch(const char *, const UUID &, CSCppArchitecture, uint32_t)";
-    v6 = 2080;
-    v7 = v2;
-    _os_log_impl(&dword_1D96E9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Caught exception in %s:\n %s\n", &v4, 0x16u);
+    v3 = 136315394;
+    v4 = "CSCppFileMemory *new_file_memory_for_uuid_and_arch(const char *, const UUID &, CSCppArchitecture, uint32_t)";
+    v5 = 2080;
+    v6 = v2;
+    _os_log_impl(&dword_1D96E9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Caught exception in %s:\n %s\n", &v3, 0x16u);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void CSCppDyldSplitSharedCacheMemory::path_and_base_address_for_ondisk_shared_cache_with_uuid()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_0))
+  if (__cxa_guard_acquire(_MergedGlobals_0))
   {
-    unk_1EDADA730 = 0u;
-    unk_1EDADA720 = 0u;
+    *&qword_1EDADA720[2] = 0u;
+    *qword_1EDADA720 = 0u;
     dword_1EDADA740 = 1065353216;
 
-    __cxa_guard_release(&_MergedGlobals_0);
+    __cxa_guard_release(_MergedGlobals_0);
   }
 }
 
-uint64_t *iterate_symbol_owners_from_disk_dsc(uint64_t *a1)
+uint64_t iterate_symbol_owners_from_disk_dsc(uint64_t *a1)
 {
   result = OUTLINED_FUNCTION_0_0(a1);
   if (result)
   {
-    v5 = OUTLINED_FUNCTION_0(result);
-    result = (*(v6 + 8))(v5);
+    OUTLINED_FUNCTION_0();
+    result = (*(v5 + 8))();
   }
 
   *v1 = v3;
@@ -7850,12 +7763,12 @@ uint64_t *iterate_symbol_owners_from_disk_dsc(uint64_t *a1)
 
 void iterate_symbol_owners_from_archive()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_1))
+  if (__cxa_guard_acquire(_MergedGlobals_1))
   {
     unk_1EDADA770 = 0u;
     unk_1EDADA760 = 0u;
     dword_1EDADA780 = 1065353216;
-    __cxa_guard_release(&_MergedGlobals_1);
+    __cxa_guard_release(_MergedGlobals_1);
   }
 }
 
@@ -7956,11 +7869,10 @@ void create_sampling_context_for_task_pid_symbolicator_cold_1(void *a1, uint64_t
 
 void ___ZN20SymbolicationSession30process_ats_dsc_and_pid_chunksEPK8__CFDataS2__block_invoke_2_cold_1(uint64_t *a1)
 {
-  v1 = OUTLINED_FUNCTION_0_0(a1);
-  if (v1)
+  if (OUTLINED_FUNCTION_0_0(a1))
   {
-    v2 = OUTLINED_FUNCTION_0(v1);
-    (*(v3 + 16))(v2);
+    OUTLINED_FUNCTION_0();
+    (*(v1 + 16))();
   }
 
   OUTLINED_FUNCTION_2();
@@ -7968,25 +7880,25 @@ void ___ZN20SymbolicationSession30process_ats_dsc_and_pid_chunksEPK8__CFDataS2__
 
 void get_exclave_core_uuid_to_path_map()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_2))
+  if (__cxa_guard_acquire(_MergedGlobals_2))
   {
     xmmword_1EDADA860 = 0u;
     *&qword_1EDADA870 = 0u;
     dword_1EDADA880 = 1065353216;
 
-    __cxa_guard_release(&_MergedGlobals_2);
+    __cxa_guard_release(_MergedGlobals_2);
   }
 }
 
 void get_exclave_kit_uuid_to_path_map()
 {
-  if (__cxa_guard_acquire(&qword_1EDADA858))
+  if (__cxa_guard_acquire(byte_1EDADA858))
   {
     xmmword_1EDADA888 = 0u;
     *&qword_1EDADA898 = 0u;
     dword_1EDADA8A8 = 1065353216;
 
-    __cxa_guard_release(&qword_1EDADA858);
+    __cxa_guard_release(byte_1EDADA858);
   }
 }
 

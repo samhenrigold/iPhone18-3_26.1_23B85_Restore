@@ -120,7 +120,7 @@ void __65__MPModelSong_ICRadioContentReference__mpc_radioContentReference__block
     [*(a1 + 40) setGenreName:v29];
   }
 
-  [*(a1 + 32) duration];
+  objc_msgSend_duration(*(a1 + 32));
   if (v30 > 2.22044605e-16)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;

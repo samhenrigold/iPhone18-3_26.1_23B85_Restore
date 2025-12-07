@@ -1,4 +1,5 @@
 @interface HMDXPCBackgroundMessagePolicy
++ (id)policyWithEntitlementRequirement:(BOOL)requirement;
 - (BOOL)isEqual:(id)equal;
 - (HMDXPCBackgroundMessagePolicy)init;
 - (id)__initWithEntitlementRequirement:(BOOL)requirement;
@@ -67,6 +68,13 @@
   v8 = v7;
 
   objc_exception_throw(v7);
+}
+
++ (id)policyWithEntitlementRequirement:(BOOL)requirement
+{
+  v3 = [[self alloc] __initWithEntitlementRequirement:requirement];
+
+  return v3;
 }
 
 @end

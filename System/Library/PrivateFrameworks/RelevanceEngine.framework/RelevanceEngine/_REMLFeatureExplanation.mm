@@ -10,50 +10,50 @@
 
 + (id)combinedExplanationsFromExplanations:(id)explanations
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   explanationsCopy = explanations;
   v4 = [MEMORY[0x277CCA940] set];
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   v5 = explanationsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v53 objects:v59 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v52 objects:v58 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v54;
+    v8 = *v53;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v54 != v8)
+        if (*v53 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        allFeatures = [*(*(*(&v53 + 1) + 8 * i) + 8) allFeatures];
+        allFeatures = [*(*(*(&v52 + 1) + 8 * i) + 8) allFeatures];
         [v4 addObjectsFromArray:allFeatures];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v53 objects:v59 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v52 objects:v58 count:16];
     }
 
     while (v7);
   }
 
   [MEMORY[0x277CBEB58] set];
-  v43 = v42 = v5;
+  v42 = v41 = v5;
   v11 = [v5 mutableCopy];
-  v44 = v11;
+  v43 = v11;
   while ([v11 count])
   {
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     v12 = v4;
-    v13 = [v12 countByEnumeratingWithState:&v49 objects:v58 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v48 objects:v57 count:16];
     if (!v13)
     {
 
@@ -63,18 +63,18 @@
     v14 = v13;
     v15 = 0;
     v16 = 0;
-    v17 = *v50;
+    v17 = *v49;
     do
     {
       for (j = 0; j != v14; ++j)
       {
         v19 = v16;
-        if (*v50 != v17)
+        if (*v49 != v17)
         {
           objc_enumerationMutation(v12);
         }
 
-        v20 = *(*(&v49 + 1) + 8 * j);
+        v20 = *(*(&v48 + 1) + 8 * j);
         v21 = [v12 countForObject:v20];
         if (v21 <= v19)
         {
@@ -90,7 +90,7 @@
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v49 objects:v58 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v48 objects:v57 count:16];
     }
 
     while (v14);
@@ -122,33 +122,33 @@
     }
 
     v24 = [MEMORY[0x277CBEB58] set];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
-    v25 = v44;
-    v26 = [v25 countByEnumeratingWithState:&v45 objects:v57 count:16];
+    v25 = v43;
+    v26 = [v25 countByEnumeratingWithState:&v44 objects:v56 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v46;
+      v28 = *v45;
       do
       {
         for (k = 0; k != v27; ++k)
         {
-          if (*v46 != v28)
+          if (*v45 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          v30 = *(*(&v45 + 1) + 8 * k);
+          v30 = *(*(&v44 + 1) + 8 * k);
           if ([*(v30 + 8) containsFeature:v15])
           {
             [v24 addObject:v30];
           }
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v45 objects:v57 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v44 objects:v56 count:16];
       }
 
       while (v27);
@@ -178,15 +178,13 @@
       *&v38 = v34;
       v39 = [(_REMLFeatureExplanation *)v36 initWithFeature:v15 mean:v37 variance:v38];
 
-      [v43 addObject:v39];
+      [v42 addObject:v39];
     }
 
     v11 = v25;
   }
 
-  v40 = *MEMORY[0x277D85DE8];
-
-  return v43;
+  return v42;
 }
 
 - (_REMLFeatureExplanation)initWithFeature:(id)feature mean:(float)mean variance:(float)variance

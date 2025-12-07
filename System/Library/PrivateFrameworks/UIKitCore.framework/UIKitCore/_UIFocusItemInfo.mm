@@ -116,7 +116,7 @@ LABEL_29:
   }
 
 LABEL_3:
-  if (!_UIFocusEnvironmentIsViewOrViewControllerOrRespondsToSelector(parentFocusEnvironment) || !_UIFocusItemIsViewOrRespondsToSelector(v5))
+  if (!_UIFocusEnvironmentIsViewOrViewControllerOrRespondsToSelector(parentFocusEnvironment, sel_focusItemContainer) || !_UIFocusItemIsViewOrRespondsToSelector(v5, sel_frame))
   {
 LABEL_11:
     if (os_variant_has_internal_diagnostics())

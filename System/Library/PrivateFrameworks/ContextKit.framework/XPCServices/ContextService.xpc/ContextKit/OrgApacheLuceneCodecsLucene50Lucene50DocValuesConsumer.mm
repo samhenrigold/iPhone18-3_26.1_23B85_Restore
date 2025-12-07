@@ -16,10 +16,10 @@
   if (boolean)
   {
     v7 = new_JavaUtilHashSet_init();
-    v107 = 0u;
-    v108 = 0u;
-    v109 = 0u;
-    v110 = 0u;
+    v116 = 0u;
+    v117 = 0u;
+    v118 = 0u;
+    v119 = 0u;
     if (!iterable)
     {
       goto LABEL_124;
@@ -28,207 +28,207 @@
     v8 = v7;
     infoCopy = info;
     obj = iterable;
-    v9 = [iterable countByEnumeratingWithState:&v107 objects:v115 count:16];
+    v9 = [iterable countByEnumeratingWithState:&v116 objects:v124 count:16];
     if (v9)
     {
-      v10 = v9;
-      v11 = 0;
+      v11 = v9;
       v12 = 0;
       v13 = 0;
-      v87 = 0;
-      v89 = *v108;
-      v14 = 0x7FFFFFFFFFFFFFFFLL;
-      v15 = 0x8000000000000000;
+      v14 = 0;
+      v96 = 0;
+      v98 = *v117;
+      v15 = 0x7FFFFFFFFFFFFFFFLL;
+      v16 = 0x8000000000000000;
       do
       {
-        v16 = 0;
-        v83 = v13;
-        v84 = -v13;
+        v17 = 0;
+        v92 = v14;
+        v93 = -v14;
         do
         {
-          v17 = v12;
-          if (*v108 != v89)
+          v18 = v13;
+          if (*v117 != v98)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v107 + 1) + 8 * v16);
-          if (v18)
+          v19 = *(*(&v116 + 1) + 8 * v17);
+          if (v19)
           {
-            longLongValue = [v18 longLongValue];
-            v20 = longLongValue == 0;
+            longLongValue = [v19 longLongValue];
+            v21 = longLongValue == 0;
           }
 
           else
           {
             longLongValue = 0;
-            ++v87;
-            v20 = 1;
+            ++v96;
+            v21 = 1;
           }
 
-          if (v12 == 1)
+          if (v13 == 1)
           {
-            v12 = 1;
+            v13 = 1;
           }
 
           else
           {
-            v12 = 1;
+            v13 = 1;
             if (((longLongValue - 0x4000000000000000) & 0x8000000000000000) != 0)
             {
-              if (v84 == v16)
+              if (v93 == v17)
               {
-                v12 = v17;
+                v13 = v18;
               }
 
               else
               {
-                v12 = OrgApacheLuceneUtilMathUtil_gcdWithLong_withLong_(v17, longLongValue - v14);
+                v13 = OrgApacheLuceneUtilMathUtil_gcdWithLong_withLong_(v18, longLongValue - v15);
               }
             }
           }
 
-          v14 = JavaLangMath_minWithLong_withLong_(v14, longLongValue);
-          v15 = JavaLangMath_maxWithLong_withLong_(v15, longLongValue);
-          if (v8 && [(JavaUtilHashSet *)v8 addWithId:JavaLangLong_valueOfWithLong_(longLongValue)]&& [(JavaUtilHashSet *)v8 size]> 256)
+          v15 = JavaLangMath_minWithLong_withLong_(v15, longLongValue);
+          v16 = JavaLangMath_maxWithLong_withLong_(v16, longLongValue);
+          if (v8 && [(JavaUtilHashSet *)v8 addWithId:JavaLangLong_valueOfWithLong_(longLongValue, v22)]&& [(JavaUtilHashSet *)v8 size]> 256)
           {
             v8 = 0;
           }
 
-          v11 += v20;
-          ++v16;
+          v12 += v21;
+          ++v17;
         }
 
-        while (v10 != v16);
-        v13 = &v10[v83];
-        v10 = [obj countByEnumeratingWithState:&v107 objects:v115 count:16];
+        while (v11 != v17);
+        v14 = &v11[v92];
+        v11 = [obj countByEnumeratingWithState:&v116 objects:v124 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
 
     else
     {
-      v11 = 0;
-      v87 = 0;
       v12 = 0;
+      v96 = 0;
       v13 = 0;
-      v14 = 0x7FFFFFFFFFFFFFFFLL;
-      v15 = 0x8000000000000000;
+      v14 = 0;
+      v15 = 0x7FFFFFFFFFFFFFFFLL;
+      v16 = 0x8000000000000000;
     }
 
-    v24 = v13;
-    v30 = v15 - v14;
-    v31 = OrgApacheLuceneUtilPackedDirectWriter_unsignedBitsRequiredWithLong_(v15 - v14);
-    v90 = v31;
+    v27 = v14;
+    v33 = v16 - v15;
+    v35 = OrgApacheLuceneUtilPackedDirectWriter_unsignedBitsRequiredWithLong_(v16 - v15, v10);
+    v99 = v35;
     if (v8)
     {
-      v32 = [(JavaUtilHashSet *)v8 size];
-      v40 = OrgApacheLuceneUtilPackedDirectWriter_bitsRequiredWithLong_((v32 - 1), v33, v34, v35, v36, v37, v38, v39);
+      v36 = [(JavaUtilHashSet *)v8 size];
+      v44 = OrgApacheLuceneUtilPackedDirectWriter_bitsRequiredWithLong_((v36 - 1), v37, v38, v39, v40, v41, v42, v43);
       infoCopy2 = infoCopy;
-      if (v24 <= 0x7FFFFFFF)
+      if (v27 <= 0x7FFFFFFF)
       {
         if ([(JavaUtilHashSet *)v8 size]== 1)
         {
-          v85 = 0;
-          v42 = 4;
+          v94 = 0;
+          v46 = 4;
 LABEL_48:
-          v11 = v87;
+          v12 = v96;
           goto LABEL_52;
         }
 
-        if ([(JavaUtilHashSet *)v8 size]== 2 && v87 >= 1 && v11 == v87)
+        if ([(JavaUtilHashSet *)v8 size]== 2 && v96 >= 1 && v12 == v96)
         {
-          v85 = 0;
-          v42 = 4;
+          v94 = 0;
+          v46 = 4;
           goto LABEL_52;
         }
       }
 
-      if (v40 < v31)
+      if (v44 < v35)
       {
-        v85 = 0;
-        v42 = 2;
+        v94 = 0;
+        v46 = 2;
         goto LABEL_48;
       }
     }
 
     else
     {
-      v40 = 0x7FFFFFFF;
+      v44 = 0x7FFFFFFF;
       infoCopy2 = infoCopy;
     }
 
-    v11 = v87;
-    v85 = v8 == 0;
-    v42 = v12 >= 2 && OrgApacheLuceneUtilPackedDirectWriter_unsignedBitsRequiredWithLong_(v30 / v12) < v31;
+    v12 = v96;
+    v94 = v8 == 0;
+    v46 = v13 >= 2 && OrgApacheLuceneUtilPackedDirectWriter_unsignedBitsRequiredWithLong_(v33 / v13, v34) < v35;
   }
 
   else
   {
-    v105 = 0u;
-    v106 = 0u;
-    v103 = 0u;
-    v104 = 0u;
+    v114 = 0u;
+    v115 = 0u;
+    v112 = 0u;
+    v113 = 0u;
     if (!iterable)
     {
       goto LABEL_124;
     }
 
-    v22 = [iterable countByEnumeratingWithState:&v103 objects:v114 count:16];
-    if (v22)
+    v24 = [iterable countByEnumeratingWithState:&v112 objects:v123 count:16];
+    if (v24)
     {
-      v23 = v22;
-      v24 = 0;
-      v25 = *v104;
-      v14 = 0x7FFFFFFFFFFFFFFFLL;
-      v26 = 0x8000000000000000;
+      v26 = v24;
+      v27 = 0;
+      v28 = *v113;
+      v15 = 0x7FFFFFFFFFFFFFFFLL;
+      v29 = 0x8000000000000000;
       do
       {
-        v27 = 0;
-        v24 += v23;
+        v30 = 0;
+        v27 += v26;
         do
         {
-          if (*v104 != v25)
+          if (*v113 != v28)
           {
             objc_enumerationMutation(iterable);
           }
 
-          v28 = *(*(&v103 + 1) + 8 * v27);
-          if (!v28)
+          v31 = *(*(&v112 + 1) + 8 * v30);
+          if (!v31)
           {
             goto LABEL_124;
           }
 
-          longLongValue2 = [v28 longLongValue];
-          v14 = JavaLangMath_minWithLong_withLong_(v14, longLongValue2);
-          v26 = JavaLangMath_maxWithLong_withLong_(v26, longLongValue2);
-          v27 = v27 + 1;
+          longLongValue2 = [v31 longLongValue];
+          v15 = JavaLangMath_minWithLong_withLong_(v15, longLongValue2);
+          v29 = JavaLangMath_maxWithLong_withLong_(v29, longLongValue2);
+          v30 = v30 + 1;
         }
 
-        while (v23 != v27);
-        v23 = [iterable countByEnumeratingWithState:&v103 objects:v114 count:16];
+        while (v26 != v30);
+        v26 = [iterable countByEnumeratingWithState:&v112 objects:v123 count:16];
       }
 
-      while (v23);
+      while (v26);
     }
 
     else
     {
-      v24 = 0;
-      v14 = 0x7FFFFFFFFFFFFFFFLL;
-      v26 = 0x8000000000000000;
+      v27 = 0;
+      v15 = 0x7FFFFFFFFFFFFFFFLL;
+      v29 = 0x8000000000000000;
     }
 
     obj = iterable;
-    v30 = v26 - v14;
-    v90 = OrgApacheLuceneUtilPackedDirectWriter_unsignedBitsRequiredWithLong_(v30);
+    v33 = v29 - v15;
+    v99 = OrgApacheLuceneUtilPackedDirectWriter_unsignedBitsRequiredWithLong_(v33, v25);
     v8 = 0;
-    v11 = 0;
     v12 = 0;
-    v42 = 0;
-    v85 = 1;
-    v40 = 0x7FFFFFFF;
+    v13 = 0;
+    v46 = 0;
+    v94 = 1;
+    v44 = 0x7FFFFFFF;
     infoCopy2 = info;
   }
 
@@ -239,25 +239,25 @@ LABEL_52:
     goto LABEL_124;
   }
 
-  v88 = v40;
+  v97 = v44;
   [(OrgApacheLuceneStoreDataOutput *)meta writeVIntWithInt:infoCopy2[4]];
   selfCopy3 = self;
   [(OrgApacheLuceneStoreIndexOutput *)self->meta_ writeByteWithByte:0];
-  [(OrgApacheLuceneStoreDataOutput *)self->meta_ writeVIntWithInt:v42];
-  if (!v11)
+  [(OrgApacheLuceneStoreDataOutput *)self->meta_ writeVIntWithInt:v46];
+  if (!v12)
   {
-    v45 = self->meta_;
-    v46 = -1;
+    v49 = self->meta_;
+    v50 = -1;
     goto LABEL_58;
   }
 
-  if (v11 == v24)
+  if (v12 == v27)
   {
     selfCopy3 = self;
-    v45 = self->meta_;
-    v46 = -2;
+    v49 = self->meta_;
+    v50 = -2;
 LABEL_58:
-    [(OrgApacheLuceneStoreDataOutput *)v45 writeLongWithLong:v46];
+    [(OrgApacheLuceneStoreDataOutput *)v49 writeLongWithLong:v50];
     goto LABEL_61;
   }
 
@@ -271,110 +271,111 @@ LABEL_58:
   [(OrgApacheLuceneStoreDataOutput *)self->meta_ writeLongWithLong:[(OrgApacheLuceneStoreIndexOutput *)data getFilePointer]];
   [(OrgApacheLuceneCodecsLucene50Lucene50DocValuesConsumer *)self writeMissingBitsetWithJavaLangIterable:obj];
 LABEL_61:
-  v48 = selfCopy3->data_;
-  if (!v48)
+  v52 = selfCopy3->data_;
+  if (!v52)
   {
     goto LABEL_124;
   }
 
-  [(OrgApacheLuceneStoreDataOutput *)selfCopy3->meta_ writeLongWithLong:[(OrgApacheLuceneStoreIndexOutput *)v48 getFilePointer]];
-  [(OrgApacheLuceneStoreDataOutput *)selfCopy3->meta_ writeVLongWithLong:v24];
-  if (v42 > 1)
+  [(OrgApacheLuceneStoreDataOutput *)selfCopy3->meta_ writeLongWithLong:[(OrgApacheLuceneStoreIndexOutput *)v52 getFilePointer]];
+  [(OrgApacheLuceneStoreDataOutput *)selfCopy3->meta_ writeVLongWithLong:v27];
+  if (v46 > 1)
   {
-    if (v42 == 2)
+    if (v46 == 2)
     {
-      if (!v85)
+      if (!v94)
       {
-        v67 = [(JavaUtilAbstractCollection *)v8 toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:[(JavaUtilHashSet *)v8 size] type:JavaLangLong_class_()]];
-        JavaUtilArrays_sortWithNSObjectArray_(v67);
-        v68 = new_JavaUtilHashMap_init();
+        v72 = [(JavaUtilHashSet *)v8 size];
+        v74 = [(JavaUtilAbstractCollection *)v8 toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:v72 type:JavaLangLong_class_(v72, v73)]];
+        JavaUtilArrays_sortWithNSObjectArray_(v74, v75);
+        v76 = new_JavaUtilHashMap_init();
         selfCopy7 = self;
-        if (v67)
+        if (v74)
         {
-          v69 = v68;
-          [(OrgApacheLuceneStoreDataOutput *)self->meta_ writeVIntWithInt:v67[2]];
-          if (v67[2] < 1)
+          v77 = v76;
+          [(OrgApacheLuceneStoreDataOutput *)self->meta_ writeVIntWithInt:v74[2]];
+          if (v74[2] < 1)
           {
 LABEL_102:
-            [(OrgApacheLuceneStoreDataOutput *)self->meta_ writeVIntWithInt:v88];
-            InstanceWithOrgApacheLuceneStoreIndexOutput_withLong_withInt = OrgApacheLuceneUtilPackedDirectWriter_getInstanceWithOrgApacheLuceneStoreIndexOutput_withLong_withInt_(self->data_, v24, v88);
-            v91 = 0u;
-            v92 = 0u;
-            v93 = 0u;
-            v94 = 0u;
+            [(OrgApacheLuceneStoreDataOutput *)self->meta_ writeVIntWithInt:v97];
+            InstanceWithOrgApacheLuceneStoreIndexOutput_withLong_withInt = OrgApacheLuceneUtilPackedDirectWriter_getInstanceWithOrgApacheLuceneStoreIndexOutput_withLong_withInt_(self->data_, v27, v97);
+            v100 = 0u;
+            v101 = 0u;
+            v102 = 0u;
+            v103 = 0u;
             if (!obj)
             {
               goto LABEL_124;
             }
 
-            v74 = InstanceWithOrgApacheLuceneStoreIndexOutput_withLong_withInt;
-            v75 = [obj countByEnumeratingWithState:&v91 objects:v111 count:16];
-            if (v75)
+            v82 = InstanceWithOrgApacheLuceneStoreIndexOutput_withLong_withInt;
+            v83 = [obj countByEnumeratingWithState:&v100 objects:v120 count:16];
+            if (v83)
             {
-              v76 = v75;
-              v77 = *v92;
+              v85 = v83;
+              v86 = *v101;
               do
               {
-                for (i = 0; i != v76; i = i + 1)
+                for (i = 0; i != v85; i = i + 1)
                 {
-                  if (*v92 != v77)
+                  if (*v101 != v86)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  if (!v74)
+                  if (!v82)
                   {
                     goto LABEL_124;
                   }
 
-                  longLongValue3 = *(*(&v91 + 1) + 8 * i);
+                  longLongValue3 = *(*(&v100 + 1) + 8 * i);
                   if (longLongValue3)
                   {
                     longLongValue3 = [longLongValue3 longLongValue];
                   }
 
-                  v80 = [(JavaUtilHashMap *)v69 getWithId:JavaLangLong_valueOfWithLong_(longLongValue3)];
-                  if (!v80)
+                  v89 = [(JavaUtilHashMap *)v77 getWithId:JavaLangLong_valueOfWithLong_(longLongValue3, v84)];
+                  if (!v89)
                   {
                     goto LABEL_124;
                   }
 
-                  -[OrgApacheLuceneUtilPackedDirectWriter addWithLong:](v74, "addWithLong:", [v80 intValue]);
+                  -[OrgApacheLuceneUtilPackedDirectWriter addWithLong:](v82, "addWithLong:", [v89 intValue]);
                 }
 
-                v76 = [obj countByEnumeratingWithState:&v91 objects:v111 count:16];
+                v85 = [obj countByEnumeratingWithState:&v100 objects:v120 count:16];
               }
 
-              while (v76);
+              while (v85);
             }
 
-            else if (!v74)
+            else if (!v82)
             {
               goto LABEL_124;
             }
 
-            [(OrgApacheLuceneUtilPackedDirectWriter *)v74 finish];
+            [(OrgApacheLuceneUtilPackedDirectWriter *)v82 finish];
             goto LABEL_123;
           }
 
-          v70 = 0;
+          v78 = 0;
           while (1)
           {
-            v71 = *&v67[2 * v70 + 6];
-            if (!v71)
+            v79 = *&v74[2 * v78 + 6];
+            if (!v79)
             {
               break;
             }
 
-            -[OrgApacheLuceneStoreDataOutput writeLongWithLong:](self->meta_, "writeLongWithLong:", [v71 longLongValue]);
-            v72 = v67[2];
-            if (v70 >= v72)
+            -[OrgApacheLuceneStoreDataOutput writeLongWithLong:](self->meta_, "writeLongWithLong:", [v79 longLongValue]);
+            v80 = v74[2];
+            if (v78 >= v80)
             {
-              IOSArray_throwOutOfBoundsWithMsg(v72, v70);
+              IOSArray_throwOutOfBoundsWithMsg(v80, v78);
             }
 
-            [(JavaUtilHashMap *)v69 putWithId:*&v67[2 * v70 + 6] withId:JavaLangInteger_valueOfWithInt_(v70)];
-            if (++v70 >= v67[2])
+            [(JavaUtilHashMap *)v77 putWithId:*&v74[2 * v78 + 6] withId:JavaLangInteger_valueOfWithInt_(v78)];
+            if (++v78 >= v74[2])
             {
               goto LABEL_102;
             }
@@ -387,76 +388,76 @@ LABEL_124:
     }
 
     selfCopy7 = self;
-    v58 = self->meta_;
-    if (v14 < 0)
+    v63 = self->meta_;
+    if (v15 < 0)
     {
-      v59 = JavaUtilCollections_minWithJavaUtilCollection_(v8);
+      v64 = JavaUtilCollections_minWithJavaUtilCollection_(v8);
     }
 
     else
     {
-      v59 = JavaUtilCollections_maxWithJavaUtilCollection_(v8);
+      v64 = JavaUtilCollections_maxWithJavaUtilCollection_(v8);
     }
 
-    -[OrgApacheLuceneStoreDataOutput writeLongWithLong:](v58, "writeLongWithLong:", [v59 longLongValue]);
+    -[OrgApacheLuceneStoreDataOutput writeLongWithLong:](v63, "writeLongWithLong:", [v64 longLongValue]);
   }
 
   else
   {
-    if (v42)
+    if (v46)
     {
       selfCopy7 = self;
-      [(OrgApacheLuceneStoreDataOutput *)self->meta_ writeLongWithLong:v14];
-      [(OrgApacheLuceneStoreDataOutput *)self->meta_ writeLongWithLong:v12];
-      v50 = OrgApacheLuceneUtilPackedDirectWriter_unsignedBitsRequiredWithLong_(v30 / v12);
-      [(OrgApacheLuceneStoreDataOutput *)self->meta_ writeVIntWithInt:v50];
-      v51 = OrgApacheLuceneUtilPackedDirectWriter_getInstanceWithOrgApacheLuceneStoreIndexOutput_withLong_withInt_(self->data_, v24, v50);
-      v99 = 0u;
-      v100 = 0u;
-      v101 = 0u;
-      v102 = 0u;
+      [(OrgApacheLuceneStoreDataOutput *)self->meta_ writeLongWithLong:v15];
+      [(OrgApacheLuceneStoreDataOutput *)self->meta_ writeLongWithLong:v13];
+      v55 = OrgApacheLuceneUtilPackedDirectWriter_unsignedBitsRequiredWithLong_(v33 / v13, v54);
+      [(OrgApacheLuceneStoreDataOutput *)self->meta_ writeVIntWithInt:v55];
+      v56 = OrgApacheLuceneUtilPackedDirectWriter_getInstanceWithOrgApacheLuceneStoreIndexOutput_withLong_withInt_(self->data_, v27, v55);
+      v108 = 0u;
+      v109 = 0u;
+      v110 = 0u;
+      v111 = 0u;
       if (obj)
       {
-        v52 = v51;
-        v53 = [obj countByEnumeratingWithState:&v99 objects:v113 count:16];
-        if (v53)
+        v57 = v56;
+        v58 = [obj countByEnumeratingWithState:&v108 objects:v122 count:16];
+        if (v58)
         {
-          v54 = v53;
-          v55 = *v100;
+          v59 = v58;
+          v60 = *v109;
           do
           {
-            for (j = 0; j != v54; j = j + 1)
+            for (j = 0; j != v59; j = j + 1)
             {
-              if (*v100 != v55)
+              if (*v109 != v60)
               {
                 objc_enumerationMutation(obj);
               }
 
-              longLongValue4 = *(*(&v99 + 1) + 8 * j);
+              longLongValue4 = *(*(&v108 + 1) + 8 * j);
               if (longLongValue4)
               {
                 longLongValue4 = [longLongValue4 longLongValue];
               }
 
-              if (!v52)
+              if (!v57)
               {
                 goto LABEL_124;
               }
 
-              [(OrgApacheLuceneUtilPackedDirectWriter *)v52 addWithLong:(longLongValue4 - v14) / v12];
+              [(OrgApacheLuceneUtilPackedDirectWriter *)v57 addWithLong:(longLongValue4 - v15) / v13];
             }
 
-            v54 = [obj countByEnumeratingWithState:&v99 objects:v113 count:16];
+            v59 = [obj countByEnumeratingWithState:&v108 objects:v122 count:16];
           }
 
-          while (v54);
+          while (v59);
           goto LABEL_120;
         }
 
-        if (v52)
+        if (v57)
         {
 LABEL_120:
-          [(OrgApacheLuceneUtilPackedDirectWriter *)v52 finish];
+          [(OrgApacheLuceneUtilPackedDirectWriter *)v57 finish];
           goto LABEL_123;
         }
       }
@@ -464,65 +465,65 @@ LABEL_120:
       goto LABEL_124;
     }
 
-    if (v30 < 0)
+    if (v33 < 0)
     {
-      v14 = 0;
+      v15 = 0;
     }
 
     selfCopy7 = self;
-    [(OrgApacheLuceneStoreDataOutput *)self->meta_ writeLongWithLong:v14];
-    [(OrgApacheLuceneStoreDataOutput *)self->meta_ writeVIntWithInt:v90];
-    v60 = OrgApacheLuceneUtilPackedDirectWriter_getInstanceWithOrgApacheLuceneStoreIndexOutput_withLong_withInt_(self->data_, v24, v90);
-    v95 = 0u;
-    v96 = 0u;
-    v97 = 0u;
-    v98 = 0u;
+    [(OrgApacheLuceneStoreDataOutput *)self->meta_ writeLongWithLong:v15];
+    [(OrgApacheLuceneStoreDataOutput *)self->meta_ writeVIntWithInt:v99];
+    v65 = OrgApacheLuceneUtilPackedDirectWriter_getInstanceWithOrgApacheLuceneStoreIndexOutput_withLong_withInt_(self->data_, v27, v99);
+    v104 = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v107 = 0u;
     if (!obj)
     {
       goto LABEL_124;
     }
 
-    v61 = v60;
-    v62 = [obj countByEnumeratingWithState:&v95 objects:v112 count:16];
-    if (v62)
+    v66 = v65;
+    v67 = [obj countByEnumeratingWithState:&v104 objects:v121 count:16];
+    if (v67)
     {
-      v63 = v62;
-      v64 = *v96;
+      v68 = v67;
+      v69 = *v105;
       do
       {
-        for (k = 0; k != v63; k = k + 1)
+        for (k = 0; k != v68; k = k + 1)
         {
-          if (*v96 != v64)
+          if (*v105 != v69)
           {
             objc_enumerationMutation(obj);
           }
 
-          longLongValue5 = *(*(&v95 + 1) + 8 * k);
+          longLongValue5 = *(*(&v104 + 1) + 8 * k);
           if (longLongValue5)
           {
             longLongValue5 = [longLongValue5 longLongValue];
           }
 
-          if (!v61)
+          if (!v66)
           {
             goto LABEL_124;
           }
 
-          [(OrgApacheLuceneUtilPackedDirectWriter *)v61 addWithLong:&longLongValue5[-v14]];
+          [(OrgApacheLuceneUtilPackedDirectWriter *)v66 addWithLong:&longLongValue5[-v15]];
         }
 
-        v63 = [obj countByEnumeratingWithState:&v95 objects:v112 count:16];
+        v68 = [obj countByEnumeratingWithState:&v104 objects:v121 count:16];
       }
 
-      while (v63);
+      while (v68);
     }
 
-    else if (!v61)
+    else if (!v66)
     {
       goto LABEL_124;
     }
 
-    [(OrgApacheLuceneUtilPackedDirectWriter *)v61 finish];
+    [(OrgApacheLuceneUtilPackedDirectWriter *)v66 finish];
   }
 
 LABEL_123:
@@ -607,22 +608,8 @@ LABEL_19:
 - (void)addBinaryFieldWithOrgApacheLuceneIndexFieldInfo:(id)info withJavaLangIterable:(id)iterable
 {
   meta = self->meta_;
-  if (!meta)
+  if (!meta || !info || ([(OrgApacheLuceneStoreDataOutput *)meta writeVIntWithInt:*(info + 4)], [(OrgApacheLuceneStoreIndexOutput *)self->meta_ writeByteWithByte:1], (data = self->data_) == 0) || (v8 = [(OrgApacheLuceneStoreIndexOutput *)data getFilePointer], v36 = 0u, v37 = 0u, v38 = 0u, v39 = 0u, !iterable))
   {
-    goto LABEL_37;
-  }
-
-  if (!info)
-  {
-    goto LABEL_37;
-  }
-
-  [(OrgApacheLuceneStoreDataOutput *)meta writeVIntWithInt:*(info + 4)];
-  [(OrgApacheLuceneStoreIndexOutput *)self->meta_ writeByteWithByte:1];
-  data = self->data_;
-  if (!data || (v8 = [(OrgApacheLuceneStoreIndexOutput *)data getFilePointer], v36 = 0u, v37 = 0u, v38 = 0u, v39 = 0u, !iterable))
-  {
-LABEL_37:
     JreThrowNullPointerException();
   }
 
@@ -822,29 +809,29 @@ LABEL_25:
   if (OrgApacheLuceneCodecsDocValuesConsumer_isSingleValuedWithJavaLangIterable_(langIterable))
   {
     [(OrgApacheLuceneStoreDataOutput *)self->meta_ writeVIntWithInt:1];
-    v12 = JavaLangLong_valueOfWithLong_(-1);
-    v13 = OrgApacheLuceneCodecsDocValuesConsumer_singletonViewWithJavaLangIterable_withJavaLangIterable_withNSNumber_(langIterable, javaLangIterable, v12);
+    v13 = JavaLangLong_valueOfWithLong_(-1, v12);
+    v14 = OrgApacheLuceneCodecsDocValuesConsumer_singletonViewWithJavaLangIterable_withJavaLangIterable_withNSNumber_(langIterable, javaLangIterable, v13);
 
-    [(OrgApacheLuceneCodecsLucene50Lucene50DocValuesConsumer *)self addSortedFieldWithOrgApacheLuceneIndexFieldInfo:info withJavaLangIterable:iterable withJavaLangIterable:v13];
+    [(OrgApacheLuceneCodecsLucene50Lucene50DocValuesConsumer *)self addSortedFieldWithOrgApacheLuceneIndexFieldInfo:info withJavaLangIterable:iterable withJavaLangIterable:v14];
   }
 
   else
   {
-    v14 = sub_1000B31C8(langIterable, javaLangIterable);
-    v15 = self->meta_;
-    if (v14)
+    v15 = sub_1000B31C8(langIterable, javaLangIterable);
+    v16 = self->meta_;
+    if (v15)
     {
-      [(OrgApacheLuceneStoreDataOutput *)v15 writeVIntWithInt:2];
-      sub_1000B33B8(self, v14);
+      [(OrgApacheLuceneStoreDataOutput *)v16 writeVIntWithInt:2];
+      sub_1000B33B8(self, v15);
       sub_1000B2644(&self->super.super.isa, info, iterable);
-      v16 = sub_1000B36FC(v14, langIterable, javaLangIterable);
+      v17 = sub_1000B36FC(v15, langIterable, javaLangIterable);
 
-      [(OrgApacheLuceneCodecsLucene50Lucene50DocValuesConsumer *)self addNumericFieldWithOrgApacheLuceneIndexFieldInfo:info withJavaLangIterable:v16 withBoolean:0];
+      [(OrgApacheLuceneCodecsLucene50Lucene50DocValuesConsumer *)self addNumericFieldWithOrgApacheLuceneIndexFieldInfo:info withJavaLangIterable:v17 withBoolean:0];
     }
 
     else
     {
-      [(OrgApacheLuceneStoreDataOutput *)v15 writeVIntWithInt:0];
+      [(OrgApacheLuceneStoreDataOutput *)v16 writeVIntWithInt:0];
       sub_1000B2644(&self->super.super.isa, info, iterable);
       [(OrgApacheLuceneCodecsLucene50Lucene50DocValuesConsumer *)self addNumericFieldWithOrgApacheLuceneIndexFieldInfo:info withJavaLangIterable:javaLangIterable withBoolean:0];
 
@@ -865,7 +852,7 @@ LABEL_25:
   data = self->data_;
   if (data)
   {
-    OrgApacheLuceneCodecsCodecUtil_writeFooterWithOrgApacheLuceneStoreIndexOutput_(data);
+    data = OrgApacheLuceneCodecsCodecUtil_writeFooterWithOrgApacheLuceneStoreIndexOutput_(data);
     v5 = self->data_;
   }
 
@@ -877,7 +864,7 @@ LABEL_25:
   v6 = self->meta_;
   v9[0] = v5;
   v9[1] = v6;
-  v7 = [IOSObjectArray arrayWithObjects:v9 count:2 type:JavaIoCloseable_class_()];
+  v7 = [IOSObjectArray arrayWithObjects:v9 count:2 type:JavaIoCloseable_class_(data, a2)];
   OrgApacheLuceneUtilIOUtils_closeWithJavaIoCloseableArray_(v7);
   v8 = JreStrongAssign(&self->data_, 0);
   JreStrongAssign(&self->meta_, v8);

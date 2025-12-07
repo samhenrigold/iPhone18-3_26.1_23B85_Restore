@@ -16,7 +16,7 @@
 
 - (void)_queue_startEventTimer
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   if (self)
   {
     firstObject = [*(self + 8) firstObject];
@@ -34,11 +34,11 @@
         v1 = rbs_general_log();
         if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
         {
-          v39 = *(self + 32);
+          v38 = *(self + 32);
           *buf = 134218240;
-          v50 = v39;
-          v51 = 2048;
-          v52 = v5;
+          v49 = v38;
+          v50 = 2048;
+          v51 = v5;
           _os_log_error_impl(&dword_262485000, v1, OS_LOG_TYPE_ERROR, "Event queue more than 5 seconds late, expected to fire at %f and it's now %f", buf, 0x16u);
         }
 
@@ -59,13 +59,13 @@ LABEL_8:
             if (OUTLINED_FUNCTION_2_3(v21))
             {
               [firstObject eventTime];
-              v40 = *(self + 32);
+              v39 = *(self + 32);
               *buf = 134218240;
-              v50 = v41;
-              v51 = 2048;
-              v52 = v40;
+              v49 = v40;
+              v50 = 2048;
+              v51 = v39;
               OUTLINED_FUNCTION_0_4();
-              _os_log_debug_impl(v42, v43, v44, v45, v46, 0x16u);
+              _os_log_debug_impl(v41, v42, v43, v44, v45, 0x16u);
             }
 
             goto LABEL_21;
@@ -87,11 +87,11 @@ LABEL_8:
       v12 = rbs_general_log();
       if (OUTLINED_FUNCTION_2_3(v12))
       {
-        v23 = *(self + 32);
+        v22 = *(self + 32);
         *buf = 134217984;
-        v50 = v23;
+        v49 = v22;
         OUTLINED_FUNCTION_0_4();
-        _os_log_debug_impl(v24, v25, v26, v27, v28, 0xCu);
+        _os_log_debug_impl(v23, v24, v25, v26, v27, 0xCu);
       }
 
       v13 = v11 - v5;
@@ -100,9 +100,9 @@ LABEL_8:
       if (OUTLINED_FUNCTION_2_3(v14))
       {
         *buf = 134217984;
-        v50 = v5;
+        v49 = v5;
         OUTLINED_FUNCTION_0_4();
-        _os_log_debug_impl(v29, v30, v31, v32, v33, 0xCu);
+        _os_log_debug_impl(v28, v29, v30, v31, v32, 0xCu);
       }
 
       v15 = fmax(v13, 0.0);
@@ -111,27 +111,25 @@ LABEL_8:
       if (OUTLINED_FUNCTION_2_3(v16))
       {
         *buf = 134217984;
-        v50 = v15;
+        v49 = v15;
         OUTLINED_FUNCTION_0_4();
-        _os_log_debug_impl(v34, v35, v36, v37, v38, 0xCu);
+        _os_log_debug_impl(v33, v34, v35, v36, v37, 0xCu);
       }
 
       v18 = *(self + 16);
       v17 = *(self + 24);
-      v47[0] = MEMORY[0x277D85DD0];
-      v47[1] = 3221225472;
-      v47[2] = __38__RBEventQueue__queue_startEventTimer__block_invoke_8;
-      v47[3] = &unk_279B32CB0;
-      v47[4] = self;
-      v19 = [v17 executeWithCancellingAfter:v18 onQueue:v47 block:v15];
+      v46[0] = MEMORY[0x277D85DD0];
+      v46[1] = 3221225472;
+      v46[2] = __38__RBEventQueue__queue_startEventTimer__block_invoke_8;
+      v46[3] = &unk_279B32CB0;
+      v46[4] = self;
+      v19 = [v17 executeWithCancellingAfter:v18 onQueue:v46 block:v15];
       v20 = *(self + 40);
       *(self + 40) = v19;
     }
 
 LABEL_21:
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __38__RBEventQueue__queue_startEventTimer__block_invoke_8(uint64_t a1)
@@ -289,14 +287,13 @@ void __38__RBEventQueue__queue_startEventTimer__block_invoke_8(uint64_t a1)
 
 - (void)addEvent:(id)event
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v4 = MEMORY[0x277CBEA60];
   eventCopy2 = event;
   v6 = [v4 arrayWithObjects:&eventCopy count:1];
 
-  [(RBEventQueue *)self addEvents:v6, eventCopy, v9];
-  v7 = *MEMORY[0x277D85DE8];
+  [(RBEventQueue *)self addEvents:v6, eventCopy, v8];
 }
 
 - (void)addEvents:(id)events
@@ -314,7 +311,7 @@ void __38__RBEventQueue__queue_startEventTimer__block_invoke_8(uint64_t a1)
   }
 }
 
-uint64_t __26__RBEventQueue_addEvents___block_invoke(uint64_t a1)
+void *__26__RBEventQueue_addEvents___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) addObjectsFromArray:*(a1 + 40)];
   *(*(a1 + 32) + 50) = 1;
@@ -323,14 +320,13 @@ uint64_t __26__RBEventQueue_addEvents___block_invoke(uint64_t a1)
 
 - (void)removeEvent:(id)event
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v4 = MEMORY[0x277CBEA60];
   eventCopy2 = event;
   v6 = [v4 arrayWithObjects:&eventCopy count:1];
 
-  [(RBEventQueue *)self removeEvents:v6, eventCopy, v9];
-  v7 = *MEMORY[0x277D85DE8];
+  [(RBEventQueue *)self removeEvents:v6, eventCopy, v8];
 }
 
 - (void)removeEvents:(id)events
@@ -348,7 +344,7 @@ uint64_t __26__RBEventQueue_addEvents___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __29__RBEventQueue_removeEvents___block_invoke(uint64_t a1)
+void *__29__RBEventQueue_removeEvents___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) removeObjectsInArray:*(a1 + 40)];
   *(*(a1 + 32) + 50) = 1;

@@ -1031,7 +1031,7 @@ LABEL_13:
   }
 }
 
-uint64_t __48__UIViewAccessibility__axHasNoVisibleAxElements__block_invoke(uint64_t *a1, void *a2)
+uint64_t __48__UIViewAccessibility__axHasNoVisibleAxElements__block_invoke(void *a1, void *a2)
 {
   location[1] = a1;
   location[0] = 0;
@@ -1998,33 +1998,33 @@ void __95__UIViewAccessibility__axTriggerNextContextMenuInteractionInQueue_forEl
 
 - (id)__accessibilityHitTest:(CGPoint)test withEvent:(id)event
 {
-  v282 = *MEMORY[0x29EDCA608];
+  v284 = *MEMORY[0x29EDCA608];
   testCopy = test;
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, event);
   _accessibilityAutomationHitTest = [location[0] _accessibilityAutomationHitTest];
-  v254 = [location[0] _accessibilityHitTestType] == 3;
-  v253 = _AXSAutomationEnabled() != 0;
-  if (v253)
+  v256 = [location[0] _accessibilityHitTestType] == 3;
+  v255 = _AXSAutomationEnabled() != 0;
+  if (v255)
   {
-    v252 = AXLogUIA();
+    v254 = AXLogUIA();
     type = OS_LOG_TYPE_INFO;
-    if (os_log_type_enabled(v252, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v254, OS_LOG_TYPE_INFO))
     {
-      log = v252;
+      log = v254;
       v134 = type;
       v132 = selfCopy;
       v135 = NSStringFromCGPoint(testCopy);
-      v250 = MEMORY[0x29EDC9748](v135);
-      __os_log_helper_16_3_2_8_69_8_64(v281, v132, v250);
-      _os_log_impl(&dword_29C4D6000, log, v134, "Hit test: %{sensitive}@ > %@", v281, 0x16u);
+      v252 = MEMORY[0x29EDC9748](v135);
+      __os_log_helper_16_3_2_8_69_8_64(v283, v132, v252);
+      _os_log_impl(&dword_29C4D6000, log, v134, "Hit test: %{sensitive}@ > %@", v283, 0x16u);
       MEMORY[0x29EDC9740](v135);
-      objc_storeStrong(&v250, 0);
+      objc_storeStrong(&v252, 0);
     }
 
-    objc_storeStrong(&v252, 0);
+    objc_storeStrong(&v254, 0);
   }
 
   if (![(UIViewAccessibility *)selfCopy accessibilityElementsHidden])
@@ -2033,62 +2033,62 @@ void __95__UIViewAccessibility__axTriggerNextContextMenuInteractionInQueue_forEl
     _accessibilityHitTestShouldFallbackToNearestChild = [(UIViewAccessibility *)selfCopy _accessibilityHitTestShouldFallbackToNearestChild];
     if ((_accessibilityHitTestShouldFallbackToNearestChild & 1) != 0 && (_accessibilityAutomationHitTest & 1) == 0 && ([(UIViewAccessibility *)selfCopy isAccessibilityOpaqueElementProvider]& 1) == 0 && (_accessibilityFuzzyHitTestElements || ([(UIViewAccessibility *)selfCopy _accessibilityHasOrderedChildren]& 1) != 0))
     {
-      v243.receiver = selfCopy;
-      v243.super_class = UIViewAccessibility;
-      v259 = [(UIViewAccessibility *)&v243 _accessibilityHitTest:location[0] withEvent:testCopy.x, testCopy.y];
-      v246 = 1;
+      v245.receiver = selfCopy;
+      v245.super_class = UIViewAccessibility;
+      v261 = [(UIViewAccessibility *)&v245 _accessibilityHitTest:location[0] withEvent:testCopy];
+      v248 = 1;
       goto LABEL_317;
     }
 
-    if (![(UIViewAccessibility *)selfCopy _accessibilityPointInside:location[0] withEvent:testCopy.x, testCopy.y])
+    if (![(UIViewAccessibility *)selfCopy _accessibilityPointInside:location[0] withEvent:testCopy])
     {
-      if (v253)
+      if (v255)
       {
-        v242 = AXLogUIA();
-        v241 = OS_LOG_TYPE_INFO;
-        if (os_log_type_enabled(v242, OS_LOG_TYPE_INFO))
+        v244 = AXLogUIA();
+        v243 = OS_LOG_TYPE_INFO;
+        if (os_log_type_enabled(v244, OS_LOG_TYPE_INFO))
         {
-          __os_log_helper_16_3_1_8_69(v280, selfCopy);
-          _os_log_impl(&dword_29C4D6000, v242, v241, "Point was not inside self %{sensitive}@", v280, 0xCu);
+          __os_log_helper_16_3_1_8_69(v282, selfCopy);
+          _os_log_impl(&dword_29C4D6000, v244, v243, "Point was not inside self %{sensitive}@", v282, 0xCu);
         }
 
-        objc_storeStrong(&v242, 0);
+        objc_storeStrong(&v244, 0);
       }
 
       if ([(UIViewAccessibility *)selfCopy _accessibilityBlocksInteraction])
       {
-        v259 = MEMORY[0x29EDC9748](selfCopy);
-        v246 = 1;
+        v261 = MEMORY[0x29EDC9748](selfCopy);
+        v248 = 1;
         goto LABEL_317;
       }
 
-      v240 = [(UIViewAccessibility *)selfCopy hitTest:location[0] withEvent:testCopy.x, testCopy.y];
-      if (v240)
+      v242 = [(UIViewAccessibility *)selfCopy hitTest:location[0] withEvent:testCopy];
+      if (v242)
       {
-        if (([(UIViewAccessibility *)selfCopy isDescendantOfView:v240]& 1) != 0)
+        if (([(UIViewAccessibility *)selfCopy isDescendantOfView:v242]& 1) != 0)
         {
-          v259 = 0;
-          v246 = 1;
+          v261 = 0;
+          v248 = 1;
         }
 
         else
         {
-          [v240 convertPoint:selfCopy fromView:{testCopy.x, testCopy.y}];
-          v238[3] = v4;
-          v238[4] = v5;
-          v239 = [v240 _accessibilityHitTest:location[0] withEvent:{*&v4, *&v5}];
-          if ([v240 isDescendantOfView:selfCopy])
+          [v242 convertPoint:selfCopy fromView:testCopy];
+          v240[3] = v4;
+          v240[4] = v5;
+          v241 = [v242 _accessibilityHitTest:location[0] withEvent:{*&v4, *&v5}];
+          if ([v242 isDescendantOfView:selfCopy])
           {
-            superview = [v240 superview];
-            v7 = v240;
-            v240 = superview;
+            superview = [v242 superview];
+            v7 = v242;
+            v242 = superview;
             MEMORY[0x29EDC9740](v7);
             while (1)
             {
               v129 = 0;
-              if (!v239)
+              if (!v241)
               {
-                v129 = v240 != selfCopy;
+                v129 = v242 != selfCopy;
               }
 
               if (!v129)
@@ -2096,38 +2096,38 @@ void __95__UIViewAccessibility__axTriggerNextContextMenuInteractionInQueue_forEl
                 break;
               }
 
-              [v240 convertPoint:selfCopy fromView:{testCopy.x, testCopy.y}];
-              v238[1] = v8;
-              v238[2] = v9;
-              v10 = [v240 _accessibilityHitTest:location[0] withEvent:{*&v8, *&v9}];
-              v11 = v239;
-              v239 = v10;
-              superview2 = [v240 superview];
-              v13 = v240;
-              v240 = superview2;
+              [v242 convertPoint:selfCopy fromView:testCopy];
+              v240[1] = v8;
+              v240[2] = v9;
+              v10 = [v242 _accessibilityHitTest:location[0] withEvent:{*&v8, *&v9}];
+              v11 = v241;
+              v241 = v10;
+              superview2 = [v242 superview];
+              v13 = v242;
+              v242 = superview2;
               MEMORY[0x29EDC9740](v13);
             }
           }
 
-          v259 = MEMORY[0x29EDC9748](v239);
-          v246 = 1;
-          objc_storeStrong(&v239, 0);
+          v261 = MEMORY[0x29EDC9748](v241);
+          v248 = 1;
+          objc_storeStrong(&v241, 0);
         }
       }
 
       else if (([(UIViewAccessibility *)selfCopy _accessibilityAllowOutOfBoundsHitTestAtPoint:location[0] withEvent:testCopy]& 1) != 0)
       {
-        v246 = 0;
+        v248 = 0;
       }
 
       else
       {
-        v259 = 0;
-        v246 = 1;
+        v261 = 0;
+        v248 = 1;
       }
 
-      objc_storeStrong(&v240, 0);
-      if (v246)
+      objc_storeStrong(&v242, 0);
+      if (v248)
       {
 LABEL_317:
         objc_storeStrong(&_accessibilityFuzzyHitTestElements, 0);
@@ -2136,7 +2136,7 @@ LABEL_317:
     }
 
     _accessibilityHitTestOptions = [location[0] _accessibilityHitTestOptions];
-    v236 = 0;
+    v238 = 0;
     if (_accessibilityHitTestOptions)
     {
       v14 = MEMORY[0x29EDC9748](_accessibilityHitTestOptions);
@@ -2145,17 +2145,17 @@ LABEL_317:
     else
     {
       defaultOptions = [MEMORY[0x29EDC7340] defaultOptions];
-      v236 = 1;
+      v238 = 1;
       v14 = MEMORY[0x29EDC9748](defaultOptions);
     }
 
-    v238[0] = v14;
-    if (v236)
+    v240[0] = v14;
+    if (v238)
     {
       MEMORY[0x29EDC9740](defaultOptions);
     }
 
-    leafNodePredicate = [v238[0] leafNodePredicate];
+    leafNodePredicate = [v240[0] leafNodePredicate];
     v127 = 1;
     if ((leafNodePredicate[2](leafNodePredicate, selfCopy) & 1) == 0)
     {
@@ -2169,8 +2169,8 @@ LABEL_317:
     }
 
     v15 = MEMORY[0x29EDC9740](leafNodePredicate).n128_u64[0];
-    v235 = v127 & 1;
-    v233 = 0;
+    v237 = v127 & 1;
+    v235 = 0;
     v124 = 0;
     if (v127)
     {
@@ -2178,27 +2178,27 @@ LABEL_317:
       if (v16 > 0.0 || (v124 = 0, ([(UIViewAccessibility *)selfCopy _accessibilityOverridesInvisibility]& 1) != 0))
       {
         _accessibilityHitTestStartsAtElement = [location[0] _accessibilityHitTestStartsAtElement];
-        v233 = 1;
+        v235 = 1;
         v124 = 0;
         if (_accessibilityHitTestStartsAtElement != selfCopy)
         {
-          v124 = !v254;
+          v124 = !v256;
         }
       }
     }
 
-    if (v233)
+    if (v235)
     {
       v15 = MEMORY[0x29EDC9740](_accessibilityHitTestStartsAtElement).n128_u64[0];
     }
 
     if (v124)
     {
-      v232 = [(UIViewAccessibility *)selfCopy _accessibilityHitTestSupplementaryViews:location[0] event:testCopy.x, testCopy.y];
-      if (v232)
+      v234 = [(UIViewAccessibility *)selfCopy _accessibilityHitTestSupplementaryViews:location[0] event:testCopy];
+      if (v234)
       {
-        v259 = MEMORY[0x29EDC9748](v232);
-        v246 = 1;
+        v261 = MEMORY[0x29EDC9748](v234);
+        v248 = 1;
       }
 
       else
@@ -2213,35 +2213,30 @@ LABEL_317:
           _accessibilityHitTestReverseOrder = [(UIViewAccessibility *)selfCopy _accessibilityHitTestReverseOrder];
         }
 
-        v231 = _accessibilityHitTestReverseOrder & 1;
+        v233 = _accessibilityHitTestReverseOrder & 1;
+        v230 = 0;
         v228 = 0;
         v226 = 0;
         v224 = 0;
-        v222 = 0;
         if (_accessibilityHitTestReverseOrder)
         {
           automationElements = [(UIViewAccessibility *)selfCopy automationElements];
-          v228 = 1;
+          v230 = 1;
           reverseObjectEnumerator = [automationElements reverseObjectEnumerator];
-          v226 = 1;
+          v228 = 1;
           allObjects = [reverseObjectEnumerator allObjects];
-          v225 = allObjects;
-          v224 = 1;
+          v227 = allObjects;
+          v226 = 1;
         }
 
         else
         {
           allObjects = [(UIViewAccessibility *)selfCopy automationElements];
-          v223 = allObjects;
-          v222 = 1;
+          v225 = allObjects;
+          v224 = 1;
         }
 
-        v230 = MEMORY[0x29EDC9748](allObjects);
-        if (v222)
-        {
-          MEMORY[0x29EDC9740](v223);
-        }
-
+        v232 = MEMORY[0x29EDC9748](allObjects);
         if (v224)
         {
           MEMORY[0x29EDC9740](v225);
@@ -2249,17 +2244,22 @@ LABEL_317:
 
         if (v226)
         {
-          MEMORY[0x29EDC9740](reverseObjectEnumerator);
+          MEMORY[0x29EDC9740](v227);
         }
 
         if (v228)
+        {
+          MEMORY[0x29EDC9740](reverseObjectEnumerator);
+        }
+
+        if (v230)
         {
           MEMORY[0x29EDC9740](automationElements);
         }
 
         memset(__b, 0, sizeof(__b));
-        obj = MEMORY[0x29EDC9748](v230);
-        v122 = [obj countByEnumeratingWithState:__b objects:v279 count:16];
+        obj = MEMORY[0x29EDC9748](v232);
+        v122 = [obj countByEnumeratingWithState:__b objects:v281 count:16];
         if (v122)
         {
           v118 = *__b[2];
@@ -2273,43 +2273,43 @@ LABEL_317:
               objc_enumerationMutation(obj);
             }
 
-            v221 = *(__b[1] + 8 * v119);
+            v223 = *(__b[1] + 8 * v119);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v218 = 0.0;
-              v219 = 0.0;
-              [v221 convertPoint:selfCopy fromView:{testCopy.x, testCopy.y}];
-              v218 = v18;
-              v219 = v19;
-              v217 = [v221 _accessibilityHitTest:location[0] withEvent:{v18, v19}];
-              if (v217)
+              v220 = 0.0;
+              v221 = 0.0;
+              [v223 convertPoint:selfCopy fromView:testCopy];
+              v220 = v18;
+              v221 = v19;
+              v219 = [v223 _accessibilityHitTest:location[0] withEvent:{v18, v19}];
+              if (v219)
               {
-                v259 = MEMORY[0x29EDC9748](v217);
-                v246 = 1;
+                v261 = MEMORY[0x29EDC9748](v219);
+                v248 = 1;
               }
 
               else
               {
-                v246 = 0;
+                v248 = 0;
               }
 
-              objc_storeStrong(&v217, 0);
-              if (v246)
+              objc_storeStrong(&v219, 0);
+              if (v248)
               {
                 break;
               }
             }
 
             UIAccessibilityPointForPoint();
-            v216.x = v20;
-            v216.y = v21;
-            [v221 accessibilityFrame];
-            v215 = v284;
-            if (CGRectContainsPoint(v284, v216))
+            v218.x = v20;
+            v218.y = v21;
+            [v223 accessibilityFrame];
+            v217 = v286;
+            if (CGRectContainsPoint(v286, v218))
             {
-              v259 = MEMORY[0x29EDC9748](v221);
-              v246 = 1;
+              v261 = MEMORY[0x29EDC9748](v223);
+              v248 = 1;
               break;
             }
 
@@ -2317,7 +2317,7 @@ LABEL_317:
             if (v117 + 1 >= v120)
             {
               v119 = 0;
-              v120 = [obj countByEnumeratingWithState:__b objects:v279 count:16];
+              v120 = [obj countByEnumeratingWithState:__b objects:v281 count:16];
               if (!v120)
               {
                 goto LABEL_85;
@@ -2329,44 +2329,44 @@ LABEL_317:
         else
         {
 LABEL_85:
-          v246 = 0;
+          v248 = 0;
         }
 
         MEMORY[0x29EDC9740](obj);
-        if (!v246)
+        if (!v248)
         {
-          v246 = 0;
+          v248 = 0;
         }
 
-        objc_storeStrong(&v230, 0);
-        if (!v246)
+        objc_storeStrong(&v232, 0);
+        if (!v248)
         {
 LABEL_89:
-          if (v253)
+          if (v255)
           {
-            v214 = AXLogUIA();
-            v213 = OS_LOG_TYPE_INFO;
-            if (os_log_type_enabled(v214, OS_LOG_TYPE_INFO))
+            v216 = AXLogUIA();
+            v215 = OS_LOG_TYPE_INFO;
+            if (os_log_type_enabled(v216, OS_LOG_TYPE_INFO))
             {
-              v114 = v214;
-              v115 = v213;
+              v114 = v216;
+              v115 = v215;
               v116 = UIAXMassageElementDescription();
-              v212 = MEMORY[0x29EDC9748](v116);
-              __os_log_helper_16_2_1_8_64(v278, v212);
-              _os_log_impl(&dword_29C4D6000, v114, v115, "Was valid accessibility element, and everything else checked out, so returning self %@", v278, 0xCu);
+              v214 = MEMORY[0x29EDC9748](v116);
+              __os_log_helper_16_2_1_8_64(v280, v214);
+              _os_log_impl(&dword_29C4D6000, v114, v115, "Was valid accessibility element, and everything else checked out, so returning self %@", v280, 0xCu);
               MEMORY[0x29EDC9740](v116);
-              objc_storeStrong(&v212, 0);
+              objc_storeStrong(&v214, 0);
             }
 
-            objc_storeStrong(&v214, 0);
+            objc_storeStrong(&v216, 0);
           }
 
-          v259 = MEMORY[0x29EDC9748](selfCopy);
-          v246 = 1;
+          v261 = MEMORY[0x29EDC9748](selfCopy);
+          v248 = 1;
         }
       }
 
-      objc_storeStrong(&v232, 0);
+      objc_storeStrong(&v234, 0);
       goto LABEL_316;
     }
 
@@ -2375,20 +2375,20 @@ LABEL_89:
     MEMORY[0x29EDC9740](_accessibilityAdditionalElements);
     if (v113)
     {
-      v211 = [(UIViewAccessibility *)selfCopy _accessibilityHitTestAdditionalElements:location[0] event:testCopy.x, testCopy.y];
-      if (v211)
+      v213 = [(UIViewAccessibility *)selfCopy _accessibilityHitTestAdditionalElements:location[0] event:testCopy];
+      if (v213)
       {
-        v259 = MEMORY[0x29EDC9748](v211);
-        v246 = 1;
+        v261 = MEMORY[0x29EDC9748](v213);
+        v248 = 1;
       }
 
       else
       {
-        v246 = 0;
+        v248 = 0;
       }
 
-      objc_storeStrong(&v211, 0);
-      if (v246)
+      objc_storeStrong(&v213, 0);
+      if (v248)
       {
         goto LABEL_316;
       }
@@ -2397,33 +2397,33 @@ LABEL_89:
     _accessibilityHitTestSubviews = [(UIViewAccessibility *)selfCopy _accessibilityHitTestSubviews];
     if ((-[UIViewAccessibility _accessibilityIsIgnored]() & 1) != 0 && ![_accessibilityHitTestSubviews count])
     {
-      v259 = 0;
-      v246 = 1;
+      v261 = 0;
+      v248 = 1;
       goto LABEL_315;
     }
 
-    v209 = 0;
-    v207 = [_accessibilityHitTestSubviews count];
-    v206 = 0;
-    v205 = 0;
-    v204 = 3.40282347e38;
-    for (i = v207 - 1; ; --i)
+    v211 = 0;
+    v209 = [_accessibilityHitTestSubviews count];
+    v208 = 0;
+    v207 = 0;
+    v206 = 3.40282347e38;
+    for (i = v209 - 1; ; --i)
     {
       if (i < 0)
       {
 LABEL_231:
-        if (v206)
+        if (v208)
         {
           v72 = 1;
-          if (([v206 accessibilityElementsHidden] & 1) == 0)
+          if (([v208 accessibilityElementsHidden] & 1) == 0)
           {
             LOBYTE(v71) = 0;
-            if (([v206 isAccessibilityElement] & 1) == 0)
+            if (([v208 isAccessibilityElement] & 1) == 0)
             {
               LOBYTE(v71) = 0;
-              if (([v206 _accessibilityIsTouchContainer] & 1) == 0)
+              if (([v208 _accessibilityIsTouchContainer] & 1) == 0)
               {
-                v71 = [v206 accessibilityViewIsModal] ^ 1;
+                v71 = [v208 accessibilityViewIsModal] ^ 1;
               }
             }
 
@@ -2438,14 +2438,14 @@ LABEL_231:
 
           if ([(UIViewAccessibility *)selfCopy accessibilityViewIsModal]&& (v152 & 1) != 0)
           {
-            v259 = MEMORY[0x29EDC9748](selfCopy);
-            v246 = 1;
+            v261 = MEMORY[0x29EDC9748](selfCopy);
+            v248 = 1;
           }
 
           else
           {
-            v259 = MEMORY[0x29EDC9748](v206);
-            v246 = 1;
+            v261 = MEMORY[0x29EDC9748](v208);
+            v248 = 1;
           }
         }
 
@@ -2464,7 +2464,7 @@ LABEL_231:
           MEMORY[0x29EDC9740](layer);
           memset(v150, 0, sizeof(v150));
           reverseObjectEnumerator2 = [_accessibilityHitTestSubviews reverseObjectEnumerator];
-          v70 = [reverseObjectEnumerator2 countByEnumeratingWithState:v150 objects:v267 count:16];
+          v70 = [reverseObjectEnumerator2 countByEnumeratingWithState:v150 objects:v269 count:16];
           if (v70)
           {
             v65 = *v150[2];
@@ -2482,24 +2482,24 @@ LABEL_231:
               v62 = v151;
               v61 = v151;
               layer2 = [(UIViewAccessibility *)selfCopy layer];
-              [v61 convertPoint:testCopy.x fromLayer:testCopy.y];
+              [v61 convertPoint:testCopy fromLayer:?];
               v148[1] = v45;
               v148[2] = v46;
               v149 = [v62 _accessibilityHitTest:location[0] withEvent:{*&v45, *&v46}];
               MEMORY[0x29EDC9740](layer2);
               if (v149)
               {
-                v259 = MEMORY[0x29EDC9748](v149);
-                v246 = 1;
+                v261 = MEMORY[0x29EDC9748](v149);
+                v248 = 1;
               }
 
               else
               {
-                v246 = 0;
+                v248 = 0;
               }
 
               objc_storeStrong(&v149, 0);
-              if (v246)
+              if (v248)
               {
                 break;
               }
@@ -2508,7 +2508,7 @@ LABEL_231:
               if (v64 + 1 >= v67)
               {
                 v66 = 0;
-                v67 = [reverseObjectEnumerator2 countByEnumeratingWithState:v150 objects:v267 count:16];
+                v67 = [reverseObjectEnumerator2 countByEnumeratingWithState:v150 objects:v269 count:16];
                 if (!v67)
                 {
                   goto LABEL_256;
@@ -2520,28 +2520,28 @@ LABEL_231:
           else
           {
 LABEL_256:
-            v246 = 0;
+            v248 = 0;
           }
 
           *&v47 = MEMORY[0x29EDC9740](reverseObjectEnumerator2).n128_u64[0];
-          if (!v246)
+          if (!v248)
           {
             layer3 = [(UIViewAccessibility *)selfCopy layer];
             v148[0] = [layer3 _accessibilityHitTest:location[0] withEvent:testCopy];
             MEMORY[0x29EDC9740](layer3);
             if (v148[0])
             {
-              v259 = MEMORY[0x29EDC9748](v148[0]);
-              v246 = 1;
+              v261 = MEMORY[0x29EDC9748](v148[0]);
+              v248 = 1;
             }
 
             else
             {
-              v246 = 0;
+              v248 = 0;
             }
 
             objc_storeStrong(v148, 0);
-            if (!v246)
+            if (!v248)
             {
 LABEL_262:
               _accessibilityViewIsVisible = 0;
@@ -2553,20 +2553,20 @@ LABEL_262:
               v147 = _accessibilityViewIsVisible & 1;
               if ((_accessibilityViewIsVisible & 1) == 0 || ([(UIViewAccessibility *)selfCopy _accessibilityAllowsSiblingsWhenOvergrown]& 1) != 0)
               {
-                if ((_accessibilityHitTestShouldFallbackToNearestChild & 1) != 0 && v205)
+                if ((_accessibilityHitTestShouldFallbackToNearestChild & 1) != 0 && v207)
                 {
-                  v259 = MEMORY[0x29EDC9748](v205);
-                  v246 = 1;
+                  v261 = MEMORY[0x29EDC9748](v207);
+                  v248 = 1;
                 }
 
                 else
                 {
-                  fallbackPredicate = [v238[0] fallbackPredicate];
+                  fallbackPredicate = [v240[0] fallbackPredicate];
                   v57 = 1;
                   if ((fallbackPredicate[2](fallbackPredicate, selfCopy) & 1) == 0)
                   {
                     _accessibilityScrollingEnabled = 0;
-                    if (v254)
+                    if (v256)
                     {
                       objc_opt_class();
                       _accessibilityScrollingEnabled = 0;
@@ -2582,21 +2582,21 @@ LABEL_262:
                   MEMORY[0x29EDC9740](fallbackPredicate);
                   if (v57)
                   {
-                    v259 = MEMORY[0x29EDC9748](selfCopy);
-                    v246 = 1;
+                    v261 = MEMORY[0x29EDC9748](selfCopy);
+                    v248 = 1;
                   }
 
                   else if ((_accessibilityAutomationHitTest & 1) != 0 && [(UIViewAccessibility *)selfCopy _accessibilityIsUserInteractionEnabledChain]&& ![(UIViewAccessibility *)selfCopy _accessibilityIsDescendantOfHostingView])
                   {
-                    v141 = [(UIViewAccessibility *)selfCopy hitTest:location[0] withEvent:testCopy.x, testCopy.y];
-                    if (v253)
+                    v141 = [(UIViewAccessibility *)selfCopy hitTest:location[0] withEvent:testCopy];
+                    if (v255)
                     {
                       oslog = AXLogUIA();
                       v139 = OS_LOG_TYPE_INFO;
                       if (os_log_type_enabled(oslog, OS_LOG_TYPE_INFO))
                       {
-                        __os_log_helper_16_3_2_8_69_8_69(v266, selfCopy, v141);
-                        _os_log_impl(&dword_29C4D6000, oslog, v139, "Returning self or subview of self (self %{sensitive}@, result %{sensitive}@)", v266, 0x16u);
+                        __os_log_helper_16_3_2_8_69_8_69(v268, selfCopy, v141);
+                        _os_log_impl(&dword_29C4D6000, oslog, v139, "Returning self or subview of self (self %{sensitive}@, result %{sensitive}@)", v268, 0x16u);
                       }
 
                       objc_storeStrong(&oslog, 0);
@@ -2605,48 +2605,48 @@ LABEL_262:
                     if (([v141 isEqual:selfCopy] & 1) == 0 && (-[UIViewAccessibility _accessibilityIsViewDescendantOfElement:](selfCopy, "_accessibilityIsViewDescendantOfElement:", v141) & 1) == 0)
                     {
                       v54 = v141;
-                      [(UIViewAccessibility *)selfCopy convertPoint:v141 toView:testCopy.x, testCopy.y];
+                      [(UIViewAccessibility *)selfCopy convertPoint:v141 toView:testCopy];
                       v138[1] = v48;
                       v138[2] = v49;
                       v50 = [v54 _accessibilityHitTest:location[0] withEvent:{*&v48, *&v49}];
                       v51 = v141;
                       v141 = v50;
                       MEMORY[0x29EDC9740](v51);
-                      if (v253)
+                      if (v255)
                       {
                         v138[0] = AXLogUIA();
                         v137 = OS_LOG_TYPE_INFO;
                         if (os_log_type_enabled(v138[0], OS_LOG_TYPE_INFO))
                         {
-                          __os_log_helper_16_3_1_8_69(v265, v141);
-                          _os_log_impl(&dword_29C4D6000, v138[0], v137, "Performed further axHitTest post process to get (result %{sensitive}@)", v265, 0xCu);
+                          __os_log_helper_16_3_1_8_69(v267, v141);
+                          _os_log_impl(&dword_29C4D6000, v138[0], v137, "Performed further axHitTest post process to get (result %{sensitive}@)", v267, 0xCu);
                         }
 
                         objc_storeStrong(v138, 0);
                       }
                     }
 
-                    v259 = MEMORY[0x29EDC9748](v141);
-                    v246 = 1;
+                    v261 = MEMORY[0x29EDC9748](v141);
+                    v248 = 1;
                     objc_storeStrong(&v141, 0);
                   }
 
                   else
                   {
-                    if (v253)
+                    if (v255)
                     {
                       v136 = AXLogUIA();
                       if (os_log_type_enabled(v136, OS_LOG_TYPE_INFO))
                       {
-                        __os_log_helper_16_3_1_8_69(v264, selfCopy);
-                        _os_log_impl(&dword_29C4D6000, v136, OS_LOG_TYPE_INFO, "Returning nil because we didn't hit one of our subviews but the point is inside %{sensitive}@", v264, 0xCu);
+                        __os_log_helper_16_3_1_8_69(v266, selfCopy);
+                        _os_log_impl(&dword_29C4D6000, v136, OS_LOG_TYPE_INFO, "Returning nil because we didn't hit one of our subviews but the point is inside %{sensitive}@", v266, 0xCu);
                       }
 
                       objc_storeStrong(&v136, 0);
                     }
 
-                    v259 = 0;
-                    v246 = 1;
+                    v261 = 0;
+                    v248 = 1;
                   }
                 }
               }
@@ -2656,11 +2656,11 @@ LABEL_262:
                 v146 = [(UIViewAccessibility *)selfCopy _accessibilityCheckForAllowedModalView:testCopy.x event:testCopy.y];
                 if (v146)
                 {
-                  v259 = MEMORY[0x29EDC9748](v146);
-                  v246 = 1;
+                  v261 = MEMORY[0x29EDC9748](v146);
+                  v248 = 1;
                 }
 
-                else if ((v147 & 1) != 0 || (v209 & 1) != 0 || [(UIViewAccessibility *)selfCopy isAccessibilityElement]|| ([(UIViewAccessibility *)selfCopy _accessibilityHasOrderedChildren]& 1) != 0 || ([(UIViewAccessibility *)selfCopy _accessibilityIsTouchContainer]& 1) != 0)
+                else if ((v147 & 1) != 0 || (v211 & 1) != 0 || [(UIViewAccessibility *)selfCopy isAccessibilityElement]|| ([(UIViewAccessibility *)selfCopy _accessibilityHasOrderedChildren]& 1) != 0 || ([(UIViewAccessibility *)selfCopy _accessibilityIsTouchContainer]& 1) != 0)
                 {
                   v144 = 0;
                   v142 = 0;
@@ -2686,21 +2686,21 @@ LABEL_262:
 
                   if (v58)
                   {
-                    v259 = 0;
+                    v261 = 0;
                   }
 
                   else
                   {
-                    v259 = MEMORY[0x29EDC9748](selfCopy);
+                    v261 = MEMORY[0x29EDC9748](selfCopy);
                   }
 
-                  v246 = 1;
+                  v248 = 1;
                 }
 
                 else
                 {
-                  v259 = 0;
-                  v246 = 1;
+                  v261 = 0;
+                  v248 = 1;
                 }
 
                 objc_storeStrong(&v146, 0);
@@ -2710,120 +2710,120 @@ LABEL_262:
         }
 
 LABEL_314:
-        objc_storeStrong(&v205, 0);
-        objc_storeStrong(&v206, 0);
+        objc_storeStrong(&v207, 0);
+        objc_storeStrong(&v208, 0);
 LABEL_315:
         objc_storeStrong(&_accessibilityHitTestSubviews, 0);
 LABEL_316:
-        objc_storeStrong(v238, 0);
+        objc_storeStrong(v240, 0);
         goto LABEL_317;
       }
 
-      v203 = [_accessibilityHitTestSubviews objectAtIndex:i];
-      v202 = 0;
-      v261 = 720896;
-      v262 = 720896;
-      v263 = 0xB000000000002;
-      v260 = 0xB000000000002;
+      v205 = [_accessibilityHitTestSubviews objectAtIndex:i];
+      v204 = 0;
+      v263 = 720896;
+      v264 = 720896;
+      v265 = 0xB000000000002;
+      v262 = 0xB000000000002;
       if (dyld_program_sdk_at_least())
       {
-        [v203 alpha];
-        if (v22 == 0.0 || ([v203 isHidden] & 1) != 0 || (LOBYTE(v111) = 0, (objc_msgSend(v203, "accessibilityElementsHidden") & 1) != 0))
+        [v205 alpha];
+        if (v22 == 0.0 || ([v205 isHidden] & 1) != 0 || (LOBYTE(v111) = 0, (objc_msgSend(v205, "accessibilityElementsHidden") & 1) != 0))
         {
-          v111 = [v203 _accessibilityOverridesInvisibility] ^ 1;
+          v111 = [v205 _accessibilityOverridesInvisibility] ^ 1;
         }
 
-        v202 = v111 & 1;
+        v204 = v111 & 1;
       }
 
       else
       {
-        [v203 alpha];
-        if (v23 == 0.0 || (LOBYTE(v110) = 0, ([v203 isHidden] & 1) != 0))
+        [v205 alpha];
+        if (v23 == 0.0 || (LOBYTE(v110) = 0, ([v205 isHidden] & 1) != 0))
         {
-          v110 = [v203 _accessibilityOverridesInvisibility] ^ 1;
+          v110 = [v205 _accessibilityOverridesInvisibility] ^ 1;
         }
 
-        v202 = v110 & 1;
+        v204 = v110 & 1;
       }
 
-      if (v202)
+      if (v204)
       {
-        v246 = 8;
+        v248 = 8;
         goto LABEL_227;
       }
 
-      v209 = 1;
-      v201.x = 0.0;
-      v201.y = 0.0;
-      [v203 convertPoint:selfCopy fromView:{testCopy.x, testCopy.y}];
-      v201.x = v24;
-      v201.y = v25;
-      v200 = [v203 _accessibilityHitTest:location[0] withEvent:{v24, v25}];
-      v199 = AXRemoteElementFromObject();
-      if (v199 && ([v200 _accessibilityRemoteElementShouldHitTestHostProcess] & 1) != 0)
+      v211 = 1;
+      v203.x = 0.0;
+      v203.y = 0.0;
+      [v205 convertPoint:selfCopy fromView:testCopy];
+      v203.x = v24;
+      v203.y = v25;
+      v202 = [v205 _accessibilityHitTest:location[0] withEvent:{v24, v25}];
+      v201 = AXRemoteElementFromObject();
+      if (v201 && ([v202 _accessibilityRemoteElementShouldHitTestHostProcess] & 1) != 0)
       {
-        v246 = 8;
+        v248 = 8;
       }
 
       else
       {
-        if (v253)
+        if (v255)
         {
-          v198 = AXLogUIA();
-          v197 = OS_LOG_TYPE_INFO;
-          if (os_log_type_enabled(v198, OS_LOG_TYPE_INFO))
+          v200 = AXLogUIA();
+          v199 = OS_LOG_TYPE_INFO;
+          if (os_log_type_enabled(v200, OS_LOG_TYPE_INFO))
           {
-            v107 = v198;
-            v108 = v197;
-            v106 = v200;
-            v109 = NSStringFromCGPoint(v201);
-            v196 = MEMORY[0x29EDC9748](v109);
-            __os_log_helper_16_3_3_8_69_8_64_8_64(v277, v106, v196, v203);
-            _os_log_impl(&dword_29C4D6000, v107, v108, "AX hit test found %{sensitive}@ at converted point %@ for view: %@", v277, 0x20u);
+            v107 = v200;
+            v108 = v199;
+            v106 = v202;
+            v109 = NSStringFromCGPoint(v203);
+            v198 = MEMORY[0x29EDC9748](v109);
+            __os_log_helper_16_3_3_8_69_8_64_8_64(v279, v106, v198, v205);
+            _os_log_impl(&dword_29C4D6000, v107, v108, "AX hit test found %{sensitive}@ at converted point %@ for view: %@", v279, 0x20u);
             MEMORY[0x29EDC9740](v109);
-            objc_storeStrong(&v196, 0);
+            objc_storeStrong(&v198, 0);
           }
 
-          objc_storeStrong(&v198, 0);
+          objc_storeStrong(&v200, 0);
         }
 
-        if (!v200 || (_accessibilityAutomationHitTest & 1) == 0)
+        if (!v202 || (_accessibilityAutomationHitTest & 1) == 0)
         {
           goto LABEL_161;
         }
 
-        v195.x = 0.0;
-        v195.y = 0.0;
-        v194 = 0;
+        v197.x = 0.0;
+        v197.y = 0.0;
+        v196 = 0;
         objc_opt_class();
-        v193 = __UIAccessibilityCastAsClass();
-        if (v194)
+        v195 = __UIAccessibilityCastAsClass();
+        if (v196)
         {
           abort();
         }
 
-        v192 = MEMORY[0x29EDC9748](v193);
-        objc_storeStrong(&v193, 0);
-        v104 = v192;
+        v194 = MEMORY[0x29EDC9748](v195);
+        objc_storeStrong(&v195, 0);
+        v104 = v194;
         UIAccessibilityPointForPoint();
-        v195.x = v26;
-        v195.y = v27;
+        v197.x = v26;
+        v197.y = v27;
         MEMORY[0x29EDC9740](v104);
-        v191 = [(UIViewAccessibility *)selfCopy _accessibilityViewIsBeingHitTested:v200];
-        [v200 accessibilityFrame];
-        v189 = v285;
+        v193 = [(UIViewAccessibility *)selfCopy _accessibilityViewIsBeingHitTested:v202];
+        [v202 accessibilityFrame];
+        v191 = v287;
         v105 = 0;
-        if (CGRectContainsPoint(v285, v195))
+        if (CGRectContainsPoint(v287, v197))
         {
           objc_opt_class();
           v103 = 1;
           if (objc_opt_isKindOfClass())
           {
             isUserInteractionEnabled = 0;
-            if ([v200 _accessibilityViewIsVisible])
+            if ([v202 _accessibilityViewIsVisible])
             {
-              isUserInteractionEnabled = [v200 isUserInteractionEnabled];
+              isUserInteractionEnabled = [v202 isUserInteractionEnabled];
             }
 
             v103 = isUserInteractionEnabled;
@@ -2832,222 +2832,222 @@ LABEL_316:
           v105 = v103;
         }
 
-        v190 = v105 & 1;
-        if (!v191 && (v190 & 1) != 0)
+        v192 = v105 & 1;
+        if (!v193 && (v192 & 1) != 0)
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v100 = v203;
-            [(UIViewAccessibility *)selfCopy convertPoint:v203 toView:testCopy.x, testCopy.y];
-            v186 = v28;
-            v187 = v29;
-            v188 = [v100 hitTest:location[0] withEvent:{v28, v29}];
+            v100 = v205;
+            [(UIViewAccessibility *)selfCopy convertPoint:v205 toView:testCopy];
+            v188 = v28;
+            v189 = v29;
+            v190 = [v100 hitTest:location[0] withEvent:{v28, v29}];
             IsUserInteractionEnabled = 0;
-            if ([v188 _accessibilityViewIsVisible])
+            if ([v190 _accessibilityViewIsVisible])
             {
-              IsUserInteractionEnabled = [(UIViewAccessibility *)v188 _accessibilityIsUserInteractionEnabledChain];
+              IsUserInteractionEnabled = [(UIViewAccessibility *)v190 _accessibilityIsUserInteractionEnabledChain];
             }
 
-            v190 = IsUserInteractionEnabled;
-            v191 = [(UIViewAccessibility *)selfCopy _accessibilityViewIsBeingHitTested:v188];
-            v185 = [v188 _accessibilityIsDescendantOfElement:v200];
-            if (v191 || (v185 & 1) != 0)
+            v192 = IsUserInteractionEnabled;
+            v193 = [(UIViewAccessibility *)selfCopy _accessibilityViewIsBeingHitTested:v190];
+            v187 = [v190 _accessibilityIsDescendantOfElement:v202];
+            if (v193 || (v187 & 1) != 0)
             {
-              if (!_CFMZEnabled() || (v185 & 1) == 0 || ([v188 isAccessibilityElement] & 1) != 0)
+              if (!_CFMZEnabled() || (v187 & 1) == 0 || ([v190 isAccessibilityElement] & 1) != 0)
               {
-                objc_storeStrong(&v200, v188);
-                if (v253)
+                objc_storeStrong(&v202, v190);
+                if (v255)
                 {
-                  v182 = AXLogUIA();
-                  v181 = OS_LOG_TYPE_INFO;
-                  if (os_log_type_enabled(v182, OS_LOG_TYPE_INFO))
+                  v184 = AXLogUIA();
+                  v183 = OS_LOG_TYPE_INFO;
+                  if (os_log_type_enabled(v184, OS_LOG_TYPE_INFO))
                   {
-                    v96 = v182;
-                    v97 = v181;
-                    __os_log_helper_16_3_2_8_69_8_69(v275, v203, v188);
-                    _os_log_impl(&dword_29C4D6000, v96, v97, "Found the view we were looking for through touch forwarding views %{sensitive}@ -> %{sensitive}@", v275, 0x16u);
+                    v96 = v184;
+                    v97 = v183;
+                    __os_log_helper_16_3_2_8_69_8_69(v277, v205, v190);
+                    _os_log_impl(&dword_29C4D6000, v96, v97, "Found the view we were looking for through touch forwarding views %{sensitive}@ -> %{sensitive}@", v277, 0x16u);
                   }
 
-                  objc_storeStrong(&v182, 0);
+                  objc_storeStrong(&v184, 0);
                 }
               }
             }
 
             else
             {
-              if (v253)
+              if (v255)
               {
-                v184 = AXLogUIA();
-                v183 = OS_LOG_TYPE_INFO;
-                if (os_log_type_enabled(v184, OS_LOG_TYPE_INFO))
+                v186 = AXLogUIA();
+                v185 = OS_LOG_TYPE_INFO;
+                if (os_log_type_enabled(v186, OS_LOG_TYPE_INFO))
                 {
-                  v98 = v184;
-                  v99 = v183;
-                  __os_log_helper_16_3_3_8_69_8_69_8_69(v276, v203, v200, v188);
-                  _os_log_impl(&dword_29C4D6000, v98, v99, "Not using this view because it looks like it's a touch forwarding view: parent view: %{sensitive}@, foundView: %{sensitive}@ (forward to: %{sensitive}@)", v276, 0x20u);
+                  v98 = v186;
+                  v99 = v185;
+                  __os_log_helper_16_3_3_8_69_8_69_8_69(v278, v205, v202, v190);
+                  _os_log_impl(&dword_29C4D6000, v98, v99, "Not using this view because it looks like it's a touch forwarding view: parent view: %{sensitive}@, foundView: %{sensitive}@ (forward to: %{sensitive}@)", v278, 0x20u);
                 }
 
-                objc_storeStrong(&v184, 0);
+                objc_storeStrong(&v186, 0);
               }
 
-              v190 = 0;
+              v192 = 0;
             }
 
-            objc_storeStrong(&v188, 0);
+            objc_storeStrong(&v190, 0);
           }
         }
 
-        if (v191 || (v190 & 1) != 0)
+        if (v193 || (v192 & 1) != 0)
         {
-          if (v253)
+          if (v255)
           {
-            v180 = AXLogUIA();
-            v179 = OS_LOG_TYPE_INFO;
-            if (os_log_type_enabled(v180, OS_LOG_TYPE_INFO))
+            v182 = AXLogUIA();
+            v181 = OS_LOG_TYPE_INFO;
+            if (os_log_type_enabled(v182, OS_LOG_TYPE_INFO))
             {
-              v94 = v180;
-              v95 = v179;
-              __os_log_helper_16_3_1_8_69(v274, v200);
-              _os_log_impl(&dword_29C4D6000, v94, v95, "Returning the matching UIA test object: %{sensitive}@", v274, 0xCu);
+              v94 = v182;
+              v95 = v181;
+              __os_log_helper_16_3_1_8_69(v276, v202);
+              _os_log_impl(&dword_29C4D6000, v94, v95, "Returning the matching UIA test object: %{sensitive}@", v276, 0xCu);
             }
 
-            objc_storeStrong(&v180, 0);
+            objc_storeStrong(&v182, 0);
           }
 
-          v259 = MEMORY[0x29EDC9748](v200);
-          v246 = 1;
+          v261 = MEMORY[0x29EDC9748](v202);
+          v248 = 1;
         }
 
         else
         {
 LABEL_161:
-          if (v200)
+          if (v202)
           {
-            if (!v206)
+            if (!v208)
             {
-              objc_storeStrong(&v206, v200);
+              objc_storeStrong(&v208, v202);
             }
 
-            v178 = 0;
-            v177 = 0;
-            v93 = [(UIViewAccessibility *)selfCopy _accessibilityModalViewBlocksView:v200 blockerView:&v177];
-            objc_storeStrong(&v178, v177);
+            v180 = 0;
+            v179 = 0;
+            v93 = [(UIViewAccessibility *)selfCopy _accessibilityModalViewBlocksView:v202 blockerView:&v179];
+            objc_storeStrong(&v180, v179);
             if (v93)
             {
-              if (v253)
+              if (v255)
               {
-                v176 = AXLogUIA();
-                v175 = OS_LOG_TYPE_INFO;
-                if (os_log_type_enabled(v176, OS_LOG_TYPE_INFO))
+                v178 = AXLogUIA();
+                v177 = OS_LOG_TYPE_INFO;
+                if (os_log_type_enabled(v178, OS_LOG_TYPE_INFO))
                 {
-                  v91 = v176;
-                  v92 = v175;
-                  __os_log_helper_16_3_1_8_69(v273, v178);
-                  _os_log_impl(&dword_29C4D6000, v91, v92, "Something blocks the view we found, so skipping it.  We also uncache our first good view for some reason...: %{sensitive}@", v273, 0xCu);
+                  v91 = v178;
+                  v92 = v177;
+                  __os_log_helper_16_3_1_8_69(v275, v180);
+                  _os_log_impl(&dword_29C4D6000, v91, v92, "Something blocks the view we found, so skipping it.  We also uncache our first good view for some reason...: %{sensitive}@", v275, 0xCu);
                 }
 
-                objc_storeStrong(&v176, 0);
+                objc_storeStrong(&v178, 0);
               }
 
-              objc_storeStrong(&v206, 0);
-              v246 = 8;
+              objc_storeStrong(&v208, 0);
+              v248 = 8;
             }
 
             else
             {
-              v174 = 0;
+              v176 = 0;
               if (_accessibilityAutomationHitTest)
               {
-                v30 = [v200 _accessibilityFindViewAncestor:&__block_literal_global_452 startWithSelf:1];
-                v174 = v30 != 0;
+                v30 = [v202 _accessibilityFindViewAncestor:&__block_literal_global_452 startWithSelf:1];
+                v176 = v30 != 0;
                 MEMORY[0x29EDC9740](v30);
-                if (v253)
+                if (v255)
                 {
-                  v173 = AXLogUIA();
-                  v172 = OS_LOG_TYPE_INFO;
-                  if (os_log_type_enabled(v173, OS_LOG_TYPE_INFO))
+                  v175 = AXLogUIA();
+                  v174 = OS_LOG_TYPE_INFO;
+                  if (os_log_type_enabled(v175, OS_LOG_TYPE_INFO))
                   {
-                    v89 = v173;
-                    v90 = v172;
-                    __os_log_helper_16_0_1_4_0(v272, v174);
-                    _os_log_impl(&dword_29C4D6000, v89, v90, "Is this an expected hit test view? %d", v272, 8u);
+                    v89 = v175;
+                    v90 = v174;
+                    __os_log_helper_16_0_1_4_0(v274, v176);
+                    _os_log_impl(&dword_29C4D6000, v89, v90, "Is this an expected hit test view? %d", v274, 8u);
                   }
 
-                  objc_storeStrong(&v173, 0);
+                  objc_storeStrong(&v175, 0);
                 }
               }
 
-              accessibilityElementsHidden = [v200 accessibilityElementsHidden];
-              v170 = 0;
+              accessibilityElementsHidden = [v202 accessibilityElementsHidden];
+              v172 = 0;
               v88 = 1;
               if ((accessibilityElementsHidden & 1) == 0)
               {
-                isEligibleElement = [v238[0] isEligibleElement];
-                v170 = 1;
+                isEligibleElement = [v240[0] isEligibleElement];
+                v172 = 1;
                 v87 = 0;
-                if ((isEligibleElement[2](isEligibleElement, v200) & 1) == 0)
+                if ((isEligibleElement[2](isEligibleElement, v202) & 1) == 0)
                 {
-                  v87 = !v174;
+                  v87 = !v176;
                 }
 
                 v88 = v87;
               }
 
-              if (v170)
+              if (v172)
               {
                 MEMORY[0x29EDC9740](isEligibleElement);
               }
 
               if (v88)
               {
-                if (v253)
+                if (v255)
+                {
+                  v171 = AXLogUIA();
+                  v170 = OS_LOG_TYPE_INFO;
+                  if (os_log_type_enabled(v171, OS_LOG_TYPE_INFO))
+                  {
+                    v85 = v171;
+                    v86 = v170;
+                    __os_log_helper_16_3_3_8_69_4_0_4_0(v273, v202, [v202 accessibilityElementsHidden], objc_msgSend(v202, "isAccessibilityElement"));
+                    _os_log_impl(&dword_29C4D6000, v85, v86, "Can't use this view, so keep going: %{sensitive}@ hidden: %d iselement: %d", v273, 0x18u);
+                  }
+
+                  objc_storeStrong(&v171, 0);
+                }
+
+                if (v208 == v202)
+                {
+                  objc_storeStrong(&v208, 0);
+                }
+
+                v248 = 0;
+              }
+
+              else
+              {
+                if (v255)
                 {
                   v169 = AXLogUIA();
                   v168 = OS_LOG_TYPE_INFO;
                   if (os_log_type_enabled(v169, OS_LOG_TYPE_INFO))
                   {
-                    v85 = v169;
-                    v86 = v168;
-                    __os_log_helper_16_3_3_8_69_4_0_4_0(v271, v200, [v200 accessibilityElementsHidden], objc_msgSend(v200, "isAccessibilityElement"));
-                    _os_log_impl(&dword_29C4D6000, v85, v86, "Can't use this view, so keep going: %{sensitive}@ hidden: %d iselement: %d", v271, 0x18u);
+                    v83 = v169;
+                    v84 = v168;
+                    __os_log_helper_16_3_1_8_69(v272, v202);
+                    _os_log_impl(&dword_29C4D6000, v83, v84, "Returning the view we found via AX hit test %{sensitive}@", v272, 0xCu);
                   }
 
                   objc_storeStrong(&v169, 0);
                 }
 
-                if (v206 == v200)
-                {
-                  objc_storeStrong(&v206, 0);
-                }
-
-                v246 = 0;
-              }
-
-              else
-              {
-                if (v253)
-                {
-                  v167 = AXLogUIA();
-                  v166 = OS_LOG_TYPE_INFO;
-                  if (os_log_type_enabled(v167, OS_LOG_TYPE_INFO))
-                  {
-                    v83 = v167;
-                    v84 = v166;
-                    __os_log_helper_16_3_1_8_69(v270, v200);
-                    _os_log_impl(&dword_29C4D6000, v83, v84, "Returning the view we found via AX hit test %{sensitive}@", v270, 0xCu);
-                  }
-
-                  objc_storeStrong(&v167, 0);
-                }
-
-                v259 = MEMORY[0x29EDC9748](v200);
-                v246 = 1;
+                v261 = MEMORY[0x29EDC9748](v202);
+                v248 = 1;
               }
             }
 
-            objc_storeStrong(&v178, 0);
-            if (v246)
+            objc_storeStrong(&v180, 0);
+            if (v248)
             {
               goto LABEL_226;
             }
@@ -3055,32 +3055,32 @@ LABEL_161:
 
           else if (_accessibilityHitTestShouldFallbackToNearestChild)
           {
-            _accessibilityAccessibleDescendants = [v203 _accessibilityAccessibleDescendants];
-            memset(v163, 0, sizeof(v163));
+            _accessibilityAccessibleDescendants = [v205 _accessibilityAccessibleDescendants];
+            memset(v165, 0, sizeof(v165));
             v81 = MEMORY[0x29EDC9748](_accessibilityAccessibleDescendants);
-            v82 = [v81 countByEnumeratingWithState:v163 objects:v269 count:16];
+            v82 = [v81 countByEnumeratingWithState:v165 objects:v271 count:16];
             if (v82)
             {
-              v78 = *v163[2];
+              v78 = *v165[2];
               v79 = 0;
               v80 = v82;
               while (1)
               {
                 v77 = v79;
-                if (*v163[2] != v78)
+                if (*v165[2] != v78)
                 {
                   objc_enumerationMutation(v81);
                 }
 
-                v164 = *(v163[1] + 8 * v79);
-                accessibilityElementsHidden2 = [v164 accessibilityElementsHidden];
+                v166 = *(v165[1] + 8 * v79);
+                accessibilityElementsHidden2 = [v166 accessibilityElementsHidden];
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  [v164 alpha];
-                  if (v32 == 0.0 || (LOBYTE(v76) = 0, ([v164 isHidden] & 1) != 0))
+                  [v166 alpha];
+                  if (v32 == 0.0 || (LOBYTE(v76) = 0, ([v166 isHidden] & 1) != 0))
                   {
-                    v76 = [v164 _accessibilityOverridesInvisibility] ^ 1;
+                    v76 = [v166 _accessibilityOverridesInvisibility] ^ 1;
                   }
 
                   accessibilityElementsHidden2 = (accessibilityElementsHidden2 & 1 | v76 & 1) != 0;
@@ -3088,29 +3088,29 @@ LABEL_161:
 
                 if ((accessibilityElementsHidden2 & 1) == 0)
                 {
-                  v160 = 0;
-                  v161 = 0;
+                  v162 = 0;
+                  v163 = 0;
                   UIAccessibilityPointForPoint();
-                  v160 = v33;
-                  v161 = v34;
-                  [v164 accessibilityFrame];
+                  v162 = v33;
+                  v163 = v34;
+                  [v166 accessibilityFrame];
                   v158[1] = v35;
                   v158[2] = v36;
                   v158[3] = v37;
                   v158[4] = v38;
                   AX_CGRectGetCenter();
-                  v158[5] = v39;
-                  v158[6] = v40;
+                  v159 = v39;
+                  v160 = v40;
                   AX_CGPointGetDistanceToPoint();
-                  v159 = v41;
-                  if (v41 < v204)
+                  v161 = v41;
+                  if (v41 < v206)
                   {
-                    v75 = v159;
+                    v75 = v161;
                     [(UIViewAccessibility *)selfCopy _accessibilityMaxFuzzyHitTestDistance];
                     if (v75 < v42)
                     {
-                      v204 = v159;
-                      objc_storeStrong(&v205, v164);
+                      v206 = v161;
+                      objc_storeStrong(&v207, v166);
                     }
                   }
                 }
@@ -3119,7 +3119,7 @@ LABEL_161:
                 if (v77 + 1 >= v80)
                 {
                   v79 = 0;
-                  v80 = [v81 countByEnumeratingWithState:v163 objects:v269 count:16];
+                  v80 = [v81 countByEnumeratingWithState:v165 objects:v271 count:16];
                   if (!v80)
                   {
                     break;
@@ -3132,7 +3132,7 @@ LABEL_161:
             objc_storeStrong(&_accessibilityAccessibleDescendants, 0);
           }
 
-          if ([v203 accessibilityViewIsModal] & 1) != 0 && (objc_msgSend(v203, "_accessibilityViewIsVisible"))
+          if ([v205 accessibilityViewIsModal] & 1) != 0 && (objc_msgSend(v205, "_accessibilityViewIsVisible"))
           {
             v157 = 0;
             objc_opt_class();
@@ -3145,31 +3145,31 @@ LABEL_161:
             v155 = MEMORY[0x29EDC9748](v156);
             objc_storeStrong(&v156, 0);
             v74 = v155;
-            v158[0] = [(UIViewAccessibility *)v155 _accessibilityCheckForAllowedModalView:v201.x event:v201.y];
+            v158[0] = [(UIViewAccessibility *)v155 _accessibilityCheckForAllowedModalView:v203.x event:v203.y];
             MEMORY[0x29EDC9740](v74);
             if (v158[0])
             {
-              if (v253)
+              if (v255)
               {
                 v154 = AXLogUIA();
                 v153 = OS_LOG_TYPE_INFO;
                 if (os_log_type_enabled(v154, OS_LOG_TYPE_INFO))
                 {
                   v73 = v154;
-                  __os_log_helper_16_3_1_8_69(v268, v158[0]);
-                  _os_log_impl(&dword_29C4D6000, v73, v153, "Returning our allowed modal view %{sensitive}@", v268, 0xCu);
+                  __os_log_helper_16_3_1_8_69(v270, v158[0]);
+                  _os_log_impl(&dword_29C4D6000, v73, v153, "Returning our allowed modal view %{sensitive}@", v270, 0xCu);
                 }
 
                 objc_storeStrong(&v154, 0);
               }
 
-              v259 = MEMORY[0x29EDC9748](v158[0]);
-              v246 = 1;
+              v261 = MEMORY[0x29EDC9748](v158[0]);
+              v248 = 1;
             }
 
             else
             {
-              v246 = 6;
+              v248 = 6;
             }
 
             objc_storeStrong(v158, 0);
@@ -3177,24 +3177,24 @@ LABEL_161:
 
           else
           {
-            v246 = 0;
+            v248 = 0;
           }
         }
       }
 
 LABEL_226:
-      objc_storeStrong(&v199, 0);
-      objc_storeStrong(&v200, 0);
+      objc_storeStrong(&v201, 0);
+      objc_storeStrong(&v202, 0);
 LABEL_227:
-      objc_storeStrong(&v203, 0);
-      if (v246)
+      objc_storeStrong(&v205, 0);
+      if (v248)
       {
-        if (v246 == 6)
+        if (v248 == 6)
         {
           goto LABEL_231;
         }
 
-        if (v246 != 8)
+        if (v248 != 8)
         {
           goto LABEL_314;
         }
@@ -3202,26 +3202,26 @@ LABEL_227:
     }
   }
 
-  if (v253)
+  if (v255)
   {
-    v249 = AXLogUIA();
-    v248 = OS_LOG_TYPE_INFO;
-    if (os_log_type_enabled(v249, OS_LOG_TYPE_INFO))
+    v251 = AXLogUIA();
+    v250 = OS_LOG_TYPE_INFO;
+    if (os_log_type_enabled(v251, OS_LOG_TYPE_INFO))
     {
-      v130 = v249;
-      v131 = v248;
-      __os_log_helper_16_0_0(v247);
-      _os_log_impl(&dword_29C4D6000, v130, v131, "Elements were hidden, returning nil", v247, 2u);
+      v130 = v251;
+      v131 = v250;
+      __os_log_helper_16_0_0(v249);
+      _os_log_impl(&dword_29C4D6000, v130, v131, "Elements were hidden, returning nil", v249, 2u);
     }
 
-    objc_storeStrong(&v249, 0);
+    objc_storeStrong(&v251, 0);
   }
 
-  v259 = 0;
-  v246 = 1;
+  v261 = 0;
+  v248 = 1;
 LABEL_318:
   objc_storeStrong(location, 0);
-  v52 = v259;
+  v52 = v261;
 
   return v52;
 }
@@ -4090,7 +4090,7 @@ void __67__UIViewAccessibility__accessibilityRetrieveLabelFromTableViewCell__blo
   return v7;
 }
 
-uint64_t __40__UIViewAccessibility_focusItemsInRect___block_invoke(void *a1, void *a2)
+uint64_t __40__UIViewAccessibility_focusItemsInRect___block_invoke(double *a1, void *a2)
 {
   location[1] = a1;
   location[0] = 0;
@@ -5005,7 +5005,7 @@ uint64_t __47__UIViewAccessibility__axPrintSubviews_string___block_invoke(void *
   if (location[0] && ([(UIViewAccessibility *)selfCopy _accessibilityDidLoadAccessibilityInformation]& 1) == 0)
   {
     [(UIViewAccessibility *)selfCopy _accessibilityLoadAccessibilityInformation];
-    [UIViewAccessibility _setAccessibilityDidLoadAccessibilityInformation:selfCopy];
+    [(UIViewAccessibility *)selfCopy _setAccessibilityDidLoadAccessibilityInformation:?];
   }
 
   objc_storeStrong(location, 0);

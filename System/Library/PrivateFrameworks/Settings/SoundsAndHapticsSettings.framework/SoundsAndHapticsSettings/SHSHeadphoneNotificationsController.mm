@@ -14,10 +14,10 @@
 
 - (void)viewDidLoad
 {
-  v52[8] = *MEMORY[0x277D85DE8];
-  v51.receiver = self;
-  v51.super_class = SHSHeadphoneNotificationsController;
-  [(SHSHeadphoneNotificationsController *)&v51 loadView];
+  v51[8] = *MEMORY[0x277D85DE8];
+  v50.receiver = self;
+  v50.super_class = SHSHeadphoneNotificationsController;
+  [(SHSHeadphoneNotificationsController *)&v50 loadView];
   systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
   view = [(SHSHeadphoneNotificationsController *)self view];
   [view setBackgroundColor:systemBackgroundColor];
@@ -44,43 +44,43 @@
   view3 = [(SHSHeadphoneNotificationsController *)self view];
   safeAreaLayoutGuide = [view3 safeAreaLayoutGuide];
   leadingAnchor2 = [safeAreaLayoutGuide leadingAnchor];
-  v45 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v52[0] = v45;
+  v44 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v51[0] = v44;
   trailingAnchor = [(UIScrollView *)self->_scrollView trailingAnchor];
   view4 = [(SHSHeadphoneNotificationsController *)self view];
   safeAreaLayoutGuide2 = [view4 safeAreaLayoutGuide];
   trailingAnchor2 = [safeAreaLayoutGuide2 trailingAnchor];
-  v40 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v52[1] = v40;
+  v39 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v51[1] = v39;
   topAnchor = [(UIScrollView *)self->_scrollView topAnchor];
   view5 = [(SHSHeadphoneNotificationsController *)self view];
   safeAreaLayoutGuide3 = [view5 safeAreaLayoutGuide];
   topAnchor2 = [safeAreaLayoutGuide3 topAnchor];
-  v35 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v52[2] = v35;
+  v34 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v51[2] = v34;
   bottomAnchor = [(UIScrollView *)self->_scrollView bottomAnchor];
   view6 = [(SHSHeadphoneNotificationsController *)self view];
   safeAreaLayoutGuide4 = [view6 safeAreaLayoutGuide];
   bottomAnchor2 = [safeAreaLayoutGuide4 bottomAnchor];
-  v30 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v52[3] = v30;
+  v29 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v51[3] = v29;
   widthAnchor = [(UILabel *)self->_titleLabel widthAnchor];
   widthAnchor2 = [(UIScrollView *)self->_scrollView widthAnchor];
-  v27 = [widthAnchor constraintEqualToAnchor:widthAnchor2 multiplier:0.9];
-  v52[4] = v27;
+  v26 = [widthAnchor constraintEqualToAnchor:widthAnchor2 multiplier:0.9];
+  v51[4] = v26;
   centerXAnchor = [(UILabel *)self->_titleLabel centerXAnchor];
   centerXAnchor2 = [(UIScrollView *)self->_scrollView centerXAnchor];
   v13 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v52[5] = v13;
+  v51[5] = v13;
   widthAnchor3 = [(UIView *)self->_descriptionLabel widthAnchor];
   widthAnchor4 = [(UIScrollView *)self->_scrollView widthAnchor];
   v16 = [widthAnchor3 constraintEqualToAnchor:widthAnchor4 multiplier:0.9];
-  v52[6] = v16;
+  v51[6] = v16;
   centerXAnchor3 = [(UIView *)self->_descriptionLabel centerXAnchor];
   centerXAnchor4 = [(UIScrollView *)self->_scrollView centerXAnchor];
   v19 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-  v52[7] = v19;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:8];
+  v51[7] = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:8];
   [array addObjectsFromArray:v20];
 
   v21 = _NSDictionaryOfVariableBindings(&cfstr_Titlelabelmarg.isa, &unk_287730868, &unk_287730878, 0);
@@ -90,12 +90,11 @@
   [array addObjectsFromArray:v24];
 
   [MEMORY[0x277CCAAD0] activateConstraints:array];
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)linkText:(id)text withLink:(id)link
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCAB48];
   linkCopy = link;
   textCopy = text;
@@ -105,15 +104,14 @@
   appearance = [MEMORY[0x277D3FA48] appearance];
   footerHyperlinkColor = [appearance footerHyperlinkColor];
 
-  v17 = *MEMORY[0x277D740C0];
-  v18[0] = footerHyperlinkColor;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v16 = *MEMORY[0x277D740C0];
+  v17[0] = footerHyperlinkColor;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   [v8 setAttributes:v12 range:{0, v9}];
   v13 = *MEMORY[0x277D740E8];
   v14 = [MEMORY[0x277CBEBC0] URLWithString:linkCopy];
 
   [v8 addAttribute:v13 value:v14 range:{0, v9}];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

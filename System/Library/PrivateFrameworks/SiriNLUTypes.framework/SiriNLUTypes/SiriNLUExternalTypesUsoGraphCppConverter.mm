@@ -8,7 +8,7 @@
 {
   if (graph)
   {
-    siri::ontology::UsoGraphProtoWriter::toProtobuf(graph, a2);
+    siri::ontology::UsoGraphProtoWriter::toProtobuf();
   }
 
   return 0;

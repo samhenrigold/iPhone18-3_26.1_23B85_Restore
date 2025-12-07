@@ -113,7 +113,7 @@ void sub_240EFDCCC(_Unwind_Exception *a1)
 
 const __SCDynamicStore *AppleCellularDataPlaneHelperInterface::createSystemConfigStore(AppleCellularDataPlaneHelperInterface *this, NSObject *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   context.version = 0;
   context.info = this + 152;
   memset(&context.retain, 0, 24);
@@ -140,12 +140,11 @@ const __SCDynamicStore *AppleCellularDataPlaneHelperInterface::createSystemConfi
     v7 = SCErrorString(v6);
     *values = 136315394;
     *&values[4] = "createSystemConfigStore";
-    v12 = 2080;
-    v13 = v7;
+    v11 = 2080;
+    v12 = v7;
     _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: SCDOpen failed: %s", values, 0x16u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -171,8 +170,8 @@ void AppleCellularDataPlaneHelperInterface::~AppleCellularDataPlaneHelperInterfa
 
 uint64_t AppleCellularDataPlaneHelperInterface::connect(AppleCellularDataPlaneHelperInterface *this, unsigned int a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v23 = a2;
+  v26 = *MEMORY[0x277D85DE8];
+  v22 = a2;
   v3 = *(this + 36);
   if (!v3)
   {
@@ -197,8 +196,8 @@ uint64_t AppleCellularDataPlaneHelperInterface::connect(AppleCellularDataPlaneHe
   if (v4 == (this + 288) || v4[16] > a2)
   {
 LABEL_21:
-    *buf = &v23;
-    v15 = (std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 280, &v23) + 5);
+    *buf = &v22;
+    v15 = (std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 280, &v22, &std::piecewise_construct, buf, &cf) + 5);
     IOACIPCBBNetCfgClass::setLogLevel(v15);
     cf = IOServiceMatching("AppleCellularDataPlane");
     v16 = (*(*v15 + 16))(v15);
@@ -209,8 +208,8 @@ LABEL_21:
       {
         *buf = 136315394;
         *&buf[4] = "connect";
-        v25 = 1024;
-        v26 = v23;
+        v24 = 1024;
+        v25 = v22;
         _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: started IOACIPCNetCfgClass (context = %u)\n", buf, 0x12u);
       }
 
@@ -223,8 +222,8 @@ LABEL_21:
         {
           *buf = 136315394;
           *&buf[4] = "connect";
-          v25 = 1024;
-          v26 = v23;
+          v24 = 1024;
+          v25 = v22;
           _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: opened IOACIPCNetCfgClass (context = %u)\n", buf, 0x12u);
         }
 
@@ -236,8 +235,8 @@ LABEL_21:
       {
         *buf = 136315394;
         *&buf[4] = "connect";
-        v25 = 1024;
-        v26 = v23;
+        v24 = 1024;
+        v25 = v22;
         _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: failed to open IOACIPCNetCfgClass (context = %u)\n", buf, 0x12u);
       }
     }
@@ -246,27 +245,27 @@ LABEL_21:
     {
       *buf = 136315394;
       *&buf[4] = "connect";
-      v25 = 1024;
-      v26 = v23;
+      v24 = 1024;
+      v25 = v22;
       _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: failed to start IOACIPCNetCfgClass (context = %u)\n", buf, 0x12u);
     }
 
-    std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__erase_unique<unsigned short>(this + 280, &v23);
+    std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__erase_unique<unsigned short>(this + 280, &v22);
     v9 = 0;
 LABEL_31:
     CFRelease(cf);
-    goto LABEL_32;
+    return v9;
   }
 
-  *buf = &v23;
-  v8 = std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 280, &v23);
+  *buf = &v22;
+  v8 = std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 280, &v22, &std::piecewise_construct, buf, &cf);
   if (((*(v8[5] + 40))() & 1) == 0)
   {
-    std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__erase_unique<unsigned short>(this + 280, &v23);
+    std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__erase_unique<unsigned short>(this + 280, &v22);
     v10 = *(this + 41);
     if (v10 != (this + 336))
     {
-      v11 = v23;
+      v11 = v22;
       do
       {
         if (*(v10 + 16) == v11)
@@ -311,22 +310,19 @@ LABEL_31:
     goto LABEL_21;
   }
 
-  v9 = 1;
-LABEL_32:
-  v20 = *MEMORY[0x277D85DE8];
-  return v9;
+  return 1;
 }
 
-void sub_240EFE3A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_240EFE3A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   ACDPHelperSentry<AppleCellularDataPlaneHelperInterface::connect(unsigned short)::$_1>::~ACDPHelperSentry(va);
   _Unwind_Resume(a1);
 }
 
 void ___ZN37AppleCellularDataPlaneHelperInterface7connectEt_block_invoke(uint64_t a1, unsigned __int16 *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
@@ -337,16 +333,16 @@ void ___ZN37AppleCellularDataPlaneHelperInterface7connectEt_block_invoke(uint64_
     v9 = *(a1 + 40);
     *buf = 136316418;
     *&buf[4] = "connect_block_invoke";
-    LOWORD(v26) = 1024;
-    *(&v26 + 2) = v5;
-    HIWORD(v26) = 1024;
-    LODWORD(v27) = v6;
-    WORD2(v27) = 1024;
-    *(&v27 + 6) = v7;
-    WORD5(v27) = 1024;
-    HIDWORD(v27) = v8;
-    v28 = 1024;
-    v29 = v9;
+    LOWORD(v25) = 1024;
+    *(&v25 + 2) = v5;
+    HIWORD(v25) = 1024;
+    LODWORD(v26) = v6;
+    WORD2(v26) = 1024;
+    *(&v26 + 6) = v7;
+    WORD5(v26) = 1024;
+    HIDWORD(v26) = v8;
+    v27 = 1024;
+    v28 = v9;
     _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: [EVENT] new Filter Rule: rule: %u, rule-id: %u, interface-id: %u, queueset-id: %u, context: %u)\n", buf, 0x2Au);
   }
 
@@ -411,28 +407,27 @@ LABEL_9:
 
     v21 = *(a1 + 40);
     *buf = a2 + 2;
-    *(std::__tree<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v4 + 328, v14) + 16) = v21;
+    *(std::__tree<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v4 + 328, v14, &std::piecewise_construct, buf) + 16) = v21;
     *buf = *a2;
     *&buf[8] = a2[4];
-    v26 = a2[5];
-    v27 = (a2 + 6);
+    v25 = a2[5];
+    v26 = (a2 + 6);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 136315138;
-      v24 = "connect_block_invoke";
-      _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: [EVENT] Invoking client callback\n", &v23, 0xCu);
+      v22 = 136315138;
+      v23 = "connect_block_invoke";
+      _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: [EVENT] Invoking client callback\n", &v22, 0xCu);
     }
 
     (*(v4 + 360))(buf, *(v4 + 368));
   }
 
   std::mutex::unlock((v4 + 8));
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t AppleCellularDataPlaneHelperInterface::ipcConfigSet(uint64_t a1, int *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *a2;
@@ -441,31 +436,29 @@ uint64_t AppleCellularDataPlaneHelperInterface::ipcConfigSet(uint64_t a1, int *a
     v6 = a2[5];
     v7 = a2[6];
     v8 = a2[7];
-    v11 = 136316674;
-    v12 = "ipcConfigSet";
-    v13 = 1024;
-    v14 = v3;
-    v15 = 2080;
-    v16 = v4;
-    v17 = 1024;
-    v18 = v5;
-    v19 = 1024;
-    v20 = v6;
-    v21 = 1024;
-    v22 = v7;
-    v23 = 1024;
-    v24 = v8;
-    _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: context = %u, config = %s, active = %u, TrafficTypeMask = %x, DataPathType = %x, MaxQueueSets = %d\n", &v11, 0x34u);
+    v10 = 136316674;
+    v11 = "ipcConfigSet";
+    v12 = 1024;
+    v13 = v3;
+    v14 = 2080;
+    v15 = v4;
+    v16 = 1024;
+    v17 = v5;
+    v18 = 1024;
+    v19 = v6;
+    v20 = 1024;
+    v21 = v7;
+    v22 = 1024;
+    v23 = v8;
+    _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: context = %u, config = %s, active = %u, TrafficTypeMask = %x, DataPathType = %x, MaxQueueSets = %d\n", &v10, 0x34u);
   }
 
-  result = ApplePDPHelperInterface::ipcConfigSet();
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return ApplePDPHelperInterface::ipcConfigSet();
 }
 
 uint64_t AppleCellularDataPlaneHelperInterface::ipcInterfaceConfig(uint64_t a1, unsigned __int16 *a2, unsigned int *a3)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v6 = *a2;
@@ -476,18 +469,18 @@ uint64_t AppleCellularDataPlaneHelperInterface::ipcInterfaceConfig(uint64_t a1, 
     v11 = *(a2 + 4);
     *buf = 136316674;
     *&buf[4] = "ipcInterfaceConfig";
-    v43 = 1024;
-    v44 = v9;
-    v45 = 1024;
-    v46 = v6;
-    v47 = 2080;
-    v48 = v7;
-    v49 = 1024;
-    v50 = v8;
-    v51 = 1024;
-    v52 = v10;
-    v53 = 2048;
-    v54 = v11;
+    v42 = 1024;
+    v43 = v9;
+    v44 = 1024;
+    v45 = v6;
+    v46 = 2080;
+    v47 = v7;
+    v48 = 1024;
+    v49 = v8;
+    v50 = 1024;
+    v51 = v10;
+    v52 = 2048;
+    v53 = v11;
     _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: interface = %u, context = %u, config = %s, active = %u, bearerId = 0x%x, qset-id = %llu \n", buf, 0x38u);
   }
 
@@ -526,59 +519,58 @@ LABEL_12:
     }
 
     snprintf(__str, 9uLL, "pdp_ip%u", *(a2 + 4));
-    v18 = a1 + 312;
-    v19 = *(a1 + 312);
+    v17 = a1 + 312;
+    v18 = *(a1 + 312);
     if (*(a2 + 24) == 1)
     {
-      if (!v19)
+      if (!v18)
       {
         goto LABEL_24;
       }
 
-      v20 = *v12;
-      v21 = a1 + 312;
+      v19 = *v12;
+      v20 = a1 + 312;
       do
       {
-        v22 = *(v19 + 32);
-        v23 = v22 >= v20;
-        v24 = v22 < v20;
-        if (v23)
+        v21 = *(v18 + 32);
+        v22 = v21 >= v19;
+        v23 = v21 < v19;
+        if (v22)
         {
-          v21 = v19;
+          v20 = v18;
         }
 
-        v19 = *(v19 + 8 * v24);
+        v18 = *(v18 + 8 * v23);
       }
 
-      while (v19);
-      if (v21 == v18 || v20 < *(v21 + 32))
+      while (v18);
+      if (v20 == v17 || v19 < *(v20 + 32))
       {
 LABEL_24:
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 0x40000000;
-        v39[2] = ___ZN37AppleCellularDataPlaneHelperInterface18ipcInterfaceConfigERK38AppleIPAppenderIPCInterfaceInputParamsR39AppleIPAppenderIPCInterfaceOutputParams_block_invoke;
-        v39[3] = &__block_descriptor_tmp_9;
-        v39[4] = a1;
-        v39[5] = a2;
-        if (AppleCellularDataPlaneHelperInterface::waitForDevicePresence(a1, __str, 0x4E20u, 0, v39))
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 0x40000000;
+        v37[2] = ___ZN37AppleCellularDataPlaneHelperInterface18ipcInterfaceConfigERK38AppleIPAppenderIPCInterfaceInputParamsR39AppleIPAppenderIPCInterfaceOutputParams_block_invoke;
+        v37[3] = &__block_descriptor_tmp_9;
+        v37[4] = a1;
+        v37[5] = a2;
+        if (AppleCellularDataPlaneHelperInterface::waitForDevicePresence(a1, __str, 0x4E20u, 0, v37))
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            v25 = *v12;
+            v24 = *v12;
             *buf = 136315394;
             *&buf[4] = "ipcInterfaceConfig";
-            v43 = 1024;
-            v44 = v25;
+            v42 = 1024;
+            v43 = v24;
             _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: Forcefully removing Network Interface %u\n", buf, 0x12u);
           }
 
           if (AppleCellularDataPlaneHelperInterface::connect(a1, *a2))
           {
-            LOWORD(v40) = *a2;
-            *buf = &v40;
-            v26 = std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short &&>,std::tuple<>>(a1 + 280, &v40);
-            v27 = *v12;
-            (*(v26[5] + 64))();
+            LOWORD(v39) = *a2;
+            *buf = &v39;
+            v25 = std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short &&>,std::tuple<>>(a1 + 280, &v39, &std::piecewise_construct, buf, &v38);
+            (*(*(v25 + 5) + 64))();
             std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__erase_unique<unsigned int>(a1 + 304, a2 + 4);
             goto LABEL_13;
           }
@@ -595,82 +587,82 @@ LABEL_24:
           goto LABEL_12;
         }
 
-        v20 = *v12;
+        v19 = *v12;
       }
 
-      v32 = *(a2 + 5);
-      if (v32 != -1)
+      v30 = *(a2 + 5);
+      if (v30 != -1)
       {
-        if (!AppleCellularDataPlaneHelperInterface::addBearer(a1, v20, v32))
+        if (!AppleCellularDataPlaneHelperInterface::addBearer(a1, v19, v30))
         {
           goto LABEL_13;
         }
 
-        v20 = *(a2 + 4);
-        v32 = *(a2 + 5);
+        v19 = *(a2 + 4);
+        v30 = *(a2 + 5);
       }
     }
 
     else
     {
-      if (v19)
+      if (v18)
       {
-        v28 = *v12;
-        v29 = a1 + 312;
+        v26 = *v12;
+        v27 = a1 + 312;
         do
         {
-          v30 = *(v19 + 32);
-          v23 = v30 >= v28;
-          v31 = v30 < v28;
-          if (v23)
+          v28 = *(v18 + 32);
+          v22 = v28 >= v26;
+          v29 = v28 < v26;
+          if (v22)
           {
-            v29 = v19;
+            v27 = v18;
           }
 
-          v19 = *(v19 + 8 * v31);
+          v18 = *(v18 + 8 * v29);
         }
 
-        while (v19);
-        if (v29 != v18 && v28 >= *(v29 + 32))
+        while (v18);
+        if (v27 != v17 && v26 >= *(v27 + 32))
         {
-          v33 = *(a2 + 5);
-          if (v33 == -1)
+          v31 = *(a2 + 5);
+          if (v31 == -1)
           {
-            v34 = 1;
-            v35 = -1;
+            v32 = 1;
+            v33 = -1;
           }
 
           else
           {
             *buf = a2 + 8;
-            v34 = v33 == *(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 304, a2 + 4) + 18);
-            v28 = *(a2 + 4);
-            v35 = *(a2 + 5);
+            v32 = v31 == *(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 304, a2 + 4, &std::piecewise_construct, buf) + 18);
+            v26 = *(a2 + 4);
+            v33 = *(a2 + 5);
           }
 
-          AppleCellularDataPlaneHelperInterface::removeBearer(a1, v28, v35);
-          if (v34)
+          AppleCellularDataPlaneHelperInterface::removeBearer(a1, v26, v33);
+          if (v32)
           {
-            v38[0] = MEMORY[0x277D85DD0];
-            v38[1] = 0x40000000;
-            v38[2] = ___ZN37AppleCellularDataPlaneHelperInterface18ipcInterfaceConfigERK38AppleIPAppenderIPCInterfaceInputParamsR39AppleIPAppenderIPCInterfaceOutputParams_block_invoke_10;
-            v38[3] = &__block_descriptor_tmp_11;
-            v38[4] = a1;
-            v38[5] = a2;
-            AppleCellularDataPlaneHelperInterface::waitForDevicePresence(a1, __str, 0x4E20u, 1, v38);
+            v36[0] = MEMORY[0x277D85DD0];
+            v36[1] = 0x40000000;
+            v36[2] = ___ZN37AppleCellularDataPlaneHelperInterface18ipcInterfaceConfigERK38AppleIPAppenderIPCInterfaceInputParamsR39AppleIPAppenderIPCInterfaceOutputParams_block_invoke_10;
+            v36[3] = &__block_descriptor_tmp_11;
+            v36[4] = a1;
+            v36[5] = a2;
+            AppleCellularDataPlaneHelperInterface::waitForDevicePresence(a1, __str, 0x4E20u, 1, v36);
             if (std::map<unsigned int,ACDPNetIFConfig>::contains[abi:ne200100](a1 + 304, a2 + 4))
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
-                v36 = *v12;
-                v40 = v12;
-                v37 = *(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 304, v12) + 40);
+                v34 = *v12;
+                v39 = v12;
+                v35 = *(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 304, v12, &std::piecewise_construct, &v39) + 40);
                 *buf = 136315650;
                 *&buf[4] = "ipcInterfaceConfig";
-                v43 = 1024;
-                v44 = v36;
-                v45 = 1024;
-                v46 = v37;
+                v42 = 1024;
+                v43 = v34;
+                v44 = 1024;
+                v45 = v35;
                 _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: Enforcing Configuration Removal (interface = %u, rss = %u)\n", buf, 0x18u);
               }
 
@@ -683,11 +675,11 @@ LABEL_24:
         }
       }
 
-      v20 = -1;
-      v32 = -1;
+      v19 = -1;
+      v30 = -1;
     }
 
-    AppleCellularDataPlaneHelperInterface::generateOutputParamsForBearerID(a1, v20, v32, a3);
+    AppleCellularDataPlaneHelperInterface::generateOutputParamsForBearerID(a1, v19, v30, a3);
 LABEL_39:
     v15 = 1;
     goto LABEL_14;
@@ -706,7 +698,6 @@ LABEL_13:
   v15 = 0;
 LABEL_14:
   std::mutex::unlock((a1 + 8));
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -747,18 +738,17 @@ LABEL_9:
 
 uint64_t AppleCellularDataPlaneHelperInterface::waitForDevicePresence(uint64_t a1, const char *a2, unsigned int a3, int a4, uint64_t a5)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v25 = "waitForDevicePresence";
+      v24 = "waitForDevicePresence";
       _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: invalid interface name", buf, 0xCu);
     }
 
-    v13 = 1;
-    goto LABEL_41;
+    return 1;
   }
 
   v10 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
@@ -770,11 +760,11 @@ uint64_t AppleCellularDataPlaneHelperInterface::waitForDevicePresence(uint64_t a
     }
 
     *buf = 136315650;
-    v25 = "waitForDevicePresence";
-    v26 = 2080;
-    v27 = a2;
-    v28 = 1024;
-    v29 = a3;
+    v24 = "waitForDevicePresence";
+    v25 = 2080;
+    v26 = a2;
+    v27 = 1024;
+    v28 = a3;
     v11 = MEMORY[0x277D86220];
     v12 = "::%s: Waiting for interface absence (%s, timeout = %ums)";
   }
@@ -787,26 +777,26 @@ uint64_t AppleCellularDataPlaneHelperInterface::waitForDevicePresence(uint64_t a
     }
 
     *buf = 136315650;
-    v25 = "waitForDevicePresence";
-    v26 = 2080;
-    v27 = a2;
-    v28 = 1024;
-    v29 = a3;
+    v24 = "waitForDevicePresence";
+    v25 = 2080;
+    v26 = a2;
+    v27 = 1024;
+    v28 = a3;
     v11 = MEMORY[0x277D86220];
     v12 = "::%s: Waiting for interface presence (%s, timeout = %ums)";
   }
 
   _os_log_impl(&dword_240EFD000, v11, OS_LOG_TYPE_DEFAULT, v12, buf, 0x1Cu);
 LABEL_11:
-  v23.__m_ = (a1 + 200);
-  v23.__owns_ = 1;
+  v22.__m_ = (a1 + 200);
+  v22.__owns_ = 1;
   std::mutex::lock((a1 + 200));
   if (AppleCellularDataPlaneHelperInterface::checkForDevicePresence(a1, a2, a4 == 0) || *(a1 + 276) == 1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v25 = "waitForDevicePresence";
+      v24 = "waitForDevicePresence";
       _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: Structor called in wrong state", buf, 0xCu);
     }
 
@@ -818,8 +808,8 @@ LABEL_11:
 LABEL_39:
     v13 = 1;
 LABEL_40:
-    std::mutex::unlock(v23.__m_);
-    goto LABEL_41;
+    std::mutex::unlock(v22.__m_);
+    return v13;
   }
 
   *(a1 + 264) = a2;
@@ -869,7 +859,7 @@ LABEL_28:
       {
         v18.__d_.__rep_ = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_31:
-        std::condition_variable::__do_timed_wait((a1 + 152), &v23, v18);
+        std::condition_variable::__do_timed_wait((a1 + 152), &v22, v18);
         std::chrono::steady_clock::now();
         continue;
       }
@@ -891,9 +881,9 @@ LABEL_34:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v25 = "waitForDevicePresence";
-          v26 = 2080;
-          v27 = a2;
+          v24 = "waitForDevicePresence";
+          v25 = 2080;
+          v26 = a2;
           v19 = MEMORY[0x277D86220];
           v20 = "::%s: Interface successfully removed (%s)";
           goto LABEL_48;
@@ -908,9 +898,9 @@ LABEL_34:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v25 = "waitForDevicePresence";
-        v26 = 2080;
-        v27 = a2;
+        v24 = "waitForDevicePresence";
+        v25 = 2080;
+        v26 = a2;
         v19 = MEMORY[0x277D86220];
         v20 = "::%s: Interface successfully attached (%s)";
 LABEL_48:
@@ -930,11 +920,11 @@ LABEL_49:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v25 = "waitForDevicePresence";
-      v26 = 2080;
-      v27 = a2;
-      v28 = 1024;
-      v29 = a3;
+      v24 = "waitForDevicePresence";
+      v25 = 2080;
+      v26 = a2;
+      v27 = 1024;
+      v28 = a3;
       _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: Timeout Waiting for interface (%s, timeout = %ums)", buf, 0x1Cu);
     }
 
@@ -944,17 +934,15 @@ LABEL_49:
 LABEL_51:
   *(a1 + 264) = 0;
   *(a1 + 276) = 0;
-  if (v23.__owns_)
+  if (v22.__owns_)
   {
     goto LABEL_40;
   }
 
-LABEL_41:
-  v21 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
-BOOL ___ZN37AppleCellularDataPlaneHelperInterface18ipcInterfaceConfigERK38AppleIPAppenderIPCInterfaceInputParamsR39AppleIPAppenderIPCInterfaceOutputParams_block_invoke(AppleCellularDataPlaneHelperInterface *a1)
+uint64_t ___ZN37AppleCellularDataPlaneHelperInterface18ipcInterfaceConfigERK38AppleIPAppenderIPCInterfaceInputParamsR39AppleIPAppenderIPCInterfaceOutputParams_block_invoke(AppleCellularDataPlaneHelperInterface *a1)
 {
   v3 = *(a1 + 4);
   v2 = *(a1 + 5);
@@ -967,23 +955,23 @@ BOOL ___ZN37AppleCellularDataPlaneHelperInterface18ipcInterfaceConfigERK38AppleI
   return AppleCellularDataPlaneHelperInterface::addInterface(v3, v4, v5, v7, HasPrioUL);
 }
 
-BOOL AppleCellularDataPlaneHelperInterface::addInterface(AppleCellularDataPlaneHelperInterface *this, unsigned int a2, unsigned int a3, int a4, int a5)
+uint64_t AppleCellularDataPlaneHelperInterface::addInterface(AppleCellularDataPlaneHelperInterface *this, unsigned int a2, unsigned int a3, int a4, int a5)
 {
-  v76 = *MEMORY[0x277D85DE8];
-  v61 = a2;
-  v60 = a3;
+  v75 = *MEMORY[0x277D85DE8];
+  v60 = a2;
+  v59 = a3;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316162;
     *&buf[4] = "addInterface";
-    v67 = 1024;
-    v68 = a2;
-    v69 = 1024;
-    v70 = a3;
-    v71 = 1024;
-    v72 = a4;
-    v73 = 1024;
-    v74 = a5;
+    v66 = 1024;
+    v67 = a2;
+    v68 = 1024;
+    v69 = a3;
+    v70 = 1024;
+    v71 = a4;
+    v72 = 1024;
+    v73 = a5;
     _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: Adding Network Interface %u (context %u, rss = %u, prioUL = %u)\n", buf, 0x24u);
   }
 
@@ -1000,21 +988,19 @@ LABEL_24:
       _os_log_impl(&dword_240EFD000, v20, OS_LOG_TYPE_DEFAULT, v21, buf, v22);
     }
 
-LABEL_25:
-    v19 = 0;
-    goto LABEL_57;
+    return 0;
   }
 
   v10 = *(this + 39);
-  v11 = v61;
+  v11 = v60;
   if (v10)
   {
     v12 = (this + 312);
     do
     {
       v13 = v10[8];
-      v14 = v13 >= v61;
-      v15 = v13 < v61;
+      v14 = v13 >= v60;
+      v15 = v13 < v60;
       if (v14)
       {
         v12 = v10;
@@ -1024,28 +1010,27 @@ LABEL_25:
     }
 
     while (v10);
-    if (v12 != (this + 312) && v61 >= v12[8])
+    if (v12 != (this + 312) && v60 >= v12[8])
     {
-      *buf = &v61;
-      if (*(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v61) + 21) == a3)
+      *buf = &v60;
+      if (*(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v60, &std::piecewise_construct, buf) + 21) == a3)
       {
-        *buf = &v61;
-        if (*(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v61) + 40) == a4)
+        *buf = &v60;
+        if (*(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v60, &std::piecewise_construct, buf) + 40) == a4)
         {
-          *buf = &v61;
-          if (*(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v61) + 41) == a5)
+          *buf = &v60;
+          if (*(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v60, &std::piecewise_construct, buf) + 41) == a5)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315394;
               *&buf[4] = "addInterface";
-              v67 = 1024;
-              v68 = v61;
+              v66 = 1024;
+              v67 = v60;
               _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: Compatible Network Interface %u is already configured by ACDP-Helper.\n", buf, 0x12u);
             }
 
-            v19 = 1;
-            goto LABEL_57;
+            return 1;
           }
         }
       }
@@ -1054,23 +1039,23 @@ LABEL_25:
       {
         *buf = 136315394;
         *&buf[4] = "addInterface";
-        v67 = 1024;
-        v68 = v61;
+        v66 = 1024;
+        v67 = v60;
         v20 = MEMORY[0x277D86220];
         v21 = "::%s: ERROR: Incompatible Network Interface %u is already configured by ACDP-Helper.\n";
         v22 = 18;
         goto LABEL_24;
       }
 
-      goto LABEL_25;
+      return 0;
     }
   }
 
   bzero(buf, 0x1DEuLL);
-  bzero(&v52, 0x1CuLL);
-  v52 = v11;
-  v53 = a5;
-  v54 = a4;
+  bzero(&v51, 0x1CuLL);
+  v51 = v11;
+  v52 = a5;
+  v53 = a4;
   if (a5)
   {
     v16 = 1024;
@@ -1081,40 +1066,40 @@ LABEL_25:
     v16 = 256;
   }
 
-  v58 = v16;
+  v57 = v16;
   if (a4)
   {
-    v57 = 0x2000;
-    v59 = 0x2000;
+    v56 = 0x2000;
+    v58 = 0x2000;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    *v63 = 136315906;
-    *&v63[4] = "addInterface";
-    *&v63[12] = 1024;
-    *&v63[14] = v55;
-    *&v63[18] = 1024;
-    *&v63[20] = v56;
-    LOWORD(v64) = 1024;
-    *(&v64 + 2) = v16;
-    _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: rxPacingTimerUS = %u, rxPacketPacingThresold = %u TRSize = %u)\n", v63, 0x1Eu);
+    *v62 = 136315906;
+    *&v62[4] = "addInterface";
+    *&v62[12] = 1024;
+    *&v62[14] = v54;
+    *&v62[18] = 1024;
+    *&v62[20] = v55;
+    LOWORD(v63) = 1024;
+    *(&v63 + 2) = v16;
+    _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: rxPacingTimerUS = %u, rxPacketPacingThresold = %u TRSize = %u)\n", v62, 0x1Eu);
   }
 
-  *v63 = &v60;
-  v17 = std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 280, &v60);
+  *v62 = &v59;
+  v17 = std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 280, &v59, &std::piecewise_construct, v62, v49);
   v18 = (*(v17[5] + 56))();
   v19 = v18 == 0;
   if (v18)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v63 = 136315138;
-      *&v63[4] = "addInterface";
-      _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: ERROR: failed to add network interface\n", v63, 0xCu);
+      *v62 = 136315138;
+      *&v62[4] = "addInterface";
+      _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: ERROR: failed to add network interface\n", v62, 0xCu);
     }
 
-    goto LABEL_57;
+    return v19;
   }
 
   v23 = 0;
@@ -1122,20 +1107,20 @@ LABEL_25:
   v25 = MEMORY[0x277D86220];
   while (1)
   {
-    v26 = *(&v73 + v23);
+    v26 = *(&v72 + v23);
     if (v26 == 2)
     {
-      v32 = v50 + 12 * v24 + 4;
+      v32 = v49 + 12 * v24 + 4;
       *v32 = 0xFF00000003;
-      v33 = *&v75[v23];
+      v33 = *&v74[v23];
       *(v32 + 2) = v33;
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        *v63 = 136315394;
-        *&v63[4] = "addInterface";
-        *&v63[12] = 1024;
-        *&v63[14] = v33;
-        _os_log_impl(&dword_240EFD000, v25, OS_LOG_TYPE_DEFAULT, "::%s: DL Pipe configured (id = %u)\n", v63, 0x12u);
+        *v62 = 136315394;
+        *&v62[4] = "addInterface";
+        *&v62[12] = 1024;
+        *&v62[14] = v33;
+        _os_log_impl(&dword_240EFD000, v25, OS_LOG_TYPE_DEFAULT, "::%s: DL Pipe configured (id = %u)\n", v62, 0x12u);
       }
 
       v29 = (v24 + 1);
@@ -1153,17 +1138,17 @@ LABEL_25:
       goto LABEL_42;
     }
 
-    v27 = v50 + 12 * v24 + 4;
+    v27 = v49 + 12 * v24 + 4;
     *v27 = 0;
-    v28 = *&v75[v23];
+    v28 = *&v74[v23];
     *(v27 + 2) = v28;
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      *v63 = 136315394;
-      *&v63[4] = "addInterface";
-      *&v63[12] = 1024;
-      *&v63[14] = v28;
-      _os_log_impl(&dword_240EFD000, v25, OS_LOG_TYPE_DEFAULT, "::%s: UL.Default Pipe configured (id = %u)\n", v63, 0x12u);
+      *v62 = 136315394;
+      *&v62[4] = "addInterface";
+      *&v62[12] = 1024;
+      *&v62[14] = v28;
+      _os_log_impl(&dword_240EFD000, v25, OS_LOG_TYPE_DEFAULT, "::%s: UL.Default Pipe configured (id = %u)\n", v62, 0x12u);
     }
 
     v29 = (v24 + 1);
@@ -1172,19 +1157,19 @@ LABEL_25:
       goto LABEL_43;
     }
 
-    v30 = *&v75[v23 + 2];
+    v30 = *&v74[v23 + 2];
     if (v30 != 0xFFFF)
     {
-      v31 = v50 + 12 * v29 + 4;
+      v31 = v49 + 12 * v29 + 4;
       *v31 = 0x100000000;
       *(v31 + 2) = v30;
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        *v63 = 136315394;
-        *&v63[4] = "addInterface";
-        *&v63[12] = 1024;
-        *&v63[14] = v30;
-        _os_log_impl(&dword_240EFD000, v25, OS_LOG_TYPE_DEFAULT, "::%s: UL.Prio Pipe configured (id = %u)\n", v63, 0x12u);
+        *v62 = 136315394;
+        *&v62[4] = "addInterface";
+        *&v62[12] = 1024;
+        *&v62[14] = v30;
+        _os_log_impl(&dword_240EFD000, v25, OS_LOG_TYPE_DEFAULT, "::%s: UL.Prio Pipe configured (id = %u)\n", v62, 0x12u);
       }
 
       v29 = (v24 + 2);
@@ -1205,43 +1190,43 @@ LABEL_42:
 
   LODWORD(v29) = 16;
 LABEL_43:
-  LODWORD(v50[0]) = v29;
-  *&v65[148] = v50[9];
-  *&v65[164] = v50[10];
-  *&v65[180] = v50[11];
-  *&v65[84] = v50[5];
-  *&v65[100] = v50[6];
-  *&v65[116] = v50[7];
-  *&v65[132] = v50[8];
-  *&v65[20] = v50[1];
-  *&v65[36] = v50[2];
-  *&v65[52] = v50[3];
-  *&v65[68] = v50[4];
-  v63[0] = a4;
-  v63[1] = a5;
-  *&v63[2] = v60;
-  v64 = 0;
-  *&v63[16] = 0;
-  *&v63[8] = &v63[16];
-  *v65 = -1;
-  *&v65[196] = v51;
-  *&v65[4] = v50[0];
-  v62 = &v61;
-  v34 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v61);
-  *(v34 + 10) = *v63;
+  LODWORD(v49[0]) = v29;
+  *&v64[148] = v49[9];
+  *&v64[164] = v49[10];
+  *&v64[180] = v49[11];
+  *&v64[84] = v49[5];
+  *&v64[100] = v49[6];
+  *&v64[116] = v49[7];
+  *&v64[132] = v49[8];
+  *&v64[20] = v49[1];
+  *&v64[36] = v49[2];
+  *&v64[52] = v49[3];
+  *&v64[68] = v49[4];
+  v62[0] = a4;
+  v62[1] = a5;
+  *&v62[2] = v59;
+  v63 = 0;
+  *&v62[16] = 0;
+  *&v62[8] = &v62[16];
+  *v64 = -1;
+  *&v64[196] = v50;
+  *&v64[4] = v49[0];
+  v61 = &v60;
+  v34 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v60, &std::piecewise_construct, &v61);
+  *(v34 + 10) = *v62;
   v35 = v34 + 7;
   std::__tree<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>>>::destroy((v34 + 6), v34[7]);
-  v36 = *&v63[16];
-  v34[6] = *&v63[8];
+  v36 = *&v62[16];
+  v34[6] = *&v62[8];
   v34[7] = v36;
-  v37 = v64;
-  v34[8] = v64;
+  v37 = v63;
+  v34[8] = v63;
   if (v37)
   {
     v36[2] = v35;
-    *&v63[8] = &v63[16];
-    *&v63[16] = 0;
-    v64 = 0;
+    *&v62[8] = &v62[16];
+    *&v62[16] = 0;
+    v63 = 0;
     v36 = 0;
   }
 
@@ -1250,48 +1235,45 @@ LABEL_43:
     v34[6] = v35;
   }
 
-  v38 = *&v65[192];
-  v40 = *&v65[160];
-  v39 = *&v65[176];
-  v41 = *&v65[128];
-  *(v34 + 27) = *&v65[144];
+  v38 = *&v64[192];
+  v40 = *&v64[160];
+  v39 = *&v64[176];
+  v41 = *&v64[128];
+  *(v34 + 27) = *&v64[144];
   *(v34 + 29) = v40;
   *(v34 + 31) = v39;
-  v43 = *&v65[96];
-  v42 = *&v65[112];
-  v44 = *&v65[64];
-  *(v34 + 19) = *&v65[80];
+  v43 = *&v64[96];
+  v42 = *&v64[112];
+  v44 = *&v64[64];
+  *(v34 + 19) = *&v64[80];
   *(v34 + 21) = v43;
   *(v34 + 23) = v42;
   *(v34 + 25) = v41;
-  v46 = *&v65[32];
-  v45 = *&v65[48];
-  v47 = *v65;
-  *(v34 + 11) = *&v65[16];
+  v46 = *&v64[32];
+  v45 = *&v64[48];
+  v47 = *v64;
+  *(v34 + 11) = *&v64[16];
   *(v34 + 13) = v46;
   v34[33] = v38;
   *(v34 + 15) = v45;
   *(v34 + 17) = v44;
   *(v34 + 9) = v47;
-  std::__tree<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>>>::destroy(&v63[8], v36);
+  std::__tree<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>>>::destroy(&v62[8], v36);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    *v63 = 136315394;
-    *&v63[4] = "addInterface";
-    *&v63[12] = 1024;
-    *&v63[14] = v61;
-    _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: Network Interface %u added.\n", v63, 0x12u);
+    *v62 = 136315394;
+    *&v62[4] = "addInterface";
+    *&v62[12] = 1024;
+    *&v62[14] = v60;
+    _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: Network Interface %u added.\n", v62, 0x12u);
   }
 
-  v19 = 1;
-LABEL_57:
-  v48 = *MEMORY[0x277D85DE8];
-  return v19;
+  return 1;
 }
 
 uint64_t AppleCellularDataPlaneHelperInterface::ipcConfigSetHasRSS(AppleCellularDataPlaneHelperInterface *this, char *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -1303,34 +1285,33 @@ uint64_t AppleCellularDataPlaneHelperInterface::ipcConfigSetHasRSS(AppleCellular
 
   if (!a2)
   {
-    v11 = 0;
-    goto LABEL_38;
+    return 0;
   }
 
   std::string::basic_string[abi:ne200100]<0>(buf, "__Internet__");
   std::string::basic_string[abi:ne200100]<0>(__p, "__Internet2__");
-  v3 = v18;
-  std::string::basic_string[abi:ne200100]<0>(v18, a2);
-  v4 = v19;
-  v5 = v18[0];
-  if ((v19 & 0x80u) == 0)
+  v3 = v17;
+  std::string::basic_string[abi:ne200100]<0>(v17, a2);
+  v4 = v18;
+  v5 = v17[0];
+  if ((v18 & 0x80u) == 0)
   {
-    v6 = v19;
+    v6 = v18;
   }
 
   else
   {
-    v6 = v18[1];
+    v6 = v17[1];
   }
 
-  if ((v19 & 0x80u) != 0)
+  if ((v18 & 0x80u) != 0)
   {
-    v3 = v18[0];
+    v3 = v17[0];
   }
 
-  if ((v23 & 0x80u) == 0)
+  if ((v22 & 0x80u) == 0)
   {
-    v7 = v23;
+    v7 = v22;
   }
 
   else
@@ -1338,7 +1319,7 @@ uint64_t AppleCellularDataPlaneHelperInterface::ipcConfigSetHasRSS(AppleCellular
     v7 = *&buf[8];
   }
 
-  if ((v23 & 0x80u) == 0)
+  if ((v22 & 0x80u) == 0)
   {
     v8 = buf;
   }
@@ -1361,8 +1342,8 @@ uint64_t AppleCellularDataPlaneHelperInterface::ipcConfigSetHasRSS(AppleCellular
   v10 = memcmp(v3, v8, v9);
   if (v7 != v6 || v10)
   {
-    v12 = v21;
-    if ((v21 & 0x80u) == 0)
+    v12 = v20;
+    if ((v20 & 0x80u) == 0)
     {
       v13 = __p;
     }
@@ -1401,18 +1382,16 @@ LABEL_33:
   }
 
 LABEL_34:
-  if (v21 < 0)
+  if (v20 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v23 < 0)
+  if (v22 < 0)
   {
     operator delete(*buf);
   }
 
-LABEL_38:
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1433,7 +1412,7 @@ void sub_240EFFDDC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t AppleCellularDataPlaneHelperInterface::ipcConfigSetHasPrioUL(AppleCellularDataPlaneHelperInterface *this, char *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -1445,34 +1424,33 @@ uint64_t AppleCellularDataPlaneHelperInterface::ipcConfigSetHasPrioUL(AppleCellu
 
   if (!a2)
   {
-    v11 = 0;
-    goto LABEL_38;
+    return 0;
   }
 
   std::string::basic_string[abi:ne200100]<0>(buf, "__Internet__");
   std::string::basic_string[abi:ne200100]<0>(__p, "__Internet2__");
-  v3 = v18;
-  std::string::basic_string[abi:ne200100]<0>(v18, a2);
-  v4 = v19;
-  v5 = v18[0];
-  if ((v19 & 0x80u) == 0)
+  v3 = v17;
+  std::string::basic_string[abi:ne200100]<0>(v17, a2);
+  v4 = v18;
+  v5 = v17[0];
+  if ((v18 & 0x80u) == 0)
   {
-    v6 = v19;
+    v6 = v18;
   }
 
   else
   {
-    v6 = v18[1];
+    v6 = v17[1];
   }
 
-  if ((v19 & 0x80u) != 0)
+  if ((v18 & 0x80u) != 0)
   {
-    v3 = v18[0];
+    v3 = v17[0];
   }
 
-  if ((v23 & 0x80u) == 0)
+  if ((v22 & 0x80u) == 0)
   {
-    v7 = v23;
+    v7 = v22;
   }
 
   else
@@ -1480,7 +1458,7 @@ uint64_t AppleCellularDataPlaneHelperInterface::ipcConfigSetHasPrioUL(AppleCellu
     v7 = *&buf[8];
   }
 
-  if ((v23 & 0x80u) == 0)
+  if ((v22 & 0x80u) == 0)
   {
     v8 = buf;
   }
@@ -1503,8 +1481,8 @@ uint64_t AppleCellularDataPlaneHelperInterface::ipcConfigSetHasPrioUL(AppleCellu
   v10 = memcmp(v3, v8, v9);
   if (v7 != v6 || v10)
   {
-    v12 = v21;
-    if ((v21 & 0x80u) == 0)
+    v12 = v20;
+    if ((v20 & 0x80u) == 0)
     {
       v13 = __p;
     }
@@ -1543,18 +1521,16 @@ LABEL_33:
   }
 
 LABEL_34:
-  if (v21 < 0)
+  if (v20 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v23 < 0)
+  if (v22 < 0)
   {
     operator delete(*buf);
   }
 
-LABEL_38:
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1575,9 +1551,9 @@ void sub_240EFFFDC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t AppleCellularDataPlaneHelperInterface::addBearer(AppleCellularDataPlaneHelperInterface *this, unsigned int a2, unsigned int a3)
 {
-  v55 = *MEMORY[0x277D85DE8];
-  v48 = a3;
-  v49 = a2;
+  v54 = *MEMORY[0x277D85DE8];
+  v47 = a3;
+  v48 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -1596,8 +1572,8 @@ uint64_t AppleCellularDataPlaneHelperInterface::addBearer(AppleCellularDataPlane
     do
     {
       v8 = v6[8];
-      v9 = v8 >= v49;
-      v10 = v8 < v49;
+      v9 = v8 >= v48;
+      v10 = v8 < v48;
       if (v9)
       {
         v7 = v6;
@@ -1607,10 +1583,10 @@ uint64_t AppleCellularDataPlaneHelperInterface::addBearer(AppleCellularDataPlane
     }
 
     while (v6);
-    if (v7 != (this + 312) && v49 >= v7[8])
+    if (v7 != (this + 312) && v48 >= v7[8])
     {
-      *buf = &v49;
-      v13 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v49);
+      *buf = &v48;
+      v13 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v48, &std::piecewise_construct, buf);
       v16 = v13[7];
       v14 = v13 + 7;
       v15 = v16;
@@ -1620,8 +1596,8 @@ uint64_t AppleCellularDataPlaneHelperInterface::addBearer(AppleCellularDataPlane
         do
         {
           v18 = *(v15 + 32);
-          v9 = v18 >= v48;
-          v19 = v18 < v48;
+          v9 = v18 >= v47;
+          v19 = v18 < v47;
           if (v9)
           {
             v17 = v15;
@@ -1631,30 +1607,30 @@ uint64_t AppleCellularDataPlaneHelperInterface::addBearer(AppleCellularDataPlane
         }
 
         while (v15);
-        if (v17 != v14 && v48 >= *(v17 + 8))
+        if (v17 != v14 && v47 >= *(v17 + 8))
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
             *&buf[4] = "addBearer";
             *&buf[12] = 1024;
-            *&buf[14] = v48;
+            *&buf[14] = v47;
             _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: Bearer %u is already configured. Returning Success.\n", buf, 0x12u);
           }
 
-          goto LABEL_50;
+          return 1;
         }
       }
 
+      v44 = 0;
       v45 = 0;
       v46 = 0;
-      v47 = 0;
       __p = 0;
+      v42 = 0;
       v43 = 0;
-      v44 = 0;
-      v41 = 0;
-      *buf = &v49;
-      v20 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v49)[8];
+      v40 = 0;
+      *buf = &v48;
+      v20 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v48, &std::piecewise_construct, buf)[8];
       v21 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
       if (v20)
       {
@@ -1663,27 +1639,27 @@ uint64_t AppleCellularDataPlaneHelperInterface::addBearer(AppleCellularDataPlane
           *buf = 136315650;
           *&buf[4] = "addBearer";
           *&buf[12] = 1024;
-          *&buf[14] = v48;
+          *&buf[14] = v47;
           *&buf[18] = 1024;
-          *&buf[20] = v49;
+          *&buf[20] = v48;
           _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: ERROR: Failed to add Bearer %u on Interface %u. Out of radio resources. Redirecting to Default Bearer\n", buf, 0x18u);
         }
 
-        *buf = &v49;
-        LODWORD(v50) = *(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v49) + 18);
-        if (v50 == -1)
+        *buf = &v48;
+        LODWORD(v49) = *(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v48, &std::piecewise_construct, buf) + 18);
+        if (v49 == -1)
         {
           __assert_rtn("addBearer", "AppleCellularDataPlaneHelper.cpp", 745, "defaultBearerID != kACDPHelperNoBearer");
         }
 
-        *buf = &v49;
-        v22 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v49);
-        *buf = &v50;
-        v23 = std::__tree<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v22 + 6), &v50);
-        *buf = &v49;
-        v24 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v49);
         *buf = &v48;
-        v25 = std::__tree<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v24 + 6), &v48);
+        v22 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v48, &std::piecewise_construct, buf);
+        *buf = &v49;
+        v23 = std::__tree<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v22 + 6), &v49, &std::piecewise_construct, buf);
+        *buf = &v48;
+        v24 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v48, &std::piecewise_construct, buf);
+        *buf = &v47;
+        v25 = std::__tree<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v24 + 6), &v47, &std::piecewise_construct, buf);
         std::__memberwise_copy_assign[abi:ne200100]<std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>,0ul,1ul,2ul>(v25 + 5, (v23 + 5));
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
@@ -1693,9 +1669,9 @@ uint64_t AppleCellularDataPlaneHelperInterface::addBearer(AppleCellularDataPlane
         *buf = 136315650;
         *&buf[4] = "addBearer";
         *&buf[12] = 1024;
-        *&buf[14] = v48;
+        *&buf[14] = v47;
         *&buf[18] = 1024;
-        *&buf[20] = v50;
+        *&buf[20] = v49;
         v26 = MEMORY[0x277D86220];
         v27 = "::%s: Bearer %u redirected to %u\n";
         v28 = 24;
@@ -1708,18 +1684,18 @@ uint64_t AppleCellularDataPlaneHelperInterface::addBearer(AppleCellularDataPlane
           *buf = 136315394;
           *&buf[4] = "addBearer";
           *&buf[12] = 1024;
-          *&buf[14] = v48;
+          *&buf[14] = v47;
           _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: Bearer %u becomes Default Bearer\n", buf, 0x12u);
         }
 
-        *buf = &v49;
-        if (*(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v49) + 18) != -1)
+        *buf = &v48;
+        if (*(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v48, &std::piecewise_construct, buf) + 18) != -1)
         {
           __assert_rtn("addBearer", "AppleCellularDataPlaneHelper.cpp", 714, "config_[interface].defaultBearer == kACDPHelperNoBearer");
         }
 
-        *buf = &v49;
-        v29 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v49);
+        *buf = &v48;
+        v29 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v48, &std::piecewise_construct, buf);
         v30 = v29;
         if (*(v29 + 19))
         {
@@ -1733,7 +1709,7 @@ uint64_t AppleCellularDataPlaneHelperInterface::addBearer(AppleCellularDataPlane
             if (v34 == 3)
             {
               *buf = v31;
-              std::vector<unsigned short>::push_back[abi:ne200100](&v45, buf);
+              std::vector<unsigned short>::push_back[abi:ne200100](&v44, buf);
             }
 
             else if (!v33)
@@ -1748,14 +1724,14 @@ uint64_t AppleCellularDataPlaneHelperInterface::addBearer(AppleCellularDataPlane
           while (v31 < *(v30 + 19));
         }
 
-        v35 = v48;
-        *buf = &v49;
-        *(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v49) + 18) = v35;
-        _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorItNS_9allocatorItEEEES6_tEEC2B8ne200100IJLm0ELm1ELm2EEJS6_S6_tEJEJEJRS6_S9_RtEEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSC_IJDpT2_EEEDpOT3_(buf, &v45, &__p, &v41);
-        v50 = &v49;
-        v36 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v49);
-        v50 = &v48;
-        v37 = std::__tree<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v36 + 6), &v48);
+        v35 = v47;
+        *buf = &v48;
+        *(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v48, &std::piecewise_construct, buf) + 18) = v35;
+        _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorItNS_9allocatorItEEEES6_tEEC2B8ne200100IJLm0ELm1ELm2EEJS6_S6_tEJEJEJRS6_S9_RtEEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSC_IJDpT2_EEEDpOT3_(buf, &v44, &__p, &v40);
+        v49 = &v48;
+        v36 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v48, &std::piecewise_construct, &v49);
+        v49 = &v47;
+        v37 = std::__tree<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v36 + 6), &v47, &std::piecewise_construct, &v49);
         v38 = v37[5];
         if (v38)
         {
@@ -1780,11 +1756,11 @@ uint64_t AppleCellularDataPlaneHelperInterface::addBearer(AppleCellularDataPlane
           v39 = *buf;
         }
 
-        *(v37 + 4) = v52;
-        v37[10] = v53;
-        v53 = 0;
-        v52 = 0uLL;
-        *(v37 + 44) = v54;
+        *(v37 + 4) = v51;
+        v37[10] = v52;
+        v52 = 0;
+        v51 = 0uLL;
+        *(v37 + 44) = v53;
         if (v39)
         {
           *&buf[8] = v39;
@@ -1799,7 +1775,7 @@ uint64_t AppleCellularDataPlaneHelperInterface::addBearer(AppleCellularDataPlane
         *buf = 136315394;
         *&buf[4] = "addBearer";
         *&buf[12] = 1024;
-        *&buf[14] = v48;
+        *&buf[14] = v47;
         v26 = MEMORY[0x277D86220];
         v27 = "::%s: Bearer %u added\n";
         v28 = 18;
@@ -1809,19 +1785,17 @@ uint64_t AppleCellularDataPlaneHelperInterface::addBearer(AppleCellularDataPlane
 LABEL_46:
       if (__p)
       {
-        v43 = __p;
+        v42 = __p;
         operator delete(__p);
       }
 
-      if (v45)
+      if (v44)
       {
-        v46 = v45;
-        operator delete(v45);
+        v45 = v44;
+        operator delete(v44);
       }
 
-LABEL_50:
-      result = 1;
-      goto LABEL_51;
+      return 1;
     }
   }
 
@@ -1832,13 +1806,11 @@ LABEL_50:
     *buf = 136315394;
     *&buf[4] = "addBearer";
     *&buf[12] = 1024;
-    *&buf[14] = v49;
+    *&buf[14] = v48;
     _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: Error: Network Interface %u not configured by ACDP-Helper.\n", buf, 0x12u);
-    result = 0;
+    return 0;
   }
 
-LABEL_51:
-  v40 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1859,8 +1831,8 @@ void sub_240F00730(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t AppleCellularDataPlaneHelperInterface::generateOutputParamsForBearerID(uint64_t a1, unsigned int a2, int a3, unsigned int *a4)
 {
-  v54 = *MEMORY[0x277D85DE8];
-  v48 = a2;
+  v53 = *MEMORY[0x277D85DE8];
+  v47 = a2;
   *a4 = 0;
   if (a2 == -1)
   {
@@ -1911,157 +1883,157 @@ LABEL_13:
 
   else
   {
-    *buf = &v48;
-    v17 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 304, &v48);
-    v18 = v17[6];
-    v46 = v17 + 7;
-    if (v18 != v17 + 7)
+    *buf = &v47;
+    v16 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 304, &v47, &std::piecewise_construct, buf);
+    v17 = v16[6];
+    v45 = v16 + 7;
+    if (v17 != v16 + 7)
     {
-      v19 = a4 + 1;
-      v47 = v4;
+      v18 = a4 + 1;
+      v46 = v4;
       do
       {
-        if (*(v18 + 8) == v4)
+        if (*(v17 + 8) == v4)
         {
-          v20 = MEMORY[0x277D86220];
+          v19 = MEMORY[0x277D86220];
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
             *&buf[4] = "generateOutputParamsForBearerID";
-            v50 = 1024;
-            v51 = v47;
-            v52 = 1024;
-            LODWORD(v53) = v48;
-            _os_log_impl(&dword_240EFD000, v20, OS_LOG_TYPE_DEFAULT, "::%s: BearerID %u found on Interface %u\n", buf, 0x18u);
+            v49 = 1024;
+            v50 = v46;
+            v51 = 1024;
+            LODWORD(v52) = v47;
+            _os_log_impl(&dword_240EFD000, v19, OS_LOG_TYPE_DEFAULT, "::%s: BearerID %u found on Interface %u\n", buf, 0x18u);
           }
 
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            v21 = (v18[6] - v18[5]) >> 1;
+            v20 = (v17[6] - v17[5]) >> 1;
             *buf = 136315650;
             *&buf[4] = "generateOutputParamsForBearerID";
-            v50 = 1024;
-            v51 = v47;
-            v52 = 2048;
-            v53 = v21;
-            _os_log_impl(&dword_240EFD000, v20, OS_LOG_TYPE_DEFAULT, "::%s: BearerID %u has %lu RX Pipes\n", buf, 0x1Cu);
+            v49 = 1024;
+            v50 = v46;
+            v51 = 2048;
+            v52 = v20;
+            _os_log_impl(&dword_240EFD000, v19, OS_LOG_TYPE_DEFAULT, "::%s: BearerID %u has %lu RX Pipes\n", buf, 0x1Cu);
           }
 
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            v22 = (v18[9] - v18[8]) >> 1;
+            v21 = (v17[9] - v17[8]) >> 1;
             *buf = 136315650;
             *&buf[4] = "generateOutputParamsForBearerID";
-            v50 = 1024;
-            v51 = v47;
-            v52 = 2048;
-            v53 = v22;
-            _os_log_impl(&dword_240EFD000, v20, OS_LOG_TYPE_DEFAULT, "::%s: BearerID %u has %lu TX Pipes\n", buf, 0x1Cu);
+            v49 = 1024;
+            v50 = v46;
+            v51 = 2048;
+            v52 = v21;
+            _os_log_impl(&dword_240EFD000, v19, OS_LOG_TYPE_DEFAULT, "::%s: BearerID %u has %lu TX Pipes\n", buf, 0x1Cu);
           }
 
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            v23 = *(v18 + 44);
+            v22 = *(v17 + 44);
             *buf = 136315650;
             *&buf[4] = "generateOutputParamsForBearerID";
-            v50 = 1024;
-            v51 = v47;
-            v52 = 1024;
-            LODWORD(v53) = v23;
-            _os_log_impl(&dword_240EFD000, v20, OS_LOG_TYPE_DEFAULT, "::%s: BearerID %u is using QueueSet ID %u\n", buf, 0x18u);
+            v49 = 1024;
+            v50 = v46;
+            v51 = 1024;
+            LODWORD(v52) = v22;
+            _os_log_impl(&dword_240EFD000, v19, OS_LOG_TYPE_DEFAULT, "::%s: BearerID %u is using QueueSet ID %u\n", buf, 0x18u);
           }
 
-          v25 = v18[5];
-          v24 = v18[6];
-          while (v25 != v24)
+          v24 = v17[5];
+          v23 = v17[6];
+          while (v24 != v23)
           {
-            v26 = *v25;
-            *buf = &v48;
-            v27 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 304, &v48);
-            v26 *= 3;
-            AppleCellularDataPlaneHelperInterface::printIPCPipeConfig(v27, v27 + v26 + 20);
-            *buf = &v48;
-            v28 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 304, &v48) + 4 * v26;
-            v29 = *a4;
-            v30 = *a4 + 1;
-            *a4 = v30;
-            v31 = &v19[3 * v29];
-            v32 = *(v28 + 10);
-            v31[2] = *(v28 + 22);
-            *v31 = v32;
-            if (v30 >= 0x11)
+            v25 = *v24;
+            *buf = &v47;
+            v26 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 304, &v47, &std::piecewise_construct, buf);
+            v25 *= 3;
+            AppleCellularDataPlaneHelperInterface::printIPCPipeConfig(v26, v26 + v25 + 20);
+            *buf = &v47;
+            v27 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 304, &v47, &std::piecewise_construct, buf) + 4 * v25;
+            v28 = *a4;
+            v29 = *a4 + 1;
+            *a4 = v29;
+            v30 = &v18[3 * v28];
+            v31 = *(v27 + 10);
+            v30[2] = *(v27 + 22);
+            *v30 = v31;
+            if (v29 >= 0x11)
             {
               AppleCellularDataPlaneHelperInterface::generateOutputParamsForBearerID();
             }
 
-            ++v25;
+            ++v24;
           }
 
-          v33 = v18[8];
-          v34 = v18[9];
-          while (v33 != v34)
+          v32 = v17[8];
+          v33 = v17[9];
+          while (v32 != v33)
           {
-            v35 = *v33;
-            *buf = &v48;
-            v36 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 304, &v48);
-            v35 *= 3;
-            AppleCellularDataPlaneHelperInterface::printIPCPipeConfig(v36, v36 + v35 + 20);
-            *buf = &v48;
-            v37 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 304, &v48) + 4 * v35;
-            v38 = *a4;
-            v39 = *a4 + 1;
-            *a4 = v39;
-            v40 = &v19[3 * v38];
-            v41 = *(v37 + 10);
-            v40[2] = *(v37 + 22);
-            *v40 = v41;
-            if (v39 >= 0x11)
+            v34 = *v32;
+            *buf = &v47;
+            v35 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 304, &v47, &std::piecewise_construct, buf);
+            v34 *= 3;
+            AppleCellularDataPlaneHelperInterface::printIPCPipeConfig(v35, v35 + v34 + 20);
+            *buf = &v47;
+            v36 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 304, &v47, &std::piecewise_construct, buf) + 4 * v34;
+            v37 = *a4;
+            v38 = *a4 + 1;
+            *a4 = v38;
+            v39 = &v18[3 * v37];
+            v40 = *(v36 + 10);
+            v39[2] = *(v36 + 22);
+            *v39 = v40;
+            if (v38 >= 0x11)
             {
               AppleCellularDataPlaneHelperInterface::generateOutputParamsForBearerID();
             }
 
-            ++v33;
+            ++v32;
           }
         }
 
-        v42 = v18[1];
-        if (v42)
+        v41 = v17[1];
+        if (v41)
         {
           do
           {
-            v43 = v42;
-            v42 = *v42;
+            v42 = v41;
+            v41 = *v41;
           }
 
-          while (v42);
+          while (v41);
         }
 
         else
         {
           do
           {
-            v43 = v18[2];
-            v44 = *v43 == v18;
-            v18 = v43;
+            v42 = v17[2];
+            v43 = *v42 == v17;
+            v17 = v42;
           }
 
-          while (!v44);
+          while (!v43);
         }
 
-        v18 = v43;
-        v4 = v47;
+        v17 = v42;
+        v4 = v46;
       }
 
-      while (v43 != v46);
+      while (v42 != v45);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v45 = *a4;
+      v44 = *a4;
       *buf = 136315394;
       *&buf[4] = "generateOutputParamsForBearerID";
-      v50 = 1024;
-      v51 = v45;
+      v49 = 1024;
+      v50 = v44;
       v12 = MEMORY[0x277D86220];
       v13 = "::%s: returning %u pipes\n";
       v14 = 18;
@@ -2069,23 +2041,22 @@ LABEL_13:
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t AppleCellularDataPlaneHelperInterface::removeBearer(AppleCellularDataPlaneHelperInterface *this, unsigned int a2, unsigned int a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v25 = a3;
-  v26 = a2;
+  v31 = *MEMORY[0x277D85DE8];
+  v24 = a3;
+  v25 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
     *&buf[4] = "removeBearer";
-    v28 = 1024;
-    v29 = a3;
-    v30 = 1024;
-    v31 = a2;
+    v27 = 1024;
+    v28 = a3;
+    v29 = 1024;
+    v30 = a2;
     _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: Removing Bearer 0x%x from Network Interface %u.\n", buf, 0x18u);
   }
 
@@ -2109,8 +2080,8 @@ uint64_t AppleCellularDataPlaneHelperInterface::removeBearer(AppleCellularDataPl
     while (v6);
     if (v7 != (this + 312) && v7[8] <= a2)
     {
-      *buf = &v26;
-      v13 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v26);
+      *buf = &v25;
+      v13 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v25, &std::piecewise_construct, buf);
       v16 = v13[7];
       v14 = v13 + 7;
       v15 = v16;
@@ -2136,24 +2107,24 @@ uint64_t AppleCellularDataPlaneHelperInterface::removeBearer(AppleCellularDataPl
       while (v15);
       if (v17 != v14 && *(v17 + 8) <= a3)
       {
-        *buf = &v26;
-        v23 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v26);
-        std::__tree<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>>>::__erase_unique<unsigned int>((v23 + 6), &v25);
-        v24 = v25;
-        *buf = &v26;
-        if (v24 == *(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v26) + 18))
+        *buf = &v25;
+        v22 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v25, &std::piecewise_construct, buf);
+        std::__tree<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>>>::__erase_unique<unsigned int>(v22 + 6, &v24);
+        v23 = v24;
+        *buf = &v25;
+        if (v23 == *(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v25, &std::piecewise_construct, buf) + 18))
         {
-          *buf = &v26;
-          *(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v26) + 18) = -1;
+          *buf = &v25;
+          *(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v25, &std::piecewise_construct, buf) + 18) = -1;
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            goto LABEL_24;
+            return 1;
           }
 
           *buf = 136315394;
           *&buf[4] = "removeBearer";
-          v28 = 1024;
-          v29 = v25;
+          v27 = 1024;
+          v28 = v24;
           v20 = MEMORY[0x277D86220];
           v21 = "::%s: Default Bearer %u removed\n";
         }
@@ -2162,13 +2133,13 @@ uint64_t AppleCellularDataPlaneHelperInterface::removeBearer(AppleCellularDataPl
         {
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            goto LABEL_24;
+            return 1;
           }
 
           *buf = 136315394;
           *&buf[4] = "removeBearer";
-          v28 = 1024;
-          v29 = v25;
+          v27 = 1024;
+          v28 = v24;
           v20 = MEMORY[0x277D86220];
           v21 = "::%s: Bearer %u removed\n";
         }
@@ -2179,21 +2150,19 @@ uint64_t AppleCellularDataPlaneHelperInterface::removeBearer(AppleCellularDataPl
 LABEL_21:
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-LABEL_24:
-          result = 1;
-          goto LABEL_25;
+          return 1;
         }
 
         *buf = 136315394;
         *&buf[4] = "removeBearer";
-        v28 = 1024;
-        v29 = a3;
+        v27 = 1024;
+        v28 = a3;
         v20 = MEMORY[0x277D86220];
         v21 = "::%s: Bearer 0x%x is not configured. Returning Success.\n";
       }
 
       _os_log_impl(&dword_240EFD000, v20, OS_LOG_TYPE_DEFAULT, v21, buf, 0x12u);
-      goto LABEL_24;
+      return 1;
     }
   }
 
@@ -2203,21 +2172,19 @@ LABEL_24:
   {
     *buf = 136315394;
     *&buf[4] = "removeBearer";
-    v28 = 1024;
-    v29 = a2;
+    v27 = 1024;
+    v28 = a2;
     _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: Error: Network Interface %u not configured by ACDP-Helper.\n", buf, 0x12u);
-    result = 0;
+    return 0;
   }
 
-LABEL_25:
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t AppleCellularDataPlaneHelperInterface::removeInterface(AppleCellularDataPlaneHelperInterface *this, unsigned int a2)
 {
   v25 = *MEMORY[0x277D85DE8];
-  v19 = a2;
+  v18 = a2;
   v3 = *(this + 39);
   if (v3)
   {
@@ -2240,34 +2207,34 @@ uint64_t AppleCellularDataPlaneHelperInterface::removeInterface(AppleCellularDat
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        *buf = &v19;
-        v12 = *(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v19) + 40);
+        *buf = &v18;
+        v11 = *(std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v18, &std::piecewise_construct, buf) + 40);
         *buf = 136315650;
         *&buf[4] = "removeInterface";
         v21 = 1024;
         v22 = a2;
         v23 = 1024;
-        v24 = v12;
+        v24 = v11;
         _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: Removing Network Interface %u (rss = %u)\n", buf, 0x18u);
       }
 
-      *buf = &v19;
-      v13 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v19);
-      if (AppleCellularDataPlaneHelperInterface::connect(this, *(v13 + 21)))
+      *buf = &v18;
+      v12 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v18, &std::piecewise_construct, buf);
+      if (AppleCellularDataPlaneHelperInterface::connect(this, *(v12 + 21)))
       {
-        *buf = &v19;
-        *buf = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v19) + 42;
-        v14 = std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 280, *buf);
-        v15 = (*(v14[5] + 64))();
-        v16 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-        if (!v15)
+        *buf = &v18;
+        *buf = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, &v18, &std::piecewise_construct, buf) + 42;
+        v13 = std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 280, *buf, &std::piecewise_construct, buf, &v19);
+        v14 = (*(v13[5] + 64))();
+        v15 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+        if (!v14)
         {
-          if (v16)
+          if (v15)
           {
             *buf = 136315394;
             *&buf[4] = "removeInterface";
             v21 = 1024;
-            v22 = v19;
+            v22 = v18;
             _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: Network Interface %u removed\n", buf, 0x12u);
           }
 
@@ -2275,14 +2242,14 @@ uint64_t AppleCellularDataPlaneHelperInterface::removeInterface(AppleCellularDat
           goto LABEL_23;
         }
 
-        if (v16)
+        if (v15)
         {
           *buf = 136315138;
           *&buf[4] = "removeInterface";
-          v17 = MEMORY[0x277D86220];
-          v18 = "::%s: Failed to remove network interface. Device Reset needed.\n";
+          v16 = MEMORY[0x277D86220];
+          v17 = "::%s: Failed to remove network interface. Device Reset needed.\n";
 LABEL_21:
-          _os_log_impl(&dword_240EFD000, v17, OS_LOG_TYPE_DEFAULT, v18, buf, 0xCu);
+          _os_log_impl(&dword_240EFD000, v16, OS_LOG_TYPE_DEFAULT, v17, buf, 0xCu);
         }
       }
 
@@ -2290,15 +2257,15 @@ LABEL_21:
       {
         *buf = 136315138;
         *&buf[4] = "removeInterface";
-        v17 = MEMORY[0x277D86220];
-        v18 = "::%s: ERROR: Failed to connect to ACDP-Driver. Device Reset needed\n";
+        v16 = MEMORY[0x277D86220];
+        v17 = "::%s: ERROR: Failed to connect to ACDP-Driver. Device Reset needed\n";
         goto LABEL_21;
       }
 
       v9 = 0;
 LABEL_23:
-      std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__erase_unique<unsigned int>(this + 304, &v19);
-      goto LABEL_12;
+      std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__erase_unique<unsigned int>(this + 304, &v18);
+      return v9;
     }
   }
 
@@ -2311,18 +2278,15 @@ LABEL_23:
     _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: Network Interface %u not configured by ACDP-Helper. Returning Success.\n", buf, 0x12u);
   }
 
-  v9 = 1;
-LABEL_12:
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
+  return 1;
 }
 
 void AppleCellularDataPlaneHelperInterface::printIPCPipeConfig(uint64_t a1, int *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
-    goto LABEL_20;
+    return;
   }
 
   v3 = *a2;
@@ -2335,8 +2299,8 @@ void AppleCellularDataPlaneHelperInterface::printIPCPipeConfig(uint64_t a1, int 
         goto LABEL_16;
       }
 
-      v9 = 136315138;
-      v10 = "printIPCPipeConfig";
+      v8 = 136315138;
+      v9 = "printIPCPipeConfig";
       v4 = MEMORY[0x277D86220];
       v5 = "::%s: Type = kAppleIPAppenderIPCPipeType_DL_CR\n";
       goto LABEL_15;
@@ -2344,8 +2308,8 @@ void AppleCellularDataPlaneHelperInterface::printIPCPipeConfig(uint64_t a1, int 
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "printIPCPipeConfig";
+      v8 = 136315138;
+      v9 = "printIPCPipeConfig";
       v4 = MEMORY[0x277D86220];
       v5 = "::%s: Type = kAppleIPAppenderIPCPipeType_DL_TR\n";
       goto LABEL_15;
@@ -2361,8 +2325,8 @@ void AppleCellularDataPlaneHelperInterface::printIPCPipeConfig(uint64_t a1, int 
         goto LABEL_16;
       }
 
-      v9 = 136315138;
-      v10 = "printIPCPipeConfig";
+      v8 = 136315138;
+      v9 = "printIPCPipeConfig";
       v4 = MEMORY[0x277D86220];
       v5 = "::%s: Type = kAppleIPAppenderIPCPipeType_UL_CR\n";
       goto LABEL_15;
@@ -2370,12 +2334,12 @@ void AppleCellularDataPlaneHelperInterface::printIPCPipeConfig(uint64_t a1, int 
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "printIPCPipeConfig";
+      v8 = 136315138;
+      v9 = "printIPCPipeConfig";
       v4 = MEMORY[0x277D86220];
       v5 = "::%s: Type = kAppleIPAppenderIPCPipeType_UL_TR\n";
 LABEL_15:
-      _os_log_impl(&dword_240EFD000, v4, OS_LOG_TYPE_DEFAULT, v5, &v9, 0xCu);
+      _os_log_impl(&dword_240EFD000, v4, OS_LOG_TYPE_DEFAULT, v5, &v8, 0xCu);
     }
   }
 
@@ -2383,28 +2347,25 @@ LABEL_16:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v6 = a2[1];
-    v9 = 136315394;
-    v10 = "printIPCPipeConfig";
-    v11 = 1024;
-    v12 = v6;
-    _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: Priority = %u\n", &v9, 0x12u);
+    v8 = 136315394;
+    v9 = "printIPCPipeConfig";
+    v10 = 1024;
+    v11 = v6;
+    _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: Priority = %u\n", &v8, 0x12u);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v7 = a2[2];
-    v9 = 136315394;
-    v10 = "printIPCPipeConfig";
-    v11 = 1024;
-    v12 = v7;
-    _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: ID = %u\n", &v9, 0x12u);
+    v8 = 136315394;
+    v9 = "printIPCPipeConfig";
+    v10 = 1024;
+    v11 = v7;
+    _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: ID = %u\n", &v8, 0x12u);
   }
-
-LABEL_20:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2418,17 +2379,17 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, _WORD *a2)
+void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, unsigned __int16 *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -2493,7 +2454,7 @@ void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, _WORD
 uint64_t AppleCellularDataPlaneHelperInterface::blockPDPTraffic(AppleCellularDataPlaneHelperInterface *this, unsigned int a2, char a3)
 {
   v26 = *MEMORY[0x277D85DE8];
-  *v22 = a2;
+  *v21 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -2524,9 +2485,9 @@ uint64_t AppleCellularDataPlaneHelperInterface::blockPDPTraffic(AppleCellularDat
     while (v6);
     if (v7 != (this + 312) && v7[8] <= a2)
     {
-      *buf = v22;
-      v17 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, v22);
-      if ((AppleCellularDataPlaneHelperInterface::connect(this, *(v17 + 21)) & 1) == 0)
+      *buf = v21;
+      v16 = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, v21, &std::piecewise_construct, buf);
+      if ((AppleCellularDataPlaneHelperInterface::connect(this, *(v16 + 21)) & 1) == 0)
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
@@ -2543,37 +2504,37 @@ uint64_t AppleCellularDataPlaneHelperInterface::blockPDPTraffic(AppleCellularDat
 
       if (a3)
       {
-        *buf = v22;
-        *buf = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, v22) + 42;
-        v18 = std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 280, *buf);
-        IOACIPCBBNetCfgClass::stopNetIfTx((v18 + 5));
+        *buf = v21;
+        *buf = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, v21, &std::piecewise_construct, buf) + 42;
+        v17 = std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 280, *buf, &std::piecewise_construct, buf, &v22);
+        IOACIPCBBNetCfgClass::stopNetIfTx((v17 + 5));
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
           *&buf[4] = "blockPDPTraffic";
           v24 = 1024;
-          v25 = *v22;
-          v19 = MEMORY[0x277D86220];
-          v20 = "::%s: Network Interface %u blocked\n";
+          v25 = *v21;
+          v18 = MEMORY[0x277D86220];
+          v19 = "::%s: Network Interface %u blocked\n";
 LABEL_24:
-          _os_log_impl(&dword_240EFD000, v19, OS_LOG_TYPE_DEFAULT, v20, buf, 0x12u);
+          _os_log_impl(&dword_240EFD000, v18, OS_LOG_TYPE_DEFAULT, v19, buf, 0x12u);
         }
       }
 
       else
       {
-        *buf = v22;
-        *buf = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, v22) + 42;
-        v21 = std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 280, *buf);
-        IOACIPCBBNetCfgClass::startNetIfTx((v21 + 5));
+        *buf = v21;
+        *buf = std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 304, v21, &std::piecewise_construct, buf) + 42;
+        v20 = std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(this + 280, *buf, &std::piecewise_construct, buf, &v22);
+        IOACIPCBBNetCfgClass::startNetIfTx((v20 + 5));
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
           *&buf[4] = "blockPDPTraffic";
           v24 = 1024;
-          v25 = *v22;
-          v19 = MEMORY[0x277D86220];
-          v20 = "::%s: Network Interface %u resumed\n";
+          v25 = *v21;
+          v18 = MEMORY[0x277D86220];
+          v19 = "::%s: Network Interface %u resumed\n";
           goto LABEL_24;
         }
       }
@@ -2600,7 +2561,6 @@ LABEL_14:
   v14 = 0;
 LABEL_15:
   std::mutex::unlock((this + 8));
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -2616,7 +2576,7 @@ uint64_t AppleCellularDataPlaneHelperInterface::registerFilterRuleCallBack(uint6
 void AppleCellularDataPlaneHelperInterface::completeFilterRule(uint64_t a1, unsigned int a2, int a3)
 {
   v20 = *MEMORY[0x277D85DE8];
-  v14 = a2;
+  v13 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -2663,13 +2623,13 @@ LABEL_22:
     }
   }
 
-  *buf = &v14;
-  v13 = *(std::__tree<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 328, &v14) + 16);
-  std::__tree<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>>>::__erase_unique<unsigned int>(a1 + 328, &v14);
-  if (AppleCellularDataPlaneHelperInterface::connect(a1, v13))
+  *buf = &v13;
+  v12 = *(std::__tree<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 328, &v13, &std::piecewise_construct, buf) + 16);
+  std::__tree<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>>>::__erase_unique<unsigned int>((a1 + 328), &v13);
+  if (AppleCellularDataPlaneHelperInterface::connect(a1, v12))
   {
-    *buf = &v13;
-    v11 = std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(a1 + 280, &v13);
+    *buf = &v12;
+    v11 = std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(a1 + 280, &v12, &std::piecewise_construct, buf, &v14);
     if (a3 == 1)
     {
       IOACIPCBBNetCfgClass::completeFilterRule((v11 + 5));
@@ -2689,12 +2649,11 @@ LABEL_22:
   }
 
   std::mutex::unlock((a1 + 8));
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void handleInterfaceChange(const __SCDynamicStore *a1, const __CFArray *a2, char *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     std::mutex::lock((a3 + 48));
@@ -2707,11 +2666,11 @@ void handleInterfaceChange(const __SCDynamicStore *a1, const __CFArray *a2, char
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315394;
-      v12 = "handleInterfaceChange";
-      v13 = 2080;
-      v14 = v5;
-      _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: checking for %s", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "handleInterfaceChange";
+      v12 = 2080;
+      v13 = v5;
+      _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: checking for %s", &v10, 0x16u);
       v5 = *(a3 + 14);
     }
 
@@ -2733,75 +2692,75 @@ LABEL_7:
       std::mutex::unlock((a3 + 48));
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 BOOL AppleCellularDataPlaneHelperInterface::checkForDevicePresence(SCDynamicStoreRef *this, const char *a2, int a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-  if (a2)
+  if (!a2)
   {
-    if (a3)
+    if (!result)
     {
-      if (result)
-      {
-        v10 = 136315394;
-        v11 = "checkForDevicePresence";
-        v12 = 2080;
-        v13 = a2;
-        v7 = MEMORY[0x277D86220];
-        v8 = "::%s: Check for interface presence (%s)";
-LABEL_9:
-        _os_log_impl(&dword_240EFD000, v7, OS_LOG_TYPE_DEFAULT, v8, &v10, 0x16u);
-      }
+      return result;
     }
 
-    else if (result)
-    {
-      v10 = 136315394;
-      v11 = "checkForDevicePresence";
-      v12 = 2080;
-      v13 = a2;
-      v7 = MEMORY[0x277D86220];
-      v8 = "::%s: Check for interface absence (%s)";
-      goto LABEL_9;
-    }
-
-    if (checkSCStoreForIfNet(this[18], a2) != a3)
-    {
-      goto LABEL_11;
-    }
-
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-    {
-      v10 = 136315138;
-      v11 = "checkForDevicePresence";
-      _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: condition already met", &v10, 0xCu);
-    }
-
-    result = 1;
-    goto LABEL_15;
+    v9 = 136315138;
+    v10 = "checkForDevicePresence";
+    _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: invalid interface name", &v9, 0xCu);
+    return 0;
   }
 
-  if (result)
+  if (a3)
   {
-    v10 = 136315138;
-    v11 = "checkForDevicePresence";
-    _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: invalid interface name", &v10, 0xCu);
-LABEL_11:
-    result = 0;
+    if (!result)
+    {
+      goto LABEL_10;
+    }
+
+    v9 = 136315394;
+    v10 = "checkForDevicePresence";
+    v11 = 2080;
+    v12 = a2;
+    v7 = MEMORY[0x277D86220];
+    v8 = "::%s: Check for interface presence (%s)";
   }
 
-LABEL_15:
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  else
+  {
+    if (!result)
+    {
+      goto LABEL_10;
+    }
+
+    v9 = 136315394;
+    v10 = "checkForDevicePresence";
+    v11 = 2080;
+    v12 = a2;
+    v7 = MEMORY[0x277D86220];
+    v8 = "::%s: Check for interface absence (%s)";
+  }
+
+  _os_log_impl(&dword_240EFD000, v7, OS_LOG_TYPE_DEFAULT, v8, &v9, 0x16u);
+LABEL_10:
+  if (checkSCStoreForIfNet(this[18], a2) != a3)
+  {
+    return 0;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = 136315138;
+    v10 = "checkForDevicePresence";
+    _os_log_impl(&dword_240EFD000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "::%s: condition already met", &v9, 0xCu);
+  }
+
+  return 1;
 }
 
 BOOL checkSCStoreForIfNet(SCDynamicStoreRef store, const char *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   NetworkInterface = getNetworkInterfaceKey(void)::key;
   if (!getNetworkInterfaceKey(void)::key)
   {
@@ -2837,11 +2796,11 @@ LABEL_16:
               }
 
               *buf = 136315394;
-              v21 = "checkSCStoreForIfNet";
-              v22 = 2080;
-              v23 = a2;
-              v15 = MEMORY[0x277D86220];
-              v16 = "::%s: %s not found";
+              v20 = "checkSCStoreForIfNet";
+              v21 = 2080;
+              v22 = a2;
+              v14 = MEMORY[0x277D86220];
+              v15 = "::%s: %s not found";
             }
 
             else
@@ -2869,14 +2828,14 @@ LABEL_16:
               }
 
               *buf = 136315394;
-              v21 = "checkSCStoreForIfNet";
-              v22 = 2080;
-              v23 = a2;
-              v15 = MEMORY[0x277D86220];
-              v16 = "::%s: %s found";
+              v20 = "checkSCStoreForIfNet";
+              v21 = 2080;
+              v22 = a2;
+              v14 = MEMORY[0x277D86220];
+              v15 = "::%s: %s found";
             }
 
-            _os_log_impl(&dword_240EFD000, v15, OS_LOG_TYPE_DEFAULT, v16, buf, 0x16u);
+            _os_log_impl(&dword_240EFD000, v14, OS_LOG_TYPE_DEFAULT, v15, buf, 0x16u);
 LABEL_21:
             CFRelease(theString2);
             goto LABEL_14;
@@ -2889,7 +2848,6 @@ LABEL_21:
   v11 = 0;
 LABEL_14:
   ACDPHelperSentry<checkSCStoreForIfNet(__SCDynamicStore const*,char const*)::$_0>::~ACDPHelperSentry(&p_theDict);
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -2964,7 +2922,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(uint
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__memberwise_copy_assign[abi:ne200100]<std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>,0ul,1ul,2ul>(void *result, uint64_t a2)
+void **std::__memberwise_copy_assign[abi:ne200100]<std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>,0ul,1ul,2ul>(void **result, uint64_t a2)
 {
   v3 = result;
   if (result != a2)
@@ -2977,7 +2935,7 @@ void *std::__memberwise_copy_assign[abi:ne200100]<std::tuple<std::vector<unsigne
   return result;
 }
 
-void *std::vector<unsigned short>::__assign_with_size[abi:ne200100]<unsigned short *,unsigned short *>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<unsigned short>::__assign_with_size[abi:ne200100]<unsigned short *,unsigned short *>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -3056,7 +3014,7 @@ void *std::vector<unsigned short>::__assign_with_size[abi:ne200100]<unsigned sho
   return result;
 }
 
-void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -3066,16 +3024,16 @@ void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t a1, uint64_
   std::vector<unsigned short>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorItNS_9allocatorItEEEES6_tEEC2B8ne200100IJLm0ELm1ELm2EEJS6_S6_tEJEJEJRS6_S9_RtEEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSC_IJDpT2_EEEDpOT3_(uint64_t a1, uint64_t *a2, uint64_t *a3, _WORD *a4)
+uint64_t _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorItNS_9allocatorItEEEES6_tEEC2B8ne200100IJLm0ELm1ELm2EEJS6_S6_tEJEJEJRS6_S9_RtEEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSC_IJDpT2_EEEDpOT3_(uint64_t a1, uint64_t a2, uint64_t a3, _WORD *a4)
 {
   *a1 = 0;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
-  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1, *a2, a2[1], (a2[1] - *a2) >> 1);
+  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 1);
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
-  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1 + 24, *a3, a3[1], (a3[1] - *a3) >> 1);
+  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>((a1 + 24), *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 1);
   *(a1 + 48) = *a4;
   return a1;
 }
@@ -3092,7 +3050,7 @@ void sub_240F027B8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -3179,48 +3137,48 @@ void std::__tree<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInte
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2)
+uint64_t *std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v5 = *(a1 + 8);
+  if (!v5)
   {
 LABEL_8:
     std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>();
   }
 
-  v3 = *a2;
+  v6 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v7 = v5;
+      v8 = *(v5 + 32);
+      if (v6 >= v8)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v5 = *v7;
+      if (!*v7)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v8 >= v6)
     {
-      return v4;
+      return v7;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v5 = v7[1];
+    if (!v5)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -3263,12 +3221,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -3282,22 +3240,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -3331,13 +3289,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -3544,31 +3502,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -3577,252 +3534,252 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 28);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short &&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2)
+char *std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short &&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v5 = *(a1 + 8);
+  if (!v5)
   {
 LABEL_8:
     std::__tree<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,IOACIPCBBNetCfgClass>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,IOACIPCBBNetCfgClass>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<unsigned short &&>,std::tuple<>>();
   }
 
-  v3 = *a2;
+  v6 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v7 = v5;
+      v8 = *(v5 + 32);
+      if (v6 >= v8)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v5 = *v7;
+      if (!*v7)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v8 >= v6)
     {
-      return v4;
+      return v7;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v5 = v7[1];
+    if (!v5)
     {
       goto LABEL_8;
     }
@@ -3870,82 +3827,82 @@ uint64_t *std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map
   return v3;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,ACDPNetIFConfig>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ACDPNetIFConfig>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ACDPNetIFConfig>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -3969,19 +3926,19 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<unsigned int,std::tu
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>>>::__erase_unique<unsigned int>(uint64_t a1, unsigned int *a2)
+uint64_t std::__tree<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::tuple<std::vector<unsigned short>,std::vector<unsigned short>,unsigned short>>>>::__erase_unique<unsigned int>(uint64_t **a1, unsigned int *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (!v2)
   {
     return 0;
   }
 
   v3 = *a2;
-  v4 = (a1 + 8);
+  v4 = a1 + 1;
   do
   {
-    v5 = *(v2 + 32);
+    v5 = *(v2 + 8);
     v6 = v5 >= v3;
     v7 = v5 < v3;
     if (v6)
@@ -3989,11 +3946,11 @@ uint64_t std::__tree<std::__value_type<unsigned int,std::tuple<std::vector<unsig
       v4 = v2;
     }
 
-    v2 = *(v2 + 8 * v7);
+    v2 = v2[v7];
   }
 
   while (v2);
-  if (v4 == (a1 + 8) || v3 < *(v4 + 8))
+  if (v4 == a1 + 1 || v3 < *(v4 + 8))
   {
     return 0;
   }
@@ -4004,19 +3961,19 @@ uint64_t std::__tree<std::__value_type<unsigned int,std::tuple<std::vector<unsig
   return 1;
 }
 
-uint64_t std::__tree<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>>>::__erase_unique<unsigned int>(uint64_t a1, unsigned int *a2)
+uint64_t std::__tree<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>>>::__erase_unique<unsigned int>(uint64_t **a1, unsigned int *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (!v2)
   {
     return 0;
   }
 
   v3 = *a2;
-  v4 = a1 + 8;
+  v4 = a1 + 1;
   do
   {
-    v5 = *(v2 + 28);
+    v5 = *(v2 + 7);
     v6 = v5 >= v3;
     v7 = v5 < v3;
     if (v6)
@@ -4024,11 +3981,11 @@ uint64_t std::__tree<std::__value_type<unsigned int,AppleCellularDataPlaneHelper
       v4 = v2;
     }
 
-    v2 = *(v2 + 8 * v7);
+    v2 = v2[v7];
   }
 
   while (v2);
-  if (v4 == a1 + 8 || v3 < *(v4 + 28))
+  if (v4 == a1 + 1 || v3 < *(v4 + 7))
   {
     return 0;
   }
@@ -4262,7 +4219,7 @@ LABEL_7:
 
 BOOL ApplePDPHelperInterface::callAsyncScalarMethod(ApplePDPHelperInterface *this, uint32_t a2, const char *a3, uint64_t a4, unint64_t a5, unint64_t *a6, uint32_t a7, unint64_t *a8, uint32_t *outputCnt)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   std::mutex::lock((this + 8));
   v17 = *(this + 20);
   if (!v17)
@@ -4281,10 +4238,10 @@ LABEL_7:
   }
 
   reference[0] = 0;
+  v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   reference[1] = a4;
-  v25 = a5;
+  v24 = a5;
   MachPort = IONotificationPortGetMachPort(v18);
   v20 = IOConnectCallAsyncScalarMethod(v17, a2, MachPort, reference, 3u, a6, a7, a8, outputCnt);
   v21 = v20 == 0;
@@ -4295,7 +4252,6 @@ LABEL_7:
 
 LABEL_8:
   std::mutex::unlock((this + 8));
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -4464,45 +4420,42 @@ LABEL_8:
 uint64_t ApplePDPHelperInterface::getOpenPortsExt(ApplePDPHelperInterface *this, uint64_t a2, uint64_t a3, unsigned __int16 *a4, uint64_t a5, unint64_t *a6)
 {
   v6 = MEMORY[0x28223BE20](this, a2, a3, a4, a5, a6);
-  v25[3] = *MEMORY[0x277D85DE8];
+  v24[3] = *MEMORY[0x277D85DE8];
   if (v9 && (v12 = v11) != 0)
   {
     v13 = v10;
     *v11 = 0;
     if (v10 <= 0x10000)
     {
-      v16 = v9;
-      v17 = v6;
-      v18 = 0;
-      v25[0] = v7;
-      v25[1] = v8;
-      v23 = 4096;
-      v22 = 0;
+      v15 = v9;
+      v16 = v6;
+      v17 = 0;
+      v24[0] = v7;
+      v24[1] = v8;
+      v22 = 4096;
+      v21 = 0;
       *v11 = 0;
-      v19 = 1;
-      while (1)
+      for (i = 1; ; i = 0)
       {
-        v20 = v19;
-        bzero(v24, 0x1000uLL);
-        v25[2] = v18;
-        v21 = ApplePDPHelperInterface::callMethod(v17, 0xCu, "Get open ports (Extension)", v25, 3u, 0, 0, 0, 0, v24, &v23);
-        if ((v21 & 1) == 0)
+        v19 = i;
+        bzero(v23, 0x1000uLL);
+        v24[2] = v17;
+        v20 = ApplePDPHelperInterface::callMethod(v16, 0xCu, "Get open ports (Extension)", v24, 3u, 0, 0, 0, 0, v23, &v22);
+        if ((v20 & 1) == 0)
         {
           break;
         }
 
-        if ((ApplePDPHelperInterface::fillupPortLists(v21, v16, v13, v24, 0x1000uLL, &v22, v18) & 1) == 0)
+        if ((ApplePDPHelperInterface::fillupPortLists(v20, v15, v13, v23, 0x1000uLL, &v21, v17) & 1) == 0)
         {
-          goto LABEL_6;
+          return 0;
         }
 
-        v19 = 0;
-        v18 = 1;
-        if ((v20 & 1) == 0)
+        v17 = 1;
+        if ((v19 & 1) == 0)
         {
-          *v12 = 2 * v22;
-          result = 1;
-          goto LABEL_7;
+          *v12 = 2 * v21;
+          return 1;
         }
       }
 
@@ -4520,27 +4473,21 @@ uint64_t ApplePDPHelperInterface::getOpenPortsExt(ApplePDPHelperInterface *this,
     syslog(3, "%s: portLists/copiedBytes should not be NULL\n");
   }
 
-LABEL_6:
-  result = 0;
-LABEL_7:
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t ApplePDPHelperInterface::blockPDPTraffic(ApplePDPHelperInterface *this, unsigned int a2, unsigned int a3)
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = a2;
-  v5[1] = a3;
-  result = ApplePDPHelperInterface::callScalarMethod(this, 0x10u, "Block PDP traffic", v5, 2u, 0, 0);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = a2;
+  v4[1] = a3;
+  return ApplePDPHelperInterface::callScalarMethod(this, 0x10u, "Block PDP traffic", v4, 2u, 0, 0);
 }
 
 uint64_t ApplePDPHelperInterface::getKeepaliveOffloadFrames(ApplePDPHelperInterface *a1, unsigned int a2, void *a3, _DWORD *a4)
 {
   v4 = 0;
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (a3)
   {
     if (a4)
@@ -4548,44 +4495,43 @@ uint64_t ApplePDPHelperInterface::getKeepaliveOffloadFrames(ApplePDPHelperInterf
       v4 = *a4;
       if (v4)
       {
-        v9 = 132 * v4;
-        v10[0] = a2;
+        v8 = 132 * v4;
+        v9[0] = a2;
         *a4 = 0;
-        v6 = ApplePDPHelperInterface::callMethod(a1, 0x12u, "Get Keepalive Offload Frames", v10, 1u, 0, 0, 0, 0, a3, &v9);
+        v6 = ApplePDPHelperInterface::callMethod(a1, 0x12u, "Get Keepalive Offload Frames", v9, 1u, 0, 0, 0, 0, a3, &v8);
         v4 = 0;
         if (v6)
         {
-          if (v9 % 0x84)
+          if (v8 % 0x84)
           {
-            syslog(3, "%s: Returned size %zu is not a multiple of frame size %lu\n", "BOOL ApplePDPHelperInterface::getKeepaliveOffloadFrames(unsigned int, AppleIPAppenderKeepaliveOffloadFrame_t *, unsigned int *)", v9, 132);
-            v4 = 0;
+            syslog(3, "%s: Returned size %zu is not a multiple of frame size %lu\n", "BOOL ApplePDPHelperInterface::getKeepaliveOffloadFrames(unsigned int, AppleIPAppenderKeepaliveOffloadFrame_t *, unsigned int *)", v8, 132);
+            return 0;
           }
 
           else
           {
-            *a4 = v9 / 0x84;
-            v4 = 1;
+            *a4 = v8 / 0x84;
+            return 1;
           }
         }
       }
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 unint64_t ApplePDPHelperInterface::registerFilterRuleCallBack(ApplePDPHelperInterface *a1, const void *a2, const void *a3)
 {
   v3 = a2;
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     syslog(6, "client callback: %p, context: %p\n", a2, a3);
-    v9[0] = v3;
-    v9[1] = a3;
-    v8 = 0;
-    v3 = ApplePDPHelperInterface::callAsyncScalarMethod(a1, 0x14u, "register filter rule callback", ApplePDPHelperInterface::filterRuleNotification, v3, v9, 2u, 0, &v8);
+    v8[0] = v3;
+    v8[1] = a3;
+    v7 = 0;
+    v3 = ApplePDPHelperInterface::callAsyncScalarMethod(a1, 0x14u, "register filter rule callback", ApplePDPHelperInterface::filterRuleNotification, v3, v8, 2u, 0, &v7);
     if ((v3 & 1) == 0)
     {
       syslog(3, "Filter rule callback registration failed\n");
@@ -4597,7 +4543,6 @@ unint64_t ApplePDPHelperInterface::registerFilterRuleCallBack(ApplePDPHelperInte
     syslog(3, "filter rule callback is NULL\n");
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -4665,20 +4610,18 @@ uint64_t ApplePDPHelperInterface::notifyDedicatedBearer(ApplePDPHelperInterface 
 
   if (*(a2 + 2) >= 0xFFu)
   {
-    v6 = *(a2 + 2);
     syslog(3, "Invalid bearerID %u\n");
     return 0;
   }
 
   if (*(a2 + 3) >= 3)
   {
-    v7 = *(a2 + 3);
     syslog(3, "Invalid service %u\n");
     return 0;
   }
 
-  v8 = 16;
-  v4 = ApplePDPHelperInterface::callStructMethod(a1, 0x13u, "Notify Dedicated bearer up or down", a2, 0x10u, a3, &v8);
+  v6 = 16;
+  v4 = ApplePDPHelperInterface::callStructMethod(a1, 0x13u, "Notify Dedicated bearer up or down", a2, 0x10u, a3, &v6);
   if ((v4 & 1) == 0)
   {
     syslog(3, "Notification of dedicated bearer to driver failed, enable %u, interfaceID: %u, bearerID: %u, service: %u\n", *a2, *(a2 + 1), *(a2 + 2), *(a2 + 3));
@@ -4819,15 +4762,15 @@ uint64_t ApplePDPHelperInterface::probeVariant(ApplePDPHelperInterface *this)
 
 void ___ZN23ApplePDPHelperInterface12probeVariantEv_block_invoke()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9[2] = xmmword_278CBC3A8;
-  v9[3] = *&off_278CBC3B8;
-  v9[4] = xmmword_278CBC3C8;
-  v9[0] = xmmword_278CBC388;
-  v9[1] = *&off_278CBC398;
-  std::map<char const*,ApplePDPHelperInterface::variant>::map[abi:ne200100](&v7, v9, 5);
-  v1 = v7;
-  if (v7 == v8)
+  v9 = *MEMORY[0x277D85DE8];
+  v8[2] = xmmword_278CBC3A8;
+  v8[3] = *&off_278CBC3B8;
+  v8[4] = xmmword_278CBC3C8;
+  v8[0] = xmmword_278CBC388;
+  v8[1] = *&off_278CBC398;
+  std::map<char const*,ApplePDPHelperInterface::variant>::map[abi:ne200100](&v6, v8, 5);
+  v1 = v6;
+  if (v6 == v7)
   {
 LABEL_9:
     v5 = 1;
@@ -4862,7 +4805,7 @@ LABEL_9:
       }
 
       v1 = v3;
-      if (v3 == v8)
+      if (v3 == v7)
       {
         goto LABEL_9;
       }
@@ -4872,8 +4815,7 @@ LABEL_9:
   }
 
   ApplePDPHelperInterface::probeVariant(void)::ret = v5;
-  std::__tree<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>>>::destroy(&v7, v8[0]);
-  v6 = *MEMORY[0x277D85DE8];
+  std::__tree<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,AppleCellularDataPlaneHelperInterface::PendingFilterRuleRequestMetaData>>>::destroy(&v6, v7[0]);
 }
 
 void *std::__list_imp<__CFRunLoop *>::clear(void *result)
@@ -4903,18 +4845,18 @@ void *std::__list_imp<__CFRunLoop *>::clear(void *result)
   return result;
 }
 
-void *std::map<char const*,ApplePDPHelperInterface::variant>::map[abi:ne200100](void *a1, unint64_t *a2, uint64_t a3)
+uint64_t **std::map<char const*,ApplePDPHelperInterface::variant>::map[abi:ne200100](uint64_t **a1, unint64_t *a2, uint64_t a3)
 {
   a1[1] = 0;
   v4 = a1 + 1;
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 16 * a3;
     do
     {
-      std::__tree<std::__value_type<char const*,ApplePDPHelperInterface::variant>,std::__map_value_compare<char const*,std::__value_type<char const*,ApplePDPHelperInterface::variant>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,ApplePDPHelperInterface::variant>>>::__emplace_hint_unique_key_args<char const*,std::pair<char const* const,ApplePDPHelperInterface::variant> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<char const*,ApplePDPHelperInterface::variant>,std::__map_value_compare<char const*,std::__value_type<char const*,ApplePDPHelperInterface::variant>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,ApplePDPHelperInterface::variant>>>::__emplace_hint_unique_key_args<char const*,std::pair<char const* const,ApplePDPHelperInterface::variant> const&>(a1, v4, a2, a2);
       a2 += 2;
       v6 -= 16;
     }
@@ -4925,15 +4867,15 @@ void *std::map<char const*,ApplePDPHelperInterface::variant>::map[abi:ne200100](
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<char const*,ApplePDPHelperInterface::variant>,std::__map_value_compare<char const*,std::__value_type<char const*,ApplePDPHelperInterface::variant>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,ApplePDPHelperInterface::variant>>>::__emplace_hint_unique_key_args<char const*,std::pair<char const* const,ApplePDPHelperInterface::variant> const&>(void *a1, void *a2, unint64_t *a3)
+uint64_t std::__tree<std::__value_type<char const*,ApplePDPHelperInterface::variant>,std::__map_value_compare<char const*,std::__value_type<char const*,ApplePDPHelperInterface::variant>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,ApplePDPHelperInterface::variant>>>::__emplace_hint_unique_key_args<char const*,std::pair<char const* const,ApplePDPHelperInterface::variant> const&>(uint64_t **a1, void *a2, unint64_t *a3, _OWORD *a4)
 {
-  v3 = *std::__tree<std::__value_type<char const*,ApplePDPHelperInterface::variant>,std::__map_value_compare<char const*,std::__value_type<char const*,ApplePDPHelperInterface::variant>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,ApplePDPHelperInterface::variant>>>::__find_equal<char const*>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<char const*,ApplePDPHelperInterface::variant>,std::__map_value_compare<char const*,std::__value_type<char const*,ApplePDPHelperInterface::variant>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,ApplePDPHelperInterface::variant>>>::__find_equal<char const*>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 void *std::__tree<std::__value_type<char const*,ApplePDPHelperInterface::variant>,std::__map_value_compare<char const*,std::__value_type<char const*,ApplePDPHelperInterface::variant>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,ApplePDPHelperInterface::variant>>>::__find_equal<char const*>(void *a1, void *a2, void *a3, void *a4, unint64_t *a5)

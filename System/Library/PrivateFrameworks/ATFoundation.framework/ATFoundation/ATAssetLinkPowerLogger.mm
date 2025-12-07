@@ -13,15 +13,15 @@
 
 - (void)_flushMessagesToPowerlog
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   aggregation = [(ATAssetLinkPowerLogger *)self aggregation];
   allValues = [aggregation allValues];
 
   if ([allValues count])
   {
-    v9 = @"messages";
-    v10[0] = allValues;
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = @"messages";
+    v9[0] = allValues;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     PLLogRegisteredEvent();
     aggregation2 = [(ATAssetLinkPowerLogger *)self aggregation];
     [aggregation2 removeAllObjects];
@@ -36,8 +36,6 @@
 
     [(ATAssetLinkPowerLogger *)self setFlushTimer:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_incrementCountForAggregates:(id)aggregates key:(id)key
@@ -217,40 +215,38 @@ LABEL_5:
 
 void __70__ATAssetLinkPowerLogger_logAssetLinkOfType_didFinishAsset_withError___block_invoke(uint64_t a1)
 {
-  v2 = [[ATAssetLinkPowerLoggerAggregationKey alloc] initWithLinkType:*(a1 + 80) dataclass:*(a1 + 32) assetType:*(a1 + 40)];
-  v3 = *(a1 + 56);
-  v10 = v2;
-  v4 = [*(a1 + 48) _aggregatesForKey:? createIfNotExistsWithTimestamp:?];
-  v5 = MEMORY[0x277CCABB0];
-  v6 = [v4 objectForKeyedSubscript:@"sumBytesDownloaded"];
-  v7 = [v5 numberWithUnsignedLongLong:{*(a1 + 88) + objc_msgSend(v6, "unsignedLongLongValue")}];
-  [v4 setObject:v7 forKeyedSubscript:@"sumBytesDownloaded"];
+  v8 = [[ATAssetLinkPowerLoggerAggregationKey alloc] initWithLinkType:*(a1 + 80) dataclass:*(a1 + 32) assetType:*(a1 + 40)];
+  v2 = [*(a1 + 48) _aggregatesForKey:? createIfNotExistsWithTimestamp:?];
+  v3 = MEMORY[0x277CCABB0];
+  v4 = [v2 objectForKeyedSubscript:@"sumBytesDownloaded"];
+  v5 = [v3 numberWithUnsignedLongLong:{*(a1 + 88) + objc_msgSend(v4, "unsignedLongLongValue")}];
+  [v2 setObject:v5 forKeyedSubscript:@"sumBytesDownloaded"];
 
   if (*(a1 + 64))
   {
-    v8 = @"countDownloadsFailed";
+    v6 = @"countDownloadsFailed";
   }
 
   else
   {
-    v8 = @"countDownloadsSucceeded";
+    v6 = @"countDownloadsSucceeded";
   }
 
-  [*(a1 + 48) _incrementCountForAggregates:v4 key:v8];
+  [*(a1 + 48) _incrementCountForAggregates:v2 key:v6];
   if (*(a1 + 96) == 1)
   {
-    [*(a1 + 48) _incrementCountForAggregates:v4 key:@"countFinishedOnCharger"];
+    [*(a1 + 48) _incrementCountForAggregates:v2 key:@"countFinishedOnCharger"];
   }
 
-  v9 = [v4 objectForKeyedSubscript:@"countNetworkTypes"];
-  if (!v9)
+  v7 = [v2 objectForKeyedSubscript:@"countNetworkTypes"];
+  if (!v7)
   {
-    v9 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:1];
-    [v4 setObject:v9 forKeyedSubscript:@"countNetworkTypes"];
+    v7 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:1];
+    [v2 setObject:v7 forKeyedSubscript:@"countNetworkTypes"];
   }
 
-  [*(a1 + 48) _incrementCountForAggregates:v9 key:*(a1 + 72)];
-  [v4 setObject:*(a1 + 56) forKeyedSubscript:@"timestampEnd"];
+  [*(a1 + 48) _incrementCountForAggregates:v7 key:*(a1 + 72)];
+  [v2 setObject:*(a1 + 56) forKeyedSubscript:@"timestampEnd"];
   [*(a1 + 48) _scheduleFlushTimer];
 }
 
@@ -288,32 +284,30 @@ void __70__ATAssetLinkPowerLogger_logAssetLinkOfType_didFinishAsset_withError___
 
 void __70__ATAssetLinkPowerLogger_logAssetLinkOfType_didBeginDownloadingAsset___block_invoke(uint64_t a1)
 {
-  v2 = [[ATAssetLinkPowerLoggerAggregationKey alloc] initWithLinkType:*(a1 + 64) dataclass:*(a1 + 32) assetType:*(a1 + 40)];
-  v3 = *(a1 + 56);
-  v8 = v2;
-  v4 = [*(a1 + 48) _aggregatesForKey:? createIfNotExistsWithTimestamp:?];
-  v5 = MEMORY[0x277CCABB0];
-  v6 = [v4 objectForKeyedSubscript:@"sumBytesRequested"];
-  v7 = [v5 numberWithUnsignedLongLong:{*(a1 + 72) + objc_msgSend(v6, "unsignedLongLongValue")}];
-  [v4 setObject:v7 forKeyedSubscript:@"sumBytesRequested"];
+  v6 = [[ATAssetLinkPowerLoggerAggregationKey alloc] initWithLinkType:*(a1 + 64) dataclass:*(a1 + 32) assetType:*(a1 + 40)];
+  v2 = [*(a1 + 48) _aggregatesForKey:? createIfNotExistsWithTimestamp:?];
+  v3 = MEMORY[0x277CCABB0];
+  v4 = [v2 objectForKeyedSubscript:@"sumBytesRequested"];
+  v5 = [v3 numberWithUnsignedLongLong:{*(a1 + 72) + objc_msgSend(v4, "unsignedLongLongValue")}];
+  [v2 setObject:v5 forKeyedSubscript:@"sumBytesRequested"];
 
-  [*(a1 + 48) _incrementCountForAggregates:v4 key:@"countDownloadsBegun"];
+  [*(a1 + 48) _incrementCountForAggregates:v2 key:@"countDownloadsBegun"];
   if (*(a1 + 80) == 1)
   {
-    [*(a1 + 48) _incrementCountForAggregates:v4 key:@"countCanUseCellular"];
+    [*(a1 + 48) _incrementCountForAggregates:v2 key:@"countCanUseCellular"];
   }
 
   if (*(a1 + 81) == 1)
   {
-    [*(a1 + 48) _incrementCountForAggregates:v4 key:@"countIsForeground"];
+    [*(a1 + 48) _incrementCountForAggregates:v2 key:@"countIsForeground"];
   }
 
   if (*(a1 + 82) == 1)
   {
-    [*(a1 + 48) _incrementCountForAggregates:v4 key:@"countEnqueuedOnCharger"];
+    [*(a1 + 48) _incrementCountForAggregates:v2 key:@"countEnqueuedOnCharger"];
   }
 
-  [v4 setObject:*(a1 + 56) forKeyedSubscript:@"timestampEnd"];
+  [v2 setObject:*(a1 + 56) forKeyedSubscript:@"timestampEnd"];
   [*(a1 + 48) _scheduleFlushTimer];
 }
 
@@ -358,7 +352,6 @@ void __70__ATAssetLinkPowerLogger_logAssetLinkOfType_didBeginDownloadingAsset___
 
 uint64_t __40__ATAssetLinkPowerLogger_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_logger = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();

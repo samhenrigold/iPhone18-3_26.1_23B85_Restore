@@ -101,10 +101,9 @@ LABEL_17:
 LABEL_18:
 }
 
-void __108__VSMultiAppInstallUtility_determineMultiAppEnabledForProvider_withAccount_withBagLoadOperation_completion___block_invoke(uint64_t a1)
+void __108__VSMultiAppInstallUtility_determineMultiAppEnabledForProvider_withAccount_withBagLoadOperation_completion___block_invoke(uint64_t a1, char a2)
 {
-  v2 = *(a1 + 40);
-  v1 = *(a1 + 32);
+  v2 = *(a1 + 32);
   VSPerformBlockOnMainThread();
 }
 
@@ -156,7 +155,7 @@ uint64_t __108__VSMultiAppInstallUtility_determineMultiAppEnabledForProvider_wit
 
 void __116__VSMultiAppInstallUtility_isShowMultiAppInstallForCaseAlwaysRequirePasswordEnabledWithBagLoadOperation_completion___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained value];
   if (objc_opt_respondsToSelector())
@@ -165,44 +164,42 @@ void __116__VSMultiAppInstallUtility_isShowMultiAppInstallForCaseAlwaysRequirePa
     v5 = VSDefaultLogObject();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7[0] = 67109120;
-      v7[1] = v4;
-      _os_log_impl(&dword_270DD4000, v5, OS_LOG_TYPE_DEFAULT, "isShowMultiAppInstallForCaseAlwaysRequirePasswordEnabled: %d", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = v4;
+      _os_log_impl(&dword_270DD4000, v5, OS_LOG_TYPE_DEFAULT, "isShowMultiAppInstallForCaseAlwaysRequirePasswordEnabled: %d", v6, 8u);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)getPendingConsentBundleIDsFromSelectedAppDescriptions:(id)descriptions completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   descriptionsCopy = descriptions;
   handlerCopy = handler;
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v9 = descriptionsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        bundleID = [*(*(&v16 + 1) + 8 * v13) bundleID];
+        bundleID = [*(*(&v15 + 1) + 8 * v13) bundleID];
         if (bundleID)
         {
           [v8 addObject:bundleID];
@@ -212,14 +209,13 @@ void __116__VSMultiAppInstallUtility_isShowMultiAppInstallForCaseAlwaysRequirePa
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
   }
 
   [self filterBundleIDsByPendingConsent:v8 completionHandler:handlerCopy];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (id)getDecidedNonChannelAppsForProvider:(id)provider account:(id)account device:(id)device
@@ -269,7 +265,7 @@ void __116__VSMultiAppInstallUtility_isShowMultiAppInstallForCaseAlwaysRequirePa
 
 void __78__VSMultiAppInstallUtility_filterBundleIDsByPendingConsent_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -287,9 +283,9 @@ void __78__VSMultiAppInstallUtility_filterBundleIDsByPendingConsent_completionHa
     v9 = VSDefaultLogObject();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = v8;
-      _os_log_impl(&dword_270DD4000, v9, OS_LOG_TYPE_DEFAULT, "Received final bundle IDs: %@", &v14, 0xCu);
+      v12 = 138412290;
+      v13 = v8;
+      _os_log_impl(&dword_270DD4000, v9, OS_LOG_TYPE_DEFAULT, "Received final bundle IDs: %@", &v12, 0xCu);
     }
 
     v10 = [*(a1 + 32) mutableCopy];
@@ -297,30 +293,26 @@ void __78__VSMultiAppInstallUtility_filterBundleIDsByPendingConsent_completionHa
     v11 = VSDefaultLogObject();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = v10;
-      _os_log_impl(&dword_270DD4000, v11, OS_LOG_TYPE_DEFAULT, "Omitted bundle IDs: %@", &v14, 0xCu);
+      v12 = 138412290;
+      v13 = v10;
+      _os_log_impl(&dword_270DD4000, v11, OS_LOG_TYPE_DEFAULT, "Omitted bundle IDs: %@", &v12, 0xCu);
     }
 
     [*(a1 + 40) addObjectsFromArray:v8];
   }
 
-  v12 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __78__VSMultiAppInstallUtility_filterBundleIDsByPendingConsent_completionHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_270DD4000, log, OS_LOG_TYPE_ERROR, "Error filtering out consented candidateBundleIDs %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_270DD4000, log, OS_LOG_TYPE_ERROR, "Error filtering out consented candidateBundleIDs %@: %@", &v4, 0x16u);
 }
 
 @end

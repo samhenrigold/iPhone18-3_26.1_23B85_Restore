@@ -13,7 +13,11 @@
   y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  sub_257E55F30(x, y, width, height);
+  v7.n128_f64[0] = x;
+  v8.n128_f64[0] = y;
+  v9.n128_f64[0] = width;
+  v10.n128_f64[0] = height;
+  sub_257E55F30(v7, v8, v9, v10);
 }
 
 - (CGSize)intrinsicContentSize

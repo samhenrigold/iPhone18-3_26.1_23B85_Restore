@@ -124,46 +124,46 @@ LABEL_20:
 
 - (id)jsonDictionary
 {
-  v16[4] = *MEMORY[0x1E69E9840];
+  v15[4] = *MEMORY[0x1E69E9840];
   rawSessionId = [(BMSageMetadata *)self rawSessionId];
   uUIDString = [rawSessionId UUIDString];
 
   clientId = [(BMSageMetadata *)self clientId];
   clientRequestId = [(BMSageMetadata *)self clientRequestId];
   clientSessionId = [(BMSageMetadata *)self clientSessionId];
-  v15[0] = @"rawSessionId";
+  v14[0] = @"rawSessionId";
   null = uUIDString;
   if (!uUIDString)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[0] = null;
-  v15[1] = @"clientId";
+  v15[0] = null;
+  v14[1] = @"clientId";
   null2 = clientId;
   if (!clientId)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[1] = null2;
-  v15[2] = @"clientRequestId";
+  v15[1] = null2;
+  v14[2] = @"clientRequestId";
   null3 = clientRequestId;
   if (!clientRequestId)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[2] = null3;
-  v15[3] = @"clientSessionId";
+  v15[2] = null3;
+  v14[3] = @"clientSessionId";
   null4 = clientSessionId;
   if (!clientSessionId)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[3] = null4;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v15[3] = null4;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
   if (clientSessionId)
   {
     if (clientRequestId)
@@ -208,14 +208,13 @@ LABEL_12:
 LABEL_19:
 
 LABEL_13:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (BMSageMetadata)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v49[1] = *MEMORY[0x1E69E9840];
+  v48[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"rawSessionId"];
   if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -223,7 +222,7 @@ LABEL_13:
     v7 = 0;
 LABEL_4:
     v8 = [dictionaryCopy objectForKeyedSubscript:@"clientId"];
-    v38 = v6;
+    v37 = v6;
     if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -238,28 +237,28 @@ LABEL_4:
 
         v21 = objc_alloc(MEMORY[0x1E696ABC0]);
         v22 = *MEMORY[0x1E698F240];
-        v44 = *MEMORY[0x1E696A578];
+        v43 = *MEMORY[0x1E696A578];
         v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"clientId"];
-        v45 = v11;
-        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+        v44 = v11;
+        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
         v15 = 0;
         *error = [v21 initWithDomain:v22 code:2 userInfo:v9];
         error = 0;
         selfCopy9 = self;
 LABEL_34:
 
-        v6 = v38;
+        v6 = v37;
 LABEL_35:
 
         goto LABEL_36;
       }
 
-      v37 = v8;
+      v36 = v8;
     }
 
     else
     {
-      v37 = 0;
+      v36 = 0;
     }
 
     v9 = [dictionaryCopy objectForKeyedSubscript:@"clientRequestId"];
@@ -273,7 +272,7 @@ LABEL_35:
           v11 = 0;
           v15 = 0;
           selfCopy9 = self;
-          error = v37;
+          error = v36;
           goto LABEL_34;
         }
 
@@ -281,10 +280,10 @@ LABEL_35:
         v23 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy = error;
         v25 = *MEMORY[0x1E698F240];
-        v42 = *MEMORY[0x1E696A578];
+        v41 = *MEMORY[0x1E696A578];
         v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"clientRequestId"];
-        v43 = v13;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+        v42 = v13;
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
         v26 = [v23 initWithDomain:v25 code:2 userInfo:v12];
         v11 = 0;
         v15 = 0;
@@ -309,8 +308,8 @@ LABEL_35:
       v13 = 0;
       selfCopy9 = self;
 LABEL_13:
-      error = v37;
-      selfCopy9 = [(BMSageMetadata *)selfCopy9 initWithRawSessionId:v10 clientId:v37 clientRequestId:v11 clientSessionId:v13];
+      error = v36;
+      selfCopy9 = [(BMSageMetadata *)selfCopy9 initWithRawSessionId:v10 clientId:v36 clientRequestId:v11 clientSessionId:v13];
       v15 = selfCopy9;
 LABEL_33:
 
@@ -328,19 +327,19 @@ LABEL_33:
 
     if (error)
     {
-      v36 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v35 = *MEMORY[0x1E698F240];
-      v40 = *MEMORY[0x1E696A578];
+      v35 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v34 = *MEMORY[0x1E698F240];
+      v39 = *MEMORY[0x1E696A578];
       v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"clientSessionId"];
-      v41 = v27;
-      v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-      *error = [v36 initWithDomain:v35 code:2 userInfo:v28];
+      v40 = v27;
+      v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+      *error = [v35 initWithDomain:v34 code:2 userInfo:v28];
     }
 
     v13 = 0;
     v15 = 0;
 LABEL_32:
-    error = v37;
+    error = v36;
     goto LABEL_33;
   }
 
@@ -356,10 +355,10 @@ LABEL_32:
 
     v18 = objc_alloc(MEMORY[0x1E696ABC0]);
     v19 = *MEMORY[0x1E698F240];
-    v46 = *MEMORY[0x1E696A578];
+    v45 = *MEMORY[0x1E696A578];
     v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"rawSessionId"];
-    v47 = v7;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+    v46 = v7;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
     v15 = 0;
     *error = [v18 initWithDomain:v19 code:2 userInfo:v20];
     error = v20;
@@ -384,14 +383,14 @@ LABEL_32:
     goto LABEL_37;
   }
 
-  v31 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v32 = *MEMORY[0x1E698F240];
-  v48 = *MEMORY[0x1E696A578];
-  v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"-initWithUUIDString: for %@ returned nil", @"rawSessionId"];
-  v49[0] = v33;
-  v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:&v48 count:1];
-  *error = [v31 initWithDomain:v32 code:2 userInfo:v34];
-  error = v33;
+  v30 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v31 = *MEMORY[0x1E698F240];
+  v47 = *MEMORY[0x1E696A578];
+  v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"-initWithUUIDString: for %@ returned nil", @"rawSessionId"];
+  v48[0] = v32;
+  v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
+  *error = [v30 initWithDomain:v31 code:2 userInfo:v33];
+  error = v32;
 
   v15 = 0;
 LABEL_36:
@@ -399,7 +398,6 @@ LABEL_36:
 LABEL_37:
 LABEL_38:
 
-  v29 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -592,23 +590,23 @@ LABEL_35:
 
 - (BMSageMetadata)initWithRawSessionId:(id)id clientId:(id)clientId clientRequestId:(id)requestId clientSessionId:(id)sessionId
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   idCopy = id;
   clientIdCopy = clientId;
   requestIdCopy = requestId;
   sessionIdCopy = sessionId;
-  v19.receiver = self;
-  v19.super_class = BMSageMetadata;
-  v14 = [(BMEventBase *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = BMSageMetadata;
+  v14 = [(BMEventBase *)&v18 init];
   if (v14)
   {
     v14->_dataVersion = [objc_opt_class() latestDataVersion];
     if (idCopy)
     {
-      v20[0] = 0;
-      v20[1] = 0;
-      [idCopy getUUIDBytes:v20];
-      v15 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v20 length:16];
+      v19[0] = 0;
+      v19[1] = 0;
+      [idCopy getUUIDBytes:v19];
+      v15 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v19 length:16];
       raw_rawSessionId = v14->_raw_rawSessionId;
       v14->_raw_rawSessionId = v15;
     }
@@ -624,42 +622,37 @@ LABEL_35:
     objc_storeStrong(&v14->_clientSessionId, sessionId);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 + (id)protoFields
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"rawSessionId" number:1 type:14 subMessageClass:0];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"clientId" number:2 type:13 subMessageClass:0];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"clientRequestId" number:3 type:13 subMessageClass:0];
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"clientSessionId" number:4 type:13 subMessageClass:0];
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
 + (id)columns
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"rawSessionId" dataType:6 requestOnly:0 fieldNumber:1 protoDataType:14 convertedType:3];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"clientId" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"clientRequestId" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"clientSessionId" dataType:2 requestOnly:0 fieldNumber:4 protoDataType:13 convertedType:0];
-  v9[0] = v2;
-  v9[1] = v3;
-  v9[2] = v4;
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v2;
+  v8[1] = v3;
+  v8[2] = v4;
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }

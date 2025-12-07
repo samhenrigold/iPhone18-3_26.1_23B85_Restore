@@ -1,3 +1,37 @@
+uint64_t AppleUVDMLibPriv::queryInterfaceStatic(AppleUVDMLibPriv *this, void *a2, CFUUIDBytes a3, void **a4)
+{
+  v4 = *&a3.byte8;
+  v5 = *(this + 1);
+  v6 = CFUUIDCreateFromUUIDBytes(0, *&a2);
+  v7 = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorSystemDefault, 0, 0, 0, 0, 0, 0, 0, 0, 0xC0u, 0, 0, 0, 0, 0, 0, 0x46u);
+  if (CFEqual(v6, v7) || (v8 = CFUUIDGetConstantUUIDWithBytes(0, 0xC2u, 0x44u, 0xE8u, 0x58u, 0x10u, 0x9Cu, 0x11u, 0xD4u, 0x91u, 0xD4u, 0, 0x50u, 0xE4u, 0xC6u, 0x42u, 0x6Fu), CFEqual(v6, v8)))
+  {
+    v9 = 0;
+    *v4 = v5 + 8;
+    v10 = *(v5 + 16);
+  }
+
+  else
+  {
+    v12 = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorSystemDefault, 0xBDu, 0xD2u, 0x1Du, 0x9Au, 0xB0u, 0x5Cu, 0x4Du, 0x9Eu, 0xA7u, 0xBFu, 0xA2u, 0xDCu, 0xC5u, 0xF2u, 0xFFu, 0xB3u);
+    if (!CFEqual(v6, v12))
+    {
+      *v4 = 0;
+      v9 = 2147483652;
+      goto LABEL_5;
+    }
+
+    v9 = 0;
+    *v4 = v5 + 24;
+    v10 = *(v5 + 32);
+  }
+
+  ++*(v10 + 48);
+LABEL_5:
+  CFRelease(v6);
+  return v9;
+}
+
 uint64_t AppleUVDMLibPriv::addRefStatic(AppleUVDMLibPriv *this, void *a2)
 {
   v2 = *(this + 1);

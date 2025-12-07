@@ -11,10 +11,10 @@
 
 - (_DKScreenSharingMonitor)init
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = _DKScreenSharingMonitor;
-  v2 = [(_DKMonitor *)&v12 init];
+  v16 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = _DKScreenSharingMonitor;
+  v2 = [(_DKMonitor *)&v11 init];
   if (v2)
   {
     mEMORY[0x277CB8698] = [MEMORY[0x277CB8698] sharedSystemScreenContext];
@@ -31,14 +31,13 @@
       v8 = v2->_outputContext;
       v9 = v2->_screenSharingStream;
       *buf = 138412546;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
       _os_log_impl(&dword_22595A000, knowledgeChannel, OS_LOG_TYPE_INFO, "Enabling screen mirroring monitor with AVOutputContext: %@, screenSharingStream %@", buf, 0x16u);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -73,7 +72,7 @@
 
 - (void)registerForScreenMirroringNotifications
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   v4 = *MEMORY[0x277CB8628];
   outputContext = [(_DKScreenSharingMonitor *)self outputContext];
@@ -87,12 +86,10 @@
   if (os_log_type_enabled(contextChannel, OS_LOG_TYPE_INFO))
   {
     v9 = [MEMORY[0x277CCABB0] numberWithInteger:{-[_DKScreenSharingMonitor currentMirroringDeviceCount](self, "currentMirroringDeviceCount")}];
-    v11 = 138412290;
-    v12 = v9;
-    _os_log_impl(&dword_22595A000, contextChannel, OS_LOG_TYPE_INFO, "Registered for screen mirroring notifications with current device count: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_impl(&dword_22595A000, contextChannel, OS_LOG_TYPE_INFO, "Registered for screen mirroring notifications with current device count: %@", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mirroringDidChange:(id)change

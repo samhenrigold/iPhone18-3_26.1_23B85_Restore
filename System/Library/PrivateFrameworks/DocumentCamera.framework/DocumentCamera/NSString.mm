@@ -32,7 +32,7 @@ void __58__NSString_DC__dc_stringByReplacingCharactersInStringMap___block_invoke
   [v4 addObject:v11];
 }
 
-unint64_t __38__NSString_DC__dc_lengthOfLongestLine__block_invoke(uint64_t a1, void *a2)
+void *__38__NSString_DC__dc_lengthOfLongestLine__block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(*(*(a1 + 32) + 8) + 24);
   result = [a2 length];

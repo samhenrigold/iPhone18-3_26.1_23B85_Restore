@@ -18,7 +18,7 @@
 
 - (void)createViewControllerForFeedViewController:(BSUIFeedViewController *)controller shouldReportFigaro:(BOOL)figaro completionHandler:(id)handler
 {
-  v9 = sub_6620C(&unk_3BDBB0);
+  v9 = sub_6620C(&unk_3BDBB0, &qword_2E47D0);
   __chkstk_darwin(v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);

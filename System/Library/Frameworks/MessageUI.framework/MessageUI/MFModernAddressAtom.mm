@@ -87,20 +87,20 @@
 
   v15 = *MEMORY[0x1E695EFF8];
   v16 = *(MEMORY[0x1E695EFF8] + 8);
-  v28.receiver = self;
-  v28.super_class = MFModernAddressAtom;
-  v17 = [(MFModernAddressAtom *)&v28 initWithFrame:v15, v16, 30.0, v14];
+  v30.receiver = self;
+  v30.super_class = MFModernAddressAtom;
+  v17 = [(MFModernAddressAtom *)&v30 initWithFrame:v15, v16, 30.0, v14];
   v18 = v17;
   v19 = v17;
   if (v17)
   {
     v17->_maxWidth = width;
     [(MFModernAddressAtom *)v17 setOpaque:0];
-    [(MFModernAddressAtom *)v19 setAutoresizesSubviews:1];
-    if (MFSolariumFeatureEnabled())
+    v20 = [(MFModernAddressAtom *)v19 setAutoresizesSubviews:1];
+    if (MFSolariumFeatureEnabled(v20, v21))
     {
-      v20 = [objc_alloc(MEMORY[0x1E69DC8E0]) initWithDelegate:v19];
-      [(MFModernAddressAtom *)v19 addInteraction:v20];
+      v22 = [objc_alloc(MEMORY[0x1E69DC8E0]) initWithDelegate:v19];
+      [(MFModernAddressAtom *)v19 addInteraction:v22];
       [(MFModernAddressAtom *)v19 setContextMenuInteractionEnabled:1];
       [(MFModernAddressAtom *)v19 setShowsMenuAsPrimaryAction:1];
     }
@@ -109,21 +109,21 @@
     objc_storeStrong(&v18->_fullAddress, address);
     if (book)
     {
-      v21 = CFRetain(book);
+      v23 = CFRetain(book);
     }
 
     else
     {
-      v21 = 0;
+      v23 = 0;
     }
 
-    v19->_addressBook = v21;
+    v19->_addressBook = v23;
     [(MFModernAddressAtom *)v19 _updateDisplayStringIncludingABPerson:1];
-    v22 = objc_alloc(MEMORY[0x1E6996398]);
+    v24 = objc_alloc(MEMORY[0x1E6996398]);
     [(MFModernAddressAtom *)v19 bounds];
-    v23 = [v22 initWithFrame:0 presentationOptions:1 separatorStyle:1 wrappingSupported:?];
+    v25 = [v24 initWithFrame:0 presentationOptions:1 separatorStyle:1 wrappingSupported:?];
     atomView = v19->_atomView;
-    v19->_atomView = v23;
+    v19->_atomView = v25;
 
     [(CNAtomView *)v19->_atomView setUserInteractionEnabled:0];
     [(CNAtomView *)v19->_atomView setAutoresizingMask:2];

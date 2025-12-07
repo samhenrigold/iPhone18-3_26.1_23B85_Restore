@@ -12,6 +12,7 @@
 - (void)encodeWithCoder:(id)coder;
 - (void)layoutSubviews;
 - (void)setCornerRadius:(CGFloat)cornerRadius;
+- (void)setHighlighted:(BOOL)highlighted;
 @end
 
 @implementation ASAuthorizationAppleIDButton
@@ -88,21 +89,20 @@
   [(ASAuthorizationAppleIDButton *)self _ak_buttonType];
   [(ASAuthorizationAppleIDButton *)self _ak_buttonStyle];
   [viewCopy bounds];
-  cornerRadius = self->_cornerRadius;
-  v9 = AKCreateAppleIDButtonImageWithCornerRadius();
+  v8 = AKCreateAppleIDButtonImageWithCornerRadius();
   [viewCopy bounds];
-  v11 = v10;
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
+  v16 = v15;
 
-  v19.origin.x = v11;
-  v19.origin.y = v13;
-  v19.size.width = v15;
-  v19.size.height = v17;
-  CGContextDrawImage(CurrentContext, v19, v9);
+  v18.origin.x = v10;
+  v18.origin.y = v12;
+  v18.size.width = v14;
+  v18.size.height = v16;
+  CGContextDrawImage(CurrentContext, v18, v8);
 
-  CGImageRelease(v9);
+  CGImageRelease(v8);
 }
 
 - (void)layoutSubviews
@@ -124,7 +124,7 @@
 
 - (void)_createHighlightFilterIfNecessary
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (!self->_highlightFilter)
   {
     v3 = objc_alloc(MEMORY[0x1E6979378]);
@@ -137,13 +137,11 @@
     v7 = [MEMORY[0x1E69DC888] colorWithWhite:1.0 alpha:1.0];
     -[CAFilter setValue:forKey:](v6, "setValue:forKey:", [v7 CGColor], @"inputColor");
 
-    v11[0] = self->_highlightFilter;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+    v10[0] = self->_highlightFilter;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
     layer = [(ASAuthorizationAppleIDButton *)self layer];
     [layer setFilters:v8];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_performAnimationToSetHighlighted:(BOOL)highlighted
@@ -169,6 +167,18 @@
   [v10 setFromValue:{objc_msgSend(v9, "CGColor")}];
   [v10 setToValue:{objc_msgSend(v6, "CGColor")}];
   v11 = [layer ak_addAdditiveAnimation:v10];
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+  highlightedCopy = highlighted;
+  if ([(ASAuthorizationAppleIDButton *)self isHighlighted]!= highlighted)
+  {
+    v5.receiver = self;
+    v5.super_class = ASAuthorizationAppleIDButton;
+    [(ASAuthorizationAppleIDButton *)&v5 setHighlighted:highlightedCopy];
+    [(ASAuthorizationAppleIDButton *)self _performAnimationToSetHighlighted:highlightedCopy];
+  }
 }
 
 - (int64_t)_ak_buttonType
@@ -207,7 +217,6 @@
 
 - (id)accessibilityLabel
 {
-  self->_type;
   v3 = _WBSLocalizedString();
 
   return v3;

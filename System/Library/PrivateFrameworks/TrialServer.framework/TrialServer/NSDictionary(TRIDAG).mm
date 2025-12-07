@@ -38,7 +38,7 @@
 
 - (id)triItemsInDagWithSource:()TRIDAG
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [self objectForKeyedSubscript:v4];
   v6 = v5;
@@ -53,33 +53,33 @@
         v9 = v4;
         v4 = [v7 objectAtIndexedSubscript:v8];
 
-        v20 = 0u;
-        v21 = 0u;
-        v18 = 0u;
         v19 = 0u;
+        v20 = 0u;
+        v17 = 0u;
+        v18 = 0u;
         v10 = [self objectForKeyedSubscript:{v4, 0}];
-        v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v19;
+          v13 = *v18;
           do
           {
             for (i = 0; i != v12; ++i)
             {
-              if (*v19 != v13)
+              if (*v18 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v18 + 1) + 8 * i);
+              v15 = *(*(&v17 + 1) + 8 * i);
               if (([v7 containsObject:v15] & 1) == 0)
               {
                 [v7 addObject:v15];
               }
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
           }
 
           while (v12);
@@ -96,8 +96,6 @@
   {
     v7 = objc_opt_new();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

@@ -226,14 +226,13 @@
         {
           self->super._isDone = 1;
           [(BKSearchOperation *)self setStartSearchFromIndex:self->_currentPageIndex];
-          [(BKSearchOperation *)self setLastSavedSearchResult:lastSavedSearchResult];
-          v38 = _AESearchLog();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          v41 = _AESearchLog([(BKSearchOperation *)self setLastSavedSearchResult:lastSavedSearchResult]);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
           {
-            v39 = [NSNumber numberWithUnsignedInteger:self->_currentPageIndex];
+            v42 = [NSNumber numberWithUnsignedInteger:self->_currentPageIndex];
             *buf = 138412290;
-            v43 = v39;
-            v40 = "Search: Max results hit %@";
+            v46 = v42;
+            v43 = "Search: Max results hit %@";
             goto LABEL_29;
           }
 
@@ -248,16 +247,15 @@ LABEL_34:
         if (v18 - v8 > 0.4)
         {
           [(BKSearchOperation *)self setStartSearchFromIndex:self->_currentPageIndex];
-          [(BKSearchOperation *)self setLastSavedSearchResult:lastSavedSearchResult];
-          v38 = _AESearchLog();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          v41 = _AESearchLog([(BKSearchOperation *)self setLastSavedSearchResult:lastSavedSearchResult]);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
           {
-            v39 = [NSNumber numberWithUnsignedInteger:self->_currentPageIndex];
+            v42 = [NSNumber numberWithUnsignedInteger:self->_currentPageIndex];
             *buf = 138412290;
-            v43 = v39;
-            v40 = "Search: update partial results %@";
+            v46 = v42;
+            v43 = "Search: update partial results %@";
 LABEL_29:
-            _os_log_impl(&dword_0, v38, OS_LOG_TYPE_DEFAULT, v40, buf, 0xCu);
+            _os_log_impl(&dword_0, v41, OS_LOG_TYPE_DEFAULT, v43, buf, 0xCu);
           }
 
           goto LABEL_30;
@@ -268,11 +266,11 @@ LABEL_29:
 
         if (!v20)
         {
-          v41 = _AESearchLog();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+          v44 = _AESearchLog(v21);
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_0, v41, OS_LOG_TYPE_DEFAULT, "Search: end of document reached", buf, 2u);
+            _os_log_impl(&dword_0, v44, OS_LOG_TYPE_DEFAULT, "Search: end of document reached", buf, 2u);
           }
 
           self->super._isDone = 1;
@@ -281,61 +279,61 @@ LABEL_29:
           goto LABEL_34;
         }
 
-        v21 = stringCopy;
-        v22 = v13;
+        v22 = stringCopy;
+        v23 = v13;
         lastSavedSearchResult = v20;
         pages = [v20 pages];
         lastObject = [pages lastObject];
         pdfDocument2 = [(BKPdfSearchOperation *)self pdfDocument];
-        v26 = [pdfDocument2 indexForPage:lastObject];
+        v27 = [pdfDocument2 indexForPage:lastObject];
 
-        self->_currentPageIndex = v26;
-        v27 = _AESearchLog();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        self->_currentPageIndex = v27;
+        v29 = _AESearchLog(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v28 = [NSNumber numberWithInteger:[BKPDFModernBookViewController pageNumberForPageIndex:v26]];
+          v30 = [NSNumber numberWithInteger:[BKPDFModernBookViewController pageNumberForPageIndex:v27]];
           *buf = 138412290;
-          v43 = v28;
-          _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "Search: found result on page %@", buf, 0xCu);
+          v46 = v30;
+          _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "Search: found result on page %@", buf, 0xCu);
         }
 
         string = [lastSavedSearchResult string];
-        v30 = [lastSavedSearchResult copy];
+        v32 = [lastSavedSearchResult copy];
 
-        [v30 extendSelectionForLineBoundaries];
-        v31 = objc_alloc_init(BKPDFSearchResult);
-        stringCopy = v21;
-        [(BKSearchResult *)v31 setSearchString:v21];
-        [(BKSearchResult *)v31 setOrdinal:self->super._ordinal];
-        [(BKPDFSearchResult *)v31 setSelection:lastSavedSearchResult];
-        string2 = [v30 string];
-        [(BKSearchResult *)v31 setText:string2];
+        [v32 extendSelectionForLineBoundaries];
+        v33 = objc_alloc_init(BKPDFSearchResult);
+        stringCopy = v22;
+        [(BKSearchResult *)v33 setSearchString:v22];
+        [(BKSearchResult *)v33 setOrdinal:self->super._ordinal];
+        [(BKPDFSearchResult *)v33 setSelection:lastSavedSearchResult];
+        string2 = [v32 string];
+        [(BKSearchResult *)v33 setText:string2];
 
-        text = [(BKSearchResult *)v31 text];
-        v34 = [text rangeOfString:string];
-        [(BKSearchResult *)v31 setSearchStringRange:v34, v35];
+        text = [(BKSearchResult *)v33 text];
+        v36 = [text rangeOfString:string];
+        [(BKSearchResult *)v33 setSearchStringRange:v36, v37];
 
-        [(BKSearchResult *)v31 setPageOffset:self->_currentPageIndex];
-        v36 = [BKPDFLocation locationForSelection:v30 offset:[(BKSearchResult *)v31 pageOffset]];
-        [(BKSearchResult *)v31 setLocation:v36];
+        [(BKSearchResult *)v33 setPageOffset:self->_currentPageIndex];
+        v38 = [BKPDFLocation locationForSelection:v32 offset:[(BKSearchResult *)v33 pageOffset]];
+        [(BKSearchResult *)v33 setLocation:v38];
 
-        [(NSMutableArray *)self->super._results addObject:v31];
+        v39 = [(NSMutableArray *)self->super._results addObject:v33];
         ++self->_foundResults;
-        v37 = _AESearchLog();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v40 = _AESearchLog(v39);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v43 = v31;
-          _os_log_impl(&dword_0, v37, OS_LOG_TYPE_DEFAULT, "Search: result %@", buf, 0xCu);
+          v46 = v33;
+          _os_log_impl(&dword_0, v40, OS_LOG_TYPE_DEFAULT, "Search: result %@", buf, 0xCu);
         }
 
         [(BKSearchOperation *)self setHavePartialResults:1];
-        v13 = v30;
+        v13 = v32;
         v6 = &_s13BookAnalytics9UtilitiesC29cellularRadioAccessTechnologyAA08CellularefG0OyFZTj_ptr;
         if ([(BKPdfSearchOperation *)self isCancelled])
         {
           v11 = 0;
-          v13 = v30;
+          v13 = v32;
           goto LABEL_35;
         }
       }

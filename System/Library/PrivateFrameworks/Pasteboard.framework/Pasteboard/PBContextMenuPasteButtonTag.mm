@@ -269,26 +269,25 @@
     return 0;
   }
 
-  v25 = self->_titleOrigin.y;
-  v26 = (*&y & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL;
-  v27 = ((*&y & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF;
+  v25 = (*&y & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL;
+  v26 = ((*&y & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF;
   if (y >= 0.0)
   {
-    v27 = 0;
     v26 = 0;
+    v25 = 0;
   }
 
   if ((*&y & 0x7FFFFFFFFFFFFFFFLL) == 0x7FF0000000000000)
   {
-    v26 = 1;
+    v25 = 1;
   }
 
   if ((*&y & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FF0000000000000)
   {
-    v26 = 1;
+    v25 = 1;
   }
 
-  return !v26 && !v27 && self->_layoutSize < 3;
+  return !v25 && !v26 && self->_layoutSize < 3;
 }
 
 - (id)resolvedStyleForStyle:(id)style

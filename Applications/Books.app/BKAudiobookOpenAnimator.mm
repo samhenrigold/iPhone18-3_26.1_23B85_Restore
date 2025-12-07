@@ -435,7 +435,7 @@
   v95 = view7;
   if (view7)
   {
-    [view7 transform];
+    objc_msgSend_transform(view7);
   }
 
   else

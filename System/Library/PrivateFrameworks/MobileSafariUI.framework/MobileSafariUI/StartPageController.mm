@@ -1678,7 +1678,8 @@ void __58__StartPageController_setTabGroupFavoritesSectionEnabled___block_invoke
   address = [bookmarkCopy address];
   v10 = [v7 initWithTitle:title address:address collectionType:{objc_msgSend(bookmarkCopy, "collectionType")}];
 
-  if ([MEMORY[0x277D7B5A8] lockSync])
+  lockSync = [MEMORY[0x277D7B5A8] lockSync];
+  if (lockSync)
   {
     mainBookmarkCollection = [MEMORY[0x277D7B5A8] mainBookmarkCollection];
     [mainBookmarkCollection saveAndMoveBookmark:v10 toFolderID:v4];
@@ -1688,10 +1689,10 @@ void __58__StartPageController_setTabGroupFavoritesSectionEnabled___block_invoke
 
   else
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXStartPage();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXStartPage(lockSync, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [StartPageController _copyBookmark:v12 toFolderWithID:?];
+      [StartPageController _copyBookmark:v14 toFolderWithID:?];
     }
 
     block[0] = MEMORY[0x277D85DD0];
@@ -1721,17 +1722,17 @@ void __58__StartPageController_setTabGroupFavoritesSectionEnabled___block_invoke
       {
         if ([bookmarkArray count] <= 0xC)
         {
-          v17 = [bookmarkArray count];
+          v19 = [bookmarkArray count];
         }
 
         else
         {
-          v17 = 12;
+          v19 = 12;
         }
 
-        v23 = [bookmarkArray subarrayWithRange:{0, v17}];
+        v25 = [bookmarkArray subarrayWithRange:{0, v19}];
 
-        bookmarkArray = v23;
+        bookmarkArray = v25;
       }
 
       if (favoritesSectionCopy)
@@ -1739,7 +1740,7 @@ void __58__StartPageController_setTabGroupFavoritesSectionEnabled___block_invoke
         goto LABEL_16;
       }
 
-      v20 = *MEMORY[0x277D4A4B0];
+      v22 = *MEMORY[0x277D4A4B0];
     }
 
     else
@@ -1747,26 +1748,26 @@ void __58__StartPageController_setTabGroupFavoritesSectionEnabled___block_invoke
       if (favoritesSectionCopy)
       {
 LABEL_16:
-        v20 = *MEMORY[0x277D4A520];
-        v38 = bookmarkArray;
+        v22 = *MEMORY[0x277D4A520];
+        v40 = bookmarkArray;
         if (titleCopy)
         {
-          v36 = titleCopy;
+          v38 = titleCopy;
         }
 
         else
         {
-          v36 = WBSStartPageSectionIdentifierTitle();
+          v38 = WBSStartPageSectionIdentifierTitle();
         }
 
         goto LABEL_26;
       }
 
       uUID = [bookmarkCopy UUID];
-      v19 = uUID;
+      v21 = uUID;
       if (uUID)
       {
-        v20 = uUID;
+        v22 = uUID;
       }
 
       else
@@ -1775,11 +1776,11 @@ LABEL_16:
         firstObject = [bookmarkArray2 firstObject];
         uUID2 = [firstObject UUID];
 
-        v20 = uUID2;
+        v22 = uUID2;
       }
     }
 
-    v38 = bookmarkArray;
+    v40 = bookmarkArray;
     if (bookmarkCopy)
     {
       [bookmarkCopy localizedTitle];
@@ -1789,7 +1790,7 @@ LABEL_16:
     {
       [(StartPageController *)self _favoritesSectionTitle];
     }
-    v36 = ;
+    v38 = ;
 LABEL_26:
     array = [MEMORY[0x277CBEB18] array];
     if (bookmarkCopy)
@@ -1819,30 +1820,30 @@ LABEL_26:
       if (kind == 1)
       {
 LABEL_34:
-        v35 = v20;
+        v37 = v22;
         objc_initWeak(location, self);
-        v31 = MEMORY[0x277D4A6E8];
-        v32 = _WBSLocalizedString();
-        v33 = [MEMORY[0x277D755B8] systemImageNamed:@"plus"];
-        v47[0] = MEMORY[0x277D85DD0];
-        v47[1] = 3221225472;
-        v47[2] = __117__StartPageController__bookmarkSectionForBookmark_orList_forFavoritesSection_forScopedFavoritesSection_sectionTitle___block_invoke;
-        v47[3] = &unk_2781DC8E8;
-        objc_copyWeak(&v49, location);
-        v50 = favoritesSectionCopy;
-        v48 = listCopy;
-        v30 = [v31 actionWithTitle:v32 image:v33 identifier:0 handler:v47];
+        v33 = MEMORY[0x277D4A6E8];
+        v34 = _WBSLocalizedString();
+        v35 = [MEMORY[0x277D755B8] systemImageNamed:@"plus"];
+        v49[0] = MEMORY[0x277D85DD0];
+        v49[1] = 3221225472;
+        v49[2] = __117__StartPageController__bookmarkSectionForBookmark_orList_forFavoritesSection_forScopedFavoritesSection_sectionTitle___block_invoke;
+        v49[3] = &unk_2781DC8E8;
+        objc_copyWeak(&v51, location);
+        v52 = favoritesSectionCopy;
+        v50 = listCopy;
+        v32 = [v33 actionWithTitle:v34 image:v35 identifier:0 handler:v49];
 
-        objc_destroyWeak(&v49);
+        objc_destroyWeak(&v51);
         objc_destroyWeak(location);
-        v20 = v35;
+        v22 = v37;
 LABEL_35:
-        v22 = [MEMORY[0x277D4A838] iconSectionWithIdentifier:v20 title:v36 actions:array banner:0 supplementaryAction:v30 identifiers:v38 configurationProvider:&__block_literal_global_83];
-        [(StartPageController *)self _setUpContextMenuForBookmarksSection:v22];
-        [(StartPageController *)self _setUpDragItemProviderForBookmarksSection:v22];
+        v24 = [MEMORY[0x277D4A838] iconSectionWithIdentifier:v22 title:v38 actions:array banner:0 supplementaryAction:v32 identifiers:v40 configurationProvider:&__block_literal_global_83];
+        [(StartPageController *)self _setUpContextMenuForBookmarksSection:v24];
+        [(StartPageController *)self _setUpDragItemProviderForBookmarksSection:v24];
         if (sectionCopy)
         {
-          [(StartPageController *)self _setProfileIconOnSectionIfNeeded:v22];
+          [(StartPageController *)self _setProfileIconOnSectionIfNeeded:v24];
         }
 
         else if (!favoritesSectionCopy)
@@ -1854,27 +1855,27 @@ LABEL_40:
 
         if (!self->_webFilterUsesOnlyAllowedSites)
         {
-          objc_initWeak(location, v22);
-          v44[0] = MEMORY[0x277D85DD0];
-          v44[1] = 3221225472;
-          v44[2] = __117__StartPageController__bookmarkSectionForBookmark_orList_forFavoritesSection_forScopedFavoritesSection_sectionTitle___block_invoke_4;
-          v44[3] = &unk_2781DC938;
-          objc_copyWeak(&v45, location);
-          v46 = favoritesSectionCopy;
-          [v22 setDropOperationProvider:v44];
+          objc_initWeak(location, v24);
+          v46[0] = MEMORY[0x277D85DD0];
+          v46[1] = 3221225472;
+          v46[2] = __117__StartPageController__bookmarkSectionForBookmark_orList_forFavoritesSection_forScopedFavoritesSection_sectionTitle___block_invoke_4;
+          v46[3] = &unk_2781DC938;
+          objc_copyWeak(&v47, location);
+          v48 = favoritesSectionCopy;
+          [v24 setDropOperationProvider:v46];
           objc_initWeak(&from, self);
-          v39[0] = MEMORY[0x277D85DD0];
-          v39[1] = 3221225472;
-          v39[2] = __117__StartPageController__bookmarkSectionForBookmark_orList_forFavoritesSection_forScopedFavoritesSection_sectionTitle___block_invoke_6;
-          v39[3] = &unk_2781DC9B0;
-          objc_copyWeak(&v41, &from);
-          v40 = listCopy;
-          v42 = favoritesSectionCopy;
-          [v22 setDropHandler:v39];
+          v41[0] = MEMORY[0x277D85DD0];
+          v41[1] = 3221225472;
+          v41[2] = __117__StartPageController__bookmarkSectionForBookmark_orList_forFavoritesSection_forScopedFavoritesSection_sectionTitle___block_invoke_6;
+          v41[3] = &unk_2781DC9B0;
+          objc_copyWeak(&v43, &from);
+          v42 = listCopy;
+          v44 = favoritesSectionCopy;
+          [v24 setDropHandler:v41];
 
-          objc_destroyWeak(&v41);
+          objc_destroyWeak(&v43);
           objc_destroyWeak(&from);
-          objc_destroyWeak(&v45);
+          objc_destroyWeak(&v47);
           objc_destroyWeak(location);
         }
 
@@ -1882,7 +1883,7 @@ LABEL_40:
       }
 
 LABEL_32:
-      v30 = 0;
+      v32 = 0;
       goto LABEL_35;
     }
 
@@ -1895,16 +1896,16 @@ LABEL_33:
     goto LABEL_32;
   }
 
-  v21 = WBS_LOG_CHANNEL_PREFIXStartPage();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v23 = WBS_LOG_CHANNEL_PREFIXStartPage(v16, v17);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
-    [StartPageController _bookmarkSectionForBookmark:v21 orList:? forFavoritesSection:? forScopedFavoritesSection:? sectionTitle:?];
+    [StartPageController _bookmarkSectionForBookmark:v23 orList:? forFavoritesSection:? forScopedFavoritesSection:? sectionTitle:?];
   }
 
-  v22 = emptyBookmarksSection();
+  v24 = emptyBookmarksSection();
 LABEL_41:
 
-  return v22;
+  return v24;
 }
 
 void __117__StartPageController__bookmarkSectionForBookmark_orList_forFavoritesSection_forScopedFavoritesSection_sectionTitle___block_invoke(uint64_t a1)
@@ -1957,7 +1958,7 @@ void __117__StartPageController__bookmarkSectionForBookmark_orList_forFavoritesS
   [v6 setIconFromBookmark:v4];
 }
 
-uint64_t __117__StartPageController__bookmarkSectionForBookmark_orList_forFavoritesSection_forScopedFavoritesSection_sectionTitle___block_invoke_4(uint64_t a1, unint64_t a2, void *a3)
+uint64_t __117__StartPageController__bookmarkSectionForBookmark_orList_forFavoritesSection_forScopedFavoritesSection_sectionTitle___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -5285,7 +5286,7 @@ void __46__StartPageController__refreshSiriSuggestions__block_invoke(uint64_t a1
 
 void __46__StartPageController__refreshSiriSuggestions__block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -5295,14 +5296,15 @@ void __46__StartPageController__refreshSiriSuggestions__block_invoke_2(uint64_t 
       v4 = [v3 results];
       v5 = [v4 safari_mapAndFilterObjectsUsingBlock:&__block_literal_global_310];
 
-      if ([v5 count])
+      v6 = [v5 count];
+      if (v6)
       {
-        v6 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+        v8 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v6, v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          v7 = 134217984;
-          v8 = [v5 count];
-          _os_log_impl(&dword_215819000, v6, OS_LOG_TYPE_INFO, "Obtained %ld ContextKit topics related to the current page.", &v7, 0xCu);
+          v9 = 134217984;
+          v10 = [v5 count];
+          _os_log_impl(&dword_215819000, v8, OS_LOG_TYPE_INFO, "Obtained %ld ContextKit topics related to the current page.", &v9, 0xCu);
         }
 
         [WeakRetained _updateRecommendationsForTopics:v5];
@@ -5730,123 +5732,123 @@ id __41__StartPageController__highlightsSection__block_invoke_6(uint64_t a1)
 
 id __41__StartPageController__highlightsSection__block_invoke_7(uint64_t a1, void *a2)
 {
-  v82[2] = *MEMORY[0x277D85DE8];
-  v44 = a2;
+  v83[2] = *MEMORY[0x277D85DE8];
+  v45 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
     v3 = MEMORY[0x277D750C8];
     v4 = _WBSLocalizedString();
     v5 = [MEMORY[0x277D755B8] systemImageNamed:@"doc.on.doc"];
-    v68[0] = MEMORY[0x277D85DD0];
-    v68[1] = 3221225472;
-    v68[2] = __41__StartPageController__highlightsSection__block_invoke_8;
-    v68[3] = &unk_2781D6908;
-    v69 = *(a1 + 32);
-    v41 = [v3 actionWithTitle:v4 image:v5 identifier:0 handler:v68];
+    v69[0] = MEMORY[0x277D85DD0];
+    v69[1] = 3221225472;
+    v69[2] = __41__StartPageController__highlightsSection__block_invoke_8;
+    v69[3] = &unk_2781D6908;
+    v70 = *(a1 + 32);
+    v42 = [v3 actionWithTitle:v4 image:v5 identifier:0 handler:v69];
 
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __41__StartPageController__highlightsSection__block_invoke_9;
     aBlock[3] = &unk_2781DD158;
-    objc_copyWeak(&v66, (a1 + 48));
-    v64 = *(a1 + 32);
-    v65 = *(a1 + 40);
-    v67 = *(a1 + 56);
-    v38 = _Block_copy(aBlock);
+    objc_copyWeak(&v67, (a1 + 48));
+    v65 = *(a1 + 32);
+    v66 = *(a1 + 40);
+    v68 = *(a1 + 56);
+    v39 = _Block_copy(aBlock);
     v6 = objc_loadWeakRetained(WeakRetained + 44);
     v7 = [v6 tabGroupProvider];
     v8 = WBSURLForHighlight();
-    v61[0] = MEMORY[0x277D85DD0];
-    v61[1] = 3221225472;
-    v61[2] = __41__StartPageController__highlightsSection__block_invoke_10;
-    v61[3] = &unk_2781D6380;
-    v9 = v38;
-    v62 = v9;
-    v42 = [v7 openInTabGroupMenuWithNewTabGroupName:0 URL:v8 descendantCount:0 handler:v61];
+    v62[0] = MEMORY[0x277D85DD0];
+    v62[1] = 3221225472;
+    v62[2] = __41__StartPageController__highlightsSection__block_invoke_10;
+    v62[3] = &unk_2781D6380;
+    v9 = v39;
+    v63 = v9;
+    v43 = [v7 openInTabGroupMenuWithNewTabGroupName:0 URL:v8 descendantCount:0 handler:v62];
 
     v10 = MEMORY[0x277D750C8];
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __41__StartPageController__highlightsSection__block_invoke_11;
-    v59[3] = &unk_2781D6330;
-    v37 = v9;
-    v60 = v37;
-    v11 = [v10 _sf_openInNewTabActionWithHandler:v59];
-    v82[0] = v11;
-    v82[1] = v42;
-    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:2];
+    v60[0] = MEMORY[0x277D85DD0];
+    v60[1] = 3221225472;
+    v60[2] = __41__StartPageController__highlightsSection__block_invoke_11;
+    v60[3] = &unk_2781D6330;
+    v38 = v9;
+    v61 = v38;
+    v11 = [v10 _sf_openInNewTabActionWithHandler:v60];
+    v83[0] = v11;
+    v83[1] = v43;
+    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:2];
 
     v12 = MEMORY[0x277D75710];
-    v81 = v41;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v81 count:1];
-    v39 = [v12 menuWithTitle:&stru_2827BF158 image:0 identifier:0 options:1 children:v13];
+    v82 = v42;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v82 count:1];
+    v40 = [v12 menuWithTitle:&stru_2827BF158 image:0 identifier:0 options:1 children:v13];
 
-    v40 = [MEMORY[0x277D75710] menuWithTitle:&stru_2827BF158 image:0 identifier:0 options:1 children:v43];
-    v53 = 0;
-    v54 = &v53;
-    v55 = 0x3032000000;
-    v56 = __Block_byref_object_copy__17;
-    v57 = __Block_byref_object_dispose__17;
-    v58 = 0;
+    v41 = [MEMORY[0x277D75710] menuWithTitle:&stru_2827BF158 image:0 identifier:0 options:1 children:v44];
+    v54 = 0;
+    v55 = &v54;
+    v56 = 0x3032000000;
+    v57 = __Block_byref_object_copy__17;
+    v58 = __Block_byref_object_dispose__17;
+    v59 = 0;
     v14 = [WeakRetained viewController];
     v15 = *(a1 + 32);
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __41__StartPageController__highlightsSection__block_invoke_328;
-    v52[3] = &unk_2781DD180;
-    v52[4] = &v53;
-    [v14 configureModelWithIdentifier:v15 usingBlock:v52];
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __41__StartPageController__highlightsSection__block_invoke_328;
+    v53[3] = &unk_2781DD180;
+    v53[4] = &v54;
+    [v14 configureModelWithIdentifier:v15 usingBlock:v53];
 
     v16 = MEMORY[0x277CBEB18];
     v17 = [WeakRetained _shareActionForHighlight:*(a1 + 32)];
-    v46 = [v16 arrayWithObject:v17];
+    v47 = [v16 arrayWithObject:v17];
 
     v18 = [MEMORY[0x277CBEB18] array];
-    v50 = 0u;
     v51 = 0u;
-    v48 = 0u;
+    v52 = 0u;
     v49 = 0u;
-    obj = v54[5];
-    v19 = [obj countByEnumeratingWithState:&v48 objects:v80 count:16];
+    v50 = 0u;
+    obj = v55[5];
+    v19 = [obj countByEnumeratingWithState:&v49 objects:v81 count:16];
     if (v19)
     {
-      v20 = *v49;
+      v20 = *v50;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v49 != v20)
+          if (*v50 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v48 + 1) + 8 * i);
+          v22 = *(*(&v49 + 1) + 8 * i);
           v23 = [v22 identifier];
-          v75 = 0;
-          v76 = &v75;
-          v77 = 0x2020000000;
+          v76 = 0;
+          v77 = &v76;
+          v78 = 0x2020000000;
           v24 = getSLHideContextMenuIdentifierSymbolLoc(void)::ptr;
-          v78 = getSLHideContextMenuIdentifierSymbolLoc(void)::ptr;
+          v79 = getSLHideContextMenuIdentifierSymbolLoc(void)::ptr;
           if (!getSLHideContextMenuIdentifierSymbolLoc(void)::ptr)
           {
-            v70 = MEMORY[0x277D85DD0];
-            v71 = 3221225472;
-            v72 = ___ZL39getSLHideContextMenuIdentifierSymbolLocv_block_invoke;
-            v73 = &unk_2781D60E0;
-            v74 = &v75;
+            v71 = MEMORY[0x277D85DD0];
+            v72 = 3221225472;
+            v73 = ___ZL39getSLHideContextMenuIdentifierSymbolLocv_block_invoke;
+            v74 = &unk_2781D60E0;
+            v75 = &v76;
             v25 = SocialLayerLibrary();
             v26 = dlsym(v25, "SLHideContextMenuIdentifier");
-            *(v74[1] + 24) = v26;
-            getSLHideContextMenuIdentifierSymbolLoc(void)::ptr = *(v74[1] + 24);
-            v24 = v76[3];
+            *(v75[1] + 24) = v26;
+            getSLHideContextMenuIdentifierSymbolLoc(void)::ptr = *(v75[1] + 24);
+            v24 = v77[3];
           }
 
-          _Block_object_dispose(&v75, 8);
+          _Block_object_dispose(&v76, 8);
           if (!v24)
           {
-            dlerror();
-            abort_report_np();
+            v37 = dlerror();
+            abort_report_np("%s", v37);
             __break(1u);
           }
 
@@ -5859,30 +5861,30 @@ id __41__StartPageController__highlightsSection__block_invoke_7(uint64_t a1, voi
             v30 = _WBSLocalizedString();
             [v22 setTitle:v30];
 
-            v29 = v46;
+            v29 = v47;
           }
 
           [v29 addObject:v22];
         }
 
-        v19 = [obj countByEnumeratingWithState:&v48 objects:v80 count:16];
+        v19 = [obj countByEnumeratingWithState:&v49 objects:v81 count:16];
       }
 
       while (v19);
     }
 
     v31 = [MEMORY[0x277D75710] menuWithTitle:&stru_2827BF158 image:0 identifier:0 options:1 children:v18];
-    v32 = [MEMORY[0x277D75710] menuWithTitle:&stru_2827BF158 image:0 identifier:0 options:1 children:v46];
+    v32 = [MEMORY[0x277D75710] menuWithTitle:&stru_2827BF158 image:0 identifier:0 options:1 children:v47];
     v33 = MEMORY[0x277D75710];
-    v79[0] = v39;
-    v79[1] = v40;
-    v79[2] = v31;
-    v79[3] = v32;
-    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:4];
+    v80[0] = v40;
+    v80[1] = v41;
+    v80[2] = v31;
+    v80[3] = v32;
+    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:4];
     v35 = [v33 menuWithTitle:&stru_2827BF158 children:v34];
 
-    _Block_object_dispose(&v53, 8);
-    objc_destroyWeak(&v66);
+    _Block_object_dispose(&v54, 8);
+    objc_destroyWeak(&v67);
   }
 
   else
@@ -5893,11 +5895,11 @@ id __41__StartPageController__highlightsSection__block_invoke_7(uint64_t a1, voi
   return v35;
 }
 
-void __41__StartPageController__highlightsSection__block_invoke_8()
+void __41__StartPageController__highlightsSection__block_invoke_8(uint64_t a1)
 {
-  v1 = WBSURLForHighlight();
-  v0 = [MEMORY[0x277D75810] generalPasteboard];
-  [v0 setURL:v1];
+  v2 = WBSURLForHighlight();
+  v1 = [MEMORY[0x277D75810] generalPasteboard];
+  [v1 setURL:v2];
 }
 
 void __41__StartPageController__highlightsSection__block_invoke_9(uint64_t a1, uint64_t a2)
@@ -6247,7 +6249,7 @@ id __102__StartPageController_startPageCustomizationViewController_customization
 
 - (void)startPageCustomizationViewController:(id)controller didCustomizeItems:(id)items withVariant:(int64_t)variant
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   itemsCopy = items;
   v9 = itemsCopy;
@@ -6259,18 +6261,18 @@ id __102__StartPageController_startPageCustomizationViewController_customization
     v15 = [sections indexOfObjectPassingTest:&__block_literal_global_360_0];
     v16 = [v9 indexOfObjectPassingTest:&__block_literal_global_363];
     v17 = [v9 indexOfObjectPassingTest:&__block_literal_global_365_0];
-    v36 = [v9 objectAtIndexedSubscript:v16];
-    v35 = [v9 objectAtIndexedSubscript:v17];
-    [v13 removeObject:v36];
-    [v13 removeObject:v35];
+    v38 = [v9 objectAtIndexedSubscript:v16];
+    v37 = [v9 objectAtIndexedSubscript:v17];
+    [v13 removeObject:v38];
+    [v13 removeObject:v37];
     if (v14 >= v15)
     {
-      v18 = v35;
+      v18 = v37;
     }
 
     else
     {
-      v18 = v36;
+      v18 = v38;
     }
 
     if (v14 >= v15)
@@ -6285,12 +6287,12 @@ id __102__StartPageController_startPageCustomizationViewController_customization
 
     if (v14 >= v15)
     {
-      v20 = v36;
+      v20 = v38;
     }
 
     else
     {
-      v20 = v35;
+      v20 = v37;
     }
 
     if (v14 <= v15)
@@ -6305,62 +6307,63 @@ id __102__StartPageController_startPageCustomizationViewController_customization
 
     v22 = v18;
     v23 = v20;
+    v25 = v23;
     if (v22)
     {
-      v24 = [v13 count];
-      v25 = v19;
-      if (v19 >= v24)
-      {
-        v25 = [v13 count];
-      }
-
-      [v13 insertObject:v22 atIndex:v25];
-    }
-
-    if (v23)
-    {
       v26 = [v13 count];
-      v27 = v21;
-      if (v21 >= v26)
+      v27 = v19;
+      if (v19 >= v26)
       {
         v27 = [v13 count];
       }
 
-      [v13 insertObject:v23 atIndex:v27];
+      v23 = [v13 insertObject:v22 atIndex:v27];
     }
 
-    if (!v22 || !v23 || v19 == 0x7FFFFFFFFFFFFFFFLL || v21 == 0x7FFFFFFFFFFFFFFFLL || v16 == 0x7FFFFFFFFFFFFFFFLL || v17 == 0x7FFFFFFFFFFFFFFFLL)
+    if (v25)
     {
-      v28 = WBS_LOG_CHANNEL_PREFIXStartPage();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v28 = [v13 count];
+      v29 = v21;
+      if (v21 >= v28)
       {
-        v33 = [v22 description];
-        [v23 description];
+        v29 = [v13 count];
+      }
+
+      v23 = [v13 insertObject:v25 atIndex:v29];
+    }
+
+    if (!v22 || !v25 || v19 == 0x7FFFFFFFFFFFFFFFLL || v21 == 0x7FFFFFFFFFFFFFFFLL || v16 == 0x7FFFFFFFFFFFFFFFLL || v17 == 0x7FFFFFFFFFFFFFFFLL)
+    {
+      v30 = WBS_LOG_CHANNEL_PREFIXStartPage(v23, v24);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      {
+        v35 = [v22 description];
+        [v25 description];
         *buf = 138544642;
-        v43 = v33;
-        v45 = v44 = 2114;
-        v46 = 2048;
-        v47 = v19;
+        v45 = v35;
+        v47 = v46 = 2114;
         v48 = 2048;
-        v49 = v21;
+        v49 = v19;
         v50 = 2048;
-        v51 = v16;
+        v51 = v21;
         v52 = 2048;
-        v53 = v17;
-        v32 = v45;
-        _os_log_error_impl(&dword_215819000, v28, OS_LOG_TYPE_ERROR, "Unexpected Suggestions sections state: Item1:%{public}@, Item2:%{public}@, Index1:%ld, Index2:%ld, Frecents:%ld, Highlights:%ld", buf, 0x3Eu);
+        v53 = v16;
+        v54 = 2048;
+        v55 = v17;
+        v34 = v47;
+        _os_log_error_impl(&dword_215819000, v30, OS_LOG_TYPE_ERROR, "Unexpected Suggestions sections state: Item1:%{public}@, Item2:%{public}@, Index1:%ld, Index2:%ld, Frecents:%ld, Highlights:%ld", buf, 0x3Eu);
       }
     }
 
-    v29 = objc_alloc_init(MEMORY[0x277CCAB58]);
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __90__StartPageController_startPageCustomizationViewController_didCustomizeItems_withVariant___block_invoke_367;
-    v38[3] = &unk_2781DD318;
-    v30 = v29;
-    v39 = v30;
-    v31 = [v13 safari_mapAndFilterObjectsWithOptions:0 usingBlock:v38];
-    [(WBSStartPageSectionManager *)self->_startPageSectionManager setSectionsIdentifiers:v31 enabledIndexes:v30];
+    v31 = objc_alloc_init(MEMORY[0x277CCAB58]);
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __90__StartPageController_startPageCustomizationViewController_didCustomizeItems_withVariant___block_invoke_367;
+    v40[3] = &unk_2781DD318;
+    v32 = v31;
+    v41 = v32;
+    v33 = [v13 safari_mapAndFilterObjectsWithOptions:0 usingBlock:v40];
+    [(WBSStartPageSectionManager *)self->_startPageSectionManager setSectionsIdentifiers:v33 enabledIndexes:v32];
 
     goto LABEL_37;
   }
@@ -6371,7 +6374,7 @@ id __102__StartPageController_startPageCustomizationViewController_customization
     aBlock[1] = 3221225472;
     aBlock[2] = __90__StartPageController_startPageCustomizationViewController_didCustomizeItems_withVariant___block_invoke;
     aBlock[3] = &unk_2781DD2B0;
-    v41 = itemsCopy;
+    v43 = itemsCopy;
     v10 = _Block_copy(aBlock);
     v11 = v10[2](v10, *MEMORY[0x277D4A520]);
     v12 = v11;
@@ -6380,7 +6383,7 @@ id __102__StartPageController_startPageCustomizationViewController_customization
       -[StartPageController setTabGroupFavoritesSectionEnabled:](self, "setTabGroupFavoritesSectionEnabled:", [v11 isEnabled]);
     }
 
-    v13 = v41;
+    v13 = v43;
 LABEL_37:
   }
 
@@ -6645,18 +6648,18 @@ void __92__StartPageController_startPageCustomizationViewController_didModifyBac
   [v4 setSetting:v3 forKey:*MEMORY[0x277D4A478]];
 }
 
-void __92__StartPageController_startPageCustomizationViewController_didModifyBackgroundImageEnabled___block_invoke_2(uint64_t a1)
+void __92__StartPageController_startPageCustomizationViewController_didModifyBackgroundImageEnabled___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = +[Application sharedApplication];
-    v2 = [v4 tabGroupManager];
-    v3 = [v2 profileWithIdentifier:*(a1 + 40)];
-    [*(*(a1 + 32) + 360) setProfile:v3];
+    v5 = +[Application sharedApplication];
+    v3 = [v5 tabGroupManager];
+    v4 = [v3 profileWithIdentifier:*(a1 + 40)];
+    [*(*(a1 + 32) + 360) setProfile:v4];
 
-    v5 = [MEMORY[0x277CCAB98] defaultCenter];
-    [v5 postNotificationName:*MEMORY[0x277D4A928] object:0];
+    v6 = [MEMORY[0x277CCAB98] defaultCenter];
+    [v6 postNotificationName:*MEMORY[0x277D4A928] object:0];
   }
 }
 
@@ -6711,7 +6714,7 @@ void __92__StartPageController_startPageCustomizationViewController_didModifyBac
 
 void __91__StartPageController_startPageCustomizationViewController_didSelectCustomBackgroundImage___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   os_unfair_lock_lock(&generationLock);
@@ -6722,72 +6725,73 @@ void __91__StartPageController_startPageCustomizationViewController_didSelectCus
   {
     if (v6)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXStartPage();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXStartPage(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v10 = [v6 safari_privacyPreservingDescription];
-        __91__StartPageController_startPageCustomizationViewController_didSelectCustomBackgroundImage___block_invoke_cold_1(v10, buf, v9);
+        v12 = [v6 safari_privacyPreservingDescription];
+        __91__StartPageController_startPageCustomizationViewController_didSelectCustomBackgroundImage___block_invoke_cold_1(v12, buf, v11);
       }
     }
 
-    v11 = MEMORY[0x277CBEBC0];
-    v12 = NSTemporaryDirectory();
-    v13 = [v11 fileURLWithPath:v12];
-    v14 = [MEMORY[0x277CCAC38] processInfo];
-    v15 = [v14 globallyUniqueString];
-    v16 = [v13 URLByAppendingPathComponent:v15 isDirectory:0];
+    v13 = MEMORY[0x277CBEBC0];
+    v14 = NSTemporaryDirectory();
+    v15 = [v13 fileURLWithPath:v14];
+    v16 = [MEMORY[0x277CCAC38] processInfo];
+    v17 = [v16 globallyUniqueString];
+    v18 = [v15 URLByAppendingPathComponent:v17 isDirectory:0];
 
-    v17 = [MEMORY[0x277CCAA00] defaultManager];
-    v18 = v17;
+    v19 = [MEMORY[0x277CCAA00] defaultManager];
+    v20 = v19;
     if (v5)
     {
-      v32 = v6;
-      [v17 moveItemAtURL:v5 toURL:v16 error:&v32];
-      v19 = v32;
+      v34 = v6;
+      [v19 moveItemAtURL:v5 toURL:v18 error:&v34];
+      v21 = v34;
 
-      v6 = v19;
+      v6 = v21;
     }
 
-    v20 = objc_alloc_init(MEMORY[0x277D49B60]);
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __91__StartPageController_startPageCustomizationViewController_didSelectCustomBackgroundImage___block_invoke_379;
-    v29[3] = &unk_2781D61F8;
-    v21 = v18;
-    v30 = v21;
-    v31 = v5;
-    [v20 setHandler:v29];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __91__StartPageController_startPageCustomizationViewController_didSelectCustomBackgroundImage___block_invoke_380;
-    v24[3] = &unk_2781DD3B8;
-    v25 = *(a1 + 32);
-    v26 = v16;
-    v27 = v20;
-    v22 = v20;
-    v23 = v16;
-    objc_copyWeak(v28, (a1 + 40));
-    v28[1] = *(a1 + 48);
-    dispatch_async(MEMORY[0x277D85CD0], v24);
-    objc_destroyWeak(v28);
+    v22 = objc_alloc_init(MEMORY[0x277D49B60]);
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __91__StartPageController_startPageCustomizationViewController_didSelectCustomBackgroundImage___block_invoke_379;
+    v31[3] = &unk_2781D61F8;
+    v23 = v20;
+    v32 = v23;
+    v33 = v5;
+    [v22 setHandler:v31];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __91__StartPageController_startPageCustomizationViewController_didSelectCustomBackgroundImage___block_invoke_380;
+    v26[3] = &unk_2781DD3B8;
+    v27 = *(a1 + 32);
+    v28 = v18;
+    v29 = v22;
+    v24 = v22;
+    v25 = v18;
+    objc_copyWeak(v30, (a1 + 40));
+    v30[1] = *(a1 + 48);
+    dispatch_async(MEMORY[0x277D85CD0], v26);
+    objc_destroyWeak(v30);
   }
 }
 
 void __91__StartPageController_startPageCustomizationViewController_didSelectCustomBackgroundImage___block_invoke_379(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v1 = *(a1 + 40);
-  v7 = 0;
-  v3 = [v2 removeItemAtURL:v1 error:&v7];
-  v4 = v7;
+  v9 = 0;
+  v3 = [v2 removeItemAtURL:v1 error:&v9];
+  v4 = v9;
+  v6 = v4;
   if ((v3 & 1) == 0)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXStartPage();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXStartPage(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v6 = [v4 safari_privacyPreservingDescription];
-      __91__StartPageController_startPageCustomizationViewController_didSelectCustomBackgroundImage___block_invoke_379_cold_1(v6, buf, v5);
+      v8 = [v6 safari_privacyPreservingDescription];
+      __91__StartPageController_startPageCustomizationViewController_didSelectCustomBackgroundImage___block_invoke_379_cold_1(v8, buf, v7);
     }
   }
 }
@@ -6987,19 +6991,19 @@ void __118__StartPageController_startPageCustomizationViewController_didSelectBu
   }
 }
 
-void __118__StartPageController_startPageCustomizationViewController_didSelectBuiltInBackgroundImageAtURL_precomputedLuminance___block_invoke_4(uint64_t a1)
+void __118__StartPageController_startPageCustomizationViewController_didSelectBuiltInBackgroundImageAtURL_precomputedLuminance___block_invoke_4(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = +[Application sharedApplication];
-    v2 = [v4 tabGroupManager];
-    v3 = [v2 profileWithIdentifier:*(a1 + 40)];
-    [*(*(a1 + 32) + 360) setProfile:v3];
+    v5 = +[Application sharedApplication];
+    v3 = [v5 tabGroupManager];
+    v4 = [v3 profileWithIdentifier:*(a1 + 40)];
+    [*(*(a1 + 32) + 360) setProfile:v4];
   }
 
-  v5 = [MEMORY[0x277CCAB98] defaultCenter];
-  [v5 postNotificationName:*MEMORY[0x277D4A928] object:0];
+  v6 = [MEMORY[0x277CCAB98] defaultCenter];
+  [v6 postNotificationName:*MEMORY[0x277D4A928] object:0];
 }
 
 - (id)sectionsForStartPageViewController:(id)controller

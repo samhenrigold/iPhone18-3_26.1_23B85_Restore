@@ -1,4 +1,5 @@
 @interface IRNearbyInteractionBridge
+- (IRNearbyInteractionBridge)initWithDelegate:(id)delegate NIConfiguration:(id)configuration observer:(BOOL)observer name:(id)name;
 - (IRProximityBridgeDelegateProtocol)delegate;
 - (double)_nearbyObjectDistance:(id)distance;
 - (void)_updateRegionToDelegate:(id)delegate;
@@ -16,14 +17,36 @@
 
 @implementation IRNearbyInteractionBridge
 
+- (IRNearbyInteractionBridge)initWithDelegate:(id)delegate NIConfiguration:(id)configuration observer:(BOOL)observer name:(id)name
+{
+  observerCopy = observer;
+  delegateCopy = delegate;
+  configurationCopy = configuration;
+  nameCopy = name;
+  v17.receiver = self;
+  v17.super_class = IRNearbyInteractionBridge;
+  v13 = [(IRNearbyInteractionBridge *)&v17 init];
+  v14 = v13;
+  if (v13)
+  {
+    [(IRNearbyInteractionBridge *)v13 setName:nameCopy];
+    v15 = [configurationCopy copy];
+    [(IRNearbyInteractionBridge *)v14 setNiConfiguration:v15];
+
+    [(IRNearbyInteractionBridge *)v14 setDelegate:delegateCopy];
+    [(IRNearbyInteractionBridge *)v14 setIsObserver:observerCopy];
+  }
+
+  return v14;
+}
+
 - (void)invalidate
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(self + 24);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_25543D000, a2, OS_LOG_TYPE_DEBUG, "#nearby-interaction-bridge, Invalidate NI session: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_25543D000, a2, OS_LOG_TYPE_DEBUG, "#nearby-interaction-bridge, Invalidate NI session: %@", &v3, 0xCu);
 }
 
 - (void)run
@@ -55,7 +78,7 @@
 
 - (void)sessionWasSuspended:(id)suspended
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   delegate = [(IRNearbyInteractionBridge *)self delegate];
   name = [(IRNearbyInteractionBridge *)self name];
   [delegate didBridgeSuspendStartedWithName:name];
@@ -65,17 +88,15 @@
   {
     v7 = v6;
     name2 = [(IRNearbyInteractionBridge *)self name];
-    v10 = 138412290;
-    v11 = name2;
-    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "#nearby-interaction-bridge, [%@] sessionWasSuspended", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = name2;
+    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "#nearby-interaction-bridge, [%@] sessionWasSuspended", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sessionSuspensionEnded:(id)ended
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   delegate = [(IRNearbyInteractionBridge *)self delegate];
   name = [(IRNearbyInteractionBridge *)self name];
   [delegate didBridgeSuspendEndedWithName:name];
@@ -85,37 +106,33 @@
   {
     v7 = v6;
     name2 = [(IRNearbyInteractionBridge *)self name];
-    v10 = 138412290;
-    v11 = name2;
-    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "#nearby-interaction-bridge, [%@] sessionSuspensionEnded", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = name2;
+    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "#nearby-interaction-bridge, [%@] sessionSuspensionEnded", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sessionDidStartRunning:(id)running
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
   {
     v5 = v4;
     name = [(IRNearbyInteractionBridge *)self name];
-    v10 = 138412290;
-    v11 = name;
-    _os_log_impl(&dword_25543D000, v5, OS_LOG_TYPE_DEFAULT, "#nearby-interaction-bridge, [%@] sessionDidStartRunning", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = name;
+    _os_log_impl(&dword_25543D000, v5, OS_LOG_TYPE_DEFAULT, "#nearby-interaction-bridge, [%@] sessionDidStartRunning", &v9, 0xCu);
   }
 
   delegate = [(IRNearbyInteractionBridge *)self delegate];
   name2 = [(IRNearbyInteractionBridge *)self name];
   [delegate didBridgeRunSuccesfully:name2];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session didInvalidateWithError:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
   {
@@ -124,18 +141,16 @@
     name = [(IRNearbyInteractionBridge *)self name];
     v10 = [errorCopy debugDescription];
 
-    v14 = 138412546;
-    v15 = name;
-    v16 = 2112;
-    v17 = v10;
-    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "#nearby-interaction-bridge, [%@] session:didInvalidateWithError %@", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = name;
+    v15 = 2112;
+    v16 = v10;
+    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "#nearby-interaction-bridge, [%@] session:didInvalidateWithError %@", &v13, 0x16u);
   }
 
   delegate = [(IRNearbyInteractionBridge *)self delegate];
   name2 = [(IRNearbyInteractionBridge *)self name];
   [delegate didBridgeFail:name2];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (double)_nearbyObjectDistance:(id)distance
@@ -173,7 +188,7 @@
 
 - (void)session:(id)session didDiscoverNearbyObject:(id)object
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v6 = [IRNearbyDeviceDO alloc];
   [(IRNearbyInteractionBridge *)self _nearbyObjectDistance:objectCopy];
@@ -187,24 +202,22 @@
   v13 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEBUG))
   {
-    v15 = v13;
+    v14 = v13;
     name2 = [(IRNearbyInteractionBridge *)self name];
     deviceIdentifier = [objectCopy deviceIdentifier];
-    v18 = 138412802;
-    v19 = name2;
-    v20 = 2112;
-    v21 = v12;
-    v22 = 2112;
-    v23 = deviceIdentifier;
-    _os_log_debug_impl(&dword_25543D000, v15, OS_LOG_TYPE_DEBUG, "#nearby-interaction-bridge, [%@] session:didDiscoverNearbyObject: %@, %@", &v18, 0x20u);
+    v17 = 138412802;
+    v18 = name2;
+    v19 = 2112;
+    v20 = v12;
+    v21 = 2112;
+    v22 = deviceIdentifier;
+    _os_log_debug_impl(&dword_25543D000, v14, OS_LOG_TYPE_DEBUG, "#nearby-interaction-bridge, [%@] session:didDiscoverNearbyObject: %@, %@", &v17, 0x20u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session object:(id)object didUpdateRegion:(id)region previousRegion:(id)previousRegion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   regionCopy = region;
   previousRegionCopy = previousRegion;
@@ -225,21 +238,19 @@
       v20 = v19;
       name2 = [(IRNearbyInteractionBridge *)self name];
       deviceIdentifier = [objectCopy deviceIdentifier];
-      v24 = 138413314;
-      v25 = name2;
-      v26 = 2112;
-      v27 = regionCopy;
-      v28 = 2112;
-      v29 = previousRegionCopy;
-      v30 = 2112;
-      v31 = objectCopy;
-      v32 = 2112;
-      v33 = deviceIdentifier;
-      _os_log_impl(&dword_25543D000, v20, OS_LOG_TYPE_DEFAULT, "#nearby-interaction-bridge, [%@] didUpdateRegion to %@ from %@ for %@ with deviceIdentifier: %@", &v24, 0x34u);
+      v23 = 138413314;
+      v24 = name2;
+      v25 = 2112;
+      v26 = regionCopy;
+      v27 = 2112;
+      v28 = previousRegionCopy;
+      v29 = 2112;
+      v30 = objectCopy;
+      v31 = 2112;
+      v32 = deviceIdentifier;
+      _os_log_impl(&dword_25543D000, v20, OS_LOG_TYPE_DEFAULT, "#nearby-interaction-bridge, [%@] didUpdateRegion to %@ from %@ for %@ with deviceIdentifier: %@", &v23, 0x34u);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session didUpdateNearbyObjects:(id)objects
@@ -258,7 +269,7 @@
 
 void __60__IRNearbyInteractionBridge_session_didUpdateNearbyObjects___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [IRNearbyDeviceDO alloc];
   [*(a1 + 32) _nearbyObjectDistance:v3];
@@ -275,22 +286,20 @@ void __60__IRNearbyInteractionBridge_session_didUpdateNearbyObjects___block_invo
   v13 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEBUG))
   {
-    v15 = *(a1 + 32);
-    v16 = v13;
-    v17 = [v15 name];
-    v18 = MEMORY[0x277CCABB0];
+    v14 = *(a1 + 32);
+    v15 = v13;
+    v16 = [v14 name];
+    v17 = MEMORY[0x277CCABB0];
     [(IRNearbyDeviceDO *)v10 range];
-    v19 = [v18 numberWithDouble:?];
-    v20 = 138412802;
-    v21 = v17;
-    v22 = 2112;
-    v23 = v3;
-    v24 = 2112;
-    v25 = v19;
-    _os_log_debug_impl(&dword_25543D000, v16, OS_LOG_TYPE_DEBUG, "#nearby-interaction-bridge, [%@] didUpdateNearbyObject to %@ , distance = %@", &v20, 0x20u);
+    v18 = [v17 numberWithDouble:?];
+    v19 = 138412802;
+    v20 = v16;
+    v21 = 2112;
+    v22 = v3;
+    v23 = 2112;
+    v24 = v18;
+    _os_log_debug_impl(&dword_25543D000, v15, OS_LOG_TYPE_DEBUG, "#nearby-interaction-bridge, [%@] didUpdateNearbyObject to %@ , distance = %@", &v19, 0x20u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session didRemoveNearbyObjects:(id)objects withReason:(int64_t)reason
@@ -305,7 +314,7 @@ void __60__IRNearbyInteractionBridge_session_didUpdateNearbyObjects___block_invo
 
 void __71__IRNearbyInteractionBridge_session_didRemoveNearbyObjects_withReason___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [IRNearbyDeviceDO alloc];
   v5 = [v3 deviceIdentifer];
@@ -326,16 +335,14 @@ void __71__IRNearbyInteractionBridge_session_didRemoveNearbyObjects_withReason__
     v15 = MEMORY[0x277CCABB0];
     [(IRNearbyDeviceDO *)v8 range];
     v16 = [v15 numberWithDouble:?];
-    v18 = 138412802;
-    v19 = v14;
-    v20 = 2112;
-    v21 = v3;
-    v22 = 2112;
-    v23 = v16;
-    _os_log_impl(&dword_25543D000, v13, OS_LOG_TYPE_DEFAULT, "#nearby-interaction-bridge, [%@] didRemoveDevice to %@ , distance = %@", &v18, 0x20u);
+    v17 = 138412802;
+    v18 = v14;
+    v19 = 2112;
+    v20 = v3;
+    v21 = 2112;
+    v22 = v16;
+    _os_log_impl(&dword_25543D000, v13, OS_LOG_TYPE_DEFAULT, "#nearby-interaction-bridge, [%@] didRemoveDevice to %@ , distance = %@", &v17, 0x20u);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateRegionToDelegate:(id)delegate

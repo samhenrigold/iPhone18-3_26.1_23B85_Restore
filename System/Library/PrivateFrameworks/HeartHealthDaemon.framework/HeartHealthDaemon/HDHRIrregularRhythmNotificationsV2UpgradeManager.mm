@@ -83,12 +83,12 @@
 
 - (void)doWorkWithCompletion:(id)completion
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v2FeatureAvailabilityManager = self->_v2FeatureAvailabilityManager;
-  v73 = 0;
-  v6 = [(HDFeatureAvailabilityExtension *)v2FeatureAvailabilityManager featureOnboardingRecordWithError:&v73];
-  v7 = v73;
+  v72 = 0;
+  v6 = [(HDFeatureAvailabilityExtension *)v2FeatureAvailabilityManager featureOnboardingRecordWithError:&v72];
+  v7 = v72;
   v8 = v7;
   if (v6)
   {
@@ -101,7 +101,7 @@
         v10 = v9;
         v11 = objc_opt_class();
         *buf = 138543362;
-        v75 = v11;
+        v74 = v11;
         v12 = v11;
         _os_log_impl(&dword_229486000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Already onboarded to IRN2", buf, 0xCu);
       }
@@ -113,9 +113,9 @@
     else
     {
       v1FeatureAvailabilityManager = self->_v1FeatureAvailabilityManager;
-      v72 = v8;
-      v18 = [(HDFeatureAvailabilityExtension *)v1FeatureAvailabilityManager featureOnboardingRecordWithError:&v72];
-      v19 = v72;
+      v71 = v8;
+      v18 = [(HDFeatureAvailabilityExtension *)v1FeatureAvailabilityManager featureOnboardingRecordWithError:&v71];
+      v19 = v71;
 
       if (v18)
       {
@@ -125,12 +125,12 @@
           countryCode = [onboardingCompletion countryCode];
 
           v22 = self->_v2FeatureAvailabilityManager;
-          v71 = v19;
-          v23 = [(HDFeatureAvailabilityExtension *)v22 onboardingEligibilityForCountryCode:countryCode error:&v71];
-          v24 = v71;
+          v70 = v19;
+          v23 = [(HDFeatureAvailabilityExtension *)v22 onboardingEligibilityForCountryCode:countryCode error:&v70];
+          v24 = v70;
 
           featureSettings = [v18 featureSettings];
-          v63 = v23;
+          v62 = v23;
           if ([v23 isEligible])
           {
             _HKInitializeLogging();
@@ -140,23 +140,23 @@
               v27 = v26;
               v28 = objc_opt_class();
               *buf = 138543618;
-              v75 = v28;
-              v76 = 2114;
-              v77 = countryCode;
+              v74 = v28;
+              v75 = 2114;
+              v76 = countryCode;
               v29 = v28;
               _os_log_impl(&dword_229486000, v27, OS_LOG_TYPE_DEFAULT, "[%{public}@] Beginning IRN2 upgrade using IRN1 country: %{public}@", buf, 0x16u);
             }
 
             v30 = self->_v2FeatureAvailabilityManager;
-            v68[0] = MEMORY[0x277D85DD0];
-            v68[1] = 3221225472;
-            v68[2] = __73__HDHRIrregularRhythmNotificationsV2UpgradeManager_doWorkWithCompletion___block_invoke;
-            v68[3] = &unk_2786600F8;
-            v68[4] = self;
+            v67[0] = MEMORY[0x277D85DD0];
+            v67[1] = 3221225472;
+            v67[2] = __73__HDHRIrregularRhythmNotificationsV2UpgradeManager_doWorkWithCompletion___block_invoke;
+            v67[3] = &unk_2786600F8;
+            v67[4] = self;
             countryCode = countryCode;
-            v69 = countryCode;
-            v70 = completionCopy;
-            [(HDFeatureAvailabilityExtension *)v30 setCurrentOnboardingVersionCompletedForCountryCode:countryCode countryCodeProvenance:3 date:0 settings:featureSettings completion:v68];
+            v68 = countryCode;
+            v69 = completionCopy;
+            [(HDFeatureAvailabilityExtension *)v30 setCurrentOnboardingVersionCompletedForCountryCode:countryCode countryCodeProvenance:3 date:0 settings:featureSettings completion:v67];
 
             v19 = v24;
           }
@@ -164,16 +164,16 @@
           else
           {
             hypertensionNotificationsAvailabilityManager = self->_hypertensionNotificationsAvailabilityManager;
-            v67 = v24;
-            v40 = [(HDFeatureAvailabilityExtension *)hypertensionNotificationsAvailabilityManager featureOnboardingRecordWithError:&v67];
-            v19 = v67;
+            v66 = v24;
+            v40 = [(HDFeatureAvailabilityExtension *)hypertensionNotificationsAvailabilityManager featureOnboardingRecordWithError:&v66];
+            v19 = v66;
 
-            v62 = v40;
+            v61 = v40;
             if (v40)
             {
               if ([v40 isOnboardingPresent])
               {
-                v61 = featureSettings;
+                v60 = featureSettings;
                 onboardingCompletion2 = [v40 onboardingCompletion];
                 countryCode2 = [onboardingCompletion2 countryCode];
 
@@ -186,35 +186,35 @@
                     v44 = v43;
                     v45 = objc_opt_class();
                     *buf = 138543618;
-                    v75 = v45;
-                    v76 = 2114;
-                    v77 = countryCode2;
+                    v74 = v45;
+                    v75 = 2114;
+                    v76 = countryCode2;
                     v46 = v45;
                     _os_log_impl(&dword_229486000, v44, OS_LOG_TYPE_DEFAULT, "[%{public}@] Beginning IRN2 upgrade using Hypertension Notifications onboarding country: %{public}@", buf, 0x16u);
                   }
 
                   v47 = self->_v2FeatureAvailabilityManager;
-                  v64[0] = MEMORY[0x277D85DD0];
-                  v64[1] = 3221225472;
-                  v64[2] = __73__HDHRIrregularRhythmNotificationsV2UpgradeManager_doWorkWithCompletion___block_invoke_327;
-                  v64[3] = &unk_2786600F8;
-                  v64[4] = self;
+                  v63[0] = MEMORY[0x277D85DD0];
+                  v63[1] = 3221225472;
+                  v63[2] = __73__HDHRIrregularRhythmNotificationsV2UpgradeManager_doWorkWithCompletion___block_invoke_327;
+                  v63[3] = &unk_2786600F8;
+                  v63[4] = self;
                   countryCode = countryCode2;
-                  v65 = countryCode;
-                  v66 = completionCopy;
+                  v64 = countryCode;
+                  v65 = completionCopy;
                   v48 = v47;
-                  featureSettings = v61;
-                  [(HDFeatureAvailabilityExtension *)v48 setCurrentOnboardingVersionCompletedForCountryCode:countryCode countryCodeProvenance:3 date:0 settings:v61 completion:v64];
+                  featureSettings = v60;
+                  [(HDFeatureAvailabilityExtension *)v48 setCurrentOnboardingVersionCompletedForCountryCode:countryCode countryCodeProvenance:3 date:0 settings:v60 completion:v63];
                 }
 
                 else
                 {
                   [(HDHRIrregularRhythmNotificationsV2UpgradeManager *)self _reportErrorAnalyticsEventForCountryCode:0 errorCategory:@"hypertensionNotifications_eligibility" errorDetail:@"location_unavailable"];
-                  v60 = [MEMORY[0x277CCA9B8] hk_error:109 description:@"Cannot upgrade V1 user to V2 as no associated feature country code exists"];
-                  (completionCopy)[2](completionCopy, 1, v60);
+                  v59 = [MEMORY[0x277CCA9B8] hk_error:109 description:@"Cannot upgrade V1 user to V2 as no associated feature country code exists"];
+                  (completionCopy)[2](completionCopy, 1, v59);
 
                   countryCode = 0;
-                  featureSettings = v61;
+                  featureSettings = v60;
                 }
               }
 
@@ -228,7 +228,7 @@
                   v56 = v54;
                   v57 = objc_opt_class();
                   *buf = 138543362;
-                  v75 = v57;
+                  v74 = v57;
                   v58 = v57;
                   _os_log_impl(&dword_229486000, v56, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cannot upgrade to IRN2 as not onboarded to Hypertension Notifications", buf, 0xCu);
 
@@ -264,7 +264,7 @@
             v36 = v35;
             v37 = objc_opt_class();
             *buf = 138543362;
-            v75 = v37;
+            v74 = v37;
             v38 = v37;
             _os_log_impl(&dword_229486000, v36, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cannot upgrade to IRN2 as not onboarded to IRN1", buf, 0xCu);
           }
@@ -299,8 +299,6 @@
 
     (completionCopy)[2](completionCopy, 0, v8);
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HDHRIrregularRhythmNotificationsV2UpgradeManager_doWorkWithCompletion___block_invoke(uint64_t a1, int a2, void *a3)
@@ -402,11 +400,11 @@ uint64_t __126__HDHRIrregularRhythmNotificationsV2UpgradeManager_performWorkForO
 
 - (void)pairedDeviceCapabilitiesDidUpdate:(id)update
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   protectedDataOperation = self->_protectedDataOperation;
-  v11 = 0;
-  v4 = [(HDProtectedDataOperation *)protectedDataOperation requestWorkWithPriority:2 error:&v11];
-  v5 = v11;
+  v10 = 0;
+  v4 = [(HDProtectedDataOperation *)protectedDataOperation requestWorkWithPriority:2 error:&v10];
+  v5 = v10;
   _HKInitializeLogging();
   v6 = HKLogInfrastructure();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -423,24 +421,22 @@ uint64_t __126__HDHRIrregularRhythmNotificationsV2UpgradeManager_performWorkForO
     }
 
     *buf = 138543618;
-    v13 = v7;
-    v14 = 2114;
-    v15 = v8;
+    v12 = v7;
+    v13 = 2114;
+    v14 = v8;
     v9 = v7;
     _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requested a chance to upgrade due to nano pairing changes (error: %{public}@)", buf, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)featureAvailabilityProvidingDidUpdateOnboardingCompletion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   protectedDataOperation = self->_protectedDataOperation;
-  v16 = 0;
-  v6 = [(HDProtectedDataOperation *)protectedDataOperation requestWorkWithPriority:2 error:&v16];
-  v7 = v16;
+  v15 = 0;
+  v6 = [(HDProtectedDataOperation *)protectedDataOperation requestWorkWithPriority:2 error:&v15];
+  v7 = v15;
   _HKInitializeLogging();
   v8 = HKLogInfrastructure();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -460,11 +456,11 @@ uint64_t __126__HDHRIrregularRhythmNotificationsV2UpgradeManager_performWorkForO
       v13 = v7;
     }
 
-    v18 = v9;
-    v19 = 2112;
-    v20 = featureIdentifier;
-    v21 = 2114;
-    v22 = v13;
+    v17 = v9;
+    v18 = 2112;
+    v19 = featureIdentifier;
+    v20 = 2114;
+    v21 = v13;
     _os_log_impl(&dword_229486000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requested a chance to upgrade due to onboardingCompletion of Feature: %@ (error: %{public}@)", buf, 0x20u);
   }
 
@@ -473,18 +469,16 @@ uint64_t __126__HDHRIrregularRhythmNotificationsV2UpgradeManager_performWorkForO
   {
     unitTesting_didRequestRetryOnFeatureStatusChangeHandler[2]();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)featureAvailabilityExtensionDidUpdateRegionAvailability:(id)availability
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   availabilityCopy = availability;
   protectedDataOperation = self->_protectedDataOperation;
-  v15 = 0;
-  v6 = [(HDProtectedDataOperation *)protectedDataOperation requestWorkWithPriority:2 error:&v15];
-  v7 = v15;
+  v14 = 0;
+  v6 = [(HDProtectedDataOperation *)protectedDataOperation requestWorkWithPriority:2 error:&v14];
+  v7 = v14;
   _HKInitializeLogging();
   v8 = HKLogInfrastructure();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -504,24 +498,22 @@ uint64_t __126__HDHRIrregularRhythmNotificationsV2UpgradeManager_performWorkForO
       v13 = v7;
     }
 
-    v17 = v9;
-    v18 = 2112;
-    v19 = featureIdentifier;
-    v20 = 2114;
-    v21 = v13;
+    v16 = v9;
+    v17 = 2112;
+    v18 = featureIdentifier;
+    v19 = 2114;
+    v20 = v13;
     _os_log_impl(&dword_229486000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requested a chance to upgrade due to region availability changes of Feature: %@ (error: %{public}@)", buf, 0x20u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)featureAvailabilityExtensionOnboardingCompletionDataDidBecomeAvailable:(id)available
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   protectedDataOperation = self->_protectedDataOperation;
-  v11 = 0;
-  v4 = [(HDProtectedDataOperation *)protectedDataOperation requestWorkWithPriority:2 error:&v11];
-  v5 = v11;
+  v10 = 0;
+  v4 = [(HDProtectedDataOperation *)protectedDataOperation requestWorkWithPriority:2 error:&v10];
+  v5 = v10;
   _HKInitializeLogging();
   v6 = HKLogInfrastructure();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -538,14 +530,12 @@ uint64_t __126__HDHRIrregularRhythmNotificationsV2UpgradeManager_performWorkForO
     }
 
     *buf = 138543618;
-    v13 = v7;
-    v14 = 2114;
-    v15 = v8;
+    v12 = v7;
+    v13 = 2114;
+    v14 = v8;
     v9 = v7;
     _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requested a chance to upgrade due to OnboardingCompletionData becoming available (error: %{public}@)", buf, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportAnalyticsEventForCountryCode:(id)code eventType:(id)type errorCategory:(id)category errorDetail:(id)detail
@@ -578,32 +568,25 @@ uint64_t __126__HDHRIrregularRhythmNotificationsV2UpgradeManager_performWorkForO
     v21 = *MEMORY[0x277CCC2D8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_ERROR))
     {
-      [HDHRIrregularRhythmNotificationsV2UpgradeManager _reportAnalyticsEventForCountryCode:v21 eventType:? errorCategory:? errorDetail:?];
+      [HDHRIrregularRhythmNotificationsV2UpgradeManager _reportAnalyticsEventForCountryCode:v21 eventType:self errorCategory:? errorDetail:?];
     }
   }
 }
 
 void __73__HDHRIrregularRhythmNotificationsV2UpgradeManager_doWorkWithCompletion___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = objc_opt_class();
-  v5 = OUTLINED_FUNCTION_2(v4);
-  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Error saving IRN2 Upgrade: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_2(v3);
+  OUTLINED_FUNCTION_3(&dword_229486000, v5, v6, "[%{public}@] Error saving IRN2 Upgrade: %{public}@", v7, v8, v9, v10);
 }
 
-- (void)_reportAnalyticsEventForCountryCode:(void *)a1 eventType:errorCategory:errorDetail:.cold.1(void *a1)
+- (void)_reportAnalyticsEventForCountryCode:(void *)a1 eventType:(uint64_t)a2 errorCategory:errorDetail:.cold.1(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_2(v2);
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to submit analytics event: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_2(v3);
+  OUTLINED_FUNCTION_3(&dword_229486000, v5, v6, "[%{public}@] Failed to submit analytics event: %{public}@", v7, v8, v9, v10);
 }
 
 @end

@@ -1099,7 +1099,7 @@ uint64_t __93__SFUnifiedTabBar__setResolvedItemArrangement_animated_keepingItemV
   else
   {
     [(SFUnifiedTabBar *)self layoutMargins];
-    UIEdgeInsetsReplace();
+    v3 = UIEdgeInsetsReplace(*MEMORY[0x1E69DDCE0], *(MEMORY[0x1E69DDCE0] + 8), *(MEMORY[0x1E69DDCE0] + 16), *(MEMORY[0x1E69DDCE0] + 24));
   }
 
   result.right = v6;
@@ -3090,19 +3090,19 @@ void __72__SFUnifiedTabBar__layoutDisappearingItemsAtIndexes_withTransitionInfo_
     [(SFUnifiedTabBarLayout *)self->_layout pinnedItemsSeparatorFrame];
     p_pinnedItemsSeparator = &self->_pinnedItemsSeparator;
     [(UIView *)self->_pinnedItemsSeparator setFrame:?];
-    [(SFUnifiedTabBarLayout *)self->_layout pinnedItemsSeparatorOpacity];
-    v5 = v4 * SFBarContentAlphaForSquishTransformFactor(self->_squishTransformFactor);
+    pinnedItemsSeparatorOpacity = [(SFUnifiedTabBarLayout *)self->_layout pinnedItemsSeparatorOpacity];
+    v6 = v5 * SFBarContentAlphaForSquishTransformFactor(pinnedItemsSeparatorOpacity, self->_squishTransformFactor);
   }
 
   else
   {
     p_pinnedItemsSeparator = &self->_pinnedItemsSeparator;
-    v5 = 0.0;
+    v6 = 0.0;
   }
 
-  v6 = *p_pinnedItemsSeparator;
+  v7 = *p_pinnedItemsSeparator;
 
-  [(UIView *)v6 setAlpha:v5];
+  [(UIView *)v7 setAlpha:v6];
 }
 
 - (void)_updatePinnedItemsSeparator
@@ -3677,7 +3677,7 @@ void __38__SFUnifiedTabBar__pinnedOverflowMenu__block_invoke_3(uint64_t a1, void
 {
   if (self->_style == 1)
   {
-    return SFBarBackgroundAlphaForSquishTransformFactor(self->_squishTransformFactor);
+    return SFBarBackgroundAlphaForSquishTransformFactor(self, self->_squishTransformFactor);
   }
 
   else
@@ -3689,12 +3689,13 @@ void __38__SFUnifiedTabBar__pinnedOverflowMenu__block_invoke_3(uint64_t a1, void
 - (void)tabBarItemViewDidRequestFocusForPencilInput:(id)input completionHandler:(id)handler
 {
   handlerCopy = handler;
-  if ([(UITextField *)self->_searchField isFirstResponder])
+  isFirstResponder = [(UITextField *)self->_searchField isFirstResponder];
+  if (isFirstResponder)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXPencilInput();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXPencilInput(isFirstResponder, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [SFUnifiedTabBar tabBarItemViewDidRequestFocusForPencilInput:v6 completionHandler:?];
+      [SFUnifiedTabBar tabBarItemViewDidRequestFocusForPencilInput:v8 completionHandler:?];
     }
 
     handlerCopy[2](handlerCopy);

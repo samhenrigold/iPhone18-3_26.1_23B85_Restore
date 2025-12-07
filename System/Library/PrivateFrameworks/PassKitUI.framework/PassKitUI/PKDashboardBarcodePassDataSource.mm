@@ -256,7 +256,7 @@ LABEL_9:
 - ($F99D9A4FB75BC57F3386B8DC8EE08D7A)_dataSourceIndicesForIndexSection:(SEL)section
 {
   v6 = [MEMORY[0x1E696AC88] indexPathForItem:-1 inSection:a4];
-  [(PKDashboardBarcodePassDataSource *)self _dataSourceIndicesForIndexPath:v6];
+  objc_msgSend__dataSourceIndicesForIndexPath_(self);
 
   return result;
 }
@@ -303,7 +303,7 @@ LABEL_9:
 - (id)itemAtIndexPath:(id)path
 {
   pathCopy = path;
-  [(PKDashboardBarcodePassDataSource *)self _dataSourceIndicesForIndexPath:pathCopy];
+  objc_msgSend__dataSourceIndicesForIndexPath_(self);
   v5 = [[PKDashboardPassGroupItem alloc] initWithGroupView:self->_groupView];
 
   return v5;
@@ -314,7 +314,7 @@ LABEL_9:
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  result = [(PKDashboardBarcodePassDataSource *)self _dataSourceIndicesForIndexSection:section];
+  result = objc_msgSend__dataSourceIndicesForIndexSection_(self, a2, section);
   v5 = 1;
   if (v9 <= 2)
   {
@@ -385,10 +385,10 @@ LABEL_9:
   return v3 + 4;
 }
 
-uint64_t __52__PKDashboardBarcodePassDataSource_numberOfSections__block_invoke(uint64_t result, uint64_t a2, void *a3)
+void *__52__PKDashboardBarcodePassDataSource_numberOfSections__block_invoke(void *result, uint64_t a2, void *a3)
 {
   v3 = result;
-  if (*(*(result + 32) + 89) == 1)
+  if (*(result[4] + 89) == 1)
   {
     result = [a3 integerValue];
     v4 = result - 1;
@@ -399,20 +399,20 @@ uint64_t __52__PKDashboardBarcodePassDataSource_numberOfSections__block_invoke(u
     v4 = -1;
   }
 
-  *(*(*(v3 + 40) + 8) + 24) += v4;
+  *(*(v3[5] + 8) + 24) += v4;
   return result;
 }
 
 - (id)titleForSection:(unint64_t)section
 {
-  [(PKDashboardBarcodePassDataSource *)self _dataSourceIndicesForIndexSection:section];
+  objc_msgSend__dataSourceIndicesForIndexSection_(self, a2, section);
 
   return 0;
 }
 
 - (id)footerTextItemForSection:(unint64_t)section
 {
-  [(PKDashboardBarcodePassDataSource *)self _dataSourceIndicesForIndexSection:section];
+  objc_msgSend__dataSourceIndicesForIndexSection_(self, a2, section);
 
   return 0;
 }

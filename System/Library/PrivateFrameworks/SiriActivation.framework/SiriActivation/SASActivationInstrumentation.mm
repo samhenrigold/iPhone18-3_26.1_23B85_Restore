@@ -3,6 +3,7 @@
 - (id)buttonDownWithIdentifier:(id)identifier;
 - (id)buttonTapWithIdentifier:(id)identifier associateWithButtonDown:(BOOL)down;
 - (id)buttonUpWithIdentifier:(id)identifier;
+- (void)_instrumentButtonInteractionType:(int)type buttonIdentifier:(id)identifier;
 @end
 
 @implementation SASActivationInstrumentation
@@ -54,6 +55,15 @@
   activationEventIdentifier = [(SASActivationInstrumentation *)self activationEventIdentifier];
 
   return activationEventIdentifier;
+}
+
+- (void)_instrumentButtonInteractionType:(int)type buttonIdentifier:(id)identifier
+{
+  v4 = *&type;
+  instrumentationSender = self->_instrumentationSender;
+  identifierCopy = identifier;
+  activationEventIdentifier = [(SASActivationInstrumentation *)self activationEventIdentifier];
+  [(SASActivationInstrumentationSending *)instrumentationSender instrumentButtonInteractionType:v4 buttonIdentifier:identifierCopy activationEventIdentifier:activationEventIdentifier];
 }
 
 @end

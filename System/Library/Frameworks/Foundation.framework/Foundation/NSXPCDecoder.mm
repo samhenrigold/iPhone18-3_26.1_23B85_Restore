@@ -826,7 +826,7 @@ LABEL_55:
         v7[4] = self;
         v7[5] = key;
         v7[6] = array;
-        _NSXPCSerializationIterateArrayObject(&self->_decoder.data, &v8, v7);
+        _NSXPCSerializationIterateArrayObject(&self->_decoder, &v8, v7);
       }
     }
   }

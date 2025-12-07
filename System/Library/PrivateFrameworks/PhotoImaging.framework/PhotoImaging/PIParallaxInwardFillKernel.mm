@@ -172,7 +172,7 @@ LABEL_35:
         *&v75 = width;
         *(&v75 + 1) = height;
         v76 = depth;
-        [MEMORY[0x1E69B3A20] groupSizeForImageSize:&v75 pipelineState:v69];
+        objc_msgSend_groupSizeForImageSize_pipelineState_(MEMORY[0x1E69B3A20]);
         v75 = 0uLL;
         v76 = 0;
         v73 = *buf;
@@ -180,7 +180,7 @@ LABEL_35:
         *&v71 = width;
         *(&v71 + 1) = height;
         v72 = depth;
-        [MEMORY[0x1E69B3A20] gridSizeForThreadGroupSize:&v73 imageSize:&v71];
+        objc_msgSend_gridSizeForThreadGroupSize_imageSize_(MEMORY[0x1E69B3A20]);
         v73 = v75;
         v74 = v76;
         v71 = *buf;
@@ -234,7 +234,7 @@ LABEL_35:
         *&v75 = width2;
         *(&v75 + 1) = height2;
         v76 = depth2;
-        [MEMORY[0x1E69B3A20] groupSizeForImageSize:&v75 pipelineState:selfCopy];
+        objc_msgSend_groupSizeForImageSize_pipelineState_(MEMORY[0x1E69B3A20]);
         v75 = 0uLL;
         v76 = 0;
         v73 = *buf;
@@ -242,7 +242,7 @@ LABEL_35:
         *&v71 = width2;
         *(&v71 + 1) = height2;
         v72 = depth2;
-        [MEMORY[0x1E69B3A20] gridSizeForThreadGroupSize:&v73 imageSize:&v71];
+        objc_msgSend_gridSizeForThreadGroupSize_imageSize_(MEMORY[0x1E69B3A20]);
         v73 = v75;
         v74 = v76;
         v71 = *buf;

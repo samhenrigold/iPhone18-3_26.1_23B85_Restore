@@ -80,12 +80,12 @@
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v17[1] = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = INCodablePlacemarkAttributeMetadata;
-  v4 = [(INCodableAttributeMetadata *)&v15 dictionaryRepresentationWithLocalizer:localizer];
+  v16[1] = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = INCodablePlacemarkAttributeMetadata;
+  v4 = [(INCodableAttributeMetadata *)&v14 dictionaryRepresentationWithLocalizer:localizer];
   __INCodableDescriptionTypeKey = [(INCodablePlacemarkAttributeMetadata *)self __INCodableDescriptionTypeKey];
-  v16 = __INCodableDescriptionTypeKey;
+  v15 = __INCodableDescriptionTypeKey;
   type = [(INCodablePlacemarkAttributeMetadata *)self type];
   v7 = @"Name";
   if (type == 1)
@@ -98,16 +98,14 @@
     v7 = @"City";
   }
 
-  v17[0] = v7;
+  v16[0] = v7;
   v8 = MEMORY[0x1E695DF20];
   v9 = v7;
-  v10 = [v8 dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v10 = [v8 dictionaryWithObjects:v16 forKeys:&v15 count:1];
 
   v11 = [v4 if_dictionaryByAddingEntriesFromDictionary:v10];
 
   if_dictionaryWithNonEmptyValues = [v11 if_dictionaryWithNonEmptyValues];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }

@@ -14,71 +14,71 @@
   v26.receiver = self;
   v26.super_class = GCKeyboardInput;
   v3 = [(GCPhysicalInputProfile *)&v26 initWithIdentifier:identifier];
+  v4 = v3;
   if (v3)
   {
-    v4 = ::allCodes();
-    v5 = [MEMORY[0x1E695DFD8] setWithArray:v4];
-    allCodes = v3->_allCodes;
-    v3->_allCodes = v5;
+    v5 = ::allCodes(v3);
+    v6 = [MEMORY[0x1E695DFD8] setWithArray:v5];
+    allCodes = v4->_allCodes;
+    v4->_allCodes = v6;
 
-    v7 = 231;
-    v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:231];
+    v8 = 231;
+    v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:231];
     do
     {
       null = [MEMORY[0x1E695DFB0] null];
-      [(NSArray *)v8 addObject:null];
+      [(NSArray *)v9 addObject:null];
 
-      --v7;
+      --v8;
     }
 
-    while (v7);
+    while (v8);
     v24 = 0u;
     v25 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v10 = v4;
-    v11 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
-    if (v11)
+    v11 = v5;
+    v12 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    if (v12)
     {
-      v12 = v11;
-      v13 = *v23;
+      v13 = v12;
+      v14 = *v23;
       do
       {
-        v14 = 0;
+        v15 = 0;
         do
         {
-          if (*v23 != v13)
+          if (*v23 != v14)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v11);
           }
 
-          longValue = [*(*(&v22 + 1) + 8 * v14) longValue];
+          longValue = [*(*(&v22 + 1) + 8 * v15) longValue];
           memset(v20, 0, sizeof(v20));
           v21 = 0;
           *&v20[0] = nameForKeyCode(longValue);
           WORD4(v20[0]) = 257;
-          v16 = [(GCPhysicalInputProfile *)v3 _keyboardButtonWithInfo:v20];
-          [v16 setKeyCode:longValue];
-          [(NSArray *)v8 setObject:v16 atIndexedSubscript:longValue];
+          v17 = [(GCPhysicalInputProfile *)v4 _keyboardButtonWithInfo:v20];
+          [v17 setKeyCode:longValue];
+          [(NSArray *)v9 setObject:v17 atIndexedSubscript:longValue];
 
-          ++v14;
+          ++v15;
         }
 
-        while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        while (v13 != v15);
+        v13 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
-      while (v12);
+      while (v13);
     }
 
-    keys = v3->_keys;
-    v3->_keys = v8;
+    keys = v4->_keys;
+    v4->_keys = v9;
 
-    v3->_numberOfKeysPressed = 0;
+    v4->_numberOfKeysPressed = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-  return v3;
+  return v4;
 }
 
 - (BOOL)hasButton:(int64_t)button
@@ -118,25 +118,22 @@ void __48__GCKeyboardInput_PubSub___handleKeyboardEvent___block_invoke(uint64_t 
   v5 = v4[85];
   if (v5)
   {
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 56);
-    v8 = *(a1 + 64) != 0;
     (*(v5 + 16))();
     v4 = *(a1 + 32);
   }
 
-  v9 = [v4 keyChangedHandlerPrivate];
+  v6 = [v4 keyChangedHandlerPrivate];
 
-  if (v9)
+  if (v6)
   {
-    v10 = [*(a1 + 32) keyChangedHandlerPrivate];
-    (v10)[2](v10, *(a1 + 32), *(a1 + 40), *(a1 + 56), *(a1 + 64) != 0);
+    v7 = [*(a1 + 32) keyChangedHandlerPrivate];
+    (v7)[2](v7, *(a1 + 32), *(a1 + 40), *(a1 + 56), *(a1 + 64) != 0);
   }
 
-  v11 = _gc_log_signpost();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
+  v8 = _gc_log_signpost();
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
 
-  if (v12)
+  if (v9)
   {
     __48__GCKeyboardInput_PubSub___handleKeyboardEvent___block_invoke_cold_1(a1);
   }
@@ -164,7 +161,7 @@ void __48__GCKeyboardInput_PubSub___handleKeyboardEvent___block_invoke(uint64_t 
 
 - (void)_handleKeyboardEvent:(_DWORD *)event
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (event)
@@ -182,27 +179,27 @@ void __48__GCKeyboardInput_PubSub___handleKeyboardEvent___block_invoke(uint64_t 
 
       if (v11)
       {
-        v23 = v8;
-        v24 = v23;
-        if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+        v22 = v8;
+        v23 = v22;
+        if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
         {
           timestamp = [v4 timestamp];
           [event lastEventTimestamp];
           *buf = 134218496;
-          v42 = device;
-          v43 = 2048;
-          v44 = timestamp;
-          v45 = 2048;
-          v46 = v26;
-          _os_signpost_emit_with_name_impl(&dword_1D2CD5000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v9, "GCKeyboardInput.handle.KeyboardEvent", "{device: %p, eventTimestamp: %llu, lastEventTimestamp: %f}", buf, 0x20u);
+          v41 = device;
+          v42 = 2048;
+          v43 = timestamp;
+          v44 = 2048;
+          v45 = v25;
+          _os_signpost_emit_with_name_impl(&dword_1D2CD5000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v9, "GCKeyboardInput.handle.KeyboardEvent", "{device: %p, eventTimestamp: %llu, lastEventTimestamp: %f}", buf, 0x20u);
         }
       }
 
       v12 = [event buttonForKeyCode:usage];
-      v34 = v9;
+      v33 = v9;
       if (v12 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
-        v33 = device;
+        v32 = device;
         handlerQueue = [event handlerQueue];
         *&v15 = down;
         v13 = [v12 _setValue:handlerQueue queue:v15];
@@ -220,24 +217,24 @@ void __48__GCKeyboardInput_PubSub___handleKeyboardEvent___block_invoke(uint64_t 
           }
 
           event[166] = v17 & ~(v17 >> 31);
-          v32 = os_signpost_id_generate(v8);
+          v31 = os_signpost_id_generate(v8);
           v18 = _gc_log_signpost();
           v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG);
 
           if (v19)
           {
             log = v8;
-            if (v32 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(log))
+            if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(log))
             {
               timestamp2 = [v4 timestamp];
               [event lastEventTimestamp];
               *buf = 134218496;
-              v42 = v33;
-              v43 = 2048;
-              v44 = timestamp2;
-              v45 = 2048;
-              v46 = v30;
-              _os_signpost_emit_with_name_impl(&dword_1D2CD5000, log, OS_SIGNPOST_INTERVAL_BEGIN, v32, "GCKeyboardInput.callback", "{device: %p, eventTimestamp: %llu, lastEventTimestamp: %f}", buf, 0x20u);
+              v41 = v32;
+              v42 = 2048;
+              v43 = timestamp2;
+              v44 = 2048;
+              v45 = v29;
+              _os_signpost_emit_with_name_impl(&dword_1D2CD5000, log, OS_SIGNPOST_INTERVAL_BEGIN, v31, "GCKeyboardInput.callback", "{device: %p, eventTimestamp: %llu, lastEventTimestamp: %f}", buf, 0x20u);
             }
           }
 
@@ -246,15 +243,15 @@ void __48__GCKeyboardInput_PubSub___handleKeyboardEvent___block_invoke(uint64_t 
           block[2] = __48__GCKeyboardInput_PubSub___handleKeyboardEvent___block_invoke;
           block[3] = &unk_1E841B270;
           block[4] = event;
-          v36 = v12;
-          v38 = usage;
-          v39 = down;
-          v37 = v8;
-          v40 = v32;
+          v35 = v12;
+          v37 = usage;
+          v38 = down;
+          v36 = v8;
+          v39 = v31;
           dispatch_async(handlerQueue, block);
         }
 
-        device = v33;
+        device = v32;
       }
 
       else
@@ -267,19 +264,17 @@ void __48__GCKeyboardInput_PubSub___handleKeyboardEvent___block_invoke(uint64_t 
 
       if (v21)
       {
-        v27 = v8;
-        v28 = v27;
-        if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+        v26 = v8;
+        v27 = v26;
+        if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
         {
           *buf = 67109120;
-          LODWORD(v42) = v13;
-          _os_signpost_emit_with_name_impl(&dword_1D2CD5000, v28, OS_SIGNPOST_INTERVAL_END, v34, "GCKeyboardInput.handle.KeyboardEvent", "{handled: %u}", buf, 8u);
+          LODWORD(v41) = v13;
+          _os_signpost_emit_with_name_impl(&dword_1D2CD5000, v27, OS_SIGNPOST_INTERVAL_END, v33, "GCKeyboardInput.handle.KeyboardEvent", "{handled: %u}", buf, 8u);
         }
       }
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __50__GCKeyboardInput_PubSub__setKeyboardEventSource___block_invoke(uint64_t a1, void *a2)

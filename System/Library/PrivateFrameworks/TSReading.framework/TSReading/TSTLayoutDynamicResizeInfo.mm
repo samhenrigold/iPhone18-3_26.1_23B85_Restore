@@ -329,7 +329,7 @@
   }
 }
 
-double __83__TSTLayoutDynamicResizeInfo_p_captureRowColumnInformation_columnRegion_rowRegion___block_invoke(uint64_t a1, uint64_t a2)
+double __83__TSTLayoutDynamicResizeInfo_p_captureRowColumnInformation_columnRegion_rowRegion___block_invoke(uint64_t a1, void *a2)
 {
   v4 = a2 - *(*(a1 + 32) + 24);
   v5 = TSTMasterLayoutHeightOfRow(*(a1 + 40), a2, 0, 0, 1, 1);
@@ -360,7 +360,7 @@ double __83__TSTLayoutDynamicResizeInfo_p_captureRowColumnInformation_columnRegi
       *(*(*(a1 + 56) + 8) + 24) = a2;
     }
 
-    *(*(*(a1 + 64) + 8) + 24) = TSTMasterLayoutStrokeHeightOfGridRow(*(a1 + 40), a2 + 1, 0, 0xFFFFFFFF);
+    *(*(*(a1 + 64) + 8) + 24) = TSTMasterLayoutStrokeHeightOfGridRow(*(a1 + 40), (a2 + 1), 0, 0xFFFFFFFF);
     *(*(a1 + 96) + 8 * v4) = *(*(a1 + 96) + 8 * v4) + (*(*(*(a1 + 48) + 8) + 24) + *(*(*(a1 + 64) + 8) + 24)) * 0.5;
     *(*(*(a1 + 48) + 8) + 24) = *(*(*(a1 + 64) + 8) + 24);
     v6 = *(a1 + 80);
@@ -373,9 +373,8 @@ double __83__TSTLayoutDynamicResizeInfo_p_captureRowColumnInformation_columnRegi
   return result;
 }
 
-double __83__TSTLayoutDynamicResizeInfo_p_captureRowColumnInformation_columnRegion_rowRegion___block_invoke_2(uint64_t a1, uint64_t a2)
+double __83__TSTLayoutDynamicResizeInfo_p_captureRowColumnInformation_columnRegion_rowRegion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v2 = a2;
   v4 = a2 - *(*(a1 + 32) + 72);
   v5 = TSTMasterLayoutWidthOfColumn(*(a1 + 40), a2, 1, 0, 1);
   v6 = *(a1 + 80);
@@ -392,13 +391,13 @@ double __83__TSTLayoutDynamicResizeInfo_p_captureRowColumnInformation_columnRegi
     v7 = *(a1 + 96);
     *(v7 + 8 * v4) = 0x4020000000000000;
     *(v7 + 8 * v4) = 8.0 / *(a1 + 88);
-    if (*(*(*(a1 + 48) + 8) + 24) < 0.0 || v2 - 1 != *(*(*(a1 + 56) + 8) + 24))
+    if (*(*(*(a1 + 48) + 8) + 24) < 0.0 || a2 - 1 != *(*(*(a1 + 56) + 8) + 24))
     {
-      *(*(*(a1 + 48) + 8) + 24) = TSTMasterLayoutStrokeWidthOfGridColumn(*(a1 + 40), v2, 0, 0xFFFFFFFF);
-      *(*(*(a1 + 56) + 8) + 24) = v2;
+      *(*(*(a1 + 48) + 8) + 24) = TSTMasterLayoutStrokeWidthOfGridColumn(*(a1 + 40), a2, 0, 0xFFFFFFFF);
+      *(*(*(a1 + 56) + 8) + 24) = a2;
     }
 
-    *(*(*(a1 + 64) + 8) + 24) = TSTMasterLayoutStrokeWidthOfGridColumn(*(a1 + 40), v2 + 1, 0, 0xFFFFFFFF);
+    *(*(*(a1 + 64) + 8) + 24) = TSTMasterLayoutStrokeWidthOfGridColumn(*(a1 + 40), (a2 + 1), 0, 0xFFFFFFFF);
     *(*(a1 + 96) + 8 * v4) = *(*(a1 + 96) + 8 * v4) + (*(*(*(a1 + 48) + 8) + 24) + *(*(*(a1 + 64) + 8) + 24)) * 0.5;
     *(*(*(a1 + 48) + 8) + 24) = *(*(*(a1 + 64) + 8) + 24);
     v6 = *(a1 + 80);

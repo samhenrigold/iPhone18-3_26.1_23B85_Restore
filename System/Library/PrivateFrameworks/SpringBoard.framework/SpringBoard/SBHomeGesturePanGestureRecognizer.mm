@@ -70,38 +70,39 @@
 
 - (BOOL)_shouldBegin
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v28.receiver = self;
-  v28.super_class = SBHomeGesturePanGestureRecognizer;
-  if ([(SBHomeGesturePanGestureRecognizer *)&v28 _shouldBegin])
+  v38 = *MEMORY[0x277D85DE8];
+  v31.receiver = self;
+  v31.super_class = SBHomeGesturePanGestureRecognizer;
+  if ([(SBHomeGesturePanGestureRecognizer *)&v31 _shouldBegin])
   {
     _isOutsideOfExclusionTrapezoid = [(SBHomeGesturePanGestureRecognizer *)self _isOutsideOfExclusionTrapezoid];
+    v4 = _isOutsideOfExclusionTrapezoid;
     if (_isOutsideOfExclusionTrapezoid)
     {
-      v4 = SBLogSystemGestureAppSwitcher();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v5 = SBLogSystemGestureAppSwitcher(_isOutsideOfExclusionTrapezoid);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v5 = objc_opt_class();
-        v6 = NSStringFromClass(v5);
+        v6 = objc_opt_class();
+        v7 = NSStringFromClass(v6);
         name = [(SBHomeGesturePanGestureRecognizer *)self name];
         *buf = 138412802;
-        v30 = v6;
-        v31 = 2048;
+        v33 = v7;
+        v34 = 2048;
         selfCopy3 = self;
-        v33 = 2112;
-        v34 = name;
-        _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, "Preventing the <%@:%p> (%@) because the touch is moving vertically and outside of trapezoidal exclusion area.", buf, 0x20u);
+        v36 = 2112;
+        v37 = name;
+        _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "Preventing the <%@:%p> (%@) because the touch is moving vertically and outside of trapezoidal exclusion area.", buf, 0x20u);
       }
 
-      v8 = @"HomeGesturePreventedByExclusionTrapezoid";
+      v9 = @"HomeGesturePreventedByExclusionTrapezoid";
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
 
-    v9 = !_isOutsideOfExclusionTrapezoid;
+    v10 = v4 ^ 1;
     if ([MEMORY[0x277D75658] isOnScreen])
     {
       isInHardwareKeyboardMode = [MEMORY[0x277D75658] isInHardwareKeyboardMode];
@@ -123,71 +124,77 @@
 
       if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1)
       {
-        v16 = SBLogSystemGestureAppSwitcher();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        v18 = SBLogSystemGestureAppSwitcher(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
-          v17 = objc_opt_class();
-          v18 = NSStringFromClass(v17);
+          v19 = objc_opt_class();
+          v20 = NSStringFromClass(v19);
           name2 = [(SBHomeGesturePanGestureRecognizer *)self name];
           *buf = 138412802;
-          v30 = v18;
-          v31 = 2048;
+          v33 = v20;
+          v34 = 2048;
           selfCopy3 = self;
-          v33 = 2112;
-          v34 = name2;
-          _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_INFO, "Preventing the <%@:%p> (%@) because user is typing.", buf, 0x20u);
+          v36 = 2112;
+          v37 = name2;
+          _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_INFO, "Preventing the <%@:%p> (%@) because user is typing.", buf, 0x20u);
         }
 
-        v8 = @"HomeGesturePreventedByiPadKeyboard";
+        v9 = @"HomeGesturePreventedByiPadKeyboard";
       }
 
       else
       {
-        if ((_touchInterfaceOrientation - 3) > 1 || ![(SBHomeGesturePanGestureRecognizer *)self _shouldBlockHomeGestureForKeyboardInputMode:currentInputModeInPreference])
+        if ((_touchInterfaceOrientation - 3) > 1)
         {
           goto LABEL_23;
         }
 
-        v16 = SBLogSystemGestureAppSwitcher();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        v22 = [(SBHomeGesturePanGestureRecognizer *)self _shouldBlockHomeGestureForKeyboardInputMode:currentInputModeInPreference];
+        if (!v22)
         {
-          v20 = objc_opt_class();
-          v21 = NSStringFromClass(v20);
-          name3 = [(SBHomeGesturePanGestureRecognizer *)self name];
-          *buf = 138412802;
-          v30 = v21;
-          v31 = 2048;
-          selfCopy3 = self;
-          v33 = 2112;
-          v34 = name3;
-          _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_INFO, "Preventing the <%@:%p> (%@) because user is typing on 10-key keyboard in landscape.", buf, 0x20u);
+          goto LABEL_23;
         }
 
-        v8 = @"HomeGesturePreventedByLandscape10Key";
+        v18 = SBLogSystemGestureAppSwitcher(v22);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+        {
+          v23 = objc_opt_class();
+          v24 = NSStringFromClass(v23);
+          name3 = [(SBHomeGesturePanGestureRecognizer *)self name];
+          *buf = 138412802;
+          v33 = v24;
+          v34 = 2048;
+          selfCopy3 = self;
+          v36 = 2112;
+          v37 = name3;
+          _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_INFO, "Preventing the <%@:%p> (%@) because user is typing on 10-key keyboard in landscape.", buf, 0x20u);
+        }
+
+        v9 = @"HomeGesturePreventedByLandscape10Key";
       }
 
-      v9 = 0;
+      v10 = 0;
 LABEL_23:
     }
   }
 
   else
   {
-    v8 = 0;
     v9 = 0;
+    v10 = 0;
   }
 
   mEMORY[0x277D6A798] = [MEMORY[0x277D6A798] sharedInstance];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __49__SBHomeGesturePanGestureRecognizer__shouldBegin__block_invoke;
-  v25[3] = &unk_2783B74F8;
-  v27 = v9;
-  v25[4] = self;
-  v26 = v8;
-  [mEMORY[0x277D6A798] logBlock:v25];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __49__SBHomeGesturePanGestureRecognizer__shouldBegin__block_invoke;
+  v28[3] = &unk_2783B74F8;
+  v30 = v10;
+  v28[4] = self;
+  v29 = v9;
+  [mEMORY[0x277D6A798] logBlock:v28];
 
-  return v9;
+  return v10;
 }
 
 - (void)sb_commonInitHomeGesturePanGestureRecognizer

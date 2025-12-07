@@ -282,15 +282,16 @@
 
 void __41__WBSCreditCardData_initWithVirtualCard___block_invoke(uint64_t a1, void *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v4 = [v2 safari_privacyPreservingDescription];
-      __41__WBSCreditCardData_initWithVirtualCard___block_invoke_cold_1(v4, v5, v3);
+      v6 = [v4 safari_privacyPreservingDescription];
+      __41__WBSCreditCardData_initWithVirtualCard___block_invoke_cold_1(v6, v7, v5);
     }
   }
 }
@@ -616,84 +617,84 @@ uint64_t __45__WBSCreditCardData__expirationDateFormatter__block_invoke()
 
 - (id)keychainRepresentationByMigratingExistingKeychainData:(id)data
 {
-  v40[7] = *MEMORY[0x1E69E9840];
+  v41[7] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v3 = *MEMORY[0x1E697AEB0];
-  v39[0] = *MEMORY[0x1E697ABD0];
-  v39[1] = v3;
-  v40[0] = @"com.apple.safari.credit-cards";
-  v40[1] = MEMORY[0x1E695E118];
+  v40[0] = *MEMORY[0x1E697ABD0];
+  v40[1] = v3;
+  v41[0] = @"com.apple.safari.credit-cards";
+  v41[1] = MEMORY[0x1E695E118];
   v4 = *MEMORY[0x1E697B008];
   v5 = *MEMORY[0x1E697AE88];
-  v39[2] = *MEMORY[0x1E697AFF8];
-  v39[3] = v5;
-  v40[2] = v4;
-  v40[3] = @"SafariCreditCardEntries";
+  v40[2] = *MEMORY[0x1E697AFF8];
+  v40[3] = v5;
+  v41[2] = v4;
+  v41[3] = @"SafariCreditCardEntries";
   v6 = *MEMORY[0x1E697B268];
   v7 = *MEMORY[0x1E697B320];
-  v39[4] = *MEMORY[0x1E697B260];
-  v39[5] = v7;
-  v40[4] = v6;
-  v40[5] = MEMORY[0x1E695E118];
-  v39[6] = *MEMORY[0x1E697B318];
-  v40[6] = MEMORY[0x1E695E118];
-  [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:7];
-  v29 = result = 0;
-  v8 = SecItemCopyMatching(v29, &result);
-  v9 = v8;
+  v40[4] = *MEMORY[0x1E697B260];
+  v40[5] = v7;
+  v41[4] = v6;
+  v41[5] = MEMORY[0x1E695E118];
+  v40[6] = *MEMORY[0x1E697B318];
+  v41[6] = MEMORY[0x1E695E118];
+  [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:7];
+  v30 = result = 0;
+  v8 = SecItemCopyMatching(v30, &result);
+  v10 = v8;
   if (v8 == -25300)
   {
 LABEL_18:
-    v21 = 0;
+    v22 = 0;
     goto LABEL_27;
   }
 
   if (v8)
   {
-    v20 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = WBS_LOG_CHANNEL_PREFIXAutoFill(v8, v9);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [(WBSCreditCardData *)v9 keychainRepresentationByMigratingExistingKeychainData:v20];
+      [(WBSCreditCardData *)v10 keychainRepresentationByMigratingExistingKeychainData:v21];
     }
 
     goto LABEL_18;
   }
 
-  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
   obj = result;
-  v10 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
-  if (v10)
+  v11 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+  if (v11)
   {
-    v11 = *v34;
-    v12 = *MEMORY[0x1E697B3C0];
+    v12 = *v35;
+    v13 = *MEMORY[0x1E697B3C0];
     while (2)
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v34 != v11)
+        if (*v35 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = [*(*(&v33 + 1) + 8 * i) objectForKeyedSubscript:v12];
-        if (v14)
+        v15 = [*(*(&v34 + 1) + 8 * i) objectForKeyedSubscript:v13];
+        if (v15)
         {
-          v32 = 0;
-          v15 = [MEMORY[0x1E696AE40] propertyListWithData:v14 options:0 format:0 error:&v32];
-          v16 = v32;
-          if (v15)
+          v33 = 0;
+          v16 = [MEMORY[0x1E696AE40] propertyListWithData:v15 options:0 format:0 error:&v33];
+          v17 = v33;
+          if (v16)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v17 = [v15 safari_stringForKey:@"CardNumber"];
+              v18 = [v16 safari_stringForKey:@"CardNumber"];
               cardNumber = [dataCopy cardNumber];
-              v19 = [v17 isEqualToString:cardNumber];
+              v20 = [v18 isEqualToString:cardNumber];
 
-              if (v19)
+              if (v20)
               {
 
                 goto LABEL_20;
@@ -703,8 +704,8 @@ LABEL_18:
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
-      if (v10)
+      v11 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+      if (v11)
       {
         continue;
       }
@@ -713,39 +714,39 @@ LABEL_18:
     }
   }
 
-  v15 = 0;
+  v16 = 0;
 LABEL_20:
 
-  v22 = [v15 mutableCopy];
-  [v22 setObject:self->_cardName forKeyedSubscript:@"CardNameUIString"];
-  [v22 setObject:self->_cardholderName forKeyedSubscript:@"CardholderName"];
-  [v22 setObject:self->_cardNumber forKeyedSubscript:@"CardNumber"];
+  v23 = [v16 mutableCopy];
+  [v23 setObject:self->_cardName forKeyedSubscript:@"CardNameUIString"];
+  [v23 setObject:self->_cardholderName forKeyedSubscript:@"CardholderName"];
+  [v23 setObject:self->_cardNumber forKeyedSubscript:@"CardNumber"];
   expirationDate = self->_expirationDate;
   if (expirationDate)
   {
-    [v22 setObject:expirationDate forKeyedSubscript:@"ExpirationDate"];
+    [v23 setObject:expirationDate forKeyedSubscript:@"ExpirationDate"];
   }
 
   lastUsedDate = self->_lastUsedDate;
   if (lastUsedDate)
   {
-    [v22 setObject:lastUsedDate forKeyedSubscript:@"LastUsedDate"];
+    [v23 setObject:lastUsedDate forKeyedSubscript:@"LastUsedDate"];
   }
 
   cardSecurityCode = self->_cardSecurityCode;
   if (cardSecurityCode)
   {
-    [v22 setObject:cardSecurityCode forKeyedSubscript:@"CardSecurityCode"];
+    [v23 setObject:cardSecurityCode forKeyedSubscript:@"CardSecurityCode"];
   }
 
-  v26 = [MEMORY[0x1E696AD98] numberWithBool:self->_promptToSaveSecurityCode];
-  [v22 setObject:v26 forKeyedSubscript:@"PromptToSaveSecurityCode"];
+  v27 = [MEMORY[0x1E696AD98] numberWithBool:self->_promptToSaveSecurityCode];
+  [v23 setObject:v27 forKeyedSubscript:@"PromptToSaveSecurityCode"];
 
-  v21 = [MEMORY[0x1E696AE40] dataWithPropertyList:v22 format:200 options:0 error:0];
+  v22 = [MEMORY[0x1E696AE40] dataWithPropertyList:v23 format:200 options:0 error:0];
 
 LABEL_27:
 
-  return v21;
+  return v22;
 }
 
 - (BOOL)expirationYearIsOlderThan:(id)than

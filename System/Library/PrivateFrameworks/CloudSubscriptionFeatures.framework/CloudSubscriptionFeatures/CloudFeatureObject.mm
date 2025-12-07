@@ -1,5 +1,6 @@
 @interface CloudFeatureObject
 - (CloudFeatureObject)init;
+- (CloudFeatureObject)initWithFeatureID:(id)d status:(int64_t)status canUse:(BOOL)use intValue:(int64_t)value accessToken:(id)token;
 - (CloudFeatureObject)initWithFeatureID:(id)d status:(int64_t)status canUse:(BOOL)use limit:(id)limit accessToken:(id)token;
 @end
 
@@ -28,6 +29,18 @@
   }
 
   return v15;
+}
+
+- (CloudFeatureObject)initWithFeatureID:(id)d status:(int64_t)status canUse:(BOOL)use intValue:(int64_t)value accessToken:(id)token
+{
+  useCopy = use;
+  v12 = MEMORY[0x1E696AD98];
+  tokenCopy = token;
+  dCopy = d;
+  v15 = [v12 numberWithInteger:value];
+  v16 = [(CloudFeatureObject *)self initWithFeatureID:dCopy status:status canUse:useCopy limit:v15 accessToken:tokenCopy];
+
+  return v16;
 }
 
 - (CloudFeatureObject)init

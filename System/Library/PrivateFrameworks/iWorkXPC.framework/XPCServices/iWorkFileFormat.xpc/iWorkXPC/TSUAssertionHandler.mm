@@ -6,6 +6,7 @@
 + (id)performBlockIgnoringFatalAssertions:(id)assertions;
 + (id)performBlockIgnoringQAFatalAssertions:(id)assertions;
 + (void)_logBacktraceWithCallStackSymbols:(id)symbols;
++ (void)handleFailureInFunction:(id)function file:(id)file lineNumber:(int64_t)number isFatal:(BOOL)fatal format:(id)format args:(char *)args;
 + (void)logBacktraceThrottled;
 + (void)logFullBacktrace;
 + (void)setDelegate:(id)delegate;
@@ -393,6 +394,23 @@ LABEL_42:
   {
     qword_1001EB0B8 = delegate;
   }
+}
+
++ (void)handleFailureInFunction:(id)function file:(id)file lineNumber:(int64_t)number isFatal:(BOOL)fatal format:(id)format args:(char *)args
+{
+  fatalCopy = fatal;
+  [[NSString alloc] tsu_initUnRedactedWithFormat:format arguments:args];
+  if (qword_1001EB080)
+  {
+    (*(qword_1001EB080 + 16))();
+  }
+
+  else if (qword_1001EB0B8)
+  {
+    [qword_1001EB0B8 handleFailureInFunction:function file:file lineNumber:number isFatal:fatalCopy format:format message:?];
+  }
+
+  _objc_release_x7();
 }
 
 @end

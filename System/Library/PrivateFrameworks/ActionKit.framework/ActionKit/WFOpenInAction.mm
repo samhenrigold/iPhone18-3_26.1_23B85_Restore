@@ -60,23 +60,22 @@ void __61__WFOpenInAction_getContentDestinationWithCompletionHandler___block_inv
 {
   if (a2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = [*(a1 + 32) input];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __61__WFOpenInAction_getContentDestinationWithCompletionHandler___block_invoke_2;
-    v7[3] = &unk_278C21AE8;
-    v6 = *(a1 + 40);
-    v7[4] = *(a1 + 32);
-    v8 = v6;
-    [v5 getFileRepresentations:v7 forType:0];
+    v4 = [*(a1 + 32) input];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __61__WFOpenInAction_getContentDestinationWithCompletionHandler___block_invoke_2;
+    v6[3] = &unk_278C21AE8;
+    v5 = *(a1 + 40);
+    v6[4] = *(a1 + 32);
+    v7 = v5;
+    [v4 getFileRepresentations:v6 forType:0];
   }
 }
 
@@ -206,7 +205,7 @@ uint64_t __61__WFOpenInAction_getContentDestinationWithCompletionHandler___block
 
 - (void)updateContentClasses
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   selectedApp = [(WFOpenInAction *)self selectedApp];
   documentTypes = [selectedApp documentTypes];
   v5 = [documentTypes if_compactMap:&__block_literal_global_11334];
@@ -214,27 +213,27 @@ uint64_t __61__WFOpenInAction_getContentDestinationWithCompletionHandler___block
   if ([v5 count])
   {
     v6 = objc_opt_new();
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         v11 = 0;
         do
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * v11);
+          v12 = *(*(&v18 + 1) + 8 * v11);
           mEMORY[0x277CFC308] = [MEMORY[0x277CFC308] sharedRegistry];
           v14 = [mEMORY[0x277CFC308] contentItemClassForType:v12];
 
@@ -247,7 +246,7 @@ uint64_t __61__WFOpenInAction_getContentDestinationWithCompletionHandler___block
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
@@ -263,8 +262,6 @@ uint64_t __61__WFOpenInAction_getContentDestinationWithCompletionHandler___block
     v17 = self->_contentClasses;
     self->_contentClasses = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)setParameterState:(id)state forKey:(id)key
@@ -329,7 +326,7 @@ uint64_t __61__WFOpenInAction_getContentDestinationWithCompletionHandler___block
 
 void __45__WFOpenInAction_openContentUsingDefaultApp___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = v6;
   if (v6)
@@ -343,25 +340,25 @@ void __45__WFOpenInAction_openContentUsingDefaultApp___block_invoke(uint64_t a1,
       v11 = [v7 fileURL];
       v12 = [v10 documentWithURL:v11];
 
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __45__WFOpenInAction_openContentUsingDefaultApp___block_invoke_2;
-      v20[3] = &unk_278C1A600;
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __45__WFOpenInAction_openContentUsingDefaultApp___block_invoke_2;
+      v19[3] = &unk_278C1A600;
       v13 = v7;
       v14 = *(a1 + 32);
-      v21 = v13;
-      v22 = v14;
-      [v12 openInDefaultAppWithCompletionHandler:v20];
+      v20 = v13;
+      v21 = v14;
+      [v12 openInDefaultAppWithCompletionHandler:v19];
     }
 
     else
     {
       v15 = MEMORY[0x277CCA9B8];
       v16 = *MEMORY[0x277CCA050];
-      v23 = *MEMORY[0x277CCA170];
+      v22 = *MEMORY[0x277CCA170];
       v17 = [v7 fileURL];
-      v24[0] = v17;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+      v23[0] = v17;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
       v12 = [v15 errorWithDomain:v16 code:4 userInfo:v18];
 
       [*(a1 + 32) finishRunningWithError:v12];
@@ -372,13 +369,11 @@ void __45__WFOpenInAction_openContentUsingDefaultApp___block_invoke(uint64_t a1,
   {
     [*(a1 + 32) finishRunningWithError:a4];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __45__WFOpenInAction_openContentUsingDefaultApp___block_invoke_2(uint64_t a1, char a2)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = 0;
@@ -388,19 +383,17 @@ void __45__WFOpenInAction_openContentUsingDefaultApp___block_invoke_2(uint64_t a
   {
     v4 = MEMORY[0x277CCA9B8];
     v5 = *MEMORY[0x277CCA5B8];
-    v12 = *MEMORY[0x277CCA450];
+    v11 = *MEMORY[0x277CCA450];
     v6 = MEMORY[0x277CCACA8];
     v7 = WFLocalizedString(@"Could not open the file %1$@.");
     v8 = [*(a1 + 32) filename];
-    v9 = [v6 localizedStringWithFormat:v7, v8, v12];
-    v13[0] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v9 = [v6 localizedStringWithFormat:v7, v8, v11];
+    v12[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v3 = [v4 errorWithDomain:v5 code:79 userInfo:v10];
   }
 
   [*(a1 + 40) finishRunningWithError:v3];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openContentInSelectedApp:(id)app
@@ -421,7 +414,7 @@ void __45__WFOpenInAction_openContentUsingDefaultApp___block_invoke_2(uint64_t a
 
 void __43__WFOpenInAction_openContentInSelectedApp___block_invoke(id *a1, void *a2, void *a3, void *a4)
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -439,16 +432,16 @@ void __43__WFOpenInAction_openContentInSelectedApp___block_invoke(id *a1, void *
         v14 = [v12 documentWithURL:v13 annotation:0];
 
         v15 = [a1[5] bundleIdentifier];
-        v29[0] = MEMORY[0x277D85DD0];
-        v29[1] = 3221225472;
-        v29[2] = __43__WFOpenInAction_openContentInSelectedApp___block_invoke_2;
-        v29[3] = &unk_278C1FF80;
-        v30 = a1[5];
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __43__WFOpenInAction_openContentInSelectedApp___block_invoke_2;
+        v28[3] = &unk_278C1FF80;
+        v29 = a1[5];
         v16 = v7;
         v17 = a1[4];
-        v31 = v16;
-        v32 = v17;
-        [v14 openWithAppBundleIdentifier:v15 completionHandler:v29];
+        v30 = v16;
+        v31 = v17;
+        [v14 openWithAppBundleIdentifier:v15 completionHandler:v28];
       }
 
       else
@@ -466,10 +459,10 @@ void __43__WFOpenInAction_openContentInSelectedApp___block_invoke(id *a1, void *
       v18 = a1[4];
       v19 = MEMORY[0x277CCA9B8];
       v20 = *MEMORY[0x277D7CB30];
-      v33 = *MEMORY[0x277CCA450];
+      v32 = *MEMORY[0x277CCA450];
       v21 = WFLocalizedString(@"Open In… failed because it couldn’t find an app to open in.");
-      v34[0] = v21;
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+      v33[0] = v21;
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
       v23 = [v19 errorWithDomain:v20 code:5 userInfo:v22];
       [v18 finishRunningWithError:v23];
     }
@@ -479,13 +472,11 @@ void __43__WFOpenInAction_openContentInSelectedApp___block_invoke(id *a1, void *
   {
     [a1[4] finishRunningWithError:v9];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __43__WFOpenInAction_openContentInSelectedApp___block_invoke_2(id *a1, char a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = 0;
@@ -495,20 +486,18 @@ void __43__WFOpenInAction_openContentInSelectedApp___block_invoke_2(id *a1, char
   {
     v4 = MEMORY[0x277CCA9B8];
     v5 = *MEMORY[0x277CCA5B8];
-    v13 = *MEMORY[0x277CCA450];
+    v12 = *MEMORY[0x277CCA450];
     v6 = MEMORY[0x277CCACA8];
     v7 = WFLocalizedString(@"%1$@ is not installed or could not open the file %2$@.");
     v8 = [a1[4] localizedName];
     v9 = [a1[5] filename];
     v10 = [v6 localizedStringWithFormat:v7, v8, v9];
-    v14[0] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v13[0] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v3 = [v4 errorWithDomain:v5 code:79 userInfo:v11];
   }
 
   [a1[6] finishRunningWithError:v3];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runWithRemoteUserInterface:(id)interface input:(id)input

@@ -66,35 +66,35 @@
 
 - (char)relevanceScoreForNames:(id)names addresses:(id)addresses mapItems:(id)items completion:(id)completion
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   namesCopy = names;
   addressesCopy = addresses;
   completionCopy = completion;
-  if (MapsSuggestionsLoggingIsVerbose())
+  if (MapsSuggestionsLoggingIsVerbose(completionCopy, v12))
   {
-    v12 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v29 = "[MapsSuggestionsPortraitRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
-      _os_log_impl(&dword_1C5126000, v12, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
+      v30 = "[MapsSuggestionsPortraitRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
+      _os_log_impl(&dword_1C5126000, v13, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
     }
   }
 
   if (!completionCopy)
   {
-    v13 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446978;
-      v29 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsPortraitRelevanceScoreProvider.mm";
-      v30 = 1024;
-      v31 = 81;
-      v32 = 2082;
-      v33 = "[MapsSuggestionsPortraitRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
-      v34 = 2082;
-      v35 = "nil == (completion)";
-      _os_log_impl(&dword_1C5126000, v13, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. nil completion", buf, 0x26u);
+      v30 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsPortraitRelevanceScoreProvider.mm";
+      v31 = 1024;
+      v32 = 81;
+      v33 = 2082;
+      v34 = "[MapsSuggestionsPortraitRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
+      v35 = 2082;
+      v36 = "nil == (completion)";
+      _os_log_impl(&dword_1C5126000, v14, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. nil completion", buf, 0x26u);
     }
 
     goto LABEL_25;
@@ -106,18 +106,18 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v13 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446978;
-        v29 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsPortraitRelevanceScoreProvider.mm";
-        v30 = 1024;
-        v31 = 83;
-        v32 = 2082;
-        v33 = "[MapsSuggestionsPortraitRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
-        v34 = 2082;
-        v35 = "[addresses isKindOfClass:[NSMutableArray class]]";
-        _os_log_impl(&dword_1C5126000, v13, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Passing a mutable array for addresses results in undefined behaviour", buf, 0x26u);
+        v30 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsPortraitRelevanceScoreProvider.mm";
+        v31 = 1024;
+        v32 = 83;
+        v33 = 2082;
+        v34 = "[MapsSuggestionsPortraitRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
+        v35 = 2082;
+        v36 = "[addresses isKindOfClass:[NSMutableArray class]]";
+        _os_log_impl(&dword_1C5126000, v14, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Passing a mutable array for addresses results in undefined behaviour", buf, 0x26u);
       }
 
       goto LABEL_25;
@@ -125,304 +125,312 @@
 
     if (!+[MapsSuggestionsSiri isEnabled])
     {
-      v13 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v14 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C5126000, v13, OS_LOG_TYPE_DEBUG, "User turned off Siri: we're not using Siri Portrait", buf, 2u);
+        _os_log_impl(&dword_1C5126000, v14, OS_LOG_TYPE_DEBUG, "User turned off Siri: we're not using Siri Portrait", buf, 2u);
       }
 
       goto LABEL_25;
     }
 
-    v14 = [namesCopy copy];
+    v15 = [namesCopy copy];
 
-    v15 = [addressesCopy copy];
-    if (v15)
+    v16 = [addressesCopy copy];
+    if (v16)
     {
-      v16 = [v14 count];
-      if (v16 != [v15 count])
+      v17 = [v15 count];
+      if (v17 != [v16 count])
       {
-        v17 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v18 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           *buf = 136446978;
-          v29 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsPortraitRelevanceScoreProvider.mm";
-          v30 = 1024;
-          v31 = 96;
-          v32 = 2082;
-          v33 = "[MapsSuggestionsPortraitRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
-          v34 = 2082;
-          v35 = "[names count] != [addresses count]";
-          _os_log_impl(&dword_1C5126000, v17, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Inconsistent array counts for name and address", buf, 0x26u);
+          v30 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsPortraitRelevanceScoreProvider.mm";
+          v31 = 1024;
+          v32 = 96;
+          v33 = 2082;
+          v34 = "[MapsSuggestionsPortraitRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
+          v35 = 2082;
+          v36 = "[names count] != [addresses count]";
+          _os_log_impl(&dword_1C5126000, v18, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Inconsistent array counts for name and address", buf, 0x26u);
         }
 
         goto LABEL_33;
       }
     }
 
-    else if (!v14)
+    else if (!v15)
     {
       namesCopy = GEOFindOrCreateLog();
       if (os_log_type_enabled(namesCopy, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446978;
-        v29 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsPortraitRelevanceScoreProvider.mm";
-        v30 = 1024;
-        v31 = 98;
-        v32 = 2082;
-        v33 = "[MapsSuggestionsPortraitRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
-        v34 = 2082;
-        v35 = "(nil == names) && (nil == addresses)";
+        v30 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsPortraitRelevanceScoreProvider.mm";
+        v31 = 1024;
+        v32 = 98;
+        v33 = 2082;
+        v34 = "[MapsSuggestionsPortraitRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
+        v35 = 2082;
+        v36 = "(nil == names) && (nil == addresses)";
         _os_log_impl(&dword_1C5126000, namesCopy, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. names and addresses can't both be nil", buf, 0x26u);
       }
 
       goto LABEL_26;
     }
 
-    v20 = [v14 count];
-    if (v20)
+    v21 = [v15 count];
+    if (v21)
     {
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __102__MapsSuggestionsPortraitRelevanceScoreProvider_relevanceScoreForNames_addresses_mapItems_completion___block_invoke;
-      v22[3] = &unk_1E8203C10;
-      v27 = v20;
-      v23 = v14;
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __102__MapsSuggestionsPortraitRelevanceScoreProvider_relevanceScoreForNames_addresses_mapItems_completion___block_invoke;
+      v23[3] = &unk_1E8203C10;
+      v28 = v21;
+      v24 = v15;
       selfCopy = self;
-      v25 = v15;
-      v26 = completionCopy;
-      v21 = v15;
-      namesCopy = v14;
-      MSg::Queue::async<MapsSuggestionsPortraitRelevanceScoreProvider>(&self->_queue, self, v22);
+      v26 = v16;
+      v27 = completionCopy;
+      v22 = v16;
+      namesCopy = v15;
+      MSg::Queue::async<MapsSuggestionsPortraitRelevanceScoreProvider>(&self->_queue, self, v23);
 
-      v18 = 1;
+      v19 = 1;
       goto LABEL_27;
     }
 
-    v17 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5126000, v17, OS_LOG_TYPE_DEBUG, "0 names passed", buf, 2u);
+      _os_log_impl(&dword_1C5126000, v18, OS_LOG_TYPE_DEBUG, "0 names passed", buf, 2u);
     }
 
 LABEL_33:
 
-    v18 = 0;
-    namesCopy = v14;
+    v19 = 0;
+    namesCopy = v15;
     goto LABEL_27;
   }
 
-  v13 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446978;
-    v29 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsPortraitRelevanceScoreProvider.mm";
-    v30 = 1024;
-    v31 = 82;
-    v32 = 2082;
-    v33 = "[MapsSuggestionsPortraitRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
-    v34 = 2082;
-    v35 = "[names isKindOfClass:[NSMutableArray class]]";
-    _os_log_impl(&dword_1C5126000, v13, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Passing a mutable array for names results in undefined behaviour", buf, 0x26u);
+    v30 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsPortraitRelevanceScoreProvider.mm";
+    v31 = 1024;
+    v32 = 82;
+    v33 = 2082;
+    v34 = "[MapsSuggestionsPortraitRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
+    v35 = 2082;
+    v36 = "[names isKindOfClass:[NSMutableArray class]]";
+    _os_log_impl(&dword_1C5126000, v14, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Passing a mutable array for names results in undefined behaviour", buf, 0x26u);
   }
 
 LABEL_25:
 
 LABEL_26:
-  v18 = 0;
+  v19 = 0;
 LABEL_27:
 
-  return v18;
+  return v19;
 }
 
 void __102__MapsSuggestionsPortraitRelevanceScoreProvider_relevanceScoreForNames_addresses_mapItems_completion___block_invoke(void *a1, void *a2)
 {
-  v63 = *MEMORY[0x1E69E9840];
-  v41 = a2;
-  v37 = objc_alloc_init(MapsSuggestionsRelevanceScore);
-  v40 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:a1[8]];
+  v68 = *MEMORY[0x1E69E9840];
+  v46 = a2;
+  v42 = objc_alloc_init(MapsSuggestionsRelevanceScore);
+  v45 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:a1[8]];
   v2 = -1;
   while (++v2 < a1[8])
   {
-    [v40 addObject:v37];
+    [v45 addObject:v42];
   }
 
-  if (![v41[2] count])
+  v3 = [v46[2] count];
+  if (!v3)
   {
     goto LABEL_48;
   }
 
-  if (MapsSuggestionsLoggingIsVerbose())
+  if (MapsSuggestionsLoggingIsVerbose(v3, v4))
   {
-    v3 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v5 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5126000, v3, OS_LOG_TYPE_DEBUG, "User Portrait Data:", buf, 2u);
+      _os_log_impl(&dword_1C5126000, v5, OS_LOG_TYPE_DEBUG, "User Portrait Data:", buf, 2u);
     }
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v4 = v41[2];
-  v5 = [v4 countByEnumeratingWithState:&v50 objects:v62 count:16];
-  if (v5)
+  v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v6 = v46[2];
+  IsVerbose = [v6 countByEnumeratingWithState:&v55 objects:v67 count:16];
+  v9 = IsVerbose;
+  if (IsVerbose)
   {
-    v6 = *v51;
+    v10 = *v56;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v11 = 0;
+      do
       {
-        if (*v51 != v6)
+        if (*v56 != v10)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v6);
         }
 
-        v8 = *(*(&v50 + 1) + 8 * i);
-        if (MapsSuggestionsLoggingIsVerbose())
+        v12 = *(*(&v55 + 1) + 8 * v11);
+        IsVerbose = MapsSuggestionsLoggingIsVerbose(IsVerbose, v8);
+        if (IsVerbose)
         {
-          v9 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+          v13 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
-            v10 = [v8 name];
-            v11 = [v8 lastInteractionTime];
+            v14 = [v12 name];
+            v15 = [v12 lastInteractionTime];
             *buf = 138412546;
-            v55 = v10;
-            v56 = 2112;
-            *v57 = v11;
-            _os_log_impl(&dword_1C5126000, v9, OS_LOG_TYPE_DEBUG, "%@, %@\n", buf, 0x16u);
+            v60 = v14;
+            v61 = 2112;
+            *v62 = v15;
+            _os_log_impl(&dword_1C5126000, v13, OS_LOG_TYPE_DEBUG, "%@, %@\n", buf, 0x16u);
           }
         }
+
+        ++v11;
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v50 objects:v62 count:16];
+      while (v9 != v11);
+      IsVerbose = [v6 countByEnumeratingWithState:&v55 objects:v67 count:16];
+      v9 = IsVerbose;
     }
 
-    while (v5);
+    while (IsVerbose);
   }
 
-  v12 = a1[4];
-  if (v12)
+  v16 = a1[4];
+  if (v16)
   {
-    v48 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    v17 = v16;
+    v18 = [v17 countByEnumeratingWithState:&v51 objects:v66 count:16];
+    if (v18)
+    {
+      v19 = 0;
+      v20 = *v52;
+      do
+      {
+        for (i = 0; i != v18; ++i)
+        {
+          if (*v52 != v20)
+          {
+            objc_enumerationMutation(v17);
+          }
+
+          v22 = [(MapsSuggestionsPortraitRelevanceScoreProvider *)v46 _searchForName:?];
+          if (v22 <= 0x7FFFFFFFFFFFFFFELL)
+          {
+            v23 = [[MapsSuggestionsRelevanceScore alloc] initWithConfidence:MapsSuggestionsConfidenceDefinitelyTrue()];
+            v24 = [*(a1[5] + 16) objectAtIndexedSubscript:v22];
+            v25 = [v24 lastInteractionTime];
+            [(MapsSuggestionsRelevanceScore *)v23 setLastInteractionTime:v25];
+
+            [v45 setObject:v23 atIndexedSubscript:v19];
+          }
+
+          ++v19;
+        }
+
+        v18 = [v17 countByEnumeratingWithState:&v51 objects:v66 count:16];
+      }
+
+      while (v18);
+    }
+  }
+
+  v26 = a1[6];
+  if (v26)
+  {
     v49 = 0u;
-    v46 = 0u;
+    v50 = 0u;
     v47 = 0u;
-    v13 = v12;
-    v14 = [v13 countByEnumeratingWithState:&v46 objects:v61 count:16];
-    if (v14)
+    v48 = 0u;
+    obj = v26;
+    v27 = [obj countByEnumeratingWithState:&v47 objects:v65 count:16];
+    if (v27)
     {
-      v15 = 0;
-      v16 = *v47;
+      v28 = 0;
+      v29 = *v48;
       do
       {
-        for (j = 0; j != v14; ++j)
+        for (j = 0; j != v27; ++j)
         {
-          if (*v47 != v16)
-          {
-            objc_enumerationMutation(v13);
-          }
-
-          v18 = [(MapsSuggestionsPortraitRelevanceScoreProvider *)v41 _searchForName:?];
-          if (v18 <= 0x7FFFFFFFFFFFFFFELL)
-          {
-            v19 = [[MapsSuggestionsRelevanceScore alloc] initWithConfidence:MapsSuggestionsConfidenceDefinitelyTrue()];
-            v20 = [*(a1[5] + 16) objectAtIndexedSubscript:v18];
-            v21 = [v20 lastInteractionTime];
-            [(MapsSuggestionsRelevanceScore *)v19 setLastInteractionTime:v21];
-
-            [v40 setObject:v19 atIndexedSubscript:v15];
-          }
-
-          ++v15;
-        }
-
-        v14 = [v13 countByEnumeratingWithState:&v46 objects:v61 count:16];
-      }
-
-      while (v14);
-    }
-  }
-
-  v22 = a1[6];
-  if (v22)
-  {
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    obj = v22;
-    v23 = [obj countByEnumeratingWithState:&v42 objects:v60 count:16];
-    if (v23)
-    {
-      v24 = 0;
-      v25 = *v43;
-      do
-      {
-        for (k = 0; k != v23; ++k)
-        {
-          if (*v43 != v25)
+          if (*v48 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = [objc_alloc(MEMORY[0x1E69A1B40]) initWithCNPostalAddress:*(*(&v42 + 1) + 8 * k) language:v41[6] country:v41[7] phoneticLocale:v41[6]];
-          v28 = [v27 shortAddress];
-          if (MapsSuggestionsLoggingIsVerbose())
+          v31 = [objc_alloc(MEMORY[0x1E69A1B40]) initWithCNPostalAddress:*(*(&v47 + 1) + 8 * j) language:v46[6] country:v46[7] phoneticLocale:v46[6]];
+          v32 = [v31 shortAddress];
+          if (MapsSuggestionsLoggingIsVerbose(v32, v33))
           {
-            v29 = GEOFindOrCreateLog();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+            v34 = GEOFindOrCreateLog();
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v55 = v28;
-              _os_log_impl(&dword_1C5126000, v29, OS_LOG_TYPE_DEBUG, "Converted Address is %@", buf, 0xCu);
+              v60 = v32;
+              _os_log_impl(&dword_1C5126000, v34, OS_LOG_TYPE_DEBUG, "Converted Address is %@", buf, 0xCu);
             }
           }
 
-          v30 = [v40 objectAtIndexedSubscript:v24];
-          [v30 confidence];
-          if (v31 < MapsSuggestionsConfidenceDefinitelyTrue())
+          v35 = [v45 objectAtIndexedSubscript:v28];
+          [v35 confidence];
+          if (v36 < MapsSuggestionsConfidenceDefinitelyTrue())
           {
-            v32 = [(MapsSuggestionsPortraitRelevanceScoreProvider *)a1[5] _searchForName:v28];
-            if (v32 <= 0x7FFFFFFFFFFFFFFELL)
+            v37 = [(MapsSuggestionsPortraitRelevanceScoreProvider *)a1[5] _searchForName:v32];
+            if (v37 <= 0x7FFFFFFFFFFFFFFELL)
             {
-              v33 = [[MapsSuggestionsRelevanceScore alloc] initWithConfidence:MapsSuggestionsConfidenceDefinitelyTrue()];
-              v34 = [*(a1[5] + 16) objectAtIndexedSubscript:v32];
-              v35 = [v34 lastInteractionTime];
-              [(MapsSuggestionsRelevanceScore *)v33 setLastInteractionTime:v35];
+              v38 = [[MapsSuggestionsRelevanceScore alloc] initWithConfidence:MapsSuggestionsConfidenceDefinitelyTrue()];
+              v39 = [*(a1[5] + 16) objectAtIndexedSubscript:v37];
+              v40 = [v39 lastInteractionTime];
+              [(MapsSuggestionsRelevanceScore *)v38 setLastInteractionTime:v40];
 
-              [v40 setObject:v33 atIndexedSubscript:v24];
+              [v45 setObject:v38 atIndexedSubscript:v28];
             }
           }
 
-          ++v24;
+          ++v28;
         }
 
-        v23 = [obj countByEnumeratingWithState:&v42 objects:v60 count:16];
+        v27 = [obj countByEnumeratingWithState:&v47 objects:v65 count:16];
       }
 
-      while (v23);
+      while (v27);
     }
   }
 
-  if ([v40 count] != a1[8])
+  if ([v45 count] != a1[8])
   {
-    v36 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v41 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446978;
-      v55 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsPortraitRelevanceScoreProvider.mm";
-      v56 = 1024;
-      *v57 = 166;
-      *&v57[4] = 2082;
-      *&v57[6] = "[MapsSuggestionsPortraitRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]_block_invoke";
-      v58 = 2082;
-      v59 = "[confidences count] != count";
-      _os_log_impl(&dword_1C5126000, v36, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Return count must be same as input count!", buf, 0x26u);
+      v60 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsPortraitRelevanceScoreProvider.mm";
+      v61 = 1024;
+      *v62 = 166;
+      *&v62[4] = 2082;
+      *&v62[6] = "[MapsSuggestionsPortraitRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]_block_invoke";
+      v63 = 2082;
+      v64 = "[confidences count] != count";
+      _os_log_impl(&dword_1C5126000, v41, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Return count must be same as input count!", buf, 0x26u);
     }
   }
 
@@ -435,7 +443,7 @@ LABEL_48:
 
 - (uint64_t)_searchForName:(uint64_t)name
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!name)
   {
@@ -454,10 +462,10 @@ LABEL_48:
     }
 
     *buf = 0;
-    v13 = "Search String null";
+    v15 = "Search String null";
 LABEL_20:
-    v14 = v5;
-    v15 = 2;
+    v16 = v5;
+    v17 = 2;
     goto LABEL_21;
   }
 
@@ -470,20 +478,20 @@ LABEL_20:
     }
 
     *buf = 0;
-    v13 = "No portrait data";
+    v15 = "No portrait data";
     goto LABEL_20;
   }
 
+  v22 = 0u;
+  v23 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
   v5 = *(name + 16);
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v6)
   {
     v7 = 0;
-    v8 = *v19;
+    v8 = *v21;
     while (2)
     {
       v9 = 0;
@@ -491,18 +499,18 @@ LABEL_20:
       v7 += v6;
       do
       {
-        if (*v19 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        name = [*(*(&v18 + 1) + 8 * v9) name];
+        name = [*(*(&v20 + 1) + 8 * v9) name];
         v12 = [name caseInsensitiveCompare:v3] == 0;
 
         if (v12)
         {
-          v16 = GEOFindOrCreateLog();
-          [(MapsSuggestionsPortraitRelevanceScoreProvider *)v16 _searchForName:v3];
+          v18 = GEOFindOrCreateLog();
+          [(MapsSuggestionsPortraitRelevanceScoreProvider *)v18 _searchForName:v3];
           goto LABEL_23;
         }
 
@@ -511,7 +519,7 @@ LABEL_20:
       }
 
       while (v6 != v9);
-      v6 = [v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v20 objects:v26 count:16];
       if (v6)
       {
         continue;
@@ -521,7 +529,7 @@ LABEL_20:
     }
   }
 
-  if (!MapsSuggestionsLoggingIsVerbose())
+  if (!MapsSuggestionsLoggingIsVerbose(v13, v14))
   {
     v10 = 0x7FFFFFFFFFFFFFFFLL;
     goto LABEL_24;
@@ -531,12 +539,12 @@ LABEL_20:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v23 = v3;
-    v13 = "String %@ was not found in Portrait";
-    v14 = v5;
-    v15 = 12;
+    v25 = v3;
+    v15 = "String %@ was not found in Portrait";
+    v16 = v5;
+    v17 = 12;
 LABEL_21:
-    _os_log_impl(&dword_1C5126000, v14, OS_LOG_TYPE_DEBUG, v13, buf, v15);
+    _os_log_impl(&dword_1C5126000, v16, OS_LOG_TYPE_DEBUG, v15, buf, v17);
   }
 
 LABEL_22:
@@ -550,7 +558,7 @@ LABEL_24:
 - (void)preLoad
 {
   v6 = *MEMORY[0x1E69E9840];
-  if (MapsSuggestionsLoggingIsVerbose())
+  if (MapsSuggestionsLoggingIsVerbose(self, a2))
   {
     v3 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))

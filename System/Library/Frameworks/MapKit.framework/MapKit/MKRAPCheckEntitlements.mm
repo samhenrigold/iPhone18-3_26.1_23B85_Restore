@@ -11,31 +11,31 @@ void ___MKRAPCheckEntitlements_block_invoke()
   if (v1)
   {
     _MKRAPCheckEntitlements_entitlementCheckPassed = 0;
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2020000000;
     v2 = getSecTaskCreateFromSelfSymbolLoc_ptr;
-    v20 = getSecTaskCreateFromSelfSymbolLoc_ptr;
+    v21 = getSecTaskCreateFromSelfSymbolLoc_ptr;
     if (!getSecTaskCreateFromSelfSymbolLoc_ptr)
     {
       cf[0] = MEMORY[0x1E69E9820];
       cf[1] = 3221225472;
       cf[2] = __getSecTaskCreateFromSelfSymbolLoc_block_invoke;
       cf[3] = &unk_1E76CD7B0;
-      v16 = &v17;
+      v17 = &v18;
       v3 = SecurityLibrary();
-      v18[3] = dlsym(v3, "SecTaskCreateFromSelf");
-      getSecTaskCreateFromSelfSymbolLoc_ptr = *(v16[1] + 24);
-      v2 = v18[3];
+      v19[3] = dlsym(v3, "SecTaskCreateFromSelf");
+      getSecTaskCreateFromSelfSymbolLoc_ptr = *(v17[1] + 24);
+      v2 = v19[3];
     }
 
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v18, 8);
     if (!v2)
     {
-      dlerror();
-      v14 = abort_report_np();
-      _Block_object_dispose(&v17, 8);
-      _Unwind_Resume(v14);
+      v14 = dlerror();
+      v15 = abort_report_np("%s", v14);
+      _Block_object_dispose(&v18, 8);
+      _Unwind_Resume(v15);
     }
 
     v4 = v2(0);

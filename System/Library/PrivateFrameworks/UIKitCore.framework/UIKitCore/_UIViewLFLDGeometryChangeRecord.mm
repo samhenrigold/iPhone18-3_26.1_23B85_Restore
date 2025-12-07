@@ -57,9 +57,9 @@ LABEL_9:
   if (self->_currentLayoutView)
   {
     __viewDelegate = 40;
-    v17 = [(NSString *)self->_currentLayoutMethodName isEqualToString:@"viewWillLayoutSubviews"];
+    isEqualToString = objc_msgSend_isEqualToString_(self->_currentLayoutMethodName);
     currentLayoutMethodName = self->_currentLayoutMethodName;
-    if (v17 || (v19 = [(NSString *)self->_currentLayoutMethodName isEqualToString:@"viewDidLayoutSubviews"], currentLayoutMethodName = self->_currentLayoutMethodName, v19))
+    if ((isEqualToString & 1) != 0 || (v19 = objc_msgSend_isEqualToString_(self->_currentLayoutMethodName), currentLayoutMethodName = self->_currentLayoutMethodName, v19))
     {
       v20 = MEMORY[0x1E696AEC0];
       __viewDelegate = [(UIView *)&self->_currentLayoutView->super.super.isa __viewDelegate];

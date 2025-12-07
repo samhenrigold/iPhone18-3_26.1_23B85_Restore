@@ -17,7 +17,7 @@
 
 - (id)DMCAppendGreenteaSuffix
 {
-  if (DMCIsGreenTea())
+  if (DMCIsGreenTea(self, a2))
   {
     selfCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_CH", self];
   }

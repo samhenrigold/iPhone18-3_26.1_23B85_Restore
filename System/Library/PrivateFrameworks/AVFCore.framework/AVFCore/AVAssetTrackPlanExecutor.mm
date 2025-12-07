@@ -96,7 +96,7 @@
         {
           if (v14)
           {
-            [v14 duration];
+            objc_msgSend_duration(v14);
           }
 
           else
@@ -112,7 +112,7 @@
         {
           if (v14)
           {
-            [v14 duration];
+            objc_msgSend_duration(v14);
           }
 
           else
@@ -198,7 +198,7 @@
   segmentURL = [state segmentURL];
   if (state)
   {
-    [state timeRange];
+    objc_msgSend_timeRange(state);
   }
 
   else

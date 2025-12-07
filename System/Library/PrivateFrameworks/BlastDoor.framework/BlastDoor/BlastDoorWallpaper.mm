@@ -21,13 +21,12 @@
 {
   v3 = type metadata accessor for Wallpaper(0);
   v4 = v3 - 8;
-  v5 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_213FB568C(self + OBJC_IVAR___BlastDoorWallpaper_wallpaper, v7, type metadata accessor for Wallpaper);
-  v8 = &v7[*(v4 + 28)];
-  v9 = *(v8 + 3);
-  if (v9 == 1)
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_213FB568C(self + OBJC_IVAR___BlastDoorWallpaper_wallpaper, v6, type metadata accessor for Wallpaper);
+  v7 = &v6[*(v4 + 28)];
+  v8 = *(v7 + 3);
+  if (v8 == 1)
   {
     result = sub_2146DA018();
     __break(1u);
@@ -35,22 +34,21 @@
 
   else
   {
-    v10 = *(v8 + 2);
-    v11 = *(v8 + 3);
+    v9 = *(v7 + 2);
 
-    sub_213FB5844(v7, type metadata accessor for Wallpaper);
-    if (v9)
+    sub_213FB5844(v6, type metadata accessor for Wallpaper);
+    if (v8)
     {
-      v12 = sub_2146D9588();
-      sub_213FDC6D0(v10, v9);
+      v10 = sub_2146D9588();
+      sub_213FDC6D0(v9, v8);
     }
 
     else
     {
-      v12 = 0;
+      v10 = 0;
     }
 
-    return v12;
+    return v10;
   }
 
   return result;

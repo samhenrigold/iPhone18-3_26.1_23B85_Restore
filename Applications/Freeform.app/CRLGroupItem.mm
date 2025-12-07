@@ -33,24 +33,24 @@
   x = position.x;
   boardCopy = board;
   [(CRLGroupItem *)self allNestedChildrenItemsIncludingGroups];
+  v64 = 0u;
+  v65 = 0u;
   v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
-  v11 = v61 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v60 objects:v67 count:16];
+  v11 = v63 = 0u;
+  v12 = [v11 countByEnumeratingWithState:&v62 objects:v69 count:16];
   if (v12)
   {
-    v13 = *v61;
+    v13 = *v63;
     while (2)
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v61 != v13)
+        if (*v63 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        geometry = [*(*(&v60 + 1) + 8 * i) geometry];
+        geometry = [*(*(&v62 + 1) + 8 * i) geometry];
         if (![geometry widthValid] || (objc_msgSend(geometry, "heightValid") & 1) == 0)
         {
 
@@ -59,7 +59,7 @@
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v60 objects:v67 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v62 objects:v69 count:16];
       if (v12)
       {
         continue;
@@ -79,7 +79,7 @@
       v20 = 0.0;
       if (width != 0.0)
       {
-        +[CRLAssertionHandler _atomicIncrementAssertCount];
+        v21 = +[CRLAssertionHandler _atomicIncrementAssertCount];
         if (qword_101AD5A10 != -1)
         {
           sub_10138B320();
@@ -95,15 +95,15 @@
           sub_10138B3D0();
         }
 
-        v21 = off_1019EDA68;
+        v22 = off_1019EDA68;
         if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
         {
-          sub_10138B3F8(v21);
+          sub_10138B3F8(v22, v21);
         }
 
-        v22 = [NSString stringWithUTF8String:"[CRLGroupItem(CRLBoardItemPositionerPrivate) crl_onBoard:moveItemToPosition:size:]"];
-        v23 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLApplication/CRLBoardItem+CanvasPositioning.m"];
-        [CRLAssertionHandler handleFailureInFunction:v22 file:v23 lineNumber:195 isFatal:0 description:"Desired size is an impossible multiple of current size."];
+        v23 = [NSString stringWithUTF8String:"[CRLGroupItem(CRLBoardItemPositionerPrivate) crl_onBoard:moveItemToPosition:size:]"];
+        v24 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLApplication/CRLBoardItem+CanvasPositioning.m"];
+        [CRLAssertionHandler handleFailureInFunction:v23 file:v24 lineNumber:195 isFatal:0 description:"Desired size is an impossible multiple of current size."];
       }
     }
 
@@ -114,10 +114,10 @@
 
     if (v19 <= 0.0)
     {
-      v24 = 0.0;
+      v25 = 0.0;
       if (height != 0.0)
       {
-        +[CRLAssertionHandler _atomicIncrementAssertCount];
+        v26 = +[CRLAssertionHandler _atomicIncrementAssertCount];
         if (qword_101AD5A10 != -1)
         {
           sub_10138B4A8();
@@ -133,57 +133,57 @@
           sub_10138B558();
         }
 
-        v25 = off_1019EDA68;
+        v27 = off_1019EDA68;
         if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
         {
-          sub_10138B580(v25);
+          sub_10138B580(v27, v26);
         }
 
-        v26 = [NSString stringWithUTF8String:"[CRLGroupItem(CRLBoardItemPositionerPrivate) crl_onBoard:moveItemToPosition:size:]"];
-        v27 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLApplication/CRLBoardItem+CanvasPositioning.m"];
-        [CRLAssertionHandler handleFailureInFunction:v26 file:v27 lineNumber:201 isFatal:0 description:"Desired size is an impossible multiple of current size."];
+        v28 = [NSString stringWithUTF8String:"[CRLGroupItem(CRLBoardItemPositionerPrivate) crl_onBoard:moveItemToPosition:size:]"];
+        v29 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLApplication/CRLBoardItem+CanvasPositioning.m"];
+        [CRLAssertionHandler handleFailureInFunction:v28 file:v29 lineNumber:201 isFatal:0 description:"Desired size is an impossible multiple of current size."];
       }
     }
 
     else
     {
-      v24 = height / v19;
+      v25 = height / v19;
     }
 
     if (v20 == 0.0)
     {
-      v20 = v24;
+      v20 = v25;
     }
 
-    else if (v24 == 0.0)
+    else if (v25 == 0.0)
     {
-      v24 = v20;
+      v25 = v20;
     }
 
-    if (v24 != v20 && vabdd_f64(v24, v20) >= 0.00999999978)
+    if (v25 != v20 && vabdd_f64(v25, v20) >= 0.00999999978)
     {
-      v28 = +[CRLAssertionHandler _atomicIncrementAssertCount];
+      v30 = +[CRLAssertionHandler _atomicIncrementAssertCount];
       if (qword_101AD5A10 != -1)
       {
         sub_10138B630();
       }
 
-      v29 = off_1019EDA68;
+      v31 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
         *buf = 67110402;
-        *&buf[4] = v28;
-        *v66 = 2082;
-        *&v66[2] = "[CRLGroupItem(CRLBoardItemPositionerPrivate) crl_onBoard:moveItemToPosition:size:]";
-        *&v66[10] = 2082;
-        *&v66[12] = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLApplication/CRLBoardItem+CanvasPositioning.m";
-        *&v66[20] = 1024;
-        *&v66[22] = 208;
-        *&v66[26] = 2048;
-        *&v66[28] = v24;
-        *&v66[36] = 2048;
-        *&v66[38] = v20;
-        _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d group resize is off-scale (%f vs %f)", buf, 0x36u);
+        *&buf[4] = v30;
+        *v68 = 2082;
+        *&v68[2] = "[CRLGroupItem(CRLBoardItemPositionerPrivate) crl_onBoard:moveItemToPosition:size:]";
+        *&v68[10] = 2082;
+        *&v68[12] = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLApplication/CRLBoardItem+CanvasPositioning.m";
+        *&v68[20] = 1024;
+        *&v68[22] = 208;
+        *&v68[26] = 2048;
+        *&v68[28] = v25;
+        *&v68[36] = 2048;
+        *&v68[38] = v20;
+        _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d group resize is off-scale (%f vs %f)", buf, 0x36u);
       }
 
       if (qword_101AD5A10 != -1)
@@ -191,71 +191,71 @@
         sub_10138B658();
       }
 
-      v30 = off_1019EDA68;
+      v32 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        sub_10138B680(v30);
+        sub_10138B680(v32, v30);
       }
 
-      v31 = [NSString stringWithUTF8String:"[CRLGroupItem(CRLBoardItemPositionerPrivate) crl_onBoard:moveItemToPosition:size:]"];
-      v32 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLApplication/CRLBoardItem+CanvasPositioning.m"];
-      [CRLAssertionHandler handleFailureInFunction:v31 file:v32 lineNumber:208 isFatal:0 description:"group resize is off-scale (%f vs %f)", *&v24, *&v20];
+      v33 = [NSString stringWithUTF8String:"[CRLGroupItem(CRLBoardItemPositionerPrivate) crl_onBoard:moveItemToPosition:size:]"];
+      v34 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLApplication/CRLBoardItem+CanvasPositioning.m"];
+      [CRLAssertionHandler handleFailureInFunction:v33 file:v34 lineNumber:208 isFatal:0 description:"group resize is off-scale (%f vs %f)", *&v25, *&v20];
     }
 
     *buf = 0;
-    *v66 = buf;
-    *&v66[8] = 0x3010000000;
-    *&v66[16] = &unk_1016A8115;
-    *&v66[24] = CGSizeZero;
-    v59[0] = _NSConcreteStackBlock;
-    v59[1] = 3221225472;
-    v59[2] = sub_100517CA4;
-    v59[3] = &unk_1018453B0;
-    v59[4] = buf;
-    [(CRLBoardItem *)self withTemporaryLayoutPerform:v59];
-    v33 = *(*v66 + 32);
-    v34 = *(*v66 + 40);
-    if (height < v34 || (v34 = height, width < v33))
+    *v68 = buf;
+    *&v68[8] = 0x3010000000;
+    *&v68[16] = &unk_1016A8115;
+    *&v68[24] = CGSizeZero;
+    v61[0] = _NSConcreteStackBlock;
+    v61[1] = 3221225472;
+    v61[2] = sub_100517CA4;
+    v61[3] = &unk_1018453B0;
+    v61[4] = buf;
+    [(CRLBoardItem *)self withTemporaryLayoutPerform:v61];
+    v35 = *(*v68 + 32);
+    v36 = *(*v68 + 40);
+    if (height < v36 || (v36 = height, width < v35))
     {
-      v35 = v34 / v19;
-      if (width >= v33)
+      v37 = v36 / v19;
+      if (width >= v35)
       {
-        v33 = width;
+        v35 = width;
       }
 
-      v24 = fmax(v35, v33 / v18);
-      v20 = v24;
+      v25 = fmax(v37, v35 / v18);
+      v20 = v25;
     }
 
+    v59 = 0u;
+    v60 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v55 = 0u;
-    v56 = 0u;
     childrenToPosition = [(CRLGroupItem *)self childrenToPosition];
-    v37 = [childrenToPosition countByEnumeratingWithState:&v55 objects:v64 count:16];
-    if (v37)
+    v39 = [childrenToPosition countByEnumeratingWithState:&v57 objects:v66 count:16];
+    if (v39)
     {
-      v38 = *v56;
+      v40 = *v58;
       do
       {
-        for (j = 0; j != v37; j = j + 1)
+        for (j = 0; j != v39; j = j + 1)
         {
-          if (*v56 != v38)
+          if (*v58 != v40)
           {
             objc_enumerationMutation(childrenToPosition);
           }
 
-          v40 = *(*(&v55 + 1) + 8 * j);
-          v41 = objc_opt_class();
-          v42 = sub_100014370(v41, v40);
-          [v42 visibleBoundsForPositioning];
-          [v42 crl_onBoard:boardCopy moveItemToPosition:v20 * v43 size:{v24 * v44, v20 * v45, v24 * v46}];
+          v42 = *(*(&v57 + 1) + 8 * j);
+          v43 = objc_opt_class();
+          v44 = sub_100014370(v43, v42);
+          [v44 visibleBoundsForPositioning];
+          [v44 crl_onBoard:boardCopy moveItemToPosition:v20 * v45 size:{v25 * v46, v20 * v47, v25 * v48}];
         }
 
-        v37 = [childrenToPosition countByEnumeratingWithState:&v55 objects:v64 count:16];
+        v39 = [childrenToPosition countByEnumeratingWithState:&v57 objects:v66 count:16];
       }
 
-      while (v37);
+      while (v39);
     }
 
     _Block_object_dispose(buf, 8);
@@ -263,16 +263,16 @@
 
 LABEL_65:
   [(CRLBoardItem *)self visibleBoundsForPositioning];
-  v49 = v48;
-  if (v48 != x || v47 != y)
+  v51 = v50;
+  if (v50 != x || v49 != y)
   {
     geometry2 = [(CRLBoardItemBase *)self geometry];
-    v51 = [geometry2 mutableCopy];
+    v53 = [geometry2 mutableCopy];
 
-    v52 = sub_10011F31C(x, y, v49);
-    [v51 position];
-    [v51 setPosition:{sub_10011F334(v53, v54, v52)}];
-    [(CRLBoardItemBase *)self setGeometry:v51];
+    v54 = sub_10011F31C(x, y, v51);
+    [v53 position];
+    [v53 setPosition:{sub_10011F334(v55, v56, v54)}];
+    [(CRLBoardItemBase *)self setGeometry:v53];
   }
 }
 
@@ -295,21 +295,21 @@ LABEL_65:
 
 - (Class)layoutClass
 {
-  sub_100006370(0, &unk_1019F5760);
+  sub_100006370(0, &unk_1019F5760, off_10182F850);
 
   return swift_getObjCClassFromMetadata();
 }
 
 - (Class)repClass
 {
-  sub_100006370(0, &qword_1019F5758);
+  sub_100006370(0, &qword_1019F5758, off_10182F858);
 
   return swift_getObjCClassFromMetadata();
 }
 
 - (Class)editorClass
 {
-  sub_100006370(0, &qword_1019F5750);
+  sub_100006370(0, &qword_1019F5750, off_10182F848);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -486,7 +486,7 @@ LABEL_16:
   selfCopy = self;
   v3 = sub_1005F4814();
 
-  return v3 & 1;
+  return v3;
 }
 
 + (id)groupGeometryFromChildrenInfos:(id)infos
@@ -573,7 +573,6 @@ LABEL_16:
 {
   if ((*((swift_isaMask & *self->_TtC8Freeform16CRLContainerItem_opaque) + 0x688))())
   {
-    sub_1005B981C(&unk_1019F4D60);
     v3 = swift_allocObject();
     *(v3 + 16) = xmmword_101465920;
     *(v3 + 32) = self;

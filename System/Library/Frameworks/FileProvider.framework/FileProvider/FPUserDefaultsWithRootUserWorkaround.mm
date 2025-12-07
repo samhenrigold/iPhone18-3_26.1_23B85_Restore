@@ -10,16 +10,14 @@
 
 + (id)_userDefaultsSearchList
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/private/var/%@/Library/Preferences", @"mobile"];
-  v8[0] = v2;
+  v7[0] = v2;
   v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/Users/%@/Library/Preferences", @"mobile"];
-  v8[1] = v3;
+  v7[1] = v3;
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/Library/Managed Preferences/%@/", @"mobile"];
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }

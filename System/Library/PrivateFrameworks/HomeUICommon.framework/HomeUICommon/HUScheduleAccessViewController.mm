@@ -33,9 +33,8 @@
 {
   v6 = sub_25459A1B0();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_25459A8A0();
   sub_25459A890();
   sub_25459A880();
@@ -46,20 +45,19 @@
 
   sub_25459A190();
   colorCopy = color;
-  v12 = sub_25459A170();
-  v13 = [(HUScheduleAccessViewController *)self initWithHomeID:v12 tintColor:colorCopy listRowBackgroundColor:0];
+  v11 = sub_25459A170();
+  v12 = [(HUScheduleAccessViewController *)self initWithHomeID:v11 tintColor:colorCopy listRowBackgroundColor:0];
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (HUScheduleAccessViewController)initWithHomeID:(id)d tintColor:(id)color listRowBackgroundColor:(id)backgroundColor
 {
   v7 = sub_25459A1B0();
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_25459A8A0();
   sub_25459A890();
   sub_25459A880();
@@ -71,9 +69,9 @@
   sub_25459A190();
   colorCopy = color;
   backgroundColorCopy = backgroundColor;
-  v13 = HUScheduleAccessViewController.init(homeID:tintColor:listRowBackgroundColor:)(v10, colorCopy, backgroundColor);
+  v12 = HUScheduleAccessViewController.init(homeID:tintColor:listRowBackgroundColor:)(v9, colorCopy, backgroundColor);
 
-  return v13;
+  return v12;
 }
 
 - (HUScheduleAccessViewController)initWithCoder:(id)coder

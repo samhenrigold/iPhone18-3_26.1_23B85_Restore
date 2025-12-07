@@ -37,20 +37,20 @@
 
 - (CLLocationCoordinate2D)centroid
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   points = [(TBCentroidCalculator *)self points];
   v4 = [points count];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   points2 = [(TBCentroidCalculator *)self points];
-  v6 = [points2 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v6 = [points2 countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v36;
+    v8 = *v35;
     v9 = 0.0;
     v10 = 0.0;
     v11 = 0.0;
@@ -58,12 +58,12 @@
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v36 != v8)
+        if (*v35 != v8)
         {
           objc_enumerationMutation(points2);
         }
 
-        v13 = *(*(&v35 + 1) + 8 * i);
+        v13 = *(*(&v34 + 1) + 8 * i);
         if ([v13 count] == 2)
         {
           v14 = [v13 objectAtIndexedSubscript:0];
@@ -85,7 +85,7 @@
         }
       }
 
-      v7 = [points2 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v7 = [points2 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v7);
@@ -107,7 +107,6 @@
   v33 = CLLocationCoordinate2DMake(v28, v30);
   longitude = v33.longitude;
   latitude = v33.latitude;
-  v34 = *MEMORY[0x277D85DE8];
   result.longitude = longitude;
   result.latitude = latitude;
   return result;

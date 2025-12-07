@@ -17,7 +17,7 @@
 {
   dismissCopy = dismiss;
   selfCopy = self;
-  sub_100272198();
+  sub_100272198(v5);
 }
 
 - (void)loadView
@@ -49,12 +49,12 @@
   {
     objc_opt_self();
     v5 = swift_dynamicCastObjCClassUnconditional();
-    v7[3] = sub_100003540(0, &qword_100771B60);
+    v7[3] = sub_100003540(0, &qword_100771B60, UITableView_ptr);
     v7[4] = &protocol witness table for UITableView;
     v7[0] = v5;
     UIViewController.deselectRowsAlongsideTransition(for:animated:)();
     sub_100004758(v7);
-    sub_10027602C(&qword_100776B28, v6, type metadata accessor for TTRISmartListFilterEditorViewController);
+    sub_10027602C(&qword_100776B28, v6, type metadata accessor for TTRISmartListFilterEditorViewController, &unk_100636CB0);
     TTRKeyboardAvoidance<>.startAvoidingKeyboard()();
   }
 
@@ -93,13 +93,13 @@
 
   else
   {
-    memset(v6, 0, sizeof(v6));
+    memset(v7, 0, sizeof(v7));
     selfCopy2 = self;
   }
 
-  sub_100272198();
+  sub_100272198(v5);
 
-  sub_1000079B4(v6, &qword_10076AE40);
+  sub_1000079B4(v7, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)doneButtonAction:(id)action
@@ -119,7 +119,7 @@
   }
 
   sub_1003EB81C();
-  sub_1000079B4(v6, &qword_10076AE40);
+  sub_1000079B4(v6, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (_TtC9Reminders39TTRISmartListFilterEditorViewController)initWithNibName:(id)name bundle:(id)bundle

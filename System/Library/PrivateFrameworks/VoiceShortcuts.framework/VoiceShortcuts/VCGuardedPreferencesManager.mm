@@ -7,17 +7,15 @@
 
 + (id)keyWithPreferenceKey:(id)key bundleId:(id)id
 {
-  v12[2] = *MEMORY[0x277D85DE8];
-  v12[0] = id;
-  v12[1] = key;
+  v11[2] = *MEMORY[0x277D85DE8];
+  v11[0] = id;
+  v11[1] = key;
   v5 = MEMORY[0x277CBEA60];
   idCopy = id;
   keyCopy = key;
-  v8 = [v5 arrayWithObjects:v12 count:2];
+  v8 = [v5 arrayWithObjects:v11 count:2];
 
   v9 = [v8 componentsJoinedByString:@"-"];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

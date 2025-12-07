@@ -111,7 +111,7 @@
 {
   v112 = v110;
   v130[3] = *MEMORY[0x1E69E9840];
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](self);
   v115 = &v110[-16 * v4];
   v5 = objc_alloc(MEMORY[0x1E695FED0]);
   v6 = [MEMORY[0x1E696AD98] numberWithInt:self->_channels];

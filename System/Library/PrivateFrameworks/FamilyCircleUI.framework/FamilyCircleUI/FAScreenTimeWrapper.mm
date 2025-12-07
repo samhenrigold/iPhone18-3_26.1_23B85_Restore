@@ -10,9 +10,9 @@
 - (FAScreenTimeWrapper)initWithUserDSID:(id)d
 {
   dCopy = d;
-  v16.receiver = self;
-  v16.super_class = FAScreenTimeWrapper;
-  v5 = [(FAScreenTimeWrapper *)&v16 init];
+  v17.receiver = self;
+  v17.super_class = FAScreenTimeWrapper;
+  v5 = [(FAScreenTimeWrapper *)&v17 init];
   if (v5 && [dCopy intValue] != -1)
   {
     v6 = dispatch_group_create();
@@ -22,19 +22,20 @@
     block[1] = 3221225472;
     block[2] = __40__FAScreenTimeWrapper_initWithUserDSID___block_invoke;
     block[3] = &unk_2782F3190;
-    v13 = v5;
-    v14 = dCopy;
+    v14 = v5;
+    v15 = dCopy;
     v8 = v6;
-    v15 = v8;
+    v16 = v8;
     dispatch_sync(v7, block);
 
     v9 = dispatch_time(0, 1000000000);
-    if (dispatch_group_wait(v8, v9))
+    v10 = dispatch_group_wait(v8, v9);
+    if (v10)
     {
-      v10 = _FALogSystem();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _FALogSystem(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [FAScreenTimeWrapper initWithUserDSID:v10];
+        [FAScreenTimeWrapper initWithUserDSID:v11];
       }
     }
   }

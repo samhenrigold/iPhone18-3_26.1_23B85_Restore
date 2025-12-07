@@ -9,7 +9,7 @@
 
 + (id)viewControllerWithPhotoLibrary:(id)library destination:(id)destination
 {
-  type metadata accessor for RootViewControllerFactory();
+  type metadata accessor for RootViewControllerFactory(0, a2);
   v6 = objc_opt_self();
   libraryCopy = library;
   destinationCopy = destination;

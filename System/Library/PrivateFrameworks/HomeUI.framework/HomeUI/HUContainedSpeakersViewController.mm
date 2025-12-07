@@ -170,7 +170,7 @@
   itemManager = [(HUItemTableViewController *)selfCopy itemManager];
   home = [(HFItemManager *)itemManager home];
 
-  __swift_destroy_boxed_opaque_existential_1(&v7);
+  __swift_destroy_boxed_opaque_existential_1(v7);
 }
 
 @end

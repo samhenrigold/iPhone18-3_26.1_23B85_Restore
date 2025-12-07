@@ -52,9 +52,9 @@
     +[ICAttachmentSystemPaperModel(TextFinding) systemPaperTextFindingQueue];
   }
 
-  v1 = systemPaperTextFindingQueue_sSystemPaperFindingQueue;
+  v2 = systemPaperTextFindingQueue_sSystemPaperFindingQueue;
 
-  return v1;
+  return v2;
 }
 
 @end

@@ -7,11 +7,11 @@
 - (uint64_t)_hmbHasCKUnderlyingErrorWithCode:()HMB;
 - (uint64_t)_hmbIsCKErrorOrHasPartialFailurePassingFilter:()HMB;
 - (uint64_t)_hmbIsCKErrorOrHasPartialFailureWithCode:()HMB;
-- (uint64_t)_hmbIsCKErrorWithCode:()HMB;
-- (uint64_t)_hmbIsCKUnderlyingErrorWithCode:()HMB;
 - (uint64_t)hmbIsCKZoneDisabledError;
 - (uint64_t)hmbIsCloudKitError;
 - (uint64_t)hmbIsCloudKitUnderlyingError;
+- (void)_hmbIsCKErrorWithCode:()HMB;
+- (void)_hmbIsCKUnderlyingErrorWithCode:()HMB;
 - (void)hmbCKUnderlyingError;
 @end
 
@@ -74,23 +74,23 @@
   return [self _hmbIsCKErrorOrHasPartialFailurePassingFilter:v4];
 }
 
-- (uint64_t)_hmbIsCKUnderlyingErrorWithCode:()HMB
+- (void)_hmbIsCKUnderlyingErrorWithCode:()HMB
 {
   result = [self hmbIsCloudKitUnderlyingError];
   if (result)
   {
-    return [self code] == a3;
+    return ([self code] == a3);
   }
 
   return result;
 }
 
-- (uint64_t)_hmbIsCKErrorWithCode:()HMB
+- (void)_hmbIsCKErrorWithCode:()HMB
 {
   result = [self hmbIsCloudKitError];
   if (result)
   {
-    return [self code] == a3;
+    return ([self code] == a3);
   }
 
   return result;
@@ -128,7 +128,7 @@
 
 - (double)hmbCloudKitRetryDelay
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if ([self hmbIsCloudKitError])
   {
     userInfo = [self userInfo];
@@ -154,26 +154,26 @@
         userInfo2 = [self userInfo];
         v9 = [userInfo2 objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
 
-        v25 = 0u;
-        v26 = 0u;
         v23 = 0u;
         v24 = 0u;
+        v21 = 0u;
+        v22 = 0u;
         v10 = v9;
-        v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v24;
+          v13 = *v22;
 LABEL_10:
           v14 = 0;
           while (1)
           {
-            if (*v24 != v13)
+            if (*v22 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = [v10 objectForKeyedSubscript:{*(*(&v23 + 1) + 8 * v14), v23}];
+            v15 = [v10 objectForKeyedSubscript:{*(*(&v21 + 1) + 8 * v14), v21}];
             [v15 hmbCloudKitRetryDelay];
             v17 = v16;
 
@@ -185,7 +185,7 @@ LABEL_10:
 
             if (v12 == ++v14)
             {
-              v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
               if (v12)
               {
                 goto LABEL_10;
@@ -223,18 +223,15 @@ LABEL_10:
         {
 LABEL_23:
           [self hmbDefaultCloudKitRetryDelay];
-          v7 = v21;
+          v7 = v20;
         }
       }
     }
 
 LABEL_26:
 
-    v22 = *MEMORY[0x277D85DE8];
     return v7;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   [self hmbDefaultCloudKitRetryDelay];
   return result;

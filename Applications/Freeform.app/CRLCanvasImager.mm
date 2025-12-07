@@ -1118,7 +1118,7 @@ LABEL_58:
 {
   height = size.height;
   width = size.width;
-  *v5.i64 = sub_100122154(size.width, size.height);
+  *v5.i64 = sub_100122154(self, size.width, size.height);
   *v7.i64 = *v6.i64 - trunc(*v6.i64 * 0.5) * 2.0;
   v8.f64[0] = NAN;
   v8.f64[1] = NAN;

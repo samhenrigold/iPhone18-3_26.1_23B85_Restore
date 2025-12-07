@@ -22,8 +22,8 @@
 - (int)sourceType;
 - (uint64_t)_sourceAttributes;
 - (uint64_t)_sourceToken;
-- (uint64_t)description;
 - (void)dealloc;
+- (void)description;
 - (void)setLensSmudgeDetectionInterval:(id *)interval;
 - (void)setMaxExposureDurationClientOverride:(id *)override;
 @end
@@ -172,7 +172,7 @@
   return v3;
 }
 
-- (uint64_t)description
+- (void)description
 {
   requiredFormat = [self requiredFormat];
   v5 = MEMORY[0x1E696AD60];
@@ -462,10 +462,10 @@
       xpc_dictionary_set_double(v3, "videoZoomRampAcceleration", v21);
       xpc_dictionary_set_int64(v3, "imageControlMode", [(FigCaptureSourceConfiguration *)self imageControlMode]);
       xpc_dictionary_set_BOOL(v3, "applyMaxExposureDurationFrameworkOverrideWhenAvailable", [(FigCaptureSourceConfiguration *)self applyMaxExposureDurationFrameworkOverrideWhenAvailable]);
-      [(FigCaptureSourceConfiguration *)self maxExposureDurationClientOverride];
+      objc_msgSend_maxExposureDurationClientOverride(self);
       if (v42)
       {
-        [(FigCaptureSourceConfiguration *)self maxExposureDurationClientOverride];
+        objc_msgSend_maxExposureDurationClientOverride(self);
         OUTLINED_FUNCTION_5_63();
         FigXPCMessageSetCMTime();
       }
@@ -599,7 +599,7 @@
       if ([(FigCaptureSourceConfiguration *)self lensSmudgeDetectionEnabled])
       {
         xpc_dictionary_set_BOOL(v3, "lensSmudgeDetectionEnabled", [(FigCaptureSourceConfiguration *)self lensSmudgeDetectionEnabled]);
-        [(FigCaptureSourceConfiguration *)self lensSmudgeDetectionInterval];
+        objc_msgSend_lensSmudgeDetectionInterval(self);
         OUTLINED_FUNCTION_5_63();
         FigXPCMessageSetCMTime();
       }
@@ -701,9 +701,9 @@
     return 0;
   }
 
-  v50.receiver = self;
-  v50.super_class = FigCaptureSourceConfiguration;
-  v4 = [(FigCaptureSourceConfiguration *)&v50 init];
+  v52.receiver = self;
+  v52.super_class = FigCaptureSourceConfiguration;
+  v4 = [(FigCaptureSourceConfiguration *)&v52 init];
   if (v4)
   {
     FigXPCMessageCopyCFString();
@@ -721,9 +721,7 @@
 
     if (!*(v4 + 2) && (*(v4 + 6) - 1) < 2)
     {
-LABEL_8:
-
-      return 0;
+      goto LABEL_8;
     }
 
     if ([v4 sourceType] == 1)
@@ -735,186 +733,195 @@ LABEL_8:
         length = 0;
         v9 = *(v4 + 2);
         v10 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-        if (!v10 || (v11 = *MEMORY[0x1E695E480], v10(v9, @"Formats", *MEMORY[0x1E695E480], &length)))
+        if (v10)
         {
-          [FigCaptureSourceConfiguration initWithXPCEncoding:];
+          v11 = *MEMORY[0x1E695E480];
+          v12 = v10(v9, @"Formats", *MEMORY[0x1E695E480], &length);
+          if (!v12)
+          {
+            v50 = 0;
+            v13 = *(v4 + 2);
+            v14 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+            if (v14)
+            {
+              v14(v13, @"AttributesDictionary", v11, &v50);
+              v15 = v50;
+            }
+
+            else
+            {
+              v15 = 0;
+            }
+
+            [v15 objectForKeyedSubscript:@"NonLocalizedName"];
+            FormatByUniqueID = fcsc_findFormatByUniqueID(v8, length);
+            *(v4 + 5) = FormatByUniqueID;
+
+            if (FormatByUniqueID)
+            {
+              length = 0;
+              data = xpc_dictionary_get_data(encoding, "requiredMaxFrameRate", &length);
+              if (length == 12)
+              {
+                v23 = *data;
+                *(v4 + 14) = data[2];
+                *(v4 + 6) = v23;
+              }
+
+              else
+              {
+                *(v4 + 6) = 0;
+                *(v4 + 14) = 2;
+              }
+
+              length = 0;
+              v24 = xpc_dictionary_get_data(encoding, "requiredMinFrameRate", &length);
+              if (length == 12)
+              {
+                v25 = *v24;
+                *(v4 + 17) = v24[2];
+                *(v4 + 60) = v25;
+              }
+
+              else
+              {
+                *(v4 + 60) = 0;
+                *(v4 + 17) = 2;
+              }
+
+              v26 = xpc_dictionary_get_double(encoding, "maxFrameRateClientOverrideKey");
+              *(v4 + 18) = v26;
+              v27 = xpc_dictionary_get_double(encoding, "maxGainClientOverride");
+              *(v4 + 19) = v27;
+              v28 = xpc_dictionary_get_double(encoding, "videoZoomFactor");
+              *(v4 + 21) = v28;
+              array = [MEMORY[0x1E695DF70] array];
+              value = xpc_dictionary_get_value(encoding, "fallbackPrimaryConstituentDeviceTypes");
+              if (xpc_array_get_count(value))
+              {
+                v31 = 0;
+                do
+                {
+                  [array addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", xpc_array_get_int64(value, v31++))}];
+                }
+
+                while (xpc_array_get_count(value) > v31);
+              }
+
+              *(v4 + 12) = [array copy];
+              v32 = xpc_dictionary_get_double(encoding, "videoZoomRampAcceleration");
+              *(v4 + 22) = v32;
+              *(v4 + 26) = xpc_dictionary_get_int64(encoding, "imageControlMode");
+              v4[108] = xpc_dictionary_get_BOOL(encoding, "applyMaxExposureDurationFrameworkOverrideWhenAvailable");
+              FigXPCMessageGetCMTime();
+              v4[144] = xpc_dictionary_get_BOOL(encoding, "sensorHDREnabled");
+              v4[145] = xpc_dictionary_get_BOOL(encoding, "highlightRecoveryEnabled");
+              *(v4 + 37) = xpc_dictionary_get_int64(encoding, "colorSpace");
+              v4[152] = xpc_dictionary_get_BOOL(encoding, "depthDataDeliveryEnabled");
+              FigXPCMessageCopyCFDictionary();
+              v33 = xpc_dictionary_get_string(encoding, "depthDataFormatUniqueID");
+              if (v33 && (v34 = fcsc_findFormatByUniqueID(v33, [*(v4 + 5) supportedDepthDataFormats]), *(v4 + 20) = v34, !v34))
+              {
+                [FigCaptureSourceConfiguration initWithXPCEncoding:];
+              }
+
+              else
+              {
+                v35 = xpc_dictionary_get_double(encoding, "depthDataMaxFrameRate");
+                *(v4 + 42) = v35;
+                v4[172] = xpc_dictionary_get_BOOL(encoding, "lowLightVideoCaptureEnabled");
+                v4[200] = xpc_dictionary_get_BOOL(encoding, "spatialOverCaptureEnabled");
+                v4[201] = xpc_dictionary_get_BOOL(encoding, "nonDestructiveCropEnabled");
+                v36 = xpc_dictionary_get_double(encoding, "normalizedNonDestructiveCropSizeWidth");
+                v37 = xpc_dictionary_get_double(encoding, "normalizedNonDestructiveCropSizeHeight");
+                if (v36 > 0.0 && v37 > 0.0)
+                {
+                  *(v4 + 26) = v36;
+                  *(v4 + 27) = v37;
+                }
+
+                v4[224] = xpc_dictionary_get_BOOL(encoding, "geometricDistortionCorrectionEnabled");
+                v38 = xpc_dictionary_get_BOOL(encoding, "variableFrameRateVideoCaptureEnabled");
+                *(v4 + 22) = 0;
+                v4[225] = v38;
+                *(v4 + 46) = 0;
+                length = 0;
+                v39 = xpc_dictionary_get_data(encoding, "lockedFrameRate", &length);
+                if (length == 12)
+                {
+                  v40 = *v39;
+                  *(v4 + 46) = v39[2];
+                  *(v4 + 22) = v40;
+                }
+
+                *(v4 + 188) = 0;
+                *(v4 + 49) = 0;
+                v50 = 0;
+                v41 = xpc_dictionary_get_data(encoding, "externalSyncFrameRate", &v50);
+                if (v50 == 12)
+                {
+                  v42 = *v41;
+                  *(v4 + 49) = v41[2];
+                  *(v4 + 188) = v42;
+                }
+
+                *(v4 + 57) = xpc_dictionary_get_int64(encoding, "videoStabilizationStrength");
+                v4[232] = xpc_dictionary_get_BOOL(encoding, "cinematicFramingEnabled");
+                v4[233] = xpc_dictionary_get_BOOL(encoding, "cinematicFramingSupported");
+                *(v4 + 59) = xpc_dictionary_get_int64(encoding, "cinematicFramingControlMode");
+                v4[240] = xpc_dictionary_get_BOOL(encoding, "smartFramingEnabled");
+                v4[241] = xpc_dictionary_get_BOOL(encoding, "backgroundBlurSupported");
+                v4[242] = xpc_dictionary_get_BOOL(encoding, "backgroundBlurEnabled");
+                v4[243] = xpc_dictionary_get_BOOL(encoding, "studioLightingSupported");
+                v4[244] = xpc_dictionary_get_BOOL(encoding, "studioLightingEnabled");
+                v4[245] = xpc_dictionary_get_BOOL(encoding, "reactionEffectsSupported");
+                v4[246] = xpc_dictionary_get_BOOL(encoding, "reactionEffectsEnabled");
+                v4[247] = xpc_dictionary_get_BOOL(encoding, "backgroundReplacementSupported");
+                v4[248] = xpc_dictionary_get_BOOL(encoding, "backgroundReplacementEnabled");
+                *(v4 + 63) = xpc_dictionary_get_int64(encoding, "faceDrivenAEAFMode");
+                v4[256] = xpc_dictionary_get_BOOL(encoding, "faceDrivenAEAFEnabledByDefault");
+                v4[257] = xpc_dictionary_get_BOOL(encoding, "deskCamEnabled");
+                v4[268] = xpc_dictionary_get_BOOL(encoding, "manualFramingEnabled");
+                v43 = xpc_dictionary_get_double(encoding, "manualFramingPanningAngleX");
+                *(v4 + 68) = v43;
+                v44 = xpc_dictionary_get_double(encoding, "manualFramingPanningAngleY");
+                *(v4 + 69) = v44;
+                *(v4 + 35) = xpc_dictionary_get_double(encoding, "manualFramingDefaultZoomFactor");
+                v4[288] = xpc_dictionary_get_BOOL(encoding, "gazeSelectionEnabled");
+                v4[289] = xpc_dictionary_get_BOOL(encoding, "dockedTrackingEnabled");
+                v4[290] = xpc_dictionary_get_BOOL(encoding, "clientExpectsCameraMountedInLandscapeOrientation");
+                v4[291] = xpc_dictionary_get_BOOL(encoding, "cinematicVideoCaptureEnabled");
+                v45 = xpc_dictionary_get_double(encoding, "simulatedAperture");
+                *(v4 + 73) = v45;
+                *(v4 + 75) = xpc_dictionary_get_int64(encoding, "outputAspectRatio");
+                *(v4 + 38) = xpc_dictionary_get_int64(encoding, "outputAspectRatioRequestID");
+                v4[312] = xpc_dictionary_get_BOOL(encoding, "lensSmudgeDetectionEnabled");
+                FigXPCMessageGetCMTime();
+                v46 = xpc_dictionary_get_value(encoding, "sensitiveContentAnalyzerXPCObject");
+                *(v4 + 43) = v46;
+                if (!v46 || (v49 = 0, *(v4 + 44) = [objc_alloc(getSCVideoStreamAnalyzerClass()) initWithXPCObject:*(v4 + 43) error:&v49], v47 = objc_msgSend(v49, "domain"), getSCAErrorDomain(), objc_msgSend_isEqualToString_(v47)) && objc_msgSend(v49, "code") == 20 || *(v4 + 44))
+                {
+                  v4[360] = xpc_dictionary_get_BOOL(encoding, "sensitiveContentAnalyzerEnabled");
+                  return v4;
+                }
+              }
+            }
+
+            else
+            {
+              [(FigCaptureSourceConfiguration *)&v50 initWithXPCEncoding:?];
+            }
+
+            goto LABEL_8;
+          }
         }
 
         else
         {
-          v48 = 0;
-          v12 = *(v4 + 2);
-          v13 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-          if (v13)
-          {
-            v13(v12, @"AttributesDictionary", v11, &v48);
-            v14 = v48;
-          }
-
-          else
-          {
-            v14 = 0;
-          }
-
-          [v14 objectForKeyedSubscript:@"NonLocalizedName"];
-          FormatByUniqueID = fcsc_findFormatByUniqueID(v8, length);
-          *(v4 + 5) = FormatByUniqueID;
-
-          if (FormatByUniqueID)
-          {
-            length = 0;
-            data = xpc_dictionary_get_data(encoding, "requiredMaxFrameRate", &length);
-            if (length == 12)
-            {
-              v22 = *data;
-              *(v4 + 14) = data[2];
-              *(v4 + 6) = v22;
-            }
-
-            else
-            {
-              *(v4 + 6) = 0;
-              *(v4 + 14) = 2;
-            }
-
-            length = 0;
-            v23 = xpc_dictionary_get_data(encoding, "requiredMinFrameRate", &length);
-            if (length == 12)
-            {
-              v24 = *v23;
-              *(v4 + 17) = v23[2];
-              *(v4 + 60) = v24;
-            }
-
-            else
-            {
-              *(v4 + 60) = 0;
-              *(v4 + 17) = 2;
-            }
-
-            v25 = xpc_dictionary_get_double(encoding, "maxFrameRateClientOverrideKey");
-            *(v4 + 18) = v25;
-            v26 = xpc_dictionary_get_double(encoding, "maxGainClientOverride");
-            *(v4 + 19) = v26;
-            v27 = xpc_dictionary_get_double(encoding, "videoZoomFactor");
-            *(v4 + 21) = v27;
-            array = [MEMORY[0x1E695DF70] array];
-            value = xpc_dictionary_get_value(encoding, "fallbackPrimaryConstituentDeviceTypes");
-            if (xpc_array_get_count(value))
-            {
-              v30 = 0;
-              do
-              {
-                [array addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", xpc_array_get_int64(value, v30++))}];
-              }
-
-              while (xpc_array_get_count(value) > v30);
-            }
-
-            *(v4 + 12) = [array copy];
-            v31 = xpc_dictionary_get_double(encoding, "videoZoomRampAcceleration");
-            *(v4 + 22) = v31;
-            *(v4 + 26) = xpc_dictionary_get_int64(encoding, "imageControlMode");
-            v4[108] = xpc_dictionary_get_BOOL(encoding, "applyMaxExposureDurationFrameworkOverrideWhenAvailable");
-            FigXPCMessageGetCMTime();
-            v4[144] = xpc_dictionary_get_BOOL(encoding, "sensorHDREnabled");
-            v4[145] = xpc_dictionary_get_BOOL(encoding, "highlightRecoveryEnabled");
-            *(v4 + 37) = xpc_dictionary_get_int64(encoding, "colorSpace");
-            v4[152] = xpc_dictionary_get_BOOL(encoding, "depthDataDeliveryEnabled");
-            FigXPCMessageCopyCFDictionary();
-            v32 = xpc_dictionary_get_string(encoding, "depthDataFormatUniqueID");
-            if (v32 && (v33 = fcsc_findFormatByUniqueID(v32, [*(v4 + 5) supportedDepthDataFormats]), *(v4 + 20) = v33, !v33))
-            {
-              [FigCaptureSourceConfiguration initWithXPCEncoding:];
-            }
-
-            else
-            {
-              v34 = xpc_dictionary_get_double(encoding, "depthDataMaxFrameRate");
-              *(v4 + 42) = v34;
-              v4[172] = xpc_dictionary_get_BOOL(encoding, "lowLightVideoCaptureEnabled");
-              v4[200] = xpc_dictionary_get_BOOL(encoding, "spatialOverCaptureEnabled");
-              v4[201] = xpc_dictionary_get_BOOL(encoding, "nonDestructiveCropEnabled");
-              v35 = xpc_dictionary_get_double(encoding, "normalizedNonDestructiveCropSizeWidth");
-              v36 = xpc_dictionary_get_double(encoding, "normalizedNonDestructiveCropSizeHeight");
-              if (v35 > 0.0 && v36 > 0.0)
-              {
-                *(v4 + 26) = v35;
-                *(v4 + 27) = v36;
-              }
-
-              v4[224] = xpc_dictionary_get_BOOL(encoding, "geometricDistortionCorrectionEnabled");
-              v37 = xpc_dictionary_get_BOOL(encoding, "variableFrameRateVideoCaptureEnabled");
-              *(v4 + 22) = 0;
-              v4[225] = v37;
-              *(v4 + 46) = 0;
-              length = 0;
-              v38 = xpc_dictionary_get_data(encoding, "lockedFrameRate", &length);
-              if (length == 12)
-              {
-                v39 = *v38;
-                *(v4 + 46) = v38[2];
-                *(v4 + 22) = v39;
-              }
-
-              *(v4 + 188) = 0;
-              *(v4 + 49) = 0;
-              v48 = 0;
-              v40 = xpc_dictionary_get_data(encoding, "externalSyncFrameRate", &v48);
-              if (v48 == 12)
-              {
-                v41 = *v40;
-                *(v4 + 49) = v40[2];
-                *(v4 + 188) = v41;
-              }
-
-              *(v4 + 57) = xpc_dictionary_get_int64(encoding, "videoStabilizationStrength");
-              v4[232] = xpc_dictionary_get_BOOL(encoding, "cinematicFramingEnabled");
-              v4[233] = xpc_dictionary_get_BOOL(encoding, "cinematicFramingSupported");
-              *(v4 + 59) = xpc_dictionary_get_int64(encoding, "cinematicFramingControlMode");
-              v4[240] = xpc_dictionary_get_BOOL(encoding, "smartFramingEnabled");
-              v4[241] = xpc_dictionary_get_BOOL(encoding, "backgroundBlurSupported");
-              v4[242] = xpc_dictionary_get_BOOL(encoding, "backgroundBlurEnabled");
-              v4[243] = xpc_dictionary_get_BOOL(encoding, "studioLightingSupported");
-              v4[244] = xpc_dictionary_get_BOOL(encoding, "studioLightingEnabled");
-              v4[245] = xpc_dictionary_get_BOOL(encoding, "reactionEffectsSupported");
-              v4[246] = xpc_dictionary_get_BOOL(encoding, "reactionEffectsEnabled");
-              v4[247] = xpc_dictionary_get_BOOL(encoding, "backgroundReplacementSupported");
-              v4[248] = xpc_dictionary_get_BOOL(encoding, "backgroundReplacementEnabled");
-              *(v4 + 63) = xpc_dictionary_get_int64(encoding, "faceDrivenAEAFMode");
-              v4[256] = xpc_dictionary_get_BOOL(encoding, "faceDrivenAEAFEnabledByDefault");
-              v4[257] = xpc_dictionary_get_BOOL(encoding, "deskCamEnabled");
-              v4[268] = xpc_dictionary_get_BOOL(encoding, "manualFramingEnabled");
-              v42 = xpc_dictionary_get_double(encoding, "manualFramingPanningAngleX");
-              *(v4 + 68) = v42;
-              v43 = xpc_dictionary_get_double(encoding, "manualFramingPanningAngleY");
-              *(v4 + 69) = v43;
-              *(v4 + 35) = xpc_dictionary_get_double(encoding, "manualFramingDefaultZoomFactor");
-              v4[288] = xpc_dictionary_get_BOOL(encoding, "gazeSelectionEnabled");
-              v4[289] = xpc_dictionary_get_BOOL(encoding, "dockedTrackingEnabled");
-              v4[290] = xpc_dictionary_get_BOOL(encoding, "clientExpectsCameraMountedInLandscapeOrientation");
-              v4[291] = xpc_dictionary_get_BOOL(encoding, "cinematicVideoCaptureEnabled");
-              v44 = xpc_dictionary_get_double(encoding, "simulatedAperture");
-              *(v4 + 73) = v44;
-              *(v4 + 75) = xpc_dictionary_get_int64(encoding, "outputAspectRatio");
-              *(v4 + 38) = xpc_dictionary_get_int64(encoding, "outputAspectRatioRequestID");
-              v4[312] = xpc_dictionary_get_BOOL(encoding, "lensSmudgeDetectionEnabled");
-              FigXPCMessageGetCMTime();
-              v45 = xpc_dictionary_get_value(encoding, "sensitiveContentAnalyzerXPCObject");
-              *(v4 + 43) = v45;
-              if (!v45 || (v47 = 0, *(v4 + 44) = [objc_alloc(getSCVideoStreamAnalyzerClass()) initWithXPCObject:*(v4 + 43) error:&v47], objc_msgSend(objc_msgSend(v47, "domain"), "isEqualToString:", getSCAErrorDomain())) && objc_msgSend(v47, "code") == 20 || *(v4 + 44))
-              {
-                v4[360] = xpc_dictionary_get_BOOL(encoding, "sensitiveContentAnalyzerEnabled");
-                return v4;
-              }
-            }
-          }
-
-          else
-          {
-            [FigCaptureSourceConfiguration initWithXPCEncoding:];
-          }
+          v12 = 4294954514;
         }
+
+        [(FigCaptureSourceConfiguration *)v12 initWithXPCEncoding:?];
       }
 
       else
@@ -922,28 +929,30 @@ LABEL_8:
         [FigCaptureSourceConfiguration initWithXPCEncoding:];
       }
 
-      goto LABEL_8;
+LABEL_8:
+
+      return 0;
     }
 
     if ([v4 sourceType] == 2)
     {
       v4[361] = xpc_dictionary_get_BOOL(encoding, "clientOSVersionSupportsDecoupledIO");
-      v15 = xpc_dictionary_get_string(encoding, "clientAudioClockDeviceUID");
-      if (v15)
+      v16 = xpc_dictionary_get_string(encoding, "clientAudioClockDeviceUID");
+      if (v16)
       {
-        *(v4 + 46) = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v15];
+        *(v4 + 46) = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v16];
       }
 
       *(v4 + 47) = [objc_alloc(MEMORY[0x1E696AD98]) initWithDouble:{xpc_dictionary_get_double(encoding, "preferredIOBufferDuration")}];
       length = 0;
-      v16 = xpc_dictionary_get_data(encoding, "remoteIOOutputFormat", &length);
-      if (v16)
+      v17 = xpc_dictionary_get_data(encoding, "remoteIOOutputFormat", &length);
+      if (v17)
       {
-        v17 = v16;
-        v18 = objc_alloc(MEMORY[0x1E695DEF0]);
-        v19 = [v18 initWithBytes:v17 length:length];
-        v48 = 0;
-        *(v4 + 48) = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v19 error:&v48];
+        v18 = v17;
+        v19 = objc_alloc(MEMORY[0x1E695DEF0]);
+        v20 = [v19 initWithBytes:v18 length:length];
+        v50 = 0;
+        *(v4 + 48) = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v20 error:&v50];
       }
     }
   }
@@ -1064,8 +1073,8 @@ LABEL_87:
               goto LABEL_76;
             }
 
-            [(FigCaptureSourceConfiguration *)self maxExposureDurationClientOverride];
-            [equal maxExposureDurationClientOverride];
+            objc_msgSend_maxExposureDurationClientOverride(self);
+            objc_msgSend_maxExposureDurationClientOverride(equal);
             if (CMTimeCompare(&time1, &v117))
             {
               goto LABEL_76;
@@ -1253,8 +1262,8 @@ LABEL_87:
                                                                                       lensSmudgeDetectionEnabled = [(FigCaptureSourceConfiguration *)self lensSmudgeDetectionEnabled];
                                                                                       if (lensSmudgeDetectionEnabled == [equal lensSmudgeDetectionEnabled])
                                                                                       {
-                                                                                        [(FigCaptureSourceConfiguration *)self lensSmudgeDetectionInterval];
-                                                                                        [equal lensSmudgeDetectionInterval];
+                                                                                        objc_msgSend_lensSmudgeDetectionInterval(self);
+                                                                                        objc_msgSend_lensSmudgeDetectionInterval(equal);
                                                                                         if (!CMTimeCompare(&time1, &v117))
                                                                                         {
                                                                                           v100 = [(FigCaptureSourceConfiguration *)self sensitiveContentAnalyzerXPCObject]!= 0;
@@ -1467,7 +1476,7 @@ LABEL_6:
       [OUTLINED_FUNCTION_17() setImageControlMode:?];
       [(FigCaptureSourceConfiguration *)self applyMaxExposureDurationFrameworkOverrideWhenAvailable];
       [OUTLINED_FUNCTION_17() setApplyMaxExposureDurationFrameworkOverrideWhenAvailable:?];
-      [(FigCaptureSourceConfiguration *)self maxExposureDurationClientOverride];
+      objc_msgSend_maxExposureDurationClientOverride(self);
       v9 = v11;
       v10 = v12;
       [v4 setMaxExposureDurationClientOverride:&v9];
@@ -1557,7 +1566,7 @@ LABEL_6:
       [OUTLINED_FUNCTION_17() setOutputAspectRatioRequestID:?];
       [(FigCaptureSourceConfiguration *)self lensSmudgeDetectionEnabled];
       [OUTLINED_FUNCTION_17() setLensSmudgeDetectionEnabled:?];
-      [(FigCaptureSourceConfiguration *)self lensSmudgeDetectionInterval];
+      objc_msgSend_lensSmudgeDetectionInterval(self);
       v9 = v7;
       v10 = v8;
       [v4 setLensSmudgeDetectionInterval:&v9];
@@ -1582,34 +1591,6 @@ LABEL_6:
   }
 
   return v4;
-}
-
-- (uint64_t)initWithXPCEncoding:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithXPCEncoding:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithXPCEncoding:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithXPCEncoding:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 - (uint64_t)isEqual:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

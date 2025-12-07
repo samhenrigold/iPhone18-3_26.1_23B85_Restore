@@ -5,7 +5,12 @@
 - (int)get:(unint64_t)get options:(unsigned int)options sample:(__IOGCFastPathSample *)sample;
 - (int)getDataAvailableNotification:(unsigned int *)notification;
 - (int)queryInterface:(id)interface outInterface:(void *)outInterface;
+- (int)sample:(const __IOGCFastPathSample *)sample getSequenceID:(unint64_t *)d maxID:(unint64_t *)iD;
 - (int)sample:(const __IOGCFastPathSample *)sample getSubsample:(unsigned int)subsample field:(unsigned int)field domain:(unsigned int)domain options:(unsigned int)options timestamp:(unint64_t *)timestamp uncertainty:(unint64_t *)uncertainty flags:(unsigned int *)self0;
+- (int)sample:(const __IOGCFastPathSample *)sample getSubsample:(unsigned int)subsample field:(unsigned int)field options:(unsigned int)options double:(double *)double;
+- (int)sample:(const __IOGCFastPathSample *)sample getSubsample:(unsigned int)subsample field:(unsigned int)field options:(unsigned int)options integer:(int64_t *)integer;
+- (int)sample:(const __IOGCFastPathSample *)sample getSubsample:(unsigned int)subsample flags:(unsigned int *)flags;
+- (int)sample:(const __IOGCFastPathSample *)sample getSubsampleCount:(unsigned int *)count;
 - (int)sampleDestroy:(__IOGCFastPathSample *)destroy;
 - (void)dealloc;
 @end
@@ -214,6 +219,38 @@ LABEL_5:
   }
 }
 
+- (int)sample:(const __IOGCFastPathSample *)sample getSequenceID:(unint64_t *)d maxID:(unint64_t *)iD
+{
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_6C84;
+  v6[3] = &unk_10958;
+  v6[4] = sample;
+  v6[5] = d;
+  v6[6] = iD;
+  return sub_6AE4(self, sample, v6);
+}
+
+- (int)sample:(const __IOGCFastPathSample *)sample getSubsampleCount:(unsigned int *)count
+{
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_6D18;
+  v5[3] = &unk_10978;
+  v5[4] = count;
+  return sub_6AE4(self, sample, v5);
+}
+
+- (int)sample:(const __IOGCFastPathSample *)sample getSubsample:(unsigned int)subsample flags:(unsigned int *)flags
+{
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_6D9C;
+  v6[3] = &unk_10978;
+  v6[4] = flags;
+  return sub_6AE4(self, sample, v6);
+}
+
 - (int)sample:(const __IOGCFastPathSample *)sample getSubsample:(unsigned int)subsample field:(unsigned int)field domain:(unsigned int)domain options:(unsigned int)options timestamp:(unint64_t *)timestamp uncertainty:(unint64_t *)uncertainty flags:(unsigned int *)self0
 {
   if (!dword_165EC)
@@ -221,7 +258,42 @@ LABEL_5:
     mach_timebase_info(&dword_165E8);
   }
 
-  return sub_6AE4(self, sample);
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_6E90;
+  v17[3] = &unk_109A0;
+  fieldCopy = field;
+  optionsCopy = options;
+  domainCopy = domain;
+  v17[6] = uncertainty;
+  v17[7] = flags;
+  v17[4] = self;
+  v17[5] = timestamp;
+  return sub_6AE4(self, sample, v17);
+}
+
+- (int)sample:(const __IOGCFastPathSample *)sample getSubsample:(unsigned int)subsample field:(unsigned int)field options:(unsigned int)options integer:(int64_t *)integer
+{
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_70B8;
+  v8[3] = &unk_109C0;
+  fieldCopy = field;
+  optionsCopy = options;
+  v8[4] = integer;
+  return sub_6AE4(self, sample, v8);
+}
+
+- (int)sample:(const __IOGCFastPathSample *)sample getSubsample:(unsigned int)subsample field:(unsigned int)field options:(unsigned int)options double:(double *)double
+{
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_7238;
+  v8[3] = &unk_109C0;
+  fieldCopy = field;
+  optionsCopy = options;
+  v8[4] = double;
+  return sub_6AE4(self, sample, v8);
 }
 
 - (int)sampleDestroy:(__IOGCFastPathSample *)destroy
@@ -268,7 +340,6 @@ LABEL_5:
 
 - (int)get:(unint64_t)get options:(unsigned int)options sample:(__IOGCFastPathSample *)sample
 {
-  queueMemory = self->_queueMemory;
   result = IOCircularDataQueueCursorReset();
   if (!result)
   {

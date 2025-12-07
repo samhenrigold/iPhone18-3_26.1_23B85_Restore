@@ -9,16 +9,16 @@
 
 - (BOOL)removeItemsMatchingQuery:(id)query error:(id *)error
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = SecItemDelete(query);
   v6 = v5;
   if (v5)
   {
     v7 = SecCopyErrorMessageString(v5, 0);
-    v12 = *MEMORY[0x277CCA470];
+    v11 = *MEMORY[0x277CCA470];
     v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"SecItemDelete() failed with %d: %@", v6, v7];
-    v13[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v12[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
     if (error)
     {
@@ -26,23 +26,21 @@
     }
   }
 
-  result = v6 == 0;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6 == 0;
 }
 
 - (BOOL)updateItemMatchingQuery:(id)query withAttributes:(id)attributes error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v6 = SecItemUpdate(query, attributes);
   v7 = v6;
   if (v6)
   {
     v8 = SecCopyErrorMessageString(v6, 0);
-    v13 = *MEMORY[0x277CCA470];
+    v12 = *MEMORY[0x277CCA470];
     v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"SecItemUpdate() failed with %d: %@", v7, v8];
-    v14[0] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v13[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
 
     if (error)
     {
@@ -50,23 +48,21 @@
     }
   }
 
-  result = v7 == 0;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return v7 == 0;
 }
 
 - (BOOL)addItemWithAttributes:(id)attributes error:(id *)error
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = SecItemAdd(attributes, 0);
   v6 = v5;
   if (v5)
   {
     v7 = SecCopyErrorMessageString(v5, 0);
-    v12 = *MEMORY[0x277CCA470];
+    v11 = *MEMORY[0x277CCA470];
     v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"SecItemAdd() failed with %d: %@", v6, v7];
-    v13[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v12[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
     if (error)
     {
@@ -74,24 +70,22 @@
     }
   }
 
-  result = v6 == 0;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6 == 0;
 }
 
 - (id)resultMatchingQuery:(id)query error:(id *)error
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   result = 0;
   v5 = SecItemCopyMatching(query, &result);
   if (v5)
   {
     v6 = v5;
     v7 = SecCopyErrorMessageString(v5, 0);
-    v14 = *MEMORY[0x277CCA470];
+    v13 = *MEMORY[0x277CCA470];
     v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"SecItemCopyMatching() failed with %d: %@", v6, v7];
-    v15[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v14[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
     if (error)
     {
@@ -105,8 +99,6 @@
   {
     v10 = result;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

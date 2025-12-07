@@ -13,10 +13,10 @@
   {
     v4 = *(&self->super.super.super.super._responderFlags + OBJC_IVAR____TtCV15SafetyMonitorUI18SafetyCacheMapViewP33_0136281DCC3F5D58BE1F34FEE765118630SelectableMarkerAnnotationView_onTapHandler);
     selfCopy = self;
-    v6 = sub_264611394(v3);
+    v6 = sub_264611394(v3, v4);
     v3(v6);
 
-    sub_26460C9A0(v3);
+    sub_26460C9A0(v3, v4);
   }
 }
 
@@ -25,7 +25,7 @@
   v3 = (&self->super.super.super.super.super.isa + OBJC_IVAR____TtCV15SafetyMonitorUI18SafetyCacheMapViewP33_0136281DCC3F5D58BE1F34FEE765118630SelectableMarkerAnnotationView_onTapHandler);
   *v3 = 0;
   v3[1] = 0;
-  result = sub_264785D94();
+  result = sub_264785D94("Fatal error", 11, 2, 0xD000000000000025, 0x80000002647955F0, "SafetyMonitorUI/SafetyCacheMapView.swift", 40, 2, 489, 0);
   __break(1u);
   return result;
 }

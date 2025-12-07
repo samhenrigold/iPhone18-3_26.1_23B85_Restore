@@ -34,9 +34,11 @@
 
 uint64_t __37__JFXAnalyticsManager_sharedInstance__block_invoke()
 {
-  sharedInstance_analyticsManager_0 = objc_alloc_init(JFXAnalyticsManager);
+  v0 = objc_alloc_init(JFXAnalyticsManager);
+  v1 = sharedInstance_analyticsManager_0;
+  sharedInstance_analyticsManager_0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)dictionaryWithEventName:(id)name value:(double)value

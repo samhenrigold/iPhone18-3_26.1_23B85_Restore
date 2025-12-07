@@ -8,7 +8,7 @@
 
 - (BOOL)createDestinationInstancesForSourceInstance:(NSManagedObject *)sInstance entityMapping:(NSEntityMapping *)mapping manager:(NSMigrationManager *)manager error:(NSError *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   destinationEntityName = [(NSEntityMapping *)mapping destinationEntityName];
   if (destinationEntityName)
   {
@@ -17,28 +17,28 @@
     {
       v11 = destinationEntityName;
       v12 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{manager, @"manager", sInstance, @"source", destinationEntityName, @"destination", mapping, @"entityMapping", self, @"entityPolicy", 0}];
+      v24 = 0u;
       v25 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v28 = 0u;
-      v24 = mapping;
+      v23 = mapping;
       attributeMappings = [(NSEntityMapping *)mapping attributeMappings];
-      v14 = [(NSArray *)attributeMappings countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v14 = [(NSArray *)attributeMappings countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v26;
+        v16 = *v25;
         do
         {
           v17 = 0;
           do
           {
-            if (*v26 != v16)
+            if (*v25 != v16)
             {
               objc_enumerationMutation(attributeMappings);
             }
 
-            v18 = *(*(&v25 + 1) + 8 * v17);
+            v18 = *(*(&v24 + 1) + 8 * v17);
             if (manager)
             {
               migrationContext = manager->_migrationContext;
@@ -49,7 +49,7 @@
               migrationContext = 0;
             }
 
-            [(NSMigrationContext *)migrationContext setCurrentPropertyMapping:?];
+            [(NSMigrationContext *)&migrationContext->super.isa setCurrentPropertyMapping:?];
             if ([v18 valueExpression])
             {
               v20 = [v12 mutableCopy];
@@ -61,19 +61,18 @@
           }
 
           while (v15 != v17);
-          v21 = [(NSArray *)attributeMappings countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v21 = [(NSArray *)attributeMappings countByEnumeratingWithState:&v24 objects:v28 count:16];
           v15 = v21;
         }
 
         while (v21);
       }
 
-      [(NSMigrationManager *)manager associateSourceInstance:sInstance withDestinationInstance:v11 forEntityMapping:v24];
+      [(NSMigrationManager *)manager associateSourceInstance:sInstance withDestinationInstance:v11 forEntityMapping:v23];
       LOBYTE(destinationEntityName) = 1;
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return destinationEntityName;
 }
 
@@ -94,9 +93,7 @@
         goto LABEL_7;
       }
 
-LABEL_73:
-      result = 0;
-      goto LABEL_74;
+      return 0;
     }
 
     v48 = error;
@@ -109,7 +106,7 @@ LABEL_73:
     v22 = [(NSArray *)relationshipMappings countByEnumeratingWithState:&v50 objects:v54 count:16];
     if (!v22)
     {
-      goto LABEL_63;
+      return 1;
     }
 
     v23 = v22;
@@ -134,7 +131,7 @@ LABEL_11:
         migrationContext = 0;
       }
 
-      [(NSMigrationContext *)migrationContext setCurrentPropertyMapping:?];
+      [(NSMigrationContext *)&migrationContext->super.isa setCurrentPropertyMapping:?];
       if (![v26 valueExpression])
       {
         goto LABEL_54;
@@ -191,16 +188,16 @@ LABEL_52:
                 error = v48;
                 if (!v48)
                 {
-                  goto LABEL_73;
+                  return 0;
                 }
 
-                v40 = MEMORY[0x1E696ABC0];
-                v41 = *MEMORY[0x1E696A250];
-                v42 = MEMORY[0x1E695DF20];
+                v41 = MEMORY[0x1E696ABC0];
+                v42 = *MEMORY[0x1E696A250];
+                v43 = MEMORY[0x1E695DF20];
                 v47 = dInstance;
                 v46 = v32;
                 v45 = v26;
-                v43 = @"Unknown/unsupported type for toMany relationship destination";
+                v44 = @"Unknown/unsupported type for toMany relationship destination";
                 goto LABEL_72;
               }
 
@@ -244,16 +241,16 @@ LABEL_48:
               error = v48;
               if (!v48)
               {
-                goto LABEL_73;
+                return 0;
               }
 
-              v40 = MEMORY[0x1E696ABC0];
-              v41 = *MEMORY[0x1E696A250];
-              v42 = MEMORY[0x1E695DF20];
+              v41 = MEMORY[0x1E696ABC0];
+              v42 = *MEMORY[0x1E696A250];
+              v43 = MEMORY[0x1E695DF20];
               v47 = dInstance;
               v46 = v32;
               v45 = v26;
-              v43 = @"Unknown/unsupported type for ordered toMany relationship destination";
+              v44 = @"Unknown/unsupported type for ordered toMany relationship destination";
               goto LABEL_72;
             }
 
@@ -261,8 +258,10 @@ LABEL_48:
           }
         }
 
-        v38 = +[_PFRoutines newOrderedSetFromCollection:byAddingItems:](_PFRoutines, v32, -[NSManagedObject valueForKey:](dInstance, "valueForKey:", [v26 name]));
-        -[NSManagedObject setValue:forKey:](dInstance, "setValue:forKey:", v38, [v26 name]);
+        [v26 name];
+        v38 = objc_msgSend_valueForKey_(dInstance);
+        v39 = [_PFRoutines newOrderedSetFromCollection:v32 byAddingItems:v38];
+        -[NSManagedObject setValue:forKey:](dInstance, "setValue:forKey:", v39, [v26 name]);
 
         goto LABEL_54;
       }
@@ -298,16 +297,16 @@ LABEL_48:
               error = v48;
               if (!v48)
               {
-                goto LABEL_73;
+                return 0;
               }
 
-              v40 = MEMORY[0x1E696ABC0];
-              v41 = *MEMORY[0x1E696A250];
-              v42 = MEMORY[0x1E695DF20];
+              v41 = MEMORY[0x1E696ABC0];
+              v42 = *MEMORY[0x1E696A250];
+              v43 = MEMORY[0x1E695DF20];
               v47 = dInstance;
               v46 = v32;
               v45 = v26;
-              v43 = @"Unknown/unsupported type for toOne relationship destination";
+              v44 = @"Unknown/unsupported type for toOne relationship destination";
               goto LABEL_72;
             }
 
@@ -329,20 +328,20 @@ LABEL_64:
           error = v48;
           if (!v48)
           {
-            goto LABEL_73;
+            return 0;
           }
 
-          v40 = MEMORY[0x1E696ABC0];
-          v41 = *MEMORY[0x1E696A250];
-          v42 = MEMORY[0x1E695DF20];
+          v41 = MEMORY[0x1E696ABC0];
+          v42 = *MEMORY[0x1E696A250];
+          v43 = MEMORY[0x1E695DF20];
           v47 = dInstance;
           v46 = v32;
           v45 = v26;
-          v43 = @"More than one relationship destination for a toOne relationship";
+          v44 = @"More than one relationship destination for a toOne relationship";
 LABEL_72:
-          v15 = [v42 dictionaryWithObjectsAndKeys:{v43, @"reason", mapping, @"entityMapping", v45, @"propertyMapping", v46, @"relationshipDestinations", v47, @"destination", 0}];
-          v16 = v40;
-          v17 = v41;
+          v15 = [v43 dictionaryWithObjectsAndKeys:{v44, @"reason", mapping, @"entityMapping", v45, @"propertyMapping", v46, @"relationshipDestinations", v47, @"destination", 0}];
+          v16 = v41;
+          v17 = v42;
           goto LABEL_8;
         }
 
@@ -355,13 +354,11 @@ LABEL_38:
 LABEL_54:
       if (v23 == ++v25)
       {
-        v39 = [(NSArray *)relationshipMappings countByEnumeratingWithState:&v50 objects:v54 count:16];
-        v23 = v39;
-        if (!v39)
+        v40 = [(NSArray *)relationshipMappings countByEnumeratingWithState:&v50 objects:v54 count:16];
+        v23 = v40;
+        if (!v40)
         {
-LABEL_63:
-          result = 1;
-          goto LABEL_74;
+          return 1;
         }
 
         goto LABEL_11;
@@ -371,7 +368,7 @@ LABEL_63:
 
   if (!error)
   {
-    goto LABEL_73;
+    return 0;
   }
 
   v12 = MEMORY[0x1E696ABC0];
@@ -385,15 +382,14 @@ LABEL_8:
   v18 = [v16 errorWithDomain:v17 code:134110 userInfo:v15];
   result = 0;
   *error = v18;
-LABEL_74:
-  v44 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (id)_nonNilValueOrDefaultValueForAttribute:(id)attribute source:(id)source destination:(id)destination
 {
   v6 = -[NSEntityDescription _attributeNamed:]([destination entity], attribute);
-  result = [source valueForKey:{objc_msgSend(objc_msgSend(objc_msgSend(source, "entity"), "_propertyWithRenamingIdentifier:", objc_msgSend(v6, "renamingIdentifier")), "name")}];
+  [objc_msgSend(objc_msgSend(source "entity")];
+  result = objc_msgSend_valueForKey_(source);
   if (!result)
   {
 

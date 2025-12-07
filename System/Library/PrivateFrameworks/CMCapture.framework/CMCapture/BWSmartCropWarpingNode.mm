@@ -5,7 +5,7 @@
 - (void)_updateOutputRequirements;
 - (void)dealloc;
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key;
-- (void)initWithHomographyProvider:(int)provider aspectRatio:(uint64_t)ratio formatDimensions:(int)dimensions maxLossyCompressionLevel:;
+- (void)initWithHomographyProvider:(int)provider aspectRatio:(uint64_t)ratio formatDimensions:(uint64_t)dimensions maxLossyCompressionLevel:;
 - (void)prepareForCurrentConfigurationToBecomeLive;
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input;
 - (void)setActiveAspectRatio:(int)ratio;
@@ -46,7 +46,7 @@
 
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
 
     [(BWSmartCropWarpingNode *)self _updateOutputRequirements];
@@ -152,7 +152,7 @@ LABEL_15:
   [(BWNodeOutput *)self->super._output setFormatRequirements:v3];
 }
 
-uint64_t __53__BWSmartCropWarpingNode__updateDetectedObjectsInfo___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+const __CFDictionary *__53__BWSmartCropWarpingNode__updateDetectedObjectsInfo___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 objectForKeyedSubscript:?];
   v7 = *(MEMORY[0x1E695F050] + 16);
@@ -181,7 +181,7 @@ uint64_t __53__BWSmartCropWarpingNode__updateDetectedObjectsInfo___block_invoke(
   os_unfair_lock_unlock(&self->_bufferServicingLock);
 }
 
-- (void)initWithHomographyProvider:(int)provider aspectRatio:(uint64_t)ratio formatDimensions:(int)dimensions maxLossyCompressionLevel:
+- (void)initWithHomographyProvider:(int)provider aspectRatio:(uint64_t)ratio formatDimensions:(uint64_t)dimensions maxLossyCompressionLevel:
 {
   if (!self)
   {
@@ -245,16 +245,19 @@ uint64_t __53__BWSmartCropWarpingNode__updateDetectedObjectsInfo___block_invoke(
   {
     v9 = setup;
     OUTLINED_FUNCTION_0_8();
-LABEL_12:
-    FigDebugAssert3();
-    return v9;
+    LODWORD(v12) = v11;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v12);
   }
 
-  v9 = [(RTSCProcessor *)self->_rtscProcessor prepareToProcess:1];
-  if (v9)
+  else
   {
-    OUTLINED_FUNCTION_0_8();
-    goto LABEL_12;
+    v9 = [(RTSCProcessor *)self->_rtscProcessor prepareToProcess:1];
+    if (v9)
+    {
+      OUTLINED_FUNCTION_0_8();
+      LODWORD(v12) = v9;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v12);
+    }
   }
 
   return v9;
@@ -262,104 +265,109 @@ LABEL_12:
 
 - (int)_updateDetectedObjectsInfo:(id)info
 {
-  v40 = MEMORY[0x1E69E9820];
-  v41 = 3221225472;
-  v42 = __53__BWSmartCropWarpingNode__updateDetectedObjectsInfo___block_invoke;
-  v43 = &unk_1E7990608;
+  v48 = MEMORY[0x1E69E9820];
+  v49 = 3221225472;
+  v50 = __53__BWSmartCropWarpingNode__updateDetectedObjectsInfo___block_invoke;
+  v51 = &unk_1E7990608;
   selfCopy = self;
-  v4 = *off_1E798B220;
-  v5 = [info objectForKeyedSubscript:*off_1E798B220];
-  if (v5)
+  v5 = *off_1E798B220;
+  v6 = [info objectForKeyedSubscript:*off_1E798B220];
+  if (v6)
   {
-    DeepCopy = CFPropertyListCreateDeepCopy(*MEMORY[0x1E695E480], v5, 1uLL);
+    DeepCopy = CFPropertyListCreateDeepCopy(*MEMORY[0x1E695E480], v6, 1uLL);
     if (DeepCopy)
     {
-      v7 = DeepCopy;
-      v23 = v4;
+      v8 = DeepCopy;
+      v26 = v5;
       infoCopy = info;
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
-      v37 = 0u;
-      v28 = [DeepCopy countByEnumeratingWithState:&v36 objects:v35 count:16];
-      if (v28)
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v36 = [DeepCopy countByEnumeratingWithState:&v44 objects:v43 count:16];
+      if (v36)
       {
-        v26 = *v37;
-        v25 = *off_1E798ACE8;
-        v8 = *off_1E798ACB8;
-        v27 = v7;
+        v32 = *v45;
+        v30 = *off_1E798ACE8;
+        v9 = *off_1E798ACB8;
+        v34 = v8;
         do
         {
-          v9 = 0;
+          v10 = 0;
           do
           {
-            if (*v37 != v26)
+            if (*v45 != v32)
             {
-              objc_enumerationMutation(v7);
+              objc_enumerationMutation(v8);
             }
 
-            v29 = v9;
-            v10 = *(*(&v36 + 1) + 8 * v9);
-            v31 = 0u;
-            v32 = 0u;
-            v33 = 0u;
-            v34 = 0u;
-            v11 = [objc_msgSend(v7 objectForKeyedSubscript:{v10), "objectForKeyedSubscript:", v25}];
-            v12 = [v11 countByEnumeratingWithState:&v31 objects:v30 count:16];
-            if (v12)
+            v37 = v10;
+            v11 = *(*(&v44 + 1) + 8 * v10);
+            v39 = 0u;
+            v40 = 0u;
+            v41 = 0u;
+            v42 = 0u;
+            v12 = [objc_msgSend(v8 objectForKeyedSubscript:{v11), "objectForKeyedSubscript:", v30}];
+            v13 = [v12 countByEnumeratingWithState:&v39 objects:v38 count:16];
+            if (v13)
             {
-              v13 = v12;
-              v14 = *v32;
+              v14 = v13;
+              v15 = *v40;
               do
               {
-                for (i = 0; i != v13; ++i)
+                v16 = 0;
+                do
                 {
-                  if (*v32 != v14)
+                  if (*v40 != v15)
                   {
-                    objc_enumerationMutation(v11);
+                    objc_enumerationMutation(v12);
                   }
 
-                  v16 = OUTLINED_FUNCTION_1_32();
-                  v17(v16);
-                  if ([v10 isEqual:v8])
+                  v17 = OUTLINED_FUNCTION_1_32();
+                  v18(v17);
+                  if ([v11 isEqual:v9])
                   {
-                    v18 = OUTLINED_FUNCTION_1_32();
-                    v19(v18);
-                    v20 = OUTLINED_FUNCTION_1_32();
-                    v21(v20);
+                    v19 = OUTLINED_FUNCTION_1_32();
+                    v20(v19);
+                    v21 = OUTLINED_FUNCTION_1_32();
+                    v22(v21);
                   }
+
+                  ++v16;
                 }
 
-                v13 = [v11 countByEnumeratingWithState:&v31 objects:v30 count:16];
+                while (v14 != v16);
+                v14 = [v12 countByEnumeratingWithState:&v39 objects:v38 count:16];
               }
 
-              while (v13);
+              while (v14);
             }
 
-            v9 = v29 + 1;
-            v7 = v27;
+            v10 = v37 + 1;
+            v8 = v34;
           }
 
-          while (v29 + 1 != v28);
-          v28 = [v27 countByEnumeratingWithState:&v36 objects:v35 count:16];
+          while (v37 + 1 != v36);
+          v36 = [v34 countByEnumeratingWithState:&v44 objects:v43 count:16];
         }
 
-        while (v28);
+        while (v36);
       }
 
-      [infoCopy setObject:v7 forKeyedSubscript:v23];
-      CFRelease(v7);
-      LODWORD(v5) = 0;
+      [infoCopy setObject:v8 forKeyedSubscript:v26];
+      CFRelease(v8);
+      LODWORD(v6) = 0;
     }
 
     else
     {
-      FigDebugAssert3();
-      LODWORD(v5) = -1;
+      v24 = 0;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v3, v25, v27, v29, v31, v33, v35);
+      LODWORD(v6) = -1;
     }
   }
 
-  return v5;
+  return v6;
 }
 
 @end

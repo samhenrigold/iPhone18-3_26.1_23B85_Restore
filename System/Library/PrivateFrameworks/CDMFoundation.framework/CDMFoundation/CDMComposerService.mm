@@ -17,35 +17,33 @@
 
 - (id)supportedCommands
 {
-  v12[4] = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = CDMComposerService;
-  supportedCommands = [(CDMBaseService *)&v11 supportedCommands];
+  v11[4] = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = CDMComposerService;
+  supportedCommands = [(CDMBaseService *)&v10 supportedCommands];
   v3 = +[(CDMBaseCommand *)CDMAssistantNLUCommand];
-  v12[0] = v3;
+  v11[0] = v3;
   v4 = +[(CDMBaseCommand *)CDMNLUPreprocessRequestCommand];
-  v12[1] = v4;
+  v11[1] = v4;
   v5 = +[(CDMBaseCommand *)CDMEmbeddingGraphRequestCommand];
-  v12[2] = v5;
+  v11[2] = v5;
   v6 = +[(CDMBaseCommand *)CDMSsuInferenceGraphRequestCommand];
-  v12[3] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:4];
+  v11[3] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:4];
   v8 = [supportedCommands setByAddingObjectsFromArray:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (id)prepareRequestHandler:(id)handler withCallback:(id)callback
 {
-  v43[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   callbackCopy = callback;
   serviceGraphName = [objc_opt_class() serviceGraphName];
   v7 = NSClassFromString(serviceGraphName);
   loggingRequestID = [handlerCopy loggingRequestID];
-  v34 = [CDMSELFLogUtil createSELFMetadataWithRequestId:loggingRequestID];
+  v33 = [CDMSELFLogUtil createSELFMetadataWithRequestId:loggingRequestID];
   dataDispatcherContext = [handlerCopy dataDispatcherContext];
   [CDMDataDispatcher dispatchSELFRequestLink:loggingRequestID dataDispatcherContext:dataDispatcherContext];
 
@@ -66,14 +64,14 @@
 
   else
   {
-    v31 = CDMOSLoggerForCategory(0);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    v30 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v37 = "[CDMComposerService prepareRequestHandler:withCallback:]";
-      v38 = 2112;
-      v39 = serviceGraphName;
-      _os_log_impl(&dword_1DC287000, v31, OS_LOG_TYPE_INFO, "%s [WARN]: Graph [%@] does not support dispatchServiceGraphRequestLogging", buf, 0x16u);
+      v36 = "[CDMComposerService prepareRequestHandler:withCallback:]";
+      v37 = 2112;
+      v38 = serviceGraphName;
+      _os_log_impl(&dword_1DC287000, v30, OS_LOG_TYPE_INFO, "%s [WARN]: Graph [%@] does not support dispatchServiceGraphRequestLogging", buf, 0x16u);
     }
   }
 
@@ -83,26 +81,26 @@
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v37 = "[CDMComposerService prepareRequestHandler:withCallback:]";
-      v38 = 2112;
-      v39 = @"ServiceGraphRunner not initialized!";
+      v36 = "[CDMComposerService prepareRequestHandler:withCallback:]";
+      v37 = 2112;
+      v38 = @"ServiceGraphRunner not initialized!";
       _os_log_error_impl(&dword_1DC287000, v23, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", buf, 0x16u);
     }
 
     v24 = MEMORY[0x1E696ABC0];
-    v42 = *MEMORY[0x1E696A578];
-    v43[0] = @"ServiceGraphRunner not initialized!";
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:&v42 count:1];
+    v41 = *MEMORY[0x1E696A578];
+    v42[0] = @"ServiceGraphRunner not initialized!";
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
     v13 = [v24 errorWithDomain:@"CDMComposerService" code:-1 userInfo:v25];
 
     dataDispatcherContext4 = [handlerCopy dataDispatcherContext];
-    [CDMSELFLogUtil cdmFailed:8 metadata:v34 logMessage:@"SELF CDM Request failed message emitted" dataDispatcherContext:dataDispatcherContext4];
+    [CDMSELFLogUtil cdmFailed:8 metadata:v33 logMessage:@"SELF CDM Request failed message emitted" dataDispatcherContext:dataDispatcherContext4];
 
     [(CDMComposerService *)self failWithError:v13 rawCommand:handlerCopy callback:callbackCopy];
     goto LABEL_13;
   }
 
-  v13 = [(CDMComposerService *)self createServiceGraphForCommand:handlerCopy withSelfMetadata:v34 withCallback:callbackCopy];
+  v13 = [(CDMComposerService *)self createServiceGraphForCommand:handlerCopy withSelfMetadata:v33 withCallback:callbackCopy];
   if (!v13)
   {
 LABEL_13:
@@ -112,20 +110,20 @@ LABEL_13:
 
   v14 = [CDMBaseRequestHandler alloc];
   uuid = [handlerCopy uuid];
-  v32 = [(CDMBaseRequestHandler *)v14 initWithId:uuid serviceGraph:v13];
+  v31 = [(CDMBaseRequestHandler *)v14 initWithId:uuid serviceGraph:v13];
 
-  getError = [(CDMBaseRequestHandler *)v32 getError];
+  getError = [(CDMBaseRequestHandler *)v31 getError];
   if (getError)
   {
     v17 = CDMLogContext;
     if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v37 = "[CDMComposerService prepareRequestHandler:withCallback:]";
-      v38 = 2112;
-      v39 = @"summary";
-      v40 = 2112;
-      v41 = getError;
+      v36 = "[CDMComposerService prepareRequestHandler:withCallback:]";
+      v37 = 2112;
+      v38 = @"summary";
+      v39 = 2112;
+      v40 = getError;
       _os_log_impl(&dword_1DC287000, v17, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nFailing early as graph set an error before even running it. Error:%@", buf, 0x20u);
     }
 
@@ -145,24 +143,23 @@ LABEL_13:
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v37 = "[CDMComposerService prepareRequestHandler:withCallback:]";
-      v38 = 2112;
-      v39 = serviceGraphName;
+      v36 = "[CDMComposerService prepareRequestHandler:withCallback:]";
+      v37 = 2112;
+      v38 = serviceGraphName;
       _os_log_impl(&dword_1DC287000, v28, OS_LOG_TYPE_INFO, "%s Created %@", buf, 0x16u);
     }
 
-    v22 = v32;
+    v22 = v31;
   }
 
 LABEL_20:
-  v29 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
 
 - (id)createServiceGraphForCommand:(id)command withSelfMetadata:(id)metadata withCallback:(id)callback
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   commandCopy = command;
   metadataCopy = metadata;
   callbackCopy = callback;
@@ -185,16 +182,16 @@ LABEL_20:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v34 = "[CDMComposerService createServiceGraphForCommand:withSelfMetadata:withCallback:]";
-      v35 = 2112;
-      v36 = v20;
+      v33 = "[CDMComposerService createServiceGraphForCommand:withSelfMetadata:withCallback:]";
+      v34 = 2112;
+      v35 = v20;
       _os_log_error_impl(&dword_1DC287000, v21, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", buf, 0x16u);
     }
 
     v22 = MEMORY[0x1E696ABC0];
-    v31 = *MEMORY[0x1E696A578];
-    v32 = v20;
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+    v30 = *MEMORY[0x1E696A578];
+    v31 = v20;
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
     v24 = [v22 errorWithDomain:@"CDMComposerService" code:-3 userInfo:v23];
 
     dataDispatcherContext2 = [commandCopy dataDispatcherContext];
@@ -209,21 +206,19 @@ LABEL_20:
     v26 = v17;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return v26;
 }
 
 - (void)_handleSetupRequest:(id)request withCallback:(id)callback
 {
-  v42[1] = *MEMORY[0x1E69E9840];
+  v41[1] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   callbackCopy = callback;
   v8 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v36 = "[CDMComposerService _handleSetupRequest:withCallback:]";
+    v35 = "[CDMComposerService _handleSetupRequest:withCallback:]";
     _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -238,9 +233,9 @@ LABEL_20:
     dynamicConfig2 = [requestCopy dynamicConfig];
     graphName = [dynamicConfig2 graphName];
     *buf = 136315394;
-    v36 = "[CDMComposerService _handleSetupRequest:withCallback:]";
-    v37 = 2112;
-    v38 = graphName;
+    v35 = "[CDMComposerService _handleSetupRequest:withCallback:]";
+    v36 = 2112;
+    v37 = graphName;
     _os_log_debug_impl(&dword_1DC287000, v12, OS_LOG_TYPE_DEBUG, "%s DynamicConfig's graphName=%@", buf, 0x16u);
   }
 
@@ -256,13 +251,13 @@ LABEL_20:
     {
       dynamicConfig4 = [requestCopy dynamicConfig];
       graphName3 = [dynamicConfig4 graphName];
-      v34 = self->_languageCode;
+      v33 = self->_languageCode;
       *buf = 136315650;
-      v36 = "[CDMComposerService _handleSetupRequest:withCallback:]";
-      v37 = 2112;
-      v38 = graphName3;
-      v39 = 2112;
-      v40 = v34;
+      v35 = "[CDMComposerService _handleSetupRequest:withCallback:]";
+      v36 = 2112;
+      v37 = graphName3;
+      v38 = 2112;
+      v39 = v33;
       _os_log_debug_impl(&dword_1DC287000, v16, OS_LOG_TYPE_DEBUG, "%s Ready for graph %@ and locale %@", buf, 0x20u);
     }
 
@@ -282,16 +277,16 @@ LABEL_20:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v36 = "[CDMComposerService _handleSetupRequest:withCallback:]";
-      v37 = 2112;
-      v38 = createSetupResponseCommand;
+      v35 = "[CDMComposerService _handleSetupRequest:withCallback:]";
+      v36 = 2112;
+      v37 = createSetupResponseCommand;
       _os_log_error_impl(&dword_1DC287000, v21, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", buf, 0x16u);
     }
 
     v22 = MEMORY[0x1E696ABC0];
-    v41 = *MEMORY[0x1E696A578];
-    v42[0] = createSetupResponseCommand;
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+    v40 = *MEMORY[0x1E696A578];
+    v41[0] = createSetupResponseCommand;
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
     v24 = [v22 errorWithDomain:@"CDMComposerService" code:-4 userInfo:v23];
 
     self->super._serviceState = 3;
@@ -303,13 +298,11 @@ LABEL_20:
     [(CDMBaseCommand *)v28 setCmdError:v24];
     (callbackCopy)[2](callbackCopy, v28, v24);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleSsuInferenceRequest:(id)request withCallback:(id)callback
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   callbackCopy = callback;
   v8 = objc_opt_class();
@@ -328,37 +321,35 @@ LABEL_20:
     {
       handlerId = [v11 handlerId];
       *buf = 138412290;
-      v27 = handlerId;
+      v26 = handlerId;
       _os_signpost_emit_with_name_impl(&dword_1DC287000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "handleSsuInferenceGraph", "%@", buf, 0xCu);
     }
 
     serviceGraphRunner = self->_serviceGraphRunner;
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __62__CDMComposerService__handleSsuInferenceRequest_withCallback___block_invoke;
-    v19[3] = &unk_1E862F438;
-    v24 = v13;
-    v20 = v11;
-    v21 = v10;
-    v22 = requestCopy;
-    v25 = v8;
-    v23 = callbackCopy;
-    [(CDMServiceGraphRunner *)serviceGraphRunner runHandlerAsync:v20 withCompletion:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __62__CDMComposerService__handleSsuInferenceRequest_withCallback___block_invoke;
+    v18[3] = &unk_1E862F438;
+    v23 = v13;
+    v19 = v11;
+    v20 = v10;
+    v21 = requestCopy;
+    v24 = v8;
+    v22 = callbackCopy;
+    [(CDMServiceGraphRunner *)serviceGraphRunner runHandlerAsync:v19 withCompletion:v18];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __62__CDMComposerService__handleSsuInferenceRequest_withCallback___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(4);
   v3 = v2;
   v4 = *(a1 + 64);
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
   {
-    LOWORD(v20) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DC287000, v3, OS_SIGNPOST_INTERVAL_END, v4, "handleSsuInferenceGraph", "", &v20, 2u);
+    LOWORD(v19) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1DC287000, v3, OS_SIGNPOST_INTERVAL_END, v4, "handleSsuInferenceGraph", "", &v19, 2u);
   }
 
   v5 = [*(a1 + 32) getResult];
@@ -368,23 +359,23 @@ void __62__CDMComposerService__handleSsuInferenceRequest_withCallback___block_in
     v7 = CDMLogContext;
     if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 136315650;
-      v21 = "[CDMComposerService _handleSsuInferenceRequest:withCallback:]_block_invoke";
-      v22 = 2112;
-      v23 = @"summary";
-      v24 = 2112;
-      v25 = v6;
-      _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nServiceGraphError: %@", &v20, 0x20u);
+      v19 = 136315650;
+      v20 = "[CDMComposerService _handleSsuInferenceRequest:withCallback:]_block_invoke";
+      v21 = 2112;
+      v22 = @"summary";
+      v23 = 2112;
+      v24 = v6;
+      _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nServiceGraphError: %@", &v19, 0x20u);
     }
 
     v8 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v20 = 136315394;
-      v21 = "[CDMComposerService _handleSsuInferenceRequest:withCallback:]_block_invoke";
-      v22 = 2112;
-      v23 = v6;
-      _os_log_error_impl(&dword_1DC287000, v8, OS_LOG_TYPE_ERROR, "%s [ERR]: Sending Error via callback in CDMClient, Error:%@", &v20, 0x16u);
+      v19 = 136315394;
+      v20 = "[CDMComposerService _handleSsuInferenceRequest:withCallback:]_block_invoke";
+      v21 = 2112;
+      v22 = v6;
+      _os_log_error_impl(&dword_1DC287000, v8, OS_LOG_TYPE_ERROR, "%s [ERR]: Sending Error via callback in CDMClient, Error:%@", &v19, 0x16u);
     }
 
     v9 = [(__CFString *)v6 domain];
@@ -406,9 +397,9 @@ void __62__CDMComposerService__handleSsuInferenceRequest_withCallback___block_in
     v17 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v20 = 136315138;
-      v21 = "[CDMComposerService _handleSsuInferenceRequest:withCallback:]_block_invoke";
-      _os_log_debug_impl(&dword_1DC287000, v17, OS_LOG_TYPE_DEBUG, "%s Sending CDMSsuInferenceGraphResponseCommand via callback in CDMClient", &v20, 0xCu);
+      v19 = 136315138;
+      v20 = "[CDMComposerService _handleSsuInferenceRequest:withCallback:]_block_invoke";
+      _os_log_debug_impl(&dword_1DC287000, v17, OS_LOG_TYPE_DEBUG, "%s Sending CDMSsuInferenceGraphResponseCommand via callback in CDMClient", &v19, 0xCu);
     }
 
     v13 = [[CDMGenericSendCommand alloc] initWithSsuInferenceGraphResponse:v5];
@@ -416,13 +407,11 @@ void __62__CDMComposerService__handleSsuInferenceRequest_withCallback___block_in
 
   v18 = v13;
   (*(*(a1 + 56) + 16))();
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleEmbeddingRequest:(id)request withCallback:(id)callback
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   callbackCopy = callback;
   v8 = objc_opt_class();
@@ -440,38 +429,36 @@ void __62__CDMComposerService__handleSsuInferenceRequest_withCallback___block_in
     {
       handlerId = [v9 handlerId];
       *buf = 138412290;
-      v28 = handlerId;
+      v27 = handlerId;
       _os_signpost_emit_with_name_impl(&dword_1DC287000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "handleEmbeddingGraph", "%@", buf, 0xCu);
     }
 
     serviceGraphRunner = self->_serviceGraphRunner;
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __59__CDMComposerService__handleEmbeddingRequest_withCallback___block_invoke;
-    v19[3] = &unk_1E862F410;
-    v25 = v13;
-    v20 = v9;
-    v26 = v8;
-    v21 = requestId;
-    v22 = requestCopy;
-    v23 = v11;
-    v24 = callbackCopy;
-    [(CDMServiceGraphRunner *)serviceGraphRunner runHandlerAsync:v20 withCompletion:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __59__CDMComposerService__handleEmbeddingRequest_withCallback___block_invoke;
+    v18[3] = &unk_1E862F410;
+    v24 = v13;
+    v19 = v9;
+    v25 = v8;
+    v20 = requestId;
+    v21 = requestCopy;
+    v22 = v11;
+    v23 = callbackCopy;
+    [(CDMServiceGraphRunner *)serviceGraphRunner runHandlerAsync:v19 withCompletion:v18];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __59__CDMComposerService__handleEmbeddingRequest_withCallback___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(4);
   v3 = v2;
   v4 = *(a1 + 72);
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
   {
-    LOWORD(v20) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DC287000, v3, OS_SIGNPOST_INTERVAL_END, v4, "handleEmbeddingGraph", "", &v20, 2u);
+    LOWORD(v19) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1DC287000, v3, OS_SIGNPOST_INTERVAL_END, v4, "handleEmbeddingGraph", "", &v19, 2u);
   }
 
   v5 = [*(a1 + 32) getResult];
@@ -481,13 +468,13 @@ void __59__CDMComposerService__handleEmbeddingRequest_withCallback___block_invok
     v7 = CDMLogContext;
     if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 136315650;
-      v21 = "[CDMComposerService _handleEmbeddingRequest:withCallback:]_block_invoke";
-      v22 = 2112;
-      v23 = @"summary";
-      v24 = 2112;
-      v25 = v6;
-      _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nServiceGraphError: %@", &v20, 0x20u);
+      v19 = 136315650;
+      v20 = "[CDMComposerService _handleEmbeddingRequest:withCallback:]_block_invoke";
+      v21 = 2112;
+      v22 = @"summary";
+      v23 = 2112;
+      v24 = v6;
+      _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nServiceGraphError: %@", &v19, 0x20u);
     }
 
     v8 = [(__CFString *)v6 domain];
@@ -499,11 +486,11 @@ void __59__CDMComposerService__handleEmbeddingRequest_withCallback___block_invok
     v12 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v20 = 136315394;
-      v21 = "[CDMComposerService _handleEmbeddingRequest:withCallback:]_block_invoke";
-      v22 = 2112;
-      v23 = v6;
-      _os_log_error_impl(&dword_1DC287000, v12, OS_LOG_TYPE_ERROR, "%s [ERR]: Sending Error via callback in CDMClient, Error:%@", &v20, 0x16u);
+      v19 = 136315394;
+      v20 = "[CDMComposerService _handleEmbeddingRequest:withCallback:]_block_invoke";
+      v21 = 2112;
+      v22 = v6;
+      _os_log_error_impl(&dword_1DC287000, v12, OS_LOG_TYPE_ERROR, "%s [ERR]: Sending Error via callback in CDMClient, Error:%@", &v19, 0x16u);
     }
 
     v13 = [[CDMGenericSendCommand alloc] initWithError:v6 clientId:@"CDM-embedding-client"];
@@ -519,9 +506,9 @@ void __59__CDMComposerService__handleEmbeddingRequest_withCallback___block_invok
     v17 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v20 = 136315138;
-      v21 = "[CDMComposerService _handleEmbeddingRequest:withCallback:]_block_invoke";
-      _os_log_debug_impl(&dword_1DC287000, v17, OS_LOG_TYPE_DEBUG, "%s Sending CDMEmbeddingGraphResponseCommand via callback in CDMClient", &v20, 0xCu);
+      v19 = 136315138;
+      v20 = "[CDMComposerService _handleEmbeddingRequest:withCallback:]_block_invoke";
+      _os_log_debug_impl(&dword_1DC287000, v17, OS_LOG_TYPE_DEBUG, "%s Sending CDMEmbeddingGraphResponseCommand via callback in CDMClient", &v19, 0xCu);
     }
 
     v13 = [[CDMGenericSendCommand alloc] initWithEmbeddingGraphResponse:v5];
@@ -529,13 +516,11 @@ void __59__CDMComposerService__handleEmbeddingRequest_withCallback___block_invok
 
   v18 = v13;
   (*(*(a1 + 64) + 16))();
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleNLUPreprocessRequest:(id)request withCallback:(id)callback
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   callbackCopy = callback;
   siriNLUTypeObj = [requestCopy siriNLUTypeObj];
@@ -548,7 +533,7 @@ void __59__CDMComposerService__handleEmbeddingRequest_withCallback___block_invok
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v25 = "[CDMComposerService _handleNLUPreprocessRequest:withCallback:]";
+      v24 = "[CDMComposerService _handleNLUPreprocessRequest:withCallback:]";
       _os_log_impl(&dword_1DC287000, v11, OS_LOG_TYPE_INFO, "%s Created requestHandler for handleNLUPreprocessRequest", buf, 0xCu);
     }
 
@@ -561,37 +546,35 @@ void __59__CDMComposerService__handleEmbeddingRequest_withCallback___block_invok
     {
       handlerId = [v10 handlerId];
       *buf = 138412290;
-      v25 = handlerId;
+      v24 = handlerId;
       _os_signpost_emit_with_name_impl(&dword_1DC287000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "handleNLUPreproces", "%@", buf, 0xCu);
     }
 
     serviceGraphRunner = self->_serviceGraphRunner;
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __63__CDMComposerService__handleNLUPreprocessRequest_withCallback___block_invoke;
-    v19[3] = &unk_1E862F3E8;
-    v20 = v10;
-    v23 = v13;
-    v21 = requestId;
-    v22 = callbackCopy;
-    [(CDMServiceGraphRunner *)serviceGraphRunner runHandlerAsync:v20 withCompletion:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __63__CDMComposerService__handleNLUPreprocessRequest_withCallback___block_invoke;
+    v18[3] = &unk_1E862F3E8;
+    v19 = v10;
+    v22 = v13;
+    v20 = requestId;
+    v21 = callbackCopy;
+    [(CDMServiceGraphRunner *)serviceGraphRunner runHandlerAsync:v19 withCompletion:v18];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __63__CDMComposerService__handleNLUPreprocessRequest_withCallback___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v12 = [*(a1 + 32) getResult];
-    v13 = 136315394;
-    v14 = "[CDMComposerService _handleNLUPreprocessRequest:withCallback:]_block_invoke";
-    v15 = 2112;
-    v16 = v12;
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Get _handleNLUPreprocessRequest:%@", &v13, 0x16u);
+    v11 = [*(a1 + 32) getResult];
+    v12 = 136315394;
+    v13 = "[CDMComposerService _handleNLUPreprocessRequest:withCallback:]_block_invoke";
+    v14 = 2112;
+    v15 = v11;
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Get _handleNLUPreprocessRequest:%@", &v12, 0x16u);
   }
 
   v3 = CDMOSLoggerForCategory(4);
@@ -599,19 +582,19 @@ void __63__CDMComposerService__handleNLUPreprocessRequest_withCallback___block_i
   v5 = *(a1 + 56);
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    LOWORD(v13) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DC287000, v4, OS_SIGNPOST_INTERVAL_END, v5, "handleNLUPreproces", "", &v13, 2u);
+    LOWORD(v12) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1DC287000, v4, OS_SIGNPOST_INTERVAL_END, v5, "handleNLUPreproces", "", &v12, 2u);
   }
 
   v6 = [*(a1 + 32) getResult];
   v7 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 136315394;
-    v14 = "[CDMComposerService _handleNLUPreprocessRequest:withCallback:]_block_invoke";
-    v15 = 2112;
-    v16 = v6;
-    _os_log_debug_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEBUG, "%s Get CDMNLUPreprocessResponseCommand:%@", &v13, 0x16u);
+    v12 = 136315394;
+    v13 = "[CDMComposerService _handleNLUPreprocessRequest:withCallback:]_block_invoke";
+    v14 = 2112;
+    v15 = v6;
+    _os_log_debug_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEBUG, "%s Get CDMNLUPreprocessResponseCommand:%@", &v12, 0x16u);
   }
 
   v8 = [*(a1 + 32) getError];
@@ -626,13 +609,11 @@ void __63__CDMComposerService__handleNLUPreprocessRequest_withCallback___block_i
   {
     (*(v10 + 16))(v10, v6, v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleNLURequest:(id)request withCallback:(id)callback
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   callbackCopy = callback;
   languageCode = self->_languageCode;
@@ -655,29 +636,27 @@ void __63__CDMComposerService__handleNLUPreprocessRequest_withCallback___block_i
     {
       handlerId = [v12 handlerId];
       *buf = 138543362;
-      v27 = handlerId;
+      v26 = handlerId;
       _os_signpost_emit_with_name_impl(&dword_1DC287000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v14, "handleNLU", "%{public}@", buf, 0xCu);
     }
 
     serviceGraphRunner = self->_serviceGraphRunner;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __53__CDMComposerService__handleNLURequest_withCallback___block_invoke;
-    v20[3] = &unk_1E862F3C0;
-    v25 = v14;
-    v21 = v12;
-    v22 = requestId;
-    v23 = requestCopy;
-    v24 = callbackCopy;
-    [(CDMServiceGraphRunner *)serviceGraphRunner runHandlerAsync:v21 withCompletion:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __53__CDMComposerService__handleNLURequest_withCallback___block_invoke;
+    v19[3] = &unk_1E862F3C0;
+    v24 = v14;
+    v20 = v12;
+    v21 = requestId;
+    v22 = requestCopy;
+    v23 = callbackCopy;
+    [(CDMServiceGraphRunner *)serviceGraphRunner runHandlerAsync:v20 withCompletion:v19];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __53__CDMComposerService__handleNLURequest_withCallback___block_invoke(uint64_t a1)
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v1 = CDMOSLoggerForCategory(4);
   v2 = v1;
   v3 = *(a1 + 64);
@@ -687,25 +666,25 @@ void __53__CDMComposerService__handleNLURequest_withCallback___block_invoke(uint
     _os_signpost_emit_with_name_impl(&dword_1DC287000, v2, OS_SIGNPOST_INTERVAL_END, v3, "handleNLU", "", buf, 2u);
   }
 
-  v43 = [*(a1 + 32) getResult];
+  v42 = [*(a1 + 32) getResult];
   v4 = [*(a1 + 32) getError];
   v5 = CDMLogContext;
-  v44 = v4;
+  v43 = v4;
   if (v4)
   {
     if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v53 = "[CDMComposerService _handleNLURequest:withCallback:]_block_invoke";
-      v54 = 2112;
-      v55 = @"summary";
-      v56 = 2112;
-      v57 = v44;
+      v52 = "[CDMComposerService _handleNLURequest:withCallback:]_block_invoke";
+      v53 = 2112;
+      v54 = @"summary";
+      v55 = 2112;
+      v56 = v43;
       _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nServiceGraphError: %@", buf, 0x20u);
     }
 
-    v6 = [(__CFString *)v44 domain];
-    v7 = [(__CFString *)v44 code];
+    v6 = [(__CFString *)v43 domain];
+    v7 = [(__CFString *)v43 code];
     v8 = [CDMSELFLogUtil createSELFMetadataWithRequestId:*(a1 + 40)];
     v9 = [*(a1 + 48) dataDispatcherContext];
     [CDMSELFLogUtil cdmFailed:12 errorDomainString:v6 errorCode:v7 metadata:v8 logMessage:@"SELF CDM Request failed message emitted" dataDispatcherContext:v9];
@@ -714,15 +693,15 @@ void __53__CDMComposerService__handleNLURequest_withCallback___block_invoke(uint
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v53 = "[CDMComposerService _handleNLURequest:withCallback:]_block_invoke";
-      v54 = 2112;
-      v55 = v44;
+      v52 = "[CDMComposerService _handleNLURequest:withCallback:]_block_invoke";
+      v53 = 2112;
+      v54 = v43;
       _os_log_error_impl(&dword_1DC287000, v10, OS_LOG_TYPE_ERROR, "%s [ERR]: Sending Error to SiriRequestDispatch (SRD) via callback in CDMClient, Error:%@", buf, 0x16u);
     }
 
     v11 = [CDMGenericSendCommand alloc];
     v12 = [*(a1 + 48) clientId];
-    v13 = [(CDMGenericSendCommand *)v11 initWithError:v44 clientId:v12];
+    v13 = [(CDMGenericSendCommand *)v11 initWithError:v43 clientId:v12];
   }
 
   else
@@ -731,51 +710,51 @@ void __53__CDMComposerService__handleNLURequest_withCallback___block_invoke(uint
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = MEMORY[0x1E69D1438];
-      v16 = [v43 siriNLUTypeObj];
+      v16 = [v42 siriNLUTypeObj];
       v17 = [v15 printableResponse:v16];
       *buf = 136315650;
-      v53 = "[CDMComposerService _handleNLURequest:withCallback:]_block_invoke";
-      v54 = 2112;
-      v55 = @"cdmio";
-      v56 = 2112;
-      v57 = v17;
+      v52 = "[CDMComposerService _handleNLURequest:withCallback:]_block_invoke";
+      v53 = 2112;
+      v54 = @"cdmio";
+      v55 = 2112;
+      v56 = v17;
       _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s [insights-cdm-%@]:\nServiceGraphNLUResponse: %@", buf, 0x20u);
     }
 
     v18 = CDMLogContext;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = [v43 requestId];
+      v19 = [v42 requestId];
       *buf = 136315650;
-      v53 = "[CDMComposerService _handleNLURequest:withCallback:]_block_invoke";
-      v54 = 2112;
-      v55 = @"summary";
-      v56 = 2114;
-      v57 = v19;
+      v52 = "[CDMComposerService _handleNLURequest:withCallback:]_block_invoke";
+      v53 = 2112;
+      v54 = @"summary";
+      v55 = 2114;
+      v56 = v19;
       _os_log_impl(&dword_1DC287000, v18, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nRequest for NLUResponse: %{public}@", buf, 0x20u);
     }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
-    v20 = [v43 siriNLUTypeObj];
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v20 = [v42 siriNLUTypeObj];
     obj = [v20 parses];
 
-    v21 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
+    v21 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
     if (v21)
     {
-      v22 = *v48;
+      v22 = *v47;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v48 != v22)
+          if (*v47 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v47 + 1) + 8 * i);
+          v24 = *(*(&v46 + 1) + 8 * i);
           if (+[CDMPlatformUtils isInternalInstall])
           {
             v25 = CDMLogContext;
@@ -783,11 +762,11 @@ void __53__CDMComposerService__handleNLURequest_withCallback___block_invoke(uint
             {
               v26 = [MEMORY[0x1E69D1438] printableUserParse:v24];
               *buf = 136315650;
-              v53 = "[CDMComposerService _handleNLURequest:withCallback:]_block_invoke";
-              v54 = 2112;
-              v55 = @"summary";
-              v56 = 2112;
-              v57 = v26;
+              v52 = "[CDMComposerService _handleNLURequest:withCallback:]_block_invoke";
+              v53 = 2112;
+              v54 = @"summary";
+              v55 = 2112;
+              v56 = v26;
               _os_log_impl(&dword_1DC287000, v25, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nParses From NLUResponse: %@", buf, 0x20u);
             }
           }
@@ -803,11 +782,11 @@ void __53__CDMComposerService__handleNLURequest_withCallback___block_invoke(uint
               {
                 v29 = [MEMORY[0x1E69D1438] printableUserParse:v25];
                 *buf = 136315650;
-                v53 = "[CDMComposerService _handleNLURequest:withCallback:]_block_invoke";
-                v54 = 2112;
-                v55 = @"summary";
-                v56 = 2114;
-                v57 = v29;
+                v52 = "[CDMComposerService _handleNLURequest:withCallback:]_block_invoke";
+                v53 = 2112;
+                v54 = @"summary";
+                v55 = 2114;
+                v56 = v29;
                 _os_log_impl(&dword_1DC287000, v28, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nParses From NLUResponse: %{public}@", buf, 0x20u);
               }
             }
@@ -817,9 +796,9 @@ void __53__CDMComposerService__handleNLURequest_withCallback___block_invoke(uint
               if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315394;
-                v53 = "[CDMComposerService _handleNLURequest:withCallback:]_block_invoke";
-                v54 = 2112;
-                v55 = @"summary";
+                v52 = "[CDMComposerService _handleNLURequest:withCallback:]_block_invoke";
+                v53 = 2112;
+                v54 = @"summary";
                 _os_log_impl(&dword_1DC287000, v27, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nUnable to redact parse", buf, 0x16u);
               }
 
@@ -828,13 +807,13 @@ void __53__CDMComposerService__handleNLURequest_withCallback___block_invoke(uint
           }
         }
 
-        v21 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
+        v21 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
       }
 
       while (v21);
     }
 
-    v30 = [v43 siriNLUTypeObj];
+    v30 = [v42 siriNLUTypeObj];
     v31 = [v30 parses];
     v32 = [v31 count] == 0;
 
@@ -844,14 +823,14 @@ void __53__CDMComposerService__handleNLURequest_withCallback___block_invoke(uint
       if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v53 = "[CDMComposerService _handleNLURequest:withCallback:]_block_invoke";
-        v54 = 2112;
-        v55 = @"summary";
+        v52 = "[CDMComposerService _handleNLURequest:withCallback:]_block_invoke";
+        v53 = 2112;
+        v54 = @"summary";
         _os_log_impl(&dword_1DC287000, v33, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nParses From NLUResponse: None", buf, 0x16u);
       }
     }
 
-    v34 = [v43 siriNLUTypeObj];
+    v34 = [v42 siriNLUTypeObj];
     v35 = *(a1 + 40);
     v36 = [*(a1 + 48) dataDispatcherContext];
     [CDMDataDispatcher dispatchCdmResponseData:v34 requestId:v35 dataDispatcherContext:v36];
@@ -860,12 +839,12 @@ void __53__CDMComposerService__handleNLURequest_withCallback___block_invoke(uint
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v53 = "[CDMComposerService _handleNLURequest:withCallback:]_block_invoke";
+      v52 = "[CDMComposerService _handleNLURequest:withCallback:]_block_invoke";
       _os_log_debug_impl(&dword_1DC287000, v37, OS_LOG_TYPE_DEBUG, "%s Sending CDMNluResponse to SiriRequestDispatch (SRD) via callback in CDMClient", buf, 0xCu);
     }
 
     v38 = [CDMNluResponse alloc];
-    v39 = [v43 siriNLUTypeObj];
+    v39 = [v42 siriNLUTypeObj];
     v12 = [(CDMNluResponse *)v38 initWithObjcProto:v39];
 
     v40 = [CDMGenericSendCommand alloc];
@@ -874,7 +853,6 @@ void __53__CDMComposerService__handleNLURequest_withCallback___block_invoke(uint
   }
 
   (*(*(a1 + 56) + 16))();
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)failWithError:(id)error callback:(id)callback
@@ -895,7 +873,7 @@ void __53__CDMComposerService__handleNLURequest_withCallback___block_invoke(uint
 
 - (void)failWithError:(id)error rawCommand:(id)command callback:(id)callback
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   commandCopy = command;
   callbackCopy = callback;
@@ -914,11 +892,11 @@ void __53__CDMComposerService__handleNLURequest_withCallback___block_invoke(uint
         v15 = CDMOSLoggerForCategory(0);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          v25 = 136315394;
-          v26 = "[CDMComposerService failWithError:rawCommand:callback:]";
-          v27 = 2112;
-          v28 = errorCopy;
-          _os_log_impl(&dword_1DC287000, v15, OS_LOG_TYPE_INFO, "%s [WARN]: In response to an invalid NLUInput (i.e. empty utterance), CDM responding with StatusCode of EMPTY_NLU_REQUEST (code 101). Error:%@", &v25, 0x16u);
+          v24 = 136315394;
+          v25 = "[CDMComposerService failWithError:rawCommand:callback:]";
+          v26 = 2112;
+          v27 = errorCopy;
+          _os_log_impl(&dword_1DC287000, v15, OS_LOG_TYPE_INFO, "%s [WARN]: In response to an invalid NLUInput (i.e. empty utterance), CDM responding with StatusCode of EMPTY_NLU_REQUEST (code 101). Error:%@", &v24, 0x16u);
         }
 
         siriNLUTypeObj = [v11 siriNLUTypeObj];
@@ -933,9 +911,9 @@ void __53__CDMComposerService__handleNLURequest_withCallback___block_invoke(uint
         v23 = CDMOSLoggerForCategory(0);
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
-          v25 = 136315138;
-          v26 = "[CDMComposerService failWithError:rawCommand:callback:]";
-          _os_log_debug_impl(&dword_1DC287000, v23, OS_LOG_TYPE_DEBUG, "%s Callback below explicitly setting NSError to nil as SiriRequestDispatch (SRD) expects an NLUResponse with status code of EMPTY_NLU_REQUEST", &v25, 0xCu);
+          v24 = 136315138;
+          v25 = "[CDMComposerService failWithError:rawCommand:callback:]";
+          _os_log_debug_impl(&dword_1DC287000, v23, OS_LOG_TYPE_DEBUG, "%s Callback below explicitly setting NSError to nil as SiriRequestDispatch (SRD) expects an NLUResponse with status code of EMPTY_NLU_REQUEST", &v24, 0xCu);
         }
 
         callbackCopy[2](callbackCopy, v22, 0);
@@ -957,13 +935,11 @@ void __53__CDMComposerService__handleNLURequest_withCallback___block_invoke(uint
   {
     [(CDMComposerService *)self failWithError:errorCopy callback:callbackCopy];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleCommand:(id)command withCallback:(id)callback
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   commandCopy = command;
   callbackCopy = callback;
   v8 = CDMOSLoggerForCategory(0);
@@ -971,9 +947,9 @@ void __53__CDMComposerService__handleNLURequest_withCallback___block_invoke(uint
   {
     commandName = [commandCopy commandName];
     *buf = 136315394;
-    v13 = "[CDMComposerService handleCommand:withCallback:]";
-    v14 = 2112;
-    v15 = commandName;
+    v12 = "[CDMComposerService handleCommand:withCallback:]";
+    v13 = 2112;
+    v14 = commandName;
     _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s Composer get [%@]", buf, 0x16u);
   }
 
@@ -1017,16 +993,14 @@ void __53__CDMComposerService__handleNLURequest_withCallback___block_invoke(uint
 
           else
           {
-            v11.receiver = self;
-            v11.super_class = CDMComposerService;
-            [(CDMBaseService *)&v11 handleCommand:commandCopy withCallback:callbackCopy];
+            v10.receiver = self;
+            v10.super_class = CDMComposerService;
+            [(CDMBaseService *)&v10 handleCommand:commandCopy withCallback:callbackCopy];
           }
         }
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (CDMComposerService)initWithConfig:(id)config

@@ -1,5 +1,6 @@
 @interface HMDCameraSnapshotSession
 + (id)logCategory;
+- (HMDCameraSnapshotSession)initWithSessionID:(id)d accessory:(id)accessory snapshotGetter:(id)getter message:(id)message waitPeriod:(double)period streamingTierType:(unint64_t)type cameraLocallyReachable:(BOOL)reachable snapshotForNotification:(BOOL)self0;
 - (id)attributeDescriptions;
 - (id)logIdentifier;
 - (void)dealloc;
@@ -10,14 +11,12 @@
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   sessionID = [(HMDCameraSnapshotSession *)self sessionID];
   v5 = [v3 initWithName:@"ID" value:sessionID];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -32,7 +31,7 @@
 
 - (void)respondWithPayload:(id)payload error:(id)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   errorCopy = error;
   sessionMessages = [(HMDCameraSnapshotSession *)self sessionMessages];
@@ -46,27 +45,27 @@
     snapshotMetrics = [(HMDCameraSnapshotSession *)self snapshotMetrics];
     [snapshotMetrics setError:errorCopy];
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obj = [(HMDCameraSnapshotSession *)self sessionMessages];
-    v11 = [obj countByEnumeratingWithState:&v27 objects:v39 count:16];
+    v11 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v28;
-      v24 = *v28;
+      v13 = *v27;
+      v23 = *v27;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v28 != v13)
+          if (*v27 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v27 + 1) + 8 * i);
+          v15 = *(*(&v26 + 1) + 8 * i);
           v16 = objc_autoreleasePoolPush();
           selfCopy = self;
           v18 = HMFGetOSLogHandle();
@@ -76,24 +75,24 @@
             v20 = v19 = self;
             shortDescription = [v15 shortDescription];
             *buf = 138544130;
-            v32 = v20;
-            v33 = 2112;
-            v34 = shortDescription;
-            v35 = 2112;
-            v36 = payloadCopy;
-            v37 = 2112;
-            v38 = errorCopy;
+            v31 = v20;
+            v32 = 2112;
+            v33 = shortDescription;
+            v34 = 2112;
+            v35 = payloadCopy;
+            v36 = 2112;
+            v37 = errorCopy;
             _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Responding to %@ with payload: %@, error: %@", buf, 0x2Au);
 
             self = v19;
-            v13 = v24;
+            v13 = v23;
           }
 
           objc_autoreleasePoolPop(v16);
           [v15 respondWithPayload:payloadCopy error:errorCopy];
         }
 
-        v12 = [obj countByEnumeratingWithState:&v27 objects:v39 count:16];
+        v12 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
       }
 
       while (v12);
@@ -102,8 +101,6 @@
     sessionMessages2 = [(HMDCameraSnapshotSession *)self sessionMessages];
     [sessionMessages2 removeAllObjects];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -114,6 +111,41 @@
   v4.receiver = self;
   v4.super_class = HMDCameraSnapshotSession;
   [(HMDCameraSnapshotSession *)&v4 dealloc];
+}
+
+- (HMDCameraSnapshotSession)initWithSessionID:(id)d accessory:(id)accessory snapshotGetter:(id)getter message:(id)message waitPeriod:(double)period streamingTierType:(unint64_t)type cameraLocallyReachable:(BOOL)reachable snapshotForNotification:(BOOL)self0
+{
+  reachableCopy = reachable;
+  v33[1] = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  accessoryCopy = accessory;
+  getterCopy = getter;
+  messageCopy = message;
+  v32.receiver = self;
+  v32.super_class = HMDCameraSnapshotSession;
+  v22 = [(HMDCameraSnapshotSession *)&v32 init];
+  v23 = v22;
+  if (v22)
+  {
+    objc_storeStrong(&v22->_sessionID, d);
+    objc_storeStrong(&v23->_snapshotGetter, getter);
+    v33[0] = messageCopy;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+    v25 = [v24 mutableCopy];
+    sessionMessages = v23->_sessionMessages;
+    v23->_sessionMessages = v25;
+
+    v27 = [[HMDCameraSnapshotCompletionTimer alloc] initWithSnapshotSession:v23 timeInterval:period];
+    snapshotCompletionTimer = v23->_snapshotCompletionTimer;
+    v23->_snapshotCompletionTimer = v27;
+
+    v23->_streamingTierType = type;
+    v29 = [[HMDCameraSnapshotMetrics alloc] initWithSessionID:dCopy cameraAccessory:accessoryCopy isLocal:reachableCopy snapshotForNotification:notification];
+    snapshotMetrics = v23->_snapshotMetrics;
+    v23->_snapshotMetrics = v29;
+  }
+
+  return v23;
 }
 
 + (id)logCategory
@@ -130,10 +162,9 @@
 
 void __39__HMDCameraSnapshotSession_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_178061;
-  logCategory__hmf_once_v2_178061 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_178061;
+  logCategory__hmf_once_v2_178061 = v0;
 }
 
 @end

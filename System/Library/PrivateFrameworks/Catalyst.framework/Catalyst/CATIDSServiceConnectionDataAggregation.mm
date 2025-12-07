@@ -142,24 +142,22 @@
 
 - (id)pendingSequenceNumbersDescription
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"self" ascending:1];
-  v13[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
 
   v5 = [(NSMutableSet *)self->mPendingSegmentNumbers sortedArrayUsingDescriptors:v4];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __75__CATIDSServiceConnectionDataAggregation_pendingSequenceNumbersDescription__block_invoke;
-  v12[3] = &unk_278DA7348;
-  v12[4] = self;
-  v6 = [v5 cat_map:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __75__CATIDSServiceConnectionDataAggregation_pendingSequenceNumbersDescription__block_invoke;
+  v11[3] = &unk_278DA7348;
+  v11[4] = self;
+  v6 = [v5 cat_map:v11];
 
   v7 = MEMORY[0x277CCACA8];
   v8 = [v6 componentsJoinedByString:{@", "}];
   v9 = [v7 stringWithFormat:@"[%@]", v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

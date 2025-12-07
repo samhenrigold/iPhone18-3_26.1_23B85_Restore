@@ -59,13 +59,11 @@
 
 void __44__SKDBreadcrumbProcessor_requiredAttributes__block_invoke()
 {
-  v3[1] = *MEMORY[0x277D85DE8];
-  v3[0] = *MEMORY[0x277CC31A0];
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x277D85DE8];
+  v2[0] = *MEMORY[0x277CC31A0];
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:1];
   v1 = requiredAttributes_sBreadcrumbReqAttributes;
   requiredAttributes_sBreadcrumbReqAttributes = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)processedAttributes
@@ -82,45 +80,43 @@ void __44__SKDBreadcrumbProcessor_requiredAttributes__block_invoke()
 
 void __45__SKDBreadcrumbProcessor_processedAttributes__block_invoke()
 {
-  v4[2] = *MEMORY[0x277D85DE8];
+  v3[2] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CC2A90];
-  v4[0] = *MEMORY[0x277CC2AD8];
-  v4[1] = v0;
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
+  v3[0] = *MEMORY[0x277CC2AD8];
+  v3[1] = v0;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:2];
   v2 = processedAttributes_sBreadcrumbAttributes;
   processedAttributes_sBreadcrumbAttributes = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)willProcessRecord:(id)record bundleID:(id)d
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   recordCopy = record;
-  v22.receiver = self;
-  v22.super_class = SKDBreadcrumbProcessor;
-  if ([(SKDRecordProcessor *)&v22 willProcessRecord:recordCopy bundleID:d])
+  v21.receiver = self;
+  v21.super_class = SKDBreadcrumbProcessor;
+  if ([(SKDRecordProcessor *)&v21 willProcessRecord:recordCopy bundleID:d])
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     processedAttributes = [(SKDBreadcrumbProcessor *)self processedAttributes];
-    v8 = [processedAttributes countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v8 = [processedAttributes countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(processedAttributes);
           }
 
-          v12 = [recordCopy objectForKeyedSubscript:*(*(&v18 + 1) + 8 * i)];
+          v12 = [recordCopy objectForKeyedSubscript:*(*(&v17 + 1) + 8 * i)];
 
           if (v12)
           {
@@ -133,7 +129,7 @@ void __45__SKDBreadcrumbProcessor_processedAttributes__block_invoke()
           }
         }
 
-        v9 = [processedAttributes countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v9 = [processedAttributes countByEnumeratingWithState:&v17 objects:v22 count:16];
         if (v9)
         {
           continue;
@@ -152,13 +148,12 @@ LABEL_13:
     v13 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (id)processRecord:(id)record bundleID:(id)d
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   dCopy = d;
   v8 = [SKDRecordUpdate alloc];
@@ -183,7 +178,7 @@ LABEL_13:
   }
 
   v15 = objc_alloc_init(SKGEntityRanker);
-  v75 = dCopy;
+  v74 = dCopy;
   if (v12)
   {
     logger = [(SKDRecordProcessor *)self logger];
@@ -191,21 +186,21 @@ LABEL_13:
 
     v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
     detector = [(SKDBreadcrumbProcessor *)self detector];
-    v90[0] = MEMORY[0x277D85DD0];
-    v90[1] = 3221225472;
-    v90[2] = __49__SKDBreadcrumbProcessor_processRecord_bundleID___block_invoke;
-    v90[3] = &unk_27893E290;
+    v89[0] = MEMORY[0x277D85DD0];
+    v89[1] = 3221225472;
+    v89[2] = __49__SKDBreadcrumbProcessor_processRecord_bundleID___block_invoke;
+    v89[3] = &unk_27893E290;
     v20 = v15;
-    v91 = v15;
-    v87[0] = MEMORY[0x277D85DD0];
-    v87[1] = 3221225472;
-    v87[2] = __49__SKDBreadcrumbProcessor_processRecord_bundleID___block_invoke_2;
-    v87[3] = &unk_27893E2B8;
+    v90 = v15;
+    v86[0] = MEMORY[0x277D85DD0];
+    v86[1] = 3221225472;
+    v86[2] = __49__SKDBreadcrumbProcessor_processRecord_bundleID___block_invoke_2;
+    v86[3] = &unk_27893E2B8;
     v21 = v18;
-    v88 = v21;
+    v87 = v21;
     selfCopy = self;
     v22 = v13;
-    v23 = [detector enumerateDetectedDataInString:v12 locale:0 referenceDate:v13 referenceTimezone:currentTimezone entityBlock:v90 rangeBlock:v87];
+    v23 = [detector enumerateDetectedDataInString:v12 locale:0 referenceDate:v13 referenceTimezone:currentTimezone entityBlock:v89 rangeBlock:v86];
 
     logger2 = [(SKDRecordProcessor *)self logger];
     [logger2 trackingEventEnd:v17];
@@ -218,7 +213,7 @@ LABEL_13:
     v25 = v23 ^ 1;
     v13 = v22;
     v15 = v20;
-    dCopy = v75;
+    dCopy = v74;
   }
 
   else
@@ -247,36 +242,36 @@ LABEL_13:
   {
     maxEntityCount = [(SKDBreadcrumbProcessor *)self maxEntityCount];
     logger3 = [(SKGEntityRanker *)v15 addresses];
-    v73 = v10;
-    v74 = recordCopy;
-    v71 = v12;
+    v72 = v10;
+    v73 = recordCopy;
+    v70 = v12;
     selfCopy2 = self;
-    v69 = v15;
-    v70 = v13;
-    v68 = logger3;
+    v68 = v15;
+    v69 = v13;
+    v67 = logger3;
     if ([logger3 count])
     {
       v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v82 = 0u;
       v83 = 0u;
       v84 = 0u;
       v85 = 0u;
-      v86 = 0u;
       obj = logger3;
-      v28 = [obj countByEnumeratingWithState:&v83 objects:v94 count:16];
+      v28 = [obj countByEnumeratingWithState:&v82 objects:v93 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v84;
+        v30 = *v83;
         do
         {
           for (i = 0; i != v29; ++i)
           {
-            if (*v84 != v30)
+            if (*v83 != v30)
             {
               objc_enumerationMutation(obj);
             }
 
-            v32 = *(*(&v83 + 1) + 8 * i);
+            v32 = *(*(&v82 + 1) + 8 * i);
             city = [v32 city];
 
             if (city)
@@ -319,7 +314,7 @@ LABEL_13:
             [v27 addObject:v41];
           }
 
-          v29 = [obj countByEnumeratingWithState:&v83 objects:v94 count:16];
+          v29 = [obj countByEnumeratingWithState:&v82 objects:v93 count:16];
         }
 
         while (v29);
@@ -337,54 +332,54 @@ LABEL_13:
       }
 
       v44 = [v27 subarrayWithRange:{0, v43}];
-      v10 = v73;
-      [(SKDItemUpdate *)v73 addAttribute:*MEMORY[0x277CC2A90] value:v44];
+      v10 = v72;
+      [(SKDItemUpdate *)v72 addAttribute:*MEMORY[0x277CC2A90] value:v44];
 
-      recordCopy = v74;
-      dCopy = v75;
-      v12 = v71;
+      recordCopy = v73;
+      dCopy = v74;
+      v12 = v70;
       self = selfCopy2;
-      v13 = v70;
-      logger3 = v68;
+      v13 = v69;
+      logger3 = v67;
     }
 
     links = [(SKGEntityRanker *)v15 links];
     if ([links count])
     {
       v46 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v78 = 0u;
       v79 = 0u;
       v80 = 0u;
       v81 = 0u;
-      v82 = 0u;
-      v65 = links;
+      v64 = links;
       obja = links;
-      v47 = [obja countByEnumeratingWithState:&v79 objects:v93 count:16];
+      v47 = [obja countByEnumeratingWithState:&v78 objects:v92 count:16];
       if (v47)
       {
         v48 = v47;
-        v49 = *v80;
+        v49 = *v79;
         do
         {
           for (j = 0; j != v48; ++j)
           {
-            if (*v80 != v49)
+            if (*v79 != v49)
             {
               objc_enumerationMutation(obja);
             }
 
-            v51 = *(*(&v79 + 1) + 8 * j);
+            v51 = *(*(&v78 + 1) + 8 * j);
             v52 = objc_alloc(MEMORY[0x277CC3438]);
             link = [v51 link];
             domain = [v51 domain];
-            v92 = domain;
-            v55 = [MEMORY[0x277CBEA60] arrayWithObjects:&v92 count:1];
+            v91 = domain;
+            v55 = [MEMORY[0x277CBEA60] arrayWithObjects:&v91 count:1];
             [v51 score];
             v56 = [v52 initWithLink:link synonyms:v55 confidence:?];
 
             [v46 addObject:v56];
           }
 
-          v48 = [obja countByEnumeratingWithState:&v79 objects:v93 count:16];
+          v48 = [obja countByEnumeratingWithState:&v78 objects:v92 count:16];
         }
 
         while (v48);
@@ -401,18 +396,18 @@ LABEL_13:
         v58 = v57;
       }
 
-      v59 = [v46 subarrayWithRange:{0, v58, v65}];
-      v10 = v73;
-      [(SKDItemUpdate *)v73 addAttribute:*MEMORY[0x277CC2AD8] value:v59];
+      v59 = [v46 subarrayWithRange:{0, v58, v64}];
+      v10 = v72;
+      [(SKDItemUpdate *)v72 addAttribute:*MEMORY[0x277CC2AD8] value:v59];
 
-      recordCopy = v74;
-      dCopy = v75;
-      v12 = v71;
+      recordCopy = v73;
+      dCopy = v74;
+      v12 = v70;
       self = selfCopy2;
-      v15 = v69;
-      v13 = v70;
-      logger3 = v68;
-      links = v66;
+      v15 = v68;
+      v13 = v69;
+      logger3 = v67;
+      links = v65;
     }
 
     marker = [(SKDRecordProcessor *)self marker];
@@ -423,12 +418,10 @@ LABEL_13:
     [logger4 logEvent:v10 level:6];
   }
 
-  v63 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
-uint64_t __49__SKDBreadcrumbProcessor_processRecord_bundleID___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__49__SKDBreadcrumbProcessor_processRecord_bundleID___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   v7 = *(a1 + 32);
   v8 = [MEMORY[0x277CCAE60] valueWithRange:{a2, a3}];
@@ -446,28 +439,27 @@ uint64_t __49__SKDBreadcrumbProcessor_processRecord_bundleID___block_invoke_2(ui
 + (id)referenceDateFor:(id)for
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DD6E3E0, &qword_231C228C8);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8, v6);
-  v8 = &v15 - v7;
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v13 - v5;
   if (for)
   {
     for = sub_231C17C10();
   }
 
-  static SKDBreadcrumbProcessor.referenceDate(for:)(for, v8);
+  static SKDBreadcrumbProcessor.referenceDate(for:)(for, v6);
 
-  v9 = sub_231C17B70();
-  v10 = *(v9 - 8);
-  v11 = (*(v10 + 48))(v8, 1, v9);
-  v12 = 0;
-  if (v11 != 1)
+  v7 = sub_231C17B70();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v6, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v13 = sub_231C17B50();
-    (*(v10 + 8))(v8, v9);
-    v12 = v13;
+    v11 = sub_231C17B50();
+    (*(v8 + 8))(v6, v7);
+    v10 = v11;
   }
 
-  return v12;
+  return v10;
 }
 
 @end

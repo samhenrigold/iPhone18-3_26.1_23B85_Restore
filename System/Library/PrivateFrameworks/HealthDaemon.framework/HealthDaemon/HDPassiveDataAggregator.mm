@@ -22,46 +22,46 @@
 
 - (void)dataCollector:(id)collector didCollectSensorData:(id)data device:(id)device options:(unint64_t)options
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   collectorCopy = collector;
   dataCopy = data;
   deviceCopy = device;
-  v51.receiver = self;
-  v51.super_class = HDPassiveDataAggregator;
-  [(HDDataAggregator *)&v51 dataCollector:collectorCopy didCollectSensorData:dataCopy device:deviceCopy options:options];
+  v50.receiver = self;
+  v50.super_class = HDPassiveDataAggregator;
+  [(HDDataAggregator *)&v50 dataCollector:collectorCopy didCollectSensorData:dataCopy device:deviceCopy options:options];
   if ((options & 1) == 0)
   {
     v13 = [(HDPassiveDataAggregator *)collectorCopy sourceForDataAggregator:self];
     v14 = v13;
     if (v13)
     {
-      v40 = v13;
-      v41 = deviceCopy;
-      v43 = collectorCopy;
+      v39 = v13;
+      v40 = deviceCopy;
+      v42 = collectorCopy;
       [(HDPassiveDataAggregator *)self sensorDatumClass];
-      v44 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v43 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v46 = 0u;
       v47 = 0u;
       v48 = 0u;
       v49 = 0u;
-      v50 = 0u;
-      v42 = dataCopy;
+      v41 = dataCopy;
       v15 = dataCopy;
-      v16 = [v15 countByEnumeratingWithState:&v47 objects:v60 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v46 objects:v59 count:16];
       v17 = MEMORY[0x277CCC298];
       if (v16)
       {
         v18 = v16;
-        v19 = *v48;
+        v19 = *v47;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v48 != v19)
+            if (*v47 != v19)
             {
               objc_enumerationMutation(v15);
             }
 
-            v21 = *(*(&v47 + 1) + 8 * i);
+            v21 = *(*(&v46 + 1) + 8 * i);
             if (objc_opt_isKindOfClass())
             {
               if ([(HDDataAggregator *)self doesDatumPredateDatabaseObliteration:v21])
@@ -78,12 +78,12 @@
 
               else
               {
-                v46 = 0;
-                v29 = [(HDPassiveDataAggregator *)self dataObjectsFromSensorDatum:v21 error:&v46];
-                v30 = v46;
+                v45 = 0;
+                v29 = [(HDPassiveDataAggregator *)self dataObjectsFromSensorDatum:v21 error:&v45];
+                v30 = v45;
                 if (v29)
                 {
-                  [(HDPassiveDataAggregator *)v44 addObjectsFromArray:v29];
+                  [(HDPassiveDataAggregator *)v43 addObjectsFromArray:v29];
                 }
 
                 else
@@ -96,10 +96,10 @@
                     v33 = objc_opt_class();
                     *buf = 138412802;
                     selfCopy = v21;
-                    v54 = 2114;
-                    v55 = v33;
-                    v56 = 2114;
-                    v57 = v30;
+                    v53 = 2114;
+                    v54 = v33;
+                    v55 = 2114;
+                    v56 = v30;
                     v34 = v33;
                     _os_log_error_impl(&dword_228986000, v32, OS_LOG_TYPE_ERROR, "Failed to produce objects from sensor datum %@ (%{public}@): %{public}@", buf, 0x20u);
                   }
@@ -121,26 +121,26 @@
                 sensorDatumClass = [(HDPassiveDataAggregator *)self sensorDatumClass];
                 *buf = 138543618;
                 selfCopy = v25;
-                v54 = 2114;
-                v55 = sensorDatumClass;
+                v53 = 2114;
+                v54 = sensorDatumClass;
                 v28 = sensorDatumClass;
                 _os_log_error_impl(&dword_228986000, v24, OS_LOG_TYPE_ERROR, "Rejecting sensor datum of unexpected class %{public}@ (expected %{public}@)", buf, 0x16u);
               }
             }
           }
 
-          v18 = [v15 countByEnumeratingWithState:&v47 objects:v60 count:16];
+          v18 = [v15 countByEnumeratingWithState:&v46 objects:v59 count:16];
         }
 
         while (v18);
       }
 
-      v45 = 0;
-      collectorCopy = v43;
-      v14 = v40;
-      deviceCopy = v41;
-      v35 = [(HDDataAggregator *)self persistObjects:v44 usedDatums:v15 collector:v43 source:v40 device:v41 resolveAssociations:0 error:&v45];
-      v36 = v45;
+      v44 = 0;
+      collectorCopy = v42;
+      v14 = v39;
+      deviceCopy = v40;
+      v35 = [(HDDataAggregator *)self persistObjects:v43 usedDatums:v15 collector:v42 source:v39 device:v40 resolveAssociations:0 error:&v44];
+      v36 = v44;
       if (!v35)
       {
         _HKInitializeLogging();
@@ -148,18 +148,18 @@
         if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
         {
           *buf = 138413058;
-          selfCopy = v44;
-          v54 = 2114;
-          v55 = v15;
-          v56 = 2114;
-          v57 = v43;
-          v58 = 2114;
-          v59 = v36;
+          selfCopy = v43;
+          v53 = 2114;
+          v54 = v15;
+          v55 = 2114;
+          v56 = v42;
+          v57 = 2114;
+          v58 = v36;
           _os_log_error_impl(&dword_228986000, v37, OS_LOG_TYPE_ERROR, "Failed to persist %@ through %{public}@ from %{public}@: %{public}@", buf, 0x2Au);
         }
       }
 
-      dataCopy = v42;
+      dataCopy = v41;
     }
 
     else
@@ -174,8 +174,6 @@
       }
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 @end

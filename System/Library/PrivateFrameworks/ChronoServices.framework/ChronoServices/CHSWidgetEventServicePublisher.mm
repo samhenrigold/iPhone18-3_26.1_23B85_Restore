@@ -40,21 +40,20 @@
     connectionQueue = v6->_connectionQueue;
     v6->_connectionQueue = Serial;
 
-    v11 = CHSLogChronoServices();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = CHSLogChronoServices(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = [(CHSWidgetEventServicePublisher *)v6 description];
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      v15 = [(CHSWidgetEventServicePublisher *)v6 description];
       *buf = 138543618;
-      v20 = v13;
+      v20 = v14;
       v21 = 2114;
-      v22 = v14;
-      _os_log_impl(&dword_195EB2000, v11, OS_LOG_TYPE_DEFAULT, "Initializing new %{public}@ instance: %{public}@", buf, 0x16u);
+      v22 = v15;
+      _os_log_impl(&dword_195EB2000, v12, OS_LOG_TYPE_DEFAULT, "Initializing new %{public}@ instance: %{public}@", buf, 0x16u);
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -98,19 +97,19 @@
     v11[3] = &unk_1E7453520;
     v11[4] = &v18;
     v11[5] = &v12;
-    [activityCopy _createUserActivityDataWithOptions:0 completionHandler:v11];
+    v7 = [activityCopy _createUserActivityDataWithOptions:0 completionHandler:v11];
     if (v13[5])
     {
-      v7 = CHSLogChronoServices();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = CHSLogChronoServices(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = objc_opt_class();
-        v9 = NSStringFromClass(v8);
+        v9 = objc_opt_class();
+        v10 = NSStringFromClass(v9);
         *buf = 138543618;
-        v25 = v9;
+        v25 = v10;
         v26 = 2114;
         v27 = activityCopy;
-        _os_log_impl(&dword_195EB2000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Error serializing User Activity %{public}@", buf, 0x16u);
+        _os_log_impl(&dword_195EB2000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ Error serializing User Activity %{public}@", buf, 0x16u);
       }
     }
 
@@ -123,8 +122,6 @@
 
     _Block_object_dispose(&v18, 8);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __67__CHSWidgetEventServicePublisher_publishOpenEventWithUserActivity___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -211,16 +208,16 @@ void __51__CHSWidgetEventServicePublisher__activeConnection__block_invoke(uint64
 
 void __51__CHSWidgetEventServicePublisher__activeConnection__block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = objc_opt_class();
     v4 = NSStringFromClass(v3);
-    v7 = 138543362;
-    v8 = v4;
-    _os_log_impl(&dword_195EB2000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ (host-side) connection activated", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v4;
+    _os_log_impl(&dword_195EB2000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ (host-side) connection activated", &v6, 0xCu);
   }
 
   if (WeakRetained)
@@ -230,23 +227,21 @@ void __51__CHSWidgetEventServicePublisher__activeConnection__block_invoke_2(uint
     v5[32] = 1;
     objc_sync_exit(v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __51__CHSWidgetEventServicePublisher__activeConnection__block_invoke_21(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = CHSLogChronoServices();
+  v5 = CHSLogChronoServices(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_195EB2000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ (service-side) connection interrupted", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v7;
+    _os_log_impl(&dword_195EB2000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ (service-side) connection interrupted", &v9, 0xCu);
   }
 
   if (WeakRetained)
@@ -257,22 +252,20 @@ void __51__CHSWidgetEventServicePublisher__activeConnection__block_invoke_21(uin
     [v3 activate];
     objc_sync_exit(v8);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __51__CHSWidgetEventServicePublisher__activeConnection__block_invoke_22(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = CHSLogChronoServices();
+  v2 = CHSLogChronoServices(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = objc_opt_class();
     v4 = NSStringFromClass(v3);
-    v7 = 138543362;
-    v8 = v4;
-    _os_log_impl(&dword_195EB2000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ (host-side) connection invalidated", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v4;
+    _os_log_impl(&dword_195EB2000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ (host-side) connection invalidated", &v6, 0xCu);
   }
 
   if (WeakRetained)
@@ -283,8 +276,6 @@ void __51__CHSWidgetEventServicePublisher__activeConnection__block_invoke_22(uin
     [v5 _invalidateConnection];
     objc_sync_exit(v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invalidateConnection

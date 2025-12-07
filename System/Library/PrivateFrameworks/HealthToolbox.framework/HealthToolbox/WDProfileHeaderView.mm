@@ -6,6 +6,7 @@
 - (void)layoutSubviews;
 - (void)setAvatarView:(id)view;
 - (void)setFirstName:(id)name lastName:(id)lastName;
+- (void)setNameHidden:(BOOL)hidden;
 - (void)traitCollectionDidChange:(id)change;
 @end
 
@@ -188,6 +189,13 @@ LABEL_7:
   [nameLabel setText:v10];
 
   [(WDProfileHeaderView *)self setNeedsLayout];
+}
+
+- (void)setNameHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  nameLabel = [(WDProfileHeaderView *)self nameLabel];
+  [nameLabel setHidden:hiddenCopy];
 }
 
 - (BOOL)isNameHidden

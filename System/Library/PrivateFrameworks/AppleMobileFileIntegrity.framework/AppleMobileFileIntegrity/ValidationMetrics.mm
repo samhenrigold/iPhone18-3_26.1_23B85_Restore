@@ -80,38 +80,38 @@ intptr_t __37__ValidationMetrics_dispatchMetrics___block_invoke_2(uint64_t a1)
 
 id __201__ValidationMetrics_sendSHA1CodeDirectoryMetricWithFilename_withSigningID_withCDHash_withTeamID_withBundleID_withVersion_withIsApple_withSigningYear_withExecutableFormat_withHasRestrictedEntitlements___block_invoke(uint64_t a1)
 {
-  v30[10] = *MEMORY[0x277D85DE8];
+  v29[10] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v28 = v2;
-  v29[0] = @"filename";
+  v27 = v2;
+  v28[0] = @"filename";
   if (!v2)
   {
     v2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v25 = v2;
-  v30[0] = v2;
-  v29[1] = @"signing_identifier";
+  v24 = v2;
+  v29[0] = v2;
+  v28[1] = @"signing_identifier";
   v3 = *(a1 + 40);
-  v27 = v3;
+  v26 = v3;
   if (!v3)
   {
     v3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v24 = v3;
-  v30[1] = v3;
-  v29[2] = @"cdhash";
+  v23 = v3;
+  v29[1] = v3;
+  v28[2] = @"cdhash";
   v4 = *(a1 + 48);
-  v26 = v4;
+  v25 = v4;
   if (!v4)
   {
     v4 = [MEMORY[0x277CBEB68] null];
   }
 
-  v23 = v4;
-  v30[2] = v4;
-  v29[3] = @"team_identifier";
+  v22 = v4;
+  v29[2] = v4;
+  v28[3] = @"team_identifier";
   v5 = *(a1 + 56);
   v6 = v5;
   if (!v5)
@@ -119,9 +119,9 @@ id __201__ValidationMetrics_sendSHA1CodeDirectoryMetricWithFilename_withSigningI
     v6 = [MEMORY[0x277CBEB68] null];
   }
 
-  v22 = v6;
-  v30[3] = v6;
-  v29[4] = @"bundle_identifier";
+  v21 = v6;
+  v29[3] = v6;
+  v28[4] = @"bundle_identifier";
   v7 = *(a1 + 64);
   v8 = v7;
   if (!v7)
@@ -129,9 +129,9 @@ id __201__ValidationMetrics_sendSHA1CodeDirectoryMetricWithFilename_withSigningI
     v8 = [MEMORY[0x277CBEB68] null];
   }
 
-  v21 = v8;
-  v30[4] = v8;
-  v29[5] = @"version";
+  v20 = v8;
+  v29[4] = v8;
+  v28[5] = @"version";
   v9 = *(a1 + 72);
   v10 = v9;
   if (!v9)
@@ -139,12 +139,12 @@ id __201__ValidationMetrics_sendSHA1CodeDirectoryMetricWithFilename_withSigningI
     v10 = [MEMORY[0x277CBEB68] null];
   }
 
-  v20 = v10;
-  v30[5] = v10;
-  v29[6] = @"is_apple";
+  v19 = v10;
+  v29[5] = v10;
+  v28[6] = @"is_apple";
   v11 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 96)];
-  v30[6] = v11;
-  v29[7] = @"signing_timestamp";
+  v29[6] = v11;
+  v28[7] = @"signing_timestamp";
   v12 = *(a1 + 80);
   v13 = v12;
   if (!v12)
@@ -152,8 +152,8 @@ id __201__ValidationMetrics_sendSHA1CodeDirectoryMetricWithFilename_withSigningI
     v13 = [MEMORY[0x277CBEB68] null];
   }
 
-  v30[7] = v13;
-  v29[8] = @"executable_format";
+  v29[7] = v13;
+  v28[8] = @"executable_format";
   v14 = *(a1 + 88);
   v15 = v14;
   if (!v14)
@@ -161,11 +161,11 @@ id __201__ValidationMetrics_sendSHA1CodeDirectoryMetricWithFilename_withSigningI
     v15 = [MEMORY[0x277CBEB68] null];
   }
 
-  v30[8] = v15;
-  v29[9] = @"has_restricted_entitlements";
+  v29[8] = v15;
+  v28[9] = @"has_restricted_entitlements";
   v16 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 97)];
-  v30[9] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:10];
+  v29[9] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:10];
 
   if (v14)
   {
@@ -216,6 +216,10 @@ LABEL_21:
 LABEL_35:
 
 LABEL_22:
+  if (!v25)
+  {
+  }
+
   if (!v26)
   {
   }
@@ -223,12 +227,6 @@ LABEL_22:
   if (!v27)
   {
   }
-
-  if (!v28)
-  {
-  }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

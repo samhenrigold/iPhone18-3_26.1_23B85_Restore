@@ -1,612 +1,3 @@
-uint64_t sub_23C5A7E70()
-{
-  v2 = *(*v1 + 136);
-  v5 = *v1;
-  *(*v1 + 144) = v0;
-
-  if (v0)
-  {
-    v3 = sub_23C5A812C;
-  }
-
-  else
-  {
-    v3 = sub_23C5A7F84;
-  }
-
-  return MEMORY[0x2822009F8](v3, 0, 0);
-}
-
-uint64_t sub_23C5A7F84()
-{
-  v17 = *(v0 + 120);
-  v12 = *(v0 + 104);
-  v2 = *(v0 + 88);
-  v1 = *(v0 + 96);
-  v4 = *(v0 + 72);
-  v3 = *(v0 + 80);
-  v20 = *(v0 + 155);
-  v5 = *(v0 + 64);
-  v21 = *(v0 + 56);
-  v18 = *(v0 + 48);
-  v19 = *(v0 + 128);
-  v16 = *(v0 + 154);
-  v13 = *(v0 + 153);
-  v6 = *(v0 + 32);
-  v14 = *(v0 + 40);
-  v15 = *(v0 + 112);
-  v7 = *(v0 + 152);
-  v9 = *(v0 + 16);
-  v8 = *(v0 + 24);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9C30, &qword_23C874CE0);
-  v10 = swift_allocObject();
-  *(v10 + 16) = xmmword_23C873CF0;
-  *(v10 + 56) = v4;
-  *(v10 + 64) = &off_284F33190;
-  *(v10 + 32) = v3;
-  *(v10 + 96) = v2;
-  *(v10 + 104) = &off_284F30398;
-  *(v10 + 72) = v1;
-  *(v10 + 136) = v12;
-  *(v10 + 144) = &off_284F2FFD8;
-  *(v10 + 112) = v15;
-  *(v10 + 176) = v17;
-  *(v10 + 184) = &off_284F311A8;
-  *(v10 + 152) = v19;
-  *v9 = v10;
-  *(v9 + 8) = v8;
-  *(v9 + 16) = v7 & 1;
-  *(v9 + 24) = v6;
-  *(v9 + 32) = v13 & 1;
-  *(v9 + 40) = v14;
-  *(v9 + 48) = v16 & 1;
-  *(v9 + 56) = v18;
-  *(v9 + 64) = v20 & 1;
-  *(v9 + 72) = v21;
-  *(v9 + 80) = v5;
-  *(v9 + 88) = 0;
-  *(v9 + 96) = 0;
-  v22 = *(v0 + 8);
-
-  return v22();
-}
-
-uint64_t sub_23C5A812C()
-{
-  v1 = v0[16];
-  v2 = v0[14];
-  v3 = v0[12];
-  v4 = v0[10];
-
-  v5 = v0[1];
-  v6 = v0[18];
-
-  return v5();
-}
-
-uint64_t static BiomeInstrumentationStreamsFactory.constructRawJoinableProvider(startTime:endTime:maxEvents:lastN:useCase:trackingTag:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, char a5, uint64_t a6, char a7, uint64_t a8)
-{
-  *(v8 + 72) = v12;
-  *(v8 + 80) = v13;
-  *(v8 + 56) = v11;
-  *(v8 + 171) = v10;
-  *(v8 + 40) = a6;
-  *(v8 + 48) = a8;
-  *(v8 + 170) = a7;
-  *(v8 + 169) = a5;
-  *(v8 + 24) = a2;
-  *(v8 + 32) = a4;
-  *(v8 + 168) = a3;
-  *(v8 + 16) = a1;
-  return MEMORY[0x2822009F8](sub_23C5A820C, 0, 0);
-}
-
-uint64_t sub_23C5A820C()
-{
-  v1 = type metadata accessor for TranscriptStream();
-  v0[11] = v1;
-  v2 = *(v1 + 48);
-  v3 = *(v1 + 52);
-  v4 = swift_allocObject();
-  v0[12] = v4;
-  sub_23C871644();
-  *(v4 + OBJC_IVAR____TtC26AIMLInstrumentationStreams16TranscriptStream_name) = 0;
-  v5 = type metadata accessor for RawJoinableStream();
-  v0[13] = v5;
-  v6 = *(v5 + 48);
-  v7 = *(v5 + 52);
-  v8 = swift_allocObject();
-  v0[14] = v8;
-  *(v8 + 16) = 3;
-  *(v8 + 24) = 0;
-  *(v8 + 32) = 0;
-  sub_23C588EAC();
-  sub_23C871B54();
-  sub_23C871664();
-  v9 = type metadata accessor for GMSStream();
-  v0[15] = v9;
-  v10 = *(v9 + 48);
-  v11 = *(v9 + 52);
-  v12 = swift_allocObject();
-  v0[16] = v12;
-  sub_23C871644();
-  *(v12 + OBJC_IVAR____TtC26AIMLInstrumentationStreams9GMSStream_name) = 1;
-  v13 = type metadata accessor for TelemetryStream();
-  v0[17] = v13;
-  v14 = *(v13 + 48);
-  v15 = *(v13 + 52);
-  v16 = swift_allocObject();
-  v0[18] = v16;
-  sub_23C871644();
-  *(v16 + OBJC_IVAR____TtC26AIMLInstrumentationStreams15TelemetryStream_name) = 2;
-  v17 = swift_task_alloc();
-  v0[19] = v17;
-  *v17 = v0;
-  v17[1] = sub_23C5A8448;
-
-  return sub_23C6289D0();
-}
-
-uint64_t sub_23C5A8448()
-{
-  v2 = *(*v1 + 152);
-  v5 = *v1;
-  *(*v1 + 160) = v0;
-
-  if (v0)
-  {
-    v3 = sub_23C5A8730;
-  }
-
-  else
-  {
-    v3 = sub_23C5A855C;
-  }
-
-  return MEMORY[0x2822009F8](v3, 0, 0);
-}
-
-uint64_t sub_23C5A855C()
-{
-  v21 = *(v0 + 144);
-  v19 = *(v0 + 136);
-  v17 = *(v0 + 128);
-  v14 = *(v0 + 120);
-  v2 = *(v0 + 104);
-  v1 = *(v0 + 112);
-  v4 = *(v0 + 88);
-  v3 = *(v0 + 96);
-  v5 = *(v0 + 80);
-  v23 = *(v0 + 72);
-  v20 = *(v0 + 171);
-  v6 = *(v0 + 64);
-  v22 = *(v0 + 56);
-  v18 = *(v0 + 48);
-  v16 = *(v0 + 170);
-  v13 = *(v0 + 169);
-  v15 = *(v0 + 40);
-  v12 = *(v0 + 32);
-  v7 = *(v0 + 168);
-  v8 = *(v0 + 16);
-  v9 = *(v0 + 24);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9C30, &qword_23C874CE0);
-  v10 = swift_allocObject();
-  *(v10 + 16) = xmmword_23C873CF0;
-  *(v10 + 56) = v4;
-  *(v10 + 64) = &off_284F33190;
-  *(v10 + 32) = v3;
-  *(v10 + 96) = v2;
-  *(v10 + 104) = &off_284F30398;
-  *(v10 + 72) = v1;
-  *(v10 + 136) = v14;
-  *(v10 + 144) = &off_284F2FFD8;
-  *(v10 + 112) = v17;
-  *(v10 + 176) = v19;
-  *(v10 + 184) = &off_284F311A8;
-  *(v10 + 152) = v21;
-  *v8 = v10;
-  *(v8 + 8) = v9;
-  *(v8 + 16) = v7 & 1;
-  *(v8 + 24) = v12;
-  *(v8 + 32) = v13 & 1;
-  *(v8 + 40) = v15;
-  *(v8 + 48) = v16 & 1;
-  *(v8 + 56) = v18;
-  *(v8 + 64) = v20 & 1;
-  *(v8 + 72) = v22;
-  *(v8 + 80) = v6;
-  *(v8 + 88) = v23;
-  *(v8 + 96) = v5;
-  v24 = *(v0 + 8);
-
-  return v24();
-}
-
-uint64_t sub_23C5A8730()
-{
-  v1 = v0[18];
-  v2 = v0[16];
-  v3 = v0[14];
-  v4 = v0[12];
-
-  v5 = v0[1];
-  v6 = v0[20];
-
-  return v5();
-}
-
-uint64_t static BiomeInstrumentationStreamsFactory.constructProcessedJoinableProvider(startTime:endTime:maxEvents:lastN:useCase:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, char a5, uint64_t a6, char a7, uint64_t a8)
-{
-  *(v8 + 56) = v11;
-  *(v8 + 64) = v12;
-  *(v8 + 75) = v10;
-  *(v8 + 40) = a6;
-  *(v8 + 48) = a8;
-  *(v8 + 74) = a7;
-  *(v8 + 73) = a5;
-  *(v8 + 24) = a2;
-  *(v8 + 32) = a4;
-  *(v8 + 72) = a3;
-  *(v8 + 16) = a1;
-  return MEMORY[0x2822009F8](sub_23C5A8808, 0, 0);
-}
-
-uint64_t sub_23C5A8808()
-{
-  v25 = *(v0 + 75);
-  v26 = *(v0 + 56);
-  v28 = *(v0 + 64);
-  v24 = *(v0 + 48);
-  v23 = *(v0 + 74);
-  v21 = *(v0 + 73);
-  v22 = *(v0 + 40);
-  v20 = *(v0 + 32);
-  v19 = *(v0 + 72);
-  v1 = *(v0 + 16);
-  v18 = *(v0 + 24);
-  v2 = type metadata accessor for TranscriptStream();
-  v3 = *(v2 + 48);
-  v4 = *(v2 + 52);
-  v5 = swift_allocObject();
-  sub_23C871644();
-  *(v5 + OBJC_IVAR____TtC26AIMLInstrumentationStreams16TranscriptStream_name) = 0;
-  v17 = type metadata accessor for SelfProcessedEventJoinableStream();
-  v6 = swift_allocObject();
-  *(v6 + 16) = 4;
-  v7 = type metadata accessor for GMSStream();
-  v8 = *(v7 + 48);
-  v9 = *(v7 + 52);
-  v10 = swift_allocObject();
-  sub_23C871644();
-  *(v10 + OBJC_IVAR____TtC26AIMLInstrumentationStreams9GMSStream_name) = 1;
-  v11 = type metadata accessor for TelemetryStream();
-  v12 = *(v11 + 48);
-  v13 = *(v11 + 52);
-  v14 = swift_allocObject();
-  sub_23C871644();
-  *(v14 + OBJC_IVAR____TtC26AIMLInstrumentationStreams15TelemetryStream_name) = 2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9C30, &qword_23C874CE0);
-  v15 = swift_allocObject();
-  *(v15 + 16) = xmmword_23C873CF0;
-  *(v15 + 56) = v2;
-  *(v15 + 64) = &off_284F33190;
-  *(v15 + 32) = v5;
-  *(v15 + 96) = v17;
-  *(v15 + 104) = &off_284F30578;
-  *(v15 + 72) = v6;
-  *(v15 + 136) = v7;
-  *(v15 + 144) = &off_284F2FFD8;
-  *(v15 + 112) = v10;
-  *(v15 + 176) = v11;
-  *(v15 + 184) = &off_284F311A8;
-  *(v15 + 152) = v14;
-  *v1 = v15;
-  *(v1 + 8) = v18;
-  *(v1 + 16) = v19 & 1;
-  *(v1 + 24) = v20;
-  *(v1 + 32) = v21 & 1;
-  *(v1 + 40) = v22;
-  *(v1 + 48) = v23 & 1;
-  *(v1 + 56) = v24;
-  *(v1 + 64) = v25 & 1;
-  *(v1 + 72) = v26;
-  *(v1 + 80) = v28;
-  *(v1 + 88) = 0;
-  *(v1 + 96) = 0;
-  v27 = *(v0 + 8);
-
-  return v27();
-}
-
-uint64_t static BiomeInstrumentationStreamsFactory.constructProcessedJoinableProvider(startTime:endTime:maxEvents:lastN:useCase:trackingTag:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, char a5, uint64_t a6, char a7, uint64_t a8)
-{
-  *(v8 + 72) = v12;
-  *(v8 + 80) = v13;
-  *(v8 + 56) = v11;
-  *(v8 + 91) = v10;
-  *(v8 + 40) = a6;
-  *(v8 + 48) = a8;
-  *(v8 + 90) = a7;
-  *(v8 + 89) = a5;
-  *(v8 + 24) = a2;
-  *(v8 + 32) = a4;
-  *(v8 + 88) = a3;
-  *(v8 + 16) = a1;
-  return MEMORY[0x2822009F8](sub_23C5A8B54, 0, 0);
-}
-
-uint64_t sub_23C5A8B54()
-{
-  v30 = *(v0 + 80);
-  v27 = *(v0 + 64);
-  v28 = *(v0 + 72);
-  v25 = *(v0 + 91);
-  v26 = *(v0 + 56);
-  v24 = *(v0 + 48);
-  v23 = *(v0 + 90);
-  v21 = *(v0 + 89);
-  v22 = *(v0 + 40);
-  v20 = *(v0 + 32);
-  v19 = *(v0 + 88);
-  v1 = *(v0 + 16);
-  v18 = *(v0 + 24);
-  v2 = type metadata accessor for TranscriptStream();
-  v3 = *(v2 + 48);
-  v4 = *(v2 + 52);
-  v5 = swift_allocObject();
-  sub_23C871644();
-  *(v5 + OBJC_IVAR____TtC26AIMLInstrumentationStreams16TranscriptStream_name) = 0;
-  v17 = type metadata accessor for SelfProcessedEventJoinableStream();
-  v6 = swift_allocObject();
-  *(v6 + 16) = 4;
-  v7 = type metadata accessor for GMSStream();
-  v8 = *(v7 + 48);
-  v9 = *(v7 + 52);
-  v10 = swift_allocObject();
-  sub_23C871644();
-  *(v10 + OBJC_IVAR____TtC26AIMLInstrumentationStreams9GMSStream_name) = 1;
-  v11 = type metadata accessor for TelemetryStream();
-  v12 = *(v11 + 48);
-  v13 = *(v11 + 52);
-  v14 = swift_allocObject();
-  sub_23C871644();
-  *(v14 + OBJC_IVAR____TtC26AIMLInstrumentationStreams15TelemetryStream_name) = 2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9C30, &qword_23C874CE0);
-  v15 = swift_allocObject();
-  *(v15 + 16) = xmmword_23C873CF0;
-  *(v15 + 56) = v2;
-  *(v15 + 64) = &off_284F33190;
-  *(v15 + 32) = v5;
-  *(v15 + 96) = v17;
-  *(v15 + 104) = &off_284F30578;
-  *(v15 + 72) = v6;
-  *(v15 + 136) = v7;
-  *(v15 + 144) = &off_284F2FFD8;
-  *(v15 + 112) = v10;
-  *(v15 + 176) = v11;
-  *(v15 + 184) = &off_284F311A8;
-  *(v15 + 152) = v14;
-  *v1 = v15;
-  *(v1 + 8) = v18;
-  *(v1 + 16) = v19 & 1;
-  *(v1 + 24) = v20;
-  *(v1 + 32) = v21 & 1;
-  *(v1 + 40) = v22;
-  *(v1 + 48) = v23 & 1;
-  *(v1 + 56) = v24;
-  *(v1 + 64) = v25 & 1;
-  *(v1 + 72) = v26;
-  *(v1 + 80) = v27;
-  *(v1 + 88) = v28;
-  *(v1 + 96) = v30;
-  v29 = *(v0 + 8);
-
-  return v29();
-}
-
-id BiomeInstrumentationStreamsFactory.__allocating_init()()
-{
-  v1 = objc_allocWithZone(v0);
-
-  return [v1 init];
-}
-
-id BiomeInstrumentationStreamsFactory.init()()
-{
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for BiomeInstrumentationStreamsFactory();
-  return objc_msgSendSuper2(&v2, sel_init);
-}
-
-id BiomeInstrumentationStreamsFactory.__deallocating_deinit()
-{
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for BiomeInstrumentationStreamsFactory();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
-}
-
-uint64_t BiomeInstrumentationStreamsProvider.startTime.getter()
-{
-  result = *(v0 + 8);
-  v2 = *(v0 + 16);
-  return result;
-}
-
-uint64_t BiomeInstrumentationStreamsProvider.startTime.setter(uint64_t result, char a2)
-{
-  *(v2 + 8) = result;
-  *(v2 + 16) = a2 & 1;
-  return result;
-}
-
-uint64_t BiomeInstrumentationStreamsProvider.endTime.getter()
-{
-  result = *(v0 + 24);
-  v2 = *(v0 + 32);
-  return result;
-}
-
-uint64_t BiomeInstrumentationStreamsProvider.endTime.setter(uint64_t result, char a2)
-{
-  *(v2 + 24) = result;
-  *(v2 + 32) = a2 & 1;
-  return result;
-}
-
-uint64_t BiomeInstrumentationStreamsProvider.maxEvents.getter()
-{
-  result = *(v0 + 40);
-  v2 = *(v0 + 48);
-  return result;
-}
-
-uint64_t BiomeInstrumentationStreamsProvider.maxEvents.setter(uint64_t result, char a2)
-{
-  *(v2 + 40) = result;
-  *(v2 + 48) = a2 & 1;
-  return result;
-}
-
-uint64_t BiomeInstrumentationStreamsProvider.lastN.getter()
-{
-  result = *(v0 + 56);
-  v2 = *(v0 + 64);
-  return result;
-}
-
-uint64_t BiomeInstrumentationStreamsProvider.lastN.setter(uint64_t result, char a2)
-{
-  *(v2 + 56) = result;
-  *(v2 + 64) = a2 & 1;
-  return result;
-}
-
-uint64_t BiomeInstrumentationStreamsProvider.useCase.getter()
-{
-  v1 = *(v0 + 72);
-  v2 = *(v0 + 80);
-
-  return v1;
-}
-
-uint64_t BiomeInstrumentationStreamsProvider.useCase.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = *(v2 + 80);
-
-  *(v2 + 72) = a1;
-  *(v2 + 80) = a2;
-  return result;
-}
-
-uint64_t BiomeInstrumentationStreamsProvider.trackingTag.getter()
-{
-  v1 = *(v0 + 88);
-  v2 = *(v0 + 96);
-
-  return v1;
-}
-
-uint64_t BiomeInstrumentationStreamsProvider.trackingTag.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = *(v2 + 96);
-
-  *(v2 + 88) = a1;
-  *(v2 + 96) = a2;
-  return result;
-}
-
-void BiomeInstrumentationStreamsProvider.transcriptEvents()(uint64_t a1@<X8>)
-{
-  v3 = *v1;
-  v26 = v1[1];
-  v25 = *(v1 + 16);
-  v24 = v1[3];
-  v23 = *(v1 + 32);
-  v22 = v1[5];
-  v21 = *(v1 + 48);
-  v20 = v1[7];
-  v19 = *(v1 + 64);
-  v17 = v1[10];
-  v18 = v1[9];
-  v4 = *(*v1 + 16);
-  if (v4)
-  {
-    v5 = 0;
-    v6 = v3 + 32;
-    v7 = MEMORY[0x277D84F90];
-    while (v5 < *(v3 + 16))
-    {
-      sub_23C5A9638(v6, &v28);
-      v8 = v29;
-      v9 = v30;
-      __swift_project_boxed_opaque_existential_0(&v28, v29);
-      (*(v9 + 8))(v27, v8, v9);
-      if (LOBYTE(v27[0]))
-      {
-        __swift_destroy_boxed_opaque_existential_0(&v28);
-      }
-
-      else
-      {
-        sub_23C581A8C(&v28, v27);
-        isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v31 = v7;
-        if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-        {
-          sub_23C592C44(0, *(v7 + 16) + 1, 1);
-          v7 = v31;
-        }
-
-        v12 = *(v7 + 16);
-        v11 = *(v7 + 24);
-        if (v12 >= v11 >> 1)
-        {
-          sub_23C592C44((v11 > 1), v12 + 1, 1);
-          v7 = v31;
-        }
-
-        *(v7 + 16) = v12 + 1;
-        sub_23C581A8C(v27, v7 + 40 * v12 + 32);
-      }
-
-      ++v5;
-      v6 += 40;
-      if (v4 == v5)
-      {
-        goto LABEL_13;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-    v7 = MEMORY[0x277D84F90];
-LABEL_13:
-    if (*(v7 + 16))
-    {
-      sub_23C5A9638(v7 + 32, v27);
-
-      sub_23C581A8C(v27, &v28);
-      v13 = v29;
-      v14 = v30;
-      __swift_project_boxed_opaque_existential_0(&v28, v29);
-      (*(v14 + 16))(v26, v25, v24, v23, v22, v21, v20, v19, v18, v17, v13, v14);
-      v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F94D0, &unk_23C873A00);
-      (*(*(v15 - 8) + 56))(a1, 0, 1, v15);
-      __swift_destroy_boxed_opaque_existential_0(&v28);
-    }
-
-    else
-    {
-
-      v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F94D0, &unk_23C873A00);
-      (*(*(v16 - 8) + 56))(a1, 1, 1, v16);
-    }
-  }
-}
-
 uint64_t sub_23C5A9638(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 24);
@@ -894,176 +285,159 @@ LABEL_14:
 
 uint64_t BiomeInstrumentationStreamsProvider.eventGraphs(windowLength:)@<X0>(uint64_t a1@<X8>, double a2@<D0>)
 {
-  v51 = a1;
+  v48 = a1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9E10, &qword_23C874FB8);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v47 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F94D0, &unk_23C873A00);
-  v9 = *(*(v8 - 8) + 64);
-  v10 = MEMORY[0x28223BE20](v8);
-  v48 = &v47 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v63 = &v47 - v13;
-  v14 = *v2;
-  v15 = v2[12];
-  v50 = v2[11];
-  v49 = v15;
-  v16 = *(v14 + 16);
-  v53 = v12;
-  if (v16)
+  v6 = &v44 - v5;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F94D0, &unk_23C873A00);
+  v8 = MEMORY[0x28223BE20](v7);
+  v45 = &v44 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v60 = &v44 - v11;
+  v12 = *v2;
+  v13 = v2[12];
+  v47 = v2[11];
+  v46 = v13;
+  v14 = *(v12 + 16);
+  v50 = v10;
+  if (v14)
   {
-    v17 = v2[1];
-    v18 = *(v2 + 16);
-    v62 = v2[3];
-    v61 = *(v2 + 32);
-    v60 = v2[5];
-    v59 = *(v2 + 48);
-    v58 = v2[7];
-    v57 = *(v2 + 64);
-    v19 = v14 + 32;
-    v20 = (v12 + 56);
-    v21 = v2[9];
-    v55 = v2[10];
-    v56 = v21;
-    v22 = (v12 + 48);
-    v54 = (v12 + 32);
-    v64 = MEMORY[0x277D84F90];
-    v52 = v18;
+    v15 = v2[1];
+    v16 = *(v2 + 16);
+    v59 = v2[3];
+    v58 = *(v2 + 32);
+    v57 = v2[5];
+    v56 = *(v2 + 48);
+    v55 = v2[7];
+    v54 = *(v2 + 64);
+    v17 = v12 + 32;
+    v18 = (v10 + 56);
+    v19 = v2[9];
+    v52 = v2[10];
+    v53 = v19;
+    v20 = (v10 + 48);
+    v51 = (v10 + 32);
+    v61 = MEMORY[0x277D84F90];
+    v49 = v16;
     do
     {
-      sub_23C5A9638(v19, v65);
-      v23 = v66;
-      v24 = v67;
-      __swift_project_boxed_opaque_existential_0(v65, v66);
-      (*(v24 + 16))(v17, v18, v62, v61, v60, v59, v58, v57, v56, v55, v23, v24);
-      (*v20)(v7, 0, 1, v8);
-      __swift_destroy_boxed_opaque_existential_0(v65);
-      if ((*v22)(v7, 1, v8) == 1)
+      sub_23C5A9638(v17, v62);
+      v21 = v63;
+      v22 = v64;
+      __swift_project_boxed_opaque_existential_0(v62, v63);
+      (*(v22 + 16))(v15, v16, v59, v58, v57, v56, v55, v54, v53, v52, v21, v22);
+      (*v18)(v6, 0, 1, v7);
+      __swift_destroy_boxed_opaque_existential_0(v62);
+      if ((*v20)(v6, 1, v7) == 1)
       {
-        sub_23C5AA5B4(v7);
+        sub_23C5AA5B4(v6);
       }
 
       else
       {
-        v25 = v17;
-        v26 = *v54;
-        (*v54)(v63, v7, v8);
+        v23 = v15;
+        v24 = *v51;
+        (*v51)(v60, v6, v7);
         if (swift_isUniquelyReferenced_nonNull_native())
         {
-          v27 = v64;
+          v25 = v61;
         }
 
         else
         {
-          v27 = sub_23C584938(0, v64[2] + 1, 1, v64);
+          v25 = sub_23C584938(0, v61[2] + 1, 1, v61);
         }
 
-        v29 = v27[2];
-        v28 = v27[3];
-        v30 = v53;
-        if (v29 >= v28 >> 1)
+        v27 = v25[2];
+        v26 = v25[3];
+        v28 = v50;
+        if (v27 >= v26 >> 1)
         {
-          v32 = sub_23C584938(v28 > 1, v29 + 1, 1, v27);
-          v30 = v53;
-          v27 = v32;
+          v30 = sub_23C584938((v26 > 1), v27 + 1, 1, v25);
+          v28 = v50;
+          v25 = v30;
         }
 
-        v27[2] = v29 + 1;
-        v31 = (*(v30 + 80) + 32) & ~*(v30 + 80);
-        v64 = v27;
-        v26(v27 + v31 + *(v30 + 72) * v29, v63, v8);
-        v17 = v25;
-        v18 = v52;
+        v25[2] = v27 + 1;
+        v29 = (*(v28 + 80) + 32) & ~*(v28 + 80);
+        v61 = v25;
+        v24(v25 + v29 + *(v28 + 72) * v27, v60, v7);
+        v15 = v23;
+        v16 = v49;
       }
 
-      v19 += 40;
-      --v16;
+      v17 += 40;
+      --v14;
     }
 
-    while (v16);
+    while (v14);
   }
 
   else
   {
-    v64 = MEMORY[0x277D84F90];
+    v61 = MEMORY[0x277D84F90];
   }
 
-  v33 = v64[2];
-  if (v33)
+  v31 = v61[2];
+  if (v31)
   {
-    v65[0] = MEMORY[0x277D84F90];
-    v34 = v64;
+    v62[0] = MEMORY[0x277D84F90];
+    v32 = v61;
     sub_23C871D84();
-    v35 = v48;
-    v63 = *(v53 + 16);
-    v36 = v34 + ((*(v53 + 80) + 32) & ~*(v53 + 80));
-    v37 = *(v53 + 72);
-    v38 = (v53 + 8);
+    v33 = v45;
+    v60 = *(v50 + 16);
+    v34 = v32 + ((*(v50 + 80) + 32) & ~*(v50 + 80));
+    v35 = *(v50 + 72);
+    v36 = (v50 + 8);
     do
     {
-      (v63)(v35, v36, v8);
+      (v60)(v33, v34, v7);
       sub_23C870BE4();
-      (*v38)(v35, v8);
+      (*v36)(v33, v7);
       sub_23C871D54();
-      v39 = *(v65[0] + 16);
       sub_23C871D94();
       sub_23C871DA4();
       sub_23C871D64();
-      v36 += v37;
-      --v33;
+      v34 += v35;
+      --v31;
     }
 
-    while (v33);
+    while (v31);
 
-    v40 = v65[0];
+    v37 = v62[0];
   }
 
   else
   {
 
-    v40 = MEMORY[0x277D84F90];
+    v37 = MEMORY[0x277D84F90];
   }
 
-  v41 = objc_allocWithZone(type metadata accessor for BiomeEventGraphsPublisher());
-  v42 = v49;
+  v38 = objc_allocWithZone(type metadata accessor for BiomeEventGraphsPublisher());
+  v39 = v46;
 
-  if (BiomeEventGraphsPublisher.init(streams:windowLength:trackingTag:)(v40, v50, v42, a2))
+  if (BiomeEventGraphsPublisher.init(streams:windowLength:trackingTag:)(v37, v47, v39, a2))
   {
-    type metadata accessor for BiomeEventGraph();
-    v43 = v51;
+    type metadata accessor for BiomeEventGraph(0);
+    v40 = v48;
     sub_23C870BF4();
-    v44 = 0;
+    v41 = 0;
   }
 
   else
   {
-    v44 = 1;
-    v43 = v51;
+    v41 = 1;
+    v40 = v48;
   }
 
-  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9E18, &qword_23C874FC0);
-  return (*(*(v45 - 8) + 56))(v43, v44, 1, v45);
-}
-
-uint64_t sub_23C5AA4B0()
-{
-  result = *(v0 + 8);
-  v2 = *(v0 + 16);
-  return result;
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9E18, &qword_23C874FC0);
+  return (*(*(v42 - 8) + 56))(v40, v41, 1, v42);
 }
 
 uint64_t sub_23C5AA4BC(uint64_t result, char a2)
 {
   *(v2 + 8) = result;
   *(v2 + 16) = a2 & 1;
-  return result;
-}
-
-uint64_t sub_23C5AA4EC()
-{
-  result = *(v0 + 24);
-  v2 = *(v0 + 32);
   return result;
 }
 
@@ -1074,24 +448,10 @@ uint64_t sub_23C5AA4F8(uint64_t result, char a2)
   return result;
 }
 
-uint64_t sub_23C5AA528()
-{
-  result = *(v0 + 40);
-  v2 = *(v0 + 48);
-  return result;
-}
-
 uint64_t sub_23C5AA534(uint64_t result, char a2)
 {
   *(v2 + 40) = result;
   *(v2 + 48) = a2 & 1;
-  return result;
-}
-
-uint64_t sub_23C5AA564()
-{
-  result = *(v0 + 56);
-  v2 = *(v0 + 64);
   return result;
 }
 
@@ -1202,14 +562,12 @@ AIMLInstrumentationStreams::BiomeSELFClusterType_optional __swiftcall BiomeSELFC
 
 uint64_t BiomeSELFLogicalTimestamp.__allocating_init(timestampInNanoseconds:clockIdentifier:)(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 48);
-  v6 = *(v2 + 52);
-  v7 = swift_allocObject();
-  *(v7 + 16) = a1;
-  v8 = OBJC_IVAR____TtC26AIMLInstrumentationStreams25BiomeSELFLogicalTimestamp_clockIdentifier;
-  v9 = sub_23C870B74();
-  (*(*(v9 - 8) + 32))(v7 + v8, a2, v9);
-  return v7;
+  v4 = swift_allocObject();
+  *(v4 + 16) = a1;
+  v5 = OBJC_IVAR____TtC26AIMLInstrumentationStreams25BiomeSELFLogicalTimestamp_clockIdentifier;
+  v6 = sub_23C870B74();
+  (*(*(v6 - 8) + 32))(v4 + v5, a2, v6);
+  return v4;
 }
 
 uint64_t BiomeSELFLogicalTimestamp.init(timestampInNanoseconds:clockIdentifier:)(uint64_t a1, uint64_t a2)
@@ -1263,28 +621,23 @@ uint64_t BiomeSELFLogicalTimestamp.deinit()
 
 uint64_t BiomeSELFLogicalTimestamp.__deallocating_deinit()
 {
-  v1 = *(v0 + 2);
+  v1 = *(v0 + 16);
 
   v2 = OBJC_IVAR____TtC26AIMLInstrumentationStreams25BiomeSELFLogicalTimestamp_clockIdentifier;
   v3 = sub_23C870B74();
-  (*(*(v3 - 8) + 8))(&v0[v2], v3);
-
-  v4 = *(*v0 + 48);
-  v5 = *(*v0 + 52);
+  (*(*(v3 - 8) + 8))(v0 + v2, v3);
 
   return swift_deallocClassInstance();
 }
 
 uint64_t BiomeSELFClusterIdentifier.__allocating_init(clusterType:uuid:)(_BYTE *a1, uint64_t a2)
 {
-  v5 = *(v2 + 48);
-  v6 = *(v2 + 52);
-  v7 = swift_allocObject();
-  *(v7 + 16) = *a1;
-  v8 = OBJC_IVAR____TtC26AIMLInstrumentationStreams26BiomeSELFClusterIdentifier_uuid;
-  v9 = sub_23C870B74();
-  (*(*(v9 - 8) + 32))(v7 + v8, a2, v9);
-  return v7;
+  v4 = swift_allocObject();
+  *(v4 + 16) = *a1;
+  v5 = OBJC_IVAR____TtC26AIMLInstrumentationStreams26BiomeSELFClusterIdentifier_uuid;
+  v6 = sub_23C870B74();
+  (*(*(v6 - 8) + 32))(v4 + v5, a2, v6);
+  return v4;
 }
 
 uint64_t BiomeSELFClusterIdentifier.init(clusterType:uuid:)(_BYTE *a1, uint64_t a2)
@@ -1301,22 +654,21 @@ unint64_t sub_23C5AAC28()
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9E20, &qword_23C875070);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_23C873D20;
-  v2 = MEMORY[0x277D837D0];
+  v1 = MEMORY[0x277D837D0];
   sub_23C871CB4();
-  v3 = *(v0 + 16);
-  v4 = sub_23C871A34();
+  v2 = sub_23C871A34();
   *(inited + 96) = sub_23C5A3FDC(0, &qword_27E1F9E28, 0x277CCABB0);
-  *(inited + 72) = v4;
-  v5 = sub_23C871CB4();
-  v6 = MEMORY[0x23EED6400](v5);
-  *(inited + 168) = v2;
-  *(inited + 144) = v6;
-  *(inited + 152) = v7;
-  v8 = sub_23C598B20(inited);
+  *(inited + 72) = v2;
+  v3 = sub_23C871CB4();
+  v4 = MEMORY[0x23EED6400](v3);
+  *(inited + 168) = v1;
+  *(inited + 144) = v4;
+  *(inited + 152) = v5;
+  v6 = sub_23C598B20(inited);
   swift_setDeallocating();
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9C28, &unk_23C87AB40);
   swift_arrayDestroy();
-  return v8;
+  return v6;
 }
 
 uint64_t sub_23C5AAD70()
@@ -1341,22 +693,18 @@ uint64_t BiomeSELFClusterIdentifier.__deallocating_deinit()
   v1 = OBJC_IVAR____TtC26AIMLInstrumentationStreams26BiomeSELFClusterIdentifier_uuid;
   v2 = sub_23C870B74();
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
-  v3 = *(*v0 + 48);
-  v4 = *(*v0 + 52);
 
   return swift_deallocClassInstance();
 }
 
 uint64_t BiomeSELFComponentIdentifier.__allocating_init(uuid:componentName:)(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 48);
-  v6 = *(v2 + 52);
-  v7 = swift_allocObject();
-  v8 = OBJC_IVAR____TtC26AIMLInstrumentationStreams28BiomeSELFComponentIdentifier_uuid;
-  v9 = sub_23C870B74();
-  (*(*(v9 - 8) + 32))(v7 + v8, a1, v9);
-  *(v7 + OBJC_IVAR____TtC26AIMLInstrumentationStreams28BiomeSELFComponentIdentifier_componentName) = a2;
-  return v7;
+  v4 = swift_allocObject();
+  v5 = OBJC_IVAR____TtC26AIMLInstrumentationStreams28BiomeSELFComponentIdentifier_uuid;
+  v6 = sub_23C870B74();
+  (*(*(v6 - 8) + 32))(v4 + v5, a1, v6);
+  *(v4 + OBJC_IVAR____TtC26AIMLInstrumentationStreams28BiomeSELFComponentIdentifier_componentName) = a2;
+  return v4;
 }
 
 uint64_t BiomeSELFComponentIdentifier.init(uuid:componentName:)(uint64_t a1, uint64_t a2)
@@ -1368,7 +716,7 @@ uint64_t BiomeSELFComponentIdentifier.init(uuid:componentName:)(uint64_t a1, uin
   return v2;
 }
 
-uint64_t sub_23C5AAFE8()
+unint64_t sub_23C5AAFE8()
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9E20, &qword_23C875070);
   inited = swift_initStackObject();
@@ -1441,9 +789,6 @@ uint64_t BiomeSELFComponentIdentifier.__deallocating_deinit()
   v3(v0 + v1, v2);
   v4 = *(v0 + OBJC_IVAR____TtC26AIMLInstrumentationStreams28BiomeSELFComponentIdentifier_componentName);
 
-  v5 = *(*v0 + 48);
-  v6 = *(*v0 + 52);
-
   return swift_deallocClassInstance();
 }
 
@@ -1469,7 +814,6 @@ uint64_t sub_23C5AB474(uint64_t *a1, void *a2)
   v2 = a1[1];
   v4 = (*a2 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventDataJson);
   swift_beginAccess();
-  v5 = v4[1];
   *v4 = v3;
   v4[1] = v2;
 }
@@ -1478,136 +822,124 @@ uint64_t sub_23C5AB4E0()
 {
   v1 = (v0 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventDataJson);
   swift_beginAccess();
-  v3 = *v1;
-  v2 = v1[1];
+  v2 = *v1;
 
-  return v3;
+  return v2;
 }
 
 uint64_t sub_23C5AB538(uint64_t a1, uint64_t a2)
 {
   v5 = (v2 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventDataJson);
   swift_beginAccess();
-  v6 = v5[1];
   *v5 = a1;
   v5[1] = a2;
 }
 
 uint64_t BiomeSELFEvent.__allocating_init(logicalTimestamp:clusterId:componentId:anyEventType:innerType:messageUuid:eventData:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = v8;
-  v18 = *(v9 + 48);
-  v19 = *(v9 + 52);
-  v20 = swift_allocObject();
-  v21 = (v20 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventDataJson);
-  *v21 = 0;
-  v21[1] = 0xE000000000000000;
-  *(v20 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_logicalTimestamp) = a1;
-  *(v20 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_clusterId) = a2;
-  *(v20 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_componentId) = a3;
-  *(v20 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_anyEventType) = a4;
-  *(v20 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_innerType) = a5;
-  v22 = OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_messageUuid;
-  v23 = sub_23C870B74();
-  v24 = *(v23 - 8);
-  (*(v24 + 16))(v20 + v22, a6, v23);
-  (*(v24 + 56))(v20 + v22, 0, 1, v23);
-  v25 = (v20 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventData);
-  *v25 = a7;
-  v25[1] = a8;
+  v16 = swift_allocObject();
+  v17 = (v16 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventDataJson);
+  *v17 = 0;
+  v17[1] = 0xE000000000000000;
+  *(v16 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_logicalTimestamp) = a1;
+  *(v16 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_clusterId) = a2;
+  *(v16 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_componentId) = a3;
+  *(v16 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_anyEventType) = a4;
+  *(v16 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_innerType) = a5;
+  v18 = OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_messageUuid;
+  v19 = sub_23C870B74();
+  v20 = *(v19 - 8);
+  (*(v20 + 16))(v16 + v18, a6, v19);
+  (*(v20 + 56))(v16 + v18, 0, 1, v19);
+  v21 = (v16 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventData);
+  *v21 = a7;
+  v21[1] = a8;
   sub_23C870AD4();
-  (*(v24 + 8))(a6, v23);
-  return v20;
+  (*(v20 + 8))(a6, v19);
+  return v16;
 }
 
 uint64_t BiomeSELFEvent.init(logicalTimestamp:clusterId:componentId:anyEventType:innerType:messageUuid:eventData:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v27 = a7;
-  v28 = a8;
+  v26 = a7;
+  v27 = a8;
   v15 = sub_23C870AE4();
   v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
   MEMORY[0x28223BE20](v15);
-  v19 = &v27 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = (v8 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventDataJson);
-  *v20 = 0;
-  v20[1] = 0xE000000000000000;
+  v18 = &v26 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = (v8 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventDataJson);
+  *v19 = 0;
+  v19[1] = 0xE000000000000000;
   *(v8 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_logicalTimestamp) = a1;
   *(v8 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_clusterId) = a2;
   *(v8 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_componentId) = a3;
   *(v8 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_anyEventType) = a4;
   *(v8 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_innerType) = a5;
-  v21 = OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_messageUuid;
-  v22 = sub_23C870B74();
-  v23 = *(v22 - 8);
-  (*(v23 + 16))(v8 + v21, a6, v22);
-  (*(v23 + 56))(v8 + v21, 0, 1, v22);
-  v24 = (v8 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventData);
-  v25 = v28;
-  *v24 = v27;
-  v24[1] = v25;
+  v20 = OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_messageUuid;
+  v21 = sub_23C870B74();
+  v22 = *(v21 - 8);
+  (*(v22 + 16))(v8 + v20, a6, v21);
+  (*(v22 + 56))(v8 + v20, 0, 1, v21);
+  v23 = (v8 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventData);
+  v24 = v27;
+  *v23 = v26;
+  v23[1] = v24;
   sub_23C870AD4();
-  (*(v23 + 8))(a6, v22);
-  (*(v16 + 32))(v8 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventTimestamp, v19, v15);
+  (*(v22 + 8))(a6, v21);
+  (*(v16 + 32))(v8 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventTimestamp, v18, v15);
   return v8;
 }
 
 uint64_t BiomeSELFEvent.__allocating_init(event:clusterId:)(void *a1, uint64_t a2)
 {
-  v5 = *(v2 + 48);
-  v6 = *(v2 + 52);
-  v7 = swift_allocObject();
+  v4 = swift_allocObject();
   BiomeSELFEvent.init(event:clusterId:)(a1, a2);
-  return v7;
+  return v4;
 }
 
 uint64_t BiomeSELFEvent.init(event:clusterId:)(void *a1, uint64_t a2)
 {
   v3 = v2;
-  v96 = a2;
-  v107 = *MEMORY[0x277D85DE8];
+  v84 = a2;
+  v95 = *MEMORY[0x277D85DE8];
   v5 = sub_23C870AE4();
-  v93 = *(v5 - 8);
-  v6 = *(v93 + 64);
+  v81 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
-  v94 = &v88 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v91 = sub_23C8717C4();
-  v90 = *(v91 - 8);
-  v8 = *(v90 + 64);
-  MEMORY[0x28223BE20](v91);
-  v89 = &v88 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F92A0, &qword_23C8734E0);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10 - 8);
-  v95 = &v88 - v12;
-  v13 = sub_23C870B74();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  v16 = MEMORY[0x28223BE20](v13);
-  v18 = &v88 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = MEMORY[0x28223BE20](v16);
-  v21 = &v88 - v20;
-  MEMORY[0x28223BE20](v19);
-  v23 = &v88 - v22;
-  v24 = (v2 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventDataJson);
-  *v24 = 0;
-  v24[1] = 0xE000000000000000;
-  v88 = v24;
+  v82 = &v76 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v79 = sub_23C8717C4();
+  v78 = *(v79 - 8);
+  MEMORY[0x28223BE20](v79);
+  v77 = &v76 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F92A0, &qword_23C8734E0);
+  MEMORY[0x28223BE20](v8 - 8);
+  v83 = &v76 - v9;
+  v10 = sub_23C870B74();
+  v11 = *(v10 - 8);
+  v12 = MEMORY[0x28223BE20](v10);
+  v14 = &v76 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = MEMORY[0x28223BE20](v12);
+  v17 = &v76 - v16;
+  MEMORY[0x28223BE20](v15);
+  v19 = &v76 - v18;
+  v20 = (v2 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventDataJson);
+  *v20 = 0;
+  v20[1] = 0xE000000000000000;
+  v76 = v20;
 
-  v25 = sub_23C870CF4();
-  if (!v25)
+  v21 = sub_23C870CF4();
+  if (!v21)
   {
     __break(1u);
     goto LABEL_39;
   }
 
-  v26 = v25;
-  v92 = v5;
+  v22 = v21;
+  v80 = v5;
   sub_23C870DD4();
 
-  v27 = sub_23C872134();
-  v28 = sub_23C870CF4();
-  if (!v28)
+  v23 = sub_23C872134();
+  v24 = sub_23C870CF4();
+  if (!v24)
   {
 LABEL_39:
     __break(1u);
@@ -1616,98 +948,94 @@ LABEL_40:
     goto LABEL_41;
   }
 
-  v29 = v28;
+  v25 = v24;
   sub_23C870D94();
 
-  v30 = type metadata accessor for BiomeSELFLogicalTimestamp(0);
-  v31 = *(v30 + 48);
-  v32 = *(v30 + 52);
-  v33 = swift_allocObject();
-  *(v33 + 16) = v27;
-  v34 = *(v14 + 32);
-  v34(v33 + OBJC_IVAR____TtC26AIMLInstrumentationStreams25BiomeSELFLogicalTimestamp_clockIdentifier, v23, v13);
-  *(v3 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_logicalTimestamp) = v33;
-  *(v3 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_clusterId) = v96;
+  type metadata accessor for BiomeSELFLogicalTimestamp(0);
+  v26 = swift_allocObject();
+  *(v26 + 16) = v23;
+  v27 = *(v11 + 32);
+  v27(v26 + OBJC_IVAR____TtC26AIMLInstrumentationStreams25BiomeSELFLogicalTimestamp_clockIdentifier, v19, v10);
+  *(v3 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_logicalTimestamp) = v26;
+  *(v3 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_clusterId) = v84;
 
-  v35 = sub_23C870D04();
-  if (v35)
+  v28 = sub_23C870D04();
+  if (v28)
   {
     sub_23C870E24();
 
-    v34(v21, v18, v13);
-    v35 = sub_23C870D04();
-    if (v35)
+    v27(v17, v14, v10);
+    v28 = sub_23C870D04();
+    if (v28)
     {
       sub_23C870DF4();
 
-      (*(v14 + 16))(v23, v21, v13);
-      v36 = sub_23C8720B4();
-      (*(v14 + 8))(v21, v13);
-      v37 = type metadata accessor for BiomeSELFComponentIdentifier(0);
-      v38 = *(v37 + 48);
-      v39 = *(v37 + 52);
-      v35 = swift_allocObject();
-      v34(&v35[OBJC_IVAR____TtC26AIMLInstrumentationStreams28BiomeSELFComponentIdentifier_uuid], v23, v13);
-      *&v35[OBJC_IVAR____TtC26AIMLInstrumentationStreams28BiomeSELFComponentIdentifier_componentName] = v36;
+      (*(v11 + 16))(v19, v17, v10);
+      v29 = sub_23C8720B4();
+      (*(v11 + 8))(v17, v10);
+      type metadata accessor for BiomeSELFComponentIdentifier(0);
+      v28 = swift_allocObject();
+      v27(&v28[OBJC_IVAR____TtC26AIMLInstrumentationStreams28BiomeSELFComponentIdentifier_uuid], v19, v10);
+      *&v28[OBJC_IVAR____TtC26AIMLInstrumentationStreams28BiomeSELFComponentIdentifier_componentName] = v29;
     }
 
     else
     {
-      (*(v14 + 8))(v21, v13);
+      (*(v11 + 8))(v17, v10);
     }
   }
 
-  *(v3 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_componentId) = v35;
-  v40 = sub_23C870CA4();
-  if (!v40)
+  *(v3 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_componentId) = v28;
+  v30 = sub_23C870CA4();
+  if (!v30)
   {
     goto LABEL_40;
   }
 
-  v41 = v40;
-  [v40 getAnyEventType];
+  v31 = v30;
+  [v30 getAnyEventType];
 
   *(v3 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_anyEventType) = sub_23C8720B4();
-  v42 = sub_23C870CA4();
-  if (v42 && (*&v104 = v42, sub_23C5A3FDC(0, &qword_27E1F9E48, 0x277D5AA68), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9E50, &qword_23C875090), (swift_dynamicCast() & 1) != 0))
+  v32 = sub_23C870CA4();
+  if (v32 && (*&v92 = v32, sub_23C5A3FDC(0, &qword_27E1F9E48, 0x277D5AA68), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9E50, &qword_23C875090), (swift_dynamicCast() & 1) != 0))
   {
-    if (*(&v102 + 1))
+    if (*(&v90 + 1))
     {
-      sub_23C581A8C(&v101, &v104);
-      v43 = v105;
-      v44 = v106;
-      __swift_project_boxed_opaque_existential_0(&v104, v105);
-      (*(v44 + 8))(v43, v44);
-      __swift_destroy_boxed_opaque_existential_0(&v104);
+      sub_23C581A8C(&v89, &v92);
+      v33 = v93;
+      v34 = v94;
+      __swift_project_boxed_opaque_existential_0(&v92, v93);
+      (*(v34 + 8))(v33, v34);
+      __swift_destroy_boxed_opaque_existential_0(&v92);
       goto LABEL_14;
     }
   }
 
   else
   {
-    v103 = 0;
-    v101 = 0u;
-    v102 = 0u;
+    v91 = 0;
+    v89 = 0u;
+    v90 = 0u;
   }
 
-  sub_23C585C34(&v101, &qword_27E1F9E30, &qword_23C875078);
+  sub_23C585C34(&v89, &qword_27E1F9E30, &qword_23C875078);
 LABEL_14:
   *(v3 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_innerType) = sub_23C871B84();
-  v45 = v95;
+  v35 = v83;
   sub_23C870CC4();
-  sub_23C5AD03C(v45, v3 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_messageUuid);
-  v46 = sub_23C870CA4();
-  if (!v46)
+  sub_23C5AD03C(v35, v3 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_messageUuid);
+  v36 = sub_23C870CA4();
+  if (!v36)
   {
 LABEL_41:
     __break(1u);
     goto LABEL_42;
   }
 
-  v47 = v46;
-  v48 = [v46 data];
+  v37 = v36;
+  v38 = [v36 data];
 
-  if (!v48)
+  if (!v38)
   {
 LABEL_42:
     __break(1u);
@@ -1715,285 +1043,278 @@ LABEL_43:
     __break(1u);
   }
 
-  v49 = sub_23C870A34();
-  v51 = v50;
+  v39 = sub_23C870A34();
+  v41 = v40;
 
-  v52 = (v3 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventData);
-  *v52 = v49;
-  v52[1] = v51;
-  v53 = sub_23C870CA4();
-  if (!v53)
+  v42 = (v3 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventData);
+  *v42 = v39;
+  v42[1] = v41;
+  v43 = sub_23C870CA4();
+  if (!v43)
   {
     goto LABEL_43;
   }
 
-  v54 = v53;
-  v55 = [v53 formattedJsonBody];
+  v44 = v43;
+  v45 = [v43 formattedJsonBody];
 
-  if (v55)
+  if (v45)
   {
     sub_23C871784();
 
-    v56 = v89;
+    v46 = v77;
     sub_23C8717B4();
-    v57 = sub_23C871794();
-    v59 = v58;
+    v47 = sub_23C871794();
+    v49 = v48;
 
-    (*(v90 + 8))(v56, v91);
-    if (v59 >> 60 != 15)
+    (*(v78 + 8))(v46, v79);
+    if (v49 >> 60 != 15)
     {
-      sub_23C5ACFC8(v57, v59);
-      v60 = v57;
-      v61 = v59;
+      sub_23C5ACFC8(v47, v49);
+      v50 = v47;
+      v51 = v49;
       goto LABEL_22;
     }
   }
 
   else
   {
-    v57 = 0;
-    v59 = 0xF000000000000000;
+    v47 = 0;
+    v49 = 0xF000000000000000;
   }
 
-  v60 = *v52;
-  v61 = v52[1];
-  sub_23C5ACFC8(*v52, v61);
+  v50 = *v42;
+  v51 = v42[1];
+  sub_23C5ACFC8(*v42, v51);
 LABEL_22:
 
-  v62 = objc_opt_self();
-  v63 = sub_23C870A14();
-  sub_23C595090(v60, v61);
-  *&v101 = 0;
-  v64 = [v62 JSONObjectWithData:v63 options:1 error:&v101];
+  v52 = objc_opt_self();
+  v53 = sub_23C870A14();
+  sub_23C595090(v50, v51);
+  *&v89 = 0;
+  v54 = [v52 JSONObjectWithData:v53 options:1 error:&v89];
 
-  v65 = v101;
-  if (v64)
+  v55 = v89;
+  if (v54)
   {
     sub_23C871BA4();
     swift_unknownObjectRelease();
-    sub_23C59A4B0(&v104, &v99);
-    __swift_project_boxed_opaque_existential_0(&v99, v100);
-    v66 = sub_23C871FF4();
-    *&v104 = 0;
-    v67 = [v62 dataWithJSONObject:v66 options:1 error:&v104];
+    sub_23C59A4B0(&v92, &v87);
+    __swift_project_boxed_opaque_existential_0(&v87, v88);
+    v56 = sub_23C871FF4();
+    *&v92 = 0;
+    v57 = [v52 dataWithJSONObject:v56 options:1 error:&v92];
     swift_unknownObjectRelease();
-    v68 = v104;
-    if (v67)
+    v58 = v92;
+    if (v57)
     {
-      v69 = sub_23C870A34();
-      v71 = v70;
+      v59 = sub_23C870A34();
+      v61 = v60;
 
-      sub_23C5ACFC8(v69, v71);
-      v72 = sub_23C5ACDAC(v69, v71);
-      if (v73)
+      sub_23C5ACFC8(v59, v61);
+      v62 = sub_23C5ACDAC(v59, v61);
+      if (v63)
       {
-        v74 = v72;
-        v75 = v73;
-        sub_23C595090(v69, v71);
-        sub_23C595090(v69, v71);
+        v64 = v62;
+        v65 = v63;
+        sub_23C595090(v59, v61);
+        sub_23C595090(v59, v61);
 LABEL_26:
-        v76 = v93;
+        v66 = v81;
 LABEL_36:
-        __swift_destroy_boxed_opaque_existential_0(&v99);
-        v83 = v88;
+        __swift_destroy_boxed_opaque_existential_0(&v87);
+        v73 = v76;
         swift_beginAccess();
-        v84 = v83[1];
-        *v83 = v74;
-        v83[1] = v75;
+        *v73 = v64;
+        v73[1] = v65;
 
         goto LABEL_37;
       }
 
-      v97 = v69;
-      v98 = v71;
-      sub_23C5ACFC8(v69, v71);
+      v85 = v59;
+      v86 = v61;
+      sub_23C5ACFC8(v59, v61);
       __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9E38, &qword_23C875080);
       if (swift_dynamicCast())
       {
-        sub_23C581A8C(&v101, &v104);
-        __swift_project_boxed_opaque_existential_0(&v104, v105);
-        v81 = sub_23C871EB4();
-        sub_23C595090(v69, v71);
-        if (v81)
+        sub_23C581A8C(&v89, &v92);
+        __swift_project_boxed_opaque_existential_0(&v92, v93);
+        v71 = sub_23C871EB4();
+        sub_23C595090(v59, v61);
+        if (v71)
         {
-          __swift_project_boxed_opaque_existential_0(&v104, v105);
+          __swift_project_boxed_opaque_existential_0(&v92, v93);
           sub_23C871EA4();
-          sub_23C595090(v69, v71);
-          v75 = *(&v101 + 1);
-          v74 = v101;
-          __swift_destroy_boxed_opaque_existential_0(&v104);
+          sub_23C595090(v59, v61);
+          v65 = *(&v89 + 1);
+          v64 = v89;
+          __swift_destroy_boxed_opaque_existential_0(&v92);
           goto LABEL_26;
         }
 
-        __swift_destroy_boxed_opaque_existential_0(&v104);
+        __swift_destroy_boxed_opaque_existential_0(&v92);
       }
 
       else
       {
-        sub_23C595090(v69, v71);
-        v103 = 0;
-        v101 = 0u;
-        v102 = 0u;
-        sub_23C585C34(&v101, &qword_27E1F9E40, &qword_23C875088);
+        sub_23C595090(v59, v61);
+        v91 = 0;
+        v89 = 0u;
+        v90 = 0u;
+        sub_23C585C34(&v89, &qword_27E1F9E40, &qword_23C875088);
       }
 
-      v76 = v93;
-      v74 = sub_23C5ACB88(v69, v71);
-      v75 = v82;
-      sub_23C595090(v69, v71);
+      v66 = v81;
+      v64 = sub_23C5ACB88(v59, v61);
+      v65 = v72;
+      sub_23C595090(v59, v61);
       goto LABEL_36;
     }
 
-    v79 = v68;
-    v80 = sub_23C8709B4();
+    v69 = v58;
+    v70 = sub_23C8709B4();
 
     swift_willThrow();
-    __swift_destroy_boxed_opaque_existential_0(&v99);
+    __swift_destroy_boxed_opaque_existential_0(&v87);
   }
 
   else
   {
-    v77 = v65;
-    v78 = sub_23C8709B4();
+    v67 = v55;
+    v68 = sub_23C8709B4();
 
     swift_willThrow();
   }
 
-  v76 = v93;
+  v66 = v81;
 LABEL_37:
-  v85 = v94;
+  v74 = v82;
   sub_23C870AD4();
 
-  sub_23C5AD0AC(v57, v59);
-  (*(v76 + 32))(v3 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventTimestamp, v85, v92);
-  v86 = *MEMORY[0x277D85DE8];
+  sub_23C5AD0AC(v47, v49);
+  (*(v66 + 32))(v3 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventTimestamp, v74, v80);
   return v3;
 }
 
-uint64_t sub_23C5AC424()
+unint64_t sub_23C5AC424()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F92A0, &qword_23C8734E0);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v35[-v4 - 8];
+  v4 = &v30[-v3 - 8];
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9E20, &qword_23C875070);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_23C875060;
-  v36[0] = 0xD000000000000010;
-  v36[1] = 0x800000023C8A7380;
-  v7 = MEMORY[0x277D837D0];
+  v31[0] = 0xD000000000000010;
+  v31[1] = 0x800000023C8A7380;
+  v6 = MEMORY[0x277D837D0];
   sub_23C871CB4();
-  v8 = *(v0 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_logicalTimestamp);
-  v9 = sub_23C5AA840();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9E58, &qword_23C875098);
-  *(inited + 96) = v10;
-  *(inited + 72) = v9;
-  strcpy(v36, "clusterId");
-  WORD1(v36[1]) = 0;
-  HIDWORD(v36[1]) = -385875968;
+  v7 = sub_23C5AA840();
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9E58, &qword_23C875098);
+  *(inited + 96) = v8;
+  *(inited + 72) = v7;
+  strcpy(v31, "clusterId");
+  WORD1(v31[1]) = 0;
+  HIDWORD(v31[1]) = -385875968;
   sub_23C871CB4();
-  v11 = *(v1 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_clusterId);
-  v12 = sub_23C5AAC28();
-  *(inited + 168) = v10;
-  *(inited + 144) = v12;
-  strcpy(v36, "componentId");
-  HIDWORD(v36[1]) = -352321536;
+  v9 = sub_23C5AAC28();
+  *(inited + 168) = v8;
+  *(inited + 144) = v9;
+  strcpy(v31, "componentId");
+  HIDWORD(v31[1]) = -352321536;
   sub_23C871CB4();
   *(inited + 240) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9E60, &qword_23C8750A0);
   if (*(v1 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_componentId))
   {
-    v13 = sub_23C5AAFE8();
+    v10 = sub_23C5AAFE8();
   }
 
   else
   {
-    v13 = 0;
+    v10 = 0;
   }
 
-  *(inited + 216) = v13;
-  strcpy(v36, "anyEventType");
-  BYTE5(v36[1]) = 0;
-  HIWORD(v36[1]) = -5120;
+  *(inited + 216) = v10;
+  strcpy(v31, "anyEventType");
+  BYTE5(v31[1]) = 0;
+  HIWORD(v31[1]) = -5120;
   sub_23C871CB4();
-  v14 = *(v1 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_anyEventType);
-  LODWORD(v36[0]) = 0;
-  BYTE4(v36[0]) = 1;
-  result = MEMORY[0x23EED79B0](v14, v36);
-  if ((v36[0] & 0x100000000) != 0)
+  v11 = *(v1 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_anyEventType);
+  LODWORD(v31[0]) = 0;
+  BYTE4(v31[0]) = 1;
+  result = MEMORY[0x23EED79B0](v11, v31);
+  if ((v31[0] & 0x100000000) != 0)
   {
     __break(1u);
   }
 
   else
   {
-    v16 = sub_23C871AF4();
-    *(inited + 312) = v7;
-    *(inited + 288) = v16;
-    *(inited + 296) = v17;
-    strcpy(v36, "innerType");
-    WORD1(v36[1]) = 0;
-    HIDWORD(v36[1]) = -385875968;
+    v13 = sub_23C871AF4();
+    *(inited + 312) = v6;
+    *(inited + 288) = v13;
+    *(inited + 296) = v14;
+    strcpy(v31, "innerType");
+    WORD1(v31[1]) = 0;
+    HIDWORD(v31[1]) = -385875968;
     sub_23C871CB4();
-    v18 = *(v1 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_innerType);
+    v15 = *(v1 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_innerType);
     *(inited + 384) = sub_23C5A3FDC(0, &qword_27E1F9E28, 0x277CCABB0);
-    *(inited + 360) = v18;
-    strcpy(v36, "messageUuid");
-    HIDWORD(v36[1]) = -352321536;
-    v19 = v18;
+    *(inited + 360) = v15;
+    strcpy(v31, "messageUuid");
+    HIDWORD(v31[1]) = -352321536;
+    v16 = v15;
     sub_23C871CB4();
     *(inited + 456) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9E68, &qword_23C8750A8);
-    sub_23C5ACF58(v1 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_messageUuid, v5);
-    v20 = sub_23C870B74();
-    v21 = *(v20 - 8);
-    if ((*(v21 + 48))(v5, 1, v20) == 1)
+    sub_23C5ACF58(v1 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_messageUuid, v4);
+    v17 = sub_23C870B74();
+    v18 = *(v17 - 8);
+    if ((*(v18 + 48))(v4, 1, v17) == 1)
     {
-      sub_23C585C34(v5, &qword_27E1F92A0, &qword_23C8734E0);
-      v22 = 0;
-      v23 = 0;
+      sub_23C585C34(v4, &qword_27E1F92A0, &qword_23C8734E0);
+      v19 = 0;
+      v20 = 0;
     }
 
     else
     {
-      v22 = MEMORY[0x23EED6400]();
-      v23 = v24;
-      (*(v21 + 8))(v5, v20);
+      v19 = MEMORY[0x23EED6400]();
+      v20 = v21;
+      (*(v18 + 8))(v4, v17);
     }
 
-    *(inited + 432) = v22;
-    *(inited + 440) = v23;
-    strcpy(v36, "eventData");
-    WORD1(v36[1]) = 0;
-    HIDWORD(v36[1]) = -385875968;
+    *(inited + 432) = v19;
+    *(inited + 440) = v20;
+    strcpy(v31, "eventData");
+    WORD1(v31[1]) = 0;
+    HIDWORD(v31[1]) = -385875968;
     sub_23C871CB4();
-    v25 = *(v1 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventData);
-    v26 = *(v1 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventData + 8);
-    v27 = sub_23C870A24();
-    *(inited + 528) = v7;
-    *(inited + 504) = v27;
-    *(inited + 512) = v28;
-    strcpy(v36, "eventDataJson");
-    HIWORD(v36[1]) = -4864;
+    v22 = sub_23C870A24();
+    *(inited + 528) = v6;
+    *(inited + 504) = v22;
+    *(inited + 512) = v23;
+    strcpy(v31, "eventDataJson");
+    HIWORD(v31[1]) = -4864;
     sub_23C871CB4();
-    v29 = (v1 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventDataJson);
+    v24 = (v1 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventDataJson);
     swift_beginAccess();
-    v31 = *v29;
-    v30 = v29[1];
-    *(inited + 600) = v7;
-    *(inited + 576) = v31;
-    *(inited + 584) = v30;
-    strcpy(v35, "eventTimestamp");
-    v35[15] = -18;
+    v26 = *v24;
+    v25 = v24[1];
+    *(inited + 600) = v6;
+    *(inited + 576) = v26;
+    *(inited + 584) = v25;
+    strcpy(v30, "eventTimestamp");
+    v30[15] = -18;
 
     sub_23C871CB4();
     sub_23C870AC4();
     *(inited + 672) = MEMORY[0x277D839F8];
-    *(inited + 648) = v32;
-    v33 = sub_23C598B20(inited);
+    *(inited + 648) = v27;
+    v28 = sub_23C598B20(inited);
     swift_setDeallocating();
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F9C28, &unk_23C87AB40);
     swift_arrayDestroy();
-    return v33;
+    return v28;
   }
 
   return result;
@@ -2004,15 +1325,9 @@ uint64_t sub_23C5AC938()
   v1 = OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventTimestamp;
   v2 = sub_23C870AE4();
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
-  v3 = *(v0 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_logicalTimestamp);
-
-  v4 = *(v0 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_clusterId);
-
-  v5 = *(v0 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_componentId);
 
   sub_23C585C34(v0 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_messageUuid, &qword_27E1F92A0, &qword_23C8734E0);
   sub_23C595090(*(v0 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventData), *(v0 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventData + 8));
-  v6 = *(v0 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventDataJson + 8);
 }
 
 uint64_t BiomeSELFEvent.deinit()
@@ -2020,15 +1335,9 @@ uint64_t BiomeSELFEvent.deinit()
   v1 = OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventTimestamp;
   v2 = sub_23C870AE4();
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
-  v3 = *(v0 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_logicalTimestamp);
-
-  v4 = *(v0 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_clusterId);
-
-  v5 = *(v0 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_componentId);
 
   sub_23C585C34(v0 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_messageUuid, &qword_27E1F92A0, &qword_23C8734E0);
   sub_23C595090(*(v0 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventData), *(v0 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventData + 8));
-  v6 = *(v0 + OBJC_IVAR____TtC26AIMLInstrumentationStreams14BiomeSELFEvent_eventDataJson + 8);
 
   return v0;
 }
@@ -2036,8 +1345,6 @@ uint64_t BiomeSELFEvent.deinit()
 uint64_t BiomeSELFEvent.__deallocating_deinit()
 {
   BiomeSELFEvent.deinit();
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 52);
 
   return swift_deallocClassInstance();
 }
@@ -2045,43 +1352,42 @@ uint64_t BiomeSELFEvent.__deallocating_deinit()
 uint64_t sub_23C5ACB88(uint64_t a1, unint64_t a2)
 {
   sub_23C5ACFC8(a1, a2);
-  v4 = *(sub_23C5ACC30(a1, a2) + 16);
-  v5 = sub_23C8717F4();
+  sub_23C5ACC30(a1, a2);
+  v4 = sub_23C8717F4();
 
-  return v5;
+  return v4;
 }
 
-uint64_t sub_23C5ACBF4@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_23C5ACBF4@<X0>(uint64_t *a3@<X8>)
 {
   result = sub_23C8717F4();
-  *a1 = result;
-  a1[1] = v3;
+  *a3 = result;
+  a3[1] = v5;
   return result;
 }
 
-uint64_t sub_23C5ACC30(uint64_t a1, unint64_t a2)
+void *sub_23C5ACC30(uint64_t a1, unint64_t a2)
 {
   v4 = sub_23C870A44();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   result = MEMORY[0x28223BE20](v4);
-  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = a2 >> 62;
+  v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = a2 >> 62;
   if ((a2 >> 62) > 1)
   {
-    if (v10 != 2)
+    if (v9 != 2)
     {
 LABEL_12:
       sub_23C595090(a1, a2);
       return MEMORY[0x277D84F90];
     }
 
-    v13 = *(a1 + 16);
-    v12 = *(a1 + 24);
-    v11 = v12 - v13;
-    if (!__OFSUB__(v12, v13))
+    v12 = *(a1 + 16);
+    v11 = *(a1 + 24);
+    v10 = v11 - v12;
+    if (!__OFSUB__(v11, v12))
     {
-      if (v11)
+      if (v10)
       {
         goto LABEL_8;
       }
@@ -2096,12 +1402,12 @@ LABEL_15:
 
   else
   {
-    if (v10)
+    if (v9)
     {
       goto LABEL_10;
     }
 
-    v11 = BYTE6(a2);
+    v10 = BYTE6(a2);
     if (!BYTE6(a2))
     {
       goto LABEL_12;
@@ -2110,28 +1416,28 @@ LABEL_15:
 LABEL_8:
     while (1)
     {
-      v14 = sub_23C63C7C8(v11, 0);
-      v15 = sub_23C8709F4();
+      v13 = sub_23C63C7C8(v10, 0);
+      v14 = sub_23C8709F4();
       sub_23C595090(a1, a2);
-      v16 = *(v5 + 8);
+      v15 = *(v5 + 8);
       v5 += 8;
-      v16(v9, v4);
-      result = v14;
-      if (v15 == v11)
+      v15(v8, v4);
+      result = v13;
+      if (v14 == v10)
       {
         break;
       }
 
       __break(1u);
 LABEL_10:
-      v17 = HIDWORD(a1) - a1;
+      v16 = HIDWORD(a1) - a1;
       if (__OFSUB__(HIDWORD(a1), a1))
       {
         goto LABEL_15;
       }
 
-      v11 = v17;
-      if (!v17)
+      v10 = v16;
+      if (!v16)
       {
         goto LABEL_12;
       }
@@ -2143,13 +1449,12 @@ LABEL_10:
 
 uint64_t sub_23C5ACDAC(uint64_t a1, unint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v2 = a2 >> 62;
   if ((a2 >> 62) <= 1)
   {
     if (!v2)
     {
-      goto LABEL_16;
+      return sub_23C8717F4();
     }
 
     goto LABEL_10;
@@ -2157,7 +1462,7 @@ uint64_t sub_23C5ACDAC(uint64_t a1, unint64_t a2)
 
   if (v2 != 2)
   {
-    goto LABEL_16;
+    return sub_23C8717F4();
   }
 
   v3 = *(a1 + 16);
@@ -2196,10 +1501,7 @@ LABEL_18:
 
 LABEL_15:
   sub_23C870984();
-LABEL_16:
-  result = sub_23C8717F4();
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return sub_23C8717F4();
 }
 
 uint64_t sub_23C5ACF58(uint64_t a1, uint64_t a2)
@@ -2209,13 +1511,13 @@ uint64_t sub_23C5ACF58(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_23C5ACFC8(uint64_t a1, unint64_t a2)
+uint64_t sub_23C5ACFC8(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -2227,14 +1529,14 @@ uint64_t sub_23C5AD03C(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_23C5AD0AC(uint64_t a1, unint64_t a2)
+uint64_t sub_23C5AD0AC(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return sub_23C595090(a1, a2);
+    return sub_23C595090(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
 unint64_t sub_23C5AD0E4()
@@ -2249,12 +1551,11 @@ unint64_t sub_23C5AD0E4()
   return result;
 }
 
-uint64_t sub_23C5AD220()
+uint64_t sub_23C5AD220(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = sub_23C870B74();
-  if (v1 <= 0x3F)
+  if (v5 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -2265,12 +1566,11 @@ uint64_t sub_23C5AD220()
   return result;
 }
 
-uint64_t sub_23C5AD2E8()
+uint64_t sub_23C5AD2E8(uint64_t a1)
 {
   result = sub_23C870B74();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -2281,30 +1581,28 @@ uint64_t sub_23C5AD2E8()
   return result;
 }
 
-void sub_23C5AD3D8()
+void sub_23C5AD3D8(uint64_t a1)
 {
-  v0 = sub_23C870AE4();
+  sub_23C870AE4();
   if (v1 <= 0x3F)
   {
-    v4 = *(v0 - 8) + 64;
-    sub_23C5AD588();
-    if (v3 <= 0x3F)
+    sub_23C5AD588(319);
+    if (v2 <= 0x3F)
     {
-      v5 = *(v2 - 8) + 64;
       swift_updateClassMetadata2();
     }
   }
 }
 
-void sub_23C5AD588()
+void sub_23C5AD588(uint64_t a1)
 {
   if (!qword_27E1F9EB8)
   {
     sub_23C870B74();
-    v0 = sub_23C871B74();
-    if (!v1)
+    v1 = sub_23C871B74();
+    if (!v2)
     {
-      atomic_store(v0, &qword_27E1F9EB8);
+      atomic_store(v1, &qword_27E1F9EB8);
     }
   }
 }
@@ -2337,7 +1635,6 @@ uint64_t sub_23C5AD718()
 uint64_t sub_23C5AD740(uint64_t a1)
 {
   swift_beginAccess();
-  v3 = *(v1 + 16);
   *(v1 + 16) = a1;
 }
 
@@ -2377,8 +1674,8 @@ unint64_t ComponentGroup.init(_:)(unint64_t result)
 
       if (v8)
       {
-        v16 = i;
-        v17 = v2;
+        v17 = i;
+        v18 = v2;
         for (i = 0; ; ++i)
         {
           if ((v3 & 0xC000000000000001) != 0)
@@ -2408,7 +1705,7 @@ unint64_t ComponentGroup.init(_:)(unint64_t result)
           {
 
 LABEL_19:
-            i = v16;
+            i = v17;
             goto LABEL_24;
           }
 
@@ -2426,8 +1723,8 @@ LABEL_19:
           if (v2 == v5)
           {
 
-            result = v17;
-            *(v17 + 16) = v3;
+            result = v18;
+            *(v18 + 16) = v3;
             return result;
           }
         }
@@ -2449,8 +1746,7 @@ LABEL_22:
   }
 
 LABEL_24:
-  v15 = *(i + 80);
-  type metadata accessor for ComponentGroup();
+  type metadata accessor for ComponentGroup(0, *(i + 80), v15, v16);
   swift_deallocPartialClassInstance();
   return 0;
 }
@@ -2462,17 +1758,16 @@ uint64_t ComponentGroup.__allocating_init(unchecked:)(uint64_t a1)
   return result;
 }
 
-uint64_t sub_23C5ADA6C()
+id sub_23C5ADA6C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *(*v0 + 80);
-  type metadata accessor for ComponentGroup();
+  type metadata accessor for ComponentGroup(0, *(*v4 + 80), a3, a4);
   sub_23C870E34();
   swift_getWitnessTable();
-  v2 = sub_23C871844();
-  v3 = v2;
-  if (!(v2 >> 62))
+  v5 = sub_23C871844();
+  v6 = v5;
+  if (!(v5 >> 62))
   {
-    result = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    result = *((v5 & 0xFFFFFFFFFFFFFF8) + 0x10);
     if (result)
     {
       goto LABEL_3;
@@ -2491,82 +1786,62 @@ LABEL_8:
   }
 
 LABEL_3:
-  if ((v3 & 0xC000000000000001) != 0)
+  if ((v6 & 0xC000000000000001) != 0)
   {
 LABEL_9:
-    v5 = MEMORY[0x23EED7610](0, v3);
+    v8 = MEMORY[0x23EED7610](0, v6);
     goto LABEL_6;
   }
 
-  if (*((v3 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  if (*((v6 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
-    v5 = *(v3 + 32);
+    v8 = *(v6 + 32);
 LABEL_6:
-    v6 = v5;
+    v9 = v8;
 
-    return v6;
+    return v9;
   }
 
   __break(1u);
   return result;
 }
 
-uint64_t sub_23C5ADB8C@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_23C5ADB8C@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = *a1;
   result = sub_23C870D04();
   *a2 = result;
   return result;
 }
 
-uint64_t ComponentGroup.deinit()
-{
-  v1 = *(v0 + 16);
-
-  return v0;
-}
-
 uint64_t ComponentGroup.__deallocating_deinit()
 {
-  v1 = *(v0 + 16);
 
   return swift_deallocClassInstance();
 }
 
 uint64_t sub_23C5ADC20@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
-  v4 = sub_23C5ADDEC();
-  v6 = v5;
+  v2 = sub_23C5ADDEC();
+  v4 = v3;
 
-  *a1 = v4;
-  a1[1] = v6;
+  *a1 = v2;
+  a1[1] = v4;
   return result;
 }
 
-uint64_t sub_23C5ADC78(uint64_t a1)
+uint64_t sub_23C5ADC78(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 80);
-  type metadata accessor for ComponentGroup();
-  v3 = sub_23C5ADFC8();
-  v4 = *v1;
+  v6 = type metadata accessor for ComponentGroup(0, *(a1 + 80), a3, a4);
+  v7 = sub_23C5ADFC8(v4, v6, a2);
 
-  return v3;
+  return v7;
 }
 
 void sub_23C5ADCC4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *(a4 + 80);
-  type metadata accessor for ComponentGroup();
+  type metadata accessor for ComponentGroup(0, *(a4 + 80), a3, a4);
 
   JUMPOUT(0x23EED7140);
-}
-
-uint64_t sub_23C5ADD30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v4 = *(a4 + 80);
-  type metadata accessor for ComponentGroup();
-  return sub_23C871864();
 }
 
 unint64_t sub_23C5ADE28()
@@ -2594,12 +1869,12 @@ id sub_23C5ADFCC(unint64_t a1)
 
 LABEL_12:
 
-    v11 = MEMORY[0x277D84F90];
+    v9 = MEMORY[0x277D84F90];
 LABEL_13:
-    *&v1[OBJC_IVAR___ISComponentGroup_eventsInternal] = v11;
-    v12.receiver = v1;
-    v12.super_class = type metadata accessor for ComponentGroupBridge();
-    return objc_msgSendSuper2(&v12, sel_init);
+    *&v1[OBJC_IVAR___ISComponentGroup_eventsInternal] = v9;
+    v10.receiver = v1;
+    v10.super_class = type metadata accessor for ComponentGroupBridge();
+    return objc_msgSendSuper2(&v10, sel_init);
   }
 
   v3 = sub_23C871C34();
@@ -2609,7 +1884,7 @@ LABEL_13:
   }
 
 LABEL_3:
-  v13 = MEMORY[0x277D84F90];
+  v11 = MEMORY[0x277D84F90];
   result = sub_23C871D84();
   if ((v3 & 0x8000000000000000) == 0)
   {
@@ -2623,7 +1898,6 @@ LABEL_3:
         MEMORY[0x23EED7610]();
         sub_23C871AE4();
         sub_23C871D54();
-        v7 = *(v13 + 16);
         sub_23C871D94();
         sub_23C871DA4();
         sub_23C871D64();
@@ -2635,24 +1909,23 @@ LABEL_3:
 
     else
     {
-      v8 = 32;
+      v7 = 32;
       do
       {
-        v9 = *(a1 + v8);
+        v8 = *(a1 + v7);
         sub_23C871AE4();
         sub_23C871D54();
-        v10 = *(v13 + 16);
         sub_23C871D94();
         sub_23C871DA4();
         sub_23C871D64();
-        v8 += 8;
+        v7 += 8;
         --v3;
       }
 
       while (v3);
     }
 
-    v11 = v13;
+    v9 = v11;
     goto LABEL_13;
   }
 
@@ -2687,25 +1960,20 @@ void sub_23C5AE33C()
       goto LABEL_3;
     }
 
-LABEL_11:
+LABEL_9:
     __break(1u);
-    goto LABEL_12;
-  }
-
-  if (v1 < 0)
-  {
-    v8 = *(v0 + OBJC_IVAR___ISComponentGroup_eventsInternal);
+    goto LABEL_10;
   }
 
   if (!sub_23C871C34())
   {
-    goto LABEL_11;
+    goto LABEL_9;
   }
 
 LABEL_3:
   if ((v1 & 0xC000000000000001) != 0)
   {
-LABEL_12:
+LABEL_10:
     v2 = MEMORY[0x23EED7610](0, v1);
     goto LABEL_6;
   }
@@ -2713,7 +1981,7 @@ LABEL_12:
   if (!*((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
     __break(1u);
-    goto LABEL_14;
+    goto LABEL_12;
   }
 
   v2 = *(v1 + 32);
@@ -2727,13 +1995,13 @@ LABEL_6:
     v6 = type metadata accessor for ComponentIdentifierBridge();
     v7 = objc_allocWithZone(v6);
     *&v7[OBJC_IVAR___ISComponentIdentifier_componentIdentifier] = v5;
-    v9.receiver = v7;
-    v9.super_class = v6;
-    objc_msgSendSuper2(&v9, sel_init);
+    v8.receiver = v7;
+    v8.super_class = v6;
+    objc_msgSendSuper2(&v8, sel_init);
     return;
   }
 
-LABEL_14:
+LABEL_12:
   __break(1u);
 }
 
@@ -2778,67 +2046,58 @@ unint64_t ComponentIdentifier.description.getter()
 {
   v0 = sub_23C870B74();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   MEMORY[0x28223BE20](v0);
-  v4 = &v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = 0;
-  v9 = 0xE000000000000000;
+  v3 = &v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = 0;
+  v8 = 0xE000000000000000;
   sub_23C871D14();
 
-  v8 = 0xD00000000000001ALL;
-  v9 = 0x800000023C8A7630;
+  v7 = 0xD00000000000001ALL;
+  v8 = 0x800000023C8A7630;
   sub_23C870DF4();
-  v5 = sub_23C871B04();
-  MEMORY[0x23EED7100](v5);
+  v4 = sub_23C871B04();
+  MEMORY[0x23EED7100](v4);
 
   MEMORY[0x23EED7100](0x203A64697575202CLL, 0xE800000000000000);
   sub_23C870E24();
-  sub_23C5AE9CC(&qword_27E1FBCA0, MEMORY[0x277CC95F0]);
-  v6 = sub_23C871FD4();
-  MEMORY[0x23EED7100](v6);
+  sub_23C5AE9CC(&qword_27E1FBCA0, MEMORY[0x277CC95F0], MEMORY[0x277CC9628]);
+  v5 = sub_23C871FD4();
+  MEMORY[0x23EED7100](v5);
 
-  (*(v1 + 8))(v4, v0);
+  (*(v1 + 8))(v3, v0);
   MEMORY[0x23EED7100](41, 0xE100000000000000);
-  return v8;
-}
-
-uint64_t sub_23C5AE800(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  return _s19SiriInstrumentation19ComponentIdentifierC26AIMLInstrumentationStreamsE1loiySbAC_ACtFZ_0();
+  return v7;
 }
 
 uint64_t _s19SiriInstrumentation19ComponentIdentifierC26AIMLInstrumentationStreamsE1loiySbAC_ACtFZ_0()
 {
   v0 = sub_23C870B74();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  v3 = MEMORY[0x28223BE20](v0);
-  v5 = &v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v3);
-  v7 = &v13 - v6;
-  v8 = sub_23C870DF4();
-  if (v8 == sub_23C870DF4())
+  v2 = MEMORY[0x28223BE20](v0);
+  v4 = &v12 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v2);
+  v6 = &v12 - v5;
+  v7 = sub_23C870DF4();
+  if (v7 == sub_23C870DF4())
   {
     sub_23C870E24();
     sub_23C870E24();
-    v9 = MEMORY[0x23EED6420](v7, v5);
-    v10 = *(v1 + 8);
-    v10(v5, v0);
-    v10(v7, v0);
+    v8 = MEMORY[0x23EED6420](v6, v4);
+    v9 = *(v1 + 8);
+    v9(v4, v0);
+    v9(v6, v0);
   }
 
   else
   {
-    v11 = sub_23C870DF4();
-    v9 = v11 < sub_23C870DF4();
+    v10 = sub_23C870DF4();
+    v8 = v10 < sub_23C870DF4();
   }
 
-  return v9 & 1;
+  return v8 & 1;
 }
 
-uint64_t sub_23C5AE9CC(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_23C5AE9CC(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2872,35 +2131,33 @@ id ComponentIdentifierBridge.__allocating_init(name:uuid:)(uint64_t a1, uint64_t
 {
   v4 = sub_23C870B74();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = objc_allocWithZone(v2);
-  (*(v5 + 16))(v8, a2, v4);
-  v10 = objc_allocWithZone(sub_23C870E34());
-  *&v9[OBJC_IVAR___ISComponentIdentifier_componentIdentifier] = sub_23C870E14();
-  v13.receiver = v9;
-  v13.super_class = v2;
-  v11 = objc_msgSendSuper2(&v13, sel_init);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = objc_allocWithZone(v2);
+  (*(v5 + 16))(v7, a2, v4);
+  v9 = objc_allocWithZone(sub_23C870E34());
+  *&v8[OBJC_IVAR___ISComponentIdentifier_componentIdentifier] = sub_23C870E14();
+  v12.receiver = v8;
+  v12.super_class = v2;
+  v10 = objc_msgSendSuper2(&v12, sel_init);
   (*(v5 + 8))(a2, v4);
-  return v11;
+  return v10;
 }
 
 id ComponentIdentifierBridge.init(name:uuid:)(uint64_t a1, uint64_t a2)
 {
   v4 = sub_23C870B74();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  (*(v5 + 16))(&v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), a2, v4);
-  v8 = objc_allocWithZone(sub_23C870E34());
+  (*(v5 + 16))(&v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), a2, v4);
+  v7 = objc_allocWithZone(sub_23C870E34());
   *&v2[OBJC_IVAR___ISComponentIdentifier_componentIdentifier] = sub_23C870E14();
-  v9 = type metadata accessor for ComponentIdentifierBridge();
-  v12.receiver = v2;
-  v12.super_class = v9;
-  v10 = objc_msgSendSuper2(&v12, sel_init);
+  v8 = type metadata accessor for ComponentIdentifierBridge();
+  v11.receiver = v2;
+  v11.super_class = v8;
+  v9 = objc_msgSendSuper2(&v11, sel_init);
   (*(v5 + 8))(a2, v4);
-  return v10;
+  return v9;
 }
 
 id ComponentIdentifierBridge.__allocating_init()()
@@ -3643,22 +2900,23 @@ uint64_t sub_23C5B1268()
   return sub_23C871324();
 }
 
-uint64_t ContextProtoRetrievedContext.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoRetrievedContext.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   result = sub_23C871044();
-  if (!v0)
+  if (!v4)
   {
-    while ((v2 & 1) == 0)
+    while ((v10 & 1) == 0)
     {
       if (result <= 3)
       {
         switch(result)
         {
           case 1:
-            sub_23C5B171C();
+            sub_23C5B171C(a1, v5, a2, a3);
             break;
           case 2:
-            sub_23C5B17D0();
+            sub_23C5B17D0(a1, v5, a2, a3);
             break;
           case 3:
             sub_23C5CF53C();
@@ -3671,24 +2929,24 @@ uint64_t ContextProtoRetrievedContext.decodeMessage<A>(decoder:)()
       {
         if (result == 6)
         {
-          sub_23C5B19EC();
+          sub_23C5B19EC(a1, v5, a2, a3);
         }
 
         else if (result == 7)
         {
-          v3 = *(type metadata accessor for ContextProtoRetrievedContext(0) + 40);
+          type metadata accessor for ContextProtoRetrievedContext(0);
           sub_23C871154();
         }
       }
 
       else if (result == 4)
       {
-        sub_23C5B1884();
+        sub_23C5B1884(a1, v5, a2, a3);
       }
 
       else
       {
-        sub_23C5B1938();
+        sub_23C5B1938(a1, v5, a2, a3);
       }
 
       result = sub_23C871044();
@@ -3698,43 +2956,43 @@ uint64_t ContextProtoRetrievedContext.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t sub_23C5B171C()
+uint64_t sub_23C5B171C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoRetrievedContext(0) + 20);
+  type metadata accessor for ContextProtoRetrievedContext(0);
   type metadata accessor for ToolKitProtoTypedValue(0);
-  sub_23C5EDAB0(&qword_27E1FAC90, type metadata accessor for ToolKitProtoTypedValue);
+  sub_23C5EDAB0(&qword_27E1FAC90, type metadata accessor for ToolKitProtoTypedValue, &protocol conformance descriptor for ToolKitProtoTypedValue);
   return sub_23C8711A4();
 }
 
-uint64_t sub_23C5B17D0()
+uint64_t sub_23C5B17D0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoRetrievedContext(0) + 24);
+  type metadata accessor for ContextProtoRetrievedContext(0);
   type metadata accessor for ContextProtoConfidence(0);
-  sub_23C5EDAB0(&qword_27E1FA6C8, type metadata accessor for ContextProtoConfidence);
+  sub_23C5EDAB0(&qword_27E1FA6C8, type metadata accessor for ContextProtoConfidence, &protocol conformance descriptor for ContextProtoConfidence);
   return sub_23C8711A4();
 }
 
-uint64_t sub_23C5B1884()
+uint64_t sub_23C5B1884(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoRetrievedContext(0) + 28);
+  type metadata accessor for ContextProtoRetrievedContext(0);
   type metadata accessor for ContextProtoContextMetadata(0);
-  sub_23C5EDAB0(&qword_27E1FA670, type metadata accessor for ContextProtoContextMetadata);
+  sub_23C5EDAB0(&qword_27E1FA670, type metadata accessor for ContextProtoContextMetadata, &protocol conformance descriptor for ContextProtoContextMetadata);
   return sub_23C8711A4();
 }
 
-uint64_t sub_23C5B1938()
+uint64_t sub_23C5B1938(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoRetrievedContext(0) + 32);
+  type metadata accessor for ContextProtoRetrievedContext(0);
   type metadata accessor for ToolKitProtoTypedValue(0);
-  sub_23C5EDAB0(&qword_27E1FAC90, type metadata accessor for ToolKitProtoTypedValue);
+  sub_23C5EDAB0(&qword_27E1FAC90, type metadata accessor for ToolKitProtoTypedValue, &protocol conformance descriptor for ToolKitProtoTypedValue);
   return sub_23C8711A4();
 }
 
-uint64_t sub_23C5B19EC()
+uint64_t sub_23C5B19EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoRetrievedContext(0) + 36);
+  type metadata accessor for ContextProtoRetrievedContext(0);
   type metadata accessor for ContextProtoStructuredContext(0);
-  sub_23C5EDAB0(&qword_27E1FA6E0, type metadata accessor for ContextProtoStructuredContext);
+  sub_23C5EDAB0(&qword_27E1FA6E0, type metadata accessor for ContextProtoStructuredContext, &protocol conformance descriptor for ContextProtoStructuredContext);
   return sub_23C8711A4();
 }
 
@@ -3746,7 +3004,6 @@ uint64_t ContextProtoRetrievedContext.traverse<A>(visitor:)(uint64_t a1, uint64_
     sub_23C5B1E10(v3, a1, a2, a3);
     if (*v3)
     {
-      v10 = *v3;
       sub_23C5CF53C();
       sub_23C871254();
     }
@@ -3755,7 +3012,7 @@ uint64_t ContextProtoRetrievedContext.traverse<A>(visitor:)(uint64_t a1, uint64_
     sub_23C5B2248(v3, a1, a2, a3);
     sub_23C5B2464(v3, a1, a2, a3);
     sub_23C5B3DDC(v3, a1, a2, a3, type metadata accessor for ContextProtoRetrievedContext);
-    v9 = &v3[*(type metadata accessor for ContextProtoRetrievedContext(0) + 44)];
+    type metadata accessor for ContextProtoRetrievedContext(0);
     return sub_23C870F14();
   }
 
@@ -3764,132 +3021,122 @@ uint64_t ContextProtoRetrievedContext.traverse<A>(visitor:)(uint64_t a1, uint64_
 
 uint64_t sub_23C5B1BF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAB68, &unk_23C879140);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ToolKitProtoTypedValue(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoRetrievedContext(0);
-  sub_23C5855B0(a1 + *(v14 + 20), v8, &qword_27E1FAB68, &unk_23C879140);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ToolKitProtoTypedValue(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoRetrievedContext(0);
+  sub_23C5855B0(a1 + *(v12 + 20), v7, &qword_27E1FAB68, &unk_23C879140);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FAB68, &unk_23C879140);
+    return sub_23C585C34(v7, &qword_27E1FAB68, &unk_23C879140);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ToolKitProtoTypedValue);
-  sub_23C5EDAB0(&qword_27E1FAC90, type metadata accessor for ToolKitProtoTypedValue);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ToolKitProtoTypedValue);
+  sub_23C5EDAB0(&qword_27E1FAC90, type metadata accessor for ToolKitProtoTypedValue, &protocol conformance descriptor for ToolKitProtoTypedValue);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ToolKitProtoTypedValue);
+  return sub_23C5EDCC4(v11, type metadata accessor for ToolKitProtoTypedValue);
 }
 
 uint64_t sub_23C5B1E10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FADD8, &qword_23C8790C8);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ContextProtoConfidence(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoRetrievedContext(0);
-  sub_23C5855B0(a1 + *(v14 + 24), v8, &qword_27E1FADD8, &qword_23C8790C8);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoConfidence(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoRetrievedContext(0);
+  sub_23C5855B0(a1 + *(v12 + 24), v7, &qword_27E1FADD8, &qword_23C8790C8);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FADD8, &qword_23C8790C8);
+    return sub_23C585C34(v7, &qword_27E1FADD8, &qword_23C8790C8);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoConfidence);
-  sub_23C5EDAB0(&qword_27E1FA6C8, type metadata accessor for ContextProtoConfidence);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoConfidence);
+  sub_23C5EDAB0(&qword_27E1FA6C8, type metadata accessor for ContextProtoConfidence, &protocol conformance descriptor for ContextProtoConfidence);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoConfidence);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoConfidence);
 }
 
 uint64_t sub_23C5B202C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAE00, &unk_23C879150);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ContextProtoContextMetadata(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoRetrievedContext(0);
-  sub_23C5855B0(a1 + *(v14 + 28), v8, &qword_27E1FAE00, &unk_23C879150);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoContextMetadata(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoRetrievedContext(0);
+  sub_23C5855B0(a1 + *(v12 + 28), v7, &qword_27E1FAE00, &unk_23C879150);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FAE00, &unk_23C879150);
+    return sub_23C585C34(v7, &qword_27E1FAE00, &unk_23C879150);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoContextMetadata);
-  sub_23C5EDAB0(&qword_27E1FA670, type metadata accessor for ContextProtoContextMetadata);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoContextMetadata);
+  sub_23C5EDAB0(&qword_27E1FA670, type metadata accessor for ContextProtoContextMetadata, &protocol conformance descriptor for ContextProtoContextMetadata);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoContextMetadata);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoContextMetadata);
 }
 
 uint64_t sub_23C5B2248(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAB68, &unk_23C879140);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ToolKitProtoTypedValue(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoRetrievedContext(0);
-  sub_23C5855B0(a1 + *(v14 + 32), v8, &qword_27E1FAB68, &unk_23C879140);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ToolKitProtoTypedValue(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoRetrievedContext(0);
+  sub_23C5855B0(a1 + *(v12 + 32), v7, &qword_27E1FAB68, &unk_23C879140);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FAB68, &unk_23C879140);
+    return sub_23C585C34(v7, &qword_27E1FAB68, &unk_23C879140);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ToolKitProtoTypedValue);
-  sub_23C5EDAB0(&qword_27E1FAC90, type metadata accessor for ToolKitProtoTypedValue);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ToolKitProtoTypedValue);
+  sub_23C5EDAB0(&qword_27E1FAC90, type metadata accessor for ToolKitProtoTypedValue, &protocol conformance descriptor for ToolKitProtoTypedValue);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ToolKitProtoTypedValue);
+  return sub_23C5EDCC4(v11, type metadata accessor for ToolKitProtoTypedValue);
 }
 
 uint64_t sub_23C5B2464(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FADF0, &qword_23C8790D8);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ContextProtoStructuredContext(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoRetrievedContext(0);
-  sub_23C5855B0(a1 + *(v14 + 36), v8, &qword_27E1FADF0, &qword_23C8790D8);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoStructuredContext(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoRetrievedContext(0);
+  sub_23C5855B0(a1 + *(v12 + 36), v7, &qword_27E1FADF0, &qword_23C8790D8);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FADF0, &qword_23C8790D8);
+    return sub_23C585C34(v7, &qword_27E1FADF0, &qword_23C8790D8);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoStructuredContext);
-  sub_23C5EDAB0(&qword_27E1FA6E0, type metadata accessor for ContextProtoStructuredContext);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoStructuredContext);
+  sub_23C5EDAB0(&qword_27E1FA6E0, type metadata accessor for ContextProtoStructuredContext, &protocol conformance descriptor for ContextProtoStructuredContext);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoStructuredContext);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoStructuredContext);
 }
 
 uint64_t sub_23C5B26CC@<X0>(int *a1@<X0>, _BYTE *a2@<X8>)
@@ -3908,39 +3155,31 @@ uint64_t sub_23C5B26CC@<X0>(int *a1@<X0>, _BYTE *a2@<X8>)
   v11 = a1[9];
   v12 = type metadata accessor for ContextProtoStructuredContext(0);
   (*(*(v12 - 8) + 56))(&a2[v11], 1, 1, v12);
-  v13 = a1[11];
-  v14 = &a2[a1[10]];
-  *v14 = 0;
-  v14[1] = 0;
+  v13 = &a2[a1[10]];
+  *v13 = 0;
+  v13[1] = 0;
   result = _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
   *a2 = 0;
   return result;
 }
 
-uint64_t (*sub_23C5B2868(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_1;
-  v4 = v2 + *(a2 + 44);
-  return result;
-}
-
 uint64_t sub_23C5B28BC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAAC8, type metadata accessor for ContextProtoRetrievedContext);
+  v4 = sub_23C5EDAB0(&qword_27E1FAAC8, type metadata accessor for ContextProtoRetrievedContext, &protocol conformance descriptor for ContextProtoRetrievedContext);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5B295C()
+uint64_t sub_23C5B295C(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA4F0, type metadata accessor for ContextProtoRetrievedContext);
+  sub_23C5EDAB0(&qword_27E1FA4F0, type metadata accessor for ContextProtoRetrievedContext, &protocol conformance descriptor for ContextProtoRetrievedContext);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5B29C8()
+uint64_t sub_23C5B29C8(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA4F0, type metadata accessor for ContextProtoRetrievedContext);
+  sub_23C5EDAB0(&qword_27E1FA4F0, type metadata accessor for ContextProtoRetrievedContext, &protocol conformance descriptor for ContextProtoRetrievedContext);
 
   return sub_23C871204();
 }
@@ -3954,11 +3193,11 @@ uint64_t sub_23C5B2A64()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAC88, &qword_23C879008) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v37 = swift_allocObject();
-  *(v37 + 16) = xmmword_23C8755A0;
-  v4 = v37 + v3;
-  v5 = v37 + v3 + v1[14];
-  *(v37 + v3) = 1;
+  v36 = swift_allocObject();
+  *(v36 + 16) = xmmword_23C8755A0;
+  v4 = v36 + v3;
+  v5 = v36 + v3 + v1[14];
+  *(v36 + v3) = 1;
   *v5 = "entity_id";
   *(v5 + 8) = 9;
   *(v5 + 16) = 2;
@@ -3966,112 +3205,112 @@ uint64_t sub_23C5B2A64()
   v7 = sub_23C871314();
   v8 = *(*(v7 - 8) + 104);
   (v8)(v5, v6, v7);
-  v9 = v37 + v3 + v2 + v1[14];
+  v9 = v36 + v3 + v2 + v1[14];
   *(v4 + v2) = 2;
   *v9 = "app_bundle_id";
   *(v9 + 8) = 13;
   *(v9 + 16) = 2;
   v8();
-  v10 = (v37 + v3 + 2 * v2);
+  v10 = (v36 + v3 + 2 * v2);
   v11 = v10 + v1[14];
   *v10 = 3;
   *v11 = "saliency";
   *(v11 + 1) = 8;
   v11[16] = 2;
-  v12 = *MEMORY[0x277D21870];
   v8();
-  v13 = (v37 + v3 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "on_screen_surrounding_text";
-  *(v14 + 1) = 26;
-  v14[16] = 2;
+  v12 = (v36 + v3 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "on_screen_surrounding_text";
+  *(v13 + 1) = 26;
+  v13[16] = 2;
   v8();
-  v15 = (v37 + v3 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 5;
-  *v16 = "on_screen_bounding_box";
-  *(v16 + 1) = 22;
-  v16[16] = 2;
+  v14 = (v36 + v3 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 5;
+  *v15 = "on_screen_bounding_box";
+  *(v15 + 1) = 22;
+  v15[16] = 2;
   v8();
-  v17 = (v37 + v3 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 6;
-  *v18 = "seq";
-  *(v18 + 1) = 3;
-  v18[16] = 2;
+  v16 = (v36 + v3 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "seq";
+  *(v17 + 1) = 3;
+  v17[16] = 2;
   v8();
-  v19 = (v37 + v3 + 6 * v2);
-  v20 = v19 + v1[14];
-  *v19 = 7;
-  *v20 = "group_id";
-  *(v20 + 1) = 8;
-  v20[16] = 2;
+  v18 = (v36 + v3 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "group_id";
+  *(v19 + 1) = 8;
+  v19[16] = 2;
   v8();
-  v21 = (v37 + v3 + 7 * v2);
-  v22 = v21 + v1[14];
-  *v21 = 8;
-  *v22 = "isSelected";
-  *(v22 + 1) = 10;
-  v22[16] = 2;
+  v20 = (v36 + v3 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 8;
+  *v21 = "isSelected";
+  *(v21 + 1) = 10;
+  v21[16] = 2;
   v8();
-  v23 = v37 + v3 + 8 * v2 + v1[14];
+  v22 = v36 + v3 + 8 * v2 + v1[14];
   *(v4 + 8 * v2) = 9;
-  *v23 = "isPrimary";
-  *(v23 + 8) = 9;
-  *(v23 + 16) = 2;
+  *v22 = "isPrimary";
+  *(v22 + 8) = 9;
+  *(v22 + 16) = 2;
   v8();
-  v24 = (v37 + v3 + 9 * v2);
-  v25 = v24 + v1[14];
-  *v24 = 10;
-  *v25 = "screenDimensions";
-  *(v25 + 1) = 16;
-  v25[16] = 2;
+  v23 = (v36 + v3 + 9 * v2);
+  v24 = v23 + v1[14];
+  *v23 = 10;
+  *v24 = "screenDimensions";
+  *(v24 + 1) = 16;
+  v24[16] = 2;
   v8();
-  v26 = (v37 + v3 + 10 * v2);
-  v27 = v26 + v1[14];
-  *v26 = 11;
-  *v27 = "dataSource";
-  *(v27 + 1) = 10;
-  v27[16] = 2;
+  v25 = (v36 + v3 + 10 * v2);
+  v26 = v25 + v1[14];
+  *v25 = 11;
+  *v26 = "dataSource";
+  *(v26 + 1) = 10;
+  v26[16] = 2;
   v8();
-  v28 = (v37 + v3 + 11 * v2);
-  v29 = v28 + v1[14];
-  *v28 = 12;
-  *v29 = "displayRepresentation";
-  *(v29 + 1) = 21;
-  v29[16] = 2;
+  v27 = (v36 + v3 + 11 * v2);
+  v28 = v27 + v1[14];
+  *v27 = 12;
+  *v28 = "displayRepresentation";
+  *(v28 + 1) = 21;
+  v28[16] = 2;
   v8();
-  v30 = (v37 + v3 + 12 * v2);
-  v31 = v30 + v1[14];
-  *v30 = 13;
-  *v31 = "appBundleIdentifier";
-  *(v31 + 1) = 19;
-  v31[16] = 2;
+  v29 = (v36 + v3 + 12 * v2);
+  v30 = v29 + v1[14];
+  *v29 = 13;
+  *v30 = "appBundleIdentifier";
+  *(v30 + 1) = 19;
+  v30[16] = 2;
   v8();
-  v32 = (v37 + v3 + 13 * v2);
-  v33 = v32 + v1[14];
-  *v32 = 14;
-  *v33 = "screenSize";
-  *(v33 + 1) = 10;
-  v33[16] = 2;
+  v31 = (v36 + v3 + 13 * v2);
+  v32 = v31 + v1[14];
+  *v31 = 14;
+  *v32 = "screenSize";
+  *(v32 + 1) = 10;
+  v32[16] = 2;
   v8();
-  v34 = (v37 + v3 + 14 * v2);
-  v35 = v34 + v1[14];
-  *v34 = 15;
-  *v35 = "frame";
-  *(v35 + 1) = 5;
-  v35[16] = 2;
+  v33 = (v36 + v3 + 14 * v2);
+  v34 = v33 + v1[14];
+  *v33 = 15;
+  *v34 = "frame";
+  *(v34 + 1) = 5;
+  v34[16] = 2;
   v8();
   return sub_23C871324();
 }
 
-uint64_t ContextProtoContextMetadata.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoContextMetadata.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   result = sub_23C871044();
-  if (!v0)
+  if (!v4)
   {
-    while ((v2 & 1) == 0)
+    while ((v10 & 1) == 0)
     {
       switch(result)
       {
@@ -4079,57 +3318,45 @@ uint64_t ContextProtoContextMetadata.decodeMessage<A>(decoder:)()
         case 2:
           goto LABEL_4;
         case 3:
-          sub_23C5B3214();
+          sub_23C5B3214(a1, v5, a2, a3);
           break;
         case 4:
           type metadata accessor for ContextProtoSurroundingText(0);
-          sub_23C5EDAB0(&qword_27E1FA418, type metadata accessor for ContextProtoSurroundingText);
+          sub_23C5EDAB0(&qword_27E1FA418, type metadata accessor for ContextProtoSurroundingText, &protocol conformance descriptor for ContextProtoSurroundingText);
           sub_23C871194();
           break;
         case 5:
-          sub_23C5B32C8();
+          sub_23C5B32C8(a1, v5, a2, a3);
           break;
         case 6:
-          v7 = *(type metadata accessor for ContextProtoContextMetadata(0) + 36);
+          type metadata accessor for ContextProtoContextMetadata(0);
           sub_23C871134();
           break;
         case 7:
-          v3 = v0;
-          v8 = *(type metadata accessor for ContextProtoContextMetadata(0) + 40);
-          goto LABEL_19;
-        case 8:
-          v5 = v0;
-          v6 = *(type metadata accessor for ContextProtoContextMetadata(0) + 44);
-          goto LABEL_22;
-        case 9:
-          v5 = v0;
-          v9 = *(type metadata accessor for ContextProtoContextMetadata(0) + 48);
-LABEL_22:
-          v0 = v5;
-          sub_23C871074();
-          break;
-        case 10:
-          sub_23C5B337C();
-          break;
-        case 11:
-          sub_23C5B3430();
-          break;
-        case 12:
-          sub_23C5B34A4();
-          break;
         case 13:
-          v3 = v0;
-          v4 = *(type metadata accessor for ContextProtoContextMetadata(0) + 64);
-LABEL_19:
-          v0 = v3;
+          type metadata accessor for ContextProtoContextMetadata(0);
 LABEL_4:
           sub_23C871154();
           break;
+        case 8:
+        case 9:
+          type metadata accessor for ContextProtoContextMetadata(0);
+          sub_23C871074();
+          break;
+        case 10:
+          sub_23C5B337C(a1, v5, a2, a3);
+          break;
+        case 11:
+          sub_23C5B3430(a1, v5, a2, a3);
+          break;
+        case 12:
+          sub_23C5B34A4(a1, v5, a2, a3);
+          break;
         case 14:
-          sub_23C5B3558();
+          sub_23C5B3558(a1, v5, a2, a3);
           break;
         case 15:
-          sub_23C5B360C();
+          sub_23C5B360C(a1, v5, a2, a3);
           break;
         default:
           break;
@@ -4142,58 +3369,58 @@ LABEL_4:
   return result;
 }
 
-uint64_t sub_23C5B3214()
+uint64_t sub_23C5B3214(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoContextMetadata(0) + 28);
+  type metadata accessor for ContextProtoContextMetadata(0);
   type metadata accessor for ContextProtoConfidence(0);
-  sub_23C5EDAB0(&qword_27E1FA6C8, type metadata accessor for ContextProtoConfidence);
+  sub_23C5EDAB0(&qword_27E1FA6C8, type metadata accessor for ContextProtoConfidence, &protocol conformance descriptor for ContextProtoConfidence);
   return sub_23C8711A4();
 }
 
-uint64_t sub_23C5B32C8()
+uint64_t sub_23C5B32C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoContextMetadata(0) + 32);
+  type metadata accessor for ContextProtoContextMetadata(0);
   type metadata accessor for ContextProtoBoundingBox(0);
-  sub_23C5EDAB0(&qword_27E1FA6A0, type metadata accessor for ContextProtoBoundingBox);
+  sub_23C5EDAB0(&qword_27E1FA6A0, type metadata accessor for ContextProtoBoundingBox, &protocol conformance descriptor for ContextProtoBoundingBox);
   return sub_23C8711A4();
 }
 
-uint64_t sub_23C5B337C()
+uint64_t sub_23C5B337C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoContextMetadata(0) + 52);
+  type metadata accessor for ContextProtoContextMetadata(0);
   type metadata accessor for ContextProtoBoundingBox(0);
-  sub_23C5EDAB0(&qword_27E1FA6A0, type metadata accessor for ContextProtoBoundingBox);
+  sub_23C5EDAB0(&qword_27E1FA6A0, type metadata accessor for ContextProtoBoundingBox, &protocol conformance descriptor for ContextProtoBoundingBox);
   return sub_23C8711A4();
 }
 
-uint64_t sub_23C5B3430()
+uint64_t sub_23C5B3430(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoContextMetadata(0) + 56);
+  type metadata accessor for ContextProtoContextMetadata(0);
   sub_23C5EDC70();
   return sub_23C871094();
 }
 
-uint64_t sub_23C5B34A4()
+uint64_t sub_23C5B34A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoContextMetadata(0) + 60);
+  type metadata accessor for ContextProtoContextMetadata(0);
   type metadata accessor for ContextProtoContextualEntityDisplayRepresentation(0);
-  sub_23C5EDAB0(&qword_27E1FA688, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation);
+  sub_23C5EDAB0(&qword_27E1FA688, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation, &protocol conformance descriptor for ContextProtoContextualEntityDisplayRepresentation);
   return sub_23C8711A4();
 }
 
-uint64_t sub_23C5B3558()
+uint64_t sub_23C5B3558(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoContextMetadata(0) + 68);
+  type metadata accessor for ContextProtoContextMetadata(0);
   type metadata accessor for ContextProtoCGRect(0);
-  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect);
+  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect, &protocol conformance descriptor for ContextProtoCGRect);
   return sub_23C8711A4();
 }
 
-uint64_t sub_23C5B360C()
+uint64_t sub_23C5B360C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoContextMetadata(0) + 72);
+  type metadata accessor for ContextProtoContextMetadata(0);
   type metadata accessor for ContextProtoCGRect(0);
-  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect);
+  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect, &protocol conformance descriptor for ContextProtoCGRect);
   return sub_23C8711A4();
 }
 
@@ -4202,7 +3429,6 @@ uint64_t ContextProtoContextMetadata.traverse<A>(visitor:)(uint64_t result, uint
   v7 = result;
   if (v3[2])
   {
-    v8 = v3[1];
     result = sub_23C8712C4();
   }
 
@@ -4210,7 +3436,6 @@ uint64_t ContextProtoContextMetadata.traverse<A>(visitor:)(uint64_t result, uint
   {
     if (v3[4])
     {
-      v9 = v3[3];
       sub_23C8712C4();
     }
 
@@ -4218,22 +3443,22 @@ uint64_t ContextProtoContextMetadata.traverse<A>(visitor:)(uint64_t result, uint
     if (*(*v3 + 16))
     {
       type metadata accessor for ContextProtoSurroundingText(0);
-      sub_23C5EDAB0(&qword_27E1FA418, type metadata accessor for ContextProtoSurroundingText);
+      sub_23C5EDAB0(&qword_27E1FA418, type metadata accessor for ContextProtoSurroundingText, &protocol conformance descriptor for ContextProtoSurroundingText);
       sub_23C8712F4();
     }
 
     sub_23C5B3B48(v3, v7, a2, a3);
-    sub_23C5B3D64(v3);
+    sub_23C5B3D64(v3, v7, a2, a3);
     sub_23C5B3DDC(v3, v7, a2, a3, type metadata accessor for ContextProtoContextMetadata);
-    sub_23C5B3E58(v3);
-    sub_23C5B3ED0(v3);
+    sub_23C5B3E58(v3, v7, a2, a3);
+    sub_23C5B3ED0(v3, v7, a2, a3);
     sub_23C5B3F48(v3, v7, a2, a3);
-    sub_23C5B4164(v3);
+    sub_23C5B4164(v3, v7, a2, a3);
     sub_23C5B41F0(v3, v7, a2, a3);
-    sub_23C5B440C(v3);
+    sub_23C5B440C(v3, v7, a2, a3);
     sub_23C5B4484(v3, v7, a2, a3);
     sub_23C5B46A0(v3, v7, a2, a3);
-    v10 = v3 + *(type metadata accessor for ContextProtoContextMetadata(0) + 76);
+    type metadata accessor for ContextProtoContextMetadata(0);
     return sub_23C870F14();
   }
 
@@ -4242,63 +3467,57 @@ uint64_t ContextProtoContextMetadata.traverse<A>(visitor:)(uint64_t result, uint
 
 uint64_t sub_23C5B392C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FADD8, &qword_23C8790C8);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ContextProtoConfidence(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoContextMetadata(0);
-  sub_23C5855B0(a1 + *(v14 + 28), v8, &qword_27E1FADD8, &qword_23C8790C8);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoConfidence(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoContextMetadata(0);
+  sub_23C5855B0(a1 + *(v12 + 28), v7, &qword_27E1FADD8, &qword_23C8790C8);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FADD8, &qword_23C8790C8);
+    return sub_23C585C34(v7, &qword_27E1FADD8, &qword_23C8790C8);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoConfidence);
-  sub_23C5EDAB0(&qword_27E1FA6C8, type metadata accessor for ContextProtoConfidence);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoConfidence);
+  sub_23C5EDAB0(&qword_27E1FA6C8, type metadata accessor for ContextProtoConfidence, &protocol conformance descriptor for ContextProtoConfidence);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoConfidence);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoConfidence);
 }
 
 uint64_t sub_23C5B3B48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FADB8, &unk_23C879160);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ContextProtoBoundingBox(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoContextMetadata(0);
-  sub_23C5855B0(a1 + *(v14 + 32), v8, &qword_27E1FADB8, &unk_23C879160);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoBoundingBox(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoContextMetadata(0);
+  sub_23C5855B0(a1 + *(v12 + 32), v7, &qword_27E1FADB8, &unk_23C879160);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FADB8, &unk_23C879160);
+    return sub_23C585C34(v7, &qword_27E1FADB8, &unk_23C879160);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoBoundingBox);
-  sub_23C5EDAB0(&qword_27E1FA6A0, type metadata accessor for ContextProtoBoundingBox);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoBoundingBox);
+  sub_23C5EDAB0(&qword_27E1FA6A0, type metadata accessor for ContextProtoBoundingBox, &protocol conformance descriptor for ContextProtoBoundingBox);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoBoundingBox);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoBoundingBox);
 }
 
-uint64_t sub_23C5B3D64(uint64_t a1)
+uint64_t sub_23C5B3D64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ContextProtoContextMetadata(0);
-  v3 = (a1 + *(result + 36));
-  if ((v3[1] & 1) == 0)
+  if ((*(a1 + *(result + 36) + 8) & 1) == 0)
   {
-    v4 = *v3;
     return sub_23C8712B4();
   }
 
@@ -4308,17 +3527,15 @@ uint64_t sub_23C5B3D64(uint64_t a1)
 uint64_t sub_23C5B3DDC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
   result = a5(0);
-  v7 = (a1 + *(result + 40));
-  if (v7[1])
+  if (*(a1 + *(result + 40) + 8))
   {
-    v8 = *v7;
     return sub_23C8712C4();
   }
 
   return result;
 }
 
-uint64_t sub_23C5B3E58(uint64_t a1)
+uint64_t sub_23C5B3E58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ContextProtoContextMetadata(0);
   if (*(a1 + *(result + 44)) != 2)
@@ -4329,7 +3546,7 @@ uint64_t sub_23C5B3E58(uint64_t a1)
   return result;
 }
 
-uint64_t sub_23C5B3ED0(uint64_t a1)
+uint64_t sub_23C5B3ED0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ContextProtoContextMetadata(0);
   if (*(a1 + *(result + 48)) != 2)
@@ -4342,36 +3559,33 @@ uint64_t sub_23C5B3ED0(uint64_t a1)
 
 uint64_t sub_23C5B3F48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FADB8, &unk_23C879160);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ContextProtoBoundingBox(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoContextMetadata(0);
-  sub_23C5855B0(a1 + *(v14 + 52), v8, &qword_27E1FADB8, &unk_23C879160);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoBoundingBox(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoContextMetadata(0);
+  sub_23C5855B0(a1 + *(v12 + 52), v7, &qword_27E1FADB8, &unk_23C879160);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FADB8, &unk_23C879160);
+    return sub_23C585C34(v7, &qword_27E1FADB8, &unk_23C879160);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoBoundingBox);
-  sub_23C5EDAB0(&qword_27E1FA6A0, type metadata accessor for ContextProtoBoundingBox);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoBoundingBox);
+  sub_23C5EDAB0(&qword_27E1FA6A0, type metadata accessor for ContextProtoBoundingBox, &protocol conformance descriptor for ContextProtoBoundingBox);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoBoundingBox);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoBoundingBox);
 }
 
-uint64_t sub_23C5B4164(uint64_t a1)
+uint64_t sub_23C5B4164(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ContextProtoContextMetadata(0);
   if (*(a1 + *(result + 56)) != 6)
   {
-    v3 = *(a1 + *(result + 56));
     sub_23C5EDC70();
     return sub_23C871254();
   }
@@ -4381,37 +3595,33 @@ uint64_t sub_23C5B4164(uint64_t a1)
 
 uint64_t sub_23C5B41F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FADC8, &qword_23C8790B8);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ContextProtoContextualEntityDisplayRepresentation(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoContextMetadata(0);
-  sub_23C5855B0(a1 + *(v14 + 60), v8, &qword_27E1FADC8, &qword_23C8790B8);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoContextualEntityDisplayRepresentation(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoContextMetadata(0);
+  sub_23C5855B0(a1 + *(v12 + 60), v7, &qword_27E1FADC8, &qword_23C8790B8);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FADC8, &qword_23C8790B8);
+    return sub_23C585C34(v7, &qword_27E1FADC8, &qword_23C8790B8);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation);
-  sub_23C5EDAB0(&qword_27E1FA688, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation);
+  sub_23C5EDAB0(&qword_27E1FA688, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation, &protocol conformance descriptor for ContextProtoContextualEntityDisplayRepresentation);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation);
 }
 
-uint64_t sub_23C5B440C(uint64_t a1)
+uint64_t sub_23C5B440C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ContextProtoContextMetadata(0);
-  v3 = (a1 + *(result + 64));
-  if (v3[1])
+  if (*(a1 + *(result + 64) + 8))
   {
-    v4 = *v3;
     return sub_23C8712C4();
   }
 
@@ -4420,61 +3630,57 @@ uint64_t sub_23C5B440C(uint64_t a1)
 
 uint64_t sub_23C5B4484(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAD18, &unk_23C879170);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ContextProtoCGRect(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoContextMetadata(0);
-  sub_23C5855B0(a1 + *(v14 + 68), v8, &qword_27E1FAD18, &unk_23C879170);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoCGRect(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoContextMetadata(0);
+  sub_23C5855B0(a1 + *(v12 + 68), v7, &qword_27E1FAD18, &unk_23C879170);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FAD18, &unk_23C879170);
+    return sub_23C585C34(v7, &qword_27E1FAD18, &unk_23C879170);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoCGRect);
-  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoCGRect);
+  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect, &protocol conformance descriptor for ContextProtoCGRect);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoCGRect);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoCGRect);
 }
 
 uint64_t sub_23C5B46A0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAD18, &unk_23C879170);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ContextProtoCGRect(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoContextMetadata(0);
-  sub_23C5855B0(a1 + *(v14 + 72), v8, &qword_27E1FAD18, &unk_23C879170);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoCGRect(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoContextMetadata(0);
+  sub_23C5855B0(a1 + *(v12 + 72), v7, &qword_27E1FAD18, &unk_23C879170);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FAD18, &unk_23C879170);
+    return sub_23C585C34(v7, &qword_27E1FAD18, &unk_23C879170);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoCGRect);
-  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoCGRect);
+  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect, &protocol conformance descriptor for ContextProtoCGRect);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoCGRect);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoCGRect);
 }
 
-uint64_t sub_23C5B4908(void (*a1)(void), unint64_t *a2, void (*a3)(uint64_t))
+uint64_t sub_23C5B4908(uint64_t (*a1)(void), unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   sub_23C8720F4();
   a1(0);
-  sub_23C5EDAB0(a2, a3);
+  sub_23C5EDAB0(a2, a3, a4);
   sub_23C8716F4();
   return sub_23C872124();
 }
@@ -4497,30 +3703,23 @@ uint64_t sub_23C5B4A24(uint64_t a1, uint64_t a2)
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t (*sub_23C5B4A98(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_1;
-  v4 = v2 + *(a2 + 76);
-  return result;
-}
-
 uint64_t sub_23C5B4AEC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAAC0, type metadata accessor for ContextProtoContextMetadata);
+  v4 = sub_23C5EDAB0(&qword_27E1FAAC0, type metadata accessor for ContextProtoContextMetadata, &protocol conformance descriptor for ContextProtoContextMetadata);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5B4B8C()
+uint64_t sub_23C5B4B8C(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA670, type metadata accessor for ContextProtoContextMetadata);
+  sub_23C5EDAB0(&qword_27E1FA670, type metadata accessor for ContextProtoContextMetadata, &protocol conformance descriptor for ContextProtoContextMetadata);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5B4BF8()
+uint64_t sub_23C5B4BF8(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA670, type metadata accessor for ContextProtoContextMetadata);
+  sub_23C5EDAB0(&qword_27E1FA670, type metadata accessor for ContextProtoContextMetadata, &protocol conformance descriptor for ContextProtoContextMetadata);
 
   return sub_23C871204();
 }
@@ -4555,12 +3754,12 @@ uint64_t sub_23C5B4C94()
   return sub_23C871324();
 }
 
-uint64_t ContextProtoContextualEntityDisplayRepresentation.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoContextualEntityDisplayRepresentation.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = sub_23C871044();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       break;
     }
@@ -4574,61 +3773,51 @@ uint64_t ContextProtoContextualEntityDisplayRepresentation.decodeMessage<A>(deco
   return result;
 }
 
-uint64_t ContextProtoContextualEntityDisplayRepresentation.traverse<A>(visitor:)()
+uint64_t ContextProtoContextualEntityDisplayRepresentation.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (v0[1])
+  if (*(v3 + 8))
   {
-    v2 = *v0;
-    result = sub_23C8712C4();
+    v5 = sub_23C8712C4();
   }
 
-  if (!v1)
+  if (!v4)
   {
-    if (v0[3])
+    if (*(v3 + 24))
     {
-      v4 = v0[2];
       sub_23C8712C4();
     }
 
-    v5 = v0 + *(type metadata accessor for ContextProtoContextualEntityDisplayRepresentation(0) + 24);
+    type metadata accessor for ContextProtoContextualEntityDisplayRepresentation(0);
     return sub_23C870F14();
   }
 
-  return result;
+  return v5;
 }
 
-uint64_t sub_23C5B4FF8@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
+uint64_t sub_23C5B4FF8@<X0>(_OWORD *a2@<X8>)
 {
   *a2 = 0u;
   a2[1] = 0u;
-  v2 = a2 + *(a1 + 24);
   return _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
-}
-
-uint64_t (*sub_23C5B503C(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_1;
-  v4 = v2 + *(a2 + 24);
-  return result;
 }
 
 uint64_t sub_23C5B5090(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAAB8, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation);
+  v4 = sub_23C5EDAB0(&qword_27E1FAAB8, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation, &protocol conformance descriptor for ContextProtoContextualEntityDisplayRepresentation);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5B5130()
+uint64_t sub_23C5B5130(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA688, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation);
+  sub_23C5EDAB0(&qword_27E1FA688, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation, &protocol conformance descriptor for ContextProtoContextualEntityDisplayRepresentation);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5B519C()
+uint64_t sub_23C5B519C(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA688, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation);
+  sub_23C5EDAB0(&qword_27E1FA688, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation, &protocol conformance descriptor for ContextProtoContextualEntityDisplayRepresentation);
 
   return sub_23C871204();
 }
@@ -4666,26 +3855,25 @@ uint64_t sub_23C5B5238()
   *v12 = "width";
   *(v12 + 1) = 5;
   v12[16] = 2;
-  v13 = *MEMORY[0x277D21870];
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "height";
-  *(v15 + 1) = 6;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "height";
+  *(v14 + 1) = 6;
+  v14[16] = 2;
   v9();
   return sub_23C871324();
 }
 
-uint64_t ContextProtoBoundingBox.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoBoundingBox.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = sub_23C871044();
-  if (!v0)
+  if (!v3)
   {
     while (1)
     {
-      if (v2)
+      if (v5)
       {
         return result;
       }
@@ -4711,42 +3899,38 @@ LABEL_9:
   return result;
 }
 
-uint64_t ContextProtoBoundingBox.traverse<A>(visitor:)()
+uint64_t ContextProtoBoundingBox.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if ((v0[1] & 1) == 0)
+  if ((v3[4] & 1) == 0)
   {
-    v2 = *v0;
-    result = sub_23C871274();
+    v5 = sub_23C871274();
   }
 
-  if (!v1)
+  if (!v4)
   {
-    if ((v0[3] & 1) == 0)
+    if ((v3[12] & 1) == 0)
     {
-      v4 = v0[2];
       sub_23C871274();
     }
 
-    if ((v0[5] & 1) == 0)
+    if ((v3[20] & 1) == 0)
     {
-      v5 = v0[4];
       sub_23C871274();
     }
 
-    if ((v0[7] & 1) == 0)
+    if ((v3[28] & 1) == 0)
     {
-      v6 = v0[6];
       sub_23C871274();
     }
 
-    v7 = v0 + *(type metadata accessor for ContextProtoBoundingBox(0) + 32);
+    type metadata accessor for ContextProtoBoundingBox(0);
     return sub_23C870F14();
   }
 
-  return result;
+  return v5;
 }
 
-uint64_t sub_23C5B56A0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_23C5B56A0@<X0>(uint64_t a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 4) = 1;
@@ -4756,34 +3940,26 @@ uint64_t sub_23C5B56A0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   *(a2 + 20) = 1;
   *(a2 + 24) = 0;
   *(a2 + 28) = 1;
-  v2 = a2 + *(a1 + 32);
   return _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
-}
-
-uint64_t (*sub_23C5B5700(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_1;
-  v4 = v2 + *(a2 + 32);
-  return result;
 }
 
 uint64_t sub_23C5B5754(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAAB0, type metadata accessor for ContextProtoBoundingBox);
+  v4 = sub_23C5EDAB0(&qword_27E1FAAB0, type metadata accessor for ContextProtoBoundingBox, &protocol conformance descriptor for ContextProtoBoundingBox);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5B57F4()
+uint64_t sub_23C5B57F4(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA6A0, type metadata accessor for ContextProtoBoundingBox);
+  sub_23C5EDAB0(&qword_27E1FA6A0, type metadata accessor for ContextProtoBoundingBox, &protocol conformance descriptor for ContextProtoBoundingBox);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5B5860()
+uint64_t sub_23C5B5860(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA6A0, type metadata accessor for ContextProtoBoundingBox);
+  sub_23C5EDAB0(&qword_27E1FA6A0, type metadata accessor for ContextProtoBoundingBox, &protocol conformance descriptor for ContextProtoBoundingBox);
 
   return sub_23C871204();
 }
@@ -4814,17 +3990,17 @@ uint64_t sub_23C5B58FC()
   *v10 = "on_screen_bounding_box";
   *(v10 + 1) = 22;
   v10[16] = 2;
-  v11 = *MEMORY[0x277D21888];
   v9();
   return sub_23C871324();
 }
 
-uint64_t ContextProtoSurroundingText.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoSurroundingText.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   while (1)
   {
     result = sub_23C871044();
-    if (v0 || (v2 & 1) != 0)
+    if (v4 || (v10 & 1) != 0)
     {
       break;
     }
@@ -4836,34 +4012,33 @@ uint64_t ContextProtoSurroundingText.decodeMessage<A>(decoder:)()
 
     else if (result == 2)
     {
-      sub_23C5B5B80();
+      sub_23C5B5B80(a1, v5, a2, a3);
     }
   }
 
   return result;
 }
 
-uint64_t sub_23C5B5B80()
+uint64_t sub_23C5B5B80(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoSurroundingText(0) + 20);
+  type metadata accessor for ContextProtoSurroundingText(0);
   type metadata accessor for ContextProtoBoundingBox(0);
-  sub_23C5EDAB0(&qword_27E1FA6A0, type metadata accessor for ContextProtoBoundingBox);
+  sub_23C5EDAB0(&qword_27E1FA6A0, type metadata accessor for ContextProtoBoundingBox, &protocol conformance descriptor for ContextProtoBoundingBox);
   return sub_23C8711A4();
 }
 
 uint64_t ContextProtoSurroundingText.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3)
 {
   v7 = result;
-  if (v3[1])
+  if (*(v3 + 8))
   {
-    v8 = *v3;
     result = sub_23C8712C4();
   }
 
   if (!v4)
   {
     sub_23C5B5CD4(v3, v7, a2, a3);
-    v9 = v3 + *(type metadata accessor for ContextProtoSurroundingText(0) + 24);
+    type metadata accessor for ContextProtoSurroundingText(0);
     return sub_23C870F14();
   }
 
@@ -4872,58 +4047,55 @@ uint64_t ContextProtoSurroundingText.traverse<A>(visitor:)(uint64_t result, uint
 
 uint64_t sub_23C5B5CD4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FADB8, &unk_23C879160);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ContextProtoBoundingBox(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoSurroundingText(0);
-  sub_23C5855B0(a1 + *(v14 + 20), v8, &qword_27E1FADB8, &unk_23C879160);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoBoundingBox(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoSurroundingText(0);
+  sub_23C5855B0(a1 + *(v12 + 20), v7, &qword_27E1FADB8, &unk_23C879160);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FADB8, &unk_23C879160);
+    return sub_23C585C34(v7, &qword_27E1FADB8, &unk_23C879160);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoBoundingBox);
-  sub_23C5EDAB0(&qword_27E1FA6A0, type metadata accessor for ContextProtoBoundingBox);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoBoundingBox);
+  sub_23C5EDAB0(&qword_27E1FA6A0, type metadata accessor for ContextProtoBoundingBox, &protocol conformance descriptor for ContextProtoBoundingBox);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoBoundingBox);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoBoundingBox);
 }
 
 uint64_t sub_23C5B5F3C@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 1) = 0;
-  v4 = *(a1 + 20);
-  v5 = type metadata accessor for ContextProtoBoundingBox(0);
-  (*(*(v5 - 8) + 56))(&a2[v4], 1, 1, v5);
-  v6 = &a2[*(a1 + 24)];
+  v3 = *(a1 + 20);
+  v4 = type metadata accessor for ContextProtoBoundingBox(0);
+  (*(*(v4 - 8) + 56))(&a2[v3], 1, 1, v4);
   return _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
 }
 
 uint64_t sub_23C5B6008(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAAA8, type metadata accessor for ContextProtoSurroundingText);
+  v4 = sub_23C5EDAB0(&qword_27E1FAAA8, type metadata accessor for ContextProtoSurroundingText, &protocol conformance descriptor for ContextProtoSurroundingText);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5B60A8()
+uint64_t sub_23C5B60A8(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA418, type metadata accessor for ContextProtoSurroundingText);
+  sub_23C5EDAB0(&qword_27E1FA418, type metadata accessor for ContextProtoSurroundingText, &protocol conformance descriptor for ContextProtoSurroundingText);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5B6114()
+uint64_t sub_23C5B6114(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA418, type metadata accessor for ContextProtoSurroundingText);
+  sub_23C5EDAB0(&qword_27E1FA418, type metadata accessor for ContextProtoSurroundingText, &protocol conformance descriptor for ContextProtoSurroundingText);
 
   return sub_23C871204();
 }
@@ -4958,12 +4130,12 @@ uint64_t sub_23C5B61B0()
   return sub_23C871324();
 }
 
-uint64_t ContextProtoConfidence.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoConfidence.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = sub_23C871044();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 1)
       {
@@ -4983,13 +4155,13 @@ uint64_t ContextProtoConfidence.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t ContextProtoConfidence.traverse<A>(visitor:)()
+uint64_t ContextProtoConfidence.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (*v0 == 0.0 || (result = sub_23C871274(), !v1))
+  if (*v3 == 0.0 || (result = sub_23C871274(), !v4))
   {
-    if (!*(v0 + 4) || (v4 = *(v0 + 4), sub_23C5EA6E4(), result = sub_23C871254(), !v1))
+    if (!*(v3 + 4) || (sub_23C5EA6E4(), result = sub_23C871254(), !v4))
     {
-      v3 = v0 + *(type metadata accessor for ContextProtoConfidence(0) + 24);
+      type metadata accessor for ContextProtoConfidence(0);
       return sub_23C870F14();
     }
   }
@@ -5004,15 +4176,14 @@ uint64_t static ContextProtoConfidence.== infix(_:_:)(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v2 = *(type metadata accessor for ContextProtoConfidence(0) + 24);
+  type metadata accessor for ContextProtoConfidence(0);
   sub_23C870F34();
-  sub_23C5EDAB0(&qword_27E1FA448, MEMORY[0x277D216C8]);
+  sub_23C5EDAB0(&qword_27E1FA448, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return sub_23C871754() & 1;
 }
 
-uint64_t sub_23C5B662C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_23C5B662C@<X0>(uint64_t a2@<X8>)
 {
-  v3 = a2 + *(a1 + 24);
   result = _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
   *a2 = 0;
   *(a2 + 4) = 0;
@@ -5021,21 +4192,21 @@ uint64_t sub_23C5B662C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_23C5B66AC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAAA0, type metadata accessor for ContextProtoConfidence);
+  v4 = sub_23C5EDAB0(&qword_27E1FAAA0, type metadata accessor for ContextProtoConfidence, &protocol conformance descriptor for ContextProtoConfidence);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5B674C()
+uint64_t sub_23C5B674C(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA6C8, type metadata accessor for ContextProtoConfidence);
+  sub_23C5EDAB0(&qword_27E1FA6C8, type metadata accessor for ContextProtoConfidence, &protocol conformance descriptor for ContextProtoConfidence);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5B67B8()
+uint64_t sub_23C5B67B8(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA6C8, type metadata accessor for ContextProtoConfidence);
+  sub_23C5EDAB0(&qword_27E1FA6C8, type metadata accessor for ContextProtoConfidence, &protocol conformance descriptor for ContextProtoConfidence);
 
   return sub_23C871204();
 }
@@ -5047,9 +4218,8 @@ uint64_t sub_23C5B6834(uint64_t a1, uint64_t a2, uint64_t a3)
     return 0;
   }
 
-  v3 = *(a3 + 24);
   sub_23C870F34();
-  sub_23C5EDAB0(&qword_27E1FA448, MEMORY[0x277D216C8]);
+  sub_23C5EDAB0(&qword_27E1FA448, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return sub_23C871754() & 1;
 }
 
@@ -5149,523 +4319,502 @@ uint64_t ContextProtoStructuredContext.decodeMessage<A>(decoder:)(uint64_t a1, u
 
 uint64_t sub_23C5B6CC0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
   v5 = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v44 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v43 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA458, &qword_23C8755D0);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for ContextProtoStructuredContextKind(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x28223BE20](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAD90, &qword_23C879088);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x28223BE20](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  sub_23C5855B0(a1, v14, &qword_27E1FA458, &qword_23C8755D0);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v7 = MEMORY[0x28223BE20](v5);
+  v40 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v39 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA458, &qword_23C8755D0);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for ContextProtoStructuredContextKind(0);
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAD90, &qword_23C879088);
+  v21 = MEMORY[0x28223BE20](v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  sub_23C5855B0(a1, v12, &qword_27E1FA458, &qword_23C8755D0);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
   {
-    sub_23C585C34(v14, &qword_27E1FA458, &qword_23C8755D0);
-    v33 = v48;
-    v34 = v15;
+    sub_23C585C34(v12, &qword_27E1FA458, &qword_23C8755D0);
+    v29 = v44;
+    v30 = v13;
   }
 
   else
   {
-    sub_23C5EDD24(v14, v22, type metadata accessor for ContextProtoStructuredContextKind);
-    sub_23C5EDD24(v22, v20, type metadata accessor for ContextProtoStructuredContextKind);
-    v34 = v15;
+    sub_23C5EDD24(v12, v19, type metadata accessor for ContextProtoStructuredContextKind);
+    sub_23C5EDD24(v19, v17, type metadata accessor for ContextProtoStructuredContextKind);
+    v30 = v13;
     if (swift_getEnumCaseMultiPayload())
     {
-      sub_23C5EDCC4(v20, type metadata accessor for ContextProtoStructuredContextKind);
-      v33 = v48;
+      sub_23C5EDCC4(v17, type metadata accessor for ContextProtoStructuredContextKind);
+      v29 = v44;
     }
 
     else
     {
-      sub_23C585C34(v28, &qword_27E1FAD90, &qword_23C879088);
-      v35 = v43;
-      sub_23C5EDD24(v20, v43, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
-      sub_23C5EDD24(v35, v28, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      sub_23C585C34(v24, &qword_27E1FAD90, &qword_23C879088);
+      v31 = v39;
+      sub_23C5EDD24(v17, v39, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
+      sub_23C5EDD24(v31, v24, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
     }
   }
 
-  v36 = v46;
-  sub_23C5EDAB0(&qword_27E1FA6F8, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
-  v37 = v47;
+  v32 = v42;
+  sub_23C5EDAB0(&qword_27E1FA6F8, type metadata accessor for ContextProtoStructuredContextSiriRequestContext, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContext);
+  v33 = v43;
   sub_23C8711A4();
-  if (v37)
+  if (v33)
   {
-    return sub_23C585C34(v28, &qword_27E1FAD90, &qword_23C879088);
+    return sub_23C585C34(v24, &qword_27E1FAD90, &qword_23C879088);
   }
 
-  sub_23C5855B0(v28, v36, &qword_27E1FAD90, &qword_23C879088);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  sub_23C5855B0(v24, v32, &qword_27E1FAD90, &qword_23C879088);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
   {
-    sub_23C585C34(v28, &qword_27E1FAD90, &qword_23C879088);
-    return sub_23C585C34(v36, &qword_27E1FAD90, &qword_23C879088);
+    sub_23C585C34(v24, &qword_27E1FAD90, &qword_23C879088);
+    return sub_23C585C34(v32, &qword_27E1FAD90, &qword_23C879088);
   }
 
   else
   {
-    v39 = v44;
-    sub_23C5EDD24(v36, v44, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
-    if (v32 != 1)
+    v35 = v40;
+    sub_23C5EDD24(v32, v40, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
+    if (v28 != 1)
     {
       sub_23C871054();
     }
 
-    sub_23C585C34(v28, &qword_27E1FAD90, &qword_23C879088);
-    v40 = v42;
-    sub_23C585C34(v42, &qword_27E1FA458, &qword_23C8755D0);
-    sub_23C5EDD24(v39, v40, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
+    sub_23C585C34(v24, &qword_27E1FAD90, &qword_23C879088);
+    v36 = v38;
+    sub_23C585C34(v38, &qword_27E1FA458, &qword_23C8755D0);
+    sub_23C5EDD24(v35, v36, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v37 + 56))(v36, 0, 1, v30);
   }
 }
 
 uint64_t sub_23C5B7270(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
   v5 = type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA458, &qword_23C8755D0);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for ContextProtoStructuredContextKind(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x28223BE20](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAD98, &qword_23C879090);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x28223BE20](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  sub_23C5855B0(a1, v14, &qword_27E1FA458, &qword_23C8755D0);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v7 = MEMORY[0x28223BE20](v5);
+  v39 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v40 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA458, &qword_23C8755D0);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for ContextProtoStructuredContextKind(0);
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAD98, &qword_23C879090);
+  v21 = MEMORY[0x28223BE20](v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  sub_23C5855B0(a1, v12, &qword_27E1FA458, &qword_23C8755D0);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
   {
-    sub_23C585C34(v14, &qword_27E1FA458, &qword_23C8755D0);
-    v33 = v48;
-    v34 = v15;
+    sub_23C585C34(v12, &qword_27E1FA458, &qword_23C8755D0);
+    v29 = v44;
+    v30 = v13;
   }
 
   else
   {
-    sub_23C5EDD24(v14, v22, type metadata accessor for ContextProtoStructuredContextKind);
-    sub_23C5EDD24(v22, v20, type metadata accessor for ContextProtoStructuredContextKind);
-    v34 = v15;
+    sub_23C5EDD24(v12, v19, type metadata accessor for ContextProtoStructuredContextKind);
+    sub_23C5EDD24(v19, v17, type metadata accessor for ContextProtoStructuredContextKind);
+    v30 = v13;
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      sub_23C585C34(v28, &qword_27E1FAD98, &qword_23C879090);
-      v35 = v44;
-      sub_23C5EDD24(v20, v44, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext);
-      sub_23C5EDD24(v35, v28, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      sub_23C585C34(v24, &qword_27E1FAD98, &qword_23C879090);
+      v31 = v40;
+      sub_23C5EDD24(v17, v40, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext);
+      sub_23C5EDD24(v31, v24, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
     }
 
     else
     {
-      sub_23C5EDCC4(v20, type metadata accessor for ContextProtoStructuredContextKind);
-      v33 = v48;
+      sub_23C5EDCC4(v17, type metadata accessor for ContextProtoStructuredContextKind);
+      v29 = v44;
     }
   }
 
-  v36 = v46;
-  sub_23C5EDAB0(&qword_27E1FA768, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext);
-  v37 = v47;
+  v32 = v42;
+  sub_23C5EDAB0(&qword_27E1FA768, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext, &protocol conformance descriptor for ContextProtoStructuredContextIntelligenceCommandContext);
+  v33 = v43;
   sub_23C8711A4();
-  if (v37)
+  if (v33)
   {
-    return sub_23C585C34(v28, &qword_27E1FAD98, &qword_23C879090);
+    return sub_23C585C34(v24, &qword_27E1FAD98, &qword_23C879090);
   }
 
-  sub_23C5855B0(v28, v36, &qword_27E1FAD98, &qword_23C879090);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  sub_23C5855B0(v24, v32, &qword_27E1FAD98, &qword_23C879090);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
   {
-    sub_23C585C34(v28, &qword_27E1FAD98, &qword_23C879090);
-    return sub_23C585C34(v36, &qword_27E1FAD98, &qword_23C879090);
+    sub_23C585C34(v24, &qword_27E1FAD98, &qword_23C879090);
+    return sub_23C585C34(v32, &qword_27E1FAD98, &qword_23C879090);
   }
 
   else
   {
-    v39 = v43;
-    sub_23C5EDD24(v36, v43, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext);
-    if (v32 != 1)
+    v35 = v39;
+    sub_23C5EDD24(v32, v39, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext);
+    if (v28 != 1)
     {
       sub_23C871054();
     }
 
-    sub_23C585C34(v28, &qword_27E1FAD98, &qword_23C879090);
-    v40 = v42;
-    sub_23C585C34(v42, &qword_27E1FA458, &qword_23C8755D0);
-    sub_23C5EDD24(v39, v40, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext);
+    sub_23C585C34(v24, &qword_27E1FAD98, &qword_23C879090);
+    v36 = v38;
+    sub_23C585C34(v38, &qword_27E1FA458, &qword_23C8755D0);
+    sub_23C5EDD24(v35, v36, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v37 + 56))(v36, 0, 1, v30);
   }
 }
 
 uint64_t sub_23C5B782C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
   v5 = type metadata accessor for ContextProtoStructedContextAppInFocusContext(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA458, &qword_23C8755D0);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for ContextProtoStructuredContextKind(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x28223BE20](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FADA0, &qword_23C879098);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x28223BE20](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  sub_23C5855B0(a1, v14, &qword_27E1FA458, &qword_23C8755D0);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v7 = MEMORY[0x28223BE20](v5);
+  v39 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v40 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA458, &qword_23C8755D0);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for ContextProtoStructuredContextKind(0);
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FADA0, &qword_23C879098);
+  v21 = MEMORY[0x28223BE20](v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  sub_23C5855B0(a1, v12, &qword_27E1FA458, &qword_23C8755D0);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
   {
-    sub_23C585C34(v14, &qword_27E1FA458, &qword_23C8755D0);
-    v33 = v48;
-    v34 = v15;
+    sub_23C585C34(v12, &qword_27E1FA458, &qword_23C8755D0);
+    v29 = v44;
+    v30 = v13;
   }
 
   else
   {
-    sub_23C5EDD24(v14, v22, type metadata accessor for ContextProtoStructuredContextKind);
-    sub_23C5EDD24(v22, v20, type metadata accessor for ContextProtoStructuredContextKind);
-    v34 = v15;
+    sub_23C5EDD24(v12, v19, type metadata accessor for ContextProtoStructuredContextKind);
+    sub_23C5EDD24(v19, v17, type metadata accessor for ContextProtoStructuredContextKind);
+    v30 = v13;
     if (swift_getEnumCaseMultiPayload() == 2)
     {
-      sub_23C585C34(v28, &qword_27E1FADA0, &qword_23C879098);
-      v35 = v44;
-      sub_23C5EDD24(v20, v44, type metadata accessor for ContextProtoStructedContextAppInFocusContext);
-      sub_23C5EDD24(v35, v28, type metadata accessor for ContextProtoStructedContextAppInFocusContext);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      sub_23C585C34(v24, &qword_27E1FADA0, &qword_23C879098);
+      v31 = v40;
+      sub_23C5EDD24(v17, v40, type metadata accessor for ContextProtoStructedContextAppInFocusContext);
+      sub_23C5EDD24(v31, v24, type metadata accessor for ContextProtoStructedContextAppInFocusContext);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
     }
 
     else
     {
-      sub_23C5EDCC4(v20, type metadata accessor for ContextProtoStructuredContextKind);
-      v33 = v48;
+      sub_23C5EDCC4(v17, type metadata accessor for ContextProtoStructuredContextKind);
+      v29 = v44;
     }
   }
 
-  v36 = v46;
-  sub_23C5EDAB0(&qword_27E1FA780, type metadata accessor for ContextProtoStructedContextAppInFocusContext);
-  v37 = v47;
+  v32 = v42;
+  sub_23C5EDAB0(&qword_27E1FA780, type metadata accessor for ContextProtoStructedContextAppInFocusContext, &protocol conformance descriptor for ContextProtoStructedContextAppInFocusContext);
+  v33 = v43;
   sub_23C8711A4();
-  if (v37)
+  if (v33)
   {
-    return sub_23C585C34(v28, &qword_27E1FADA0, &qword_23C879098);
+    return sub_23C585C34(v24, &qword_27E1FADA0, &qword_23C879098);
   }
 
-  sub_23C5855B0(v28, v36, &qword_27E1FADA0, &qword_23C879098);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  sub_23C5855B0(v24, v32, &qword_27E1FADA0, &qword_23C879098);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
   {
-    sub_23C585C34(v28, &qword_27E1FADA0, &qword_23C879098);
-    return sub_23C585C34(v36, &qword_27E1FADA0, &qword_23C879098);
+    sub_23C585C34(v24, &qword_27E1FADA0, &qword_23C879098);
+    return sub_23C585C34(v32, &qword_27E1FADA0, &qword_23C879098);
   }
 
   else
   {
-    v39 = v43;
-    sub_23C5EDD24(v36, v43, type metadata accessor for ContextProtoStructedContextAppInFocusContext);
-    if (v32 != 1)
+    v35 = v39;
+    sub_23C5EDD24(v32, v39, type metadata accessor for ContextProtoStructedContextAppInFocusContext);
+    if (v28 != 1)
     {
       sub_23C871054();
     }
 
-    sub_23C585C34(v28, &qword_27E1FADA0, &qword_23C879098);
-    v40 = v42;
-    sub_23C585C34(v42, &qword_27E1FA458, &qword_23C8755D0);
-    sub_23C5EDD24(v39, v40, type metadata accessor for ContextProtoStructedContextAppInFocusContext);
+    sub_23C585C34(v24, &qword_27E1FADA0, &qword_23C879098);
+    v36 = v38;
+    sub_23C585C34(v38, &qword_27E1FA458, &qword_23C8755D0);
+    sub_23C5EDD24(v35, v36, type metadata accessor for ContextProtoStructedContextAppInFocusContext);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v37 + 56))(v36, 0, 1, v30);
   }
 }
 
 uint64_t sub_23C5B7DE8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
   v5 = type metadata accessor for ContextProtoStructuredContextOnScreenUIText(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA458, &qword_23C8755D0);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for ContextProtoStructuredContextKind(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x28223BE20](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FADA8, &qword_23C8790A0);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x28223BE20](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  sub_23C5855B0(a1, v14, &qword_27E1FA458, &qword_23C8755D0);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v7 = MEMORY[0x28223BE20](v5);
+  v39 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v40 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA458, &qword_23C8755D0);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for ContextProtoStructuredContextKind(0);
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FADA8, &qword_23C8790A0);
+  v21 = MEMORY[0x28223BE20](v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  sub_23C5855B0(a1, v12, &qword_27E1FA458, &qword_23C8755D0);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
   {
-    sub_23C585C34(v14, &qword_27E1FA458, &qword_23C8755D0);
-    v33 = v48;
-    v34 = v15;
+    sub_23C585C34(v12, &qword_27E1FA458, &qword_23C8755D0);
+    v29 = v44;
+    v30 = v13;
   }
 
   else
   {
-    sub_23C5EDD24(v14, v22, type metadata accessor for ContextProtoStructuredContextKind);
-    sub_23C5EDD24(v22, v20, type metadata accessor for ContextProtoStructuredContextKind);
-    v34 = v15;
+    sub_23C5EDD24(v12, v19, type metadata accessor for ContextProtoStructuredContextKind);
+    sub_23C5EDD24(v19, v17, type metadata accessor for ContextProtoStructuredContextKind);
+    v30 = v13;
     if (swift_getEnumCaseMultiPayload() == 3)
     {
-      sub_23C585C34(v28, &qword_27E1FADA8, &qword_23C8790A0);
-      v35 = v44;
-      sub_23C5EDD24(v20, v44, type metadata accessor for ContextProtoStructuredContextOnScreenUIText);
-      sub_23C5EDD24(v35, v28, type metadata accessor for ContextProtoStructuredContextOnScreenUIText);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      sub_23C585C34(v24, &qword_27E1FADA8, &qword_23C8790A0);
+      v31 = v40;
+      sub_23C5EDD24(v17, v40, type metadata accessor for ContextProtoStructuredContextOnScreenUIText);
+      sub_23C5EDD24(v31, v24, type metadata accessor for ContextProtoStructuredContextOnScreenUIText);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
     }
 
     else
     {
-      sub_23C5EDCC4(v20, type metadata accessor for ContextProtoStructuredContextKind);
-      v33 = v48;
+      sub_23C5EDCC4(v17, type metadata accessor for ContextProtoStructuredContextKind);
+      v29 = v44;
     }
   }
 
-  v36 = v46;
-  sub_23C5EDAB0(&qword_27E1FA7B0, type metadata accessor for ContextProtoStructuredContextOnScreenUIText);
-  v37 = v47;
+  v32 = v42;
+  sub_23C5EDAB0(&qword_27E1FA7B0, type metadata accessor for ContextProtoStructuredContextOnScreenUIText, &protocol conformance descriptor for ContextProtoStructuredContextOnScreenUIText);
+  v33 = v43;
   sub_23C8711A4();
-  if (v37)
+  if (v33)
   {
-    return sub_23C585C34(v28, &qword_27E1FADA8, &qword_23C8790A0);
+    return sub_23C585C34(v24, &qword_27E1FADA8, &qword_23C8790A0);
   }
 
-  sub_23C5855B0(v28, v36, &qword_27E1FADA8, &qword_23C8790A0);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  sub_23C5855B0(v24, v32, &qword_27E1FADA8, &qword_23C8790A0);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
   {
-    sub_23C585C34(v28, &qword_27E1FADA8, &qword_23C8790A0);
-    return sub_23C585C34(v36, &qword_27E1FADA8, &qword_23C8790A0);
+    sub_23C585C34(v24, &qword_27E1FADA8, &qword_23C8790A0);
+    return sub_23C585C34(v32, &qword_27E1FADA8, &qword_23C8790A0);
   }
 
   else
   {
-    v39 = v43;
-    sub_23C5EDD24(v36, v43, type metadata accessor for ContextProtoStructuredContextOnScreenUIText);
-    if (v32 != 1)
+    v35 = v39;
+    sub_23C5EDD24(v32, v39, type metadata accessor for ContextProtoStructuredContextOnScreenUIText);
+    if (v28 != 1)
     {
       sub_23C871054();
     }
 
-    sub_23C585C34(v28, &qword_27E1FADA8, &qword_23C8790A0);
-    v40 = v42;
-    sub_23C585C34(v42, &qword_27E1FA458, &qword_23C8755D0);
-    sub_23C5EDD24(v39, v40, type metadata accessor for ContextProtoStructuredContextOnScreenUIText);
+    sub_23C585C34(v24, &qword_27E1FADA8, &qword_23C8790A0);
+    v36 = v38;
+    sub_23C585C34(v38, &qword_27E1FA458, &qword_23C8755D0);
+    sub_23C5EDD24(v35, v36, type metadata accessor for ContextProtoStructuredContextOnScreenUIText);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v37 + 56))(v36, 0, 1, v30);
   }
 }
 
 uint64_t sub_23C5B83A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
   v5 = type metadata accessor for ContextProtoStructedContextAppContext(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA458, &qword_23C8755D0);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for ContextProtoStructuredContextKind(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x28223BE20](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FADB0, &qword_23C8790A8);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x28223BE20](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  sub_23C5855B0(a1, v14, &qword_27E1FA458, &qword_23C8755D0);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v7 = MEMORY[0x28223BE20](v5);
+  v39 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v40 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA458, &qword_23C8755D0);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for ContextProtoStructuredContextKind(0);
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FADB0, &qword_23C8790A8);
+  v21 = MEMORY[0x28223BE20](v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  sub_23C5855B0(a1, v12, &qword_27E1FA458, &qword_23C8755D0);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
   {
-    sub_23C585C34(v14, &qword_27E1FA458, &qword_23C8755D0);
-    v33 = v48;
-    v34 = v15;
+    sub_23C585C34(v12, &qword_27E1FA458, &qword_23C8755D0);
+    v29 = v44;
+    v30 = v13;
   }
 
   else
   {
-    sub_23C5EDD24(v14, v22, type metadata accessor for ContextProtoStructuredContextKind);
-    sub_23C5EDD24(v22, v20, type metadata accessor for ContextProtoStructuredContextKind);
-    v34 = v15;
+    sub_23C5EDD24(v12, v19, type metadata accessor for ContextProtoStructuredContextKind);
+    sub_23C5EDD24(v19, v17, type metadata accessor for ContextProtoStructuredContextKind);
+    v30 = v13;
     if (swift_getEnumCaseMultiPayload() == 4)
     {
-      sub_23C585C34(v28, &qword_27E1FADB0, &qword_23C8790A8);
-      v35 = v44;
-      sub_23C5EDD24(v20, v44, type metadata accessor for ContextProtoStructedContextAppContext);
-      sub_23C5EDD24(v35, v28, type metadata accessor for ContextProtoStructedContextAppContext);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      sub_23C585C34(v24, &qword_27E1FADB0, &qword_23C8790A8);
+      v31 = v40;
+      sub_23C5EDD24(v17, v40, type metadata accessor for ContextProtoStructedContextAppContext);
+      sub_23C5EDD24(v31, v24, type metadata accessor for ContextProtoStructedContextAppContext);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
     }
 
     else
     {
-      sub_23C5EDCC4(v20, type metadata accessor for ContextProtoStructuredContextKind);
-      v33 = v48;
+      sub_23C5EDCC4(v17, type metadata accessor for ContextProtoStructuredContextKind);
+      v29 = v44;
     }
   }
 
-  v36 = v46;
-  sub_23C5EDAB0(&qword_27E1FA798, type metadata accessor for ContextProtoStructedContextAppContext);
-  v37 = v47;
+  v32 = v42;
+  sub_23C5EDAB0(&qword_27E1FA798, type metadata accessor for ContextProtoStructedContextAppContext, &protocol conformance descriptor for ContextProtoStructedContextAppContext);
+  v33 = v43;
   sub_23C8711A4();
-  if (v37)
+  if (v33)
   {
-    return sub_23C585C34(v28, &qword_27E1FADB0, &qword_23C8790A8);
+    return sub_23C585C34(v24, &qword_27E1FADB0, &qword_23C8790A8);
   }
 
-  sub_23C5855B0(v28, v36, &qword_27E1FADB0, &qword_23C8790A8);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  sub_23C5855B0(v24, v32, &qword_27E1FADB0, &qword_23C8790A8);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
   {
-    sub_23C585C34(v28, &qword_27E1FADB0, &qword_23C8790A8);
-    return sub_23C585C34(v36, &qword_27E1FADB0, &qword_23C8790A8);
+    sub_23C585C34(v24, &qword_27E1FADB0, &qword_23C8790A8);
+    return sub_23C585C34(v32, &qword_27E1FADB0, &qword_23C8790A8);
   }
 
   else
   {
-    v39 = v43;
-    sub_23C5EDD24(v36, v43, type metadata accessor for ContextProtoStructedContextAppContext);
-    if (v32 != 1)
+    v35 = v39;
+    sub_23C5EDD24(v32, v39, type metadata accessor for ContextProtoStructedContextAppContext);
+    if (v28 != 1)
     {
       sub_23C871054();
     }
 
-    sub_23C585C34(v28, &qword_27E1FADB0, &qword_23C8790A8);
-    v40 = v42;
-    sub_23C585C34(v42, &qword_27E1FA458, &qword_23C8755D0);
-    sub_23C5EDD24(v39, v40, type metadata accessor for ContextProtoStructedContextAppContext);
+    sub_23C585C34(v24, &qword_27E1FADB0, &qword_23C8790A8);
+    v36 = v38;
+    sub_23C585C34(v38, &qword_27E1FA458, &qword_23C8755D0);
+    sub_23C5EDD24(v35, v36, type metadata accessor for ContextProtoStructedContextAppContext);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v37 + 56))(v36, 0, 1, v30);
   }
 }
 
 uint64_t ContextProtoStructuredContext.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA458, &qword_23C8755D0);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v16 - v10;
-  sub_23C5855B0(v3, &v16 - v10, &qword_27E1FA458, &qword_23C8755D0);
-  v12 = type metadata accessor for ContextProtoStructuredContextKind(0);
-  if ((*(*(v12 - 8) + 48))(v11, 1, v12) == 1)
+  v10 = &v14 - v9;
+  sub_23C5855B0(v3, &v14 - v9, &qword_27E1FA458, &qword_23C8755D0);
+  v11 = type metadata accessor for ContextProtoStructuredContextKind(0);
+  if ((*(*(v11 - 8) + 48))(v10, 1, v11) == 1)
   {
     goto LABEL_12;
   }
@@ -5699,11 +4848,11 @@ uint64_t ContextProtoStructuredContext.traverse<A>(visitor:)(uint64_t a1, uint64
     sub_23C5B9434(v3, a1, a2, a3);
   }
 
-  result = sub_23C5EDCC4(v11, type metadata accessor for ContextProtoStructuredContextKind);
+  result = sub_23C5EDCC4(v10, type metadata accessor for ContextProtoStructuredContextKind);
   if (!v4)
   {
 LABEL_12:
-    v15 = v3 + *(type metadata accessor for ContextProtoStructuredContext(0) + 20);
+    type metadata accessor for ContextProtoStructuredContext(0);
     return sub_23C870F14();
   }
 
@@ -5712,188 +4861,171 @@ LABEL_12:
 
 uint64_t sub_23C5B8B58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA458, &qword_23C8755D0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_23C5855B0(a1, v8, &qword_27E1FA458, &qword_23C8755D0);
-  v13 = type metadata accessor for ContextProtoStructuredContextKind(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
+  MEMORY[0x28223BE20](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_23C5855B0(a1, v7, &qword_27E1FA458, &qword_23C8755D0);
+  v11 = type metadata accessor for ContextProtoStructuredContextKind(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    sub_23C585C34(v8, &qword_27E1FA458, &qword_23C8755D0);
+    sub_23C585C34(v7, &qword_27E1FA458, &qword_23C8755D0);
     __break(1u);
   }
 
   else if (!swift_getEnumCaseMultiPayload())
   {
-    sub_23C5EDD24(v8, v12, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
-    sub_23C5EDAB0(&qword_27E1FA6F8, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
+    sub_23C5EDD24(v7, v10, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
+    sub_23C5EDAB0(&qword_27E1FA6F8, type metadata accessor for ContextProtoStructuredContextSiriRequestContext, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContext);
     sub_23C871304();
-    return sub_23C5EDCC4(v12, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
+    return sub_23C5EDCC4(v10, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
   }
 
-  result = sub_23C5EDCC4(v8, type metadata accessor for ContextProtoStructuredContextKind);
+  result = sub_23C5EDCC4(v7, type metadata accessor for ContextProtoStructuredContextKind);
   __break(1u);
   return result;
 }
 
 uint64_t sub_23C5B8D8C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA458, &qword_23C8755D0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_23C5855B0(a1, v8, &qword_27E1FA458, &qword_23C8755D0);
-  v13 = type metadata accessor for ContextProtoStructuredContextKind(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext(0);
+  MEMORY[0x28223BE20](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_23C5855B0(a1, v7, &qword_27E1FA458, &qword_23C8755D0);
+  v11 = type metadata accessor for ContextProtoStructuredContextKind(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    sub_23C585C34(v8, &qword_27E1FA458, &qword_23C8755D0);
+    sub_23C585C34(v7, &qword_27E1FA458, &qword_23C8755D0);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 1)
   {
-    sub_23C5EDD24(v8, v12, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext);
-    sub_23C5EDAB0(&qword_27E1FA768, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext);
+    sub_23C5EDD24(v7, v10, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext);
+    sub_23C5EDAB0(&qword_27E1FA768, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext, &protocol conformance descriptor for ContextProtoStructuredContextIntelligenceCommandContext);
     sub_23C871304();
-    return sub_23C5EDCC4(v12, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext);
+    return sub_23C5EDCC4(v10, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext);
   }
 
-  result = sub_23C5EDCC4(v8, type metadata accessor for ContextProtoStructuredContextKind);
+  result = sub_23C5EDCC4(v7, type metadata accessor for ContextProtoStructuredContextKind);
   __break(1u);
   return result;
 }
 
 uint64_t sub_23C5B8FC4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA458, &qword_23C8755D0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for ContextProtoStructedContextAppInFocusContext(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_23C5855B0(a1, v8, &qword_27E1FA458, &qword_23C8755D0);
-  v13 = type metadata accessor for ContextProtoStructuredContextKind(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for ContextProtoStructedContextAppInFocusContext(0);
+  MEMORY[0x28223BE20](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_23C5855B0(a1, v7, &qword_27E1FA458, &qword_23C8755D0);
+  v11 = type metadata accessor for ContextProtoStructuredContextKind(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    sub_23C585C34(v8, &qword_27E1FA458, &qword_23C8755D0);
+    sub_23C585C34(v7, &qword_27E1FA458, &qword_23C8755D0);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 2)
   {
-    sub_23C5EDD24(v8, v12, type metadata accessor for ContextProtoStructedContextAppInFocusContext);
-    sub_23C5EDAB0(&qword_27E1FA780, type metadata accessor for ContextProtoStructedContextAppInFocusContext);
+    sub_23C5EDD24(v7, v10, type metadata accessor for ContextProtoStructedContextAppInFocusContext);
+    sub_23C5EDAB0(&qword_27E1FA780, type metadata accessor for ContextProtoStructedContextAppInFocusContext, &protocol conformance descriptor for ContextProtoStructedContextAppInFocusContext);
     sub_23C871304();
-    return sub_23C5EDCC4(v12, type metadata accessor for ContextProtoStructedContextAppInFocusContext);
+    return sub_23C5EDCC4(v10, type metadata accessor for ContextProtoStructedContextAppInFocusContext);
   }
 
-  result = sub_23C5EDCC4(v8, type metadata accessor for ContextProtoStructuredContextKind);
+  result = sub_23C5EDCC4(v7, type metadata accessor for ContextProtoStructuredContextKind);
   __break(1u);
   return result;
 }
 
 uint64_t sub_23C5B91FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA458, &qword_23C8755D0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for ContextProtoStructuredContextOnScreenUIText(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_23C5855B0(a1, v8, &qword_27E1FA458, &qword_23C8755D0);
-  v13 = type metadata accessor for ContextProtoStructuredContextKind(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for ContextProtoStructuredContextOnScreenUIText(0);
+  MEMORY[0x28223BE20](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_23C5855B0(a1, v7, &qword_27E1FA458, &qword_23C8755D0);
+  v11 = type metadata accessor for ContextProtoStructuredContextKind(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    sub_23C585C34(v8, &qword_27E1FA458, &qword_23C8755D0);
+    sub_23C585C34(v7, &qword_27E1FA458, &qword_23C8755D0);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 3)
   {
-    sub_23C5EDD24(v8, v12, type metadata accessor for ContextProtoStructuredContextOnScreenUIText);
-    sub_23C5EDAB0(&qword_27E1FA7B0, type metadata accessor for ContextProtoStructuredContextOnScreenUIText);
+    sub_23C5EDD24(v7, v10, type metadata accessor for ContextProtoStructuredContextOnScreenUIText);
+    sub_23C5EDAB0(&qword_27E1FA7B0, type metadata accessor for ContextProtoStructuredContextOnScreenUIText, &protocol conformance descriptor for ContextProtoStructuredContextOnScreenUIText);
     sub_23C871304();
-    return sub_23C5EDCC4(v12, type metadata accessor for ContextProtoStructuredContextOnScreenUIText);
+    return sub_23C5EDCC4(v10, type metadata accessor for ContextProtoStructuredContextOnScreenUIText);
   }
 
-  result = sub_23C5EDCC4(v8, type metadata accessor for ContextProtoStructuredContextKind);
+  result = sub_23C5EDCC4(v7, type metadata accessor for ContextProtoStructuredContextKind);
   __break(1u);
   return result;
 }
 
 uint64_t sub_23C5B9434(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA458, &qword_23C8755D0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for ContextProtoStructedContextAppContext(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_23C5855B0(a1, v8, &qword_27E1FA458, &qword_23C8755D0);
-  v13 = type metadata accessor for ContextProtoStructuredContextKind(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for ContextProtoStructedContextAppContext(0);
+  MEMORY[0x28223BE20](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_23C5855B0(a1, v7, &qword_27E1FA458, &qword_23C8755D0);
+  v11 = type metadata accessor for ContextProtoStructuredContextKind(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    sub_23C585C34(v8, &qword_27E1FA458, &qword_23C8755D0);
+    sub_23C585C34(v7, &qword_27E1FA458, &qword_23C8755D0);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 4)
   {
-    sub_23C5EDD24(v8, v12, type metadata accessor for ContextProtoStructedContextAppContext);
-    sub_23C5EDAB0(&qword_27E1FA798, type metadata accessor for ContextProtoStructedContextAppContext);
+    sub_23C5EDD24(v7, v10, type metadata accessor for ContextProtoStructedContextAppContext);
+    sub_23C5EDAB0(&qword_27E1FA798, type metadata accessor for ContextProtoStructedContextAppContext, &protocol conformance descriptor for ContextProtoStructedContextAppContext);
     sub_23C871304();
-    return sub_23C5EDCC4(v12, type metadata accessor for ContextProtoStructedContextAppContext);
+    return sub_23C5EDCC4(v10, type metadata accessor for ContextProtoStructedContextAppContext);
   }
 
-  result = sub_23C5EDCC4(v8, type metadata accessor for ContextProtoStructuredContextKind);
+  result = sub_23C5EDCC4(v7, type metadata accessor for ContextProtoStructuredContextKind);
   __break(1u);
-  return result;
-}
-
-uint64_t (*sub_23C5B96EC(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_1;
-  v4 = v2 + *(a2 + 20);
   return result;
 }
 
 uint64_t sub_23C5B9740(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA98, type metadata accessor for ContextProtoStructuredContext);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA98, type metadata accessor for ContextProtoStructuredContext, &protocol conformance descriptor for ContextProtoStructuredContext);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5B97E0()
+uint64_t sub_23C5B97E0(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA6E0, type metadata accessor for ContextProtoStructuredContext);
+  sub_23C5EDAB0(&qword_27E1FA6E0, type metadata accessor for ContextProtoStructuredContext, &protocol conformance descriptor for ContextProtoStructuredContext);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5B984C()
+uint64_t sub_23C5B984C(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA6E0, type metadata accessor for ContextProtoStructuredContext);
+  sub_23C5EDAB0(&qword_27E1FA6E0, type metadata accessor for ContextProtoStructuredContext, &protocol conformance descriptor for ContextProtoStructuredContext);
 
   return sub_23C871204();
 }
@@ -6073,12 +5205,13 @@ uint64_t sub_23C5B98E8()
   return sub_23C871324();
 }
 
-uint64_t ContextProtoStructuredContextSiriRequestContext.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoStructuredContextSiriRequestContext.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   while (1)
   {
     result = sub_23C871044();
-    if (v0 || (v3 & 1) != 0)
+    if (v4 || (v10 & 1) != 0)
     {
       return result;
     }
@@ -6089,62 +5222,52 @@ uint64_t ContextProtoStructuredContextSiriRequestContext.decodeMessage<A>(decode
       case 2:
       case 3:
       case 4:
-        goto LABEL_18;
+        goto LABEL_14;
       case 5:
       case 6:
       case 7:
       case 8:
       case 9:
-        goto LABEL_4;
+        goto LABEL_3;
       case 10:
       case 11:
         sub_23C871124();
         continue;
       case 12:
-        sub_23C5BA23C();
+        sub_23C5BA23C(a1, v5, a2, a3);
         continue;
       case 13:
-        v6 = *(type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0) + 64);
+        type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
         sub_23C8710B4();
         continue;
       case 14:
-        v8 = *(type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0) + 68);
-        goto LABEL_17;
       case 15:
-        v5 = *(type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0) + 72);
-        goto LABEL_17;
-      case 16:
-        sub_23C5BA2F0();
-        continue;
-      case 17:
-        v4 = *(type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0) + 80);
-        sub_23C871134();
-        continue;
       case 18:
-        v7 = *(type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0) + 84);
-LABEL_17:
-        v0 = 0;
-LABEL_18:
+        type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
+        v4 = 0;
+LABEL_14:
         sub_23C871154();
         continue;
+      case 16:
+        sub_23C5BA2F0(a1, v5, a2, a3);
+        continue;
+      case 17:
+        type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
+        sub_23C871134();
+        continue;
       case 19:
-        v1 = *(type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0) + 88);
-        goto LABEL_3;
       case 20:
-        v10 = *(type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0) + 92);
-        goto LABEL_3;
-      case 21:
-        sub_23C5BA3A4();
-        continue;
-      case 22:
-        sub_23C5BA458();
-        continue;
       case 23:
-        v9 = *(type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0) + 104);
+        type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
+        v4 = 0;
 LABEL_3:
-        v0 = 0;
-LABEL_4:
         sub_23C871074();
+        break;
+      case 21:
+        sub_23C5BA3A4(a1, v5, a2, a3);
+        break;
+      case 22:
+        sub_23C5BA458(a1, v5, a2, a3);
         break;
       default:
         continue;
@@ -6152,33 +5275,33 @@ LABEL_4:
   }
 }
 
-uint64_t sub_23C5BA23C()
+uint64_t sub_23C5BA23C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0) + 60);
+  type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
   type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser(0);
-  sub_23C5EDAB0(&qword_27E1FA728, type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser);
+  sub_23C5EDAB0(&qword_27E1FA728, type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextUser);
   return sub_23C8711A4();
 }
 
-uint64_t sub_23C5BA2F0()
+uint64_t sub_23C5BA2F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0) + 76);
+  type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
   type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction(0);
-  sub_23C5EDAB0(&qword_27E1FA710, type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction);
+  sub_23C5EDAB0(&qword_27E1FA710, type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextContentRestriction);
   return sub_23C8711A4();
 }
 
-uint64_t sub_23C5BA3A4()
+uint64_t sub_23C5BA3A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0) + 96);
+  type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
   type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard(0);
-  sub_23C5EDAB0(&qword_27E1FA740, type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard);
+  sub_23C5EDAB0(&qword_27E1FA740, type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextMeCard);
   return sub_23C8711A4();
 }
 
-uint64_t sub_23C5BA458()
+uint64_t sub_23C5BA458(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0) + 100);
+  type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
   sub_23C5EDBB4();
   return sub_23C871094();
 }
@@ -6188,7 +5311,6 @@ uint64_t ContextProtoStructuredContextSiriRequestContext.traverse<A>(visitor:)(u
   v7 = result;
   if (*(v3 + 24))
   {
-    v8 = *(v3 + 16);
     result = sub_23C8712C4();
   }
 
@@ -6196,19 +5318,16 @@ uint64_t ContextProtoStructuredContextSiriRequestContext.traverse<A>(visitor:)(u
   {
     if (*(v3 + 40))
     {
-      v9 = *(v3 + 32);
       sub_23C8712C4();
     }
 
     if (*(v3 + 56))
     {
-      v10 = *(v3 + 48);
       sub_23C8712C4();
     }
 
     if (*(v3 + 72))
     {
-      v11 = *(v3 + 64);
       sub_23C8712C4();
     }
 
@@ -6248,18 +5367,18 @@ uint64_t ContextProtoStructuredContextSiriRequestContext.traverse<A>(visitor:)(u
     }
 
     sub_23C5BA7FC(v3, v7, a2, a3);
-    sub_23C5BAA18(v3);
-    sub_23C5BAAB8(v3);
-    sub_23C5BAB30(v3);
+    sub_23C5BAA18(v3, v7, a2, a3);
+    sub_23C5BAAB8(v3, v7, a2, a3);
+    sub_23C5BAB30(v3, v7, a2, a3);
     sub_23C5BABA8(v3, v7, a2, a3);
-    sub_23C5BADC4(v3);
-    sub_23C5BAE3C(v3);
-    sub_23C5BAEB4(v3);
-    sub_23C5BAF2C(v3);
+    sub_23C5BADC4(v3, v7, a2, a3);
+    sub_23C5BAE3C(v3, v7, a2, a3);
+    sub_23C5BAEB4(v3, v7, a2, a3);
+    sub_23C5BAF2C(v3, v7, a2, a3);
     sub_23C5BAFA4(v3, v7, a2, a3);
-    sub_23C5BB1C0(v3);
-    sub_23C5BB24C(v3);
-    v12 = v3 + *(type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0) + 108);
+    sub_23C5BB1C0(v3, v7, a2, a3);
+    sub_23C5BB24C(v3, v7, a2, a3);
+    type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
     return sub_23C870F14();
   }
 
@@ -6268,66 +5387,60 @@ uint64_t ContextProtoStructuredContextSiriRequestContext.traverse<A>(visitor:)(u
 
 uint64_t sub_23C5BA7FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAD70, &unk_23C879180);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
-  sub_23C5855B0(a1 + *(v14 + 60), v8, &qword_27E1FAD70, &unk_23C879180);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
+  sub_23C5855B0(a1 + *(v12 + 60), v7, &qword_27E1FAD70, &unk_23C879180);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FAD70, &unk_23C879180);
+    return sub_23C585C34(v7, &qword_27E1FAD70, &unk_23C879180);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser);
-  sub_23C5EDAB0(&qword_27E1FA728, type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser);
+  sub_23C5EDAB0(&qword_27E1FA728, type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextUser);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser);
 }
 
-uint64_t sub_23C5BAA18(uint64_t a1)
+uint64_t sub_23C5BAA18(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
-  v3 = a1 + *(result + 64);
-  v4 = *(v3 + 8);
-  if (v4 >> 60 != 15)
+  v6 = a1 + *(result + 64);
+  v7 = *(v6 + 8);
+  if (v7 >> 60 != 15)
   {
-    v5 = *v3;
-    sub_23C5ACFC8(*v3, *(v3 + 8));
+    v8 = *v6;
+    sub_23C5ACFC8(*v6, *(v6 + 8));
     sub_23C871264();
-    return sub_23C5AD0AC(v5, v4);
+    return sub_23C5AD0AC(v8, v7);
   }
 
   return result;
 }
 
-uint64_t sub_23C5BAAB8(uint64_t a1)
+uint64_t sub_23C5BAAB8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
-  v3 = (a1 + *(result + 68));
-  if (v3[1])
+  if (*(a1 + *(result + 68) + 8))
   {
-    v4 = *v3;
     return sub_23C8712C4();
   }
 
   return result;
 }
 
-uint64_t sub_23C5BAB30(uint64_t a1)
+uint64_t sub_23C5BAB30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
-  v3 = (a1 + *(result + 72));
-  if (v3[1])
+  if (*(a1 + *(result + 72) + 8))
   {
-    v4 = *v3;
     return sub_23C8712C4();
   }
 
@@ -6336,57 +5449,51 @@ uint64_t sub_23C5BAB30(uint64_t a1)
 
 uint64_t sub_23C5BABA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAD60, &qword_23C879068);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
-  sub_23C5855B0(a1 + *(v14 + 76), v8, &qword_27E1FAD60, &qword_23C879068);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
+  sub_23C5855B0(a1 + *(v12 + 76), v7, &qword_27E1FAD60, &qword_23C879068);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FAD60, &qword_23C879068);
+    return sub_23C585C34(v7, &qword_27E1FAD60, &qword_23C879068);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction);
-  sub_23C5EDAB0(&qword_27E1FA710, type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction);
+  sub_23C5EDAB0(&qword_27E1FA710, type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextContentRestriction);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction);
 }
 
-uint64_t sub_23C5BADC4(uint64_t a1)
+uint64_t sub_23C5BADC4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
-  v3 = (a1 + *(result + 80));
-  if ((v3[1] & 1) == 0)
+  if ((*(a1 + *(result + 80) + 8) & 1) == 0)
   {
-    v4 = *v3;
     return sub_23C8712B4();
   }
 
   return result;
 }
 
-uint64_t sub_23C5BAE3C(uint64_t a1)
+uint64_t sub_23C5BAE3C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
-  v3 = (a1 + *(result + 84));
-  if (v3[1])
+  if (*(a1 + *(result + 84) + 8))
   {
-    v4 = *v3;
     return sub_23C8712C4();
   }
 
   return result;
 }
 
-uint64_t sub_23C5BAEB4(uint64_t a1)
+uint64_t sub_23C5BAEB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
   if (*(a1 + *(result + 88)) != 2)
@@ -6397,7 +5504,7 @@ uint64_t sub_23C5BAEB4(uint64_t a1)
   return result;
 }
 
-uint64_t sub_23C5BAF2C(uint64_t a1)
+uint64_t sub_23C5BAF2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
   if (*(a1 + *(result + 92)) != 2)
@@ -6410,36 +5517,33 @@ uint64_t sub_23C5BAF2C(uint64_t a1)
 
 uint64_t sub_23C5BAFA4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAD50, &unk_23C879190);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
-  sub_23C5855B0(a1 + *(v14 + 96), v8, &qword_27E1FAD50, &unk_23C879190);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
+  sub_23C5855B0(a1 + *(v12 + 96), v7, &qword_27E1FAD50, &unk_23C879190);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FAD50, &unk_23C879190);
+    return sub_23C585C34(v7, &qword_27E1FAD50, &unk_23C879190);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard);
-  sub_23C5EDAB0(&qword_27E1FA740, type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard);
+  sub_23C5EDAB0(&qword_27E1FA740, type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextMeCard);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard);
 }
 
-uint64_t sub_23C5BB1C0(uint64_t a1)
+uint64_t sub_23C5BB1C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
   if (*(a1 + *(result + 100)) != 12)
   {
-    v3 = *(a1 + *(result + 100));
     sub_23C5EDBB4();
     return sub_23C871254();
   }
@@ -6447,7 +5551,7 @@ uint64_t sub_23C5BB1C0(uint64_t a1)
   return result;
 }
 
-uint64_t sub_23C5BB24C(uint64_t a1)
+uint64_t sub_23C5BB24C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
   if (*(a1 + *(result + 104)) != 2)
@@ -6476,30 +5580,23 @@ uint64_t sub_23C5BB3A4(uint64_t a1, uint64_t a2)
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t (*sub_23C5BB418(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_1;
-  v4 = v2 + *(a2 + 108);
-  return result;
-}
-
 uint64_t sub_23C5BB46C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA90, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA90, type metadata accessor for ContextProtoStructuredContextSiriRequestContext, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContext);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5BB50C()
+uint64_t sub_23C5BB50C(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA6F8, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
+  sub_23C5EDAB0(&qword_27E1FA6F8, type metadata accessor for ContextProtoStructuredContextSiriRequestContext, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContext);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5BB578()
+uint64_t sub_23C5BB578(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA6F8, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
+  sub_23C5EDAB0(&qword_27E1FA6F8, type metadata accessor for ContextProtoStructuredContextSiriRequestContext, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContext);
 
   return sub_23C871204();
 }
@@ -6548,12 +5645,12 @@ uint64_t sub_23C5BB614()
   return sub_23C871324();
 }
 
-uint64_t ContextProtoStructuredContextSiriRequestContextContentRestriction.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoStructuredContextSiriRequestContextContentRestriction.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = sub_23C871044();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       return result;
     }
@@ -6582,42 +5679,38 @@ LABEL_2:
   }
 }
 
-uint64_t ContextProtoStructuredContextSiriRequestContextContentRestriction.traverse<A>(visitor:)()
+uint64_t ContextProtoStructuredContextSiriRequestContextContentRestriction.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if ((v0[1] & 1) == 0)
+  if ((*(v3 + 4) & 1) == 0)
   {
-    v2 = *v0;
-    result = sub_23C871284();
+    v5 = sub_23C871284();
   }
 
-  if (!v1)
+  if (!v4)
   {
-    if (*(v0 + 2))
+    if (*(v3 + 16))
     {
-      v4 = *(v0 + 1);
       sub_23C8712C4();
     }
 
-    if ((v0[7] & 1) == 0)
+    if ((*(v3 + 28) & 1) == 0)
     {
-      v5 = v0[6];
       sub_23C871284();
     }
 
-    if ((v0[9] & 1) == 0)
+    if ((*(v3 + 36) & 1) == 0)
     {
-      v6 = v0[8];
       sub_23C871284();
     }
 
-    v7 = v0 + *(type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction(0) + 32);
+    type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction(0);
     return sub_23C870F14();
   }
 
-  return result;
+  return v5;
 }
 
-uint64_t sub_23C5BBA7C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_23C5BBA7C@<X0>(uint64_t a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 4) = 1;
@@ -6627,27 +5720,26 @@ uint64_t sub_23C5BBA7C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   *(a2 + 28) = 1;
   *(a2 + 32) = 0;
   *(a2 + 36) = 1;
-  v2 = a2 + *(a1 + 32);
   return _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
 }
 
 uint64_t sub_23C5BBB08(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA88, type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA88, type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextContentRestriction);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5BBBA8()
+uint64_t sub_23C5BBBA8(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA710, type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction);
+  sub_23C5EDAB0(&qword_27E1FA710, type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextContentRestriction);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5BBC14()
+uint64_t sub_23C5BBC14(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA710, type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction);
+  sub_23C5EDAB0(&qword_27E1FA710, type metadata accessor for ContextProtoStructuredContextSiriRequestContextContentRestriction, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextContentRestriction);
 
   return sub_23C871204();
 }
@@ -6688,12 +5780,12 @@ uint64_t sub_23C5BBCB0()
   return sub_23C871324();
 }
 
-uint64_t ContextProtoStructuredContextSiriRequestContextUser.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoStructuredContextSiriRequestContextUser.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = sub_23C871044();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       switch(result)
       {
@@ -6716,30 +5808,30 @@ uint64_t ContextProtoStructuredContextSiriRequestContextUser.decodeMessage<A>(de
   return result;
 }
 
-uint64_t ContextProtoStructuredContextSiriRequestContextUser.traverse<A>(visitor:)()
+uint64_t ContextProtoStructuredContextSiriRequestContextUser.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (*(v0 + 8))
+  v7 = result;
+  if (*(v3 + 8))
   {
-    v2 = *v0;
     result = sub_23C8712C4();
   }
 
-  if (!v1)
+  if (!v4)
   {
-    if (*(v0 + 16) != 2)
+    if (*(v3 + 16) != 2)
     {
       sub_23C871244();
     }
 
-    sub_23C5BC08C(v0);
-    v4 = v0 + *(type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser(0) + 28);
+    sub_23C5BC08C(v3, v7, a2, a3);
+    type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser(0);
     return sub_23C870F14();
   }
 
   return result;
 }
 
-uint64_t sub_23C5BC08C(uint64_t result)
+uint64_t sub_23C5BC08C(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (*(result + 17) != 5)
   {
@@ -6750,39 +5842,31 @@ uint64_t sub_23C5BC08C(uint64_t result)
   return result;
 }
 
-uint64_t sub_23C5BC150@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_23C5BC150@<X0>(uint64_t a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 8) = 0;
   *(a2 + 16) = 1282;
-  v2 = a2 + *(a1 + 28);
   return _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
-}
-
-uint64_t (*sub_23C5BC198(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_1;
-  v4 = v2 + *(a2 + 28);
-  return result;
 }
 
 uint64_t sub_23C5BC1EC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA80, type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA80, type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextUser);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5BC28C()
+uint64_t sub_23C5BC28C(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA728, type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser);
+  sub_23C5EDAB0(&qword_27E1FA728, type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextUser);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5BC2F8()
+uint64_t sub_23C5BC2F8(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA728, type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser);
+  sub_23C5EDAB0(&qword_27E1FA728, type metadata accessor for ContextProtoStructuredContextSiriRequestContextUser, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextUser);
 
   return sub_23C871204();
 }
@@ -6845,14 +5929,14 @@ uint64_t sub_23C5BC394()
   return sub_23C871324();
 }
 
-uint64_t ContextProtoStructuredContextSiriRequestContextMeCard.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoStructuredContextSiriRequestContextMeCard.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = sub_23C871044();
-  if (!v0)
+  if (!v3)
   {
     while (1)
     {
-      if (v2)
+      if (v5)
       {
         return result;
       }
@@ -6869,7 +5953,7 @@ LABEL_4:
         if (result == 6)
         {
           type metadata accessor for ContextProtoStructuredContextSiriRequestContextAddress(0);
-          sub_23C5EDAB0(&qword_27E1FA480, type metadata accessor for ContextProtoStructuredContextSiriRequestContextAddress);
+          sub_23C5EDAB0(&qword_27E1FA480, type metadata accessor for ContextProtoStructuredContextSiriRequestContextAddress, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextAddress);
           sub_23C871194();
         }
       }
@@ -6887,91 +5971,78 @@ LABEL_5:
   return result;
 }
 
-uint64_t ContextProtoStructuredContextSiriRequestContextMeCard.traverse<A>(visitor:)()
+uint64_t ContextProtoStructuredContextSiriRequestContextMeCard.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (v0[2])
+  if (v3[2])
   {
-    v2 = v0[1];
-    result = sub_23C8712C4();
+    v5 = sub_23C8712C4();
   }
 
-  if (!v1)
+  if (!v4)
   {
-    if (v0[4])
+    if (v3[4])
     {
-      v4 = v0[3];
       sub_23C8712C4();
     }
 
-    if (v0[6])
+    if (v3[6])
     {
-      v5 = v0[5];
       sub_23C8712C4();
     }
 
-    if (v0[8])
+    if (v3[8])
     {
-      v6 = v0[7];
       sub_23C8712C4();
     }
 
-    if (v0[10])
+    if (v3[10])
     {
-      v7 = v0[9];
       sub_23C8712C4();
     }
 
-    if (*(*v0 + 16))
+    if (*(*v3 + 16))
     {
       type metadata accessor for ContextProtoStructuredContextSiriRequestContextAddress(0);
-      sub_23C5EDAB0(&qword_27E1FA480, type metadata accessor for ContextProtoStructuredContextSiriRequestContextAddress);
+      sub_23C5EDAB0(&qword_27E1FA480, type metadata accessor for ContextProtoStructuredContextSiriRequestContextAddress, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextAddress);
       sub_23C8712F4();
     }
 
-    v8 = v0 + *(type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard(0) + 40);
+    type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard(0);
     return sub_23C870F14();
   }
 
-  return result;
+  return v5;
 }
 
-uint64_t sub_23C5BC9A4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_23C5BC9A4@<X0>(uint64_t a2@<X8>)
 {
   *(a2 + 72) = 0u;
   *(a2 + 56) = 0u;
   *(a2 + 40) = 0u;
   *(a2 + 24) = 0u;
   *(a2 + 8) = 0u;
-  v3 = a2 + *(a1 + 40);
   result = _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
   *a2 = MEMORY[0x277D84F90];
   return result;
 }
 
-uint64_t (*sub_23C5BCA10(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_1;
-  v4 = v2 + *(a2 + 40);
-  return result;
-}
-
 uint64_t sub_23C5BCA64(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA78, type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA78, type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextMeCard);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5BCB04()
+uint64_t sub_23C5BCB04(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA740, type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard);
+  sub_23C5EDAB0(&qword_27E1FA740, type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextMeCard);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5BCB70()
+uint64_t sub_23C5BCB70(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA740, type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard);
+  sub_23C5EDAB0(&qword_27E1FA740, type metadata accessor for ContextProtoStructuredContextSiriRequestContextMeCard, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextMeCard);
 
   return sub_23C871204();
 }
@@ -7034,14 +6105,14 @@ uint64_t sub_23C5BCC0C()
   return sub_23C871324();
 }
 
-uint64_t ContextProtoStructuredContextSiriRequestContextAddress.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoStructuredContextSiriRequestContextAddress.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = sub_23C871044();
-  if (!v0)
+  if (!v3)
   {
     while (1)
     {
-      if (v2)
+      if (v5)
       {
         return result;
       }
@@ -7067,54 +6138,48 @@ LABEL_11:
   return result;
 }
 
-uint64_t ContextProtoStructuredContextSiriRequestContextAddress.traverse<A>(visitor:)()
+uint64_t ContextProtoStructuredContextSiriRequestContextAddress.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (v0[1])
+  if (v3[1])
   {
-    v2 = *v0;
-    result = sub_23C8712C4();
+    v5 = sub_23C8712C4();
   }
 
-  if (!v1)
+  if (!v4)
   {
-    if (v0[3])
+    if (v3[3])
     {
-      v4 = v0[2];
       sub_23C8712C4();
     }
 
-    if (v0[5])
+    if (v3[5])
     {
-      v5 = v0[4];
       sub_23C8712C4();
     }
 
-    if (v0[7])
+    if (v3[7])
     {
-      v6 = v0[6];
       sub_23C8712C4();
     }
 
-    if (v0[9])
+    if (v3[9])
     {
-      v7 = v0[8];
       sub_23C8712C4();
     }
 
-    if (v0[11])
+    if (v3[11])
     {
-      v8 = v0[10];
       sub_23C8712C4();
     }
 
-    v9 = v0 + *(type metadata accessor for ContextProtoStructuredContextSiriRequestContextAddress(0) + 40);
+    type metadata accessor for ContextProtoStructuredContextSiriRequestContextAddress(0);
     return sub_23C870F14();
   }
 
-  return result;
+  return v5;
 }
 
-uint64_t sub_23C5BD148@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
+uint64_t sub_23C5BD148@<X0>(_OWORD *a2@<X8>)
 {
   a2[4] = 0u;
   a2[5] = 0u;
@@ -7122,27 +6187,26 @@ uint64_t sub_23C5BD148@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
   a2[3] = 0u;
   *a2 = 0u;
   a2[1] = 0u;
-  v2 = a2 + *(a1 + 40);
   return _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
 }
 
 uint64_t sub_23C5BD1C4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA70, type metadata accessor for ContextProtoStructuredContextSiriRequestContextAddress);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA70, type metadata accessor for ContextProtoStructuredContextSiriRequestContextAddress, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextAddress);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5BD264()
+uint64_t sub_23C5BD264(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA480, type metadata accessor for ContextProtoStructuredContextSiriRequestContextAddress);
+  sub_23C5EDAB0(&qword_27E1FA480, type metadata accessor for ContextProtoStructuredContextSiriRequestContextAddress, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextAddress);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5BD2D0()
+uint64_t sub_23C5BD2D0(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA480, type metadata accessor for ContextProtoStructuredContextSiriRequestContextAddress);
+  sub_23C5EDAB0(&qword_27E1FA480, type metadata accessor for ContextProtoStructuredContextSiriRequestContextAddress, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContextAddress);
 
   return sub_23C871204();
 }
@@ -7205,12 +6269,12 @@ uint64_t sub_23C5BD36C()
   return sub_23C871324();
 }
 
-uint64_t ContextProtoStructuredContextIntelligenceCommandContext.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoStructuredContextIntelligenceCommandContext.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = sub_23C871044();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       return result;
     }
@@ -7243,49 +6307,46 @@ LABEL_2:
   }
 }
 
-uint64_t ContextProtoStructuredContextIntelligenceCommandContext.traverse<A>(visitor:)()
+uint64_t ContextProtoStructuredContextIntelligenceCommandContext.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  result = *v0;
-  v3 = *(v0 + 8);
-  v4 = HIBYTE(v3) & 0xF;
-  if ((v3 & 0x2000000000000000) == 0)
+  result = *v3;
+  v6 = *(v3 + 8);
+  v7 = HIBYTE(v6) & 0xF;
+  if ((v6 & 0x2000000000000000) == 0)
   {
-    v4 = *v0 & 0xFFFFFFFFFFFFLL;
+    v7 = *v3 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v4 || (result = sub_23C8712C4(), !v1))
+  if (!v7 || (result = sub_23C8712C4(), !v4))
   {
-    if (*(v0 + 40))
+    if (*(v3 + 40))
     {
-      v5 = *(v0 + 32);
       result = sub_23C8712C4();
     }
 
-    if (!v1)
+    if (!v4)
     {
-      if (*(v0 + 56))
+      if (*(v3 + 56))
       {
-        v6 = *(v0 + 48);
         sub_23C8712C4();
       }
 
-      if (*(v0 + 72))
+      if (*(v3 + 72))
       {
-        v7 = *(v0 + 64);
         sub_23C8712C4();
       }
 
-      if (*(v0 + 16) == 1)
+      if (*(v3 + 16) == 1)
       {
         sub_23C871244();
       }
 
-      if (*(*(v0 + 24) + 16))
+      if (*(*(v3 + 24) + 16))
       {
         sub_23C8712A4();
       }
 
-      v8 = v0 + *(type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext(0) + 40);
+      type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext(0);
       return sub_23C870F14();
     }
   }
@@ -7293,12 +6354,11 @@ uint64_t ContextProtoStructuredContextIntelligenceCommandContext.traverse<A>(vis
   return result;
 }
 
-uint64_t sub_23C5BD8EC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_23C5BD8EC@<X0>(uint64_t a2@<X8>)
 {
   *(a2 + 48) = 0u;
   *(a2 + 64) = 0u;
   *(a2 + 32) = 0u;
-  v3 = a2 + *(a1 + 40);
   result = _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
   *a2 = 0;
   *(a2 + 8) = 0xE000000000000000;
@@ -7327,21 +6387,21 @@ uint64_t sub_23C5BD9CC(uint64_t a1, uint64_t a2)
 
 uint64_t sub_23C5BDA70(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA68, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA68, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext, &protocol conformance descriptor for ContextProtoStructuredContextIntelligenceCommandContext);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5BDB10()
+uint64_t sub_23C5BDB10(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA768, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext);
+  sub_23C5EDAB0(&qword_27E1FA768, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext, &protocol conformance descriptor for ContextProtoStructuredContextIntelligenceCommandContext);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5BDB7C()
+uint64_t sub_23C5BDB7C(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA768, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext);
+  sub_23C5EDAB0(&qword_27E1FA768, type metadata accessor for ContextProtoStructuredContextIntelligenceCommandContext, &protocol conformance descriptor for ContextProtoStructuredContextIntelligenceCommandContext);
 
   return sub_23C871204();
 }
@@ -7382,12 +6442,12 @@ uint64_t sub_23C5BDC18()
   return sub_23C871324();
 }
 
-uint64_t ContextProtoStructedContextAppInFocusContext.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoStructedContextAppInFocusContext.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = sub_23C871044();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       break;
     }
@@ -7406,33 +6466,31 @@ uint64_t ContextProtoStructedContextAppInFocusContext.decodeMessage<A>(decoder:)
   return result;
 }
 
-uint64_t ContextProtoStructedContextAppInFocusContext.traverse<A>(visitor:)()
+uint64_t ContextProtoStructedContextAppInFocusContext.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  result = *v0;
-  v3 = v0[1];
-  v4 = HIBYTE(v3) & 0xF;
-  if ((v3 & 0x2000000000000000) == 0)
+  result = *v3;
+  v6 = v3[1];
+  v7 = HIBYTE(v6) & 0xF;
+  if ((v6 & 0x2000000000000000) == 0)
   {
-    v4 = *v0 & 0xFFFFFFFFFFFFLL;
+    v7 = *v3 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v4 || (result = sub_23C8712C4(), !v1))
+  if (!v7 || (result = sub_23C8712C4(), !v4))
   {
-    if (v0[3])
+    if (v3[3])
     {
-      v5 = v0[2];
       result = sub_23C8712C4();
     }
 
-    if (!v1)
+    if (!v4)
     {
-      if (v0[5])
+      if (v3[5])
       {
-        v6 = v0[4];
         sub_23C8712C4();
       }
 
-      v7 = v0 + *(type metadata accessor for ContextProtoStructedContextAppInFocusContext(0) + 28);
+      type metadata accessor for ContextProtoStructedContextAppInFocusContext(0);
       return sub_23C870F14();
     }
   }
@@ -7440,11 +6498,10 @@ uint64_t ContextProtoStructedContextAppInFocusContext.traverse<A>(visitor:)()
   return result;
 }
 
-uint64_t sub_23C5BE018@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_23C5BE018@<X0>(uint64_t a2@<X8>)
 {
   *(a2 + 16) = 0u;
   *(a2 + 32) = 0u;
-  v3 = a2 + *(a1 + 28);
   result = _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
   *a2 = 0;
   *(a2 + 8) = 0xE000000000000000;
@@ -7453,21 +6510,21 @@ uint64_t sub_23C5BE018@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_23C5BE0A0(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA60, type metadata accessor for ContextProtoStructedContextAppInFocusContext);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA60, type metadata accessor for ContextProtoStructedContextAppInFocusContext, &protocol conformance descriptor for ContextProtoStructedContextAppInFocusContext);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5BE140()
+uint64_t sub_23C5BE140(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA780, type metadata accessor for ContextProtoStructedContextAppInFocusContext);
+  sub_23C5EDAB0(&qword_27E1FA780, type metadata accessor for ContextProtoStructedContextAppInFocusContext, &protocol conformance descriptor for ContextProtoStructedContextAppInFocusContext);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5BE1AC()
+uint64_t sub_23C5BE1AC(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA780, type metadata accessor for ContextProtoStructedContextAppInFocusContext);
+  sub_23C5EDAB0(&qword_27E1FA780, type metadata accessor for ContextProtoStructedContextAppInFocusContext, &protocol conformance descriptor for ContextProtoStructedContextAppInFocusContext);
 
   return sub_23C871204();
 }
@@ -7516,12 +6573,12 @@ uint64_t sub_23C5BE248()
   return sub_23C871324();
 }
 
-uint64_t ContextProtoStructedContextAppContext.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoStructedContextAppContext.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = sub_23C871044();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       return result;
     }
@@ -7552,38 +6609,36 @@ LABEL_12:
   }
 }
 
-uint64_t ContextProtoStructedContextAppContext.traverse<A>(visitor:)()
+uint64_t ContextProtoStructedContextAppContext.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  result = *v0;
-  v3 = *(v0 + 8);
-  v4 = HIBYTE(v3) & 0xF;
-  if ((v3 & 0x2000000000000000) == 0)
+  result = *v3;
+  v6 = *(v3 + 8);
+  v7 = HIBYTE(v6) & 0xF;
+  if ((v6 & 0x2000000000000000) == 0)
   {
-    v4 = *v0 & 0xFFFFFFFFFFFFLL;
+    v7 = *v3 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v4 || (result = sub_23C8712C4(), !v1))
+  if (!v7 || (result = sub_23C8712C4(), !v4))
   {
-    if (*(v0 + 32))
+    if (*(v3 + 32))
     {
-      v5 = *(v0 + 24);
       result = sub_23C8712C4();
     }
 
-    if (!v1)
+    if (!v4)
     {
-      if (*(v0 + 48))
+      if (*(v3 + 48))
       {
-        v6 = *(v0 + 40);
         sub_23C8712C4();
       }
 
-      if (*(v0 + 16) == 1)
+      if (*(v3 + 16) == 1)
       {
         sub_23C871244();
       }
 
-      v7 = v0 + *(type metadata accessor for ContextProtoStructedContextAppContext(0) + 32);
+      type metadata accessor for ContextProtoStructedContextAppContext(0);
       return sub_23C870F14();
     }
   }
@@ -7591,11 +6646,10 @@ uint64_t ContextProtoStructedContextAppContext.traverse<A>(visitor:)()
   return result;
 }
 
-uint64_t sub_23C5BE6D0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_23C5BE6D0@<X0>(uint64_t a2@<X8>)
 {
   *(a2 + 40) = 0u;
   *(a2 + 24) = 0u;
-  v3 = a2 + *(a1 + 32);
   result = _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
   *a2 = 0;
   *(a2 + 8) = 0xE000000000000000;
@@ -7605,21 +6659,21 @@ uint64_t sub_23C5BE6D0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_23C5BE760(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA58, type metadata accessor for ContextProtoStructedContextAppContext);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA58, type metadata accessor for ContextProtoStructedContextAppContext, &protocol conformance descriptor for ContextProtoStructedContextAppContext);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5BE800()
+uint64_t sub_23C5BE800(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA798, type metadata accessor for ContextProtoStructedContextAppContext);
+  sub_23C5EDAB0(&qword_27E1FA798, type metadata accessor for ContextProtoStructedContextAppContext, &protocol conformance descriptor for ContextProtoStructedContextAppContext);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5BE86C()
+uint64_t sub_23C5BE86C(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA798, type metadata accessor for ContextProtoStructedContextAppContext);
+  sub_23C5EDAB0(&qword_27E1FA798, type metadata accessor for ContextProtoStructedContextAppContext, &protocol conformance descriptor for ContextProtoStructedContextAppContext);
 
   return sub_23C871204();
 }
@@ -7660,137 +6714,131 @@ uint64_t sub_23C5BE908()
   return sub_23C871324();
 }
 
-uint64_t sub_23C5BEB80()
+uint64_t sub_23C5BEB80(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoStructuredContextOnScreenUIText(0) + 20);
+  type metadata accessor for ContextProtoStructuredContextOnScreenUIText(0);
   type metadata accessor for ContextProtoCGRect(0);
-  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect);
+  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect, &protocol conformance descriptor for ContextProtoCGRect);
   return sub_23C8711A4();
 }
 
-uint64_t sub_23C5BEC34()
+uint64_t sub_23C5BEC34(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoStructuredContextOnScreenUIText(0) + 24);
+  type metadata accessor for ContextProtoStructuredContextOnScreenUIText(0);
   type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadata(0);
-  sub_23C5EDAB0(&qword_27E1FA7C8, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadata);
+  sub_23C5EDAB0(&qword_27E1FA7C8, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadata, &protocol conformance descriptor for ContextProtoStructuredContextOnScreenUITextUIMetadata);
   return sub_23C8711A4();
 }
 
 uint64_t sub_23C5BED3C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAD18, &unk_23C879170);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ContextProtoCGRect(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoStructuredContextOnScreenUIText(0);
-  sub_23C5855B0(a1 + *(v14 + 20), v8, &qword_27E1FAD18, &unk_23C879170);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoCGRect(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoStructuredContextOnScreenUIText(0);
+  sub_23C5855B0(a1 + *(v12 + 20), v7, &qword_27E1FAD18, &unk_23C879170);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FAD18, &unk_23C879170);
+    return sub_23C585C34(v7, &qword_27E1FAD18, &unk_23C879170);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoCGRect);
-  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoCGRect);
+  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect, &protocol conformance descriptor for ContextProtoCGRect);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoCGRect);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoCGRect);
 }
 
 uint64_t sub_23C5BEF58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAD38, &qword_23C879050);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadata(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoStructuredContextOnScreenUIText(0);
-  sub_23C5855B0(a1 + *(v14 + 24), v8, &qword_27E1FAD38, &qword_23C879050);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadata(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoStructuredContextOnScreenUIText(0);
+  sub_23C5855B0(a1 + *(v12 + 24), v7, &qword_27E1FAD38, &qword_23C879050);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FAD38, &qword_23C879050);
+    return sub_23C585C34(v7, &qword_27E1FAD38, &qword_23C879050);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadata);
-  sub_23C5EDAB0(&qword_27E1FA7C8, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadata);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadata);
+  sub_23C5EDAB0(&qword_27E1FA7C8, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadata, &protocol conformance descriptor for ContextProtoStructuredContextOnScreenUITextUIMetadata);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadata);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadata);
 }
 
 uint64_t sub_23C5BF238(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA50, type metadata accessor for ContextProtoStructuredContextOnScreenUIText);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA50, type metadata accessor for ContextProtoStructuredContextOnScreenUIText, &protocol conformance descriptor for ContextProtoStructuredContextOnScreenUIText);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5BF2D8()
+uint64_t sub_23C5BF2D8(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA7B0, type metadata accessor for ContextProtoStructuredContextOnScreenUIText);
+  sub_23C5EDAB0(&qword_27E1FA7B0, type metadata accessor for ContextProtoStructuredContextOnScreenUIText, &protocol conformance descriptor for ContextProtoStructuredContextOnScreenUIText);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5BF344()
+uint64_t sub_23C5BF344(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA7B0, type metadata accessor for ContextProtoStructuredContextOnScreenUIText);
+  sub_23C5EDAB0(&qword_27E1FA7B0, type metadata accessor for ContextProtoStructuredContextOnScreenUIText, &protocol conformance descriptor for ContextProtoStructuredContextOnScreenUIText);
 
   return sub_23C871204();
 }
 
 uint64_t sub_23C5BF4BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[3] = a4;
-  v15[1] = a3;
+  v13[3] = a4;
+  v13[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAD28, &unk_23C8791A0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v15 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_23C5855B0(a1, v8, &qword_27E1FAD28, &unk_23C8791A0);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_23C5855B0(a1, v7, &qword_27E1FAD28, &unk_23C8791A0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FAD28, &unk_23C8791A0);
+    return sub_23C585C34(v7, &qword_27E1FAD28, &unk_23C8791A0);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow);
-  sub_23C5EDAB0(&qword_27E1FA7E0, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow);
+  sub_23C5EDAB0(&qword_27E1FA7E0, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow, &protocol conformance descriptor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow);
 }
 
 uint64_t sub_23C5BF77C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA48, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadata);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA48, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadata, &protocol conformance descriptor for ContextProtoStructuredContextOnScreenUITextUIMetadata);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5BF81C()
+uint64_t sub_23C5BF81C(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA7C8, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadata);
+  sub_23C5EDAB0(&qword_27E1FA7C8, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadata, &protocol conformance descriptor for ContextProtoStructuredContextOnScreenUITextUIMetadata);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5BF888()
+uint64_t sub_23C5BF888(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA7C8, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadata);
+  sub_23C5EDAB0(&qword_27E1FA7C8, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadata, &protocol conformance descriptor for ContextProtoStructuredContextOnScreenUITextUIMetadata);
 
   return sub_23C871204();
 }
@@ -7839,12 +6887,13 @@ uint64_t sub_23C5BF924()
   return sub_23C871324();
 }
 
-uint64_t ContextProtoStructuredContextOnScreenUITextUIMetadataWindow.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoStructuredContextOnScreenUITextUIMetadataWindow.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   while (1)
   {
     result = sub_23C871044();
-    if (v0 || (v3 & 1) != 0)
+    if (v4 || (v10 & 1) != 0)
     {
       break;
     }
@@ -7853,13 +6902,13 @@ uint64_t ContextProtoStructuredContextOnScreenUITextUIMetadataWindow.decodeMessa
     {
       if (result == 3)
       {
-        v1 = *(type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow(0) + 24);
+        type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow(0);
         sub_23C871134();
       }
 
       else if (result == 4)
       {
-        v4 = *(type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow(0) + 28);
+        type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow(0);
         sub_23C871154();
       }
     }
@@ -7871,18 +6920,18 @@ uint64_t ContextProtoStructuredContextOnScreenUITextUIMetadataWindow.decodeMessa
 
     else if (result == 2)
     {
-      sub_23C5BFC98();
+      sub_23C5BFC98(a1, v5, a2, a3);
     }
   }
 
   return result;
 }
 
-uint64_t sub_23C5BFC98()
+uint64_t sub_23C5BFC98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow(0) + 20);
+  type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow(0);
   type metadata accessor for ContextProtoCGRect(0);
-  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect);
+  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect, &protocol conformance descriptor for ContextProtoCGRect);
   return sub_23C8711A4();
 }
 
@@ -7893,9 +6942,9 @@ uint64_t ContextProtoStructuredContextOnScreenUITextUIMetadataWindow.traverse<A>
     result = sub_23C5BFE20(v3, a1, a2, a3);
     if (!v4)
     {
-      sub_23C5C003C(v3);
-      sub_23C5C00B4(v3);
-      v9 = &v3[*(type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow(0) + 32)];
+      sub_23C5C003C(v3, a1, a2, a3);
+      sub_23C5C00B4(v3, a1, a2, a3);
+      type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow(0);
       return sub_23C870F14();
     }
   }
@@ -7905,50 +6954,44 @@ uint64_t ContextProtoStructuredContextOnScreenUITextUIMetadataWindow.traverse<A>
 
 uint64_t sub_23C5BFE20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAD18, &unk_23C879170);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ContextProtoCGRect(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow(0);
-  sub_23C5855B0(a1 + *(v14 + 20), v8, &qword_27E1FAD18, &unk_23C879170);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoCGRect(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow(0);
+  sub_23C5855B0(a1 + *(v12 + 20), v7, &qword_27E1FAD18, &unk_23C879170);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FAD18, &unk_23C879170);
+    return sub_23C585C34(v7, &qword_27E1FAD18, &unk_23C879170);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoCGRect);
-  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoCGRect);
+  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect, &protocol conformance descriptor for ContextProtoCGRect);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoCGRect);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoCGRect);
 }
 
-uint64_t sub_23C5C003C(uint64_t a1)
+uint64_t sub_23C5C003C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow(0);
-  v3 = (a1 + *(result + 24));
-  if ((v3[1] & 1) == 0)
+  if ((*(a1 + *(result + 24) + 8) & 1) == 0)
   {
-    v4 = *v3;
     return sub_23C8712B4();
   }
 
   return result;
 }
 
-uint64_t sub_23C5C00B4(uint64_t a1)
+uint64_t sub_23C5C00B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow(0);
-  v3 = (a1 + *(result + 28));
-  if (v3[1])
+  if (*(a1 + *(result + 28) + 8))
   {
-    v4 = *v3;
     return sub_23C8712C4();
   }
 
@@ -7967,7 +7010,6 @@ uint64_t sub_23C5C0178@<X0>(int *a1@<X0>, _BYTE *a2@<X8>)
   v8 = &a2[v6];
   *v8 = 0;
   v8[1] = 0;
-  v9 = &a2[a1[8]];
   result = _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
   *a2 = 0;
   return result;
@@ -7975,21 +7017,21 @@ uint64_t sub_23C5C0178@<X0>(int *a1@<X0>, _BYTE *a2@<X8>)
 
 uint64_t sub_23C5C0260(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA40, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA40, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow, &protocol conformance descriptor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5C0300()
+uint64_t sub_23C5C0300(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA7E0, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow);
+  sub_23C5EDAB0(&qword_27E1FA7E0, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow, &protocol conformance descriptor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5C036C()
+uint64_t sub_23C5C036C(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA7E0, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow);
+  sub_23C5EDAB0(&qword_27E1FA7E0, type metadata accessor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow, &protocol conformance descriptor for ContextProtoStructuredContextOnScreenUITextUIMetadataWindow);
 
   return sub_23C871204();
 }
@@ -8024,23 +7066,24 @@ uint64_t sub_23C5C0410()
   return sub_23C871324();
 }
 
-uint64_t ContextProtoCGRect.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoCGRect.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   result = sub_23C871044();
-  if (!v0)
+  if (!v4)
   {
-    while ((v2 & 1) == 0)
+    while ((v10 & 1) == 0)
     {
       if (result == 1)
       {
         type metadata accessor for ContextProtoCGPoint(0);
-        sub_23C5EDAB0(&qword_27E1FA810, type metadata accessor for ContextProtoCGPoint);
+        sub_23C5EDAB0(&qword_27E1FA810, type metadata accessor for ContextProtoCGPoint, &protocol conformance descriptor for ContextProtoCGPoint);
         sub_23C8711A4();
       }
 
       else if (result == 2)
       {
-        sub_23C5C06FC();
+        sub_23C5C06FC(a1, v5, a2, a3);
       }
 
       result = sub_23C871044();
@@ -8050,82 +7093,78 @@ uint64_t ContextProtoCGRect.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t sub_23C5C06FC()
+uint64_t sub_23C5C06FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoCGRect(0) + 20);
+  type metadata accessor for ContextProtoCGRect(0);
   type metadata accessor for ContextProtoCGSize(0);
-  sub_23C5EDAB0(&qword_27E1FA828, type metadata accessor for ContextProtoCGSize);
+  sub_23C5EDAB0(&qword_27E1FA828, type metadata accessor for ContextProtoCGSize, &protocol conformance descriptor for ContextProtoCGSize);
   return sub_23C8711A4();
 }
 
 uint64_t sub_23C5C0804(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[3] = a4;
-  v15[1] = a3;
+  v13[3] = a4;
+  v13[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAD08, &qword_23C879030);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for ContextProtoCGPoint(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v15 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_23C5855B0(a1, v8, &qword_27E1FAD08, &qword_23C879030);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for ContextProtoCGPoint(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_23C5855B0(a1, v7, &qword_27E1FAD08, &qword_23C879030);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FAD08, &qword_23C879030);
+    return sub_23C585C34(v7, &qword_27E1FAD08, &qword_23C879030);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoCGPoint);
-  sub_23C5EDAB0(&qword_27E1FA810, type metadata accessor for ContextProtoCGPoint);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoCGPoint);
+  sub_23C5EDAB0(&qword_27E1FA810, type metadata accessor for ContextProtoCGPoint, &protocol conformance descriptor for ContextProtoCGPoint);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoCGPoint);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoCGPoint);
 }
 
 uint64_t sub_23C5C0A14(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FACF8, &unk_23C8791B0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ContextProtoCGSize(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoCGRect(0);
-  sub_23C5855B0(a1 + *(v14 + 20), v8, &qword_27E1FACF8, &unk_23C8791B0);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoCGSize(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoCGRect(0);
+  sub_23C5855B0(a1 + *(v12 + 20), v7, &qword_27E1FACF8, &unk_23C8791B0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FACF8, &unk_23C8791B0);
+    return sub_23C585C34(v7, &qword_27E1FACF8, &unk_23C8791B0);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoCGSize);
-  sub_23C5EDAB0(&qword_27E1FA828, type metadata accessor for ContextProtoCGSize);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoCGSize);
+  sub_23C5EDAB0(&qword_27E1FA828, type metadata accessor for ContextProtoCGSize, &protocol conformance descriptor for ContextProtoCGSize);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoCGSize);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoCGSize);
 }
 
 uint64_t sub_23C5C0CFC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA38, type metadata accessor for ContextProtoCGRect);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA38, type metadata accessor for ContextProtoCGRect, &protocol conformance descriptor for ContextProtoCGRect);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5C0D9C()
+uint64_t sub_23C5C0D9C(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect);
+  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect, &protocol conformance descriptor for ContextProtoCGRect);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5C0E08()
+uint64_t sub_23C5C0E08(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect);
+  sub_23C5EDAB0(&qword_27E1FA7F8, type metadata accessor for ContextProtoCGRect, &protocol conformance descriptor for ContextProtoCGRect);
 
   return sub_23C871204();
 }
@@ -8162,21 +7201,21 @@ uint64_t sub_23C5C0EAC()
 
 uint64_t sub_23C5C115C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA30, type metadata accessor for ContextProtoCGPoint);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA30, type metadata accessor for ContextProtoCGPoint, &protocol conformance descriptor for ContextProtoCGPoint);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5C11FC()
+uint64_t sub_23C5C11FC(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA810, type metadata accessor for ContextProtoCGPoint);
+  sub_23C5EDAB0(&qword_27E1FA810, type metadata accessor for ContextProtoCGPoint, &protocol conformance descriptor for ContextProtoCGPoint);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5C1268()
+uint64_t sub_23C5C1268(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA810, type metadata accessor for ContextProtoCGPoint);
+  sub_23C5EDAB0(&qword_27E1FA810, type metadata accessor for ContextProtoCGPoint, &protocol conformance descriptor for ContextProtoCGPoint);
 
   return sub_23C871204();
 }
@@ -8211,12 +7250,12 @@ uint64_t sub_23C5C1308()
   return sub_23C871324();
 }
 
-uint64_t sub_23C5C150C()
+uint64_t sub_23C5C150C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = sub_23C871044();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       break;
     }
@@ -8230,13 +7269,13 @@ uint64_t sub_23C5C150C()
   return result;
 }
 
-uint64_t sub_23C5C15B8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
+uint64_t sub_23C5C15B8(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void))
 {
   if (*v4 == 0.0 || (result = sub_23C8712B4(), !v5))
   {
     if (v4[1] == 0.0 || (result = sub_23C8712B4(), !v5))
     {
-      v7 = v4 + *(a4(0) + 24);
+      a4(0);
       return sub_23C870F14();
     }
   }
@@ -8251,29 +7290,29 @@ uint64_t sub_23C5C1694(double *a1, double *a2, uint64_t (*a3)(void))
     return 0;
   }
 
-  v3 = *(a3(0) + 24);
+  a3(0);
   sub_23C870F34();
-  sub_23C5EDAB0(&qword_27E1FA448, MEMORY[0x277D216C8]);
+  sub_23C5EDAB0(&qword_27E1FA448, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return sub_23C871754() & 1;
 }
 
 uint64_t sub_23C5C17D8(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA28, type metadata accessor for ContextProtoCGSize);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA28, type metadata accessor for ContextProtoCGSize, &protocol conformance descriptor for ContextProtoCGSize);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5C1878()
+uint64_t sub_23C5C1878(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA828, type metadata accessor for ContextProtoCGSize);
+  sub_23C5EDAB0(&qword_27E1FA828, type metadata accessor for ContextProtoCGSize, &protocol conformance descriptor for ContextProtoCGSize);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5C18E4()
+uint64_t sub_23C5C18E4(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA828, type metadata accessor for ContextProtoCGSize);
+  sub_23C5EDAB0(&qword_27E1FA828, type metadata accessor for ContextProtoCGSize, &protocol conformance descriptor for ContextProtoCGSize);
 
   return sub_23C871204();
 }
@@ -8285,9 +7324,8 @@ uint64_t sub_23C5C1960(double *a1, double *a2, uint64_t a3)
     return 0;
   }
 
-  v3 = *(a3 + 24);
   sub_23C870F34();
-  sub_23C5EDAB0(&qword_27E1FA448, MEMORY[0x277D216C8]);
+  sub_23C5EDAB0(&qword_27E1FA448, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return sub_23C871754() & 1;
 }
 
@@ -8369,14 +7407,15 @@ uint64_t sub_23C5C1A30()
   return sub_23C871324();
 }
 
-uint64_t ContextProtoVersionedQueryDecorationOutput.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoVersionedQueryDecorationOutput.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   result = sub_23C871044();
-  if (!v0)
+  if (!v4)
   {
     while (1)
     {
-      if (v2)
+      if (v10)
       {
         return result;
       }
@@ -8397,11 +7436,11 @@ uint64_t ContextProtoVersionedQueryDecorationOutput.decodeMessage<A>(decoder:)()
             goto LABEL_5;
           }
 
-          v3 = v0;
+          v11 = v4;
           type metadata accessor for ContextProtoSpanMatchedEntity(0);
-          sub_23C5EDAB0(&qword_27E1FA4E0, type metadata accessor for ContextProtoSpanMatchedEntity);
+          sub_23C5EDAB0(&qword_27E1FA4E0, type metadata accessor for ContextProtoSpanMatchedEntity, &protocol conformance descriptor for ContextProtoSpanMatchedEntity);
 LABEL_23:
-          v0 = v3;
+          v4 = v11;
 LABEL_25:
           sub_23C871194();
           goto LABEL_5;
@@ -8412,7 +7451,7 @@ LABEL_25:
           goto LABEL_4;
         }
 
-        sub_23C5C2070();
+        sub_23C5C2070(a1, v5, a2, a3);
       }
 
       else
@@ -8427,21 +7466,21 @@ LABEL_4:
           }
 
           type metadata accessor for ContextProtoDynamicEnumerationEntity(0);
-          sub_23C5EDAB0(&qword_27E1FA4E8, type metadata accessor for ContextProtoDynamicEnumerationEntity);
+          sub_23C5EDAB0(&qword_27E1FA4E8, type metadata accessor for ContextProtoDynamicEnumerationEntity, &protocol conformance descriptor for ContextProtoDynamicEnumerationEntity);
           goto LABEL_25;
         }
 
-        v3 = v0;
+        v11 = v4;
         switch(result)
         {
           case 8:
             type metadata accessor for ContextProtoRetrievedContext(0);
-            sub_23C5EDAB0(&qword_27E1FA4F0, type metadata accessor for ContextProtoRetrievedContext);
+            sub_23C5EDAB0(&qword_27E1FA4F0, type metadata accessor for ContextProtoRetrievedContext, &protocol conformance descriptor for ContextProtoRetrievedContext);
             goto LABEL_23;
           case 9:
             goto LABEL_4;
           case 10:
-            v4 = *(type metadata accessor for ContextProtoVersionedQueryDecorationOutput(0) + 48);
+            type metadata accessor for ContextProtoVersionedQueryDecorationOutput(0);
             sub_23C871154();
             break;
         }
@@ -8455,17 +7494,17 @@ LABEL_5:
   return result;
 }
 
-uint64_t sub_23C5C2070()
+uint64_t sub_23C5C2070(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoVersionedQueryDecorationOutput(0) + 44);
+  type metadata accessor for ContextProtoVersionedQueryDecorationOutput(0);
   type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse(0);
-  sub_23C5EDAB0(&qword_27E1FA948, type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse);
+  sub_23C5EDAB0(&qword_27E1FA948, type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse, &protocol conformance descriptor for ContextProtoQueryDecorationToolRetrievalResponse);
   return sub_23C8711A4();
 }
 
 uint64_t ContextProtoVersionedQueryDecorationOutput.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (!*(*v3 + 16) || (type metadata accessor for ContextProtoSpanMatchedEntity(0), sub_23C5EDAB0(&qword_27E1FA4E0, type metadata accessor for ContextProtoSpanMatchedEntity), result = sub_23C8712F4(), !v4))
+  if (!*(*v3 + 16) || (type metadata accessor for ContextProtoSpanMatchedEntity(0), sub_23C5EDAB0(&qword_27E1FA4E0, type metadata accessor for ContextProtoSpanMatchedEntity, &protocol conformance descriptor for ContextProtoSpanMatchedEntity), result = sub_23C8712F4(), !v4))
   {
     if (*(v3 + 8) != 1 || (result = sub_23C871244(), !v4))
     {
@@ -8475,7 +7514,7 @@ uint64_t ContextProtoVersionedQueryDecorationOutput.traverse<A>(visitor:)(uint64
         if (*(*(v3 + 16) + 16))
         {
           type metadata accessor for ContextProtoDynamicEnumerationEntity(0);
-          sub_23C5EDAB0(&qword_27E1FA4E8, type metadata accessor for ContextProtoDynamicEnumerationEntity);
+          sub_23C5EDAB0(&qword_27E1FA4E8, type metadata accessor for ContextProtoDynamicEnumerationEntity, &protocol conformance descriptor for ContextProtoDynamicEnumerationEntity);
           sub_23C8712F4();
         }
 
@@ -8487,7 +7526,7 @@ uint64_t ContextProtoVersionedQueryDecorationOutput.traverse<A>(visitor:)(uint64
         if (*(*(v3 + 32) + 16))
         {
           type metadata accessor for ContextProtoRetrievedContext(0);
-          sub_23C5EDAB0(&qword_27E1FA4F0, type metadata accessor for ContextProtoRetrievedContext);
+          sub_23C5EDAB0(&qword_27E1FA4F0, type metadata accessor for ContextProtoRetrievedContext, &protocol conformance descriptor for ContextProtoRetrievedContext);
           sub_23C8712F4();
         }
 
@@ -8496,8 +7535,8 @@ uint64_t ContextProtoVersionedQueryDecorationOutput.traverse<A>(visitor:)(uint64
           sub_23C871244();
         }
 
-        sub_23C5C25C8(v3);
-        v9 = v3 + *(type metadata accessor for ContextProtoVersionedQueryDecorationOutput(0) + 52);
+        sub_23C5C25C8(v3, a1, a2, a3);
+        type metadata accessor for ContextProtoVersionedQueryDecorationOutput(0);
         return sub_23C870F14();
       }
     }
@@ -8508,59 +7547,54 @@ uint64_t ContextProtoVersionedQueryDecorationOutput.traverse<A>(visitor:)(uint64
 
 uint64_t sub_23C5C23AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FACE0, &unk_23C8A13B0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
+  v7 = v14 - v6;
   DecorationToolRetrievalResponse = type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse(0);
-  v10 = *(DecorationToolRetrievalResponse - 8);
-  v11 = *(v10 + 64);
+  v9 = *(DecorationToolRetrievalResponse - 8);
   MEMORY[0x28223BE20](DecorationToolRetrievalResponse);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   DecorationOutput = type metadata accessor for ContextProtoVersionedQueryDecorationOutput(0);
-  sub_23C5855B0(a1 + *(DecorationOutput + 44), v8, &qword_27E1FACE0, &unk_23C8A13B0);
-  if ((*(v10 + 48))(v8, 1, DecorationToolRetrievalResponse) == 1)
+  sub_23C5855B0(a1 + *(DecorationOutput + 44), v7, &qword_27E1FACE0, &unk_23C8A13B0);
+  if ((*(v9 + 48))(v7, 1, DecorationToolRetrievalResponse) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FACE0, &unk_23C8A13B0);
+    return sub_23C585C34(v7, &qword_27E1FACE0, &unk_23C8A13B0);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse);
-  sub_23C5EDAB0(&qword_27E1FA948, type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse);
+  sub_23C5EDAB0(&qword_27E1FA948, type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse, &protocol conformance descriptor for ContextProtoQueryDecorationToolRetrievalResponse);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse);
 }
 
-uint64_t sub_23C5C25C8(uint64_t a1)
+uint64_t sub_23C5C25C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ContextProtoVersionedQueryDecorationOutput(0);
-  v3 = (a1 + *(result + 48));
-  if (v3[1])
+  if (*(a1 + *(result + 48) + 8))
   {
-    v4 = *v3;
     return sub_23C8712C4();
   }
 
   return result;
 }
 
-uint64_t sub_23C5C268C@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_23C5C268C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = a1[11];
+  v4 = *(a1 + 44);
   DecorationToolRetrievalResponse = type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse(0);
   (*(*(DecorationToolRetrievalResponse - 8) + 56))(a2 + v4, 1, 1, DecorationToolRetrievalResponse);
-  v6 = a1[13];
-  v7 = (a2 + a1[12]);
-  *v7 = 0;
-  v7[1] = 0;
+  v6 = (a2 + *(a1 + 48));
+  *v6 = 0;
+  v6[1] = 0;
   result = _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
-  v9 = MEMORY[0x277D84F90];
+  v8 = MEMORY[0x277D84F90];
   *a2 = MEMORY[0x277D84F90];
   *(a2 + 8) = 0;
-  *(a2 + 16) = v9;
+  *(a2 + 16) = v8;
   *(a2 + 24) = 0;
-  *(a2 + 32) = v9;
+  *(a2 + 32) = v8;
   *(a2 + 40) = 0;
   return result;
 }
@@ -8583,30 +7617,23 @@ uint64_t sub_23C5C27C0(uint64_t a1, uint64_t a2)
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t (*sub_23C5C2834(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_1;
-  v4 = v2 + *(a2 + 52);
-  return result;
-}
-
 uint64_t sub_23C5C2888(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA20, type metadata accessor for ContextProtoVersionedQueryDecorationOutput);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA20, type metadata accessor for ContextProtoVersionedQueryDecorationOutput, &protocol conformance descriptor for ContextProtoVersionedQueryDecorationOutput);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5C2928()
+uint64_t sub_23C5C2928(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA840, type metadata accessor for ContextProtoVersionedQueryDecorationOutput);
+  sub_23C5EDAB0(&qword_27E1FA840, type metadata accessor for ContextProtoVersionedQueryDecorationOutput, &protocol conformance descriptor for ContextProtoVersionedQueryDecorationOutput);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5C2994()
+uint64_t sub_23C5C2994(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA840, type metadata accessor for ContextProtoVersionedQueryDecorationOutput);
+  sub_23C5EDAB0(&qword_27E1FA840, type metadata accessor for ContextProtoVersionedQueryDecorationOutput, &protocol conformance descriptor for ContextProtoVersionedQueryDecorationOutput);
 
   return sub_23C871204();
 }
@@ -8710,14 +7737,15 @@ uint64_t sub_23C5C2AA4()
   return sub_23C871324();
 }
 
-uint64_t ContextProtoQueryDecorationOutput.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoQueryDecorationOutput.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   result = sub_23C871044();
-  if (!v0)
+  if (!v4)
   {
     while (1)
     {
-      if (v2)
+      if (v10)
       {
         return result;
       }
@@ -8726,19 +7754,19 @@ uint64_t ContextProtoQueryDecorationOutput.decodeMessage<A>(decoder:)()
       {
         if (result > 23)
         {
-          v3 = v0;
+          v11 = v4;
           switch(result)
           {
             case 24:
               type metadata accessor for ContextProtoRetrievedContext(0);
-              sub_23C5EDAB0(&qword_27E1FA4F0, type metadata accessor for ContextProtoRetrievedContext);
+              sub_23C5EDAB0(&qword_27E1FA4F0, type metadata accessor for ContextProtoRetrievedContext, &protocol conformance descriptor for ContextProtoRetrievedContext);
               goto LABEL_29;
             case 25:
 LABEL_4:
               sub_23C871084();
               break;
             case 26:
-              v4 = *(type metadata accessor for ContextProtoQueryDecorationOutput(0) + 60);
+              type metadata accessor for ContextProtoQueryDecorationOutput(0);
               sub_23C871154();
               break;
           }
@@ -8751,9 +7779,9 @@ LABEL_4:
             case 15:
               goto LABEL_4;
             case 22:
-              v3 = v0;
+              v11 = v4;
               type metadata accessor for ContextProtoDynamicEnumerationEntity(0);
-              sub_23C5EDAB0(&qword_27E1FA4E8, type metadata accessor for ContextProtoDynamicEnumerationEntity);
+              sub_23C5EDAB0(&qword_27E1FA4E8, type metadata accessor for ContextProtoDynamicEnumerationEntity, &protocol conformance descriptor for ContextProtoDynamicEnumerationEntity);
               goto LABEL_29;
             case 23:
               goto LABEL_4;
@@ -8770,26 +7798,26 @@ LABEL_4:
             goto LABEL_4;
           }
 
-          v3 = v0;
+          v11 = v4;
           type metadata accessor for ContextProtoSpanMatchedEntity(0);
-          sub_23C5EDAB0(&qword_27E1FA4E0, type metadata accessor for ContextProtoSpanMatchedEntity);
+          sub_23C5EDAB0(&qword_27E1FA4E0, type metadata accessor for ContextProtoSpanMatchedEntity, &protocol conformance descriptor for ContextProtoSpanMatchedEntity);
           goto LABEL_29;
         }
 
         if (result == 3 || result == 4)
         {
-          v3 = v0;
+          v11 = v4;
           type metadata accessor for ContextProtoRetrievedContext(0);
-          sub_23C5EDAB0(&qword_27E1FA4F0, type metadata accessor for ContextProtoRetrievedContext);
+          sub_23C5EDAB0(&qword_27E1FA4F0, type metadata accessor for ContextProtoRetrievedContext, &protocol conformance descriptor for ContextProtoRetrievedContext);
 LABEL_29:
-          v0 = v3;
+          v4 = v11;
           sub_23C871194();
           goto LABEL_5;
         }
 
         if (result == 11)
         {
-          sub_23C5C3220();
+          sub_23C5C3220(a1, v5, a2, a3);
         }
       }
 
@@ -8801,19 +7829,19 @@ LABEL_5:
   return result;
 }
 
-uint64_t sub_23C5C3220()
+uint64_t sub_23C5C3220(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoQueryDecorationOutput(0) + 56);
+  type metadata accessor for ContextProtoQueryDecorationOutput(0);
   type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse(0);
-  sub_23C5EDAB0(&qword_27E1FA948, type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse);
+  sub_23C5EDAB0(&qword_27E1FA948, type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse, &protocol conformance descriptor for ContextProtoQueryDecorationToolRetrievalResponse);
   return sub_23C8711A4();
 }
 
 uint64_t ContextProtoQueryDecorationOutput.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (!*(*(v3 + 16) + 16) || (type metadata accessor for ContextProtoRetrievedContext(0), sub_23C5EDAB0(&qword_27E1FA4F0, type metadata accessor for ContextProtoRetrievedContext), result = sub_23C8712F4(), !v4))
+  if (!*(*(v3 + 16) + 16) || (type metadata accessor for ContextProtoRetrievedContext(0), sub_23C5EDAB0(&qword_27E1FA4F0, type metadata accessor for ContextProtoRetrievedContext, &protocol conformance descriptor for ContextProtoRetrievedContext), result = sub_23C8712F4(), !v4))
   {
-    if (!*(*(v3 + 32) + 16) || (type metadata accessor for ContextProtoRetrievedContext(0), sub_23C5EDAB0(&qword_27E1FA4F0, type metadata accessor for ContextProtoRetrievedContext), result = sub_23C8712F4(), !v4))
+    if (!*(*(v3 + 32) + 16) || (type metadata accessor for ContextProtoRetrievedContext(0), sub_23C5EDAB0(&qword_27E1FA4F0, type metadata accessor for ContextProtoRetrievedContext, &protocol conformance descriptor for ContextProtoRetrievedContext), result = sub_23C8712F4(), !v4))
     {
       result = sub_23C5C36A4(v3, a1, a2, a3);
       if (!v4)
@@ -8821,7 +7849,7 @@ uint64_t ContextProtoQueryDecorationOutput.traverse<A>(visitor:)(uint64_t a1, ui
         if (*(*v3 + 16))
         {
           type metadata accessor for ContextProtoSpanMatchedEntity(0);
-          sub_23C5EDAB0(&qword_27E1FA4E0, type metadata accessor for ContextProtoSpanMatchedEntity);
+          sub_23C5EDAB0(&qword_27E1FA4E0, type metadata accessor for ContextProtoSpanMatchedEntity, &protocol conformance descriptor for ContextProtoSpanMatchedEntity);
           sub_23C8712F4();
         }
 
@@ -8843,7 +7871,7 @@ uint64_t ContextProtoQueryDecorationOutput.traverse<A>(visitor:)(uint64_t a1, ui
         if (*(*(v3 + 48) + 16))
         {
           type metadata accessor for ContextProtoDynamicEnumerationEntity(0);
-          sub_23C5EDAB0(&qword_27E1FA4E8, type metadata accessor for ContextProtoDynamicEnumerationEntity);
+          sub_23C5EDAB0(&qword_27E1FA4E8, type metadata accessor for ContextProtoDynamicEnumerationEntity, &protocol conformance descriptor for ContextProtoDynamicEnumerationEntity);
           sub_23C8712F4();
         }
 
@@ -8855,7 +7883,7 @@ uint64_t ContextProtoQueryDecorationOutput.traverse<A>(visitor:)(uint64_t a1, ui
         if (*(*(v3 + 64) + 16))
         {
           type metadata accessor for ContextProtoRetrievedContext(0);
-          sub_23C5EDAB0(&qword_27E1FA4F0, type metadata accessor for ContextProtoRetrievedContext);
+          sub_23C5EDAB0(&qword_27E1FA4F0, type metadata accessor for ContextProtoRetrievedContext, &protocol conformance descriptor for ContextProtoRetrievedContext);
           sub_23C8712F4();
         }
 
@@ -8864,8 +7892,8 @@ uint64_t ContextProtoQueryDecorationOutput.traverse<A>(visitor:)(uint64_t a1, ui
           sub_23C871244();
         }
 
-        sub_23C5C38C0(v3);
-        v9 = v3 + *(type metadata accessor for ContextProtoQueryDecorationOutput(0) + 64);
+        sub_23C5C38C0(v3, a1, a2, a3);
+        type metadata accessor for ContextProtoQueryDecorationOutput(0);
         return sub_23C870F14();
       }
     }
@@ -8876,63 +7904,58 @@ uint64_t ContextProtoQueryDecorationOutput.traverse<A>(visitor:)(uint64_t a1, ui
 
 uint64_t sub_23C5C36A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FACE0, &unk_23C8A13B0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
+  v7 = v14 - v6;
   DecorationToolRetrievalResponse = type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse(0);
-  v10 = *(DecorationToolRetrievalResponse - 8);
-  v11 = *(v10 + 64);
+  v9 = *(DecorationToolRetrievalResponse - 8);
   MEMORY[0x28223BE20](DecorationToolRetrievalResponse);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   DecorationOutput = type metadata accessor for ContextProtoQueryDecorationOutput(0);
-  sub_23C5855B0(a1 + *(DecorationOutput + 56), v8, &qword_27E1FACE0, &unk_23C8A13B0);
-  if ((*(v10 + 48))(v8, 1, DecorationToolRetrievalResponse) == 1)
+  sub_23C5855B0(a1 + *(DecorationOutput + 56), v7, &qword_27E1FACE0, &unk_23C8A13B0);
+  if ((*(v9 + 48))(v7, 1, DecorationToolRetrievalResponse) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FACE0, &unk_23C8A13B0);
+    return sub_23C585C34(v7, &qword_27E1FACE0, &unk_23C8A13B0);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse);
-  sub_23C5EDAB0(&qword_27E1FA948, type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse);
+  sub_23C5EDAB0(&qword_27E1FA948, type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse, &protocol conformance descriptor for ContextProtoQueryDecorationToolRetrievalResponse);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse);
 }
 
-uint64_t sub_23C5C38C0(uint64_t a1)
+uint64_t sub_23C5C38C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ContextProtoQueryDecorationOutput(0);
-  v3 = (a1 + *(result + 60));
-  if (v3[1])
+  if (*(a1 + *(result + 60) + 8))
   {
-    v4 = *v3;
     return sub_23C8712C4();
   }
 
   return result;
 }
 
-uint64_t sub_23C5C3984@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_23C5C3984@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = a1[14];
+  v4 = *(a1 + 56);
   DecorationToolRetrievalResponse = type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse(0);
   (*(*(DecorationToolRetrievalResponse - 8) + 56))(a2 + v4, 1, 1, DecorationToolRetrievalResponse);
-  v6 = a1[16];
-  v7 = (a2 + a1[15]);
-  *v7 = 0;
-  v7[1] = 0;
+  v6 = (a2 + *(a1 + 60));
+  *v6 = 0;
+  v6[1] = 0;
   result = _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
-  v9 = MEMORY[0x277D84F90];
+  v8 = MEMORY[0x277D84F90];
   *a2 = MEMORY[0x277D84F90];
   *(a2 + 8) = 0;
-  *(a2 + 16) = v9;
+  *(a2 + 16) = v8;
   *(a2 + 24) = 0;
-  *(a2 + 32) = v9;
+  *(a2 + 32) = v8;
   *(a2 + 40) = 0;
-  *(a2 + 48) = v9;
+  *(a2 + 48) = v8;
   *(a2 + 56) = 0;
-  *(a2 + 64) = v9;
+  *(a2 + 64) = v8;
   *(a2 + 72) = 0;
   return result;
 }
@@ -8955,30 +7978,23 @@ uint64_t sub_23C5C3AC8(uint64_t a1, uint64_t a2)
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t (*sub_23C5C3B3C(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_1;
-  v4 = v2 + *(a2 + 64);
-  return result;
-}
-
 uint64_t sub_23C5C3B90(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA18, type metadata accessor for ContextProtoQueryDecorationOutput);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA18, type metadata accessor for ContextProtoQueryDecorationOutput, &protocol conformance descriptor for ContextProtoQueryDecorationOutput);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5C3C30()
+uint64_t sub_23C5C3C30(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA868, type metadata accessor for ContextProtoQueryDecorationOutput);
+  sub_23C5EDAB0(&qword_27E1FA868, type metadata accessor for ContextProtoQueryDecorationOutput, &protocol conformance descriptor for ContextProtoQueryDecorationOutput);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5C3C9C()
+uint64_t sub_23C5C3C9C(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA868, type metadata accessor for ContextProtoQueryDecorationOutput);
+  sub_23C5EDAB0(&qword_27E1FA868, type metadata accessor for ContextProtoQueryDecorationOutput, &protocol conformance descriptor for ContextProtoQueryDecorationOutput);
 
   return sub_23C871204();
 }
@@ -9047,14 +8063,14 @@ uint64_t sub_23C5C3D38()
   return sub_23C871324();
 }
 
-uint64_t ContextProtoQueryDecorationInput.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoQueryDecorationInput.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = sub_23C871044();
-  if (!v0)
+  if (!v3)
   {
     while (1)
     {
-      if (v2)
+      if (v5)
       {
         return result;
       }
@@ -9102,58 +8118,53 @@ LABEL_4:
   return result;
 }
 
-uint64_t ContextProtoQueryDecorationInput.traverse<A>(visitor:)()
+uint64_t ContextProtoQueryDecorationInput.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  result = *v0;
-  v3 = *(v0 + 8);
-  v4 = HIBYTE(v3) & 0xF;
-  if ((v3 & 0x2000000000000000) == 0)
+  result = *v3;
+  v6 = *(v3 + 8);
+  v7 = HIBYTE(v6) & 0xF;
+  if ((v6 & 0x2000000000000000) == 0)
   {
-    v4 = *v0 & 0xFFFFFFFFFFFFLL;
+    v7 = *v3 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v4 || (result = sub_23C8712C4(), !v1))
+  if (!v7 || (result = sub_23C8712C4(), !v4))
   {
-    if (*(v0 + 40))
+    if (*(v3 + 40))
     {
-      v5 = *(v0 + 32);
       result = sub_23C8712C4();
     }
 
-    if (!v1)
+    if (!v4)
     {
-      if (*(v0 + 16))
+      if (*(v3 + 16))
       {
-        v10 = *(v0 + 16);
         sub_23C5EA738();
         sub_23C871254();
       }
 
-      if (*(v0 + 56))
+      if (*(v3 + 56))
       {
-        v6 = *(v0 + 48);
         sub_23C8712C4();
       }
 
-      if (*(v0 + 72))
+      if (*(v3 + 72))
       {
-        v7 = *(v0 + 64);
         sub_23C8712C4();
       }
 
-      if (*(*(v0 + 24) + 16))
+      if (*(*(v3 + 24) + 16))
       {
         sub_23C5EA78C();
         sub_23C871234();
       }
 
-      if (*(v0 + 88))
+      if (*(v3 + 88))
       {
-        v8 = *(v0 + 80);
         sub_23C8712C4();
       }
 
-      v9 = v0 + *(type metadata accessor for ContextProtoQueryDecorationInput(0) + 44);
+      type metadata accessor for ContextProtoQueryDecorationInput(0);
       return sub_23C870F14();
     }
   }
@@ -9161,13 +8172,12 @@ uint64_t ContextProtoQueryDecorationInput.traverse<A>(visitor:)()
   return result;
 }
 
-uint64_t sub_23C5C43BC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_23C5C43BC@<X0>(uint64_t a2@<X8>)
 {
   *(a2 + 64) = 0u;
   *(a2 + 80) = 0u;
   *(a2 + 32) = 0u;
   *(a2 + 48) = 0u;
-  v3 = a2 + *(a1 + 44);
   result = _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
   *a2 = 0;
   *(a2 + 8) = 0xE000000000000000;
@@ -9196,21 +8206,21 @@ uint64_t sub_23C5C449C(uint64_t a1, uint64_t a2)
 
 uint64_t sub_23C5C4540(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA10, type metadata accessor for ContextProtoQueryDecorationInput);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA10, type metadata accessor for ContextProtoQueryDecorationInput, &protocol conformance descriptor for ContextProtoQueryDecorationInput);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5C45E0()
+uint64_t sub_23C5C45E0(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA880, type metadata accessor for ContextProtoQueryDecorationInput);
+  sub_23C5EDAB0(&qword_27E1FA880, type metadata accessor for ContextProtoQueryDecorationInput, &protocol conformance descriptor for ContextProtoQueryDecorationInput);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5C464C()
+uint64_t sub_23C5C464C(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA880, type metadata accessor for ContextProtoQueryDecorationInput);
+  sub_23C5EDAB0(&qword_27E1FA880, type metadata accessor for ContextProtoQueryDecorationInput, &protocol conformance descriptor for ContextProtoQueryDecorationInput);
 
   return sub_23C871204();
 }
@@ -9279,39 +8289,38 @@ uint64_t sub_23C5C4960(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_
   return result;
 }
 
-uint64_t sub_23C5C4A2C()
+uint64_t sub_23C5C4A2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoDynamicEnumerationEntity(0) + 20);
+  type metadata accessor for ContextProtoDynamicEnumerationEntity(0);
   type metadata accessor for ToolKitProtoTypeInstance(0);
-  sub_23C5EDAB0(&qword_27E1FACD8, type metadata accessor for ToolKitProtoTypeInstance);
+  sub_23C5EDAB0(&qword_27E1FACD8, type metadata accessor for ToolKitProtoTypeInstance, &protocol conformance descriptor for ToolKitProtoTypeInstance);
   return sub_23C8711A4();
 }
 
-uint64_t sub_23C5C4AE0()
+uint64_t sub_23C5C4AE0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoDynamicEnumerationEntity(0) + 24);
+  type metadata accessor for ContextProtoDynamicEnumerationEntity(0);
   type metadata accessor for ToolKitProtoTypedValue(0);
-  sub_23C5EDAB0(&qword_27E1FAC90, type metadata accessor for ToolKitProtoTypedValue);
+  sub_23C5EDAB0(&qword_27E1FAC90, type metadata accessor for ToolKitProtoTypedValue, &protocol conformance descriptor for ToolKitProtoTypedValue);
   return sub_23C8711A4();
 }
 
-uint64_t sub_23C5C4BE8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t *, uint64_t, uint64_t, uint64_t), void (*a5)(uint64_t *, uint64_t, uint64_t, uint64_t), uint64_t (*a6)(void))
+uint64_t sub_23C5C4BE8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *, uint64_t, uint64_t, uint64_t), void (*a5)(void *, uint64_t, uint64_t, uint64_t), void (*a6)(void))
 {
-  v14 = *v6;
-  v15 = v6[1];
-  v16 = HIBYTE(v15) & 0xF;
-  if ((v15 & 0x2000000000000000) == 0)
+  v14 = v6[1];
+  v15 = HIBYTE(v14) & 0xF;
+  if ((v14 & 0x2000000000000000) == 0)
   {
-    v16 = *v6 & 0xFFFFFFFFFFFFLL;
+    v15 = *v6 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v16 || (result = sub_23C8712C4(), !v7))
+  if (!v15 || (result = sub_23C8712C4(), !v7))
   {
     result = a4(v6, a1, a2, a3);
     if (!v7)
     {
       a5(v6, a1, a2, a3);
-      v18 = v6 + *(a6(0) + 28);
+      a6(0);
       return sub_23C870F14();
     }
   }
@@ -9321,65 +8330,60 @@ uint64_t sub_23C5C4BE8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uin
 
 uint64_t sub_23C5C4CCC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAC40, &unk_23C8791C0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ToolKitProtoTypeInstance(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoDynamicEnumerationEntity(0);
-  sub_23C5855B0(a1 + *(v14 + 20), v8, &qword_27E1FAC40, &unk_23C8791C0);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ToolKitProtoTypeInstance(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoDynamicEnumerationEntity(0);
+  sub_23C5855B0(a1 + *(v12 + 20), v7, &qword_27E1FAC40, &unk_23C8791C0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FAC40, &unk_23C8791C0);
+    return sub_23C585C34(v7, &qword_27E1FAC40, &unk_23C8791C0);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ToolKitProtoTypeInstance);
-  sub_23C5EDAB0(&qword_27E1FACD8, type metadata accessor for ToolKitProtoTypeInstance);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ToolKitProtoTypeInstance);
+  sub_23C5EDAB0(&qword_27E1FACD8, type metadata accessor for ToolKitProtoTypeInstance, &protocol conformance descriptor for ToolKitProtoTypeInstance);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ToolKitProtoTypeInstance);
+  return sub_23C5EDCC4(v11, type metadata accessor for ToolKitProtoTypeInstance);
 }
 
 uint64_t sub_23C5C4EE8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAB68, &unk_23C879140);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ToolKitProtoTypedValue(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoDynamicEnumerationEntity(0);
-  sub_23C5855B0(a1 + *(v14 + 24), v8, &qword_27E1FAB68, &unk_23C879140);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ToolKitProtoTypedValue(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoDynamicEnumerationEntity(0);
+  sub_23C5855B0(a1 + *(v12 + 24), v7, &qword_27E1FAB68, &unk_23C879140);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FAB68, &unk_23C879140);
+    return sub_23C585C34(v7, &qword_27E1FAB68, &unk_23C879140);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ToolKitProtoTypedValue);
-  sub_23C5EDAB0(&qword_27E1FAC90, type metadata accessor for ToolKitProtoTypedValue);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ToolKitProtoTypedValue);
+  sub_23C5EDAB0(&qword_27E1FAC90, type metadata accessor for ToolKitProtoTypedValue, &protocol conformance descriptor for ToolKitProtoTypedValue);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ToolKitProtoTypedValue);
+  return sub_23C5EDCC4(v11, type metadata accessor for ToolKitProtoTypedValue);
 }
 
-uint64_t sub_23C5C517C@<X0>(int *a1@<X0>, uint64_t (*a2)(void)@<X2>, uint64_t (*a3)(void)@<X3>, char *a4@<X8>)
+uint64_t sub_23C5C517C@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X2>, uint64_t (*a3)(void)@<X3>, char *a4@<X8>)
 {
-  v7 = a1[5];
+  v7 = *(a1 + 20);
   v8 = a2(0);
   (*(*(v8 - 8) + 56))(&a4[v7], 1, 1, v8);
-  v9 = a1[6];
+  v9 = *(a1 + 24);
   v10 = a3(0);
   (*(*(v10 - 8) + 56))(&a4[v9], 1, 1, v10);
-  v11 = &a4[a1[7]];
   result = _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
   *a4 = 0;
   *(a4 + 1) = 0xE000000000000000;
@@ -9388,21 +8392,21 @@ uint64_t sub_23C5C517C@<X0>(int *a1@<X0>, uint64_t (*a2)(void)@<X2>, uint64_t (*
 
 uint64_t sub_23C5C529C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA08, type metadata accessor for ContextProtoDynamicEnumerationEntity);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA08, type metadata accessor for ContextProtoDynamicEnumerationEntity, &protocol conformance descriptor for ContextProtoDynamicEnumerationEntity);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5C533C()
+uint64_t sub_23C5C533C(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA4E8, type metadata accessor for ContextProtoDynamicEnumerationEntity);
+  sub_23C5EDAB0(&qword_27E1FA4E8, type metadata accessor for ContextProtoDynamicEnumerationEntity, &protocol conformance descriptor for ContextProtoDynamicEnumerationEntity);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5C53A8()
+uint64_t sub_23C5C53A8(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA4E8, type metadata accessor for ContextProtoDynamicEnumerationEntity);
+  sub_23C5EDAB0(&qword_27E1FA4E8, type metadata accessor for ContextProtoDynamicEnumerationEntity, &protocol conformance descriptor for ContextProtoDynamicEnumerationEntity);
 
   return sub_23C871204();
 }
@@ -9451,19 +8455,20 @@ uint64_t sub_23C5C5444()
   return sub_23C871324();
 }
 
-uint64_t ContextProtoRetrievedTool.decodeMessage<A>(decoder:)()
+uint64_t ContextProtoRetrievedTool.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   result = sub_23C871044();
-  if (!v0)
+  if (!v4)
   {
-    while ((v2 & 1) == 0)
+    while ((v10 & 1) == 0)
     {
       if (result > 2)
       {
         if (result == 3)
         {
           type metadata accessor for ContextProtoSampleInvocation(0);
-          sub_23C5EDAB0(&qword_27E1FA528, type metadata accessor for ContextProtoSampleInvocation);
+          sub_23C5EDAB0(&qword_27E1FA528, type metadata accessor for ContextProtoSampleInvocation, &protocol conformance descriptor for ContextProtoSampleInvocation);
           sub_23C871194();
         }
 
@@ -9476,7 +8481,7 @@ uint64_t ContextProtoRetrievedTool.decodeMessage<A>(decoder:)()
 
       else if (result == 1)
       {
-        sub_23C5C5814();
+        sub_23C5C5814(a1, v5, a2, a3);
       }
 
       else if (result == 2)
@@ -9491,11 +8496,11 @@ uint64_t ContextProtoRetrievedTool.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t sub_23C5C5814()
+uint64_t sub_23C5C5814(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ContextProtoRetrievedTool(0) + 28);
+  type metadata accessor for ContextProtoRetrievedTool(0);
   type metadata accessor for ContextProtoRetrievedTool.Definition(0);
-  sub_23C5EDAB0(&qword_27E1FA8C8, type metadata accessor for ContextProtoRetrievedTool.Definition);
+  sub_23C5EDAB0(&qword_27E1FA8C8, type metadata accessor for ContextProtoRetrievedTool.Definition, &protocol conformance descriptor for ContextProtoRetrievedTool.Definition);
   return sub_23C8711A4();
 }
 
@@ -9512,7 +8517,7 @@ uint64_t ContextProtoRetrievedTool.traverse<A>(visitor:)(uint64_t a1, uint64_t a
     if (*(*(v3 + 8) + 16))
     {
       type metadata accessor for ContextProtoSampleInvocation(0);
-      sub_23C5EDAB0(&qword_27E1FA528, type metadata accessor for ContextProtoSampleInvocation);
+      sub_23C5EDAB0(&qword_27E1FA528, type metadata accessor for ContextProtoSampleInvocation, &protocol conformance descriptor for ContextProtoSampleInvocation);
       sub_23C8712F4();
       if (!*(v3 + 16))
       {
@@ -9523,7 +8528,7 @@ uint64_t ContextProtoRetrievedTool.traverse<A>(visitor:)(uint64_t a1, uint64_t a
     else if (!*(v3 + 16))
     {
 LABEL_9:
-      v6 = v3 + *(type metadata accessor for ContextProtoRetrievedTool(0) + 32);
+      type metadata accessor for ContextProtoRetrievedTool(0);
       return sub_23C870F14();
     }
 
@@ -9537,36 +8542,33 @@ LABEL_9:
 
 uint64_t sub_23C5C5A40(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAAD8, &qword_23C878EC0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ContextProtoRetrievedTool.Definition(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ContextProtoRetrievedTool(0);
-  sub_23C5855B0(a1 + *(v14 + 28), v8, &qword_27E1FAAD8, &qword_23C878EC0);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoRetrievedTool.Definition(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoRetrievedTool(0);
+  sub_23C5855B0(a1 + *(v12 + 28), v7, &qword_27E1FAAD8, &qword_23C878EC0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_23C585C34(v8, &qword_27E1FAAD8, &qword_23C878EC0);
+    return sub_23C585C34(v7, &qword_27E1FAAD8, &qword_23C878EC0);
   }
 
-  sub_23C5EDD24(v8, v13, type metadata accessor for ContextProtoRetrievedTool.Definition);
-  sub_23C5EDAB0(&qword_27E1FA8C8, type metadata accessor for ContextProtoRetrievedTool.Definition);
+  sub_23C5EDD24(v7, v11, type metadata accessor for ContextProtoRetrievedTool.Definition);
+  sub_23C5EDAB0(&qword_27E1FA8C8, type metadata accessor for ContextProtoRetrievedTool.Definition, &protocol conformance descriptor for ContextProtoRetrievedTool.Definition);
   sub_23C871304();
-  return sub_23C5EDCC4(v13, type metadata accessor for ContextProtoRetrievedTool.Definition);
+  return sub_23C5EDCC4(v11, type metadata accessor for ContextProtoRetrievedTool.Definition);
 }
 
 uint64_t sub_23C5C5CA8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = *(a1 + 28);
-  v5 = type metadata accessor for ContextProtoRetrievedTool.Definition(0);
-  (*(*(v5 - 8) + 56))(a2 + v4, 1, 1, v5);
-  v6 = a2 + *(a1 + 32);
+  v3 = *(a1 + 28);
+  v4 = type metadata accessor for ContextProtoRetrievedTool.Definition(0);
+  (*(*(v4 - 8) + 56))(a2 + v3, 1, 1, v4);
   result = _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
   *a2 = 0;
   *(a2 + 8) = MEMORY[0x277D84F90];
@@ -9576,21 +8578,21 @@ uint64_t sub_23C5C5CA8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_23C5C5D84(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_23C5EDAB0(&qword_27E1FAA00, type metadata accessor for ContextProtoRetrievedTool);
+  v4 = sub_23C5EDAB0(&qword_27E1FAA00, type metadata accessor for ContextProtoRetrievedTool, &protocol conformance descriptor for ContextProtoRetrievedTool);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t sub_23C5C5E24()
+uint64_t sub_23C5C5E24(uint64_t a1)
 {
-  sub_23C5EDAB0(&qword_27E1FA578, type metadata accessor for ContextProtoRetrievedTool);
+  sub_23C5EDAB0(&qword_27E1FA578, type metadata accessor for ContextProtoRetrievedTool, &protocol conformance descriptor for ContextProtoRetrievedTool);
 
   return sub_23C8711F4();
 }
 
-uint64_t sub_23C5C5E90()
+uint64_t sub_23C5C5E90(uint64_t a1, uint64_t a2)
 {
-  sub_23C5EDAB0(&qword_27E1FA578, type metadata accessor for ContextProtoRetrievedTool);
+  sub_23C5EDAB0(&qword_27E1FA578, type metadata accessor for ContextProtoRetrievedTool, &protocol conformance descriptor for ContextProtoRetrievedTool);
 
   return sub_23C871204();
 }
@@ -9755,204 +8757,1121 @@ uint64_t ContextProtoRetrievedTool.Definition.decodeMessage<A>(decoder:)(uint64_
 
 uint64_t sub_23C5C6634(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
   v5 = type metadata accessor for ToolKitProtoToolDefinition.Version1(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v44 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v43 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA540, &unk_23C8791D0);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x28223BE20](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FACA8, &unk_23C87B940);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x28223BE20](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  sub_23C5855B0(a1, v14, &qword_27E1FA540, &unk_23C8791D0);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v7 = MEMORY[0x28223BE20](v5);
+  v40 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v39 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA540, &unk_23C8791D0);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum(0);
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FACA8, &unk_23C87B940);
+  v21 = MEMORY[0x28223BE20](v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  sub_23C5855B0(a1, v12, &qword_27E1FA540, &unk_23C8791D0);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
   {
-    sub_23C585C34(v14, &qword_27E1FA540, &unk_23C8791D0);
-    v33 = v48;
-    v34 = v15;
+    sub_23C585C34(v12, &qword_27E1FA540, &unk_23C8791D0);
+    v29 = v44;
+    v30 = v13;
   }
 
   else
   {
-    sub_23C5EDD24(v14, v22, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
-    sub_23C5EDD24(v22, v20, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
-    v34 = v15;
+    sub_23C5EDD24(v12, v19, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+    sub_23C5EDD24(v19, v17, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+    v30 = v13;
     if (swift_getEnumCaseMultiPayload())
     {
-      sub_23C5EDCC4(v20, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
-      v33 = v48;
+      sub_23C5EDCC4(v17, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+      v29 = v44;
     }
 
     else
     {
-      sub_23C585C34(v28, &qword_27E1FACA8, &unk_23C87B940);
-      v35 = v43;
-      sub_23C5EDD24(v20, v43, type metadata accessor for ToolKitProtoToolDefinition.Version1);
-      sub_23C5EDD24(v35, v28, type metadata accessor for ToolKitProtoToolDefinition.Version1);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      sub_23C585C34(v24, &qword_27E1FACA8, &unk_23C87B940);
+      v31 = v39;
+      sub_23C5EDD24(v17, v39, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+      sub_23C5EDD24(v31, v24, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
     }
   }
 
-  v36 = v46;
-  sub_23C5EDAB0(&qword_27E1FACB8, type metadata accessor for ToolKitProtoToolDefinition.Version1);
-  v37 = v47;
+  v32 = v42;
+  sub_23C5EDAB0(&qword_27E1FACB8, type metadata accessor for ToolKitProtoToolDefinition.Version1, &protocol conformance descriptor for ToolKitProtoToolDefinition.Version1);
+  v33 = v43;
   sub_23C8711A4();
-  if (v37)
+  if (v33)
   {
-    return sub_23C585C34(v28, &qword_27E1FACA8, &unk_23C87B940);
+    return sub_23C585C34(v24, &qword_27E1FACA8, &unk_23C87B940);
   }
 
-  sub_23C5855B0(v28, v36, &qword_27E1FACA8, &unk_23C87B940);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  sub_23C5855B0(v24, v32, &qword_27E1FACA8, &unk_23C87B940);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
   {
-    sub_23C585C34(v28, &qword_27E1FACA8, &unk_23C87B940);
-    return sub_23C585C34(v36, &qword_27E1FACA8, &unk_23C87B940);
+    sub_23C585C34(v24, &qword_27E1FACA8, &unk_23C87B940);
+    return sub_23C585C34(v32, &qword_27E1FACA8, &unk_23C87B940);
   }
 
   else
   {
-    v39 = v44;
-    sub_23C5EDD24(v36, v44, type metadata accessor for ToolKitProtoToolDefinition.Version1);
-    if (v32 != 1)
+    v35 = v40;
+    sub_23C5EDD24(v32, v40, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+    if (v28 != 1)
     {
       sub_23C871054();
     }
 
-    sub_23C585C34(v28, &qword_27E1FACA8, &unk_23C87B940);
-    v40 = v42;
-    sub_23C585C34(v42, &qword_27E1FA540, &unk_23C8791D0);
-    sub_23C5EDD24(v39, v40, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+    sub_23C585C34(v24, &qword_27E1FACA8, &unk_23C87B940);
+    v36 = v38;
+    sub_23C585C34(v38, &qword_27E1FA540, &unk_23C8791D0);
+    sub_23C5EDD24(v35, v36, type metadata accessor for ToolKitProtoToolDefinition.Version1);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v37 + 56))(v36, 0, 1, v30);
   }
 }
 
 uint64_t sub_23C5C6BE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
   v5 = type metadata accessor for ToolKitProtoAssistantSchemaIdentifier(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA540, &unk_23C8791D0);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x28223BE20](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FACC8, &unk_23C889C50);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x28223BE20](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  sub_23C5855B0(a1, v14, &qword_27E1FA540, &unk_23C8791D0);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v7 = MEMORY[0x28223BE20](v5);
+  v39 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v40 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA540, &unk_23C8791D0);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum(0);
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FACC8, &unk_23C889C50);
+  v21 = MEMORY[0x28223BE20](v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  sub_23C5855B0(a1, v12, &qword_27E1FA540, &unk_23C8791D0);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
   {
-    sub_23C585C34(v14, &qword_27E1FA540, &unk_23C8791D0);
-    v33 = v48;
-    v34 = v15;
+    sub_23C585C34(v12, &qword_27E1FA540, &unk_23C8791D0);
+    v29 = v44;
+    v30 = v13;
   }
 
   else
   {
-    sub_23C5EDD24(v14, v22, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
-    sub_23C5EDD24(v22, v20, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
-    v34 = v15;
+    sub_23C5EDD24(v12, v19, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+    sub_23C5EDD24(v19, v17, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+    v30 = v13;
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      sub_23C585C34(v28, &qword_27E1FACC8, &unk_23C889C50);
-      v35 = v44;
-      sub_23C5EDD24(v20, v44, type metadata accessor for ToolKitProtoAssistantSchemaIdentifier);
-      sub_23C5EDD24(v35, v28, type metadata accessor for ToolKitProtoAssistantSchemaIdentifier);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      sub_23C585C34(v24, &qword_27E1FACC8, &unk_23C889C50);
+      v31 = v40;
+      sub_23C5EDD24(v17, v40, type metadata accessor for ToolKitProtoAssistantSchemaIdentifier);
+      sub_23C5EDD24(v31, v24, type metadata accessor for ToolKitProtoAssistantSchemaIdentifier);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
     }
 
     else
     {
-      sub_23C5EDCC4(v20, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
-      v33 = v48;
+      sub_23C5EDCC4(v17, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+      v29 = v44;
     }
   }
 
-  v36 = v46;
-  sub_23C5EDAB0(&qword_27E1FACC0, type metadata accessor for ToolKitProtoAssistantSchemaIdentifier);
-  v37 = v47;
+  v32 = v42;
+  sub_23C5EDAB0(&qword_27E1FACC0, type metadata accessor for ToolKitProtoAssistantSchemaIdentifier, &protocol conformance descriptor for ToolKitProtoAssistantSchemaIdentifier);
+  v33 = v43;
   sub_23C8711A4();
-  if (v37)
+  if (v33)
   {
-    return sub_23C585C34(v28, &qword_27E1FACC8, &unk_23C889C50);
+    return sub_23C585C34(v24, &qword_27E1FACC8, &unk_23C889C50);
   }
 
-  sub_23C5855B0(v28, v36, &qword_27E1FACC8, &unk_23C889C50);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  sub_23C5855B0(v24, v32, &qword_27E1FACC8, &unk_23C889C50);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
   {
-    sub_23C585C34(v28, &qword_27E1FACC8, &unk_23C889C50);
-    return sub_23C585C34(v36, &qword_27E1FACC8, &unk_23C889C50);
+    sub_23C585C34(v24, &qword_27E1FACC8, &unk_23C889C50);
+    return sub_23C585C34(v32, &qword_27E1FACC8, &unk_23C889C50);
   }
 
   else
   {
-    v39 = v43;
-    sub_23C5EDD24(v36, v43, type metadata accessor for ToolKitProtoAssistantSchemaIdentifier);
-    if (v32 != 1)
+    v35 = v39;
+    sub_23C5EDD24(v32, v39, type metadata accessor for ToolKitProtoAssistantSchemaIdentifier);
+    if (v28 != 1)
     {
       sub_23C871054();
     }
 
-    sub_23C585C34(v28, &qword_27E1FACC8, &unk_23C889C50);
-    v40 = v42;
-    sub_23C585C34(v42, &qword_27E1FA540, &unk_23C8791D0);
-    sub_23C5EDD24(v39, v40, type metadata accessor for ToolKitProtoAssistantSchemaIdentifier);
+    sub_23C585C34(v24, &qword_27E1FACC8, &unk_23C889C50);
+    v36 = v38;
+    sub_23C585C34(v38, &qword_27E1FA540, &unk_23C8791D0);
+    sub_23C5EDD24(v35, v36, type metadata accessor for ToolKitProtoAssistantSchemaIdentifier);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v37 + 56))(v36, 0, 1, v30);
   }
+}
+
+uint64_t sub_23C5C71A0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
+  v5 = type metadata accessor for ToolKitProtoToolDefinition.Version1(0);
+  v6 = *(v5 - 8);
+  v7 = MEMORY[0x28223BE20](v5);
+  v39 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v40 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA540, &unk_23C8791D0);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum(0);
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FACA8, &unk_23C87B940);
+  v21 = MEMORY[0x28223BE20](v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  sub_23C5855B0(a1, v12, &qword_27E1FA540, &unk_23C8791D0);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
+  {
+    sub_23C585C34(v12, &qword_27E1FA540, &unk_23C8791D0);
+    v29 = v44;
+    v30 = v13;
+  }
+
+  else
+  {
+    sub_23C5EDD24(v12, v19, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+    sub_23C5EDD24(v19, v17, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+    v30 = v13;
+    if (swift_getEnumCaseMultiPayload() == 2)
+    {
+      sub_23C585C34(v24, &qword_27E1FACA8, &unk_23C87B940);
+      v31 = v40;
+      sub_23C5EDD24(v17, v40, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+      sub_23C5EDD24(v31, v24, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
+    }
+
+    else
+    {
+      sub_23C5EDCC4(v17, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+      v29 = v44;
+    }
+  }
+
+  v32 = v42;
+  sub_23C5EDAB0(&qword_27E1FACB8, type metadata accessor for ToolKitProtoToolDefinition.Version1, &protocol conformance descriptor for ToolKitProtoToolDefinition.Version1);
+  v33 = v43;
+  sub_23C8711A4();
+  if (v33)
+  {
+    return sub_23C585C34(v24, &qword_27E1FACA8, &unk_23C87B940);
+  }
+
+  sub_23C5855B0(v24, v32, &qword_27E1FACA8, &unk_23C87B940);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
+  {
+    sub_23C585C34(v24, &qword_27E1FACA8, &unk_23C87B940);
+    return sub_23C585C34(v32, &qword_27E1FACA8, &unk_23C87B940);
+  }
+
+  else
+  {
+    v35 = v39;
+    sub_23C5EDD24(v32, v39, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+    if (v28 != 1)
+    {
+      sub_23C871054();
+    }
+
+    sub_23C585C34(v24, &qword_27E1FACA8, &unk_23C87B940);
+    v36 = v38;
+    sub_23C585C34(v38, &qword_27E1FA540, &unk_23C8791D0);
+    sub_23C5EDD24(v35, v36, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+    swift_storeEnumTagMultiPayload();
+    return (*(v37 + 56))(v36, 0, 1, v30);
+  }
+}
+
+uint64_t sub_23C5C775C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
+  v5 = type metadata accessor for ToolKitProtoToolDefinition.Version1(0);
+  v6 = *(v5 - 8);
+  v7 = MEMORY[0x28223BE20](v5);
+  v39 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v40 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA540, &unk_23C8791D0);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum(0);
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FACA8, &unk_23C87B940);
+  v21 = MEMORY[0x28223BE20](v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  sub_23C5855B0(a1, v12, &qword_27E1FA540, &unk_23C8791D0);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
+  {
+    sub_23C585C34(v12, &qword_27E1FA540, &unk_23C8791D0);
+    v29 = v44;
+    v30 = v13;
+  }
+
+  else
+  {
+    sub_23C5EDD24(v12, v19, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+    sub_23C5EDD24(v19, v17, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+    v30 = v13;
+    if (swift_getEnumCaseMultiPayload() == 3)
+    {
+      sub_23C585C34(v24, &qword_27E1FACA8, &unk_23C87B940);
+      v31 = v40;
+      sub_23C5EDD24(v17, v40, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+      sub_23C5EDD24(v31, v24, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
+    }
+
+    else
+    {
+      sub_23C5EDCC4(v17, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+      v29 = v44;
+    }
+  }
+
+  v32 = v42;
+  sub_23C5EDAB0(&qword_27E1FACB8, type metadata accessor for ToolKitProtoToolDefinition.Version1, &protocol conformance descriptor for ToolKitProtoToolDefinition.Version1);
+  v33 = v43;
+  sub_23C8711A4();
+  if (v33)
+  {
+    return sub_23C585C34(v24, &qword_27E1FACA8, &unk_23C87B940);
+  }
+
+  sub_23C5855B0(v24, v32, &qword_27E1FACA8, &unk_23C87B940);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
+  {
+    sub_23C585C34(v24, &qword_27E1FACA8, &unk_23C87B940);
+    return sub_23C585C34(v32, &qword_27E1FACA8, &unk_23C87B940);
+  }
+
+  else
+  {
+    v35 = v39;
+    sub_23C5EDD24(v32, v39, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+    if (v28 != 1)
+    {
+      sub_23C871054();
+    }
+
+    sub_23C585C34(v24, &qword_27E1FACA8, &unk_23C87B940);
+    v36 = v38;
+    sub_23C585C34(v38, &qword_27E1FA540, &unk_23C8791D0);
+    sub_23C5EDD24(v35, v36, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+    swift_storeEnumTagMultiPayload();
+    return (*(v37 + 56))(v36, 0, 1, v30);
+  }
+}
+
+uint64_t sub_23C5C7D18(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
+  v5 = type metadata accessor for ContextProtoUIControlTool(0);
+  v6 = *(v5 - 8);
+  v7 = MEMORY[0x28223BE20](v5);
+  v39 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v40 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA540, &unk_23C8791D0);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum(0);
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FACD0, &qword_23C879018);
+  v21 = MEMORY[0x28223BE20](v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  sub_23C5855B0(a1, v12, &qword_27E1FA540, &unk_23C8791D0);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
+  {
+    sub_23C585C34(v12, &qword_27E1FA540, &unk_23C8791D0);
+    v29 = v44;
+    v30 = v13;
+  }
+
+  else
+  {
+    sub_23C5EDD24(v12, v19, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+    sub_23C5EDD24(v19, v17, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+    v30 = v13;
+    if (swift_getEnumCaseMultiPayload() == 4)
+    {
+      sub_23C585C34(v24, &qword_27E1FACD0, &qword_23C879018);
+      v31 = v40;
+      sub_23C5EDD24(v17, v40, type metadata accessor for ContextProtoUIControlTool);
+      sub_23C5EDD24(v31, v24, type metadata accessor for ContextProtoUIControlTool);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
+    }
+
+    else
+    {
+      sub_23C5EDCC4(v17, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+      v29 = v44;
+    }
+  }
+
+  v32 = v42;
+  sub_23C5EDAB0(&qword_27E1FA8E0, type metadata accessor for ContextProtoUIControlTool, &protocol conformance descriptor for ContextProtoUIControlTool);
+  v33 = v43;
+  sub_23C8711A4();
+  if (v33)
+  {
+    return sub_23C585C34(v24, &qword_27E1FACD0, &qword_23C879018);
+  }
+
+  sub_23C5855B0(v24, v32, &qword_27E1FACD0, &qword_23C879018);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
+  {
+    sub_23C585C34(v24, &qword_27E1FACD0, &qword_23C879018);
+    return sub_23C585C34(v32, &qword_27E1FACD0, &qword_23C879018);
+  }
+
+  else
+  {
+    v35 = v39;
+    sub_23C5EDD24(v32, v39, type metadata accessor for ContextProtoUIControlTool);
+    if (v28 != 1)
+    {
+      sub_23C871054();
+    }
+
+    sub_23C585C34(v24, &qword_27E1FACD0, &qword_23C879018);
+    v36 = v38;
+    sub_23C585C34(v38, &qword_27E1FA540, &unk_23C8791D0);
+    sub_23C5EDD24(v35, v36, type metadata accessor for ContextProtoUIControlTool);
+    swift_storeEnumTagMultiPayload();
+    return (*(v37 + 56))(v36, 0, 1, v30);
+  }
+}
+
+uint64_t ContextProtoRetrievedTool.Definition.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA540, &unk_23C8791D0);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v14 - v9;
+  sub_23C5855B0(v3, &v14 - v9, &qword_27E1FA540, &unk_23C8791D0);
+  v11 = type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum(0);
+  if ((*(*(v11 - 8) + 48))(v10, 1, v11) == 1)
+  {
+    goto LABEL_12;
+  }
+
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload <= 1)
+  {
+    if (EnumCaseMultiPayload)
+    {
+      sub_23C5C8700(v3, a1, a2, a3);
+    }
+
+    else
+    {
+      sub_23C5C84CC(v3, a1, a2, a3);
+    }
+  }
+
+  else if (EnumCaseMultiPayload == 2)
+  {
+    sub_23C5C8938(v3, a1, a2, a3);
+  }
+
+  else if (EnumCaseMultiPayload == 3)
+  {
+    sub_23C5C8B70(v3, a1, a2, a3);
+  }
+
+  else
+  {
+    sub_23C5C8DA8(v3, a1, a2, a3);
+  }
+
+  result = sub_23C5EDCC4(v10, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+  if (!v4)
+  {
+LABEL_12:
+    type metadata accessor for ContextProtoRetrievedTool.Definition(0);
+    return sub_23C870F14();
+  }
+
+  return result;
+}
+
+uint64_t sub_23C5C84CC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v13[1] = a4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA540, &unk_23C8791D0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v13 - v6;
+  v8 = type metadata accessor for ToolKitProtoToolDefinition.Version1(0);
+  MEMORY[0x28223BE20](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_23C5855B0(a1, v7, &qword_27E1FA540, &unk_23C8791D0);
+  v11 = type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
+  {
+    sub_23C585C34(v7, &qword_27E1FA540, &unk_23C8791D0);
+    __break(1u);
+  }
+
+  else if (!swift_getEnumCaseMultiPayload())
+  {
+    sub_23C5EDD24(v7, v10, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+    sub_23C5EDAB0(&qword_27E1FACB8, type metadata accessor for ToolKitProtoToolDefinition.Version1, &protocol conformance descriptor for ToolKitProtoToolDefinition.Version1);
+    sub_23C871304();
+    return sub_23C5EDCC4(v10, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+  }
+
+  result = sub_23C5EDCC4(v7, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_23C5C8700(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v13[1] = a4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA540, &unk_23C8791D0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v13 - v6;
+  v8 = type metadata accessor for ToolKitProtoAssistantSchemaIdentifier(0);
+  MEMORY[0x28223BE20](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_23C5855B0(a1, v7, &qword_27E1FA540, &unk_23C8791D0);
+  v11 = type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
+  {
+    sub_23C585C34(v7, &qword_27E1FA540, &unk_23C8791D0);
+    __break(1u);
+  }
+
+  else if (swift_getEnumCaseMultiPayload() == 1)
+  {
+    sub_23C5EDD24(v7, v10, type metadata accessor for ToolKitProtoAssistantSchemaIdentifier);
+    sub_23C5EDAB0(&qword_27E1FACC0, type metadata accessor for ToolKitProtoAssistantSchemaIdentifier, &protocol conformance descriptor for ToolKitProtoAssistantSchemaIdentifier);
+    sub_23C871304();
+    return sub_23C5EDCC4(v10, type metadata accessor for ToolKitProtoAssistantSchemaIdentifier);
+  }
+
+  result = sub_23C5EDCC4(v7, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_23C5C8938(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v13[1] = a4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA540, &unk_23C8791D0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v13 - v6;
+  v8 = type metadata accessor for ToolKitProtoToolDefinition.Version1(0);
+  MEMORY[0x28223BE20](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_23C5855B0(a1, v7, &qword_27E1FA540, &unk_23C8791D0);
+  v11 = type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
+  {
+    sub_23C585C34(v7, &qword_27E1FA540, &unk_23C8791D0);
+    __break(1u);
+  }
+
+  else if (swift_getEnumCaseMultiPayload() == 2)
+  {
+    sub_23C5EDD24(v7, v10, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+    sub_23C5EDAB0(&qword_27E1FACB8, type metadata accessor for ToolKitProtoToolDefinition.Version1, &protocol conformance descriptor for ToolKitProtoToolDefinition.Version1);
+    sub_23C871304();
+    return sub_23C5EDCC4(v10, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+  }
+
+  result = sub_23C5EDCC4(v7, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_23C5C8B70(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v13[1] = a4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA540, &unk_23C8791D0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v13 - v6;
+  v8 = type metadata accessor for ToolKitProtoToolDefinition.Version1(0);
+  MEMORY[0x28223BE20](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_23C5855B0(a1, v7, &qword_27E1FA540, &unk_23C8791D0);
+  v11 = type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
+  {
+    sub_23C585C34(v7, &qword_27E1FA540, &unk_23C8791D0);
+    __break(1u);
+  }
+
+  else if (swift_getEnumCaseMultiPayload() == 3)
+  {
+    sub_23C5EDD24(v7, v10, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+    sub_23C5EDAB0(&qword_27E1FACB8, type metadata accessor for ToolKitProtoToolDefinition.Version1, &protocol conformance descriptor for ToolKitProtoToolDefinition.Version1);
+    sub_23C871304();
+    return sub_23C5EDCC4(v10, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+  }
+
+  result = sub_23C5EDCC4(v7, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_23C5C8DA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v13[1] = a4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FA540, &unk_23C8791D0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v13 - v6;
+  v8 = type metadata accessor for ContextProtoUIControlTool(0);
+  MEMORY[0x28223BE20](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_23C5855B0(a1, v7, &qword_27E1FA540, &unk_23C8791D0);
+  v11 = type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
+  {
+    sub_23C585C34(v7, &qword_27E1FA540, &unk_23C8791D0);
+    __break(1u);
+  }
+
+  else if (swift_getEnumCaseMultiPayload() == 4)
+  {
+    sub_23C5EDD24(v7, v10, type metadata accessor for ContextProtoUIControlTool);
+    sub_23C5EDAB0(&qword_27E1FA8E0, type metadata accessor for ContextProtoUIControlTool, &protocol conformance descriptor for ContextProtoUIControlTool);
+    sub_23C871304();
+    return sub_23C5EDCC4(v10, type metadata accessor for ContextProtoUIControlTool);
+  }
+
+  result = sub_23C5EDCC4(v7, type metadata accessor for ContextProtoRetrievedTool.ContextProtoDefinitionEnum);
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_23C5C9044()
+{
+  if (qword_27E1F82A8 != -1)
+  {
+    swift_once();
+  }
+
+  v0 = qword_27E1FA2F0;
+
+  return v0;
+}
+
+uint64_t sub_23C5C90DC(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_23C5EDAB0(&qword_27E1FA9F8, type metadata accessor for ContextProtoRetrievedTool.Definition, &protocol conformance descriptor for ContextProtoRetrievedTool.Definition);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t sub_23C5C917C(uint64_t a1)
+{
+  sub_23C5EDAB0(&qword_27E1FA8C8, type metadata accessor for ContextProtoRetrievedTool.Definition, &protocol conformance descriptor for ContextProtoRetrievedTool.Definition);
+
+  return sub_23C8711F4();
+}
+
+uint64_t sub_23C5C91E8(uint64_t a1, uint64_t a2)
+{
+  sub_23C5EDAB0(&qword_27E1FA8C8, type metadata accessor for ContextProtoRetrievedTool.Definition, &protocol conformance descriptor for ContextProtoRetrievedTool.Definition);
+
+  return sub_23C871204();
+}
+
+uint64_t sub_23C5C9284()
+{
+  v0 = sub_23C871344();
+  __swift_allocate_value_buffer(v0, qword_27E1FA318);
+  __swift_project_value_buffer(v0, qword_27E1FA318);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAC80, &qword_23C879000);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAC88, &qword_23C879008) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_23C873CF0;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 1;
+  *v6 = "appBundleId";
+  *(v6 + 8) = 11;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_23C871314();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "command";
+  *(v10 + 8) = 7;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "commandId";
+  *(v12 + 1) = 9;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "toolDef";
+  *(v14 + 1) = 7;
+  v14[16] = 2;
+  v9();
+  return sub_23C871324();
+}
+
+uint64_t ContextProtoUIControlTool.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  while (1)
+  {
+    result = sub_23C871044();
+    if (v4 || (v10 & 1) != 0)
+    {
+      return result;
+    }
+
+    if (result > 2)
+    {
+      if (result == 3)
+      {
+        goto LABEL_2;
+      }
+
+      if (result == 4)
+      {
+        sub_23C5C95AC(a1, v5, a2, a3);
+      }
+    }
+
+    else if (result == 1 || result == 2)
+    {
+LABEL_2:
+      sub_23C871154();
+    }
+  }
+}
+
+uint64_t sub_23C5C95AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for ContextProtoUIControlTool(0);
+  type metadata accessor for ToolKitProtoToolDefinition.Version1(0);
+  sub_23C5EDAB0(&qword_27E1FACB8, type metadata accessor for ToolKitProtoToolDefinition.Version1, &protocol conformance descriptor for ToolKitProtoToolDefinition.Version1);
+  return sub_23C8711A4();
+}
+
+uint64_t ContextProtoUIControlTool.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  v7 = result;
+  if (v3[1])
+  {
+    result = sub_23C8712C4();
+  }
+
+  if (!v4)
+  {
+    if (v3[3])
+    {
+      sub_23C8712C4();
+    }
+
+    if (v3[5])
+    {
+      sub_23C8712C4();
+    }
+
+    sub_23C5C974C(v3, v7, a2, a3);
+    type metadata accessor for ContextProtoUIControlTool(0);
+    return sub_23C870F14();
+  }
+
+  return result;
+}
+
+uint64_t sub_23C5C974C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FACA8, &unk_23C87B940);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ToolKitProtoToolDefinition.Version1(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoUIControlTool(0);
+  sub_23C5855B0(a1 + *(v12 + 28), v7, &qword_27E1FACA8, &unk_23C87B940);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_23C585C34(v7, &qword_27E1FACA8, &unk_23C87B940);
+  }
+
+  sub_23C5EDD24(v7, v11, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+  sub_23C5EDAB0(&qword_27E1FACB8, type metadata accessor for ToolKitProtoToolDefinition.Version1, &protocol conformance descriptor for ToolKitProtoToolDefinition.Version1);
+  sub_23C871304();
+  return sub_23C5EDCC4(v11, type metadata accessor for ToolKitProtoToolDefinition.Version1);
+}
+
+uint64_t sub_23C5C99B4@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
+{
+  *(a2 + 1) = 0u;
+  *(a2 + 2) = 0u;
+  *a2 = 0u;
+  v3 = *(a1 + 28);
+  v4 = type metadata accessor for ToolKitProtoToolDefinition.Version1(0);
+  (*(*(v4 - 8) + 56))(&a2[v3], 1, 1, v4);
+  return _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
+}
+
+uint64_t sub_23C5C9A58@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = *(a1 + 32);
+  v5 = sub_23C870F34();
+  v6 = *(*(v5 - 8) + 16);
+
+  return v6(a2, v2 + v4, v5);
+}
+
+uint64_t sub_23C5C9ACC(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 32);
+  v5 = sub_23C870F34();
+  v6 = *(*(v5 - 8) + 40);
+
+  return v6(v2 + v4, a1, v5);
+}
+
+uint64_t sub_23C5C9B70(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_23C5EDAB0(&qword_27E1FA9F0, type metadata accessor for ContextProtoUIControlTool, &protocol conformance descriptor for ContextProtoUIControlTool);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t sub_23C5C9C10(uint64_t a1)
+{
+  sub_23C5EDAB0(&qword_27E1FA8E0, type metadata accessor for ContextProtoUIControlTool, &protocol conformance descriptor for ContextProtoUIControlTool);
+
+  return sub_23C8711F4();
+}
+
+uint64_t sub_23C5C9C7C(uint64_t a1, uint64_t a2)
+{
+  sub_23C5EDAB0(&qword_27E1FA8E0, type metadata accessor for ContextProtoUIControlTool, &protocol conformance descriptor for ContextProtoUIControlTool);
+
+  return sub_23C871204();
+}
+
+uint64_t sub_23C5C9D18()
+{
+  v0 = sub_23C871344();
+  __swift_allocate_value_buffer(v0, qword_27E1FA330);
+  __swift_project_value_buffer(v0, qword_27E1FA330);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAC80, &qword_23C879000);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAC88, &qword_23C879008) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_23C873D20;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "invocationString";
+  *(v6 + 8) = 16;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_23C871314();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "score";
+  *(v10 + 1) = 5;
+  v10[16] = 2;
+  v9();
+  return sub_23C871324();
+}
+
+uint64_t ContextProtoSampleInvocation.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  while (1)
+  {
+    result = sub_23C871044();
+    if (v3 || (v5 & 1) != 0)
+    {
+      break;
+    }
+
+    if (result == 1)
+    {
+      sub_23C871164();
+    }
+
+    else if (result == 2)
+    {
+      sub_23C8710D4();
+    }
+  }
+
+  return result;
+}
+
+uint64_t ContextProtoSampleInvocation.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *(v3 + 8);
+  v6 = HIBYTE(v5) & 0xF;
+  if ((v5 & 0x2000000000000000) == 0)
+  {
+    v6 = *v3 & 0xFFFFFFFFFFFFLL;
+  }
+
+  if (!v6 || (result = sub_23C8712C4(), !v4))
+  {
+    if (*(v3 + 16) == 0.0 || (result = sub_23C871274(), !v4))
+    {
+      type metadata accessor for ContextProtoSampleInvocation(0);
+      return sub_23C870F14();
+    }
+  }
+
+  return result;
+}
+
+uint64_t static ContextProtoSampleInvocation.== infix(_:_:)(float *a1, uint64_t a2)
+{
+  v4 = *a1 == *a2 && *(a1 + 1) == *(a2 + 8);
+  if (!v4 && (sub_23C872014() & 1) == 0 || a1[4] != *(a2 + 16))
+  {
+    return 0;
+  }
+
+  type metadata accessor for ContextProtoSampleInvocation(0);
+  sub_23C870F34();
+  sub_23C5EDAB0(&qword_27E1FA448, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+  return sub_23C871754() & 1;
+}
+
+uint64_t sub_23C5CA164@<X0>(uint64_t a2@<X8>)
+{
+  result = _s26AIMLInstrumentationStreams012ToolKitProtoC10DefinitionVACycfC_0();
+  *a2 = 0;
+  *(a2 + 8) = 0xE000000000000000;
+  *(a2 + 16) = 0;
+  return result;
+}
+
+uint64_t sub_23C5CA1E8(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_23C5EDAB0(&qword_27E1FA9E8, type metadata accessor for ContextProtoSampleInvocation, &protocol conformance descriptor for ContextProtoSampleInvocation);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t sub_23C5CA288(uint64_t a1)
+{
+  sub_23C5EDAB0(&qword_27E1FA528, type metadata accessor for ContextProtoSampleInvocation, &protocol conformance descriptor for ContextProtoSampleInvocation);
+
+  return sub_23C8711F4();
+}
+
+uint64_t sub_23C5CA2F4(uint64_t a1, uint64_t a2)
+{
+  sub_23C5EDAB0(&qword_27E1FA528, type metadata accessor for ContextProtoSampleInvocation, &protocol conformance descriptor for ContextProtoSampleInvocation);
+
+  return sub_23C871204();
+}
+
+uint64_t sub_23C5CA370(float *a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *a1 == *a2 && *(a1 + 1) == *(a2 + 8);
+  if (!v5 && (sub_23C872014() & 1) == 0 || a1[4] != *(a2 + 16))
+  {
+    return 0;
+  }
+
+  sub_23C870F34();
+  sub_23C5EDAB0(&qword_27E1FA448, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+  return sub_23C871754() & 1;
+}
+
+uint64_t sub_23C5CA458()
+{
+  v0 = sub_23C871344();
+  __swift_allocate_value_buffer(v0, qword_27E1FA348);
+  __swift_project_value_buffer(v0, qword_27E1FA348);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAC80, &qword_23C879000);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1FAC88, &qword_23C879008) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_23C873D20;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "identifier";
+  *(v6 + 8) = 10;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_23C871314();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "definition";
+  *(v10 + 1) = 10;
+  v10[16] = 2;
+  v9();
+  return sub_23C871324();
+}
+
+uint64_t ContextProtoToolRetrievalType.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  result = sub_23C871044();
+  if (!v4)
+  {
+    while ((v10 & 1) == 0)
+    {
+      if (result == 1)
+      {
+        type metadata accessor for ToolKitProtoTypeIdentifier(0);
+        sub_23C5EDAB0(&qword_27E1FACA0, type metadata accessor for ToolKitProtoTypeIdentifier, &protocol conformance descriptor for ToolKitProtoTypeIdentifier);
+        sub_23C8711A4();
+      }
+
+      else if (result == 2)
+      {
+        sub_23C5CA744(a1, v5, a2, a3);
+      }
+
+      result = sub_23C871044();
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_23C5CA744(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for ContextProtoToolRetrievalType(0);
+  type metadata accessor for ToolKitProtoTypeDefinition.Version1(0);
+  sub_23C5EDAB0(&qword_27E1FAC98, type metadata accessor for ToolKitProtoTypeDefinition.Version1, &protocol conformance descriptor for ToolKitProtoTypeDefinition.Version1);
+  return sub_23C8711A4();
+}
+
+uint64_t sub_23C5CA84C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t, uint64_t), void (*a5)(uint64_t, uint64_t, uint64_t, uint64_t), void (*a6)(void))
+{
+  result = a4(v6, a1, a2, a3);
+  if (!v7)
+  {
+    a5(v6, a1, a2, a3);
+    a6(0);
+    return sub_23C870F14();
+  }
+
+  return result;
 }

@@ -51,7 +51,7 @@
 
 - (void)rd_unobservePrimaryCloudKitAccountPersonIDSaltChanges:(id)changes
 {
-  type metadata accessor for RDAccountPersonIDSaltObserver();
+  type metadata accessor for RDAccountPersonIDSaltObserver(0);
   v4 = swift_dynamicCastClass();
   if (v4)
   {
@@ -73,9 +73,9 @@
 
     v8 = type metadata accessor for Logger();
     sub_100006654(v8, qword_100951C70);
-    sub_1001F67C8(_swiftEmptyArrayStorage);
-    sub_1001F67C8(_swiftEmptyArrayStorage);
-    sub_10054573C("Implementation of REMDAAccountPropertiesObserving must be actually RDAccountPersonIDSaltObserver", 96, 2);
+    v9 = sub_1001F67C8(&_swiftEmptyArrayStorage);
+    v10 = sub_1001F67C8(&_swiftEmptyArrayStorage);
+    sub_10054573C("Implementation of REMDAAccountPropertiesObserving must be actually RDAccountPersonIDSaltObserver", 96, 2, v9, v10);
     __break(1u);
   }
 }
@@ -98,25 +98,27 @@
 - (id)rd_base64EncodedHMACStringFromString:(id)string usingPersonIDSalt:(id)salt
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = v5;
   saltCopy = salt;
-  v6 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v8 = v7;
+  v8 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v10 = v9;
 
   String.base64EncodedHMACString(using:)();
-  v10 = v9;
-  sub_10001BBA0(v6, v8);
-
-  if (v10)
+  v12 = v11;
+  sub_10001BBA0(v8, v10);
+  v6, v13, v14, v15, v16, v17, v18, v19;
+  if (v12)
   {
-    v11 = String._bridgeToObjectiveC()();
+    v20 = String._bridgeToObjectiveC()();
+    v12, v21, v22, v23, v24, v25, v26, v27;
   }
 
   else
   {
-    v11 = 0;
+    v20 = 0;
   }
 
-  return v11;
+  return v20;
 }
 
 @end

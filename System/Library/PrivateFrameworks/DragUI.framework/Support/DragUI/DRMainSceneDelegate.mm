@@ -1,5 +1,8 @@
 @interface DRMainSceneDelegate
 - (void)scene:(id)scene willConnectToSession:(id)session options:(id)options;
+- (void)viewController:(id)controller didUpdatePresentation:(id)presentation forSession:(unsigned int)session;
+- (void)viewController:(id)controller requestImagesForSessionID:(unsigned int)d client:(id)client itemIndexes:(id)indexes;
+- (void)viewController:(id)controller setTouchOffset:(CGPoint)offset forSession:(unsigned int)session;
 @end
 
 @implementation DRMainSceneDelegate
@@ -34,6 +37,32 @@
   [(DRContentWindow *)v8 makeKeyAndVisible];
   window = self->_window;
   self->_window = &v8->super;
+}
+
+- (void)viewController:(id)controller requestImagesForSessionID:(unsigned int)d client:(id)client itemIndexes:(id)indexes
+{
+  v7 = *&d;
+  indexesCopy = indexes;
+  clientCopy = client;
+  v10 = +[DRDragSessionManager sharedSessionManager];
+  [v10 requestImagesForSessionID:v7 client:clientCopy itemIndexSet:indexesCopy];
+}
+
+- (void)viewController:(id)controller setTouchOffset:(CGPoint)offset forSession:(unsigned int)session
+{
+  v5 = *&session;
+  y = offset.y;
+  x = offset.x;
+  v8 = +[DRDragSessionManager sharedSessionManager];
+  [v8 setTouchOffset:v5 forSession:{x, y}];
+}
+
+- (void)viewController:(id)controller didUpdatePresentation:(id)presentation forSession:(unsigned int)session
+{
+  v5 = *&session;
+  presentationCopy = presentation;
+  v7 = +[DRDragSessionManager sharedSessionManager];
+  [v7 presentationDidUpdate:presentationCopy forSession:v5];
 }
 
 @end

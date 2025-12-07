@@ -30,7 +30,7 @@
 
 - (NSXPCStoreManagedObjectArchivingToken)initWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = objc_autoreleasePoolPush();
   v6 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"NSManagedObjectIDURI"];
   delegate = [coder delegate];
@@ -39,13 +39,13 @@
     if ((objc_opt_respondsToSelector() & 1) != 0 && (v8 = [coder userInfo]) != 0)
     {
       v9 = v8;
-      v10 = [objc_msgSend(objc_msgSend(v8 valueForKey:{@"NSConnectionContext", "managedObjectContext"), "persistentStoreCoordinator"}];
+      v10 = [objc_msgSend(objc_msgSend_valueForKey_(v8) "managedObjectContext")];
       if (v10)
       {
         goto LABEL_17;
       }
 
-      v10 = [v9 valueForKey:@"PSCKey"];
+      v10 = objc_msgSend_valueForKey_(v9);
       if (v10)
       {
         goto LABEL_16;
@@ -159,7 +159,7 @@ LABEL_36:
         if (v22)
         {
           *buf = 138412290;
-          v26 = v6;
+          v25 = v6;
 LABEL_41:
           _os_log_error_impl(&dword_18565F000, v21, OS_LOG_TYPE_ERROR, "CoreData: error: XPC: Possible API misuse: Unable to find object for managed object URI %@, returning null instead\n", buf, 0xCu);
         }
@@ -168,7 +168,7 @@ LABEL_41:
       else if (v22)
       {
         *buf = 138412290;
-        v26 = v6;
+        v25 = v6;
         goto LABEL_41;
       }
     }
@@ -182,7 +182,6 @@ LABEL_41:
 
 LABEL_33:
   objc_autoreleasePoolPop(v5);
-  v23 = *MEMORY[0x1E69E9840];
   return null;
 }
 

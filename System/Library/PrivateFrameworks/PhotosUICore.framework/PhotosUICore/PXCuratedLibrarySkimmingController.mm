@@ -190,12 +190,12 @@
   v15 = 0u;
   if (skimmingModel)
   {
-    [skimmingModel initialIndexPath];
+    objc_msgSend_initialIndexPath(skimmingModel);
   }
 
   if (indexPathSetForSkimming)
   {
-    [indexPathSetForSkimming anySectionIndexPath];
+    objc_msgSend_anySectionIndexPath(indexPathSetForSkimming);
     v5 = v12;
   }
 
@@ -235,7 +235,7 @@ void __68__PXCuratedLibrarySkimmingController__adoptIndexesFromSkimmingModel__bl
   v5 = referenceCopy;
   if (referenceCopy)
   {
-    [referenceCopy indexPath];
+    objc_msgSend_indexPath(referenceCopy);
   }
 
   else
@@ -248,7 +248,7 @@ void __68__PXCuratedLibrarySkimmingController__adoptIndexesFromSkimmingModel__bl
   v8 = containingAssetCollectionReference;
   if (containingAssetCollectionReference)
   {
-    [containingAssetCollectionReference indexPath];
+    objc_msgSend_indexPath(containingAssetCollectionReference);
     v9 = *&v12[0];
   }
 
@@ -293,7 +293,7 @@ LABEL_14:
   v5 = referenceCopy;
   if (referenceCopy)
   {
-    [referenceCopy indexPath];
+    objc_msgSend_indexPath(referenceCopy);
   }
 
   else
@@ -306,7 +306,7 @@ LABEL_14:
   v8 = containingAssetCollectionReference;
   if (containingAssetCollectionReference)
   {
-    [containingAssetCollectionReference indexPath];
+    objc_msgSend_indexPath(containingAssetCollectionReference);
     v9 = *&v21[0];
   }
 
@@ -341,7 +341,7 @@ LABEL_14:
   v13 = skimmingModel3;
   if (skimmingModel3)
   {
-    [skimmingModel3 skimmedIndexPath];
+    objc_msgSend_skimmedIndexPath(skimmingModel3);
   }
 
   else
@@ -353,7 +353,7 @@ LABEL_14:
   v15 = skimmingModel4;
   if (skimmingModel4)
   {
-    [skimmingModel4 initialIndexPath];
+    objc_msgSend_initialIndexPath(skimmingModel4);
     v16 = *&v21[0];
   }
 
@@ -588,7 +588,7 @@ LABEL_27:
           v14 = skimmingModel3;
           if (skimmingModel3)
           {
-            [skimmingModel3 skimmedIndexPath];
+            objc_msgSend_skimmedIndexPath(skimmingModel3);
           }
 
           else
@@ -611,7 +611,7 @@ LABEL_27:
           skimmingModel5 = [(PXCuratedLibrarySkimmingController *)self skimmingModel];
           if (skimmingModel5)
           {
-            [skimmingModel5 skimmedIndexPath];
+            objc_msgSend_skimmedIndexPath(skimmingModel5);
           }
 
           else

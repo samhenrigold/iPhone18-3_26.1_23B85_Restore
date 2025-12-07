@@ -1,13 +1,13 @@
-id sub_100001714()
+id sub_100001714(uint64_t a1)
 {
   if (qword_100008630 != -1)
   {
     sub_1000022E8();
   }
 
-  v1 = qword_100008628;
+  v2 = qword_100008628;
 
-  return v1;
+  return v2;
 }
 
 void add_binary_info_to_binary_dictionary(void *a1, void *a2)
@@ -87,7 +87,7 @@ void sub_100001C40(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
   v7 = a2;
   v8 = a3;
-  v9 = sub_100001714();
+  v9 = sub_100001714(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     sub_1000023B0(a1, v7, v9);

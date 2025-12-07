@@ -44,19 +44,19 @@
 
 - (void)dealloc
 {
-  objc_msgSend_setEncoder_(self, a2, 0, v2);
-  v4.receiver = self;
-  v4.super_class = RGCachedComputeCommandEncoder;
-  [(RGCachedComputeCommandEncoder *)&v4 dealloc];
+  objc_msgSend_setEncoder_(self, a2, 0);
+  v3.receiver = self;
+  v3.super_class = RGCachedComputeCommandEncoder;
+  [(RGCachedComputeCommandEncoder *)&v3 dealloc];
 }
 
 - (void)beginEncodingWithCommandBuffer:(id)buffer label:(id)label
 {
-  v6 = objc_msgSend_computeCommandEncoder(buffer, a2, buffer, label);
-  objc_msgSend_setEncoder_(self, v7, v6, v8);
+  v6 = objc_msgSend_computeCommandEncoder(buffer, a2, buffer);
+  objc_msgSend_setEncoder_(self, v7, v6);
   encoder = self->_encoder;
 
-  objc_msgSend_setLabel_(encoder, v9, label, v10);
+  objc_msgSend_setLabel_(encoder, v8, label);
 }
 
 - (void)setEncoder:(id)encoder
@@ -65,14 +65,14 @@
 
   self->_encoder = encoder;
 
-  objc_msgSend_resetCache(self, v6, v7, v8);
+  objc_msgSend_resetCache(self, v6, v7);
 }
 
 - (void)endEncoding
 {
-  objc_msgSend_endEncoding(self->_encoder, a2, v2, v3);
+  objc_msgSend_endEncoding(self->_encoder, a2, v2);
 
-  objc_msgSend_setEncoder_(self, v5, 0, v6);
+  objc_msgSend_setEncoder_(self, v4, 0);
 }
 
 - (void)dispatchThreadgroups:(id *)threadgroups threadsPerThreadgroup:(id *)threadgroup
@@ -113,7 +113,7 @@
   {
     *(&self->_cache.geometry + index) = buffer;
     *(&self[1]._cache.node + index) = offset;
-    objc_msgSend_setBuffer_offset_atIndex_(self->_encoder, a2, buffer, offset);
+    objc_msgSend_setBuffer_offset_atIndex_(self->_encoder, a2, buffer);
   }
 }
 
@@ -122,7 +122,7 @@
   if (*(&self[1]._cache.node + index) != offset)
   {
     *(&self[1]._cache.node + index) = offset;
-    objc_msgSend_setBufferOffset_atIndex_(self->_encoder, a2, offset, index);
+    objc_msgSend_setBufferOffset_atIndex_(self->_encoder, a2, offset);
   }
 }
 
@@ -158,7 +158,7 @@
   v6 = &self->super.isa + index;
   v6[3] = 0;
   v6[34] = 0;
-  MEMORY[0x1EEE66B58](self->_encoder, sel_setBytes_length_attributeStride_atIndex_, bytes, length);
+  MEMORY[0x1EEE66B58](self->_encoder, sel_setBytes_length_attributeStride_atIndex_, bytes);
 }
 
 - (void)setComputePipelineState:(id)state
@@ -166,7 +166,7 @@
   if (self->_cache.rasterizerStates != state)
   {
     self->_cache.rasterizerStates = state;
-    objc_msgSend_setComputePipelineState_(self->_encoder, a2, state, v3);
+    objc_msgSend_setComputePipelineState_(self->_encoder, a2, state);
   }
 }
 
@@ -175,7 +175,7 @@
   if (*(&self[9]._cache.colorBufferWriteMask + index) != state)
   {
     *(&self[9]._cache.colorBufferWriteMask + index) = state;
-    objc_msgSend_setSamplerState_atIndex_(self->_encoder, a2, state, index);
+    objc_msgSend_setSamplerState_atIndex_(self->_encoder, a2, state);
   }
 }
 
@@ -184,7 +184,7 @@
   memcpy(&self[9]._cache.colorBufferWriteMask + 8 * range.location, states, 8 * range.length);
   encoder = self->_encoder;
 
-  MEMORY[0x1EEE66B58](encoder, sel_setSamplerStates_lodMinClamps_lodMaxClamps_withRange_, states, clamps);
+  MEMORY[0x1EEE66B58](encoder, sel_setSamplerStates_lodMinClamps_lodMaxClamps_withRange_, states);
 }
 
 - (void)setSamplerStates:(const void *)states withRange:(_NSRange)range
@@ -200,11 +200,11 @@
 - (void)setStageInRegion:(id *)region
 {
   encoder = self->_encoder;
-  v5 = *&region->var0.var2;
-  v6[0] = *&region->var0.var0;
-  v6[1] = v5;
-  v6[2] = *&region->var1.var1;
-  objc_msgSend_setStageInRegion_(encoder, a2, v6, v3);
+  v4 = *&region->var0.var2;
+  v5[0] = *&region->var0.var0;
+  v5[1] = v4;
+  v5[2] = *&region->var1.var1;
+  objc_msgSend_setStageInRegion_(encoder, a2, v5);
 }
 
 - (void)setTexture:(id)texture atIndex:(unint64_t)index
@@ -212,7 +212,7 @@
   if (*(&self[3]._cache.meshElement + index) != texture)
   {
     *(&self[3]._cache.meshElement + index) = texture;
-    objc_msgSend_setTexture_atIndex_(self->_encoder, a2, texture, index);
+    objc_msgSend_setTexture_atIndex_(self->_encoder, a2, texture);
   }
 }
 
@@ -230,7 +230,7 @@
 
 - (void)dispatch:(id)dispatch threadgroups:(id *)threadgroups threadsPerThreadgroup:(id *)threadgroup
 {
-  objc_msgSend_setComputePipelineState_(self, a2, dispatch, threadgroups);
+  objc_msgSend_setComputePipelineState_(self, a2, dispatch);
   v10 = *threadgroups;
   v9 = *threadgroup;
   objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(self, v8, &v10, &v9);
@@ -238,39 +238,39 @@
 
 - (void)dispatch:(id)dispatch threadgroupsWithIndirectBuffer:(id)buffer indirectBufferOffset:(unint64_t)offset threadsPerThreadgroup:(id *)threadgroup
 {
-  objc_msgSend_setComputePipelineState_(self, a2, dispatch, buffer);
+  objc_msgSend_setComputePipelineState_(self, a2, dispatch);
   v11 = *threadgroup;
   objc_msgSend_dispatchThreadgroupsWithIndirectBuffer_indirectBufferOffset_threadsPerThreadgroup_(self, v10, buffer, offset, &v11);
 }
 
 - (void)dispatchOne:(id)one
 {
-  objc_msgSend_setComputePipelineState_(self, a2, one, v3);
-  v8 = vdupq_n_s64(1uLL);
-  v9 = 1;
-  v6 = v8;
-  v7 = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(self, v5, &v8, &v6);
+  objc_msgSend_setComputePipelineState_(self, a2, one);
+  v7 = vdupq_n_s64(1uLL);
+  v8 = 1;
+  v5 = v7;
+  v6 = 1;
+  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(self, v4, &v7, &v5);
 }
 
 - (void)dispatchOnVertices:(id)vertices vertexCount:(unsigned int)count
 {
-  objc_msgSend_setComputePipelineState_(self, a2, vertices, *&count);
+  objc_msgSend_setComputePipelineState_(self, a2, vertices);
   encoder = self->_encoder;
 
-  RGMTLComputeCommandEncoderDispatchOnGrid1D(encoder, vertices, count, v7);
+  RGMTLComputeCommandEncoderDispatchOnGrid1D(encoder, vertices, count);
 }
 
 - (void)dispatch:(id)dispatch onTexture2D:(id)d
 {
-  v7 = objc_msgSend_width(d, a2, dispatch, d);
-  v11 = objc_msgSend_height(d, v8, v9, v10);
-  objc_msgSend_setComputePipelineState_(self, v12, dispatch, v13);
+  v7 = objc_msgSend_width(d, a2, dispatch);
+  v10 = objc_msgSend_height(d, v8, v9);
+  objc_msgSend_setComputePipelineState_(self, v11, dispatch);
   encoder = self->_encoder;
-  v15[0] = v7;
-  v15[1] = v11;
-  v15[2] = 1;
-  RGMTLComputeCommandEncoderDispatchOnGrid2D(encoder, dispatch, v15, 1);
+  *&v13 = v7;
+  *(&v13 + 1) = v10;
+  v14 = 1;
+  RGMTLComputeCommandEncoderDispatchOnGrid2D(encoder, dispatch, &v13, 1);
 }
 
 - (void)dispatchOnGrid2D:(id *)d
@@ -285,65 +285,65 @@
 {
   encoder = self->_encoder;
   rasterizerStates = self->_cache.rasterizerStates;
-  v6 = *d;
-  RGMTLComputeCommandEncoderDispatchOnGrid3D(encoder, rasterizerStates, &v6, v3);
+  v5 = *d;
+  RGMTLComputeCommandEncoderDispatchOnGrid3D(encoder, rasterizerStates, &v5.var0);
 }
 
 - (void)dispatchOnTexture2D:(id)d
 {
-  v6 = objc_msgSend_width(d, a2, d, v3);
-  v10 = objc_msgSend_height(d, v7, v8, v9);
+  v5 = objc_msgSend_width(d, a2, d);
+  v8 = objc_msgSend_height(d, v6, v7);
   encoder = self->_encoder;
   rasterizerStates = self->_cache.rasterizerStates;
-  v13[0] = v6;
-  v13[1] = v10;
-  v13[2] = 1;
-  RGMTLComputeCommandEncoderDispatchOnGrid2D(encoder, rasterizerStates, v13, 1);
+  *&v11 = v5;
+  *(&v11 + 1) = v8;
+  v12 = 1;
+  RGMTLComputeCommandEncoderDispatchOnGrid2D(encoder, rasterizerStates, &v11, 1);
 }
 
 - (void)dispatchOnTexture2DWithoutOptimizedThreadGroupPerGrid:(id)grid
 {
-  v6 = objc_msgSend_width(grid, a2, grid, v3);
-  v10 = objc_msgSend_height(grid, v7, v8, v9);
+  v5 = objc_msgSend_width(grid, a2, grid);
+  v8 = objc_msgSend_height(grid, v6, v7);
   encoder = self->_encoder;
   rasterizerStates = self->_cache.rasterizerStates;
-  v13[0] = v6;
-  v13[1] = v10;
-  v13[2] = 1;
-  RGMTLComputeCommandEncoderDispatchOnGrid2D(encoder, rasterizerStates, v13, 0);
+  *&v11 = v5;
+  *(&v11 + 1) = v8;
+  v12 = 1;
+  RGMTLComputeCommandEncoderDispatchOnGrid2D(encoder, rasterizerStates, &v11, 0);
 }
 
 - (void)dispatchOnTexture3D:(id)d
 {
-  v6 = objc_msgSend_width(d, a2, d, v3);
-  v10 = objc_msgSend_height(d, v7, v8, v9);
-  v14 = objc_msgSend_depth(d, v11, v12, v13);
+  v5 = objc_msgSend_width(d, a2, d);
+  v8 = objc_msgSend_height(d, v6, v7);
+  v11 = objc_msgSend_depth(d, v9, v10);
   encoder = self->_encoder;
   rasterizerStates = self->_cache.rasterizerStates;
-  v18[0] = v6;
-  v18[1] = v10;
-  v18[2] = v14;
-  RGMTLComputeCommandEncoderDispatchOnGrid3D(encoder, rasterizerStates, v18, v17);
+  v14[0] = v5;
+  v14[1] = v8;
+  v14[2] = v11;
+  RGMTLComputeCommandEncoderDispatchOnGrid3D(encoder, rasterizerStates, v14);
 }
 
 - (void)dispatchOnTextureCube:(id)cube
 {
-  v6 = objc_msgSend_width(cube, a2, cube, v3);
-  v10 = objc_msgSend_height(cube, v7, v8, v9);
+  v5 = objc_msgSend_width(cube, a2, cube);
+  v8 = objc_msgSend_height(cube, v6, v7);
   encoder = self->_encoder;
   rasterizerStates = self->_cache.rasterizerStates;
-  v14[0] = v6;
-  v14[1] = v10;
-  v14[2] = 6;
-  RGMTLComputeCommandEncoderDispatchOnGrid3D(encoder, rasterizerStates, v14, v13);
+  v11[0] = v5;
+  v11[1] = v8;
+  v11[2] = 6;
+  RGMTLComputeCommandEncoderDispatchOnGrid3D(encoder, rasterizerStates, v11);
 }
 
 - (void)setBufferSlice:(id)slice atIndex:(unint64_t)index
 {
   var1 = slice.var1;
-  MTLBuffer = CFXBufferSliceGetMTLBuffer(slice.var0, *&slice.var1);
+  CFXBufferSliceGetMTLBuffer();
 
-  objc_msgSend_setBuffer_offset_atIndex_(self, v7, MTLBuffer, var1, index);
+  objc_msgSend_setBuffer_offset_atIndex_(self, v8, v7, var1, index);
 }
 
 @end

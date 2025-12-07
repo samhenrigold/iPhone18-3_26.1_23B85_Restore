@@ -50,66 +50,57 @@
 
 - (HMIMutableFloatArray)initWithValue:(float)value count:(unint64_t)count
 {
-  v6 = [(HMIMutableFloatArray *)self init];
-  if (v6)
+  v4 = [(HMIMutableFloatArray *)self init];
+  if (v4)
   {
-    v7 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:4 * count];
-    data = v6->_data;
-    v6->_data = v7;
+    v5 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:?];
+    data = v4->_data;
+    v4->_data = v5;
 
-    *&v9 = value;
-    [(HMIMutableFloatArray *)v6 fillWithFloat:v9];
+    [(HMIMutableFloatArray *)v4 fillWithFloat:?];
   }
 
-  return v6;
+  return v4;
 }
 
 - (HMIMutableFloatArray)initWithFloats:(const float *)floats count:(unint64_t)count
 {
-  v6 = [(HMIMutableFloatArray *)self init];
-  [(HMIMutableFloatArray *)v6 appendFloats:floats count:count];
-  return v6;
+  v4 = [(HMIMutableFloatArray *)self init];
+  [HMIMutableFloatArray appendFloats:v4 count:"appendFloats:count:"];
+  return v4;
 }
 
 - (HMIMutableFloatArray)initWithDataTensor:(id)tensor
 {
-  v18 = *MEMORY[0x277D85DE8];
   tensorCopy = tensor;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   shape = [tensorCopy shape];
-  v6 = [shape countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [shape countByEnumeratingWithState:? objects:? count:?];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = MEMORY[0];
     v9 = 1;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v7; i = (i + 1))
       {
-        if (*v14 != v8)
+        if (MEMORY[0] != v8)
         {
           objc_enumerationMutation(shape);
         }
 
-        v9 *= [*(*(&v13 + 1) + 8 * i) unsignedIntegerValue];
+        v9 *= [*(8 * i) unsignedIntegerValue];
       }
 
-      v7 = [shape countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [shape countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v7);
   }
 
-  else
-  {
-    v9 = 1;
-  }
+  [tensorCopy dataPointer];
+  v11 = [HMIMutableFloatArray initWithFloats:"initWithFloats:count:" count:?];
 
-  v11 = -[HMIMutableFloatArray initWithFloats:count:](self, "initWithFloats:count:", [tensorCopy dataPointer], v9);
   return v11;
 }
 
@@ -117,7 +108,7 @@
 {
   data = self->_data;
   data = [array data];
-  [(NSMutableData *)data appendData:data];
+  [(NSMutableData *)data appendData:?];
 }
 
 - (void)subtract:(id)subtract
@@ -151,18 +142,17 @@
 
 - (id)floatArrayByScaling:(float)scaling
 {
-  v4 = [(HMIMutableFloatArray *)self copy];
-  *&v5 = scaling;
-  [v4 scale:v5];
+  v3 = [(HMIMutableFloatArray *)self copy];
+  [v3 scale:?];
 
-  return v4;
+  return v3;
 }
 
 - (id)floatArrayByAdding:(id)adding
 {
   addingCopy = adding;
   v5 = [(HMIMutableFloatArray *)self copy];
-  [v5 add:addingCopy];
+  [v5 add:?];
 
   return v5;
 }
@@ -171,25 +161,23 @@
 {
   subtractingCopy = subtracting;
   v5 = [(HMIMutableFloatArray *)self copy];
-  [v5 subtract:subtractingCopy];
+  [v5 subtract:?];
 
   return v5;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [HMIMutableFloatArray alloc];
-  data = self->_data;
+  v3 = [HMIMutableFloatArray alloc];
 
-  return [(HMIMutableFloatArray *)v4 initWithData:data];
+  return [(HMIMutableFloatArray *)v3 initWithData:?];
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
 {
-  v4 = [HMIMutableFloatArray alloc];
-  data = self->_data;
+  v3 = [HMIMutableFloatArray alloc];
 
-  return [(HMIMutableFloatArray *)v4 initWithData:data];
+  return [(HMIMutableFloatArray *)v3 initWithData:?];
 }
 
 @end

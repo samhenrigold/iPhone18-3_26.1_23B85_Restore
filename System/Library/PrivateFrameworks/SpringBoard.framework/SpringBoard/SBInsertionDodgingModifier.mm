@@ -122,7 +122,7 @@
 {
   modelCopy = model;
   v5 = modelCopy;
-  if (self->_phase == 1 && ([modelCopy identifiers], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "containsObject:", self->_identifier), v6, (v7 & 1) == 0))
+  if (self->_phase == 1 && ([modelCopy identifiers], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend_containsObject_(v6), v6, (v7 & 1) == 0))
   {
     v9 = [(SBInsertionDodgingModifier *)self preferenceForIdentifier:self->_identifier];
     excludedDodgingIdentifiers = [v9 excludedDodgingIdentifiers];
@@ -145,7 +145,7 @@
       {
         v17 = [identifiers2 objectAtIndex:v15];
         v18 = v15 + 1;
-        if ([v13 containsObject:v17])
+        if (objc_msgSend_containsObject_(v13))
         {
           v16 = v15 + 1;
         }

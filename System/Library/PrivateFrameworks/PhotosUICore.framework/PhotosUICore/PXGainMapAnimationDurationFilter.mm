@@ -18,7 +18,7 @@
     return 0.0;
   }
 
-  [(PXNumberFilter *)self currentTime];
+  objc_msgSend_currentTime(self);
   v4 = v3;
   [(PXGainMapAnimationDurationFilter *)self filterStartTime];
   v6 = v4 - v5;
@@ -39,7 +39,7 @@
     self->_gainMapImageAvailable = available;
     if (!available)
     {
-      [(PXNumberFilter *)self currentTime];
+      objc_msgSend_currentTime(self, a2);
       [(PXGainMapAnimationDurationFilter *)self setFilterStartTime:?];
     }
 
@@ -57,7 +57,7 @@
   v5 = v4;
   if (v4)
   {
-    [(PXNumberFilter *)v4 currentTime];
+    objc_msgSend_currentTime(v4);
     v5->_filterStartTime = v6;
     v5->_enabled = [v3 animateGainMapAppearance];
     [v3 gainMapAnimationActivationThreshold];

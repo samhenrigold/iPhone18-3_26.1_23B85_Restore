@@ -50,7 +50,7 @@
 
 - (void)_setupCloudServiceController
 {
-  v3 = cloudServiceControllerQueue();
+  v3 = cloudServiceControllerQueue(self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __56__LPiTunesStoreInformation__setupCloudServiceController__block_invoke;
@@ -282,7 +282,7 @@ void __56__LPiTunesStoreInformation__setupCloudServiceController__block_invoke_5
 
 - (void)_capabilitiesDidChangeNotification
 {
-  v3 = cloudServiceControllerQueue();
+  v3 = cloudServiceControllerQueue(self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __62__LPiTunesStoreInformation__capabilitiesDidChangeNotification__block_invoke;
@@ -332,7 +332,7 @@ _BYTE *__62__LPiTunesStoreInformation__capabilitiesDidChangeNotification__block_
 
 - (void)_storefrontDidChangeNotification
 {
-  v3 = cloudServiceControllerQueue();
+  v3 = cloudServiceControllerQueue(self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __60__LPiTunesStoreInformation__storefrontDidChangeNotification__block_invoke;

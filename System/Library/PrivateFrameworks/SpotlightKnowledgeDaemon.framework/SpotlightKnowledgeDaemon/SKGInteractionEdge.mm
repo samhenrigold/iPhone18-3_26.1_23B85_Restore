@@ -17,15 +17,13 @@
 
 + (id)filterWithDomainIdentifier:(id)identifier
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v4 = objc_alloc(MEMORY[0x277D22C20]);
-  v9 = @"domainIdentifier";
-  v10[0] = identifierCopy;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"domainIdentifier";
+  v9[0] = identifierCopy;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 initWithLabel:@"relationship" domain:100 properties:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -89,19 +87,17 @@
 
 - (id)propertyDictionary
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"relationship";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"relationship";
   relationship = [(SKGInteractionEdge *)self relationship];
-  v10[0] = relationship;
-  v9[1] = @"domainIdentifier";
+  v9[0] = relationship;
+  v8[1] = @"domainIdentifier";
   domainIdentifier = [(SKGInteractionEdge *)self domainIdentifier];
-  v10[1] = domainIdentifier;
-  v9[2] = @"score";
+  v9[1] = domainIdentifier;
+  v8[2] = @"score";
   score = [(SKGInteractionEdge *)self score];
-  v10[2] = score;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = score;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }

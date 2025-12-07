@@ -17,7 +17,7 @@
 
 - (void)begin
 {
-  v3 = JavaLangThread_currentThread();
+  v3 = JavaLangThread_currentThread(self, a2);
   if (!v3)
   {
     JreThrowNullPointerException();
@@ -30,7 +30,7 @@
 
 - (void)endWithBoolean:(BOOL)boolean
 {
-  v5 = JavaLangThread_currentThread();
+  v5 = JavaLangThread_currentThread(self, a2);
   if (!v5)
   {
     JreThrowNullPointerException();

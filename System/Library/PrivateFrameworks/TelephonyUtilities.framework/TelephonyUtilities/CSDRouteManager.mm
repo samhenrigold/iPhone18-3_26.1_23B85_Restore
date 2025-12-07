@@ -447,7 +447,7 @@
 - (void)pickableRoutesDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004778();
+  v5 = sub_100004778(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [notificationCopy name];
@@ -470,7 +470,7 @@
 - (void)preferredExternalRouteDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004778();
+  v5 = sub_100004778(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [notificationCopy name];
@@ -493,7 +493,7 @@
 - (void)carPlayIsConnectedChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = sub_100004778();
+  v5 = sub_100004778(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [changedCopy name];
@@ -516,7 +516,7 @@
 - (void)mediaServicesWereResetNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004778();
+  v5 = sub_100004778(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [notificationCopy name];
@@ -562,21 +562,21 @@
 
   if (!v11)
   {
-    v12 = sub_100004778();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100004778(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       audioRouteCollections2 = [(CSDRouteManager *)self audioRouteCollections];
       audioCategory2 = [callCopy audioCategory];
       audioMode2 = [callCopy audioMode];
-      v17 = 138413058;
-      v18 = audioRouteCollections2;
-      v19 = 2112;
-      v20 = audioCategory2;
-      v21 = 2112;
-      v22 = audioMode2;
-      v23 = 2112;
-      v24 = callCopy;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[WARN] No audio route collection found in audioRouteCollections: %@ for audio category %@ and audio mode %@ for call %@", &v17, 0x2Au);
+      v18 = 138413058;
+      v19 = audioRouteCollections2;
+      v20 = 2112;
+      v21 = audioCategory2;
+      v22 = 2112;
+      v23 = audioMode2;
+      v24 = 2112;
+      v25 = callCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[WARN] No audio route collection found in audioRouteCollections: %@ for audio category %@ and audio mode %@ for call %@", &v18, 0x2Au);
     }
   }
 
@@ -588,35 +588,36 @@
   queue = [(CSDRouteManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v13 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
+  v13 = 0u;
   v3 = +[TUCallCenter sharedInstance];
   audioDeviceController = [v3 audioDeviceController];
   devices = [audioDeviceController devices];
 
-  v6 = [devices countByEnumeratingWithState:&v11 objects:v17 count:16];
+  v6 = [devices countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; i = (i + 1))
       {
-        if (*v12 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(devices);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * i);
-        if ([v9 isPreferredDevice])
+        v9 = *(*(&v12 + 1) + 8 * i);
+        isPreferredDevice = [v9 isPreferredDevice];
+        if (isPreferredDevice)
         {
-          v6 = sub_100004778();
+          v6 = sub_100004778(isPreferredDevice);
           if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v16 = v9;
+            v17 = v9;
             _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Found preferred AVAudioDevice: %@", buf, 0xCu);
           }
 
@@ -625,7 +626,7 @@
         }
       }
 
-      v6 = [devices countByEnumeratingWithState:&v11 objects:v17 count:16];
+      v6 = [devices countByEnumeratingWithState:&v12 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -738,55 +739,60 @@ LABEL_13:
   {
   }
 
-  else if (MGGetBoolAnswer())
+  else
   {
-    v5 = sub_100004778();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = MGGetBoolAnswer();
+    if (v5)
     {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Requesting initial state of CarKit's DND assertion", buf, 2u);
-    }
-
-    *buf = 0;
-    v17 = buf;
-    v18 = 0x2020000000;
-    v19 = 0;
-    v6 = dispatch_semaphore_create(0);
-    v7 = objc_alloc_init(CARAutomaticDNDStatus);
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_100156D40;
-    v13[3] = &unk_10061C9B8;
-    v15 = buf;
-    v8 = v6;
-    v14 = v8;
-    [v7 fetchAutomaticDNDAssertionWithReply:v13];
-    if (dispatch_semaphore_wait(v8, 0x12A05F200uLL))
-    {
-      v9 = sub_100004778();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_100004778(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v12[0]) = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[WARN] Timeout occured fetching CarPlay do not disturb status.", v12, 2u);
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Requesting initial state of CarKit's DND assertion", buf, 2u);
       }
-    }
 
-    else
-    {
-      objc_initWeak(v12, self);
-      v10[0] = _NSConcreteStackBlock;
-      v10[1] = 3221225472;
-      v10[2] = sub_100156E38;
-      v10[3] = &unk_10061C9E0;
-      objc_copyWeak(&v11, v12);
-      [v7 setStatusChangeObserver:v10];
-      [(CSDRouteManager *)self setAutomaticCarDNDStatus:v7];
-      [(CSDRouteManager *)self setCarModeActive:v17[24]];
-      objc_destroyWeak(&v11);
-      objc_destroyWeak(v12);
-    }
+      *buf = 0;
+      v19 = buf;
+      v20 = 0x2020000000;
+      v21 = 0;
+      v7 = dispatch_semaphore_create(0);
+      v8 = objc_alloc_init(CARAutomaticDNDStatus);
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_100156D40;
+      v15[3] = &unk_10061C9B8;
+      v17 = buf;
+      v9 = v7;
+      v16 = v9;
+      [v8 fetchAutomaticDNDAssertionWithReply:v15];
+      v10 = dispatch_semaphore_wait(v9, 0x12A05F200uLL);
+      if (v10)
+      {
+        v11 = sub_100004778(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(v14[0]) = 0;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[WARN] Timeout occured fetching CarPlay do not disturb status.", v14, 2u);
+        }
+      }
 
-    _Block_object_dispose(buf, 8);
+      else
+      {
+        objc_initWeak(v14, self);
+        v12[0] = _NSConcreteStackBlock;
+        v12[1] = 3221225472;
+        v12[2] = sub_100156E38;
+        v12[3] = &unk_10061C9E0;
+        objc_copyWeak(&v13, v14);
+        [v8 setStatusChangeObserver:v12];
+        [(CSDRouteManager *)self setAutomaticCarDNDStatus:v8];
+        [(CSDRouteManager *)self setCarModeActive:v19[24]];
+        objc_destroyWeak(&v13);
+        objc_destroyWeak(v14);
+      }
+
+      _Block_object_dispose(buf, 8);
+    }
   }
 }
 
@@ -795,11 +801,12 @@ LABEL_13:
   queue = [(CSDRouteManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  if (MGGetBoolAnswer())
+  v4 = MGGetBoolAnswer();
+  if (v4)
   {
-    v4 = +[AVSystemController sharedAVSystemController];
-    v5 = [v4 attributeForKey:AVSystemController_CarPlayIsConnectedAttribute];
-    bOOLValue = [v5 BOOLValue];
+    v5 = +[AVSystemController sharedAVSystemController];
+    v6 = [v5 attributeForKey:AVSystemController_CarPlayIsConnectedAttribute];
+    bOOLValue = [v6 BOOLValue];
   }
 
   else
@@ -807,12 +814,12 @@ LABEL_13:
     bOOLValue = 0;
   }
 
-  v7 = sub_100004778();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100004778(v4);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109120;
-    v8[1] = bOOLValue;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Updating isCarPlayDeviceConnected to %d", v8, 8u);
+    v9[0] = 67109120;
+    v9[1] = bOOLValue;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Updating isCarPlayDeviceConnected to %d", v9, 8u);
   }
 
   [(CSDRouteManager *)self setCarPlayDeviceConnected:bOOLValue];

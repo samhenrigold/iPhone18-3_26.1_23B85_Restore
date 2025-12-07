@@ -1,37 +1,3 @@
-uint64_t siri::dialogengine::CatBinary::vcat_item::clear_item(uint64_t this)
-{
-  v1 = this;
-  v2 = *(this + 48);
-  if (v2 > 4)
-  {
-    if (v2 == 5 || v2 == 6)
-    {
-      v3 = *(this + 40);
-      if (v3 != &google::protobuf::internal::fixed_address_empty_string && v3 != 0)
-      {
-        if (*(v3 + 23) < 0)
-        {
-          operator delete(*v3);
-        }
-
-        this = MEMORY[0x1C68D4E80](v3, 0x1012C40EC159624);
-      }
-    }
-  }
-
-  else if (v2 == 2 || v2 == 3)
-  {
-    this = *(this + 40);
-    if (this)
-    {
-      this = (*(*this + 8))(this);
-    }
-  }
-
-  *(v1 + 48) = 0;
-  return this;
-}
-
 google::protobuf::internal *siri::dialogengine::CatBinary::vcat_item::_InternalParse(siri::dialogengine::CatBinary::vcat_item *this, google::protobuf::internal *a2, google::protobuf::internal::ParseContext *a3)
 {
   v32 = a2;
@@ -73,7 +39,7 @@ LABEL_7:
           v10 = *(this + 4);
           if (v10 == &google::protobuf::internal::fixed_address_empty_string)
           {
-            google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 32, &google::protobuf::internal::fixed_address_empty_string);
+            google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 4, &google::protobuf::internal::fixed_address_empty_string);
           }
 
           goto LABEL_52;
@@ -113,7 +79,7 @@ LABEL_52:
 LABEL_50:
           *(this + 5) = &google::protobuf::internal::fixed_address_empty_string;
 LABEL_51:
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 40, &google::protobuf::internal::fixed_address_empty_string);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 5, &google::protobuf::internal::fixed_address_empty_string);
         }
 
         goto LABEL_34;
@@ -130,7 +96,7 @@ LABEL_51:
         v10 = *(this + 3);
         if (v10 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 24, &google::protobuf::internal::fixed_address_empty_string);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 3, &google::protobuf::internal::fixed_address_empty_string);
         }
 
         goto LABEL_52;
@@ -292,17 +258,17 @@ LABEL_64:
   return v32;
 }
 
-void siri::dialogengine::CatBinary::vcat_item::MergeFrom(atomic_ullong **this, atomic_ullong **a2)
+void siri::dialogengine::CatBinary::vcat_item::MergeFrom(siri::dialogengine::CatBinary::vcat_item *this, const siri::dialogengine::CatBinary::vcat_item *a2)
 {
   if (a2 == this)
   {
     google::protobuf::internal::LogMessage::LogMessage(v20, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/engine/CatBinary.pb.cc", 4392);
     v4 = google::protobuf::internal::LogMessage::operator<<(v20, "CHECK failed: (&from) != (this): ");
-    google::protobuf::internal::LogFinisher::operator=(&v19, v4);
+    google::protobuf::internal::LogFinisher::operator=(&v19, &v4->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v20[0].__r_.__value_.__l.__data_);
   }
 
-  v5 = a2[1];
+  v5 = *(a2 + 1);
   if (v5)
   {
     google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(this + 1, v5 & 0xFFFFFFFFFFFFFFFELL);
@@ -313,14 +279,14 @@ void siri::dialogengine::CatBinary::vcat_item::MergeFrom(atomic_ullong **this, a
   {
     if (v6)
     {
-      v7 = this[3];
+      v7 = *(this + 3);
       *(this + 4) |= 1u;
-      v8 = a2[3];
+      v8 = *(a2 + 3);
       if (v7 != v8)
       {
         if (v7 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((this + 3), v8);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 3, v8);
         }
 
         std::string::operator=(v7, v8);
@@ -329,14 +295,14 @@ void siri::dialogengine::CatBinary::vcat_item::MergeFrom(atomic_ullong **this, a
 
     if ((v6 & 2) != 0)
     {
-      v9 = this[4];
+      v9 = *(this + 4);
       *(this + 4) |= 2u;
-      v10 = a2[4];
+      v10 = *(a2 + 4);
       if (v9 != v10)
       {
         if (v9 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((this + 4), v10);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 4, v10);
         }
 
         std::string::operator=(v9, v10);
@@ -349,7 +315,7 @@ void siri::dialogengine::CatBinary::vcat_item::MergeFrom(atomic_ullong **this, a
   {
     if (v11 == 5)
     {
-      v13 = a2[5];
+      v13 = *(a2 + 5);
       if (*(this + 12) != 5)
       {
         siri::dialogengine::CatBinary::vcat_item::clear_item(this);
@@ -365,19 +331,19 @@ void siri::dialogengine::CatBinary::vcat_item::MergeFrom(atomic_ullong **this, a
         return;
       }
 
-      v13 = a2[5];
+      v13 = *(a2 + 5);
       if (*(this + 12) != 6)
       {
         siri::dialogengine::CatBinary::vcat_item::clear_item(this);
         v14 = 6;
 LABEL_35:
         *(this + 12) = v14;
-        this[5] = &google::protobuf::internal::fixed_address_empty_string;
+        *(this + 5) = &google::protobuf::internal::fixed_address_empty_string;
         goto LABEL_36;
       }
     }
 
-    v16 = this[5];
+    v16 = *(this + 5);
     if (v16 != &google::protobuf::internal::fixed_address_empty_string)
     {
       std::string::operator=(v16, v13);
@@ -385,7 +351,7 @@ LABEL_35:
     }
 
 LABEL_36:
-    google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((this + 5), v13);
+    google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 5, v13);
   }
 
   if (v11 != 2)
@@ -397,7 +363,7 @@ LABEL_36:
 
     if (*(this + 12) == 3)
     {
-      v12 = this[5];
+      v12 = *(this + 5);
     }
 
     else
@@ -405,7 +371,7 @@ LABEL_36:
       siri::dialogengine::CatBinary::vcat_item::clear_item(this);
       *(this + 12) = 3;
       v12 = google::protobuf::Arena::CreateMaybeMessage<siri::dialogengine::CatBinary::vcat_item_repetition>(0);
-      this[5] = v12;
+      *(this + 5) = v12;
       if (*(a2 + 12) != 3)
       {
         v17 = &siri::dialogengine::CatBinary::_vcat_item_repetition_default_instance_;
@@ -413,7 +379,7 @@ LABEL_36:
       }
     }
 
-    v17 = a2[5];
+    v17 = *(a2 + 5);
 LABEL_38:
     siri::dialogengine::CatBinary::vcat_item_repetition::MergeFrom(v12, v17);
     return;
@@ -421,7 +387,7 @@ LABEL_38:
 
   if (*(this + 12) == 2)
   {
-    v15 = this[5];
+    v15 = *(this + 5);
   }
 
   else
@@ -429,7 +395,7 @@ LABEL_38:
     siri::dialogengine::CatBinary::vcat_item::clear_item(this);
     *(this + 12) = 2;
     v15 = google::protobuf::Arena::CreateMaybeMessage<siri::dialogengine::CatBinary::vcat_item_expression>(0);
-    this[5] = v15;
+    *(this + 5) = v15;
     if (*(a2 + 12) != 2)
     {
       v18 = &siri::dialogengine::CatBinary::_vcat_item_expression_default_instance_;
@@ -437,14 +403,14 @@ LABEL_38:
     }
   }
 
-  v18 = a2[5];
+  v18 = *(a2 + 5);
 LABEL_40:
   siri::dialogengine::CatBinary::vcat_item_expression::MergeFrom(v15, v18);
 }
 
-void sub_1BFBD135C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFBD135C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -501,7 +467,7 @@ siri::dialogengine::CatBinary::vcat_item *siri::dialogengine::CatBinary::vcat_it
     v6 = *(a2 + 3);
     if (v6 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 24, v6);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 3, v6);
     }
   }
 
@@ -511,7 +477,7 @@ siri::dialogengine::CatBinary::vcat_item *siri::dialogengine::CatBinary::vcat_it
     v7 = *(a2 + 4);
     if (v7 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 32, v7);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 4, v7);
     }
   }
 
@@ -525,7 +491,7 @@ siri::dialogengine::CatBinary::vcat_item *siri::dialogengine::CatBinary::vcat_it
       siri::dialogengine::CatBinary::vcat_item::clear_item(this);
       *(this + 5) = &google::protobuf::internal::fixed_address_empty_string;
       *(this + 12) = v8;
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 40, v13);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 5, v13);
     }
   }
 
@@ -588,7 +554,7 @@ void google::protobuf::RepeatedField<int>::MergeFrom(int *a1, int *a2)
   {
     google::protobuf::internal::LogMessage::LogMessage(v10, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1279);
     v4 = google::protobuf::internal::LogMessage::operator<<(v10, "CHECK failed: (&other) != (this): ");
-    google::protobuf::internal::LogFinisher::operator=(&v9, v4);
+    google::protobuf::internal::LogFinisher::operator=(&v9, &v4->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v10[0].__r_.__value_.__l.__data_);
   }
 
@@ -602,7 +568,7 @@ void google::protobuf::RepeatedField<int>::MergeFrom(int *a1, int *a2)
     {
       google::protobuf::internal::LogMessage::LogMessage(v10, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1177);
       v7 = google::protobuf::internal::LogMessage::operator<<(v10, "CHECK failed: (index) < (current_size_): ");
-      google::protobuf::internal::LogFinisher::operator=(&v9, v7);
+      google::protobuf::internal::LogFinisher::operator=(&v9, &v7->__r_.__value_.__l.__data_);
       google::protobuf::internal::LogMessage::~LogMessage(&v10[0].__r_.__value_.__l.__data_);
     }
 
@@ -611,9 +577,9 @@ void google::protobuf::RepeatedField<int>::MergeFrom(int *a1, int *a2)
   }
 }
 
-void sub_1BFBD1758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFBD1758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -624,7 +590,7 @@ uint64_t google::protobuf::RepeatedField<int>::Mutable(_DWORD *a1, int a2)
   {
     google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1197);
     v4 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) >= (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, v4);
+    google::protobuf::internal::LogFinisher::operator=(&v7, &v4->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
   }
 
@@ -632,55 +598,55 @@ uint64_t google::protobuf::RepeatedField<int>::Mutable(_DWORD *a1, int a2)
   {
     google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1198);
     v5 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) < (current_size_): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, v5);
+    google::protobuf::internal::LogFinisher::operator=(&v7, &v5->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
   }
 
   return google::protobuf::RepeatedField<int>::elements(a1) + 4 * a2;
 }
 
-void sub_1BFBD1838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFBD1838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<int>::__emplace_unique_key_args<int,int const&>(uint64_t a1, int *a2)
+uint64_t *std::__tree<int>::__emplace_unique_key_args<int,int const&>(uint64_t a1, int *a2, _DWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -777,7 +743,7 @@ LABEL_6:
   v12->__r_.__value_.__l.__size_ = 0;
   v12->__r_.__value_.__r.__words[2] = 0;
   v12->__r_.__value_.__r.__words[0] = 0;
-  siri::dialogengine::Log::LogWithLevel(__p, 1u);
+  siri::dialogengine::Log::LogWithLevel(__p, 1);
   if (SHIBYTE(v21) < 0)
   {
     operator delete(__p[0]);
@@ -994,23 +960,23 @@ uint64_t std::__shared_ptr_pointer<siri::dialogengine::ChunkText *,std::shared_p
 uint64_t siri::dialogengine::ChunkVariable::ShouldGround(uint64_t a1, uint64_t a2, uint64_t a3, const std::string *a4)
 {
   std::string::basic_string[abi:ne200100]<0>(&__p, "ground");
-  siri::dialogengine::ChunkText::GetAttribute(a1, &__p, &v25);
+  siri::dialogengine::ChunkText::GetAttribute(a1, &__p.__r_.__value_.__l.__data_, &v26);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, "groundvar");
-  siri::dialogengine::ChunkText::GetAttribute(a1, &__p, &v24);
+  siri::dialogengine::ChunkText::GetAttribute(a1, &__p.__r_.__value_.__l.__data_, &v25);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  size = HIBYTE(v25.__r_.__value_.__r.__words[2]);
-  if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  size = HIBYTE(v26.__r_.__value_.__r.__words[2]);
+  if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v25.__r_.__value_.__l.__size_;
+    size = v26.__r_.__value_.__l.__size_;
   }
 
   if (size)
@@ -1018,41 +984,47 @@ uint64_t siri::dialogengine::ChunkVariable::ShouldGround(uint64_t a1, uint64_t a
     goto LABEL_11;
   }
 
-  v9 = HIBYTE(v24.__r_.__value_.__r.__words[2]);
-  if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v9 = HIBYTE(v25.__r_.__value_.__r.__words[2]);
+  if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v9 = v24.__r_.__value_.__l.__size_;
+    v9 = v25.__r_.__value_.__l.__size_;
   }
 
   if (v9)
   {
 LABEL_11:
-    memset(&v23, 0, sizeof(v23));
+    memset(&v24, 0, sizeof(v24));
+    memset(v23, 0, sizeof(v23));
     memset(v22, 0, sizeof(v22));
-    memset(v21, 0, sizeof(v21));
+    v21 = 0u;
     memset(v20, 0, sizeof(v20));
     if (a4)
     {
       std::string::operator=(v20, a4);
-      std::string::operator=(&v20[1], a4 + 1);
-      std::string::operator=(v21, a4 + 2);
-      std::string::operator=(&v21[1], a4 + 3);
-      std::string::operator=(v22, a4 + 4);
-      std::string::operator=(&v22[1], a4 + 5);
-      std::string::operator=(&v23, a4 + 6);
+      std::string::operator=(&v20[24], a4 + 1);
+      std::string::operator=(v22, a4 + 2);
+      std::string::operator=(&v22[1], a4 + 3);
+      std::string::operator=(v23, a4 + 4);
+      std::string::operator=(&v23[1], a4 + 5);
+      std::string::operator=(&v24, a4 + 6);
     }
 
     else
     {
-      siri::dialogengine::ResolveType(0, a2, a1 + 200, v34);
+      siri::dialogengine::ResolveType(&v35, 0, a2, a1 + 200);
       (*(**a3 + 56))(&__p);
       std::string::operator=(v20, &__p);
-      std::string::operator=(&v20[1], &v27);
-      std::string::operator=(v21, &v28);
-      std::string::operator=(&v21[1], &v29);
-      std::string::operator=(v22, &v30);
-      std::string::operator=(&v22[1], &v31);
-      std::string::operator=(&v23, &v32);
+      std::string::operator=(&v20[24], &v28);
+      std::string::operator=(v22, &v29);
+      std::string::operator=(&v22[1], &v30);
+      std::string::operator=(v23, &v31);
+      std::string::operator=(&v23[1], &v32);
+      std::string::operator=(&v24, &v33);
+      if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v33.__r_.__value_.__l.__data_);
+      }
+
       if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v32.__r_.__value_.__l.__data_);
@@ -1078,33 +1050,28 @@ LABEL_11:
         operator delete(v28.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v27.__r_.__value_.__l.__data_);
-      }
-
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (v35 < 0)
+      if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v34[0]);
+        operator delete(v35.__r_.__value_.__l.__data_);
       }
     }
 
     v10 = (a1 + 200);
-    v11 = &v24.__r_.__value_.__r.__words[2] + 7;
-    v12 = HIBYTE(v24.__r_.__value_.__r.__words[2]);
-    if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v11 = &v25.__r_.__value_.__r.__words[2] + 7;
+    v12 = HIBYTE(v25.__r_.__value_.__r.__words[2]);
+    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v12 = v24.__r_.__value_.__l.__size_;
+      v12 = v25.__r_.__value_.__l.__size_;
     }
 
     if (v12)
     {
-      v10 = &v24;
+      v10 = &v25;
     }
 
     else
@@ -1114,7 +1081,7 @@ LABEL_11:
 
     if (*v11 < 0)
     {
-      p_size = &v24.__r_.__value_.__l.__size_;
+      p_size = &v25.__r_.__value_.__l.__size_;
       if (!v12)
       {
         p_size = (a1 + 208);
@@ -1128,7 +1095,7 @@ LABEL_11:
       v19 = *v10;
     }
 
-    siri::dialogengine::SpeakableString::ToMultiplexedString(v20, &v17);
+    siri::dialogengine::SpeakableString::ToMultiplexedString(&v17, v20);
     v14 = SHIBYTE(v17.__r_.__value_.__r.__words[2]);
     if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -1140,20 +1107,20 @@ LABEL_11:
       v18 = v17;
     }
 
-    v15 = HIBYTE(v24.__r_.__value_.__r.__words[2]);
-    if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v15 = HIBYTE(v25.__r_.__value_.__r.__words[2]);
+    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v15 = v24.__r_.__value_.__l.__size_;
+      v15 = v25.__r_.__value_.__l.__size_;
     }
 
     if (v15)
     {
       std::string::basic_string[abi:ne200100]<0>(&__p, "");
-      std::string::basic_string[abi:ne200100]<0>(v34, "");
-      siri::dialogengine::ResolveValue(a2, &v24, 1, &__p, v34, &v36);
-      if (v35 < 0)
+      std::string::basic_string[abi:ne200100]<0>(&v35, "");
+      siri::dialogengine::ResolveValue(a2, &v25.__r_.__value_.__l.__data_, 1, &__p, &v35, &v36);
+      if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v34[0]);
+        operator delete(v35.__r_.__value_.__l.__data_);
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -1163,15 +1130,20 @@ LABEL_11:
 
       if (v36)
       {
-        siri::dialogengine::ResolveType(0, a2, &v24, v34);
+        siri::dialogengine::ResolveType(&v35, 0, a2, &v25);
         (*(*v36 + 56))(&__p);
-        siri::dialogengine::SpeakableString::ToMultiplexedString(&__p, &v33);
+        siri::dialogengine::SpeakableString::ToMultiplexedString(&v34, &__p.__r_.__value_.__l.__data_);
         if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v18.__r_.__value_.__l.__data_);
         }
 
-        v18 = v33;
+        v18 = v34;
+        if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v33.__r_.__value_.__l.__data_);
+        }
+
         if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v32.__r_.__value_.__l.__data_);
@@ -1197,19 +1169,14 @@ LABEL_11:
           operator delete(v28.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v27.__r_.__value_.__l.__data_);
-        }
-
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        if (v35 < 0)
+        if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v34[0]);
+          operator delete(v35.__r_.__value_.__l.__data_);
         }
       }
 
@@ -1224,17 +1191,17 @@ LABEL_11:
       operator delete(v17.__r_.__value_.__l.__data_);
     }
 
-    siri::dialogengine::GetGroundingMode(&v25);
+    siri::dialogengine::GetGroundingMode(&v26);
   }
 
-  if ((*(&v24.__r_.__value_.__s + 23) & 0x80) != 0)
-  {
-    operator delete(v24.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+  if ((*(&v25.__r_.__value_.__s + 23) & 0x80) != 0)
   {
     operator delete(v25.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v26.__r_.__value_.__l.__data_);
   }
 
   return 1;
@@ -1276,7 +1243,7 @@ void sub_1BFBD2898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void siri::dialogengine::SemanticFeatureConstraint::ParseString(uint64_t a1@<X0>, void *a2@<X8>)
+void siri::dialogengine::SemanticFeatureConstraint::ParseString(unsigned __int8 *a1@<X0>, void *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -1310,7 +1277,7 @@ void std::vector<siri::dialogengine::SemanticFeatureConstraint>::__destroy_vecto
   }
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::__wrap_iter<std::string*>,std::__wrap_iter<std::string*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+std::string *std::vector<std::string>::__init_with_size[abi:ne200100]<std::__wrap_iter<std::string*>,std::__wrap_iter<std::string*>>(std::string *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1418,7 +1385,7 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldWrapper<google::protobuf::M
   {
     google::protobuf::internal::LogMessage::LogMessage(v9, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1606);
     v4 = google::protobuf::internal::LogMessage::operator<<(v9, "CHECK failed: (current_size_) > (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v8, v4);
+    google::protobuf::internal::LogFinisher::operator=(&v8, &v4->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v9[0].__r_.__value_.__l.__data_);
     v3 = *(a2 + 8);
   }
@@ -1429,9 +1396,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldWrapper<google::protobuf::M
   return (*(**(v6 + 8) + 56))(*(v6 + 8));
 }
 
-void sub_1BFBD3168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFBD3168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1570,18 +1537,17 @@ void sub_1BFBD35D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t siri::dialogengine::ConditionExpression::EvaluateString(uint64_t a1, uint64_t a2, char ***a3)
+uint64_t siri::dialogengine::ConditionExpression::EvaluateString(uint64_t a1, uint64_t a2, const void **a3)
 {
-  v5 = *a3;
   {
-    if (v7[95] < 0)
+    if (v5[95] < 0)
     {
-      std::string::__init_copy_ctor_external(&__str, *(v7 + 9), *(v7 + 10));
+      std::string::__init_copy_ctor_external(&__str, *(v5 + 9), *(v5 + 10));
     }
 
     else
     {
-      __str = *(v7 + 3);
+      __str = *(v5 + 3);
     }
   }
 
@@ -1590,7 +1556,7 @@ uint64_t siri::dialogengine::ConditionExpression::EvaluateString(uint64_t a1, ui
     std::string::basic_string[abi:ne200100]<0>(&__str, "");
   }
 
-  memset(&v69, 0, sizeof(v69));
+  memset(&v66, 0, sizeof(v66));
   if ((*(a1 + 223) & 0x8000000000000000) != 0)
   {
     if (!*(a1 + 208))
@@ -1604,63 +1570,63 @@ uint64_t siri::dialogengine::ConditionExpression::EvaluateString(uint64_t a1, ui
     goto LABEL_23;
   }
 
-  v8 = *(a1 + 225);
-  std::string::basic_string[abi:ne200100]<0>(&v68, "");
+  v6 = *(a1 + 225);
+  std::string::basic_string[abi:ne200100]<0>(&v65, "");
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  siri::dialogengine::ResolveValue(a2, a1 + 200, v8 ^ 1, &v68, &__p, &lpsrc);
+  siri::dialogengine::ResolveValue(a2, (a1 + 200), v6 ^ 1u, &v65, &__p, &lpsrc);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v68.__r_.__value_.__l.__data_);
+    operator delete(v65.__r_.__value_.__l.__data_);
   }
 
   {
-    if (v10[95] < 0)
+    if (v7[95] < 0)
     {
-      std::string::__init_copy_ctor_external(&v68, *(v10 + 9), *(v10 + 10));
+      std::string::__init_copy_ctor_external(&v65, *(v7 + 9), *(v7 + 10));
     }
 
     else
     {
-      v68 = *(v10 + 3);
+      v65 = *(v7 + 3);
     }
   }
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(&v68, "");
+    std::string::basic_string[abi:ne200100]<0>(&v65, "");
   }
 
-  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v69.__r_.__value_.__l.__data_);
+    operator delete(v66.__r_.__value_.__l.__data_);
   }
 
-  v69 = v68;
+  v66 = v65;
   if (lpsrc.__r_.__value_.__l.__size_)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](lpsrc.__r_.__value_.__l.__size_);
   }
 
 LABEL_23:
-  v11 = (a1 + 176);
-  v12 = *(a1 + 199);
+  v8 = (a1 + 176);
+  v9 = *(a1 + 199);
   if ((*(a1 + 199) & 0x80000000) == 0)
   {
-    v13 = (a1 + 176);
-    if (v12 != 11)
+    v10 = (a1 + 176);
+    if (v9 != 11)
     {
       goto LABEL_32;
     }
 
 LABEL_28:
-    v14 = *v13;
-    v15 = *(v13 + 3);
-    if (v14 == 0x616D5F7865676572 && v15 == 0x686374616D5F7865)
+    v11 = *v10;
+    v12 = *(v10 + 3);
+    if (v11 == 0x616D5F7865676572 && v12 == 0x686374616D5F7865)
     {
       goto LABEL_49;
     }
@@ -1670,7 +1636,7 @@ LABEL_28:
 
   if (*(a1 + 184) == 11)
   {
-    v13 = *v11;
+    v10 = *v8;
     goto LABEL_28;
   }
 
@@ -1695,57 +1661,57 @@ LABEL_32:
     size = __str.__r_.__value_.__l.__size_;
   }
 
-  siri::dialogengine::StringToLower(p_str, size, &v68);
+  siri::dialogengine::StringToLower(&v65, p_str, size);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__str.__r_.__value_.__l.__data_);
   }
 
-  __str = v68;
-  if ((v69.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  __str = v65;
+  if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v19 = &v69;
+    v16 = &v66;
   }
 
   else
   {
-    v19 = v69.__r_.__value_.__r.__words[0];
+    v16 = v66.__r_.__value_.__r.__words[0];
   }
 
-  if ((v69.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v20 = HIBYTE(v69.__r_.__value_.__r.__words[2]);
+    v17 = HIBYTE(v66.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v20 = v69.__r_.__value_.__l.__size_;
+    v17 = v66.__r_.__value_.__l.__size_;
   }
 
-  siri::dialogengine::StringToLower(v19, v20, &v68);
-  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
+  siri::dialogengine::StringToLower(&v65, v16, v17);
+  if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v69.__r_.__value_.__l.__data_);
+    operator delete(v66.__r_.__value_.__l.__data_);
   }
 
-  v69 = v68;
-  v12 = *(a1 + 199);
+  v66 = v65;
+  v9 = *(a1 + 199);
 LABEL_49:
-  if ((v12 & 0x80) == 0)
+  if ((v9 & 0x80) == 0)
   {
-    if (v12 > 4)
+    if (v9 > 4)
     {
-      if (v12 <= 9)
+      if (v9 <= 9)
       {
-        if (v12 != 5)
+        if (v9 != 5)
         {
-          if (v12 == 8)
+          if (v9 == 8)
           {
-            if (*v11 != 0x7974706D656E6F6ELL)
+            if (*v8 != 0x7974706D656E6F6ELL)
             {
-              if (*v11 != 0x736E6961746E6F63)
+              if (*v8 != 0x736E6961746E6F63)
               {
-                if (*v11 == 0x6874697773646E65)
+                if (*v8 == 0x6874697773646E65)
                 {
                   goto LABEL_152;
                 }
@@ -1754,7 +1720,7 @@ LABEL_49:
               }
 
 LABEL_118:
-              v35 = siri::dialogengine::StringContains(&__str.__r_.__value_.__l.__data_, &v69);
+              v32 = siri::dialogengine::StringContains(&__str.__r_.__value_.__l.__data_, &v66);
               goto LABEL_206;
             }
 
@@ -1764,105 +1730,105 @@ LABEL_118:
 LABEL_111:
           if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((a1 + 176), "<"))
           {
-            v27 = std::string::compare[abi:ne200100](&__str.__r_.__value_.__l.__data_, &v69) >> 31;
+            v24 = std::string::compare[abi:ne200100](&__str, &v66) >> 31;
             goto LABEL_207;
           }
 
           if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((a1 + 176), "<="))
           {
-            v23 = &v69;
-            v24 = &__str;
+            v20 = &v66;
+            v21 = &__str;
             goto LABEL_115;
           }
 
           if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((a1 + 176), "ver_eq"))
           {
-            v35 = siri::dialogengine::VersionEqual(&__str, &v69);
+            v32 = siri::dialogengine::VersionEqual(&__str, &v66);
 LABEL_206:
-            v27 = v35;
+            v24 = v32;
             goto LABEL_207;
           }
 
           if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((a1 + 176), "ver_ne"))
           {
-            v27 = !siri::dialogengine::VersionEqual(&__str, &v69);
+            v24 = !siri::dialogengine::VersionEqual(&__str, &v66);
             goto LABEL_207;
           }
 
           if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((a1 + 176), "ver_gt"))
           {
-            v35 = siri::dialogengine::VersionGreaterThan(&__str, &v69);
+            v32 = siri::dialogengine::VersionGreaterThan(&__str, &v66);
             goto LABEL_206;
           }
 
           if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((a1 + 176), "ver_ge"))
           {
-            v35 = siri::dialogengine::VersionGreaterThanOrEqual(&__str, &v69);
+            v32 = siri::dialogengine::VersionGreaterThanOrEqual(&__str, &v66);
             goto LABEL_206;
           }
 
           if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((a1 + 176), "ver_lt"))
           {
-            v35 = siri::dialogengine::VersionLessThan(&__str, &v69);
+            v32 = siri::dialogengine::VersionLessThan(&__str, &v66);
             goto LABEL_206;
           }
 
           if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((a1 + 176), "ver_le"))
           {
-            v35 = siri::dialogengine::VersionLessThanOrEqual(&__str, &v69);
+            v32 = siri::dialogengine::VersionLessThanOrEqual(&__str, &v66);
             goto LABEL_206;
           }
 
           std::operator+<char>();
-          v53 = std::string::append(&v65, "' for expression '");
-          v54 = *&v53->__r_.__value_.__l.__data_;
-          lpsrc.__r_.__value_.__r.__words[2] = v53->__r_.__value_.__r.__words[2];
-          *&lpsrc.__r_.__value_.__l.__data_ = v54;
-          v53->__r_.__value_.__l.__size_ = 0;
-          v53->__r_.__value_.__r.__words[2] = 0;
-          v53->__r_.__value_.__r.__words[0] = 0;
-          v57 = *(a1 + 152);
-          v56 = a1 + 152;
-          v55 = v57;
-          v58 = *(v56 + 23);
-          if (v58 >= 0)
+          v50 = std::string::append(&v62, "' for expression '");
+          v51 = *&v50->__r_.__value_.__l.__data_;
+          lpsrc.__r_.__value_.__r.__words[2] = v50->__r_.__value_.__r.__words[2];
+          *&lpsrc.__r_.__value_.__l.__data_ = v51;
+          v50->__r_.__value_.__l.__size_ = 0;
+          v50->__r_.__value_.__r.__words[2] = 0;
+          v50->__r_.__value_.__r.__words[0] = 0;
+          v54 = *(a1 + 152);
+          v53 = a1 + 152;
+          v52 = v54;
+          v55 = *(v53 + 23);
+          if (v55 >= 0)
           {
-            v59 = v56;
+            v56 = v53;
           }
 
           else
           {
-            v59 = v55;
+            v56 = v52;
           }
 
-          if (v58 >= 0)
+          if (v55 >= 0)
           {
-            v60 = *(v56 + 23);
+            v57 = *(v53 + 23);
           }
 
           else
           {
-            v60 = *(v56 + 8);
+            v57 = *(v53 + 8);
           }
 
-          v61 = std::string::append(&lpsrc, v59, v60);
-          v62 = *&v61->__r_.__value_.__l.__data_;
-          __p.__r_.__value_.__r.__words[2] = v61->__r_.__value_.__r.__words[2];
-          *&__p.__r_.__value_.__l.__data_ = v62;
-          v61->__r_.__value_.__l.__size_ = 0;
-          v61->__r_.__value_.__r.__words[2] = 0;
-          v61->__r_.__value_.__r.__words[0] = 0;
-          v63 = std::string::append(&__p, "'");
-          v64 = *&v63->__r_.__value_.__l.__data_;
-          v68.__r_.__value_.__r.__words[2] = v63->__r_.__value_.__r.__words[2];
-          *&v68.__r_.__value_.__l.__data_ = v64;
-          v63->__r_.__value_.__l.__size_ = 0;
-          v63->__r_.__value_.__r.__words[2] = 0;
-          v63->__r_.__value_.__r.__words[0] = 0;
-          siri::dialogengine::Log::LogWithLevel(&v68, 3u);
-          if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
+          v58 = std::string::append(&lpsrc, v56, v57);
+          v59 = *&v58->__r_.__value_.__l.__data_;
+          __p.__r_.__value_.__r.__words[2] = v58->__r_.__value_.__r.__words[2];
+          *&__p.__r_.__value_.__l.__data_ = v59;
+          v58->__r_.__value_.__l.__size_ = 0;
+          v58->__r_.__value_.__r.__words[2] = 0;
+          v58->__r_.__value_.__r.__words[0] = 0;
+          v60 = std::string::append(&__p, "'");
+          v61 = *&v60->__r_.__value_.__l.__data_;
+          v65.__r_.__value_.__r.__words[2] = v60->__r_.__value_.__r.__words[2];
+          *&v65.__r_.__value_.__l.__data_ = v61;
+          v60->__r_.__value_.__l.__size_ = 0;
+          v60->__r_.__value_.__r.__words[2] = 0;
+          v60->__r_.__value_.__r.__words[0] = 0;
+          siri::dialogengine::Log::LogWithLevel(&v65, 3);
+          if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v68.__r_.__value_.__l.__data_);
+            operator delete(v65.__r_.__value_.__l.__data_);
           }
 
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -1875,15 +1841,15 @@ LABEL_206:
             operator delete(lpsrc.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v65.__r_.__value_.__l.__data_);
+            operator delete(v62.__r_.__value_.__l.__data_);
           }
 
           goto LABEL_226;
         }
 
-        if (*v11 != 1953525093 || *(a1 + 180) != 121)
+        if (*v8 != 1953525093 || *(a1 + 180) != 121)
         {
           goto LABEL_111;
         }
@@ -1891,52 +1857,52 @@ LABEL_206:
         goto LABEL_104;
       }
 
-      if (v12 != 10)
+      if (v9 != 10)
       {
-        if (v12 != 11)
+        if (v9 != 11)
         {
           goto LABEL_111;
         }
 
-        if (*v11 != 0x616D5F7865676572 || *(a1 + 179) != 0x686374616D5F7865)
+        if (*v8 != 0x616D5F7865676572 || *(a1 + 179) != 0x686374616D5F7865)
         {
           goto LABEL_111;
         }
 
 LABEL_148:
-        siri::dialogengine::StringRegexMatch(&__str, &v69);
+        siri::dialogengine::StringRegexMatch(&__str, &v66.__r_.__value_.__l.__data_);
       }
 
-      if (*v11 != 0x6977737472617473 || *(a1 + 184) != 26740)
+      if (*v8 != 0x6977737472617473 || *(a1 + 184) != 26740)
       {
         goto LABEL_111;
       }
 
 LABEL_151:
-      v35 = siri::dialogengine::StringStartsWith(&__str, &v69.__r_.__value_.__l.__data_);
+      v32 = siri::dialogengine::StringStartsWith(&__str, &v66.__r_.__value_.__l.__data_);
       goto LABEL_206;
     }
 
-    if (v12)
+    if (v9)
     {
 LABEL_64:
-      if (v12 != 1)
+      if (v9 != 1)
       {
-        if (v12 != 2)
+        if (v9 != 2)
         {
           goto LABEL_111;
         }
 
-        v22 = (a1 + 176);
-        if (*v11 != 15649)
+        v19 = (a1 + 176);
+        if (*v8 != 15649)
         {
 LABEL_67:
-          if (*v22 == 15678)
+          if (*v19 == 15678)
           {
-            v23 = &__str;
-            v24 = &v69;
+            v20 = &__str;
+            v21 = &v66;
 LABEL_115:
-            v27 = std::string::compare[abi:ne200100](&v23->__r_.__value_.__l.__data_, v24) >= 0;
+            v24 = std::string::compare[abi:ne200100](v20, v21) >= 0;
             goto LABEL_207;
           }
 
@@ -1946,52 +1912,52 @@ LABEL_115:
 LABEL_162:
         if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v42 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+          v39 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v42 = __str.__r_.__value_.__l.__size_;
+          v39 = __str.__r_.__value_.__l.__size_;
         }
 
-        v43 = HIBYTE(v69.__r_.__value_.__r.__words[2]);
-        if ((v69.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v40 = HIBYTE(v66.__r_.__value_.__r.__words[2]);
+        if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v43 = v69.__r_.__value_.__l.__size_;
+          v40 = v66.__r_.__value_.__l.__size_;
         }
 
-        if (v42 != v43)
+        if (v39 != v40)
         {
-          v27 = 1;
+          v24 = 1;
           goto LABEL_207;
         }
 
         if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v44 = &__str;
+          v41 = &__str;
         }
 
         else
         {
-          v44 = __str.__r_.__value_.__r.__words[0];
+          v41 = __str.__r_.__value_.__r.__words[0];
         }
 
-        if ((v69.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v45 = &v69;
+          v42 = &v66;
         }
 
         else
         {
-          v45 = v69.__r_.__value_.__r.__words[0];
+          v42 = v66.__r_.__value_.__r.__words[0];
         }
 
-        v26 = memcmp(v44, v45, v42) == 0;
+        v23 = memcmp(v41, v42, v39) == 0;
         goto LABEL_72;
       }
 
-      v30 = *v11;
-      if (v30 != 61)
+      v27 = *v8;
+      if (v27 != 61)
       {
         goto LABEL_97;
       }
@@ -1999,88 +1965,88 @@ LABEL_162:
 LABEL_132:
       if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v38 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+        v35 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v38 = __str.__r_.__value_.__l.__size_;
+        v35 = __str.__r_.__value_.__l.__size_;
       }
 
-      v39 = HIBYTE(v69.__r_.__value_.__r.__words[2]);
-      if ((v69.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v36 = HIBYTE(v66.__r_.__value_.__r.__words[2]);
+      if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v39 = v69.__r_.__value_.__l.__size_;
+        v36 = v66.__r_.__value_.__l.__size_;
       }
 
-      if (v38 != v39)
+      if (v35 != v36)
       {
 LABEL_226:
-        v27 = 0;
+        v24 = 0;
         goto LABEL_207;
       }
 
       if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v40 = &__str;
+        v37 = &__str;
       }
 
       else
       {
-        v40 = __str.__r_.__value_.__r.__words[0];
+        v37 = __str.__r_.__value_.__r.__words[0];
       }
 
-      if ((v69.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v41 = &v69;
+        v38 = &v66;
       }
 
       else
       {
-        v41 = v69.__r_.__value_.__r.__words[0];
+        v38 = v66.__r_.__value_.__r.__words[0];
       }
 
-      v33 = memcmp(v40, v41, v38) == 0;
+      v30 = memcmp(v37, v38, v35) == 0;
       goto LABEL_145;
     }
 
 LABEL_69:
-    v25 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+    v22 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
     if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v25 = __str.__r_.__value_.__l.__size_;
+      v22 = __str.__r_.__value_.__l.__size_;
     }
 
-    v26 = v25 == 0;
+    v23 = v22 == 0;
 LABEL_72:
-    v27 = !v26;
+    v24 = !v23;
     goto LABEL_207;
   }
 
-  v21 = *(a1 + 184);
-  switch(v21)
+  v18 = *(a1 + 184);
+  switch(v18)
   {
     case 0:
       goto LABEL_69;
     case 5:
-      if (**v11 == 1953525093 && *(*v11 + 4) == 121)
+      if (**v8 == 1953525093 && *(*v8 + 4) == 121)
       {
 LABEL_104:
-        v32 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+        v29 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
         if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v32 = __str.__r_.__value_.__l.__size_;
+          v29 = __str.__r_.__value_.__l.__size_;
         }
 
-        v33 = v32 == 0;
+        v30 = v29 == 0;
 LABEL_145:
-        v27 = v33;
+        v24 = v30;
         goto LABEL_207;
       }
 
       break;
     case 8:
-      switch(**v11)
+      switch(**v8)
       {
         case 0x7974706D656E6F6ELL:
           goto LABEL_69;
@@ -2088,18 +2054,18 @@ LABEL_145:
           goto LABEL_118;
         case 0x6874697773646E65:
 LABEL_152:
-          v35 = siri::dialogengine::StringEndsWith(&__str, &v69.__r_.__value_.__l.__data_);
+          v32 = siri::dialogengine::StringEndsWith(&__str, &v66.__r_.__value_.__l.__data_);
           goto LABEL_206;
       }
 
-      if ((v12 & 0x80) == 0)
+      if ((v9 & 0x80) == 0)
       {
         goto LABEL_64;
       }
 
       break;
     default:
-      if (v21 == 10 && **v11 == 0x6977737472617473 && *(*v11 + 8) == 26740)
+      if (v18 == 10 && **v8 == 0x6977737472617473 && *(*v8 + 8) == 26740)
       {
         goto LABEL_151;
       }
@@ -2109,12 +2075,12 @@ LABEL_152:
 
   if (*(a1 + 184) == 11)
   {
-    if (**v11 == 0x616D5F7865676572 && *(*v11 + 3) == 0x686374616D5F7865)
+    if (**v8 == 0x616D5F7865676572 && *(*v8 + 3) == 0x686374616D5F7865)
     {
       goto LABEL_148;
     }
 
-    if ((v12 & 0x80) == 0)
+    if ((v9 & 0x80) == 0)
     {
       goto LABEL_64;
     }
@@ -2122,12 +2088,12 @@ LABEL_152:
 
   if (*(a1 + 184) == 1)
   {
-    if (**v11 == 61)
+    if (**v8 == 61)
     {
       goto LABEL_132;
     }
 
-    if ((v12 & 0x80) == 0)
+    if ((v9 & 0x80) == 0)
     {
       goto LABEL_159;
     }
@@ -2135,18 +2101,18 @@ LABEL_152:
 
   if (*(a1 + 184) == 2)
   {
-    if (**v11 == 15649)
+    if (**v8 == 15649)
     {
       goto LABEL_162;
     }
 
-    if ((v12 & 0x80) == 0)
+    if ((v9 & 0x80) == 0)
     {
 LABEL_159:
-      if (v12 != 1)
+      if (v9 != 1)
       {
-        v22 = (a1 + 176);
-        if (v12 != 2)
+        v19 = (a1 + 176);
+        if (v9 != 2)
         {
           goto LABEL_111;
         }
@@ -2154,9 +2120,9 @@ LABEL_159:
         goto LABEL_67;
       }
 
-      v30 = *v11;
+      v27 = *v8;
 LABEL_97:
-      if (v30 != 62)
+      if (v27 != 62)
       {
         goto LABEL_111;
       }
@@ -2173,13 +2139,13 @@ LABEL_199:
       goto LABEL_111;
     }
 
-    v22 = *v11;
+    v19 = *v8;
     goto LABEL_67;
   }
 
-  if (**v11 != 62)
+  if (**v8 != 62)
   {
-    if ((v12 & 0x80) == 0)
+    if ((v9 & 0x80) == 0)
     {
       goto LABEL_111;
     }
@@ -2188,71 +2154,71 @@ LABEL_199:
   }
 
 LABEL_177:
-  if ((v69.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v46 = HIBYTE(v69.__r_.__value_.__r.__words[2]);
+    v43 = HIBYTE(v66.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v46 = v69.__r_.__value_.__l.__size_;
+    v43 = v66.__r_.__value_.__l.__size_;
   }
 
-  if ((v69.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v47 = &v69;
+    v44 = &v66;
   }
 
   else
   {
-    v47 = v69.__r_.__value_.__r.__words[0];
+    v44 = v66.__r_.__value_.__r.__words[0];
   }
 
   if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v48 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+    v45 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v48 = __str.__r_.__value_.__l.__size_;
+    v45 = __str.__r_.__value_.__l.__size_;
   }
 
   if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v49 = &__str;
+    v46 = &__str;
   }
 
   else
   {
-    v49 = __str.__r_.__value_.__r.__words[0];
+    v46 = __str.__r_.__value_.__r.__words[0];
   }
 
-  if (v48 >= v46)
+  if (v45 >= v43)
   {
-    v50 = v46;
-  }
-
-  else
-  {
-    v50 = v48;
-  }
-
-  v51 = memcmp(v47, v49, v50);
-  if (v51)
-  {
-    v27 = v51 < 0;
+    v47 = v43;
   }
 
   else
   {
-    v27 = v46 < v48;
+    v47 = v45;
+  }
+
+  v48 = memcmp(v44, v46, v47);
+  if (v48)
+  {
+    v24 = v48 < 0;
+  }
+
+  else
+  {
+    v24 = v43 < v45;
   }
 
 LABEL_207:
-  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v69.__r_.__value_.__l.__data_);
+    operator delete(v66.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -2260,7 +2226,7 @@ LABEL_207:
     operator delete(__str.__r_.__value_.__l.__data_);
   }
 
-  return v27;
+  return v24;
 }
 
 void sub_1BFBD400C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35)
@@ -2298,7 +2264,7 @@ void sub_1BFBD400C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<std::shared_ptr<siri::dialogengine::ChunkText>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<siri::dialogengine::ChunkText>*>,std::__wrap_iter<std::shared_ptr<siri::dialogengine::ChunkText>*>>(void *result, void *a2, uint64_t *a3, void *a4, uint64_t a5)
+uint64_t *std::vector<std::shared_ptr<siri::dialogengine::ChunkText>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<siri::dialogengine::ChunkText>*>,std::__wrap_iter<std::shared_ptr<siri::dialogengine::ChunkText>*>>(uint64_t *result, char *a2, uint64_t *a3, void *a4, uint64_t a5)
 {
   if (a5 >= 1)
   {
@@ -2312,7 +2278,7 @@ void *std::vector<std::shared_ptr<siri::dialogengine::ChunkText>>::__insert_with
       v16 = (v10 - a2) >> 4;
       if (v16 >= a5)
       {
-        std::vector<std::shared_ptr<siri::dialogengine::ChunkText>>::__move_range(result, a2, result[1], &a2[2 * a5]);
+        std::vector<std::shared_ptr<siri::dialogengine::ChunkText>>::__move_range(result, a2, result[1], &a2[16 * a5]);
         v17 = &v6[2 * a5];
       }
 
@@ -2325,7 +2291,7 @@ void *std::vector<std::shared_ptr<siri::dialogengine::ChunkText>>::__insert_with
           return result;
         }
 
-        std::vector<std::shared_ptr<siri::dialogengine::ChunkText>>::__move_range(v8, a2, v10, &a2[2 * a5]);
+        std::vector<std::shared_ptr<siri::dialogengine::ChunkText>>::__move_range(v8, a2, v10, &a2[16 * a5]);
         v17 = (v6 + v15);
       }
 
@@ -2363,7 +2329,7 @@ void *std::vector<std::shared_ptr<siri::dialogengine::ChunkText>>::__insert_with
         std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<siri::dialogengine::VisualComponentsCombination::Entry>>>(v14);
       }
 
-      v18 = 16 * ((a2 - v11) >> 4);
+      v18 = 16 * (&a2[-v11] >> 4);
       v29 = 0;
       v19 = (v18 + 16 * a5);
       v20 = v18;
@@ -2386,7 +2352,7 @@ void *std::vector<std::shared_ptr<siri::dialogengine::ChunkText>>::__insert_with
       v22 = *v8;
       v23 = &v19[v8[1] - a2];
       v8[1] = a2;
-      v24 = a2 - v22;
+      v24 = (a2 - v22);
       v25 = (v18 - (a2 - v22));
       memcpy(v25, v22, v24);
       v26 = *v8;
@@ -2407,19 +2373,14 @@ void *std::vector<std::shared_ptr<siri::dialogengine::ChunkText>>::__insert_with
 
 void siri::dialogengine::DialogPerson::GetToString(siri::dialogengine::DialogPerson *this, siri::dialogengine::Context *a2, void **a3, const siri::dialogengine::PersonData *a4)
 {
-  bzero(v105, 0x421uLL);
+  bzero(v103, 0x421uLL);
   if (!a3)
   {
-    siri::dialogengine::DialogPerson::GetPersonData(this, a2, v23);
-    siri::dialogengine::PersonData::operator=(v105, v23);
-    if (v104 < 0)
-    {
-      operator delete(__p);
-    }
-
+    siri::dialogengine::DialogPerson::GetPersonData(v21, this, a2);
+    siri::dialogengine::PersonData::operator=(v103, v21);
     if (v102 < 0)
     {
-      operator delete(v101);
+      operator delete(__p);
     }
 
     if (v100 < 0)
@@ -2597,42 +2558,47 @@ void siri::dialogengine::DialogPerson::GetToString(siri::dialogengine::DialogPer
       operator delete(v31);
     }
 
-    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    if (v30 < 0)
     {
-      operator delete(v30.__r_.__value_.__l.__data_);
+      operator delete(v29);
     }
 
-    if (SHIBYTE(v29) < 0)
+    if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(*(&v28 + 1));
+      operator delete(v28.__r_.__value_.__l.__data_);
     }
 
-    if (SBYTE7(v28) < 0)
+    if (SHIBYTE(v27) < 0)
     {
-      operator delete(v27[0]);
+      operator delete(*(&v26 + 1));
     }
 
-    if (SHIBYTE(v26) < 0)
+    if (SBYTE7(v26) < 0)
     {
-      operator delete(*(&v25 + 1));
+      operator delete(v25[0]);
     }
 
-    if (SBYTE7(v25) < 0)
+    if (SHIBYTE(v24) < 0)
     {
-      operator delete(v24[0]);
+      operator delete(*(&v23 + 1));
     }
 
-    if (SHIBYTE(v23[1].__r_.__value_.__r.__words[2]) < 0)
+    if (SBYTE7(v23) < 0)
     {
-      operator delete(v23[1].__r_.__value_.__l.__data_);
+      operator delete(v22[0]);
     }
 
-    if (SHIBYTE(v23[0].__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v21[1].__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v23[0].__r_.__value_.__l.__data_);
+      operator delete(v21[1].__r_.__value_.__l.__data_);
     }
 
-    a3 = v105;
+    if (SHIBYTE(v21[0].__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v21[0].__r_.__value_.__l.__data_);
+    }
+
+    a3 = v103;
   }
 
   if (*(a3 + 1056) == 1)
@@ -2640,32 +2606,22 @@ void siri::dialogengine::DialogPerson::GetToString(siri::dialogengine::DialogPer
     siri::dialogengine::DialogPerson::GetConversationalName(this, a2, a3, v7);
   }
 
-  v29 = 0u;
-  memset(&v30, 0, sizeof(v30));
-  *v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
+  v27 = 0u;
+  memset(&v28, 0, sizeof(v28));
+  *v25 = 0u;
   v26 = 0u;
-  *v24 = 0u;
-  memset(v23, 0, sizeof(v23));
+  v23 = 0u;
+  v24 = 0u;
+  *v22 = 0u;
+  memset(v21, 0, sizeof(v21));
   siri::dialogengine::CreateFullName(&__str, this, a2, a3);
-  std::string::operator=(v23, &__str);
-  std::string::operator=(&v23[1], &v17);
-  std::string::operator=(v24, &v18);
-  std::string::operator=((&v25 + 8), &v19);
-  std::string::operator=(v27, &v20);
-  std::string::operator=((&v28 + 8), &v21);
-  std::string::operator=(&v30, &v22);
-  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v22.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v21.__r_.__value_.__l.__data_);
-  }
-
+  std::string::operator=(v21, &__str);
+  std::string::operator=(&v21[1], &v15);
+  std::string::operator=(v22, &v16);
+  std::string::operator=((&v23 + 8), &v17);
+  std::string::operator=(v25, &v18);
+  std::string::operator=((&v26 + 8), &v19);
+  std::string::operator=(&v28, &v20);
   if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v20.__r_.__value_.__l.__data_);
@@ -2686,15 +2642,25 @@ void siri::dialogengine::DialogPerson::GetToString(siri::dialogengine::DialogPer
     operator delete(v17.__r_.__value_.__l.__data_);
   }
 
+  if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v16.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v15.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__str.__r_.__value_.__l.__data_);
   }
 
-  size = HIBYTE(v23[1].__r_.__value_.__r.__words[2]);
-  if ((v23[1].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  size = HIBYTE(v21[1].__r_.__value_.__r.__words[2]);
+  if ((v21[1].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v23[1].__r_.__value_.__l.__size_;
+    size = v21[1].__r_.__value_.__l.__size_;
   }
 
   if (size)
@@ -2702,35 +2668,35 @@ void siri::dialogengine::DialogPerson::GetToString(siri::dialogengine::DialogPer
     goto LABEL_113;
   }
 
-  v9 = HIBYTE(v23[0].__r_.__value_.__r.__words[2]);
-  if ((v23[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v9 = HIBYTE(v21[0].__r_.__value_.__r.__words[2]);
+  if ((v21[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v9 = v23[0].__r_.__value_.__l.__size_;
+    v9 = v21[0].__r_.__value_.__l.__size_;
   }
 
   if (v9)
   {
 LABEL_113:
-    if (SHIBYTE(v23[1].__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v21[1].__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v15, v23[1].__r_.__value_.__l.__data_, v23[1].__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v13, v21[1].__r_.__value_.__l.__data_, v21[1].__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v15 = v23[1];
+      v13 = v21[1];
     }
 
-    siri::dialogengine::DialogPerson::FormatSpeakableName(&v15, &__str);
-    std::string::operator=(&v23[1], &__str);
+    siri::dialogengine::DialogPerson::FormatSpeakableName(&v13, &__str);
+    std::string::operator=(&v21[1], &__str);
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__str.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v15.__r_.__value_.__l.__data_);
+      operator delete(v13.__r_.__value_.__l.__data_);
     }
 
 LABEL_120:
@@ -2760,7 +2726,6 @@ LABEL_120:
 
   if (OptionalBooleanParameter)
   {
-    v13 = OptionalBooleanParameter[66];
     if (v12)
     {
       goto LABEL_129;
@@ -2770,7 +2735,6 @@ LABEL_120:
   else if (v12)
   {
 LABEL_129:
-    v14 = v12[66];
     if (!OptionalObjectParameter)
     {
       goto LABEL_120;
@@ -2805,22 +2769,22 @@ void sub_1BFBD4DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void siri::dialogengine::DialogPerson::GetPersonData(siri::dialogengine::DialogPerson *this@<X0>, siri::dialogengine::Context *a2@<X1>, uint64_t a3@<X8>)
+void siri::dialogengine::DialogPerson::GetPersonData(std::string *__return_ptr a1@<X8>, siri::dialogengine::DialogPerson *this@<X0>, siri::dialogengine::Context *a3@<X1>)
 {
-  bzero(a3, 0x421uLL);
-  if (!a2 || (*(*a2 + 32))(a2))
+  bzero(a1, 0x421uLL);
+  if (!a3 || (*(*a3 + 32))(a3))
   {
-    siri::dialogengine::Log::Info("[DialogPerson::GetPersonData] Object variable is NULL or empty", v7);
+    siri::dialogengine::Log::Info("[DialogPerson::GetPersonData] Object variable is NULL or empty", v6);
     return;
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, "fullName");
-  OptionalStringParameter = siri::dialogengine::GetOptionalStringParameter(&__p.__r_.__value_.__l.__data_, a2);
-  v9 = OptionalStringParameter;
+  OptionalStringParameter = siri::dialogengine::GetOptionalStringParameter(&__p.__r_.__value_.__l.__data_, a3);
+  v8 = OptionalStringParameter;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if (!v9)
+    if (!v8)
     {
       goto LABEL_27;
     }
@@ -2831,19 +2795,14 @@ void siri::dialogengine::DialogPerson::GetPersonData(siri::dialogengine::DialogP
     goto LABEL_27;
   }
 
-  (*(*v9 + 48))(&__p, v9);
-  std::string::operator=((a3 + 672), &__p);
-  std::string::operator=((a3 + 696), &v46);
-  std::string::operator=((a3 + 720), &v47);
-  std::string::operator=((a3 + 744), &v48);
-  std::string::operator=((a3 + 768), &v49);
-  std::string::operator=((a3 + 792), &v50);
-  std::string::operator=((a3 + 816), &v51);
-  if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v51.__r_.__value_.__l.__data_);
-  }
-
+  (*(*v8 + 48))(&__p, v8);
+  std::string::operator=(a1 + 28, &__p);
+  std::string::operator=(a1 + 29, &v45);
+  std::string::operator=(a1 + 30, &v46);
+  std::string::operator=(a1 + 31, &v47);
+  std::string::operator=(a1 + 32, &v48);
+  std::string::operator=(a1 + 33, &v49);
+  std::string::operator=(a1 + 34, &v50);
   if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v50.__r_.__value_.__l.__data_);
@@ -2869,12 +2828,17 @@ void siri::dialogengine::DialogPerson::GetPersonData(siri::dialogengine::DialogP
     operator delete(v46.__r_.__value_.__l.__data_);
   }
 
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v45.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  siri::dialogengine::SpeakableString::ToMultiplexedString((a3 + 672), &__p);
+  siri::dialogengine::SpeakableString::ToMultiplexedString(&__p, &a1[28].__r_.__value_.__l.__data_);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -2885,7 +2849,7 @@ void siri::dialogengine::DialogPerson::GetPersonData(siri::dialogengine::DialogP
     p_p = __p.__r_.__value_.__r.__words[0];
   }
 
-  siri::dialogengine::Log::Info("[DialogPerson::GetPersonData] fullName: %s", v10, p_p);
+  siri::dialogengine::Log::Info("[DialogPerson::GetPersonData] fullName: %s", v9, p_p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -2893,35 +2857,30 @@ void siri::dialogengine::DialogPerson::GetPersonData(siri::dialogengine::DialogP
 
 LABEL_27:
   std::string::basic_string[abi:ne200100]<0>(&__p, "givenName");
-  v12 = siri::dialogengine::GetOptionalStringParameter(&__p.__r_.__value_.__l.__data_, a2);
-  v13 = v12;
+  v11 = siri::dialogengine::GetOptionalStringParameter(&__p.__r_.__value_.__l.__data_, a3);
+  v12 = v11;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if (!v13)
+    if (!v12)
     {
       goto LABEL_50;
     }
   }
 
-  else if (!v12)
+  else if (!v11)
   {
     goto LABEL_50;
   }
 
-  (*(*v13 + 48))(&__p, v13);
-  std::string::operator=(a3, &__p);
-  std::string::operator=((a3 + 24), &v46);
-  std::string::operator=((a3 + 48), &v47);
-  std::string::operator=((a3 + 72), &v48);
-  std::string::operator=((a3 + 96), &v49);
-  std::string::operator=((a3 + 120), &v50);
-  std::string::operator=((a3 + 144), &v51);
-  if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v51.__r_.__value_.__l.__data_);
-  }
-
+  (*(*v12 + 48))(&__p, v12);
+  std::string::operator=(a1, &__p);
+  std::string::operator=(a1 + 1, &v45);
+  std::string::operator=(a1 + 2, &v46);
+  std::string::operator=(a1 + 3, &v47);
+  std::string::operator=(a1 + 4, &v48);
+  std::string::operator=(a1 + 5, &v49);
+  std::string::operator=(a1 + 6, &v50);
   if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v50.__r_.__value_.__l.__data_);
@@ -2947,23 +2906,28 @@ LABEL_27:
     operator delete(v46.__r_.__value_.__l.__data_);
   }
 
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v45.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  siri::dialogengine::SpeakableString::ToMultiplexedString(a3, &__p);
+  siri::dialogengine::SpeakableString::ToMultiplexedString(&__p, &a1->__r_.__value_.__l.__data_);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v15 = &__p;
+    v14 = &__p;
   }
 
   else
   {
-    v15 = __p.__r_.__value_.__r.__words[0];
+    v14 = __p.__r_.__value_.__r.__words[0];
   }
 
-  siri::dialogengine::Log::Info("[DialogPerson::GetPersonData] givenName: %s", v14, v15);
+  siri::dialogengine::Log::Info("[DialogPerson::GetPersonData] givenName: %s", v13, v14);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -2971,35 +2935,30 @@ LABEL_27:
 
 LABEL_50:
   std::string::basic_string[abi:ne200100]<0>(&__p, "middleName");
-  v16 = siri::dialogengine::GetOptionalStringParameter(&__p.__r_.__value_.__l.__data_, a2);
-  v17 = v16;
+  v15 = siri::dialogengine::GetOptionalStringParameter(&__p.__r_.__value_.__l.__data_, a3);
+  v16 = v15;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if (!v17)
+    if (!v16)
     {
       goto LABEL_73;
     }
   }
 
-  else if (!v16)
+  else if (!v15)
   {
     goto LABEL_73;
   }
 
-  (*(*v17 + 48))(&__p, v17);
-  std::string::operator=((a3 + 168), &__p);
-  std::string::operator=((a3 + 192), &v46);
-  std::string::operator=((a3 + 216), &v47);
-  std::string::operator=((a3 + 240), &v48);
-  std::string::operator=((a3 + 264), &v49);
-  std::string::operator=((a3 + 288), &v50);
-  std::string::operator=((a3 + 312), &v51);
-  if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v51.__r_.__value_.__l.__data_);
-  }
-
+  (*(*v16 + 48))(&__p, v16);
+  std::string::operator=(a1 + 7, &__p);
+  std::string::operator=(a1 + 8, &v45);
+  std::string::operator=(a1 + 9, &v46);
+  std::string::operator=(a1 + 10, &v47);
+  std::string::operator=(a1 + 11, &v48);
+  std::string::operator=(a1 + 12, &v49);
+  std::string::operator=(a1 + 13, &v50);
   if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v50.__r_.__value_.__l.__data_);
@@ -3025,23 +2984,28 @@ LABEL_50:
     operator delete(v46.__r_.__value_.__l.__data_);
   }
 
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v45.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  siri::dialogengine::SpeakableString::ToMultiplexedString((a3 + 168), &__p);
+  siri::dialogengine::SpeakableString::ToMultiplexedString(&__p, &a1[7].__r_.__value_.__l.__data_);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v19 = &__p;
+    v18 = &__p;
   }
 
   else
   {
-    v19 = __p.__r_.__value_.__r.__words[0];
+    v18 = __p.__r_.__value_.__r.__words[0];
   }
 
-  siri::dialogengine::Log::Info("[DialogPerson::GetPersonData] middleName: %s", v18, v19);
+  siri::dialogengine::Log::Info("[DialogPerson::GetPersonData] middleName: %s", v17, v18);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -3049,35 +3013,30 @@ LABEL_50:
 
 LABEL_73:
   std::string::basic_string[abi:ne200100]<0>(&__p, "familyName");
-  v20 = siri::dialogengine::GetOptionalStringParameter(&__p.__r_.__value_.__l.__data_, a2);
-  v21 = v20;
+  v19 = siri::dialogengine::GetOptionalStringParameter(&__p.__r_.__value_.__l.__data_, a3);
+  v20 = v19;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if (!v21)
+    if (!v20)
     {
       goto LABEL_96;
     }
   }
 
-  else if (!v20)
+  else if (!v19)
   {
     goto LABEL_96;
   }
 
-  (*(*v21 + 48))(&__p, v21);
-  std::string::operator=((a3 + 336), &__p);
-  std::string::operator=((a3 + 360), &v46);
-  std::string::operator=((a3 + 384), &v47);
-  std::string::operator=((a3 + 408), &v48);
-  std::string::operator=((a3 + 432), &v49);
-  std::string::operator=((a3 + 456), &v50);
-  std::string::operator=((a3 + 480), &v51);
-  if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v51.__r_.__value_.__l.__data_);
-  }
-
+  (*(*v20 + 48))(&__p, v20);
+  std::string::operator=(a1 + 14, &__p);
+  std::string::operator=(a1 + 15, &v45);
+  std::string::operator=(a1 + 16, &v46);
+  std::string::operator=(a1 + 17, &v47);
+  std::string::operator=(a1 + 18, &v48);
+  std::string::operator=(a1 + 19, &v49);
+  std::string::operator=(a1 + 20, &v50);
   if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v50.__r_.__value_.__l.__data_);
@@ -3103,23 +3062,28 @@ LABEL_73:
     operator delete(v46.__r_.__value_.__l.__data_);
   }
 
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v45.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  siri::dialogengine::SpeakableString::ToMultiplexedString((a3 + 336), &__p);
+  siri::dialogengine::SpeakableString::ToMultiplexedString(&__p, &a1[14].__r_.__value_.__l.__data_);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v23 = &__p;
+    v22 = &__p;
   }
 
   else
   {
-    v23 = __p.__r_.__value_.__r.__words[0];
+    v22 = __p.__r_.__value_.__r.__words[0];
   }
 
-  siri::dialogengine::Log::Info("[DialogPerson::GetPersonData] familyName: %s", v22, v23);
+  siri::dialogengine::Log::Info("[DialogPerson::GetPersonData] familyName: %s", v21, v22);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -3127,35 +3091,30 @@ LABEL_73:
 
 LABEL_96:
   std::string::basic_string[abi:ne200100]<0>(&__p, "nickname");
-  v24 = siri::dialogengine::GetOptionalStringParameter(&__p.__r_.__value_.__l.__data_, a2);
-  v25 = v24;
+  v23 = siri::dialogengine::GetOptionalStringParameter(&__p.__r_.__value_.__l.__data_, a3);
+  v24 = v23;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if (!v25)
+    if (!v24)
     {
       goto LABEL_119;
     }
   }
 
-  else if (!v24)
+  else if (!v23)
   {
     goto LABEL_119;
   }
 
-  (*(*v25 + 48))(&__p, v25);
-  std::string::operator=((a3 + 504), &__p);
-  std::string::operator=((a3 + 528), &v46);
-  std::string::operator=((a3 + 552), &v47);
-  std::string::operator=((a3 + 576), &v48);
-  std::string::operator=((a3 + 600), &v49);
-  std::string::operator=((a3 + 624), &v50);
-  std::string::operator=((a3 + 648), &v51);
-  if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v51.__r_.__value_.__l.__data_);
-  }
-
+  (*(*v24 + 48))(&__p, v24);
+  std::string::operator=(a1 + 21, &__p);
+  std::string::operator=(a1 + 22, &v45);
+  std::string::operator=(a1 + 23, &v46);
+  std::string::operator=(a1 + 24, &v47);
+  std::string::operator=(a1 + 25, &v48);
+  std::string::operator=(a1 + 26, &v49);
+  std::string::operator=(a1 + 27, &v50);
   if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v50.__r_.__value_.__l.__data_);
@@ -3181,23 +3140,28 @@ LABEL_96:
     operator delete(v46.__r_.__value_.__l.__data_);
   }
 
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v45.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  siri::dialogengine::SpeakableString::ToMultiplexedString((a3 + 504), &__p);
+  siri::dialogengine::SpeakableString::ToMultiplexedString(&__p, &a1[21].__r_.__value_.__l.__data_);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v27 = &__p;
+    v26 = &__p;
   }
 
   else
   {
-    v27 = __p.__r_.__value_.__r.__words[0];
+    v26 = __p.__r_.__value_.__r.__words[0];
   }
 
-  siri::dialogengine::Log::Info("[DialogPerson::GetPersonData] nickname: %s", v26, v27);
+  siri::dialogengine::Log::Info("[DialogPerson::GetPersonData] nickname: %s", v25, v26);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -3205,60 +3169,55 @@ LABEL_96:
 
 LABEL_119:
   std::string::basic_string[abi:ne200100]<0>(&__p, "pronoun");
-  OptionalObjectParameter = siri::dialogengine::GetOptionalObjectParameter(&__p.__r_.__value_.__l.__data_, a2);
-  v29 = OptionalObjectParameter;
+  OptionalObjectParameter = siri::dialogengine::GetOptionalObjectParameter(&__p.__r_.__value_.__l.__data_, a3);
+  v28 = OptionalObjectParameter;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if (!v29)
+    if (!v28)
     {
       goto LABEL_151;
     }
 
 LABEL_123:
     std::string::basic_string[abi:ne200100]<0>(&__p, "initialPronoun");
-    v30 = siri::dialogengine::GetOptionalStringParameter(&__p.__r_.__value_.__l.__data_, v29);
-    v32 = v30;
+    v29 = siri::dialogengine::GetOptionalStringParameter(&__p.__r_.__value_.__l.__data_, v28);
+    v31 = v29;
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
-      if (!v32)
+      if (!v31)
       {
         goto LABEL_150;
       }
     }
 
-    else if (!v30)
+    else if (!v29)
     {
       goto LABEL_150;
     }
 
-    (*(*v32 + 48))(&__p, v32);
+    (*(*v31 + 48))(&__p, v31);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v44, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v43, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v44 = __p;
+      v43 = __p;
     }
 
-    v34 = (a3 + 1008);
-    if (*(a3 + 1031) < 0)
+    v33 = a1 + 42;
+    if (SHIBYTE(a1[42].__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(*v34);
+      operator delete(v33->__r_.__value_.__l.__data_);
     }
 
-    *v34 = *&v44.__r_.__value_.__l.__data_;
-    *(a3 + 1024) = *(&v44.__r_.__value_.__l + 2);
-    *(&v44.__r_.__value_.__s + 23) = 0;
-    v44.__r_.__value_.__s.__data_[0] = 0;
-    if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v51.__r_.__value_.__l.__data_);
-    }
-
+    *&v33->__r_.__value_.__l.__data_ = *&v43.__r_.__value_.__l.__data_;
+    a1[42].__r_.__value_.__r.__words[2] = v43.__r_.__value_.__r.__words[2];
+    *(&v43.__r_.__value_.__s + 23) = 0;
+    v43.__r_.__value_.__s.__data_[0] = 0;
     if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v50.__r_.__value_.__l.__data_);
@@ -3284,24 +3243,29 @@ LABEL_123:
       operator delete(v46.__r_.__value_.__l.__data_);
     }
 
+    if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v45.__r_.__value_.__l.__data_);
+    }
+
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (*(a3 + 1031) >= 0)
+    if ((a1[42].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v35 = a3 + 1008;
+      data = a1 + 42;
     }
 
     else
     {
-      v35 = *(a3 + 1008);
+      data = a1[42].__r_.__value_.__l.__data_;
     }
 
-    siri::dialogengine::Log::Info("[DialogPerson::GetPersonData] pronoun.initialPronoun: %s", v33, v35);
+    siri::dialogengine::Log::Info("[DialogPerson::GetPersonData] pronoun.initialPronoun: %s", v32, data);
 LABEL_150:
-    siri::dialogengine::DialogPronoun::gender(this, v29, v31);
+    siri::dialogengine::DialogPronoun::gender(this, v28, v30);
   }
 
   if (OptionalObjectParameter)
@@ -3311,35 +3275,30 @@ LABEL_150:
 
 LABEL_151:
   std::string::basic_string[abi:ne200100]<0>(&__p, "company");
-  v36 = siri::dialogengine::GetOptionalStringParameter(&__p.__r_.__value_.__l.__data_, a2);
-  v37 = v36;
+  v35 = siri::dialogengine::GetOptionalStringParameter(&__p.__r_.__value_.__l.__data_, a3);
+  v36 = v35;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if (!v37)
+    if (!v36)
     {
       goto LABEL_174;
     }
   }
 
-  else if (!v36)
+  else if (!v35)
   {
     goto LABEL_174;
   }
 
-  (*(*v37 + 48))(&__p, v37);
-  std::string::operator=((a3 + 840), &__p);
-  std::string::operator=((a3 + 864), &v46);
-  std::string::operator=((a3 + 888), &v47);
-  std::string::operator=((a3 + 912), &v48);
-  std::string::operator=((a3 + 936), &v49);
-  std::string::operator=((a3 + 960), &v50);
-  std::string::operator=((a3 + 984), &v51);
-  if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v51.__r_.__value_.__l.__data_);
-  }
-
+  (*(*v36 + 48))(&__p, v36);
+  std::string::operator=(a1 + 35, &__p);
+  std::string::operator=(a1 + 36, &v45);
+  std::string::operator=(a1 + 37, &v46);
+  std::string::operator=(a1 + 38, &v47);
+  std::string::operator=(a1 + 39, &v48);
+  std::string::operator=(a1 + 40, &v49);
+  std::string::operator=(a1 + 41, &v50);
   if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v50.__r_.__value_.__l.__data_);
@@ -3365,23 +3324,28 @@ LABEL_151:
     operator delete(v46.__r_.__value_.__l.__data_);
   }
 
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v45.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  siri::dialogengine::SpeakableString::ToMultiplexedString((a3 + 840), &__p);
+  siri::dialogengine::SpeakableString::ToMultiplexedString(&__p, &a1[35].__r_.__value_.__l.__data_);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v39 = &__p;
+    v38 = &__p;
   }
 
   else
   {
-    v39 = __p.__r_.__value_.__r.__words[0];
+    v38 = __p.__r_.__value_.__r.__words[0];
   }
 
-  siri::dialogengine::Log::Info("[DialogPerson::GetPersonData] company: %s", v38, v39);
+  siri::dialogengine::Log::Info("[DialogPerson::GetPersonData] company: %s", v37, v38);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -3389,12 +3353,12 @@ LABEL_151:
 
 LABEL_174:
   std::string::basic_string[abi:ne200100]<0>(&__p, "useConversationalName");
-  OptionalBooleanParameter = siri::dialogengine::GetOptionalBooleanParameter(&__p.__r_.__value_.__l.__data_, a2);
-  v42 = OptionalBooleanParameter;
+  OptionalBooleanParameter = siri::dialogengine::GetOptionalBooleanParameter(&__p.__r_.__value_.__l.__data_, a3);
+  v41 = OptionalBooleanParameter;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if (!v42)
+    if (!v41)
     {
       return;
     }
@@ -3405,9 +3369,9 @@ LABEL_174:
   if (OptionalBooleanParameter)
   {
 LABEL_178:
-    v43 = v42[66];
-    *(a3 + 1056) = v43;
-    siri::dialogengine::Log::Info("[DialogPerson::GetPersonData] useConversationalName: %d", v41, v43);
+    v42 = v41[66];
+    a1[44].__r_.__value_.__s.__data_[0] = v42;
+    siri::dialogengine::Log::Info("[DialogPerson::GetPersonData] useConversationalName: %d", v40, v42);
   }
 }
 
@@ -3428,37 +3392,36 @@ void *siri::dialogengine::GetOptionalStringParameter(const void **a1, uint64_t a
   siri::dialogengine::GetParameter(&lpsrc, a2, a1, siri::dialogengine::TYPE_STRING, 0);
   if (lpsrc)
   {
-    v2 = **lpsrc;
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  if (v6)
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
-  return v3;
+  return v2;
 }
 
-void siri::dialogengine::GetParameter(char **a1, uint64_t a2, const void **a3, char *a4, int a5)
+void siri::dialogengine::GetParameter(uint64_t *a1, uint64_t a2, const void **a3, char *a4, int a5)
 {
   v9 = std::__tree<std::__value_type<std::string,std::set<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<std::string>>>>::find<std::string>(a2 + 72, a3);
   if (a2 + 80 == v9)
   {
+    v42 = 0;
     v43 = 0;
-    v44 = 0;
   }
 
   else
   {
     v11 = *(v9 + 56);
     v10 = *(v9 + 64);
-    v43 = v11;
-    v44 = v10;
+    v42 = v11;
+    v43 = v10;
     if (v10)
     {
       atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -3487,22 +3450,22 @@ void siri::dialogengine::GetParameter(char **a1, uint64_t a2, const void **a3, c
         if (siri::dialogengine::TYPE_STRING != a4)
         {
           std::operator+<char>();
-          v12 = std::string::append(&v40, "'!");
+          v12 = std::string::append(&v39, "'!");
           v13 = *&v12->__r_.__value_.__l.__data_;
-          v42 = v12->__r_.__value_.__r.__words[2];
-          v41 = v13;
+          v41 = v12->__r_.__value_.__r.__words[2];
+          v40 = v13;
           v12->__r_.__value_.__l.__size_ = 0;
           v12->__r_.__value_.__r.__words[2] = 0;
           v12->__r_.__value_.__r.__words[0] = 0;
-          siri::dialogengine::Log::LogWithLevel(&v41, 3u);
-          if (SHIBYTE(v42) < 0)
+          siri::dialogengine::Log::LogWithLevel(&v40, 3);
+          if (SHIBYTE(v41) < 0)
           {
-            operator delete(v41);
+            operator delete(v40);
           }
 
-          if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
           {
-            v14 = v40.__r_.__value_.__r.__words[0];
+            v14 = v39.__r_.__value_.__r.__words[0];
 LABEL_24:
             operator delete(v14);
             goto LABEL_55;
@@ -3512,33 +3475,32 @@ LABEL_24:
         }
       }
 
-      v22 = **v11;
       {
         std::operator+<char>();
-        v23 = std::string::append(&v36, "'. Expected '");
-        v24 = *&v23->__r_.__value_.__l.__data_;
-        v37.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
-        *&v37.__r_.__value_.__l.__data_ = v24;
-        v23->__r_.__value_.__l.__size_ = 0;
-        v23->__r_.__value_.__r.__words[2] = 0;
-        v23->__r_.__value_.__r.__words[0] = 0;
-        v25 = std::string::append(&v37, a4);
-        v26 = *&v25->__r_.__value_.__l.__data_;
-        v38.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
-        *&v38.__r_.__value_.__l.__data_ = v26;
-        v25->__r_.__value_.__l.__size_ = 0;
-        v25->__r_.__value_.__r.__words[2] = 0;
-        v25->__r_.__value_.__r.__words[0] = 0;
-        v27 = std::string::append(&v38, "' but got '");
-        v28 = *&v27->__r_.__value_.__l.__data_;
-        v39.__r_.__value_.__r.__words[2] = v27->__r_.__value_.__r.__words[2];
-        *&v39.__r_.__value_.__l.__data_ = v28;
-        v27->__r_.__value_.__l.__size_ = 0;
-        v27->__r_.__value_.__r.__words[2] = 0;
-        v27->__r_.__value_.__r.__words[0] = 0;
-        if (v11[55] < 0)
+        v22 = std::string::append(&v35, "'. Expected '");
+        v23 = *&v22->__r_.__value_.__l.__data_;
+        v36.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
+        *&v36.__r_.__value_.__l.__data_ = v23;
+        v22->__r_.__value_.__l.__size_ = 0;
+        v22->__r_.__value_.__r.__words[2] = 0;
+        v22->__r_.__value_.__r.__words[0] = 0;
+        v24 = std::string::append(&v36, a4);
+        v25 = *&v24->__r_.__value_.__l.__data_;
+        v37.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
+        *&v37.__r_.__value_.__l.__data_ = v25;
+        v24->__r_.__value_.__l.__size_ = 0;
+        v24->__r_.__value_.__r.__words[2] = 0;
+        v24->__r_.__value_.__r.__words[0] = 0;
+        v26 = std::string::append(&v37, "' but got '");
+        v27 = *&v26->__r_.__value_.__l.__data_;
+        v38.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
+        *&v38.__r_.__value_.__l.__data_ = v27;
+        v26->__r_.__value_.__l.__size_ = 0;
+        v26->__r_.__value_.__r.__words[2] = 0;
+        v26->__r_.__value_.__r.__words[0] = 0;
+        if (*(v11 + 55) < 0)
         {
-          std::string::__init_copy_ctor_external(&__p, *(v11 + 4), *(v11 + 5));
+          std::string::__init_copy_ctor_external(&__p, *(v11 + 32), *(v11 + 40));
         }
 
         else
@@ -3566,39 +3528,34 @@ LABEL_24:
           size = __p.__r_.__value_.__l.__size_;
         }
 
-        v31 = std::string::append(&v39, p_p, size);
-        v32 = *&v31->__r_.__value_.__l.__data_;
-        v40.__r_.__value_.__r.__words[2] = v31->__r_.__value_.__r.__words[2];
-        *&v40.__r_.__value_.__l.__data_ = v32;
-        v31->__r_.__value_.__l.__size_ = 0;
-        v31->__r_.__value_.__r.__words[2] = 0;
-        v31->__r_.__value_.__r.__words[0] = 0;
-        v33 = std::string::append(&v40, "'!");
-        v34 = *&v33->__r_.__value_.__l.__data_;
-        v42 = v33->__r_.__value_.__r.__words[2];
-        v41 = v34;
-        v33->__r_.__value_.__l.__size_ = 0;
-        v33->__r_.__value_.__r.__words[2] = 0;
-        v33->__r_.__value_.__r.__words[0] = 0;
-        siri::dialogengine::Log::LogWithLevel(&v41, 3u);
-        if (SHIBYTE(v42) < 0)
+        v30 = std::string::append(&v38, p_p, size);
+        v31 = *&v30->__r_.__value_.__l.__data_;
+        v39.__r_.__value_.__r.__words[2] = v30->__r_.__value_.__r.__words[2];
+        *&v39.__r_.__value_.__l.__data_ = v31;
+        v30->__r_.__value_.__l.__size_ = 0;
+        v30->__r_.__value_.__r.__words[2] = 0;
+        v30->__r_.__value_.__r.__words[0] = 0;
+        v32 = std::string::append(&v39, "'!");
+        v33 = *&v32->__r_.__value_.__l.__data_;
+        v41 = v32->__r_.__value_.__r.__words[2];
+        v40 = v33;
+        v32->__r_.__value_.__l.__size_ = 0;
+        v32->__r_.__value_.__r.__words[2] = 0;
+        v32->__r_.__value_.__r.__words[0] = 0;
+        siri::dialogengine::Log::LogWithLevel(&v40, 3);
+        if (SHIBYTE(v41) < 0)
         {
-          operator delete(v41);
-        }
-
-        if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v40.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p.__r_.__value_.__l.__data_);
+          operator delete(v40);
         }
 
         if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v39.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p.__r_.__value_.__l.__data_);
         }
 
         if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
@@ -3615,11 +3572,16 @@ LABEL_24:
         {
           operator delete(v36.__r_.__value_.__l.__data_);
         }
+
+        if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v35.__r_.__value_.__l.__data_);
+        }
       }
 
       *a1 = v11;
       a1[1] = v10;
-      a1 = &v43;
+      a1 = &v42;
       goto LABEL_55;
     }
   }
@@ -3627,36 +3589,31 @@ LABEL_24:
   if (a5)
   {
     std::operator+<char>();
-    v15 = std::string::append(&v38, "' of type '");
+    v15 = std::string::append(&v37, "' of type '");
     v16 = *&v15->__r_.__value_.__l.__data_;
-    v39.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
-    *&v39.__r_.__value_.__l.__data_ = v16;
+    v38.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
+    *&v38.__r_.__value_.__l.__data_ = v16;
     v15->__r_.__value_.__l.__size_ = 0;
     v15->__r_.__value_.__r.__words[2] = 0;
     v15->__r_.__value_.__r.__words[0] = 0;
-    v17 = std::string::append(&v39, a4);
+    v17 = std::string::append(&v38, a4);
     v18 = *&v17->__r_.__value_.__l.__data_;
-    v40.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
-    *&v40.__r_.__value_.__l.__data_ = v18;
+    v39.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
+    *&v39.__r_.__value_.__l.__data_ = v18;
     v17->__r_.__value_.__l.__size_ = 0;
     v17->__r_.__value_.__r.__words[2] = 0;
     v17->__r_.__value_.__r.__words[0] = 0;
-    v19 = std::string::append(&v40, "' is a required input but was not specified!");
+    v19 = std::string::append(&v39, "' is a required input but was not specified!");
     v20 = *&v19->__r_.__value_.__l.__data_;
-    v42 = v19->__r_.__value_.__r.__words[2];
-    v41 = v20;
+    v41 = v19->__r_.__value_.__r.__words[2];
+    v40 = v20;
     v19->__r_.__value_.__l.__size_ = 0;
     v19->__r_.__value_.__r.__words[2] = 0;
     v19->__r_.__value_.__r.__words[0] = 0;
-    siri::dialogengine::Log::LogWithLevel(&v41, 3u);
-    if (SHIBYTE(v42) < 0)
+    siri::dialogengine::Log::LogWithLevel(&v40, 3);
+    if (SHIBYTE(v41) < 0)
     {
-      operator delete(v41);
-    }
-
-    if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v40.__r_.__value_.__l.__data_);
+      operator delete(v40);
     }
 
     if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
@@ -3666,7 +3623,12 @@ LABEL_24:
 
     if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
     {
-      v14 = v38.__r_.__value_.__r.__words[0];
+      operator delete(v38.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+    {
+      v14 = v37.__r_.__value_.__r.__words[0];
       goto LABEL_24;
     }
   }
@@ -3674,9 +3636,9 @@ LABEL_24:
 LABEL_55:
   *a1 = 0;
   a1[1] = 0;
-  if (v44)
+  if (v43)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v44);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v43);
   }
 }
 
@@ -3705,20 +3667,19 @@ void *siri::dialogengine::GetOptionalObjectParameter(const void **a1, uint64_t a
   siri::dialogengine::GetParameter(&lpsrc, a2, a1, siri::dialogengine::TYPE_OBJECT, 0);
   if (lpsrc)
   {
-    v2 = **lpsrc;
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  if (v6)
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
-  return v3;
+  return v2;
 }
 
 void *siri::dialogengine::GetOptionalBooleanParameter(const void **a1, uint64_t a2)
@@ -3726,20 +3687,19 @@ void *siri::dialogengine::GetOptionalBooleanParameter(const void **a1, uint64_t 
   siri::dialogengine::GetParameter(&lpsrc, a2, a1, siri::dialogengine::TYPE_BOOLEAN, 0);
   if (lpsrc)
   {
-    v2 = **lpsrc;
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  if (v6)
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
-  return v3;
+  return v2;
 }
 
 uint64_t siri::dialogengine::PersonData::operator=(uint64_t a1, uint64_t a2)
@@ -3814,11 +3774,11 @@ uint64_t siri::dialogengine::PersonData::operator=(uint64_t a1, uint64_t a2)
 
 void siri::dialogengine::CreateFullName(std::string *this, siri::dialogengine::Context *a2, const siri::dialogengine::VariableObject *a3, void **a4)
 {
-  v202 = *MEMORY[0x1E69E9840];
-  bzero(v33, 0x421uLL);
+  v201 = *MEMORY[0x1E69E9840];
+  bzero(v32, 0x421uLL);
   if (a4)
   {
-    v8 = (a4 + 84);
+    v8 = a4 + 84;
     v9 = a4 + 42;
     v10 = a4 + 63;
     v11 = a4 + 105;
@@ -3826,196 +3786,191 @@ void siri::dialogengine::CreateFullName(std::string *this, siri::dialogengine::C
 
   else
   {
-    siri::dialogengine::DialogPerson::GetPersonData(a2, a3, &__str);
-    siri::dialogengine::PersonData::operator=(v33, &__str);
-    if (v201 < 0)
+    siri::dialogengine::DialogPerson::GetPersonData(&__str, a2, a3);
+    siri::dialogengine::PersonData::operator=(v32, &__str);
+    if (v200 < 0)
     {
       operator delete(__p);
     }
 
-    if (v199 < 0)
+    if (v198 < 0)
     {
-      operator delete(v198);
+      operator delete(v197);
     }
 
-    if (v197 < 0)
+    if (v196 < 0)
     {
-      operator delete(v196);
+      operator delete(v195);
     }
 
-    if (v195 < 0)
+    if (v194 < 0)
     {
-      operator delete(v194);
+      operator delete(v193);
     }
 
-    if (v193 < 0)
+    if (v192 < 0)
     {
-      operator delete(v192);
+      operator delete(v191);
     }
 
-    if (v191 < 0)
+    if (v190 < 0)
     {
-      operator delete(v190);
+      operator delete(v189);
     }
 
-    if (v189 < 0)
+    if (v188 < 0)
     {
-      operator delete(v188);
+      operator delete(v187);
     }
 
-    if (v187 < 0)
+    if (v186 < 0)
     {
-      operator delete(v186);
+      operator delete(v185);
     }
 
-    if (v185 < 0)
+    if (v184 < 0)
     {
-      operator delete(v184);
+      operator delete(v183);
     }
 
-    if (v183 < 0)
+    if (v182 < 0)
     {
-      operator delete(v182);
+      operator delete(v181);
     }
 
-    if (v181 < 0)
+    if (v180 < 0)
     {
-      operator delete(v180);
+      operator delete(v179);
     }
 
-    if (v179 < 0)
+    if (v178 < 0)
     {
-      operator delete(v178);
+      operator delete(v177);
     }
 
-    if (v177 < 0)
+    if (v176 < 0)
     {
-      operator delete(v176);
+      operator delete(v175);
     }
 
-    if (v175 < 0)
+    if (v174 < 0)
     {
-      operator delete(v174);
+      operator delete(v173);
     }
 
-    if (v173 < 0)
+    if (v172 < 0)
     {
-      operator delete(v172);
+      operator delete(v171);
     }
 
-    if (v171 < 0)
+    if (v170 < 0)
     {
-      operator delete(v170);
+      operator delete(v169);
     }
 
-    if (v169 < 0)
+    if (v168 < 0)
     {
-      operator delete(v168);
+      operator delete(v167);
     }
 
-    if (v167 < 0)
+    if (v166 < 0)
     {
-      operator delete(v166);
+      operator delete(v165);
     }
 
-    if (v165 < 0)
+    if (v164 < 0)
     {
-      operator delete(v164);
+      operator delete(v163);
     }
 
-    if (v163 < 0)
+    if (v162 < 0)
     {
-      operator delete(v162);
+      operator delete(v161);
     }
 
-    if (v161 < 0)
+    if (v160 < 0)
     {
-      operator delete(v160);
+      operator delete(v159);
     }
 
-    if (v159 < 0)
+    if (v158 < 0)
     {
-      operator delete(v158);
+      operator delete(v157);
     }
 
-    if (v157 < 0)
+    if (v156 < 0)
     {
-      operator delete(v156);
+      operator delete(v155);
     }
 
-    if (v155 < 0)
+    if (v154 < 0)
     {
-      operator delete(v154);
+      operator delete(v153);
     }
 
-    if (v153 < 0)
+    if (v152 < 0)
     {
-      operator delete(v152);
+      operator delete(v151);
     }
 
-    if (v151 < 0)
+    if (v150 < 0)
     {
-      operator delete(v150);
+      operator delete(v149);
     }
 
-    if (v149 < 0)
+    if (v148 < 0)
     {
-      operator delete(v148);
+      operator delete(v147);
     }
 
-    if (v147 < 0)
+    if (v146 < 0)
     {
-      operator delete(v146);
+      operator delete(v145);
     }
 
-    if (v145 < 0)
+    if (v144 < 0)
     {
-      operator delete(v144);
+      operator delete(v143);
     }
 
-    if (v143 < 0)
+    if (v142 < 0)
     {
-      operator delete(v142);
+      operator delete(v141);
     }
 
-    if (v141 < 0)
+    if (v140 < 0)
     {
-      operator delete(v140);
+      operator delete(v139);
     }
 
-    if (v139 < 0)
+    if (v138 < 0)
     {
-      operator delete(v138);
+      operator delete(v137);
     }
 
-    if (v137 < 0)
+    if (v136 < 0)
     {
-      operator delete(v136);
+      operator delete(v135);
     }
 
-    if (v135 < 0)
+    if (v134 < 0)
     {
-      operator delete(v134);
+      operator delete(v133);
     }
 
-    if (v133 < 0)
+    if (v132 < 0)
     {
-      operator delete(v132);
+      operator delete(v131);
     }
 
-    if (v131 < 0)
+    if (v130 < 0)
     {
-      operator delete(v130);
+      operator delete(v129);
     }
 
-    if (v129 < 0)
+    if (v128 < 0)
     {
-      operator delete(v128);
-    }
-
-    if (SHIBYTE(v127.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v127.__r_.__value_.__l.__data_);
+      operator delete(v127);
     }
 
     if (SHIBYTE(v126.__r_.__value_.__r.__words[2]) < 0)
@@ -4043,16 +3998,21 @@ void siri::dialogengine::CreateFullName(std::string *this, siri::dialogengine::C
       operator delete(v122.__r_.__value_.__l.__data_);
     }
 
-    v9 = &v61;
-    v10 = &v75;
-    v8 = &v89;
-    v11 = &v103;
+    if (SHIBYTE(v121.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v121.__r_.__value_.__l.__data_);
+    }
+
+    v9 = &v60;
+    v10 = &v74;
+    v8 = &v88;
+    v11 = &v102;
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__str.__r_.__value_.__l.__data_);
     }
 
-    a4 = v33;
+    a4 = v32;
   }
 
   siri::dialogengine::SpeakableString::SpeakableString(this, v8);
@@ -4140,78 +4100,73 @@ LABEL_116:
       {
         if (OptionalStringParameter[95] < 0)
         {
-          std::string::__init_copy_ctor_external(&v32, *(OptionalStringParameter + 9), *(OptionalStringParameter + 10));
+          std::string::__init_copy_ctor_external(&v31, *(OptionalStringParameter + 9), *(OptionalStringParameter + 10));
         }
 
         else
         {
-          v32 = *(OptionalStringParameter + 3);
+          v31 = *(OptionalStringParameter + 3);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(v29, "com.apple.intents.PersonRelationship.");
-        std::string::basic_string[abi:ne200100]<0>(v27, "");
-        siri::dialogengine::StringReplace(&v32, v29, v27, 0, &v31);
-        if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::string::basic_string[abi:ne200100]<0>(v28, "com.apple.intents.PersonRelationship.");
+        std::string::basic_string[abi:ne200100]<0>(v26, "");
+        siri::dialogengine::StringReplace(&v31, v28, v26, 0, &v30);
+        if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v21 = &v31;
+          v21 = &v30;
         }
 
         else
         {
-          v21 = v31.__r_.__value_.__r.__words[0];
+          v21 = v30.__r_.__value_.__r.__words[0];
         }
 
-        if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v22 = HIBYTE(v31.__r_.__value_.__r.__words[2]);
+          v22 = HIBYTE(v30.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v22 = v31.__r_.__value_.__l.__size_;
+          v22 = v30.__r_.__value_.__l.__size_;
         }
 
-        siri::dialogengine::StringToLower(v21, v22, &__str);
-        if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v32.__r_.__value_.__l.__data_);
-        }
-
-        v32 = __str;
-        *(&__str.__r_.__value_.__s + 23) = 0;
-        __str.__r_.__value_.__s.__data_[0] = 0;
+        siri::dialogengine::StringToLower(&__str, v21, v22);
         if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v31.__r_.__value_.__l.__data_);
         }
 
-        if (v28 < 0)
+        v31 = __str;
+        *(&__str.__r_.__value_.__s + 23) = 0;
+        __str.__r_.__value_.__s.__data_[0] = 0;
+        if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v27[0]);
+          operator delete(v30.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v30) < 0)
+        if (v27 < 0)
         {
-          operator delete(v29[0]);
+          operator delete(v26[0]);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v31, "personRelationship");
-        v29[0] = 0;
-        v29[1] = 0;
-        v30 = 0;
-        siri::dialogengine::ApplySemanticConcept(a2, &v31, &v32, v29, &__str);
+        if (SHIBYTE(v29) < 0)
+        {
+          operator delete(v28[0]);
+        }
+
+        std::string::basic_string[abi:ne200100]<0>(&v30, "personRelationship");
+        v28[0] = 0;
+        v28[1] = 0;
+        v29 = 0;
+        siri::dialogengine::ApplySemanticConcept(a2, &v30, &v31, v28, &__str);
         std::string::operator=(this, &__str);
-        std::string::operator=(this + 1, &v122);
-        std::string::operator=(this + 2, &v123);
-        std::string::operator=(this + 3, &v124);
-        std::string::operator=(this + 4, &v125);
-        std::string::operator=(this + 5, &v126);
-        std::string::operator=(this + 6, &v127);
-        if (SHIBYTE(v127.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v127.__r_.__value_.__l.__data_);
-        }
-
+        std::string::operator=(this + 1, &v121);
+        std::string::operator=(this + 2, &v122);
+        std::string::operator=(this + 3, &v123);
+        std::string::operator=(this + 4, &v124);
+        std::string::operator=(this + 5, &v125);
+        std::string::operator=(this + 6, &v126);
         if (SHIBYTE(v126.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v126.__r_.__value_.__l.__data_);
@@ -4237,21 +4192,26 @@ LABEL_116:
           operator delete(v122.__r_.__value_.__l.__data_);
         }
 
+        if (SHIBYTE(v121.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v121.__r_.__value_.__l.__data_);
+        }
+
         if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__str.__r_.__value_.__l.__data_);
         }
 
-        v27[0] = v29;
-        std::vector<siri::dialogengine::SemanticFeatureConstraint>::__destroy_vector::operator()[abi:ne200100](v27);
+        v26[0] = v28;
+        std::vector<siri::dialogengine::SemanticFeatureConstraint>::__destroy_vector::operator()[abi:ne200100](v26);
+        if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v30.__r_.__value_.__l.__data_);
+        }
+
         if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v31.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v32.__r_.__value_.__l.__data_);
         }
       }
     }
@@ -4261,11 +4221,11 @@ LABEL_116:
 
 LABEL_105:
   std::string::basic_string[abi:ne200100]<0>(&__str, "givenName");
-  std::string::basic_string[abi:ne200100]<0>(&v122, "middleName");
-  std::string::basic_string[abi:ne200100]<0>(&v123, "familyName");
-  std::string::basic_string[abi:ne200100]<0>(&v124, "nickname");
-  std::string::basic_string[abi:ne200100]<0>(&v125, "fullName");
-  std::string::basic_string[abi:ne200100]<0>(&v126, "company");
+  std::string::basic_string[abi:ne200100]<0>(&v121, "middleName");
+  std::string::basic_string[abi:ne200100]<0>(&v122, "familyName");
+  std::string::basic_string[abi:ne200100]<0>(&v123, "nickname");
+  std::string::basic_string[abi:ne200100]<0>(&v124, "fullName");
+  std::string::basic_string[abi:ne200100]<0>(&v125, "company");
   v15 = 0;
   while (1)
   {
@@ -4290,9 +4250,9 @@ LABEL_105:
 LABEL_111:
   for (i = 0; i != -18; i -= 3)
   {
-    if (SHIBYTE(v126.__r_.__value_.__r.__words[i + 2]) < 0)
+    if (SHIBYTE(v125.__r_.__value_.__r.__words[i + 2]) < 0)
     {
-      operator delete(*(&v126.__r_.__value_.__l.__data_ + i * 8));
+      operator delete(*(&v125.__r_.__value_.__l.__data_ + i * 8));
     }
   }
 
@@ -4335,20 +4295,15 @@ LABEL_169:
     goto LABEL_169;
   }
 
-  siri::dialogengine::Context::GetLocale(a2, v12, &v32);
-  siri::dialogengine::MeCard::FormatFullName(a4, v9, &v32, &__str);
+  siri::dialogengine::Context::GetLocale(a2, v12, &v31);
+  siri::dialogengine::MeCard::FormatFullName(a4, v9, &v31, &__str);
   std::string::operator=(this, &__str);
-  std::string::operator=(this + 1, &v122);
-  std::string::operator=(this + 2, &v123);
-  std::string::operator=(this + 3, &v124);
-  std::string::operator=(this + 4, &v125);
-  std::string::operator=(this + 5, &v126);
-  std::string::operator=(this + 6, &v127);
-  if (SHIBYTE(v127.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v127.__r_.__value_.__l.__data_);
-  }
-
+  std::string::operator=(this + 1, &v121);
+  std::string::operator=(this + 2, &v122);
+  std::string::operator=(this + 3, &v123);
+  std::string::operator=(this + 4, &v124);
+  std::string::operator=(this + 5, &v125);
+  std::string::operator=(this + 6, &v126);
   if (SHIBYTE(v126.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v126.__r_.__value_.__l.__data_);
@@ -4374,14 +4329,19 @@ LABEL_169:
     operator delete(v122.__r_.__value_.__l.__data_);
   }
 
+  if (SHIBYTE(v121.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v121.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__str.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v32.__r_.__value_.__l.__data_);
+    operator delete(v31.__r_.__value_.__l.__data_);
   }
 
   LOBYTE(v23) = *(&this[1].__r_.__value_.__s + 23);
@@ -4515,240 +4475,238 @@ LABEL_215:
   }
 
 LABEL_219:
-  if (v120 < 0)
+  if (v119 < 0)
   {
-    operator delete(v119);
+    operator delete(v118);
   }
 
-  if (v118 < 0)
+  if (v117 < 0)
   {
-    operator delete(v117);
+    operator delete(v116);
   }
 
-  if (v116 < 0)
+  if (v115 < 0)
   {
-    operator delete(v115);
+    operator delete(v114);
   }
 
-  if (v114 < 0)
+  if (v113 < 0)
   {
-    operator delete(v113);
+    operator delete(v112);
   }
 
-  if (v112 < 0)
+  if (v111 < 0)
   {
-    operator delete(v111);
+    operator delete(v110);
   }
 
-  if (v110 < 0)
+  if (v109 < 0)
   {
-    operator delete(v109);
+    operator delete(v108);
   }
 
-  if (v108 < 0)
+  if (v107 < 0)
   {
-    operator delete(v107);
+    operator delete(v106);
   }
 
-  if (v106 < 0)
+  if (v105 < 0)
   {
-    operator delete(v105);
+    operator delete(v104);
   }
 
-  if (v104 < 0)
+  if (v103 < 0)
   {
-    operator delete(v103);
+    operator delete(v102);
   }
 
-  if (v102 < 0)
+  if (v101 < 0)
   {
-    operator delete(v101);
+    operator delete(v100);
   }
 
-  if (v100 < 0)
+  if (v99 < 0)
   {
-    operator delete(v99);
+    operator delete(v98);
   }
 
-  if (v98 < 0)
+  if (v97 < 0)
   {
-    operator delete(v97);
+    operator delete(v96);
   }
 
-  if (v96 < 0)
+  if (v95 < 0)
   {
-    operator delete(v95);
+    operator delete(v94);
   }
 
-  if (v94 < 0)
+  if (v93 < 0)
   {
-    operator delete(v93);
+    operator delete(v92);
   }
 
-  if (v92 < 0)
+  if (v91 < 0)
   {
-    operator delete(v91);
+    operator delete(v90);
   }
 
-  if (v90 < 0)
+  if (v89 < 0)
   {
-    operator delete(v89);
+    operator delete(v88);
   }
 
-  if (v88 < 0)
+  if (v87 < 0)
   {
-    operator delete(v87);
+    operator delete(v86);
   }
 
-  if (v86 < 0)
+  if (v85 < 0)
   {
-    operator delete(v85);
+    operator delete(v84);
   }
 
-  if (v84 < 0)
+  if (v83 < 0)
   {
-    operator delete(v83);
+    operator delete(v82);
   }
 
-  if (v82 < 0)
+  if (v81 < 0)
   {
-    operator delete(v81);
+    operator delete(v80);
   }
 
-  if (v80 < 0)
+  if (v79 < 0)
   {
-    operator delete(v79);
+    operator delete(v78);
   }
 
-  if (v78 < 0)
+  if (v77 < 0)
   {
-    operator delete(v77);
+    operator delete(v76);
   }
 
-  if (v76 < 0)
+  if (v75 < 0)
   {
-    operator delete(v75);
+    operator delete(v74);
   }
 
-  if (v74 < 0)
+  if (v73 < 0)
   {
-    operator delete(v73);
+    operator delete(v72);
   }
 
-  if (v72 < 0)
+  if (v71 < 0)
   {
-    operator delete(v71);
+    operator delete(v70);
   }
 
-  if (v70 < 0)
+  if (v69 < 0)
   {
-    operator delete(v69);
+    operator delete(v68);
   }
 
-  if (v68 < 0)
+  if (v67 < 0)
   {
-    operator delete(v67);
+    operator delete(v66);
   }
 
-  if (v66 < 0)
+  if (v65 < 0)
   {
-    operator delete(v65);
+    operator delete(v64);
   }
 
-  if (v64 < 0)
+  if (v63 < 0)
   {
-    operator delete(v63);
+    operator delete(v62);
   }
 
-  if (v62 < 0)
+  if (v61 < 0)
   {
-    operator delete(v61);
+    operator delete(v60);
   }
 
-  if (v60 < 0)
+  if (v59 < 0)
   {
-    operator delete(v59);
+    operator delete(v58);
   }
 
-  if (v58 < 0)
+  if (v57 < 0)
   {
-    operator delete(v57);
+    operator delete(v56);
   }
 
-  if (v56 < 0)
+  if (v55 < 0)
   {
-    operator delete(v55);
+    operator delete(v54);
   }
 
-  if (v54 < 0)
+  if (v53 < 0)
   {
-    operator delete(v53);
+    operator delete(v52);
   }
 
-  if (v52 < 0)
+  if (v51 < 0)
   {
-    operator delete(v51);
+    operator delete(v50);
   }
 
-  if (v50 < 0)
+  if (v49 < 0)
   {
-    operator delete(v49);
+    operator delete(v48);
   }
 
-  if (v48 < 0)
+  if (v47 < 0)
   {
-    operator delete(v47);
+    operator delete(v46);
   }
 
-  if (v46 < 0)
+  if (v45 < 0)
   {
-    operator delete(v45);
+    operator delete(v44);
   }
 
-  if (v44 < 0)
+  if (v43 < 0)
   {
-    operator delete(v43);
+    operator delete(v42);
   }
 
-  if (v42 < 0)
+  if (v41 < 0)
   {
-    operator delete(v41);
+    operator delete(v40);
   }
 
-  if (v40 < 0)
+  if (v39 < 0)
   {
-    operator delete(v39);
+    operator delete(v38);
   }
 
-  if (v38 < 0)
+  if (v37 < 0)
   {
-    operator delete(v37);
+    operator delete(v36);
   }
 
-  if (v36 < 0)
+  if (v35 < 0)
   {
-    operator delete(v35);
+    operator delete(v34);
   }
 
-  if (v34 < 0)
+  if (v33 < 0)
   {
-    operator delete(v33[0]);
+    operator delete(v32[0]);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1BFBD7420(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, ...)
+void sub_1BFBD7420(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, void *a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__pa, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
-  siri::dialogengine::SpeakableString::~SpeakableString(v14);
+  va_start(va, a21);
+  siri::dialogengine::SpeakableString::~SpeakableString(v21);
   siri::dialogengine::PersonData::~PersonData(va);
   _Unwind_Resume(a1);
 }
 
-void siri::dialogengine::DialogPerson::FormatSpeakableName(uint64_t a1@<X1>, std::string *a2@<X8>)
+void siri::dialogengine::DialogPerson::FormatSpeakableName(uint64_t a2@<X1>, std::string *a3@<X8>)
 {
-  siri::dialogengine::RemoveEmojiChars(a1, &__p);
+  siri::dialogengine::RemoveEmojiChars(a2, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     size = __p.__r_.__value_.__l.__size_;
@@ -4764,30 +4722,40 @@ void siri::dialogengine::DialogPerson::FormatSpeakableName(uint64_t a1@<X1>, std
     goto LABEL_6;
   }
 
-  if (!siri::dialogengine::ContainsTTStoiCodes(a1))
+  if (!siri::dialogengine::ContainsTTStoiCodes(a2))
   {
-    std::string::basic_string[abi:ne200100]<0>(v16, "\x1B");
-    std::string::basic_string[abi:ne200100]<0>(v15, "E+001B;");
-    std::string::basic_string[abi:ne200100]<0>(&v12, "&");
-    std::string::basic_string[abi:ne200100]<0>(v10, "&amp;");
-    siri::dialogengine::StringReplace(a1, &v12, v10, 0, &v13);
-    std::string::basic_string[abi:ne200100]<0>(v8, "'");
-    std::string::basic_string[abi:ne200100]<0>(v6, "&apos;");
-    siri::dialogengine::StringReplace(&v13, v8, v6, 0, &__p);
-    siri::dialogengine::StringReplace(&__p, v16, v15, 0, &v14);
+    std::string::basic_string[abi:ne200100]<0>(v17, "\x1B");
+    std::string::basic_string[abi:ne200100]<0>(v16, "E+001B;");
+    std::string::basic_string[abi:ne200100]<0>(&v13, "&");
+    std::string::basic_string[abi:ne200100]<0>(v11, "&amp;");
+    siri::dialogengine::StringReplace(a2, &v13, v11, 0, &v14);
+    std::string::basic_string[abi:ne200100]<0>(v9, "'");
+    std::string::basic_string[abi:ne200100]<0>(v7, "&apos;");
+    siri::dialogengine::StringReplace(&v14, v9, v7, 0, &__p);
+    siri::dialogengine::StringReplace(&__p, v17, v16, 0, &v15);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (v7 < 0)
+    if (v8 < 0)
     {
-      operator delete(v6[0]);
+      operator delete(v7[0]);
     }
 
-    if (v9 < 0)
+    if (v10 < 0)
     {
-      operator delete(v8[0]);
+      operator delete(v9[0]);
+    }
+
+    if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v14.__r_.__value_.__l.__data_);
+    }
+
+    if (v12 < 0)
+    {
+      operator delete(v11[0]);
     }
 
     if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
@@ -4795,29 +4763,19 @@ void siri::dialogengine::DialogPerson::FormatSpeakableName(uint64_t a1@<X1>, std
       operator delete(v13.__r_.__value_.__l.__data_);
     }
 
-    if (v11 < 0)
-    {
-      operator delete(v10[0]);
-    }
-
-    if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v12.__r_.__value_.__l.__data_);
-    }
-
     siri::dialogengine::RemoveUnicodeControlChars();
   }
 
 LABEL_6:
-  if (*(a1 + 23) < 0)
+  if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(a2, *a1, *(a1 + 8));
+    std::string::__init_copy_ctor_external(a3, *a2, *(a2 + 8));
   }
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *a1;
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 16);
+    *&a3->__r_.__value_.__l.__data_ = *a2;
+    a3->__r_.__value_.__r.__words[2] = *(a2 + 16);
   }
 }
 
@@ -4992,7 +4950,7 @@ void sub_1BFBD7C08(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t siri::dialogengine::ContainsTTStoiCodes(char **a1)
+BOOL siri::dialogengine::ContainsTTStoiCodes(char **a1)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "\x1B\\toi=");
   v2 = siri::dialogengine::StringContains(a1, __p);
@@ -5004,20 +4962,20 @@ uint64_t siri::dialogengine::ContainsTTStoiCodes(char **a1)
   return v2;
 }
 
-void siri::dialogengine::SpeakableString::GetExpandedSpeak(siri::dialogengine::SpeakableString *this@<X0>, siri::dialogengine::Context *a2@<X1>, std::string *a3@<X8>)
+void siri::dialogengine::SpeakableString::GetExpandedSpeak(std::string *__return_ptr a1@<X8>, siri::dialogengine::SpeakableString *this@<X0>, siri::dialogengine::Context *a3@<X1>)
 {
-  siri::dialogengine::SpeakableString::GetSpeakChunks(this, a2, v5);
-  siri::dialogengine::ChunkList::Expand(v6, v5, a2);
+  siri::dialogengine::SpeakableString::GetSpeakChunks(v5, this, a3);
+  siri::dialogengine::ChunkList::Expand(v6, a3, v5);
   siri::dialogengine::ExpandToText(&v7, v6[0], v6[1]);
   if (SHIBYTE(v10) < 0)
   {
-    std::string::__init_copy_ctor_external(a3, v9, *(&v9 + 1));
+    std::string::__init_copy_ctor_external(a1, v9, *(&v9 + 1));
   }
 
   else
   {
-    *&a3->__r_.__value_.__l.__data_ = v9;
-    a3->__r_.__value_.__r.__words[2] = v10;
+    *&a1->__r_.__value_.__l.__data_ = v9;
+    a1->__r_.__value_.__r.__words[2] = v10;
   }
 
   if (v20 < 0)
@@ -5073,23 +5031,23 @@ void sub_1BFBD7D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 BOOL siri::dialogengine::IsSSMLTag(siri::dialogengine *this, const siri::dialogengine::ChunkTag *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18[3] = *MEMORY[0x1E69E9840];
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "say-as");
-    std::string::basic_string[abi:ne200100]<0>(v12, "prosody");
-    std::string::basic_string[abi:ne200100]<0>(v13, "phoneme");
-    std::string::basic_string[abi:ne200100]<0>(v14, "break");
-    std::string::basic_string[abi:ne200100]<0>(v15, "emphasis");
-    std::string::basic_string[abi:ne200100]<0>(v16, "w");
-    std::string::basic_string[abi:ne200100]<0>(v17, "sub");
-    std::string::basic_string[abi:ne200100]<0>(v18, "audio");
-    std::string::basic_string[abi:ne200100]<0>(v19, "mark");
+    std::string::basic_string[abi:ne200100]<0>(v11, "prosody");
+    std::string::basic_string[abi:ne200100]<0>(v12, "phoneme");
+    std::string::basic_string[abi:ne200100]<0>(v13, "break");
+    std::string::basic_string[abi:ne200100]<0>(v14, "emphasis");
+    std::string::basic_string[abi:ne200100]<0>(v15, "w");
+    std::string::basic_string[abi:ne200100]<0>(v16, "sub");
+    std::string::basic_string[abi:ne200100]<0>(v17, "audio");
+    std::string::basic_string[abi:ne200100]<0>(v18, "mark");
     std::set<std::string>::set[abi:ne200100](&siri::dialogengine::IsSSMLTag(siri::dialogengine::ChunkTag const*)::sSSMLTags, __p, 9);
-    for (i = 0; i != -216; i -= 24)
+    for (i = 0; i != -27; i -= 3)
     {
-      if (v19[i + 23] < 0)
+      if (SHIBYTE(v18[i + 2]) < 0)
       {
-        operator delete(*&v19[i]);
+        operator delete(v18[i]);
       }
     }
 
@@ -5098,49 +5056,47 @@ BOOL siri::dialogengine::IsSSMLTag(siri::dialogengine *this, const siri::dialoge
 
   if (*(this + 223) < 0)
   {
-    std::string::__init_copy_ctor_external(&v9, *(this + 25), *(this + 26));
+    std::string::__init_copy_ctor_external(&v8, *(this + 25), *(this + 26));
   }
 
   else
   {
-    v9 = *(this + 200);
+    v8 = *(this + 200);
   }
 
-  if ((v9.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v8.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v3 = &v9;
+    v3 = &v8;
   }
 
   else
   {
-    v3 = v9.__r_.__value_.__r.__words[0];
+    v3 = v8.__r_.__value_.__r.__words[0];
   }
 
-  if ((v9.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v8.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v9.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v8.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v9.__r_.__value_.__l.__size_;
+    size = v8.__r_.__value_.__l.__size_;
   }
 
-  siri::dialogengine::StringToLower(v3, size, __p);
+  siri::dialogengine::StringToLower(__p, v3, size);
   v5 = std::__tree<std::__value_type<std::string,std::set<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<std::string>>>>::find<std::string>(&siri::dialogengine::IsSSMLTag(siri::dialogengine::ChunkTag const*)::sSSMLTags, __p);
-  if (v11 < 0)
+  if (v10 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v9.__r_.__value_.__l.__data_);
+    operator delete(v8.__r_.__value_.__l.__data_);
   }
 
-  result = v5 != &unk_1EBE02ED0;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v5 != &unk_1EBE02ED0;
 }
 
 void sub_1BFBD801C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -5166,7 +5122,7 @@ void sub_1BFBD801C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 }
 
-BOOL siri::dialogengine::ConvertSSMLToTTSCode(siri::dialogengine::Context *a1, uint64_t a2, uint64_t a3)
+BOOL siri::dialogengine::ConvertSSMLToTTSCode(siri::dialogengine::Context *a1, uint64_t a2, uint64_t **a3)
 {
   if (*(a2 + 223) < 0)
   {
@@ -5198,7 +5154,7 @@ BOOL siri::dialogengine::ConvertSSMLToTTSCode(siri::dialogengine::Context *a1, u
     size = v127.__r_.__value_.__l.__size_;
   }
 
-  siri::dialogengine::StringToLower(v6, size, &v119);
+  siri::dialogengine::StringToLower(&v119, v6, size);
   if (SHIBYTE(v127.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v127.__r_.__value_.__l.__data_);
@@ -5266,19 +5222,19 @@ LABEL_158:
       {
 LABEL_114:
         std::string::basic_string[abi:ne200100]<0>(&v127, "alias");
-        siri::dialogengine::ChunkText::GetAttribute(a2, &v127, &__str);
+        siri::dialogengine::ChunkText::GetAttribute(a2, &v127.__r_.__value_.__l.__data_, &__str);
         if (SHIBYTE(v127.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v127.__r_.__value_.__l.__data_);
         }
 
         v25 = *a3;
-        v26 = *(a3 + 8);
+        v26 = a3[1];
         if (*a3 == v26)
         {
           std::string::basic_string[abi:ne200100]<0>(&__p, "");
           siri::dialogengine::SpeakableString::SpeakableString(&v127, &__p, &__str);
-          std::allocate_shared[abi:ne200100]<siri::dialogengine::ChunkText,std::allocator<siri::dialogengine::ChunkText>,siri::dialogengine::SpeakableString,0>();
+          std::allocate_shared[abi:ne200100]<siri::dialogengine::ChunkText,std::allocator<siri::dialogengine::ChunkText>,siri::dialogengine::SpeakableString,0>(&v125, &v127);
         }
 
         v27 = 1;
@@ -5437,7 +5393,7 @@ LABEL_168:
 
 LABEL_216:
     std::string::basic_string[abi:ne200100]<0>(&__str, "rate");
-    siri::dialogengine::ChunkText::GetAttribute(a2, &__str, &v127);
+    siri::dialogengine::ChunkText::GetAttribute(a2, &__str.__r_.__value_.__l.__data_, &v127);
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__str.__r_.__value_.__l.__data_);
@@ -5494,7 +5450,7 @@ LABEL_216:
         v51 = 1;
 LABEL_279:
         std::string::basic_string[abi:ne200100]<0>(&__p, "pitch");
-        siri::dialogengine::ChunkText::GetAttribute(a2, &__p, &__str);
+        siri::dialogengine::ChunkText::GetAttribute(a2, &__p.__r_.__value_.__l.__data_, &__str);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -5565,7 +5521,7 @@ LABEL_279:
         }
 
         std::string::basic_string[abi:ne200100]<0>(&v125, "volume");
-        siri::dialogengine::ChunkText::GetAttribute(a2, &v125, &__p);
+        siri::dialogengine::ChunkText::GetAttribute(a2, &v125.__r_.__value_.__l.__data_, &__p);
         if (SHIBYTE(v125.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v125.__r_.__value_.__l.__data_);
@@ -5771,7 +5727,7 @@ LABEL_87:
 LABEL_44:
         memset(&v127, 0, sizeof(v127));
         std::string::basic_string[abi:ne200100]<0>(&v125, "level");
-        siri::dialogengine::ChunkText::GetAttribute(a2, &v125, &__p);
+        siri::dialogengine::ChunkText::GetAttribute(a2, &v125.__r_.__value_.__l.__data_, &__p);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           v11 = &__p;
@@ -5792,7 +5748,7 @@ LABEL_44:
           v12 = __p.__r_.__value_.__l.__size_;
         }
 
-        siri::dialogengine::StringToLower(v11, v12, &__str);
+        siri::dialogengine::StringToLower(&__str, v11, v12);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -5876,7 +5832,7 @@ LABEL_367:
                 v83->__r_.__value_.__l.__size_ = 0;
                 v83->__r_.__value_.__r.__words[2] = 0;
                 v83->__r_.__value_.__r.__words[0] = 0;
-                siri::dialogengine::Log::LogWithLevel(&__p, 1u);
+                siri::dialogengine::Log::LogWithLevel(&__p, 1);
 LABEL_375:
                 if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                 {
@@ -5933,14 +5889,14 @@ LABEL_75:
 
 LABEL_200:
     std::string::basic_string[abi:ne200100]<0>(&__str, "alphabet");
-    siri::dialogengine::ChunkText::GetAttribute(a2, &__str, &v127);
+    siri::dialogengine::ChunkText::GetAttribute(a2, &__str.__r_.__value_.__l.__data_, &v127);
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__str.__r_.__value_.__l.__data_);
     }
 
     std::string::basic_string[abi:ne200100]<0>(&__p, "ph");
-    siri::dialogengine::ChunkText::GetAttribute(a2, &__p, &__str);
+    siri::dialogengine::ChunkText::GetAttribute(a2, &__p.__r_.__value_.__l.__data_, &__str);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -6005,14 +5961,14 @@ LABEL_65:
 
 LABEL_173:
       std::string::basic_string[abi:ne200100]<0>(&__str, "src");
-      siri::dialogengine::ChunkText::GetAttribute(a2, &__str, &v127);
+      siri::dialogengine::ChunkText::GetAttribute(a2, &__str.__r_.__value_.__l.__data_, &v127);
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__str.__r_.__value_.__l.__data_);
       }
 
       std::string::basic_string[abi:ne200100]<0>(&__p, "apple:overlap");
-      siri::dialogengine::ChunkText::GetAttribute(a2, &__p, &__str);
+      siri::dialogengine::ChunkText::GetAttribute(a2, &__p.__r_.__value_.__l.__data_, &__str);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -6084,14 +6040,14 @@ LABEL_372:
 
 LABEL_188:
     std::string::basic_string[abi:ne200100]<0>(&__str, "time");
-    siri::dialogengine::ChunkText::GetAttribute(a2, &__str, &v127);
+    siri::dialogengine::ChunkText::GetAttribute(a2, &__str.__r_.__value_.__l.__data_, &v127);
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__str.__r_.__value_.__l.__data_);
     }
 
     std::string::basic_string[abi:ne200100]<0>(&__p, "strength");
-    siri::dialogengine::ChunkText::GetAttribute(a2, &__p, &__str);
+    siri::dialogengine::ChunkText::GetAttribute(a2, &__p.__r_.__value_.__l.__data_, &__str);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -6249,7 +6205,7 @@ LABEL_198:
 
 LABEL_98:
   std::string::basic_string[abi:ne200100]<0>(&v127, "interpret-as");
-  siri::dialogengine::ChunkText::GetAttribute(a2, &v127, &v118);
+  siri::dialogengine::ChunkText::GetAttribute(a2, &v127.__r_.__value_.__l.__data_, &v118);
   if (SHIBYTE(v127.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v127.__r_.__value_.__l.__data_);
@@ -6272,7 +6228,7 @@ LABEL_98:
 
 LABEL_268:
       std::string::basic_string[abi:ne200100]<0>(&__str, "detail");
-      siri::dialogengine::ChunkText::GetAttribute(a2, &__str, &v127);
+      siri::dialogengine::ChunkText::GetAttribute(a2, &__str.__r_.__value_.__l.__data_, &v127);
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__str.__r_.__value_.__l.__data_);
@@ -6305,7 +6261,7 @@ LABEL_333:
 
 LABEL_384:
     siri::dialogengine::ChunkList::ChunkList(&v125, a3);
-    siri::dialogengine::ChunkList::Expand(&__p, &v125, a1);
+    siri::dialogengine::ChunkList::Expand(&__p, a1);
     siri::dialogengine::ExpandToText(&v127, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     if (SHIBYTE(v127.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -6741,7 +6697,7 @@ void sub_1BFBD9DFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void siri::dialogengine::AddTTSCodes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void siri::dialogengine::AddTTSCodes(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = *(a4 + 23);
   if ((v4 & 0x80u) != 0)
@@ -6771,7 +6727,7 @@ void siri::dialogengine::AddTTSCodes(uint64_t a1, uint64_t a2, uint64_t a3, uint
   {
     std::string::basic_string[abi:ne200100]<0>(&__p, "");
     std::operator+<char>();
-    v7 = std::string::append(&v12, "\");
+    v7 = std::string::append(&v12, "\"");
     v8 = *&v7->__r_.__value_.__l.__data_;
     v13.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
     *&v13.__r_.__value_.__l.__data_ = v8;
@@ -6807,7 +6763,7 @@ void siri::dialogengine::AddTTSCodes(uint64_t a1, uint64_t a2, uint64_t a3, uint
   {
     std::string::basic_string[abi:ne200100]<0>(&__p, "");
     std::operator+<char>();
-    v10 = std::string::append(&v12, "\");
+    v10 = std::string::append(&v12, "\"");
     v11 = *&v10->__r_.__value_.__l.__data_;
     v13.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
     *&v13.__r_.__value_.__l.__data_ = v11;
@@ -6852,7 +6808,7 @@ void std::vector<std::shared_ptr<siri::dialogengine::ChunkText>>::insert(void *a
   if (v6 >= v7)
   {
     v14 = *a1;
-    v15 = (&v6[-*a1] >> 4) + 1;
+    v15 = ((v6 - *a1) >> 4) + 1;
     if (v15 >> 60)
     {
       std::vector<std::vector<std::string>>::__throw_length_error[abi:ne200100]();
@@ -6924,7 +6880,7 @@ void std::vector<std::shared_ptr<siri::dialogengine::ChunkText>>::insert(void *a
     v25 = v31;
     *&v32 = v32 + a1[1] - a2;
     a1[1] = a2;
-    v26 = a2 - v24;
+    v26 = (a2 - v24);
     v27 = (v25 - (a2 - v24));
     memcpy(v27, v24, v26);
     v28 = *a1;
@@ -6942,7 +6898,7 @@ void std::vector<std::shared_ptr<siri::dialogengine::ChunkText>>::insert(void *a
   {
     v20 = *(a3 + 1);
     *v6 = *a3;
-    *(v6 + 1) = v20;
+    *(v6 + 8) = v20;
     if (v20)
     {
       atomic_fetch_add_explicit((v20 + 8), 1uLL, memory_order_relaxed);
@@ -7012,60 +6968,64 @@ siri::dialogengine::DialogPerson *siri::dialogengine::DialogPerson::RemoveEmojis
   v2 = this;
   if (this)
   {
-    v3 = **this;
-    if (v4)
+    if (v3)
     {
-      v5 = v4;
-      if (v4[119] < 0)
+      v4 = v3;
+      if (v3[119] < 0)
       {
-        std::string::__init_copy_ctor_external(&v11, *(v4 + 12), *(v4 + 13));
+        std::string::__init_copy_ctor_external(&v10, *(v3 + 12), *(v3 + 13));
       }
 
       else
       {
-        v11 = *(v4 + 4);
+        v10 = *(v3 + 4);
       }
 
-      siri::dialogengine::RemoveEmojiChars(&v11, &v10);
-      size = HIBYTE(v10.__r_.__value_.__r.__words[2]);
-      if ((v10.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      siri::dialogengine::RemoveEmojiChars(&v10, &v9);
+      size = HIBYTE(v9.__r_.__value_.__r.__words[2]);
+      if ((v9.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        size = v10.__r_.__value_.__l.__size_;
+        size = v9.__r_.__value_.__l.__size_;
       }
 
       if (size)
       {
-        if (v5[95] < 0)
+        if (v4[95] < 0)
         {
-          std::string::__init_copy_ctor_external(&v9, *(v5 + 9), *(v5 + 10));
+          std::string::__init_copy_ctor_external(&v8, *(v4 + 9), *(v4 + 10));
         }
 
         else
         {
-          v9 = *(v5 + 3);
+          v8 = *(v4 + 3);
         }
 
-        siri::dialogengine::SpeakableString::SetString(v5 + 3, &v9, &v10);
+        siri::dialogengine::SpeakableString::SetString(v4 + 3, &v8, &v9);
       }
 
       else
       {
-        if (v5[95] < 0)
+        if (v4[95] < 0)
         {
-          std::string::__init_copy_ctor_external(&v9, *(v5 + 9), *(v5 + 10));
+          std::string::__init_copy_ctor_external(&v8, *(v4 + 9), *(v4 + 10));
         }
 
         else
         {
-          v9 = *(v5 + 3);
+          v8 = *(v4 + 3);
         }
 
-        siri::dialogengine::GetGraphemePrefix(&v11, 2, &__p);
-        siri::dialogengine::SpeakableString::SetString(v5 + 3, &v9, &__p);
+        siri::dialogengine::GetGraphemePrefix(&v10, 2, &__p);
+        siri::dialogengine::SpeakableString::SetString(v4 + 3, &v8, &__p);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
+      }
+
+      if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v8.__r_.__value_.__l.__data_);
       }
 
       if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
@@ -7078,12 +7038,7 @@ siri::dialogengine::DialogPerson *siri::dialogengine::DialogPerson::RemoveEmojis
         operator delete(v10.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v11.__r_.__value_.__l.__data_);
-      }
-
-      return v5;
+      return v4;
     }
   }
 
@@ -7155,13 +7110,13 @@ uint64_t std::__shared_ptr_pointer<siri::dialogengine::Variable *,std::shared_pt
   return result;
 }
 
-void siri::dialogengine::SpeakableString::ToMultiplexedString(siri::dialogengine::SpeakableString *this@<X0>, std::string *a2@<X8>)
+void siri::dialogengine::SpeakableString::ToMultiplexedString(std::string *__return_ptr a1@<X8>, const std::string::value_type **this@<X0>)
 {
   if (siri::dialogengine::SpeakableString::SpeakEqualsPrint(this))
   {
     std::operator+<char>();
     std::string::push_back(&v16, 93);
-    *a2 = v16;
+    *a1 = v16;
   }
 
   else
@@ -7174,10 +7129,10 @@ void siri::dialogengine::SpeakableString::ToMultiplexedString(siri::dialogengine
     v4->__r_.__value_.__l.__size_ = 0;
     v4->__r_.__value_.__r.__words[2] = 0;
     v4->__r_.__value_.__r.__words[0] = 0;
-    v8 = *(this + 3);
-    v7 = this + 24;
+    v8 = this[3];
+    v7 = this + 3;
     v6 = v8;
-    v9 = v7[23];
+    v9 = *(v7 + 23);
     if (v9 >= 0)
     {
       v10 = v7;
@@ -7190,12 +7145,12 @@ void siri::dialogengine::SpeakableString::ToMultiplexedString(siri::dialogengine
 
     if (v9 >= 0)
     {
-      v11 = v7[23];
+      v11 = *(v7 + 23);
     }
 
     else
     {
-      v11 = *(v7 + 1);
+      v11 = v7[1];
     }
 
     v12 = std::string::append(&v15, v10, v11);
@@ -7206,7 +7161,7 @@ void siri::dialogengine::SpeakableString::ToMultiplexedString(siri::dialogengine
     v12->__r_.__value_.__r.__words[2] = 0;
     v12->__r_.__value_.__r.__words[0] = 0;
     std::string::push_back(&v16, 93);
-    *a2 = v16;
+    *a1 = v16;
     memset(&v16, 0, sizeof(v16));
     if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -7251,7 +7206,7 @@ uint64_t std::__shared_ptr_pointer<siri::dialogengine::Text *,std::shared_ptr<si
   return result;
 }
 
-void siri::dialogengine::Text::Execute(siri::dialogengine::Text *this@<X0>, siri::dialogengine::Context *a2@<X1>, void *a3@<X8>)
+void siri::dialogengine::Text::Execute(siri::dialogengine::Text *this@<X0>, siri::dialogengine::Context *a2@<X1>, const void **a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
@@ -7281,7 +7236,7 @@ void sub_1BFBDB424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t siri::dialogengine::DialogUser::groundingIfNeeded(siri::dialogengine::DialogUser *this, siri::dialogengine::Context *a2, const siri::dialogengine::VariableObject *a3)
+siri::dialogengine::DialogPerson *siri::dialogengine::DialogUser::groundingIfNeeded(siri::dialogengine::DialogUser *this, siri::dialogengine::Context *a2, const siri::dialogengine::VariableObject *a3)
 {
   siri::dialogengine::RequestInfo::RequestInfo(v7, (this + 8));
   if (v8 & 2) == 0 && v9 == 1 && (v10)
@@ -7293,7 +7248,7 @@ uint64_t siri::dialogengine::DialogUser::groundingIfNeeded(siri::dialogengine::D
   return 0;
 }
 
-void *std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<siri::dialogengine::PatternSchemaUsage> *,std::shared_ptr<siri::dialogengine::PatternSchemaUsage> *,std::shared_ptr<siri::dialogengine::PatternSchemaUsage> *>(uint64_t *a1, uint64_t *a2, void *a3)
+uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<siri::dialogengine::PatternSchemaUsage> *,std::shared_ptr<siri::dialogengine::PatternSchemaUsage> *,std::shared_ptr<siri::dialogengine::PatternSchemaUsage> *>(uint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   if (a1 != a2)
   {
@@ -7348,7 +7303,7 @@ uint64_t google::protobuf::Reflection::HasBit(google::protobuf::Reflection *this
   {
     google::protobuf::internal::LogMessage::LogMessage(v19, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/generated_message_reflection.cc", 1923);
     v6 = google::protobuf::internal::LogMessage::operator<<(v19, "CHECK failed: !field->options().weak(): ");
-    google::protobuf::internal::LogFinisher::operator=(&v22, v6);
+    google::protobuf::internal::LogFinisher::operator=(&v22, &v6->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v19[0].__r_.__value_.__l.__data_);
   }
 
@@ -7480,7 +7435,7 @@ LABEL_40:
 LABEL_39:
       google::protobuf::internal::LogMessage::LogMessage(v19, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/generated_message_reflection.cc", 1977);
       v16 = google::protobuf::internal::LogMessage::operator<<(v19, "Reached impossible case in HasBit().");
-      google::protobuf::internal::LogFinisher::operator=(&v22, v16);
+      google::protobuf::internal::LogFinisher::operator=(&v22, &v16->__r_.__value_.__l.__data_);
       google::protobuf::internal::LogMessage::~LogMessage(&v19[0].__r_.__value_.__l.__data_);
       goto LABEL_40;
     }
@@ -7492,9 +7447,9 @@ LABEL_36:
   return HasBitSet & 1;
 }
 
-void sub_1BFBDB99C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BFBDB99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7544,7 +7499,7 @@ uint64_t google::protobuf::internal::ReflectionSchema::GetFieldOffsetNonOneof(go
   {
     google::protobuf::internal::LogMessage::LogMessage(v11, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/generated_message_reflection.h", 133);
     v4 = google::protobuf::internal::LogMessage::operator<<(v11, "CHECK failed: !field->containing_oneof(): ");
-    google::protobuf::internal::LogFinisher::operator=(&v14, v4);
+    google::protobuf::internal::LogFinisher::operator=(&v14, &v4->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v11[0].__r_.__value_.__l.__data_);
   }
 
@@ -7591,28 +7546,28 @@ uint64_t google::protobuf::internal::ReflectionSchema::GetFieldOffsetNonOneof(go
   return v7;
 }
 
-void sub_1BFBDBBCC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BFBDBBCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-unint64_t google::protobuf::Reflection::ListFields(unint64_t this, const google::protobuf::Message *a2, const void **a3)
+const google::protobuf::Message **google::protobuf::Reflection::ListFields(const google::protobuf::Message **this, const google::protobuf::Message *a2, uint64_t *a3)
 {
   a3[1] = *a3;
-  v3 = (this + 8);
-  if (*(this + 8) != a2)
+  v3 = (this + 1);
+  if (this[1] != a2)
   {
     v6 = this;
-    if (*(this + 32) == -1)
+    if (*(this + 8) == -1)
     {
       v7 = 0;
     }
 
     else
     {
-      v7 = (a2 + google::protobuf::internal::ReflectionSchema::HasBitsOffset((this + 8)));
+      v7 = (a2 + google::protobuf::internal::ReflectionSchema::HasBitsOffset((this + 1)));
     }
 
     v8 = v6[3];
@@ -7776,7 +7731,7 @@ google::protobuf::internal::ExtensionSet::Extension *google::protobuf::Reflectio
 
     google::protobuf::internal::LogMessage::LogMessage(v19, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/generated_message_reflection.cc", 784);
     v18 = google::protobuf::internal::LogMessage::operator<<(v19, "Can't get here.");
-    google::protobuf::internal::LogFinisher::operator=(&v22, v18);
+    google::protobuf::internal::LogFinisher::operator=(&v22, &v18->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v19[0].__r_.__value_.__l.__data_);
     return 0;
   }
@@ -7787,9 +7742,9 @@ google::protobuf::internal::ExtensionSet::Extension *google::protobuf::Reflectio
   return google::protobuf::internal::ExtensionSet::ExtensionSize(v9, v10);
 }
 
-void sub_1BFBDC0E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BFBDC0E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7873,15 +7828,15 @@ const google::protobuf::Message *siri::dialogengine::ExpandMessage(siri::dialoge
     return 0;
   }
 
-  (*(*v3 + 16))(v165, v3);
+  (*(*v3 + 16))(v171, v3);
   v5 = (*(*v3 + 168))(v3);
   v7 = v5;
   if (!v5)
   {
-    v11 = v165;
-    if (v166 < 0)
+    v11 = v171;
+    if (v172 < 0)
     {
-      v11 = v165[0];
+      v11 = v171[0];
     }
 
     siri::dialogengine::Log::Error("Could not get message descriptor for message type '%s'", v6, v11);
@@ -7892,24 +7847,24 @@ const google::protobuf::Message *siri::dialogengine::ExpandMessage(siri::dialoge
   v8 = *(v5 + 8);
   if (*(v8 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v164, *v8, *(v8 + 1));
+    std::string::__init_copy_ctor_external(&v170, *v8, *(v8 + 1));
   }
 
   else
   {
     v9 = *v8;
-    v164.__r_.__value_.__r.__words[2] = *(v8 + 2);
-    *&v164.__r_.__value_.__l.__data_ = v9;
+    v170.__r_.__value_.__r.__words[2] = *(v8 + 2);
+    *&v170.__r_.__value_.__l.__data_ = v9;
   }
 
   (*(*v3 + 168))(v3);
   v13 = v12;
   if (!v12)
   {
-    v52 = &v164;
-    if ((v164.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v52 = &v170;
+    if ((v170.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v52 = v164.__r_.__value_.__r.__words[0];
+      v52 = v170.__r_.__value_.__r.__words[0];
     }
 
     siri::dialogengine::Log::Error("Could not get message reflection for '%s'", 0, v52);
@@ -7917,25 +7872,25 @@ const google::protobuf::Message *siri::dialogengine::ExpandMessage(siri::dialoge
     goto LABEL_282;
   }
 
-  siri::dialogengine::GetMessageCondition(&v163, v3);
-  if (siri::dialogengine::ConditionIsTrue(v4, &v163))
+  siri::dialogengine::GetMessageCondition(&v169, v3);
+  if (siri::dialogengine::ConditionIsTrue(v4, &v169))
   {
     v15 = google::protobuf::Reflection::MutableUnknownFields(v13, v3);
     v17 = v16;
     if (v16)
     {
-      siri::dialogengine::GetListInfo(&v161, v4, v3);
-      v18 = v161;
-      if (v161 != v162)
+      siri::dialogengine::GetListInfo(&v167, v4, v3);
+      v18 = v167;
+      if (v167 != v168)
       {
         do
         {
-          std::pair<std::string const,siri::dialogengine::ListInfo>::pair[abi:ne200100](&v143, v18 + 2);
-          v19 = v152;
-          v20 = v152;
-          if ((v152 & 0x80u) != 0)
+          std::pair<std::string const,siri::dialogengine::ListInfo>::pair[abi:ne200100](&v149, v18 + 2);
+          v19 = v158;
+          v20 = v158;
+          if ((v158 & 0x80u) != 0)
           {
-            v19 = v151;
+            v19 = v157;
           }
 
           if (v19)
@@ -7945,13 +7900,13 @@ const google::protobuf::Message *siri::dialogengine::ExpandMessage(siri::dialoge
 
           else
           {
-            v21 = SDWORD2(v144) <= 19999;
+            v21 = SDWORD2(v150) <= 19999;
           }
 
           if (v21)
           {
-            google::protobuf::UnknownFieldSet::DeleteByNumber(v17, SDWORD2(v144));
-            v20 = v152;
+            google::protobuf::UnknownFieldSet::DeleteByNumber(v17, SDWORD2(v150));
+            v20 = v158;
           }
 
           if ((v20 & 0x80) != 0)
@@ -7959,24 +7914,24 @@ const google::protobuf::Message *siri::dialogengine::ExpandMessage(siri::dialoge
             operator delete(__p);
           }
 
-          if (v149 < 0)
+          if (v155 < 0)
           {
-            operator delete(v148);
+            operator delete(v154);
           }
 
-          if (v147 < 0)
+          if (v153 < 0)
           {
-            operator delete(v146);
+            operator delete(v152);
           }
 
-          if (*(&v145 + 1))
+          if (*(&v151 + 1))
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](*(&v145 + 1));
+            std::__shared_weak_count::__release_shared[abi:ne200100](*(&v151 + 1));
           }
 
-          if (SBYTE7(v144) < 0)
+          if (SBYTE7(v150) < 0)
           {
-            operator delete(v143);
+            operator delete(v149);
           }
 
           v22 = v18[1];
@@ -8006,44 +7961,44 @@ const google::protobuf::Message *siri::dialogengine::ExpandMessage(siri::dialoge
           v18 = v23;
         }
 
-        while (v23 != v162);
+        while (v23 != v168);
       }
 
-      v134 = v13;
-      v160[0] = 0;
-      v160[1] = 0;
-      v132 = v7;
-      v159 = v160;
-      siri::dialogengine::GetStoredItems(&v157, v3);
-      v24 = v157;
-      v133 = v4;
-      if (v157 != v158)
+      v140 = v13;
+      v166[0] = 0;
+      v166[1] = 0;
+      v138 = v7;
+      v165 = v166;
+      siri::dialogengine::GetStoredItems(&v163, v3);
+      v24 = v163;
+      v139 = v4;
+      if (v163 != v164)
       {
         do
         {
-          LODWORD(v137.__r_.__value_.__l.__data_) = *(v24 + 8);
-          siri::dialogengine::CatBinary::vcat_item::vcat_item(&v137.__r_.__value_.__r.__words[1], (v24 + 5));
-          data = v137.__r_.__value_.__l.__data_;
-          if ((v138 & 2) != 0)
+          LODWORD(v143.__r_.__value_.__l.__data_) = *(v24 + 8);
+          siri::dialogengine::CatBinary::vcat_item::vcat_item(&v143.__r_.__value_.__r.__words[1], (v24 + 5));
+          data = v143.__r_.__value_.__l.__data_;
+          if ((v144 & 2) != 0)
           {
-            if (*(v139 + 23) < 0)
+            if (*(v145 + 23) < 0)
             {
-              std::string::__init_copy_ctor_external(&v143, *v139, *(v139 + 8));
+              std::string::__init_copy_ctor_external(&v149, *v145, *(v145 + 8));
             }
 
             else
             {
-              v25 = *v139;
-              *&v144 = *(v139 + 16);
-              v143 = v25;
+              v25 = *v145;
+              *&v150 = *(v145 + 16);
+              v149 = v25;
             }
 
-            if ((siri::dialogengine::ConditionIsTrue(v4, &v143) & 1) == 0)
+            if ((siri::dialogengine::ConditionIsTrue(v4, &v149) & 1) == 0)
             {
-              std::__tree<int>::__emplace_unique_key_args<int,int const&>(&v159, &data);
-              if (SBYTE7(v144) < 0)
+              std::__tree<int>::__emplace_unique_key_args<int,int const&>(&v165, &data, &data);
+              if (SBYTE7(v150) < 0)
               {
-                v29 = v143;
+                v29 = v149;
 LABEL_91:
                 operator delete(v29);
                 goto LABEL_92;
@@ -8052,99 +8007,99 @@ LABEL_91:
               goto LABEL_92;
             }
 
-            if (SBYTE7(v144) < 0)
+            if (SBYTE7(v150) < 0)
             {
-              operator delete(v143);
+              operator delete(v149);
             }
           }
 
-          if (v140 == 2)
+          if (v146 == 2)
           {
-            v26 = *(&v139 + 1);
-            v27 = *(*(&v139 + 1) + 24);
+            v26 = *(&v145 + 1);
+            v27 = *(*(&v145 + 1) + 24);
             if (*(v27 + 23) < 0)
             {
-              std::string::__init_copy_ctor_external(&v155, *v27, *(v27 + 1));
+              std::string::__init_copy_ctor_external(&v161, *v27, *(v27 + 1));
             }
 
             else
             {
               v28 = *v27;
-              v155.__r_.__value_.__r.__words[2] = *(v27 + 2);
-              *&v155.__r_.__value_.__l.__data_ = v28;
+              v161.__r_.__value_.__r.__words[2] = *(v27 + 2);
+              *&v161.__r_.__value_.__l.__data_ = v28;
             }
 
             v30 = *(v26 + 32);
             if (*(v30 + 23) < 0)
             {
-              std::string::__init_copy_ctor_external(&v154, *v30, *(v30 + 1));
+              std::string::__init_copy_ctor_external(&v160, *v30, *(v30 + 1));
             }
 
             else
             {
               v31 = *v30;
-              v154.__r_.__value_.__r.__words[2] = *(v30 + 2);
-              *&v154.__r_.__value_.__l.__data_ = v31;
+              v160.__r_.__value_.__r.__words[2] = *(v30 + 2);
+              *&v160.__r_.__value_.__l.__data_ = v31;
             }
 
             v32 = *(v26 + 40);
             if (*(v32 + 23) < 0)
             {
-              std::string::__init_copy_ctor_external(&v153, *v32, *(v32 + 1));
+              std::string::__init_copy_ctor_external(&v159, *v32, *(v32 + 1));
             }
 
             else
             {
               v33 = *v32;
-              v153.__r_.__value_.__r.__words[2] = *(v32 + 2);
-              *&v153.__r_.__value_.__l.__data_ = v33;
+              v159.__r_.__value_.__r.__words[2] = *(v32 + 2);
+              *&v159.__r_.__value_.__l.__data_ = v33;
             }
 
-            std::__tree<int>::__emplace_unique_key_args<int,int const&>(&v159, &data);
-            if ((SHIBYTE(v153.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            std::__tree<int>::__emplace_unique_key_args<int,int const&>(&v165, &data, &data);
+            if ((SHIBYTE(v159.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
-              if (SHIBYTE(v153.__r_.__value_.__r.__words[2]) == 9)
+              if (SHIBYTE(v159.__r_.__value_.__r.__words[2]) == 9)
               {
-                v34 = &v153;
+                v34 = &v159;
                 goto LABEL_67;
               }
 
               goto LABEL_71;
             }
 
-            if (v153.__r_.__value_.__l.__size_ != 9)
+            if (v159.__r_.__value_.__l.__size_ != 9)
             {
               goto LABEL_71;
             }
 
-            v34 = v153.__r_.__value_.__r.__words[0];
+            v34 = v159.__r_.__value_.__r.__words[0];
 LABEL_67:
             v35 = v34->__r_.__value_.__r.__words[0];
             v36 = v34->__r_.__value_.__s.__data_[8];
             v37 = v35 == 0x736D5F666F656E6FLL && v36 == 103;
             if (v37)
             {
-              v144 = 0u;
-              v145 = 0u;
-              v143 = 0u;
-              siri::dialogengine::GetMessageInterface(&v143, v3);
-              v4 = v133;
-              if (v143)
+              v150 = 0u;
+              v151 = 0u;
+              v149 = 0u;
+              siri::dialogengine::GetMessageInterface(&v149, v3);
+              v4 = v139;
+              if (v149)
               {
-                v48 = *(v144 + 8);
+                v48 = *(v150 + 8);
                 if (*(v48 + 23) < 0)
                 {
-                  std::string::__init_copy_ctor_external(&v135, *v48, *(v48 + 1));
+                  std::string::__init_copy_ctor_external(&v141, *v48, *(v48 + 1));
                 }
 
                 else
                 {
                   v49 = *v48;
-                  v135.__r_.__value_.__r.__words[2] = *(v48 + 2);
-                  *&v135.__r_.__value_.__l.__data_ = v49;
+                  v141.__r_.__value_.__r.__words[2] = *(v48 + 2);
+                  *&v141.__r_.__value_.__l.__data_ = v49;
                 }
 
-                siri::dialogengine::StringSplit(&v155, " \t\n\r");
+                siri::dialogengine::StringSplit(&v161, " \t\n\r");
               }
 
               siri::dialogengine::Log::Error("Could not get message interface", v47);
@@ -8153,18 +8108,18 @@ LABEL_67:
             else
             {
 LABEL_71:
-              v38 = v162[0];
-              if (!v162[0])
+              v38 = v168[0];
+              if (!v168[0])
               {
                 goto LABEL_84;
               }
 
-              v39 = v162;
+              v39 = v168;
               do
               {
                 v40 = v39;
                 v41 = (v38 + 32);
-                v42 = std::less<std::string>::operator()[abi:ne200100](&v161, v38 + 4, &v155.__r_.__value_.__l.__data_);
+                v42 = std::less<std::string>::operator()[abi:ne200100](&v167, v38 + 4, &v161.__r_.__value_.__l.__data_);
                 if (v42)
                 {
                   v43 = 8;
@@ -8184,17 +8139,17 @@ LABEL_71:
               }
 
               while (v38);
-              if (v39 == v162 || (!v42 ? (v44 = v41) : (v44 = (v40 + 4)), std::less<std::string>::operator()[abi:ne200100](&v161, &v155.__r_.__value_.__l.__data_, v44)))
+              if (v39 == v168 || (!v42 ? (v44 = v41) : (v44 = (v40 + 4)), std::less<std::string>::operator()[abi:ne200100](&v167, &v161.__r_.__value_.__l.__data_, v44)))
               {
 LABEL_84:
-                v4 = v133;
-                siri::dialogengine::ExpandField(v133, v3, &v155, &v154);
+                v4 = v139;
+                siri::dialogengine::ExpandField(v139, v3, &v161, &v160);
               }
 
               else
               {
-                v4 = v133;
-                siri::dialogengine::TemporaryVariable::TemporaryVariable(&v143, v133, (v39 + 7));
+                v4 = v139;
+                siri::dialogengine::TemporaryVariable::TemporaryVariable(&v149, v139, (v39 + 7));
                 for (i = 0; ; ++i)
                 {
                   v51 = v39[8];
@@ -8208,35 +8163,35 @@ LABEL_84:
                     break;
                   }
 
-                  siri::dialogengine::TemporaryVariable::SetIndex(&v143, i);
-                  siri::dialogengine::ExpandField(v133, v3, &v155, &v154);
+                  siri::dialogengine::TemporaryVariable::SetIndex(&v149, i);
+                  siri::dialogengine::ExpandField(v139, v3, &v161, &v160);
                 }
 
-                siri::dialogengine::TemporaryVariable::~TemporaryVariable(&v143);
+                siri::dialogengine::TemporaryVariable::~TemporaryVariable(&v149);
               }
             }
 
-            if (SHIBYTE(v153.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v159.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v153.__r_.__value_.__l.__data_);
+              operator delete(v159.__r_.__value_.__l.__data_);
             }
 
-            if (SHIBYTE(v154.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v160.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v154.__r_.__value_.__l.__data_);
+              operator delete(v160.__r_.__value_.__l.__data_);
             }
 
-            if ((SHIBYTE(v155.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            if ((SHIBYTE(v161.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
               goto LABEL_92;
             }
 
-            v29 = v155.__r_.__value_.__r.__words[0];
+            v29 = v161.__r_.__value_.__r.__words[0];
             goto LABEL_91;
           }
 
 LABEL_92:
-          siri::dialogengine::CatBinary::vcat_item::~vcat_item(&v137.__r_.__value_.__r.__words[1]);
+          siri::dialogengine::CatBinary::vcat_item::~vcat_item(&v143.__r_.__value_.__r.__words[1]);
           v45 = v24[1];
           if (v45)
           {
@@ -8264,11 +8219,11 @@ LABEL_92:
           v24 = v46;
         }
 
-        while (v46 != v158);
+        while (v46 != v164);
       }
 
-      v53 = v159;
-      if (v159 != v160)
+      v53 = v165;
+      if (v165 != v166)
       {
         do
         {
@@ -8300,32 +8255,32 @@ LABEL_92:
           v53 = v55;
         }
 
-        while (v55 != v160);
+        while (v55 != v166);
       }
 
-      v169 = 0;
-      v170 = 0;
-      v171 = 0;
-      google::protobuf::Reflection::ListFields(v134, v3, &v169);
-      v56 = v169;
-      __s1 = v170;
-      if (v169 != v170)
+      v175 = 0;
+      v176 = 0;
+      v177 = 0;
+      google::protobuf::Reflection::ListFields(v140, v3, &v175);
+      v56 = v175;
+      __s1 = v176;
+      if (v175 != v176)
       {
         do
         {
-          v131 = v56;
+          v137 = v56;
           v57 = *v56;
           if (*v56 && google::protobuf::FieldDescriptor::message_type(*v56))
           {
             if (*(v57 + 15) == 3)
             {
-              v61 = google::protobuf::Reflection::FieldSize(v134, v3, v57, v58, v59);
+              v61 = google::protobuf::Reflection::FieldSize(v140, v3, v57, v58, v59);
               if (v61 >= 1)
               {
                 v62 = 0;
                 while (1)
                 {
-                  v63 = google::protobuf::Reflection::MutableRepeatedMessage(v134, v3, v57, v62, v60);
+                  v63 = google::protobuf::Reflection::MutableRepeatedMessage(v140, v3, v57, v62, v60);
                   v64 = v63;
                   if (v63)
                   {
@@ -8336,7 +8291,8 @@ LABEL_92:
                   }
 
 LABEL_222:
-                  if (++v62 >= v61)
+                  v62 = (v62 + 1);
+                  if (v62 >= v61)
                   {
                     goto LABEL_229;
                   }
@@ -8352,69 +8308,69 @@ LABEL_222:
                 v67 = *(v65 + 8);
                 if (*(v67 + 23) < 0)
                 {
-                  std::string::__init_copy_ctor_external(&v168, *v67, *(v67 + 1));
+                  std::string::__init_copy_ctor_external(&v174, *v67, *(v67 + 1));
                 }
 
                 else
                 {
                   v68 = *v67;
-                  v168.__r_.__value_.__r.__words[2] = *(v67 + 2);
-                  *&v168.__r_.__value_.__l.__data_ = v68;
+                  v174.__r_.__value_.__r.__words[2] = *(v67 + 2);
+                  *&v174.__r_.__value_.__l.__data_ = v68;
                 }
 
-                siri::dialogengine::GetListInfo(&v135, v4, v64);
-                v69 = v135.__r_.__value_.__r.__words[0];
-                if (v135.__r_.__value_.__l.__data_ == &v135.__r_.__value_.__r.__words[1])
+                siri::dialogengine::GetListInfo(&v141, v4, v64);
+                v69 = v141.__r_.__value_.__r.__words[0];
+                if (v141.__r_.__value_.__l.__data_ == &v141.__r_.__value_.__r.__words[1])
                 {
 LABEL_159:
-                  LODWORD(v137.__r_.__value_.__l.__data_) = 0;
-                  *&v137.__r_.__value_.__r.__words[1] = 0u;
-                  v138 = 0u;
-                  v139 = 0u;
-                  v140 = 0u;
-                  v141 = 0u;
-                  v142 = 0;
+                  LODWORD(v143.__r_.__value_.__l.__data_) = 0;
+                  *&v143.__r_.__value_.__r.__words[1] = 0u;
+                  v144 = 0u;
+                  v145 = 0u;
+                  v146 = 0u;
+                  v147 = 0u;
+                  v148 = 0;
                 }
 
                 else
                 {
                   while (1)
                   {
-                    std::pair<std::string const,siri::dialogengine::ListInfo>::pair[abi:ne200100](&v143, (v69 + 32));
-                    v70 = v152;
-                    if ((v152 & 0x80u) != 0)
+                    std::pair<std::string const,siri::dialogengine::ListInfo>::pair[abi:ne200100](&v149, (v69 + 32));
+                    v70 = v158;
+                    if ((v158 & 0x80u) != 0)
                     {
-                      v70 = v151;
+                      v70 = v157;
                     }
 
-                    if (!v70 && SDWORD2(v144) >= 20000)
+                    if (!v70 && SDWORD2(v150) >= 20000)
                     {
                       break;
                     }
 
-                    if (v152 < 0)
+                    if (v158 < 0)
                     {
                       operator delete(__p);
                     }
 
-                    if (v149 < 0)
+                    if (v155 < 0)
                     {
-                      operator delete(v148);
+                      operator delete(v154);
                     }
 
-                    if (v147 < 0)
+                    if (v153 < 0)
                     {
-                      operator delete(v146);
+                      operator delete(v152);
                     }
 
-                    if (*(&v145 + 1))
+                    if (*(&v151 + 1))
                     {
-                      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v145 + 1));
+                      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v151 + 1));
                     }
 
-                    if (SBYTE7(v144) < 0)
+                    if (SBYTE7(v150) < 0)
                     {
-                      operator delete(v143);
+                      operator delete(v149);
                     }
 
                     v72 = *(v69 + 8);
@@ -8442,61 +8398,61 @@ LABEL_159:
                     }
 
                     v69 = v73;
-                    if (v73 == &v135.__r_.__value_.__r.__words[1])
+                    if (v73 == &v141.__r_.__value_.__r.__words[1])
                     {
                       goto LABEL_159;
                     }
                   }
 
-                  siri::dialogengine::ListInfo::ListInfo(&v137, &v144 + 8);
-                  if (v152 < 0)
+                  siri::dialogengine::ListInfo::ListInfo(&v143, &v150 + 8);
+                  if (v158 < 0)
                   {
                     operator delete(__p);
                   }
 
-                  if (v149 < 0)
+                  if (v155 < 0)
                   {
-                    operator delete(v148);
+                    operator delete(v154);
                   }
 
-                  if (v147 < 0)
+                  if (v153 < 0)
                   {
-                    operator delete(v146);
+                    operator delete(v152);
                   }
 
-                  if (*(&v145 + 1))
+                  if (*(&v151 + 1))
                   {
-                    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v145 + 1));
+                    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v151 + 1));
                   }
 
-                  if (SBYTE7(v144) < 0)
+                  if (SBYTE7(v150) < 0)
                   {
-                    operator delete(v143);
+                    operator delete(v149);
                   }
                 }
 
-                std::__tree<std::__value_type<std::string,siri::dialogengine::ListInfo>,std::__map_value_compare<std::string,std::__value_type<std::string,siri::dialogengine::ListInfo>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,siri::dialogengine::ListInfo>>>::destroy(v135.__r_.__value_.__l.__size_);
-                siri::dialogengine::GetConditionInfo(&v135, v64);
-                siri::dialogengine::ClearUnknownField(v64, LODWORD(v137.__r_.__value_.__l.__data_));
-                if (SBYTE7(v139) < 0)
+                std::__tree<std::__value_type<std::string,siri::dialogengine::ListInfo>,std::__map_value_compare<std::string,std::__value_type<std::string,siri::dialogengine::ListInfo>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,siri::dialogengine::ListInfo>>>::destroy(v141.__r_.__value_.__l.__size_);
+                siri::dialogengine::GetConditionInfo(&v141, v64);
+                siri::dialogengine::ClearUnknownField(v64, LODWORD(v143.__r_.__value_.__l.__data_));
+                if (SBYTE7(v145) < 0)
                 {
-                  if (!*(&v138 + 1))
+                  if (!*(&v144 + 1))
                   {
                     goto LABEL_176;
                   }
                 }
 
-                else if (!BYTE7(v139))
+                else if (!BYTE7(v145))
                 {
                   goto LABEL_176;
                 }
 
-                if (!v137.__r_.__value_.__l.__size_ || *(v137.__r_.__value_.__l.__size_ + 80) == *(v137.__r_.__value_.__l.__size_ + 72))
+                if (!v143.__r_.__value_.__l.__size_ || *(v143.__r_.__value_.__l.__size_ + 80) == *(v143.__r_.__value_.__l.__size_ + 72))
                 {
-                  v76 = &v168;
-                  if ((v168.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                  v76 = &v174;
+                  if ((v174.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                   {
-                    v76 = v168.__r_.__value_.__r.__words[0];
+                    v76 = v174.__r_.__value_.__r.__words[0];
                   }
 
                   siri::dialogengine::Log::Debug("Clearing message '%s' based on empty or missing list parameter", v74, v76);
@@ -8509,18 +8465,18 @@ LABEL_176:
                   v75 = 0;
                 }
 
-                if (siri::dialogengine::ConditionIsTrue(v4, &v135.__r_.__value_.__l.__size_))
+                if (siri::dialogengine::ConditionIsTrue(v4, &v141.__r_.__value_.__l.__size_))
                 {
                   if (!v75)
                   {
-                    siri::dialogengine::TemporaryVariable::TemporaryVariable(&v143, v4, &v137);
+                    siri::dialogengine::TemporaryVariable::TemporaryVariable(&v149, v4, &v143);
                     v79 = 0;
                     for (j = 1; ; ++j)
                     {
-                      size = v137.__r_.__value_.__l.__size_;
-                      if (v137.__r_.__value_.__l.__size_)
+                      size = v143.__r_.__value_.__l.__size_;
+                      if (v143.__r_.__value_.__l.__size_)
                       {
-                        size = (*(v137.__r_.__value_.__l.__size_ + 80) - *(v137.__r_.__value_.__l.__size_ + 72)) >> 4;
+                        size = (*(v143.__r_.__value_.__l.__size_ + 80) - *(v143.__r_.__value_.__l.__size_ + 72)) >> 4;
                       }
 
                       if (j >= size)
@@ -8528,27 +8484,27 @@ LABEL_176:
                         break;
                       }
 
-                      v85 = google::protobuf::Reflection::AddMessage(v134, v3, v57, 0, v78);
+                      v85 = google::protobuf::Reflection::AddMessage(v140, v3, v57, 0, v78);
                       if (v85)
                       {
-                        v61 = google::protobuf::Reflection::FieldSize(v134, v3, v57, v83, v84);
-                        google::protobuf::MutableRepeatedFieldRef<google::protobuf::Message,void>::MutableRepeatedFieldRef(&v167, v3, v57);
+                        v61 = google::protobuf::Reflection::FieldSize(v140, v3, v57, v83, v84);
+                        google::protobuf::MutableRepeatedFieldRef<google::protobuf::Message,void>::MutableRepeatedFieldRef(&v173, v3, v57);
                         ++v79;
                         for (k = v61 - 2; k + 1 > v79 + v62; k = v87)
                         {
                           v87 = k - 1;
-                          (*(*v167.__r_.__value_.__l.__size_ + 56))(v167.__r_.__value_.__l.__size_, v167.__r_.__value_.__r.__words[0]);
+                          (*(*v173.__r_.__value_.__l.__size_ + 56))(v173.__r_.__value_.__l.__size_, v173.__r_.__value_.__r.__words[0]);
                         }
 
                         (*(*v85 + 128))(v85, v64);
-                        v4 = v133;
-                        siri::dialogengine::TemporaryVariable::SetIndex(&v143, j);
-                        siri::dialogengine::ExpandMessage(v133, v85, v88);
+                        v4 = v139;
+                        siri::dialogengine::TemporaryVariable::SetIndex(&v149, j);
+                        siri::dialogengine::ExpandMessage(v139, v85, v88);
                       }
 
                       else
                       {
-                        v89 = *(v132 + 8);
+                        v89 = *(v138 + 8);
                         if (*(v89 + 23) < 0)
                         {
                           v89 = *v89;
@@ -8558,40 +8514,40 @@ LABEL_176:
                       }
                     }
 
-                    siri::dialogengine::TemporaryVariable::SetIndex(&v143, 0);
+                    siri::dialogengine::TemporaryVariable::SetIndex(&v149, 0);
                     siri::dialogengine::ExpandMessage(v4, v64, v99);
-                    siri::dialogengine::ClearUnknownField(v64, LODWORD(v135.__r_.__value_.__l.__data_));
-                    v62 += v79;
-                    siri::dialogengine::TemporaryVariable::~TemporaryVariable(&v143);
+                    siri::dialogengine::ClearUnknownField(v64, LODWORD(v141.__r_.__value_.__l.__data_));
+                    LODWORD(v62) = v79 + v62;
+                    siri::dialogengine::TemporaryVariable::~TemporaryVariable(&v149);
 LABEL_210:
-                    if (v136 < 0)
+                    if (v142 < 0)
                     {
-                      operator delete(v135.__r_.__value_.__l.__size_);
+                      operator delete(v141.__r_.__value_.__l.__size_);
                     }
 
-                    if (SHIBYTE(v142) < 0)
+                    if (SHIBYTE(v148) < 0)
                     {
-                      operator delete(v141);
+                      operator delete(v147);
                     }
 
-                    if (SHIBYTE(v140) < 0)
+                    if (SHIBYTE(v146) < 0)
                     {
-                      operator delete(*(&v139 + 1));
+                      operator delete(*(&v145 + 1));
                     }
 
-                    if (SBYTE7(v139) < 0)
+                    if (SBYTE7(v145) < 0)
                     {
-                      operator delete(v138);
+                      operator delete(v144);
                     }
 
-                    if (v137.__r_.__value_.__r.__words[2])
+                    if (v143.__r_.__value_.__r.__words[2])
                     {
-                      std::__shared_weak_count::__release_shared[abi:ne200100](v137.__r_.__value_.__r.__words[2]);
+                      std::__shared_weak_count::__release_shared[abi:ne200100](v143.__r_.__value_.__r.__words[2]);
                     }
 
-                    if (SHIBYTE(v168.__r_.__value_.__r.__words[2]) < 0)
+                    if (SHIBYTE(v174.__r_.__value_.__r.__words[2]) < 0)
                     {
-                      operator delete(v168.__r_.__value_.__l.__data_);
+                      operator delete(v174.__r_.__value_.__l.__data_);
                     }
 
                     goto LABEL_222;
@@ -8600,23 +8556,23 @@ LABEL_210:
 
                 else
                 {
-                  v90 = &v168;
-                  if ((v168.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                  v90 = &v174;
+                  if ((v174.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                   {
-                    v90 = v168.__r_.__value_.__r.__words[0];
+                    v90 = v174.__r_.__value_.__r.__words[0];
                   }
 
-                  p_size = &v135.__r_.__value_.__l.__size_;
-                  if (v136 < 0)
+                  p_size = &v141.__r_.__value_.__l.__size_;
+                  if (v142 < 0)
                   {
-                    p_size = v135.__r_.__value_.__l.__size_;
+                    p_size = v141.__r_.__value_.__l.__size_;
                   }
 
                   siri::dialogengine::Log::Debug("Clearing message '%s' based on unmet condition '%s'", v77, v90, p_size);
                 }
 
                 (*(*v64 + 56))(v64);
-                google::protobuf::MutableRepeatedFieldRef<google::protobuf::Message,void>::MutableRepeatedFieldRef(&v143, v3, v57);
+                google::protobuf::MutableRepeatedFieldRef<google::protobuf::Message,void>::MutableRepeatedFieldRef(&v149, v3, v57);
                 if (v62 <= --v61)
                 {
                   v92 = v61;
@@ -8630,24 +8586,24 @@ LABEL_210:
                 for (m = v62; v92 != m; m = v94)
                 {
                   v94 = m + 1;
-                  (*(**(&v143 + 1) + 56))(*(&v143 + 1), v143);
+                  (*(**(&v149 + 1) + 56))(*(&v149 + 1), v149);
                 }
 
-                (*(**(&v143 + 1) + 48))(*(&v143 + 1), v143);
-                v97 = google::protobuf::Reflection::FieldSize(v134, v3, v57, v95, v96);
+                (*(**(&v149 + 1) + 48))(*(&v149 + 1), v149);
+                v97 = google::protobuf::Reflection::FieldSize(v140, v3, v57, v95, v96);
                 if (v97 != v61)
                 {
                   siri::dialogengine::Log::Error("Bad field count %d after removing null message", v98, v97);
                 }
 
-                --v62;
+                LODWORD(v62) = v62 - 1;
                 goto LABEL_210;
               }
             }
 
-            else if (google::protobuf::Reflection::HasField(v134, v3, v57, v58, v59))
+            else if (google::protobuf::Reflection::HasField(v140, v3, v57, v58, v59))
             {
-              v101 = google::protobuf::Reflection::MutableMessage(v134, v3, v57, 0, v100);
+              v101 = google::protobuf::Reflection::MutableMessage(v140, v3, v57, 0, v100);
               if (!siri::dialogengine::ExpandMessage(v4, v101, v102))
               {
                 v104 = *(v57 + 1);
@@ -8657,143 +8613,143 @@ LABEL_210:
                 }
 
                 siri::dialogengine::Log::Debug("Removing field '%s'", v103, v104);
-                google::protobuf::Reflection::ClearField(v134, v3, v57, v105, v106);
+                google::protobuf::Reflection::ClearField(v140, v3, v57, v105, v106);
               }
             }
           }
 
 LABEL_229:
-          v56 = v131 + 1;
+          v56 = v137 + 1;
         }
 
-        while (v131 + 1 != __s1);
+        while (v137 + 1 != __s1);
       }
 
-      v143 = 0uLL;
-      *&v144 = 0;
+      v149 = 0uLL;
+      *&v150 = 0;
       v107 = (*(*v3 + 168))(v3);
       if (v107)
       {
         (*(*v3 + 168))(v3);
-        v109 = v108;
+        v115 = v108;
         if (v108)
         {
-          RequiredFields = siri::dialogengine::vcat::GetRequiredFields(*(v107 + 8));
-          v111 = RequiredFields + 1;
-          v112 = *RequiredFields;
+          RequiredFields = siri::dialogengine::vcat::GetRequiredFields(*(v107 + 8), v108, v109, v110, v111, v112, v113, v114);
+          v117 = RequiredFields + 1;
+          v118 = *RequiredFields;
           if (*RequiredFields != RequiredFields + 1)
           {
             do
             {
-              if (*(v112 + 55) < 0)
+              if (*(v118 + 55) < 0)
               {
-                std::string::__init_copy_ctor_external(&v137, v112[4], v112[5]);
+                std::string::__init_copy_ctor_external(&v143, v118[4], v118[5]);
               }
 
               else
               {
-                v137 = *(v112 + 4);
+                v143 = *(v118 + 4);
               }
 
-              FieldByName = google::protobuf::Descriptor::FindFieldByName(v107, &v137);
-              v117 = FieldByName;
+              FieldByName = google::protobuf::Descriptor::FindFieldByName(v107, &v143);
+              v123 = FieldByName;
               if (FieldByName)
               {
                 if (*(FieldByName + 60) == 3)
                 {
-                  if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                  if ((v143.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                   {
-                    v118 = &v137;
+                    v124 = &v143;
                   }
 
                   else
                   {
-                    v118 = v137.__r_.__value_.__r.__words[0];
+                    v124 = v143.__r_.__value_.__r.__words[0];
                   }
 
-                  v119 = *(v107 + 8);
-                  if (*(v119 + 23) < 0)
+                  v125 = *(v107 + 8);
+                  if (*(v125 + 23) < 0)
                   {
-                    v119 = *v119;
+                    v125 = *v125;
                   }
 
-                  siri::dialogengine::Log::Debug("Setting missing required repeated field '%s' of message '%s' is not implemented", v114, v118, v119);
+                  siri::dialogengine::Log::Debug("Setting missing required repeated field '%s' of message '%s' is not implemented", v120, v124, v125);
                 }
 
-                else if ((google::protobuf::Reflection::HasField(v109, v3, FieldByName, v115, v116) & 1) == 0)
+                else if ((google::protobuf::Reflection::HasField(v115, v3, FieldByName, v121, v122) & 1) == 0)
                 {
-                  v121 = *(v117 + 48);
-                  if (v121)
+                  v127 = *(v123 + 48);
+                  if (v127)
                   {
-                    v167.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
-                    v155.__r_.__value_.__r.__words[0] = v117;
-                    if (atomic_load_explicit(v121, memory_order_acquire) != -1)
+                    v173.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
+                    v161.__r_.__value_.__r.__words[0] = v123;
+                    if (atomic_load_explicit(v127, memory_order_acquire) != -1)
                     {
-                      v135.__r_.__value_.__r.__words[0] = &v167;
-                      v135.__r_.__value_.__l.__size_ = &v155;
-                      v168.__r_.__value_.__r.__words[0] = &v135;
-                      std::__call_once(v121, &v168, std::__call_once_proxy[abi:ne200100]<std::tuple<void (*&&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*&&>>);
+                      v141.__r_.__value_.__r.__words[0] = &v173;
+                      v141.__r_.__value_.__l.__size_ = &v161;
+                      v174.__r_.__value_.__r.__words[0] = &v141;
+                      std::__call_once(v127, &v174, std::__call_once_proxy[abi:ne200100]<std::tuple<void (*&&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*&&>>);
                     }
                   }
 
-                  v122 = google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(v117 + 56)];
-                  if (v122 > 0xA)
+                  v128 = google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(v123 + 56)];
+                  if (v128 > 0xA)
                   {
 LABEL_258:
-                    v125 = *(v117 + 8);
-                    if (*(v125 + 23) < 0)
+                    v131 = *(v123 + 8);
+                    if (*(v131 + 23) < 0)
                     {
-                      v125 = *v125;
+                      v131 = *v131;
                     }
 
-                    v126 = *(v117 + 48);
-                    if (v126)
+                    v132 = *(v123 + 48);
+                    if (v132)
                     {
-                      v167.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
-                      v155.__r_.__value_.__r.__words[0] = v117;
-                      if (atomic_load_explicit(v126, memory_order_acquire) != -1)
+                      v173.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
+                      v161.__r_.__value_.__r.__words[0] = v123;
+                      if (atomic_load_explicit(v132, memory_order_acquire) != -1)
                       {
-                        v135.__r_.__value_.__r.__words[0] = &v167;
-                        v135.__r_.__value_.__l.__size_ = &v155;
-                        v168.__r_.__value_.__r.__words[0] = &v135;
-                        std::__call_once(v126, &v168, std::__call_once_proxy[abi:ne200100]<std::tuple<void (*&&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*&&>>);
+                        v141.__r_.__value_.__r.__words[0] = &v173;
+                        v141.__r_.__value_.__l.__size_ = &v161;
+                        v174.__r_.__value_.__r.__words[0] = &v141;
+                        std::__call_once(v132, &v174, std::__call_once_proxy[abi:ne200100]<std::tuple<void (*&&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*&&>>);
                       }
 
-                      v122 = google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(v117 + 56)];
+                      v128 = google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(v123 + 56)];
                     }
 
-                    siri::dialogengine::Log::Error("Field '%s' is of unhandled cpp type '%s'", v120, v125, google::protobuf::FieldDescriptor::kCppTypeToName[v122]);
+                    siri::dialogengine::Log::Error("Field '%s' is of unhandled cpp type '%s'", v126, v131, google::protobuf::FieldDescriptor::kCppTypeToName[v128]);
                     goto LABEL_265;
                   }
 
-                  if (((1 << v122) & 0x2FE) != 0)
+                  if (((1 << v128) & 0x2FE) != 0)
                   {
-                    if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                    if ((v143.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                     {
-                      v123 = &v137;
+                      v129 = &v143;
                     }
 
                     else
                     {
-                      v123 = v137.__r_.__value_.__r.__words[0];
+                      v129 = v143.__r_.__value_.__r.__words[0];
                     }
 
-                    v124 = *(v107 + 8);
-                    if (*(v124 + 23) < 0)
+                    v130 = *(v107 + 8);
+                    if (*(v130 + 23) < 0)
                     {
-                      v124 = *v124;
+                      v130 = *v130;
                     }
 
-                    siri::dialogengine::Log::Info("Setting missing required field '%s' of message '%s' to string ' '\n", v120, v123, v124);
-                    std::string::basic_string[abi:ne200100]<0>(&v135, " ");
-                    siri::dialogengine::SetField(v133, v3, v109, v117, &v135);
-                    if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
+                    siri::dialogengine::Log::Info("Setting missing required field '%s' of message '%s' to string ' '\n", v126, v129, v130);
+                    std::string::basic_string[abi:ne200100]<0>(&v141, " ");
+                    siri::dialogengine::SetField(v139, v3, v115, v123, &v141);
+                    if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
                     {
-                      operator delete(v135.__r_.__value_.__l.__data_);
+                      operator delete(v141.__r_.__value_.__l.__data_);
                     }
                   }
 
-                  else if (((1 << v122) & 0x500) == 0)
+                  else if (((1 << v128) & 0x500) == 0)
                   {
                     goto LABEL_258;
                   }
@@ -8801,64 +8757,64 @@ LABEL_258:
               }
 
 LABEL_265:
-              if (SHIBYTE(v137.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v143.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v137.__r_.__value_.__l.__data_);
+                operator delete(v143.__r_.__value_.__l.__data_);
               }
 
-              v127 = v112[1];
-              if (v127)
+              v133 = v118[1];
+              if (v133)
               {
                 do
                 {
-                  v128 = v127;
-                  v127 = *v127;
+                  v134 = v133;
+                  v133 = *v133;
                 }
 
-                while (v127);
+                while (v133);
               }
 
               else
               {
                 do
                 {
-                  v128 = v112[2];
-                  v37 = *v128 == v112;
-                  v112 = v128;
+                  v134 = v118[2];
+                  v37 = *v134 == v118;
+                  v118 = v134;
                 }
 
                 while (!v37);
               }
 
-              v112 = v128;
+              v118 = v134;
             }
 
-            while (v128 != v111);
+            while (v134 != v117);
           }
         }
       }
 
-      v137.__r_.__value_.__r.__words[0] = &v143;
-      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v137);
-      if (v169)
+      v143.__r_.__value_.__r.__words[0] = &v149;
+      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v143);
+      if (v175)
       {
-        v170 = v169;
-        operator delete(v169);
+        v176 = v175;
+        operator delete(v175);
       }
 
-      std::__tree<std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>,std::__map_value_compare<int,std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>,std::less<int>,true>,std::allocator<std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>>>::destroy(v158[0]);
-      std::__tree<std::__value_type<google::protobuf::StringPiece,google::protobuf::StringPiece>,std::__map_value_compare<google::protobuf::StringPiece,std::__value_type<google::protobuf::StringPiece,google::protobuf::StringPiece>,std::less<google::protobuf::StringPiece>,true>,std::allocator<std::__value_type<google::protobuf::StringPiece,google::protobuf::StringPiece>>>::destroy(&v159, v160[0]);
-      std::__tree<std::__value_type<std::string,siri::dialogengine::ListInfo>,std::__map_value_compare<std::string,std::__value_type<std::string,siri::dialogengine::ListInfo>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,siri::dialogengine::ListInfo>>>::destroy(v162[0]);
+      std::__tree<std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>,std::__map_value_compare<int,std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>,std::less<int>,true>,std::allocator<std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>>>::destroy(v164[0]);
+      std::__tree<std::__value_type<google::protobuf::StringPiece,google::protobuf::StringPiece>,std::__map_value_compare<google::protobuf::StringPiece,std::__value_type<google::protobuf::StringPiece,google::protobuf::StringPiece>,std::less<google::protobuf::StringPiece>,true>,std::allocator<std::__value_type<google::protobuf::StringPiece,google::protobuf::StringPiece>>>::destroy(&v165, v166[0]);
+      std::__tree<std::__value_type<std::string,siri::dialogengine::ListInfo>,std::__map_value_compare<std::string,std::__value_type<std::string,siri::dialogengine::ListInfo>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,siri::dialogengine::ListInfo>>>::destroy(v168[0]);
       goto LABEL_280;
     }
 
-    v129 = &v164;
-    if ((v164.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v135 = &v170;
+    if ((v170.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v129 = v164.__r_.__value_.__r.__words[0];
+      v135 = v170.__r_.__value_.__r.__words[0];
     }
 
-    siri::dialogengine::Log::Error("Could not get unknown field set from message '%s", v14, v15, v129);
+    siri::dialogengine::Log::Error("Could not get unknown field set from message '%s", v14, v15, v135);
   }
 
   else
@@ -8868,21 +8824,21 @@ LABEL_265:
 
   v3 = 0;
 LABEL_280:
-  if (SHIBYTE(v163.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v169.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v163.__r_.__value_.__l.__data_);
+    operator delete(v169.__r_.__value_.__l.__data_);
   }
 
 LABEL_282:
-  if (SHIBYTE(v164.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v170.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v164.__r_.__value_.__l.__data_);
+    operator delete(v170.__r_.__value_.__l.__data_);
   }
 
 LABEL_284:
-  if (v166 < 0)
+  if (v172 < 0)
   {
-    operator delete(v165[0]);
+    operator delete(v171[0]);
   }
 
   return v3;
@@ -8890,18 +8846,18 @@ LABEL_284:
 
 void sub_1BFBDD614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, void *a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, void *a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, void *a58, uint64_t a59, int a60, __int16 a61, char a62, char a63)
 {
-  if (*(v76 - 153) < 0)
+  if (*(v71 - 153) < 0)
   {
-    operator delete(*(v76 - 176));
+    operator delete(*(v71 - 176));
   }
 
-  if (*(v76 - 121) < 0)
+  if (*(v71 - 121) < 0)
   {
-    operator delete(*(v76 - 144));
+    operator delete(*(v71 - 144));
   }
 
-  *(v76 - 144) = v76 - 112;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v76 - 144));
+  *(v71 - 144) = v71 - 112;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v71 - 144));
   if (a26 < 0)
   {
     operator delete(__p);
@@ -8912,33 +8868,33 @@ void sub_1BFBDD614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a58);
   }
 
-  if (a70 < 0)
+  if (a66 < 0)
   {
     operator delete(a65);
   }
 
-  if (a73 < 0)
+  if (a68 < 0)
   {
-    operator delete(a72);
+    operator delete(a67);
   }
 
   siri::dialogengine::CatBinary::vcat_item::~vcat_item(&a29);
-  std::__tree<std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>,std::__map_value_compare<int,std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>,std::less<int>,true>,std::allocator<std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>>>::destroy(a74);
-  std::__tree<std::__value_type<google::protobuf::StringPiece,google::protobuf::StringPiece>,std::__map_value_compare<google::protobuf::StringPiece,std::__value_type<google::protobuf::StringPiece,google::protobuf::StringPiece>,std::less<google::protobuf::StringPiece>,true>,std::allocator<std::__value_type<google::protobuf::StringPiece,google::protobuf::StringPiece>>>::destroy(&a75, a76);
+  std::__tree<std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>,std::__map_value_compare<int,std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>,std::less<int>,true>,std::allocator<std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>>>::destroy(a69);
+  std::__tree<std::__value_type<google::protobuf::StringPiece,google::protobuf::StringPiece>,std::__map_value_compare<google::protobuf::StringPiece,std::__value_type<google::protobuf::StringPiece,google::protobuf::StringPiece>,std::less<google::protobuf::StringPiece>,true>,std::allocator<std::__value_type<google::protobuf::StringPiece,google::protobuf::StringPiece>>>::destroy(&a70, a71);
   std::__tree<std::__value_type<std::string,siri::dialogengine::ListInfo>,std::__map_value_compare<std::string,std::__value_type<std::string,siri::dialogengine::ListInfo>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,siri::dialogengine::ListInfo>>>::destroy(STACK[0x208]);
-  if (*(v76 - 225) < 0)
+  if (*(v71 - 225) < 0)
   {
-    operator delete(*(v76 - 248));
+    operator delete(*(v71 - 248));
   }
 
-  if (*(v76 - 201) < 0)
+  if (*(v71 - 201) < 0)
   {
-    operator delete(*(v76 - 224));
+    operator delete(*(v71 - 224));
   }
 
-  if (*(v76 - 177) < 0)
+  if (*(v71 - 177) < 0)
   {
-    operator delete(*(v76 - 200));
+    operator delete(*(v71 - 200));
   }
 
   _Unwind_Resume(a1);
@@ -8990,7 +8946,7 @@ uint64_t google::protobuf::FieldDescriptor::message_type(google::protobuf::Field
   return *(this + 13);
 }
 
-unint64_t std::__introsort<std::_ClassicAlgPolicy,google::protobuf::anonymous namespace::FieldNumberSorter &,google::protobuf::FieldDescriptor const**,false>(unint64_t result, uint64_t *a2, uint64_t a3, char a4)
+uint64_t *std::__introsort<std::_ClassicAlgPolicy,google::protobuf::anonymous namespace::FieldNumberSorter &,google::protobuf::FieldDescriptor const**,false>(uint64_t *result, uint64_t *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
@@ -9034,7 +8990,7 @@ LABEL_2:
       v86 = v8 + 2;
       v87 = v8[2];
       v88 = *v8;
-      v89 = *(v85 + 17);
+      v89 = *(v85 + 68);
       v90 = *(*v8 + 68);
       v91 = *(v87 + 68);
       if (v89 >= v90)
@@ -9047,7 +9003,7 @@ LABEL_2:
         *v84 = v87;
         *v86 = v85;
         v92 = v8;
-        v93 = (v8 + 1);
+        v93 = v8 + 1;
         result = v85;
         if (v91 < v90)
         {
@@ -9058,14 +9014,14 @@ LABEL_2:
       else
       {
         v92 = v8;
-        v93 = (v8 + 2);
+        v93 = v8 + 2;
         result = *v8;
         if (v91 >= v89)
         {
           *v8 = v85;
           v8[1] = v88;
           v92 = v8 + 1;
-          v93 = (v8 + 2);
+          v93 = v8 + 2;
           result = v88;
           if (v91 >= v90)
           {
@@ -9083,7 +9039,7 @@ LABEL_169:
 
 LABEL_178:
       v140 = *(a2 - 1);
-      if (*(v140 + 68) < *(v85 + 17))
+      if (*(v140 + 68) < *(v85 + 68))
       {
         *v86 = v140;
         *(a2 - 1) = v85;
@@ -9670,7 +9626,7 @@ LABEL_81:
 
       if (v53 >= *(*(a2 - 1) + 68))
       {
-        v68 = v8 + 1;
+        v68 = (v8 + 1);
         do
         {
           v8 = v68;
@@ -9679,7 +9635,7 @@ LABEL_81:
             break;
           }
 
-          ++v68;
+          v68 += 8;
         }
 
         while (v53 >= *(*v8 + 68));
@@ -9795,7 +9751,7 @@ LABEL_81:
   return result;
 }
 
-uint64_t google::protobuf::Reflection::MutableRepeatedMessage(const std::string::value_type ***this, google::protobuf::Message *a2, const google::protobuf::FieldDescriptor *a3, int a4, const char *a5)
+uint64_t google::protobuf::Reflection::MutableRepeatedMessage(const std::string::value_type ***this, google::protobuf::Message *a2, const google::protobuf::FieldDescriptor *a3, uint64_t a4, const char *a5)
 {
   v9 = *this;
   if (*(a3 + 10) != v9)

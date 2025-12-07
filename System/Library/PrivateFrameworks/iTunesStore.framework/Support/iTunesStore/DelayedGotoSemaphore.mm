@@ -126,23 +126,28 @@
       shouldLog = [v5 shouldLog];
       if ([v5 shouldLogToDisk])
       {
-        v7 = shouldLog | 2;
+        LODWORD(v7) = shouldLog | 2;
       }
 
       else
       {
-        v7 = shouldLog;
+        LODWORD(v7) = shouldLog;
       }
 
       oSLogObject = [v5 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+      {
+        v7 = v7;
+      }
+
+      else
       {
         v7 &= 2u;
       }
 
       if (!v7)
       {
-        goto LABEL_23;
+        goto LABEL_25;
       }
 
       v9 = objc_opt_class();
@@ -155,7 +160,7 @@
       v26 = 2112;
       v27 = v11;
       v12 = v9;
-      LODWORD(v20) = 32;
+      v13 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "%@: Waiting up to %.2f seconds for push: %@", &v22, 32);
     }
 
     else
@@ -168,51 +173,56 @@
       shouldLog2 = [v5 shouldLog];
       if ([v5 shouldLogToDisk])
       {
-        v14 = shouldLog2 | 2;
+        LODWORD(v15) = shouldLog2 | 2;
       }
 
       else
       {
-        v14 = shouldLog2;
+        LODWORD(v15) = shouldLog2;
       }
 
       oSLogObject = [v5 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
       {
-        v14 &= 2u;
+        v15 = v15;
       }
 
-      if (!v14)
+      else
       {
-        goto LABEL_23;
+        v15 &= 2u;
       }
 
-      v15 = objc_opt_class();
-      v16 = self->_delay;
+      if (!v15)
+      {
+        goto LABEL_25;
+      }
+
+      v16 = objc_opt_class();
+      v17 = self->_delay;
       v22 = 138412546;
-      v23 = v15;
+      v23 = v16;
       v24 = 2048;
-      v25 = v16;
-      v12 = v15;
-      LODWORD(v20) = 22;
+      v25 = v17;
+      v12 = v16;
+      v13 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "%@: Waiting for %.2f seconds", &v22, 22);
     }
 
-    v17 = _os_log_send_and_compose_impl();
+    v18 = v13;
 
-    if (!v17)
+    if (!v18)
     {
-      goto LABEL_24;
+      goto LABEL_26;
     }
 
-    oSLogObject = [NSString stringWithCString:v17 encoding:4, &v22, v20];
-    free(v17);
+    oSLogObject = [NSString stringWithCString:v18 encoding:4];
+    free(v18);
     SSFileLog();
-LABEL_23:
+LABEL_25:
 
-LABEL_24:
+LABEL_26:
     semaphore = self->_semaphore;
-    v19 = dispatch_time(0, (self->_delay * 1000000000.0));
-    dispatch_semaphore_wait(semaphore, v19);
+    v20 = dispatch_time(0, (self->_delay * 1000000000.0));
+    dispatch_semaphore_wait(semaphore, v20);
     if (self->_pushToken)
     {
       v21[0] = _NSConcreteStackBlock;

@@ -8,17 +8,13 @@
 
 - (int64_t)hash
 {
-  v3 = *(&self->super.isa + OBJC_IVAR____TtCC27AppStoreComponentsDaemonKit19JSMediaTokensObjectP33_638155E9B66C7584798509A6FE06B4498CacheKey_client);
-  v4 = *&self->client[OBJC_IVAR____TtCC27AppStoreComponentsDaemonKit19JSMediaTokensObjectP33_638155E9B66C7584798509A6FE06B4498CacheKey_client];
-  v5 = *&self->client[OBJC_IVAR____TtCC27AppStoreComponentsDaemonKit19JSMediaTokensObjectP33_638155E9B66C7584798509A6FE06B4498CacheKey_client + 8];
-  v6 = *&self->client[OBJC_IVAR____TtCC27AppStoreComponentsDaemonKit19JSMediaTokensObjectP33_638155E9B66C7584798509A6FE06B4498CacheKey_client + 16];
   sub_222739C5C();
   selfCopy = self;
   sub_22273924C();
   sub_22273924C();
-  v8 = sub_222739C8C();
+  v4 = sub_222739C8C();
 
-  return v8;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal

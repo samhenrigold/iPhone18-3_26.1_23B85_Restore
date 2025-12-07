@@ -115,7 +115,7 @@
   metrics = self->_metrics;
   if (metrics)
   {
-    [(RouteStepListMetrics *)metrics secondaryArrowMetrics];
+    objc_msgSend_secondaryArrowMetrics(metrics);
   }
 
   else
@@ -129,7 +129,7 @@
   v37 = self->_metrics;
   if (v37)
   {
-    [(RouteStepListMetrics *)v37 secondaryJunctionArrowMetrics];
+    objc_msgSend_secondaryJunctionArrowMetrics(v37);
   }
 
   else

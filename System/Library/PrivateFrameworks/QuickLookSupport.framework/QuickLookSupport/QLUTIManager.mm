@@ -126,65 +126,66 @@ void __105__QLUTIManager_findAndStoreValueInTypeKeyedDictionary_forType_withDesc
 
 id __105__QLUTIManager_findAndStoreValueInTypeKeyedDictionary_forType_withDescription_withQueue_validationBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v5;
-  v8 = _qlsLogHandle;
+  v9 = v7;
+  v10 = _qlsLogHandle;
   if (v7)
   {
     if (!_qlsLogHandle)
     {
-      QLSInitLogging();
-      v8 = _qlsLogHandle;
+      QLSInitLogging(v7, v8);
+      v10 = _qlsLogHandle;
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v9 = *(a1 + 32);
-      v14 = 138412802;
-      v15 = v7;
-      v16 = 2112;
+      v11 = *(a1 + 32);
+      v16 = 138412802;
       v17 = v9;
       v18 = 2112;
-      v19 = v6;
-      _os_log_impl(&dword_2615AE000, v8, OS_LOG_TYPE_INFO, "Getting %@ for '%@' from UTI '%@' #UTI", &v14, 0x20u);
+      v19 = v11;
+      v20 = 2112;
+      v21 = v6;
+      _os_log_impl(&dword_2615AE000, v10, OS_LOG_TYPE_INFO, "Getting %@ for '%@' from UTI '%@' #UTI", &v16, 0x20u);
     }
 
-    [*(a1 + 40) setObject:v7 forKeyedSubscript:v6];
+    [*(a1 + 40) setObject:v9 forKeyedSubscript:v6];
   }
 
   else
   {
     if (!_qlsLogHandle)
     {
-      QLSInitLogging();
-      v8 = _qlsLogHandle;
+      QLSInitLogging(0, v8);
+      v10 = _qlsLogHandle;
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v10 = *(a1 + 32);
-      v14 = 138412546;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v6;
-      _os_log_impl(&dword_2615AE000, v8, OS_LOG_TYPE_INFO, "Caching NSNULL as %@ for '%@' #UTI", &v14, 0x16u);
+      v12 = *(a1 + 32);
+      v16 = 138412546;
+      v17 = v12;
+      v18 = 2112;
+      v19 = v6;
+      _os_log_impl(&dword_2615AE000, v10, OS_LOG_TYPE_INFO, "Caching NSNULL as %@ for '%@' #UTI", &v16, 0x16u);
     }
 
-    v11 = [MEMORY[0x277CBEB68] null];
-    [*(a1 + 40) setObject:v11 forKeyedSubscript:v6];
+    v13 = [MEMORY[0x277CBEB68] null];
+    [*(a1 + 40) setObject:v13 forKeyedSubscript:v6];
   }
 
   objc_opt_class();
-  v12 = v7;
+  v14 = v9;
   if (objc_opt_isKindOfClass())
   {
 
-    v12 = 0;
+    v14 = 0;
   }
 
-  return v12;
+  return v14;
 }
 
 + (id)_searchParentTypesFor:(id)for fromDictionary:(id)dictionary alreadySeenUTIs:(id)is matchedValueToTypeBlock:(id)block validationBlock:(id)validationBlock
@@ -227,7 +228,7 @@ LABEL_6:
 
 + (id)_recursiveValueInDictionary:(id)dictionary forType:(id)type alreadySeenUTIs:(id)is matchedValueToTypeBlock:(id)block validationBlock:(id)validationBlock
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   typeCopy = type;
   isCopy = is;
@@ -239,29 +240,30 @@ LABEL_6:
     isCopy = objc_opt_new();
   }
 
-  if (![isCopy containsObject:lowercaseString])
+  v18 = [isCopy containsObject:lowercaseString];
+  if (!v18)
   {
     [isCopy addObject:lowercaseString];
-    v18 = [(__CFString *)dictionaryCopy objectForKeyedSubscript:lowercaseString];
-    if (v18)
+    v20 = [(__CFString *)dictionaryCopy objectForKeyedSubscript:lowercaseString];
+    if (v20)
     {
-      v19 = v18;
+      v22 = v20;
       if (validationBlockCopy)
       {
-        if (validationBlockCopy[2](validationBlockCopy, v18, lowercaseString))
+        if (validationBlockCopy[2](validationBlockCopy, v20, lowercaseString))
         {
-          v20 = v19;
+          v23 = v22;
         }
 
         else
         {
-          v20 = 0;
+          v23 = 0;
         }
 
-        v21 = v20;
+        v24 = v23;
 
-        v22 = 1;
-        v19 = v21;
+        v25 = 1;
+        v22 = v24;
         if (!blockCopy)
         {
           goto LABEL_19;
@@ -273,26 +275,26 @@ LABEL_6:
 
     else
     {
-      v23 = _qlsLogHandle;
+      v26 = _qlsLogHandle;
       if (!_qlsLogHandle)
       {
-        QLSInitLogging();
-        v23 = _qlsLogHandle;
+        QLSInitLogging(0, v21);
+        v26 = _qlsLogHandle;
       }
 
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *buf = 134218242;
-        v43 = dictionaryCopy;
-        v44 = 2112;
-        v45 = lowercaseString;
-        _os_log_impl(&dword_2615AE000, v23, OS_LOG_TYPE_INFO, "No exact match found in type dictionary %p for '%@' #UTI", buf, 0x16u);
+        v48 = dictionaryCopy;
+        v49 = 2112;
+        v50 = lowercaseString;
+        _os_log_impl(&dword_2615AE000, v26, OS_LOG_TYPE_INFO, "No exact match found in type dictionary %p for '%@' #UTI", buf, 0x16u);
       }
 
-      v19 = [self _searchParentTypesFor:typeCopy fromDictionary:dictionaryCopy alreadySeenUTIs:isCopy matchedValueToTypeBlock:blockCopy validationBlock:validationBlockCopy];
+      v22 = [self _searchParentTypesFor:typeCopy fromDictionary:dictionaryCopy alreadySeenUTIs:isCopy matchedValueToTypeBlock:blockCopy validationBlock:validationBlockCopy];
     }
 
-    v22 = 1;
+    v25 = 1;
     if (!blockCopy)
     {
       goto LABEL_19;
@@ -301,55 +303,56 @@ LABEL_6:
     goto LABEL_17;
   }
 
-  v26 = QLSLogHandle();
-  v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG);
+  v29 = QLSLogHandle(v18, v19);
+  v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG);
 
-  if (v27)
+  if (v30)
   {
-    v28 = UTTypeCopyParentIdentifiers();
-    if (v28)
+    v31 = UTTypeCopyParentIdentifiers();
+    if (v31)
     {
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
-      v39 = 0u;
-      v36 = v28;
-      obj = v28;
-      v29 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
-      if (v29)
+      v45 = 0u;
+      v46 = 0u;
+      v43 = 0u;
+      v44 = 0u;
+      v41 = v31;
+      obj = v31;
+      v32 = [obj countByEnumeratingWithState:&v43 objects:v53 count:16];
+      if (v32)
       {
-        v30 = v29;
-        v31 = *v39;
+        v33 = v32;
+        v34 = *v44;
         while (2)
         {
-          for (i = 0; i != v30; ++i)
+          for (i = 0; i != v33; ++i)
           {
-            if (*v39 != v31)
+            if (*v44 != v34)
             {
               objc_enumerationMutation(obj);
             }
 
-            v33 = *(*(&v38 + 1) + 8 * i);
-            if (UTTypeConformsTo(v33, lowercaseString))
+            v36 = *(*(&v43 + 1) + 8 * i);
+            v37 = UTTypeConformsTo(v36, lowercaseString);
+            if (v37)
             {
-              v34 = QLSLogHandle();
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+              v39 = QLSLogHandle(v37, v38);
+              if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412802;
-                v43 = lowercaseString;
-                v44 = 2112;
-                v45 = v33;
-                v46 = 2112;
-                v47 = lowercaseString;
-                _os_log_impl(&dword_2615AE000, v34, OS_LOG_TYPE_DEBUG, "Infinite UTI tree loop (%@ conforms to %@ which conforms to %@) #UTI", buf, 0x20u);
+                v48 = lowercaseString;
+                v49 = 2112;
+                v50 = v36;
+                v51 = 2112;
+                v52 = lowercaseString;
+                _os_log_impl(&dword_2615AE000, v39, OS_LOG_TYPE_DEBUG, "Infinite UTI tree loop (%@ conforms to %@ which conforms to %@) #UTI", buf, 0x20u);
               }
 
               goto LABEL_36;
             }
           }
 
-          v30 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
-          if (v30)
+          v33 = [obj countByEnumeratingWithState:&v43 objects:v53 count:16];
+          if (v33)
           {
             continue;
           }
@@ -360,28 +363,28 @@ LABEL_6:
 
 LABEL_36:
 
-      v28 = v36;
+      v31 = v41;
     }
   }
 
-  v35 = [MEMORY[0x277CCA9B8] errorWithDomain:@"QLUTIErrorDomain" code:0 userInfo:{0, v36}];
+  v40 = [MEMORY[0x277CCA9B8] errorWithDomain:@"QLUTIErrorDomain" code:0 userInfo:{0, v41}];
 
-  v19 = 0;
-  v22 = v35 == 0;
+  v22 = 0;
+  v25 = v40 == 0;
   if (blockCopy)
   {
 LABEL_17:
-    if (v22)
+    if (v25)
     {
-      v24 = blockCopy[2](blockCopy, v19, lowercaseString);
+      v27 = blockCopy[2](blockCopy, v22, lowercaseString);
 
-      v19 = v24;
+      v22 = v27;
     }
   }
 
 LABEL_19:
 
-  return v19;
+  return v22;
 }
 
 + (id)_preferredParentUTIof:(id)iof fromParents:(id)parents
@@ -926,7 +929,7 @@ void __26__QLUTIManager_iWorkTypes__block_invoke()
   return v8;
 }
 
-uint64_t __57__QLUTIManager_contentType_conformsToContentTypeInArray___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__57__QLUTIManager_contentType_conformsToContentTypeInArray___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) conformsToType:a2];
   if (result)

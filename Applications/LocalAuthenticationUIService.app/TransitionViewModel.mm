@@ -78,7 +78,7 @@
 
   selfCopy = self;
   TransitionViewModel.mechanismEvent(_:reply:)(event, v6, v7);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v6);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v6, v7);
 }
 
 - (void)mechanismEvent:(int64_t)event value:(id)value reply:(id)reply
@@ -119,7 +119,7 @@ LABEL_6:
   v14 = OBJC_IVAR____TtC28LocalAuthenticationUIService19TransitionViewModel_delegates;
   swift_beginAccess();
   v15 = *(&self->super.isa + v14);
-  outlined copy of (@escaping @callee_guaranteed () -> ())?(v11);
+  outlined copy of (@escaping @callee_guaranteed () -> ())?(v11, v10);
   allObjects = [v15 allObjects];
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s28LocalAuthenticationUIService27TransitionViewModelDelegate_pMd, &_s28LocalAuthenticationUIService27TransitionViewModelDelegate_pMR);
   v17 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
@@ -130,7 +130,7 @@ LABEL_6:
   v19[4] = v13;
   specialized Sequence.forEach(_:)(closure #1 in TransitionViewModel.mechanismEvent(_:value:reply:)partial apply, v19, v17);
 
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v11);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v11, v10);
 
   outlined destroy of LACUIAngelConnectionHandling?(v20, &_sypSgMd, &_sypSgMR);
 }
@@ -163,7 +163,7 @@ LABEL_6:
 
   selfCopy = self;
   TransitionViewModel.transition(to:internalInfo:completionHandler:)(controller, v8, v7, v9);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7, v9);
 }
 
 @end

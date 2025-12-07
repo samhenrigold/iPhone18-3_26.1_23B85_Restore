@@ -63,70 +63,71 @@
   timeCopy = time;
   threadCopy = thread;
   dictCopy = dict;
-  v35 = objc_alloc_init(NSMutableArray);
-  v38 = 0u;
-  v39 = 0u;
+  v37 = objc_alloc_init(NSMutableArray);
   v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v16 = timeCopy;
-  v17 = [v16 countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v40 objects:v46 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v39;
-    v32 = idCopy;
-    v33 = v16;
+    v19 = *v41;
+    v34 = idCopy;
+    v35 = v16;
     do
     {
       for (i = 0; i != v18; i = i + 1)
       {
-        if (*v39 != v19)
+        if (*v41 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v38 + 1) + 8 * i);
+        v21 = *(*(&v40 + 1) + 8 * i);
         if (([v21 isEqualToNumber:idCopy] & 1) == 0)
         {
           v22 = [threadCopy objectForKeyedSubscript:v21];
-          v23 = sub_10000B548([v22 cumulativeTime]);
+          cumulativeTime = [v22 cumulativeTime];
+          v25 = sub_10000B548(cumulativeTime, v24);
 
-          if (v23 > 50.0)
+          if (v25 > 50.0)
           {
-            v42[0] = @"threadId";
-            v24 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%#llx", [v21 unsignedLongLongValue]);
-            v43[0] = v24;
-            v42[1] = @"process";
+            v44[0] = @"threadId";
+            v26 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%#llx", [v21 unsignedLongLongValue]);
+            v45[0] = v26;
+            v44[1] = @"process";
             [dictCopy objectForKeyedSubscript:v21];
-            v26 = v25 = threadCopy;
-            v27 = sub_1000153B0(storeCopy, v26);
-            v43[1] = v27;
-            v42[2] = @"blockingTimeMS";
-            v28 = [NSNumber numberWithDouble:v23];
-            v43[2] = v28;
-            [NSDictionary dictionaryWithObjects:v43 forKeys:v42 count:3];
-            v30 = v29 = v19;
-            [v35 addObject:v30];
+            v28 = v27 = threadCopy;
+            v29 = sub_1000153B0(storeCopy, v28);
+            v45[1] = v29;
+            v44[2] = @"blockingTimeMS";
+            v30 = [NSNumber numberWithDouble:v25];
+            v45[2] = v30;
+            [NSDictionary dictionaryWithObjects:v45 forKeys:v44 count:3];
+            v32 = v31 = v19;
+            [v37 addObject:v32];
 
-            v19 = v29;
-            threadCopy = v25;
-            idCopy = v32;
-            v16 = v33;
+            v19 = v31;
+            threadCopy = v27;
+            idCopy = v34;
+            v16 = v35;
 
             [(NSMutableArray *)self->_allBlockingThreadsArray addObject:v21];
           }
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v40 objects:v46 count:16];
     }
 
     while (v18);
   }
 
-  if ([v35 count])
+  if ([v37 count])
   {
-    [infoCopy setObject:v35 forKeyedSubscript:@"otherBlockingThreads"];
+    [infoCopy setObject:v37 forKeyedSubscript:@"otherBlockingThreads"];
   }
 }
 
@@ -137,20 +138,20 @@
   threadCopy = thread;
   threadId = [threadCopy threadId];
   v15 = threadCopy;
-  v144 = storeCopy;
+  v161 = storeCopy;
   tidToPidDict = [storeCopy tidToPidDict];
   v16 = objc_alloc_init(NSMutableDictionary);
-  v147 = 0;
+  v164 = 0;
   v17 = 1;
   *&v18 = 134218240;
-  v139 = v18;
-  v141 = v16;
-  v148 = v16;
-  v142 = tailspinCopy;
-  v143 = threadId;
+  v156 = v18;
+  v158 = v16;
+  v165 = v16;
+  v159 = tailspinCopy;
+  v160 = threadId;
   unsignedLongLongValue5 = threadId;
-  v140 = v15;
-  v150 = v15;
+  v157 = v15;
+  v167 = v15;
   selfCopy = self;
   while (1)
   {
@@ -159,13 +160,13 @@
       goto LABEL_110;
     }
 
-    if (v147 >= 5)
+    if (v164 >= 5)
     {
-      p_super = sub_100001684();
+      p_super = sub_100001684(v16);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
-        *&buf[4] = v147;
+        *&buf[4] = v164;
         _os_log_impl(&_mh_execute_header, p_super, OS_LOG_TYPE_INFO, "findBlockingThreadForTailspin:  currentNextIterationCount = %d is more than MAX_KTRACE_SESSION_COUNT", buf, 8u);
       }
 
@@ -177,10 +178,10 @@
     v21 = ktrace_session_create();
     if (!v21)
     {
-      v126 = sub_100001684();
-      if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
+      v143 = sub_100001684(0);
+      if (os_log_type_enabled(v143, OS_LOG_TYPE_ERROR))
       {
-        sub_10003F714(v126);
+        sub_10003F714(v143);
       }
 
       goto LABEL_94;
@@ -191,11 +192,11 @@
     v23 = ktrace_set_file();
     if (v23)
     {
-      v127 = v23;
-      v128 = sub_100001684();
-      if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
+      v144 = v23;
+      v145 = sub_100001684(v23);
+      if (os_log_type_enabled(v145, OS_LOG_TYPE_ERROR))
       {
-        sub_10003F588(v127, v128);
+        sub_10003F588(v144, v145);
       }
 
       ktrace_session_destroy();
@@ -213,17 +214,18 @@
     *buf = _NSConcreteStackBlock;
     *&buf[8] = 3221225472;
     *&buf[16] = sub_1000014C0;
-    v182 = &unk_100085690;
-    *(&v183 + 1) = unsignedLongLongValue5;
+    v199 = &unk_100085690;
+    *(&v200 + 1) = unsignedLongLongValue5;
     timeCopy = time;
     endTimeCopy = endTime;
     p_super = p_super;
-    *&v183 = p_super;
+    *&v200 = p_super;
     v24 = objc_retainBlock(buf);
-    if (ktrace_events_single())
+    v25 = ktrace_events_single();
+    if (v25)
     {
-      v129 = sub_100001684();
-      if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
+      v146 = sub_100001684(v25);
+      if (os_log_type_enabled(v146, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_84;
       }
@@ -231,10 +233,11 @@
       goto LABEL_85;
     }
 
-    if (ktrace_events_single())
+    v26 = ktrace_events_single();
+    if (v26)
     {
-      v129 = sub_100001684();
-      if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
+      v146 = sub_100001684(v26);
+      if (os_log_type_enabled(v146, OS_LOG_TYPE_ERROR))
       {
 LABEL_84:
         sub_10003F600();
@@ -246,27 +249,27 @@ LABEL_85:
 LABEL_93:
 
 LABEL_94:
-      v132 = 2;
+      v149 = 2;
       goto LABEL_111;
     }
 
-    v25 = dispatch_semaphore_create(0);
-    *v172 = _NSConcreteStackBlock;
-    *&v172[8] = 3221225472;
-    *&v172[16] = sub_1000016C8;
-    v173 = &unk_1000856B8;
-    *&v174[8] = v22;
-    v26 = v25;
-    *v174 = v26;
+    v27 = dispatch_semaphore_create(0);
+    *v189 = _NSConcreteStackBlock;
+    *&v189[8] = 3221225472;
+    *&v189[16] = sub_1000016C8;
+    v190 = &unk_1000856B8;
+    *&v191[8] = v22;
+    v28 = v27;
+    *v191 = v28;
     ktrace_set_completion_handler();
-    v27 = qos_class_self();
-    v28 = dispatch_get_global_queue(v27, 0);
-    v29 = ktrace_start();
+    v29 = qos_class_self();
+    v30 = dispatch_get_global_queue(v29, 0);
+    v31 = ktrace_start();
 
-    if (v29)
+    if (v31)
     {
-      v130 = sub_100001684();
-      if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
+      v147 = sub_100001684(v32);
+      if (os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
       {
         sub_10003F668();
       }
@@ -275,15 +278,16 @@ LABEL_94:
       goto LABEL_92;
     }
 
-    v30 = dispatch_time(0, 100000000000);
-    if (dispatch_semaphore_wait(v26, v30))
+    v33 = dispatch_time(0, 100000000000);
+    v34 = dispatch_semaphore_wait(v28, v33);
+    if (v34)
     {
-      v131 = sub_100001684();
-      if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
+      v148 = sub_100001684(v34);
+      if (os_log_type_enabled(v148, OS_LOG_TYPE_DEFAULT))
       {
-        *v186 = 134217984;
-        *&v186[4] = 100000000000;
-        _os_log_impl(&_mh_execute_header, v131, OS_LOG_TYPE_DEFAULT, "Timed out (%lld) parsing trace buffer", v186, 0xCu);
+        *v203 = 134217984;
+        *&v203[4] = 100000000000;
+        _os_log_impl(&_mh_execute_header, v148, OS_LOG_TYPE_DEFAULT, "Timed out (%lld) parsing trace buffer", v203, 0xCu);
       }
 
       ktrace_end();
@@ -292,112 +296,114 @@ LABEL_92:
       goto LABEL_93;
     }
 
-    if (![p_super count])
+    v35 = [p_super count];
+    if (!v35)
     {
       break;
     }
 
-    v31 = sub_100001684();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    v36 = sub_100001684(v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
-      v32 = [p_super count];
+      v37 = [p_super count];
       *buf = 134217984;
-      *&buf[4] = v32;
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "*** Size of makeRunnableData array %lx,***", buf, 0xCu);
+      *&buf[4] = v37;
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "*** Size of makeRunnableData array %lx,***", buf, 0xCu);
     }
 
-    v33 = objc_alloc_init(NSMutableDictionary);
-    v171 = v150;
-    v34 = v144;
-    v158 = v33;
-    *v186 = 0u;
-    v187 = 0u;
-    v188 = 0u;
-    v189 = 0u;
-    v146 = p_super;
+    v38 = objc_alloc_init(NSMutableDictionary);
+    v188 = v167;
+    v39 = v161;
+    v175 = v38;
+    *v203 = 0u;
+    v204 = 0u;
+    v205 = 0u;
+    v206 = 0u;
+    v163 = p_super;
     reverseObjectEnumerator = [p_super reverseObjectEnumerator];
-    v36 = [reverseObjectEnumerator countByEnumeratingWithState:v186 objects:buf count:16];
+    v41 = [reverseObjectEnumerator countByEnumeratingWithState:v203 objects:buf count:16];
     endTimeCopy5 = endTime;
-    v170 = v34;
-    if (v36)
+    v187 = v39;
+    if (v41)
     {
-      v38 = v36;
-      v39 = *v187;
-      v168 = reverseObjectEnumerator;
+      v43 = v41;
+      v44 = *v204;
+      v185 = reverseObjectEnumerator;
       do
       {
-        v40 = 0;
+        v45 = 0;
         do
         {
-          if (*v187 != v39)
+          if (*v204 != v44)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          v41 = *(*&v186[8] + 8 * v40);
-          if (([v41 inInterrupt] & 1) == 0 && objc_msgSend(v41, "timestamp") < endTimeCopy5)
+          v46 = *(*&v203[8] + 8 * v45);
+          if (([v46 inInterrupt] & 1) == 0 && objc_msgSend(v46, "timestamp") < endTimeCopy5)
           {
-            v42 = +[SATimestamp timestampWithMachAbsTime:machContTime:wallTime:machTimebase:](SATimestamp, "timestampWithMachAbsTime:machContTime:wallTime:machTimebase:", [v41 timestamp], 0, sub_1000046E4(), 0.0);
-            sampleTimestamps = [v34 sampleTimestamps];
-            v44 = [v171 lastThreadStateOnOrBeforeTime:v42 sampleIndex:{objc_msgSend(sampleTimestamps, "count") - 1}];
+            timestamp = [v46 timestamp];
+            v49 = [SATimestamp timestampWithMachAbsTime:timestamp machContTime:0 wallTime:sub_1000046E4(timestamp machTimebase:v48), 0.0];
+            sampleTimestamps = [v39 sampleTimestamps];
+            v51 = [v188 lastThreadStateOnOrBeforeTime:v49 sampleIndex:{objc_msgSend(sampleTimestamps, "count") - 1}];
 
-            if (v44)
+            if (v51)
             {
-              timestamp = [v41 timestamp];
-              endTimestamp = [v44 endTimestamp];
-              if (timestamp <= [endTimestamp machAbsTime])
+              timestamp2 = [v46 timestamp];
+              endTimestamp = [v51 endTimestamp];
+              if (timestamp2 <= [endTimestamp machAbsTime])
               {
-                timestamp2 = [v41 timestamp];
-                startTimestamp = [v44 startTimestamp];
-                v47 = timestamp2 >= [startTimestamp machAbsTime];
+                timestamp3 = [v46 timestamp];
+                startTimestamp = [v51 startTimestamp];
+                v55 = timestamp3 >= [startTimestamp machAbsTime];
               }
 
               else
               {
-                v47 = 0;
+                v55 = 0;
               }
 
-              v53 = sub_100001684();
+              v62 = sub_100001684(v61);
               endTimeCopy5 = endTime;
-              if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
+              if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
               {
-                timestamp3 = [v41 timestamp];
-                madeRunnableByThreadId = [v41 madeRunnableByThreadId];
-                startTimestamp2 = [v44 startTimestamp];
+                timestamp4 = [v46 timestamp];
+                madeRunnableByThreadId = [v46 madeRunnableByThreadId];
+                startTimestamp2 = [v51 startTimestamp];
                 machAbsTime = [startTimestamp2 machAbsTime];
-                endTimestamp2 = [v44 endTimestamp];
+                endTimestamp2 = [v51 endTimestamp];
                 machAbsTime2 = [endTimestamp2 machAbsTime];
-                startSampleIndex = [v44 startSampleIndex];
-                endSampleIndex = [v44 endSampleIndex];
-                *v172 = 134219778;
-                v85 = @"outside";
-                if (v47)
+                startSampleIndex = [v51 startSampleIndex];
+                endSampleIndex = [v51 endSampleIndex];
+                *v189 = 134219778;
+                v96 = @"outside";
+                if (v55)
                 {
-                  v85 = @"inside";
+                  v96 = @"inside";
                 }
 
-                *&v172[4] = timestamp3;
-                *&v172[12] = 2048;
-                *&v172[14] = unsignedLongLongValue5;
-                *&v172[22] = 2048;
-                v173 = madeRunnableByThreadId;
-                *v174 = 2048;
-                *&v174[2] = machAbsTime;
-                *&v174[10] = 2048;
-                *&v174[12] = machAbsTime2;
-                v175 = 2048;
-                v176 = startSampleIndex;
+                *&v189[4] = timestamp4;
+                *&v189[12] = 2048;
+                *&v189[14] = unsignedLongLongValue5;
+                *&v189[22] = 2048;
+                v190 = madeRunnableByThreadId;
+                *v191 = 2048;
+                *&v191[2] = machAbsTime;
+                *&v191[10] = 2048;
+                *&v191[12] = machAbsTime2;
+                v192 = 2048;
+                v193 = startSampleIndex;
                 endTimeCopy5 = endTime;
-                v177 = 2048;
-                v178 = endSampleIndex;
-                v179 = 2112;
-                v180 = v85;
-                _os_log_debug_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEBUG, "iterateMkRunnableDataToFindBlockingThreadInfo: eachMadeRunnable: %llu - thread %llx by %llx mkRunnableTime, threadState time %llu-%llu (idx %lu - idx %lu) -> %@", v172, 0x52u);
+                v194 = 2048;
+                v195 = endSampleIndex;
+                v196 = 2112;
+                v197 = v96;
+                _os_log_debug_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEBUG, "iterateMkRunnableDataToFindBlockingThreadInfo: eachMadeRunnable: %llu - thread %llx by %llx mkRunnableTime, threadState time %llu-%llu (idx %lu - idx %lu) -> %@", v189, 0x52u);
               }
 
-              if (v47)
+              if (v55)
               {
-                startTimestamp3 = [v44 startTimestamp];
+                startTimestamp3 = [v51 startTimestamp];
                 machAbsTime3 = [startTimestamp3 machAbsTime];
 
                 if (machAbsTime3 <= time)
@@ -410,119 +416,119 @@ LABEL_92:
                   timeCopy2 = machAbsTime3;
                 }
 
-                timestamp4 = [v41 timestamp];
-                v58 = sub_100001684();
-                if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+                timestamp5 = [v46 timestamp];
+                v67 = sub_100001684(timestamp5);
+                if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
                 {
-                  v86 = timestamp4;
-                  timestamp5 = [v41 timestamp];
-                  madeRunnableByThreadId2 = [v41 madeRunnableByThreadId];
-                  *v172 = 134219264;
-                  *&v172[4] = timestamp5;
-                  timestamp4 = v86;
-                  *&v172[12] = 2048;
-                  *&v172[14] = unsignedLongLongValue5;
-                  *&v172[22] = 2048;
-                  v173 = madeRunnableByThreadId2;
-                  *v174 = 2048;
-                  *&v174[2] = &v86[-timeCopy2];
-                  *&v174[10] = 2048;
-                  *&v174[12] = v86;
-                  v175 = 2048;
-                  v176 = timeCopy2;
-                  _os_log_debug_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEBUG, "iterateMkRunnableDataToFindBlockingThreadInfo: eachMadeRunnable: %llu - thread %llx by %llx -> blockedtime = %llu (= %llu - %llu)", v172, 0x3Eu);
+                  v97 = timestamp5;
+                  timestamp6 = [v46 timestamp];
+                  madeRunnableByThreadId2 = [v46 madeRunnableByThreadId];
+                  *v189 = 134219264;
+                  *&v189[4] = timestamp6;
+                  timestamp5 = v97;
+                  *&v189[12] = 2048;
+                  *&v189[14] = unsignedLongLongValue5;
+                  *&v189[22] = 2048;
+                  v190 = madeRunnableByThreadId2;
+                  *v191 = 2048;
+                  *&v191[2] = &v97[-timeCopy2];
+                  *&v191[10] = 2048;
+                  *&v191[12] = v97;
+                  v192 = 2048;
+                  v193 = timeCopy2;
+                  _os_log_debug_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEBUG, "iterateMkRunnableDataToFindBlockingThreadInfo: eachMadeRunnable: %llu - thread %llx by %llx -> blockedtime = %llu (= %llu - %llu)", v189, 0x3Eu);
                 }
 
-                v163 = timeCopy2;
-                v59 = timestamp4 >= timeCopy2;
-                v60 = &timestamp4[-timeCopy2];
-                if (v59)
+                v180 = timeCopy2;
+                v69 = timestamp5 >= timeCopy2;
+                v70 = &timestamp5[-timeCopy2];
+                if (v69)
                 {
-                  v159 = v42;
-                  v155 = timestamp4;
-                  v63 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v41 madeRunnableByThreadId]);
-                  v64 = [v158 objectForKeyedSubscript:v63];
+                  v176 = v49;
+                  v172 = timestamp5;
+                  v73 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v46 madeRunnableByThreadId]);
+                  v74 = [v175 objectForKeyedSubscript:v73];
 
-                  if (!v64)
+                  if (!v74)
                   {
-                    v65 = objc_alloc_init(BlockingThreadElement);
-                    v66 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v41 madeRunnableByThreadId]);
-                    [v158 setObject:v65 forKeyedSubscript:v66];
+                    v75 = objc_alloc_init(BlockingThreadElement);
+                    v76 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v46 madeRunnableByThreadId]);
+                    [v175 setObject:v75 forKeyedSubscript:v76];
                   }
 
-                  v67 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v41 madeRunnableByThreadId]);
-                  v68 = [v158 objectForKeyedSubscript:v67];
-                  v69 = v60;
-                  v70 = &v60[[v68 cumulativeTime]];
+                  v77 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v46 madeRunnableByThreadId]);
+                  v78 = [v175 objectForKeyedSubscript:v77];
+                  v79 = v70;
+                  v80 = &v70[[v78 cumulativeTime]];
 
-                  v71 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v41 madeRunnableByThreadId]);
-                  v72 = [v158 objectForKeyedSubscript:v71];
-                  v153 = v70;
-                  [v72 setCumulativeTime:v70];
+                  v81 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v46 madeRunnableByThreadId]);
+                  v82 = [v175 objectForKeyedSubscript:v81];
+                  v170 = v80;
+                  [v82 setCumulativeTime:v80];
 
-                  v73 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v41 madeRunnableByThreadId]);
-                  v74 = [v158 objectForKeyedSubscript:v73];
-                  maxBlockingTime = [v74 maxBlockingTime];
+                  v83 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v46 madeRunnableByThreadId]);
+                  v84 = [v175 objectForKeyedSubscript:v83];
+                  maxBlockingTime = [v84 maxBlockingTime];
 
-                  if (maxBlockingTime < v69)
+                  if (maxBlockingTime < v79)
                   {
-                    v76 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v41 madeRunnableByThreadId]);
-                    v77 = [v158 objectForKeyedSubscript:v76];
-                    [v77 setMaxBlockingTime:v69];
+                    v87 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v46 madeRunnableByThreadId]);
+                    v88 = [v175 objectForKeyedSubscript:v87];
+                    [v88 setMaxBlockingTime:v79];
 
-                    v78 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v41 madeRunnableByThreadId]);
-                    v79 = [v158 objectForKeyedSubscript:v78];
-                    [v79 setStartThreadTime:v163];
+                    v89 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v46 madeRunnableByThreadId]);
+                    v90 = [v175 objectForKeyedSubscript:v89];
+                    [v90 setStartThreadTime:v180];
 
-                    v80 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v41 madeRunnableByThreadId]);
-                    v81 = [v158 objectForKeyedSubscript:v80];
-                    [v81 setEndThreadTime:v155];
+                    v91 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v46 madeRunnableByThreadId]);
+                    v92 = [v175 objectForKeyedSubscript:v91];
+                    [v92 setEndThreadTime:v172];
                   }
 
-                  v48 = sub_100001684();
-                  v42 = v159;
-                  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+                  v56 = sub_100001684(v86);
+                  v49 = v176;
+                  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
                   {
-                    timestamp6 = [v41 timestamp];
-                    madeRunnableByThreadId3 = [v41 madeRunnableByThreadId];
-                    madeRunnableByThreadId4 = [v41 madeRunnableByThreadId];
-                    v91 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v41 madeRunnableByThreadId]);
-                    v92 = [v158 objectForKeyedSubscript:v91];
-                    maxBlockingTime2 = [v92 maxBlockingTime];
-                    *v172 = 134219264;
-                    *&v172[4] = timestamp6;
-                    *&v172[12] = 2048;
-                    *&v172[14] = unsignedLongLongValue5;
-                    *&v172[22] = 2048;
-                    v173 = madeRunnableByThreadId3;
-                    *v174 = 2048;
-                    *&v174[2] = madeRunnableByThreadId4;
-                    *&v174[10] = 2048;
-                    *&v174[12] = v153;
-                    v175 = 2048;
-                    v176 = maxBlockingTime2;
-                    _os_log_debug_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEBUG, "iterateMkRunnableDataToFindBlockingThreadInfo: eachMadeRunnable: %llu - thread %llx by %llx => thread %llu total time is up to %llu and max time %llu", v172, 0x3Eu);
+                    timestamp7 = [v46 timestamp];
+                    madeRunnableByThreadId3 = [v46 madeRunnableByThreadId];
+                    madeRunnableByThreadId4 = [v46 madeRunnableByThreadId];
+                    v102 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v46 madeRunnableByThreadId]);
+                    v103 = [v175 objectForKeyedSubscript:v102];
+                    maxBlockingTime2 = [v103 maxBlockingTime];
+                    *v189 = 134219264;
+                    *&v189[4] = timestamp7;
+                    *&v189[12] = 2048;
+                    *&v189[14] = unsignedLongLongValue5;
+                    *&v189[22] = 2048;
+                    v190 = madeRunnableByThreadId3;
+                    *v191 = 2048;
+                    *&v191[2] = madeRunnableByThreadId4;
+                    *&v191[10] = 2048;
+                    *&v191[12] = v170;
+                    v192 = 2048;
+                    v193 = maxBlockingTime2;
+                    _os_log_debug_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEBUG, "iterateMkRunnableDataToFindBlockingThreadInfo: eachMadeRunnable: %llu - thread %llx by %llx => thread %llu total time is up to %llu and max time %llu", v189, 0x3Eu);
                   }
                 }
 
                 else
                 {
-                  v48 = sub_100001684();
-                  if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
+                  v56 = sub_100001684(v68);
+                  if (os_log_type_enabled(v56, OS_LOG_TYPE_FAULT))
                   {
-                    timestamp7 = [v41 timestamp];
-                    madeRunnableByThreadId5 = [v41 madeRunnableByThreadId];
-                    *v172 = 134219008;
-                    *&v172[4] = timestamp7;
-                    *&v172[12] = 2048;
-                    *&v172[14] = unsignedLongLongValue5;
-                    *&v172[22] = 2048;
-                    v173 = madeRunnableByThreadId5;
-                    *v174 = 2048;
-                    *&v174[2] = timestamp4;
-                    *&v174[10] = 2048;
-                    *&v174[12] = v163;
-                    _os_log_fault_impl(&_mh_execute_header, v48, OS_LOG_TYPE_FAULT, "iterateMkRunnableDataToFindBlockingThreadInfo: eachMadeRunnable: %llu - thread %llx by %llx -> NEGATIVE blocked time = %llu - %llu)", v172, 0x34u);
+                    timestamp8 = [v46 timestamp];
+                    madeRunnableByThreadId5 = [v46 madeRunnableByThreadId];
+                    *v189 = 134219008;
+                    *&v189[4] = timestamp8;
+                    *&v189[12] = 2048;
+                    *&v189[14] = unsignedLongLongValue5;
+                    *&v189[22] = 2048;
+                    v190 = madeRunnableByThreadId5;
+                    *v191 = 2048;
+                    *&v191[2] = timestamp5;
+                    *&v191[10] = 2048;
+                    *&v191[12] = v180;
+                    _os_log_fault_impl(&_mh_execute_header, v56, OS_LOG_TYPE_FAULT, "iterateMkRunnableDataToFindBlockingThreadInfo: eachMadeRunnable: %llu - thread %llx by %llx -> NEGATIVE blocked time = %llu - %llu)", v189, 0x34u);
                   }
                 }
 
@@ -533,182 +539,183 @@ LABEL_92:
 
             else
             {
-              v48 = sub_100001684();
-              if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+              v56 = sub_100001684(v52);
+              if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
               {
-                timestamp8 = [v41 timestamp];
-                madeRunnableByThreadId6 = [v41 madeRunnableByThreadId];
-                *v172 = 134218496;
-                *&v172[4] = timestamp8;
-                *&v172[12] = 2048;
-                *&v172[14] = unsignedLongLongValue5;
-                *&v172[22] = 2048;
-                v173 = madeRunnableByThreadId6;
-                _os_log_debug_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEBUG, "iterateMkRunnableDataToFindBlockingThreadInfo: eachMadeRunnable: %llu - thread %llx by %llx mkRunnableTime, threadState is nil", v172, 0x20u);
+                timestamp9 = [v46 timestamp];
+                madeRunnableByThreadId6 = [v46 madeRunnableByThreadId];
+                *v189 = 134218496;
+                *&v189[4] = timestamp9;
+                *&v189[12] = 2048;
+                *&v189[14] = unsignedLongLongValue5;
+                *&v189[22] = 2048;
+                v190 = madeRunnableByThreadId6;
+                _os_log_debug_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEBUG, "iterateMkRunnableDataToFindBlockingThreadInfo: eachMadeRunnable: %llu - thread %llx by %llx mkRunnableTime, threadState is nil", v189, 0x20u);
               }
 
 LABEL_43:
             }
 
-            reverseObjectEnumerator = v168;
-            v34 = v170;
+            reverseObjectEnumerator = v185;
+            v39 = v187;
           }
 
-          v40 = v40 + 1;
+          v45 = v45 + 1;
         }
 
-        while (v38 != v40);
-        v94 = [reverseObjectEnumerator countByEnumeratingWithState:v186 objects:buf count:16];
-        v38 = v94;
+        while (v43 != v45);
+        v105 = [reverseObjectEnumerator countByEnumeratingWithState:v203 objects:buf count:16];
+        v43 = v105;
       }
 
-      while (v94);
+      while (v105);
     }
 
-    v95 = sub_100001684();
-    if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+    v107 = sub_100001684(v106);
+    if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *&buf[4] = v158;
-      _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_DEFAULT, "findBlockingThreadForTailspin: Cumulative Blocking Time By Thread: %@", buf, 0xCu);
+      *&buf[4] = v175;
+      _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_DEFAULT, "findBlockingThreadForTailspin: Cumulative Blocking Time By Thread: %@", buf, 0xCu);
     }
 
-    v96 = [NSNumber numberWithUnsignedLongLong:unsignedLongLongValue5];
-    [v158 removeObjectForKey:v96];
+    v108 = [NSNumber numberWithUnsignedLongLong:unsignedLongLongValue5];
+    [v175 removeObjectForKey:v108];
 
-    v97 = v148;
-    if (![v158 count])
+    v109 = v165;
+    if (![v175 count])
     {
-      v135 = sub_100001684();
-      v136 = v135;
-      if (unsignedLongLongValue5 == v143)
+      v152 = sub_100001684(0);
+      v153 = v152;
+      if (unsignedLongLongValue5 == v160)
       {
-        tailspinCopy = v142;
-        p_super = v146;
-        if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
+        tailspinCopy = v159;
+        p_super = v163;
+        if (os_log_type_enabled(v152, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v136, OS_LOG_TYPE_DEFAULT, "findBlockingThreadForTailspin: no thread found for hangAppMainThreadId ", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v153, OS_LOG_TYPE_DEFAULT, "findBlockingThreadForTailspin: no thread found for hangAppMainThreadId ", buf, 2u);
         }
 
-        v132 = 4;
-        v150 = v171;
+        v149 = 4;
+        v167 = v188;
         goto LABEL_111;
       }
 
-      tailspinCopy = v142;
-      p_super = v146;
-      if (os_log_type_enabled(v135, OS_LOG_TYPE_INFO))
+      tailspinCopy = v159;
+      p_super = v163;
+      if (os_log_type_enabled(v152, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
         *&buf[4] = unsignedLongLongValue5;
-        _os_log_impl(&_mh_execute_header, v136, OS_LOG_TYPE_INFO, "findBlockingThreadForTailspin: no thread found for currentNestedThreadId =%llx ", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v153, OS_LOG_TYPE_INFO, "findBlockingThreadForTailspin: no thread found for currentNestedThreadId =%llx ", buf, 0xCu);
       }
 
       self = selfCopy;
 LABEL_109:
 
 LABEL_110:
-      v137 = v141;
+      v154 = v158;
       p_super = &self->_blockingThreadInfo->super;
-      self->_blockingThreadInfo = v137;
-      v132 = 5;
+      self->_blockingThreadInfo = v154;
+      v149 = 5;
       goto LABEL_111;
     }
 
-    v98 = [v158 keysSortedByValueUsingComparator:&stru_100085648];
-    v99 = [v158 keysSortedByValueUsingComparator:&stru_100085668];
-    v100 = [v99 objectAtIndexedSubscript:0];
-    v101 = [v158 objectForKeyedSubscript:v100];
-    v102 = +[NSNumber numberWithDouble:](NSNumber, "numberWithDouble:", sub_10000B548([v101 cumulativeTime]));
+    v110 = [v175 keysSortedByValueUsingComparator:&stru_100085648];
+    v111 = [v175 keysSortedByValueUsingComparator:&stru_100085668];
+    v112 = [v111 objectAtIndexedSubscript:0];
+    v113 = [v175 objectForKeyedSubscript:v112];
+    cumulativeTime = [v113 cumulativeTime];
+    v116 = [NSNumber numberWithDouble:sub_10000B548(cumulativeTime, v115)];
 
-    v103 = [tidToPidDict objectForKeyedSubscript:v100];
-    v169 = v98;
-    v104 = [v98 objectAtIndexedSubscript:0];
-    unsignedLongLongValue = [v104 unsignedLongLongValue];
-    v106 = [v99 objectAtIndexedSubscript:0];
-    unsignedLongLongValue2 = [v106 unsignedLongLongValue];
+    v117 = [tidToPidDict objectForKeyedSubscript:v112];
+    v186 = v110;
+    v118 = [v110 objectAtIndexedSubscript:0];
+    unsignedLongLongValue = [v118 unsignedLongLongValue];
+    v120 = [v111 objectAtIndexedSubscript:0];
+    unsignedLongLongValue2 = [v120 unsignedLongLongValue];
 
-    v108 = v170;
-    v109 = unsignedLongLongValue == unsignedLongLongValue2;
+    v122 = v187;
+    v124 = unsignedLongLongValue == unsignedLongLongValue2;
     self = selfCopy;
-    if (!v109)
+    if (!v124)
     {
-      v110 = sub_100001684();
-      if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
+      v125 = sub_100001684(v123);
+      if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
       {
-        v166 = [v99 objectAtIndexedSubscript:0];
-        unsignedLongLongValue3 = [v166 unsignedLongLongValue];
-        v161 = [v158 objectForKeyedSubscript:v100];
-        cumulativeTime = [v161 cumulativeTime];
-        v112 = [v169 objectAtIndexedSubscript:0];
-        unsignedLongLongValue4 = [v112 unsignedLongLongValue];
-        v114 = [v169 objectAtIndexedSubscript:0];
-        v115 = [v158 objectForKeyedSubscript:v114];
-        cumulativeTime2 = [v115 cumulativeTime];
+        v183 = [v111 objectAtIndexedSubscript:0];
+        unsignedLongLongValue3 = [v183 unsignedLongLongValue];
+        v178 = [v175 objectForKeyedSubscript:v112];
+        cumulativeTime2 = [v178 cumulativeTime];
+        v127 = [v186 objectAtIndexedSubscript:0];
+        unsignedLongLongValue4 = [v127 unsignedLongLongValue];
+        v129 = [v186 objectAtIndexedSubscript:0];
+        v130 = [v175 objectForKeyedSubscript:v129];
+        cumulativeTime3 = [v130 cumulativeTime];
         *buf = 134218752;
         *&buf[4] = unsignedLongLongValue3;
         *&buf[12] = 2048;
-        *&buf[14] = cumulativeTime;
+        *&buf[14] = cumulativeTime2;
         self = selfCopy;
         *&buf[22] = 2048;
-        v182 = unsignedLongLongValue4;
-        LOWORD(v183) = 2048;
-        *(&v183 + 2) = cumulativeTime2;
-        _os_log_impl(&_mh_execute_header, v110, OS_LOG_TYPE_DEFAULT, "findBlockingThreadForTailspin: max cumulative Thread id %llx, blocking time %llu, max block time thread id %llx, blocking time %llu ", buf, 0x2Au);
+        v199 = unsignedLongLongValue4;
+        LOWORD(v200) = 2048;
+        *(&v200 + 2) = cumulativeTime3;
+        _os_log_impl(&_mh_execute_header, v125, OS_LOG_TYPE_DEFAULT, "findBlockingThreadForTailspin: max cumulative Thread id %llx, blocking time %llu, max block time thread id %llx, blocking time %llu ", buf, 0x2Au);
 
-        v108 = v170;
-        v97 = v148;
+        v122 = v187;
+        v109 = v165;
       }
     }
 
-    [(HRMakeRunnableData *)self storeTopBlockingThreadInfoInBlockingThreadInfo:v97 sampleStore:v108 mostBlockingTimeThreadId:v100 pidMostBlockingTime:v103 blockedTime:v102 isHangMainThread:unsignedLongLongValue5 == v143];
-    if ([v102 unsignedLongLongValue] < 0x33)
+    [(HRMakeRunnableData *)self storeTopBlockingThreadInfoInBlockingThreadInfo:v109 sampleStore:v122 mostBlockingTimeThreadId:v112 pidMostBlockingTime:v117 blockedTime:v116 isHangMainThread:unsignedLongLongValue5 == v160];
+    if ([v116 unsignedLongLongValue] < 0x33)
     {
-      v125 = 0;
+      v142 = 0;
       v17 = 0;
     }
 
     else
     {
-      [(HRMakeRunnableData *)self storeOtherBlockingThreadInfoInBlockingThreadInfo:v97 sampleStore:v108 mostBlockingTimeThreadId:v100 sortedThreadsMaxCumlativeTime:v99 blockingTimeByThread:v158 tidToPidDict:tidToPidDict];
-      if (v103)
+      v132 = [(HRMakeRunnableData *)self storeOtherBlockingThreadInfoInBlockingThreadInfo:v109 sampleStore:v122 mostBlockingTimeThreadId:v112 sortedThreadsMaxCumlativeTime:v111 blockingTimeByThread:v175 tidToPidDict:tidToPidDict];
+      if (v117)
       {
-        v117 = [v158 objectForKeyedSubscript:v100];
-        endThreadTime = [v117 endThreadTime];
+        v133 = [v175 objectForKeyedSubscript:v112];
+        endThreadTime = [v133 endThreadTime];
 
-        v119 = [v158 objectForKeyedSubscript:v100];
-        startThreadTime = [v119 startThreadTime];
+        v135 = [v175 objectForKeyedSubscript:v112];
+        startThreadTime = [v135 startThreadTime];
 
-        v121 = sub_100001684();
-        if (os_log_type_enabled(v121, OS_LOG_TYPE_INFO))
+        v138 = sub_100001684(v137);
+        if (os_log_type_enabled(v138, OS_LOG_TYPE_INFO))
         {
-          *buf = v139;
+          *buf = v156;
           *&buf[4] = startThreadTime;
           *&buf[12] = 2048;
           *&buf[14] = endThreadTime;
-          _os_log_impl(&_mh_execute_header, v121, OS_LOG_TYPE_INFO, "findBlockingThreadForTailspin: new threadStartTime %llu endTime %llu ", buf, 0x16u);
+          _os_log_impl(&_mh_execute_header, v138, OS_LOG_TYPE_INFO, "findBlockingThreadForTailspin: new threadStartTime %llu endTime %llu ", buf, 0x16u);
         }
 
         if (endThreadTime - startThreadTime > (endTime - time) >> 1)
         {
-          unsignedLongLongValue5 = [v100 unsignedLongLongValue];
-          v150 = sub_100016D78(v170, tidToPidDict, unsignedLongLongValue5);
+          unsignedLongLongValue5 = [v112 unsignedLongLongValue];
+          v167 = sub_100016D78(v187, tidToPidDict, unsignedLongLongValue5);
 
-          v122 = objc_alloc_init(NSMutableDictionary);
-          [v97 setObject:v122 forKeyedSubscript:@"nextTopBlockingThreadInfo"];
+          v139 = objc_alloc_init(NSMutableDictionary);
+          [v109 setObject:v139 forKeyedSubscript:@"nextTopBlockingThreadInfo"];
 
-          v125 = 0;
-          ++v147;
+          v142 = 0;
+          ++v164;
           v17 = 1;
-          v148 = v122;
+          v165 = v139;
         }
 
         else
         {
-          v125 = 0;
+          v142 = 0;
           v17 = 0;
-          v150 = v171;
+          v167 = v188;
         }
 
         endTime = endThreadTime;
@@ -717,53 +724,53 @@ LABEL_110:
         goto LABEL_71;
       }
 
-      v123 = sub_100001684();
-      if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
+      v140 = sub_100001684(v132);
+      if (os_log_type_enabled(v140, OS_LOG_TYPE_DEFAULT))
       {
-        unsignedLongLongValue6 = [v100 unsignedLongLongValue];
+        unsignedLongLongValue6 = [v112 unsignedLongLongValue];
         *buf = 134217984;
         *&buf[4] = unsignedLongLongValue6;
-        _os_log_impl(&_mh_execute_header, v123, OS_LOG_TYPE_DEFAULT, "findBlockingThreadForTailspin: pid is nil for Thread with most blocking time %llx ", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v140, OS_LOG_TYPE_DEFAULT, "findBlockingThreadForTailspin: pid is nil for Thread with most blocking time %llx ", buf, 0xCu);
       }
 
       v17 = 0;
-      v125 = 3;
+      v142 = 3;
     }
 
-    v150 = v171;
+    v167 = v188;
 LABEL_71:
 
-    tailspinCopy = v142;
-    if (v125)
+    tailspinCopy = v159;
+    if (v142)
     {
       goto LABEL_110;
     }
   }
 
-  v133 = sub_100001684();
-  v134 = v133;
+  v150 = sub_100001684(0);
+  v151 = v150;
   self = selfCopy;
-  if (unsignedLongLongValue5 != v143)
+  if (unsignedLongLongValue5 != v160)
   {
-    if (os_log_type_enabled(v133, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v150, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
       *&buf[4] = unsignedLongLongValue5;
-      _os_log_impl(&_mh_execute_header, v134, OS_LOG_TYPE_INFO, "findBlockingThreadForTailspin: 0 mkrunnable tracepoints found for threadId = %llx", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v151, OS_LOG_TYPE_INFO, "findBlockingThreadForTailspin: 0 mkrunnable tracepoints found for threadId = %llx", buf, 0xCu);
     }
 
     goto LABEL_109;
   }
 
-  if (os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
   {
-    sub_10003F6D0(v134);
+    sub_10003F6D0(v151);
   }
 
-  v132 = 3;
+  v149 = 3;
 LABEL_111:
 
-  return v132;
+  return v149;
 }
 
 - (int64_t)findBlockingThreadFromSampleStore:(id)store mainThread:(id)thread hangStartTime:(unint64_t)time hangEndTime:(unint64_t)endTime

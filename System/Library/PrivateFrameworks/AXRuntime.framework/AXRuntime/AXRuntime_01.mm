@@ -5,23 +5,23 @@ CFTypeRef __AXConvertOutgoingValue_block_invoke(uint64_t a1, void *a2)
   return CFAutorelease(v2);
 }
 
-uint64_t __AXConvertOutgoingValue_block_invoke_19(uint64_t a1)
+uint64_t __AXConvertOutgoingValue_block_invoke_19(uint64_t a1, void *a2)
 {
-  v2 = AXConvertOutgoingValue(*(a1 + 40));
-  if (v2)
+  v3 = AXConvertOutgoingValue(*(a1 + 40), a2);
+  if (v3)
   {
-    [*(a1 + 32) addObject:v2];
+    [*(a1 + 32) addObject:v3];
   }
 
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t __AXConvertOutgoingValue_block_invoke_2(uint64_t a1)
+uint64_t __AXConvertOutgoingValue_block_invoke_2(uint64_t a1, void *a2)
 {
-  v2 = AXConvertOutgoingValue(*(a1 + 40));
-  if (v2)
+  v3 = AXConvertOutgoingValue(*(a1 + 40), a2);
+  if (v3)
   {
-    [*(a1 + 32) addObject:v2];
+    [*(a1 + 32) addObject:v3];
   }
 
   return MEMORY[0x1EEE66BB8]();
@@ -64,7 +64,7 @@ Class __getBKSHIDEventAuthenticationMessageClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __BackBoardServicesLibraryCore_block_invoke()
+uint64_t __BackBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   BackBoardServicesLibraryCore_frameworkLibrary = result;
@@ -78,7 +78,7 @@ void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
-uint64_t AXSerializeCFType(void *a1, uint64_t a2, int a3, void **a4, void *a5, size_t *a6)
+uint64_t AXSerializeCFType(const void *a1, uint64_t a2, int a3, void **a4, void *a5, size_t *a6)
 {
   *a5 = 0;
   SerializeMethodForType = getSerializeMethodForType(a1);
@@ -145,9 +145,9 @@ uint64_t AXSerializeCFType(void *a1, uint64_t a2, int a3, void **a4, void *a5, s
   return v16;
 }
 
-uint64_t (*getSerializeMethodForType(const void *a1))(void *a1, uint64_t a2)
+uint64_t (*getSerializeMethodForType(const void *a1))(const __CFAttributedString *a1, uint64_t a2)
 {
-  v1 = CFGetTypeID(a1);
+  v2 = CFGetTypeID(a1);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -165,25 +165,25 @@ uint64_t (*getSerializeMethodForType(const void *a1))(void *a1, uint64_t a2)
     TypeID = CTFontGetTypeID();
   }
 
-  v1 = TypeID;
+  v2 = TypeID;
 LABEL_6:
   if (getSerializeMethodForType_onceToken != -1)
   {
     getSerializeMethodForType_cold_1();
   }
 
-  if (AXIsAXAttributedString())
+  if (AXIsAXAttributedString(a1))
   {
     return cfAttributedStringSerialize;
   }
 
-  v4 = getSerializeMethodForType_SerializeLookup;
-  v5 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v1];
+  v5 = getSerializeMethodForType_SerializeLookup;
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v2];
 
-  return CFDictionaryGetValue(v4, v5);
+  return CFDictionaryGetValue(v5, v6);
 }
 
-uint64_t SerializeCFType(void *a1, void **a2, size_t *a3)
+uint64_t SerializeCFType(const void *a1, void **a2, size_t *a3)
 {
   *a3 = 0;
   *a2 = 0;
@@ -510,7 +510,7 @@ uint64_t cfDataSerialize(const __CFData *a1, vm_address_t *a2)
 
 uint64_t cfDateSerialize(uint64_t a1, vm_address_t *a2)
 {
-  v3 = MEMORY[0x1BFB5C030]();
+  v3 = MEMORY[0x1BFB5C030](a1);
   result = reserveSpace(a2, 12);
   if (!result)
   {
@@ -600,12 +600,13 @@ uint64_t cfNullSerialize(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t cfAttributedStringSerialize(void *a1, uint64_t a2)
+uint64_t cfAttributedStringSerialize(const __CFAttributedString *a1, uint64_t a2)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
-  if (AXIsAXAttributedString())
+  v3 = a1;
+  v17[1] = *MEMORY[0x1E69E9840];
+  if (AXIsAXAttributedString(a1))
   {
-    a1 = AXGetCFAttributedStringFromAXAttributedString(a1);
+    v3 = AXGetCFAttributedStringFromAXAttributedString(v3);
   }
 
   NumberOfRuns = _CFAttributedStringGetNumberOfRuns();
@@ -625,9 +626,9 @@ uint64_t cfAttributedStringSerialize(void *a1, uint64_t a2)
     if (v7)
     {
       v9 = malloc_type_malloc(8 * v7, 0x6004044C4A2DFuLL);
-      MEMORY[0x1EEE9AC00]();
+      MEMORY[0x1EEE9AC00](v9, v10, v11);
       _CFAttributedStringGetRuns();
-      memmove(*(a2 + 8), &v15[-2 * v7], 16 * v7);
+      memmove(*(a2 + 8), &v17[-2 * v7], 16 * v7);
       *(a2 + 8) += 16 * v7;
     }
 
@@ -636,28 +637,28 @@ uint64_t cfAttributedStringSerialize(void *a1, uint64_t a2)
       v9 = 0;
     }
 
-    String = CFAttributedStringGetString(a1);
+    String = CFAttributedStringGetString(v3);
     cfStringSerialize(String, a2);
     if (v9)
     {
       if (v7)
       {
-        v11 = 1;
-        v12 = v9;
+        v13 = 1;
+        v14 = v9;
         do
         {
-          v13 = *v12++;
-          v14 = cfDictionarySerialize(v13, a2);
-          v5 = v14;
-          if (v11 >= v7)
+          v15 = *v14++;
+          v16 = cfDictionarySerialize(v15, a2);
+          v5 = v16;
+          if (v13 >= v7)
           {
             break;
           }
 
-          ++v11;
+          ++v13;
         }
 
-        while (!v14);
+        while (!v16);
       }
 
       else
@@ -682,7 +683,7 @@ uint64_t cfAttributedStringSerialize(void *a1, uint64_t a2)
 
 uint64_t cgColorSerialize(CGColor *a1, vm_address_t *a2)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   if (!CGColorGetColorSpace(a1))
   {
     return 4294942096;
@@ -701,28 +702,28 @@ uint64_t cgColorSerialize(CGColor *a1, vm_address_t *a2)
   if (!result)
   {
     Components = CGColorGetComponents(a1);
-    v10 = MEMORY[0x1EEE9AC00](Components);
-    v13 = v18 - ((v11 + 15) & 0xFFFFFFFF0);
+    v12 = MEMORY[0x1EEE9AC00](Components, v10, v11);
+    v15 = v20 - ((v13 + 15) & 0xFFFFFFFF0);
     if (NumberOfComponents)
     {
-      v14 = (v18 - ((v11 + 15) & 0xFFFFFFFF0));
+      v16 = (v20 - ((v13 + 15) & 0xFFFFFFFF0));
       do
       {
-        v15 = *v10++;
-        *v14++ = v15;
-        --v12;
+        v17 = *v12++;
+        *v16++ = v17;
+        --v14;
       }
 
-      while (v12);
+      while (v14);
     }
 
-    v16 = a2[1];
-    *v16 = 12;
-    v16[1] = v6;
-    v16[2] = NumberOfComponents;
-    v17 = (a2[1] + 12);
-    a2[1] = v17;
-    memmove(v17, v13, v8);
+    v18 = a2[1];
+    *v18 = 12;
+    v18[1] = v6;
+    v18[2] = NumberOfComponents;
+    v19 = (a2[1] + 12);
+    a2[1] = v19;
+    memmove(v19, v15, v8);
     a2[1] += v8;
     return 0;
   }
@@ -800,7 +801,7 @@ LABEL_6:
   objc_autoreleasePoolPop(v4);
 }
 
-void serializeDictApplier(uint64_t a1, __CFString *a2, uint64_t a3)
+void serializeDictApplier(const void *a1, __CFString *a2, uint64_t a3)
 {
   v6 = objc_autoreleasePoolPush();
   if (!*a3)
@@ -808,7 +809,7 @@ void serializeDictApplier(uint64_t a1, __CFString *a2, uint64_t a3)
     SerializeMethodForType = getSerializeMethodForType(a1);
     if (SerializeMethodForType)
     {
-      v8 = SerializeMethodForType(a1, *(a3 + 8));
+      v8 = (SerializeMethodForType)(a1, *(a3 + 8));
       *a3 = v8;
       if (v8)
       {
@@ -829,7 +830,7 @@ void serializeDictApplier(uint64_t a1, __CFString *a2, uint64_t a3)
         v9 = v10;
       }
 
-      v11 = v9(a2, *(a3 + 8));
+      v11 = (v9)(a2, *(a3 + 8));
     }
 
     else
@@ -935,7 +936,7 @@ LABEL_19:
 
   if ((v18 & 0xFFFFFFFC) > 0xFFFFFFF3uLL || v19)
   {
-    cfStringUnserialize_cold_3();
+    cfStringUnserialize_cold_3(a1);
     return 4294942096;
   }
 
@@ -1031,7 +1032,7 @@ LABEL_12:
 LABEL_6:
   if (HIDWORD(a3) || v17 >= 0xFFFFFFF0)
   {
-    cfNumberUnserialize_cold_3();
+    cfNumberUnserialize_cold_3(a1);
     return 4294942096;
   }
 
@@ -1140,7 +1141,7 @@ LABEL_34:
       }
 
 LABEL_38:
-      MEMORY[0x1EEE9AC00](a1);
+      MEMORY[0x1EEE9AC00](a1, a2, a3);
       v44 = v48 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
       memmove((v44 & 0xFFFFFFFFFFFFFFE0), (*a2 + 16), *(v16 + 8));
       *a4 = CFNumberCreate(a1, *(v16 + 4), (v44 & 0xFFFFFFFFFFFFFFE0));
@@ -1176,7 +1177,7 @@ LABEL_38:
   return result;
 }
 
-uint64_t cfBooleanUnserialize(uint64_t a1, unint64_t *a2, unint64_t a3, const void **a4)
+uint64_t cfBooleanUnserialize(uint64_t a1, unint64_t *a2, unint64_t a3, CFTypeRef *a4)
 {
   if (a3 <= 4)
   {
@@ -1214,7 +1215,7 @@ LABEL_4:
   return 0;
 }
 
-uint64_t cfArrayUnserialize(CFAllocatorRef allocator, unint64_t *a2, unint64_t a3, const void **a4, uint64_t a5, uint64_t a6)
+uint64_t cfArrayUnserialize(CFAllocatorRef allocator, unint64_t *a2, unint64_t a3, CFArrayRef *a4, uint64_t a5, uint64_t a6)
 {
   if (a3 <= 0xB)
   {
@@ -1375,7 +1376,7 @@ LABEL_39:
   return v31;
 }
 
-uint64_t cfDictionaryUnserialize(CFAllocatorRef allocator, unint64_t *a2, unint64_t a3, const void **a4, uint64_t a5, uint64_t a6)
+uint64_t cfDictionaryUnserialize(CFAllocatorRef allocator, unint64_t *a2, unint64_t a3, __CFDictionary **a4, uint64_t a5, uint64_t a6)
 {
   if (a3 <= 0xB)
   {
@@ -1427,7 +1428,7 @@ LABEL_6:
   *a2 += 12;
   if (v21 >= 0xFFFFFFFFFFFFFFF4)
   {
-    cfDictionaryUnserialize_cold_4();
+    cfDictionaryUnserialize_cold_4(allocator);
     return 4294942096;
   }
 
@@ -1732,7 +1733,7 @@ uint64_t cfDateUnserialize(const __CFAllocator *a1, unint64_t *a2, unint64_t a3,
   return 4294942096;
 }
 
-uint64_t cfURLUnserialize(const __CFAllocator *a1, uint64_t *a2, unint64_t a3, CFURLRef *a4, int a5)
+uint64_t cfURLUnserialize(const __CFAllocator *a1, unint64_t *a2, unint64_t a3, CFURLRef *a4, int a5)
 {
   v5 = *a2;
   cf = 0;
@@ -1753,7 +1754,7 @@ LABEL_8:
   *a2 = v5 + 5;
   if (v5 >= 0xFFFFFFFFFFFFFFFBLL)
   {
-    cfURLUnserialize_cold_3();
+    cfURLUnserialize_cold_3(a1);
     return 4294942096;
   }
 
@@ -1856,7 +1857,7 @@ uint64_t cfNullUnserialize(uint64_t a1, unint64_t *a2, unint64_t a3, void *a4)
   *a2 += 4;
   if (v14 >= 0xFFFFFFFFFFFFFFFCLL)
   {
-    cfNullUnserialize_cold_2();
+    cfNullUnserialize_cold_2(a1);
     return 4294942096;
   }
 
@@ -1870,7 +1871,7 @@ uint64_t cfNullUnserialize(uint64_t a1, unint64_t *a2, unint64_t a3, void *a4)
   return result;
 }
 
-uint64_t cfAttributedStringUnserialize(const __CFAllocator *a1, uint64_t *a2, unint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6)
+uint64_t cfAttributedStringUnserialize(const __CFAllocator *a1, unint64_t *a2, unint64_t a3, CFTypeRef *a4, uint64_t a5, uint64_t a6)
 {
   v6 = *a2;
   str = 0;
@@ -1891,7 +1892,7 @@ LABEL_8:
   *a2 = v6 + 12;
   if (v6 >= 0xFFFFFFFFFFFFFFF4)
   {
-    cfAttributedStringUnserialize_cold_6();
+    cfAttributedStringUnserialize_cold_6(a1);
     return 4294942096;
   }
 
@@ -1932,7 +1933,7 @@ LABEL_8:
   if (v32 >> 60)
   {
 LABEL_60:
-    cfAttributedStringUnserialize_cold_2();
+    cfAttributedStringUnserialize_cold_2(a1);
     return 4294942096;
   }
 
@@ -2360,7 +2361,7 @@ LABEL_12:
 
 uint64_t cgColorUnserialize(uint64_t a1, uint64_t *a2, unint64_t a3, CGColorRef *a4, int a5)
 {
-  v54[1] = *MEMORY[0x1E69E9840];
+  v56[1] = *MEMORY[0x1E69E9840];
   if (a3 <= 0xB)
   {
     v5 = AXRuntimeLogSerialization();
@@ -2396,7 +2397,7 @@ LABEL_37:
 
   if (v17 > 0xFFFFFFF3 || v18)
   {
-    cgColorUnserialize_cold_4();
+    cgColorUnserialize_cold_4(a1);
     return 4294942096;
   }
 
@@ -2455,7 +2456,7 @@ LABEL_37:
     v5 = AXRuntimeLogSerialization();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      cgColorUnserialize_cold_2(v5, v39, v40, v41, v42, v43, v44, v45);
+      cgColorUnserialize_cold_2(v5, v41, v42, v43, v44, v45, v46, v47);
     }
 
     goto LABEL_37;
@@ -2469,43 +2470,43 @@ LABEL_37:
     v5 = AXRuntimeLogSerialization();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      cgColorUnserialize_cold_1(v5, v46, v47, v48, v49, v50, v51, v52);
+      cgColorUnserialize_cold_1(v5, v48, v49, v50, v51, v52, v53, v54);
     }
 
     goto LABEL_37;
   }
 
-  v33 = v17 + 12;
-  MEMORY[0x1EEE9AC00](NumberOfComponents);
-  v35 = v54 - ((v34 + 15) & 0xFFFFFFFF0);
-  memmove(v35, (*a2 + 12), 8 * *(v15 + 8));
-  *a4 = CGColorCreate(v30, v35);
+  v35 = v17 + 12;
+  MEMORY[0x1EEE9AC00](NumberOfComponents, v33, v34);
+  v37 = v56 - ((v36 + 15) & 0xFFFFFFFF0);
+  memmove(v37, (*a2 + 12), 8 * *(v15 + 8));
+  *a4 = CGColorCreate(v30, v37);
   CFRelease(v30);
-  v36 = *a2;
-  *a2 += v33;
-  v37 = *a4;
-  if (__CFADD__(v33, v36))
+  v38 = *a2;
+  *a2 += v35;
+  v39 = *a4;
+  if (__CFADD__(v35, v38))
   {
-    if (v37)
+    if (v39)
     {
-      CFRelease(v37);
+      CFRelease(v39);
       *a4 = 0;
     }
 
-    v53 = "color: could not increment pointer";
+    v55 = "color: could not increment pointer";
   }
 
   else
   {
-    if (v37)
+    if (v39)
     {
       return 0;
     }
 
-    v53 = "color: unable to create";
+    v55 = "color: unable to create";
   }
 
-  _logAndReturn(v53);
+  _logAndReturn(v55);
   return 4294942096;
 }
 
@@ -2753,7 +2754,7 @@ uint64_t cfUUIDUnserialize(const __CFAllocator *a1, unint64_t *a2, unint64_t a3,
       *a2 = v9 + 4;
       if (v9 >= 0xFFFFFFFFFFFFFFFCLL)
       {
-        cfUUIDUnserialize_cold_2();
+        cfUUIDUnserialize_cold_2(a1);
       }
 
       else if ((v8 | a3) >> 32)
@@ -2827,7 +2828,7 @@ uint64_t ctFontUnserialize(const __CFAllocator *a1, unint64_t *a2, unint64_t a3,
       *a2 = v10 + 8;
       if (v10 >= 0xFFFFFFFFFFFFFFF8)
       {
-        ctFontUnserialize_cold_2();
+        ctFontUnserialize_cold_2(a1);
       }
 
       else if ((v9 | a3) >> 32)
@@ -2864,16 +2865,18 @@ uint64_t ctFontUnserialize(const __CFAllocator *a1, unint64_t *a2, unint64_t a3,
   return v7;
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 BOOL OUTLINED_FUNCTION_2(NSObject *a1)
@@ -3180,16 +3183,16 @@ uint64_t AXGetCFAttributedStringFromAXAttributedString(void *a1)
   return [a1 cfAttributedString];
 }
 
-uint64_t AXCreateAXAttributedStringFromCFAttributedString(uint64_t a1)
+AXAttributedString *AXCreateAXAttributedStringFromCFAttributedString(uint64_t a1)
 {
   v2 = [AXAttributedString alloc];
 
   return [(AXAttributedString *)v2 initWithCFAttributedString:a1];
 }
 
-void sub_1BF7AA9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF7AA9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3201,9 +3204,9 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1BF7AABB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF7AABB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3226,7 +3229,7 @@ id AXStringFromAXAttributedString(void *a1)
   return v3;
 }
 
-void _AXInitializeObserverAccess()
+void _AXInitializeObserverAccess(uint64_t result, uint64_t a2)
 {
   if (_AXInitializeObserverAccess_onceToken != -1)
   {
@@ -3234,7 +3237,7 @@ void _AXInitializeObserverAccess()
   }
 }
 
-uint64_t _AXUIElementRegisterNotificationObserverDiedCallback(void *a1)
+uint64_t _AXUIElementRegisterNotificationObserverDiedCallback(uint64_t (*a1)(void))
 {
   if (_AXUIElementRegisterNotificationObserverDiedCallback_observerDiedRegistered)
   {
@@ -3247,7 +3250,7 @@ uint64_t _AXUIElementRegisterNotificationObserverDiedCallback(void *a1)
   return result;
 }
 
-uint64_t _AXAddNotificationObserver()
+uint64_t _AXAddNotificationObserver(uint64_t a1, uint64_t a2)
 {
   if (_AXInitializeObserverAccess_onceToken != -1)
   {
@@ -3257,7 +3260,7 @@ uint64_t _AXAddNotificationObserver()
   return AX_PERFORM_WITH_LOCK();
 }
 
-uint64_t _AXRemoveNotificationObserver()
+uint64_t _AXRemoveNotificationObserver(uint64_t a1, uint64_t a2)
 {
   if (_AXInitializeObserverAccess_onceToken != -1)
   {
@@ -3267,7 +3270,7 @@ uint64_t _AXRemoveNotificationObserver()
   return AX_PERFORM_WITH_LOCK();
 }
 
-void _AXNotificationObserverClientDied(CFTypeRef cf)
+void _AXNotificationObserverClientDied(CFTypeRef cf, uint64_t a2)
 {
   if (_AXInitializeObserverAccess_onceToken == -1)
   {
@@ -3287,24 +3290,24 @@ LABEL_3:
   }
 
 LABEL_4:
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
-  v14 = 0;
-  v5 = MEMORY[0x1E69E9820];
-  v6 = 3221225472;
-  v7 = ___AXNotificationObserverClientDied_block_invoke;
-  v8 = &unk_1E80D3CF8;
-  v9 = &v11;
-  v10 = cf;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v6 = MEMORY[0x1E69E9820];
+  v7 = 3221225472;
+  v8 = ___AXNotificationObserverClientDied_block_invoke;
+  v9 = &unk_1E80D3CF8;
+  v10 = &v12;
+  v11 = cf;
   AX_PERFORM_WITH_LOCK();
-  if (*(v12 + 24) == 1)
+  if (*(v13 + 24) == 1)
   {
-    v2 = AXRuntimeLogCommon();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = AXRuntimeLogCommon();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_1BF78E000, v2, OS_LOG_TYPE_INFO, "No more observers waiting to be disabled, turning off automation", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_1BF78E000, v3, OS_LOG_TYPE_INFO, "No more observers waiting to be disabled, turning off automation", v5, 2u);
     }
 
     _AXSAutomationLocalizedStringLookupInfoSetEnabled();
@@ -3314,11 +3317,11 @@ LABEL_4:
 
   else
   {
-    v3 = AXRuntimeLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = AXRuntimeLogCommon();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_1BF78E000, v3, OS_LOG_TYPE_INFO, "Automation disablement remaining: ", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_1BF78E000, v4, OS_LOG_TYPE_INFO, "Automation disablement remaining: ", v5, 2u);
     }
   }
 
@@ -3332,7 +3335,7 @@ LABEL_4:
     CFRelease(cf);
   }
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v12, 8);
 }
 
 void AXTentativePidSuspend(uint64_t a1, uint64_t a2)
@@ -3357,7 +3360,7 @@ void AXTentativePidSuspend(uint64_t a1, uint64_t a2)
   v9[2] = v6;
   v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
-  AXPushNotificationToSystemForBroadcast();
+  AXPushNotificationToSystemForBroadcast(1021, 0, v7);
 }
 
 uint64_t _AXPidIsAssociatedInternal(uint64_t a1, void *a2)
@@ -3421,7 +3424,7 @@ LABEL_11:
 
 uint64_t _AXIsPidAssociated(uint64_t a1)
 {
-  v2 = _allDisplayTypes();
+  v2 = _allDisplayTypes(a1);
   IsAssociatedInternal = _AXPidIsAssociatedInternal(a1, v2);
 
   return IsAssociatedInternal;
@@ -3620,45 +3623,45 @@ void _AXClearAssociatedPids(uint64_t a1)
   dispatch_after(v24, MEMORY[0x1E69E96A0], block);
 }
 
-void ___displayMonitor_block_invoke()
+void ___displayMonitor_block_invoke(uint64_t a1)
 {
   if (!_AXSMossdeepEnabled())
   {
-    v5 = 0;
-    v6 = &v5;
-    v7 = 0x2050000000;
-    v0 = getFBSDisplayMonitorClass_softClass;
-    v8 = getFBSDisplayMonitorClass_softClass;
+    v6 = 0;
+    v7 = &v6;
+    v8 = 0x2050000000;
+    v1 = getFBSDisplayMonitorClass_softClass;
+    v9 = getFBSDisplayMonitorClass_softClass;
     if (!getFBSDisplayMonitorClass_softClass)
     {
-      v4[0] = MEMORY[0x1E69E9820];
-      v4[1] = 3221225472;
-      v4[2] = __getFBSDisplayMonitorClass_block_invoke;
-      v4[3] = &unk_1E80D3D68;
-      v4[4] = &v5;
-      __getFBSDisplayMonitorClass_block_invoke(v4);
-      v0 = v6[3];
+      v5[0] = MEMORY[0x1E69E9820];
+      v5[1] = 3221225472;
+      v5[2] = __getFBSDisplayMonitorClass_block_invoke;
+      v5[3] = &unk_1E80D3D68;
+      v5[4] = &v6;
+      __getFBSDisplayMonitorClass_block_invoke(v5);
+      v1 = v7[3];
     }
 
-    v1 = v0;
-    _Block_object_dispose(&v5, 8);
-    v2 = objc_opt_new();
-    v3 = _displayMonitor_DisplayMonitor;
-    _displayMonitor_DisplayMonitor = v2;
+    v2 = v1;
+    _Block_object_dispose(&v6, 8);
+    v3 = objc_opt_new();
+    v4 = _displayMonitor_DisplayMonitor;
+    _displayMonitor_DisplayMonitor = v3;
   }
 }
 
-void sub_1BF7AD698(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1BF7AD698(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  va_start(va, a8);
+  va_start(va, a14);
   _Block_object_dispose(va, 8);
   if (a2 == 1)
   {
-    v10 = objc_begin_catch(a1);
-    v11 = [v10 name];
-    v12 = [v11 isEqualToString:*MEMORY[0x1E695D930]];
+    v16 = objc_begin_catch(a1);
+    v17 = [v16 name];
+    v18 = [v17 isEqualToString:*MEMORY[0x1E695D930]];
 
-    if (v12)
+    if (v18)
     {
 
       objc_end_catch();
@@ -3708,7 +3711,7 @@ Class __getFBSDisplayMonitorClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __FrontBoardServicesLibraryCore_block_invoke()
+uint64_t __FrontBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   FrontBoardServicesLibraryCore_frameworkLibrary = result;
@@ -4376,7 +4379,7 @@ LABEL_39:
   return v2;
 }
 
-id __AXStringForVariables(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
+id __AXStringForVariables(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v9 = __AXStringForVariablesWithVariadics(a1, &a9);
 
@@ -4462,19 +4465,20 @@ void _gatherTransactionSummary()
   }
 }
 
-void sub_1BF7B102C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BF7B102C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BF7B1710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1BF7B1710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a16, 8);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 160), 8);
-  _Block_object_dispose((v29 - 192), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 160), 8);
+  _Block_object_dispose((v28 - 192), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4604,7 +4608,7 @@ LABEL_6:
   return v4;
 }
 
-void __AXUIElementConvertOutgoingType_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void __AXUIElementConvertOutgoingType_block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = AXUIElementConvertOutgoingType(a2);
   [*(a1 + 32) setObject:v5 atIndexedSubscript:a3];
@@ -4626,16 +4630,16 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1BF7B8104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF7B8104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BF7BAF7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF7BAF7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4647,16 +4651,16 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1BF7BCD54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BF7BCD54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BF7BD0D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BF7BD0D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4679,16 +4683,16 @@ void __destroy_helper_block_e8_96n4_8_s0144n7_8_s0_s8(uint64_t a1)
   v2 = *(a1 + 96);
 }
 
-void sub_1BF7BDAE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF7BDAE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BF7BE2AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF7BE2AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4734,7 +4738,7 @@ void AccessibilityPhysicalInteractionLibrary()
   }
 }
 
-uint64_t __AccessibilityPhysicalInteractionLibraryCore_block_invoke()
+uint64_t __AccessibilityPhysicalInteractionLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AccessibilityPhysicalInteractionLibraryCore_frameworkLibrary = result;
@@ -4785,7 +4789,7 @@ uint64_t AXMediaUtilitiesLibrary()
   return v0;
 }
 
-uint64_t __AXMediaUtilitiesLibraryCore_block_invoke()
+uint64_t __AXMediaUtilitiesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AXMediaUtilitiesLibraryCore_frameworkLibrary = result;
@@ -4885,7 +4889,7 @@ Class __getAXSettingsClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke()
+uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AccessibilityUtilitiesLibraryCore_frameworkLibrary = result;
@@ -4992,11 +4996,11 @@ void AX_CGPathEnumerateElementsUsingBlock(const CGPath *a1, void *a2)
   _Block_object_dispose(v11, 8);
 }
 
-void sub_1BF7C0EBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BF7C0EBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5006,9 +5010,9 @@ void _CGPathEnumerationIteration(const void *a1, uint64_t a2)
   v3[2](v3, a2);
 }
 
-void sub_1BF7C53FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BF7C53FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5050,7 +5054,7 @@ Class __getAXCustomContentClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __AccessibilityLibraryCore_block_invoke()
+uint64_t __AccessibilityLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AccessibilityLibraryCore_frameworkLibrary = result;
@@ -5171,30 +5175,38 @@ void sub_1BF7C86CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1BF7C8E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_1BF7C8E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a37, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1BF7C9F90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BF7CBD84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1BF7C9F90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
   va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BF7CDE50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1BF7CBD84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a8);
+  va_start(va, a23);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BF7CC794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BF7CDE50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5267,9 +5279,9 @@ id smugglingDictionaryForCGPath(const CGPath *a1)
   return v4;
 }
 
-void sub_1BF7CE4C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1BF7CE4C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5863,7 +5875,7 @@ LABEL_35:
 
 CGColorRef reconstitutedSmuggledCGColorFromDictionary(void *a1, void *a2)
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [v3 objectForKeyedSubscript:@"ValueType"];
   objc_opt_class();
@@ -5924,23 +5936,23 @@ LABEL_24:
       NumberOfComponents = CGColorSpaceGetNumberOfComponents(v11);
       if (v14 == NumberOfComponents + 1)
       {
-        MEMORY[0x1EEE9AC00](NumberOfComponents);
-        v17 = (v20 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
+        MEMORY[0x1EEE9AC00](NumberOfComponents, v16, v17);
+        v19 = (v22 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0));
         if (v13 >= 8)
         {
-          v18 = 0;
+          v20 = 0;
           do
           {
-            v20[0] = 0;
-            [v6 getBytes:v20 range:{v18 * 8, 8}];
-            *&v17[v18++] = bswap64(v20[0]);
+            v22[0] = 0;
+            [v6 getBytes:v22 range:{v20 * 8, 8}];
+            *&v19[v20++] = bswap64(v22[0]);
             --v14;
           }
 
           while (v14);
         }
 
-        v8 = CGColorCreate(v11, v17);
+        v8 = CGColorCreate(v11, v19);
       }
 
       else if (a2)
@@ -5987,7 +5999,7 @@ LABEL_30:
 
 CGPath *reconstitutedSmuggledCGPathFromDictionary(void *a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = [a1 objectForKeyedSubscript:@"Value"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -6004,18 +6016,18 @@ CGPath *reconstitutedSmuggledCGPathFromDictionary(void *a1, void *a2)
 
   v4 = [v3 count];
   Mutable = CGPathCreateMutable();
-  v24 = v4;
+  v26 = v4;
   if (v4)
   {
-    v23 = a2;
+    v25 = a2;
     v6 = 0;
     v7 = 0;
     while (1)
     {
-      v8 = [v3 objectAtIndexedSubscript:{v6, v23}];
-      v27 = 0;
-      [v8 getBytes:&v27 range:{0, 2}];
-      v9 = bswap32(v27) >> 16;
+      v8 = [v3 objectAtIndexedSubscript:{v6, v25}];
+      v29 = 0;
+      [v8 getBytes:&v29 range:{0, 2}];
+      v9 = bswap32(v29) >> 16;
       if (v9 < 2)
       {
         v11 = 1;
@@ -6036,8 +6048,8 @@ CGPath *reconstitutedSmuggledCGPathFromDictionary(void *a1, void *a2)
         break;
       }
 
-      MEMORY[0x1EEE9AC00](v14);
-      v16 = &(&v23)[-2 * v15];
+      MEMORY[0x1EEE9AC00](v14, v15, v16);
+      v18 = &(&v25)[-2 * v17];
       if (v11)
       {
         if (v13 <= 1)
@@ -6050,19 +6062,19 @@ CGPath *reconstitutedSmuggledCGPathFromDictionary(void *a1, void *a2)
           v13 = v13;
         }
 
-        v17 = (v16 + 1);
-        v18 = 10;
+        v19 = (v18 + 1);
+        v20 = 10;
         do
         {
-          v26 = 0;
-          [v8 getBytes:&v26 range:{v18 - 8, 8}];
-          v25 = 0;
-          [v8 getBytes:&v25 range:{v18, 8}];
-          v19 = bswap64(v25);
-          *(v17 - 1) = bswap64(v26);
-          *v17 = v19;
-          v17 += 2;
-          v18 += 16;
+          v28 = 0;
+          [v8 getBytes:&v28 range:{v20 - 8, 8}];
+          v27 = 0;
+          [v8 getBytes:&v27 range:{v20, 8}];
+          v21 = bswap64(v27);
+          *(v19 - 1) = bswap64(v28);
+          *v19 = v21;
+          v19 += 2;
+          v20 += 16;
           --v13;
         }
 
@@ -6076,21 +6088,21 @@ CGPath *reconstitutedSmuggledCGPathFromDictionary(void *a1, void *a2)
           if (v9 != 1)
           {
 LABEL_39:
-            v21 = v23;
-            if (v23)
+            v23 = v25;
+            if (v25)
             {
-              *v21 = [MEMORY[0x1E696ABC0] errorWithDomain:@"AXSerialize3ErrorDomain" code:5 userInfo:0];
+              *v23 = [MEMORY[0x1E696ABC0] errorWithDomain:@"AXSerialize3ErrorDomain" code:5 userInfo:0];
             }
 
             goto LABEL_41;
           }
 
-          CGPathAddLineToPoint(Mutable, 0, *v16, v16[1]);
+          CGPathAddLineToPoint(Mutable, 0, *v18, v18[1]);
         }
 
         else
         {
-          CGPathMoveToPoint(Mutable, 0, *v16, v16[1]);
+          CGPathMoveToPoint(Mutable, 0, *v18, v18[1]);
         }
       }
 
@@ -6099,10 +6111,10 @@ LABEL_39:
         switch(v9)
         {
           case 2:
-            CGPathAddQuadCurveToPoint(Mutable, 0, *v16, v16[1], v16[2], v16[3]);
+            CGPathAddQuadCurveToPoint(Mutable, 0, *v18, v18[1], v18[2], v18[3]);
             break;
           case 3:
-            CGPathAddCurveToPoint(Mutable, 0, *v16, v16[1], v16[2], v16[3], v16[4], v16[5]);
+            CGPathAddCurveToPoint(Mutable, 0, *v18, v18[1], v18[2], v18[3], v18[4], v18[5]);
             break;
           case 4:
             CGPathCloseSubpath(Mutable);
@@ -6113,16 +6125,16 @@ LABEL_39:
       }
 
       v6 = ++v7;
-      if (v24 <= v7)
+      if (v26 <= v7)
       {
         goto LABEL_44;
       }
     }
 
-    v20 = v23;
-    if (v23)
+    v22 = v25;
+    if (v25)
     {
-      *v20 = [MEMORY[0x1E696ABC0] errorWithDomain:@"AXSerialize3ErrorDomain" code:2 userInfo:0];
+      *v22 = [MEMORY[0x1E696ABC0] errorWithDomain:@"AXSerialize3ErrorDomain" code:2 userInfo:0];
     }
 
 LABEL_41:
@@ -6245,9 +6257,9 @@ void __InitSmuggledTypes_block_invoke()
   AXSerializeSmuggledTypeCFURL = &unk_1F3E6C258;
 }
 
-void sub_1BF7D1AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF7D1AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6336,9 +6348,9 @@ LABEL_14:
   return v3;
 }
 
-void sub_1BF7D2944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF7D2944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6384,7 +6396,7 @@ void BrowserEngineKitLibrary()
   }
 }
 
-uint64_t __BrowserEngineKitLibraryCore_block_invoke()
+uint64_t __BrowserEngineKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   BrowserEngineKitLibraryCore_frameworkLibrary = result;
@@ -6405,9 +6417,9 @@ Class __getBEAccessibilityRemoteHostElementClass_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_1BF7D2DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF7D2DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6445,7 +6457,7 @@ void *__getAXPerformPrivilegedAttributedStringTransformationsSymbolLoc_block_inv
   return result;
 }
 
-uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke_0()
+uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   AccessibilityUtilitiesLibraryCore_frameworkLibrary_0 = result;
@@ -6454,7 +6466,7 @@ uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke_0()
 
 uint64_t _AXMIGCopyAttributeValue(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, _DWORD *a9, void *a10, _DWORD *a11, _DWORD *a12)
 {
-  v12 = MEMORY[0x1EEE9AC00]();
+  v12 = MEMORY[0x1EEE9AC00](a1, a2, a3);
   v14 = v13;
   v16 = v15;
   v17 = v12;
@@ -6610,7 +6622,7 @@ LABEL_32:
 
 uint64_t _AXMIGSetAttributeValue(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unsigned int a10, int a11, int *a12)
 {
-  v12 = MEMORY[0x1EEE9AC00](a1);
+  v12 = MEMORY[0x1EEE9AC00](a1, a2, a3);
   v63 = *MEMORY[0x1E69E9840];
   v61 = 0u;
   v62 = 0u;
@@ -6888,7 +6900,7 @@ LABEL_27:
 
 uint64_t _AXMIGPerformActionWithValue(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9, uint64_t a10, int a11, int a12, _DWORD *a13)
 {
-  v13 = MEMORY[0x1EEE9AC00]();
+  v13 = MEMORY[0x1EEE9AC00](a1, a2, a3);
   v39 = *MEMORY[0x1E69E9840];
   memset(v38, 0, sizeof(v38));
   v33 = 0x13000000000000;
@@ -7427,9 +7439,9 @@ LABEL_27:
   return v14;
 }
 
-uint64_t _AXMIGCopyParameterizedAttributeValue(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, unsigned int a10, int a11, void *__dst, _DWORD *a13, uint64_t *a14, _DWORD *a15, _DWORD *a16)
+uint64_t _AXMIGCopyParameterizedAttributeValue(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, int a10, int a11, void *__dst, _DWORD *a13, uint64_t *a14, _DWORD *a15, _DWORD *a16)
 {
-  v16 = MEMORY[0x1EEE9AC00]();
+  v16 = MEMORY[0x1EEE9AC00](a1, a2, a3);
   v69 = *MEMORY[0x1E69E9840];
   v67 = 0u;
   v68 = 0u;
@@ -7594,9 +7606,9 @@ LABEL_34:
   return 4294966989;
 }
 
-uint64_t _AXMIGCopyMultipleAttributeValues(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, unsigned int a9, mach_msg_bits_t a10, mach_msg_size_t a11, void *__dst, _DWORD *a13, void *a14, _DWORD *a15, _DWORD *a16)
+uint64_t _AXMIGCopyMultipleAttributeValues(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, void *__dst, _DWORD *a13, void *a14, _DWORD *a15, _DWORD *a16)
 {
-  v16 = MEMORY[0x1EEE9AC00](a1);
+  v16 = MEMORY[0x1EEE9AC00](a1, a2, a3);
   v69 = *MEMORY[0x1E69E9840];
   v67 = 0u;
   v68 = 0u;
@@ -8492,7 +8504,28 @@ uint64_t reserveSpace(vm_address_t *a1, uint64_t a2)
   return 4294942096;
 }
 
-void cfStringUnserialize_cold_1(char a1, CFTypeRef cf, void *a3)
+void AXUnserializeCFType_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "not enough bytes for a valid type";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void _logAndReturn_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a2, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void bogusUnserialize_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "invalid object type";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfStringUnserialize_cold_1(uint64_t a1, CFTypeRef cf, void *a3)
 {
   if ((a1 & 1) == 0)
   {
@@ -8504,26 +8537,74 @@ void cfStringUnserialize_cold_1(char a1, CFTypeRef cf, void *a3)
   v4 = AXRuntimeLogSerialization();
   if (OUTLINED_FUNCTION_2(v4))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v5, v6, "serialization error: %s", v7, v8, v9, v10, 2u);
+    LODWORD(v11) = 136315138;
+    *(&v11 + 4) = "string: could not increment pointer";
+    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v5, v6, "serialization error: %s", v7, v8, v9, v10, v11, "string: could not increment pointer" >> 32);
   }
 }
 
-void cfStringUnserialize_cold_3()
+void cfStringUnserialize_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = AXRuntimeLogSerialization();
-  if (OUTLINED_FUNCTION_2(v1))
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "string: available bytes too small";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfStringUnserialize_cold_3(uint64_t a1)
+{
+  v2 = AXRuntimeLogSerialization();
+  if (OUTLINED_FUNCTION_2(v2))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v2, v3, "serialization error: %s", v4, v5, v6, v7, 2u);
+    LODWORD(v9) = 136315138;
+    *(&v9 + 4) = "string: buffer math error";
+    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v3, v4, "serialization error: %s", v5, v6, v7, v8, v9, DWORD2(v9));
   }
 }
 
-void cfNumberUnserialize_cold_3()
+void cfStringUnserialize_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = AXRuntimeLogSerialization();
-  if (OUTLINED_FUNCTION_2(v1))
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "string: unexpected buffer size";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfNumberUnserialize_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "number: invalid type";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfNumberUnserialize_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "number: available bytes too small";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfNumberUnserialize_cold_3(uint64_t a1)
+{
+  v2 = AXRuntimeLogSerialization();
+  if (OUTLINED_FUNCTION_2(v2))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v2, v3, "serialization error: %s", v4, v5, v6, v7, 2u);
+    LODWORD(v9) = 136315138;
+    *(&v9 + 4) = "number: buffer math error";
+    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v3, v4, "serialization error: %s", v5, v6, v7, v8, v9, DWORD2(v9));
   }
+}
+
+void cfNumberUnserialize_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "number: negative size";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfNumberUnserialize_cold_5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "number: unexpected buffer size";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void cfBooleanUnserialize_cold_1(const void **a1, NSObject **a2)
@@ -8547,6 +8628,41 @@ void cfBooleanUnserialize_cold_1(const void **a1, NSObject **a2)
   *a2 = v5;
 }
 
+void cfBooleanUnserialize_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "BOOLean: unexpected buffer size";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfArrayUnserialize_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "array: buffer math error";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfArrayUnserialize_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "array: sub-buffer math error";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfArrayUnserialize_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "array: could not increment pointer";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfArrayUnserialize_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "array: unable to create";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void cfArrayUnserialize_cold_5(const void **a1)
 {
   v2 = *a1;
@@ -8559,17 +8675,56 @@ void cfArrayUnserialize_cold_5(const void **a1)
   v3 = AXRuntimeLogSerialization();
   if (OUTLINED_FUNCTION_2(v3))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v4, v5, "serialization error: %s", v6, v7, v8, v9, 2u);
+    LODWORD(v10) = 136315138;
+    *(&v10 + 4) = "array: could not increment pointer";
+    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v4, v5, "serialization error: %s", v6, v7, v8, v9, v10, DWORD2(v10));
   }
 }
 
-void cfDictionaryUnserialize_cold_4()
+void cfArrayUnserialize_cold_6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = AXRuntimeLogSerialization();
-  if (OUTLINED_FUNCTION_2(v1))
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "array: unexpected buffer size";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfDictionaryUnserialize_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "dictionary: buffer math error";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfDictionaryUnserialize_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "dictionary: object buffer math error";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfDictionaryUnserialize_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "dictionary: key buffer math error";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfDictionaryUnserialize_cold_4(uint64_t a1)
+{
+  v2 = AXRuntimeLogSerialization();
+  if (OUTLINED_FUNCTION_2(v2))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v2, v3, "serialization error: %s", v4, v5, v6, v7, 2u);
+    LODWORD(v9) = 136315138;
+    *(&v9 + 4) = "dict: could not increment pointer";
+    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v3, v4, "serialization error: %s", v5, v6, v7, v8, v9, DWORD2(v9));
   }
+}
+
+void cfDictionaryUnserialize_cold_5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "dict: unable to create";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void cfDictionaryUnserialize_cold_6(const void **a1)
@@ -8584,11 +8739,27 @@ void cfDictionaryUnserialize_cold_6(const void **a1)
   v3 = AXRuntimeLogSerialization();
   if (OUTLINED_FUNCTION_2(v3))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v4, v5, "serialization error: %s", v6, v7, v8, v9, 2u);
+    LODWORD(v10) = 136315138;
+    *(&v10 + 4) = "dict: could not increment pointer";
+    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v4, v5, "serialization error: %s", v6, v7, v8, v9, v10, DWORD2(v10));
   }
 }
 
-void cfDataUnserialize_cold_2(char a1, CFTypeRef cf, void *a3)
+void cfDictionaryUnserialize_cold_7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "dictionary: unexpected buffer size";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfDataUnserialize_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "data: buffer math error";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfDataUnserialize_cold_2(uint64_t a1, CFTypeRef cf, void *a3)
 {
   if ((a1 & 1) == 0)
   {
@@ -8600,53 +8771,233 @@ void cfDataUnserialize_cold_2(char a1, CFTypeRef cf, void *a3)
   v4 = AXRuntimeLogSerialization();
   if (OUTLINED_FUNCTION_2(v4))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v5, v6, "serialization error: %s", v7, v8, v9, v10, 2u);
+    LODWORD(v11) = 136315138;
+    *(&v11 + 4) = "data: could not increment pointer";
+    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v5, v6, "serialization error: %s", v7, v8, v9, v10, v11, "data: could not increment pointer" >> 32);
   }
 }
 
-void cfURLUnserialize_cold_3()
+void cfDataUnserialize_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = AXRuntimeLogSerialization();
-  if (OUTLINED_FUNCTION_2(v1))
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "data: available bytes too small";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfDataUnserialize_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "data: unexpected buffer size";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfDateUnserialize_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "date: unable to create";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfDateUnserialize_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "date: could not increment pointer";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfDateUnserialize_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "date: unexpected buffer size";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfURLUnserialize_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "url: buffer math error";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfURLUnserialize_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "url: string buffer math error";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfURLUnserialize_cold_3(uint64_t a1)
+{
+  v2 = AXRuntimeLogSerialization();
+  if (OUTLINED_FUNCTION_2(v2))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v2, v3, "serialization error: %s", v4, v5, v6, v7, 2u);
+    LODWORD(v9) = 136315138;
+    *(&v9 + 4) = "url: could not increment pointer";
+    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v3, v4, "serialization error: %s", v5, v6, v7, v8, v9, DWORD2(v9));
   }
 }
 
-void cfNullUnserialize_cold_2()
+void cfURLUnserialize_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = AXRuntimeLogSerialization();
-  if (OUTLINED_FUNCTION_2(v1))
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "url: unexpected buffer size";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfNullUnserialize_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "null: unexpected buffer size";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfNullUnserialize_cold_2(uint64_t a1)
+{
+  v2 = AXRuntimeLogSerialization();
+  if (OUTLINED_FUNCTION_2(v2))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v2, v3, "serialization error: %s", v4, v5, v6, v7, 2u);
+    LODWORD(v9) = 136315138;
+    *(&v9 + 4) = "null: could not increment pointer";
+    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v3, v4, "serialization error: %s", v5, v6, v7, v8, v9, DWORD2(v9));
   }
 }
 
-void cfAttributedStringUnserialize_cold_2()
+void cfAttributedStringUnserialize_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = AXRuntimeLogSerialization();
-  if (OUTLINED_FUNCTION_2(v1))
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "attributedString: buffer math error";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfAttributedStringUnserialize_cold_2(uint64_t a1)
+{
+  v2 = AXRuntimeLogSerialization();
+  if (OUTLINED_FUNCTION_2(v2))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v2, v3, "serialization error: %s", v4, v5, v6, v7, 2u);
+    LODWORD(v9) = 136315138;
+    *(&v9 + 4) = "attributedString: range buffer math error";
+    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v3, v4, "serialization error: %s", v5, v6, v7, v8, v9, DWORD2(v9));
   }
 }
 
-void cfAttributedStringUnserialize_cold_6()
+void cfAttributedStringUnserialize_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = AXRuntimeLogSerialization();
-  if (OUTLINED_FUNCTION_2(v1))
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "attributedString: range-entry buffer math error";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfAttributedStringUnserialize_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "attributed: range-entry buffer math error";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfAttributedStringUnserialize_cold_6(uint64_t a1)
+{
+  v2 = AXRuntimeLogSerialization();
+  if (OUTLINED_FUNCTION_2(v2))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v2, v3, "serialization error: %s", v4, v5, v6, v7, 2u);
+    LODWORD(v9) = 136315138;
+    *(&v9 + 4) = "attributedString: could not increment pointer";
+    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v3, v4, "serialization error: %s", v5, v6, v7, v8, v9, DWORD2(v9));
   }
 }
 
-void cgColorUnserialize_cold_4()
+void cfAttributedStringUnserialize_cold_7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = AXRuntimeLogSerialization();
-  if (OUTLINED_FUNCTION_2(v1))
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "attributedString: unexpected buffer size";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void axElementUnserialize_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "element: unexpected buffer size";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void axValueUnserialize_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "value: buffer math error";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void axValueUnserialize_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "value: could not increment pointer";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void axValueUnserialize_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "value: available bytes too small";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void axValueUnserialize_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "value: unexpected buffer size";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cgColorUnserialize_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "color: component count incorrect";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cgColorUnserialize_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "color: unable to allocate colorspace";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cgColorUnserialize_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "color: available bytes too small";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cgColorUnserialize_cold_4(uint64_t a1)
+{
+  v2 = AXRuntimeLogSerialization();
+  if (OUTLINED_FUNCTION_2(v2))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v2, v3, "serialization error: %s", v4, v5, v6, v7, 2u);
+    LODWORD(v9) = 136315138;
+    *(&v9 + 4) = "color: buffer math error";
+    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v3, v4, "serialization error: %s", v5, v6, v7, v8, v9, DWORD2(v9));
   }
+}
+
+void cgColorUnserialize_cold_5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "color: unexpected buffer size";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cgPathUnserialize_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "path: buffer math error";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cgPathUnserialize_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "path: points: unexpected buffer size";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void cgPathUnserialize_cold_3(const void *a1)
@@ -8659,25 +9010,59 @@ void cgPathUnserialize_cold_3(const void *a1)
   v2 = AXRuntimeLogSerialization();
   if (OUTLINED_FUNCTION_2(v2))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v3, v4, "serialization error: %s", v5, v6, v7, v8, 2u);
+    LODWORD(v9) = 136315138;
+    *(&v9 + 4) = "path: could not increment pointer";
+    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v3, v4, "serialization error: %s", v5, v6, v7, v8, v9, DWORD2(v9));
   }
 }
 
-void cfUUIDUnserialize_cold_2()
+void cgPathUnserialize_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = AXRuntimeLogSerialization();
-  if (OUTLINED_FUNCTION_2(v1))
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "path: available bytes too small";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cgPathUnserialize_cold_5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "path: unexpected buffer size";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfUUIDUnserialize_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "uuid: not enough space";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void cfUUIDUnserialize_cold_2(uint64_t a1)
+{
+  v2 = AXRuntimeLogSerialization();
+  if (OUTLINED_FUNCTION_2(v2))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v2, v3, "serialization error: %s", v4, v5, v6, v7, 2u);
+    LODWORD(v9) = 136315138;
+    *(&v9 + 4) = "uuid: math error";
+    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v3, v4, "serialization error: %s", v5, v6, v7, v8, v9, DWORD2(v9));
   }
 }
 
-void ctFontUnserialize_cold_2()
+void ctFontUnserialize_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = AXRuntimeLogSerialization();
-  if (OUTLINED_FUNCTION_2(v1))
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "fontData: not enough space";
+  OUTLINED_FUNCTION_1_0(&dword_1BF78E000, a1, a3, "serialization error: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void ctFontUnserialize_cold_2(uint64_t a1)
+{
+  v2 = AXRuntimeLogSerialization();
+  if (OUTLINED_FUNCTION_2(v2))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v2, v3, "serialization error: %s", v4, v5, v6, v7, 2u);
+    LODWORD(v9) = 136315138;
+    *(&v9 + 4) = "fontData: math error";
+    OUTLINED_FUNCTION_0_1(&dword_1BF78E000, v3, v4, "serialization error: %s", v5, v6, v7, v8, v9, DWORD2(v9));
   }
 }
 

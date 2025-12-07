@@ -104,7 +104,7 @@ LABEL_16:
     v13 = 0;
     v12 = 0;
     v14 = &stru_1F3A5E418;
-    v7 = unk_1F3AEA4A0(self, "_readMaxScoreAsRootAtAddress:withLeafCandidate:success:", a4->var1, &v12, &v15);
+    v7 = unk_1F3AEA938(self, "_readMaxScoreAsRootAtAddress:withLeafCandidate:success:", a4->var1, &v12, &v15);
     if (v15)
     {
       v8 = v7;
@@ -122,7 +122,7 @@ LABEL_16:
         v11 = a4->var3;
 
         LODWORD(v9) = v8;
-        if ((unk_1F3AEA4A8(selfCopy, "_readNextChild:", &v9) & 1) == 0)
+        if ((unk_1F3AEA940(selfCopy, "_readNextChild:", &v9) & 1) == 0)
         {
           break;
         }

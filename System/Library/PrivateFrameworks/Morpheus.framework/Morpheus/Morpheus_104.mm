@@ -1,196 +1,38 @@
-uint64_t std::__function::__func<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::SumReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#2},std::allocator<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::SumReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#2}>,void ()(int)>::target(uint64_t a1, uint64_t a2)
+void sub_25A814F20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
+  va_start(va, a22);
+  mlx::core::ReductionPlan::~ReductionPlan(va);
+  _Unwind_Resume(a1);
 }
 
-__n128 std::__function::__func<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::SumReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#3},std::allocator<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::SumReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#3}>,void ()(int)>::__clone(uint64_t a1, uint64_t a2)
+void mlx::core::reduction_op<BOOL,BOOL,mlx::core::MinReduce>(uint64_t **a1, uint64_t *a2, unsigned int **a3, int a4)
 {
-  *a2 = &unk_286C06698;
-  result = *(a1 + 8);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 8) = result;
-  return result;
-}
-
-float32x2_t std::__function::__func<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::SumReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#3},std::allocator<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::SumReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#3}>,void ()(int)>::operator()(uint64_t a1, int *a2)
-{
-  v2 = *(a1 + 8);
-  result = vadd_f32(*v2, *(**(a1 + 16) + 8 * **(a1 + 24) + 8 * *a2));
-  *v2 = result;
-  return result;
-}
-
-uint64_t std::__function::__func<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::SumReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#3},std::allocator<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::SumReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#3}>,void ()(int)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void mlx::core::contiguous_reduce<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::ProdReduce>(uint64_t *a1, uint64_t *a2, int a3, float a4, float a5)
-{
-  if (a3 >= 1)
-  {
-    v7 = a3 + 1;
-    do
-    {
-      v8 = *a1++;
-      v12 = v8;
-      v10 = a4;
-      v11 = a5;
-      a4 = std::operator*[abi:ne200100]<float,0>(&v12, &v10);
-      --v7;
-    }
-
-    while (v7 > 1);
-  }
-
-  v12 = *a2;
-  v10 = a4;
-  v11 = a5;
-  *a2 = std::operator*[abi:ne200100]<float,0>(&v10, &v12);
-  *(a2 + 1) = v9;
-}
-
-void mlx::core::strided_reduce<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::ProdReduce>(uint64_t *a1, uint64_t *a2, int a3, uint64_t a4)
-{
-  if (a3 >= 1)
-  {
-    v16[9] = v4;
-    v16[10] = v5;
-    for (i = 0; i != a3; ++i)
-    {
-      v11 = a2;
-      for (j = a4; j; --j)
-      {
-        v13 = *a1++;
-        v15 = *v11;
-        v16[0] = v13;
-        *v11 = std::operator*[abi:ne200100]<float,0>(v16, &v15);
-        *(v11++ + 1) = v14;
-      }
-    }
-  }
-}
-
-__n128 std::__function::__func<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::ProdReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#1},std::allocator<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::ProdReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#1}>,void ()(int)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_286C06718;
-  result = *(a1 + 8);
-  v3 = *(a1 + 24);
-  *(a2 + 40) = *(a1 + 40);
-  *(a2 + 24) = v3;
-  *(a2 + 8) = result;
-  return result;
-}
-
-uint64_t std::__function::__func<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::ProdReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#1},std::allocator<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::ProdReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#1}>,void ()(int)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-__n128 std::__function::__func<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::ProdReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#2},std::allocator<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::ProdReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#2}>,void ()(int)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_286C06798;
-  result = *(a1 + 8);
-  v3 = *(a1 + 24);
-  *(a2 + 40) = *(a1 + 40);
-  *(a2 + 24) = v3;
-  *(a2 + 8) = result;
-  return result;
-}
-
-uint64_t std::__function::__func<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::ProdReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#2},std::allocator<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::ProdReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#2}>,void ()(int)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-__n128 std::__function::__func<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::ProdReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#3},std::allocator<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::ProdReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#3}>,void ()(int)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_286C06818;
-  result = *(a1 + 8);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 8) = result;
-  return result;
-}
-
-void std::__function::__func<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::ProdReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#3},std::allocator<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::ProdReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#3}>,void ()(int)>::operator()(uint64_t a1, int *a2)
-{
-  v3 = **(a1 + 8);
-  v7 = *(**(a1 + 16) + 8 * **(a1 + 24) + 8 * *a2);
-  v8 = v3;
-  v4 = std::operator*[abi:ne200100]<float,0>(&v7, &v8);
-  v5 = *(a1 + 8);
-  *v5 = v4;
-  *(v5 + 4) = v6;
-}
-
-uint64_t std::__function::__func<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::ProdReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#3},std::allocator<void mlx::core::reduction_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::ProdReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,mlx::core::complex64_t)::{lambda(int)#3}>,void ()(int)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void mlx::core::reduction_op<BOOL,BOOL,mlx::core::MaxReduce>(uint64_t **a1, uint64_t *a2, int **a3, int a4)
-{
-  v111 = *MEMORY[0x277D85DE8];
-  v107 = a4;
-  mlx::core::get_reduction_plan(a1, a3, &v102);
+  v110 = *MEMORY[0x277D85DE8];
+  v106 = a4;
+  mlx::core::get_reduction_plan(a1, a3, &v101);
   v8 = *a1;
   v9 = (*a1)[19];
   v10 = *a2;
   v11 = *(*a2 + 152);
   __b = v11;
-  v101 = v9;
-  if (v102 == 1)
+  v100 = v9;
+  if (v101 == 1)
   {
-    v17 = v104;
-    if (v104 - v103 != 4)
+    v17 = v103;
+    if (v103 - v102 != 4)
     {
 LABEL_21:
       v26 = *(v17 - 1);
-      v104 = v17 - 4;
-      v106 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v96);
+      v103 = v17 - 4;
+      v105 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v95);
       v27 = *(*a2 + 48);
-      if (v104 != v103)
+      if (v103 != v102)
       {
         if (v27)
         {
-          v28 = v96;
-          v29 = (v97 - v96) >> 2;
+          v28 = v95;
+          v29 = (v96 - v95) >> 2;
           v30 = (v29 - 1);
           if (v29 - 1 >= 0)
           {
@@ -207,251 +49,7 @@ LABEL_21:
             while (v30 != -1);
           }
 
-          *__b = v107;
-          v110 = 0;
-          operator new();
-        }
-
-        goto LABEL_47;
-      }
-
-      v36 = __b;
-      if (v27)
-      {
-        v37 = 0;
-        v38 = v96;
-        v39 = ((v97 - v96) >> 2) - 1;
-        v40 = __p;
-        v94 = v101;
-        do
-        {
-          if ((v39 & 0x80000000) != 0)
-          {
-            v45 = 0;
-          }
-
-          else
-          {
-            v41 = 0;
-            v42 = v39;
-            v43 = v37;
-            do
-            {
-              v44 = ldiv(v43, v38[v42]);
-              v43 = v44.quot;
-              v41 += v40[v42--] * v44.rem;
-            }
-
-            while (v42 != -1);
-            v45 = v41;
-          }
-
-          *v36 = a4;
-          v46 = a4;
-          if (v26 >= 1)
-          {
-            v47 = &v94[v45];
-            v48 = v26 + 1;
-            v46 = a4;
-            do
-            {
-              v50 = *v47++;
-              v49 = v50;
-              if ((v50 & 1u) > v46)
-              {
-                v46 = v49;
-              }
-
-              v46 &= 1u;
-              --v48;
-            }
-
-            while (v48 > 1);
-          }
-
-          *v36++ = v46 | a4;
-          ++v37;
-        }
-
-        while (v37 != v27);
-      }
-
-LABEL_46:
-      __b = v36;
-LABEL_47:
-      if (__p)
-      {
-        v99 = __p;
-        operator delete(__p);
-      }
-
-      if (v96)
-      {
-        v97 = v96;
-        operator delete(v96);
-      }
-
-      goto LABEL_51;
-    }
-
-    v18 = *(v10 + 48);
-    if (v18)
-    {
-      v19 = 0;
-      v20 = *v103;
-      do
-      {
-        *v11 = a4;
-        v21 = a4;
-        if (v20 >= 1)
-        {
-          v22 = v20 + 1;
-          v23 = v9;
-          v21 = a4;
-          do
-          {
-            v25 = *v23++;
-            v24 = v25;
-            if ((v25 & 1u) > v21)
-            {
-              v21 = v24;
-            }
-
-            v21 &= 1u;
-            --v22;
-          }
-
-          while (v22 > 1);
-        }
-
-        *v11++ = v21 | a4;
-        ++v19;
-        v9 += v20;
-      }
-
-      while (v19 != v18);
-    }
-  }
-
-  else
-  {
-    if (!v102)
-    {
-      *v11 = a4;
-      v12 = *(v8 + 12);
-      if (v12 < 1)
-      {
-        v14 = a4;
-      }
-
-      else
-      {
-        v13 = v12 + 1;
-        v14 = a4;
-        do
-        {
-          v16 = *v9++;
-          v15 = v16;
-          if ((v16 & 1u) > v14)
-          {
-            v14 = v15;
-          }
-
-          v14 &= 1u;
-          --v13;
-        }
-
-        while (v13 > 1);
-      }
-
-      *v11 = v14 | a4;
-      goto LABEL_51;
-    }
-
-    if ((v102 & 0xFFFFFFFD) == 1)
-    {
-      v17 = v104;
-      goto LABEL_21;
-    }
-
-    if (v102 != 2)
-    {
-      if (v102 == 5)
-      {
-        mlx::core::shapes_without_reduction_axes(a1, a3, &v96);
-        if (*(*a2 + 48))
-        {
-          v52 = v96;
-          v53 = (v97 - v96) >> 2;
-          v54 = (v53 - 1);
-          if (v53 - 1 >= 0)
-          {
-            v55 = 0;
-            v56 = __p;
-            v57 = 0;
-            do
-            {
-              v58 = ldiv(v57, v52[v54]);
-              v57 = v58.quot;
-              v55 += v56[v54--] * v58.rem;
-            }
-
-            while (v54 != -1);
-          }
-
-          v108 = 0;
-          operator new();
-        }
-
-        goto LABEL_47;
-      }
-
-      if (v102 != 4)
-      {
-        goto LABEL_51;
-      }
-
-      v35 = v104;
-      goto LABEL_76;
-    }
-
-    v35 = v104;
-    if (v104 - v103 != 4)
-    {
-LABEL_76:
-      v69 = *(v35 - 1);
-      v70 = *(v106 - 1);
-      v104 = v35 - 4;
-      v106 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v96);
-      v71 = *(*a2 + 48);
-      if (v104 != v103)
-      {
-        if (v71)
-        {
-          v72 = v96;
-          v73 = (v97 - v96) >> 2;
-          v74 = (v73 - 1);
-          if (v73 - 1 >= 0)
-          {
-            v75 = 0;
-            v76 = __p;
-            v77 = 0;
-            do
-            {
-              v78 = ldiv(v77, v72[v74]);
-              v77 = v78.quot;
-              v75 += v76[v74--] * v78.rem;
-            }
-
-            while (v74 != -1);
-          }
-
-          if (v70)
-          {
-            memset(__b, a4, v70);
-          }
-
+          *__b = v106;
           v109 = 0;
           operator new();
         }
@@ -460,222 +58,13 @@ LABEL_76:
       }
 
       v36 = __b;
-      if (!v71)
-      {
-        goto LABEL_46;
-      }
-
-      v79 = 0;
-      v80 = v96;
-      v81 = ((v97 - v96) >> 2) - 1;
-      v82 = __p;
-      v93 = v101;
-      v95 = v81;
-      while (1)
-      {
-        if ((v81 & 0x80000000) != 0)
-        {
-          v86 = 0;
-          if (!v70)
-          {
-            goto LABEL_91;
-          }
-        }
-
-        else
-        {
-          v83 = 0;
-          v84 = v79;
-          do
-          {
-            v85 = ldiv(v84, v80[v81]);
-            v84 = v85.quot;
-            v83 += v82[v81--] * v85.rem;
-          }
-
-          while (v81 != -1);
-          v86 = v83;
-          if (!v70)
-          {
-            goto LABEL_91;
-          }
-        }
-
-        memset(v36, a4, v70);
-LABEL_91:
-        if (v69 >= 1)
-        {
-          v87 = 0;
-          v88 = &v93[v86];
-          do
-          {
-            if (v70)
-            {
-              for (i = 0; i != v70; ++i)
-              {
-                v90 = v36[i];
-                v92 = *v88++;
-                v91 = v92;
-                if ((v92 & 1u) > (v90 & 1u))
-                {
-                  v90 = v91;
-                }
-
-                v36[i] = v90 & 1;
-              }
-            }
-
-            ++v87;
-          }
-
-          while (v87 != v69);
-        }
-
-        v36 += v70;
-        v79 += v70;
-        v81 = v95;
-        if (v71 <= v79)
-        {
-          goto LABEL_46;
-        }
-      }
-    }
-
-    v59 = *(v104 - 1);
-    v60 = *(v106 - 1);
-    v104 -= 4;
-    v106 -= 8;
-    v61 = *(v10 + 48);
-    if (v61)
-    {
-      LODWORD(v62) = 0;
-      do
-      {
-        if (v60)
-        {
-          memset(v11, a4, v60);
-        }
-
-        if (v59 >= 1)
-        {
-          v63 = 0;
-          v64 = v9;
-          do
-          {
-            if (v60)
-            {
-              for (j = 0; j != v60; ++j)
-              {
-                v66 = v11[j];
-                v68 = *v64++;
-                v67 = v68;
-                if ((v68 & 1u) > (v66 & 1u))
-                {
-                  v66 = v67;
-                }
-
-                v11[j] = v66 & 1;
-              }
-            }
-
-            ++v63;
-          }
-
-          while (v63 != v59);
-        }
-
-        v9 += v60 * v59;
-        v11 += v60;
-        v62 = v62 + v60;
-      }
-
-      while (v62 < v61);
-    }
-  }
-
-LABEL_51:
-  if (v105)
-  {
-    v106 = v105;
-    operator delete(v105);
-  }
-
-  if (v103)
-  {
-    v104 = v103;
-    operator delete(v103);
-  }
-
-  v51 = *MEMORY[0x277D85DE8];
-}
-
-void sub_25A814F20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  mlx::core::ReductionPlan::~ReductionPlan(va);
-  _Unwind_Resume(a1);
-}
-
-void mlx::core::reduction_op<BOOL,BOOL,mlx::core::MinReduce>(uint64_t **a1, uint64_t *a2, int **a3, int a4)
-{
-  v111 = *MEMORY[0x277D85DE8];
-  v107 = a4;
-  mlx::core::get_reduction_plan(a1, a3, &v102);
-  v8 = *a1;
-  v9 = (*a1)[19];
-  v10 = *a2;
-  v11 = *(*a2 + 152);
-  __b = v11;
-  v101 = v9;
-  if (v102 == 1)
-  {
-    v17 = v104;
-    if (v104 - v103 != 4)
-    {
-LABEL_21:
-      v26 = *(v17 - 1);
-      v104 = v17 - 4;
-      v106 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v96);
-      v27 = *(*a2 + 48);
-      if (v104 != v103)
-      {
-        if (v27)
-        {
-          v28 = v96;
-          v29 = (v97 - v96) >> 2;
-          v30 = (v29 - 1);
-          if (v29 - 1 >= 0)
-          {
-            v31 = 0;
-            v32 = __p;
-            quot = 0;
-            do
-            {
-              v34 = ldiv(quot, v28[v30]);
-              quot = v34.quot;
-              v31 += v32[v30--] * v34.rem;
-            }
-
-            while (v30 != -1);
-          }
-
-          *__b = v107;
-          v110 = 0;
-          operator new();
-        }
-
-        goto LABEL_47;
-      }
-
-      v36 = __b;
       if (v27)
       {
         v37 = 0;
-        v38 = v96;
-        v39 = ((v97 - v96) >> 2) - 1;
+        v38 = v95;
+        v39 = ((v96 - v95) >> 2) - 1;
         v40 = __p;
-        v94 = v101;
+        v93 = v100;
         do
         {
           if ((v39 & 0x80000000) != 0)
@@ -703,7 +92,7 @@ LABEL_21:
           v46 = a4;
           if (v26 >= 1)
           {
-            v47 = &v94[v45];
+            v47 = &v93[v45];
             v48 = v26 + 1;
             v46 = a4;
             do
@@ -734,14 +123,14 @@ LABEL_46:
 LABEL_47:
       if (__p)
       {
-        v99 = __p;
+        v98 = __p;
         operator delete(__p);
       }
 
-      if (v96)
+      if (v95)
       {
-        v97 = v96;
-        operator delete(v96);
+        v96 = v95;
+        operator delete(v95);
       }
 
       goto LABEL_51;
@@ -751,7 +140,7 @@ LABEL_47:
     if (v18)
     {
       v19 = 0;
-      v20 = *v103;
+      v20 = *v102;
       do
       {
         *v11 = a4;
@@ -788,7 +177,7 @@ LABEL_47:
 
   else
   {
-    if (!v102)
+    if (!v101)
     {
       *v11 = a4;
       v12 = *(v8 + 12);
@@ -821,35 +210,88 @@ LABEL_47:
       goto LABEL_51;
     }
 
-    if ((v102 & 0xFFFFFFFD) == 1)
+    if ((v101 & 0xFFFFFFFD) == 1)
     {
-      v17 = v104;
+      v17 = v103;
       goto LABEL_21;
     }
 
-    if (v102 != 2)
+    if (v101 != 2)
     {
-      if (v102 == 5)
+      if (v101 == 5)
       {
-        mlx::core::shapes_without_reduction_axes(a1, a3, &v96);
+        mlx::core::shapes_without_reduction_axes(a1, a3, &v95);
         if (*(*a2 + 48))
         {
-          v52 = v96;
-          v53 = (v97 - v96) >> 2;
-          v54 = (v53 - 1);
-          if (v53 - 1 >= 0)
+          v51 = v95;
+          v52 = (v96 - v95) >> 2;
+          v53 = (v52 - 1);
+          if (v52 - 1 >= 0)
           {
-            v55 = 0;
-            v56 = __p;
-            v57 = 0;
+            v54 = 0;
+            v55 = __p;
+            v56 = 0;
             do
             {
-              v58 = ldiv(v57, v52[v54]);
-              v57 = v58.quot;
-              v55 += v56[v54--] * v58.rem;
+              v57 = ldiv(v56, v51[v53]);
+              v56 = v57.quot;
+              v54 += v55[v53--] * v57.rem;
             }
 
-            while (v54 != -1);
+            while (v53 != -1);
+          }
+
+          v107 = 0;
+          operator new();
+        }
+
+        goto LABEL_47;
+      }
+
+      if (v101 != 4)
+      {
+        goto LABEL_51;
+      }
+
+      v35 = v103;
+      goto LABEL_76;
+    }
+
+    v35 = v103;
+    if (v103 - v102 != 4)
+    {
+LABEL_76:
+      v68 = *(v35 - 1);
+      v69 = *(v105 - 1);
+      v103 = v35 - 4;
+      v105 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v95);
+      v70 = *(*a2 + 48);
+      if (v103 != v102)
+      {
+        if (v70)
+        {
+          v71 = v95;
+          v72 = (v96 - v95) >> 2;
+          v73 = (v72 - 1);
+          if (v72 - 1 >= 0)
+          {
+            v74 = 0;
+            v75 = __p;
+            v76 = 0;
+            do
+            {
+              v77 = ldiv(v76, v71[v73]);
+              v76 = v77.quot;
+              v74 += v75[v73--] * v77.rem;
+            }
+
+            while (v73 != -1);
+          }
+
+          if (v69)
+          {
+            memset(__b, a4, v69);
           }
 
           v108 = 0;
@@ -859,77 +301,24 @@ LABEL_47:
         goto LABEL_47;
       }
 
-      if (v102 != 4)
-      {
-        goto LABEL_51;
-      }
-
-      v35 = v104;
-      goto LABEL_76;
-    }
-
-    v35 = v104;
-    if (v104 - v103 != 4)
-    {
-LABEL_76:
-      v69 = *(v35 - 1);
-      v70 = *(v106 - 1);
-      v104 = v35 - 4;
-      v106 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v96);
-      v71 = *(*a2 + 48);
-      if (v104 != v103)
-      {
-        if (v71)
-        {
-          v72 = v96;
-          v73 = (v97 - v96) >> 2;
-          v74 = (v73 - 1);
-          if (v73 - 1 >= 0)
-          {
-            v75 = 0;
-            v76 = __p;
-            v77 = 0;
-            do
-            {
-              v78 = ldiv(v77, v72[v74]);
-              v77 = v78.quot;
-              v75 += v76[v74--] * v78.rem;
-            }
-
-            while (v74 != -1);
-          }
-
-          if (v70)
-          {
-            memset(__b, a4, v70);
-          }
-
-          v109 = 0;
-          operator new();
-        }
-
-        goto LABEL_47;
-      }
-
       v36 = __b;
-      if (!v71)
+      if (!v70)
       {
         goto LABEL_46;
       }
 
-      v79 = 0;
-      v80 = v96;
-      v81 = ((v97 - v96) >> 2) - 1;
-      v82 = __p;
-      v93 = v101;
-      v95 = v81;
+      v78 = 0;
+      v79 = v95;
+      v80 = ((v96 - v95) >> 2) - 1;
+      v81 = __p;
+      v92 = v100;
+      v94 = v80;
       while (1)
       {
-        if ((v81 & 0x80000000) != 0)
+        if ((v80 & 0x80000000) != 0)
         {
-          v86 = 0;
-          if (!v70)
+          v85 = 0;
+          if (!v69)
           {
             goto LABEL_91;
           }
@@ -937,134 +326,132 @@ LABEL_76:
 
         else
         {
-          v83 = 0;
-          v84 = v79;
+          v82 = 0;
+          v83 = v78;
           do
           {
-            v85 = ldiv(v84, v80[v81]);
-            v84 = v85.quot;
-            v83 += v82[v81--] * v85.rem;
+            v84 = ldiv(v83, v79[v80]);
+            v83 = v84.quot;
+            v82 += v81[v80--] * v84.rem;
           }
 
-          while (v81 != -1);
-          v86 = v83;
-          if (!v70)
+          while (v80 != -1);
+          v85 = v82;
+          if (!v69)
           {
             goto LABEL_91;
           }
         }
 
-        memset(v36, a4, v70);
+        memset(v36, a4, v69);
 LABEL_91:
-        if (v69 >= 1)
+        if (v68 >= 1)
         {
-          v87 = 0;
-          v88 = &v93[v86];
+          v86 = 0;
+          v87 = &v92[v85];
           do
           {
-            if (v70)
+            if (v69)
             {
-              for (i = 0; i != v70; ++i)
+              for (i = 0; i != v69; ++i)
               {
-                v90 = v36[i];
-                v92 = *v88++;
-                v91 = v92;
-                if ((v92 & 1u) < (v90 & 1u))
+                v89 = v36[i];
+                v91 = *v87++;
+                v90 = v91;
+                if ((v91 & 1u) < (v89 & 1u))
                 {
-                  v90 = v91;
+                  v89 = v90;
                 }
 
-                v36[i] = v90 & 1;
+                v36[i] = v89 & 1;
               }
             }
 
-            ++v87;
+            ++v86;
           }
 
-          while (v87 != v69);
+          while (v86 != v68);
         }
 
-        v36 += v70;
-        v79 += v70;
-        v81 = v95;
-        if (v71 <= v79)
+        v36 += v69;
+        v78 += v69;
+        v80 = v94;
+        if (v70 <= v78)
         {
           goto LABEL_46;
         }
       }
     }
 
-    v59 = *(v104 - 1);
-    v60 = *(v106 - 1);
-    v104 -= 4;
-    v106 -= 8;
-    v61 = *(v10 + 48);
-    if (v61)
+    v58 = *(v103 - 1);
+    v59 = *(v105 - 1);
+    v103 -= 4;
+    v105 -= 8;
+    v60 = *(v10 + 48);
+    if (v60)
     {
-      LODWORD(v62) = 0;
+      LODWORD(v61) = 0;
       do
       {
-        if (v60)
+        if (v59)
         {
-          memset(v11, a4, v60);
+          memset(v11, a4, v59);
         }
 
-        if (v59 >= 1)
+        if (v58 >= 1)
         {
-          v63 = 0;
-          v64 = v9;
+          v62 = 0;
+          v63 = v9;
           do
           {
-            if (v60)
+            if (v59)
             {
-              for (j = 0; j != v60; ++j)
+              for (j = 0; j != v59; ++j)
               {
-                v66 = v11[j];
-                v68 = *v64++;
-                v67 = v68;
-                if ((v68 & 1u) < (v66 & 1u))
+                v65 = v11[j];
+                v67 = *v63++;
+                v66 = v67;
+                if ((v67 & 1u) < (v65 & 1u))
                 {
-                  v66 = v67;
+                  v65 = v66;
                 }
 
-                v11[j] = v66 & 1;
+                v11[j] = v65 & 1;
               }
             }
 
-            ++v63;
+            ++v62;
           }
 
-          while (v63 != v59);
+          while (v62 != v58);
         }
 
-        v9 += v60 * v59;
-        v11 += v60;
-        v62 = v62 + v60;
+        v9 += v59 * v58;
+        v11 += v59;
+        v61 = v61 + v59;
       }
 
-      while (v62 < v61);
+      while (v61 < v60);
     }
   }
 
 LABEL_51:
-  if (v105)
+  if (v104)
   {
-    v106 = v105;
-    operator delete(v105);
+    v105 = v104;
+    operator delete(v104);
   }
 
-  if (v103)
+  if (v102)
   {
-    v104 = v103;
-    operator delete(v103);
+    v103 = v102;
+    operator delete(v102);
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25A815768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_25A815768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   mlx::core::ReductionPlan::~ReductionPlan(va);
   _Unwind_Resume(a1);
 }
@@ -1343,21 +730,21 @@ uint64_t std::__function::__func<void mlx::core::reduction_op<BOOL,BOOL,mlx::cor
   }
 }
 
-void mlx::core::reduction_op<unsigned char,unsigned char,mlx::core::MaxReduce>(uint64_t **a1, uint64_t *a2, int **a3, unsigned int a4)
+void mlx::core::reduction_op<unsigned char,unsigned char,mlx::core::MaxReduce>(uint64_t **a1, uint64_t *a2, unsigned int **a3, unsigned int a4)
 {
-  v114 = *MEMORY[0x277D85DE8];
-  v110 = a4;
-  mlx::core::get_reduction_plan(a1, a3, &v105);
+  v113 = *MEMORY[0x277D85DE8];
+  v109 = a4;
+  mlx::core::get_reduction_plan(a1, a3, &v104);
   v8 = (*a1)[19];
   v9 = *a2;
   v10 = *(*a2 + 152);
   __b = v10;
-  v104 = v8;
-  v98 = a2;
-  if (v105 == 1)
+  v103 = v8;
+  v97 = a2;
+  if (v104 == 1)
   {
-    v16 = v107;
-    if (v107 - v106 != 4)
+    v16 = v106;
+    if (v106 - v105 != 4)
     {
       goto LABEL_25;
     }
@@ -1365,12 +752,12 @@ void mlx::core::reduction_op<unsigned char,unsigned char,mlx::core::MaxReduce>(u
     if (*(v9 + 48))
     {
       v17 = 0;
-      v18 = *v106;
+      v18 = *v105;
       v19 = vdupq_n_s8(a4);
       do
       {
         v10->i8[0] = a4;
-        v20 = v104;
+        v20 = v103;
         if (v18 < 16)
         {
           v22 = v19;
@@ -1425,7 +812,7 @@ void mlx::core::reduction_op<unsigned char,unsigned char,mlx::core::MaxReduce>(u
         ++v17;
         v10 = (__b + 1);
         __b = __b + 1;
-        v104 = (v104 + v18);
+        v103 = (v103 + v18);
       }
 
       while (*(*a2 + 48) > v17);
@@ -1434,7 +821,7 @@ void mlx::core::reduction_op<unsigned char,unsigned char,mlx::core::MaxReduce>(u
 
   else
   {
-    if (!v105)
+    if (!v104)
     {
       v10->i8[0] = a4;
       v11 = *(*a1 + 12);
@@ -1488,25 +875,25 @@ void mlx::core::reduction_op<unsigned char,unsigned char,mlx::core::MaxReduce>(u
       goto LABEL_99;
     }
 
-    if ((v105 & 0xFFFFFFFD) == 1)
+    if ((v104 & 0xFFFFFFFD) == 1)
     {
-      v16 = v107;
+      v16 = v106;
 LABEL_25:
       v31 = *(v16 - 1);
-      v107 = v16 - 4;
-      v109 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v99);
+      v106 = v16 - 4;
+      v108 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v98);
       v32 = *(*a2 + 48);
-      if (v107 == v106)
+      if (v106 == v105)
       {
         if (v32)
         {
           v45 = 0;
-          v97 = vdupq_n_s8(a4);
+          v96 = vdupq_n_s8(a4);
           do
           {
-            v46 = v99;
-            v47 = (v100 - v99) >> 2;
+            v46 = v98;
+            v47 = (v99 - v98) >> 2;
             v48 = (v47 - 1);
             if (v47 - 1 < 0)
             {
@@ -1527,22 +914,22 @@ LABEL_25:
 
               while (v48 != -1);
               v53 = v49;
-              a2 = v98;
+              a2 = v97;
             }
 
             *__b = a4;
             v54 = __b;
-            v55 = (v104 + v53);
+            v55 = (v103 + v53);
             if (v31 < 16)
             {
-              v57 = v97;
+              v57 = v96;
               v59 = v31;
             }
 
             else
             {
               v56 = v31;
-              v57 = v97;
+              v57 = v96;
               do
               {
                 v58 = *v55++;
@@ -1593,8 +980,8 @@ LABEL_25:
 
       else if (v32)
       {
-        v33 = v99;
-        v34 = (v100 - v99) >> 2;
+        v33 = v98;
+        v34 = (v99 - v98) >> 2;
         v35 = (v34 - 1);
         if (v34 - 1 >= 0)
         {
@@ -1611,36 +998,36 @@ LABEL_25:
           while (v35 != -1);
         }
 
-        *__b = v110;
-        v113 = 0;
+        *__b = v109;
+        v112 = 0;
         operator new();
       }
 
 LABEL_95:
       if (__p)
       {
-        v102 = __p;
+        v101 = __p;
         operator delete(__p);
       }
 
-      if (v99)
+      if (v98)
       {
-        v100 = v99;
-        operator delete(v99);
+        v99 = v98;
+        operator delete(v98);
       }
 
       goto LABEL_99;
     }
 
-    if (v105 != 2)
+    if (v104 != 2)
     {
-      if (v105 == 5)
+      if (v104 == 5)
       {
-        mlx::core::shapes_without_reduction_axes(a1, a3, &v99);
+        mlx::core::shapes_without_reduction_axes(a1, a3, &v98);
         if (*(*a2 + 48))
         {
-          v65 = v99;
-          v66 = (v100 - v99) >> 2;
+          v65 = v98;
+          v66 = (v99 - v98) >> 2;
           v67 = (v66 - 1);
           if (v66 - 1 >= 0)
           {
@@ -1657,41 +1044,41 @@ LABEL_95:
             while (v67 != -1);
           }
 
-          v111 = 0;
+          v110 = 0;
           operator new();
         }
 
         goto LABEL_95;
       }
 
-      if (v105 != 4)
+      if (v104 != 4)
       {
         goto LABEL_99;
       }
 
-      v44 = v107;
+      v44 = v106;
       goto LABEL_77;
     }
 
-    v44 = v107;
-    if (v107 - v106 != 4)
+    v44 = v106;
+    if (v106 - v105 != 4)
     {
 LABEL_77:
       v76 = *(v44 - 1);
-      v77 = *(v109 - 1);
-      v107 = v44 - 4;
-      v109 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v99);
+      v77 = *(v108 - 1);
+      v106 = v44 - 4;
+      v108 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v98);
       v78 = *(*a2 + 48);
-      if (v107 == v106)
+      if (v106 == v105)
       {
         if (v78)
         {
           v86 = 0;
           do
           {
-            v87 = v99;
-            v88 = (v100 - v99) >> 2;
+            v87 = v98;
+            v88 = (v99 - v98) >> 2;
             v89 = (v88 - 1);
             if (v88 - 1 < 0)
             {
@@ -1712,7 +1099,7 @@ LABEL_77:
 
               while (v89 != -1);
               v94 = v90;
-              a2 = v98;
+              a2 = v97;
             }
 
             v95 = __b;
@@ -1722,7 +1109,7 @@ LABEL_77:
               v95 = __b;
             }
 
-            mlx::core::strided_reduce<unsigned char,unsigned char,mlx::core::MaxReduce>((v104 + v94), v95, v76, v77);
+            mlx::core::strided_reduce<unsigned char,unsigned char,mlx::core::MaxReduce>((v103 + v94), v95, v76, v77);
             __b = __b + v77;
             v86 += v77;
           }
@@ -1733,8 +1120,8 @@ LABEL_77:
 
       else if (v78)
       {
-        v79 = v99;
-        v80 = (v100 - v99) >> 2;
+        v79 = v98;
+        v80 = (v99 - v98) >> 2;
         v81 = (v80 - 1);
         if (v80 - 1 >= 0)
         {
@@ -1756,17 +1143,17 @@ LABEL_77:
           memset(__b, a4, v77);
         }
 
-        v112 = 0;
+        v111 = 0;
         operator new();
       }
 
       goto LABEL_95;
     }
 
-    v72 = *(v107 - 1);
-    v73 = *(v109 - 1);
-    v107 -= 4;
-    v109 -= 8;
+    v72 = *(v106 - 1);
+    v73 = *(v108 - 1);
+    v106 -= 4;
+    v108 -= 8;
     if (*(v9 + 48))
     {
       LODWORD(v74) = 0;
@@ -1777,14 +1164,14 @@ LABEL_77:
         {
           memset(v10, a4, v73);
           v10 = __b;
-          v8 = v104;
+          v8 = v103;
         }
 
         mlx::core::strided_reduce<unsigned char,unsigned char,mlx::core::MaxReduce>(v8, v10, v72, v73);
-        v8 = (v104 + v75);
+        v8 = (v103 + v75);
         v10 = (__b + v73);
         __b = __b + v73;
-        v104 = (v104 + v75);
+        v103 = (v103 + v75);
         v74 = v74 + v73;
       }
 
@@ -1793,43 +1180,41 @@ LABEL_77:
   }
 
 LABEL_99:
-  if (v108)
+  if (v107)
   {
-    v109 = v108;
-    operator delete(v108);
+    v108 = v107;
+    operator delete(v107);
   }
 
-  if (v106)
+  if (v105)
   {
-    v107 = v106;
-    operator delete(v106);
+    v106 = v105;
+    operator delete(v105);
   }
-
-  v96 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25A81688C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_25A81688C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   mlx::core::ReductionPlan::~ReductionPlan(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::reduction_op<unsigned char,unsigned char,mlx::core::MinReduce>(uint64_t **a1, uint64_t *a2, int **a3, unsigned int a4)
+void mlx::core::reduction_op<unsigned char,unsigned char,mlx::core::MinReduce>(uint64_t **a1, uint64_t *a2, unsigned int **a3, unsigned int a4)
 {
-  v114 = *MEMORY[0x277D85DE8];
-  v110 = a4;
-  mlx::core::get_reduction_plan(a1, a3, &v105);
+  v113 = *MEMORY[0x277D85DE8];
+  v109 = a4;
+  mlx::core::get_reduction_plan(a1, a3, &v104);
   v8 = (*a1)[19];
   v9 = *a2;
   v10 = *(*a2 + 152);
   __b = v10;
-  v104 = v8;
-  v98 = a2;
-  if (v105 == 1)
+  v103 = v8;
+  v97 = a2;
+  if (v104 == 1)
   {
-    v16 = v107;
-    if (v107 - v106 != 4)
+    v16 = v106;
+    if (v106 - v105 != 4)
     {
       goto LABEL_25;
     }
@@ -1837,12 +1222,12 @@ void mlx::core::reduction_op<unsigned char,unsigned char,mlx::core::MinReduce>(u
     if (*(v9 + 48))
     {
       v17 = 0;
-      v18 = *v106;
+      v18 = *v105;
       v19 = vdupq_n_s8(a4);
       do
       {
         v10->i8[0] = a4;
-        v20 = v104;
+        v20 = v103;
         if (v18 < 16)
         {
           v22 = v19;
@@ -1897,7 +1282,7 @@ void mlx::core::reduction_op<unsigned char,unsigned char,mlx::core::MinReduce>(u
         ++v17;
         v10 = (__b + 1);
         __b = __b + 1;
-        v104 = (v104 + v18);
+        v103 = (v103 + v18);
       }
 
       while (*(*a2 + 48) > v17);
@@ -1906,7 +1291,7 @@ void mlx::core::reduction_op<unsigned char,unsigned char,mlx::core::MinReduce>(u
 
   else
   {
-    if (!v105)
+    if (!v104)
     {
       v10->i8[0] = a4;
       v11 = *(*a1 + 12);
@@ -1960,25 +1345,25 @@ void mlx::core::reduction_op<unsigned char,unsigned char,mlx::core::MinReduce>(u
       goto LABEL_99;
     }
 
-    if ((v105 & 0xFFFFFFFD) == 1)
+    if ((v104 & 0xFFFFFFFD) == 1)
     {
-      v16 = v107;
+      v16 = v106;
 LABEL_25:
       v31 = *(v16 - 1);
-      v107 = v16 - 4;
-      v109 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v99);
+      v106 = v16 - 4;
+      v108 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v98);
       v32 = *(*a2 + 48);
-      if (v107 == v106)
+      if (v106 == v105)
       {
         if (v32)
         {
           v45 = 0;
-          v97 = vdupq_n_s8(a4);
+          v96 = vdupq_n_s8(a4);
           do
           {
-            v46 = v99;
-            v47 = (v100 - v99) >> 2;
+            v46 = v98;
+            v47 = (v99 - v98) >> 2;
             v48 = (v47 - 1);
             if (v47 - 1 < 0)
             {
@@ -1999,22 +1384,22 @@ LABEL_25:
 
               while (v48 != -1);
               v53 = v49;
-              a2 = v98;
+              a2 = v97;
             }
 
             *__b = a4;
             v54 = __b;
-            v55 = (v104 + v53);
+            v55 = (v103 + v53);
             if (v31 < 16)
             {
-              v57 = v97;
+              v57 = v96;
               v59 = v31;
             }
 
             else
             {
               v56 = v31;
-              v57 = v97;
+              v57 = v96;
               do
               {
                 v58 = *v55++;
@@ -2065,8 +1450,8 @@ LABEL_25:
 
       else if (v32)
       {
-        v33 = v99;
-        v34 = (v100 - v99) >> 2;
+        v33 = v98;
+        v34 = (v99 - v98) >> 2;
         v35 = (v34 - 1);
         if (v34 - 1 >= 0)
         {
@@ -2083,36 +1468,36 @@ LABEL_25:
           while (v35 != -1);
         }
 
-        *__b = v110;
-        v113 = 0;
+        *__b = v109;
+        v112 = 0;
         operator new();
       }
 
 LABEL_95:
       if (__p)
       {
-        v102 = __p;
+        v101 = __p;
         operator delete(__p);
       }
 
-      if (v99)
+      if (v98)
       {
-        v100 = v99;
-        operator delete(v99);
+        v99 = v98;
+        operator delete(v98);
       }
 
       goto LABEL_99;
     }
 
-    if (v105 != 2)
+    if (v104 != 2)
     {
-      if (v105 == 5)
+      if (v104 == 5)
       {
-        mlx::core::shapes_without_reduction_axes(a1, a3, &v99);
+        mlx::core::shapes_without_reduction_axes(a1, a3, &v98);
         if (*(*a2 + 48))
         {
-          v65 = v99;
-          v66 = (v100 - v99) >> 2;
+          v65 = v98;
+          v66 = (v99 - v98) >> 2;
           v67 = (v66 - 1);
           if (v66 - 1 >= 0)
           {
@@ -2129,41 +1514,41 @@ LABEL_95:
             while (v67 != -1);
           }
 
-          v111 = 0;
+          v110 = 0;
           operator new();
         }
 
         goto LABEL_95;
       }
 
-      if (v105 != 4)
+      if (v104 != 4)
       {
         goto LABEL_99;
       }
 
-      v44 = v107;
+      v44 = v106;
       goto LABEL_77;
     }
 
-    v44 = v107;
-    if (v107 - v106 != 4)
+    v44 = v106;
+    if (v106 - v105 != 4)
     {
 LABEL_77:
       v76 = *(v44 - 1);
-      v77 = *(v109 - 1);
-      v107 = v44 - 4;
-      v109 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v99);
+      v77 = *(v108 - 1);
+      v106 = v44 - 4;
+      v108 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v98);
       v78 = *(*a2 + 48);
-      if (v107 == v106)
+      if (v106 == v105)
       {
         if (v78)
         {
           v86 = 0;
           do
           {
-            v87 = v99;
-            v88 = (v100 - v99) >> 2;
+            v87 = v98;
+            v88 = (v99 - v98) >> 2;
             v89 = (v88 - 1);
             if (v88 - 1 < 0)
             {
@@ -2184,7 +1569,7 @@ LABEL_77:
 
               while (v89 != -1);
               v94 = v90;
-              a2 = v98;
+              a2 = v97;
             }
 
             v95 = __b;
@@ -2194,7 +1579,7 @@ LABEL_77:
               v95 = __b;
             }
 
-            mlx::core::strided_reduce<unsigned char,unsigned char,mlx::core::MinReduce>((v104 + v94), v95, v76, v77);
+            mlx::core::strided_reduce<unsigned char,unsigned char,mlx::core::MinReduce>((v103 + v94), v95, v76, v77);
             __b = __b + v77;
             v86 += v77;
           }
@@ -2205,8 +1590,8 @@ LABEL_77:
 
       else if (v78)
       {
-        v79 = v99;
-        v80 = (v100 - v99) >> 2;
+        v79 = v98;
+        v80 = (v99 - v98) >> 2;
         v81 = (v80 - 1);
         if (v80 - 1 >= 0)
         {
@@ -2228,17 +1613,17 @@ LABEL_77:
           memset(__b, a4, v77);
         }
 
-        v112 = 0;
+        v111 = 0;
         operator new();
       }
 
       goto LABEL_95;
     }
 
-    v72 = *(v107 - 1);
-    v73 = *(v109 - 1);
-    v107 -= 4;
-    v109 -= 8;
+    v72 = *(v106 - 1);
+    v73 = *(v108 - 1);
+    v106 -= 4;
+    v108 -= 8;
     if (*(v9 + 48))
     {
       LODWORD(v74) = 0;
@@ -2249,14 +1634,14 @@ LABEL_77:
         {
           memset(v10, a4, v73);
           v10 = __b;
-          v8 = v104;
+          v8 = v103;
         }
 
         mlx::core::strided_reduce<unsigned char,unsigned char,mlx::core::MinReduce>(v8, v10, v72, v73);
-        v8 = (v104 + v75);
+        v8 = (v103 + v75);
         v10 = (__b + v73);
         __b = __b + v73;
-        v104 = (v104 + v75);
+        v103 = (v103 + v75);
         v74 = v74 + v73;
       }
 
@@ -2265,24 +1650,22 @@ LABEL_77:
   }
 
 LABEL_99:
-  if (v108)
+  if (v107)
   {
-    v109 = v108;
-    operator delete(v108);
+    v108 = v107;
+    operator delete(v107);
   }
 
-  if (v106)
+  if (v105)
   {
-    v107 = v106;
-    operator delete(v106);
+    v106 = v105;
+    operator delete(v105);
   }
-
-  v96 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25A817150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_25A817150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   mlx::core::ReductionPlan::~ReductionPlan(va);
   _Unwind_Resume(a1);
 }
@@ -2641,21 +2024,21 @@ uint64_t std::__function::__func<void mlx::core::reduction_op<unsigned char,unsi
   }
 }
 
-void mlx::core::reduction_op<unsigned short,unsigned short,mlx::core::MaxReduce>(uint64_t **a1, uint64_t *a2, int **a3, unsigned int a4)
+void mlx::core::reduction_op<unsigned short,unsigned short,mlx::core::MaxReduce>(uint64_t **a1, uint64_t *a2, unsigned int **a3, unsigned int a4)
 {
-  v149 = *MEMORY[0x277D85DE8];
-  v145 = a4;
-  mlx::core::get_reduction_plan(a1, a3, &v140);
+  v148 = *MEMORY[0x277D85DE8];
+  v144 = a4;
+  mlx::core::get_reduction_plan(a1, a3, &v139);
   v8 = *a1;
   v9 = (*a1)[19];
   v10 = *a2;
   v11 = *(*a2 + 152);
-  v138 = v11;
-  v139 = v9;
-  if (v140 == 1)
+  v137 = v11;
+  v138 = v9;
+  if (v139 == 1)
   {
-    v19 = v142;
-    if (v142 - v141 != 4)
+    v19 = v141;
+    if (v141 - v140 != 4)
     {
       goto LABEL_23;
     }
@@ -2664,7 +2047,7 @@ void mlx::core::reduction_op<unsigned short,unsigned short,mlx::core::MaxReduce>
     if (v20)
     {
       v21 = 0;
-      v22 = *v141;
+      v22 = *v140;
       v23 = vdupq_n_s16(a4);
       do
       {
@@ -2729,13 +2112,13 @@ void mlx::core::reduction_op<unsigned short,unsigned short,mlx::core::MaxReduce>
       while (v21 != v20);
     }
 
-    v138 = v11;
-    v139 = v9;
+    v137 = v11;
+    v138 = v9;
   }
 
   else
   {
-    if (!v140)
+    if (!v139)
     {
       v11->i16[0] = a4;
       v12 = *(v8 + 12);
@@ -2793,26 +2176,26 @@ void mlx::core::reduction_op<unsigned short,unsigned short,mlx::core::MaxReduce>
       goto LABEL_67;
     }
 
-    if ((v140 & 0xFFFFFFFD) == 1)
+    if ((v139 & 0xFFFFFFFD) == 1)
     {
-      v19 = v142;
+      v19 = v141;
 LABEL_23:
       v35 = *(v19 - 1);
-      v142 = v19 - 4;
-      v144 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v134);
+      v141 = v19 - 4;
+      v143 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v133);
       v36 = *(*a2 + 48);
-      if (v142 == v141)
+      if (v141 == v140)
       {
-        v49 = v138;
+        v49 = v137;
         if (v36)
         {
           v50 = 0;
-          v51 = v134;
-          v52 = ((v135 - v134) >> 2) - 1;
+          v51 = v133;
+          v52 = ((v134 - v133) >> 2) - 1;
           v53 = __p;
-          v130 = v139;
-          v131 = vdupq_n_s16(a4);
+          v129 = v138;
+          v130 = vdupq_n_s16(a4);
           do
           {
             if ((v52 & 0x80000000) != 0)
@@ -2837,19 +2220,19 @@ LABEL_23:
             }
 
             *v49 = a4;
-            v59 = (v130 + v58);
+            v59 = (v129 + v58);
             if (v35 < 16)
             {
-              v61 = v131;
-              v62 = v131;
+              v61 = v130;
+              v62 = v130;
               v65 = v35;
             }
 
             else
             {
               v60 = v35;
-              v61 = v131;
-              v62 = v131;
+              v61 = v130;
+              v62 = v130;
               do
               {
                 v63 = *v59;
@@ -2899,13 +2282,13 @@ LABEL_23:
           while (v50 != v36);
         }
 
-        v138 = v49;
+        v137 = v49;
       }
 
       else if (v36)
       {
-        v37 = v134;
-        v38 = (v135 - v134) >> 2;
+        v37 = v133;
+        v38 = (v134 - v133) >> 2;
         v39 = (v38 - 1);
         if (v38 - 1 >= 0)
         {
@@ -2922,380 +2305,385 @@ LABEL_23:
           while (v39 != -1);
         }
 
-        v138->i16[0] = v145;
-        v148 = 0;
+        v137->i16[0] = v144;
+        v147 = 0;
         operator new();
       }
 
 LABEL_63:
       if (__p)
       {
-        v137 = __p;
+        v136 = __p;
         operator delete(__p);
       }
 
-      if (v134)
+      if (v133)
       {
-        v135 = v134;
-        operator delete(v134);
+        v134 = v133;
+        operator delete(v133);
       }
 
       goto LABEL_67;
     }
 
-    if (v140 != 2)
+    if (v139 != 2)
     {
-      if (v140 == 5)
+      if (v139 == 5)
       {
-        mlx::core::shapes_without_reduction_axes(a1, a3, &v134);
+        mlx::core::shapes_without_reduction_axes(a1, a3, &v133);
         if (*(*a2 + 48))
         {
-          v71 = v134;
-          v72 = (v135 - v134) >> 2;
-          v73 = (v72 - 1);
-          if (v72 - 1 >= 0)
+          v70 = v133;
+          v71 = (v134 - v133) >> 2;
+          v72 = (v71 - 1);
+          if (v71 - 1 >= 0)
           {
-            v74 = 0;
-            v75 = __p;
-            v76 = 0;
+            v73 = 0;
+            v74 = __p;
+            v75 = 0;
             do
             {
-              v77 = ldiv(v76, v71[v73]);
-              v76 = v77.quot;
-              v74 += v75[v73--] * v77.rem;
+              v76 = ldiv(v75, v70[v72]);
+              v75 = v76.quot;
+              v73 += v74[v72--] * v76.rem;
             }
 
-            while (v73 != -1);
+            while (v72 != -1);
           }
 
-          v146 = 0;
+          v145 = 0;
           operator new();
         }
 
         goto LABEL_63;
       }
 
-      if (v140 != 4)
+      if (v139 != 4)
       {
         goto LABEL_67;
       }
 
-      v48 = v142;
+      v48 = v141;
       goto LABEL_99;
     }
 
-    v48 = v142;
-    if (v142 - v141 != 4)
+    v48 = v141;
+    if (v141 - v140 != 4)
     {
 LABEL_99:
-      v88 = *(v48 - 1);
-      v89 = *(v144 - 1);
-      v142 = v48 - 4;
-      v144 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v134);
-      v90 = *(*a2 + 48);
-      if (v142 == v141)
+      v87 = *(v48 - 1);
+      v88 = *(v143 - 1);
+      v141 = v48 - 4;
+      v143 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v133);
+      v89 = *(*a2 + 48);
+      if (v141 == v140)
       {
-        if (v90)
+        if (v89)
         {
-          v108 = 0;
-          v109 = vdupq_n_s64(v89 - 1);
-          v110 = xmmword_25A9C2E70;
-          v111 = xmmword_25A9C2E80;
-          v112 = xmmword_25A99B0C0;
-          v113 = xmmword_25A99B0D0;
-          v133 = v109;
+          v107 = 0;
+          v108 = vdupq_n_s64(v88 - 1);
+          v109 = xmmword_25A9C2E70;
+          v110 = xmmword_25A9C2E80;
+          v111 = xmmword_25A99B0C0;
+          v112 = xmmword_25A99B0D0;
+          v132 = v108;
           do
           {
-            v114 = v134;
-            v115 = (v135 - v134) >> 2;
-            v116 = (v115 - 1);
-            if (v115 - 1 < 0)
+            v113 = v133;
+            v114 = (v134 - v133) >> 2;
+            v115 = (v114 - 1);
+            if (v114 - 1 < 0)
             {
-              v121 = 0;
+              v120 = 0;
             }
 
             else
             {
-              v117 = 0;
-              v118 = __p;
-              v119 = v108;
+              v116 = 0;
+              v117 = __p;
+              v118 = v107;
               do
               {
-                v120 = ldiv(v119, v114[v116]);
-                v119 = v120.quot;
-                v117 += v118[v116--] * v120.rem;
+                v119 = ldiv(v118, v113[v115]);
+                v118 = v119.quot;
+                v116 += v117[v115--] * v119.rem;
               }
 
-              while (v116 != -1);
-              v121 = 2 * v117;
-              v110 = xmmword_25A9C2E70;
-              v109 = v133;
-              v112 = xmmword_25A99B0C0;
-              v111 = xmmword_25A9C2E80;
-              v113 = xmmword_25A99B0D0;
+              while (v115 != -1);
+              v120 = 2 * v116;
+              v109 = xmmword_25A9C2E70;
+              v108 = v132;
+              v111 = xmmword_25A99B0C0;
+              v110 = xmmword_25A9C2E80;
+              v112 = xmmword_25A99B0D0;
             }
 
-            v122 = v138;
-            if (v89)
+            v121 = v137;
+            if (v88)
             {
-              v123 = 0;
-              v124 = &v138->i16[4];
+              v122 = 0;
+              v123 = &v137->i16[4];
               do
               {
-                v125 = vdupq_n_s64(v123);
-                v126 = vmovn_s64(vcgeq_u64(v109, vorrq_s8(v125, v113)));
-                if (vuzp1_s8(vuzp1_s16(v126, *v125.i8), *v125.i8).u8[0])
+                v124 = vdupq_n_s64(v122);
+                v125 = vmovn_s64(vcgeq_u64(v108, vorrq_s8(v124, v112)));
+                if (vuzp1_s8(vuzp1_s16(v125, *v124.i8), *v124.i8).u8[0])
                 {
-                  *(v124 - 4) = a4;
+                  *(v123 - 4) = a4;
                 }
 
-                if (vuzp1_s8(vuzp1_s16(v126, *&v125), *&v125).i8[1])
+                if (vuzp1_s8(vuzp1_s16(v125, *&v124), *&v124).i8[1])
                 {
-                  *(v124 - 3) = a4;
+                  *(v123 - 3) = a4;
                 }
 
-                if (vuzp1_s8(vuzp1_s16(*&v125, vmovn_s64(vcgeq_u64(v109, vorrq_s8(v125, v112)))), *&v125).i8[2])
+                if (vuzp1_s8(vuzp1_s16(*&v124, vmovn_s64(vcgeq_u64(v108, vorrq_s8(v124, v111)))), *&v124).i8[2])
                 {
-                  *(v124 - 2) = a4;
-                  *(v124 - 1) = a4;
+                  *(v123 - 2) = a4;
+                  *(v123 - 1) = a4;
                 }
 
-                v127 = vmovn_s64(vcgeq_u64(v109, vorrq_s8(v125, v111)));
-                if (vuzp1_s8(*&v125, vuzp1_s16(v127, *&v125)).i32[1])
+                v126 = vmovn_s64(vcgeq_u64(v108, vorrq_s8(v124, v110)));
+                if (vuzp1_s8(*&v124, vuzp1_s16(v126, *&v124)).i32[1])
                 {
-                  *v124 = a4;
+                  *v123 = a4;
                 }
 
-                if (vuzp1_s8(*&v125, vuzp1_s16(v127, *&v125)).i8[5])
+                if (vuzp1_s8(*&v124, vuzp1_s16(v126, *&v124)).i8[5])
                 {
-                  v124[1] = a4;
+                  v123[1] = a4;
                 }
 
-                v128 = vmovn_s64(vcgeq_u64(v109, vorrq_s8(v125, v110)));
-                if (vuzp1_s8(*&v128, vuzp1_s16(v128, v128)).i8[6])
+                v127 = vmovn_s64(vcgeq_u64(v108, vorrq_s8(v124, v109)));
+                if (vuzp1_s8(*&v127, vuzp1_s16(v127, v127)).i8[6])
                 {
-                  v124[2] = a4;
+                  v123[2] = a4;
                 }
 
-                v129 = vuzp1_s16(v128, v128);
-                if (vuzp1_s8(v129, v129).i8[7])
+                v128 = vuzp1_s16(v127, v127);
+                if (vuzp1_s8(v128, v128).i8[7])
                 {
-                  v124[3] = a4;
+                  v123[3] = a4;
                 }
 
+                v122 += 8;
                 v123 += 8;
-                v124 += 8;
               }
 
-              while (((v89 + 7) & 0xFFFFFFFFFFFFFFF8) != v123);
+              while (((v88 + 7) & 0xFFFFFFFFFFFFFFF8) != v122);
             }
 
-            mlx::core::strided_reduce<unsigned short,unsigned short,mlx::core::MaxReduce>((v139 + v121), v122, v88, v89);
-            v138 = (v138 + 2 * v89);
-            v108 += v89;
-            v110 = xmmword_25A9C2E70;
-            v109 = v133;
-            v112 = xmmword_25A99B0C0;
-            v111 = xmmword_25A9C2E80;
-            v113 = xmmword_25A99B0D0;
+            mlx::core::strided_reduce<unsigned short,unsigned short,mlx::core::MaxReduce>((v138 + v120), v121, v87, v88);
+            v137 = (v137 + 2 * v88);
+            v107 += v88;
+            v109 = xmmword_25A9C2E70;
+            v108 = v132;
+            v111 = xmmword_25A99B0C0;
+            v110 = xmmword_25A9C2E80;
+            v112 = xmmword_25A99B0D0;
           }
 
-          while (*(*a2 + 48) > v108);
+          while (*(*a2 + 48) > v107);
         }
       }
 
-      else if (v90)
+      else if (v89)
       {
-        v91 = xmmword_25A9C2E70;
-        v92 = xmmword_25A9C2E80;
-        v93 = xmmword_25A99B0C0;
-        v94 = xmmword_25A99B0D0;
-        v95 = v134;
-        v96 = (v135 - v134) >> 2;
-        v97 = (v96 - 1);
-        if (v96 - 1 >= 0)
+        v90 = xmmword_25A9C2E70;
+        v91 = xmmword_25A9C2E80;
+        v92 = xmmword_25A99B0C0;
+        v93 = xmmword_25A99B0D0;
+        v94 = v133;
+        v95 = (v134 - v133) >> 2;
+        v96 = (v95 - 1);
+        if (v95 - 1 >= 0)
         {
-          v98 = 0;
-          v99 = __p;
-          v100 = 0;
+          v97 = 0;
+          v98 = __p;
+          v99 = 0;
           do
           {
-            v101 = ldiv(v100, v95[v97]);
-            v100 = v101.quot;
-            v98 += v99[v97--] * v101.rem;
+            v100 = ldiv(v99, v94[v96]);
+            v99 = v100.quot;
+            v97 += v98[v96--] * v100.rem;
           }
 
-          while (v97 != -1);
-          v92 = xmmword_25A9C2E80;
-          v91 = xmmword_25A9C2E70;
-          v94 = xmmword_25A99B0D0;
-          v93 = xmmword_25A99B0C0;
+          while (v96 != -1);
+          v91 = xmmword_25A9C2E80;
+          v90 = xmmword_25A9C2E70;
+          v93 = xmmword_25A99B0D0;
+          v92 = xmmword_25A99B0C0;
         }
 
-        if (v89)
+        if (v88)
         {
-          v102 = 0;
-          v103 = vdupq_n_s64(v89 - 1);
-          v104 = &v138->i16[4];
+          v101 = 0;
+          v102 = vdupq_n_s64(v88 - 1);
+          v103 = &v137->i16[4];
           do
           {
-            v105 = vdupq_n_s64(v102);
-            v106 = vmovn_s64(vcgeq_u64(v103, vorrq_s8(v105, v94)));
-            if (vuzp1_s8(vuzp1_s16(v106, *v103.i8), *v103.i8).u8[0])
+            v104 = vdupq_n_s64(v101);
+            v105 = vmovn_s64(vcgeq_u64(v102, vorrq_s8(v104, v93)));
+            if (vuzp1_s8(vuzp1_s16(v105, *v102.i8), *v102.i8).u8[0])
             {
-              *(v104 - 4) = a4;
+              *(v103 - 4) = a4;
             }
 
-            if (vuzp1_s8(vuzp1_s16(v106, *&v103), *&v103).i8[1])
+            if (vuzp1_s8(vuzp1_s16(v105, *&v102), *&v102).i8[1])
             {
-              *(v104 - 3) = a4;
+              *(v103 - 3) = a4;
             }
 
-            if (vuzp1_s8(vuzp1_s16(*&v103, vmovn_s64(vcgeq_u64(v103, vorrq_s8(v105, v93)))), *&v103).i8[2])
+            if (vuzp1_s8(vuzp1_s16(*&v102, vmovn_s64(vcgeq_u64(v102, vorrq_s8(v104, v92)))), *&v102).i8[2])
             {
-              *(v104 - 2) = a4;
-              *(v104 - 1) = a4;
+              *(v103 - 2) = a4;
+              *(v103 - 1) = a4;
             }
 
-            v107 = vmovn_s64(vcgeq_u64(v103, vorrq_s8(v105, v92)));
-            if (vuzp1_s8(*&v103, vuzp1_s16(v107, *&v103)).i32[1])
+            v106 = vmovn_s64(vcgeq_u64(v102, vorrq_s8(v104, v91)));
+            if (vuzp1_s8(*&v102, vuzp1_s16(v106, *&v102)).i32[1])
             {
-              *v104 = a4;
+              *v103 = a4;
             }
 
-            if (vuzp1_s8(*&v103, vuzp1_s16(v107, *&v103)).i8[5])
+            if (vuzp1_s8(*&v102, vuzp1_s16(v106, *&v102)).i8[5])
             {
-              v104[1] = a4;
+              v103[1] = a4;
             }
 
-            if (vuzp1_s8(*&v103, vuzp1_s16(*&v103, vmovn_s64(vcgeq_u64(v103, vorrq_s8(v105, v91))))).i8[6])
+            if (vuzp1_s8(*&v102, vuzp1_s16(*&v102, vmovn_s64(vcgeq_u64(v102, vorrq_s8(v104, v90))))).i8[6])
             {
-              v104[2] = a4;
-              v104[3] = a4;
+              v103[2] = a4;
+              v103[3] = a4;
             }
 
-            v102 += 8;
-            v104 += 8;
+            v101 += 8;
+            v103 += 8;
           }
 
-          while (((v89 + 7) & 0xFFFFFFFFFFFFFFF8) != v102);
+          while (((v88 + 7) & 0xFFFFFFFFFFFFFFF8) != v101);
         }
 
-        v147 = 0;
+        v146 = 0;
         operator new();
       }
 
       goto LABEL_63;
     }
 
-    v78 = *(v142 - 1);
-    v79 = *(v144 - 1);
-    v142 -= 4;
-    v144 -= 8;
+    v77 = *(v141 - 1);
+    v78 = *(v143 - 1);
+    v141 -= 4;
+    v143 -= 8;
     if (*(v10 + 48))
     {
-      LODWORD(v80) = 0;
-      v132 = vdupq_n_s64(v79 - 1);
+      LODWORD(v79) = 0;
+      v131 = vdupq_n_s64(v78 - 1);
       do
       {
-        if (v79)
+        if (v78)
         {
-          v81 = 0;
-          v82 = &v11->i16[4];
+          v80 = 0;
+          v81 = &v11->i16[4];
           do
           {
-            v83 = vdupq_n_s64(v81);
-            v84 = vmovn_s64(vcgeq_u64(v132, vorrq_s8(v83, xmmword_25A99B0D0)));
-            if (vuzp1_s8(vuzp1_s16(v84, *v83.i8), *v83.i8).u8[0])
+            v82 = vdupq_n_s64(v80);
+            v83 = vmovn_s64(vcgeq_u64(v131, vorrq_s8(v82, xmmword_25A99B0D0)));
+            if (vuzp1_s8(vuzp1_s16(v83, *v82.i8), *v82.i8).u8[0])
             {
-              *(v82 - 4) = a4;
+              *(v81 - 4) = a4;
             }
 
-            if (vuzp1_s8(vuzp1_s16(v84, *&v83), *&v83).i8[1])
+            if (vuzp1_s8(vuzp1_s16(v83, *&v82), *&v82).i8[1])
             {
-              *(v82 - 3) = a4;
+              *(v81 - 3) = a4;
             }
 
-            if (vuzp1_s8(vuzp1_s16(*&v83, vmovn_s64(vcgeq_u64(v132, vorrq_s8(v83, xmmword_25A99B0C0)))), *&v83).i8[2])
+            if (vuzp1_s8(vuzp1_s16(*&v82, vmovn_s64(vcgeq_u64(v131, vorrq_s8(v82, xmmword_25A99B0C0)))), *&v82).i8[2])
             {
-              *(v82 - 2) = a4;
-              *(v82 - 1) = a4;
+              *(v81 - 2) = a4;
+              *(v81 - 1) = a4;
             }
 
-            v85 = vmovn_s64(vcgeq_u64(v132, vorrq_s8(v83, xmmword_25A9C2E80)));
-            if (vuzp1_s8(*&v83, vuzp1_s16(v85, *&v83)).i32[1])
+            v84 = vmovn_s64(vcgeq_u64(v131, vorrq_s8(v82, xmmword_25A9C2E80)));
+            if (vuzp1_s8(*&v82, vuzp1_s16(v84, *&v82)).i32[1])
             {
-              *v82 = a4;
+              *v81 = a4;
             }
 
-            if (vuzp1_s8(*&v83, vuzp1_s16(v85, *&v83)).i8[5])
+            if (vuzp1_s8(*&v82, vuzp1_s16(v84, *&v82)).i8[5])
             {
-              v82[1] = a4;
+              v81[1] = a4;
             }
 
-            v86 = vmovn_s64(vcgeq_u64(v132, vorrq_s8(v83, xmmword_25A9C2E70)));
-            if (vuzp1_s8(*&v86, vuzp1_s16(v86, v86)).i8[6])
+            v85 = vmovn_s64(vcgeq_u64(v131, vorrq_s8(v82, xmmword_25A9C2E70)));
+            if (vuzp1_s8(*&v85, vuzp1_s16(v85, v85)).i8[6])
             {
-              v82[2] = a4;
+              v81[2] = a4;
             }
 
-            v87 = vuzp1_s16(v86, v86);
-            if (vuzp1_s8(v87, v87).i8[7])
+            v86 = vuzp1_s16(v85, v85);
+            if (vuzp1_s8(v86, v86).i8[7])
             {
-              v82[3] = a4;
+              v81[3] = a4;
             }
 
+            v80 += 8;
             v81 += 8;
-            v82 += 8;
           }
 
-          while (((v79 + 7) & 0xFFFFFFFFFFFFFFF8) != v81);
+          while (((v78 + 7) & 0xFFFFFFFFFFFFFFF8) != v80);
         }
 
-        mlx::core::strided_reduce<unsigned short,unsigned short,mlx::core::MaxReduce>(v9, v11, v78, v79);
-        v9 = (v139 + 2 * v79 * v78);
-        v11 = (v138 + 2 * v79);
-        v138 = v11;
-        v139 = v9;
-        v80 = v80 + v79;
+        mlx::core::strided_reduce<unsigned short,unsigned short,mlx::core::MaxReduce>(v9, v11, v77, v78);
+        v9 = (v138 + 2 * v78 * v77);
+        v11 = (v137 + 2 * v78);
+        v137 = v11;
+        v138 = v9;
+        v79 = v79 + v78;
       }
 
-      while (v80 < *(*a2 + 48));
+      while (v79 < *(*a2 + 48));
     }
   }
 
 LABEL_67:
-  if (v143)
+  if (v142)
   {
-    v144 = v143;
-    operator delete(v143);
+    v143 = v142;
+    operator delete(v142);
   }
 
-  if (v141)
+  if (v140)
   {
-    v142 = v141;
-    operator delete(v141);
+    v141 = v140;
+    operator delete(v140);
   }
-
-  v70 = *MEMORY[0x277D85DE8];
 }
 
-void mlx::core::reduction_op<unsigned short,unsigned short,mlx::core::MinReduce>(uint64_t **a1, uint64_t *a2, int **a3, unsigned int a4)
+void sub_25A8186B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  v149 = *MEMORY[0x277D85DE8];
-  v145 = a4;
-  mlx::core::get_reduction_plan(a1, a3, &v140);
+  va_start(va, a30);
+  mlx::core::ReductionPlan::~ReductionPlan(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::reduction_op<unsigned short,unsigned short,mlx::core::MinReduce>(uint64_t **a1, uint64_t *a2, unsigned int **a3, unsigned int a4)
+{
+  v148 = *MEMORY[0x277D85DE8];
+  v144 = a4;
+  mlx::core::get_reduction_plan(a1, a3, &v139);
   v8 = *a1;
   v9 = (*a1)[19];
   v10 = *a2;
   v11 = *(*a2 + 152);
-  v138 = v11;
-  v139 = v9;
-  if (v140 == 1)
+  v137 = v11;
+  v138 = v9;
+  if (v139 == 1)
   {
-    v19 = v142;
-    if (v142 - v141 != 4)
+    v19 = v141;
+    if (v141 - v140 != 4)
     {
       goto LABEL_23;
     }
@@ -3304,7 +2692,7 @@ void mlx::core::reduction_op<unsigned short,unsigned short,mlx::core::MinReduce>
     if (v20)
     {
       v21 = 0;
-      v22 = *v141;
+      v22 = *v140;
       v23 = vdupq_n_s16(a4);
       do
       {
@@ -3369,13 +2757,13 @@ void mlx::core::reduction_op<unsigned short,unsigned short,mlx::core::MinReduce>
       while (v21 != v20);
     }
 
-    v138 = v11;
-    v139 = v9;
+    v137 = v11;
+    v138 = v9;
   }
 
   else
   {
-    if (!v140)
+    if (!v139)
     {
       v11->i16[0] = a4;
       v12 = *(v8 + 12);
@@ -3433,26 +2821,26 @@ void mlx::core::reduction_op<unsigned short,unsigned short,mlx::core::MinReduce>
       goto LABEL_67;
     }
 
-    if ((v140 & 0xFFFFFFFD) == 1)
+    if ((v139 & 0xFFFFFFFD) == 1)
     {
-      v19 = v142;
+      v19 = v141;
 LABEL_23:
       v35 = *(v19 - 1);
-      v142 = v19 - 4;
-      v144 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v134);
+      v141 = v19 - 4;
+      v143 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v133);
       v36 = *(*a2 + 48);
-      if (v142 == v141)
+      if (v141 == v140)
       {
-        v49 = v138;
+        v49 = v137;
         if (v36)
         {
           v50 = 0;
-          v51 = v134;
-          v52 = ((v135 - v134) >> 2) - 1;
+          v51 = v133;
+          v52 = ((v134 - v133) >> 2) - 1;
           v53 = __p;
-          v130 = v139;
-          v131 = vdupq_n_s16(a4);
+          v129 = v138;
+          v130 = vdupq_n_s16(a4);
           do
           {
             if ((v52 & 0x80000000) != 0)
@@ -3477,19 +2865,19 @@ LABEL_23:
             }
 
             *v49 = a4;
-            v59 = (v130 + v58);
+            v59 = (v129 + v58);
             if (v35 < 16)
             {
-              v61 = v131;
-              v62 = v131;
+              v61 = v130;
+              v62 = v130;
               v65 = v35;
             }
 
             else
             {
               v60 = v35;
-              v61 = v131;
-              v62 = v131;
+              v61 = v130;
+              v62 = v130;
               do
               {
                 v63 = *v59;
@@ -3539,13 +2927,13 @@ LABEL_23:
           while (v50 != v36);
         }
 
-        v138 = v49;
+        v137 = v49;
       }
 
       else if (v36)
       {
-        v37 = v134;
-        v38 = (v135 - v134) >> 2;
+        v37 = v133;
+        v38 = (v134 - v133) >> 2;
         v39 = (v38 - 1);
         if (v38 - 1 >= 0)
         {
@@ -3562,363 +2950,368 @@ LABEL_23:
           while (v39 != -1);
         }
 
-        v138->i16[0] = v145;
-        v148 = 0;
+        v137->i16[0] = v144;
+        v147 = 0;
         operator new();
       }
 
 LABEL_63:
       if (__p)
       {
-        v137 = __p;
+        v136 = __p;
         operator delete(__p);
       }
 
-      if (v134)
+      if (v133)
       {
-        v135 = v134;
-        operator delete(v134);
+        v134 = v133;
+        operator delete(v133);
       }
 
       goto LABEL_67;
     }
 
-    if (v140 != 2)
+    if (v139 != 2)
     {
-      if (v140 == 5)
+      if (v139 == 5)
       {
-        mlx::core::shapes_without_reduction_axes(a1, a3, &v134);
+        mlx::core::shapes_without_reduction_axes(a1, a3, &v133);
         if (*(*a2 + 48))
         {
-          v71 = v134;
-          v72 = (v135 - v134) >> 2;
-          v73 = (v72 - 1);
-          if (v72 - 1 >= 0)
+          v70 = v133;
+          v71 = (v134 - v133) >> 2;
+          v72 = (v71 - 1);
+          if (v71 - 1 >= 0)
           {
-            v74 = 0;
-            v75 = __p;
-            v76 = 0;
+            v73 = 0;
+            v74 = __p;
+            v75 = 0;
             do
             {
-              v77 = ldiv(v76, v71[v73]);
-              v76 = v77.quot;
-              v74 += v75[v73--] * v77.rem;
+              v76 = ldiv(v75, v70[v72]);
+              v75 = v76.quot;
+              v73 += v74[v72--] * v76.rem;
             }
 
-            while (v73 != -1);
+            while (v72 != -1);
           }
 
-          v146 = 0;
+          v145 = 0;
           operator new();
         }
 
         goto LABEL_63;
       }
 
-      if (v140 != 4)
+      if (v139 != 4)
       {
         goto LABEL_67;
       }
 
-      v48 = v142;
+      v48 = v141;
       goto LABEL_99;
     }
 
-    v48 = v142;
-    if (v142 - v141 != 4)
+    v48 = v141;
+    if (v141 - v140 != 4)
     {
 LABEL_99:
-      v88 = *(v48 - 1);
-      v89 = *(v144 - 1);
-      v142 = v48 - 4;
-      v144 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v134);
-      v90 = *(*a2 + 48);
-      if (v142 == v141)
+      v87 = *(v48 - 1);
+      v88 = *(v143 - 1);
+      v141 = v48 - 4;
+      v143 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v133);
+      v89 = *(*a2 + 48);
+      if (v141 == v140)
       {
-        if (v90)
+        if (v89)
         {
-          v108 = 0;
-          v109 = vdupq_n_s64(v89 - 1);
-          v110 = xmmword_25A9C2E70;
-          v111 = xmmword_25A9C2E80;
-          v112 = xmmword_25A99B0C0;
-          v113 = xmmword_25A99B0D0;
-          v133 = v109;
+          v107 = 0;
+          v108 = vdupq_n_s64(v88 - 1);
+          v109 = xmmword_25A9C2E70;
+          v110 = xmmword_25A9C2E80;
+          v111 = xmmword_25A99B0C0;
+          v112 = xmmword_25A99B0D0;
+          v132 = v108;
           do
           {
-            v114 = v134;
-            v115 = (v135 - v134) >> 2;
-            v116 = (v115 - 1);
-            if (v115 - 1 < 0)
+            v113 = v133;
+            v114 = (v134 - v133) >> 2;
+            v115 = (v114 - 1);
+            if (v114 - 1 < 0)
             {
-              v121 = 0;
+              v120 = 0;
             }
 
             else
             {
-              v117 = 0;
-              v118 = __p;
-              v119 = v108;
+              v116 = 0;
+              v117 = __p;
+              v118 = v107;
               do
               {
-                v120 = ldiv(v119, v114[v116]);
-                v119 = v120.quot;
-                v117 += v118[v116--] * v120.rem;
+                v119 = ldiv(v118, v113[v115]);
+                v118 = v119.quot;
+                v116 += v117[v115--] * v119.rem;
               }
 
-              while (v116 != -1);
-              v121 = 2 * v117;
-              v110 = xmmword_25A9C2E70;
-              v109 = v133;
-              v112 = xmmword_25A99B0C0;
-              v111 = xmmword_25A9C2E80;
-              v113 = xmmword_25A99B0D0;
+              while (v115 != -1);
+              v120 = 2 * v116;
+              v109 = xmmword_25A9C2E70;
+              v108 = v132;
+              v111 = xmmword_25A99B0C0;
+              v110 = xmmword_25A9C2E80;
+              v112 = xmmword_25A99B0D0;
             }
 
-            v122 = v138;
-            if (v89)
+            v121 = v137;
+            if (v88)
             {
-              v123 = 0;
-              v124 = &v138->i16[4];
+              v122 = 0;
+              v123 = &v137->i16[4];
               do
               {
-                v125 = vdupq_n_s64(v123);
-                v126 = vmovn_s64(vcgeq_u64(v109, vorrq_s8(v125, v113)));
-                if (vuzp1_s8(vuzp1_s16(v126, *v125.i8), *v125.i8).u8[0])
+                v124 = vdupq_n_s64(v122);
+                v125 = vmovn_s64(vcgeq_u64(v108, vorrq_s8(v124, v112)));
+                if (vuzp1_s8(vuzp1_s16(v125, *v124.i8), *v124.i8).u8[0])
                 {
-                  *(v124 - 4) = a4;
+                  *(v123 - 4) = a4;
                 }
 
-                if (vuzp1_s8(vuzp1_s16(v126, *&v125), *&v125).i8[1])
+                if (vuzp1_s8(vuzp1_s16(v125, *&v124), *&v124).i8[1])
                 {
-                  *(v124 - 3) = a4;
+                  *(v123 - 3) = a4;
                 }
 
-                if (vuzp1_s8(vuzp1_s16(*&v125, vmovn_s64(vcgeq_u64(v109, vorrq_s8(v125, v112)))), *&v125).i8[2])
+                if (vuzp1_s8(vuzp1_s16(*&v124, vmovn_s64(vcgeq_u64(v108, vorrq_s8(v124, v111)))), *&v124).i8[2])
                 {
-                  *(v124 - 2) = a4;
-                  *(v124 - 1) = a4;
+                  *(v123 - 2) = a4;
+                  *(v123 - 1) = a4;
                 }
 
-                v127 = vmovn_s64(vcgeq_u64(v109, vorrq_s8(v125, v111)));
-                if (vuzp1_s8(*&v125, vuzp1_s16(v127, *&v125)).i32[1])
+                v126 = vmovn_s64(vcgeq_u64(v108, vorrq_s8(v124, v110)));
+                if (vuzp1_s8(*&v124, vuzp1_s16(v126, *&v124)).i32[1])
                 {
-                  *v124 = a4;
+                  *v123 = a4;
                 }
 
-                if (vuzp1_s8(*&v125, vuzp1_s16(v127, *&v125)).i8[5])
+                if (vuzp1_s8(*&v124, vuzp1_s16(v126, *&v124)).i8[5])
                 {
-                  v124[1] = a4;
+                  v123[1] = a4;
                 }
 
-                v128 = vmovn_s64(vcgeq_u64(v109, vorrq_s8(v125, v110)));
-                if (vuzp1_s8(*&v128, vuzp1_s16(v128, v128)).i8[6])
+                v127 = vmovn_s64(vcgeq_u64(v108, vorrq_s8(v124, v109)));
+                if (vuzp1_s8(*&v127, vuzp1_s16(v127, v127)).i8[6])
                 {
-                  v124[2] = a4;
+                  v123[2] = a4;
                 }
 
-                v129 = vuzp1_s16(v128, v128);
-                if (vuzp1_s8(v129, v129).i8[7])
+                v128 = vuzp1_s16(v127, v127);
+                if (vuzp1_s8(v128, v128).i8[7])
                 {
-                  v124[3] = a4;
+                  v123[3] = a4;
                 }
 
+                v122 += 8;
                 v123 += 8;
-                v124 += 8;
               }
 
-              while (((v89 + 7) & 0xFFFFFFFFFFFFFFF8) != v123);
+              while (((v88 + 7) & 0xFFFFFFFFFFFFFFF8) != v122);
             }
 
-            mlx::core::strided_reduce<unsigned short,unsigned short,mlx::core::MinReduce>((v139 + v121), v122, v88, v89);
-            v138 = (v138 + 2 * v89);
-            v108 += v89;
-            v110 = xmmword_25A9C2E70;
-            v109 = v133;
-            v112 = xmmword_25A99B0C0;
-            v111 = xmmword_25A9C2E80;
-            v113 = xmmword_25A99B0D0;
+            mlx::core::strided_reduce<unsigned short,unsigned short,mlx::core::MinReduce>((v138 + v120), v121, v87, v88);
+            v137 = (v137 + 2 * v88);
+            v107 += v88;
+            v109 = xmmword_25A9C2E70;
+            v108 = v132;
+            v111 = xmmword_25A99B0C0;
+            v110 = xmmword_25A9C2E80;
+            v112 = xmmword_25A99B0D0;
           }
 
-          while (*(*a2 + 48) > v108);
+          while (*(*a2 + 48) > v107);
         }
       }
 
-      else if (v90)
+      else if (v89)
       {
-        v91 = xmmword_25A9C2E70;
-        v92 = xmmword_25A9C2E80;
-        v93 = xmmword_25A99B0C0;
-        v94 = xmmword_25A99B0D0;
-        v95 = v134;
-        v96 = (v135 - v134) >> 2;
-        v97 = (v96 - 1);
-        if (v96 - 1 >= 0)
+        v90 = xmmword_25A9C2E70;
+        v91 = xmmword_25A9C2E80;
+        v92 = xmmword_25A99B0C0;
+        v93 = xmmword_25A99B0D0;
+        v94 = v133;
+        v95 = (v134 - v133) >> 2;
+        v96 = (v95 - 1);
+        if (v95 - 1 >= 0)
         {
-          v98 = 0;
-          v99 = __p;
-          v100 = 0;
+          v97 = 0;
+          v98 = __p;
+          v99 = 0;
           do
           {
-            v101 = ldiv(v100, v95[v97]);
-            v100 = v101.quot;
-            v98 += v99[v97--] * v101.rem;
+            v100 = ldiv(v99, v94[v96]);
+            v99 = v100.quot;
+            v97 += v98[v96--] * v100.rem;
           }
 
-          while (v97 != -1);
-          v92 = xmmword_25A9C2E80;
-          v91 = xmmword_25A9C2E70;
-          v94 = xmmword_25A99B0D0;
-          v93 = xmmword_25A99B0C0;
+          while (v96 != -1);
+          v91 = xmmword_25A9C2E80;
+          v90 = xmmword_25A9C2E70;
+          v93 = xmmword_25A99B0D0;
+          v92 = xmmword_25A99B0C0;
         }
 
-        if (v89)
+        if (v88)
         {
-          v102 = 0;
-          v103 = vdupq_n_s64(v89 - 1);
-          v104 = &v138->i16[4];
+          v101 = 0;
+          v102 = vdupq_n_s64(v88 - 1);
+          v103 = &v137->i16[4];
           do
           {
-            v105 = vdupq_n_s64(v102);
-            v106 = vmovn_s64(vcgeq_u64(v103, vorrq_s8(v105, v94)));
-            if (vuzp1_s8(vuzp1_s16(v106, *v103.i8), *v103.i8).u8[0])
+            v104 = vdupq_n_s64(v101);
+            v105 = vmovn_s64(vcgeq_u64(v102, vorrq_s8(v104, v93)));
+            if (vuzp1_s8(vuzp1_s16(v105, *v102.i8), *v102.i8).u8[0])
             {
-              *(v104 - 4) = a4;
+              *(v103 - 4) = a4;
             }
 
-            if (vuzp1_s8(vuzp1_s16(v106, *&v103), *&v103).i8[1])
+            if (vuzp1_s8(vuzp1_s16(v105, *&v102), *&v102).i8[1])
             {
-              *(v104 - 3) = a4;
+              *(v103 - 3) = a4;
             }
 
-            if (vuzp1_s8(vuzp1_s16(*&v103, vmovn_s64(vcgeq_u64(v103, vorrq_s8(v105, v93)))), *&v103).i8[2])
+            if (vuzp1_s8(vuzp1_s16(*&v102, vmovn_s64(vcgeq_u64(v102, vorrq_s8(v104, v92)))), *&v102).i8[2])
             {
-              *(v104 - 2) = a4;
-              *(v104 - 1) = a4;
+              *(v103 - 2) = a4;
+              *(v103 - 1) = a4;
             }
 
-            v107 = vmovn_s64(vcgeq_u64(v103, vorrq_s8(v105, v92)));
-            if (vuzp1_s8(*&v103, vuzp1_s16(v107, *&v103)).i32[1])
+            v106 = vmovn_s64(vcgeq_u64(v102, vorrq_s8(v104, v91)));
+            if (vuzp1_s8(*&v102, vuzp1_s16(v106, *&v102)).i32[1])
             {
-              *v104 = a4;
+              *v103 = a4;
             }
 
-            if (vuzp1_s8(*&v103, vuzp1_s16(v107, *&v103)).i8[5])
+            if (vuzp1_s8(*&v102, vuzp1_s16(v106, *&v102)).i8[5])
             {
-              v104[1] = a4;
+              v103[1] = a4;
             }
 
-            if (vuzp1_s8(*&v103, vuzp1_s16(*&v103, vmovn_s64(vcgeq_u64(v103, vorrq_s8(v105, v91))))).i8[6])
+            if (vuzp1_s8(*&v102, vuzp1_s16(*&v102, vmovn_s64(vcgeq_u64(v102, vorrq_s8(v104, v90))))).i8[6])
             {
-              v104[2] = a4;
-              v104[3] = a4;
+              v103[2] = a4;
+              v103[3] = a4;
             }
 
-            v102 += 8;
-            v104 += 8;
+            v101 += 8;
+            v103 += 8;
           }
 
-          while (((v89 + 7) & 0xFFFFFFFFFFFFFFF8) != v102);
+          while (((v88 + 7) & 0xFFFFFFFFFFFFFFF8) != v101);
         }
 
-        v147 = 0;
+        v146 = 0;
         operator new();
       }
 
       goto LABEL_63;
     }
 
-    v78 = *(v142 - 1);
-    v79 = *(v144 - 1);
-    v142 -= 4;
-    v144 -= 8;
+    v77 = *(v141 - 1);
+    v78 = *(v143 - 1);
+    v141 -= 4;
+    v143 -= 8;
     if (*(v10 + 48))
     {
-      LODWORD(v80) = 0;
-      v132 = vdupq_n_s64(v79 - 1);
+      LODWORD(v79) = 0;
+      v131 = vdupq_n_s64(v78 - 1);
       do
       {
-        if (v79)
+        if (v78)
         {
-          v81 = 0;
-          v82 = &v11->i16[4];
+          v80 = 0;
+          v81 = &v11->i16[4];
           do
           {
-            v83 = vdupq_n_s64(v81);
-            v84 = vmovn_s64(vcgeq_u64(v132, vorrq_s8(v83, xmmword_25A99B0D0)));
-            if (vuzp1_s8(vuzp1_s16(v84, *v83.i8), *v83.i8).u8[0])
+            v82 = vdupq_n_s64(v80);
+            v83 = vmovn_s64(vcgeq_u64(v131, vorrq_s8(v82, xmmword_25A99B0D0)));
+            if (vuzp1_s8(vuzp1_s16(v83, *v82.i8), *v82.i8).u8[0])
             {
-              *(v82 - 4) = a4;
+              *(v81 - 4) = a4;
             }
 
-            if (vuzp1_s8(vuzp1_s16(v84, *&v83), *&v83).i8[1])
+            if (vuzp1_s8(vuzp1_s16(v83, *&v82), *&v82).i8[1])
             {
-              *(v82 - 3) = a4;
+              *(v81 - 3) = a4;
             }
 
-            if (vuzp1_s8(vuzp1_s16(*&v83, vmovn_s64(vcgeq_u64(v132, vorrq_s8(v83, xmmword_25A99B0C0)))), *&v83).i8[2])
+            if (vuzp1_s8(vuzp1_s16(*&v82, vmovn_s64(vcgeq_u64(v131, vorrq_s8(v82, xmmword_25A99B0C0)))), *&v82).i8[2])
             {
-              *(v82 - 2) = a4;
-              *(v82 - 1) = a4;
+              *(v81 - 2) = a4;
+              *(v81 - 1) = a4;
             }
 
-            v85 = vmovn_s64(vcgeq_u64(v132, vorrq_s8(v83, xmmword_25A9C2E80)));
-            if (vuzp1_s8(*&v83, vuzp1_s16(v85, *&v83)).i32[1])
+            v84 = vmovn_s64(vcgeq_u64(v131, vorrq_s8(v82, xmmword_25A9C2E80)));
+            if (vuzp1_s8(*&v82, vuzp1_s16(v84, *&v82)).i32[1])
             {
-              *v82 = a4;
+              *v81 = a4;
             }
 
-            if (vuzp1_s8(*&v83, vuzp1_s16(v85, *&v83)).i8[5])
+            if (vuzp1_s8(*&v82, vuzp1_s16(v84, *&v82)).i8[5])
             {
-              v82[1] = a4;
+              v81[1] = a4;
             }
 
-            v86 = vmovn_s64(vcgeq_u64(v132, vorrq_s8(v83, xmmword_25A9C2E70)));
-            if (vuzp1_s8(*&v86, vuzp1_s16(v86, v86)).i8[6])
+            v85 = vmovn_s64(vcgeq_u64(v131, vorrq_s8(v82, xmmword_25A9C2E70)));
+            if (vuzp1_s8(*&v85, vuzp1_s16(v85, v85)).i8[6])
             {
-              v82[2] = a4;
+              v81[2] = a4;
             }
 
-            v87 = vuzp1_s16(v86, v86);
-            if (vuzp1_s8(v87, v87).i8[7])
+            v86 = vuzp1_s16(v85, v85);
+            if (vuzp1_s8(v86, v86).i8[7])
             {
-              v82[3] = a4;
+              v81[3] = a4;
             }
 
+            v80 += 8;
             v81 += 8;
-            v82 += 8;
           }
 
-          while (((v79 + 7) & 0xFFFFFFFFFFFFFFF8) != v81);
+          while (((v78 + 7) & 0xFFFFFFFFFFFFFFF8) != v80);
         }
 
-        mlx::core::strided_reduce<unsigned short,unsigned short,mlx::core::MinReduce>(v9, v11, v78, v79);
-        v9 = (v139 + 2 * v79 * v78);
-        v11 = (v138 + 2 * v79);
-        v138 = v11;
-        v139 = v9;
-        v80 = v80 + v79;
+        mlx::core::strided_reduce<unsigned short,unsigned short,mlx::core::MinReduce>(v9, v11, v77, v78);
+        v9 = (v138 + 2 * v78 * v77);
+        v11 = (v137 + 2 * v78);
+        v137 = v11;
+        v138 = v9;
+        v79 = v79 + v78;
       }
 
-      while (v80 < *(*a2 + 48));
+      while (v79 < *(*a2 + 48));
     }
   }
 
 LABEL_67:
-  if (v143)
+  if (v142)
   {
-    v144 = v143;
-    operator delete(v143);
+    v143 = v142;
+    operator delete(v142);
   }
 
-  if (v141)
+  if (v140)
   {
-    v142 = v141;
-    operator delete(v141);
+    v141 = v140;
+    operator delete(v140);
   }
+}
 
-  v70 = *MEMORY[0x277D85DE8];
+void sub_25A819308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  mlx::core::ReductionPlan::~ReductionPlan(va);
+  _Unwind_Resume(a1);
 }
 
 _OWORD *mlx::core::strided_reduce<unsigned short,unsigned short,mlx::core::MaxReduce>(_OWORD *result, uint16x8_t *a2, int a3, unint64_t a4)
@@ -4291,21 +3684,21 @@ uint64_t std::__function::__func<void mlx::core::reduction_op<unsigned short,uns
   }
 }
 
-void mlx::core::reduction_op<unsigned int,unsigned int,mlx::core::MaxReduce>(uint64_t **a1, uint64_t *a2, int **a3, unsigned int a4)
+void mlx::core::reduction_op<unsigned int,unsigned int,mlx::core::MaxReduce>(uint64_t **a1, uint64_t *a2, unsigned int **a3, unsigned int a4)
 {
-  v140 = *MEMORY[0x277D85DE8];
-  v136 = a4;
-  mlx::core::get_reduction_plan(a1, a3, &v131);
+  v139 = *MEMORY[0x277D85DE8];
+  v135 = a4;
+  mlx::core::get_reduction_plan(a1, a3, &v130);
   v8 = *a1;
   v9 = (*a1)[19];
   v10 = *a2;
   v11 = *(*a2 + 152);
-  v129 = v11;
-  v130 = v9;
-  if (v131 == 1)
+  v128 = v11;
+  v129 = v9;
+  if (v130 == 1)
   {
-    v19 = v133;
-    if (v133 - v132 != 4)
+    v19 = v132;
+    if (v132 - v131 != 4)
     {
       goto LABEL_23;
     }
@@ -4314,7 +3707,7 @@ void mlx::core::reduction_op<unsigned int,unsigned int,mlx::core::MaxReduce>(uin
     if (v20)
     {
       v21 = 0;
-      v22 = *v132;
+      v22 = *v131;
       v23 = vdupq_n_s32(a4);
       do
       {
@@ -4379,13 +3772,13 @@ void mlx::core::reduction_op<unsigned int,unsigned int,mlx::core::MaxReduce>(uin
       while (v21 != v20);
     }
 
-    v129 = v11;
-    v130 = v9;
+    v128 = v11;
+    v129 = v9;
   }
 
   else
   {
-    if (!v131)
+    if (!v130)
     {
       v11->i32[0] = a4;
       v12 = *(v8 + 12);
@@ -4443,26 +3836,26 @@ void mlx::core::reduction_op<unsigned int,unsigned int,mlx::core::MaxReduce>(uin
       goto LABEL_67;
     }
 
-    if ((v131 & 0xFFFFFFFD) == 1)
+    if ((v130 & 0xFFFFFFFD) == 1)
     {
-      v19 = v133;
+      v19 = v132;
 LABEL_23:
       v35 = *(v19 - 1);
-      v133 = v19 - 4;
-      v135 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v125);
+      v132 = v19 - 4;
+      v134 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v124);
       v36 = *(*a2 + 48);
-      if (v133 == v132)
+      if (v132 == v131)
       {
-        v49 = v129;
+        v49 = v128;
         if (v36)
         {
           v50 = 0;
-          v51 = v125;
-          v52 = ((v126 - v125) >> 2) - 1;
+          v51 = v124;
+          v52 = ((v125 - v124) >> 2) - 1;
           v53 = __p;
-          v121 = v130;
-          v122 = vdupq_n_s32(a4);
+          v120 = v129;
+          v121 = vdupq_n_s32(a4);
           do
           {
             if ((v52 & 0x80000000) != 0)
@@ -4487,19 +3880,19 @@ LABEL_23:
             }
 
             *v49 = a4;
-            v59 = (v121 + v58);
+            v59 = (v120 + v58);
             if (v35 < 8)
             {
-              v61 = v122;
-              v62 = v122;
+              v61 = v121;
+              v62 = v121;
               v65 = v35;
             }
 
             else
             {
               v60 = v35;
-              v61 = v122;
-              v62 = v122;
+              v61 = v121;
+              v62 = v121;
               do
               {
                 v63 = *v59;
@@ -4549,13 +3942,13 @@ LABEL_23:
           while (v50 != v36);
         }
 
-        v129 = v49;
+        v128 = v49;
       }
 
       else if (v36)
       {
-        v37 = v125;
-        v38 = (v126 - v125) >> 2;
+        v37 = v124;
+        v38 = (v125 - v124) >> 2;
         v39 = (v38 - 1);
         if (v38 - 1 >= 0)
         {
@@ -4572,309 +3965,314 @@ LABEL_23:
           while (v39 != -1);
         }
 
-        v129->i32[0] = v136;
-        v139 = 0;
+        v128->i32[0] = v135;
+        v138 = 0;
         operator new();
       }
 
 LABEL_63:
       if (__p)
       {
-        v128 = __p;
+        v127 = __p;
         operator delete(__p);
       }
 
-      if (v125)
+      if (v124)
       {
-        v126 = v125;
-        operator delete(v125);
+        v125 = v124;
+        operator delete(v124);
       }
 
       goto LABEL_67;
     }
 
-    if (v131 != 2)
+    if (v130 != 2)
     {
-      if (v131 == 5)
+      if (v130 == 5)
       {
-        mlx::core::shapes_without_reduction_axes(a1, a3, &v125);
+        mlx::core::shapes_without_reduction_axes(a1, a3, &v124);
         if (*(*a2 + 48))
         {
-          v71 = v125;
-          v72 = (v126 - v125) >> 2;
-          v73 = (v72 - 1);
-          if (v72 - 1 >= 0)
+          v70 = v124;
+          v71 = (v125 - v124) >> 2;
+          v72 = (v71 - 1);
+          if (v71 - 1 >= 0)
           {
-            v74 = 0;
-            v75 = __p;
-            v76 = 0;
+            v73 = 0;
+            v74 = __p;
+            v75 = 0;
             do
             {
-              v77 = ldiv(v76, v71[v73]);
-              v76 = v77.quot;
-              v74 += v75[v73--] * v77.rem;
+              v76 = ldiv(v75, v70[v72]);
+              v75 = v76.quot;
+              v73 += v74[v72--] * v76.rem;
             }
 
-            while (v73 != -1);
+            while (v72 != -1);
           }
 
-          v137 = 0;
+          v136 = 0;
           operator new();
         }
 
         goto LABEL_63;
       }
 
-      if (v131 != 4)
+      if (v130 != 4)
       {
         goto LABEL_67;
       }
 
-      v48 = v133;
+      v48 = v132;
       goto LABEL_91;
     }
 
-    v48 = v133;
-    if (v133 - v132 != 4)
+    v48 = v132;
+    if (v132 - v131 != 4)
     {
 LABEL_91:
-      v86 = *(v48 - 1);
-      v87 = *(v135 - 1);
-      v133 = v48 - 4;
-      v135 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v125);
-      v88 = *(*a2 + 48);
-      if (v133 == v132)
+      v85 = *(v48 - 1);
+      v86 = *(v134 - 1);
+      v132 = v48 - 4;
+      v134 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v124);
+      v87 = *(*a2 + 48);
+      if (v132 == v131)
       {
-        if (v88)
+        if (v87)
         {
-          v103 = 0;
-          v104 = vdupq_n_s64(v87 - 1);
-          v105 = xmmword_25A99B0C0;
-          v106 = xmmword_25A99B0D0;
-          v124 = v104;
+          v102 = 0;
+          v103 = vdupq_n_s64(v86 - 1);
+          v104 = xmmword_25A99B0C0;
+          v105 = xmmword_25A99B0D0;
+          v123 = v103;
           do
           {
-            v107 = v125;
-            v108 = (v126 - v125) >> 2;
-            v109 = (v108 - 1);
-            if (v108 - 1 < 0)
+            v106 = v124;
+            v107 = (v125 - v124) >> 2;
+            v108 = (v107 - 1);
+            if (v107 - 1 < 0)
             {
-              v114 = 0;
+              v113 = 0;
             }
 
             else
             {
-              v110 = 0;
-              v111 = __p;
-              v112 = v103;
+              v109 = 0;
+              v110 = __p;
+              v111 = v102;
               do
               {
-                v113 = ldiv(v112, v107[v109]);
-                v112 = v113.quot;
-                v110 += v111[v109--] * v113.rem;
+                v112 = ldiv(v111, v106[v108]);
+                v111 = v112.quot;
+                v109 += v110[v108--] * v112.rem;
               }
 
-              while (v109 != -1);
-              v114 = 4 * v110;
-              v105 = xmmword_25A99B0C0;
-              v104 = v124;
-              v106 = xmmword_25A99B0D0;
+              while (v108 != -1);
+              v113 = 4 * v109;
+              v104 = xmmword_25A99B0C0;
+              v103 = v123;
+              v105 = xmmword_25A99B0D0;
             }
 
-            v115 = v129;
-            if (v87)
+            v114 = v128;
+            if (v86)
             {
-              v116 = 0;
-              v117 = &v129->u32[2];
+              v115 = 0;
+              v116 = &v128->i32[2];
               do
               {
-                v118 = vdupq_n_s64(v116);
-                v119 = vmovn_s64(vcgeq_u64(v104, vorrq_s8(v118, v106)));
-                if (vuzp1_s16(v119, *v118.i8).u8[0])
+                v117 = vdupq_n_s64(v115);
+                v118 = vmovn_s64(vcgeq_u64(v103, vorrq_s8(v117, v105)));
+                if (vuzp1_s16(v118, *v117.i8).u8[0])
                 {
-                  *(v117 - 2) = a4;
+                  *(v116 - 2) = a4;
                 }
 
-                if (vuzp1_s16(v119, *&v118).i8[2])
+                if (vuzp1_s16(v118, *&v117).i8[2])
                 {
-                  *(v117 - 1) = a4;
+                  *(v116 - 1) = a4;
                 }
 
-                v120 = vmovn_s64(vcgeq_u64(v104, vorrq_s8(v118, v105)));
-                if (vuzp1_s16(v120, v120).i32[1])
+                v119 = vmovn_s64(vcgeq_u64(v103, vorrq_s8(v117, v104)));
+                if (vuzp1_s16(v119, v119).i32[1])
                 {
-                  *v117 = a4;
-                  v117[1] = a4;
+                  *v116 = a4;
+                  v116[1] = a4;
                 }
 
+                v115 += 4;
                 v116 += 4;
-                v117 += 4;
               }
 
-              while (((v87 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v116);
+              while (((v86 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v115);
             }
 
-            mlx::core::strided_reduce<unsigned int,unsigned int,mlx::core::MaxReduce>((v130 + v114), v115, v86, v87);
-            v129 = (v129 + 4 * v87);
-            v103 += v87;
-            v105 = xmmword_25A99B0C0;
-            v104 = v124;
-            v106 = xmmword_25A99B0D0;
+            mlx::core::strided_reduce<unsigned int,unsigned int,mlx::core::MaxReduce>((v129 + v113), v114, v85, v86);
+            v128 = (v128 + 4 * v86);
+            v102 += v86;
+            v104 = xmmword_25A99B0C0;
+            v103 = v123;
+            v105 = xmmword_25A99B0D0;
           }
 
-          while (*(*a2 + 48) > v103);
+          while (*(*a2 + 48) > v102);
         }
       }
 
-      else if (v88)
+      else if (v87)
       {
-        v89 = xmmword_25A99B0C0;
-        v90 = xmmword_25A99B0D0;
-        v91 = v125;
-        v92 = (v126 - v125) >> 2;
-        v93 = (v92 - 1);
-        if (v92 - 1 >= 0)
+        v88 = xmmword_25A99B0C0;
+        v89 = xmmword_25A99B0D0;
+        v90 = v124;
+        v91 = (v125 - v124) >> 2;
+        v92 = (v91 - 1);
+        if (v91 - 1 >= 0)
         {
-          v94 = 0;
-          v95 = __p;
-          v96 = 0;
+          v93 = 0;
+          v94 = __p;
+          v95 = 0;
           do
           {
-            v97 = ldiv(v96, v91[v93]);
-            v96 = v97.quot;
-            v94 += v95[v93--] * v97.rem;
+            v96 = ldiv(v95, v90[v92]);
+            v95 = v96.quot;
+            v93 += v94[v92--] * v96.rem;
           }
 
-          while (v93 != -1);
-          v90 = xmmword_25A99B0D0;
-          v89 = xmmword_25A99B0C0;
+          while (v92 != -1);
+          v89 = xmmword_25A99B0D0;
+          v88 = xmmword_25A99B0C0;
         }
 
-        if (v87)
+        if (v86)
         {
-          v98 = 0;
-          v99 = vdupq_n_s64(v87 - 1);
-          v100 = &v129->u32[2];
+          v97 = 0;
+          v98 = vdupq_n_s64(v86 - 1);
+          v99 = &v128->i32[2];
           do
           {
-            v101 = vdupq_n_s64(v98);
-            v102 = vmovn_s64(vcgeq_u64(v99, vorrq_s8(v101, v90)));
-            if (vuzp1_s16(v102, *v99.i8).u8[0])
+            v100 = vdupq_n_s64(v97);
+            v101 = vmovn_s64(vcgeq_u64(v98, vorrq_s8(v100, v89)));
+            if (vuzp1_s16(v101, *v98.i8).u8[0])
             {
-              *(v100 - 2) = a4;
+              *(v99 - 2) = a4;
             }
 
-            if (vuzp1_s16(v102, *&v99).i8[2])
+            if (vuzp1_s16(v101, *&v98).i8[2])
             {
-              *(v100 - 1) = a4;
+              *(v99 - 1) = a4;
             }
 
-            if (vuzp1_s16(*&v99, vmovn_s64(vcgeq_u64(v99, vorrq_s8(v101, v89)))).i32[1])
+            if (vuzp1_s16(*&v98, vmovn_s64(vcgeq_u64(v98, vorrq_s8(v100, v88)))).i32[1])
             {
-              *v100 = a4;
-              v100[1] = a4;
+              *v99 = a4;
+              v99[1] = a4;
             }
 
-            v98 += 4;
-            v100 += 4;
+            v97 += 4;
+            v99 += 4;
           }
 
-          while (((v87 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v98);
+          while (((v86 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v97);
         }
 
-        v138 = 0;
+        v137 = 0;
         operator new();
       }
 
       goto LABEL_63;
     }
 
-    v78 = *(v133 - 1);
-    v79 = *(v135 - 1);
-    v133 -= 4;
-    v135 -= 8;
+    v77 = *(v132 - 1);
+    v78 = *(v134 - 1);
+    v132 -= 4;
+    v134 -= 8;
     if (*(v10 + 48))
     {
-      LODWORD(v80) = 0;
-      v123 = vdupq_n_s64(v79 - 1);
+      LODWORD(v79) = 0;
+      v122 = vdupq_n_s64(v78 - 1);
       do
       {
-        if (v79)
+        if (v78)
         {
-          v81 = 0;
-          v82 = &v11->u32[2];
+          v80 = 0;
+          v81 = &v11->i32[2];
           do
           {
-            v83 = vdupq_n_s64(v81);
-            v84 = vmovn_s64(vcgeq_u64(v123, vorrq_s8(v83, xmmword_25A99B0D0)));
-            if (vuzp1_s16(v84, *v83.i8).u8[0])
+            v82 = vdupq_n_s64(v80);
+            v83 = vmovn_s64(vcgeq_u64(v122, vorrq_s8(v82, xmmword_25A99B0D0)));
+            if (vuzp1_s16(v83, *v82.i8).u8[0])
             {
-              *(v82 - 2) = a4;
+              *(v81 - 2) = a4;
             }
 
-            if (vuzp1_s16(v84, *&v83).i8[2])
+            if (vuzp1_s16(v83, *&v82).i8[2])
             {
-              *(v82 - 1) = a4;
+              *(v81 - 1) = a4;
             }
 
-            v85 = vmovn_s64(vcgeq_u64(v123, vorrq_s8(v83, xmmword_25A99B0C0)));
-            if (vuzp1_s16(v85, v85).i32[1])
+            v84 = vmovn_s64(vcgeq_u64(v122, vorrq_s8(v82, xmmword_25A99B0C0)));
+            if (vuzp1_s16(v84, v84).i32[1])
             {
-              *v82 = a4;
-              v82[1] = a4;
+              *v81 = a4;
+              v81[1] = a4;
             }
 
+            v80 += 4;
             v81 += 4;
-            v82 += 4;
           }
 
-          while (((v79 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v81);
+          while (((v78 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v80);
         }
 
-        mlx::core::strided_reduce<unsigned int,unsigned int,mlx::core::MaxReduce>(v9, v11, v78, v79);
-        v9 = (v130 + 4 * v79 * v78);
-        v11 = (v129 + 4 * v79);
-        v129 = v11;
-        v130 = v9;
-        v80 = v80 + v79;
+        mlx::core::strided_reduce<unsigned int,unsigned int,mlx::core::MaxReduce>(v9, v11, v77, v78);
+        v9 = (v129 + 4 * v78 * v77);
+        v11 = (v128 + 4 * v78);
+        v128 = v11;
+        v129 = v9;
+        v79 = v79 + v78;
       }
 
-      while (v80 < *(*a2 + 48));
+      while (v79 < *(*a2 + 48));
     }
   }
 
 LABEL_67:
-  if (v134)
+  if (v133)
   {
-    v135 = v134;
-    operator delete(v134);
+    v134 = v133;
+    operator delete(v133);
   }
 
-  if (v132)
+  if (v131)
   {
-    v133 = v132;
-    operator delete(v132);
+    v132 = v131;
+    operator delete(v131);
   }
-
-  v70 = *MEMORY[0x277D85DE8];
 }
 
-void mlx::core::reduction_op<unsigned int,unsigned int,mlx::core::MinReduce>(uint64_t **a1, uint64_t *a2, int **a3, unsigned int a4)
+void sub_25A81A6B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  v140 = *MEMORY[0x277D85DE8];
-  v136 = a4;
-  mlx::core::get_reduction_plan(a1, a3, &v131);
+  va_start(va, a26);
+  mlx::core::ReductionPlan::~ReductionPlan(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::reduction_op<unsigned int,unsigned int,mlx::core::MinReduce>(uint64_t **a1, uint64_t *a2, unsigned int **a3, unsigned int a4)
+{
+  v139 = *MEMORY[0x277D85DE8];
+  v135 = a4;
+  mlx::core::get_reduction_plan(a1, a3, &v130);
   v8 = *a1;
   v9 = (*a1)[19];
   v10 = *a2;
   v11 = *(*a2 + 152);
-  v129 = v11;
-  v130 = v9;
-  if (v131 == 1)
+  v128 = v11;
+  v129 = v9;
+  if (v130 == 1)
   {
-    v19 = v133;
-    if (v133 - v132 != 4)
+    v19 = v132;
+    if (v132 - v131 != 4)
     {
       goto LABEL_23;
     }
@@ -4883,7 +4281,7 @@ void mlx::core::reduction_op<unsigned int,unsigned int,mlx::core::MinReduce>(uin
     if (v20)
     {
       v21 = 0;
-      v22 = *v132;
+      v22 = *v131;
       v23 = vdupq_n_s32(a4);
       do
       {
@@ -4948,13 +4346,13 @@ void mlx::core::reduction_op<unsigned int,unsigned int,mlx::core::MinReduce>(uin
       while (v21 != v20);
     }
 
-    v129 = v11;
-    v130 = v9;
+    v128 = v11;
+    v129 = v9;
   }
 
   else
   {
-    if (!v131)
+    if (!v130)
     {
       v11->i32[0] = a4;
       v12 = *(v8 + 12);
@@ -5012,26 +4410,26 @@ void mlx::core::reduction_op<unsigned int,unsigned int,mlx::core::MinReduce>(uin
       goto LABEL_67;
     }
 
-    if ((v131 & 0xFFFFFFFD) == 1)
+    if ((v130 & 0xFFFFFFFD) == 1)
     {
-      v19 = v133;
+      v19 = v132;
 LABEL_23:
       v35 = *(v19 - 1);
-      v133 = v19 - 4;
-      v135 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v125);
+      v132 = v19 - 4;
+      v134 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v124);
       v36 = *(*a2 + 48);
-      if (v133 == v132)
+      if (v132 == v131)
       {
-        v49 = v129;
+        v49 = v128;
         if (v36)
         {
           v50 = 0;
-          v51 = v125;
-          v52 = ((v126 - v125) >> 2) - 1;
+          v51 = v124;
+          v52 = ((v125 - v124) >> 2) - 1;
           v53 = __p;
-          v121 = v130;
-          v122 = vdupq_n_s32(a4);
+          v120 = v129;
+          v121 = vdupq_n_s32(a4);
           do
           {
             if ((v52 & 0x80000000) != 0)
@@ -5056,19 +4454,19 @@ LABEL_23:
             }
 
             *v49 = a4;
-            v59 = (v121 + v58);
+            v59 = (v120 + v58);
             if (v35 < 8)
             {
-              v61 = v122;
-              v62 = v122;
+              v61 = v121;
+              v62 = v121;
               v65 = v35;
             }
 
             else
             {
               v60 = v35;
-              v61 = v122;
-              v62 = v122;
+              v61 = v121;
+              v62 = v121;
               do
               {
                 v63 = *v59;
@@ -5118,13 +4516,13 @@ LABEL_23:
           while (v50 != v36);
         }
 
-        v129 = v49;
+        v128 = v49;
       }
 
       else if (v36)
       {
-        v37 = v125;
-        v38 = (v126 - v125) >> 2;
+        v37 = v124;
+        v38 = (v125 - v124) >> 2;
         v39 = (v38 - 1);
         if (v38 - 1 >= 0)
         {
@@ -5141,292 +4539,297 @@ LABEL_23:
           while (v39 != -1);
         }
 
-        v129->i32[0] = v136;
-        v139 = 0;
+        v128->i32[0] = v135;
+        v138 = 0;
         operator new();
       }
 
 LABEL_63:
       if (__p)
       {
-        v128 = __p;
+        v127 = __p;
         operator delete(__p);
       }
 
-      if (v125)
+      if (v124)
       {
-        v126 = v125;
-        operator delete(v125);
+        v125 = v124;
+        operator delete(v124);
       }
 
       goto LABEL_67;
     }
 
-    if (v131 != 2)
+    if (v130 != 2)
     {
-      if (v131 == 5)
+      if (v130 == 5)
       {
-        mlx::core::shapes_without_reduction_axes(a1, a3, &v125);
+        mlx::core::shapes_without_reduction_axes(a1, a3, &v124);
         if (*(*a2 + 48))
         {
-          v71 = v125;
-          v72 = (v126 - v125) >> 2;
-          v73 = (v72 - 1);
-          if (v72 - 1 >= 0)
+          v70 = v124;
+          v71 = (v125 - v124) >> 2;
+          v72 = (v71 - 1);
+          if (v71 - 1 >= 0)
           {
-            v74 = 0;
-            v75 = __p;
-            v76 = 0;
+            v73 = 0;
+            v74 = __p;
+            v75 = 0;
             do
             {
-              v77 = ldiv(v76, v71[v73]);
-              v76 = v77.quot;
-              v74 += v75[v73--] * v77.rem;
+              v76 = ldiv(v75, v70[v72]);
+              v75 = v76.quot;
+              v73 += v74[v72--] * v76.rem;
             }
 
-            while (v73 != -1);
+            while (v72 != -1);
           }
 
-          v137 = 0;
+          v136 = 0;
           operator new();
         }
 
         goto LABEL_63;
       }
 
-      if (v131 != 4)
+      if (v130 != 4)
       {
         goto LABEL_67;
       }
 
-      v48 = v133;
+      v48 = v132;
       goto LABEL_91;
     }
 
-    v48 = v133;
-    if (v133 - v132 != 4)
+    v48 = v132;
+    if (v132 - v131 != 4)
     {
 LABEL_91:
-      v86 = *(v48 - 1);
-      v87 = *(v135 - 1);
-      v133 = v48 - 4;
-      v135 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v125);
-      v88 = *(*a2 + 48);
-      if (v133 == v132)
+      v85 = *(v48 - 1);
+      v86 = *(v134 - 1);
+      v132 = v48 - 4;
+      v134 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v124);
+      v87 = *(*a2 + 48);
+      if (v132 == v131)
       {
-        if (v88)
+        if (v87)
         {
-          v103 = 0;
-          v104 = vdupq_n_s64(v87 - 1);
-          v105 = xmmword_25A99B0C0;
-          v106 = xmmword_25A99B0D0;
-          v124 = v104;
+          v102 = 0;
+          v103 = vdupq_n_s64(v86 - 1);
+          v104 = xmmword_25A99B0C0;
+          v105 = xmmword_25A99B0D0;
+          v123 = v103;
           do
           {
-            v107 = v125;
-            v108 = (v126 - v125) >> 2;
-            v109 = (v108 - 1);
-            if (v108 - 1 < 0)
+            v106 = v124;
+            v107 = (v125 - v124) >> 2;
+            v108 = (v107 - 1);
+            if (v107 - 1 < 0)
             {
-              v114 = 0;
+              v113 = 0;
             }
 
             else
             {
-              v110 = 0;
-              v111 = __p;
-              v112 = v103;
+              v109 = 0;
+              v110 = __p;
+              v111 = v102;
               do
               {
-                v113 = ldiv(v112, v107[v109]);
-                v112 = v113.quot;
-                v110 += v111[v109--] * v113.rem;
+                v112 = ldiv(v111, v106[v108]);
+                v111 = v112.quot;
+                v109 += v110[v108--] * v112.rem;
               }
 
-              while (v109 != -1);
-              v114 = 4 * v110;
-              v105 = xmmword_25A99B0C0;
-              v104 = v124;
-              v106 = xmmword_25A99B0D0;
+              while (v108 != -1);
+              v113 = 4 * v109;
+              v104 = xmmword_25A99B0C0;
+              v103 = v123;
+              v105 = xmmword_25A99B0D0;
             }
 
-            v115 = v129;
-            if (v87)
+            v114 = v128;
+            if (v86)
             {
-              v116 = 0;
-              v117 = &v129->u32[2];
+              v115 = 0;
+              v116 = &v128->i32[2];
               do
               {
-                v118 = vdupq_n_s64(v116);
-                v119 = vmovn_s64(vcgeq_u64(v104, vorrq_s8(v118, v106)));
-                if (vuzp1_s16(v119, *v118.i8).u8[0])
+                v117 = vdupq_n_s64(v115);
+                v118 = vmovn_s64(vcgeq_u64(v103, vorrq_s8(v117, v105)));
+                if (vuzp1_s16(v118, *v117.i8).u8[0])
                 {
-                  *(v117 - 2) = a4;
+                  *(v116 - 2) = a4;
                 }
 
-                if (vuzp1_s16(v119, *&v118).i8[2])
+                if (vuzp1_s16(v118, *&v117).i8[2])
                 {
-                  *(v117 - 1) = a4;
+                  *(v116 - 1) = a4;
                 }
 
-                v120 = vmovn_s64(vcgeq_u64(v104, vorrq_s8(v118, v105)));
-                if (vuzp1_s16(v120, v120).i32[1])
+                v119 = vmovn_s64(vcgeq_u64(v103, vorrq_s8(v117, v104)));
+                if (vuzp1_s16(v119, v119).i32[1])
                 {
-                  *v117 = a4;
-                  v117[1] = a4;
+                  *v116 = a4;
+                  v116[1] = a4;
                 }
 
+                v115 += 4;
                 v116 += 4;
-                v117 += 4;
               }
 
-              while (((v87 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v116);
+              while (((v86 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v115);
             }
 
-            mlx::core::strided_reduce<unsigned int,unsigned int,mlx::core::MinReduce>((v130 + v114), v115, v86, v87);
-            v129 = (v129 + 4 * v87);
-            v103 += v87;
-            v105 = xmmword_25A99B0C0;
-            v104 = v124;
-            v106 = xmmword_25A99B0D0;
+            mlx::core::strided_reduce<unsigned int,unsigned int,mlx::core::MinReduce>((v129 + v113), v114, v85, v86);
+            v128 = (v128 + 4 * v86);
+            v102 += v86;
+            v104 = xmmword_25A99B0C0;
+            v103 = v123;
+            v105 = xmmword_25A99B0D0;
           }
 
-          while (*(*a2 + 48) > v103);
+          while (*(*a2 + 48) > v102);
         }
       }
 
-      else if (v88)
+      else if (v87)
       {
-        v89 = xmmword_25A99B0C0;
-        v90 = xmmword_25A99B0D0;
-        v91 = v125;
-        v92 = (v126 - v125) >> 2;
-        v93 = (v92 - 1);
-        if (v92 - 1 >= 0)
+        v88 = xmmword_25A99B0C0;
+        v89 = xmmword_25A99B0D0;
+        v90 = v124;
+        v91 = (v125 - v124) >> 2;
+        v92 = (v91 - 1);
+        if (v91 - 1 >= 0)
         {
-          v94 = 0;
-          v95 = __p;
-          v96 = 0;
+          v93 = 0;
+          v94 = __p;
+          v95 = 0;
           do
           {
-            v97 = ldiv(v96, v91[v93]);
-            v96 = v97.quot;
-            v94 += v95[v93--] * v97.rem;
+            v96 = ldiv(v95, v90[v92]);
+            v95 = v96.quot;
+            v93 += v94[v92--] * v96.rem;
           }
 
-          while (v93 != -1);
-          v90 = xmmword_25A99B0D0;
-          v89 = xmmword_25A99B0C0;
+          while (v92 != -1);
+          v89 = xmmword_25A99B0D0;
+          v88 = xmmword_25A99B0C0;
         }
 
-        if (v87)
+        if (v86)
         {
-          v98 = 0;
-          v99 = vdupq_n_s64(v87 - 1);
-          v100 = &v129->u32[2];
+          v97 = 0;
+          v98 = vdupq_n_s64(v86 - 1);
+          v99 = &v128->i32[2];
           do
           {
-            v101 = vdupq_n_s64(v98);
-            v102 = vmovn_s64(vcgeq_u64(v99, vorrq_s8(v101, v90)));
-            if (vuzp1_s16(v102, *v99.i8).u8[0])
+            v100 = vdupq_n_s64(v97);
+            v101 = vmovn_s64(vcgeq_u64(v98, vorrq_s8(v100, v89)));
+            if (vuzp1_s16(v101, *v98.i8).u8[0])
             {
-              *(v100 - 2) = a4;
+              *(v99 - 2) = a4;
             }
 
-            if (vuzp1_s16(v102, *&v99).i8[2])
+            if (vuzp1_s16(v101, *&v98).i8[2])
             {
-              *(v100 - 1) = a4;
+              *(v99 - 1) = a4;
             }
 
-            if (vuzp1_s16(*&v99, vmovn_s64(vcgeq_u64(v99, vorrq_s8(v101, v89)))).i32[1])
+            if (vuzp1_s16(*&v98, vmovn_s64(vcgeq_u64(v98, vorrq_s8(v100, v88)))).i32[1])
             {
-              *v100 = a4;
-              v100[1] = a4;
+              *v99 = a4;
+              v99[1] = a4;
             }
 
-            v98 += 4;
-            v100 += 4;
+            v97 += 4;
+            v99 += 4;
           }
 
-          while (((v87 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v98);
+          while (((v86 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v97);
         }
 
-        v138 = 0;
+        v137 = 0;
         operator new();
       }
 
       goto LABEL_63;
     }
 
-    v78 = *(v133 - 1);
-    v79 = *(v135 - 1);
-    v133 -= 4;
-    v135 -= 8;
+    v77 = *(v132 - 1);
+    v78 = *(v134 - 1);
+    v132 -= 4;
+    v134 -= 8;
     if (*(v10 + 48))
     {
-      LODWORD(v80) = 0;
-      v123 = vdupq_n_s64(v79 - 1);
+      LODWORD(v79) = 0;
+      v122 = vdupq_n_s64(v78 - 1);
       do
       {
-        if (v79)
+        if (v78)
         {
-          v81 = 0;
-          v82 = &v11->u32[2];
+          v80 = 0;
+          v81 = &v11->i32[2];
           do
           {
-            v83 = vdupq_n_s64(v81);
-            v84 = vmovn_s64(vcgeq_u64(v123, vorrq_s8(v83, xmmword_25A99B0D0)));
-            if (vuzp1_s16(v84, *v83.i8).u8[0])
+            v82 = vdupq_n_s64(v80);
+            v83 = vmovn_s64(vcgeq_u64(v122, vorrq_s8(v82, xmmword_25A99B0D0)));
+            if (vuzp1_s16(v83, *v82.i8).u8[0])
             {
-              *(v82 - 2) = a4;
+              *(v81 - 2) = a4;
             }
 
-            if (vuzp1_s16(v84, *&v83).i8[2])
+            if (vuzp1_s16(v83, *&v82).i8[2])
             {
-              *(v82 - 1) = a4;
+              *(v81 - 1) = a4;
             }
 
-            v85 = vmovn_s64(vcgeq_u64(v123, vorrq_s8(v83, xmmword_25A99B0C0)));
-            if (vuzp1_s16(v85, v85).i32[1])
+            v84 = vmovn_s64(vcgeq_u64(v122, vorrq_s8(v82, xmmword_25A99B0C0)));
+            if (vuzp1_s16(v84, v84).i32[1])
             {
-              *v82 = a4;
-              v82[1] = a4;
+              *v81 = a4;
+              v81[1] = a4;
             }
 
+            v80 += 4;
             v81 += 4;
-            v82 += 4;
           }
 
-          while (((v79 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v81);
+          while (((v78 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v80);
         }
 
-        mlx::core::strided_reduce<unsigned int,unsigned int,mlx::core::MinReduce>(v9, v11, v78, v79);
-        v9 = (v130 + 4 * v79 * v78);
-        v11 = (v129 + 4 * v79);
-        v129 = v11;
-        v130 = v9;
-        v80 = v80 + v79;
+        mlx::core::strided_reduce<unsigned int,unsigned int,mlx::core::MinReduce>(v9, v11, v77, v78);
+        v9 = (v129 + 4 * v78 * v77);
+        v11 = (v128 + 4 * v78);
+        v128 = v11;
+        v129 = v9;
+        v79 = v79 + v78;
       }
 
-      while (v80 < *(*a2 + 48));
+      while (v79 < *(*a2 + 48));
     }
   }
 
 LABEL_67:
-  if (v134)
+  if (v133)
   {
-    v135 = v134;
-    operator delete(v134);
+    v134 = v133;
+    operator delete(v133);
   }
 
-  if (v132)
+  if (v131)
   {
-    v133 = v132;
-    operator delete(v132);
+    v132 = v131;
+    operator delete(v131);
   }
+}
 
-  v70 = *MEMORY[0x277D85DE8];
+void sub_25A81B130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  mlx::core::ReductionPlan::~ReductionPlan(va);
+  _Unwind_Resume(a1);
 }
 
 _OWORD *mlx::core::strided_reduce<unsigned int,unsigned int,mlx::core::MaxReduce>(_OWORD *result, uint32x4_t *a2, int a3, unint64_t a4)
@@ -5799,21 +5202,21 @@ uint64_t std::__function::__func<void mlx::core::reduction_op<unsigned int,unsig
   }
 }
 
-void mlx::core::reduction_op<unsigned long long,unsigned long long,mlx::core::MaxReduce>(uint64_t **a1, uint64_t *a2, int **a3, unint64_t a4)
+void mlx::core::reduction_op<unsigned long long,unsigned long long,mlx::core::MaxReduce>(uint64_t **a1, uint64_t *a2, unsigned int **a3, unint64_t a4)
 {
-  v136 = *MEMORY[0x277D85DE8];
-  v132 = a4;
-  mlx::core::get_reduction_plan(a1, a3, &v127);
+  v135 = *MEMORY[0x277D85DE8];
+  v131 = a4;
+  mlx::core::get_reduction_plan(a1, a3, &v126);
   v8 = *a1;
   v9 = (*a1)[19];
   v10 = *a2;
   v11 = *(*a2 + 152);
-  v125 = v11;
-  v126 = v9;
-  if (v127 == 1)
+  v124 = v11;
+  v125 = v9;
+  if (v126 == 1)
   {
-    v19 = v129;
-    if (v129 - v128 != 4)
+    v19 = v128;
+    if (v128 - v127 != 4)
     {
       goto LABEL_25;
     }
@@ -5822,7 +5225,7 @@ void mlx::core::reduction_op<unsigned long long,unsigned long long,mlx::core::Ma
     if (v20)
     {
       v21 = 0;
-      v22 = *v128;
+      v22 = *v127;
       v23 = vdupq_lane_s64(a4, 0);
       do
       {
@@ -5893,13 +5296,13 @@ void mlx::core::reduction_op<unsigned long long,unsigned long long,mlx::core::Ma
       while (v21 != v20);
     }
 
-    v125 = v11;
-    v126 = v9;
+    v124 = v11;
+    v125 = v9;
   }
 
   else
   {
-    if (!v127)
+    if (!v126)
     {
       v11->i64[0] = a4;
       v12 = *(v8 + 12);
@@ -5963,26 +5366,26 @@ void mlx::core::reduction_op<unsigned long long,unsigned long long,mlx::core::Ma
       goto LABEL_73;
     }
 
-    if ((v127 & 0xFFFFFFFD) == 1)
+    if ((v126 & 0xFFFFFFFD) == 1)
     {
-      v19 = v129;
+      v19 = v128;
 LABEL_25:
       v36 = *(v19 - 1);
-      v129 = v19 - 4;
-      v131 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v121);
+      v128 = v19 - 4;
+      v130 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v120);
       v37 = *(*a2 + 48);
-      if (v129 == v128)
+      if (v128 == v127)
       {
-        v51 = v125;
+        v51 = v124;
         if (v37)
         {
           v52 = 0;
-          v53 = v121;
-          v54 = ((v122 - v121) >> 2) - 1;
+          v53 = v120;
+          v54 = ((v121 - v120) >> 2) - 1;
           v55 = __p;
-          v117 = v126;
-          v118 = vdupq_lane_s64(a4, 0);
+          v116 = v125;
+          v117 = vdupq_lane_s64(a4, 0);
           do
           {
             if ((v54 & 0x80000000) != 0)
@@ -6007,19 +5410,19 @@ LABEL_25:
             }
 
             *v51 = a4;
-            v61 = (v117 + v60);
+            v61 = (v116 + v60);
             if (v36 < 4)
             {
-              v63 = v118;
-              v64 = v118;
+              v63 = v117;
+              v64 = v117;
               v67 = v36;
             }
 
             else
             {
               v62 = v36;
-              v63 = v118;
-              v64 = v118;
+              v63 = v117;
+              v64 = v117;
               do
               {
                 v65 = *v61;
@@ -6075,13 +5478,13 @@ LABEL_25:
           while (v52 != v37);
         }
 
-        v125 = v51;
+        v124 = v51;
       }
 
       else if (v37)
       {
-        v38 = v121;
-        v39 = (v122 - v121) >> 2;
+        v38 = v120;
+        v39 = (v121 - v120) >> 2;
         v40 = (v39 - 1);
         if (v39 - 1 >= 0)
         {
@@ -6098,281 +5501,286 @@ LABEL_25:
           while (v40 != -1);
         }
 
-        v125->i64[0] = v132;
-        v135 = 0;
+        v124->i64[0] = v131;
+        v134 = 0;
         operator new();
       }
 
 LABEL_69:
       if (__p)
       {
-        v124 = __p;
+        v123 = __p;
         operator delete(__p);
       }
 
-      if (v121)
+      if (v120)
       {
-        v122 = v121;
-        operator delete(v121);
+        v121 = v120;
+        operator delete(v120);
       }
 
       goto LABEL_73;
     }
 
-    if (v127 != 2)
+    if (v126 != 2)
     {
-      if (v127 == 5)
+      if (v126 == 5)
       {
-        mlx::core::shapes_without_reduction_axes(a1, a3, &v121);
+        mlx::core::shapes_without_reduction_axes(a1, a3, &v120);
         if (*(*a2 + 48))
         {
-          v74 = v121;
-          v75 = (v122 - v121) >> 2;
-          v76 = (v75 - 1);
-          if (v75 - 1 >= 0)
+          v73 = v120;
+          v74 = (v121 - v120) >> 2;
+          v75 = (v74 - 1);
+          if (v74 - 1 >= 0)
           {
-            v77 = 0;
-            v78 = __p;
-            v79 = 0;
+            v76 = 0;
+            v77 = __p;
+            v78 = 0;
             do
             {
-              v80 = ldiv(v79, v74[v76]);
-              v79 = v80.quot;
-              v77 += v78[v76--] * v80.rem;
+              v79 = ldiv(v78, v73[v75]);
+              v78 = v79.quot;
+              v76 += v77[v75--] * v79.rem;
             }
 
-            while (v76 != -1);
+            while (v75 != -1);
           }
 
-          v133 = 0;
+          v132 = 0;
           operator new();
         }
 
         goto LABEL_69;
       }
 
-      if (v127 != 4)
+      if (v126 != 4)
       {
         goto LABEL_73;
       }
 
-      v50 = v129;
+      v50 = v128;
       goto LABEL_95;
     }
 
-    v50 = v129;
-    if (v129 - v128 != 4)
+    v50 = v128;
+    if (v128 - v127 != 4)
     {
 LABEL_95:
-      v87 = *(v50 - 1);
-      v88 = *(v131 - 1);
-      v129 = v50 - 4;
-      v131 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v121);
-      v89 = *(*a2 + 48);
-      if (v129 == v128)
+      v86 = *(v50 - 1);
+      v87 = *(v130 - 1);
+      v128 = v50 - 4;
+      v130 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v120);
+      v88 = *(*a2 + 48);
+      if (v128 == v127)
       {
-        if (v89)
+        if (v88)
         {
-          v102 = 0;
-          v103 = vdupq_n_s64(v88 - 1);
-          v104 = xmmword_25A99B0D0;
-          v120 = v103;
+          v101 = 0;
+          v102 = vdupq_n_s64(v87 - 1);
+          v103 = xmmword_25A99B0D0;
+          v119 = v102;
           do
           {
-            v105 = v121;
-            v106 = (v122 - v121) >> 2;
-            v107 = (v106 - 1);
-            if (v106 - 1 < 0)
+            v104 = v120;
+            v105 = (v121 - v120) >> 2;
+            v106 = (v105 - 1);
+            if (v105 - 1 < 0)
             {
-              v112 = 0;
+              v111 = 0;
             }
 
             else
             {
-              v108 = 0;
-              v109 = __p;
-              v110 = v102;
+              v107 = 0;
+              v108 = __p;
+              v109 = v101;
               do
               {
-                v111 = ldiv(v110, v105[v107]);
-                v110 = v111.quot;
-                v108 += v109[v107--] * v111.rem;
+                v110 = ldiv(v109, v104[v106]);
+                v109 = v110.quot;
+                v107 += v108[v106--] * v110.rem;
               }
 
-              while (v107 != -1);
-              v112 = 8 * v108;
-              v104 = xmmword_25A99B0D0;
-              v103 = v120;
+              while (v106 != -1);
+              v111 = 8 * v107;
+              v103 = xmmword_25A99B0D0;
+              v102 = v119;
             }
 
-            v113 = v125;
-            if (v88)
+            v112 = v124;
+            if (v87)
             {
-              v114 = 0;
-              v115 = &v125->u64[1];
+              v113 = 0;
+              v114 = &v124->i64[1];
               do
               {
-                v116 = vmovn_s64(vcgeq_u64(v103, vorrq_s8(vdupq_n_s64(v114), v104)));
-                if (v116.i8[0])
+                v115 = vmovn_s64(vcgeq_u64(v102, vorrq_s8(vdupq_n_s64(v113), v103)));
+                if (v115.i8[0])
                 {
-                  *(v115 - 1) = a4;
+                  *(v114 - 1) = a4;
                 }
 
-                if (v116.i8[4])
+                if (v115.i8[4])
                 {
-                  *v115 = a4;
+                  *v114 = a4;
                 }
 
+                v113 += 2;
                 v114 += 2;
-                v115 += 2;
               }
 
-              while (((v88 + 1) & 0xFFFFFFFFFFFFFFFELL) != v114);
+              while (((v87 + 1) & 0xFFFFFFFFFFFFFFFELL) != v113);
             }
 
-            mlx::core::strided_reduce<unsigned long long,unsigned long long,mlx::core::MaxReduce>((v126 + v112), v113, v87, v88);
-            v125 = (v125 + 8 * v88);
-            v102 += v88;
-            v104 = xmmword_25A99B0D0;
-            v103 = v120;
+            mlx::core::strided_reduce<unsigned long long,unsigned long long,mlx::core::MaxReduce>((v125 + v111), v112, v86, v87);
+            v124 = (v124 + 8 * v87);
+            v101 += v87;
+            v103 = xmmword_25A99B0D0;
+            v102 = v119;
           }
 
-          while (*(*a2 + 48) > v102);
+          while (*(*a2 + 48) > v101);
         }
       }
 
-      else if (v89)
+      else if (v88)
       {
-        v90 = xmmword_25A99B0D0;
-        v91 = v121;
-        v92 = (v122 - v121) >> 2;
-        v93 = (v92 - 1);
-        if (v92 - 1 >= 0)
+        v89 = xmmword_25A99B0D0;
+        v90 = v120;
+        v91 = (v121 - v120) >> 2;
+        v92 = (v91 - 1);
+        if (v91 - 1 >= 0)
         {
-          v94 = 0;
-          v95 = __p;
-          v96 = 0;
+          v93 = 0;
+          v94 = __p;
+          v95 = 0;
           do
           {
-            v97 = ldiv(v96, v91[v93]);
-            v96 = v97.quot;
-            v94 += v95[v93--] * v97.rem;
+            v96 = ldiv(v95, v90[v92]);
+            v95 = v96.quot;
+            v93 += v94[v92--] * v96.rem;
           }
 
-          while (v93 != -1);
-          v90 = xmmword_25A99B0D0;
+          while (v92 != -1);
+          v89 = xmmword_25A99B0D0;
         }
 
-        if (v88)
+        if (v87)
         {
-          v98 = 0;
-          v99 = vdupq_n_s64(v88 - 1);
-          v100 = &v125->u64[1];
+          v97 = 0;
+          v98 = vdupq_n_s64(v87 - 1);
+          v99 = &v124->i64[1];
           do
           {
-            v101 = vmovn_s64(vcgeq_u64(v99, vorrq_s8(vdupq_n_s64(v98), v90)));
-            if (v101.i8[0])
+            v100 = vmovn_s64(vcgeq_u64(v98, vorrq_s8(vdupq_n_s64(v97), v89)));
+            if (v100.i8[0])
             {
-              *(v100 - 1) = a4;
+              *(v99 - 1) = a4;
             }
 
-            if (v101.i8[4])
+            if (v100.i8[4])
             {
-              *v100 = a4;
+              *v99 = a4;
             }
 
-            v98 += 2;
-            v100 += 2;
+            v97 += 2;
+            v99 += 2;
           }
 
-          while (((v88 + 1) & 0xFFFFFFFFFFFFFFFELL) != v98);
+          while (((v87 + 1) & 0xFFFFFFFFFFFFFFFELL) != v97);
         }
 
-        v134 = 0;
+        v133 = 0;
         operator new();
       }
 
       goto LABEL_69;
     }
 
-    v81 = *(v129 - 1);
-    v82 = *(v131 - 1);
-    v129 -= 4;
-    v131 -= 8;
+    v80 = *(v128 - 1);
+    v81 = *(v130 - 1);
+    v128 -= 4;
+    v130 -= 8;
     if (*(v10 + 48))
     {
-      LODWORD(v83) = 0;
-      v119 = vdupq_n_s64(v82 - 1);
+      LODWORD(v82) = 0;
+      v118 = vdupq_n_s64(v81 - 1);
       do
       {
-        if (v82)
+        if (v81)
         {
-          v84 = 0;
-          v85 = &v11->u64[1];
+          v83 = 0;
+          v84 = &v11->i64[1];
           do
           {
-            v86 = vmovn_s64(vcgeq_u64(v119, vorrq_s8(vdupq_n_s64(v84), xmmword_25A99B0D0)));
-            if (v86.i8[0])
+            v85 = vmovn_s64(vcgeq_u64(v118, vorrq_s8(vdupq_n_s64(v83), xmmword_25A99B0D0)));
+            if (v85.i8[0])
             {
-              *(v85 - 1) = a4;
+              *(v84 - 1) = a4;
             }
 
-            if (v86.i8[4])
+            if (v85.i8[4])
             {
-              *v85 = a4;
+              *v84 = a4;
             }
 
+            v83 += 2;
             v84 += 2;
-            v85 += 2;
           }
 
-          while (((v82 + 1) & 0xFFFFFFFFFFFFFFFELL) != v84);
+          while (((v81 + 1) & 0xFFFFFFFFFFFFFFFELL) != v83);
         }
 
-        mlx::core::strided_reduce<unsigned long long,unsigned long long,mlx::core::MaxReduce>(v9, v11, v81, v82);
-        v9 = (v126 + 8 * v82 * v81);
-        v11 = (v125 + 8 * v82);
-        v125 = v11;
-        v126 = v9;
-        v83 = v83 + v82;
+        mlx::core::strided_reduce<unsigned long long,unsigned long long,mlx::core::MaxReduce>(v9, v11, v80, v81);
+        v9 = (v125 + 8 * v81 * v80);
+        v11 = (v124 + 8 * v81);
+        v124 = v11;
+        v125 = v9;
+        v82 = v82 + v81;
       }
 
-      while (v83 < *(*a2 + 48));
+      while (v82 < *(*a2 + 48));
     }
   }
 
 LABEL_73:
-  if (v130)
+  if (v129)
   {
-    v131 = v130;
-    operator delete(v130);
+    v130 = v129;
+    operator delete(v129);
   }
 
-  if (v128)
+  if (v127)
   {
-    v129 = v128;
-    operator delete(v128);
+    v128 = v127;
+    operator delete(v127);
   }
-
-  v73 = *MEMORY[0x277D85DE8];
 }
 
-void mlx::core::reduction_op<unsigned long long,unsigned long long,mlx::core::MinReduce>(uint64_t **a1, uint64_t *a2, int **a3, unint64_t a4)
+void sub_25A81C44C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  v136 = *MEMORY[0x277D85DE8];
-  v132 = a4;
-  mlx::core::get_reduction_plan(a1, a3, &v127);
+  va_start(va, a26);
+  mlx::core::ReductionPlan::~ReductionPlan(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::reduction_op<unsigned long long,unsigned long long,mlx::core::MinReduce>(uint64_t **a1, uint64_t *a2, unsigned int **a3, unint64_t a4)
+{
+  v135 = *MEMORY[0x277D85DE8];
+  v131 = a4;
+  mlx::core::get_reduction_plan(a1, a3, &v126);
   v8 = *a1;
   v9 = (*a1)[19];
   v10 = *a2;
   v11 = *(*a2 + 152);
-  v125 = v11;
-  v126 = v9;
-  if (v127 == 1)
+  v124 = v11;
+  v125 = v9;
+  if (v126 == 1)
   {
-    v19 = v129;
-    if (v129 - v128 != 4)
+    v19 = v128;
+    if (v128 - v127 != 4)
     {
       goto LABEL_25;
     }
@@ -6381,7 +5789,7 @@ void mlx::core::reduction_op<unsigned long long,unsigned long long,mlx::core::Mi
     if (v20)
     {
       v21 = 0;
-      v22 = *v128;
+      v22 = *v127;
       v23 = vdupq_lane_s64(a4, 0);
       do
       {
@@ -6452,13 +5860,13 @@ void mlx::core::reduction_op<unsigned long long,unsigned long long,mlx::core::Mi
       while (v21 != v20);
     }
 
-    v125 = v11;
-    v126 = v9;
+    v124 = v11;
+    v125 = v9;
   }
 
   else
   {
-    if (!v127)
+    if (!v126)
     {
       v11->i64[0] = a4;
       v12 = *(v8 + 12);
@@ -6522,26 +5930,26 @@ void mlx::core::reduction_op<unsigned long long,unsigned long long,mlx::core::Mi
       goto LABEL_73;
     }
 
-    if ((v127 & 0xFFFFFFFD) == 1)
+    if ((v126 & 0xFFFFFFFD) == 1)
     {
-      v19 = v129;
+      v19 = v128;
 LABEL_25:
       v36 = *(v19 - 1);
-      v129 = v19 - 4;
-      v131 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v121);
+      v128 = v19 - 4;
+      v130 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v120);
       v37 = *(*a2 + 48);
-      if (v129 == v128)
+      if (v128 == v127)
       {
-        v51 = v125;
+        v51 = v124;
         if (v37)
         {
           v52 = 0;
-          v53 = v121;
-          v54 = ((v122 - v121) >> 2) - 1;
+          v53 = v120;
+          v54 = ((v121 - v120) >> 2) - 1;
           v55 = __p;
-          v117 = v126;
-          v118 = vdupq_lane_s64(a4, 0);
+          v116 = v125;
+          v117 = vdupq_lane_s64(a4, 0);
           do
           {
             if ((v54 & 0x80000000) != 0)
@@ -6566,19 +5974,19 @@ LABEL_25:
             }
 
             *v51 = a4;
-            v61 = (v117 + v60);
+            v61 = (v116 + v60);
             if (v36 < 4)
             {
-              v63 = v118;
-              v64 = v118;
+              v63 = v117;
+              v64 = v117;
               v67 = v36;
             }
 
             else
             {
               v62 = v36;
-              v63 = v118;
-              v64 = v118;
+              v63 = v117;
+              v64 = v117;
               do
               {
                 v65 = *v61;
@@ -6634,13 +6042,13 @@ LABEL_25:
           while (v52 != v37);
         }
 
-        v125 = v51;
+        v124 = v51;
       }
 
       else if (v37)
       {
-        v38 = v121;
-        v39 = (v122 - v121) >> 2;
+        v38 = v120;
+        v39 = (v121 - v120) >> 2;
         v40 = (v39 - 1);
         if (v39 - 1 >= 0)
         {
@@ -6657,264 +6065,269 @@ LABEL_25:
           while (v40 != -1);
         }
 
-        v125->i64[0] = v132;
-        v135 = 0;
+        v124->i64[0] = v131;
+        v134 = 0;
         operator new();
       }
 
 LABEL_69:
       if (__p)
       {
-        v124 = __p;
+        v123 = __p;
         operator delete(__p);
       }
 
-      if (v121)
+      if (v120)
       {
-        v122 = v121;
-        operator delete(v121);
+        v121 = v120;
+        operator delete(v120);
       }
 
       goto LABEL_73;
     }
 
-    if (v127 != 2)
+    if (v126 != 2)
     {
-      if (v127 == 5)
+      if (v126 == 5)
       {
-        mlx::core::shapes_without_reduction_axes(a1, a3, &v121);
+        mlx::core::shapes_without_reduction_axes(a1, a3, &v120);
         if (*(*a2 + 48))
         {
-          v74 = v121;
-          v75 = (v122 - v121) >> 2;
-          v76 = (v75 - 1);
-          if (v75 - 1 >= 0)
+          v73 = v120;
+          v74 = (v121 - v120) >> 2;
+          v75 = (v74 - 1);
+          if (v74 - 1 >= 0)
           {
-            v77 = 0;
-            v78 = __p;
-            v79 = 0;
+            v76 = 0;
+            v77 = __p;
+            v78 = 0;
             do
             {
-              v80 = ldiv(v79, v74[v76]);
-              v79 = v80.quot;
-              v77 += v78[v76--] * v80.rem;
+              v79 = ldiv(v78, v73[v75]);
+              v78 = v79.quot;
+              v76 += v77[v75--] * v79.rem;
             }
 
-            while (v76 != -1);
+            while (v75 != -1);
           }
 
-          v133 = 0;
+          v132 = 0;
           operator new();
         }
 
         goto LABEL_69;
       }
 
-      if (v127 != 4)
+      if (v126 != 4)
       {
         goto LABEL_73;
       }
 
-      v50 = v129;
+      v50 = v128;
       goto LABEL_95;
     }
 
-    v50 = v129;
-    if (v129 - v128 != 4)
+    v50 = v128;
+    if (v128 - v127 != 4)
     {
 LABEL_95:
-      v87 = *(v50 - 1);
-      v88 = *(v131 - 1);
-      v129 = v50 - 4;
-      v131 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v121);
-      v89 = *(*a2 + 48);
-      if (v129 == v128)
+      v86 = *(v50 - 1);
+      v87 = *(v130 - 1);
+      v128 = v50 - 4;
+      v130 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v120);
+      v88 = *(*a2 + 48);
+      if (v128 == v127)
       {
-        if (v89)
+        if (v88)
         {
-          v102 = 0;
-          v103 = vdupq_n_s64(v88 - 1);
-          v104 = xmmword_25A99B0D0;
-          v120 = v103;
+          v101 = 0;
+          v102 = vdupq_n_s64(v87 - 1);
+          v103 = xmmword_25A99B0D0;
+          v119 = v102;
           do
           {
-            v105 = v121;
-            v106 = (v122 - v121) >> 2;
-            v107 = (v106 - 1);
-            if (v106 - 1 < 0)
+            v104 = v120;
+            v105 = (v121 - v120) >> 2;
+            v106 = (v105 - 1);
+            if (v105 - 1 < 0)
             {
-              v112 = 0;
+              v111 = 0;
             }
 
             else
             {
-              v108 = 0;
-              v109 = __p;
-              v110 = v102;
+              v107 = 0;
+              v108 = __p;
+              v109 = v101;
               do
               {
-                v111 = ldiv(v110, v105[v107]);
-                v110 = v111.quot;
-                v108 += v109[v107--] * v111.rem;
+                v110 = ldiv(v109, v104[v106]);
+                v109 = v110.quot;
+                v107 += v108[v106--] * v110.rem;
               }
 
-              while (v107 != -1);
-              v112 = 8 * v108;
-              v104 = xmmword_25A99B0D0;
-              v103 = v120;
+              while (v106 != -1);
+              v111 = 8 * v107;
+              v103 = xmmword_25A99B0D0;
+              v102 = v119;
             }
 
-            v113 = v125;
-            if (v88)
+            v112 = v124;
+            if (v87)
             {
-              v114 = 0;
-              v115 = &v125->u64[1];
+              v113 = 0;
+              v114 = &v124->i64[1];
               do
               {
-                v116 = vmovn_s64(vcgeq_u64(v103, vorrq_s8(vdupq_n_s64(v114), v104)));
-                if (v116.i8[0])
+                v115 = vmovn_s64(vcgeq_u64(v102, vorrq_s8(vdupq_n_s64(v113), v103)));
+                if (v115.i8[0])
                 {
-                  *(v115 - 1) = a4;
+                  *(v114 - 1) = a4;
                 }
 
-                if (v116.i8[4])
+                if (v115.i8[4])
                 {
-                  *v115 = a4;
+                  *v114 = a4;
                 }
 
+                v113 += 2;
                 v114 += 2;
-                v115 += 2;
               }
 
-              while (((v88 + 1) & 0xFFFFFFFFFFFFFFFELL) != v114);
+              while (((v87 + 1) & 0xFFFFFFFFFFFFFFFELL) != v113);
             }
 
-            mlx::core::strided_reduce<unsigned long long,unsigned long long,mlx::core::MinReduce>((v126 + v112), v113, v87, v88);
-            v125 = (v125 + 8 * v88);
-            v102 += v88;
-            v104 = xmmword_25A99B0D0;
-            v103 = v120;
+            mlx::core::strided_reduce<unsigned long long,unsigned long long,mlx::core::MinReduce>((v125 + v111), v112, v86, v87);
+            v124 = (v124 + 8 * v87);
+            v101 += v87;
+            v103 = xmmword_25A99B0D0;
+            v102 = v119;
           }
 
-          while (*(*a2 + 48) > v102);
+          while (*(*a2 + 48) > v101);
         }
       }
 
-      else if (v89)
+      else if (v88)
       {
-        v90 = xmmword_25A99B0D0;
-        v91 = v121;
-        v92 = (v122 - v121) >> 2;
-        v93 = (v92 - 1);
-        if (v92 - 1 >= 0)
+        v89 = xmmword_25A99B0D0;
+        v90 = v120;
+        v91 = (v121 - v120) >> 2;
+        v92 = (v91 - 1);
+        if (v91 - 1 >= 0)
         {
-          v94 = 0;
-          v95 = __p;
-          v96 = 0;
+          v93 = 0;
+          v94 = __p;
+          v95 = 0;
           do
           {
-            v97 = ldiv(v96, v91[v93]);
-            v96 = v97.quot;
-            v94 += v95[v93--] * v97.rem;
+            v96 = ldiv(v95, v90[v92]);
+            v95 = v96.quot;
+            v93 += v94[v92--] * v96.rem;
           }
 
-          while (v93 != -1);
-          v90 = xmmword_25A99B0D0;
+          while (v92 != -1);
+          v89 = xmmword_25A99B0D0;
         }
 
-        if (v88)
+        if (v87)
         {
-          v98 = 0;
-          v99 = vdupq_n_s64(v88 - 1);
-          v100 = &v125->u64[1];
+          v97 = 0;
+          v98 = vdupq_n_s64(v87 - 1);
+          v99 = &v124->i64[1];
           do
           {
-            v101 = vmovn_s64(vcgeq_u64(v99, vorrq_s8(vdupq_n_s64(v98), v90)));
-            if (v101.i8[0])
+            v100 = vmovn_s64(vcgeq_u64(v98, vorrq_s8(vdupq_n_s64(v97), v89)));
+            if (v100.i8[0])
             {
-              *(v100 - 1) = a4;
+              *(v99 - 1) = a4;
             }
 
-            if (v101.i8[4])
+            if (v100.i8[4])
             {
-              *v100 = a4;
+              *v99 = a4;
             }
 
-            v98 += 2;
-            v100 += 2;
+            v97 += 2;
+            v99 += 2;
           }
 
-          while (((v88 + 1) & 0xFFFFFFFFFFFFFFFELL) != v98);
+          while (((v87 + 1) & 0xFFFFFFFFFFFFFFFELL) != v97);
         }
 
-        v134 = 0;
+        v133 = 0;
         operator new();
       }
 
       goto LABEL_69;
     }
 
-    v81 = *(v129 - 1);
-    v82 = *(v131 - 1);
-    v129 -= 4;
-    v131 -= 8;
+    v80 = *(v128 - 1);
+    v81 = *(v130 - 1);
+    v128 -= 4;
+    v130 -= 8;
     if (*(v10 + 48))
     {
-      LODWORD(v83) = 0;
-      v119 = vdupq_n_s64(v82 - 1);
+      LODWORD(v82) = 0;
+      v118 = vdupq_n_s64(v81 - 1);
       do
       {
-        if (v82)
+        if (v81)
         {
-          v84 = 0;
-          v85 = &v11->u64[1];
+          v83 = 0;
+          v84 = &v11->i64[1];
           do
           {
-            v86 = vmovn_s64(vcgeq_u64(v119, vorrq_s8(vdupq_n_s64(v84), xmmword_25A99B0D0)));
-            if (v86.i8[0])
+            v85 = vmovn_s64(vcgeq_u64(v118, vorrq_s8(vdupq_n_s64(v83), xmmword_25A99B0D0)));
+            if (v85.i8[0])
             {
-              *(v85 - 1) = a4;
+              *(v84 - 1) = a4;
             }
 
-            if (v86.i8[4])
+            if (v85.i8[4])
             {
-              *v85 = a4;
+              *v84 = a4;
             }
 
+            v83 += 2;
             v84 += 2;
-            v85 += 2;
           }
 
-          while (((v82 + 1) & 0xFFFFFFFFFFFFFFFELL) != v84);
+          while (((v81 + 1) & 0xFFFFFFFFFFFFFFFELL) != v83);
         }
 
-        mlx::core::strided_reduce<unsigned long long,unsigned long long,mlx::core::MinReduce>(v9, v11, v81, v82);
-        v9 = (v126 + 8 * v82 * v81);
-        v11 = (v125 + 8 * v82);
-        v125 = v11;
-        v126 = v9;
-        v83 = v83 + v82;
+        mlx::core::strided_reduce<unsigned long long,unsigned long long,mlx::core::MinReduce>(v9, v11, v80, v81);
+        v9 = (v125 + 8 * v81 * v80);
+        v11 = (v124 + 8 * v81);
+        v124 = v11;
+        v125 = v9;
+        v82 = v82 + v81;
       }
 
-      while (v83 < *(*a2 + 48));
+      while (v82 < *(*a2 + 48));
     }
   }
 
 LABEL_73:
-  if (v130)
+  if (v129)
   {
-    v131 = v130;
-    operator delete(v130);
+    v130 = v129;
+    operator delete(v129);
   }
 
-  if (v128)
+  if (v127)
   {
-    v129 = v128;
-    operator delete(v128);
+    v128 = v127;
+    operator delete(v127);
   }
+}
 
-  v73 = *MEMORY[0x277D85DE8];
+void sub_25A81CE40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  mlx::core::ReductionPlan::~ReductionPlan(va);
+  _Unwind_Resume(a1);
 }
 
 _OWORD *mlx::core::strided_reduce<unsigned long long,unsigned long long,mlx::core::MaxReduce>(_OWORD *result, uint64x2_t *a2, int a3, unint64_t a4)
@@ -7299,21 +6712,21 @@ uint64_t std::__function::__func<void mlx::core::reduction_op<unsigned long long
   }
 }
 
-void mlx::core::reduction_op<int,int,mlx::core::MaxReduce>(uint64_t **a1, uint64_t *a2, int **a3, signed int a4)
+void mlx::core::reduction_op<int,int,mlx::core::MaxReduce>(uint64_t **a1, uint64_t *a2, unsigned int **a3, signed int a4)
 {
-  v140 = *MEMORY[0x277D85DE8];
-  v136 = a4;
-  mlx::core::get_reduction_plan(a1, a3, &v131);
+  v139 = *MEMORY[0x277D85DE8];
+  v135 = a4;
+  mlx::core::get_reduction_plan(a1, a3, &v130);
   v8 = *a1;
   v9 = (*a1)[19];
   v10 = *a2;
   v11 = *(*a2 + 152);
-  v129 = v11;
-  v130 = v9;
-  if (v131 == 1)
+  v128 = v11;
+  v129 = v9;
+  if (v130 == 1)
   {
-    v19 = v133;
-    if (v133 - v132 != 4)
+    v19 = v132;
+    if (v132 - v131 != 4)
     {
       goto LABEL_23;
     }
@@ -7322,7 +6735,7 @@ void mlx::core::reduction_op<int,int,mlx::core::MaxReduce>(uint64_t **a1, uint64
     if (v20)
     {
       v21 = 0;
-      v22 = *v132;
+      v22 = *v131;
       v23 = vdupq_n_s32(a4);
       do
       {
@@ -7387,13 +6800,13 @@ void mlx::core::reduction_op<int,int,mlx::core::MaxReduce>(uint64_t **a1, uint64
       while (v21 != v20);
     }
 
-    v129 = v11;
-    v130 = v9;
+    v128 = v11;
+    v129 = v9;
   }
 
   else
   {
-    if (!v131)
+    if (!v130)
     {
       v11->i32[0] = a4;
       v12 = *(v8 + 12);
@@ -7451,26 +6864,26 @@ void mlx::core::reduction_op<int,int,mlx::core::MaxReduce>(uint64_t **a1, uint64
       goto LABEL_67;
     }
 
-    if ((v131 & 0xFFFFFFFD) == 1)
+    if ((v130 & 0xFFFFFFFD) == 1)
     {
-      v19 = v133;
+      v19 = v132;
 LABEL_23:
       v35 = *(v19 - 1);
-      v133 = v19 - 4;
-      v135 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v125);
+      v132 = v19 - 4;
+      v134 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v124);
       v36 = *(*a2 + 48);
-      if (v133 == v132)
+      if (v132 == v131)
       {
-        v49 = v129;
+        v49 = v128;
         if (v36)
         {
           v50 = 0;
-          v51 = v125;
-          v52 = ((v126 - v125) >> 2) - 1;
+          v51 = v124;
+          v52 = ((v125 - v124) >> 2) - 1;
           v53 = __p;
-          v121 = v130;
-          v122 = vdupq_n_s32(a4);
+          v120 = v129;
+          v121 = vdupq_n_s32(a4);
           do
           {
             if ((v52 & 0x80000000) != 0)
@@ -7495,19 +6908,19 @@ LABEL_23:
             }
 
             *v49 = a4;
-            v59 = (v121 + v58);
+            v59 = (v120 + v58);
             if (v35 < 8)
             {
-              v61 = v122;
-              v62 = v122;
+              v61 = v121;
+              v62 = v121;
               v65 = v35;
             }
 
             else
             {
               v60 = v35;
-              v61 = v122;
-              v62 = v122;
+              v61 = v121;
+              v62 = v121;
               do
               {
                 v63 = *v59;
@@ -7557,13 +6970,13 @@ LABEL_23:
           while (v50 != v36);
         }
 
-        v129 = v49;
+        v128 = v49;
       }
 
       else if (v36)
       {
-        v37 = v125;
-        v38 = (v126 - v125) >> 2;
+        v37 = v124;
+        v38 = (v125 - v124) >> 2;
         v39 = (v38 - 1);
         if (v38 - 1 >= 0)
         {
@@ -7580,309 +6993,314 @@ LABEL_23:
           while (v39 != -1);
         }
 
-        v129->i32[0] = v136;
-        v139 = 0;
+        v128->i32[0] = v135;
+        v138 = 0;
         operator new();
       }
 
 LABEL_63:
       if (__p)
       {
-        v128 = __p;
+        v127 = __p;
         operator delete(__p);
       }
 
-      if (v125)
+      if (v124)
       {
-        v126 = v125;
-        operator delete(v125);
+        v125 = v124;
+        operator delete(v124);
       }
 
       goto LABEL_67;
     }
 
-    if (v131 != 2)
+    if (v130 != 2)
     {
-      if (v131 == 5)
+      if (v130 == 5)
       {
-        mlx::core::shapes_without_reduction_axes(a1, a3, &v125);
+        mlx::core::shapes_without_reduction_axes(a1, a3, &v124);
         if (*(*a2 + 48))
         {
-          v71 = v125;
-          v72 = (v126 - v125) >> 2;
-          v73 = (v72 - 1);
-          if (v72 - 1 >= 0)
+          v70 = v124;
+          v71 = (v125 - v124) >> 2;
+          v72 = (v71 - 1);
+          if (v71 - 1 >= 0)
           {
-            v74 = 0;
-            v75 = __p;
-            v76 = 0;
+            v73 = 0;
+            v74 = __p;
+            v75 = 0;
             do
             {
-              v77 = ldiv(v76, v71[v73]);
-              v76 = v77.quot;
-              v74 += v75[v73--] * v77.rem;
+              v76 = ldiv(v75, v70[v72]);
+              v75 = v76.quot;
+              v73 += v74[v72--] * v76.rem;
             }
 
-            while (v73 != -1);
+            while (v72 != -1);
           }
 
-          v137 = 0;
+          v136 = 0;
           operator new();
         }
 
         goto LABEL_63;
       }
 
-      if (v131 != 4)
+      if (v130 != 4)
       {
         goto LABEL_67;
       }
 
-      v48 = v133;
+      v48 = v132;
       goto LABEL_91;
     }
 
-    v48 = v133;
-    if (v133 - v132 != 4)
+    v48 = v132;
+    if (v132 - v131 != 4)
     {
 LABEL_91:
-      v86 = *(v48 - 1);
-      v87 = *(v135 - 1);
-      v133 = v48 - 4;
-      v135 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v125);
-      v88 = *(*a2 + 48);
-      if (v133 == v132)
+      v85 = *(v48 - 1);
+      v86 = *(v134 - 1);
+      v132 = v48 - 4;
+      v134 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v124);
+      v87 = *(*a2 + 48);
+      if (v132 == v131)
       {
-        if (v88)
+        if (v87)
         {
-          v103 = 0;
-          v104 = vdupq_n_s64(v87 - 1);
-          v105 = xmmword_25A99B0C0;
-          v106 = xmmword_25A99B0D0;
-          v124 = v104;
+          v102 = 0;
+          v103 = vdupq_n_s64(v86 - 1);
+          v104 = xmmword_25A99B0C0;
+          v105 = xmmword_25A99B0D0;
+          v123 = v103;
           do
           {
-            v107 = v125;
-            v108 = (v126 - v125) >> 2;
-            v109 = (v108 - 1);
-            if (v108 - 1 < 0)
+            v106 = v124;
+            v107 = (v125 - v124) >> 2;
+            v108 = (v107 - 1);
+            if (v107 - 1 < 0)
             {
-              v114 = 0;
+              v113 = 0;
             }
 
             else
             {
-              v110 = 0;
-              v111 = __p;
-              v112 = v103;
+              v109 = 0;
+              v110 = __p;
+              v111 = v102;
               do
               {
-                v113 = ldiv(v112, v107[v109]);
-                v112 = v113.quot;
-                v110 += v111[v109--] * v113.rem;
+                v112 = ldiv(v111, v106[v108]);
+                v111 = v112.quot;
+                v109 += v110[v108--] * v112.rem;
               }
 
-              while (v109 != -1);
-              v114 = 4 * v110;
-              v105 = xmmword_25A99B0C0;
-              v104 = v124;
-              v106 = xmmword_25A99B0D0;
+              while (v108 != -1);
+              v113 = 4 * v109;
+              v104 = xmmword_25A99B0C0;
+              v103 = v123;
+              v105 = xmmword_25A99B0D0;
             }
 
-            v115 = v129;
-            if (v87)
+            v114 = v128;
+            if (v86)
             {
-              v116 = 0;
-              v117 = &v129->i32[2];
+              v115 = 0;
+              v116 = &v128->i32[2];
               do
               {
-                v118 = vdupq_n_s64(v116);
-                v119 = vmovn_s64(vcgeq_u64(v104, vorrq_s8(v118, v106)));
-                if (vuzp1_s16(v119, *v118.i8).u8[0])
+                v117 = vdupq_n_s64(v115);
+                v118 = vmovn_s64(vcgeq_u64(v103, vorrq_s8(v117, v105)));
+                if (vuzp1_s16(v118, *v117.i8).u8[0])
                 {
-                  *(v117 - 2) = a4;
+                  *(v116 - 2) = a4;
                 }
 
-                if (vuzp1_s16(v119, *&v118).i8[2])
+                if (vuzp1_s16(v118, *&v117).i8[2])
                 {
-                  *(v117 - 1) = a4;
+                  *(v116 - 1) = a4;
                 }
 
-                v120 = vmovn_s64(vcgeq_u64(v104, vorrq_s8(v118, v105)));
-                if (vuzp1_s16(v120, v120).i32[1])
+                v119 = vmovn_s64(vcgeq_u64(v103, vorrq_s8(v117, v104)));
+                if (vuzp1_s16(v119, v119).i32[1])
                 {
-                  *v117 = a4;
-                  v117[1] = a4;
+                  *v116 = a4;
+                  v116[1] = a4;
                 }
 
+                v115 += 4;
                 v116 += 4;
-                v117 += 4;
               }
 
-              while (((v87 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v116);
+              while (((v86 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v115);
             }
 
-            mlx::core::strided_reduce<int,int,mlx::core::MaxReduce>((v130 + v114), v115, v86, v87);
-            v129 = (v129 + 4 * v87);
-            v103 += v87;
-            v105 = xmmword_25A99B0C0;
-            v104 = v124;
-            v106 = xmmword_25A99B0D0;
+            mlx::core::strided_reduce<int,int,mlx::core::MaxReduce>((v129 + v113), v114, v85, v86);
+            v128 = (v128 + 4 * v86);
+            v102 += v86;
+            v104 = xmmword_25A99B0C0;
+            v103 = v123;
+            v105 = xmmword_25A99B0D0;
           }
 
-          while (*(*a2 + 48) > v103);
+          while (*(*a2 + 48) > v102);
         }
       }
 
-      else if (v88)
+      else if (v87)
       {
-        v89 = xmmword_25A99B0C0;
-        v90 = xmmword_25A99B0D0;
-        v91 = v125;
-        v92 = (v126 - v125) >> 2;
-        v93 = (v92 - 1);
-        if (v92 - 1 >= 0)
+        v88 = xmmword_25A99B0C0;
+        v89 = xmmword_25A99B0D0;
+        v90 = v124;
+        v91 = (v125 - v124) >> 2;
+        v92 = (v91 - 1);
+        if (v91 - 1 >= 0)
         {
-          v94 = 0;
-          v95 = __p;
-          v96 = 0;
+          v93 = 0;
+          v94 = __p;
+          v95 = 0;
           do
           {
-            v97 = ldiv(v96, v91[v93]);
-            v96 = v97.quot;
-            v94 += v95[v93--] * v97.rem;
+            v96 = ldiv(v95, v90[v92]);
+            v95 = v96.quot;
+            v93 += v94[v92--] * v96.rem;
           }
 
-          while (v93 != -1);
-          v90 = xmmword_25A99B0D0;
-          v89 = xmmword_25A99B0C0;
+          while (v92 != -1);
+          v89 = xmmword_25A99B0D0;
+          v88 = xmmword_25A99B0C0;
         }
 
-        if (v87)
+        if (v86)
         {
-          v98 = 0;
-          v99 = vdupq_n_s64(v87 - 1);
-          v100 = &v129->i32[2];
+          v97 = 0;
+          v98 = vdupq_n_s64(v86 - 1);
+          v99 = &v128->i32[2];
           do
           {
-            v101 = vdupq_n_s64(v98);
-            v102 = vmovn_s64(vcgeq_u64(v99, vorrq_s8(v101, v90)));
-            if (vuzp1_s16(v102, *v99.i8).u8[0])
+            v100 = vdupq_n_s64(v97);
+            v101 = vmovn_s64(vcgeq_u64(v98, vorrq_s8(v100, v89)));
+            if (vuzp1_s16(v101, *v98.i8).u8[0])
             {
-              *(v100 - 2) = a4;
+              *(v99 - 2) = a4;
             }
 
-            if (vuzp1_s16(v102, *&v99).i8[2])
+            if (vuzp1_s16(v101, *&v98).i8[2])
             {
-              *(v100 - 1) = a4;
+              *(v99 - 1) = a4;
             }
 
-            if (vuzp1_s16(*&v99, vmovn_s64(vcgeq_u64(v99, vorrq_s8(v101, v89)))).i32[1])
+            if (vuzp1_s16(*&v98, vmovn_s64(vcgeq_u64(v98, vorrq_s8(v100, v88)))).i32[1])
             {
-              *v100 = a4;
-              v100[1] = a4;
+              *v99 = a4;
+              v99[1] = a4;
             }
 
-            v98 += 4;
-            v100 += 4;
+            v97 += 4;
+            v99 += 4;
           }
 
-          while (((v87 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v98);
+          while (((v86 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v97);
         }
 
-        v138 = 0;
+        v137 = 0;
         operator new();
       }
 
       goto LABEL_63;
     }
 
-    v78 = *(v133 - 1);
-    v79 = *(v135 - 1);
-    v133 -= 4;
-    v135 -= 8;
+    v77 = *(v132 - 1);
+    v78 = *(v134 - 1);
+    v132 -= 4;
+    v134 -= 8;
     if (*(v10 + 48))
     {
-      LODWORD(v80) = 0;
-      v123 = vdupq_n_s64(v79 - 1);
+      LODWORD(v79) = 0;
+      v122 = vdupq_n_s64(v78 - 1);
       do
       {
-        if (v79)
+        if (v78)
         {
-          v81 = 0;
-          v82 = &v11->i32[2];
+          v80 = 0;
+          v81 = &v11->i32[2];
           do
           {
-            v83 = vdupq_n_s64(v81);
-            v84 = vmovn_s64(vcgeq_u64(v123, vorrq_s8(v83, xmmword_25A99B0D0)));
-            if (vuzp1_s16(v84, *v83.i8).u8[0])
+            v82 = vdupq_n_s64(v80);
+            v83 = vmovn_s64(vcgeq_u64(v122, vorrq_s8(v82, xmmword_25A99B0D0)));
+            if (vuzp1_s16(v83, *v82.i8).u8[0])
             {
-              *(v82 - 2) = a4;
+              *(v81 - 2) = a4;
             }
 
-            if (vuzp1_s16(v84, *&v83).i8[2])
+            if (vuzp1_s16(v83, *&v82).i8[2])
             {
-              *(v82 - 1) = a4;
+              *(v81 - 1) = a4;
             }
 
-            v85 = vmovn_s64(vcgeq_u64(v123, vorrq_s8(v83, xmmword_25A99B0C0)));
-            if (vuzp1_s16(v85, v85).i32[1])
+            v84 = vmovn_s64(vcgeq_u64(v122, vorrq_s8(v82, xmmword_25A99B0C0)));
+            if (vuzp1_s16(v84, v84).i32[1])
             {
-              *v82 = a4;
-              v82[1] = a4;
+              *v81 = a4;
+              v81[1] = a4;
             }
 
+            v80 += 4;
             v81 += 4;
-            v82 += 4;
           }
 
-          while (((v79 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v81);
+          while (((v78 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v80);
         }
 
-        mlx::core::strided_reduce<int,int,mlx::core::MaxReduce>(v9, v11, v78, v79);
-        v9 = (v130 + 4 * v79 * v78);
-        v11 = (v129 + 4 * v79);
-        v129 = v11;
-        v130 = v9;
-        v80 = v80 + v79;
+        mlx::core::strided_reduce<int,int,mlx::core::MaxReduce>(v9, v11, v77, v78);
+        v9 = (v129 + 4 * v78 * v77);
+        v11 = (v128 + 4 * v78);
+        v128 = v11;
+        v129 = v9;
+        v79 = v79 + v78;
       }
 
-      while (v80 < *(*a2 + 48));
+      while (v79 < *(*a2 + 48));
     }
   }
 
 LABEL_67:
-  if (v134)
+  if (v133)
   {
-    v135 = v134;
-    operator delete(v134);
+    v134 = v133;
+    operator delete(v133);
   }
 
-  if (v132)
+  if (v131)
   {
-    v133 = v132;
-    operator delete(v132);
+    v132 = v131;
+    operator delete(v131);
   }
-
-  v70 = *MEMORY[0x277D85DE8];
 }
 
-void mlx::core::reduction_op<int,int,mlx::core::MinReduce>(uint64_t **a1, uint64_t *a2, int **a3, signed int a4)
+void sub_25A81E218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  v140 = *MEMORY[0x277D85DE8];
-  v136 = a4;
-  mlx::core::get_reduction_plan(a1, a3, &v131);
+  va_start(va, a26);
+  mlx::core::ReductionPlan::~ReductionPlan(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::reduction_op<int,int,mlx::core::MinReduce>(uint64_t **a1, uint64_t *a2, unsigned int **a3, signed int a4)
+{
+  v139 = *MEMORY[0x277D85DE8];
+  v135 = a4;
+  mlx::core::get_reduction_plan(a1, a3, &v130);
   v8 = *a1;
   v9 = (*a1)[19];
   v10 = *a2;
   v11 = *(*a2 + 152);
-  v129 = v11;
-  v130 = v9;
-  if (v131 == 1)
+  v128 = v11;
+  v129 = v9;
+  if (v130 == 1)
   {
-    v19 = v133;
-    if (v133 - v132 != 4)
+    v19 = v132;
+    if (v132 - v131 != 4)
     {
       goto LABEL_23;
     }
@@ -7891,7 +7309,7 @@ void mlx::core::reduction_op<int,int,mlx::core::MinReduce>(uint64_t **a1, uint64
     if (v20)
     {
       v21 = 0;
-      v22 = *v132;
+      v22 = *v131;
       v23 = vdupq_n_s32(a4);
       do
       {
@@ -7956,13 +7374,13 @@ void mlx::core::reduction_op<int,int,mlx::core::MinReduce>(uint64_t **a1, uint64
       while (v21 != v20);
     }
 
-    v129 = v11;
-    v130 = v9;
+    v128 = v11;
+    v129 = v9;
   }
 
   else
   {
-    if (!v131)
+    if (!v130)
     {
       v11->i32[0] = a4;
       v12 = *(v8 + 12);
@@ -8020,26 +7438,26 @@ void mlx::core::reduction_op<int,int,mlx::core::MinReduce>(uint64_t **a1, uint64
       goto LABEL_67;
     }
 
-    if ((v131 & 0xFFFFFFFD) == 1)
+    if ((v130 & 0xFFFFFFFD) == 1)
     {
-      v19 = v133;
+      v19 = v132;
 LABEL_23:
       v35 = *(v19 - 1);
-      v133 = v19 - 4;
-      v135 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v125);
+      v132 = v19 - 4;
+      v134 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v124);
       v36 = *(*a2 + 48);
-      if (v133 == v132)
+      if (v132 == v131)
       {
-        v49 = v129;
+        v49 = v128;
         if (v36)
         {
           v50 = 0;
-          v51 = v125;
-          v52 = ((v126 - v125) >> 2) - 1;
+          v51 = v124;
+          v52 = ((v125 - v124) >> 2) - 1;
           v53 = __p;
-          v121 = v130;
-          v122 = vdupq_n_s32(a4);
+          v120 = v129;
+          v121 = vdupq_n_s32(a4);
           do
           {
             if ((v52 & 0x80000000) != 0)
@@ -8064,19 +7482,19 @@ LABEL_23:
             }
 
             *v49 = a4;
-            v59 = (v121 + v58);
+            v59 = (v120 + v58);
             if (v35 < 8)
             {
-              v61 = v122;
-              v62 = v122;
+              v61 = v121;
+              v62 = v121;
               v65 = v35;
             }
 
             else
             {
               v60 = v35;
-              v61 = v122;
-              v62 = v122;
+              v61 = v121;
+              v62 = v121;
               do
               {
                 v63 = *v59;
@@ -8126,13 +7544,13 @@ LABEL_23:
           while (v50 != v36);
         }
 
-        v129 = v49;
+        v128 = v49;
       }
 
       else if (v36)
       {
-        v37 = v125;
-        v38 = (v126 - v125) >> 2;
+        v37 = v124;
+        v38 = (v125 - v124) >> 2;
         v39 = (v38 - 1);
         if (v38 - 1 >= 0)
         {
@@ -8149,292 +7567,297 @@ LABEL_23:
           while (v39 != -1);
         }
 
-        v129->i32[0] = v136;
-        v139 = 0;
+        v128->i32[0] = v135;
+        v138 = 0;
         operator new();
       }
 
 LABEL_63:
       if (__p)
       {
-        v128 = __p;
+        v127 = __p;
         operator delete(__p);
       }
 
-      if (v125)
+      if (v124)
       {
-        v126 = v125;
-        operator delete(v125);
+        v125 = v124;
+        operator delete(v124);
       }
 
       goto LABEL_67;
     }
 
-    if (v131 != 2)
+    if (v130 != 2)
     {
-      if (v131 == 5)
+      if (v130 == 5)
       {
-        mlx::core::shapes_without_reduction_axes(a1, a3, &v125);
+        mlx::core::shapes_without_reduction_axes(a1, a3, &v124);
         if (*(*a2 + 48))
         {
-          v71 = v125;
-          v72 = (v126 - v125) >> 2;
-          v73 = (v72 - 1);
-          if (v72 - 1 >= 0)
+          v70 = v124;
+          v71 = (v125 - v124) >> 2;
+          v72 = (v71 - 1);
+          if (v71 - 1 >= 0)
           {
-            v74 = 0;
-            v75 = __p;
-            v76 = 0;
+            v73 = 0;
+            v74 = __p;
+            v75 = 0;
             do
             {
-              v77 = ldiv(v76, v71[v73]);
-              v76 = v77.quot;
-              v74 += v75[v73--] * v77.rem;
+              v76 = ldiv(v75, v70[v72]);
+              v75 = v76.quot;
+              v73 += v74[v72--] * v76.rem;
             }
 
-            while (v73 != -1);
+            while (v72 != -1);
           }
 
-          v137 = 0;
+          v136 = 0;
           operator new();
         }
 
         goto LABEL_63;
       }
 
-      if (v131 != 4)
+      if (v130 != 4)
       {
         goto LABEL_67;
       }
 
-      v48 = v133;
+      v48 = v132;
       goto LABEL_91;
     }
 
-    v48 = v133;
-    if (v133 - v132 != 4)
+    v48 = v132;
+    if (v132 - v131 != 4)
     {
 LABEL_91:
-      v86 = *(v48 - 1);
-      v87 = *(v135 - 1);
-      v133 = v48 - 4;
-      v135 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v125);
-      v88 = *(*a2 + 48);
-      if (v133 == v132)
+      v85 = *(v48 - 1);
+      v86 = *(v134 - 1);
+      v132 = v48 - 4;
+      v134 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v124);
+      v87 = *(*a2 + 48);
+      if (v132 == v131)
       {
-        if (v88)
+        if (v87)
         {
-          v103 = 0;
-          v104 = vdupq_n_s64(v87 - 1);
-          v105 = xmmword_25A99B0C0;
-          v106 = xmmword_25A99B0D0;
-          v124 = v104;
+          v102 = 0;
+          v103 = vdupq_n_s64(v86 - 1);
+          v104 = xmmword_25A99B0C0;
+          v105 = xmmword_25A99B0D0;
+          v123 = v103;
           do
           {
-            v107 = v125;
-            v108 = (v126 - v125) >> 2;
-            v109 = (v108 - 1);
-            if (v108 - 1 < 0)
+            v106 = v124;
+            v107 = (v125 - v124) >> 2;
+            v108 = (v107 - 1);
+            if (v107 - 1 < 0)
             {
-              v114 = 0;
+              v113 = 0;
             }
 
             else
             {
-              v110 = 0;
-              v111 = __p;
-              v112 = v103;
+              v109 = 0;
+              v110 = __p;
+              v111 = v102;
               do
               {
-                v113 = ldiv(v112, v107[v109]);
-                v112 = v113.quot;
-                v110 += v111[v109--] * v113.rem;
+                v112 = ldiv(v111, v106[v108]);
+                v111 = v112.quot;
+                v109 += v110[v108--] * v112.rem;
               }
 
-              while (v109 != -1);
-              v114 = 4 * v110;
-              v105 = xmmword_25A99B0C0;
-              v104 = v124;
-              v106 = xmmword_25A99B0D0;
+              while (v108 != -1);
+              v113 = 4 * v109;
+              v104 = xmmword_25A99B0C0;
+              v103 = v123;
+              v105 = xmmword_25A99B0D0;
             }
 
-            v115 = v129;
-            if (v87)
+            v114 = v128;
+            if (v86)
             {
-              v116 = 0;
-              v117 = &v129->i32[2];
+              v115 = 0;
+              v116 = &v128->i32[2];
               do
               {
-                v118 = vdupq_n_s64(v116);
-                v119 = vmovn_s64(vcgeq_u64(v104, vorrq_s8(v118, v106)));
-                if (vuzp1_s16(v119, *v118.i8).u8[0])
+                v117 = vdupq_n_s64(v115);
+                v118 = vmovn_s64(vcgeq_u64(v103, vorrq_s8(v117, v105)));
+                if (vuzp1_s16(v118, *v117.i8).u8[0])
                 {
-                  *(v117 - 2) = a4;
+                  *(v116 - 2) = a4;
                 }
 
-                if (vuzp1_s16(v119, *&v118).i8[2])
+                if (vuzp1_s16(v118, *&v117).i8[2])
                 {
-                  *(v117 - 1) = a4;
+                  *(v116 - 1) = a4;
                 }
 
-                v120 = vmovn_s64(vcgeq_u64(v104, vorrq_s8(v118, v105)));
-                if (vuzp1_s16(v120, v120).i32[1])
+                v119 = vmovn_s64(vcgeq_u64(v103, vorrq_s8(v117, v104)));
+                if (vuzp1_s16(v119, v119).i32[1])
                 {
-                  *v117 = a4;
-                  v117[1] = a4;
+                  *v116 = a4;
+                  v116[1] = a4;
                 }
 
+                v115 += 4;
                 v116 += 4;
-                v117 += 4;
               }
 
-              while (((v87 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v116);
+              while (((v86 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v115);
             }
 
-            mlx::core::strided_reduce<int,int,mlx::core::MinReduce>((v130 + v114), v115, v86, v87);
-            v129 = (v129 + 4 * v87);
-            v103 += v87;
-            v105 = xmmword_25A99B0C0;
-            v104 = v124;
-            v106 = xmmword_25A99B0D0;
+            mlx::core::strided_reduce<int,int,mlx::core::MinReduce>((v129 + v113), v114, v85, v86);
+            v128 = (v128 + 4 * v86);
+            v102 += v86;
+            v104 = xmmword_25A99B0C0;
+            v103 = v123;
+            v105 = xmmword_25A99B0D0;
           }
 
-          while (*(*a2 + 48) > v103);
+          while (*(*a2 + 48) > v102);
         }
       }
 
-      else if (v88)
+      else if (v87)
       {
-        v89 = xmmword_25A99B0C0;
-        v90 = xmmword_25A99B0D0;
-        v91 = v125;
-        v92 = (v126 - v125) >> 2;
-        v93 = (v92 - 1);
-        if (v92 - 1 >= 0)
+        v88 = xmmword_25A99B0C0;
+        v89 = xmmword_25A99B0D0;
+        v90 = v124;
+        v91 = (v125 - v124) >> 2;
+        v92 = (v91 - 1);
+        if (v91 - 1 >= 0)
         {
-          v94 = 0;
-          v95 = __p;
-          v96 = 0;
+          v93 = 0;
+          v94 = __p;
+          v95 = 0;
           do
           {
-            v97 = ldiv(v96, v91[v93]);
-            v96 = v97.quot;
-            v94 += v95[v93--] * v97.rem;
+            v96 = ldiv(v95, v90[v92]);
+            v95 = v96.quot;
+            v93 += v94[v92--] * v96.rem;
           }
 
-          while (v93 != -1);
-          v90 = xmmword_25A99B0D0;
-          v89 = xmmword_25A99B0C0;
+          while (v92 != -1);
+          v89 = xmmword_25A99B0D0;
+          v88 = xmmword_25A99B0C0;
         }
 
-        if (v87)
+        if (v86)
         {
-          v98 = 0;
-          v99 = vdupq_n_s64(v87 - 1);
-          v100 = &v129->i32[2];
+          v97 = 0;
+          v98 = vdupq_n_s64(v86 - 1);
+          v99 = &v128->i32[2];
           do
           {
-            v101 = vdupq_n_s64(v98);
-            v102 = vmovn_s64(vcgeq_u64(v99, vorrq_s8(v101, v90)));
-            if (vuzp1_s16(v102, *v99.i8).u8[0])
+            v100 = vdupq_n_s64(v97);
+            v101 = vmovn_s64(vcgeq_u64(v98, vorrq_s8(v100, v89)));
+            if (vuzp1_s16(v101, *v98.i8).u8[0])
             {
-              *(v100 - 2) = a4;
+              *(v99 - 2) = a4;
             }
 
-            if (vuzp1_s16(v102, *&v99).i8[2])
+            if (vuzp1_s16(v101, *&v98).i8[2])
             {
-              *(v100 - 1) = a4;
+              *(v99 - 1) = a4;
             }
 
-            if (vuzp1_s16(*&v99, vmovn_s64(vcgeq_u64(v99, vorrq_s8(v101, v89)))).i32[1])
+            if (vuzp1_s16(*&v98, vmovn_s64(vcgeq_u64(v98, vorrq_s8(v100, v88)))).i32[1])
             {
-              *v100 = a4;
-              v100[1] = a4;
+              *v99 = a4;
+              v99[1] = a4;
             }
 
-            v98 += 4;
-            v100 += 4;
+            v97 += 4;
+            v99 += 4;
           }
 
-          while (((v87 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v98);
+          while (((v86 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v97);
         }
 
-        v138 = 0;
+        v137 = 0;
         operator new();
       }
 
       goto LABEL_63;
     }
 
-    v78 = *(v133 - 1);
-    v79 = *(v135 - 1);
-    v133 -= 4;
-    v135 -= 8;
+    v77 = *(v132 - 1);
+    v78 = *(v134 - 1);
+    v132 -= 4;
+    v134 -= 8;
     if (*(v10 + 48))
     {
-      LODWORD(v80) = 0;
-      v123 = vdupq_n_s64(v79 - 1);
+      LODWORD(v79) = 0;
+      v122 = vdupq_n_s64(v78 - 1);
       do
       {
-        if (v79)
+        if (v78)
         {
-          v81 = 0;
-          v82 = &v11->i32[2];
+          v80 = 0;
+          v81 = &v11->i32[2];
           do
           {
-            v83 = vdupq_n_s64(v81);
-            v84 = vmovn_s64(vcgeq_u64(v123, vorrq_s8(v83, xmmword_25A99B0D0)));
-            if (vuzp1_s16(v84, *v83.i8).u8[0])
+            v82 = vdupq_n_s64(v80);
+            v83 = vmovn_s64(vcgeq_u64(v122, vorrq_s8(v82, xmmword_25A99B0D0)));
+            if (vuzp1_s16(v83, *v82.i8).u8[0])
             {
-              *(v82 - 2) = a4;
+              *(v81 - 2) = a4;
             }
 
-            if (vuzp1_s16(v84, *&v83).i8[2])
+            if (vuzp1_s16(v83, *&v82).i8[2])
             {
-              *(v82 - 1) = a4;
+              *(v81 - 1) = a4;
             }
 
-            v85 = vmovn_s64(vcgeq_u64(v123, vorrq_s8(v83, xmmword_25A99B0C0)));
-            if (vuzp1_s16(v85, v85).i32[1])
+            v84 = vmovn_s64(vcgeq_u64(v122, vorrq_s8(v82, xmmword_25A99B0C0)));
+            if (vuzp1_s16(v84, v84).i32[1])
             {
-              *v82 = a4;
-              v82[1] = a4;
+              *v81 = a4;
+              v81[1] = a4;
             }
 
+            v80 += 4;
             v81 += 4;
-            v82 += 4;
           }
 
-          while (((v79 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v81);
+          while (((v78 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v80);
         }
 
-        mlx::core::strided_reduce<int,int,mlx::core::MinReduce>(v9, v11, v78, v79);
-        v9 = (v130 + 4 * v79 * v78);
-        v11 = (v129 + 4 * v79);
-        v129 = v11;
-        v130 = v9;
-        v80 = v80 + v79;
+        mlx::core::strided_reduce<int,int,mlx::core::MinReduce>(v9, v11, v77, v78);
+        v9 = (v129 + 4 * v78 * v77);
+        v11 = (v128 + 4 * v78);
+        v128 = v11;
+        v129 = v9;
+        v79 = v79 + v78;
       }
 
-      while (v80 < *(*a2 + 48));
+      while (v79 < *(*a2 + 48));
     }
   }
 
 LABEL_67:
-  if (v134)
+  if (v133)
   {
-    v135 = v134;
-    operator delete(v134);
+    v134 = v133;
+    operator delete(v133);
   }
 
-  if (v132)
+  if (v131)
   {
-    v133 = v132;
-    operator delete(v132);
+    v132 = v131;
+    operator delete(v131);
   }
+}
 
-  v70 = *MEMORY[0x277D85DE8];
+void sub_25A81EC90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  mlx::core::ReductionPlan::~ReductionPlan(va);
+  _Unwind_Resume(a1);
 }
 
 _OWORD *mlx::core::strided_reduce<int,int,mlx::core::MaxReduce>(_OWORD *result, int32x4_t *a2, int a3, unint64_t a4)
@@ -8807,21 +8230,21 @@ uint64_t std::__function::__func<void mlx::core::reduction_op<int,int,mlx::core:
   }
 }
 
-void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(uint64_t **a1, uint64_t *a2, int **a3, uint64_t a4)
+void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(uint64_t **a1, uint64_t *a2, unsigned int **a3, uint64_t a4)
 {
-  v136 = *MEMORY[0x277D85DE8];
-  v132 = a4;
-  mlx::core::get_reduction_plan(a1, a3, &v127);
+  v135 = *MEMORY[0x277D85DE8];
+  v131 = a4;
+  mlx::core::get_reduction_plan(a1, a3, &v126);
   v8 = *a1;
   v9 = (*a1)[19];
   v10 = *a2;
   v11 = *(*a2 + 152);
-  v125 = v11;
-  v126 = v9;
-  if (v127 == 1)
+  v124 = v11;
+  v125 = v9;
+  if (v126 == 1)
   {
-    v19 = v129;
-    if (v129 - v128 != 4)
+    v19 = v128;
+    if (v128 - v127 != 4)
     {
       goto LABEL_25;
     }
@@ -8830,7 +8253,7 @@ void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(uint64_t 
     if (v20)
     {
       v21 = 0;
-      v22 = *v128;
+      v22 = *v127;
       v23 = vdupq_lane_s64(a4, 0);
       do
       {
@@ -8901,13 +8324,13 @@ void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(uint64_t 
       while (v21 != v20);
     }
 
-    v125 = v11;
-    v126 = v9;
+    v124 = v11;
+    v125 = v9;
   }
 
   else
   {
-    if (!v127)
+    if (!v126)
     {
       v11->i64[0] = a4;
       v12 = *(v8 + 12);
@@ -8971,26 +8394,26 @@ void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(uint64_t 
       goto LABEL_73;
     }
 
-    if ((v127 & 0xFFFFFFFD) == 1)
+    if ((v126 & 0xFFFFFFFD) == 1)
     {
-      v19 = v129;
+      v19 = v128;
 LABEL_25:
       v36 = *(v19 - 1);
-      v129 = v19 - 4;
-      v131 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v121);
+      v128 = v19 - 4;
+      v130 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v120);
       v37 = *(*a2 + 48);
-      if (v129 == v128)
+      if (v128 == v127)
       {
-        v51 = v125;
+        v51 = v124;
         if (v37)
         {
           v52 = 0;
-          v53 = v121;
-          v54 = ((v122 - v121) >> 2) - 1;
+          v53 = v120;
+          v54 = ((v121 - v120) >> 2) - 1;
           v55 = __p;
-          v117 = v126;
-          v118 = vdupq_lane_s64(a4, 0);
+          v116 = v125;
+          v117 = vdupq_lane_s64(a4, 0);
           do
           {
             if ((v54 & 0x80000000) != 0)
@@ -9015,19 +8438,19 @@ LABEL_25:
             }
 
             *v51 = a4;
-            v61 = (v117 + v60);
+            v61 = (v116 + v60);
             if (v36 < 4)
             {
-              v63 = v118;
-              v64 = v118;
+              v63 = v117;
+              v64 = v117;
               v67 = v36;
             }
 
             else
             {
               v62 = v36;
-              v63 = v118;
-              v64 = v118;
+              v63 = v117;
+              v64 = v117;
               do
               {
                 v65 = *v61;
@@ -9083,13 +8506,13 @@ LABEL_25:
           while (v52 != v37);
         }
 
-        v125 = v51;
+        v124 = v51;
       }
 
       else if (v37)
       {
-        v38 = v121;
-        v39 = (v122 - v121) >> 2;
+        v38 = v120;
+        v39 = (v121 - v120) >> 2;
         v40 = (v39 - 1);
         if (v39 - 1 >= 0)
         {
@@ -9106,281 +8529,286 @@ LABEL_25:
           while (v40 != -1);
         }
 
-        v125->i64[0] = v132;
-        v135 = 0;
+        v124->i64[0] = v131;
+        v134 = 0;
         operator new();
       }
 
 LABEL_69:
       if (__p)
       {
-        v124 = __p;
+        v123 = __p;
         operator delete(__p);
       }
 
-      if (v121)
+      if (v120)
       {
-        v122 = v121;
-        operator delete(v121);
+        v121 = v120;
+        operator delete(v120);
       }
 
       goto LABEL_73;
     }
 
-    if (v127 != 2)
+    if (v126 != 2)
     {
-      if (v127 == 5)
+      if (v126 == 5)
       {
-        mlx::core::shapes_without_reduction_axes(a1, a3, &v121);
+        mlx::core::shapes_without_reduction_axes(a1, a3, &v120);
         if (*(*a2 + 48))
         {
-          v74 = v121;
-          v75 = (v122 - v121) >> 2;
-          v76 = (v75 - 1);
-          if (v75 - 1 >= 0)
+          v73 = v120;
+          v74 = (v121 - v120) >> 2;
+          v75 = (v74 - 1);
+          if (v74 - 1 >= 0)
           {
-            v77 = 0;
-            v78 = __p;
-            v79 = 0;
+            v76 = 0;
+            v77 = __p;
+            v78 = 0;
             do
             {
-              v80 = ldiv(v79, v74[v76]);
-              v79 = v80.quot;
-              v77 += v78[v76--] * v80.rem;
+              v79 = ldiv(v78, v73[v75]);
+              v78 = v79.quot;
+              v76 += v77[v75--] * v79.rem;
             }
 
-            while (v76 != -1);
+            while (v75 != -1);
           }
 
-          v133 = 0;
+          v132 = 0;
           operator new();
         }
 
         goto LABEL_69;
       }
 
-      if (v127 != 4)
+      if (v126 != 4)
       {
         goto LABEL_73;
       }
 
-      v50 = v129;
+      v50 = v128;
       goto LABEL_95;
     }
 
-    v50 = v129;
-    if (v129 - v128 != 4)
+    v50 = v128;
+    if (v128 - v127 != 4)
     {
 LABEL_95:
-      v87 = *(v50 - 1);
-      v88 = *(v131 - 1);
-      v129 = v50 - 4;
-      v131 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v121);
-      v89 = *(*a2 + 48);
-      if (v129 == v128)
+      v86 = *(v50 - 1);
+      v87 = *(v130 - 1);
+      v128 = v50 - 4;
+      v130 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v120);
+      v88 = *(*a2 + 48);
+      if (v128 == v127)
       {
-        if (v89)
+        if (v88)
         {
-          v102 = 0;
-          v103 = vdupq_n_s64(v88 - 1);
-          v104 = xmmword_25A99B0D0;
-          v120 = v103;
+          v101 = 0;
+          v102 = vdupq_n_s64(v87 - 1);
+          v103 = xmmword_25A99B0D0;
+          v119 = v102;
           do
           {
-            v105 = v121;
-            v106 = (v122 - v121) >> 2;
-            v107 = (v106 - 1);
-            if (v106 - 1 < 0)
+            v104 = v120;
+            v105 = (v121 - v120) >> 2;
+            v106 = (v105 - 1);
+            if (v105 - 1 < 0)
             {
-              v112 = 0;
+              v111 = 0;
             }
 
             else
             {
-              v108 = 0;
-              v109 = __p;
-              v110 = v102;
+              v107 = 0;
+              v108 = __p;
+              v109 = v101;
               do
               {
-                v111 = ldiv(v110, v105[v107]);
-                v110 = v111.quot;
-                v108 += v109[v107--] * v111.rem;
+                v110 = ldiv(v109, v104[v106]);
+                v109 = v110.quot;
+                v107 += v108[v106--] * v110.rem;
               }
 
-              while (v107 != -1);
-              v112 = 8 * v108;
-              v104 = xmmword_25A99B0D0;
-              v103 = v120;
+              while (v106 != -1);
+              v111 = 8 * v107;
+              v103 = xmmword_25A99B0D0;
+              v102 = v119;
             }
 
-            v113 = v125;
-            if (v88)
+            v112 = v124;
+            if (v87)
             {
-              v114 = 0;
-              v115 = &v125->i64[1];
+              v113 = 0;
+              v114 = &v124->i64[1];
               do
               {
-                v116 = vmovn_s64(vcgeq_u64(v103, vorrq_s8(vdupq_n_s64(v114), v104)));
-                if (v116.i8[0])
+                v115 = vmovn_s64(vcgeq_u64(v102, vorrq_s8(vdupq_n_s64(v113), v103)));
+                if (v115.i8[0])
                 {
-                  *(v115 - 1) = a4;
+                  *(v114 - 1) = a4;
                 }
 
-                if (v116.i8[4])
+                if (v115.i8[4])
                 {
-                  *v115 = a4;
+                  *v114 = a4;
                 }
 
+                v113 += 2;
                 v114 += 2;
-                v115 += 2;
               }
 
-              while (((v88 + 1) & 0xFFFFFFFFFFFFFFFELL) != v114);
+              while (((v87 + 1) & 0xFFFFFFFFFFFFFFFELL) != v113);
             }
 
-            mlx::core::strided_reduce<long long,long long,mlx::core::MaxReduce>((v126 + v112), v113, v87, v88);
-            v125 = (v125 + 8 * v88);
-            v102 += v88;
-            v104 = xmmword_25A99B0D0;
-            v103 = v120;
+            mlx::core::strided_reduce<long long,long long,mlx::core::MaxReduce>((v125 + v111), v112, v86, v87);
+            v124 = (v124 + 8 * v87);
+            v101 += v87;
+            v103 = xmmword_25A99B0D0;
+            v102 = v119;
           }
 
-          while (*(*a2 + 48) > v102);
+          while (*(*a2 + 48) > v101);
         }
       }
 
-      else if (v89)
+      else if (v88)
       {
-        v90 = xmmword_25A99B0D0;
-        v91 = v121;
-        v92 = (v122 - v121) >> 2;
-        v93 = (v92 - 1);
-        if (v92 - 1 >= 0)
+        v89 = xmmword_25A99B0D0;
+        v90 = v120;
+        v91 = (v121 - v120) >> 2;
+        v92 = (v91 - 1);
+        if (v91 - 1 >= 0)
         {
-          v94 = 0;
-          v95 = __p;
-          v96 = 0;
+          v93 = 0;
+          v94 = __p;
+          v95 = 0;
           do
           {
-            v97 = ldiv(v96, v91[v93]);
-            v96 = v97.quot;
-            v94 += v95[v93--] * v97.rem;
+            v96 = ldiv(v95, v90[v92]);
+            v95 = v96.quot;
+            v93 += v94[v92--] * v96.rem;
           }
 
-          while (v93 != -1);
-          v90 = xmmword_25A99B0D0;
+          while (v92 != -1);
+          v89 = xmmword_25A99B0D0;
         }
 
-        if (v88)
+        if (v87)
         {
-          v98 = 0;
-          v99 = vdupq_n_s64(v88 - 1);
-          v100 = &v125->i64[1];
+          v97 = 0;
+          v98 = vdupq_n_s64(v87 - 1);
+          v99 = &v124->i64[1];
           do
           {
-            v101 = vmovn_s64(vcgeq_u64(v99, vorrq_s8(vdupq_n_s64(v98), v90)));
-            if (v101.i8[0])
+            v100 = vmovn_s64(vcgeq_u64(v98, vorrq_s8(vdupq_n_s64(v97), v89)));
+            if (v100.i8[0])
             {
-              *(v100 - 1) = a4;
+              *(v99 - 1) = a4;
             }
 
-            if (v101.i8[4])
+            if (v100.i8[4])
             {
-              *v100 = a4;
+              *v99 = a4;
             }
 
-            v98 += 2;
-            v100 += 2;
+            v97 += 2;
+            v99 += 2;
           }
 
-          while (((v88 + 1) & 0xFFFFFFFFFFFFFFFELL) != v98);
+          while (((v87 + 1) & 0xFFFFFFFFFFFFFFFELL) != v97);
         }
 
-        v134 = 0;
+        v133 = 0;
         operator new();
       }
 
       goto LABEL_69;
     }
 
-    v81 = *(v129 - 1);
-    v82 = *(v131 - 1);
-    v129 -= 4;
-    v131 -= 8;
+    v80 = *(v128 - 1);
+    v81 = *(v130 - 1);
+    v128 -= 4;
+    v130 -= 8;
     if (*(v10 + 48))
     {
-      LODWORD(v83) = 0;
-      v119 = vdupq_n_s64(v82 - 1);
+      LODWORD(v82) = 0;
+      v118 = vdupq_n_s64(v81 - 1);
       do
       {
-        if (v82)
+        if (v81)
         {
-          v84 = 0;
-          v85 = &v11->i64[1];
+          v83 = 0;
+          v84 = &v11->i64[1];
           do
           {
-            v86 = vmovn_s64(vcgeq_u64(v119, vorrq_s8(vdupq_n_s64(v84), xmmword_25A99B0D0)));
-            if (v86.i8[0])
+            v85 = vmovn_s64(vcgeq_u64(v118, vorrq_s8(vdupq_n_s64(v83), xmmword_25A99B0D0)));
+            if (v85.i8[0])
             {
-              *(v85 - 1) = a4;
+              *(v84 - 1) = a4;
             }
 
-            if (v86.i8[4])
+            if (v85.i8[4])
             {
-              *v85 = a4;
+              *v84 = a4;
             }
 
+            v83 += 2;
             v84 += 2;
-            v85 += 2;
           }
 
-          while (((v82 + 1) & 0xFFFFFFFFFFFFFFFELL) != v84);
+          while (((v81 + 1) & 0xFFFFFFFFFFFFFFFELL) != v83);
         }
 
-        mlx::core::strided_reduce<long long,long long,mlx::core::MaxReduce>(v9, v11, v81, v82);
-        v9 = (v126 + 8 * v82 * v81);
-        v11 = (v125 + 8 * v82);
-        v125 = v11;
-        v126 = v9;
-        v83 = v83 + v82;
+        mlx::core::strided_reduce<long long,long long,mlx::core::MaxReduce>(v9, v11, v80, v81);
+        v9 = (v125 + 8 * v81 * v80);
+        v11 = (v124 + 8 * v81);
+        v124 = v11;
+        v125 = v9;
+        v82 = v82 + v81;
       }
 
-      while (v83 < *(*a2 + 48));
+      while (v82 < *(*a2 + 48));
     }
   }
 
 LABEL_73:
-  if (v130)
+  if (v129)
   {
-    v131 = v130;
-    operator delete(v130);
+    v130 = v129;
+    operator delete(v129);
   }
 
-  if (v128)
+  if (v127)
   {
-    v129 = v128;
-    operator delete(v128);
+    v128 = v127;
+    operator delete(v127);
   }
-
-  v73 = *MEMORY[0x277D85DE8];
 }
 
-void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(uint64_t **a1, uint64_t *a2, int **a3, uint64_t a4)
+void sub_25A81FFAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  v136 = *MEMORY[0x277D85DE8];
-  v132 = a4;
-  mlx::core::get_reduction_plan(a1, a3, &v127);
+  va_start(va, a26);
+  mlx::core::ReductionPlan::~ReductionPlan(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(uint64_t **a1, uint64_t *a2, unsigned int **a3, uint64_t a4)
+{
+  v135 = *MEMORY[0x277D85DE8];
+  v131 = a4;
+  mlx::core::get_reduction_plan(a1, a3, &v126);
   v8 = *a1;
   v9 = (*a1)[19];
   v10 = *a2;
   v11 = *(*a2 + 152);
-  v125 = v11;
-  v126 = v9;
-  if (v127 == 1)
+  v124 = v11;
+  v125 = v9;
+  if (v126 == 1)
   {
-    v19 = v129;
-    if (v129 - v128 != 4)
+    v19 = v128;
+    if (v128 - v127 != 4)
     {
       goto LABEL_25;
     }
@@ -9389,7 +8817,7 @@ void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(uint64_t 
     if (v20)
     {
       v21 = 0;
-      v22 = *v128;
+      v22 = *v127;
       v23 = vdupq_lane_s64(a4, 0);
       do
       {
@@ -9460,13 +8888,13 @@ void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(uint64_t 
       while (v21 != v20);
     }
 
-    v125 = v11;
-    v126 = v9;
+    v124 = v11;
+    v125 = v9;
   }
 
   else
   {
-    if (!v127)
+    if (!v126)
     {
       v11->i64[0] = a4;
       v12 = *(v8 + 12);
@@ -9530,26 +8958,26 @@ void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(uint64_t 
       goto LABEL_73;
     }
 
-    if ((v127 & 0xFFFFFFFD) == 1)
+    if ((v126 & 0xFFFFFFFD) == 1)
     {
-      v19 = v129;
+      v19 = v128;
 LABEL_25:
       v36 = *(v19 - 1);
-      v129 = v19 - 4;
-      v131 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v121);
+      v128 = v19 - 4;
+      v130 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v120);
       v37 = *(*a2 + 48);
-      if (v129 == v128)
+      if (v128 == v127)
       {
-        v51 = v125;
+        v51 = v124;
         if (v37)
         {
           v52 = 0;
-          v53 = v121;
-          v54 = ((v122 - v121) >> 2) - 1;
+          v53 = v120;
+          v54 = ((v121 - v120) >> 2) - 1;
           v55 = __p;
-          v117 = v126;
-          v118 = vdupq_lane_s64(a4, 0);
+          v116 = v125;
+          v117 = vdupq_lane_s64(a4, 0);
           do
           {
             if ((v54 & 0x80000000) != 0)
@@ -9574,19 +9002,19 @@ LABEL_25:
             }
 
             *v51 = a4;
-            v61 = (v117 + v60);
+            v61 = (v116 + v60);
             if (v36 < 4)
             {
-              v63 = v118;
-              v64 = v118;
+              v63 = v117;
+              v64 = v117;
               v67 = v36;
             }
 
             else
             {
               v62 = v36;
-              v63 = v118;
-              v64 = v118;
+              v63 = v117;
+              v64 = v117;
               do
               {
                 v65 = *v61;
@@ -9642,13 +9070,13 @@ LABEL_25:
           while (v52 != v37);
         }
 
-        v125 = v51;
+        v124 = v51;
       }
 
       else if (v37)
       {
-        v38 = v121;
-        v39 = (v122 - v121) >> 2;
+        v38 = v120;
+        v39 = (v121 - v120) >> 2;
         v40 = (v39 - 1);
         if (v39 - 1 >= 0)
         {
@@ -9665,262 +9093,1131 @@ LABEL_25:
           while (v40 != -1);
         }
 
-        v125->i64[0] = v132;
-        v135 = 0;
+        v124->i64[0] = v131;
+        v134 = 0;
         operator new();
       }
 
 LABEL_69:
       if (__p)
       {
-        v124 = __p;
+        v123 = __p;
         operator delete(__p);
       }
 
-      if (v121)
+      if (v120)
       {
-        v122 = v121;
-        operator delete(v121);
+        v121 = v120;
+        operator delete(v120);
       }
 
       goto LABEL_73;
     }
 
-    if (v127 != 2)
+    if (v126 != 2)
     {
-      if (v127 == 5)
+      if (v126 == 5)
       {
-        mlx::core::shapes_without_reduction_axes(a1, a3, &v121);
+        mlx::core::shapes_without_reduction_axes(a1, a3, &v120);
         if (*(*a2 + 48))
         {
-          v74 = v121;
-          v75 = (v122 - v121) >> 2;
-          v76 = (v75 - 1);
-          if (v75 - 1 >= 0)
+          v73 = v120;
+          v74 = (v121 - v120) >> 2;
+          v75 = (v74 - 1);
+          if (v74 - 1 >= 0)
           {
-            v77 = 0;
-            v78 = __p;
-            v79 = 0;
+            v76 = 0;
+            v77 = __p;
+            v78 = 0;
             do
             {
-              v80 = ldiv(v79, v74[v76]);
-              v79 = v80.quot;
-              v77 += v78[v76--] * v80.rem;
+              v79 = ldiv(v78, v73[v75]);
+              v78 = v79.quot;
+              v76 += v77[v75--] * v79.rem;
             }
 
-            while (v76 != -1);
+            while (v75 != -1);
           }
 
-          v133 = 0;
+          v132 = 0;
           operator new();
         }
 
         goto LABEL_69;
       }
 
-      if (v127 != 4)
+      if (v126 != 4)
       {
         goto LABEL_73;
       }
 
-      v50 = v129;
+      v50 = v128;
       goto LABEL_95;
     }
 
-    v50 = v129;
-    if (v129 - v128 != 4)
+    v50 = v128;
+    if (v128 - v127 != 4)
     {
 LABEL_95:
-      v87 = *(v50 - 1);
-      v88 = *(v131 - 1);
-      v129 = v50 - 4;
-      v131 -= 8;
-      mlx::core::shapes_without_reduction_axes(a1, a3, &v121);
-      v89 = *(*a2 + 48);
-      if (v129 == v128)
+      v86 = *(v50 - 1);
+      v87 = *(v130 - 1);
+      v128 = v50 - 4;
+      v130 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v120);
+      v88 = *(*a2 + 48);
+      if (v128 == v127)
       {
-        if (v89)
+        if (v88)
         {
-          v102 = 0;
-          v103 = vdupq_n_s64(v88 - 1);
-          v104 = xmmword_25A99B0D0;
-          v120 = v103;
+          v101 = 0;
+          v102 = vdupq_n_s64(v87 - 1);
+          v103 = xmmword_25A99B0D0;
+          v119 = v102;
           do
           {
-            v105 = v121;
-            v106 = (v122 - v121) >> 2;
-            v107 = (v106 - 1);
-            if (v106 - 1 < 0)
+            v104 = v120;
+            v105 = (v121 - v120) >> 2;
+            v106 = (v105 - 1);
+            if (v105 - 1 < 0)
             {
-              v112 = 0;
+              v111 = 0;
             }
 
             else
             {
-              v108 = 0;
-              v109 = __p;
-              v110 = v102;
+              v107 = 0;
+              v108 = __p;
+              v109 = v101;
               do
               {
-                v111 = ldiv(v110, v105[v107]);
-                v110 = v111.quot;
-                v108 += v109[v107--] * v111.rem;
+                v110 = ldiv(v109, v104[v106]);
+                v109 = v110.quot;
+                v107 += v108[v106--] * v110.rem;
               }
 
-              while (v107 != -1);
-              v112 = 8 * v108;
-              v104 = xmmword_25A99B0D0;
-              v103 = v120;
+              while (v106 != -1);
+              v111 = 8 * v107;
+              v103 = xmmword_25A99B0D0;
+              v102 = v119;
             }
 
-            v113 = v125;
-            if (v88)
+            v112 = v124;
+            if (v87)
             {
-              v114 = 0;
-              v115 = &v125->i64[1];
+              v113 = 0;
+              v114 = &v124->i64[1];
               do
               {
-                v116 = vmovn_s64(vcgeq_u64(v103, vorrq_s8(vdupq_n_s64(v114), v104)));
-                if (v116.i8[0])
+                v115 = vmovn_s64(vcgeq_u64(v102, vorrq_s8(vdupq_n_s64(v113), v103)));
+                if (v115.i8[0])
                 {
-                  *(v115 - 1) = a4;
+                  *(v114 - 1) = a4;
                 }
 
-                if (v116.i8[4])
+                if (v115.i8[4])
                 {
-                  *v115 = a4;
+                  *v114 = a4;
                 }
 
+                v113 += 2;
                 v114 += 2;
-                v115 += 2;
               }
 
-              while (((v88 + 1) & 0xFFFFFFFFFFFFFFFELL) != v114);
+              while (((v87 + 1) & 0xFFFFFFFFFFFFFFFELL) != v113);
             }
 
-            mlx::core::strided_reduce<long long,long long,mlx::core::MinReduce>((v126 + v112), v113, v87, v88);
-            v125 = (v125 + 8 * v88);
-            v102 += v88;
-            v104 = xmmword_25A99B0D0;
-            v103 = v120;
+            mlx::core::strided_reduce<long long,long long,mlx::core::MinReduce>((v125 + v111), v112, v86, v87);
+            v124 = (v124 + 8 * v87);
+            v101 += v87;
+            v103 = xmmword_25A99B0D0;
+            v102 = v119;
           }
 
-          while (*(*a2 + 48) > v102);
+          while (*(*a2 + 48) > v101);
         }
       }
 
-      else if (v89)
+      else if (v88)
       {
-        v90 = xmmword_25A99B0D0;
-        v91 = v121;
-        v92 = (v122 - v121) >> 2;
-        v93 = (v92 - 1);
-        if (v92 - 1 >= 0)
+        v89 = xmmword_25A99B0D0;
+        v90 = v120;
+        v91 = (v121 - v120) >> 2;
+        v92 = (v91 - 1);
+        if (v91 - 1 >= 0)
         {
-          v94 = 0;
-          v95 = __p;
-          v96 = 0;
+          v93 = 0;
+          v94 = __p;
+          v95 = 0;
           do
           {
-            v97 = ldiv(v96, v91[v93]);
-            v96 = v97.quot;
-            v94 += v95[v93--] * v97.rem;
+            v96 = ldiv(v95, v90[v92]);
+            v95 = v96.quot;
+            v93 += v94[v92--] * v96.rem;
           }
 
-          while (v93 != -1);
-          v90 = xmmword_25A99B0D0;
+          while (v92 != -1);
+          v89 = xmmword_25A99B0D0;
         }
 
-        if (v88)
+        if (v87)
         {
-          v98 = 0;
-          v99 = vdupq_n_s64(v88 - 1);
-          v100 = &v125->i64[1];
+          v97 = 0;
+          v98 = vdupq_n_s64(v87 - 1);
+          v99 = &v124->i64[1];
           do
           {
-            v101 = vmovn_s64(vcgeq_u64(v99, vorrq_s8(vdupq_n_s64(v98), v90)));
-            if (v101.i8[0])
+            v100 = vmovn_s64(vcgeq_u64(v98, vorrq_s8(vdupq_n_s64(v97), v89)));
+            if (v100.i8[0])
             {
-              *(v100 - 1) = a4;
+              *(v99 - 1) = a4;
             }
 
-            if (v101.i8[4])
+            if (v100.i8[4])
             {
-              *v100 = a4;
+              *v99 = a4;
             }
 
-            v98 += 2;
-            v100 += 2;
+            v97 += 2;
+            v99 += 2;
           }
 
-          while (((v88 + 1) & 0xFFFFFFFFFFFFFFFELL) != v98);
+          while (((v87 + 1) & 0xFFFFFFFFFFFFFFFELL) != v97);
         }
 
-        v134 = 0;
+        v133 = 0;
         operator new();
       }
 
       goto LABEL_69;
     }
 
-    v81 = *(v129 - 1);
-    v82 = *(v131 - 1);
-    v129 -= 4;
-    v131 -= 8;
+    v80 = *(v128 - 1);
+    v81 = *(v130 - 1);
+    v128 -= 4;
+    v130 -= 8;
     if (*(v10 + 48))
     {
-      LODWORD(v83) = 0;
-      v119 = vdupq_n_s64(v82 - 1);
+      LODWORD(v82) = 0;
+      v118 = vdupq_n_s64(v81 - 1);
       do
       {
-        if (v82)
+        if (v81)
         {
-          v84 = 0;
-          v85 = &v11->i64[1];
+          v83 = 0;
+          v84 = &v11->i64[1];
           do
           {
-            v86 = vmovn_s64(vcgeq_u64(v119, vorrq_s8(vdupq_n_s64(v84), xmmword_25A99B0D0)));
-            if (v86.i8[0])
+            v85 = vmovn_s64(vcgeq_u64(v118, vorrq_s8(vdupq_n_s64(v83), xmmword_25A99B0D0)));
+            if (v85.i8[0])
             {
-              *(v85 - 1) = a4;
+              *(v84 - 1) = a4;
             }
 
-            if (v86.i8[4])
+            if (v85.i8[4])
             {
-              *v85 = a4;
+              *v84 = a4;
             }
 
+            v83 += 2;
             v84 += 2;
-            v85 += 2;
           }
 
-          while (((v82 + 1) & 0xFFFFFFFFFFFFFFFELL) != v84);
+          while (((v81 + 1) & 0xFFFFFFFFFFFFFFFELL) != v83);
         }
 
-        mlx::core::strided_reduce<long long,long long,mlx::core::MinReduce>(v9, v11, v81, v82);
-        v9 = (v126 + 8 * v82 * v81);
-        v11 = (v125 + 8 * v82);
-        v125 = v11;
-        v126 = v9;
-        v83 = v83 + v82;
+        mlx::core::strided_reduce<long long,long long,mlx::core::MinReduce>(v9, v11, v80, v81);
+        v9 = (v125 + 8 * v81 * v80);
+        v11 = (v124 + 8 * v81);
+        v124 = v11;
+        v125 = v9;
+        v82 = v82 + v81;
       }
 
-      while (v83 < *(*a2 + 48));
+      while (v82 < *(*a2 + 48));
     }
   }
 
 LABEL_73:
-  if (v130)
+  if (v129)
   {
-    v131 = v130;
-    operator delete(v130);
+    v130 = v129;
+    operator delete(v129);
   }
 
-  if (v128)
+  if (v127)
   {
-    v129 = v128;
-    operator delete(v128);
+    v128 = v127;
+    operator delete(v127);
+  }
+}
+
+void sub_25A8209A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  mlx::core::ReductionPlan::~ReductionPlan(va);
+  _Unwind_Resume(a1);
+}
+
+_OWORD *mlx::core::strided_reduce<long long,long long,mlx::core::MaxReduce>(_OWORD *result, int64x2_t *a2, int a3, unint64_t a4)
+{
+  if (a3 >= 1)
+  {
+    for (i = 0; i != a3; ++i)
+    {
+      v5 = a2;
+      v6 = a4;
+      if (a4 >= 4)
+      {
+        do
+        {
+          v7 = *result;
+          v8 = *(result + 1);
+          result += 2;
+          v9 = vbslq_s8(vcgtq_s64(v8, v5[1]), v8, v5[1]);
+          *v5 = vbslq_s8(vcgtq_s64(v7, *v5), v7, *v5);
+          v5[1] = v9;
+          v5 += 2;
+          v6 -= 4;
+        }
+
+        while (v6 > 3);
+      }
+
+      for (; v6; --v6)
+      {
+        v11 = *result;
+        result = (result + 8);
+        v10 = v11;
+        if (v5->i64[0] > v11)
+        {
+          v10 = v5->i64[0];
+        }
+
+        v5->i64[0] = v10;
+        v5 = (v5 + 8);
+      }
+    }
   }
 
-  v73 = *MEMORY[0x277D85DE8];
+  return result;
+}
+
+__n128 std::__function::__func<void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#1},std::allocator<void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#1}>,void ()(int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286C07A98;
+  result = *(a1 + 8);
+  v3 = *(a1 + 24);
+  *(a2 + 40) = *(a1 + 40);
+  *(a2 + 24) = v3;
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#1},std::allocator<void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#1}>,void ()(int)>::operator()(uint64_t result, int *a2)
+{
+  v2 = (**(result + 8) + 8 * **(result + 16) + 8 * *a2);
+  v3 = **(result + 24);
+  v4 = **(result + 32);
+  v5 = *(result + 40);
+  v6 = vld1q_dup_f64(v5);
+  v7 = v6;
+  if (v4 < 4)
+  {
+    v10 = **(result + 32);
+  }
+
+  else
+  {
+    do
+    {
+      v8 = *v2;
+      v9 = *(v2 + 1);
+      v2 += 2;
+      v7 = vbslq_s8(vcgtq_s64(v9, v7), v9, v7);
+      v6 = vbslq_s8(vcgtq_s64(v8, v6), v8, v6);
+      v10 = v4 - 4;
+      v11 = v4 > 7;
+      v4 -= 4;
+    }
+
+    while (v11);
+  }
+
+  v12 = *v3;
+  v13 = vbslq_s8(vcgtq_s64(v6, v7), v6, v7);
+  v14 = v13.i64[1];
+  if (v13.i64[1] <= v13.i64[0])
+  {
+    v14 = v13.i64[0];
+  }
+
+  if (v12 <= v14)
+  {
+    v12 = v14;
+  }
+
+  *v3 = v12;
+  if (v10 >= 1)
+  {
+    v15 = v10 + 1;
+    do
+    {
+      v17 = *v2;
+      v2 = (v2 + 8);
+      v16 = v17;
+      if (v12 <= v17)
+      {
+        v12 = v16;
+      }
+
+      *v3 = v12;
+      --v15;
+    }
+
+    while (v15 > 1);
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__func<void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#1},std::allocator<void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#1}>,void ()(int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 std::__function::__func<void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#2},std::allocator<void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#2}>,void ()(int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286C07B18;
+  result = *(a1 + 8);
+  v3 = *(a1 + 24);
+  *(a2 + 40) = *(a1 + 40);
+  *(a2 + 24) = v3;
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#2},std::allocator<void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#2}>,void ()(int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 std::__function::__func<void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#3},std::allocator<void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#3}>,void ()(int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286C07B98;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#3},std::allocator<void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#3}>,void ()(int)>::operator()(uint64_t result, int *a2)
+{
+  v2 = *(result + 8);
+  v3 = *(**(result + 16) + 8 * **(result + 24) + 8 * *a2);
+  if (*v2 > v3)
+  {
+    v3 = *v2;
+  }
+
+  *v2 = v3;
+  return result;
+}
+
+uint64_t std::__function::__func<void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#3},std::allocator<void mlx::core::reduction_op<long long,long long,mlx::core::MaxReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#3}>,void ()(int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+_OWORD *mlx::core::strided_reduce<long long,long long,mlx::core::MinReduce>(_OWORD *result, int64x2_t *a2, int a3, unint64_t a4)
+{
+  if (a3 >= 1)
+  {
+    for (i = 0; i != a3; ++i)
+    {
+      v5 = a2;
+      v6 = a4;
+      if (a4 >= 4)
+      {
+        do
+        {
+          v7 = *result;
+          v8 = *(result + 1);
+          result += 2;
+          v9 = vbslq_s8(vcgtq_s64(v8, v5[1]), v5[1], v8);
+          *v5 = vbslq_s8(vcgtq_s64(v7, *v5), *v5, v7);
+          v5[1] = v9;
+          v5 += 2;
+          v6 -= 4;
+        }
+
+        while (v6 > 3);
+      }
+
+      for (; v6; --v6)
+      {
+        v11 = *result;
+        result = (result + 8);
+        v10 = v11;
+        if (v5->i64[0] < v11)
+        {
+          v10 = v5->i64[0];
+        }
+
+        v5->i64[0] = v10;
+        v5 = (v5 + 8);
+      }
+    }
+  }
+
+  return result;
+}
+
+__n128 std::__function::__func<void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#1},std::allocator<void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#1}>,void ()(int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286C07C18;
+  result = *(a1 + 8);
+  v3 = *(a1 + 24);
+  *(a2 + 40) = *(a1 + 40);
+  *(a2 + 24) = v3;
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#1},std::allocator<void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#1}>,void ()(int)>::operator()(uint64_t result, int *a2)
+{
+  v2 = (**(result + 8) + 8 * **(result + 16) + 8 * *a2);
+  v3 = **(result + 24);
+  v4 = **(result + 32);
+  v5 = *(result + 40);
+  v6 = vld1q_dup_f64(v5);
+  v7 = v6;
+  if (v4 < 4)
+  {
+    v10 = **(result + 32);
+  }
+
+  else
+  {
+    do
+    {
+      v8 = *v2;
+      v9 = *(v2 + 1);
+      v2 += 2;
+      v7 = vbslq_s8(vcgtq_s64(v9, v7), v7, v9);
+      v6 = vbslq_s8(vcgtq_s64(v8, v6), v6, v8);
+      v10 = v4 - 4;
+      v11 = v4 > 7;
+      v4 -= 4;
+    }
+
+    while (v11);
+  }
+
+  v12 = *v3;
+  v13 = vbslq_s8(vcgtq_s64(v6, v7), v7, v6);
+  v14 = v13.i64[1];
+  if (v13.i64[1] >= v13.i64[0])
+  {
+    v14 = v13.i64[0];
+  }
+
+  if (v12 >= v14)
+  {
+    v12 = v14;
+  }
+
+  *v3 = v12;
+  if (v10 >= 1)
+  {
+    v15 = v10 + 1;
+    do
+    {
+      v17 = *v2;
+      v2 = (v2 + 8);
+      v16 = v17;
+      if (v12 >= v17)
+      {
+        v12 = v16;
+      }
+
+      *v3 = v12;
+      --v15;
+    }
+
+    while (v15 > 1);
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__func<void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#1},std::allocator<void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#1}>,void ()(int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 std::__function::__func<void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#2},std::allocator<void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#2}>,void ()(int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286C07C98;
+  result = *(a1 + 8);
+  v3 = *(a1 + 24);
+  *(a2 + 40) = *(a1 + 40);
+  *(a2 + 24) = v3;
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#2},std::allocator<void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#2}>,void ()(int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 std::__function::__func<void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#3},std::allocator<void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#3}>,void ()(int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286C07D18;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#3},std::allocator<void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#3}>,void ()(int)>::operator()(uint64_t result, int *a2)
+{
+  v2 = *(result + 8);
+  v3 = *(**(result + 16) + 8 * **(result + 24) + 8 * *a2);
+  if (*v2 < v3)
+  {
+    v3 = *v2;
+  }
+
+  *v2 = v3;
+  return result;
+}
+
+uint64_t std::__function::__func<void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#3},std::allocator<void mlx::core::reduction_op<long long,long long,mlx::core::MinReduce>(mlx::core::array const&,mlx::core::array&,std::vector<int> const&,long long)::{lambda(int)#3}>,void ()(int)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void mlx::core::reduction_op<half,half,mlx::core::MaxReduce>(uint64_t **a1, uint64_t *a2, unsigned int **a3, float a4)
+{
+  v115 = *MEMORY[0x277D85DE8];
+  v111 = LOWORD(a4);
+  mlx::core::get_reduction_plan(a1, a3, &v106);
+  v9 = *a1;
+  v10 = (*a1)[19];
+  v11 = *a2;
+  v12 = *(*a2 + 152);
+  v104 = v12;
+  v105 = v10;
+  if (v106 == 1)
+  {
+    v13 = v108;
+    if (v108 - v107 != 4)
+    {
+      goto LABEL_11;
+    }
+
+    if (*(v11 + 48))
+    {
+      v14 = 0;
+      v15 = *v107;
+      do
+      {
+        *v12 = *&a4;
+        *v8.i32 = a4;
+        mlx::core::contiguous_reduce<half,half,mlx::core::MaxReduce>(v10, v12, v15, v8);
+        ++v14;
+        v12 = v104 + 1;
+        v10 = (v105 + 2 * v15);
+        ++v104;
+        v105 = v10;
+      }
+
+      while (*(*a2 + 48) > v14);
+    }
+  }
+
+  else
+  {
+    if (!v106)
+    {
+      *v12 = *&a4;
+      *v8.i32 = a4;
+      mlx::core::contiguous_reduce<half,half,mlx::core::MaxReduce>(v10, v12, *(v9 + 12), v8);
+      goto LABEL_108;
+    }
+
+    if ((v106 & 0xFFFFFFFD) == 1)
+    {
+      v13 = v108;
+LABEL_11:
+      v16 = *(v13 - 1);
+      v108 = v13 - 4;
+      v110 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v100);
+      v18 = *(*a2 + 48);
+      if (v108 == v107)
+      {
+        if (v18)
+        {
+          v27 = 0;
+          do
+          {
+            v28 = v100;
+            v29 = (v101 - v100) >> 2;
+            v30 = (v29 - 1);
+            if (v29 - 1 < 0)
+            {
+              v36 = 0;
+              v34 = a2;
+            }
+
+            else
+            {
+              v31 = 0;
+              v32 = __p;
+              quot = v27;
+              v34 = a2;
+              do
+              {
+                v35 = ldiv(quot, v28[v30]);
+                quot = v35.quot;
+                v31 += v32[v30--] * v35.rem;
+              }
+
+              while (v30 != -1);
+              v36 = 2 * v31;
+            }
+
+            v37 = v104;
+            *v104 = *&a4;
+            *v17.i32 = a4;
+            mlx::core::contiguous_reduce<half,half,mlx::core::MaxReduce>((v105 + v36), v37, v16, v17);
+            ++v27;
+            ++v104;
+          }
+
+          while (*(*v34 + 48) > v27);
+        }
+      }
+
+      else if (v18)
+      {
+        v19 = v100;
+        v20 = (v101 - v100) >> 2;
+        v21 = (v20 - 1);
+        if (v20 - 1 >= 0)
+        {
+          v22 = 0;
+          v23 = __p;
+          v24 = 0;
+          do
+          {
+            v25 = ldiv(v24, v19[v21]);
+            v24 = v25.quot;
+            v22 += v23[v21--] * v25.rem;
+          }
+
+          while (v21 != -1);
+        }
+
+        *v104 = v111;
+        v114 = 0;
+        operator new();
+      }
+
+LABEL_104:
+      if (__p)
+      {
+        v103 = __p;
+        operator delete(__p);
+      }
+
+      if (v100)
+      {
+        v101 = v100;
+        operator delete(v100);
+      }
+
+      goto LABEL_108;
+    }
+
+    if (v106 != 2)
+    {
+      if (v106 == 5)
+      {
+        mlx::core::shapes_without_reduction_axes(a1, a3, &v100);
+        if (*(*a2 + 48))
+        {
+          v38 = v100;
+          v39 = (v101 - v100) >> 2;
+          v40 = (v39 - 1);
+          if (v39 - 1 >= 0)
+          {
+            v41 = 0;
+            v42 = __p;
+            v43 = 0;
+            do
+            {
+              v44 = ldiv(v43, v38[v40]);
+              v43 = v44.quot;
+              v41 += v42[v40--] * v44.rem;
+            }
+
+            while (v40 != -1);
+          }
+
+          v112 = 0;
+          operator new();
+        }
+
+        goto LABEL_104;
+      }
+
+      if (v106 != 4)
+      {
+        goto LABEL_108;
+      }
+
+      v26 = v108;
+      goto LABEL_57;
+    }
+
+    v26 = v108;
+    if (v108 - v107 != 4)
+    {
+LABEL_57:
+      v55 = *(v26 - 1);
+      v56 = *(v110 - 1);
+      v108 = v26 - 4;
+      v110 -= 8;
+      mlx::core::shapes_without_reduction_axes(a1, a3, &v100);
+      v57 = *(*a2 + 48);
+      if (v108 == v107)
+      {
+        if (v57)
+        {
+          v75 = 0;
+          v76 = vdupq_n_s64(v56 - 1);
+          v77 = xmmword_25A9C2E70;
+          v78 = xmmword_25A9C2E80;
+          v79 = xmmword_25A99B0C0;
+          v80 = xmmword_25A99B0D0;
+          v98 = v76;
+          do
+          {
+            v81 = v100;
+            v82 = (v101 - v100) >> 2;
+            v83 = (v82 - 1);
+            if (v82 - 1 < 0)
+            {
+              v89 = 0;
+              v87 = a2;
+            }
+
+            else
+            {
+              v84 = 0;
+              v85 = __p;
+              v86 = v75;
+              v87 = a2;
+              do
+              {
+                v88 = ldiv(v86, v81[v83]);
+                v86 = v88.quot;
+                v84 += v85[v83--] * v88.rem;
+              }
+
+              while (v83 != -1);
+              v89 = 2 * v84;
+              v77 = xmmword_25A9C2E70;
+              v76 = v98;
+              v79 = xmmword_25A99B0C0;
+              v78 = xmmword_25A9C2E80;
+              v80 = xmmword_25A99B0D0;
+            }
+
+            v90 = v104;
+            if (v56)
+            {
+              v91 = 0;
+              v92 = v104 + 4;
+              do
+              {
+                v93 = vdupq_n_s64(v91);
+                v94 = vmovn_s64(vcgeq_u64(v76, vorrq_s8(v93, v80)));
+                if (vuzp1_s8(vuzp1_s16(v94, *v93.i8), *v93.i8).u8[0])
+                {
+                  *(v92 - 4) = LOWORD(a4);
+                }
+
+                if (vuzp1_s8(vuzp1_s16(v94, *&v93), *&v93).i8[1])
+                {
+                  *(v92 - 3) = LOWORD(a4);
+                }
+
+                if (vuzp1_s8(vuzp1_s16(*&v93, vmovn_s64(vcgeq_u64(v76, vorrq_s8(v93, v79)))), *&v93).i8[2])
+                {
+                  *(v92 - 2) = LOWORD(a4);
+                  *(v92 - 1) = LOWORD(a4);
+                }
+
+                v95 = vmovn_s64(vcgeq_u64(v76, vorrq_s8(v93, v78)));
+                if (vuzp1_s8(*&v93, vuzp1_s16(v95, *&v93)).i32[1])
+                {
+                  *v92 = LOWORD(a4);
+                }
+
+                if (vuzp1_s8(*&v93, vuzp1_s16(v95, *&v93)).i8[5])
+                {
+                  v92[1] = LOWORD(a4);
+                }
+
+                v96 = vmovn_s64(vcgeq_u64(v76, vorrq_s8(v93, v77)));
+                if (vuzp1_s8(*&v96, vuzp1_s16(v96, v96)).i8[6])
+                {
+                  v92[2] = LOWORD(a4);
+                }
+
+                v97 = vuzp1_s16(v96, v96);
+                if (vuzp1_s8(v97, v97).i8[7])
+                {
+                  v92[3] = LOWORD(a4);
+                }
+
+                v91 += 8;
+                v92 += 8;
+              }
+
+              while (((v56 + 7) & 0xFFFFFFFFFFFFFFF8) != v91);
+            }
+
+            mlx::core::strided_reduce<half,half,mlx::core::MaxReduce>((v105 + v89), v90, v55, v56);
+            v104 += v56;
+            v75 += v56;
+            v77 = xmmword_25A9C2E70;
+            v76 = v98;
+            v79 = xmmword_25A99B0C0;
+            v78 = xmmword_25A9C2E80;
+            v80 = xmmword_25A99B0D0;
+          }
+
+          while (*(*v87 + 48) > v75);
+        }
+      }
+
+      else if (v57)
+      {
+        v58 = xmmword_25A9C2E70;
+        v59 = xmmword_25A9C2E80;
+        v60 = xmmword_25A99B0C0;
+        v61 = xmmword_25A99B0D0;
+        v62 = v100;
+        v63 = (v101 - v100) >> 2;
+        v64 = (v63 - 1);
+        if (v63 - 1 >= 0)
+        {
+          v65 = 0;
+          v66 = __p;
+          v67 = 0;
+          do
+          {
+            v68 = ldiv(v67, v62[v64]);
+            v67 = v68.quot;
+            v65 += v66[v64--] * v68.rem;
+          }
+
+          while (v64 != -1);
+          v59 = xmmword_25A9C2E80;
+          v58 = xmmword_25A9C2E70;
+          v61 = xmmword_25A99B0D0;
+          v60 = xmmword_25A99B0C0;
+        }
+
+        if (v56)
+        {
+          v69 = 0;
+          v70 = vdupq_n_s64(v56 - 1);
+          v71 = v104 + 4;
+          do
+          {
+            v72 = vdupq_n_s64(v69);
+            v73 = vmovn_s64(vcgeq_u64(v70, vorrq_s8(v72, v61)));
+            if (vuzp1_s8(vuzp1_s16(v73, *v70.i8), *v70.i8).u8[0])
+            {
+              *(v71 - 4) = LOWORD(a4);
+            }
+
+            if (vuzp1_s8(vuzp1_s16(v73, *&v70), *&v70).i8[1])
+            {
+              *(v71 - 3) = LOWORD(a4);
+            }
+
+            if (vuzp1_s8(vuzp1_s16(*&v70, vmovn_s64(vcgeq_u64(v70, vorrq_s8(v72, v60)))), *&v70).i8[2])
+            {
+              *(v71 - 2) = LOWORD(a4);
+              *(v71 - 1) = LOWORD(a4);
+            }
+
+            v74 = vmovn_s64(vcgeq_u64(v70, vorrq_s8(v72, v59)));
+            if (vuzp1_s8(*&v70, vuzp1_s16(v74, *&v70)).i32[1])
+            {
+              *v71 = LOWORD(a4);
+            }
+
+            if (vuzp1_s8(*&v70, vuzp1_s16(v74, *&v70)).i8[5])
+            {
+              v71[1] = LOWORD(a4);
+            }
+
+            if (vuzp1_s8(*&v70, vuzp1_s16(*&v70, vmovn_s64(vcgeq_u64(v70, vorrq_s8(v72, v58))))).i8[6])
+            {
+              v71[2] = LOWORD(a4);
+              v71[3] = LOWORD(a4);
+            }
+
+            v69 += 8;
+            v71 += 8;
+          }
+
+          while (((v56 + 7) & 0xFFFFFFFFFFFFFFF8) != v69);
+        }
+
+        v113 = 0;
+        operator new();
+      }
+
+      goto LABEL_104;
+    }
+
+    v45 = *(v108 - 1);
+    v46 = *(v110 - 1);
+    v108 -= 4;
+    v110 -= 8;
+    if (*(v11 + 48))
+    {
+      LODWORD(v47) = 0;
+      v99 = vdupq_n_s64(v46 - 1);
+      do
+      {
+        if (v46)
+        {
+          v48 = 0;
+          v49 = v12 + 4;
+          do
+          {
+            v50 = vdupq_n_s64(v48);
+            v51 = vmovn_s64(vcgeq_u64(v99, vorrq_s8(v50, xmmword_25A99B0D0)));
+            if (vuzp1_s8(vuzp1_s16(v51, *v50.i8), *v50.i8).u8[0])
+            {
+              *(v49 - 4) = LOWORD(a4);
+            }
+
+            if (vuzp1_s8(vuzp1_s16(v51, *&v50), *&v50).i8[1])
+            {
+              *(v49 - 3) = LOWORD(a4);
+            }
+
+            if (vuzp1_s8(vuzp1_s16(*&v50, vmovn_s64(vcgeq_u64(v99, vorrq_s8(v50, xmmword_25A99B0C0)))), *&v50).i8[2])
+            {
+              *(v49 - 2) = LOWORD(a4);
+              *(v49 - 1) = LOWORD(a4);
+            }
+
+            v52 = vmovn_s64(vcgeq_u64(v99, vorrq_s8(v50, xmmword_25A9C2E80)));
+            if (vuzp1_s8(*&v50, vuzp1_s16(v52, *&v50)).i32[1])
+            {
+              *v49 = LOWORD(a4);
+            }
+
+            if (vuzp1_s8(*&v50, vuzp1_s16(v52, *&v50)).i8[5])
+            {
+              v49[1] = LOWORD(a4);
+            }
+
+            v53 = vmovn_s64(vcgeq_u64(v99, vorrq_s8(v50, xmmword_25A9C2E70)));
+            if (vuzp1_s8(*&v53, vuzp1_s16(v53, v53)).i8[6])
+            {
+              v49[2] = LOWORD(a4);
+            }
+
+            v54 = vuzp1_s16(v53, v53);
+            if (vuzp1_s8(v54, v54).i8[7])
+            {
+              v49[3] = LOWORD(a4);
+            }
+
+            v48 += 8;
+            v49 += 8;
+          }
+
+          while (((v46 + 7) & 0xFFFFFFFFFFFFFFF8) != v48);
+        }
+
+        mlx::core::strided_reduce<half,half,mlx::core::MaxReduce>(v10, v12, v45, v46);
+        v10 = (v105 + 2 * v46 * v45);
+        v12 = &v104[v46];
+        v104 = v12;
+        v105 = v10;
+        v47 = v47 + v46;
+      }
+
+      while (v47 < *(*a2 + 48));
+    }
+  }
+
+LABEL_108:
+  if (v109)
+  {
+    v110 = v109;
+    operator delete(v109);
+  }
+
+  if (v107)
+  {
+    v108 = v107;
+    operator delete(v107);
+  }
 }

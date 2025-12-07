@@ -336,46 +336,46 @@ uint64_t __81___UITabContainerView__updateVisibleBarAnimated_requireLayout_updat
   return [*(a1 + 48) setTransform:&v6];
 }
 
-void __81___UITabContainerView__updateVisibleBarAnimated_requireLayout_updateDimmingView___block_invoke_6(uint64_t a1)
+void __81___UITabContainerView__updateVisibleBarAnimated_requireLayout_updateDimmingView___block_invoke_6(id *a1)
 {
-  WeakRetained = objc_loadWeakRetained((a1 + 48));
+  WeakRetained = objc_loadWeakRetained(a1 + 6);
   if (WeakRetained)
   {
     if (!*(WeakRetained + 51))
     {
       v19 = WeakRetained;
-      v6 = [WeakRetained _currentVisibleComponents] == *(a1 + 56);
+      v6 = [WeakRetained _currentVisibleComponents] == a1[7];
       WeakRetained = v19;
       if (v6)
       {
         [v19 _updateVisibleItemIfNeeded];
         v3 = *(v19 + 79);
         v4 = v3;
-        v5 = *(a1 + 56);
+        v5 = a1[7];
         v6 = (v5 & 9) == 0 || v3 == 0;
         v7 = !v6;
         v8 = v19[417];
         if ((v5 & 2) == 0)
         {
-          v9 = [*(a1 + 32) superview];
+          v9 = [a1[4] superview];
 
           if (v9)
           {
             v10 = objc_loadWeakRetained(v19 + 76);
             [v10 tabBarContainerWillChangeFloatingTabBarVisibility:v19];
 
-            [*(a1 + 32) removeFromSuperview];
+            [a1[4] removeFromSuperview];
             v8 = 1;
           }
         }
 
         if ((v5 & 4) == 0)
         {
-          v11 = [*(a1 + 40) superview];
+          v11 = [a1[5] superview];
 
           if (v11)
           {
-            [*(a1 + 40) removeFromSuperview];
+            [a1[5] removeFromSuperview];
             v12 = [v19 sidebarBorderView];
             [v12 removeFromSuperview];
 
@@ -440,13 +440,13 @@ uint64_t __81___UITabContainerView__updateVisibleBarAnimated_requireLayout_updat
   return result;
 }
 
-uint64_t __49___UITabContainerView_updateDimmingViewAnimated___block_invoke_2(uint64_t result, int a2)
+id *__49___UITabContainerView_updateDimmingViewAnimated___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    if ((*(result + 40) & 1) == 0)
+    if ((result[5] & 1) == 0)
     {
-      return [*(result + 32) removeFromSuperview];
+      return [result[4] removeFromSuperview];
     }
   }
 

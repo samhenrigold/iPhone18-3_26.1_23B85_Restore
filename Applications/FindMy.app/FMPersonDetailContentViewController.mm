@@ -31,7 +31,7 @@
     [view setFrame:{0.0, 0.0, 100.0, 100.0}];
 
     v6.receiver = selfCopy;
-    v6.super_class = type metadata accessor for FMPersonDetailContentViewController();
+    v6.super_class = type metadata accessor for FMPersonDetailContentViewController(0);
     [(FMBaseContentViewController *)&v6 viewDidLoad];
     v5 = OBJC_IVAR____TtC6FindMy35FMPersonDetailContentViewController_peopleManagementHostingController;
     [(FMPersonDetailContentViewController *)selfCopy addChildViewController:*(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC6FindMy35FMPersonDetailContentViewController_peopleManagementHostingController)];
@@ -119,7 +119,7 @@
 
 - (void)handleTapNotificationsPausedAttention
 {
-  v3 = objc_allocWithZone(type metadata accessor for FMPauseNotificationsViewController());
+  v3 = objc_allocWithZone(type metadata accessor for FMPauseNotificationsViewController(0));
   selfCopy = self;
 
   v5 = sub_1004114EC(v4);
@@ -150,7 +150,7 @@
 - (void)handleNotificationsOffAttentionTap
 {
   selfCopy = self;
-  sub_100140270();
+  sub_100140270(0xD000000000000031, 0x800000010057BF90);
 }
 
 @end

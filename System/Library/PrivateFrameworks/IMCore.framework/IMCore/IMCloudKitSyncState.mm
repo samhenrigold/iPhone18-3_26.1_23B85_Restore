@@ -43,18 +43,17 @@
 {
   if (*(self + OBJC_IVAR___IMCloudKitSyncState_errors))
   {
-    v2 = *(self + OBJC_IVAR___IMCloudKitSyncState_errors);
 
     sub_1A83EA2FC(&unk_1EB2E9050, &unk_1A8501EA0);
-    v3 = sub_1A84E5FEC();
+    v2 = sub_1A84E5FEC();
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  return v3;
+  return v2;
 }
 
 - (BOOL)isSyncing

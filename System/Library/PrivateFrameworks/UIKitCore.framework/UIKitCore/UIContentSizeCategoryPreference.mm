@@ -180,20 +180,20 @@
   {
     preferredContentSizeCategory = [(UIContentSizeCategoryPreference *)self preferredContentSizeCategory];
     preferredContentSizeCategory2 = [equalCopy preferredContentSizeCategory];
-    if (preferredContentSizeCategory == preferredContentSizeCategory2 || (-[UIContentSizeCategoryPreference preferredContentSizeCategory](self, "preferredContentSizeCategory"), v3 = objc_claimAutoreleasedReturnValue(), [equalCopy preferredContentSizeCategory], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "isEqualToString:", v4)))
+    if (preferredContentSizeCategory == preferredContentSizeCategory2 || (-[UIContentSizeCategoryPreference preferredContentSizeCategory](self, "preferredContentSizeCategory"), v3 = objc_claimAutoreleasedReturnValue(), [equalCopy preferredContentSizeCategory], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend_isEqualToString_(v3)))
     {
       preferredContentSizeCategoryCarPlay = [(UIContentSizeCategoryPreference *)self preferredContentSizeCategoryCarPlay];
       preferredContentSizeCategoryCarPlay2 = [equalCopy preferredContentSizeCategoryCarPlay];
       if (preferredContentSizeCategoryCarPlay == preferredContentSizeCategoryCarPlay2)
       {
-        v8 = 1;
+        isEqualToString = 1;
       }
 
       else
       {
         preferredContentSizeCategoryCarPlay3 = [(UIContentSizeCategoryPreference *)self preferredContentSizeCategoryCarPlay];
         preferredContentSizeCategoryCarPlay4 = [equalCopy preferredContentSizeCategoryCarPlay];
-        v8 = [preferredContentSizeCategoryCarPlay3 isEqualToString:preferredContentSizeCategoryCarPlay4];
+        isEqualToString = objc_msgSend_isEqualToString_(preferredContentSizeCategoryCarPlay3);
       }
 
       if (preferredContentSizeCategory == preferredContentSizeCategory2)
@@ -204,17 +204,17 @@
 
     else
     {
-      v8 = 0;
+      isEqualToString = 0;
     }
 
 LABEL_11:
     goto LABEL_12;
   }
 
-  v8 = 0;
+  isEqualToString = 0;
 LABEL_12:
 
-  return v8;
+  return isEqualToString;
 }
 
 - (unint64_t)hash

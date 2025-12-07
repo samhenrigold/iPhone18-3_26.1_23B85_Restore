@@ -5,6 +5,8 @@
 - (id)loadContents;
 - (id)readDirBuffersForBufferBlock:(id)block andEntryBlock:(id)entryBlock;
 - (void)addEnumerator:(id)enumerator;
+- (void)applyAddAcrossEnumerators:(id)enumerators newName:(id)name forSelf:(BOOL)self;
+- (void)applyDeleteAcrossEnumerators:(id)enumerators newTombstone:(id)tombstone toSelf:(BOOL)self;
 - (void)applyParentUpdateAcrossEnumerators;
 - (void)dealloc;
 - (void)deletedItem:(id)item name:(id)name how:(int)how interestedItem:(id)interestedItem;
@@ -137,7 +139,7 @@ LABEL_16:
 
 - (void)dropInterestForEnumeratedItem:(id)item
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v5 = livefs_std_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -148,7 +150,7 @@ LABEL_16:
     *&buf[12] = 2112;
     *&buf[14] = itemCopy;
     *&buf[22] = 2112;
-    v20 = v6;
+    v19 = v6;
     _os_log_impl(&dword_255FE9000, v5, OS_LOG_TYPE_INFO, "%s started item %@ fh %@", buf, 0x20u);
   }
 
@@ -171,24 +173,24 @@ LABEL_16:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v20 = __Block_byref_object_copy__2;
-  v21 = __Block_byref_object_dispose__2;
-  v22 = 0;
+  v19 = __Block_byref_object_copy__2;
+  v20 = __Block_byref_object_dispose__2;
+  v21 = 0;
   conn = [(LiveFSFPExtensionHelper *)self->ext conn];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __65__LiveFSFPEnumeratorDataContainer_dropInterestForEnumeratedItem___block_invoke;
-  v17[3] = &unk_27981A740;
-  v17[4] = buf;
-  v11 = [conn synchronousRemoteObjectProxyWithErrorHandler:v17];
-
-  v12 = [itemCopy fh];
   v16[0] = MEMORY[0x277D85DD0];
   v16[1] = 3221225472;
-  v16[2] = __65__LiveFSFPEnumeratorDataContainer_dropInterestForEnumeratedItem___block_invoke_2;
+  v16[2] = __65__LiveFSFPEnumeratorDataContainer_dropInterestForEnumeratedItem___block_invoke;
   v16[3] = &unk_27981A740;
   v16[4] = buf;
-  [v11 setUpdateInterest:v12 interest:0 requestID:-1 reply:v16];
+  v11 = [conn synchronousRemoteObjectProxyWithErrorHandler:v16];
+
+  v12 = [itemCopy fh];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __65__LiveFSFPEnumeratorDataContainer_dropInterestForEnumeratedItem___block_invoke_2;
+  v15[3] = &unk_27981A740;
+  v15[4] = buf;
+  [v11 setUpdateInterest:v12 interest:0 requestID:-1 reply:v15];
 
   if (*(*&buf[8] + 40))
   {
@@ -196,18 +198,16 @@ LABEL_16:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = [itemCopy fh];
-      [(LiveFSFPEnumeratorDataContainer *)v14 dropInterestForEnumeratedItem:v18, v13];
+      [(LiveFSFPEnumeratorDataContainer *)v14 dropInterestForEnumeratedItem:v17, v13];
     }
   }
 
   _Block_object_dispose(buf, 8);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)doShutdown
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = livefs_std_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -215,15 +215,15 @@ LABEL_16:
     addedToExtension = self->_addedToExtension;
     enumeratedItem = self->_enumeratedItem;
     enumeratedItemID = self->_enumeratedItemID;
-    v9[0] = 67109890;
-    v9[1] = isActive;
-    v10 = 1024;
-    v11 = addedToExtension;
-    v12 = 2112;
-    v13 = enumeratedItemID;
-    v14 = 2112;
-    v15 = enumeratedItem;
-    _os_log_impl(&dword_255FE9000, v3, OS_LOG_TYPE_INFO, "dc doShutdown, isActive %d isAdded %d addedID %@ item %@", v9, 0x22u);
+    v8[0] = 67109890;
+    v8[1] = isActive;
+    v9 = 1024;
+    v10 = addedToExtension;
+    v11 = 2112;
+    v12 = enumeratedItemID;
+    v13 = 2112;
+    v14 = enumeratedItem;
+    _os_log_impl(&dword_255FE9000, v3, OS_LOG_TYPE_INFO, "dc doShutdown, isActive %d isAdded %d addedID %@ item %@", v8, 0x22u);
   }
 
   if (self->isActive)
@@ -237,8 +237,6 @@ LABEL_16:
     [(LiveFSFPExtensionHelper *)self->ext removeEnumeratorForContainer:self->_enumeratedItemID];
     self->_addedToExtension = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)doShutdownOnEnumeratorHelperQueue
@@ -273,7 +271,7 @@ LABEL_16:
 
 - (void)invalidate
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   contentsSortedByDate = self->_contentsSortedByDate;
   self->_contentsSortedByDate = 0;
 
@@ -284,15 +282,14 @@ LABEL_16:
   v5 = livefs_std_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[LiveFSFPEnumeratorDataContainer invalidate]";
-    v9 = 2048;
+    v6 = 136315394;
+    v7 = "[LiveFSFPEnumeratorDataContainer invalidate]";
+    v8 = 2048;
     selfCopy = self;
-    _os_log_impl(&dword_255FE9000, v5, OS_LOG_TYPE_DEFAULT, "%s: marking state as DEAD on %p", &v7, 0x16u);
+    _os_log_impl(&dword_255FE9000, v5, OS_LOG_TYPE_DEFAULT, "%s: marking state as DEAD on %p", &v6, 0x16u);
   }
 
   self->_state = 3;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addEnumerator:(id)enumerator
@@ -451,7 +448,7 @@ LABEL_20:
   return v21;
 }
 
-void __78__LiveFSFPEnumeratorDataContainer_readDirBuffersForBufferBlock_andEntryBlock___block_invoke_2(void *a1, int a2, uint64_t a3, uint64_t a4, void *a5)
+void __78__LiveFSFPEnumeratorDataContainer_readDirBuffersForBufferBlock_andEntryBlock___block_invoke_2(void *a1, int a2, unint64_t a3, uint64_t a4, void *a5)
 {
   v9 = a5;
   v10 = v9;
@@ -522,7 +519,7 @@ LABEL_20:
 
 - (id)loadContents
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D23DB0] newWithComparitor:&__block_literal_global_1];
   v4 = [MEMORY[0x277D23DB0] newWithComparitor:&__block_literal_global_12];
   v5 = livefs_std_log();
@@ -530,25 +527,25 @@ LABEL_20:
   {
     v6 = [(LiveFSFPItemHelper *)self->_enumeratedItem fh];
     *buf = 138412290;
-    v22 = v6;
+    v21 = v6;
     _os_log_impl(&dword_255FE9000, v5, OS_LOG_TYPE_DEFAULT, "Reading dir with fh %@", buf, 0xCu);
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __47__LiveFSFPEnumeratorDataContainer_loadContents__block_invoke_13;
-  v18[3] = &unk_27981ADA8;
-  v19 = v3;
-  v20 = v4;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __47__LiveFSFPEnumeratorDataContainer_loadContents__block_invoke_2_15;
-  v15[3] = &unk_27981ADD0;
-  v7 = v19;
-  v16 = v7;
-  v8 = v20;
-  v17 = v8;
-  v9 = [(LiveFSFPEnumeratorDataContainer *)self readDirBuffersForBufferBlock:v18 andEntryBlock:v15];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __47__LiveFSFPEnumeratorDataContainer_loadContents__block_invoke_13;
+  v17[3] = &unk_27981ADA8;
+  v18 = v3;
+  v19 = v4;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __47__LiveFSFPEnumeratorDataContainer_loadContents__block_invoke_2_15;
+  v14[3] = &unk_27981ADD0;
+  v7 = v18;
+  v15 = v7;
+  v8 = v19;
+  v16 = v8;
+  v9 = [(LiveFSFPEnumeratorDataContainer *)self readDirBuffersForBufferBlock:v17 andEntryBlock:v14];
   v10 = v9;
   if (v9)
   {
@@ -563,8 +560,6 @@ LABEL_20:
     objc_storeStrong(&selfCopy->_contentsSortedByDate, v4);
     objc_sync_exit(selfCopy);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -603,23 +598,21 @@ void __47__LiveFSFPEnumeratorDataContainer_loadContents__block_invoke_13(uint64_
 
 void __47__LiveFSFPEnumeratorDataContainer_loadContents__block_invoke_2_15(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) addEntry:a2];
   [*(a1 + 40) addEntry:a2];
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
-    v7 = a2;
-    _os_log_impl(&dword_255FE9000, v4, OS_LOG_TYPE_DEFAULT, "Done adding %p", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = a2;
+    _os_log_impl(&dword_255FE9000, v4, OS_LOG_TYPE_DEFAULT, "Done adding %p", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)ensureConnectedForUpdates
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = livefs_std_log();
@@ -633,9 +626,9 @@ void __47__LiveFSFPEnumeratorDataContainer_loadContents__block_invoke_2_15(uint6
     *&buf[12] = 2112;
     *&buf[14] = v5;
     *&buf[22] = 1024;
-    LODWORD(v32) = isActive;
-    WORD2(v32) = 2112;
-    *(&v32 + 6) = selfCopy;
+    LODWORD(v31) = isActive;
+    WORD2(v31) = 2112;
+    *(&v31 + 6) = selfCopy;
     _os_log_impl(&dword_255FE9000, v3, OS_LOG_TYPE_INFO, "Setting up for updates on %@ fh %@ active %d dc %@", buf, 0x26u);
   }
 
@@ -670,24 +663,24 @@ void __47__LiveFSFPEnumeratorDataContainer_loadContents__block_invoke_2_15(uint6
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      *&v32 = __Block_byref_object_copy__2;
-      *(&v32 + 1) = __Block_byref_object_dispose__2;
-      v33 = 0;
+      *&v31 = __Block_byref_object_copy__2;
+      *(&v31 + 1) = __Block_byref_object_dispose__2;
+      v32 = 0;
       conn = [(LiveFSFPExtensionHelper *)selfCopy->ext conn];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __60__LiveFSFPEnumeratorDataContainer_ensureConnectedForUpdates__block_invoke;
-      v30[3] = &unk_27981A740;
-      v30[4] = buf;
-      v12 = [conn synchronousRemoteObjectProxyWithErrorHandler:v30];
-
-      v15 = [(LiveFSFPItemHelper *)selfCopy->_enumeratedItem fh];
       v29[0] = MEMORY[0x277D85DD0];
       v29[1] = 3221225472;
-      v29[2] = __60__LiveFSFPEnumeratorDataContainer_ensureConnectedForUpdates__block_invoke_2;
+      v29[2] = __60__LiveFSFPEnumeratorDataContainer_ensureConnectedForUpdates__block_invoke;
       v29[3] = &unk_27981A740;
       v29[4] = buf;
-      [v12 setUpdateInterest:v15 interest:1 requestID:-1 reply:v29];
+      v12 = [conn synchronousRemoteObjectProxyWithErrorHandler:v29];
+
+      v15 = [(LiveFSFPItemHelper *)selfCopy->_enumeratedItem fh];
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __60__LiveFSFPEnumeratorDataContainer_ensureConnectedForUpdates__block_invoke_2;
+      v28[3] = &unk_27981A740;
+      v28[4] = buf;
+      [v12 setUpdateInterest:v15 interest:1 requestID:-1 reply:v28];
 
       v16 = *&buf[8];
       if (*(*&buf[8] + 40))
@@ -720,8 +713,6 @@ void __47__LiveFSFPEnumeratorDataContainer_loadContents__block_invoke_2_15(uint6
 
   objc_sync_exit(selfCopy);
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
@@ -751,45 +742,141 @@ void __47__LiveFSFPEnumeratorDataContainer_loadContents__block_invoke_2_15(uint6
   }
 }
 
+- (void)applyAddAcrossEnumerators:(id)enumerators newName:(id)name forSelf:(BOOL)self
+{
+  selfCopy = self;
+  v23 = *MEMORY[0x277D85DE8];
+  enumeratorsCopy = enumerators;
+  nameCopy = name;
+  selfCopy2 = self;
+  objc_sync_enter(selfCopy2);
+  v11 = [(NSPointerArray *)selfCopy2->ourEnumerators copy];
+  objc_sync_exit(selfCopy2);
+
+  [v11 compact];
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v12 = v11;
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v13)
+  {
+    v14 = 0;
+    v15 = *v19;
+    do
+    {
+      v16 = 0;
+      v17 = v14;
+      do
+      {
+        if (*v19 != v15)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        v14 = *(*(&v18 + 1) + 8 * v16);
+
+        [v14 addInterestedItem:enumeratorsCopy newName:nameCopy forSelf:{selfCopy, v18}];
+        ++v16;
+        v17 = v14;
+      }
+
+      while (v13 != v16);
+      v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    }
+
+    while (v13);
+  }
+}
+
+- (void)applyDeleteAcrossEnumerators:(id)enumerators newTombstone:(id)tombstone toSelf:(BOOL)self
+{
+  selfCopy = self;
+  v23 = *MEMORY[0x277D85DE8];
+  enumeratorsCopy = enumerators;
+  tombstoneCopy = tombstone;
+  selfCopy2 = self;
+  objc_sync_enter(selfCopy2);
+  v11 = [(NSPointerArray *)selfCopy2->ourEnumerators copy];
+  objc_sync_exit(selfCopy2);
+
+  [v11 compact];
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v12 = v11;
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v13)
+  {
+    v14 = 0;
+    v15 = *v19;
+    do
+    {
+      v16 = 0;
+      v17 = v14;
+      do
+      {
+        if (*v19 != v15)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        v14 = *(*(&v18 + 1) + 8 * v16);
+
+        [v14 applyDelete:enumeratorsCopy newTombstone:tombstoneCopy toSelf:{selfCopy, v18}];
+        ++v16;
+        v17 = v14;
+      }
+
+      while (v13 != v16);
+      v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    }
+
+    while (v13);
+  }
+}
+
 - (void)applyParentUpdateAcrossEnumerators
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = [(NSPointerArray *)selfCopy->ourEnumerators copy];
   objc_sync_exit(selfCopy);
 
   [v3 compact];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       v9 = v6;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * v8);
+        v6 = *(*(&v10 + 1) + 8 * v8);
 
-        [v6 setAddParent:{1, v11}];
+        [v6 setAddParent:{1, v10}];
         ++v8;
         v9 = v6;
       }
 
       while (v5 != v8);
-      v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -799,41 +886,39 @@ void __47__LiveFSFPEnumeratorDataContainer_loadContents__block_invoke_2_15(uint6
   {
     selfCopy->_addParent = 1;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetAllEnumerators
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = [(NSPointerArray *)selfCopy->ourEnumerators copy];
   objc_sync_exit(selfCopy);
 
   [v3 compact];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       v9 = v6;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * v8);
+        v6 = *(*(&v10 + 1) + 8 * v8);
 
         [v6 resetHistory];
         ++v8;
@@ -841,18 +926,16 @@ void __47__LiveFSFPEnumeratorDataContainer_loadContents__block_invoke_2_15(uint6
       }
 
       while (v5 != v8);
-      v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)makeAllEnumeratorsDead
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = livefs_std_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -868,7 +951,7 @@ void __47__LiveFSFPEnumeratorDataContainer_loadContents__block_invoke_2_15(uint6
     }
 
     *buf = 138412290;
-    v21 = filename;
+    v20 = filename;
     _os_log_impl(&dword_255FE9000, v3, OS_LOG_TYPE_INFO, "About to bulk-deaden enumerators for name '%@'", buf, 0xCu);
     if (enumeratedItem)
     {
@@ -881,45 +964,43 @@ void __47__LiveFSFPEnumeratorDataContainer_loadContents__block_invoke_2_15(uint6
   objc_sync_exit(selfCopy);
 
   [v7 compact];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = 0;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
+        v13 = *(*(&v14 + 1) + 8 * i);
 
         v10 = v13;
         objc_sync_enter(v10);
-        [v10 setState:{3, v15}];
+        [v10 setState:{3, v14}];
         objc_sync_exit(v10);
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleEnumeratedItemChanged
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   contentsSortedByDate = selfCopy->_contentsSortedByDate;
@@ -934,9 +1015,9 @@ void __47__LiveFSFPEnumeratorDataContainer_loadContents__block_invoke_2_15(uint6
   {
     containerID = selfCopy->_containerID;
     *buf = 136315394;
-    v14 = "[LiveFSFPEnumeratorDataContainer handleEnumeratedItemChanged]";
-    v15 = 2112;
-    v16 = containerID;
+    v13 = "[LiveFSFPEnumeratorDataContainer handleEnumeratedItemChanged]";
+    v14 = 2112;
+    v15 = containerID;
     _os_log_impl(&dword_255FE9000, v5, OS_LOG_TYPE_DEFAULT, "%s: blasted dir contents for %@", buf, 0x16u);
   }
 
@@ -946,19 +1027,17 @@ void __47__LiveFSFPEnumeratorDataContainer_loadContents__block_invoke_2_15(uint6
   v9 = [v7 managerForDomain:domain];
 
   v10 = selfCopy->_containerID;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __62__LiveFSFPEnumeratorDataContainer_handleEnumeratedItemChanged__block_invoke;
-  v12[3] = &unk_27981ADF8;
-  v12[4] = selfCopy;
-  [v9 signalEnumeratorForContainerItemIdentifier:v10 completionHandler:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __62__LiveFSFPEnumeratorDataContainer_handleEnumeratedItemChanged__block_invoke;
+  v11[3] = &unk_27981ADF8;
+  v11[4] = selfCopy;
+  [v9 signalEnumeratorForContainerItemIdentifier:v10 completionHandler:v11];
 }
 
 void __62__LiveFSFPEnumeratorDataContainer_handleEnumeratedItemChanged__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -973,14 +1052,12 @@ void __62__LiveFSFPEnumeratorDataContainer_handleEnumeratedItemChanged__block_in
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(*(a1 + 32) + 16);
-    v8 = 136315394;
-    v9 = "[LiveFSFPEnumeratorDataContainer handleEnumeratedItemChanged]_block_invoke";
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_255FE9000, v5, OS_LOG_TYPE_DEFAULT, "%s: posted for container %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[LiveFSFPEnumeratorDataContainer handleEnumeratedItemChanged]_block_invoke";
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_255FE9000, v5, OS_LOG_TYPE_DEFAULT, "%s: posted for container %@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deletedItem:(id)item name:(id)name how:(int)how interestedItem:(id)interestedItem
@@ -1006,29 +1083,27 @@ void __62__LiveFSFPEnumeratorDataContainer_handleEnumeratedItemChanged__block_in
 
 uint64_t __71__LiveFSFPEnumeratorDataContainer_deletedItem_name_how_interestedItem___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = livefs_std_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = *(a1 + 64);
-    v8 = 136315906;
-    v9 = "[LiveFSFPEnumeratorDataContainer deletedItem:name:how:interestedItem:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    v12 = 2112;
-    v13 = v4;
-    v14 = 1024;
-    v15 = v5;
-    _os_log_impl(&dword_255FE9000, v2, OS_LOG_TYPE_INFO, "%s: starting for name %@ item %@ how %d", &v8, 0x26u);
+    v7 = 136315906;
+    v8 = "[LiveFSFPEnumeratorDataContainer deletedItem:name:how:interestedItem:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    v11 = 2112;
+    v12 = v4;
+    v13 = 1024;
+    v14 = v5;
+    _os_log_impl(&dword_255FE9000, v2, OS_LOG_TYPE_INFO, "%s: starting for name %@ item %@ how %d", &v7, 0x26u);
   }
 
   [*(a1 + 56) applyDeleteAcrossEnumerators:*(a1 + 40) newTombstone:*(*(a1 + 56) + 64) toSelf:{objc_msgSend(*(a1 + 40), "isEqualToString:", *(a1 + 48))}];
   [*(a1 + 56) doProcessItemDeleted:*(a1 + 40)];
-  result = [*(a1 + 56) handleEnumeratedItemChanged];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 56) handleEnumeratedItemChanged];
 }
 
 - (void)deletedName:(id)name item:(id)item how:(int)how interestedItem:(id)interestedItem
@@ -1051,29 +1126,27 @@ uint64_t __71__LiveFSFPEnumeratorDataContainer_deletedItem_name_how_interestedIt
 
 uint64_t __71__LiveFSFPEnumeratorDataContainer_deletedName_item_how_interestedItem___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = livefs_std_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = *(a1 + 56);
-    v8 = 136315906;
-    v9 = "[LiveFSFPEnumeratorDataContainer deletedName:item:how:interestedItem:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    v12 = 2112;
-    v13 = v4;
-    v14 = 1024;
-    v15 = v5;
-    _os_log_impl(&dword_255FE9000, v2, OS_LOG_TYPE_INFO, "%s: starting for name %@ item %@ how %d", &v8, 0x26u);
+    v7 = 136315906;
+    v8 = "[LiveFSFPEnumeratorDataContainer deletedName:item:how:interestedItem:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    v11 = 2112;
+    v12 = v4;
+    v13 = 1024;
+    v14 = v5;
+    _os_log_impl(&dword_255FE9000, v2, OS_LOG_TYPE_INFO, "%s: starting for name %@ item %@ how %d", &v7, 0x26u);
   }
 
   [*(a1 + 48) applyDeleteAcrossEnumerators:*(a1 + 32) newTombstone:*(a1 + 32) toSelf:0];
   [*(a1 + 48) doProcessItemDeleted:*(a1 + 40)];
-  result = [*(a1 + 48) handleEnumeratedItemChanged];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 48) handleEnumeratedItemChanged];
 }
 
 - (void)updatesDoneFor:(id)for
@@ -1089,18 +1162,16 @@ uint64_t __71__LiveFSFPEnumeratorDataContainer_deletedName_item_how_interestedIt
 
 uint64_t __50__LiveFSFPEnumeratorDataContainer_updatesDoneFor___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = livefs_std_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[LiveFSFPEnumeratorDataContainer updatesDoneFor:]_block_invoke";
-    _os_log_impl(&dword_255FE9000, v2, OS_LOG_TYPE_DEFAULT, "%s: about to deaden", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[LiveFSFPEnumeratorDataContainer updatesDoneFor:]_block_invoke";
+    _os_log_impl(&dword_255FE9000, v2, OS_LOG_TYPE_DEFAULT, "%s: about to deaden", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) makeAllEnumeratorsDead];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) makeAllEnumeratorsDead];
 }
 
 - (void)historyResetItem:(id)item interestedItem:(id)interestedItem
@@ -1206,12 +1277,12 @@ void __98__LiveFSFPEnumeratorDataContainer_renamedItem_named_fromDirectory_intoD
 
 void __98__LiveFSFPEnumeratorDataContainer_renamedItem_named_fromDirectory_intoDirectory_newName_atopItem___block_invoke_2(void *a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v2 = [*(a1[4] + 56) extension];
   objc_sync_enter(v2);
   v3 = [v2 getItemForFileHandle:a1[5]];
   v4 = [v2 getItemForFileHandle:a1[6]];
-  v37 = [v2 getItemForFileHandle:a1[7]];
+  v36 = [v2 getItemForFileHandle:a1[7]];
   if (a1[8])
   {
     v5 = [v2 getItemForFileHandle:?];
@@ -1224,7 +1295,7 @@ void __98__LiveFSFPEnumeratorDataContainer_renamedItem_named_fromDirectory_intoD
 
   v6 = [v3 container];
   v7 = [v4 container];
-  v36 = [v37 container];
+  v35 = [v36 container];
   if (v5)
   {
     v8 = [v5 container];
@@ -1238,7 +1309,7 @@ void __98__LiveFSFPEnumeratorDataContainer_renamedItem_named_fromDirectory_intoD
   objc_sync_exit(v2);
 
   v9 = a1[4];
-  v13 = v9 == v6 || v9 == v7 || v9 == v36 || v9 == v8;
+  v13 = v9 == v6 || v9 == v7 || v9 == v35 || v9 == v8;
   v14 = livefs_std_log();
   v15 = v14;
   if (v13)
@@ -1246,13 +1317,13 @@ void __98__LiveFSFPEnumeratorDataContainer_renamedItem_named_fromDirectory_intoD
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413058;
-      v39 = v6;
-      v40 = 2112;
-      v41 = v7;
-      v42 = 2112;
-      v43 = v36;
-      v44 = 2112;
-      v45 = v8;
+      v38 = v6;
+      v39 = 2112;
+      v40 = v7;
+      v41 = 2112;
+      v42 = v35;
+      v43 = 2112;
+      v44 = v8;
       _os_log_impl(&dword_255FE9000, v15, OS_LOG_TYPE_DEFAULT, "Containers 1 %@, 2 %@, 3 %@, 4 %@", buf, 0x2Au);
     }
 
@@ -1265,7 +1336,7 @@ void __98__LiveFSFPEnumeratorDataContainer_renamedItem_named_fromDirectory_intoD
           obj = v2;
           objc_sync_enter(obj);
           v23 = v8[7];
-          v34 = v23;
+          v33 = v23;
           objc_storeStrong(v8 + 7, v7[7]);
           objc_storeStrong(v7 + 7, v23);
           v24 = [obj serviceClient];
@@ -1309,7 +1380,7 @@ void __98__LiveFSFPEnumeratorDataContainer_renamedItem_named_fromDirectory_intoD
           [v5 setItemDeleted];
         }
 
-        [v4 setNewParent:v37 andName:a1[9]];
+        [v4 setNewParent:v36 andName:a1[9]];
         objc_sync_exit(v28);
 
         v5 = 0;
@@ -1317,7 +1388,7 @@ void __98__LiveFSFPEnumeratorDataContainer_renamedItem_named_fromDirectory_intoD
 
       else
       {
-        v4 = [v2 itemAtPath:a1[9] parent:v37];
+        v4 = [v2 itemAtPath:a1[9] parent:v36];
       }
 
       v30 = v8;
@@ -1337,9 +1408,9 @@ void __98__LiveFSFPEnumeratorDataContainer_renamedItem_named_fromDirectory_intoD
 LABEL_42:
       [v6 applyDeleteAcrossEnumerators:a1[10] newTombstone:a1[10] toSelf:0];
 LABEL_43:
-      if (v36)
+      if (v35)
       {
-        [v36 applyAddAcrossEnumerators:a1[9] newName:a1[9] forSelf:0];
+        [v35 applyAddAcrossEnumerators:a1[9] newName:a1[9] forSelf:0];
       }
 
       if (v3)
@@ -1347,9 +1418,9 @@ LABEL_43:
         [v3 setAttributesStale];
       }
 
-      if (v37 && v3 != v37)
+      if (v36 && v3 != v36)
       {
-        [v37 setAttributesStale];
+        [v36 setAttributesStale];
       }
 
       v32 = v2;
@@ -1360,11 +1431,11 @@ LABEL_43:
         [v5 setItemDeleted];
       }
 
-      if (v37 && v4)
+      if (v36 && v4)
       {
         if ((v29 & 1) == 0)
         {
-          [v4 setNewParent:v37 andName:a1[9]];
+          [v4 setNewParent:v36 andName:a1[9]];
         }
       }
 
@@ -1391,9 +1462,9 @@ LABEL_43:
         [v7 handleEnumeratedItemChanged];
       }
 
-      if (v36)
+      if (v35)
       {
-        [v36 handleEnumeratedItemChanged];
+        [v35 handleEnumeratedItemChanged];
       }
 
       if (v8)
@@ -1420,7 +1491,6 @@ LABEL_38:
   }
 
 LABEL_68:
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatedItem:(id)item name:(id)name interestedItem:(id)interestedItem
@@ -1489,16 +1559,16 @@ void __67__LiveFSFPEnumeratorDataContainer_updatedItem_name_interestedItem___blo
 
 void __62__LiveFSFPEnumeratorDataContainer_updatedName_interestedItem___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = livefs_std_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 136315394;
-    v8 = "[LiveFSFPEnumeratorDataContainer updatedName:interestedItem:]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_255FE9000, v2, OS_LOG_TYPE_DEFAULT, "%s: starting for name %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[LiveFSFPEnumeratorDataContainer updatedName:interestedItem:]_block_invoke";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_255FE9000, v2, OS_LOG_TYPE_DEFAULT, "%s: starting for name %@", &v6, 0x16u);
   }
 
   v4 = [*(*(a1 + 40) + 8) itemAtPath:*(a1 + 32) parent:*(*(a1 + 40) + 56)];
@@ -1510,8 +1580,6 @@ void __62__LiveFSFPEnumeratorDataContainer_updatedName_interestedItem___block_in
 
   [*(a1 + 40) applyAddAcrossEnumerators:*(a1 + 32) newName:*(a1 + 32) forSelf:0];
   [*(a1 + 40) handleEnumeratedItemChanged];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)volumeWideDeletedName:(id)name interestedItem:(id)item
@@ -1560,20 +1628,18 @@ uint64_t __72__LiveFSFPEnumeratorDataContainer_volumeWideUpdatedName_interestedI
 
 - (void)initWithEnumeratedItem:(uint64_t)a1 fileHandle:(void *)a2 extension:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = [a2 path];
   v7 = [a2 itemIdentifier];
-  v11 = 134218754;
-  v12 = a1;
+  v10 = 134218754;
+  v11 = a1;
   OUTLINED_FUNCTION_6();
-  v13 = v6;
-  v14 = 2048;
-  v15 = a2;
-  v16 = v8;
-  v17 = v9;
-  _os_log_debug_impl(&dword_255FE9000, a3, OS_LOG_TYPE_DEBUG, "enumerator helper[%p]: Creating enumerator for %@[%p] id %@", &v11, 0x2Au);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = v6;
+  v13 = 2048;
+  v14 = a2;
+  v15 = v8;
+  v16 = v9;
+  _os_log_debug_impl(&dword_255FE9000, a3, OS_LOG_TYPE_DEBUG, "enumerator helper[%p]: Creating enumerator for %@[%p] id %@", &v10, 0x2Au);
 }
 
 - (void)dropInterestForEnumeratedItem:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -1583,25 +1649,16 @@ uint64_t __72__LiveFSFPEnumeratorDataContainer_volumeWideUpdatedName_interestedI
   _os_log_error_impl(&dword_255FE9000, log, OS_LOG_TYPE_ERROR, "Error clearing interest in updates on enumerator for %@", buf, 0xCu);
 }
 
-- (void)readDirBuffersForBufferBlock:andEntryBlock:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __78__LiveFSFPEnumeratorDataContainer_readDirBuffersForBufferBlock_andEntryBlock___block_invoke_2_cold_1(int a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "[LiveFSFPEnumeratorDataContainer readDirBuffersForBufferBlock:andEntryBlock:]_block_invoke_2";
-  v6 = 1024;
-  v7 = a1;
-  v8 = 2048;
-  v9 = a2;
-  _os_log_debug_impl(&dword_255FE9000, log, OS_LOG_TYPE_DEBUG, "%s: ReadDir got result %d, bytes %zd", &v4, 0x1Cu);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "[LiveFSFPEnumeratorDataContainer readDirBuffersForBufferBlock:andEntryBlock:]_block_invoke_2";
+  v5 = 1024;
+  v6 = a1;
+  v7 = 2048;
+  v8 = a2;
+  _os_log_debug_impl(&dword_255FE9000, log, OS_LOG_TYPE_DEBUG, "%s: ReadDir got result %d, bytes %zd", &v3, 0x1Cu);
 }
 
 - (void)ensureConnectedForUpdates
@@ -1611,27 +1668,11 @@ void __78__LiveFSFPEnumeratorDataContainer_readDirBuffersForBufferBlock_andEntry
   _os_log_debug_impl(&dword_255FE9000, log, OS_LOG_TYPE_DEBUG, "Got eexist for fh %@", buf, 0xCu);
 }
 
-void __62__LiveFSFPEnumeratorDataContainer_handleEnumeratedItemChanged__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_255FE9000, v0, v1, "Error posting update: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __98__LiveFSFPEnumeratorDataContainer_renamedItem_named_fromDirectory_intoDirectory_newName_atopItem___block_invoke_2_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_1(&dword_255FE9000, a1, a3, "%s: Lost race condition handling rename updates. Exiting.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __67__LiveFSFPEnumeratorDataContainer_updatedItem_name_interestedItem___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[LiveFSFPEnumeratorDataContainer renamedItem:named:fromDirectory:intoDirectory:newName:atopItem:]_block_invoke_2";
+  OUTLINED_FUNCTION_2_1(&dword_255FE9000, a1, a3, "%s: Lost race condition handling rename updates. Exiting.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

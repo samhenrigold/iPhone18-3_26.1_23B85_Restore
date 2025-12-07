@@ -207,7 +207,7 @@ void sub_10000275C(uint64_t a1)
   v2 = [*(a1 + 32) path];
   [v2 UTF8String];
 
-  +[FSUserFontManager auditToken];
+  objc_msgSend_auditToken(FSUserFontManager);
   v3 = sandbox_extension_issue_file_to_process();
   if (v3 && ([NSData dataWithBytesNoCopy:v3 length:strlen(v3) + 1 freeWhenDone:1], (v4 = objc_claimAutoreleasedReturnValue()) != 0))
   {

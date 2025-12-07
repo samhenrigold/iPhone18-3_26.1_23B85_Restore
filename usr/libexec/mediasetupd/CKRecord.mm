@@ -43,7 +43,7 @@
   infoCopy = info;
   userInfoCopy = userInfo;
   typeCopy = type;
-  v11 = sub_100030FE4();
+  v11 = sub_100030FE4(typeCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v38 = 138478339;
@@ -137,10 +137,10 @@ LABEL_13:
   v4 = [(CKRecord *)self recordFieldForKey:MediaServiceIdentifier];
   if (!v4)
   {
-    v5 = sub_100030FE4();
+    v5 = sub_100030FE4(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_100023924(v5, v35, v36, v37, v38, v39, v40, v41);
+      sub_100023924(v5, v36, v37, v38, v39, v40, v41, v42);
     }
 
     goto LABEL_23;
@@ -151,7 +151,7 @@ LABEL_13:
   {
     [(CKRecord *)self _attemptToLoadPublicInfoAgain];
     v5 = [MSDPublicDBManager getCachedPublicInfoForServiceID:v4];
-    v6 = sub_100030FE4();
+    v6 = sub_100030FE4(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1000237DC(v4, v6, v7, v8, v9, v10, v11, v12);
@@ -159,119 +159,120 @@ LABEL_13:
 
     if (!v5)
     {
-      v5 = sub_100030FE4();
+      v5 = sub_100030FE4(v13);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         sub_1000238E0(v5);
       }
 
 LABEL_23:
-      v16 = 0;
+      v17 = 0;
       goto LABEL_24;
     }
   }
 
   recordType = [(CKRecord *)self recordType];
-  v14 = [recordType isEqualToString:MSServiceAccountRecordType];
+  v15 = [recordType isEqualToString:MSServiceAccountRecordType];
 
-  if (!v14)
+  if (!v15)
   {
     recordType2 = [(CKRecord *)self recordType];
-    v43 = [recordType2 isEqualToString:MSDefaultServiceRecordType];
+    v44 = [recordType2 isEqualToString:MSDefaultServiceRecordType];
 
-    if (v43)
+    if (v44)
     {
-      v16 = [[MediaService alloc] initWithMediaServiceIdentifier:v4];
+      v17 = [[MediaService alloc] initWithMediaServiceIdentifier:v4];
       goto LABEL_24;
     }
 
-    v44 = sub_100030FE4();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v46 = sub_100030FE4(v45);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
-      sub_100023848(self, v44);
+      sub_100023848(self, v46);
     }
 
     goto LABEL_23;
   }
 
-  v15 = [(CKRecord *)self recordFieldForKey:v3];
-  v16 = [[MediaService alloc] initWithMediaServiceIdentifier:v15];
-  v17 = [(CKRecord *)self recordFieldForKey:MediaServiceUpdateListeningHistory];
-  [v16 setUpdateListeningHistoryEnabled:{objc_msgSend(v17, "BOOLValue")}];
+  v16 = [(CKRecord *)self recordFieldForKey:v3];
+  v17 = [[MediaService alloc] initWithMediaServiceIdentifier:v16];
+  v18 = [(CKRecord *)self recordFieldForKey:MediaServiceUpdateListeningHistory];
+  [v17 setUpdateListeningHistoryEnabled:{objc_msgSend(v18, "BOOLValue")}];
 
-  v18 = [(CKRecord *)self recordFieldForKey:MediaServiceAccountName];
-  [v16 setAccountName:v18];
+  v19 = [(CKRecord *)self recordFieldForKey:MediaServiceAccountName];
+  [v17 setAccountName:v19];
 
-  v19 = [(CKRecord *)self recordFieldForKey:MediaServiceConfigurationURL];
-  v20 = [NSURL URLWithString:v19];
-  [v16 setConfigURL:v20];
+  v20 = [(CKRecord *)self recordFieldForKey:MediaServiceConfigurationURL];
+  v21 = [NSURL URLWithString:v20];
+  [v17 setConfigURL:v21];
 
-  v21 = [(CKRecord *)self recordFieldForKey:MediaServiceAuthFatalError];
-  [v16 setAuthFatalError:{objc_msgSend(v21, "BOOLValue")}];
+  v22 = [(CKRecord *)self recordFieldForKey:MediaServiceAuthFatalError];
+  [v17 setAuthFatalError:{objc_msgSend(v22, "BOOLValue")}];
 
-  v22 = [(CKRecord *)self recordFieldForKey:MediaServiceAuthConfiguration];
-  v23 = [(CKRecord *)self recordFieldForKey:MediaServiceAuthCredential];
-  if (v22)
+  v23 = [(CKRecord *)self recordFieldForKey:MediaServiceAuthConfiguration];
+  v24 = [(CKRecord *)self recordFieldForKey:MediaServiceAuthCredential];
+  if (v23)
   {
-    v24 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:v22 error:0];
-    [v16 setAuthConfiguration:v24];
+    v25 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:v23 error:0];
+    [v17 setAuthConfiguration:v25];
 
-    authConfiguration = [v16 authConfiguration];
+    authConfiguration = [v17 authConfiguration];
 
     if (!authConfiguration)
     {
-      v26 = [CMSAuthenticationConfiguration authConfigurationFromMSAuthData:v22];
-      [v16 setAuthConfiguration:v26];
+      v27 = [CMSAuthenticationConfiguration authConfigurationFromMSAuthData:v23];
+      [v17 setAuthConfiguration:v27];
     }
   }
 
-  if (v23)
+  if (v24)
   {
-    v27 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:v23 error:0];
-    [v16 setAuthCredential:v27];
+    v28 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:v24 error:0];
+    [v17 setAuthCredential:v28];
 
-    authCredential = [v16 authCredential];
+    authCredential = [v17 authCredential];
 
     if (!authCredential)
     {
-      v29 = [CMSAuthenticationCredential authCredentialFromMSAuthData:v23];
-      [v16 setAuthCredential:v29];
+      v30 = [CMSAuthenticationCredential authCredentialFromMSAuthData:v24];
+      [v17 setAuthCredential:v30];
     }
   }
 
-  v30 = [MSDTransactionTask createTransactionWithIdentifier:@"com.apple.mediasetupd.imageCaching"];
-  v31 = [MSDArtworkManager alloc];
+  v31 = [MSDTransactionTask createTransactionWithIdentifier:@"com.apple.mediasetupd.imageCaching"];
+  v32 = [MSDArtworkManager alloc];
   serviceIconPath = [v5 serviceIconPath];
-  v33 = [(MSDArtworkManager *)v31 initWithServiceID:v15 remoteImageURL:serviceIconPath];
+  v34 = [(MSDArtworkManager *)v32 initWithServiceID:v16 remoteImageURL:serviceIconPath];
 
-  getLocalCachedImageURL = [(MSDArtworkManager *)v33 getLocalCachedImageURL];
-  [v16 setIconImageURL:getLocalCachedImageURL];
+  getLocalCachedImageURL = [(MSDArtworkManager *)v34 getLocalCachedImageURL];
+  [v17 setIconImageURL:getLocalCachedImageURL];
 
-  [v30 releaseTransaction];
+  [v31 releaseTransaction];
 LABEL_24:
 
-  return v16;
+  return v17;
 }
 
 - (void)_attemptToLoadPublicInfoAgain
 {
   v2 = dispatch_semaphore_create(0);
   v3 = +[MSDPublicDBManager shared];
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_100023770;
-  v14[3] = &unk_1000514E0;
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_100023770;
+  v15[3] = &unk_1000514E0;
   v4 = v2;
-  v15 = v4;
-  [v3 syncDataWithCloudKit:v14];
+  v16 = v4;
+  [v3 syncDataWithCloudKit:v15];
 
   v5 = dispatch_time(0, 1000000000 * MSMaxWaitInSecondsForFetchDataFromCloudKit);
-  if (dispatch_semaphore_wait(v4, v5))
+  v6 = dispatch_semaphore_wait(v4, v5);
+  if (v6)
   {
-    v6 = sub_100030FE4();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100030FE4(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_10002399C(v6, v7, v8, v9, v10, v11, v12, v13);
+      sub_10002399C(v7, v8, v9, v10, v11, v12, v13, v14);
     }
   }
 }

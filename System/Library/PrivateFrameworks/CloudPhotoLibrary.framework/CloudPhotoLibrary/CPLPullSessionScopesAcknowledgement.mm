@@ -17,11 +17,11 @@
 
 - (BOOL)applyToStore:(id)store error:(id *)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   storeCopy = store;
-  v13.receiver = self;
-  v13.super_class = CPLPullSessionScopesAcknowledgement;
-  if ([(CPLChangeSessionUpdate *)&v13 applyToStore:storeCopy error:error])
+  v12.receiver = self;
+  v12.super_class = CPLPullSessionScopesAcknowledgement;
+  if ([(CPLChangeSessionUpdate *)&v12 applyToStore:storeCopy error:error])
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
@@ -30,7 +30,7 @@
       {
         scopesChangeBatch = self->_scopesChangeBatch;
         *buf = 138412290;
-        v15 = scopesChangeBatch;
+        v14 = scopesChangeBatch;
         _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "Client acknowledged scope changes %@", buf, 0xCu);
       }
     }
@@ -44,7 +44,6 @@
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

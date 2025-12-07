@@ -22,6 +22,8 @@
 - (void)setInsetsIfNeeded;
 - (void)setupLaterButtonPressed:(id)pressed;
 - (void)suggestedChoiceButtonPressed:(id)pressed;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)viewSafeAreaInsetsDidChange;
 @end
@@ -51,12 +53,10 @@
 
 - (void)registerForTraitChanges
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v4 = [(HKRPOnboardingSettingsViewController *)self registerForTraitChanges:v3 withHandler:&__block_literal_global];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewSafeAreaInsetsDidChange
@@ -78,6 +78,22 @@
   }
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = HKRPOnboardingSettingsViewController;
+  [(HKRPOnboardingSettingsViewController *)&v4 viewDidAppear:appear];
+  [(HKRPOnboardingSettingsViewController *)self setIsVisible:1];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = HKRPOnboardingSettingsViewController;
+  [(HKRPOnboardingSettingsViewController *)&v4 viewDidDisappear:disappear];
+  [(HKRPOnboardingSettingsViewController *)self setIsVisible:0];
+}
+
 - (void)viewDidLoad
 {
   v3.receiver = self;
@@ -88,35 +104,35 @@
 
 - (void)createUI
 {
-  v103 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   [(HKRPOnboardingSettingsViewController *)self setInsetsIfNeeded];
-  v100 = 0u;
-  v101 = 0u;
-  v98 = 0u;
   v99 = 0u;
+  v100 = 0u;
+  v97 = 0u;
+  v98 = 0u;
   view = [(HKRPOnboardingSettingsViewController *)self view];
   subviews = [view subviews];
 
-  v5 = [subviews countByEnumeratingWithState:&v98 objects:v102 count:16];
+  v5 = [subviews countByEnumeratingWithState:&v97 objects:v101 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v99;
+    v7 = *v98;
     do
     {
       v8 = 0;
       do
       {
-        if (*v99 != v7)
+        if (*v98 != v7)
         {
           objc_enumerationMutation(subviews);
         }
 
-        [*(*(&v98 + 1) + 8 * v8++) removeFromSuperview];
+        [*(*(&v97 + 1) + 8 * v8++) removeFromSuperview];
       }
 
       while (v6 != v8);
-      v6 = [subviews countByEnumeratingWithState:&v98 objects:v102 count:16];
+      v6 = [subviews countByEnumeratingWithState:&v97 objects:v101 count:16];
     }
 
     while (v6);
@@ -318,8 +334,6 @@
   view6 = [(HKRPOnboardingSettingsViewController *)self view];
   footerView3 = [(HKRPOnboardingSettingsViewController *)self footerView];
   [view6 addSubview:footerView3];
-
-  v97 = *MEMORY[0x277D85DE8];
 }
 
 - (void)layoutUI
@@ -659,17 +673,16 @@ void __79__HKRPOnboardingSettingsViewController__installWatchAppIfNeededWithComp
     block[2] = __79__HKRPOnboardingSettingsViewController__installWatchAppIfNeededWithCompletion___block_invoke_2;
     block[3] = &unk_279B0F1D0;
     block[4] = *(a1 + 32);
-    v7 = *(a1 + 48);
-    v6 = *(a1 + 40);
+    v6 = *(a1 + 48);
+    v5 = *(a1 + 40);
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
   else
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    v4();
+    v3();
   }
 }
 

@@ -149,30 +149,28 @@ uint64_t SNATMAP_GetNonceValue(uint64_t a1, unint64_t a2, _DWORD *a3)
 
 void ProcessSNATMAPResponse_cold_1(uint64_t a1, int a2, os_log_t log)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = 136316162;
-  v5 = a1;
-  v6 = 2080;
-  v7 = "ProcessSNATMAPResponse";
-  v8 = 1024;
-  v9 = 100;
-  v10 = 1024;
-  v11 = 100;
-  v12 = 1024;
-  v13 = a2;
-  _os_log_error_impl(&dword_23D5E6000, log, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/SNATMAP.subproj/Sources/snatmap.c:%d: incorrect SNATMAP message type(%d)", &v4, 0x28u);
-  v3 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v3 = 136316162;
+  v4 = a1;
+  v5 = 2080;
+  v6 = "ProcessSNATMAPResponse";
+  v7 = 1024;
+  v8 = 100;
+  v9 = 1024;
+  v10 = 100;
+  v11 = 1024;
+  v12 = a2;
+  _os_log_error_impl(&dword_23D5E6000, log, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/SNATMAP.subproj/Sources/snatmap.c:%d: incorrect SNATMAP message type(%d)", &v3, 0x28u);
 }
 
 void GetSNATMAPServer_cold_1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
-  v4 = a1;
-  v5 = 2080;
-  v6 = "GetSNATMAPServer";
-  v7 = 1024;
-  v8 = 142;
-  _os_log_error_impl(&dword_23D5E6000, a2, OS_LOG_TYPE_ERROR, " [%s] %s:%d We don't have a snatmap server...", &v3, 0x1Cu);
-  v2 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = 136315650;
+  v3 = a1;
+  v4 = 2080;
+  v5 = "GetSNATMAPServer";
+  v6 = 1024;
+  v7 = 142;
+  _os_log_error_impl(&dword_23D5E6000, a2, OS_LOG_TYPE_ERROR, " [%s] %s:%d We don't have a snatmap server...", &v2, 0x1Cu);
 }

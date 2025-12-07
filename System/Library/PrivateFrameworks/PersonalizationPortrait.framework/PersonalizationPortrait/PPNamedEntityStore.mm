@@ -186,13 +186,12 @@
 
 void __34__PPNamedEntityStore_defaultStore__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = defaultStore__pasExprOnceResult_9706;
-  defaultStore__pasExprOnceResult_9706 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = defaultStore__pasExprOnceResult_9706;
+  defaultStore__pasExprOnceResult_9706 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 @end

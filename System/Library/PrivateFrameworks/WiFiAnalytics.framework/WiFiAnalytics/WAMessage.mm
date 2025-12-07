@@ -34,7 +34,7 @@
 
 - (void)addFieldForKey:(id)key value:(id)value options:(int64_t)options
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   valueCopy = value;
   v10 = +[WAUtil isInternalInstall];
@@ -50,12 +50,12 @@
         if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412802;
-          v21 = keyCopy;
-          v22 = 2112;
-          v23 = objc_opt_class();
-          v24 = 2112;
-          v25 = valueCopy;
-          v17 = v23;
+          v20 = keyCopy;
+          v21 = 2112;
+          v22 = objc_opt_class();
+          v23 = 2112;
+          v24 = valueCopy;
+          v16 = v22;
           _os_log_fault_impl(&dword_1C8460000, v11, OS_LOG_TYPE_FAULT, "CODE FIX NEEDED! Field cannot be sent to CoreAnalytics, removing CA option from field %@ (%@): %@", buf, 0x20u);
         }
 
@@ -70,8 +70,8 @@
   }
 
   v12 = [MEMORY[0x1E696AD98] numberWithInteger:{options, @"value", @"options", valueCopy}];
-  v19[1] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:2];
+  v18[1] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:2];
 
   metricInfo = [(WAMessage *)self metricInfo];
 
@@ -80,13 +80,11 @@
     metricInfo2 = [(WAMessage *)self metricInfo];
     [metricInfo2 setObject:v13 forKey:keyCopy];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addFieldsForChannelFlagLikeKey:(id)key value:(id)value options:(int64_t)options
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   valueCopy = value;
   metricInfo = [(WAMessage *)self metricInfo];
@@ -140,12 +138,12 @@ LABEL_10:
           v19 = @"20";
 LABEL_18:
           metricInfo2 = [(WAMessage *)self metricInfo];
-          v25[0] = @"value";
-          v25[1] = @"options";
-          v26[0] = v19;
+          v24[0] = @"value";
+          v24[1] = @"options";
+          v25[0] = v19;
           v21 = [MEMORY[0x1E696AD98] numberWithInteger:options];
-          v26[1] = v21;
-          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
+          v25[1] = v21;
+          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
           v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", v11, @"BW"];
           [metricInfo2 setObject:v22 forKey:v23];
         }
@@ -159,12 +157,12 @@ LABEL_19:
     }
 
     metricInfo3 = [(WAMessage *)self metricInfo];
-    v27[0] = @"value";
-    v27[1] = @"options";
-    v28[0] = v14;
+    v26[0] = @"value";
+    v26[1] = @"options";
+    v27[0] = v14;
     v16 = [MEMORY[0x1E696AD98] numberWithInteger:options];
-    v28[1] = v16;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
+    v27[1] = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
     v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", v11, @"Band"];
     [metricInfo3 setObject:v17 forKey:v18];
 
@@ -172,45 +170,41 @@ LABEL_19:
   }
 
 LABEL_20:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addFieldsFromDictionary:(id)dictionary options:(int64_t)options
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   allKeys = [dictionaryCopy allKeys];
-  v8 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
+        v12 = *(*(&v14 + 1) + 8 * i);
         v13 = [dictionaryCopy objectForKeyedSubscript:v12];
         [(WAMessage *)self addFieldForKey:v12 value:v13 options:options];
       }
 
-      v9 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

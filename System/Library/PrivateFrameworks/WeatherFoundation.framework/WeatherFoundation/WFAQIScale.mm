@@ -148,15 +148,15 @@
   return v5;
 }
 
-uint64_t __28__WFAQIScale_initWithCoder___block_invoke()
+uint64_t __28__WFAQIScale_initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = [v0 setWithObjects:{v1, objc_opt_class(), 0}];
-  v3 = initWithCoder__categoryClasses;
-  initWithCoder__categoryClasses = v2;
+  v2 = MEMORY[0x277CBEB98];
+  v3 = objc_opt_class();
+  v4 = [v2 setWithObjects:{v3, objc_opt_class(), 0}];
+  v5 = initWithCoder__categoryClasses;
+  initWithCoder__categoryClasses = v4;
 
-  return MEMORY[0x2821F96F8](v2, v3);
+  return MEMORY[0x2821F96F8](v4, v5);
 }
 
 - (id)description

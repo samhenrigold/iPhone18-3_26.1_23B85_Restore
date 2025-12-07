@@ -48,19 +48,19 @@
 
 - (MTSleepCoordinator)initWithAlarmStorage:(id)storage currentDateProvider:(id)provider
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
   providerCopy = provider;
-  v25.receiver = self;
-  v25.super_class = MTSleepCoordinator;
-  v9 = [(MTSleepCoordinator *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = MTSleepCoordinator;
+  v9 = [(MTSleepCoordinator *)&v24 init];
   if (v9)
   {
     v10 = MTLogForCategory(7);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v27 = v9;
+      v26 = v9;
       _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "Initializing %{public}@", buf, 0xCu);
     }
 
@@ -91,7 +91,6 @@
     v9->_stateMachine = v21;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -178,7 +177,7 @@ void __34__MTSleepCoordinator_isUserAsleep__block_invoke_2(uint64_t a1)
 
 - (void)stateMachineUserWentToBed:(id)bed
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(7);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -196,13 +195,12 @@ void __34__MTSleepCoordinator_isUserAsleep__block_invoke_2(uint64_t a1)
   }
 
   observers = self->_observers;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __48__MTSleepCoordinator_stateMachineUserWentToBed___block_invoke;
-  v8[3] = &unk_1E7B0E188;
-  v8[4] = self;
-  [(MTObserverStore *)observers enumerateObserversWithBlock:v8];
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __48__MTSleepCoordinator_stateMachineUserWentToBed___block_invoke;
+  v7[3] = &unk_1E7B0E188;
+  v7[4] = self;
+  [(MTObserverStore *)observers enumerateObserversWithBlock:v7];
 }
 
 void __48__MTSleepCoordinator_stateMachineUserWentToBed___block_invoke(uint64_t a1, void *a2)
@@ -218,7 +216,7 @@ void __48__MTSleepCoordinator_stateMachineUserWentToBed___block_invoke(uint64_t 
 
 - (void)stateMachineUserWokeUp:(id)up
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(7);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -236,13 +234,12 @@ void __48__MTSleepCoordinator_stateMachineUserWentToBed___block_invoke(uint64_t 
   }
 
   observers = self->_observers;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __45__MTSleepCoordinator_stateMachineUserWokeUp___block_invoke;
-  v8[3] = &unk_1E7B0E188;
-  v8[4] = self;
-  [(MTObserverStore *)observers enumerateObserversWithBlock:v8];
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __45__MTSleepCoordinator_stateMachineUserWokeUp___block_invoke;
+  v7[3] = &unk_1E7B0E188;
+  v7[4] = self;
+  [(MTObserverStore *)observers enumerateObserversWithBlock:v7];
 }
 
 void __45__MTSleepCoordinator_stateMachineUserWokeUp___block_invoke(uint64_t a1, void *a2)
@@ -258,81 +255,74 @@ void __45__MTSleepCoordinator_stateMachineUserWokeUp___block_invoke(uint64_t a1,
 
 - (void)stateMachine:(id)machine dismissWakeUpAlarm:(id)alarm dismissAction:(unint64_t)action
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   v8 = MTLogForCategory(7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = MTDismissAlarmActionDescription(action);
-    v14 = 138543618;
+    v13 = 138543618;
     selfCopy = self;
-    v16 = 2114;
-    v17 = v9;
-    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ dismissWakeUpAlarm (%{public}@)", &v14, 0x16u);
+    v15 = 2114;
+    v16 = v9;
+    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ dismissWakeUpAlarm (%{public}@)", &v13, 0x16u);
   }
 
   alarmStorage = [(MTSleepCoordinator *)self alarmStorage];
   sleepAlarm = [(MTAlarmStorage *)self->_alarmStorage sleepAlarm];
   alarmIDString = [sleepAlarm alarmIDString];
   [alarmStorage dismissAlarmWithIdentifier:alarmIDString dismissDate:alarmCopy dismissAction:action withCompletion:0 source:self];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stateMachine:(id)machine shouldScheduleAlarmTimeoutForSecondsFromNow:(double)now
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v6 = MTLogForCategory(7);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ shouldScheduleAlarmTimeoutForSecondsFromNow", &v8, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ shouldScheduleAlarmTimeoutForSecondsFromNow", &v7, 0xCu);
   }
 
   [(MTXPCScheduler *)self->_alarmTimeoutScheduler scheduleTimerForSeconds:now];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(id)source didAddAlarms:(id)alarms
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = [alarms na_firstObjectPassingTest:&__block_literal_global_20];
   if (v5)
   {
     v6 = MTLogForCategory(7);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543362;
+      v7 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ telling observers about added sleep alarm", &v8, 0xCu);
+      _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ telling observers about added sleep alarm", &v7, 0xCu);
     }
 
     [(MTSleepCoordinator *)self notifyObserversForSleepAlarmChange:v5];
     [(MTSleepCoordinator *)self updateSleepStateWithSleepAlarm:v5];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(id)source didRemoveAlarms:(id)alarms
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if ([alarms na_any:&__block_literal_global_22])
   {
     v5 = MTLogForCategory(7);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543362;
+      v6 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ telling observers about removed sleep alarm", &v7, 0xCu);
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ telling observers about removed sleep alarm", &v6, 0xCu);
     }
 
     [(MTSleepCoordinator *)self notifyObserversForSleepAlarmChange:0];
     [(MTSleepCoordinator *)self updateSleepStateWithSleepAlarm:0];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(id)source didUpdateAlarms:(id)alarms
@@ -403,7 +393,7 @@ void __58__MTSleepCoordinator__notifyObserversForSleepAlarmChange___block_invoke
 
 void __68__MTSleepCoordinator_notifyObserversForSleepAlarmChangeIfNecessary___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 40);
   v3 = *(*(a1 + 40) + 16);
   if (*(a1 + 32))
@@ -421,13 +411,13 @@ LABEL_8:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *v2;
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ telling observers about modified sleep alarm", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ telling observers about modified sleep alarm", &v11, 0xCu);
     }
 
     [*(a1 + 40) _notifyObserversForSleepAlarmChange:*(a1 + 32)];
-    goto LABEL_14;
+    return;
   }
 
   v4 = [MTChangeSet changeSetWithChangesFromObject:"changeSetWithChangesFromObject:toObject:" toObject:?];
@@ -450,9 +440,6 @@ LABEL_8:
   {
     __68__MTSleepCoordinator_notifyObserversForSleepAlarmChangeIfNecessary___block_invoke_cold_2(v2, v10);
   }
-
-LABEL_14:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(id)source didFireAlarm:(id)alarm triggerType:(unint64_t)type
@@ -521,7 +508,7 @@ LABEL_7:
 
 - (void)source:(id)source didDismissAlarm:(id)alarm dismissAction:(unint64_t)action
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   if ([alarmCopy isSleepAlarm])
   {
@@ -529,11 +516,11 @@ LABEL_7:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = MTDismissAlarmActionDescription(action);
-      v12 = 138543618;
+      v11 = 138543618;
       selfCopy = self;
-      v14 = 2114;
-      v15 = v9;
-      _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ sleep alarm dismissed: (%{public}@)", &v12, 0x16u);
+      v13 = 2114;
+      v14 = v9;
+      _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ sleep alarm dismissed: (%{public}@)", &v11, 0x16u);
     }
 
     if (action == 2)
@@ -554,8 +541,6 @@ LABEL_8:
   }
 
 LABEL_9:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sleepSessionTracker:(id)tracker sessionDidComplete:(id)complete
@@ -577,7 +562,7 @@ LABEL_9:
 
 - (void)handleBedtimeReminderForAlarm:(id)alarm date:(id)date
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   dateCopy = date;
   [(MTSleepCoordinator *)self updateSleepStateWithSleepAlarm:alarmCopy];
@@ -586,24 +571,22 @@ LABEL_9:
   {
     *buf = 138543618;
     selfCopy = self;
-    v18 = 2114;
-    v19 = dateCopy;
+    v17 = 2114;
+    v18 = dateCopy;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ telling observers bedtime reminder fired at %{public}@", buf, 0x16u);
   }
 
   observers = self->_observers;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __57__MTSleepCoordinator_handleBedtimeReminderForAlarm_date___block_invoke;
-  v13[3] = &unk_1E7B0E1D8;
-  v13[4] = self;
-  v14 = dateCopy;
-  v15 = alarmCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __57__MTSleepCoordinator_handleBedtimeReminderForAlarm_date___block_invoke;
+  v12[3] = &unk_1E7B0E1D8;
+  v12[4] = self;
+  v13 = dateCopy;
+  v14 = alarmCopy;
   v10 = alarmCopy;
   v11 = dateCopy;
-  [(MTObserverStore *)observers enumerateObserversWithBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(MTObserverStore *)observers enumerateObserversWithBlock:v12];
 }
 
 void __57__MTSleepCoordinator_handleBedtimeReminderForAlarm_date___block_invoke(void *a1, void *a2)
@@ -617,39 +600,37 @@ void __57__MTSleepCoordinator_handleBedtimeReminderForAlarm_date___block_invoke(
 
 - (void)handleConfirmationOfGoToBedNotificationForAlarm:(id)alarm date:(id)date
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   dateCopy = date;
   serializer = self->_serializer;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __75__MTSleepCoordinator_handleConfirmationOfGoToBedNotificationForAlarm_date___block_invoke;
-  v17[3] = &unk_1E7B0C9D8;
-  v17[4] = self;
-  [(NAScheduler *)serializer performBlock:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __75__MTSleepCoordinator_handleConfirmationOfGoToBedNotificationForAlarm_date___block_invoke;
+  v16[3] = &unk_1E7B0C9D8;
+  v16[4] = self;
+  [(NAScheduler *)serializer performBlock:v16];
   v9 = MTLogForCategory(7);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v20 = 2114;
-    v21 = dateCopy;
+    v19 = 2114;
+    v20 = dateCopy;
     _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ telling observers bedtime reminder was confirmed at %{public}@", buf, 0x16u);
   }
 
   observers = self->_observers;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __75__MTSleepCoordinator_handleConfirmationOfGoToBedNotificationForAlarm_date___block_invoke_31;
-  v14[3] = &unk_1E7B0E1D8;
-  v14[4] = self;
-  v15 = dateCopy;
-  v16 = alarmCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __75__MTSleepCoordinator_handleConfirmationOfGoToBedNotificationForAlarm_date___block_invoke_31;
+  v13[3] = &unk_1E7B0E1D8;
+  v13[4] = self;
+  v14 = dateCopy;
+  v15 = alarmCopy;
   v11 = alarmCopy;
   v12 = dateCopy;
-  [(MTObserverStore *)observers enumerateObserversWithBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(MTObserverStore *)observers enumerateObserversWithBlock:v13];
 }
 
 void __75__MTSleepCoordinator_handleConfirmationOfGoToBedNotificationForAlarm_date___block_invoke(uint64_t a1)
@@ -669,7 +650,7 @@ void __75__MTSleepCoordinator_handleConfirmationOfGoToBedNotificationForAlarm_da
 
 - (void)handleSnoozeOfGoToBedNotificationForAlarm:(id)alarm date:(id)date
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   dateCopy = date;
   [(MTSleepCoordinator *)self updateSleepStateWithSleepAlarm:alarmCopy];
@@ -678,24 +659,22 @@ void __75__MTSleepCoordinator_handleConfirmationOfGoToBedNotificationForAlarm_da
   {
     *buf = 138543618;
     selfCopy = self;
-    v18 = 2114;
-    v19 = dateCopy;
+    v17 = 2114;
+    v18 = dateCopy;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ telling observers bedtime reminder was snoozed until %{public}@", buf, 0x16u);
   }
 
   observers = self->_observers;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __69__MTSleepCoordinator_handleSnoozeOfGoToBedNotificationForAlarm_date___block_invoke;
-  v13[3] = &unk_1E7B0E1D8;
-  v13[4] = self;
-  v14 = dateCopy;
-  v15 = alarmCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __69__MTSleepCoordinator_handleSnoozeOfGoToBedNotificationForAlarm_date___block_invoke;
+  v12[3] = &unk_1E7B0E1D8;
+  v12[4] = self;
+  v13 = dateCopy;
+  v14 = alarmCopy;
   v10 = alarmCopy;
   v11 = dateCopy;
-  [(MTObserverStore *)observers enumerateObserversWithBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(MTObserverStore *)observers enumerateObserversWithBlock:v12];
 }
 
 void __69__MTSleepCoordinator_handleSnoozeOfGoToBedNotificationForAlarm_date___block_invoke(void *a1, void *a2)
@@ -709,41 +688,39 @@ void __69__MTSleepCoordinator_handleSnoozeOfGoToBedNotificationForAlarm_date___b
 
 - (void)handleBedtimeForAlarm:(id)alarm date:(id)date
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   dateCopy = date;
   serializer = self->_serializer;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __49__MTSleepCoordinator_handleBedtimeForAlarm_date___block_invoke;
-  v18[3] = &unk_1E7B0C928;
-  v18[4] = self;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __49__MTSleepCoordinator_handleBedtimeForAlarm_date___block_invoke;
+  v17[3] = &unk_1E7B0C928;
+  v17[4] = self;
   v9 = dateCopy;
-  v19 = v9;
-  [(NAScheduler *)serializer performBlock:v18];
+  v18 = v9;
+  [(NAScheduler *)serializer performBlock:v17];
   v10 = MTLogForCategory(7);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v22 = 2114;
-    v23 = v9;
+    v21 = 2114;
+    v22 = v9;
     _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ telling observers bedtime was reached at %{public}@", buf, 0x16u);
   }
 
   observers = self->_observers;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __49__MTSleepCoordinator_handleBedtimeForAlarm_date___block_invoke_36;
-  v15[3] = &unk_1E7B0E1D8;
-  v15[4] = self;
-  v16 = v9;
-  v17 = alarmCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __49__MTSleepCoordinator_handleBedtimeForAlarm_date___block_invoke_36;
+  v14[3] = &unk_1E7B0E1D8;
+  v14[4] = self;
+  v15 = v9;
+  v16 = alarmCopy;
   v12 = alarmCopy;
   v13 = v9;
-  [(MTObserverStore *)observers enumerateObserversWithBlock:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(MTObserverStore *)observers enumerateObserversWithBlock:v14];
 }
 
 void __49__MTSleepCoordinator_handleBedtimeForAlarm_date___block_invoke(uint64_t a1)
@@ -763,41 +740,39 @@ void __49__MTSleepCoordinator_handleBedtimeForAlarm_date___block_invoke_36(void 
 
 - (void)handleWakeUpTimeForAlarm:(id)alarm date:(id)date
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   dateCopy = date;
   serializer = self->_serializer;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __52__MTSleepCoordinator_handleWakeUpTimeForAlarm_date___block_invoke;
-  v18[3] = &unk_1E7B0C928;
-  v18[4] = self;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __52__MTSleepCoordinator_handleWakeUpTimeForAlarm_date___block_invoke;
+  v17[3] = &unk_1E7B0C928;
+  v17[4] = self;
   v9 = dateCopy;
-  v19 = v9;
-  [(NAScheduler *)serializer performBlock:v18];
+  v18 = v9;
+  [(NAScheduler *)serializer performBlock:v17];
   v10 = MTLogForCategory(7);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v22 = 2114;
-    v23 = v9;
+    v21 = 2114;
+    v22 = v9;
     _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ telling observers waketime time was reached at %{public}@", buf, 0x16u);
   }
 
   observers = self->_observers;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __52__MTSleepCoordinator_handleWakeUpTimeForAlarm_date___block_invoke_39;
-  v15[3] = &unk_1E7B0E1D8;
-  v15[4] = self;
-  v16 = v9;
-  v17 = alarmCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __52__MTSleepCoordinator_handleWakeUpTimeForAlarm_date___block_invoke_39;
+  v14[3] = &unk_1E7B0E1D8;
+  v14[4] = self;
+  v15 = v9;
+  v16 = alarmCopy;
   v12 = alarmCopy;
   v13 = v9;
-  [(MTObserverStore *)observers enumerateObserversWithBlock:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(MTObserverStore *)observers enumerateObserversWithBlock:v14];
 }
 
 void __52__MTSleepCoordinator_handleWakeUpTimeForAlarm_date___block_invoke(uint64_t a1)
@@ -817,39 +792,37 @@ void __52__MTSleepCoordinator_handleWakeUpTimeForAlarm_date___block_invoke_39(vo
 
 - (void)handleWakeUpAlarmForAlarm:(id)alarm date:(id)date
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   dateCopy = date;
   serializer = self->_serializer;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __53__MTSleepCoordinator_handleWakeUpAlarmForAlarm_date___block_invoke;
-  v17[3] = &unk_1E7B0C9D8;
-  v17[4] = self;
-  [(NAScheduler *)serializer performBlock:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __53__MTSleepCoordinator_handleWakeUpAlarmForAlarm_date___block_invoke;
+  v16[3] = &unk_1E7B0C9D8;
+  v16[4] = self;
+  [(NAScheduler *)serializer performBlock:v16];
   v9 = MTLogForCategory(7);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v20 = 2114;
-    v21 = dateCopy;
+    v19 = 2114;
+    v20 = dateCopy;
     _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ telling observers wake up alarm fired at %{public}@", buf, 0x16u);
   }
 
   observers = self->_observers;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __53__MTSleepCoordinator_handleWakeUpAlarmForAlarm_date___block_invoke_42;
-  v14[3] = &unk_1E7B0E1D8;
-  v14[4] = self;
-  v15 = dateCopy;
-  v16 = alarmCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __53__MTSleepCoordinator_handleWakeUpAlarmForAlarm_date___block_invoke_42;
+  v13[3] = &unk_1E7B0E1D8;
+  v13[4] = self;
+  v14 = dateCopy;
+  v15 = alarmCopy;
   v11 = alarmCopy;
   v12 = dateCopy;
-  [(MTObserverStore *)observers enumerateObserversWithBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(MTObserverStore *)observers enumerateObserversWithBlock:v13];
 }
 
 void __53__MTSleepCoordinator_handleWakeUpAlarmForAlarm_date___block_invoke(uint64_t a1)
@@ -869,7 +842,7 @@ void __53__MTSleepCoordinator_handleWakeUpAlarmForAlarm_date___block_invoke_42(v
 
 - (void)handleSnoozeForAlarm:(id)alarm date:(id)date
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   dateCopy = date;
   [(MTXPCScheduler *)self->_alarmTimeoutScheduler unscheduleTimer];
@@ -879,24 +852,22 @@ void __53__MTSleepCoordinator_handleWakeUpAlarmForAlarm_date___block_invoke_42(v
   {
     *buf = 138543618;
     selfCopy = self;
-    v18 = 2114;
-    v19 = dateCopy;
+    v17 = 2114;
+    v18 = dateCopy;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ telling observers wake up alarm was snoozed until %{public}@", buf, 0x16u);
   }
 
   observers = self->_observers;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __48__MTSleepCoordinator_handleSnoozeForAlarm_date___block_invoke;
-  v13[3] = &unk_1E7B0E1D8;
-  v13[4] = self;
-  v14 = dateCopy;
-  v15 = alarmCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __48__MTSleepCoordinator_handleSnoozeForAlarm_date___block_invoke;
+  v12[3] = &unk_1E7B0E1D8;
+  v12[4] = self;
+  v13 = dateCopy;
+  v14 = alarmCopy;
   v10 = alarmCopy;
   v11 = dateCopy;
-  [(MTObserverStore *)observers enumerateObserversWithBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(MTObserverStore *)observers enumerateObserversWithBlock:v12];
 }
 
 void __48__MTSleepCoordinator_handleSnoozeForAlarm_date___block_invoke(void *a1, void *a2)
@@ -910,44 +881,42 @@ void __48__MTSleepCoordinator_handleSnoozeForAlarm_date___block_invoke(void *a1,
 
 - (void)handleDismissForAlarm:(id)alarm dismissAction:(unint64_t)action date:(id)date
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   dateCopy = date;
   [(MTXPCScheduler *)self->_alarmTimeoutScheduler unscheduleTimer];
   serializer = self->_serializer;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __63__MTSleepCoordinator_handleDismissForAlarm_dismissAction_date___block_invoke;
-  v21[3] = &unk_1E7B0C9D8;
-  v21[4] = self;
-  [(NAScheduler *)serializer performBlock:v21];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __63__MTSleepCoordinator_handleDismissForAlarm_dismissAction_date___block_invoke;
+  v20[3] = &unk_1E7B0C9D8;
+  v20[4] = self;
+  [(NAScheduler *)serializer performBlock:v20];
   v11 = MTLogForCategory(7);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = MTDismissAlarmActionDescription(action);
     *buf = 138543874;
     selfCopy = self;
-    v24 = 2114;
-    v25 = dateCopy;
-    v26 = 2114;
-    v27 = v12;
+    v23 = 2114;
+    v24 = dateCopy;
+    v25 = 2114;
+    v26 = v12;
     _os_log_impl(&dword_1B1F9F000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ telling observers wake up alarm was dismissed at %{public}@ (%{public}@)", buf, 0x20u);
   }
 
   observers = self->_observers;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __63__MTSleepCoordinator_handleDismissForAlarm_dismissAction_date___block_invoke_47;
-  v17[3] = &unk_1E7B0E200;
-  v17[4] = self;
-  v18 = dateCopy;
-  v19 = alarmCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __63__MTSleepCoordinator_handleDismissForAlarm_dismissAction_date___block_invoke_47;
+  v16[3] = &unk_1E7B0E200;
+  v16[4] = self;
+  v17 = dateCopy;
+  v18 = alarmCopy;
   actionCopy = action;
   v14 = alarmCopy;
   v15 = dateCopy;
-  [(MTObserverStore *)observers enumerateObserversWithBlock:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [(MTObserverStore *)observers enumerateObserversWithBlock:v16];
 }
 
 void __63__MTSleepCoordinator_handleDismissForAlarm_dismissAction_date___block_invoke(uint64_t a1)
@@ -967,7 +936,7 @@ void __63__MTSleepCoordinator_handleDismissForAlarm_dismissAction_date___block_i
 
 - (void)handleSleepSessionEndedForAlarm:(id)alarm date:(id)date reason:(unint64_t)reason
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   dateCopy = date;
   v10 = MTLogForCategory(7);
@@ -975,27 +944,25 @@ void __63__MTSleepCoordinator_handleDismissForAlarm_dismissAction_date___block_i
   {
     *buf = 138543874;
     selfCopy = self;
-    v21 = 2114;
-    v22 = @"sleep session";
-    v23 = 2114;
-    v24 = dateCopy;
+    v20 = 2114;
+    v21 = @"sleep session";
+    v22 = 2114;
+    v23 = dateCopy;
     _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ telling observers %{public}@ ended at %{public}@", buf, 0x20u);
   }
 
   observers = self->_observers;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __66__MTSleepCoordinator_handleSleepSessionEndedForAlarm_date_reason___block_invoke;
-  v15[3] = &unk_1E7B0E200;
-  v15[4] = self;
-  v16 = dateCopy;
-  v17 = alarmCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __66__MTSleepCoordinator_handleSleepSessionEndedForAlarm_date_reason___block_invoke;
+  v14[3] = &unk_1E7B0E200;
+  v14[4] = self;
+  v15 = dateCopy;
+  v16 = alarmCopy;
   reasonCopy = reason;
   v12 = alarmCopy;
   v13 = dateCopy;
-  [(MTObserverStore *)observers enumerateObserversWithBlock:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(MTObserverStore *)observers enumerateObserversWithBlock:v14];
 }
 
 void __66__MTSleepCoordinator_handleSleepSessionEndedForAlarm_date_reason___block_invoke(void *a1, void *a2)
@@ -1009,17 +976,16 @@ void __66__MTSleepCoordinator_handleSleepSessionEndedForAlarm_date_reason___bloc
 
 - (void)timeListener:(id)listener didDetectSignificantTimeChangeWithCompletionBlock:(id)block
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v5 = MTLogForCategory(7);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ significant time change detected", &v7, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ significant time change detected", &v6, 0xCu);
   }
 
   [(MTSleepCoordinator *)self updateSleepState];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleNotification:(id)notification ofType:(int64_t)type completion:(id)completion
@@ -1053,47 +1019,44 @@ void __59__MTSleepCoordinator_handleNotification_ofType_completion___block_invok
 
 - (void)pairedDevicePreferencesChanged:(id)changed
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(7);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ pairedDevicePreferencesChanged", &v6, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ pairedDevicePreferencesChanged", &v5, 0xCu);
   }
 
   [(MTSleepCoordinator *)self updateSleepState];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)printDiagnostics
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(7);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v7) = 0;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "-----MTSleepCoordinator-----", &v7, 2u);
+    LOWORD(v6) = 0;
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "-----MTSleepCoordinator-----", &v6, 2u);
   }
 
   v4 = MTLogForCategory(7);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     isUserAsleep = [(MTSleepCoordinator *)self isUserAsleep];
-    v7 = 138412546;
-    v8 = @"isUserAsleep";
-    v9 = 1024;
-    v10 = isUserAsleep;
-    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%@: %d", &v7, 0x12u);
+    v6 = 138412546;
+    v7 = @"isUserAsleep";
+    v8 = 1024;
+    v9 = isUserAsleep;
+    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%@: %d", &v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)gatherDiagnostics
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v7 = @"isUserAsleep";
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"isUserAsleep";
   isUserAsleep = [(MTSleepCoordinator *)self isUserAsleep];
   v3 = @"NO";
   if (isUserAsleep)
@@ -1101,33 +1064,30 @@ void __59__MTSleepCoordinator_handleNotification_ofType_completion___block_invok
     v3 = @"YES";
   }
 
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-  v5 = *MEMORY[0x1E69E9840];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }
 
 void __68__MTSleepCoordinator_notifyObserversForSleepAlarmChangeIfNecessary___block_invoke_cold_1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_debug_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_DEBUG, "%{public}@ sleep alarm changes: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_debug_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_DEBUG, "%{public}@ sleep alarm changes: %@", &v4, 0x16u);
 }
 
 void __68__MTSleepCoordinator_notifyObserversForSleepAlarmChangeIfNecessary___block_invoke_cold_2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ sleep alarm changes unimportant.", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ sleep alarm changes unimportant.", &v3, 0xCu);
 }
 
 @end

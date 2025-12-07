@@ -41,7 +41,7 @@
   return v4;
 }
 
-uint64_t __39__TSUDateParser_parserForDefaultLocale__block_invoke(uint64_t a1, uint64_t a2)
+void *__39__TSUDateParser_parserForDefaultLocale__block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = [MEMORY[0x277CCACC8] currentThread];
   v5 = *(a1 + 32);

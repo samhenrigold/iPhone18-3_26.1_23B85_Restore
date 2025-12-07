@@ -42,10 +42,10 @@
 {
   componentsCopy = components;
   placeholderCopy = placeholder;
-  v38 = *MEMORY[0x29EDCA608];
-  v36.receiver = self;
-  v36.super_class = _TVStackingPosterViewAccessibility;
-  accessibilityLabel = [(_TVStackingPosterViewAccessibility *)&v36 accessibilityLabel];
+  v37 = *MEMORY[0x29EDCA608];
+  v35.receiver = self;
+  v35.super_class = _TVStackingPosterViewAccessibility;
+  accessibilityLabel = [(_TVStackingPosterViewAccessibility *)&v35 accessibilityLabel];
   if (![accessibilityLabel length])
   {
     orderedSet = [MEMORY[0x29EDB8E10] orderedSet];
@@ -60,8 +60,8 @@
     }
 
     v10 = [(_TVStackingPosterViewAccessibility *)self safeArrayForKey:v9];
-    v31 = placeholderCopy;
-    v30 = accessibilityLabel;
+    v30 = placeholderCopy;
+    v29 = accessibilityLabel;
     if ([(_TVStackingPosterViewAccessibility *)self _accessibilityShouldReverseComponents:v10])
     {
       reverseObjectEnumerator = [v10 reverseObjectEnumerator];
@@ -70,26 +70,26 @@
       v10 = allObjects;
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v13 = v10;
-    v14 = [v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v33;
+      v16 = *v32;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v33 != v16)
+          if (*v32 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v32 + 1) + 8 * i);
+          v18 = *(*(&v31 + 1) + 8 * i);
           accessibilityLabel2 = [v18 accessibilityLabel];
           if (accessibilityLabel2)
           {
@@ -110,7 +110,7 @@
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v15);
@@ -128,7 +128,7 @@
       accessibilityLabel = v26;
     }
 
-    if (v31 && ![accessibilityLabel length])
+    if (v30 && ![accessibilityLabel length])
     {
       v27 = accessibilityLocalizedString(@"tvml.generic.poster");
 
@@ -136,64 +136,61 @@
     }
   }
 
-  v28 = *MEMORY[0x29EDCA608];
-
   return accessibilityLabel;
 }
 
 - (id)_accessibilityFrameDelegate
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   if (_accessibilityFrameDelegate_onceToken != -1)
   {
     [_TVStackingPosterViewAccessibility _accessibilityFrameDelegate];
   }
 
-  v28 = 0;
+  v26 = 0;
   objc_opt_class();
   v3 = [(_TVStackingPosterViewAccessibility *)self safeValueForKey:@"subviews"];
   v4 = __UIAccessibilityCastAsClass();
 
+  v22 = 0u;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
+        v10 = *(*(&v22 + 1) + 8 * i);
+        v18 = 0u;
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
-        v23 = 0u;
         v11 = _accessibilityFrameDelegate_FrameDelegateClasses;
-        v12 = [v11 countByEnumeratingWithState:&v20 objects:v29 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v18 objects:v27 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v21;
+          v14 = *v19;
 LABEL_10:
           v15 = 0;
           while (1)
           {
-            if (*v21 != v14)
+            if (*v19 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v20 + 1) + 8 * v15);
             if (objc_opt_isKindOfClass())
             {
               break;
@@ -201,7 +198,7 @@ LABEL_10:
 
             if (v13 == ++v15)
             {
-              v13 = [v11 countByEnumeratingWithState:&v20 objects:v29 count:16];
+              v13 = [v11 countByEnumeratingWithState:&v18 objects:v27 count:16];
               if (v13)
               {
                 goto LABEL_10;
@@ -211,9 +208,9 @@ LABEL_10:
             }
           }
 
-          v17 = v10;
+          v16 = v10;
 
-          if (v17)
+          if (v16)
           {
             goto LABEL_21;
           }
@@ -225,18 +222,16 @@ LABEL_16:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
     while (v7);
   }
 
-  v17 = 0;
+  v16 = 0;
 LABEL_21:
 
-  v18 = *MEMORY[0x29EDCA608];
-
-  return v17;
+  return v16;
 }
 
 - (unint64_t)_accessibilityScanningBehaviorTraits

@@ -212,7 +212,7 @@
   _Block_object_dispose(&v30, 8);
 }
 
-void __49__SiriUITemplatedStackSnippetView_layoutSubviews__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __49__SiriUITemplatedStackSnippetView_layoutSubviews__block_invoke(uint64_t a1, void *a2, _BYTE *a3, _BYTE *a4)
 {
   v14 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -249,7 +249,7 @@ void __49__SiriUITemplatedStackSnippetView_layoutSubviews__block_invoke(uint64_t
     v12 = [*(WeakRetained + 58) objectAtIndex:a3];
     [v12 setFrame:{*(*(*(a1 + 48) + 8) + 32), *(*(*(a1 + 48) + 8) + 40), *(*(*(a1 + 48) + 8) + 48), *(*(*(a1 + 48) + 8) + 56)}];
 
-    if ([*(WeakRetained + 57) count] - 1 == a3)
+    if (([*(WeakRetained + 57) count] - 1) == a3)
     {
       v13 = [*(WeakRetained + 58) objectAtIndex:a3];
       [v13 removeFromSuperview];

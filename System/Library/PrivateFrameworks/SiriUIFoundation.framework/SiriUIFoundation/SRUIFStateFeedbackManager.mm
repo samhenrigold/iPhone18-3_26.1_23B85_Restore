@@ -48,20 +48,20 @@
 
 - (void)didTransitionFromState:(int64_t)state toState:(int64_t)toState
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     v8 = v7;
     v9 = SRUIFSiriSessionStateGetDescription(state);
     v10 = SRUIFSiriSessionStateGetDescription(toState);
-    v12 = 136315650;
-    v13 = "[SRUIFStateFeedbackManager didTransitionFromState:toState:]";
-    v14 = 2112;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v10;
-    _os_log_impl(&dword_26951F000, v8, OS_LOG_TYPE_DEFAULT, "%s #statefeedback Transitioning fromState: %@ toState: %@", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[SRUIFStateFeedbackManager didTransitionFromState:toState:]";
+    v13 = 2112;
+    v14 = v9;
+    v15 = 2112;
+    v16 = v10;
+    _os_log_impl(&dword_26951F000, v8, OS_LOG_TYPE_DEFAULT, "%s #statefeedback Transitioning fromState: %@ toState: %@", &v11, 0x20u);
   }
 
   if (toState != 2)
@@ -76,13 +76,11 @@
       [(SRUIFStateFeedbackManager *)self _cancelFeedback];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didTransitionFromState:(int64_t)state toState:(int64_t)toState event:(int64_t)event machAbsoluteTransitionTime:(double)time
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   [(SRUIFStateFeedbackManager *)self didTransitionFromState:state toState:toState];
   if (event == 16)
   {
@@ -90,92 +88,84 @@
     v9 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315138;
-      v12 = "[SRUIFStateFeedbackManager didTransitionFromState:toState:event:machAbsoluteTransitionTime:]";
-      _os_log_impl(&dword_26951F000, v9, OS_LOG_TYPE_DEFAULT, "%s #statefeedback will play delay tone for head gesture request if needed", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[SRUIFStateFeedbackManager didTransitionFromState:toState:event:machAbsoluteTransitionTime:]";
+      _os_log_impl(&dword_26951F000, v9, OS_LOG_TYPE_DEFAULT, "%s #statefeedback will play delay tone for head gesture request if needed", &v10, 0xCu);
     }
 
     [(SRUIFStateFeedbackManager *)self didUpdateEstimatedEndOfUserInput:time];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateEstimatedEndOfUserInput:(unint64_t)input
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   mach_absolute_time();
   AFMachAbsoluteTimeGetTimeInterval();
   v5 = 2.75 - v4;
   v6 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[SRUIFStateFeedbackManager didUpdateEstimatedEndOfUserInput:]";
-    v10 = 2048;
-    v11 = v5;
-    _os_log_impl(&dword_26951F000, v6, OS_LOG_TYPE_DEFAULT, "%s #statefeedback waiting %f seconds until delay tone", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SRUIFStateFeedbackManager didUpdateEstimatedEndOfUserInput:]";
+    v9 = 2048;
+    v10 = v5;
+    _os_log_impl(&dword_26951F000, v6, OS_LOG_TYPE_DEFAULT, "%s #statefeedback waiting %f seconds until delay tone", &v7, 0x16u);
   }
 
   [(SRUIFStateFeedbackManager *)self _scheduleDelayToneFor:v5];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)siriSessionDidEnd
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[SRUIFStateFeedbackManager siriSessionDidEnd]";
-    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #statefeedback cancelling state feedback for ui session end", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SRUIFStateFeedbackManager siriSessionDidEnd]";
+    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #statefeedback cancelling state feedback for ui session end", &v4, 0xCu);
   }
 
   [(SRUIFStateFeedbackManager *)self _cancelFeedback];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelFeedbackWithCompletion:(id)completion
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[SRUIFStateFeedbackManager cancelFeedbackWithCompletion:]";
-    _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s #statefeedback cancelling state feedback", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[SRUIFStateFeedbackManager cancelFeedbackWithCompletion:]";
+    _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s #statefeedback cancelling state feedback", &v6, 0xCu);
   }
 
   [(SRUIFStateFeedbackManager *)self _cancelFeedbackWithCompletion:completionCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateResponseMode:(id)mode
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   modeCopy = mode;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[SRUIFStateFeedbackManager updateResponseMode:]";
-    v10 = 2112;
-    v11 = modeCopy;
-    _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s #statefeedback updating response mode to: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SRUIFStateFeedbackManager updateResponseMode:]";
+    v9 = 2112;
+    v10 = modeCopy;
+    _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s #statefeedback updating response mode to: %@", &v7, 0x16u);
   }
 
   responseMode = self->_responseMode;
   self->_responseMode = modeCopy;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioPlaybackRequestDidStartForRequest:(id)request
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   uUID = [request UUID];
   uuidForCurrentStateFeedback = [(SRUIFStateFeedbackProviding *)self->_provider uuidForCurrentStateFeedback];
   v6 = !self->_stateFeedbackNeeded || uUID == 0;
@@ -184,27 +174,25 @@
     v7 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "[SRUIFStateFeedbackManager audioPlaybackRequestDidStartForRequest:]";
-      _os_log_impl(&dword_26951F000, v7, OS_LOG_TYPE_DEFAULT, "%s #statefeedback audio playback request for state feedback started", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[SRUIFStateFeedbackManager audioPlaybackRequestDidStartForRequest:]";
+      _os_log_impl(&dword_26951F000, v7, OS_LOG_TYPE_DEFAULT, "%s #statefeedback audio playback request for state feedback started", &v9, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     [WeakRetained stateFeedbackManagerDidStartPlaybackForStateFeedbackType:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cancelFeedbackWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[SRUIFStateFeedbackManager _cancelFeedbackWithCompletion:]";
+    v11 = "[SRUIFStateFeedbackManager _cancelFeedbackWithCompletion:]";
     _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s #statefeedback cancelling state feedback", buf, 0xCu);
   }
 
@@ -212,15 +200,13 @@
   [(AFWatchdogTimer *)self->_delayToneTimer cancelIfNotAlreadyCanceled];
   [(NSMutableSet *)self->_pendingDelayToneFeedbackIDs removeAllObjects];
   provider = self->_provider;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __59__SRUIFStateFeedbackManager__cancelFeedbackWithCompletion___block_invoke;
-  v9[3] = &unk_279C61A08;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __59__SRUIFStateFeedbackManager__cancelFeedbackWithCompletion___block_invoke;
+  v8[3] = &unk_279C61A08;
+  v9 = completionCopy;
   v7 = completionCopy;
-  [(SRUIFStateFeedbackProviding *)provider cancelFeedbackWithCompletion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(SRUIFStateFeedbackProviding *)provider cancelFeedbackWithCompletion:v8];
 }
 
 uint64_t __59__SRUIFStateFeedbackManager__cancelFeedbackWithCompletion___block_invoke(uint64_t a1)
@@ -251,7 +237,7 @@ uint64_t __59__SRUIFStateFeedbackManager__cancelFeedbackWithCompletion___block_i
 
 void __49__SRUIFStateFeedbackManager__playSuccessFeedback__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained;
   if (WeakRetained)
@@ -263,9 +249,9 @@ void __49__SRUIFStateFeedbackManager__playSuccessFeedback__block_invoke(uint64_t
         v5 = *MEMORY[0x277CEF098];
         if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
         {
-          v9 = 136315138;
-          v10 = "[SRUIFStateFeedbackManager _playSuccessFeedback]_block_invoke";
-          _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s #statefeedback started, should inform delegate", &v9, 0xCu);
+          v8 = 136315138;
+          v9 = "[SRUIFStateFeedbackManager _playSuccessFeedback]_block_invoke";
+          _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s #statefeedback started, should inform delegate", &v8, 0xCu);
         }
 
         v6 = objc_loadWeakRetained(v4 + 2);
@@ -278,14 +264,12 @@ void __49__SRUIFStateFeedbackManager__playSuccessFeedback__block_invoke(uint64_t
       v7 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 136315138;
-        v10 = "[SRUIFStateFeedbackManager _playSuccessFeedback]_block_invoke";
-        _os_log_impl(&dword_26951F000, v7, OS_LOG_TYPE_DEFAULT, "%s #statefeedback playDelayFeedback completion called, but no state feedback is needed at this time", &v9, 0xCu);
+        v8 = 136315138;
+        v9 = "[SRUIFStateFeedbackManager _playSuccessFeedback]_block_invoke";
+        _os_log_impl(&dword_26951F000, v7, OS_LOG_TYPE_DEFAULT, "%s #statefeedback playDelayFeedback completion called, but no state feedback is needed at this time", &v8, 0xCu);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_playDelayFeedback
@@ -310,7 +294,7 @@ void __49__SRUIFStateFeedbackManager__playSuccessFeedback__block_invoke(uint64_t
 
 void __47__SRUIFStateFeedbackManager__playDelayFeedback__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v7 = WeakRetained;
   if (!WeakRetained)
@@ -326,11 +310,11 @@ void __47__SRUIFStateFeedbackManager__playDelayFeedback__block_invoke(uint64_t a
       goto LABEL_17;
     }
 
-    v14 = 136315138;
-    v15 = "[SRUIFStateFeedbackManager _playDelayFeedback]_block_invoke";
+    v13 = 136315138;
+    v14 = "[SRUIFStateFeedbackManager _playDelayFeedback]_block_invoke";
     v11 = "%s #statefeedback playDelayFeedback completion called, but returning early because the feedback has been cancelled.";
 LABEL_11:
-    _os_log_impl(&dword_26951F000, v10, OS_LOG_TYPE_DEFAULT, v11, &v14, 0xCu);
+    _os_log_impl(&dword_26951F000, v10, OS_LOG_TYPE_DEFAULT, v11, &v13, 0xCu);
     goto LABEL_17;
   }
 
@@ -342,8 +326,8 @@ LABEL_11:
       goto LABEL_17;
     }
 
-    v14 = 136315138;
-    v15 = "[SRUIFStateFeedbackManager _playDelayFeedback]_block_invoke";
+    v13 = 136315138;
+    v14 = "[SRUIFStateFeedbackManager _playDelayFeedback]_block_invoke";
     v11 = "%s #statefeedback playDelayFeedback completion called, but no state feedback is needed at this time";
     goto LABEL_11;
   }
@@ -353,11 +337,11 @@ LABEL_11:
     v8 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315138;
-      v15 = "[SRUIFStateFeedbackManager _playDelayFeedback]_block_invoke";
+      v13 = 136315138;
+      v14 = "[SRUIFStateFeedbackManager _playDelayFeedback]_block_invoke";
       v9 = "%s #statefeedback audio playback request for state feedback started";
 LABEL_15:
-      _os_log_impl(&dword_26951F000, v8, OS_LOG_TYPE_DEFAULT, v9, &v14, 0xCu);
+      _os_log_impl(&dword_26951F000, v8, OS_LOG_TYPE_DEFAULT, v9, &v13, 0xCu);
       goto LABEL_16;
     }
 
@@ -369,8 +353,8 @@ LABEL_15:
     v8 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315138;
-      v15 = "[SRUIFStateFeedbackManager _playDelayFeedback]_block_invoke";
+      v13 = 136315138;
+      v14 = "[SRUIFStateFeedbackManager _playDelayFeedback]_block_invoke";
       v9 = "%s #statefeedback state feedback provider decided to inform immediately";
       goto LABEL_15;
     }
@@ -381,8 +365,6 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleDelayToneFor:(double)for
@@ -425,7 +407,7 @@ LABEL_17:
 
 void __51__SRUIFStateFeedbackManager__scheduleDelayToneFor___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -433,11 +415,11 @@ void __51__SRUIFStateFeedbackManager__scheduleDelayToneFor___block_invoke(uint64
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       v3 = WeakRetained[24];
-      v5 = 136315394;
-      v6 = "[SRUIFStateFeedbackManager _scheduleDelayToneFor:]_block_invoke";
-      v7 = 1024;
-      v8 = v3;
-      _os_log_impl(&dword_26951F000, v2, OS_LOG_TYPE_DEFAULT, "%s #statefeedback delay tone timer fired, isWaitingForDelayTone: %d", &v5, 0x12u);
+      v4 = 136315394;
+      v5 = "[SRUIFStateFeedbackManager _scheduleDelayToneFor:]_block_invoke";
+      v6 = 1024;
+      v7 = v3;
+      _os_log_impl(&dword_26951F000, v2, OS_LOG_TYPE_DEFAULT, "%s #statefeedback delay tone timer fired, isWaitingForDelayTone: %d", &v4, 0x12u);
     }
 
     if (WeakRetained[24] == 1)
@@ -445,13 +427,11 @@ void __51__SRUIFStateFeedbackManager__scheduleDelayToneFor___block_invoke(uint64
       [WeakRetained _playDelayFeedback];
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nowPlayingObserver:(id)observer playbackStateDidChangeFrom:(int64_t)from to:(int64_t)to lastPlayingDate:(id)date
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   dateCopy = date;
   if (self->_nowPlayingState != to)
@@ -464,11 +444,11 @@ void __51__SRUIFStateFeedbackManager__scheduleDelayToneFor___block_invoke(uint64
       v15 = AFMediaPlaybackStateGetName();
       v16 = AFMediaPlaybackStateGetName();
       *buf = 136315650;
-      v27 = "[SRUIFStateFeedbackManager nowPlayingObserver:playbackStateDidChangeFrom:to:lastPlayingDate:]";
-      v28 = 2112;
-      v29 = v15;
-      v30 = 2112;
-      v31 = v16;
+      v26 = "[SRUIFStateFeedbackManager nowPlayingObserver:playbackStateDidChangeFrom:to:lastPlayingDate:]";
+      v27 = 2112;
+      v28 = v15;
+      v29 = 2112;
+      v30 = v16;
       _os_log_impl(&dword_26951F000, v14, OS_LOG_TYPE_DEFAULT, "%s #statefeedback: Media playback state changed from: %@ to: %@", buf, 0x20u);
     }
 
@@ -484,7 +464,7 @@ void __51__SRUIFStateFeedbackManager__scheduleDelayToneFor___block_invoke(uint64
         if (os_log_type_enabled(*v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v27 = "[SRUIFStateFeedbackManager nowPlayingObserver:playbackStateDidChangeFrom:to:lastPlayingDate:]";
+          v26 = "[SRUIFStateFeedbackManager nowPlayingObserver:playbackStateDidChangeFrom:to:lastPlayingDate:]";
           _os_log_impl(&dword_26951F000, v22, OS_LOG_TYPE_DEFAULT, "%s #statefeedback: In process of resuming media, cancel feedback", buf, 0xCu);
         }
 
@@ -493,15 +473,13 @@ void __51__SRUIFStateFeedbackManager__scheduleDelayToneFor___block_invoke(uint64
         block[1] = 3221225472;
         block[2] = __94__SRUIFStateFeedbackManager_nowPlayingObserver_playbackStateDidChangeFrom_to_lastPlayingDate___block_invoke;
         block[3] = &unk_279C61870;
-        objc_copyWeak(&v25, buf);
+        objc_copyWeak(&v24, buf);
         dispatch_async(MEMORY[0x277D85CD0], block);
-        objc_destroyWeak(&v25);
+        objc_destroyWeak(&v24);
         objc_destroyWeak(buf);
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __94__SRUIFStateFeedbackManager_nowPlayingObserver_playbackStateDidChangeFrom_to_lastPlayingDate___block_invoke(uint64_t a1)

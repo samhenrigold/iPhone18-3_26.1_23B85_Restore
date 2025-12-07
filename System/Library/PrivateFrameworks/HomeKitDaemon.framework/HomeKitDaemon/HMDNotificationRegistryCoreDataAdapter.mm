@@ -35,10 +35,14 @@
 - (id)_fetchMKFRegistrationsWithUserUUID:(id)d withCharacteristicIIDs:(id)ds withAccessoryUUID:(id)iD withDeviceIdsDestination:(id)destination withPrefetchPaths:(id)paths isRestrictedGuest:(BOOL)guest context:(id)context;
 - (id)_fetchMKFRegistrationsWithUserUUID:(id)d withCharacteristicIIDs:(id)ds withAccessoryUUIDs:(id)iDs withDeviceIdsDestination:(id)destination withPrefetchPaths:(id)paths isRestrictedGuest:(BOOL)guest context:(id)context;
 - (id)_fetchMKFRegistrationsWithUserUUID:(id)d withMediaProfileUUID:(id)iD withMediaPropertyIn:(id)in withDeviceIdsDestination:(id)destination withAccessoryUUID:(id)uID withPrefetchPaths:(id)paths isRestrictedGuest:(BOOL)guest context:(id)self0;
+- (id)_fetchMKFUserAndRegistrationsWithUserUUID:(id)d actionSetUUID:(id)iD deviceIdsDestination:(id)destination prefetchPaths:(id)paths isRestrictedGuest:(BOOL)guest outHomeMember:(id *)member context:(id)context;
+- (id)_fetchMKFUserAndRegistrationsWithUserUUID:(id)d withCharacteristicIIDs:(id)ds withAccessoryUUID:(id)iD withDeviceIdsDestination:(id)destination withPrefetchPaths:(id)paths isRestrictedGuest:(BOOL)guest outHomeMember:(id *)member context:(id)self0;
+- (id)_fetchMKFUserAndRegistrationsWithUserUUID:(id)d withCharacteristicIIDs:(id)ds withAccessoryUUIDs:(id)iDs withDeviceIdsDestination:(id)destination withPrefetchPaths:(id)paths isRestrictedGuest:(BOOL)guest outHomeMember:(id *)member context:(id)self0;
 - (id)_fetchMKFUserAndRegistrationsWithUserUUID:(id)d withMediaProfileUUID:(id)iD withMediaPropertyIn:(id)in withDeviceIdsDestination:(id)destination withAccessoryUUID:(id)uID withPrefetchPaths:(id)paths isRestrictedGuest:(BOOL)guest outHomeMember:(id *)self0 context:(id)self1;
 - (id)_fetchRequestForActionSetRegistrationsWithoutAllowedDestinations:(id)destinations;
 - (id)_fetchRequestForAllActionSetRegistrations;
 - (id)_fetchRequestForAllMediaProfileRegistrations;
+- (id)_fetchRequestForCharacteristicRegistrations:(BOOL)registrations enabled:(BOOL)enabled destination:(id)destination propertiesToFetch:(id)fetch relationshipKeyPathsForPrefetching:(id)prefetching;
 - (id)_fetchRequestForCharacteristicRegistrationsWithoutAllowedDestinations:(id)destinations;
 - (id)_fetchRequestForMediaProfileRegistrationsWithoutAllowedDestinations:(id)destinations;
 - (id)_filterCharacteristicRegistrations:(id)registrations home:(id)home;
@@ -205,7 +209,7 @@ LABEL_13:
 
 - (BOOL)_insertNotificationRegistrationForMKFActionSet:(id)set deviceIdsDestination:(id)destination homeMember:(id)member context:(id)context
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   setCopy = set;
   destinationCopy = destination;
   memberCopy = member;
@@ -252,15 +256,15 @@ LABEL_7:
   if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
     v25 = HMFGetLogIdentifier();
-    v28 = 138544130;
-    v29 = v25;
-    v30 = 2112;
-    v31 = destinationCopy;
-    v32 = 2112;
-    v33 = memberCopy;
-    v34 = 2112;
-    v35 = setCopy;
-    _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to create notification registration for deviceIdsDestination %@ homeMember %@ mkfActionSet %@", &v28, 0x2Au);
+    v27 = 138544130;
+    v28 = v25;
+    v29 = 2112;
+    v30 = destinationCopy;
+    v31 = 2112;
+    v32 = memberCopy;
+    v33 = 2112;
+    v34 = setCopy;
+    _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to create notification registration for deviceIdsDestination %@ homeMember %@ mkfActionSet %@", &v27, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v22);
@@ -268,13 +272,12 @@ LABEL_7:
   v17 = 0;
 LABEL_10:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (BOOL)_insertNotificationRegistrationForMediaProperty:(id)property mediaProfile:(id)profile deviceIdsDestination:(id)destination homeMember:(id)member accessory:(id)accessory context:(id)context
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   profileCopy = profile;
   destinationCopy = destination;
@@ -338,17 +341,17 @@ LABEL_7:
   {
     v36 = HMFGetLogIdentifier();
     *buf = 138544642;
-    v41 = v36;
-    v42 = 2112;
-    v43 = v28;
-    v44 = 2112;
-    v45 = v27;
-    v46 = 2112;
-    v47 = destinationCopy;
-    v48 = 2112;
-    v49 = memberCopy;
-    v50 = 2112;
-    v51 = accessoryCopy;
+    v40 = v36;
+    v41 = 2112;
+    v42 = v28;
+    v43 = 2112;
+    v44 = v27;
+    v45 = 2112;
+    v46 = destinationCopy;
+    v47 = 2112;
+    v48 = memberCopy;
+    v49 = 2112;
+    v50 = accessoryCopy;
     _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@Failed to create notification registration for media property %@ media profile %@ deviceIdsDestination %@ homeMember %@ mkfAccessory %@", buf, 0x3Eu);
   }
 
@@ -358,7 +361,6 @@ LABEL_7:
   v30 = destinationCopy;
 LABEL_10:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
@@ -468,19 +470,19 @@ LABEL_10:
   v7 = v3;
   v8 = context;
   [v8 unsafeSynchronousBlock:v11];
-  v9 = [v7 copy];
+  v9 = objc_msgSend_copy(v7);
 
   return v9;
 }
 
 void __64__HMDNotificationRegistryCoreDataAdapter_actionSetRegistrations__block_invoke(id *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] _fetchRequestForAllActionSetRegistrations];
   v3 = [a1[5] managedObjectContext];
-  v16 = 0;
-  v4 = [v3 executeFetchRequest:v2 error:&v16];
-  v5 = v16;
+  v15 = 0;
+  v4 = [v3 executeFetchRequest:v2 error:&v15];
+  v5 = v15;
 
   if (v5)
   {
@@ -491,24 +493,22 @@ void __64__HMDNotificationRegistryCoreDataAdapter_actionSetRegistrations__block_
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v18 = v9;
-      v19 = 2112;
-      v20 = v5;
+      v17 = v9;
+      v18 = 2112;
+      v19 = v5;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch all action set notification registrations, error: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
 
-  v11 = MEMORY[0x277D85DD0];
-  v12 = 3221225472;
-  v13 = __64__HMDNotificationRegistryCoreDataAdapter_actionSetRegistrations__block_invoke_367;
-  v14 = &unk_278684CF8;
-  v15 = a1[6];
-  [v4 na_each:&v11];
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 3221225472;
+  v12 = __64__HMDNotificationRegistryCoreDataAdapter_actionSetRegistrations__block_invoke_367;
+  v13 = &unk_278684CF8;
+  v14 = a1[6];
+  [v4 na_each:&v10];
   [a1[5] reset];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HMDNotificationRegistryCoreDataAdapter_actionSetRegistrations__block_invoke_367(uint64_t a1, void *a2)
@@ -564,7 +564,7 @@ void __64__HMDNotificationRegistryCoreDataAdapter_actionSetRegistrations__block_
 
 void __81__HMDNotificationRegistryCoreDataAdapter_hasEnabledRegistrationForActionSetUUID___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [*(a1 + 40) _fetchEnabledMKFRegistrationsForActionSetUUID:*(a1 + 48) context:v2];
   v4 = v3;
@@ -582,19 +582,17 @@ void __81__HMDNotificationRegistryCoreDataAdapter_hasEnabledRegistrationForActio
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 48);
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch notification registrations for action set uuid %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch notification registrations for action set uuid %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
   }
 
   [*(a1 + 32) reset];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)disableAllActionSetRegistrations
@@ -642,12 +640,12 @@ void __81__HMDNotificationRegistryCoreDataAdapter_hasEnabledRegistrationForActio
 
 void __74__HMDNotificationRegistryCoreDataAdapter_disableAllActionSetRegistrations__block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [*(a1 + 40) _fetchRequestForAllActionSetRegistrations];
-  v23 = 0;
-  v4 = [v2 executeFetchRequest:v3 error:&v23];
-  v5 = v23;
+  v22 = 0;
+  v4 = [v2 executeFetchRequest:v3 error:&v22];
+  v5 = v22;
   if (v4)
   {
     v6 = [v4 na_map:&__block_literal_global_366];
@@ -655,23 +653,23 @@ void __74__HMDNotificationRegistryCoreDataAdapter_disableAllActionSetRegistratio
     v8 = *(v7 + 40);
     *(v7 + 40) = v6;
 
-    *v28 = 0;
-    *&v28[8] = v28;
-    *&v28[16] = 0x2020000000;
-    v29 = 0;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __74__HMDNotificationRegistryCoreDataAdapter_disableAllActionSetRegistrations__block_invoke_2;
-    v22[3] = &unk_278684C70;
-    v22[4] = *(a1 + 40);
-    v22[5] = v28;
-    [v4 hmf_enumerateWithAutoreleasePoolUsingBlock:v22];
-    if (*(*&v28[8] + 24) == 1 && [v2 hasChanges])
+    *v27 = 0;
+    *&v27[8] = v27;
+    *&v27[16] = 0x2020000000;
+    v28 = 0;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __74__HMDNotificationRegistryCoreDataAdapter_disableAllActionSetRegistrations__block_invoke_2;
+    v21[3] = &unk_278684C70;
+    v21[4] = *(a1 + 40);
+    v21[5] = v27;
+    [v4 hmf_enumerateWithAutoreleasePoolUsingBlock:v21];
+    if (*(*&v27[8] + 24) == 1 && [v2 hasChanges])
     {
       v9 = *(a1 + 32);
-      v21 = v5;
-      v10 = [v9 save:&v21];
-      v11 = v21;
+      v20 = v5;
+      v10 = [v9 save:&v20];
+      v11 = v20;
 
       *(*(*(a1 + 56) + 8) + 24) = v10;
       if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
@@ -683,9 +681,9 @@ void __74__HMDNotificationRegistryCoreDataAdapter_disableAllActionSetRegistratio
         {
           v15 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v25 = v15;
-          v26 = 2112;
-          v27 = v11;
+          v24 = v15;
+          v25 = 2112;
+          v26 = v11;
           _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unable to remove all media profile registrations, error: %@", buf, 0x16u);
         }
 
@@ -699,7 +697,7 @@ void __74__HMDNotificationRegistryCoreDataAdapter_disableAllActionSetRegistratio
     }
 
     [*(a1 + 32) reset];
-    _Block_object_dispose(v28, 8);
+    _Block_object_dispose(v27, 8);
     v5 = v11;
   }
 
@@ -711,21 +709,19 @@ void __74__HMDNotificationRegistryCoreDataAdapter_disableAllActionSetRegistratio
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      *v28 = 138543618;
-      *&v28[4] = v19;
-      *&v28[12] = 2112;
-      *&v28[14] = v5;
-      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch action set registrations, error: %@", v28, 0x16u);
+      *v27 = 138543618;
+      *&v27[4] = v19;
+      *&v27[12] = 2112;
+      *&v27[14] = v5;
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch action set registrations, error: %@", v27, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
     [*(a1 + 32) reset];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __74__HMDNotificationRegistryCoreDataAdapter_disableAllActionSetRegistrations__block_invoke_2(uint64_t a1, uint64_t a2)
+void *__74__HMDNotificationRegistryCoreDataAdapter_disableAllActionSetRegistrations__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) _disableRegistration:a2];
   if (result)
@@ -792,12 +788,12 @@ id __74__HMDNotificationRegistryCoreDataAdapter_disableAllActionSetRegistrations
 
 void __97__HMDNotificationRegistryCoreDataAdapter_removeActionSetRegistrationsWithoutAllowedDestinations___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [*(a1 + 40) _fetchRequestForActionSetRegistrationsWithoutAllowedDestinations:*(a1 + 48)];
-  v27 = 0;
-  v4 = [v2 executeFetchRequest:v3 error:&v27];
-  v5 = v27;
+  v26 = 0;
+  v4 = [v2 executeFetchRequest:v3 error:&v26];
+  v5 = v26;
   if (v4)
   {
     v6 = [v4 na_map:&__block_literal_global_363_246811];
@@ -805,21 +801,21 @@ void __97__HMDNotificationRegistryCoreDataAdapter_removeActionSetRegistrationsWi
     v8 = *(v7 + 40);
     *(v7 + 40) = v6;
 
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __97__HMDNotificationRegistryCoreDataAdapter_removeActionSetRegistrationsWithoutAllowedDestinations___block_invoke_2;
-    v24[3] = &unk_278684C70;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __97__HMDNotificationRegistryCoreDataAdapter_removeActionSetRegistrationsWithoutAllowedDestinations___block_invoke_2;
+    v23[3] = &unk_278684C70;
     v9 = *(a1 + 32);
     v10 = *(a1 + 64);
-    v25 = v9;
-    v26 = v10;
-    [v4 hmf_enumerateWithAutoreleasePoolUsingBlock:v24];
+    v24 = v9;
+    v25 = v10;
+    [v4 hmf_enumerateWithAutoreleasePoolUsingBlock:v23];
     if (*(*(*(a1 + 64) + 8) + 24) == 1 && [v2 hasChanges])
     {
       v11 = *(a1 + 32);
-      v23 = v5;
-      v12 = [v11 save:&v23];
-      v13 = v23;
+      v22 = v5;
+      v12 = [v11 save:&v22];
+      v13 = v22;
 
       if ((v12 & 1) == 0)
       {
@@ -830,9 +826,9 @@ void __97__HMDNotificationRegistryCoreDataAdapter_removeActionSetRegistrationsWi
         {
           v17 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v29 = v17;
-          v30 = 2112;
-          v31 = v13;
+          v28 = v17;
+          v29 = 2112;
+          v30 = v13;
           _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unable to remove all action set registrations, error: %@", buf, 0x16u);
         }
 
@@ -860,20 +856,18 @@ void __97__HMDNotificationRegistryCoreDataAdapter_removeActionSetRegistrationsWi
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v21;
-      v30 = 2112;
-      v31 = v5;
+      v28 = v21;
+      v29 = 2112;
+      v30 = v5;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch action set registrations, error: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
     [*(a1 + 32) reset];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __97__HMDNotificationRegistryCoreDataAdapter_removeActionSetRegistrationsWithoutAllowedDestinations___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__97__HMDNotificationRegistryCoreDataAdapter_removeActionSetRegistrationsWithoutAllowedDestinations___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) deleteObject:a2];
   *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -948,12 +942,12 @@ HMDActionSetNotificationRegistration *__97__HMDNotificationRegistryCoreDataAdapt
 
 void __73__HMDNotificationRegistryCoreDataAdapter_removeAllActionSetRegistrations__block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [*(a1 + 40) _fetchRequestForAllActionSetRegistrations];
-  v27 = 0;
-  v4 = [v2 executeFetchRequest:v3 error:&v27];
-  v5 = v27;
+  v26 = 0;
+  v4 = [v2 executeFetchRequest:v3 error:&v26];
+  v5 = v26;
   if (v4)
   {
     v6 = [v4 na_map:&__block_literal_global_359_246816];
@@ -961,21 +955,21 @@ void __73__HMDNotificationRegistryCoreDataAdapter_removeAllActionSetRegistration
     v8 = *(v7 + 40);
     *(v7 + 40) = v6;
 
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __73__HMDNotificationRegistryCoreDataAdapter_removeAllActionSetRegistrations__block_invoke_2;
-    v24[3] = &unk_278684C70;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __73__HMDNotificationRegistryCoreDataAdapter_removeAllActionSetRegistrations__block_invoke_2;
+    v23[3] = &unk_278684C70;
     v9 = *(a1 + 32);
     v10 = *(a1 + 56);
-    v25 = v9;
-    v26 = v10;
-    [v4 hmf_enumerateWithAutoreleasePoolUsingBlock:v24];
+    v24 = v9;
+    v25 = v10;
+    [v4 hmf_enumerateWithAutoreleasePoolUsingBlock:v23];
     if (*(*(*(a1 + 56) + 8) + 24) == 1 && [v2 hasChanges])
     {
       v11 = *(a1 + 32);
-      v23 = v5;
-      v12 = [v11 save:&v23];
-      v13 = v23;
+      v22 = v5;
+      v12 = [v11 save:&v22];
+      v13 = v22;
 
       if ((v12 & 1) == 0)
       {
@@ -986,9 +980,9 @@ void __73__HMDNotificationRegistryCoreDataAdapter_removeAllActionSetRegistration
         {
           v17 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v29 = v17;
-          v30 = 2112;
-          v31 = v13;
+          v28 = v17;
+          v29 = 2112;
+          v30 = v13;
           _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unable to remove all action set registrations, error: %@", buf, 0x16u);
         }
 
@@ -1016,20 +1010,18 @@ void __73__HMDNotificationRegistryCoreDataAdapter_removeAllActionSetRegistration
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v21;
-      v30 = 2112;
-      v31 = v5;
+      v28 = v21;
+      v29 = 2112;
+      v30 = v5;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch action set registrations, error: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
     [*(a1 + 32) reset];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __73__HMDNotificationRegistryCoreDataAdapter_removeAllActionSetRegistrations__block_invoke_2(uint64_t a1, uint64_t a2)
+void *__73__HMDNotificationRegistryCoreDataAdapter_removeAllActionSetRegistrations__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) deleteObject:a2];
   *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -1068,7 +1060,7 @@ id __73__HMDNotificationRegistryCoreDataAdapter_removeAllActionSetRegistrations_
   v18 = v9;
   v19 = &v20;
   [v8 unsafeSynchronousBlock:&v12];
-  v10 = [v21[5] copy];
+  v10 = objc_msgSend_copy(v21[5], v12, v13, v14, v15);
 
   _Block_object_dispose(&v20, 8);
 
@@ -1077,7 +1069,7 @@ id __73__HMDNotificationRegistryCoreDataAdapter_removeAllActionSetRegistrations_
 
 void __79__HMDNotificationRegistryCoreDataAdapter_destinationsToNotifyForActionSetUUID___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [*(a1 + 40) _fetchEnabledMKFRegistrationsForActionSetUUID:*(a1 + 48) context:v2];
   v4 = v3;
@@ -1098,19 +1090,17 @@ void __79__HMDNotificationRegistryCoreDataAdapter_destinationsToNotifyForActionS
     {
       v11 = HMFGetLogIdentifier();
       v12 = *(a1 + 48);
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v12;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch notification registrations for action set: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v12;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch notification registrations for action set: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
 
   [*(a1 + 32) reset];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)removeRegistrationsForActionSetUUID:(id)d
@@ -1143,7 +1133,7 @@ void __79__HMDNotificationRegistryCoreDataAdapter_destinationsToNotifyForActionS
 
 void __78__HMDNotificationRegistryCoreDataAdapter_removeRegistrationsForActionSetUUID___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   if ([*(a1 + 40) _deleteAllMKFRegistrationsForActionSetUUID:*(a1 + 48) hmcContext:*(a1 + 32)])
   {
@@ -1153,9 +1143,9 @@ void __78__HMDNotificationRegistryCoreDataAdapter_removeRegistrationsForActionSe
   if ([v2 hasChanges])
   {
     v3 = *(a1 + 32);
-    v11 = 0;
-    v4 = [v3 save:&v11];
-    v5 = v11;
+    v10 = 0;
+    v4 = [v3 save:&v10];
+    v5 = v10;
     if ((v4 & 1) == 0)
     {
       v6 = objc_autoreleasePoolPush();
@@ -1165,9 +1155,9 @@ void __78__HMDNotificationRegistryCoreDataAdapter_removeRegistrationsForActionSe
       {
         v9 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v13 = v9;
-        v14 = 2112;
-        v15 = v5;
+        v12 = v9;
+        v13 = 2112;
+        v14 = v5;
         _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unable to save the disable action set notification registration changes requested, error: %@", buf, 0x16u);
       }
 
@@ -1177,8 +1167,6 @@ void __78__HMDNotificationRegistryCoreDataAdapter_removeRegistrationsForActionSe
   }
 
   [*(a1 + 32) reset];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)disableNotificationForActionSetUUID:(id)d user:(id)user deviceIdsDestination:(id)destination
@@ -1217,16 +1205,16 @@ void __78__HMDNotificationRegistryCoreDataAdapter_removeRegistrationsForActionSe
 
 void __104__HMDNotificationRegistryCoreDataAdapter_disableNotificationForActionSetUUID_user_deviceIdsDestination___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = *(a1 + 40);
   v4 = [*(a1 + 48) uuid];
   v6 = *(a1 + 56);
   v5 = *(a1 + 64);
   v7 = [*(a1 + 48) isRestrictedGuest];
-  v26 = 0;
-  v8 = [v3 _fetchMKFUserAndRegistrationsWithUserUUID:v4 actionSetUUID:v6 deviceIdsDestination:v5 prefetchPaths:0 isRestrictedGuest:v7 outHomeMember:&v26 context:v2];
-  v9 = v26;
+  v25 = 0;
+  v8 = [v3 _fetchMKFUserAndRegistrationsWithUserUUID:v4 actionSetUUID:v6 deviceIdsDestination:v5 prefetchPaths:0 isRestrictedGuest:v7 outHomeMember:&v25 context:v2];
+  v9 = v25;
 
   if (v8)
   {
@@ -1247,7 +1235,7 @@ void __104__HMDNotificationRegistryCoreDataAdapter_disableNotificationForActionS
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v14;
+      v27 = v14;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch user and registrations", buf, 0xCu);
     }
 
@@ -1256,20 +1244,20 @@ void __104__HMDNotificationRegistryCoreDataAdapter_disableNotificationForActionS
 
   else
   {
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __104__HMDNotificationRegistryCoreDataAdapter_disableNotificationForActionSetUUID_user_deviceIdsDestination___block_invoke_351;
-    v25[3] = &unk_278684C70;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __104__HMDNotificationRegistryCoreDataAdapter_disableNotificationForActionSetUUID_user_deviceIdsDestination___block_invoke_351;
+    v24[3] = &unk_278684C70;
     v15 = *(a1 + 72);
-    v25[4] = *(a1 + 40);
-    v25[5] = v15;
-    [v8 hmf_enumerateWithAutoreleasePoolUsingBlock:v25];
+    v24[4] = *(a1 + 40);
+    v24[5] = v15;
+    [v8 hmf_enumerateWithAutoreleasePoolUsingBlock:v24];
     if ([v2 hasChanges])
     {
       v16 = *(a1 + 32);
-      v24 = 0;
-      v17 = [v16 save:&v24];
-      v18 = v24;
+      v23 = 0;
+      v17 = [v16 save:&v23];
+      v18 = v23;
       if ((v17 & 1) == 0)
       {
         v19 = objc_autoreleasePoolPush();
@@ -1279,9 +1267,9 @@ void __104__HMDNotificationRegistryCoreDataAdapter_disableNotificationForActionS
         {
           v22 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v28 = v22;
-          v29 = 2112;
-          v30 = v18;
+          v27 = v22;
+          v28 = 2112;
+          v29 = v18;
           _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Unable to save the disable action set notification registration changes requested, error: %@", buf, 0x16u);
         }
 
@@ -1292,11 +1280,9 @@ void __104__HMDNotificationRegistryCoreDataAdapter_disableNotificationForActionS
   }
 
   [*(a1 + 32) reset];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __104__HMDNotificationRegistryCoreDataAdapter_disableNotificationForActionSetUUID_user_deviceIdsDestination___block_invoke_351(uint64_t a1, uint64_t a2)
+void *__104__HMDNotificationRegistryCoreDataAdapter_disableNotificationForActionSetUUID_user_deviceIdsDestination___block_invoke_351(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) _disableRegistration:a2];
   if (result)
@@ -1343,16 +1329,16 @@ uint64_t __104__HMDNotificationRegistryCoreDataAdapter_disableNotificationForAct
 
 void __103__HMDNotificationRegistryCoreDataAdapter_enableNotificationForActionSetUUID_user_deviceIdsDestination___block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = *(a1 + 40);
   v4 = [*(a1 + 48) uuid];
   v6 = *(a1 + 56);
   v5 = *(a1 + 64);
   v7 = [*(a1 + 48) isRestrictedGuest];
-  v40 = 0;
-  v8 = [v3 _fetchMKFUserAndRegistrationsWithUserUUID:v4 actionSetUUID:v6 deviceIdsDestination:v5 prefetchPaths:0 isRestrictedGuest:v7 outHomeMember:&v40 context:v2];
-  v9 = v40;
+  v39 = 0;
+  v8 = [v3 _fetchMKFUserAndRegistrationsWithUserUUID:v4 actionSetUUID:v6 deviceIdsDestination:v5 prefetchPaths:0 isRestrictedGuest:v7 outHomeMember:&v39 context:v2];
+  v9 = v39;
 
   if (v8)
   {
@@ -1373,7 +1359,7 @@ void __103__HMDNotificationRegistryCoreDataAdapter_enableNotificationForActionSe
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v42 = v14;
+      v41 = v14;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch user and registrations", buf, 0xCu);
     }
 
@@ -1382,33 +1368,33 @@ void __103__HMDNotificationRegistryCoreDataAdapter_enableNotificationForActionSe
   }
 
   v15 = [v8 count];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v16 = v8;
-  v17 = [v16 countByEnumeratingWithState:&v36 objects:v45 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v35 objects:v44 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v37;
+    v19 = *v36;
     while (2)
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v37 != v19)
+        if (*v36 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        if ([*(a1 + 40) _enableRegistration:*(*(&v36 + 1) + 8 * i)])
+        if ([*(a1 + 40) _enableRegistration:*(*(&v35 + 1) + 8 * i)])
         {
           *(*(*(a1 + 72) + 8) + 24) = 1;
           goto LABEL_19;
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v36 objects:v45 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v35 objects:v44 count:16];
       if (v18)
       {
         continue;
@@ -1422,10 +1408,10 @@ LABEL_19:
 
   if (!v15)
   {
-    v29 = [*(a1 + 40) _fetchMKFActionSetWithUUID:*(a1 + 56) context:v2];
-    if (v29)
+    v28 = [*(a1 + 40) _fetchMKFActionSetWithUUID:*(a1 + 56) context:v2];
+    if (v28)
     {
-      if ([*(a1 + 40) _insertNotificationRegistrationForMKFActionSet:v29 deviceIdsDestination:*(a1 + 64) homeMember:v9 context:*(a1 + 32)])
+      if ([*(a1 + 40) _insertNotificationRegistrationForMKFActionSet:v28 deviceIdsDestination:*(a1 + 64) homeMember:v9 context:*(a1 + 32)])
       {
         *(*(*(a1 + 72) + 8) + 24) = 1;
 
@@ -1435,21 +1421,21 @@ LABEL_19:
 
     else
     {
-      v30 = objc_autoreleasePoolPush();
-      v31 = *(a1 + 40);
-      v32 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v29 = objc_autoreleasePoolPush();
+      v30 = *(a1 + 40);
+      v31 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        v33 = HMFGetLogIdentifier();
-        v34 = *(a1 + 56);
+        v32 = HMFGetLogIdentifier();
+        v33 = *(a1 + 56);
         *buf = 138543618;
-        v42 = v33;
-        v43 = 2112;
-        v44 = v34;
-        _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch MKFActionSet for UUID %@", buf, 0x16u);
+        v41 = v32;
+        v42 = 2112;
+        v43 = v33;
+        _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch MKFActionSet for UUID %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v30);
+      objc_autoreleasePoolPop(v29);
     }
 
     [*(a1 + 32) reset];
@@ -1461,9 +1447,9 @@ LABEL_20:
   if ([v2 hasChanges])
   {
     v21 = *(a1 + 32);
-    v35 = 0;
-    v22 = [v21 save:&v35];
-    v23 = v35;
+    v34 = 0;
+    v22 = [v21 save:&v34];
+    v23 = v34;
     if ((v22 & 1) == 0)
     {
       v24 = objc_autoreleasePoolPush();
@@ -1473,9 +1459,9 @@ LABEL_20:
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v42 = v27;
-        v43 = 2112;
-        v44 = v23;
+        v41 = v27;
+        v42 = 2112;
+        v43 = v23;
         _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Unable to save the enable action set registration changes requested, error: %@", buf, 0x16u);
       }
 
@@ -1487,8 +1473,6 @@ LABEL_20:
 LABEL_26:
   [*(a1 + 32) reset];
 LABEL_27:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)mediaRegistrations
@@ -1508,19 +1492,19 @@ LABEL_27:
   v7 = v3;
   v8 = context;
   [v8 unsafeSynchronousBlock:v11];
-  v9 = [v7 copy];
+  v9 = objc_msgSend_copy(v7);
 
   return v9;
 }
 
 void __60__HMDNotificationRegistryCoreDataAdapter_mediaRegistrations__block_invoke(id *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] _fetchRequestForAllMediaProfileRegistrations];
   v3 = [a1[5] managedObjectContext];
-  v16 = 0;
-  v4 = [v3 executeFetchRequest:v2 error:&v16];
-  v5 = v16;
+  v15 = 0;
+  v4 = [v3 executeFetchRequest:v2 error:&v15];
+  v5 = v15;
 
   if (v5)
   {
@@ -1531,24 +1515,22 @@ void __60__HMDNotificationRegistryCoreDataAdapter_mediaRegistrations__block_invo
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v18 = v9;
-      v19 = 2112;
-      v20 = v5;
+      v17 = v9;
+      v18 = 2112;
+      v19 = v5;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch all media property notification registrations, error: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
 
-  v11 = MEMORY[0x277D85DD0];
-  v12 = 3221225472;
-  v13 = __60__HMDNotificationRegistryCoreDataAdapter_mediaRegistrations__block_invoke_349;
-  v14 = &unk_278684C48;
-  v15 = a1[6];
-  [v4 na_each:&v11];
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 3221225472;
+  v12 = __60__HMDNotificationRegistryCoreDataAdapter_mediaRegistrations__block_invoke_349;
+  v13 = &unk_278684C48;
+  v14 = a1[6];
+  [v4 na_each:&v10];
   [a1[5] reset];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HMDNotificationRegistryCoreDataAdapter_mediaRegistrations__block_invoke_349(uint64_t a1, void *a2)
@@ -1606,7 +1588,7 @@ void __60__HMDNotificationRegistryCoreDataAdapter_mediaRegistrations__block_invo
   v10 = MEMORY[0x277CBEB98];
   if (*(v21 + 24) == 1)
   {
-    v11 = [v25[5] copy];
+    v11 = objc_msgSend_copy(v25[5]);
     v12 = [v10 setWithArray:v11];
   }
 
@@ -1623,12 +1605,12 @@ void __60__HMDNotificationRegistryCoreDataAdapter_mediaRegistrations__block_invo
 
 void __93__HMDNotificationRegistryCoreDataAdapter_removeMediaRegistrationsWithoutAllowedDestinations___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [*(a1 + 40) _fetchRequestForMediaProfileRegistrationsWithoutAllowedDestinations:*(a1 + 48)];
-  v27 = 0;
-  v4 = [v2 executeFetchRequest:v3 error:&v27];
-  v5 = v27;
+  v26 = 0;
+  v4 = [v2 executeFetchRequest:v3 error:&v26];
+  v5 = v26;
   if (v4)
   {
     v6 = [v4 na_map:&__block_literal_global_348];
@@ -1636,21 +1618,21 @@ void __93__HMDNotificationRegistryCoreDataAdapter_removeMediaRegistrationsWithou
     v8 = *(v7 + 40);
     *(v7 + 40) = v6;
 
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __93__HMDNotificationRegistryCoreDataAdapter_removeMediaRegistrationsWithoutAllowedDestinations___block_invoke_2;
-    v24[3] = &unk_278684BB8;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __93__HMDNotificationRegistryCoreDataAdapter_removeMediaRegistrationsWithoutAllowedDestinations___block_invoke_2;
+    v23[3] = &unk_278684BB8;
     v9 = *(a1 + 32);
     v10 = *(a1 + 64);
-    v25 = v9;
-    v26 = v10;
-    [v4 hmf_enumerateWithAutoreleasePoolUsingBlock:v24];
+    v24 = v9;
+    v25 = v10;
+    [v4 hmf_enumerateWithAutoreleasePoolUsingBlock:v23];
     if (*(*(*(a1 + 64) + 8) + 24) == 1 && [v2 hasChanges])
     {
       v11 = *(a1 + 32);
-      v23 = v5;
-      v12 = [v11 save:&v23];
-      v13 = v23;
+      v22 = v5;
+      v12 = [v11 save:&v22];
+      v13 = v22;
 
       if ((v12 & 1) == 0)
       {
@@ -1661,9 +1643,9 @@ void __93__HMDNotificationRegistryCoreDataAdapter_removeMediaRegistrationsWithou
         {
           v17 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v29 = v17;
-          v30 = 2112;
-          v31 = v13;
+          v28 = v17;
+          v29 = 2112;
+          v30 = v13;
           _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unable to remove all media profile registrations, error: %@", buf, 0x16u);
         }
 
@@ -1691,20 +1673,18 @@ void __93__HMDNotificationRegistryCoreDataAdapter_removeMediaRegistrationsWithou
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v21;
-      v30 = 2112;
-      v31 = v5;
+      v28 = v21;
+      v29 = 2112;
+      v30 = v5;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch media profile registrations, error: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
     [*(a1 + 32) reset];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __93__HMDNotificationRegistryCoreDataAdapter_removeMediaRegistrationsWithoutAllowedDestinations___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__93__HMDNotificationRegistryCoreDataAdapter_removeMediaRegistrationsWithoutAllowedDestinations___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) deleteObject:a2];
   *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -1759,7 +1739,7 @@ HMDMediaPropertyNotificationRegistration *__93__HMDNotificationRegistryCoreDataA
   v9 = MEMORY[0x277CBEB98];
   if (*(v22 + 24) == 1)
   {
-    v10 = [v8 copy];
+    v10 = objc_msgSend_copy(v8, v13, v14, v15, v16, v17, selfCopy);
     v11 = [v9 setWithArray:v10];
   }
 
@@ -1775,33 +1755,33 @@ HMDMediaPropertyNotificationRegistration *__93__HMDNotificationRegistryCoreDataA
 
 void __77__HMDNotificationRegistryCoreDataAdapter_disableAllMediaProfileRegistrations__block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [*(a1 + 40) _fetchRequestForAllMediaProfileRegistrations];
-  v23 = 0;
-  v4 = [v2 executeFetchRequest:v3 error:&v23];
-  v5 = v23;
+  v22 = 0;
+  v4 = [v2 executeFetchRequest:v3 error:&v22];
+  v5 = v22;
   if (v4)
   {
-    *v28 = 0;
-    *&v28[8] = v28;
-    *&v28[16] = 0x2020000000;
-    v29 = 0;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __77__HMDNotificationRegistryCoreDataAdapter_disableAllMediaProfileRegistrations__block_invoke_344;
-    v20[3] = &unk_278684C00;
+    *v27 = 0;
+    *&v27[8] = v27;
+    *&v27[16] = 0x2020000000;
+    v28 = 0;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __77__HMDNotificationRegistryCoreDataAdapter_disableAllMediaProfileRegistrations__block_invoke_344;
+    v19[3] = &unk_278684C00;
     v6 = *(a1 + 48);
-    v20[4] = *(a1 + 40);
-    v22 = v28;
-    v21 = v6;
-    [v4 hmf_enumerateWithAutoreleasePoolUsingBlock:v20];
-    if (*(*&v28[8] + 24) == 1 && [v2 hasChanges])
+    v19[4] = *(a1 + 40);
+    v21 = v27;
+    v20 = v6;
+    [v4 hmf_enumerateWithAutoreleasePoolUsingBlock:v19];
+    if (*(*&v27[8] + 24) == 1 && [v2 hasChanges])
     {
       v7 = *(a1 + 32);
-      v19 = v5;
-      v8 = [v7 save:&v19];
-      v9 = v19;
+      v18 = v5;
+      v8 = [v7 save:&v18];
+      v9 = v18;
 
       *(*(*(a1 + 56) + 8) + 24) = v8;
       if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
@@ -1813,9 +1793,9 @@ void __77__HMDNotificationRegistryCoreDataAdapter_disableAllMediaProfileRegistra
         {
           v13 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v25 = v13;
-          v26 = 2112;
-          v27 = v9;
+          v24 = v13;
+          v25 = 2112;
+          v26 = v9;
           _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to remove all media profile registrations, error: %@", buf, 0x16u);
         }
 
@@ -1830,7 +1810,7 @@ void __77__HMDNotificationRegistryCoreDataAdapter_disableAllMediaProfileRegistra
 
     [*(a1 + 32) reset];
 
-    _Block_object_dispose(v28, 8);
+    _Block_object_dispose(v27, 8);
     v5 = v9;
   }
 
@@ -1842,18 +1822,16 @@ void __77__HMDNotificationRegistryCoreDataAdapter_disableAllMediaProfileRegistra
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      *v28 = 138543618;
-      *&v28[4] = v17;
-      *&v28[12] = 2112;
-      *&v28[14] = v5;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch media profile registrations, error: %@", v28, 0x16u);
+      *v27 = 138543618;
+      *&v27[4] = v17;
+      *&v27[12] = 2112;
+      *&v27[14] = v5;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch media profile registrations, error: %@", v27, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
     [*(a1 + 32) reset];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HMDNotificationRegistryCoreDataAdapter_disableAllMediaProfileRegistrations__block_invoke_344(uint64_t a1, void *a2)
@@ -1897,7 +1875,7 @@ void __77__HMDNotificationRegistryCoreDataAdapter_disableAllMediaProfileRegistra
   v7 = MEMORY[0x277CBEB98];
   if (*(v20 + 24) == 1)
   {
-    v8 = [v24[5] copy];
+    v8 = objc_msgSend_copy(v24[5], v11, v12, v13, v14);
     v9 = [v7 setWithArray:v8];
   }
 
@@ -1914,12 +1892,12 @@ void __77__HMDNotificationRegistryCoreDataAdapter_disableAllMediaProfileRegistra
 
 void __76__HMDNotificationRegistryCoreDataAdapter_removeAllMediaProfileRegistrations__block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [*(a1 + 40) _fetchRequestForAllMediaProfileRegistrations];
-  v27 = 0;
-  v4 = [v2 executeFetchRequest:v3 error:&v27];
-  v5 = v27;
+  v26 = 0;
+  v4 = [v2 executeFetchRequest:v3 error:&v26];
+  v5 = v26;
   if (v4)
   {
     v6 = [v4 na_map:&__block_literal_global_343];
@@ -1927,21 +1905,21 @@ void __76__HMDNotificationRegistryCoreDataAdapter_removeAllMediaProfileRegistrat
     v8 = *(v7 + 40);
     *(v7 + 40) = v6;
 
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __76__HMDNotificationRegistryCoreDataAdapter_removeAllMediaProfileRegistrations__block_invoke_2;
-    v24[3] = &unk_278684BB8;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __76__HMDNotificationRegistryCoreDataAdapter_removeAllMediaProfileRegistrations__block_invoke_2;
+    v23[3] = &unk_278684BB8;
     v9 = *(a1 + 32);
     v10 = *(a1 + 56);
-    v25 = v9;
-    v26 = v10;
-    [v4 hmf_enumerateWithAutoreleasePoolUsingBlock:v24];
+    v24 = v9;
+    v25 = v10;
+    [v4 hmf_enumerateWithAutoreleasePoolUsingBlock:v23];
     if (*(*(*(a1 + 56) + 8) + 24) == 1 && [v2 hasChanges])
     {
       v11 = *(a1 + 32);
-      v23 = v5;
-      v12 = [v11 save:&v23];
-      v13 = v23;
+      v22 = v5;
+      v12 = [v11 save:&v22];
+      v13 = v22;
 
       if ((v12 & 1) == 0)
       {
@@ -1952,9 +1930,9 @@ void __76__HMDNotificationRegistryCoreDataAdapter_removeAllMediaProfileRegistrat
         {
           v17 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v29 = v17;
-          v30 = 2112;
-          v31 = v13;
+          v28 = v17;
+          v29 = 2112;
+          v30 = v13;
           _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unable to remove all media profile registrations, error: %@", buf, 0x16u);
         }
 
@@ -1982,20 +1960,18 @@ void __76__HMDNotificationRegistryCoreDataAdapter_removeAllMediaProfileRegistrat
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v21;
-      v30 = 2112;
-      v31 = v5;
+      v28 = v21;
+      v29 = 2112;
+      v30 = v5;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch media profile registrations, error: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
     [*(a1 + 32) reset];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __76__HMDNotificationRegistryCoreDataAdapter_removeAllMediaProfileRegistrations__block_invoke_2(uint64_t a1, uint64_t a2)
+void *__76__HMDNotificationRegistryCoreDataAdapter_removeAllMediaProfileRegistrations__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) deleteObject:a2];
   *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -2026,7 +2002,7 @@ uint64_t __76__HMDNotificationRegistryCoreDataAdapter_removeAllMediaProfileRegis
   v18 = v9;
   v19 = &v20;
   [v8 unsafeSynchronousBlock:&v12];
-  v10 = [v21[5] copy];
+  v10 = objc_msgSend_copy(v21[5], v12, v13, v14, v15);
 
   _Block_object_dispose(&v20, 8);
 
@@ -2035,7 +2011,7 @@ uint64_t __76__HMDNotificationRegistryCoreDataAdapter_removeAllMediaProfileRegis
 
 void __99__HMDNotificationRegistryCoreDataAdapter_mediaPropertiesRegisteredForMediaProfileUniqueIdentifier___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [*(a1 + 40) _fetchEnabledMKFRegistrationsForMediaProfileUUID:*(a1 + 48) withMediaProperty:0 context:v2];
   v4 = v3;
@@ -2056,19 +2032,17 @@ void __99__HMDNotificationRegistryCoreDataAdapter_mediaPropertiesRegisteredForMe
     {
       v11 = HMFGetLogIdentifier();
       v12 = *(a1 + 48);
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v12;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch notification registrations for media profile uuid %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v12;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch notification registrations for media profile uuid %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
 
   [*(a1 + 32) reset];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)destinationsToNotifyForMediaPropertyResponse:(id)response
@@ -2095,7 +2069,7 @@ void __99__HMDNotificationRegistryCoreDataAdapter_mediaPropertiesRegisteredForMe
   selfCopy = self;
   v19 = &v20;
   [v8 unsafeSynchronousBlock:&v12];
-  v10 = [v21[5] copy];
+  v10 = objc_msgSend_copy(v21[5], v12, v13, v14, v15);
 
   _Block_object_dispose(&v20, 8);
 
@@ -2104,7 +2078,7 @@ void __99__HMDNotificationRegistryCoreDataAdapter_mediaPropertiesRegisteredForMe
 
 void __87__HMDNotificationRegistryCoreDataAdapter_destinationsToNotifyForMediaPropertyResponse___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [*(a1 + 40) request];
   v4 = [v3 property];
@@ -2130,19 +2104,17 @@ void __87__HMDNotificationRegistryCoreDataAdapter_destinationsToNotifyForMediaPr
     {
       v15 = HMFGetLogIdentifier();
       v16 = *(a1 + 40);
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2112;
-      v21 = v16;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch notification registrations for media property response: %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v15;
+      v19 = 2112;
+      v20 = v16;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch notification registrations for media property response: %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
 
   [*(a1 + 32) reset];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)removeRegistrationsForMediaProfile:(id)profile
@@ -2175,7 +2147,7 @@ void __87__HMDNotificationRegistryCoreDataAdapter_destinationsToNotifyForMediaPr
 
 void __77__HMDNotificationRegistryCoreDataAdapter_removeRegistrationsForMediaProfile___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = *(a1 + 40);
   v4 = [*(a1 + 48) uniqueIdentifier];
@@ -2189,9 +2161,9 @@ void __77__HMDNotificationRegistryCoreDataAdapter_removeRegistrationsForMediaPro
   if ([v2 hasChanges])
   {
     v5 = *(a1 + 32);
-    v13 = 0;
-    v6 = [v5 save:&v13];
-    v7 = v13;
+    v12 = 0;
+    v6 = [v5 save:&v12];
+    v7 = v12;
     if ((v6 & 1) == 0)
     {
       v8 = objc_autoreleasePoolPush();
@@ -2201,9 +2173,9 @@ void __77__HMDNotificationRegistryCoreDataAdapter_removeRegistrationsForMediaPro
       {
         v11 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v15 = v11;
-        v16 = 2112;
-        v17 = v7;
+        v14 = v11;
+        v15 = 2112;
+        v16 = v7;
         _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unable to save the disable media property notification registration changes requested, error: %@", buf, 0x16u);
       }
 
@@ -2213,8 +2185,6 @@ void __77__HMDNotificationRegistryCoreDataAdapter_removeRegistrationsForMediaPro
   }
 
   [*(a1 + 32) reset];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)disableNotificationForMediaProfile:(id)profile mediaProperties:(id)properties user:(id)user deviceIdsDestination:(id)destination
@@ -2256,7 +2226,7 @@ void __77__HMDNotificationRegistryCoreDataAdapter_removeRegistrationsForMediaPro
 
 void __119__HMDNotificationRegistryCoreDataAdapter_disableNotificationForMediaProfile_mediaProperties_user_deviceIdsDestination___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [*(a1 + 40) accessory];
   v4 = [v3 uuid];
@@ -2267,27 +2237,27 @@ void __119__HMDNotificationRegistryCoreDataAdapter_disableNotificationForMediaPr
   v9 = *(a1 + 64);
   v8 = *(a1 + 72);
   v10 = [*(a1 + 56) isRestrictedGuest];
-  v29 = 0;
-  LOBYTE(v26) = v10;
-  v11 = [v5 _fetchMKFUserAndRegistrationsWithUserUUID:v6 withMediaProfileUUID:v7 withMediaPropertyIn:v9 withDeviceIdsDestination:v8 withAccessoryUUID:v4 withPrefetchPaths:0 isRestrictedGuest:v26 outHomeMember:&v29 context:v2];
-  v12 = v29;
+  v28 = 0;
+  LOBYTE(v25) = v10;
+  v11 = [v5 _fetchMKFUserAndRegistrationsWithUserUUID:v6 withMediaProfileUUID:v7 withMediaPropertyIn:v9 withDeviceIdsDestination:v8 withAccessoryUUID:v4 withPrefetchPaths:0 isRestrictedGuest:v25 outHomeMember:&v28 context:v2];
+  v12 = v28;
 
   if (v11 && v12)
   {
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __119__HMDNotificationRegistryCoreDataAdapter_disableNotificationForMediaProfile_mediaProperties_user_deviceIdsDestination___block_invoke_333;
-    v28[3] = &unk_278684BB8;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __119__HMDNotificationRegistryCoreDataAdapter_disableNotificationForMediaProfile_mediaProperties_user_deviceIdsDestination___block_invoke_333;
+    v27[3] = &unk_278684BB8;
     v13 = *(a1 + 80);
-    v28[4] = *(a1 + 48);
-    v28[5] = v13;
-    [v11 hmf_enumerateWithAutoreleasePoolUsingBlock:v28];
+    v27[4] = *(a1 + 48);
+    v27[5] = v13;
+    [v11 hmf_enumerateWithAutoreleasePoolUsingBlock:v27];
     if ([v2 hasChanges])
     {
       v14 = *(a1 + 32);
-      v27 = 0;
-      v15 = [v14 save:&v27];
-      v16 = v27;
+      v26 = 0;
+      v15 = [v14 save:&v26];
+      v16 = v26;
       if ((v15 & 1) == 0)
       {
         v17 = objc_autoreleasePoolPush();
@@ -2297,9 +2267,9 @@ void __119__HMDNotificationRegistryCoreDataAdapter_disableNotificationForMediaPr
         {
           v20 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v31 = v20;
-          v32 = 2112;
-          v33 = v16;
+          v30 = v20;
+          v31 = 2112;
+          v32 = v16;
           _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Unable to save the disable media property notification registration changes requested, error: %@", buf, 0x16u);
         }
 
@@ -2318,7 +2288,7 @@ void __119__HMDNotificationRegistryCoreDataAdapter_disableNotificationForMediaPr
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v24;
+      v30 = v24;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch user and registrations", buf, 0xCu);
     }
 
@@ -2326,11 +2296,9 @@ void __119__HMDNotificationRegistryCoreDataAdapter_disableNotificationForMediaPr
   }
 
   [*(a1 + 32) reset];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __119__HMDNotificationRegistryCoreDataAdapter_disableNotificationForMediaProfile_mediaProperties_user_deviceIdsDestination___block_invoke_333(uint64_t a1, uint64_t a2)
+void *__119__HMDNotificationRegistryCoreDataAdapter_disableNotificationForMediaProfile_mediaProperties_user_deviceIdsDestination___block_invoke_333(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) _disableRegistration:a2];
   if (result)
@@ -2380,7 +2348,7 @@ uint64_t __119__HMDNotificationRegistryCoreDataAdapter_disableNotificationForMed
 
 void __118__HMDNotificationRegistryCoreDataAdapter_enableNotificationForMediaProfile_mediaProperties_user_deviceIdsDestination___block_invoke(uint64_t a1)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [*(a1 + 40) accessory];
   v4 = [v3 uuid];
@@ -2391,44 +2359,44 @@ void __118__HMDNotificationRegistryCoreDataAdapter_enableNotificationForMediaPro
   v8 = *(a1 + 64);
   v9 = *(a1 + 72);
   v10 = [*(a1 + 56) isRestrictedGuest];
-  v42 = 0;
-  LOBYTE(v30) = v10;
-  v11 = [v5 _fetchMKFUserAndRegistrationsWithUserUUID:v6 withMediaProfileUUID:v7 withMediaPropertyIn:v8 withDeviceIdsDestination:v9 withAccessoryUUID:v4 withPrefetchPaths:0 isRestrictedGuest:v30 outHomeMember:&v42 context:v2];
-  v12 = v42;
+  v41 = 0;
+  LOBYTE(v29) = v10;
+  v11 = [v5 _fetchMKFUserAndRegistrationsWithUserUUID:v6 withMediaProfileUUID:v7 withMediaPropertyIn:v8 withDeviceIdsDestination:v9 withAccessoryUUID:v4 withPrefetchPaths:0 isRestrictedGuest:v29 outHomeMember:&v41 context:v2];
+  v12 = v41;
 
   if (v11 && v12)
   {
-    *&v47 = 0;
-    *(&v47 + 1) = &v47;
-    v48 = 0x3032000000;
-    v49 = __Block_byref_object_copy__246802;
-    v50 = __Block_byref_object_dispose__246803;
-    v51 = 0;
+    *&v46 = 0;
+    *(&v46 + 1) = &v46;
+    v47 = 0x3032000000;
+    v48 = __Block_byref_object_copy__246802;
+    v49 = __Block_byref_object_dispose__246803;
+    v50 = 0;
     v13 = *(a1 + 64);
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __118__HMDNotificationRegistryCoreDataAdapter_enableNotificationForMediaProfile_mediaProperties_user_deviceIdsDestination___block_invoke_331;
-    v33[3] = &unk_278684B68;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __118__HMDNotificationRegistryCoreDataAdapter_enableNotificationForMediaProfile_mediaProperties_user_deviceIdsDestination___block_invoke_331;
+    v32[3] = &unk_278684B68;
     v14 = v11;
     v15 = *(a1 + 80);
-    v34 = v14;
-    v40 = v15;
-    v41 = &v47;
-    v31 = *(a1 + 40);
-    v16 = v31.i64[0];
-    v35 = vextq_s8(v31, v31, 8uLL);
+    v33 = v14;
+    v39 = v15;
+    v40 = &v46;
+    v30 = *(a1 + 40);
+    v16 = v30.i64[0];
+    v34 = vextq_s8(v30, v30, 8uLL);
     v17 = v2;
-    v36 = v17;
-    v37 = *(a1 + 72);
-    v38 = v12;
-    v39 = *(a1 + 32);
-    [v13 hmf_enumerateWithAutoreleasePoolUsingBlock:v33];
+    v35 = v17;
+    v36 = *(a1 + 72);
+    v37 = v12;
+    v38 = *(a1 + 32);
+    [v13 hmf_enumerateWithAutoreleasePoolUsingBlock:v32];
     if ([v17 hasChanges])
     {
       v18 = *(a1 + 32);
-      v32 = 0;
-      v19 = [v18 save:&v32];
-      v20 = v32;
+      v31 = 0;
+      v19 = [v18 save:&v31];
+      v20 = v31;
       if ((v19 & 1) == 0)
       {
         v21 = objc_autoreleasePoolPush();
@@ -2438,9 +2406,9 @@ void __118__HMDNotificationRegistryCoreDataAdapter_enableNotificationForMediaPro
         {
           v24 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v44 = v24;
-          v45 = 2112;
-          v46 = v20;
+          v43 = v24;
+          v44 = 2112;
+          v45 = v20;
           _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Unable to save the enable media property notification registration changes requested, error: %@", buf, 0x16u);
         }
 
@@ -2451,7 +2419,7 @@ void __118__HMDNotificationRegistryCoreDataAdapter_enableNotificationForMediaPro
 
     [*(a1 + 32) reset];
 
-    _Block_object_dispose(&v47, 8);
+    _Block_object_dispose(&v46, 8);
   }
 
   else
@@ -2462,40 +2430,38 @@ void __118__HMDNotificationRegistryCoreDataAdapter_enableNotificationForMediaPro
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       v28 = HMFGetLogIdentifier();
-      LODWORD(v47) = 138543362;
-      *(&v47 + 4) = v28;
-      _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch user and registrations", &v47, 0xCu);
+      LODWORD(v46) = 138543362;
+      *(&v46 + 4) = v28;
+      _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch user and registrations", &v46, 0xCu);
     }
 
     objc_autoreleasePoolPop(v25);
     [*(a1 + 32) reset];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __118__HMDNotificationRegistryCoreDataAdapter_enableNotificationForMediaProfile_mediaProperties_user_deviceIdsDestination___block_invoke_331(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
   v6 = *(a1 + 32);
-  v23 = MEMORY[0x277D85DD0];
-  v24 = 3221225472;
-  v25 = __118__HMDNotificationRegistryCoreDataAdapter_enableNotificationForMediaProfile_mediaProperties_user_deviceIdsDestination___block_invoke_2;
-  v26 = &unk_278684B40;
+  v22 = MEMORY[0x277D85DD0];
+  v23 = 3221225472;
+  v24 = __118__HMDNotificationRegistryCoreDataAdapter_enableNotificationForMediaProfile_mediaProperties_user_deviceIdsDestination___block_invoke_2;
+  v25 = &unk_278684B40;
   v7 = v5;
   v8 = *(a1 + 40);
-  v27 = v7;
-  v28 = v8;
+  v26 = v7;
+  v27 = v8;
   v9 = *(a1 + 88);
-  v29 = &v31;
-  v30 = v9;
-  [v6 hmf_enumerateWithAutoreleasePoolUsingBlock:&v23];
-  if (v32[3])
+  v28 = &v30;
+  v29 = v9;
+  [v6 hmf_enumerateWithAutoreleasePoolUsingBlock:&v22];
+  if (v31[3])
   {
     goto LABEL_10;
   }
@@ -2519,7 +2485,7 @@ void __118__HMDNotificationRegistryCoreDataAdapter_enableNotificationForMediaPro
 
     v10 = *(*(*(a1 + 96) + 8) + 40);
 LABEL_5:
-    if ([*(a1 + 40) _insertNotificationRegistrationForMediaProperty:v7 mediaProfile:*(a1 + 48) deviceIdsDestination:*(a1 + 64) homeMember:*(a1 + 72) accessory:v10 context:{*(a1 + 80), v23, v24, v25, v26}])
+    if ([*(a1 + 40) _insertNotificationRegistrationForMediaProperty:v7 mediaProfile:*(a1 + 48) deviceIdsDestination:*(a1 + 64) homeMember:*(a1 + 72) accessory:v10 context:{*(a1 + 80), v22, v23, v24, v25}])
     {
       *(*(*(a1 + 88) + 8) + 24) = 1;
     }
@@ -2535,9 +2501,9 @@ LABEL_5:
     v20 = HMFGetLogIdentifier();
     v21 = [v11 uuid];
     *buf = 138543618;
-    v36 = v20;
-    v37 = 2112;
-    v38 = v21;
+    v35 = v20;
+    v36 = 2112;
+    v37 = v21;
     _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch MKFHAPAccessory for UUID %@", buf, 0x16u);
   }
 
@@ -2545,9 +2511,7 @@ LABEL_5:
   *a3 = 1;
 
 LABEL_10:
-  _Block_object_dispose(&v31, 8);
-
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v30, 8);
 }
 
 void __118__HMDNotificationRegistryCoreDataAdapter_enableNotificationForMediaProfile_mediaProperties_user_deviceIdsDestination___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -2588,14 +2552,14 @@ void __118__HMDNotificationRegistryCoreDataAdapter_enableNotificationForMediaPro
   v11 = v7;
   v12 = context;
   [v12 unsafeSynchronousBlock:&v15];
-  v13 = [v11 copy];
+  v13 = objc_msgSend_copy(v11, v15, v16, v17, v18, selfCopy);
 
   return v13;
 }
 
 void __101__HMDNotificationRegistryCoreDataAdapter__characteristicRegistrationsIncludeEnabled_includeDisabled___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (*(a1 + 56) == 1)
   {
     if ((*(a1 + 57) & 1) == 0)
@@ -2624,9 +2588,9 @@ LABEL_7:
 LABEL_8:
   v5 = [v2 _fetchRequestForCharacteristicRegistrations:v3 enabled:v4 destination:0 propertiesToFetch:0 relationshipKeyPathsForPrefetching:0];
   v6 = [*(a1 + 40) managedObjectContext];
-  v20 = 0;
-  v7 = [v6 executeFetchRequest:v5 error:&v20];
-  v8 = v20;
+  v19 = 0;
+  v7 = [v6 executeFetchRequest:v5 error:&v19];
+  v8 = v19;
 
   if (!v7)
   {
@@ -2637,9 +2601,9 @@ LABEL_8:
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v12;
-      v23 = 2112;
-      v24 = v8;
+      v21 = v12;
+      v22 = 2112;
+      v23 = v8;
       v13 = "%{public}@Unable to fetch all characteristic registrations, error: %@";
       v14 = v11;
       v15 = OS_LOG_TYPE_ERROR;
@@ -2663,7 +2627,7 @@ LABEL_16:
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v12;
+      v21 = v12;
       v13 = "%{public}@Found no characteristic registrations";
       v14 = v11;
       v15 = OS_LOG_TYPE_INFO;
@@ -2674,15 +2638,14 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __101__HMDNotificationRegistryCoreDataAdapter__characteristicRegistrationsIncludeEnabled_includeDisabled___block_invoke_330;
-  v18[3] = &unk_2786846A8;
-  v19 = *(a1 + 48);
-  [v7 hmf_enumerateWithAutoreleasePoolUsingBlock:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __101__HMDNotificationRegistryCoreDataAdapter__characteristicRegistrationsIncludeEnabled_includeDisabled___block_invoke_330;
+  v17[3] = &unk_2786846A8;
+  v18 = *(a1 + 48);
+  [v7 hmf_enumerateWithAutoreleasePoolUsingBlock:v17];
 
 LABEL_17:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __101__HMDNotificationRegistryCoreDataAdapter__characteristicRegistrationsIncludeEnabled_includeDisabled___block_invoke_330(uint64_t a1, void *a2)
@@ -2742,47 +2705,47 @@ void __101__HMDNotificationRegistryCoreDataAdapter__characteristicRegistrationsI
 
 void __113__HMDNotificationRegistryCoreDataAdapter_characteristicIIDsByAccessoryUUIDForEnabledRegistrationsForDestination___block_invoke(uint64_t a1)
 {
-  v49[1] = *MEMORY[0x277D85DE8];
-  v49[0] = @"deviceIdsDestination";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:1];
-  v48[0] = @"characteristic.instanceID";
-  v48[1] = @"characteristic.service.accessory.modelID";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
+  v48[1] = *MEMORY[0x277D85DE8];
+  v48[0] = @"deviceIdsDestination";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:1];
+  v47[0] = @"characteristic.instanceID";
+  v47[1] = @"characteristic.service.accessory.modelID";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
   v4 = [*(a1 + 32) _fetchRequestForCharacteristicRegistrations:1 enabled:1 destination:*(a1 + 40) propertiesToFetch:v2 relationshipKeyPathsForPrefetching:v3];
   v5 = [*(a1 + 48) managedObjectContext];
-  v40 = 0;
-  v6 = [v5 executeFetchRequest:v4 error:&v40];
-  v7 = v40;
+  v39 = 0;
+  v6 = [v5 executeFetchRequest:v4 error:&v39];
+  v7 = v39;
 
   if (v6)
   {
     if ([v6 count])
     {
-      v32 = v7;
-      v33 = v4;
-      v34 = v3;
-      v35 = v2;
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
+      v31 = v7;
+      v32 = v4;
+      v33 = v3;
+      v34 = v2;
       v37 = 0u;
-      v31 = v6;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
+      v30 = v6;
       v8 = v6;
-      v9 = [v8 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v35 objects:v40 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v37;
+        v11 = *v36;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v37 != v11)
+            if (*v36 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v36 + 1) + 8 * i);
+            v13 = *(*(&v35 + 1) + 8 * i);
             v14 = [v13 characteristic];
             v15 = [v14 service];
             v16 = [v15 accessory];
@@ -2801,17 +2764,17 @@ void __113__HMDNotificationRegistryCoreDataAdapter_characteristicIIDsByAccessory
             [v20 addObject:v19];
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v36 objects:v41 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v35 objects:v40 count:16];
         }
 
         while (v10);
       }
 
-      v3 = v34;
-      v2 = v35;
-      v7 = v32;
-      v4 = v33;
-      v6 = v31;
+      v3 = v33;
+      v2 = v34;
+      v7 = v31;
+      v4 = v32;
+      v6 = v30;
     }
 
     else
@@ -2823,7 +2786,7 @@ void __113__HMDNotificationRegistryCoreDataAdapter_characteristicIIDsByAccessory
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v43 = v29;
+        v42 = v29;
         _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Found no characteristic registrations", buf, 0xCu);
       }
 
@@ -2841,19 +2804,17 @@ void __113__HMDNotificationRegistryCoreDataAdapter_characteristicIIDsByAccessory
       v24 = HMFGetLogIdentifier();
       v25 = *(a1 + 40);
       *buf = 138543874;
-      v43 = v24;
-      v44 = 2112;
-      v45 = v25;
-      v46 = 2112;
-      v47 = v7;
+      v42 = v24;
+      v43 = 2112;
+      v44 = v25;
+      v45 = 2112;
+      v46 = v7;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch enabled characteristic registrations for destination: %@, error: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v21);
     v6 = 0;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (id)destinationsWithEnabledCharacteristicRegistrations
@@ -2873,21 +2834,21 @@ void __113__HMDNotificationRegistryCoreDataAdapter_characteristicIIDsByAccessory
   v7 = v6;
   v8 = context;
   [v8 unsafeSynchronousBlock:v11];
-  v9 = [v7 copy];
+  v9 = objc_msgSend_copy(v7);
 
   return v9;
 }
 
 void __92__HMDNotificationRegistryCoreDataAdapter_destinationsWithEnabledCharacteristicRegistrations__block_invoke(id *a1)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
-  v23[0] = @"deviceIdsDestination";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22[1] = *MEMORY[0x277D85DE8];
+  v22[0] = @"deviceIdsDestination";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
   v3 = [a1[4] _fetchRequestForCharacteristicRegistrations:1 enabled:1 destination:0 propertiesToFetch:v2 relationshipKeyPathsForPrefetching:0];
   v4 = [a1[5] managedObjectContext];
-  v18 = 0;
-  v5 = [v4 executeFetchRequest:v3 error:&v18];
-  v6 = v18;
+  v17 = 0;
+  v5 = [v4 executeFetchRequest:v3 error:&v17];
+  v6 = v17;
 
   if (!v5)
   {
@@ -2898,9 +2859,9 @@ void __92__HMDNotificationRegistryCoreDataAdapter_destinationsWithEnabledCharact
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v20 = v10;
-      v21 = 2112;
-      v22 = v6;
+      v19 = v10;
+      v20 = 2112;
+      v21 = v6;
       v11 = "%{public}@Unable to fetch all characteristic registrations, error: %@";
       v12 = v9;
       v13 = OS_LOG_TYPE_ERROR;
@@ -2924,7 +2885,7 @@ LABEL_9:
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v20 = v10;
+      v19 = v10;
       v11 = "%{public}@Found no characteristic registrations";
       v12 = v9;
       v13 = OS_LOG_TYPE_INFO;
@@ -2935,15 +2896,14 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __92__HMDNotificationRegistryCoreDataAdapter_destinationsWithEnabledCharacteristicRegistrations__block_invoke_329;
-  v16[3] = &unk_2786846A8;
-  v17 = a1[6];
-  [v5 hmf_enumerateWithAutoreleasePoolUsingBlock:v16];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __92__HMDNotificationRegistryCoreDataAdapter_destinationsWithEnabledCharacteristicRegistrations__block_invoke_329;
+  v15[3] = &unk_2786846A8;
+  v16 = a1[6];
+  [v5 hmf_enumerateWithAutoreleasePoolUsingBlock:v15];
 
 LABEL_10:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __92__HMDNotificationRegistryCoreDataAdapter_destinationsWithEnabledCharacteristicRegistrations__block_invoke_329(uint64_t a1, void *a2)
@@ -2980,7 +2940,7 @@ void __92__HMDNotificationRegistryCoreDataAdapter_destinationsWithEnabledCharact
   [v9 unsafeSynchronousBlock:v15];
   if (*(v22 + 24) == 1)
   {
-    v12 = [v11 copy];
+    v12 = objc_msgSend_copy(v11);
   }
 
   else
@@ -2997,13 +2957,13 @@ void __92__HMDNotificationRegistryCoreDataAdapter_destinationsWithEnabledCharact
 
 void __102__HMDNotificationRegistryCoreDataAdapter_removeCharacteristicRegistrationsWithoutAllowedDestinations___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [*(a1 + 40) _fetchRequestForCharacteristicRegistrationsWithoutAllowedDestinations:*(a1 + 48)];
   v4 = [*(a1 + 32) managedObjectContext];
-  v35 = 0;
-  v5 = [v4 executeFetchRequest:v3 error:&v35];
-  v6 = v35;
+  v34 = 0;
+  v5 = [v4 executeFetchRequest:v3 error:&v34];
+  v6 = v34;
 
   if (!v5)
   {
@@ -3014,9 +2974,9 @@ void __102__HMDNotificationRegistryCoreDataAdapter_removeCharacteristicRegistrat
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v37 = v10;
-      v38 = 2112;
-      v39 = v6;
+      v36 = v10;
+      v37 = 2112;
+      v38 = v6;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch all characteristic registrations without allowed destinations, error: %@", buf, 0x16u);
     }
 
@@ -3025,30 +2985,30 @@ void __102__HMDNotificationRegistryCoreDataAdapter_removeCharacteristicRegistrat
 
   if ([v5 count])
   {
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __102__HMDNotificationRegistryCoreDataAdapter_removeCharacteristicRegistrationsWithoutAllowedDestinations___block_invoke_327;
-    v33[3] = &unk_278684AC8;
-    v33[4] = *(a1 + 40);
-    v34 = *(a1 + 56);
-    [v5 na_each:v33];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __102__HMDNotificationRegistryCoreDataAdapter_removeCharacteristicRegistrationsWithoutAllowedDestinations___block_invoke_328;
-    v30[3] = &unk_278684AF0;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __102__HMDNotificationRegistryCoreDataAdapter_removeCharacteristicRegistrationsWithoutAllowedDestinations___block_invoke_327;
+    v32[3] = &unk_278684AC8;
+    v32[4] = *(a1 + 40);
+    v33 = *(a1 + 56);
+    [v5 na_each:v32];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __102__HMDNotificationRegistryCoreDataAdapter_removeCharacteristicRegistrationsWithoutAllowedDestinations___block_invoke_328;
+    v29[3] = &unk_278684AF0;
     v11 = *(a1 + 32);
     v12 = *(a1 + 64);
-    v31 = v11;
-    v32 = v12;
-    [v5 hmf_enumerateWithAutoreleasePoolUsingBlock:v30];
+    v30 = v11;
+    v31 = v12;
+    [v5 hmf_enumerateWithAutoreleasePoolUsingBlock:v29];
     if (*(*(*(a1 + 64) + 8) + 24))
     {
       if ([v2 hasChanges])
       {
         v13 = *(a1 + 32);
-        v29 = v6;
-        v14 = [v13 save:&v29];
-        v15 = v29;
+        v28 = v6;
+        v14 = [v13 save:&v28];
+        v15 = v28;
 
         if ((v14 & 1) == 0)
         {
@@ -3059,9 +3019,9 @@ void __102__HMDNotificationRegistryCoreDataAdapter_removeCharacteristicRegistrat
           {
             v19 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v37 = v19;
-            v38 = 2112;
-            v39 = v15;
+            v36 = v19;
+            v37 = 2112;
+            v38 = v15;
             _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unable to save context after removing characteristic registrations without allowed destinations, error: %@", buf, 0x16u);
           }
 
@@ -3082,7 +3042,7 @@ void __102__HMDNotificationRegistryCoreDataAdapter_removeCharacteristicRegistrat
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v37 = v27;
+        v36 = v27;
         _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Did not delete characteristic registrations without allowed destinations", buf, 0xCu);
       }
 
@@ -3101,7 +3061,7 @@ void __102__HMDNotificationRegistryCoreDataAdapter_removeCharacteristicRegistrat
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v37 = v23;
+      v36 = v23;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@No notifications without allowed destinations", buf, 0xCu);
     }
 
@@ -3109,13 +3069,11 @@ void __102__HMDNotificationRegistryCoreDataAdapter_removeCharacteristicRegistrat
     [*(a1 + 32) reset];
     *(*(*(a1 + 64) + 8) + 24) = 0;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __102__HMDNotificationRegistryCoreDataAdapter_removeCharacteristicRegistrationsWithoutAllowedDestinations___block_invoke_327(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 user];
   v4 = [v3 modelID];
@@ -3126,11 +3084,11 @@ void __102__HMDNotificationRegistryCoreDataAdapter_removeCharacteristicRegistrat
     v4 = [v5 modelID];
   }
 
-  v25 = [HMDCharacteristicNotificationRegistration alloc];
-  v23 = [v2 characteristic];
-  v22 = [v23 service];
-  v21 = [v22 accessory];
-  v6 = [v21 modelID];
+  v24 = [HMDCharacteristicNotificationRegistration alloc];
+  v22 = [v2 characteristic];
+  v21 = [v22 service];
+  v20 = [v21 accessory];
+  v6 = [v20 modelID];
   v7 = [v2 characteristic];
   v8 = [v7 instanceID];
   v9 = [v2 deviceIdsDestination];
@@ -3138,8 +3096,8 @@ void __102__HMDNotificationRegistryCoreDataAdapter_removeCharacteristicRegistrat
   v11 = [v2 enabled];
   v12 = [v11 BOOLValue];
   v13 = [v2 notificationThreshold];
-  v14 = v25;
-  v26 = v4;
+  v14 = v24;
+  v25 = v4;
   v15 = [(HMDCharacteristicNotificationRegistration *)v14 initWithAccessoryUUID:v6 characteristicInstanceID:v8 deviceIdsDestination:v9 userUUID:v4 lastModified:v10 enabled:v12 notificationThreshold:v13];
 
   v16 = objc_autoreleasePoolPush();
@@ -3149,19 +3107,17 @@ void __102__HMDNotificationRegistryCoreDataAdapter_removeCharacteristicRegistrat
   {
     v19 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v28 = v19;
-    v29 = 2112;
-    v30 = v15;
+    v27 = v19;
+    v28 = 2112;
+    v29 = v15;
     _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Removing registration: %@ that is not in set of allowed destinations", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v16);
   [*(a1 + 40) addObject:v15];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __102__HMDNotificationRegistryCoreDataAdapter_removeCharacteristicRegistrationsWithoutAllowedDestinations___block_invoke_328(uint64_t a1, uint64_t a2)
+void *__102__HMDNotificationRegistryCoreDataAdapter_removeCharacteristicRegistrationsWithoutAllowedDestinations___block_invoke_328(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) deleteObject:a2];
   *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -3186,12 +3142,12 @@ uint64_t __102__HMDNotificationRegistryCoreDataAdapter_removeCharacteristicRegis
 
 void __79__HMDNotificationRegistryCoreDataAdapter_disableAllCharacteristicRegistrations__block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _fetchRequestForCharacteristicRegistrations:1 enabled:1 destination:0 propertiesToFetch:0 relationshipKeyPathsForPrefetching:0];
   v3 = [*(a1 + 40) managedObjectContext];
-  v25 = 0;
-  v4 = [v3 executeFetchRequest:v2 error:&v25];
-  v5 = v25;
+  v24 = 0;
+  v4 = [v3 executeFetchRequest:v2 error:&v24];
+  v5 = v24;
 
   if (!v4)
   {
@@ -3202,9 +3158,9 @@ void __79__HMDNotificationRegistryCoreDataAdapter_disableAllCharacteristicRegist
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v17;
-      v28 = 2112;
-      v29 = v5;
+      v26 = v17;
+      v27 = 2112;
+      v28 = v5;
       v18 = "%{public}@Unable to fetch all characteristic registrations to disable, error: %@";
       v19 = v16;
       v20 = OS_LOG_TYPE_ERROR;
@@ -3228,7 +3184,7 @@ LABEL_15:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v27 = v17;
+      v26 = v17;
       v18 = "%{public}@Found no characteristic registrations to disable";
       v19 = v16;
       v20 = OS_LOG_TYPE_INFO;
@@ -3239,19 +3195,19 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __79__HMDNotificationRegistryCoreDataAdapter_disableAllCharacteristicRegistrations__block_invoke_326;
-  v24[3] = &unk_2786846A8;
-  v24[4] = *(a1 + 32);
-  [v4 hmf_enumerateWithAutoreleasePoolUsingBlock:v24];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __79__HMDNotificationRegistryCoreDataAdapter_disableAllCharacteristicRegistrations__block_invoke_326;
+  v23[3] = &unk_2786846A8;
+  v23[4] = *(a1 + 32);
+  [v4 hmf_enumerateWithAutoreleasePoolUsingBlock:v23];
   v6 = [*(a1 + 40) managedObjectContext];
   if ([v6 hasChanges])
   {
     v7 = *(a1 + 40);
-    v23 = 0;
-    v8 = [v7 save:&v23];
-    v9 = v23;
+    v22 = 0;
+    v8 = [v7 save:&v22];
+    v9 = v22;
     if ((v8 & 1) == 0)
     {
       v10 = objc_autoreleasePoolPush();
@@ -3261,9 +3217,9 @@ LABEL_15:
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v27 = v13;
-        v28 = 2112;
-        v29 = v9;
+        v26 = v13;
+        v27 = 2112;
+        v28 = v9;
         _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to save context after disabling all characteristic registrations, error: %@", buf, 0x16u);
       }
 
@@ -3274,7 +3230,6 @@ LABEL_15:
   [*(a1 + 40) reset];
 
 LABEL_16:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllCharacteristicRegistrations
@@ -3295,14 +3250,14 @@ LABEL_16:
 
 void __78__HMDNotificationRegistryCoreDataAdapter_removeAllCharacteristicRegistrations__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   if ([*(a1 + 40) _deleteAllCharacteristicRegistrationsWithContext:*(a1 + 32)] && objc_msgSend(v2, "hasChanges"))
   {
     v3 = *(a1 + 32);
-    v11 = 0;
-    v4 = [v3 save:&v11];
-    v5 = v11;
+    v10 = 0;
+    v4 = [v3 save:&v10];
+    v5 = v10;
     if ((v4 & 1) == 0)
     {
       v6 = objc_autoreleasePoolPush();
@@ -3312,9 +3267,9 @@ void __78__HMDNotificationRegistryCoreDataAdapter_removeAllCharacteristicRegistr
       {
         v9 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v13 = v9;
-        v14 = 2112;
-        v15 = v5;
+        v12 = v9;
+        v13 = 2112;
+        v14 = v5;
         _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unable to save context after removing all characteristic registrations, error: %@", buf, 0x16u);
       }
 
@@ -3323,8 +3278,6 @@ void __78__HMDNotificationRegistryCoreDataAdapter_removeAllCharacteristicRegistr
   }
 
   [*(a1 + 32) reset];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_filterCharacteristicRegistrations:(id)registrations home:(id)home
@@ -3414,7 +3367,7 @@ id __82__HMDNotificationRegistryCoreDataAdapter__filterCharacteristicRegistratio
 
 void __104__HMDNotificationRegistryCoreDataAdapter_destinationsToNotifyForCharacteristic_applyChangeThresholding___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [*(a1 + 40) value];
   objc_opt_class();
@@ -3444,12 +3397,12 @@ void __104__HMDNotificationRegistryCoreDataAdapter_destinationsToNotifyForCharac
       v7 = [v6 _fetchEnabledMKFRegistrationsForHMDCharacteristics:v20 context:v2];
     }
 
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __104__HMDNotificationRegistryCoreDataAdapter_destinationsToNotifyForCharacteristic_applyChangeThresholding___block_invoke_2;
-    v28[3] = &unk_278684A50;
-    v29 = v5;
-    [v7 na_each:v28];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __104__HMDNotificationRegistryCoreDataAdapter_destinationsToNotifyForCharacteristic_applyChangeThresholding___block_invoke_2;
+    v27[3] = &unk_278684A50;
+    v28 = v5;
+    [v7 na_each:v27];
 
     if (!v7)
     {
@@ -3462,9 +3415,9 @@ LABEL_16:
         v24 = HMFGetLogIdentifier();
         v25 = *(a1 + 40);
         *buf = 138543618;
-        v31 = v24;
-        v32 = 2112;
-        v33 = v25;
+        v30 = v24;
+        v31 = 2112;
+        v32 = v25;
         _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch registrations for characteristic %@", buf, 0x16u);
       }
 
@@ -3493,9 +3446,9 @@ LABEL_16:
   if ([v2 hasChanges])
   {
     v13 = *(a1 + 32);
-    v27 = 0;
-    v14 = [v13 save:&v27];
-    v15 = v27;
+    v26 = 0;
+    v14 = [v13 save:&v26];
+    v15 = v26;
     if ((v14 & 1) == 0)
     {
       v16 = objc_autoreleasePoolPush();
@@ -3505,9 +3458,9 @@ LABEL_16:
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v31 = v19;
-        v32 = 2112;
-        v33 = v15;
+        v30 = v19;
+        v31 = 2112;
+        v32 = v15;
         _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unable to save context after updating characteristic registrations lastNotifiedValues, error: %@", buf, 0x16u);
       }
 
@@ -3517,8 +3470,6 @@ LABEL_16:
 
 LABEL_19:
   [*(a1 + 32) reset];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __104__HMDNotificationRegistryCoreDataAdapter_destinationsToNotifyForCharacteristic_applyChangeThresholding___block_invoke_2(uint64_t a1, void *a2)
@@ -3528,7 +3479,7 @@ void __104__HMDNotificationRegistryCoreDataAdapter_destinationsToNotifyForCharac
 
   if (v3)
   {
-    v4 = [*(a1 + 32) copy];
+    v4 = objc_msgSend_copy(*(a1 + 32));
     [v5 setLastNotifiedValue:v4];
   }
 }
@@ -3556,7 +3507,7 @@ void __104__HMDNotificationRegistryCoreDataAdapter_destinationsToNotifyForCharac
 
 void __80__HMDNotificationRegistryCoreDataAdapter_removeRegistrationsForCharacteristics___block_invoke(id *a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] managedObjectContext];
   v3 = [a1[5] objectAtIndexedSubscript:0];
   v4 = [v3 service];
@@ -3569,9 +3520,9 @@ void __80__HMDNotificationRegistryCoreDataAdapter_removeRegistrationsForCharacte
   if ([a1[6] _deleteAllRegistrationsForCharacteristicIIDs:v8 withAccessoryUUID:v6 hmcContext:a1[4]] && objc_msgSend(v2, "hasChanges"))
   {
     v9 = a1[4];
-    v17 = 0;
-    v10 = [v9 save:&v17];
-    v11 = v17;
+    v16 = 0;
+    v10 = [v9 save:&v16];
+    v11 = v16;
     if ((v10 & 1) == 0)
     {
       v12 = objc_autoreleasePoolPush();
@@ -3581,11 +3532,11 @@ void __80__HMDNotificationRegistryCoreDataAdapter_removeRegistrationsForCharacte
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v19 = v15;
-        v20 = 2112;
-        v21 = @"YES";
-        v22 = 2112;
-        v23 = v11;
+        v18 = v15;
+        v19 = 2112;
+        v20 = @"YES";
+        v21 = 2112;
+        v22 = v11;
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unable to save the remove characteristic notification registration changes requested, deleteResult %@, error: %@", buf, 0x20u);
       }
 
@@ -3594,8 +3545,6 @@ void __80__HMDNotificationRegistryCoreDataAdapter_removeRegistrationsForCharacte
   }
 
   [a1[4] reset];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_processDisableCharacteristicsRequest:(id)request registrationsForAccessory:(id)accessory context:(id)context
@@ -3630,7 +3579,7 @@ void __80__HMDNotificationRegistryCoreDataAdapter_removeRegistrationsForCharacte
   [accessoryCopy hmf_enumerateWithAutoreleasePoolUsingBlock:v21];
   v16 = [HMDNotificationRegistryCoreDataCharacteristicsRequestResult alloc];
   v17 = *(v30 + 24);
-  v18 = [v15 copy];
+  v18 = objc_msgSend_copy(v15);
   v19 = [(HMDNotificationRegistryCoreDataCharacteristicsRequestResult *)v16 initWithCoreDataRequest:requestCopy didSucceed:1 didModify:v17 didModifyThresholdOnly:0 modifiedCharacteristics:v18];
 
   _Block_object_dispose(v27, 8);
@@ -3741,7 +3690,7 @@ void __114__HMDNotificationRegistryCoreDataAdapter__processDisableCharacteristic
   v22 = *(v45 + 24);
   v23 = *(v53 + 24);
   v24 = *(v49 + 24);
-  v25 = [v16 copy];
+  v25 = objc_msgSend_copy(v16);
   v26 = [(HMDNotificationRegistryCoreDataCharacteristicsRequestResult *)v21 initWithCoreDataRequest:v19 didSucceed:v22 didModify:v23 didModifyThresholdOnly:v24 modifiedCharacteristics:v25];
 
   _Block_object_dispose(v42, 8);
@@ -3754,48 +3703,34 @@ void __114__HMDNotificationRegistryCoreDataAdapter__processDisableCharacteristic
 
 void __124__HMDNotificationRegistryCoreDataAdapter__processEnableCharacteristicsRequest_homeMember_registrationsForAccessory_context___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v6 = a2;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x2020000000;
-  v49 = 0;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x2020000000;
+  v48 = 0;
   v7 = *(a1 + 32);
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __124__HMDNotificationRegistryCoreDataAdapter__processEnableCharacteristicsRequest_homeMember_registrationsForAccessory_context___block_invoke_2;
-  v39[3] = &unk_2786849B8;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __124__HMDNotificationRegistryCoreDataAdapter__processEnableCharacteristicsRequest_homeMember_registrationsForAccessory_context___block_invoke_2;
+  v38[3] = &unk_2786849B8;
   v8 = v6;
   v9 = *(a1 + 40);
   v10 = *(a1 + 48);
-  v40 = v8;
-  v41 = v9;
+  v39 = v8;
+  v40 = v9;
   v11 = *(a1 + 88);
-  v43 = &v46;
-  v44 = v11;
+  v42 = &v45;
+  v43 = v11;
   v12 = v10;
   v13 = *(a1 + 96);
-  v42 = v12;
-  v45 = v13;
-  [v7 hmf_enumerateWithAutoreleasePoolUsingBlock:v39];
-  if ((v47[3] & 1) == 0)
+  v41 = v12;
+  v44 = v13;
+  [v7 hmf_enumerateWithAutoreleasePoolUsingBlock:v38];
+  if ((v46[3] & 1) == 0)
   {
-    if (*(*(*(a1 + 104) + 8) + 40))
+    if (*(*(*(a1 + 104) + 8) + 40) || (v14 = *(a1 + 40), [*(a1 + 56) na_map:&__block_literal_global_315_246889], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 64), "managedObjectContext"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "_fetchMKFCharacteristicsFromHMDCharacteristics:context:", v15, v16), v17 = objc_claimAutoreleasedReturnValue(), v18 = *(*(a1 + 104) + 8), v19 = *(v18 + 40), *(v18 + 40) = v17, v19, v16, v15, *(*(*(a1 + 104) + 8) + 40)))
     {
-      goto LABEL_4;
-    }
-
-    v14 = *(a1 + 40);
-    v15 = [*(a1 + 56) na_map:&__block_literal_global_315_246889];
-    v16 = [*(a1 + 64) managedObjectContext];
-    v17 = [v14 _fetchMKFCharacteristicsFromHMDCharacteristics:v15 context:v16];
-    v18 = *(*(a1 + 104) + 8);
-    v19 = *(v18 + 40);
-    *(v18 + 40) = v17;
-
-    if (*(*(*(a1 + 104) + 8) + 40))
-    {
-LABEL_4:
       v20 = *(a1 + 40);
       v21 = [v8 characteristic];
       v22 = [v8 threshold];
@@ -3823,9 +3758,9 @@ LABEL_4:
         v33 = HMFGetLogIdentifier();
         v34 = [v8 characteristic];
         *buf = 138543618;
-        v51 = v33;
-        v52 = 2112;
-        v53 = v34;
+        v50 = v33;
+        v51 = 2112;
+        v52 = v34;
         _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Unable to insert notification registration for characteristic: %@", buf, 0x16u);
       }
     }
@@ -3840,9 +3775,9 @@ LABEL_4:
         v35 = HMFGetLogIdentifier();
         v36 = *(a1 + 56);
         *buf = 138543618;
-        v51 = v35;
-        v52 = 2112;
-        v53 = v36;
+        v50 = v35;
+        v51 = 2112;
+        v52 = v36;
         _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Unable to find MKFCharacteristics for characteristics: %@", buf, 0x16u);
       }
     }
@@ -3854,8 +3789,7 @@ LABEL_4:
 
 LABEL_12:
 
-  _Block_object_dispose(&v46, 8);
-  v37 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v45, 8);
 }
 
 void __124__HMDNotificationRegistryCoreDataAdapter__processEnableCharacteristicsRequest_homeMember_registrationsForAccessory_context___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -3895,7 +3829,7 @@ void __124__HMDNotificationRegistryCoreDataAdapter__processEnableCharacteristics
 
 - (id)_processGroupedCharacteristicsRequests:(id)requests user:(id)user destination:(id)destination context:(id)context
 {
-  v68[3] = *MEMORY[0x277D85DE8];
+  v67[3] = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   userCopy = user;
   destinationCopy = destination;
@@ -3906,71 +3840,71 @@ void __124__HMDNotificationRegistryCoreDataAdapter__processEnableCharacteristics
   v15 = [MEMORY[0x277CBEB58] set];
   v16 = [MEMORY[0x277CBEB58] set];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v62[0] = MEMORY[0x277D85DD0];
-  v62[1] = 3221225472;
-  v62[2] = __106__HMDNotificationRegistryCoreDataAdapter__processGroupedCharacteristicsRequests_user_destination_context___block_invoke;
-  v62[3] = &unk_2786848F8;
+  v61[0] = MEMORY[0x277D85DD0];
+  v61[1] = 3221225472;
+  v61[2] = __106__HMDNotificationRegistryCoreDataAdapter__processGroupedCharacteristicsRequests_user_destination_context___block_invoke;
+  v61[3] = &unk_2786848F8;
   v18 = v15;
-  v63 = v18;
+  v62 = v18;
   v19 = v16;
-  v64 = v19;
-  v47 = dictionary;
-  v65 = v47;
-  v50 = requestsCopy;
-  [requestsCopy hmf_enumerateWithAutoreleasePoolUsingBlock:v62];
-  v48 = contextCopy;
+  v63 = v19;
+  v46 = dictionary;
+  v64 = v46;
+  v49 = requestsCopy;
+  [requestsCopy hmf_enumerateWithAutoreleasePoolUsingBlock:v61];
+  v47 = contextCopy;
   managedObjectContext2 = [contextCopy managedObjectContext];
-  v68[0] = @"characteristic.service.accessory.modelID";
-  v68[1] = @"characteristic.instanceID";
-  v68[2] = @"lastModified";
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:3];
+  v67[0] = @"characteristic.service.accessory.modelID";
+  v67[1] = @"characteristic.instanceID";
+  v67[2] = @"lastModified";
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:3];
   uuid = [userCopy uuid];
   allObjects = [v19 allObjects];
-  v46 = v18;
+  v45 = v18;
   allObjects2 = [v18 allObjects];
-  v61 = 0;
-  v44 = v21;
-  v45 = managedObjectContext2;
-  v49 = destinationCopy;
-  v25 = -[HMDNotificationRegistryCoreDataAdapter _fetchMKFUserAndRegistrationsWithUserUUID:withCharacteristicIIDs:withAccessoryUUIDs:withDeviceIdsDestination:withPrefetchPaths:isRestrictedGuest:outHomeMember:context:](self, "_fetchMKFUserAndRegistrationsWithUserUUID:withCharacteristicIIDs:withAccessoryUUIDs:withDeviceIdsDestination:withPrefetchPaths:isRestrictedGuest:outHomeMember:context:", uuid, allObjects, allObjects2, destinationCopy, v21, [userCopy isRestrictedGuest], &v61, managedObjectContext2);
-  v26 = v61;
+  v60 = 0;
+  v43 = v21;
+  v44 = managedObjectContext2;
+  v48 = destinationCopy;
+  v25 = -[HMDNotificationRegistryCoreDataAdapter _fetchMKFUserAndRegistrationsWithUserUUID:withCharacteristicIIDs:withAccessoryUUIDs:withDeviceIdsDestination:withPrefetchPaths:isRestrictedGuest:outHomeMember:context:](self, "_fetchMKFUserAndRegistrationsWithUserUUID:withCharacteristicIIDs:withAccessoryUUIDs:withDeviceIdsDestination:withPrefetchPaths:isRestrictedGuest:outHomeMember:context:", uuid, allObjects, allObjects2, destinationCopy, v21, [userCopy isRestrictedGuest], &v60, managedObjectContext2);
+  v26 = v60;
 
   if (v25 && v26)
   {
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __106__HMDNotificationRegistryCoreDataAdapter__processGroupedCharacteristicsRequests_user_destination_context___block_invoke_2_311;
-    v59[3] = &unk_278684968;
-    v27 = v47;
-    v60 = v47;
-    [v25 na_filter:v59];
-    v28 = v43 = userCopy;
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __106__HMDNotificationRegistryCoreDataAdapter__processGroupedCharacteristicsRequests_user_destination_context___block_invoke_2_311;
+    v58[3] = &unk_278684968;
+    v27 = v46;
+    v59 = v46;
+    [v25 na_filter:v58];
+    v28 = v42 = userCopy;
     dictionary2 = [MEMORY[0x277CBEB38] dictionary];
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __106__HMDNotificationRegistryCoreDataAdapter__processGroupedCharacteristicsRequests_user_destination_context___block_invoke_4;
-    v57[3] = &unk_2786846A8;
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __106__HMDNotificationRegistryCoreDataAdapter__processGroupedCharacteristicsRequests_user_destination_context___block_invoke_4;
+    v56[3] = &unk_2786846A8;
     v30 = dictionary2;
-    v58 = v30;
-    [v28 hmf_enumerateWithAutoreleasePoolUsingBlock:v57];
+    v57 = v30;
+    [v28 hmf_enumerateWithAutoreleasePoolUsingBlock:v56];
     v31 = [MEMORY[0x277CBEB58] set];
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __106__HMDNotificationRegistryCoreDataAdapter__processGroupedCharacteristicsRequests_user_destination_context___block_invoke_5;
-    v51[3] = &unk_278684990;
-    v52 = v30;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __106__HMDNotificationRegistryCoreDataAdapter__processGroupedCharacteristicsRequests_user_destination_context___block_invoke_5;
+    v50[3] = &unk_278684990;
+    v51 = v30;
     selfCopy = self;
-    v54 = v26;
-    v32 = v48;
-    v55 = v48;
-    v56 = v31;
+    v53 = v26;
+    v32 = v47;
+    v54 = v47;
+    v55 = v31;
     v33 = v31;
     v34 = v30;
-    v35 = v50;
-    [v50 hmf_enumerateWithAutoreleasePoolUsingBlock:v51];
-    v36 = [v33 copy];
+    v35 = v49;
+    [v49 hmf_enumerateWithAutoreleasePoolUsingBlock:v50];
+    v36 = objc_msgSend_copy(v33);
 
-    userCopy = v43;
+    userCopy = v42;
   }
 
   else
@@ -3982,18 +3916,16 @@ void __124__HMDNotificationRegistryCoreDataAdapter__processEnableCharacteristics
     {
       v40 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v67 = v40;
+      v66 = v40;
       _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch home member and registrations", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v37);
-    v35 = v50;
-    v36 = [v50 na_map:&__block_literal_global_310_246896];
-    v27 = v47;
-    v32 = v48;
+    v35 = v49;
+    v36 = [v49 na_map:&__block_literal_global_310_246896];
+    v27 = v46;
+    v32 = v47;
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return v36;
 }
@@ -4164,7 +4096,7 @@ void __106__HMDNotificationRegistryCoreDataAdapter__processGroupedCharacteristic
     v12 = context;
     v13 = v7;
     [v12 unsafeSynchronousBlock:&v16];
-    v14 = [v11 copy];
+    v14 = objc_msgSend_copy(v11, v16, v17, v18, v19);
   }
 
   else
@@ -4193,23 +4125,23 @@ void __73__HMDNotificationRegistryCoreDataAdapter_processCharacteristicsRequests
 
 void __73__HMDNotificationRegistryCoreDataAdapter_processCharacteristicsRequests___block_invoke_2(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __73__HMDNotificationRegistryCoreDataAdapter_processCharacteristicsRequests___block_invoke_3;
-  v16[3] = &unk_278684888;
+  v22 = *MEMORY[0x277D85DE8];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __73__HMDNotificationRegistryCoreDataAdapter_processCharacteristicsRequests___block_invoke_3;
+  v15[3] = &unk_278684888;
   v2 = *(a1 + 32);
   v3 = *(a1 + 48);
-  v16[4] = *(a1 + 40);
-  v17 = v3;
-  v18 = *(a1 + 56);
-  [v2 enumerateKeysAndObjectsUsingBlock:v16];
+  v15[4] = *(a1 + 40);
+  v16 = v3;
+  v17 = *(a1 + 56);
+  [v2 enumerateKeysAndObjectsUsingBlock:v15];
   if ([*(a1 + 56) na_any:&__block_literal_global_301])
   {
     v4 = *(a1 + 48);
-    v15 = 0;
-    v5 = [v4 save:&v15];
-    v6 = v15;
+    v14 = 0;
+    v5 = [v4 save:&v14];
+    v6 = v14;
     if ((v5 & 1) == 0)
     {
       v7 = objc_autoreleasePoolPush();
@@ -4219,27 +4151,25 @@ void __73__HMDNotificationRegistryCoreDataAdapter_processCharacteristicsRequests
       {
         v10 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v20 = v10;
-        v21 = 2112;
-        v22 = v6;
+        v19 = v10;
+        v20 = 2112;
+        v21 = v6;
         _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unable to save the characteristic notification registration changes requested, error: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v7);
       [*(a1 + 56) removeAllObjects];
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __73__HMDNotificationRegistryCoreDataAdapter_processCharacteristicsRequests___block_invoke_302;
-      v13[3] = &unk_278684860;
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __73__HMDNotificationRegistryCoreDataAdapter_processCharacteristicsRequests___block_invoke_302;
+      v12[3] = &unk_278684860;
       v11 = *(a1 + 64);
-      v14 = *(a1 + 56);
-      [v11 hmf_enumerateWithAutoreleasePoolUsingBlock:v13];
+      v13 = *(a1 + 56);
+      [v11 hmf_enumerateWithAutoreleasePoolUsingBlock:v12];
     }
   }
 
   [*(a1 + 48) reset];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HMDNotificationRegistryCoreDataAdapter_processCharacteristicsRequests___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -4325,7 +4255,7 @@ uint64_t __73__HMDNotificationRegistryCoreDataAdapter_processCharacteristicsRequ
     [v15 unsafeSynchronousBlock:v19];
     if (*(v28 + 24) == 1)
     {
-      v17 = [v16 copy];
+      v17 = objc_msgSend_copy(v16);
     }
 
     else
@@ -4346,7 +4276,7 @@ uint64_t __73__HMDNotificationRegistryCoreDataAdapter_processCharacteristicsRequ
 
 void __106__HMDNotificationRegistryCoreDataAdapter_disableNotificationForCharacteristics_user_deviceIdsDestination___block_invoke(uint64_t a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [*(a1 + 40) objectAtIndexedSubscript:0];
   v4 = [v3 service];
@@ -4359,9 +4289,9 @@ void __106__HMDNotificationRegistryCoreDataAdapter_disableNotificationForCharact
   v10 = *(a1 + 64);
   v11 = [MEMORY[0x277CBEA60] arrayWithObject:@"characteristic.instanceID"];
   v12 = [*(a1 + 56) isRestrictedGuest];
-  v40 = 0;
-  v13 = [v8 _fetchMKFUserAndRegistrationsWithUserUUID:v9 withCharacteristicIIDs:v7 withAccessoryUUID:v6 withDeviceIdsDestination:v10 withPrefetchPaths:v11 isRestrictedGuest:v12 outHomeMember:&v40 context:v2];
-  v14 = v40;
+  v39 = 0;
+  v13 = [v8 _fetchMKFUserAndRegistrationsWithUserUUID:v9 withCharacteristicIIDs:v7 withAccessoryUUID:v6 withDeviceIdsDestination:v10 withPrefetchPaths:v11 isRestrictedGuest:v12 outHomeMember:&v39 context:v2];
+  v14 = v39;
 
   if (v13 && v14)
   {
@@ -4369,23 +4299,23 @@ void __106__HMDNotificationRegistryCoreDataAdapter_disableNotificationForCharact
     {
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v46 = 0x2020000000;
-      v47 = 0;
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __106__HMDNotificationRegistryCoreDataAdapter_disableNotificationForCharacteristics_user_deviceIdsDestination___block_invoke_292;
-      v34[3] = &unk_278684838;
+      v45 = 0x2020000000;
+      v46 = 0;
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __106__HMDNotificationRegistryCoreDataAdapter_disableNotificationForCharacteristics_user_deviceIdsDestination___block_invoke_292;
+      v33[3] = &unk_278684838;
       v15 = *(a1 + 40);
       v16 = *(a1 + 48);
-      v35 = v15;
-      v36 = v16;
+      v34 = v15;
+      v35 = v16;
       v18 = *(a1 + 72);
       v17 = *(a1 + 80);
       p_buf = &buf;
-      v39 = v17;
-      v37 = v18;
-      [v13 hmf_enumerateWithAutoreleasePoolUsingBlock:v34];
-      if ([v2 hasChanges] && ((v19 = *(a1 + 32), v33 = 0, v20 = objc_msgSend(v19, "save:", &v33), (v21 = v33) == 0) ? (v22 = v20) : (v22 = 0), (v22 & 1) == 0))
+      v38 = v17;
+      v36 = v18;
+      [v13 hmf_enumerateWithAutoreleasePoolUsingBlock:v33];
+      if ([v2 hasChanges] && ((v19 = *(a1 + 32), v32 = 0, v20 = objc_msgSend(v19, "save:", &v32), (v21 = v32) == 0) ? (v22 = v20) : (v22 = 0), (v22 & 1) == 0))
       {
         v27 = v21;
         context = objc_autoreleasePoolPush();
@@ -4394,11 +4324,11 @@ void __106__HMDNotificationRegistryCoreDataAdapter_disableNotificationForCharact
         if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           v30 = HMFGetLogIdentifier();
-          *v41 = 138543618;
-          v42 = v30;
-          v43 = 2112;
-          v44 = v27;
-          _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Unable to save the disable characteristic notification registration changes requested, error: %@", v41, 0x16u);
+          *v40 = 138543618;
+          v41 = v30;
+          v42 = 2112;
+          v43 = v27;
+          _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Unable to save the disable characteristic notification registration changes requested, error: %@", v40, 0x16u);
         }
 
         objc_autoreleasePoolPop(context);
@@ -4435,8 +4365,6 @@ void __106__HMDNotificationRegistryCoreDataAdapter_disableNotificationForCharact
     objc_autoreleasePoolPop(v23);
     [*(a1 + 32) reset];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __106__HMDNotificationRegistryCoreDataAdapter_disableNotificationForCharacteristics_user_deviceIdsDestination___block_invoke_292(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -4540,58 +4468,58 @@ void __106__HMDNotificationRegistryCoreDataAdapter_disableNotificationForCharact
 
 void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharacteristics_user_deviceIdsDestination___block_invoke(uint64_t a1)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [*(a1 + 40) objectAtIndexedSubscript:0];
   v4 = [v3 service];
   v5 = [v4 accessory];
-  v34 = [v5 uuid];
+  v33 = [v5 uuid];
 
   v6 = [*(a1 + 40) na_map:&__block_literal_global_286_246912];
   v7 = *(a1 + 48);
   v8 = [*(a1 + 56) uuid];
   v9 = *(a1 + 64);
   v10 = [*(a1 + 56) isRestrictedGuest];
-  v46 = 0;
-  v11 = [v7 _fetchMKFUserAndRegistrationsWithUserUUID:v8 withCharacteristicIIDs:v6 withAccessoryUUID:v34 withDeviceIdsDestination:v9 withPrefetchPaths:0 isRestrictedGuest:v10 outHomeMember:&v46 context:v2];
-  v12 = v46;
+  v45 = 0;
+  v11 = [v7 _fetchMKFUserAndRegistrationsWithUserUUID:v8 withCharacteristicIIDs:v6 withAccessoryUUID:v33 withDeviceIdsDestination:v9 withPrefetchPaths:0 isRestrictedGuest:v10 outHomeMember:&v45 context:v2];
+  v12 = v45;
 
   if (v11 && v12)
   {
-    *&v51 = 0;
-    *(&v51 + 1) = &v51;
-    v52 = 0x3032000000;
-    v53 = __Block_byref_object_copy__246802;
-    v54 = __Block_byref_object_dispose__246803;
-    v55 = 0;
+    *&v50 = 0;
+    *(&v50 + 1) = &v50;
+    v51 = 0x3032000000;
+    v52 = __Block_byref_object_copy__246802;
+    v53 = __Block_byref_object_dispose__246803;
+    v54 = 0;
     v13 = *(a1 + 40);
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharacteristics_user_deviceIdsDestination___block_invoke_287;
-    v36[3] = &unk_2786847C0;
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharacteristics_user_deviceIdsDestination___block_invoke_287;
+    v35[3] = &unk_2786847C0;
     v14 = v11;
     v15 = *(a1 + 80);
-    v37 = v14;
-    v43 = v15;
-    v44 = &v51;
-    v33 = *(a1 + 40);
-    v16 = v33.i64[0];
-    v38 = vextq_s8(v33, v33, 8uLL);
+    v36 = v14;
+    v42 = v15;
+    v43 = &v50;
+    v32 = *(a1 + 40);
+    v16 = v32.i64[0];
+    v37 = vextq_s8(v32, v32, 8uLL);
     v17 = v2;
     v19 = *(a1 + 64);
     v18 = *(a1 + 72);
-    v39 = v17;
-    v45 = v18;
-    v40 = v19;
-    v41 = v12;
-    v42 = *(a1 + 32);
-    [v13 hmf_enumerateWithAutoreleasePoolUsingBlock:v36];
+    v38 = v17;
+    v44 = v18;
+    v39 = v19;
+    v40 = v12;
+    v41 = *(a1 + 32);
+    [v13 hmf_enumerateWithAutoreleasePoolUsingBlock:v35];
     if (*(*(*(a1 + 72) + 8) + 24) == 1 && [v17 hasChanges])
     {
       v20 = *(a1 + 32);
-      v35 = 0;
-      v21 = [v20 save:&v35];
-      v22 = v35;
+      v34 = 0;
+      v21 = [v20 save:&v34];
+      v22 = v34;
       v23 = v22;
       *(*(*(a1 + 72) + 8) + 24) = v21;
       if (*(*(*(a1 + 72) + 8) + 24) != 1 || v22)
@@ -4603,9 +4531,9 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
         {
           v27 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v48 = v27;
-          v49 = 2112;
-          v50 = v23;
+          v47 = v27;
+          v48 = 2112;
+          v49 = v23;
           _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Unable to save the enable characteristic notification registration changes requested, error: %@", buf, 0x16u);
         }
 
@@ -4621,7 +4549,7 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
 
     [*(a1 + 32) reset];
 
-    _Block_object_dispose(&v51, 8);
+    _Block_object_dispose(&v50, 8);
   }
 
   else
@@ -4632,49 +4560,47 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       v31 = HMFGetLogIdentifier();
-      LODWORD(v51) = 138543362;
-      *(&v51 + 4) = v31;
-      _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch home member and registrations", &v51, 0xCu);
+      LODWORD(v50) = 138543362;
+      *(&v50 + 4) = v31;
+      _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch home member and registrations", &v50, 0xCu);
     }
 
     objc_autoreleasePoolPop(v28);
     *(*(*(a1 + 72) + 8) + 24) = 0;
     [*(a1 + 32) reset];
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharacteristics_user_deviceIdsDestination___block_invoke_287(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v7 = a2;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
-  v37 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
   v8 = *(a1 + 32);
-  v26 = MEMORY[0x277D85DD0];
-  v27 = 3221225472;
-  v28 = __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharacteristics_user_deviceIdsDestination___block_invoke_2_288;
-  v29 = &unk_278684798;
+  v25 = MEMORY[0x277D85DD0];
+  v26 = 3221225472;
+  v27 = __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharacteristics_user_deviceIdsDestination___block_invoke_2_288;
+  v28 = &unk_278684798;
   v9 = v7;
   v10 = *(a1 + 40);
-  v30 = v9;
-  v31 = v10;
+  v29 = v9;
+  v30 = v10;
   v11 = *(a1 + 88);
-  v32 = &v34;
-  v33 = v11;
-  [v8 hmf_enumerateWithAutoreleasePoolUsingBlock:&v26];
-  if ((v35[3] & 1) == 0)
+  v31 = &v33;
+  v32 = v11;
+  [v8 hmf_enumerateWithAutoreleasePoolUsingBlock:&v25];
+  if ((v34[3] & 1) == 0)
   {
     v12 = *(*(*(a1 + 96) + 8) + 40);
-    if (v12 || ([*(a1 + 40) _fetchMKFCharacteristicsFromHMDCharacteristics:*(a1 + 48) context:{*(a1 + 56), v26, v27, v28, v29}], v13 = objc_claimAutoreleasedReturnValue(), v14 = *(*(a1 + 96) + 8), v15 = *(v14 + 40), *(v14 + 40) = v13, v15, (v12 = *(*(*(a1 + 96) + 8) + 40)) != 0))
+    if (v12 || ([*(a1 + 40) _fetchMKFCharacteristicsFromHMDCharacteristics:*(a1 + 48) context:{*(a1 + 56), v25, v26, v27, v28}], v13 = objc_claimAutoreleasedReturnValue(), v14 = *(*(a1 + 96) + 8), v15 = *(v14 + 40), *(v14 + 40) = v13, v15, (v12 = *(*(*(a1 + 96) + 8) + 40)) != 0))
     {
       v16 = *(a1 + 40);
       v17 = *(a1 + 64);
       v18 = *(a1 + 72);
-      v19 = [v12 objectAtIndexedSubscript:{a3, v26, v27, v28, v29}];
+      v19 = [v12 objectAtIndexedSubscript:{a3, v25, v26, v27, v28}];
       LOBYTE(v17) = [v16 _insertNotificationRegistrationForCharacteristic:v9 notificationThreshold:0 deviceIdsDestination:v17 homeMember:v18 mkfCharacteristic:v19 context:*(a1 + 80)];
 
       if (v17)
@@ -4694,9 +4620,9 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
         v23 = HMFGetLogIdentifier();
         v24 = *(a1 + 48);
         *buf = 138543618;
-        v39 = v23;
-        v40 = 2112;
-        v41 = v24;
+        v38 = v23;
+        v39 = 2112;
+        v40 = v24;
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Unable to find MKFCharacteristics for characteristics: %@", buf, 0x16u);
       }
 
@@ -4709,8 +4635,7 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
 
 LABEL_10:
 
-  _Block_object_dispose(&v34, 8);
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v33, 8);
 }
 
 void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharacteristics_user_deviceIdsDestination___block_invoke_2_288(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -4764,9 +4689,86 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
   return v6;
 }
 
+- (id)_fetchRequestForCharacteristicRegistrations:(BOOL)registrations enabled:(BOOL)enabled destination:(id)destination propertiesToFetch:(id)fetch relationshipKeyPathsForPrefetching:(id)prefetching
+{
+  enabledCopy = enabled;
+  registrationsCopy = registrations;
+  v43[2] = *MEMORY[0x277D85DE8];
+  destinationCopy = destination;
+  fetchCopy = fetch;
+  prefetchingCopy = prefetching;
+  home = [(HMDNotificationRegistryCoreDataAdapter *)self home];
+  v14 = +[_MKFNotificationRegistrationCharacteristic fetchRequest];
+  v15 = MEMORY[0x277CCAC30];
+  uuid = [home uuid];
+  v17 = [v15 predicateWithFormat:@"%K == %@", @"user.home.modelID", uuid];
+
+  v18 = MEMORY[0x277CCAC30];
+  v37 = home;
+  uuid2 = [home uuid];
+  v20 = [v18 predicateWithFormat:@"%K == %@", @"guest.home.modelID", uuid2];
+
+  v21 = MEMORY[0x277CCA920];
+  v40 = v17;
+  v43[0] = v17;
+  v43[1] = v20;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
+  v23 = [v21 orPredicateWithSubpredicates:v22];
+
+  if (registrationsCopy)
+  {
+    v24 = MEMORY[0x277CCAC30];
+    v25 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+    v26 = [v24 predicateWithFormat:@"%K == %@", @"enabled", v25];
+
+    v27 = MEMORY[0x277CCA920];
+    v42[0] = v23;
+    v42[1] = v26;
+    [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
+    v29 = v28 = destinationCopy;
+    v30 = [v27 andPredicateWithSubpredicates:v29];
+
+    destinationCopy = v28;
+    v23 = v30;
+  }
+
+  if (destinationCopy)
+  {
+    v31 = destinationCopy;
+    destinationCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"deviceIdsDestination", destinationCopy];
+    v33 = MEMORY[0x277CCA920];
+    v41[0] = v23;
+    v41[1] = destinationCopy;
+    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
+    v35 = [v33 andPredicateWithSubpredicates:v34];
+
+    v23 = v35;
+  }
+
+  else
+  {
+    v31 = 0;
+  }
+
+  [v14 setPredicate:v23];
+  if (fetchCopy)
+  {
+    [v14 setPropertiesToFetch:fetchCopy];
+  }
+
+  if (prefetchingCopy)
+  {
+    [v14 setRelationshipKeyPathsForPrefetching:prefetchingCopy];
+  }
+
+  [v14 setFetchBatchSize:100];
+
+  return v14;
+}
+
 - (id)_fetchRequestForActionSetRegistrationsWithoutAllowedDestinations:(id)destinations
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   destinationsCopy = destinations;
   home = [(HMDNotificationRegistryCoreDataAdapter *)self home];
   v6 = objc_alloc(MEMORY[0x277CBE428]);
@@ -4784,20 +4786,18 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
   destinationsCopy2 = [v13 predicateWithFormat:@"(%K == %@) AND NOT (%K IN %@)", @"guest.home.modelID", uuid2, @"deviceIdsDestination", destinationsCopy];
 
   v16 = MEMORY[0x277CCA920];
-  v21[0] = destinationsCopy;
-  v21[1] = destinationsCopy2;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v20[0] = destinationsCopy;
+  v20[1] = destinationsCopy2;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
   v18 = [v16 orPredicateWithSubpredicates:v17];
   [v9 setPredicate:v18];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_fetchRequestForMediaProfileRegistrationsWithoutAllowedDestinations:(id)destinations
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   destinationsCopy = destinations;
   home = [(HMDNotificationRegistryCoreDataAdapter *)self home];
   v6 = objc_alloc(MEMORY[0x277CBE428]);
@@ -4815,20 +4815,18 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
   destinationsCopy2 = [v13 predicateWithFormat:@"(%K == %@) AND NOT (%K IN %@)", @"guest.home.modelID", uuid2, @"deviceIdsDestination", destinationsCopy];
 
   v16 = MEMORY[0x277CCA920];
-  v21[0] = destinationsCopy;
-  v21[1] = destinationsCopy2;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v20[0] = destinationsCopy;
+  v20[1] = destinationsCopy2;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
   v18 = [v16 orPredicateWithSubpredicates:v17];
   [v9 setPredicate:v18];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_fetchRequestForCharacteristicRegistrationsWithoutAllowedDestinations:(id)destinations
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   destinationsCopy = destinations;
   home = [(HMDNotificationRegistryCoreDataAdapter *)self home];
   v6 = objc_alloc(MEMORY[0x277CBE428]);
@@ -4846,21 +4844,42 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
   destinationsCopy2 = [v13 predicateWithFormat:@"(%K == %@) AND NOT (%K IN %@)", @"guest.home.modelID", uuid2, @"deviceIdsDestination", destinationsCopy];
 
   v16 = MEMORY[0x277CCA920];
-  v21[0] = destinationsCopy;
-  v21[1] = destinationsCopy2;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v20[0] = destinationsCopy;
+  v20[1] = destinationsCopy2;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
   v18 = [v16 orPredicateWithSubpredicates:v17];
   [v9 setPredicate:v18];
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v9;
+}
+
+- (id)_fetchMKFUserAndRegistrationsWithUserUUID:(id)d actionSetUUID:(id)iD deviceIdsDestination:(id)destination prefetchPaths:(id)paths isRestrictedGuest:(BOOL)guest outHomeMember:(id *)member context:(id)context
+{
+  guestCopy = guest;
+  dCopy = d;
+  contextCopy = context;
+  pathsCopy = paths;
+  destinationCopy = destination;
+  iDCopy = iD;
+  [contextCopy hmd_assertIsExecuting];
+  v20 = [MEMORY[0x277CBEB18] arrayWithArray:pathsCopy];
+
+  [v20 addObject:@"user"];
+  v21 = [(HMDNotificationRegistryCoreDataAdapter *)self _fetchMKFRegistrationsWithUserUUID:dCopy actionSetUUID:iDCopy deviceIdsDestination:destinationCopy prefetchPaths:v20 isRestrictedGuest:guestCopy context:contextCopy];
+
+  if (v21)
+  {
+    *member = [(HMDNotificationRegistryCoreDataAdapter *)self homeMemberForRegistrations:v21 userUUID:dCopy isRestrictedGuest:guestCopy context:contextCopy];
+    v22 = v21;
+  }
+
+  return v21;
 }
 
 - (id)_fetchMKFRegistrationsWithUserUUID:(id)d actionSetUUID:(id)iD deviceIdsDestination:(id)destination prefetchPaths:(id)paths isRestrictedGuest:(BOOL)guest context:(id)context
 {
   guestCopy = guest;
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   destinationCopy = destination;
@@ -4882,9 +4901,9 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
   destinationCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@) AND (%K == %@) AND (%K == %@)", v23, dCopy, @"actionSet.modelID", iDCopy, @"deviceIdsDestination", destinationCopy];
   [v22 setPredicate:destinationCopy];
 
-  v34 = 0;
-  v25 = [contextCopy executeFetchRequest:v22 error:&v34];
-  v26 = v34;
+  v33 = 0;
+  v25 = [contextCopy executeFetchRequest:v22 error:&v33];
+  v26 = v33;
   if (v25)
   {
     v27 = v25;
@@ -4897,26 +4916,24 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
     v29 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v32 = HMFGetLogIdentifier();
+      v31 = HMFGetLogIdentifier();
       *buf = 138544642;
-      v36 = v32;
-      v37 = 2112;
-      v38 = dCopy;
-      v39 = 2112;
-      v40 = iDCopy;
-      v41 = 2112;
-      v42 = destinationCopy;
-      v43 = 2112;
-      v44 = pathsCopy;
-      v45 = 2112;
-      v46 = v26;
+      v35 = v31;
+      v36 = 2112;
+      v37 = dCopy;
+      v38 = 2112;
+      v39 = iDCopy;
+      v40 = 2112;
+      v41 = destinationCopy;
+      v42 = 2112;
+      v43 = pathsCopy;
+      v44 = 2112;
+      v45 = v26;
       _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch action set registrations for userUUID %@ actionSetUUID %@ deviceIdsDestination %@ prefetchPaths %@, error: %@", buf, 0x3Eu);
     }
 
     objc_autoreleasePoolPop(context);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -4948,7 +4965,7 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
 
 - (id)_fetchMKFRegistrationsWithUserUUID:(id)d withMediaProfileUUID:(id)iD withMediaPropertyIn:(id)in withDeviceIdsDestination:(id)destination withAccessoryUUID:(id)uID withPrefetchPaths:(id)paths isRestrictedGuest:(BOOL)guest context:(id)self0
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   inCopy = in;
@@ -4963,7 +4980,7 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
   v24 = [v21 initWithEntityName:name];
 
   v25 = uIDCopy;
-  v39 = pathsCopy;
+  v38 = pathsCopy;
   [v24 setRelationshipKeyPathsForPrefetching:pathsCopy];
   v26 = @"user.modelID";
   if (guest)
@@ -4974,9 +4991,9 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
   uIDCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@) AND (%K == %@) AND (%K IN %@) AND (%K == %@) AND (%K == %@)", v26, dCopy, @"mediaProfileIdentifier", iDCopy, @"mediaProperty", inCopy, @"deviceIdsDestination", destinationCopy, @"accessory.modelID", uIDCopy];
   [v24 setPredicate:uIDCopy];
 
-  v40 = 0;
-  v28 = [contextCopy executeFetchRequest:v24 error:&v40];
-  v29 = v40;
+  v39 = 0;
+  v28 = [contextCopy executeFetchRequest:v24 error:&v39];
+  v29 = v39;
   if (v28)
   {
     v30 = v28;
@@ -4989,23 +5006,23 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
     v32 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      v37 = HMFGetLogIdentifier();
+      v36 = HMFGetLogIdentifier();
       *buf = 138545154;
-      v42 = v37;
-      v43 = 2112;
-      v44 = dCopy;
-      v45 = 2112;
-      v46 = iDCopy;
-      v47 = 2112;
-      v48 = inCopy;
-      v49 = 2112;
-      v50 = destinationCopy;
-      v51 = 2112;
-      v52 = uIDCopy;
-      v53 = 2112;
-      v54 = v39;
-      v55 = 2112;
-      v56 = v29;
+      v41 = v36;
+      v42 = 2112;
+      v43 = dCopy;
+      v44 = 2112;
+      v45 = iDCopy;
+      v46 = 2112;
+      v47 = inCopy;
+      v48 = 2112;
+      v49 = destinationCopy;
+      v50 = 2112;
+      v51 = uIDCopy;
+      v52 = 2112;
+      v53 = v38;
+      v54 = 2112;
+      v55 = v29;
       _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch media property registrations for userUUID %@ mediaProfileUUID %@ mediaProperties %@ deviceIdsDestination %@ accessoryUUID %@ prefetchPaths %@, error: %@", buf, 0x52u);
     }
 
@@ -5013,15 +5030,70 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
     v25 = uIDCopy;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return v28;
+}
+
+- (id)_fetchMKFUserAndRegistrationsWithUserUUID:(id)d withCharacteristicIIDs:(id)ds withAccessoryUUIDs:(id)iDs withDeviceIdsDestination:(id)destination withPrefetchPaths:(id)paths isRestrictedGuest:(BOOL)guest outHomeMember:(id *)member context:(id)self0
+{
+  guestCopy = guest;
+  v41 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  dsCopy = ds;
+  iDsCopy = iDs;
+  destinationCopy = destination;
+  pathsCopy = paths;
+  contextCopy = context;
+  [contextCopy hmd_assertIsExecuting];
+  if (guestCopy)
+  {
+    v22 = @"guest";
+  }
+
+  else
+  {
+    v22 = @"user";
+  }
+
+  v23 = [MEMORY[0x277CBEB18] arrayWithArray:pathsCopy];
+  [v23 addObject:v22];
+  v24 = [(HMDNotificationRegistryCoreDataAdapter *)self _fetchMKFRegistrationsWithUserUUID:dCopy withCharacteristicIIDs:dsCopy withAccessoryUUIDs:iDsCopy withDeviceIdsDestination:destinationCopy withPrefetchPaths:v23 isRestrictedGuest:guestCopy context:contextCopy];
+  if (v24)
+  {
+    *member = [(HMDNotificationRegistryCoreDataAdapter *)self homeMemberForRegistrations:v24 userUUID:dCopy isRestrictedGuest:guestCopy context:contextCopy];
+    v25 = v24;
+  }
+
+  else
+  {
+    context = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v27 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      v29 = HMFGetLogIdentifier();
+      *buf = 138544386;
+      v32 = v29;
+      v33 = 2112;
+      v34 = dCopy;
+      v35 = 2112;
+      v36 = dsCopy;
+      v37 = 2112;
+      v38 = iDsCopy;
+      v39 = 2112;
+      v40 = destinationCopy;
+      _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch registrations for user uuid %@ characteristic iids %@ accessory uuids %@ deviceIdsDestination %@", buf, 0x34u);
+    }
+
+    objc_autoreleasePoolPop(context);
+  }
+
+  return v24;
 }
 
 - (id)homeMemberForRegistrations:(id)registrations userUUID:(id)d isRestrictedGuest:(BOOL)guest context:(id)context
 {
   guestCopy = guest;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   registrationsCopy = registrations;
   dCopy = d;
   contextCopy = context;
@@ -5052,11 +5124,11 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         v19 = HMFGetLogIdentifier();
-        v22 = 138543618;
-        v23 = v19;
-        v24 = 2112;
-        v25 = dCopy;
-        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unable to find the home member with UUID: %@", &v22, 0x16u);
+        v21 = 138543618;
+        v22 = v19;
+        v23 = 2112;
+        v24 = dCopy;
+        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unable to find the home member with UUID: %@", &v21, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -5064,15 +5136,60 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v15;
+}
+
+- (id)_fetchMKFUserAndRegistrationsWithUserUUID:(id)d withCharacteristicIIDs:(id)ds withAccessoryUUID:(id)iD withDeviceIdsDestination:(id)destination withPrefetchPaths:(id)paths isRestrictedGuest:(BOOL)guest outHomeMember:(id *)member context:(id)self0
+{
+  guestCopy = guest;
+  v40 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  dsCopy = ds;
+  iDCopy = iD;
+  destinationCopy = destination;
+  pathsCopy = paths;
+  contextCopy = context;
+  [contextCopy hmd_assertIsExecuting];
+  v22 = [MEMORY[0x277CBEB18] arrayWithArray:pathsCopy];
+  [v22 addObject:@"user"];
+  v23 = [(HMDNotificationRegistryCoreDataAdapter *)self _fetchMKFRegistrationsWithUserUUID:dCopy withCharacteristicIIDs:dsCopy withAccessoryUUID:iDCopy withDeviceIdsDestination:destinationCopy withPrefetchPaths:v22 isRestrictedGuest:guestCopy context:contextCopy];
+  if (v23)
+  {
+    *member = [(HMDNotificationRegistryCoreDataAdapter *)self homeMemberForRegistrations:v23 userUUID:dCopy isRestrictedGuest:guestCopy context:contextCopy];
+    v24 = v23;
+  }
+
+  else
+  {
+    context = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v26 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      v28 = HMFGetLogIdentifier();
+      *buf = 138544386;
+      v31 = v28;
+      v32 = 2112;
+      v33 = dCopy;
+      v34 = 2112;
+      v35 = dsCopy;
+      v36 = 2112;
+      v37 = iDCopy;
+      v38 = 2112;
+      v39 = destinationCopy;
+      _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch registrations for user uuid %@ characteristic iids %@ accessory uuid %@ deviceIdsDestination %@", buf, 0x34u);
+    }
+
+    objc_autoreleasePoolPop(context);
+  }
+
+  return v23;
 }
 
 - (id)_fetchMKFRegistrationsWithUserUUID:(id)d withCharacteristicIIDs:(id)ds withAccessoryUUIDs:(id)iDs withDeviceIdsDestination:(id)destination withPrefetchPaths:(id)paths isRestrictedGuest:(BOOL)guest context:(id)context
 {
   guestCopy = guest;
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dsCopy = ds;
   iDsCopy = iDs;
@@ -5110,9 +5227,9 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
       [v25 setRelationshipKeyPathsForPrefetching:pathsCopy];
     }
 
-    v40 = 0;
-    v21 = [contextCopy executeFetchRequest:v25 error:&v40];
-    v31 = v40;
+    v39 = 0;
+    v21 = [contextCopy executeFetchRequest:v25 error:&v39];
+    v31 = v39;
     if (v21)
     {
       v32 = v21;
@@ -5121,23 +5238,23 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
     else
     {
       context = objc_autoreleasePoolPush();
-      v39 = selfCopy;
+      v38 = selfCopy;
       v33 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        v36 = HMFGetLogIdentifier();
+        v35 = HMFGetLogIdentifier();
         *buf = 138544642;
-        v42 = v36;
-        v43 = 2112;
-        v44 = dCopy;
-        v45 = 2112;
-        v46 = dsCopy;
-        v47 = 2112;
-        v48 = iDsCopy;
-        v49 = 2112;
-        v50 = destinationCopy;
-        v51 = 2112;
-        v52 = v31;
+        v41 = v35;
+        v42 = 2112;
+        v43 = dCopy;
+        v44 = 2112;
+        v45 = dsCopy;
+        v46 = 2112;
+        v47 = iDsCopy;
+        v48 = 2112;
+        v49 = destinationCopy;
+        v50 = 2112;
+        v51 = v31;
         _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch notification registrations for userOrGuest uuid %@ characteristic IIDs %@ accessory UUIDs %@ deviceIdsDestination %@, error: %@", buf, 0x3Eu);
       }
 
@@ -5145,15 +5262,13 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
     }
   }
 
-  v34 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 - (id)_fetchMKFRegistrationsWithUserUUID:(id)d withCharacteristicIIDs:(id)ds withAccessoryUUID:(id)iD withDeviceIdsDestination:(id)destination withPrefetchPaths:(id)paths isRestrictedGuest:(BOOL)guest context:(id)context
 {
   guestCopy = guest;
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dsCopy = ds;
   iDCopy = iD;
@@ -5191,9 +5306,9 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
       [v25 setRelationshipKeyPathsForPrefetching:pathsCopy];
     }
 
-    v40 = 0;
-    v21 = [contextCopy executeFetchRequest:v25 error:&v40];
-    v31 = v40;
+    v39 = 0;
+    v21 = [contextCopy executeFetchRequest:v25 error:&v39];
+    v31 = v39;
     if (v21)
     {
       v32 = v21;
@@ -5202,23 +5317,23 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
     else
     {
       context = objc_autoreleasePoolPush();
-      v39 = selfCopy;
+      v38 = selfCopy;
       v33 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        v36 = HMFGetLogIdentifier();
+        v35 = HMFGetLogIdentifier();
         *buf = 138544642;
-        v42 = v36;
-        v43 = 2112;
-        v44 = dCopy;
-        v45 = 2112;
-        v46 = dsCopy;
-        v47 = 2112;
-        v48 = iDCopy;
-        v49 = 2112;
-        v50 = destinationCopy;
-        v51 = 2112;
-        v52 = v31;
+        v41 = v35;
+        v42 = 2112;
+        v43 = dCopy;
+        v44 = 2112;
+        v45 = dsCopy;
+        v46 = 2112;
+        v47 = iDCopy;
+        v48 = 2112;
+        v49 = destinationCopy;
+        v50 = 2112;
+        v51 = v31;
         _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch notification registrations for userOrGuest uuid %@ characteristic IIDs %@ accessory UUID %@ deviceIdsDestination %@, error: %@", buf, 0x3Eu);
       }
 
@@ -5226,14 +5341,12 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
     }
   }
 
-  v34 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 - (id)_fetchMKFCharacteristicsFromHMDCharacteristics:(id)characteristics context:(id)context
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
   contextCopy = context;
   [contextCopy hmd_assertIsExecuting];
@@ -5246,17 +5359,17 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
     accessory = [service accessory];
     uuid = [accessory uuid];
 
-    v59 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(characteristicsCopy, "count")}];
+    v58 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(characteristicsCopy, "count")}];
     v12 = objc_alloc(MEMORY[0x277CBE428]);
     v13 = +[_MKFCharacteristic entity];
     name = [v13 name];
     v15 = [v12 initWithEntityName:name];
 
-    v58 = uuid;
-    v60 = contextCopy;
+    v57 = uuid;
+    v59 = contextCopy;
     if ([characteristicsCopy count] == 1)
     {
-      v54 = service;
+      v53 = service;
       v16 = MEMORY[0x277CCAC30];
       v17 = [characteristicsCopy objectAtIndexedSubscript:0];
       instanceID = [v17 instanceID];
@@ -5268,18 +5381,18 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
       v24 = [v16 predicateWithFormat:@"(%K == %@ OR %K == %@) AND (%K == %@)", @"instanceID", v19, @"instanceID", v23, @"service.accessory.modelID", uuid];
       [v15 setPredicate:v24];
 
-      v65 = 0;
+      v64 = 0;
       v25 = v15;
-      v26 = [v60 executeFetchRequest:v15 error:&v65];
-      v27 = v65;
+      v26 = [v59 executeFetchRequest:v15 error:&v64];
+      v27 = v64;
       if (v26 && [v26 count])
       {
         v28 = [v26 objectAtIndexedSubscript:0];
-        v29 = v59;
-        [v59 setObject:v28 atIndexedSubscript:0];
+        v29 = v58;
+        [v58 setObject:v28 atIndexedSubscript:0];
 
-        v30 = v59;
-        service = v54;
+        v30 = v58;
+        service = v53;
       }
 
       else
@@ -5293,18 +5406,18 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
           v41 = [characteristicsCopy objectAtIndexedSubscript:0];
           instanceID3 = [v41 instanceID];
           *buf = 138543874;
-          v67 = v40;
-          v68 = 2112;
-          v69 = instanceID3;
-          v70 = 2112;
-          v71 = v27;
+          v66 = v40;
+          v67 = 2112;
+          v68 = instanceID3;
+          v69 = 2112;
+          v70 = v27;
           _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch MKF Characteristic for characteristic instance id: %@, error: %@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v37);
         v30 = 0;
-        service = v54;
-        v29 = v59;
+        service = v53;
+        v29 = v58;
       }
     }
 
@@ -5316,21 +5429,21 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
       v34 = [v32 predicateWithFormat:@"(%K IN %@) AND (%K == %@)", @"instanceID", v33, @"service.accessory.modelID", uuid];
       [v15 setPredicate:v34];
 
-      v64 = 0;
-      v26 = [contextCopy executeFetchRequest:v15 error:&v64];
-      v27 = v64;
+      v63 = 0;
+      v26 = [contextCopy executeFetchRequest:v15 error:&v63];
+      v27 = v63;
       if (v26 && [v26 count])
       {
         v25 = v15;
-        v61[0] = MEMORY[0x277D85DD0];
-        v61[1] = 3221225472;
-        v61[2] = __97__HMDNotificationRegistryCoreDataAdapter__fetchMKFCharacteristicsFromHMDCharacteristics_context___block_invoke_242;
-        v61[3] = &unk_278684770;
-        v62 = v26;
-        v29 = v59;
-        v35 = v59;
-        v63 = v35;
-        [characteristicsCopy hmf_enumerateWithAutoreleasePoolUsingBlock:v61];
+        v60[0] = MEMORY[0x277D85DD0];
+        v60[1] = 3221225472;
+        v60[2] = __97__HMDNotificationRegistryCoreDataAdapter__fetchMKFCharacteristicsFromHMDCharacteristics_context___block_invoke_242;
+        v60[3] = &unk_278684770;
+        v61 = v26;
+        v29 = v58;
+        v35 = v58;
+        v62 = v35;
+        [characteristicsCopy hmf_enumerateWithAutoreleasePoolUsingBlock:v60];
         v36 = [v35 count];
         if (v36 == [characteristicsCopy count])
         {
@@ -5340,24 +5453,24 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
         else
         {
           v47 = objc_autoreleasePoolPush();
-          v57 = selfCopy;
+          v56 = selfCopy;
           v48 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
           {
             HMFGetLogIdentifier();
-            v49 = v55 = v47;
+            v49 = v54 = v47;
             v50 = [v35 count];
             v51 = [characteristicsCopy count];
             *buf = 138543874;
-            v67 = v49;
-            v68 = 2048;
-            v69 = v50;
-            v29 = v59;
-            v70 = 2048;
-            v71 = v51;
+            v66 = v49;
+            v67 = 2048;
+            v68 = v50;
+            v29 = v58;
+            v69 = 2048;
+            v70 = v51;
             _os_log_impl(&dword_229538000, v48, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch all MKFCharacteristics (%lu) for input characteristics (%lu)", buf, 0x20u);
 
-            v47 = v55;
+            v47 = v54;
           }
 
           objc_autoreleasePoolPop(v47);
@@ -5375,27 +5488,25 @@ void __106__HMDNotificationRegistryCoreDataAdapter_enableNotificationsForCharact
         {
           v46 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v67 = v46;
-          v68 = 2112;
-          v69 = v27;
+          v66 = v46;
+          v67 = 2112;
+          v68 = v27;
           _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch MKF Characteristics array for characteristics, error: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v43);
         v30 = 0;
-        v29 = v59;
+        v29 = v58;
       }
     }
 
-    contextCopy = v60;
+    contextCopy = v59;
   }
 
   else
   {
     v30 = 0;
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -5438,7 +5549,7 @@ void __97__HMDNotificationRegistryCoreDataAdapter__fetchMKFCharacteristicsFromHM
 
 - (id)_fetchEnabledMKFRegistrationsForHMDCharacteristics:(id)characteristics context:(id)context
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
   contextCopy = context;
   [contextCopy hmd_assertIsExecuting];
@@ -5453,68 +5564,68 @@ void __97__HMDNotificationRegistryCoreDataAdapter__fetchMKFCharacteristicsFromHM
   accessory = [service accessory];
   uuid = [accessory uuid];
 
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__246802;
-  v40 = __Block_byref_object_dispose__246803;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__246802;
+  v39 = __Block_byref_object_dispose__246803;
   array = [MEMORY[0x277CBEB18] array];
   if ([characteristicsCopy count] == 1)
   {
     v12 = [characteristicsCopy objectAtIndexedSubscript:0];
     instanceID = [v12 instanceID];
-    v48[0] = instanceID;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:1];
-    v35 = 0;
-    v15 = [(HMDNotificationRegistryCoreDataAdapter *)self _registrationsForCharacteristicIIDs:v14 accessoryUUID:uuid moc:contextCopy error:&v35];
-    v16 = v35;
+    v47[0] = instanceID;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:1];
+    v34 = 0;
+    v15 = [(HMDNotificationRegistryCoreDataAdapter *)self _registrationsForCharacteristicIIDs:v14 accessoryUUID:uuid moc:contextCopy error:&v34];
+    v16 = v34;
     v17 = [v15 na_filter:&__block_literal_global_221_247006];
 
     if (!v17)
     {
-      v27 = objc_autoreleasePoolPush();
+      v26 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v29 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v28 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        v30 = HMFGetLogIdentifier();
-        v31 = [characteristicsCopy objectAtIndexedSubscript:0];
-        instanceID2 = [v31 instanceID];
+        v29 = HMFGetLogIdentifier();
+        v30 = [characteristicsCopy objectAtIndexedSubscript:0];
+        instanceID2 = [v30 instanceID];
         *buf = 138543874;
-        v43 = v30;
-        v44 = 2112;
-        v45 = instanceID2;
-        v46 = 2112;
-        v47 = v16;
-        _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch MKFNotificationRegistrationCharacteristic for characteristic instance id: %@, error: %@", buf, 0x20u);
+        v42 = v29;
+        v43 = 2112;
+        v44 = instanceID2;
+        v45 = 2112;
+        v46 = v16;
+        _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch MKFNotificationRegistrationCharacteristic for characteristic instance id: %@, error: %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v27);
+      objc_autoreleasePoolPop(v26);
       v18 = 0;
       goto LABEL_14;
     }
 
-    [v37[5] addObjectsFromArray:v17];
-    v18 = v37[5];
+    [v36[5] addObjectsFromArray:v17];
+    v18 = v36[5];
   }
 
   else
   {
     v19 = [characteristicsCopy na_map:&__block_literal_global_225_247008];
-    v34 = 0;
-    v20 = [(HMDNotificationRegistryCoreDataAdapter *)self _registrationsForCharacteristicIIDs:v19 accessoryUUID:uuid moc:contextCopy error:&v34];
-    v16 = v34;
+    v33 = 0;
+    v20 = [(HMDNotificationRegistryCoreDataAdapter *)self _registrationsForCharacteristicIIDs:v19 accessoryUUID:uuid moc:contextCopy error:&v33];
+    v16 = v33;
     v17 = [v20 na_filter:&__block_literal_global_227_247009];
 
     if (v17)
     {
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __101__HMDNotificationRegistryCoreDataAdapter__fetchEnabledMKFRegistrationsForHMDCharacteristics_context___block_invoke_228;
-      v33[3] = &unk_278684720;
-      v33[4] = &v36;
-      [v17 hmf_enumerateWithAutoreleasePoolUsingBlock:v33];
-      v18 = v37[5];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __101__HMDNotificationRegistryCoreDataAdapter__fetchEnabledMKFRegistrationsForHMDCharacteristics_context___block_invoke_228;
+      v32[3] = &unk_278684720;
+      v32[4] = &v35;
+      [v17 hmf_enumerateWithAutoreleasePoolUsingBlock:v32];
+      v18 = v36[5];
     }
 
     else
@@ -5526,11 +5637,11 @@ void __97__HMDNotificationRegistryCoreDataAdapter__fetchMKFCharacteristicsFromHM
       {
         v24 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v43 = v24;
-        v44 = 2112;
-        v45 = characteristicsCopy;
-        v46 = 2112;
-        v47 = v16;
+        v42 = v24;
+        v43 = 2112;
+        v44 = characteristicsCopy;
+        v45 = 2112;
+        v46 = v16;
         _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch MKFNotificationRegistrationCharacteristic for characteristics %@, error: %@", buf, 0x20u);
       }
 
@@ -5540,10 +5651,9 @@ void __97__HMDNotificationRegistryCoreDataAdapter__fetchMKFCharacteristicsFromHM
   }
 
 LABEL_14:
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v35, 8);
 
 LABEL_15:
-  v25 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -5566,15 +5676,15 @@ uint64_t __101__HMDNotificationRegistryCoreDataAdapter__fetchEnabledMKFRegistrat
 
 - (BOOL)_deleteAllMKFRegistrationsForActionSetUUID:(id)d hmcContext:(id)context
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dCopy = d;
   contextCopy = context;
   managedObjectContext = [contextCopy managedObjectContext];
   [managedObjectContext hmd_assertIsExecuting];
   v9 = [(HMDNotificationRegistryCoreDataAdapter *)self _requestToFetchMKFRegistrationsWithActionSetUUID:dCopy context:managedObjectContext];
-  v21 = 0;
-  v10 = [managedObjectContext executeFetchRequest:v9 error:&v21];
-  v11 = v21;
+  v20 = 0;
+  v10 = [managedObjectContext executeFetchRequest:v9 error:&v20];
+  v11 = v20;
   if (!v10)
   {
     v13 = objc_autoreleasePoolPush();
@@ -5584,11 +5694,11 @@ uint64_t __101__HMDNotificationRegistryCoreDataAdapter__fetchEnabledMKFRegistrat
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v23 = v16;
-      v24 = 2112;
-      v25 = dCopy;
-      v26 = 2112;
-      v27 = v11;
+      v22 = v16;
+      v23 = 2112;
+      v24 = dCopy;
+      v25 = 2112;
+      v26 = v11;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to batch delete action set registrations for action set uuid: %@ error: %@", buf, 0x20u);
     }
 
@@ -5603,23 +5713,22 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __96__HMDNotificationRegistryCoreDataAdapter__deleteAllMKFRegistrationsForActionSetUUID_hmcContext___block_invoke;
-  v19[3] = &unk_2786846F8;
-  v20 = contextCopy;
-  [v10 hmf_enumerateWithAutoreleasePoolUsingBlock:v19];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __96__HMDNotificationRegistryCoreDataAdapter__deleteAllMKFRegistrationsForActionSetUUID_hmcContext___block_invoke;
+  v18[3] = &unk_2786846F8;
+  v19 = contextCopy;
+  [v10 hmf_enumerateWithAutoreleasePoolUsingBlock:v18];
 
   v12 = 1;
 LABEL_8:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (id)_fetchEnabledMKFRegistrationsForActionSetUUID:(id)d context:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   contextCopy = context;
   [contextCopy hmd_assertIsExecuting];
@@ -5631,9 +5740,9 @@ LABEL_8:
   v12 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@) AND (%K == YES)", @"actionSet.modelID", dCopy, @"enabled"];
   [v11 setPredicate:v12];
 
-  v22 = 0;
-  v13 = [contextCopy executeFetchRequest:v11 error:&v22];
-  v14 = v22;
+  v21 = 0;
+  v13 = [contextCopy executeFetchRequest:v11 error:&v21];
+  v14 = v21;
   if (v13)
   {
     v15 = v13;
@@ -5648,18 +5757,16 @@ LABEL_8:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v24 = v19;
-      v25 = 2112;
-      v26 = dCopy;
-      v27 = 2112;
-      v28 = v14;
+      v23 = v19;
+      v24 = 2112;
+      v25 = dCopy;
+      v26 = 2112;
+      v27 = v14;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch action set registrations for action set uuid: %@ error: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v16);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -5682,16 +5789,16 @@ LABEL_8:
 
 - (BOOL)_deleteAllMKFRegistrationsForMediaProfileUUID:(id)d withMediaProperty:(id)property hmcContext:(id)context
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dCopy = d;
   propertyCopy = property;
   contextCopy = context;
   managedObjectContext = [contextCopy managedObjectContext];
   [managedObjectContext hmd_assertIsExecuting];
   v12 = [(HMDNotificationRegistryCoreDataAdapter *)self _requestToFetchMKFRegistrationsWithMediaProfileUUID:dCopy withMediaProperty:propertyCopy context:managedObjectContext];
-  v25 = 0;
-  v13 = [managedObjectContext executeFetchRequest:v12 error:&v25];
-  v14 = v25;
+  v24 = 0;
+  v13 = [managedObjectContext executeFetchRequest:v12 error:&v24];
+  v14 = v24;
   if (!v13)
   {
     v16 = objc_autoreleasePoolPush();
@@ -5700,16 +5807,16 @@ LABEL_8:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v19 = v22 = v16;
+      v19 = v21 = v16;
       *buf = 138543874;
-      v27 = v19;
-      v28 = 2112;
-      v29 = dCopy;
-      v30 = 2112;
-      v31 = v14;
+      v26 = v19;
+      v27 = 2112;
+      v28 = dCopy;
+      v29 = 2112;
+      v30 = v14;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to batch delete media profile registrations for media profile uuid: %@ error: %@", buf, 0x20u);
 
-      v16 = v22;
+      v16 = v21;
     }
 
     objc_autoreleasePoolPop(v16);
@@ -5723,23 +5830,22 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __117__HMDNotificationRegistryCoreDataAdapter__deleteAllMKFRegistrationsForMediaProfileUUID_withMediaProperty_hmcContext___block_invoke;
-  v23[3] = &unk_2786846D0;
-  v24 = contextCopy;
-  [v13 hmf_enumerateWithAutoreleasePoolUsingBlock:v23];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __117__HMDNotificationRegistryCoreDataAdapter__deleteAllMKFRegistrationsForMediaProfileUUID_withMediaProperty_hmcContext___block_invoke;
+  v22[3] = &unk_2786846D0;
+  v23 = contextCopy;
+  [v13 hmf_enumerateWithAutoreleasePoolUsingBlock:v22];
 
   v15 = 1;
 LABEL_8:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (id)_fetchEnabledMKFRegistrationsForMediaProfileUUID:(id)d withMediaProperty:(id)property context:(id)context
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
   propertyCopy = property;
   contextCopy = context;
@@ -5756,14 +5862,14 @@ LABEL_8:
 
   else
   {
-    [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@) AND (%K == YES)", @"mediaProfileIdentifier", dCopy, @"enabled", v25, v26];
+    [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@) AND (%K == YES)", @"mediaProfileIdentifier", dCopy, @"enabled", v24, v25];
   }
   v15 = ;
   [v14 setPredicate:v15];
 
-  v27 = 0;
-  v16 = [contextCopy executeFetchRequest:v14 error:&v27];
-  v17 = v27;
+  v26 = 0;
+  v16 = [contextCopy executeFetchRequest:v14 error:&v26];
+  v17 = v26;
   if (v16)
   {
     v18 = v16;
@@ -5778,18 +5884,16 @@ LABEL_8:
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v29 = v22;
-      v30 = 2112;
-      v31 = dCopy;
-      v32 = 2112;
-      v33 = v17;
+      v28 = v22;
+      v29 = 2112;
+      v30 = dCopy;
+      v31 = 2112;
+      v32 = v17;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch media profile registrations for media profile uuid: %@ error: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v19);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -5822,15 +5926,15 @@ LABEL_8:
 
 - (BOOL)_deleteAllRegistrationsForCharacteristicIIDs:(id)ds withAccessoryUUID:(id)d hmcContext:(id)context
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   dCopy = d;
   contextCopy = context;
   managedObjectContext = [contextCopy managedObjectContext];
   [managedObjectContext hmd_assertIsExecuting];
-  v23 = 0;
-  v12 = [(HMDNotificationRegistryCoreDataAdapter *)self _registrationsForCharacteristicIIDs:dsCopy accessoryUUID:dCopy moc:managedObjectContext error:&v23];
-  v13 = v23;
+  v22 = 0;
+  v12 = [(HMDNotificationRegistryCoreDataAdapter *)self _registrationsForCharacteristicIIDs:dsCopy accessoryUUID:dCopy moc:managedObjectContext error:&v22];
+  v13 = v22;
   if (!v12)
   {
     v15 = objc_autoreleasePoolPush();
@@ -5840,13 +5944,13 @@ LABEL_8:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v25 = v18;
-      v26 = 2112;
-      v27 = dsCopy;
-      v28 = 2112;
-      v29 = dCopy;
-      v30 = 2112;
-      v31 = v13;
+      v24 = v18;
+      v25 = 2112;
+      v26 = dsCopy;
+      v27 = 2112;
+      v28 = dCopy;
+      v29 = 2112;
+      v30 = v13;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to batch delete registrations for characteristic IIDs %@ accessory UUID %@, error: %@", buf, 0x2Au);
     }
 
@@ -5861,23 +5965,22 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __116__HMDNotificationRegistryCoreDataAdapter__deleteAllRegistrationsForCharacteristicIIDs_withAccessoryUUID_hmcContext___block_invoke;
-  v21[3] = &unk_2786846A8;
-  v22 = contextCopy;
-  [v12 hmf_enumerateWithAutoreleasePoolUsingBlock:v21];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __116__HMDNotificationRegistryCoreDataAdapter__deleteAllRegistrationsForCharacteristicIIDs_withAccessoryUUID_hmcContext___block_invoke;
+  v20[3] = &unk_2786846A8;
+  v21 = contextCopy;
+  [v12 hmf_enumerateWithAutoreleasePoolUsingBlock:v20];
 
   v14 = 1;
 LABEL_8:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (id)_registrationsForCharacteristicIID:(id)d exceedingChangeThresholdForCurrentValue:(id)value accessoryUUID:(id)iD moc:(id)moc error:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   mocCopy = moc;
   iDCopy = iD;
   valueCopy = value;
@@ -5889,22 +5992,20 @@ LABEL_8:
   v18 = [v15 initWithEntityName:name];
 
   v19 = MEMORY[0x277CCAC30];
-  v26[0] = dCopy;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+  v25[0] = dCopy;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
   v21 = updatedCharacteristicIIDs(v20);
   v22 = [v19 predicateWithFormat:@"(%K IN %@)                               AND (%K == %@)                               AND                                (                                    (%K == nil)                                     OR (%K == nil)                                     OR (%@ < %K - %K)                                     OR (%@ > %K + %K)                                )", @"characteristic.instanceID", v21, @"characteristic.service.accessory.modelID", iDCopy, @"notificationThreshold", @"lastNotifiedValue", valueCopy, @"lastNotifiedValue", @"notificationThreshold", valueCopy, @"lastNotifiedValue", @"notificationThreshold"];
 
   [v18 setPredicate:v22];
   v23 = [mocCopy executeFetchRequest:v18 error:error];
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
 - (id)_fetchEnabledMKFRegistrationsForHMDCharacteristic:(id)characteristic exceedingChangeThresholdForCurrentValue:(id)value context:(id)context
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   valueCopy = value;
   contextCopy = context;
@@ -5916,9 +6017,9 @@ LABEL_8:
     uuid = [accessory uuid];
 
     instanceID = [characteristicCopy instanceID];
-    v27 = 0;
-    v15 = [(HMDNotificationRegistryCoreDataAdapter *)self _registrationsForCharacteristicIID:instanceID exceedingChangeThresholdForCurrentValue:valueCopy accessoryUUID:uuid moc:contextCopy error:&v27];
-    v16 = v27;
+    v26 = 0;
+    v15 = [(HMDNotificationRegistryCoreDataAdapter *)self _registrationsForCharacteristicIID:instanceID exceedingChangeThresholdForCurrentValue:valueCopy accessoryUUID:uuid moc:contextCopy error:&v26];
+    v16 = v26;
     v17 = [v15 na_filter:&__block_literal_global_247037];
 
     if (v17)
@@ -5935,16 +6036,16 @@ LABEL_8:
       {
         v22 = HMFGetLogIdentifier();
         [characteristicCopy instanceID];
-        v23 = v26 = v19;
+        v23 = v25 = v19;
         *buf = 138543874;
-        v29 = v22;
-        v30 = 2112;
-        v31 = v23;
-        v32 = 2112;
-        v33 = v16;
+        v28 = v22;
+        v29 = 2112;
+        v30 = v23;
+        v31 = 2112;
+        v32 = v16;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch MKFNotificationRegistrationCharacteristic above threshold for characteristic instance id: %@, error: %@", buf, 0x20u);
 
-        v19 = v26;
+        v19 = v25;
       }
 
       objc_autoreleasePoolPop(v19);
@@ -5955,8 +6056,6 @@ LABEL_8:
   {
     v17 = 0;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -6007,7 +6106,7 @@ uint64_t __140__HMDNotificationRegistryCoreDataAdapter__fetchEnabledMKFRegistrat
 
 - (BOOL)_deleteAllRegistrationsWithEntityName:(id)name withHomeKeypath:(id)keypath hmcContext:(id)context
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   keypathCopy = keypath;
   contextCopy = context;
@@ -6020,9 +6119,9 @@ uint64_t __140__HMDNotificationRegistryCoreDataAdapter__fetchEnabledMKFRegistrat
   v16 = [v13 predicateWithFormat:@"(%K == %@)", keypathCopy, uuid];
   [v12 setPredicate:v16];
 
-  v29 = 0;
-  v17 = [managedObjectContext executeFetchRequest:v12 error:&v29];
-  v18 = v29;
+  v28 = 0;
+  v17 = [managedObjectContext executeFetchRequest:v12 error:&v28];
+  v18 = v28;
   if (!v17)
   {
     v20 = objc_autoreleasePoolPush();
@@ -6031,14 +6130,14 @@ uint64_t __140__HMDNotificationRegistryCoreDataAdapter__fetchEnabledMKFRegistrat
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v23 = v26 = v20;
+      v23 = v25 = v20;
       *buf = 138543618;
-      v31 = v23;
-      v32 = 2112;
-      v33 = v18;
+      v30 = v23;
+      v31 = 2112;
+      v32 = v18;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch and delete all registrations, error: %@", buf, 0x16u);
 
-      v20 = v26;
+      v20 = v25;
     }
 
     objc_autoreleasePoolPop(v20);
@@ -6052,23 +6151,22 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __107__HMDNotificationRegistryCoreDataAdapter__deleteAllRegistrationsWithEntityName_withHomeKeypath_hmcContext___block_invoke;
-  v27[3] = &unk_278684660;
-  v28 = contextCopy;
-  [v17 hmf_enumerateWithAutoreleasePoolUsingBlock:v27];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __107__HMDNotificationRegistryCoreDataAdapter__deleteAllRegistrationsWithEntityName_withHomeKeypath_hmcContext___block_invoke;
+  v26[3] = &unk_278684660;
+  v27 = contextCopy;
+  [v17 hmf_enumerateWithAutoreleasePoolUsingBlock:v26];
 
   v19 = 1;
 LABEL_8:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (id)_fetchMKFActionSetWithUUID:(id)d context:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   contextCopy = context;
   [contextCopy hmd_assertIsExecuting];
@@ -6080,9 +6178,9 @@ LABEL_8:
   dCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@)", @"modelID", dCopy];
   [v11 setPredicate:dCopy];
 
-  v22 = 0;
-  v13 = [contextCopy executeFetchRequest:v11 error:&v22];
-  v14 = v22;
+  v21 = 0;
+  v13 = [contextCopy executeFetchRequest:v11 error:&v21];
+  v14 = v21;
   if (v13 && [v13 count])
   {
     v15 = [v13 objectAtIndexedSubscript:0];
@@ -6097,11 +6195,11 @@ LABEL_8:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v24 = v19;
-      v25 = 2112;
-      v26 = dCopy;
-      v27 = 2112;
-      v28 = v14;
+      v23 = v19;
+      v24 = 2112;
+      v25 = dCopy;
+      v26 = 2112;
+      v27 = v14;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch action set for uuid %@, error: %@", buf, 0x20u);
     }
 
@@ -6109,14 +6207,12 @@ LABEL_8:
     v15 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)_fetchMKFHAPAccessoryWithUUID:(id)d context:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   contextCopy = context;
   [contextCopy hmd_assertIsExecuting];
@@ -6128,9 +6224,9 @@ LABEL_8:
   dCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@)", @"modelID", dCopy];
   [v11 setPredicate:dCopy];
 
-  v22 = 0;
-  v13 = [contextCopy executeFetchRequest:v11 error:&v22];
-  v14 = v22;
+  v21 = 0;
+  v13 = [contextCopy executeFetchRequest:v11 error:&v21];
+  v14 = v21;
   if (v13 && [v13 count])
   {
     v15 = [v13 objectAtIndexedSubscript:0];
@@ -6145,19 +6241,17 @@ LABEL_8:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v24 = v19;
-      v25 = 2112;
-      v26 = dCopy;
-      v27 = 2112;
-      v28 = v14;
+      v23 = v19;
+      v24 = 2112;
+      v25 = dCopy;
+      v26 = 2112;
+      v27 = v14;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch accessory for uuid %@, error: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v16);
     v15 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -6191,10 +6285,9 @@ LABEL_8:
 
 void __53__HMDNotificationRegistryCoreDataAdapter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v87;
-  logCategory__hmf_once_v87 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v87;
+  logCategory__hmf_once_v87 = v0;
 }
 
 @end

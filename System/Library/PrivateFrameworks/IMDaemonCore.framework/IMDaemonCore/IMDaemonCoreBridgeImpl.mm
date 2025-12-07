@@ -40,7 +40,7 @@
 
 + (BOOL)isBackwardCompatibilityForItem:(id)item parentChatID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   dCopy = d;
   v9 = +[IMDChatRegistry sharedInstance];
@@ -60,20 +60,19 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         guid = [v10 guid];
-        v16 = 138412290;
-        v17 = guid;
-        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Message %@ is an ignorable backward compatibility message, ignoring.", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = guid;
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Message %@ is an ignorable backward compatibility message, ignoring.", &v15, 0xCu);
       }
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 + (BOOL)isExpectedChatIDForItem:(id)item chatID:(id)d
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   dCopy = d;
   if ([dCopy length])
@@ -82,25 +81,25 @@
     guid = [itemCopy guid];
     v9 = [v7 chatsForMessageGUID:guid];
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v11)
     {
-      v12 = *v21;
+      v12 = *v20;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
+          v14 = *(*(&v19 + 1) + 8 * i);
           service = [itemCopy service];
           v16 = [v14 cloudKitChatIDForServiceName:service];
           v17 = [dCopy isEqualToString:v16];
@@ -112,7 +111,7 @@
           }
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v11)
         {
           continue;
@@ -130,7 +129,6 @@ LABEL_12:
     LOBYTE(v11) = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -261,7 +259,7 @@ LABEL_6:
 
 + (id)createMessageItemWithRecordRef:(_IMDMessageRecordStruct *)ref handle:(id)handle
 {
-  v4 = IMDCreateIMMessageItemFromIMDMessageRecordRef(ref, handle);
+  v4 = IMDCreateIMMessageItemFromIMDMessageRecordRef(ref, handle, 0);
 
   return v4;
 }

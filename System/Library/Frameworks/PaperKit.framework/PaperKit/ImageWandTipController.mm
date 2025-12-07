@@ -13,7 +13,7 @@
 
 - (BOOL)tipStatusIsInvalid
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd, &_s6TipKit4TipsO6StatusOSgMR);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v11 - v4;
   v6 = OBJC_IVAR____TtC8PaperKit22ImageWandTipController_lastTipStatus;
@@ -23,7 +23,7 @@
   v8 = *(v7 - 8);
   if ((*(v8 + 48))(v5, 1, v7) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v5, &_s6TipKit4TipsO6StatusOSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v5, &_s6TipKit4TipsO6StatusOSgMd, &_s6TipKit4TipsO6StatusOSgMR);
     return 0;
   }
 
@@ -101,7 +101,6 @@
 
 - (void)hideTipAnimated:(BOOL)animated completion:(id)completion
 {
-  animatedCopy = animated;
   v6 = _Block_copy(completion);
   if (v6)
   {
@@ -116,8 +115,8 @@
   }
 
   selfCopy = self;
-  ImageWandTipController.hideTip(animated:completion:)(animatedCopy, v6, v7);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v6);
+  ImageWandTipController.hideTip(animated:completion:)(animated, v6, v7);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v6, v7);
 }
 
 - (void)userDidUseImageWand

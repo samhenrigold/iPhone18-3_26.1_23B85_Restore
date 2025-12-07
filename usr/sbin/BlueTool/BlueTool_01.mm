@@ -745,8 +745,9 @@ uint64_t sub_1000159F8(uint64_t a1, void *a2)
   }
 }
 
-uint64_t sub_100015AF4(int a1, void *a2)
+uint64_t sub_100015AF4(uint64_t a1, void *a2)
 {
+  v3 = a1;
   v4 = sub_100044574();
   v5 = sub_100044C84();
   sub_100043FA8();
@@ -960,7 +961,7 @@ LABEL_15:
     goto LABEL_77;
   }
 
-  if (LODWORD(v21.st_size) != a1)
+  if (LODWORD(v21.st_size) != v3)
   {
     if (qword_1004EE428 != -1)
     {
@@ -981,7 +982,7 @@ LABEL_15:
     goto LABEL_77;
   }
 
-  if (read(v16, a2, SLODWORD(v21.st_size)) != a1)
+  if (read(v16, a2, SLODWORD(v21.st_size)) != v3)
   {
     if (qword_1004EE428 != -1)
     {
@@ -1020,7 +1021,7 @@ LABEL_78:
   result = os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEBUG);
   if (result)
   {
-    sub_10004D3C8(a2, a1, v17);
+    sub_10004D3C8(a2, v3, v17);
     return 0;
   }
 
@@ -1087,7 +1088,7 @@ uint64_t sub_1000165B8(int a1, const char *a2)
       *buf = 136315394;
       v15 = v12;
       v16 = 2080;
-      v17 = &unk_1004ED6F8;
+      v17 = byte_1004ED6F8;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "No PTB file matching %s in %s", buf, 0x16u);
     }
 
@@ -1097,10 +1098,11 @@ uint64_t sub_1000165B8(int a1, const char *a2)
   return result;
 }
 
-void sub_1000169E4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000169E4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_100016A18(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -1296,7 +1298,7 @@ BOOL sub_100016F80(int a1, const char **a2, char **a3)
   if (a1 >= 2)
   {
     v6 = a2[1];
-    if (*v6 == 45 && v6[1] == 104 && !v6[2])
+    if (__PAIR64__(*(v6 + 1), *v6) == 0x680000002DLL && !v6[2])
     {
       fwrite("usage: hci <command>\n", 0x15uLL, 1uLL, __stderrp);
       fwrite("where <command> is one of:\n", 0x1BuLL, 1uLL, __stderrp);
@@ -1391,7 +1393,7 @@ BOOL sub_100016F80(int a1, const char **a2, char **a3)
         while (v12 < v41);
       }
 
-      goto LABEL_56;
+      goto LABEL_55;
     }
 
     if (qword_1004EE428 != -1)
@@ -1408,15 +1410,15 @@ BOOL sub_100016F80(int a1, const char **a2, char **a3)
     }
 
     v17 = "Issued HCI Reset";
-LABEL_55:
+LABEL_54:
     puts(v17);
-    goto LABEL_56;
+    goto LABEL_55;
   }
 
   if (!strcmp(v7, "localName"))
   {
     sub_100016BA8(0, 0, 1);
-    goto LABEL_56;
+    goto LABEL_55;
   }
 
   if (!strcmp(v7, "info"))
@@ -1430,7 +1432,7 @@ LABEL_55:
 
     while (LOBYTE(v43[0]) != 14);
     printf("Bluetooth Address:             %02x:%02x:%02x:%02x:%02x:%02x\n", BYTE11(v43[0]), BYTE10(v43[0]), BYTE9(v43[0]), BYTE8(v43[0]), BYTE7(v43[0]), BYTE6(v43[0]));
-    goto LABEL_56;
+    goto LABEL_55;
   }
 
   if (!strcmp(v7, "dut"))
@@ -1443,7 +1445,7 @@ LABEL_55:
 
     while (LOBYTE(v43[0]) != 14);
     v17 = "DUT Mode Enabled!";
-    goto LABEL_55;
+    goto LABEL_54;
   }
 
   if (!strcmp(v7, "sef"))
@@ -1472,9 +1474,9 @@ LABEL_55:
       while (v41 > v25);
     }
 
-LABEL_99:
+LABEL_98:
     fputc(10, __stderrp);
-    goto LABEL_56;
+    goto LABEL_55;
   }
 
   if (!strcmp(v7, "rfc"))
@@ -1531,7 +1533,7 @@ LABEL_99:
       }
     }
 
-    goto LABEL_99;
+    goto LABEL_98;
   }
 
   if (!strcmp(v7, "wse"))
@@ -1558,7 +1560,7 @@ LABEL_99:
       while (v41 > v27);
     }
 
-    goto LABEL_99;
+    goto LABEL_98;
   }
 
   if (!strcmp(v7, "rxTest"))
@@ -1569,7 +1571,7 @@ LABEL_99:
       v31 = a2[2];
       if (*v31 != 45)
       {
-        goto LABEL_56;
+        goto LABEL_55;
       }
 
       if (v31[1] == 116 && !v31[2])
@@ -1582,14 +1584,14 @@ LABEL_99:
       {
         if (v31[1] != 97 || v31[2])
         {
-          goto LABEL_56;
+          goto LABEL_55;
         }
 
         byte_1004EDEF8 = 1;
         v17 = "Abort Receiving Rx test events";
       }
 
-      goto LABEL_55;
+      goto LABEL_54;
     }
 
     return 0;
@@ -1665,7 +1667,7 @@ LABEL_99:
     fwrite("Invalid HCI command!\n", 0x15uLL, 1uLL, __stderrp);
   }
 
-LABEL_56:
+LABEL_55:
   result = 0;
   if (!a3 || !v41)
   {
@@ -1845,7 +1847,7 @@ uint64_t sub_100018014(uint64_t a1, uint64_t a2, unint64_t a3)
   return result;
 }
 
-uint64_t sub_1000180DC(uint64_t a1, void *a2, unint64_t a3, uint64_t *a4)
+uint64_t sub_1000180DC(uint64_t a1, void *a2, size_t a3, size_t *a4)
 {
   bzero(&v17, 0x40AuLL);
   outputStruct = 0;
@@ -2604,10 +2606,11 @@ uint64_t sub_100019960(void *a1, size_t *a2)
   return v5;
 }
 
-void sub_100019B5C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100019B5C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 uint64_t sub_100019B78(const char *a1, uint64_t a2)
@@ -2704,14 +2707,15 @@ LABEL_20:
         }
 
         v19 = qword_1004EE430;
-        if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
+        v20 = os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT);
+        if (v20)
         {
           *buf = 136315138;
-          v21 = "invoke_command";
+          v23 = "invoke_command";
           _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "ready to quit from %s", buf, 0xCu);
         }
 
-        sub_100019E98();
+        sub_100019E98(v20, v21);
       }
 
       else
@@ -2748,9 +2752,9 @@ LABEL_42:
   return v14;
 }
 
-void sub_100019E98()
+void sub_100019E98(uint64_t a1, uint64_t a2)
 {
-  sub_1000436A8();
+  sub_1000436A8(a1, a2);
   if (dword_1004EE3D0)
   {
     if (qword_1004EE428 != -1)
@@ -2758,12 +2762,12 @@ void sub_100019E98()
       sub_10004E794();
     }
 
-    v0 = qword_1004EE430;
+    v2 = qword_1004EE430;
     if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
     {
-      v1 = 136315138;
-      v2 = "handleQuit";
-      _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "Device is opened and ready to close it from %s", &v1, 0xCu);
+      v3 = 136315138;
+      v4 = "handleQuit";
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Device is opened and ready to close it from %s", &v3, 0xCu);
     }
 
     off_1004EE408(qword_1004EE3C8);
@@ -2886,14 +2890,14 @@ uint64_t start(int a1, char *const *a2)
             sub_10004E7E4();
           }
 
-          v9 = qword_1004EE430;
+          v10 = qword_1004EE430;
           if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
           {
-            v13 = 136315394;
-            v14 = optarg;
-            v15 = 2080;
-            v16 = "main";
-            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "try to run from command line an external script %s from %s", &v13, 0x16u);
+            v14 = 136315394;
+            v15 = optarg;
+            v16 = 2080;
+            v17 = "main";
+            _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "try to run from command line an external script %s from %s", &v14, 0x16u);
           }
 
           return sub_100019F94(optarg);
@@ -2907,38 +2911,38 @@ uint64_t start(int a1, char *const *a2)
         sub_10004E7D0();
       }
 
-      v10 = qword_1004EE430;
+      v11 = qword_1004EE430;
       if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 136315394;
-        v14 = optarg;
-        v15 = 2080;
-        v16 = "main";
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "try to run from command line a builtinScript %s from %s", &v13, 0x16u);
+        v14 = 136315394;
+        v15 = optarg;
+        v16 = 2080;
+        v17 = "main";
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "try to run from command line a builtinScript %s from %s", &v14, 0x16u);
       }
 
-      v11 = optarg;
+      v12 = optarg;
       if (!strncmp(optarg, "boot", 5uLL))
       {
-        v12 = 1;
+        v13 = 1;
       }
 
-      else if (!strncmp(v11, "init", 5uLL))
+      else if (!strncmp(v12, "init", 5uLL))
       {
-        v12 = 2;
+        v13 = 2;
       }
 
       else
       {
-        if (strncmp(v11, "deepsleep", 0xAuLL))
+        if (strncmp(v12, "deepsleep", 0xAuLL))
         {
           return 1;
         }
 
-        v12 = 3;
+        v13 = 3;
       }
 
-      sub_100014158(v12);
+      sub_100014158(v13);
       return 0;
     }
 
@@ -2964,13 +2968,13 @@ uint64_t start(int a1, char *const *a2)
       {
         if (*i)
         {
-          v7 = strdup(i);
-          sub_100019B78(v7, 0);
-          free(v7);
+          v8 = strdup(i);
+          sub_100019B78(v8, 0);
+          free(v8);
         }
       }
 
-      sub_100019E98();
+      sub_100019E98(i, v7);
       exit(0);
     }
   }
@@ -3107,7 +3111,7 @@ LABEL_24:
   return sub_10001AACC(v17, v16, a3);
 }
 
-uint64_t sub_10001A9C8(int a1, uint64_t a2, void *a3)
+uint64_t sub_10001A9C8(unsigned int a1, uint64_t a2, void *a3)
 {
   if (a1 < 2)
   {
@@ -3184,33 +3188,35 @@ LABEL_7:
   }
 }
 
-uint64_t sub_10001ABD0(int a1, const char **a2)
+uint64_t sub_10001ABD0(uint64_t a1, const char **a2)
 {
-  if (sub_100041FEC() == 6)
+  v3 = a1;
+  v4 = sub_100041FEC(a1, a2);
+  if (v4 == 6)
   {
     if (qword_1004EE428 != -1)
     {
       sub_10004E924();
     }
 
-    v4 = qword_1004EE430;
+    v6 = qword_1004EE430;
     if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v39 = "bluetool_command_device";
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "HCI transport is hciTransportAPPLEBT from %s", buf, 0xCu);
+      v43 = "bluetool_command_device";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "HCI transport is hciTransportAPPLEBT from %s", buf, 0xCu);
     }
 
-    v5 = 0;
+    v7 = 0;
     do
     {
       while (1)
       {
         while (1)
         {
-          v6 = v5;
-          v7 = getopt(a1, a2, "hDC");
-          if (v7 != 67)
+          v8 = v7;
+          v9 = getopt(v3, a2, "hDC");
+          if (v9 != 67)
           {
             break;
           }
@@ -3222,12 +3228,12 @@ uint64_t sub_10001ABD0(int a1, const char **a2)
               sub_10004E938();
             }
 
-            v9 = qword_1004EE430;
+            v11 = qword_1004EE430;
             if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315138;
-              v39 = "bluetool_command_device";
-              _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Device is opened and ready to close it for transport AppleBT from %s", buf, 0xCu);
+              v43 = "bluetool_command_device";
+              _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Device is opened and ready to close it for transport AppleBT from %s", buf, 0xCu);
             }
 
             off_1004EE408(qword_1004EE3C8);
@@ -3236,25 +3242,25 @@ uint64_t sub_10001ABD0(int a1, const char **a2)
               sub_10004E960();
             }
 
-            v10 = qword_1004EE430;
-            v5 = 1;
+            v12 = qword_1004EE430;
+            v7 = 1;
             if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315138;
-              v39 = "bluetool_command_device";
-              _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Device is closed from %s", buf, 0xCu);
-              v5 = 1;
+              v43 = "bluetool_command_device";
+              _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Device is closed from %s", buf, 0xCu);
+              v7 = 1;
             }
           }
 
           else
           {
-            v5 = 1;
+            v7 = 1;
             fwrite("Device not Opened\n", 0x12uLL, 1uLL, __stderrp);
           }
         }
 
-        if (v7 != 68)
+        if (v9 != 68)
         {
           break;
         }
@@ -3264,83 +3270,84 @@ uint64_t sub_10001ABD0(int a1, const char **a2)
           sub_10004E988();
         }
 
-        v8 = qword_1004EE430;
+        v10 = qword_1004EE430;
         if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v39 = "bluetool_command_device";
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "IOS device and ready to open device IO from %s", buf, 0xCu);
+          v43 = "bluetool_command_device";
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "IOS device and ready to open device IO from %s", buf, 0xCu);
         }
 
         sub_100017E48();
-        v5 = 1;
+        v7 = 1;
       }
 
-      v5 = 0;
+      v7 = 0;
     }
 
-    while (v7 != -1);
-    if ((v6 & 1) == 0)
+    while (v9 != -1);
+    if ((v8 & 1) == 0)
     {
       fprintf(__stderrp, "%s - Pick a device\n", *a2);
       fwrite("-D           - Open the default device.\n", 0x28uLL, 1uLL, __stderrp);
-      v17 = __stderrp;
-      v18 = "-C           - Close the default device.\n";
-      v19 = 41;
+      v21 = __stderrp;
+      v22 = "-C           - Close the default device.\n";
+      v23 = 41;
 LABEL_52:
-      fwrite(v18, v19, 1uLL, v17);
+      fwrite(v22, v23, 1uLL, v21);
       fputc(10, __stderrp);
     }
 
     return 0;
   }
 
-  if (sub_100041FEC() == 7)
+  v13 = sub_100041FEC(v4, v5);
+  if (v13 == 7)
   {
     if (qword_1004EE428 != -1)
     {
       sub_10004E898();
     }
 
-    v11 = qword_1004EE430;
+    v15 = qword_1004EE430;
     if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v39 = "bluetool_command_device";
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "HCI transport is PCIE and ready to open device from %s", buf, 0xCu);
+      v43 = "bluetool_command_device";
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "HCI transport is PCIE and ready to open device from %s", buf, 0xCu);
     }
 
     while (1)
     {
-      v12 = getopt(a1, a2, "hD");
-      if (v12 != 68)
+      v16 = getopt(v3, a2, "hD");
+      if (v16 != 68)
       {
         break;
       }
 
       if (dword_1004EE3D0)
       {
-        v13 = off_1004EE408 == 0;
+        v17 = off_1004EE408 == 0;
       }
 
       else
       {
-        v13 = 1;
+        v17 = 1;
       }
 
-      if (!v13)
+      if (!v17)
       {
         if (qword_1004EE428 != -1)
         {
           sub_10004E8AC();
         }
 
-        v14 = qword_1004EE430;
+        v18 = qword_1004EE430;
         if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v39 = "bluetool_command_device";
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Device is opened and ready to close it for transport PCIE from %s", buf, 0xCu);
+          v43 = "bluetool_command_device";
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Device is opened and ready to close it for transport PCIE from %s", buf, 0xCu);
         }
 
         off_1004EE408(qword_1004EE3C8);
@@ -3349,12 +3356,12 @@ LABEL_52:
           sub_10004E8D4();
         }
 
-        v15 = qword_1004EE430;
+        v19 = qword_1004EE430;
         if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v39 = "bluetool_command_device";
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Device is closed from %s", buf, 0xCu);
+          v43 = "bluetool_command_device";
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Device is closed from %s", buf, 0xCu);
         }
 
         if (dword_1004EE3D0)
@@ -3373,21 +3380,21 @@ LABEL_52:
         sub_10004E8FC();
       }
 
-      v16 = qword_1004EE430;
+      v20 = qword_1004EE430;
       if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v39 = "bluetool_command_device";
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Device opened successfully from %s", buf, 0xCu);
+        v43 = "bluetool_command_device";
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Device opened successfully from %s", buf, 0xCu);
       }
     }
 
-    if (v12 == -1)
+    if (v16 == -1)
     {
       return 0;
     }
 
-    if (v12 == 104)
+    if (v16 == 104)
     {
       sub_100001BC4();
       return 0;
@@ -3397,52 +3404,52 @@ LABEL_52:
     return 1;
   }
 
-  if (sub_100041FEC() == 9)
+  if (sub_100041FEC(v13, v14) == 9)
   {
     if (qword_1004EE428 != -1)
     {
       sub_10004E80C();
     }
 
-    v21 = qword_1004EE430;
+    v25 = qword_1004EE430;
     if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v39 = "bluetool_command_device";
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "HCI transport is APPLE PCIE and ready to open device from %s", buf, 0xCu);
+      v43 = "bluetool_command_device";
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "HCI transport is APPLE PCIE and ready to open device from %s", buf, 0xCu);
     }
 
     while (1)
     {
-      v22 = getopt(a1, a2, "hD");
-      if (v22 != 68)
+      v26 = getopt(v3, a2, "hD");
+      if (v26 != 68)
       {
         break;
       }
 
       if (dword_1004EE3D0)
       {
-        v23 = off_1004EE408 == 0;
+        v27 = off_1004EE408 == 0;
       }
 
       else
       {
-        v23 = 1;
+        v27 = 1;
       }
 
-      if (!v23)
+      if (!v27)
       {
         if (qword_1004EE428 != -1)
         {
           sub_10004E820();
         }
 
-        v24 = qword_1004EE430;
+        v28 = qword_1004EE430;
         if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v39 = "bluetool_command_device";
-          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Device is opened and ready to close it for transport APPLE PCIE from %s", buf, 0xCu);
+          v43 = "bluetool_command_device";
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Device is opened and ready to close it for transport APPLE PCIE from %s", buf, 0xCu);
         }
 
         off_1004EE408(qword_1004EE3C8);
@@ -3451,12 +3458,12 @@ LABEL_52:
           sub_10004E848();
         }
 
-        v25 = qword_1004EE430;
+        v29 = qword_1004EE430;
         if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v39 = "bluetool_command_device";
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Device is closed from %s", buf, 0xCu);
+          v43 = "bluetool_command_device";
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Device is closed from %s", buf, 0xCu);
         }
 
         if (dword_1004EE3D0)
@@ -3475,21 +3482,21 @@ LABEL_52:
         sub_10004E870();
       }
 
-      v26 = qword_1004EE430;
+      v30 = qword_1004EE430;
       if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v39 = "bluetool_command_device";
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Device opened successfully from %s", buf, 0xCu);
+        v43 = "bluetool_command_device";
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Device opened successfully from %s", buf, 0xCu);
       }
     }
 
-    if (v22 == -1)
+    if (v26 == -1)
     {
       return 0;
     }
 
-    if (v22 == 104)
+    if (v26 == 104)
     {
       sub_100012698();
       return 0;
@@ -3505,44 +3512,44 @@ LABEL_52:
     sub_10004E7F8();
   }
 
-  v27 = qword_1004EE430;
+  v31 = qword_1004EE430;
   if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v39 = "bluetool_command_device";
-    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "HCI transport is other types from %s", buf, 0xCu);
+    v43 = "bluetool_command_device";
+    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "HCI transport is other types from %s", buf, 0xCu);
   }
 
-  v28 = 0;
-  v29 = 0;
+  v32 = 0;
+  v33 = 0;
   while (1)
   {
     while (1)
     {
-      v30 = getopt(a1, a2, "hd:Ds:Sc");
-      if (v30 < 99)
+      v34 = getopt(v3, a2, "hd:Ds:Sc");
+      if (v34 < 99)
       {
         break;
       }
 
-      if (v30 > 99)
+      if (v34 > 99)
       {
-        switch(v30)
+        switch(v34)
         {
           case 'd':
-            v29 = optarg;
+            v33 = optarg;
             break;
           case 's':
-            v28 = strtoul(optarg, 0, 0);
+            v32 = strtoul(optarg, 0, 0);
             break;
           case 'h':
             fprintf(__stderrp, "%s - Pick a device\n", *a2);
             fwrite("-d <device>  - Open the specified UART device.\n", 0x2FuLL, 1uLL, __stderrp);
             fwrite("-D           - Open the default device.\n", 0x28uLL, 1uLL, __stderrp);
             fwrite("-s <#>       - Configure the device for the given speed/baudrate.\n", 0x42uLL, 1uLL, __stderrp);
-            v17 = __stderrp;
-            v18 = "-S           - Configure the device for using the speed/baudrate from the device tree.\n";
-            v19 = 87;
+            v21 = __stderrp;
+            v22 = "-S           - Configure the device for using the speed/baudrate from the device tree.\n";
+            v23 = 87;
             goto LABEL_52;
         }
       }
@@ -3553,104 +3560,105 @@ LABEL_52:
       }
     }
 
-    if (v30 == -1)
+    if (v34 == -1)
     {
       break;
     }
 
-    if (v30 == 68)
+    if (v34 == 68)
     {
-      v32 = getenv("BT_UART");
-      if (v32)
+      v36 = getenv("BT_UART");
+      if (v36)
       {
-        v29 = v32;
+        v33 = v36;
       }
 
       else
       {
-        v29 = "com.apple.uart.bluetooth";
+        v33 = "com.apple.uart.bluetooth";
       }
     }
 
-    else if (v30 == 83)
+    else if (v34 == 83)
     {
-      v31 = sub_100041D24();
-      if (v31)
+      v35 = sub_100041D24();
+      if (v35)
       {
-        v28 = v31;
+        v32 = v35;
       }
 
       else
       {
-        v28 = 2400000;
+        v32 = 2400000;
       }
     }
   }
 
-  if (v29)
+  if (v33)
   {
     if (dword_1004EE3D0)
     {
-      v33 = off_1004EE408 == 0;
+      v37 = off_1004EE408 == 0;
     }
 
     else
     {
-      v33 = 1;
+      v37 = 1;
     }
 
-    if (v33 || (off_1004EE408(qword_1004EE3C8), !dword_1004EE3D0))
+    if (v37 || (off_1004EE408(qword_1004EE3C8), !dword_1004EE3D0))
     {
-      if (v28)
+      if (v32)
       {
-        v37 = v28;
+        v41 = v32;
       }
 
       else
       {
-        v37 = 115200;
+        v41 = 115200;
       }
 
-      printf("Opening %s @ %d baud.\n", v29, v37);
-      if (!sub_10001BE18(v29, v37))
+      printf("Opening %s @ %d baud.\n", v33, v41);
+      if (!sub_10001BE18(v33, v41))
       {
         off_1004EE410(qword_1004EE3C8);
         return 0;
       }
 
 LABEL_122:
-      v34 = __stderrp;
-      v35 = "Unable to open device.\n";
-      v36 = 23;
+      v38 = __stderrp;
+      v39 = "Unable to open device.\n";
+      v40 = 23;
     }
 
     else
     {
 LABEL_114:
-      v34 = __stderrp;
-      v35 = "Failed to close already opened device.\n";
-      v36 = 39;
+      v38 = __stderrp;
+      v39 = "Failed to close already opened device.\n";
+      v40 = 39;
     }
 
-    fwrite(v35, v36, 1uLL, v34);
+    fwrite(v39, v40, 1uLL, v38);
     return 3;
   }
 
   printf("Current Device: %s\n", &xmmword_1004EDFC8);
   result = 0;
-  if (v28 && dword_1004EE3D0)
+  if (v32 && dword_1004EE3D0)
   {
-    printf("Setting speed to %d\n", v28);
-    off_1004EE400(qword_1004EE3C8, v28);
+    printf("Setting speed to %d\n", v32);
+    off_1004EE400(qword_1004EE3C8, v32);
     return 0;
   }
 
   return result;
 }
 
-uint64_t sub_10001B884(int a1, uint64_t a2)
+uint64_t sub_10001B884(uint64_t a1, uint64_t a2)
 {
-  if (sub_100041FEC() == 6)
+  v3 = a1;
+  if (sub_100041FEC(a1, a2) == 6)
   {
     fwrite("autobaud not supported for AppleBT!\n", 0x24uLL, 1uLL, __stderrp);
     fflush(__stderrp);
@@ -3677,7 +3685,7 @@ uint64_t sub_10001B884(int a1, uint64_t a2)
   v12 = 0;
   puts("bluetool_command_autobaud");
   v4 = 1000;
-  if (a1 >= 1)
+  if (v3 >= 1)
   {
     if (a2)
     {
@@ -3890,8 +3898,9 @@ uint64_t sub_10001BCEC(int a1)
   return v4 & 0x20;
 }
 
-uint64_t sub_10001BE18(const char *a1, unsigned int a2)
+uint64_t sub_10001BE18(const char *a1, uint64_t a2)
 {
+  v2 = a2;
   v8 = 0;
   *&v7[12] = 0;
   v9 = 0;
@@ -3948,7 +3957,7 @@ uint64_t sub_10001BE18(const char *a1, unsigned int a2)
     return 0xFFFFFFFFLL;
   }
 
-  sub_10001C158(v5, a2);
+  sub_10001C158(v5, v2);
   snprintf(&xmmword_1004EDFC8, 0x3FFuLL, "UART - %s", a1);
   result = 0;
   dword_1004EE420 = 0;
@@ -4616,10 +4625,11 @@ LABEL_9:
   return 5;
 }
 
-uint64_t sub_10001D568(int a1, unsigned __int8 *inputStruct)
+uint64_t sub_10001D568(uint64_t a1, unsigned __int8 *inputStruct)
 {
   if (byte_1004EDF20)
   {
+    v3 = a1;
     v34 = 0;
     memset(outputStruct, 0, sizeof(outputStruct));
     v26 = 8 * a1;
@@ -4640,13 +4650,13 @@ uint64_t sub_10001D568(int a1, unsigned __int8 *inputStruct)
       return v5;
     }
 
-    if (a1 < 1)
+    if (v3 < 1)
     {
       return 0;
     }
 
     v5 = 0;
-    v7 = a1;
+    v7 = v3;
     v8 = inputStruct + 1;
     for (i = outputStruct + 4; ; i += 8)
     {
@@ -4762,7 +4772,7 @@ LABEL_29:
   return 5;
 }
 
-uint64_t sub_10001D9B0(int a1, void *inputStruct, void *outputStruct)
+uint64_t sub_10001D9B0(uint64_t a1, void *inputStruct, void *outputStruct)
 {
   if (byte_1004EDF20)
   {
@@ -4864,10 +4874,11 @@ void sub_10001DC90(__CFRunLoop *a1)
   CFRunLoopStop(a1);
 }
 
-void sub_10001DE20(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001DE20(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 uint64_t sub_1000282E0()
@@ -9071,26 +9082,6 @@ uint64_t sub_10002DCE8()
             }
           }
         }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_10002DDD0()
-{
-  result = sub_100019B78("device -D", 0);
-  if (!result)
-  {
-    result = sub_100019B78("hci reset", 0);
-    if (!result)
-    {
-      result = sub_100019B78("bcm -s 0x0f,0x00,0x02,0x00,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00", 0);
-      if (!result)
-      {
-
-        return sub_100019B78("quit", 0);
       }
     }
   }

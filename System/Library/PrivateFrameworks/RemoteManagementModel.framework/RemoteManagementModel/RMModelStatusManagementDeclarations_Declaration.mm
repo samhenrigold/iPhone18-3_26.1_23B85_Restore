@@ -11,17 +11,15 @@
 
 + (NSSet)allowedStatusKeys
 {
-  v7[5] = *MEMORY[0x277D85DE8];
+  v6[5] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"identifier";
-  v7[1] = @"server-token";
-  v7[2] = @"active";
-  v7[3] = @"valid";
-  v7[4] = @"reasons";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:5];
+  v6[0] = @"identifier";
+  v6[1] = @"server-token";
+  v6[2] = @"active";
+  v6[3] = @"valid";
+  v6[4] = @"reasons";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:5];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

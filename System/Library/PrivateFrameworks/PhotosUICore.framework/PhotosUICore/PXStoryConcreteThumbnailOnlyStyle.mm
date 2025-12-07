@@ -40,7 +40,7 @@
 
 - ($7566BBA16C4E03ED15B4F2B623931C37)durationInfoForSegmentWithDisplayAssets:(SEL)assets startTime:(id)time
 {
-  result = [(PXStoryConcreteThumbnailOnlyStyle *)self defaultDisplayAssetPresentationDuration:time];
+  result = objc_msgSend_defaultDisplayAssetPresentationDuration(self, assets, time, a5);
   retstr->var0.var3 = 0;
   *&retstr->var0.var0 = PXStoryTimeZero;
   retstr->var2.var3 = 0;

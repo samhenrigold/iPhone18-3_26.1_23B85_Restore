@@ -937,7 +937,7 @@ LABEL_22:
 
         if (v26)
         {
-          [v26 imageDisplayTime];
+          objc_msgSend_imageDisplayTime(v26);
         }
 
         else

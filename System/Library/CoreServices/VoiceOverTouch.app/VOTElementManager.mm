@@ -616,6 +616,7 @@
 - (void)_resetMathGranularMovementState;
 - (void)_resetOtherTapInputModes;
 - (void)_resetQuickNavState;
+- (void)_resetReadAllRequest;
 - (void)_reupdateTextSelectionInformation;
 - (void)_sendAutomationTouchCommand:(unsigned int)command location:(CGPoint)location;
 - (void)_sendBSIStateChangedNotification:(BOOL)notification usage:(int64_t)usage preferSingleHand:(BOOL)hand;
@@ -705,6 +706,7 @@
 - (void)refreshBraille;
 - (void)regionDescriptionForElement:(id)element withCompletion:(id)completion;
 - (void)removeElementExplorer:(id)explorer;
+- (void)resetFrequentUpdateTextCache;
 - (void)resetTextAndSelectionCaches;
 - (void)rotor:(id)rotor didChangeFrom:(int64_t)from to:(int64_t)to userInitiated:(BOOL)initiated;
 - (void)sendRequest:(id)request;
@@ -2796,13 +2798,10 @@ LABEL_20:
 
   if (![eventCopy origin])
   {
-    v34 = @"The Event did not have a type set to it: %@";
-    v35 = eventCopy;
-    LOBYTE(v33) = 1;
-    _AXLogWithFacility();
+    _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"The Event did not have a type set to it: %@");
   }
 
-  v6 = [VOTCommandHelper commandHelper:v33];
+  v6 = +[VOTCommandHelper commandHelper];
   command2 = [eventCopy command];
   v8 = [command2 isEqualToString:kVOTEventCommandEscape];
 
@@ -2824,13 +2823,13 @@ LABEL_20:
     if ([command3 isEqualToString:kVOTEventCommandTracking])
     {
       [eventCopy touchPoint];
-      v38.x = v19;
-      v38.y = v20;
-      v39.origin.x = v11;
-      v39.origin.y = v13;
-      v39.size.width = v15;
-      v39.size.height = v17;
-      v21 = CGRectContainsPoint(v39, v38);
+      v35.x = v19;
+      v35.y = v20;
+      v36.origin.x = v11;
+      v36.origin.y = v13;
+      v36.size.width = v15;
+      v36.size.height = v17;
+      v21 = CGRectContainsPoint(v36, v35);
     }
 
     else
@@ -4876,31 +4875,34 @@ LABEL_13:
 {
   updatedCopy = updated;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  v5 = updatedCopy;
+  if (isKindOfClass)
   {
-    v4 = [updatedCopy objectForKey:@"lineString"];
+    v6 = [updatedCopy objectForKey:@"lineString"];
 
-    if (v4)
+    if (v6)
     {
-      v5 = [updatedCopy objectForKey:@"lineString"];
-      v6 = [v5 copy];
+      v7 = [updatedCopy objectForKey:@"lineString"];
+      v8 = [v7 copy];
       bookLineString = self->_bookLineString;
-      self->_bookLineString = v6;
+      self->_bookLineString = v8;
     }
 
     else
     {
-      v8 = [updatedCopy objectForKey:@"lineNumber"];
+      v10 = [updatedCopy objectForKey:@"lineNumber"];
 
-      if (!v8)
+      if (!v10)
       {
 LABEL_7:
         self->_bookUpdatedCurrentLine = 1;
+        v5 = updatedCopy;
         goto LABEL_8;
       }
 
-      v5 = [updatedCopy objectForKey:@"lineNumber"];
-      self->_bookLineNumber = [v5 integerValue];
+      v7 = [updatedCopy objectForKey:@"lineNumber"];
+      self->_bookLineNumber = [v7 integerValue];
     }
 
     goto LABEL_7;
@@ -4908,7 +4910,7 @@ LABEL_7:
 
 LABEL_8:
 
-  _objc_release_x1();
+  _objc_release_x1(isKindOfClass, v5);
 }
 
 - (void)_handleBookContentMovement:(id)movement direction:(int64_t)direction unit:(int64_t)unit generateOutput:(BOOL)output
@@ -7590,8 +7592,9 @@ LABEL_13:
 {
   if (!self->_flags.itemChooserVisible)
   {
+    allElements = self->_allElements;
     self->_allElements = 0;
-    _objc_release_x1();
+    _objc_release_x1(self, allElements);
   }
 }
 
@@ -8879,12 +8882,15 @@ LABEL_9:
   if ([(VOTElement *)self->_currentElement doesHaveTraits:kAXWebContentTrait]&& ![(VOTElement *)self->_currentElement doesHaveTraits:kAXIsEditingTrait])
   {
     v3 = [(VOTElementManager *)self webEditableAncestor:self->_currentElement];
+    v4 = v3;
     if (v3)
     {
-      [(VOTElementManager *)self _setCurrentElement:v3];
+      v5 = v3;
+      v3 = [(VOTElementManager *)self _setCurrentElement:v3];
+      v4 = v5;
     }
 
-    _objc_release_x1();
+    _objc_release_x1(v3, v4);
   }
 }
 
@@ -10569,7 +10575,7 @@ LABEL_15:
       break;
     default:
       v12 = [NSNumber numberWithInteger:currentRotorType];
-      _AXLogWithFacility();
+      _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Unhandled search rotor movement:%@ ");
 
       break;
   }
@@ -10660,6 +10666,13 @@ LABEL_9:
     sharedInstance = [sub_100071640() sharedInstance];
     [sharedInstance speakThisWithOptions:12 errorHandler:&stru_1001C99C8];
   }
+}
+
+- (void)_resetReadAllRequest
+{
+  readAllOutputRequest = self->_readAllOutputRequest;
+  self->_readAllOutputRequest = 0;
+  _objc_release_x1(self, readAllOutputRequest);
 }
 
 - (void)_resetOtherTapInputModes
@@ -15190,7 +15203,7 @@ LABEL_8:
         v14 = v19[3];
         if (v14 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          _AXLogWithFacility();
+          _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Ran into a case where we couldn't find a match in our new math granularity level.  Old tree position was %@, new segments are %@");
           v14 = 0;
           v19[3] = 0;
         }
@@ -15406,7 +15419,7 @@ LABEL_10:
     else
     {
 LABEL_11:
-      _AXLogWithFacility();
+      _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not find segment index for tree position %@ with segments %@");
     }
   }
 
@@ -15883,14 +15896,16 @@ LABEL_13:
 {
   [VOTSharedWorkspace setScreenOn:1 silently:1];
   delayedNotificationAnnouncementRequest = [(VOTElementManager *)self delayedNotificationAnnouncementRequest];
+  v5 = delayedNotificationAnnouncementRequest;
   if (delayedNotificationAnnouncementRequest)
   {
-    v5 = delayedNotificationAnnouncementRequest;
+    v6 = delayedNotificationAnnouncementRequest;
     [(VOTElementManager *)self _systemNotificationInProgressForRequest:delayedNotificationAnnouncementRequest];
-    [(VOTElementManager *)self sendRequest:v5];
+    delayedNotificationAnnouncementRequest = [(VOTElementManager *)self sendRequest:v6];
+    v5 = v6;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(delayedNotificationAnnouncementRequest, v5);
 }
 
 - (void)_handleWebFormControlInteractionStartNotification:(id)notification
@@ -18628,15 +18643,15 @@ LABEL_15:
       flashlightSystemTimer = self->_flashlightSystemTimer;
       self->_flashlightSystemTimer = v6;
 
-      sub_100081D18();
+      sub_100081D18(v8);
       self->_flashlightNotificationGeneration = -1;
-      v8 = VOTLogCommon();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = VOTLogCommon();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = self->_flashlightDevice;
-        v10 = 138412290;
-        v11 = v9;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Initialization flashlight observer: %@", &v10, 0xCu);
+        v10 = self->_flashlightDevice;
+        v11 = 138412290;
+        v12 = v10;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Initialization flashlight observer: %@", &v11, 0xCu);
       }
     }
   }
@@ -18674,26 +18689,26 @@ LABEL_15:
 - (void)_sendSystemNotificationForFlashlight
 {
   v2 = sub_1000516CC(off_1001FDDD0, @"flashlight.notification.title", 0, 0);
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2050000000;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2050000000;
   v3 = qword_1001FED40;
-  v18 = qword_1001FED40;
+  v19 = qword_1001FED40;
   if (!qword_1001FED40)
   {
     *&buf = _NSConcreteStackBlock;
     *(&buf + 1) = 3221225472;
-    v20 = sub_1000B2104;
-    v21 = &unk_1001C8370;
-    v22 = &v15;
+    v21 = sub_1000B2104;
+    v22 = &unk_1001C8370;
+    v23 = &v16;
     sub_1000B2104(&buf);
-    v3 = v16[3];
+    v3 = v17[3];
   }
 
   v4 = v3;
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v16, 8);
   v5 = objc_opt_new();
-  [v5 setBody:{0, v15}];
+  [v5 setBody:{0, v16}];
   [v5 setCategoryIdentifier:@"com.apple.VoiceOver.message"];
   [v5 setTitle:v2];
   [v5 setThreadIdentifier:@"VoiceOverFlashlightID"];
@@ -18703,24 +18718,24 @@ LABEL_15:
   v7 = [v6 dateByAddingTimeInterval:21600.0];
   [v5 setExpirationDate:v7];
 
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2050000000;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2050000000;
   v8 = qword_1001FED48;
-  v18 = qword_1001FED48;
+  v19 = qword_1001FED48;
   if (!qword_1001FED48)
   {
     *&buf = _NSConcreteStackBlock;
     *(&buf + 1) = 3221225472;
-    v20 = sub_1000B215C;
-    v21 = &unk_1001C8370;
-    v22 = &v15;
+    v21 = sub_1000B215C;
+    v22 = &unk_1001C8370;
+    v23 = &v16;
     sub_1000B215C(&buf);
-    v8 = v16[3];
+    v8 = v17[3];
   }
 
   v9 = v8;
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v16, 8);
   v10 = +[NSUUID UUID];
   uUIDString = [v10 UUIDString];
   v12 = [v8 requestWithIdentifier:uUIDString content:v5 trigger:0];
@@ -18733,8 +18748,8 @@ LABEL_15:
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Posting local notification: %@", &buf, 0xCu);
   }
 
-  v14 = sub_1000B1C6C();
-  [v14 addNotificationRequest:v12 withCompletionHandler:&stru_1001CA2D8];
+  v15 = sub_1000B1C6C(v14);
+  [v15 addNotificationRequest:v12 withCompletionHandler:&stru_1001CA2D8];
 }
 
 - (void)refreshBraille
@@ -21380,27 +21395,29 @@ LABEL_25:
   v6 = +[AXSettings sharedInstance];
   voiceOverDetectionModeItems = [v6 voiceOverDetectionModeItems];
 
-  if (![voiceOverDetectionModeItems count])
+  v7 = [voiceOverDetectionModeItems count];
+  v8 = voiceOverDetectionModeItems;
+  if (!v7)
   {
     goto LABEL_60;
   }
 
   if ([voiceOverDetectionModeItems count])
   {
-    v7 = 0;
+    v9 = 0;
     while (1)
     {
-      v8 = [voiceOverDetectionModeItems objectAtIndexedSubscript:v7];
-      v9 = [v8 valueForKey:@"Detector"];
-      stringValue = [v9 stringValue];
-      v11 = AXDetectionModeForName();
+      v10 = [voiceOverDetectionModeItems objectAtIndexedSubscript:v9];
+      v11 = [v10 valueForKey:@"Detector"];
+      stringValue = [v11 stringValue];
+      v13 = AXDetectionModeForName();
 
-      if (v11 == currentRotorDetectionMode)
+      if (v13 == currentRotorDetectionMode)
       {
         break;
       }
 
-      if ([voiceOverDetectionModeItems count] <= ++v7)
+      if ([voiceOverDetectionModeItems count] <= ++v9)
       {
         goto LABEL_6;
       }
@@ -21410,79 +21427,79 @@ LABEL_25:
   else
   {
 LABEL_6:
-    LODWORD(v7) = 0;
+    LODWORD(v9) = 0;
   }
 
   if (direction == 2)
   {
     if (currentRotorDetectionMode == 6)
     {
-      v22 = +[AXSettings sharedInstance];
-      liveRecognitionActivity = [v22 liveRecognitionActivity];
+      v24 = +[AXSettings sharedInstance];
+      liveRecognitionActivity = [v24 liveRecognitionActivity];
       name = [liveRecognitionActivity name];
 
-      v24 = +[AXSettings sharedInstance];
-      liveRecognitionActivities = [v24 liveRecognitionActivities];
+      v26 = +[AXSettings sharedInstance];
+      liveRecognitionActivities = [v26 liveRecognitionActivities];
       allKeys = [liveRecognitionActivities allKeys];
 
-      v26 = [allKeys indexOfObject:name];
-      if (v26 && v26 != 0x7FFFFFFFFFFFFFFFLL)
+      v28 = [allKeys indexOfObject:name];
+      if (v28 && v28 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v21 = v26 - 1;
-        v20 = allKeys;
+        v23 = v28 - 1;
+        v22 = allKeys;
 LABEL_46:
-        v17AllKeys = [v20 objectAtIndexedSubscript:v21];
-        v69 = +[AXSettings sharedInstance];
-        liveRecognitionActivities2 = [v69 liveRecognitionActivities];
-        v61 = [liveRecognitionActivities2 objectForKeyedSubscript:v17AllKeys];
+        v19AllKeys = [v22 objectAtIndexedSubscript:v23];
+        v71 = +[AXSettings sharedInstance];
+        liveRecognitionActivities2 = [v71 liveRecognitionActivities];
+        v63 = [liveRecognitionActivities2 objectForKeyedSubscript:v19AllKeys];
 
         stringValue2 = +[AXSettings sharedInstance];
-        [stringValue2 setLiveRecognitionActivity:v61];
+        [stringValue2 setLiveRecognitionActivity:v63];
         currentRotorDetectionMode = 6;
 LABEL_47:
 
         goto LABEL_52;
       }
 
-      v27 = v7;
-      while (v27-- >= 1)
+      v29 = v9;
+      while (v29-- >= 1)
       {
-        v29 = [voiceOverDetectionModeItems objectAtIndexedSubscript:v27];
-        v30 = [v29 valueForKey:@"Enabled"];
-        bOOLValue = [v30 BOOLValue];
+        v31 = [voiceOverDetectionModeItems objectAtIndexedSubscript:v29];
+        v32 = [v31 valueForKey:@"Enabled"];
+        bOOLValue = [v32 BOOLValue];
 
-        v32 = voiceOverDetectionModeItems;
+        v34 = voiceOverDetectionModeItems;
         if (bOOLValue)
         {
 LABEL_36:
-          v17AllKeys = [v32 objectAtIndexedSubscript:v27];
-          v61 = [v17AllKeys valueForKey:@"Detector"];
-          stringValue2 = [v61 stringValue];
+          v19AllKeys = [v34 objectAtIndexedSubscript:v29];
+          v63 = [v19AllKeys valueForKey:@"Detector"];
+          stringValue2 = [v63 stringValue];
           currentRotorDetectionMode = AXDetectionModeForName();
           goto LABEL_47;
         }
       }
 
-      v45 = voiceOverDetectionModeItems;
+      v47 = voiceOverDetectionModeItems;
     }
 
     else
     {
-      v45 = voiceOverDetectionModeItems;
-      if (v7)
+      v47 = voiceOverDetectionModeItems;
+      if (v9)
       {
-        v46 = v7 + 1;
+        v48 = v9 + 1;
         while (1)
         {
-          v47 = [v45 objectAtIndexedSubscript:v46 - 2];
-          v48 = [v47 valueForKey:@"Enabled"];
-          bOOLValue2 = [v48 BOOLValue];
+          v49 = [v47 objectAtIndexedSubscript:v48 - 2];
+          v50 = [v49 valueForKey:@"Enabled"];
+          bOOLValue2 = [v50 BOOLValue];
 
           if (bOOLValue2)
           {
-            v50 = [voiceOverDetectionModeItems objectAtIndexedSubscript:v46 - 2];
-            v51 = [v50 valueForKey:@"Detector"];
-            stringValue3 = [v51 stringValue];
+            v52 = [voiceOverDetectionModeItems objectAtIndexedSubscript:v48 - 2];
+            v53 = [v52 valueForKey:@"Detector"];
+            stringValue3 = [v53 stringValue];
             currentRotorDetectionMode = AXDetectionModeForName();
 
             if (currentRotorDetectionMode != 6)
@@ -21490,65 +21507,65 @@ LABEL_36:
               goto LABEL_53;
             }
 
-            v53 = +[AXSettings sharedInstance];
-            liveRecognitionActivities3 = [v53 liveRecognitionActivities];
+            v55 = +[AXSettings sharedInstance];
+            liveRecognitionActivities3 = [v55 liveRecognitionActivities];
             allKeys2 = [liveRecognitionActivities3 allKeys];
-            v56 = [allKeys2 count];
+            v58 = [allKeys2 count];
 
-            if (v56)
+            if (v58)
             {
               break;
             }
           }
 
-          --v46;
-          v45 = voiceOverDetectionModeItems;
-          if (v46 <= 1)
+          --v48;
+          v47 = voiceOverDetectionModeItems;
+          if (v48 <= 1)
           {
             goto LABEL_41;
           }
         }
 
-        v71 = +[AXSettings sharedInstance];
-        liveRecognitionActivities4 = [v71 liveRecognitionActivities];
+        v73 = +[AXSettings sharedInstance];
+        liveRecognitionActivities4 = [v73 liveRecognitionActivities];
         allKeys3 = [liveRecognitionActivities4 allKeys];
         lastObject = [allKeys3 lastObject];
 LABEL_50:
         name = lastObject;
 
-        v75 = +[AXSettings sharedInstance];
-        liveRecognitionActivities5 = [v75 liveRecognitionActivities];
+        v77 = +[AXSettings sharedInstance];
+        liveRecognitionActivities5 = [v77 liveRecognitionActivities];
         allKeys = [liveRecognitionActivities5 objectForKeyedSubscript:name];
 
-        v17AllKeys = +[AXSettings sharedInstance];
-        [v17AllKeys setLiveRecognitionActivity:allKeys];
+        v19AllKeys = +[AXSettings sharedInstance];
+        [v19AllKeys setLiveRecognitionActivity:allKeys];
         goto LABEL_51;
       }
     }
 
 LABEL_41:
-    lastObject2 = [v45 lastObject];
-    v66 = [lastObject2 valueForKey:@"Detector"];
-    stringValue4 = [v66 stringValue];
+    lastObject2 = [v47 lastObject];
+    v68 = [lastObject2 valueForKey:@"Detector"];
+    stringValue4 = [v68 stringValue];
     currentRotorDetectionMode = AXDetectionModeForName();
 
     if (currentRotorDetectionMode == 6)
     {
       name = +[AXSettings sharedInstance];
       allKeys = [name liveRecognitionActivities];
-      v17AllKeys = [allKeys allKeys];
-      if (![v17AllKeys count])
+      v19AllKeys = [allKeys allKeys];
+      if (![v19AllKeys count])
       {
-        v68 = [voiceOverDetectionModeItems count];
+        v70 = [voiceOverDetectionModeItems count];
 
-        if (v68 < 2)
+        if (v70 < 2)
         {
           currentRotorDetectionMode = 6;
           goto LABEL_53;
         }
 
-        v64 = [voiceOverDetectionModeItems count] - 2;
-        v63 = voiceOverDetectionModeItems;
+        v66 = [voiceOverDetectionModeItems count] - 2;
+        v65 = voiceOverDetectionModeItems;
         goto LABEL_39;
       }
 
@@ -21562,35 +21579,35 @@ LABEL_51:
   {
     if (currentRotorDetectionMode == 6)
     {
-      v12 = +[AXSettings sharedInstance];
-      liveRecognitionActivity2 = [v12 liveRecognitionActivity];
+      v14 = +[AXSettings sharedInstance];
+      liveRecognitionActivity2 = [v14 liveRecognitionActivity];
       name = [liveRecognitionActivity2 name];
 
-      v15 = +[AXSettings sharedInstance];
-      liveRecognitionActivities6 = [v15 liveRecognitionActivities];
+      v17 = +[AXSettings sharedInstance];
+      liveRecognitionActivities6 = [v17 liveRecognitionActivities];
       allKeys = [liveRecognitionActivities6 allKeys];
 
-      v18 = [allKeys indexOfObject:name];
-      if (v18 != 0x7FFFFFFFFFFFFFFFLL)
+      v20 = [allKeys indexOfObject:name];
+      if (v20 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v19 = v18 + 1;
-        if (v18 + 1 < [allKeys count])
+        v21 = v20 + 1;
+        if (v20 + 1 < [allKeys count])
         {
-          v20 = allKeys;
-          v21 = v19;
+          v22 = allKeys;
+          v23 = v21;
           goto LABEL_46;
         }
       }
 
-      v27 = v7;
-      v32 = voiceOverDetectionModeItems;
-      while ([v32 count] > ++v27)
+      v29 = v9;
+      v34 = voiceOverDetectionModeItems;
+      while ([v34 count] > ++v29)
       {
-        v57 = [voiceOverDetectionModeItems objectAtIndexedSubscript:v27];
-        v58 = [v57 valueForKey:@"Enabled"];
-        bOOLValue3 = [v58 BOOLValue];
+        v59 = [voiceOverDetectionModeItems objectAtIndexedSubscript:v29];
+        v60 = [v59 valueForKey:@"Enabled"];
+        bOOLValue3 = [v60 BOOLValue];
 
-        v32 = voiceOverDetectionModeItems;
+        v34 = voiceOverDetectionModeItems;
         if (bOOLValue3)
         {
           goto LABEL_36;
@@ -21600,16 +21617,16 @@ LABEL_51:
       goto LABEL_38;
     }
 
-    v33 = (v7 + 1);
-    if ([voiceOverDetectionModeItems count] <= v33)
+    v35 = (v9 + 1);
+    if ([voiceOverDetectionModeItems count] <= v35)
     {
 LABEL_38:
-      v63 = voiceOverDetectionModeItems;
-      v64 = 0;
+      v65 = voiceOverDetectionModeItems;
+      v66 = 0;
 LABEL_39:
-      name = [v63 objectAtIndexedSubscript:v64];
+      name = [v65 objectAtIndexedSubscript:v66];
       allKeys = [name valueForKey:@"Detector"];
-      v17AllKeys = [allKeys stringValue];
+      v19AllKeys = [allKeys stringValue];
       currentRotorDetectionMode = AXDetectionModeForName();
 LABEL_52:
 
@@ -21618,16 +21635,16 @@ LABEL_52:
 
     while (1)
     {
-      v34 = [voiceOverDetectionModeItems objectAtIndexedSubscript:v33];
-      v35 = [v34 valueForKey:@"Enabled"];
-      bOOLValue4 = [v35 BOOLValue];
+      v36 = [voiceOverDetectionModeItems objectAtIndexedSubscript:v35];
+      v37 = [v36 valueForKey:@"Enabled"];
+      bOOLValue4 = [v37 BOOLValue];
 
-      v37 = voiceOverDetectionModeItems;
+      v39 = voiceOverDetectionModeItems;
       if (bOOLValue4)
       {
-        v38 = [voiceOverDetectionModeItems objectAtIndexedSubscript:v33];
-        v39 = [v38 valueForKey:@"Detector"];
-        stringValue5 = [v39 stringValue];
+        v40 = [voiceOverDetectionModeItems objectAtIndexedSubscript:v35];
+        v41 = [v40 valueForKey:@"Detector"];
+        stringValue5 = [v41 stringValue];
         currentRotorDetectionMode = AXDetectionModeForName();
 
         if (currentRotorDetectionMode != 6)
@@ -21635,26 +21652,26 @@ LABEL_52:
           goto LABEL_53;
         }
 
-        v41 = +[AXSettings sharedInstance];
-        liveRecognitionActivities7 = [v41 liveRecognitionActivities];
+        v43 = +[AXSettings sharedInstance];
+        liveRecognitionActivities7 = [v43 liveRecognitionActivities];
         allKeys4 = [liveRecognitionActivities7 allKeys];
-        v44 = [allKeys4 count];
+        v46 = [allKeys4 count];
 
-        v37 = voiceOverDetectionModeItems;
-        if (v44)
+        v39 = voiceOverDetectionModeItems;
+        if (v46)
         {
           break;
         }
       }
 
-      if ([v37 count] <= ++v33)
+      if ([v39 count] <= ++v35)
       {
         goto LABEL_38;
       }
     }
 
-    v71 = +[AXSettings sharedInstance];
-    liveRecognitionActivities4 = [v71 liveRecognitionActivities];
+    v73 = +[AXSettings sharedInstance];
+    liveRecognitionActivities4 = [v73 liveRecognitionActivities];
     allKeys3 = [liveRecognitionActivities4 allKeys];
     lastObject = [allKeys3 firstObject];
     goto LABEL_50;
@@ -21664,43 +21681,44 @@ LABEL_53:
   [VOTSharedWorkspace setCurrentRotorDetectionMode:currentRotorDetectionMode];
   if (currentRotorDetectionMode == 6)
   {
-    v77 = +[AXSettings sharedInstance];
-    liveRecognitionActivity3 = [v77 liveRecognitionActivity];
+    v79 = +[AXSettings sharedInstance];
+    liveRecognitionActivity3 = [v79 liveRecognitionActivity];
     if ([liveRecognitionActivity3 isActive])
     {
-      v79 = +[AXSettings sharedInstance];
-      enabledLiveRecognitionModes = [v79 enabledLiveRecognitionModes];
-      v81 = [NSNumber numberWithUnsignedInt:6];
-      v82 = [enabledLiveRecognitionModes containsObject:v81];
+      v81 = +[AXSettings sharedInstance];
+      enabledLiveRecognitionModes = [v81 enabledLiveRecognitionModes];
+      v83 = [NSNumber numberWithUnsignedInt:6];
+      v84 = [enabledLiveRecognitionModes containsObject:v83];
     }
 
     else
     {
-      v82 = 0;
+      v84 = 0;
     }
 
-    v83 = +[AXSettings sharedInstance];
-    liveRecognitionActivity4 = [v83 liveRecognitionActivity];
+    v85 = +[AXSettings sharedInstance];
+    liveRecognitionActivity4 = [v85 liveRecognitionActivity];
     name2 = [liveRecognitionActivity4 name];
-    v86 = sub_100087D3C(name2, v82);
-    v89 = [NSString stringWithFormat:@"%@, %@", name2, v86];
+    v88 = sub_100087D3C(name2, v84);
+    v91 = [NSString stringWithFormat:@"%@, %@", name2, v88];
   }
 
   else
   {
-    v83 = AXLocalizedNameForDetectionMode();
+    v85 = AXLocalizedNameForDetectionMode();
     liveRecognitionActivity4 = +[AXSettings sharedInstance];
     name2 = [liveRecognitionActivity4 enabledLiveRecognitionModes];
-    v86 = [NSNumber numberWithUnsignedInt:currentRotorDetectionMode];
-    v87 = [name2 containsObject:v86];
-    v88 = sub_100087D3C(v87, v87);
-    v89 = [NSString stringWithFormat:@"%@, %@", v83, v88];
+    v88 = [NSNumber numberWithUnsignedInt:currentRotorDetectionMode];
+    v89 = [name2 containsObject:v88];
+    v90 = sub_100087D3C(v89, v89);
+    v91 = [NSString stringWithFormat:@"%@, %@", v85, v90];
   }
 
-  v90 = sub_1000095FC(v89, 0, 0);
+  v92 = sub_1000095FC(v91, 0, 0);
+  v8 = voiceOverDetectionModeItems;
 LABEL_60:
 
-  _objc_release_x1();
+  _objc_release_x1(v7, v8);
 }
 
 - (void)_handleImageDescriptionsToggle:(int64_t)toggle
@@ -25301,7 +25319,7 @@ LABEL_9:
     v11 = [v9 indexOfObject:v10];
     if (v11 == 0x7FFFFFFFFFFFFFFFLL || (v12 = v11, [v9 count] < 2))
     {
-      _AXLogWithFacility();
+      _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Somehow had current element %@ whose community %@ was not in our list %@.  This is expected for things like the Dismiss Side App element, but otherwise worth investigating.");
       v13 = 0;
     }
 
@@ -35505,8 +35523,18 @@ LABEL_209:
   v20 = notificationCopy;
   if (!notificationCopy || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), notificationCopy = v20, (isKindOfClass & 1) != 0))
   {
-    v6 = [notificationCopy isAXAttributedString] ? objc_msgSend(v20, "hasAttribute:", UIAccessibilityTableIndexToken) : 0;
-    if ([VOTSharedWorkspace typingMode] != 2 || v6 != 0)
+    if ([notificationCopy isAXAttributedString])
+    {
+      v6 = [v20 hasAttribute:UIAccessibilityTableIndexToken];
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+
+    isKindOfClass = [VOTSharedWorkspace typingMode];
+    if (isKindOfClass != 2 || v6 != 0)
     {
       if (v20)
       {
@@ -35553,11 +35581,15 @@ LABEL_209:
         v8 = +[VOTOutputManager outputManager];
         v16 = +[VOSOutputEvent BoundaryEncountered];
         [v8 sendEvent:v16];
+
+        v20 = 0;
       }
     }
+
+    notificationCopy = v20;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(isKindOfClass, notificationCopy);
 }
 
 - (void)_appSuspensionSoundTimer
@@ -41072,11 +41104,7 @@ LABEL_70:
 
     else
     {
-      v14 = appTransition;
-      v15 = v6;
-      v13 = @"appTransition:%@ does not represent our currentApp:%@";
-      LOBYTE(v12) = 1;
-      _AXLogWithFacility();
+      _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"appTransition:%@ does not represent our currentApp:%@");
       announcableName = 0;
     }
   }
@@ -41086,7 +41114,7 @@ LABEL_70:
     announcableName = 0;
   }
 
-  [neededCopy setAppTransition:{0, v12, v13, v14, v15}];
+  [neededCopy setAppTransition:0];
 
   return announcableName;
 }
@@ -41165,15 +41193,18 @@ LABEL_7:
         if (v4 != 1)
         {
           _currentElement = [(VOTElementManager *)self _currentElement];
-          if (!_currentElement || [_currentElement shouldSpeakExplorerElementsAfterFocus])
+          v10 = _currentElement;
+          if (!_currentElement || (v6 = [_currentElement shouldSpeakExplorerElementsAfterFocus], v7 = v10, v6))
           {
             [(VOTElementManager *)self _updateExplorerElementsIfNeeded];
             explorerElementManager = [(VOTElementManager *)self explorerElementManager];
-            v7 = +[VOTExplorerElementManagerContext context];
-            [explorerElementManager readAll:v7];
+            v9 = +[VOTExplorerElementManagerContext context];
+            [explorerElementManager readAll:v9];
+
+            v7 = v10;
           }
 
-          _objc_release_x1();
+          _objc_release_x1(v6, v7);
         }
       }
     }
@@ -42337,6 +42368,13 @@ LABEL_24:
 
     [(SCRCTargetSelectorTimer *)self->_elementUpdatesFrequentlyTimer dispatchAfterDelay:v12];
   }
+}
+
+- (void)resetFrequentUpdateTextCache
+{
+  cachedFrequentUpdateText = self->_cachedFrequentUpdateText;
+  self->_cachedFrequentUpdateText = 0;
+  _objc_release_x1(self, cachedFrequentUpdateText);
 }
 
 - (BOOL)_needsPhoneticBrailleForLanauge:(id)lanauge

@@ -8,7 +8,7 @@
 
 - (VTLowLatencyFrameInterpolationConfiguration)initWithFrameWidth:(int64_t)width frameHeight:(int64_t)height numberOfInterpolatedFrames:(int64_t)frames
 {
-  if ((loadVCPFrameworkOnce() & 1) == 0)
+  if ((loadVCPFrameworkOnce(self, a2) & 1) == 0)
   {
     NSLog(&cfstr_ProcessorNotSu.isa);
     return 0;
@@ -49,7 +49,7 @@
 
 - (VTLowLatencyFrameInterpolationConfiguration)initWithFrameWidth:(int64_t)width frameHeight:(int64_t)height spatialScaleFactor:(int64_t)factor
 {
-  if ((loadVCPFrameworkOnce() & 1) == 0)
+  if ((loadVCPFrameworkOnce(self, a2) & 1) == 0)
   {
     NSLog(&cfstr_ProcessorNotSu.isa);
     return 0;

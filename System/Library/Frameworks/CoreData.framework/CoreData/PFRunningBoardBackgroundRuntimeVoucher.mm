@@ -5,7 +5,7 @@
 
 void __66___PFRunningBoardBackgroundRuntimeVoucher__deferredInitialization__block_invoke()
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v0 = getprogname();
   if (v0)
   {
@@ -37,7 +37,7 @@ void __66___PFRunningBoardBackgroundRuntimeVoucher__deferredInitialization__bloc
                 }
 
                 *buf = 138412290;
-                v12 = v5;
+                v11 = v5;
               }
             }
 
@@ -57,7 +57,7 @@ void __66___PFRunningBoardBackgroundRuntimeVoucher__deferredInitialization__bloc
                 }
 
                 *buf = 138412290;
-                v12 = v7;
+                v11 = v7;
               }
             }
           }
@@ -101,13 +101,11 @@ void __66___PFRunningBoardBackgroundRuntimeVoucher__deferredInitialization__bloc
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __69___PFRunningBoardBackgroundRuntimeVoucher__beginPowerAssertionNamed___block_invoke(uint64_t a1, __CFString *a2, __CFString *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   Weak = objc_loadWeak((a1 + 32));
   v6 = objc_autoreleasePoolPush();
   _pflogInitialize(1);
@@ -147,8 +145,8 @@ void __69___PFRunningBoardBackgroundRuntimeVoucher__beginPowerAssertionNamed___b
     }
 
     *buf = 138412802;
-    v21 = v10;
-    v22 = 2112;
+    v20 = v10;
+    v21 = 2112;
     if (a3)
     {
       v12 = a3;
@@ -159,9 +157,9 @@ void __69___PFRunningBoardBackgroundRuntimeVoucher__beginPowerAssertionNamed___b
       v12 = @"<null>";
     }
 
-    v23 = v11;
-    v24 = 2112;
-    v25 = v12;
+    v22 = v11;
+    v23 = 2112;
+    v24 = v12;
   }
 
   else
@@ -173,7 +171,17 @@ void __69___PFRunningBoardBackgroundRuntimeVoucher__beginPowerAssertionNamed___b
 
     if (Weak)
     {
-      v17 = Weak;
+      v16 = Weak;
+    }
+
+    else
+    {
+      v16 = @"<null>";
+    }
+
+    if (a2)
+    {
+      v17 = a2;
     }
 
     else
@@ -181,9 +189,12 @@ void __69___PFRunningBoardBackgroundRuntimeVoucher__beginPowerAssertionNamed___b
       v17 = @"<null>";
     }
 
-    if (a2)
+    *buf = 138412802;
+    v20 = v16;
+    v21 = 2112;
+    if (a3)
     {
-      v18 = a2;
+      v18 = a3;
     }
 
     else
@@ -191,22 +202,9 @@ void __69___PFRunningBoardBackgroundRuntimeVoucher__beginPowerAssertionNamed___b
       v18 = @"<null>";
     }
 
-    *buf = 138412802;
-    v21 = v17;
-    v22 = 2112;
-    if (a3)
-    {
-      v19 = a3;
-    }
-
-    else
-    {
-      v19 = @"<null>";
-    }
-
-    v23 = v18;
-    v24 = 2112;
-    v25 = v19;
+    v22 = v17;
+    v23 = 2112;
+    v24 = v18;
   }
 
   _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: _PFRunningBoardBackgroundRuntimeVoucher '%@' for RBSAssertion '%@' was cancelled due to error '%@'\n", buf, 0x20u);
@@ -243,7 +241,6 @@ LABEL_15:
 
   _NSCoreDataLog_console(1, "_PFRunningBoardBackgroundRuntimeVoucher '%@' for RBSAssertion '%@' was cancelled due to error '%@'", v13, v14, v15);
   objc_autoreleasePoolPop(v6);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -78,11 +78,11 @@
   v7 = objc_alloc(objc_opt_class());
   if (modelCopy)
   {
-    [modelCopy frame];
-    [modelCopy corners];
+    objc_msgSend_frame(modelCopy);
+    objc_msgSend_corners(modelCopy);
     shadow = [modelCopy shadow];
     v10 = v9;
-    [modelCopy titleStyle];
+    objc_msgSend_titleStyle(modelCopy);
   }
 
   else

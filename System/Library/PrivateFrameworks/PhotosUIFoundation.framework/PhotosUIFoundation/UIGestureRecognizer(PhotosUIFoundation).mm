@@ -1,14 +1,14 @@
 @interface UIGestureRecognizer(PhotosUIFoundation)
 - (BOOL)_px_isGestureRecognizerForKey:()PhotosUIFoundation ofScrollView:;
 - (double)px_locationInCoordinateSpace:()PhotosUIFoundation;
-- (uint64_t)px_cancel;
 - (uint64_t)px_isPanGestureRecognizerOfScrollView:()PhotosUIFoundation;
 - (uint64_t)px_isPinchGestureRecognizerOfScrollView:()PhotosUIFoundation;
+- (void)px_cancel;
 @end
 
 @implementation UIGestureRecognizer(PhotosUIFoundation)
 
-- (uint64_t)px_cancel
+- (void)px_cancel
 {
   result = [self isEnabled];
   if (result)

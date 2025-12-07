@@ -68,28 +68,29 @@ uint64_t __50__RTTUIUtteranceCell_heightForUtterance_andWidth___block_invoke()
     }
 
     selfCopy = self;
-    v11 = 0;
-    v12 = &v11;
-    v13 = 0x2020000000;
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x2020000000;
     v8 = get_UIAccessibilitySetAssociatedElementContextForNextNotificationSymbolLoc_ptr;
-    v14 = get_UIAccessibilitySetAssociatedElementContextForNextNotificationSymbolLoc_ptr;
+    v15 = get_UIAccessibilitySetAssociatedElementContextForNextNotificationSymbolLoc_ptr;
     if (!get_UIAccessibilitySetAssociatedElementContextForNextNotificationSymbolLoc_ptr)
     {
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __get_UIAccessibilitySetAssociatedElementContextForNextNotificationSymbolLoc_block_invoke;
-      v10[3] = &unk_279AE4F10;
-      v10[4] = &v11;
-      __get_UIAccessibilitySetAssociatedElementContextForNextNotificationSymbolLoc_block_invoke(v10);
-      v8 = v12[3];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __get_UIAccessibilitySetAssociatedElementContextForNextNotificationSymbolLoc_block_invoke;
+      v11[3] = &unk_279AE4F10;
+      v11[4] = &v12;
+      __get_UIAccessibilitySetAssociatedElementContextForNextNotificationSymbolLoc_block_invoke(v11);
+      v8 = v13[3];
     }
 
-    _Block_object_dispose(&v11, 8);
+    _Block_object_dispose(&v12, 8);
     if (!v8)
     {
-      v9 = [RTTUIConversationControllerCoordinator registerForCallUpdates:];
-      _Block_object_dispose(&v11, 8);
-      _Unwind_Resume(v9);
+      [RTTUIConversationControllerCoordinator registerForCallUpdates:];
+      v10 = v9;
+      _Block_object_dispose(&v12, 8);
+      _Unwind_Resume(v10);
     }
 
     v8(selfCopy);

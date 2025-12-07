@@ -60,7 +60,7 @@
 
 void __87__HMDCameraProfileSettingsQuotaCoordinator__disableRecordingAccessModesWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -72,13 +72,13 @@ void __87__HMDCameraProfileSettingsQuotaCoordinator__disableRecordingAccessModes
     v8 = HMCameraAccessModeAsString();
     [v3 accessModeNotAtHome];
     v9 = HMCameraAccessModeAsString();
-    v21 = 138543874;
-    v22 = v7;
-    v23 = 2112;
-    v24 = v8;
-    v25 = 2112;
-    v26 = v9;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Asked to disable recording access modes given current accessModeAtHome: %@ accessModeNotAtHome: %@", &v21, 0x20u);
+    v20 = 138543874;
+    v21 = v7;
+    v22 = 2112;
+    v23 = v8;
+    v24 = 2112;
+    v25 = v9;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Asked to disable recording access modes given current accessModeAtHome: %@ accessModeNotAtHome: %@", &v20, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -93,11 +93,11 @@ void __87__HMDCameraProfileSettingsQuotaCoordinator__disableRecordingAccessModes
       v13 = HMFGetLogIdentifier();
       [v3 accessModeAtHome];
       v14 = HMCameraAccessModeAsString();
-      v21 = 138543618;
-      v22 = v13;
-      v23 = 2112;
-      v24 = v14;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Disabling recording access modes by updating at home access mode to %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v13;
+      v22 = 2112;
+      v23 = v14;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Disabling recording access modes by updating at home access mode to %@", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -115,23 +115,21 @@ void __87__HMDCameraProfileSettingsQuotaCoordinator__disableRecordingAccessModes
       v18 = HMFGetLogIdentifier();
       [v3 accessModeNotAtHome];
       v19 = HMCameraAccessModeAsString();
-      v21 = 138543618;
-      v22 = v18;
-      v23 = 2112;
-      v24 = v19;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Disabling recording access modes by updating not at home access mode to %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v18;
+      v22 = 2112;
+      v23 = v19;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Disabling recording access modes by updating not at home access mode to %@", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
     [v3 setAccessModeNotAtHome:1];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_synchronizeCloudStorageWithCurrentCamerasWithCompletion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   workQueue = [(HMDCameraProfileSettingsQuotaCoordinator *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -143,7 +141,7 @@ void __87__HMDCameraProfileSettingsQuotaCoordinator__disableRecordingAccessModes
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v33 = v9;
+    v32 = v9;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Synchronizing cloud storage with current cameras", buf, 0xCu);
   }
 
@@ -160,22 +158,22 @@ void __87__HMDCameraProfileSettingsQuotaCoordinator__disableRecordingAccessModes
     workQueue2 = [(HMDCameraProfileSettingsQuotaCoordinator *)selfCopy workQueue];
     v17 = [v15 schedulerWithDispatchQueue:workQueue2];
     v18 = [fetchNamesForZonesWithEnabledCloudStorage reschedule:v17];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __101__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithCurrentCamerasWithCompletion___block_invoke;
-    v29[3] = &unk_278687C70;
-    v29[4] = selfCopy;
-    v30 = homeManager;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __101__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithCurrentCamerasWithCompletion___block_invoke;
+    v28[3] = &unk_278687C70;
+    v28[4] = selfCopy;
+    v29 = homeManager;
     v19 = completionCopy;
-    v31 = v19;
-    v20 = [v18 addSuccessBlock:v29];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __101__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithCurrentCamerasWithCompletion___block_invoke_21;
-    v27[3] = &unk_278689A68;
-    v27[4] = selfCopy;
-    v28 = v19;
-    v21 = [v20 addFailureBlock:v27];
+    v30 = v19;
+    v20 = [v18 addSuccessBlock:v28];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __101__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithCurrentCamerasWithCompletion___block_invoke_21;
+    v26[3] = &unk_278689A68;
+    v26[4] = selfCopy;
+    v27 = v19;
+    v21 = [v20 addFailureBlock:v26];
   }
 
   else
@@ -187,20 +185,18 @@ void __87__HMDCameraProfileSettingsQuotaCoordinator__disableRecordingAccessModes
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v25;
+      v32 = v25;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Asked to synchronize cloud storage with current cameras but home manager reference is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v22);
     (*(completionCopy + 2))(completionCopy, 0);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __101__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithCurrentCamerasWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -209,78 +205,78 @@ void __101__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWit
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v75 = v7;
-    v76 = 2112;
-    v77 = v3;
+    v74 = v7;
+    v75 = 2112;
+    v76 = v3;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Synchronizing cloud storage using enabled cloud storage zone names: %@", buf, 0x16u);
   }
 
-  v44 = v3;
+  v43 = v3;
 
   objc_autoreleasePoolPop(v4);
   v8 = [MEMORY[0x277CBEB58] set];
+  v65 = 0u;
   v66 = 0u;
   v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
-  v45 = a1;
+  v44 = a1;
   obj = [*(a1 + 40) homes];
-  v48 = [obj countByEnumeratingWithState:&v66 objects:v73 count:16];
-  if (v48)
+  v47 = [obj countByEnumeratingWithState:&v65 objects:v72 count:16];
+  if (v47)
   {
-    v47 = *v67;
+    v46 = *v66;
     do
     {
       v9 = 0;
       do
       {
-        if (*v67 != v47)
+        if (*v66 != v46)
         {
           objc_enumerationMutation(obj);
         }
 
-        v49 = v9;
-        v10 = *(*(&v66 + 1) + 8 * v9);
+        v48 = v9;
+        v10 = *(*(&v65 + 1) + 8 * v9);
+        v61 = 0u;
         v62 = 0u;
         v63 = 0u;
         v64 = 0u;
-        v65 = 0u;
-        v50 = [v10 hapAccessories];
-        v11 = [v50 countByEnumeratingWithState:&v62 objects:v72 count:16];
+        v49 = [v10 hapAccessories];
+        v11 = [v49 countByEnumeratingWithState:&v61 objects:v71 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v63;
+          v13 = *v62;
           do
           {
             for (i = 0; i != v12; ++i)
             {
-              if (*v63 != v13)
+              if (*v62 != v13)
               {
-                objc_enumerationMutation(v50);
+                objc_enumerationMutation(v49);
               }
 
-              v15 = *(*(&v62 + 1) + 8 * i);
+              v15 = *(*(&v61 + 1) + 8 * i);
+              v57 = 0u;
               v58 = 0u;
               v59 = 0u;
               v60 = 0u;
-              v61 = 0u;
               v16 = [v15 cameraProfiles];
-              v17 = [v16 countByEnumeratingWithState:&v58 objects:v71 count:16];
+              v17 = [v16 countByEnumeratingWithState:&v57 objects:v70 count:16];
               if (v17)
               {
                 v18 = v17;
-                v19 = *v59;
+                v19 = *v58;
                 do
                 {
                   for (j = 0; j != v18; ++j)
                   {
-                    if (*v59 != v19)
+                    if (*v58 != v19)
                     {
                       objc_enumerationMutation(v16);
                     }
 
-                    v21 = [*(*(&v58 + 1) + 8 * j) clipManager];
+                    v21 = [*(*(&v57 + 1) + 8 * j) clipManager];
                     v22 = v21;
                     if (v21)
                     {
@@ -289,51 +285,51 @@ void __101__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWit
                     }
                   }
 
-                  v18 = [v16 countByEnumeratingWithState:&v58 objects:v71 count:16];
+                  v18 = [v16 countByEnumeratingWithState:&v57 objects:v70 count:16];
                 }
 
                 while (v18);
               }
             }
 
-            v12 = [v50 countByEnumeratingWithState:&v62 objects:v72 count:16];
+            v12 = [v49 countByEnumeratingWithState:&v61 objects:v71 count:16];
           }
 
           while (v12);
         }
 
-        v9 = v49 + 1;
+        v9 = v48 + 1;
       }
 
-      while (v49 + 1 != v48);
-      v48 = [obj countByEnumeratingWithState:&v66 objects:v73 count:16];
+      while (v48 + 1 != v47);
+      v47 = [obj countByEnumeratingWithState:&v65 objects:v72 count:16];
     }
 
-    while (v48);
+    while (v47);
   }
 
   v24 = [MEMORY[0x277CBEB18] array];
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
-  v51 = v44;
-  v25 = [v51 countByEnumeratingWithState:&v54 objects:v70 count:16];
-  v26 = v45;
+  v50 = v43;
+  v25 = [v50 countByEnumeratingWithState:&v53 objects:v69 count:16];
+  v26 = v44;
   if (v25)
   {
     v27 = v25;
-    v28 = *v55;
+    v28 = *v54;
     do
     {
       for (k = 0; k != v27; ++k)
       {
-        if (*v55 != v28)
+        if (*v54 != v28)
         {
-          objc_enumerationMutation(v51);
+          objc_enumerationMutation(v50);
         }
 
-        v30 = *(*(&v54 + 1) + 8 * k);
+        v30 = *(*(&v53 + 1) + 8 * k);
         if (([v8 containsObject:v30] & 1) == 0)
         {
           v31 = objc_autoreleasePoolPush();
@@ -343,21 +339,21 @@ void __101__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWit
           {
             v34 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v75 = v34;
-            v76 = 2112;
-            v77 = v30;
+            v74 = v34;
+            v75 = 2112;
+            v76 = v30;
             _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@Disabling cloud storage for unknown zone name: %@", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v31);
-          v26 = v45;
-          v35 = [*(v45 + 32) quotaManager];
+          v26 = v44;
+          v35 = [*(v44 + 32) quotaManager];
           v36 = [v35 disableCloudStorageForZoneWithName:v30];
           [v24 addObject:v36];
         }
       }
 
-      v27 = [v51 countByEnumeratingWithState:&v54 objects:v70 count:16];
+      v27 = [v50 countByEnumeratingWithState:&v53 objects:v69 count:16];
     }
 
     while (v27);
@@ -370,26 +366,24 @@ void __101__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWit
     v39 = [*(v26 + 32) workQueue];
     v40 = [v38 schedulerWithDispatchQueue:v39];
     v41 = [v37 reschedule:v40];
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __101__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithCurrentCamerasWithCompletion___block_invoke_19;
-    v52[3] = &unk_278687C48;
-    v52[4] = *(v26 + 32);
-    v53 = *(v26 + 48);
-    v42 = [v41 addCompletionBlock:v52];
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __101__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithCurrentCamerasWithCompletion___block_invoke_19;
+    v51[3] = &unk_278687C48;
+    v51[4] = *(v26 + 32);
+    v52 = *(v26 + 48);
+    v42 = [v41 addCompletionBlock:v51];
   }
 
   else
   {
     (*(*(v26 + 48) + 16))();
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __101__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithCurrentCamerasWithCompletion___block_invoke_21(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -397,22 +391,20 @@ void __101__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWit
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch names for zones with enabled cloud storage: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch names for zones with enabled cloud storage: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __101__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithCurrentCamerasWithCompletion___block_invoke_19(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -424,24 +416,24 @@ void __101__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWit
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v11 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v11;
+      v18 = 138543362;
+      v19 = v11;
       v12 = "%{public}@Successfully disabled cloud storage while synchronizing with current cameras";
       v13 = v10;
       v14 = OS_LOG_TYPE_DEFAULT;
       v15 = 12;
 LABEL_6:
-      _os_log_impl(&dword_229538000, v13, v14, v12, &v19, v15);
+      _os_log_impl(&dword_229538000, v13, v14, v12, &v18, v15);
     }
   }
 
   else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     v11 = HMFGetLogIdentifier();
-    v19 = 138543618;
-    v20 = v11;
-    v21 = 2112;
-    v22 = v6;
+    v18 = 138543618;
+    v19 = v11;
+    v20 = 2112;
+    v21 = v6;
     v12 = "%{public}@Failed to disable cloud storage while synchronizing with current cameras: %@";
     v13 = v10;
     v14 = OS_LOG_TYPE_ERROR;
@@ -451,13 +443,11 @@ LABEL_6:
 
   objc_autoreleasePoolPop(v7);
   (*(*(a1 + 40) + 16))(*(a1 + 40), v5 != 0, v16, v17);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_synchronizeCloudStorageWithRecordingAccessModesWithCompletion:(id)completion
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   workQueue = [(HMDCameraProfileSettingsQuotaCoordinator *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -469,7 +459,7 @@ LABEL_6:
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v46 = v9;
+    v45 = v9;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Synchronizing cloud storage with recording access modes", buf, 0xCu);
   }
 
@@ -485,7 +475,7 @@ LABEL_6:
     [currentSettings accessModeNotAtHome];
     v14 = HMIsRecordingAllowedForCameraAccessMode();
     quotaManager = [(HMDCameraProfileSettingsQuotaCoordinator *)selfCopy quotaManager];
-    v36 = quotaManager;
+    v35 = quotaManager;
     if ((v13 & 1) != 0 || v14)
     {
       v16 = [quotaManager enableCloudStorageForZoneWithName:cameraClipsZoneName];
@@ -493,24 +483,24 @@ LABEL_6:
       workQueue2 = [(HMDCameraProfileSettingsQuotaCoordinator *)selfCopy workQueue];
       v19 = [v30 schedulerWithDispatchQueue:workQueue2];
       v20 = [v16 reschedule:v19];
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __107__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithRecordingAccessModesWithCompletion___block_invoke;
-      v43[3] = &unk_278687C20;
-      v43[4] = selfCopy;
-      v34 = &v44;
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __107__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithRecordingAccessModesWithCompletion___block_invoke;
+      v42[3] = &unk_278687C20;
+      v42[4] = selfCopy;
+      v33 = &v43;
       v21 = completionCopy;
       v31 = completionCopy;
-      v44 = v31;
-      v23 = [v20 addSuccessBlock:v43];
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __107__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithRecordingAccessModesWithCompletion___block_invoke_13;
-      v41[3] = &unk_278689A68;
-      v41[4] = selfCopy;
-      v24 = &v42;
-      v42 = v31;
-      v25 = v41;
+      v43 = v31;
+      v23 = [v20 addSuccessBlock:v42];
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __107__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithRecordingAccessModesWithCompletion___block_invoke_13;
+      v40[3] = &unk_278689A68;
+      v40[4] = selfCopy;
+      v24 = &v41;
+      v41 = v31;
+      v25 = v40;
     }
 
     else
@@ -520,27 +510,27 @@ LABEL_6:
       workQueue2 = [(HMDCameraProfileSettingsQuotaCoordinator *)selfCopy workQueue];
       v19 = [v17 schedulerWithDispatchQueue:workQueue2];
       v20 = [v16 reschedule:v19];
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __107__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithRecordingAccessModesWithCompletion___block_invoke_14;
-      v39[3] = &unk_278687C20;
-      v39[4] = selfCopy;
-      v34 = &v40;
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __107__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithRecordingAccessModesWithCompletion___block_invoke_14;
+      v38[3] = &unk_278687C20;
+      v38[4] = selfCopy;
+      v33 = &v39;
       v21 = completionCopy;
       v22 = completionCopy;
-      v40 = v22;
-      v23 = [v20 addSuccessBlock:v39];
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __107__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithRecordingAccessModesWithCompletion___block_invoke_15;
-      v37[3] = &unk_278689A68;
-      v37[4] = selfCopy;
-      v24 = &v38;
-      v38 = v22;
-      v25 = v37;
+      v39 = v22;
+      v23 = [v20 addSuccessBlock:v38];
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __107__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithRecordingAccessModesWithCompletion___block_invoke_15;
+      v36[3] = &unk_278689A68;
+      v36[4] = selfCopy;
+      v24 = &v37;
+      v37 = v22;
+      v25 = v36;
     }
 
-    v32 = [v23 addFailureBlock:{v25, v34}];
+    v32 = [v23 addFailureBlock:{v25, v33}];
 
     completionCopy = v21;
   }
@@ -554,7 +544,7 @@ LABEL_6:
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v46 = v29;
+      v45 = v29;
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Could not determine camera clips zone name for synchronizing cloud storage with recording access modes", buf, 0xCu);
     }
 
@@ -562,13 +552,11 @@ LABEL_6:
     currentSettings = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     (*(completionCopy + 2))(completionCopy, currentSettings);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __107__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithRecordingAccessModesWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -576,66 +564,61 @@ void __107__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWit
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Successfully enabled recording while synchronizing cloud storage", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Successfully enabled recording while synchronizing cloud storage", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __107__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithRecordingAccessModesWithCompletion___block_invoke_13(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() clientErrorFromCanUpdateAccessModeError:v3];
-  v6 = [v5 code];
-  v7 = objc_autoreleasePoolPush();
-  v8 = *(a1 + 32);
-  v9 = HMFGetOSLogHandle();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
-  if (v6 == 2006)
+  v4 = [objc_opt_class() clientErrorFromCanUpdateAccessModeError:v3];
+  v5 = [v4 code];
+  v6 = objc_autoreleasePoolPush();
+  v7 = *(a1 + 32);
+  v8 = HMFGetOSLogHandle();
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+  if (v5 == 2006)
   {
-    if (v10)
+    if (v9)
     {
-      v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v3;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to enable recording while synchronizing cloud storage due to quota exceeded error: %@", &v14, 0x16u);
+      v10 = HMFGetLogIdentifier();
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v3;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to enable recording while synchronizing cloud storage due to quota exceeded error: %@", &v12, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v7);
+    objc_autoreleasePoolPop(v6);
     [*(a1 + 32) _disableRecordingAccessModesWithCompletion:*(a1 + 40)];
   }
 
   else
   {
-    if (v10)
+    if (v9)
     {
-      v12 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v12;
-      v16 = 2112;
-      v17 = v3;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to enable recording while synchronizing cloud storage: %@", &v14, 0x16u);
+      v11 = HMFGetLogIdentifier();
+      v12 = 138543618;
+      v13 = v11;
+      v14 = 2112;
+      v15 = v3;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to enable recording while synchronizing cloud storage: %@", &v12, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v7);
+    objc_autoreleasePoolPop(v6);
     (*(*(a1 + 40) + 16))();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __107__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithRecordingAccessModesWithCompletion___block_invoke_14(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -643,20 +626,18 @@ void __107__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWit
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Successfully disabled recording while synchronizing cloud storage", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Successfully disabled recording while synchronizing cloud storage", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __107__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWithRecordingAccessModesWithCompletion___block_invoke_15(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -664,17 +645,15 @@ void __107__HMDCameraProfileSettingsQuotaCoordinator__synchronizeCloudStorageWit
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to disable recording while synchronizing cloud storage: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to disable recording while synchronizing cloud storage: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_requiresEnablingCloudStorageForAccessMode:(unint64_t)mode
@@ -859,7 +838,7 @@ LABEL_10:
 
 - (void)_updateCloudStorageAndSettingsWithAccessMode:(unint64_t)mode forCameraHomePresence:(unint64_t)presence completion:(id)completion
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   workQueue = [(HMDCameraProfileSettingsQuotaCoordinator *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -873,11 +852,11 @@ LABEL_10:
     v14 = HMCameraAccessModeAsString();
     v15 = HMCameraHomePresenceAsString();
     *buf = 138543874;
-    v48 = v13;
-    v49 = 2112;
-    v50 = v14;
-    v51 = 2112;
-    v52 = v15;
+    v47 = v13;
+    v48 = 2112;
+    v49 = v14;
+    v50 = 2112;
+    v51 = v15;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Updating access mode to %@ for presence: %@", buf, 0x20u);
   }
 
@@ -890,7 +869,7 @@ LABEL_10:
     aBlock[2] = __122__HMDCameraProfileSettingsQuotaCoordinator__updateCloudStorageAndSettingsWithAccessMode_forCameraHomePresence_completion___block_invoke;
     aBlock[3] = &unk_278687B80;
     aBlock[4] = selfCopy;
-    v44 = completionCopy;
+    v43 = completionCopy;
     modeCopy = mode;
     presenceCopy = presence;
     v17 = _Block_copy(aBlock);
@@ -902,14 +881,14 @@ LABEL_10:
       workQueue2 = [(HMDCameraProfileSettingsQuotaCoordinator *)selfCopy workQueue];
       v22 = [v20 schedulerWithDispatchQueue:workQueue2];
       v23 = [v19 reschedule:v22];
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __122__HMDCameraProfileSettingsQuotaCoordinator__updateCloudStorageAndSettingsWithAccessMode_forCameraHomePresence_completion___block_invoke_2;
-      v41[3] = &unk_278687BA8;
-      v42 = v17;
-      v24 = [v23 addCompletionBlock:v41];
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __122__HMDCameraProfileSettingsQuotaCoordinator__updateCloudStorageAndSettingsWithAccessMode_forCameraHomePresence_completion___block_invoke_2;
+      v40[3] = &unk_278687BA8;
+      v41 = v17;
+      v24 = [v23 addCompletionBlock:v40];
 
-      v25 = v42;
+      v25 = v41;
     }
 
     else
@@ -926,14 +905,14 @@ LABEL_10:
       workQueue3 = [(HMDCameraProfileSettingsQuotaCoordinator *)selfCopy workQueue];
       v35 = [v33 schedulerWithDispatchQueue:workQueue3];
       v36 = [v32 reschedule:v35];
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __122__HMDCameraProfileSettingsQuotaCoordinator__updateCloudStorageAndSettingsWithAccessMode_forCameraHomePresence_completion___block_invoke_3;
-      v39[3] = &unk_278687BA8;
-      v40 = v17;
-      v37 = [v36 addCompletionBlock:v39];
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __122__HMDCameraProfileSettingsQuotaCoordinator__updateCloudStorageAndSettingsWithAccessMode_forCameraHomePresence_completion___block_invoke_3;
+      v38[3] = &unk_278687BA8;
+      v39 = v17;
+      v37 = [v36 addCompletionBlock:v38];
 
-      v25 = v40;
+      v25 = v39;
     }
 
 LABEL_13:
@@ -947,7 +926,7 @@ LABEL_13:
   {
     v29 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v48 = v29;
+    v47 = v29;
     _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Could not determine camera clips zone name for updating cloud storage and settings", buf, 0xCu);
   }
 
@@ -956,12 +935,11 @@ LABEL_13:
   (*(completionCopy + 2))(completionCopy, v30);
 
 LABEL_14:
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __122__HMDCameraProfileSettingsQuotaCoordinator__updateCloudStorageAndSettingsWithAccessMode_forCameraHomePresence_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -977,25 +955,25 @@ void __122__HMDCameraProfileSettingsQuotaCoordinator__updateCloudStorageAndSetti
       {
         v10 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v22 = v10;
-        v23 = 2112;
-        v24 = v3;
+        v21 = v10;
+        v22 = 2112;
+        v23 = v3;
         _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Synchronizing cloud storage while updating access mode due to quota exceeded error: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v6);
       v11 = *(a1 + 32);
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __122__HMDCameraProfileSettingsQuotaCoordinator__updateCloudStorageAndSettingsWithAccessMode_forCameraHomePresence_completion___block_invoke_4;
-      v16[3] = &unk_278687B38;
-      v16[4] = v11;
-      v17 = v3;
-      v19 = *(a1 + 40);
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __122__HMDCameraProfileSettingsQuotaCoordinator__updateCloudStorageAndSettingsWithAccessMode_forCameraHomePresence_completion___block_invoke_4;
+      v15[3] = &unk_278687B38;
+      v15[4] = v11;
+      v16 = v3;
+      v18 = *(a1 + 40);
       v4 = v4;
-      v18 = v4;
-      v20 = *(a1 + 48);
-      [v11 _synchronizeCloudStorageWithCurrentCamerasWithCompletion:v16];
+      v17 = v4;
+      v19 = *(a1 + 48);
+      [v11 _synchronizeCloudStorageWithCurrentCamerasWithCompletion:v15];
     }
 
     else
@@ -1004,9 +982,9 @@ void __122__HMDCameraProfileSettingsQuotaCoordinator__updateCloudStorageAndSetti
       {
         v12 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v22 = v12;
-        v23 = 2114;
-        v24 = v3;
+        v21 = v12;
+        v22 = 2114;
+        v23 = v3;
         _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Cannot make access mode change: %{public}@", buf, 0x16u);
       }
 
@@ -1018,20 +996,18 @@ void __122__HMDCameraProfileSettingsQuotaCoordinator__updateCloudStorageAndSetti
   else
   {
     v4 = [*(a1 + 32) delegate];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __122__HMDCameraProfileSettingsQuotaCoordinator__updateCloudStorageAndSettingsWithAccessMode_forCameraHomePresence_completion___block_invoke_6;
-    v14[3] = &__block_descriptor_48_e39_v16__0__HMDCameraProfileSettingsModel_8l;
-    v15 = vextq_s8(*(a1 + 48), *(a1 + 48), 8uLL);
-    [v4 updateSettingsModelUsingBlock:v14 completion:*(a1 + 40)];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __122__HMDCameraProfileSettingsQuotaCoordinator__updateCloudStorageAndSettingsWithAccessMode_forCameraHomePresence_completion___block_invoke_6;
+    v13[3] = &__block_descriptor_48_e39_v16__0__HMDCameraProfileSettingsModel_8l;
+    v14 = vextq_s8(*(a1 + 48), *(a1 + 48), 8uLL);
+    [v4 updateSettingsModelUsingBlock:v13 completion:*(a1 + 40)];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __122__HMDCameraProfileSettingsQuotaCoordinator__updateCloudStorageAndSettingsWithAccessMode_forCameraHomePresence_completion___block_invoke_4(uint64_t a1, char a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
   v6 = HMFGetOSLogHandle();
@@ -1041,13 +1017,13 @@ uint64_t __122__HMDCameraProfileSettingsQuotaCoordinator__updateCloudStorageAndS
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v8;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Retrying updating access mode after disabling cloud storage", &v14, 0xCu);
+      v12 = 138543362;
+      v13 = v8;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Retrying updating access mode after disabling cloud storage", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
-    result = [*(a1 + 32) _updateCloudStorageAndSettingsWithAccessMode:*(a1 + 64) forCameraHomePresence:*(a1 + 72) completion:*(a1 + 56)];
+    return [*(a1 + 32) _updateCloudStorageAndSettingsWithAccessMode:*(a1 + 64) forCameraHomePresence:*(a1 + 72) completion:*(a1 + 56)];
   }
 
   else
@@ -1056,20 +1032,16 @@ uint64_t __122__HMDCameraProfileSettingsQuotaCoordinator__updateCloudStorageAndS
     {
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 40);
-      v14 = 138543618;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to enable recording while updating access mode due to quota exceeded error: %@", &v14, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v11;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to enable recording while updating access mode due to quota exceeded error: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
-    v12 = *(a1 + 48);
-    result = (*(*(a1 + 56) + 16))();
+    return (*(*(a1 + 56) + 16))();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void __122__HMDCameraProfileSettingsQuotaCoordinator__updateCloudStorageAndSettingsWithAccessMode_forCameraHomePresence_completion___block_invoke_6(uint64_t a1, void *a2)
@@ -1189,10 +1161,9 @@ void __121__HMDCameraProfileSettingsQuotaCoordinator_updateCloudStorageAndSettin
 
 void __55__HMDCameraProfileSettingsQuotaCoordinator_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v24_265768;
-  logCategory__hmf_once_v24_265768 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v24_265768;
+  logCategory__hmf_once_v24_265768 = v0;
 }
 
 + (id)clientErrorFromCanUpdateAccessModeError:(id)error

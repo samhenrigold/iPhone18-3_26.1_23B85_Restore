@@ -22,7 +22,7 @@
   sessionCopy = session;
   errorCopy = error;
   selfCopy = self;
-  sub_10009B428(sessionCopy);
+  sub_10009B428(sessionCopy, errorCopy);
 }
 
 - (void)session:(id)session didInvalidateWithError:(id)error
@@ -30,7 +30,7 @@
   sessionCopy = session;
   errorCopy = error;
   selfCopy = self;
-  sub_10009A944(sessionCopy);
+  sub_10009A944(sessionCopy, errorCopy);
 }
 
 - (void)session:(id)session suspendedWithReason:(int64_t)reason

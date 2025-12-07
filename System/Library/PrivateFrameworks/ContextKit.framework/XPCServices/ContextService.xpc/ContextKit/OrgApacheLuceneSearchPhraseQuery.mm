@@ -1,12 +1,15 @@
 @interface OrgApacheLuceneSearchPhraseQuery
 - (BOOL)isEqual:(id)equal;
+- (id)createWeightWithOrgApacheLuceneSearchIndexSearcher:(id)searcher withBoolean:(BOOL)boolean;
 - (id)getPositions;
 - (id)getTerms;
 - (id)rewriteWithOrgApacheLuceneIndexIndexReader:(id)reader;
 - (id)toStringWithNSString:(id)string;
 - (unint64_t)hash;
 - (void)addWithOrgApacheLuceneIndexTerm:(id)term;
+- (void)addWithOrgApacheLuceneIndexTerm:(id)term withInt:(int)int;
 - (void)dealloc;
+- (void)setSlopWithInt:(int)int;
 @end
 
 @implementation OrgApacheLuceneSearchPhraseQuery
@@ -19,7 +22,7 @@
     JreThrowNullPointerException();
   }
 
-  v3 = [IOSObjectArray arrayWithLength:0 type:OrgApacheLuceneIndexTerm_class_()];
+  v3 = [IOSObjectArray arrayWithLength:0 type:OrgApacheLuceneIndexTerm_class_(self, a2)];
 
   return [v2 toArrayWithNSObjectArray:v3];
 }
@@ -142,6 +145,15 @@ LABEL_19:
   return v18;
 }
 
+- (id)createWeightWithOrgApacheLuceneSearchIndexSearcher:(id)searcher withBoolean:(BOOL)boolean
+{
+  booleanCopy = boolean;
+  v7 = [OrgApacheLuceneSearchPhraseQuery_PhraseWeight alloc];
+  sub_1000ADEC4(v7, self, searcher, booleanCopy);
+
+  return v7;
+}
+
 - (id)toStringWithNSString:(id)string
 {
   selfCopy = self;
@@ -188,7 +200,7 @@ LABEL_44:
   v13 = v12;
   if (getTerms[2] >= 1)
   {
-    v35 = selfCopy;
+    v37 = selfCopy;
     v14 = 0;
     do
     {
@@ -246,7 +258,7 @@ LABEL_44:
     }
 
     while (v14 < getTerms[2]);
-    selfCopy = v35;
+    selfCopy = v37;
   }
 
   if (*(v13 + 8) >= 1)
@@ -288,8 +300,8 @@ LABEL_44:
     [(JavaLangStringBuilder *)v7 appendWithInt:*&selfCopy->mutable__];
   }
 
-  [(OrgApacheLuceneSearchQuery *)selfCopy getBoost];
-  [(JavaLangStringBuilder *)v7 appendWithNSString:OrgApacheLuceneUtilToStringUtils_boostWithFloat_(v33)];
+  getBoost = [(OrgApacheLuceneSearchQuery *)selfCopy getBoost];
+  [(JavaLangStringBuilder *)v7 appendWithNSString:OrgApacheLuceneUtilToStringUtils_boostWithFloat_(v35, getBoost, v34)];
 
   return [(JavaLangStringBuilder *)v7 description];
 }
@@ -358,6 +370,18 @@ LABEL_12:
   return ([v7 hash] - v8 + 32 * v8);
 }
 
+- (void)setSlopWithInt:(int)int
+{
+  sub_1000AD270(self, @"setSlop", *&int, v3, v4, v5, v6, v7);
+  if (int < 0)
+  {
+    v10 = new_JavaLangIllegalArgumentException_initWithNSString_(@"slop value cannot be negative");
+    objc_exception_throw(v10);
+  }
+
+  *&self->mutable__ = int;
+}
+
 - (void)addWithOrgApacheLuceneIndexTerm:(id)term
 {
   v4 = *(&self->terms_ + 4);
@@ -383,6 +407,85 @@ LABEL_9:
 LABEL_6:
 
   [(OrgApacheLuceneSearchPhraseQuery *)self addWithOrgApacheLuceneIndexTerm:term withInt:v7];
+}
+
+- (void)addWithOrgApacheLuceneIndexTerm:(id)term withInt:(int)int
+{
+  sub_1000AD270(self, @"add", term, *&int, v4, v5, v6, v7);
+  OrgLukhnosPortmobileUtilObjects_requireNonNullWithId_withNSString_(term, @"Term must not be null");
+  v11 = *(&self->terms_ + 4);
+  if (!v11)
+  {
+    goto LABEL_18;
+  }
+
+  if ([v11 size] < 1)
+  {
+    if (int < 0)
+    {
+      v27 = JreStrcat("$I", v12, v13, v14, v15, v16, v17, v18, @"Positions must be positive, got ");
+LABEL_20:
+      v39 = new_JavaLangIllegalArgumentException_initWithNSString_(v27);
+      objc_exception_throw(v39);
+    }
+  }
+
+  else
+  {
+    v19 = [*(&self->terms_ + 4) getWithInt:{objc_msgSend(*(&self->terms_ + 4), "size") - 1}];
+    if (!v19)
+    {
+      goto LABEL_18;
+    }
+
+    if ([v19 intValue] > int)
+    {
+      v27 = JreStrcat("$I$I", v20, v21, v22, v23, v24, v25, v26, @"Positions must be added in order. Got position=");
+      goto LABEL_20;
+    }
+  }
+
+  v28 = *(&self->field_ + 4);
+  if (!v28)
+  {
+LABEL_18:
+    JreThrowNullPointerException();
+  }
+
+  if (![v28 size])
+  {
+    if (term)
+    {
+      JreStrongAssign(&self->slop_, [term field]);
+      goto LABEL_15;
+    }
+
+    goto LABEL_18;
+  }
+
+  if (!term)
+  {
+    goto LABEL_18;
+  }
+
+  field = [term field];
+  if (!field)
+  {
+    goto LABEL_18;
+  }
+
+  if (([field isEqual:*&self->slop_] & 1) == 0)
+  {
+    v27 = JreStrcat("$@", v30, v31, v32, v33, v34, v35, v36, @"All phrase terms must be in the same field: ");
+    goto LABEL_20;
+  }
+
+LABEL_15:
+  [*(&self->field_ + 4) addWithId:term];
+  v37 = *(&self->terms_ + 4);
+  v38 = JavaLangInteger_valueOfWithInt_(int);
+
+  [v37 addWithId:v38];
 }
 
 - (void)dealloc

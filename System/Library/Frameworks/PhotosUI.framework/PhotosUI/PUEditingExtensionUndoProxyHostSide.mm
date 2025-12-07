@@ -6,6 +6,8 @@
 - (id)remoteObject;
 - (void)performRedo;
 - (void)performUndo;
+- (void)setShowUndoRedo:(BOOL)redo;
+- (void)setUndoEnabled:(BOOL)enabled redoEnabled:(BOOL)redoEnabled;
 @end
 
 @implementation PUEditingExtensionUndoProxyHostSide
@@ -27,6 +29,21 @@
 {
   remoteObject = [(PUEditingExtensionUndoProxyHostSide *)self remoteObject];
   [remoteObject performUndo];
+}
+
+- (void)setUndoEnabled:(BOOL)enabled redoEnabled:(BOOL)redoEnabled
+{
+  redoEnabledCopy = redoEnabled;
+  enabledCopy = enabled;
+  target = [(PUEditingExtensionUndoProxyHostSide *)self target];
+  [target setUndoEnabled:enabledCopy redoEnabled:redoEnabledCopy];
+}
+
+- (void)setShowUndoRedo:(BOOL)redo
+{
+  redoCopy = redo;
+  target = [(PUEditingExtensionUndoProxyHostSide *)self target];
+  [target setShowUndoRedo:redoCopy];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection

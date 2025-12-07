@@ -1,5 +1,6 @@
 @interface NTKActivityDigitalRichFaceView
 - ($0133E12197E66152D7F90595F26F386E)_layoutConstants;
+- (CGRect)_keylineFrameForComplicationSlot:(id)slot selected:(BOOL)selected;
 - (id)_newFaceViewFactoryForDevice:(id)device;
 - (void)_configureComplicationView:(id)view forSlot:(id)slot;
 @end
@@ -86,6 +87,28 @@
   {
     [viewCopy transitionToMonochromeWithFraction:0.0];
   }
+}
+
+- (CGRect)_keylineFrameForComplicationSlot:(id)slot selected:(BOOL)selected
+{
+  selectedCopy = selected;
+  slotCopy = slot;
+  complicationFactory = [(NTKActivityDigitalRichFaceView *)self complicationFactory];
+  [complicationFactory faceView:self keylineFrameForComplicationSlot:slotCopy selected:selectedCopy];
+  v9 = v8;
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+
+  v16 = v9;
+  v17 = v11;
+  v18 = v13;
+  v19 = v15;
+  result.size.height = v19;
+  result.size.width = v18;
+  result.origin.y = v17;
+  result.origin.x = v16;
+  return result;
 }
 
 - (id)_newFaceViewFactoryForDevice:(id)device

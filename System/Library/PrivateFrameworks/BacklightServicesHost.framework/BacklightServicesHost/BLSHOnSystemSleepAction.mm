@@ -16,7 +16,7 @@
 
 - (int64_t)state
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   lock_state = self->_lock_state;
   if (lock_state == 2)
@@ -29,11 +29,11 @@
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         identifier = self->_identifier;
-        v9 = 134218242;
+        v8 = 134218242;
         selfCopy = self;
-        v11 = 2114;
-        v12 = identifier;
-        _os_log_impl(&dword_21FD11000, v5, OS_LOG_TYPE_INFO, "%p:%{public}@ sleep action state now waiting (idle), system activity likely aborted sleep", &v9, 0x16u);
+        v10 = 2114;
+        v11 = identifier;
+        _os_log_impl(&dword_21FD11000, v5, OS_LOG_TYPE_INFO, "%p:%{public}@ sleep action state now waiting (idle), system activity likely aborted sleep", &v8, 0x16u);
       }
 
       lock_state = 0;
@@ -46,7 +46,6 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v7 = *MEMORY[0x277D85DE8];
   return lock_state;
 }
 
@@ -57,7 +56,7 @@
   v9 = +[BLSHBacklightOSInterfaceProvider sharedProvider];
   if (!v9)
   {
-    [BLSHOnSystemSleepAction actionWithIdentifier:a2 delegate:?];
+    [BLSHOnSystemSleepAction actionWithIdentifier:a2 delegate:self];
   }
 
   v10 = v9;
@@ -108,16 +107,42 @@
 
 - (void)install
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(self + 56);
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_5(&dword_21FD11000, v2, v3, "%p:%{public}@ installing sleep action when sleep imminent", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  systemSleepMonitor = [(BLSHOSInterfaceProviding *)self->_osInterfaceProvider systemSleepMonitor];
+  [systemSleepMonitor addObserver:self];
+  if ([systemSleepMonitor isSleepImminent])
+  {
+    v4 = bls_backlight_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      [BLSHOnSystemSleepAction install];
+    }
+
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x3032000000;
+    v13 = __Block_byref_object_copy__1;
+    v14 = __Block_byref_object_dispose__1;
+    osInterfaceProvider = self->_osInterfaceProvider;
+    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ - install when about to sleep", self->_identifier];
+    v15 = [(BLSHOSInterfaceProviding *)osInterfaceProvider createSystemActivityAssertionWithIdentifier:v6 configurator:&__block_literal_global_1];
+
+    v7 = mach_continuous_time();
+    v8 = v11[5];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __34__BLSHOnSystemSleepAction_install__block_invoke_2;
+    v9[3] = &unk_27841E970;
+    v9[5] = &v10;
+    v9[6] = v7;
+    v9[4] = self;
+    [v8 acquireWithTimeout:v9 handler:0.0];
+    _Block_object_dispose(&v10, 8);
+  }
 }
 
 void __34__BLSHOnSystemSleepAction_install__block_invoke_2(void *a1, int a2, void *a3, void *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = bls_backlight_log();
@@ -136,28 +161,25 @@ void __34__BLSHOnSystemSleepAction_install__block_invoke_2(void *a1, int a2, voi
   {
     v12 = a1[4];
     v13 = *(v12 + 56);
-    v14 = a1[6];
     mach_continuous_time();
     BSTimeDifferenceFromMachTimeToMachTime();
-    v19 = 134219010;
-    v20 = v12;
+    v17 = 134219010;
+    v18 = v12;
+    v19 = 2114;
+    v20 = v13;
     v21 = 2114;
-    v22 = v13;
-    v23 = 2114;
-    v24 = v8;
-    v25 = 2048;
-    v26 = v15;
-    v27 = 2114;
-    v28 = v7;
-    _os_log_impl(&dword_21FD11000, v10, v11, "%p:%{public}@ install sleep action system activity assertion callback details:%{public}@ elapsed:%.4lfs error:%{public}@", &v19, 0x34u);
+    v22 = v8;
+    v23 = 2048;
+    v24 = v14;
+    v25 = 2114;
+    v26 = v7;
+    _os_log_impl(&dword_21FD11000, v10, v11, "%p:%{public}@ install sleep action system activity assertion callback details:%{public}@ elapsed:%.4lfs error:%{public}@", &v17, 0x34u);
   }
 
   [*(*(a1[5] + 8) + 40) invalidate];
-  v16 = *(a1[5] + 8);
-  v17 = *(v16 + 40);
-  *(v16 + 40) = 0;
-
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = *(a1[5] + 8);
+  v16 = *(v15 + 40);
+  *(v15 + 40) = 0;
 }
 
 - (void)uninstall
@@ -168,7 +190,7 @@ void __34__BLSHOnSystemSleepAction_install__block_invoke_2(void *a1, int a2, voi
 
 - (void)systemSleepMonitor:(id)monitor sleepRequestedWithResult:(id)result
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   monitorCopy = monitor;
   resultCopy = result;
   isAwakeOrAbortingSleep = [monitorCopy isAwakeOrAbortingSleep];
@@ -206,20 +228,20 @@ void __34__BLSHOnSystemSleepAction_install__block_invoke_2(void *a1, int a2, voi
       v17 = v16;
     }
 
-    v26 = a2;
+    v25 = a2;
     v18 = v17;
     aggregateState = [monitorCopy aggregateState];
     *buf = 134218754;
     selfCopy = self;
-    v32 = 2114;
-    v33 = identifier;
-    v34 = 2114;
-    v35 = v18;
-    v36 = 2114;
-    v37 = aggregateState;
+    v31 = 2114;
+    v32 = identifier;
+    v33 = 2114;
+    v34 = v18;
+    v35 = 2114;
+    v36 = aggregateState;
     _os_log_impl(&dword_21FD11000, v12, v13, "%p:%{public}@ sleepRequested state:%{public}@ %{public}@ ", buf, 0x2Au);
 
-    a2 = v26;
+    a2 = v25;
   }
 
   BSContinuousMachTimeNow();
@@ -234,35 +256,33 @@ void __34__BLSHOnSystemSleepAction_install__block_invoke_2(void *a1, int a2, voi
   {
     if (self->_lock_proceedWithSleepBlock)
     {
-      [BLSHOnSystemSleepAction systemSleepMonitor:a2 sleepRequestedWithResult:?];
+      [BLSHOnSystemSleepAction systemSleepMonitor:a2 sleepRequestedWithResult:self];
     }
 
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __71__BLSHOnSystemSleepAction_systemSleepMonitor_sleepRequestedWithResult___block_invoke;
-    v28[3] = &unk_27841E998;
-    v29 = resultCopy;
-    v22 = MEMORY[0x223D70730](v28);
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __71__BLSHOnSystemSleepAction_systemSleepMonitor_sleepRequestedWithResult___block_invoke;
+    v27[3] = &unk_27841E998;
+    v28 = resultCopy;
+    v22 = MEMORY[0x223D70730](v27);
     lock_proceedWithSleepBlock = self->_lock_proceedWithSleepBlock;
     self->_lock_proceedWithSleepBlock = v22;
 
     self->_lock_state = 1;
     os_unfair_lock_unlock(&self->_lock);
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __71__BLSHOnSystemSleepAction_systemSleepMonitor_sleepRequestedWithResult___block_invoke_2;
-    v27[3] = &unk_27841E650;
-    v27[4] = self;
-    [WeakRetained systemSleepAction:self performWithCompletion:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __71__BLSHOnSystemSleepAction_systemSleepMonitor_sleepRequestedWithResult___block_invoke_2;
+    v26[3] = &unk_27841E650;
+    v26[4] = self;
+    [WeakRetained systemSleepAction:self performWithCompletion:v26];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)systemSleepMonitor:(id)monitor prepareForSleepWithCompletion:(id)completion
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   monitorCopy = monitor;
   completionCopy = completion;
   isAwakeOrAbortingSleep = [monitorCopy isAwakeOrAbortingSleep];
@@ -304,20 +324,20 @@ void __34__BLSHOnSystemSleepAction_install__block_invoke_2(void *a1, int a2, voi
 
     v20 = v19;
     [monitorCopy aggregateState];
-    v21 = v29 = monitorCopy;
+    v21 = v28 = monitorCopy;
     *buf = 134218754;
     selfCopy = self;
-    v35 = 2114;
-    v36 = identifier;
+    v34 = 2114;
+    v35 = identifier;
     a2 = v15;
     isAwakeOrAbortingSleep = v14;
-    v37 = 2114;
-    v38 = v20;
-    v39 = 2114;
-    v40 = v21;
+    v36 = 2114;
+    v37 = v20;
+    v38 = 2114;
+    v39 = v21;
     _os_log_impl(&dword_21FD11000, v12, v13, "%p:%{public}@ prepareForSleep state:%{public}@ %{public}@", buf, 0x2Au);
 
-    monitorCopy = v29;
+    monitorCopy = v28;
   }
 
   v22 = MEMORY[0x223D70730](self->_lock_proceedWithSleepBlock);
@@ -329,7 +349,7 @@ void __34__BLSHOnSystemSleepAction_install__block_invoke_2(void *a1, int a2, voi
     v24 = bls_backlight_log();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      [BLSHOnSystemSleepAction systemSleepMonitor:? prepareForSleepWithCompletion:?];
+      [BLSHOnSystemSleepAction systemSleepMonitor:prepareForSleepWithCompletion:];
     }
 
     dispatch_async(MEMORY[0x277D85CD0], v22);
@@ -339,7 +359,7 @@ void __34__BLSHOnSystemSleepAction_install__block_invoke_2(void *a1, int a2, voi
   {
     if (self->_lock_proceedWithSleepBlock)
     {
-      [BLSHOnSystemSleepAction systemSleepMonitor:a2 prepareForSleepWithCompletion:?];
+      [BLSHOnSystemSleepAction systemSleepMonitor:a2 prepareForSleepWithCompletion:self];
     }
 
     goto LABEL_19;
@@ -358,35 +378,33 @@ LABEL_19:
     self->_lock_state = 1;
   }
 
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __76__BLSHOnSystemSleepAction_systemSleepMonitor_prepareForSleepWithCompletion___block_invoke;
-  v31[3] = &unk_27841E998;
-  v32 = completionCopy;
-  v26 = MEMORY[0x223D70730](v31);
-  v27 = self->_lock_proceedWithSleepBlock;
-  self->_lock_proceedWithSleepBlock = v26;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __76__BLSHOnSystemSleepAction_systemSleepMonitor_prepareForSleepWithCompletion___block_invoke;
+  v30[3] = &unk_27841E998;
+  v31 = completionCopy;
+  v25 = MEMORY[0x223D70730](v30);
+  v26 = self->_lock_proceedWithSleepBlock;
+  self->_lock_proceedWithSleepBlock = v25;
 
   os_unfair_lock_unlock(&self->_lock);
   if (!lock_state)
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __76__BLSHOnSystemSleepAction_systemSleepMonitor_prepareForSleepWithCompletion___block_invoke_2;
-    v30[3] = &unk_27841E650;
-    v30[4] = self;
-    [WeakRetained systemSleepAction:self performWithCompletion:v30];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __76__BLSHOnSystemSleepAction_systemSleepMonitor_prepareForSleepWithCompletion___block_invoke_2;
+    v29[3] = &unk_27841E650;
+    v29[4] = self;
+    [WeakRetained systemSleepAction:self performWithCompletion:v29];
   }
 
 LABEL_20:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)systemWillWakeForReason:(id)reason
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   os_unfair_lock_lock(&self->_lock);
   v5 = MEMORY[0x223D70730](self->_lock_proceedWithSleepBlock);
@@ -429,17 +447,17 @@ LABEL_20:
     v15 = v14;
     systemSleepMonitor = [(BLSHOSInterfaceProviding *)self->_osInterfaceProvider systemSleepMonitor];
     aggregateState = [systemSleepMonitor aggregateState];
-    v21 = 134219010;
+    v20 = 134219010;
     selfCopy = self;
-    v23 = 2114;
-    v24 = identifier;
-    v25 = 2114;
-    v26 = reasonCopy;
-    v27 = 2114;
-    v28 = v15;
-    v29 = 2114;
-    v30 = aggregateState;
-    _os_log_impl(&dword_21FD11000, v9, v10, "%p:%{public}@ systemWillWakeForReason%{public}@ state:%{public}@ %{public}@", &v21, 0x34u);
+    v22 = 2114;
+    v23 = identifier;
+    v24 = 2114;
+    v25 = reasonCopy;
+    v26 = 2114;
+    v27 = v15;
+    v28 = 2114;
+    v29 = aggregateState;
+    _os_log_impl(&dword_21FD11000, v9, v10, "%p:%{public}@ systemWillWakeForReason%{public}@ state:%{public}@ %{public}@", &v20, 0x34u);
   }
 
   self->_lock_state = 0;
@@ -452,18 +470,16 @@ LABEL_20:
     v19 = bls_backlight_log();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [BLSHOnSystemSleepAction systemSleepMonitor:? prepareForSleepWithCompletion:?];
+      [BLSHOnSystemSleepAction systemSleepMonitor:prepareForSleepWithCompletion:];
     }
 
     dispatch_async(MEMORY[0x277D85CD0], v5);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)actionCompleted
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   lock_state = self->_lock_state;
   v4 = MEMORY[0x223D70730](self->_lock_proceedWithSleepBlock);
@@ -506,17 +522,17 @@ LABEL_20:
     v14 = MEMORY[0x223D70730](v4);
     systemSleepMonitor = [(BLSHOSInterfaceProviding *)self->_osInterfaceProvider systemSleepMonitor];
     aggregateState = [systemSleepMonitor aggregateState];
-    v18 = 134219010;
+    v17 = 134219010;
     selfCopy = self;
-    v20 = 2114;
-    v21 = identifier;
-    v22 = 2114;
-    v23 = v13;
-    v24 = 2048;
-    v25 = v14;
-    v26 = 2114;
-    v27 = aggregateState;
-    _os_log_impl(&dword_21FD11000, v7, v8, "%p:%{public}@ actionCompleted state:%{public}@ proceedWithSleepBlock=%p %{public}@", &v18, 0x34u);
+    v19 = 2114;
+    v20 = identifier;
+    v21 = 2114;
+    v22 = v13;
+    v23 = 2048;
+    v24 = v14;
+    v25 = 2114;
+    v26 = aggregateState;
+    _os_log_impl(&dword_21FD11000, v7, v8, "%p:%{public}@ actionCompleted state:%{public}@ proceedWithSleepBlock=%p %{public}@", &v17, 0x34u);
   }
 
   if (lock_state == 1)
@@ -529,66 +545,55 @@ LABEL_20:
   {
     v4[2](v4);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-+ (void)actionWithIdentifier:(const char *)a1 delegate:.cold.1(const char *a1)
++ (void)actionWithIdentifier:(const char *)a1 delegate:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"sharedProvider != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"sharedProvider != nil", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)systemSleepMonitor:(const char *)a1 sleepRequestedWithResult:.cold.1(const char *a1)
+- (void)systemSleepMonitor:(const char *)a1 sleepRequestedWithResult:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_proceedWithSleepBlock == nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"_lock_proceedWithSleepBlock == nil", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)systemSleepMonitor:(uint64_t)a1 prepareForSleepWithCompletion:.cold.1(uint64_t a1)
+- (void)systemSleepMonitor:(const char *)a1 prepareForSleepWithCompletion:(uint64_t)a2 .cold.2(const char *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 56);
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_5(&dword_21FD11000, v2, v3, "%p:%{public}@ timed out sleep request", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)systemSleepMonitor:(const char *)a1 prepareForSleepWithCompletion:.cold.2(const char *a1)
-{
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_proceedWithSleepBlock == nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"_lock_proceedWithSleepBlock == nil", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

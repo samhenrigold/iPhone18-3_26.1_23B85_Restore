@@ -33,17 +33,16 @@
 {
   v6 = sub_1DD874820();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(with);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(with);
   sub_1DD8747E0();
   sub_1DD8752D0();
-  *(swift_allocObject() + 16) = v11;
+  *(swift_allocObject() + 16) = v10;
 
   sub_1DD8621EC();
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 @end

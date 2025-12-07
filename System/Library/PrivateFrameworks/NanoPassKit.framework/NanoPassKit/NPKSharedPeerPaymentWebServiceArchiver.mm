@@ -23,22 +23,22 @@
 - (void)archiveContext:(id)context
 {
   contextCopy = context;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(contextCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Telling daemon to archive peer payment web service context", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Telling daemon to archive peer payment web service context", v11, 2u);
     }
   }
 
   connection = [(NPKSharedPeerPaymentWebServiceArchiver *)self connection];
-  v9 = NPKPairedOrPairingDevice();
-  [connection setSharedPeerPaymentWebServiceContext:contextCopy forDevice:v9];
+  v10 = NPKPairedOrPairingDevice();
+  [connection setSharedPeerPaymentWebServiceContext:contextCopy forDevice:v10];
 }
 
 @end

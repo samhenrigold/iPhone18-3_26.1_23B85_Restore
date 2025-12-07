@@ -66,43 +66,41 @@
 
 - (id)filteredAssetsFromAssets:(id)assets withPersonLocalIdentifiersInSocialGroup:(id)group
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   groupCopy = group;
   array = [MEMORY[0x277CBEB18] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = assetsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * i);
-        if ([(PGSocialGroupAssetFilter *)self asset:v14 passesForPersonLocalIdentifiersInSocialGroup:groupCopy, v17])
+        v14 = *(*(&v16 + 1) + 8 * i);
+        if ([(PGSocialGroupAssetFilter *)self asset:v14 passesForPersonLocalIdentifiersInSocialGroup:groupCopy, v16])
         {
           [array addObject:v14];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return array;
 }

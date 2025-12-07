@@ -42,7 +42,7 @@ LABEL_7:
 
 + (id)_transformDSTU2Value:(id)value rootResource:(id)resource extractionRule:(id)rule error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   resourceCopy = resource;
   ruleCopy = rule;
@@ -53,27 +53,27 @@ LABEL_7:
   }
 
   primaryDSTU2Version = [MEMORY[0x277CCD3D0] primaryDSTU2Version];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v26 = ruleCopy;
+  v25 = ruleCopy;
   transforms = [ruleCopy transforms];
-  v15 = [transforms countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v15 = [transforms countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v29;
+    v17 = *v28;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v29 != v17)
+        if (*v28 != v17)
         {
           objc_enumerationMutation(transforms);
         }
 
-        v19 = *(*(&v28 + 1) + 8 * i);
+        v19 = *(*(&v27 + 1) + 8 * i);
         if (([v19 isEqualToString:@"inspectableValueCollectionWithRange"] & 1) == 0)
         {
           if ([v19 isEqualToString:@"inspectableValueCollectionWithRatio"])
@@ -346,8 +346,8 @@ LABEL_7:
             if (![v19 isEqualToString:@"wrapInArray"])
             {
               [MEMORY[0x277CCACA8] stringWithFormat:@"Unsupported DSTU2 extraction transform '%@'", v19];
-              v25 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:objc_claimAutoreleasedReturnValue() userInfo:0];
-              objc_exception_throw(v25);
+              v24 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:objc_claimAutoreleasedReturnValue() userInfo:0];
+              objc_exception_throw(v24);
             }
 
             v20 = [HDHealthRecordsExtractionUtilities wrapInArray:valueCopy error:error];
@@ -366,7 +366,7 @@ LABEL_7:
         }
       }
 
-      v16 = [transforms countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v16 = [transforms countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v16)
       {
         continue;
@@ -379,47 +379,45 @@ LABEL_7:
   v22 = valueCopy;
 LABEL_123:
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 + (id)_transformR4Value:(id)value rootResource:(id)resource extractionRule:(id)rule error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   resourceCopy = resource;
   ruleCopy = rule;
   objc_opt_class();
-  v27 = resourceCopy;
+  v26 = resourceCopy;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     [HDHealthRecordsExtractionRuleTransformer _transformR4Value:a2 rootResource:self extractionRule:? error:?];
   }
 
   primaryR4Version = [MEMORY[0x277CCD3D0] primaryR4Version];
-  v26 = ruleCopy;
+  v25 = ruleCopy;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   transforms = [ruleCopy transforms];
-  v15 = [transforms countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v15 = [transforms countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v29;
+    v17 = *v28;
 LABEL_5:
     v18 = 0;
     v19 = valueCopy;
     while (1)
     {
-      if (*v29 != v17)
+      if (*v28 != v17)
       {
         objc_enumerationMutation(transforms);
       }
 
-      v20 = *(*(&v28 + 1) + 8 * v18);
+      v20 = *(*(&v27 + 1) + 8 * v18);
       if ([v20 isEqualToString:@"codedQuantityWithQuantity"])
       {
         v21 = [HDHealthRecordsExtractionUtilities codedQuantityWithQuantity:v19 error:error];
@@ -562,7 +560,7 @@ LABEL_5:
 
       else if ([v20 isEqualToString:@"identifiersWithReferences"])
       {
-        v21 = [HDHealthRecordsExtractionUtilities identifiersWithReferences:v19 parentResource:v27 error:error];
+        v21 = [HDHealthRecordsExtractionUtilities identifiersWithReferences:v19 parentResource:v26 error:error];
       }
 
       else if ([v20 isEqualToString:@"BOOLeanNotDoneFromStatusCode"])
@@ -650,8 +648,8 @@ LABEL_5:
         if (![v20 isEqualToString:@"preferredNameWithHumanNames"])
         {
           [MEMORY[0x277CCACA8] stringWithFormat:@"Unsupported R4 extraction transform '%@'", v20];
-          v24 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:objc_claimAutoreleasedReturnValue() userInfo:0];
-          objc_exception_throw(v24);
+          v23 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:objc_claimAutoreleasedReturnValue() userInfo:0];
+          objc_exception_throw(v23);
         }
 
         v21 = [HDHealthRecordsExtractionUtilities preferredNameWithHumanNames:v19 FHIRVersion:primaryR4Version error:error];
@@ -668,7 +666,7 @@ LABEL_5:
       v19 = valueCopy;
       if (v16 == v18)
       {
-        v16 = [transforms countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v16 = [transforms countByEnumeratingWithState:&v27 objects:v31 count:16];
         if (v16)
         {
           goto LABEL_5;
@@ -678,8 +676,6 @@ LABEL_5:
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return valueCopy;
 }

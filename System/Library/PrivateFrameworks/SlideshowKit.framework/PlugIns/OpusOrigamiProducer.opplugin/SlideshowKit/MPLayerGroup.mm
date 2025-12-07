@@ -748,7 +748,7 @@ LABEL_8:
         v8 = *(*(&v14 + 1) + 8 * i);
         if ([v8 conformsToProtocol:&OBJC_PROTOCOL___MPNavigatorSupportInternal])
         {
-          [v8 duration];
+          objc_msgSend_duration(v8);
         }
 
         else
@@ -760,7 +760,7 @@ LABEL_8:
 
           [v8 timeIn];
           v11 = v10;
-          [v8 duration];
+          objc_msgSend_duration(v8);
           v9 = v11 + v12;
         }
 
@@ -788,7 +788,7 @@ LABEL_8:
     audioPlaylist = self->_audioPlaylist;
     if (audioPlaylist)
     {
-      [(MPAudioPlaylist *)audioPlaylist duration];
+      objc_msgSend_duration(audioPlaylist);
       v5 = v4;
     }
 
@@ -808,7 +808,7 @@ LABEL_8:
   {
     internal = self->_internal;
 
-    [(MPLayerGroupInternal *)internal duration];
+    objc_msgSend_duration(internal);
   }
 
   return result;
@@ -816,7 +816,7 @@ LABEL_8:
 
 - (void)setDuration:(double)duration
 {
-  [(MPLayerGroupInternal *)self->_internal duration];
+  objc_msgSend_duration(self->_internal, a2);
   if (duration >= 0.0 || v5 != duration)
   {
     [(MPLayerGroupInternal *)self->_internal setDuration:duration];
@@ -1465,7 +1465,7 @@ LABEL_8:
 
       else
       {
-        [(MPLayerGroupInternal *)self->_internal duration];
+        objc_msgSend_duration(self->_internal);
         v8 = v7;
         [(MPLayerGroupInternal *)self->_internal phaseInDuration];
         v10 = v8 - v9;
@@ -1504,7 +1504,7 @@ LABEL_8:
 
       else
       {
-        [(MPLayerGroupInternal *)self->_internal duration];
+        objc_msgSend_duration(self->_internal);
         v8 = v7;
         [(MPLayerGroupInternal *)self->_internal phaseInDuration];
         v10 = v8 - v9;
@@ -1541,7 +1541,7 @@ LABEL_8:
 
       else
       {
-        [(MPLayerGroupInternal *)self->_internal duration];
+        objc_msgSend_duration(self->_internal);
         v9 = v8;
         [(MPLayerGroupInternal *)self->_internal phaseInDuration];
         v11 = v9 - v10;
@@ -2451,7 +2451,7 @@ LABEL_8:
 
     if (![(MPLayerGroupInternal *)self->_internal autoAdjustDuration])
     {
-      [(MPLayerGroupInternal *)self->_internal duration];
+      objc_msgSend_duration(self->_internal);
       v8 = v7;
       [(MPLayerGroupInternal *)self->_internal phaseInDuration];
       v10 = v8 - v9;
@@ -2858,7 +2858,7 @@ LABEL_8:
           v10 = *(*(&v35 + 1) + 8 * i);
           if ([v10 conformsToProtocol:&OBJC_PROTOCOL___MPNavigatorSupportInternal])
           {
-            [v10 duration];
+            objc_msgSend_duration(v10);
             v12 = v11;
             [v10 numberOfLoops];
             v14 = v12 * v13;
@@ -2868,7 +2868,7 @@ LABEL_8:
           {
             [v10 timeIn];
             v16 = v15;
-            [v10 duration];
+            objc_msgSend_duration(v10);
             v18 = v17;
             [v10 numberOfLoops];
             v14 = v16 + v18 * v19;
@@ -3060,7 +3060,7 @@ LABEL_10:
       audioPlaylist = self->_audioPlaylist;
       if (audioPlaylist)
       {
-        [(MPAudioPlaylist *)audioPlaylist duration];
+        objc_msgSend_duration(audioPlaylist);
       }
 
       else
@@ -3084,7 +3084,7 @@ LABEL_10:
       v14 = self->_audioPlaylist;
       if (v14)
       {
-        [(MPAudioPlaylist *)v14 duration];
+        objc_msgSend_duration(v14);
       }
 
       else
@@ -3211,7 +3211,7 @@ LABEL_10:
         v29 = self->_audioPlaylist;
         if (v29)
         {
-          [(MPAudioPlaylist *)v29 duration];
+          objc_msgSend_duration(v29);
         }
 
         else
@@ -3259,7 +3259,7 @@ LABEL_10:
   [struct numberOfLoops];
   [(MPLayerGroupInternal *)self->_internal setNumberOfLoops:?];
   -[MPLayerGroupInternal setLoopingMode:](self->_internal, "setLoopingMode:", [struct loopingMode]);
-  [struct duration];
+  objc_msgSend_duration(struct);
   [(MPLayerGroupInternal *)self->_internal setDuration:?];
   [struct timeIn];
   [(MPLayerGroupInternal *)self->_internal setTimeIn:?];
@@ -3698,7 +3698,7 @@ LABEL_16:
     obja = parentLayer;
     [v12 startTime];
     v29 = time - v28;
-    [v12 duration];
+    objc_msgSend_duration(v12);
     v31 = v30 - v29;
     index = [v12 index];
     if (v31 >= 3.0)

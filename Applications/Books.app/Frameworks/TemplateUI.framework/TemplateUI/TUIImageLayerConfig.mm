@@ -54,7 +54,7 @@
   {
     v6 = configCopy;
     v7 = v6;
-    if (v6 && self->_resource == v6->_resource && self->_contentsScale == v6->_contentsScale && self->_load == v6->_load && self->_cornerRadius == v6->_cornerRadius && ((fallbackColor = self->_fallbackColor, fallbackColor == v7[5]) || [(UIColor *)fallbackColor isEqual:?]) && ((contentsGravity = self->_contentsGravity, contentsGravity == v7[6]) || [(NSString *)contentsGravity isEqualToString:?]) && self->_hflip == *(v7 + 56) && self->_crossfadesContents == *(v7 + 57) && self->_opacity == *(v7 + 8) && self->_continuousCorners == *(v7 + 58) && self->_shouldRasterize == *(v7 + 72))
+    if (v6 && self->_resource == v6->_resource && self->_contentsScale == v6->_contentsScale && self->_load == v6->_load && self->_cornerRadius == v6->_cornerRadius && ((fallbackColor = self->_fallbackColor, fallbackColor == v7[5]) || [(UIColor *)fallbackColor isEqual:?]) && ((contentsGravity = self->_contentsGravity, contentsGravity == v7[6]) || objc_msgSend_isEqualToString_(contentsGravity)) && self->_hflip == *(v7 + 56) && self->_crossfadesContents == *(v7 + 57) && self->_opacity == *(v7 + 8) && self->_continuousCorners == *(v7 + 58) && self->_shouldRasterize == *(v7 + 72))
     {
       blendMode = self->_blendMode;
       if (blendMode == v7[10])
@@ -64,7 +64,7 @@
 
       else
       {
-        v8 = [(NSString *)blendMode isEqualToString:?];
+        v8 = objc_msgSend_isEqualToString_(blendMode);
       }
     }
 

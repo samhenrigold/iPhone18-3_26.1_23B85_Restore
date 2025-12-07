@@ -3,7 +3,7 @@
 
 @implementation FigRoutingSessionManager
 
-uint64_t __FigRoutingSessionManager_ensureConfigurationInitialized_block_invoke()
+uint64_t __FigRoutingSessionManager_ensureConfigurationInitialized_block_invoke(uint64_t a1)
 {
   gConfigurationMutex = FigSimpleMutexCreate();
   LOWORD(gConfiguration) = 257;

@@ -616,7 +616,7 @@ void __61__AVPlaybackControlsController__updateVideoGravityButtonType__block_inv
 
   [(AVPlaybackControlsController *)self minimumTime];
   [(AVPlaybackControlsController *)self minimumTime];
-  if (fabs(v26) == INFINITY || ([(AVPlaybackControlsController *)self maximumTime], [(AVPlaybackControlsController *)self maximumTime], fabs(v27) == INFINITY) || ([(AVPlaybackControlsController *)self currentTime], [(AVPlaybackControlsController *)self currentTime], fabs(v28) == INFINITY) || ([(AVPlaybackControlsController *)self maximumTime], v30 = v29, [(AVPlaybackControlsController *)self minimumTime], v30 <= v31) || ([(AVPlaybackControlsController *)self currentTime], v33 = v32, [(AVPlaybackControlsController *)self minimumTime], v33 < v34) && ([(AVPlaybackControlsController *)self currentTime], v36 = v35, [(AVPlaybackControlsController *)self maximumTime], v36 > v37))
+  if (fabs(v26) == INFINITY || ([(AVPlaybackControlsController *)self maximumTime], [(AVPlaybackControlsController *)self maximumTime], fabs(v27) == INFINITY) || (objc_msgSend_currentTime(self), objc_msgSend_currentTime(self), fabs(v28) == INFINITY) || ([(AVPlaybackControlsController *)self maximumTime], v30 = v29, [(AVPlaybackControlsController *)self minimumTime], v30 <= v31) || (objc_msgSend_currentTime(self), v33 = v32, [(AVPlaybackControlsController *)self minimumTime], v33 < v34) && (objc_msgSend_currentTime(self), v36 = v35, [(AVPlaybackControlsController *)self maximumTime], v36 > v37))
   {
 LABEL_18:
     elapsedTimeFormatter4 = [(AVPlaybackControlsController *)self elapsedTimeFormatter];
@@ -2710,7 +2710,7 @@ LABEL_24:
 
   else
   {
-    [(AVPlaybackControlsController *)self currentTime];
+    objc_msgSend_currentTime(self);
     [playerController2 seekToTime:v11 + interval];
   }
 }
@@ -4355,7 +4355,7 @@ LABEL_23:
   v6 = playerViewController;
   if (playerViewController)
   {
-    [playerViewController overrideTransformForProminentPlayButton];
+    objc_msgSend_overrideTransformForProminentPlayButton(playerViewController);
   }
 
   else
@@ -4620,7 +4620,7 @@ LABEL_23:
   v96 = playerViewController10;
   if (playerViewController10)
   {
-    [playerViewController10 overrideTransformForProminentPlayButton];
+    objc_msgSend_overrideTransformForProminentPlayButton(playerViewController10);
   }
 
   else
@@ -4984,12 +4984,12 @@ LABEL_5:
   if (externalPlaybackType == 1)
   {
     playbackControlsView2 = [(AVPlaybackControlsController *)self timeResolver];
-    [playbackControlsView2 currentTime];
+    objc_msgSend_currentTime(playbackControlsView2);
     v9 = v12;
     goto LABEL_5;
   }
 
-  [(AVPlaybackControlsController *)self currentTime];
+  objc_msgSend_currentTime(self);
   return result;
 }
 

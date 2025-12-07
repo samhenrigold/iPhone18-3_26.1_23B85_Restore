@@ -48,12 +48,12 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v11 = [(__CFString *)v9 isEqualToString:@"eligible"];
+  isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-  if ((v11 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v13 = v10;
-    if (v13 == @"notEligible" || (v14 = v13, v15 = [(__CFString *)v13 isEqualToString:@"notEligible"], v14, v15))
+    if (v13 == @"notEligible" || (v14 = v13, v15 = objc_msgSend_isEqualToString_(v13), v14, v15))
     {
       v12 = 2;
       goto LABEL_10;
@@ -314,9 +314,9 @@ __CFString *__51__PKPaymentOfferCriteria_instoreCapabilitiesString__block_invoke
             goto LABEL_36;
           }
 
-          v11 = [(NSString *)v8 isEqualToString:v9];
+          isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-          if (!v11)
+          if (!isEqualToString)
           {
             goto LABEL_37;
           }
@@ -357,7 +357,7 @@ __CFString *__51__PKPaymentOfferCriteria_instoreCapabilitiesString__block_invoke
             goto LABEL_36;
           }
 
-          v17 = [(NSString *)v8 isEqualToString:v16];
+          v17 = objc_msgSend_isEqualToString_(v8);
 
           if (!v17)
           {
@@ -380,7 +380,7 @@ __CFString *__51__PKPaymentOfferCriteria_instoreCapabilitiesString__block_invoke
             goto LABEL_36;
           }
 
-          v20 = [(NSString *)v8 isEqualToString:v19];
+          v20 = objc_msgSend_isEqualToString_(v8);
 
           if (!v20)
           {
@@ -413,7 +413,7 @@ LABEL_41:
 
         if (v8 && v22)
         {
-          v23 = [(NSString *)v8 isEqualToString:v22];
+          v23 = objc_msgSend_isEqualToString_(v8);
 
           if (v23)
           {

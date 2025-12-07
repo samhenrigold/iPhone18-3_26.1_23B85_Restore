@@ -13,18 +13,16 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[6] = *MEMORY[0x277D85DE8];
+  v6[6] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"ConnectionUUID";
-  v7[1] = @"DisplayName";
-  v7[2] = @"HostName";
-  v7[3] = @"Port";
-  v7[4] = @"DisplayConfiguration";
-  v7[5] = @"AuthenticationCredentialsAssetReference";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:6];
+  v6[0] = @"ConnectionUUID";
+  v6[1] = @"DisplayName";
+  v6[2] = @"HostName";
+  v6[3] = @"Port";
+  v6[4] = @"DisplayConfiguration";
+  v6[5] = @"AuthenticationCredentialsAssetReference";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:6];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -43,14 +41,12 @@
 
 void __60__RMModelScreenSharingConnectionDeclaration_assetReferences__block_invoke()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   v0 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287467940 keyPath:@"$.payloadAuthenticationCredentialsAssetReference"];
-  v4[0] = v0;
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+  v3[0] = v0;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
   v2 = assetReferences_assetPaths_10;
   assetReferences_assetPaths_10 = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)buildWithIdentifier:(id)identifier connectionUUID:(id)d displayName:(id)name hostName:(id)hostName port:(id)port displayConfiguration:(id)configuration authenticationCredentialsAssetReference:(id)reference
@@ -124,17 +120,15 @@ void __60__RMModelScreenSharingConnectionDeclaration_assetReferences__block_invo
 
 + (id)supportedOS
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = &unk_28746B8D0;
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = &unk_28746B8D0;
   v2 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467958];
-  v8[0] = v2;
+  v7[0] = v2;
   v3 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467970];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
-  v10[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v9[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   return v5;
 }

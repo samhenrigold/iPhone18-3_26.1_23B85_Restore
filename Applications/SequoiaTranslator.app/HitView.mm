@@ -29,7 +29,7 @@
 
   v6 = sub_1001C3A98(action, v5);
 
-  sub_100009EBC(v8, &unk_1003AB9C0);
+  sub_100009EBC(v8, &unk_1003AB9C0, &unk_1002D36F0);
   return v6;
 }
 

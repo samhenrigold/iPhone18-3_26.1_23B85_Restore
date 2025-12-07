@@ -21,8 +21,8 @@
 - (id)lastViewedDate;
 - (id)overlayCalendar;
 - (id)overlayCalendarID;
-- (void)_handleDidUnpair;
 - (void)_handlePairedDeviceChanged;
+- (void)_reportOverlayCalendarID:(id)d mirroringCompanion:(BOOL)companion;
 - (void)_startObserving;
 - (void)_stopObserving;
 - (void)_updateOverlayCalendarCache;
@@ -127,7 +127,7 @@
 - (void)setCustomDeselectedCalendarIdentifiers:(id)identifiers
 {
   identifiersCopy = identifiers;
-  v5 = ncs_log_selected_calendars();
+  v5 = ncs_log_selected_calendars(identifiersCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138543362;
@@ -160,7 +160,7 @@
 - (void)setCustomDeselectedCalendarHashes:(id)hashes
 {
   hashesCopy = hashes;
-  v5 = ncs_log_selected_calendars();
+  v5 = ncs_log_selected_calendars(hashesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138543362;
@@ -288,20 +288,84 @@
 
   if (customOverlayCalendarID)
   {
-    customOverlayCalendarID2 = [(NanoCalendarPreferences *)self customOverlayCalendarID];
-    cachedOverlayCalendarID = self->_cachedOverlayCalendarID;
-    self->_cachedOverlayCalendarID = customOverlayCalendarID2;
+    self->_cachedOverlayCalendarID = [(NanoCalendarPreferences *)self customOverlayCalendarID];
   }
 
   else
   {
     +[CUIKPreferences sharedPreferences];
     overlayCalendarID = [objc_claimAutoreleasedReturnValue() overlayCalendarID];
-    v7 = self->_cachedOverlayCalendarID;
+    cachedOverlayCalendarID = self->_cachedOverlayCalendarID;
     self->_cachedOverlayCalendarID = overlayCalendarID;
   }
 
   _objc_release_x1();
+}
+
+- (void)_reportOverlayCalendarID:(id)d mirroringCompanion:(BOOL)companion
+{
+  companionCopy = companion;
+  dCopy = d;
+  v6 = +[NanoCalendarPreferences sharedPreferences];
+  overlayCalendarID = [v6 overlayCalendarID];
+
+  v8 = +[CUIKPreferences sharedPreferences];
+  overlayCalendarID2 = [v8 overlayCalendarID];
+
+  if (companionCopy)
+  {
+    v10 = overlayCalendarID2;
+  }
+
+  else
+  {
+    v10 = dCopy;
+  }
+
+  v11 = v10;
+  if ([(__CFString *)overlayCalendarID isEqualToString:&stru_C820])
+  {
+    v12 = @"off";
+  }
+
+  else
+  {
+    v12 = overlayCalendarID;
+  }
+
+  v13 = v12;
+
+  if ([(__CFString *)v11 isEqualToString:&stru_C820])
+  {
+    v14 = @"off";
+  }
+
+  else
+  {
+    v14 = v11;
+  }
+
+  v15 = v14;
+
+  v17 = ncs_log_selected_calendars(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    v18 = @"NO";
+    v19 = 138412802;
+    v20 = v13;
+    v21 = 2112;
+    if (companionCopy)
+    {
+      v18 = @"YES";
+    }
+
+    v22 = v15;
+    v23 = 2112;
+    v24 = v18;
+    _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "NanoCalendarPreferences: Overlay Calendar updated from %@ to %@, mirroringCompanion: %@", &v19, 0x20u);
+  }
+
+  [NCSAnalyticsShared reportOverlayCalendarSet:v15 mirroringCompanion:companionCopy];
 }
 
 + (id)overlayCalendarLocaleIDs
@@ -333,10 +397,11 @@
 {
   focusCopy = focus;
   v5 = [store calendarsForEntityType:0];
+  v6 = v5;
   if (focusCopy)
   {
-    v6 = +[EKPreferences shared];
-    unselectedCalendarIdentifiersForFocusMode = [v6 unselectedCalendarIdentifiersForFocusMode];
+    v7 = +[EKPreferences shared];
+    unselectedCalendarIdentifiersForFocusMode = [v7 unselectedCalendarIdentifiersForFocusMode];
   }
 
   else
@@ -344,23 +409,23 @@
     unselectedCalendarIdentifiersForFocusMode = &__NSArray0__struct;
   }
 
-  v8 = ncs_log_selected_calendars();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = ncs_log_selected_calendars(v5);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v24 = 138543362;
-    v25 = unselectedCalendarIdentifiersForFocusMode;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "NanoCalendarPreferences: unselectedCalendarIdentifiersForFocusMode = %{public}@", &v24, 0xCu);
+    v29 = 138543362;
+    v30 = unselectedCalendarIdentifiersForFocusMode;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "NanoCalendarPreferences: unselectedCalendarIdentifiersForFocusMode = %{public}@", &v29, 0xCu);
   }
 
   sharedPreferences = [objc_opt_class() sharedPreferences];
   customDeselectedCalendarSyncIdentifiers = [sharedPreferences customDeselectedCalendarSyncIdentifiers];
 
-  v11 = ncs_log_selected_calendars();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v13 = ncs_log_selected_calendars(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v24 = 138543362;
-    v25 = customDeselectedCalendarSyncIdentifiers;
-    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "NanoCalendarPreferences: customDeselectedCalendarSyncIdentifiers = %{public}@", &v24, 0xCu);
+    v29 = 138543362;
+    v30 = customDeselectedCalendarSyncIdentifiers;
+    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "NanoCalendarPreferences: customDeselectedCalendarSyncIdentifiers = %{public}@", &v29, 0xCu);
   }
 
   if (customDeselectedCalendarSyncIdentifiers)
@@ -371,25 +436,25 @@
   sharedPreferences2 = [objc_opt_class() sharedPreferences];
   customDeselectedCalendarHashes = [sharedPreferences2 customDeselectedCalendarHashes];
 
-  v14 = ncs_log_selected_calendars();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v17 = ncs_log_selected_calendars(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v24 = 138543362;
-    v25 = customDeselectedCalendarHashes;
-    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "NanoCalendarPreferences: customDeselectedCalendarHashes = %{public}@", &v24, 0xCu);
+    v29 = 138543362;
+    v30 = customDeselectedCalendarHashes;
+    _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "NanoCalendarPreferences: customDeselectedCalendarHashes = %{public}@", &v29, 0xCu);
   }
 
   if (!customDeselectedCalendarHashes)
   {
-    v20 = +[EKPreferences shared];
-    customDeselectedCalendarSyncIdentifiers = [v20 deselectedCalendarSyncIdentifiers];
+    v23 = +[EKPreferences shared];
+    customDeselectedCalendarSyncIdentifiers = [v23 deselectedCalendarSyncIdentifiers];
 
-    v21 = ncs_log_selected_calendars();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v25 = ncs_log_selected_calendars(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      v24 = 138543362;
-      v25 = customDeselectedCalendarSyncIdentifiers;
-      _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "NanoCalendarPreferences: deselectedCalendarSyncIdentifiers = %{public}@", &v24, 0xCu);
+      v29 = 138543362;
+      v30 = customDeselectedCalendarSyncIdentifiers;
+      _os_log_impl(&dword_0, v25, OS_LOG_TYPE_INFO, "NanoCalendarPreferences: deselectedCalendarSyncIdentifiers = %{public}@", &v29, 0xCu);
     }
 
     if (customDeselectedCalendarSyncIdentifiers)
@@ -399,40 +464,40 @@ LABEL_9:
       goto LABEL_14;
     }
 
-    v22 = +[EKPreferences shared];
-    customDeselectedCalendarHashes = [v22 deselectedCalendarSyncHashes];
+    v26 = +[EKPreferences shared];
+    customDeselectedCalendarHashes = [v26 deselectedCalendarSyncHashes];
 
-    v23 = ncs_log_selected_calendars();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    v28 = ncs_log_selected_calendars(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
-      v24 = 138543362;
-      v25 = customDeselectedCalendarHashes;
-      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_INFO, "NanoCalendarPreferences: deselectedCalendarSyncHashes = %{public}@", &v24, 0xCu);
+      v29 = 138543362;
+      v30 = customDeselectedCalendarHashes;
+      _os_log_impl(&dword_0, v28, OS_LOG_TYPE_INFO, "NanoCalendarPreferences: deselectedCalendarSyncHashes = %{public}@", &v29, 0xCu);
     }
   }
 
   customDeselectedCalendarSyncIdentifiers = 0;
 LABEL_14:
-  v15 = [objc_opt_class() _selectedCalendarsFromAllCalendars:v5 deselectedCalendarIdentifier:unselectedCalendarIdentifiersForFocusMode deselectedCalendarSyncIdentifiers:customDeselectedCalendarSyncIdentifiers deselectedCalendarSyncHashes:customDeselectedCalendarHashes];
-  v16 = ncs_log_selected_calendars();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v18 = [objc_opt_class() _selectedCalendarsFromAllCalendars:v6 deselectedCalendarIdentifier:unselectedCalendarIdentifiersForFocusMode deselectedCalendarSyncIdentifiers:customDeselectedCalendarSyncIdentifiers deselectedCalendarSyncHashes:customDeselectedCalendarHashes];
+  v19 = ncs_log_selected_calendars(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    nanoPrivacyAwareDescriptionForCalendars = [v5 nanoPrivacyAwareDescriptionForCalendars];
-    nanoPrivacyAwareDescriptionForCalendars2 = [v15 nanoPrivacyAwareDescriptionForCalendars];
-    v24 = 138544386;
-    v25 = nanoPrivacyAwareDescriptionForCalendars;
-    v26 = 2114;
-    v27 = nanoPrivacyAwareDescriptionForCalendars2;
-    v28 = 2114;
-    v29 = unselectedCalendarIdentifiersForFocusMode;
-    v30 = 2114;
-    v31 = customDeselectedCalendarSyncIdentifiers;
-    v32 = 2114;
-    v33 = customDeselectedCalendarHashes;
-    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "NanoCalendarPreferences: Computed selected calendars (All Calendars = %{public}@; Selected Calendars = %{public}@; Deselected for Focus IDs = %{public}@; Deselected Identifiers = %{public}@);  Deselected Hashes = %{public}@)", &v24, 0x34u);
+    nanoPrivacyAwareDescriptionForCalendars = [v6 nanoPrivacyAwareDescriptionForCalendars];
+    nanoPrivacyAwareDescriptionForCalendars2 = [v18 nanoPrivacyAwareDescriptionForCalendars];
+    v29 = 138544386;
+    v30 = nanoPrivacyAwareDescriptionForCalendars;
+    v31 = 2114;
+    v32 = nanoPrivacyAwareDescriptionForCalendars2;
+    v33 = 2114;
+    v34 = unselectedCalendarIdentifiersForFocusMode;
+    v35 = 2114;
+    v36 = customDeselectedCalendarSyncIdentifiers;
+    v37 = 2114;
+    v38 = customDeselectedCalendarHashes;
+    _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "NanoCalendarPreferences: Computed selected calendars (All Calendars = %{public}@; Selected Calendars = %{public}@; Deselected for Focus IDs = %{public}@; Deselected Identifiers = %{public}@);  Deselected Hashes = %{public}@)", &v29, 0x34u);
   }
 
-  return v15;
+  return v18;
 }
 
 + (id)_selectedCalendarsFromAllCalendars:(id)calendars deselectedCalendarIdentifier:(id)identifier deselectedCalendarSyncIdentifiers:(id)identifiers deselectedCalendarSyncHashes:(id)hashes
@@ -441,69 +506,69 @@ LABEL_14:
   identifierCopy = identifier;
   identifiersCopy = identifiers;
   hashesCopy = hashes;
-  v27 = +[NSMutableSet setWithCapacity:](NSMutableSet, "setWithCapacity:", [calendarsCopy count]);
-  v30 = 0u;
+  v28 = +[NSMutableSet setWithCapacity:](NSMutableSet, "setWithCapacity:", [calendarsCopy count]);
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
   v12 = calendarsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v30 objects:v42 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v31 objects:v43 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v31;
-    v26 = identifiersCopy;
+    v15 = *v32;
+    v27 = identifiersCopy;
     obj = v12;
     do
     {
       for (i = 0; i != v14; i = i + 1)
       {
-        if (*v31 != v15)
+        if (*v32 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v30 + 1) + 8 * i);
+        v17 = *(*(&v31 + 1) + 8 * i);
         calendarIdentifier = [v17 calendarIdentifier];
         selectionSyncIdentifier = [v17 selectionSyncIdentifier];
         syncHash = [v17 syncHash];
-        v21 = ncs_log_selected_calendars();
+        v21 = ncs_log_selected_calendars(syncHash);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
           nanoPrivacyAwareDescription = [v17 nanoPrivacyAwareDescription];
           *buf = 138544130;
-          v35 = nanoPrivacyAwareDescription;
-          v36 = 2114;
-          v37 = calendarIdentifier;
-          v38 = 2114;
-          v39 = syncHash;
-          v40 = 2114;
-          v41 = selectionSyncIdentifier;
+          v36 = nanoPrivacyAwareDescription;
+          v37 = 2114;
+          v38 = calendarIdentifier;
+          v39 = 2114;
+          v40 = syncHash;
+          v41 = 2114;
+          v42 = selectionSyncIdentifier;
           _os_log_debug_impl(&dword_0, v21, OS_LOG_TYPE_DEBUG, "Calendar: %{public}@, calendarIdentifier: %{public}@, calendarSyncHash: %{public}@, selectionSyncIdentifier: %{public}@", buf, 0x2Au);
 
-          identifiersCopy = v26;
+          identifiersCopy = v27;
         }
 
         if (([identifierCopy containsObject:calendarIdentifier] & 1) == 0 && (objc_msgSend(identifiersCopy, "containsObject:", selectionSyncIdentifier) & 1) == 0 && (objc_msgSend(hashesCopy, "containsObject:", syncHash) & 1) == 0)
         {
-          [v27 addObject:v17];
+          [v28 addObject:v17];
         }
       }
 
       v12 = obj;
-      v14 = [obj countByEnumeratingWithState:&v30 objects:v42 count:16];
+      v14 = [obj countByEnumeratingWithState:&v31 objects:v43 count:16];
     }
 
     while (v14);
   }
 
-  v23 = ncs_log_selected_calendars();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  v24 = ncs_log_selected_calendars(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
-    sub_5330(self, v27, v23);
+    sub_5330(self, v28, v24);
   }
 
-  return v27;
+  return v28;
 }
 
 + (id)visibleCalendarsInSource:(id)source
@@ -565,7 +630,7 @@ LABEL_14:
 
         else
         {
-          v18 = ncs_log_selected_calendars();
+          v18 = ncs_log_selected_calendars(0);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             calendarIdentifier = [v16 calendarIdentifier];
@@ -585,18 +650,9 @@ LABEL_14:
   return v10;
 }
 
-- (void)_handleDidUnpair
-{
-  domainAccessor = self->_domainAccessor;
-  self->_domainAccessor = 0;
-  _objc_release_x1();
-}
-
 - (void)_handlePairedDeviceChanged
 {
-  v3 = [[NPSDomainAccessor alloc] initWithDomain:@"com.apple.mobilecal"];
-  domainAccessor = self->_domainAccessor;
-  self->_domainAccessor = v3;
+  self->_domainAccessor = [[NPSDomainAccessor alloc] initWithDomain:@"com.apple.mobilecal"];
 
   _objc_release_x1();
 }

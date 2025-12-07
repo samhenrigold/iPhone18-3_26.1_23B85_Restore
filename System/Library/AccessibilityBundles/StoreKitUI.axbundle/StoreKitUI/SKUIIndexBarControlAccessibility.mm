@@ -169,10 +169,7 @@ LABEL_20:
 
 uint64_t __66__SKUIIndexBarControlAccessibility__accessibilityMoveToIndexPath___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _entryAtIndexPath:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _entryAtIndexPath:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -241,26 +238,7 @@ uint64_t __66__SKUIIndexBarControlAccessibility__accessibilityMoveToIndexPath___
     v36 = __Block_byref_object_copy__0;
     v37 = __Block_byref_object_dispose__0;
     v38 = 0;
-    if (v26 >= integerValue)
-    {
-      goto LABEL_9;
-    }
-
-    v32[0] = 0;
-    v32[1] = v32;
-    v32[2] = 0x2020000000;
-    v32[3] = 0;
-    v31[0] = MEMORY[0x29EDCA5F8];
-    v31[1] = 3221225472;
-    v31[2] = __69__SKUIIndexBarControlAccessibility__sendSelectionForTouch_withEvent___block_invoke;
-    v31[3] = &unk_29F3042A0;
-    v31[5] = &v33;
-    v31[6] = v26;
-    v31[4] = v32;
-    [(SKUIIndexBarControlAccessibility *)self _enumerateEntryIndexPathsUsingBlock:v31];
-    _Block_object_dispose(v32, 8);
-    v27 = v34[5];
-    if (v27)
+    if (v26 < integerValue && (v32[0] = 0, v32[1] = v32, v32[2] = 0x2020000000, v32[3] = 0, v31[0] = MEMORY[0x29EDCA5F8], v31[1] = 3221225472, v31[2] = __69__SKUIIndexBarControlAccessibility__sendSelectionForTouch_withEvent___block_invoke, v31[3] = &unk_29F3042A0, v31[5] = &v33, v31[6] = v26, v31[4] = v32, [(SKUIIndexBarControlAccessibility *)self _enumerateEntryIndexPathsUsingBlock:v31], _Block_object_dispose(v32, 8), (v27 = v34[5]) != 0))
     {
       v28 = v27;
       v29 = 0;
@@ -268,7 +246,6 @@ uint64_t __66__SKUIIndexBarControlAccessibility__accessibilityMoveToIndexPath___
 
     else
     {
-LABEL_9:
       v28 = 0;
       v29 = 1;
     }

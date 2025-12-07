@@ -36,13 +36,13 @@
   return v3;
 }
 
-uint64_t __67__VUIButtonAccessibility__axContainedInMediaShowcasingMetadataView__block_invoke()
+uint64_t __67__VUIButtonAccessibility__axContainedInMediaShowcasingMetadataView__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  v2 = [v1 axContainsString:@"MediaShowcasingButtonsView"];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = [v3 axContainsString:@"MediaShowcasingButtonsView"];
 
-  return v2;
+  return v4;
 }
 
 - (void)_accessibilityLoadAccessibilityInformation
@@ -137,7 +137,7 @@ LABEL_5:
     _atvaccessibilityITMLAccessibilityContent = [(VUIButtonAccessibility *)self _atvaccessibilityITMLAccessibilityContent];
     if (![_atvaccessibilityITMLAccessibilityContent length])
     {
-      v24 = 0;
+      v23 = 0;
       objc_opt_class();
       v11 = [(VUIButtonAccessibility *)self safeValueForKey:@"textContentView"];
       v12 = __UIAccessibilityCastAsClass();
@@ -160,7 +160,6 @@ LABEL_5:
 
         else
         {
-          v22 = *MEMORY[0x29EDC7378];
           _atvaccessibilityITMLAccessibilityContent = AXAttributedStringForBetterPronuciation();
         }
 
@@ -179,9 +178,9 @@ LABEL_5:
 
         else
         {
-          v23.receiver = self;
-          v23.super_class = VUIButtonAccessibility;
-          accessibilityLabel4 = [(VUIButtonAccessibility *)&v23 accessibilityLabel];
+          v22.receiver = self;
+          v22.super_class = VUIButtonAccessibility;
+          accessibilityLabel4 = [(VUIButtonAccessibility *)&v22 accessibilityLabel];
         }
 
         _atvaccessibilityITMLAccessibilityContent = accessibilityLabel4;

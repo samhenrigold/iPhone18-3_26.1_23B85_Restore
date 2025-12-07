@@ -1,5 +1,6 @@
 @interface WBSPasswordOrderedSetWordList
 - (WBSPasswordOrderedSetWordList)initWithIdentifier:(id)identifier isSensitive:(BOOL)sensitive orderedWords:(id)words;
+- (WBSPasswordOrderedSetWordList)initWithIdentifier:(id)identifier isSensitive:(BOOL)sensitive orderedWordsArray:(id)array;
 - (void)enumerateEntriesForString:(id)string withBlock:(id)block;
 @end
 
@@ -22,6 +23,17 @@
   }
 
   return v9;
+}
+
+- (WBSPasswordOrderedSetWordList)initWithIdentifier:(id)identifier isSensitive:(BOOL)sensitive orderedWordsArray:(id)array
+{
+  sensitiveCopy = sensitive;
+  v8 = MEMORY[0x1E695DFB8];
+  identifierCopy = identifier;
+  v10 = [v8 orderedSetWithArray:array];
+  v11 = [(WBSPasswordOrderedSetWordList *)self initWithIdentifier:identifierCopy isSensitive:sensitiveCopy orderedWords:v10];
+
+  return v11;
 }
 
 - (void)enumerateEntriesForString:(id)string withBlock:(id)block

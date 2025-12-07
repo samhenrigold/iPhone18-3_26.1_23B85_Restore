@@ -107,7 +107,7 @@
   {
     v8 = 16;
 LABEL_19:
-    v13 = *(&self->super.super.isa + v8);
+    v14 = *(&self->super.super.isa + v8);
     goto LABEL_20;
   }
 
@@ -135,22 +135,22 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  if (@"Saliency" == v6 || objc_msgSend_isEqualToString_(v6, v12, @"Saliency"))
+  if (@"Saliency" == v6 || (isEqualToString = objc_msgSend_isEqualToString_(v6, v12, @"Saliency"), isEqualToString))
   {
     v8 = 56;
     goto LABEL_19;
   }
 
-  v15 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = _ANSTLoggingGetOSLogForCategoryANSTKit(isEqualToString);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     sub_22E65C1B4();
   }
 
-  v13 = 0;
+  v14 = 0;
 LABEL_20:
 
-  return v13;
+  return v14;
 }
 
 + (id)detectedObjectsForCategory:(id)category fromAcResult:(id *)result
@@ -279,14 +279,14 @@ LABEL_20:
     goto LABEL_48;
   }
 
-  if (@"Sportsball" == v8 || objc_msgSend_isEqualToString_(v8, v19, @"Sportsball"))
+  if (@"Sportsball" == v8 || (isEqualToString = objc_msgSend_isEqualToString_(v8, v19, @"Sportsball"), isEqualToString))
   {
     objc_msgSend__objectsOfCategory_fromAcResult_(self, v19, 8, result);
     goto LABEL_48;
   }
 
-  v35 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+  v36 = _ANSTLoggingGetOSLogForCategoryANSTKit(isEqualToString);
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
   {
     sub_22E65C234();
   }

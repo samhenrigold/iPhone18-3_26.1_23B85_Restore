@@ -3,42 +3,45 @@
 + (id)pu_parallaxColorWithHue:()PhotosUI toneVariation:;
 + (id)pu_parallaxColorWithLuma:()PhotosUI hue:chromaVariation:;
 + (id)pu_parallaxColorWithUIColor:()PhotosUI;
+- (double)pu_chromaVariation;
+- (double)pu_lumaVariation;
+- (double)pu_toneVariation;
 - (uint64_t)pu_UIColor;
-- (uint64_t)pu_chromaVariation;
-- (uint64_t)pu_lumaVariation;
-- (uint64_t)pu_toneVariation;
 @end
 
 @implementation PFParallaxColor(PhotosUI)
 
-- (uint64_t)pu_chromaVariation
+- (double)pu_chromaVariation
 {
   [MEMORY[0x1E69BDE90] lowKeyTone];
   [MEMORY[0x1E69BDE90] highKeyTone];
   [self chroma];
   PXMapValueFromRangeToNewRange();
 
-  return PXClamp();
+  PXClamp();
+  return result;
 }
 
-- (uint64_t)pu_lumaVariation
+- (double)pu_lumaVariation
 {
   [MEMORY[0x1E69BDE90] lowKeyTone];
   [MEMORY[0x1E69BDE90] highKeyTone];
   [self luma];
   PXMapValueFromRangeToNewRange();
 
-  return PXClamp();
+  PXClamp();
+  return result;
 }
 
-- (uint64_t)pu_toneVariation
+- (double)pu_toneVariation
 {
   [MEMORY[0x1E69BDE90] lowKeyTone];
   [MEMORY[0x1E69BDE90] highKeyTone];
   [self tone];
   PXMapValueFromRangeToNewRange();
 
-  return PXClamp();
+  PXClamp();
+  return result;
 }
 
 - (uint64_t)pu_UIColor

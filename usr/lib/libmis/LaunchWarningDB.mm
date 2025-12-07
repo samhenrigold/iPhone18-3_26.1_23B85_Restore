@@ -2,6 +2,7 @@
 - (BOOL)setupSchema;
 - (_TtC3mis15LaunchWarningDB)init;
 - (_TtC3mis15LaunchWarningDB)initWithDatabaseURL:(id)l;
+- (_TtC3mis15LaunchWarningDB)initWithDatabaseURL:(id)l asReadOnly:(BOOL)only;
 - (void)setupPermissions;
 @end
 
@@ -11,18 +12,35 @@
 {
   v4 = sub_1B9DD2728();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1B9DD26E8();
-  v9 = sub_1B9DD26C8();
-  v10 = type metadata accessor for LaunchWarningDB();
-  v13.receiver = self;
-  v13.super_class = v10;
-  v11 = [(SQLDB *)&v13 initWithDatabaseURL:v9];
+  v8 = sub_1B9DD26C8();
+  v9 = type metadata accessor for LaunchWarningDB();
+  v12.receiver = self;
+  v12.super_class = v9;
+  v10 = [(SQLDB *)&v12 initWithDatabaseURL:v8];
 
-  (*(v5 + 8))(v8, v4);
-  return v11;
+  (*(v5 + 8))(v7, v4);
+  return v10;
+}
+
+- (_TtC3mis15LaunchWarningDB)initWithDatabaseURL:(id)l asReadOnly:(BOOL)only
+{
+  onlyCopy = only;
+  v6 = sub_1B9DD2728();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1B9DD26E8();
+  v10 = sub_1B9DD26C8();
+  v11 = type metadata accessor for LaunchWarningDB();
+  v14.receiver = self;
+  v14.super_class = v11;
+  v12 = [(SQLDB *)&v14 initWithDatabaseURL:v10 asReadOnly:onlyCopy];
+
+  (*(v7 + 8))(v9, v6);
+  return v12;
 }
 
 - (BOOL)setupSchema
@@ -37,18 +55,17 @@
 {
   v3 = sub_1B9DD2728();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   dbURL = [(SQLDB *)selfCopy dbURL];
   sub_1B9DD26E8();
 
   sub_1B9DD26F8();
-  (*(v4 + 8))(v7, v3);
-  v10 = sub_1B9DD29D8();
+  (*(v4 + 8))(v6, v3);
+  v9 = sub_1B9DD29D8();
 
-  sub_1B9DD1A74((v10 + 32));
+  sub_1B9DD1A74((v9 + 32));
 }
 
 - (_TtC3mis15LaunchWarningDB)init

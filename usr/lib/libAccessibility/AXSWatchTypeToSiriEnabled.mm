@@ -3,7 +3,7 @@
 
 @implementation AXSWatchTypeToSiriEnabled
 
-uint64_t ___AXSWatchTypeToSiriEnabled_block_invoke()
+void *___AXSWatchTypeToSiriEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

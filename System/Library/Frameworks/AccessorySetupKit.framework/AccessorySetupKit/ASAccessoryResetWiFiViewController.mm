@@ -113,31 +113,31 @@
 
 void __52__ASAccessoryResetWiFiViewController_handleDAEvent___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (v5 && !a3)
   {
     v6 = [MEMORY[0x277CBEB18] array];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * i);
+          v12 = *(*(&v17 + 1) + 8 * i);
           v13 = [v12 wifiAwareOTAName];
 
           if (v13)
@@ -146,23 +146,21 @@ void __52__ASAccessoryResetWiFiViewController_handleDAEvent___block_invoke(uint6
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v9);
     }
 
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __52__ASAccessoryResetWiFiViewController_handleDAEvent___block_invoke_2;
-    v16[3] = &unk_278A01B90;
-    v16[4] = *(a1 + 32);
-    v17 = v6;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __52__ASAccessoryResetWiFiViewController_handleDAEvent___block_invoke_2;
+    v15[3] = &unk_278A01B90;
+    v15[4] = *(a1 + 32);
+    v16 = v6;
     v14 = v6;
-    dispatch_async(MEMORY[0x277D85CD0], v16);
+    dispatch_async(MEMORY[0x277D85CD0], v15);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __52__ASAccessoryResetWiFiViewController_handleDAEvent___block_invoke_2(uint64_t a1)
@@ -199,7 +197,7 @@ BOOL __52__ASAccessoryResetWiFiViewController_handleDAEvent___block_invoke_3(uin
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v7 = [view dequeueReusableCellWithIdentifier:@"accessory_cell"];
   if (!v7)
@@ -210,8 +208,8 @@ BOOL __52__ASAccessoryResetWiFiViewController_handleDAEvent___block_invoke_3(uin
   v8 = -[NSArray objectAtIndexedSubscript:](self->_wifiAwareDevices, "objectAtIndexedSubscript:", [pathCopy row]);
   defaultContentConfiguration = [v7 defaultContentConfiguration];
   name = [v8 name];
-  v34 = v7;
-  v35 = pathCopy;
+  v33 = v7;
+  v34 = pathCopy;
   if (name && (v11 = name, [v8 name], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "isEqualToString:", &stru_28499D698), v12, v11, (v13 & 1) == 0))
   {
     name2 = [v8 name];
@@ -236,31 +234,31 @@ LABEL_9:
   allKeys = [appAccessInfoMap allKeys];
 
   array = [MEMORY[0x277CBEB18] array];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v19 = allKeys;
-  v20 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v37;
+    v22 = *v36;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v37 != v22)
+        if (*v36 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:*(*(&v36 + 1) + 8 * i) allowPlaceholder:1 error:0];
+        v24 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:*(*(&v35 + 1) + 8 * i) allowPlaceholder:1 error:0];
         localizedName = [v24 localizedName];
         [array addObject:localizedName];
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v21);
@@ -290,13 +288,11 @@ LABEL_9:
   }
 
   [defaultContentConfiguration setImage:*(&self->super.super.super.super.super.super.isa + *v30)];
-  [v34 setContentConfiguration:defaultContentConfiguration];
+  [v33 setContentConfiguration:defaultContentConfiguration];
   secondarySystemFillColor = [MEMORY[0x277D75348] secondarySystemFillColor];
-  [v34 setBackgroundColor:secondarySystemFillColor];
+  [v33 setBackgroundColor:secondarySystemFillColor];
 
-  v32 = *MEMORY[0x277D85DE8];
-
-  return v34;
+  return v33;
 }
 
 - (id)imageWithTypeIdentifier:(id)identifier

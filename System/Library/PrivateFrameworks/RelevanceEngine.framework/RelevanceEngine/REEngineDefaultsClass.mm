@@ -5,12 +5,24 @@
 
 void __get_REEngineDefaultsClass_block_invoke(uint64_t a1)
 {
-  if (!RelevanceEngineLibraryCore_0())
+  v4 = 0;
+  v2 = RelevanceEngineLibraryCore_0(&v4);
+  v3 = v4;
+  if (v2)
   {
-    v2 = abort_report_np();
-    free(v2);
+    if (!v4)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v3 = abort_report_np("%s", v4);
+  }
+
+  free(v3);
+LABEL_3:
   *(*(*(a1 + 32) + 8) + 24) = objc_getClass("_REEngineDefaults");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
@@ -26,12 +38,24 @@ void __get_REEngineDefaultsClass_block_invoke(uint64_t a1)
 
 void __get_REEngineDefaultsClass_block_invoke_0(uint64_t a1)
 {
-  if (!RelevanceEngineLibraryCore_1())
+  v4 = 0;
+  v2 = RelevanceEngineLibraryCore_1(&v4);
+  v3 = v4;
+  if (v2)
   {
-    v2 = abort_report_np();
-    free(v2);
+    if (!v4)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v3 = abort_report_np("%s", v4);
+  }
+
+  free(v3);
+LABEL_3:
   *(*(*(a1 + 32) + 8) + 24) = objc_getClass("_REEngineDefaults");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
@@ -47,12 +71,24 @@ void __get_REEngineDefaultsClass_block_invoke_0(uint64_t a1)
 
 Class __get_REEngineDefaultsClass_block_invoke_1(uint64_t a1)
 {
-  if (!RelevanceEngineLibraryCore_2())
+  v7 = 0;
+  v2 = RelevanceEngineLibraryCore_2(&v7);
+  v3 = v7;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v7)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v3 = abort_report_np("%s", v7);
+  }
+
+  free(v3);
+LABEL_3:
   result = objc_getClass("_REEngineDefaults");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (*(*(*(a1 + 32) + 8) + 24))
@@ -62,8 +98,8 @@ Class __get_REEngineDefaultsClass_block_invoke_1(uint64_t a1)
 
   else
   {
-    v4 = __get_REEngineDefaultsClass_block_invoke_cold_1();
-    return OUTLINED_FUNCTION_4_1(v4, v5);
+    __get_REEngineDefaultsClass_block_invoke_cold_1();
+    return OUTLINED_FUNCTION_4_1(v5, v6);
   }
 
   return result;
@@ -71,12 +107,24 @@ Class __get_REEngineDefaultsClass_block_invoke_1(uint64_t a1)
 
 Class __get_REEngineDefaultsClass_block_invoke_2(uint64_t a1)
 {
-  if (!RelevanceEngineLibraryCore_3())
+  v6 = 0;
+  v2 = RelevanceEngineLibraryCore_3(&v6);
+  v3 = v6;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v6)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v3 = abort_report_np("%s", v6);
+  }
+
+  free(v3);
+LABEL_3:
   result = objc_getClass("_REEngineDefaults");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (*(*(*(a1 + 32) + 8) + 24))
@@ -87,7 +135,7 @@ Class __get_REEngineDefaultsClass_block_invoke_2(uint64_t a1)
   else
   {
     __get_REEngineDefaultsClass_block_invoke_cold_1();
-    return RESampleFeature();
+    return RESampleFeature(v5);
   }
 
   return result;
@@ -95,12 +143,24 @@ Class __get_REEngineDefaultsClass_block_invoke_2(uint64_t a1)
 
 Class __get_REEngineDefaultsClass_block_invoke_3(uint64_t a1)
 {
-  if (!RelevanceEngineLibraryCore_4())
+  v7 = 0;
+  v2 = RelevanceEngineLibraryCore_4(&v7);
+  v3 = v7;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v7)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v3 = abort_report_np("%s", v7);
+  }
+
+  free(v3);
+LABEL_3:
   result = objc_getClass("_REEngineDefaults");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (*(*(*(a1 + 32) + 8) + 24))
@@ -110,8 +170,8 @@ Class __get_REEngineDefaultsClass_block_invoke_3(uint64_t a1)
 
   else
   {
-    v4 = __get_REEngineDefaultsClass_block_invoke_cold_1();
-    return __REGetDisableMLModel_block_invoke(v4);
+    __get_REEngineDefaultsClass_block_invoke_cold_1();
+    return __REGetDisableMLModel_block_invoke(v5, v6);
   }
 
   return result;

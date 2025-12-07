@@ -269,12 +269,12 @@ void __59__UIKeyboardEmojiSplitCategoryPicker_titleForRow_fallback___block_invok
 
   else
   {
-    v29 = +[UIColor blackColor];
+    v29 = objc_msgSend_blackColor(UIColor);
     v30 = [image _flatImageWithColor:v29];
     symbol4 = [(UIKeyboardEmojiSplitCategoryCell *)v7 symbol];
     [symbol4 setImage:v30];
 
-    +[UIColor blackColor];
+    objc_msgSend_blackColor(UIColor);
   }
   v32 = ;
   title2 = [(UIKeyboardEmojiSplitCategoryCell *)v7 title];

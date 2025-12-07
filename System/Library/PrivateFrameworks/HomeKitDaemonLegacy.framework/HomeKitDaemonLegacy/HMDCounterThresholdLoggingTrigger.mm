@@ -8,7 +8,7 @@
 
 - (void)logThresholdTrigger:(id)trigger triggerValue:(unint64_t)value
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -18,12 +18,12 @@
     v10 = HMFGetLogIdentifier();
     counterName = [(HMDCounterThresholdLoggingTrigger *)selfCopy counterName];
     *buf = 138544130;
-    v21 = v10;
-    v22 = 2114;
-    v23 = triggerCopy;
-    v24 = 2114;
-    v25 = counterName;
-    v26 = 2048;
+    v20 = v10;
+    v21 = 2114;
+    v22 = triggerCopy;
+    v23 = 2114;
+    v24 = counterName;
+    v25 = 2048;
     valueCopy = value;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@EWS threshold trigger: trigger=%{public}@, counter=%{public}@, value=%lu", buf, 0x2Au);
   }
@@ -32,14 +32,12 @@
   ewsLogger = [(HMDCounterThresholdLoggingTrigger *)selfCopy ewsLogger];
   uploadImmediately = [(HMDCounterThresholdLoggingTrigger *)selfCopy uploadImmediately];
   counterName2 = [(HMDCounterThresholdLoggingTrigger *)selfCopy counterName];
-  v18[1] = @"value";
-  v19[0] = counterName2;
+  v17[1] = @"value";
+  v18[0] = counterName2;
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:value];
-  v19[1] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v18[1] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
   [ewsLogger submitEventWithName:triggerCopy serviceName:@"Counter Trigger" uploadImmediately:uploadImmediately payload:v16];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatedCounter:(id)counter fromOldValue:(int64_t)value toNewValue:(int64_t)newValue

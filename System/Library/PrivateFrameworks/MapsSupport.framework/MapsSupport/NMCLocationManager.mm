@@ -17,9 +17,9 @@
 - (NMCLocationManager)initWithBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v13.receiver = self;
-  v13.super_class = NMCLocationManager;
-  v5 = [(NMCLocationManager *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = NMCLocationManager;
+  v5 = [(NMCLocationManager *)&v14 init];
   if (v5)
   {
     v6 = [identifierCopy copy];
@@ -27,23 +27,24 @@
     v5->_bundleIdentifier = v6;
 
     v8 = v5->_bundleIdentifier;
+    v9 = v8;
     if (v8)
     {
-      v9 = sub_100029194();
-      v10 = [v9 objectForKeyedSubscript:v8];
-      if (!v10)
+      v10 = sub_100029194(v8);
+      v11 = [v10 objectForKeyedSubscript:v9];
+      if (!v11)
       {
-        v10 = v8;
+        v11 = v9;
       }
     }
 
     else
     {
-      v10 = 0;
+      v11 = 0;
     }
 
     effectiveBundleIdentifier = v5->_effectiveBundleIdentifier;
-    v5->_effectiveBundleIdentifier = v10;
+    v5->_effectiveBundleIdentifier = v11;
   }
 
   return v5;
@@ -52,9 +53,9 @@
 - (NMCLocationManager)initWithEffectiveBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v20.receiver = self;
-  v20.super_class = NMCLocationManager;
-  v5 = [(NMCLocationManager *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = NMCLocationManager;
+  v5 = [(NMCLocationManager *)&v21 init];
   if (v5)
   {
     v6 = [identifierCopy copy];
@@ -62,40 +63,41 @@
     v5->_effectiveBundleIdentifier = v6;
 
     v8 = identifierCopy;
+    v9 = v8;
     if (v8)
     {
-      v9 = sub_100029194();
-      v21 = 0u;
+      v10 = sub_100029194(v8);
       v22 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v10 = v9;
-      v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
-      if (v11)
+      v25 = 0u;
+      v11 = v10;
+      v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      if (v12)
       {
-        v12 = v11;
-        v13 = *v22;
+        v13 = v12;
+        v14 = *v23;
         while (2)
         {
-          for (i = 0; i != v12; i = i + 1)
+          for (i = 0; i != v13; i = i + 1)
           {
-            if (*v22 != v13)
+            if (*v23 != v14)
             {
-              objc_enumerationMutation(v10);
+              objc_enumerationMutation(v11);
             }
 
-            v15 = *(*(&v21 + 1) + 8 * i);
-            v16 = [v10 objectForKeyedSubscript:v15];
-            if ([v16 isEqualToString:v8])
+            v16 = *(*(&v22 + 1) + 8 * i);
+            v17 = [v11 objectForKeyedSubscript:v16];
+            if ([v17 isEqualToString:v9])
             {
-              v17 = v15;
+              v18 = v16;
 
               goto LABEL_13;
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
-          if (v12)
+          v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          if (v13)
           {
             continue;
           }
@@ -104,17 +106,17 @@
         }
       }
 
-      v17 = v8;
+      v18 = v9;
 LABEL_13:
     }
 
     else
     {
-      v17 = 0;
+      v18 = 0;
     }
 
     bundleIdentifier = v5->_bundleIdentifier;
-    v5->_bundleIdentifier = v17;
+    v5->_bundleIdentifier = v18;
   }
 
   return v5;

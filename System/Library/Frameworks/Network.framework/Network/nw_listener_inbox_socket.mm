@@ -16,7 +16,7 @@
   sockfd_from_client = self->_sockfd_from_client;
   v3 = sockfd_from_client;
   self->_sockfd_from_client = -1;
-  if (v3 < 0)
+  if ((v3 & 0x80000000) != 0)
   {
     posix_error = nw_listener_socket_inbox_create_socket(self->super._parameters, self->_listenUUID, &sockfd_from_client);
     v5 = sockfd_from_client;
@@ -47,7 +47,7 @@
       *&buf[0].sa_data[2] = "[nw_listener_inbox_socket start]";
       *&buf[0].sa_data[10] = 1024;
       *&buf[0].sa_data[12] = error_code;
-      v9 = _os_log_send_and_compose_impl();
+      v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s FIONBIO failed %{darwin.errno}d", buf, 18);
 
       type[0] = OS_LOG_TYPE_ERROR;
       v88[0] = OS_LOG_TYPE_DEFAULT;
@@ -146,7 +146,7 @@
       *&buf[0].sa_data[12] = sockfd_from_client;
       *buf[1].sa_data = 1024;
       *&buf[1].sa_data[2] = v7;
-      v9 = _os_log_send_and_compose_impl();
+      v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s setsockopt(%d, TCP_FASTOPEN, 1) failed %{darwin.errno}d", buf, 24);
 
       type[0] = OS_LOG_TYPE_ERROR;
       v88[0] = OS_LOG_TYPE_DEFAULT;
@@ -284,7 +284,7 @@ LABEL_112:
     *&buf[0].sa_data[2] = "[nw_listener_inbox_socket start]";
     *&buf[0].sa_data[10] = 1024;
     *&buf[0].sa_data[12] = sockfd_from_client;
-    v24 = _os_log_send_and_compose_impl();
+    v24 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v23, 16, "%{public}s Failed to protect fd %d", buf, 18);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v88[0] = OS_LOG_TYPE_DEFAULT;
@@ -365,7 +365,7 @@ LABEL_67:
     v92 = 128;
     if (!getsockname(sockfd_from_client, buf, &v92))
     {
-      address = _nw_endpoint_create_address(buf);
+      address = _nw_endpoint_create_address(&buf[0].sa_len);
       local_endpoint = self->super._local_endpoint;
       self->super._local_endpoint = address;
     }
@@ -404,7 +404,8 @@ LABEL_73:
         v98 = sockfd_from_client;
         v99 = 1024;
         *v100 = v43;
-        v9 = _os_log_send_and_compose_impl();
+        LODWORD(v79) = 24;
+        v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v44, 16, "%{public}s setsockopt(%d, SO_INTCOPROC_ALLOW, 1) failed %{darwin.errno}d", type, v79);
 
         v88[0] = OS_LOG_TYPE_ERROR;
         LOBYTE(v87) = 0;
@@ -430,11 +431,11 @@ LABEL_73:
           {
             v27 = __nw_create_backtrace_string();
             v45 = __nwlog_obj();
-            v65 = v88[0];
-            v66 = os_log_type_enabled(v45, v88[0]);
+            v64 = v88[0];
+            v65 = os_log_type_enabled(v45, v88[0]);
             if (v27)
             {
-              if (v66)
+              if (v65)
               {
                 *type = 136446978;
                 v96 = "[nw_listener_inbox_socket start]";
@@ -444,13 +445,13 @@ LABEL_73:
                 *v100 = v43;
                 *&v100[4] = 2082;
                 *&v100[6] = v27;
-                _os_log_impl(&dword_181A37000, v45, v65, "%{public}s setsockopt(%d, SO_INTCOPROC_ALLOW, 1) failed %{darwin.errno}d, dumping backtrace:%{public}s", type, 0x22u);
+                _os_log_impl(&dword_181A37000, v45, v64, "%{public}s setsockopt(%d, SO_INTCOPROC_ALLOW, 1) failed %{darwin.errno}d, dumping backtrace:%{public}s", type, 0x22u);
               }
 
               goto LABEL_112;
             }
 
-            if (v66)
+            if (v65)
             {
               *type = 136446722;
               v96 = "[nw_listener_inbox_socket start]";
@@ -458,14 +459,14 @@ LABEL_73:
               v98 = sockfd_from_client;
               v99 = 1024;
               *v100 = v43;
-              _os_log_impl(&dword_181A37000, v45, v65, "%{public}s setsockopt(%d, SO_INTCOPROC_ALLOW, 1) failed %{darwin.errno}d, no backtrace", type, 0x18u);
+              _os_log_impl(&dword_181A37000, v45, v64, "%{public}s setsockopt(%d, SO_INTCOPROC_ALLOW, 1) failed %{darwin.errno}d, no backtrace", type, 0x18u);
             }
           }
 
           else
           {
             v45 = __nwlog_obj();
-            v70 = v88[0];
+            v69 = v88[0];
             if (os_log_type_enabled(v45, v88[0]))
             {
               *type = 136446722;
@@ -474,7 +475,7 @@ LABEL_73:
               v98 = sockfd_from_client;
               v99 = 1024;
               *v100 = v43;
-              _os_log_impl(&dword_181A37000, v45, v70, "%{public}s setsockopt(%d, SO_INTCOPROC_ALLOW, 1) failed %{darwin.errno}d, backtrace limit exceeded", type, 0x18u);
+              _os_log_impl(&dword_181A37000, v45, v69, "%{public}s setsockopt(%d, SO_INTCOPROC_ALLOW, 1) failed %{darwin.errno}d, backtrace limit exceeded", type, 0x18u);
             }
           }
         }
@@ -511,7 +512,7 @@ LABEL_91:
       source = self->_source;
       if (source)
       {
-        nw_queue_activate_source(source, v54);
+        nw_queue_activate_source(source);
         posix_error = 0;
 LABEL_132:
 
@@ -519,57 +520,58 @@ LABEL_132:
       }
 
       posix_error = [[NWConcrete_nw_error alloc] initWithDomain:12 code:?];
-      v56 = nw_error_get_error_code(posix_error);
+      v55 = nw_error_get_error_code(posix_error);
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
       networkd_settings_init();
-      v57 = gLogObj;
+      v56 = gLogObj;
       *type = 136446466;
       v96 = "[nw_listener_inbox_socket start]";
       v97 = 1024;
-      v98 = v56;
-      v58 = _os_log_send_and_compose_impl();
+      v98 = v55;
+      LODWORD(v79) = 18;
+      v57 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v56, 16, "%{public}s nw_queue_context_create_source failed %{darwin.errno}d", type, v79);
 
       v88[0] = OS_LOG_TYPE_ERROR;
       LOBYTE(v87) = 0;
-      if (__nwlog_fault(v58, v88, &v87))
+      if (__nwlog_fault(v57, v88, &v87))
       {
         if (v88[0] == OS_LOG_TYPE_FAULT)
         {
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
           networkd_settings_init();
-          v59 = gLogObj;
-          v60 = v88[0];
-          if (os_log_type_enabled(v59, v88[0]))
+          v58 = gLogObj;
+          v59 = v88[0];
+          if (os_log_type_enabled(v58, v88[0]))
           {
             *type = 136446466;
             v96 = "[nw_listener_inbox_socket start]";
             v97 = 1024;
-            v98 = v56;
-            _os_log_impl(&dword_181A37000, v59, v60, "%{public}s nw_queue_context_create_source failed %{darwin.errno}d", type, 0x12u);
+            v98 = v55;
+            _os_log_impl(&dword_181A37000, v58, v59, "%{public}s nw_queue_context_create_source failed %{darwin.errno}d", type, 0x12u);
           }
         }
 
         else if (v87 == 1)
         {
-          v61 = __nw_create_backtrace_string();
-          v59 = __nwlog_obj();
-          v62 = v88[0];
-          v63 = os_log_type_enabled(v59, v88[0]);
-          if (v61)
+          v60 = __nw_create_backtrace_string();
+          v58 = __nwlog_obj();
+          v61 = v88[0];
+          v62 = os_log_type_enabled(v58, v88[0]);
+          if (v60)
           {
-            if (v63)
+            if (v62)
             {
               *type = 136446722;
               v96 = "[nw_listener_inbox_socket start]";
               v97 = 1024;
-              v98 = v56;
+              v98 = v55;
               v99 = 2082;
-              *v100 = v61;
-              _os_log_impl(&dword_181A37000, v59, v62, "%{public}s nw_queue_context_create_source failed %{darwin.errno}d, dumping backtrace:%{public}s", type, 0x1Cu);
+              *v100 = v60;
+              _os_log_impl(&dword_181A37000, v58, v61, "%{public}s nw_queue_context_create_source failed %{darwin.errno}d, dumping backtrace:%{public}s", type, 0x1Cu);
             }
 
-            free(v61);
-            if (!v58)
+            free(v60);
+            if (!v57)
             {
               goto LABEL_132;
             }
@@ -577,38 +579,38 @@ LABEL_132:
             goto LABEL_131;
           }
 
-          if (v63)
+          if (v62)
           {
             *type = 136446466;
             v96 = "[nw_listener_inbox_socket start]";
             v97 = 1024;
-            v98 = v56;
-            _os_log_impl(&dword_181A37000, v59, v62, "%{public}s nw_queue_context_create_source failed %{darwin.errno}d, no backtrace", type, 0x12u);
+            v98 = v55;
+            _os_log_impl(&dword_181A37000, v58, v61, "%{public}s nw_queue_context_create_source failed %{darwin.errno}d, no backtrace", type, 0x12u);
           }
         }
 
         else
         {
-          v59 = __nwlog_obj();
-          v64 = v88[0];
-          if (os_log_type_enabled(v59, v88[0]))
+          v58 = __nwlog_obj();
+          v63 = v88[0];
+          if (os_log_type_enabled(v58, v88[0]))
           {
             *type = 136446466;
             v96 = "[nw_listener_inbox_socket start]";
             v97 = 1024;
-            v98 = v56;
-            _os_log_impl(&dword_181A37000, v59, v64, "%{public}s nw_queue_context_create_source failed %{darwin.errno}d, backtrace limit exceeded", type, 0x12u);
+            v98 = v55;
+            _os_log_impl(&dword_181A37000, v58, v63, "%{public}s nw_queue_context_create_source failed %{darwin.errno}d, backtrace limit exceeded", type, 0x12u);
           }
         }
       }
 
-      if (!v58)
+      if (!v57)
       {
         goto LABEL_132;
       }
 
 LABEL_131:
-      free(v58);
+      free(v57);
       goto LABEL_132;
     }
 
@@ -631,15 +633,16 @@ LABEL_131:
         if (getsockopt(sockfd_from_client, 41, 125, &v87, &v92))
         {
           posix_error = nw_error_create_posix_error(**(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8));
-          v67 = nw_error_get_error_code(posix_error);
-          v68 = __nwlog_obj();
+          v66 = nw_error_get_error_code(posix_error);
+          v67 = __nwlog_obj();
           *type = 136446722;
           v96 = "[nw_listener_inbox_socket start]";
           v97 = 1024;
           v98 = sockfd_from_client;
           v99 = 1024;
-          *v100 = v67;
-          v9 = _os_log_send_and_compose_impl();
+          *v100 = v66;
+          LODWORD(v79) = 24;
+          v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v67, 16, "%{public}s getsockopt(%d, IPV6_BOUND_IF) failed %{darwin.errno}d", type, v79);
 
           v86 = OS_LOG_TYPE_ERROR;
           v85 = 0;
@@ -651,7 +654,7 @@ LABEL_131:
           if (v86 == OS_LOG_TYPE_FAULT)
           {
             v50 = __nwlog_obj();
-            v69 = v86;
+            v68 = v86;
             if (os_log_type_enabled(v50, v86))
             {
               *type = 136446722;
@@ -659,8 +662,8 @@ LABEL_131:
               v97 = 1024;
               v98 = sockfd_from_client;
               v99 = 1024;
-              *v100 = v67;
-              _os_log_impl(&dword_181A37000, v50, v69, "%{public}s getsockopt(%d, IPV6_BOUND_IF) failed %{darwin.errno}d", type, 0x18u);
+              *v100 = v66;
+              _os_log_impl(&dword_181A37000, v50, v68, "%{public}s getsockopt(%d, IPV6_BOUND_IF) failed %{darwin.errno}d", type, 0x18u);
             }
 
             goto LABEL_157;
@@ -669,7 +672,7 @@ LABEL_131:
           if (v85 != 1)
           {
             v50 = __nwlog_obj();
-            v78 = v86;
+            v77 = v86;
             if (os_log_type_enabled(v50, v86))
             {
               *type = 136446722;
@@ -677,8 +680,8 @@ LABEL_131:
               v97 = 1024;
               v98 = sockfd_from_client;
               v99 = 1024;
-              *v100 = v67;
-              _os_log_impl(&dword_181A37000, v50, v78, "%{public}s getsockopt(%d, IPV6_BOUND_IF) failed %{darwin.errno}d, backtrace limit exceeded", type, 0x18u);
+              *v100 = v66;
+              _os_log_impl(&dword_181A37000, v50, v77, "%{public}s getsockopt(%d, IPV6_BOUND_IF) failed %{darwin.errno}d, backtrace limit exceeded", type, 0x18u);
             }
 
             goto LABEL_157;
@@ -686,35 +689,35 @@ LABEL_131:
 
           v27 = __nw_create_backtrace_string();
           v50 = __nwlog_obj();
-          v75 = v86;
-          v76 = os_log_type_enabled(v50, v86);
+          v74 = v86;
+          v75 = os_log_type_enabled(v50, v86);
           if (!v27)
           {
-            if (v76)
+            if (v75)
             {
               *type = 136446722;
               v96 = "[nw_listener_inbox_socket start]";
               v97 = 1024;
               v98 = sockfd_from_client;
               v99 = 1024;
-              *v100 = v67;
-              _os_log_impl(&dword_181A37000, v50, v75, "%{public}s getsockopt(%d, IPV6_BOUND_IF) failed %{darwin.errno}d, no backtrace", type, 0x18u);
+              *v100 = v66;
+              _os_log_impl(&dword_181A37000, v50, v74, "%{public}s getsockopt(%d, IPV6_BOUND_IF) failed %{darwin.errno}d, no backtrace", type, 0x18u);
             }
 
             goto LABEL_157;
           }
 
-          if (v76)
+          if (v75)
           {
             *type = 136446978;
             v96 = "[nw_listener_inbox_socket start]";
             v97 = 1024;
             v98 = sockfd_from_client;
             v99 = 1024;
-            *v100 = v67;
+            *v100 = v66;
             *&v100[4] = 2082;
             *&v100[6] = v27;
-            _os_log_impl(&dword_181A37000, v50, v75, "%{public}s getsockopt(%d, IPV6_BOUND_IF) failed %{darwin.errno}d, dumping backtrace:%{public}s", type, 0x22u);
+            _os_log_impl(&dword_181A37000, v50, v74, "%{public}s getsockopt(%d, IPV6_BOUND_IF) failed %{darwin.errno}d, dumping backtrace:%{public}s", type, 0x22u);
           }
 
           goto LABEL_137;
@@ -739,7 +742,8 @@ LABEL_131:
           v98 = sockfd_from_client;
           v99 = 1024;
           *v100 = v48;
-          v9 = _os_log_send_and_compose_impl();
+          LODWORD(v79) = 24;
+          v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v49, 16, "%{public}s getsockopt(%d, IP_BOUND_IF) failed %{darwin.errno}d", type, v79);
 
           v86 = OS_LOG_TYPE_ERROR;
           v85 = 0;
@@ -771,7 +775,7 @@ LABEL_157:
           if (v85 != 1)
           {
             v50 = __nwlog_obj();
-            v77 = v86;
+            v76 = v86;
             if (os_log_type_enabled(v50, v86))
             {
               *type = 136446722;
@@ -780,7 +784,7 @@ LABEL_157:
               v98 = sockfd_from_client;
               v99 = 1024;
               *v100 = v48;
-              _os_log_impl(&dword_181A37000, v50, v77, "%{public}s getsockopt(%d, IP_BOUND_IF) failed %{darwin.errno}d, backtrace limit exceeded", type, 0x18u);
+              _os_log_impl(&dword_181A37000, v50, v76, "%{public}s getsockopt(%d, IP_BOUND_IF) failed %{darwin.errno}d, backtrace limit exceeded", type, 0x18u);
             }
 
             goto LABEL_157;
@@ -788,11 +792,11 @@ LABEL_157:
 
           v27 = __nw_create_backtrace_string();
           v50 = __nwlog_obj();
-          v73 = v86;
-          v74 = os_log_type_enabled(v50, v86);
+          v72 = v86;
+          v73 = os_log_type_enabled(v50, v86);
           if (!v27)
           {
-            if (v74)
+            if (v73)
             {
               *type = 136446722;
               v96 = "[nw_listener_inbox_socket start]";
@@ -800,13 +804,13 @@ LABEL_157:
               v98 = sockfd_from_client;
               v99 = 1024;
               *v100 = v48;
-              _os_log_impl(&dword_181A37000, v50, v73, "%{public}s getsockopt(%d, IP_BOUND_IF) failed %{darwin.errno}d, no backtrace", type, 0x18u);
+              _os_log_impl(&dword_181A37000, v50, v72, "%{public}s getsockopt(%d, IP_BOUND_IF) failed %{darwin.errno}d, no backtrace", type, 0x18u);
             }
 
             goto LABEL_157;
           }
 
-          if (v74)
+          if (v73)
           {
             *type = 136446978;
             v96 = "[nw_listener_inbox_socket start]";
@@ -816,7 +820,7 @@ LABEL_157:
             *v100 = v48;
             *&v100[4] = 2082;
             *&v100[6] = v27;
-            _os_log_impl(&dword_181A37000, v50, v73, "%{public}s getsockopt(%d, IP_BOUND_IF) failed %{darwin.errno}d, dumping backtrace:%{public}s", type, 0x22u);
+            _os_log_impl(&dword_181A37000, v50, v72, "%{public}s getsockopt(%d, IP_BOUND_IF) failed %{darwin.errno}d, dumping backtrace:%{public}s", type, 0x22u);
           }
 
 LABEL_137:
@@ -827,9 +831,9 @@ LABEL_137:
 
       if (v87)
       {
-        v71 = nw_interface_create_with_index(v87);
-        v72 = self->super._interface;
-        self->super._interface = v71;
+        v70 = nw_interface_create_with_index(v87);
+        v71 = self->super._interface;
+        self->super._interface = v70;
       }
     }
 
@@ -874,10 +878,10 @@ LABEL_161:
 
 - (BOOL)resume
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = nw_listener_inbox_socket;
-  resume = [(nw_listener_inbox *)&v8 resume];
+  v12 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = nw_listener_inbox_socket;
+  resume = [(nw_listener_inbox *)&v7 resume];
   if (resume && self->_source)
   {
     v4 = resume;
@@ -887,13 +891,13 @@ LABEL_161:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136446466;
-      v10 = "[nw_listener_inbox_socket resume]";
-      v11 = 2114;
+      v9 = "[nw_listener_inbox_socket resume]";
+      v10 = 2114;
       selfCopy = self;
       _os_log_impl(&dword_181A37000, v5, OS_LOG_TYPE_INFO, "%{public}s Resumed inbox %{public}@", buf, 0x16u);
     }
 
-    nw_queue_resume_source(self->_source, v6);
+    nw_queue_resume_source(self->_source);
     LOBYTE(resume) = v4;
   }
 
@@ -905,7 +909,7 @@ LABEL_161:
   source = self->_source;
   if (source)
   {
-    nw_queue_cancel_source(self->_source, a2);
+    nw_queue_cancel_source(self->_source);
     self->_source = 0;
   }
 
@@ -965,7 +969,7 @@ LABEL_161:
     v26 = "[nw_listener_inbox_socket initWithParameters:delegate:]";
     v27 = 1024;
     v28 = v11;
-    v14 = _os_log_send_and_compose_impl();
+    v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s Cannot create listener with IP Protocol %u", buf, 18);
 
     type = OS_LOG_TYPE_ERROR;
     v22 = 0;

@@ -35,7 +35,6 @@
   self->_drawableMultisample = 0;
   v4 = MEMORY[0x277CBEB38];
   v5 = [MEMORY[0x277CCABB0] numberWithBool:0];
-  v6 = *MEMORY[0x277CD93C0];
   -[GLKView setDrawableProperties:](self, "setDrawableProperties:", [v4 dictionaryWithObjectsAndKeys:{v5, *MEMORY[0x277CD93C0], *MEMORY[0x277CD93A0], *MEMORY[0x277CD93B8], 0}]);
   [layer setDrawableProperties:self->_drawableProperties];
   [layer setOpaque:1];
@@ -133,7 +132,7 @@
 
 - (void)dealloc
 {
-  if (glkLinkedOSVersion() < 0x90000)
+  if (glkLinkedOSVersion(self, a2) < 0x90000)
   {
     currentContext = 0;
   }
@@ -145,15 +144,15 @@
 
   [(GLKView *)self _deleteFramebuffer];
 
-  if (glkLinkedOSVersion() > 0x8FFFF)
+  if (glkLinkedOSVersion(v4, v5) > 0x8FFFF)
   {
     [MEMORY[0x277CD9388] setCurrentContext:currentContext];
   }
 
   [(GLKView *)self setDrawableProperties:0];
-  v4.receiver = self;
-  v4.super_class = GLKView;
-  [(GLKView *)&v4 dealloc];
+  v6.receiver = self;
+  v6.super_class = GLKView;
+  [(GLKView *)&v6 dealloc];
 }
 
 - (void)_createFramebuffer
@@ -203,13 +202,10 @@
 
     if (self->_drawableMultisample)
     {
-      self->_drawableColorFormat;
       glGenFramebuffers(1, &self->_multisampleFramebuffer);
       glBindFramebuffer(0x8D40u, self->_multisampleFramebuffer);
       glGenRenderbuffers(1, &self->_multisampleColorRenderbuffer);
       glBindRenderbuffer(0x8D41u, self->_multisampleColorRenderbuffer);
-      drawableWidth_low = LODWORD(self->_drawableWidth);
-      drawableHeight_low = LODWORD(self->_drawableHeight);
       glRenderbufferStorageMultisampleAPPLE();
       glFramebufferRenderbuffer(0x8D40u, 0x8CE0u, 0x8D41u, self->_multisampleColorRenderbuffer);
       drawableStencilFormat = self->_drawableStencilFormat;
@@ -220,18 +216,14 @@
           p_depthRenderbuffer = &self->_depthRenderbuffer;
           glGenRenderbuffers(1, &self->_depthRenderbuffer);
           glBindRenderbuffer(0x8D41u, self->_depthRenderbuffer);
-          v19 = LODWORD(self->_drawableWidth);
-          v20 = LODWORD(self->_drawableHeight);
           glRenderbufferStorageMultisampleAPPLE();
-          v18 = 36096;
+          v12 = 36096;
           goto LABEL_21;
         }
 
         p_depthRenderbuffer = &self->_depthStencilRenderbuffer;
         glGenRenderbuffers(1, &self->_depthStencilRenderbuffer);
         glBindRenderbuffer(0x8D41u, self->_depthStencilRenderbuffer);
-        v12 = LODWORD(self->_drawableWidth);
-        v13 = LODWORD(self->_drawableHeight);
         glRenderbufferStorageMultisampleAPPLE();
         glFramebufferRenderbuffer(0x8D40u, 0x8D00u, 0x8D41u, self->_depthStencilRenderbuffer);
       }
@@ -246,30 +238,28 @@
         p_depthRenderbuffer = &self->_stencilRenderbuffer;
         glGenRenderbuffers(1, &self->_stencilRenderbuffer);
         glBindRenderbuffer(0x8D41u, self->_stencilRenderbuffer);
-        v16 = LODWORD(self->_drawableWidth);
-        v17 = LODWORD(self->_drawableHeight);
         glRenderbufferStorageMultisampleAPPLE();
       }
 
-      v18 = 36128;
+      v12 = 36128;
 LABEL_21:
-      glFramebufferRenderbuffer(0x8D40u, v18, 0x8D41u, *p_depthRenderbuffer);
+      glFramebufferRenderbuffer(0x8D40u, v12, 0x8D41u, *p_depthRenderbuffer);
 LABEL_22:
       if (glCheckFramebufferStatus(0x8D40u) != 36053)
       {
-        v21 = glCheckFramebufferStatus(0x8D40u);
-        NSLog(&cfstr_FailedToMakeCo.isa, v21);
-        v22 = 1;
+        v13 = glCheckFramebufferStatus(0x8D40u);
+        NSLog(&cfstr_FailedToMakeCo.isa, v13);
+        v14 = 1;
         goto LABEL_30;
       }
 
 LABEL_29:
-      v22 = 0;
+      v14 = 0;
 LABEL_30:
       glBindFramebuffer(0x8D40u, self->_resolveFramebuffer);
       if (glCheckFramebufferStatus(0x8D40u) == 36053)
       {
-        if (!v22)
+        if (!v14)
         {
           goto LABEL_35;
         }
@@ -277,8 +267,8 @@ LABEL_30:
 
       else
       {
-        v25 = glCheckFramebufferStatus(0x8D40u);
-        NSLog(&cfstr_FailedToMakeCo_0.isa, v25);
+        v17 = glCheckFramebufferStatus(0x8D40u);
+        NSLog(&cfstr_FailedToMakeCo_0.isa, v17);
       }
 
       [(GLKView *)self _deleteFramebuffer];
@@ -289,20 +279,20 @@ LABEL_35:
 
     self->_multisampleFramebuffer = 0;
     self->_multisampleColorRenderbuffer = 0;
-    v14 = self->_drawableStencilFormat;
+    v10 = self->_drawableStencilFormat;
     if (self->_drawableDepthFormat)
     {
-      if (!v14)
+      if (!v10)
       {
         glGenRenderbuffers(1, &self->_depthRenderbuffer);
         glBindRenderbuffer(0x8D41u, self->_depthRenderbuffer);
         glRenderbufferStorage(0x8D41u, v7, self->_drawableWidth, self->_drawableHeight);
         depthRenderbuffer = self->_depthRenderbuffer;
-        v24 = 36096;
+        v16 = 36096;
         goto LABEL_28;
       }
 
-      v15 = 436;
+      v11 = 436;
       glGenRenderbuffers(1, &self->_depthStencilRenderbuffer);
       glBindRenderbuffer(0x8D41u, self->_depthStencilRenderbuffer);
       glRenderbufferStorage(0x8D41u, 0x88F0u, self->_drawableWidth, self->_drawableHeight);
@@ -311,21 +301,21 @@ LABEL_35:
 
     else
     {
-      if (!v14)
+      if (!v10)
       {
         goto LABEL_29;
       }
 
-      v15 = 432;
+      v11 = 432;
       glGenRenderbuffers(1, &self->_stencilRenderbuffer);
       glBindRenderbuffer(0x8D41u, self->_stencilRenderbuffer);
       glRenderbufferStorage(0x8D41u, 0x8D48u, self->_drawableWidth, self->_drawableHeight);
     }
 
-    depthRenderbuffer = *(&self->super.super.super.isa + v15);
-    v24 = 36128;
+    depthRenderbuffer = *(&self->super.super.super.isa + v11);
+    v16 = 36128;
 LABEL_28:
-    glFramebufferRenderbuffer(0x8D40u, v24, 0x8D41u, depthRenderbuffer);
+    glFramebufferRenderbuffer(0x8D40u, v16, 0x8D41u, depthRenderbuffer);
     goto LABEL_29;
   }
 }
@@ -423,7 +413,6 @@ LABEL_28:
 
 - (void)_resolveAndDiscard
 {
-  v4 = *MEMORY[0x277D85DE8];
   glPushGroupMarkerEXT(0, "Resolve and Discard");
   if (self->_drawableMultisample)
   {
@@ -442,7 +431,6 @@ LABEL_28:
 
   glDiscardFramebufferEXT();
   glPopGroupMarkerEXT();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_presentFramebuffer
@@ -687,23 +675,8 @@ LABEL_28:
   v15.origin.y = v6;
   v15.size.width = v8;
   v15.size.height = v10;
-  if (Width != CGRectGetWidth(v15))
+  if (Width != CGRectGetWidth(v15) || (v16.origin.x = p_viewBounds->origin.x, v16.origin.y = self->_viewBounds.origin.y, v16.size.width = self->_viewBounds.size.width, v16.size.height = self->_viewBounds.size.height, Height = CGRectGetHeight(v16), v17.origin.x = v4, v17.origin.y = v6, v17.size.width = v8, v17.size.height = v10, Height != CGRectGetHeight(v17)))
   {
-    goto LABEL_3;
-  }
-
-  v16.origin.x = p_viewBounds->origin.x;
-  v16.origin.y = self->_viewBounds.origin.y;
-  v16.size.width = self->_viewBounds.size.width;
-  v16.size.height = self->_viewBounds.size.height;
-  Height = CGRectGetHeight(v16);
-  v17.origin.x = v4;
-  v17.origin.y = v6;
-  v17.size.width = v8;
-  v17.size.height = v10;
-  if (Height != CGRectGetHeight(v17))
-  {
-LABEL_3:
     p_viewBounds->origin.x = v4;
     self->_viewBounds.origin.y = v6;
     self->_viewBounds.size.width = v8;

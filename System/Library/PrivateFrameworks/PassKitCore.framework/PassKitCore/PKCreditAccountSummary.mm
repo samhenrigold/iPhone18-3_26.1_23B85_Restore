@@ -92,12 +92,12 @@
     v5->_requiresDebtCollectionNotices = [dictionaryCopy PKBoolForKey:@"requiresDebtCollectionNotices"];
     v22 = [dictionaryCopy PKStringForKey:@"balanceStatus"];
     lowercaseString = [v22 lowercaseString];
-    if ([lowercaseString isEqualToString:@"current"])
+    if (objc_msgSend_isEqualToString_(lowercaseString))
     {
       v24 = 1;
     }
 
-    else if ([lowercaseString isEqualToString:@"pastdue"])
+    else if (objc_msgSend_isEqualToString_(lowercaseString))
     {
       v24 = 2;
     }
@@ -280,9 +280,9 @@ LABEL_17:
 
           if (accountUserAltDSID)
           {
-            v14 = [accountUserAltDSID isEqualToString:v12];
+            isEqualToString = objc_msgSend_isEqualToString_(accountUserAltDSID);
 
-            if (v14)
+            if (isEqualToString)
             {
               goto LABEL_17;
             }

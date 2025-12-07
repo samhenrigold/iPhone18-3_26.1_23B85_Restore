@@ -263,18 +263,18 @@
   type = [(TSDScalarPathSource *)self type];
   if (!type)
   {
-    v5 = @"Radius: %d pt";
+    v6 = @"Radius: %d pt";
     goto LABEL_5;
   }
 
   if (type == 1)
   {
-    v5 = @"Sides: %d";
+    v6 = @"Sides: %d";
 LABEL_5:
-    v6 = MEMORY[0x277CCACA8];
-    v7 = [TSDBundle() localizedStringForKey:v5 value:&stru_287D36338 table:@"TSDrawables"];
+    v7 = MEMORY[0x277CCACA8];
+    v8 = [TSDBundle(type v5)];
     [(TSDScalarPathSource *)self scalar];
-    return [v6 stringWithFormat:v7, v8];
+    return [v7 stringWithFormat:v8, v9];
   }
 
   return &stru_287D36338;

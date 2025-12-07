@@ -11,7 +11,6 @@
 {
   if (MEMORY[0x2822275F0])
   {
-    dispatchQueue = self->_dispatchQueue;
     RBSDispatchAsyncWithQoS();
   }
 }
@@ -59,53 +58,48 @@ void __30__RBPLEventQueue_scheduleWork__block_invoke(uint64_t a1)
       v6 = [v3 assertionCount];
       v7 = [v3 pid];
       v8 = [v5 hostIdentifier];
-      if ((v4 - 1) <= 3)
-      {
-        v9 = off_279B33F38[v4 - 1];
-      }
-
-      v10 = objc_opt_new();
-      v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v4];
-      [v10 setObject:v11 forKeyedSubscript:@"EventType"];
+      v9 = objc_opt_new();
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v4];
+      [v9 setObject:v10 forKeyedSubscript:@"EventType"];
 
       if (v7 == -1)
       {
-        [v10 setObject:0 forKeyedSubscript:@"PID"];
+        [v9 setObject:0 forKeyedSubscript:@"PID"];
         if (!v8)
         {
-LABEL_9:
-          [v10 setObject:0 forKeyedSubscript:@"HostPID"];
-          goto LABEL_10;
+LABEL_7:
+          [v9 setObject:0 forKeyedSubscript:@"HostPID"];
+          goto LABEL_8;
         }
       }
 
       else
       {
-        v12 = [MEMORY[0x277CCABB0] numberWithInt:v7];
-        [v10 setObject:v12 forKeyedSubscript:@"PID"];
+        v11 = [MEMORY[0x277CCABB0] numberWithInt:v7];
+        [v9 setObject:v11 forKeyedSubscript:@"PID"];
 
         if (!v8)
         {
-          goto LABEL_9;
+          goto LABEL_7;
         }
       }
 
-      v13 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v8, "pid")}];
-      [v10 setObject:v13 forKeyedSubscript:@"HostPID"];
+      v12 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v8, "pid")}];
+      [v9 setObject:v12 forKeyedSubscript:@"HostPID"];
 
-LABEL_10:
-      v14 = [v5 embeddedApplicationIdentifier];
-      [v10 setObject:v14 forKeyedSubscript:@"BundleID"];
+LABEL_8:
+      v13 = [v5 embeddedApplicationIdentifier];
+      [v9 setObject:v13 forKeyedSubscript:@"BundleID"];
 
       if ((v6 & 0x80000000) != 0)
       {
-        [v10 setObject:0 forKeyedSubscript:@"AssertionCount"];
+        [v9 setObject:0 forKeyedSubscript:@"AssertionCount"];
       }
 
       else
       {
-        v15 = [MEMORY[0x277CCABB0] numberWithInt:v6];
-        [v10 setObject:v15 forKeyedSubscript:@"AssertionCount"];
+        v14 = [MEMORY[0x277CCABB0] numberWithInt:v6];
+        [v9 setObject:v14 forKeyedSubscript:@"AssertionCount"];
       }
 
       if (MEMORY[0x2822275F0])
@@ -113,12 +107,12 @@ LABEL_10:
         PLLogRegisteredEvent();
       }
 
-      v16 = [*(a1 + 32) dequeueEvent];
+      v15 = [*(a1 + 32) dequeueEvent];
 
-      v3 = v16;
+      v3 = v15;
     }
 
-    while (v16);
+    while (v15);
   }
 }
 

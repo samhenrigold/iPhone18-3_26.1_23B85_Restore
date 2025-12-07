@@ -7,7 +7,7 @@
 
 + (id)viewControllerWithRestorationIdentifierPath:(id)path coder:(id)coder
 {
-  v4 = [objc_allocWithZone(type metadata accessor for GenresViewController()) init];
+  v4 = [objc_allocWithZone(type metadata accessor for GenresViewController(0)) init];
 
   return v4;
 }

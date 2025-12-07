@@ -36,8 +36,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v15[4] = *MEMORY[0x1E69E9840];
-  v14[0] = @"profileNumber";
+  v14[4] = *MEMORY[0x1E69E9840];
+  v13[0] = @"profileNumber";
   profileNumber = [(INSetProfileInCarIntent *)self profileNumber];
   null = profileNumber;
   if (!profileNumber)
@@ -45,8 +45,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[0] = null;
-  v14[1] = @"profileName";
+  v14[0] = null;
+  v13[1] = @"profileName";
   profileName = [(INSetProfileInCarIntent *)self profileName];
   null2 = profileName;
   if (!profileName)
@@ -54,8 +54,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[1] = null2;
-  v14[2] = @"defaultProfile";
+  v14[1] = null2;
+  v13[2] = @"defaultProfile";
   defaultProfile = [(INSetProfileInCarIntent *)self defaultProfile];
   null3 = defaultProfile;
   if (!defaultProfile)
@@ -63,8 +63,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[2] = null3;
-  v14[3] = @"carName";
+  v14[2] = null3;
+  v13[3] = @"carName";
   carName = [(INSetProfileInCarIntent *)self carName];
   null4 = carName;
   if (!carName)
@@ -72,8 +72,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[3] = null4;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v14[3] = null4;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
   if (!carName)
   {
   }
@@ -89,8 +89,6 @@
   if (!profileNumber)
   {
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

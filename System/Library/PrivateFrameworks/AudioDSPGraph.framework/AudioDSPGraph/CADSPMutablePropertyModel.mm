@@ -56,7 +56,7 @@
   self->super._this.defaultValue.var0.__val_.__cap_ = 0;
   if (size)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](&self->super._this.defaultValue, size);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](&self->super._this.defaultValue.var0.__val_, size);
   }
 
   self->super._this.defaultValue.__engaged_ = 1;

@@ -45,18 +45,16 @@
 
 - (void)didReturnCacheFalseNegatives:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [a1 count];
-  OUTLINED_FUNCTION_0(&dword_2155FE000, v1, v2, "Server returned %lu result(s) not returned from the cache", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 count];
+  OUTLINED_FUNCTION_0(&dword_2155FE000, v1, v2, "Server returned %lu result(s) not returned from the cache", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 - (void)didReturnCacheFalsePositives:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [a1 count];
-  OUTLINED_FUNCTION_0(&dword_2155FE000, v1, v2, "Cache returned %lu result(s) not returned by the server", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 count];
+  OUTLINED_FUNCTION_0(&dword_2155FE000, v1, v2, "Cache returned %lu result(s) not returned by the server", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

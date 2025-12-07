@@ -77,7 +77,7 @@ uint64_t __123__PLDuplicateDetectorPostProcessing_sharedLibraryRawPlusJPEGPostPr
     v30 = [*(a1 + 32) objectForKeyedSubscript:v6];
     v31 = [v30 objectForKeyedSubscript:@"additionalAttributes.originalStableHash"];
 
-    v32 = ([v29 isEqualToString:v31] & 1) != 0 || (v31 | v29) == 0;
+    v32 = (objc_msgSend_isEqualToString_(v29) & 1) != 0 || (v31 | v29) == 0;
     if (v19 || v26)
     {
       v27 = 0;
@@ -197,7 +197,7 @@ uint64_t __121__PLDuplicateDetectorPostProcessing_sharedLibraryLivePhotoPostProc
   mapCopy = map;
   keyCopy = key;
   sortKeyCopy = sortKey;
-  v13 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(dsCopy, "count")}];
+  v13 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(dsCopy)];
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
@@ -436,10 +436,10 @@ LABEL_32:
         }
 
         v22 = *(*(&v61 + 1) + 8 * v21);
-        if ([v22 count] > 1)
+        if (objc_msgSend_count(v22) > 1)
         {
           v23 = [self _postProcessSortOIDs:v22 oidMetadataMap:mapCopy sortKey:keyCopy secondarySortKey:sortKeyCopy];
-          v24 = [v23 count];
+          v24 = objc_msgSend_count(v23);
           if (v24)
           {
             v25 = v24;

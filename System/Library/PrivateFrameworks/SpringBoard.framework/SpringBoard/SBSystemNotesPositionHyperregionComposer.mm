@@ -166,7 +166,7 @@ id __62__SBSystemNotesPositionHyperregionComposer__setupStateCapture__block_invo
   OUTLINED_FUNCTION_1_25();
   v0 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "[%{public}@][Hyper]", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "[%{public}@][Hyper]", v3, v4, v5, v6);
 }
 
 - (void)setupForInteractiveCornerGestureEnd

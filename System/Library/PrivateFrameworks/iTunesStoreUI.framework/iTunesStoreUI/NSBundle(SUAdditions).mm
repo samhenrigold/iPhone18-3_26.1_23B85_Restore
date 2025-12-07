@@ -1,5 +1,5 @@
 @interface NSBundle(SUAdditions)
-+ (uint64_t)pathForITunesResource:()SUAdditions ofType:;
++ (void)pathForITunesResource:()SUAdditions ofType:;
 - (uint64_t)newDataURLForResource:()SUAdditions ofType:withMIMEType:;
 @end
 
@@ -39,7 +39,7 @@
   return v16;
 }
 
-+ (uint64_t)pathForITunesResource:()SUAdditions ofType:
++ (void)pathForITunesResource:()SUAdditions ofType:
 {
   result = [objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")];
   if (!result)

@@ -9,31 +9,31 @@
 
 - (void)remote_fetchSharingParticipantStatus:(id)status
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   profile = [(HDStandardTaskServer *)self profile];
   v6 = HDTinkerProtectedKeyValueDomainWithProfile(profile);
 
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__121;
-  v23 = __Block_byref_object_dispose__121;
-  v24 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__121;
+  v22 = __Block_byref_object_dispose__121;
+  v23 = 0;
   profile2 = [(HDStandardTaskServer *)self profile];
   database = [profile2 database];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __85__HDCloudSyncShareParticipantManagerTaskServer_remote_fetchSharingParticipantStatus___block_invoke;
-  v15[3] = &unk_27861A418;
-  v17 = &v19;
-  v18 = 0;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __85__HDCloudSyncShareParticipantManagerTaskServer_remote_fetchSharingParticipantStatus___block_invoke;
+  v14[3] = &unk_27861A418;
+  v16 = &v18;
+  v17 = 0;
   v9 = v6;
-  v16 = v9;
-  [database performHighPriorityTransactionsWithError:&v18 block:v15];
-  v10 = v18;
+  v15 = v9;
+  [database performHighPriorityTransactionsWithError:&v17 block:v14];
+  v10 = v17;
 
-  v11 = v20[5];
+  v11 = v19[5];
   if (v11)
   {
     integerValue = [v11 integerValue];
@@ -47,8 +47,8 @@
     {
       *buf = 138543618;
       selfCopy = self;
-      v27 = 2114;
-      v28 = v10;
+      v26 = 2114;
+      v27 = v10;
       _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "%{public}@ Failed to fetch participant share status. Error: %{public}@", buf, 0x16u);
     }
 
@@ -57,8 +57,7 @@
 
   statusCopy[2](statusCopy, integerValue);
 
-  _Block_object_dispose(&v19, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v18, 8);
 }
 
 uint64_t __85__HDCloudSyncShareParticipantManagerTaskServer_remote_fetchSharingParticipantStatus___block_invoke(uint64_t a1, uint64_t a2)
@@ -73,7 +72,7 @@ uint64_t __85__HDCloudSyncShareParticipantManagerTaskServer_remote_fetchSharingP
 
 - (void)remote_fetchAllShareParticipantEmailAddressesForSharingType:(unint64_t)type completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _HKInitializeLogging();
   v8 = *MEMORY[0x277CCC328];
@@ -83,55 +82,53 @@ uint64_t __85__HDCloudSyncShareParticipantManagerTaskServer_remote_fetchSharingP
     v10 = NSStringFromSelector(a2);
     *buf = 138543618;
     selfCopy = self;
-    v20 = 2114;
-    v21 = v10;
+    v19 = 2114;
+    v20 = v10;
     _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
   }
 
   profile = [(HDStandardTaskServer *)self profile];
   cloudSyncManager = [profile cloudSyncManager];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __119__HDCloudSyncShareParticipantManagerTaskServer_remote_fetchAllShareParticipantEmailAddressesForSharingType_completion___block_invoke;
-  v16[3] = &unk_27861B2F8;
-  v16[4] = self;
-  v17 = completionCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __119__HDCloudSyncShareParticipantManagerTaskServer_remote_fetchAllShareParticipantEmailAddressesForSharingType_completion___block_invoke;
+  v15[3] = &unk_27861B2F8;
+  v15[4] = self;
+  v16 = completionCopy;
   v13 = completionCopy;
-  v14 = [cloudSyncManager fetchShareParticipantsForSharingType:type completion:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [cloudSyncManager fetchShareParticipantsForSharingType:type completion:v15];
 }
 
 void __119__HDCloudSyncShareParticipantManagerTaskServer_remote_fetchAllShareParticipantEmailAddressesForSharingType_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = v5;
   if (v4 || !v5)
   {
-    v33 = v5;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
+    v32 = v5;
     v36 = 0u;
-    v11 = [v4 countByEnumeratingWithState:&v35 objects:v45 count:16];
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v11 = [v4 countByEnumeratingWithState:&v34 objects:v44 count:16];
     if (v11)
     {
       v12 = v11;
       v10 = 0;
-      v13 = *v36;
+      v13 = *v35;
       v14 = 0x277CBE000uLL;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v36 != v13)
+          if (*v35 != v13)
           {
             objc_enumerationMutation(v4);
           }
 
-          v16 = *(*(&v35 + 1) + 8 * i);
+          v16 = *(*(&v34 + 1) + 8 * i);
           if ([v16 role] != 1)
           {
             if (!v10)
@@ -162,19 +159,19 @@ void __119__HDCloudSyncShareParticipantManagerTaskServer_remote_fetchAllSharePar
                 v26 = [v16 userIdentity];
                 v27 = [v26 lookupInfo];
                 *buf = 138543874;
-                v40 = v24;
+                v39 = v24;
                 v14 = 0x277CBE000;
-                v41 = 2114;
-                v42 = v16;
-                v43 = 2114;
-                v44 = v27;
+                v40 = 2114;
+                v41 = v16;
+                v42 = 2114;
+                v43 = v27;
                 _os_log_fault_impl(&dword_228986000, v25, OS_LOG_TYPE_FAULT, "%{public}@ Received nil email address for fetched share participant %{public}@ with lookup info %{public}@", buf, 0x20u);
               }
             }
           }
         }
 
-        v12 = [v4 countByEnumeratingWithState:&v35 objects:v45 count:16];
+        v12 = [v4 countByEnumeratingWithState:&v34 objects:v44 count:16];
       }
 
       while (v12);
@@ -189,7 +186,7 @@ void __119__HDCloudSyncShareParticipantManagerTaskServer_remote_fetchAllSharePar
     v29 = [v10 allObjects];
     (*(v28 + 16))(v28, v29, 0);
 
-    v6 = v33;
+    v6 = v32;
   }
 
   else
@@ -198,11 +195,11 @@ void __119__HDCloudSyncShareParticipantManagerTaskServer_remote_fetchAllSharePar
     v7 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v32 = *(a1 + 32);
+      v31 = *(a1 + 32);
       *buf = 138543618;
-      v40 = v32;
-      v41 = 2114;
-      v42 = v6;
+      v39 = v31;
+      v40 = 2114;
+      v41 = v6;
       _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@ Failed to fetch participants from cloud zones, error: %{public}@", buf, 0x16u);
     }
 
@@ -222,13 +219,11 @@ void __119__HDCloudSyncShareParticipantManagerTaskServer_remote_fetchAllSharePar
       v10 = 0;
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_revokeAccessForAllShareParticipantsForSharingType:(unint64_t)type completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _HKInitializeLogging();
   v8 = MEMORY[0x277CCC328];
@@ -237,11 +232,11 @@ void __119__HDCloudSyncShareParticipantManagerTaskServer_remote_fetchAllSharePar
   {
     v10 = v9;
     v11 = NSStringFromSelector(a2);
-    v21 = 138543618;
+    v20 = 138543618;
     selfCopy2 = self;
-    v23 = 2114;
-    v24 = v11;
-    _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", &v21, 0x16u);
+    v22 = 2114;
+    v23 = v11;
+    _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", &v20, 0x16u);
   }
 
   profile = [(HDStandardTaskServer *)self profile];
@@ -260,25 +255,23 @@ void __119__HDCloudSyncShareParticipantManagerTaskServer_remote_fetchAllSharePar
     v17 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
     {
-      v19 = v17;
-      v20 = NSStringFromSelector(a2);
-      v21 = 138543618;
+      v18 = v17;
+      v19 = NSStringFromSelector(a2);
+      v20 = 138543618;
       selfCopy2 = self;
-      v23 = 2114;
-      v24 = v20;
-      _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "%{public}@ %{public}@ Called on non-primary profile. Abort.", &v21, 0x16u);
+      v22 = 2114;
+      v23 = v19;
+      _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "%{public}@ %{public}@ Called on non-primary profile. Abort.", &v20, 0x16u);
     }
 
     profile2 = [MEMORY[0x277CCA9B8] hk_error:127 class:objc_opt_class() selector:a2 format:@"Revoke access for all share participants called on non-primary profile."];
     completionCopy[2](completionCopy, 0, profile2);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_tearDownHealthSharingForProfile:(id)profile completion:(id)completion
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   completionCopy = completion;
   _HKInitializeLogging();
@@ -290,10 +283,10 @@ void __119__HDCloudSyncShareParticipantManagerTaskServer_remote_fetchAllSharePar
     v12 = NSStringFromSelector(a2);
     *buf = 138543874;
     selfCopy3 = self;
-    v37 = 2114;
-    v38 = v12;
-    v39 = 2114;
-    v40 = profileCopy;
+    v36 = 2114;
+    v37 = v12;
+    v38 = 2114;
+    v39 = profileCopy;
     _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@ called for profile %{public}@", buf, 0x20u);
   }
 
@@ -313,16 +306,16 @@ void __119__HDCloudSyncShareParticipantManagerTaskServer_remote_fetchAllSharePar
       if ([v18 profileType] != 1)
       {
         cloudSyncManager = [v19 cloudSyncManager];
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __98__HDCloudSyncShareParticipantManagerTaskServer_remote_tearDownHealthSharingForProfile_completion___block_invoke;
-        v31[3] = &unk_278613150;
-        v32 = profileManager;
-        v33 = profileCopy;
-        v34 = completionCopy;
-        v25 = [cloudSyncManager leaveSharesWithCompletion:v31];
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __98__HDCloudSyncShareParticipantManagerTaskServer_remote_tearDownHealthSharingForProfile_completion___block_invoke;
+        v30[3] = &unk_278613150;
+        v31 = profileManager;
+        v32 = profileCopy;
+        v33 = completionCopy;
+        v25 = [cloudSyncManager leaveSharesWithCompletion:v30];
 
-        v23 = v32;
+        v23 = v31;
         goto LABEL_15;
       }
 
@@ -330,13 +323,13 @@ void __119__HDCloudSyncShareParticipantManagerTaskServer_remote_fetchAllSharePar
       v20 = *v9;
       if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
       {
-        v29 = v20;
-        v30 = NSStringFromSelector(a2);
+        v28 = v20;
+        v29 = NSStringFromSelector(a2);
         *buf = 138543618;
         selfCopy3 = self;
-        v37 = 2114;
-        v38 = v30;
-        _os_log_error_impl(&dword_228986000, v29, OS_LOG_TYPE_ERROR, "%{public}@ %{public}@ Called for primary profile. Abort.", buf, 0x16u);
+        v36 = 2114;
+        v37 = v29;
+        _os_log_error_impl(&dword_228986000, v28, OS_LOG_TYPE_ERROR, "%{public}@ %{public}@ Called for primary profile. Abort.", buf, 0x16u);
       }
 
       v21 = [MEMORY[0x277CCA9B8] hk_error:127 class:objc_opt_class() selector:a2 format:@"Tear down health sharing called for primary profile."];
@@ -358,20 +351,18 @@ LABEL_15:
   v22 = *v9;
   if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
   {
-    v27 = v22;
-    v28 = NSStringFromSelector(a2);
+    v26 = v22;
+    v27 = NSStringFromSelector(a2);
     *buf = 138543618;
     selfCopy3 = self;
-    v37 = 2114;
-    v38 = v28;
-    _os_log_error_impl(&dword_228986000, v27, OS_LOG_TYPE_ERROR, "%{public}@ %{public}@ Must be called on primary profile participant manager. Abort.", buf, 0x16u);
+    v36 = 2114;
+    v37 = v27;
+    _os_log_error_impl(&dword_228986000, v26, OS_LOG_TYPE_ERROR, "%{public}@ %{public}@ Must be called on primary profile participant manager. Abort.", buf, 0x16u);
   }
 
   profileManager = [MEMORY[0x277CCA9B8] hk_error:127 class:objc_opt_class() selector:a2 format:@"Tear down health sharing not called on primary profile participant manager."];
   (*(completionCopy + 2))(completionCopy, 0, profileManager);
 LABEL_16:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __98__HDCloudSyncShareParticipantManagerTaskServer_remote_tearDownHealthSharingForProfile_completion___block_invoke(void *a1, int a2, void *a3)

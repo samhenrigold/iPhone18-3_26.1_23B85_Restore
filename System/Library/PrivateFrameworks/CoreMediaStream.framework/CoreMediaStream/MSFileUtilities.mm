@@ -6,7 +6,7 @@
 
 + (BOOL)hardlinkOrCopyFileFromPath:(id)path toPath:(id)toPath outError:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   toPathCopy = toPath;
   v10 = link([pathCopy fileSystemRepresentation], objc_msgSend(toPathCopy, "fileSystemRepresentation"));
@@ -16,13 +16,13 @@
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
-        v23 = 138543874;
+        v22 = 138543874;
         selfCopy3 = self;
-        v25 = 2112;
-        v26 = pathCopy;
-        v27 = 2112;
-        v28 = toPathCopy;
-        _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Hardlinked path %@ to %@.", &v23, 0x20u);
+        v24 = 2112;
+        v25 = pathCopy;
+        v26 = 2112;
+        v27 = toPathCopy;
+        _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Hardlinked path %@ to %@.", &v22, 0x20u);
       }
 
       v11 = 1;
@@ -39,15 +39,15 @@
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v23 = 138544130;
+      v22 = 138544130;
       selfCopy3 = self;
-      v25 = 2112;
-      v26 = pathCopy;
-      v27 = 2112;
-      v28 = toPathCopy;
-      v29 = 2114;
-      v30 = v19;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not hardlink path %@ to %@. Error: %{public}@", &v23, 0x2Au);
+      v24 = 2112;
+      v25 = pathCopy;
+      v26 = 2112;
+      v27 = toPathCopy;
+      v28 = 2114;
+      v29 = v19;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not hardlink path %@ to %@. Error: %{public}@", &v22, 0x2Au);
       if (!error)
       {
         goto LABEL_12;
@@ -69,20 +69,19 @@ LABEL_12:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v23 = 138543874;
+    v22 = 138543874;
     selfCopy3 = self;
-    v25 = 2112;
-    v26 = pathCopy;
-    v27 = 2112;
-    v28 = toPathCopy;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Copying path %@ to %@.", &v23, 0x20u);
+    v24 = 2112;
+    v25 = pathCopy;
+    v26 = 2112;
+    v27 = toPathCopy;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Copying path %@ to %@.", &v22, 0x20u);
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v11 = [defaultManager copyItemAtPath:pathCopy toPath:toPathCopy error:error];
 
 LABEL_13:
-  v21 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

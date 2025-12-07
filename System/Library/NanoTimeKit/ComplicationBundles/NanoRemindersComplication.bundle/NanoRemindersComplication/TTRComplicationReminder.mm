@@ -2,6 +2,7 @@
 - (TTRComplicationReminder)initWithCreationDate:(id)date dueDate:(id)dueDate title:(id)title;
 - (id)debugDescription;
 - (id)makeDueTimeTextProviderUsingCalendar:(id)calendar dropMinutesForRoundHours:(BOOL)hours;
+- (id)makeTitleAndExactDueDateTextProviderUsingCalendar:(id)calendar dropMinutesForRoundHours:(BOOL)hours;
 - (id)makeTitleTextProvider;
 @end
 
@@ -42,6 +43,30 @@
   v5 = [CLKSimpleTextProvider textProviderWithText:v4];
 
   return v5;
+}
+
+- (id)makeTitleAndExactDueDateTextProviderUsingCalendar:(id)calendar dropMinutesForRoundHours:(BOOL)hours
+{
+  hoursCopy = hours;
+  calendarCopy = calendar;
+  dueDate = [(TTRComplicationReminder *)self dueDate];
+  precision = [dueDate precision];
+
+  if (precision == &dword_0 + 1)
+  {
+    v9 = [(TTRComplicationReminder *)self makeDueTimeTextProviderUsingCalendar:calendarCopy dropMinutesForRoundHours:hoursCopy];
+    makeTitleTextProvider = [(TTRComplicationReminder *)self makeTitleTextProvider];
+    v11 = RemindersUICoreBundleGet();
+    v12 = [v11 localizedStringForKey:@"%@ %@" value:@"%@ %@" table:@"Localizable"];
+    hoursCopy = [CLKTextProvider textProviderWithFormat:v12, v9, makeTitleTextProvider];
+  }
+
+  else if (!precision)
+  {
+    hoursCopy = [(TTRComplicationReminder *)self makeTitleTextProvider];
+  }
+
+  return hoursCopy;
 }
 
 - (TTRComplicationReminder)initWithCreationDate:(id)date dueDate:(id)dueDate title:(id)title

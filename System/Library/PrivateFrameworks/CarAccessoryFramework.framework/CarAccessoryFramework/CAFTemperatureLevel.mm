@@ -18,7 +18,10 @@
 - (NSString)vehicleLayoutKey;
 - (id)name;
 - (int)heatingCoolingLevel;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setHeatingCoolingLevel:(int)level;
+- (void)setOn:(BOOL)on;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -117,6 +120,13 @@
   return int32Value;
 }
 
+- (void)setHeatingCoolingLevel:(int)level
+{
+  v3 = *&level;
+  heatingCoolingLevelCharacteristic = [(CAFTemperatureLevel *)self heatingCoolingLevelCharacteristic];
+  [heatingCoolingLevelCharacteristic setInt32Value:v3];
+}
+
 - (CAFInt32Range)heatingCoolingLevelRange
 {
   heatingCoolingLevelCharacteristic = [(CAFTemperatureLevel *)self heatingCoolingLevelCharacteristic];
@@ -183,6 +193,13 @@
   return bOOLValue;
 }
 
+- (void)setOn:(BOOL)on
+{
+  onCopy = on;
+  onCharacteristic = [(CAFTemperatureLevel *)self onCharacteristic];
+  [onCharacteristic setBoolValue:onCopy];
+}
+
 - (BOOL)hasOn
 {
   onCharacteristic = [(CAFTemperatureLevel *)self onCharacteristic];
@@ -247,6 +264,82 @@
   stringValue = [vehicleLayoutKeyCharacteristic stringValue];
 
   return stringValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000031000021"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    heatingCoolingLevelCharacteristic = [(CAFTemperatureLevel *)self heatingCoolingLevelCharacteristic];
+    uniqueIdentifier2 = [heatingCoolingLevelCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers temperatureLevelService:self didUpdateHeatingCoolingLevel:{-[CAFTemperatureLevel heatingCoolingLevel](self, "heatingCoolingLevel")}];
+LABEL_12:
+
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000002"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    onCharacteristic = [(CAFTemperatureLevel *)self onCharacteristic];
+    uniqueIdentifier4 = [onCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      [observers temperatureLevelService:self didUpdateOn:{-[CAFTemperatureLevel on](self, "on")}];
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000065"])
+  {
+    goto LABEL_12;
+  }
+
+  uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+  vehicleLayoutKeyCharacteristic = [(CAFTemperatureLevel *)self vehicleLayoutKeyCharacteristic];
+  uniqueIdentifier6 = [vehicleLayoutKeyCharacteristic uniqueIdentifier];
+  v21 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+  if (v21)
+  {
+    observers2 = [(CAFService *)self observers];
+    vehicleLayoutKey = [(CAFTemperatureLevel *)self vehicleLayoutKey];
+    [observers2 temperatureLevelService:self didUpdateVehicleLayoutKey:vehicleLayoutKey];
+
+    observers = [(CAFService *)self observers];
+    name = [(CAFTemperatureLevel *)self name];
+    [observers temperatureLevelService:self didUpdateName:name];
+
+    goto LABEL_12;
+  }
+
+LABEL_13:
+  v25.receiver = self;
+  v25.super_class = CAFTemperatureLevel;
+  [(CAFService *)&v25 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForHeatingCoolingLevel

@@ -82,32 +82,33 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    if (([a1[4] shouldVerifySensorTrustWithFeatureState:a1[5] trustState:v5] & 1) == 0)
+    v9 = [a1[4] shouldVerifySensorTrustWithFeatureState:a1[5] trustState:v5];
+    if ((v9 & 1) == 0)
     {
-      v10 = LACLogDTOSensor();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = LACLogDTOSensor(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B0233000, v10, OS_LOG_TYPE_DEFAULT, "Skipping redundant repair checks", buf, 2u);
+        _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "Skipping redundant repair checks", buf, 2u);
       }
 
       v8 = *(a1[6] + 2);
       goto LABEL_9;
     }
 
-    v9 = WeakRetained[3];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __61__LACDTOSensorTrustVerifier_verifySensorTrustWithCompletion___block_invoke_1;
-    v11[3] = &unk_1E7A96278;
-    objc_copyWeak(&v16, a1 + 7);
-    v15 = a1[6];
-    v12 = a1[4];
-    v13 = a1[5];
-    v14 = v5;
-    [v9 fetchRepairStateWithCompletion:v11];
+    v10 = WeakRetained[3];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __61__LACDTOSensorTrustVerifier_verifySensorTrustWithCompletion___block_invoke_1;
+    v12[3] = &unk_1E7A96278;
+    objc_copyWeak(&v17, a1 + 7);
+    v16 = a1[6];
+    v13 = a1[4];
+    v14 = a1[5];
+    v15 = v5;
+    [v10 fetchRepairStateWithCompletion:v12];
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v17);
   }
 
 LABEL_10:
@@ -128,36 +129,33 @@ void __61__LACDTOSensorTrustVerifier_verifySensorTrustWithCompletion___block_inv
       v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
       v9 = [LACError errorWithCode:-1 subcode:31 userInfo:v8];
 
-      v10 = LACLogDTOSensor();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = LACLogDTOSensor(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __61__LACDTOSensorTrustVerifier_verifySensorTrustWithCompletion___block_invoke_1_cold_1(v6, v9, v10);
+        __61__LACDTOSensorTrustVerifier_verifySensorTrustWithCompletion___block_invoke_1_cold_1(v6, v9, v11);
       }
 
-      v11 = *(*(a1 + 56) + 16);
+      v12 = *(*(a1 + 56) + 16);
     }
 
     else
     {
       v9 = [*(a1 + 32) verifySensorTrustWithFeatureState:*(a1 + 40) trustState:*(a1 + 48) repairState:v5];
-      v11 = *(*(a1 + 56) + 16);
+      v12 = *(*(a1 + 56) + 16);
     }
 
-    v11();
+    v12();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __61__LACDTOSensorTrustVerifier_verifySensorTrustWithCompletion___block_invoke_1_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_1B0233000, log, OS_LOG_TYPE_ERROR, "Mapping %{public}@ into %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_1B0233000, log, OS_LOG_TYPE_ERROR, "Mapping %{public}@ into %{public}@", &v3, 0x16u);
 }
 
 @end

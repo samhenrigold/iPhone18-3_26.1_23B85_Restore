@@ -758,32 +758,32 @@ void deZoneDescendantsOf(void *a1)
     while (v4 != v5);
   }
 
-  deZoneTablesIn(a1);
+  deZoneTablesIn(a1, v7);
 }
 
-void deZoneTablesIn(void *a1)
+void deZoneTablesIn(void *a1, uint64_t a2)
 {
-  v2 = [a1 countOfClass:objc_opt_class()];
-  if (v2)
+  v3 = [a1 countOfClass:objc_opt_class()];
+  if (v3)
   {
-    v3 = v2;
-    v9 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v2];
-    [a1 childrenOfClass:objc_opt_class() into:v9];
-    for (i = 0; i != v3; ++i)
+    v4 = v3;
+    v10 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v3];
+    [a1 childrenOfClass:objc_opt_class() into:v10];
+    for (i = 0; i != v4; ++i)
     {
-      v5 = [v9 objectAtIndex:i];
-      v6 = [v5 count];
-      if (v6)
+      v6 = [v10 objectAtIndex:i];
+      v7 = [v6 count];
+      if (v7)
       {
-        v7 = v6;
-        v8 = 0;
+        v8 = v7;
+        v9 = 0;
         do
         {
-          deZoneDescendantsOf([v5 childAtIndex:v8]);
-          v8 = (v8 + 1);
+          deZoneDescendantsOf([v6 childAtIndex:v9]);
+          v9 = (v9 + 1);
         }
 
-        while (v7 != v8);
+        while (v8 != v9);
       }
     }
   }
@@ -796,7 +796,7 @@ uint64_t CGPDFShadingType4Init(void *a1, uint64_t *a2, _OWORD *a3)
     dispatch_once(&type4_info_getTypeID_onceToken, &__block_literal_global_20789);
   }
 
-  result = pdf_create_cftype();
+  result = pdf_create_cftype(type4_info_getTypeID_id, 104);
   if (!result)
   {
     return result;
@@ -993,10 +993,10 @@ uint64_t type4_create_shading(CGRect *a1, const void *a2)
   x = v3->origin.x;
   v9 = *p_y;
   width = p_size->width;
-  v21[0] = *&v3->origin.x;
-  *&v21[1] = v9;
-  *&v21[2] = width;
-  *&v21[3] = v7;
+  v17[0] = *&v3->origin.x;
+  *&v17[1] = v9;
+  *&v17[2] = width;
+  *&v17[3] = v7;
   if (a1)
   {
     y = a1[1].origin.y;
@@ -1009,18 +1009,18 @@ uint64_t type4_create_shading(CGRect *a1, const void *a2)
   }
 
   Components = CGColorGetComponents(a1);
-  v17 = x == -8.98846567e307;
+  v13 = x == -8.98846567e307;
   if (v9 != -8.98846567e307)
   {
-    v17 = 0;
+    v13 = 0;
   }
 
   if (width != 1.79769313e308)
   {
-    v17 = 0;
+    v13 = 0;
   }
 
-  v18 = v7 == 1.79769313e308 && v17;
+  v14 = v7 == 1.79769313e308 && v13;
   if (a2)
   {
     CFRetain(a2);
@@ -1039,17 +1039,17 @@ uint64_t type4_create_shading(CGRect *a1, const void *a2)
     }
   }
 
-  if (v18)
+  if (v14)
   {
-    v20 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v20 = v21;
+    v16 = v17;
   }
 
-  result = CGShadingCreateEmpty(0, *&y, Components, v20, v12, v13, v14, v15);
+  result = CGShadingCreateEmpty(0, *&y, Components, v16);
   *(result + 80) = a2;
   *(result + 104) = type4_create_shading_type4_drawing_callbacks;
   *(result + 120) = off_1EF242800;
@@ -1066,8 +1066,8 @@ void cg_shading_type4_release(CFTypeRef cf)
 
 void cg_shading_type4_draw(uint64_t a1, CGContextRef c)
 {
-  v84[3] = *MEMORY[0x1E69E9840];
-  v75 = a1;
+  v74[3] = *MEMORY[0x1E69E9840];
+  v65 = a1;
   v3 = *(a1 + 16);
   if (v3)
   {
@@ -1085,18 +1085,18 @@ void cg_shading_type4_draw(uint64_t a1, CGContextRef c)
     v5 = 1;
   }
 
-  v83 = 0;
-  memset(v84, 0, 24);
-  memset(&v82, 0, sizeof(v82));
-  v81 = 0;
-  v78 = 0;
-  v79 = 0;
-  v77[1] = 0;
-  memset(&v76, 0, sizeof(v76));
+  v73 = 0;
+  memset(v74, 0, 24);
+  memset(&v72, 0, sizeof(v72));
+  v71 = 0;
+  v68 = 0;
+  v69 = 0;
+  v67[1] = 0;
+  memset(&v66, 0, sizeof(v66));
   CGContextSetFillColorSpace(c, v3);
-  CGContextSetStrokeColorSpace(c, *(v75 + 16));
-  CGContextGetCTM(&v76, c);
-  v6 = CGTriangleMeshCreate(*(v75 + 16), *(v75 + 88));
+  CGContextSetStrokeColorSpace(c, *(v65 + 16));
+  CGContextGetCTM(&v66, c);
+  v6 = CGTriangleMeshCreate(*(v65 + 16), *(v65 + 88));
   v7 = v6;
   if (v6)
   {
@@ -1108,190 +1108,187 @@ void cg_shading_type4_draw(uint64_t a1, CGContextRef c)
     v8 = 0;
   }
 
-  BytePtr = CFDataGetBytePtr(*(v75 + 96));
-  Length = CFDataGetLength(*(v75 + 96));
-  v77[0] = BytePtr;
-  v78 = &BytePtr[Length];
-  LODWORD(v79) = 0;
-  v80 = 0;
-  while (v77[0] != v78)
+  BytePtr = CFDataGetBytePtr(*(v65 + 96));
+  Length = CFDataGetLength(*(v65 + 96));
+  v67[0] = BytePtr;
+  v68 = &BytePtr[Length];
+  LODWORD(v69) = 0;
+  v70 = 0;
+  while (v67[0] != v68)
   {
     do
     {
-      type4_read_triangle(v75, v77, &v76, v7, v8, v11);
+      type4_read_triangle(v65, v67, &v66, v7, v8);
     }
 
-    while (v80);
+    while (v70);
   }
 
   if (v7)
   {
-    v12 = v7[9];
-    if (v12)
+    v11 = v7[9];
+    if (v11)
     {
-      v67 = &v64;
-      is_mul_ok(3 * v12, 0x48uLL);
-      v13 = MEMORY[0x1EEE9AC00](216 * v12, v11);
-      v17 = (&v64 - v16);
-      v66 = v17;
-      if (v14 <= 0x38E38E38E38E38DLL)
+      v57 = &v54;
+      is_mul_ok(3 * v11, 0x48uLL);
+      v12 = MEMORY[0x1EEE9AC00](216 * v11);
+      v15 = (&v54 - v14);
+      v56 = v15;
+      if (v13 <= 0x38E38E38E38E38DLL)
       {
-        v18 = v17;
+        v16 = v15;
       }
 
       else
       {
-        v18 = 0;
+        v16 = 0;
       }
 
-      if (v14 - 0x38E38E38E38E38ELL >= 0xFC71C71C71C71CF3)
+      if (v13 - 0x38E38E38E38E38ELL >= 0xFC71C71C71C71CF3)
       {
-        v18 = malloc_type_malloc(v13, 0x3155EA4CuLL);
+        v16 = malloc_type_malloc(v12, 0x3155EA4CuLL);
       }
 
-      v68 = v5;
-      v19 = MEMORY[0x1EEE9AC00](16 * v12, v15);
-      v65 = (&v64 - v20 - 15);
-      if (v21 <= 0xFFFFFFFFFFFFFFELL)
+      v58 = v5;
+      v17 = MEMORY[0x1EEE9AC00](16 * v11);
+      v55 = (&v54 - v18 - 15);
+      if (v19 <= 0xFFFFFFFFFFFFFFELL)
       {
-        v22 = (&v64 - v20 - 15);
+        v20 = (&v54 - v18 - 15);
       }
 
       else
       {
-        v22 = 0;
+        v20 = 0;
       }
 
-      v64 = c;
-      if (v21 - 0xFFFFFFFFFFFFFFFLL >= 0xF000000000000082)
+      v54 = c;
+      if (v19 - 0xFFFFFFFFFFFFFFFLL >= 0xF000000000000082)
       {
-        v22 = malloc_type_malloc(v19, 0xED33E417uLL);
+        v20 = malloc_type_malloc(v17, 0xED33E417uLL);
       }
 
+      v21 = 0;
+      v22 = 0;
       v23 = 0;
-      v24 = 0;
-      v25 = 0;
-      v69 = v18 + 4;
-      v72 = v22;
-      v71 = v7;
-      v70 = v12;
+      v59 = v16 + 4;
+      v62 = v20;
+      v61 = v7;
+      v60 = v11;
       do
       {
-        v26 = &v22[4 * v25];
-        v26[3] = 0;
-        v27 = v7[9];
-        v73 = v25;
-        if (v27 > v25)
+        v24 = &v20[4 * v23];
+        v24[3] = 0;
+        v25 = v7[9];
+        v63 = v23;
+        if (v25 > v23)
         {
-          v28 = 0;
-          v29 = v7[4];
-          v30 = v7[7];
-          v31 = v7[10] + v23;
+          v26 = 0;
+          v27 = v7[4];
+          v28 = v7[7];
+          v29 = v7[10] + v21;
           do
           {
-            v84[v28] = v30 + v29 * *(v31 + v28 * 8);
-            ++v28;
+            v74[v26] = v28 + v27 * *(v29 + v26 * 8);
+            ++v26;
           }
 
-          while (v28 != 3);
+          while (v26 != 3);
         }
 
-        v74 = v23;
-        v32 = 0;
-        v33 = &v69[9 * v24];
+        v64 = v21;
+        v30 = 0;
+        v31 = &v59[9 * v22];
         do
         {
-          v26[v32] = v24;
-          v34 = v84[v32];
-          v35 = &v18[9 * v24];
-          v36 = *v34;
-          *v35 = *v34;
-          v35[2] = 0.0;
-          v35[3] = 0.0;
-          v37 = *(v75 + 88);
-          if (v37)
+          v24[v30] = v22;
+          v32 = v74[v30];
+          v33 = &v16[9 * v22];
+          *v33 = *v32;
+          v33[2] = 0.0;
+          v33[3] = 0.0;
+          v34 = *(v65 + 88);
+          if (v34)
           {
-            v83 = v34[1].n128_u64[0];
-            v36.n128_u64[0] = v83;
-            CGFunctionEvaluate(v37, &v83, v35 + 4, v36);
+            v73 = *(v32 + 16);
+            CGFunctionEvaluate(v34, &v73, v33 + 4);
           }
 
           else if (v4)
           {
-            v38 = v34 + 1;
-            v39 = v33;
-            v40 = v4;
+            v35 = (v32 + 16);
+            v36 = v31;
+            v37 = v4;
             do
             {
-              v41 = v38->n128_u64[0];
-              v38 = (v38 + 8);
-              *v39++ = v41;
-              --v40;
+              v38 = *v35++;
+              *v36++ = v38;
+              --v37;
             }
 
-            while (v40);
+            while (v37);
           }
 
-          ++v24;
-          v35[v4 + 4] = 1.0;
-          ++v32;
-          v33 += 9;
+          ++v22;
+          v33[v4 + 4] = 1.0;
+          ++v30;
+          v31 += 9;
         }
 
-        while (v32 != 3);
-        v25 = v73 + 1;
-        v23 = v74 + 24;
-        v42 = v70;
-        v22 = v72;
-        v7 = v71;
+        while (v30 != 3);
+        v23 = v63 + 1;
+        v21 = v64 + 24;
+        v39 = v60;
+        v20 = v62;
+        v7 = v61;
       }
 
-      while (v73 + 1 != v70);
-      CGTriangleMeshRelease(v71);
-      v43 = v42;
-      v44 = v68;
-      if (RenderTriangleMesh(v18, v24, v22, v43, v68, &v81, &v82.origin.x))
+      while (v63 + 1 != v60);
+      CGTriangleMeshRelease(v61);
+      v40 = v39;
+      v41 = v58;
+      if (RenderTriangleMesh(v16, v22, v20, v40, v58, &v71, &v72.origin.x))
       {
-        v45 = v64;
-        CGContextSaveGState(v64);
-        CGContextResetCTM(v45, v46, v47, v48, v49, v50, v51, v52);
-        size = v82.size;
-        origin = v82.origin;
-        if (v82.size.width < 0.0 || v82.size.height < 0.0)
+        v42 = v54;
+        CGContextSaveGState(v54);
+        CGContextResetCTM(v42);
+        size = v72.size;
+        origin = v72.origin;
+        if (v72.size.width < 0.0 || v72.size.height < 0.0)
         {
-          v85 = CGRectStandardize(v82);
-          width = v85.size.width;
-          v85.origin = origin;
-          v85.size = size;
-          *(&height - 3) = CGRectStandardize(v85);
+          v75 = CGRectStandardize(v72);
+          width = v75.size.width;
+          v75.origin = origin;
+          v75.size = size;
+          *(&height - 3) = CGRectStandardize(v75);
         }
 
         else
         {
-          width = v82.size.width;
-          height = v82.size.height;
+          width = v72.size.width;
+          height = v72.size.height;
         }
 
-        v58 = height;
-        v59 = (8 * v44 * width) >> 3;
-        v60 = v81;
-        v61 = v59 * height;
-        check_clients_buffer("CGDataProviderCreateWithData", v81, v61);
-        v62 = CGDataProviderCreateWithDataInternal(0, v60, v61, patch_data_release_20806, 0);
-        v63 = CGImageCreate(width, v58, 8uLL, 8 * v44, v59, *(v75 + 16), 3u, v62, 0, 0, kCGRenderingIntentDefault);
-        CGDataProviderRelease(v62);
-        CGImageSetCachingFlags(v63, 1);
-        v86.origin = origin;
-        v86.size = size;
-        CGContextDrawImage(v45, v86, v63);
-        CGContextRestoreGState(v45);
-        if (v63)
+        v48 = height;
+        v49 = (8 * v41 * width) >> 3;
+        v50 = v71;
+        v51 = v49 * height;
+        check_clients_buffer("CGDataProviderCreateWithData", v71, v51);
+        v52 = CGDataProviderCreateWithDataInternal(0, v50, v51, patch_data_release_20806, 0);
+        v53 = CGImageCreate(width, v48, 8uLL, 8 * v41, v49, *(v65 + 16), 3u, v52, 0, 0, kCGRenderingIntentDefault);
+        CGDataProviderRelease(v52);
+        CGImageSetCachingFlags(v53, 1);
+        v76.origin = origin;
+        v76.size = size;
+        CGContextDrawImage(v42, v76, v53);
+        CGContextRestoreGState(v42);
+        if (v53)
         {
-          CFRelease(v63);
+          CFRelease(v53);
         }
 
-        v57 = v72;
-        if (v72 == v65)
+        v47 = v62;
+        if (v62 == v55)
         {
           goto LABEL_47;
         }
@@ -1299,80 +1296,80 @@ void cg_shading_type4_draw(uint64_t a1, CGContextRef c)
 
       else
       {
-        if (v22 == v65)
+        if (v20 == v55)
         {
           goto LABEL_47;
         }
 
-        v57 = v22;
+        v47 = v20;
       }
 
-      free(v57);
+      free(v47);
 LABEL_47:
-      if (v18 != v66)
+      if (v16 != v56)
       {
-        free(v18);
+        free(v16);
       }
     }
   }
 }
 
-void type4_read_triangle(uint64_t a1, unsigned __int8 **a2, float64x2_t *a3, uint64_t a4, uint64_t a5, __n128 a6)
+void type4_read_triangle(uint64_t a1, unsigned __int8 **a2, float64x2_t *a3, void *a4, uint64_t a5)
 {
-  v26[2] = *MEMORY[0x1E69E9840];
-  v11 = MEMORY[0x1EEE9AC00](24 * a5, a6);
-  v14 = (&v22 - v13);
-  if (v12 <= 0x1FFFFFFFFFFFFFFELL)
+  v25[2] = *MEMORY[0x1E69E9840];
+  v10 = MEMORY[0x1EEE9AC00](24 * a5);
+  v13 = (&v21 - v12);
+  if (v11 <= 0x1FFFFFFFFFFFFFFELL)
   {
-    v15 = (&v22 - v13);
+    v14 = (&v21 - v12);
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
-  if (v12 - 0x1FFFFFFFFFFFFFFFLL >= 0xE000000000000082)
+  if (v11 - 0x1FFFFFFFFFFFFFFFLL >= 0xE000000000000082)
   {
-    v15 = malloc_type_malloc(v11, 0x865DD7FDuLL);
+    v14 = malloc_type_malloc(v10, 0x865DD7FDuLL);
   }
 
-  v16 = type4_read_vertex(a1, a2, &v23, v15, a5);
-  if (v16 <= 1)
+  v15 = type4_read_vertex(a1, a2, &v22, v14, a5);
+  if (v15 <= 1)
   {
-    if (!v16)
+    if (!v15)
     {
-      type4_read_vertex(a1, a2, &v25, &v15[a5], a5);
-      type4_read_vertex(a1, a2, v26, &v15[2 * a5], a5);
-      CGTriangleMeshAddTriangle(a4, a3, &v23, v15);
+      type4_read_vertex(a1, a2, &v24, &v14[a5], a5);
+      type4_read_vertex(a1, a2, v25, &v14[2 * a5], a5);
+      CGTriangleMeshAddTriangle(a4, a3, &v22, v14);
       goto LABEL_14;
     }
 
+    v16 = v22;
     v17 = v23;
-    v18 = v24;
-    v19 = a4;
-    v20 = a3;
-    v21 = 0;
+    v18 = a4;
+    v19 = a3;
+    v20 = 0;
     goto LABEL_12;
   }
 
-  if (v16 == 2)
+  if (v15 == 2)
   {
+    v16 = v22;
     v17 = v23;
-    v18 = v24;
-    v19 = a4;
-    v20 = a3;
-    v21 = 1;
+    v18 = a4;
+    v19 = a3;
+    v20 = 1;
 LABEL_12:
-    CGTriangleMeshAddTriangleWithRelativePoint(v19, v20, v21, v15, v17, v18);
+    CGTriangleMeshAddTriangleWithRelativePoint(v18, v19, v20, v14, v16, v17);
     goto LABEL_14;
   }
 
   pdf_error("invalid shading flag value.");
 LABEL_14:
-  if (v15 != v14)
+  if (v14 != v13)
   {
-    free(v15);
+    free(v14);
   }
 }
 
@@ -1416,7 +1413,7 @@ uint64_t type4_read_vertex(uint64_t a1, unsigned __int8 **a2, double *a3, double
       }
 
       v6 = v9 + 8;
-      a2[4] = (v9 + 8);
+      a2[4] = v9 + 8;
       v11 = v9 >= 0x10;
       v9 += 8;
     }
@@ -1424,7 +1421,7 @@ uint64_t type4_read_vertex(uint64_t a1, unsigned __int8 **a2, double *a3, double
     while (!v11);
   }
 
-  a2[4] = (v6 - 24);
+  a2[4] = v6 - 24;
   v12 = ((v8 >> (v6 - 24)) & 0xFFFFFF) << v5;
   if (v5)
   {
@@ -1459,7 +1456,7 @@ LABEL_13:
       while (v13 < v5);
     }
 
-    v17 = (v13 - v5);
+    v17 = &v13[-v5];
     a2[4] = v17;
     LODWORD(v5) = (v15 >> v17) & (0xFFFFFFFF >> -v5);
   }
@@ -1496,7 +1493,7 @@ LABEL_21:
         }
 
         v21 = v24 + 8;
-        a2[4] = (v24 + 8);
+        a2[4] = v24 + 8;
         v11 = v24 >= 0x10;
         v24 += 8;
       }
@@ -1504,7 +1501,7 @@ LABEL_21:
       while (!v11);
     }
 
-    a2[4] = (v21 - 24);
+    a2[4] = v21 - 24;
     v18 = ((v23 >> (v21 - 24)) & 0xFFFFFF) << v20;
   }
 
@@ -1584,7 +1581,7 @@ LABEL_21:
       }
 
       v32 = v35 + 8;
-      a2[4] = (v35 + 8);
+      a2[4] = v35 + 8;
       v11 = v35 >= 0x10;
       v35 += 8;
     }
@@ -1592,7 +1589,7 @@ LABEL_21:
     while (!v11);
   }
 
-  a2[4] = (v32 - 24);
+  a2[4] = v32 - 24;
   v37 = ((v34 >> (v32 - 24)) & 0xFFFFFF) << v19;
   if (v19)
   {
@@ -1627,7 +1624,7 @@ LABEL_52:
       while (v38 < v19);
     }
 
-    v42 = (v38 - v19);
+    v42 = &v38[-v19];
     a2[4] = v42;
     LODWORD(v19) = (v40 >> v42) & (0xFFFFFFFF >> -v19);
   }
@@ -1681,7 +1678,7 @@ LABEL_82:
         }
 
         v46 = v49 + 8;
-        a2[4] = (v49 + 8);
+        a2[4] = v49 + 8;
         v11 = v49 >= 0x10;
         v49 += 8;
       }
@@ -1689,7 +1686,7 @@ LABEL_82:
       while (!v11);
     }
 
-    a2[4] = (v46 - 24);
+    a2[4] = v46 - 24;
     v51 = ((v48 >> (v46 - 24)) & 0xFFFFFF) << (v44 - 24);
     v52 = v44 - 24;
 LABEL_74:
@@ -1775,85 +1772,85 @@ uint64_t thread_fun(void (**a1)(uint64_t))
   return 0;
 }
 
-uint64_t crossing_count(float64x2_t *a1, uint64_t a2, _BYTE *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t crossing_count(float64x2_t *a1, uint64_t a2, _BYTE *a3, double a4, __n128 a5)
 {
-  v45[2] = *MEMORY[0x1E69E9840];
+  v46[2] = *MEMORY[0x1E69E9840];
+  v9 = a1->f64[0];
+  v8 = a1->f64[1];
+  v10 = v8;
+  v11 = v8;
   v12 = a1->f64[0];
-  v11 = a1->f64[1];
-  v13 = v11;
-  v14 = v11;
-  v15 = a1->f64[0];
-  v16 = a1->f64[0];
+  v13 = a1->f64[0];
   if ((a2 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v17 = &a1[1].f64[1];
-    v18 = a2;
-    v16 = a1->f64[0];
-    v15 = a1->f64[0];
-    v14 = a1->f64[1];
-    v13 = v14;
+    v14 = &a1[1].f64[1];
+    v15 = a2;
+    v13 = a1->f64[0];
+    v12 = a1->f64[0];
+    v11 = a1->f64[1];
+    v10 = v11;
     do
     {
-      v20 = *(v17 - 1);
-      v19 = *v17;
-      if (v20 > v15)
+      v17 = *(v14 - 1);
+      v16 = *v14;
+      if (v17 > v12)
       {
-        v21 = *(v17 - 1);
+        v18 = *(v14 - 1);
       }
 
       else
       {
-        v21 = v15;
+        v18 = v12;
       }
 
-      if (v20 < v16)
+      if (v17 < v13)
       {
-        v16 = *(v17 - 1);
+        v13 = *(v14 - 1);
       }
 
       else
       {
-        v15 = v21;
+        v12 = v18;
       }
 
-      if (v19 >= v14)
+      if (v16 >= v11)
       {
-        if (v19 > v13)
+        if (v16 > v10)
         {
-          v13 = *v17;
+          v10 = *v14;
         }
       }
 
       else
       {
-        v14 = *v17;
+        v11 = *v14;
       }
 
-      v17 += 2;
-      --v18;
+      v14 += 2;
+      --v15;
     }
 
-    while (v18);
+    while (v15);
   }
 
-  v22 = 0;
-  if (v14 > 0.0 || v13 < 0.0 || v15 < 0.0)
+  v19 = 0;
+  if (v11 > 0.0 || v10 < 0.0 || v12 < 0.0)
   {
-    return v22;
+    return v19;
   }
 
-  if (v16 > 0.0)
+  if (v13 > 0.0)
   {
-    v23 = &a1[a2];
-    if (v11 < 0.0)
+    v20 = &a1[a2];
+    if (v8 < 0.0)
     {
-      return v23->f64[1] >= 0.0;
+      return v20->f64[1] >= 0.0;
     }
 
-    v24 = v23->f64[1];
-    if (v11 <= 0.0 || (v22 = v24 <= 0.0) != 0)
+    v21 = v20->f64[1];
+    if (v8 <= 0.0 || (v19 = v21 <= 0.0) != 0)
     {
-      if (v24 >= 0.0)
+      if (v21 >= 0.0)
       {
         return 0;
       }
@@ -1864,63 +1861,63 @@ uint64_t crossing_count(float64x2_t *a1, uint64_t a2, _BYTE *a3, uint64_t a4, ui
       }
     }
 
-    return v22;
+    return v19;
   }
 
-  if (v14 == v13)
+  if (v11 == v10)
   {
     goto LABEL_21;
   }
 
   if (a2 != 1)
   {
-    if (a2 == 2 ? get_y_inflections_2(a1, v45, 0) : get_y_inflections_3(a1, v45, 0))
+    if (a2 == 2 ? get_y_inflections_2(a1, v46, 0) : get_y_inflections_3(a1, v46, 0))
     {
-      v26.n128_f64[0] = subdivide(a1, a2, v44, v43, v45[0]);
-      v27 = crossing_count(v44, a2, a3, v26);
-      return crossing_count(v43, a2, a3, v28) + v27;
+      v23 = subdivide(a1, a2, v45, v44, v46[0]);
+      v25 = crossing_count(v45, a2, a3, v23, v24);
+      return crossing_count(v44, a2, a3, v26, v27) + v25;
     }
   }
 
-  f64 = a1[a2].f64;
-  v30 = f64[1];
-  v22 = 0;
-  if (v11 <= v30)
+  v28 = &a1[a2];
+  v29 = v28->f64[1];
+  v19 = 0;
+  if (v8 <= v29)
   {
-    if (v11 > 0.0 || v30 < 0.0)
+    if (v8 > 0.0 || v29 < 0.0)
     {
-      return v22;
+      return v19;
     }
   }
 
-  else if (v11 < 0.0 || v30 > 0.0)
+  else if (v8 < 0.0 || v29 > 0.0)
   {
-    return v22;
+    return v19;
   }
 
-  if (v11 == 0.0 && v12 == 0.0 || v30 == 0.0 && *f64 == 0.0)
+  if (v8 == 0.0 && v9 == 0.0 || v29 == 0.0 && v28->f64[0] == 0.0)
   {
     goto LABEL_21;
   }
 
   if (a2 == 1)
   {
-    if ((v14 != v11 || v13 != v30) && (v14 != v30 || v13 != v11))
+    if ((v11 != v8 || v10 != v29) && (v11 != v29 || v10 != v8))
     {
-      _CGHandleAssert("crossing_count", 170, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Paths/path-crossing.c", "(min.y == p[0].y && max.y == p[order].y) || (min.y == p[order].y && max.y == p[0].y)", "unexpected path order: min{%f,%f}, max{%f,%f}, p[%lu]{%f,%f}", a6, a7, a8, SLOBYTE(v16));
+      _CGHandleAssert("crossing_count", 170, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Paths/path-crossing.c", "(min.y == p[0].y && max.y == p[order].y) || (min.y == p[order].y && max.y == p[0].y)", "unexpected path order: min{%f,%f}, max{%f,%f}, p[%lu]{%f,%f}", v13, v11, v12, v10, 1, v28->f64[0], v29);
     }
 
-    v31 = a1[1].f64[1];
-    v32 = v12 * v31;
-    v33 = a1[1].f64[0] * v11;
-    if (v12 * v31 != v33)
+    v30 = a1[1].f64[1];
+    v31 = v9 * v30;
+    v32 = a1[1].f64[0] * v8;
+    if (v9 * v30 != v32)
     {
-      if (v11 < 0.0 && v11 < v31 && v32 > v33)
+      if (v8 < 0.0 && v8 < v30 && v31 > v32)
       {
         return 1;
       }
 
-      if (v32 >= v33 || v31 >= 0.0 || v11 <= v31)
+      if (v31 >= v32 || v30 >= 0.0 || v8 <= v30)
       {
         return 0;
       }
@@ -1929,35 +1926,36 @@ uint64_t crossing_count(float64x2_t *a1, uint64_t a2, _BYTE *a3, uint64_t a4, ui
     }
 
 LABEL_21:
-    v22 = 0;
+    v19 = 0;
     *a3 = 1;
-    return v22;
+    return v19;
   }
 
-  subdivide(a1, a2, v44, v43, 0.5);
+  subdivide(a1, a2, v45, v44, 0.5);
   if (!a2)
   {
     return 1;
   }
 
-  v35 = 0;
-  v36 = 2;
+  v34 = 0;
+  v35 = 2;
   if ((a2 + 1) > 2)
   {
-    v36 = a2 + 1;
+    v35 = a2 + 1;
   }
 
-  v37 = v36 - 1;
+  v36 = v35 - 1;
+  LOBYTE(v37) = 1;
   LOBYTE(v38) = 1;
-  LOBYTE(v39) = 1;
   do
   {
-    if (v39)
+    if (v38)
     {
-      v34 = vceqq_f64(v44[v35], v44[v35 + 1]);
-      v34.n128_u64[0] = vmovn_s64(v34);
-      v39 = v34.n128_u32[0] & v34.n128_u32[1];
-      if ((v38 & 1) == 0)
+      v39 = &v45[v34];
+      v33 = v39[1];
+      v40 = vmovn_s64(vceqq_f64(*v39, v33));
+      v38 = v40.i32[0] & v40.i32[1];
+      if ((v37 & 1) == 0)
       {
         goto LABEL_62;
       }
@@ -1965,49 +1963,48 @@ LABEL_21:
 
     else
     {
-      v39 = 0;
-      if ((v38 & 1) == 0)
+      v38 = 0;
+      if ((v37 & 1) == 0)
       {
 LABEL_62:
-        v38 = 0;
+        v37 = 0;
         goto LABEL_65;
       }
     }
 
-    v34 = vceqq_f64(v43[v35], v43[v35 + 1]);
-    v34.n128_u64[0] = vmovn_s64(v34);
-    v38 = v34.n128_u32[0] & v34.n128_u32[1];
+    v41 = &v44[v34];
+    v33 = v41[1];
+    v42 = vmovn_s64(vceqq_f64(*v41, v33));
+    v37 = v42.i32[0] & v42.i32[1];
 LABEL_65:
-    ++v35;
+    ++v34;
   }
 
-  while (v37 != v35);
-  if ((v38 | v39))
+  while (v36 != v34);
+  if ((v37 | v38))
   {
     return 1;
   }
 
-  v34.n128_u64[0] = *&v44[0].f64[1];
-  v40 = v44[a2].f64[1];
-  if (v44[0].f64[1] <= 0.0 && v40 >= 0.0 || (v22 = 0, v44[0].f64[1] >= 0.0) && v40 <= 0.0)
+  v33.n128_u64[0] = *&v45[a2].f64[1];
+  if (v45[0].f64[1] <= 0.0 && v33.n128_f64[0] >= 0.0 || (v19 = 0, v45[0].f64[1] >= 0.0) && v33.n128_f64[0] <= 0.0)
   {
-    v22 = crossing_count(v44, a2, a3, v34);
+    v19 = crossing_count(v45, a2, a3, v45[0].f64[1], v33);
   }
 
-  v34.n128_u64[0] = *&v43[0].f64[1];
-  v41 = v43[a2].f64[1];
-  if (v43[0].f64[1] <= 0.0 && v41 >= 0.0 || v43[0].f64[1] >= 0.0 && v41 <= 0.0)
+  v33.n128_u64[0] = *&v44[a2].f64[1];
+  if (v44[0].f64[1] <= 0.0 && v33.n128_f64[0] >= 0.0 || v44[0].f64[1] >= 0.0 && v33.n128_f64[0] <= 0.0)
   {
-    return crossing_count(v43, a2, a3, v34) + v22;
+    return crossing_count(v44, a2, a3, v44[0].f64[1], v33) + v19;
   }
 
-  return v22;
+  return v19;
 }
 
 float64_t subdivide(float64x2_t *a1, uint64_t a2, float64x2_t *a3, float64x2_t *a4, double a5)
 {
   *a3 = *a1;
-  f64 = a3[1].f64;
+  v5 = a3 + 1;
   v6 = 1.0 - a5;
   if (a2 == 2)
   {
@@ -2029,7 +2026,7 @@ float64_t subdivide(float64x2_t *a1, uint64_t a2, float64x2_t *a3, float64x2_t *
     v14 = vmlaq_n_f64(vmulq_n_f64(v12, a5), a1[1], v6);
     a4[2] = v13;
     a3[2] = vmlaq_n_f64(vmulq_n_f64(v14, a5), a3[1], v6);
-    f64 = a3[2].f64;
+    v5 = a3 + 2;
     v9 = &a3[2].f64[1];
     v8 = a4[2].f64[0] * a5 + v6 * v14.f64[0];
     v7 = v14.f64[1];
@@ -2041,7 +2038,7 @@ float64_t subdivide(float64x2_t *a1, uint64_t a2, float64x2_t *a3, float64x2_t *
   v15 = a1[2].f64[1] * a5 + v6 * v7;
   a4[1].f64[0] = v8;
   a4[1].f64[1] = v15;
-  v16 = v8 * a5 + v6 * *f64;
+  v16 = v8 * a5 + v6 * v5->f64[0];
   a3[v11].f64[0] = v16;
   result = v15 * a5 + v6 * *v9;
   a3->f64[v10] = result;
@@ -2149,7 +2146,7 @@ CFTypeRef CGFontFinderCreateFontWithName(uint64_t a1, uint64_t a2)
         if (CFArrayGetCount(FontsWithURL) != 1)
         {
           Count = CFArrayGetCount(v7);
-          _CGHandleAssert("CGFontFinderCreateFontWithName", 104, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Fonts/CGFontFinder.c", "CFArrayGetCount(fonts) == 1", "count = %ld", v11, v12, v13, Count);
+          _CGHandleAssert("CGFontFinderCreateFontWithName", 104, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Fonts/CGFontFinder.c", "CFArrayGetCount(fonts) == 1", "count = %ld", Count);
         }
 
         CFRelease(v5);
@@ -2191,7 +2188,7 @@ CFTypeRef CGFontFinderCreateFontWithPlatformFont(uint64_t a1, uint64_t a2)
         if (CFArrayGetCount(FontsWithURL) != 1)
         {
           Count = CFArrayGetCount(v7);
-          _CGHandleAssert("CGFontFinderCreateFontWithPlatformFont", 134, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Fonts/CGFontFinder.c", "CFArrayGetCount(fonts) == 1", "count = %ld", v11, v12, v13, Count);
+          _CGHandleAssert("CGFontFinderCreateFontWithPlatformFont", 134, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Fonts/CGFontFinder.c", "CFArrayGetCount(fonts) == 1", "count = %ld", Count);
         }
 
         CFRelease(v5);
@@ -2244,7 +2241,7 @@ void CGFontFinderApplyFunction(uint64_t a1, uint64_t (*a2)(const void *, uint64_
                 if (CFArrayGetCount(FontsWithURL) != 1)
                 {
                   v16 = CFArrayGetCount(v13);
-                  _CGHandleAssert("CGFontFinderApplyFunction", 165, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Fonts/CGFontFinder.c", "CFArrayGetCount(fonts) == 1", "count = %ld", v17, v18, v19, v16);
+                  _CGHandleAssert("CGFontFinderApplyFunction", 165, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Fonts/CGFontFinder.c", "CFArrayGetCount(fonts) == 1", "count = %ld", v16);
                 }
 
                 v14 = CFArrayGetValueAtIndex(v13, 0);
@@ -2267,16 +2264,16 @@ void CGFontFinderApplyFunction(uint64_t a1, uint64_t (*a2)(const void *, uint64_
 
 uint64_t CGFontFinderGetDefault()
 {
-  v0 = pthread_mutex_lock(&default_font_finder_mutex);
-  v8 = default_font_finder;
+  pthread_mutex_lock(&default_font_finder_mutex);
+  v0 = default_font_finder;
   if (!default_font_finder)
   {
-    VTable = CGFontGetVTable(v0, v1, v2, v3, v4, v5, v6, v7);
-    v8 = (*VTable)();
+    VTable = CGFontGetVTable();
+    v0 = (*VTable)();
   }
 
   pthread_mutex_unlock(&default_font_finder_mutex);
-  return v8;
+  return v0;
 }
 
 uint64_t CGFontFinderSetDefault(atomic_uint *a1)
@@ -2569,7 +2566,7 @@ LABEL_17:
   return CFTimeZoneCreateWithTimeIntervalFromGMT(v8, v7);
 }
 
-void lzw_filter_finalize(void ***a1)
+void lzw_filter_finalize(const void ***a1)
 {
   if (a1)
   {
@@ -2579,144 +2576,144 @@ void lzw_filter_finalize(void ***a1)
   }
 }
 
-uint64_t lzw_filter_refill(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t lzw_filter_refill(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *a1;
-  if (*a1 && (*(v8 + 9) & 1) == 0)
+  v3 = *a1;
+  if (*a1 && (*(v3 + 9) & 1) == 0)
   {
-    v9 = 0;
-    v13 = v8 + 9252;
-    v14 = v8 + 1060;
-    v15 = *(v8 + 17464);
+    v4 = 0;
+    v8 = v3 + 9252;
+    v9 = v3 + 1060;
+    v10 = *(v3 + 17464);
     while (1)
     {
-      if (v15)
+      if (v10)
       {
-        if (v15 >= a3 - v9)
+        if (v10 >= a3 - v4)
         {
-          v16 = a3 - v9;
+          v11 = a3 - v4;
         }
 
         else
         {
-          v16 = v15;
+          v11 = v10;
         }
 
-        memcpy((a2 + v9), (*(v8 + 17480) + *(v8 + 17472) - v15), v16);
-        v9 += v16;
-        v15 = *(v8 + 17464) - v16;
-        *(v8 + 17464) = v15;
+        memcpy((a2 + v4), (*(v3 + 17480) + *(v3 + 17472) - v10), v11);
+        v4 += v11;
+        v10 = *(v3 + 17464) - v11;
+        *(v3 + 17464) = v10;
       }
 
-      if (v9 == a3)
+      if (v4 == a3)
       {
         return a3;
       }
 
-      if (*(v8 + 8))
+      if (*(v3 + 8))
       {
-        return v9;
+        return v4;
       }
 
-      if (v15)
+      if (v10)
       {
-        _CGHandleAssert("lzw_decode", 155, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/PDF/Filters/LZW/lzw-decode.c", "d->pending == 0", "pending (%lu) is nonzero for decoder %p", a6, a7, a8, v15);
+        _CGHandleAssert("lzw_decode", 155, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/PDF/Filters/LZW/lzw-decode.c", "d->pending == 0", "pending (%lu) is nonzero for decoder %p", v10, v3);
       }
 
-      code = lzw_read_code(v8, a2, a3, a4, a5, a6, a7, a8);
+      code = lzw_read_code(v3);
       if (code == 256)
       {
-        *(v8 + 1056) = 9;
-        *(v8 + 17444) = 258;
-        *(v8 + 17448) = 0;
-        v22 = lzw_read_code(v8, a2, a3, a4, a5, a6, a7, a8);
-        if (v22 != 257)
+        *(v3 + 1056) = 9;
+        *(v3 + 17444) = 258;
+        *(v3 + 17448) = 0;
+        v17 = lzw_read_code(v3);
+        if (v17 != 257)
         {
-          v21 = v22;
-          *(v8 + 17448) = v22;
-          *(v8 + 17446) = v22;
-          v20 = v8;
+          v16 = v17;
+          *(v3 + 17448) = v17;
+          *(v3 + 17446) = v17;
+          v15 = v3;
 LABEL_21:
-          lzw_push(v20, v21);
+          lzw_push(v15, v16);
           goto LABEL_22;
         }
       }
 
       else
       {
-        v18 = code;
+        v13 = code;
         if (code != 257)
         {
-          v19 = *(v8 + 17444);
-          if (v19 < 0x1000)
+          v14 = *(v3 + 17444);
+          if (v14 < 0x1000)
           {
-            v23 = code;
-            if (code >= v19)
+            v18 = code;
+            if (code >= v14)
             {
-              v23 = *(v8 + 17446);
-              lzw_push(v8, *(v8 + 17448));
+              v18 = *(v3 + 17446);
+              lzw_push(v3, *(v3 + 17448));
             }
 
-            while (v23 >= 0x100)
+            while (v18 >= 0x100)
             {
-              if (v23 >= 0x1000)
+              if (v18 >= 0x1000)
               {
-                _CGHandleAssert("lzw_decode", 202, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/PDF/Filters/LZW/lzw-decode.c", "code < LZW_TABLE_SIZE", "lzw code (%u) is outside of table bounds (%u)", a6, a7, a8, v23);
+                _CGHandleAssert("lzw_decode", 202, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/PDF/Filters/LZW/lzw-decode.c", "code < LZW_TABLE_SIZE", "lzw code (%u) is outside of table bounds (%u)", v18, 4096);
               }
 
-              lzw_push(v8, *(v13 + 2 * v23));
-              v23 = *(v14 + 2 * v23);
-              if (*(v8 + 17464) >> 1 >= 0x801uLL)
+              lzw_push(v3, *(v8 + 2 * v18));
+              v18 = *(v9 + 2 * v18);
+              if (*(v3 + 17464) >> 1 >= 0x801uLL)
               {
                 pdf_error("LZW decode: invalid chain sequence.");
-                *(v8 + 9) = 1;
+                *(v3 + 9) = 1;
                 goto LABEL_22;
               }
             }
 
-            lzw_push(v8, v23);
-            *(v8 + 17448) = v23;
-            v24 = *(v8 + 17446);
-            if (v24 >= 0x1000)
+            lzw_push(v3, v18);
+            *(v3 + 17448) = v18;
+            v19 = *(v3 + 17446);
+            if (v19 >= 0x1000)
             {
-              _CGHandleAssert("lzw_decode", 219, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/PDF/Filters/LZW/lzw-decode.c", "d->oldCode < LZW_TABLE_SIZE", "lzw table building: old code (%u) is outside of table bounds (%u)", a6, a7, a8, *(v8 + 17446));
+              _CGHandleAssert("lzw_decode", 219, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/PDF/Filters/LZW/lzw-decode.c", "d->oldCode < LZW_TABLE_SIZE", "lzw table building: old code (%u) is outside of table bounds (%u)", *(v3 + 17446), 4096);
             }
 
-            *(v14 + 2 * *(v8 + 17444)) = v24;
-            *(v13 + 2 * *(v8 + 17444)) = *(v8 + 17448);
-            *(v8 + 17446) = v18;
-            v25 = *(v8 + 17444) + 1;
-            *(v8 + 17444) = v25;
-            v26 = *(v8 + 1056);
-            if (v26 <= 11)
+            *(v9 + 2 * *(v3 + 17444)) = v19;
+            *(v8 + 2 * *(v3 + 17444)) = *(v3 + 17448);
+            *(v3 + 17446) = v13;
+            v20 = *(v3 + 17444) + 1;
+            *(v3 + 17444) = v20;
+            v21 = *(v3 + 1056);
+            if (v21 <= 11)
             {
-              v27 = (~(-1 << v26) - *(v8 + 10));
-              if (v27 < v25)
+              v22 = (~(-1 << v21) - *(v3 + 10));
+              if (v22 < v20)
               {
-                if (v27 + 1 != v25)
+                if (v22 + 1 != v20)
                 {
-                  _CGHandleAssert("lzw_decode", 234, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/PDF/Filters/LZW/lzw-decode.c", "d->freeCode == maxCode + 1", "sanity check failed that the free code(%u) should be maxCode(%u) +1", a6, a7, a8, v25);
+                  _CGHandleAssert("lzw_decode", 234, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/PDF/Filters/LZW/lzw-decode.c", "d->freeCode == maxCode + 1", "sanity check failed that the free code(%u) should be maxCode(%u) +1", v20, v22);
                 }
 
-                *(v8 + 1056) = v26 + 1;
+                *(v3 + 1056) = v21 + 1;
               }
             }
 
             goto LABEL_22;
           }
 
-          v20 = v8;
-          v21 = v18;
+          v15 = v3;
+          v16 = v13;
           goto LABEL_21;
         }
       }
 
-      *(v8 + 8) = 1;
+      *(v3 + 8) = 1;
 LABEL_22:
-      v15 = *(v8 + 17464);
-      if (!v15)
+      v10 = *(v3 + 17464);
+      if (!v10)
       {
-        return v9;
+        return v4;
       }
     }
   }
@@ -2724,21 +2721,21 @@ LABEL_22:
   return 0;
 }
 
-const void **lzw_filter_rewind(const void ***a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+const void **lzw_filter_rewind(const void ***a1)
 {
   if (*a1)
   {
-    v9 = **a1;
+    v2 = **a1;
   }
 
   else
   {
-    v9 = 0;
+    v2 = 0;
   }
 
-  CGPDFSourceRewind(v9, a2, a3, a4, a5, a6, a7, a8);
+  CGPDFSourceRewind(v2);
   lzw_decoder_release(*a1);
-  result = lzw_decoder_create(v9, *(a1 + 8));
+  result = lzw_decoder_create(v2, *(a1 + 8));
   *a1 = result;
   return result;
 }
@@ -2857,7 +2854,7 @@ BOOL resample_float16_select(uint64_t a1, uint64_t a2, int a3)
   }
 }
 
-_DWORD *resample_float16_h_Ncpp(_DWORD *result, unsigned int a2, unsigned __int8 a3, int a4, uint64_t a5, uint64_t *a6, int *a7, int a8)
+_DWORD *resample_float16_h_Ncpp(_DWORD *result, unsigned int a2, unsigned __int8 a3, int a4, uint64_t a5, uint64_t *a6, int *a7, unsigned int a8)
 {
   if (a8 >= 1)
   {
@@ -4064,7 +4061,7 @@ int *resample_float16_h_Ncpp_ap(int *result, unsigned int a2, unsigned __int8 a3
   return result;
 }
 
-int *resample_float16_h_4cpp_ap(int *result, unsigned int a2, uint64_t a3, int a4, uint64_t a5, uint64_t *a6, int *a7, int a8)
+int *resample_float16_h_4cpp_ap(int *result, unsigned int a2, uint64_t a3, int a4, uint64_t a5, uint64_t *a6, int *a7, unsigned int a8)
 {
   if (a8 >= 1)
   {
@@ -4147,7 +4144,7 @@ int *resample_float16_h_4cpp_ap(int *result, unsigned int a2, uint64_t a3, int a
   return result;
 }
 
-int *resample_float16_h_3cpp_ap(int *result, unsigned int a2, uint64_t a3, int a4, uint64_t a5, uint64_t *a6, int *a7, int a8)
+int *resample_float16_h_3cpp_ap(int *result, unsigned int a2, uint64_t a3, int a4, uint64_t a5, uint64_t *a6, int *a7, unsigned int a8)
 {
   if (a8 >= 1)
   {
@@ -4216,7 +4213,7 @@ int *resample_float16_h_3cpp_ap(int *result, unsigned int a2, uint64_t a3, int a
   return result;
 }
 
-_DWORD *resample_float16_h_1cpp_ap(_DWORD *result, unsigned int a2, double a3, double a4, float16x4_t a5, float16x4_t a6, uint64_t a7, int a8, uint64_t a9, uint64_t *a10, int *a11, int a12)
+_DWORD *resample_float16_h_1cpp_ap(_DWORD *result, unsigned int a2, double a3, double a4, float16x4_t a5, float16x4_t a6, uint64_t a7, int a8, uint64_t a9, uint64_t *a10, int *a11, unsigned int a12)
 {
   if (a12 >= 1)
   {
@@ -4342,7 +4339,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t resample_float16_v_Ncpp_ap(uint64_t result, uint64_t a2, unsigned __int8 a3, int a4, void *a5, uint64_t *a6)
+unint64_t resample_float16_v_Ncpp_ap(unint64_t result, uint64_t a2, unsigned __int8 a3, int a4, void *a5, uint64_t *a6)
 {
   v6 = *a5 - 2;
   v7 = a5[1] - 2;
@@ -4714,7 +4711,7 @@ const void *__resample_float16_select_block_invoke()
   return result;
 }
 
-_DWORD *resample_float16_h_Ncpp_expanded(_DWORD *result, unsigned int a2, unsigned __int8 a3, int a4, uint64_t a5, uint64_t *a6, int *a7, int a8)
+_DWORD *resample_float16_h_Ncpp_expanded(_DWORD *result, unsigned int a2, unsigned __int8 a3, int a4, uint64_t a5, uint64_t *a6, int *a7, unsigned int a8)
 {
   if (a8 >= 1)
   {
@@ -4944,7 +4941,7 @@ LABEL_14:
     while (1)
     {
       v15 = *(v14 + 1);
-      v16 = (v14 + 2);
+      v16 = v14 + 2;
       v17 = v14[2];
       v18 = v9 + v8 * v10 - 2 + 2 * *v14;
       if (v15 >= 4)
@@ -4999,7 +4996,7 @@ LABEL_13:
     }
 
     while (v21 > 7);
-    v16 = (v19 - 4);
+    v16 = v19 - 4;
     if (!v15)
     {
       goto LABEL_13;
@@ -5007,7 +5004,7 @@ LABEL_13:
 
 LABEL_11:
     v37 = (v18 + 2);
-    v38 = (v16 + 1);
+    v38 = v16 + 1;
     do
     {
       v39 = *v37++;
@@ -5274,11 +5271,11 @@ uint64_t resample_float16_v_Ncpp_al_expanded(uint64_t result, uint64_t a2, unsig
   return result;
 }
 
-float *resample_float16_v_3cpp_al_expanded(float *result, uint64_t a2, unsigned __int8 a3, int a4, float16x8_t **a5, uint64_t *a6)
+const float *resample_float16_v_3cpp_al_expanded(const float *result, uint64_t a2, unsigned __int8 a3, int a4, float16x8_t **a5, uint64_t *a6)
 {
   v6 = *a5;
   v7 = *(result + 1);
-  v8 = result + 2;
+  v8 = (result + 2);
   v9 = a3 * a4;
   v10 = v9 & 0xFFFFFFF0;
   if (v10 < 1)
@@ -5757,7 +5754,7 @@ int *resample_float16_h_Ncpp_ap_expanded(int *result, unsigned int a2, unsigned 
   return result;
 }
 
-int *resample_float16_h_4cpp_ap_expanded(int *result, unsigned int a2, uint64_t a3, int a4, uint64_t a5, uint64_t *a6, int *a7, int a8)
+int *resample_float16_h_4cpp_ap_expanded(int *result, unsigned int a2, uint64_t a3, int a4, uint64_t a5, uint64_t *a6, int *a7, unsigned int a8)
 {
   if (a8 >= 1)
   {
@@ -5831,7 +5828,7 @@ int *resample_float16_h_4cpp_ap_expanded(int *result, unsigned int a2, uint64_t 
   return result;
 }
 
-int *resample_float16_h_3cpp_ap_expanded(int *result, unsigned int a2, uint64_t a3, int a4, uint64_t a5, uint64_t *a6, int *a7, int a8)
+int *resample_float16_h_3cpp_ap_expanded(int *result, unsigned int a2, uint64_t a3, int a4, uint64_t a5, uint64_t *a6, int *a7, unsigned int a8)
 {
   if (a8 >= 1)
   {
@@ -5896,7 +5893,7 @@ int *resample_float16_h_3cpp_ap_expanded(int *result, unsigned int a2, uint64_t 
   return result;
 }
 
-uint64_t resample_float16_h_1cpp_ap_expanded(uint64_t result, unsigned int a2, uint64_t a3, int a4, uint64_t a5, uint64_t *a6, int *a7, int a8)
+uint64_t resample_float16_h_1cpp_ap_expanded(uint64_t result, unsigned int a2, uint64_t a3, int a4, uint64_t a5, uint64_t *a6, int *a7, unsigned int a8)
 {
   if (a8 >= 1)
   {
@@ -6023,7 +6020,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t resample_float16_v_Ncpp_ap_expanded(uint64_t result, uint64_t a2, unsigned __int8 a3, int a4, void *a5, uint64_t *a6)
+unint64_t resample_float16_v_Ncpp_ap_expanded(unint64_t result, uint64_t a2, unsigned __int8 a3, int a4, void *a5, uint64_t *a6)
 {
   v6 = *a5 - 2;
   v7 = a5[1] - 2;
@@ -6330,9 +6327,9 @@ uint64_t resample_float16_v_3cpp_ap_expanded(uint64_t result, uint64_t a2, unsig
   return result;
 }
 
-void sub_184309020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_184309020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6344,30 +6341,30 @@ uint64_t __Block_byref_object_copy__20906(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_184309194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_184309194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1843092B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1843092B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1843093CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1843093CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_184309618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_184309618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6510,9 +6507,9 @@ void CG::dasher::add_path_dash_segment<CG::Cubic>(double *a1, float64x2_t *a2, d
   {
     v26 = *a1;
     v53 = v46;
-    if (v26 != 0.0)
+    if (v26)
     {
-      (*(*&v26 + 24))(*(*&v26 + 8), 0, &v53, *(*&v26 + 48));
+      (*(v26 + 24))(*(v26 + 8), 0, &v53, *(v26 + 48));
     }
   }
 
@@ -6535,9 +6532,9 @@ void CG::dasher::add_path_dash_segment<CG::Cubic>(double *a1, float64x2_t *a2, d
 
     v28 = *a1;
     v53 = vaddq_f64(vmulq_f64(v27, vdupq_n_s64(0x3EF0000000000000uLL)), v46);
-    if (v28 != 0.0)
+    if (v28)
     {
-      (*(*&v28 + 24))(*(*&v28 + 8), 1, &v53, *(*&v28 + 48));
+      (*(v28 + 24))(*(v28 + 8), 1, &v53, *(v28 + 48));
     }
   }
 
@@ -6575,7 +6572,7 @@ void CG::dasher::add_path_dash_segment<CG::Cubic>(double *a1, float64x2_t *a2, d
       v53 = vaddq_f64(v46, vmulq_n_f64(vsubq_f64(v47, v46), v35));
       v54 = vaddq_f64(v53, vmulq_n_f64(vsubq_f64(v37, v53), v35));
       v55 = vaddq_f64(v54, vmulq_n_f64(vsubq_f64(vaddq_f64(v37, vmulq_n_f64(vsubq_f64(vaddq_f64(v48, vmulq_n_f64(vsubq_f64(v49, v48), v35)), v37), v35)), v54), v35));
-      (*(*&v36 + 24))(*(*&v36 + 8), 3, &v53, *(*&v36 + 48));
+      (*(v36 + 24))(*(v36 + 8), 3, &v53, *(v36 + 48));
     }
   }
 }
@@ -6937,7 +6934,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t CGAccessSessionGetChunks(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, char *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGAccessSessionGetChunks(uint64_t *a1, unint64_t a2, uint64_t a3, uint64_t a4, char *a5, uint64_t a6)
 {
   if (!a1 || !(a3 | a2))
   {
@@ -6946,28 +6943,28 @@ uint64_t CGAccessSessionGetChunks(uint64_t *a1, uint64_t a2, uint64_t a3, uint64
 
   if (!*a1)
   {
-    _CGHandleAssert("CGDataProviderGetType", 212, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProvider.c", "provider != NULL", "provider is NULL", a6, a7, a8, v8);
+    _CGHandleAssert("CGDataProviderGetType", 212, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProvider.c", "provider != NULL", "provider is NULL", a6, v6, v7);
   }
 
-  v10 = *(*a1 + 20);
-  if (v10 > 1)
+  v8 = *(*a1 + 20);
+  if (v8 > 1)
   {
-    if (v10 == 3)
+    if (v8 == 3)
     {
 LABEL_20:
 
       return get_chunks_sequential(a1, a2, a3, a4, a5, a6);
     }
 
-    if (v10 != 2)
+    if (v8 != 2)
     {
       return 0;
     }
   }
 
-  else if (v10)
+  else if (v8)
   {
-    if (v10 != 1)
+    if (v8 != 1)
     {
       return 0;
     }
@@ -6977,36 +6974,36 @@ LABEL_20:
 
   if (a6 | a3)
   {
-    v11 = a4;
+    v9 = a4;
   }
 
   else
   {
-    v11 = 1;
+    v9 = 1;
   }
 
   if (a6 | a3)
   {
-    v12 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v12 = a4;
+    v10 = a4;
   }
 
-  v13 = v12 * a2;
+  v11 = v10 * a2;
 
-  return get_chunks_direct(a1, v13, a3, v11, a5, a6);
+  return get_chunks_direct(a1, v11, a3, v9, a5, a6);
 }
 
-uint64_t get_chunks_sequential(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t get_chunks_sequential(uint64_t *a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   check_same_thread();
-  v13 = *a1;
+  v10 = *a1;
   if ((*(*a1 + 20) & 0xFFFFFFFD) != 1 || !*(*a1 + 40))
   {
-    _CGHandleAssert("get_chunks_sequential", 225, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGAccessSession.c", "CGDataProviderCanGetSequentialChunks(provider)", "data provider is not sequential or provides no method (%p) to sequentially read data", v10, v11, v12, *(*a1 + 40));
+    _CGHandleAssert("get_chunks_sequential", 225, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGAccessSession.c", "CGDataProviderCanGetSequentialChunks(provider)", "data provider is not sequential or provides no method (%p) to sequentially read data", *(*a1 + 40));
   }
 
   if (!a4)
@@ -7014,56 +7011,56 @@ uint64_t get_chunks_sequential(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t 
     return 0;
   }
 
-  v14 = 0;
-  v15 = 0;
+  v11 = 0;
+  v12 = 0;
   do
   {
     if (a2)
     {
-      if (a2 < 1 || (*(v13 + 261) & 1) != 0)
+      if (a2 < 1 || (*(v10 + 261) & 1) != 0)
       {
-        v16 = 0;
+        v13 = 0;
       }
 
       else
       {
-        v16 = 0;
-        v18 = a2;
-        v19 = a5;
+        v13 = 0;
+        v15 = a2;
+        v16 = a5;
         while (1)
         {
-          v20 = (*(v13 + 40))(*(v13 + 24), v19, v18);
-          if (!v20)
+          v17 = (*(v10 + 40))(*(v10 + 24), v16, v15);
+          if (!v17)
           {
             break;
           }
 
-          if (v20 >= v18)
+          if (v17 >= v15)
           {
-            v21 = v18;
+            v18 = v15;
           }
 
           else
           {
-            v21 = v20;
+            v18 = v17;
           }
 
-          v16 += v21;
-          v19 += v21;
-          v18 -= v21;
-          if (!v18)
+          v13 += v18;
+          v16 += v18;
+          v15 -= v18;
+          if (!v15)
           {
             goto LABEL_9;
           }
         }
 
-        *(v13 + 261) = 1;
+        *(v10 + 261) = 1;
       }
 
 LABEL_9:
-      v15 += v16;
-      a1[2] += v16;
-      if (v16 < a2)
+      v12 += v13;
+      a1[2] += v13;
+      if (v13 < a2)
       {
         break;
       }
@@ -7071,17 +7068,17 @@ LABEL_9:
 
     if (a3)
     {
-      v17 = CGDataProviderSkipForwardInternal(v13, a3);
-      v15 += v17;
-      a1[2] += v17;
+      v14 = CGDataProviderSkipForwardInternal(v10, a3);
+      v12 += v14;
+      a1[2] += v14;
     }
 
     a5 += a2 + a6;
-    ++v14;
+    ++v11;
   }
 
-  while (v14 != a4);
-  return v15;
+  while (v11 != a4);
+  return v12;
 }
 
 uint64_t CGAccessSessionHasError(CFTypeRef *a1)
@@ -7155,7 +7152,7 @@ CGPDFStreamRef get_font_stream_20977(uint64_t a1)
   return v3;
 }
 
-uint64_t A8_sample_ALPHA16(uint64_t result, uint64_t a2, uint64_t a3, int a4)
+uint64_t A8_sample_ALPHA16(uint64_t result, unint64_t a2, unint64_t a3, int a4)
 {
   v4 = *(result + 40);
   v103 = *(result + 28);
@@ -7720,7 +7717,7 @@ LABEL_76:
   return result;
 }
 
-uint64_t A8_sample_alpha16(uint64_t result, uint64_t a2, uint64_t a3, int a4)
+uint64_t A8_sample_alpha16(uint64_t result, unint64_t a2, unint64_t a3, int a4)
 {
   v4 = *(result + 40);
   v103 = *(result + 28);
@@ -8285,7 +8282,7 @@ LABEL_76:
   return result;
 }
 
-uint64_t A8_sample_ALPHAF(uint64_t result, uint64_t a2, uint64_t a3, int a4)
+uint64_t A8_sample_ALPHAF(uint64_t result, unint64_t a2, unint64_t a3, int a4)
 {
   v4 = *(result + 40);
   v5 = *(result + 28);
@@ -8848,7 +8845,7 @@ LABEL_76:
   return result;
 }
 
-uint64_t A8_sample_ALPHAf(uint64_t result, uint64_t a2, uint64_t a3, int a4)
+uint64_t A8_sample_ALPHAf(uint64_t result, unint64_t a2, unint64_t a3, int a4)
 {
   v4 = *(result + 40);
   v5 = *(result + 28);
@@ -9411,7 +9408,7 @@ LABEL_76:
   return result;
 }
 
-uint64_t A8_sample_ALPHAf16(uint64_t result, uint64_t a2, uint64_t a3, int a4)
+uint64_t A8_sample_ALPHAf16(uint64_t result, unint64_t a2, unint64_t a3, int a4)
 {
   v4 = *(result + 40);
   v5 = *(result + 28);

@@ -257,21 +257,21 @@ LABEL_11:
 
 - (BOOL)validateOperation
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!self || (database = self->_database) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"fetch operation must have a database"];
-      v7 = 136315906;
-      v8 = "[FCCKContentBatchedFetchRecordsOperation validateOperation]";
-      v9 = 2080;
-      v10 = "FCCKContentBatchedFetchRecordsOperation.m";
-      v11 = 1024;
-      v12 = 48;
-      v13 = 2114;
-      v14 = v6;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v7, 0x26u);
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"fetch operation must have a database"];
+      v6 = 136315906;
+      v7 = "[FCCKContentBatchedFetchRecordsOperation validateOperation]";
+      v8 = 2080;
+      v9 = "FCCKContentBatchedFetchRecordsOperation.m";
+      v10 = 1024;
+      v11 = 48;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
 
       if (self)
       {
@@ -283,28 +283,25 @@ LABEL_11:
     {
 LABEL_5:
       database = self->_database;
-      goto LABEL_6;
+      return database != 0;
     }
 
     database = 0;
   }
 
-LABEL_6:
-  result = database != 0;
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return database != 0;
 }
 
 - (void)operationWillFinishWithError:(id)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (errorCopy)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     if (self)
     {
       recordIDs = self->_recordIDs;
@@ -316,25 +313,25 @@ LABEL_6:
     }
 
     v6 = recordIDs;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
         v10 = 0;
         do
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * v10);
+          v11 = *(*(&v15 + 1) + 8 * v10);
           if (self)
           {
-            if (![(FCThreadSafeMutableSet *)self->_handledRecordIDs containsObject:*(*(&v16 + 1) + 8 * v10)])
+            if (![(FCThreadSafeMutableSet *)self->_handledRecordIDs containsObject:*(*(&v15 + 1) + 8 * v10)])
             {
               perRecordCompletionBlock = self->_perRecordCompletionBlock;
               if (perRecordCompletionBlock)
@@ -346,14 +343,14 @@ LABEL_6:
 
           else
           {
-            [0 containsObject:{*(*(&v16 + 1) + 8 * v10), v16}];
+            [0 containsObject:{*(*(&v15 + 1) + 8 * v10), v15}];
           }
 
           ++v10;
         }
 
         while (v8 != v10);
-        v13 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v13 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
         v8 = v13;
       }
 
@@ -369,8 +366,6 @@ LABEL_6:
       fetchRecordsCompletionBlock[2](fetchRecordsCompletionBlock, errorCopy);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __60__FCCKContentBatchedFetchRecordsOperation__continueFetching__block_invoke_2(uint64_t a1)

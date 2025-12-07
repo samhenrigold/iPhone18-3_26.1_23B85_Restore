@@ -119,7 +119,7 @@
   v11 = 0u;
   if (trackerCopy)
   {
-    [trackerCopy rotateTransform];
+    objc_msgSend_rotateTransform(trackerCopy);
   }
 
   else
@@ -129,7 +129,7 @@
     v8 = 0uLL;
   }
 
-  [(CRLCanvasLayout *)self layoutTransformInInfoSpace:&v8];
+  objc_msgSend_layoutTransformInInfoSpace_(self, v8, v9, v10);
   v5 = *(&self->_cachedPathForClippingConnectionLines + 2);
   v8 = v11;
   v9 = v12;
@@ -168,7 +168,7 @@
   v11 = 0u;
   if (trackerCopy)
   {
-    [trackerCopy freeTransformForLayout:self];
+    objc_msgSend_freeTransformForLayout_(trackerCopy);
   }
 
   else
@@ -178,7 +178,7 @@
     v8 = 0uLL;
   }
 
-  [(CRLCanvasLayout *)self layoutTransformInInfoSpace:&v8];
+  objc_msgSend_layoutTransformInInfoSpace_(self, v8, v9, v10);
   v5 = *(&self->_cachedPathForClippingConnectionLines + 2);
   v8 = v11;
   v9 = v12;

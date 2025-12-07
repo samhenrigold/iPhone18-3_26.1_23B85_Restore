@@ -37,7 +37,7 @@
 
 - (void)writeData:(NSData *)data withCompletionHandler:(void *)completionHandler
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v6 = completionHandler;
   v7 = data;
   if ((isa_nsdata(v7) & 1) == 0)
@@ -56,7 +56,7 @@
       }
 
       *buf = 134217984;
-      v34 = CFHash(flow);
+      v32 = CFHash(flow);
       _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%lu: Data object passed is not an NSData", buf, 0xCu);
     }
 
@@ -75,65 +75,58 @@
     block[1] = 3221225472;
     block[2] = __53__NEAppProxyTCPFlow_writeData_withCompletionHandler___block_invoke;
     block[3] = &unk_1E7F0B600;
-    v32 = v6;
+    v30 = v6;
     dispatch_async(v11, block);
   }
 
-  if (self)
-  {
-    v12 = self->super._flow;
-  }
+  v24 = MEMORY[0x1E69E9820];
+  v25 = 3221225472;
+  v26 = __53__NEAppProxyTCPFlow_writeData_withCompletionHandler___block_invoke_2;
+  v27 = &unk_1E7F06AB0;
+  v12 = v6;
+  v28 = v12;
+  v13 = NEFlowWrite();
 
-  v26 = MEMORY[0x1E69E9820];
-  v27 = 3221225472;
-  v28 = __53__NEAppProxyTCPFlow_writeData_withCompletionHandler___block_invoke_2;
-  v29 = &unk_1E7F06AB0;
-  v13 = v6;
-  v30 = v13;
-  v14 = NEFlowWrite();
-
-  if (v14)
+  if (v13)
   {
-    v15 = ne_log_obj();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v14 = ne_log_obj();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       if (self)
       {
-        v20 = self->super._flow;
+        v18 = self->super._flow;
       }
 
       else
       {
-        v20 = 0;
+        v18 = 0;
       }
 
-      v21 = CFHash(v20);
+      v19 = CFHash(v18);
       *buf = 134217984;
-      v34 = v21;
-      _os_log_error_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_ERROR, "%lu: Failed to write flow Data", buf, 0xCu);
+      v32 = v19;
+      _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, "%lu: Failed to write flow Data", buf, 0xCu);
     }
 
     if (self)
     {
-      v17 = objc_getProperty(self, v16, 40, 1);
+      v16 = objc_getProperty(self, v15, 40, 1);
     }
 
     else
     {
-      v17 = 0;
+      v16 = 0;
     }
 
-    v18 = v17;
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __53__NEAppProxyTCPFlow_writeData_withCompletionHandler___block_invoke_5;
-    v23[3] = &unk_1E7F0AB18;
-    v24 = v13;
-    v25 = v14;
-    dispatch_async(v18, v23);
+    v17 = v16;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __53__NEAppProxyTCPFlow_writeData_withCompletionHandler___block_invoke_5;
+    v21[3] = &unk_1E7F0AB18;
+    v22 = v12;
+    v23 = v13;
+    dispatch_async(v17, v21);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __53__NEAppProxyTCPFlow_writeData_withCompletionHandler___block_invoke(uint64_t a1)
@@ -160,24 +153,19 @@ void __53__NEAppProxyTCPFlow_writeData_withCompletionHandler___block_invoke_5(ui
 - (void)readDataWithCompletionHandler:(void *)completionHandler
 {
   v4 = completionHandler;
-  if (self)
+  v14 = MEMORY[0x1E69E9820];
+  v15 = 3221225472;
+  v16 = __51__NEAppProxyTCPFlow_readDataWithCompletionHandler___block_invoke;
+  v17 = &unk_1E7F06A60;
+  v5 = v4;
+  v18 = v5;
+  v6 = NEFlowAsyncRead();
+  if (v6)
   {
-    flow = self->super._flow;
-  }
-
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __51__NEAppProxyTCPFlow_readDataWithCompletionHandler___block_invoke;
-  v18 = &unk_1E7F06A60;
-  v6 = v4;
-  v19 = v6;
-  v7 = NEFlowAsyncRead();
-  if (v7)
-  {
-    v9 = v7;
+    v8 = v6;
     if (self)
     {
-      Property = objc_getProperty(self, v8, 40, 1);
+      Property = objc_getProperty(self, v7, 40, 1);
     }
 
     else
@@ -185,14 +173,14 @@ void __53__NEAppProxyTCPFlow_writeData_withCompletionHandler___block_invoke_5(ui
       Property = 0;
     }
 
-    v11 = Property;
+    v10 = Property;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __51__NEAppProxyTCPFlow_readDataWithCompletionHandler___block_invoke_2;
     block[3] = &unk_1E7F0AB18;
-    v13 = v6;
-    v14 = v9;
-    dispatch_async(v11, block);
+    v12 = v5;
+    v13 = v8;
+    dispatch_async(v10, block);
   }
 }
 
@@ -224,7 +212,7 @@ void __51__NEAppProxyTCPFlow_readDataWithCompletionHandler___block_invoke_2(uint
   v7 = [(NEAppProxyFlow *)&v11 initWithNEFlow:flow queue:queueCopy];
   if (v7)
   {
-    v8 = +[NEAppProxyFlow copyRemoteEndpointFromFlow:];
+    v8 = [NEAppProxyFlow copyRemoteEndpointFromFlow:flow];
     remoteFlowEndpoint = v7->_remoteFlowEndpoint;
     v7->_remoteFlowEndpoint = v8;
 

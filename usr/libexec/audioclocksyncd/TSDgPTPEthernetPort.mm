@@ -1,10 +1,18 @@
 @interface TSDgPTPEthernetPort
 + (id)diagnosticInfoForService:(id)service;
+- (TSDgPTPEthernetPort)initWithService:(id)service pid:(int)pid;
 - (id)_sourceAddressString;
 - (id)propertiesForXPC;
 @end
 
 @implementation TSDgPTPEthernetPort
+
+- (TSDgPTPEthernetPort)initWithService:(id)service pid:(int)pid
+{
+  v5.receiver = self;
+  v5.super_class = TSDgPTPEthernetPort;
+  return [(TSDgPTPFDPtPPort *)&v5 initWithService:service pid:*&pid];
+}
 
 - (id)_sourceAddressString
 {

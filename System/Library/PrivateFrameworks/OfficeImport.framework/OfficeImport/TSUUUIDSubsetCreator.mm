@@ -19,7 +19,7 @@
     objc_storeStrong(&v8->_uuidSetStore, store);
     if (&v9->_baseUuidVector != vector)
     {
-      std::vector<TSU::UUIDData<TSP::UUIDData>>::__assign_with_size[abi:ne200100]<TSU::UUIDData<TSP::UUIDData>*,TSU::UUIDData<TSP::UUIDData>*>(&v9->_baseUuidVector.__begin_, *vector, *(vector + 1), (*(vector + 1) - *vector) >> 4);
+      std::vector<TSU::UUIDData<TSP::UUIDData>>::__assign_with_size[abi:ne200100]<TSU::UUIDData<TSP::UUIDData>*,TSU::UUIDData<TSP::UUIDData>*>(&v9->_baseUuidVector, *vector, *(vector + 1), (*(vector + 1) - *vector) >> 4);
     }
 
     v11 = objc_opt_new();

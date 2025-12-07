@@ -44,7 +44,7 @@
 
 - (BOOL)enableOverdubForAllDevices
 {
-  v3 = sub_100001B00();
+  v3 = sub_100001B00(self, a2);
   if (v3)
   {
     userDefaults = self->_userDefaults;

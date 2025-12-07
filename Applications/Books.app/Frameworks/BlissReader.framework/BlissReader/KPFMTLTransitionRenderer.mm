@@ -463,10 +463,11 @@ LABEL_11:
     callbackCopy = 0;
   }
 
+  mTransitionEndCallbackTarget = self->mTransitionEndCallbackTarget;
   self->mTransitionEndCallbackTarget = targetCopy;
   self->mTransitionEndCallbackSelector = callbackCopy;
 
-  _objc_release_x1();
+  _objc_release_x1(targetCopy, mTransitionEndCallbackTarget);
 }
 
 - (BOOL)shouldDrawFrameAtLayerTime:(double)time

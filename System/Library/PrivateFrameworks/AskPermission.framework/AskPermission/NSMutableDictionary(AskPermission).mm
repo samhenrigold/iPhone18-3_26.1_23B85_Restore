@@ -8,10 +8,10 @@
 {
   if (a3)
   {
-    return [self setObject:? forKeyedSubscript:?];
+    return [result setObject:? forKeyedSubscript:?];
   }
 
-  return self;
+  return result;
 }
 
 @end

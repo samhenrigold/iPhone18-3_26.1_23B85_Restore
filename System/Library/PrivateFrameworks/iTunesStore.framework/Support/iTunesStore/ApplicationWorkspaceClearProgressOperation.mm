@@ -17,7 +17,7 @@
     v9 = [LSApplicationProxy applicationProxyForIdentifier:self->_bundleID placeholder:1];
     if (![v9 foundBackingBundle])
     {
-      goto LABEL_37;
+      goto LABEL_40;
     }
 
     v10 = [v5 installProgressForApplication:v9 withPhase:0];
@@ -34,31 +34,36 @@
       shouldLog = [v12 shouldLog];
       if ([v12 shouldLogToDisk])
       {
-        v14 = shouldLog | 2;
+        LODWORD(v14) = shouldLog | 2;
       }
 
       else
       {
-        v14 = shouldLog;
+        LODWORD(v14) = shouldLog;
       }
 
       oSLogObject = [v12 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      {
+        v14 = v14;
+      }
+
+      else
       {
         v14 &= 2u;
       }
 
       if (!v14)
       {
-        goto LABEL_34;
+        goto LABEL_37;
       }
 
       applicationHandle2 = [(ApplicationWorkspaceOperation *)self applicationHandle];
-      *v24 = 138412546;
-      *&v24[4] = applicationHandle2;
-      *&v24[12] = 2112;
-      *&v24[14] = oSLogObject2;
-      LODWORD(v23) = 22;
+      *v25 = 138412546;
+      *&v25[4] = applicationHandle2;
+      *&v25[12] = 2112;
+      *&v25[14] = oSLogObject2;
+      v17 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[ApplicationWorkspace]: Cancelled progress for %@ progress: %@", v25, 22, *v25, *&v25[8]);
     }
 
     else
@@ -72,48 +77,53 @@
       shouldLog2 = [v12 shouldLog];
       if ([v12 shouldLogToDisk])
       {
-        v21 = shouldLog2 | 2;
+        LODWORD(v23) = shouldLog2 | 2;
       }
 
       else
       {
-        v21 = shouldLog2;
+        LODWORD(v23) = shouldLog2;
       }
 
       oSLogObject = [v12 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v21 &= 2u;
+        v23 = v23;
       }
 
-      if (!v21)
+      else
       {
-        goto LABEL_34;
+        v23 &= 2u;
+      }
+
+      if (!v23)
+      {
+        goto LABEL_37;
       }
 
       applicationHandle2 = [(ApplicationWorkspaceOperation *)self applicationHandle];
-      *v24 = 138412546;
-      *&v24[4] = applicationHandle2;
-      *&v24[12] = 2112;
-      *&v24[14] = 0;
-      LODWORD(v23) = 22;
+      *v25 = 138412546;
+      *&v25[4] = applicationHandle2;
+      *&v25[12] = 2112;
+      *&v25[14] = 0;
+      v17 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[ApplicationWorkspace]: Could not find progress to cancel for %@ progress: %@", v25, 22, *v25, *&v25[8]);
     }
 
-    v22 = _os_log_send_and_compose_impl();
+    v24 = v17;
 
-    if (!v22)
+    if (!v24)
     {
-LABEL_35:
+LABEL_38:
 
-      goto LABEL_36;
+      goto LABEL_39;
     }
 
-    oSLogObject = [NSString stringWithCString:v22 encoding:4, v24, v23, *v24, *&v24[16]];
-    free(v22);
+    oSLogObject = [NSString stringWithCString:v24 encoding:4];
+    free(v24);
     SSFileLog();
-LABEL_34:
+LABEL_37:
 
-    goto LABEL_35;
+    goto LABEL_38;
   }
 
   v9 = +[SSLogConfig sharedDaemonConfig];
@@ -125,40 +135,45 @@ LABEL_34:
   shouldLog3 = [v9 shouldLog];
   if ([v9 shouldLogToDisk])
   {
-    v18 = shouldLog3 | 2;
+    LODWORD(v19) = shouldLog3 | 2;
   }
 
   else
   {
-    v18 = shouldLog3;
+    LODWORD(v19) = shouldLog3;
   }
 
   oSLogObject2 = [v9 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
   {
-    v18 &= 2u;
+    v19 = v19;
   }
 
-  if (v18)
+  else
   {
-    [(ApplicationWorkspaceOperation *)self applicationHandle];
-    *&v24[4] = *v24 = 138412290;
-    LODWORD(v23) = 12;
-    v19 = _os_log_send_and_compose_impl();
+    v19 &= 2u;
+  }
 
-    if (!v19)
+  if (v19)
+  {
+    applicationHandle3 = [(ApplicationWorkspaceOperation *)self applicationHandle];
+    *v25 = 138412290;
+    *&v25[4] = applicationHandle3;
+    v21 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "[ApplicationWorkspace]: No placeholder with progress to cancel, skipping uninstall: %@", v25, 12);
+
+    if (!v21)
     {
-      goto LABEL_37;
+      goto LABEL_40;
     }
 
-    oSLogObject2 = [NSString stringWithCString:v19 encoding:4, v24, v23];
-    free(v19);
+    oSLogObject2 = [NSString stringWithCString:v21 encoding:4];
+    free(v21);
     SSFileLog();
   }
 
-LABEL_36:
+LABEL_39:
 
-LABEL_37:
+LABEL_40:
   if (blockCopy)
   {
     (*(blockCopy + 2))(blockCopy, v8 ^ 1, 0, 0);

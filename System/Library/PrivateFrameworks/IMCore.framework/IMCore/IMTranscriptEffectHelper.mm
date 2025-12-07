@@ -30,44 +30,44 @@
 + (BOOL)identifierIsEffectIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v7 = objc_msgSend_identifierNameMap(self, v5, v6);
-  v9 = objc_msgSend_objectForKey_(v7, v8, identifierCopy);
+  identifierNameMap = [self identifierNameMap];
+  v6 = [identifierNameMap objectForKey:identifierCopy];
 
-  return v9 != 0;
+  return v6 != 0;
 }
 
 + (BOOL)effectIdentifierIsFullScreenMoment:(id)moment
 {
   momentCopy = moment;
-  if (objc_msgSend_identifierIsEffectIdentifier_(self, v5, momentCopy))
+  if ([self identifierIsEffectIdentifier:momentCopy])
   {
-    objc_msgSend_rangeOfString_(momentCopy, v6, @"com.apple.messages.effect");
-    v8 = v7 != 0;
+    [momentCopy rangeOfString:@"com.apple.messages.effect"];
+    v6 = v5 != 0;
   }
 
   else
   {
-    v8 = 0;
+    v6 = 0;
   }
 
-  return v8;
+  return v6;
 }
 
 + (BOOL)effectIdentifierIsImpactEffect:(id)effect
 {
   effectCopy = effect;
-  if (objc_msgSend_identifierIsEffectIdentifier_(self, v5, effectCopy))
+  if ([self identifierIsEffectIdentifier:effectCopy])
   {
-    objc_msgSend_rangeOfString_(effectCopy, v6, @"com.apple.MobileSMS.expressivesend");
-    v8 = v7 != 0;
+    [effectCopy rangeOfString:@"com.apple.MobileSMS.expressivesend"];
+    v6 = v5 != 0;
   }
 
   else
   {
-    v8 = 0;
+    v6 = 0;
   }
 
-  return v8;
+  return v6;
 }
 
 + (id)identifierNameMap
@@ -108,36 +108,36 @@
 
 + (id)findIdentifierByMathcingPartialSufix:(id)sufix
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   sufixCopy = sufix;
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v7 = objc_msgSend_allEffectIdentifiers(self, v5, v6, 0);
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v16, v20, 16);
-  if (v10)
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  allEffectIdentifiers = [self allEffectIdentifiers];
+  v6 = [allEffectIdentifiers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v6)
   {
-    v11 = *v17;
+    v7 = *v12;
     while (2)
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v6; i = i + 1)
       {
-        if (*v17 != v11)
+        if (*v12 != v7)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(allEffectIdentifiers);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
-        if (objc_msgSend_localizedCaseInsensitiveContainsString_(v13, v9, sufixCopy))
+        v9 = *(*(&v11 + 1) + 8 * i);
+        if ([v9 localizedCaseInsensitiveContainsString:sufixCopy])
         {
-          v10 = v13;
+          v6 = v9;
           goto LABEL_11;
         }
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v9, &v16, v20, 16);
-      if (v10)
+      v6 = [allEffectIdentifiers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      if (v6)
       {
         continue;
       }
@@ -148,46 +148,44 @@
 
 LABEL_11:
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v10;
+  return v6;
 }
 
 + (id)nameForEffectIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v7 = objc_msgSend_identifierNameMap(self, v5, v6);
-  v9 = objc_msgSend_objectForKey_(v7, v8, identifierCopy);
+  identifierNameMap = [self identifierNameMap];
+  v6 = [identifierNameMap objectForKey:identifierCopy];
 
-  return v9;
+  return v6;
 }
 
 + (id)replayStringForEffectIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v7 = objc_msgSend_replayStringMap(self, v5, v6);
-  v9 = objc_msgSend_objectForKey_(v7, v8, identifierCopy);
+  replayStringMap = [self replayStringMap];
+  v6 = [replayStringMap objectForKey:identifierCopy];
 
-  return v9;
+  return v6;
 }
 
 + (id)sendWithStringForEffectIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v7 = objc_msgSend_sendWithEffectStringMap(self, v5, v6);
-  v9 = objc_msgSend_objectForKey_(v7, v8, identifierCopy);
+  sendWithEffectStringMap = [self sendWithEffectStringMap];
+  v6 = [sendWithEffectStringMap objectForKey:identifierCopy];
 
-  return v9;
+  return v6;
 }
 
 + (BOOL)shouldShowReplayButtonForEffectIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  isFeatureEnabled = objc_msgSend_isFeatureEnabled(self, v4, v5);
+  isFeatureEnabled = [self isFeatureEnabled];
   LOBYTE(self) = 0;
   if (identifierCopy && isFeatureEnabled)
   {
-    LODWORD(self) = objc_msgSend_isEqualToString_(*MEMORY[0x1E69A7D78], v7, identifierCopy) ^ 1;
+    LODWORD(self) = [*MEMORY[0x1E69A7D78] isEqualToString:identifierCopy] ^ 1;
   }
 
   return self;

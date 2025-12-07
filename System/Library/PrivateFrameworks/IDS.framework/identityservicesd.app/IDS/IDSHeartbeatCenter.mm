@@ -360,7 +360,7 @@ LABEL_23:
       v5 = +[IDSServerBag sharedInstance];
       v6 = [v5 objectForKey:@"vc-registration-hbi"];
 
-      if (!v6 || ([v6 doubleValue], v2 = v7, v7 < 580.0))
+      if (!v6 || (objc_msgSend_doubleValue(v6), v2 = v7, v7 < 580.0))
       {
         v8 = +[IMRGLog warning];
         if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))

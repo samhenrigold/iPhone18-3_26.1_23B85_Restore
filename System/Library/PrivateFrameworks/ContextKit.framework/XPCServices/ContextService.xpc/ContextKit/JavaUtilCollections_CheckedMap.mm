@@ -109,8 +109,8 @@
   v5 = [map size];
   if (v5)
   {
-    v6 = v5;
-    v7 = [IOSObjectArray arrayWithLength:v5 type:JavaUtilMap_Entry_class_()];
+    v7 = v5;
+    v8 = [IOSObjectArray arrayWithLength:v5 type:JavaUtilMap_Entry_class_(v5, v6)];
     entrySet = [map entrySet];
     if (!entrySet)
     {
@@ -118,30 +118,30 @@
     }
 
     iterator = [entrySet iterator];
-    if (v6 >= 1)
+    if (v7 >= 1)
     {
-      v10 = iterator;
+      v11 = iterator;
       if (iterator)
       {
-        v11 = 0;
-        v12 = v6;
+        v12 = 0;
+        v13 = v7;
         do
         {
-          next = [v10 next];
+          next = [v11 next];
           if (!next)
           {
             goto LABEL_20;
           }
 
-          v14 = next;
+          v15 = next;
           JavaUtilCollections_checkTypeWithId_withIOSClass_([next getKey], self->keyType_);
-          JavaUtilCollections_checkTypeWithId_withIOSClass_([v14 getValue], self->valueType_);
-          IOSObjectArray_Set(v7, v11++, v14);
+          JavaUtilCollections_checkTypeWithId_withIOSClass_([v15 getValue], self->valueType_);
+          IOSObjectArray_Set(v8, v12++, v15);
         }
 
-        while (v12 != v11);
-        v15 = 0;
-        for (i = v7; ; i = (i + 8))
+        while (v13 != v12);
+        v16 = 0;
+        for (i = v8; ; i = (i + 8))
         {
           m = self->m_;
           if (!m)
@@ -149,10 +149,10 @@
             break;
           }
 
-          size = v7->super.size_;
-          if (v15 >= size)
+          size = v8->super.size_;
+          if (v16 >= size)
           {
-            IOSArray_throwOutOfBoundsWithMsg(size, v15);
+            IOSArray_throwOutOfBoundsWithMsg(size, v16);
           }
 
           elementType = i->elementType_;
@@ -162,20 +162,20 @@
           }
 
           getKey = [(IOSClass *)elementType getKey];
-          v21 = v7->super.size_;
-          if (v15 >= v21)
+          v22 = v8->super.size_;
+          if (v16 >= v22)
           {
-            IOSArray_throwOutOfBoundsWithMsg(v21, v15);
+            IOSArray_throwOutOfBoundsWithMsg(v22, v16);
           }
 
-          v22 = i->elementType_;
-          if (!v22)
+          v23 = i->elementType_;
+          if (!v23)
           {
             break;
           }
 
-          [(JavaUtilMap *)m putWithId:getKey withId:[(IOSClass *)v22 getValue]];
-          if (v12 == ++v15)
+          [(JavaUtilMap *)m putWithId:getKey withId:[(IOSClass *)v23 getValue]];
+          if (v13 == ++v16)
           {
             return;
           }

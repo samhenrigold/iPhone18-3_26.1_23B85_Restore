@@ -1,11 +1,11 @@
 @interface _HDCachedSourceOrder
 - (BOOL)isEqual:(id)equal;
 - (_HDCachedSourceOrder)init;
-- (char)initWithSources:(char)sources userOrdered:(char)ordered isDefaultOrder:;
 - (id).cxx_construct;
 - (id)description;
+- (id)initWithSources:(char)sources userOrdered:(char)ordered isDefaultOrder:;
 - (id)sources;
-- (void)orderedSources;
+- (uint64_t)orderedSources;
 @end
 
 @implementation _HDCachedSourceOrder
@@ -32,7 +32,7 @@
   return v2;
 }
 
-- (char)initWithSources:(char)sources userOrdered:(char)ordered isDefaultOrder:
+- (id)initWithSources:(char)sources userOrdered:(char)ordered isDefaultOrder:
 {
   if (!self)
   {
@@ -45,25 +45,25 @@
   v8 = v7;
   if (v7)
   {
-    if (v7 + 16 != a2)
+    if (v7 + 2 != a2)
     {
       v10 = *a2;
       v9 = a2[1];
       v11 = v9 - v10;
-      v12 = *(v7 + 2);
-      if (*(v7 + 4) - v12 < (v9 - v10))
+      v12 = v7[2];
+      if (v7[4] - v12 < (v9 - v10))
       {
         v13 = 0xAAAAAAAAAAAAAAABLL * (v11 >> 3);
         std::vector<_HDWrappedSource>::__vdeallocate(v7 + 2);
         if (v13 <= 0xAAAAAAAAAAAAAAALL)
         {
-          v14 = 0x5555555555555556 * ((*(v8 + 4) - *(v8 + 2)) >> 3);
+          v14 = 0x5555555555555556 * (v8[4] - v8[2]);
           if (v14 <= v13)
           {
             v14 = v13;
           }
 
-          if (0xAAAAAAAAAAAAAAABLL * ((*(v8 + 4) - *(v8 + 2)) >> 3) >= 0x555555555555555)
+          if (0xAAAAAAAAAAAAAAABLL * (v8[4] - v8[2]) >= 0x555555555555555)
           {
             v15 = 0xAAAAAAAAAAAAAAALL;
           }
@@ -73,58 +73,58 @@
             v15 = v14;
           }
 
-          std::vector<_HDWrappedSource>::__vallocate[abi:ne200100]((v8 + 16), v15);
+          std::vector<_HDWrappedSource>::__vallocate[abi:ne200100](v8 + 2, v15);
         }
 
         std::vector<std::unique_ptr<statistics::Interval>>::__throw_length_error[abi:ne200100]();
       }
 
-      v16 = *(v7 + 3) - v12;
+      v16 = v7[3] - v12;
       if (v16 >= v11)
       {
         v21 = std::__copy_impl::operator()[abi:ne200100]<_HDWrappedSource *,_HDWrappedSource *,_HDWrappedSource *>(v10, v9, v12);
-        for (i = *(v8 + 3); i != v21; i -= 3)
+        for (i = v8[3]; i != v21; i -= 3)
         {
           v23 = *(i - 3);
         }
 
-        *(v8 + 3) = v21;
+        v8[3] = v21;
       }
 
       else
       {
         v17 = v10 + v16;
         std::__copy_impl::operator()[abi:ne200100]<_HDWrappedSource *,_HDWrappedSource *,_HDWrappedSource *>(v10, v10 + v16, v12);
-        v18 = *(v8 + 3);
+        v18 = v8[3];
         if (v17 != v9)
         {
-          v19 = *(v8 + 3);
+          v19 = v8[3];
           do
           {
             *v19 = *v17;
             v20 = *(v17 + 16);
-            *(v19 + 8) = *(v17 + 8);
+            v19[1] = *(v17 + 8);
             *(v19 + 16) = v20;
             v17 += 24;
-            v19 += 24;
-            v18 += 24;
+            v19 += 3;
+            v18 += 3;
           }
 
           while (v17 != v9);
         }
 
-        *(v8 + 3) = v18;
+        v8[3] = v18;
       }
     }
 
-    v8[8] = sources;
-    v8[9] = ordered;
+    *(v8 + 8) = sources;
+    *(v8 + 9) = ordered;
   }
 
   return v8;
 }
 
-- (void)orderedSources
+- (uint64_t)orderedSources
 {
   *result = 0;
   result[1] = 0;

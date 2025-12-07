@@ -108,12 +108,10 @@ LABEL_21:
       if (!*errorCopy)
       {
         v47 = NSLocalizedDescriptionKey;
-        v33 = [NSString stringWithFormat:@"failed to write memgraph with full disk stack logs with unknown error"];
-        v48 = v33;
-        v34 = [NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1];
-        *errorCopy = [NSError errorWithDomain:@"LeakAgent" code:-1 userInfo:v34];
-
-        v35 = *errorCopy;
+        v34 = [NSString stringWithFormat:@"failed to write memgraph with full disk stack logs with unknown error"];
+        v48 = v34;
+        v35 = [NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+        *errorCopy = [NSError errorWithDomain:@"LeakAgent" code:-1 userInfo:v35];
       }
 
       (v20[2])(v20, "write to");
@@ -153,12 +151,12 @@ LABEL_20:
   v31 = [NSDictionary dictionaryWithObjects:&v52 forKeys:&v51 count:1];
   *errorCopy = [NSError errorWithDomain:@"LeakAgent" code:-1 userInfo:v31];
 
-  v19 = sub_100001674();
+  v19 = sub_100001674(v32);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
-    v32 = [@"stack log reader not present in memgraph so can't save memgraph with full disk stack logs"];
+    v33 = [@"stack log reader not present in memgraph so can't save memgraph with full disk stack logs"];
     *buf = 136315138;
-    v50 = v32;
+    v50 = v33;
     _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
   }
 
@@ -171,36 +169,36 @@ LABEL_22:
 - (id)logAndGenerateReceiptForErrorWithFormat:(id)format
 {
   formatCopy = format;
-  v5 = [[NSString alloc] initWithFormat:formatCopy arguments:&v21];
+  v5 = [[NSString alloc] initWithFormat:formatCopy arguments:&v22];
 
-  v6 = sub_100001674();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = sub_100001674(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     targetPid = self->_targetPid;
     *buf = 67109378;
-    v17 = targetPid;
-    v18 = 2112;
-    v19 = v5;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to generate memory graph for pid %u: %@", buf, 0x12u);
+    v18 = targetPid;
+    v19 = 2112;
+    v20 = v5;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to generate memory graph for pid %u: %@", buf, 0x12u);
   }
 
-  v8 = [[NSString alloc] initWithFormat:@"Failed to generate memory graph for pid %u: %@", self->_targetPid, v5];
-  v9 = objc_opt_new();
-  v10 = [NSError alloc];
-  v14 = NSLocalizedDescriptionKey;
-  v15 = v8;
-  v11 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-  v12 = [v10 initWithDomain:@"LeakAgent" code:-1 userInfo:v11];
+  v9 = [[NSString alloc] initWithFormat:@"Failed to generate memory graph for pid %u: %@", self->_targetPid, v5];
+  v10 = objc_opt_new();
+  v11 = [NSError alloc];
+  v15 = NSLocalizedDescriptionKey;
+  v16 = v9;
+  v12 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v13 = [v11 initWithDomain:@"LeakAgent" code:-1 userInfo:v12];
 
-  [v9 invokeCompletionWithReturnValue:0 error:v12];
+  [v10 invokeCompletionWithReturnValue:0 error:v13];
 
-  return v9;
+  return v10;
 }
 
 - (id)serializedGraphWithOptions:(id)options
 {
   optionsCopy = options;
-  v5 = sub_100001674();
+  v5 = sub_100001674(optionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     targetPid = self->_targetPid;
@@ -210,15 +208,15 @@ LABEL_22:
     WORD4(buf) = 1024;
     *(&buf + 10) = targetTask;
     HIWORD(buf) = 2112;
-    *&v114 = optionsCopy;
+    *&v128 = optionsCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "requested memgraph for %u (%#x) with options: %@", &buf, 0x18u);
   }
 
-  v8 = sub_100001674();
-  if (os_signpost_enabled(v8))
+  v9 = sub_100001674(v8);
+  if (os_signpost_enabled(v9))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Request memgraph", &unk_1000066FB, &buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v9, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Request memgraph", &unk_1000066FB, &buf, 2u);
   }
 
   if (self->_targetTask + 1 <= 1)
@@ -227,50 +225,50 @@ LABEL_22:
     goto LABEL_119;
   }
 
-  v10 = [optionsCopy objectForKeyedSubscript:@"LeakedCount"];
-  bOOLValue = [v10 BOOLValue];
+  v11 = [optionsCopy objectForKeyedSubscript:@"LeakedCount"];
+  bOOLValue = [v11 BOOLValue];
 
-  v11 = [optionsCopy objectForKeyedSubscript:@"LeakedAddresses"];
-  bOOLValue2 = [v11 BOOLValue];
+  v12 = [optionsCopy objectForKeyedSubscript:@"LeakedAddresses"];
+  bOOLValue2 = [v12 BOOLValue];
 
-  v12 = [optionsCopy objectForKeyedSubscript:@"MarkedCount"];
-  bOOLValue3 = [v12 BOOLValue];
+  v13 = [optionsCopy objectForKeyedSubscript:@"MarkedCount"];
+  bOOLValue3 = [v13 BOOLValue];
 
-  v13 = [optionsCopy objectForKeyedSubscript:@"MarkedAddresses"];
-  bOOLValue4 = [v13 BOOLValue];
+  v14 = [optionsCopy objectForKeyedSubscript:@"MarkedAddresses"];
+  bOOLValue4 = [v14 BOOLValue];
 
-  v14 = [optionsCopy objectForKeyedSubscript:@"AnalyzeCorpse"];
-  v94 = v14;
-  if (v14)
+  v15 = [optionsCopy objectForKeyedSubscript:@"AnalyzeCorpse"];
+  v108 = v15;
+  if (v15)
   {
-    v15 = [v14 BOOLValue] ^ 1;
+    v16 = [v15 BOOLValue] ^ 1;
   }
 
   else
   {
-    v15 = 1;
+    v16 = 1;
   }
 
-  v16 = [optionsCopy objectForKeyedSubscript:@"LeakedGraphOnly"];
-  bOOLValue5 = [v16 BOOLValue];
+  v17 = [optionsCopy objectForKeyedSubscript:@"LeakedGraphOnly"];
+  bOOLValue5 = [v17 BOOLValue];
 
-  v93 = [optionsCopy objectForKeyedSubscript:@"CompressionOption"];
-  v92 = 0;
-  v108 = 0;
-  v109 = &v108;
-  v110 = 0x2020000000;
-  v111 = 0;
+  v107 = [optionsCopy objectForKeyedSubscript:@"CompressionOption"];
+  v106 = 0;
+  v122 = 0;
+  v123 = &v122;
+  v124 = 0x2020000000;
+  v125 = 0;
   if (bOOLValue2)
   {
-    v92 = +[NSMutableArray array];
+    v106 = +[NSMutableArray array];
   }
 
-  v17 = [optionsCopy objectForKeyedSubscript:@"RegionDescriptionOptions"];
+  v18 = [optionsCopy objectForKeyedSubscript:@"RegionDescriptionOptions"];
 
-  if (v17)
+  if (v18)
   {
-    v18 = [optionsCopy objectForKeyedSubscript:@"RegionDescriptionOptions"];
-    unsignedLongValue = [v18 unsignedLongValue];
+    v19 = [optionsCopy objectForKeyedSubscript:@"RegionDescriptionOptions"];
+    unsignedLongValue = [v19 unsignedLongValue];
   }
 
   else if (bOOLValue5)
@@ -283,164 +281,165 @@ LABEL_22:
     unsignedLongValue = (VMUGetFlagsForAllVMRegionStatistics() | 0xC000);
   }
 
-  if (v93)
+  intValue = v107;
+  if (v107)
   {
-    v19 = [v93 intValue] > 0;
+    intValue = [v107 intValue];
+    v21 = intValue > 0;
   }
 
   else
   {
-    v19 = 1;
+    v21 = 1;
   }
 
-  v85 = v19;
+  v99 = v21;
   corpse_task_port = 0;
-  v20 = self->_targetTask;
-  v21 = sub_100001674();
-  if (os_signpost_enabled(v21))
+  v22 = self->_targetTask;
+  v23 = sub_100001674(intValue);
+  if (os_signpost_enabled(v23))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v21, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Init memory scanner", &unk_1000066FB, &buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v23, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Init memory scanner", &unk_1000066FB, &buf, 2u);
   }
 
-  if (v15)
+  if (v16)
   {
 LABEL_28:
-    v26 = [[VMUTaskMemoryScanner alloc] initWithTask:v20 options:unsignedLongValue];
-    if (!v26)
+    v28 = [[VMUTaskMemoryScanner alloc] initWithTask:v22 options:unsignedLongValue];
+    if (!v28)
     {
       unsignedLongValue = [(LeakAgent *)self logAndGenerateReceiptForErrorWithFormat:@"failed to create a VMUTaskMemoryScanner, probably because the target's libmalloc hasn't been initialized"];
-      v90 = 0;
+      v104 = 0;
 LABEL_117:
 
       goto LABEL_118;
     }
 
-    v27 = [optionsCopy objectForKeyedSubscript:@"ScannerSettings"];
+    v29 = [optionsCopy objectForKeyedSubscript:@"ScannerSettings"];
 
-    if (v27)
+    if (v29)
     {
       unsignedLongValue = [optionsCopy objectForKeyedSubscript:@"ScannerSettings"];
-      v28 = [unsignedLongValue objectForKeyedSubscript:@"ScannerSettingExactScanningEnabled"];
-      [v26 setExactScanningEnabled:{objc_msgSend(v28, "BOOLValue")}];
+      v31 = [unsignedLongValue objectForKeyedSubscript:@"ScannerSettingExactScanningEnabled"];
+      [v28 setExactScanningEnabled:{objc_msgSend(v31, "BOOLValue")}];
 
-      v29 = [unsignedLongValue objectForKeyedSubscript:@"ScannerSettingAbandonedMarkingEnabled"];
-      [v26 setAbandonedMarkingEnabled:{objc_msgSend(v29, "BOOLValue")}];
+      v32 = [unsignedLongValue objectForKeyedSubscript:@"ScannerSettingAbandonedMarkingEnabled"];
+      [v28 setAbandonedMarkingEnabled:{objc_msgSend(v32, "BOOLValue")}];
 
-      v30 = [unsignedLongValue objectForKeyedSubscript:@"ScannerSettingShowRawClassNames"];
-      [v26 setShowRawClassNames:{objc_msgSend(v30, "BOOLValue")}];
+      v33 = [unsignedLongValue objectForKeyedSubscript:@"ScannerSettingShowRawClassNames"];
+      [v28 setShowRawClassNames:{objc_msgSend(v33, "BOOLValue")}];
 
-      v31 = [unsignedLongValue objectForKeyedSubscript:@"ScannerSettingObjectContentLevel"];
-      [v26 setObjectContentLevel:{objc_msgSend(v31, "unsignedIntValue")}];
+      v34 = [unsignedLongValue objectForKeyedSubscript:@"ScannerSettingObjectContentLevel"];
+      [v28 setObjectContentLevel:{objc_msgSend(v34, "unsignedIntValue")}];
 
-      v32 = [unsignedLongValue objectForKeyedSubscript:@"ScannerSettingScanningMask"];
-      [v26 setScanningMask:{objc_msgSend(v32, "unsignedIntValue")}];
+      v35 = [unsignedLongValue objectForKeyedSubscript:@"ScannerSettingScanningMask"];
+      [v28 setScanningMask:{objc_msgSend(v35, "unsignedIntValue")}];
 
-      v33 = [unsignedLongValue objectForKeyedSubscript:@"ScannerSettingMaxInteriorOffset"];
-      v34 = v33;
-      if (v33)
+      v36 = [unsignedLongValue objectForKeyedSubscript:@"ScannerSettingMaxInteriorOffset"];
+      v37 = v36;
+      if (v36)
       {
-        [v26 setMaxInteriorOffset:{objc_msgSend(v33, "unsignedLongValue")}];
+        [v28 setMaxInteriorOffset:{objc_msgSend(v36, "unsignedLongValue")}];
       }
     }
 
-    v35 = sub_100001674();
-    if (os_signpost_enabled(v35))
+    v38 = sub_100001674(v30);
+    if (os_signpost_enabled(v38))
     {
       LOWORD(buf) = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v35, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Init memory scanner", &unk_1000066FB, &buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v38, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Init memory scanner", &unk_1000066FB, &buf, 2u);
     }
 
-    v36 = sub_100001674();
-    if (os_signpost_enabled(v36))
+    v40 = sub_100001674(v39);
+    if (os_signpost_enabled(v40))
     {
       LOWORD(buf) = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v36, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Add root and malloc nodes", &unk_1000066FB, &buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v40, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Add root and malloc nodes", &unk_1000066FB, &buf, 2u);
     }
 
-    v106 = 0;
-    v37 = [v26 addAllNodesFromTaskWithError:&v106];
-    v38 = v106;
-    v39 = v38;
-    if ((v37 & 1) == 0)
+    v120 = 0;
+    v41 = [v28 addAllNodesFromTaskWithError:&v120];
+    v42 = v120;
+    v43 = v42;
+    if ((v41 & 1) == 0)
     {
-      localizedDescription = [v38 localizedDescription];
+      localizedDescription = [v42 localizedDescription];
       unsignedLongValue = [(LeakAgent *)self logAndGenerateReceiptForErrorWithFormat:@"failed to add nodes to VMUTaskMemoryScanner with the error %@", localizedDescription];
     }
 
-    v41 = sub_100001674();
-    if (os_signpost_enabled(v41))
+    v46 = sub_100001674(v45);
+    if (os_signpost_enabled(v46))
     {
       LOWORD(buf) = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v41, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Add root and malloc nodes", &unk_1000066FB, &buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v46, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Add root and malloc nodes", &unk_1000066FB, &buf, 2u);
     }
 
-    if (!v37)
+    if (!v41)
     {
-      v90 = 0;
-      v46 = 0;
+      v104 = 0;
+      v52 = 0;
       goto LABEL_66;
     }
 
-    v42 = sub_100001674();
-    if (os_signpost_enabled(v42))
+    v48 = sub_100001674(v47);
+    if (os_signpost_enabled(v48))
     {
       LOWORD(buf) = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v42, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Process graph", &unk_1000066FB, &buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v48, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Process graph", &unk_1000066FB, &buf, 2u);
     }
 
-    v43 = [optionsCopy objectForKeyedSubscript:@"ProcessSnapshotGraphOptions"];
+    v49 = [optionsCopy objectForKeyedSubscript:@"ProcessSnapshotGraphOptions"];
 
-    if (v43)
+    if (v49)
     {
-      v44 = [optionsCopy objectForKeyedSubscript:@"ProcessSnapshotGraphOptions"];
-      unsignedLongValue2 = [v44 unsignedLongValue];
+      v50 = [optionsCopy objectForKeyedSubscript:@"ProcessSnapshotGraphOptions"];
+      unsignedLongValue2 = [v50 unsignedLongValue];
 
-      [v26 processSnapshotGraphWithOptions:unsignedLongValue2];
+      [v28 processSnapshotGraphWithOptions:unsignedLongValue2];
     }
 
     else
     {
-      [v26 processSnapshotGraph];
+      [v28 processSnapshotGraph];
     }
-    v84 = ;
-    v47 = sub_100001674();
-    if (os_signpost_enabled(v47))
+    v98 = ;
+    v53 = sub_100001674(v98);
+    if (os_signpost_enabled(v53))
     {
       LOWORD(buf) = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v47, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Process graph", &unk_1000066FB, &buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v53, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Process graph", &unk_1000066FB, &buf, 2u);
     }
 
-    v48 = sub_100001674();
-    if (os_signpost_enabled(v48))
+    v55 = sub_100001674(v54);
+    if (os_signpost_enabled(v55))
     {
       LOWORD(buf) = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v48, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Find leaks", &unk_1000066FB, &buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v55, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Find leaks", &unk_1000066FB, &buf, 2u);
     }
 
     if (!bOOLValue5)
     {
-      v90 = v84;
+      v104 = v98;
 LABEL_63:
-      v55 = sub_100001674();
-      if (os_signpost_enabled(v55))
+      v64 = sub_100001674(v56);
+      if (os_signpost_enabled(v64))
       {
         LOWORD(buf) = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v55, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Find leaks", &unk_1000066FB, &buf, 2u);
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v64, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Find leaks", &unk_1000066FB, &buf, 2u);
       }
 
-      v46 = 1;
+      v52 = 1;
 LABEL_66:
-      [v26 detachFromTask];
-      v56 = sub_100001674();
-      if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+      v65 = sub_100001674([v28 detachFromTask]);
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
       {
-        v57 = self->_targetPid;
+        v66 = self->_targetPid;
         LODWORD(buf) = 67109376;
-        DWORD1(buf) = v57;
+        DWORD1(buf) = v66;
         WORD4(buf) = 1024;
-        *(&buf + 10) = v20;
-        _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_INFO, "detached from process: %u (%#x)", &buf, 0xEu);
+        *(&buf + 10) = v22;
+        _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_INFO, "detached from process: %u (%#x)", &buf, 0xEu);
       }
 
       if (corpse_task_port - 1 <= 0xFFFFFFFD)
@@ -448,20 +447,22 @@ LABEL_66:
         mach_port_deallocate(mach_task_self_, corpse_task_port);
       }
 
-      if (!v46)
+      if (!v52)
       {
         goto LABEL_117;
       }
 
-      v58 = v20;
-      v59 = +[NSMutableDictionary dictionary];
-      if (v58 == self->_targetTask)
+      v67 = v22;
+      v68 = +[NSMutableDictionary dictionary];
+      v69 = v68;
+      if (v67 == self->_targetTask)
       {
-        v115 = 0;
+        v129 = 0;
         buf = 0u;
-        v114 = 0u;
+        v128 = 0u;
         task_info_outCnt = 10;
-        if (task_info(v58, 0x12u, &buf, &task_info_outCnt))
+        v68 = task_info(v67, 0x12u, &buf, &task_info_outCnt);
+        if (v68)
         {
           unsignedLongValue = [(LeakAgent *)self logAndGenerateReceiptForErrorWithFormat:@"target process no longer exists"];
 LABEL_116:
@@ -472,231 +473,233 @@ LABEL_116:
 
       if (!(bOOLValue5 & 1 | ((bOOLValue & 1) == 0)))
       {
-        v60 = sub_100001674();
-        if (os_signpost_enabled(v60))
+        v70 = sub_100001674(v68);
+        if (os_signpost_enabled(v70))
         {
           LOWORD(buf) = 0;
-          _os_signpost_emit_with_name_impl(&_mh_execute_header, v60, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Count leaks", &unk_1000066FB, &buf, 2u);
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v70, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Count leaks", &unk_1000066FB, &buf, 2u);
         }
 
-        v98 = _NSConcreteStackBlock;
-        v99 = 3221225472;
-        v100 = sub_100002CEC;
-        v101 = &unk_100008400;
-        v102 = v90;
-        v104 = &v108;
-        v103 = v92;
-        VMUWithRootNodeMarkingMap();
-        v61 = sub_100001674();
-        if (os_signpost_enabled(v61))
+        v112 = _NSConcreteStackBlock;
+        v113 = 3221225472;
+        v114 = sub_100002CEC;
+        v115 = &unk_100008400;
+        v116 = v104;
+        v118 = &v122;
+        v117 = v106;
+        v71 = VMUWithRootNodeMarkingMap();
+        v72 = sub_100001674(v71);
+        if (os_signpost_enabled(v72))
         {
           LOWORD(buf) = 0;
-          _os_signpost_emit_with_name_impl(&_mh_execute_header, v61, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Count leaks", &unk_1000066FB, &buf, 2u);
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v72, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Count leaks", &unk_1000066FB, &buf, 2u);
         }
       }
 
       if ((bOOLValue3 | bOOLValue4))
       {
-        v62 = sub_100001674();
-        if (os_signpost_enabled(v62))
+        v73 = sub_100001674(v68);
+        if (os_signpost_enabled(v73))
         {
           LOWORD(buf) = 0;
-          _os_signpost_emit_with_name_impl(&_mh_execute_header, v62, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Count marked", &unk_1000066FB, &buf, 2u);
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v73, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Count marked", &unk_1000066FB, &buf, 2u);
         }
 
-        copyUserMarked = [v90 copyUserMarked];
+        copyUserMarked = [v104 copyUserMarked];
+        v75 = copyUserMarked;
         if (bOOLValue4)
         {
-          v64 = +[NSMutableArray array];
+          v76 = +[NSMutableArray array];
         }
 
         else
         {
-          v64 = 0;
+          v76 = 0;
         }
 
-        if (copyUserMarked)
+        if (v75)
         {
-          v96[0] = _NSConcreteStackBlock;
-          v96[1] = 3221225472;
-          v96[2] = sub_100002E54;
-          v96[3] = &unk_1000083D8;
-          v97 = v64;
-          v65 = [v90 enumerateMarkedObjects:copyUserMarked withBlock:v96];
-          free(copyUserMarked);
+          v110[0] = _NSConcreteStackBlock;
+          v110[1] = 3221225472;
+          v110[2] = sub_100002E54;
+          v110[3] = &unk_1000083D8;
+          v111 = v76;
+          v77 = [v104 enumerateMarkedObjects:v75 withBlock:v110];
+          free(v75);
         }
 
         else
         {
-          v65 = 0;
+          v77 = 0;
         }
 
         if (bOOLValue3)
         {
-          v66 = [NSNumber numberWithUnsignedInt:v65];
-          [v59 setObject:v66 forKeyedSubscript:@"MarkedCount"];
+          v78 = [NSNumber numberWithUnsignedInt:v77];
+          [v69 setObject:v78 forKeyedSubscript:@"MarkedCount"];
         }
 
         if (bOOLValue4)
         {
-          [v59 setObject:v64 forKeyedSubscript:@"MarkedAddresses"];
+          copyUserMarked = [v69 setObject:v76 forKeyedSubscript:@"MarkedAddresses"];
         }
 
-        v67 = sub_100001674();
-        if (os_signpost_enabled(v67))
+        v79 = sub_100001674(copyUserMarked);
+        if (os_signpost_enabled(v79))
         {
           LOWORD(buf) = 0;
-          _os_signpost_emit_with_name_impl(&_mh_execute_header, v67, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Count marked", &unk_1000066FB, &buf, 2u);
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v79, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Count marked", &unk_1000066FB, &buf, 2u);
         }
       }
 
-      v68 = sub_100001674();
-      if (os_signpost_enabled(v68))
+      v80 = sub_100001674(v68);
+      if (os_signpost_enabled(v80))
       {
         LOWORD(buf) = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v68, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Serialize graph", &unk_1000066FB, &buf, 2u);
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v80, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Serialize graph", &unk_1000066FB, &buf, 2u);
       }
 
-      v69 = [v90 plistRepresentationWithOptions:v85];
-      v70 = sub_100001674();
-      if (os_signpost_enabled(v70))
+      v81 = [v104 plistRepresentationWithOptions:v99];
+      v82 = sub_100001674(v81);
+      if (os_signpost_enabled(v82))
       {
         LOWORD(buf) = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v70, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Serialize graph", &unk_1000066FB, &buf, 2u);
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v82, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Serialize graph", &unk_1000066FB, &buf, 2u);
       }
 
-      v71 = [optionsCopy objectForKeyedSubscript:@"CollectFullDiskStackLogs"];
-      bOOLValue6 = [v71 BOOLValue];
+      v83 = [optionsCopy objectForKeyedSubscript:@"CollectFullDiskStackLogs"];
+      bOOLValue6 = [v83 BOOLValue];
 
       if (bOOLValue6)
       {
-        v95 = 0;
-        v73 = [(LeakAgent *)self getSerializedGraphWithFullDiskStackLogs:v90 serializedGraph:v69 error:&v95];
-        v74 = v95;
+        v109 = 0;
+        v86 = [(LeakAgent *)self getSerializedGraphWithFullDiskStackLogs:v104 serializedGraph:v81 error:&v109];
+        v87 = v109;
 
-        if (!v73)
+        if (!v86)
         {
-          localizedDescription2 = [v74 localizedDescription];
+          localizedDescription2 = [v87 localizedDescription];
           unsignedLongValue = [(LeakAgent *)self logAndGenerateReceiptForErrorWithFormat:@"failed to collect full disk stack logs with the error %@", localizedDescription2];
 
 LABEL_115:
           goto LABEL_116;
         }
 
-        v69 = v73;
+        v81 = v86;
       }
 
-      else if (!v69)
+      else if (!v81)
       {
-        v74 = 0;
+        v87 = 0;
         goto LABEL_106;
       }
 
-      [v59 setObject:v69 forKeyedSubscript:@"SerializedGraph"];
-      v74 = v69;
+      v85 = [v69 setObject:v81 forKeyedSubscript:@"SerializedGraph"];
+      v87 = v81;
 LABEL_106:
       if (bOOLValue)
       {
-        v75 = [NSNumber numberWithUnsignedInt:*(v109 + 6)];
-        [v59 setObject:v75 forKeyedSubscript:@"LeakedCount"];
+        v88 = [NSNumber numberWithUnsignedInt:*(v123 + 6)];
+        [v69 setObject:v88 forKeyedSubscript:@"LeakedCount"];
       }
 
       if (bOOLValue2)
       {
-        [v59 setObject:v92 forKeyedSubscript:@"LeakedAddresses"];
+        v85 = [v69 setObject:v106 forKeyedSubscript:@"LeakedAddresses"];
       }
 
-      v76 = sub_100001674();
-      if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
+      v89 = sub_100001674(v85);
+      if (os_log_type_enabled(v89, OS_LOG_TYPE_INFO))
       {
-        v77 = self->_targetPid;
-        nodeCount = [v90 nodeCount];
-        edgeCount = [v90 edgeCount];
-        v80 = *(v109 + 6);
-        *&buf = __PAIR64__(v77, 67109888);
+        v90 = self->_targetPid;
+        nodeCount = [v104 nodeCount];
+        edgeCount = [v104 edgeCount];
+        v93 = *(v123 + 6);
+        *&buf = __PAIR64__(v90, 67109888);
         WORD4(buf) = 1024;
         *(&buf + 10) = nodeCount;
         HIWORD(buf) = 1024;
-        LODWORD(v114) = edgeCount;
-        WORD2(v114) = 1024;
-        *(&v114 + 6) = v80;
-        _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_INFO, "returning result for pid %u with %u nodes, %u edges (%u leaked)", &buf, 0x1Au);
+        LODWORD(v128) = edgeCount;
+        WORD2(v128) = 1024;
+        *(&v128 + 6) = v93;
+        _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_INFO, "returning result for pid %u with %u nodes, %u edges (%u leaked)", &buf, 0x1Au);
       }
 
-      v81 = sub_100001674();
-      if (os_signpost_enabled(v81))
+      v95 = sub_100001674(v94);
+      if (os_signpost_enabled(v95))
       {
         LOWORD(buf) = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v81, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Request memgraph", &unk_1000066FB, &buf, 2u);
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v95, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Request memgraph", &unk_1000066FB, &buf, 2u);
       }
 
-      unsignedLongValue = v59;
+      unsignedLongValue = v69;
       goto LABEL_115;
     }
 
-    v49 = [[VMULeakDetector alloc] initWithTask:self->_targetTask graph:v84 scanner:v26 stackLogReader:0];
-    [v49 setSuppressOutput:1];
-    v105 = 0;
-    v50 = [v49 doNormalLeakDetectionWithError:&v105];
-    v51 = v105;
-    *(v109 + 6) = v50;
-    if (v51)
+    v57 = [[VMULeakDetector alloc] initWithTask:self->_targetTask graph:v98 scanner:v28 stackLogReader:0];
+    [v57 setSuppressOutput:1];
+    v119 = 0;
+    v58 = [v57 doNormalLeakDetectionWithError:&v119];
+    v59 = v119;
+    v60 = v59;
+    *(v123 + 6) = v58;
+    if (v59)
     {
-      v52 = sub_100001674();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      v61 = sub_100001674(v59);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
-        localizedDescription3 = [v51 localizedDescription];
+        localizedDescription3 = [v60 localizedDescription];
         LODWORD(buf) = 138412290;
         *(&buf + 4) = localizedDescription3;
-        _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "LeakDetector error: %@", &buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_ERROR, "LeakDetector error: %@", &buf, 0xCu);
       }
 
-      v90 = 0;
+      v104 = 0;
     }
 
     else
     {
-      if (!v50)
+      if (!v58)
       {
-        v90 = 0;
+        v104 = 0;
         goto LABEL_62;
       }
 
-      graph = [v49 graph];
-      v90 = -[NSObject subgraphWithMarkedNodes:](graph, "subgraphWithMarkedNodes:", [v49 leakedNodes]);
-      v52 = v84;
-      v84 = graph;
+      graph = [v57 graph];
+      v104 = -[NSObject subgraphWithMarkedNodes:](graph, "subgraphWithMarkedNodes:", [v57 leakedNodes]);
+      v61 = v98;
+      v98 = graph;
     }
 
 LABEL_62:
     goto LABEL_63;
   }
 
-  v22 = task_generate_corpse(self->_targetTask, &corpse_task_port);
-  if (!v22)
+  v24 = task_generate_corpse(self->_targetTask, &corpse_task_port);
+  if (!v24)
   {
-    v23 = sub_100001674();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    v25 = sub_100001674(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      v24 = self->_targetPid;
-      v25 = self->_targetTask;
+      v26 = self->_targetPid;
+      v27 = self->_targetTask;
       LODWORD(buf) = 67109632;
-      DWORD1(buf) = v24;
+      DWORD1(buf) = v26;
       WORD4(buf) = 1024;
-      *(&buf + 10) = v25;
+      *(&buf + 10) = v27;
       HIWORD(buf) = 1024;
-      LODWORD(v114) = corpse_task_port;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "generated a corpse for pid: %u (task: %#x): %#x", &buf, 0x14u);
+      LODWORD(v128) = corpse_task_port;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "generated a corpse for pid: %u (task: %#x): %#x", &buf, 0x14u);
     }
 
-    v20 = corpse_task_port;
+    v22 = corpse_task_port;
     goto LABEL_28;
   }
 
-  unsignedLongValue = [(LeakAgent *)self logAndGenerateReceiptForErrorWithFormat:@"failed to generate corpse: %#x - %s", v22, mach_error_string(v22)];
+  unsignedLongValue = [(LeakAgent *)self logAndGenerateReceiptForErrorWithFormat:@"failed to generate corpse: %#x - %s", v24, mach_error_string(v24)];
 LABEL_118:
 
-  _Block_object_dispose(&v108, 8);
+  _Block_object_dispose(&v122, 8);
 LABEL_119:
 
   return unsignedLongValue;
@@ -709,16 +712,16 @@ LABEL_119:
   zoneCopy = zone;
   if (self->_targetTask + 1 <= 1)
   {
-    v29 = sub_100001674();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v28 = sub_100001674(zoneCopy);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       targetPid = self->_targetPid;
       targetTask = self->_targetTask;
       *buf = 67109376;
-      v41 = targetPid;
-      v42 = 1024;
-      v43 = targetTask;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "no valid task available for target: %u (%#x)", buf, 0xEu);
+      v40 = targetPid;
+      v41 = 1024;
+      v42 = targetTask;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "no valid task available for target: %u (%#x)", buf, 0xEu);
     }
 
     exit(4);
@@ -730,63 +733,61 @@ LABEL_119:
     unsignedLongLongValue = [addressCopy unsignedLongLongValue];
     unsignedLongLongValue2 = [sizeCopy unsignedLongLongValue];
     bOOLValue = [v11 BOOLValue];
-    v17 = self->_targetTask;
     task_start_peeking();
-    v18 = [(VMUTaskStackLogReader *)self->_stackLogReader getFramesForAddress:unsignedLongLongValue size:unsignedLongLongValue2 inLiteZone:bOOLValue stackFramesBuffer:buf];
-    v19 = self->_targetTask;
-    task_stop_peeking();
-    if (v18 == -1)
+    v17 = [(VMUTaskStackLogReader *)self->_stackLogReader getFramesForAddress:unsignedLongLongValue size:unsignedLongLongValue2 inLiteZone:bOOLValue stackFramesBuffer:buf];
+    v18 = task_stop_peeking();
+    if (v17 == -1)
     {
-      v26 = sub_100001674();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v25 = sub_100001674(v18);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
-        v27 = "NO";
-        v32 = 134218754;
-        v33 = unsignedLongLongValue;
-        v34 = 2048;
+        v26 = "NO";
+        v31 = 134218754;
+        v32 = unsignedLongLongValue;
+        v33 = 2048;
         if (bOOLValue)
         {
-          v27 = "YES";
+          v26 = "YES";
         }
 
-        v35 = &unsignedLongLongValue[unsignedLongLongValue2];
-        v36 = 2048;
-        v37 = unsignedLongLongValue2;
-        v38 = 2080;
-        v39 = v27;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "unable to get malloc stack log for %#llx-%#llx [%llu] (liteZone: %s)", &v32, 0x2Au);
+        v34 = &unsignedLongLongValue[unsignedLongLongValue2];
+        v35 = 2048;
+        v36 = unsignedLongLongValue2;
+        v37 = 2080;
+        v38 = v26;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "unable to get malloc stack log for %#llx-%#llx [%llu] (liteZone: %s)", &v31, 0x2Au);
       }
 
-      v21 = +[NSArray array];
+      v20 = +[NSArray array];
     }
 
     else
     {
-      v20 = v18 - ((v18 > 0) & ~[(VMUTaskStackLogReader *)self->_stackLogReader usesLiteMode]);
-      v21 = [NSMutableArray arrayWithCapacity:v20];
-      if (v20 >= 1)
+      v19 = v17 - ((v17 > 0) & ~[(VMUTaskStackLogReader *)self->_stackLogReader usesLiteMode]);
+      v20 = [NSMutableArray arrayWithCapacity:v19];
+      if (v19 >= 1)
       {
-        v22 = 0;
-        v23 = 1;
+        v21 = 0;
+        v22 = 1;
         do
         {
-          v24 = [NSNumber numberWithUnsignedLongLong:*&buf[8 * v22]];
-          [v21 setObject:v24 atIndexedSubscript:v22];
+          v23 = [NSNumber numberWithUnsignedLongLong:*&buf[8 * v21]];
+          [v20 setObject:v23 atIndexedSubscript:v21];
 
-          v22 = v23;
+          v21 = v22;
         }
 
-        while (v20 > v23++);
+        while (v19 > v22++);
       }
     }
   }
 
   else
   {
-    v21 = 0;
+    v20 = 0;
   }
 
-  return v21;
+  return v20;
 }
 
 - (id)vmRegionStackLogForAddress:(id)address size:(id)size
@@ -798,7 +799,7 @@ LABEL_119:
   v10 = v6;
   if ((*(v7 + 8) + 1) <= 1)
   {
-    v33 = sub_100001674();
+    v33 = sub_100001674(v10);
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       v34 = *(v7 + 12);
@@ -824,27 +825,28 @@ LABEL_119:
     {
       [v17 liteMSLPayloadforVMregionAddress:unsignedLongLongValue];
       uniquing_table_index = msl_payload_get_uniquing_table_index();
+      stackIdentifier = uniquing_table_index;
     }
 
     else
     {
       regionTracker = [v17 regionTracker];
-      v20 = regionTracker;
+      v21 = regionTracker;
       if (regionTracker)
       {
-        v21 = [regionTracker vmRegionRangeInfoForRange:{unsignedLongLongValue, unsignedLongLongValue2}];
-        uniquing_table_index = [v21 stackIdentifier];
+        v22 = [regionTracker vmRegionRangeInfoForRange:{unsignedLongLongValue, unsignedLongLongValue2}];
+        stackIdentifier = [v22 stackIdentifier];
       }
 
       else
       {
-        uniquing_table_index = -1;
+        stackIdentifier = -1;
       }
     }
 
-    if (uniquing_table_index == -1 || (v22 = [*(v7 + 16) getFramesForStackID:uniquing_table_index stackFramesBuffer:buf], v22 == -1))
+    if (stackIdentifier == -1 || (uniquing_table_index = [*(v7 + 16) getFramesForStackID:stackIdentifier stackFramesBuffer:buf], uniquing_table_index == -1))
     {
-      v31 = sub_100001674();
+      v31 = sub_100001674(uniquing_table_index);
       if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
         v36 = 134218496;
@@ -861,7 +863,7 @@ LABEL_119:
 
     else
     {
-      v23 = v22;
+      v23 = uniquing_table_index;
       LODWORD(v24) = [*(v7 + 16) usesLiteMode] ^ 1;
       if (v23 > 0)
       {

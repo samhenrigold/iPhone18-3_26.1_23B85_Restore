@@ -16,43 +16,40 @@ void sub_23396FF84(uint64_t a1)
   }
 }
 
-void sub_23397010C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23397010C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_233970124(uint64_t a1)
+void sub_233970124(uint64_t a1, uint64_t a2)
 {
-  v2 = IMDSMSRecordStoreCopySMSDBPath();
-  if (v2)
+  v3 = IMDSMSRecordStoreCopySMSDBPath();
+  if (v3)
   {
-    v3 = v2;
-    Length = CFStringGetLength(v2);
+    v4 = v3;
+    Length = CFStringGetLength(v3);
     MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
     *&usedBufLen.st_dev = 0;
-    v6 = malloc_type_malloc(MaximumSizeForEncoding + 1, 0x100004077774924uLL);
-    v9.location = 0;
-    v9.length = Length;
-    CFStringGetBytes(v3, v9, 0x8000100u, 0, 0, v6, MaximumSizeForEncoding, &usedBufLen.st_dev);
-    v6[*&usedBufLen.st_dev] = 0;
+    v7 = malloc_type_malloc(MaximumSizeForEncoding + 1, 0x100004077774924uLL);
+    v10.location = 0;
+    v10.length = Length;
+    CFStringGetBytes(v4, v10, 0x8000100u, 0, 0, v7, MaximumSizeForEncoding, &usedBufLen.st_dev);
+    v7[*&usedBufLen.st_dev] = 0;
     memset(&usedBufLen, 0, sizeof(usedBufLen));
-    if (!stat(v6, &usedBufLen))
+    if (!stat(v7, &usedBufLen))
     {
-      v7 = usedBufLen.st_size * 0.000114746094;
-      *(*(*(a1 + 32) + 8) + 24) = v7;
+      v8 = usedBufLen.st_size * 0.000114746094;
+      *(*(*(a1 + 32) + 8) + 24) = v8;
     }
 
-    free(v6);
-    CFRelease(v3);
+    free(v7);
+    CFRelease(v4);
   }
 }
 
-ndleForIMFoundationCategory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
+ 0;
       _os_log_impl(&dword_23396F000, v3, OS_LOG_TYPE_INFO, "Beginning iMessage data migration", buf, 2u);
     }
   }
@@ -74,27 +71,32 @@ ndleForIMFoundationCategory();
   return v2;
 }
 
-- (BOOL)_cloudKitEnabled
+- (void)saveDeviceState:(BOOL)a3 isMigrating:(BOOL)a4
 {
-  v2 = *MEMORY[0x277D19A08];
-  v3 = *MEMORY[0x277D19AD0];
-  return IMGetDomainBoolForKey();
+  v4 = a4;
+  v5 = a3;
+  v7 = [(DataClassMigrator *)self didUpgrade];
+  v8 = [(DataClassMigrator *)self didRestoreFromBackup];
+  v9 = [(DataClassMigrator *)self didMigrateBackupFromDifferentDevice];
+  v10 = [(DataClassMigrator *)self didRestoreFromCloudBackup];
+
+  MEMORY[0x282173478](v7, v8, v9, v10, v5, v4);
 }
 
 - (void)_printCriticalDefaultsWithMessage:(id)a3
 {
-  v59 = *MEMORY[0x277D85DE8];
-  v20 = [(MessagesDataMigrator *)self _cloudKitEnabled];
+  v58 = *MEMORY[0x277D85DE8];
+  v19 = [(MessagesDataMigrator *)self _cloudKitEnabled];
   v3 = *MEMORY[0x277D19A50];
   v4 = *MEMORY[0x277D19A68];
-  v18 = IMGetDomainBoolForKey();
-  v5 = *MEMORY[0x277D19A60];
   v17 = IMGetDomainBoolForKey();
-  v6 = *MEMORY[0x277D19AA8];
+  v5 = *MEMORY[0x277D19A60];
   v16 = IMGetDomainBoolForKey();
+  v6 = *MEMORY[0x277D19AA8];
+  v15 = IMGetDomainBoolForKey();
   v7 = *MEMORY[0x277D19A20];
   v8 = *MEMORY[0x277D19B20];
-  v15 = IMGetDomainBoolForKey();
+  v14 = IMGetDomainBoolForKey();
   v9 = *MEMORY[0x277D19A08];
   v10 = *MEMORY[0x277D199F8];
   v11 = IMGetDomainBoolForKey();
@@ -104,54 +106,52 @@ ndleForIMFoundationCategory();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = *MEMORY[0x277D19AD0];
-      v21 = 138416898;
-      v22 = a3;
-      v23 = 2112;
-      v24 = v9;
-      v25 = 2112;
-      v26 = v13;
-      v27 = 1024;
-      v28 = v20;
-      v29 = 2112;
-      v30 = v3;
-      v31 = 2112;
-      v32 = v4;
-      v33 = 1024;
-      v34 = v18;
-      v35 = 2112;
-      v36 = v3;
-      v37 = 2112;
-      v38 = v5;
-      v39 = 1024;
-      v40 = v17;
-      v41 = 2112;
-      v42 = v3;
-      v43 = 2112;
-      v44 = v6;
-      v45 = 1024;
-      v46 = v16;
-      v47 = 2112;
-      v48 = v7;
-      v49 = 2112;
-      v50 = v8;
-      v51 = 1024;
-      v52 = v15;
-      v53 = 2112;
-      v54 = v9;
-      v55 = 2112;
-      v56 = v10;
-      v57 = 1024;
-      v58 = v11;
-      _os_log_impl(&dword_23396F000, v12, OS_LOG_TYPE_INFO, "%@:\n\t\t{domain: %@ key %@ originalValue: %{BOOL}d}\n\t\t{domain: %@ key %@ originalValue: %{BOOL}d}\n\t\t{domain: %@ key %@ originalValue: %{BOOL}d}\n\t\t{domain: %@ key %@ originalValue: %{BOOL}d}\n\t\t{domain: %@ key %@ originalValue: %{BOOL}d}\n\t\t{domain: %@ key %@ originalValue: %{BOOL}d}", &v21, 0xA8u);
+      v20 = 138416898;
+      v21 = a3;
+      v22 = 2112;
+      v23 = v9;
+      v24 = 2112;
+      v25 = v13;
+      v26 = 1024;
+      v27 = v19;
+      v28 = 2112;
+      v29 = v3;
+      v30 = 2112;
+      v31 = v4;
+      v32 = 1024;
+      v33 = v17;
+      v34 = 2112;
+      v35 = v3;
+      v36 = 2112;
+      v37 = v5;
+      v38 = 1024;
+      v39 = v16;
+      v40 = 2112;
+      v41 = v3;
+      v42 = 2112;
+      v43 = v6;
+      v44 = 1024;
+      v45 = v15;
+      v46 = 2112;
+      v47 = v7;
+      v48 = 2112;
+      v49 = v8;
+      v50 = 1024;
+      v51 = v14;
+      v52 = 2112;
+      v53 = v9;
+      v54 = 2112;
+      v55 = v10;
+      v56 = 1024;
+      v57 = v11;
+      _os_log_impl(&dword_23396F000, v12, OS_LOG_TYPE_INFO, "%@:\n\t\t{domain: %@ key %@ originalValue: %{BOOL}d}\n\t\t{domain: %@ key %@ originalValue: %{BOOL}d}\n\t\t{domain: %@ key %@ originalValue: %{BOOL}d}\n\t\t{domain: %@ key %@ originalValue: %{BOOL}d}\n\t\t{domain: %@ key %@ originalValue: %{BOOL}d}\n\t\t{domain: %@ key %@ originalValue: %{BOOL}d}", &v20, 0xA8u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearMOCDefaultsForRestoreFromBackupIfNeeded
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [(DataClassMigrator *)self didRestoreFromBackup];
   v4 = [(DataClassMigrator *)self didRestoreFromCloudBackup];
   v5 = [(MessagesDataMigrator *)self _didRestoreFromDeviceToDevice];
@@ -161,17 +161,17 @@ ndleForIMFoundationCategory();
     v7 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v47[0] = 67110144;
-      v47[1] = v3;
-      v48 = 1024;
-      v49 = v4;
-      v50 = 1024;
-      v51 = v5;
-      v52 = 1024;
-      v53 = v6;
-      v54 = 1024;
-      v55 = [(DataClassMigrator *)self userDataDisposition];
-      _os_log_impl(&dword_23396F000, v7, OS_LOG_TYPE_INFO, "clearMOCDefaultsForRestoreFromBackupIfNeeded {didRestoreFromBackUp: %{BOOL}d, didRestoreFromCloudBackUp: %{BOOL}d, didRestoreFromDeviceToDevice: %{BOOL}d, didUpgrade: %{BOOL}d, disposition: %d}", v47, 0x20u);
+      v9[0] = 67110144;
+      v9[1] = v3;
+      v10 = 1024;
+      v11 = v4;
+      v12 = 1024;
+      v13 = v5;
+      v14 = 1024;
+      v15 = v6;
+      v16 = 1024;
+      v17 = [(DataClassMigrator *)self userDataDisposition];
+      _os_log_impl(&dword_23396F000, v7, OS_LOG_TYPE_INFO, "clearMOCDefaultsForRestoreFromBackupIfNeeded {didRestoreFromBackUp: %{BOOL}d, didRestoreFromCloudBackUp: %{BOOL}d, didRestoreFromDeviceToDevice: %{BOOL}d, didUpgrade: %{BOOL}d, disposition: %d}", v9, 0x20u);
     }
   }
 
@@ -182,106 +182,61 @@ ndleForIMFoundationCategory();
       v8 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v47[0]) = 0;
-        _os_log_impl(&dword_23396F000, v8, OS_LOG_TYPE_INFO, "We are upgrade installing, so no need to update the MOC defaults", v47, 2u);
+        LOWORD(v9[0]) = 0;
+        _os_log_impl(&dword_23396F000, v8, OS_LOG_TYPE_INFO, "We are upgrade installing, so no need to update the MOC defaults", v9, 2u);
       }
     }
 
-    v9 = *MEMORY[0x277D19A08];
-    v10 = *MEMORY[0x277D19A00];
     IMSetDomainBoolForKey();
   }
 
-  else
+  else if (v3)
   {
-    v11 = *MEMORY[0x277D19A08];
-    v12 = *MEMORY[0x277D19A00];
-    if (v3)
+    IMSetDomainBoolForKey();
+    [(MessagesDataMigrator *)self _printCriticalDefaultsWithMessage:@"We are restoring a device from backup ---- clearing defaults"];
+    IMSetDomainBoolForKey();
+    IMSetDomainBoolForKey();
+    IMSetDomainBoolForKey();
+    IMSetDomainBoolForKey();
+    IMSetDomainBoolForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    IMSetDomainValueForKey();
+    if ([(MessagesDataMigrator *)self _cloudKitEnabled])
     {
-      v13 = *MEMORY[0x277D19A08];
-      v14 = *MEMORY[0x277D19A00];
-      IMSetDomainBoolForKey();
-      [(MessagesDataMigrator *)self _printCriticalDefaultsWithMessage:@"We are restoring a device from backup ---- clearing defaults"];
-      v15 = *MEMORY[0x277D19A50];
-      v16 = *MEMORY[0x277D19A68];
-      IMSetDomainBoolForKey();
-      v17 = *MEMORY[0x277D19A60];
-      IMSetDomainBoolForKey();
-      v18 = *MEMORY[0x277D19AA8];
-      IMSetDomainBoolForKey();
-      v19 = *MEMORY[0x277D19A20];
-      v20 = *MEMORY[0x277D19B20];
-      IMSetDomainBoolForKey();
-      v21 = *MEMORY[0x277D19750];
-      IMSetDomainBoolForKey();
-      v22 = *MEMORY[0x277D19BD8];
       IMSetDomainValueForKey();
-      v23 = *MEMORY[0x277D19C40];
-      IMSetDomainValueForKey();
-      v24 = *MEMORY[0x277D19B18];
-      IMSetDomainValueForKey();
-      v25 = *MEMORY[0x277D19B30];
-      IMSetDomainValueForKey();
-      v26 = *MEMORY[0x277D19B28];
-      IMSetDomainValueForKey();
-      v27 = *MEMORY[0x277D19AF8];
-      IMSetDomainValueForKey();
-      v28 = *MEMORY[0x277D19B08];
-      IMSetDomainValueForKey();
-      v29 = *MEMORY[0x277D19B00];
-      IMSetDomainValueForKey();
-      v30 = *MEMORY[0x277D199B0];
-      IMSetDomainValueForKey();
-      v31 = *MEMORY[0x277D19AF0];
-      IMSetDomainValueForKey();
-      v32 = *MEMORY[0x277D19AE8];
-      IMSetDomainValueForKey();
-      v33 = *MEMORY[0x277D19AA0];
-      IMSetDomainValueForKey();
-      v34 = *MEMORY[0x277D19A98];
-      IMSetDomainValueForKey();
-      v35 = *MEMORY[0x277D199F0];
-      IMSetDomainValueForKey();
-      IMSetDomainValueForKey();
-      IMSetDomainValueForKey();
-      v36 = *MEMORY[0x277D19B88];
-      IMSetDomainValueForKey();
-      v37 = *MEMORY[0x277D19AB0];
-      IMSetDomainValueForKey();
-      v38 = *MEMORY[0x277D1A4F8];
-      v39 = *MEMORY[0x277D1A500];
-      IMSetDomainValueForKey();
-      v40 = *MEMORY[0x277D19A78];
-      IMSetDomainValueForKey();
-      v41 = *MEMORY[0x277D19A88];
-      IMSetDomainValueForKey();
-      if ([(MessagesDataMigrator *)self _cloudKitEnabled])
+      if (v5)
       {
-        v42 = *MEMORY[0x277D19BD0];
-        IMSetDomainValueForKey();
-        if (v5)
-        {
-          v43 = *MEMORY[0x277D199F8];
-          IMSetDomainBoolForKey();
-        }
-      }
-
-      [(MessagesDataMigrator *)self _printCriticalDefaultsWithMessage:@"Finished clearing with new values"];
-      IMClearDidPerformInitialChatVocabularyUpdate();
-    }
-
-    else
-    {
-      v44 = *MEMORY[0x277D19A08];
-      v45 = *MEMORY[0x277D19A00];
-      if (IMGetDomainBoolForKey())
-      {
-        IMSetDomainValueForKey();
+        IMSetDomainBoolForKey();
       }
     }
+
+    [(MessagesDataMigrator *)self _printCriticalDefaultsWithMessage:@"Finished clearing with new values"];
+    IMClearDidPerformInitialChatVocabularyUpdate();
   }
 
-  v46 = *MEMORY[0x277D85DE8];
+  else if (IMGetDomainBoolForKey())
+  {
+    IMSetDomainValueForKey();
+  }
 }
 
 @end

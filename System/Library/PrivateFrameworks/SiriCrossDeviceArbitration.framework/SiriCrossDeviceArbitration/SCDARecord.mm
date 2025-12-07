@@ -37,6 +37,7 @@
 - (void)_assignDeviceDetails:(id)details;
 - (void)_generateConfidenceWithinLowerBound:(unsigned __int8)bound andUpperBound:(unsigned __int8)upperBound;
 - (void)adjustByAdding:(int)adding;
+- (void)adjustByMultiplier:(float)multiplier adding:(int)adding;
 - (void)generateTiebreaker;
 - (void)setDeviceClass:(unsigned __int8)class;
 - (void)setDeviceGroup:(unsigned __int8)group;
@@ -52,7 +53,7 @@
 
 + (unsigned)_generateRandomHash
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = arc4random_uniform(0x10000u);
   if (!v2)
   {
@@ -76,14 +77,13 @@
   v5 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v8 = 136315394;
-    v9 = "+[SCDARecord _generateRandomHash]";
-    v10 = 1024;
-    v11 = v2;
-    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s Generated myriad hash: %hu", &v8, 0x12u);
+    v7 = 136315394;
+    v8 = "+[SCDARecord _generateRandomHash]";
+    v9 = 1024;
+    v10 = v2;
+    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s Generated myriad hash: %hu", &v7, 0x12u);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -151,7 +151,7 @@
 
 - (void)updateVoiceTriggerTime:(id)time
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   timeCopy = time;
   if (!timeCopy)
   {
@@ -159,17 +159,15 @@
     v5 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
     {
-      v7 = 136315394;
-      v8 = "[SCDARecord updateVoiceTriggerTime:]";
-      v9 = 2112;
-      v10 = timeCopy;
-      _os_log_debug_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEBUG, "%s Perceptual audio hash was missing, trying to update from file with result: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[SCDARecord updateVoiceTriggerTime:]";
+      v8 = 2112;
+      v9 = timeCopy;
+      _os_log_debug_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEBUG, "%s Perceptual audio hash was missing, trying to update from file with result: %@", &v6, 0x16u);
     }
   }
 
   self->_voiceTriggerMachTime = [(SCDAPerceptualAudioHash *)timeCopy voiceTriggerTime];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -180,31 +178,7 @@
     v5 = equalCopy;
     deviceID = self->_deviceID;
     deviceID = [v5 deviceID];
-    if (![(NSUUID *)deviceID isEqual:deviceID])
-    {
-      goto LABEL_16;
-    }
-
-    pHash = self->_pHash;
-    if (pHash != [v5 pHash])
-    {
-      goto LABEL_16;
-    }
-
-    goodness = self->_goodness;
-    if (goodness != [v5 goodness])
-    {
-      goto LABEL_16;
-    }
-
-    rawAudioGoodnessScore = self->_rawAudioGoodnessScore;
-    if (rawAudioGoodnessScore != [v5 rawAudioGoodnessScore])
-    {
-      goto LABEL_16;
-    }
-
-    bump = self->_bump;
-    if (bump == [v5 bump] && (userConfidence = self->_userConfidence, userConfidence == objc_msgSend(v5, "userConfidence")) && (deviceGroup = self->_deviceGroup, deviceGroup == objc_msgSend(v5, "deviceGroup")) && (deviceClass = self->_deviceClass, deviceClass == objc_msgSend(v5, "deviceClass")) && (tieBreaker = self->_tieBreaker, tieBreaker == objc_msgSend(v5, "tieBreaker")) && (productType = self->_productType, productType == objc_msgSend(v5, "productType")) && (isMe = self->_isMe, isMe == objc_msgSend(v5, "isMe")))
+    if (-[NSUUID isEqual:](deviceID, "isEqual:", deviceID) && (pHash = self->_pHash, pHash == [v5 pHash]) && (goodness = self->_goodness, goodness == objc_msgSend(v5, "goodness")) && (rawAudioGoodnessScore = self->_rawAudioGoodnessScore, rawAudioGoodnessScore == objc_msgSend(v5, "rawAudioGoodnessScore")) && (bump = self->_bump, bump == objc_msgSend(v5, "bump")) && (userConfidence = self->_userConfidence, userConfidence == objc_msgSend(v5, "userConfidence")) && (deviceGroup = self->_deviceGroup, deviceGroup == objc_msgSend(v5, "deviceGroup")) && (deviceClass = self->_deviceClass, deviceClass == objc_msgSend(v5, "deviceClass")) && (tieBreaker = self->_tieBreaker, tieBreaker == objc_msgSend(v5, "tieBreaker")) && (productType = self->_productType, productType == objc_msgSend(v5, "productType")) && (isMe = self->_isMe, isMe == objc_msgSend(v5, "isMe")))
     {
       isCollectedFromContextCollector = self->_isCollectedFromContextCollector;
       v19 = isCollectedFromContextCollector == [v5 isCollectedFromContextCollector];
@@ -212,7 +186,6 @@
 
     else
     {
-LABEL_16:
       v19 = 0;
     }
   }
@@ -358,7 +331,7 @@ LABEL_16:
 
 - (BOOL)isSane
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   goodness = self->_goodness;
   v6 = goodness == 224 || goodness == 208 || goodness > -18;
   deviceClass = self->_deviceClass;
@@ -372,18 +345,17 @@ LABEL_16:
     v9 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = "[SCDARecord isSane]";
-      v14 = 2112;
+      v11 = 136315394;
+      v12 = "[SCDARecord isSane]";
+      v13 = 2112;
       selfCopy = self;
-      _os_log_error_impl(&dword_1DA758000, v9, OS_LOG_TYPE_ERROR, "%s SCDARecord %@ sanity: NO", &v12, 0x16u);
+      _os_log_error_impl(&dword_1DA758000, v9, OS_LOG_TYPE_ERROR, "%s SCDARecord %@ sanity: NO", &v11, 0x16u);
       deviceClass = self->_deviceClass;
     }
 
     v8 = deviceClass < 0x20;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v6 && v8;
 }
 
@@ -416,7 +388,7 @@ LABEL_16:
 
 - (void)setDeviceClass:(unsigned __int8)class
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self->_deviceClass != class)
   {
     classCopy = class;
@@ -427,13 +399,13 @@ LABEL_16:
       v6 = SCDALogContextCore;
       if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
       {
-        v8 = 136315650;
-        v9 = "[SCDARecord setDeviceClass:]";
-        v10 = 1024;
-        v11 = classCopy;
-        v12 = 1024;
-        v13 = v5;
-        _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s #scda Error: Unexpected device class %du masked to: %du", &v8, 0x18u);
+        v7 = 136315650;
+        v8 = "[SCDARecord setDeviceClass:]";
+        v9 = 1024;
+        v10 = classCopy;
+        v11 = 1024;
+        v12 = v5;
+        _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s #scda Error: Unexpected device class %du masked to: %du", &v7, 0x18u);
       }
 
       self->_deviceClass = v5;
@@ -441,8 +413,6 @@ LABEL_16:
 
     self->_advertisementDataIsDirty = 1;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDeviceGroup:(unsigned __int8)group
@@ -480,17 +450,17 @@ LABEL_16:
 
 - (void)adjustByAdding:(int)adding
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   goodness = self->_goodness;
   v5 = goodness + adding;
   v6 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v10 = 136315394;
-    v11 = "[SCDARecord adjustByAdding:]";
-    v12 = 1024;
-    v13 = v5;
-    _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s #scda newGoodness: %d", &v10, 0x12u);
+    v9 = 136315394;
+    v10 = "[SCDARecord adjustByAdding:]";
+    v11 = 1024;
+    v12 = v5;
+    _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s #scda newGoodness: %d", &v9, 0x12u);
     goodness = self->_goodness;
   }
 
@@ -518,11 +488,11 @@ LABEL_16:
     v7 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315394;
-      v11 = "[SCDARecord adjustByAdding:]";
-      v12 = 1024;
-      v13 = goodness;
-      _os_log_impl(&dword_1DA758000, v7, OS_LOG_TYPE_INFO, "%s #scda leaving existing trump signal intact %d", &v10, 0x12u);
+      v9 = 136315394;
+      v10 = "[SCDARecord adjustByAdding:]";
+      v11 = 1024;
+      v12 = goodness;
+      _os_log_impl(&dword_1DA758000, v7, OS_LOG_TYPE_INFO, "%s #scda leaving existing trump signal intact %d", &v9, 0x12u);
       LOBYTE(goodness) = self->_goodness;
     }
   }
@@ -530,12 +500,28 @@ LABEL_16:
   self->_bump = goodness;
   [(SCDARecord *)self setGoodness:goodness];
   self->_advertisementDataIsDirty = 1;
-  v9 = *MEMORY[0x1E69E9840];
+}
+
+- (void)adjustByMultiplier:(float)multiplier adding:(int)adding
+{
+  v4 = *&adding;
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = SCDALogContextCore;
+  if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
+  {
+    v8 = 136315394;
+    v9 = "[SCDARecord adjustByMultiplier:adding:]";
+    v10 = 2048;
+    multiplierCopy = multiplier;
+    _os_log_error_impl(&dword_1DA758000, v7, OS_LOG_TYPE_ERROR, "%s #scda adjustByMultipler deprecated: Multiplier value of %f will be dropped!", &v8, 0x16u);
+  }
+
+  [(SCDARecord *)self adjustByAdding:v4];
 }
 
 - (void)setRawAudioGoodnessScore:(unsigned __int8)score withBump:(unsigned __int8)bump
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   self->_rawAudioGoodnessScore = score;
   self->_bump = bump;
   v5 = bump + score;
@@ -546,13 +532,13 @@ LABEL_16:
     v8 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136315650;
-      v15 = "[SCDARecord setRawAudioGoodnessScore:withBump:]";
-      v16 = 1024;
-      v17 = scoreCopy;
-      v18 = 1024;
+      v13 = 136315650;
+      v14 = "[SCDARecord setRawAudioGoodnessScore:withBump:]";
+      v15 = 1024;
+      v16 = scoreCopy;
+      v17 = 1024;
       bumpCopy2 = bumpCopy;
-      _os_log_error_impl(&dword_1DA758000, v8, OS_LOG_TYPE_ERROR, "%s [(rawAudioGoodnessScore + bump) overflow] rawAudioGoodnessScore: %d, bump: %d. Overwriting goodness score to 0xff", &v14, 0x18u);
+      _os_log_error_impl(&dword_1DA758000, v8, OS_LOG_TYPE_ERROR, "%s [(rawAudioGoodnessScore + bump) overflow] rawAudioGoodnessScore: %d, bump: %d. Overwriting goodness score to 0xff", &v13, 0x18u);
     }
 
     v5 = -1;
@@ -566,18 +552,16 @@ LABEL_16:
     rawAudioGoodnessScore = self->_rawAudioGoodnessScore;
     bump = self->_bump;
     goodness = self->_goodness;
-    v14 = 136315906;
-    v15 = "[SCDARecord setRawAudioGoodnessScore:withBump:]";
-    v16 = 1024;
-    v17 = rawAudioGoodnessScore;
-    v18 = 1024;
+    v13 = 136315906;
+    v14 = "[SCDARecord setRawAudioGoodnessScore:withBump:]";
+    v15 = 1024;
+    v16 = rawAudioGoodnessScore;
+    v17 = 1024;
     bumpCopy2 = bump;
-    v20 = 1024;
-    v21 = goodness;
-    _os_log_impl(&dword_1DA758000, v9, OS_LOG_TYPE_INFO, "%s rawAudioGoodnessScore: %d, bump: %d goodness: %d", &v14, 0x1Eu);
+    v19 = 1024;
+    v20 = goodness;
+    _os_log_impl(&dword_1DA758000, v9, OS_LOG_TYPE_INFO, "%s rawAudioGoodnessScore: %d, bump: %d goodness: %d", &v13, 0x1Eu);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPHash:(unsigned __int16)hash
@@ -924,13 +908,13 @@ LABEL_16:
 
 - (SCDARecord)initWithDeviceID:(id)d data:(id)data electionParticipantId:(id)id
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dataCopy = data;
   idCopy = id;
-  v29.receiver = self;
-  v29.super_class = SCDARecord;
-  v12 = [(SCDARecord *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = SCDARecord;
+  v12 = [(SCDARecord *)&v28 init];
   v13 = v12;
   if (v12)
   {
@@ -947,16 +931,16 @@ LABEL_16:
         v20 = SCDALogContextCore;
         if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
         {
-          v26 = MEMORY[0x1E696AD98];
-          v27 = v20;
-          v28 = [v26 numberWithUnsignedInteger:{objc_msgSend(dataCopy, "length")}];
+          v25 = MEMORY[0x1E696AD98];
+          v26 = v20;
+          v27 = [v25 numberWithUnsignedInteger:{objc_msgSend(dataCopy, "length")}];
           *buf = 136315650;
-          v31 = "[SCDARecord initWithDeviceID:data:electionParticipantId:]";
-          v32 = 2112;
-          *v33 = v28;
-          *&v33[8] = 2112;
-          v34 = dataCopy;
-          _os_log_error_impl(&dword_1DA758000, v27, OS_LOG_TYPE_ERROR, "%s Bad data of unexpected length %@ : %@", buf, 0x20u);
+          v30 = "[SCDARecord initWithDeviceID:data:electionParticipantId:]";
+          v31 = 2112;
+          *v32 = v27;
+          *&v32[8] = 2112;
+          v33 = dataCopy;
+          _os_log_error_impl(&dword_1DA758000, v26, OS_LOG_TYPE_ERROR, "%s Bad data of unexpected length %@ : %@", buf, 0x20u);
         }
       }
 
@@ -981,11 +965,11 @@ LABEL_16:
         if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
         {
           *buf = 136315650;
-          v31 = "[SCDARecord initWithDeviceID:data:electionParticipantId:]";
-          v32 = 1024;
-          *v33 = deviceClass;
-          *&v33[4] = 1024;
-          *&v33[6] = deviceClass & 0x1F;
+          v30 = "[SCDARecord initWithDeviceID:data:electionParticipantId:]";
+          v31 = 1024;
+          *v32 = deviceClass;
+          *&v32[4] = 1024;
+          *&v32[6] = deviceClass & 0x1F;
           _os_log_impl(&dword_1DA758000, v18, OS_LOG_TYPE_INFO, "%s #scda Error: Unexpected device class %du masked to: %du", buf, 0x18u);
         }
 
@@ -1012,7 +996,6 @@ LABEL_16:
     v23 = v13;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

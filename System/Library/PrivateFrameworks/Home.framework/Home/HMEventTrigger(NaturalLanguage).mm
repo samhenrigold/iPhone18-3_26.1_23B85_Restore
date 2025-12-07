@@ -62,7 +62,7 @@
 
 + (id)hf_naturalLanguageNameWithOptions:()NaturalLanguage events:recurrences:forUser:
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v9 = a3;
   v10 = a4;
   v11 = a5;
@@ -86,14 +86,14 @@
     if (v13)
     {
       [v13 region];
-      v39 = v13;
+      v38 = v13;
       v23 = v17;
       v25 = v24 = v11;
       v22 = [objc_opt_class() hf_naturalLanguageNameWithOptions:v9 region:v25 forUser:v12];
 
       v11 = v24;
       v17 = v23;
-      v13 = v39;
+      v13 = v38;
       if (v22)
       {
         goto LABEL_10;
@@ -106,28 +106,28 @@
     {
       if ([v17 count])
       {
-        v40 = MEMORY[0x277CCA940];
-        v36 = [v17 na_map:&__block_literal_global_247];
-        [v40 setWithSet:v36];
-        v29 = v35 = v11;
-        na_mostCommonObject = [v29 na_mostCommonObject];
+        v39 = MEMORY[0x277CCA940];
+        v35 = [v17 na_map:&__block_literal_global_247];
+        [v39 setWithSet:v35];
+        v28 = v34 = v11;
+        na_mostCommonObject = [v28 na_mostCommonObject];
 
-        v43[0] = MEMORY[0x277D85DD0];
-        v43[1] = 3221225472;
-        v43[2] = __96__HMEventTrigger_NaturalLanguage__hf_naturalLanguageNameWithOptions_events_recurrences_forUser___block_invoke_7;
-        v43[3] = &unk_277DF7650;
-        v44 = na_mostCommonObject;
-        v34 = na_mostCommonObject;
-        v33 = [v17 na_filter:v43];
-        v30 = [v33 na_map:&__block_literal_global_250];
-        v37 = MEMORY[0x277CCA940];
-        v42 = v30;
-        v32 = [v33 na_map:&__block_literal_global_252];
-        v31 = [v37 setWithSet:v32];
-        na_mostCommonObject2 = [v31 na_mostCommonObject];
+        v42[0] = MEMORY[0x277D85DD0];
+        v42[1] = 3221225472;
+        v42[2] = __96__HMEventTrigger_NaturalLanguage__hf_naturalLanguageNameWithOptions_events_recurrences_forUser___block_invoke_7;
+        v42[3] = &unk_277DF7650;
+        v43 = na_mostCommonObject;
+        v33 = na_mostCommonObject;
+        v32 = [v17 na_filter:v42];
+        v29 = [v32 na_map:&__block_literal_global_250];
+        v36 = MEMORY[0x277CCA940];
+        v41 = v29;
+        v31 = [v32 na_map:&__block_literal_global_252];
+        v30 = [v36 setWithSet:v31];
+        na_mostCommonObject2 = [v30 na_mostCommonObject];
 
-        v11 = v35;
-        v22 = [objc_opt_class() hf_naturalLanguageNameWithOptions:v9 characteristics:v42 triggerValue:na_mostCommonObject2];
+        v11 = v34;
+        v22 = [objc_opt_class() hf_naturalLanguageNameWithOptions:v9 characteristics:v41 triggerValue:na_mostCommonObject2];
 
         if (v22)
         {
@@ -152,14 +152,12 @@ LABEL_7:
   if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
   {
     *buf = 138412290;
-    v46 = v10;
+    v45 = v10;
     _os_log_fault_impl(&dword_20D9BF000, v26, OS_LOG_TYPE_FAULT, "Could not generate name for events: %@", buf, 0xCu);
   }
 
   v22 = _HFLocalizedStringWithDefaultValue(@"HFTriggerDescriptionUnknownName", @"HFTriggerDescriptionUnknownName", 1);
 LABEL_10:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -182,8 +180,8 @@ LABEL_10:
       identifier2 = 0;
     }
 
-    home = [v8 home];
-    currentUser = [home currentUser];
+    v15 = objc_msgSend_home(v8);
+    currentUser = [v15 currentUser];
 
     v17 = @"HFOtherUser_";
     if (currentUser == v10)
@@ -278,12 +276,12 @@ LABEL_18:
         {
           selfCopy = self;
           v33 = [HFUserNameFormatter alloc];
-          home2 = [v8 home];
-          v35 = [(HFUserNameFormatter *)v33 initWithHome:home2];
+          v34 = objc_msgSend_home(v8);
+          v35 = [(HFUserNameFormatter *)v33 initWithHome:v34];
 
           [(HFUserNameFormatter *)v35 setStyle:1];
-          home3 = [v8 home];
-          v37 = [home3 hf_handleForUser:v10];
+          v36 = objc_msgSend_home(v8);
+          v37 = [v36 hf_handleForUser:v10];
 
           v38 = [(HFUserNameFormatter *)v35 stringForObjectValue:v37];
           if (v38)
@@ -327,8 +325,8 @@ LABEL_18:
 
         if (![v8 nameType])
         {
-          home4 = [v8 home];
-          v44 = [self hf_sanitizeTriggerName:v14 home:home4];
+          v43 = objc_msgSend_home(v8);
+          v44 = [self hf_sanitizeTriggerName:v14 home:v43];
 
           v14 = v44;
         }
@@ -654,11 +652,11 @@ LABEL_31:
 
   v33 = v8;
   anyObject = [v8 anyObject];
-  service = [anyObject service];
+  v35 = objc_msgSend_service(anyObject);
 
-  hf_parentRoom = [service hf_parentRoom];
-  home = [v7 home];
-  roomForEntireHome = [home roomForEntireHome];
+  hf_parentRoom = [v35 hf_parentRoom];
+  v37 = objc_msgSend_home(v7);
+  roomForEntireHome = [v37 roomForEntireHome];
   v39 = [hf_parentRoom isEqual:roomForEntireHome];
 
   if (v39)
@@ -680,8 +678,8 @@ LABEL_31:
 LABEL_36:
   if (![v7 nameType])
   {
-    home2 = [v7 home];
-    v42 = [self hf_sanitizeTriggerName:v22 home:home2];
+    v41 = objc_msgSend_home(v7);
+    v42 = [self hf_sanitizeTriggerName:v22 home:v41];
 
     v22 = v42;
   }
@@ -793,10 +791,10 @@ LABEL_36:
 
   anyObject = [v10 anyObject];
 
-  service = [anyObject service];
+  v17 = objc_msgSend_service(anyObject);
 
-  home = [v8 home];
-  v19 = [home hf_serviceGroupsForService:service];
+  v18 = objc_msgSend_home(v8);
+  v19 = [v18 hf_serviceGroupsForService:v17];
   firstObject = [v19 firstObject];
 
   if (firstObject)
@@ -806,7 +804,7 @@ LABEL_36:
 
   else
   {
-    v21 = service;
+    v21 = v17;
   }
 
   hf_displayName = [v21 hf_displayName];
@@ -820,7 +818,7 @@ LABEL_36:
     v51[1] = 3221225472;
     v51[2] = __108__HMEventTrigger_NaturalLanguage___hf_naturalLanguageNameWithOptions_nonSensorCharacteristics_triggerValue___block_invoke;
     v51[3] = &unk_277DF5C10;
-    v26 = service;
+    v26 = v17;
     v52 = v26;
     v27 = [objectsInContext2 na_firstObjectPassingTest:v51];
 
@@ -893,7 +891,7 @@ LABEL_36:
 
   if (![v8 nameType])
   {
-    [v8 home];
+    objc_msgSend_home(v8);
     v45 = v44 = v15;
     v46 = [self hf_sanitizeTriggerName:v11 home:v45];
 
@@ -1574,7 +1572,7 @@ LABEL_13:
   v22 = v21;
   if (v21)
   {
-    [v21 duration];
+    objc_msgSend_duration(v21);
     v24 = v23;
     v25 = objc_opt_class();
     v26 = [MEMORY[0x277CCABB0] numberWithDouble:v24];

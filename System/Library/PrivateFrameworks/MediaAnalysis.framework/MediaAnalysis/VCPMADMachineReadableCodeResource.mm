@@ -25,7 +25,7 @@ VCPMADMachineReadableCodeResource *__51__VCPMADMachineReadableCodeResource_share
 
 - (int64_t)activeCost
 {
-  if (DeviceHasANE())
+  if (DeviceHasANE(self, a2))
   {
     return 30;
   }
@@ -38,7 +38,7 @@ VCPMADMachineReadableCodeResource *__51__VCPMADMachineReadableCodeResource_share
 
 - (int64_t)inactiveCost
 {
-  if (DeviceHasANE())
+  if (DeviceHasANE(self, a2))
   {
     return 5;
   }

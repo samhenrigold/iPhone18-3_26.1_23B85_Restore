@@ -29,18 +29,15 @@
 
 - (NSArray)connectedControllerIdentifiers
 {
-  v2 = *(self + OBJC_IVAR____TtC14GameController22GCOverlaySettingsStore_connectedControllerIdentifiers);
 
-  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setConnectedControllerIdentifiers:(id)identifiers
 {
-  v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  v5 = *(self + OBJC_IVAR____TtC14GameController22GCOverlaySettingsStore_connectedControllerIdentifiers);
-  *(self + OBJC_IVAR____TtC14GameController22GCOverlaySettingsStore_connectedControllerIdentifiers) = v4;
+  *(self + OBJC_IVAR____TtC14GameController22GCOverlaySettingsStore_connectedControllerIdentifiers) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 }
 
 - (void)setCurentController:(id)controller

@@ -11,13 +11,12 @@ void __62___NUVisionInstanceSegmentationResult_fullExtentForInstances___block_in
 
   v6 = [v14 size];
   v7 = *(*(a1 + 40) + 8);
-  *&v8 = v6;
-  *(&v8 + 1) = v9;
+  v8.n128_u64[0] = v6;
+  v8.n128_u64[1] = v9;
   v10 = *(v7 + 32);
   v11 = *(v7 + 48);
-  v17[0] = 0;
-  v17[1] = 0;
-  v18 = v8;
+  v17[0] = 0uLL;
+  v17[1] = v8;
   v15 = v10;
   v16 = v11;
   NU::RectT<long>::add(&v15, v17);
@@ -37,7 +36,7 @@ void __63___NUVisionInstanceSegmentationResult_tightBoundsForInstances___block_i
   v8 = 0uLL;
   if (v6)
   {
-    [v6 bounds];
+    objc_msgSend_bounds(v6);
     v8 = 0u;
     v7 = 0u;
   }

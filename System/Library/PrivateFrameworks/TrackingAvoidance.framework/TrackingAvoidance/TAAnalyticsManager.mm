@@ -47,20 +47,18 @@
 
 - (void)_submitDefaultAISFetchCountEvent
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"numOfFetchesPerDay";
-  v5[1] = @"accessoryType";
-  v6[0] = &unk_287F6FF08;
-  v6[1] = @"Unknown";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"numOfFetchesPerDay";
+  v4[1] = @"accessoryType";
+  v5[0] = &unk_287F6FF08;
+  v5[1] = @"Unknown";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
   [(TAAnalyticsManager *)self _submitEvent:@"com.apple.clx.ta.aisFetchCount" content:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_convertScanRequest:(id)request service:(id)service
 {
-  v24[4] = *MEMORY[0x277D85DE8];
+  v23[4] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   serviceCopy = service;
   v7 = serviceCopy;
@@ -85,21 +83,21 @@
         v14 = @"Unknown";
       }
 
-      v24[0] = &unk_287F6FF20;
-      v23[0] = @"scanRequests";
-      v23[1] = @"maximumScanRequests";
+      v23[0] = &unk_287F6FF20;
+      v22[0] = @"scanRequests";
+      v22[1] = @"maximumScanRequests";
       v15 = MEMORY[0x277CCABB0];
       settings = [v7 settings];
       v17 = [v15 numberWithUnsignedInteger:{objc_msgSend(settings, "maximumDailyScans")}];
-      v24[1] = v17;
-      v24[2] = v14;
-      v23[2] = @"reason";
-      v23[3] = @"settingsVersion";
+      v23[1] = v17;
+      v23[2] = v14;
+      v22[2] = @"reason";
+      v22[3] = @"settingsVersion";
       v18 = MEMORY[0x277CCABB0];
       settings2 = [v7 settings];
       v20 = [v18 numberWithUnsignedInteger:{objc_msgSend(settings2, "settingsVersion")}];
-      v24[3] = v20;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
+      v23[3] = v20;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:4];
     }
 
     else
@@ -107,8 +105,6 @@
       v8 = 0;
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -126,7 +122,7 @@
 
 + (id)_convertDetection:(id)detection service:(id)service
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   detectionCopy = detection;
   serviceCopy = service;
   v7 = serviceCopy;
@@ -243,7 +239,7 @@
     store4 = [v7 store];
     deviceRecord4 = [store4 deviceRecord];
     address4 = [detectionCopy address];
-    v80 = [deviceRecord4 getNumOfAISFetch:address4];
+    v79 = [deviceRecord4 getNumOfAISFetch:address4];
 
     latestAdvertisement = [detectionCopy latestAdvertisement];
     v51 = +[TASPAdvertisement TASPAdvertisementDeviceTypeToString:](TASPAdvertisement, "TASPAdvertisementDeviceTypeToString:", [latestAdvertisement getDeviceType]);
@@ -266,54 +262,54 @@
       v56 = [accessoryInfo2 getLatestAdvTypeToString:v51];
     }
 
-    v75 = v56;
+    v74 = v56;
 
     store5 = [v7 store];
     deviceRecord5 = [store5 deviceRecord];
     address5 = [detectionCopy address];
-    v78 = [deviceRecord5 isAISFetchSuccessful:address5];
+    v77 = [deviceRecord5 isAISFetchSuccessful:address5];
 
     v60 = MEMORY[0x277CCACA8];
     v61 = +[TAMetricsDetection convertTADetectionTypeToString:](TAMetricsDetection, "convertTADetectionTypeToString:", [detectionCopy detectionType]);
     v62 = +[TASuspiciousDevice convertTAForceSurfaceReasonToString:](TASuspiciousDevice, "convertTAForceSurfaceReasonToString:", [detectionCopy forceSurfaceReason]);
-    v79 = [v60 stringWithFormat:@"%@.%@", v61, v62];
+    v78 = [v60 stringWithFormat:@"%@.%@", v61, v62];
 
-    v83[0] = v79;
-    v82[0] = @"type";
-    v82[1] = @"hasSurfacedBefore";
-    v77 = [MEMORY[0x277CCABB0] numberWithBool:v11];
-    v83[1] = v77;
-    v82[2] = @"secondsFromFirstSeen";
-    v76 = [MEMORY[0x277CCABB0] numberWithDouble:v34];
-    v83[2] = v76;
-    v83[3] = v56;
-    v82[3] = @"productName";
-    v82[4] = @"hourOfDay";
+    v82[0] = v78;
+    v81[0] = @"type";
+    v81[1] = @"hasSurfacedBefore";
+    v76 = [MEMORY[0x277CCABB0] numberWithBool:v11];
+    v82[1] = v76;
+    v81[2] = @"secondsFromFirstSeen";
+    v75 = [MEMORY[0x277CCABB0] numberWithDouble:v34];
+    v82[2] = v75;
+    v82[3] = v56;
+    v81[3] = @"productName";
+    v81[4] = @"hourOfDay";
     v63 = MEMORY[0x277CCABB0];
     [detectionCopy date];
-    v64 = v81 = v7;
+    v64 = v80 = v7;
     v65 = [v63 numberWithInteger:{+[TAAnalyticsManager getHour:](TAAnalyticsManager, "getHour:", v64)}];
-    v83[4] = v65;
-    v82[5] = @"numStagedDetections";
+    v82[4] = v65;
+    v81[5] = @"numStagedDetections";
     v66 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v46];
-    v83[5] = v66;
-    v82[6] = @"secondsUntilFirstStagedDetection";
+    v82[5] = v66;
+    v81[6] = @"secondsUntilFirstStagedDetection";
     v67 = [MEMORY[0x277CCABB0] numberWithDouble:v35];
-    v83[6] = v67;
-    v82[7] = @"settingsVersion";
+    v82[6] = v67;
+    v81[7] = @"settingsVersion";
     v68 = MEMORY[0x277CCABB0];
-    settings = [v81 settings];
+    settings = [v80 settings];
     v70 = [v68 numberWithUnsignedInteger:{objc_msgSend(settings, "settingsVersion")}];
-    v83[7] = v70;
-    v82[8] = @"numAISFetch";
-    v71 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v80];
-    v83[8] = v71;
-    v82[9] = @"fetchSucceed";
-    v72 = [MEMORY[0x277CCABB0] numberWithBool:v78];
-    v83[9] = v72;
-    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:v82 count:10];
+    v82[7] = v70;
+    v81[8] = @"numAISFetch";
+    v71 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v79];
+    v82[8] = v71;
+    v81[9] = @"fetchSucceed";
+    v72 = [MEMORY[0x277CCABB0] numberWithBool:v77];
+    v82[9] = v72;
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:10];
 
-    v7 = v81;
+    v7 = v80;
   }
 
   else
@@ -322,15 +318,13 @@
     if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_FAULT))
     {
       buf = 68289026;
-      v85 = 2082;
-      v86 = "";
+      v84 = 2082;
+      v85 = "";
       _os_log_impl(&dword_26F2E2000, v32, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#TAAnalyticsManager nil device or service in conversion}", &buf, 0x12u);
     }
 
     v33 = 0;
   }
-
-  v73 = *MEMORY[0x277D85DE8];
 
   return v33;
 }
@@ -831,7 +825,7 @@
 
 + (id)_convertHomeDetection:(id)detection service:(id)service
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   detectionCopy = detection;
   serviceCopy = service;
   v7 = serviceCopy;
@@ -955,24 +949,22 @@
     v27 = TAStatusLog;
     if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_FAULT))
     {
-      v58[0] = 68289026;
-      v58[1] = 0;
-      v59 = 2082;
-      v60 = "";
-      _os_log_impl(&dword_26F2E2000, v27, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#TAAnalyticsManager nil device or service in conversion for home detection}", v58, 0x12u);
+      v57[0] = 68289026;
+      v57[1] = 0;
+      v58 = 2082;
+      v59 = "";
+      _os_log_impl(&dword_26F2E2000, v27, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#TAAnalyticsManager nil device or service in conversion for home detection}", v57, 0x12u);
     }
 
     v28 = 0;
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
 
 - (void)_submitEvent:(id)event content:(id)content
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   contentCopy = content;
   enableSubmission = [(TAAnalyticsManagerSettings *)self->_settings enableSubmission];
@@ -983,60 +975,58 @@
     if (v10)
     {
       *buf = 68289539;
-      v14 = 0;
-      v15 = 2082;
-      v16 = "";
-      v17 = 2113;
-      v18 = eventCopy;
-      v19 = 2113;
-      v20 = contentCopy;
+      v13 = 0;
+      v14 = 2082;
+      v15 = "";
+      v16 = 2113;
+      v17 = eventCopy;
+      v18 = 2113;
+      v19 = contentCopy;
       _os_log_impl(&dword_26F2E2000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#TAAnalyticsManager Submitting analytics event, eventName:%{private}@, content:%{private}@}", buf, 0x26u);
     }
 
-    v12 = contentCopy;
+    v11 = contentCopy;
     AnalyticsSendEventLazy();
   }
 
   else if (v10)
   {
     *buf = 68289539;
-    v14 = 0;
-    v15 = 2082;
-    v16 = "";
-    v17 = 2113;
-    v18 = eventCopy;
-    v19 = 2113;
-    v20 = contentCopy;
+    v13 = 0;
+    v14 = 2082;
+    v15 = "";
+    v16 = 2113;
+    v17 = eventCopy;
+    v18 = 2113;
+    v19 = contentCopy;
     _os_log_impl(&dword_26F2E2000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#TAAnalyticsManager Analytics submission not enabled, eventName:%{private}@, content:%{private}@}", buf, 0x26u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)trackingAvoidanceService:(id)service didFindSuspiciousDevices:(id)devices
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   devicesCopy = devices;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v8 = [devicesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [devicesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(devicesCopy);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         v13 = [TAAnalyticsManager _convertDetection:v12 service:serviceCopy];
         [(TAAnalyticsManager *)self _submitEvent:@"com.apple.clx.ta.notifyDetection" content:v13];
         if ([v12 detectionType] == 3)
@@ -1046,48 +1036,46 @@
         }
       }
 
-      v9 = [devicesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [devicesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)trackingAvoidanceService:(id)service requestingAdditionalInformation:(id)information
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   informationCopy = information;
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
-  v8 = [informationCopy countByEnumeratingWithState:&v52 objects:v59 count:16];
+  v8 = [informationCopy countByEnumeratingWithState:&v51 objects:v58 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v53;
-    v43 = @"deviceType";
-    v44 = *v53;
-    v45 = informationCopy;
+    v10 = *v52;
+    v42 = @"deviceType";
+    v43 = *v52;
+    v44 = informationCopy;
     do
     {
       v11 = 0;
-      v46 = v9;
+      v45 = v9;
       do
       {
-        if (*v53 != v10)
+        if (*v52 != v10)
         {
           objc_enumerationMutation(informationCopy);
         }
 
-        v12 = *(*(&v52 + 1) + 8 * v11);
+        v12 = *(*(&v51 + 1) + 8 * v11);
         v13 = [v12 key];
         v14 = [v13 isEqualToString:@"RequestingAdditionalScans"];
 
-        v47 = v11;
+        v46 = v11;
         if (v14)
         {
           additionalInformation = [TAAnalyticsManager _convertScanRequest:v12 service:serviceCopy];
@@ -1101,26 +1089,26 @@
 
         if (v19)
         {
-          v50 = 0u;
-          v51 = 0u;
-          v48 = 0u;
           v49 = 0u;
+          v50 = 0u;
+          v47 = 0u;
+          v48 = 0u;
           additionalInformation = [v12 additionalInformation];
-          v20 = [additionalInformation countByEnumeratingWithState:&v48 objects:v58 count:16];
+          v20 = [additionalInformation countByEnumeratingWithState:&v47 objects:v57 count:16];
           if (v20)
           {
             v21 = v20;
-            v22 = *v49;
+            v22 = *v48;
             do
             {
               for (i = 0; i != v21; ++i)
               {
-                if (*v49 != v22)
+                if (*v48 != v22)
                 {
                   objc_enumerationMutation(additionalInformation);
                 }
 
-                v24 = *(*(&v48 + 1) + 8 * i);
+                v24 = *(*(&v47 + 1) + 8 * i);
                 additionalInformation2 = [v12 additionalInformation];
                 v26 = [additionalInformation2 objectForKeyedSubscript:v24];
 
@@ -1130,13 +1118,13 @@
                 [(TAAnalyticsManager *)self _submitEvent:@"com.apple.clx.ta.aisFetch.recordExpiry" content:v28];
               }
 
-              v21 = [additionalInformation countByEnumeratingWithState:&v48 objects:v58 count:16];
+              v21 = [additionalInformation countByEnumeratingWithState:&v47 objects:v57 count:16];
             }
 
             while (v21);
-            v10 = v44;
-            informationCopy = v45;
-            v9 = v46;
+            v10 = v43;
+            informationCopy = v44;
+            v9 = v45;
           }
 
           goto LABEL_9;
@@ -1181,69 +1169,65 @@ LABEL_9:
           additionalInformation = [TAAnalyticsManager _convertAISFetch:additionalInformation5];
 
           [(TAAnalyticsManager *)self _submitEvent:@"com.apple.clx.ta.aisFetch" content:additionalInformation];
-          v56[0] = @"numOfFetchesPerDay";
-          v56[1] = @"accessoryType";
-          v57[0] = &unk_287F6FF20;
+          v55[0] = @"numOfFetchesPerDay";
+          v55[1] = @"accessoryType";
+          v56[0] = &unk_287F6FF20;
           additionalInformation6 = [v12 additionalInformation];
-          v39 = [additionalInformation6 objectForKeyedSubscript:v43];
-          v57[1] = v39;
-          v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
+          v39 = [additionalInformation6 objectForKeyedSubscript:v42];
+          v56[1] = v39;
+          v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:2];
           [(TAAnalyticsManager *)self _submitEvent:@"com.apple.clx.ta.aisFetchCount" content:v40];
 
           goto LABEL_9;
         }
 
 LABEL_10:
-        v11 = v47 + 1;
+        v11 = v46 + 1;
       }
 
-      while (v47 + 1 != v9);
-      v41 = [informationCopy countByEnumeratingWithState:&v52 objects:v59 count:16];
+      while (v46 + 1 != v9);
+      v41 = [informationCopy countByEnumeratingWithState:&v51 objects:v58 count:16];
       v9 = v41;
     }
 
     while (v41);
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didWriteToURL:(id)l bytes:(unint64_t)bytes
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  v9[0] = @"type";
-  v9[1] = @"numOperations";
-  v10[0] = @"write";
-  v10[1] = &unk_287F6FF20;
-  v9[2] = @"size";
+  v9[4] = *MEMORY[0x277D85DE8];
+  v8[0] = @"type";
+  v8[1] = @"numOperations";
+  v9[0] = @"write";
+  v9[1] = &unk_287F6FF20;
+  v8[2] = @"size";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:bytes];
-  v10[2] = v5;
-  v9[3] = @"settingsVersion";
+  v9[2] = v5;
+  v8[3] = @"settingsVersion";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[TAAnalyticsManagerSettings settingsVersion](self->_settings, "settingsVersion")}];
-  v10[3] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
+  v9[3] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   [(TAAnalyticsManager *)self _submitEvent:@"com.apple.clx.ta.persistence" content:v7];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReadFromURL:(id)l bytes:(unint64_t)bytes
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  v9[0] = @"type";
-  v9[1] = @"numOperations";
-  v10[0] = @"read";
-  v10[1] = &unk_287F6FF20;
-  v9[2] = @"size";
+  v9[4] = *MEMORY[0x277D85DE8];
+  v8[0] = @"type";
+  v8[1] = @"numOperations";
+  v9[0] = @"read";
+  v9[1] = &unk_287F6FF20;
+  v8[2] = @"size";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:bytes];
-  v10[2] = v5;
-  v9[3] = @"settingsVersion";
+  v9[2] = v5;
+  v8[3] = @"settingsVersion";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[TAAnalyticsManagerSettings settingsVersion](self->_settings, "settingsVersion")}];
-  v10[3] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
+  v9[3] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   [(TAAnalyticsManager *)self _submitEvent:@"com.apple.clx.ta.persistence" content:v7];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

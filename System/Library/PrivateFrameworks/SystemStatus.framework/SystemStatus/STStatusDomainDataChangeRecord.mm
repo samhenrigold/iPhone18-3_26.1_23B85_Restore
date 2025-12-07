@@ -138,7 +138,7 @@ LABEL_9:
 
 - (BSIntegerSet)domainsWithData
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self)
   {
     self = self->_entriesByDomain;
@@ -146,36 +146,35 @@ LABEL_9:
 
   allKeys = [(STStatusDomainDataChangeRecord *)self allKeys];
   v3 = [objc_alloc(MEMORY[0x1E698E6E8]) initWithCapacity:{objc_msgSend(allKeys, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = allKeys;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [v3 addValue:{objc_msgSend(*(*(&v12 + 1) + 8 * i), "integerValue", v12)}];
+        [v3 addValue:{objc_msgSend(*(*(&v11 + 1) + 8 * i), "integerValue", v11)}];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
   v9 = [v3 copy];
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -205,7 +204,7 @@ LABEL_9:
 
 - (id)currentDataForDomain:(unint64_t)domain
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (self)
   {
     cachedCurrentDataByDomain = self->_cachedCurrentDataByDomain;
@@ -240,7 +239,7 @@ LABEL_9:
     if ([v13 count])
     {
       firstObject = [v13 firstObject];
-      v27 = firstObject;
+      v26 = firstObject;
       if ([firstObject entryType])
       {
         clientKey = [firstObject clientKey];
@@ -252,26 +251,26 @@ LABEL_9:
         v8 = 0;
       }
 
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
       v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
       v16 = v13;
-      v17 = [v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v29;
+        v19 = *v28;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v29 != v19)
+            if (*v28 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = *(*(&v28 + 1) + 8 * i);
+            v21 = *(*(&v27 + 1) + 8 * i);
             if ([v21 entryType])
             {
               diff = [v21 diff];
@@ -287,7 +286,7 @@ LABEL_9:
             }
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
         }
 
         while (v18);
@@ -303,8 +302,6 @@ LABEL_9:
       v8 = 0;
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -644,7 +641,7 @@ uint64_t __70__STStatusDomainDataChangeRecord_removeAllEntriesForClientKey_domai
   }
 }
 
-id __102__STStatusDomainDataChangeRecord_addEntriesFromDataChangeRecord_forDomain_replacingClientKeysWithKey___block_invoke(uint64_t a1, void *a2)
+STStatusDomainDataChangeRecordDiffEntry *__102__STStatusDomainDataChangeRecord_addEntriesFromDataChangeRecord_forDomain_replacingClientKeysWithKey___block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
@@ -1049,12 +1046,12 @@ LABEL_17:
 
 void __92__STStatusDomainDataChangeRecord__validatedFallbackDataByClientKeyForDictionary_domainName___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v9 = a2;
+  v8 = a2;
   v7 = a3;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v8 = *(a1 + 48), STIsValidDataForStatusDomain(v7)))
+  if ((objc_opt_isKindOfClass() & 1) != 0 && STIsValidDataForStatusDomain(v7))
   {
-    [*(a1 + 32) setObject:v7 forKey:v9];
+    [*(a1 + 32) setObject:v7 forKey:v8];
   }
 
   else
@@ -1128,34 +1125,34 @@ LABEL_12:
 
 void __73__STStatusDomainDataChangeRecord__validatedEntriesByDomainForDictionary___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v9 = [MEMORY[0x1E695DF70] array];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v17 = v8;
+    v16 = v8;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v19;
+      v13 = *v18;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v19 != v13)
+          if (*v18 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v18 + 1) + 8 * i);
+          v15 = *(*(&v17 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -1170,7 +1167,7 @@ void __73__STStatusDomainDataChangeRecord__validatedEntriesByDomainForDictionary
           [v9 addObject:v15];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v12)
         {
           continue;
@@ -1192,7 +1189,7 @@ LABEL_14:
       [*(a1 + 32) setObject:v9 forKey:v7];
     }
 
-    v8 = v17;
+    v8 = v16;
   }
 
   else
@@ -1200,8 +1197,6 @@ LABEL_14:
     *(*(*(a1 + 40) + 8) + 24) = 1;
     *a4 = 1;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

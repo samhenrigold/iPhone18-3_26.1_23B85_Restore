@@ -1,6 +1,7 @@
 @interface PUSlideshowViewControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_updateAirplayButton;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation PUSlideshowViewControllerAccessibility
@@ -10,6 +11,14 @@
   validationsCopy = validations;
   [validationsCopy validateClass:@"PUSlideshowViewController" hasInstanceMethod:@"_updateAirplayButton" withFullSignature:{"v", 0}];
   [validationsCopy validateClass:@"PUSlideshowViewController" isKindOfClass:@"UIViewController"];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = PUSlideshowViewControllerAccessibility;
+  [(PUSlideshowViewControllerAccessibility *)&v3 viewDidAppear:appear];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7F10], 0);
 }
 
 - (void)_updateAirplayButton

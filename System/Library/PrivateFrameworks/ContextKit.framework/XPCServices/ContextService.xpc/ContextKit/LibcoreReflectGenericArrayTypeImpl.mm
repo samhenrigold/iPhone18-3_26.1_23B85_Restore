@@ -26,17 +26,17 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v5 = [JavaLangReflectGenericArrayType_class_() isInstance:equal];
+  v5 = [JavaLangReflectGenericArrayType_class_(self a2)];
   if (v5)
   {
-    v6 = JavaLangReflectGenericArrayType_class_();
+    v7 = JavaLangReflectGenericArrayType_class_(v5, v6);
     if (!equal)
     {
       [(LibcoreReflectGenericArrayTypeImpl *)self getGenericComponentType];
       JreThrowNullPointerException();
     }
 
-    if (([v6 isInstance:equal] & 1) == 0)
+    if (([v7 isInstance:equal] & 1) == 0)
     {
       JreThrowClassCastException();
     }

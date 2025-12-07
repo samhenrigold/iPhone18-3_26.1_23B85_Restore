@@ -41,9 +41,9 @@ uint64_t __52__RKPersistentPersonalizer_nonEmptyStringsPredicate__block_invoke()
   identifierCopy = identifier;
   lCopy = l;
   providerCopy = provider;
-  v30.receiver = self;
-  v30.super_class = RKPersistentPersonalizer;
-  v12 = [(RKPersistentPersonalizer *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = RKPersistentPersonalizer;
+  v12 = [(RKPersistentPersonalizer *)&v29 init];
   v13 = v12;
   if (v12)
   {
@@ -73,7 +73,7 @@ uint64_t __52__RKPersistentPersonalizer_nonEmptyStringsPredicate__block_invoke()
 
     if (!v13->_model)
     {
-      v28 = 0;
+      v27 = 0;
       goto LABEL_10;
     }
 
@@ -85,17 +85,16 @@ uint64_t __52__RKPersistentPersonalizer_nonEmptyStringsPredicate__block_invoke()
     synonyms = v13->_synonyms;
     v13->_synonyms = v25;
 
-    model = v13->_model;
     if (LMLanguageModelDynamicModelIsEmpty())
     {
       [(RKPersistentPersonalizer *)v13 initializeDynamicLanguageModel];
     }
   }
 
-  v28 = v13;
+  v27 = v13;
 LABEL_10:
 
-  return v28;
+  return v27;
 }
 
 - (id)dynamicDataCreationDate
@@ -135,7 +134,6 @@ LABEL_10:
       {
         if ([(RKPersistentPersonalizer *)self model])
         {
-          model = self->_model;
           LMLanguageModelRelease();
           self->_model = 0;
         }
@@ -149,7 +147,6 @@ LABEL_10:
     {
       if ([(RKPersistentPersonalizer *)self model])
       {
-        v13 = self->_model;
         LMLanguageModelRelease();
       }
 
@@ -157,126 +154,112 @@ LABEL_10:
     }
   }
 
-  v14 = self->_model;
+  model = self->_model;
 
-  return v14;
+  return model;
 }
 
 - (void)initializeDynamicLanguageModel
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   p_displayStringsProvider = &self->_displayStringsProvider;
   displayStringsProvider = self->_displayStringsProvider;
   languageID = [(RKPersistentPersonalizer *)self languageID];
-  v32 = [(RKDisplayStringsProvider *)displayStringsProvider displayStringsForPlatform:@"iOS" languageID:languageID];
+  v31 = [(RKDisplayStringsProvider *)displayStringsProvider displayStringsForPlatform:@"iOS" languageID:languageID];
 
   v6 = *p_displayStringsProvider;
   languageID2 = [(RKPersistentPersonalizer *)self languageID];
-  v29 = [(RKDisplayStringsProvider *)v6 displayStringsForPlatform:@"watchOS" languageID:languageID2];
+  v28 = [(RKDisplayStringsProvider *)v6 displayStringsForPlatform:@"watchOS" languageID:languageID2];
 
   v8 = MEMORY[0x277CBEB98];
-  allKeys = [v32 allKeys];
+  allKeys = [v31 allKeys];
   v10 = [v8 setWithArray:allKeys];
-  allKeys2 = [v29 allKeys];
+  allKeys2 = [v28 allKeys];
   v12 = [v10 setByAddingObjectsFromArray:allKeys2];
   allObjects = [v12 allObjects];
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   obj = allObjects;
-  v33 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
-  if (v33)
+  v32 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+  if (v32)
   {
-    v31 = *v50;
+    v30 = *v49;
     do
     {
       v14 = 0;
       do
       {
-        if (*v50 != v31)
+        if (*v49 != v30)
         {
           v15 = v14;
           objc_enumerationMutation(obj);
           v14 = v15;
         }
 
-        v34 = v14;
-        v16 = *(*(&v49 + 1) + 8 * v14);
+        v33 = v14;
+        v16 = *(*(&v48 + 1) + 8 * v14);
+        v44 = 0u;
         v45 = 0u;
         v46 = 0u;
         v47 = 0u;
-        v48 = 0u;
-        v35 = [v32 objectForKeyedSubscript:v16];
-        v17 = [v35 countByEnumeratingWithState:&v45 objects:v53 count:16];
+        v34 = [v31 objectForKeyedSubscript:v16];
+        v17 = [v34 countByEnumeratingWithState:&v44 objects:v52 count:16];
         if (v17)
         {
-          v18 = *v46;
+          v18 = *v45;
           do
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v46 != v18)
+              if (*v45 != v18)
               {
-                objc_enumerationMutation(v35);
+                objc_enumerationMutation(v34);
               }
 
-              v20 = *(*(&v45 + 1) + 8 * i);
+              v20 = *(*(&v44 + 1) + 8 * i);
               v21 = [RKUtilities normalizeForPersonalization:v20];
               v22 = [(RKPersistentPersonalizer *)self headwordsForSynonym:v20];
-              v39 = 0;
-              v40 = &v39;
-              v41 = 0x3032000000;
-              v42 = __Block_byref_object_copy__0;
-              v43 = __Block_byref_object_dispose__0;
-              v44 = 0;
-              v36[0] = MEMORY[0x277D85DD0];
-              v36[1] = 3221225472;
-              v36[2] = __58__RKPersistentPersonalizer_initializeDynamicLanguageModel__block_invoke;
-              v36[3] = &unk_279B10398;
+              v38 = 0;
+              v39 = &v38;
+              v40 = 0x3032000000;
+              v41 = __Block_byref_object_copy__0;
+              v42 = __Block_byref_object_dispose__0;
+              v43 = 0;
+              v35[0] = MEMORY[0x277D85DD0];
+              v35[1] = 3221225472;
+              v35[2] = __58__RKPersistentPersonalizer_initializeDynamicLanguageModel__block_invoke;
+              v35[3] = &unk_279B10398;
               v23 = v21;
-              v37 = v23;
-              v38 = &v39;
-              [v22 enumerateKeysAndObjectsUsingBlock:v36];
-              v24 = v40[5];
-              if (v24)
+              v36 = v23;
+              v37 = &v38;
+              [v22 enumerateKeysAndObjectsUsingBlock:v35];
+              v24 = v39[5];
+              if (v24 || ([v22 allKeys], v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "objectAtIndexedSubscript:", 0), v26 = objc_claimAutoreleasedReturnValue(), v27 = v39[5], v39[5] = v26, v27, v25, (v24 = v39[5]) != 0))
               {
-                goto LABEL_13;
-              }
-
-              allKeys3 = [v22 allKeys];
-              v26 = [allKeys3 objectAtIndexedSubscript:0];
-              v27 = v40[5];
-              v40[5] = v26;
-
-              v24 = v40[5];
-              if (v24)
-              {
-LABEL_13:
                 [(RKPersistentPersonalizer *)self trainSynonymForSpeechAct:v16 headword:v24 userResponse:v20 recipientContext:0 weight:3 effectiveDate:0];
               }
 
-              _Block_object_dispose(&v39, 8);
+              _Block_object_dispose(&v38, 8);
             }
 
-            v17 = [v35 countByEnumeratingWithState:&v45 objects:v53 count:16];
+            v17 = [v34 countByEnumeratingWithState:&v44 objects:v52 count:16];
           }
 
           while (v17);
         }
 
-        v14 = v34 + 1;
+        v14 = v33 + 1;
       }
 
-      while (v34 + 1 != v33);
-      v33 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
+      while (v33 + 1 != v32);
+      v32 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
     }
 
-    while (v33);
+    while (v32);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __58__RKPersistentPersonalizer_initializeDynamicLanguageModel__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -296,72 +279,70 @@ void __58__RKPersistentPersonalizer_initializeDynamicLanguageModel__block_invoke
 
 - (void)trainSynonymForSpeechAct:(id)act headword:(id)headword userResponse:(id)response recipientContext:(id)context weight:(unint64_t)weight effectiveDate:(id)date
 {
-  v38[3] = *MEMORY[0x277D85DE8];
+  v35[3] = *MEMORY[0x277D85DE8];
   actCopy = act;
   headwordCopy = headword;
   responseCopy = response;
   contextCopy = context;
   dateCopy = date;
   [(RKPersistentPersonalizer *)self model];
-  v19 = *MEMORY[0x277D230F0];
   LMLanguageModelSetParameterValue();
-  v35 = actCopy;
+  v32 = actCopy;
   actCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"A:%@", actCopy];
-  v38[0] = actCopy;
-  v34 = headwordCopy;
+  v35[0] = actCopy;
+  v31 = headwordCopy;
   headwordCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"H:%@", headwordCopy];
-  v38[1] = headwordCopy;
-  v38[2] = responseCopy;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:3];
+  v35[1] = headwordCopy;
+  v35[2] = responseCopy;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:3];
 
-  v33[1] = v33;
-  v23 = v33 - ((4 * [v22 count] + 15) & 0xFFFFFFFFFFFFFFF0);
-  if ([v22 count])
+  v30[1] = v30;
+  v22 = v30 - ((4 * [v21 count] + 15) & 0xFFFFFFFFFFFFFFF0);
+  if ([v21 count])
   {
-    v24 = 0;
+    v23 = 0;
     do
     {
       [(RKPersistentPersonalizer *)self model];
-      v25 = [v22 objectAtIndexedSubscript:v24];
+      v24 = [v21 objectAtIndexedSubscript:v23];
       TokenIDForString = LMLanguageModelGetTokenIDForString();
 
       *buf = TokenIDForString;
       if (!TokenIDForString)
       {
         [(RKPersistentPersonalizer *)self model];
-        v27 = [v22 objectAtIndexedSubscript:v24];
+        v26 = [v21 objectAtIndexedSubscript:v23];
         LMLanguageModelAddTokenForString();
 
         TokenIDForString = *buf;
       }
 
-      *&v23[4 * v24++] = TokenIDForString;
+      *&v22[4 * v23++] = TokenIDForString;
     }
 
-    while (v24 < [v22 count]);
+    while (v23 < [v21 count]);
   }
 
   [dateCopy timeIntervalSinceReferenceDate];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v28 = [v22 count];
+    v27 = [v21 count];
     *buf = 134217984;
-    v37 = v28;
+    v34 = v27;
     _os_log_impl(&dword_2620A2000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "updating dynamic lm with [%lu] candidate ngrams", buf, 0xCu);
   }
 
   if (weight)
   {
-    v29 = 0;
+    v28 = 0;
     do
     {
-      if ([v22 count])
+      if ([v21 count])
       {
-        v30 = 0;
+        v29 = 0;
         do
         {
           [(RKPersistentPersonalizer *)self model];
-          v31 = *&v23[4 * v30];
           if (dateCopy)
           {
             LMLanguageModelIncrementUsageCountWithEffectiveTime();
@@ -372,83 +353,78 @@ void __58__RKPersistentPersonalizer_initializeDynamicLanguageModel__block_invoke
             LMLanguageModelIncrementUsageCount();
           }
 
-          ++v30;
+          ++v29;
         }
 
-        while (v30 < [v22 count]);
+        while (v29 < [v21 count]);
       }
 
-      ++v29;
+      ++v28;
     }
 
-    while (v29 != weight);
+    while (v28 != weight);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)topSynonymsForSpeechAct:(id)act headword:(id)headword recipientContext:(id)context maxCount:(unint64_t)count
 {
   countCopy = count;
-  v38[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   actCopy = act;
   headwordCopy = headword;
   contextCopy = context;
   array = [MEMORY[0x277CBEB18] array];
   [(RKPersistentPersonalizer *)self model];
-  v13 = *MEMORY[0x277D230F0];
   LMLanguageModelSetParameterValue();
   actCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"A:%@", actCopy];
-  v38[0] = actCopy;
+  v36[0] = actCopy;
   headwordCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"H:%@", headwordCopy];
-  v38[1] = headwordCopy;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+  v36[1] = headwordCopy;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
 
-  v30 = &v27;
-  v17 = &v27 - ((4 * [v16 count] + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (![v16 count])
+  v28 = &v25;
+  v16 = &v25 - ((4 * [v15 count] + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (![v15 count])
   {
     goto LABEL_5;
   }
 
-  v28 = contextCopy;
-  v18 = array;
-  v19 = headwordCopy;
-  v20 = actCopy;
-  v21 = 0;
-  v22 = 1;
+  v26 = contextCopy;
+  v17 = array;
+  v18 = headwordCopy;
+  v19 = actCopy;
+  v20 = 0;
+  v21 = 1;
   do
   {
     [(RKPersistentPersonalizer *)self model];
-    v23 = [v16 objectAtIndexedSubscript:v21];
+    v22 = [v15 objectAtIndexedSubscript:v20];
     TokenIDForString = LMLanguageModelGetTokenIDForString();
 
-    *&v17[4 * v21] = TokenIDForString;
-    v22 &= TokenIDForString != 0;
-    ++v21;
+    *&v16[4 * v20] = TokenIDForString;
+    v21 &= TokenIDForString != 0;
+    ++v20;
   }
 
-  while (v21 < [v16 count]);
-  actCopy = v20;
-  headwordCopy = v19;
-  array = v18;
-  contextCopy = v28;
-  if (v22)
+  while (v20 < [v15 count]);
+  actCopy = v19;
+  headwordCopy = v18;
+  array = v17;
+  contextCopy = v26;
+  if (v21)
   {
 LABEL_5:
     [(RKPersistentPersonalizer *)self model];
-    [v16 count];
-    v31 = MEMORY[0x277D85DD0];
-    v32 = 3221225472;
-    v33 = __87__RKPersistentPersonalizer_topSynonymsForSpeechAct_headword_recipientContext_maxCount___block_invoke;
-    v34 = &unk_279B103C0;
+    [v15 count];
+    v29 = MEMORY[0x277D85DD0];
+    v30 = 3221225472;
+    v31 = __87__RKPersistentPersonalizer_topSynonymsForSpeechAct_headword_recipientContext_maxCount___block_invoke;
+    v32 = &unk_279B103C0;
     selfCopy = self;
-    v36 = array;
-    v37 = countCopy;
+    v34 = array;
+    v35 = countCopy;
     LMLanguageModelEnumeratePredictionsWithBlock();
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -456,7 +432,6 @@ LABEL_5:
 void __87__RKPersistentPersonalizer_topSynonymsForSpeechAct_headword_recipientContext_maxCount___block_invoke(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, BOOL *a5)
 {
   [*(a1 + 32) model];
-  v8 = *a2;
   StringForTokenID = LMLanguageModelCreateStringForTokenID();
   if (StringForTokenID)
   {

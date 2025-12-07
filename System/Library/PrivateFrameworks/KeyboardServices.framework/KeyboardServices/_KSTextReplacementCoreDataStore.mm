@@ -187,29 +187,29 @@
 
 - (BOOL)recordTextReplacementEntries:(id)entries
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   v5 = objc_autoreleasePoolPush();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v6 = entriesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       v9 = 0;
       do
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * v9);
+        v10 = *(*(&v21 + 1) + 8 * v9);
         managedObjectContext = [(_KSTextReplacementCoreDataStore *)self managedObjectContext];
         [(_KSTextReplacementCoreDataStore *)self fetchAndMergeTextReplacementEntry:v10 context:managedObjectContext];
 
@@ -217,7 +217,7 @@
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
@@ -227,28 +227,27 @@
 
   if (persistentStore)
   {
-    v20[0] = 0;
-    v20[1] = v20;
-    v20[2] = 0x3032000000;
-    v20[3] = __Block_byref_object_copy__2;
-    v20[4] = __Block_byref_object_dispose__2;
-    v21 = 0;
+    v19[0] = 0;
+    v19[1] = v19;
+    v19[2] = 0x3032000000;
+    v19[3] = __Block_byref_object_copy__2;
+    v19[4] = __Block_byref_object_dispose__2;
+    v20 = 0;
     managedObjectContext2 = [(_KSTextReplacementCoreDataStore *)self managedObjectContext];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __64___KSTextReplacementCoreDataStore_recordTextReplacementEntries___block_invoke;
-    v17[3] = &unk_2797F70F0;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __64___KSTextReplacementCoreDataStore_recordTextReplacementEntries___block_invoke;
+    v16[3] = &unk_2797F70F0;
     v14 = managedObjectContext2;
-    v18 = v14;
-    v19 = v20;
-    [v14 performBlockAndWait:v17];
+    v17 = v14;
+    v18 = v19;
+    [v14 performBlockAndWait:v16];
 
-    _Block_object_dispose(v20, 8);
+    _Block_object_dispose(v19, 8);
   }
 
   objc_autoreleasePoolPop(v5);
 
-  v15 = *MEMORY[0x277D85DE8];
   return persistentStore != 0;
 }
 
@@ -299,7 +298,7 @@
 
   else
   {
-    v12 = KSCategory();
+    v12 = KSCategory(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [_KSTextReplacementCoreDataStore fetchTextReplacementEntry:v12 context:?];
@@ -355,7 +354,7 @@
 
 - (BOOL)deleteTextReplacementsFromLocalStoreWithNames:(id)names excludeSavesToCloud:(BOOL)cloud
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   context = objc_autoreleasePoolPush();
   persistentStore = [(_KSTextReplacementCoreDataStore *)self persistentStore];
@@ -363,53 +362,53 @@
   if (persistentStore)
   {
     objc_initWeak(&location, self);
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     obj = namesCopy;
-    v6 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v6 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v6)
     {
-      v7 = *v24;
+      v7 = *v23;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v24 != v7)
+          if (*v23 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v23 + 1) + 8 * i);
+          v9 = *(*(&v22 + 1) + 8 * i);
           managedObjectContext = [(_KSTextReplacementCoreDataStore *)self managedObjectContext];
-          v20[0] = MEMORY[0x277D85DD0];
-          v20[1] = 3221225472;
-          v20[2] = __101___KSTextReplacementCoreDataStore_deleteTextReplacementsFromLocalStoreWithNames_excludeSavesToCloud___block_invoke;
-          v20[3] = &unk_2797F6CD8;
-          objc_copyWeak(&v21, &location);
+          v19[0] = MEMORY[0x277D85DD0];
+          v19[1] = 3221225472;
+          v19[2] = __101___KSTextReplacementCoreDataStore_deleteTextReplacementsFromLocalStoreWithNames_excludeSavesToCloud___block_invoke;
+          v19[3] = &unk_2797F6CD8;
+          objc_copyWeak(&v20, &location);
           cloudCopy = cloud;
-          v20[4] = v9;
-          [managedObjectContext performWithOptions:4 andBlock:v20];
+          v19[4] = v9;
+          [managedObjectContext performWithOptions:4 andBlock:v19];
 
-          objc_destroyWeak(&v21);
+          objc_destroyWeak(&v20);
         }
 
-        v6 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v6 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v6);
     }
 
     managedObjectContext2 = [(_KSTextReplacementCoreDataStore *)self managedObjectContext];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __101___KSTextReplacementCoreDataStore_deleteTextReplacementsFromLocalStoreWithNames_excludeSavesToCloud___block_invoke_70;
-    v18[3] = &unk_2797F7140;
-    objc_copyWeak(&v19, &location);
-    [managedObjectContext2 performBlockAndWait:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __101___KSTextReplacementCoreDataStore_deleteTextReplacementsFromLocalStoreWithNames_excludeSavesToCloud___block_invoke_70;
+    v17[3] = &unk_2797F7140;
+    objc_copyWeak(&v18, &location);
+    [managedObjectContext2 performBlockAndWait:v17];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
     objc_autoreleasePoolPop(context);
   }
@@ -419,7 +418,6 @@
     objc_autoreleasePoolPop(context);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return persistentStore != 0;
 }
 
@@ -654,11 +652,10 @@
 
 - (void)fetchTextReplacementEntry:(os_log_t)log context:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[_KSTextReplacementCoreDataStore fetchTextReplacementEntry:context:]";
-  _os_log_error_impl(&dword_2557E2000, log, OS_LOG_TYPE_ERROR, "%s  >>> entry is nil, returning", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[_KSTextReplacementCoreDataStore fetchTextReplacementEntry:context:]";
+  _os_log_error_impl(&dword_2557E2000, log, OS_LOG_TYPE_ERROR, "%s  >>> entry is nil, returning", &v1, 0xCu);
 }
 
 @end

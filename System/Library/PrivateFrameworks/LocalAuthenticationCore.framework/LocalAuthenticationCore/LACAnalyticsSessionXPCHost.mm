@@ -1,6 +1,7 @@
 @interface LACAnalyticsSessionXPCHost
 - (BOOL)_checkQueueAndSessionWithAction:(id)action replyOnFailure:(id)failure;
 - (LACAnalyticsSessionXPCHost)initWithSession:(id)session contextUUID:(id)d connected:(BOOL)connected workQueue:(id)queue;
+- (void)authenticationAction:(int64_t)action failing:(BOOL)failing reply:(id)reply;
 - (void)authenticationAttemptFailedForEvent:(int64_t)event reply:(id)reply;
 - (void)authenticationStartedForEvent:(int64_t)event reply:(id)reply;
 - (void)authenticationSuccessfulForEvent:(int64_t)event reply:(id)reply;
@@ -83,6 +84,19 @@
   {
     session = [(LACAnalyticsSessionXPCHost *)self session];
     [session authenticationSuccessfulForEvent:event];
+
+    replyCopy[2](replyCopy, 1, 0);
+  }
+}
+
+- (void)authenticationAction:(int64_t)action failing:(BOOL)failing reply:(id)reply
+{
+  failingCopy = failing;
+  replyCopy = reply;
+  if ([(LACAnalyticsSessionXPCHost *)self _checkQueueAndSessionWithAction:@"recording authentication action" replyOnFailure:?])
+  {
+    session = [(LACAnalyticsSessionXPCHost *)self session];
+    [session authenticationAction:action failing:failingCopy];
 
     replyCopy[2](replyCopy, 1, 0);
   }

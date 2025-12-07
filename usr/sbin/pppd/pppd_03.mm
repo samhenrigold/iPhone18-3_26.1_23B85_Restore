@@ -1,671 +1,30 @@
-void sub_1000274E8(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4)
+void sub_100027EEC(uint64_t a1, uint64_t a2, int a3)
 {
-  if (!acsp_intercept_dhcp || (v8 = *(a2 + 16), ntohl() != -1) || (v9 = *(a2 + 20), ntohs() != 68) || (v10 = *(a2 + 22), ntohs() != 67))
+  if (acsp_use_dhcp)
   {
-    if (!acsp_use_dhcp)
+    v5 = a1;
+    if (off_100046F48(a1) != 9)
     {
-      return;
-    }
-
-    if (*(a2 + 16) != a4)
-    {
-      return;
-    }
-
-    v36 = *(a2 + 20);
-    if (ntohs() != 67)
-    {
-      return;
-    }
-
-    v37 = *(a2 + 22);
-    if (ntohs() != 68)
-    {
-      return;
-    }
-
-    if (a3 > 0x10E)
-    {
-      if (!qword_10004BF70)
+      v6 = malloc_type_malloc(0x30uLL, 0x1090040B760FDDAuLL);
+      qword_10004BF70 = v6;
+      if (v6)
       {
-        return;
+        v6[2] = 0u;
+        *(v6 + 20) = 0u;
+        *(v6 + 4) = 0u;
+        *(v6 + 8) = v5;
+        *(v6 + 9) = a2;
+        *(v6 + 10) = a3;
+        *v6 = 1;
+
+        sub_10002A024(v5, a2);
       }
 
-      v39 = *(a2 + 40);
-      ntohl();
-      if (bswap32(*(a2 + 264)) == 1669485411)
+      else
       {
-        if (*(a2 + 268) == 53 && *(a2 + 269) == 1 && *(a2 + 270) == 5)
-        {
-          __stringp = 0;
-          v40 = a3 - 271;
-          if ((a3 - 271) >= 1)
-          {
-            v41 = *(a2 + 271);
-            if (v41 != 255)
-            {
-              v42 = 0;
-              v43 = (a2 + 271);
-              do
-              {
-                if (v41)
-                {
-                  v44 = v43[1];
-                  v45 = v40 - 2;
-                  v28 = __OFSUB__(v45, v44);
-                  v46 = v45 - v44;
-                  if ((v46 < 0) ^ v28 | (v46 == 0))
-                  {
-LABEL_106:
-                    v38 = "DHCP packet received with incorrect message option\n";
-                    goto LABEL_104;
-                  }
 
-                  v47 = (v43 + 2);
-                  v136 = v46;
-                  switch(v41)
-                  {
-                    case 1:
-                      v62 = *v47;
-                      v63 = qword_10004BF70;
-                      if (*v47)
-                      {
-                        v64 = *(qword_10004BF70 + 36) == a4;
-                      }
-
-                      else
-                      {
-                        v64 = 0;
-                      }
-
-                      if (v64 && *(qword_10004BF70 + 24) != v62)
-                      {
-                        *(qword_10004BF70 + 24) = v62;
-                        if (!uifaddr(a1, a4, *(v63 + 40), v62))
-                        {
-                          v79 = v43[2];
-                          v135 = v43[3];
-                          v134 = v43[4];
-                          v80 = v43[5];
-                          v81 = qword_10004BF70;
-                          v82 = *(qword_10004BF70 + 36);
-                          ntohl();
-                          v83 = *(v81 + 40);
-                          ntohl();
-                          notice("failed to configure dhcp option 'subnet mask' = %d.%d.%d.%d, our %x, his %x\n", v84, v85, v86, v87, v88, v89, v90, v79);
-                        }
-                      }
-
-                      else
-                      {
-                        v65 = *v47;
-                        ntohl();
-                        v66 = *(v63 + 24);
-                        ntohl();
-                        info("ignoring dhcp option 'subnet mask' = %d.%d.%d.%d, current addr %x, current mask %x\n", v67, v68, v69, v70, v71, v72, v73, v65);
-                      }
-
-                      break;
-                    case 15:
-                      if (v42)
-                      {
-                        notice("ignoring dhcp option 'domain name', option already processed.\n", v11, v12, v13, v14, v15, v16, v17, v133);
-                        break;
-                      }
-
-                      __memcpy_chk();
-                      __s[v44] = 0;
-                      __stringp = __s;
-                      v74 = ",";
-                      if (!strchr(__s, 44))
-                      {
-                        v74 = ";";
-                        if (!strchr(__s, 59))
-                        {
-                          v74 = "\n";
-                          if (!strchr(__s, 10))
-                          {
-                            v74 = "\r";
-                            if (!strchr(__s, 13))
-                            {
-                              if (strchr(__s, 32))
-                              {
-                                v74 = " ";
-                              }
-
-                              else
-                              {
-                                v74 = &unk_10002EF18;
-                              }
-                            }
-                          }
-                        }
-                      }
-
-                      v75 = strsep(&__stringp, v74);
-                      v76 = 0;
-                      while (1)
-                      {
-                        if (v75 && !*v75)
-                        {
-                          v42 = v76;
-                        }
-
-                        else
-                        {
-                          v77 = malloc_type_malloc(0x18uLL, 0x1030040A9CFD972uLL);
-                          if (!v77)
-                          {
-                            error("failed to allocate domain from DHCP packet\n", v11, v12, v13, v14, v15, v16, v17, v133);
-                            v42 = v76;
-                            goto LABEL_91;
-                          }
-
-                          v42 = v77;
-                          v77[1] = 0;
-                          v77[2] = 0;
-                          *v77 = v76;
-                          if (!v75)
-                          {
-                            v77[2] = __s;
-                            goto LABEL_91;
-                          }
-
-                          v77[2] = v75;
-                          v76 = v77;
-                        }
-
-                        v75 = strsep(&__stringp, v74);
-                        if (!v75)
-                        {
-                          goto LABEL_91;
-                        }
-                      }
-
-                    case 249:
-                      if (v43[1])
-                      {
-                        v48 = 0;
-                        do
-                        {
-                          v49 = malloc_type_malloc(0x20uLL, 0x1020040983EA955uLL);
-                          if (!v49)
-                          {
-                            error("DHCP: no memory\n", v50, v51, v52, v53, v54, v55, v56, v133);
-                            return;
-                          }
-
-                          v57 = v49;
-                          *v49 = 0u;
-                          v49[1] = 0u;
-                          v58 = *(v47 + v48);
-                          v59 = htonl();
-                          *(v57 + 3) = v59;
-                          LODWORD(v60) = v58 >> 3;
-                          if ((v58 & 7) != 0)
-                          {
-                            v60 = (v60 + 1);
-                          }
-
-                          else
-                          {
-                            v60 = v60;
-                          }
-
-                          *(v57 + 2) = *(v47 + v48 + 1) & v59;
-                          *(v57 + 4) = *(v47 + v60 + v48 + 1);
-                          *(v57 + 10) = 1;
-                          *(v57 + 6) = 0;
-                          v61 = qword_10004BF70;
-                          *v57 = *(qword_10004BF70 + 8);
-                          *(v61 + 8) = v57;
-                          v48 += v60 + 5;
-                        }
-
-                        while (v48 < v44);
-                      }
-
-                      else
-                      {
-                        v57 = *(qword_10004BF70 + 8);
-                      }
-
-                      sub_100029A40(v57);
-                      break;
-                  }
-
-LABEL_91:
-                  v43 = v47 + v44;
-                  v40 = v136;
-                }
-
-                else
-                {
-                  ++v43;
-                  --v40;
-                }
-
-                v41 = *v43;
-              }
-
-              while (v41 != 255 && v40 > 0);
-              if (v42)
-              {
-                sub_100029C18(v42);
-                do
-                {
-                  v124 = *v42;
-                  free(v42);
-                  v42 = v124;
-                }
-
-                while (v124);
-              }
-            }
-          }
-
-          untimeout(sub_100029F94, qword_10004BF70);
-          *qword_10004BF70 = 5;
-          notify(acspdhcpready_notifier, 0);
-          return;
-        }
-
-LABEL_103:
-        v38 = "DHCP packet received with incorrect message type\n";
-        goto LABEL_104;
+        error("ACSP plugin: no memory to allocate DHCP routes context\n");
       }
-
-LABEL_102:
-      v38 = "DHCP packet received with incorrect cookie\n";
-      goto LABEL_104;
-    }
-
-LABEL_41:
-    v38 = "DHCP packet received with incorrect length\n";
-    goto LABEL_104;
-  }
-
-  if (a3 <= 0x10E)
-  {
-    goto LABEL_41;
-  }
-
-  if (bswap32(*(a2 + 264)) != 1669485411)
-  {
-    goto LABEL_102;
-  }
-
-  if (*(a2 + 268) != 53 || *(a2 + 269) != 1 || *(a2 + 270) != 8)
-  {
-    goto LABEL_103;
-  }
-
-  v18 = 0;
-  v19 = *(a2 + 40);
-  WORD2(__stringp) = 0;
-  LODWORD(__stringp) = 0;
-  *__s = 0u;
-  v139 = 0u;
-  v140 = 0u;
-  v141 = 0u;
-  v142 = 0u;
-  v143 = 0u;
-  v144 = 0u;
-  v145 = 0u;
-  v146 = 0u;
-  v147 = 0u;
-  v148 = 0u;
-  v149 = 0u;
-  v150 = 0u;
-  v151 = 0u;
-  v20 = a3 - 271;
-  v152 = 0;
-  if ((a3 - 271) < 1)
-  {
-    v22 = 0;
-  }
-
-  else
-  {
-    v21 = *(a2 + 271);
-    v22 = 0;
-    if (v21 != 255)
-    {
-      v23 = 0;
-      v24 = 0;
-      v25 = (a2 + 271);
-      do
-      {
-        if (v21)
-        {
-          v26 = v25[1];
-          v27 = v20 - 2;
-          v28 = __OFSUB__(v27, v26);
-          v20 = v27 - v26;
-          if ((v20 < 0) ^ v28 | (v20 == 0))
-          {
-            goto LABEL_106;
-          }
-
-          v29 = v25 + 2;
-          if (v21 == 55 && v26)
-          {
-            v30 = v29;
-            v31 = v26;
-            do
-            {
-              v11 = qword_10004BF60 != 0;
-              v33 = *v30++;
-              v32 = v33;
-              v13 = v33 == 15;
-              if (qword_10004BF58)
-              {
-                v34 = v32 == 249;
-              }
-
-              else
-              {
-                v34 = 0;
-              }
-
-              if (v34)
-              {
-                v12 = 1;
-              }
-
-              else
-              {
-                v12 = v23;
-              }
-
-              if (v13 && v11)
-              {
-                v24 = 1;
-              }
-
-              else
-              {
-                v23 = v12;
-              }
-
-              --v31;
-            }
-
-            while (v31);
-          }
-
-          v25 = &v29[v26];
-        }
-
-        else
-        {
-          ++v25;
-          --v20;
-        }
-
-        v21 = *v25;
-      }
-
-      while (v21 != 255 && v20 > 0);
-      v18 = v24 != 0;
-      v22 = v23 != 0;
-    }
-  }
-
-  if (!v18 && !v22)
-  {
-    return;
-  }
-
-  outpacket_buf = 553649151;
-  qword_100048134 = 0;
-  v91 = *(a2 + 30);
-  v92 = *(a2 + 34);
-  v93 = *(a2 + 214);
-  v94 = *(a2 + 246);
-  v150 = *(a2 + 230);
-  v151 = v94;
-  v95 = *(a2 + 150);
-  v96 = *(a2 + 182);
-  v146 = *(a2 + 166);
-  v147 = v96;
-  v148 = *(a2 + 198);
-  v149 = v93;
-  v97 = *(a2 + 86);
-  v98 = *(a2 + 118);
-  v142 = *(a2 + 102);
-  v143 = v98;
-  v144 = *(a2 + 134);
-  v145 = v95;
-  v99 = *(a2 + 54);
-  v100 = *(a2 + 70);
-  v101 = *(a2 + 262);
-  *__s = *(a2 + 38);
-  v139 = v99;
-  v140 = v100;
-  v141 = v97;
-  unk_1000481F6 = v149;
-  unk_100048206 = v150;
-  unk_100048216 = v151;
-  unk_1000481B6 = v95;
-  unk_1000481C6 = v146;
-  unk_1000481D6 = v147;
-  unk_1000481E6 = v148;
-  unk_100048176 = v97;
-  unk_100048186 = v142;
-  unk_100048196 = v143;
-  unk_1000481A6 = v144;
-  *(&dword_100048144 + 2) = *__s;
-  unk_100048156 = v99;
-  *&byte_100048128 = 0;
-  *&word_100048120 = 0;
-  dword_100048130 = 0;
-  LODWORD(__stringp) = v91;
-  WORD2(__stringp) = v92;
-  v152 = v101;
-  word_10004813C = 258;
-  *&byte_10004813E = v91;
-  word_100048142 = v92;
-  LOWORD(dword_100048144) = 0;
-  word_100048226 = v101;
-  unk_100048166 = v100;
-  qword_100048228 = 0x3605013563538263;
-  LOBYTE(word_100048230) = 4;
-  v102 = ntohl();
-  *(&word_100048230 + 1) = bswap32(v102);
-  if (v18)
-  {
-    v103 = qword_10004BF60;
-    do
-    {
-      v104 = v103;
-      v103 = *v103;
-    }
-
-    while (v103);
-    LOBYTE(word_100048235) = 15;
-    v105 = strlen(v104[2]);
-    if ((v105 << 32) + 0x11B00000000 > 0x5DF00000000)
-    {
-      v38 = "Domain name too large for DHCP\n";
-      goto LABEL_104;
-    }
-
-    v106 = v105;
-    v107 = v105 << 32;
-    HIBYTE(word_100048235) = v105;
-    memcpy(&qword_100048237, v104[2], v105);
-    v108 = (&qword_100048237 + (v107 >> 32));
-    v109 = v106 + 283;
-  }
-
-  else
-  {
-    v108 = &word_100048235;
-    v109 = 281;
-  }
-
-  if (!v22 || (v110 = qword_10004BF58) == 0)
-  {
-LABEL_143:
-    *v108 = -1;
-    v126 = (v109 + 1);
-    if (v126 <= 0)
-    {
-      v127 = -(-v126 & 3);
-    }
-
-    else
-    {
-      v127 = (v109 + 1) & 3;
-    }
-
-    if (v126 <= 0x5DF)
-    {
-      v28 = __OFSUB__(v127, 1);
-      v128 = v127 - 1;
-      if (v128 < 0 == v28)
-      {
-        if (v128 >= (1502 - v109))
-        {
-          v129 = (1502 - v109);
-        }
-
-        else
-        {
-          v129 = v128;
-        }
-
-        bzero(v108 + 1, v129 + 1);
-        v126 = (v109 + v129 + 2);
-      }
-    }
-
-    v130 = ntohl();
-    sub_100029DA4(a1, v126, v102, 0x43u, v130, 68, v131, v132, v133);
-    return;
-  }
-
-  v111 = 0;
-  v112 = 1;
-  while (1)
-  {
-    while ((*(v110 + 20) & 1) == 0)
-    {
-      v110 = *v110;
-      if (!v110)
-      {
-        if (v112)
-        {
-          goto LABEL_143;
-        }
-
-LABEL_142:
-        v125 = v108 - (v111 + 1);
-        *v125 = v111;
-        v108 = &v125[v111 + 1];
-        v109 += v111 + 2;
-        goto LABEL_143;
-      }
-    }
-
-    if (v112)
-    {
-      break;
-    }
-
-LABEL_125:
-    v113 = *(v110 + 12);
-    v114 = ntohl();
-    v115 = *(v110 + 8);
-    v116 = ntohl();
-    v117 = 32;
-    if ((v114 & 1) == 0)
-    {
-      v118 = v114;
-      do
-      {
-        if (!--v117)
-        {
-          break;
-        }
-
-        v119 = v118;
-        v118 >>= 1;
-      }
-
-      while ((v119 & 2) == 0);
-    }
-
-    if ((v117 & 7) != 0)
-    {
-      v120 = (v117 >> 3) + 1;
-    }
-
-    else
-    {
-      v120 = v117 >> 3;
-    }
-
-    if ((v109 - 1499 + v120) < 0xFFFFFA20)
-    {
-      v38 = "Static routes list too large DHCP\n";
-      goto LABEL_104;
-    }
-
-    v121 = v116 & v114;
-    *v108 = v117;
-    *(v108 + 1) = (v116 & v114) >> 24;
-    *(v108 + 2) = (v116 & v114) >> 16;
-    *(v108 + 3) = (v116 & v114) >> 8;
-    v122 = v108 - (4 - v120);
-    *(v108 + 4) = v121;
-    v123 = ntohl();
-    v112 = 0;
-    v108 = (v122 + 9);
-    *(v122 + 5) = bswap32(v123);
-    v111 += v120 + 5;
-    v110 = *v110;
-    if (!v110)
-    {
-      goto LABEL_142;
-    }
-  }
-
-  if ((v109 - 1502) > 0xFFFFFA1F)
-  {
-    *v108++ = 249;
-    goto LABEL_125;
-  }
-
-  v38 = "No space for DHCP routes\n";
-LABEL_104:
-  warning(v38, v11, v12, v13, v14, v15, v16, v17, v133);
-}
-
-void sub_100027EEC(unsigned int a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
-{
-  if (acsp_use_dhcp && off_100046F48(a1) != 9)
-  {
-    v12 = malloc_type_malloc(0x30uLL, 0x1090040B760FDDAuLL);
-    qword_10004BF70 = v12;
-    if (v12)
-    {
-      v12[2] = 0u;
-      *(v12 + 20) = 0u;
-      *(v12 + 4) = 0u;
-      *(v12 + 8) = a1;
-      *(v12 + 9) = a2;
-      *(v12 + 10) = a3;
-      *v12 = 1;
-
-      sub_10002A024(a1);
-    }
-
-    else
-    {
-
-      error("ACSP plugin: no memory to allocate DHCP routes context\n", v13, v14, v15, v16, v17, v18, v19, a9);
     }
   }
 }
@@ -693,42 +52,35 @@ void sub_100027FD8()
 
 uint64_t sub_100028040(uint64_t a1, unsigned int a2, void (*a3)(uint64_t, const char *, ...), uint64_t a4)
 {
-  v8 = *(a1 + 20);
-  if (ntohs() - 67 > 1)
+  if (ntohs() - 67 > 1 || ntohs() - 67 > 1)
   {
     return 0;
   }
 
-  v9 = *(a1 + 22);
-  if (ntohs() - 67 > 1)
-  {
-    return 0;
-  }
-
-  v10.s_addr = *(a1 + 12);
+  v8.s_addr = *(a1 + 12);
+  v9 = inet_ntoa(v8);
+  a3(a4, " <src addr %s>", v9);
+  v10.s_addr = *(a1 + 16);
   v11 = inet_ntoa(v10);
-  a3(a4, " <src addr %s>", v11);
-  v12.s_addr = *(a1 + 16);
-  v13 = inet_ntoa(v12);
-  a3(a4, " <dst addr %s>", v13);
-  v14 = *(a1 + 28);
-  if ((v14 - 1) >= 2)
+  a3(a4, " <dst addr %s>", v11);
+  v12 = *(a1 + 28);
+  if ((v12 - 1) >= 2)
   {
-    v58 = " <bootp code invalid!>";
+    v52 = " <bootp code invalid!>";
     goto LABEL_78;
   }
 
-  if (v14 == 1)
+  if (v12 == 1)
   {
-    v15 = "Request";
+    v13 = "Request";
   }
 
   else
   {
-    v15 = "Reply";
+    v13 = "Reply";
   }
 
-  a3(a4, " <BOOTP %s>", v15);
+  a3(a4, " <BOOTP %s>", v13);
   if (debug >= 2)
   {
     a3(a4, " <htype %d>", *(a1 + 29));
@@ -736,22 +88,22 @@ uint64_t sub_100028040(uint64_t a1, unsigned int a2, void (*a3)(uint64_t, const 
     a3(a4, " <hops %d>", *(a1 + 31));
     a3(a4, " <xid %d>", *(a1 + 32));
     a3(a4, " <flags %d>", *(a1 + 38));
-    v16.s_addr = *(a1 + 40);
+    v14.s_addr = *(a1 + 40);
+    v15 = inet_ntoa(v14);
+    a3(a4, " <client address %s>", v15);
+    v16.s_addr = *(a1 + 44);
     v17 = inet_ntoa(v16);
-    a3(a4, " <client address %s>", v17);
-    v18.s_addr = *(a1 + 44);
+    a3(a4, " <your address %s>", v17);
+    v18.s_addr = *(a1 + 48);
     v19 = inet_ntoa(v18);
-    a3(a4, " <your address %s>", v19);
-    v20.s_addr = *(a1 + 48);
+    a3(a4, " <server address %s>", v19);
+    v20.s_addr = *(a1 + 52);
     v21 = inet_ntoa(v20);
-    a3(a4, " <server address %s>", v21);
-    v22.s_addr = *(a1 + 52);
-    v23 = inet_ntoa(v22);
-    a3(a4, " <gateway address %s>", v23);
+    a3(a4, " <gateway address %s>", v21);
     snprintf(__str, 0x800uLL, "%02x", *(a1 + 56));
     for (i = 0; i != 15; ++i)
     {
-      snprintf(v64, 0x10uLL, ":%02x", *(a1 + 57 + i));
+      snprintf(v54, 0x10uLL, ":%02x", *(a1 + 57 + i));
       __strlcat_chk();
     }
 
@@ -762,7 +114,7 @@ uint64_t sub_100028040(uint64_t a1, unsigned int a2, void (*a3)(uint64_t, const 
 
   if (bswap32(*(a1 + 264)) != 1669485411)
   {
-    v58 = " <cookie invalid!>";
+    v52 = " <cookie invalid!>";
     goto LABEL_78;
   }
 
@@ -771,25 +123,25 @@ uint64_t sub_100028040(uint64_t a1, unsigned int a2, void (*a3)(uint64_t, const 
     a3(a4, " <cookie 0x%x>", 1669485411);
   }
 
-  if (*(a1 + 268) != 53 || *(a1 + 269) != 1 || (v25 = *(a1 + 270), v25 != 5) && v25 != 8)
+  if (*(a1 + 268) != 53 || *(a1 + 269) != 1 || (v23 = *(a1 + 270), v23 != 5) && v23 != 8)
   {
-    v58 = " <type invalid!>";
+    v52 = " <type invalid!>";
     goto LABEL_78;
   }
 
-  if (v25 == 8)
+  if (v23 == 8)
   {
-    v26 = "INFORM";
+    v24 = "INFORM";
   }
 
   else
   {
-    v26 = "ACK";
+    v24 = "ACK";
   }
 
-  a3(a4, " <type %s>", v26);
-  v27 = *(a1 + 271);
-  if (v27 == 255 || (v28 = a2 - 271, (a2 - 271) < 1))
+  a3(a4, " <type %s>", v24);
+  v25 = *(a1 + 271);
+  if (v25 == 255 || (v26 = a2 - 271, (a2 - 271) < 1))
   {
 LABEL_72:
     if (debug <= 1)
@@ -803,66 +155,61 @@ LABEL_72:
     }
   }
 
-  v29 = (a1 + 271);
-  while (!v27)
+  v27 = (a1 + 271);
+  while (!v25)
   {
-    ++v29;
-    --v28;
+    ++v27;
+    --v26;
 LABEL_67:
-    v27 = *v29;
-    if (v27 == 255 || v28 <= 0)
+    v25 = *v27;
+    if (v25 == 255 || v26 <= 0)
     {
       goto LABEL_72;
     }
   }
 
-  v30 = v28 - 2;
-  if (v28 != 2)
+  v28 = v26 - 2;
+  if (v26 != 2)
   {
-    v31 = v29 + 2;
-    v32 = v29[1];
+    v29 = v27 + 2;
+    v30 = v27[1];
     __str[0] = 0;
-    if (v27 <= 53)
+    if (v25 <= 53)
     {
-      if (v27 > 14)
+      if (v25 > 14)
       {
-        if (v27 == 15)
+        if (v25 == 15)
         {
           __memcpy_chk();
-          __str[v32] = 0;
-          v42 = a4;
-          v43 = " <domain name %s>";
+          __str[v30] = 0;
+          v37 = a4;
+          v38 = " <domain name %s>";
           goto LABEL_65;
         }
 
-        if (v27 == 51)
+        if (v25 == 51)
         {
-          v59 = bswap32(*(v29 + 2));
-          v42 = a4;
-          v43 = " <lease time %d sec>";
+          v37 = a4;
+          v38 = " <lease time %d sec>";
           goto LABEL_65;
         }
       }
 
       else
       {
-        if (v27 == 1)
+        if (v25 == 1)
         {
-          v47 = v29[2];
-          v61 = v29[4];
-          v62 = v29[5];
-          v60 = v29[3];
-          v42 = a4;
-          v43 = " <subnet mask %d.%d.%d.%d>";
+          v37 = a4;
+          v38 = " <subnet mask %d.%d.%d.%d>";
           goto LABEL_65;
         }
 
-        if (v27 == 12)
+        if (v25 == 12)
         {
           __memcpy_chk();
-          __str[v32] = 0;
-          v42 = a4;
-          v43 = " <host name %s>";
+          __str[v30] = 0;
+          v37 = a4;
+          v38 = " <host name %s>";
           goto LABEL_65;
         }
       }
@@ -870,43 +217,40 @@ LABEL_67:
 
     else
     {
-      if (v27 > 59)
+      if (v25 > 59)
       {
-        if (v27 != 60)
+        if (v25 != 60)
         {
-          if (v27 != 61)
+          if (v25 != 61)
           {
-            if (v27 == 249)
+            if (v25 == 249)
             {
-              v63 = v28 - 2;
+              v53 = v26 - 2;
               a3(a4, " <static routes");
-              if (v32)
+              if (v30)
               {
-                v33 = 0;
+                v31 = 0;
                 do
                 {
-                  v34 = v31[v33];
-                  v35 = -1 << -v34;
-                  v36 = v34 >> 3;
-                  if ((v34 & 7) != 0)
+                  v32 = v29[v31];
+                  v33 = -1 << -v32;
+                  if ((v32 & 7) != 0)
                   {
-                    v37 = v36 + 1;
+                    v34 = (v32 >> 3) + 1;
                   }
 
                   else
                   {
-                    v37 = v36;
+                    v34 = v32 >> 3;
                   }
 
-                  v38 = *&v31[v33 + 1];
-                  v39 = v35 & ntohl();
-                  v40 = *&v31[v37 + 1 + v33];
-                  v41 = ntohl();
-                  v33 += v37 + 5;
-                  a3(a4, " %d.%d.%d.%d/%d.%d.%d.%d/%d.%d.%d.%d", HIBYTE(v39), BYTE2(v39), BYTE1(v39), v39, HIBYTE(v35), BYTE2(v35), BYTE1(v35), v35, HIBYTE(v41), BYTE2(v41), BYTE1(v41), v41);
+                  v35 = v33 & ntohl();
+                  v36 = ntohl();
+                  v31 += v34 + 5;
+                  a3(a4, " %d.%d.%d.%d/%d.%d.%d.%d/%d.%d.%d.%d", HIBYTE(v35), BYTE2(v35), BYTE1(v35), v35, HIBYTE(v33), BYTE2(v33), BYTE1(v33), v33, HIBYTE(v36), BYTE2(v36), BYTE1(v36), v36);
                 }
 
-                while (v33 < v32);
+                while (v31 < v30);
               }
 
               a3(a4, ">");
@@ -916,84 +260,84 @@ LABEL_67:
             goto LABEL_64;
           }
 
-          v63 = v28 - 2;
+          v53 = v26 - 2;
           strcpy(__str, "0x");
-          if (v32)
+          if (v30)
           {
-            v53 = v32;
-            v54 = v29 + 2;
+            v47 = v30;
+            v48 = v27 + 2;
             do
             {
-              v55 = *v54++;
-              snprintf(v64, 0x10uLL, "%02x", v55);
+              v49 = *v48++;
+              snprintf(v54, 0x10uLL, "%02x", v49);
               __strlcat_chk();
-              --v53;
+              --v47;
             }
 
-            while (v53);
+            while (v47);
           }
 
-          v51 = a4;
-          v52 = " <client id %s>";
+          v45 = a4;
+          v46 = " <client id %s>";
 LABEL_62:
-          a3(v51, v52);
+          a3(v45, v46);
 LABEL_63:
-          v30 = v63;
+          v28 = v53;
 LABEL_66:
-          v29 = &v31[v32];
-          v28 = v30 - v32;
+          v27 = &v29[v30];
+          v26 = v28 - v30;
           goto LABEL_67;
         }
 
         __memcpy_chk();
-        __str[v32] = 0;
-        v42 = a4;
-        v43 = " <vendor class id %s>";
+        __str[v30] = 0;
+        v37 = a4;
+        v38 = " <vendor class id %s>";
 LABEL_65:
-        a3(v42, v43);
+        a3(v37, v38);
         goto LABEL_66;
       }
 
-      if (v27 == 54)
+      if (v25 == 54)
       {
-        v63 = v28 - 2;
+        v53 = v26 - 2;
         strcpy(__str, "0x");
-        if (v32)
+        if (v30)
         {
-          v48 = v32;
-          v49 = v29 + 2;
+          v42 = v30;
+          v43 = v27 + 2;
           do
           {
-            v50 = *v49++;
-            snprintf(v64, 0x10uLL, "%02x", v50);
+            v44 = *v43++;
+            snprintf(v54, 0x10uLL, "%02x", v44);
             __strlcat_chk();
-            --v48;
+            --v42;
           }
 
-          while (v48);
+          while (v42);
         }
 
-        v51 = a4;
-        v52 = " <server id %s>";
+        v45 = a4;
+        v46 = " <server id %s>";
         goto LABEL_62;
       }
 
-      if (v27 == 55)
+      if (v25 == 55)
       {
-        v63 = v28 - 2;
-        v44 = v32;
-        v45 = v29 + 2;
-        if (v32)
+        v53 = v26 - 2;
+        v39 = v30;
+        v40 = v27 + 2;
+        if (v30)
         {
           do
           {
-            v46 = *v45++;
-            snprintf(v64, 0x10uLL, " 0x%x", v46);
+            v41 = *v40++;
+            snprintf(v54, 0x10uLL, " 0x%x", v41);
             __strlcat_chk();
-            --v44;
+            --v39;
           }
 
-          while (v44);
+          while (v39);
         }
 
         a3(a4, " <parameters =%s>", __str);
@@ -1002,14 +346,14 @@ LABEL_65:
     }
 
 LABEL_64:
-    v42 = a4;
-    v43 = " <option %d>";
+    v37 = a4;
+    v38 = " <option %d>";
     goto LABEL_65;
   }
 
-  v58 = " <option %d zero len!>";
+  v52 = " <option %d zero len!>";
 LABEL_78:
-  a3(a4, v58);
+  a3(a4, v52);
   return 0;
 }
 
@@ -1024,7 +368,7 @@ void acsp_start(__int16 a1)
     *(i + 50) = 0;
     *(i + 56) = 0;
     (*(i + 96))(*(i + 72), i + 16, i + 48);
-    sub_100028A0C(i, v3, v4, v5, v6, v7, v8, v9);
+    sub_100028A0C(i);
   }
 }
 
@@ -1048,50 +392,49 @@ uint64_t acsp_stop()
   return result;
 }
 
-void acsp_data_input(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+void acsp_data_input(uint64_t a1, unsigned __int8 *a2, int a3)
 {
   if (a3 >= 8)
   {
-    v10 = a3;
-    v12 = &qword_10004BF50;
+    v4 = a3;
+    v6 = &qword_10004BF50;
     do
     {
-      v12 = *v12;
-      if (!v12)
+      v6 = *v6;
+      if (!v6)
       {
-        v9 = "ACSP packet received with invalid type\n";
+        v3 = "ACSP packet received with invalid type\n";
         goto LABEL_14;
       }
     }
 
-    while (*(v12 + 64) != *a2);
-    v13 = *(a2 + 2);
-    if ((ntohs() & 4) != 0 && *(v12 + 3) == 1 && a2[1] == *(v12 + 8))
+    while (*(v6 + 64) != *a2);
+    if ((ntohs() & 4) != 0 && *(v6 + 3) == 1 && a2[1] == *(v6 + 8))
     {
-      untimeout(sub_1000289AC, v12);
-      *(v12 + 3) = 0;
+      untimeout(sub_1000289AC, v6);
+      *(v6 + 3) = 0;
     }
 
-    *(v12 + 10) = 3;
-    v12[3] = a2;
-    *(v12 + 11) = v10;
-    v12[7] = 0;
-    *(v12 + 50) = 0;
-    (v12[12])(v12[9], v12 + 2, v12 + 6);
+    *(v6 + 10) = 3;
+    v6[3] = a2;
+    *(v6 + 11) = v4;
+    v6[7] = 0;
+    *(v6 + 50) = 0;
+    (v6[12])(v6[9], v6 + 2, v6 + 6);
 
-    sub_100028A0C(v12, v14, v15, v16, v17, v18, v19, v20);
+    sub_100028A0C(v6);
   }
 
   else
   {
-    v9 = "ACSP packet received was too short\n";
+    v3 = "ACSP packet received was too short\n";
 LABEL_14:
 
-    error(v9, a2, a3, a4, a5, a6, a7, a8, a9);
+    error(v3, a2);
   }
 }
 
-uint64_t sub_1000289AC(uint64_t a1)
+void sub_1000289AC(uint64_t a1)
 {
   *(a1 + 12) = 0;
   *(a1 + 20) = 4;
@@ -1100,20 +443,20 @@ uint64_t sub_1000289AC(uint64_t a1)
   *(a1 + 56) = 0;
   (*(a1 + 96))(*(a1 + 72), a1 + 16, a1 + 48);
 
-  return sub_100028A0C(a1);
+  sub_100028A0C(a1);
 }
 
-void sub_100028A0C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_100028A0C(uint64_t a1)
 {
   while (1)
   {
-    v9 = *(a1 + 50);
-    if (v9 <= 2)
+    v2 = *(a1 + 50);
+    if (v2 <= 2)
     {
-      if (v9 != 1)
+      if (v2 != 1)
       {
-        v10 = "ACSP plugin for option # %d attempted to invoke UI - not supported\n";
-        if (v9 == 2)
+        v3 = "ACSP plugin for option # %d attempted to invoke UI - not supported\n";
+        if (v2 == 2)
         {
           goto LABEL_17;
         }
@@ -1127,15 +470,15 @@ void sub_100028A0C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
       }
 
 LABEL_10:
-      v11 = *(a1 + 52);
-      v12 = v11 < 8 || v11 > *(a1 + 18);
-      v10 = "ACSP plugin for option # %d trying to send packet of invalid length\n";
-      if (!v12)
+      v4 = *(a1 + 52);
+      v5 = v4 < 8 || v4 > *(a1 + 18);
+      v3 = "ACSP plugin for option # %d trying to send packet of invalid length\n";
+      if (!v5)
       {
-        v13 = *(a1 + 56);
-        *v13 = 1023;
-        v14 = htons();
-        *(v13 + 2) = v14;
+        v6 = *(a1 + 56);
+        *v6 = 1023;
+        v7 = htons();
+        *(v6 + 2) = v7;
         if (*(a1 + 50) == 3)
         {
           if (*(a1 + 12))
@@ -1144,17 +487,17 @@ LABEL_10:
           }
 
           *(a1 + 12) = 1;
-          *(a1 + 8) = *(v13 + 5);
+          *(a1 + 8) = *(v6 + 5);
           timeout(sub_1000289AC);
         }
 
-        output(0, *(a1 + 56), *(a1 + 52), v15, v16, v17, v18, v19, v23);
-        v20 = *(a1 + 88);
-        if (v20)
+        output(0, *(a1 + 56), *(a1 + 52));
+        v8 = *(a1 + 88);
+        if (v8)
         {
-          v21 = *(a1 + 72);
+          v9 = *(a1 + 72);
 
-          v20(v21, a1 + 48);
+          v8(v9, a1 + 48);
         }
 
         return;
@@ -1163,28 +506,27 @@ LABEL_10:
       goto LABEL_17;
     }
 
-    if (v9 == 3)
+    if (v2 == 3)
     {
       goto LABEL_10;
     }
 
-    if (v9 != 4)
+    if (v2 != 4)
     {
       break;
     }
 
-    v10 = "ACSP plugin for option # %d attempted timeout action with invalid time value\n";
+    v3 = "ACSP plugin for option # %d attempted timeout action with invalid time value\n";
     if (*(a1 + 52) == 4)
     {
       *(a1 + 12) = 2;
-      v22 = **(a1 + 56);
 
       timeout(sub_1000289AC);
       return;
     }
 
 LABEL_17:
-    error(v10, a2, a3, a4, a5, a6, a7, a8, *(a1 + 64));
+    error(v3, *(a1 + 64));
     *(a1 + 20) = 6;
     *(a1 + 24) = 0;
     *(a1 + 56) = 0;
@@ -1192,10 +534,10 @@ LABEL_17:
     (*(a1 + 96))(*(a1 + 72), a1 + 16, a1 + 48);
   }
 
-  if (v9 != 5)
+  if (v2 != 5)
   {
 LABEL_16:
-    v10 = "ACSP plugin for option # %d trying to perform invalid action\n";
+    v3 = "ACSP plugin for option # %d trying to perform invalid action\n";
     goto LABEL_17;
   }
 
@@ -1211,147 +553,144 @@ uint64_t acsp_printpkt(unsigned __int8 *a1, int a2, void (*a3)(uint64_t, const c
   result = 0;
   if (a1 && a2 >= 8)
   {
-    v34 = 0;
-    v8 = *(a1 + 1);
-    v9 = ntohs();
-    if (v9 >= 8)
+    v31 = 0;
+    v8 = ntohs();
+    if (v8 >= 8)
     {
-      v10 = v9 - 8;
+      v9 = v8 - 8;
     }
 
     else
     {
-      v10 = 0;
+      v9 = 0;
     }
 
-    v11 = *(a1 + 2);
-    v12 = ntohs();
-    v13 = *a1;
-    v14 = " START";
-    v15 = a1[1];
-    v16 = " END";
-    if ((v12 & 2) == 0)
+    v10 = ntohs();
+    v11 = *a1;
+    v12 = " START";
+    v13 = a1[1];
+    v14 = " END";
+    if ((v10 & 2) == 0)
+    {
+      v12 = &unk_10002F9F2;
+    }
+
+    if ((v10 & 1) == 0)
     {
       v14 = &unk_10002F9F2;
     }
 
-    if ((v12 & 1) == 0)
+    v15 = " REQUIRE-ACK";
+    if ((v10 & 8) == 0)
+    {
+      v15 = &unk_10002F9F2;
+    }
+
+    v16 = " ACK";
+    if ((v10 & 4) == 0)
     {
       v16 = &unk_10002F9F2;
     }
 
-    v17 = " REQUIRE-ACK";
-    if ((v12 & 8) == 0)
+    v30 = a1;
+    if (v11 == 2)
     {
-      v17 = &unk_10002F9F2;
-    }
-
-    v18 = " ACK";
-    if ((v12 & 4) == 0)
-    {
-      v18 = &unk_10002F9F2;
-    }
-
-    v33 = a1;
-    if (v13 == 2)
-    {
-      v19 = a1 + 8;
-      a3(a4, " <payload len %d, packet seq %d, %s, flags:%s%s%s%s>", v10, v15, "CI_DOMAINS", v14, v16, v17, v18);
-      if (v10 >= 8)
+      v17 = a1 + 8;
+      a3(a4, " <payload len %d, packet seq %d, %s, flags:%s%s%s%s>", v9, v13, "CI_DOMAINS", v12, v14, v15, v16);
+      if (v9 >= 8)
       {
         do
         {
-          v26 = *v19;
-          v34 = *v19;
-          v27 = ntohs();
-          v28 = v27;
-          if (v27 >= 0x100)
+          v23 = *v17;
+          v31 = *v17;
+          v24 = ntohs();
+          v25 = v24;
+          if (v24 >= 0x100)
           {
-            v29 = 256;
+            v26 = 256;
           }
 
           else
           {
-            v29 = v27;
+            v26 = v24;
           }
 
-          if (v27)
+          if (v24)
           {
             __memcpy_chk();
           }
 
-          v35[v29] = 0;
-          if (v26)
+          v32[v26] = 0;
+          if (v23)
           {
-            addr2ascii(2, &v34, 4, v36);
-            v30 = a4;
-            v31 = "\n    <domain: name %s, server %s>";
+            addr2ascii(2, &v31, 4, v33);
+            v27 = a4;
+            v28 = "\n    <domain: name %s, server %s>";
           }
 
           else
           {
-            v30 = a4;
-            v31 = "\n    <domain: name %s>";
+            v27 = a4;
+            v28 = "\n    <domain: name %s>";
           }
 
-          a3(v30, v31);
-          v32 = v28 + 6;
-          v10 -= v32;
-          v19 += v32;
+          a3(v27, v28);
+          v29 = v25 + 6;
+          v9 -= v29;
+          v17 += v29;
         }
 
-        while (v10 > 7);
+        while (v9 > 7);
       }
     }
 
-    else if (v13 == 1)
+    else if (v11 == 1)
     {
-      v19 = a1 + 8;
-      a3(a4, " <payload len %d, packet seq %d, %s, flags:%s%s%s%s>", v10, v15, "CI_ROUTES", v14, v16, v17, v18);
-      if (v10 >= 0xC)
+      v17 = a1 + 8;
+      a3(a4, " <payload len %d, packet seq %d, %s, flags:%s%s%s%s>", v9, v13, "CI_ROUTES", v12, v14, v15, v16);
+      if (v9 >= 0xC)
       {
         do
         {
-          v20 = *(v19 + 4);
-          v21 = ntohs();
-          v22 = addr2ascii(2, v19, 4, v36);
-          v23 = addr2ascii(2, v19 + 4, 4, v35);
-          if (v21)
+          v18 = ntohs();
+          v19 = addr2ascii(2, v17, 4, v33);
+          v20 = addr2ascii(2, v17 + 4, 4, v32);
+          if (v18)
           {
-            v24 = " PRIVATE";
+            v21 = " PRIVATE";
           }
 
           else
           {
-            v24 = &unk_10002F9F2;
+            v21 = &unk_10002F9F2;
           }
 
-          if ((v21 & 2) != 0)
+          if ((v18 & 2) != 0)
           {
-            v25 = " PUBLIC";
+            v22 = " PUBLIC";
           }
 
           else
           {
-            v25 = &unk_10002F9F2;
+            v22 = &unk_10002F9F2;
           }
 
-          a3(a4, "\n    <route: address %s, mask %s, flags:%s%s>", v22, v23, v24, v25);
-          v10 -= 12;
-          v19 += 12;
+          a3(a4, "\n    <route: address %s, mask %s, flags:%s%s>", v19, v20, v21, v22);
+          v9 -= 12;
+          v17 += 12;
         }
 
-        while (v10 > 0xB);
+        while (v9 > 0xB);
       }
     }
 
     else
     {
-      a3(a4, " <payload len %d, packet seq %d, CI_TYPE %d, flags:%s%s%s%s>", v10, v15, v13, v14, v16, v17, v18);
-      LODWORD(v19) = a1 + 8;
+      a3(a4, " <payload len %d, packet seq %d, CI_TYPE %d, flags:%s%s%s%s>", v9, v13, v11, v12, v14, v15, v16);
+      LODWORD(v17) = a1 + 8;
     }
 
-    return (v19 - v33);
+    return (v17 - v30);
   }
 
   return result;
@@ -1362,20 +701,20 @@ uint64_t sub_100028F04(void *a1, char a2)
   v4 = malloc_type_malloc(0x40uLL, 0x109004061D8AE16uLL);
   if (v4)
   {
-    v12 = v4;
-    v13 = malloc_type_malloc(0x5DCuLL, 0xDA9BF509uLL);
-    v12[4] = v13;
-    if (v13)
+    v5 = v4;
+    v6 = malloc_type_malloc(0x5DCuLL, 0xDA9BF509uLL);
+    v5[4] = v6;
+    if (v6)
     {
       result = 0;
-      *(v12 + 10) = 1500;
-      *v12 = a2;
-      *(v12 + 4) = &_mh_execute_header;
-      v12[2] = 0;
-      *(v12 + 12) = 0;
-      v12[6] = 0;
-      *(v12 + 14) = 0;
-      a1[9] = v12;
+      *(v5 + 10) = 1500;
+      *v5 = a2;
+      *(v5 + 4) = &_mh_execute_header;
+      v5[2] = 0;
+      *(v5 + 12) = 0;
+      v5[6] = 0;
+      *(v5 + 14) = 0;
+      a1[9] = v5;
       a1[10] = sub_100029084;
       a1[11] = 0;
       a1[12] = sub_100029088;
@@ -1384,22 +723,22 @@ uint64_t sub_100028F04(void *a1, char a2)
       return result;
     }
 
-    error("ACSP plugin: no memory\n", v14, v15, v16, v17, v18, v19, v20, v22);
-    free(v12);
+    error("ACSP plugin: no memory\n");
+    free(v5);
   }
 
   else
   {
-    error("ACSP plugin: no memory\n", v5, v6, v7, v8, v9, v10, v11, v22);
+    error("ACSP plugin: no memory\n");
   }
 
   return 0xFFFFFFFFLL;
 }
 
-uint64_t **sub_100028FF0(uint64_t a1)
+uint64_t ***sub_100028FF0(unsigned __int8 *a1)
 {
-  *(a1 + 16) = 1;
-  if (*(a1 + 4) == 1 && *(a1 + 8) == 5 && !*(a1 + 56))
+  *(a1 + 4) = 1;
+  if (*(a1 + 1) == 1 && *(a1 + 2) == 5 && !*(a1 + 14))
   {
     return sub_1000297C4(a1);
   }
@@ -1410,37 +749,37 @@ uint64_t **sub_100028FF0(uint64_t a1)
   }
 }
 
-void sub_100029030(uint64_t a1)
+void sub_100029030(uint64_t result)
 {
-  *(a1 + 16) = 0;
-  if (*(a1 + 4) == 1 && *(a1 + 56))
+  *(result + 16) = 0;
+  if (*(result + 4) == 1 && *(result + 56))
   {
-    if (*a1 == 1)
+    if (*result == 1)
     {
-      sub_10002988C(*(a1 + 48));
+      sub_10002988C(*(result + 48));
     }
 
-    *(a1 + 56) = 0;
+    *(result + 56) = 0;
   }
 }
 
-void sub_100029088(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+void sub_100029088(unsigned __int8 *a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *(a2 + 4);
-  if (v11 > 3)
+  v5 = *(a2 + 4);
+  if (v5 > 3)
   {
-    switch(v11)
+    switch(v5)
     {
       case 4u:
         if (*(a1 + 2) != 4)
         {
-          v16 = "ACSP plugin: received unexpected timeout\n";
+          v9 = "ACSP plugin: received unexpected timeout\n";
           goto LABEL_38;
         }
 
-        v18 = *(a1 + 5);
-        *(a1 + 5) = v18 + 1;
-        if (v18 <= 9)
+        v11 = *(a1 + 5);
+        *(a1 + 5) = v11 + 1;
+        if (v11 <= 9)
         {
           *(a3 + 8) = *(a1 + 4);
           *(a3 + 4) = *(a1 + 21) + 4;
@@ -1448,10 +787,10 @@ void sub_100029088(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, u
           return;
         }
 
-        error("ACSP plugin: no acknowlegement from peer\n", a2, a3, a4, a5, a6, a7, a8, v48);
+        error("ACSP plugin: no acknowlegement from peer\n");
         break;
       case 6u:
-        error("ACSP plugin: error notificationr received\n", a2, a3, a4, a5, a6, a7, a8, v48);
+        error("ACSP plugin: error notificationr received\n");
         if (*(a1 + 2) == 4)
         {
           *(a3 + 2) = 5;
@@ -1459,7 +798,7 @@ void sub_100029088(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, u
 
         break;
       case 5u:
-        v16 = "ACSP plugin: unexpected notification received\n";
+        v9 = "ACSP plugin: unexpected notification received\n";
         goto LABEL_38;
       default:
         return;
@@ -1468,7 +807,7 @@ void sub_100029088(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, u
     goto LABEL_42;
   }
 
-  if (v11 == 1)
+  if (v5 == 1)
   {
     if (*a1 == 1)
     {
@@ -1482,9 +821,9 @@ LABEL_17:
           *(a1 + 5) = 0;
           sub_1000295E4(a1, a2, a3);
           ++a1[12];
-          v17 = 4;
+          v10 = 4;
 LABEL_30:
-          *(a1 + 2) = v17;
+          *(a1 + 2) = v10;
           return;
         }
 
@@ -1511,12 +850,12 @@ LABEL_35:
     return;
   }
 
-  if (v11 == 2)
+  if (v5 == 2)
   {
-    v19 = *(a1 + 2);
-    if (v19 != 5)
+    v12 = *(a1 + 2);
+    if (v12 != 5)
     {
-      if (v19 != 4)
+      if (v12 != 4)
       {
 LABEL_27:
         if (*(a1 + 1) == 1)
@@ -1524,7 +863,7 @@ LABEL_27:
           sub_100029590(a1);
         }
 
-        v17 = 1;
+        v10 = 1;
         goto LABEL_30;
       }
 
@@ -1544,16 +883,15 @@ LABEL_27:
     goto LABEL_27;
   }
 
-  if (v11 != 3)
+  if (v5 != 3)
   {
     return;
   }
 
-  v13 = *(a2 + 8);
-  v14 = *(a1 + 2);
-  if (v14 == 4)
+  v7 = *(a2 + 8);
+  v8 = *(a1 + 2);
+  if (v8 == 4)
   {
-    v21 = *(v13 + 4);
     if ((ntohs() & 4) == 0)
     {
       return;
@@ -1568,130 +906,126 @@ LABEL_27:
 
 LABEL_42:
     *(a1 + 2) = 5;
-    v20 = acspdhcpready_notifier;
+    v13 = acspdhcpready_notifier;
 
-    notify(v20, 0);
+    notify(v13, 0);
     return;
   }
 
-  if (v14 != 3)
+  if (v8 != 3)
   {
-    if (v14 != 2)
+    if (v8 != 2)
     {
       return;
     }
 
-    v15 = *(v13 + 4);
     if ((ntohs() & 2) == 0)
     {
-      v16 = "ACSP plugin: received first packet with no start flag\n";
+      v9 = "ACSP plugin: received first packet with no start flag\n";
 LABEL_38:
 
-      error(v16, a2, a3, a4, a5, a6, a7, a8, a9);
+      error(v9);
       return;
     }
 
     *(a1 + 2) = 3;
   }
 
-  if (*(v13 + 1) == a1[12])
+  if (*(v7 + 1) == a1[12])
   {
-    v22 = *(a2 + 6);
-    v23 = *a1;
-    if (v23 == 2)
+    v14 = *(a2 + 6);
+    v15 = *a1;
+    if (v15 == 2)
     {
-      if (v22 >= 0xB)
+      if (v14 >= 0xB)
       {
-        v24 = v22 - 8;
-        v25 = (v13 + 8);
+        v16 = v14 - 8;
+        v17 = (v7 + 8);
         do
         {
-          v26 = *v25;
-          v27 = *(v25 + 2);
-          v28 = malloc_type_malloc(0x18uLL, 0x1030040A9CFD972uLL);
-          if (!v28)
+          v18 = *v17;
+          v19 = malloc_type_malloc(0x18uLL, 0x1030040A9CFD972uLL);
+          if (!v19)
           {
             goto LABEL_69;
           }
 
-          v29 = v28;
-          v30 = ntohs();
-          v31 = malloc_type_malloc(v30 + 1, 0xDCBC7B3AuLL);
-          v29[2] = v31;
-          if (!v31)
+          v20 = v19;
+          v21 = ntohs();
+          v22 = malloc_type_malloc(v21 + 1, 0xDCBC7B3AuLL);
+          v20[2] = v22;
+          if (!v22)
           {
-            error("ACSP plugin: no memory\n", v32, v33, v34, v35, v36, v37, v38, v48);
+            error("ACSP plugin: no memory\n");
 
-            free(v29);
+            free(v20);
             return;
           }
 
-          *(v29 + 2) = v26;
-          memcpy(v31, v25 + 6, v30);
-          *(v29[2] + v30) = 0;
-          *v29 = *(a1 + 6);
-          *(a1 + 6) = v29;
-          v39 = v30 + 6;
-          v24 -= v39;
-          v25 = (v25 + v39);
+          *(v20 + 2) = v18;
+          memcpy(v22, v17 + 6, v21);
+          *(v20[2] + v21) = 0;
+          *v20 = *(a1 + 6);
+          *(a1 + 6) = v20;
+          v23 = v21 + 6;
+          v16 -= v23;
+          v17 = (v17 + v23);
         }
 
-        while (v24 > 2);
+        while (v16 > 2);
       }
     }
 
     else
     {
-      if (v23 != 1)
+      if (v15 != 1)
       {
         return;
       }
 
-      if ((v22 & 3) != 0)
+      if ((v14 & 3) != 0)
       {
-        v16 = "ACSP plugin: received packet with invalid len\n";
+        v9 = "ACSP plugin: received packet with invalid len\n";
         goto LABEL_38;
       }
 
-      if (v22 >= 0xD)
+      if (v14 >= 0xD)
       {
-        v40 = v13 + 8;
-        v41 = v22 + 4;
+        v24 = (v7 + 8);
+        v25 = v14 + 4;
         while (1)
         {
-          v42 = malloc_type_malloc(0x20uLL, 0x1020040983EA955uLL);
-          if (!v42)
+          v26 = malloc_type_malloc(0x20uLL, 0x1020040983EA955uLL);
+          if (!v26)
           {
             break;
           }
 
-          v43 = v42;
-          *v42 = 0u;
-          v42[1] = 0u;
-          v44 = *(v40 + 4);
-          *(v42 + 2) = v44 & *v40;
-          *(v42 + 3) = v44;
-          v45 = *(v40 + 8);
-          *(v43 + 10) = ntohs();
-          *v43 = *(a1 + 6);
-          *(a1 + 6) = v43;
-          v40 += 12;
-          v41 -= 12;
-          if (v41 <= 16)
+          v27 = v26;
+          *v26 = 0u;
+          *(v26 + 1) = 0u;
+          v28 = v24[1];
+          *(v26 + 2) = v28 & *v24;
+          *(v26 + 3) = v28;
+          *(v26 + 10) = ntohs();
+          *v27 = *(a1 + 6);
+          *(a1 + 6) = v27;
+          v24 += 3;
+          v25 -= 12;
+          if (v25 <= 16)
           {
             goto LABEL_66;
           }
         }
 
 LABEL_69:
-        v16 = "ACSP plugin: no memory\n";
+        v9 = "ACSP plugin: no memory\n";
         goto LABEL_38;
       }
     }
 
 LABEL_66:
     ++a1[12];
-    v46 = *(v13 + 4);
     if (ntohs())
     {
       *(a1 + 2) = 5;
@@ -1707,7 +1041,6 @@ LABEL_66:
     }
   }
 
-  v47 = *(v13 + 4);
   if ((ntohs() & 8) != 0)
   {
 
@@ -1767,7 +1100,6 @@ uint64_t sub_1000295E4(unsigned __int8 *a1, uint64_t a2, uint64_t a3)
       {
         v11 = v19;
         *(v18 - 5) = v17[1];
-        v20 = *(v17 + 10);
         *(v18 - 1) = htons();
         *v18 = htons();
         v18 += 6;
@@ -1776,16 +1108,16 @@ uint64_t sub_1000295E4(unsigned __int8 *a1, uint64_t a2, uint64_t a3)
         v19 = v11 + 12;
         if (v17)
         {
-          v21 = v19 > v7;
+          v20 = v19 > v7;
         }
 
         else
         {
-          v21 = 1;
+          v20 = 1;
         }
       }
 
-      while (!v21);
+      while (!v20);
     }
 
 LABEL_23:
@@ -1795,7 +1127,6 @@ LABEL_23:
     }
 
 LABEL_26:
-    v22 = *(v5 + 8);
     ntohs();
     *(v5 + 8) = htons();
     goto LABEL_27;
@@ -1852,7 +1183,7 @@ LABEL_27:
   return result;
 }
 
-uint64_t **sub_1000297C4(unsigned __int8 *a1)
+uint64_t ***sub_1000297C4(unsigned __int8 *a1)
 {
   v2 = *a1;
   v3 = *(a1 + 6);
@@ -1911,25 +1242,25 @@ void sub_10002988C(uint64_t *a1)
             goto LABEL_14;
           }
 
-          v4 = addr2ascii(2, v1 + 1, 4, v23);
-          addr2ascii(2, v1 + 12, 4, v22);
-          addr2ascii(2, &dword_10004BF68, 4, v21);
-          error("ACSP plugin: error removing public net route. (%s/%s -> %s).", v5, v6, v7, v8, v9, v10, v11, v4);
+          addr2ascii(2, v1 + 1, 4, v7);
+          addr2ascii(2, v1 + 12, 4, v6);
+          addr2ascii(2, &dword_10004BF68, 4, v5);
+          error("ACSP plugin: error removing public net route. (%s/%s -> %s).");
           goto LABEL_12;
         }
 
-        v12 = *(v1 + 2);
-        if (!v12)
+        v4 = *(v1 + 2);
+        if (!v4)
         {
           cifdefaultroute();
           goto LABEL_14;
         }
 
-        if (!route_interface(2, v12, *(v1 + 3), 23, &ifname, 0))
+        if (!route_interface(2, v4, *(v1 + 3), 23, &ifname, 0))
         {
-          v13 = addr2ascii(2, v1 + 1, 4, v23);
-          addr2ascii(2, v1 + 12, 4, v22);
-          error("ACSP plugin: error removing private net route. (%s/%s).", v14, v15, v16, v17, v18, v19, v20, v13);
+          addr2ascii(2, v1 + 1, 4, v7);
+          addr2ascii(2, v1 + 12, 4, v6);
+          error("ACSP plugin: error removing private net route. (%s/%s).");
 LABEL_12:
           *(v1 + 6) = 1;
         }
@@ -1957,18 +1288,18 @@ void sub_100029A40(uint64_t *a1)
       v2 = *(v1 + 10);
       if (v2)
       {
-        v12 = *(v1 + 2);
-        if (!v12)
+        v4 = *(v1 + 2);
+        if (!v4)
         {
           sifdefaultroute();
           goto LABEL_14;
         }
 
-        if (!route_interface(1, v12, *(v1 + 3), 23, &ifname, 0))
+        if (!route_interface(1, v4, *(v1 + 3), 23, &ifname, 0))
         {
-          v13 = addr2ascii(2, v1 + 1, 4, v23);
-          addr2ascii(2, v1 + 12, 4, v22);
-          error("ACSP plugin: error installing private net route. (%s/%s).", v14, v15, v16, v17, v18, v19, v20, v13);
+          addr2ascii(2, v1 + 1, 4, v7);
+          addr2ascii(2, v1 + 12, 4, v6);
+          error("ACSP plugin: error installing private net route. (%s/%s).");
           goto LABEL_11;
         }
       }
@@ -1984,10 +1315,10 @@ void sub_100029A40(uint64_t *a1)
 
         if (!route_gateway(1, v3, *(v1 + 3), dword_10004BF68, 1))
         {
-          v4 = addr2ascii(2, v1 + 1, 4, v23);
-          addr2ascii(2, v1 + 12, 4, v22);
-          addr2ascii(2, &dword_10004BF68, 4, v21);
-          error("ACSP plugin: error installing public net route. (%s/%s -> %s).", v5, v6, v7, v8, v9, v10, v11, v4);
+          addr2ascii(2, v1 + 1, 4, v7);
+          addr2ascii(2, v1 + 12, 4, v6);
+          addr2ascii(2, &dword_10004BF68, 4, v5);
+          error("ACSP plugin: error installing public net route. (%s/%s -> %s).");
 LABEL_11:
           *(v1 + 6) = 0;
         }
@@ -2001,77 +1332,75 @@ LABEL_14:
   }
 }
 
-void sub_100029C18(uint64_t **a1)
+void sub_100029C18(uint64_t ***a1)
 {
   valuePtr = 100000;
   v2 = CFNumberCreate(0, kCFNumberLongType, &valuePtr);
   if (v2)
   {
-    v10 = v2;
+    v3 = v2;
     if (a1)
     {
-      v11 = 1;
+      v4 = 1;
       while (1)
       {
-        v12 = CFStringCreateWithCString(0, a1[2], 0x8000100u);
-        if (!v12)
+        v5 = CFStringCreateWithCString(0, a1[2], 0x8000100u);
+        if (!v5)
         {
-          v21 = "ACSP plugin: error adding domain name - could not create CFString\n";
+          error("ACSP plugin: error adding domain name - could not create CFString\n");
           goto LABEL_11;
         }
 
-        v20 = v12;
-        if (!publish_dns_wins_entry(kSCEntNetDNS, kSCPropNetDNSSearchDomains, v20, 0, kSCPropNetDNSSupplementalMatchDomains, v20, kSCPropNetDNSSupplementalMatchOrders, v10, @"ConfirmedServiceID", serviceidRef, v11))
+        v6 = v5;
+        if (!publish_dns_wins_entry(kSCEntNetDNS, kSCPropNetDNSSearchDomains, v6, 0, kSCPropNetDNSSupplementalMatchDomains, v6, kSCPropNetDNSSupplementalMatchOrders, v3, @"ConfirmedServiceID", serviceidRef, v4))
         {
           break;
         }
 
-        publish_dns_wins_entry(kSCEntNetProxies, kSCPropNetDNSSupplementalMatchDomains, v20, 0, kSCPropNetDNSSupplementalMatchOrders, v10, 0, 0, 0, 0, v11);
-        CFRelease(v20);
-        v11 = 0;
+        publish_dns_wins_entry(kSCEntNetProxies, kSCPropNetDNSSupplementalMatchDomains, v6, 0, kSCPropNetDNSSupplementalMatchOrders, v3, 0, 0, 0, 0, v4);
+        CFRelease(v6);
+        v4 = 0;
         a1 = *a1;
         if (!a1)
         {
-          goto LABEL_12;
+          goto LABEL_11;
         }
       }
 
-      CFRelease(v20);
-      v21 = "ACSP plugin: error adding domain name\n";
-LABEL_11:
-      error(v21, v13, v14, v15, v16, v17, v18, v19, key);
+      CFRelease(v6);
+      error("ACSP plugin: error adding domain name\n");
     }
 
-LABEL_12:
-    CFRelease(v10);
+LABEL_11:
+    CFRelease(v3);
   }
 
   else
   {
-    error("ACSP plugin: error adding domain name - could not create CFNumber\n", v3, v4, v5, v6, v7, v8, v9, key);
+    error("ACSP plugin: error adding domain name - could not create CFNumber\n");
   }
 }
 
-void sub_100029DA4(unsigned int a1, uint64_t a2, unsigned int a3, unsigned __int8 a4, unsigned int a5, char a6, uint64_t a7, uint64_t a8, int a9)
+void sub_100029DA4(unsigned int a1, uint64_t a2, unsigned int a3, unsigned __int8 a4, unsigned int a5, char a6)
 {
-  v9 = a5;
-  v10 = a3;
-  v24 = HIBYTE(a3);
+  v6 = a5;
+  v7 = a3;
+  v16 = HIBYTE(a3);
   byte_100048128 = HIBYTE(a3);
-  v12 = HIWORD(a3);
+  v9 = HIWORD(a3);
   byte_100048129 = BYTE2(a3);
-  v13 = a3 >> 8;
+  v10 = a3 >> 8;
   LOBYTE(word_10004812A) = BYTE1(a3);
   HIBYTE(word_10004812A) = a3;
-  v14 = HIBYTE(a5);
+  v11 = HIBYTE(a5);
   byte_10004812C = HIBYTE(a5);
-  v15 = HIWORD(a5);
+  v12 = HIWORD(a5);
   byte_10004812D = BYTE2(a5);
-  v16 = a5 >> 8;
+  v13 = a5 >> 8;
   byte_10004812E = BYTE1(a5);
   byte_10004812F = a5;
   LOWORD(dword_100048130) = 4352;
-  v17 = a2 - 4;
+  v14 = a2 - 4;
   BYTE2(dword_100048130) = (a2 - 24) >> 8;
   BYTE5(qword_100048134) = a2 - 24;
   BYTE4(qword_100048134) = (a2 - 24) >> 8;
@@ -2082,26 +1411,26 @@ void sub_100029DA4(unsigned int a1, uint64_t a2, unsigned int a3, unsigned __int
   HIWORD(qword_100048134) = 0;
   sub_100029F20(&byte_100048128, a2 - 12);
   word_100048120 = 69;
-  LOBYTE(word_100048122) = HIBYTE(v17);
-  HIBYTE(word_100048122) = v17;
-  v18 = word_100046FD0;
+  LOBYTE(word_100048122) = HIBYTE(v14);
+  HIBYTE(word_100048122) = v14;
+  v15 = word_100046FD0;
   byte_100048124 = HIBYTE(word_100046FD0);
   word_100046FD0 += 2;
-  byte_100048125[0] = v18 + 1;
+  byte_100048125[0] = v15 + 1;
   *algn_100048126 = 289406976;
   word_10004812A = 0;
-  byte_10004812C = v24;
-  byte_10004812D = v12;
-  byte_10004812E = v13;
-  byte_10004812F = v10;
-  LOBYTE(dword_100048130) = v14;
-  BYTE1(dword_100048130) = v15;
-  BYTE2(dword_100048130) = v16;
-  HIBYTE(dword_100048130) = v9;
+  byte_10004812C = v16;
+  byte_10004812D = v9;
+  byte_10004812E = v10;
+  byte_10004812F = v7;
+  LOBYTE(dword_100048130) = v11;
+  BYTE1(dword_100048130) = v12;
+  BYTE2(dword_100048130) = v13;
+  HIBYTE(dword_100048130) = v6;
   sub_100029F20(&word_100048120, 20);
   word_10004812A = __rev16(ntohs());
 
-  output(a1, &outpacket_buf, a2, v19, v20, v21, v22, v23, a9);
+  output(a1, &outpacket_buf, a2);
 }
 
 uint64_t sub_100029F20(unsigned __int8 *a1, int a2)
@@ -2155,50 +1484,49 @@ LABEL_7:
   return ~v2;
 }
 
-void sub_100029F94(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_100029F94(_DWORD *a1)
 {
   if (*a1 == 4)
   {
-    v11 = a1[1];
-    a1[1] = v11 + 1;
-    if (v11 > 3)
+    v3 = a1[1];
+    a1[1] = v3 + 1;
+    if (v3 > 3)
     {
-      dbglog("No DHCP server replied\n", a2, a3, a4, a5, a6, a7, a8, v8);
+      dbglog("No DHCP server replied\n");
       *a1 = 5;
     }
 
     else
     {
-      v12 = a1[9];
-      sub_10002A024(a1[8]);
+      sub_10002A024(a1[8], a1[9]);
     }
 
     if (a1[1] == 2)
     {
-      v13 = acspdhcpready_notifier;
+      v4 = acspdhcpready_notifier;
 
-      notify(v13, 0);
+      notify(v4, 0);
     }
   }
 }
 
-void sub_10002A024(unsigned int a1)
+void sub_10002A024(unsigned int a1, uint64_t a2)
 {
   bzero(&word_100048120, 0x5DCuLL);
   outpacket_buf = 553649151;
   word_10004813C = 2049;
   byte_10004813E = 6;
-  v2 = word_100046FD2;
+  v3 = word_100046FD2;
   word_100048140 = 0;
   LOBYTE(word_100048142) = (word_100046FD2 + 2) >> 8;
   word_100046FD2 += 4;
-  HIBYTE(word_100048142) = v2 + 3;
-  v3 = ntohl();
+  HIBYTE(word_100048142) = v3 + 3;
+  v4 = ntohl();
   dword_100048144 = 0;
-  byte_100048148 = HIBYTE(v3);
-  byte_100048149 = BYTE2(v3);
-  byte_10004814A = BYTE1(v3);
-  byte_10004814B = v3;
+  byte_100048148 = HIBYTE(v4);
+  byte_100048149 = BYTE2(v4);
+  byte_10004814A = BYTE1(v4);
+  byte_10004814B = v4;
   qword_10004814C = 0;
   *(&qword_10004814C + 7) = 0;
   byte_10004815B = 1;
@@ -2211,7 +1539,7 @@ void sub_10002A024(unsigned int a1)
   LOBYTE(word_100048235) = 1;
   qword_100048237 = 0xF9012B2C06063700;
   word_10004823F = -241;
-  sub_100029DA4(a1, 294, v3, 0x44u, 0xFFFFFFFF, 67, v4, v5, v6);
+  sub_100029DA4(a1, 294, v4, 0x44u, 0xFFFFFFFF, 67);
   *qword_10004BF70 = 4;
 
   timeout(sub_100029F94);
@@ -2224,71 +1552,71 @@ uint64_t chap_register_digest(uint64_t result)
   return result;
 }
 
-void chap_auth_peer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+void chap_auth_peer(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if ((dword_10004BF80 & 2) != 0)
   {
 
-    error("CHAP: peer authentication already started!", a2, a3, a4, a5, a6, a7, a8, a9);
+    error("CHAP: peer authentication already started!", a2, a3);
   }
 
   else
   {
-    v9 = qword_10004BF78;
+    v3 = qword_10004BF78;
     if (!qword_10004BF78)
     {
 LABEL_5:
-      fatal();
+      fatal("CHAP digest 0x%x requested but not available", a3);
     }
 
-    while (*v9 != a3)
+    while (*v3 != a3)
     {
-      v9 = *(v9 + 64);
-      if (!v9)
+      v3 = *(v3 + 64);
+      if (!v3)
       {
         goto LABEL_5;
       }
     }
 
     qword_10004BF88 = a2;
-    qword_10004BF90 = v9;
-    v17 = drand48();
-    v18 = dword_10004BF80;
+    qword_10004BF90 = v3;
+    v4 = drand48();
+    v5 = dword_10004BF80;
     dword_10004BF80 |= 2u;
-    *algn_10004BF84 = vcvtd_n_s64_f64(v17, 8uLL);
-    if (v18)
+    *algn_10004BF84 = vcvtd_n_s64_f64(v4, 8uLL);
+    if (v5)
     {
 
-      sub_10002A264(&dword_10004BF80, v10, v11, v12, v13, v14, v15, v16);
+      sub_10002A264(&dword_10004BF80);
     }
   }
 }
 
-void sub_10002A264(int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_10002A264(int *a1)
 {
-  v9 = *a1;
+  v2 = *a1;
   *a1 &= ~0x10u;
-  if ((v9 & 0x20) == 0)
+  if ((v2 & 0x20) == 0)
   {
     a1[6] = 0;
     a1[8] = 599917567;
     (*(*(a1 + 2) + 8))(a1 + 10);
-    v10 = *(a1 + 40);
-    v11 = strlen(*(a1 + 1));
-    memcpy(a1 + v10 + 41, *(a1 + 1), v11);
-    v12 = v10 + v11 + 5;
-    v13 = (v10 + v11 + 9);
-    a1[7] = v13;
+    v3 = *(a1 + 40);
+    v4 = strlen(*(a1 + 1));
+    memcpy(a1 + v3 + 41, *(a1 + 1), v4);
+    v5 = v3 + v4 + 5;
+    v6 = (v3 + v4 + 9);
+    a1[7] = v6;
     *(a1 + 36) = 1;
-    *(a1 + 38) = HIBYTE(v12);
-    *(a1 + 39) = v12;
-    v14 = *a1;
-    v15 = a1[1] + 1;
+    *(a1 + 38) = HIBYTE(v5);
+    *(a1 + 39) = v5;
+    v7 = *a1;
+    v8 = a1[1] + 1;
     *(a1 + 37) = *(a1 + 4) + 1;
-    *a1 = v14 | 0x20;
-    a1[1] = v15;
+    *a1 = v7 | 0x20;
+    a1[1] = v8;
 LABEL_5:
-    output(0, (a1 + 8), v13, a4, a5, a6, a7, a8, v16);
+    output(0, (a1 + 8), v6);
     ++a1[6];
     *a1 |= 0x10u;
 
@@ -2298,43 +1626,43 @@ LABEL_5:
 
   if (a1[6] < chap_max_transmits)
   {
-    v13 = a1[7];
+    v6 = a1[7];
     goto LABEL_5;
   }
 
-  *a1 = v9 & 0xFFFFFFC3 | 0xC;
+  *a1 = v2 & 0xFFFFFFC3 | 0xC;
 
-  auth_peer_fail(0, 49699, a3, a4, a5, a6, a7, a8);
+  auth_peer_fail(0);
 }
 
-void chap_auth_with_peer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+void chap_auth_with_peer(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if ((xmmword_10004C1F0 & 2) != 0)
   {
 
-    error("CHAP: authentication with peer already started!", a2, a3, a4, a5, a6, a7, a8, a9);
+    error("CHAP: authentication with peer already started!", a2, a3);
   }
 
   else
   {
-    v9 = qword_10004BF78;
+    v3 = qword_10004BF78;
     if (!qword_10004BF78)
     {
 LABEL_5:
-      fatal();
+      fatal("CHAP digest 0x%x requested but not available", a3);
     }
 
-    while (*v9 != a3)
+    while (*v3 != a3)
     {
-      v9 = *(v9 + 64);
-      if (!v9)
+      v3 = *(v3 + 64);
+      if (!v3)
       {
         goto LABEL_5;
       }
     }
 
     *(&xmmword_10004C1F0 + 1) = a2;
-    *&xmmword_10004C200 = v9;
+    *&xmmword_10004C200 = v3;
     LODWORD(xmmword_10004C1F0) = xmmword_10004C1F0 | 2;
   }
 }
@@ -2374,69 +1702,69 @@ void *sub_10002A450()
   return chapms_init();
 }
 
-void sub_10002A4CC(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_10002A4CC(uint64_t a1, unsigned __int8 *a2, unsigned int a3)
 {
   if (a3 < 4)
   {
     return;
   }
 
-  v9 = __rev16(*(a2 + 1));
-  v10 = v9 - 4;
-  if (v9 < 4 || v9 > a3)
+  v4 = __rev16(*(a2 + 1));
+  v5 = v4 - 4;
+  if (v4 < 4 || v4 > a3)
   {
     return;
   }
 
-  v12 = a2[1];
-  v13 = a2 + 4;
-  v14 = *a2;
-  if ((v14 - 3) < 2)
+  v7 = a2[1];
+  v8 = a2 + 4;
+  v9 = *a2;
+  if ((v9 - 3) < 2)
   {
-    v34 = xmmword_10004C1F0;
+    v17 = xmmword_10004C1F0;
     if ((xmmword_10004C1F0 & 7) != 3)
     {
       return;
     }
 
-    v35 = xmmword_10004C1F0 | 4;
+    v18 = xmmword_10004C1F0 | 4;
     LODWORD(xmmword_10004C1F0) = xmmword_10004C1F0 | 4;
-    if ((v34 & 0x10) != 0)
+    if ((v17 & 0x10) != 0)
     {
-      LODWORD(xmmword_10004C1F0) = v35 & 0xFFFFFFEF;
+      LODWORD(xmmword_10004C1F0) = v18 & 0xFFFFFFEF;
       untimeout(sub_10002B218, &xmmword_10004C1F0);
     }
 
-    if (v14 == 3)
+    if (v9 == 3)
     {
-      v36 = *(xmmword_10004C200 + 32);
-      if (v36)
+      v19 = *(xmmword_10004C200 + 32);
+      if (v19)
       {
-        if (!v36(v13, v10, &xmmword_10004C200 + 8))
+        if (!v19(v8, v5, &xmmword_10004C200 + 8))
         {
           goto LABEL_75;
         }
 
 LABEL_61:
-        v50 = *xmmword_10004C200;
+        v33 = *xmmword_10004C200;
 
-        auth_withpeer_success(0, 49699, v50);
+        auth_withpeer_success(0, 49699, v33);
         return;
       }
 
-      v49 = "CHAP authentication succeeded";
+      v32 = "CHAP authentication succeeded";
 LABEL_57:
-      if (v10)
+      if (v5)
       {
-        info("%s: %.*v", a2, a3, a4, a5, a6, a7, a8, v49);
+        info("%s: %.*v", v32, v5, v8);
       }
 
       else
       {
-        info("%s", a2, a3, a4, a5, a6, a7, a8, v49);
+        info("%s");
       }
 
-      if (v14 != 3)
+      if (v9 != 3)
       {
         goto LABEL_75;
       }
@@ -2444,30 +1772,30 @@ LABEL_57:
       goto LABEL_61;
     }
 
-    v44 = *(xmmword_10004C200 + 40);
-    if (!v44)
+    v27 = *(xmmword_10004C200 + 40);
+    if (!v27)
     {
-      v49 = "CHAP authentication failed";
+      v32 = "CHAP authentication failed";
       goto LABEL_57;
     }
 
     byte_10004C4A2 = 0;
-    v45 = v44(v13, v10);
-    if (v45 == 2)
+    v28 = v27(v8, v5);
+    if (v28 == 2)
     {
-      if (byte_10004C3A0 != 1 || (byte_10004C3A0 = 0, byte_10004C5A2 != v12))
+      if (byte_10004C3A0 != 1 || (byte_10004C3A0 = 0, byte_10004C5A2 != v7))
       {
-        LODWORD(xmmword_10004C1F0) = v34;
-        v46 = v13;
-        v47 = v10;
-        v48 = 0;
+        LODWORD(xmmword_10004C1F0) = v17;
+        v29 = v8;
+        v30 = v5;
+        v31 = 0;
         goto LABEL_73;
       }
     }
 
     else
     {
-      if (v45 != 1)
+      if (v28 != 1)
       {
 LABEL_75:
         LODWORD(xmmword_10004C1F0) = xmmword_10004C1F0 | 8;
@@ -2476,14 +1804,14 @@ LABEL_75:
         return;
       }
 
-      if (byte_10004C3A0 != 1 || (byte_10004C3A0 = 0, byte_10004C5A2 != v12))
+      if (byte_10004C3A0 != 1 || (byte_10004C3A0 = 0, byte_10004C5A2 != v7))
       {
-        LODWORD(xmmword_10004C1F0) = v34;
-        v46 = v13;
-        v47 = v10;
-        v48 = 1;
+        LODWORD(xmmword_10004C1F0) = v17;
+        v29 = v8;
+        v30 = v5;
+        v31 = 1;
 LABEL_73:
-        if (!sub_10002B3E0(v46, v47, v48))
+        if (!sub_10002B3E0(v29, v30, v31))
         {
           return;
         }
@@ -2497,15 +1825,16 @@ LABEL_73:
     return;
   }
 
-  if (v14 == 2)
+  if (v9 == 2)
   {
-    v37 = dword_10004BF80;
-    if ((dword_10004BF80 & 1) != 0 && v10 >= 2 && byte_10004BFA5 == v12)
+    v20 = dword_10004BF80;
+    if ((dword_10004BF80 & 1) != 0 && v5 >= 2 && byte_10004BFA5 == v7)
     {
       if ((dword_10004BF80 & 0x20) != 0)
       {
-        v51 = v10 + ~a2[4];
-        if (v51 < 0)
+        v34 = a2[4];
+        v35 = (v5 + ~v34);
+        if (v35 < 0)
         {
           return;
         }
@@ -2518,31 +1847,31 @@ LABEL_73:
 
         if (explicit_remote)
         {
-          v40 = &remote_name;
+          v23 = &remote_name;
         }
 
         else
         {
-          LODWORD(v100) = v51;
-          v40 = &v105;
-          slprintf(&v105, 257, "%.*v");
+          v48 = v35;
+          v23 = &v52;
+          slprintf(&v52, 257, "%.*v", v48, &a2[v34 + 5]);
         }
 
-        v75 = chap_verify_hook;
+        v41 = chap_verify_hook;
         if (!chap_verify_hook)
         {
-          v75 = sub_10002B2F8;
+          v41 = sub_10002B2F8;
         }
 
-        v39 = v75(v40, qword_10004BF88, v12, qword_10004BF90, &unk_10004BFA8, (a2 + 4), &byte_10004C0EC, 256);
-        if (v39 && auth_number())
+        v22 = v41(v23, qword_10004BF88, v7, qword_10004BF90, &unk_10004BFA8, (a2 + 4), &byte_10004C0EC, 256);
+        if (v22 && auth_number())
         {
-          v37 = dword_10004BF80;
+          v20 = dword_10004BF80;
         }
 
         else
         {
-          v37 = dword_10004BF80 | 8;
+          v20 = dword_10004BF80 | 8;
           dword_10004BF80 |= 8u;
         }
       }
@@ -2554,42 +1883,42 @@ LABEL_73:
           return;
         }
 
-        v39 = 0;
-        v40 = 0;
+        v22 = 0;
+        v23 = 0;
       }
 
       outpacket_buf = 599917567;
-      v76 = strlen(&byte_10004C0EC);
-      v82 = v76;
-      v83 = (v37 >> 3) & 1;
-      if (v39 == -1)
+      v42 = strlen(&byte_10004C0EC);
+      v43 = v42;
+      v44 = (v20 >> 3) & 1;
+      if (v22 == -1)
       {
-        v83 = 1;
+        v44 = 1;
       }
 
-      if (v83)
+      if (v44)
       {
-        v84 = 4;
+        v45 = 4;
       }
 
       else
       {
-        v84 = 3;
+        v45 = 3;
       }
 
-      LOBYTE(word_100048120) = v84;
-      HIBYTE(word_100048120) = v12;
-      LOBYTE(word_100048122) = (v76 + 4) >> 8;
-      HIBYTE(word_100048122) = v76 + 4;
-      if (v76 >= 1)
+      LOBYTE(word_100048120) = v45;
+      HIBYTE(word_100048120) = v7;
+      LOBYTE(word_100048122) = (v42 + 4) >> 8;
+      HIBYTE(word_100048122) = v42 + 4;
+      if (v42 >= 1)
       {
-        memcpy(&byte_100048124, &byte_10004C0EC, v76 & 0x7FFFFFFF);
+        memcpy(&byte_100048124, &byte_10004C0EC, v42 & 0x7FFFFFFF);
       }
 
-      output(0, &outpacket_buf, (v82 + 8), v77, v78, v79, v80, v81, v100);
+      output(0, &outpacket_buf, (v43 + 8));
       byte_10004C3A1 = 0;
-      v92 = dword_10004BF80;
-      if (v39 == -1)
+      v46 = dword_10004BF80;
+      if (v22 == -1)
       {
         dword_10004BF80 |= 0x20u;
         ++byte_10004BFA5;
@@ -2599,75 +1928,74 @@ LABEL_73:
       else if ((dword_10004BF80 & 4) == 0)
       {
         dword_10004BF80 = dword_10004BF80 & 0xFFFFFFDB | 4;
-        if ((v92 & 8) != 0)
+        if ((v46 & 8) != 0)
         {
-          notice("CHAP peer authentication failed for %q", v85, v86, v87, v88, v89, v90, v91, v40);
-          auth_peer_fail(0, 49699, v94, v95, v96, v97, v98, v99);
+          notice("CHAP peer authentication failed for %q", v23);
+          auth_peer_fail(0);
         }
 
         else
         {
-          notice("CHAP peer authentication succeeded for %q", v85, v86, v87, v88, v89, v90, v91, v40);
-          v93 = strlen(v40);
-          auth_peer_success(0, 49699, *qword_10004BF90, v40, v93);
+          notice("CHAP peer authentication succeeded for %q", v23);
+          v47 = strlen(v23);
+          auth_peer_success(0, 49699, *qword_10004BF90, v23, v47);
           if (chap_rechallenge_time)
           {
             dword_10004BF80 |= 0x10u;
-            v33 = sub_10002A264;
+            v16 = sub_10002A264;
 LABEL_26:
-            timeout(v33);
+            timeout(v16);
           }
         }
       }
     }
   }
 
-  else if (v14 == 1)
+  else if (v9 == 1)
   {
-    if (v10 >= 2 && (xmmword_10004C1F0 & 3) == 3)
+    if (v5 >= 2 && (xmmword_10004C1F0 & 3) == 3)
     {
-      v16 = *v13;
-      if (v10 > v16)
+      v11 = *v8;
+      if (v5 > v11)
       {
         if ((xmmword_10004C1F0 & 0x10) != 0)
         {
           LODWORD(xmmword_10004C1F0) = xmmword_10004C1F0 & 0xFFFFFFEF;
           untimeout(sub_10002B218, &xmmword_10004C1F0);
-          v16 = *v13;
+          v11 = *v8;
         }
 
-        v102 = 0;
-        v101 = v10 + ~v16;
-        slprintf(v104, 257, "%.*v");
-        if (explicit_remote || remote_name && !v104[0])
+        v49 = 0;
+        slprintf(v51, 257, "%.*v", v5 + ~v11, &v8[v11 + 1]);
+        if (explicit_remote || remote_name && !v51[0])
         {
           __strlcpy_chk();
         }
 
-        if (!get_secret(0, *(&xmmword_10004C1F0 + 1), v104, v103, &v102, 0))
+        if (!get_secret(0, *(&xmmword_10004C1F0 + 1), v51, v50, &v49, 0))
         {
-          v102 = 0;
-          warning("No CHAP secret found for authenticating us to %q", v17, v18, v19, v20, v21, v22, v23, v104);
+          v49 = 0;
+          warning("No CHAP secret found for authenticating us to %q", v51);
         }
 
         byte_10004C3A0 = 0;
-        v105 = 599917567;
-        (*(xmmword_10004C200 + 24))(v110, v12, *(&xmmword_10004C1F0 + 1), a2 + 4, v103, v102, &xmmword_10004C200 + 8);
+        v52 = 599917567;
+        (*(xmmword_10004C200 + 24))(v57, v7, *(&xmmword_10004C1F0 + 1), a2 + 4, v50, v49, &xmmword_10004C200 + 8);
         __memset_chk();
-        v24 = v110[0];
-        v25 = strlen(*(&xmmword_10004C1F0 + 1));
-        memcpy(&v110[v110[0] + 1], *(&xmmword_10004C1F0 + 1), v25);
-        v26 = v24 + v25;
-        v106 = 2;
-        v107 = v12;
-        v108 = (v26 + 5) >> 8;
-        v109 = v26 + 5;
-        v27 = v26 + 9;
-        output(0, &v105, v26 + 9, v28, v29, v30, v31, v32, v101);
-        HIDWORD(xmmword_10004C240) = v27;
+        v12 = v57[0];
+        v13 = strlen(*(&xmmword_10004C1F0 + 1));
+        memcpy(&v57[v57[0] + 1], *(&xmmword_10004C1F0 + 1), v13);
+        v14 = v12 + v13;
+        v53 = 2;
+        v54 = v7;
+        v55 = (v14 + 5) >> 8;
+        v56 = v14 + 5;
+        v15 = v14 + 9;
+        output(0, &v52, v14 + 9);
+        HIDWORD(xmmword_10004C240) = v15;
         __memcpy_chk();
         LODWORD(xmmword_10004C1F0) = xmmword_10004C1F0 & 0xFFFFFFEB | 0x10;
-        v33 = sub_10002B218;
+        v16 = sub_10002B218;
         goto LABEL_26;
       }
     }
@@ -2675,75 +2003,74 @@ LABEL_26:
 
   else if (chap_unknown_hook)
   {
-    v41 = dword_10004BF80;
+    v24 = dword_10004BF80;
     if (dword_10004BF80)
     {
-      v42 = 0;
+      v25 = 0;
       byte_10004C0EC = 0;
       if ((dword_10004BF80 & 4) == 0)
       {
-        v100 = &byte_10004C0EC;
-        v43 = chap_unknown_hook(&byte_10004C3A1, qword_10004BF88, v14, v12, qword_10004BF90, &unk_10004BFA8, v13, v10);
-        if (v43 == -2)
+        v26 = chap_unknown_hook(&byte_10004C3A1, qword_10004BF88, v9, v7, qword_10004BF90, &unk_10004BFA8, v8, v5, &byte_10004C0EC, 256);
+        if (v26 == -2)
         {
           return;
         }
 
-        if (v43)
+        if (v26)
         {
-          v41 = dword_10004BF80;
-          v42 = v43 == -1;
+          v24 = dword_10004BF80;
+          v25 = v26 == -1;
         }
 
         else
         {
-          v42 = 0;
-          v41 = dword_10004BF80 | 8;
+          v25 = 0;
+          v24 = dword_10004BF80 | 8;
           dword_10004BF80 |= 8u;
         }
       }
 
       outpacket_buf = 599917567;
-      v52 = strlen(&byte_10004C0EC);
-      v58 = v52;
-      if (v42 | ((v41 & 8) >> 3))
+      v36 = strlen(&byte_10004C0EC);
+      v37 = v36;
+      if (v25 | ((v24 & 8) >> 3))
       {
-        v59 = 4;
+        v38 = 4;
       }
 
       else
       {
-        v59 = 3;
+        v38 = 3;
       }
 
-      LOBYTE(word_100048120) = v59;
-      HIBYTE(word_100048120) = v12;
-      LOBYTE(word_100048122) = (v52 + 4) >> 8;
-      HIBYTE(word_100048122) = v52 + 4;
-      if (v52 >= 1)
+      LOBYTE(word_100048120) = v38;
+      HIBYTE(word_100048120) = v7;
+      LOBYTE(word_100048122) = (v36 + 4) >> 8;
+      HIBYTE(word_100048122) = v36 + 4;
+      if (v36 >= 1)
       {
-        memcpy(&byte_100048124, &byte_10004C0EC, v52 & 0x7FFFFFFF);
+        memcpy(&byte_100048124, &byte_10004C0EC, v36 & 0x7FFFFFFF);
       }
 
-      output(0, &outpacket_buf, (v58 + 8), v53, v54, v55, v56, v57, v100);
-      if (!v42)
+      output(0, &outpacket_buf, (v37 + 8));
+      if (!v25)
       {
-        v67 = dword_10004BF80;
+        v39 = dword_10004BF80;
         if ((dword_10004BF80 & 4) == 0)
         {
           dword_10004BF80 |= 4u;
-          if ((v67 & 8) != 0)
+          if ((v39 & 8) != 0)
           {
-            notice("CHAP peer authentication failed for %q", v60, v61, v62, v63, v64, v65, v66, &byte_10004C3A1);
+            notice("CHAP peer authentication failed for %q", &byte_10004C3A1);
 
-            auth_peer_fail(0, 49699, v69, v70, v71, v72, v73, v74);
+            auth_peer_fail(0);
           }
 
           else
           {
-            notice("CHAP peer authentication succeeded for %q", v60, v61, v62, v63, v64, v65, v66, &byte_10004C3A1);
-            v68 = strlen(&byte_10004C3A1);
-            auth_peer_success(0, 49699, *qword_10004BF90, &byte_10004C3A1, v68);
+            notice("CHAP peer authentication succeeded for %q", &byte_10004C3A1);
+            v40 = strlen(&byte_10004C3A1);
+            auth_peer_success(0, 49699, *qword_10004BF90, &byte_10004C3A1, v40);
             if (chap_rechallenge_time)
             {
               dword_10004BF80 |= 0x10u;
@@ -2757,33 +2084,33 @@ LABEL_26:
   }
 }
 
-void sub_10002AE74(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_10002AE74()
 {
-  v8 = dword_10004BF80;
+  v0 = dword_10004BF80;
   if ((dword_10004BF80 & 0x10) != 0)
   {
     dword_10004BF80 &= ~0x10u;
     untimeout(sub_10002A264, &dword_10004BF80);
-    v8 = dword_10004BF80;
+    v0 = dword_10004BF80;
   }
 
-  if ((v8 & 2) != 0)
+  if ((v0 & 2) != 0)
   {
     dword_10004BF80 = 0;
-    auth_peer_fail(0, 49699, a3, a4, a5, a6, a7, a8);
+    auth_peer_fail(0);
   }
 
-  v9 = xmmword_10004C1F0;
+  v1 = xmmword_10004C1F0;
   if ((xmmword_10004C1F0 & 0x10) != 0)
   {
     LODWORD(xmmword_10004C1F0) = xmmword_10004C1F0 & 0xFFFFFFEF;
     untimeout(sub_10002B218, &xmmword_10004C1F0);
-    v9 = xmmword_10004C1F0;
+    v1 = xmmword_10004C1F0;
   }
 
-  if ((v9 & 6) == 2)
+  if ((v1 & 6) == 2)
   {
-    LODWORD(xmmword_10004C1F0) = v9 & 0xFFFFFFF9;
+    LODWORD(xmmword_10004C1F0) = v1 & 0xFFFFFFF9;
 
     auth_withpeer_fail(0, 49699);
   }
@@ -2793,12 +2120,12 @@ void sub_10002AF4C()
 {
   chapms_reinit();
   LODWORD(xmmword_10004C1F0) = xmmword_10004C1F0 | 1;
-  v7 = dword_10004BF80;
+  v0 = dword_10004BF80;
   dword_10004BF80 |= 1u;
-  if ((v7 & 2) != 0)
+  if ((v0 & 2) != 0)
   {
 
-    sub_10002A264(&dword_10004BF80, v0, v1, v2, v3, v4, v5, v6);
+    sub_10002A264(&dword_10004BF80);
   }
 }
 
@@ -2823,7 +2150,7 @@ void sub_10002AFA8()
   }
 }
 
-uint64_t sub_10002B03C(unsigned __int8 *a1, int a2, void (*a3)(uint64_t, const char *), uint64_t a4)
+uint64_t sub_10002B03C(unsigned __int8 *a1, unsigned int a2, void (*a3)(uint64_t, const char *, ...), uint64_t a4)
 {
   if (a2 < 4)
   {
@@ -2838,51 +2165,48 @@ uint64_t sub_10002B03C(unsigned __int8 *a1, int a2, void (*a3)(uint64_t, const c
     return 0;
   }
 
-  v28 = v7 - 4;
+  v25 = v7 - 4;
   v12 = *a1;
   v13 = a1[1];
-  v14 = v12 - 1;
   if ((v12 - 1) > 3)
   {
-    v27 = *a1;
-    v16 = " code=0x%x";
+    v14 = " code=0x%x";
   }
 
   else
   {
-    v15 = (&off_10003CDC0)[v14];
-    v16 = " %s";
+    v14 = " %s";
   }
 
-  a3(a4, v16);
-  v17 = a1 + 4;
-  (a3)(a4, " id=0x%x", v13);
-  if (v14 < 2)
+  a3(a4, v14);
+  v15 = a1 + 4;
+  a3(a4, " id=0x%x", v13);
+  if ((v12 - 1) < 2)
   {
     if (v7 != 4)
     {
-      v20 = *v17;
-      if (v28 > v20)
+      v18 = *v15;
+      if (v25 > v18)
       {
-        v21 = (a1 + 5);
-        v22 = ~v20;
+        v19 = a1 + 5;
+        v20 = ~v18;
         a3(a4, " <");
-        if (v20)
+        if (v18)
         {
-          v23 = v20 + 1;
+          v21 = v18 + 1;
           do
           {
-            v24 = *v21++;
-            (a3)(a4, "%.2x", v24);
-            --v23;
+            v22 = *v19++;
+            a3(a4, "%.2x", v22);
+            --v21;
           }
 
-          while (v23 > 1);
+          while (v21 > 1);
         }
 
         a3(a4, ">, name = ");
-        v19 = v28 + v22;
-        v18 = v21;
+        v17 = v25 + v20;
+        v16 = v19;
         goto LABEL_15;
       }
     }
@@ -2893,10 +2217,10 @@ uint64_t sub_10002B03C(unsigned __int8 *a1, int a2, void (*a3)(uint64_t, const c
     if ((v12 - 3) < 2)
     {
       a3(a4, " ");
-      v18 = (a1 + 4);
-      v19 = v7 - 4;
+      v16 = (a1 + 4);
+      v17 = v7 - 4;
 LABEL_15:
-      print_string(v18, v19, a3, a4);
+      print_string(v16, v17, a3, a4);
       return v7;
     }
 
@@ -2907,32 +2231,32 @@ LABEL_15:
 
     else
     {
-      v25 = (v5 << 8) + v6 - 3;
+      v23 = (v5 << 8) + v6 - 3;
       do
       {
-        v26 = *v17++;
-        (a3)(a4, " %.2x", v26);
-        --v25;
+        v24 = *v15++;
+        a3(a4, " %.2x", v24);
+        --v23;
       }
 
-      while (v25 > 1);
+      while (v23 > 1);
     }
   }
 
   return v7;
 }
 
-void sub_10002B218(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_10002B218(unsigned int *a1)
 {
-  v9 = *a1;
-  v10 = *a1 & 0xFFFFFFEF;
-  *a1 = v10;
-  if ((v9 & 0x40) == 0)
+  v2 = *a1;
+  v3 = *a1 & 0xFFFFFFEF;
+  *a1 = v3;
+  if ((v2 & 0x40) == 0)
   {
     a1[22] = 0;
-    *a1 = v10 | 0x40;
+    *a1 = v3 | 0x40;
 LABEL_4:
-    output(0, (a1 + 24), a1[23], a4, a5, a6, a7, a8, v11);
+    output(0, (a1 + 24), a1[23]);
     ++a1[22];
     *a1 |= 0x10u;
 
@@ -2945,20 +2269,20 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  *a1 = v9 & 0xFFFFFFA3 | 0xC;
+  *a1 = v2 & 0xFFFFFFA3 | 0xC;
 
-  auth_peer_fail(0, 49699, a3, a4, a5, a6, a7, a8);
+  auth_peer_fail(0);
 }
 
 uint64_t sub_10002B2F8(const char *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v23 = 0;
-  if (get_secret(0, a1, a2, v24, &v23, 1))
+  v16 = 0;
+  if (get_secret(0, a1, a2, v17, &v16, 1))
   {
-    return (*(a4 + 16))(a3, a1, v24, v23, a5, a6, a7, a8);
+    return (*(a4 + 16))(a3, a1, v17, v16, a5, a6, a7, a8);
   }
 
-  error("No CHAP secret found for authenticating %q", v15, v16, v17, v18, v19, v20, v21, a1);
+  error("No CHAP secret found for authenticating %q", a1);
   return 0;
 }
 
@@ -2979,7 +2303,7 @@ uint64_t sub_10002B3E0(uint64_t a1, int a2, int a3)
   qword_10004C5A8 = v8;
   if (!v8)
   {
-    error("CHAP: cannot allocate memory to save packet", v9, v10, v11, v12, v13, v14, v15, v30);
+    error("CHAP: cannot allocate memory to save packet");
     return 0xFFFFFFFFLL;
   }
 
@@ -2987,13 +2311,13 @@ uint64_t sub_10002B3E0(uint64_t a1, int a2, int a3)
   dword_10004C5B0 = a3;
   if (pipe(&qword_10004C5B8) < 0)
   {
-    error("chap failed to create pipe for User Interface...\n", v16, v17, v18, v19, v20, v21, v22, v30);
+    error("chap failed to create pipe for User Interface...\n");
     goto LABEL_11;
   }
 
   if (pthread_create(&qword_10004C5C0, 0, sub_10002B528, 0))
   {
-    error("chap failed to create thread for client User Interface...\n", v23, v24, v25, v26, v27, v28, v29, v30);
+    error("chap failed to create thread for client User Interface...\n");
     close(qword_10004C5B8);
     close(SHIDWORD(qword_10004C5B8));
 LABEL_11:
@@ -3049,34 +2373,34 @@ void sub_10002B5B4()
 {
   if (qword_10004C5B8 != -1 && is_ready_fd(qword_10004C5B8))
   {
-    v22 = 0;
+    v3 = 0;
     byte_10004C5A4 = 0;
-    v23 = 0;
-    read(qword_10004C5B8, &v23, 1uLL);
+    v4 = 0;
+    read(qword_10004C5B8, &v4, 1uLL);
     wait_input_hook = 0;
     remove_fd(qword_10004C5B8);
     close(qword_10004C5B8);
     close(SHIDWORD(qword_10004C5B8));
     qword_10004C5B8 = -1;
-    if (v23)
+    if (v4)
     {
-      v25[0] = 0;
+      v6[0] = 0;
       if (explicit_remote | remote_name)
       {
         __strlcpy_chk();
       }
 
-      if (!get_secret(0, *(&xmmword_10004C1F0 + 1), v25, v24, &v22, 0))
+      if (!get_secret(0, *(&xmmword_10004C1F0 + 1), v6, v5, &v3, 0))
       {
-        v22 = 0;
-        warning("No CHAP secret found for authenticating us to %q", v0, v1, v2, v3, v4, v5, v6, v25);
+        v3 = 0;
+        warning("No CHAP secret found for authenticating us to %q", v6);
       }
 
-      v26 = 599917567;
+      v7 = 599917567;
       if (dword_10004C5B0 == 1)
       {
-        v7 = strlen(new_passwd);
-        if ((*(xmmword_10004C200 + 48))(v27, *(&xmmword_10004C1F0 + 1), qword_10004C5A8, v24, v22, new_passwd, v7, &xmmword_10004C200 + 8))
+        v0 = strlen(new_passwd);
+        if ((*(xmmword_10004C200 + 48))(v8, *(&xmmword_10004C1F0 + 1), qword_10004C5A8, v5, v3, new_passwd, v0, &xmmword_10004C200 + 8))
         {
           __memset_chk();
           byte_10004C3A0 = 1;
@@ -3096,35 +2420,35 @@ void sub_10002B5B4()
 
       else
       {
-        v15 = (*(xmmword_10004C200 + 56))(v27, *(&xmmword_10004C1F0 + 1), qword_10004C5A8, v24, v22, &xmmword_10004C200 + 8);
+        v2 = (*(xmmword_10004C200 + 56))(v8, *(&xmmword_10004C1F0 + 1), qword_10004C5A8, v5, v3, &xmmword_10004C200 + 8);
         __memset_chk();
         byte_10004C3A0 = 1;
         byte_10004C5A2 = *(qword_10004C5A8 + 1);
         free(qword_10004C5A8);
         qword_10004C5A8 = 0;
-        if (v15)
+        if (v2)
         {
           return;
         }
       }
 
-      output(0, &v26, __rev16(v27[1]) + 4, v16, v17, v18, v19, v20, v21);
+      output(0, &v7, __rev16(v8[1]) + 4);
     }
 
     else
     {
       free(qword_10004C5A8);
       qword_10004C5A8 = 0;
-      v14 = xmmword_10004C1F0;
+      v1 = xmmword_10004C1F0;
       if ((xmmword_10004C1F0 & 0x10) != 0)
       {
         LODWORD(xmmword_10004C1F0) = xmmword_10004C1F0 & 0xFFFFFFEF;
         untimeout(sub_10002B218, &xmmword_10004C1F0);
-        v14 = xmmword_10004C1F0;
+        v1 = xmmword_10004C1F0;
       }
 
-      LODWORD(xmmword_10004C1F0) = v14 | 4;
-      auth_withpeer_cancelled(0, 49699, v8, v9, v10, v11, v12, v13);
+      LODWORD(xmmword_10004C1F0) = v1 | 4;
+      auth_withpeer_cancelled(0);
     }
   }
 }
@@ -3302,36 +2626,21 @@ _BYTE *sub_10002BD28(_BYTE *a1)
   return random_bytes(a1 + 1, v2 + 16);
 }
 
-uint64_t sub_10002BD6C(char a1, uint64_t a2, const void *a3, CC_LONG a4, unsigned __int8 *a5, uint64_t a6, int a7, int a8)
+uint64_t sub_10002BD6C(char a1, uint64_t a2, const void *a3, uint64_t a4, unsigned __int8 *a5, uint64_t a6, char *a7, int a8)
 {
   memset(&c, 0, sizeof(c));
   data = a1;
-  if (*a6 != 16)
+  if (*a6 == 16 && ((v11 = a4, v13 = a5 + 1, v14 = *a5, CC_MD5_Init(&c), v15 = 1, CC_MD5_Update(&c, &data, 1u), CC_MD5_Update(&c, a3, v11), CC_MD5_Update(&c, v13, v14), CC_MD5_Final(md, &c), *md == *(a6 + 1)) ? (v16 = v21 == *(a6 + 9)) : (v16 = 0), v16))
   {
-    goto LABEL_6;
-  }
-
-  v13 = a5 + 1;
-  v14 = *a5;
-  CC_MD5_Init(&c);
-  v15 = 1;
-  CC_MD5_Update(&c, &data, 1u);
-  CC_MD5_Update(&c, a3, a4);
-  CC_MD5_Update(&c, v13, v14);
-  CC_MD5_Final(md, &c);
-  if (*md == *(a6 + 1) && v22 == *(a6 + 9))
-  {
-    v17 = "Access granted";
+    slprintf(a7, a8, "Access granted", a4, a5);
   }
 
   else
   {
-LABEL_6:
     v15 = 0;
-    v17 = "Access denied";
+    slprintf(a7, a8, "Access denied", a4, a5);
   }
 
-  slprintf(a7, a8, v17);
   return v15;
 }
 

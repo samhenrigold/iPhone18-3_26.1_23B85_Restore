@@ -152,7 +152,7 @@
     v26 = [v24 samplerWithImage:imageByUnpremultiplyingAlpha];
 
     definition = [v26 definition];
-    [definition extent];
+    objc_msgSend_extent(definition);
     v29 = v28;
     v31 = v30;
     v33 = v32;

@@ -96,7 +96,7 @@
 {
   outputDevice = [(HMDMediaOutputDevice *)self outputDevice];
   modelID = [outputDevice modelID];
-  v4 = [modelID copy];
+  v4 = objc_msgSend_copy(modelID);
 
   return v4;
 }
@@ -117,24 +117,8 @@
   v6 = [(HMDMediaOutputDevice *)&v15 init];
   if (v6)
   {
-    if (!deviceCopy)
+    if (!deviceCopy || ([deviceCopy uid], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend_copy(v7), uniqueIdentifier = v6->_uniqueIdentifier, v6->_uniqueIdentifier = v8, uniqueIdentifier, v7, objc_msgSend(deviceCopy, "name"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend_copy(v10), name = v6->_name, v6->_name = v11, name, v10, !v6->_name) || !v6->_uniqueIdentifier)
     {
-      goto LABEL_7;
-    }
-
-    v7 = [deviceCopy uid];
-    v8 = [v7 copy];
-    uniqueIdentifier = v6->_uniqueIdentifier;
-    v6->_uniqueIdentifier = v8;
-
-    name = [deviceCopy name];
-    v11 = [name copy];
-    name = v6->_name;
-    v6->_name = v11;
-
-    if (!v6->_name || !v6->_uniqueIdentifier)
-    {
-LABEL_7:
       v13 = 0;
       goto LABEL_8;
     }

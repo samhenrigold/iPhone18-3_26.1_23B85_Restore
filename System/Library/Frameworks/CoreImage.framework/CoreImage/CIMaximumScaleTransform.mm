@@ -88,7 +88,7 @@ LABEL_12:
       v80.var3 = v11 * height;
     }
 
-    Rectangle::integralize(&v80, 0.0001, &v81);
+    Rectangle::integralize(&v81, &v80, 0.0001);
     *&v80.var0 = v81;
     *&v80.var2 = v82;
     if (v16 < 0.50001 && v11 < 0.50001)
@@ -173,7 +173,7 @@ LABEL_12:
           v83.var3 = 0.0;
         }
 
-        v30 = [CIKernel kernelWithInternalRepresentation:&CI::_maxScaleDown2x2, Rectangle::integralize(&v83, 0.0001, &v81).f64[0]];
+        v30 = [CIKernel kernelWithInternalRepresentation:&CI::_maxScaleDown2x2, *Rectangle::integralize(&v81, &v83, 0.0001).i64];
         if (vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_f64(v81, v71), vceqq_f64(v82, v68))))))
         {
           v74 = v82.f64[0];
@@ -290,7 +290,7 @@ LABEL_12:
           v83.var3 = 0.0;
         }
 
-        v46 = [CIKernel kernelWithInternalRepresentation:&CI::_maxScaleDown2, Rectangle::integralize(&v83, 0.0001, &v81).f64[0]];
+        v46 = [CIKernel kernelWithInternalRepresentation:&CI::_maxScaleDown2, *Rectangle::integralize(&v81, &v83, 0.0001).i64];
         if (vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_f64(v81, v72), vceqq_f64(v82, v69))))))
         {
           v75 = v82.f64[0];
@@ -407,7 +407,7 @@ LABEL_12:
           v83.var3 = 0.0;
         }
 
-        v62 = [CIKernel kernelWithInternalRepresentation:&CI::_maxScaleDown2, Rectangle::integralize(&v83, 0.0001, &v81).f64[0]];
+        v62 = [CIKernel kernelWithInternalRepresentation:&CI::_maxScaleDown2, *Rectangle::integralize(&v81, &v83, 0.0001).i64];
         if (vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_f64(v81, v73), vceqq_f64(v82, v70))))))
         {
           v76 = v82.f64[0];

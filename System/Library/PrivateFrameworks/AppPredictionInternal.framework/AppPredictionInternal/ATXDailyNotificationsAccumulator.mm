@@ -43,7 +43,7 @@
   v16 = *(v25[0] + 40);
   if (v16)
   {
-    v17 = __atxlog_handle_usage_insights();
+    v17 = __atxlog_handle_usage_insights(v15);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [(ATXDailyNotificationsAccumulator *)v25 successfullyAccumulatedNotificationEvents];
@@ -53,7 +53,7 @@
   else
   {
     objc_storeStrong(&self->_allDeliveredNotifications, v3);
-    v17 = __atxlog_handle_usage_insights();
+    v17 = __atxlog_handle_usage_insights(v18);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
@@ -63,7 +63,6 @@
   }
 
   _Block_object_dispose(&v24, 8);
-  v18 = *MEMORY[0x277D85DE8];
   return v16 == 0;
 }
 
@@ -135,14 +134,13 @@ LABEL_7:
 
 - (void)successfullyAccumulatedNotificationEvents
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(*self + 40);
-  v4 = 136315394;
-  v5 = "[ATXDailyNotificationsAccumulator successfullyAccumulatedNotificationEvents]";
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: Error with reading notifications stream: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "[ATXDailyNotificationsAccumulator successfullyAccumulatedNotificationEvents]";
+  v5 = 2112;
+  v6 = v2;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: Error with reading notifications stream: %@", &v3, 0x16u);
 }
 
 @end

@@ -661,7 +661,7 @@ void sub_241C7E85C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_241C7E8F4(uint64_t a1, const char *a2, uint64_t a3)
+void *sub_241C7E8F4(uint64_t a1, const char *a2, uint64_t a3)
 {
   v20 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_allObjects(*(*(a1 + 32) + 32), a2, a3);
@@ -736,9 +736,9 @@ void sub_241C7E9F8(void *a1)
   *(*(a1[6] + 8) + 24) = v11 != 0;
 }
 
-void sub_241C7F584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241C7F584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -853,16 +853,16 @@ void sub_241C7FAEC(__IOSurface *a1)
   CFRelease(a1);
 }
 
-id BookCoverUtilityLog()
+id BookCoverUtilityLog(uint64_t a1)
 {
   if (qword_27EC698D0 != -1)
   {
     sub_241C85B54();
   }
 
-  v1 = qword_27EC698C8;
+  v2 = qword_27EC698C8;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241C7FB68()
@@ -936,23 +936,23 @@ void sub_241C81024(uint64_t a1, void *a2, void *a3)
   CGImageRelease(*(a1 + 64));
 }
 
-CGColorRef sub_241C816F0()
+CGColorRef sub_241C816F0(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v1 = xmmword_241C86D70;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = xmmword_241C86D70;
   if (qword_2810D51C0 != -1)
   {
     sub_241C85BC4();
   }
 
-  qword_27EC698D8 = CGColorCreate(qword_2810D51B8, &v1);
-  v1 = xmmword_241C86D80;
+  qword_27EC698D8 = CGColorCreate(qword_2810D51B8, &v3);
+  v3 = xmmword_241C86D80;
   if (qword_2810D51C0 != -1)
   {
     sub_241C85BD8();
   }
 
-  result = CGColorCreate(qword_2810D51B8, &v1);
+  result = CGColorCreate(qword_2810D51B8, &v3);
   qword_27EC698E0 = result;
   return result;
 }
@@ -979,10 +979,11 @@ void sub_241C81A04(uint64_t a1, void *a2, void *a3)
   CGImageRelease(*(a1 + 64));
 }
 
-void sub_241C81DCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_241C81DCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 176), 8);
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -994,23 +995,23 @@ void sub_241C81E1C(void *a1)
   CGPathRelease(v2);
 }
 
-CGColorRef sub_241C82600()
+CGColorRef sub_241C82600(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v1 = xmmword_241C86D90;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = xmmword_241C86D90;
   if (qword_2810D51C0 != -1)
   {
     sub_241C85BC4();
   }
 
-  result = CGColorCreate(qword_2810D51B8, &v1);
+  result = CGColorCreate(qword_2810D51B8, &v3);
   qword_27EC698F0 = result;
   return result;
 }
 
 double sub_241C82684(void *a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v1 = a1;
   objc_msgSend_bounds(v1, v2, v3);
   x = v4;
@@ -1019,44 +1020,44 @@ double sub_241C82684(void *a1)
   height = v10;
   if ((objc_msgSend_masksToBounds(v1, v12, v13) & 1) == 0)
   {
-    v32 = 0u;
     v33 = 0u;
-    v30 = 0u;
+    v34 = 0u;
     v31 = 0u;
+    v32 = 0u;
     v16 = objc_msgSend_sublayers(v1, v14, v15, 0);
-    v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v30, v34, 16);
+    v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v31, v35, 16);
     if (v18)
     {
       v19 = v18;
-      v20 = *v31;
+      v20 = *v32;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v31 != v20)
+          if (*v32 != v20)
           {
             objc_enumerationMutation(v16);
           }
 
-          v22 = *(*(&v30 + 1) + 8 * i);
-          sub_241C82684(v22);
-          objc_msgSend_convertRect_toLayer_(v22, v23, v1);
-          v38.origin.x = v24;
-          v38.origin.y = v25;
-          v38.size.width = v26;
-          v38.size.height = v27;
-          v36.origin.x = x;
-          v36.origin.y = y;
-          v36.size.width = width;
-          v36.size.height = height;
-          v37 = CGRectUnion(v36, v38);
-          x = v37.origin.x;
-          y = v37.origin.y;
-          width = v37.size.width;
-          height = v37.size.height;
+          v22 = *(*(&v31 + 1) + 8 * i);
+          v23 = sub_241C82684(v22);
+          objc_msgSend_convertRect_toLayer_(v22, v24, v1, v23);
+          v39.origin.x = v25;
+          v39.origin.y = v26;
+          v39.size.width = v27;
+          v39.size.height = v28;
+          v37.origin.x = x;
+          v37.origin.y = y;
+          v37.size.width = width;
+          v37.size.height = height;
+          v38 = CGRectUnion(v37, v39);
+          x = v38.origin.x;
+          y = v38.origin.y;
+          width = v38.size.width;
+          height = v38.size.height;
         }
 
-        v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v28, &v30, v34, 16);
+        v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v29, &v31, v35, 16);
       }
 
       while (v19);

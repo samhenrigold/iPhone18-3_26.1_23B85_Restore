@@ -18,6 +18,7 @@
 - (BOOL)start;
 - (ICRemoteCameraDeviceNotificationProtocol)delegate;
 - (PTPDeviceInfoDataset)deviceInfo;
+- (PTPInitiator)initWithHostLocationID:(unsigned int)d;
 - (double)timeOffset;
 - (id)cameraItemWithObjectID:(unint64_t)d;
 - (id)deviceDateTime;
@@ -30,11 +31,15 @@
 - (id)mtpObjectRepData:(unsigned int)data;
 - (id)mtpObjectRepMetadata:(unsigned int)metadata;
 - (id)objectHandlesInStorage:(unsigned int)storage objectFormatCode:(unsigned int)code association:(unsigned int)association;
+- (id)objectInfo:(unsigned int)info;
+- (id)objectInfoDatasetForNextObjectGroupInStorage:(unsigned int)storage;
+- (id)objectInfoDatasetForObjectsInStorage:(unsigned int)storage objectFormatCode:(unsigned int)code association:(unsigned int)association contentType:(int)type;
 - (id)partialDataFromFile:(id)file fromOffset:(unint64_t)offset maxSize:(unint64_t)size actualSize:(unint64_t *)actualSize useBuffer:(char *)buffer;
 - (id)refreshAssignedDeviceName;
 - (id)storageForStorageID:(unsigned int)d;
 - (id)storageIDs;
 - (id)storageInfo:(unsigned int)info;
+- (id)thumbDataFromFile:(id)file maxPixelSize:(unsigned int)size actualSize:(unsigned int *)actualSize useBuffer:(char *)buffer;
 - (id)thumbDataFromFile:(id)file maxSize:(unsigned int)size actualSize:(unsigned int *)actualSize useBuffer:(char *)buffer;
 - (unint64_t)mtpObjectCompressedSize64:(unsigned int)size64;
 - (unint64_t)objectCompressedSize64:(unsigned int)size64;
@@ -50,6 +55,7 @@
 - (void)dealloc;
 - (void)enumerateMTPPropertiesForObjectFormat:(id)format;
 - (void)handleEvent:(id)event;
+- (void)issueCancelRequest:(unsigned int)request;
 - (void)notifyDeviceReady:(unint64_t)ready;
 - (void)processUnhandledEvents;
 - (void)removeDevice;
@@ -63,9 +69,62 @@
 - (void)stop;
 - (void)updateCatalogingDone;
 - (void)updateMobdevProps;
+- (void)updatePropertiesOfMobileDeviceWithLocationID:(unsigned int)d;
 @end
 
 @implementation PTPInitiator
+
+- (PTPInitiator)initWithHostLocationID:(unsigned int)d
+{
+  v3 = *&d;
+  v22.receiver = self;
+  v22.super_class = PTPInitiator;
+  v4 = [(PTPInitiator *)&v22 init];
+  if (v4)
+  {
+    v5 = [[PTPHostUSBTransport alloc] initWithLocationID:v3 delegate:v4];
+    transport = v4->_transport;
+    v4->_transport = v5;
+
+    v4->_transactionID = 0;
+    v7 = objc_alloc_init(NSMutableArray);
+    storages = v4->_storages;
+    v4->_storages = v7;
+
+    v9 = objc_alloc_init(NSMutableArray);
+    eventQueue = v4->_eventQueue;
+    v4->_eventQueue = v9;
+
+    *&v4->_icplState = xmmword_100022FE0;
+    v4->_enumerationOrder = -1;
+    v11 = objc_alloc_init(NSMutableDictionary);
+    mobdevProperties = v4->_mobdevProperties;
+    v4->_mobdevProperties = v11;
+
+    v13 = [NSString stringWithFormat:@"PTP-Enumeration-Timer-Queue:0x%08X", v3];
+    v14 = dispatch_queue_create([v13 UTF8String], 0);
+    timerQueue = v4->_timerQueue;
+    v4->_timerQueue = v14;
+
+    v16 = [NSString stringWithFormat:@"PTP-MobdevProperties-Queue:0x%08X", v3];
+    v17 = dispatch_queue_create([v16 UTF8String], 0);
+    mobdevPropertiesQueue = v4->_mobdevPropertiesQueue;
+    v4->_mobdevPropertiesQueue = v17;
+
+    v4->_mobdevPropertiesLock._os_unfair_lock_opaque = 0;
+    v19 = objc_alloc_init(NSMutableDictionary);
+    mtpProperties = v4->_mtpProperties;
+    v4->_mtpProperties = v19;
+
+    if (!v4->_transport)
+    {
+
+      return 0;
+    }
+  }
+
+  return v4;
+}
 
 - (void)dealloc
 {
@@ -87,44 +146,46 @@
     v9 = v7;
     *buf = 136446466;
     uTF8String = [(__CFString *)v3 UTF8String];
-    v26 = 2114;
-    v27 = v6;
+    v25 = 2114;
+    v26 = v6;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
-  transport = self->_transport;
-  [objc_opt_class() cancelPreviousPerformRequestsWithTarget:transport];
+  [objc_opt_class() cancelPreviousPerformRequestsWithTarget:self->_transport];
   [(PTPHostUSBTransport *)self->_transport setDelegate:0];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
-  v11 = self->_storages;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v12)
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v10 = self->_storages;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v20;
+    v12 = v11;
+    v13 = *v19;
     do
     {
-      for (i = 0; i != v13; i = i + 1)
+      v14 = 0;
+      do
       {
-        if (*v20 != v14)
+        if (*v19 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        [objc_opt_class() cancelPreviousPerformRequestsWithTarget:*(*(&v19 + 1) + 8 * i)];
+        [objc_opt_class() cancelPreviousPerformRequestsWithTarget:*(*(&v18 + 1) + 8 * v14)];
+        v14 = v14 + 1;
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
   [(PTPHostUSBTransport *)self->_transport abortPendingIO];
-  v16 = self->_transport;
+  transport = self->_transport;
   self->_transport = 0;
 
   if (self->_mobdevPropertiesBrowser)
@@ -134,9 +195,9 @@
     self->_mobdevPropertiesBrowser = 0;
   }
 
-  v18.receiver = self;
-  v18.super_class = PTPInitiator;
-  [(PTPInitiator *)&v18 dealloc];
+  v17.receiver = self;
+  v17.super_class = PTPInitiator;
+  [(PTPInitiator *)&v17 dealloc];
 }
 
 - (BOOL)start
@@ -144,7 +205,6 @@
   startInitiator = [(PTPHostUSBTransport *)self->_transport startInitiator];
   if (startInitiator)
   {
-    transport = self->_transport;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -157,10 +217,10 @@
     deviceSerialNumberString = [(PTPInitiator *)self deviceSerialNumberString];
     if ([deviceSerialNumberString length] == 24 && -[PTPInitiator deviceVendorID](self, "deviceVendorID") == 1452)
     {
-      v7 = [deviceSerialNumberString substringWithRange:{0, 8}];
-      v8 = [deviceSerialNumberString substringFromIndex:9];
-      v9 = [NSString stringWithFormat:@"%@-%@", v7, v8];
-      [(PTPInitiator *)self setDeviceSerialNumberString:v9];
+      v6 = [deviceSerialNumberString substringWithRange:{0, 8}];
+      v7 = [deviceSerialNumberString substringFromIndex:9];
+      v8 = [NSString stringWithFormat:@"%@-%@", v6, v7];
+      [(PTPInitiator *)self setDeviceSerialNumberString:v8];
     }
   }
 
@@ -325,6 +385,16 @@ LABEL_13:
     {
       [(PTPInitiator *)self performSelector:"handleEvent:" withObject:transport afterDelay:0.0];
     }
+  }
+}
+
+- (void)issueCancelRequest:(unsigned int)request
+{
+  v3 = *&request;
+  if (objc_opt_respondsToSelector())
+  {
+    v5 = [NSNumber numberWithUnsignedInt:v3];
+    [(PTPHostUSBTransport *)self->_transport performSelector:"cancelRequest:" withObject:v5];
   }
 }
 
@@ -610,6 +680,81 @@ LABEL_38:
   {
     transport = [(PTPInitiator *)self transport];
     -[PTPInitiator updatePropertiesOfMobileDeviceWithLocationID:](self, "updatePropertiesOfMobileDeviceWithLocationID:", [transport locationID]);
+  }
+}
+
+- (void)updatePropertiesOfMobileDeviceWithLocationID:(unsigned int)d
+{
+  v3 = *&d;
+  __ICOSLogCreate();
+  v5 = @"RemoteServices";
+  if ([@"RemoteServices" length] >= 0x15)
+  {
+    v6 = [@"RemoteServices" substringWithRange:{0, 18}];
+    v5 = [v6 stringByAppendingString:@".."];
+  }
+
+  v7 = [NSString stringWithFormat:@"%@: 0x%08X", @"Monitoring", v3];
+  v8 = _gICOSLog;
+  if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v5;
+    v10 = v8;
+    *buf = 136446466;
+    uTF8String = [(__CFString *)v5 UTF8String];
+    v27 = 2114;
+    v28 = v7;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+  }
+
+  mobdevPropertiesBrowser = [(PTPInitiator *)self mobdevPropertiesBrowser];
+
+  if (mobdevPropertiesBrowser)
+  {
+    __ICOSLogCreate();
+    v12 = @"RemoteServices";
+    if ([@"RemoteServices" length] >= 0x15)
+    {
+      v13 = [@"RemoteServices" substringWithRange:{0, 18}];
+      v12 = [v13 stringByAppendingString:@".."];
+    }
+
+    v14 = [NSString stringWithFormat:@"Already Browsing: 0x%08X", v3];
+    v15 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = v12;
+      v17 = v15;
+      uTF8String2 = [(__CFString *)v12 UTF8String];
+      *buf = 136446466;
+      uTF8String = uTF8String2;
+      v27 = 2114;
+      v28 = v14;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    }
+  }
+
+  else
+  {
+    v12 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_string(v12, "DeviceType", "ncm-device");
+    v19 = dispatch_semaphore_create(0);
+    mobdevPropertiesQueue = [(PTPInitiator *)self mobdevPropertiesQueue];
+    v14 = v19;
+    started = remote_device_start_browsing_matching();
+    [(PTPInitiator *)self setMobdevPropertiesBrowser:started];
+
+    v22 = dispatch_time(0, 2000000000);
+    dispatch_semaphore_wait(v14, v22);
+    mobdevPropertiesBrowser2 = [(PTPInitiator *)self mobdevPropertiesBrowser];
+
+    if (mobdevPropertiesBrowser2)
+    {
+      mobdevPropertiesBrowser3 = [(PTPInitiator *)self mobdevPropertiesBrowser];
+      remote_device_browser_cancel();
+
+      [(PTPInitiator *)self setMobdevPropertiesBrowser:0];
+    }
   }
 }
 
@@ -1124,6 +1269,58 @@ LABEL_11:
   return v12;
 }
 
+- (id)objectInfo:(unsigned int)info
+{
+  v3 = *&info;
+  v5 = [PTPOperationRequestPacket alloc];
+  ++self->_transactionID;
+  v6 = [v5 initWithOperationCode:4104 transactionID:? dataPhaseInfo:? parameter1:?];
+  v7 = [[PTPTransaction alloc] initWithOperationRequestPacket:v6 txData:0 rxData:0 dataExpected:1];
+  v8 = [(PTPInitiator *)self executeTransaction:v7 timeout:_gPTPDefaultTimeOutInSeconds];
+  rxDataBuffer = [(PTPTransaction *)v7 rxDataBuffer];
+  if (!v8 || [v8 responseCode] != 8193 || !objc_msgSend(rxDataBuffer, "length"))
+  {
+    v10 = 0;
+    goto LABEL_9;
+  }
+
+  v10 = [[PTPObjectInfoDataset alloc] initWithBytes:objc_msgSend(rxDataBuffer length:{"headerOffsetBytes"), objc_msgSend(rxDataBuffer, "length")}];
+  [v10 setObjectHandle:v3];
+  initiator = [(PTPInitiator *)self initiator];
+  deviceInfo = [initiator deviceInfo];
+
+  if ([deviceInfo standardVersion] >= 0x6E && (-[PTPInitiator initiator](self, "initiator"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "deviceVendorID"), v13, v14 == 1452) && v10)
+  {
+    [v10 setObjectCompressedSize:{-[PTPInitiator objectCompressedSize64:](self, "objectCompressedSize64:", objc_msgSend(v10, "objectHandle"))}];
+  }
+
+  else
+  {
+
+    if (!v10)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  v16 = +[NSNumber numberWithUnsignedShort:](NSNumber, "numberWithUnsignedShort:", [v10 objectFormat]);
+  [(PTPInitiator *)self enumerateMTPPropertiesForObjectFormat:v16];
+
+  mtpProperties = [(PTPInitiator *)self mtpProperties];
+  v18 = +[NSNumber numberWithUnsignedShort:](NSNumber, "numberWithUnsignedShort:", [v10 objectFormat]);
+  v19 = [mtpProperties objectForKeyedSubscript:v18];
+  v20 = [v19 containsObject:&off_10002F498];
+
+  if (v20)
+  {
+    [v10 setObjectCompressedSize:{-[PTPInitiator mtpObjectCompressedSize64:](self, "mtpObjectCompressedSize64:", objc_msgSend(v10, "objectHandle"))}];
+  }
+
+LABEL_9:
+
+  return v10;
+}
+
 - (void)enumerateMTPPropertiesForObjectFormat:(id)format
 {
   formatCopy = format;
@@ -1309,6 +1506,85 @@ LABEL_9:
   return UInt32;
 }
 
+- (id)objectInfoDatasetForObjectsInStorage:(unsigned int)storage objectFormatCode:(unsigned int)code association:(unsigned int)association contentType:(int)type
+{
+  v6 = *&type;
+  v8 = objc_alloc_init(NSMutableArray);
+  if (v6 == 2)
+  {
+    v9 = -28667;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  if (v6 == 1)
+  {
+    v10 = -28670;
+  }
+
+  else
+  {
+    v10 = v9;
+  }
+
+  v11 = [PTPOperationRequestPacket alloc];
+  ++self->_transactionID;
+  v25 = [v11 initWithOperationCode:v10 transactionID:? dataPhaseInfo:? parameter1:? parameter2:? parameter3:?];
+  v12 = [[PTPTransaction alloc] initWithOperationRequestPacket:v25 txData:0 rxData:0 dataExpected:1];
+  v13 = [(PTPInitiator *)self executeTransaction:v12 timeout:_gPTPDefaultTimeOutInSeconds];
+  rxDataBuffer = [(PTPTransaction *)v12 rxDataBuffer];
+  if (v13)
+  {
+    if ([v13 responseCode] == 8193)
+    {
+      v15 = [rxDataBuffer length];
+      if (v15)
+      {
+        v16 = v15;
+        headerOffsetBytes = [rxDataBuffer headerOffsetBytes];
+        if (v16 >= 9)
+        {
+          v18 = headerOffsetBytes;
+          do
+          {
+            v19 = v18[1];
+            v20 = v16 - 8 >= v19;
+            v16 = v16 - 8 - v19;
+            if (!v20)
+            {
+              break;
+            }
+
+            v21 = *v18;
+            v22 = [[PTPObjectInfoDataset alloc] initWithBytes:v18 length:(v19 + 8) contentType:v6];
+            v23 = v22;
+            if (v22)
+            {
+              [v22 setObjectHandle:v21];
+              [v8 addObject:v23];
+            }
+
+            v18 = (v18 + v19 + 8);
+          }
+
+          while (v16 > 8);
+        }
+      }
+    }
+  }
+
+  if (![v8 count])
+  {
+
+    v8 = 0;
+  }
+
+  return v8;
+}
+
 - (id)fileSystemManifestForStorage:(unsigned int)storage objectFormatCode:(unsigned int)code association:(unsigned int)association
 {
   v6 = objc_alloc_init(NSMutableArray);
@@ -1435,6 +1711,115 @@ LABEL_9:
   }
 
   return v6;
+}
+
+- (id)objectInfoDatasetForNextObjectGroupInStorage:(unsigned int)storage
+{
+  v3 = *&storage;
+  v5 = objc_alloc_init(NSMutableArray);
+  v6 = [PTPOperationRequestPacket alloc];
+  ++self->_transactionID;
+  v7 = [v6 initWithOperationCode:36879 transactionID:? dataPhaseInfo:? parameter1:?];
+  v8 = [[PTPTransaction alloc] initWithOperationRequestPacket:v7 txData:0 rxData:0 dataExpected:1];
+  v9 = [(PTPInitiator *)self executeTransaction:v8 timeout:_gPTPDefaultTimeOutInSeconds];
+  rxDataBuffer = [(PTPTransaction *)v8 rxDataBuffer];
+  if (v9)
+  {
+    if ([v9 responseCode] == 8193)
+    {
+      v10 = [rxDataBuffer length];
+      if (v10)
+      {
+        v11 = v10;
+        headerOffsetBytes = [rxDataBuffer headerOffsetBytes];
+        v14 = (headerOffsetBytes + 1);
+        v13 = *headerOffsetBytes;
+        __ICOSLogCreate();
+        v15 = @"AssetGroup";
+        if ([@"AssetGroup" length] >= 0x15)
+        {
+          v16 = [@"AssetGroup" substringWithRange:{0, 18}];
+          v15 = [v16 stringByAppendingString:@".."];
+        }
+
+        v17 = v11 - 8;
+        v18 = [NSString stringWithFormat:@"Received: %llu on 0x%08X", v13, v3];
+        v19 = _gICOSLog;
+        if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+        {
+          v20 = v15;
+          v21 = v19;
+          *buf = 136446466;
+          uTF8String = [(__CFString *)v15 UTF8String];
+          v39 = 2114;
+          v40 = v18;
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+        }
+
+        if (v17 >= 9)
+        {
+          while (1)
+          {
+            v22 = v14[1];
+            v23 = v17 - 8;
+            v24 = v17 - 8 >= v22;
+            v17 = v17 - 8 - v22;
+            if (!v24)
+            {
+              break;
+            }
+
+            v25 = *v14;
+            v26 = [[PTPObjectInfoDataset alloc] initWithBytes:v14 length:(v22 + 8) contentType:2];
+            v27 = v26;
+            if (v26)
+            {
+              [v26 setObjectHandle:v25];
+              [v5 addObject:v27];
+            }
+
+            v14 = (v14 + v22 + 8);
+
+            if (v17 <= 8)
+            {
+              goto LABEL_20;
+            }
+          }
+
+          __ICOSLogCreate();
+          v28 = @"objInfoFail";
+          if ([@"objInfoFail" length] >= 0x15)
+          {
+            v29 = [@"objInfoFail" substringWithRange:{0, 18}];
+            v28 = [v29 stringByAppendingString:@".."];
+          }
+
+          v30 = [NSString stringWithFormat:@"%lu:%u", v23, v22];
+          v31 = _gICOSLog;
+          if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+          {
+            v32 = v28;
+            v33 = v31;
+            uTF8String2 = [(__CFString *)v28 UTF8String];
+            *buf = 136446466;
+            uTF8String = uTF8String2;
+            v39 = 2114;
+            v40 = v30;
+            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+          }
+        }
+      }
+    }
+  }
+
+LABEL_20:
+  if (![v5 count])
+  {
+
+    v5 = 0;
+  }
+
+  return v5;
 }
 
 - (id)partialDataFromFile:(id)file fromOffset:(unint64_t)offset maxSize:(unint64_t)size actualSize:(unint64_t *)actualSize useBuffer:(char *)buffer
@@ -1631,6 +2016,86 @@ LABEL_8:
   }
 
   return v16;
+}
+
+- (id)thumbDataFromFile:(id)file maxPixelSize:(unsigned int)size actualSize:(unsigned int *)actualSize useBuffer:(char *)buffer
+{
+  v8 = *&size;
+  fileCopy = file;
+  deviceInfo = [(PTPInitiator *)self deviceInfo];
+  operationsSupported = [deviceInfo operationsSupported];
+  v13 = [NSNumber numberWithUnsignedShort:36876];
+  if (![operationsSupported containsObject:v13])
+  {
+
+LABEL_8:
+    if ([fileCopy hasThumbnail])
+    {
+      if (v8 > 0xA0)
+      {
+        [fileCopy altThumbnaillForMaxPixelSize:v8];
+      }
+
+      else
+      {
+        [(PTPInitiator *)self thumbDataFromFile:fileCopy maxSize:5242880 actualSize:actualSize useBuffer:buffer];
+      }
+      v22 = ;
+      v17 = 0;
+      v19 = 0;
+      rxDataBuffer = 0;
+    }
+
+    else
+    {
+      v17 = 0;
+      v19 = 0;
+      rxDataBuffer = 0;
+      v22 = 0;
+    }
+
+    goto LABEL_16;
+  }
+
+  deviceVendorID = self->_deviceVendorID;
+
+  if (deviceVendorID != 1452)
+  {
+    goto LABEL_8;
+  }
+
+  v15 = [PTPOperationRequestPacket alloc];
+  transactionID = self->_transactionID;
+  self->_transactionID = transactionID + 1;
+  v17 = [v15 initWithOperationCode:36876 transactionID:transactionID dataPhaseInfo:1 parameter1:objc_msgSend(fileCopy parameter2:{"objHandle"), v8}];
+  v18 = [[PTPTransaction alloc] initWithOperationRequestPacket:v17 txData:0 rxData:0 dataExpected:1];
+  v19 = [(PTPInitiator *)self executeTransaction:v18 timeout:_gPTPDefaultTimeOutInSeconds];
+  rxDataBuffer = [(PTPTransaction *)v18 rxDataBuffer];
+  if (v19 && [v19 responseCode] == 8193)
+  {
+    v21 = [rxDataBuffer length];
+    *actualSize = v21;
+    if (v21)
+    {
+      v22 = +[NSData dataWithBytes:length:](NSData, "dataWithBytes:length:", [rxDataBuffer headerOffsetBytes], objc_msgSend(rxDataBuffer, "length"));
+    }
+
+    else
+    {
+      v22 = 0;
+    }
+  }
+
+  else
+  {
+    v22 = 0;
+    *actualSize = 0;
+  }
+
+LABEL_16:
+  v23 = v22;
+
+  return v22;
 }
 
 - (id)metadataFromFile:(id)file

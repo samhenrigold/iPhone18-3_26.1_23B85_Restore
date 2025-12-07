@@ -40,7 +40,7 @@
   attributesCopy = attributes;
   completionCopy = completion;
   modelCopy = model;
-  v11 = _AAUILogSystem();
+  v11 = _AAUILogSystem(modelCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
@@ -53,11 +53,11 @@
 
 - (void)_validatePaymentVerificationWithTokenFetchTask:(id)task objectModel:(id)model completion:(id)completion
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   modelCopy = model;
   completionCopy = completion;
-  v11 = _AAUILogSystem();
+  v11 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -69,66 +69,66 @@
   block[2] = __101__AAUIPaymentVerificationHook__validatePaymentVerificationWithTokenFetchTask_objectModel_completion___block_invoke;
   block[3] = &unk_1E820BEB8;
   v12 = modelCopy;
-  v38 = v12;
+  v39 = v12;
   v13 = taskCopy;
-  v39 = v13;
+  v40 = v13;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  v14 = _AAUILogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = _AAUILogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v41 = v13;
-    _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "Payment Verification invoked : %@", buf, 0xCu);
+    v42 = v13;
+    _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "Payment Verification invoked : %@", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v16 = [WeakRetained presentationContextForHook:self];
+  v17 = [WeakRetained presentationContextForHook:self];
 
-  v17 = MEMORY[0x1E698C7D8];
+  v18 = MEMORY[0x1E698C7D8];
   bagSubProfile = [getAMSUIPaymentVerificationTokenFetchTaskClass() bagSubProfile];
   bagSubProfileVersion = [getAMSUIPaymentVerificationTokenFetchTaskClass() bagSubProfileVersion];
-  v20 = [v17 bagForProfile:bagSubProfile profileVersion:bagSubProfileVersion];
+  v21 = [v18 bagForProfile:bagSubProfile profileVersion:bagSubProfileVersion];
 
-  v21 = objc_alloc(getAMSUIPaymentVerificationTokenFetchTaskClass());
-  v22 = [v13 objectForKeyedSubscript:@"verificationMode"];
-  integerValue = [v22 integerValue];
-  v24 = [v13 objectForKeyedSubscript:@"accountName"];
-  v25 = [v21 initWithMode:integerValue accountParameters:v13 viewController:v16 bag:v20 displayName:v24];
+  v22 = objc_alloc(getAMSUIPaymentVerificationTokenFetchTaskClass());
+  v23 = [v13 objectForKeyedSubscript:@"verificationMode"];
+  integerValue = [v23 integerValue];
+  v25 = [v13 objectForKeyedSubscript:@"accountName"];
+  v26 = [v22 initWithMode:integerValue accountParameters:v13 viewController:v17 bag:v21 displayName:v25];
 
-  performTask = [v25 performTask];
+  performTask = [v26 performTask];
   if (performTask)
   {
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __101__AAUIPaymentVerificationHook__validatePaymentVerificationWithTokenFetchTask_objectModel_completion___block_invoke_2;
-    v31[3] = &unk_1E820D220;
-    v27 = v32;
-    v32[0] = v12;
-    v32[1] = self;
-    v33 = completionCopy;
-    [performTask addFinishBlock:v31];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __101__AAUIPaymentVerificationHook__validatePaymentVerificationWithTokenFetchTask_objectModel_completion___block_invoke_2;
+    v32[3] = &unk_1E820D220;
     v28 = v33;
+    v33[0] = v12;
+    v33[1] = self;
+    v34 = completionCopy;
+    [performTask addFinishBlock:v32];
+    v29 = v34;
   }
 
   else
   {
-    v29 = _AAUILogSystem();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v30 = _AAUILogSystem(0);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      [AAUIPaymentVerificationHook _validatePaymentVerificationWithTokenFetchTask:v29 objectModel:? completion:?];
+      [AAUIPaymentVerificationHook _validatePaymentVerificationWithTokenFetchTask:v30 objectModel:? completion:?];
     }
 
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __101__AAUIPaymentVerificationHook__validatePaymentVerificationWithTokenFetchTask_objectModel_completion___block_invoke_41;
-    v34[3] = &unk_1E820B780;
-    v27 = &v35;
-    v35 = v12;
-    v36 = completionCopy;
-    v30 = MEMORY[0x1E69E96A0];
-    dispatch_async(MEMORY[0x1E69E96A0], v34);
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __101__AAUIPaymentVerificationHook__validatePaymentVerificationWithTokenFetchTask_objectModel_completion___block_invoke_41;
+    v35[3] = &unk_1E820B780;
+    v28 = &v36;
+    v36 = v12;
+    v37 = completionCopy;
+    v31 = MEMORY[0x1E69E96A0];
+    dispatch_async(MEMORY[0x1E69E96A0], v35);
 
-    v28 = v36;
+    v29 = v37;
   }
 }
 
@@ -148,7 +148,7 @@ void __101__AAUIPaymentVerificationHook__validatePaymentVerificationWithTokenFet
   v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = _AAUILogSystem();
+  v7 = _AAUILogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [v5 tokenData];

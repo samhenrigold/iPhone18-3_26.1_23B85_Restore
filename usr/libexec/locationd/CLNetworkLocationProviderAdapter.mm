@@ -102,7 +102,7 @@
 {
   if (m)
   {
-    [m clientLocation];
+    objc_msgSend_clientLocation(m, a2);
   }
 
   else
@@ -118,18 +118,18 @@
     v7 = 0u;
   }
 
-  LODWORD(v16[1]) = DWORD2(v15[0]);
-  *(&v16[1] + 4) = *(v15 + 12);
+  LODWORD(v17[1]) = v15[1];
+  *(&v17[1] + 4) = *(&v15[1] + 4);
   v6 = [(CLNetworkLocationProviderAdapter *)self adaptee:v7];
   (*(cell + 2))(&v7, cell);
-  sub_1006C19C4(v6);
+  sub_1006C19C4(v6, &v7, &v16);
 }
 
 - (void)setLocation_SCDMA:(id)a forCell:(id)cell
 {
   if (a)
   {
-    [a clientLocation];
+    objc_msgSend_clientLocation(a, a2);
   }
 
   else
@@ -145,18 +145,18 @@
     v7 = 0u;
   }
 
-  LODWORD(v16[1]) = DWORD2(v15[0]);
-  *(&v16[1] + 4) = *(v15 + 12);
+  LODWORD(v17[1]) = v15[1];
+  *(&v17[1] + 4) = *(&v15[1] + 4);
   v6 = [(CLNetworkLocationProviderAdapter *)self adaptee:v7];
   (*(cell + 2))(&v7, cell);
-  sub_1006C1F68(v6);
+  sub_1006C1F68(v6, &v7, &v16);
 }
 
 - (void)setLocation_CDMA:(id)a forCell:(id)cell
 {
   if (a)
   {
-    [a clientLocation];
+    objc_msgSend_clientLocation(a, a2);
   }
 
   else
@@ -172,26 +172,26 @@
     *v7 = 0u;
   }
 
-  v22 = v13;
-  v23 = v14;
-  v24[0] = v15[0];
-  *(v24 + 12) = *(v15 + 12);
-  v18 = v9;
-  v19 = v10;
-  v20 = v11;
-  v21 = v12;
-  v16 = *v7;
-  v17 = v8;
+  v16[6] = v13;
+  v16[7] = v14;
+  v17[0] = v15[0];
+  *(v17 + 12) = *(v15 + 12);
+  v16[2] = v9;
+  v16[3] = v10;
+  v16[4] = v11;
+  v16[5] = v12;
+  v16[0] = *v7;
+  v16[1] = v8;
   adaptee = [(CLNetworkLocationProviderAdapter *)self adaptee];
   (*(cell + 2))(v7, cell);
-  sub_1006C253C(adaptee, v7);
+  sub_1006C253C(adaptee, v7, v16);
 }
 
 - (void)setLocation_LTE:(id)e forCell:(id)cell
 {
   if (e)
   {
-    [e clientLocation];
+    objc_msgSend_clientLocation(e, a2);
   }
 
   else
@@ -207,18 +207,18 @@
     v7 = 0u;
   }
 
-  LODWORD(v16[1]) = DWORD2(v15[0]);
-  *(&v16[1] + 4) = *(v15 + 12);
+  LODWORD(v17[1]) = v15[1];
+  *(&v17[1] + 4) = *(&v15[1] + 4);
   v6 = [(CLNetworkLocationProviderAdapter *)self adaptee:v7];
   (*(cell + 2))(&v7, cell);
-  sub_1006C2D48(v6);
+  sub_1006C2D48(v6, &v7, &v16);
 }
 
 - (void)setLocation_NR:(id)r forCell:(id)cell
 {
   if (r)
   {
-    [r clientLocation];
+    objc_msgSend_clientLocation(r, a2);
   }
 
   else
@@ -234,11 +234,11 @@
     v7 = 0u;
   }
 
-  LODWORD(v16[1]) = DWORD2(v15[0]);
-  *(&v16[1] + 4) = *(v15 + 12);
+  LODWORD(v17[1]) = v15[1];
+  *(&v17[1] + 4) = *(&v15[1] + 4);
   v6 = [(CLNetworkLocationProviderAdapter *)self adaptee:v7];
   (*(cell + 2))(&v7, cell);
-  sub_1006C3484(v6);
+  sub_1006C3484(v6, &v7, &v16);
 }
 
 - (int)syncgetQueryNearbys:(const CLDaemonLocation *)nearbys forFenceKeys:(const void *)keys

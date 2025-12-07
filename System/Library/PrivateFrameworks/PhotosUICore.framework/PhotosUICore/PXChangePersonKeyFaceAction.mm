@@ -37,7 +37,7 @@ void __43__PXChangePersonKeyFaceAction_performUndo___block_invoke(uint64_t a1)
   [v4 setKeyFace:*(*(a1 + 32) + 104)];
 }
 
-uint64_t __43__PXChangePersonKeyFaceAction_performUndo___block_invoke_2(uint64_t a1, int a2)
+void *__43__PXChangePersonKeyFaceAction_performUndo___block_invoke_2(uint64_t a1, int a2)
 {
   result = (*(*(a1 + 40) + 16))();
   if (a2)
@@ -79,7 +79,7 @@ void __45__PXChangePersonKeyFaceAction_performAction___block_invoke(uint64_t a1)
   [v5 setKeyFace:v4];
 }
 
-uint64_t __45__PXChangePersonKeyFaceAction_performAction___block_invoke_2(uint64_t a1, int a2)
+void *__45__PXChangePersonKeyFaceAction_performAction___block_invoke_2(uint64_t a1, int a2)
 {
   result = (*(*(a1 + 40) + 16))();
   if (a2)

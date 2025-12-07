@@ -74,19 +74,19 @@
   v4 = v3;
   if (recordType == v3)
   {
-    v5 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v5 = 0;
+    isEqualToString = 0;
     if (recordType && v3)
     {
-      v5 = [(__CFString *)recordType isEqualToString:v3];
+      isEqualToString = objc_msgSend_isEqualToString_(recordType);
     }
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (BOOL)isPassCatalog
@@ -96,19 +96,19 @@
   v4 = v3;
   if (recordType == v3)
   {
-    v5 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v5 = 0;
+    isEqualToString = 0;
     if (recordType && v3)
     {
-      v5 = [(__CFString *)recordType isEqualToString:v3];
+      isEqualToString = objc_msgSend_isEqualToString_(recordType);
     }
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (BOOL)isRemoteAsset
@@ -118,19 +118,19 @@
   v4 = v3;
   if (recordType == v3)
   {
-    v5 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v5 = 0;
+    isEqualToString = 0;
     if (recordType && v3)
     {
-      v5 = [(__CFString *)recordType isEqualToString:v3];
+      isEqualToString = objc_msgSend_isEqualToString_(recordType);
     }
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (BOOL)isEqual:(id)equal

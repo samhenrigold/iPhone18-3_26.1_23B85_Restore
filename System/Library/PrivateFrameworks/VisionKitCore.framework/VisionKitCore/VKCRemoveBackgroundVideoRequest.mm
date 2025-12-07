@@ -97,11 +97,11 @@
     [v3 setStickerIdentifiers:stickerIDs2];
   }
 
-  [(VKCRemoveBackgroundVideoRequest *)self maskTime];
+  objc_msgSend_maskTime(self);
   time2 = **&MEMORY[0x1E6960CC0];
   if (CMTimeCompare(&time1, &time2))
   {
-    [(VKCRemoveBackgroundVideoRequest *)self maskTime];
+    objc_msgSend_maskTime(self);
     time1 = v17;
     [v3 setMaskTime:&time1];
   }

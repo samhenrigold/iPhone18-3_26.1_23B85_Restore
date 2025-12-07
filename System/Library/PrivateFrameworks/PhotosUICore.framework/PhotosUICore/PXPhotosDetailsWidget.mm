@@ -143,14 +143,14 @@
 
 - (PXPhotosDetailsWidget)init
 {
-  swift_unknownObjectWeakInit();
+  v3 = swift_unknownObjectWeakInit();
   *(self + OBJC_IVAR___PXPhotosDetailsWidget__context) = 0;
   *(self + OBJC_IVAR___PXPhotosDetailsWidget__viewModel) = 0;
   *(self + OBJC_IVAR___PXPhotosDetailsWidget__spec) = 0;
   *(self + OBJC_IVAR___PXPhotosDetailsWidget____lazy_storage___contentHostedViewController) = 1;
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for PhotosDetailsWidget();
-  return [(PXPhotosDetailsWidget *)&v4 init];
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for PhotosDetailsWidget(v3, v4);
+  return [(PXPhotosDetailsWidget *)&v6 init];
 }
 
 @end

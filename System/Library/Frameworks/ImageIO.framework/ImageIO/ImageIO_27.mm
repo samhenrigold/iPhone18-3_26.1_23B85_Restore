@@ -1,55 +1,43 @@
-uint64_t TIFFWriteCheck(uint64_t a1, int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t TIFFWriteCheck(uint64_t a1, int a2, uint64_t a3)
 {
   if (!*(a1 + 12))
   {
-    v12 = "File not open for writing";
-    goto LABEL_9;
+    TIFFErrorExtR(a1, a3, "File not open for writing");
+    return 0;
   }
 
   if (((*(a1 + 16) >> 10) & 1) != a2)
   {
     if (a2)
     {
-      v12 = "Can not write tiles to a striped image";
+      TIFFErrorExtR(a1, a3, "Can not write tiles to a striped image");
     }
 
     else
     {
-      v12 = "Can not write scanlines to a tiled image";
+      TIFFErrorExtR(a1, a3, "Can not write scanlines to a tiled image");
     }
 
-    goto LABEL_9;
+    return 0;
   }
 
   _TIFFFillStriles(a1);
   if ((*(a1 + 72) & 2) == 0)
   {
-    v12 = "Must set ImageWidth before writing data";
-LABEL_9:
-    TIFFErrorExtR(a1, a3, v12, a4, a5, a6, a7, a8, v16);
+    TIFFErrorExtR(a1, a3, "Must set ImageWidth before writing data");
     return 0;
   }
 
-  if (!*(a1 + 232) && !TIFFSetupStrips(a1, v10, v11, a4, a5, a6, a7, a8))
+  if (!*(a1 + 232) && !TIFFSetupStrips(a1))
   {
     *(a1 + 228) = 0;
-    if ((*(a1 + 16) & 0x400) != 0)
-    {
-      v15 = "tile";
-    }
-
-    else
-    {
-      v15 = "strip";
-    }
-
-    TIFFErrorExtR(a1, a3, "No space for %s arrays", a4, a5, a6, a7, a8, v15);
+    TIFFErrorExtR(a1, a3, "No space for %s arrays");
     return 0;
   }
 
   if ((*(a1 + 17) & 4) != 0)
   {
-    result = _cg_TIFFTileSize(a1, v10, v11, a4, a5, a6, a7, a8);
+    result = _cg_TIFFTileSize(a1, v5, v6, v7, v8, v9, v10, v11);
     *(a1 + 936) = result;
     if (!result)
     {
@@ -62,19 +50,19 @@ LABEL_9:
     *(a1 + 936) = -1;
   }
 
-  result = _cg_TIFFScanlineSize(a1, v10, v11, a4, a5, a6, a7, a8);
+  result = _cg_TIFFScanlineSize(a1, v5, v6, v7, v8, v9, v10, v11);
   *(a1 + 1104) = result;
   if (result)
   {
-    v14 = *(a1 + 16);
-    *(a1 + 16) = v14 | 0x40;
+    v13 = *(a1 + 16);
+    *(a1 + 16) = v13 | 0x40;
     if (!*(a1 + 256) || *(a1 + 264) || *(a1 + 258) || *(a1 + 272) || !*(a1 + 288) || *(a1 + 296) || *(a1 + 290))
     {
       return 1;
     }
 
     result = 1;
-    if (!*(a1 + 304) && (v14 & 8) == 0)
+    if (!*(a1 + 304) && (v13 & 8) == 0)
     {
       TIFFForceStrileArrayWriting(a1);
       return 1;
@@ -151,11 +139,11 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  TIFFErrorExtR(a1, "TIFFWriteBufferSetup", "No space for output buffer", v17, v18, v19, v20, v21, v23);
+  TIFFErrorExtR(a1, "TIFFWriteBufferSetup", "No space for output buffer");
   return 0;
 }
 
-uint64_t TIFFGrowStrips(uint64_t a1, const char *a2)
+uint64_t TIFFGrowStrips(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 170) != 1)
   {
@@ -164,31 +152,31 @@ uint64_t TIFFGrowStrips(uint64_t a1, const char *a2)
 
   v4 = malloc_type_realloc(*(a1 + 232), 8 * (*(a1 + 228) + 1), 0x100004000313F17uLL);
   v5 = malloc_type_realloc(*(a1 + 240), 8 * (*(a1 + 228) + 1), 0x100004000313F17uLL);
-  v11 = v5;
+  v6 = v5;
   if (v4)
   {
-    v12 = v5 == 0;
+    v7 = v5 == 0;
   }
 
   else
   {
-    v12 = 1;
+    v7 = 1;
   }
 
-  if (v12)
+  if (v7)
   {
     if (v4)
     {
       free(v4);
     }
 
-    if (v11)
+    if (v6)
     {
-      free(v11);
+      free(v6);
     }
 
     *(a1 + 228) = 0;
-    TIFFErrorExtR(a1, a2, "No space to expand strip arrays", v6, v7, v8, v9, v10, v14);
+    TIFFErrorExtR(a1, a2, "No space to expand strip arrays");
     return 0;
   }
 
@@ -226,28 +214,28 @@ uint64_t _TIFFReserveLargeEnoughWriteBuffer(uint64_t a1, unsigned int a2, uint64
   return result;
 }
 
-uint64_t TIFFAppendToStrip(uint64_t a1, unsigned int a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t TIFFAppendToStrip(uint64_t a1, unsigned int a2, uint64_t a3, unint64_t a4)
 {
-  v11 = *(a1 + 888);
-  v12 = a2;
-  if (v11)
+  v7 = *(a1 + 888);
+  v8 = a2;
+  if (v7)
   {
-    v13 = *(a1 + 232);
-    if (*(v13 + 8 * a2))
+    v9 = *(a1 + 232);
+    if (*(v9 + 8 * a2))
     {
-      v14 = -1;
+      v10 = -1;
       goto LABEL_15;
     }
 
-    v15 = 0;
-    v16 = 1;
+    v11 = 0;
+    v12 = 1;
   }
 
   else
   {
     *(a1 + 896) = 0;
-    v15 = *(*(a1 + 232) + 8 * a2);
-    v16 = v15 == 0;
+    v11 = *(*(a1 + 232) + 8 * a2);
+    v12 = v11 == 0;
   }
 
   if (!*(a1 + 228))
@@ -255,136 +243,135 @@ uint64_t TIFFAppendToStrip(uint64_t a1, unsigned int a2, uint64_t a3, unint64_t 
     TIFFAppendToStrip_cold_1();
   }
 
-  v17 = *(*(a1 + 240) + 8 * v12);
-  if (v17 < a4)
+  v13 = *(*(a1 + 240) + 8 * v8);
+  if (v13 < a4)
   {
-    v16 = 1;
+    v12 = 1;
   }
 
-  if (!v17 || v16)
+  if (!v13 || v12)
   {
-    v19 = (*(a1 + 1224))(*(a1 + 1200), 0, 2);
-    v13 = *(a1 + 232);
-    v18 = *(a1 + 240);
-    *(v13 + 8 * v12) = v19;
+    v15 = (*(a1 + 1224))(*(a1 + 1200), 0, 2);
+    v9 = *(a1 + 232);
+    v14 = *(a1 + 240);
+    *(v9 + 8 * v8) = v15;
     *(a1 + 16) |= 0x200000u;
   }
 
   else
   {
-    if (!_TIFFSeekOK(a1, v15))
+    if (!_TIFFSeekOK(a1, v11))
     {
-      v46 = *(a1 + 876);
-      v22 = "Seek error at scanline %lu";
-      goto LABEL_45;
+      TIFFErrorExtR(a1, "TIFFAppendToStrip", "Seek error at scanline %lu");
+      return 0;
     }
 
-    v13 = *(a1 + 232);
-    v18 = *(a1 + 240);
-    *(a1 + 896) = *(v18 + 8 * v12) + *(v13 + 8 * v12);
-    v19 = *(v13 + 8 * v12);
+    v9 = *(a1 + 232);
+    v14 = *(a1 + 240);
+    *(a1 + 896) = *(v14 + 8 * v8) + *(v9 + 8 * v8);
+    v15 = *(v9 + 8 * v8);
   }
 
-  *(a1 + 888) = v19;
-  v14 = *(v18 + 8 * v12);
-  *(v18 + 8 * v12) = 0;
-  v11 = *(a1 + 888);
+  *(a1 + 888) = v15;
+  v10 = *(v14 + 8 * v8);
+  *(v14 + 8 * v8) = 0;
+  v7 = *(a1 + 888);
 LABEL_15:
   if ((*(a1 + 18) & 8) != 0)
   {
-    v20 = v11 + a4;
+    v16 = v7 + a4;
   }
 
   else
   {
-    v20 = (v11 + a4);
+    v16 = (v7 + a4);
   }
 
-  if (v20 < v11 || v20 < a4)
+  if (v16 < v7 || v16 < a4)
   {
 LABEL_22:
-    v22 = "Maximum TIFF file size exceeded";
-LABEL_45:
-    TIFFErrorExtR(a1, "TIFFAppendToStrip", v22, a4, a5, a6, a7, a8, v46);
+    TIFFErrorExtR(a1, "TIFFAppendToStrip", "Maximum TIFF file size exceeded");
     return 0;
   }
 
-  v23 = *(a1 + 896);
-  if (v23)
+  v18 = *(a1 + 896);
+  if (v18)
   {
-    if (v20 > v23)
+    if (v16 > v18)
     {
-      v24 = *(*(a1 + 240) + 8 * v12);
-      if (v24)
+      v19 = *(*(a1 + 240) + 8 * v8);
+      if (v19)
       {
-        if (v24 >= 0x100000)
+        if (v19 >= 0x100000)
         {
-          v25 = 0x100000;
+          v20 = 0x100000;
         }
 
         else
         {
-          v25 = *(*(a1 + 240) + 8 * v12);
+          v20 = *(*(a1 + 240) + 8 * v8);
         }
 
-        v47 = *(v13 + 8 * v12);
-        v26 = (*(a1 + 1224))(*(a1 + 1200), 0, 2);
-        v27 = v26;
-        if ((*(a1 + 18) & 8) != 0 || !((v24 + a4 + v26) >> 32))
+        v30 = *(v9 + 8 * v8);
+        v21 = (*(a1 + 1224))(*(a1 + 1200), 0, 2);
+        v22 = v21;
+        if ((*(a1 + 18) & 8) != 0 || !((v19 + a4 + v21) >> 32))
         {
-          v28 = malloc_type_malloc(v25, 0x63C634D6uLL);
-          if (v28)
+          v23 = malloc_type_malloc(v20, 0x63C634D6uLL);
+          if (v23)
           {
-            v29 = v28;
-            v30 = 0;
+            v24 = v23;
+            v25 = 0;
             *(a1 + 16) |= 0x200000u;
-            v31 = *(a1 + 240);
-            *(*(a1 + 232) + 8 * v12) = v27;
-            *(v31 + 8 * v12) = 0;
+            v26 = *(a1 + 240);
+            *(*(a1 + 232) + 8 * v8) = v22;
+            *(v26 + 8 * v8) = 0;
             while (1)
             {
-              if (!_TIFFSeekOK(a1, v47 + v30))
+              if (!_TIFFSeekOK(a1, v30 + v25))
               {
-LABEL_48:
-                v45 = "Seek error";
-                goto LABEL_51;
+LABEL_47:
+                TIFFErrorExtR(a1, "TIFFAppendToStrip", "Seek error");
+                goto LABEL_50;
               }
 
-              if ((*(a1 + 1208))(*(a1 + 1200), v29, v25) != v25)
+              if ((*(a1 + 1208))(*(a1 + 1200), v24, v20) != v20)
               {
-                v45 = "Cannot read";
-                goto LABEL_51;
+                TIFFErrorExtR(a1, "TIFFAppendToStrip", "Cannot read");
+                goto LABEL_50;
               }
 
-              if (!_TIFFSeekOK(a1, v27 + v30))
+              if (!_TIFFSeekOK(a1, v22 + v25))
               {
-                goto LABEL_48;
+                goto LABEL_47;
               }
 
-              if ((*(a1 + 1216))(*(a1 + 1200), v29, v25) != v25)
+              if ((*(a1 + 1216))(*(a1 + 1200), v24, v20) != v20)
               {
                 break;
               }
 
-              *(*(a1 + 240) + 8 * v12) += v25;
-              v30 += v25;
-              if (v24 == v30)
+              *(*(a1 + 240) + 8 * v8) += v20;
+              v25 += v20;
+              if (v19 == v25)
               {
-                free(v29);
-                v20 = v27 + a4 + v30;
+                free(v24);
+                v16 = v22 + a4 + v25;
                 goto LABEL_39;
               }
             }
 
-            v45 = "Cannot write";
-LABEL_51:
-            TIFFErrorExtR(a1, "TIFFAppendToStrip", v45, v32, v33, v34, v35, v36, v46);
-            free(v29);
-            return 0;
+            TIFFErrorExtR(a1, "TIFFAppendToStrip", "Cannot write");
+LABEL_50:
+            free(v24);
           }
 
-          v22 = "No space for output buffer";
-          goto LABEL_45;
+          else
+          {
+            TIFFErrorExtR(a1, "TIFFAppendToStrip", "No space for output buffer");
+          }
+
+          return 0;
         }
 
         goto LABEL_22;
@@ -395,15 +382,15 @@ LABEL_51:
 LABEL_39:
   if ((*(a1 + 1216))(*(a1 + 1200), a3, a4) != a4)
   {
-    TIFFErrorExtR(a1, "TIFFAppendToStrip", "Write error at scanline %lu", v37, v38, v39, v40, v41, *(a1 + 876));
+    TIFFErrorExtR(a1, "TIFFAppendToStrip", "Write error at scanline %lu");
     return 0;
   }
 
-  *(a1 + 888) = v20;
-  v42 = *(a1 + 240);
-  v43 = *(v42 + 8 * v12) + a4;
-  *(v42 + 8 * v12) = v43;
-  if (v43 != v14)
+  *(a1 + 888) = v16;
+  v27 = *(a1 + 240);
+  v28 = *(v27 + 8 * v8) + a4;
+  *(v27 + 8 * v8) = v28;
+  if (v28 != v10)
   {
     *(a1 + 16) |= 0x200000u;
   }
@@ -411,32 +398,33 @@ LABEL_39:
   return 1;
 }
 
-uint64_t _cg_TIFFWriteTile(uint64_t a1, unsigned __int8 *a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _cg_TIFFWriteTile(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v8 = a6;
-  v9 = a5;
-  if (!TIFFCheckTile(a1, a3, a4, a5, a6, a6, a7, a8))
+  v6 = a6;
+  v7 = a5;
+  v8 = a4;
+  v9 = a3;
+  if (!TIFFCheckTile(a1, a3, a4, a5, a6))
   {
     return -1;
   }
 
-  v14 = _cg_TIFFComputeTile(a1, a3, a4, v9, v8);
+  v12 = _cg_TIFFComputeTile(a1, v9, v8, v7, v6);
 
-  return _cg_TIFFWriteEncodedTile(a1, v14, a2, -1, v15, v16, v17, v18);
+  return _cg_TIFFWriteEncodedTile(a1, v12, a2, -1, v13, v14, v15, v16);
 }
 
 uint64_t _cg_TIFFWriteEncodedTile(uint64_t a1, unsigned int a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if ((*(a1 + 16) & 0x40) == 0 && !TIFFWriteCheck(a1, 1, "TIFFWriteEncodedTile", a4, a5, a6, a7, a8))
+  if ((*(a1 + 16) & 0x40) == 0 && !TIFFWriteCheck(a1, 1, "TIFFWriteEncodedTile"))
   {
     return -1;
   }
 
   if (*(a1 + 228) <= a2)
   {
-    v37 = a2;
-    v23 = "Tile %lu out of range, max %lu";
-    goto LABEL_16;
+    TIFFErrorExtR(a1, "TIFFWriteEncodedTile", "Tile %lu out of range, max %lu");
+    return -1;
   }
 
   v12 = *(a1 + 16);
@@ -465,38 +453,36 @@ uint64_t _cg_TIFFWriteEncodedTile(uint64_t a1, unsigned int a2, unsigned __int8 
   v15 = *(a1 + 104);
   if (v14 >= -v15 || (v16 = v14 - 1, v17 = __CFADD__(v16, v15), v18 = v16 + v15, v17) || (*(a1 + 876) = a2 % (v18 / v15) * v15, v19 = *(a1 + 88), v20 = *(a1 + 100), v19 >= -v20) || (v21 = v19 - 1, v17 = __CFADD__(v21, v20), v22 = v21 + v20, v17))
   {
-    v23 = "Zero tiles";
-LABEL_16:
-    TIFFErrorExtR(a1, "TIFFWriteEncodedTile", v23, a4, a5, a6, a7, a8, v37);
+    TIFFErrorExtR(a1, "TIFFWriteEncodedTile", "Zero tiles");
     return -1;
   }
 
   *(a1 + 928) = a2 % (v22 / v20) * v20;
-  v25 = *(a1 + 16);
-  if ((v25 & 0x20) == 0)
+  v24 = *(a1 + 16);
+  if ((v24 & 0x20) == 0)
   {
     if (!(*(a1 + 976))(a1))
     {
       return -1;
     }
 
-    v25 = *(a1 + 16) | 0x20;
+    v24 = *(a1 + 16) | 0x20;
   }
 
-  *(a1 + 16) = v25 & 0xFFFFEFFF;
+  *(a1 + 16) = v24 & 0xFFFFEFFF;
   if (*(a1 + 936) >= a4)
   {
-    v26 = a4;
+    v25 = a4;
   }
 
   else
   {
-    v26 = *(a1 + 936);
+    v25 = *(a1 + 936);
   }
 
   if (a4 >= 1)
   {
-    v13 = v26;
+    v13 = v25;
   }
 
   else
@@ -506,11 +492,11 @@ LABEL_16:
 
   if (*(a1 + 120) != 1)
   {
-    v31 = a2 / *(a1 + 224);
-    if ((*(a1 + 992))(a1, v31))
+    v26 = a2 / *(a1 + 224);
+    if ((*(a1 + 992))(a1, v26))
     {
       (*(a1 + 1248))(a1, a3, v13);
-      if ((*(a1 + 1048))(a1, a3, v13, v31))
+      if ((*(a1 + 1048))(a1, a3, v13, v26))
       {
         if ((*(a1 + 1000))(a1))
         {
@@ -519,8 +505,8 @@ LABEL_16:
             TIFFReverseBits(*(a1 + 1120), *(a1 + 1160));
           }
 
-          v36 = *(a1 + 1160);
-          if (v36 < 1 || TIFFAppendToStrip(a1, a2, *(a1 + 1120), v36, v32, v33, v34, v35))
+          v27 = *(a1 + 1160);
+          if (v27 < 1 || TIFFAppendToStrip(a1, a2, *(a1 + 1120), v27))
           {
             *(a1 + 1160) = 0;
             *(a1 + 1152) = *(a1 + 1120);
@@ -539,7 +525,7 @@ LABEL_16:
     TIFFReverseBits(a3, v13);
   }
 
-  if (v13 >= 1 && !TIFFAppendToStrip(a1, a2, a3, v13, v27, v28, v29, v30))
+  if (v13 >= 1 && !TIFFAppendToStrip(a1, a2, a3, v13))
   {
     return -1;
   }
@@ -547,41 +533,41 @@ LABEL_16:
   return v13;
 }
 
-uint64_t TIFFSetupStrips(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t TIFFSetupStrips(uint64_t a1)
 {
-  v9 = *(a1 + 72);
+  v2 = *(a1 + 72);
   if ((*(a1 + 17) & 4) != 0)
   {
-    if ((v9 & 4) == 0 || *(a1 + 92))
+    if ((v2 & 4) == 0 || *(a1 + 92))
     {
-      v10 = _cg_TIFFNumberOfTiles(a1, a2, a3, a4, a5, a6, a7, a8);
+      v3 = _cg_TIFFNumberOfTiles(a1);
       goto LABEL_9;
     }
   }
 
-  else if ((v9 & 0x20000) == 0 || *(a1 + 92))
+  else if ((v2 & 0x20000) == 0 || *(a1 + 92))
   {
-    v10 = _cg_TIFFNumberOfStrips(a1, a2, a3, a4, a5, a6, a7, a8);
+    v3 = _cg_TIFFNumberOfStrips(a1);
     goto LABEL_9;
   }
 
-  v10 = *(a1 + 130);
+  v3 = *(a1 + 130);
 LABEL_9:
-  *(a1 + 224) = v10;
-  *(a1 + 228) = v10;
+  *(a1 + 224) = v3;
+  *(a1 + 228) = v3;
   if ((*(a1 + 18) & 8) != 0)
   {
-    v11 = 0x10000000;
+    v4 = 0x10000000;
   }
 
   else
   {
-    v11 = 0x20000000;
+    v4 = 0x20000000;
   }
 
-  if (v10 >= v11)
+  if (v3 >= v4)
   {
-    TIFFErrorExtR(a1, "TIFFSetupStrips", "Too large Strip/Tile Offsets/ByteCounts arrays", a4, a5, a6, a7, a8, v18);
+    TIFFErrorExtR(a1, "TIFFSetupStrips", "Too large Strip/Tile Offsets/ByteCounts arrays");
     return 0;
   }
 
@@ -589,16 +575,16 @@ LABEL_9:
   {
     if (*(a1 + 170) == 2)
     {
-      *(a1 + 224) = v10 / *(a1 + 130);
+      *(a1 + 224) = v3 / *(a1 + 130);
     }
 
-    *(a1 + 232) = _TIFFCheckMalloc(a1, v10, 8, "for StripOffsets array", a5, a6, a7, a8);
-    v16 = _TIFFCheckMalloc(a1, *(a1 + 228), 8, "for StripByteCounts array", v12, v13, v14, v15);
+    *(a1 + 232) = _TIFFCheckMalloc(a1, v3, 8, "for StripOffsets array");
+    v5 = _TIFFCheckMalloc(a1, *(a1 + 228), 8, "for StripByteCounts array");
     result = 0;
-    *(a1 + 240) = v16;
+    *(a1 + 240) = v5;
     if (*(a1 + 232))
     {
-      if (v16)
+      if (v5)
       {
         _TIFFmemset(*(a1 + 232), 0, 8 * *(a1 + 228));
         _TIFFmemset(*(a1 + 240), 0, 8 * *(a1 + 228));
@@ -611,55 +597,47 @@ LABEL_9:
   return result;
 }
 
-uint64_t TIFFFlushData1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t TIFFFlushData1(uint64_t a1)
 {
-  v8 = *(a1 + 1160);
-  if (v8 < 1)
+  v1 = *(a1 + 1160);
+  if (v1 < 1)
   {
     return 1;
   }
 
-  v10 = *(a1 + 16);
-  if ((v10 & 0x100000) == 0)
+  v3 = *(a1 + 16);
+  if ((v3 & 0x100000) == 0)
   {
     return 1;
   }
 
-  if ((v10 & (*(a1 + 126) | 0x100)) == 0)
+  if ((v3 & (*(a1 + 126) | 0x100)) == 0)
   {
-    TIFFReverseBits(*(a1 + 1120), v8);
-    v10 = *(a1 + 16);
-    v8 = *(a1 + 1160);
+    TIFFReverseBits(*(a1 + 1120), v1);
+    v3 = *(a1 + 16);
+    v1 = *(a1 + 1160);
   }
 
-  v12 = (v10 & 0x400) == 0;
-  v13 = 932;
-  if (v12)
+  v5 = (v3 & 0x400) == 0;
+  v6 = 932;
+  if (v5)
   {
-    v13 = 884;
+    v6 = 884;
   }
 
-  result = TIFFAppendToStrip(a1, *(a1 + v13), *(a1 + 1120), v8, a5, a6, a7, a8);
+  result = TIFFAppendToStrip(a1, *(a1 + v6), *(a1 + 1120), v1);
   *(a1 + 1160) = 0;
   *(a1 + 1152) = *(a1 + 1120);
   return result;
 }
 
-void IIO_Reader_PSD::createReadPlugin()
+uint64_t IIO_Reader_PSD::initThumbnail(IIO_Reader *a1, uint64_t a2, uint64_t a3, int a4)
 {
-  operator new();
-}
-
-{
-  operator new();
-}
-
-uint64_t IIO_Reader_PSD::initThumbnail(IIO_Reader *a1, uint64_t a2, int a3, int a4)
-{
+  v5 = a3;
   v11 = 0;
   memset(v10, 0, sizeof(v10));
   v7 = IIO_Reader::osType(a1);
-  PSDReadPlugin::PSDReadPlugin(v10, a2, a3, 0, v7);
+  PSDReadPlugin::PSDReadPlugin(v10, a2, v5, 0, v7);
   IIOReadPlugin::setDecodeMode(v10, 2);
   IIOReadPlugin::setDestMaxPixelSize(v10, a4);
   inited = PSDReadPlugin::initThumbnail(v10);
@@ -747,10 +725,10 @@ void ApplierSizeOfIPTC(const __CFString *a1, const __CFString *cf, void *a3)
 
         if (*j == 1)
         {
-          v16.length = CFArrayGetCount(cf);
-          v16.location = 0;
+          v14.length = CFArrayGetCount(cf);
+          v14.location = 0;
 
-          CFArrayApplyFunction(cf, v16, SizeOfIPTCEntry, a3);
+          CFArrayApplyFunction(cf, v14, SizeOfIPTCEntry, a3);
         }
       }
 
@@ -758,24 +736,24 @@ void ApplierSizeOfIPTC(const __CFString *a1, const __CFString *cf, void *a3)
       {
         v12 = CFGetTypeID(cf);
         v13 = CFCopyTypeIDDescription(v12);
-        memset(v18, 0, sizeof(v18));
-        IIOString::IIOString(v18, a1);
-        memset(v17, 0, sizeof(v17));
-        IIOString::IIOString(v17, v13);
-        v14 = IIOString::utf8String(v18);
-        v15 = IIOString::utf8String(v17);
-        _cg_jpeg_mem_term("ApplierSizeOfIPTC", 188, "*** ApplierSizeOfIPTC - skipping '%s' -- '%s'\n", v14, v15);
+        memset(v16, 0, sizeof(v16));
+        IIOString::IIOString(v16, a1);
+        memset(v15, 0, sizeof(v15));
+        IIOString::IIOString(v15, v13);
+        IIOString::utf8String(v16);
+        IIOString::utf8String(v15);
+        _cg_jpeg_mem_term("ApplierSizeOfIPTC", 188, "*** ApplierSizeOfIPTC - skipping '%s' -- '%s'\n");
         CFRelease(v13);
-        IIOString::~IIOString(v17);
-        IIOString::~IIOString(v18);
+        IIOString::~IIOString(v15);
+        IIOString::~IIOString(v16);
       }
     }
   }
 }
 
-void sub_185FFCA18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_185FFCA18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   IIOString::~IIOString(va);
   _Unwind_Resume(a1);
 }
@@ -797,11 +775,11 @@ void WriteIPTCData(CFDictionaryRef *a1, unsigned __int8 *a2)
   }
 }
 
-__n128 ApplierWriteIPTC(const __CFString *a1, const __CFString *cf, char *a3)
+void ApplierWriteIPTC(const __CFString *a1, const __CFString *cf, char *a3)
 {
   if (!a1 || !cf)
   {
-    return result;
+    return;
   }
 
   v6 = CFGetTypeID(cf);
@@ -813,7 +791,7 @@ __n128 ApplierWriteIPTC(const __CFString *a1, const __CFString *cf, char *a3)
       {
         if (!i[8])
         {
-          return result;
+          return;
         }
       }
     }
@@ -825,17 +803,17 @@ __n128 ApplierWriteIPTC(const __CFString *a1, const __CFString *cf, char *a3)
         if (v6 != CFNumberGetTypeID())
         {
 
-          return _cg_jpeg_mem_term("ApplierWriteIPTC", 289, "*** ApplierWriteIPTC - does not handle non-strings / non-arrays\n");
+          _cg_jpeg_mem_term("ApplierWriteIPTC", 289, "*** ApplierWriteIPTC - does not handle non-strings / non-arrays\n");
         }
 
-        return result;
+        return;
       }
 
       for (i = &byte_1E6F08B40; CFStringCompare(a1, **(i - 1), 0); i += 24)
       {
         if (!i[8])
         {
-          return result;
+          return;
         }
       }
     }
@@ -843,27 +821,26 @@ __n128 ApplierWriteIPTC(const __CFString *a1, const __CFString *cf, char *a3)
     if (*i == 1)
     {
       *a3 = *(i - 16);
-      v13.length = CFArrayGetCount(cf);
-      v13.location = 0;
+      v12.length = CFArrayGetCount(cf);
+      v12.location = 0;
 
-      CFArrayApplyFunction(cf, v13, WriteIPTCEntry, a3);
+      CFArrayApplyFunction(cf, v12, WriteIPTCEntry, a3);
     }
 
-    return result;
+    return;
   }
 
   for (j = &iptcInfo; CFStringCompare(a1, **(j + 1), 0); j += 24)
   {
     if (!j[24])
     {
-      return result;
+      return;
     }
   }
 
   *a3 = *j;
 
   WriteIPTCEntry(cf, a3);
-  return result;
 }
 
 void ReadIPTCProps(IIODictionary *a1, _BYTE *a2, unint64_t a3)
@@ -1014,9 +991,9 @@ LABEL_44:
   }
 }
 
-void sub_185FFCF58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_185FFCF58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   IIONumber::~IIONumber(va);
   _Unwind_Resume(a1);
 }
@@ -1037,16 +1014,16 @@ CGImageMetadata *CreateMetadataFromIPTCDatabuffer(_BYTE *a1, unint64_t a2)
   return v5;
 }
 
-void sub_185FFD004(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_185FFD004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IIODictionary::~IIODictionary(va);
   _Unwind_Resume(a1);
 }
 
 void CGImagePluginReadRawIPTCProps(__CFDictionary *a1, _BYTE *a2, unint64_t a3)
 {
-  IIOInitDebugFlags();
+  IIOInitDebugFlags(a1, a2);
   if ((~gIIODebugFlags & 0xC000) == 0)
   {
     ImageIODebugOptions(3, "S", "CGImagePluginReadRawIPTCProps", 0, 0, -1, 0);
@@ -1058,9 +1035,9 @@ void CGImagePluginReadRawIPTCProps(__CFDictionary *a1, _BYTE *a2, unint64_t a3)
   IIODictionary::~IIODictionary(v6);
 }
 
-void sub_185FFD0C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_185FFD0C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IIODictionary::~IIODictionary(va);
   _Unwind_Resume(a1);
 }
@@ -1599,7 +1576,7 @@ LABEL_16:
   return v7;
 }
 
-uint64_t ImageIOSIMD_GetVectorLevel()
+uint64_t ImageIOSIMD_GetVectorLevel(uint64_t a1, uint64_t a2)
 {
   if (ImageIOSIMD_GetVectorLevel::vectorPredicate != -1)
   {
@@ -1609,7 +1586,7 @@ uint64_t ImageIOSIMD_GetVectorLevel()
   return vectorLevel;
 }
 
-uint64_t ImageIOSIMD_GetHardwareVectorLevel()
+uint64_t ImageIOSIMD_GetHardwareVectorLevel(uint64_t a1, uint64_t a2)
 {
   if (ImageIOSIMD_GetHardwareVectorLevel::hardwarePredicate != -1)
   {
@@ -1619,21 +1596,21 @@ uint64_t ImageIOSIMD_GetHardwareVectorLevel()
   return ImageIOSIMD_GetHardwareVectorLevel::hardwareLevel;
 }
 
-void ImageIOSIMD_SetVectorLevel(uint64_t a1)
+void ImageIOSIMD_SetVectorLevel(uint64_t result, uint64_t a2)
 {
   if (ImageIOSIMD_GetVectorLevel::vectorPredicate != -1)
   {
     ImageIOSIMD_GetVectorLevel_cold_1();
   }
 
-  if (vectorLevel != a1)
+  if (vectorLevel != result)
   {
     if (ImageIOSIMD_GetHardwareVectorLevel::hardwarePredicate != -1)
     {
       __ImageIOSIMD_GetVectorLevel_block_invoke_cold_1();
     }
 
-    vectorLevel = ImageIOSIMD_GetHardwareVectorLevel::hardwareLevel & a1;
+    vectorLevel = ImageIOSIMD_GetHardwareVectorLevel::hardwareLevel & result;
   }
 }
 
@@ -1705,7 +1682,7 @@ BOOL GlobalWebPInfo::hasValidFrameBuffer(GlobalWebPInfo *this, int a2)
   return v4;
 }
 
-uint64_t WebPReadPlugin::WebPReadPlugin(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5)
+uint64_t WebPReadPlugin::WebPReadPlugin(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
 {
   result = IIOReadPlugin::IIOReadPlugin(a1, a2, a3, a4, a5);
   *result = &unk_1EF4D6058;
@@ -1771,15 +1748,15 @@ uint64_t WebPReadPlugin::handleChunks(uint64_t a1, uint64_t a2)
   v7 = v6;
   if (WebPDemuxGetChunk(v6, "ICCP", 1, &v36))
   {
-    _cg_jpeg_mem_term("handleChunks", 232, "ICCP: %p [%ld]\n", *(&v36 + 1), v37);
+    _cg_jpeg_mem_term("handleChunks", 232, "ICCP: %p [%ld]\n");
     *(a1 + 160) = CGColorSpaceCreateWithCopyOfData(*(&v36 + 1), v37);
     _cg_jpeg_mem_term(&v36, v8, v9);
   }
 
   if (WebPDemuxGetChunk(v7, "EXIF", 1, &v36))
   {
-    _cg_jpeg_mem_term("handleChunks", 241, "EXIF: %p [%ld]\n", *(&v36 + 1), v37);
-    MetadataFromDatabuffer = CreateMetadataFromDatabuffer(*(&v36 + 1), v37);
+    _cg_jpeg_mem_term("handleChunks", 241, "EXIF: %p [%ld]\n");
+    MetadataFromDatabuffer = CreateMetadataFromDatabuffer(*(&v36 + 1), v37, 0);
     if (MetadataFromDatabuffer)
     {
       v13 = MetadataFromDatabuffer;
@@ -1823,7 +1800,7 @@ uint64_t WebPReadPlugin::handleChunks(uint64_t a1, uint64_t a2)
     *v32 = 0u;
     v33 = 0u;
     *v31 = 0u;
-    WebPDemuxGetFrame(v7, *(a1 + 224) + 1, v31);
+    WebPDemuxGetFrame(v7, (*(a1 + 224) + 1), v31);
     v19 = v32[2];
     if (v32[2] >= 11)
     {
@@ -1876,23 +1853,23 @@ uint64_t WebPReadPlugin::handleChunks(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-void sub_185FFE56C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_185FFE56C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   IIONumber::~IIONumber(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t WebPReadPlugin::initialize(IIOImageReadSession **this, IIODictionary *a2)
 {
-  v20 = 0;
+  v22 = 0;
+  v23 = 0;
   v21 = 0;
-  v19 = 0;
-  v18 = 0;
-  memset(v17, 0, sizeof(v17));
+  v20 = 0;
+  memset(v19, 0, sizeof(v19));
   if (!IIOImageReadSession::isFinal(this[3]))
   {
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   v3 = this[6];
@@ -1902,7 +1879,7 @@ uint64_t WebPReadPlugin::initialize(IIOImageReadSession **this, IIODictionary *a
   }
 
   *(this + 465) = v3;
-  v4 = IIOImageReadSession::retainBytePointer(this[3], &v21, 0);
+  v4 = IIOImageReadSession::retainBytePointer(this[3], &v23, 0);
   if (v4)
   {
     BytePtr = v4;
@@ -1914,9 +1891,9 @@ uint64_t WebPReadPlugin::initialize(IIOImageReadSession **this, IIODictionary *a
     v7 = IIOImageReadSession::copyData(this[3]);
     if (!v7)
     {
-LABEL_18:
+LABEL_19:
       v6 = 4294967246;
-LABEL_29:
+LABEL_30:
       kdebug_trace();
       return v6;
     }
@@ -1925,24 +1902,25 @@ LABEL_29:
     BytePtr = CFDataGetBytePtr(v7);
   }
 
-  v19 = BytePtr;
+  v21 = BytePtr;
   Size = IIOImageReadSession::getSize(this[3]);
-  v20 = Size;
-  if (WebPGetFeaturesInternal(BytePtr, Size, v17, 521))
+  v22 = Size;
+  if (WebPGetFeaturesInternal(BytePtr, Size, v19, 521))
   {
+    goto LABEL_17;
+  }
+
+  v9 = v19[0];
+  v10 = DWORD1(v19[0]);
+  if (SLODWORD(v19[0]) >= 0x4000 || SDWORD1(v19[0]) >= 0x4000)
+  {
+    v13 = "*** ERROR: 'WebP' bad dimension: %d x %d\n";
+    v14 = 344;
     goto LABEL_16;
   }
 
-  v9 = v17[0];
-  v10 = DWORD1(v17[0]);
-  if (SLODWORD(v17[0]) >= 0x4000 || SDWORD1(v17[0]) >= 0x4000)
-  {
-    _cg_jpeg_mem_term("initialize", 344, "*** ERROR: 'WebP' bad dimension: %d x %d\n");
-    goto LABEL_16;
-  }
-
-  v11 = DWORD2(v17[0]);
-  if (DWORD2(v17[0]))
+  v11 = DWORD2(v19[0]);
+  if (DWORD2(v19[0]))
   {
     v12 = 4;
   }
@@ -1952,33 +1930,36 @@ LABEL_29:
     v12 = 3;
   }
 
-  if (80000 * Size < DWORD1(v17[0]) * LODWORD(v17[0]) * v12)
+  if (80000 * Size < DWORD1(v19[0]) * LODWORD(v19[0]) * v12)
   {
-    _cg_jpeg_mem_term("initialize", 350, "*** ERROR: fileSize: %ld   canvas: %d x %d --> malformed image? (factor: %g)\n");
+    v13 = "*** ERROR: fileSize: %ld   canvas: %d x %d --> malformed image? (factor: %g)\n";
+    v14 = 350;
 LABEL_16:
+    _cg_jpeg_mem_term("initialize", v14, v13);
+LABEL_17:
     if (v6)
     {
       CFRelease(v6);
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
-    v14 = 0;
+    v16 = 0;
     v6 = 4294967246;
-    goto LABEL_25;
+    goto LABEL_26;
   }
 
-  *(this + 464) = HIDWORD(v17[0]) != 0;
+  *(this + 464) = HIDWORD(v19[0]) != 0;
   if (v11)
   {
-    v13 = 3;
+    v15 = 3;
   }
 
   else
   {
-    v13 = 5;
+    v15 = 5;
   }
 
-  *(this + 262) = v13;
+  *(this + 262) = v15;
   *(this + 61) = v9;
   *(this + 62) = v10;
   *(this + 130) = 4;
@@ -1988,8 +1969,8 @@ LABEL_16:
   this[20] = 0;
   *(this + 186) = 0;
   *(this + 374) = 0;
-  WebPReadPlugin::handleChunks(this, &v19);
-  v14 = 1;
+  WebPReadPlugin::handleChunks(this, &v21);
+  v16 = 1;
   *(this + 204) = 1;
   if (v6)
   {
@@ -1997,19 +1978,19 @@ LABEL_16:
     return 0;
   }
 
-LABEL_25:
+LABEL_26:
   if (BytePtr)
   {
-    v15 = this[3];
-    if (v15)
+    v17 = this[3];
+    if (v17)
     {
-      IIOImageReadSession::releaseBytePointer(v15, v21);
+      IIOImageReadSession::releaseBytePointer(v17, v23);
     }
   }
 
-  if ((v14 & 1) == 0)
+  if ((v16 & 1) == 0)
   {
-    goto LABEL_29;
+    goto LABEL_30;
   }
 
   return v6;
@@ -2230,7 +2211,7 @@ uint64_t BCWritePlugin::writeOne(IIOImageWriteSession **this, IIOImagePixelDataP
   v49 = Property;
   if (AlphaInfo >= 7)
   {
-    _cg_jpeg_mem_term("writeOne", 202, "### alpha not handled: %X\n", AlphaInfo);
+    _cg_jpeg_mem_term("writeOne", 202, "### alpha not handled: %X\n");
     v13 = at_alpha_opaque;
   }
 
@@ -2535,7 +2516,7 @@ LABEL_95:
     v48 = v54[8];
     if (v48)
     {
-      if ((*(*(v48 + 1) + 24))() != v51 || (*(*(v54[8] + 1) + 64))())
+      if ((*(*(v48 + 1) + 24))(v48) != v51 || (*(*(v54[8] + 1) + 64))(v54[8]))
       {
         goto LABEL_104;
       }
@@ -2616,9 +2597,9 @@ LABEL_83:
   return v44;
 }
 
-void sub_185FFF284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_185FFF284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   IIONumber::~IIONumber(va);
   _Unwind_Resume(a1);
 }
@@ -2790,39 +2771,39 @@ void sub_185FFF590(void *a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t 
   JUMPOUT(0x185FFF578);
 }
 
-uint64_t TIFFPredictorInit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t TIFFPredictorInit(int8x16_t *a1)
 {
-  v8 = *(a1 + 1096);
-  if (!v8)
+  v1 = a1[68].i64[1];
+  if (!v1)
   {
     TIFFPredictorInit_cold_1();
   }
 
-  v10 = 1;
-  if (_TIFFMergeFields(a1, predictFields, 1, a4, a5, a6, a7, a8))
+  v3 = 1;
+  if (_TIFFMergeFields(a1->i64, predictFields, 1))
   {
-    v16 = *(a1 + 1280);
-    *(a1 + 1288) = PredictorVGetField;
-    *(v8 + 88) = vextq_s8(v16, v16, 8uLL);
-    *(a1 + 1280) = PredictorVSetField;
-    *(v8 + 104) = *(a1 + 1296);
-    *(a1 + 1296) = PredictorPrintDir;
-    *(v8 + 112) = *(a1 + 960);
-    *(a1 + 960) = PredictorSetupDecode;
-    *(v8 + 120) = *(a1 + 976);
-    *(a1 + 976) = PredictorSetupEncode;
-    *v8 = 1;
-    *(v8 + 48) = 0;
-    *(v8 + 80) = 0;
+    v4 = a1[80];
+    a1[80].i64[1] = PredictorVGetField;
+    *(v1 + 88) = vextq_s8(v4, v4, 8uLL);
+    a1[80].i64[0] = PredictorVSetField;
+    *(v1 + 104) = a1[81].i64[0];
+    a1[81].i64[0] = PredictorPrintDir;
+    *(v1 + 112) = a1[60].i64[0];
+    a1[60].i64[0] = PredictorSetupDecode;
+    *(v1 + 120) = a1[61].i64[0];
+    a1[61].i64[0] = PredictorSetupEncode;
+    *v1 = 1;
+    *(v1 + 48) = 0;
+    *(v1 + 80) = 0;
   }
 
   else
   {
-    TIFFErrorExtR(a1, "TIFFPredictorInit", "Merging Predictor codec-specific tags failed", v11, v12, v13, v14, v15, v18);
+    TIFFErrorExtR(a1, "TIFFPredictorInit", "Merging Predictor codec-specific tags failed");
     return 0;
   }
 
-  return v10;
+  return v3;
 }
 
 uint64_t PredictorVGetField(uint64_t a1, int a2, _WORD **a3)
@@ -3080,21 +3061,21 @@ LABEL_19:
   return result;
 }
 
-uint64_t TIFFPredictorCleanup(void *a1)
+uint64_t TIFFPredictorCleanup(void *a1, uint64_t a2)
 {
-  v1 = a1[137];
-  if (!v1)
+  v2 = a1[137];
+  if (!v2)
   {
     TIFFPredictorCleanup_cold_1();
   }
 
-  v2 = v1[12];
-  a1[161] = v1[11];
-  a1[160] = v2;
-  v3 = v1[14];
-  a1[162] = v1[13];
-  a1[120] = v3;
-  a1[122] = v1[15];
+  v3 = v2[12];
+  a1[161] = v2[11];
+  a1[160] = v3;
+  v4 = v2[14];
+  a1[162] = v2[13];
+  a1[120] = v4;
+  a1[122] = v2[15];
   return 1;
 }
 
@@ -3117,12 +3098,12 @@ BOOL PredictorSetup(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
         goto LABEL_15;
       }
 
-      TIFFErrorExtR(a1, "PredictorSetup", "Floating point Predictor not supported with %hu-bit samples", a4, a5, a6, a7, a8, *(a1 + 116));
+      TIFFErrorExtR(a1, "PredictorSetup", "Floating point Predictor not supported with %hu-bit samples");
     }
 
     else
     {
-      TIFFErrorExtR(a1, "PredictorSetup", "Floating point Predictor not supported with %hu data format", a4, a5, a6, a7, a8, *(a1 + 118));
+      TIFFErrorExtR(a1, "PredictorSetup", "Floating point Predictor not supported with %hu data format");
     }
 
     return 0;
@@ -3130,14 +3111,14 @@ BOOL PredictorSetup(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
 
   if (v9 != 2)
   {
-    TIFFErrorExtR(a1, "PredictorSetup", "Predictor value %d not supported", a4, a5, a6, a7, a8, *v8);
+    TIFFErrorExtR(a1, "PredictorSetup", "Predictor value %d not supported");
     return 0;
   }
 
   v10 = *(a1 + 116);
   if ((((v10 - 8) >> 3) | ((v10 - 8) << 13)) > 7u || ((1 << ((v10 - 8) >> 3)) & 0x8B) == 0)
   {
-    TIFFErrorExtR(a1, "PredictorSetup", "Horizontal differencing Predictor not supported with %hu-bit samples", a4, a5, a6, a7, a8, *(a1 + 116));
+    TIFFErrorExtR(a1, "PredictorSetup", "Horizontal differencing Predictor not supported with %hu-bit samples");
     return 0;
   }
 
@@ -3155,7 +3136,7 @@ LABEL_15:
   *(v8 + 1) = v14;
   if ((*(a1 + 17) & 4) != 0)
   {
-    v15 = _cg_TIFFTileRowSize(a1, a2, a3, a4, a5, a6, a7, a8);
+    v15 = _cg_TIFFTileRowSize(a1);
   }
 
   else
@@ -3167,58 +3148,58 @@ LABEL_15:
   return v15 != 0;
 }
 
-uint64_t horAcc8(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8x8_t a9, uint8x8_t a10)
+uint64_t horAcc8(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint8x8_t a4, uint8x8_t a5)
 {
-  v10 = *(*(a1 + 1096) + 8);
-  if (a3 % v10)
+  v5 = *(*(a1 + 1096) + 8);
+  if (a3 % v5)
   {
-    TIFFErrorExtR(a1, "horAcc8", "%s", a4, a5, a6, a7, a8, "(cc%stride)!=0");
+    TIFFErrorExtR(a1, "horAcc8", "%s", "(cc%stride)!=0");
     return 0;
   }
 
   else
   {
-    v12 = a3 - v10;
-    if (a3 > v10)
+    v7 = a3 - v5;
+    if (a3 > v5)
     {
-      if (v10 == 4)
+      if (v5 == 4)
       {
         if (a3 >= 5)
         {
-          a9.i32[0] = *a2;
-          v23 = vmovl_u16(*&vmovl_u8(a9));
+          a4.i32[0] = *a2;
+          v18 = vmovl_u16(*&vmovl_u8(a4));
           for (i = 4; i < a3; i += 4)
           {
-            a10.i32[0] = *&a2[i];
-            v23 = vaddw_u16(v23, *&vmovl_u8(a10));
-            a10 = vuzp1_s8(vmovn_s32(v23), *v23.i8);
-            *&a2[i] = a10.i32[0];
+            a5.i32[0] = *&a2[i];
+            v18 = vaddw_u16(v18, *&vmovl_u8(a5));
+            a5 = vuzp1_s8(vmovn_s32(v18), *v18.i8);
+            *&a2[i] = a5.i32[0];
           }
         }
       }
 
-      else if (v10 == 3)
+      else if (v5 == 3)
       {
         if (a3 >= 4)
         {
-          v13 = 0;
-          v14 = a2[2];
-          v15 = a2[1];
-          v16 = *a2;
+          v8 = 0;
+          v9 = a2[2];
+          v10 = a2[1];
+          v11 = *a2;
           do
           {
-            v17 = &a2[v13];
-            v16 += a2[v13 + 3];
-            v17[3] = v16;
-            v15 += a2[v13 + 4];
-            v17[4] = v15;
-            v14 += a2[v13 + 5];
-            v17[5] = v14;
-            v18 = v13 + 6;
-            v13 += 3;
+            v12 = &a2[v8];
+            v11 += a2[v8 + 3];
+            v12[3] = v11;
+            v10 += a2[v8 + 4];
+            v12[4] = v10;
+            v9 += a2[v8 + 5];
+            v12[5] = v9;
+            v13 = v8 + 6;
+            v8 += 3;
           }
 
-          while (v18 < a3);
+          while (v13 < a3);
         }
       }
 
@@ -3226,45 +3207,45 @@ uint64_t horAcc8(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uin
       {
         do
         {
-          if (v10)
+          if (v5)
           {
-            if (v10 != 1)
+            if (v5 != 1)
             {
-              if (v10 != 2)
+              if (v5 != 2)
               {
-                if (v10 >= 5)
+                if (v5 >= 5)
                 {
-                  v19 = v10 - 3;
+                  v14 = v5 - 3;
                   do
                   {
-                    a2[v10] += *a2;
+                    a2[v5] += *a2;
                     ++a2;
-                    --v19;
+                    --v14;
                   }
 
-                  while (v19 > 1);
+                  while (v14 > 1);
                 }
 
-                a2[v10] += *a2;
-                v21 = a2[1];
-                v20 = a2 + 1;
-                v20[v10] += v21;
-                a2 = v20 + 1;
+                a2[v5] += *a2;
+                v16 = a2[1];
+                v15 = a2 + 1;
+                v15[v5] += v16;
+                a2 = v15 + 1;
               }
 
-              a2[v10] += *a2;
+              a2[v5] += *a2;
               ++a2;
             }
 
-            a2[v10] += *a2;
+            a2[v5] += *a2;
             ++a2;
           }
 
-          v22 = v12 <= v10;
-          v12 -= v10;
+          v17 = v7 <= v5;
+          v7 -= v5;
         }
 
-        while (!v22);
+        while (!v17);
       }
     }
 
@@ -3272,72 +3253,72 @@ uint64_t horAcc8(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uin
   }
 }
 
-uint64_t horAcc16(uint64_t a1, _WORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t horAcc16(uint64_t a1, _WORD *a2, uint64_t a3)
 {
-  v8 = *(*(a1 + 1096) + 8);
-  if (a3 % (2 * v8))
+  v3 = *(*(a1 + 1096) + 8);
+  if (a3 % (2 * v3))
   {
-    TIFFErrorExtR(a1, "horAcc16", "%s", a4, a5, a6, a7, a8, "cc%(2*stride))!=0");
+    TIFFErrorExtR(a1, "horAcc16", "%s", "cc%(2*stride))!=0");
     return 0;
   }
 
-  v10 = a3 / 2 - v8;
-  if (a3 / 2 > v8)
+  v5 = a3 / 2 - v3;
+  if (a3 / 2 > v3)
   {
-    while (v8 <= 1)
+    while (v3 <= 1)
     {
-      if (v8)
+      if (v3)
       {
-        if (v8 != 1)
+        if (v3 != 1)
         {
 LABEL_11:
-          if (v8 >= 5)
+          if (v3 >= 5)
           {
-            v11 = v8 - 3;
+            v6 = v3 - 3;
             do
             {
-              a2[v8] += *a2;
+              a2[v3] += *a2;
               ++a2;
-              --v11;
+              --v6;
             }
 
-            while (v11 > 1);
+            while (v6 > 1);
           }
 
           goto LABEL_14;
         }
 
 LABEL_17:
-        a2[v8] += *a2;
+        a2[v3] += *a2;
         ++a2;
       }
 
-      v10 -= v8;
-      if (v10 < 1)
+      v5 -= v3;
+      if (v5 < 1)
       {
         return 1;
       }
     }
 
-    if (v8 != 2)
+    if (v3 != 2)
     {
-      if (v8 != 3)
+      if (v3 != 3)
       {
-        if (v8 != 4)
+        if (v3 != 4)
         {
           goto LABEL_11;
         }
 
 LABEL_14:
-        a2[v8] += *a2;
+        a2[v3] += *a2;
         ++a2;
       }
 
-      a2[v8] += *a2;
+      a2[v3] += *a2;
       ++a2;
     }
 
-    a2[v8] += *a2;
+    a2[v3] += *a2;
     ++a2;
     goto LABEL_17;
   }
@@ -3345,80 +3326,80 @@ LABEL_14:
   return 1;
 }
 
-uint64_t horAcc32(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t horAcc32(uint64_t a1, _DWORD *a2, uint64_t a3)
 {
-  v8 = *(*(a1 + 1096) + 8);
-  v9 = a3 + 3;
+  v3 = *(*(a1 + 1096) + 8);
+  v4 = a3 + 3;
   if (a3 >= 0)
   {
-    v9 = a3;
+    v4 = a3;
   }
 
-  if (a3 % (4 * v8))
+  if (a3 % (4 * v3))
   {
-    TIFFErrorExtR(a1, "horAcc32", "%s", a4, a5, a6, a7, a8, "cc%(4*stride))!=0");
+    TIFFErrorExtR(a1, "horAcc32", "%s", "cc%(4*stride))!=0");
     return 0;
   }
 
-  v11 = v9 >> 2;
-  v12 = v11 <= v8;
-  v13 = v11 - v8;
-  if (!v12)
+  v6 = v4 >> 2;
+  v7 = v6 <= v3;
+  v8 = v6 - v3;
+  if (!v7)
   {
-    while (v8 <= 1)
+    while (v3 <= 1)
     {
-      if (v8)
+      if (v3)
       {
-        if (v8 != 1)
+        if (v3 != 1)
         {
 LABEL_13:
-          if (v8 >= 5)
+          if (v3 >= 5)
           {
-            v14 = v8 - 3;
+            v9 = v3 - 3;
             do
             {
-              a2[v8] += *a2;
+              a2[v3] += *a2;
               ++a2;
-              --v14;
+              --v9;
             }
 
-            while (v14 > 1);
+            while (v9 > 1);
           }
 
           goto LABEL_16;
         }
 
 LABEL_19:
-        a2[v8] += *a2;
+        a2[v3] += *a2;
         ++a2;
       }
 
-      v13 -= v8;
-      if (v13 < 1)
+      v8 -= v3;
+      if (v8 < 1)
       {
         return 1;
       }
     }
 
-    if (v8 != 2)
+    if (v3 != 2)
     {
-      if (v8 != 3)
+      if (v3 != 3)
       {
-        if (v8 != 4)
+        if (v3 != 4)
         {
           goto LABEL_13;
         }
 
 LABEL_16:
-        a2[v8] += *a2;
+        a2[v3] += *a2;
         ++a2;
       }
 
-      a2[v8] += *a2;
+      a2[v3] += *a2;
       ++a2;
     }
 
-    a2[v8] += *a2;
+    a2[v3] += *a2;
     ++a2;
     goto LABEL_19;
   }
@@ -3426,80 +3407,80 @@ LABEL_16:
   return 1;
 }
 
-uint64_t horAcc64(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t horAcc64(uint64_t a1, void *a2, uint64_t a3)
 {
-  v8 = *(*(a1 + 1096) + 8);
-  v9 = a3 + 7;
+  v3 = *(*(a1 + 1096) + 8);
+  v4 = a3 + 7;
   if (a3 >= 0)
   {
-    v9 = a3;
+    v4 = a3;
   }
 
-  if (a3 % (8 * v8))
+  if (a3 % (8 * v3))
   {
-    TIFFErrorExtR(a1, "horAcc64", "%s", a4, a5, a6, a7, a8, "cc%(8*stride))!=0");
+    TIFFErrorExtR(a1, "horAcc64", "%s", "cc%(8*stride))!=0");
     return 0;
   }
 
-  v11 = v9 >> 3;
-  v12 = v11 <= v8;
-  v13 = v11 - v8;
-  if (!v12)
+  v6 = v4 >> 3;
+  v7 = v6 <= v3;
+  v8 = v6 - v3;
+  if (!v7)
   {
-    while (v8 <= 1)
+    while (v3 <= 1)
     {
-      if (v8)
+      if (v3)
       {
-        if (v8 != 1)
+        if (v3 != 1)
         {
 LABEL_13:
-          if (v8 >= 5)
+          if (v3 >= 5)
           {
-            v14 = v8 - 3;
+            v9 = v3 - 3;
             do
             {
-              a2[v8] += *a2;
+              a2[v3] += *a2;
               ++a2;
-              --v14;
+              --v9;
             }
 
-            while (v14 > 1);
+            while (v9 > 1);
           }
 
           goto LABEL_16;
         }
 
 LABEL_19:
-        a2[v8] += *a2;
+        a2[v3] += *a2;
         ++a2;
       }
 
-      v13 -= v8;
-      if (v13 < 1)
+      v8 -= v3;
+      if (v8 < 1)
       {
         return 1;
       }
     }
 
-    if (v8 != 2)
+    if (v3 != 2)
     {
-      if (v8 != 3)
+      if (v3 != 3)
       {
-        if (v8 != 4)
+        if (v3 != 4)
         {
           goto LABEL_13;
         }
 
 LABEL_16:
-        a2[v8] += *a2;
+        a2[v3] += *a2;
         ++a2;
       }
 
-      a2[v8] += *a2;
+      a2[v3] += *a2;
       ++a2;
     }
 
-    a2[v8] += *a2;
+    a2[v3] += *a2;
     ++a2;
     goto LABEL_19;
   }
@@ -3554,15 +3535,15 @@ uint64_t PredictorDecodeTile(uint64_t a1, uint64_t a2, uint64_t a3)
   result = v4();
   if (result)
   {
-    v14 = v3[2];
-    if (v14 <= 0)
+    v9 = v3[2];
+    if (v9 <= 0)
     {
       PredictorDecodeTile_cold_2();
     }
 
-    if (a3 % v14)
+    if (a3 % v9)
     {
-      TIFFErrorExtR(a1, "PredictorDecodeTile", "%s", v9, v10, v11, v12, v13, "occ0%rowsize != 0");
+      TIFFErrorExtR(a1, "PredictorDecodeTile", "%s", "occ0%rowsize != 0");
       return 0;
     }
 
@@ -3582,14 +3563,14 @@ uint64_t PredictorDecodeTile(uint64_t a1, uint64_t a2, uint64_t a3)
       {
         while (1)
         {
-          result = (v3[10])(a1, a2, v14);
+          result = (v3[10])(a1, a2, v9);
           if (!result)
           {
             break;
           }
 
-          a3 -= v14;
-          a2 += v14;
+          a3 -= v9;
+          a2 += v9;
           if (a3 <= 0)
           {
             return 1;
@@ -3606,250 +3587,250 @@ uint64_t swabHorAcc16(uint64_t a1, _WORD *a2, uint64_t a3)
 {
   TIFFSwabArrayOfShort(a2, a3 / 2);
 
-  return horAcc16(a1, a2, a3, v6, v7, v8, v9, v10);
+  return horAcc16(a1, a2, a3);
 }
 
 uint64_t swabHorAcc32(uint64_t a1, __int32 *a2, uint64_t a3, uint8x8_t a4)
 {
   TIFFSwabArrayOfLong(a2, a3 / 4, a4);
 
-  return horAcc32(a1, a2, a3, v7, v8, v9, v10, v11);
+  return horAcc32(a1, a2, a3);
 }
 
 uint64_t swabHorAcc64(uint64_t a1, int8x8_t *a2, uint64_t a3)
 {
   TIFFSwabArrayOfLong8(a2, a3 / 8);
 
-  return horAcc64(a1, a2, a3, v6, v7, v8, v9, v10);
+  return horAcc64(a1, a2, a3);
 }
 
-uint64_t fpAcc(uint64_t a1, _BYTE *a2, int64_t size, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t fpAcc(uint64_t a1, _BYTE *a2, int64_t size)
 {
-  v8 = *(a1 + 116);
-  if (v8 < 8)
+  v3 = *(a1 + 116);
+  if (v3 < 8)
   {
     return 0;
   }
 
-  v11 = *(*(a1 + 1096) + 8);
-  v12 = v8 >> 3;
-  if (size % (v11 * (v8 >> 3)))
+  v6 = *(*(a1 + 1096) + 8);
+  v7 = v3 >> 3;
+  if (size % (v6 * (v3 >> 3)))
   {
-    TIFFErrorExtR(a1, "fpAcc", "%s", a4, a5, a6, a7, a8, "cc%(bps*stride))!=0");
+    TIFFErrorExtR(a1, "fpAcc", "%s", "cc%(bps*stride))!=0");
     return 0;
   }
 
   result = malloc_type_malloc(size, 0x100004077774924uLL);
   if (result)
   {
-    v14 = result;
-    v15 = size / v12;
-    if (v11 < size)
+    v9 = result;
+    v10 = size / v7;
+    if (v6 < size)
     {
-      v16 = a2;
-      v17 = size;
-      while (v11 <= 1)
+      v11 = a2;
+      v12 = size;
+      while (v6 <= 1)
       {
-        if (v11)
+        if (v6)
         {
-          if (v11 != 1)
+          if (v6 != 1)
           {
 LABEL_15:
-            if (v11 >= 5)
+            if (v6 >= 5)
             {
-              v18 = v11 - 3;
+              v13 = v6 - 3;
               do
               {
-                v16[v11] += *v16;
-                ++v16;
-                --v18;
+                v11[v6] += *v11;
+                ++v11;
+                --v13;
               }
 
-              while (v18 > 1);
+              while (v13 > 1);
             }
 
             goto LABEL_18;
           }
 
 LABEL_21:
-          v16[v11] += *v16;
-          ++v16;
+          v11[v6] += *v11;
+          ++v11;
         }
 
-        v17 -= v11;
-        if (v17 <= v11)
+        v12 -= v6;
+        if (v12 <= v6)
         {
           goto LABEL_23;
         }
       }
 
-      if (v11 != 2)
+      if (v6 != 2)
       {
-        if (v11 != 3)
+        if (v6 != 3)
         {
-          if (v11 != 4)
+          if (v6 != 4)
           {
             goto LABEL_15;
           }
 
 LABEL_18:
-          v16[v11] += *v16;
-          ++v16;
+          v11[v6] += *v11;
+          ++v11;
         }
 
-        v16[v11] += *v16;
-        ++v16;
+        v11[v6] += *v11;
+        ++v11;
       }
 
-      v16[v11] += *v16;
-      ++v16;
+      v11[v6] += *v11;
+      ++v11;
       goto LABEL_21;
     }
 
 LABEL_23:
     _TIFFmemcpy(result, a2, size);
-    if (v15 >= 1)
+    if (v10 >= 1)
     {
-      v19 = 0;
-      if (v12 <= 1)
+      v14 = 0;
+      if (v7 <= 1)
       {
-        v20 = 1;
+        v15 = 1;
       }
 
       else
       {
-        v20 = v12;
+        v15 = v7;
       }
 
       do
       {
-        v21 = v20;
-        v22 = v12 - 1;
-        v23 = a2;
+        v16 = v15;
+        v17 = v7 - 1;
+        v18 = a2;
         do
         {
-          *v23++ = v14[v19 + v15 * v22--];
-          --v21;
+          *v18++ = v9[v14 + v10 * v17--];
+          --v16;
         }
 
-        while (v21);
-        ++v19;
-        a2 += v12;
+        while (v16);
+        ++v14;
+        a2 += v7;
       }
 
-      while (v19 != v15);
+      while (v14 != v10);
     }
 
-    free(v14);
+    free(v9);
     return 1;
   }
 
   return result;
 }
 
-uint64_t horDiff8(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8x8_t a9, uint8x8_t a10)
+uint64_t horDiff8(uint64_t a1, char *a2, uint64_t a3, uint8x8_t a4, int16x4_t a5)
 {
-  v10 = *(*(a1 + 1096) + 8);
-  if (a3 % v10)
+  v5 = *(*(a1 + 1096) + 8);
+  if (a3 % v5)
   {
-    TIFFErrorExtR(a1, "horDiff8", "%s", a4, a5, a6, a7, a8, "(cc%stride)!=0");
+    TIFFErrorExtR(a1, "horDiff8", "%s", "(cc%stride)!=0");
     return 0;
   }
 
   else
   {
-    v12 = a3 - v10;
-    if (a3 > v10)
+    v7 = a3 - v5;
+    if (a3 > v5)
     {
-      if (v10 == 4)
+      if (v5 == 4)
       {
-        v22 = *a2;
-        v21 = (a2 + 4);
-        a9.i32[0] = v22;
-        v23 = vmovl_u8(a9).u64[0];
-        v24 = v12 + 4;
+        v17 = *a2;
+        v16 = (a2 + 4);
+        a4.i32[0] = v17;
+        v18 = vmovl_u8(a4).u64[0];
+        v19 = v7 + 4;
         do
         {
-          a10.i32[0] = *v21;
-          a10 = vmovl_u8(a10).u64[0];
-          v25 = vsub_s16(a10, v23);
-          *v21++ = vuzp1_s8(v25, v25).u32[0];
-          v24 -= 4;
-          v23 = a10;
+          a5.i32[0] = *v16;
+          a5 = vmovl_u8(a5).u64[0];
+          v20 = vsub_s16(a5, v18);
+          *v16++ = vuzp1_s8(v20, v20).u32[0];
+          v19 -= 4;
+          v18 = a5;
         }
 
-        while (v24 > 4);
+        while (v19 > 4);
       }
 
-      else if (v10 == 3)
+      else if (v5 == 3)
       {
-        v13 = *a2;
-        v14 = a2[1];
-        v15 = v12 + 3;
-        v16 = a2 + 5;
-        v17 = a2[2];
+        v8 = *a2;
+        v9 = a2[1];
+        v10 = v7 + 3;
+        v11 = a2 + 5;
+        v12 = a2[2];
         do
         {
-          v18 = *(v16 - 2);
-          *(v16 - 2) = v18 - v13;
-          v19 = *(v16 - 1);
-          *(v16 - 1) = v19 - v14;
-          v20 = *v16;
-          v15 -= 3;
-          *v16 -= v17;
-          v16 += 3;
-          v13 = v18;
-          v14 = v19;
-          v17 = v20;
+          v13 = *(v11 - 2);
+          *(v11 - 2) = v13 - v8;
+          v14 = *(v11 - 1);
+          *(v11 - 1) = v14 - v9;
+          v15 = *v11;
+          v10 -= 3;
+          *v11 -= v12;
+          v11 += 3;
+          v8 = v13;
+          v9 = v14;
+          v12 = v15;
         }
 
-        while (v15 > 3);
+        while (v10 > 3);
       }
 
       else
       {
-        v26 = &a2[v12 - 1];
+        v21 = &a2[v7 - 1];
         do
         {
-          if (v10)
+          if (v5)
           {
-            if (v10 != 1)
+            if (v5 != 1)
             {
-              if (v10 != 2)
+              if (v5 != 2)
               {
-                if (v10 >= 5)
+                if (v5 >= 5)
                 {
-                  v27 = -3;
+                  v22 = -3;
                   do
                   {
-                    v26[v10] -= *v26;
-                    --v26;
-                    --v27;
+                    v21[v5] -= *v21;
+                    --v21;
+                    --v22;
                   }
 
-                  while ((v10 + v27) > 1);
+                  while ((v5 + v22) > 1);
                 }
 
-                v26[v10] -= *v26;
-                v29 = *(v26 - 1);
-                v28 = v26 - 1;
-                v28[v10] -= v29;
-                v26 = v28 - 1;
+                v21[v5] -= *v21;
+                v24 = *(v21 - 1);
+                v23 = v21 - 1;
+                v23[v5] -= v24;
+                v21 = v23 - 1;
               }
 
-              v26[v10] -= *v26;
-              --v26;
+              v21[v5] -= *v21;
+              --v21;
             }
 
-            v26[v10] -= *v26;
-            --v26;
+            v21[v5] -= *v21;
+            --v21;
           }
 
-          v30 = v12 <= v10;
-          v12 -= v10;
+          v25 = v7 <= v5;
+          v7 -= v5;
         }
 
-        while (!v30);
+        while (!v25);
       }
     }
 
@@ -3857,238 +3838,238 @@ uint64_t horDiff8(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, 
   }
 }
 
-uint64_t horDiff16(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t horDiff16(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *(*(a1 + 1096) + 8);
-  if (a3 % (2 * v8))
+  v3 = *(*(a1 + 1096) + 8);
+  if (a3 % (2 * v3))
   {
-    TIFFErrorExtR(a1, "horDiff8", "%s", a4, a5, a6, a7, a8, "(cc%(2*stride))!=0");
+    TIFFErrorExtR(a1, "horDiff8", "%s", "(cc%(2*stride))!=0");
     return 0;
   }
 
-  v10 = a3 / 2 - v8;
-  if (a3 / 2 > v8)
+  v5 = a3 / 2 - v3;
+  if (a3 / 2 > v3)
   {
-    v11 = (a2 + 2 * v10 - 2);
-    while (v8 <= 1)
+    v6 = (a2 + 2 * v5 - 2);
+    while (v3 <= 1)
     {
-      if (v8)
+      if (v3)
       {
-        if (v8 != 1)
+        if (v3 != 1)
         {
 LABEL_12:
-          if (v8 >= 5)
+          if (v3 >= 5)
           {
-            v12 = v8 - 3;
+            v7 = v3 - 3;
             do
             {
-              v11[v8] -= *v11;
-              --v11;
-              --v12;
+              v6[v3] -= *v6;
+              --v6;
+              --v7;
             }
 
-            while (v12 > 1);
+            while (v7 > 1);
           }
 
           goto LABEL_15;
         }
 
 LABEL_18:
-        v11[v8] -= *v11;
-        --v11;
+        v6[v3] -= *v6;
+        --v6;
       }
 
-      v10 -= v8;
-      if (v10 < 1)
+      v5 -= v3;
+      if (v5 < 1)
       {
         return 1;
       }
     }
 
-    if (v8 != 2)
+    if (v3 != 2)
     {
-      if (v8 != 3)
+      if (v3 != 3)
       {
-        if (v8 != 4)
+        if (v3 != 4)
         {
           goto LABEL_12;
         }
 
 LABEL_15:
-        v11[v8] -= *v11;
-        --v11;
+        v6[v3] -= *v6;
+        --v6;
       }
 
-      v11[v8] -= *v11;
-      --v11;
+      v6[v3] -= *v6;
+      --v6;
     }
 
-    v11[v8] -= *v11;
-    --v11;
+    v6[v3] -= *v6;
+    --v6;
     goto LABEL_18;
   }
 
   return 1;
 }
 
-uint64_t horDiff32(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t horDiff32(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *(*(a1 + 1096) + 8);
-  v9 = a3 + 3;
+  v3 = *(*(a1 + 1096) + 8);
+  v4 = a3 + 3;
   if (a3 >= 0)
   {
-    v9 = a3;
+    v4 = a3;
   }
 
-  if (a3 % (4 * v8))
+  if (a3 % (4 * v3))
   {
-    TIFFErrorExtR(a1, "horDiff32", "%s", a4, a5, a6, a7, a8, "(cc%(4*stride))!=0");
+    TIFFErrorExtR(a1, "horDiff32", "%s", "(cc%(4*stride))!=0");
     return 0;
   }
 
-  v11 = v9 >> 2;
-  v12 = v11 <= v8;
-  v13 = v11 - v8;
-  if (!v12)
+  v6 = v4 >> 2;
+  v7 = v6 <= v3;
+  v8 = v6 - v3;
+  if (!v7)
   {
-    v14 = (a2 + 4 * v13 - 4);
-    while (v8 <= 1)
+    v9 = (a2 + 4 * v8 - 4);
+    while (v3 <= 1)
     {
-      if (v8)
+      if (v3)
       {
-        if (v8 != 1)
+        if (v3 != 1)
         {
 LABEL_14:
-          if (v8 >= 5)
+          if (v3 >= 5)
           {
-            v15 = v8 - 3;
+            v10 = v3 - 3;
             do
             {
-              v14[v8] -= *v14;
-              --v14;
-              --v15;
+              v9[v3] -= *v9;
+              --v9;
+              --v10;
             }
 
-            while (v15 > 1);
+            while (v10 > 1);
           }
 
           goto LABEL_17;
         }
 
 LABEL_20:
-        v14[v8] -= *v14;
-        --v14;
+        v9[v3] -= *v9;
+        --v9;
       }
 
-      v13 -= v8;
-      if (v13 < 1)
+      v8 -= v3;
+      if (v8 < 1)
       {
         return 1;
       }
     }
 
-    if (v8 != 2)
+    if (v3 != 2)
     {
-      if (v8 != 3)
+      if (v3 != 3)
       {
-        if (v8 != 4)
+        if (v3 != 4)
         {
           goto LABEL_14;
         }
 
 LABEL_17:
-        v14[v8] -= *v14;
-        --v14;
+        v9[v3] -= *v9;
+        --v9;
       }
 
-      v14[v8] -= *v14;
-      --v14;
+      v9[v3] -= *v9;
+      --v9;
     }
 
-    v14[v8] -= *v14;
-    --v14;
+    v9[v3] -= *v9;
+    --v9;
     goto LABEL_20;
   }
 
   return 1;
 }
 
-uint64_t horDiff64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t horDiff64(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *(*(a1 + 1096) + 8);
-  v9 = a3 + 7;
+  v3 = *(*(a1 + 1096) + 8);
+  v4 = a3 + 7;
   if (a3 >= 0)
   {
-    v9 = a3;
+    v4 = a3;
   }
 
-  if (a3 % (8 * v8))
+  if (a3 % (8 * v3))
   {
-    TIFFErrorExtR(a1, "horDiff64", "%s", a4, a5, a6, a7, a8, "(cc%(8*stride))!=0");
+    TIFFErrorExtR(a1, "horDiff64", "%s", "(cc%(8*stride))!=0");
     return 0;
   }
 
-  v11 = v9 >> 3;
-  v12 = v11 <= v8;
-  v13 = v11 - v8;
-  if (!v12)
+  v6 = v4 >> 3;
+  v7 = v6 <= v3;
+  v8 = v6 - v3;
+  if (!v7)
   {
-    v14 = (a2 + 8 * v13 - 8);
-    while (v8 <= 1)
+    v9 = (a2 + 8 * v8 - 8);
+    while (v3 <= 1)
     {
-      if (v8)
+      if (v3)
       {
-        if (v8 != 1)
+        if (v3 != 1)
         {
 LABEL_14:
-          if (v8 >= 5)
+          if (v3 >= 5)
           {
-            v15 = v8 - 3;
+            v10 = v3 - 3;
             do
             {
-              v14[v8] -= *v14;
-              --v14;
-              --v15;
+              v9[v3] -= *v9;
+              --v9;
+              --v10;
             }
 
-            while (v15 > 1);
+            while (v10 > 1);
           }
 
           goto LABEL_17;
         }
 
 LABEL_20:
-        v14[v8] -= *v14;
-        --v14;
+        v9[v3] -= *v9;
+        --v9;
       }
 
-      v13 -= v8;
-      if (v13 < 1)
+      v8 -= v3;
+      if (v8 < 1)
       {
         return 1;
       }
     }
 
-    if (v8 != 2)
+    if (v3 != 2)
     {
-      if (v8 != 3)
+      if (v3 != 3)
       {
-        if (v8 != 4)
+        if (v3 != 4)
         {
           goto LABEL_14;
         }
 
 LABEL_17:
-        v14[v8] -= *v14;
-        --v14;
+        v9[v3] -= *v9;
+        --v9;
       }
 
-      v14[v8] -= *v14;
-      --v14;
+      v9[v3] -= *v9;
+      --v9;
     }
 
-    v14[v8] -= *v14;
-    --v14;
+    v9[v3] -= *v9;
+    --v9;
     goto LABEL_20;
   }
 
@@ -4125,7 +4106,7 @@ uint64_t PredictorEncodeRow(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return result;
 }
 
-uint64_t PredictorEncodeTile(uint64_t a1, const void *a2, uint64_t size, uint64_t a4)
+uint64_t PredictorEncodeTile(uint64_t a1, const void *a2, int64_t size, uint64_t a4)
 {
   v4 = *(a1 + 1096);
   if (!v4)
@@ -4146,47 +4127,47 @@ uint64_t PredictorEncodeTile(uint64_t a1, const void *a2, uint64_t size, uint64_
   v9 = malloc_type_malloc(size, 0x100004077774924uLL);
   if (!v9)
   {
-    TIFFErrorExtR(a1, "PredictorEncodeTile", "Out of memory allocating %lld byte temp buffer.", v10, v11, v12, v13, v14, size);
+    TIFFErrorExtR(a1, "PredictorEncodeTile", "Out of memory allocating %lld byte temp buffer.", size);
     return 0;
   }
 
-  v15 = v9;
+  v10 = v9;
   memcpy(v9, a2, size);
-  v21 = v4[2];
-  if (v21 <= 0)
+  v11 = v4[2];
+  if (v11 <= 0)
   {
     PredictorEncodeTile_cold_1();
   }
 
-  if (size % v21)
+  if (size % v11)
   {
-    TIFFErrorExtR(a1, "PredictorEncodeTile", "%s", v16, v17, v18, v19, v20, "(cc0%rowsize)!=0");
-    free(v15);
+    TIFFErrorExtR(a1, "PredictorEncodeTile", "%s", "(cc0%rowsize)!=0");
+    free(v10);
     return 0;
   }
 
   if (size >= 1)
   {
-    v23 = v15;
-    v24 = size;
+    v13 = v10;
+    v14 = size;
     do
     {
-      (v4[6])(a1, v23, v21);
-      v24 -= v21;
-      v23 += v21;
+      (v4[6])(a1, v13, v11);
+      v14 -= v11;
+      v13 += v11;
     }
 
-    while (v24 > 0);
+    while (v14 > 0);
   }
 
-  v25 = (v4[5])(a1, v15, size, a4);
-  free(v15);
-  return v25;
+  v15 = (v4[5])(a1, v10, size, a4);
+  free(v10);
+  return v15;
 }
 
-uint64_t swabHorDiff16(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t swabHorDiff16(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  result = horDiff16(a1, a2, a3, a4, a5, a6, a7, a8);
+  result = horDiff16(a1, a2, a3);
   if (result)
   {
     TIFFSwabArrayOfShort(a2, a3 / 2);
@@ -4196,21 +4177,21 @@ uint64_t swabHorDiff16(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return result;
 }
 
-uint64_t swabHorDiff32(uint64_t a1, __int32 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t swabHorDiff32(uint64_t a1, __int32 *a2, uint64_t a3)
 {
-  result = horDiff32(a1, a2, a3, a4, a5, a6, a7, a8);
+  result = horDiff32(a1, a2, a3);
   if (result)
   {
-    TIFFSwabArrayOfLong(a2, a3 / 4, v11);
+    TIFFSwabArrayOfLong(a2, a3 / 4, v6);
     return 1;
   }
 
   return result;
 }
 
-uint64_t swabHorDiff64(uint64_t a1, int8x8_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t swabHorDiff64(uint64_t a1, int8x8_t *a2, uint64_t a3)
 {
-  result = horDiff64(a1, a2, a3, a4, a5, a6, a7, a8);
+  result = horDiff64(a1, a2, a3);
   if (result)
   {
     TIFFSwabArrayOfLong8(a2, a3 / 8);
@@ -4220,109 +4201,109 @@ uint64_t swabHorDiff64(uint64_t a1, int8x8_t *a2, uint64_t a3, uint64_t a4, uint
   return result;
 }
 
-uint64_t fpDiff(uint64_t a1, char *a2, int64_t size, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t fpDiff(uint64_t a1, char *a2, int64_t size)
 {
-  v8 = *(*(a1 + 1096) + 8);
-  v9 = *(a1 + 116);
-  v10 = v9 >> 3;
-  if (size % (v8 * (v9 >> 3)))
+  v3 = *(*(a1 + 1096) + 8);
+  v4 = *(a1 + 116);
+  v5 = v4 >> 3;
+  if (size % (v3 * (v4 >> 3)))
   {
-    TIFFErrorExtR(a1, "fpDiff", "%s", a4, a5, a6, a7, a8, "(cc%(bps*stride))!=0");
+    TIFFErrorExtR(a1, "fpDiff", "%s", "(cc%(bps*stride))!=0");
     return 0;
   }
 
-  v12 = size;
+  v7 = size;
   result = malloc_type_malloc(size, 0x100004077774924uLL);
   if (result)
   {
-    v14 = result;
-    v15 = v12 / v10;
-    _TIFFmemcpy(result, a2, v12);
-    if (v12 / v10 >= 1)
+    v9 = result;
+    v10 = v7 / v5;
+    _TIFFmemcpy(result, a2, v7);
+    if (v7 / v5 >= 1)
     {
-      v16 = 0;
-      v17 = v14;
+      v11 = 0;
+      v12 = v9;
       do
       {
-        if (v9 >= 8)
+        if (v4 >= 8)
         {
-          v18 = v17;
-          v19 = v10 - 1;
+          v13 = v12;
+          v14 = v5 - 1;
           do
           {
-            v20 = *v18++;
-            a2[v16 + v15 * v19--] = v20;
+            v15 = *v13++;
+            a2[v11 + v10 * v14--] = v15;
           }
 
-          while (v19 != -1);
+          while (v14 != -1);
         }
 
-        ++v16;
-        v17 += v10;
+        ++v11;
+        v12 += v5;
       }
 
-      while (v16 != v15);
+      while (v11 != v10);
     }
 
-    free(v14);
-    if (v8 < v12)
+    free(v9);
+    if (v3 < v7)
     {
-      v21 = &a2[v12 + ~v8];
-      while (v8 <= 1)
+      v16 = &a2[v7 + ~v3];
+      while (v3 <= 1)
       {
-        if (v8)
+        if (v3)
         {
-          if (v8 != 1)
+          if (v3 != 1)
           {
 LABEL_19:
-            if (v8 >= 5)
+            if (v3 >= 5)
             {
-              v22 = -3;
+              v17 = -3;
               do
               {
-                v21[v8] -= *v21;
-                --v21;
-                --v22;
+                v16[v3] -= *v16;
+                --v16;
+                --v17;
               }
 
-              while ((v8 + v22) > 1);
+              while ((v3 + v17) > 1);
             }
 
             goto LABEL_22;
           }
 
 LABEL_25:
-          v21[v8] -= *v21;
-          --v21;
+          v16[v3] -= *v16;
+          --v16;
         }
 
-        v12 -= v8;
-        if (v12 <= v8)
+        v7 -= v3;
+        if (v7 <= v3)
         {
           return 1;
         }
       }
 
-      if (v8 != 2)
+      if (v3 != 2)
       {
-        if (v8 != 3)
+        if (v3 != 3)
         {
-          if (v8 != 4)
+          if (v3 != 4)
           {
             goto LABEL_19;
           }
 
 LABEL_22:
-          v21[v8] -= *v21;
-          --v21;
+          v16[v3] -= *v16;
+          --v16;
         }
 
-        v21[v8] -= *v21;
-        --v21;
+        v16[v3] -= *v16;
+        --v16;
       }
 
-      v21[v8] -= *v21;
-      --v21;
+      v16[v3] -= *v16;
+      --v16;
       goto LABEL_25;
     }
 
@@ -4330,15 +4311,6 @@ LABEL_22:
   }
 
   return result;
-}
-
-void IIO_Reader_RAD::createReadPlugin()
-{
-  operator new();
-}
-
-{
-  operator new();
 }
 
 uint64_t IIO_Reader_RAD::compareOptions(IIO_Reader_RAD *this, const __CFDictionary *a2, const __CFDictionary *a3)
@@ -4354,9 +4326,9 @@ uint64_t IIO_Reader_RAD::compareOptions(IIO_Reader_RAD *this, const __CFDictiona
   return a3 ^ 1;
 }
 
-void sub_1860013B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1860013B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   IIODictionary::~IIODictionary(va);
   _Unwind_Resume(a1);
 }
@@ -4366,1564 +4338,1540 @@ BOOL TIFFWriteDirectorySec(uint64_t a1, int a2, unsigned int a3, void *a4)
   if (*(a1 + 12))
   {
     _TIFFFillStriles(a1);
-    if (!a3)
+    if (a3)
     {
-LABEL_13:
-      v213 = a3;
-      v19 = a1 + 72;
-      if ((*(a1 + 72) & 0x80) != 0 && *(a1 + 120) == 32946)
+      v15 = *(a1 + 16);
+      if ((v15 & 0x1000) != 0)
       {
-        TIFFWarningExtR(a1, "TIFFWriteDirectorySec", "Creating TIFF with legacy Deflate codec identifier, COMPRESSION_ADOBE_DEFLATE is more widely supported", v9, v10, v11, v12, v13, v212);
+        *(a1 + 16) = v15 & 0xFFFFEFFF;
+        if (!(*(a1 + 1000))(a1))
+        {
+          TIFFErrorExtR(a1, "TIFFWriteDirectorySec", "Error post-encoding before directory write");
+          return 0;
+        }
       }
 
-      LODWORD(v20) = 0;
-      v21 = 0;
-      v216 = a2;
-      while (1)
+      (*(a1 + 1056))(a1);
+      v16 = *(a1 + 16);
+      if (*(a1 + 1160) >= 1 && (v16 & 0x40) != 0)
       {
-        size = v20;
-        v217 = 0;
-        if (v21)
+        if (!TIFFFlushData1(a1))
         {
-          if (!a2)
-          {
-            goto LABEL_211;
-          }
+          TIFFErrorExtR(a1, "TIFFWriteDirectorySec", "Error flushing data before directory write");
+          return 0;
         }
 
-        else
+        v16 = *(a1 + 16);
+      }
+
+      if ((v16 & 0x200) != 0)
+      {
+        v17 = *(a1 + 1120);
+        if (v17)
         {
-          *(a1 + 432) = 0;
-          if (!a2)
-          {
-            goto LABEL_211;
-          }
+          free(v17);
+          *(a1 + 1160) = 0;
+          v14 = 0;
+          *(a1 + 1120) = 0u;
+          *(a1 + 1136) = 0u;
+          v16 = *(a1 + 16);
+        }
+      }
+
+      *(a1 + 16) = v16 & 0xFFFFFFAF;
+    }
+
+    v197 = a3;
+    v18 = (a1 + 72);
+    if ((*(a1 + 72) & 0x80) != 0 && *(a1 + 120) == 32946)
+    {
+      TIFFWarningExtR(a1, "TIFFWriteDirectorySec", "Creating TIFF with legacy Deflate codec identifier, COMPRESSION_ADOBE_DEFLATE is more widely supported");
+    }
+
+    LODWORD(v19) = 0;
+    v20 = 0;
+    v200 = a2;
+    while (1)
+    {
+      size = v19;
+      v201 = 0;
+      if (v20)
+      {
+        if (!a2)
+        {
+          goto LABEL_211;
+        }
+      }
+
+      else
+      {
+        *(a1 + 432) = 0;
+        if (!a2)
+        {
+          goto LABEL_211;
+        }
+      }
+
+      v21 = *v18;
+      if ((*v18 & 2) != 0)
+      {
+        if (!TIFFWriteDirectoryTagShortLong(a1, &v201, v20, 0x100u, *(a1 + 88), v14) || !TIFFWriteDirectoryTagShortLong(a1, &v201, v20, 0x101u, *(a1 + 92), v22))
+        {
+          goto LABEL_422;
         }
 
-        v22 = *v19;
-        if ((*v19 & 2) != 0)
-        {
-          if (!TIFFWriteDirectoryTagShortLong(a1, &v217, v21, 256, *(a1 + 88), v14) || !TIFFWriteDirectoryTagShortLong(a1, &v217, v21, 257, *(a1 + 92), v23))
-          {
-            goto LABEL_425;
-          }
+        v21 = *v18;
+      }
 
-          v22 = *v19;
+      if ((v21 & 4) != 0)
+      {
+        if (!TIFFWriteDirectoryTagShortLong(a1, &v201, v20, 0x142u, *(a1 + 100), v14) || !TIFFWriteDirectoryTagShortLong(a1, &v201, v20, 0x143u, *(a1 + 104), v23))
+        {
+          goto LABEL_422;
         }
 
-        if ((v22 & 4) != 0)
-        {
-          if (!TIFFWriteDirectoryTagShortLong(a1, &v217, v21, 322, *(a1 + 100), v14) || !TIFFWriteDirectoryTagShortLong(a1, &v217, v21, 323, *(a1 + 104), v24))
-          {
-            goto LABEL_425;
-          }
+        v21 = *v18;
+      }
 
-          v22 = *v19;
+      if ((v21 & 8) != 0)
+      {
+        if (!TIFFWriteDirectoryTagRational(a1, &v201, v20, 282, *(a1 + 160), v10, v11, v12, v13) || !TIFFWriteDirectoryTagRational(a1, &v201, v20, 283, *(a1 + 164), v24, v25, v26, v27))
+        {
+          goto LABEL_422;
         }
 
-        if ((v22 & 8) != 0)
-        {
-          if (!TIFFWriteDirectoryTagRational(a1, &v217, v21, 282, v10, v11, v12, v13, *(a1 + 160)) || !TIFFWriteDirectoryTagRational(a1, &v217, v21, 283, v25, v26, v27, v28, *(a1 + 164)))
-          {
-            goto LABEL_425;
-          }
+        v21 = *v18;
+      }
 
-          v22 = *v19;
+      if ((v21 & 0x10) != 0)
+      {
+        if (!TIFFWriteDirectoryTagRational(a1, &v201, v20, 286, *(a1 + 172), v10, v11, v12, v13) || !TIFFWriteDirectoryTagRational(a1, &v201, v20, 287, *(a1 + 176), v28, v29, v30, v31))
+        {
+          goto LABEL_422;
         }
 
-        if ((v22 & 0x10) != 0)
-        {
-          if (!TIFFWriteDirectoryTagRational(a1, &v217, v21, 286, v10, v11, v12, v13, *(a1 + 172)) || !TIFFWriteDirectoryTagRational(a1, &v217, v21, 287, v29, v30, v31, v32, *(a1 + 176)))
-          {
-            goto LABEL_425;
-          }
+        v21 = *v18;
+      }
 
-          v22 = *v19;
+      if ((v21 & 0x20) != 0)
+      {
+        if (!TIFFWriteDirectoryTagCheckedLong(a1, &v201, v20, 0xFEu, *(a1 + 112), v14))
+        {
+          goto LABEL_422;
         }
 
-        if ((v22 & 0x20) != 0)
-        {
-          if (!TIFFWriteDirectoryTagCheckedLong(a1, &v217, v21, 254, *(a1 + 112), v14))
-          {
-            goto LABEL_425;
-          }
+        v21 = *v18;
+      }
 
-          v22 = *v19;
+      if ((v21 & 0x40) != 0)
+      {
+        if (!TIFFWriteDirectoryTagShortPerSample(a1, &v201, v20, 0x102u, *(a1 + 116)))
+        {
+          goto LABEL_422;
         }
 
-        if ((v22 & 0x40) != 0)
-        {
-          if (!TIFFWriteDirectoryTagShortPerSample(a1, &v217, v21, 258, *(a1 + 116)))
-          {
-            goto LABEL_425;
-          }
+        v21 = *v18;
+      }
 
-          v22 = *v19;
+      if ((v21 & 0x80) != 0)
+      {
+        if (!TIFFWriteDirectoryTagCheckedShort(a1, &v201, v20, 0x103u, *(a1 + 120)))
+        {
+          goto LABEL_422;
         }
 
-        if ((v22 & 0x80) != 0)
-        {
-          if (!TIFFWriteDirectoryTagCheckedShort(a1, &v217, v21, 259, *(a1 + 120)))
-          {
-            goto LABEL_425;
-          }
+        v21 = *v18;
+      }
 
-          v22 = *v19;
+      if ((v21 & 0x100) != 0)
+      {
+        if (!TIFFWriteDirectoryTagCheckedShort(a1, &v201, v20, 0x106u, *(a1 + 122)))
+        {
+          goto LABEL_422;
         }
 
-        if ((v22 & 0x100) != 0)
-        {
-          if (!TIFFWriteDirectoryTagCheckedShort(a1, &v217, v21, 262, *(a1 + 122)))
-          {
-            goto LABEL_425;
-          }
+        v21 = *v18;
+      }
 
-          v22 = *v19;
+      if ((v21 & 0x200) != 0)
+      {
+        if (!TIFFWriteDirectoryTagCheckedShort(a1, &v201, v20, 0x107u, *(a1 + 124)))
+        {
+          goto LABEL_422;
         }
 
-        if ((v22 & 0x200) != 0)
-        {
-          if (!TIFFWriteDirectoryTagCheckedShort(a1, &v217, v21, 263, *(a1 + 124)))
-          {
-            goto LABEL_425;
-          }
+        v21 = *v18;
+      }
 
-          v22 = *v19;
+      if ((v21 & 0x400) != 0)
+      {
+        if (!TIFFWriteDirectoryTagCheckedShort(a1, &v201, v20, 0x10Au, *(a1 + 126)))
+        {
+          goto LABEL_422;
         }
 
-        if ((v22 & 0x400) != 0)
-        {
-          if (!TIFFWriteDirectoryTagCheckedShort(a1, &v217, v21, 266, *(a1 + 126)))
-          {
-            goto LABEL_425;
-          }
+        v21 = *v18;
+      }
 
-          v22 = *v19;
+      if ((v21 & 0x8000) != 0)
+      {
+        if (!TIFFWriteDirectoryTagCheckedShort(a1, &v201, v20, 0x112u, *(a1 + 128)))
+        {
+          goto LABEL_422;
         }
 
-        if ((v22 & 0x8000) != 0)
-        {
-          if (!TIFFWriteDirectoryTagCheckedShort(a1, &v217, v21, 274, *(a1 + 128)))
-          {
-            goto LABEL_425;
-          }
+        v21 = *v18;
+      }
 
-          v22 = *v19;
+      if ((v21 & 0x10000) != 0)
+      {
+        if (!TIFFWriteDirectoryTagCheckedShort(a1, &v201, v20, 0x115u, *(a1 + 130)))
+        {
+          goto LABEL_422;
         }
 
-        if ((v22 & 0x10000) != 0)
-        {
-          if (!TIFFWriteDirectoryTagCheckedShort(a1, &v217, v21, 277, *(a1 + 130)))
-          {
-            goto LABEL_425;
-          }
+        v21 = *v18;
+      }
 
-          v22 = *v19;
+      if ((v21 & 0x20000) != 0)
+      {
+        if (!TIFFWriteDirectoryTagShortLong(a1, &v201, v20, 0x116u, *(a1 + 132), v14))
+        {
+          goto LABEL_422;
         }
 
-        if ((v22 & 0x20000) != 0)
-        {
-          if (!TIFFWriteDirectoryTagShortLong(a1, &v217, v21, 278, *(a1 + 132), v14))
-          {
-            goto LABEL_425;
-          }
+        v21 = *v18;
+      }
 
-          v22 = *v19;
+      if ((v21 & 0x40000) != 0)
+      {
+        if (!TIFFWriteDirectoryTagShortPerSample(a1, &v201, v20, 0x118u, *(a1 + 136)))
+        {
+          goto LABEL_422;
         }
 
-        if ((v22 & 0x40000) != 0)
-        {
-          if (!TIFFWriteDirectoryTagShortPerSample(a1, &v217, v21, 280, *(a1 + 136)))
-          {
-            goto LABEL_425;
-          }
+        v21 = *v18;
+      }
 
-          v22 = *v19;
+      if ((v21 & 0x80000) != 0)
+      {
+        if (!TIFFWriteDirectoryTagShortPerSample(a1, &v201, v20, 0x119u, *(a1 + 138)))
+        {
+          goto LABEL_422;
         }
 
-        if ((v22 & 0x80000) != 0)
-        {
-          if (!TIFFWriteDirectoryTagShortPerSample(a1, &v217, v21, 281, *(a1 + 138)))
-          {
-            goto LABEL_425;
-          }
+        v21 = *v18;
+      }
 
-          v22 = *v19;
+      if ((v21 & 0x100000) != 0)
+      {
+        if (!TIFFWriteDirectoryTagCheckedShort(a1, &v201, v20, 0x11Cu, *(a1 + 170)))
+        {
+          goto LABEL_422;
         }
 
-        if ((v22 & 0x100000) != 0)
-        {
-          if (!TIFFWriteDirectoryTagCheckedShort(a1, &v217, v21, 284, *(a1 + 170)))
-          {
-            goto LABEL_425;
-          }
+        v21 = *v18;
+      }
 
-          v22 = *v19;
+      if ((v21 & 0x400000) != 0)
+      {
+        if (!TIFFWriteDirectoryTagCheckedShort(a1, &v201, v20, 0x128u, *(a1 + 168)))
+        {
+          goto LABEL_422;
         }
 
-        if ((v22 & 0x400000) != 0)
-        {
-          if (!TIFFWriteDirectoryTagCheckedShort(a1, &v217, v21, 296, *(a1 + 168)))
-          {
-            goto LABEL_425;
-          }
+        v21 = *v18;
+      }
 
-          v22 = *v19;
+      if ((v21 & 0x800000) != 0)
+      {
+        if (!TIFFWriteDirectoryTagCheckedShortArray(a1, &v201, v20, 0x129u, 2u, (a1 + 180)))
+        {
+          goto LABEL_422;
         }
 
-        if ((v22 & 0x800000) != 0)
+        v21 = *v18;
+      }
+
+      if ((v21 & 0x1000000) != 0)
+      {
+        v32 = (*(a1 + 17) & 4) != 0 ? 325 : 279;
+        if (!TIFFWriteDirectoryTagLongLong8Array(a1, &v201, v20, v32, *(a1 + 228), *(a1 + 240), v12, v13))
         {
-          if (!TIFFWriteDirectoryTagCheckedShortArray(a1, &v217, v21, 297, 2, a1 + 180))
-          {
-            goto LABEL_425;
-          }
-
-          v22 = *v19;
-        }
-
-        if ((v22 & 0x1000000) != 0)
-        {
-          v33 = (*(a1 + 17) & 4) != 0 ? 325 : 279;
-          if (!TIFFWriteDirectoryTagLongLong8Array(a1, &v217, v21, v33, *(a1 + 228), *(a1 + 240), v12, v13))
-          {
-LABEL_425:
-            if (!v21)
-            {
-              return 0;
-            }
-
-            goto LABEL_426;
-          }
-        }
-
-        if ((*(v19 + 3) & 2) != 0)
-        {
-          if ((*(a1 + 17) & 4) != 0)
-          {
-            v34 = *(a1 + 228);
-            v11 = *(a1 + 232);
-            v35 = a1;
-            v36 = v21;
-            v37 = 324;
-          }
-
-          else
-          {
-            v11 = *(a1 + 232);
-            if (!v11)
-            {
-              goto LABEL_90;
-            }
-
-            v34 = *(a1 + 228);
-            v35 = a1;
-            v36 = v21;
-            v37 = 273;
-          }
-
-          if (!TIFFWriteDirectoryTagLongLong8Array(v35, &v217, v36, v37, v34, v11, v12, v13))
-          {
-            goto LABEL_425;
-          }
-        }
-
-LABEL_90:
-        v38 = *v19;
-        if ((*v19 & 0x4000000) == 0)
-        {
-          goto LABEL_95;
-        }
-
-        v39 = *(a1 + 116);
-        v40 = 2 * (3 << v39);
-        if (v21)
-        {
-          v41 = malloc_type_malloc(v40, 0x1000040BDFB0063uLL);
-          if (!v41)
-          {
-            v196 = "TIFFWriteDirectoryTagColormap";
-            goto LABEL_471;
-          }
-
-          v47 = v41;
-          _TIFFmemcpy(v41, *(a1 + 184), 2 * (1 << v39));
-          _TIFFmemcpy(&v47[2 * (1 << v39)], *(a1 + 192), 2 * (1 << v39));
-          _TIFFmemcpy(&v47[2 * (2 << v39)], *(a1 + 200), 2 * (1 << v39));
-          v48 = TIFFWriteDirectoryTagCheckedShortArray(a1, &v217, v21, 320, (3 << v39), v47);
-          free(v47);
-          if (!v48)
-          {
-            goto LABEL_426;
-          }
-
-          v19 = a1 + 72;
-          v38 = *(a1 + 72);
-LABEL_95:
-          if (v38 < 0)
-          {
-            goto LABEL_96;
-          }
-
-          goto LABEL_104;
-        }
-
-        v49 = 4;
-        if ((*(a1 + 18) & 8) != 0)
-        {
-          v49 = 8;
-        }
-
-        if (v40 > v49)
-        {
-          *(a1 + 432) += v40;
-        }
-
-        ++v217;
-        if (v38 < 0)
-        {
-LABEL_96:
-          if (*(a1 + 212))
-          {
-            LOWORD(v219[0]) = 0;
-            __src = 0;
-            _cg_TIFFGetFieldDefaulted(a1, 338, v8, v9, v10, v11, v12, v13, v219);
-            if (!TIFFWriteDirectoryTagCheckedShortArray(a1, &v217, v21, 338, LOWORD(v219[0]), __src))
-            {
-              goto LABEL_425;
-            }
-          }
-        }
-
-LABEL_104:
-        v50 = *(a1 + 76);
-        if (v50)
-        {
-          if (!TIFFWriteDirectoryTagShortPerSample(a1, &v217, v21, 339, *(a1 + 118)))
-          {
-            goto LABEL_425;
-          }
-
-          v50 = *(a1 + 76);
-        }
-
-        if ((v50 & 2) != 0)
-        {
-          if (!TIFFWriteDirectoryTagSampleformatArray(a1, &v217, v21, 340, *(a1 + 130), *(a1 + 144)))
-          {
-            goto LABEL_425;
-          }
-
-          v50 = *(a1 + 76);
-        }
-
-        if ((v50 & 4) != 0)
-        {
-          if (!TIFFWriteDirectoryTagSampleformatArray(a1, &v217, v21, 341, *(a1 + 130), *(a1 + 152)))
-          {
-            goto LABEL_425;
-          }
-
-          v50 = *(a1 + 76);
-        }
-
-        if ((v50 & 8) != 0)
-        {
-          if (!TIFFWriteDirectoryTagCheckedLong(a1, &v217, v21, 32997, *(a1 + 96), v14))
-          {
-            goto LABEL_425;
-          }
-
-          v50 = *(a1 + 76);
-        }
-
-        if ((v50 & 0x10) != 0)
-        {
-          if (!TIFFWriteDirectoryTagCheckedLong(a1, &v217, v21, 32998, *(a1 + 108), v14))
-          {
-            goto LABEL_425;
-          }
-
-          v50 = *(a1 + 76);
-        }
-
-        if ((v50 & 0x20) != 0)
-        {
-          if (!TIFFWriteDirectoryTagCheckedShortArray(a1, &v217, v21, 321, 2, a1 + 208))
-          {
-            goto LABEL_425;
-          }
-
-          v50 = *(a1 + 76);
-        }
-
-        if ((v50 & 0x80) != 0)
-        {
-          if (!TIFFWriteDirectoryTagCheckedShortArray(a1, &v217, v21, 530, 2, a1 + 336))
-          {
-            goto LABEL_425;
-          }
-
-          v50 = *(a1 + 76);
-        }
-
-        if ((v50 & 0x100) != 0)
-        {
-          if (!TIFFWriteDirectoryTagCheckedShort(a1, &v217, v21, 531, *(a1 + 340)))
-          {
-            goto LABEL_425;
-          }
-
-          v50 = *(a1 + 76);
-        }
-
-        if ((v50 & 0x200) != 0)
-        {
-          if (!TIFFWriteDirectoryTagRationalArray(a1, &v217, v21, 532, 6, *(a1 + 368)))
-          {
-            goto LABEL_425;
-          }
-
-          v50 = *(a1 + 76);
-        }
-
-        if ((v50 & 0x1000) != 0)
-        {
-          v51 = 0;
-          v52 = *(a1 + 116);
-          v53 = 1 << v52;
-          v54 = *(a1 + 130) - *(a1 + 212);
-          do
-          {
-            if (!*(a1 + 8 * v51 + 344))
-            {
-              TIFFWarningExtR(a1, "TIFFWriteDirectoryTagTransferfunction", "Too few TransferFunctions provided. Tag not written to file", v9, v10, v11, v12, v13, v212);
-              goto LABEL_156;
-            }
-
-            if (v54 < 2)
-            {
-              break;
-            }
-
-            v55 = v51++ > 1;
-          }
-
-          while (!v55);
-          if (v54 < 2)
-          {
-            v56 = 1;
-          }
-
-          else if (_TIFFmemcmp(*(a1 + 344), *(a1 + 360), 2 * v53))
-          {
-            v56 = 3;
-          }
-
-          else if (_TIFFmemcmp(*(a1 + 344), *(a1 + 352), 2 * v53))
-          {
-            v56 = 3;
-          }
-
-          else
-          {
-            v56 = 1;
-          }
-
-          v57 = 2 * (v56 << v52);
-          if (v21)
-          {
-            v58 = malloc_type_malloc(v57, 0x1000040BDFB0063uLL);
-            if (!v58)
-            {
-              v196 = "TIFFWriteDirectoryTagTransferfunction";
-LABEL_471:
-              TIFFErrorExtR(a1, v196, "Out of memory", v42, v43, v44, v45, v46, v212);
-              goto LABEL_426;
-            }
-
-            v59 = v58;
-            _TIFFmemcpy(v58, *(a1 + 344), 2 * (1 << v52));
-            if (v56 != 1)
-            {
-              _TIFFmemcpy(&v59[2 * (1 << v52)], *(a1 + 352), 2 * (1 << v52));
-              _TIFFmemcpy(&v59[2 * (2 << v52)], *(a1 + 360), 2 * (1 << v52));
-            }
-
-            v60 = TIFFWriteDirectoryTagCheckedShortArray(a1, &v217, v21, 301, (v56 << v52), v59);
-            free(v59);
-            v19 = a1 + 72;
-            if (!v60)
-            {
-              goto LABEL_426;
-            }
-          }
-
-          else
-          {
-            v61 = 4;
-            if ((*(a1 + 18) & 8) != 0)
-            {
-              v61 = 8;
-            }
-
-            if (v57 > v61)
-            {
-              *(a1 + 432) += v57;
-            }
-
-            ++v217;
-          }
-        }
-
-LABEL_156:
-        v62 = *(a1 + 76);
-        if ((v62 & 0x4000) != 0)
-        {
-          if (!TIFFWriteDirectoryTagAscii(a1, &v217, v21, 333, *(a1 + 376), *(a1 + 384)))
-          {
-            goto LABEL_425;
-          }
-
-          v62 = *(a1 + 76);
-        }
-
-        if ((v62 & 0x40000) != 0)
-        {
-          if (!TIFFWriteDirectoryTagCheckedShort(a1, &v217, v21, 334, *(a1 + 392)))
-          {
-            goto LABEL_425;
-          }
-
-          v62 = *(a1 + 76);
-        }
-
-        if ((v62 & 0x20000) != 0)
-        {
-          v10 = *(a1 + 320);
-          if (*(a1 + 320))
-          {
-            v63 = *(a1 + 904);
-            if ((*(a1 + 18) & 8) != 0)
-            {
-              v71 = TIFFWriteDirectoryTagCheckedIfd8Array(a1, &v217, v21, 330, v10, *(a1 + 328));
-            }
-
-            else
-            {
-              v64 = malloc_type_malloc(4 * *(a1 + 320), 0x100004052888210uLL);
-              if (!v64)
-              {
-                v193 = "TIFFWriteDirectoryTagSubifd";
-                goto LABEL_473;
-              }
-
-              v66 = v64;
-              v10 = *(a1 + 320);
-              if (*(a1 + 320))
-              {
-                v67 = 0;
-                v68 = *(a1 + 328);
-                v69 = v64;
-                do
-                {
-                  if (!v68)
-                  {
-                    TIFFWriteDirectorySec_cold_1();
-                  }
-
-                  v70 = *v68;
-                  if (HIDWORD(*v68))
-                  {
-                    v171 = "TIFFWriteDirectoryTagSubifd";
-                    v172 = "Illegal value for SubIFD tag";
 LABEL_422:
-                    TIFFErrorExtR(a1, v171, v172, v9, v10, v11, v12, v13, v212);
-                    goto LABEL_423;
-                  }
-
-                  ++v68;
-                  *v69++ = v70;
-                  ++v67;
-                }
-
-                while (v67 < v10);
-              }
-
-              v71 = TIFFWriteDirectoryTagCheckedIfdArray(a1, &v217, v21, 330, v10, v64, v65);
-              free(v66);
-            }
-
-            if (v21)
-            {
-              if (!v71)
-              {
-                goto LABEL_426;
-              }
-
-              *(a1 + 16) |= 0x2000u;
-              v72 = *(a1 + 320);
-              *(a1 + 912) = v72;
-              if (v72 == 1)
-              {
-                v73 = 0;
-              }
-
-              else
-              {
-                v73 = v63;
-              }
-
-              *(a1 + 920) = v73;
-            }
-
-            else if (!v71)
-            {
-              return 0;
-            }
-          }
-        }
-
-        if ((*(a1 + 78) & 0x20) != 0)
-        {
-          TIFFWarning("TIFFWriteRichIPTCTag", "Unimplemented.", v8, v9, v10, v11, v12, v13, v212);
-        }
-
-        if (*(a1 + 1264))
-        {
-          v74 = 0;
-          v75 = 1;
-          do
-          {
-            v76 = *(*(a1 + 1256) + 8 * v74);
-            v77 = *(v76 + 12);
-            if (v77 >= 0x42 && ((*(v19 + ((v77 >> 3) & 0x1FFC)) >> v77) & 1) != 0)
-            {
-              v78 = v76[5];
-              if (v78 > 5)
-              {
-                if (v78 == 6)
-                {
-                  LODWORD(__src) = 0;
-                  if (v76[2] != 4)
-                  {
-                    TIFFWriteDirectorySec_cold_5();
-                  }
-
-                  if (*(v76 + 2) != 1)
-                  {
-                    TIFFWriteDirectorySec_cold_6();
-                  }
-
-                  if (*(v76 + 27))
-                  {
-                    TIFFWriteDirectorySec_cold_7();
-                  }
-
-                  _cg_TIFFGetField(a1, *v76, v8, v9, v10, v11, v12, v13, &__src);
-                  if (!TIFFWriteDirectoryTagCheckedLong(a1, &v217, v21, *v76, __src, v80))
-                  {
-                    goto LABEL_425;
-                  }
-                }
-
-                else
-                {
-                  if (v78 != 40)
-                  {
-LABEL_446:
-                    v187 = TIFFFieldTag(v76);
-                    TIFFErrorExtR(a1, "TIFFWriteDirectorySec", "Cannot write tag %u (%s)", v188, v189, v190, v191, v192, v187);
-                    goto LABEL_475;
-                  }
-
-                  v219[0] = 0;
-                  __src = 0;
-                  if (v76[2] != 7)
-                  {
-                    TIFFWriteDirectorySec_cold_2();
-                  }
-
-                  if (*(v76 + 2) != -3)
-                  {
-                    TIFFWriteDirectorySec_cold_3();
-                  }
-
-                  if (*(v76 + 27) != 1)
-                  {
-                    TIFFWriteDirectorySec_cold_4();
-                  }
-
-                  _cg_TIFFGetField(a1, *v76, v8, v9, v10, v11, v12, v13, v219);
-                  if (!TIFFWriteDirectoryTagUndefinedArray(a1, &v217, v21, *v76, v219[0], __src))
-                  {
-                    goto LABEL_425;
-                  }
-                }
-              }
-
-              else if (v78 == 1)
-              {
-                __src = 0;
-                if (v76[2] != 2)
-                {
-                  TIFFWriteDirectorySec_cold_11();
-                }
-
-                if (*(v76 + 2) != -1)
-                {
-                  TIFFWriteDirectorySec_cold_12();
-                }
-
-                if (*(v76 + 27))
-                {
-                  TIFFWriteDirectorySec_cold_13();
-                }
-
-                _cg_TIFFGetField(a1, *v76, v8, v9, v10, v11, v12, v13, &__src);
-                v79 = strlen(__src);
-                if (!TIFFWriteDirectoryTagAscii(a1, &v217, v21, *v76, v79, __src))
-                {
-                  goto LABEL_425;
-                }
-              }
-
-              else
-              {
-                if (v78 != 4)
-                {
-                  goto LABEL_446;
-                }
-
-                LOWORD(__src) = 0;
-                if (v76[2] != 3)
-                {
-                  TIFFWriteDirectorySec_cold_8();
-                }
-
-                if (*(v76 + 2) != 1)
-                {
-                  TIFFWriteDirectorySec_cold_9();
-                }
-
-                if (*(v76 + 27))
-                {
-                  TIFFWriteDirectorySec_cold_10();
-                }
-
-                _cg_TIFFGetField(a1, *v76, v8, v9, v10, v11, v12, v13, &__src);
-                if (!TIFFWriteDirectoryTagCheckedShort(a1, &v217, v21, *v76, __src))
-                {
-                  goto LABEL_425;
-                }
-              }
-            }
-
-            v74 = v75;
-            v55 = *(a1 + 1264) > v75++;
-          }
-
-          while (v55);
-        }
-
-LABEL_211:
-        if (*(a1 + 408))
-        {
-          v81 = 0;
-          v214 = a4;
-          while (1)
-          {
-            v82 = (*(a1 + 416) + 24 * v81);
-            v83 = *v82;
-            v84 = **v82;
-            v85 = *(v82 + 2);
-            switch(*(*v82 + 8))
-            {
-              case 1:
-                if (!TIFFWriteDirectoryTagByteArray(a1, &v217, v21, **v82, *(v82 + 2), v82[2]))
-                {
-                  goto LABEL_425;
-                }
-
-                goto LABEL_300;
-              case 2:
-                if (!TIFFWriteDirectoryTagAscii(a1, &v217, v21, **v82, *(v82 + 2), v82[2]))
-                {
-                  goto LABEL_425;
-                }
-
-                goto LABEL_300;
-              case 3:
-                if (!TIFFWriteDirectoryTagCheckedShortArray(a1, &v217, v21, **v82, *(v82 + 2), v82[2]))
-                {
-                  goto LABEL_425;
-                }
-
-                goto LABEL_300;
-              case 4:
-                if (!TIFFWriteDirectoryTagCheckedLongArray(a1, &v217, v21, **v82, *(v82 + 2), v82[2], v14))
-                {
-                  goto LABEL_425;
-                }
-
-                goto LABEL_300;
-              case 5:
-                v109 = TIFFFieldSetGetSize(v83);
-                v110 = *(a1 + 416) + 24 * v81;
-                v111 = *(v110 + 16);
-                if (v109 == 8)
-                {
-                  v112 = 4 * (2 * v85);
-                  if (v21)
-                  {
-                    v113 = malloc_type_malloc(v112, 0x100004052888210uLL);
-                    if (!v113)
-                    {
-                      v196 = "TIFFWriteDirectoryTagCheckedRationalDoubleArray";
-                      goto LABEL_471;
-                    }
-
-                    v116 = v113;
-                    if (v85)
-                    {
-                      v117 = v85;
-                      v118 = v113;
-                      do
-                      {
-                        v119 = *v111++;
-                        DoubleToRational(v118, v118 + 1, v119, v114, v42, v43, v44, v45, v46, v212);
-                        v118 += 2;
-                        --v117;
-                      }
-
-                      while (v117);
-                    }
-
-                    if ((*(a1 + 16) & 0x80) != 0)
-                    {
-                      TIFFSwabArrayOfLong(v116, (2 * v85), v115);
-                    }
-
-                    v95 = TIFFWriteDirectoryTagData(a1, &v217, v21, v84, 5, v85, (8 * v85), v116);
-                    free(v116);
-                    a4 = v214;
-                    v19 = a1 + 72;
-LABEL_299:
-                    if (!v95)
-                    {
-                      goto LABEL_425;
-                    }
-                  }
-
-                  else
-                  {
-                    v138 = 4;
-                    if ((*(a1 + 18) & 8) != 0)
-                    {
-                      v138 = 8;
-                    }
-
-                    a4 = v214;
-                    if (v112 > v138)
-                    {
-                      *(a1 + 432) += v112;
-                    }
-
-                    ++v217;
-                    v19 = a1 + 72;
-                  }
-                }
-
-                else
-                {
-                  v86 = v109;
-                  if (!TIFFWriteDirectoryTagRationalArray(a1, &v217, v21, v84, v85, *(v110 + 16)))
-                  {
-                    goto LABEL_425;
-                  }
-
-LABEL_312:
-                  v19 = a1 + 72;
-                  if (v86 != 4)
-                  {
-                    TIFFErrorExtR(a1, "TIFFLib: _TIFFWriteDirectorySec()", "Rational2Double: .set_field_type is not 4 but %d", v9, v10, v11, v12, v13, v86);
-                  }
-                }
-
-LABEL_300:
-                if (++v81 >= *(a1 + 408))
-                {
-                  goto LABEL_319;
-                }
-
-                break;
-              case 6:
-                if (!TIFFWriteDirectoryTagSbyteArray(a1, &v217, v21, **v82, *(v82 + 2), v82[2]))
-                {
-                  goto LABEL_425;
-                }
-
-                goto LABEL_300;
-              case 7:
-                if (!TIFFWriteDirectoryTagUndefinedArray(a1, &v217, v21, **v82, *(v82 + 2), v82[2]))
-                {
-                  goto LABEL_425;
-                }
-
-                goto LABEL_300;
-              case 8:
-                if (!TIFFWriteDirectoryTagSshortArray(a1, &v217, v21, **v82, *(v82 + 2), v82[2]))
-                {
-                  goto LABEL_425;
-                }
-
-                goto LABEL_300;
-              case 9:
-                if (!TIFFWriteDirectoryTagCheckedSlongArray(a1, &v217, v21, **v82, *(v82 + 2), v82[2], v14))
-                {
-                  goto LABEL_425;
-                }
-
-                goto LABEL_300;
-              case 0xA:
-                v86 = TIFFFieldSetGetSize(v83);
-                v87 = *(*(a1 + 416) + 24 * v81 + 16);
-                v88 = 4 * (2 * v85);
-                if (v86 != 8)
-                {
-                  if (v21)
-                  {
-                    v125 = malloc_type_malloc(v88, 0x100004052888210uLL);
-                    if (!v125)
-                    {
-                      v196 = "TIFFWriteDirectoryTagCheckedSrationalArray";
-                      goto LABEL_471;
-                    }
-
-                    v127 = v125;
-                    if (v85)
-                    {
-                      v128 = v85;
-                      v129 = v125;
-                      do
-                      {
-                        v130 = *v87++;
-                        DoubleToSrational(v129, v129 + 1, v130);
-                        v129 += 2;
-                        --v128;
-                      }
-
-                      while (v128);
-                    }
-
-                    if ((*(a1 + 16) & 0x80) != 0)
-                    {
-                      TIFFSwabArrayOfLong(v127, (2 * v85), v126);
-                    }
-
-                    v131 = TIFFWriteDirectoryTagData(a1, &v217, v21, v84, 10, v85, (8 * v85), v127);
-                    free(v127);
-                    a4 = v214;
-                    if (!v131)
-                    {
-                      goto LABEL_425;
-                    }
-                  }
-
-                  else
-                  {
-                    v137 = 4;
-                    if ((*(a1 + 18) & 8) != 0)
-                    {
-                      v137 = 8;
-                    }
-
-                    if (v88 > v137)
-                    {
-                      *(a1 + 432) += v88;
-                    }
-
-                    ++v217;
-                    a4 = v214;
-                  }
-
-                  goto LABEL_312;
-                }
-
-                if (!v21)
-                {
-                  v136 = 4;
-                  if ((*(a1 + 18) & 8) != 0)
-                  {
-                    v136 = 8;
-                  }
-
-                  if (v88 > v136)
-                  {
-                    *(a1 + 432) += v88;
-                  }
-
-                  ++v217;
-                  a4 = v214;
-                  goto LABEL_300;
-                }
-
-                v89 = malloc_type_malloc(v88, 0x100004052888210uLL);
-                if (!v89)
-                {
-                  v196 = "TIFFWriteDirectoryTagCheckedSrationalDoubleArray";
-                  goto LABEL_471;
-                }
-
-                v91 = v89;
-                if (v85)
-                {
-                  v92 = v85;
-                  v93 = v89;
-                  do
-                  {
-                    v94 = *v87;
-                    v87 += 2;
-                    DoubleToSrational(v93, v93 + 1, v94);
-                    v93 += 2;
-                    --v92;
-                  }
-
-                  while (v92);
-                }
-
-                if ((*(a1 + 16) & 0x80) != 0)
-                {
-                  TIFFSwabArrayOfLong(v91, (2 * v85), v90);
-                }
-
-                v95 = TIFFWriteDirectoryTagData(a1, &v217, v21, v84, 10, v85, (8 * v85), v91);
-                free(v91);
-                v19 = a1 + 72;
-                a4 = v214;
-                goto LABEL_299;
-              case 0xB:
-                if (!TIFFWriteDirectoryTagFloatArray(a1, &v217, v21, **v82, *(v82 + 2), v82[2], v14))
-                {
-                  goto LABEL_425;
-                }
-
-                goto LABEL_300;
-              case 0xC:
-                if (!TIFFWriteDirectoryTagDoubleArray(a1, &v217, v21, **v82, *(v82 + 2), v82[2]))
-                {
-                  goto LABEL_425;
-                }
-
-                goto LABEL_300;
-              case 0xD:
-                if (!TIFFWriteDirectoryTagCheckedIfdArray(a1, &v217, v21, **v82, *(v82 + 2), v82[2], v14))
-                {
-                  goto LABEL_425;
-                }
-
-                goto LABEL_300;
-              case 0x10:
-                v96 = v82[2];
-                if (!v21)
-                {
-                  v132 = a1;
-                  v133 = 0;
-LABEL_295:
-                  v95 = TIFFWriteDirectoryTagCheckedLong8Array(v132, &v217, v133, v84, v85, v96, v12, v13);
-                  goto LABEL_299;
-                }
-
-                if ((*(a1 + 18) & 8) != 0)
-                {
-                  v132 = a1;
-                  v133 = v21;
-                  goto LABEL_295;
-                }
-
-                v97 = malloc_type_malloc(4 * v85, 0x100004052888210uLL);
-                if (!v97)
-                {
-                  v196 = "TIFFWriteDirectoryTagLong8Array";
-                  goto LABEL_471;
-                }
-
-                v99 = v97;
-                if (v85)
-                {
-                  v100 = 0;
-                  while (1)
-                  {
-                    v101 = v96[v100];
-                    if (HIDWORD(*&v101))
-                    {
-                      break;
-                    }
-
-                    v97[v100++] = v101.i32[0];
-                    if (v85 == v100)
-                    {
-                      goto LABEL_240;
-                    }
-                  }
-
-                  TIFFErrorExtR(a1, "TIFFWriteDirectoryTagLong8Array", "Attempt to write unsigned long value %llu larger than 0xFFFFFFFF for tag %d in Classic TIFF file. TIFF file writing aborted", v42, v43, v44, v45, v46, *&v96[v100]);
-                  v173 = v99;
-                  goto LABEL_424;
-                }
-
-LABEL_240:
-                v95 = TIFFWriteDirectoryTagCheckedLongArray(a1, &v217, v21, v84, v85, v97, v98);
-                v102 = v99;
-LABEL_266:
-                free(v102);
-LABEL_291:
-                v19 = a1 + 72;
-                goto LABEL_299;
-              case 0x11:
-                v103 = a4;
-                v104 = v82[2];
-                if (!v21)
-                {
-                  v134 = a1;
-                  v135 = 0;
-LABEL_297:
-                  v95 = TIFFWriteDirectoryTagCheckedSlong8Array(v134, &v217, v135, v84, v85, v104, v12, v13);
-                  goto LABEL_298;
-                }
-
-                if ((*(a1 + 18) & 8) != 0)
-                {
-                  v134 = a1;
-                  v135 = v21;
-                  goto LABEL_297;
-                }
-
-                v105 = malloc_type_malloc(4 * v85, 0x100004052888210uLL);
-                if (!v105)
-                {
-                  v196 = "TIFFWriteDirectoryTagSlong8Array";
-                  goto LABEL_471;
-                }
-
-                v66 = v105;
-                if (v85)
-                {
-                  v107 = 0;
-                  while (1)
-                  {
-                    v108 = v104[v107];
-                    if (v108 >= 0x80000000)
-                    {
-                      TIFFErrorExtR(a1, "TIFFWriteDirectoryTagSlong8Array", "Attempt to write signed long value %lli larger than 0x7FFFFFFF (2147483647) for tag %d in Classic TIFF file. TIFF writing to file aborted", v42, v43, v44, v45, v46, *&v104[v107]);
-                      goto LABEL_423;
-                    }
-
-                    if (v108 <= 0xFFFFFFFF7FFFFFFFLL)
-                    {
-                      break;
-                    }
-
-                    v105[v107++] = v108;
-                    if (v85 == v107)
-                    {
-                      goto LABEL_249;
-                    }
-                  }
-
-                  TIFFErrorExtR(a1, "TIFFWriteDirectoryTagSlong8Array", "Attempt to write signed long value %lli smaller than 0x80000000 (-2147483648) for tag %d in Classic TIFF file. TIFF writing to file aborted", v42, v43, v44, v45, v46, *&v104[v107]);
-LABEL_423:
-                  v173 = v66;
-LABEL_424:
-                  free(v173);
-                  goto LABEL_425;
-                }
-
-LABEL_249:
-                v95 = TIFFWriteDirectoryTagCheckedSlongArray(a1, &v217, v21, v84, v85, v105, v106);
-                free(v66);
-LABEL_298:
-                a4 = v103;
-                goto LABEL_299;
-              case 0x12:
-                v120 = v82[2];
-                if ((*(a1 + 18) & 8) != 0)
-                {
-                  v95 = TIFFWriteDirectoryTagCheckedIfd8Array(a1, &v217, v21, v84, v85, v120);
-                  goto LABEL_291;
-                }
-
-                v121 = malloc_type_malloc(4 * v85, 0x100004052888210uLL);
-                if (!v121)
-                {
-                  v193 = "TIFFWriteDirectoryTagIfdIfd8Array";
-                  goto LABEL_473;
-                }
-
-                v66 = v121;
-                if (v85)
-                {
-                  v123 = 0;
-                  while (1)
-                  {
-                    v124 = v120[v123];
-                    if (HIDWORD(*&v124))
-                    {
-                      break;
-                    }
-
-                    v121[v123++] = v124.i32[0];
-                    if (v85 == v123)
-                    {
-                      goto LABEL_265;
-                    }
-                  }
-
-                  v171 = "TIFFWriteDirectoryTagIfdIfd8Array";
-                  v172 = "Attempt to write value larger than 0xFFFFFFFF in Classic TIFF file.";
-                  goto LABEL_422;
-                }
-
-LABEL_265:
-                v95 = TIFFWriteDirectoryTagCheckedIfdArray(a1, &v217, v21, v84, v85, v121, v122);
-                v102 = v66;
-                goto LABEL_266;
-              default:
-                TIFFWriteDirectorySec_cold_14();
-            }
-          }
-        }
-
-LABEL_319:
-        if (v21)
-        {
-          if (!v216 || (*(a1 + 78) & 2) == 0 || *(a1 + 920))
-          {
-            goto LABEL_432;
-          }
-
-          if (v217)
-          {
-            v203 = 0;
-            v204 = v21;
-            while (*v204 != 330)
-            {
-              ++v203;
-              v204 += 16;
-              if (v217 == v203)
-              {
-                goto LABEL_481;
-              }
-            }
-
-            v210 = 20;
-            if ((*(a1 + 16) & 0x80000) != 0)
-            {
-              v211 = 20;
-            }
-
-            else
-            {
-              v211 = 12;
-            }
-
-            if ((*(a1 + 16) & 0x80000) == 0)
-            {
-              v210 = 10;
-            }
-
-            *(a1 + 920) = v210 + *(a1 + 24) + (v203 * v211);
-LABEL_432:
-            v176 = malloc_type_malloc(size, 0xD60FAB32uLL);
-            if (v176)
-            {
-              v178 = v176;
-              v179 = *(a1 + 16);
-              if ((v179 & 0x80000) != 0)
-              {
-                v197 = v217;
-                *v176 = v217;
-                if ((v179 & 0x80) != 0)
-                {
-                  TIFFSwabLong8(v176);
-                }
-
-                if (v197)
-                {
-                  v198 = 0;
-                  v199 = &v178[1] + 2;
-                  v200 = v21 + 1;
-                  do
-                  {
-                    *(v199 - 1) = *(v200 - 1);
-                    if ((*(a1 + 16) & 0x80) != 0)
-                    {
-                      TIFFSwabShort(v199 - 2);
-                      v201 = *(a1 + 16);
-                      *v199 = *v200;
-                      if ((v201 & 0x80) != 0)
-                      {
-                        TIFFSwabShort(v199);
-                      }
-                    }
-
-                    else
-                    {
-                      *v199 = *v200;
-                    }
-
-                    _TIFFmemcpy(v199 + 2, v200 + 3, 8uLL);
-                    if ((*(a1 + 16) & 0x80) != 0)
-                    {
-                      TIFFSwabLong8((v199 + 2));
-                    }
-
-                    _TIFFmemcpy(v199 + 10, v200 + 7, 8uLL);
-                    ++v198;
-                    v199 += 20;
-                    v200 += 16;
-                  }
-
-                  while (v198 < v217);
-                  v202 = (v199 - 2);
-                }
-
-                else
-                {
-                  v202 = v178 + 1;
-                }
-
-                _TIFFmemcpy(v202, (a1 + 32), 8uLL);
-                if ((*(a1 + 16) & 0x80) != 0)
-                {
-                  TIFFSwabLong8(v202);
-                }
-              }
-
-              else
-              {
-                LODWORD(__src) = 0;
-                v180 = v217;
-                v176->i16[0] = v217;
-                if ((v179 & 0x80) != 0)
-                {
-                  TIFFSwabShort(v176);
-                }
-
-                if (v180)
-                {
-                  v181 = 0;
-                  v182 = v21 + 1;
-                  v183 = v178 + 6;
-                  do
-                  {
-                    *(v183 - 2) = *(v182 - 1);
-                    if ((*(a1 + 16) & 0x80) != 0)
-                    {
-                      TIFFSwabShort(v183 - 4);
-                      v184 = *(a1 + 16);
-                      *(v183 - 1) = *v182;
-                      if ((v184 & 0x80) != 0)
-                      {
-                        TIFFSwabShort(v183 - 2);
-                      }
-                    }
-
-                    else
-                    {
-                      *(v183 - 1) = *v182;
-                    }
-
-                    LODWORD(__src) = *(v182 + 3);
-                    _TIFFmemcpy(v183, &__src, 4uLL);
-                    if ((*(a1 + 16) & 0x80) != 0)
-                    {
-                      TIFFSwabLong(v183, v185);
-                    }
-
-                    _TIFFmemcpy(v183 + 4, v182 + 7, 4uLL);
-                    ++v181;
-                    v182 += 16;
-                    v183 += 12;
-                  }
-
-                  while (v181 < v217);
-                  v186 = v183 - 4;
-                }
-
-                else
-                {
-                  v186 = v178 + 2;
-                }
-
-                LODWORD(__src) = *(a1 + 32);
-                if ((*(a1 + 16) & 0x80) != 0)
-                {
-                  TIFFSwabLong(&__src, v177);
-                }
-
-                _TIFFmemcpy(v186, &__src, 4uLL);
-              }
-
-              free(v21);
-              if (_TIFFSeekOK(a1, *(a1 + 24)) && (*(a1 + 1216))(*(a1 + 1200), v178, size) == size)
-              {
-                free(v178);
-                if (v213)
-                {
-                  _cg_TIFFFreeDirectory(a1);
-                  *(a1 + 16) &= 0xFFDFFFF7;
-                  (*(a1 + 1072))(a1);
-                  TIFFCreateDirectory(a1);
-                }
-
-                else
-                {
-                  *(a1 + 440) = *(a1 + 432);
-                }
-
-                return 1;
-              }
-
-              TIFFErrorExtR(a1, "TIFFWriteDirectorySec", "IO error writing directory", v205, v206, v207, v208, v209, v212);
-              v174 = v178;
-LABEL_427:
-              free(v174);
-              return 0;
-            }
-
-            v193 = "TIFFWriteDirectorySec";
-LABEL_473:
-            v194 = "Out of memory";
-          }
-
-          else
-          {
-LABEL_481:
-            v193 = "TIFFWriteDirectorySec";
-            v194 = "Cannot find SubIFD tag";
-          }
-
-LABEL_474:
-          TIFFErrorExtR(a1, v193, v194, v9, v10, v11, v12, v13, v212);
-LABEL_475:
-          if (!v21)
+          if (!v20)
           {
             return 0;
           }
 
-LABEL_426:
-          v174 = v21;
-          goto LABEL_427;
+          goto LABEL_423;
         }
+      }
 
-        v139 = v217;
-        if ((*(a1 + 16) & 0x80000) != 0)
+      if ((*(v18 + 3) & 2) != 0)
+      {
+        if ((*(a1 + 17) & 4) != 0)
         {
-          v140 = 20;
-        }
-
-        else
-        {
-          v140 = 12;
-        }
-
-        if ((*(a1 + 16) & 0x80000) != 0)
-        {
-          v141 = 16;
+          v33 = *(a1 + 228);
+          v11 = *(a1 + 232);
+          v34 = a1;
+          v35 = v20;
+          v36 = 324;
         }
 
         else
         {
-          v141 = 6;
-        }
-
-        *(a1 + 432) += v141 + v217 * v140;
-        v142 = malloc_type_malloc(32 * v139, 0x100004022B81155uLL);
-        a2 = v216;
-        if (!v142)
-        {
-          v170 = "Out of memory";
-          goto LABEL_416;
-        }
-
-        v21 = v142;
-        if (v216)
-        {
-          if (*(a1 + 24))
+          v11 = *(a1 + 232);
+          if (!v11)
           {
-            if (*(a1 + 432) > *(a1 + 440))
-            {
-              free(v142);
-              return TIFFRewriteDirectorySec(a1, v213, a4) != 0;
-            }
-
-            goto LABEL_400;
+            goto LABEL_90;
           }
 
-          v144 = (*(a1 + 1224))(*(a1 + 1200), 0, 2);
-          *(a1 + 24) = (v144 + 1) & 0xFFFFFFFFFFFFFFFELL;
-          v146 = *(a1 + 16);
-          if ((v146 & 0x2000) != 0)
-          {
-            if ((v146 & 0x80000) != 0)
-            {
-              __src = (v144 + 1) & 0xFFFFFFFFFFFFFFFELL;
-              if ((v146 & 0x80) != 0)
-              {
-                v145.n128_u64[0] = TIFFSwabLong8(&__src);
-              }
+          v33 = *(a1 + 228);
+          v34 = a1;
+          v35 = v20;
+          v36 = 273;
+        }
 
-              (*(a1 + 1224))(*(a1 + 1200), *(a1 + 920), 0, v145);
-              if ((*(a1 + 1216))(*(a1 + 1200), &__src, 8) == 8)
+        if (!TIFFWriteDirectoryTagLongLong8Array(v34, &v201, v35, v36, v33, v11, v12, v13))
+        {
+          goto LABEL_422;
+        }
+      }
+
+LABEL_90:
+      v37 = *v18;
+      if ((*v18 & 0x4000000) == 0)
+      {
+        goto LABEL_95;
+      }
+
+      v38 = *(a1 + 116);
+      v39 = 2 * (3 << v38);
+      if (v20)
+      {
+        v40 = malloc_type_malloc(v39, 0x1000040BDFB0063uLL);
+        if (!v40)
+        {
+          v184 = "TIFFWriteDirectoryTagColormap";
+          goto LABEL_468;
+        }
+
+        v41 = v40;
+        _TIFFmemcpy(v40, *(a1 + 184), 2 * (1 << v38));
+        _TIFFmemcpy(v41 + 2 * (1 << v38), *(a1 + 192), 2 * (1 << v38));
+        _TIFFmemcpy(v41 + 2 * (2 << v38), *(a1 + 200), 2 * (1 << v38));
+        v42 = TIFFWriteDirectoryTagCheckedShortArray(a1, &v201, v20, 0x140u, 3 << v38, v41);
+        free(v41);
+        if (!v42)
+        {
+          goto LABEL_423;
+        }
+
+        v18 = (a1 + 72);
+        v37 = *(a1 + 72);
+LABEL_95:
+        if (v37 < 0)
+        {
+          goto LABEL_96;
+        }
+
+        goto LABEL_104;
+      }
+
+      v43 = 4;
+      if ((*(a1 + 18) & 8) != 0)
+      {
+        v43 = 8;
+      }
+
+      if (v39 > v43)
+      {
+        *(a1 + 432) += v39;
+      }
+
+      ++v201;
+      if (v37 < 0)
+      {
+LABEL_96:
+        if (*(a1 + 212))
+        {
+          LOWORD(v203[0]) = 0;
+          __src = 0;
+          p_src = &__src;
+          _cg_TIFFGetFieldDefaulted(a1, 338, v8, v9, v10, v11, v12, v13, v203);
+          if (!TIFFWriteDirectoryTagCheckedShortArray(a1, &v201, v20, 0x152u, LOWORD(v203[0]), __src))
+          {
+            goto LABEL_422;
+          }
+        }
+      }
+
+LABEL_104:
+      v44 = *(a1 + 76);
+      if (v44)
+      {
+        if (!TIFFWriteDirectoryTagShortPerSample(a1, &v201, v20, 0x153u, *(a1 + 118)))
+        {
+          goto LABEL_422;
+        }
+
+        v44 = *(a1 + 76);
+      }
+
+      if ((v44 & 2) != 0)
+      {
+        if (!TIFFWriteDirectoryTagSampleformatArray(a1, &v201, v20, 0x154u, *(a1 + 130), *(a1 + 144)))
+        {
+          goto LABEL_422;
+        }
+
+        v44 = *(a1 + 76);
+      }
+
+      if ((v44 & 4) != 0)
+      {
+        if (!TIFFWriteDirectoryTagSampleformatArray(a1, &v201, v20, 0x155u, *(a1 + 130), *(a1 + 152)))
+        {
+          goto LABEL_422;
+        }
+
+        v44 = *(a1 + 76);
+      }
+
+      if ((v44 & 8) != 0)
+      {
+        if (!TIFFWriteDirectoryTagCheckedLong(a1, &v201, v20, 0x80E5u, *(a1 + 96), v14))
+        {
+          goto LABEL_422;
+        }
+
+        v44 = *(a1 + 76);
+      }
+
+      if ((v44 & 0x10) != 0)
+      {
+        if (!TIFFWriteDirectoryTagCheckedLong(a1, &v201, v20, 0x80E6u, *(a1 + 108), v14))
+        {
+          goto LABEL_422;
+        }
+
+        v44 = *(a1 + 76);
+      }
+
+      if ((v44 & 0x20) != 0)
+      {
+        if (!TIFFWriteDirectoryTagCheckedShortArray(a1, &v201, v20, 0x141u, 2u, (a1 + 208)))
+        {
+          goto LABEL_422;
+        }
+
+        v44 = *(a1 + 76);
+      }
+
+      if ((v44 & 0x80) != 0)
+      {
+        if (!TIFFWriteDirectoryTagCheckedShortArray(a1, &v201, v20, 0x212u, 2u, (a1 + 336)))
+        {
+          goto LABEL_422;
+        }
+
+        v44 = *(a1 + 76);
+      }
+
+      if ((v44 & 0x100) != 0)
+      {
+        if (!TIFFWriteDirectoryTagCheckedShort(a1, &v201, v20, 0x213u, *(a1 + 340)))
+        {
+          goto LABEL_422;
+        }
+
+        v44 = *(a1 + 76);
+      }
+
+      if ((v44 & 0x200) != 0)
+      {
+        if (!TIFFWriteDirectoryTagRationalArray(a1, &v201, v20, 0x214u, 6u, *(a1 + 368)))
+        {
+          goto LABEL_422;
+        }
+
+        v44 = *(a1 + 76);
+      }
+
+      if ((v44 & 0x1000) != 0)
+      {
+        v45 = 0;
+        v46 = *(a1 + 116);
+        v47 = 1 << v46;
+        v48 = *(a1 + 130) - *(a1 + 212);
+        do
+        {
+          if (!*(a1 + 8 * v45 + 344))
+          {
+            TIFFWarningExtR(a1, "TIFFWriteDirectoryTagTransferfunction", "Too few TransferFunctions provided. Tag not written to file");
+            goto LABEL_156;
+          }
+
+          if (v48 < 2)
+          {
+            break;
+          }
+
+          v49 = v45++ > 1;
+        }
+
+        while (!v49);
+        if (v48 < 2)
+        {
+          v50 = 1;
+        }
+
+        else if (_TIFFmemcmp(*(a1 + 344), *(a1 + 360), 2 * v47))
+        {
+          v50 = 3;
+        }
+
+        else if (_TIFFmemcmp(*(a1 + 344), *(a1 + 352), 2 * v47))
+        {
+          v50 = 3;
+        }
+
+        else
+        {
+          v50 = 1;
+        }
+
+        v51 = 2 * (v50 << v46);
+        if (v20)
+        {
+          v52 = malloc_type_malloc(v51, 0x1000040BDFB0063uLL);
+          if (!v52)
+          {
+            v184 = "TIFFWriteDirectoryTagTransferfunction";
+LABEL_468:
+            TIFFErrorExtR(a1, v184, "Out of memory");
+            goto LABEL_423;
+          }
+
+          v53 = v52;
+          _TIFFmemcpy(v52, *(a1 + 344), 2 * (1 << v46));
+          if (v50 != 1)
+          {
+            _TIFFmemcpy(v53 + 2 * (1 << v46), *(a1 + 352), 2 * (1 << v46));
+            _TIFFmemcpy(v53 + 2 * (2 << v46), *(a1 + 360), 2 * (1 << v46));
+          }
+
+          v54 = TIFFWriteDirectoryTagCheckedShortArray(a1, &v201, v20, 0x12Du, v50 << v46, v53);
+          free(v53);
+          v18 = (a1 + 72);
+          if (!v54)
+          {
+            goto LABEL_423;
+          }
+        }
+
+        else
+        {
+          v55 = 4;
+          if ((*(a1 + 18) & 8) != 0)
+          {
+            v55 = 8;
+          }
+
+          if (v51 > v55)
+          {
+            *(a1 + 432) += v51;
+          }
+
+          ++v201;
+        }
+      }
+
+LABEL_156:
+      v56 = *(a1 + 76);
+      if ((v56 & 0x4000) != 0)
+      {
+        if (!TIFFWriteDirectoryTagAscii(a1, &v201, v20, 0x14Du, *(a1 + 376), *(a1 + 384)))
+        {
+          goto LABEL_422;
+        }
+
+        v56 = *(a1 + 76);
+      }
+
+      if ((v56 & 0x40000) != 0)
+      {
+        if (!TIFFWriteDirectoryTagCheckedShort(a1, &v201, v20, 0x14Eu, *(a1 + 392)))
+        {
+          goto LABEL_422;
+        }
+
+        v56 = *(a1 + 76);
+      }
+
+      if ((v56 & 0x20000) != 0)
+      {
+        v10 = *(a1 + 320);
+        if (*(a1 + 320))
+        {
+          v57 = *(a1 + 904);
+          if ((*(a1 + 18) & 8) != 0)
+          {
+            v66 = TIFFWriteDirectoryTagCheckedIfd8Array(a1, &v201, v20, 0x14Au, v10, *(a1 + 328));
+          }
+
+          else
+          {
+            v58 = malloc_type_malloc(4 * *(a1 + 320), 0x100004052888210uLL);
+            if (!v58)
+            {
+              v182 = "TIFFWriteDirectoryTagSubifd";
+              goto LABEL_470;
+            }
+
+            v60 = v58;
+            v61 = *(a1 + 320);
+            if (*(a1 + 320))
+            {
+              v62 = 0;
+              v63 = *(a1 + 328);
+              v64 = v58;
+              do
               {
-                v158 = *(a1 + 912) - 1;
-                *(a1 + 912) = v158;
-                if (v158)
+                if (!v63)
                 {
-                  v153 = *(a1 + 920) + 8;
-                  goto LABEL_381;
+                  TIFFWriteDirectorySec_cold_1();
                 }
 
-LABEL_387:
-                *(a1 + 16) &= ~0x2000u;
-                goto LABEL_388;
+                v65 = *v63;
+                if (HIDWORD(*v63))
+                {
+                  TIFFErrorExtR(a1, "TIFFWriteDirectoryTagSubifd", "Illegal value for SubIFD tag");
+                  goto LABEL_420;
+                }
+
+                ++v63;
+                *v64++ = v65;
+                ++v62;
+              }
+
+              while (v62 < v61);
+            }
+
+            v66 = TIFFWriteDirectoryTagCheckedIfdArray(a1, &v201, v20, 0x14Au, v61, v58, v59);
+            free(v60);
+          }
+
+          if (v20)
+          {
+            if (!v66)
+            {
+              goto LABEL_423;
+            }
+
+            *(a1 + 16) |= 0x2000u;
+            v67 = *(a1 + 320);
+            *(a1 + 912) = v67;
+            if (v67 == 1)
+            {
+              v68 = 0;
+            }
+
+            else
+            {
+              v68 = v57;
+            }
+
+            *(a1 + 920) = v68;
+          }
+
+          else if (!v66)
+          {
+            return 0;
+          }
+        }
+      }
+
+      if ((*(a1 + 78) & 0x20) != 0)
+      {
+        TIFFWarning("TIFFWriteRichIPTCTag", "Unimplemented.", v8, v9, v10, v11, v12, v13);
+      }
+
+      if (*(a1 + 1264))
+      {
+        v69 = 0;
+        v70 = 1;
+        do
+        {
+          v71 = *(*(a1 + 1256) + 8 * v69);
+          v72 = *(v71 + 12);
+          if (v72 >= 0x42 && ((*(v18 + ((v72 >> 3) & 0x1FFC)) >> v72) & 1) != 0)
+          {
+            v73 = v71[5];
+            if (v73 > 5)
+            {
+              if (v73 == 6)
+              {
+                LODWORD(__src) = 0;
+                if (v71[2] != 4)
+                {
+                  TIFFWriteDirectorySec_cold_5();
+                }
+
+                if (*(v71 + 2) != 1)
+                {
+                  TIFFWriteDirectorySec_cold_6();
+                }
+
+                if (*(v71 + 27))
+                {
+                  TIFFWriteDirectorySec_cold_7();
+                }
+
+                _cg_TIFFGetField(a1, *v71, v8, v9, v10, v11, v12, v13, &__src);
+                if (!TIFFWriteDirectoryTagCheckedLong(a1, &v201, v20, *v71, __src, v75))
+                {
+                  goto LABEL_422;
+                }
+              }
+
+              else
+              {
+                if (v73 != 40)
+                {
+LABEL_443:
+                  TIFFFieldTag(v71);
+                  TIFFErrorExtR(a1, "TIFFWriteDirectorySec", "Cannot write tag %u (%s)");
+                  goto LABEL_471;
+                }
+
+                v203[0] = 0;
+                __src = 0;
+                if (v71[2] != 7)
+                {
+                  TIFFWriteDirectorySec_cold_2();
+                }
+
+                if (*(v71 + 2) != -3)
+                {
+                  TIFFWriteDirectorySec_cold_3();
+                }
+
+                if (*(v71 + 27) != 1)
+                {
+                  TIFFWriteDirectorySec_cold_4();
+                }
+
+                p_src = &__src;
+                _cg_TIFFGetField(a1, *v71, v8, v9, v10, v11, v12, v13, v203);
+                if (!TIFFWriteDirectoryTagUndefinedArray(a1, &v201, v20, *v71, v203[0], __src))
+                {
+                  goto LABEL_422;
+                }
+              }
+            }
+
+            else if (v73 == 1)
+            {
+              __src = 0;
+              if (v71[2] != 2)
+              {
+                TIFFWriteDirectorySec_cold_11();
+              }
+
+              if (*(v71 + 2) != -1)
+              {
+                TIFFWriteDirectorySec_cold_12();
+              }
+
+              if (*(v71 + 27))
+              {
+                TIFFWriteDirectorySec_cold_13();
+              }
+
+              _cg_TIFFGetField(a1, *v71, v8, v9, v10, v11, v12, v13, &__src);
+              v74 = strlen(__src);
+              if (!TIFFWriteDirectoryTagAscii(a1, &v201, v20, *v71, v74, __src))
+              {
+                goto LABEL_422;
               }
             }
 
             else
             {
-              LODWORD(__src) = (v144 + 1) & 0xFFFFFFFE;
-              if ((v146 & 0x80) != 0)
+              if (v73 != 4)
               {
-                v145.n128_u64[0] = TIFFSwabLong(&__src, v145.n128_u64[0]);
+                goto LABEL_443;
               }
 
-              (*(a1 + 1224))(*(a1 + 1200), *(a1 + 920), 0, v145);
-              if ((*(a1 + 1216))(*(a1 + 1200), &__src, 4) == 4)
+              LOWORD(__src) = 0;
+              if (v71[2] != 3)
               {
-                v152 = *(a1 + 912) - 1;
-                *(a1 + 912) = v152;
-                if (v152)
+                TIFFWriteDirectorySec_cold_8();
+              }
+
+              if (*(v71 + 2) != 1)
+              {
+                TIFFWriteDirectorySec_cold_9();
+              }
+
+              if (*(v71 + 27))
+              {
+                TIFFWriteDirectorySec_cold_10();
+              }
+
+              _cg_TIFFGetField(a1, *v71, v8, v9, v10, v11, v12, v13, &__src);
+              if (!TIFFWriteDirectoryTagCheckedShort(a1, &v201, v20, *v71, __src))
+              {
+                goto LABEL_422;
+              }
+            }
+          }
+
+          v69 = v70;
+          v49 = *(a1 + 1264) > v70++;
+        }
+
+        while (v49);
+      }
+
+LABEL_211:
+      if (*(a1 + 408))
+      {
+        v76 = 0;
+        v198 = a4;
+        while (1)
+        {
+          v77 = (*(a1 + 416) + 24 * v76);
+          v78 = *v77;
+          v79 = **v77;
+          v80 = *(v77 + 2);
+          switch(*(*v77 + 2))
+          {
+            case 1:
+              if (!TIFFWriteDirectoryTagByteArray(a1, &v201, v20, **v77, *(v77 + 2), v77[2]))
+              {
+                goto LABEL_422;
+              }
+
+              goto LABEL_300;
+            case 2:
+              if (!TIFFWriteDirectoryTagAscii(a1, &v201, v20, **v77, *(v77 + 2), v77[2]))
+              {
+                goto LABEL_422;
+              }
+
+              goto LABEL_300;
+            case 3:
+              if (!TIFFWriteDirectoryTagCheckedShortArray(a1, &v201, v20, **v77, *(v77 + 2), v77[2]))
+              {
+                goto LABEL_422;
+              }
+
+              goto LABEL_300;
+            case 4:
+              if (!TIFFWriteDirectoryTagCheckedLongArray(a1, &v201, v20, **v77, *(v77 + 2), v77[2], v14))
+              {
+                goto LABEL_422;
+              }
+
+              goto LABEL_300;
+            case 5:
+              v104 = TIFFFieldSetGetSize(v78);
+              v105 = *(a1 + 416) + 24 * v76;
+              v106 = *(v105 + 16);
+              if (v104 == 8)
+              {
+                v107 = 4 * (2 * v80);
+                if (v20)
                 {
-                  v153 = *(a1 + 920) + 4;
-LABEL_381:
-                  *(a1 + 920) = v153;
-                  goto LABEL_388;
+                  v108 = malloc_type_malloc(v107, 0x100004052888210uLL);
+                  if (!v108)
+                  {
+                    v184 = "TIFFWriteDirectoryTagCheckedRationalDoubleArray";
+                    goto LABEL_468;
+                  }
+
+                  v116 = v108;
+                  if (v80)
+                  {
+                    v117 = v80;
+                    v118 = v108;
+                    do
+                    {
+                      v119 = *v106++;
+                      DoubleToRational(v118, v118 + 1, v119, v109, v110, v111, v112, v113, v114, v195);
+                      v118 += 2;
+                      --v117;
+                    }
+
+                    while (v117);
+                  }
+
+                  if ((*(a1 + 16) & 0x80) != 0)
+                  {
+                    TIFFSwabArrayOfLong(v116, (2 * v80), v115);
+                  }
+
+                  v90 = TIFFWriteDirectoryTagData(a1, &v201, v20, v79, 5u, v80, (8 * v80), v116);
+                  free(v116);
+                  a4 = v198;
+                  v18 = (a1 + 72);
+LABEL_299:
+                  if (!v90)
+                  {
+                    goto LABEL_422;
+                  }
                 }
 
-                goto LABEL_387;
+                else
+                {
+                  v138 = 4;
+                  if ((*(a1 + 18) & 8) != 0)
+                  {
+                    v138 = 8;
+                  }
+
+                  a4 = v198;
+                  if (v107 > v138)
+                  {
+                    *(a1 + 432) += v107;
+                  }
+
+                  ++v201;
+                  v18 = (a1 + 72);
+                }
+              }
+
+              else
+              {
+                v81 = v104;
+                if (!TIFFWriteDirectoryTagRationalArray(a1, &v201, v20, v79, v80, *(v105 + 16)))
+                {
+                  goto LABEL_422;
+                }
+
+LABEL_312:
+                v18 = (a1 + 72);
+                if (v81 != 4)
+                {
+                  TIFFErrorExtR(a1, "TIFFLib: _TIFFWriteDirectorySec()", "Rational2Double: .set_field_type is not 4 but %d", v81);
+                }
+              }
+
+LABEL_300:
+              if (++v76 >= *(a1 + 408))
+              {
+                goto LABEL_319;
+              }
+
+              break;
+            case 6:
+              if (!TIFFWriteDirectoryTagSbyteArray(a1, &v201, v20, **v77, *(v77 + 2), v77[2]))
+              {
+                goto LABEL_422;
+              }
+
+              goto LABEL_300;
+            case 7:
+              if (!TIFFWriteDirectoryTagUndefinedArray(a1, &v201, v20, **v77, *(v77 + 2), v77[2]))
+              {
+                goto LABEL_422;
+              }
+
+              goto LABEL_300;
+            case 8:
+              if (!TIFFWriteDirectoryTagSshortArray(a1, &v201, v20, **v77, *(v77 + 2), v77[2]))
+              {
+                goto LABEL_422;
+              }
+
+              goto LABEL_300;
+            case 9:
+              if (!TIFFWriteDirectoryTagCheckedSlongArray(a1, &v201, v20, **v77, *(v77 + 2), v77[2], v14))
+              {
+                goto LABEL_422;
+              }
+
+              goto LABEL_300;
+            case 0xA:
+              v81 = TIFFFieldSetGetSize(v78);
+              v82 = *(*(a1 + 416) + 24 * v76 + 16);
+              v83 = 4 * (2 * v80);
+              if (v81 != 8)
+              {
+                if (v20)
+                {
+                  v125 = malloc_type_malloc(v83, 0x100004052888210uLL);
+                  if (!v125)
+                  {
+                    v184 = "TIFFWriteDirectoryTagCheckedSrationalArray";
+                    goto LABEL_468;
+                  }
+
+                  v127 = v125;
+                  if (v80)
+                  {
+                    v128 = v80;
+                    v129 = v125;
+                    do
+                    {
+                      v130 = *v82++;
+                      DoubleToSrational(v129, v129 + 1, v130);
+                      v129 += 2;
+                      --v128;
+                    }
+
+                    while (v128);
+                  }
+
+                  if ((*(a1 + 16) & 0x80) != 0)
+                  {
+                    TIFFSwabArrayOfLong(v127, (2 * v80), v126);
+                  }
+
+                  v131 = TIFFWriteDirectoryTagData(a1, &v201, v20, v79, 0xAu, v80, (8 * v80), v127);
+                  free(v127);
+                  a4 = v198;
+                  if (!v131)
+                  {
+                    goto LABEL_422;
+                  }
+                }
+
+                else
+                {
+                  v137 = 4;
+                  if ((*(a1 + 18) & 8) != 0)
+                  {
+                    v137 = 8;
+                  }
+
+                  if (v83 > v137)
+                  {
+                    *(a1 + 432) += v83;
+                  }
+
+                  ++v201;
+                  a4 = v198;
+                }
+
+                goto LABEL_312;
+              }
+
+              if (!v20)
+              {
+                v136 = 4;
+                if ((*(a1 + 18) & 8) != 0)
+                {
+                  v136 = 8;
+                }
+
+                if (v83 > v136)
+                {
+                  *(a1 + 432) += v83;
+                }
+
+                ++v201;
+                a4 = v198;
+                goto LABEL_300;
+              }
+
+              v84 = malloc_type_malloc(v83, 0x100004052888210uLL);
+              if (!v84)
+              {
+                v184 = "TIFFWriteDirectoryTagCheckedSrationalDoubleArray";
+                goto LABEL_468;
+              }
+
+              v86 = v84;
+              if (v80)
+              {
+                v87 = v80;
+                v88 = v84;
+                do
+                {
+                  v89 = *v82;
+                  v82 += 2;
+                  DoubleToSrational(v88, v88 + 1, v89);
+                  v88 += 2;
+                  --v87;
+                }
+
+                while (v87);
+              }
+
+              if ((*(a1 + 16) & 0x80) != 0)
+              {
+                TIFFSwabArrayOfLong(v86, (2 * v80), v85);
+              }
+
+              v90 = TIFFWriteDirectoryTagData(a1, &v201, v20, v79, 0xAu, v80, (8 * v80), v86);
+              free(v86);
+              v18 = (a1 + 72);
+              a4 = v198;
+              goto LABEL_299;
+            case 0xB:
+              if (!TIFFWriteDirectoryTagFloatArray(a1, &v201, v20, **v77, *(v77 + 2), v77[2], v14))
+              {
+                goto LABEL_422;
+              }
+
+              goto LABEL_300;
+            case 0xC:
+              if (!TIFFWriteDirectoryTagDoubleArray(a1, &v201, v20, **v77, *(v77 + 2), v77[2]))
+              {
+                goto LABEL_422;
+              }
+
+              goto LABEL_300;
+            case 0xD:
+              if (!TIFFWriteDirectoryTagCheckedIfdArray(a1, &v201, v20, **v77, *(v77 + 2), v77[2], v14))
+              {
+                goto LABEL_422;
+              }
+
+              goto LABEL_300;
+            case 0x10:
+              v91 = v77[2];
+              if (!v20)
+              {
+                v132 = a1;
+                v133 = 0;
+LABEL_295:
+                v90 = TIFFWriteDirectoryTagCheckedLong8Array(v132, &v201, v133, v79, v80, v91);
+                goto LABEL_299;
+              }
+
+              if ((*(a1 + 18) & 8) != 0)
+              {
+                v132 = a1;
+                v133 = v20;
+                goto LABEL_295;
+              }
+
+              v92 = malloc_type_malloc(4 * v80, 0x100004052888210uLL);
+              if (!v92)
+              {
+                v184 = "TIFFWriteDirectoryTagLong8Array";
+                goto LABEL_468;
+              }
+
+              v94 = v92;
+              if (v80)
+              {
+                v95 = 0;
+                while (1)
+                {
+                  v96 = v91[v95];
+                  if (HIDWORD(*&v96))
+                  {
+                    break;
+                  }
+
+                  v92[v95++] = v96.i32[0];
+                  if (v80 == v95)
+                  {
+                    goto LABEL_240;
+                  }
+                }
+
+                TIFFErrorExtR(a1, "TIFFWriteDirectoryTagLong8Array", "Attempt to write unsigned long value %llu larger than 0xFFFFFFFF for tag %d in Classic TIFF file. TIFF file writing aborted", *&v91[v95], v79);
+                v168 = v94;
+                goto LABEL_421;
+              }
+
+LABEL_240:
+              v90 = TIFFWriteDirectoryTagCheckedLongArray(a1, &v201, v20, v79, v80, v92, v93);
+              v97 = v94;
+LABEL_266:
+              free(v97);
+LABEL_291:
+              v18 = (a1 + 72);
+              goto LABEL_299;
+            case 0x11:
+              v98 = a4;
+              v99 = v77[2];
+              if (!v20)
+              {
+                v134 = a1;
+                v135 = 0;
+LABEL_297:
+                v90 = TIFFWriteDirectoryTagCheckedSlong8Array(v134, &v201, v135, v79, v80, v99);
+                goto LABEL_298;
+              }
+
+              if ((*(a1 + 18) & 8) != 0)
+              {
+                v134 = a1;
+                v135 = v20;
+                goto LABEL_297;
+              }
+
+              v100 = malloc_type_malloc(4 * v80, 0x100004052888210uLL);
+              if (!v100)
+              {
+                v184 = "TIFFWriteDirectoryTagSlong8Array";
+                goto LABEL_468;
+              }
+
+              v60 = v100;
+              if (v80)
+              {
+                v102 = 0;
+                while (1)
+                {
+                  v103 = v99[v102];
+                  if (v103 >= 0x80000000)
+                  {
+                    TIFFErrorExtR(a1, "TIFFWriteDirectoryTagSlong8Array", "Attempt to write signed long value %lli larger than 0x7FFFFFFF (2147483647) for tag %d in Classic TIFF file. TIFF writing to file aborted");
+                    goto LABEL_420;
+                  }
+
+                  if (v103 <= 0xFFFFFFFF7FFFFFFFLL)
+                  {
+                    break;
+                  }
+
+                  v100[v102++] = v103;
+                  if (v80 == v102)
+                  {
+                    goto LABEL_249;
+                  }
+                }
+
+                TIFFErrorExtR(a1, "TIFFWriteDirectoryTagSlong8Array", "Attempt to write signed long value %lli smaller than 0x80000000 (-2147483648) for tag %d in Classic TIFF file. TIFF writing to file aborted");
+                goto LABEL_420;
+              }
+
+LABEL_249:
+              v90 = TIFFWriteDirectoryTagCheckedSlongArray(a1, &v201, v20, v79, v80, v100, v101);
+              free(v60);
+LABEL_298:
+              a4 = v98;
+              goto LABEL_299;
+            case 0x12:
+              v120 = v77[2];
+              if ((*(a1 + 18) & 8) != 0)
+              {
+                v90 = TIFFWriteDirectoryTagCheckedIfd8Array(a1, &v201, v20, v79, v80, v120);
+                goto LABEL_291;
+              }
+
+              v121 = malloc_type_malloc(4 * v80, 0x100004052888210uLL);
+              if (!v121)
+              {
+                v182 = "TIFFWriteDirectoryTagIfdIfd8Array";
+                goto LABEL_470;
+              }
+
+              v60 = v121;
+              if (v80)
+              {
+                v123 = 0;
+                while (1)
+                {
+                  v124 = v120[v123];
+                  if (HIDWORD(*&v124))
+                  {
+                    break;
+                  }
+
+                  v121[v123++] = v124.i32[0];
+                  if (v80 == v123)
+                  {
+                    goto LABEL_265;
+                  }
+                }
+
+                TIFFErrorExtR(a1, "TIFFWriteDirectoryTagIfdIfd8Array", "Attempt to write value larger than 0xFFFFFFFF in Classic TIFF file.", v195, p_src);
+LABEL_420:
+                v168 = v60;
+LABEL_421:
+                free(v168);
+                goto LABEL_422;
+              }
+
+LABEL_265:
+              v90 = TIFFWriteDirectoryTagCheckedIfdArray(a1, &v201, v20, v79, v80, v121, v122);
+              v97 = v60;
+              goto LABEL_266;
+            default:
+              TIFFWriteDirectorySec_cold_14();
+          }
+        }
+      }
+
+LABEL_319:
+      if (v20)
+      {
+        if (!v200 || (*(a1 + 78) & 2) == 0 || *(a1 + 920))
+        {
+          goto LABEL_429;
+        }
+
+        if (v201)
+        {
+          v191 = 0;
+          v192 = v20;
+          while (*v192 != 330)
+          {
+            ++v191;
+            v192 += 16;
+            if (v201 == v191)
+            {
+              goto LABEL_477;
+            }
+          }
+
+          v193 = 20;
+          if ((*(a1 + 16) & 0x80000) != 0)
+          {
+            v194 = 20;
+          }
+
+          else
+          {
+            v194 = 12;
+          }
+
+          if ((*(a1 + 16) & 0x80000) == 0)
+          {
+            v193 = 10;
+          }
+
+          *(a1 + 920) = v193 + *(a1 + 24) + (v191 * v194);
+LABEL_429:
+          v171 = malloc_type_malloc(size, 0xD60FAB32uLL);
+          if (v171)
+          {
+            v173 = v171;
+            v174 = *(a1 + 16);
+            if ((v174 & 0x80000) != 0)
+            {
+              v185 = v201;
+              *v171 = v201;
+              if ((v174 & 0x80) != 0)
+              {
+                TIFFSwabLong8(v171);
+              }
+
+              if (v185)
+              {
+                v186 = 0;
+                v187 = &v173[1] + 2;
+                v188 = v20 + 1;
+                do
+                {
+                  *(v187 - 1) = *(v188 - 1);
+                  if ((*(a1 + 16) & 0x80) != 0)
+                  {
+                    TIFFSwabShort(v187 - 2);
+                    v189 = *(a1 + 16);
+                    *v187 = *v188;
+                    if ((v189 & 0x80) != 0)
+                    {
+                      TIFFSwabShort(v187);
+                    }
+                  }
+
+                  else
+                  {
+                    *v187 = *v188;
+                  }
+
+                  _TIFFmemcpy(v187 + 2, v188 + 3, 8uLL);
+                  if ((*(a1 + 16) & 0x80) != 0)
+                  {
+                    TIFFSwabLong8((v187 + 2));
+                  }
+
+                  _TIFFmemcpy(v187 + 10, v188 + 7, 8uLL);
+                  ++v186;
+                  v187 += 20;
+                  v188 += 16;
+                }
+
+                while (v186 < v201);
+                v190 = (v187 - 2);
+              }
+
+              else
+              {
+                v190 = v173 + 1;
+              }
+
+              _TIFFmemcpy(v190, (a1 + 32), 8uLL);
+              if ((*(a1 + 16) & 0x80) != 0)
+              {
+                TIFFSwabLong8(v190);
               }
             }
 
-            v159 = a1;
-            v160 = "TIFFLinkDirectory";
-            v8 = "Error writing SubIFD directory link";
-LABEL_398:
-            TIFFErrorExtR(v159, v160, v8, v9, v10, v11, v12, v13, v212);
-            v163 = 0;
-            goto LABEL_399;
+            else
+            {
+              LODWORD(__src) = 0;
+              v175 = v201;
+              v171->i16[0] = v201;
+              if ((v174 & 0x80) != 0)
+              {
+                TIFFSwabShort(v171);
+              }
+
+              if (v175)
+              {
+                v176 = 0;
+                v177 = v20 + 1;
+                v178 = v173 + 6;
+                do
+                {
+                  *(v178 - 2) = *(v177 - 1);
+                  if ((*(a1 + 16) & 0x80) != 0)
+                  {
+                    TIFFSwabShort(v178 - 4);
+                    v179 = *(a1 + 16);
+                    *(v178 - 1) = *v177;
+                    if ((v179 & 0x80) != 0)
+                    {
+                      TIFFSwabShort(v178 - 2);
+                    }
+                  }
+
+                  else
+                  {
+                    *(v178 - 1) = *v177;
+                  }
+
+                  LODWORD(__src) = *(v177 + 3);
+                  _TIFFmemcpy(v178, &__src, 4uLL);
+                  if ((*(a1 + 16) & 0x80) != 0)
+                  {
+                    TIFFSwabLong(v178, v180);
+                  }
+
+                  _TIFFmemcpy(v178 + 4, v177 + 7, 4uLL);
+                  ++v176;
+                  v177 += 16;
+                  v178 += 12;
+                }
+
+                while (v176 < v201);
+                v181 = v178 - 4;
+              }
+
+              else
+              {
+                v181 = v173 + 2;
+              }
+
+              LODWORD(__src) = *(a1 + 32);
+              if ((*(a1 + 16) & 0x80) != 0)
+              {
+                TIFFSwabLong(&__src, v172);
+              }
+
+              _TIFFmemcpy(v181, &__src, 4uLL);
+            }
+
+            free(v20);
+            if (_TIFFSeekOK(a1, *(a1 + 24)) && (*(a1 + 1216))(*(a1 + 1200), v173, size) == size)
+            {
+              free(v173);
+              if (v197)
+              {
+                _cg_TIFFFreeDirectory(a1);
+                *(a1 + 16) &= 0xFFDFFFF7;
+                (*(a1 + 1072))(a1);
+                TIFFCreateDirectory(a1);
+              }
+
+              else
+              {
+                *(a1 + 440) = *(a1 + 432);
+              }
+
+              return 1;
+            }
+
+            TIFFErrorExtR(a1, "TIFFWriteDirectorySec", "IO error writing directory");
+            v169 = v173;
+LABEL_424:
+            free(v169);
+            return 0;
           }
 
+          v182 = "TIFFWriteDirectorySec";
+LABEL_470:
+          TIFFErrorExtR(a1, v182, "Out of memory", v195, p_src);
+        }
+
+        else
+        {
+LABEL_477:
+          TIFFErrorExtR(a1, "TIFFWriteDirectorySec", "Cannot find SubIFD tag", v195, p_src);
+        }
+
+LABEL_471:
+        if (!v20)
+        {
+          return 0;
+        }
+
+LABEL_423:
+        v169 = v20;
+        goto LABEL_424;
+      }
+
+      v139 = v201;
+      if ((*(a1 + 16) & 0x80000) != 0)
+      {
+        v140 = 20;
+      }
+
+      else
+      {
+        v140 = 12;
+      }
+
+      if ((*(a1 + 16) & 0x80000) != 0)
+      {
+        v141 = 16;
+      }
+
+      else
+      {
+        v141 = 6;
+      }
+
+      *(a1 + 432) += v141 + v201 * v140;
+      v142 = malloc_type_malloc(32 * v139, 0x100004022B81155uLL);
+      a2 = v200;
+      if (!v142)
+      {
+        TIFFErrorExtR(a1, "TIFFWriteDirectorySec", "Out of memory");
+        return 0;
+      }
+
+      v20 = v142;
+      if (v200)
+      {
+        if (*(a1 + 24))
+        {
+          if (*(a1 + 432) > *(a1 + 440))
+          {
+            free(v142);
+            return TIFFRewriteDirectorySec(a1, v197, a4);
+          }
+
+          goto LABEL_399;
+        }
+
+        v144 = (*(a1 + 1224))(*(a1 + 1200), 0, 2);
+        *(a1 + 24) = (v144 + 1) & 0xFFFFFFFFFFFFFFFELL;
+        v146 = *(a1 + 16);
+        if ((v146 & 0x2000) != 0)
+        {
           if ((v146 & 0x80000) != 0)
           {
             __src = (v144 + 1) & 0xFFFFFFFFFFFFFFFELL;
@@ -5932,89 +5880,65 @@ LABEL_398:
               v145.n128_u64[0] = TIFFSwabLong8(&__src);
             }
 
-            if (*(a1 + 864))
+            (*(a1 + 1224))(*(a1 + 1200), *(a1 + 920), 0, v145);
+            if ((*(a1 + 1216))(*(a1 + 1200), &__src, 8) == 8)
             {
-              if (*(a1 + 40))
+              v158 = *(a1 + 912) - 1;
+              *(a1 + 912) = v158;
+              if (v158)
               {
-                v154 = *(a1 + 40);
+                v153 = *(a1 + 920) + 8;
+                goto LABEL_381;
               }
 
-              else
-              {
-                v154 = *(a1 + 864);
-              }
+LABEL_387:
+              *(a1 + 16) &= ~0x2000u;
+              goto LABEL_388;
+            }
+          }
 
-              v218 = 0;
-              *v219 = 0;
-              if (_TIFFSeekOK(a1, v154))
-              {
-                while (1)
-                {
-                  if ((*(a1 + 1208))(*(a1 + 1200), v219, 8) != 8)
-                  {
-                    goto LABEL_375;
-                  }
-
-                  if ((*(a1 + 16) & 0x80) != 0)
-                  {
-                    v155.n128_u64[0] = TIFFSwabLong8(v219);
-                  }
-
-                  if (*v219 >> 16)
-                  {
-                    break;
-                  }
-
-                  v156 = v154 + 20 * *v219;
-                  (*(a1 + 1224))(*(a1 + 1200), v156 + 8, 0, v155);
-                  if ((*(a1 + 1208))(*(a1 + 1200), &v218, 8) != 8)
-                  {
-LABEL_389:
-                    v8 = "Error fetching directory link";
-                    goto LABEL_397;
-                  }
-
-                  if ((*(a1 + 16) & 0x80) != 0)
-                  {
-                    v157.n128_u64[0] = TIFFSwabLong8(&v218);
-                  }
-
-                  v154 = v218;
-                  if (!v218)
-                  {
-                    (*(a1 + 1224))(*(a1 + 1200), v156 + 8, 0, v157);
-                    v166 = (*(a1 + 1216))(*(a1 + 1200), &__src, 8);
-                    v8 = "Error writing directory link";
-                    v165 = v166 == 8;
-                    goto LABEL_393;
-                  }
-
-                  v218 = 0;
-                  *v219 = 0;
-                  if (!_TIFFSeekOK(a1, v154))
-                  {
-                    goto LABEL_375;
-                  }
-                }
-
-                v8 = "Sanity check on tag count failed, likely corrupt TIFF";
-              }
-
-              else
-              {
-LABEL_375:
-                v8 = "Error fetching directory count";
-              }
-
-LABEL_397:
-              v159 = a1;
-              v160 = "TIFFLinkDirectory";
-              goto LABEL_398;
+          else
+          {
+            LODWORD(__src) = (v144 + 1) & 0xFFFFFFFE;
+            if ((v146 & 0x80) != 0)
+            {
+              v145.n128_u64[0] = TIFFSwabLong(&__src, v145.n128_u64[0]);
             }
 
-            v162 = *(a1 + 24);
-            *(a1 + 864) = v162;
-            *(a1 + 40) = v162;
+            (*(a1 + 1224))(*(a1 + 1200), *(a1 + 920), 0, v145);
+            if ((*(a1 + 1216))(*(a1 + 1200), &__src, 4) == 4)
+            {
+              v152 = *(a1 + 912) - 1;
+              *(a1 + 912) = v152;
+              if (v152)
+              {
+                v153 = *(a1 + 920) + 4;
+LABEL_381:
+                *(a1 + 920) = v153;
+                goto LABEL_388;
+              }
+
+              goto LABEL_387;
+            }
+          }
+
+          TIFFErrorExtR(a1, "TIFFLinkDirectory", "Error writing SubIFD directory link");
+          goto LABEL_397;
+        }
+
+        if ((v146 & 0x80000) != 0)
+        {
+          __src = (v144 + 1) & 0xFFFFFFFFFFFFFFFELL;
+          if ((v146 & 0x80) != 0)
+          {
+            v145.n128_u64[0] = TIFFSwabLong8(&__src);
+          }
+
+          if (!*(a1 + 864))
+          {
+            v160 = *(a1 + 24);
+            *(a1 + 864) = v160;
+            *(a1 + 40) = v160;
             (*(a1 + 1224))(*(a1 + 1200), 8, 0, v145);
             if ((*(a1 + 1216))(*(a1 + 1200), &__src, 8) == 8)
             {
@@ -6024,221 +5948,251 @@ LABEL_397:
             goto LABEL_386;
           }
 
-          LODWORD(__src) = (v144 + 1) & 0xFFFFFFFE;
-          if ((v146 & 0x80) != 0)
+          if (*(a1 + 40))
           {
-            v145.n128_u64[0] = TIFFSwabLong(&__src, v145.n128_u64[0]);
-          }
-
-          v147 = *(a1 + 860);
-          if (!v147)
-          {
-            v161 = *(a1 + 24);
-            *(a1 + 860) = v161;
-            *(a1 + 40) = v161;
-            (*(a1 + 1224))(*(a1 + 1200), 4, 0, v145);
-            if ((*(a1 + 1216))(*(a1 + 1200), &__src, 4) == 4)
-            {
-LABEL_388:
-              v163 = 1;
-LABEL_399:
-              if (!v163)
-              {
-                goto LABEL_425;
-              }
-
-LABEL_400:
-              if (!a4)
-              {
-                goto LABEL_402;
-              }
-
-LABEL_401:
-              *a4 = *(a1 + 24);
-              goto LABEL_402;
-            }
-
-LABEL_386:
-            v160 = *a1;
-            v159 = a1;
-            v8 = "Error writing TIFF header";
-            goto LABEL_398;
-          }
-
-          v148 = *(a1 + 40);
-          if (v148)
-          {
-            v149 = v148;
+            v154 = *(a1 + 40);
           }
 
           else
           {
-            v149 = v147;
+            v154 = *(a1 + 864);
           }
 
-          LOWORD(v218) = 0;
-          v219[0] = 0;
-          if (!_TIFFSeekOK(a1, v149))
+          v202 = 0;
+          *v203 = 0;
+          if (_TIFFSeekOK(a1, v154))
+          {
+            while (1)
+            {
+              if ((*(a1 + 1208))(*(a1 + 1200), v203, 8) != 8)
+              {
+                goto LABEL_375;
+              }
+
+              if ((*(a1 + 16) & 0x80) != 0)
+              {
+                v155.n128_u64[0] = TIFFSwabLong8(v203);
+              }
+
+              if (*v203 >> 16)
+              {
+                break;
+              }
+
+              v156 = v154 + 20 * *v203;
+              (*(a1 + 1224))(*(a1 + 1200), v156 + 8, 0, v155);
+              if ((*(a1 + 1208))(*(a1 + 1200), &v202, 8) != 8)
+              {
+LABEL_389:
+                TIFFErrorExtR(a1, "TIFFLinkDirectory", "Error fetching directory link");
+                goto LABEL_397;
+              }
+
+              if ((*(a1 + 16) & 0x80) != 0)
+              {
+                v157.n128_u64[0] = TIFFSwabLong8(&v202);
+              }
+
+              v154 = v202;
+              if (!v202)
+              {
+                (*(a1 + 1224))(*(a1 + 1200), v156 + 8, 0, v157);
+                v164 = (*(a1 + 1216))(*(a1 + 1200), &__src, 8);
+                v8 = "Error writing directory link";
+                v163 = v164 == 8;
+                goto LABEL_393;
+              }
+
+              v202 = 0;
+              *v203 = 0;
+              if (!_TIFFSeekOK(a1, v154))
+              {
+                goto LABEL_375;
+              }
+            }
+
+            TIFFErrorExtR(a1, "TIFFLinkDirectory", "Sanity check on tag count failed, likely corrupt TIFF");
+          }
+
+          else
+          {
+LABEL_375:
+            TIFFErrorExtR(a1, "TIFFLinkDirectory", "Error fetching directory count");
+          }
+
+LABEL_397:
+          v161 = 0;
+LABEL_398:
+          if (!v161)
+          {
+            goto LABEL_422;
+          }
+
+LABEL_399:
+          if (!a4)
+          {
+            goto LABEL_401;
+          }
+
+LABEL_400:
+          *a4 = *(a1 + 24);
+          goto LABEL_401;
+        }
+
+        LODWORD(__src) = (v144 + 1) & 0xFFFFFFFE;
+        if ((v146 & 0x80) != 0)
+        {
+          v145.n128_u64[0] = TIFFSwabLong(&__src, v145.n128_u64[0]);
+        }
+
+        v147 = *(a1 + 860);
+        if (!v147)
+        {
+          v159 = *(a1 + 24);
+          *(a1 + 860) = v159;
+          *(a1 + 40) = v159;
+          (*(a1 + 1224))(*(a1 + 1200), 4, 0, v145);
+          if ((*(a1 + 1216))(*(a1 + 1200), &__src, 4) == 4)
+          {
+LABEL_388:
+            v161 = 1;
+            goto LABEL_398;
+          }
+
+LABEL_386:
+          TIFFErrorExtR(a1, *a1, "Error writing TIFF header");
+          goto LABEL_397;
+        }
+
+        v148 = *(a1 + 40);
+        if (v148)
+        {
+          v149 = v148;
+        }
+
+        else
+        {
+          v149 = v147;
+        }
+
+        LOWORD(v202) = 0;
+        v203[0] = 0;
+        if (!_TIFFSeekOK(a1, v149))
+        {
+          goto LABEL_375;
+        }
+
+        while (1)
+        {
+          if ((*(a1 + 1208))(*(a1 + 1200), &v202, 2) != 2)
           {
             goto LABEL_375;
           }
 
-          while (1)
+          if ((*(a1 + 16) & 0x80) != 0)
           {
-            if ((*(a1 + 1208))(*(a1 + 1200), &v218, 2) != 2)
-            {
-              goto LABEL_375;
-            }
-
-            if ((*(a1 + 16) & 0x80) != 0)
-            {
-              TIFFSwabShort(&v218);
-            }
-
-            v150 = v149 + 2;
-            (*(a1 + 1224))(*(a1 + 1200), v149 + 2 + 12 * v218, 0);
-            if ((*(a1 + 1208))(*(a1 + 1200), v219, 4) != 4)
-            {
-              goto LABEL_389;
-            }
-
-            if ((*(a1 + 16) & 0x80) != 0)
-            {
-              v151.n128_u64[0] = TIFFSwabLong(v219, v151.n128_u64[0]);
-            }
-
-            v149 = v219[0];
-            if (!v219[0])
-            {
-              break;
-            }
-
-            LOWORD(v218) = 0;
-            v219[0] = 0;
-            if (!_TIFFSeekOK(a1, v149))
-            {
-              goto LABEL_375;
-            }
+            TIFFSwabShort(&v202);
           }
 
-          (*(a1 + 1224))(*(a1 + 1200), v150 + 12 * v218, 0, v151);
-          v164 = (*(a1 + 1216))(*(a1 + 1200), &__src, 4);
-          v8 = "Error writing directory link";
-          v165 = v164 == 4;
+          v150 = v149 + 2;
+          (*(a1 + 1224))(*(a1 + 1200), v149 + 2 + 12 * v202, 0);
+          if ((*(a1 + 1208))(*(a1 + 1200), v203, 4) != 4)
+          {
+            goto LABEL_389;
+          }
+
+          if ((*(a1 + 16) & 0x80) != 0)
+          {
+            v151.n128_u64[0] = TIFFSwabLong(v203, v151.n128_u64[0]);
+          }
+
+          v149 = v203[0];
+          if (!v203[0])
+          {
+            break;
+          }
+
+          LOWORD(v202) = 0;
+          v203[0] = 0;
+          if (!_TIFFSeekOK(a1, v149))
+          {
+            goto LABEL_375;
+          }
+        }
+
+        (*(a1 + 1224))(*(a1 + 1200), v150 + 12 * v202, 0, v151);
+        v162 = (*(a1 + 1216))(*(a1 + 1200), &__src, 4);
+        v8 = "Error writing directory link";
+        v163 = v162 == 4;
 LABEL_393:
-          if (!v165)
-          {
-            goto LABEL_397;
-          }
-
-          *(a1 + 40) = *(a1 + 24);
-          if (a4)
-          {
-            goto LABEL_401;
-          }
+        if (!v163)
+        {
+          TIFFErrorExtR(a1, "TIFFLinkDirectory", "Error writing directory link");
+          goto LABEL_397;
         }
 
-        else
+        *(a1 + 40) = *(a1 + 24);
+        if (a4)
         {
-          v143 = *(a1 + 440);
-          if (v143 && *(a1 + 432) <= v143)
-          {
-            goto LABEL_400;
-          }
-
-          *(a1 + 24) = ((*(a1 + 1224))(*(a1 + 1200), 0, 2) + 1) & 0xFFFFFFFFFFFFFFFELL;
-          if (a4)
-          {
-            goto LABEL_401;
-          }
-        }
-
-LABEL_402:
-        v167 = *(a1 + 24);
-        if ((*(a1 + 18) & 8) != 0)
-        {
-          v20 = 20 * v217 + 16;
-          v168 = v167 + v20;
-        }
-
-        else
-        {
-          v20 = 12 * v217 + 6;
-          v168 = (v167 + v20);
-        }
-
-        *(a1 + 904) = v168;
-        if (v168 < v167 || v168 < v20)
-        {
-          v193 = "TIFFWriteDirectorySec";
-          v194 = "Maximum TIFF file size exceeded";
-          goto LABEL_474;
-        }
-
-        if (v168)
-        {
-          *(a1 + 904) = v168 + 1;
-        }
-
-        if (v216)
-        {
-          ++*(a1 + 880);
+          goto LABEL_400;
         }
       }
-    }
 
-    v15 = *(a1 + 16);
-    if ((v15 & 0x1000) != 0 && (*(a1 + 16) = v15 & 0xFFFFEFFF, !(*(a1 + 1000))(a1)))
-    {
-      v170 = "Error post-encoding before directory write";
-    }
-
-    else
-    {
-      (*(a1 + 1056))(a1);
-      v17 = *(a1 + 16);
-      if (*(a1 + 1160) < 1 || (v17 & 0x40) == 0)
+      else
       {
-        goto LABEL_9;
-      }
-
-      if (TIFFFlushData1(a1, v16, v8, v9, v10, v11, v12, v13))
-      {
-        v17 = *(a1 + 16);
-LABEL_9:
-        if ((v17 & 0x200) != 0)
+        v143 = *(a1 + 440);
+        if (v143 && *(a1 + 432) <= v143)
         {
-          v18 = *(a1 + 1120);
-          if (v18)
-          {
-            free(v18);
-            *(a1 + 1160) = 0;
-            v14 = 0;
-            *(a1 + 1120) = 0u;
-            *(a1 + 1136) = 0u;
-            v17 = *(a1 + 16);
-          }
+          goto LABEL_399;
         }
 
-        *(a1 + 16) = v17 & 0xFFFFFFAF;
-        goto LABEL_13;
+        *(a1 + 24) = ((*(a1 + 1224))(*(a1 + 1200), 0, 2) + 1) & 0xFFFFFFFFFFFFFFFELL;
+        if (a4)
+        {
+          goto LABEL_400;
+        }
       }
 
-      v170 = "Error flushing data before directory write";
-    }
+LABEL_401:
+      v165 = *(a1 + 24);
+      if ((*(a1 + 18) & 8) != 0)
+      {
+        v19 = 20 * v201 + 16;
+        v166 = v165 + v19;
+      }
 
-LABEL_416:
-    TIFFErrorExtR(a1, "TIFFWriteDirectorySec", v170, v9, v10, v11, v12, v13, v212);
-    return 0;
+      else
+      {
+        v19 = 12 * v201 + 6;
+        v166 = (v165 + v19);
+      }
+
+      *(a1 + 904) = v166;
+      if (v166 < v165 || v166 < v19)
+      {
+        TIFFErrorExtR(a1, "TIFFWriteDirectorySec", "Maximum TIFF file size exceeded", v195, p_src);
+        goto LABEL_471;
+      }
+
+      if (v166)
+      {
+        *(a1 + 904) = v166 + 1;
+      }
+
+      if (v200)
+      {
+        ++*(a1 + 880);
+      }
+    }
   }
 
   return 1;
 }
 
-BOOL TIFFRewriteDirectorySec(uint64_t a1, unsigned int a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL TIFFRewriteDirectorySec(uint64_t a1, unsigned int a2, void *a3)
 {
-  v9 = *(a1 + 24);
-  if (!v9)
+  v4 = *(a1 + 24);
+  if (!v4)
   {
 
     return TIFFWriteDirectorySec(a1, 1, 1u, 0);
@@ -6246,8 +6200,8 @@ BOOL TIFFRewriteDirectorySec(uint64_t a1, unsigned int a2, void *a3, uint64_t a4
 
   if ((*(a1 + 18) & 8) != 0)
   {
-    v14 = *(a1 + 864);
-    if (v14 == v9)
+    v9 = *(a1 + 864);
+    if (v9 == v4)
     {
       *(a1 + 864) = 0;
       *(a1 + 24) = 0;
@@ -6255,66 +6209,66 @@ BOOL TIFFRewriteDirectorySec(uint64_t a1, unsigned int a2, void *a3, uint64_t a4
       if ((*(a1 + 1216))(*(a1 + 1200), a1 + 864, 8) == 8)
       {
 LABEL_45:
-        _TIFFRemoveEntryFromDirectoryListByOffset(a1, v9);
+        _TIFFRemoveEntryFromDirectoryListByOffset(a1, v4);
         return TIFFWriteDirectorySec(a1, 1, a2, a3);
       }
 
       goto LABEL_11;
     }
 
-    v18 = "Error fetching directory count";
+    v13 = "Error fetching directory count";
     while (1)
     {
-      v37 = 0;
-      v38 = 0;
-      if (!_TIFFSeekOK(a1, v14) || (*(a1 + 1208))(*(a1 + 1200), &v38, 8) != 8)
+      v21 = 0;
+      v22 = 0;
+      if (!_TIFFSeekOK(a1, v9) || (*(a1 + 1208))(*(a1 + 1200), &v22, 8) != 8)
       {
         break;
       }
 
       if ((*(a1 + 16) & 0x80) != 0)
       {
-        v19.n128_u64[0] = TIFFSwabLong8(&v38);
+        v14.n128_u64[0] = TIFFSwabLong8(&v22);
       }
 
-      if (*&v38 >> 16)
+      if (*&v22 >> 16)
       {
-        v18 = "Sanity check on tag count failed, likely corrupt TIFF";
+        v13 = "Sanity check on tag count failed, likely corrupt TIFF";
         break;
       }
 
-      v20 = v14 + 20 * *&v38;
-      (*(a1 + 1224))(*(a1 + 1200), v20 + 8, 0, v19);
-      if ((*(a1 + 1208))(*(a1 + 1200), &v37, 8) != 8)
+      v15 = v9 + 20 * *&v22;
+      (*(a1 + 1224))(*(a1 + 1200), v15 + 8, 0, v14);
+      if ((*(a1 + 1208))(*(a1 + 1200), &v21, 8) != 8)
       {
 LABEL_46:
-        v18 = "Error fetching directory link";
+        v13 = "Error fetching directory link";
         break;
       }
 
       if ((*(a1 + 16) & 0x80) != 0)
       {
-        v21.n128_u64[0] = TIFFSwabLong8(&v37);
+        v16.n128_u64[0] = TIFFSwabLong8(&v21);
       }
 
-      if (v37 == *(a1 + 24))
+      if (v21 == *(a1 + 24))
       {
-        v36 = 0;
-        (*(a1 + 1224))(*(a1 + 1200), v20 + 8, 0, v21);
-        if ((*(a1 + 1216))(*(a1 + 1200), &v36, 8) == 8)
+        v20 = 0;
+        (*(a1 + 1224))(*(a1 + 1200), v15 + 8, 0, v16);
+        if ((*(a1 + 1216))(*(a1 + 1200), &v20, 8) == 8)
         {
           *(a1 + 24) = 0;
           *(a1 + 40) = 0;
-          v27 = 5;
+          v17 = 5;
         }
 
         else
         {
-          TIFFErrorExtR(a1, "TIFFRewriteDirectory", "Error writing directory link", v22, v23, v24, v25, v26, v35);
-          v27 = 1;
+          TIFFErrorExtR(a1, "TIFFRewriteDirectory", "Error writing directory link");
+          v17 = 1;
         }
 
-        if (v27 == 5)
+        if (v17 == 5)
         {
           goto LABEL_45;
         }
@@ -6322,14 +6276,14 @@ LABEL_46:
         return 0;
       }
 
-      v14 = v37;
+      v9 = v21;
     }
   }
 
   else
   {
-    v12 = *(a1 + 860);
-    if (v9 == v12)
+    v7 = *(a1 + 860);
+    if (v4 == v7)
     {
       *(a1 + 860) = 0;
       *(a1 + 24) = 0;
@@ -6340,64 +6294,64 @@ LABEL_46:
       }
 
 LABEL_11:
-      v15 = *a1;
-      v16 = "Error updating TIFF header";
+      v10 = *a1;
+      v11 = "Error updating TIFF header";
 LABEL_14:
-      v17 = a1;
+      v12 = a1;
       goto LABEL_49;
     }
 
-    if (HIDWORD(v9))
+    if (HIDWORD(v4))
     {
-      v15 = "TIFFRewriteDirectory";
-      v16 = "tif->tif_diroff exceeds 32 bit range allowed for Classic TIFF";
+      v10 = "TIFFRewriteDirectory";
+      v11 = "tif->tif_diroff exceeds 32 bit range allowed for Classic TIFF";
       goto LABEL_14;
     }
 
-    v18 = "Error fetching directory count";
+    v13 = "Error fetching directory count";
     while (1)
     {
-      LOWORD(v36) = 0;
-      v38.i32[0] = 0;
-      if (!_TIFFSeekOK(a1, v12) || (*(a1 + 1208))(*(a1 + 1200), &v36, 2) != 2)
+      LOWORD(v20) = 0;
+      v22.i32[0] = 0;
+      if (!_TIFFSeekOK(a1, v7) || (*(a1 + 1208))(*(a1 + 1200), &v20, 2) != 2)
       {
         break;
       }
 
       if ((*(a1 + 16) & 0x80) != 0)
       {
-        TIFFSwabShort(&v36);
+        TIFFSwabShort(&v20);
       }
 
-      (*(a1 + 1224))(*(a1 + 1200), v12 + 2 + 12 * v36, 0);
-      if ((*(a1 + 1208))(*(a1 + 1200), &v38, 4) != 4)
+      (*(a1 + 1224))(*(a1 + 1200), v7 + 2 + 12 * v20, 0);
+      if ((*(a1 + 1208))(*(a1 + 1200), &v22, 4) != 4)
       {
         goto LABEL_46;
       }
 
       if ((*(a1 + 16) & 0x80) != 0)
       {
-        v28.n128_u64[0] = TIFFSwabLong(&v38, v28.n128_u64[0]);
+        v18.n128_u64[0] = TIFFSwabLong(&v22, v18.n128_u64[0]);
       }
 
-      if (*(a1 + 24) == v38.u32[0])
+      if (*(a1 + 24) == v22.u32[0])
       {
-        LODWORD(v37) = 0;
-        (*(a1 + 1224))(*(a1 + 1200), v12 + 2 + 12 * v36, 0, v28);
-        if ((*(a1 + 1216))(*(a1 + 1200), &v37, 4) == 4)
+        LODWORD(v21) = 0;
+        (*(a1 + 1224))(*(a1 + 1200), v7 + 2 + 12 * v20, 0, v18);
+        if ((*(a1 + 1216))(*(a1 + 1200), &v21, 4) == 4)
         {
           *(a1 + 24) = 0;
           *(a1 + 40) = 0;
-          v34 = 3;
+          v19 = 3;
         }
 
         else
         {
-          TIFFErrorExtR(a1, "TIFFRewriteDirectory", "Error writing directory link", v29, v30, v31, v32, v33, v35);
-          v34 = 1;
+          TIFFErrorExtR(a1, "TIFFRewriteDirectory", "Error writing directory link");
+          v19 = 1;
         }
 
-        if (v34 != 3)
+        if (v19 != 3)
         {
           return 0;
         }
@@ -6405,613 +6359,606 @@ LABEL_14:
         goto LABEL_45;
       }
 
-      LODWORD(v12) = v38.i32[0];
+      LODWORD(v7) = v22.i32[0];
     }
   }
 
-  v15 = "TIFFRewriteDirectory";
-  v17 = a1;
-  v16 = v18;
+  v10 = "TIFFRewriteDirectory";
+  v12 = a1;
+  v11 = v13;
 LABEL_49:
-  TIFFErrorExtR(v17, v15, v16, a4, a5, a6, a7, a8, v35);
+  TIFFErrorExtR(v12, v10, v11);
   return 0;
 }
 
-uint64_t _TIFFRewriteField(uint64_t a1, int a2, unsigned int a3, int64_t a4, const void *a5)
+uint64_t _TIFFRewriteField(uint64_t a1, int a2, unsigned int a3, uint64_t a4, const void *a5)
 {
-  v103[3] = *MEMORY[0x1E69E9840];
-  v101 = 0;
-  v100 = 0;
-  v98 = 0;
-  v99 = 0;
+  v87[3] = *MEMORY[0x1E69E9840];
+  v85 = 0;
+  v84 = 0;
+  v82 = 0;
+  v83 = 0;
   TIFFFindField(a1, a2, 0);
   if ((*(a1 + 17) & 8) != 0)
   {
-    v28 = "Memory mapped files not currently supported for this operation.";
-    goto LABEL_167;
+    TIFFErrorExtR(a1, "TIFFResetField", "Memory mapped files not currently supported for this operation.");
+    return 0;
   }
 
-  v15 = *(a1 + 24);
-  if (!v15)
+  v10 = *(a1 + 24);
+  if (!v10)
   {
-    v28 = "Attempt to reset field on directory not already on disk.";
-    goto LABEL_167;
+    TIFFErrorExtR(a1, "TIFFResetField", "Attempt to reset field on directory not already on disk.");
+    return 0;
   }
 
-  if (!_TIFFSeekOK(a1, v15))
+  if (!_TIFFSeekOK(a1, v10))
   {
     goto LABEL_166;
   }
 
-  v102 = 0;
-  memset(v103, 0, 20);
-  v16 = *(a1 + 24);
-  if ((*(a1 + 18) & 8) != 0)
+  v86 = 0;
+  memset(v87, 0, 20);
+  v11 = *(a1 + 24);
+  if ((*(a1 + 18) & 8) == 0)
   {
-    v97 = 0;
-    if ((*(a1 + 1208))(*(a1 + 1200), &v97, 8) == 8)
+    if ((*(a1 + 1208))(*(a1 + 1200), &v86, 2) == 2)
     {
       if ((*(a1 + 16) & 0x80) != 0)
       {
-        v24 = TIFFSwabLong8(&v97);
+        TIFFSwabShort(&v86);
       }
 
-      v102 = v97.i16[0];
-      v25 = v16 + 8;
-      v26 = 20;
-      if (v97.i16[0])
+      v20 = v11 + 2;
+      v21 = 12;
+      if (v86)
       {
-LABEL_9:
-        while ((*(a1 + 1208))(*(a1 + 1200), v103, v26) == v26)
-        {
-          v27 = v103[0].u16[0];
-          v101 = v103[0].i16[0];
-          if ((*(a1 + 16) & 0x80) != 0)
-          {
-            TIFFSwabShort(&v101);
-            v27 = v101;
-          }
-
-          if (v27 != a2)
-          {
-            v25 += v26;
-            if (v102)
-            {
-              continue;
-            }
-          }
-
-          goto LABEL_22;
-        }
-
-        TIFFErrorExtR(a1, "TIFFResetField", "%s: Can not read TIFF directory entry.", v19, v20, v21, v22, v23, *a1);
-        return 0;
+        goto LABEL_9;
       }
 
       goto LABEL_21;
     }
 
 LABEL_28:
-    TIFFErrorExtR(a1, "TIFFResetField", "%s: Can not read TIFF directory count", v19, v20, v21, v22, v23, *a1);
+    TIFFErrorExtR(a1, "TIFFResetField", "%s: Can not read TIFF directory count");
     return 0;
   }
 
-  if ((*(a1 + 1208))(*(a1 + 1200), &v102, 2) != 2)
+  v81 = 0;
+  if ((*(a1 + 1208))(*(a1 + 1200), &v81, 8) != 8)
   {
     goto LABEL_28;
   }
 
   if ((*(a1 + 16) & 0x80) != 0)
   {
-    TIFFSwabShort(&v102);
+    v19 = TIFFSwabLong8(&v81);
   }
 
-  v25 = v16 + 2;
-  v26 = 12;
-  if (v102)
+  v86 = v81.i16[0];
+  v20 = v11 + 8;
+  v21 = 20;
+  if (v81.i16[0])
   {
-    goto LABEL_9;
+LABEL_9:
+    while ((*(a1 + 1208))(*(a1 + 1200), v87, v21) == v21)
+    {
+      v22 = v87[0].u16[0];
+      v85 = v87[0].i16[0];
+      if ((*(a1 + 16) & 0x80) != 0)
+      {
+        TIFFSwabShort(&v85);
+        v22 = v85;
+      }
+
+      if (v22 != a2)
+      {
+        v20 += v21;
+        if (v86)
+        {
+          continue;
+        }
+      }
+
+      goto LABEL_22;
+    }
+
+    TIFFErrorExtR(a1, "TIFFResetField", "%s: Can not read TIFF directory entry.");
+    return 0;
   }
 
 LABEL_21:
-  v27 = v101;
+  v22 = v85;
 LABEL_22:
-  if (v27 == a2)
+  if (v22 != a2)
   {
-    v100 = v103[0].u16[1];
-    v29 = *(a1 + 16);
-    if ((v29 & 0x80) != 0)
-    {
-      TIFFSwabShort(&v100);
-      v29 = *(a1 + 16);
-    }
+    TIFFErrorExtR(a1, "TIFFResetField", "%s: Could not find tag %hu.");
+    return 0;
+  }
 
-    if ((v29 & 0x80000) != 0)
+  v84 = v87[0].u16[1];
+  v23 = *(a1 + 16);
+  if ((v23 & 0x80) != 0)
+  {
+    TIFFSwabShort(&v84);
+    v23 = *(a1 + 16);
+  }
+
+  if ((v23 & 0x80000) == 0)
+  {
+    v81.i32[0] = v87[0].i32[1];
+    if ((v23 & 0x80) != 0)
     {
-      v99 = *(v103 + 4);
-      if ((v29 & 0x80) != 0)
+      v25 = TIFFSwabLong(&v81, v19);
+      v26 = *(a1 + 16);
+      v83 = v81.u32[0];
+      v24.i32[0] = v87[1].i32[0];
+      v81.i32[0] = v87[1].i32[0];
+      if ((v26 & 0x80) != 0)
       {
-        TIFFSwabLong8(&v99);
-        v35 = *(a1 + 16);
-        v30 = *(&v103[1] + 4);
-        v98 = *(&v103[1] + 4);
-        if ((v35 & 0x80) != 0)
-        {
-          TIFFSwabLong8(&v98);
-          v30 = v98;
-        }
-
-LABEL_37:
-        if (*&v30 || v99 || v100)
-        {
-LABEL_46:
-          if (TIFFDataWidth(a3) != 8 || (*(a1 + 18) & 8) != 0)
-          {
-            if (a3 == 18)
-            {
-              v36 = v100;
-              v37 = v100 == 13;
-              v38 = 18;
-            }
-
-            else
-            {
-              if (a3 != 17)
-              {
-                v34 = a3;
-                if (a3 == 16 && v100 <= 0x10u && ((1 << v100) & 0x10018) != 0)
-                {
-                  v34 = v100;
-                }
-
-                goto LABEL_67;
-              }
-
-              v36 = v100;
-              v37 = v100 == 9;
-              v38 = 17;
-            }
-
-            if (v37)
-            {
-              v34 = v36;
-            }
-
-            else
-            {
-              v34 = v38;
-            }
-          }
-
-          else if (a3 == 18)
-          {
-            v34 = 13;
-          }
-
-          else if (a3 == 17)
-          {
-            v34 = 9;
-          }
-
-          else
-          {
-            v34 = a3;
-            if (a3 == 16)
-            {
-              if (v100 == 3)
-              {
-                v34 = 3;
-              }
-
-              else
-              {
-                v34 = 4;
-              }
-            }
-          }
-
-LABEL_67:
-          v39 = TIFFDataWidth(v34);
-          result = _TIFFCheckMalloc(a1, a4, v39, "for field buffer.", v40, v41, v42, v43);
-          if (!result)
-          {
-            return result;
-          }
-
-          v45 = result;
-          if (v34 == a3)
-          {
-            v46 = TIFFDataWidth(a3);
-            memcpy(v45, a5, v46 * a4);
-            goto LABEL_70;
-          }
-
-          if (a3 == 17 && v34 == 9)
-          {
-            if (a4 < 1)
-            {
-              goto LABEL_70;
-            }
-
-            v47 = 0;
-            while (1)
-            {
-              v48 = *(a5 + v47);
-              *(result + 4 * v47) = v48;
-              if (v48 != v48)
-              {
-                goto LABEL_94;
-              }
-
-              if (a4 == ++v47)
-              {
-                goto LABEL_70;
-              }
-            }
-          }
-
-          if (a3 == 16 && v34 == 4 || a3 == 18 && v34 == 13)
-          {
-            if (a4 < 1)
-            {
-              goto LABEL_70;
-            }
-
-            v58 = 0;
-            while (1)
-            {
-              v59 = *(a5 + v58);
-              *(result + 4 * v58) = v59;
-              if (HIDWORD(v59))
-              {
-                break;
-              }
-
-              if (a4 == ++v58)
-              {
-                goto LABEL_70;
-              }
-            }
-
-LABEL_94:
-            free(result);
-            v28 = "Value exceeds 32bit range of output type.";
-            goto LABEL_167;
-          }
-
-          if (a3 == 16 && v34 == 3)
-          {
-            if (a4 >= 1)
-            {
-              v69 = 0;
-              while (1)
-              {
-                v70 = *(a5 + v69);
-                *(result + 2 * v69) = v70;
-                if (v70 >= 0x10000)
-                {
-                  break;
-                }
-
-                if (a4 == ++v69)
-                {
-                  goto LABEL_70;
-                }
-              }
-
-              free(result);
-              v28 = "Value exceeds 16bit range of output type.";
-              goto LABEL_167;
-            }
-
-LABEL_70:
-            if (TIFFDataWidth(v34) >= 2 && (*(a1 + 16) & 0x80) != 0)
-            {
-              if (TIFFDataWidth(v34) == 2)
-              {
-                TIFFSwabArrayOfShort(v45, a4);
-              }
-
-              else if (TIFFDataWidth(v34) == 4)
-              {
-                TIFFSwabArrayOfLong(v45, a4, v68);
-              }
-
-              else if (TIFFDataWidth(v34) == 8)
-              {
-                TIFFSwabArrayOfLong8(v45, a4);
-              }
-            }
-
-            v71 = *(a1 + 16);
-            v72 = TIFFDataWidth(v34) * a4;
-            if ((v71 & 0x80000) != 0)
-            {
-              if (v72 <= 8)
-              {
-                v73 = 0;
-                v74 = (v25 + 12);
-                goto LABEL_117;
-              }
-            }
-
-            else if (v72 <= 4)
-            {
-              v73 = 0;
-              v74 = (v25 + 8);
-LABEL_117:
-              v98 = v74;
-              goto LABEL_119;
-            }
-
-            v73 = 1;
-LABEL_119:
-            if (a2 > 323)
-            {
-              if (a2 == 325)
-              {
-LABEL_128:
-                if (!*(a1 + 296) && !*(a1 + 290) && !*(a1 + 304))
-                {
-                  v75 = (a1 + 296);
-                  v76 = (a1 + 290);
-LABEL_138:
-                  *v76 = v34;
-                  *v75 = a4;
-                }
-
-LABEL_139:
-                if (v99 == a4 && v100 == v34)
-                {
-                  if (_TIFFSeekOK(a1, *&v98))
-                  {
-                    v77 = *(a1 + 1216);
-                    v78 = *(a1 + 1200);
-                    v79 = TIFFDataWidth(v34);
-                    v80 = v77(v78, v45, v79 * a4);
-                    v81 = TIFFDataWidth(v34) * a4;
-                    free(v45);
-                    if (v80 == v81)
-                    {
-                      return 1;
-                    }
-
-                    goto LABEL_147;
-                  }
-
-                  free(v45);
-                }
-
-                else
-                {
-                  if (v73)
-                  {
-                    v98 = (*(a1 + 1224))(*(a1 + 1200), 0, 2);
-                    v82 = *(a1 + 1216);
-                    v83 = *(a1 + 1200);
-                    v84 = TIFFDataWidth(v34);
-                    v85 = v82(v83, v45, v84 * a4);
-                    if (v85 != TIFFDataWidth(v34) * a4)
-                    {
-                      free(v45);
-LABEL_147:
-                      v28 = "Error writing directory link";
-                      goto LABEL_167;
-                    }
-                  }
-
-                  else if (TIFFDataWidth(v34) * a4 == 4)
-                  {
-                    v97.i32[0] = 0;
-                    TIFFDataWidth(v34);
-                    __memcpy_chk();
-                    v98 = v97.u32[0];
-                  }
-
-                  else
-                  {
-                    TIFFDataWidth(v34);
-                    __memcpy_chk();
-                  }
-
-                  free(v45);
-                  v100 = v34;
-                  v99 = a4;
-                  v103[0].i16[1] = v34;
-                  v87 = *(a1 + 16);
-                  if ((v87 & 0x80) != 0)
-                  {
-                    TIFFSwabShort(v103 + 2);
-                    v87 = *(a1 + 16);
-                  }
-
-                  if ((v87 & 0x80000) != 0)
-                  {
-                    *(v103 + 4) = v99;
-                    if ((v87 & 0x80) != 0)
-                    {
-                      TIFFSwabLong8((v103 + 4));
-                      v90 = *(a1 + 16);
-                      *(&v103[1] + 4) = v98;
-                      if ((v90 & 0x80) != 0)
-                      {
-                        TIFFSwabLong8((&v103[1] + 4));
-                      }
-                    }
-
-                    else
-                    {
-                      *(&v103[1] + 4) = v98;
-                    }
-                  }
-
-                  else
-                  {
-                    v103[0].i32[1] = v99;
-                    if ((v87 & 0x80) != 0)
-                    {
-                      v88 = TIFFSwabLong(v103 + 1, v86);
-                      v89 = *(a1 + 16);
-                      v103[1].i32[0] = v98.i32[0];
-                      if ((v89 & 0x80) != 0)
-                      {
-                        TIFFSwabLong(&v103[1], v88);
-                      }
-                    }
-
-                    else
-                    {
-                      v103[1].i32[0] = v98.i32[0];
-                    }
-                  }
-
-                  if (_TIFFSeekOK(a1, v25))
-                  {
-                    if ((*(a1 + 1216))(*(a1 + 1200), v103, v26) == v26)
-                    {
-                      return 1;
-                    }
-
-                    TIFFErrorExtR(a1, "TIFFResetField", "%s: Can not write TIFF directory entry.", v91, v92, v93, v94, v95, *a1);
-                    return 0;
-                  }
-                }
-
-LABEL_166:
-                v96 = *a1;
-                v28 = "%s: Seek error accessing TIFF directory";
-                goto LABEL_167;
-              }
-
-              if (a2 != 324)
-              {
-                goto LABEL_139;
-              }
-            }
-
-            else if (a2 != 273)
-            {
-              goto LABEL_127;
-            }
-
-            if (!*(a1 + 264) && !*(a1 + 258) && !*(a1 + 272))
-            {
-              v75 = (a1 + 264);
-              v76 = (a1 + 258);
-              goto LABEL_138;
-            }
-
-LABEL_127:
-            if (a2 != 279)
-            {
-              goto LABEL_139;
-            }
-
-            goto LABEL_128;
-          }
-
-          v28 = "Unhandled type conversion.";
-LABEL_167:
-          TIFFErrorExtR(a1, "TIFFResetField", v28, v10, v11, v12, v13, v14, v96);
-          return 0;
-        }
-
-        if (a2 == 324 || a2 == 273)
-        {
-          if ((*(a1 + 16) & 0x80000) != 0)
-          {
-            v33 = 16;
-          }
-
-          else
-          {
-            v33 = 4;
-          }
-
-          goto LABEL_45;
-        }
-
-        if (a2 == 279 && a4 > 1)
-        {
-          v49 = _cg_TIFFStripSize64(a1, v17, v18, v19, v20, v21, v22, v23);
-          if (!_WriteAsType(a1, v49, 0xFFFFFFFFuLL))
-          {
-            v57 = _cg_TIFFStripSize64(a1, v50, v51, v52, v53, v54, v55, v56);
-            goto LABEL_134;
-          }
-        }
-
-        else
-        {
-          v33 = 16;
-          if (a2 != 325 || a4 <= 1)
-          {
-            goto LABEL_45;
-          }
-
-          v60 = _cg_TIFFTileSize64(a1, v17, v18, v19, v20, v21, v22, v23);
-          if (!_WriteAsType(a1, v60, 0xFFFFFFFFuLL))
-          {
-            v57 = _cg_TIFFTileSize64(a1, v61, v62, v63, v64, v65, v66, v67);
-LABEL_134:
-            if (_WriteAsType(a1, v57, 0xFFFFuLL))
-            {
-              v33 = 4;
-            }
-
-            else
-            {
-              v33 = 3;
-            }
-
-            goto LABEL_45;
-          }
-        }
-
-        v33 = 16;
-LABEL_45:
-        v100 = v33;
-        goto LABEL_46;
+        TIFFSwabLong(&v81, v25);
+        v24.i32[0] = v81.i32[0];
       }
-
-      v30 = *(&v103[1] + 4);
     }
 
     else
     {
-      v97.i32[0] = v103[0].i32[1];
-      if ((v29 & 0x80) != 0)
+      v83 = v87[0].u32[1];
+      v24.i32[0] = v87[1].i32[0];
+    }
+
+    v24 = v24.u32[0];
+    goto LABEL_36;
+  }
+
+  v83 = *(v87 + 4);
+  if ((v23 & 0x80) == 0)
+  {
+    v24 = *(&v87[1] + 4);
+LABEL_36:
+    v82 = v24;
+    goto LABEL_37;
+  }
+
+  TIFFSwabLong8(&v83);
+  v29 = *(a1 + 16);
+  v24 = *(&v87[1] + 4);
+  v82 = *(&v87[1] + 4);
+  if ((v29 & 0x80) != 0)
+  {
+    TIFFSwabLong8(&v82);
+    v24 = v82;
+  }
+
+LABEL_37:
+  if (!*&v24 && !*&v83 && !v84)
+  {
+    if (a2 == 324 || a2 == 273)
+    {
+      if ((*(a1 + 16) & 0x80000) != 0)
       {
-        v31 = TIFFSwabLong(&v97, v24);
-        v32 = *(a1 + 16);
-        v99 = v97.u32[0];
-        v30.i32[0] = v103[1].i32[0];
-        v97.i32[0] = v103[1].i32[0];
-        if ((v32 & 0x80) != 0)
-        {
-          TIFFSwabLong(&v97, v31);
-          v30.i32[0] = v97.i32[0];
-        }
+        v27 = 16;
       }
 
       else
       {
-        v99 = v103[0].u32[1];
-        v30.i32[0] = v103[1].i32[0];
+        v27 = 4;
       }
 
-      v30 = v30.u32[0];
+      goto LABEL_45;
     }
 
-    v98 = v30;
-    goto LABEL_37;
+    if (a2 == 279 && a4 > 1)
+    {
+      v39 = _cg_TIFFStripSize64(a1, v12, v13, v14, v15, v16, v17, v18);
+      if (!_WriteAsType(a1, v39, 0xFFFFFFFFuLL))
+      {
+        v47 = _cg_TIFFStripSize64(a1, v40, v41, v42, v43, v44, v45, v46);
+        goto LABEL_134;
+      }
+    }
+
+    else
+    {
+      v27 = 16;
+      if (a2 != 325 || a4 <= 1)
+      {
+        goto LABEL_45;
+      }
+
+      v50 = _cg_TIFFTileSize64(a1, v12, v13, v14, v15, v16, v17, v18);
+      if (!_WriteAsType(a1, v50, 0xFFFFFFFFuLL))
+      {
+        v47 = _cg_TIFFTileSize64(a1, v51, v52, v53, v54, v55, v56, v57);
+LABEL_134:
+        if (_WriteAsType(a1, v47, 0xFFFFuLL))
+        {
+          v27 = 4;
+        }
+
+        else
+        {
+          v27 = 3;
+        }
+
+        goto LABEL_45;
+      }
+    }
+
+    v27 = 16;
+LABEL_45:
+    v84 = v27;
   }
 
-  TIFFErrorExtR(a1, "TIFFResetField", "%s: Could not find tag %hu.", v19, v20, v21, v22, v23, *a1);
+  if (TIFFDataWidth(a3) != 8 || (*(a1 + 18) & 8) != 0)
+  {
+    if (a3 == 18)
+    {
+      v30 = v84;
+      v31 = v84 == 13;
+      v32 = 18;
+    }
+
+    else
+    {
+      if (a3 != 17)
+      {
+        v28 = a3;
+        if (a3 == 16 && v84 <= 0x10u && ((1 << v84) & 0x10018) != 0)
+        {
+          v28 = v84;
+        }
+
+        goto LABEL_67;
+      }
+
+      v30 = v84;
+      v31 = v84 == 9;
+      v32 = 17;
+    }
+
+    if (v31)
+    {
+      v28 = v30;
+    }
+
+    else
+    {
+      v28 = v32;
+    }
+  }
+
+  else if (a3 == 18)
+  {
+    v28 = 13;
+  }
+
+  else if (a3 == 17)
+  {
+    v28 = 9;
+  }
+
+  else
+  {
+    v28 = a3;
+    if (a3 == 16)
+    {
+      if (v84 == 3)
+      {
+        v28 = 3;
+      }
+
+      else
+      {
+        v28 = 4;
+      }
+    }
+  }
+
+LABEL_67:
+  v33 = TIFFDataWidth(v28);
+  result = _TIFFCheckMalloc(a1, a4, v33, "for field buffer.");
+  if (!result)
+  {
+    return result;
+  }
+
+  v35 = result;
+  if (v28 == a3)
+  {
+    v36 = TIFFDataWidth(a3);
+    memcpy(v35, a5, v36 * a4);
+    goto LABEL_70;
+  }
+
+  if (a3 == 17 && v28 == 9)
+  {
+    if (a4 < 1)
+    {
+      goto LABEL_70;
+    }
+
+    v37 = 0;
+    while (1)
+    {
+      v38 = *(a5 + v37);
+      *(result + 4 * v37) = v38;
+      if (v38 != v38)
+      {
+        goto LABEL_94;
+      }
+
+      if (a4 == ++v37)
+      {
+        goto LABEL_70;
+      }
+    }
+  }
+
+  if (a3 == 16 && v28 == 4 || a3 == 18 && v28 == 13)
+  {
+    if (a4 < 1)
+    {
+      goto LABEL_70;
+    }
+
+    v48 = 0;
+    while (1)
+    {
+      v49 = *(a5 + v48);
+      *(result + 4 * v48) = v49;
+      if (HIDWORD(v49))
+      {
+        break;
+      }
+
+      if (a4 == ++v48)
+      {
+        goto LABEL_70;
+      }
+    }
+
+LABEL_94:
+    free(result);
+    TIFFErrorExtR(a1, "TIFFResetField", "Value exceeds 32bit range of output type.");
+    return 0;
+  }
+
+  if (a3 == 16 && v28 == 3)
+  {
+    if (a4 >= 1)
+    {
+      v59 = 0;
+      while (1)
+      {
+        v60 = *(a5 + v59);
+        *(result + 2 * v59) = v60;
+        if (v60 >= 0x10000)
+        {
+          break;
+        }
+
+        if (a4 == ++v59)
+        {
+          goto LABEL_70;
+        }
+      }
+
+      free(result);
+      TIFFErrorExtR(a1, "TIFFResetField", "Value exceeds 16bit range of output type.");
+      return 0;
+    }
+
+LABEL_70:
+    if (TIFFDataWidth(v28) >= 2 && (*(a1 + 16) & 0x80) != 0)
+    {
+      if (TIFFDataWidth(v28) == 2)
+      {
+        TIFFSwabArrayOfShort(v35, a4);
+      }
+
+      else if (TIFFDataWidth(v28) == 4)
+      {
+        TIFFSwabArrayOfLong(v35, a4, v58);
+      }
+
+      else if (TIFFDataWidth(v28) == 8)
+      {
+        TIFFSwabArrayOfLong8(v35, a4);
+      }
+    }
+
+    v61 = *(a1 + 16);
+    v62 = TIFFDataWidth(v28) * a4;
+    if ((v61 & 0x80000) != 0)
+    {
+      if (v62 <= 8)
+      {
+        v63 = 0;
+        v64 = (v20 + 12);
+        goto LABEL_117;
+      }
+    }
+
+    else if (v62 <= 4)
+    {
+      v63 = 0;
+      v64 = (v20 + 8);
+LABEL_117:
+      v82 = v64;
+      goto LABEL_119;
+    }
+
+    v63 = 1;
+LABEL_119:
+    if (a2 > 323)
+    {
+      if (a2 == 325)
+      {
+LABEL_128:
+        if (!*(a1 + 296) && !*(a1 + 290) && !*(a1 + 304))
+        {
+          v65 = (a1 + 296);
+          v66 = (a1 + 290);
+LABEL_138:
+          *v66 = v28;
+          *v65 = a4;
+        }
+
+LABEL_139:
+        if (*&v83 == a4 && v84 == v28)
+        {
+          if (_TIFFSeekOK(a1, *&v82))
+          {
+            v67 = *(a1 + 1216);
+            v68 = *(a1 + 1200);
+            v69 = TIFFDataWidth(v28);
+            v70 = v67(v68, v35, v69 * a4);
+            v71 = TIFFDataWidth(v28) * a4;
+            free(v35);
+            if (v70 == v71)
+            {
+              return 1;
+            }
+
+            goto LABEL_147;
+          }
+
+          free(v35);
+        }
+
+        else
+        {
+          if (v63)
+          {
+            v82 = (*(a1 + 1224))(*(a1 + 1200), 0, 2);
+            v72 = *(a1 + 1216);
+            v73 = *(a1 + 1200);
+            v74 = TIFFDataWidth(v28);
+            v75 = v72(v73, v35, v74 * a4);
+            if (v75 != TIFFDataWidth(v28) * a4)
+            {
+              free(v35);
+LABEL_147:
+              TIFFErrorExtR(a1, "TIFFResetField", "Error writing directory link");
+              return 0;
+            }
+          }
+
+          else if (TIFFDataWidth(v28) * a4 == 4)
+          {
+            v81.i32[0] = 0;
+            TIFFDataWidth(v28);
+            __memcpy_chk();
+            v82 = v81.u32[0];
+          }
+
+          else
+          {
+            TIFFDataWidth(v28);
+            __memcpy_chk();
+          }
+
+          free(v35);
+          v84 = v28;
+          v83 = a4;
+          v87[0].i16[1] = v28;
+          v77 = *(a1 + 16);
+          if ((v77 & 0x80) != 0)
+          {
+            TIFFSwabShort(v87 + 2);
+            v77 = *(a1 + 16);
+          }
+
+          if ((v77 & 0x80000) != 0)
+          {
+            *(v87 + 4) = v83;
+            if ((v77 & 0x80) != 0)
+            {
+              TIFFSwabLong8((v87 + 4));
+              v80 = *(a1 + 16);
+              *(&v87[1] + 4) = v82;
+              if ((v80 & 0x80) != 0)
+              {
+                TIFFSwabLong8((&v87[1] + 4));
+              }
+            }
+
+            else
+            {
+              *(&v87[1] + 4) = v82;
+            }
+          }
+
+          else
+          {
+            v87[0].i32[1] = v83.i32[0];
+            if ((v77 & 0x80) != 0)
+            {
+              v78 = TIFFSwabLong(v87 + 1, v76);
+              v79 = *(a1 + 16);
+              v87[1].i32[0] = v82.i32[0];
+              if ((v79 & 0x80) != 0)
+              {
+                TIFFSwabLong(&v87[1], v78);
+              }
+            }
+
+            else
+            {
+              v87[1].i32[0] = v82.i32[0];
+            }
+          }
+
+          if (_TIFFSeekOK(a1, v20))
+          {
+            if ((*(a1 + 1216))(*(a1 + 1200), v87, v21) == v21)
+            {
+              return 1;
+            }
+
+            TIFFErrorExtR(a1, "TIFFResetField", "%s: Can not write TIFF directory entry.");
+            return 0;
+          }
+        }
+
+LABEL_166:
+        TIFFErrorExtR(a1, "TIFFResetField", "%s: Seek error accessing TIFF directory");
+        return 0;
+      }
+
+      if (a2 != 324)
+      {
+        goto LABEL_139;
+      }
+    }
+
+    else if (a2 != 273)
+    {
+      goto LABEL_127;
+    }
+
+    if (!*(a1 + 264) && !*(a1 + 258) && !*(a1 + 272))
+    {
+      v65 = (a1 + 264);
+      v66 = (a1 + 258);
+      goto LABEL_138;
+    }
+
+LABEL_127:
+    if (a2 != 279)
+    {
+      goto LABEL_139;
+    }
+
+    goto LABEL_128;
+  }
+
+  TIFFErrorExtR(a1, "TIFFResetField", "Unhandled type conversion.");
   return 0;
 }
 
-uint64_t TIFFWriteDirectoryTagShortLong(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, unsigned __int32 a5, uint8x8_t a6)
+uint64_t TIFFWriteDirectoryTagShortLong(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, unsigned int a5, uint8x8_t a6)
 {
   if (HIWORD(a5))
   {
@@ -7024,21 +6971,22 @@ uint64_t TIFFWriteDirectoryTagShortLong(uint64_t a1, _DWORD *a2, unsigned __int1
   }
 }
 
-uint64_t TIFFWriteDirectoryTagRational(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+uint64_t TIFFWriteDirectoryTagRational(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, double a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v18 = *MEMORY[0x1E69E9840];
-  if (a9 >= 0.0)
+  if (a5 >= 0.0)
   {
     if (a3)
     {
-      DoubleToRational(&v16, &v17, a9, a3, a4, a5, a6, a7, a8, 0);
+      v13 = a4;
+      DoubleToRational(&v16, &v17, a5, a3, a4, a6, a7, a8, a9, 0);
       if ((*(a1 + 16) & 0x80) != 0)
       {
         v15 = TIFFSwabLong(&v16, v14);
         TIFFSwabLong(&v17, v15);
       }
 
-      return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 5, 1, 8, &v16);
+      return TIFFWriteDirectoryTagData(a1, a2, a3, v13, 5u, 1u, 8uLL, &v16);
     }
 
     else
@@ -7051,12 +6999,12 @@ uint64_t TIFFWriteDirectoryTagRational(uint64_t a1, _DWORD *a2, unsigned __int16
 
   else
   {
-    TIFFErrorExtR(a1, "TIFFWriteDirectoryTagCheckedRational", "Negative value is illegal", a4, a5, a6, a7, a8, v16);
+    TIFFErrorExtR(a1, "TIFFWriteDirectoryTagCheckedRational", "Negative value is illegal", a4);
     return 0;
   }
 }
 
-uint64_t TIFFWriteDirectoryTagShortPerSample(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, __int16 a5)
+uint64_t TIFFWriteDirectoryTagShortPerSample(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, __int16 a5)
 {
   v9 = *(a1 + 130);
   if (a3)
@@ -7064,34 +7012,35 @@ uint64_t TIFFWriteDirectoryTagShortPerSample(uint64_t a1, _DWORD *a2, unsigned _
     v11 = malloc_type_malloc(2 * *(a1 + 130), 0x1000040BDFB0063uLL);
     if (v11)
     {
-      v17 = v11;
+      v12 = v11;
       if (*(a1 + 130))
       {
-        v18 = 0;
-        v19 = v11;
+        v13 = 0;
+        v14 = v11;
         do
         {
-          *v19++ = a5;
-          ++v18;
-          v20 = *(a1 + 130);
+          *v14 = a5;
+          v14 = (v14 + 2);
+          ++v13;
+          v15 = *(a1 + 130);
         }
 
-        while (v18 < v20);
+        while (v13 < v15);
       }
 
       else
       {
-        v20 = 0;
+        v15 = 0;
       }
 
-      v22 = TIFFWriteDirectoryTagCheckedShortArray(a1, a2, a3, a4, v20, v11);
-      free(v17);
-      return v22;
+      v17 = TIFFWriteDirectoryTagCheckedShortArray(a1, a2, a3, a4, v15, v11);
+      free(v12);
+      return v17;
     }
 
     else
     {
-      TIFFErrorExtR(a1, "TIFFWriteDirectoryTagShortPerSample", "Out of memory", v12, v13, v14, v15, v16, v23);
+      TIFFErrorExtR(a1, "TIFFWriteDirectoryTagShortPerSample", "Out of memory");
       return 0;
     }
   }
@@ -7120,6 +7069,7 @@ uint64_t TIFFWriteDirectoryTagLongLong8Array(uint64_t a1, _DWORD *a2, unsigned _
     }
   }
 
+  v14 = a5;
   if ((*(a1 + 18) & 8) != 0)
   {
     if (a4 == 279 && a5 >= 2)
@@ -7141,19 +7091,19 @@ uint64_t TIFFWriteDirectoryTagLongLong8Array(uint64_t a1, _DWORD *a2, unsigned _
     {
 LABEL_15:
 
-      return TIFFWriteDirectoryTagCheckedLong8Array(a1, a2, a3, a4, a5, __src, a7, a8);
+      return TIFFWriteDirectoryTagCheckedLong8Array(a1, a2, a3, a4, v14, __src);
     }
   }
 
-  v16 = a5;
-  if (a4 == 279 && a5 >= 2)
+  v16 = v14;
+  if (a4 == 279 && v14 >= 2)
   {
     v17 = _cg_TIFFStripSize64(a1, a2, a3, a4, a5, __src, a7, a8);
   }
 
   else
   {
-    if (a4 != 325 || a5 < 2)
+    if (a4 != 325 || v14 < 2)
     {
       goto LABEL_25;
     }
@@ -7163,159 +7113,159 @@ LABEL_15:
 
   if (!_WriteAsType(a1, v17, 0xFFFFuLL))
   {
-    v30 = malloc_type_malloc(2 * a5, 0x1000040BDFB0063uLL);
-    if (v30)
+    v25 = malloc_type_malloc(2 * v14, 0x1000040BDFB0063uLL);
+    if (v25)
     {
-      v31 = v30;
-      v32 = 0;
+      v26 = v25;
+      v27 = 0;
       while (1)
       {
-        v33 = __src[v32];
-        if (v33 >= 0x10000)
+        v28 = __src[v27];
+        if (v28 >= 0x10000)
         {
           break;
         }
 
-        *(v30 + v32++) = v33;
-        if (v16 == v32)
+        *(v25 + v27++) = v28;
+        if (v16 == v27)
         {
-          v28 = TIFFWriteDirectoryTagCheckedShortArray(a1, a2, a3, a4, v16, v30);
-          v29 = v31;
+          v23 = TIFFWriteDirectoryTagCheckedShortArray(a1, a2, a3, a4, v16, v25);
+          v24 = v26;
           goto LABEL_36;
         }
       }
 
-      TIFFErrorExtR(a1, "TIFFWriteDirectoryTagLongLong8Array", "Attempt to write value larger than 0xFFFF in SHORT array.", v19, v20, v21, v22, v23, v35);
-      v34 = v31;
+      TIFFErrorExtR(a1, "TIFFWriteDirectoryTagLongLong8Array", "Attempt to write value larger than 0xFFFF in SHORT array.");
+      v29 = v26;
       goto LABEL_40;
     }
 
 LABEL_37:
-    TIFFErrorExtR(a1, "TIFFWriteDirectoryTagLongLong8Array", "Out of memory", v19, v20, v21, v22, v23, v35);
+    TIFFErrorExtR(a1, "TIFFWriteDirectoryTagLongLong8Array", "Out of memory");
     return 0;
   }
 
 LABEL_25:
-  v18 = malloc_type_malloc(4 * a5, 0x100004052888210uLL);
+  v18 = malloc_type_malloc(4 * v14, 0x100004052888210uLL);
   if (!v18)
   {
     goto LABEL_37;
   }
 
-  v25 = v18;
-  if (a5)
+  v20 = v18;
+  if (v14)
   {
-    v26 = 0;
+    v21 = 0;
     while (1)
     {
-      v27 = __src[v26];
-      if (HIDWORD(*&v27))
+      v22 = __src[v21];
+      if (HIDWORD(*&v22))
       {
         break;
       }
 
-      v18[v26++] = v27.i32[0];
-      if (a5 == v26)
+      v18[v21++] = v22.i32[0];
+      if (v14 == v21)
       {
         goto LABEL_30;
       }
     }
 
-    TIFFErrorExtR(a1, "TIFFWriteDirectoryTagLongLong8Array", "Attempt to write value larger than 0xFFFFFFFF in LONG array.", v19, v20, v21, v22, v23, v35);
-    v34 = v25;
+    TIFFErrorExtR(a1, "TIFFWriteDirectoryTagLongLong8Array", "Attempt to write value larger than 0xFFFFFFFF in LONG array.");
+    v29 = v20;
 LABEL_40:
-    free(v34);
+    free(v29);
     return 0;
   }
 
 LABEL_30:
-  v28 = TIFFWriteDirectoryTagCheckedLongArray(a1, a2, a3, a4, a5, v18, v24);
-  v29 = v25;
+  v23 = TIFFWriteDirectoryTagCheckedLongArray(a1, a2, a3, a4, v14, v18, v19);
+  v24 = v20;
 LABEL_36:
-  free(v29);
-  return v28;
+  free(v24);
+  return v23;
 }
 
-uint64_t TIFFWriteDirectoryTagSampleformatArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, int8x8_t *a6)
+uint64_t TIFFWriteDirectoryTagSampleformatArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, size_t a5, int8x8_t *a6)
 {
   v12 = malloc_type_malloc(8 * a5, 0x100004000313F17uLL);
   if (v12)
   {
-    v19 = v12;
-    v20 = a5;
-    v21 = *(a1 + 118);
-    switch(v21)
+    v14 = v12;
+    v15 = a5;
+    v16 = *(a1 + 118);
+    switch(v16)
     {
       case 1:
-        v30 = *(a1 + 116);
-        if (v30 > 8)
+        v25 = *(a1 + 116);
+        if (v25 > 8)
         {
-          if (v30 >= 0x11)
+          if (v25 >= 0x11)
           {
             if (a5)
             {
-              v18 = 0x41EFFFFFFFE00000;
-              v43 = v12;
+              v13 = 0x41EFFFFFFFE00000;
+              v38 = v12;
               do
               {
-                v44 = *a6;
+                v39 = *a6;
                 if (*a6 >= 0.0)
                 {
-                  v45 = v44;
-                  if (v44 > 4294967300.0)
+                  v40 = v39;
+                  if (v39 > 4294967300.0)
                   {
-                    v45 = -1;
+                    v40 = -1;
                   }
                 }
 
                 else
                 {
-                  v45 = 0;
+                  v40 = 0;
                 }
 
-                *v43++ = v45;
+                *v38++ = v40;
                 ++a6;
-                --v20;
+                --v15;
               }
 
-              while (v20);
+              while (v15);
             }
 
-            v24 = TIFFWriteDirectoryTagCheckedLongArray(a1, a2, a3, a4, a5, v12, v18);
+            v19 = TIFFWriteDirectoryTagCheckedLongArray(a1, a2, a3, a4, a5, v12, v13);
           }
 
           else
           {
             if (a5)
             {
-              v37 = v12;
+              v32 = v12;
               do
               {
-                v38 = *a6;
+                v33 = *a6;
                 if (*a6 >= 0.0)
                 {
-                  v39 = v38;
-                  if (v38 > 65535.0)
+                  v34 = v33;
+                  if (v33 > 65535.0)
                   {
-                    LOWORD(v39) = -1;
+                    LOWORD(v34) = -1;
                   }
                 }
 
                 else
                 {
-                  LOWORD(v39) = 0;
+                  LOWORD(v34) = 0;
                 }
 
-                *v37 = v39;
-                v37 = (v37 + 2);
+                *v32 = v34;
+                v32 = (v32 + 2);
                 ++a6;
-                --v20;
+                --v15;
               }
 
-              while (v20);
+              while (v15);
             }
 
-            v24 = TIFFWriteDirectoryTagCheckedShortArray(a1, a2, a3, a4, a5, v12);
+            v19 = TIFFWriteDirectoryTagCheckedShortArray(a1, a2, a3, a4, a5, v12);
           }
         }
 
@@ -7323,149 +7273,108 @@ uint64_t TIFFWriteDirectoryTagSampleformatArray(uint64_t a1, _DWORD *a2, unsigne
         {
           if (a5)
           {
-            v31 = v12;
+            v26 = v12;
             do
             {
-              v32 = *a6;
+              v27 = *a6;
               if (*a6 >= 0.0)
               {
-                v33 = v32;
-                if (v32 > 255.0)
+                v28 = v27;
+                if (v27 > 255.0)
                 {
-                  LOBYTE(v33) = -1;
+                  LOBYTE(v28) = -1;
                 }
               }
 
               else
               {
-                LOBYTE(v33) = 0;
+                LOBYTE(v28) = 0;
               }
 
-              *v31 = v33;
-              v31 = (v31 + 1);
+              *v26 = v28;
+              v26 = (v26 + 1);
               ++a6;
-              --v20;
+              --v15;
             }
 
-            while (v20);
+            while (v15);
           }
 
-          v24 = TIFFWriteDirectoryTagByteArray(a1, a2, a3, a4, a5, v12);
+          v19 = TIFFWriteDirectoryTagByteArray(a1, a2, a3, a4, a5, v12);
         }
 
         break;
       case 2:
-        v26 = *(a1 + 116);
-        if (v26 > 8)
+        v21 = *(a1 + 116);
+        if (v21 > 8)
         {
-          if (v26 >= 0x11)
+          if (v21 >= 0x11)
           {
             if (a5)
             {
-              v18 = 0x41DFFFFFFFC00000;
-              v40 = v12;
+              v13 = 0x41DFFFFFFFC00000;
+              v35 = v12;
               do
               {
-                v41 = *a6;
+                v36 = *a6;
                 if (*a6 <= 2147483650.0)
                 {
-                  v42 = v41;
-                  if (v41 < -2147483650.0)
+                  v37 = v36;
+                  if (v36 < -2147483650.0)
                   {
-                    v42 = 0x80000000;
+                    v37 = 0x80000000;
                   }
                 }
 
                 else
                 {
-                  v42 = 0x7FFFFFFF;
+                  v37 = 0x7FFFFFFF;
                 }
 
-                *v40++ = v42;
+                *v35++ = v37;
                 ++a6;
-                --v20;
+                --v15;
               }
 
-              while (v20);
+              while (v15);
             }
 
-            v24 = TIFFWriteDirectoryTagCheckedSlongArray(a1, a2, a3, a4, a5, v12, v18);
+            v19 = TIFFWriteDirectoryTagCheckedSlongArray(a1, a2, a3, a4, a5, v12, v13);
           }
 
           else
           {
             if (a5)
             {
-              v34 = v12;
+              v29 = v12;
               do
               {
-                v35 = *a6;
+                v30 = *a6;
                 if (*a6 <= 32767.0)
                 {
-                  v36 = v35;
-                  if (v35 < -32768.0)
+                  v31 = v30;
+                  if (v30 < -32768.0)
                   {
-                    LOWORD(v36) = 0x8000;
+                    LOWORD(v31) = 0x8000;
                   }
                 }
 
                 else
                 {
-                  LOWORD(v36) = 0x7FFF;
+                  LOWORD(v31) = 0x7FFF;
                 }
 
-                *v34 = v36;
-                v34 = (v34 + 2);
+                *v29 = v31;
+                v29 = (v29 + 2);
                 ++a6;
-                --v20;
+                --v15;
               }
 
-              while (v20);
+              while (v15);
             }
 
-            v24 = TIFFWriteDirectoryTagSshortArray(a1, a2, a3, a4, a5, v12);
+            v19 = TIFFWriteDirectoryTagSshortArray(a1, a2, a3, a4, a5, v12);
           }
-        }
-
-        else
-        {
-          if (a5)
-          {
-            v27 = v12;
-            do
-            {
-              v28 = *a6;
-              if (*a6 <= 127.0)
-              {
-                v29 = v28;
-                if (v28 < -128.0)
-                {
-                  LOBYTE(v29) = 0x80;
-                }
-              }
-
-              else
-              {
-                LOBYTE(v29) = 127;
-              }
-
-              *v27 = v29;
-              v27 = (v27 + 1);
-              ++a6;
-              --v20;
-            }
-
-            while (v20);
-          }
-
-          v24 = TIFFWriteDirectoryTagSbyteArray(a1, a2, a3, a4, a5, v12);
-        }
-
-        break;
-      case 3:
-        if (*(a1 + 116) > 0x20u)
-        {
-          v24 = TIFFWriteDirectoryTagDoubleArray(a1, a2, a3, a4, a5, a6);
         }
 
         else
@@ -7475,37 +7384,78 @@ uint64_t TIFFWriteDirectoryTagSampleformatArray(uint64_t a1, _DWORD *a2, unsigne
             v22 = v12;
             do
             {
-              v23 = *a6++;
-              *v18.i32 = _TIFFClampDoubleToFloat(*&v23);
-              *v22++ = v18.i32[0];
-              --v20;
+              v23 = *a6;
+              if (*a6 <= 127.0)
+              {
+                v24 = v23;
+                if (v23 < -128.0)
+                {
+                  LOBYTE(v24) = 0x80;
+                }
+              }
+
+              else
+              {
+                LOBYTE(v24) = 127;
+              }
+
+              *v22 = v24;
+              v22 = (v22 + 1);
+              ++a6;
+              --v15;
             }
 
-            while (v20);
+            while (v15);
           }
 
-          v24 = TIFFWriteDirectoryTagFloatArray(a1, a2, a3, a4, a5, v19, v18);
+          v19 = TIFFWriteDirectoryTagSbyteArray(a1, a2, a3, a4, a5, v12);
+        }
+
+        break;
+      case 3:
+        if (*(a1 + 116) > 0x20u)
+        {
+          v19 = TIFFWriteDirectoryTagDoubleArray(a1, a2, a3, a4, a5, a6);
+        }
+
+        else
+        {
+          if (a5)
+          {
+            v17 = v12;
+            do
+            {
+              v18 = *a6++;
+              *v13.i32 = _TIFFClampDoubleToFloat(v18);
+              *v17++ = v13.i32[0];
+              --v15;
+            }
+
+            while (v15);
+          }
+
+          v19 = TIFFWriteDirectoryTagFloatArray(a1, a2, a3, a4, a5, v14, v13);
         }
 
         break;
       default:
-        v25 = 0;
+        v20 = 0;
 LABEL_66:
-        free(v19);
-        return v25;
+        free(v14);
+        return v20;
     }
 
-    v25 = v24;
+    v20 = v19;
     goto LABEL_66;
   }
 
-  TIFFErrorExtR(a1, "TIFFWriteDirectoryTagSampleformatArray", "Out of memory", v13, v14, v15, v16, v17, v47);
+  TIFFErrorExtR(a1, "TIFFWriteDirectoryTagSampleformatArray", "Out of memory");
   return 0;
 }
 
-uint64_t TIFFWriteDirectoryTagRationalArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, float *a6)
+uint64_t TIFFWriteDirectoryTagRationalArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, unsigned int a5, float *a6)
 {
-  v8 = (2 * a5);
+  v8 = 2 * a5;
   v9 = 4 * v8;
   if (a3)
   {
@@ -7533,14 +7483,14 @@ uint64_t TIFFWriteDirectoryTagRationalArray(uint64_t a1, _DWORD *a2, unsigned __
         TIFFSwabArrayOfLong(v22, v8, v21);
       }
 
-      v26 = TIFFWriteDirectoryTagData(a1, a2, a3, a4, 5, a5, (8 * a5), v22);
+      v26 = TIFFWriteDirectoryTagData(a1, a2, a3, a4, 5u, a5, 8 * a5, v22);
       free(v22);
       return v26;
     }
 
     else
     {
-      TIFFErrorExtR(a1, "TIFFWriteDirectoryTagCheckedRationalArray", "Out of memory", v16, v17, v18, v19, v20, v29);
+      TIFFErrorExtR(a1, "TIFFWriteDirectoryTagCheckedRationalArray", "Out of memory");
       return 0;
     }
   }
@@ -7563,11 +7513,11 @@ uint64_t TIFFWriteDirectoryTagRationalArray(uint64_t a1, _DWORD *a2, unsigned __
   }
 }
 
-uint64_t TIFFWriteDirectoryTagAscii(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, uint64_t __src)
+uint64_t TIFFWriteDirectoryTagAscii(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, size_t a5, int *__src)
 {
   if (a3)
   {
-    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 2, a5, a5, __src);
+    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 2u, a5, a5, __src);
   }
 
   v7 = 8;
@@ -7585,11 +7535,11 @@ uint64_t TIFFWriteDirectoryTagAscii(uint64_t a1, _DWORD *a2, unsigned __int16 *a
   return 1;
 }
 
-uint64_t TIFFWriteDirectoryTagUndefinedArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, uint64_t __src)
+uint64_t TIFFWriteDirectoryTagUndefinedArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, size_t a5, int *__src)
 {
   if (a3)
   {
-    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 7, a5, a5, __src);
+    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 7u, a5, a5, __src);
   }
 
   v7 = 8;
@@ -7607,11 +7557,11 @@ uint64_t TIFFWriteDirectoryTagUndefinedArray(uint64_t a1, _DWORD *a2, unsigned _
   return 1;
 }
 
-uint64_t TIFFWriteDirectoryTagByteArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, uint64_t __src)
+uint64_t TIFFWriteDirectoryTagByteArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, size_t a5, int *__src)
 {
   if (a3)
   {
-    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 1, a5, a5, __src);
+    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 1u, a5, a5, __src);
   }
 
   v7 = 8;
@@ -7629,11 +7579,11 @@ uint64_t TIFFWriteDirectoryTagByteArray(uint64_t a1, _DWORD *a2, unsigned __int1
   return 1;
 }
 
-uint64_t TIFFWriteDirectoryTagSbyteArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, uint64_t __src)
+uint64_t TIFFWriteDirectoryTagSbyteArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, size_t a5, int *__src)
 {
   if (a3)
   {
-    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 6, a5, a5, __src);
+    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 6u, a5, a5, __src);
   }
 
   v7 = 8;
@@ -7651,7 +7601,7 @@ uint64_t TIFFWriteDirectoryTagSbyteArray(uint64_t a1, _DWORD *a2, unsigned __int
   return 1;
 }
 
-uint64_t TIFFWriteDirectoryTagSshortArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, uint64_t __src)
+uint64_t TIFFWriteDirectoryTagSshortArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, unsigned int a5, int *__src)
 {
   if ((a5 & 0x80000000) != 0)
   {
@@ -7665,12 +7615,12 @@ uint64_t TIFFWriteDirectoryTagSshortArray(uint64_t a1, _DWORD *a2, unsigned __in
       TIFFSwabArrayOfShort(__src, a5);
     }
 
-    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 8, a5, (2 * a5), __src);
+    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 8u, a5, 2 * a5, __src);
   }
 
   else
   {
-    v13 = (2 * a5);
+    v13 = 2 * a5;
     v14 = 8;
     if ((*(a1 + 18) & 8) == 0)
     {
@@ -7687,7 +7637,7 @@ uint64_t TIFFWriteDirectoryTagSshortArray(uint64_t a1, _DWORD *a2, unsigned __in
   }
 }
 
-uint64_t TIFFWriteDirectoryTagFloatArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, __int32 *__src, uint8x8_t a7)
+uint64_t TIFFWriteDirectoryTagFloatArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, unsigned int a5, __int32 *__src, uint8x8_t a7)
 {
   if (a5 >> 30)
   {
@@ -7701,12 +7651,12 @@ uint64_t TIFFWriteDirectoryTagFloatArray(uint64_t a1, _DWORD *a2, unsigned __int
       TIFFSwabArrayOfLong(__src, a5, a7);
     }
 
-    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 11, a5, (4 * a5), __src);
+    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 0xBu, a5, 4 * a5, __src);
   }
 
   else
   {
-    v14 = (4 * a5);
+    v14 = 4 * a5;
     v15 = 8;
     if ((*(a1 + 18) & 8) == 0)
     {
@@ -7723,7 +7673,7 @@ uint64_t TIFFWriteDirectoryTagFloatArray(uint64_t a1, _DWORD *a2, unsigned __int
   }
 }
 
-uint64_t TIFFWriteDirectoryTagDoubleArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, int8x8_t *__src)
+uint64_t TIFFWriteDirectoryTagDoubleArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, unsigned int a5, int8x8_t *__src)
 {
   if (a5 >> 29)
   {
@@ -7737,12 +7687,12 @@ uint64_t TIFFWriteDirectoryTagDoubleArray(uint64_t a1, _DWORD *a2, unsigned __in
       TIFFSwabArrayOfLong8(__src, a5);
     }
 
-    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 12, a5, (8 * a5), __src);
+    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 0xCu, a5, 8 * a5, __src);
   }
 
   else
   {
-    v13 = (8 * a5);
+    v13 = 8 * a5;
     v14 = 8;
     if ((*(a1 + 18) & 8) == 0)
     {
@@ -7759,17 +7709,17 @@ uint64_t TIFFWriteDirectoryTagDoubleArray(uint64_t a1, _DWORD *a2, unsigned __in
   }
 }
 
-uint64_t TIFFWriteDirectoryTagCheckedShort(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, __int16 a5)
+uint64_t TIFFWriteDirectoryTagCheckedShort(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, __int16 a5)
 {
   if (a3)
   {
-    __src = a5;
+    LOWORD(__src[0]) = a5;
     if ((*(a1 + 16) & 0x80) != 0)
     {
-      TIFFSwabShort(&__src);
+      TIFFSwabShort(__src);
     }
 
-    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 3, 1, 2, &__src);
+    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 3u, 1u, 2uLL, __src);
   }
 
   else
@@ -7779,7 +7729,7 @@ uint64_t TIFFWriteDirectoryTagCheckedShort(uint64_t a1, _DWORD *a2, unsigned __i
   }
 }
 
-uint64_t TIFFWriteDirectoryTagCheckedLong(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, __int32 a5, uint8x8_t a6)
+uint64_t TIFFWriteDirectoryTagCheckedLong(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, int a5, uint8x8_t a6)
 {
   if (a3)
   {
@@ -7789,7 +7739,7 @@ uint64_t TIFFWriteDirectoryTagCheckedLong(uint64_t a1, _DWORD *a2, unsigned __in
       TIFFSwabLong(&__src, a6);
     }
 
-    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 4, 1, 4, &__src);
+    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 4u, 1u, 4uLL, &__src);
   }
 
   else
@@ -7799,7 +7749,7 @@ uint64_t TIFFWriteDirectoryTagCheckedLong(uint64_t a1, _DWORD *a2, unsigned __in
   }
 }
 
-uint64_t TIFFWriteDirectoryTagData(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t __n, uint64_t __src)
+uint64_t TIFFWriteDirectoryTagData(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, unsigned __int16 a5, unsigned int a6, size_t __n, int *__src)
 {
   v9 = __n;
   v12 = *a2;
@@ -7852,11 +7802,11 @@ uint64_t TIFFWriteDirectoryTagData(uint64_t a1, _DWORD *a2, unsigned __int16 *a3
 
 LABEL_11:
   v19 = &a3[16 * v13];
-  v19->i16[0] = a4;
-  v19->i16[1] = a5;
-  v19[1] = a6;
-  v19[2] = 0;
-  v20 = v19 + 2;
+  *v19 = a4;
+  v19[1] = a5;
+  *(v19 + 1) = a6;
+  *(v19 + 2) = 0;
+  v20 = (v19 + 8);
   v21 = *(a1 + 16);
   if ((v21 & 0x80000) != 0)
   {
@@ -7875,11 +7825,11 @@ LABEL_11:
       goto LABEL_27;
     }
 
-    v27 = __n;
-    v28 = v20;
-    v29 = __src;
+    v26 = __n;
+    v27 = v20;
+    v28 = __src;
 LABEL_26:
-    _TIFFmemcpy(v28, v29, v27);
+    _TIFFmemcpy(v27, v28, v26);
 LABEL_27:
     ++*a2;
     return 1;
@@ -7905,20 +7855,20 @@ LABEL_27:
 
     if ((v9 & 0x80000000) != 0)
     {
-      v26 = "libtiff does not allow writing more than 2147483647 bytes in a tag";
-      goto LABEL_37;
+      TIFFErrorExtR(a1, "TIFFWriteDirectoryTagData", "libtiff does not allow writing more than 2147483647 bytes in a tag");
+      return 0;
     }
 
     if ((*(a1 + 1216))(*(a1 + 1200), __src, v9) != v9)
     {
 LABEL_35:
-      v26 = "IO error writing tag data";
-      goto LABEL_37;
+      TIFFErrorExtR(a1, "TIFFWriteDirectoryTagData", "IO error writing tag data");
+      return 0;
     }
 
     *(a1 + 904) = (v24 & 1) + v24;
-    v32 = *(a1 + 16);
-    if ((v32 & 0x80000) != 0)
+    v31 = *(a1 + 16);
+    if ((v31 & 0x80000) != 0)
     {
       *v20 = v23;
       if ((*(a1 + 16) & 0x80) != 0)
@@ -7929,21 +7879,19 @@ LABEL_35:
       goto LABEL_27;
     }
 
-    v34 = v23;
-    if ((v32 & 0x80) != 0)
+    v32 = v23;
+    if ((v31 & 0x80) != 0)
     {
-      TIFFSwabLong(&v34, v31);
+      TIFFSwabLong(&v32, v30);
     }
 
-    v29 = &v34;
-    v28 = v20;
-    v27 = 4;
+    v28 = &v32;
+    v27 = v20;
+    v26 = 4;
     goto LABEL_26;
   }
 
-  v26 = "Maximum TIFF file size exceeded";
-LABEL_37:
-  TIFFErrorExtR(a1, "TIFFWriteDirectoryTagData", v26, a4, a5, a6, __n, __src, v33);
+  TIFFErrorExtR(a1, "TIFFWriteDirectoryTagData", "Maximum TIFF file size exceeded");
   return 0;
 }
 
@@ -7955,7 +7903,7 @@ _DWORD *DoubleToRational(_DWORD *result, int *a2, double a3, uint64_t a4, uint64
     *a2 = 0;
     *result = 0;
 
-    return TIFFErrorExt(0, "TIFFLib: DoubleToRational()", " Negative Value for Unsigned Rational given.", a5, a6, a7, a8, a9, a10);
+    return TIFFErrorExt(0, "TIFFLib: DoubleToRational()", " Negative Value for Unsigned Rational given.", a5, a6, a7, a8, a9);
   }
 
   if (a3 > 4294967300.0)
@@ -7992,7 +7940,7 @@ LABEL_11:
   v21 = v24;
   if (HIDWORD(v27) || HIDWORD(v26) || HIDWORD(v25) || HIDWORD(v24))
   {
-    TIFFErrorExt(0, "TIFFLib: DoubleToRational()", " Num or Denom exceeds ULONG: val=%14.6f, num=%12llu, denom=%12llu | num2=%12llu, denom2=%12llu", v14, v15, v16, v17, v18, SLOBYTE(a3));
+    TIFFErrorExt(0, "TIFFLib: DoubleToRational()", " Num or Denom exceeds ULONG: val=%14.6f, num=%12llu, denom=%12llu | num2=%12llu, denom2=%12llu", v14, v15, v16, v17, v18, *&a3, v27, v26, v25, v24);
     __assert_rtn("DoubleToRational", "tif_dirwrite.c", 2811, "0");
   }
 
@@ -8105,7 +8053,7 @@ LABEL_27:
   return result;
 }
 
-uint64_t TIFFWriteDirectoryTagCheckedShortArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, uint64_t __src)
+uint64_t TIFFWriteDirectoryTagCheckedShortArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, unsigned int a5, int *__src)
 {
   if ((a5 & 0x80000000) != 0)
   {
@@ -8119,12 +8067,12 @@ uint64_t TIFFWriteDirectoryTagCheckedShortArray(uint64_t a1, _DWORD *a2, unsigne
       TIFFSwabArrayOfShort(__src, a5);
     }
 
-    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 3, a5, (2 * a5), __src);
+    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 3u, a5, 2 * a5, __src);
   }
 
   else
   {
-    v13 = (2 * a5);
+    v13 = 2 * a5;
     v14 = 8;
     if ((*(a1 + 18) & 8) == 0)
     {
@@ -8141,31 +8089,32 @@ uint64_t TIFFWriteDirectoryTagCheckedShortArray(uint64_t a1, _DWORD *a2, unsigne
   }
 }
 
-uint64_t TIFFWriteDirectoryTagCheckedLong8Array(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, int8x8_t *__src, uint64_t a7, uint64_t a8)
+uint64_t TIFFWriteDirectoryTagCheckedLong8Array(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, unsigned int a5, int8x8_t *__src)
 {
   if (a5 >> 29)
   {
     TIFFWriteDirectoryTagCheckedLong8Array_cold_1();
   }
 
-  v9 = *(a1 + 16);
-  if ((v9 & 0x80000) != 0)
+  v7 = *(a1 + 16);
+  if ((v7 & 0x80000) != 0)
   {
     if (a3)
     {
-      if ((v9 & 0x80) != 0)
+      v13 = a4;
+      if ((v7 & 0x80) != 0)
       {
         TIFFSwabArrayOfLong8(__src, a5);
       }
 
-      return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 16, a5, (8 * a5), __src);
+      return TIFFWriteDirectoryTagData(a1, a2, a3, v13, 0x10u, a5, 8 * a5, __src);
     }
 
     else
     {
       if (a5 >= 2)
       {
-        *(a1 + 432) += (8 * a5);
+        *(a1 + 432) += 8 * a5;
       }
 
       ++*a2;
@@ -8175,12 +8124,12 @@ uint64_t TIFFWriteDirectoryTagCheckedLong8Array(uint64_t a1, _DWORD *a2, unsigne
 
   else
   {
-    TIFFErrorExtR(a1, "TIFFWriteDirectoryTagCheckedLong8Array", "LONG8 not allowed for ClassicTIFF", a4, a5, __src, a7, a8, v16);
+    TIFFErrorExtR(a1, "TIFFWriteDirectoryTagCheckedLong8Array", "LONG8 not allowed for ClassicTIFF", a4);
     return 0;
   }
 }
 
-uint64_t TIFFWriteDirectoryTagCheckedLongArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, __int32 *__src, uint8x8_t a7)
+uint64_t TIFFWriteDirectoryTagCheckedLongArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, unsigned int a5, int *__src, uint8x8_t a7)
 {
   if (a5 >> 30)
   {
@@ -8194,12 +8143,12 @@ uint64_t TIFFWriteDirectoryTagCheckedLongArray(uint64_t a1, _DWORD *a2, unsigned
       TIFFSwabArrayOfLong(__src, a5, a7);
     }
 
-    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 4, a5, (4 * a5), __src);
+    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 4u, a5, 4 * a5, __src);
   }
 
   else
   {
-    v14 = (4 * a5);
+    v14 = 4 * a5;
     v15 = 8;
     if ((*(a1 + 18) & 8) == 0)
     {
@@ -8216,7 +8165,7 @@ uint64_t TIFFWriteDirectoryTagCheckedLongArray(uint64_t a1, _DWORD *a2, unsigned
   }
 }
 
-uint64_t TIFFWriteDirectoryTagCheckedIfdArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, __int32 *__src, uint8x8_t a7)
+uint64_t TIFFWriteDirectoryTagCheckedIfdArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, unsigned int a5, int *__src, uint8x8_t a7)
 {
   if (a5 >> 30)
   {
@@ -8230,12 +8179,12 @@ uint64_t TIFFWriteDirectoryTagCheckedIfdArray(uint64_t a1, _DWORD *a2, unsigned 
       TIFFSwabArrayOfLong(__src, a5, a7);
     }
 
-    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 13, a5, (4 * a5), __src);
+    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 0xDu, a5, 4 * a5, __src);
   }
 
   else
   {
-    v14 = (4 * a5);
+    v14 = 4 * a5;
     v15 = 8;
     if ((*(a1 + 18) & 8) == 0)
     {
@@ -8252,7 +8201,7 @@ uint64_t TIFFWriteDirectoryTagCheckedIfdArray(uint64_t a1, _DWORD *a2, unsigned 
   }
 }
 
-uint64_t TIFFWriteDirectoryTagCheckedIfd8Array(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, int8x8_t *__src)
+uint64_t TIFFWriteDirectoryTagCheckedIfd8Array(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, unsigned int a5, int8x8_t *__src)
 {
   if (a5 >> 29)
   {
@@ -8272,14 +8221,14 @@ uint64_t TIFFWriteDirectoryTagCheckedIfd8Array(uint64_t a1, _DWORD *a2, unsigned
       TIFFSwabArrayOfLong8(__src, a5);
     }
 
-    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 18, a5, (8 * a5), __src);
+    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 0x12u, a5, 8 * a5, __src);
   }
 
   else
   {
     if (a5 >= 2)
     {
-      *(a1 + 432) += (8 * a5);
+      *(a1 + 432) += 8 * a5;
     }
 
     ++*a2;
@@ -8287,7 +8236,7 @@ uint64_t TIFFWriteDirectoryTagCheckedIfd8Array(uint64_t a1, _DWORD *a2, unsigned
   }
 }
 
-uint64_t TIFFWriteDirectoryTagCheckedSlongArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, __int32 *__src, uint8x8_t a7)
+uint64_t TIFFWriteDirectoryTagCheckedSlongArray(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4, unsigned int a5, int *__src, uint8x8_t a7)
 {
   if (a5 >> 30)
   {
@@ -8301,12 +8250,12 @@ uint64_t TIFFWriteDirectoryTagCheckedSlongArray(uint64_t a1, _DWORD *a2, unsigne
       TIFFSwabArrayOfLong(__src, a5, a7);
     }
 
-    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 9, a5, (4 * a5), __src);
+    return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 9u, a5, 4 * a5, __src);
   }
 
   else
   {
-    v14 = (4 * a5);
+    v14 = 4 * a5;
     v15 = 8;
     if ((*(a1 + 18) & 8) == 0)
     {
@@ -8323,31 +8272,32 @@ uint64_t TIFFWriteDirectoryTagCheckedSlongArray(uint64_t a1, _DWORD *a2, unsigne
   }
 }
 
-uint64_t TIFFWriteDirectoryTagCheckedSlong8Array(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, int8x8_t *__src, uint64_t a7, uint64_t a8)
+uint64_t TIFFWriteDirectoryTagCheckedSlong8Array(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4, unsigned int a5, int8x8_t *__src)
 {
   if (a5 >> 29)
   {
     TIFFWriteDirectoryTagCheckedSlong8Array_cold_1();
   }
 
-  v9 = *(a1 + 16);
-  if ((v9 & 0x80000) != 0)
+  v7 = *(a1 + 16);
+  if ((v7 & 0x80000) != 0)
   {
     if (a3)
     {
-      if ((v9 & 0x80) != 0)
+      v13 = a4;
+      if ((v7 & 0x80) != 0)
       {
         TIFFSwabArrayOfLong8(__src, a5);
       }
 
-      return TIFFWriteDirectoryTagData(a1, a2, a3, a4, 17, a5, (8 * a5), __src);
+      return TIFFWriteDirectoryTagData(a1, a2, a3, v13, 0x11u, a5, 8 * a5, __src);
     }
 
     else
     {
       if (a5 >= 2)
       {
-        *(a1 + 432) += (8 * a5);
+        *(a1 + 432) += 8 * a5;
       }
 
       ++*a2;
@@ -8357,7 +8307,7 @@ uint64_t TIFFWriteDirectoryTagCheckedSlong8Array(uint64_t a1, _DWORD *a2, unsign
 
   else
   {
-    TIFFErrorExtR(a1, "TIFFWriteDirectoryTagCheckedSlong8Array", "SLONG8 not allowed for ClassicTIFF", a4, a5, __src, a7, a8, v16);
+    TIFFErrorExtR(a1, "TIFFWriteDirectoryTagCheckedSlong8Array", "SLONG8 not allowed for ClassicTIFF", a4);
     return 0;
   }
 }
@@ -8395,27 +8345,26 @@ _DWORD *DoubleToSrational(_DWORD *result, int *a2, double a3)
 
     else if (v5 >= 4.65661288e-10)
     {
-      v21 = 0;
-      v19 = 0;
       v20 = 0;
       v18 = 0;
-      ToRationalEuclideanGCD(1, 0, &v21, &v20, v5);
-      result = ToRationalEuclideanGCD(1, 1, &v19, &v18, v5);
-      v13 = v21;
-      v7 = v20;
-      v14 = v18;
-      if (v21 >> 31 || v20 >> 31 || v19 >> 31 || v18 >> 31)
+      v19 = 0;
+      v17 = 0;
+      ToRationalEuclideanGCD(1, 0, &v20, &v19, v5);
+      result = ToRationalEuclideanGCD(1, 1, &v18, &v17, v5);
+      v13 = v20;
+      v7 = v19;
+      v14 = v17;
+      if (v20 >> 31 || v19 >> 31 || v18 >> 31 || v17 >> 31)
       {
-        v17 = v5 * v6;
-        TIFFErrorExt(0, "TIFFLib: DoubleToSrational()", " Num or Denom exceeds LONG: val=%14.6f, num=%12llu, denom=%12llu | num2=%12llu, denom2=%12llu", v8, v9, v10, v11, v12, SLOBYTE(v17));
+        TIFFErrorExt(0, "TIFFLib: DoubleToSrational()", " Num or Denom exceeds LONG: val=%14.6f, num=%12llu, denom=%12llu | num2=%12llu, denom2=%12llu", v8, v9, v10, v11, v12, v5 * v6, v20, v19, v18, v17);
         __assert_rtn("DoubleToSrational", "tif_dirwrite.c", 2887, "0");
       }
 
-      v15 = vabdd_f64(v5, v21 / v20);
-      v16 = vabdd_f64(v5, v19 / v18);
+      v15 = vabdd_f64(v5, v20 / v19);
+      v16 = vabdd_f64(v5, v18 / v17);
       if (v15 >= v16)
       {
-        v13 = v19;
+        v13 = v18;
       }
 
       *v4 = v6 * v13;
@@ -8442,7 +8391,7 @@ _DWORD *DoubleToSrational(_DWORD *result, int *a2, double a3)
   return result;
 }
 
-uint64_t _WriteAsType(uint64_t a1, unint64_t a2, unint64_t a3)
+BOOL _WriteAsType(uint64_t a1, unint64_t a2, unint64_t a3)
 {
   v3 = *(a1 + 120);
   result = 1;
@@ -8480,7 +8429,7 @@ uint64_t _WriteAsType(uint64_t a1, unint64_t a2, unint64_t a3)
   return result;
 }
 
-uint64_t ATXReadPlugin::loadDataFromXPCObject(ATXReadPlugin *this, void *a2)
+uint64_t ATXReadPlugin::loadDataFromXPCObject(std::__shared_weak_count **this, void *a2)
 {
   DataFromXPCObject = CommonASTCReadPlugin::loadDataFromXPCObject(this, a2);
   if (!DataFromXPCObject)
@@ -8503,7 +8452,7 @@ uint64_t ATXReadPlugin::loadDataFromXPCObject(ATXReadPlugin *this, void *a2)
       v10 = data[6];
       v11 = data[7];
       v12 = data[8];
-      *(this + 82) = *(data + 18);
+      this[82] = *(data + 18);
       *(this + 39) = v11;
       *(this + 40) = v12;
       *(this + 38) = v10;
@@ -8514,7 +8463,7 @@ uint64_t ATXReadPlugin::loadDataFromXPCObject(ATXReadPlugin *this, void *a2)
       DataFromXPCObject = 4294967246;
     }
 
-    (*(**(this + 62) + 16))(*(this + 62), a2);
+    (this[62]->__on_zero_shared)(this[62], a2);
   }
 
   return DataFromXPCObject;
@@ -8545,7 +8494,7 @@ __n128 __Block_byref_object_copy__0(uint64_t a1, uint64_t a2)
   return result;
 }
 
-vImage_Error ATXReadPlugin::decodeImageData(ATXReadPlugin *this, unsigned __int8 *a2)
+vImage_Error ATXReadPlugin::decodeImageData(ATXReadPlugin *this, unsigned __int8 *a2, unint64_t a3)
 {
   if (*(this + 76) || *(this + 79))
   {
@@ -8565,27 +8514,31 @@ vImage_Error ATXReadPlugin::decodeImageData420f(ATXReadPlugin *this, unsigned __
   v4 = *(this + 77);
   v5 = *(this + 78);
   v6 = *(this + 79);
-  v30 = 197121;
-  v29 = 66051;
+  v33 = 197121;
+  v32 = 66051;
   v7 = *(this + 156);
   v8 = *(this + 155);
   v9 = v7 * v8;
   if ((v9 & 0xFFFFFFFF00000000) != 0)
   {
-    _cg_jpeg_mem_term("decodeImageData420f", 635, "*** ERROR: lumaPlaneSize overflow [%ld * %ld]\n");
+    v24 = "*** ERROR: lumaPlaneSize overflow [%ld * %ld]\n";
+    v25 = 635;
+LABEL_26:
+    _cg_jpeg_mem_term("decodeImageData420f", v25, v24);
     return 4294967292;
   }
 
   v10 = *(this + 162) * *(this + 161);
   if ((v10 & 0xFFFFFFFF00000000) != 0)
   {
-    _cg_jpeg_mem_term("decodeImageData420f", 638, "*** ERROR: chromaPlaneSize overflow [%ld * %ld]\n");
-    return 4294967292;
+    v24 = "*** ERROR: chromaPlaneSize overflow [%ld * %ld]\n";
+    v25 = 638;
+    goto LABEL_26;
   }
 
   v11 = *(this + 437);
   v12 = malloc_type_calloc(v7, v8, 0x100004077774924uLL);
-  v25 = v11;
+  v28 = v11;
   if (*(this + 656) == 1)
   {
     v13 = a2;
@@ -8593,9 +8546,9 @@ vImage_Error ATXReadPlugin::decodeImageData420f(ATXReadPlugin *this, unsigned __
     BytesAtOffset = IIOImageReadSession::getBytesAtOffset(*(this + 3), v14, *(this + 76) + 8, *(this + 157));
     if (BytesAtOffset != *(this + 157))
     {
-      _cg_jpeg_mem_term("decodeImageData420f", 649, "*** luma-lzfseBuffer-getBytesAtOffset failed: expected: %ld   got: %ld\n", *(this + 157), BytesAtOffset);
-      v17 = 0;
-      goto LABEL_31;
+      _cg_jpeg_mem_term("decodeImageData420f", 649, "*** luma-lzfseBuffer-getBytesAtOffset failed: expected: %ld   got: %ld\n");
+      v16 = 0;
+      goto LABEL_32;
     }
 
     IIOReadPlugin::decodeLZFSEIntoBuffer(this, v14, BytesAtOffset, v12, v9);
@@ -8603,33 +8556,42 @@ vImage_Error ATXReadPlugin::decodeImageData420f(ATXReadPlugin *this, unsigned __
 
   else
   {
-    v16 = IIOImageReadSession::getBytesAtOffset(*(this + 3), v12, *(this + 76), v9);
-    if (v16 != v9)
+    if (IIOImageReadSession::getBytesAtOffset(*(this + 3), v12, *(this + 76), v9) != v9)
     {
-      _cg_jpeg_mem_term("decodeImageData420f", 655, "*** luma-getBytesAtOffset failed: expected: %ld   got: %ld\n", v9, v16);
-      v17 = 0;
+      _cg_jpeg_mem_term("decodeImageData420f", 655, "*** luma-getBytesAtOffset failed: expected: %ld   got: %ld\n");
+      v16 = 0;
       v14 = 0;
-      goto LABEL_31;
+      goto LABEL_32;
     }
 
     v13 = a2;
     v14 = 0;
   }
 
-  v17 = malloc_type_calloc(*(this + 162), *(this + 161), 0x100004077774924uLL);
+  v16 = malloc_type_calloc(*(this + 162), *(this + 161), 0x100004077774924uLL);
   if (*(this + 656) == 1)
   {
     v14 = reallocf(v14, *(this + 163));
-    v18 = IIOImageReadSession::getBytesAtOffset(*(this + 3), v14, *(this + 79) + 8, *(this + 163));
-    if (v18 == *(this + 163))
+    v17 = IIOImageReadSession::getBytesAtOffset(*(this + 3), v14, *(this + 79) + 8, *(this + 163));
+    if (v17 == *(this + 163))
     {
-      IIOReadPlugin::decodeLZFSEIntoBuffer(this, v14, v18, v17, v10);
+      IIOReadPlugin::decodeLZFSEIntoBuffer(this, v14, v17, v16, v10);
       goto LABEL_12;
     }
 
-    _cg_jpeg_mem_term("decodeImageData420f", 667, "*** chroma-lzfseBuffer-getBytesAtOffset failed: expected: %ld   got: %ld\n");
+    v26 = "*** chroma-lzfseBuffer-getBytesAtOffset failed: expected: %ld   got: %ld\n";
+    v27 = 667;
+    goto LABEL_31;
+  }
+
+  if (IIOImageReadSession::getBytesAtOffset(*(this + 3), v16, *(this + 79), v10) != v10)
+  {
+    v26 = "*** chroma-getBytesAtOffset failed: expected: %ld   got: %ld\n";
+    v27 = 673;
 LABEL_31:
-    v23 = 4294967292;
+    _cg_jpeg_mem_term("decodeImageData420f", v27, v26);
+LABEL_32:
+    v22 = 4294967292;
     if (!v12)
     {
       goto LABEL_19;
@@ -8638,24 +8600,18 @@ LABEL_31:
     goto LABEL_18;
   }
 
-  if (IIOImageReadSession::getBytesAtOffset(*(this + 3), v17, *(this + 79), v10) != v10)
-  {
-    _cg_jpeg_mem_term("decodeImageData420f", 673, "*** chroma-getBytesAtOffset failed: expected: %ld   got: %ld\n");
-    goto LABEL_31;
-  }
-
 LABEL_12:
-  v19 = *(this + 77);
-  v20.i64[0] = v19;
-  v20.i64[1] = HIDWORD(v19);
-  *&srcYp.height = vextq_s8(v20, v20, 8uLL);
+  v18 = *(this + 77);
+  v19.i64[0] = v18;
+  v19.i64[1] = HIDWORD(v18);
+  *&srcYp.height = vextq_s8(v19, v19, 8uLL);
   srcYp.rowBytes = *(this + 156);
   dest.rowBytes = v6;
-  srcCbCr.data = v17;
-  v21 = *(this + 80);
-  v20.i64[0] = v21;
-  v20.i64[1] = HIDWORD(v21);
-  *&srcCbCr.height = vextq_s8(v20, v20, 8uLL);
+  srcCbCr.data = v16;
+  v20 = *(this + 80);
+  v19.i64[0] = v20;
+  v19.i64[1] = HIDWORD(v20);
+  *&srcCbCr.height = vextq_s8(v19, v19, 8uLL);
   srcCbCr.rowBytes = *(this + 162);
   srcYp.data = v12;
   dest.height = v5;
@@ -8666,17 +8622,17 @@ LABEL_12:
     ATXReadPlugin::decodeImageData420f();
   }
 
-  if (v25)
+  if (v28)
   {
-    v22 = &v30;
+    v21 = &v33;
   }
 
   else
   {
-    v22 = &v29;
+    v21 = &v32;
   }
 
-  v23 = vImageConvert_420Yp8_CbCr8ToARGB8888(&srcYp, &srcCbCr, &dest, &ATXReadPlugin::decodeImageData420f(unsigned char *,unsigned long)::conversion, v22, 0xFFu, 0);
+  v22 = vImageConvert_420Yp8_CbCr8ToARGB8888(&srcYp, &srcCbCr, &dest, &ATXReadPlugin::decodeImageData420f(unsigned char *,unsigned long)::conversion, v21, 0xFFu, 0);
   if (!v12)
   {
     goto LABEL_19;
@@ -8685,9 +8641,9 @@ LABEL_12:
 LABEL_18:
   free(v12);
 LABEL_19:
-  if (v17)
+  if (v16)
   {
-    free(v17);
+    free(v16);
   }
 
   if (v14)
@@ -8695,7 +8651,7 @@ LABEL_19:
     free(v14);
   }
 
-  return v23;
+  return v22;
 }
 
 uint64_t ATXReadPlugin::decodeImageDataASTC(ATXReadPlugin *this, unsigned __int8 *a2)
@@ -8724,7 +8680,7 @@ uint64_t ATXReadPlugin::decodeImageDataASTC(ATXReadPlugin *this, unsigned __int8
   }
 }
 
-__n128 ___ZN13ATXReadPlugin19decodeImageData420fEPhm_block_invoke()
+void ___ZN13ATXReadPlugin19decodeImageData420fEPhm_block_invoke()
 {
   pixelRange = *ymmword_18620A4B8;
   *&matrix.Yp = xmmword_18620A4D8;
@@ -8732,32 +8688,29 @@ __n128 ___ZN13ATXReadPlugin19decodeImageData420fEPhm_block_invoke()
   v0 = vImageConvert_YpCbCrToARGB_GenerateConversion(&matrix, &pixelRange, &ATXReadPlugin::decodeImageData420f(unsigned char *,unsigned long)::conversion, kvImage422YpCbYpCr8, kvImageARGB8888, 0);
   if (v0)
   {
-    v2 = v0;
-    v3 = IIO_vImageErrorString(v0);
-    return _cg_jpeg_mem_term("decodeImageData420f_block_invoke", 708, "*** ERROR: vImageConvert_YpCbCrToARGB_GenerateConversion returned %ld (%s)\n", v2, v3);
+    IIO_vImageErrorString(v0);
+    _cg_jpeg_mem_term("decodeImageData420f_block_invoke", 708, "*** ERROR: vImageConvert_YpCbCrToARGB_GenerateConversion returned %ld (%s)\n");
   }
-
-  return result;
 }
 
-void setByteArray(void **a1, const void *a2, int64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void setByteArray(void **a1, const void *a2, unint64_t a3, uint64_t a4)
 {
-  v12 = *a1;
-  if (v12)
+  v8 = *a1;
+  if (v8)
   {
-    free(v12);
+    free(v8);
     *a1 = 0;
   }
 
   if (a2)
   {
-    v13 = _TIFFMultiplySSize(0, a3, a4, 0, a5, a6, a7, a8);
-    v14 = v13;
-    if (v13)
+    v9 = _TIFFMultiplySSize(0, a3, a4, 0);
+    v10 = v9;
+    if (v9)
     {
-      v15 = malloc_type_malloc(v13, 0xAE2DC9D2uLL);
-      *a1 = v15;
-      if (!v15)
+      v11 = malloc_type_malloc(v9, 0xAE2DC9D2uLL);
+      *a1 = v11;
+      if (!v11)
       {
         return;
       }
@@ -8765,14 +8718,14 @@ void setByteArray(void **a1, const void *a2, int64_t a3, uint64_t a4, uint64_t a
 
     else
     {
-      v15 = *a1;
+      v11 = *a1;
       if (!*a1)
       {
         return;
       }
     }
 
-    _TIFFmemcpy(v15, a2, v14);
+    _TIFFmemcpy(v11, a2, v10);
   }
 }
 
@@ -8781,19 +8734,19 @@ uint64_t TIFFVSetField(uint64_t a1, uint64_t a2, uint64_t a3)
   v6 = TIFFFindField(a1, a2, 0);
   if (!v6)
   {
-    TIFFErrorExtR(a1, "TIFFSetField", "%s: Unknown %stag %u", v7, v8, v9, v10, v11, *a1);
+    TIFFErrorExtR(a1, "TIFFSetField", "%s: Unknown %stag %u");
     return 0;
   }
 
   if (a2 != 257 && (*(a1 + 16) & 0x40) != 0 && !*(v6 + 26))
   {
-    TIFFErrorExtR(a1, "TIFFSetField", "%s: Cannot modify tag %s while writing", v7, v8, v9, v10, v11, *a1);
+    TIFFErrorExtR(a1, "TIFFSetField", "%s: Cannot modify tag %s while writing");
     return 0;
   }
 
-  v12 = *(a1 + 1280);
+  v7 = *(a1 + 1280);
 
-  return v12(a1, a2, a3);
+  return v7(a1, a2, a3);
 }
 
 uint64_t TIFFVGetField(void *a1, uint64_t a2, uint64_t a3)
@@ -8976,7 +8929,7 @@ uint64_t TIFFCreateDirectory(uint64_t a1)
 uint64_t TIFFDefaultDirectory(uint64_t a1)
 {
   v2 = _TIFFGetFields();
-  _TIFFSetupFields(a1, v2, v3, v4, v5, v6, v7, v8, v22);
+  _TIFFSetupFields(a1, v2);
   _TIFFmemset((a1 + 72), 0, 0x188uLL);
   *(a1 + 124) = 0x1000100010001;
   *(a1 + 132) = 0x10000FFFFFFFFLL;
@@ -8996,27 +8949,27 @@ uint64_t TIFFDefaultDirectory(uint64_t a1)
   *(a1 + 112) = 0x1000100000000;
   *(a1 + 212) = 0;
   *(a1 + 216) = 0;
-  v15 = *(a1 + 1320);
-  if (v15)
+  v9 = *(a1 + 1320);
+  if (v9)
   {
-    v16 = 0;
-    v17 = (a1 + 1312);
-    v18 = 1;
+    v10 = 0;
+    v11 = (a1 + 1312);
+    v12 = 1;
     do
     {
-      v19 = *v17 + 24 * v16;
-      if (*(v19 + 4))
+      v13 = *v11 + 24 * v10;
+      if (*(v13 + 4))
       {
-        free(*(v19 + 16));
-        v15 = *(a1 + 1320);
+        free(*(v13 + 16));
+        v9 = *(a1 + 1320);
       }
 
-      v16 = v18;
+      v10 = v12;
     }
 
-    while (v15 > v18++);
-    free(*v17);
-    *v17 = 0;
+    while (v9 > v12++);
+    free(*v11);
+    *v11 = 0;
     *(a1 + 1320) = 0;
   }
 
@@ -9025,324 +8978,324 @@ uint64_t TIFFDefaultDirectory(uint64_t a1)
     _TIFFextender(a1);
   }
 
-  _cg_TIFFSetField(a1, 259, v9, v10, v11, v12, v13, v14, 1);
+  _cg_TIFFSetField(a1, 259, v3, v4, v5, v6, v7, v8, 1);
   *(a1 + 16) &= 0xFFFFFBF7;
   return 1;
 }
 
-uint64_t _TIFFVSetField(uint64_t a1, int a2, unsigned __int16 *a3)
+uint64_t _TIFFVSetField(const char **a1, int a2, unsigned __int16 *a3)
 {
-  v212 = a3;
-  v211 = 0;
+  v152 = a3;
+  v151 = 0;
   v6 = TIFFFindField(a1, a2, 0);
   if (!v6)
   {
     return 0;
   }
 
-  v12 = v6;
-  v13 = (a1 + 72);
-  v14 = *(v6 + 12);
-  if (v14 == 65)
+  v7 = v6;
+  v8 = a1 + 9;
+  v9 = *(v6 + 12);
+  if (v9 == 65)
   {
-    v15 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v15 = a2;
+    v10 = a2;
   }
 
-  if (v15 <= 319)
+  if (v10 <= 319)
   {
-    switch(v15)
+    switch(v10)
     {
       case 254:
-        v16 = v212;
-        v212 += 4;
-        *(a1 + 112) = *v16;
+        v11 = v152;
+        v152 += 4;
+        *(a1 + 28) = *v11;
         goto LABEL_175;
       case 256:
-        v52 = v212;
-        v212 += 4;
-        *(a1 + 88) = *v52;
+        v47 = v152;
+        v152 += 4;
+        *(a1 + 22) = *v47;
         goto LABEL_175;
       case 257:
-        v55 = v212;
-        v212 += 4;
-        *(a1 + 92) = *v55;
+        v50 = v152;
+        v152 += 4;
+        *(a1 + 23) = *v50;
         goto LABEL_175;
       case 258:
-        v46 = v212;
-        v212 += 4;
-        v47 = *v46;
-        *(a1 + 116) = v47;
-        if ((*(a1 + 16) & 0x80) == 0)
+        v41 = v152;
+        v152 += 4;
+        v42 = *v41;
+        *(a1 + 58) = v42;
+        if ((a1[2] & 0x80) == 0)
         {
           goto LABEL_175;
         }
 
-        v23 = 1;
-        if (v47 > 0x1Fu)
+        v18 = 1;
+        if (v42 > 0x1Fu)
         {
-          if (v47 == 32)
+          if (v42 == 32)
           {
             goto LABEL_181;
           }
 
-          if (v47 == 64 || v47 == 128)
+          if (v42 == 64 || v42 == 128)
           {
-            v48 = _TIFFSwab64BitData;
+            v43 = _TIFFSwab64BitData;
             goto LABEL_192;
           }
         }
 
         else
         {
-          switch(v47)
+          switch(v42)
           {
             case 8u:
-              v48 = _TIFFNoPostDecode;
+              v43 = _TIFFNoPostDecode;
               goto LABEL_192;
             case 0x10u:
               goto LABEL_180;
             case 0x18u:
-              v48 = _TIFFSwab24BitData;
+              v43 = _TIFFSwab24BitData;
               goto LABEL_192;
           }
         }
 
         goto LABEL_176;
       case 259:
-        v62 = v212;
-        v212 += 4;
-        v63 = *v62;
-        if ((*v13 & 0x80) == 0)
+        v57 = v152;
+        v152 += 4;
+        v58 = *v57;
+        if ((*v8 & 0x80) == 0)
         {
           goto LABEL_81;
         }
 
-        if (*(a1 + 120) == v63)
+        if (*(a1 + 60) == v58)
         {
           goto LABEL_175;
         }
 
-        (*(a1 + 1072))(a1);
-        *(a1 + 16) &= ~0x20u;
+        (a1[134])(a1);
+        *(a1 + 4) &= ~0x20u;
 LABEL_81:
-        v23 = TIFFSetCompressionScheme(a1, v63);
-        if (!v23)
+        v18 = TIFFSetCompressionScheme(a1, v58);
+        if (!v18)
         {
-          return v23;
+          return v18;
         }
 
-        *(a1 + 120) = v63;
+        *(a1 + 60) = v58;
         goto LABEL_176;
       case 262:
-        v45 = v212;
-        v212 += 4;
-        *(a1 + 122) = *v45;
+        v40 = v152;
+        v152 += 4;
+        *(a1 + 61) = *v40;
         goto LABEL_175;
       case 263:
-        v49 = v212;
-        v212 += 4;
-        *(a1 + 124) = *v49;
+        v44 = v152;
+        v152 += 4;
+        *(a1 + 62) = *v44;
         goto LABEL_175;
       case 266:
-        v56 = v212;
-        v212 += 4;
-        v57 = *v56;
-        if (v57 - 3 < 0xFFFFFFFE)
+        v51 = v152;
+        v152 += 4;
+        v52 = *v51;
+        if (v52 - 3 < 0xFFFFFFFE)
         {
           goto LABEL_156;
         }
 
-        *(a1 + 126) = v57;
+        *(a1 + 63) = v52;
         goto LABEL_175;
       case 274:
-        v73 = v212;
-        v212 += 4;
-        v74 = *v73;
-        if (v74 - 9 < 0xFFFFFFF8)
+        v68 = v152;
+        v152 += 4;
+        v69 = *v68;
+        if (v69 - 9 < 0xFFFFFFF8)
         {
           goto LABEL_156;
         }
 
-        *(a1 + 128) = v74;
+        *(a1 + 64) = v69;
         goto LABEL_175;
       case 277:
-        v58 = v212;
-        v212 += 4;
-        v59 = *v58;
-        v60 = *v58;
-        if (!*v58)
+        v53 = v152;
+        v152 += 4;
+        v54 = *v53;
+        v55 = *v53;
+        if (!*v53)
         {
           goto LABEL_156;
         }
 
-        if (*(a1 + 130) != v59)
+        if (*(a1 + 65) != v54)
         {
-          if (*(a1 + 144))
+          if (a1[18])
           {
-            TIFFWarningExtR(a1, "_TIFFVSetField", "SamplesPerPixel tag value is changing, but SMinSampleValue tag was read with a different value. Canceling it", v7, v8, v9, v10, v11, v209);
-            *(a1 + 76) &= ~2u;
-            free(*(a1 + 144));
-            *(a1 + 144) = 0;
+            TIFFWarningExtR(a1, "_TIFFVSetField", "SamplesPerPixel tag value is changing, but SMinSampleValue tag was read with a different value. Canceling it");
+            *(a1 + 19) &= ~2u;
+            free(a1[18]);
+            a1[18] = 0;
           }
 
-          if (*(a1 + 152))
+          if (a1[19])
           {
-            TIFFWarningExtR(a1, "_TIFFVSetField", "SamplesPerPixel tag value is changing, but SMaxSampleValue tag was read with a different value. Canceling it", v7, v8, v9, v10, v11, v209);
-            *(a1 + 76) &= ~4u;
-            free(*(a1 + 152));
-            *(a1 + 152) = 0;
+            TIFFWarningExtR(a1, "_TIFFVSetField", "SamplesPerPixel tag value is changing, but SMaxSampleValue tag was read with a different value. Canceling it");
+            *(a1 + 19) &= ~4u;
+            free(a1[19]);
+            a1[19] = 0;
           }
 
-          if (*(a1 + 344))
+          if (a1[43])
           {
-            v61 = *(a1 + 212);
-            if ((v60 - v61) >= 2 && *(a1 + 130) - v61 <= 1)
+            v56 = *(a1 + 106);
+            if ((v55 - v56) >= 2 && *(a1 + 65) - v56 <= 1)
             {
-              TIFFWarningExtR(a1, "_TIFFVSetField", "SamplesPerPixel tag value is changing, but TransferFunction was read with a different value. Canceling it", v7, v8, v9, v10, v11, v209);
-              *(a1 + 76) &= ~0x1000u;
-              free(*(a1 + 344));
-              *(a1 + 344) = 0;
+              TIFFWarningExtR(a1, "_TIFFVSetField", "SamplesPerPixel tag value is changing, but TransferFunction was read with a different value. Canceling it");
+              *(a1 + 19) &= ~0x1000u;
+              free(a1[43]);
+              a1[43] = 0;
             }
           }
         }
 
-        *(a1 + 130) = v59;
+        *(a1 + 65) = v54;
         goto LABEL_175;
       case 278:
-        v64 = v212;
-        v212 += 4;
-        v65 = *v64;
-        if (!v65)
+        v59 = v152;
+        v152 += 4;
+        v60 = *v59;
+        if (!v60)
         {
           goto LABEL_146;
         }
 
-        v66 = *(a1 + 92);
-        if (v65 >= v66)
+        v61 = *(a1 + 23);
+        if (v60 >= v61)
         {
-          v67 = *(a1 + 92);
+          v62 = *(a1 + 23);
         }
 
         else
         {
-          v67 = v65;
+          v62 = v60;
         }
 
-        if (v66)
+        if (v61)
         {
-          v65 = v67;
+          v60 = v62;
         }
 
-        *(a1 + 132) = v65;
-        if ((*(a1 + 72) & 4) == 0)
+        *(a1 + 33) = v60;
+        if ((a1[9] & 4) == 0)
         {
-          *(a1 + 100) = *(a1 + 88);
-          *(a1 + 104) = v65;
+          *(a1 + 25) = *(a1 + 22);
+          *(a1 + 26) = v60;
         }
 
         goto LABEL_175;
       case 280:
-        v44 = v212;
-        v212 += 4;
-        *(a1 + 136) = *v44;
+        v39 = v152;
+        v152 += 4;
+        *(a1 + 68) = *v39;
         goto LABEL_175;
       case 281:
-        v75 = v212;
-        v212 += 4;
-        *(a1 + 138) = *v75;
+        v70 = v152;
+        v152 += 4;
+        *(a1 + 69) = *v70;
         goto LABEL_175;
       case 282:
-        v68 = v212;
-        v212 += 4;
-        if (*v68 < 0.0)
+        v63 = v152;
+        v152 += 4;
+        if (*v63 < 0.0)
         {
           goto LABEL_103;
         }
 
-        *(a1 + 160) = _TIFFClampDoubleToFloat(*v68);
+        *(a1 + 40) = _TIFFClampDoubleToFloat(*v63);
         goto LABEL_175;
       case 283:
-        v76 = v212;
-        v212 += 4;
-        if (*v76 < 0.0)
+        v71 = v152;
+        v152 += 4;
+        if (*v71 < 0.0)
         {
 LABEL_103:
           TIFFFieldWithTag(a1, a2);
-          TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Bad value %f for %s tag", v135, v136, v137, v138, v139, *a1);
+          TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Bad value %f for %s tag");
           return 0;
         }
 
-        *(a1 + 164) = _TIFFClampDoubleToFloat(*v76);
+        *(a1 + 41) = _TIFFClampDoubleToFloat(*v71);
         break;
       case 284:
-        v42 = v212;
-        v212 += 4;
-        v43 = *v42;
-        if (v43 - 3 < 0xFFFFFFFE)
+        v37 = v152;
+        v152 += 4;
+        v38 = *v37;
+        if (v38 - 3 < 0xFFFFFFFE)
         {
           goto LABEL_156;
         }
 
-        *(a1 + 170) = v43;
+        *(a1 + 85) = v38;
         goto LABEL_175;
       case 286:
-        v50 = v212;
-        v212 += 4;
-        *(a1 + 172) = _TIFFClampDoubleToFloat(*v50);
+        v45 = v152;
+        v152 += 4;
+        *(a1 + 43) = _TIFFClampDoubleToFloat(*v45);
         goto LABEL_175;
       case 287:
-        v51 = v212;
-        v212 += 4;
-        *(a1 + 176) = _TIFFClampDoubleToFloat(*v51);
+        v46 = v152;
+        v152 += 4;
+        *(a1 + 44) = _TIFFClampDoubleToFloat(*v46);
         goto LABEL_175;
       case 296:
-        v53 = v212;
-        v212 += 4;
-        v54 = *v53;
-        if (v54 - 4 < 0xFFFFFFFD)
+        v48 = v152;
+        v152 += 4;
+        v49 = *v48;
+        if (v49 - 4 < 0xFFFFFFFD)
         {
           goto LABEL_156;
         }
 
-        *(a1 + 168) = v54;
+        *(a1 + 84) = v49;
         goto LABEL_175;
       case 297:
-        v41 = v212;
-        v212 += 4;
-        *(a1 + 180) = *v41;
-        v212 = v41 + 8;
-        *(a1 + 182) = *(v41 + 2);
+        v36 = v152;
+        v152 += 4;
+        *(a1 + 90) = *v36;
+        v152 = v36 + 8;
+        *(a1 + 91) = *(v36 + 2);
         goto LABEL_175;
       case 301:
-        v69 = 0;
-        if (*(a1 + 130) - *(a1 + 212) <= 1)
+        v64 = 0;
+        if (*(a1 + 65) - *(a1 + 106) <= 1)
         {
-          v70 = 1;
+          v65 = 1;
         }
 
         else
         {
-          v70 = 3;
+          v65 = 3;
         }
 
-        v211 = v70;
-        v71 = (a1 + 344);
+        v151 = v65;
+        v66 = (a1 + 43);
         do
         {
-          v72 = v212;
-          v212 += 4;
-          v23 = 1;
-          setByteArray(v71, *v72, 1 << *(a1 + 116), 2, v8, v9, v10, v11);
-          ++v69;
-          ++v71;
+          v67 = v152;
+          v152 += 4;
+          v18 = 1;
+          setByteArray(v66, *v67, 1 << *(a1 + 58), 2);
+          ++v64;
+          ++v66;
         }
 
-        while (v69 < v211);
+        while (v64 < v151);
         goto LABEL_176;
       default:
         goto LABEL_138;
@@ -9351,330 +9304,329 @@ LABEL_103:
     goto LABEL_175;
   }
 
-  if (v15 > 340)
+  if (v10 > 340)
   {
-    if (v15 > 32995)
+    if (v10 > 32995)
     {
-      if (v15 <= 32997)
+      if (v10 <= 32997)
       {
-        if (v15 != 32996)
+        if (v10 != 32996)
         {
-          v40 = v212;
-          v212 += 4;
-          *(a1 + 96) = *v40;
+          v35 = v152;
+          v152 += 4;
+          *(a1 + 24) = *v35;
           goto LABEL_175;
         }
 
-        v101 = v212;
-        v212 += 4;
-        v102 = *v101;
-        if ((v102 & 0xFFFC) == 0)
+        v83 = v152;
+        v152 += 4;
+        v84 = *v83;
+        if ((v84 & 0xFFFC) == 0)
         {
-          *(a1 + 118) = 0x3000100020004uLL >> (16 * (v102 & 3u));
+          *(a1 + 59) = 0x3000100020004uLL >> (16 * (v84 & 3u));
           goto LABEL_175;
         }
 
         goto LABEL_156;
       }
 
-      if (v15 != 32998)
+      if (v10 != 32998)
       {
-        if (v15 != 33723)
+        if (v10 != 33723)
         {
-          if (v15 != 65563)
+          if (v10 != 65563)
           {
             goto LABEL_138;
           }
 
-          v31 = v212;
-          v212 += 4;
-          v32 = *v31;
-          v33 = *(a1 + 16);
-          if (v32 == 1)
+          v26 = v152;
+          v152 += 4;
+          v27 = *v26;
+          v28 = *(a1 + 4);
+          if (v27 == 1)
           {
-            v34 = v33 | 0x400000;
+            v29 = v28 | 0x400000;
           }
 
           else
           {
-            v34 = v33 & 0xFFBFFFFF;
+            v29 = v28 & 0xFFBFFFFF;
           }
 
 LABEL_174:
-          *(a1 + 16) = v34;
+          *(a1 + 4) = v29;
           goto LABEL_175;
         }
 
-        v109 = v212;
-        v212 += 4;
-        v26 = *v109;
-        *(a1 + 396) = v26;
-        v212 = v109 + 8;
-        p_src = *(v109 + 1);
-        v23 = 1;
-        v24 = (a1 + 400);
-        v86 = 1;
+        v91 = v152;
+        v152 += 4;
+        v21 = *v91;
+        *(a1 + 99) = v21;
+        v152 = v91 + 8;
+        p_src = *(v91 + 1);
+        v18 = 1;
+        v19 = a1 + 50;
+        v77 = 1;
 LABEL_128:
-        setByteArray(v24, p_src, v26, v86, v8, v9, v10, v11);
+        setByteArray(v19, p_src, v21, v77);
         goto LABEL_176;
       }
 
-      v113 = v212;
-      v212 += 4;
-      v114 = *v113;
-      if (!v114)
+      v95 = v152;
+      v152 += 4;
+      v96 = *v95;
+      if (!v96)
       {
 LABEL_146:
         TIFFFieldWithTag(a1, a2);
-        v132 = *a1;
 LABEL_157:
-        TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Bad value %u for %s tag", v127, v128, v129, v130, v131, v132);
+        TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Bad value %u for %s tag");
         return 0;
       }
 
-      *(a1 + 108) = v114;
+      *(a1 + 27) = v96;
     }
 
     else
     {
-      if (v15 > 530)
+      if (v10 > 530)
       {
-        if (v15 == 531)
+        if (v10 == 531)
         {
-          v112 = v212;
-          v212 += 4;
-          *(a1 + 340) = *v112;
+          v94 = v152;
+          v152 += 4;
+          *(a1 + 170) = *v94;
           goto LABEL_175;
         }
 
-        if (v15 == 532)
+        if (v10 == 532)
         {
-          v105 = v212;
-          v212 += 4;
-          v19 = *v105;
-          v21 = (a1 + 368);
-          v20 = 6;
-          v106 = 4;
+          v87 = v152;
+          v152 += 4;
+          v14 = *v87;
+          v16 = a1 + 46;
+          v15 = 6;
+          v88 = 4;
 LABEL_154:
-          setByteArray(v21, v19, v20, v106, v8, v9, v10, v11);
+          setByteArray(v16, v14, v15, v88);
           goto LABEL_175;
         }
 
-        if (v15 != 32995)
+        if (v10 != 32995)
         {
           goto LABEL_138;
         }
 
-        v22 = v212;
-        v212 += 4;
-        LODWORD(v22) = *v22;
-        *(a1 + 212) = v22 != 0;
-        v23 = 1;
-        if (!v22)
+        v17 = v152;
+        v152 += 4;
+        LODWORD(v17) = *v17;
+        *(a1 + 106) = v17 != 0;
+        v18 = 1;
+        if (!v17)
         {
           goto LABEL_176;
         }
 
         LOWORD(__src) = 1;
-        v24 = (a1 + 216);
+        v19 = a1 + 27;
         p_src = &__src;
-        v26 = 1;
+        v21 = 1;
 LABEL_105:
-        v86 = 2;
+        v77 = 2;
         goto LABEL_128;
       }
 
-      if (v15 == 341)
+      if (v10 == 341)
       {
         if ((*(a1 + 18) & 0x40) != 0)
         {
-          v133 = v212;
-          v212 += 4;
-          v19 = *v133;
-          v20 = *(a1 + 130);
-          v21 = (a1 + 152);
+          v104 = v152;
+          v152 += 4;
+          v14 = *v104;
+          v15 = *(a1 + 65);
+          v16 = a1 + 19;
           goto LABEL_153;
         }
 
-        v87 = v212;
-        v212 += 4;
-        v28 = *v87;
-        v29 = *(a1 + 130);
-        v30 = (a1 + 152);
+        v78 = v152;
+        v152 += 4;
+        v23 = *v78;
+        v24 = *(a1 + 65);
+        v25 = a1 + 19;
         goto LABEL_108;
       }
 
-      if (v15 != 530)
+      if (v10 != 530)
       {
         goto LABEL_138;
       }
 
-      v36 = v212;
-      v212 += 4;
-      *(a1 + 336) = *v36;
-      v212 = v36 + 8;
-      *(a1 + 338) = *(v36 + 2);
+      v31 = v152;
+      v152 += 4;
+      *(a1 + 168) = *v31;
+      v152 = v31 + 8;
+      *(a1 + 169) = *(v31 + 2);
     }
   }
 
   else
   {
-    if (v15 <= 332)
+    if (v10 <= 332)
     {
-      if (v15 > 321)
+      if (v10 > 321)
       {
-        if (v15 != 322)
+        if (v10 != 322)
         {
-          if (v15 != 323)
+          if (v10 != 323)
           {
-            if (v15 == 330)
+            if (v10 == 330)
             {
               if ((*(a1 + 17) & 0x20) == 0)
               {
-                v17 = v212;
-                v212 += 4;
-                v18 = *v17;
-                *(a1 + 320) = *v17;
-                v212 = v17 + 8;
-                v19 = *(v17 + 1);
-                v20 = v18;
-                v21 = (a1 + 328);
+                v12 = v152;
+                v152 += 4;
+                v13 = *v12;
+                *(a1 + 160) = *v12;
+                v152 = v12 + 8;
+                v14 = *(v12 + 1);
+                v15 = v13;
+                v16 = a1 + 41;
 LABEL_153:
-                v106 = 8;
+                v88 = 8;
                 goto LABEL_154;
               }
 
-              TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Sorry, cannot nest SubIFDs", v7, v8, v9, v10, v11, *a1);
+              TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Sorry, cannot nest SubIFDs");
               return 0;
             }
 
 LABEL_138:
             if (!*(v6 + 12))
             {
-              TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Ignored %stag %s (not supported by libtiff)", v7, v8, v9, v10, v11, *a1);
+              TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Ignored %stag %s (not supported by libtiff)");
               return 0;
             }
 
-            if (v14 != 65)
+            if (v9 != 65)
             {
-              TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Invalid %stag %s (not supported by codec)", v7, v8, v9, v10, v11, *a1);
+              TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Invalid %stag %s (not supported by codec)");
               return 0;
             }
 
-            v115 = *(a1 + 408);
-            v116 = *(a1 + 416);
-            if (v115 < 1)
+            v97 = *(a1 + 102);
+            v98 = a1[52];
+            if (v97 < 1)
             {
 LABEL_144:
-              v119 = v115 + 1;
-              *(a1 + 408) = v119;
-              v120 = malloc_type_realloc(v116, 24 * v119, 0x10E0040F5622EBCuLL);
-              if (!v120)
+              v101 = v97 + 1;
+              *(a1 + 102) = v101;
+              v102 = malloc_type_realloc(v98, 24 * v101, 0x10E0040F5622EBCuLL);
+              if (!v102)
               {
-                TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Failed to allocate space for list of custom values", v121, v122, v123, v124, v125, *a1);
+                TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Failed to allocate space for list of custom values");
                 return 0;
               }
 
-              *(a1 + 416) = v120;
-              v126 = &v120[24 * *(a1 + 408)];
-              *(v126 - 3) = v12;
-              v118 = v126 - 24;
-              *(v118 + 2) = 0;
-              *(v118 + 2) = 0;
+              a1[52] = v102;
+              v103 = &v102[24 * *(a1 + 102)];
+              *(v103 - 3) = v7;
+              v100 = v103 - 24;
+              *(v100 + 2) = 0;
+              *(v100 + 2) = 0;
             }
 
             else
             {
-              v117 = *(a1 + 408);
-              v118 = *(a1 + 416);
-              while (**v118 != a2)
+              v99 = *(a1 + 102);
+              v100 = a1[52];
+              while (**v100 != a2)
               {
-                v118 += 24;
-                if (!--v117)
+                v100 += 24;
+                if (!--v99)
                 {
                   goto LABEL_144;
                 }
               }
 
-              v142 = *(v118 + 2);
-              if (v142)
+              v109 = *(v100 + 2);
+              if (v109)
               {
-                free(v142);
-                *(v118 + 2) = 0;
+                free(v109);
+                *(v100 + 2) = 0;
               }
             }
 
-            Size = TIFFFieldSetGetSize(v12);
+            Size = TIFFFieldSetGetSize(v7);
             if (!Size)
             {
-              TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Bad field type %d for %s", v144, v145, v146, v147, v148, *a1);
+              TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Bad field type %d for %s");
               return 0;
             }
 
-            if (*(v12 + 8) == 2)
+            if (*(v7 + 8) == 2)
             {
-              if (*(v12 + 27))
+              if (*(v7 + 27))
               {
-                if (*(v12 + 6) != -3)
+                if (*(v7 + 6) != -3)
                 {
                   _TIFFVSetField_cold_3();
                 }
 
-                v149 = v212;
-                v212 += 4;
-                v150 = *v149;
-                v212 = v149 + 8;
-                v151 = *(v149 + 1);
+                v111 = v152;
+                v152 += 4;
+                v112 = *v111;
+                v152 = v111 + 8;
+                v113 = *(v111 + 1);
               }
 
               else
               {
-                v156 = v212;
-                v212 += 4;
-                v151 = *v156;
-                v157 = strlen(*v156);
-                v150 = v157 + 1;
-                if ((v157 + 1) >> 31)
+                v118 = v152;
+                v152 += 4;
+                v113 = *v118;
+                v119 = strlen(*v118);
+                v112 = v119 + 1;
+                if ((v119 + 1) >> 31)
                 {
-                  TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Too long string value for %s. Maximum supported is 2147483647 bytes", v158, v145, v146, v147, v148, *a1);
+                  TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Too long string value for %s. Maximum supported is 2147483647 bytes");
                   return 0;
                 }
               }
 
-              *(v118 + 2) = v150;
-              setByteArray(v118 + 2, v151, v150, 1, v145, v146, v147, v148);
-              v23 = 1;
+              *(v100 + 2) = v112;
+              setByteArray(v100 + 2, v113, v112, 1);
+              v18 = 1;
               goto LABEL_176;
             }
 
-            v152 = Size;
-            v153 = *(v12 + 6);
-            v154 = *(v12 + 6);
-            if (*(v12 + 27))
+            v114 = Size;
+            v115 = *(v7 + 6);
+            v116 = *(v7 + 6);
+            if (*(v7 + 27))
             {
-              v155 = v212;
-              v212 += 4;
-              v153 = *v155;
+              v117 = v152;
+              v152 += 4;
+              v115 = *v117;
               goto LABEL_195;
             }
 
-            if (v154 != 0xFFFF)
+            if (v116 != 0xFFFF)
             {
-              if (v154 == 65534)
+              if (v116 == 65534)
               {
-                v153 = *(a1 + 130);
+                v115 = *(a1 + 65);
               }
 
-              else if (v154 == 65533)
+              else if (v116 == 65533)
               {
                 goto LABEL_202;
               }
 
 LABEL_195:
-              *(v118 + 2) = v153;
-              if (!v153)
+              *(v100 + 2) = v115;
+              if (!v115)
               {
-                TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Null count for %s (type %d, writecount %d, passcount %d)", v144, v145, v146, v147, v148, *a1);
+                TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Null count for %s (type %d, writecount %d, passcount %d)");
                 return 0;
               }
 
@@ -9682,308 +9634,308 @@ LABEL_195:
             }
 
 LABEL_202:
-            v153 = 1;
-            *(v118 + 2) = 1;
+            v115 = 1;
+            *(v100 + 2) = 1;
 LABEL_203:
-            v159 = _TIFFCheckMalloc(a1, v153, Size, "custom tag binary object", v145, v146, v147, v148);
-            *(v118 + 2) = v159;
-            if (v159)
+            v120 = _TIFFCheckMalloc(a1, v115, Size, "custom tag binary object");
+            *(v100 + 2) = v120;
+            if (v120)
             {
-              v160 = v159;
-              if (*v12 == 336 && !strcmp(*(v12 + 32), "DotRange"))
+              v121 = v120;
+              if (*v7 == 336 && !strcmp(*(v7 + 32), "DotRange"))
               {
-                v171 = v212;
-                v212 += 4;
-                LOWORD(__src) = *v171;
-                v212 = v171 + 8;
-                WORD1(__src) = *(v171 + 2);
-                v172 = *(v118 + 2);
-                v173 = 4;
+                v127 = v152;
+                v152 += 4;
+                LOWORD(__src) = *v127;
+                v152 = v127 + 8;
+                WORD1(__src) = *(v127 + 2);
+                v128 = *(v100 + 2);
+                v129 = 4;
 LABEL_250:
-                _TIFFmemcpy(v172, &__src, v173);
+                _TIFFmemcpy(v128, &__src, v129);
                 goto LABEL_175;
               }
 
-              if (*(v12 + 27) || *(v12 + 6) > 0xFFFCu || (v161 = *(v118 + 2), v161 >= 2))
+              if (*(v7 + 27) || *(v7 + 6) > 0xFFFCu || (v122 = *(v100 + 2), v122 >= 2))
               {
-                v162 = v212;
-                v212 += 4;
-                _TIFFmemcpy(v160, *v162, *(v118 + 2) * v152);
+                v123 = v152;
+                v152 += 4;
+                _TIFFmemcpy(v121, *v123, *(v100 + 2) * v114);
                 if ((*(a1 + 18) & 8) != 0)
                 {
                   goto LABEL_175;
                 }
 
-                v168 = *(*v118 + 8);
-                if (v168 == 17)
+                v124 = *(*v100 + 8);
+                if (v124 == 17)
                 {
-                  v174 = *(v118 + 2);
-                  if (v174 < 1)
+                  v130 = *(v100 + 2);
+                  if (v130 < 1)
                   {
                     goto LABEL_175;
                   }
 
-                  v175 = 0;
+                  v131 = 0;
                   while (1)
                   {
-                    v176 = *(*(v118 + 2) + 8 * v175);
-                    if (v176 != v176)
+                    v132 = *(*(v100 + 2) + 8 * v131);
+                    if (v132 != v132)
                     {
                       break;
                     }
 
-                    ++v175;
-                    v23 = 1;
-                    if (v174 == v175)
+                    ++v131;
+                    v18 = 1;
+                    if (v130 == v131)
                     {
                       goto LABEL_176;
                     }
                   }
 
-                  TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Bad SLONG8 value %lli at %d. array position for %s tag %d in ClassicTIFF. Tag won't be written to file", v163, v164, v165, v166, v167, *a1);
+                  TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Bad SLONG8 value %lli at %d. array position for %s tag %d in ClassicTIFF. Tag won't be written to file");
                 }
 
                 else
                 {
-                  if (v168 != 16)
+                  if (v124 != 16)
                   {
                     goto LABEL_175;
                   }
 
-                  v169 = *(v118 + 2);
-                  if (v169 < 1)
+                  v125 = *(v100 + 2);
+                  if (v125 < 1)
                   {
                     goto LABEL_175;
                   }
 
-                  v170 = 0;
-                  while (!HIDWORD(*(*(v118 + 2) + 8 * v170)))
+                  v126 = 0;
+                  while (!HIDWORD(*(*(v100 + 2) + 8 * v126)))
                   {
-                    ++v170;
-                    v23 = 1;
-                    if (v169 == v170)
+                    ++v126;
+                    v18 = 1;
+                    if (v125 == v126)
                     {
                       goto LABEL_176;
                     }
                   }
 
-                  TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Bad LONG8 value %llu at %d. array position for %s tag %d in ClassicTIFF. Tag won't be written to file", v163, v164, v165, v166, v167, *a1);
+                  TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Bad LONG8 value %llu at %d. array position for %s tag %d in ClassicTIFF. Tag won't be written to file");
                 }
               }
 
               else
               {
-                if (v161 != 1)
+                if (v122 != 1)
                 {
                   _TIFFVSetField_cold_1();
                 }
 
-                switch(*(v12 + 8))
+                switch(*(v7 + 8))
                 {
                   case 1:
                   case 6:
                   case 7:
-                    v177 = v212;
-                    v212 += 4;
-                    LOBYTE(__src) = *v177;
+                    v133 = v152;
+                    v152 += 4;
+                    LOBYTE(__src) = *v133;
                     goto LABEL_249;
                   case 3:
                   case 8:
-                    v194 = v212;
-                    v212 += 4;
-                    LOWORD(__src) = *v194;
+                    v145 = v152;
+                    v152 += 4;
+                    LOWORD(__src) = *v145;
                     goto LABEL_249;
                   case 4:
                   case 9:
                   case 0xD:
-                    v186 = v212;
-                    v212 += 4;
-                    LODWORD(__src) = *v186;
+                    v142 = v152;
+                    v152 += 4;
+                    LODWORD(__src) = *v142;
                     goto LABEL_249;
                   case 5:
                   case 0xA:
-                    if (v152 == 8)
+                    if (v114 == 8)
                     {
                       goto LABEL_243;
                     }
 
-                    v196 = v212;
-                    v212 += 4;
-                    v197 = *v196;
-                    *&__src = v197;
-                    _TIFFmemcpy(v160, &__src, v152);
-                    if (v152 != 4)
+                    v147 = v152;
+                    v152 += 4;
+                    v148 = *v147;
+                    *&__src = v148;
+                    _TIFFmemcpy(v121, &__src, v114);
+                    if (v114 != 4)
                     {
-                      TIFFErrorExtR(a1, "_TIFFVSetField", "Rational2Double: .set_field_type in not 4 but %d", v198, v199, v200, v201, v202, v152);
+                      TIFFErrorExtR(a1, "_TIFFVSetField", "Rational2Double: .set_field_type in not 4 but %d");
                     }
 
                     goto LABEL_175;
                   case 0xB:
-                    v195 = v212;
-                    v212 += 4;
-                    LODWORD(__src) = _TIFFClampDoubleToFloat(*v195);
+                    v146 = v152;
+                    v152 += 4;
+                    LODWORD(__src) = _TIFFClampDoubleToFloat(*v146);
                     goto LABEL_249;
                   case 0xC:
 LABEL_243:
-                    v187 = v212;
-                    v212 += 4;
-                    __src = *v187;
+                    v143 = v152;
+                    v152 += 4;
+                    __src = *v143;
 LABEL_249:
-                    v172 = v160;
-                    v173 = v152;
+                    v128 = v121;
+                    v129 = v114;
                     goto LABEL_250;
                   case 0x10:
                   case 0x12:
-                    v188 = v212;
-                    v212 += 4;
-                    __src = *v188;
-                    _TIFFmemcpy(v160, &__src, v152);
+                    v144 = v152;
+                    v152 += 4;
+                    __src = *v144;
+                    _TIFFmemcpy(v121, &__src, v114);
                     if ((*(a1 + 18) & 8) != 0 || !HIDWORD(__src))
                     {
                       goto LABEL_175;
                     }
 
-                    TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Bad LONG8 or IFD8 value %llu for %s tag %d in ClassicTIFF. Tag won't be written to file", v189, v190, v191, v192, v193, *a1);
+                    TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Bad LONG8 or IFD8 value %llu for %s tag %d in ClassicTIFF. Tag won't be written to file");
                     break;
                   case 0x11:
-                    v203 = v212;
-                    v212 += 4;
-                    __src = *v203;
-                    _TIFFmemcpy(v160, &__src, v152);
+                    v149 = v152;
+                    v152 += 4;
+                    __src = *v149;
+                    _TIFFmemcpy(v121, &__src, v114);
                     if ((*(a1 + 18) & 8) != 0 || __src == __src)
                     {
                       goto LABEL_175;
                     }
 
-                    TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Bad SLONG8 value %lli for %s tag %d in ClassicTIFF. Tag won't be written to file", v204, v205, v206, v207, v208, *a1);
+                    TIFFErrorExtR(a1, "_TIFFVSetField", "%s: Bad SLONG8 value %lli for %s tag %d in ClassicTIFF. Tag won't be written to file");
                     break;
                   default:
-                    _TIFFmemset(v160, 0, v152);
+                    _TIFFmemset(v121, 0, v114);
                     return 0;
                 }
               }
 
-              v178 = *(a1 + 408);
-              if (v178 < 1)
+              v134 = *(a1 + 102);
+              if (v134 < 1)
               {
 LABEL_234:
                 _TIFFVSetField_cold_2();
               }
 
-              v179 = 0;
-              v180 = *(a1 + 416);
-              v181 = 16;
-              while (**(v180 + v181 - 16) != a2)
+              v135 = 0;
+              v136 = a1[52];
+              v137 = 16;
+              while (**&v136[v137 - 16] != a2)
               {
-                ++v179;
-                v181 += 24;
-                if (v178 == v179)
+                ++v135;
+                v137 += 24;
+                if (v134 == v135)
                 {
                   goto LABEL_234;
                 }
               }
 
-              v182 = *(v180 + v181);
-              if (v182)
+              v138 = *&v136[v137];
+              if (v138)
               {
-                free(v182);
-                *(v180 + v181) = 0;
-                LODWORD(v178) = *(a1 + 408);
+                free(v138);
+                *&v136[v137] = 0;
+                LODWORD(v134) = *(a1 + 102);
               }
 
-              v183 = v178 - 1;
-              *(a1 + 408) = v183;
-              if (v183 > v179)
+              v139 = v134 - 1;
+              *(a1 + 102) = v139;
+              if (v139 > v135)
               {
-                v184 = v181 - 16;
+                v140 = v137 - 16;
                 do
                 {
-                  v23 = 0;
-                  v185 = *(a1 + 416) + v184;
-                  ++v179;
-                  *v185 = *(v185 + 24);
-                  *(v185 + 16) = *(v185 + 40);
-                  v184 += 24;
+                  v18 = 0;
+                  v141 = &a1[52][v140];
+                  ++v135;
+                  *v141 = *(v141 + 24);
+                  *(v141 + 2) = *(v141 + 5);
+                  v140 += 24;
                 }
 
-                while (v179 < *(a1 + 408));
-                return v23;
+                while (v135 < *(a1 + 102));
+                return v18;
               }
             }
 
             return 0;
           }
 
-          v103 = v212;
-          v212 += 4;
-          v104 = *v103;
-          if ((*v103 & 0xF) == 0)
+          v85 = v152;
+          v152 += 4;
+          v86 = *v85;
+          if ((*v85 & 0xF) == 0)
           {
             goto LABEL_117;
           }
 
-          if (!*(a1 + 12))
+          if (!*(a1 + 3))
           {
-            TIFFWarningExtR(a1, *a1, "Nonstandard tile length %u, convert file", v7, v8, v9, v10, v11, v104);
+            TIFFWarningExtR(a1, *a1, "Nonstandard tile length %u, convert file", v86);
 LABEL_117:
-            *(a1 + 104) = v104;
+            *(a1 + 26) = v86;
 LABEL_173:
-            v34 = *(a1 + 16) | 0x400;
+            v29 = *(a1 + 4) | 0x400;
             goto LABEL_174;
           }
 
           goto LABEL_146;
         }
 
-        v110 = v212;
-        v212 += 4;
-        v111 = *v110;
-        if ((*v110 & 0xF) != 0)
+        v92 = v152;
+        v152 += 4;
+        v93 = *v92;
+        if ((*v92 & 0xF) != 0)
         {
-          if (*(a1 + 12))
+          if (*(a1 + 3))
           {
             goto LABEL_146;
           }
 
-          TIFFWarningExtR(a1, *a1, "Nonstandard tile width %u, convert file", v7, v8, v9, v10, v11, v111);
+          TIFFWarningExtR(a1, *a1, "Nonstandard tile width %u, convert file", v93);
         }
 
-        *(a1 + 100) = v111;
+        *(a1 + 25) = v93;
         goto LABEL_173;
       }
 
-      if (v15 != 320)
+      if (v10 != 320)
       {
-        v35 = v212;
-        v212 += 4;
-        *(a1 + 208) = *v35;
-        v212 = v35 + 8;
-        *(a1 + 210) = *(v35 + 2);
+        v30 = v152;
+        v152 += 4;
+        *(a1 + 104) = *v30;
+        v152 = v30 + 8;
+        *(a1 + 105) = *(v30 + 2);
         goto LABEL_175;
       }
 
-      v23 = 1;
-      v77 = 1 << *(a1 + 116);
-      v78 = v212;
-      v212 += 4;
-      v79 = v77;
-      setByteArray((a1 + 184), *v78, v77, 2, v8, v9, v10, v11);
-      v80 = v212;
-      v212 += 4;
-      setByteArray((a1 + 192), *v80, v79, 2, v81, v82, v83, v84);
-      v85 = v212;
-      v212 += 4;
-      p_src = *v85;
-      v24 = (a1 + 200);
-      v26 = v79;
+      v18 = 1;
+      v72 = 1 << *(a1 + 58);
+      v73 = v152;
+      v152 += 4;
+      v74 = v72;
+      setByteArray(a1 + 23, *v73, v72, 2);
+      v75 = v152;
+      v152 += 4;
+      setByteArray(a1 + 24, *v75, v74, 2);
+      v76 = v152;
+      v152 += 4;
+      p_src = *v76;
+      v19 = a1 + 25;
+      v21 = v74;
       goto LABEL_105;
     }
 
-    if (v15 > 337)
+    if (v10 > 337)
     {
-      if (v15 == 338)
+      if (v10 == 338)
       {
-        if (setExtraSamples(a1, a3, &v211, v7, v8, v9, v10, v11))
+        if (setExtraSamples(a1, a3, &v151))
         {
           goto LABEL_175;
         }
@@ -9991,139 +9943,139 @@ LABEL_173:
 
       else
       {
-        if (v15 != 339)
+        if (v10 != 339)
         {
           if ((*(a1 + 18) & 0x40) != 0)
           {
-            v134 = v212;
-            v212 += 4;
-            v19 = *v134;
-            v20 = *(a1 + 130);
-            v21 = (a1 + 144);
+            v105 = v152;
+            v152 += 4;
+            v14 = *v105;
+            v15 = *(a1 + 65);
+            v16 = a1 + 18;
             goto LABEL_153;
           }
 
-          v27 = v212;
-          v212 += 4;
-          v28 = *v27;
-          v29 = *(a1 + 130);
-          v30 = (a1 + 144);
+          v22 = v152;
+          v152 += 4;
+          v23 = *v22;
+          v24 = *(a1 + 65);
+          v25 = a1 + 18;
 LABEL_108:
-          setDoubleArrayOneValue(v30, v29, v28);
+          setDoubleArrayOneValue(v25, v24, v23);
           goto LABEL_175;
         }
 
-        v107 = v212;
-        v212 += 4;
-        v108 = *v107;
-        if (v108 - 7 >= 0xFFFFFFFA)
+        v89 = v152;
+        v152 += 4;
+        v90 = *v89;
+        if (v90 - 7 >= 0xFFFFFFFA)
         {
-          *(a1 + 118) = v108;
-          if (v108 == 5 && *(a1 + 116) == 32 && *(a1 + 1248) == _TIFFSwab32BitData)
+          *(a1 + 59) = v90;
+          if (v90 == 5 && *(a1 + 58) == 32 && a1[156] == _TIFFSwab32BitData)
           {
 LABEL_180:
-            v48 = _TIFFSwab16BitData;
+            v43 = _TIFFSwab16BitData;
           }
 
           else
           {
-            if (v108 - 5 > 1 || *(a1 + 116) != 64 || *(a1 + 1248) != _TIFFSwab64BitData)
+            if (v90 - 5 > 1 || *(a1 + 58) != 64 || a1[156] != _TIFFSwab64BitData)
             {
               goto LABEL_175;
             }
 
 LABEL_181:
-            v48 = _TIFFSwab32BitData;
+            v43 = _TIFFSwab32BitData;
           }
 
 LABEL_192:
-          *(a1 + 1248) = v48;
+          a1[156] = v43;
           goto LABEL_175;
         }
       }
 
 LABEL_156:
       TIFFFieldWithTag(a1, a2);
-      v132 = *a1;
       goto LABEL_157;
     }
 
-    if (v15 == 333)
+    if (v10 == 333)
     {
-      v88 = v212;
-      v212 += 4;
-      v89 = *v88;
-      v211 = *v88;
-      v212 = v88 + 8;
-      v90 = *(v88 + 1);
-      v23 = countInkNamesString(a1, v89, v90, v7, v8, v9, v10, v11);
-      if (!v23)
+      v79 = v152;
+      v152 += 4;
+      v80 = *v79;
+      v151 = *v79;
+      v152 = v79 + 8;
+      v81 = *(v79 + 1);
+      v18 = countInkNamesString(a1, v80, v81);
+      if (!v18)
       {
-        return v23;
+        return v18;
       }
 
-      setByteArray((a1 + 384), v90, v89, 1, v91, v92, v93, v94);
-      *(a1 + 376) = v211;
-      v100 = *(a1 + 76);
-      if ((v100 & 0x40000) != 0)
+      setByteArray(a1 + 48, v81, v80, 1);
+      *(a1 + 94) = v151;
+      v82 = *(a1 + 19);
+      if ((v82 & 0x40000) != 0)
       {
-        if (*(a1 + 392) != v23)
+        v106 = *(a1 + 196);
+        if (v106 != v18)
         {
-          TIFFErrorExtR(a1, "_TIFFVSetField", "Warning %s; Tag %s:\n  Value %hu of NumberOfInks is different from the number of inks %hu.\n  -> NumberOfInks value adapted to %hu", v95, v96, v97, v98, v99, *a1);
-          *(a1 + 392) = v23;
+          TIFFErrorExtR(a1, "_TIFFVSetField", "Warning %s; Tag %s:\n  Value %hu of NumberOfInks is different from the number of inks %hu.\n  -> NumberOfInks value adapted to %hu", *a1, *(v7 + 32), v106, v18, v18);
+          *(a1 + 196) = v18;
         }
       }
 
       else
       {
-        *(a1 + 392) = v23;
-        *(a1 + 76) = v100 | 0x40000;
+        *(a1 + 196) = v18;
+        *(a1 + 19) = v82 | 0x40000;
       }
 
-      if ((*(a1 + 74) & 1) != 0 && v23 != *(a1 + 130))
+      if ((*(a1 + 74) & 1) != 0 && v18 != *(a1 + 65))
       {
-        TIFFErrorExtR(a1, "_TIFFVSetField", "Warning %s; Tag %s:\n  Value %hu of NumberOfInks is different from the SamplesPerPixel value %hu", v95, v96, v97, v98, v99, *a1);
+        TIFFErrorExtR(a1, "_TIFFVSetField", "Warning %s; Tag %s:\n  Value %hu of NumberOfInks is different from the SamplesPerPixel value %hu");
       }
 
       goto LABEL_175;
     }
 
-    if (v15 != 334)
+    if (v10 != 334)
     {
       goto LABEL_138;
     }
 
-    v37 = v212;
-    v212 += 4;
-    v38 = *v37;
-    v39 = *v37;
+    v32 = v152;
+    v152 += 4;
+    v33 = *v32;
+    v34 = *v32;
     if ((*(a1 + 77) & 0x40) == 0)
     {
-      *(a1 + 392) = v38;
-      if ((*(a1 + 74) & 1) != 0 && v39 != *(a1 + 130))
+      *(a1 + 196) = v33;
+      if ((*(a1 + 74) & 1) != 0 && v34 != *(a1 + 65))
       {
-        TIFFErrorExtR(a1, "_TIFFVSetField", "Warning %s; Tag %s:\n  Value %u of NumberOfInks is different from the SamplesPerPixel value %hu", v7, v8, v9, v10, v11, *a1);
+        TIFFErrorExtR(a1, "_TIFFVSetField", "Warning %s; Tag %s:\n  Value %u of NumberOfInks is different from the SamplesPerPixel value %hu");
       }
 
       goto LABEL_175;
     }
 
-    if (v39 != *(a1 + 392))
+    if (v34 != *(a1 + 196))
     {
-      TIFFErrorExtR(a1, "_TIFFVSetField", "Error %s; Tag %s:\n  It is not possible to set the value %u for NumberOfInks\n  which is different from the number of inks in the InkNames tag (%hu)", v7, v8, v9, v10, v11, *a1);
+      TIFFErrorExtR(a1, "_TIFFVSetField", "Error %s; Tag %s:\n  It is not possible to set the value %u for NumberOfInks\n  which is different from the number of inks in the InkNames tag (%hu)");
       return 0;
     }
   }
 
 LABEL_175:
-  v23 = 1;
+  v18 = 1;
 LABEL_176:
-  v140 = TIFFFieldWithTag(a1, a2);
-  if (v140)
+  v107 = TIFFFieldWithTag(a1, a2);
+  if (v107)
   {
-    *&v13[(*(v140 + 12) >> 3) & 0x1FFC] |= 1 << *(v140 + 12);
+    *(v8 + ((*(v107 + 12) >> 3) & 0x1FFC)) |= 1 << *(v107 + 12);
   }
 
-  *(a1 + 16) |= 8u;
-  return v23;
+  *(a1 + 4) |= 8u;
+  return v18;
 }

@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (STStatusItemsStatusDomainStatusItemAttribution)initWithCoder:(id)coder;
 - (STStatusItemsStatusDomainStatusItemAttribution)initWithStatusItemIdentifier:(id)identifier activityAttribution:(id)attribution;
+- (id)_descriptionBuilderWithMultilinePrefix:(id)prefix forDebug:(BOOL)debug;
 - (id)debugDescriptionWithMultilinePrefix:(id)prefix;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
 - (id)succinctDescription;
@@ -93,6 +94,25 @@
   build = [v3 build];
 
   return build;
+}
+
+- (id)_descriptionBuilderWithMultilinePrefix:(id)prefix forDebug:(BOOL)debug
+{
+  debugCopy = debug;
+  prefixCopy = prefix;
+  succinctDescriptionBuilder = [(STStatusItemsStatusDomainStatusItemAttribution *)self succinctDescriptionBuilder];
+  [succinctDescriptionBuilder setUseDebugDescription:debugCopy];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __98__STStatusItemsStatusDomainStatusItemAttribution__descriptionBuilderWithMultilinePrefix_forDebug___block_invoke;
+  v11[3] = &unk_1E85DDD00;
+  v8 = succinctDescriptionBuilder;
+  v12 = v8;
+  selfCopy = self;
+  [v8 appendBodySectionWithName:0 multilinePrefix:prefixCopy block:v11];
+
+  v9 = v8;
+  return v8;
 }
 
 void __98__STStatusItemsStatusDomainStatusItemAttribution__descriptionBuilderWithMultilinePrefix_forDebug___block_invoke(uint64_t a1)

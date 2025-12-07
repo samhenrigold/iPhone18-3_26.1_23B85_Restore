@@ -126,7 +126,6 @@
   *&v4 = MEMORY[0x277D82BD8](centerXAnchor).n128_u64[0];
   [MEMORY[0x277CCAAD0] activateConstraints:{v19[0], v4}];
   objc_storeStrong(v19, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)layoutSubviews

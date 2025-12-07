@@ -51,11 +51,8 @@
 - (void)applyBinding:(id)binding atIndex:(int *)index
 {
   bindingCopy = binding;
-  value = self->_value;
   objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v8 = self->_value;
-  if (isKindOfClass)
+  if (objc_opt_isKindOfClass())
   {
     [bindingCopy bindString:self->_value atPosition:*index];
   }
@@ -63,9 +60,7 @@
   else
   {
     objc_opt_class();
-    v9 = objc_opt_isKindOfClass();
-    v10 = self->_value;
-    if (v9)
+    if (objc_opt_isKindOfClass())
     {
       [bindingCopy bindNumber:self->_value atPosition:*index];
     }

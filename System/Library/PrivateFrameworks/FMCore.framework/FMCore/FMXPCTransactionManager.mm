@@ -27,22 +27,22 @@
   return v3;
 }
 
-void __41__FMXPCTransactionManager_sharedInstance__block_invoke()
+void __41__FMXPCTransactionManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = LogCategory_Unspecified();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = LogCategory_Unspecified(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    __41__FMXPCTransactionManager_sharedInstance__block_invoke_cold_1(v0);
+    __41__FMXPCTransactionManager_sharedInstance__block_invoke_cold_1(v1);
   }
 
-  v1 = [[FMXPCTransactionManager alloc] initSingleton];
-  v2 = _instance;
-  _instance = v1;
+  v2 = [[FMXPCTransactionManager alloc] initSingleton];
+  v3 = _instance;
+  _instance = v2;
 }
 
 - (FMXPCTransactionManager)init
 {
-  v3 = LogCategory_Unspecified();
+  v3 = LogCategory_Unspecified(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [(FMXPCTransactionManager *)v3 init];
@@ -53,25 +53,26 @@ void __41__FMXPCTransactionManager_sharedInstance__block_invoke()
 
 - (id)initSingleton
 {
-  v7.receiver = self;
-  v7.super_class = FMXPCTransactionManager;
-  v2 = [(FMXPCTransactionManager *)&v7 init];
+  v8.receiver = self;
+  v8.super_class = FMXPCTransactionManager;
+  v2 = [(FMXPCTransactionManager *)&v8 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = LogCategory_Unspecified(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      [(FMXPCTransactionManager *)v3 initSingleton];
+      [(FMXPCTransactionManager *)v4 initSingleton];
     }
 
-    v4 = dispatch_queue_create("com.apple.icloud.fmcore.xpcTransactionManagementQueue", 0);
-    [(FMXPCTransactionManager *)v2 setTxn_ops_queue:v4];
+    v5 = dispatch_queue_create("com.apple.icloud.fmcore.xpcTransactionManagementQueue", 0);
+    [(FMXPCTransactionManager *)v3 setTxn_ops_queue:v5];
 
-    v5 = [MEMORY[0x277CCA940] set];
-    [(FMXPCTransactionManager *)v2 setActiveTransactions:v5];
+    v6 = [MEMORY[0x277CCA940] set];
+    [(FMXPCTransactionManager *)v3 setActiveTransactions:v6];
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)setLaunchOnRebootActivity:(id)activity keepAliveActivity:(id)aliveActivity
@@ -85,13 +86,11 @@ void __41__FMXPCTransactionManager_sharedInstance__block_invoke()
 
 - (void)dealloc
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   fm_logID = [self fm_logID];
-  v5 = 138412290;
-  v6 = fm_logID;
-  _os_log_debug_impl(&dword_24A2EE000, a2, OS_LOG_TYPE_DEBUG, "%@ deallocating...", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = fm_logID;
+  _os_log_debug_impl(&dword_24A2EE000, a2, OS_LOG_TYPE_DEBUG, "%@ deallocating...", &v4, 0xCu);
 }
 
 - (void)beginTransaction:(id)transaction
@@ -111,7 +110,7 @@ void __41__FMXPCTransactionManager_sharedInstance__block_invoke()
 void __44__FMXPCTransactionManager_beginTransaction___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
-  v2 = LogCategory_Unspecified();
+  v2 = LogCategory_Unspecified(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -134,16 +133,14 @@ void __44__FMXPCTransactionManager_beginTransaction___block_invoke(uint64_t a1)
   v7 = [*(a1 + 40) activeTransactions];
   [v7 addObject:*(a1 + 32)];
 
-  v8 = LogCategory_Unspecified();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = LogCategory_Unspecified(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = [*(a1 + 40) activeTransactions];
+    v10 = [*(a1 + 40) activeTransactions];
     v11 = 138412290;
-    v12 = v9;
-    _os_log_impl(&dword_24A2EE000, v8, OS_LOG_TYPE_INFO, "Active transactions : %@", &v11, 0xCu);
+    v12 = v10;
+    _os_log_impl(&dword_24A2EE000, v9, OS_LOG_TYPE_INFO, "Active transactions : %@", &v11, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endTransaction:(id)transaction
@@ -162,53 +159,51 @@ void __44__FMXPCTransactionManager_beginTransaction___block_invoke(uint64_t a1)
 
 void __42__FMXPCTransactionManager_endTransaction___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) activeTransactions];
   v3 = [v2 countForObject:*(a1 + 40)];
 
-  v4 = LogCategory_Unspecified();
-  v5 = v4;
+  v5 = LogCategory_Unspecified(v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-    {
-      v6 = *(a1 + 40);
-      v13 = 138412290;
-      v14 = v6;
-      _os_log_impl(&dword_24A2EE000, v5, OS_LOG_TYPE_INFO, "Ending xpc transaction %@", &v13, 0xCu);
-    }
-
-    v7 = [*(a1 + 32) activeTransactions];
-    [v7 removeObject:*(a1 + 40)];
-
-    v8 = [*(a1 + 32) activeTransactions];
-    v9 = [v8 count];
-
-    if (!v9)
-    {
-      [*(a1 + 32) _disableKeepAlive];
-      [*(a1 + 32) setMasterTransaction:0];
-    }
-
-    v5 = LogCategory_Unspecified();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v10 = [*(a1 + 32) activeTransactions];
-      v13 = 138412290;
-      v14 = v10;
-      _os_log_impl(&dword_24A2EE000, v5, OS_LOG_TYPE_INFO, "Active transactions : %@", &v13, 0xCu);
+      v7 = *(a1 + 40);
+      v14 = 138412290;
+      v15 = v7;
+      _os_log_impl(&dword_24A2EE000, v6, OS_LOG_TYPE_INFO, "Ending xpc transaction %@", &v14, 0xCu);
+    }
+
+    v8 = [*(a1 + 32) activeTransactions];
+    [v8 removeObject:*(a1 + 40)];
+
+    v9 = [*(a1 + 32) activeTransactions];
+    v10 = [v9 count];
+
+    if (!v10)
+    {
+      [*(a1 + 32) _disableKeepAlive];
+      v11 = [*(a1 + 32) setMasterTransaction:0];
+    }
+
+    v6 = LogCategory_Unspecified(v11);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    {
+      v12 = [*(a1 + 32) activeTransactions];
+      v14 = 138412290;
+      v15 = v12;
+      _os_log_impl(&dword_24A2EE000, v6, OS_LOG_TYPE_INFO, "Active transactions : %@", &v14, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *(a1 + 40);
-    v13 = 138412290;
-    v14 = v11;
-    _os_log_impl(&dword_24A2EE000, v5, OS_LOG_TYPE_DEFAULT, "Trying to end xpc transaction %@ too many times", &v13, 0xCu);
+    v13 = *(a1 + 40);
+    v14 = 138412290;
+    v15 = v13;
+    _os_log_impl(&dword_24A2EE000, v6, OS_LOG_TYPE_DEFAULT, "Trying to end xpc transaction %@ too many times", &v14, 0xCu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dumpActiveTransactions
@@ -249,67 +244,67 @@ void __49__FMXPCTransactionManager_dumpActiveTransactions__block_invoke(uint64_t
 
   if (keepAliveActivityIdentifier)
   {
-    v4 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = LogCategory_Unspecified(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_24A2EE000, v4, OS_LOG_TYPE_INFO, "Registering keep-alive-on-dirty XPC activity", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_24A2EE000, v5, OS_LOG_TYPE_INFO, "Registering keep-alive-on-dirty XPC activity", v9, 2u);
     }
 
-    v5 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_string(v5, *MEMORY[0x277D86340], *MEMORY[0x277D86350]);
-    xpc_dictionary_set_BOOL(v5, *MEMORY[0x277D86360], 1);
-    xpc_dictionary_set_int64(v5, *MEMORY[0x277D86288], 600);
-    xpc_dictionary_set_BOOL(v5, *MEMORY[0x277D86230], 1);
-    xpc_dictionary_set_BOOL(v5, *MEMORY[0x277D86330], 1);
-    xpc_dictionary_set_int64(v5, *MEMORY[0x277D86250], 600);
-    xpc_dictionary_set_int64(v5, *MEMORY[0x277D86270], 60);
+    v6 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_string(v6, *MEMORY[0x277D86340], *MEMORY[0x277D86350]);
+    xpc_dictionary_set_BOOL(v6, *MEMORY[0x277D86360], 1);
+    xpc_dictionary_set_int64(v6, *MEMORY[0x277D86288], 600);
+    xpc_dictionary_set_BOOL(v6, *MEMORY[0x277D86230], 1);
+    xpc_dictionary_set_BOOL(v6, *MEMORY[0x277D86330], 1);
+    xpc_dictionary_set_int64(v6, *MEMORY[0x277D86250], 600);
+    xpc_dictionary_set_int64(v6, *MEMORY[0x277D86270], 60);
     keepAliveActivityIdentifier2 = [(FMXPCTransactionManager *)self keepAliveActivityIdentifier];
-    v7 = [keepAliveActivityIdentifier2 cStringUsingEncoding:4];
+    v8 = [keepAliveActivityIdentifier2 cStringUsingEncoding:4];
 
-    xpc_activity_register(v7, v5, &__block_literal_global_7);
+    xpc_activity_register(v8, v6, &__block_literal_global_7);
   }
 }
 
 void __43__FMXPCTransactionManager__enableKeepAlive__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = a2;
   state = xpc_activity_get_state(v2);
   v4 = xpc_activity_copy_criteria(v2);
+  v5 = v4;
   if (state == 2)
   {
-    v5 = xpc_activity_set_state(v2, 5);
-    v6 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v6 = xpc_activity_set_state(v2, 5);
+    v7 = v6;
+    v8 = LogCategory_Unspecified(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v11 = 67109120;
-      LODWORD(v12) = v5;
-      v7 = "keep-alive-on-dirty triggered. updating this repetition to done so that it can continue to wait for the next repetition. success : %d";
-      v8 = v6;
-      v9 = 8;
+      v12 = 67109120;
+      LODWORD(v13) = v7;
+      v9 = "keep-alive-on-dirty triggered. updating this repetition to done so that it can continue to wait for the next repetition. success : %d";
+      v10 = v8;
+      v11 = 8;
 LABEL_6:
-      _os_log_impl(&dword_24A2EE000, v8, OS_LOG_TYPE_INFO, v7, &v11, v9);
+      _os_log_impl(&dword_24A2EE000, v10, OS_LOG_TYPE_INFO, v9, &v12, v11);
     }
   }
 
   else
   {
-    v6 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v8 = LogCategory_Unspecified(v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v11 = 134218240;
-      v12 = state;
-      v13 = 2048;
-      v14 = v4;
-      v7 = "keep-alive-on-dirty XPC activity changed to state %ld with criteria %p";
-      v8 = v6;
-      v9 = 22;
+      v12 = 134218240;
+      v13 = state;
+      v14 = 2048;
+      v15 = v5;
+      v9 = "keep-alive-on-dirty XPC activity changed to state %ld with criteria %p";
+      v10 = v8;
+      v11 = 22;
       goto LABEL_6;
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_disableKeepAlive
@@ -318,11 +313,11 @@ LABEL_6:
 
   if (keepAliveActivityIdentifier)
   {
-    v4 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = LogCategory_Unspecified(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_24A2EE000, v4, OS_LOG_TYPE_INFO, "Unregistering keep-alive-on-dirty XPC activity", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_24A2EE000, v5, OS_LOG_TYPE_INFO, "Unregistering keep-alive-on-dirty XPC activity", v7, 2u);
     }
 
     keepAliveActivityIdentifier2 = [(FMXPCTransactionManager *)self keepAliveActivityIdentifier];
@@ -333,7 +328,7 @@ LABEL_6:
 - (void)_disableLaunchOnRebootActivity:(id)activity
 {
   activityCopy = activity;
-  v4 = LogCategory_Unspecified();
+  v4 = LogCategory_Unspecified(activityCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v6 = 0;
@@ -346,7 +341,7 @@ LABEL_6:
 
 - (void)_disableOldKeepAliveActivity
 {
-  v3 = LogCategory_Unspecified();
+  v3 = LogCategory_Unspecified(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;

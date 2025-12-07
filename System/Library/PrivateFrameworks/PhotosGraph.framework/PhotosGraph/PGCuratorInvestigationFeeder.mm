@@ -31,27 +31,27 @@
 
 - (id)approximateLocation
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = self->_items;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        clsLocation = [*(*(&v11 + 1) + 8 * i) clsLocation];
+        clsLocation = [*(*(&v10 + 1) + 8 * i) clsLocation];
         if (clsLocation)
         {
           v8 = clsLocation;
@@ -59,7 +59,7 @@
         }
       }
 
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -71,8 +71,6 @@
 
   v8 = 0;
 LABEL_11:
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -111,24 +109,23 @@ LABEL_11:
 
 - (PGCuratorInvestigationFeeder)initWithItems:(id)items
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   itemsCopy = items;
-  v13.receiver = self;
-  v13.super_class = PGCuratorInvestigationFeeder;
-  v5 = [(CLSInvestigationFeeder *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = PGCuratorInvestigationFeeder;
+  v5 = [(CLSInvestigationFeeder *)&v12 init];
   if (v5)
   {
     v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"cls_universalDate" ascending:1];
-    v14[0] = v6;
+    v13[0] = v6;
     v7 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"clsIdentifier" ascending:1];
-    v14[1] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[1] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
     v9 = [itemsCopy sortedArrayUsingDescriptors:v8];
     items = v5->_items;
     v5->_items = v9;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

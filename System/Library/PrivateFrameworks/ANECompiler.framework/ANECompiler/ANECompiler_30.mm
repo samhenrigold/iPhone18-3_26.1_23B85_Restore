@@ -1,1260 +1,3 @@
-void sub_23CA902D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, _Unwind_Exception *exception_objecta, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, char a30, void *a31, uint64_t a32, void *a33, void *a34, int a35, __int16 a36, char a37, char a38)
-{
-  if (a24 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a12)
-  {
-    operator delete(a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void operations_research::sat::ConstraintProto::mutable_element(operations_research::sat::ConstraintProto *this)
-{
-  if (*(this + 15) == 14)
-  {
-    v2 = *(this + 6);
-  }
-
-  else
-  {
-    operations_research::sat::ConstraintProto::clear_constraint(this);
-    *(this + 15) = 14;
-    v3 = *(this + 1);
-    if (v3)
-    {
-      google::protobuf::Arena::DefaultConstruct<operations_research::sat::ElementConstraintProto>(*(v3 & 0xFFFFFFFFFFFFFFFELL));
-    }
-
-    else
-    {
-      google::protobuf::Arena::DefaultConstruct<operations_research::sat::ElementConstraintProto>(v3);
-    }
-
-    *(this + 6) = v4;
-  }
-}
-
-char *absl::lts_20240722::container_internal::raw_hash_map<absl::lts_20240722::container_internal::FlatHashMapPolicy<int,int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<std::pair<int const,int>>>::operator[]<int,absl::lts_20240722::container_internal::FlatHashMapPolicy<int,int>,(int *)0>(int64_t a1, _DWORD *a2)
-{
-  absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<int,int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<std::pair<int const,int>>>::find_or_prepare_insert<int>(a1, a2, v4);
-  if (v6 == 1)
-  {
-    *v5 = *a2;
-  }
-
-  return v5 + 4;
-}
-
-char *absl::lts_20240722::container_internal::raw_hash_map<absl::lts_20240722::container_internal::FlatHashMapPolicy<int,int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<std::pair<int const,int>>>::at<int,absl::lts_20240722::container_internal::FlatHashMapPolicy<int,int>>(void *a1, const char *a2)
-{
-  v2 = *a1;
-  if (*a1 > 1uLL)
-  {
-    v3 = 0;
-    _X9 = a1[2];
-    __asm { PRFM            #4, [X9] }
-
-    v9 = *a2;
-    v10 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v9) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v9));
-    v11 = vdup_n_s8(v10 & 0x7F);
-    v12 = ((v10 >> 7) ^ (_X9 >> 12)) & v2;
-    v13 = *(_X9 + v12);
-    v14 = vceq_s8(v13, v11);
-    if (!v14)
-    {
-      goto LABEL_8;
-    }
-
-LABEL_5:
-    v15 = a1[3];
-    while (1)
-    {
-      v16 = (v12 + (__clz(__rbit64(v14)) >> 3)) & v2;
-      if (*(v15 + 8 * v16) == v9)
-      {
-        break;
-      }
-
-      v14 &= ((v14 & 0x8080808080808080) - 1) & 0x8080808080808080;
-      if (!v14)
-      {
-LABEL_8:
-        while (!*&vceq_s8(v13, 0x8080808080808080))
-        {
-          v3 += 8;
-          v12 = (v3 + v12) & v2;
-          v13 = *(_X9 + v12);
-          v14 = vceq_s8(v13, v11);
-          if (v14)
-          {
-            goto LABEL_5;
-          }
-        }
-
-LABEL_20:
-        absl::lts_20240722::base_internal::ThrowStdOutOfRange("absl::container_internal::raw_hash_map<>::at", a2);
-      }
-    }
-
-    v17 = (v15 + 8 * v16);
-    if (!(_X9 + v16))
-    {
-      goto LABEL_20;
-    }
-  }
-
-  else
-  {
-    if (a1[1] < 2uLL)
-    {
-      goto LABEL_20;
-    }
-
-    v20 = *(a1 + 4);
-    v19 = (a1 + 2);
-    _ZF = v20 == *a2;
-    v17 = &absl::lts_20240722::container_internal::kSooControl;
-    v22 = v20 == *a2 ? &absl::lts_20240722::container_internal::kSooControl : 0;
-    if (_ZF)
-    {
-      v17 = v19;
-    }
-
-    if (!v22)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  return v17 + 4;
-}
-
-uint64_t operations_research::sat::CpModelPresolver::PresolveTable(operations_research::sat::PresolveContext **this, operations_research::sat::ConstraintProto *a2)
-{
-  if ((*(this[1] + 416) & 1) == 0)
-  {
-    if (*(a2 + 15) == 16)
-    {
-      v2 = *(*(a2 + 6) + 16);
-      if (v2)
-      {
-        goto LABEL_5;
-      }
-    }
-
-    else
-    {
-      v2 = dword_2810BEF00;
-      if (dword_2810BEF00)
-      {
-LABEL_5:
-        v6 = 1;
-        if (v2 >= 1)
-        {
-          v3 = &operations_research::sat::_TableConstraintProto_default_instance_;
-          if (*(a2 + 15) == 16)
-          {
-            v3 = *(a2 + 6);
-          }
-
-          operations_research::sat::PresolveContext::GetAffineRelation(this[1], *v3[3], &v5);
-          operator new();
-        }
-
-        std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
-      }
-    }
-
-    operator new();
-  }
-
-  return 0;
-}
-
-void sub_23CA9215C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, void *a29, void *a30, uint64_t a31, void *__p, uint64_t a33, int a34, __int16 a35, char a36, char a37, void *a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42)
-{
-  if (a37 < 0)
-  {
-    operator delete(__p);
-  }
-
-  std::vector<std::vector<int>>::~vector[abi:ne200100](&a38);
-  std::vector<std::vector<int>>::~vector[abi:ne200100]((v42 - 224));
-  std::vector<std::vector<int>>::~vector[abi:ne200100]((v42 - 200));
-  std::vector<absl::lts_20240722::flat_hash_set<long long,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>>::~vector[abi:ne200100]((v42 - 136));
-  std::vector<std::vector<int>>::~vector[abi:ne200100]((v42 - 176));
-  operator delete(a17);
-  operator delete(a16);
-  if (a30)
-  {
-    operator delete(a30);
-    if (!a29)
-    {
-LABEL_5:
-      if (!a28)
-      {
-LABEL_10:
-        _Unwind_Resume(a1);
-      }
-
-LABEL_9:
-      operator delete(a28);
-      goto LABEL_10;
-    }
-  }
-
-  else if (!a29)
-  {
-    goto LABEL_5;
-  }
-
-  operator delete(a29);
-  if (!a28)
-  {
-    goto LABEL_10;
-  }
-
-  goto LABEL_9;
-}
-
-uint64_t operations_research::sat::ConstraintProto::mutable_table(operations_research::sat::ConstraintProto *this)
-{
-  if (*(this + 15) == 16)
-  {
-    return *(this + 6);
-  }
-
-  operations_research::sat::ConstraintProto::clear_constraint(this);
-  *(this + 15) = 16;
-  v3 = *(this + 1);
-  if (v3)
-  {
-    result = google::protobuf::Arena::DefaultConstruct<operations_research::sat::TableConstraintProto>(*(v3 & 0xFFFFFFFFFFFFFFFELL));
-  }
-
-  else
-  {
-    result = google::protobuf::Arena::DefaultConstruct<operations_research::sat::TableConstraintProto>(v3);
-  }
-
-  *(this + 6) = result;
-  return result;
-}
-
-void gtl::STLSortAndRemoveDuplicates<std::vector<std::vector<long long>>>(const void ***a1)
-{
-  v2 = *a1;
-  v3 = a1[1];
-  v4 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v3 - v2) >> 3));
-  if (v3 == v2)
-  {
-    v5 = 0;
-  }
-
-  else
-  {
-    v5 = v4;
-  }
-
-  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *,false>(v2, v3, &v12, v5, 1);
-  v6 = std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<std::vector<long long> *>,std::__wrap_iter<std::vector<long long> *>,std::__equal_to &>(*a1, a1[1]);
-  v7 = a1[1];
-  if (v6 != v7)
-  {
-    v8 = v6;
-    v9 = a1[1];
-    do
-    {
-      v11 = *(v9 - 3);
-      v9 -= 3;
-      v10 = v11;
-      if (v11)
-      {
-        *(v7 - 2) = v10;
-        operator delete(v10);
-      }
-
-      v7 = v9;
-    }
-
-    while (v9 != v8);
-    a1[1] = v8;
-  }
-}
-
-void *std::vector<std::vector<long long>>::vector[abi:ne200100](void *result, unint64_t a2)
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    if (a2 < 0xAAAAAAAAAAAAAABLL)
-    {
-      operator new();
-    }
-
-    std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
-  }
-
-  return result;
-}
-
-uint64_t std::set_difference[abi:ne200100]<std::__wrap_iter<std::vector<long long> *>,std::__wrap_iter<std::vector<long long> *>,std::__wrap_iter<std::vector<long long> *>>(uint64_t a1, uint64_t a2, char **a3, char **a4, char **a5)
-{
-  v10 = a2;
-  v11 = a1;
-  v8 = a4;
-  v9 = a3;
-  v7 = a5;
-  std::__set_difference[abi:ne200100]<std::__less<void,void>,std::__wrap_iter<std::vector<long long> *> &,std::__wrap_iter<std::vector<long long> *> &,std::__wrap_iter<std::vector<long long> *> &,std::__wrap_iter<std::vector<long long> *> &,std::__wrap_iter<std::vector<long long> *> &>(&v11, &v10, &v9, &v8, &v7);
-  return v5;
-}
-
-uint64_t operations_research::sat::CpModelPresolver::PresolveAllDiff(operations_research::sat::CpModelPresolver *this, operations_research::sat::ConstraintProto *a2)
-{
-  if ((*(*(this + 1) + 416) & 1) != 0 || *(a2 + 4))
-  {
-    v2 = 0;
-    return v2 & 1;
-  }
-
-  v4 = this;
-  if (*(a2 + 15) != 13)
-  {
-    operations_research::sat::ConstraintProto::clear_constraint(a2);
-    *(a2 + 15) = 13;
-    v12 = *(a2 + 1);
-    if (v12)
-    {
-      v12 = *(v12 & 0xFFFFFFFFFFFFFFFELL);
-    }
-
-    v13 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::AllDifferentConstraintProto>(v12);
-    *(a2 + 6) = v13;
-    v125 = v13;
-    if (*(a2 + 15) == 13)
-    {
-      v14 = *(v13 + 16);
-      if (v14)
-      {
-        v6 = (v14 + 7);
-      }
-
-      else
-      {
-        v6 = (v13 + 16);
-      }
-
-      v7 = *(v13 + 24);
-      if (v7)
-      {
-        goto LABEL_10;
-      }
-    }
-
-    else
-    {
-      operations_research::sat::ConstraintProto::clear_constraint(a2);
-      *(a2 + 15) = 13;
-      v15 = *(a2 + 1);
-      if (v15)
-      {
-        v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
-      }
-
-      v16 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::AllDifferentConstraintProto>(v15);
-      *(a2 + 6) = v16;
-      v18 = *(v16 + 16);
-      v17 = v16 + 16;
-      v19 = (v18 + 7);
-      if (v18)
-      {
-        v6 = v19;
-      }
-
-      else
-      {
-        v6 = v17;
-      }
-
-      v7 = *(v17 + 8);
-      if (v7)
-      {
-        goto LABEL_10;
-      }
-    }
-
-LABEL_27:
-    LOBYTE(v8) = 0;
-    goto LABEL_28;
-  }
-
-  v125 = *(a2 + 6);
-  v5 = *(v125 + 16);
-  if (v5)
-  {
-    v6 = (v5 + 7);
-  }
-
-  else
-  {
-    v6 = (v125 + 16);
-  }
-
-  v7 = *(v125 + 24);
-  if (!v7)
-  {
-    goto LABEL_27;
-  }
-
-LABEL_10:
-  v8 = 0;
-  v9 = 8 * v7;
-  do
-  {
-    v10 = *v6++;
-    v8 |= operations_research::sat::PresolveContext::CanonicalizeLinearExpression(*(v4 + 1), *(a2 + 3), *(a2 + 4), v10);
-    v9 -= 8;
-  }
-
-  while (v9);
-LABEL_28:
-  v122 = v8;
-  v129 = (v125 + 16);
-  v127 = v4;
-LABEL_31:
-  while (2)
-  {
-    v20 = *(v125 + 24);
-    if (v20 == 1)
-    {
-      v120 = *(v4 + 1);
-      operator new();
-    }
-
-    if (!v20)
-    {
-      v119 = *(v4 + 1);
-      operator new();
-    }
-
-    v139 = 0;
-    v21 = 0uLL;
-    v138 = 0u;
-    if (v20 < 1)
-    {
-      goto LABEL_72;
-    }
-
-    v22 = 0;
-    v23 = 0;
-    while (2)
-    {
-      if (*v129)
-      {
-        v25 = (*v129 + 8 * v23 + 7);
-      }
-
-      else
-      {
-        v25 = (v125 + 16);
-      }
-
-      if (!operations_research::sat::PresolveContext::IsFixed(*(v4 + 1), *v25))
-      {
-        if (*v129)
-        {
-          v37 = (*v129 + 8 * v23 + 7);
-        }
-
-        else
-        {
-          v37 = (v125 + 16);
-        }
-
-        v38 = *v37;
-        v39 = *(&v138 + 1);
-        if (*(&v138 + 1) >= v139)
-        {
-          v24 = std::vector<operations_research::sat::LinearExpressionProto>::__emplace_back_slow_path<operations_research::sat::LinearExpressionProto const&>(&v138, v38);
-        }
-
-        else
-        {
-          operations_research::sat::LinearExpressionProto::LinearExpressionProto(*(&v138 + 1), 0, v38);
-          v24 = v39 + 80;
-        }
-
-        *(&v138 + 1) = v24;
-        goto LABEL_37;
-      }
-
-      if (*v129)
-      {
-        v26 = (*v129 + 8 * v23 + 7);
-      }
-
-      else
-      {
-        v26 = (v125 + 16);
-      }
-
-      v27 = operations_research::sat::PresolveContext::MinOf(*(v4 + 1), *v26);
-      v28 = 0;
-      v29 = 0;
-LABEL_46:
-      v30 = 8 * v28++;
-      v31 = v30 + 8;
-      do
-      {
-        if (v22 + v28 != 1)
-        {
-          v32 = ((*v129 & 1) != 0 ? *v129 + v31 - 1 : v125 + 16);
-          if (operations_research::sat::PresolveContext::DomainContains(*(v4 + 1), *v32, v27))
-          {
-            v33 = *(v4 + 1);
-            if (*v129)
-            {
-              v34 = (*v129 + v31 - 1);
-            }
-
-            else
-            {
-              v34 = (v125 + 16);
-            }
-
-            v35 = *v34;
-            operations_research::Domain::Domain(&v132, v27);
-            operations_research::Domain::Complement(&v132, &v140);
-            v36 = operations_research::sat::PresolveContext::IntersectDomainWith(v33, v35, &v140, 0);
-            if (v140)
-            {
-              operator delete(v141);
-              if ((v132 & 1) == 0)
-              {
-LABEL_58:
-                if ((v36 & 1) == 0)
-                {
-                  goto LABEL_97;
-                }
-
-LABEL_62:
-                v29 = 1;
-                if (v28 == v20)
-                {
-LABEL_70:
-                  v40 = *(v4 + 1);
-                  operator new();
-                }
-
-                goto LABEL_46;
-              }
-            }
-
-            else if ((v132 & 1) == 0)
-            {
-              goto LABEL_58;
-            }
-
-            operator delete(__p);
-            if ((v36 & 1) == 0)
-            {
-LABEL_97:
-              v53 = 1;
-              IsUnsat = 1;
-              v54 = v138;
-              if (!v138)
-              {
-                goto LABEL_29;
-              }
-
-              goto LABEL_202;
-            }
-
-            goto LABEL_62;
-          }
-        }
-
-        ++v28;
-        v31 += 8;
-      }
-
-      while (v28 - v20 != 1);
-      if (v29)
-      {
-        goto LABEL_70;
-      }
-
-LABEL_37:
-      ++v23;
-      --v22;
-      if (v23 != v20)
-      {
-        continue;
-      }
-
-      break;
-    }
-
-    v21 = v138;
-LABEL_72:
-    v41 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * ((*(&v21 + 1) - v21) >> 4));
-    if (*(&v21 + 1) == v21)
-    {
-      v42 = 0;
-    }
-
-    else
-    {
-      v42 = v41;
-    }
-
-    std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::CpModelPresolver::PresolveAllDiff(operations_research::sat::ConstraintProto *)::$_0 &,operations_research::sat::LinearExpressionProto *,false>(v21, *(&v21 + 1), v42, 1);
-    v43 = v125;
-    v44 = *(&v138 + 1);
-    v45 = v138;
-    v46 = 0xCCCCCCCCCCCCCCCDLL * ((*(&v138 + 1) - v138) >> 4);
-    if (v46 >= 2)
-    {
-      v47 = 2;
-      v48 = 1;
-      while (1)
-      {
-        if (operations_research::sat::LinearExpressionProtosAreEqual((v45 + 80 * v48), (v45 + 80 * v47 - 160), 1))
-        {
-          IsUnsat = operations_research::sat::PresolveContext::NotifyThatModelIsUnsat(*(v4 + 1), "Duplicate variable in all_diff", 30);
-          v53 = 1;
-          v54 = v138;
-          if (!v138)
-          {
-            goto LABEL_29;
-          }
-
-          goto LABEL_202;
-        }
-
-        if (!operations_research::sat::LinearExpressionProtosAreEqual((v138 + 80 * v48), (v138 + 80 * (v47 - 2)), 0xFFFFFFFFFFFFFFFFLL))
-        {
-          goto LABEL_77;
-        }
-
-        v136[0] = 0;
-        v49 = *(v4 + 1);
-        v50 = v138;
-        operations_research::Domain::Domain(&v132, 0);
-        operations_research::Domain::Complement(&v132, &v140);
-        v51 = operations_research::sat::PresolveContext::IntersectDomainWith(v49, (v50 + 80 * v48), &v140, v136);
-        if (v140)
-        {
-          operator delete(v141);
-          if (v132)
-          {
-LABEL_85:
-            operator delete(__p);
-            if ((v51 & 1) == 0)
-            {
-LABEL_207:
-              IsUnsat = 0;
-              v53 = 1;
-              v54 = v138;
-              if (v138)
-              {
-                goto LABEL_202;
-              }
-
-LABEL_29:
-              if (v53)
-              {
-                goto LABEL_214;
-              }
-
-              goto LABEL_31;
-            }
-
-            goto LABEL_86;
-          }
-        }
-
-        else if (v132)
-        {
-          goto LABEL_85;
-        }
-
-        if ((v51 & 1) == 0)
-        {
-          goto LABEL_207;
-        }
-
-LABEL_86:
-        if (v136[0])
-        {
-          v52 = *(v4 + 1);
-          operator new();
-        }
-
-LABEL_77:
-        v48 = v47;
-        v44 = *(&v138 + 1);
-        v45 = v138;
-        v46 = 0xCCCCCCCCCCCCCCCDLL * ((*(&v138 + 1) - v138) >> 4);
-        ++v47;
-        if (v46 <= v48)
-        {
-          v43 = v125;
-          break;
-        }
-      }
-    }
-
-    v55 = *(v43 + 24);
-    if (v46 < v55)
-    {
-      if (v55 >= 1)
-      {
-        google::protobuf::internal::RepeatedPtrFieldBase::ClearNonEmpty<google::protobuf::internal::GenericTypeHandler<google::protobuf::MessageLite>>(v129);
-        v44 = *(&v138 + 1);
-        v45 = v138;
-      }
-
-      while (v45 != v44)
-      {
-        v56 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite(v129, google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearExpressionProto>);
-        operations_research::sat::LinearExpressionProto::CopyFrom(v56, v45);
-        v45 = (v45 + 80);
-      }
-
-      v57 = *(v4 + 1);
-      operator new();
-    }
-
-    if (v55 <= 1)
-    {
-      absl::lts_20240722::log_internal::MakeCheckOpString<long long,long long>(v55, 2, "all_diff.exprs_size() >= 2");
-    }
-
-    if (*v129)
-    {
-      v58 = (*v129 + 7);
-    }
-
-    else
-    {
-      v58 = (v125 + 16);
-    }
-
-    operations_research::sat::PresolveContext::DomainSuperSetOf(*(v4 + 1), *v58, v136);
-    LODWORD(v59) = *(v43 + 24);
-    if (v59 >= 2)
-    {
-      v60 = 16;
-      v61 = 1;
-      do
-      {
-        if (*v129)
-        {
-          v62 = (*v129 + v60 - 1);
-        }
-
-        else
-        {
-          v62 = (v125 + 16);
-        }
-
-        operations_research::sat::PresolveContext::DomainSuperSetOf(*(v4 + 1), *v62, &v132);
-        operations_research::Domain::UnionWith(v136, &v132, &v140);
-        if (v136[0])
-        {
-          operator delete(v137);
-        }
-
-        *v136 = v140;
-        v137 = v141;
-        v140 = 0;
-        if (v132)
-        {
-          operator delete(__p);
-        }
-
-        ++v61;
-        v59 = *(v125 + 24);
-        v60 += 8;
-      }
-
-      while (v61 < v59);
-      v43 = v125;
-    }
-
-    if (operations_research::Domain::Size(v136) != v59)
-    {
-      goto LABEL_197;
-    }
-
-    v132 = 0;
-    __p = 0;
-    v134 = &unk_23CE31C20;
-    v63 = *(v43 + 16);
-    if (v63)
-    {
-      v64 = v63 + 7;
-    }
-
-    else
-    {
-      v64 = v125 + 16;
-    }
-
-    v65 = *(v43 + 24);
-    if (!v65)
-    {
-      goto LABEL_211;
-    }
-
-    v124 = v64 + 8 * v65;
-    do
-    {
-      v66 = *v64;
-      operations_research::sat::PresolveContext::DomainOf(*(v4 + 1), **(*v64 + 24), &v140);
-      v130 = 0;
-      if (v140 < 2)
-      {
-        goto LABEL_124;
-      }
-
-      if ((v140 & 1) == 0)
-      {
-        v130 = v140;
-        v131 = v141;
-LABEL_124:
-        if ((v140 & 1) == 0)
-        {
-          goto LABEL_126;
-        }
-
-LABEL_125:
-        operator delete(v141);
-        goto LABEL_126;
-      }
-
-      absl::lts_20240722::inlined_vector_internal::Storage<operations_research::ClosedInterval,1ul,std::allocator<operations_research::ClosedInterval>>::InitFrom(&v130, &v140);
-      if (v140)
-      {
-        goto LABEL_125;
-      }
-
-LABEL_126:
-      v126 = v64;
-      if (v130 <= 1)
-      {
-        v67 = v130;
-        goto LABEL_176;
-      }
-
-      v67 = v130 & 1;
-      if (v130)
-      {
-        v68 = v131;
-      }
-
-      else
-      {
-        v68 = &v131;
-      }
-
-      v69 = *v68;
-      if (v130)
-      {
-        v70 = v131;
-      }
-
-      else
-      {
-        v70 = &v131;
-      }
-
-      if ((v130 & 0x1FFFFFFFFFFFFFFELL) != 0)
-      {
-        v71 = &v70[2 * (v130 >> 1)];
-        v128 = v71;
-        do
-        {
-          v72 = 0;
-          v73 = *(v66 + 64) + **(v66 + 48) * v69;
-          _X8 = v134;
-          __asm { PRFM            #4, [X8] }
-
-          v80 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v73) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v73));
-          v81 = vdup_n_s8(v80 & 0x7F);
-          v82 = ((v80 >> 7) ^ (v134 >> 12)) & v132;
-          v83 = *(v134 + v82);
-          v84 = vceq_s8(v83, v81);
-          if (!v84)
-          {
-            goto LABEL_141;
-          }
-
-          do
-          {
-LABEL_139:
-            v85 = (v82 + (__clz(__rbit64(v84)) >> 3)) & v132;
-            if (v135[4 * v85] == v73)
-            {
-              v87 = &v135[4 * v85];
-              v89 = v87[2];
-              v88 = v87[3];
-              if (v89 >= v88)
-              {
-                goto LABEL_148;
-              }
-
-              goto LABEL_145;
-            }
-
-            v84 &= ((v84 & 0x8080808080808080) - 1) & 0x8080808080808080;
-          }
-
-          while (v84);
-LABEL_141:
-          while (1)
-          {
-            v86 = vceq_s8(v83, 0x8080808080808080);
-            if (v86)
-            {
-              break;
-            }
-
-            v72 += 8;
-            v82 = (v72 + v82) & v132;
-            v83 = *(v134 + v82);
-            v84 = vceq_s8(v83, v81);
-            if (v84)
-            {
-              goto LABEL_139;
-            }
-          }
-
-          inserted = absl::lts_20240722::container_internal::PrepareInsertNonSoo(&v132, v80, (v82 + (__clz(__rbit64(v86)) >> 3)) & v132, v72, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,std::vector<operations_research::sat::LinearExpressionProto>>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,std::vector<operations_research::sat::LinearExpressionProto>>>>::GetPolicyFunctions(void)::value);
-          v87 = &v135[4 * inserted];
-          *v87 = v73;
-          v87[1] = 0;
-          v87[2] = 0;
-          v87[3] = 0;
-          v89 = v87[2];
-          v88 = v87[3];
-          if (v89 >= v88)
-          {
-LABEL_148:
-            v91 = v87[1];
-            v92 = 0xCCCCCCCCCCCCCCCDLL * ((v89 - v91) >> 4);
-            v93 = v92 + 1;
-            if (v92 + 1 > 0x333333333333333)
-            {
-              std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
-            }
-
-            v94 = 0xCCCCCCCCCCCCCCCDLL * ((v88 - v91) >> 4);
-            if (2 * v94 > v93)
-            {
-              v93 = 2 * v94;
-            }
-
-            if (v94 >= 0x199999999999999)
-            {
-              v95 = 0x333333333333333;
-            }
-
-            else
-            {
-              v95 = v93;
-            }
-
-            v143 = v87 + 1;
-            if (v95)
-            {
-              if (v95 <= 0x333333333333333)
-              {
-                operator new();
-              }
-
-              std::__throw_bad_array_new_length[abi:ne200100]();
-            }
-
-            v140 = 0;
-            *&v141 = 80 * v92;
-            *(&v141 + 1) = 80 * v92;
-            v142 = 0;
-            operations_research::sat::LinearExpressionProto::LinearExpressionProto((80 * v92), 0, v66);
-            v96 = *(&v141 + 1) + 80;
-            *(&v141 + 1) += 80;
-            v98 = v87[1];
-            v97 = v87[2];
-            v99 = (v141 + v98 - v97);
-            if (v98 != v97)
-            {
-              v100 = v87[1];
-              v101 = (v141 + v98 - v97);
-              while (2)
-              {
-                operations_research::sat::LinearExpressionProto::LinearExpressionProto(v101, 0);
-                if (v101 == v100)
-                {
-                  goto LABEL_160;
-                }
-
-                v102 = *(v101 + 1);
-                if (v102)
-                {
-                  v102 = *(v102 & 0xFFFFFFFFFFFFFFFELL);
-                  v103 = *(v100 + 1);
-                  if ((v103 & 1) == 0)
-                  {
-                    goto LABEL_164;
-                  }
-                }
-
-                else
-                {
-                  v103 = *(v100 + 1);
-                  if ((v103 & 1) == 0)
-                  {
-LABEL_164:
-                    if (v102 != v103)
-                    {
-                      goto LABEL_165;
-                    }
-
-                    goto LABEL_159;
-                  }
-                }
-
-                if (v102 != *(v103 & 0xFFFFFFFFFFFFFFFELL))
-                {
-LABEL_165:
-                  operations_research::sat::LinearExpressionProto::CopyFrom(v101, v100);
-                  goto LABEL_160;
-                }
-
-LABEL_159:
-                operations_research::sat::LinearExpressionProto::InternalSwap(v101, v100);
-LABEL_160:
-                v100 = (v100 + 80);
-                v101 = (v101 + 80);
-                if (v100 == v97)
-                {
-                  do
-                  {
-                    operations_research::sat::LinearExpressionProto::~LinearExpressionProto(v98);
-                    v98 = (v98 + 80);
-                  }
-
-                  while (v98 != v97);
-                  break;
-                }
-
-                continue;
-              }
-            }
-
-            v104 = v87[1];
-            v87[1] = v99;
-            v87[2] = v96;
-            v87[3] = v142;
-            if (v104)
-            {
-              operator delete(v104);
-            }
-
-            v4 = v127;
-            v71 = v128;
-            v87[2] = v96;
-            if (v69 == v70[1])
-            {
-              goto LABEL_173;
-            }
-
-LABEL_136:
-            ++v69;
-            continue;
-          }
-
-LABEL_145:
-          operations_research::sat::LinearExpressionProto::LinearExpressionProto(v89, 0, v66);
-          v87[2] = v89 + 80;
-          v87[2] = v89 + 80;
-          if (v69 != v70[1])
-          {
-            goto LABEL_136;
-          }
-
-LABEL_173:
-          v70 += 2;
-          if (v70 != v71)
-          {
-            v69 = *v70;
-          }
-        }
-
-        while (v70 != v71);
-        v67 = v130 & 1;
-      }
-
-LABEL_176:
-      if (v67)
-      {
-        operator delete(v131);
-      }
-
-      v64 = v126 + 8;
-    }
-
-    while (v126 + 8 != v124);
-    if (__p >= 2)
-    {
-      v105 = v134;
-      v106 = v135;
-      if (*v134 <= -2)
-      {
-        do
-        {
-          v107 = __clz(__rbit64((*v105 | ~(*v105 >> 7)) & 0x101010101010101)) >> 3;
-          v105 = (v105 + v107);
-          v106 += 4 * v107;
-        }
-
-        while (*v105 < -1);
-      }
-
-      LOBYTE(v53) = 0;
-      do
-      {
-        v108 = v106[1];
-        if (v106[2] - v108 == 80 && !operations_research::sat::PresolveContext::IsFixed(*(v4 + 1), v108))
-        {
-          v109 = *(v4 + 1);
-          v110 = v106[1];
-          operations_research::Domain::Domain(&v140, *v106);
-          v111 = operations_research::sat::PresolveContext::IntersectDomainWith(v109, v110, &v140, 0);
-          if (v140)
-          {
-            operator delete(v141);
-          }
-
-          v53 = 1;
-          if ((v111 & 1) == 0)
-          {
-            v115 = 0;
-            IsUnsat = 1;
-            goto LABEL_194;
-          }
-        }
-
-        v113 = *(v105 + 1);
-        v105 = (v105 + 1);
-        LOBYTE(v112) = v113;
-        v106 += 4;
-        if (v113 <= -2)
-        {
-          do
-          {
-            v114 = __clz(__rbit64((*v105 | ~(*v105 >> 7)) & 0x101010101010101)) >> 3;
-            v105 = (v105 + v114);
-            v106 += 4 * v114;
-            v112 = *v105;
-          }
-
-          while (v112 < -1);
-        }
-      }
-
-      while (v112 != 255);
-      if (v53)
-      {
-        v118 = *(v4 + 1);
-        operator new();
-      }
-    }
-
-LABEL_211:
-    v53 = 0;
-    v115 = 1;
-LABEL_194:
-    if (v132)
-    {
-      absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,std::vector<operations_research::sat::LinearExpressionProto>>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,std::vector<operations_research::sat::LinearExpressionProto>>>>::destroy_slots(&v132);
-      operator delete((v134 - (__p & 1) - 8));
-    }
-
-    if (v115)
-    {
-LABEL_197:
-      v53 = 4;
-      if (!v136[0])
-      {
-        goto LABEL_201;
-      }
-
-      goto LABEL_198;
-    }
-
-    if (!v136[0])
-    {
-LABEL_201:
-      v54 = v138;
-      if (!v138)
-      {
-        goto LABEL_29;
-      }
-
-      goto LABEL_202;
-    }
-
-LABEL_198:
-    operator delete(v137);
-    v54 = v138;
-    if (!v138)
-    {
-      goto LABEL_29;
-    }
-
-LABEL_202:
-    v116 = *(&v138 + 1);
-    v117 = v54;
-    if (*(&v138 + 1) != v54)
-    {
-      do
-      {
-        operations_research::sat::LinearExpressionProto::~LinearExpressionProto((v116 - 80));
-      }
-
-      while (v116 != v54);
-      v117 = v138;
-    }
-
-    *(&v138 + 1) = v54;
-    operator delete(v117);
-    if (!v53)
-    {
-      continue;
-    }
-
-    break;
-  }
-
-LABEL_214:
-  v2 = IsUnsat;
-  if (v53 == 4)
-  {
-    v2 = v122;
-  }
-
-  return v2 & 1;
-}
-
 void sub_23CA9365C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, void *__p, uint64_t a33, uint64_t a34, void *a35)
 {
   if (*(v35 - 121) < 0)
@@ -1272,7 +15,7 @@ void sub_23CA9365C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t operations_research::sat::ConstraintProto::mutable_all_diff(operations_research::sat::ConstraintProto *this)
+void *operations_research::sat::ConstraintProto::mutable_all_diff(operations_research::sat::ConstraintProto *this)
 {
   if (*(this + 15) == 13)
   {
@@ -1333,8 +76,8 @@ uint64_t operations_research::sat::CpModelPresolver::PresolveNoOverlap(operation
     *(a2 + 6) = v4;
   }
 
-  v112 = xmmword_23CE306D0;
-  *v109 = xmmword_23CE306D0;
+  v105 = xmmword_23CE306D0;
+  *v102 = xmmword_23CE306D0;
   v6 = *(v4 + 4);
   if (v6)
   {
@@ -1342,13 +85,13 @@ uint64_t operations_research::sat::CpModelPresolver::PresolveNoOverlap(operation
     v8 = 4 * v6;
     do
     {
-      v108 = *v7;
-      if ((operations_research::sat::PresolveContext::ConstraintIsInactive(*(this + 1), v108) & 1) == 0)
+      v101 = *v7;
+      if ((operations_research::sat::PresolveContext::ConstraintIsInactive(*(this + 1), v101) & 1) == 0)
       {
-        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>(&v112, &v108, &__p);
-        if (LOBYTE(v107[1]) == 1 || (absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>(v109, &v108, &__p), LOBYTE(v107[1]) == 1))
+        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>(&v105, &v101, &__p);
+        if (LOBYTE(v100[1]) == 1 || (absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>(v102, &v101, &__p), LOBYTE(v100[1]) == 1))
         {
-          *v107[0] = v108;
+          *v100[0] = v101;
         }
       }
 
@@ -1358,11 +101,11 @@ uint64_t operations_research::sat::CpModelPresolver::PresolveNoOverlap(operation
 
     while (v8);
     v9 = *(v4 + 4);
-    if (v112 > 1)
+    if (v105 > 1)
     {
-      absl::lts_20240722::container_internal::ClearBackingArray(&v112, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::GetPolicyFunctions(void)::value, v112 < 0x80, 1u);
-      v105 = (v4 + 2);
-      v104 = v9;
+      absl::lts_20240722::container_internal::ClearBackingArray(&v105, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::GetPolicyFunctions(void)::value, v105 < 0x80, 1u);
+      v98 = (v4 + 2);
+      v97 = v9;
       if (v9 >= 1)
       {
 LABEL_17:
@@ -1371,42 +114,42 @@ LABEL_17:
         v12 = 1;
         while (1)
         {
-          v108 = *(v4[3] + 4 * v10);
-          if (operations_research::sat::PresolveContext::ConstraintIsInactive(*(this + 1), v108))
+          v101 = *(v4[3] + 4 * v10);
+          if (operations_research::sat::PresolveContext::ConstraintIsInactive(*(this + 1), v101))
           {
             goto LABEL_18;
           }
 
-          if (v109[0] > 1)
+          if (v102[0] > 1)
           {
-            v21 = 0;
-            _X10 = v110;
+            v20 = 0;
+            _X10 = v103;
             __asm { PRFM            #4, [X10] }
 
-            v28 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v108) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v108));
-            v29 = vdup_n_s8(v28 & 0x7F);
-            v30 = ((v28 >> 7) ^ (v110 >> 12)) & v109[0];
-            v31 = *(v110 + v30);
-            v32 = vceq_s8(v31, v29);
-            if (!v32)
+            v27 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v101) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v101));
+            v28 = vdup_n_s8(v27 & 0x7F);
+            v29 = ((v27 >> 7) ^ (v103 >> 12)) & v102[0];
+            v30 = *(v103 + v29);
+            v31 = vceq_s8(v30, v28);
+            if (!v31)
             {
               goto LABEL_32;
             }
 
 LABEL_30:
-            while (*(v111 + 4 * ((v30 + (__clz(__rbit64(v32)) >> 3)) & v109[0])) != v108)
+            while (*(v104 + 4 * ((v29 + (__clz(__rbit64(v31)) >> 3)) & v102[0])) != v101)
             {
-              v32 &= ((v32 & 0x8080808080808080) - 1) & 0x8080808080808080;
-              if (!v32)
+              v31 &= ((v31 & 0x8080808080808080) - 1) & 0x8080808080808080;
+              if (!v31)
               {
 LABEL_32:
-                while (!*&vceq_s8(v31, 0x8080808080808080))
+                while (!*&vceq_s8(v30, 0x8080808080808080))
                 {
-                  v21 += 8;
-                  v30 = (v21 + v30) & v109[0];
-                  v31 = *(v110 + v30);
-                  v32 = vceq_s8(v31, v29);
-                  if (v32)
+                  v20 += 8;
+                  v29 = (v20 + v29) & v102[0];
+                  v30 = *(v103 + v29);
+                  v31 = vceq_s8(v30, v28);
+                  if (v31)
                   {
                     goto LABEL_30;
                   }
@@ -1417,13 +160,13 @@ LABEL_32:
             }
           }
 
-          else if (v109[1] < 2 || v110 != v108)
+          else if (v102[1] < 2 || v103 != v101)
           {
             goto LABEL_73;
           }
 
-          absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>(&v112, &v108, &__p);
-          if ((v107[1] & 1) == 0)
+          absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>(&v105, &v101, &__p);
+          if ((v100[1] & 1) == 0)
           {
 LABEL_18:
             v12 = ++v10 < v9;
@@ -1435,8 +178,8 @@ LABEL_18:
 
           else
           {
-            v13 = v108;
-            *v107[0] = v108;
+            v13 = v101;
+            *v100[0] = v101;
             v14 = *(this + 1);
             v15 = (*v14 + 48);
             if (*v15)
@@ -1449,162 +192,159 @@ LABEL_18:
             {
               if (operations_research::sat::CpModelPresolver::MarkConstraintAsFalse(this, v16, v17, v18, v19))
               {
-                operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), v108);
-                v20 = *(this + 1);
+                operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), v101);
                 operator new();
               }
 
               goto LABEL_83;
             }
 
-            if (operations_research::sat::PresolveContext::SizeMax(*(this + 1), v108) >= 1)
+            if (operations_research::sat::PresolveContext::SizeMax(*(this + 1), v101) >= 1)
             {
-              if (operations_research::sat::PresolveContext::ConstraintIsOptional(*(this + 1), v108))
+              if (operations_research::sat::PresolveContext::ConstraintIsOptional(*(this + 1), v101))
               {
-                v33 = **(v16 + 24);
-                v34 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(this + 1) + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
-                v37 = v34;
-                v39 = *(v34 + 16);
-                v38 = *(v34 + 20);
-                v40 = (v34 + 16);
-                if (v39 == v38)
+                v32 = **(v16 + 24);
+                v33 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(this + 1) + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
+                v36 = v33;
+                v38 = *(v33 + 16);
+                v37 = *(v33 + 20);
+                v39 = (v33 + 16);
+                if (v38 == v37)
                 {
-                  google::protobuf::RepeatedField<int>::Grow(v34 + 16, v38, (v38 + 1));
-                  v39 = *v40;
+                  google::protobuf::RepeatedField<int>::Grow(v33 + 16, v37, (v37 + 1));
+                  v38 = *v39;
                 }
 
-                v41 = *(v37 + 24);
-                *(v37 + 16) = v39 + 1;
-                *(v41 + 4 * v39) = v33;
-                if (*(v37 + 60) == 12)
+                v40 = *(v36 + 24);
+                *(v36 + 16) = v38 + 1;
+                *(v40 + 4 * v38) = v32;
+                if (*(v36 + 60) == 12)
                 {
-                  v42 = *(v37 + 48);
-                }
-
-                else
-                {
-                  operations_research::sat::ConstraintProto::clear_constraint(v37);
-                  *(v37 + 60) = 12;
-                  v49 = *(v37 + 8);
-                  if (v49)
-                  {
-                    v49 = *(v49 & 0xFFFFFFFFFFFFFFFELL);
-                  }
-
-                  v42 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearConstraintProto>(v49);
-                  *(v37 + 48) = v42;
-                }
-
-                v51 = *(v42 + 64);
-                v50 = *(v42 + 68);
-                if (v51 == v50)
-                {
-                  google::protobuf::RepeatedField<long long>::Grow(v42 + 64, v50);
-                  v51 = *(v42 + 64);
-                }
-
-                v52 = *(v42 + 72);
-                *(v42 + 64) = v51 + 1;
-                *(v52 + 8 * v51) = 0;
-                if (*(v37 + 60) == 12)
-                {
-                  v53 = *(v37 + 48);
+                  v41 = *(v36 + 48);
                 }
 
                 else
                 {
-                  operations_research::sat::ConstraintProto::clear_constraint(v37);
-                  *(v37 + 60) = 12;
-                  v54 = *(v37 + 8);
-                  if (v54)
+                  operations_research::sat::ConstraintProto::clear_constraint(v36);
+                  *(v36 + 60) = 12;
+                  v47 = *(v36 + 8);
+                  if (v47)
                   {
-                    v54 = *(v54 & 0xFFFFFFFFFFFFFFFELL);
+                    v47 = *(v47 & 0xFFFFFFFFFFFFFFFELL);
                   }
 
-                  v53 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearConstraintProto>(v54);
-                  *(v37 + 48) = v53;
+                  v41 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearConstraintProto>(v47);
+                  *(v36 + 48) = v41;
                 }
 
-                v56 = *(v53 + 64);
-                v55 = *(v53 + 68);
-                if (v56 == v55)
+                v49 = *(v41 + 16);
+                v48 = *(v41 + 17);
+                if (v49 == v48)
                 {
-                  google::protobuf::RepeatedField<long long>::Grow(v53 + 64, v55);
-                  v56 = *(v53 + 64);
+                  google::protobuf::RepeatedField<long long>::Grow((v41 + 8), v48, (v48 + 1));
+                  v49 = *(v41 + 16);
                 }
 
-                v57 = *(v53 + 72);
-                *(v53 + 64) = v56 + 1;
-                *(v57 + 8 * v56) = 0;
-                v58 = &operations_research::sat::_IntervalConstraintProto_default_instance_;
+                v50 = v41[9];
+                *(v41 + 16) = v49 + 1;
+                *(v50 + 8 * v49) = 0;
+                if (*(v36 + 60) == 12)
+                {
+                  v51 = *(v36 + 48);
+                }
+
+                else
+                {
+                  operations_research::sat::ConstraintProto::clear_constraint(v36);
+                  *(v36 + 60) = 12;
+                  v52 = *(v36 + 8);
+                  if (v52)
+                  {
+                    v52 = *(v52 & 0xFFFFFFFFFFFFFFFELL);
+                  }
+
+                  v51 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearConstraintProto>(v52);
+                  *(v36 + 48) = v51;
+                }
+
+                v54 = *(v51 + 16);
+                v53 = *(v51 + 17);
+                if (v54 == v53)
+                {
+                  google::protobuf::RepeatedField<long long>::Grow((v51 + 8), v53, (v53 + 1));
+                  v54 = *(v51 + 16);
+                }
+
+                v55 = v51[9];
+                *(v51 + 16) = v54 + 1;
+                *(v55 + 8 * v54) = 0;
+                v56 = &operations_research::sat::_IntervalConstraintProto_default_instance_;
                 if (*(v16 + 60) == 19)
                 {
-                  v58 = *(v16 + 48);
+                  v56 = *(v16 + 48);
                 }
 
-                v59 = v58[5];
-                if (v59)
+                v57 = v56[5];
+                if (v57)
                 {
-                  v60 = v59;
-                }
-
-                else
-                {
-                  v60 = &operations_research::sat::_LinearExpressionProto_default_instance_;
-                }
-
-                if (*(v37 + 60) == 12)
-                {
-                  v61 = *(v37 + 48);
+                  v58 = v57;
                 }
 
                 else
                 {
-                  operations_research::sat::ConstraintProto::clear_constraint(v37);
-                  *(v37 + 60) = 12;
-                  v62 = *(v37 + 8);
-                  if (v62)
+                  v58 = &operations_research::sat::_LinearExpressionProto_default_instance_;
+                }
+
+                if (*(v36 + 60) == 12)
+                {
+                  v59 = *(v36 + 48);
+                }
+
+                else
+                {
+                  operations_research::sat::ConstraintProto::clear_constraint(v36);
+                  *(v36 + 60) = 12;
+                  v60 = *(v36 + 8);
+                  if (v60)
                   {
-                    v62 = *(v62 & 0xFFFFFFFFFFFFFFFELL);
+                    v60 = *(v60 & 0xFFFFFFFFFFFFFFFELL);
                   }
 
-                  v61 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearConstraintProto>(v62);
-                  *(v37 + 48) = v61;
+                  v59 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearConstraintProto>(v60);
+                  *(v36 + 48) = v59;
                 }
 
-                operations_research::sat::AddLinearExpressionToLinearConstraint(v60, 1, v61, v35, v36);
-                v63 = *(this + 1);
+                operations_research::sat::AddLinearExpressionToLinearConstraint(v58, 1, v59, v34, v35);
                 operator new();
               }
 
-              v43 = &operations_research::sat::_IntervalConstraintProto_default_instance_;
+              v42 = &operations_research::sat::_IntervalConstraintProto_default_instance_;
               if (*(v16 + 60) == 19)
               {
-                v43 = *(v16 + 48);
+                v42 = *(v16 + 48);
               }
 
-              v44 = *(this + 1);
-              v45 = v43[5];
+              v43 = *(this + 1);
+              v44 = v42[5];
               operations_research::Domain::Domain(&__p, 0);
-              if (v45)
+              if (v44)
               {
-                v46 = v45;
+                v45 = v44;
               }
 
               else
               {
-                v46 = &operations_research::sat::_LinearExpressionProto_default_instance_;
+                v45 = &operations_research::sat::_LinearExpressionProto_default_instance_;
               }
 
-              v47 = operations_research::sat::PresolveContext::IntersectDomainWith(v44, v46, &__p, 0);
+              v46 = operations_research::sat::PresolveContext::IntersectDomainWith(v43, v45, &__p, 0);
               if (__p)
               {
-                operator delete(v107[0]);
+                operator delete(v100[0]);
               }
 
-              if (v47)
+              if (v46)
               {
-                v48 = *(this + 1);
                 operator new();
               }
 
@@ -1612,7 +352,7 @@ LABEL_18:
             }
 
 LABEL_73:
-            *(v4[3] + 4 * v11++) = v108;
+            *(v4[3] + 4 * v11++) = v101;
             v12 = ++v10 < v9;
             if (v10 == v9)
             {
@@ -1631,9 +371,9 @@ LABEL_73:
     v9 = 0;
   }
 
-  *(&v112 + 1) = 0;
-  v105 = (v4 + 2);
-  v104 = v9;
+  *(&v105 + 1) = 0;
+  v98 = (v4 + 2);
+  v97 = v9;
   if (v9 >= 1)
   {
     goto LABEL_17;
@@ -1642,28 +382,27 @@ LABEL_73:
 LABEL_77:
   v11 = 0;
 LABEL_78:
-  if (v11 < v104)
+  if (v11 < v97)
   {
-    if (*v105 > v11)
+    if (*v98 > v11)
     {
-      *v105 = v11;
+      *v98 = v11;
     }
 
-    v64 = *(this + 1);
     operator new();
   }
 
   v12 = 0;
 LABEL_83:
-  v65 = v105;
-  if (v109[0] >= 2)
+  v61 = v98;
+  if (v102[0] >= 2)
   {
-    operator delete((v110 - (v109[1] & 1) - 8));
+    operator delete((v103 - (v102[1] & 1) - 8));
   }
 
-  if (v112 >= 2)
+  if (v105 >= 2)
   {
-    operator delete((v113 - (BYTE8(v112) & 1) - 8));
+    operator delete((v106 - (BYTE8(v105) & 1) - 8));
     if (v12)
     {
       return 0;
@@ -1675,64 +414,64 @@ LABEL_83:
     return 0;
   }
 
-  LODWORD(v67) = *v105;
-  if (*v105 > 1)
+  LODWORD(v63) = *v98;
+  if (*v98 > 1)
   {
-    v113 = 0;
-    v112 = 0uLL;
-    if (*v105 >= 1)
+    v106 = 0;
+    v105 = 0uLL;
+    if (*v98 >= 1)
     {
-      v68 = 0;
+      v64 = 0;
       do
       {
         while (1)
         {
-          v69 = *(v4[3] + 4 * v68);
-          started = operations_research::sat::PresolveContext::StartMin(*(this + 1), v69);
-          v71 = operations_research::sat::PresolveContext::EndMax(*(this + 1), v69);
-          v72 = *(&v112 + 1);
-          if (*(&v112 + 1) >= v113)
+          v65 = *(v4[3] + 4 * v64);
+          started = operations_research::sat::PresolveContext::StartMin(*(this + 1), v65);
+          v67 = operations_research::sat::PresolveContext::EndMax(*(this + 1), v65);
+          v68 = *(&v105 + 1);
+          if (*(&v105 + 1) >= v106)
           {
             break;
           }
 
-          **(&v112 + 1) = v69;
-          *(v72 + 8) = started;
-          *(v72 + 16) = v71;
-          *(&v112 + 1) = v72 + 24;
-          if (++v68 >= *v65)
+          **(&v105 + 1) = v65;
+          *(v68 + 8) = started;
+          *(v68 + 16) = v67;
+          *(&v105 + 1) = v68 + 24;
+          if (++v64 >= *v61)
           {
             goto LABEL_106;
           }
         }
 
-        v73 = v112;
-        v74 = *(&v112 + 1) - v112;
-        v75 = 0xAAAAAAAAAAAAAAABLL * ((*(&v112 + 1) - v112) >> 3);
-        v76 = v75 + 1;
-        if (v75 + 1 > 0xAAAAAAAAAAAAAAALL)
+        v69 = v105;
+        v70 = *(&v105 + 1) - v105;
+        v71 = 0xAAAAAAAAAAAAAAABLL * ((*(&v105 + 1) - v105) >> 3);
+        v72 = v71 + 1;
+        if (v71 + 1 > 0xAAAAAAAAAAAAAAALL)
         {
           std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
         }
 
-        if (0x5555555555555556 * ((v113 - v112) >> 3) > v76)
+        if (0x5555555555555556 * ((v106 - v105) >> 3) > v72)
         {
-          v76 = 0x5555555555555556 * ((v113 - v112) >> 3);
+          v72 = 0x5555555555555556 * ((v106 - v105) >> 3);
         }
 
-        if (0xAAAAAAAAAAAAAAABLL * ((v113 - v112) >> 3) >= 0x555555555555555)
+        if (0xAAAAAAAAAAAAAAABLL * ((v106 - v105) >> 3) >= 0x555555555555555)
         {
-          v77 = 0xAAAAAAAAAAAAAAALL;
+          v73 = 0xAAAAAAAAAAAAAAALL;
         }
 
         else
         {
-          v77 = v76;
+          v73 = v72;
         }
 
-        if (v77)
+        if (v73)
         {
-          if (v77 <= 0xAAAAAAAAAAAAAAALL)
+          if (v73 <= 0xAAAAAAAAAAAAAAALL)
           {
             operator new();
           }
@@ -1740,153 +479,152 @@ LABEL_83:
           std::__throw_bad_array_new_length[abi:ne200100]();
         }
 
-        v78 = 8 * ((*(&v112 + 1) - v112) >> 3);
-        *v78 = v69;
-        *(v78 + 8) = started;
-        *(v78 + 16) = v71;
-        v79 = 24 * v75 + 24;
-        v80 = 24 * v75 - v74;
-        memcpy((v78 - v74), v73, v74);
-        *&v112 = v80;
-        *(&v112 + 1) = v79;
-        v113 = 0;
-        if (v73)
+        v74 = 8 * ((*(&v105 + 1) - v105) >> 3);
+        *v74 = v65;
+        *(v74 + 8) = started;
+        *(v74 + 16) = v67;
+        v75 = 24 * v71 + 24;
+        v76 = 24 * v71 - v70;
+        memcpy((v74 - v70), v69, v70);
+        *&v105 = v76;
+        *(&v105 + 1) = v75;
+        v106 = 0;
+        if (v69)
         {
-          operator delete(v73);
+          operator delete(v69);
         }
 
-        v65 = v105;
-        *(&v112 + 1) = v79;
-        ++v68;
+        v61 = v98;
+        *(&v105 + 1) = v75;
+        ++v64;
       }
 
-      while (v68 < *v105);
+      while (v64 < *v98);
     }
 
 LABEL_106:
-    v109[0] = 0;
-    v109[1] = 0;
-    v110 = 0;
-    operations_research::sat::GetOverlappingIntervalComponents(&v112, v109);
-    v81 = v109[0];
-    v82 = v109[1];
-    if (0xAAAAAAAAAAAAAAABLL * ((v109[1] - v109[0]) >> 3) >= 2)
+    v102[0] = 0;
+    v102[1] = 0;
+    v103 = 0;
+    operations_research::sat::GetOverlappingIntervalComponents(&v105, v102);
+    v77 = v102[0];
+    v78 = v102[1];
+    if (0xAAAAAAAAAAAAAAABLL * ((v102[1] - v102[0]) >> 3) >= 2)
     {
-      if (v109[0] == v109[1])
+      if (v102[0] == v102[1])
       {
 LABEL_128:
         operations_research::sat::PresolveContext::UpdateNewConstraintsVariableUsage(*(this + 1));
-        v97 = *(this + 1);
         operator new();
       }
 
       while (1)
       {
-        if ((v81[1] - *v81) >= 5)
+        if ((v77[1] - *v77) >= 5)
         {
-          v83 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(this + 1) + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
-          v84 = v83;
-          if (*(v83 + 60) != 20)
+          v79 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(this + 1) + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
+          v80 = v79;
+          if (*(v79 + 60) != 20)
           {
-            operations_research::sat::ConstraintProto::clear_constraint(v83);
-            *(v84 + 60) = 20;
-            v88 = *(v84 + 8);
-            if (v88)
+            operations_research::sat::ConstraintProto::clear_constraint(v79);
+            *(v80 + 60) = 20;
+            v84 = *(v80 + 8);
+            if (v84)
             {
-              v88 = *(v88 & 0xFFFFFFFFFFFFFFFELL);
+              v84 = *(v84 & 0xFFFFFFFFFFFFFFFELL);
             }
 
-            v85 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::NoOverlapConstraintProto>(v88);
-            *(v84 + 48) = v85;
-            v86 = *v81;
-            v87 = v81[1];
-            if (*v81 == v87)
+            v81 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::NoOverlapConstraintProto>(v84);
+            *(v80 + 48) = v81;
+            v82 = *v77;
+            v83 = v77[1];
+            if (*v77 == v83)
             {
               goto LABEL_109;
             }
 
 LABEL_117:
-            v89 = *(v85 + 4);
-            v90 = *(v85 + 5);
+            v85 = *(v81 + 4);
+            v86 = *(v81 + 5);
             do
             {
-              v91 = *v86;
-              if (v89 == v90)
+              v87 = *v82;
+              if (v85 == v86)
               {
-                google::protobuf::RepeatedField<int>::Grow(v85 + 2, v89, (v89 + 1));
-                LODWORD(v89) = *(v85 + 4);
-                v90 = *(v85 + 5);
+                google::protobuf::RepeatedField<int>::Grow((v81 + 2), v85, (v85 + 1));
+                LODWORD(v85) = *(v81 + 4);
+                v86 = *(v81 + 5);
               }
 
-              v92 = v85[3];
-              *(v85 + 4) = v89 + 1;
-              *(v92 + 4 * v89) = v91;
-              ++v86;
-              v89 = (v89 + 1);
+              v88 = v81[3];
+              *(v81 + 4) = v85 + 1;
+              *(v88 + 4 * v85) = v87;
+              ++v82;
+              v85 = (v85 + 1);
             }
 
-            while (v86 != v87);
+            while (v82 != v83);
             goto LABEL_109;
           }
 
-          v85 = *(v83 + 48);
-          v86 = *v81;
-          v87 = v81[1];
-          if (*v81 != v87)
+          v81 = *(v79 + 48);
+          v82 = *v77;
+          v83 = v77[1];
+          if (*v77 != v83)
           {
             goto LABEL_117;
           }
         }
 
 LABEL_109:
-        v81 += 3;
-        if (v81 == v82)
+        v77 += 3;
+        if (v77 == v78)
         {
           goto LABEL_128;
         }
       }
     }
 
-    if (v109[0])
+    if (v102[0])
     {
-      v93 = v109[0];
-      if (v109[1] != v109[0])
+      v89 = v102[0];
+      if (v102[1] != v102[0])
       {
-        v94 = v109[1];
+        v90 = v102[1];
         do
         {
-          v96 = *(v94 - 3);
-          v94 -= 3;
-          v95 = v96;
-          if (v96)
+          v92 = *(v90 - 3);
+          v90 -= 3;
+          v91 = v92;
+          if (v92)
           {
-            *(v82 - 2) = v95;
-            operator delete(v95);
+            *(v78 - 2) = v91;
+            operator delete(v91);
           }
 
-          v82 = v94;
+          v78 = v90;
         }
 
-        while (v94 != v81);
-        v93 = v109[0];
+        while (v90 != v77);
+        v89 = v102[0];
       }
 
-      v109[1] = v81;
-      operator delete(v93);
+      v102[1] = v77;
+      operator delete(v89);
     }
 
-    if (v112)
+    if (v105)
     {
-      *(&v112 + 1) = v112;
-      operator delete(v112);
+      *(&v105 + 1) = v105;
+      operator delete(v105);
     }
 
-    LODWORD(v67) = *v65;
+    LODWORD(v63) = *v61;
   }
 
-  if (v67 < 1)
+  if (v63 < 1)
   {
-    if (!v67)
+    if (!v63)
     {
       goto LABEL_148;
     }
@@ -1894,38 +632,36 @@ LABEL_109:
 
   else
   {
-    v98 = 0;
-    v99 = 0x7FFFFFFFFFFFFFFFLL;
+    v93 = 0;
+    v94 = 0x7FFFFFFFFFFFFFFFLL;
     do
     {
-      v100 = *(v4[3] + 4 * v98);
-      if (operations_research::sat::PresolveContext::IntervalIsConstant(*(this + 1), v100))
+      v95 = *(v4[3] + 4 * v93);
+      if (operations_research::sat::PresolveContext::IntervalIsConstant(*(this + 1), v95))
       {
         operator new();
       }
 
-      v101 = operations_research::sat::PresolveContext::SizeMin(*(this + 1), v100);
-      if (v101 < v99)
+      v96 = operations_research::sat::PresolveContext::SizeMin(*(this + 1), v95);
+      if (v96 < v94)
       {
-        v99 = v101;
+        v94 = v96;
       }
 
-      ++v98;
-      v67 = *v105;
+      ++v93;
+      v63 = *v98;
     }
 
-    while (v98 < v67);
-    if (!v67)
+    while (v93 < v63);
+    if (!v63)
     {
 LABEL_148:
-      v103 = *(this + 1);
       operator new();
     }
   }
 
-  if (v67 == 1)
+  if (v63 == 1)
   {
-    v102 = *(this + 1);
     operator new();
   }
 
@@ -1987,8 +723,8 @@ BOOL operations_research::sat::CpModelPresolver::PresolveNoOverlap2D(operations_
   if (*(a3 + 15) == 21)
   {
     v5 = *(a3 + 6);
-    v61 = a3;
-    v62 = this;
+    v56 = a3;
+    v57 = this;
     v6 = *(v5 + 4);
     if (v6 < 1)
     {
@@ -2006,8 +742,8 @@ LABEL_5:
   else
   {
     v5 = &operations_research::sat::_NoOverlap2DConstraintProto_default_instance_;
-    v61 = a3;
-    v62 = this;
+    v56 = a3;
+    v57 = this;
     v6 = dword_2810BEA40;
     if (dword_2810BEA40 < 1)
     {
@@ -2015,45 +751,45 @@ LABEL_5:
     }
   }
 
-  v54 = 0;
+  v49 = 0;
   v12 = 0;
   v9 = 0;
-  v59 = 0;
+  v54 = 0;
   v7 = 0;
   IsConstant = 1;
-  v58 = 1;
+  v53 = 1;
   do
   {
     v13 = *(v5[3] + v12);
     v14 = *(v5[6] + v12);
-    if (operations_research::sat::PresolveContext::ConstraintIsInactive(*(v62 + 1), v13) & 1) != 0 || (operations_research::sat::PresolveContext::ConstraintIsInactive(*(v62 + 1), v14))
+    if (operations_research::sat::PresolveContext::ConstraintIsInactive(*(v57 + 1), v13) & 1) != 0 || (operations_research::sat::PresolveContext::ConstraintIsInactive(*(v57 + 1), v14))
     {
       goto LABEL_9;
     }
 
-    v15 = v61;
-    if (*(v61 + 15) == 21)
+    v15 = v56;
+    if (*(v56 + 15) == 21)
     {
-      v16 = *(v61 + 6);
+      v16 = *(v56 + 6);
     }
 
     else
     {
-      operations_research::sat::ConstraintProto::clear_constraint(v61);
-      *(v61 + 15) = 21;
-      v17 = *(v61 + 1);
+      operations_research::sat::ConstraintProto::clear_constraint(v56);
+      *(v56 + 15) = 21;
+      v17 = *(v56 + 1);
       if (v17)
       {
         v17 = *(v17 & 0xFFFFFFFFFFFFFFFELL);
       }
 
       v16 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::NoOverlap2DConstraintProto>(v17);
-      v15 = v61;
-      *(v61 + 6) = v16;
+      v15 = v56;
+      *(v56 + 6) = v16;
     }
 
-    *(*(v16 + 24) + 4 * v9) = v13;
-    v57 = v7;
+    *(v16[3] + 4 * v9) = v13;
+    v52 = v7;
     if (*(v15 + 60) == 21)
     {
       v18 = *(v15 + 48);
@@ -2062,33 +798,33 @@ LABEL_5:
     else
     {
       operations_research::sat::ConstraintProto::clear_constraint(v15);
-      *(v61 + 15) = 21;
-      v19 = *(v61 + 1);
+      *(v56 + 15) = 21;
+      v19 = *(v56 + 1);
       if (v19)
       {
         v19 = *(v19 & 0xFFFFFFFFFFFFFFFELL);
       }
 
       v18 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::NoOverlap2DConstraintProto>(v19);
-      *(v61 + 6) = v18;
+      *(v56 + 6) = v18;
     }
 
-    v56 = v9;
-    *(*(v18 + 48) + 4 * v9) = v14;
-    started = operations_research::sat::PresolveContext::StartMin(*(v62 + 1), v13);
-    v20 = operations_research::sat::PresolveContext::EndMax(*(v62 + 1), v13);
-    v21 = operations_research::sat::PresolveContext::StartMin(*(v62 + 1), v14);
-    v22 = operations_research::sat::PresolveContext::EndMax(*(v62 + 1), v14);
-    v23 = v59;
-    v24 = v59 >> 5;
-    if (((v59 >> 5) + 1) >> 59)
+    v51 = v9;
+    *(v18[6] + 4 * v9) = v14;
+    started = operations_research::sat::PresolveContext::StartMin(*(v57 + 1), v13);
+    v20 = operations_research::sat::PresolveContext::EndMax(*(v57 + 1), v13);
+    v21 = operations_research::sat::PresolveContext::StartMin(*(v57 + 1), v14);
+    v22 = operations_research::sat::PresolveContext::EndMax(*(v57 + 1), v14);
+    v23 = v54;
+    v24 = v54 >> 5;
+    if (((v54 >> 5) + 1) >> 59)
     {
       std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
     }
 
-    if (v59 >> 5 != -1)
+    if (v54 >> 5 != -1)
     {
-      if (!(((v59 >> 5) + 1) >> 59))
+      if (!(((v54 >> 5) + 1) >> 59))
       {
         operator new();
       }
@@ -2101,16 +837,16 @@ LABEL_5:
     v25[1] = v20;
     v25[2] = v21;
     v25[3] = v22;
-    v59 = 32 * v24 + 32;
+    v54 = 32 * v24 + 32;
     memcpy(0, 0, v23);
-    if (((v57 >> 2) + 1) >> 62)
+    if (((v52 >> 2) + 1) >> 62)
     {
       std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
     }
 
-    if (v57 >> 2 != -1)
+    if (v52 >> 2 != -1)
     {
-      if (!(((v57 >> 2) + 1) >> 62))
+      if (!(((v52 >> 2) + 1) >> 62))
       {
         operator new();
       }
@@ -2118,14 +854,14 @@ LABEL_5:
       std::__throw_bad_array_new_length[abi:ne200100]();
     }
 
-    v26 = (4 * (v57 >> 2));
-    *v26 = v56;
+    v26 = (4 * (v52 >> 2));
+    *v26 = v51;
     v7 = (v26 + 1);
-    memcpy(0, 0, v57);
+    memcpy(0, 0, v52);
     if (IsConstant)
     {
-      IsConstant = operations_research::sat::PresolveContext::IntervalIsConstant(*(v62 + 1), v13);
-      if (!v58)
+      IsConstant = operations_research::sat::PresolveContext::IntervalIsConstant(*(v57 + 1), v13);
+      if (!v53)
       {
         goto LABEL_35;
       }
@@ -2134,20 +870,20 @@ LABEL_5:
     else
     {
       IsConstant = 0;
-      if (!v58)
+      if (!v53)
       {
 LABEL_35:
-        v58 = 0;
+        v53 = 0;
         goto LABEL_36;
       }
     }
 
-    v58 = operations_research::sat::PresolveContext::IntervalIsConstant(*(v62 + 1), v14);
+    v53 = operations_research::sat::PresolveContext::IntervalIsConstant(*(v57 + 1), v14);
 LABEL_36:
-    v9 = v56 + 1;
-    if (!operations_research::sat::PresolveContext::SizeMax(*(v62 + 1), v13) || !operations_research::sat::PresolveContext::SizeMax(*(v62 + 1), v14))
+    v9 = v51 + 1;
+    if (!operations_research::sat::PresolveContext::SizeMax(*(v57 + 1), v13) || !operations_research::sat::PresolveContext::SizeMax(*(v57 + 1), v14))
     {
-      v54 = 1;
+      v49 = 1;
     }
 
 LABEL_9:
@@ -2155,21 +891,20 @@ LABEL_9:
   }
 
   while (v12 < *(v5 + 4));
-  v10 = v54 ^ 1;
-  v4 = v62;
-  v11 = v58;
-  v8 = v59;
+  v10 = v49 ^ 1;
+  v4 = v57;
+  v11 = v53;
+  v8 = v54;
 LABEL_40:
-  operations_research::sat::GetOverlappingRectangleComponents(0, (v8 >> 5), 0, v7 >> 2, &v63);
-  v28 = v63;
-  v27 = v64;
-  if ((v64 - v63) >= 0x11)
+  operations_research::sat::GetOverlappingRectangleComponents(0, (v8 >> 5), 0, v7 >> 2, &v58);
+  v28 = v58;
+  v27 = v59;
+  if ((v59 - v58) >= 0x11)
   {
-    if (v63 == v64)
+    if (v58 == v59)
     {
 LABEL_60:
       operations_research::sat::PresolveContext::UpdateNewConstraintsVariableUsage(*(v4 + 1));
-      v48 = *(v4 + 1);
       operator new();
     }
 
@@ -2195,32 +930,32 @@ LABEL_51:
           {
             v36 = *v30;
             v37 = *(v5[3] + v36);
-            v39 = *(v33 + 16);
-            v38 = *(v33 + 20);
+            v39 = *(v33 + 4);
+            v38 = *(v33 + 5);
             if (v39 == v38)
             {
               v45 = v33;
-              google::protobuf::RepeatedField<int>::Grow(v33 + 16, v38, (v38 + 1));
+              google::protobuf::RepeatedField<int>::Grow((v33 + 2), v38, (v38 + 1));
               v33 = v45;
-              v39 = *(v45 + 16);
+              v39 = *(v45 + 4);
             }
 
-            v40 = *(v33 + 24);
-            *(v33 + 16) = v39 + 1;
+            v40 = v33[3];
+            *(v33 + 4) = v39 + 1;
             *(v40 + 4 * v39) = v37;
             v41 = *(v5[6] + v36);
-            v43 = *(v33 + 40);
-            v42 = *(v33 + 44);
+            v43 = *(v33 + 10);
+            v42 = *(v33 + 11);
             if (v43 == v42)
             {
               v46 = v33;
-              google::protobuf::RepeatedField<int>::Grow(v33 + 40, v42, (v42 + 1));
+              google::protobuf::RepeatedField<int>::Grow((v33 + 5), v42, (v42 + 1));
               v33 = v46;
-              v43 = *(v46 + 40);
+              v43 = *(v46 + 10);
             }
 
-            v44 = *(v33 + 48);
-            *(v33 + 40) = v43 + 1;
+            v44 = v33[6];
+            *(v33 + 10) = v43 + 1;
             *(v44 + 4 * v43) = v41;
             ++v30;
             v35 -= 4;
@@ -2261,34 +996,30 @@ LABEL_43:
 
   if (v10 & (IsConstant | v11))
   {
-    v47 = *(v4 + 1);
     operator new();
   }
 
-  v50 = v9 < v6;
+  v48 = v9 < v6;
   v3 = v9 < v6;
-  if (v50)
+  if (v48)
   {
-    v51 = *(v4 + 1);
     operator new();
   }
 
   if (v9 == 1)
   {
-    v53 = *(v4 + 1);
     operator new();
   }
 
   if (!v9)
   {
-    v52 = *(v4 + 1);
     operator new();
   }
 
-  if (v63)
+  if (v58)
   {
-    v64 = v63;
-    operator delete(v63);
+    v59 = v58;
+    operator delete(v58);
   }
 
   return v3;
@@ -2457,7 +1188,7 @@ LABEL_12:
 
   while (v22);
 LABEL_26:
-  v360 = a2;
+  v351 = a2;
   if (*(v5 + 72))
   {
     v24 = *(v5 + 72);
@@ -2469,7 +1200,7 @@ LABEL_26:
   }
 
   v25 = operations_research::sat::PresolveContext::MaxOf(*(this + 1), v24);
-  LOBYTE(v379) = 0;
+  LOBYTE(v370) = 0;
   v26 = *(this + 1);
   if (*(v5 + 72))
   {
@@ -2481,9 +1212,9 @@ LABEL_26:
     v27 = &operations_research::sat::_LinearExpressionProto_default_instance_;
   }
 
-  v372 = v25;
+  v363 = v25;
   operations_research::Domain::Domain(__p, 0, v25);
-  v29 = operations_research::sat::PresolveContext::IntersectDomainWith(v26, v27, __p, &v379);
+  v29 = operations_research::sat::PresolveContext::IntersectDomainWith(v26, v27, __p, &v370);
   if (__p[0])
   {
     operator delete(__p[1]);
@@ -2494,130 +1225,127 @@ LABEL_26:
     goto LABEL_292;
   }
 
-  if (v379 == 1)
+  if (v370 == 1)
   {
-    v30 = *(this + 1);
     operator new();
   }
 
   *__p = xmmword_23CE306D0;
-  LODWORD(v31) = *(v5 + 24);
-  if (v31 < 1)
+  LODWORD(v30) = *(v5 + 24);
+  if (v30 < 1)
   {
-    v33 = 0;
+    v32 = 0;
   }
 
   else
   {
+    v31 = 0;
     v32 = 0;
-    v33 = 0;
-    v34 = (v5 + 48);
-    v35 = 8;
+    v33 = (v5 + 48);
+    v34 = 8;
     do
     {
-      LODWORD(v377) = *(*(v5 + 32) + 4 * v32);
-      DWORD1(v377) = v33;
-      absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<int,int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<std::pair<int const,int>>>::find_or_prepare_insert<int>(__p, &v377, &v379);
-      if (v380 != 1)
+      LODWORD(v368) = *(*(v5 + 32) + 4 * v31);
+      DWORD1(v368) = v32;
+      absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<int,int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<std::pair<int const,int>>>::find_or_prepare_insert<int>(__p, &v368, &v370);
+      if (v371 != 1)
       {
-        if (*v34)
+        if (*v33)
         {
-          v36 = (*v34 + v35 - 1);
+          v35 = (*v33 + v34 - 1);
         }
 
         else
         {
-          v36 = (v5 + 48);
+          v35 = (v5 + 48);
         }
 
-        if (operations_research::sat::PresolveContext::IsFixed(*(this + 1), *v36))
+        if (operations_research::sat::PresolveContext::IsFixed(*(this + 1), *v35))
         {
-          v37 = *v34 - 1;
-          v38 = v37 + 8 * *(*(&v379 + 1) + 4) + 8;
-          if ((*v34 & 1) == 0)
+          v36 = *v33 - 1;
+          v37 = v36 + 8 * *(*(&v370 + 1) + 4) + 8;
+          if ((*v33 & 1) == 0)
           {
-            v38 = v5 + 48;
+            v37 = v5 + 48;
           }
 
-          v39 = *v38;
-          v40 = *(*v38 + 64);
-          v41 = (v37 + v35);
-          if ((*v34 & 1) == 0)
+          v38 = *v37;
+          v39 = *(*v37 + 64);
+          v40 = (v36 + v34);
+          if ((*v33 & 1) == 0)
           {
-            v41 = (v5 + 48);
+            v40 = (v5 + 48);
           }
 
-          *(v39 + 64) = operations_research::sat::PresolveContext::FixedValue(*(this + 1), *v41) + v40;
-          v42 = *(this + 1);
+          *(v38 + 64) = operations_research::sat::PresolveContext::FixedValue(*(this + 1), *v40) + v39;
           operator new();
         }
 
-        v43 = *(this + 1);
         operator new();
       }
 
-      **(&v379 + 1) = v377;
-      *(*(v5 + 32) + 4 * v33) = *(*(v5 + 32) + 4 * v32);
-      v44 = *(v5 + 48);
-      v45 = v44 - 1 + 8 * v33;
-      if (v44)
+      **(&v370 + 1) = v368;
+      *(*(v5 + 32) + 4 * v32) = *(*(v5 + 32) + 4 * v31);
+      v41 = *(v5 + 48);
+      v42 = v41 - 1 + 8 * v32;
+      if (v41)
       {
-        v46 = (v44 - 1 + v35);
+        v43 = (v41 - 1 + v34);
       }
 
       else
       {
-        v46 = (v5 + 48);
+        v43 = (v5 + 48);
       }
 
-      v47 = *v46;
-      v48 = (v45 + 8);
+      v44 = *v43;
+      v45 = (v42 + 8);
       if ((*(v5 + 48) & 1) == 0)
       {
-        v48 = (v5 + 48);
+        v45 = (v5 + 48);
       }
 
-      operations_research::sat::LinearExpressionProto::CopyFrom(*v48, v47);
-      ++v33;
+      operations_research::sat::LinearExpressionProto::CopyFrom(*v45, v44);
       ++v32;
-      v31 = *(v5 + 24);
-      v35 += 8;
+      ++v31;
+      v30 = *(v5 + 24);
+      v34 += 8;
     }
 
-    while (v32 < v31);
+    while (v31 < v30);
   }
 
-  if (v33 < v31)
+  if (v32 < v30)
   {
-    v49 = *(v5 + 48);
-    *(v5 + 24) = v33;
-    if (v49)
+    v46 = *(v5 + 48);
+    *(v5 + 24) = v32;
+    if (v46)
     {
-      v50 = v49 + 7;
+      v47 = v46 + 7;
     }
 
     else
     {
-      v50 = v5 + 48;
+      v47 = v5 + 48;
     }
 
-    v51 = *(v5 + 56) - v33;
-    if (v51 >= 1)
+    v48 = *(v5 + 56) - v32;
+    if (v48 >= 1)
     {
       if (!*(v5 + 64))
       {
-        v52 = (v50 + 8 * v33);
-        v53 = (*(v5 + 56) - v33);
+        v49 = (v47 + 8 * v32);
+        v50 = (*(v5 + 56) - v32);
         do
         {
-          google::protobuf::internal::InternalOutOfLineDeleteMessageLite(*v52++, v28);
-          --v53;
+          google::protobuf::internal::InternalOutOfLineDeleteMessageLite(*v49++, v28);
+          --v50;
         }
 
-        while (v53);
+        while (v50);
       }
 
-      google::protobuf::internal::RepeatedPtrFieldBase::CloseGap((v5 + 48), v33, v51);
+      google::protobuf::internal::RepeatedPtrFieldBase::CloseGap((v5 + 48), v32, v48);
     }
 
     LOBYTE(v2) = 1;
@@ -2625,16 +1353,16 @@ LABEL_26:
 
   if (__p[0] >= 2)
   {
-    operator delete((v374 - (__p[1] & 1) - 8));
+    operator delete((v365 - (__p[1] & 1) - 8));
   }
 
   if (*(v5 + 24) < 1)
   {
-    v84 = 0;
-    v83 = 0;
-    v82 = 0;
+    v80 = 0;
+    v79 = 0;
+    v78 = 0;
 LABEL_121:
-    if (v82)
+    if (v78)
     {
       goto LABEL_122;
     }
@@ -2642,320 +1370,315 @@ LABEL_121:
     goto LABEL_123;
   }
 
-  v54 = 0;
-  v361 = 0;
-  v55 = 0;
-  v363 = 0;
-  v365 = 0;
-  v56 = (v5 + 48);
-  v57 = 8;
+  v51 = 0;
+  v352 = 0;
+  v52 = 0;
+  v354 = 0;
+  v356 = 0;
+  v53 = (v5 + 48);
+  v54 = 8;
   do
   {
-    if (operations_research::sat::PresolveContext::ConstraintIsInactive(*(this + 1), *(*(v5 + 32) + 4 * v54)))
+    if (operations_research::sat::PresolveContext::ConstraintIsInactive(*(this + 1), *(*(v5 + 32) + 4 * v51)))
     {
       goto LABEL_74;
     }
 
-    if (*v56)
+    if (*v53)
     {
-      v60 = (*v56 + v57 - 1);
+      v57 = (*v53 + v54 - 1);
     }
 
     else
     {
-      v60 = (v5 + 48);
+      v57 = (v5 + 48);
     }
 
-    v61 = *v60;
-    if (!operations_research::sat::PresolveContext::MaxOf(*(this + 1), *v60))
+    v58 = *v57;
+    if (!operations_research::sat::PresolveContext::MaxOf(*(this + 1), *v57))
     {
-      ++v55;
+      ++v52;
       goto LABEL_74;
     }
 
-    v62 = *(*(v5 + 32) + 4 * v54);
-    if (!operations_research::sat::PresolveContext::SizeMax(*(this + 1), v62))
+    v59 = *(*(v5 + 32) + 4 * v51);
+    if (!operations_research::sat::PresolveContext::SizeMax(*(this + 1), v59))
     {
-      ++v365;
+      ++v356;
       goto LABEL_74;
     }
 
-    started = operations_research::sat::PresolveContext::StartMin(*(this + 1), v62);
-    v64 = operations_research::sat::PresolveContext::EndMax(*(this + 1), v62);
-    v65 = *(this + 1);
-    if (started <= v64)
+    started = operations_research::sat::PresolveContext::StartMin(*(this + 1), v59);
+    v61 = operations_research::sat::PresolveContext::EndMax(*(this + 1), v59);
+    v62 = *(this + 1);
+    if (started <= v61)
     {
-      if (operations_research::sat::PresolveContext::MinOf(v65, v61) <= v372)
+      if (operations_research::sat::PresolveContext::MinOf(v62, v58) <= v363)
       {
         goto LABEL_92;
       }
 
-      IsOptional = operations_research::sat::PresolveContext::ConstraintIsOptional(*(this + 1), v62);
-      v70 = *(this + 1);
+      IsOptional = operations_research::sat::PresolveContext::ConstraintIsOptional(*(this + 1), v59);
+      v67 = *(this + 1);
       if (!IsOptional)
       {
-        v76 = (*v70 + 48);
-        if (*v76)
+        v73 = (*v67 + 48);
+        if (*v73)
         {
-          v76 = (*v76 + 8 * v62 + 7);
+          v73 = (*v73 + 8 * v59 + 7);
         }
 
-        v77 = *v76;
-        v78 = &operations_research::sat::_IntervalConstraintProto_default_instance_;
-        if (*(v77 + 60) == 19)
+        v74 = *v73;
+        v75 = &operations_research::sat::_IntervalConstraintProto_default_instance_;
+        if (*(v74 + 60) == 19)
         {
-          v78 = *(v77 + 48);
+          v75 = *(v74 + 48);
         }
 
-        if (v78[5])
+        if (v75[5])
         {
-          v79 = v78[5];
+          v76 = v75[5];
         }
 
         else
         {
-          v79 = &operations_research::sat::_LinearExpressionProto_default_instance_;
+          v76 = &operations_research::sat::_LinearExpressionProto_default_instance_;
         }
 
         operations_research::Domain::Domain(__p, 0, 0);
-        v80 = operations_research::sat::PresolveContext::IntersectDomainWith(v70, v79, __p, 0);
+        v77 = operations_research::sat::PresolveContext::IntersectDomainWith(v67, v76, __p, 0);
         if (__p[0])
         {
           operator delete(__p[1]);
         }
 
-        if (v80)
+        if (v77)
         {
-          v81 = *(this + 1);
           operator new();
         }
 
         goto LABEL_292;
       }
 
-      if (operations_research::sat::PresolveContext::SizeMin(*(this + 1), v62) < 1)
+      if (operations_research::sat::PresolveContext::SizeMin(*(this + 1), v59) < 1)
       {
 LABEL_92:
-        *(*(v5 + 32) + 4 * v361) = v62;
-        v71 = *(v5 + 48);
-        v72 = v71 - 1 + 8 * v361;
-        if (v71)
+        *(*(v5 + 32) + 4 * v352) = v59;
+        v68 = *(v5 + 48);
+        v69 = v68 - 1 + 8 * v352;
+        if (v68)
         {
-          v73 = (v71 - 1 + v57);
+          v70 = (v68 - 1 + v54);
         }
 
         else
         {
-          v73 = (v5 + 48);
+          v70 = (v5 + 48);
         }
 
-        v74 = *v73;
-        v75 = (v72 + 8);
+        v71 = *v70;
+        v72 = (v69 + 8);
         if ((*(v5 + 48) & 1) == 0)
         {
-          v75 = (v5 + 48);
+          v72 = (v5 + 48);
         }
 
-        operations_research::sat::LinearExpressionProto::CopyFrom(*v75, v74);
-        ++v361;
+        operations_research::sat::LinearExpressionProto::CopyFrom(*v72, v71);
+        ++v352;
         goto LABEL_74;
       }
 
-      v67 = *(this + 1);
+      v64 = *(this + 1);
     }
 
     else
     {
-      v66 = operations_research::sat::PresolveContext::ConstraintIsOptional(v65, v62);
-      v67 = *(this + 1);
-      if (!v66)
+      v63 = operations_research::sat::PresolveContext::ConstraintIsOptional(v62, v59);
+      v64 = *(this + 1);
+      if (!v63)
       {
-        v237 = "cumulative: inconsistent intervals cannot be performed.";
-        v238 = 55;
+        v228 = "cumulative: inconsistent intervals cannot be performed.";
+        v229 = 55;
 LABEL_313:
-        LOBYTE(v2) = operations_research::sat::PresolveContext::NotifyThatModelIsUnsat(v67, v237, v238);
+        LOBYTE(v2) = operations_research::sat::PresolveContext::NotifyThatModelIsUnsat(v64, v228, v229);
         return v2 & 1;
       }
     }
 
-    v68 = *v67 + 48;
-    if (*v68)
+    v65 = *v64 + 48;
+    if (*v65)
     {
-      v68 = *v68 + 8 * v62 + 7;
+      v65 = *v65 + 8 * v59 + 7;
     }
 
-    if ((operations_research::sat::PresolveContext::SetLiteralToFalse(v67, **(*v68 + 24)) & 1) == 0)
+    if ((operations_research::sat::PresolveContext::SetLiteralToFalse(v64, **(*v65 + 24)) & 1) == 0)
     {
       goto LABEL_292;
     }
 
-    ++v363;
+    ++v354;
 LABEL_74:
-    ++v54;
-    v58 = *(v5 + 24);
-    v57 += 8;
+    ++v51;
+    v55 = *(v5 + 24);
+    v54 += 8;
   }
 
-  while (v54 < v58);
-  v82 = v55 > 0;
-  v83 = v365 > 0;
-  v84 = v363 > 0;
-  if (v361 >= v58)
+  while (v51 < v55);
+  v78 = v52 > 0;
+  v79 = v356 > 0;
+  v80 = v354 > 0;
+  if (v352 >= v55)
   {
     goto LABEL_121;
   }
 
-  v85 = *(v5 + 48);
-  *(v5 + 24) = v361;
-  if (v85)
+  v81 = *(v5 + 48);
+  *(v5 + 24) = v352;
+  if (v81)
   {
-    v86 = v85 + 7;
+    v82 = v81 + 7;
   }
 
   else
   {
-    v86 = v5 + 48;
+    v82 = v5 + 48;
   }
 
-  v87 = *(v5 + 56) - v361;
-  if (v87 >= 1)
+  v83 = *(v5 + 56) - v352;
+  if (v83 >= 1)
   {
     if (!*(v5 + 64))
     {
-      v88 = (v86 + 8 * v361);
-      v89 = (*(v5 + 56) - v361);
+      v84 = (v82 + 8 * v352);
+      v85 = (*(v5 + 56) - v352);
       do
       {
-        v90 = *v88++;
-        google::protobuf::internal::InternalOutOfLineDeleteMessageLite(v90, v59);
-        --v89;
+        v86 = *v84++;
+        google::protobuf::internal::InternalOutOfLineDeleteMessageLite(v86, v56);
+        --v85;
       }
 
-      while (v89);
+      while (v85);
     }
 
-    google::protobuf::internal::RepeatedPtrFieldBase::CloseGap((v5 + 48), v361, v87);
+    google::protobuf::internal::RepeatedPtrFieldBase::CloseGap((v5 + 48), v352, v83);
   }
 
   LOBYTE(v2) = 1;
-  if (v82)
+  if (v78)
   {
 LABEL_122:
-    v91 = *(this + 1);
     operator new();
   }
 
 LABEL_123:
-  if (v83)
+  if (v79)
   {
-    v92 = *(this + 1);
     operator new();
   }
 
-  if (v84)
+  if (v80)
   {
-    v93 = *(this + 1);
     operator new();
   }
 
   if (*(v5 + 56) >= 1)
   {
-    v94 = 0;
-    v95 = 8;
+    v87 = 0;
+    v88 = 8;
     do
     {
-      v96 = *(*(v5 + 32) + 4 * v94);
-      v97 = *(v5 + 48);
-      if (v97)
+      v89 = *(*(v5 + 32) + 4 * v87);
+      v90 = *(v5 + 48);
+      if (v90)
       {
-        v98 = (v97 + v95 - 1);
+        v91 = (v90 + v88 - 1);
       }
 
       else
       {
-        v98 = (v5 + 48);
+        v91 = (v5 + 48);
       }
 
-      v99 = *v98;
-      if ((operations_research::sat::PresolveContext::ConstraintIsOptional(*(this + 1), *(*(v5 + 32) + 4 * v94)) & 1) == 0 && operations_research::sat::PresolveContext::SizeMin(*(this + 1), v96))
+      v92 = *v91;
+      if ((operations_research::sat::PresolveContext::ConstraintIsOptional(*(this + 1), *(*(v5 + 32) + 4 * v87)) & 1) == 0 && operations_research::sat::PresolveContext::SizeMin(*(this + 1), v89))
       {
-        LOBYTE(v379) = 0;
-        v100 = *(this + 1);
-        operations_research::Domain::Domain(__p, 0, v372);
-        v101 = operations_research::sat::PresolveContext::IntersectDomainWith(v100, v99, __p, &v379);
+        LOBYTE(v370) = 0;
+        v93 = *(this + 1);
+        operations_research::Domain::Domain(__p, 0, v363);
+        v94 = operations_research::sat::PresolveContext::IntersectDomainWith(v93, v92, __p, &v370);
         if (__p[0])
         {
           operator delete(__p[1]);
         }
 
-        if ((v101 & 1) == 0)
+        if ((v94 & 1) == 0)
         {
           goto LABEL_292;
         }
 
-        if (v379 == 1)
+        if (v370 == 1)
         {
-          v102 = *(this + 1);
           operator new();
         }
       }
 
-      ++v94;
-      v95 += 8;
+      ++v87;
+      v88 += 8;
     }
 
-    while (v94 < *(v5 + 56));
+    while (v87 < *(v5 + 56));
   }
 
   if (*(v5 + 24) > 1)
   {
-    v103 = 0;
+    v95 = 0;
     __p[0] = 0;
     __p[1] = 0;
-    v374 = 0;
+    v365 = 0;
     do
     {
-      v105 = *(*(v5 + 32) + 4 * v103);
-      v106 = operations_research::sat::PresolveContext::StartMin(*(this + 1), v105);
-      v107 = operations_research::sat::PresolveContext::EndMax(*(this + 1), v105);
-      v108 = __p[1];
-      if (__p[1] < v374)
+      v97 = *(*(v5 + 32) + 4 * v95);
+      v98 = operations_research::sat::PresolveContext::StartMin(*(this + 1), v97);
+      v99 = operations_research::sat::PresolveContext::EndMax(*(this + 1), v97);
+      v100 = __p[1];
+      if (__p[1] < v365)
       {
-        *__p[1] = v103;
-        v104 = v108 + 3;
-        v108[1] = v106;
-        v108[2] = v107;
+        *__p[1] = v95;
+        v96 = v100 + 3;
+        v100[1] = v98;
+        v100[2] = v99;
       }
 
       else
       {
-        v109 = __p[0];
-        v110 = __p[1] - __p[0];
-        v111 = 0xAAAAAAAAAAAAAAABLL * ((__p[1] - __p[0]) >> 3);
-        v112 = v111 + 1;
-        if (v111 + 1 > 0xAAAAAAAAAAAAAAALL)
+        v101 = __p[0];
+        v102 = __p[1] - __p[0];
+        v103 = 0xAAAAAAAAAAAAAAABLL * ((__p[1] - __p[0]) >> 3);
+        v104 = v103 + 1;
+        if (v103 + 1 > 0xAAAAAAAAAAAAAAALL)
         {
           std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
         }
 
-        if (0x5555555555555556 * ((v374 - __p[0]) >> 3) > v112)
+        if (0x5555555555555556 * ((v365 - __p[0]) >> 3) > v104)
         {
-          v112 = 0x5555555555555556 * ((v374 - __p[0]) >> 3);
+          v104 = 0x5555555555555556 * ((v365 - __p[0]) >> 3);
         }
 
-        if (0xAAAAAAAAAAAAAAABLL * ((v374 - __p[0]) >> 3) >= 0x555555555555555)
+        if (0xAAAAAAAAAAAAAAABLL * ((v365 - __p[0]) >> 3) >= 0x555555555555555)
         {
-          v113 = 0xAAAAAAAAAAAAAAALL;
+          v105 = 0xAAAAAAAAAAAAAAALL;
         }
 
         else
         {
-          v113 = v112;
+          v105 = v104;
         }
 
-        if (v113)
+        if (v105)
         {
-          if (v113 <= 0xAAAAAAAAAAAAAAALL)
+          if (v105 <= 0xAAAAAAAAAAAAAAALL)
           {
             operator new();
           }
@@ -2963,53 +1686,53 @@ LABEL_123:
           std::__throw_bad_array_new_length[abi:ne200100]();
         }
 
-        v114 = 8 * ((__p[1] - __p[0]) >> 3);
-        *v114 = v103;
-        *(v114 + 8) = v106;
-        *(v114 + 16) = v107;
-        v104 = (24 * v111 + 24);
-        v115 = (24 * v111 - v110);
-        memcpy(v115, v109, v110);
-        __p[0] = v115;
-        __p[1] = v104;
-        v374 = 0;
-        if (v109)
+        v106 = 8 * ((__p[1] - __p[0]) >> 3);
+        *v106 = v95;
+        *(v106 + 8) = v98;
+        *(v106 + 16) = v99;
+        v96 = (24 * v103 + 24);
+        v107 = (24 * v103 - v102);
+        memcpy(v107, v101, v102);
+        __p[0] = v107;
+        __p[1] = v96;
+        v365 = 0;
+        if (v101)
         {
-          operator delete(v109);
+          operator delete(v101);
         }
       }
 
-      __p[1] = v104;
-      ++v103;
+      __p[1] = v96;
+      ++v95;
     }
 
-    while (v103 < *(v5 + 24));
-    v379 = 0uLL;
-    v380 = 0;
-    operations_research::sat::GetOverlappingIntervalComponents(__p, &v379);
-    v116 = v379;
-    v117 = (*(&v379 + 1) - v379) >> 3;
-    v118 = 0xAAAAAAAAAAAAAAABLL * v117;
-    if (0xAAAAAAAAAAAAAAABLL * v117 >= 2)
+    while (v95 < *(v5 + 24));
+    v370 = 0uLL;
+    v371 = 0;
+    operations_research::sat::GetOverlappingIntervalComponents(__p, &v370);
+    v108 = v370;
+    v109 = (*(&v370 + 1) - v370) >> 3;
+    v110 = 0xAAAAAAAAAAAAAAABLL * v109;
+    if (0xAAAAAAAAAAAAAAABLL * v109 >= 2)
     {
-      v366 = 0xAAAAAAAAAAAAAAABLL * v117;
-      if (v379 != *(&v379 + 1))
+      v357 = 0xAAAAAAAAAAAAAAABLL * v109;
+      if (v370 != *(&v370 + 1))
       {
-        v119 = (v5 + 48);
-        v369 = *(&v379 + 1);
+        v111 = (v5 + 48);
+        v360 = *(&v370 + 1);
         while (1)
         {
-          v120 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(this + 1) + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
-          v121 = v120;
-          if (*(v120 + 60) != 22)
+          v112 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(this + 1) + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
+          v113 = v112;
+          if (*(v112 + 60) != 22)
           {
             break;
           }
 
-          v122 = *(v120 + 48);
-          v123 = *v116;
-          v124 = v116[1];
-          if (*v116 != v124)
+          v114 = *(v112 + 48);
+          v115 = *v108;
+          v116 = v108[1];
+          if (*v108 != v116)
           {
             goto LABEL_165;
           }
@@ -3017,50 +1740,50 @@ LABEL_123:
 LABEL_171:
           if (*(v5 + 72))
           {
-            v135 = *(v5 + 72);
+            v127 = *(v5 + 72);
           }
 
           else
           {
-            v135 = &operations_research::sat::_LinearExpressionProto_default_instance_;
+            v127 = &operations_research::sat::_LinearExpressionProto_default_instance_;
           }
 
-          *(v122 + 16) |= 1u;
-          v136 = *(v122 + 72);
-          if (!v136)
+          *(v114 + 16) |= 1u;
+          v128 = *(v114 + 72);
+          if (!v128)
           {
-            v137 = *(v122 + 8);
-            if (v137)
+            v129 = *(v114 + 8);
+            if (v129)
             {
-              v137 = *(v137 & 0xFFFFFFFFFFFFFFFELL);
+              v129 = *(v129 & 0xFFFFFFFFFFFFFFFELL);
             }
 
-            google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearExpressionProto>(v137);
-            *(v122 + 72) = v136;
+            google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearExpressionProto>(v129);
+            *(v114 + 72) = v128;
           }
 
-          operations_research::sat::LinearExpressionProto::CopyFrom(v136, v135);
-          v116 += 3;
-          if (v116 == v369)
+          operations_research::sat::LinearExpressionProto::CopyFrom(v128, v127);
+          v108 += 3;
+          if (v108 == v360)
           {
             goto LABEL_179;
           }
         }
 
-        operations_research::sat::ConstraintProto::clear_constraint(v120);
-        *(v121 + 60) = 22;
-        v125 = *(v121 + 8);
-        if (v125)
+        operations_research::sat::ConstraintProto::clear_constraint(v112);
+        *(v113 + 60) = 22;
+        v117 = *(v113 + 8);
+        if (v117)
         {
-          v125 = *(v125 & 0xFFFFFFFFFFFFFFFELL);
+          v117 = *(v117 & 0xFFFFFFFFFFFFFFFELL);
         }
 
-        google::protobuf::Arena::DefaultConstruct<operations_research::sat::CumulativeConstraintProto>(v125);
-        v122 = v126;
-        *(v121 + 48) = v126;
-        v123 = *v116;
-        v124 = v116[1];
-        if (*v116 == v124)
+        google::protobuf::Arena::DefaultConstruct<operations_research::sat::CumulativeConstraintProto>(v117);
+        v114 = v118;
+        *(v113 + 48) = v118;
+        v115 = *v108;
+        v116 = v108[1];
+        if (*v108 == v116)
         {
           goto LABEL_171;
         }
@@ -3068,162 +1791,161 @@ LABEL_171:
         do
         {
 LABEL_165:
-          v127 = *v123;
-          v128 = *(*(v5 + 32) + 4 * v127);
-          v130 = *(v122 + 24);
-          v129 = *(v122 + 28);
-          if (v130 == v129)
+          v119 = *v115;
+          v120 = *(*(v5 + 32) + 4 * v119);
+          v122 = *(v114 + 24);
+          v121 = *(v114 + 28);
+          if (v122 == v121)
           {
-            google::protobuf::RepeatedField<int>::Grow(v122 + 24, v129, (v129 + 1));
-            v130 = *(v122 + 24);
+            google::protobuf::RepeatedField<int>::Grow(v114 + 24, v121, (v121 + 1));
+            v122 = *(v114 + 24);
           }
 
-          v131 = *(v122 + 32);
-          *(v122 + 24) = v130 + 1;
-          *(v131 + 4 * v130) = v128;
-          if (*v119)
+          v123 = *(v114 + 32);
+          *(v114 + 24) = v122 + 1;
+          *(v123 + 4 * v122) = v120;
+          if (*v111)
           {
-            v132 = (*v119 + 8 * v127 + 7);
+            v124 = (*v111 + 8 * v119 + 7);
           }
 
           else
           {
-            v132 = (v5 + 48);
+            v124 = (v5 + 48);
           }
 
-          v133 = *v132;
-          v134 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((v122 + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearExpressionProto>);
-          operations_research::sat::LinearExpressionProto::CopyFrom(v134, v133);
-          ++v123;
+          v125 = *v124;
+          v126 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((v114 + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearExpressionProto>);
+          operations_research::sat::LinearExpressionProto::CopyFrom(v126, v125);
+          ++v115;
         }
 
-        while (v123 != v124);
+        while (v115 != v116);
         goto LABEL_171;
       }
 
 LABEL_179:
       operations_research::sat::PresolveContext::UpdateNewConstraintsVariableUsage(*(this + 1));
-      v118 = v366;
-      v138 = *(this + 1);
-      std::string::basic_string[abi:ne200100]<0>(&v377, "cumulative: split into disjoint components");
-      operations_research::sat::PresolveContext::UpdateRuleStats(v138, &v377, 1, v139, v140);
-      if (SHIBYTE(v378) < 0)
+      v110 = v357;
+      v130 = *(this + 1);
+      std::string::basic_string[abi:ne200100]<0>(&v368, "cumulative: split into disjoint components");
+      operations_research::sat::PresolveContext::UpdateRuleStats(v130, &v368, 1, v131, v132);
+      if (SHIBYTE(v369) < 0)
       {
-        operator delete(v377);
+        operator delete(v368);
       }
 
-      operations_research::sat::ConstraintProto::Clear(v360);
+      operations_research::sat::ConstraintProto::Clear(v351);
     }
 
-    std::vector<std::vector<int>>::~vector[abi:ne200100](&v379);
+    std::vector<std::vector<int>>::~vector[abi:ne200100](&v370);
     if (__p[0])
     {
       __p[1] = __p[0];
       operator delete(__p[0]);
     }
 
-    if (v118 >= 2)
+    if (v110 >= 2)
     {
       goto LABEL_292;
     }
   }
 
-  *&v377 = &absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<long long,long long,std::less<long long>,std::allocator<std::pair<long long const,long long>>,256,false>>::EmptyNode(void)::empty_node;
-  *(&v377 + 1) = &absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<long long,long long,std::less<long long>,std::allocator<std::pair<long long const,long long>>,256,false>>::EmptyNode(void)::empty_node;
-  v378 = 0;
+  *&v368 = &absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<long long,long long,std::less<long long>,std::allocator<std::pair<long long const,long long>>,256,false>>::EmptyNode(void)::empty_node;
+  *(&v368 + 1) = &absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<long long,long long,std::less<long long>,std::allocator<std::pair<long long const,long long>>,256,false>>::EmptyNode(void)::empty_node;
+  v369 = 0;
   if (*(v5 + 72))
   {
-    v141 = *(v5 + 72);
+    v133 = *(v5 + 72);
   }
 
   else
   {
-    v141 = &operations_research::sat::_LinearExpressionProto_default_instance_;
+    v133 = &operations_research::sat::_LinearExpressionProto_default_instance_;
   }
 
-  v142 = operations_research::sat::PresolveContext::MinOf(*(this + 1), v141);
+  v134 = operations_research::sat::PresolveContext::MinOf(*(this + 1), v133);
   if (*(v5 + 24) >= 1)
   {
-    v143 = 0;
-    v144 = 8;
+    v135 = 0;
+    v136 = 8;
     do
     {
-      v145 = *(*(v5 + 32) + 4 * v143);
-      v146 = *(v5 + 48);
-      if (v146)
+      v137 = *(*(v5 + 32) + 4 * v135);
+      v138 = *(v5 + 48);
+      if (v138)
       {
-        v147 = (v146 + v144 - 1);
+        v139 = (v138 + v136 - 1);
       }
 
       else
       {
-        v147 = (v5 + 48);
+        v139 = (v5 + 48);
       }
 
-      v148 = operations_research::sat::PresolveContext::MaxOf(*(this + 1), *v147);
-      __p[0] = operations_research::sat::PresolveContext::StartMin(*(this + 1), v145);
-      v149 = absl::lts_20240722::container_internal::btree_map_container<absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<long long,long long,std::less<long long>,std::allocator<std::pair<long long const,long long>>,256,false>>>::operator[]<long long>(&v377, __p);
-      *v149 += v148;
-      __p[0] = operations_research::sat::PresolveContext::EndMax(*(this + 1), v145);
-      v150 = absl::lts_20240722::container_internal::btree_map_container<absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<long long,long long,std::less<long long>,std::allocator<std::pair<long long const,long long>>,256,false>>>::operator[]<long long>(&v377, __p);
-      *v150 -= v148;
-      ++v143;
-      v144 += 8;
+      v140 = operations_research::sat::PresolveContext::MaxOf(*(this + 1), *v139);
+      __p[0] = operations_research::sat::PresolveContext::StartMin(*(this + 1), v137);
+      v141 = absl::lts_20240722::container_internal::btree_map_container<absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<long long,long long,std::less<long long>,std::allocator<std::pair<long long const,long long>>,256,false>>>::operator[]<long long>(&v368, __p);
+      *v141 += v140;
+      __p[0] = operations_research::sat::PresolveContext::EndMax(*(this + 1), v137);
+      v142 = absl::lts_20240722::container_internal::btree_map_container<absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<long long,long long,std::less<long long>,std::allocator<std::pair<long long const,long long>>,256,false>>>::operator[]<long long>(&v368, __p);
+      *v142 -= v140;
+      ++v135;
+      v136 += 8;
     }
 
-    while (v143 < *(v5 + 24));
+    while (v135 < *(v5 + 24));
   }
 
   *__p = xmmword_23CE306D0;
-  v151 = *(&v377 + 1);
-  v152 = *v377;
-  v153 = *(*(&v377 + 1) + 10);
-  if (*v377 == *(&v377 + 1) && !*(*(&v377 + 1) + 10))
+  v143 = *(&v368 + 1);
+  v144 = *v368;
+  if (*v368 == *(&v368 + 1) && !*(*(&v368 + 1) + 10))
   {
     goto LABEL_246;
   }
 
-  v370 = *(*(&v377 + 1) + 10);
-  v154 = 0;
-  v155 = 0;
-  v156 = 0;
+  v361 = *(*(&v368 + 1) + 10);
+  v145 = 0;
+  v146 = 0;
+  v147 = 0;
   do
   {
-    v157 = &v152[16 * v156];
-    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,long long>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,long long>>>::find_or_prepare_insert<long long>(__p, v157 + 2, &v379);
-    if (v380 == 1)
+    v148 = &v144[16 * v147];
+    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,long long>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,long long>>>::find_or_prepare_insert<long long>(__p, v148 + 2, &v370);
+    if (v371 == 1)
     {
-      v158 = *(&v379 + 1);
-      **(&v379 + 1) = *(v157 + 2);
-      *(v158 + 8) = 0;
+      v149 = *(&v370 + 1);
+      **(&v370 + 1) = *(v148 + 2);
+      *(v149 + 8) = 0;
     }
 
-    *(*(&v379 + 1) + 8) = v154;
-    v155 += *(v157 + 3);
-    if (v155 > v142)
+    *(*(&v370 + 1) + 8) = v145;
+    v146 += *(v148 + 3);
+    if (v146 > v134)
     {
-      ++v154;
+      ++v145;
     }
 
-    if (v152[11])
+    if (v144[11])
     {
-      if (++v156 == v152[10])
+      if (++v147 == v144[10])
       {
-        v159 = v152;
+        v150 = v144;
         while (1)
         {
-          v160 = *v159;
-          if (*(*v159 + 11))
+          v151 = *v150;
+          if (*(*v150 + 11))
           {
             break;
           }
 
-          v161 = v159[8];
-          v159 = *v159;
-          if (v161 != v160[10])
+          v152 = v150[8];
+          v150 = *v150;
+          if (v152 != v151[10])
           {
-            v152 = v160;
-            v156 = v161;
+            v144 = v151;
+            v147 = v152;
             break;
           }
         }
@@ -3232,57 +1954,57 @@ LABEL_179:
 
     else
     {
-      v162 = &v152[8 * (v156 + 1) + 256];
+      v153 = &v144[8 * (v147 + 1) + 256];
       do
       {
-        v152 = *v162;
-        v163 = *(*v162 + 11);
-        v162 = *v162 + 256;
+        v144 = *v153;
+        v154 = *(*v153 + 11);
+        v153 = *v153 + 256;
       }
 
-      while (!v163);
-      v156 = 0;
+      while (!v154);
+      v147 = 0;
     }
   }
 
-  while (v152 != v151 || v156 != v370);
-  if (v155)
+  while (v144 != v143 || v147 != v361);
+  if (v146)
   {
-    absl::lts_20240722::log_internal::MakeCheckOpString<long long,long long>(v155, 0, "current_load == 0");
+    absl::lts_20240722::log_internal::MakeCheckOpString<long long,long long>(v146, 0, "current_load == 0");
   }
 
-  if (v154)
+  if (v145)
   {
-    LODWORD(v164) = *(v5 + 24);
-    if (v164 < 1)
+    LODWORD(v155) = *(v5 + 24);
+    if (v155 < 1)
     {
-      v166 = 0;
+      v157 = 0;
     }
 
     else
     {
-      v165 = 0;
-      v166 = 0;
+      v156 = 0;
+      v157 = 0;
       do
       {
-        v167 = *(*(v5 + 32) + 4 * v165);
-        v168 = operations_research::sat::PresolveContext::StartMin(*(this + 1), v167);
-        v169 = operations_research::sat::PresolveContext::EndMax(*(this + 1), v167);
-        if (v168 < v169)
+        v158 = *(*(v5 + 32) + 4 * v156);
+        v159 = operations_research::sat::PresolveContext::StartMin(*(this + 1), v158);
+        v160 = operations_research::sat::PresolveContext::EndMax(*(this + 1), v158);
+        if (v159 < v160)
         {
-          v171 = __p[0];
+          v162 = __p[0];
           if (__p[0] >= 2)
           {
-            v174 = 0;
-            _X9 = v374;
+            v165 = 0;
+            _X9 = v365;
             __asm { PRFM            #4, [X9] }
 
-            v181 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v169) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v169));
-            v182 = vdup_n_s8(v181 & 0x7F);
-            v183 = ((v374 >> 12) ^ (v181 >> 7)) & __p[0];
-            v184 = *(v374 + v183);
-            v185 = vceq_s8(v184, v182);
-            if (!v185)
+            v172 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v160) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v160));
+            v173 = vdup_n_s8(v172 & 0x7F);
+            v174 = ((v365 >> 12) ^ (v172 >> 7)) & __p[0];
+            v175 = *(v365 + v174);
+            v176 = vceq_s8(v175, v173);
+            if (!v176)
             {
               goto LABEL_227;
             }
@@ -3290,43 +2012,43 @@ LABEL_179:
 LABEL_225:
             while (1)
             {
-              v186 = (v183 + (__clz(__rbit64(v185)) >> 3)) & __p[0];
-              if (*(v375 + 16 * v186) == v169)
+              v177 = (v174 + (__clz(__rbit64(v176)) >> 3)) & __p[0];
+              if (*(v366 + 16 * v177) == v160)
               {
                 break;
               }
 
-              v185 &= ((v185 & 0x8080808080808080) - 1) & 0x8080808080808080;
-              if (!v185)
+              v176 &= ((v176 & 0x8080808080808080) - 1) & 0x8080808080808080;
+              if (!v176)
               {
 LABEL_227:
-                while (!*&vceq_s8(v184, 0x8080808080808080))
+                while (!*&vceq_s8(v175, 0x8080808080808080))
                 {
-                  v174 += 8;
-                  v183 = (v174 + v183) & __p[0];
-                  v184 = *(v374 + v183);
-                  v185 = vceq_s8(v184, v182);
-                  if (v185)
+                  v165 += 8;
+                  v174 = (v165 + v174) & __p[0];
+                  v175 = *(v365 + v174);
+                  v176 = vceq_s8(v175, v173);
+                  if (v176)
                   {
                     goto LABEL_225;
                   }
                 }
 
 LABEL_269:
-                absl::lts_20240722::base_internal::ThrowStdOutOfRange("absl::container_internal::raw_hash_map<>::at", v170);
+                absl::lts_20240722::base_internal::ThrowStdOutOfRange("absl::container_internal::raw_hash_map<>::at", v161);
               }
             }
 
-            v187 = 0;
-            v172 = *(v375 + 16 * v186 + 8);
+            v178 = 0;
+            v163 = *(v366 + 16 * v177 + 8);
             __asm { PRFM            #4, [X9] }
 
-            v189 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v168) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v168));
-            v190 = vdup_n_s8(v189 & 0x7F);
-            v191 = ((v374 >> 12) ^ (v189 >> 7)) & __p[0];
-            v192 = *(v374 + v191);
-            v193 = vceq_s8(v192, v190);
-            if (!v193)
+            v180 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v159) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v159));
+            v181 = vdup_n_s8(v180 & 0x7F);
+            v182 = ((v365 >> 12) ^ (v180 >> 7)) & __p[0];
+            v183 = *(v365 + v182);
+            v184 = vceq_s8(v183, v181);
+            if (!v184)
             {
               goto LABEL_233;
             }
@@ -3334,120 +2056,120 @@ LABEL_269:
             do
             {
 LABEL_231:
-              v194 = (v191 + (__clz(__rbit64(v193)) >> 3)) & __p[0];
-              if (*(v375 + 16 * v194) == v168)
+              v185 = (v182 + (__clz(__rbit64(v184)) >> 3)) & __p[0];
+              if (*(v366 + 16 * v185) == v159)
               {
-                v171 = (v375 + 16 * v194);
-                v173 = (v374 + v194);
+                v162 = (v366 + 16 * v185);
+                v164 = (v365 + v185);
                 goto LABEL_238;
               }
 
-              v193 &= ((v193 & 0x8080808080808080) - 1) & 0x8080808080808080;
+              v184 &= ((v184 & 0x8080808080808080) - 1) & 0x8080808080808080;
             }
 
-            while (v193);
+            while (v184);
 LABEL_233:
-            while (!*&vceq_s8(v192, 0x8080808080808080))
+            while (!*&vceq_s8(v183, 0x8080808080808080))
             {
-              v187 += 8;
-              v191 = (v187 + v191) & __p[0];
-              v192 = *(v374 + v191);
-              v193 = vceq_s8(v192, v190);
-              if (v193)
+              v178 += 8;
+              v182 = (v178 + v182) & __p[0];
+              v183 = *(v365 + v182);
+              v184 = vceq_s8(v183, v181);
+              if (v184)
               {
                 goto LABEL_231;
               }
             }
 
-            v173 = 0;
+            v164 = 0;
           }
 
           else
           {
-            if (__p[1] < 2 || v374 != v169)
+            if (__p[1] < 2 || v365 != v160)
             {
               goto LABEL_269;
             }
 
-            LODWORD(v172) = v375;
-            v171 = &v374;
-            v173 = &absl::lts_20240722::container_internal::kSooControl;
-            if (v374 != v168)
+            LODWORD(v163) = v366;
+            v162 = &v365;
+            v164 = &absl::lts_20240722::container_internal::kSooControl;
+            if (v365 != v159)
             {
-              v173 = 0;
+              v164 = 0;
             }
           }
 
 LABEL_238:
-          if (!v173)
+          if (!v164)
           {
             goto LABEL_269;
           }
 
-          if (v172 != *(v171 + 2))
+          if (v163 != *(v162 + 2))
           {
-            *(*(v5 + 32) + 4 * v166) = *(*(v5 + 32) + 4 * v165);
-            v195 = *(v5 + 48);
-            v196 = v195 + 7;
-            if (v195)
+            *(*(v5 + 32) + 4 * v157) = *(*(v5 + 32) + 4 * v156);
+            v186 = *(v5 + 48);
+            v187 = v186 + 7;
+            if (v186)
             {
-              v197 = (v195 + 7 + 8 * v165);
+              v188 = (v186 + 7 + 8 * v156);
             }
 
             else
             {
-              v197 = (v5 + 48);
+              v188 = (v5 + 48);
             }
 
-            v198 = *v197;
-            v199 = (v196 + 8 * v166);
+            v189 = *v188;
+            v190 = (v187 + 8 * v157);
             if ((*(v5 + 48) & 1) == 0)
             {
-              v199 = (v5 + 48);
+              v190 = (v5 + 48);
             }
 
-            operations_research::sat::LinearExpressionProto::CopyFrom(*v199, v198);
-            ++v166;
+            operations_research::sat::LinearExpressionProto::CopyFrom(*v190, v189);
+            ++v157;
           }
         }
 
-        ++v165;
-        v164 = *(v5 + 24);
+        ++v156;
+        v155 = *(v5 + 24);
       }
 
-      while (v165 < v164);
+      while (v156 < v155);
     }
 
-    v203 = v360;
-    if (v166 >= v164)
+    v194 = v351;
+    if (v157 >= v155)
     {
-      v204 = 0;
+      v195 = 0;
     }
 
     else
     {
-      v222 = *(v5 + 48);
-      *(v5 + 24) = v166;
-      if (v222)
+      v213 = *(v5 + 48);
+      *(v5 + 24) = v157;
+      if (v213)
       {
-        v223 = v222 + 7;
+        v214 = v213 + 7;
       }
 
       else
       {
-        v223 = v5 + 48;
+        v214 = v5 + 48;
       }
 
-      google::protobuf::RepeatedPtrField<operations_research::sat::LinearExpressionProto>::erase((v5 + 48), (v223 + 8 * v166), v223 + 8 * *(v5 + 56));
-      v224 = *(this + 1);
-      std::string::basic_string[abi:ne200100]<0>(&v379, "cumulative: remove never conflicting intervals.");
-      operations_research::sat::PresolveContext::UpdateRuleStats(v224, &v379, 1, v225, v226);
-      if (SHIBYTE(v380) < 0)
+      google::protobuf::RepeatedPtrField<operations_research::sat::LinearExpressionProto>::erase((v5 + 48), (v214 + 8 * v157), v214 + 8 * *(v5 + 56));
+      v215 = *(this + 1);
+      std::string::basic_string[abi:ne200100]<0>(&v370, "cumulative: remove never conflicting intervals.");
+      operations_research::sat::PresolveContext::UpdateRuleStats(v215, &v370, 1, v216, v217);
+      if (SHIBYTE(v371) < 0)
       {
-        operator delete(v379);
+        operator delete(v370);
       }
 
-      v204 = 0;
+      v195 = 0;
       LOBYTE(v2) = 1;
     }
   }
@@ -3455,235 +2177,235 @@ LABEL_238:
   else
   {
 LABEL_246:
-    v200 = *(this + 1);
-    std::string::basic_string[abi:ne200100]<0>(&v379, "cumulative: max profile is always under the min capacity");
-    operations_research::sat::PresolveContext::UpdateRuleStats(v200, &v379, 1, v201, v202);
-    v203 = v360;
-    if (SHIBYTE(v380) < 0)
+    v191 = *(this + 1);
+    std::string::basic_string[abi:ne200100]<0>(&v370, "cumulative: max profile is always under the min capacity");
+    operations_research::sat::PresolveContext::UpdateRuleStats(v191, &v370, 1, v192, v193);
+    v194 = v351;
+    if (SHIBYTE(v371) < 0)
     {
-      operator delete(v379);
+      operator delete(v370);
     }
 
-    operations_research::sat::ConstraintProto::Clear(v360);
-    v204 = 1;
+    operations_research::sat::ConstraintProto::Clear(v351);
+    v195 = 1;
   }
 
   if (__p[0] >= 2)
   {
-    operator delete((v374 - (__p[1] & 1) - 8));
+    operator delete((v365 - (__p[1] & 1) - 8));
   }
 
-  absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<long long,long long,std::less<long long>,std::allocator<std::pair<long long const,long long>>,256,false>>::clear(&v377);
-  if (v204)
+  absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<long long,long long,std::less<long long>,std::allocator<std::pair<long long const,long long>>,256,false>>::clear(&v368);
+  if (v195)
   {
 LABEL_292:
     LOBYTE(v2) = 1;
     return v2 & 1;
   }
 
-  v205 = *(v5 + 24);
-  if (!v205)
+  v196 = *(v5 + 24);
+  if (!v196)
   {
-    v218 = *(this + 1);
+    v209 = *(this + 1);
     std::string::basic_string[abi:ne200100]<0>(__p, "cumulative: no intervals");
-    operations_research::sat::PresolveContext::UpdateRuleStats(v218, __p, 1, v219, v220);
-    if (SHIBYTE(v374) < 0)
+    operations_research::sat::PresolveContext::UpdateRuleStats(v209, __p, 1, v210, v211);
+    if (SHIBYTE(v365) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v221 = v203;
+    v212 = v194;
     goto LABEL_268;
   }
 
-  if (v205 < 1)
+  if (v196 < 1)
   {
-    v367 = 0;
-    v207 = 0;
+    v358 = 0;
+    v198 = 0;
   }
 
   else
   {
-    v206 = 0;
-    v207 = 0;
-    v367 = 0;
-    v208 = 8;
+    v197 = 0;
+    v198 = 0;
+    v358 = 0;
+    v199 = 8;
     do
     {
-      v209 = *(*(v5 + 32) + 4 * v206);
-      v210 = *(this + 1);
-      v211 = (*v210 + 48);
-      if (*v211)
+      v200 = *(*(v5 + 32) + 4 * v197);
+      v201 = *(this + 1);
+      v202 = (*v201 + 48);
+      if (*v202)
       {
-        v211 = (*v211 + 8 * v209 + 7);
+        v202 = (*v202 + 8 * v200 + 7);
       }
 
-      v212 = *v211;
-      v213 = (v5 + 48);
+      v203 = *v202;
+      v204 = (v5 + 48);
       if (*(v5 + 48))
       {
-        v213 = (*(v5 + 48) + v208 - 1);
+        v204 = (*(v5 + 48) + v199 - 1);
       }
 
-      v214 = *v213;
-      v215 = operations_research::sat::PresolveContext::MaxOf(v210, *v213);
-      if (!*(v212 + 16) && operations_research::sat::PresolveContext::SizeMin(*(this + 1), v209) >= 1)
+      v205 = *v204;
+      v206 = operations_research::sat::PresolveContext::MaxOf(v201, *v204);
+      if (!*(v203 + 16) && operations_research::sat::PresolveContext::SizeMin(*(this + 1), v200) >= 1)
       {
-        v216 = operations_research::sat::PresolveContext::MinOf(*(this + 1), v214);
-        v217 = v367;
-        if (v367 <= v216)
+        v207 = operations_research::sat::PresolveContext::MinOf(*(this + 1), v205);
+        v208 = v358;
+        if (v358 <= v207)
         {
-          v217 = v216;
+          v208 = v207;
         }
 
-        v367 = v217;
+        v358 = v208;
       }
 
-      v207 += v215;
-      ++v206;
-      v208 += 8;
+      v198 += v206;
+      ++v197;
+      v199 += 8;
     }
 
-    while (v206 < *(v5 + 24));
+    while (v197 < *(v5 + 24));
   }
 
   if (*(v5 + 72))
   {
-    v227 = *(v5 + 72);
+    v218 = *(v5 + 72);
   }
 
   else
   {
-    v227 = &operations_research::sat::_LinearExpressionProto_default_instance_;
+    v218 = &operations_research::sat::_LinearExpressionProto_default_instance_;
   }
 
-  if (v367 > operations_research::sat::PresolveContext::MinOf(*(this + 1), v227))
+  if (v358 > operations_research::sat::PresolveContext::MinOf(*(this + 1), v218))
   {
-    v228 = *(this + 1);
+    v219 = *(this + 1);
     std::string::basic_string[abi:ne200100]<0>(__p, "cumulative: propagate min capacity.");
-    operations_research::sat::PresolveContext::UpdateRuleStats(v228, __p, 1, v229, v230);
-    if (SHIBYTE(v374) < 0)
+    operations_research::sat::PresolveContext::UpdateRuleStats(v219, __p, 1, v220, v221);
+    if (SHIBYTE(v365) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v231 = *(this + 1);
-    operations_research::Domain::Domain(__p, v367, 0x7FFFFFFFFFFFFFFFLL);
-    v232 = operations_research::sat::PresolveContext::IntersectDomainWith(v231, v227, __p, 0);
+    v222 = *(this + 1);
+    operations_research::Domain::Domain(__p, v358, 0x7FFFFFFFFFFFFFFFLL);
+    v223 = operations_research::sat::PresolveContext::IntersectDomainWith(v222, v218, __p, 0);
     if (__p[0])
     {
       operator delete(__p[1]);
     }
 
-    if ((v232 & 1) == 0)
+    if ((v223 & 1) == 0)
     {
       goto LABEL_292;
     }
   }
 
-  v233 = operations_research::sat::PresolveContext::MaxOf(*(this + 1), v227);
-  v234 = *(this + 1);
-  if (v367 > v233)
+  v224 = operations_research::sat::PresolveContext::MaxOf(*(this + 1), v218);
+  v225 = *(this + 1);
+  if (v358 > v224)
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "cumulative: cannot fit performed demands");
-    operations_research::sat::PresolveContext::UpdateRuleStats(v234, __p, 1, v235, v236);
-    if (SHIBYTE(v374) < 0)
+    operations_research::sat::PresolveContext::UpdateRuleStats(v225, __p, 1, v226, v227);
+    if (SHIBYTE(v365) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v67 = *(this + 1);
-    v237 = &byte_23CE7F131;
-    v238 = 0;
+    v64 = *(this + 1);
+    v228 = &byte_23CE7F131;
+    v229 = 0;
     goto LABEL_313;
   }
 
-  v240 = operations_research::sat::PresolveContext::MinOf(*(this + 1), v227);
-  v241 = *(this + 1);
-  if (v207 <= v240)
+  v231 = operations_research::sat::PresolveContext::MinOf(*(this + 1), v218);
+  v232 = *(this + 1);
+  if (v198 <= v231)
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "cumulative: capacity exceeds sum of demands");
-    operations_research::sat::PresolveContext::UpdateRuleStats(v241, __p, 1, v253, v254);
-    v221 = v360;
-    if (SHIBYTE(v374) < 0)
+    operations_research::sat::PresolveContext::UpdateRuleStats(v232, __p, 1, v244, v245);
+    v212 = v351;
+    if (SHIBYTE(v365) < 0)
     {
       operator delete(__p[0]);
-      v221 = v360;
+      v212 = v351;
     }
 
 LABEL_268:
-    operations_research::sat::ConstraintProto::Clear(v221);
+    operations_research::sat::ConstraintProto::Clear(v212);
     goto LABEL_292;
   }
 
   if (*(v5 + 72))
   {
-    v242 = *(v5 + 72);
+    v233 = *(v5 + 72);
   }
 
   else
   {
-    v242 = &operations_research::sat::_LinearExpressionProto_default_instance_;
+    v233 = &operations_research::sat::_LinearExpressionProto_default_instance_;
   }
 
-  if (!operations_research::sat::PresolveContext::IsFixed(*(this + 1), v242))
+  if (!operations_research::sat::PresolveContext::IsFixed(*(this + 1), v233))
   {
     goto LABEL_344;
   }
 
-  v243 = 0;
-  v244 = 0;
+  v234 = 0;
+  v235 = 0;
   while (1)
   {
-    if (*(v360 + 15) == 22)
+    if (*(v351 + 15) == 22)
     {
-      v246 = *(v360 + 6);
-      v247 = *(v246 + 14);
+      v237 = *(v351 + 6);
+      v238 = *(v237 + 14);
     }
 
     else
     {
-      v247 = dword_2810BEAE8;
-      v246 = &operations_research::sat::_CumulativeConstraintProto_default_instance_;
+      v238 = dword_2810BEAE8;
+      v237 = &operations_research::sat::_CumulativeConstraintProto_default_instance_;
     }
 
-    if (v243 >= v247)
+    if (v234 >= v238)
     {
       break;
     }
 
-    v249 = v246[6];
-    v248 = (v246 + 6);
-    v250 = &v249[v243] + 7;
-    if (v249)
+    v240 = v237[6];
+    v239 = (v237 + 6);
+    v241 = &v240[v234] + 7;
+    if (v240)
     {
-      v248 = v250;
+      v239 = v241;
     }
 
-    v251 = *v248;
-    if (operations_research::sat::PresolveContext::IsFixed(*(this + 1), *v248))
+    v242 = *v239;
+    if (operations_research::sat::PresolveContext::IsFixed(*(this + 1), *v239))
     {
-      v252 = operations_research::sat::PresolveContext::MinOf(*(this + 1), v251);
-      if (v252)
+      v243 = operations_research::sat::PresolveContext::MinOf(*(this + 1), v242);
+      if (v243)
       {
         do
         {
-          v245 = v252;
-          v252 = v244 % v252;
-          v244 = v245;
+          v236 = v243;
+          v243 = v235 % v243;
+          v235 = v236;
         }
 
-        while (v252);
+        while (v243);
       }
 
       else
       {
-        v245 = v244;
+        v236 = v235;
       }
 
-      ++v243;
-      v244 = v245;
-      if (v245 != 1)
+      ++v234;
+      v235 = v236;
+      if (v236 != 1)
       {
         continue;
       }
@@ -3692,96 +2414,96 @@ LABEL_268:
     goto LABEL_344;
   }
 
-  if (v244 < 2)
+  if (v235 < 2)
   {
     goto LABEL_344;
   }
 
-  v255 = 0;
-  v256 = (v5 + 48);
-  v257 = 1;
+  v246 = 0;
+  v247 = (v5 + 48);
+  v248 = 1;
   while (2)
   {
-    if (*(v360 + 15) == 22)
+    if (*(v351 + 15) == 22)
     {
-      v258 = *(v360 + 6);
-      v259 = *(v258 + 14);
+      v249 = *(v351 + 6);
+      v250 = *(v249 + 14);
     }
 
     else
     {
-      v259 = dword_2810BEAE8;
-      v258 = &operations_research::sat::_CumulativeConstraintProto_default_instance_;
+      v250 = dword_2810BEAE8;
+      v249 = &operations_research::sat::_CumulativeConstraintProto_default_instance_;
     }
 
-    if (v255 < v259)
+    if (v246 < v250)
     {
-      v261 = v258[6];
-      v260 = (v258 + 6);
-      v262 = &v261[v257 - 1] + 7;
-      if (v261)
+      v252 = v249[6];
+      v251 = (v249 + 6);
+      v253 = &v252[v248 - 1] + 7;
+      if (v252)
       {
-        v260 = v262;
+        v251 = v253;
       }
 
-      v263 = operations_research::sat::PresolveContext::MinOf(*(this + 1), *v260) / v244;
+      v254 = operations_research::sat::PresolveContext::MinOf(*(this + 1), *v251) / v235;
       operations_research::sat::LinearExpressionProto::LinearExpressionProto(__p, 0);
-      v376 = v263;
-      if (*v256)
+      v367 = v254;
+      if (*v247)
       {
-        v264 = (*v256 + v257 * 8 - 1);
+        v255 = (*v247 + v248 * 8 - 1);
       }
 
       else
       {
-        v264 = (v5 + 48);
+        v255 = (v5 + 48);
       }
 
-      v265 = *v264;
-      if (*v264 != __p)
+      v256 = *v255;
+      if (*v255 != __p)
       {
-        v266 = v265[1];
-        if (v266)
+        v257 = v256[1];
+        if (v257)
         {
-          v266 = *(v266 & 0xFFFFFFFFFFFFFFFELL);
-          v267 = __p[1];
+          v257 = *(v257 & 0xFFFFFFFFFFFFFFFELL);
+          v258 = __p[1];
           if (__p[1])
           {
             goto LABEL_336;
           }
 
 LABEL_333:
-          if (v266 != v267)
+          if (v257 != v258)
           {
             goto LABEL_334;
           }
 
 LABEL_319:
-          operations_research::sat::LinearExpressionProto::InternalSwap(v265, __p);
+          operations_research::sat::LinearExpressionProto::InternalSwap(v256, __p);
         }
 
         else
         {
-          v267 = __p[1];
+          v258 = __p[1];
           if ((__p[1] & 1) == 0)
           {
             goto LABEL_333;
           }
 
 LABEL_336:
-          if (v266 == *(v267 & 0xFFFFFFFFFFFFFFFELL))
+          if (v257 == *(v258 & 0xFFFFFFFFFFFFFFFELL))
           {
             goto LABEL_319;
           }
 
 LABEL_334:
-          operations_research::sat::LinearExpressionProto::CopyFrom(v265, __p);
+          operations_research::sat::LinearExpressionProto::CopyFrom(v256, __p);
         }
       }
 
       operations_research::sat::LinearExpressionProto::~LinearExpressionProto(__p);
-      ++v255;
-      ++v257;
+      ++v246;
+      ++v248;
       continue;
     }
 
@@ -3790,187 +2512,187 @@ LABEL_334:
 
   if (*(v5 + 72))
   {
-    v268 = *(v5 + 72);
+    v259 = *(v5 + 72);
   }
 
   else
   {
-    v268 = &operations_research::sat::_LinearExpressionProto_default_instance_;
+    v259 = &operations_research::sat::_LinearExpressionProto_default_instance_;
   }
 
-  v269 = operations_research::sat::PresolveContext::MinOf(*(this + 1), v268) / v244;
+  v260 = operations_research::sat::PresolveContext::MinOf(*(this + 1), v259) / v235;
   operations_research::sat::LinearExpressionProto::LinearExpressionProto(__p, 0);
-  v376 = v269;
+  v367 = v260;
   operations_research::sat::CumulativeConstraintProto::mutable_capacity(v5);
-  operations_research::sat::LinearExpressionProto::operator=(v270, __p);
+  operations_research::sat::LinearExpressionProto::operator=(v261, __p);
   operations_research::sat::LinearExpressionProto::~LinearExpressionProto(__p);
-  v271 = *(this + 1);
+  v262 = *(this + 1);
   std::string::basic_string[abi:ne200100]<0>(__p, "cumulative: divide demands and capacity by gcd");
-  operations_research::sat::PresolveContext::UpdateRuleStats(v271, __p, 1, v272, v273);
-  if (SHIBYTE(v374) < 0)
+  operations_research::sat::PresolveContext::UpdateRuleStats(v262, __p, 1, v263, v264);
+  if (SHIBYTE(v365) < 0)
   {
     operator delete(__p[0]);
   }
 
   LOBYTE(v2) = 1;
 LABEL_344:
-  v274 = *(v5 + 24);
-  v275 = *(v5 + 72);
-  if (!v275)
+  v265 = *(v5 + 24);
+  v266 = *(v5 + 72);
+  if (!v266)
   {
-    v275 = &operations_research::sat::_LinearExpressionProto_default_instance_;
+    v266 = &operations_research::sat::_LinearExpressionProto_default_instance_;
   }
 
-  v359 = v275;
-  std::vector<operations_research::sat::LinearExpressionProto>::vector[abi:ne200100](__p, v274);
-  if (v274 < 1)
+  v350 = v266;
+  std::vector<operations_research::sat::LinearExpressionProto>::vector[abi:ne200100](__p, v265);
+  if (v265 < 1)
   {
-    v371 = 0;
-    LOBYTE(v277) = 0;
-    v364 = 0;
+    v362 = 0;
+    LOBYTE(v268) = 0;
+    v355 = 0;
 LABEL_375:
-    if (v371 == v274)
+    if (v362 == v265)
     {
-      v301 = *(this + 1);
-      if ((v364 != v274) | v277 & 1)
+      v292 = *(this + 1);
+      if ((v355 != v265) | v268 & 1)
       {
-        std::string::basic_string[abi:ne200100]<0>(&v379, "cumulative: convert to no_overlap");
-        operations_research::sat::PresolveContext::UpdateRuleStats(v301, &v379, 1, v302, v303);
-        if (SHIBYTE(v380) < 0)
+        std::string::basic_string[abi:ne200100]<0>(&v370, "cumulative: convert to no_overlap");
+        operations_research::sat::PresolveContext::UpdateRuleStats(v292, &v370, 1, v293, v294);
+        if (SHIBYTE(v371) < 0)
         {
-          operator delete(v379);
+          operator delete(v370);
         }
 
         if (*(v5 + 56) >= 1)
         {
-          v304 = 0;
-          v305 = (v5 + 48);
-          v306 = 8;
+          v295 = 0;
+          v296 = (v5 + 48);
+          v297 = 8;
           do
           {
-            if (*v305)
+            if (*v296)
             {
-              v307 = (*v305 + v306 - 1);
+              v298 = (*v296 + v297 - 1);
             }
 
             else
             {
-              v307 = (v5 + 48);
+              v298 = (v5 + 48);
             }
 
-            v308 = *v307;
-            v309 = operations_research::sat::PresolveContext::MaxOf(*(this + 1), *v307);
-            if (v309 > operations_research::sat::PresolveContext::MinOf(*(this + 1), v359))
+            v299 = *v298;
+            v300 = operations_research::sat::PresolveContext::MaxOf(*(this + 1), *v298);
+            if (v300 > operations_research::sat::PresolveContext::MinOf(*(this + 1), v350))
             {
-              v310 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(this + 1) + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
-              v311 = v310;
-              v312 = **(this + 1);
-              v314 = *(v312 + 48);
-              v313 = v312 + 48;
-              v315 = v314 + 8 * *(*(v5 + 32) + 4 * v304) + 7;
-              if (v314)
+              v301 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(this + 1) + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
+              v302 = v301;
+              v303 = **(this + 1);
+              v305 = *(v303 + 48);
+              v304 = v303 + 48;
+              v306 = v305 + 8 * *(*(v5 + 32) + 4 * v295) + 7;
+              if (v305)
               {
-                v313 = v315;
+                v304 = v306;
               }
 
-              google::protobuf::RepeatedField<int>::operator=((v310 + 16), (*v313 + 16));
-              v316 = operations_research::sat::ConstraintProto::mutable_linear(v311);
-              operations_research::sat::LinearConstraintProto::add_domain(v316, 0);
-              v317 = operations_research::sat::ConstraintProto::mutable_linear(v311);
-              operations_research::sat::LinearConstraintProto::add_domain(v317, 0x7FFFFFFFFFFFFFFFLL);
-              v318 = operations_research::sat::ConstraintProto::mutable_linear(v311);
-              operations_research::sat::AddLinearExpressionToLinearConstraint(v359, 1, v318, v319, v320);
-              v321 = operations_research::sat::ConstraintProto::mutable_linear(v311);
-              operations_research::sat::AddLinearExpressionToLinearConstraint(v308, 0xFFFFFFFFFFFFFFFFLL, v321, v322, v323);
+              google::protobuf::RepeatedField<int>::operator=((v301 + 16), (*v304 + 16));
+              v307 = operations_research::sat::ConstraintProto::mutable_linear(v302);
+              operations_research::sat::LinearConstraintProto::add_domain(v307, 0);
+              v308 = operations_research::sat::ConstraintProto::mutable_linear(v302);
+              operations_research::sat::LinearConstraintProto::add_domain(v308, 0x7FFFFFFFFFFFFFFFLL);
+              v309 = operations_research::sat::ConstraintProto::mutable_linear(v302);
+              operations_research::sat::AddLinearExpressionToLinearConstraint(v350, 1, v309, v310, v311);
+              v312 = operations_research::sat::ConstraintProto::mutable_linear(v302);
+              operations_research::sat::AddLinearExpressionToLinearConstraint(v299, 0xFFFFFFFFFFFFFFFFLL, v312, v313, v314);
             }
 
-            ++v304;
-            v306 += 8;
+            ++v295;
+            v297 += 8;
           }
 
-          while (v304 < *(v5 + 56));
+          while (v295 < *(v5 + 56));
         }
 
-        v351 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(this + 1) + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
-        v352 = operations_research::sat::ConstraintProto::mutable_no_overlap(v351);
-        v353 = *(v5 + 24);
-        if (v353)
+        v342 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(this + 1) + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
+        v343 = operations_research::sat::ConstraintProto::mutable_no_overlap(v342);
+        v344 = *(v5 + 24);
+        if (v344)
         {
-          v354 = v352;
-          v355 = *(v5 + 32);
-          v356 = 4 * v353;
+          v345 = v343;
+          v346 = *(v5 + 32);
+          v347 = 4 * v344;
           do
           {
-            operations_research::sat::BoolArgumentProto::add_literals(v354, *v355++);
-            v356 -= 4;
+            operations_research::sat::BoolArgumentProto::add_literals(v345, *v346++);
+            v347 -= 4;
           }
 
-          while (v356);
+          while (v347);
         }
       }
 
       else
       {
-        std::string::basic_string[abi:ne200100]<0>(&v379, "cumulative: convert to all_different");
-        operations_research::sat::PresolveContext::UpdateRuleStats(v301, &v379, 1, v328, v329);
-        if (SHIBYTE(v380) < 0)
+        std::string::basic_string[abi:ne200100]<0>(&v370, "cumulative: convert to all_different");
+        operations_research::sat::PresolveContext::UpdateRuleStats(v292, &v370, 1, v319, v320);
+        if (SHIBYTE(v371) < 0)
         {
-          operator delete(v379);
+          operator delete(v370);
         }
 
-        v330 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(this + 1) + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
-        v331 = operations_research::sat::ConstraintProto::mutable_all_diff(v330);
-        v333 = __p[0];
-        v332 = __p[1];
+        v321 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(this + 1) + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
+        v322 = operations_research::sat::ConstraintProto::mutable_all_diff(v321);
+        v324 = __p[0];
+        v323 = __p[1];
         if (__p[0] != __p[1])
         {
-          v334 = v331;
+          v325 = v322;
           do
           {
-            v335 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((v334 + 16), google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearExpressionProto>);
-            operations_research::sat::LinearExpressionProto::CopyFrom(v335, v333);
-            v333 = (v333 + 80);
+            v326 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((v325 + 2), google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearExpressionProto>);
+            operations_research::sat::LinearExpressionProto::CopyFrom(v326, v324);
+            v324 = (v324 + 80);
           }
 
-          while (v333 != v332);
+          while (v324 != v323);
         }
 
-        if (!operations_research::sat::PresolveContext::IsFixed(*(this + 1), v359))
+        if (!operations_research::sat::PresolveContext::IsFixed(*(this + 1), v350))
         {
-          v336 = operations_research::sat::PresolveContext::MinOf(*(this + 1), v359);
-          v338 = *(v5 + 48);
-          v337 = v5 + 48;
-          v339 = v338 + 7;
-          v340 = ((v338 & 1) != 0 ? v339 : v337);
-          v341 = *(v337 + 8);
-          if (v341)
+          v327 = operations_research::sat::PresolveContext::MinOf(*(this + 1), v350);
+          v329 = *(v5 + 48);
+          v328 = v5 + 48;
+          v330 = v329 + 7;
+          v331 = ((v329 & 1) != 0 ? v330 : v328);
+          v332 = *(v328 + 8);
+          if (v332)
           {
-            v342 = v336;
-            v343 = 8 * v341;
+            v333 = v327;
+            v334 = 8 * v332;
             do
             {
-              v344 = *v340;
-              if (v342 < operations_research::sat::PresolveContext::MaxOf(*(this + 1), *v340))
+              v335 = *v331;
+              if (v333 < operations_research::sat::PresolveContext::MaxOf(*(this + 1), *v331))
               {
-                v345 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(this + 1) + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
-                v346 = operations_research::sat::ConstraintProto::mutable_linear(v345);
-                operations_research::sat::LinearConstraintProto::add_domain(v346, 0);
-                operations_research::sat::LinearConstraintProto::add_domain(v346, 0x7FFFFFFFFFFFFFFFLL);
-                operations_research::sat::AddLinearExpressionToLinearConstraint(v359, 1, v346, v347, v348);
-                operations_research::sat::AddLinearExpressionToLinearConstraint(v344, 0xFFFFFFFFFFFFFFFFLL, v346, v349, v350);
+                v336 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(this + 1) + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
+                v337 = operations_research::sat::ConstraintProto::mutable_linear(v336);
+                operations_research::sat::LinearConstraintProto::add_domain(v337, 0);
+                operations_research::sat::LinearConstraintProto::add_domain(v337, 0x7FFFFFFFFFFFFFFFLL);
+                operations_research::sat::AddLinearExpressionToLinearConstraint(v350, 1, v337, v338, v339);
+                operations_research::sat::AddLinearExpressionToLinearConstraint(v335, 0xFFFFFFFFFFFFFFFFLL, v337, v340, v341);
               }
 
-              ++v340;
-              v343 -= 8;
+              ++v331;
+              v334 -= 8;
             }
 
-            while (v343);
+            while (v334);
           }
         }
       }
 
       operations_research::sat::PresolveContext::UpdateNewConstraintsVariableUsage(*(this + 1));
-      operations_research::sat::ConstraintProto::Clear(v360);
+      operations_research::sat::ConstraintProto::Clear(v351);
 LABEL_413:
       LOBYTE(v2) = 1;
     }
@@ -3978,101 +2700,101 @@ LABEL_413:
 
   else
   {
-    v276 = 0;
-    v364 = 0;
-    v277 = 0;
-    v371 = 0;
-    v362 = (v5 + 48);
+    v267 = 0;
+    v355 = 0;
+    v268 = 0;
+    v362 = 0;
+    v353 = (v5 + 48);
     while (1)
     {
-      v278 = *(*(v5 + 32) + 4 * v276);
-      v279 = operations_research::sat::PresolveContext::ConstraintIsOptional(*(this + 1), v278);
-      v280 = **(this + 1);
-      v282 = *(v280 + 48);
-      v281 = v280 + 48;
-      v283 = v282 + 8 * *(*(v5 + 32) + 4 * v276) + 7;
-      if (v282)
+      v269 = *(*(v5 + 32) + 4 * v267);
+      v270 = operations_research::sat::PresolveContext::ConstraintIsOptional(*(this + 1), v269);
+      v271 = **(this + 1);
+      v273 = *(v271 + 48);
+      v272 = v271 + 48;
+      v274 = v273 + 8 * *(*(v5 + 32) + 4 * v267) + 7;
+      if (v273)
       {
-        v281 = v283;
+        v272 = v274;
       }
 
-      v284 = *v281;
-      v285 = *(*v281 + 60);
-      v286 = &operations_research::sat::_IntervalConstraintProto_default_instance_;
-      if (v285 == 19)
+      v275 = *v272;
+      v276 = *(*v272 + 60);
+      v277 = &operations_research::sat::_IntervalConstraintProto_default_instance_;
+      if (v276 == 19)
       {
-        v286 = *(v284 + 48);
+        v277 = *(v275 + 48);
       }
 
-      v368 = v277;
-      v287 = v286[3];
-      if (v287)
+      v359 = v268;
+      v278 = v277[3];
+      if (v278)
       {
-        v288 = v287;
-      }
-
-      else
-      {
-        v288 = &operations_research::sat::_LinearExpressionProto_default_instance_;
-      }
-
-      operations_research::sat::LinearExpressionProto::CopyFrom((__p[0] + 80 * v276), v288);
-      if (*v362)
-      {
-        v289 = (*v362 + 8 * v276 + 7);
+        v279 = v278;
       }
 
       else
       {
-        v289 = (v5 + 48);
+        v279 = &operations_research::sat::_LinearExpressionProto_default_instance_;
       }
 
-      v290 = *v289;
-      if (operations_research::sat::PresolveContext::SizeMin(*(this + 1), v278) == 1)
+      operations_research::sat::LinearExpressionProto::CopyFrom((__p[0] + 80 * v267), v279);
+      if (*v353)
       {
-        v291 = operations_research::sat::PresolveContext::SizeMax(*(this + 1), v278);
-        v292 = v364;
-        if (v291 == 1)
+        v280 = (*v353 + 8 * v267 + 7);
+      }
+
+      else
+      {
+        v280 = (v5 + 48);
+      }
+
+      v281 = *v280;
+      if (operations_research::sat::PresolveContext::SizeMin(*(this + 1), v269) == 1)
+      {
+        v282 = operations_research::sat::PresolveContext::SizeMax(*(this + 1), v269);
+        v283 = v355;
+        if (v282 == 1)
         {
-          v292 = v364 + 1;
+          v283 = v355 + 1;
         }
 
-        v364 = v292;
+        v355 = v283;
       }
 
-      if (!operations_research::sat::PresolveContext::SizeMin(*(this + 1), v278))
+      if (!operations_research::sat::PresolveContext::SizeMin(*(this + 1), v269))
       {
         break;
       }
 
-      v293 = operations_research::sat::PresolveContext::MinOf(*(this + 1), v290);
-      v294 = operations_research::sat::PresolveContext::MaxOf(*(this + 1), v290);
-      v295 = v371;
-      if (v293 > v372 / 2)
+      v284 = operations_research::sat::PresolveContext::MinOf(*(this + 1), v281);
+      v285 = operations_research::sat::PresolveContext::MaxOf(*(this + 1), v281);
+      v286 = v362;
+      if (v284 > v363 / 2)
       {
-        v295 = v371 + 1;
+        v286 = v362 + 1;
       }
 
-      v371 = v295;
-      if (v293 > v372)
+      v362 = v286;
+      if (v284 > v363)
       {
-        v324 = *(this + 1);
-        std::string::basic_string[abi:ne200100]<0>(&v379, "cumulative: demand_min exceeds capacity max");
-        operations_research::sat::PresolveContext::UpdateRuleStats(v324, &v379, 1, v325, v326);
-        if (SHIBYTE(v380) < 0)
+        v315 = *(this + 1);
+        std::string::basic_string[abi:ne200100]<0>(&v370, "cumulative: demand_min exceeds capacity max");
+        operations_research::sat::PresolveContext::UpdateRuleStats(v315, &v370, 1, v316, v317);
+        if (SHIBYTE(v371) < 0)
         {
-          operator delete(v379);
+          operator delete(v370);
         }
 
-        if (operations_research::sat::PresolveContext::ConstraintIsOptional(*(this + 1), v278))
+        if (operations_research::sat::PresolveContext::ConstraintIsOptional(*(this + 1), v269))
         {
-          v327 = *(v284 + 16);
-          if (v327 != 1)
+          v318 = *(v275 + 16);
+          if (v318 != 1)
           {
-            absl::lts_20240722::log_internal::MakeCheckOpString<long long,long long>(v327, 1, "ct.enforcement_literal().size() == 1");
+            absl::lts_20240722::log_internal::MakeCheckOpString<long long,long long>(v318, 1, "ct.enforcement_literal().size() == 1");
           }
 
-          LOBYTE(v2) = operations_research::sat::PresolveContext::SetLiteralToFalse(*(this + 1), **(v284 + 24)) ^ 1 | v2;
+          LOBYTE(v2) = operations_research::sat::PresolveContext::SetLiteralToFalse(*(this + 1), **(v275 + 24)) ^ 1 | v2;
         }
 
         else
@@ -4083,44 +2805,44 @@ LABEL_413:
         break;
       }
 
-      if (v294 > v372)
+      if (v285 > v363)
       {
-        v296 = *(this + 1);
-        if (*(v284 + 16))
+        v287 = *(this + 1);
+        if (*(v275 + 16))
         {
-          std::string::basic_string[abi:ne200100]<0>(&v379, "cumulative: demand_max of optional interval exceeds capacity.");
-          operations_research::sat::PresolveContext::UpdateRuleStats(v296, &v379, 1, v357, v358);
-          if (SHIBYTE(v380) < 0)
+          std::string::basic_string[abi:ne200100]<0>(&v370, "cumulative: demand_max of optional interval exceeds capacity.");
+          operations_research::sat::PresolveContext::UpdateRuleStats(v287, &v370, 1, v348, v349);
+          if (SHIBYTE(v371) < 0)
           {
-            operator delete(v379);
+            operator delete(v370);
           }
 
           break;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v379, "cumulative: demand_max exceeds capacity max.");
-        operations_research::sat::PresolveContext::UpdateRuleStats(v296, &v379, 1, v297, v298);
-        if (SHIBYTE(v380) < 0)
+        std::string::basic_string[abi:ne200100]<0>(&v370, "cumulative: demand_max exceeds capacity max.");
+        operations_research::sat::PresolveContext::UpdateRuleStats(v287, &v370, 1, v288, v289);
+        if (SHIBYTE(v371) < 0)
         {
-          operator delete(v379);
+          operator delete(v370);
         }
 
-        v299 = *(this + 1);
-        operations_research::Domain::Domain(&v379, 0x8000000000000000, v372);
-        v300 = operations_research::sat::PresolveContext::IntersectDomainWith(v299, v290, &v379, 0);
-        if (v379)
+        v290 = *(this + 1);
+        operations_research::Domain::Domain(&v370, 0x8000000000000000, v363);
+        v291 = operations_research::sat::PresolveContext::IntersectDomainWith(v290, v281, &v370, 0);
+        if (v370)
         {
-          operator delete(*(&v379 + 1));
+          operator delete(*(&v370 + 1));
         }
 
-        if ((v300 & 1) == 0)
+        if ((v291 & 1) == 0)
         {
           goto LABEL_413;
         }
       }
 
-      v277 = v279 | v368;
-      if (++v276 == v274)
+      v268 = v270 | v359;
+      if (++v267 == v265)
       {
         goto LABEL_375;
       }
@@ -4242,11 +2964,11 @@ LABEL_8:
   return result;
 }
 
-void *std::vector<operations_research::sat::LinearExpressionProto>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<operations_research::sat::LinearExpressionProto>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
     if (a2 < 0x333333333333334)
@@ -4257,10 +2979,10 @@ void *std::vector<operations_research::sat::LinearExpressionProto>::vector[abi:n
     std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
   }
 
-  return result;
+  return a1;
 }
 
-void sub_23CA9800C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_23CA9800C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::__exception_guard_exceptions<std::vector<operations_research::sat::LinearExpressionProto>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](&a9);
@@ -4269,24 +2991,23 @@ void sub_23CA9800C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t operations_research::sat::CpModelPresolver::PresolveRoutes(operations_research::sat::CpModelPresolver *this, operations_research::sat::ConstraintProto *a2, char *a3)
 {
-  v35[6] = *MEMORY[0x277D85DE8];
+  v33[6] = *MEMORY[0x277D85DE8];
   if ((*(*(this + 1) + 416) & 1) != 0 || *(a2 + 4))
   {
-    result = 0;
-    goto LABEL_4;
+    return 0;
   }
 
   if (*(a2 + 15) == 23)
   {
-    v6 = *(a2 + 6);
-    v7 = *(v6 + 64);
+    v5 = *(a2 + 6);
+    v6 = *(v5 + 16);
+    v27 = 0;
+    v28 = 0;
     v29 = 0;
-    v30 = 0;
-    v31 = 0;
-    if (v7 < 1)
+    if (v6 < 1)
     {
 LABEL_7:
-      v8 = 0;
+      v7 = 0;
       goto LABEL_20;
     }
   }
@@ -4295,92 +3016,91 @@ LABEL_7:
   {
     operations_research::sat::ConstraintProto::clear_constraint(a2);
     *(a2 + 15) = 23;
-    v10 = *(a2 + 1);
-    if (v10)
+    v9 = *(a2 + 1);
+    if (v9)
     {
-      v10 = *(v10 & 0xFFFFFFFFFFFFFFFELL);
+      v9 = *(v9 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v6 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::RoutesConstraintProto>(v10);
-    *(a2 + 6) = v6;
-    v7 = *(v6 + 64);
+    v5 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::RoutesConstraintProto>(v9);
+    *(a2 + 6) = v5;
+    v6 = *(v5 + 16);
+    v27 = 0;
+    v28 = 0;
     v29 = 0;
-    v30 = 0;
-    v31 = 0;
-    if (v7 < 1)
+    if (v6 < 1)
     {
       goto LABEL_7;
     }
   }
 
-  v11 = 0;
-  v8 = 0;
-  v27 = v7;
-  v12 = 4 * v7;
+  v10 = 0;
+  v7 = 0;
+  v25 = v6;
+  v11 = 4 * v6;
   do
   {
-    v14 = *(*(v6 + 72) + v11);
-    v15 = *(*(v6 + 24) + v11);
-    v16 = *(*(v6 + 48) + v11);
-    v17 = v30;
-    if (v30 <= v15)
+    v13 = *(v5[9] + v10);
+    v14 = *(v5[3] + v10);
+    v15 = *(v5[6] + v10);
+    v16 = v28;
+    if (v28 <= v14)
     {
-      std::vector<BOOL>::resize(&v29, v15 + 1, 0);
-      v17 = v30;
+      std::vector<BOOL>::resize(&v27, v14 + 1, 0);
+      v16 = v28;
     }
 
-    if (v17 <= v16)
+    if (v16 <= v15)
     {
-      std::vector<BOOL>::resize(&v29, v16 + 1, 0);
+      std::vector<BOOL>::resize(&v27, v15 + 1, 0);
     }
 
-    if (operations_research::sat::PresolveContext::LiteralIsFalse(*(this + 1), v14))
+    if (operations_research::sat::PresolveContext::LiteralIsFalse(*(this + 1), v13))
     {
-      v18 = *(this + 1);
       operator new();
     }
 
-    *(*(v6 + 72) + 4 * v8) = v14;
-    *(*(v6 + 24) + 4 * v8) = v15;
-    *(*(v6 + 48) + 4 * v8++) = v16;
-    v13 = v29;
-    *(v29 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
-    *&v13[(v16 >> 3) & 0x1FFFFFFFFFFFFFF8] |= 1 << v16;
-    v11 += 4;
+    *(v5[9] + 4 * v7) = v13;
+    *(v5[3] + 4 * v7) = v14;
+    *(v5[6] + 4 * v7++) = v15;
+    v12 = v27;
+    *(v27 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
+    *&v12[(v15 >> 3) & 0x1FFFFFFFFFFFFFF8] |= 1 << v15;
+    v10 += 4;
   }
 
-  while (v12 != v11);
-  LODWORD(v7) = v27;
-  if (!v8)
+  while (v11 != v10);
+  LODWORD(v6) = v25;
+  if (!v7)
   {
     result = operations_research::sat::PresolveContext::NotifyThatModelIsUnsat(*(this + 1), "routes: graph with nodes and no arcs", 36);
     goto LABEL_40;
   }
 
 LABEL_20:
-  if (v30)
+  if (v28)
   {
-    v19 = 0;
-    v20 = 0;
-    while (((*(v29 + ((v19 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v19) & 1) != 0)
+    v17 = 0;
+    v18 = 0;
+    while (((*(v27 + ((v17 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v17) & 1) != 0)
     {
-      v20 = (v20 + 1);
-      v19 = v20;
-      if (v30 <= v20)
+      v18 = (v18 + 1);
+      v17 = v18;
+      if (v28 <= v18)
       {
         goto LABEL_24;
       }
     }
 
-    v21 = *(this + 1);
-    v35[0] = "routes: node ";
-    v35[1] = 13;
-    v22 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v20, v34, a3);
-    v33[0] = v34;
-    v33[1] = v22 - v34;
-    v32[0] = " misses incoming or outgoing arcs";
-    v32[1] = 33;
-    absl::lts_20240722::StrCat(v35, v33, v32, &__p);
+    v19 = *(this + 1);
+    v33[0] = "routes: node ";
+    v33[1] = 13;
+    v20 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v18, v32, a3);
+    v31[0] = v32;
+    v31[1] = v20 - v32;
+    v30[0] = " misses incoming or outgoing arcs";
+    v30[1] = 33;
+    absl::lts_20240722::StrCat(v33, v31, v30, &__p);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -4401,27 +3121,27 @@ LABEL_20:
       size = __p.__r_.__value_.__l.__size_;
     }
 
-    result = operations_research::sat::PresolveContext::NotifyThatModelIsUnsat(v21, p_p, size);
+    result = operations_research::sat::PresolveContext::NotifyThatModelIsUnsat(v19, p_p, size);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      v25 = result;
+      v23 = result;
       operator delete(__p.__r_.__value_.__l.__data_);
-      result = v25;
+      result = v23;
     }
 
     goto LABEL_40;
   }
 
 LABEL_24:
-  if (v8 < v7)
+  if (v7 < v6)
   {
-    if (*(v6 + 64) > v8)
+    if (*(v5 + 16) > v7)
     {
-      *(v6 + 64) = v8;
-      if (*(v6 + 16) <= v8)
+      *(v5 + 16) = v7;
+      if (*(v5 + 4) <= v7)
       {
 LABEL_27:
-        if (*(v6 + 40) <= v8)
+        if (*(v5 + 10) <= v7)
         {
 LABEL_29:
           result = 1;
@@ -4429,18 +3149,18 @@ LABEL_29:
         }
 
 LABEL_28:
-        *(v6 + 40) = v8;
+        *(v5 + 10) = v7;
         goto LABEL_29;
       }
     }
 
-    else if (*(v6 + 16) <= v8)
+    else if (*(v5 + 4) <= v7)
     {
       goto LABEL_27;
     }
 
-    *(v6 + 16) = v8;
-    if (*(v6 + 40) <= v8)
+    *(v5 + 4) = v7;
+    if (*(v5 + 10) <= v7)
     {
       goto LABEL_29;
     }
@@ -4450,15 +3170,13 @@ LABEL_28:
 
   result = 0;
 LABEL_40:
-  if (v29)
+  if (v27)
   {
-    v26 = result;
-    operator delete(v29);
-    result = v26;
+    v24 = result;
+    operator delete(v27);
+    return v24;
   }
 
-LABEL_4:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4550,19 +3268,19 @@ LABEL_13:
   v7 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::CircuitConstraintProto>(v11);
   *(a2 + 6) = v7;
 LABEL_18:
-  operations_research::sat::ReindexArcs<google::protobuf::RepeatedField<int>>(v5 + 16, v7 + 40, 0);
-  v138 = 0;
-  v139 = 0;
-  v140 = 0;
+  operations_research::sat::ReindexArcs<google::protobuf::RepeatedField<int>>(v5 + 4, (v7 + 5), 0);
   v135 = 0;
   v136 = 0;
   v137 = 0;
-  v12 = *(v6 + 64);
-  v125 = v6;
-  v127 = v12;
+  v132 = 0;
+  v133 = 0;
+  v134 = 0;
+  v12 = *(v6 + 16);
+  v122 = v6;
+  v124 = v12;
   if (v12 < 1)
   {
-    v121 = 0;
+    v118 = 0;
     LODWORD(v2) = 0;
   }
 
@@ -4572,17 +3290,17 @@ LABEL_18:
     LODWORD(v2) = 0;
     do
     {
-      *__p = *(*(v6 + 72) + 4 * v13);
-      v14 = *(*(v6 + 24) + 4 * v13);
-      v15 = *(*(v6 + 48) + 4 * v13);
+      *__p = *(v6[9] + 4 * v13);
+      v14 = *(v6[3] + 4 * v13);
+      v15 = *(v6[6] + 4 * v13);
       if (v14 <= v15)
       {
-        v16 = *(*(v6 + 48) + 4 * v13);
+        v16 = *(v6[6] + 4 * v13);
       }
 
       else
       {
-        v16 = *(*(v6 + 24) + 4 * v13);
+        v16 = *(v6[3] + 4 * v13);
       }
 
       v17 = v16 + 1;
@@ -4596,8 +3314,8 @@ LABEL_18:
         v2 = v2;
       }
 
-      v18 = v139;
-      v19 = 0xAAAAAAAAAAAAAAABLL * (v139 - v138);
+      v18 = v136;
+      v19 = 0xAAAAAAAAAAAAAAABLL * (v136 - v135);
       if (v19 <= v16)
       {
         v20 = v17;
@@ -4605,10 +3323,10 @@ LABEL_18:
         {
           if (v17 < v19)
           {
-            v21 = &v138[3 * v17];
-            if (v139 != v21)
+            v21 = &v135[3 * v17];
+            if (v136 != v21)
             {
-              v22 = v139;
+              v22 = v136;
               do
               {
                 v24 = *(v22 - 3);
@@ -4626,27 +3344,27 @@ LABEL_18:
               while (v22 != v21);
             }
 
-            v139 = v21;
-            v6 = v125;
-            v12 = v127;
+            v136 = v21;
+            v6 = v122;
+            v12 = v124;
           }
         }
 
         else
         {
-          std::vector<std::vector<int>>::__append(&v138, v17 - v19);
+          std::vector<std::vector<int>>::__append(&v135, v17 - v19);
         }
 
-        v25 = v136;
-        v26 = 0xAAAAAAAAAAAAAAABLL * (v136 - v135);
+        v25 = v133;
+        v26 = 0xAAAAAAAAAAAAAAABLL * (v133 - v132);
         if (v20 <= v26)
         {
           if (v20 < v26)
           {
-            v27 = &v135[3 * v20];
-            if (v136 != v27)
+            v27 = &v132[3 * v20];
+            if (v133 != v27)
             {
-              v28 = v136;
+              v28 = v133;
               do
               {
                 v30 = *(v28 - 3);
@@ -4664,32 +3382,32 @@ LABEL_18:
               while (v28 != v27);
             }
 
-            v136 = v27;
-            v6 = v125;
+            v133 = v27;
+            v6 = v122;
           }
         }
 
         else
         {
-          std::vector<std::vector<int>>::__append(&v135, v20 - v26);
+          std::vector<std::vector<int>>::__append(&v132, v20 - v26);
         }
       }
 
-      std::vector<int>::push_back[abi:ne200100](&v138[3 * v15], __p);
-      std::vector<int>::push_back[abi:ne200100](&v135[3 * v14], __p);
+      std::vector<int>::push_back[abi:ne200100](&v135[3 * v15], __p);
+      std::vector<int>::push_back[abi:ne200100](&v132[3 * v14], __p);
       ++v13;
     }
 
     while (v13 != v12);
     if (v2 < 1)
     {
-      v121 = 0;
+      v118 = 0;
     }
 
     else
     {
-      v34 = v135 + 1;
-      v35 = v138 + 1;
+      v34 = v132 + 1;
+      v35 = v135 + 1;
       v36 = v2;
       do
       {
@@ -4705,14 +3423,14 @@ LABEL_18:
       }
 
       while (v36);
-      v121 = 1;
+      v118 = 1;
     }
   }
 
-  v128 = 0;
-  v37 = v138;
-  v38 = v139;
-  if (v138 != v139)
+  v125 = 0;
+  v37 = v135;
+  v38 = v136;
+  if (v135 != v136)
   {
     do
     {
@@ -4729,7 +3447,7 @@ LABEL_97:
             goto LABEL_98;
           }
 
-          ++v128;
+          ++v125;
         }
       }
 
@@ -4749,7 +3467,6 @@ LABEL_97:
               {
                 if (!operations_research::sat::PresolveContext::IsFixed(*(this + 1), *v43))
                 {
-                  v45 = *(this + 1);
                   operator new();
                 }
 
@@ -4762,7 +3479,7 @@ LABEL_97:
               ++v43;
             }
 
-            v12 = v127;
+            v12 = v124;
             break;
           }
 
@@ -4776,78 +3493,76 @@ LABEL_97:
     while (v37 != v38);
   }
 
-  v46 = v135;
-  v47 = v136;
+  v45 = v132;
+  v46 = v133;
 LABEL_76:
-  while (v46 != v47)
+  while (v45 != v46)
   {
-    v48 = *v46;
-    v49 = v46[1];
-    if (v49 - *v46 == 4)
+    v47 = *v45;
+    v48 = v45[1];
+    if (v48 - *v45 == 4)
     {
-      if (!operations_research::sat::PresolveContext::LiteralIsTrue(*(this + 1), *v48))
+      if (!operations_research::sat::PresolveContext::LiteralIsTrue(*(this + 1), *v47))
       {
-        if (!operations_research::sat::PresolveContext::SetLiteralToTrue(*(this + 1), **v46))
+        if (!operations_research::sat::PresolveContext::SetLiteralToTrue(*(this + 1), **v45))
         {
           goto LABEL_97;
         }
 
-        ++v128;
+        ++v125;
       }
     }
 
     else
     {
-      while (v48 != v49)
+      while (v47 != v48)
       {
-        v50 = *v48;
-        if (operations_research::sat::PresolveContext::LiteralIsTrue(*(this + 1), *v48))
+        v49 = *v47;
+        if (operations_research::sat::PresolveContext::LiteralIsTrue(*(this + 1), *v47))
         {
-          v51 = *v46;
-          v52 = v46[1];
-          if (*v46 == v52)
+          v50 = *v45;
+          v51 = v45[1];
+          if (*v45 == v51)
           {
-            v12 = v127;
-            v46 += 3;
+            v12 = v124;
+            v45 += 3;
             goto LABEL_76;
           }
 
           while (1)
           {
-            v53 = *v51;
-            if (*v51 != v50)
+            v52 = *v50;
+            if (*v50 != v49)
             {
-              if (!operations_research::sat::PresolveContext::IsFixed(*(this + 1), *v51))
+              if (!operations_research::sat::PresolveContext::IsFixed(*(this + 1), *v50))
               {
-                v54 = *(this + 1);
                 operator new();
               }
 
-              if (!operations_research::sat::PresolveContext::SetLiteralToFalse(*(this + 1), v53))
+              if (!operations_research::sat::PresolveContext::SetLiteralToFalse(*(this + 1), v52))
               {
                 goto LABEL_97;
               }
             }
 
-            if (++v51 == v52)
+            if (++v50 == v51)
             {
-              v12 = v127;
-              v46 += 3;
+              v12 = v124;
+              v45 += 3;
               goto LABEL_76;
             }
           }
         }
 
-        ++v48;
+        ++v47;
       }
     }
 
-    v46 += 3;
+    v45 += 3;
   }
 
-  if (v128 >= 1)
+  if (v125 >= 1)
   {
-    v55 = *(this + 1);
     operator new();
   }
 
@@ -4858,77 +3573,77 @@ LABEL_76:
 
   if (v12 >= 1)
   {
-    v68 = 0;
-    v69 = 0;
-    v129 = 0;
-    v70 = -1;
+    v65 = 0;
+    v66 = 0;
+    v126 = 0;
+    v67 = -1;
     while (1)
     {
-      LODWORD(v2) = *(*(v6 + 72) + v68);
+      LODWORD(v2) = *(v6[9] + v65);
       if (!operations_research::sat::PresolveContext::LiteralIsFalse(*(this + 1), v2))
       {
         IsTrue = operations_research::sat::PresolveContext::LiteralIsTrue(*(this + 1), v2);
-        v73 = *(v6 + 24);
-        v74 = *(v73 + v68);
+        v70 = v6[3];
+        v71 = *(v70 + v65);
         if (IsTrue)
         {
-          if (*(4 * v74) != -1)
+          if (*(4 * v71) != -1)
           {
             LOBYTE(v2) = operations_research::sat::PresolveContext::NotifyThatModelIsUnsat(*(this + 1), &byte_23CE7F131, 0);
             goto LABEL_98;
           }
 
-          v71 = *(v6 + 48);
-          v75 = *(v71 + v68);
-          *(4 * v74) = v75;
-          v74 = *(v73 + v68);
-          if (v74 != v75)
+          v68 = v6[6];
+          v72 = *(v68 + v65);
+          *(4 * v71) = v72;
+          v71 = *(v70 + v65);
+          if (v71 != v72)
           {
-            v70 = *(v73 + v68);
+            v67 = *(v70 + v65);
           }
 
-          ++v69;
+          ++v66;
         }
 
         else
         {
-          v71 = *(v6 + 48);
+          v68 = v6[6];
         }
 
-        ++*(4 * v74);
-        ++*(4 * *(v71 + v68));
-        *(v73 + 4 * v129) = *(v73 + v68);
-        *(v71 + 4 * v129) = *(v71 + v68);
-        *(*(v6 + 72) + 4 * v129++) = v2;
+        ++*(4 * v71);
+        ++*(4 * *(v68 + v65));
+        *(v70 + 4 * v126) = *(v70 + v65);
+        *(v68 + 4 * v126) = *(v68 + v65);
+        *(v6[9] + 4 * v126++) = v2;
       }
 
-      v68 += 4;
-      if (4 * v12 == v68)
+      v65 += 4;
+      if (4 * v12 == v65)
       {
         goto LABEL_126;
       }
     }
   }
 
-  v129 = 0;
-  v69 = 0;
-  v70 = -1;
+  v126 = 0;
+  v66 = 0;
+  v67 = -1;
 LABEL_126:
-  if (v121)
+  if (v118)
   {
-    v76 = 0;
-    v77 = 0;
-    v78 = 0;
+    v73 = 0;
+    v74 = 0;
+    v75 = 0;
     while (1)
     {
-      v79 = *v78++;
-      if (!v79 || !*v77)
+      v76 = *v75++;
+      if (!v76 || !*v74)
       {
         break;
       }
 
-      ++v77;
-      if (!--v76)
+      ++v74;
+      if (!--v73)
       {
         goto LABEL_131;
       }
@@ -4939,156 +3654,156 @@ LABEL_126:
   }
 
 LABEL_131:
-  if (v70 == -1)
+  if (v67 == -1)
   {
-    if (v69 == v129)
+    if (v66 == v126)
     {
-      v89 = *(this + 1);
+      v86 = *(this + 1);
       std::string::basic_string[abi:ne200100]<0>(__p, "circuit: empty circuit.");
-      operations_research::sat::PresolveContext::UpdateRuleStats(v89, __p, 1, v90, v91);
-      v92 = a2;
-      if (v134 < 0)
+      operations_research::sat::PresolveContext::UpdateRuleStats(v86, __p, 1, v87, v88);
+      v89 = a2;
+      if (v131 < 0)
       {
         operator delete(*__p);
-        v92 = a2;
+        v89 = a2;
       }
 
-      operations_research::sat::ConstraintProto::Clear(v92);
+      operations_research::sat::ConstraintProto::Clear(v89);
       goto LABEL_207;
     }
 
 LABEL_165:
-    if (v121)
+    if (v118)
     {
-      v97 = 0;
+      v94 = 0;
       while (1)
       {
-        v126 = v97;
-        v98 = 24 * v97;
-        v99 = &v138[3 * v97];
-        v100 = v135;
-        v101 = *v99;
-        v102 = v99[1];
-        if (*v99 != v102)
+        v123 = v94;
+        v95 = 24 * v94;
+        v96 = &v135[3 * v94];
+        v97 = v132;
+        v98 = *v96;
+        v99 = v96[1];
+        if (*v96 != v99)
         {
-          v122 = v135;
-          v124 = 24 * v97;
+          v119 = v132;
+          v121 = 24 * v94;
           while (1)
           {
-            v103 = *v101;
-            if (!operations_research::sat::PresolveContext::LiteralIsFalse(*(this + 1), *v101))
+            v100 = *v98;
+            if (!operations_research::sat::PresolveContext::LiteralIsFalse(*(this + 1), *v98))
             {
               break;
             }
 
-            LODWORD(v12) = v127;
-            if (++v101 == v102)
+            LODWORD(v12) = v124;
+            if (++v98 == v99)
             {
               goto LABEL_177;
             }
           }
 
-          if (!operations_research::sat::PresolveContext::LiteralIsTrue(*(this + 1), v103))
+          if (!operations_research::sat::PresolveContext::LiteralIsTrue(*(this + 1), v100))
           {
             operator new();
           }
 
-          LODWORD(v12) = v127;
+          LODWORD(v12) = v124;
 LABEL_177:
-          v100 = v122;
-          v98 = v124;
+          v97 = v119;
+          v95 = v121;
         }
 
-        v104 = *(v100 + v98);
-        v105 = *(v100 + v98 + 8);
-        if (v104 == v105)
+        v101 = *(v97 + v95);
+        v102 = *(v97 + v95 + 8);
+        if (v101 == v102)
         {
           goto LABEL_169;
         }
 
-        v106 = 0;
-        v107 = 0;
+        v103 = 0;
+        v104 = 0;
         while (1)
         {
-          v109 = *v104;
-          if (!operations_research::sat::PresolveContext::LiteralIsFalse(*(this + 1), *v104))
+          v106 = *v101;
+          if (!operations_research::sat::PresolveContext::LiteralIsFalse(*(this + 1), *v101))
           {
             break;
           }
 
-          v108 = v107;
+          v105 = v104;
 LABEL_181:
-          LODWORD(v12) = v127;
-          ++v104;
-          v107 = v108;
-          if (v104 == v105)
+          LODWORD(v12) = v124;
+          ++v101;
+          v104 = v105;
+          if (v101 == v102)
           {
             goto LABEL_195;
           }
         }
 
-        if (!operations_research::sat::PresolveContext::LiteralIsTrue(*(this + 1), v109))
+        if (!operations_research::sat::PresolveContext::LiteralIsTrue(*(this + 1), v106))
         {
           break;
         }
 
-        v108 = v107;
-        v106 = v107;
-        LODWORD(v12) = v127;
+        v105 = v104;
+        v103 = v104;
+        LODWORD(v12) = v124;
 LABEL_195:
-        if (v106 - v108 == 8)
+        if (v103 - v105 == 8)
         {
-          if ((v108[1] ^ *v108) != 0xFFFFFFFF)
+          if ((v105[1] ^ *v105) != 0xFFFFFFFF)
           {
-            v117 = *(this + 1);
-            v134 = 17;
+            v114 = *(this + 1);
+            v131 = 17;
             strcpy(__p, "circuit: degree 2");
-            operations_research::sat::PresolveContext::UpdateRuleStats(v117, __p, 1, v110, v111);
-            if (v134 < 0)
+            operations_research::sat::PresolveContext::UpdateRuleStats(v114, __p, 1, v107, v108);
+            if (v131 < 0)
             {
               operator delete(*__p);
             }
 
-            operations_research::sat::PresolveContext::StoreBooleanEqualityRelation(*(this + 1), *v108, ~v108[1]);
+            operations_research::sat::PresolveContext::StoreBooleanEqualityRelation(*(this + 1), *v105, ~v105[1]);
           }
 
-          operator delete(v108);
+          operator delete(v105);
         }
 
 LABEL_169:
-        v97 = v126 + 1;
-        if (v126 == -1)
+        v94 = v123 + 1;
+        if (v123 == -1)
         {
           goto LABEL_200;
         }
       }
 
-      v112 = &v106[-v107];
-      v113 = &v106[-v107] >> 2;
-      v114 = v113 + 1;
-      if ((v113 + 1) >> 62)
+      v109 = &v103[-v104];
+      v110 = &v103[-v104] >> 2;
+      v111 = v110 + 1;
+      if ((v110 + 1) >> 62)
       {
         std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
       }
 
-      if (-v107 >> 1 > v114)
+      if (-v104 >> 1 > v111)
       {
-        v114 = -v107 >> 1;
+        v111 = -v104 >> 1;
       }
 
-      if (-v107 >= 0x7FFFFFFFFFFFFFFCLL)
+      if (-v104 >= 0x7FFFFFFFFFFFFFFCLL)
       {
-        v115 = 0x3FFFFFFFFFFFFFFFLL;
+        v112 = 0x3FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v115 = v114;
+        v112 = v111;
       }
 
-      if (v115)
+      if (v112)
       {
-        if (!(v115 >> 62))
+        if (!(v112 >> 62))
         {
           operator new();
         }
@@ -5096,27 +3811,27 @@ LABEL_169:
         std::__throw_bad_array_new_length[abi:ne200100]();
       }
 
-      v108 = 0;
-      v116 = (4 * v113);
-      *v116 = v109;
-      v106 = (v116 + 1);
-      memcpy(0, v107, v112);
+      v105 = 0;
+      v113 = (4 * v110);
+      *v113 = v106;
+      v103 = (v113 + 1);
+      memcpy(0, v104, v109);
       goto LABEL_181;
     }
 
 LABEL_200:
-    if (v129 >= v12)
+    if (v126 >= v12)
     {
       LOBYTE(v2) = 0;
       goto LABEL_98;
     }
 
-    if (*(v6 + 16) <= v129)
+    if (*(v6 + 4) <= v126)
     {
-      if (*(v6 + 40) <= v129)
+      if (*(v6 + 10) <= v126)
       {
 LABEL_203:
-        if (*(v6 + 64) <= v129)
+        if (*(v6 + 16) <= v126)
         {
           goto LABEL_205;
         }
@@ -5127,21 +3842,21 @@ LABEL_203:
 
     else
     {
-      *(v6 + 16) = v129;
-      if (*(v6 + 40) <= v129)
+      *(v6 + 4) = v126;
+      if (*(v6 + 10) <= v126)
       {
         goto LABEL_203;
       }
     }
 
-    *(v6 + 40) = v129;
-    if (*(v6 + 64) <= v129)
+    *(v6 + 10) = v126;
+    if (*(v6 + 16) <= v126)
     {
 LABEL_205:
-      v118 = *(this + 1);
+      v115 = *(this + 1);
       std::string::basic_string[abi:ne200100]<0>(__p, "circuit: removed false arcs.");
-      operations_research::sat::PresolveContext::UpdateRuleStats(v118, __p, 1, v119, v120);
-      if (v134 < 0)
+      operations_research::sat::PresolveContext::UpdateRuleStats(v115, __p, 1, v116, v117);
+      if (v131 < 0)
       {
         operator delete(*__p);
       }
@@ -5152,53 +3867,53 @@ LABEL_207:
     }
 
 LABEL_204:
-    *(v6 + 64) = v129;
+    *(v6 + 16) = v126;
     goto LABEL_205;
   }
 
-  LOBYTE(v132) = 0;
-  std::vector<BOOL>::vector(__p, 0);
-  v80 = *__p;
-  v81 = v70;
+  LOBYTE(v129[0]) = 0;
+  std::vector<BOOL>::vector(__p, 0, v129);
+  v77 = *__p;
+  v78 = v67;
   while (1)
   {
-    v82 = v81 >> 6;
-    v83 = *(v80 + 8 * v82);
-    if ((v83 & (1 << v81)) != 0)
+    v79 = v78 >> 6;
+    v80 = *(v77 + 8 * v79);
+    if ((v80 & (1 << v78)) != 0)
     {
       break;
     }
 
-    *(v80 + 8 * v82) = v83 | (1 << v81);
-    v81 = *(4 * v81);
-    if (v81 == -1)
+    *(v77 + 8 * v79) = v80 | (1 << v78);
+    v78 = *(4 * v78);
+    if (v78 == -1)
     {
-      v81 = -1;
+      v78 = -1;
       break;
     }
   }
 
-  if (v81 == v70)
+  if (v78 == v67)
   {
-    LOBYTE(v130[0]) = 0;
-    std::vector<BOOL>::vector(&v132, 0);
+    LOBYTE(v127[0]) = 0;
+    std::vector<BOOL>::vector(v129, 0, v127);
     if (v12 >= 1)
     {
       for (i = 0; 4 * v12 != i; i += 4)
       {
-        v88 = *(*(v6 + 24) + i);
-        if (((1 << v88) & *(*__p + 8 * (v88 >> 6))) == 0)
+        v85 = *(v6[3] + i);
+        if (((1 << v85) & *(*__p + 8 * (v85 >> 6))) == 0)
         {
-          if (v88 == *(*(v6 + 48) + i))
+          if (v85 == *(v6[6] + i))
           {
-            *(v132 + (v88 >> 6)) |= 1 << v88;
-            if ((operations_research::sat::PresolveContext::SetLiteralToTrue(*(this + 1), *(*(v6 + 72) + i)) & 1) == 0)
+            *(v129[0] + (v85 >> 6)) |= 1 << v85;
+            if ((operations_research::sat::PresolveContext::SetLiteralToTrue(*(this + 1), *(v6[9] + i)) & 1) == 0)
             {
               goto LABEL_145;
             }
           }
 
-          else if (!operations_research::sat::PresolveContext::SetLiteralToFalse(*(this + 1), *(*(v6 + 72) + i)))
+          else if (!operations_research::sat::PresolveContext::SetLiteralToFalse(*(this + 1), *(v6[9] + i)))
           {
 LABEL_145:
             LOBYTE(v2) = 1;
@@ -5208,31 +3923,31 @@ LABEL_145:
       }
     }
 
-    if (v121)
+    if (v118)
     {
-      v93 = 0;
-      while ((*(*__p + 8 * (v93 >> 6)) & (1 << v93)) != 0 || (*(v132 + (v93 >> 6)) & (1 << v93)) != 0)
+      v90 = 0;
+      while ((*(*__p + 8 * (v90 >> 6)) & (1 << v90)) != 0 || (*(v129[0] + (v90 >> 6)) & (1 << v90)) != 0)
       {
-        if (!++v93)
+        if (!++v90)
         {
           goto LABEL_157;
         }
       }
 
-      LOBYTE(v2) = operations_research::sat::CpModelPresolver::MarkConstraintAsFalse(this, a2, v84, v85, v86);
-      v6 = v125;
-      LODWORD(v12) = v127;
+      LOBYTE(v2) = operations_research::sat::CpModelPresolver::MarkConstraintAsFalse(this, a2, v81, v82, v83);
+      v6 = v122;
+      LODWORD(v12) = v124;
     }
 
     else
     {
 LABEL_157:
-      v94 = *(this + 1);
-      std::string::basic_string[abi:ne200100]<0>(v130, "circuit: fully specified.");
-      operations_research::sat::PresolveContext::UpdateRuleStats(v94, v130, 1, v95, v96);
-      if (v131 < 0)
+      v91 = *(this + 1);
+      std::string::basic_string[abi:ne200100]<0>(v127, "circuit: fully specified.");
+      operations_research::sat::PresolveContext::UpdateRuleStats(v91, v127, 1, v92, v93);
+      if (v128 < 0)
       {
-        operator delete(v130[0]);
+        operator delete(v127[0]);
       }
 
       operations_research::sat::ConstraintProto::Clear(a2);
@@ -5240,9 +3955,9 @@ LABEL_157:
     }
 
 LABEL_160:
-    if (v132)
+    if (v129[0])
     {
-      operator delete(v132);
+      operator delete(v129[0]);
     }
   }
 
@@ -5251,70 +3966,70 @@ LABEL_160:
     operator delete(*__p);
   }
 
-  if (v81 != v70)
+  if (v78 != v67)
   {
     goto LABEL_165;
   }
 
 LABEL_98:
-  v56 = v135;
-  if (v135)
+  v53 = v132;
+  if (v132)
   {
-    v57 = v136;
-    v58 = v135;
-    if (v136 != v135)
+    v54 = v133;
+    v55 = v132;
+    if (v133 != v132)
     {
-      v59 = v136;
+      v56 = v133;
       do
       {
-        v61 = *(v59 - 3);
-        v59 -= 3;
-        v60 = v61;
-        if (v61)
+        v58 = *(v56 - 3);
+        v56 -= 3;
+        v57 = v58;
+        if (v58)
         {
-          *(v57 - 2) = v60;
-          operator delete(v60);
+          *(v54 - 2) = v57;
+          operator delete(v57);
         }
 
-        v57 = v59;
+        v54 = v56;
       }
 
-      while (v59 != v56);
-      v58 = v135;
+      while (v56 != v53);
+      v55 = v132;
     }
 
-    v136 = v56;
-    operator delete(v58);
+    v133 = v53;
+    operator delete(v55);
   }
 
-  v62 = v138;
-  if (v138)
+  v59 = v135;
+  if (v135)
   {
-    v63 = v139;
-    v64 = v138;
-    if (v139 != v138)
+    v60 = v136;
+    v61 = v135;
+    if (v136 != v135)
     {
-      v65 = v139;
+      v62 = v136;
       do
       {
-        v67 = *(v65 - 3);
-        v65 -= 3;
-        v66 = v67;
-        if (v67)
+        v64 = *(v62 - 3);
+        v62 -= 3;
+        v63 = v64;
+        if (v64)
         {
-          *(v63 - 2) = v66;
-          operator delete(v66);
+          *(v60 - 2) = v63;
+          operator delete(v63);
         }
 
-        v63 = v65;
+        v60 = v62;
       }
 
-      while (v65 != v62);
-      v64 = v138;
+      while (v62 != v59);
+      v61 = v135;
     }
 
-    v139 = v62;
-    operator delete(v64);
+    v136 = v59;
+    operator delete(v61);
   }
 
   return v2 & 1;
@@ -5379,7 +4094,7 @@ LABEL_13:
   goto LABEL_7;
 }
 
-uint64_t operations_research::sat::ReindexArcs<google::protobuf::RepeatedField<int>>(uint64_t a1, uint64_t a2, void *a3)
+uint64_t operations_research::sat::ReindexArcs<google::protobuf::RepeatedField<int>>(unsigned int *a1, uint64_t a2, void *a3)
 {
   v3 = *a1;
   if (!*a1)
@@ -5387,16 +4102,15 @@ uint64_t operations_research::sat::ReindexArcs<google::protobuf::RepeatedField<i
     return 0;
   }
 
-  v11[0] = &absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<int,std::less<int>,std::allocator<int>,256,false>>::EmptyNode(void)::empty_node;
-  v11[1] = &absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<int,std::less<int>,std::allocator<int>,256,false>>::EmptyNode(void)::empty_node;
-  v12 = 0;
+  v10[0] = &absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<int,std::less<int>,std::allocator<int>,256,false>>::EmptyNode(void)::empty_node;
+  v10[1] = &absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<int,std::less<int>,std::allocator<int>,256,false>>::EmptyNode(void)::empty_node;
+  v11 = 0;
   if (v3 >= 1)
   {
-    v5 = *(a1 + 8);
     operator new();
   }
 
-  v9 = xmmword_23CE306D0;
+  v8 = xmmword_23CE306D0;
   if (a3)
   {
     if (*a3 >= 2uLL)
@@ -5404,42 +4118,42 @@ uint64_t operations_research::sat::ReindexArcs<google::protobuf::RepeatedField<i
       operator delete((a3[2] - (a3[1] & 1) - 8));
     }
 
-    v7 = v10;
-    *a3 = v9;
-    *(a3 + 1) = v7;
-    v6 = v12;
+    v6 = v9;
+    *a3 = v8;
+    *(a3 + 1) = v6;
+    v5 = v11;
   }
 
   else
   {
-    v6 = v12;
-    if (v9 >= 2)
+    v5 = v11;
+    if (v8 >= 2)
     {
-      operator delete((v10 - (BYTE8(v9) & 1) - 8));
+      operator delete((v9 - (BYTE8(v8) & 1) - 8));
     }
   }
 
-  absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<int,std::less<int>,std::allocator<int>,256,false>>::clear(v11);
-  return v6;
+  absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<int,std::less<int>,std::allocator<int>,256,false>>::clear(v10);
+  return v5;
 }
 
-void sub_23CA99968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, unint64_t a4, char a5, uint64_t a6, uint64_t a7, ...)
+void sub_23CA99968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, unint64_t a4, char a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, char a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  if (a4 >= 2)
+  va_start(va, a13);
+  if (a10 >= 2)
   {
-    operator delete((a6 - (a5 & 1) - 8));
+    operator delete((a12 - (a11 & 1) - 8));
   }
 
   absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<int,std::less<int>,std::allocator<int>,256,false>>::clear(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<BOOL>::vector(void *result, uint64_t a2)
+void *std::vector<BOOL>::vector(void *a1, unint64_t a2, unsigned __int8 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
@@ -5450,25 +4164,7 @@ void *std::vector<BOOL>::vector(void *result, uint64_t a2)
     std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  v2 = *(a2 + 8);
-  if (v2)
-  {
-    if ((v2 & 0x8000000000000000) == 0)
-    {
-      operator new();
-    }
-
-    std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
-  }
-
-  return result;
+  return a1;
 }
 
 uint64_t operations_research::sat::CpModelPresolver::PresolveAutomaton(operations_research::sat::PresolveContext **this, operations_research::sat::ConstraintProto *a2)
@@ -5478,7 +4174,7 @@ uint64_t operations_research::sat::CpModelPresolver::PresolveAutomaton(operation
     if (*(a2 + 15) == 17)
     {
       v5 = *(a2 + 6);
-      if (!*(v5 + 112))
+      if (!*(v5 + 28))
       {
         return 0;
       }
@@ -5493,7 +4189,7 @@ uint64_t operations_research::sat::CpModelPresolver::PresolveAutomaton(operation
       {
         v5 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::AutomatonConstraintProto>(*(v6 & 0xFFFFFFFFFFFFFFFELL));
         *(a2 + 6) = v5;
-        if (!*(v5 + 112))
+        if (!*(v5 + 28))
         {
           return 0;
         }
@@ -5503,14 +4199,14 @@ uint64_t operations_research::sat::CpModelPresolver::PresolveAutomaton(operation
       {
         v5 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::AutomatonConstraintProto>(v6);
         *(a2 + 6) = v5;
-        if (!*(v5 + 112))
+        if (!*(v5 + 28))
         {
           return 0;
         }
       }
     }
 
-    if (*(v5 + 88))
+    if (*(v5 + 22))
     {
       v7 = &operations_research::sat::_AutomatonConstraintProto_default_instance_;
       if (*(a2 + 15) == 17)
@@ -5518,7 +4214,7 @@ uint64_t operations_research::sat::CpModelPresolver::PresolveAutomaton(operation
         v7 = v5;
       }
 
-      operations_research::sat::PresolveContext::GetAffineRelation(this[1], *v7[15], &v8);
+      operations_research::sat::PresolveContext::GetAffineRelation(v8, this[1], *v7[15]);
       operator new();
     }
   }
@@ -5851,7 +4547,6 @@ LABEL_33:
         *v20 = v35;
       }
 
-      v61 = *(this + 1);
       operator new();
     }
   }
@@ -5859,115 +4554,115 @@ LABEL_33:
 LABEL_91:
   if (*v15)
   {
-    v62 = (*v15 + 7);
+    v61 = (*v15 + 7);
   }
 
   else
   {
-    v62 = (v6 + 64);
+    v61 = (v6 + 64);
   }
 
   if (!v21)
   {
-    v153 = (v6 + 16);
+    v149 = (v6 + 16);
 LABEL_122:
-    v67 = 0;
+    v66 = 0;
     goto LABEL_123;
   }
 
-  v63 = 8 * v21;
+  v62 = 8 * v21;
   do
   {
-    if (!operations_research::sat::PresolveContext::IsFixed(*(this + 1), *v62))
+    if (!operations_research::sat::PresolveContext::IsFixed(*(this + 1), *v61))
     {
       return v3 & 1;
     }
 
-    ++v62;
-    v63 -= 8;
+    ++v61;
+    v62 -= 8;
   }
 
-  while (v63);
-  v153 = (v6 + 16);
-  v64 = *(v6 + 72);
-  if (!v64)
+  while (v62);
+  v149 = (v6 + 16);
+  v63 = *(v6 + 72);
+  if (!v63)
   {
     goto LABEL_122;
   }
 
   if (*v15)
   {
-    v65 = (*v15 + 7);
+    v64 = (*v15 + 7);
   }
 
   else
   {
-    v65 = (v6 + 64);
+    v64 = (v6 + 64);
   }
 
-  v66 = operations_research::sat::PresolveContext::FixedValue(*(this + 1), *v65);
-  if (v66 >= 0)
+  v65 = operations_research::sat::PresolveContext::FixedValue(*(this + 1), *v64);
+  if (v65 >= 0)
   {
-    v67 = v66;
+    v66 = v65;
   }
 
   else
   {
-    v67 = -v66;
+    v66 = -v65;
   }
 
-  if (v64 >= 1)
+  if (v63 >= 1)
   {
-    v155 = v64;
+    v151 = v63;
+    v67 = 0;
     v68 = 0;
     v69 = 0;
-    v70 = 0;
-    v156 = 0;
-    v154 = 0;
-    v71 = v67;
+    v152 = 0;
+    v150 = 0;
+    v70 = v66;
     while (1)
     {
       if (*v15)
       {
-        v72 = (*v15 + 8 * v68 + 7);
+        v71 = (*v15 + 8 * v67 + 7);
       }
 
       else
       {
-        v72 = (v6 + 64);
+        v71 = (v6 + 64);
       }
 
-      v73 = operations_research::sat::PresolveContext::FixedValue(*(this + 1), *v72);
-      if (v73)
+      v72 = operations_research::sat::PresolveContext::FixedValue(*(this + 1), *v71);
+      if (v72)
       {
-        if (v73 >= 0)
+        if (v72 >= 0)
         {
-          v74 = v73;
+          v73 = v72;
         }
 
         else
         {
-          v74 = -v73;
+          v73 = -v72;
         }
 
         do
         {
-          v67 = v74;
-          v74 = v71 % v74;
-          v71 = v67;
+          v66 = v73;
+          v73 = v70 % v73;
+          v70 = v66;
         }
 
-        while (v74);
-        if (v73 < 1)
+        while (v73);
+        if (v72 < 1)
         {
           goto LABEL_119;
         }
 
-        ++v154;
-        v70 += v73;
-        ++v68;
-        v71 = v67;
-        if (v68 == v155)
+        ++v150;
+        v69 += v72;
+        ++v67;
+        v70 = v66;
+        if (v67 == v151)
         {
           goto LABEL_124;
         }
@@ -5975,13 +4670,13 @@ LABEL_122:
 
       else
       {
-        v67 = v71;
+        v66 = v70;
 LABEL_119:
-        ++v156;
-        v69 += v73;
-        ++v68;
-        v71 = v67;
-        if (v68 == v155)
+        ++v152;
+        v68 += v72;
+        ++v67;
+        v70 = v66;
+        if (v67 == v151)
         {
           goto LABEL_124;
         }
@@ -5990,194 +4685,192 @@ LABEL_119:
   }
 
 LABEL_123:
-  v154 = 0;
-  v156 = 0;
-  v70 = 0;
+  v150 = 0;
+  v152 = 0;
   v69 = 0;
+  v68 = 0;
 LABEL_124:
-  v76 = *(v6 + 88);
-  v75 = *(v6 + 96);
-  if (v69 >= v76 && v70 <= v75)
+  v75 = *(v6 + 88);
+  v74 = *(v6 + 96);
+  if (v68 >= v75 && v69 <= v74)
   {
-    v77 = *(this + 1);
     operator new();
   }
 
-  if (v69 > v75 || v70 < v76)
+  if (v68 > v74 || v69 < v75)
   {
-    v123 = *(this + 1);
     operator new();
   }
 
-  if (v69 > v76)
+  if (v68 > v75)
   {
-    *(v6 + 88) = v69;
-    v78 = *(this + 1);
+    *(v6 + 88) = v68;
+    v76 = *(this + 1);
     std::string::basic_string[abi:ne200100]<0>(&__p, "reservoir: increase min_level to reachable value");
-    operations_research::sat::PresolveContext::UpdateRuleStats(v78, &__p, 1, v79, v80);
-    if (SHIBYTE(v163[1]) < 0)
+    operations_research::sat::PresolveContext::UpdateRuleStats(v76, &__p, 1, v77, v78);
+    if (SHIBYTE(v159[1]) < 0)
     {
       operator delete(__p);
     }
 
-    v75 = *(v6 + 96);
+    v74 = *(v6 + 96);
   }
 
-  if (v70 < v75)
+  if (v69 < v74)
   {
-    *(v6 + 96) = v70;
-    v81 = *(this + 1);
+    *(v6 + 96) = v69;
+    v79 = *(this + 1);
     std::string::basic_string[abi:ne200100]<0>(&__p, "reservoir: reduce max_level to reachable value");
-    operations_research::sat::PresolveContext::UpdateRuleStats(v81, &__p, 1, v82, v83);
-    if (SHIBYTE(v163[1]) < 0)
+    operations_research::sat::PresolveContext::UpdateRuleStats(v79, &__p, 1, v80, v81);
+    if (SHIBYTE(v159[1]) < 0)
     {
       operator delete(__p);
     }
   }
 
-  v84 = *(v6 + 88);
-  if (v84 >= 1 || (*(v6 + 96) & 0x8000000000000000) != 0 || v154 && v156)
+  v82 = *(v6 + 88);
+  if (v82 >= 1 || (*(v6 + 96) & 0x8000000000000000) != 0 || v150 && v152)
   {
-    if (v67 > 1)
+    if (v66 > 1)
     {
       if (*(v6 + 72) >= 1)
       {
-        v85 = 0;
-        v86 = *v15;
-        v87 = 8;
+        v83 = 0;
+        v84 = *v15;
+        v85 = 8;
         do
         {
-          if (v86)
+          if (v84)
           {
-            v88 = (v86 + v87 - 1);
+            v86 = (v84 + v85 - 1);
           }
 
           else
+          {
+            v86 = (v6 + 64);
+          }
+
+          v87 = *v86;
+          *(v87 + 8) = operations_research::sat::PresolveContext::FixedValue(*(this + 1), *v86) / v66;
+          v84 = *(v6 + 64);
+          v88 = (v84 + v85 - 1);
+          if ((v84 & 1) == 0)
           {
             v88 = (v6 + 64);
           }
 
           v89 = *v88;
-          *(v89 + 8) = operations_research::sat::PresolveContext::FixedValue(*(this + 1), *v88) / v67;
-          v86 = *(v6 + 64);
-          v90 = (v86 + v87 - 1);
-          if ((v86 & 1) == 0)
-          {
-            v90 = (v6 + 64);
-          }
-
-          v91 = *v90;
-          *(v91 + 16) = 0;
-          *(v91 + 40) = 0;
-          ++v85;
-          v87 += 8;
+          *(v89 + 16) = 0;
+          *(v89 + 40) = 0;
+          ++v83;
+          v85 += 8;
         }
 
-        while (v85 < *(v6 + 72));
-        v84 = *(v6 + 88);
+        while (v83 < *(v6 + 72));
+        v82 = *(v6 + 88);
       }
 
-      operations_research::Domain::Domain(v160, v84, *(v6 + 96));
-      operations_research::Domain::InverseMultiplicationBy(v160, v67, &__p);
-      if (v160[0])
+      operations_research::Domain::Domain(v156, v82, *(v6 + 96));
+      operations_research::Domain::InverseMultiplicationBy(&__p, v156, v66);
+      if (v156[0])
       {
-        operator delete(v160[1]);
+        operator delete(v156[1]);
       }
 
       *(v6 + 88) = operations_research::Domain::Min(&__p);
       *(v6 + 96) = operations_research::Domain::Max(&__p);
-      v92 = *(this + 1);
-      std::string::basic_string[abi:ne200100]<0>(v160, "reservoir: simplify level_changes and levels by gcd.");
-      operations_research::sat::PresolveContext::UpdateRuleStats(v92, v160, 1, v93, v94);
-      if (SBYTE7(v161) < 0)
+      v90 = *(this + 1);
+      std::string::basic_string[abi:ne200100]<0>(v156, "reservoir: simplify level_changes and levels by gcd.");
+      operations_research::sat::PresolveContext::UpdateRuleStats(v90, v156, 1, v91, v92);
+      if (SBYTE7(v157) < 0)
       {
-        operator delete(v160[0]);
+        operator delete(v156[0]);
       }
 
       if (__p)
       {
-        operator delete(v163[0]);
+        operator delete(v159[0]);
       }
     }
 
-    if (v154 == 1 && v156 >= 1)
+    if (v150 == 1 && v152 >= 1)
     {
-      v95 = *(this + 1);
+      v93 = *(this + 1);
       std::string::basic_string[abi:ne200100]<0>(&__p, "TODO reservoir: one producer, multiple consumers.");
-      operations_research::sat::PresolveContext::UpdateRuleStats(v95, &__p, 1, v96, v97);
-      if (SHIBYTE(v163[1]) < 0)
+      operations_research::sat::PresolveContext::UpdateRuleStats(v93, &__p, 1, v94, v95);
+      if (SHIBYTE(v159[1]) < 0)
       {
         operator delete(__p);
       }
     }
 
     __p = 0;
-    v163[0] = 0;
-    v163[1] = &unk_23CE31C20;
+    v159[0] = 0;
+    v159[1] = &unk_23CE31C20;
     if (*(v6 + 72) >= 1)
     {
-      v98 = 0;
+      v96 = 0;
       do
       {
-        if (*v153)
+        if (*v149)
         {
-          v99 = (*v153 + 8 * v98 + 7);
+          v97 = (*v149 + 8 * v96 + 7);
         }
 
         else
         {
-          v99 = v153;
+          v97 = v149;
         }
 
-        v100 = *v99;
-        if (operations_research::sat::PresolveContext::IsFixed(*(this + 1), *v99))
+        v98 = *v97;
+        if (operations_research::sat::PresolveContext::IsFixed(*(this + 1), *v97))
         {
-          v101 = 0x80000000;
+          v99 = 0x80000000;
         }
 
         else
         {
-          v101 = **(v100 + 3);
+          v99 = **(v98 + 3);
         }
 
-        if (operations_research::sat::PresolveContext::IsFixed(*(this + 1), v100))
+        if (operations_research::sat::PresolveContext::IsFixed(*(this + 1), v98))
         {
-          v102 = 0;
+          v100 = 0;
         }
 
         else
         {
-          v102 = **(v100 + 6);
+          v100 = **(v98 + 6);
         }
 
-        if (operations_research::sat::PresolveContext::IsFixed(*(this + 1), v100))
+        if (operations_research::sat::PresolveContext::IsFixed(*(this + 1), v98))
         {
-          v103 = operations_research::sat::PresolveContext::FixedValue(*(this + 1), v100);
+          v101 = operations_research::sat::PresolveContext::FixedValue(*(this + 1), v98);
         }
 
         else
         {
-          v103 = *(v100 + 8);
+          v101 = *(v98 + 8);
         }
 
-        v104 = 0;
-        v105 = *(*(v6 + 48) + 4 * v98);
-        LODWORD(v160[0]) = v101;
-        v160[1] = v102;
-        *&v161 = v103;
-        DWORD2(v161) = v105;
-        _X10 = v163[1];
+        v102 = 0;
+        v103 = *(*(v6 + 48) + 4 * v96);
+        LODWORD(v156[0]) = v99;
+        v156[1] = v100;
+        *&v157 = v101;
+        DWORD2(v157) = v103;
+        _X10 = v159[1];
         __asm { PRFM            #4, [X10] }
 
-        v111 = &v102[(((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v101) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v101))];
-        v112 = v103 + (((v111 * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * v111));
-        v113 = (((v112 * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * v112)) + v105;
-        v114 = ((v113 * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * v113);
-        v115 = vdup_n_s8(v114 & 0x7F);
-        v116 = ((v114 >> 7) ^ (v163[1] >> 12)) & __p;
-        v117 = *(v163[1] + v116);
-        v118 = vceq_s8(v117, v115);
-        if (!v118)
+        v109 = &v100[(((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v99) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v99))];
+        v110 = v101 + (((v109 * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * v109));
+        v111 = (((v110 * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * v110)) + v103;
+        v112 = ((v111 * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * v111);
+        v113 = vdup_n_s8(v112 & 0x7F);
+        v114 = ((v112 >> 7) ^ (v159[1] >> 12)) & __p;
+        v115 = *(v159[1] + v114);
+        v116 = vceq_s8(v115, v113);
+        if (!v116)
         {
           goto LABEL_183;
         }
@@ -6185,153 +4878,152 @@ LABEL_124:
         do
         {
 LABEL_175:
-          v119 = v164 + 32 * ((v116 + (__clz(__rbit64(v118)) >> 3)) & __p);
-          _ZF = *v119 == v101 && *(v119 + 8) == v102;
-          if (_ZF && *(v119 + 16) == v103 && *(v119 + 24) == v105)
+          v117 = v160 + 32 * ((v114 + (__clz(__rbit64(v116)) >> 3)) & __p);
+          _ZF = *v117 == v99 && *(v117 + 8) == v100;
+          if (_ZF && *(v117 + 16) == v101 && *(v117 + 24) == v103)
           {
-            v124 = *(this + 1);
             operator new();
           }
 
-          v118 &= ((v118 & 0x8080808080808080) - 1) & 0x8080808080808080;
+          v116 &= ((v116 & 0x8080808080808080) - 1) & 0x8080808080808080;
         }
 
-        while (v118);
+        while (v116);
 LABEL_183:
-        while (!*&vceq_s8(v117, 0x8080808080808080))
+        while (!*&vceq_s8(v115, 0x8080808080808080))
         {
-          v104 += 8;
-          v116 = (v104 + v116) & __p;
-          v117 = *(v163[1] + v116);
-          v118 = vceq_s8(v117, v115);
-          if (v118)
+          v102 += 8;
+          v114 = (v102 + v114) & __p;
+          v115 = *(v159[1] + v114);
+          v116 = vceq_s8(v115, v113);
+          if (v116)
           {
             goto LABEL_175;
           }
         }
 
-        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::tuple<int,long long,long long,int>>,absl::lts_20240722::hash_internal::Hash<std::tuple<int,long long,long long,int>>,std::equal_to<std::tuple<int,long long,long long,int>>,std::allocator<std::tuple<int,long long,long long,int>>>::find_or_prepare_insert_non_soo<std::tuple<int,long long,long long,int>>(&__p, v160, &v157);
-        if (v159 == 1)
+        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::tuple<int,long long,long long,int>>,absl::lts_20240722::hash_internal::Hash<std::tuple<int,long long,long long,int>>,std::equal_to<std::tuple<int,long long,long long,int>>,std::allocator<std::tuple<int,long long,long long,int>>>::find_or_prepare_insert_non_soo<std::tuple<int,long long,long long,int>>(&__p, v156, &v153);
+        if (v155 == 1)
         {
-          v121 = v158;
-          v122 = v161;
-          *v158 = *v160;
-          v121[1] = v122;
+          v119 = v154;
+          v120 = v157;
+          *v154 = *v156;
+          v119[1] = v120;
         }
 
-        ++v98;
+        ++v96;
       }
 
-      while (v98 < *(v6 + 72));
+      while (v96 < *(v6 + 72));
       if (__p)
       {
-        operator delete(v163[1] - (v163[0] & 1) - 8);
+        operator delete(v159[1] - (v159[0] & 1) - 8);
       }
     }
   }
 
   else
   {
-    v125 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(this + 1) + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
-    v126 = operations_research::sat::ConstraintProto::mutable_linear(v125);
+    v121 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(this + 1) + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
+    v122 = operations_research::sat::ConstraintProto::mutable_linear(v121);
     if (*(v6 + 72) < 1)
     {
-      v128 = 0;
+      v124 = 0;
     }
 
     else
     {
-      v127 = 0;
-      v128 = 0;
-      v129 = 8;
+      v123 = 0;
+      v124 = 0;
+      v125 = 8;
       do
       {
         while (1)
         {
-          v130 = *(v6 + 64);
-          v131 = ((v130 & 1) != 0 ? v130 + v129 - 1 : v6 + 64);
-          v132 = operations_research::sat::PresolveContext::FixedValue(*(this + 1), *v131);
-          v133 = *(*(v6 + 48) + 4 * v127);
-          if (v133 < 0)
+          v126 = *(v6 + 64);
+          v127 = ((v126 & 1) != 0 ? v126 + v125 - 1 : v6 + 64);
+          v128 = operations_research::sat::PresolveContext::FixedValue(*(this + 1), *v127);
+          v129 = *(*(v6 + 48) + 4 * v123);
+          if (v129 < 0)
           {
             break;
           }
 
-          v134 = *(v126 + 16);
-          v135 = v134;
-          if (v134 == HIDWORD(v134))
+          v130 = v122[2];
+          v131 = v130;
+          if (v130 == HIDWORD(v130))
           {
-            v146 = v132;
-            google::protobuf::RepeatedField<int>::Grow(v126 + 16, HIDWORD(v134), (HIDWORD(v134) + 1));
-            v132 = v146;
-            v135 = *(v126 + 16);
+            v142 = v128;
+            google::protobuf::RepeatedField<int>::Grow((v122 + 2), HIDWORD(v130), (HIDWORD(v130) + 1));
+            v128 = v142;
+            v131 = *(v122 + 4);
           }
 
-          v136 = *(v126 + 24);
-          *(v126 + 16) = v135 + 1;
-          *(v136 + 4 * v135) = v133;
-          v138 = *(v126 + 40);
-          v137 = *(v126 + 44);
-          if (v138 == v137)
+          v132 = v122[3];
+          *(v122 + 4) = v131 + 1;
+          *(v132 + 4 * v131) = v129;
+          v134 = *(v122 + 10);
+          v133 = *(v122 + 11);
+          if (v134 == v133)
           {
-            v147 = v132;
-            google::protobuf::RepeatedField<long long>::Grow(v126 + 40, v137);
-            v132 = v147;
-            v138 = *(v126 + 40);
+            v143 = v128;
+            google::protobuf::RepeatedField<long long>::Grow((v122 + 5), v133, (v133 + 1));
+            v128 = v143;
+            v134 = *(v122 + 10);
           }
 
-          v139 = *(v126 + 48);
-          *(v126 + 40) = v138 + 1;
-          *(v139 + 8 * v138) = v132;
-          ++v127;
-          v129 += 8;
-          if (v127 >= *(v6 + 72))
+          v135 = v122[6];
+          *(v122 + 10) = v134 + 1;
+          *(v135 + 8 * v134) = v128;
+          ++v123;
+          v125 += 8;
+          if (v123 >= *(v6 + 72))
           {
             goto LABEL_216;
           }
         }
 
-        v140 = *(v126 + 16);
-        v141 = v140;
-        if (v140 == HIDWORD(v140))
+        v136 = v122[2];
+        v137 = v136;
+        if (v136 == HIDWORD(v136))
         {
-          v148 = v132;
-          google::protobuf::RepeatedField<int>::Grow(v126 + 16, HIDWORD(v140), (HIDWORD(v140) + 1));
-          v132 = v148;
-          v141 = *(v126 + 16);
+          v144 = v128;
+          google::protobuf::RepeatedField<int>::Grow((v122 + 2), HIDWORD(v136), (HIDWORD(v136) + 1));
+          v128 = v144;
+          v137 = *(v122 + 4);
         }
 
-        v142 = *(v126 + 24);
-        *(v126 + 16) = v141 + 1;
-        *(v142 + 4 * v141) = ~v133;
-        v144 = *(v126 + 40);
-        v143 = *(v126 + 44);
-        if (v144 == v143)
+        v138 = v122[3];
+        *(v122 + 4) = v137 + 1;
+        *(v138 + 4 * v137) = ~v129;
+        v140 = *(v122 + 10);
+        v139 = *(v122 + 11);
+        if (v140 == v139)
         {
-          v149 = v132;
-          google::protobuf::RepeatedField<long long>::Grow(v126 + 40, v143);
-          v132 = v149;
-          v144 = *(v126 + 40);
+          v145 = v128;
+          google::protobuf::RepeatedField<long long>::Grow((v122 + 5), v139, (v139 + 1));
+          v128 = v145;
+          v140 = *(v122 + 10);
         }
 
-        v145 = *(v126 + 48);
-        *(v126 + 40) = v144 + 1;
-        *(v145 + 8 * v144) = -v132;
-        v128 += v132;
-        ++v127;
-        v129 += 8;
+        v141 = v122[6];
+        *(v122 + 10) = v140 + 1;
+        *(v141 + 8 * v140) = -v128;
+        v124 += v128;
+        ++v123;
+        v125 += 8;
       }
 
-      while (v127 < *(v6 + 72));
+      while (v123 < *(v6 + 72));
     }
 
 LABEL_216:
-    operations_research::sat::LinearConstraintProto::add_domain(v126, *(v6 + 88) - v128);
-    operations_research::sat::LinearConstraintProto::add_domain(v126, *(v6 + 96) - v128);
-    v150 = *(this + 1);
+    operations_research::sat::LinearConstraintProto::add_domain(v122, *(v6 + 88) - v124);
+    operations_research::sat::LinearConstraintProto::add_domain(v122, *(v6 + 96) - v124);
+    v146 = *(this + 1);
     std::string::basic_string[abi:ne200100]<0>(&__p, "reservoir: converted to linear");
-    operations_research::sat::PresolveContext::UpdateRuleStats(v150, &__p, 1, v151, v152);
-    if (SHIBYTE(v163[1]) < 0)
+    operations_research::sat::PresolveContext::UpdateRuleStats(v146, &__p, 1, v147, v148);
+    if (SHIBYTE(v159[1]) < 0)
     {
       operator delete(__p);
     }
@@ -6791,7 +5483,7 @@ LABEL_11:
   return result;
 }
 
-void sub_23CA9C938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, operations_research::sat::PresolveTimer *a62)
+void sub_23CA9C938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62)
 {
   if (*(v62 - 225) < 0)
   {
@@ -6799,9 +5491,9 @@ void sub_23CA9C938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   std::vector<std::vector<int>>::~vector[abi:ne200100](&a17);
-  operations_research::sat::PresolveTimer::~PresolveTimer(&__p);
+  operations_research::sat::PresolveTimer::~PresolveTimer(&__p, v64);
   operations_research::sat::Model::~Model(&a52);
-  std::unique_ptr<operations_research::sat::PresolveTimer>::~unique_ptr[abi:ne200100](&a62);
+  std::unique_ptr<operations_research::sat::PresolveTimer>::~unique_ptr[abi:ne200100](&a62, v65);
   _Unwind_Resume(a1);
 }
 
@@ -6827,7 +5519,7 @@ void sub_23CA9CC58(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t operations_research::sat::Model::GetOrCreate<operations_research::sat::Prober>(void *a1)
+operations_research::sat::Prober *operations_research::sat::Model::GetOrCreate<operations_research::sat::Prober>(void *a1)
 {
   v1 = a1[3];
   if (v1 > 1)
@@ -6929,37 +5621,37 @@ uint64_t std::function<void ()(operations_research::sat::Literal)>::~function(ui
   }
 }
 
-operations_research::sat::PresolveTimer **std::unique_ptr<operations_research::sat::PresolveTimer>::~unique_ptr[abi:ne200100](operations_research::sat::PresolveTimer **a1)
+operations_research::sat::PresolveTimer **std::unique_ptr<operations_research::sat::PresolveTimer>::~unique_ptr[abi:ne200100](std::string **a1, uint64_t a2)
 {
-  v1 = a1;
-  v2 = *a1;
-  *v1 = 0;
-  if (v2)
+  v2 = a1;
+  v3 = *a1;
+  *v2 = 0;
+  if (v3)
   {
-    v3 = v1;
-    operations_research::sat::PresolveTimer::~PresolveTimer(v2);
+    v4 = v2;
+    operations_research::sat::PresolveTimer::~PresolveTimer(v3, a2);
     MEMORY[0x23EED9460]();
-    return v3;
+    return v4;
   }
 
-  return v1;
+  return v2;
 }
 
 uint64_t operations_research::sat::CpModelPresolver::PresolvePureSatPart(operations_research::sat::CpModelPresolver *this)
 {
-  v114[125] = *MEMORY[0x277D85DE8];
+  v106[125] = *MEMORY[0x277D85DE8];
   v1 = *(this + 1);
   if (v1[416] & 1) != 0 || (v1[16])
   {
     v2 = 1;
-    goto LABEL_4;
+    return v2 & 1;
   }
 
-  v5 = this;
-  v6 = *(*v1 + 32);
-  if (v6)
+  v4 = this;
+  v5 = *(*v1 + 32);
+  if (v5)
   {
-    if ((v6 & 0x80000000) == 0)
+    if ((v5 & 0x80000000) == 0)
     {
       operator new();
     }
@@ -6967,379 +5659,349 @@ uint64_t operations_research::sat::CpModelPresolver::PresolvePureSatPart(operati
     std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
   }
 
-  v109 = 0;
-  v108 = 0;
-  v107 = 0;
-  memset(v102, 0, sizeof(v102));
-  v103 = xmmword_23CE306D0;
-  v106 = 0;
-  v104 = 0;
-  v105 = 0;
-  v7 = operations_research::sat::Model::GetOrCreate<operations_research::TimeLimit>(v102);
-  operations_research::TimeLimit::MergeWithGlobalTimeLimit(v7, *(v5 + 3));
-  v8 = operations_research::sat::Model::GetOrCreate<operations_research::sat::SatSolver>(v102);
-  operations_research::sat::SatSolver::SetNumVariables(v8, 0);
-  v9 = **(v5 + 1);
-  if (*(v9 + 14) < 1)
+  v101 = 0;
+  v100 = 0;
+  v99 = 0;
+  memset(v94, 0, sizeof(v94));
+  v95 = xmmword_23CE306D0;
+  v98 = 0;
+  v96 = 0;
+  v97 = 0;
+  v6 = operations_research::sat::Model::GetOrCreate<operations_research::TimeLimit>(v94);
+  operations_research::TimeLimit::MergeWithGlobalTimeLimit(v6, *(v4 + 3));
+  v7 = operations_research::sat::Model::GetOrCreate<operations_research::sat::SatSolver>(v94);
+  operations_research::sat::SatSolver::SetNumVariables(v7, 0);
+  v8 = **(v4 + 1);
+  if (*(v8 + 56) < 1)
   {
-    v2 = *(v8 + 528) ^ 1;
-    goto LABEL_127;
+    v2 = *(v7 + 528) ^ 1;
+    goto LABEL_118;
   }
 
-  v78 = v8;
+  v70 = v7;
+  v9 = 0;
   v10 = 0;
-  v11 = 0;
-  v75 = 0;
+  v67 = 0;
   do
   {
-    v16 = *(v9 + 6);
-    v15 = v9 + 48;
-    v17 = v16 + 8 * v10 + 7;
-    if (v16)
+    v15 = *(v8 + 48);
+    v14 = v8 + 48;
+    v16 = v15 + 8 * v9 + 7;
+    if (v15)
     {
-      v18 = v17;
+      v17 = v16;
     }
 
     else
     {
-      v18 = v15;
+      v17 = v14;
     }
 
-    v77 = *v18;
-    v19 = *(*v18 + 60);
-    if (v19 == 4)
+    v69 = *v17;
+    v18 = *(*v17 + 60);
+    if (v18 == 4)
     {
-      v23 = *(v77 + 16);
-      v24 = *(*(v77 + 48) + 16);
-      if (v23 < 2 || v24 < 2)
+      v19 = *(v69 + 16);
+      v20 = *(*(v69 + 48) + 16);
+      if (v19 < 2 || v20 < 2)
       {
-        if (!v23)
+        if (!v19)
         {
           operator new();
         }
 
-        v26 = *(v77 + 24);
-LABEL_42:
-        if (~*v26 <= *v26)
-        {
-          v33 = *v26;
-        }
-
+LABEL_35:
         operator new();
       }
 
-      if (v24 + v24 * v23 <= 10000)
+      if (v20 + v20 * v19 <= 10000)
       {
-        v26 = *(v77 + 24);
-        goto LABEL_42;
+        goto LABEL_35;
       }
 
-      v13 = v75 + 1;
+      v12 = v67 + 1;
       goto LABEL_12;
     }
 
-    if (v19 != 3)
+    if (v18 != 3)
     {
-      v12 = v19 == 0;
-      v13 = v75;
-      if (!v12)
+      v11 = v18 == 0;
+      v12 = v67;
+      if (!v11)
       {
-        v13 = v75 + 1;
+        v12 = v67 + 1;
       }
 
 LABEL_12:
-      v75 = v13;
+      v67 = v12;
       goto LABEL_13;
     }
 
-    v20 = *(v77 + 48);
-    if (*(v20 + 16))
+    if (*(*(v69 + 48) + 16))
     {
-      v21 = *(v20 + 24);
-      if (~*v21 <= *v21)
-      {
-        v22 = *v21;
-      }
-
-      else
-      {
-        v22 = ~*v21;
-      }
-
       operator new();
     }
 
-    if (*(v77 + 16))
+    if (*(v69 + 16))
     {
-      v27 = *(v77 + 24);
-      if (~*v27 <= *v27)
-      {
-        v28 = *v27;
-      }
-
-      else
-      {
-        v28 = ~*v27;
-      }
-
       operator new();
     }
 
-    operations_research::sat::SatSolver::AddProblemClause(v78, 0, 0, 0);
-    v5 = this;
-    v29 = **(this + 1);
-    v31 = *(v29 + 48);
-    v30 = (v29 + 48);
-    v32 = v31 + 8 * v10 + 7;
-    if (v31)
+    operations_research::sat::SatSolver::AddProblemClause(v70, 0, 0, 0);
+    v4 = this;
+    v22 = **(this + 1);
+    v24 = *(v22 + 48);
+    v23 = (v22 + 48);
+    v25 = v24 + 8 * v9 + 7;
+    if (v24)
     {
-      v30 = v32;
+      v23 = v25;
     }
 
-    operations_research::sat::ConstraintProto::Clear(*v30);
-    operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), v10);
-    ++v11;
-LABEL_13:
+    operations_research::sat::ConstraintProto::Clear(*v23);
+    operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), v9);
     ++v10;
-    v14 = *(v5 + 1);
-    v9 = *v14;
+LABEL_13:
+    ++v9;
+    v13 = *(v4 + 1);
+    v8 = *v13;
   }
 
-  while (v10 < *(*v14 + 14));
-  v2 = *(v78 + 528) ^ 1;
-  if ((*(v78 + 528) & 1) != 0 || !v11)
+  while (v9 < *(*v13 + 56));
+  v2 = *(v70 + 528) ^ 1;
+  if ((*(v70 + 528) & 1) != 0 || !v10)
   {
-    goto LABEL_127;
+    goto LABEL_118;
   }
 
-  memset(v101, 0, sizeof(v101));
-  operations_research::sat::SatParameters::SatParameters(v96, 0, v14[49]);
-  if (v98 == 1)
+  memset(v93, 0, sizeof(v93));
+  operations_research::sat::SatParameters::SatParameters(v88, 0, v13[49]);
+  if (v90 == 1)
   {
-    v99 = 0;
-    v97 |= 1u;
+    v91 = 0;
+    v89 |= 1u;
   }
 
-  operations_research::sat::SatPostsolver::SatPostsolver(v81, 0);
+  operations_research::sat::SatPostsolver::SatPostsolver(v73, 0);
   memset(&__p, 0, sizeof(__p));
-  if ((*(*(*(this + 1) + 392) + 281) & 1) == 0 && v75 == 0)
+  if ((*(*(*(this + 1) + 392) + 281) & 1) == 0 && v67 == 0)
   {
-    if ((operations_research::sat::LookForTrivialSatSolution(v102, 1.0, *(this + 2), v34) & 1) == 0)
+    if ((operations_research::sat::LookForTrivialSatSolution(v94, 1.0, *(this + 2), v26) & 1) == 0)
     {
-      goto LABEL_100;
+      goto LABEL_91;
     }
 
-    v35 = *(v78 + 216);
-    if (!*(v35 + 12))
+    v27 = *(v70 + 216);
+    if (!*(v27 + 12))
     {
       {
-        absl::lts_20240722::log_internal::LogMessageFatal::LogMessageFatal(v110, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/cp_model_presolve.cc", 7318);
-        absl::lts_20240722::log_internal::LogMessageFatal::~LogMessageFatal(v110);
+        absl::lts_20240722::log_internal::LogMessageFatal::LogMessageFatal(v102, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/cp_model_presolve.cc", 7318);
+        absl::lts_20240722::log_internal::LogMessageFatal::~LogMessageFatal(v102);
       }
 
       v2 = 1;
-      goto LABEL_101;
+      goto LABEL_92;
     }
 
-    v59 = *(*(*(this + 1) + 392) + 504);
-    v60 = operations_research::sat::Model::GetOrCreate<operations_research::sat::Inprocessing>(v102);
-    *(v60 + 104) = *(this + 2);
-    if ((operations_research::sat::Inprocessing::PresolveLoop(v60, v59, 1uLL) & 1) == 0)
+    v51 = *(*(*(this + 1) + 392) + 504);
+    v52 = operations_research::sat::Model::GetOrCreate<operations_research::sat::Inprocessing>(v94);
+    *(v52 + 13) = *(this + 2);
+    if ((operations_research::sat::Inprocessing::PresolveLoop(v52, v51, 1uLL) & 1) == 0)
     {
-      goto LABEL_100;
+      goto LABEL_91;
     }
 
-    v61 = operations_research::sat::Model::GetOrCreate<operations_research::sat::PostsolveClauses>(v102);
-    v62 = v61[1];
-    if (v61[2] != v62)
+    v53 = operations_research::sat::Model::GetOrCreate<operations_research::sat::PostsolveClauses>(v94);
+    v54 = v53[1];
+    if (v53[2] != v54)
     {
-      v63 = v61[4];
-      v64 = (v62 + 8 * (v63 / 0xAA));
-      v65 = *v64 + 24 * (v63 % 0xAA);
-      v66 = *(v62 + 8 * ((v61[5] + v63) / 0xAA)) + 24 * ((v61[5] + v63) % 0xAA);
-      while (v65 != v66)
+      v55 = v53[4];
+      v56 = (v54 + 8 * (v55 / 0xAA));
+      v57 = *v56 + 24 * (v55 % 0xAA);
+      v58 = *(v54 + 8 * ((v53[5] + v55) / 0xAA)) + 24 * ((v53[5] + v55) % 0xAA);
+      while (v57 != v58)
       {
-        operations_research::sat::SatPostsolver::Add(v81, **v65, *v65, (*(v65 + 8) - *v65) >> 2);
-        v65 += 24;
-        if (v65 - *v64 == 4080)
+        operations_research::sat::SatPostsolver::Add(v73, **v57, *v57, (*(v57 + 8) - *v57) >> 2);
+        v57 += 24;
+        if (v57 - *v56 == 4080)
         {
-          v67 = v64[1];
-          ++v64;
-          v65 = v67;
+          v59 = v56[1];
+          ++v56;
+          v57 = v59;
         }
       }
     }
 
-    operations_research::sat::ProbeAndFindEquivalentLiteral(v78, v81, 0, &__p, *(this + 2));
-    if (*(v78 + 528))
+    operations_research::sat::ProbeAndFindEquivalentLiteral(v70, v73, 0, &__p, *(this + 2));
+    if (*(v70 + 528))
     {
-LABEL_100:
+LABEL_91:
       v2 = 0;
-      goto LABEL_101;
+      goto LABEL_92;
     }
   }
 
   else
   {
-    v100 = 0;
-    v97 |= 2u;
+    v92 = 0;
+    v89 |= 2u;
   }
 
-  if (!operations_research::sat::SatSolver::ResetToLevelZero(v78))
-  {
-    goto LABEL_100;
-  }
-
-  v36 = *(this + 3);
-  *(v36 + 112) = *(operations_research::sat::Model::GetOrCreate<operations_research::TimeLimit>(v102) + 112) + *(v36 + 112);
-  operations_research::sat::SatPresolver::SatPresolver(v110, v81, *(this + 2));
-  operations_research::sat::SatPresolver::SetNumVariables(v110, 0);
-  if (__p.__begin_ != __p.__end_)
-  {
-    std::vector<operations_research::sat::Literal>::__assign_with_size[abi:ne200100]<operations_research::sat::Literal*,operations_research::sat::Literal*>(&v113, __p.__begin_, __p.__end_, __p.__end_ - __p.__begin_);
-  }
-
-  v114[123] = *(this + 3);
-  operations_research::sat::SatParameters::CopyFrom(v114, v96);
-  v37 = *(v78 + 216);
-  if (*(v37 + 12) >= 1)
-  {
-    v38 = 0;
-    do
-    {
-      operations_research::sat::SatPostsolver::FixVariable(v81, *(*(v37 + 48) + 4 * v38++));
-      v37 = *(v78 + 216);
-    }
-
-    while (v38 < *(v37 + 12));
-  }
-
-  operations_research::sat::SatSolver::ExtractClauses<operations_research::sat::SatPresolver>(v78, v110);
-  v39 = this;
-  if ((operations_research::sat::SatPresolver::Presolve(v110, v101) & 1) == 0)
+  if (!operations_research::sat::SatSolver::ResetToLevelZero(v70))
   {
     goto LABEL_91;
   }
 
-  v40 = (v112 - v111) >> 3;
-  if (v40 <= 0)
+  v28 = *(this + 3);
+  *(v28 + 112) = *(operations_research::sat::Model::GetOrCreate<operations_research::TimeLimit>(v94) + 14) + *(v28 + 112);
+  operations_research::sat::SatPresolver::SatPresolver(v102, v73, *(this + 2));
+  operations_research::sat::SatPresolver::SetNumVariables(v102, 0);
+  if (__p.__begin_ != __p.__end_)
   {
-    goto LABEL_89;
+    std::vector<operations_research::sat::Literal>::__assign_with_size[abi:ne200100]<operations_research::sat::Literal*,operations_research::sat::Literal*>(&v105, __p.__begin_, __p.__end_, __p.__end_ - __p.__begin_);
+  }
+
+  v106[123] = *(this + 3);
+  operations_research::sat::SatParameters::CopyFrom(v106, v88);
+  v29 = *(v70 + 216);
+  if (*(v29 + 12) >= 1)
+  {
+    v30 = 0;
+    do
+    {
+      operations_research::sat::SatPostsolver::FixVariable(v73, *(*(v29 + 48) + 4 * v30++));
+      v29 = *(v70 + 216);
+    }
+
+    while (v30 < *(v29 + 12));
+  }
+
+  operations_research::sat::SatSolver::ExtractClauses<operations_research::sat::SatPresolver>(v70, v102);
+  v31 = this;
+  if ((operations_research::sat::SatPresolver::Presolve(v102, v93) & 1) == 0)
+  {
+    goto LABEL_82;
+  }
+
+  v32 = (v104 - v103) >> 3;
+  if (v32 <= 0)
+  {
+    goto LABEL_80;
   }
 
   if (dword_27E25CBF0 >= 1)
   {
-    v39 = this;
+    v31 = this;
     if (absl::lts_20240722::log_internal::VLogSite::SlowIsEnabled1(&operations_research::sat::CpModelPresolver::PresolvePureSatPart(void)::$_1::operator() const(void)::site, dword_27E25CBF0))
     {
-      absl::lts_20240722::log_internal::LogMessage::LogMessage(v79, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/cp_model_presolve.cc", 7381);
-      v74 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v79, 1);
-      absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v74, "New variables added by the SAT presolver.", 0x29uLL);
-      absl::lts_20240722::log_internal::LogMessage::~LogMessage(v79);
-      v39 = this;
+      absl::lts_20240722::log_internal::LogMessage::LogMessage(v71, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/cp_model_presolve.cc", 7381);
+      v66 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v71, 1);
+      absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v66, "New variables added by the SAT presolver.", 0x29uLL);
+      absl::lts_20240722::log_internal::LogMessage::~LogMessage(v71);
+      v31 = this;
     }
   }
 
-  v41 = v107;
-  v42 = v108;
+  v33 = v99;
+  v34 = v100;
   while (2)
   {
     while (2)
     {
-      v43 = *(**(v39 + 1) + 32);
-      if (v42 >= v109)
+      v35 = *(**(v31 + 1) + 32);
+      if (v34 >= v101)
       {
-        v44 = v42 - v41;
-        v45 = (v42 - v41) >> 2;
-        v46 = v45 + 1;
-        if ((v45 + 1) >> 62)
+        v36 = v34 - v33;
+        v37 = (v34 - v33) >> 2;
+        v38 = v37 + 1;
+        if ((v37 + 1) >> 62)
         {
-          v108 = v42;
-          v107 = v41;
+          v100 = v34;
+          v99 = v33;
           std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
         }
 
-        v47 = v109 - v41;
-        if ((v109 - v41) >> 1 > v46)
+        v39 = v101 - v33;
+        if ((v101 - v33) >> 1 > v38)
         {
-          v46 = v47 >> 1;
+          v38 = v39 >> 1;
         }
 
-        if (v47 >= 0x7FFFFFFFFFFFFFFCLL)
+        if (v39 >= 0x7FFFFFFFFFFFFFFCLL)
         {
-          v48 = 0x3FFFFFFFFFFFFFFFLL;
+          v40 = 0x3FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v48 = v46;
+          v40 = v38;
         }
 
-        if (v48)
+        if (v40)
         {
-          if (!(v48 >> 62))
+          if (!(v40 >> 62))
           {
             operator new();
           }
 
-          v108 = v42;
-          v107 = v41;
+          v100 = v34;
+          v99 = v33;
           std::__throw_bad_array_new_length[abi:ne200100]();
         }
 
-        *(4 * v45) = v43;
-        v42 = (4 * v45 + 4);
-        memcpy(0, v41, v44);
-        v109 = 0;
-        if (v41)
+        *(4 * v37) = v35;
+        v34 = (4 * v37 + 4);
+        memcpy(0, v33, v36);
+        v101 = 0;
+        if (v33)
         {
-          operator delete(v41);
+          operator delete(v33);
         }
 
-        v41 = 0;
+        v33 = 0;
       }
 
       else
       {
-        *v42 = v43;
-        v42 += 4;
+        *v34 = v35;
+        v34 += 4;
       }
 
-      v39 = this;
-      v49 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(this + 1) + 24), google::protobuf::Arena::DefaultConstruct<operations_research::sat::IntegerVariableProto>);
-      v50 = v49;
-      v52 = *(v49 + 16);
-      v51 = *(v49 + 20);
-      v53 = (v49 + 16);
-      if (v52 != v51)
+      v31 = this;
+      v41 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(this + 1) + 24), google::protobuf::Arena::DefaultConstruct<operations_research::sat::IntegerVariableProto>);
+      v42 = v41;
+      v44 = *(v41 + 16);
+      v43 = *(v41 + 20);
+      v45 = (v41 + 16);
+      if (v44 != v43)
       {
-        v54 = *(v49 + 24);
-        v55 = v52 + 1;
-        *(v49 + 16) = v52 + 1;
-        *(v54 + 8 * v52) = 0;
-        if (v52 + 1 == v51)
+        v46 = *(v41 + 24);
+        v47 = v44 + 1;
+        *(v41 + 16) = v44 + 1;
+        *(v46 + 8 * v44) = 0;
+        if (v44 + 1 == v43)
         {
           break;
         }
 
-        goto LABEL_84;
+        goto LABEL_75;
       }
 
-      google::protobuf::RepeatedField<long long>::Grow(v49 + 16, v51);
-      v56 = *(v50 + 16);
-      v51 = *(v50 + 20);
-      v54 = *(v50 + 24);
-      v55 = v56 + 1;
-      *(v50 + 16) = v56 + 1;
-      *(v54 + 8 * v56) = 0;
-      if (v56 + 1 != v51)
+      google::protobuf::RepeatedField<long long>::Grow(v41 + 16, v43, (v43 + 1));
+      v48 = *(v42 + 16);
+      v43 = *(v42 + 20);
+      v46 = *(v42 + 24);
+      v47 = v48 + 1;
+      *(v42 + 16) = v48 + 1;
+      *(v46 + 8 * v48) = 0;
+      if (v48 + 1 != v43)
       {
-LABEL_84:
-        *v53 = v55 + 1;
-        *(v54 + 8 * v55) = 1;
-        if (!--v40)
+LABEL_75:
+        *v45 = v47 + 1;
+        *(v46 + 8 * v47) = 1;
+        if (!--v32)
         {
-          goto LABEL_88;
+          goto LABEL_79;
         }
 
         continue;
@@ -7348,12 +6010,12 @@ LABEL_84:
       break;
     }
 
-    google::protobuf::RepeatedField<long long>::Grow(v53, v51);
-    v57 = *(v50 + 16);
-    v58 = *(v50 + 24);
-    *v53 = v57 + 1;
-    *(v58 + 8 * v57) = 1;
-    if (--v40)
+    google::protobuf::RepeatedField<long long>::Grow(v45, v43, (v43 + 1));
+    v49 = *(v42 + 16);
+    v50 = *(v42 + 24);
+    *v45 = v49 + 1;
+    *(v50 + 8 * v49) = 1;
+    if (--v32)
     {
       continue;
     }
@@ -7361,129 +6023,127 @@ LABEL_84:
     break;
   }
 
-LABEL_88:
-  v108 = v42;
-  v107 = v41;
+LABEL_79:
+  v100 = v34;
+  v99 = v33;
   operations_research::sat::PresolveContext::InitializeNewDomains(*(this + 1));
-LABEL_89:
+LABEL_80:
   {
-    operations_research::sat::PresolveContext::UpdateNewConstraintsVariableUsage(*(v39 + 1));
+    operations_research::sat::PresolveContext::UpdateNewConstraintsVariableUsage(*(v31 + 1));
     v2 = 1;
-    goto LABEL_92;
+    goto LABEL_83;
   }
 
-LABEL_91:
+LABEL_82:
   v2 = 0;
+LABEL_83:
+  operations_research::sat::SatPresolver::~SatPresolver(v102);
 LABEL_92:
-  operations_research::sat::SatPresolver::~SatPresolver(v110);
-LABEL_101:
   if (__p.__begin_)
   {
     __p.__end_ = __p.__begin_;
     operator delete(__p.__begin_);
   }
 
-  if (v94)
+  if (v86)
   {
-    v95 = v94;
-    operator delete(v94);
+    v87 = v86;
+    operator delete(v86);
   }
 
-  if (v91)
+  if (v83)
   {
-    v92 = v91;
-    operator delete(v91);
+    v84 = v83;
+    operator delete(v83);
   }
 
-  if (v89)
+  if (v81)
   {
-    v90 = v89;
-    operator delete(v89);
+    v82 = v81;
+    operator delete(v81);
   }
 
-  v68 = v85;
-  v69 = v86;
-  v88 = 0;
-  v70 = v86 - v85;
-  if (v70 >= 3)
+  v60 = v77;
+  v61 = v78;
+  v80 = 0;
+  v62 = v78 - v77;
+  if (v62 >= 3)
   {
     do
     {
-      operator delete(*v68);
-      v69 = v86;
-      v68 = v85 + 1;
-      v85 = v68;
-      v70 = v86 - v68;
+      operator delete(*v60);
+      v61 = v78;
+      v60 = v77 + 1;
+      v77 = v60;
+      v62 = v78 - v60;
     }
 
-    while (v70 > 2);
+    while (v62 > 2);
   }
 
-  if (v70 == 1)
+  if (v62 == 1)
   {
-    v71 = 512;
-LABEL_115:
-    v87 = v71;
+    v63 = 512;
+LABEL_106:
+    v79 = v63;
   }
 
-  else if (v70 == 2)
+  else if (v62 == 2)
   {
-    v71 = 1024;
-    goto LABEL_115;
+    v63 = 1024;
+    goto LABEL_106;
   }
 
-  if (v68 != v69)
+  if (v60 != v61)
   {
     do
     {
-      v72 = *v68++;
-      operator delete(v72);
+      v64 = *v60++;
+      operator delete(v64);
     }
 
-    while (v68 != v69);
-    v73 = v86;
-    if (v86 != v85)
+    while (v60 != v61);
+    v65 = v78;
+    if (v78 != v77)
     {
       do
       {
-        --v73;
+        --v65;
       }
 
-      while (v73 != v85);
-      v86 = v73;
+      while (v65 != v77);
+      v78 = v65;
     }
   }
 
-  if (v84)
+  if (v76)
   {
-    operator delete(v84);
+    operator delete(v76);
   }
 
-  if (v82)
+  if (v74)
   {
-    v83 = v82;
-    operator delete(v82);
+    v75 = v74;
+    operator delete(v74);
   }
 
-  operations_research::sat::SatParameters::~SatParameters(v96);
-  if (v101[0])
+  operations_research::sat::SatParameters::~SatParameters(v88);
+  if (v93[0])
   {
-    operator delete(v101[0]);
+    operator delete(v93[0]);
   }
 
-LABEL_127:
-  operations_research::sat::Model::~Model(v102);
-  if (v107)
+LABEL_118:
+  operations_research::sat::Model::~Model(v94);
+  if (v99)
   {
-    operator delete(v107);
+    operator delete(v99);
   }
 
-LABEL_4:
-  v3 = *MEMORY[0x277D85DE8];
   return v2 & 1;
 }
 
-void sub_23CA9E03C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42)
+void sub_23CA9E03C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42)
 {
   operations_research::sat::SatPresolver::~SatPresolver(&STACK[0x558]);
   if (__p)
@@ -7561,7 +6221,7 @@ BOOL operations_research::sat::anonymous namespace::FixFromAssignment(unsigned i
   return 1;
 }
 
-uint64_t operations_research::sat::Model::GetOrCreate<operations_research::sat::Inprocessing>(void *a1)
+operations_research::sat::Inprocessing *operations_research::sat::Model::GetOrCreate<operations_research::sat::Inprocessing>(void *a1)
 {
   v1 = a1[3];
   if (v1 > 1)
@@ -7643,7 +6303,7 @@ LABEL_20:
   return v15[1];
 }
 
-uint64_t operations_research::sat::Model::GetOrCreate<operations_research::sat::PostsolveClauses>(void *a1)
+_OWORD *operations_research::sat::Model::GetOrCreate<operations_research::sat::PostsolveClauses>(void *a1)
 {
   v1 = a1[3];
   if (v1 > 1)
@@ -7840,7 +6500,7 @@ void operations_research::sat::anonymous namespace::ExtractClauses<operations_re
           if (*(v13 + 5) < v16)
           {
 LABEL_13:
-            google::protobuf::RepeatedField<int>::Grow(v13 + 2, *(v13 + 4), v16);
+            google::protobuf::RepeatedField<int>::Grow((v13 + 2), *(v13 + 4), v16);
             v15 = *v8;
             v14 = v8[1];
           }
@@ -7881,7 +6541,7 @@ LABEL_16:
               v22 = v28;
               if (v28 == HIDWORD(v28))
               {
-                google::protobuf::RepeatedField<int>::Grow(v18 + 2, HIDWORD(v28), (HIDWORD(v28) + 1));
+                google::protobuf::RepeatedField<int>::Grow((v18 + 2), HIDWORD(v28), (HIDWORD(v28) + 1));
 LABEL_32:
                 v22 = *(v18 + 4);
               }
@@ -7891,7 +6551,7 @@ LABEL_32:
             {
               v18 = *(v12 + 48);
               v20 = v18[2];
-              v19 = v18 + 2;
+              v19 = (v18 + 2);
               v21 = HIDWORD(v20);
               v22 = v20;
               if (v20 == HIDWORD(v20))
@@ -7912,7 +6572,7 @@ LABEL_32:
 
               v18 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::BoolArgumentProto>(v25);
               *(v12 + 48) = v18;
-              v19 = v18 + 2;
+              v19 = (v18 + 2);
               v26 = v18[2];
               v21 = HIDWORD(v26);
               v22 = v26;
@@ -7968,7 +6628,7 @@ void operations_research::sat::anonymous namespace::ExtractClauses<operations_re
   v6 = 0;
   do
   {
-    operations_research::sat::SatPostsolver::Clause(this, v6, &v26);
+    operations_research::sat::SatPostsolver::Clause(&v26, this, v6);
     v7 = v26;
     if (v26 == v27)
     {
@@ -8001,7 +6661,7 @@ void operations_research::sat::anonymous namespace::ExtractClauses<operations_re
     v13 = (v27 - v26) >> 2;
     if (*(v10 + 5) < v13)
     {
-      google::protobuf::RepeatedField<int>::Grow(v10 + 2, *(v10 + 4), v13);
+      google::protobuf::RepeatedField<int>::Grow((v10 + 2), *(v10 + 4), v13);
       v7 = v26;
       v12 = v27;
       if (v26 == v27)
@@ -8031,7 +6691,7 @@ LABEL_17:
 
           v14 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::BoolArgumentProto>(v21);
           *(v9 + 48) = v14;
-          v15 = v14 + 2;
+          v15 = (v14 + 2);
           v22 = v14[2];
           v17 = HIDWORD(v22);
           v18 = v22;
@@ -8049,7 +6709,7 @@ LABEL_33:
 
         v14 = *(v9 + 48);
         v16 = v14[2];
-        v15 = v14 + 2;
+        v15 = (v14 + 2);
         v17 = HIDWORD(v16);
         v18 = v16;
         if (v16 == HIDWORD(v16))
@@ -8095,7 +6755,7 @@ LABEL_30:
         goto LABEL_30;
       }
 
-      google::protobuf::RepeatedField<int>::Grow(v14 + 2, HIDWORD(v24), (HIDWORD(v24) + 1));
+      google::protobuf::RepeatedField<int>::Grow((v14 + 2), HIDWORD(v24), (HIDWORD(v24) + 1));
       goto LABEL_33;
     }
 
@@ -8229,31 +6889,31 @@ void operations_research::sat::CpModelPresolver::ExpandObjective(operations_rese
   }
 
   v1 = this;
-  strcpy(v194, "ExpandObjective");
-  v195 = 271;
-  v198 = *(this + 1);
+  strcpy(v192, "ExpandObjective");
+  v193 = 271;
+  v196 = *(this + 1);
+  v197 = 0u;
+  v198 = 0u;
   v199 = 0u;
-  v200 = 0u;
-  v201 = 0u;
-  v197 = 0;
-  v202 = 0;
+  v195 = 0;
+  v200 = 0;
   CurrentTimeNanos = absl::lts_20240722::GetCurrentTimeNanos(this);
   if ((operations_research::sat::PresolveContext::CanonicalizeObjective(*(v1 + 1), 1) & 1) == 0)
   {
     goto LABEL_252;
   }
 
-  v2 = **(v1 + 1);
-  v3 = *(v2 + 56);
-  v161 = *(v2 + 32);
+  v3 = **(v1 + 1);
+  v4 = *(v3 + 56);
+  v159 = *(v3 + 32);
+  v189 = 0;
+  v190 = 0;
   v191 = 0;
-  v192 = 0;
-  v193 = 0;
-  __p = &v191;
-  LOBYTE(v189) = 0;
-  if (2 * v161)
+  __p = &v189;
+  LOBYTE(v187) = 0;
+  if (2 * v159)
   {
-    if (((2 * v161) & 0x80000000) == 0)
+    if (((2 * v159) & 0x80000000) == 0)
     {
       operator new();
     }
@@ -8261,144 +6921,144 @@ void operations_research::sat::CpModelPresolver::ExpandObjective(operations_rese
     std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
   }
 
-  v169 = v1;
-  if (v3 < 1)
+  v167 = v1;
+  if (v4 < 1)
   {
     v66 = 0;
-    LODWORD(v162) = 0;
+    LODWORD(v160) = 0;
     v67 = 0;
     v68 = 0;
     goto LABEL_115;
   }
 
-  v4 = 0;
   v5 = 0;
-  v162 = 0;
-  v163 = v3;
-  v168 = 0;
   v6 = 0;
+  v160 = 0;
+  v161 = v4;
+  v166 = 0;
+  v7 = 0;
   do
   {
-    v7 = v5;
-    v8 = *(v1 + 1);
-    v9 = *v8 + 48;
-    if (*v9)
+    v8 = v6;
+    v9 = *(v1 + 1);
+    v10 = *v9 + 48;
+    if (*v10)
     {
-      v9 = *v9 + 8 * v4 + 7;
+      v10 = *v10 + 8 * v5 + 7;
     }
 
-    v10 = *v9;
-    if (*(*v9 + 16))
+    v11 = *v10;
+    if (*(*v10 + 16))
     {
 LABEL_10:
-      v5 = v7;
+      v6 = v8;
       goto LABEL_11;
     }
 
-    v11 = *(v10 + 60);
-    v174 = v10;
-    if (v11 != 12)
+    v12 = *(v11 + 60);
+    v172 = v11;
+    if (v12 != 12)
     {
-      v5 = v7;
-      if (v11 == 29)
+      v6 = v8;
+      if (v12 == 29)
       {
-        v12 = *(*(v10 + 48) + 16);
-        ++v6;
-        v168 = (v12 + v168);
-        if (v12 >= 1)
+        v13 = *(*(v11 + 48) + 16);
+        ++v7;
+        v166 = (v13 + v166);
+        if (v13 >= 1)
         {
-          v170 = v4;
-          v166 = v6;
-          v13 = 0;
+          v168 = v5;
+          v164 = v7;
+          v14 = 0;
           do
           {
-            v14 = &operations_research::sat::_BoolArgumentProto_default_instance_;
-            if (*(v10 + 60) == 29)
+            v15 = &operations_research::sat::_BoolArgumentProto_default_instance_;
+            if (*(v11 + 60) == 29)
             {
-              v14 = *(v10 + 48);
+              v15 = *(v11 + 48);
             }
 
-            v15 = *(v14[3] + v13);
-            if (v15 < 0)
+            v16 = *(v15[3] + v14);
+            if (v16 < 0)
             {
-              v16 = 2 * ~v15 + 1;
+              v17 = 2 * ~v16 + 1;
             }
 
             else
             {
-              v16 = 2 * v15;
+              v17 = 2 * v16;
             }
 
-            v17 = v16 ^ 1;
-            if (*(4 * v17) == -1 || v12 > *(4 * v17))
+            v18 = v17 ^ 1;
+            if (*(4 * v18) == -1 || v13 > *(4 * v18))
             {
-              *(4 * v17) = v170;
-              *(4 * v17) = v12;
+              *(4 * v18) = v168;
+              *(4 * v18) = v13;
             }
 
-            v18 = 0;
-            v172 = v16 ^ 1;
+            v19 = 0;
+            v170 = v17 ^ 1;
             do
             {
-              if (v13 != v18)
+              if (v14 != v19)
               {
-                v20 = &operations_research::sat::_BoolArgumentProto_default_instance_;
-                if (*(v10 + 60) == 29)
+                v21 = &operations_research::sat::_BoolArgumentProto_default_instance_;
+                if (*(v11 + 60) == 29)
                 {
-                  v20 = *(v10 + 48);
+                  v21 = *(v11 + 48);
                 }
 
-                v21 = *(v20[3] + v18);
-                if (v21 < 0)
+                v22 = *(v21[3] + v19);
+                if (v22 < 0)
                 {
-                  v22 = 2 * ~v21 + 1;
-                }
-
-                else
-                {
-                  v22 = 2 * v21;
-                }
-
-                v23 = &v191[3 * v17];
-                v25 = *(v23 + 1);
-                v24 = *(v23 + 2);
-                if (v25 < v24)
-                {
-                  *v25 = v22;
-                  v19 = (v25 + 1);
+                  v23 = 2 * ~v22 + 1;
                 }
 
                 else
                 {
-                  v26 = v5;
-                  v27 = *v23;
-                  v28 = v25 - *v23;
-                  v29 = v28 >> 2;
-                  v30 = (v28 >> 2) + 1;
-                  if (v30 >> 62)
+                  v23 = 2 * v22;
+                }
+
+                v24 = &v189[3 * v18];
+                v26 = v24[1];
+                v25 = v24[2];
+                if (v26 < v25)
+                {
+                  *v26 = v23;
+                  v20 = (v26 + 1);
+                }
+
+                else
+                {
+                  v27 = v6;
+                  v28 = *v24;
+                  v29 = v26 - *v24;
+                  v30 = v29 >> 2;
+                  v31 = (v29 >> 2) + 1;
+                  if (v31 >> 62)
                   {
                     std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
                   }
 
-                  v31 = v24 - v27;
-                  if (v31 >> 1 > v30)
+                  v32 = v25 - v28;
+                  if (v32 >> 1 > v31)
                   {
-                    v30 = v31 >> 1;
+                    v31 = v32 >> 1;
                   }
 
-                  if (v31 >= 0x7FFFFFFFFFFFFFFCLL)
+                  if (v32 >= 0x7FFFFFFFFFFFFFFCLL)
                   {
-                    v32 = 0x3FFFFFFFFFFFFFFFLL;
+                    v33 = 0x3FFFFFFFFFFFFFFFLL;
                   }
 
                   else
                   {
-                    v32 = v30;
+                    v33 = v31;
                   }
 
-                  if (v32)
+                  if (v33)
                   {
-                    if (!(v32 >> 62))
+                    if (!(v33 >> 62))
                     {
                       operator new();
                     }
@@ -8406,95 +7066,95 @@ LABEL_10:
                     std::__throw_bad_array_new_length[abi:ne200100]();
                   }
 
-                  *(4 * v29) = v22;
-                  v19 = 4 * v29 + 4;
-                  memcpy(0, v27, v28);
-                  *v23 = 0;
-                  *(v23 + 1) = v19;
-                  *(v23 + 2) = 0;
-                  if (v27)
+                  *(4 * v30) = v23;
+                  v20 = 4 * v30 + 4;
+                  memcpy(0, v28, v29);
+                  *v24 = 0;
+                  v24[1] = v20;
+                  v24[2] = 0;
+                  if (v28)
                   {
-                    operator delete(v27);
+                    operator delete(v28);
                   }
 
-                  LODWORD(v5) = v26;
-                  LODWORD(v17) = v172;
-                  v10 = v174;
+                  LODWORD(v6) = v27;
+                  LODWORD(v18) = v170;
+                  v11 = v172;
                 }
 
-                *(v23 + 1) = v19;
-                v5 = (v5 + 1);
+                v24[1] = v20;
+                v6 = (v6 + 1);
               }
 
-              ++v18;
+              ++v19;
             }
 
-            while (v12 != v18);
-            ++v13;
+            while (v13 != v19);
+            ++v14;
           }
 
-          while (v13 < v12 && v5 <= 100000000);
-          v1 = v169;
-          v4 = v170;
-          v3 = v163;
-          v6 = v166;
+          while (v14 < v13 && v6 <= 100000000);
+          v1 = v167;
+          v5 = v168;
+          v4 = v161;
+          v7 = v164;
         }
       }
 
       goto LABEL_11;
     }
 
-    v33 = *(v10 + 48);
-    if (*(v33 + 64) != 2 || **(v33 + 72) != *(*(v33 + 72) + 8))
+    v34 = *(v11 + 48);
+    if (*(v34 + 64) != 2 || **(v34 + 72) != *(*(v34 + 72) + 8))
     {
       goto LABEL_10;
     }
 
-    v167 = v6;
-    v171 = v4;
-    if (*(v33 + 16) < 1)
+    v165 = v7;
+    v169 = v5;
+    if (*(v34 + 16) < 1)
     {
-      v35 = 0;
       v36 = 0;
+      v37 = 0;
     }
 
     else
     {
-      v34 = 0;
       v35 = 0;
       v36 = 0;
-      v37 = *(v33 + 16);
+      v37 = 0;
+      v38 = *(v34 + 16);
       do
       {
-        v38 = *(*(v33 + 24) + 4 * v34);
-        v39 = *(*(v33 + 48) + 8 * v34);
-        if (v39 < 1)
+        v39 = *(*(v34 + 24) + 4 * v35);
+        v40 = *(*(v34 + 48) + 8 * v35);
+        if (v40 < 1)
         {
-          v40 = operations_research::sat::PresolveContext::MaxOf(v8, *(*(v33 + 24) + 4 * v34));
-          v41 = operations_research::sat::PresolveContext::MinOf(v8, v38);
+          v41 = operations_research::sat::PresolveContext::MaxOf(v9, *(*(v34 + 24) + 4 * v35));
+          v42 = operations_research::sat::PresolveContext::MinOf(v9, v39);
         }
 
         else
         {
-          v40 = operations_research::sat::PresolveContext::MinOf(v8, *(*(v33 + 24) + 4 * v34));
-          v41 = operations_research::sat::PresolveContext::MaxOf(v8, v38);
+          v41 = operations_research::sat::PresolveContext::MinOf(v9, *(*(v34 + 24) + 4 * v35));
+          v42 = operations_research::sat::PresolveContext::MaxOf(v9, v39);
         }
 
-        v35 += v41 * v39;
-        v36 += v40 * v39;
-        ++v34;
+        v36 += v42 * v40;
+        v37 += v41 * v40;
+        ++v35;
       }
 
-      while (v37 != v34);
-      v42 = &operations_research::sat::_LinearConstraintProto_default_instance_;
-      v1 = v169;
-      v4 = v171;
-      v3 = v163;
-      v6 = v167;
-      if (*(v174 + 60) != 12)
+      while (v38 != v35);
+      v43 = &operations_research::sat::_LinearConstraintProto_default_instance_;
+      v1 = v167;
+      v5 = v169;
+      v4 = v161;
+      v7 = v165;
+      if (*(v172 + 60) != 12)
       {
-        v43 = off_2810BEE58;
-        v5 = v7;
+        v44 = off_2810BEE58;
+        v6 = v8;
         if (off_2810BEE58 >= 1)
         {
           goto LABEL_63;
@@ -8504,174 +7164,174 @@ LABEL_10:
       }
     }
 
-    v42 = *(v174 + 48);
-    v43 = *(v42 + 4);
-    v5 = v7;
-    if (v43 >= 1)
+    v43 = *(v172 + 48);
+    v44 = *(v43 + 4);
+    v6 = v8;
+    if (v44 >= 1)
     {
 LABEL_63:
-      v44 = 0;
-      v173 = 0;
-      v45 = *v42[9];
-      v164 = v35 - v45;
-      v165 = v45 - v36;
-      v46 = v162;
-      v47 = v168;
-      v48 = v174;
+      v45 = 0;
+      v171 = 0;
+      v46 = *v43[9];
+      v162 = v36 - v46;
+      v163 = v46 - v37;
+      v47 = v160;
+      v48 = v166;
+      v49 = v172;
       while (1)
       {
-        v49 = &operations_research::sat::_LinearConstraintProto_default_instance_;
-        if (*(v48 + 60) == 12)
+        v50 = &operations_research::sat::_LinearConstraintProto_default_instance_;
+        if (*(v49 + 60) == 12)
         {
-          v49 = *(v48 + 48);
+          v50 = *(v49 + 48);
         }
 
-        v50 = v49[6][v44];
-        if (v50 >= 0)
+        v51 = v50[6][v45];
+        if (v51 >= 0)
         {
-          v51 = v49[6][v44];
+          v52 = v50[6][v45];
         }
 
         else
         {
-          v51 = -v50;
+          v52 = -v51;
         }
 
-        if (v51 != 1)
+        if (v52 != 1)
         {
           goto LABEL_65;
         }
 
-        if (v5 > 100000000)
+        if (v6 > 100000000)
         {
 LABEL_105:
-          v168 = v47;
-          v162 = v46;
-          v64 = v173 & 1;
-          v1 = v169;
-          v4 = v171;
-          v3 = v163;
-          v6 = v167;
+          v166 = v48;
+          v160 = v47;
+          v65 = v171 & 1;
+          v1 = v167;
+          v5 = v169;
+          v4 = v161;
+          v7 = v165;
           goto LABEL_109;
         }
 
-        v52 = v5;
-        v53 = *(v49[3] + v44);
-        if (v50 >= 1)
+        v53 = v6;
+        v54 = *(v50[3] + v45);
+        if (v51 >= 1)
         {
-          v54 = (2 * v53);
+          v55 = (2 * v54);
         }
 
         else
         {
-          v54 = (2 * v53) + 1;
+          v55 = (2 * v54) + 1;
         }
 
-        v55 = operations_research::sat::PresolveContext::MaxOf(v169[1], v53);
-        v56 = operations_research::sat::PresolveContext::MinOf(v169[1], v53);
-        v57 = v55 - v56;
-        if (v165 <= v55 - v56)
+        v56 = operations_research::sat::PresolveContext::MaxOf(v167[1], v54);
+        v57 = operations_research::sat::PresolveContext::MinOf(v167[1], v54);
+        v58 = v56 - v57;
+        if (v163 <= v56 - v57)
         {
-          if (v165 >= v55 - v56)
+          if (v163 >= v56 - v57)
           {
-            v46 = v46;
+            v47 = v47;
           }
 
           else
           {
-            v46 = (v46 + 1);
+            v47 = (v47 + 1);
           }
 
-          v59 = v54 ^ 1;
-          v5 = v52;
-          if (*(4 * (v54 ^ 1)) == -1 || v43 > *(4 * v59))
+          v60 = v55 ^ 1;
+          v6 = v53;
+          if (*(4 * (v55 ^ 1)) == -1 || v44 > *(4 * v60))
           {
-            *(4 * v59) = v171;
-            *(4 * v59) = v43;
+            *(4 * v60) = v169;
+            *(4 * v60) = v44;
           }
 
-          v60 = 0;
-          v47 = (v47 + 1);
+          v61 = 0;
+          v48 = (v48 + 1);
           do
           {
-            if (v44 != v60)
+            if (v45 != v61)
             {
-              v61 = &operations_research::sat::_LinearConstraintProto_default_instance_;
-              if (*(v174 + 60) == 12)
+              v62 = &operations_research::sat::_LinearConstraintProto_default_instance_;
+              if (*(v172 + 60) == 12)
               {
-                v61 = *(v174 + 48);
+                v62 = *(v172 + 48);
               }
 
-              LODWORD(__p) = (v61[6][v60] < 1) | (2 * *(v61[3] + v60));
-              std::vector<int>::push_back[abi:ne200100](&v191[3 * v59], &__p);
-              v5 = (v5 + 1);
+              LODWORD(__p) = (v62[6][v61] < 1) | (2 * *(v62[3] + v61));
+              std::vector<int>::push_back[abi:ne200100](&v189[3 * v60], &__p);
+              v6 = (v6 + 1);
             }
 
-            ++v60;
+            ++v61;
           }
 
-          while (v43 != v60);
-          v173 = 1;
-          v58 = v164 < v57;
-          if (v164 <= v57)
+          while (v44 != v61);
+          v171 = 1;
+          v59 = v162 < v58;
+          if (v162 <= v58)
           {
 LABEL_92:
-            if (v58)
+            if (v59)
             {
-              v46 = (v46 + 1);
+              v47 = (v47 + 1);
             }
 
             else
             {
-              v46 = v46;
+              v47 = v47;
             }
 
-            if (*(4 * v54) == -1 || v43 > *(4 * v54))
+            if (*(4 * v55) == -1 || v44 > *(4 * v55))
             {
-              *(4 * v54) = v171;
-              *(4 * v54) = v43;
+              *(4 * v55) = v169;
+              *(4 * v55) = v44;
             }
 
-            v62 = 0;
-            v47 = (v47 + 1);
-            v48 = v174;
+            v63 = 0;
+            v48 = (v48 + 1);
+            v49 = v172;
             do
             {
-              if (v44 != v62)
+              if (v45 != v63)
               {
-                v63 = &operations_research::sat::_LinearConstraintProto_default_instance_;
-                if (*(v174 + 60) == 12)
+                v64 = &operations_research::sat::_LinearConstraintProto_default_instance_;
+                if (*(v172 + 60) == 12)
                 {
-                  v63 = *(v174 + 48);
+                  v64 = *(v172 + 48);
                 }
 
-                LODWORD(__p) = (v63[6][v62] >= 0) | (2 * *(v63[3] + v62));
-                std::vector<int>::push_back[abi:ne200100](&v191[3 * v54], &__p);
-                v5 = (v5 + 1);
+                LODWORD(__p) = (v64[6][v63] >= 0) | (2 * *(v64[3] + v63));
+                std::vector<int>::push_back[abi:ne200100](&v189[3 * v55], &__p);
+                v6 = (v6 + 1);
               }
 
-              ++v62;
+              ++v63;
             }
 
-            while (v43 != v62);
-            v173 = 1;
+            while (v44 != v63);
+            v171 = 1;
             goto LABEL_65;
           }
         }
 
         else
         {
-          v5 = v52;
-          v58 = v164 < v57;
-          if (v164 <= v57)
+          v6 = v53;
+          v59 = v162 < v58;
+          if (v162 <= v58)
           {
             goto LABEL_92;
           }
         }
 
-        v48 = v174;
+        v49 = v172;
 LABEL_65:
-        if (++v44 == v43)
+        if (++v45 == v44)
         {
           goto LABEL_105;
         }
@@ -8679,30 +7339,29 @@ LABEL_65:
     }
 
 LABEL_108:
-    v64 = 0;
+    v65 = 0;
 LABEL_109:
-    v6 += v64;
+    v7 += v65;
 LABEL_11:
-    ++v4;
+    ++v5;
   }
 
-  while (v4 < v3 && v5 <= 100000000);
-  if (v162 >= 1)
+  while (v5 < v4 && v6 <= 100000000);
+  if (v160 >= 1)
   {
-    v65 = *(v1 + 1);
     operator new();
   }
 
-  v66 = v5;
-  v67 = v168;
-  v68 = v6;
+  v66 = v6;
+  v67 = v166;
+  v68 = v7;
 LABEL_115:
-  util::graph::FastTopologicalSort<std::vector<std::vector<int>>>(&v191, &__p);
+  util::graph::FastTopologicalSort<std::vector<std::vector<int>>>(&v189, &__p);
   if (__p != 1)
   {
-    if (v161)
+    if (v159)
     {
-      if ((v161 & 0x80000000) == 0)
+      if ((v159 & 0x80000000) == 0)
       {
         operator new();
       }
@@ -8710,86 +7369,85 @@ LABEL_115:
       std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
     }
 
-    v186 = 0uLL;
-    v187 = 0;
-    FindStronglyConnectedComponents<int,std::vector<std::vector<int>>,std::vector<std::vector<int>>>(-1431655765 * ((v192 - v191) >> 3), &v191, &v186);
-    v76 = v186;
-    if (v186 != *(&v186 + 1))
+    v184 = 0uLL;
+    v185 = 0;
+    FindStronglyConnectedComponents<int,std::vector<std::vector<int>>,std::vector<std::vector<int>>>(-1431655765 * ((v190 - v189) >> 3), &v189, &v184);
+    v75 = v184;
+    if (v184 != *(&v184 + 1))
     {
       while (1)
       {
-        v77 = *v76;
-        v78 = v76[1] - *v76;
-        if (v78 != 4)
+        v76 = *v75;
+        v77 = v75[1] - *v75;
+        if (v77 != 4)
         {
           break;
         }
 
-        v76 += 3;
-        if (v76 == *(&v186 + 1))
+        v75 += 3;
+        if (v75 == *(&v184 + 1))
         {
           goto LABEL_148;
         }
       }
 
-      if (v78 < 5)
+      if (v77 < 5)
       {
 LABEL_147:
-        v94 = v169[1];
         operator new();
       }
 
-      v79 = *v77;
-      v80 = (*v77 / 2);
-      if (*v77)
+      v78 = *v76;
+      v79 = (*v76 / 2);
+      if (*v76)
       {
-        v81 = 1;
+        v80 = 1;
       }
 
       else
+      {
+        v80 = -1;
+      }
+
+      if (v78)
       {
         v81 = -1;
       }
 
-      if (v79)
-      {
-        v82 = -1;
-      }
-
       else
       {
-        v82 = 1;
+        v81 = 1;
       }
 
-      v83 = 2;
-      if (v79)
+      v82 = 2;
+      if (v78)
       {
-        v89 = 1;
+        v88 = 1;
         while (1)
         {
-          v90 = v77[v89];
-          v91 = (v90 + (v90 >> 31)) >> 1;
-          if (v90)
+          v89 = v76[v88];
+          v90 = (v89 + (v89 >> 31)) >> 1;
+          if (v89)
           {
-            v92 = *(8 * v91);
-            v93 = v81;
+            v91 = *(8 * v90);
+            v92 = v80;
           }
 
           else
           {
-            v92 = -*(8 * v91);
-            v93 = v82;
+            v91 = -*(8 * v90);
+            v92 = v81;
           }
 
-          if ((operations_research::sat::PresolveContext::StoreAffineRelation(v169[1], v80, v91, v93, (v92 - *(8 * v80)) * v82, 0) & 1) == 0)
+          if ((operations_research::sat::PresolveContext::StoreAffineRelation(v167[1], v79, v90, v92, (v91 - *(8 * v79)) * v81, 0) & 1) == 0)
           {
             break;
           }
 
-          v89 = v83;
-          v77 = *v76;
-          ++v83;
-          if (v89 >= v76[1] - *v76)
+          v88 = v82;
+          v76 = *v75;
+          ++v82;
+          if (v88 >= v75[1] - *v75)
           {
             goto LABEL_147;
           }
@@ -8798,32 +7456,32 @@ LABEL_147:
 
       else
       {
-        v84 = 1;
+        v83 = 1;
         while (1)
         {
-          v85 = v77[v84];
-          v86 = (v85 + (v85 >> 31)) >> 1;
-          if (v85)
+          v84 = v76[v83];
+          v85 = (v84 + (v84 >> 31)) >> 1;
+          if (v84)
           {
-            v87 = *(8 * v86);
-            v88 = v81;
+            v86 = *(8 * v85);
+            v87 = v80;
           }
 
           else
           {
-            v87 = -*(8 * v86);
-            v88 = v82;
+            v86 = -*(8 * v85);
+            v87 = v81;
           }
 
-          if ((operations_research::sat::PresolveContext::StoreAffineRelation(v169[1], v80, v86, v88, (v87 + *(8 * v80)) * v82, 0) & 1) == 0)
+          if ((operations_research::sat::PresolveContext::StoreAffineRelation(v167[1], v79, v85, v87, (v86 + *(8 * v79)) * v81, 0) & 1) == 0)
           {
             break;
           }
 
-          v84 = v83;
-          v77 = *v76;
-          ++v83;
-          if (v84 >= v76[1] - *v76)
+          v83 = v82;
+          v76 = *v75;
+          ++v82;
+          if (v83 >= v75[1] - *v75)
           {
             goto LABEL_147;
           }
@@ -8832,46 +7490,46 @@ LABEL_147:
     }
 
 LABEL_148:
-    v95 = v186;
-    if (v186)
+    v93 = v184;
+    if (v184)
     {
-      v96 = *(&v186 + 1);
-      v97 = v186;
-      if (*(&v186 + 1) != v186)
+      v94 = *(&v184 + 1);
+      v95 = v184;
+      if (*(&v184 + 1) != v184)
       {
-        v98 = *(&v186 + 1);
+        v96 = *(&v184 + 1);
         do
         {
-          v100 = *(v98 - 24);
-          v98 -= 24;
-          v99 = v100;
-          if (v100)
+          v98 = *(v96 - 24);
+          v96 -= 24;
+          v97 = v98;
+          if (v98)
           {
-            *(v96 - 16) = v99;
-            operator delete(v99);
+            *(v94 - 16) = v97;
+            operator delete(v97);
           }
 
-          v96 = v98;
+          v94 = v96;
         }
 
-        while (v98 != v95);
-        v97 = v186;
+        while (v96 != v93);
+        v95 = v184;
       }
 
-      *(&v186 + 1) = v95;
-      operator delete(v97);
+      *(&v184 + 1) = v93;
+      operator delete(v95);
     }
 
     goto LABEL_239;
   }
 
-  v69 = v189;
-  v70 = v190;
-  if (v189 == v190)
+  v69 = v187;
+  v70 = v188;
+  if (v187 == v188)
   {
     v73 = 0;
     v72 = 0;
-    v74 = v162;
+    v74 = v160;
     goto LABEL_227;
   }
 
@@ -8879,49 +7537,49 @@ LABEL_148:
   v72 = 0;
   while (2)
   {
-    v101 = *v69;
-    if (v191[3 * v101] != v191[3 * v101 + 1])
+    v99 = *v69;
+    if (v189[3 * v99] != v189[3 * v99 + 1])
     {
-      v102 = (v101 / 2);
-      v103 = v169[1];
-      v104 = *(v103 + 64);
-      if (v104 > 1)
+      v100 = (v99 / 2);
+      v101 = v167[1];
+      v102 = *(v101 + 64);
+      if (v102 > 1)
       {
-        v106 = 0;
-        _X10 = *(v103 + 66);
+        v104 = 0;
+        _X10 = *(v101 + 66);
         __asm { PRFM            #4, [X10] }
 
-        v113 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v102) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v102));
-        v114 = vdup_n_s8(v113 & 0x7F);
-        v115 = ((v113 >> 7) ^ (_X10 >> 12)) & v104;
-        v116 = *(_X10 + v115);
-        v117 = vceq_s8(v116, v114);
-        if (!v117)
+        v111 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v100) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v100));
+        v112 = vdup_n_s8(v111 & 0x7F);
+        v113 = ((v111 >> 7) ^ (_X10 >> 12)) & v102;
+        v114 = *(_X10 + v113);
+        v115 = vceq_s8(v114, v112);
+        if (!v115)
         {
           goto LABEL_170;
         }
 
 LABEL_167:
-        v118 = *(v103 + 67);
+        v116 = *(v101 + 67);
         while (1)
         {
-          v119 = (v115 + (__clz(__rbit64(v117)) >> 3)) & v104;
-          if (*(v118 + 16 * v119) == v102)
+          v117 = (v113 + (__clz(__rbit64(v115)) >> 3)) & v102;
+          if (*(v116 + 16 * v117) == v100)
           {
             break;
           }
 
-          v117 &= ((v117 & 0x8080808080808080) - 1) & 0x8080808080808080;
-          if (!v117)
+          v115 &= ((v115 & 0x8080808080808080) - 1) & 0x8080808080808080;
+          if (!v115)
           {
 LABEL_170:
-            while (!*&vceq_s8(v116, 0x8080808080808080))
+            while (!*&vceq_s8(v114, 0x8080808080808080))
             {
-              v106 += 8;
-              v115 = (v106 + v115) & v104;
-              v116 = *(_X10 + v115);
-              v117 = vceq_s8(v116, v114);
-              if (v117)
+              v104 += 8;
+              v113 = (v104 + v113) & v102;
+              v114 = *(_X10 + v113);
+              v115 = vceq_s8(v114, v112);
+              if (v115)
               {
                 goto LABEL_167;
               }
@@ -8931,8 +7589,8 @@ LABEL_170:
           }
         }
 
-        v105 = (v118 + 16 * v119);
-        if (!(_X10 + v119))
+        v103 = (v116 + 16 * v117);
+        if (!(_X10 + v117))
         {
           goto LABEL_159;
         }
@@ -8940,51 +7598,51 @@ LABEL_170:
 
       else
       {
-        if (*(v103 + 65) < 2uLL)
+        if (*(v101 + 65) < 2uLL)
         {
           goto LABEL_159;
         }
 
-        if (*(v103 + 132) != v102)
+        if (*(v101 + 132) != v100)
         {
           goto LABEL_159;
         }
 
-        v105 = v103 + 528;
+        v103 = v101 + 528;
         if (!&absl::lts_20240722::container_internal::kSooControl)
         {
           goto LABEL_159;
         }
       }
 
-      v120 = *(v105 + 1);
-      if (!v120 || (((v120 < 1) ^ v101) & 1) != 0)
+      v118 = *(v103 + 1);
+      if (!v118 || (((v118 < 1) ^ v99) & 1) != 0)
       {
         goto LABEL_159;
       }
 
-      v121 = *(*v103 + 48);
-      v122 = v121 + 8 * *(4 * v101) + 7;
-      if ((v121 & 1) == 0)
+      v119 = *(*v101 + 48);
+      v120 = v119 + 8 * *(4 * v99) + 7;
+      if ((v119 & 1) == 0)
       {
-        v122 = *v103 + 48;
+        v120 = *v101 + 48;
       }
 
-      v123 = *v122;
-      v124 = *(*v122 + 60);
-      if (v124 == 12)
+      v121 = *v120;
+      v122 = *(*v120 + 60);
+      if (v122 == 12)
       {
-        v132 = *(v123 + 6);
-        v133 = *(v132 + 4);
-        if (v133 <= 0)
+        v130 = *(v121 + 6);
+        v131 = *(v130 + 4);
+        if (v131 <= 0)
         {
           goto LABEL_158;
         }
 
-        v134 = 0;
-        while (*(v132[3] + v134) != v102)
+        v132 = 0;
+        while (*(v130[3] + v132) != v100)
         {
-          if (v133 == ++v134)
+          if (v131 == ++v132)
           {
             goto LABEL_158;
           }
@@ -8993,101 +7651,101 @@ LABEL_170:
 
       else
       {
-        if (v124 == 29)
+        if (v122 == 29)
         {
-          v125 = *(v123 + 6);
-          v126 = *(v125 + 16);
-          if (v126)
+          v123 = *(v121 + 6);
+          v124 = *(v123 + 16);
+          if (v124)
           {
-            v127 = *(v125 + 24);
-            v128 = 4 * v126;
-            v129 = v127;
+            v125 = *(v123 + 24);
+            v126 = 4 * v124;
+            v127 = v125;
             while (1)
             {
-              v130 = *v129;
-              v131 = ~*v129 <= *v129 ? *v129 : ~v130;
-              if (v131 == v102)
+              v128 = *v127;
+              v129 = ~*v127 <= *v127 ? *v127 : ~v128;
+              if (v129 == v100)
               {
                 break;
               }
 
-              ++v129;
-              v128 -= 4;
-              if (!v128)
+              ++v127;
+              v126 -= 4;
+              if (!v126)
               {
                 goto LABEL_158;
               }
             }
 
-            v135 = v130 >= 0 ? v120 : -v120;
-            if (v135)
+            v133 = v128 >= 0 ? v118 : -v118;
+            if (v133)
             {
-              v136 = operations_research::sat::PresolveContext::ShiftCostInExactlyOne(v103, v127, v126, v135);
-              v137 = v169[1];
-              if (v136)
+              v134 = operations_research::sat::PresolveContext::ShiftCostInExactlyOne(v101, v125, v124, v133);
+              v135 = v167[1];
+              if (v134)
               {
-                v138 = *(v137 + 64);
-                if (v138 > 1)
+                v136 = *(v135 + 64);
+                if (v136 > 1)
                 {
-                  v141 = 0;
-                  _X10 = *(v137 + 66);
+                  v139 = 0;
+                  _X10 = *(v135 + 66);
                   __asm { PRFM            #4, [X10] }
 
-                  v144 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v102) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v102));
-                  v145 = vdup_n_s8(v144 & 0x7F);
-                  v146 = ((v144 >> 7) ^ (_X10 >> 12)) & v138;
-                  v147 = *(_X10 + v146);
-                  v148 = vceq_s8(v147, v145);
-                  if (!v148)
+                  v142 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v100) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v100));
+                  v143 = vdup_n_s8(v142 & 0x7F);
+                  v144 = ((v142 >> 7) ^ (_X10 >> 12)) & v136;
+                  v145 = *(_X10 + v144);
+                  v146 = vceq_s8(v145, v143);
+                  if (!v146)
                   {
                     goto LABEL_216;
                   }
 
 LABEL_213:
-                  v149 = *(v137 + 67);
+                  v147 = *(v135 + 67);
                   do
                   {
-                    v150 = (v146 + (__clz(__rbit64(v148)) >> 3)) & v138;
-                    if (*(v149 + 16 * v150) == v102)
+                    v148 = (v144 + (__clz(__rbit64(v146)) >> 3)) & v136;
+                    if (*(v147 + 16 * v148) == v100)
                     {
-                      v137 = (v149 + 16 * v150);
-                      v139 = (_X10 + v150);
+                      v135 = (v147 + 16 * v148);
+                      v137 = (_X10 + v148);
                       goto LABEL_221;
                     }
 
-                    v148 &= ((v148 & 0x8080808080808080) - 1) & 0x8080808080808080;
+                    v146 &= ((v146 & 0x8080808080808080) - 1) & 0x8080808080808080;
                   }
 
-                  while (v148);
+                  while (v146);
 LABEL_216:
-                  while (!*&vceq_s8(v147, 0x8080808080808080))
+                  while (!*&vceq_s8(v145, 0x8080808080808080))
                   {
-                    v141 += 8;
-                    v146 = (v141 + v146) & v138;
-                    v147 = *(_X10 + v146);
-                    v148 = vceq_s8(v147, v145);
-                    if (v148)
+                    v139 += 8;
+                    v144 = (v139 + v144) & v136;
+                    v145 = *(_X10 + v144);
+                    v146 = vceq_s8(v145, v143);
+                    if (v146)
                     {
                       goto LABEL_213;
                     }
                   }
                 }
 
-                else if (*(v137 + 65) >= 2uLL && *(v137 + 132) == v102)
+                else if (*(v135 + 65) >= 2uLL && *(v135 + 132) == v100)
                 {
-                  v137 = (v137 + 528);
-                  v139 = &absl::lts_20240722::container_internal::kSooControl;
+                  v135 = (v135 + 528);
+                  v137 = &absl::lts_20240722::container_internal::kSooControl;
                   goto LABEL_221;
                 }
 
-                v139 = 0;
+                v137 = 0;
 LABEL_221:
-                if (v139)
+                if (v137)
                 {
-                  v151 = *(v137 + 1);
-                  if (v151)
+                  v149 = *(v135 + 1);
+                  if (v149)
                   {
-                    absl::lts_20240722::log_internal::MakeCheckOpString<long long,long long>(v151, 0, "context_->ObjectiveCoeff(var) == 0");
+                    absl::lts_20240722::log_internal::MakeCheckOpString<long long,long long>(v149, 0, "context_->ObjectiveCoeff(var) == 0");
                   }
                 }
 
@@ -9097,7 +7755,7 @@ LABEL_223:
               }
 
 LABEL_157:
-              if (*(v137 + 416))
+              if (*(v135 + 416))
               {
                 goto LABEL_239;
               }
@@ -9112,27 +7770,27 @@ LABEL_157:
           goto LABEL_158;
         }
 
-        v134 = 0;
-        while (*(off_2810BEE60 + v134) != v102)
+        v132 = 0;
+        while (*(off_2810BEE60 + v132) != v100)
         {
-          if (off_2810BEE58 == ++v134)
+          if (off_2810BEE58 == ++v132)
           {
             goto LABEL_158;
           }
         }
 
-        v132 = &operations_research::sat::_LinearConstraintProto_default_instance_;
+        v130 = &operations_research::sat::_LinearConstraintProto_default_instance_;
       }
 
-      v140 = v132[6][v134];
-      if (v140)
+      v138 = v130[6][v132];
+      if (v138)
       {
-        if (operations_research::sat::PresolveContext::SubstituteVariableInObjective(v103, v102, v140, v123))
+        if (operations_research::sat::PresolveContext::SubstituteVariableInObjective(v101, v100, v138, v121))
         {
           goto LABEL_223;
         }
 
-        v137 = v169[1];
+        v135 = v167[1];
         goto LABEL_157;
       }
 
@@ -9150,114 +7808,114 @@ LABEL_159:
   }
 
   v73 = v71;
-  v74 = v162;
+  v74 = v160;
   if (v72 >= 1)
   {
-    v152 = v169[1];
-    std::string::basic_string[abi:ne200100]<0>(&v186, "objective: expanded via tight equality");
-    operations_research::sat::PresolveContext::UpdateRuleStats(v152, &v186, v72, v153, v154);
-    if (SHIBYTE(v187) < 0)
+    v150 = v167[1];
+    std::string::basic_string[abi:ne200100]<0>(&v184, "objective: expanded via tight equality");
+    operations_research::sat::PresolveContext::UpdateRuleStats(v150, &v184, v72, v151, v152);
+    if (SHIBYTE(v185) < 0)
     {
-      operator delete(v186);
+      operator delete(v184);
     }
   }
 
 LABEL_227:
-  v185 = 12;
-  strcpy(&v184, "propagations");
-  operations_research::sat::PresolveTimer::AddCounter(v194, &v184, v74);
-  if (v185 < 0)
-  {
-    operator delete(v184);
-  }
-
-  v183 = 7;
-  strcpy(v182, "entries");
-  operations_research::sat::PresolveTimer::AddCounter(v194, v182, v66);
+  v183 = 12;
+  strcpy(&v182, "propagations");
+  operations_research::sat::PresolveTimer::AddCounter(v192, &v182, v74);
   if (v183 < 0)
   {
-    operator delete(v182[0]);
+    operator delete(v182);
   }
 
-  v181 = 15;
-  strcpy(&v180, "tight_variables");
-  operations_research::sat::PresolveTimer::AddCounter(v194, &v180, v67);
+  v181 = 7;
+  strcpy(v180, "entries");
+  operations_research::sat::PresolveTimer::AddCounter(v192, v180, v66);
   if (v181 < 0)
   {
-    operator delete(v180);
+    operator delete(v180[0]);
   }
 
-  v179[23] = 17;
-  strcpy(v179, "tight_constraints");
-  operations_research::sat::PresolveTimer::AddCounter(v194, v179, v68);
-  if ((v179[23] & 0x80000000) != 0)
+  v179 = 15;
+  strcpy(&v178, "tight_variables");
+  operations_research::sat::PresolveTimer::AddCounter(v192, &v178, v67);
+  if (v179 < 0)
   {
-    operator delete(*v179);
+    operator delete(v178);
   }
 
-  v178 = 7;
-  strcpy(v177, "expands");
-  operations_research::sat::PresolveTimer::AddCounter(v194, v177, v72);
-  if (v178 < 0)
+  v177[23] = 17;
+  strcpy(v177, "tight_constraints");
+  operations_research::sat::PresolveTimer::AddCounter(v192, v177, v68);
+  if ((v177[23] & 0x80000000) != 0)
   {
-    operator delete(v177[0]);
+    operator delete(*v177);
   }
 
-  v176 = 6;
-  strcpy(v175, "issues");
-  operations_research::sat::PresolveTimer::AddCounter(v194, v175, v73);
+  v176 = 7;
+  strcpy(v175, "expands");
+  operations_research::sat::PresolveTimer::AddCounter(v192, v175, v72);
   if (v176 < 0)
   {
     operator delete(v175[0]);
   }
 
+  v174 = 6;
+  strcpy(v173, "issues");
+  operations_research::sat::PresolveTimer::AddCounter(v192, v173, v73);
+  if (v174 < 0)
+  {
+    operator delete(v173[0]);
+  }
+
 LABEL_239:
   if (__p == 1)
   {
-    if (v189)
+    if (v187)
     {
-      v190 = v189;
-      operator delete(v189);
+      v188 = v187;
+      operator delete(v187);
     }
   }
 
   else if ((__p & 1) == 0)
   {
-    absl::lts_20240722::status_internal::StatusRep::Unref(__p, v75);
+    absl::lts_20240722::status_internal::StatusRep::Unref(__p, v2);
   }
 
-  v155 = v191;
-  if (v191)
+  v153 = v189;
+  if (v189)
   {
-    v156 = v192;
-    v157 = v191;
-    if (v192 != v191)
+    v154 = v190;
+    v155 = v189;
+    if (v190 != v189)
     {
-      v158 = v192;
+      v156 = v190;
       do
       {
-        v160 = *(v158 - 3);
-        v158 -= 3;
-        v159 = v160;
-        if (v160)
+        v158 = *(v156 - 3);
+        v156 -= 3;
+        v157 = v158;
+        if (v158)
         {
-          *(v156 - 2) = v159;
-          operator delete(v159);
+          *(v154 - 2) = v157;
+          operator delete(v157);
         }
 
-        v156 = v158;
+        v154 = v156;
       }
 
-      while (v158 != v155);
-      v157 = v191;
+      while (v156 != v153);
+      v155 = v189;
     }
 
-    v192 = v155;
-    operator delete(v157);
+    v190 = v153;
+    operator delete(v155);
   }
 
 LABEL_252:
-  operations_research::sat::PresolveTimer::~PresolveTimer(v194);
+  operations_research::sat::PresolveTimer::~PresolveTimer(v192, v2);
 }
 
 void sub_23CAA04C0(_Unwind_Exception *a1, absl::lts_20240722::cord_internal::CordRepBtree *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42, uint64_t a43, void *a44, uint64_t a45, uint64_t a46, void *a47)
@@ -9274,28 +7932,28 @@ void sub_23CAA04C0(_Unwind_Exception *a1, absl::lts_20240722::cord_internal::Cor
   }
 
   std::vector<std::vector<int>>::~vector[abi:ne200100]((v47 - 256));
-  operations_research::sat::PresolveTimer::~PresolveTimer((v47 - 232));
+  operations_research::sat::PresolveTimer::~PresolveTimer((v47 - 232), v49);
   _Unwind_Resume(a1);
 }
 
-void util::graph::FastTopologicalSort<std::vector<std::vector<int>>>(void *a1@<X0>, uint64_t a2@<X8>)
+void util::graph::FastTopologicalSort<std::vector<std::vector<int>>>(unsigned int ***a1@<X0>, uint64_t a2@<X8>)
 {
-  v11[6] = *MEMORY[0x277D85DE8];
+  v9[6] = *MEMORY[0x277D85DE8];
   v3 = a1[1];
-  v4 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *a1) >> 3);
+  v4 = 0xAAAAAAAAAAAAAAABLL * (v3 - *a1);
   if (v4 >> 31)
   {
-    absl::lts_20240722::InvalidArgumentError("More than kint32max nodes", 25, v11);
-    v5 = v11[0];
-    *a2 = v11[0];
-    v11[0] = 55;
+    absl::lts_20240722::InvalidArgumentError("More than kint32max nodes", 0x19uLL, v9);
+    v5 = v9[0];
+    *a2 = v9[0];
+    v9[0] = 55;
     if (v5 == 1)
     {
       absl::lts_20240722::internal_statusor::Helper::HandleInvalidStatusCtorArg(a2);
-      v7 = v11[0];
-      if ((v11[0] & 1) == 0)
+      v7 = v9[0];
+      if ((v9[0] & 1) == 0)
       {
-LABEL_4:
+LABEL_13:
         absl::lts_20240722::status_internal::StatusRep::Unref(v7, v6);
       }
     }
@@ -9305,7 +7963,6 @@ LABEL_4:
   {
     if (v3 != *a1)
     {
-      v8 = 0xAAAAAAAAAAAAAAACLL * ((v3 - *a1) >> 3);
       operator new();
     }
 
@@ -9315,26 +7972,23 @@ LABEL_4:
       *(a2 + 24) = 0;
       *a2 = 1;
       *(a2 + 8) = 0;
-      goto LABEL_9;
+      return;
     }
 
-    absl::lts_20240722::InvalidArgumentError("The graph has a cycle", 21, v11);
-    v9 = v11[0];
-    *a2 = v11[0];
-    v11[0] = 55;
-    if (v9 == 1)
+    absl::lts_20240722::InvalidArgumentError("The graph has a cycle", 0x15uLL, v9);
+    v8 = v9[0];
+    *a2 = v9[0];
+    v9[0] = 55;
+    if (v8 == 1)
     {
       absl::lts_20240722::internal_statusor::Helper::HandleInvalidStatusCtorArg(a2);
-      v7 = v11[0];
-      if ((v11[0] & 1) == 0)
+      v7 = v9[0];
+      if ((v9[0] & 1) == 0)
       {
-        goto LABEL_4;
+        goto LABEL_13;
       }
     }
   }
-
-LABEL_9:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23CAA0BAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, int a19, __int16 a20, char a21, char a22)
@@ -9371,28 +8025,28 @@ uint64_t *absl::lts_20240722::StatusOr<std::vector<int>>::~StatusOr(uint64_t *a1
 
 void operations_research::sat::CpModelPresolver::MergeNoOverlapConstraints(operations_research::sat::CpModelPresolver *this)
 {
-  v125 = *MEMORY[0x277D85DE8];
+  v124 = *MEMORY[0x277D85DE8];
   v1 = *(this + 1);
   if (v1[416])
   {
-    goto LABEL_81;
+    return;
   }
 
   v2 = *(*v1 + 56);
   __p = 0;
+  v94 = 0;
   v95 = 0;
-  v96 = 0;
   if (v2 < 1)
   {
-    goto LABEL_81;
+    return;
   }
 
   v3 = 0;
-  v85 = 0;
+  v84 = 0;
   v4 = 0;
   v5 = 0;
   v6 = 0;
-  v79 = v2;
+  v78 = v2;
   do
   {
     v9 = **(this + 1);
@@ -9407,12 +8061,12 @@ void operations_research::sat::CpModelPresolver::MergeNoOverlapConstraints(opera
     v13 = *v10;
     if (*(v13 + 60) == 20)
     {
-      v80 = v5;
-      v81 = v6;
-      v83 = v4;
-      v109 = 0;
-      *&v110 = 0;
+      v79 = v5;
+      v80 = v6;
+      v82 = v4;
       v108 = 0;
+      *&v109 = 0;
+      v107 = 0;
       v14 = *(v13 + 48);
       v15 = *(v14 + 16);
       if (v15)
@@ -9423,24 +8077,24 @@ void operations_research::sat::CpModelPresolver::MergeNoOverlapConstraints(opera
         do
         {
           v19 = 2 * *v17;
-          if (v16 < v110)
+          if (v16 < v109)
           {
             *v16++ = v19;
           }
 
           else
           {
-            v20 = v108;
-            v21 = v16 - v108;
-            v22 = (v16 - v108) >> 2;
+            v20 = v107;
+            v21 = v16 - v107;
+            v22 = (v16 - v107) >> 2;
             v23 = v22 + 1;
             if ((v22 + 1) >> 62)
             {
               std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
             }
 
-            v24 = v110 - v108;
-            if ((v110 - v108) >> 1 > v23)
+            v24 = v109 - v107;
+            if ((v109 - v107) >> 1 > v23)
             {
               v23 = v24 >> 1;
             }
@@ -9471,16 +8125,16 @@ void operations_research::sat::CpModelPresolver::MergeNoOverlapConstraints(opera
             *v27 = v19;
             v16 = v27 + 1;
             memcpy(v28, v20, v21);
-            v108 = v28;
-            v109 = v16;
-            *&v110 = 0;
+            v107 = v28;
+            v108 = v16;
+            *&v109 = 0;
             if (v20)
             {
               operator delete(v20);
             }
           }
 
-          v109 = v16;
+          v108 = v16;
           ++v17;
           v18 -= 4;
         }
@@ -9488,25 +8142,25 @@ void operations_research::sat::CpModelPresolver::MergeNoOverlapConstraints(opera
         while (v18);
       }
 
-      v29 = v95;
-      if (v95 >= v96)
+      v29 = v94;
+      if (v94 >= v95)
       {
-        v4 = v83;
-        v31 = std::vector<std::vector<operations_research::sat::Literal>>::__emplace_back_slow_path<std::vector<operations_research::sat::Literal> const&>(&__p, &v108);
-        v30 = v80;
-        v6 = v81;
+        v4 = v82;
+        v31 = std::vector<std::vector<operations_research::sat::Literal>>::__emplace_back_slow_path<std::vector<operations_research::sat::Literal> const&>(&__p, &v107);
+        v30 = v79;
+        v6 = v80;
       }
 
       else
       {
-        *v95 = 0;
+        *v94 = 0;
         *(v29 + 1) = 0;
         *(v29 + 2) = 0;
-        v30 = v80;
-        v6 = v81;
-        if (v109 != v108)
+        v30 = v79;
+        v6 = v80;
+        if (v108 != v107)
         {
-          if (((v109 - v108) & 0x8000000000000000) == 0)
+          if (((v108 - v107) & 0x8000000000000000) == 0)
           {
             operator new();
           }
@@ -9515,22 +8169,22 @@ void operations_research::sat::CpModelPresolver::MergeNoOverlapConstraints(opera
         }
 
         v31 = v29 + 24;
-        v4 = v83;
+        v4 = v82;
       }
 
-      v95 = v31;
+      v94 = v31;
       if (v30 < v6)
       {
         *v30 = v3;
         v5 = (v30 + 4);
-        v8 = v108;
-        v7 = v109;
-        if (!v108)
+        v8 = v107;
+        v7 = v108;
+        if (!v107)
         {
 LABEL_6:
-          LODWORD(v85) = v85 + ((v7 - v8) >> 2);
-          ++HIDWORD(v85);
-          v2 = v79;
+          LODWORD(v84) = v84 + ((v7 - v8) >> 2);
+          ++HIDWORD(v84);
+          v2 = v78;
           goto LABEL_7;
         }
       }
@@ -9575,15 +8229,15 @@ LABEL_6:
         v5 = 4 * v33 + 4;
         memcpy(0, v4, v32);
         v4 = 0;
-        v8 = v108;
-        v7 = v109;
-        if (!v108)
+        v8 = v107;
+        v7 = v108;
+        if (!v107)
         {
           goto LABEL_6;
         }
       }
 
-      v109 = v8;
+      v108 = v8;
       operator delete(v8);
       goto LABEL_6;
     }
@@ -9593,20 +8247,20 @@ LABEL_7:
   }
 
   while (v3 != v2);
-  if (HIDWORD(v85))
+  if (HIDWORD(v84))
   {
-    memset(v89, 0, sizeof(v89));
-    v90 = xmmword_23CE306D0;
-    v92 = 0;
-    v93 = 0;
+    memset(v88, 0, sizeof(v88));
+    v89 = xmmword_23CE306D0;
     v91 = 0;
-    v36 = operations_research::sat::Model::GetOrCreate<operations_research::sat::Trail>(v89);
+    v92 = 0;
+    v90 = 0;
+    v36 = operations_research::sat::Model::GetOrCreate<operations_research::sat::Trail>(v88);
     operations_research::sat::Trail::Resize(v36, v2);
-    v37 = operations_research::sat::Model::GetOrCreate<operations_research::sat::BinaryImplicationGraph>(v89);
+    v37 = operations_research::sat::Model::GetOrCreate<operations_research::sat::BinaryImplicationGraph>(v88);
     operations_research::sat::BinaryImplicationGraph::Resize(v37, v2);
     v38 = __p;
-    v39 = v95;
-    if (__p != v95)
+    v39 = v94;
+    if (__p != v94)
     {
       while ((operations_research::sat::BinaryImplicationGraph::AddAtMostOne(v37, *v38, (v38[1] - *v38) >> 2) & 1) != 0)
       {
@@ -9617,181 +8271,195 @@ LABEL_7:
         }
       }
 
-      v69 = absl::lts_20240722::log_internal::LogMessageFatal::LogMessageFatal(&v108, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/cp_model_presolve.cc", 7799);
-LABEL_83:
-      absl::lts_20240722::log_internal::LogMessageFatal::~LogMessageFatal(v69);
+      v68 = absl::lts_20240722::log_internal::LogMessageFatal::LogMessageFatal(&v107, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/cp_model_presolve.cc", 7799);
+LABEL_88:
+      absl::lts_20240722::log_internal::LogMessageFatal::~LogMessageFatal(v68);
     }
 
 LABEL_49:
     if ((operations_research::sat::BinaryImplicationGraph::DetectEquivalences(v37, 0) & 1) == 0)
     {
-      v69 = absl::lts_20240722::log_internal::LogMessageFatal::LogMessageFatal(&v108, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/cp_model_presolve.cc", 7801);
-      goto LABEL_83;
+      v68 = absl::lts_20240722::log_internal::LogMessageFatal::LogMessageFatal(&v107, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/cp_model_presolve.cc", 7801);
+      goto LABEL_88;
     }
 
     v40 = *(*(*(this + 1) + 392) + 664);
-    operations_research::sat::BinaryImplicationGraph::TransformIntoMaxCliques(v37, &__p);
-    if (v95 != __p)
+    if (v40 >= 9.22337204e18)
     {
-      v41 = 0;
+      v41 = 0x7FFFFFFFFFFFFFFFLL;
+    }
+
+    else if (v40 <= -9.22337204e18)
+    {
+      v41 = 0x8000000000000000;
+    }
+
+    else
+    {
+      v41 = v40;
+    }
+
+    operations_research::sat::BinaryImplicationGraph::TransformIntoMaxCliques(v37, &__p, v41);
+    if (v94 != __p)
+    {
       v42 = 0;
-      v84 = 0;
       v43 = 0;
+      v83 = 0;
+      v44 = 0;
       while (1)
       {
-        v45 = v4;
-        v46 = **(this + 1);
-        v48 = *(v46 + 48);
-        v47 = (v46 + 48);
-        v49 = (v48 + 8 * *(v4 + v41) + 7);
-        if ((v48 & 1) == 0)
+        v46 = v4;
+        v47 = **(this + 1);
+        v49 = *(v47 + 48);
+        v48 = (v47 + 48);
+        v50 = (v49 + 8 * *(v4 + v42) + 7);
+        if ((v49 & 1) == 0)
         {
-          v49 = v47;
+          v50 = v48;
         }
 
-        v50 = *v49;
-        operations_research::sat::ConstraintProto::Clear(*v49);
-        v44 = __p;
-        v51 = (__p + 24 * v41);
-        v52 = *v51;
-        v53 = v51[1];
-        if (*v51 != v53)
+        v51 = *v50;
+        operations_research::sat::ConstraintProto::Clear(*v50);
+        v45 = __p;
+        v52 = (__p + 24 * v42);
+        v53 = *v52;
+        v54 = v52[1];
+        if (*v52 != v54)
         {
           break;
         }
 
-LABEL_55:
-        v41 = ++v42;
-        v4 = v45;
-        if (0xAAAAAAAAAAAAAAABLL * ((v95 - v44) >> 3) <= v42)
+LABEL_59:
+        v42 = ++v43;
+        v4 = v46;
+        if (0xAAAAAAAAAAAAAAABLL * ((v94 - v45) >> 3) <= v43)
         {
-          goto LABEL_69;
+          goto LABEL_73;
         }
       }
 
-      v82 = v43;
+      v81 = v44;
       while (2)
       {
-        v59 = *v52;
-        if (*v52)
+        v60 = *v53;
+        if (*v53)
         {
-          v69 = absl::lts_20240722::log_internal::LogMessageFatal::LogMessageFatal(&v108, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/cp_model_presolve.cc", 7816);
-          goto LABEL_83;
+          v68 = absl::lts_20240722::log_internal::LogMessageFatal::LogMessageFatal(&v107, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/cp_model_presolve.cc", 7816);
+          goto LABEL_88;
         }
 
-        if (*(v50 + 15) == 20)
+        if (*(v51 + 15) == 20)
         {
-          v54 = *(v50 + 6);
-          v56 = *(v54 + 4);
-          v55 = *(v54 + 5);
-          v57 = (v54 + 2);
-          if (v56 == v55)
+          v55 = *(v51 + 6);
+          v57 = *(v55 + 4);
+          v56 = *(v55 + 5);
+          v58 = (v55 + 2);
+          if (v57 == v56)
           {
-            goto LABEL_67;
+            goto LABEL_71;
           }
         }
 
         else
         {
-          operations_research::sat::ConstraintProto::clear_constraint(v50);
-          *(v50 + 15) = 20;
-          v60 = *(v50 + 1);
-          if (v60)
+          operations_research::sat::ConstraintProto::clear_constraint(v51);
+          *(v51 + 15) = 20;
+          v61 = *(v51 + 1);
+          if (v61)
           {
-            v60 = *(v60 & 0xFFFFFFFFFFFFFFFELL);
+            v61 = *(v61 & 0xFFFFFFFFFFFFFFFELL);
           }
 
-          v54 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::NoOverlapConstraintProto>(v60);
-          *(v50 + 6) = v54;
-          v56 = *(v54 + 4);
-          v55 = *(v54 + 5);
-          v57 = (v54 + 2);
-          if (v56 == v55)
+          v55 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::NoOverlapConstraintProto>(v61);
+          *(v51 + 6) = v55;
+          v57 = *(v55 + 4);
+          v56 = *(v55 + 5);
+          v58 = (v55 + 2);
+          if (v57 == v56)
           {
-LABEL_67:
-            google::protobuf::RepeatedField<int>::Grow(v57, v55, (v55 + 1));
-            v56 = *v57;
+LABEL_71:
+            google::protobuf::RepeatedField<int>::Grow(v58, v56, (v56 + 1));
+            v57 = *v58;
           }
         }
 
-        v58 = v54[3];
-        *(v54 + 4) = v56 + 1;
-        *(v58 + 4 * v56) = v59 >> 1;
-        if (++v52 == v53)
+        v59 = v55[3];
+        *(v55 + 4) = v57 + 1;
+        *(v59 + 4 * v57) = v60 >> 1;
+        if (++v53 == v54)
         {
-          ++v84;
-          v44 = __p;
-          v43 = (v82 + ((*(__p + 3 * v41 + 1) - *(__p + 3 * v41)) >> 2));
-          goto LABEL_55;
+          ++v83;
+          v45 = __p;
+          v44 = (v81 + ((*(__p + 3 * v42 + 1) - *(__p + 3 * v42)) >> 2));
+          goto LABEL_59;
         }
 
         continue;
       }
     }
 
-    v43 = 0;
-    v84 = 0;
-LABEL_69:
-    if (v85 != __PAIR64__(v84, v43))
+    v44 = 0;
+    v83 = 0;
+LABEL_73:
+    if (v84 != __PAIR64__(v83, v44))
     {
       if (dword_27E25CC08 >= 1 && absl::lts_20240722::log_internal::VLogSite::SlowIsEnabled1(&operations_research::sat::CpModelPresolver::MergeNoOverlapConstraints(void)::$_0::operator() const(void)::site, dword_27E25CC08))
       {
-        absl::lts_20240722::log_internal::LogMessage::LogMessage(v88, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/cp_model_presolve.cc", 7824);
-        v70 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v88, 1);
-        v72 = absl::lts_20240722::numbers_internal::FastIntToBuffer(HIDWORD(v85), v101, v71);
-        *&v100 = v101;
-        *(&v100 + 1) = v72 - v101;
-        v74 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v85, v99, v73);
-        v97 = v99;
-        v98 = v74 - v99;
-        v108 = "Merged ";
-        v109 = 7;
-        v110 = v100;
-        v111 = " no-overlaps (";
-        v112 = 14;
-        v113 = v99;
-        v114 = v74 - v99;
-        v115 = " intervals) into ";
-        v116 = 17;
-        v76 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v84, v107, v75);
-        v105 = v107;
-        v106 = v76 - v107;
-        v117 = v107;
-        v118 = v76 - v107;
-        v119 = " no-overlaps (";
-        v120 = 14;
-        v78 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v43, v104, v77);
-        v102 = v104;
-        v103 = v78 - v104;
-        v121 = v104;
-        v122 = v78 - v104;
-        v123 = " intervals).";
-        v124 = 12;
-        absl::lts_20240722::strings_internal::CatPieces(&v108, 9, &v87);
-        absl::lts_20240722::log_internal::LogMessage::operator<<(v70, &v87);
-        if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+        absl::lts_20240722::log_internal::LogMessage::LogMessage(v87, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/cp_model_presolve.cc", 7824);
+        v69 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v87, 1);
+        v71 = absl::lts_20240722::numbers_internal::FastIntToBuffer(HIDWORD(v84), v100, v70);
+        *&v99 = v100;
+        *(&v99 + 1) = v71 - v100;
+        v73 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v84, v98, v72);
+        v96 = v98;
+        v97 = v73 - v98;
+        v107 = "Merged ";
+        v108 = 7;
+        v109 = v99;
+        v110 = " no-overlaps (";
+        v111 = 14;
+        v112 = v98;
+        v113 = v73 - v98;
+        v114 = " intervals) into ";
+        v115 = 17;
+        v75 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v83, v106, v74);
+        v104 = v106;
+        v105 = v75 - v106;
+        v116 = v106;
+        v117 = v75 - v106;
+        v118 = " no-overlaps (";
+        v119 = 14;
+        v77 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v44, v103, v76);
+        v101 = v103;
+        v102 = v77 - v103;
+        v120 = v103;
+        v121 = v77 - v103;
+        v122 = " intervals).";
+        v123 = 12;
+        absl::lts_20240722::strings_internal::CatPieces(&v107, 9, &v86);
+        absl::lts_20240722::log_internal::LogMessage::operator<<(v69, &v86);
+        if (SHIBYTE(v86.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v87.__r_.__value_.__l.__data_);
+          operator delete(v86.__r_.__value_.__l.__data_);
         }
 
-        absl::lts_20240722::log_internal::LogMessage::~LogMessage(v88);
+        absl::lts_20240722::log_internal::LogMessage::~LogMessage(v87);
       }
 
-      v61 = *(this + 1);
       operator new();
     }
 
-    operations_research::sat::Model::~Model(v89);
+    operations_research::sat::Model::~Model(v88);
   }
 
   v62 = __p;
   if (__p)
   {
-    v63 = v95;
+    v63 = v94;
     v64 = __p;
-    if (v95 != __p)
+    if (v94 != __p)
     {
-      v65 = v95;
+      v65 = v94;
       do
       {
         v67 = *(v65 - 3);
@@ -9810,10 +8478,1891 @@ LABEL_69:
       v64 = __p;
     }
 
-    v95 = v62;
+    v94 = v62;
     operator delete(v64);
   }
+}
 
-LABEL_81:
-  v68 = *MEMORY[0x277D85DE8];
+void sub_23CAA1558(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34)
+{
+  if (a20 < 0)
+  {
+    operator delete(__p);
+  }
+
+  absl::lts_20240722::log_internal::LogMessage::~LogMessage(&a21);
+  operations_research::sat::Model::~Model(&a23);
+  std::vector<std::vector<int>>::~vector[abi:ne200100](&a33);
+  if (v34)
+  {
+    operator delete(v34);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void operations_research::sat::Trail::Resize(operations_research::sat::Trail *this, int a2)
+{
+  v4 = 2 * a2;
+  if (2 * a2 < 1)
+  {
+    v4 = 0;
+  }
+
+  else if (*(this + 4) > v4)
+  {
+    v5 = *(this + 3) + (((v4 + 63) >> 3) & 0x1FFFFFF8);
+    *(v5 - 8) &= ~(-2 << (v4 + 63));
+  }
+
+  *(this + 4) = v4;
+  v7 = *(this + 3);
+  v8 = *(this + 4);
+  v6 = this + 24;
+  v9 = (v4 + 63) >> 6;
+  v21 = 0;
+  v10 = (v8 - v7) >> 3;
+  if (v9 <= v10)
+  {
+    if (v9 < v10)
+    {
+      *(this + 4) = v7 + 8 * v9;
+    }
+  }
+
+  else
+  {
+    std::vector<unsigned long long>::__append(v6, v9 - v10, &v21);
+  }
+
+  v11 = *(this + 12);
+  v12 = (*(this + 13) - v11) >> 3;
+  if (a2 <= v12)
+  {
+    if (a2 < v12)
+    {
+      *(this + 13) = v11 + 8 * a2;
+    }
+  }
+
+  else
+  {
+    std::vector<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>::__append(this + 96, a2 - v12);
+  }
+
+  v13 = *(this + 6);
+  v14 = (*(this + 7) - v13) >> 2;
+  if (a2 <= v14)
+  {
+    if (a2 < v14)
+    {
+      *(this + 7) = v13 + 4 * a2;
+    }
+  }
+
+  else
+  {
+    std::vector<int>::__append(this + 2, a2 - v14);
+  }
+
+  v15 = *(this + 25);
+  v16 = (*(this + 26) - v15) >> 4;
+  if (a2 <= v16)
+  {
+    if (a2 < v16)
+    {
+      *(this + 26) = v15 + 16 * a2;
+    }
+  }
+
+  else
+  {
+    std::vector<absl::lts_20240722::Span<operations_research::sat::Literal const>>::__append(this + 200, a2 - v16);
+  }
+
+  v17 = *(this + 28);
+  v18 = (*(this + 29) - v17) >> 2;
+  if (a2 <= v18)
+  {
+    if (a2 < v18)
+    {
+      *(this + 29) = v17 + 4 * a2;
+    }
+  }
+
+  else
+  {
+    std::vector<int>::__append((this + 224), a2 - v18);
+  }
+
+  v19 = *(this + 16);
+  v20 = (*(this + 17) - v19) >> 2;
+  if (a2 <= v20)
+  {
+    if (a2 < v20)
+    {
+      *(this + 17) = v19 + 4 * a2;
+    }
+  }
+
+  else
+  {
+    std::vector<int>::__append((this + 128), a2 - v20);
+  }
+}
+
+void operations_research::sat::CpModelPresolver::TransformIntoMaxCliques(operations_research::sat::CpModelPresolver *this)
+{
+  v104 = *MEMORY[0x277D85DE8];
+  v1 = *(this + 1);
+  if ((*(v1 + 416) & 1) != 0 || *(*(v1 + 392) + 672) <= 0.0)
+  {
+    return;
+  }
+
+  v2 = this;
+  v3 = *(*v1 + 56);
+  v94 = 0;
+  v95 = 0;
+  v96 = 0;
+  if (v3 < 1)
+  {
+    v32 = 0;
+  }
+
+  else
+  {
+    v4 = 0;
+    v81 = v3;
+    do
+    {
+      v5 = **(v2 + 1);
+      v7 = *(v5 + 48);
+      v6 = v5 + 48;
+      v8 = v7 + 8 * v4 + 7;
+      if (v7)
+      {
+        v6 = v8;
+      }
+
+      v9 = *v6;
+      v10 = *(*v6 + 60);
+      if (v10 == 4)
+      {
+        if (*(v9 + 16) == 1)
+        {
+          v26 = *(v9 + 48);
+          v27 = *(v26 + 16);
+          if (v27)
+          {
+            v28 = *(v26 + 24);
+            v29 = 4 * v27;
+            do
+            {
+              if (*v28 != **(v9 + 24))
+              {
+                operator new();
+              }
+
+              ++v28;
+              v29 -= 4;
+            }
+
+            while (v29);
+          }
+
+          operations_research::sat::ConstraintProto::Clear(v9);
+          v3 = v81;
+          v2 = this;
+          operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), v4);
+        }
+      }
+
+      else if (v10 == 26)
+      {
+        v88 = 0;
+        v89 = 0;
+        __p = 0;
+        v11 = *(v9 + 48);
+        v12 = *(v11 + 16);
+        if (v12)
+        {
+          v13 = 0;
+          v14 = *(v11 + 24);
+          v15 = 4 * v12;
+          do
+          {
+            if (*v14 < 0)
+            {
+              v16 = 2 * ~*v14 + 1;
+            }
+
+            else
+            {
+              v16 = 2 * *v14;
+            }
+
+            if (v13 < v89)
+            {
+              *v13++ = v16;
+            }
+
+            else
+            {
+              v17 = __p;
+              v18 = v13 - __p;
+              v19 = (v13 - __p) >> 2;
+              v20 = v19 + 1;
+              if ((v19 + 1) >> 62)
+              {
+                std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
+              }
+
+              v21 = v89 - __p;
+              if ((v89 - __p) >> 1 > v20)
+              {
+                v20 = v21 >> 1;
+              }
+
+              if (v21 >= 0x7FFFFFFFFFFFFFFCLL)
+              {
+                v22 = 0x3FFFFFFFFFFFFFFFLL;
+              }
+
+              else
+              {
+                v22 = v20;
+              }
+
+              if (v22)
+              {
+                if (!(v22 >> 62))
+                {
+                  operator new();
+                }
+
+                std::__throw_bad_array_new_length[abi:ne200100]();
+              }
+
+              v23 = (v13 - __p) >> 2;
+              v24 = (4 * v19);
+              v25 = (4 * v19 - 4 * v23);
+              *v24 = v16;
+              v13 = v24 + 1;
+              memcpy(v25, v17, v18);
+              __p = v25;
+              v88 = v13;
+              v89 = 0;
+              if (v17)
+              {
+                operator delete(v17);
+              }
+            }
+
+            v88 = v13;
+            ++v14;
+            v15 -= 4;
+          }
+
+          while (v15);
+        }
+
+        v30 = v95;
+        if (v95 >= v96)
+        {
+          v31 = std::vector<std::vector<operations_research::sat::Literal>>::__emplace_back_slow_path<std::vector<operations_research::sat::Literal> const&>(&v94, &__p);
+          v3 = v81;
+          v2 = this;
+        }
+
+        else
+        {
+          *v95 = 0;
+          *(v30 + 1) = 0;
+          *(v30 + 2) = 0;
+          if (v88 != __p)
+          {
+            if (((v88 - __p) & 0x8000000000000000) == 0)
+            {
+              operator new();
+            }
+
+            std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
+          }
+
+          v31 = v30 + 24;
+          v3 = v81;
+          v2 = this;
+        }
+
+        v95 = v31;
+        operations_research::sat::ConstraintProto::Clear(v9);
+        operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(v2 + 1), v4);
+        if (__p)
+        {
+          v88 = __p;
+          operator delete(__p);
+        }
+      }
+
+      v4 = (v4 + 1);
+    }
+
+    while (v4 != v3);
+    v1 = *(v2 + 1);
+    v32 = -1431655765 * ((v95 - v94) >> 3);
+  }
+
+  __p = 0;
+  v88 = 0;
+  v89 = 0;
+  v90 = xmmword_23CE306D0;
+  v92 = 0;
+  v93 = 0;
+  v91 = 0;
+  v33 = *(*v1 + 32);
+  v34 = operations_research::sat::Model::GetOrCreate<operations_research::sat::Trail>(&__p);
+  operations_research::sat::Trail::Resize(v34, v33);
+  v35 = operations_research::sat::Model::GetOrCreate<operations_research::sat::BinaryImplicationGraph>(&__p);
+  operations_research::sat::BinaryImplicationGraph::Resize(v35, v33);
+  v36 = v94;
+  v37 = v95;
+  if (v94 != v95)
+  {
+    v38 = 0;
+    while (1)
+    {
+      v39 = (*(v36 + 1) - *v36) >> 2;
+      if ((operations_research::sat::BinaryImplicationGraph::AddAtMostOne(v35, *v36, v39) & 1) == 0)
+      {
+        break;
+      }
+
+      v38 += v39;
+      v36 += 24;
+      if (v36 == v37)
+      {
+        goto LABEL_52;
+      }
+    }
+
+    operations_research::sat::PresolveContext::NotifyThatModelIsUnsat(*(this + 1), &byte_23CE7F131, 0);
+    goto LABEL_99;
+  }
+
+  v38 = 0;
+LABEL_52:
+  v40 = operations_research::sat::BinaryImplicationGraph::DetectEquivalences(v35, 0);
+  v41 = *(this + 1);
+  if (v40)
+  {
+    v42 = *(*(v41 + 392) + 672);
+    if (v42 >= 9.22337204e18)
+    {
+      v43 = 0x7FFFFFFFFFFFFFFFLL;
+    }
+
+    else if (v42 <= -9.22337204e18)
+    {
+      v43 = 0x8000000000000000;
+    }
+
+    else
+    {
+      v43 = v42;
+    }
+
+    operations_research::sat::BinaryImplicationGraph::TransformIntoMaxCliques(v35, &v94, v43);
+    v82 = v32;
+    if (v33 >= 1)
+    {
+      v44 = 0;
+      v45 = 0;
+      v46 = 0;
+      v47 = 2 * v33;
+      do
+      {
+        begin = v35[29].__begin_;
+        if (v44 < ((v35[29].__end_ - begin) >> 2))
+        {
+          v49 = *(begin + (v46 >> 30));
+          if (v49 != -1 && v44 != v49)
+          {
+            operations_research::sat::PresolveContext::StoreBooleanEqualityRelation(*(this + 1), v45, -(v49 & 1) ^ (v49 >> 1));
+          }
+        }
+
+        v46 += 0x200000000;
+        v45 = (v45 + 1);
+        v44 += 2;
+      }
+
+      while (v47 != v44);
+    }
+
+    v86 = 0;
+    v85 = 0;
+    v51 = v94;
+    v52 = v95;
+    v53 = this;
+    if (v94 != v95)
+    {
+      while (1)
+      {
+        v54 = *v51;
+        v55 = *(v51 + 1);
+        if (*v51 != v55)
+        {
+          break;
+        }
+
+LABEL_72:
+        v51 += 24;
+        if (v51 == v52)
+        {
+          goto LABEL_92;
+        }
+      }
+
+      ++v86;
+      v85 += (v55 - v54) >> 2;
+      v56 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((**(v53 + 1) + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
+      v58 = *v51;
+      v57 = *(v51 + 1);
+      while (1)
+      {
+        if (v58 == v57)
+        {
+          v53 = this;
+          operations_research::sat::CpModelPresolver::PresolveAtMostOne(this, v56);
+          goto LABEL_72;
+        }
+
+        v66 = *v58;
+        v67 = *(v56 + 60);
+        if (*v58)
+        {
+          if (v67 == 26)
+          {
+            v59 = *(v56 + 48);
+          }
+
+          else
+          {
+            operations_research::sat::ConstraintProto::clear_constraint(v56);
+            *(v56 + 60) = 26;
+            v69 = *(v56 + 8);
+            if (v69)
+            {
+              v69 = *(v69 & 0xFFFFFFFFFFFFFFFELL);
+            }
+
+            v59 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::BoolArgumentProto>(v69);
+            *(v56 + 48) = v59;
+          }
+
+          v60 = ~(v66 >> 1);
+          v61 = (v59 + 2);
+          v62 = v59[2];
+          v63 = HIDWORD(v62);
+          v64 = v62;
+          if (v62 == HIDWORD(v62))
+          {
+LABEL_91:
+            google::protobuf::RepeatedField<int>::Grow(v61, v63, (HIDWORD(v62) + 1));
+            v64 = *(v59 + 4);
+          }
+        }
+
+        else
+        {
+          if (v67 == 26)
+          {
+            v59 = *(v56 + 48);
+          }
+
+          else
+          {
+            operations_research::sat::ConstraintProto::clear_constraint(v56);
+            *(v56 + 60) = 26;
+            v68 = *(v56 + 8);
+            if (v68)
+            {
+              v68 = *(v68 & 0xFFFFFFFFFFFFFFFELL);
+            }
+
+            v59 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::BoolArgumentProto>(v68);
+            *(v56 + 48) = v59;
+          }
+
+          v60 = v66 >> 1;
+          v61 = (v59 + 2);
+          v62 = v59[2];
+          v63 = HIDWORD(v62);
+          v64 = v62;
+          if (v62 == HIDWORD(v62))
+          {
+            goto LABEL_91;
+          }
+        }
+
+        v65 = v59[3];
+        *(v59 + 4) = v64 + 1;
+        *(v65 + 4 * v64) = v60;
+        ++v58;
+      }
+    }
+
+LABEL_92:
+    operations_research::sat::PresolveContext::UpdateNewConstraintsVariableUsage(*(v53 + 1));
+    if (v86 != v82)
+    {
+      operator new();
+    }
+
+    if (v38 != v85)
+    {
+      v71 = *(v53 + 2);
+      if (*v71 == 1)
+      {
+        *&v103 = "[MaxClique] Merged ";
+        *(&v103 + 1) = 19;
+        v72 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v82, v102, v70);
+        *&v101 = v102;
+        *(&v101 + 1) = v72 - v102;
+        v100[0] = "(";
+        v100[1] = 1;
+        v74 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v38, v99, v73);
+        *&v98 = v99;
+        *(&v98 + 1) = v74 - v99;
+        *&v97 = " literals) into ";
+        *(&v97 + 1) = 16;
+        absl::lts_20240722::StrCat<int,char [2],long long,char [25]>(&v103, &v101, v100, &v98, &v97, &v86, "(", &v85, &v84, " literals) at_most_ones.");
+        operations_research::SolverLogger::LogInfo(v71, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/cp_model_presolve.cc", 7937, &v84);
+        if (SHIBYTE(v84.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v84.__r_.__value_.__l.__data_);
+        }
+      }
+    }
+  }
+
+  else
+  {
+    operations_research::sat::PresolveContext::NotifyThatModelIsUnsat(v41, &byte_23CE7F131, 0);
+  }
+
+LABEL_99:
+  operations_research::sat::Model::~Model(&__p);
+  v75 = v94;
+  if (v94)
+  {
+    v76 = v95;
+    v77 = v94;
+    if (v95 != v94)
+    {
+      v78 = v95;
+      do
+      {
+        v80 = *(v78 - 3);
+        v78 -= 24;
+        v79 = v80;
+        if (v80)
+        {
+          *(v76 - 2) = v79;
+          operator delete(v79);
+        }
+
+        v76 = v78;
+      }
+
+      while (v78 != v75);
+      v77 = v94;
+    }
+
+    v95 = v75;
+    operator delete(v77);
+  }
+}
+
+void sub_23CAA217C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32)
+{
+  operations_research::sat::Model::~Model(&a21);
+  std::vector<std::vector<int>>::~vector[abi:ne200100](&a31);
+  _Unwind_Resume(a1);
+}
+
+char *absl::lts_20240722::StrCat<int,char [2],long long,char [25]>@<X0>(_OWORD *a1@<X0>, __int128 *a2@<X1>, char *a3@<X2>, __int128 *a4@<X3>, _OWORD *a5@<X4>, unsigned int *a6@<X5>, const char *a7@<X6>, unint64_t *a8@<X7>, std::string *a9@<X8>, const char *a10)
+{
+  v34 = *MEMORY[0x277D85DE8];
+  v13 = *a2;
+  v25[0] = *a1;
+  v25[1] = v13;
+  v14 = *a4;
+  v25[2] = *a3;
+  v25[3] = v14;
+  v25[4] = *a5;
+  v15 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*a6, v24, a3);
+  v22 = v24;
+  v23 = v15 - v24;
+  v26 = v24;
+  v27 = v15 - v24;
+  v16 = strlen(a7);
+  v28 = a7;
+  v29 = v16;
+  v20 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*a8, v21, v17) - v21;
+  v30 = v21;
+  v31 = v20;
+  v18 = strlen(a10);
+  v32 = a10;
+  v33 = v18;
+  return absl::lts_20240722::strings_internal::CatPieces(v25, 9, a9);
+}
+
+uint64_t operations_research::sat::CpModelPresolver::PresolveOneConstraint(operations_research::sat::CpModelPresolver *this, int a2)
+{
+  v2 = *(this + 1);
+  if (v2[52])
+  {
+    return 0;
+  }
+
+  v6 = *v2;
+  v8 = *(v6 + 48);
+  v7 = (v6 + 48);
+  v9 = v8 + 8 * a2 + 7;
+  if (v8)
+  {
+    v7 = v9;
+  }
+
+  v10 = *v7;
+  if (!operations_research::sat::CpModelPresolver::ExploitEquivalenceRelations(this, a2, *v7))
+  {
+    if (!operations_research::sat::CpModelPresolver::PresolveEnforcementLiteral(this, v10))
+    {
+      goto LABEL_7;
+    }
+
+LABEL_10:
+    operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+    v15 = *(v10 + 15) - 3;
+    goto LABEL_11;
+  }
+
+  operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+  if (operations_research::sat::CpModelPresolver::PresolveEnforcementLiteral(this, v10))
+  {
+    goto LABEL_10;
+  }
+
+LABEL_7:
+  v15 = *(v10 + 15) - 3;
+  if (v15 <= 0x1A)
+  {
+LABEL_11:
+    switch(v15)
+    {
+      case 0u:
+
+        return operations_research::sat::CpModelPresolver::PresolveBoolOr(this, v10, v12, v13, v14);
+      case 1u:
+
+        return operations_research::sat::CpModelPresolver::PresolveBoolAnd(this, v10, v12, v13, v14);
+      case 2u:
+
+        return operations_research::sat::CpModelPresolver::PresolveBoolXor(this, v10);
+      case 4u:
+        if (operations_research::sat::CpModelPresolver::CanonicalizeLinearArgument(this, v10, *(v10 + 6)))
+        {
+          operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+        }
+
+        return operations_research::sat::CpModelPresolver::PresolveIntDiv(this, a2, v10);
+      case 5u:
+        if (operations_research::sat::CpModelPresolver::CanonicalizeLinearArgument(this, v10, *(v10 + 6)))
+        {
+          operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+        }
+
+        return operations_research::sat::CpModelPresolver::PresolveIntMod(this, a2, v10);
+      case 8u:
+        if (operations_research::sat::CpModelPresolver::CanonicalizeLinearArgument(this, v10, *(v10 + 6)))
+        {
+          operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+        }
+
+        return operations_research::sat::CpModelPresolver::PresolveIntProd(this, v10);
+      case 9u:
+        if (operations_research::sat::CpModelPresolver::CanonicalizeLinear(this, v10, v12, v13, v14))
+        {
+          operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+          if (!operations_research::sat::CpModelPresolver::PropagateDomainsInLinear(this, a2, v10))
+          {
+LABEL_49:
+            if (!operations_research::sat::CpModelPresolver::PresolveSmallLinear(this, v10, v16, v17, v18, v19))
+            {
+              goto LABEL_50;
+            }
+
+            goto LABEL_121;
+          }
+        }
+
+        else if (!operations_research::sat::CpModelPresolver::PropagateDomainsInLinear(this, a2, v10))
+        {
+          goto LABEL_49;
+        }
+
+        operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+        if (!operations_research::sat::CpModelPresolver::PresolveSmallLinear(this, v10, v47, v48, v49, v50))
+        {
+LABEL_50:
+          if (!operations_research::sat::CpModelPresolver::PresolveLinearEqualityWithModulo(this, v10))
+          {
+            goto LABEL_51;
+          }
+
+          goto LABEL_122;
+        }
+
+LABEL_121:
+        operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+        if (!operations_research::sat::CpModelPresolver::PresolveLinearEqualityWithModulo(this, v10))
+        {
+LABEL_51:
+          if (!operations_research::sat::CpModelPresolver::RemoveSingletonInLinear(this, v10, v20))
+          {
+            goto LABEL_125;
+          }
+
+          goto LABEL_123;
+        }
+
+LABEL_122:
+        operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+        if (!operations_research::sat::CpModelPresolver::RemoveSingletonInLinear(this, v10, v51))
+        {
+          goto LABEL_125;
+        }
+
+LABEL_123:
+        operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+        if (operations_research::sat::CpModelPresolver::PresolveSmallLinear(this, v10, v52, v53, v54, v55))
+        {
+          operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+        }
+
+LABEL_125:
+        if (operations_research::sat::CpModelPresolver::PresolveSmallLinear(this, v10, v21, v22, v23, v24))
+        {
+          operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+        }
+
+        if (operations_research::sat::CpModelPresolver::PresolveLinearOnBooleans(this, v10))
+        {
+          operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+        }
+
+        v56 = *(v10 + 4);
+        operations_research::sat::CpModelPresolver::ExtractEnforcementLiteralFromLinearConstraint(this, a2, v10);
+        if ((*(*(this + 1) + 416) & 1) == 0)
+        {
+          if (*(v10 + 4) > v56)
+          {
+            if (operations_research::sat::CpModelPresolver::DivideLinearByGcd(this, v10, v57, v58, v59))
+            {
+              operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+            }
+
+            if (operations_research::sat::CpModelPresolver::PresolveSmallLinear(this, v10, v60, v61, v62, v63))
+            {
+              operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+            }
+          }
+
+          if (operations_research::sat::CpModelPresolver::PresolveDiophantine(this, v10))
+          {
+            operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+          }
+
+          operations_research::sat::CpModelPresolver::TryToReduceCoefficientsOfLinearConstraint(this, a2, v10, v64);
+        }
+
+        return 0;
+      case 0xAu:
+
+        return operations_research::sat::CpModelPresolver::PresolveAllDiff(this, v10);
+      case 0xBu:
+
+        return operations_research::sat::CpModelPresolver::PresolveElement(this, v10, v12, v13, v14);
+      case 0xCu:
+
+        return operations_research::sat::CpModelPresolver::PresolveCircuit(this, v10);
+      case 0xDu:
+
+        return operations_research::sat::CpModelPresolver::PresolveTable(this, v10);
+      case 0xEu:
+
+        return operations_research::sat::CpModelPresolver::PresolveAutomaton(this, v10);
+      case 0xFu:
+
+        return operations_research::sat::CpModelPresolver::PresolveInverse(this, v10);
+      case 0x10u:
+
+        return operations_research::sat::CpModelPresolver::PresolveInterval(this, a2, v10);
+      case 0x11u:
+        v25 = *(v10 + 6);
+        v26 = *(v25 + 16);
+        if (v26 < 1)
+        {
+          goto LABEL_107;
+        }
+
+        v27 = 0;
+        v28 = 0;
+        do
+        {
+          while (1)
+          {
+            v29 = *(*(v25 + 24) + 4 * v27);
+            IntervalRepresentative = operations_research::sat::PresolveContext::GetIntervalRepresentative(*(this + 1), v29);
+            if (v29 == IntervalRepresentative)
+            {
+              break;
+            }
+
+            *(*(v25 + 24) + 4 * v27) = IntervalRepresentative;
+            v28 = 1;
+            v31 = v26 - 1 == v27++;
+            if (v31)
+            {
+              goto LABEL_106;
+            }
+          }
+
+          ++v27;
+        }
+
+        while (v26 != v27);
+        if ((v28 & 1) == 0)
+        {
+          goto LABEL_107;
+        }
+
+LABEL_106:
+        operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+LABEL_107:
+
+        return operations_research::sat::CpModelPresolver::PresolveNoOverlap(this, v10);
+      case 0x12u:
+        v32 = *(v10 + 6);
+        v33 = *(v32 + 16);
+        if (v33 < 1)
+        {
+          goto LABEL_112;
+        }
+
+        v34 = 0;
+        v35 = 0;
+        do
+        {
+          while (1)
+          {
+            v36 = *(*(v32 + 24) + 4 * v34);
+            v37 = operations_research::sat::PresolveContext::GetIntervalRepresentative(*(this + 1), v36);
+            if (v36 == v37)
+            {
+              break;
+            }
+
+            *(*(v32 + 24) + 4 * v34) = v37;
+            v35 = 1;
+            v31 = v33 - 1 == v34++;
+            if (v31)
+            {
+              goto LABEL_111;
+            }
+          }
+
+          ++v34;
+        }
+
+        while (v33 != v34);
+        if ((v35 & 1) == 0)
+        {
+          goto LABEL_112;
+        }
+
+LABEL_111:
+        operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+LABEL_112:
+        if (*(v10 + 15) == 21)
+        {
+          v46 = *(v10 + 6);
+        }
+
+        else
+        {
+          operations_research::sat::ConstraintProto::clear_constraint(v10);
+          *(v10 + 15) = 21;
+          v65 = *(v10 + 1);
+          if (v65)
+          {
+            v65 = *(v65 & 0xFFFFFFFFFFFFFFFELL);
+          }
+
+          v46 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::NoOverlap2DConstraintProto>(v65);
+          *(v10 + 6) = v46;
+        }
+
+        v66 = *(v46 + 10);
+        if (v66 >= 1)
+        {
+          v67 = 0;
+          v68 = 0;
+          do
+          {
+            while (1)
+            {
+              v69 = *(v46[6] + 4 * v67);
+              v70 = operations_research::sat::PresolveContext::GetIntervalRepresentative(*(this + 1), v69);
+              if (v69 == v70)
+              {
+                break;
+              }
+
+              *(v46[6] + 4 * v67) = v70;
+              v68 = 1;
+              v31 = v66 - 1 == v67++;
+              if (v31)
+              {
+                goto LABEL_150;
+              }
+            }
+
+            ++v67;
+          }
+
+          while (v66 != v67);
+          if ((v68 & 1) == 0)
+          {
+            goto LABEL_151;
+          }
+
+LABEL_150:
+          operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+        }
+
+LABEL_151:
+
+        return operations_research::sat::CpModelPresolver::PresolveNoOverlap2D(this, v11, v10);
+      case 0x13u:
+        v38 = *(v10 + 6);
+        v39 = *(v38 + 24);
+        if (v39 < 1)
+        {
+          goto LABEL_116;
+        }
+
+        v40 = 0;
+        v41 = 0;
+        do
+        {
+          while (1)
+          {
+            v42 = *(*(v38 + 32) + 4 * v40);
+            v43 = operations_research::sat::PresolveContext::GetIntervalRepresentative(*(this + 1), v42);
+            if (v42 == v43)
+            {
+              break;
+            }
+
+            *(*(v38 + 32) + 4 * v40) = v43;
+            v41 = 1;
+            v31 = v39 - 1 == v40++;
+            if (v31)
+            {
+              goto LABEL_115;
+            }
+          }
+
+          ++v40;
+        }
+
+        while (v39 != v40);
+        if ((v41 & 1) == 0)
+        {
+          goto LABEL_116;
+        }
+
+LABEL_115:
+        operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+LABEL_116:
+
+        return operations_research::sat::CpModelPresolver::PresolveCumulative(this, v10);
+      case 0x14u:
+
+        return operations_research::sat::CpModelPresolver::PresolveRoutes(this, v10, v12);
+      case 0x15u:
+
+        return operations_research::sat::CpModelPresolver::PresolveReservoir(this, v10);
+      case 0x17u:
+
+        return operations_research::sat::CpModelPresolver::PresolveAtMostOne(this, v10);
+      case 0x18u:
+        if (operations_research::sat::CpModelPresolver::CanonicalizeLinearArgument(this, v10, *(v10 + 6)))
+        {
+          operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(this + 1), a2);
+        }
+
+        if (!operations_research::sat::CpModelPresolver::DivideLinMaxByGcd(this, a2, v10))
+        {
+          return 0;
+        }
+
+        return operations_research::sat::CpModelPresolver::PresolveLinMax(this, v10, v44, v45);
+      case 0x1Au:
+
+        return operations_research::sat::CpModelPresolver::PresolveExactlyOne(this, v10);
+      default:
+        return 0;
+    }
+  }
+
+  return 0;
+}
+
+uint64_t operations_research::sat::CpModelPresolver::ProcessSetPPCSubset(uint64_t a1, int a2, int a3, unint64_t *a4, _BYTE *a5, _BYTE *a6, _BYTE *a7)
+{
+  v7 = *(a1 + 8);
+  v8 = (*v7 + 48);
+  if (*v8)
+  {
+    v9 = (*v8 + 7 + 8 * a2);
+  }
+
+  else
+  {
+    v9 = (*v7 + 48);
+  }
+
+  v10 = *v9;
+  if (*v8)
+  {
+    v8 = (*v8 + 7 + 8 * a3);
+  }
+
+  v11 = *v8;
+  v12 = *(v10 + 60);
+  if (v12 != 3 && v12 != 29)
+  {
+    if (v12 == 26)
+    {
+      v16 = *(v11 + 60);
+LABEL_19:
+      if (v16 == 29 || v16 == 26)
+      {
+        operator new();
+      }
+
+      return 1;
+    }
+
+    return 1;
+  }
+
+  v16 = *(v11 + 60);
+  if (v16 == 29 || v16 == 26)
+  {
+    operator new();
+  }
+
+  if (v12 != 29)
+  {
+    if (v12 == 26)
+    {
+      goto LABEL_19;
+    }
+
+    if (v12 != 3)
+    {
+      return 1;
+    }
+  }
+
+  if (v16 == 3)
+  {
+    operator new();
+  }
+
+  if (v12 != 29 || v16 != 12)
+  {
+    return 1;
+  }
+
+  if (*a4 > 1)
+  {
+    v22 = a6;
+    absl::lts_20240722::container_internal::ClearBackingArray(a4, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::GetPolicyFunctions(void)::value, *a4 < 0x80, 1u);
+    a6 = v22;
+  }
+
+  else
+  {
+    a4[1] = 0;
+  }
+
+  v138 = a6;
+  if (*(v10 + 60) == 29)
+  {
+    v23 = *(v10 + 48);
+  }
+
+  else
+  {
+    v23 = &operations_research::sat::_BoolArgumentProto_default_instance_;
+  }
+
+  v24 = 4 * *(v23 + 4);
+  if (v24)
+  {
+    v25 = v23[3];
+    v26 = (v25 + v24);
+    do
+    {
+      absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>(a4, v25, &v153);
+      if (BYTE8(v154) == 1)
+      {
+        *v154 = *v25;
+      }
+
+      v25 = (v25 + 4);
+    }
+
+    while (v25 != v26);
+  }
+
+  v137 = a7;
+  operations_research::sat::ConstraintProto::Clear((a1 + 168));
+  operations_research::Domain::Domain(&v153, 0);
+  v27 = 0;
+  v141 = 0;
+  v150 = 0;
+  v151 = 0;
+  v152 = 0;
+  v139 = 0x7FFFFFFFFFFFFFFFLL;
+  v140 = 0x8000000000000000;
+  v28 = *(v11 + 60);
+  if (v28 == 12)
+  {
+    goto LABEL_47;
+  }
+
+LABEL_46:
+  for (i = &operations_research::sat::_LinearConstraintProto_default_instance_; v27 < *(i + 4); i = *(v11 + 48))
+  {
+    v30 = v11;
+    v31 = *(i[3] + v27);
+    v32 = i[6][v27];
+    v33 = *a4;
+    if (*a4 > 1)
+    {
+      v40 = 0;
+      _X11 = a4[2];
+      __asm { PRFM            #4, [X11] }
+
+      v46 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v31) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v31));
+      v47 = vdup_n_s8(v46 & 0x7F);
+      v48 = ((v46 >> 7) ^ (_X11 >> 12)) & v33;
+      v49 = *(_X11 + v48);
+      v50 = vceq_s8(v49, v47);
+      if (!v50)
+      {
+        goto LABEL_64;
+      }
+
+LABEL_62:
+      while (*(a4[3] + 4 * ((v48 + (__clz(__rbit64(v50)) >> 3)) & v33)) != v31)
+      {
+        v50 &= ((v50 & 0x8080808080808080) - 1) & 0x8080808080808080;
+        if (!v50)
+        {
+LABEL_64:
+          while (!*&vceq_s8(v49, 0x8080808080808080))
+          {
+            v40 += 8;
+            v48 = (v40 + v48) & v33;
+            v49 = *(_X11 + v48);
+            v50 = vceq_s8(v49, v47);
+            if (v50)
+            {
+              goto LABEL_62;
+            }
+          }
+
+          goto LABEL_67;
+        }
+      }
+
+LABEL_52:
+      v34 = v140;
+      if (v32 >= v139)
+      {
+        v35 = v139;
+      }
+
+      else
+      {
+        v35 = v32;
+      }
+
+      if (v140 <= v32)
+      {
+        v34 = v32;
+      }
+
+      v139 = v35;
+      v140 = v34;
+      v36 = &operations_research::sat::_LinearConstraintProto_default_instance_;
+      v11 = v30;
+      if (v28 == 12)
+      {
+        v36 = *(v30 + 48);
+      }
+
+      v37 = v36[6][v27];
+      v38 = v151;
+      if (v151 >= v152)
+      {
+        v62 = v150;
+        v63 = v151 - v150;
+        v64 = (v151 - v150) >> 4;
+        v65 = v64 + 1;
+        if ((v64 + 1) >> 60)
+        {
+          std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
+        }
+
+        v66 = v152 - v150;
+        if ((v152 - v150) >> 3 > v65)
+        {
+          v65 = v66 >> 3;
+        }
+
+        if (v66 >= 0x7FFFFFFFFFFFFFF0)
+        {
+          v67 = 0xFFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v67 = v65;
+        }
+
+        if (v67)
+        {
+          if (!(v67 >> 60))
+          {
+            operator new();
+          }
+
+          std::__throw_bad_array_new_length[abi:ne200100]();
+        }
+
+        v68 = (v151 - v150) >> 4;
+        v69 = 16 * v64;
+        *v69 = v37;
+        *(v69 + 8) = 1;
+        v39 = (16 * v64 + 16);
+        v70 = (16 * v64 - 16 * v68);
+        memcpy((v69 - 16 * v68), v62, v63);
+        v150 = v70;
+        v151 = v39;
+        v152 = 0;
+        if (v62)
+        {
+          operator delete(v62);
+        }
+      }
+
+      else
+      {
+        *v151 = v37;
+        *(v38 + 2) = 1;
+        v39 = (v38 + 16);
+      }
+
+      ++v141;
+      v151 = v39;
+      ++v27;
+      v28 = *(v11 + 60);
+      if (v28 != 12)
+      {
+        goto LABEL_46;
+      }
+
+      continue;
+    }
+
+    if (a4[1] >= 2 && *(a4 + 4) == v31)
+    {
+      goto LABEL_52;
+    }
+
+LABEL_67:
+    operations_research::sat::PresolveContext::DomainOf(&v142, *(a1 + 8), v31);
+    operations_research::Domain::ContinuousMultiplicationBy(&v144, &v142, v32);
+    operations_research::Domain::AdditionWith(v146, &v153, &v144, v51);
+    operations_research::Domain::RelaxIfTooComplex(&v148, v146);
+    if (v153)
+    {
+      operator delete(v154);
+    }
+
+    v153 = v148;
+    v154 = *v149;
+    v148 = 0;
+    if (v146[0])
+    {
+      operator delete(v146[1]);
+      if ((v144 & 1) == 0)
+      {
+LABEL_71:
+        if ((v142 & 1) == 0)
+        {
+          goto LABEL_72;
+        }
+
+        goto LABEL_76;
+      }
+    }
+
+    else if ((v144 & 1) == 0)
+    {
+      goto LABEL_71;
+    }
+
+    operator delete(v145);
+    if ((v142 & 1) == 0)
+    {
+LABEL_72:
+      if (*(a1 + 228) == 12)
+      {
+        goto LABEL_73;
+      }
+
+      goto LABEL_77;
+    }
+
+LABEL_76:
+    operator delete(v143);
+    if (*(a1 + 228) == 12)
+    {
+LABEL_73:
+      v52 = *(a1 + 216);
+      goto LABEL_80;
+    }
+
+LABEL_77:
+    operations_research::sat::ConstraintProto::clear_constraint(a1 + 168);
+    *(a1 + 228) = 12;
+    v53 = *(a1 + 176);
+    if (v53)
+    {
+      v53 = *(v53 & 0xFFFFFFFFFFFFFFFELL);
+    }
+
+    v52 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearConstraintProto>(v53);
+    *(a1 + 216) = v52;
+LABEL_80:
+    v55 = *(v52 + 4);
+    v54 = *(v52 + 5);
+    if (v55 == v54)
+    {
+      google::protobuf::RepeatedField<int>::Grow((v52 + 2), v54, (v54 + 1));
+      v55 = *(v52 + 4);
+    }
+
+    v56 = v52[3];
+    *(v52 + 4) = v55 + 1;
+    *(v56 + 4 * v55) = v31;
+    if (*(a1 + 228) == 12)
+    {
+      v57 = *(a1 + 216);
+    }
+
+    else
+    {
+      operations_research::sat::ConstraintProto::clear_constraint(a1 + 168);
+      *(a1 + 228) = 12;
+      v58 = *(a1 + 176);
+      if (v58)
+      {
+        v58 = *(v58 & 0xFFFFFFFFFFFFFFFELL);
+      }
+
+      v57 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearConstraintProto>(v58);
+      *(a1 + 216) = v57;
+    }
+
+    v60 = *(v57 + 10);
+    v59 = *(v57 + 11);
+    if (v60 == v59)
+    {
+      google::protobuf::RepeatedField<long long>::Grow((v57 + 5), v59, (v59 + 1));
+      v60 = *(v57 + 10);
+    }
+
+    v61 = v57[6];
+    *(v57 + 10) = v60 + 1;
+    *(v61 + 8 * v60) = v32;
+    v11 = v30;
+    ++v27;
+    v28 = *(v30 + 60);
+    if (v28 != 12)
+    {
+      goto LABEL_46;
+    }
+
+LABEL_47:
+    ;
+  }
+
+  v71 = a4[1] >> 1;
+  if (v71 != v141)
+  {
+    result = 1;
+    goto LABEL_196;
+  }
+
+  v72 = *(a1 + 8);
+  if (*(v10 + 60) == 29)
+  {
+    std::string::basic_string[abi:ne200100]<0>(&v148, "setppc: exactly_one included in linear");
+  }
+
+  else
+  {
+    std::string::basic_string[abi:ne200100]<0>(&v148, "setppc: at_most_one included in linear");
+  }
+
+  operations_research::sat::PresolveContext::UpdateRuleStats(v72, &v148, 1, v73, v74);
+  if (SHIBYTE(v149[1]) < 0)
+  {
+    operator delete(v148);
+  }
+
+  operations_research::Domain::Domain(v146, v139, v140);
+  operations_research::Domain::AdditionWith(&v148, &v153, v146, v75);
+  if (v153)
+  {
+    operator delete(v154);
+  }
+
+  v153 = v148;
+  v76 = *v149;
+  v154 = *v149;
+  v148 = 0;
+  if (v146[0])
+  {
+    operator delete(v146[1]);
+  }
+
+  v77 = &operations_research::sat::_LinearConstraintProto_default_instance_;
+  if (*(v11 + 60) == 12)
+  {
+    v77 = *(v11 + 48);
+  }
+
+  operations_research::Domain::FromFlatSpanOfIntervals(v77[9], *(v77 + 16), &v148, v76);
+  if (operations_research::Domain::IsIncludedIn(&v153, &v148))
+  {
+    v78 = *(a1 + 8);
+    std::string::basic_string[abi:ne200100]<0>(v146, "setppc: removed trivial linear constraint");
+    operations_research::sat::PresolveContext::UpdateRuleStats(v78, v146, 1, v79, v80);
+    if (v147 < 0)
+    {
+      operator delete(v146[0]);
+    }
+
+    result = 1;
+    *v138 = 1;
+    goto LABEL_194;
+  }
+
+  operations_research::Domain::IntersectionWith(v146, &v153, &v148);
+  IsEmpty = operations_research::Domain::IsEmpty(v146);
+  if (v146[0])
+  {
+    operator delete(v146[1]);
+  }
+
+  if (IsEmpty)
+  {
+    v83 = *(a1 + 8);
+    std::string::basic_string[abi:ne200100]<0>(v146, "setppc: removed infeasible linear constraint");
+    operations_research::sat::PresolveContext::UpdateRuleStats(v83, v146, 1, v84, v85);
+    if (v147 < 0)
+    {
+      operator delete(v146[0]);
+    }
+
+    *v137 = 1;
+    result = operations_research::sat::CpModelPresolver::MarkConstraintAsFalse(a1, v11, v86, v87, v88);
+    goto LABEL_194;
+  }
+
+  if (!*(v11 + 16))
+  {
+    if (v141 <= 0)
+    {
+      absl::lts_20240722::log_internal::MakeCheckOpString<long long,long long>(v71, 0, "num_matches > 0");
+    }
+
+    if (*(v11 + 60) == 12)
+    {
+      v89 = *(v11 + 48);
+    }
+
+    else
+    {
+      v89 = &operations_research::sat::_LinearConstraintProto_default_instance_;
+    }
+
+    operations_research::Domain::FromFlatSpanOfIntervals(v89[9], *(v89 + 16), &v144, v82);
+    operations_research::Domain::Domain(&v142, -v140, -v139);
+    operations_research::Domain::AdditionWith(v146, &v144, &v142, v90);
+    v91 = operations_research::sat::ConstraintProto::mutable_linear((a1 + 168));
+    operations_research::sat::FillDomainInProto<operations_research::sat::LinearConstraintProto>(v146, v91);
+    if ((v146[0] & 1) == 0)
+    {
+      if ((v142 & 1) == 0)
+      {
+        goto LABEL_134;
+      }
+
+LABEL_204:
+      operator delete(v143);
+      if ((v144 & 1) == 0)
+      {
+        goto LABEL_136;
+      }
+
+LABEL_135:
+      operator delete(v145);
+      goto LABEL_136;
+    }
+
+    operator delete(v146[1]);
+    if (v142)
+    {
+      goto LABEL_204;
+    }
+
+LABEL_134:
+    if (v144)
+    {
+      goto LABEL_135;
+    }
+
+LABEL_136:
+    operations_research::sat::CpModelPresolver::PropagateDomainsInLinear(a1, -1, (a1 + 168));
+  }
+
+  std::sort[abi:ne200100]<std::__wrap_iter<std::pair<long long,int> *>>(v150, v151);
+  v92 = v150;
+  if (v151 == v150)
+  {
+    v100 = 0;
+  }
+
+  else
+  {
+    v93 = 0;
+    v94 = 0;
+    v95 = (v151 - v150) >> 4;
+    v96 = 1;
+    do
+    {
+      while (1)
+      {
+        v98 = v92[2 * v93];
+        if (v94 >= 1)
+        {
+          v99 = &v92[2 * v94];
+          if (v98 == *(v99 - 2))
+          {
+            break;
+          }
+        }
+
+        v97 = &v92[2 * v94++];
+        *v97 = v98;
+        *(v97 + 2) = v92[2 * v93 + 1];
+        v93 = v96++;
+        if (v95 <= v93)
+        {
+          goto LABEL_143;
+        }
+      }
+
+      ++*(v99 - 2);
+      v93 = v96++;
+    }
+
+    while (v95 > v93);
+LABEL_143:
+    v100 = v94;
+  }
+
+  std::vector<std::pair<long long,int>>::resize(&v150, v100);
+  v101 = v150;
+  if (v150 == v151)
+  {
+    goto LABEL_193;
+  }
+
+  v102 = 0;
+  v103 = 0;
+  do
+  {
+    v104 = *(v101 + 2);
+    if (v102 < v104)
+    {
+      v103 = *v101;
+    }
+
+    if (v102 <= v104)
+    {
+      v102 = *(v101 + 2);
+    }
+
+    v101 += 2;
+  }
+
+  while (v101 != v151);
+  if (!v103)
+  {
+    goto LABEL_193;
+  }
+
+  v105 = 0;
+  v106 = 0;
+  while (2)
+  {
+    v108 = *(v11 + 60);
+    if (v108 == 12)
+    {
+      v109 = *(v11 + 48);
+    }
+
+    else
+    {
+      v109 = &operations_research::sat::_LinearConstraintProto_default_instance_;
+    }
+
+    if (v106 < *(v109 + 4))
+    {
+      v110 = *(v109[3] + v106);
+      v111 = v109[6][v106];
+      v112 = *a4;
+      if (*a4 <= 1)
+      {
+        if (a4[1] >= 2 && *(a4 + 4) == v110)
+        {
+          goto LABEL_164;
+        }
+
+        goto LABEL_165;
+      }
+
+      v115 = 0;
+      _X11 = a4[2];
+      __asm { PRFM            #4, [X11] }
+
+      v118 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v110) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v110));
+      v119 = vdup_n_s8(v118 & 0x7F);
+      v120 = ((v118 >> 7) ^ (_X11 >> 12)) & v112;
+      v121 = *(_X11 + v120);
+      v122 = vceq_s8(v121, v119);
+      if (!v122)
+      {
+        goto LABEL_170;
+      }
+
+LABEL_168:
+      while (*(a4[3] + 4 * ((v120 + (__clz(__rbit64(v122)) >> 3)) & v112)) != v110)
+      {
+        v122 &= ((v122 & 0x8080808080808080) - 1) & 0x8080808080808080;
+        if (!v122)
+        {
+LABEL_170:
+          while (!*&vceq_s8(v121, 0x8080808080808080))
+          {
+            v115 += 8;
+            v120 = (v115 + v120) & v112;
+            v121 = *(_X11 + v120);
+            v122 = vceq_s8(v121, v119);
+            if (v122)
+            {
+              goto LABEL_168;
+            }
+          }
+
+          goto LABEL_165;
+        }
+      }
+
+LABEL_164:
+      v111 = (v111 - v103);
+      if (v111)
+      {
+LABEL_165:
+        if (v108 == 12)
+        {
+          v113 = v11;
+          v114 = *(v11 + 48);
+        }
+
+        else
+        {
+          operations_research::sat::ConstraintProto::clear_constraint(v11);
+          *(v11 + 60) = 12;
+          v123 = *(v11 + 8);
+          if (v123)
+          {
+            v123 = *(v123 & 0xFFFFFFFFFFFFFFFELL);
+          }
+
+          v114 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearConstraintProto>(v123);
+          v113 = v11;
+          *(v11 + 48) = v114;
+        }
+
+        *(v114[3] + 4 * v105) = v110;
+        if (*(v113 + 60) == 12)
+        {
+          v107 = *(v113 + 48);
+        }
+
+        else
+        {
+          operations_research::sat::ConstraintProto::clear_constraint(v113);
+          *(v113 + 60) = 12;
+          v124 = *(v113 + 8);
+          if (v124)
+          {
+            v124 = *(v124 & 0xFFFFFFFFFFFFFFFELL);
+          }
+
+          v107 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearConstraintProto>(v124);
+          *(v11 + 48) = v107;
+        }
+
+        *(v107[6] + 8 * v105++) = v111;
+      }
+
+      ++v106;
+      continue;
+    }
+
+    break;
+  }
+
+  v125 = operations_research::sat::ConstraintProto::mutable_linear(v11);
+  if (*(v125 + 4) > v105)
+  {
+    *(v125 + 4) = v105;
+  }
+
+  v126 = operations_research::sat::ConstraintProto::mutable_linear(v11);
+  if (*(v126 + 10) > v105)
+  {
+    *(v126 + 10) = v105;
+  }
+
+  if (*(v11 + 60) == 12)
+  {
+    v128 = *(v11 + 48);
+  }
+
+  else
+  {
+    v128 = &operations_research::sat::_LinearConstraintProto_default_instance_;
+  }
+
+  operations_research::Domain::FromFlatSpanOfIntervals(v128[9], *(v128 + 16), &v144, v127);
+  operations_research::Domain::Domain(&v142, -v103);
+  operations_research::Domain::AdditionWith(v146, &v144, &v142, v129);
+  v130 = operations_research::sat::ConstraintProto::mutable_linear(v11);
+  operations_research::sat::FillDomainInProto<operations_research::sat::LinearConstraintProto>(v146, v130);
+  if ((v146[0] & 1) == 0)
+  {
+    if ((v142 & 1) == 0)
+    {
+      goto LABEL_189;
+    }
+
+LABEL_201:
+    operator delete(v143);
+    if ((v144 & 1) == 0)
+    {
+      goto LABEL_191;
+    }
+
+LABEL_190:
+    operator delete(v145);
+    goto LABEL_191;
+  }
+
+  operator delete(v146[1]);
+  if (v142)
+  {
+    goto LABEL_201;
+  }
+
+LABEL_189:
+  if (v144)
+  {
+    goto LABEL_190;
+  }
+
+LABEL_191:
+  operations_research::sat::PresolveContext::UpdateConstraintVariableUsage(*(a1 + 8), a3);
+  v131 = *(a1 + 8);
+  std::string::basic_string[abi:ne200100]<0>(v146, "setppc: reduced linear coefficients");
+  operations_research::sat::PresolveContext::UpdateRuleStats(v131, v146, 1, v132, v133);
+  if (v147 < 0)
+  {
+    operator delete(v146[0]);
+  }
+
+LABEL_193:
+  result = 1;
+LABEL_194:
+  if (v148)
+  {
+    v134 = result;
+    operator delete(v149[0]);
+    result = v134;
+  }
+
+LABEL_196:
+  if (v150)
+  {
+    v151 = v150;
+    v135 = result;
+    operator delete(v150);
+    result = v135;
+  }
+
+  if (v153)
+  {
+    v136 = result;
+    operator delete(v154);
+    return v136;
+  }
+
+  return result;
 }

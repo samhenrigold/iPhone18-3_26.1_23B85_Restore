@@ -121,11 +121,10 @@ LABEL_13:
 
 - (void)raiseRuntimeIssue:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 136315138;
-  v5 = [a1 cStringUsingEncoding:4];
-  _os_log_fault_impl(&dword_24DBC9000, a2, OS_LOG_TYPE_FAULT, "%s", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 136315138;
+  v4 = [a1 cStringUsingEncoding:4];
+  _os_log_fault_impl(&dword_24DBC9000, a2, OS_LOG_TYPE_FAULT, "%s", &v3, 0xCu);
 }
 
 @end

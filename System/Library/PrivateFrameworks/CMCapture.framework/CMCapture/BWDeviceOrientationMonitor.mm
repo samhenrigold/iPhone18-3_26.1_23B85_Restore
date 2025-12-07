@@ -1,9 +1,9 @@
 @interface BWDeviceOrientationMonitor
 - (BWDeviceOrientationMonitor)init;
+- (_DWORD)_orientationChanged;
 - (int)rotationDegreesFromOrientation:(int)orientation isFrontCamera:(BOOL)camera isExternalCamera:(BOOL)externalCamera isMirrored:(BOOL)mirrored clientExpectsCameraMountedInLandscapeOrientation:(BOOL)landscapeOrientation;
 - (uint64_t)_doStart;
 - (uint64_t)_doStop;
-- (uint64_t)_orientationChanged;
 - (void)dealloc;
 @end
 
@@ -134,7 +134,7 @@ LABEL_10:
       v13 = v12;
     }
 
-    if ((externalCameraCopy | cameraCopy & ~v11))
+    if (externalCameraCopy | cameraCopy & ~v11)
     {
       v14 = 270;
     }
@@ -144,7 +144,7 @@ LABEL_10:
       v14 = 90;
     }
 
-    if ((externalCameraCopy | cameraCopy & ~v11))
+    if (externalCameraCopy | cameraCopy & ~v11)
     {
       v15 = 90;
     }
@@ -251,43 +251,44 @@ void __38__BWDeviceOrientationMonitor__doStart__block_invoke(uint64_t a1)
   return result;
 }
 
-- (uint64_t)_orientationChanged
+- (_DWORD)_orientationChanged
 {
   if (result)
   {
-    v1 = result;
+    v2 = result;
     result = FigSimpleMutexLock();
     if (!result)
     {
-      v2 = v1[2];
-      if (v2)
+      v3 = v2[2];
+      if (v3)
       {
         state64 = 0;
-        notify_get_state(v2, &state64);
-        v3 = state64;
+        notify_get_state(v3, &state64);
+        v4 = state64;
         if (state64)
         {
-          if (v1[7] != state64)
+          if (v2[7] != state64)
           {
             if (state64 >= 7)
             {
               fig_log_get_emitter();
-              FigDebugAssert3();
+              v6 = 0;
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v1, v7, state64, v9, v10, v11, v12);
             }
 
             else
             {
-              if (state64 <= 4 && v1[6] != state64)
+              if (state64 <= 4 && v2[6] != state64)
               {
-                v1[6] = state64;
-                portraitLandscapeUpdateDelegate = [v1 portraitLandscapeUpdateDelegate];
+                v2[6] = state64;
+                portraitLandscapeUpdateDelegate = [v2 portraitLandscapeUpdateDelegate];
                 if (portraitLandscapeUpdateDelegate)
                 {
-                  [portraitLandscapeUpdateDelegate didUpdatePortraitLandscapeOrientation:v1[6]];
+                  [portraitLandscapeUpdateDelegate didUpdatePortraitLandscapeOrientation:v2[6]];
                 }
               }
 
-              v1[7] = v3;
+              v2[7] = v4;
             }
           }
         }

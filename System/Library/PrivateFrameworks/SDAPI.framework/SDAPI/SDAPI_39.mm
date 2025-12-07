@@ -1,16 +1,17 @@
-void WordLanguageModel::checkWordListLMAgreement(WordLanguageModel *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void WordLanguageModel::checkWordListLMAgreement(WordLanguageModel *this)
 {
-  v9 = *(*(this + 2) + 388);
-  v10 = *(this + 32);
-  if (!v10)
+  v2 = *(*(this + 2) + 388);
+  v3 = *(this + 32);
+  if (!v3)
   {
-    v10 = *(this + 36);
-    if (!v10)
+    v3 = *(this + 36);
+    if (!v3)
     {
-      if (v9 == *(this + 40))
+      v3 = *(this + 40);
+      if (v2 == v3)
       {
 LABEL_5:
-        if (!v9)
+        if (!v2)
         {
           return;
         }
@@ -19,156 +20,150 @@ LABEL_5:
       }
 
 LABEL_4:
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9191, "lm/wordlm", 49, "%u %u", a7, a8, *(*(this + 2) + 388));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9191, "lm/wordlm", 49, "%u %u", *(*(this + 2) + 388), v3);
       goto LABEL_5;
     }
   }
 
-  if (v9 != v10)
+  if (v2 != v3)
   {
     goto LABEL_4;
   }
 
 LABEL_6:
-  v11 = 0;
+  v4 = 0;
   do
   {
-    v12 = *(this + 2);
-    if (v11 < *(v12 + 388) && *(*(v12 + 104) + v11))
+    v5 = *(this + 2);
+    if (v4 < *(v5 + 388) && *(*(v5 + 104) + v4))
     {
       if (*(this + 32))
       {
-        v13 = *(this + 15);
-        v14 = *(v13 + 4 * v11);
-        v15 = *(*(v12 + 256) + 4 * v11);
-        v16 = *(v13 + 4 * v15);
+        v6 = *(this + 15);
+        v7 = *(v6 + 4 * v4);
+        v8 = *(*(v5 + 256) + 4 * v4);
+        v9 = *(v6 + 4 * v8);
       }
 
       else
       {
-        LODWORD(v15) = *(*(v12 + 256) + 4 * v11);
+        LODWORD(v8) = *(*(v5 + 256) + 4 * v4);
         if (*(this + 36))
         {
-          v17 = *(this + 17);
-          if (*(v17 + 2 * v11) == 0xFFFF)
+          v10 = *(this + 17);
+          if (*(v10 + 2 * v4) == 0xFFFF)
           {
-            v14 = -1;
+            v7 = -1;
           }
 
           else
           {
-            v14 = *(v17 + 2 * v11);
+            v7 = *(v10 + 2 * v4);
           }
 
-          v16 = *(v17 + 2 * v15);
-          v18 = v16 == 0xFFFF;
+          v9 = *(v10 + 2 * v8);
+          v11 = v9 == 0xFFFF;
         }
 
         else
         {
-          v19 = *(this + 19);
-          if (*(v19 + v11) == 255)
+          v12 = *(this + 19);
+          if (*(v12 + v4) == 255)
           {
-            v14 = -1;
+            v7 = -1;
           }
 
           else
           {
-            v14 = *(v19 + v11);
+            v7 = *(v12 + v4);
           }
 
-          v16 = *(v19 + v15);
-          v18 = v16 == 255;
+          v9 = *(v12 + v8);
+          v11 = v9 == 255;
         }
 
-        if (v18)
+        if (v11)
         {
-          v16 = -1;
+          v9 = -1;
         }
       }
 
-      if (v14 != v16)
+      if (v7 != v9)
       {
-        v20 = *(v12 + 200);
-        v21 = *(v12 + 224);
-        v32 = v21 + *(v20 + 4 * v15);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9205, "lm/wordlm", 8, "%.500s %u %.500s %u %u %u", a7, a8, v21 + *(v20 + 4 * v11));
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9205, "lm/wordlm", 8, "%.500s %u %.500s %u %u %u", (*(v5 + 224) + *(*(v5 + 200) + 4 * v4)), v4, (*(v5 + 224) + *(*(v5 + 200) + 4 * v8)), v8, v7, v9);
       }
     }
 
     if (*(this + 276) == 1)
     {
-      v22 = *(this + 2);
-      if (v11 < *(v22 + 388))
+      v13 = *(this + 2);
+      if (v4 < *(v13 + 388))
       {
-        if (*(*(v22 + 104) + v11))
+        if (*(*(v13 + 104) + v4))
         {
           if (*(this + 72))
           {
-            v23 = *(this + 35);
-            v24 = *(v23 + 4 * v11);
-            v25 = *(*(v22 + 256) + 4 * v11);
-            v26 = *(v23 + 4 * v25);
+            v14 = *(this + 35);
+            v15 = *(v14 + 4 * v4);
+            v16 = *(*(v13 + 256) + 4 * v4);
+            v17 = *(v14 + 4 * v16);
           }
 
           else
           {
-            LODWORD(v25) = *(*(v22 + 256) + 4 * v11);
+            LODWORD(v16) = *(*(v13 + 256) + 4 * v4);
             if (*(this + 76))
             {
-              v27 = *(this + 37);
-              if (*(v27 + 2 * v11) == 0xFFFF)
+              v18 = *(this + 37);
+              if (*(v18 + 2 * v4) == 0xFFFF)
               {
-                v24 = -1;
+                v15 = -1;
               }
 
               else
               {
-                v24 = *(v27 + 2 * v11);
+                v15 = *(v18 + 2 * v4);
               }
 
-              v26 = *(v27 + 2 * v25);
-              v28 = v26 == 0xFFFF;
+              v17 = *(v18 + 2 * v16);
+              v19 = v17 == 0xFFFF;
             }
 
             else
             {
-              v29 = *(this + 39);
-              if (*(v29 + v11) == 255)
+              v20 = *(this + 39);
+              if (*(v20 + v4) == 255)
               {
-                v24 = -1;
+                v15 = -1;
               }
 
               else
               {
-                v24 = *(v29 + v11);
+                v15 = *(v20 + v4);
               }
 
-              v26 = *(v29 + v25);
-              v28 = v26 == 255;
+              v17 = *(v20 + v16);
+              v19 = v17 == 255;
             }
 
-            if (v28)
+            if (v19)
             {
-              v26 = -1;
+              v17 = -1;
             }
           }
 
-          if (v24 != v26)
+          if (v15 != v17)
           {
-            v30 = *(v22 + 200);
-            v31 = *(v22 + 224);
-            v33 = v31 + *(v30 + 4 * v25);
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9220, "lm/wordlm", 62, "%.500s %u %.500s %u %u %u", a7, a8, v31 + *(v30 + 4 * v11));
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9220, "lm/wordlm", 62, "%.500s %u %.500s %u %u %u", (*(v13 + 224) + *(*(v13 + 200) + 4 * v4)), v4, (*(v13 + 224) + *(*(v13 + 200) + 4 * v16)), v16, v15, v17);
           }
         }
       }
     }
 
-    ++v11;
+    ++v4;
   }
 
-  while (v9 != v11);
+  while (v2 != v4);
 }
 
 uint64_t WordLanguageModel::getTotalPreloadableBytes(WordLanguageModel *this)
@@ -224,84 +219,84 @@ uint64_t WordLanguageModel::computeLocalPreloadableBytes(WordLanguageModel *this
   return v2;
 }
 
-uint64_t WordLanguageModel::preloadBigramsAndTrigrams(uint64_t a1, unsigned int a2, uint64_t *a3, unsigned int *a4, _DWORD *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t WordLanguageModel::preloadBigramsAndTrigrams(uint64_t a1, unsigned int a2, uint64_t *a3, unsigned int *a4, _DWORD *a5)
 {
-  v10 = 0;
-  v23[0] = 0;
-  v23[1] = 0;
-  v22[0] = 0;
-  v22[1] = 0;
-  v21[0] = 0;
-  v21[1] = 0;
+  v7 = 0;
   v20[0] = 0;
   v20[1] = 0;
-  v11 = *a3;
+  v19[0] = 0;
+  v19[1] = 0;
+  v18[0] = 0;
+  v18[1] = 0;
+  v17[0] = 0;
+  v17[1] = 0;
+  v8 = *a3;
   do
   {
-    v12 = v11 + 16 * v10;
-    if (*(v12 + 8))
+    v9 = v8 + 16 * v7;
+    if (*(v9 + 8))
     {
-      v13 = 0;
+      v10 = 0;
       do
       {
-        v14 = *(*v12 + 4 * v13);
-        v15 = v14 & 0xE0000000;
-        if ((v14 & 0xE0000000) == 0x80000000)
+        v11 = *(*v9 + 4 * v10);
+        v12 = v11 & 0xE0000000;
+        if ((v11 & 0xE0000000) == 0x80000000)
         {
-          WordLanguageModel::preloadTrigramRecord(a1, v14 & 0x1FFFFFFF, v23, v22, v21, v20);
+          WordLanguageModel::preloadTrigramRecord(a1, v11 & 0x1FFFFFFF, v20, v19, v18, v17);
         }
 
-        else if (v15 == 0x40000000)
+        else if (v12 == 0x40000000)
         {
-          WordLanguageModel::preloadBigramRecord(a1, v14 & 0x1FFFFFFF, v23, v22, v21, v20);
+          WordLanguageModel::preloadBigramRecord(a1, v11 & 0x1FFFFFFF, v20, v19, v18, v17);
         }
 
         else
         {
-          if (v15 == -1610612736)
+          if (v12 == -1610612736)
           {
             goto LABEL_13;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4100, "lm/wordlm", 71, "%u", a7, a8, 0);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4100, "lm/wordlm", 71, "%u", v11 & 0xE0000000);
         }
 
-        ++v13;
-        v11 = *a3;
-        v12 = *a3 + 16 * v10;
+        ++v10;
+        v8 = *a3;
+        v9 = *a3 + 16 * v7;
       }
 
-      while (v13 < *(v12 + 8));
+      while (v10 < *(v9 + 8));
     }
 
-    ++v10;
+    ++v7;
   }
 
-  while (v10 <= a2);
-  LODWORD(v13) = 0;
+  while (v7 <= a2);
+  LODWORD(v10) = 0;
 LABEL_13:
-  *a4 = v10;
-  *a5 = v13;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v20);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v21);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v22);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(v23);
+  *a4 = v7;
+  *a5 = v10;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v17);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v18);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v19);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(v20);
 }
 
-void sub_26279709C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26279709C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va3, a5);
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va3, a9);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   va_copy(va3, va2);
-  v12 = va_arg(va3, void);
-  v14 = va_arg(va3, void);
+  v16 = va_arg(va3, void);
+  v18 = va_arg(va3, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va2);
@@ -317,7 +312,7 @@ void WordLanguageModel::preloadBigramRecord(uint64_t a1, unsigned int a2, uint64
   BigramData::fillBigramRecordPreload((a1 + 360), a2, a3, a4, a5);
 }
 
-uint64_t WordLanguageModel::preloadTrigramRecord(uint64_t a1, unsigned int a2, uint64_t a3, __int16 **a4, void *a5, uint64_t a6)
+uint64_t *WordLanguageModel::preloadTrigramRecord(uint64_t a1, unsigned int a2, uint64_t a3, __int16 **a4, void *a5, uint64_t a6)
 {
   WordLanguageModel::readTrigramRecord(a1, a2, a3, a4, a5, a6);
   TrigramData::tri2SetUnallocated(a1 + 744, a2);
@@ -325,14 +320,8 @@ uint64_t WordLanguageModel::preloadTrigramRecord(uint64_t a1, unsigned int a2, u
   return TrigramData::fillTrigramRecordPreload((a1 + 744), a2, a3, a4, a5);
 }
 
-uint64_t WordLanguageModel::preloadQuadgrams(uint64_t a1, unsigned int a2, uint64_t *a3, unsigned int a4, unsigned int a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t WordLanguageModel::preloadQuadgrams(uint64_t a1, unsigned int a2, uint64_t *a3, unsigned int a4, unsigned int a5)
 {
-  v26[0] = 0;
-  v26[1] = 0;
-  v25[0] = 0;
-  v25[1] = 0;
-  v24[0] = 0;
-  v24[1] = 0;
   v23[0] = 0;
   v23[1] = 0;
   v22[0] = 0;
@@ -347,70 +336,78 @@ uint64_t WordLanguageModel::preloadQuadgrams(uint64_t a1, unsigned int a2, uint6
   v18[1] = 0;
   v17[0] = 0;
   v17[1] = 0;
+  v16[0] = 0;
+  v16[1] = 0;
+  v15[0] = 0;
+  v15[1] = 0;
+  v14[0] = 0;
+  v14[1] = 0;
   if (a4 <= a2)
   {
-    v10 = a5;
-    v11 = *a3;
+    v7 = a5;
+    v8 = *a3;
     do
     {
-      v12 = a4;
-      for (i = v11 + 16 * a4; v10 < *(i + 8); i = *a3 + 16 * v12)
+      v9 = a4;
+      for (i = v8 + 16 * a4; v7 < *(i + 8); i = *a3 + 16 * v9)
       {
-        v14 = *(*i + 4 * v10);
-        if ((v14 & 0xE0000000) == 0xA0000000)
+        v11 = *(*i + 4 * v7);
+        if ((v11 & 0xE0000000) == 0xA0000000)
         {
-          WordLanguageModel::preloadQuadgramRecord(a1, v14 & 0x1FFFFFFF, v26, v25, v24, v23, v22, v21, v20, v19, v18, v17);
+          WordLanguageModel::preloadQuadgramRecord(a1, v11 & 0x1FFFFFFF, v23, v22, v21, v20, v19, v18, v17, v16, v15, v14);
         }
 
         else
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4150, "lm/wordlm", 71, "%u", a7, a8, 0);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4150, "lm/wordlm", 71, "%u", v11 & 0xE0000000);
         }
 
-        ++v10;
-        v11 = *a3;
+        ++v7;
+        v8 = *a3;
       }
 
-      v10 = 0;
-      a4 = v12 + 1;
+      v7 = 0;
+      a4 = v9 + 1;
     }
 
-    while (v12 + 1 <= a2);
+    while (v9 + 1 <= a2);
   }
 
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v14);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v15);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v16);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v17);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v18);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v19);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v20);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v21);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v22);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v23);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v24);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v25);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(v26);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(v23);
 }
 
-void sub_26279735C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, char a16, uint64_t a17, char a18, uint64_t a19, char a20, uint64_t a21, char a22, uint64_t a23, char a24, uint64_t a25, char a26)
+void sub_26279735C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a14);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a16);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a18);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a20);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a22);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a24);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a26);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v26 - 136);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v26 - 120);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v26 - 104);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(va);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v25 - 136);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v25 - 120);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v25 - 104);
   _Unwind_Resume(a1);
 }
 
-unint64_t WordLanguageModel::preloadQuadgramRecord(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, void *a7, void *a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12)
+uint64_t WordLanguageModel::preloadQuadgramRecord(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, void *a5, void *a6, void *a7, void *a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
+  v17 = a2;
   WordLanguageModel::readQuadgramRecord(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
   v19 = a1 + 1232;
-  QuadgramData::quad2SetUnallocated(a1 + 1232, a2);
-  result = QuadgramData::allocQuad2(a1 + 1232, a2, *(a3 + 8));
+  QuadgramData::quad2SetUnallocated(a1 + 1232, v17);
+  result = QuadgramData::allocQuad2((a1 + 1232), v17, *(a3 + 4));
   v50 = a4;
   v21 = *(a4 + 8);
   if (*(a1 + 1256))
@@ -418,11 +415,11 @@ unint64_t WordLanguageModel::preloadQuadgramRecord(uint64_t a1, unsigned int a2,
     if (v21)
     {
       v22 = 0;
-      v23 = a2 >> 5;
-      v24 = 1 << a2;
+      v23 = v17 >> 5;
+      v24 = 1 << v17;
       do
       {
-        v25 = *(*(a1 + 1480) + 4 * a2);
+        v25 = *(*(a1 + 1480) + 4 * v17);
         if (*(a1 + 1232) && (*(*(a1 + 1344) + 4 * v23) & v24) != 0)
         {
           LODWORD(v25) = *(*(a1 + 1656) + 4 * v25);
@@ -435,8 +432,8 @@ unint64_t WordLanguageModel::preloadQuadgramRecord(uint64_t a1, unsigned int a2,
         }
 
         *(*(v19 + v26) + 2 * (v22 + v25)) = *(*v50 + 2 * v22);
-        result = QuadgramData::allocScoresForIndex(a1 + 1232, a2, v22, *(*a3 + 2 * v22));
-        v27 = *(*(a1 + 1480) + 4 * a2);
+        result = QuadgramData::allocScoresForIndex((a1 + 1232), v17, v22, *(*a3 + 2 * v22));
+        v27 = *(*(a1 + 1480) + 4 * v17);
         if (*(a1 + 1232) && (*(*(a1 + 1344) + 4 * v23) & v24) != 0)
         {
           LODWORD(v27) = *(*(a1 + 1656) + 4 * v27);
@@ -469,9 +466,9 @@ LABEL_26:
 
   v30 = a6;
   v31 = 0;
-  v49 = a2 >> 5;
-  v32 = 1 << a2;
-  v33 = *(*(a1 + 1480) + 4 * a2);
+  v49 = v17 >> 5;
+  v32 = 1 << v17;
+  v33 = *(*(a1 + 1480) + 4 * v17);
   v34 = *(a1 + 1232);
   do
   {
@@ -487,8 +484,8 @@ LABEL_26:
     }
 
     *(*(v19 + v35) + 2 * (v31 + v33)) = *(*v50 + 2 * v31);
-    result = QuadgramData::allocScoresForIndex(a1 + 1232, a2, v31, *(*a3 + 2 * v31));
-    v33 = *(*(a1 + 1480) + 4 * a2);
+    result = QuadgramData::allocScoresForIndex((a1 + 1232), v17, v31, *(*a3 + 2 * v31));
+    v33 = *(*(a1 + 1480) + 4 * v17);
     v34 = *(a1 + 1232);
     if (v34 && (*(*(a1 + 1344) + 4 * v49) & v32) != 0)
     {
@@ -499,7 +496,7 @@ LABEL_26:
     else
     {
       v37 = 296;
-      v36 = *(*(a1 + 1480) + 4 * a2);
+      v36 = *(*(a1 + 1480) + 4 * v17);
     }
 
     *(*(v19 + v37) + 2 * (v31 + v36)) = *(*v30 + 2 * v31);
@@ -524,8 +521,8 @@ LABEL_27:
           v42 = 0;
           do
           {
-            QuadgramData::setQuad3SuccIdForIndex(v19, a2, v38, v42, *(*a5 + 2 * (v39 + v42)));
-            result = QuadgramData::setQuantizedScoreForIndex(v19, a2, v38, v42, *(*a9 + (v39 + v42)));
+            QuadgramData::setQuad3SuccIdForIndex(v19, v17, v38, v42, *(*a5 + 2 * (v39 + v42)));
+            result = QuadgramData::setQuantizedScoreForIndex(v19, v17, v38, v42, *(*a9 + (v39 + v42)));
             ++v42;
             v40 = *a3;
             v41 = *(*a3 + 2 * v38);
@@ -556,8 +553,8 @@ LABEL_27:
         v47 = 0;
         do
         {
-          QuadgramData::setQuad3SuccIdForIndex(v19, a2, v43, v47, *(*a5 + 2 * (v44 + v47)));
-          result = QuadgramData::setScoreForIndex(v19, a2, v43, v47, *(*a8 + 2 * (v44 + v47)));
+          QuadgramData::setQuad3SuccIdForIndex(v19, v17, v43, v47, *(*a5 + 2 * (v44 + v47)));
+          result = QuadgramData::setScoreForIndex(v19, v17, v43, v47, *(*a8 + 2 * (v44 + v47)));
           ++v47;
           v45 = *a3;
           v46 = *(*a3 + 2 * v43);
@@ -577,23 +574,20 @@ LABEL_27:
   return result;
 }
 
-void WordLanguageModel::finalizeLM(unsigned int *a1, LanguageModel *a2, DFile *a3, DFileChecksums *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, char a10, uint64_t a11, unsigned __int8 a12, unint64_t a13, unint64_t a14)
+void WordLanguageModel::finalizeLM(uint64_t a1, LanguageModel *a2, DFile *a3, DFileChecksums *a4, uint64_t a5, int a6, unsigned int a7, uint64_t a8, int a9, char a10, uint64_t a11, BOOL a12, unint64_t a13, unint64_t a14)
 {
-  v14 = a8;
-  v35 = a6;
-  v36 = a7;
-  if (*(a1 + 29))
+  if (*(a1 + 232))
   {
-    v47[0] = 1;
-    DFile::pushCurrentSubDirComponent(a3, v47, a3, a4, a5, a6, a7, a8);
-    BYTE4(v31) = a10;
-    LODWORD(v31) = a9;
-    (*(**(a1 + 29) + 48))(*(a1 + 29), a2, a3, a4, a5, v35, v36, v14, v31, a11, a12, a13, a14);
+    v39[0] = 1;
+    DFile::pushCurrentSubDirComponent(a3, v39);
+    BYTE4(v23) = a10;
+    LODWORD(v23) = a9;
+    (*(**(a1 + 232) + 48))(*(a1 + 232), a2, a3, a4, a5, a6, a7, a8, v23, a11, a12, a13, a14);
     DFile::popCurrentSubDirComponent(a3);
-    v18 = (*(**(a1 + 29) + 696))();
+    v18 = (*(**(a1 + 232) + 696))();
     if (v18 != (*(*a1 + 696))(a1))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4216, "lm/wordlm", 68, "%s", v19, v20, &errStr_lm_wordlm_E_BACKOFF_MISMATCHED_ENDLMID);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4216, "lm/wordlm", 68, "%s", errStr_lm_wordlm_E_BACKOFF_MISMATCHED_ENDLMID);
     }
   }
 
@@ -601,95 +595,96 @@ void WordLanguageModel::finalizeLM(unsigned int *a1, LanguageModel *a2, DFile *a
   {
     if (!a5)
     {
-      if (*(a1 + 31))
+      if (*(a1 + 248))
       {
-        LODWORD(v21) = 1000;
-        if ((a14 & 0x8000000000000000) != 0 || a14 > a13 || (v21 = 1000 * a14 / a13, v21))
+        LODWORD(v19) = 1000;
+        if ((a14 & 0x8000000000000000) != 0 || a14 > a13 || (v19 = 1000 * a14 / a13, v19))
         {
-          v32 = v14;
-          (*(**(a1 + 28) + 24))(*(a1 + 28), a1[64]);
-          v47[0] = 0;
-          v47[1] = 0;
-          v46[0] = 0;
-          v46[1] = 0;
-          v45[0] = 0;
-          v45[1] = 0;
-          v44[0] = 0;
-          v44[1] = 0;
-          v43[0] = 0;
-          v43[1] = 0;
-          v42[0] = 0;
-          v42[1] = 0;
-          v41[0] = 0;
-          v41[1] = 0;
-          v40 = 0;
-          readObject<unsigned int>(*(a1 + 28), v47, &v40);
-          readObject<unsigned int>(*(a1 + 28), v46, &v40);
-          readObject<unsigned int>(*(a1 + 28), v45, &v40);
-          readObject<unsigned int>(*(a1 + 28), v44, &v40);
-          readObject<unsigned int>(*(a1 + 28), v43, &v40);
-          readObject<unsigned int>(*(a1 + 28), v42, &v40);
-          readObject<unsigned int>(*(a1 + 28), v41, &v40);
-          v22 = 0;
-          v38 = 0;
-          v39 = 0;
+          v24 = a8;
+          (*(**(a1 + 224) + 24))(*(a1 + 224), *(a1 + 256));
+          v39[0] = 0;
+          v39[1] = 0;
+          v38[0] = 0;
+          v38[1] = 0;
+          v37[0] = 0;
+          v37[1] = 0;
+          v36[0] = 0;
+          v36[1] = 0;
+          v35[0] = 0;
+          v35[1] = 0;
+          v34[0] = 0;
+          v34[1] = 0;
+          v33[0] = 0;
+          v33[1] = 0;
+          v32 = 0;
+          readObject<unsigned int>(*(a1 + 224), v39, &v32);
+          readObject<unsigned int>(*(a1 + 224), v38, &v32);
+          readObject<unsigned int>(*(a1 + 224), v37, &v32);
+          readObject<unsigned int>(*(a1 + 224), v36, &v32);
+          readObject<unsigned int>(*(a1 + 224), v35, &v32);
+          readObject<unsigned int>(*(a1 + 224), v34, &v32);
+          readObject<unsigned int>(*(a1 + 224), v33, &v32);
+          v20 = 0;
+          v30 = 0;
+          v31 = 0;
           do
           {
-            v23 = v39;
-            if (v39 == HIDWORD(v39))
+            v21 = v31;
+            if (v31 == HIDWORD(v31))
             {
-              DgnArray<DgnPrimArray<double>>::reallocElts(&v38, 1, 1);
-              v23 = v39;
+              DgnArray<DgnPrimArray<double>>::reallocElts(&v30, 1, 1);
+              v21 = v31;
             }
 
-            v24 = (v38 + 16 * v23);
-            *v24 = 0;
-            v24[1] = 0;
-            LODWORD(v39) = v39 + 1;
-            readObject<unsigned int>(*(a1 + 28), v38 + 16 * v22++, &v40);
+            v22 = (v30 + 16 * v21);
+            *v22 = 0;
+            v22[1] = 0;
+            LODWORD(v31) = v31 + 1;
+            readObject<unsigned int>(*(a1 + 224), v30 + 16 * v20++, &v32);
           }
 
-          while (v22 <= v21);
-          (*(**(a1 + 28) + 24))(*(a1 + 28), a1[65]);
-          BigramData::preAllocateDynamicBigramData((a1 + 90), *(v46[0] + 4 * v21), *(v45[0] + 4 * v21));
-          TrigramData::preAllocateDynamicTrigramData((a1 + 186), *(v44[0] + 4 * v21), *(v43[0] + 4 * v21));
-          QuadgramData::preAllocateDynamicQuadgramData((a1 + 308), *(v42[0] + 4 * v21), *(v41[0] + 4 * v21));
-          v37 = 0;
-          WordLanguageModel::preloadBigramsAndTrigrams(a1, v21, &v38, &v37 + 1, &v37, v25, v26, v27);
-          v14 = v32;
-          BigramData::compact((a1 + 90));
-          TrigramData::compact((a1 + 186));
-          WordLanguageModel::preloadQuadgrams(a1, v21, &v38, HIDWORD(v37), v37, v28, v29, v30);
-          (*(**(a1 + 5) + 64))(*(a1 + 5), 0);
-          QuadgramData::compact((a1 + 308));
-          DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v38);
-          DgnPrimArray<unsigned int>::~DgnPrimArray(v41);
-          DgnPrimArray<unsigned int>::~DgnPrimArray(v42);
-          DgnPrimArray<unsigned int>::~DgnPrimArray(v43);
-          DgnPrimArray<unsigned int>::~DgnPrimArray(v44);
-          DgnPrimArray<unsigned int>::~DgnPrimArray(v45);
-          DgnPrimArray<unsigned int>::~DgnPrimArray(v46);
-          DgnPrimArray<unsigned int>::~DgnPrimArray(v47);
+          while (v20 <= v19);
+          (*(**(a1 + 224) + 24))(*(a1 + 224), *(a1 + 260));
+          BigramData::preAllocateDynamicBigramData((a1 + 360), *(v38[0] + 4 * v19), *(v37[0] + 4 * v19));
+          TrigramData::preAllocateDynamicTrigramData((a1 + 744), *(v36[0] + 4 * v19), *(v35[0] + 4 * v19));
+          QuadgramData::preAllocateDynamicQuadgramData((a1 + 1232), *(v34[0] + 4 * v19), *(v33[0] + 4 * v19));
+          v29 = 0;
+          WordLanguageModel::preloadBigramsAndTrigrams(a1, v19, &v30, &v29 + 1, &v29);
+          a8 = v24;
+          BigramData::compact((a1 + 360));
+          TrigramData::compact((a1 + 744));
+          WordLanguageModel::preloadQuadgrams(a1, v19, &v30, HIDWORD(v29), v29);
+          (*(**(a1 + 40) + 64))(*(a1 + 40), 0);
+          QuadgramData::compact((a1 + 1232));
+          DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v30);
+          DgnPrimArray<unsigned int>::~DgnPrimArray(v33);
+          DgnPrimArray<unsigned int>::~DgnPrimArray(v34);
+          DgnPrimArray<unsigned int>::~DgnPrimArray(v35);
+          DgnPrimArray<unsigned int>::~DgnPrimArray(v36);
+          DgnPrimArray<unsigned int>::~DgnPrimArray(v37);
+          DgnPrimArray<unsigned int>::~DgnPrimArray(v38);
+          DgnPrimArray<unsigned int>::~DgnPrimArray(v39);
         }
       }
     }
   }
 
-  BYTE4(v31) = a10;
-  LODWORD(v31) = a9;
-  LanguageModel::finalizeLM(a1, a2, a3, a4, a5, v35, v36, v14, v31, a11, a12);
+  BYTE4(v23) = a10;
+  LODWORD(v23) = a9;
+  LanguageModel::finalizeLM(a1, a2, a3, a4, a5, a6, a7, a8, v23, a11, a12);
 }
 
-void sub_262797BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, char a24, uint64_t a25, char a26, uint64_t a27, char a28)
+void sub_262797BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&a19);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a22);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a24);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a26);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a28);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v28 - 136);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v28 - 120);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v28 - 104);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(va);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v27 - 136);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v27 - 120);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v27 - 104);
   _Unwind_Resume(a1);
 }
 
@@ -725,9 +720,9 @@ uint64_t WordLanguageModel::canSaveAsText(WordLanguageModel *this)
   return result;
 }
 
-RecentBuffer *WordLanguageModel::saveLM(RecentBuffer **this, DFile *a2, DFileChecksums *a3, uint64_t a4, DFileChecksums *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+RecentBuffer *WordLanguageModel::saveLM(RecentBuffer **this, DFile *a2, DFileChecksums *a3, _BOOL8 a4, DFileChecksums *a5)
 {
-  if (*(this + 16) < 2u || *(this + 244) == 1 && (v14 = 1, DFile::pushCurrentSubDirComponent(a2, &v14, a3, a4, a5, a6, a7, a8), (*(*this[29] + 72))(this[29], a2, a3, a4, a5), DFile::popCurrentSubDirComponent(a2), *(this + 16) < 2u) || !this[28])
+  if (*(this + 16) < 2u || *(this + 244) == 1 && (v11 = 1, DFile::pushCurrentSubDirComponent(a2, &v11), (*(*this[29] + 72))(this[29], a2, a3, a4, a5), DFile::popCurrentSubDirComponent(a2), *(this + 16) < 2u) || !this[28])
   {
     if (a4)
     {
@@ -755,7 +750,7 @@ RecentBuffer *WordLanguageModel::saveLM(RecentBuffer **this, DFile *a2, DFileChe
   return result;
 }
 
-void (***WordLanguageModel::saveDynamic(WordLanguageModel *this, DFile *a2, DFileChecksums *a3, int a4))(void)
+void (***WordLanguageModel::saveDynamic(WordLanguageModel *this, DFile *a2, DFileChecksums *a3, uint64_t a4))(void)
 {
   v7 = OpenAndWriteMrecHeader(a2, 0x70u, a4, "LMWNGDYN", 24, 16);
   v11 = 0;
@@ -777,79 +772,79 @@ void (***WordLanguageModel::saveDynamic(WordLanguageModel *this, DFile *a2, DFil
 
   writeObjectChecksum(v7, &v11);
   CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0x70u, v11);
+  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 112, v11);
   return DgnDelete<DgnStream>(v7);
 }
 
 void WordLanguageModel::saveWns(WordLanguageModel *this, DFile *a2, unsigned int a3, int a4)
 {
-  DgnTextFileWriter::DgnTextFileWriter(v21);
-  DgnTextFileWriter::openDgnTextFileWriter(v21, a2, 0x73u, a4);
-  v19 = 0;
-  v20 = 0;
-  DgnTextFile::legalDgnTextFileVersions(v21, sWNS_Versions, &v19, v8, v9, v10, v11, v12);
-  DgnTextFileWriter::setFileType(v21, "WordNGramSpec", (v19 + 8 * (v20 - 1)));
-  v18[0] = 0;
-  v18[1] = 0;
-  v17[0] = 0;
-  v17[1] = 0;
-  DgnTextFileWriter::setLineFieldFormat(v21, v18, v17);
-  DgnTextFileWriter::setHeaderFieldUnsigned(v21, "Depth", *(this + 16));
-  DgnTextFileWriter::setHeaderFieldInteger(v21, "AlienWordLmId", *(this + 18));
-  DgnTextFileWriter::setHeaderFieldBool(v21, "AllowNewWordCloning", *(this + 80));
-  DgnTextFileWriter::setHeaderFieldInteger(v21, "IgnoreInContextLmId", *(this + 25));
+  DgnTextFileWriter::DgnTextFileWriter(v16);
+  DgnTextFileWriter::openDgnTextFileWriter(v16, a2, 115, a4);
+  v14 = 0;
+  v15 = 0;
+  DgnTextFile::legalDgnTextFileVersions(v16, sWNS_Versions, &v14);
+  DgnTextFileWriter::setFileType(v16, "WordNGramSpec", (v14 + 8 * (v15 - 1)));
+  v13[0] = 0;
+  v13[1] = 0;
+  v12[0] = 0;
+  v12[1] = 0;
+  DgnTextFileWriter::setLineFieldFormat(v16, v13, v12);
+  DgnTextFileWriter::setHeaderFieldUnsigned(v16, "Depth", *(this + 16));
+  DgnTextFileWriter::setHeaderFieldInteger(v16, "AlienWordLmId", *(this + 18));
+  DgnTextFileWriter::setHeaderFieldBool(v16, "AllowNewWordCloning", *(this + 80));
+  DgnTextFileWriter::setHeaderFieldInteger(v16, "IgnoreInContextLmId", *(this + 25));
   if (*(this + 16) >= 2u)
   {
-    DgnTextFileWriter::setHeaderFieldInteger(v21, "UnknownContextLmId", *(this + 60));
-    DgnTextFileWriter::setHeaderFieldInteger(v21, "AlienWordContextLmId", *(this + 19));
+    DgnTextFileWriter::setHeaderFieldInteger(v16, "UnknownContextLmId", *(this + 60));
+    DgnTextFileWriter::setHeaderFieldInteger(v16, "AlienWordContextLmId", *(this + 19));
     if (*(this + 29))
     {
-      DgnString::DgnString(&v15);
-      v14 = 1;
-      SubDirExtension::appendToString(&v14, &v15);
-      if (v16)
+      DgnString::DgnString(&v10);
+      v9 = 1;
+      SubDirExtension::appendToString(&v9, &v10);
+      if (v11)
       {
-        v13 = v15;
+        v8 = v10;
       }
 
       else
       {
-        v13 = &unk_26288CFB0;
+        v8 = &unk_26288CFB0;
       }
 
-      DgnTextFileWriter::setHeaderField(v21, "BackoffSubDirectory", v13);
-      DgnTextFileWriter::setHeaderFieldUnsigned(v21, "BackoffAfterDepth", 2);
-      DgnString::~DgnString(&v15);
+      DgnTextFileWriter::setHeaderField(v16, "BackoffSubDirectory", v8);
+      DgnTextFileWriter::setHeaderFieldUnsigned(v16, "BackoffAfterDepth", 2);
+      DgnString::~DgnString(&v10);
     }
 
-    DgnTextFileWriter::setHeaderFieldBool(v21, "HasStaticComponentOnDisk", a3);
-    DgnTextFileWriter::setHeaderFieldBool(v21, "LoadNgrams", *(this + 68));
+    DgnTextFileWriter::setHeaderFieldBool(v16, "HasStaticComponentOnDisk", a3);
+    DgnTextFileWriter::setHeaderFieldBool(v16, "LoadNgrams", *(this + 68));
   }
 
-  DgnArray<DgnString>::releaseAll(v17);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v18);
-  DgnIArray<Utterance *>::~DgnIArray(&v19);
-  DgnTextFileWriter::~DgnTextFileWriter(v21);
+  DgnArray<DgnString>::releaseAll(v12);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v13);
+  DgnIArray<Utterance *>::~DgnIArray(&v14);
+  DgnTextFileWriter::~DgnTextFileWriter(v16);
 }
 
-void sub_262798168(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_262798168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va4, a2);
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va4, a3);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   va_copy(va2, va1);
-  v6 = va_arg(va2, void);
-  v8 = va_arg(va2, void);
+  v7 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
   va_copy(va3, va2);
-  v9 = va_arg(va3, void);
-  v11 = va_arg(va3, void);
+  v10 = va_arg(va3, void);
+  v12 = va_arg(va3, void);
   va_copy(va4, va3);
-  v12 = va_arg(va4, void);
-  v14 = va_arg(va4, void);
+  v13 = va_arg(va4, void);
+  v15 = va_arg(va4, void);
   DgnString::~DgnString(va);
   DgnArray<DgnString>::releaseAll(va1);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va2);
@@ -860,389 +855,389 @@ void sub_262798168(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void WordLanguageModel::saveText(WordLanguageModel *this, DFile *a2, int a3)
 {
-  DgnTextFileWriter::DgnTextFileWriter(v179);
-  DgnTextFileWriter::openDgnTextFileWriter(v179, a2, 0x74u, a3);
-  v177 = 0;
-  v178 = 0;
-  DgnTextFile::legalDgnTextFileVersions(v179, sWNT_Versions, &v177, v6, v7, v8, v9, v10);
-  DgnTextFileWriter::setFileType(v179, "WordNGramText", (v177 + 8 * (v178 - 1)));
-  DgnTextFileWriter::setHeaderFieldUnsigned(v179, "Depth", *(this + 16));
-  DgnTextFileWriter::setHeaderFieldUnsigned(v179, "LMScale", *(this + 8));
-  DgnTextFileWriter::setHeaderFieldUnsigned(v179, "NumLmIds", *(this + 26));
-  DgnTextFileWriter::setHeaderFieldInteger(v179, "BegLmId", *(this + 28));
-  DgnTextFileWriter::setHeaderFieldInteger(v179, "EndLmId", *(this + 29));
+  DgnTextFileWriter::DgnTextFileWriter(v172);
+  DgnTextFileWriter::openDgnTextFileWriter(v172, a2, 116, a3);
+  v170 = 0;
+  v171 = 0;
+  DgnTextFile::legalDgnTextFileVersions(v172, sWNT_Versions, &v170);
+  DgnTextFileWriter::setFileType(v172, "WordNGramText", (v170 + 8 * (v171 - 1)));
+  DgnTextFileWriter::setHeaderFieldUnsigned(v172, "Depth", *(this + 16));
+  DgnTextFileWriter::setHeaderFieldUnsigned(v172, "LMScale", *(this + 8));
+  DgnTextFileWriter::setHeaderFieldUnsigned(v172, "NumLmIds", *(this + 26));
+  DgnTextFileWriter::setHeaderFieldInteger(v172, "BegLmId", *(this + 28));
+  DgnTextFileWriter::setHeaderFieldInteger(v172, "EndLmId", *(this + 29));
   if (*(this + 16) >= 2u)
   {
-    DgnTextFileWriter::setHeaderFieldUnsigned(v179, "ContextSkipDistance", *(this + 68));
-    DgnTextFileWriter::setHeaderFieldBool(v179, "HasWordIdToContextLmId", *(this + 276));
+    DgnTextFileWriter::setHeaderFieldUnsigned(v172, "ContextSkipDistance", *(this + 68));
+    DgnTextFileWriter::setHeaderFieldBool(v172, "HasWordIdToContextLmId", *(this + 276));
   }
 
-  v175 = 0;
-  v176 = 0;
-  v173 = 0;
-  v174 = 0;
-  DgnString::DgnString(&v171, "TableName");
-  v11 = v176;
-  if (v176 == HIDWORD(v176))
+  v168 = 0;
+  v169 = 0;
+  v166 = 0;
+  v167 = 0;
+  DgnString::DgnString(&v164, "TableName");
+  v6 = v169;
+  if (v169 == HIDWORD(v169))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v175, 1, 1);
-    v11 = v176;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v168, 1, 1);
+    v6 = v169;
   }
 
-  DgnString::DgnString((v175 + 16 * v11), &v171);
-  LODWORD(v176) = v176 + 1;
-  DgnString::~DgnString(&v171);
-  v12 = v174;
-  if (v174 == HIDWORD(v174))
+  DgnString::DgnString((v168 + 16 * v6), &v164);
+  LODWORD(v169) = v169 + 1;
+  DgnString::~DgnString(&v164);
+  v7 = v167;
+  if (v167 == HIDWORD(v167))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v173, 1, 1);
-    v12 = v174;
+    DgnPrimArray<unsigned int>::reallocElts(&v166, 1, 1);
+    v7 = v167;
   }
 
-  *(v173 + 4 * v12) = 0;
-  LODWORD(v174) = v12 + 1;
-  v165 = v176;
-  DgnString::DgnString(&v171, "Index1");
-  v13 = v176;
-  if (v176 == HIDWORD(v176))
+  *(v166 + 4 * v7) = 0;
+  LODWORD(v167) = v7 + 1;
+  v158 = v169;
+  DgnString::DgnString(&v164, "Index1");
+  v8 = v169;
+  if (v169 == HIDWORD(v169))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v175, 1, 1);
-    v13 = v176;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v168, 1, 1);
+    v8 = v169;
   }
 
-  DgnString::DgnString((v175 + 16 * v13), &v171);
-  LODWORD(v176) = v176 + 1;
-  DgnString::~DgnString(&v171);
-  v14 = v174;
-  if (v174 == HIDWORD(v174))
+  DgnString::DgnString((v168 + 16 * v8), &v164);
+  LODWORD(v169) = v169 + 1;
+  DgnString::~DgnString(&v164);
+  v9 = v167;
+  if (v167 == HIDWORD(v167))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v173, 1, 1);
-    v14 = v174;
+    DgnPrimArray<unsigned int>::reallocElts(&v166, 1, 1);
+    v9 = v167;
   }
 
-  *(v173 + 4 * v14) = 3;
-  LODWORD(v174) = v14 + 1;
-  v15 = v176;
-  v166 = v176;
-  v16 = v176;
-  v164 = v176;
+  *(v166 + 4 * v9) = 3;
+  LODWORD(v167) = v9 + 1;
+  v10 = v169;
+  v159 = v169;
+  v11 = v169;
+  v157 = v169;
   if (*(this + 16) >= 2u)
   {
-    DgnString::DgnString(&v171, "Index2");
-    v17 = v176;
-    if (v176 == HIDWORD(v176))
+    DgnString::DgnString(&v164, "Index2");
+    v12 = v169;
+    if (v169 == HIDWORD(v169))
     {
-      DgnArray<DgnPrimArray<double>>::reallocElts(&v175, 1, 1);
-      v17 = v176;
+      DgnArray<DgnPrimArray<double>>::reallocElts(&v168, 1, 1);
+      v12 = v169;
     }
 
-    DgnString::DgnString((v175 + 16 * v17), &v171);
-    LODWORD(v176) = v176 + 1;
-    DgnString::~DgnString(&v171);
-    v18 = v174;
-    if (v174 == HIDWORD(v174))
+    DgnString::DgnString((v168 + 16 * v12), &v164);
+    LODWORD(v169) = v169 + 1;
+    DgnString::~DgnString(&v164);
+    v13 = v167;
+    if (v167 == HIDWORD(v167))
     {
-      DgnPrimArray<unsigned int>::reallocElts(&v173, 1, 1);
-      v18 = v174;
+      DgnPrimArray<unsigned int>::reallocElts(&v166, 1, 1);
+      v13 = v167;
     }
 
-    *(v173 + 4 * v18) = 3;
-    LODWORD(v174) = v18 + 1;
-    v15 = v176;
+    *(v166 + 4 * v13) = 3;
+    LODWORD(v167) = v13 + 1;
+    v10 = v169;
     if (*(this + 16) < 3u)
     {
-      v166 = v176;
-      v16 = v176;
+      v159 = v169;
+      v11 = v169;
     }
 
     else
     {
-      DgnString::DgnString(&v171, "Index3");
-      v19 = v176;
-      if (v176 == HIDWORD(v176))
+      DgnString::DgnString(&v164, "Index3");
+      v14 = v169;
+      if (v169 == HIDWORD(v169))
       {
-        DgnArray<DgnPrimArray<double>>::reallocElts(&v175, 1, 1);
-        v19 = v176;
+        DgnArray<DgnPrimArray<double>>::reallocElts(&v168, 1, 1);
+        v14 = v169;
       }
 
-      DgnString::DgnString((v175 + 16 * v19), &v171);
-      LODWORD(v176) = v176 + 1;
-      DgnString::~DgnString(&v171);
-      v20 = v174;
-      if (v174 == HIDWORD(v174))
+      DgnString::DgnString((v168 + 16 * v14), &v164);
+      LODWORD(v169) = v169 + 1;
+      DgnString::~DgnString(&v164);
+      v15 = v167;
+      if (v167 == HIDWORD(v167))
       {
-        DgnPrimArray<unsigned int>::reallocElts(&v173, 1, 1);
-        v20 = v174;
+        DgnPrimArray<unsigned int>::reallocElts(&v166, 1, 1);
+        v15 = v167;
       }
 
-      *(v173 + 4 * v20) = 3;
-      LODWORD(v174) = v20 + 1;
-      v16 = v176;
+      *(v166 + 4 * v15) = 3;
+      LODWORD(v167) = v15 + 1;
+      v11 = v169;
       if (*(this + 16) < 4u)
       {
-        v166 = v176;
+        v159 = v169;
       }
 
       else
       {
-        DgnString::DgnString(&v171, "Index4");
-        v21 = v176;
-        if (v176 == HIDWORD(v176))
+        DgnString::DgnString(&v164, "Index4");
+        v16 = v169;
+        if (v169 == HIDWORD(v169))
         {
-          DgnArray<DgnPrimArray<double>>::reallocElts(&v175, 1, 1);
-          v21 = v176;
+          DgnArray<DgnPrimArray<double>>::reallocElts(&v168, 1, 1);
+          v16 = v169;
         }
 
-        DgnString::DgnString((v175 + 16 * v21), &v171);
-        LODWORD(v176) = v176 + 1;
-        DgnString::~DgnString(&v171);
-        v22 = v174;
-        if (v174 == HIDWORD(v174))
+        DgnString::DgnString((v168 + 16 * v16), &v164);
+        LODWORD(v169) = v169 + 1;
+        DgnString::~DgnString(&v164);
+        v17 = v167;
+        if (v167 == HIDWORD(v167))
         {
-          DgnPrimArray<unsigned int>::reallocElts(&v173, 1, 1);
-          v22 = v174;
+          DgnPrimArray<unsigned int>::reallocElts(&v166, 1, 1);
+          v17 = v167;
         }
 
-        *(v173 + 4 * v22) = 3;
-        LODWORD(v174) = v22 + 1;
-        v166 = v176;
+        *(v166 + 4 * v17) = 3;
+        LODWORD(v167) = v17 + 1;
+        v159 = v169;
       }
     }
   }
 
-  DgnString::DgnString(&v171, "EntryValue1");
-  v23 = v176;
-  if (v176 == HIDWORD(v176))
+  DgnString::DgnString(&v164, "EntryValue1");
+  v18 = v169;
+  if (v169 == HIDWORD(v169))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v175, 1, 1);
-    v23 = v176;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v168, 1, 1);
+    v18 = v169;
   }
 
-  DgnString::DgnString((v175 + 16 * v23), &v171);
-  LODWORD(v176) = v176 + 1;
-  DgnString::~DgnString(&v171);
-  v24 = v174;
-  if (v174 == HIDWORD(v174))
+  DgnString::DgnString((v168 + 16 * v18), &v164);
+  LODWORD(v169) = v169 + 1;
+  DgnString::~DgnString(&v164);
+  v19 = v167;
+  if (v167 == HIDWORD(v167))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v173, 1, 1);
-    v24 = v174;
+    DgnPrimArray<unsigned int>::reallocElts(&v166, 1, 1);
+    v19 = v167;
   }
 
-  *(v173 + 4 * v24) = 1;
-  LODWORD(v174) = v24 + 1;
-  DgnTextFileWriter::setLineFieldFormat(v179, &v173, &v175);
-  v25 = *(this + 44);
-  if (v25 >= 2)
+  *(v166 + 4 * v19) = 1;
+  LODWORD(v167) = v19 + 1;
+  DgnTextFileWriter::setLineFieldFormat(v172, &v166, &v168);
+  v20 = *(this + 44);
+  if (v20 >= 2)
   {
-    for (i = 1; i < v25; ++i)
+    for (i = 1; i < v20; ++i)
     {
-      v27 = *(*(this + 21) + 2 * i);
-      if (v27 != 20000)
+      v22 = *(*(this + 21) + 2 * i);
+      if (v22 != 20000)
       {
-        DgnTextFileWriter::setLineFieldValue(v179, 0, "UniSc");
-        DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, i);
+        DgnTextFileWriter::setLineFieldValue(v172, 0, "UniSc");
+        DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, i);
         if (*(this + 16) >= 2u)
         {
-          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, 0);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, 0);
           if (*(this + 16) >= 3u)
           {
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v15, 0);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v10, 0);
             if (*(this + 16) >= 4u)
             {
-              DgnTextFileWriter::setLineFieldUnsignedValue(v179, v16, 0);
+              DgnTextFileWriter::setLineFieldUnsignedValue(v172, v11, 0);
             }
           }
         }
 
-        DgnTextFileWriter::setLineFieldUnsignedValue(v179, v166, v27);
-        DgnTextFileWriter::writeNextLine(v179);
-        v25 = *(this + 44);
+        DgnTextFileWriter::setLineFieldUnsignedValue(v172, v159, v22);
+        DgnTextFileWriter::writeNextLine(v172);
+        v20 = *(this + 44);
       }
     }
   }
 
-  v28 = *(this + 32);
-  if (v28)
+  v23 = *(this + 32);
+  if (v23)
   {
-    for (j = 0; j < v28; ++j)
+    for (j = 0; j < v23; ++j)
     {
-      v30 = *(*(this + 15) + 4 * j);
-      if (v30 != -1)
+      v25 = *(*(this + 15) + 4 * j);
+      if (v25 != -1)
       {
-        DgnTextFileWriter::setLineFieldValue(v179, 0, "WordIdToLmId");
-        DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, j);
+        DgnTextFileWriter::setLineFieldValue(v172, 0, "WordIdToLmId");
+        DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, j);
         if (*(this + 16) >= 2u)
         {
-          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, 0);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, 0);
           if (*(this + 16) >= 3u)
           {
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v15, 0);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v10, 0);
             if (*(this + 16) >= 4u)
             {
-              DgnTextFileWriter::setLineFieldUnsignedValue(v179, v16, 0);
+              DgnTextFileWriter::setLineFieldUnsignedValue(v172, v11, 0);
             }
           }
         }
 
-        DgnTextFileWriter::setLineFieldUnsignedValue(v179, v166, v30);
-        DgnTextFileWriter::writeNextLine(v179);
-        v28 = *(this + 32);
+        DgnTextFileWriter::setLineFieldUnsignedValue(v172, v159, v25);
+        DgnTextFileWriter::writeNextLine(v172);
+        v23 = *(this + 32);
       }
     }
   }
 
   else
   {
-    v31 = *(this + 36);
-    if (v31)
+    v26 = *(this + 36);
+    if (v26)
     {
-      for (k = 0; k < v31; ++k)
+      for (k = 0; k < v26; ++k)
       {
-        v33 = *(*(this + 17) + 2 * k);
-        if (v33 != 0xFFFF)
+        v28 = *(*(this + 17) + 2 * k);
+        if (v28 != 0xFFFF)
         {
-          DgnTextFileWriter::setLineFieldValue(v179, 0, "WordIdToLmId");
-          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, k);
+          DgnTextFileWriter::setLineFieldValue(v172, 0, "WordIdToLmId");
+          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, k);
           if (*(this + 16) >= 2u)
           {
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, 0);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, 0);
             if (*(this + 16) >= 3u)
             {
-              DgnTextFileWriter::setLineFieldUnsignedValue(v179, v15, 0);
+              DgnTextFileWriter::setLineFieldUnsignedValue(v172, v10, 0);
               if (*(this + 16) >= 4u)
               {
-                DgnTextFileWriter::setLineFieldUnsignedValue(v179, v16, 0);
+                DgnTextFileWriter::setLineFieldUnsignedValue(v172, v11, 0);
               }
             }
           }
 
-          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v166, v33);
-          DgnTextFileWriter::writeNextLine(v179);
-          v31 = *(this + 36);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v159, v28);
+          DgnTextFileWriter::writeNextLine(v172);
+          v26 = *(this + 36);
         }
       }
     }
 
     else
     {
-      v34 = *(this + 40);
-      if (v34)
+      v29 = *(this + 40);
+      if (v29)
       {
-        for (m = 0; m < v34; ++m)
+        for (m = 0; m < v29; ++m)
         {
-          v36 = *(*(this + 19) + m);
-          if (v36 != 255)
+          v31 = *(*(this + 19) + m);
+          if (v31 != 255)
           {
-            DgnTextFileWriter::setLineFieldValue(v179, 0, "WordIdToLmId");
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, m);
+            DgnTextFileWriter::setLineFieldValue(v172, 0, "WordIdToLmId");
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, m);
             if (*(this + 16) >= 2u)
             {
-              DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, 0);
+              DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, 0);
               if (*(this + 16) >= 3u)
               {
-                DgnTextFileWriter::setLineFieldUnsignedValue(v179, v15, 0);
+                DgnTextFileWriter::setLineFieldUnsignedValue(v172, v10, 0);
                 if (*(this + 16) >= 4u)
                 {
-                  DgnTextFileWriter::setLineFieldUnsignedValue(v179, v16, 0);
+                  DgnTextFileWriter::setLineFieldUnsignedValue(v172, v11, 0);
                 }
               }
             }
 
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v166, v36);
-            DgnTextFileWriter::writeNextLine(v179);
-            v34 = *(this + 40);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v159, v31);
+            DgnTextFileWriter::writeNextLine(v172);
+            v29 = *(this + 40);
           }
         }
       }
     }
   }
 
-  v162 = v16;
+  v155 = v11;
   if (*(this + 16) >= 2u)
   {
     if (*(this + 276) == 1)
     {
-      v37 = *(this + 72);
-      if (v37)
+      v32 = *(this + 72);
+      if (v32)
       {
-        for (n = 0; n < v37; ++n)
+        for (n = 0; n < v32; ++n)
         {
-          v39 = *(*(this + 35) + 4 * n);
-          if (v39 != -1)
+          v34 = *(*(this + 35) + 4 * n);
+          if (v34 != -1)
           {
-            DgnTextFileWriter::setLineFieldValue(v179, 0, "WordIdToContextLmId");
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, n);
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, 0);
+            DgnTextFileWriter::setLineFieldValue(v172, 0, "WordIdToContextLmId");
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, n);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, 0);
             if (*(this + 16) >= 3u)
             {
-              DgnTextFileWriter::setLineFieldUnsignedValue(v179, v15, 0);
+              DgnTextFileWriter::setLineFieldUnsignedValue(v172, v10, 0);
               if (*(this + 16) >= 4u)
               {
-                DgnTextFileWriter::setLineFieldUnsignedValue(v179, v16, 0);
+                DgnTextFileWriter::setLineFieldUnsignedValue(v172, v11, 0);
               }
             }
 
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v166, v39);
-            DgnTextFileWriter::writeNextLine(v179);
-            v37 = *(this + 72);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v159, v34);
+            DgnTextFileWriter::writeNextLine(v172);
+            v32 = *(this + 72);
           }
         }
       }
 
       else
       {
-        v40 = *(this + 76);
-        if (v40)
+        v35 = *(this + 76);
+        if (v35)
         {
-          for (ii = 0; ii < v40; ++ii)
+          for (ii = 0; ii < v35; ++ii)
           {
-            v42 = *(*(this + 37) + 2 * ii);
-            if (v42 != 0xFFFF)
+            v37 = *(*(this + 37) + 2 * ii);
+            if (v37 != 0xFFFF)
             {
-              DgnTextFileWriter::setLineFieldValue(v179, 0, "WordIdToContextLmId");
-              DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, ii);
-              DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, 0);
+              DgnTextFileWriter::setLineFieldValue(v172, 0, "WordIdToContextLmId");
+              DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, ii);
+              DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, 0);
               if (*(this + 16) >= 3u)
               {
-                DgnTextFileWriter::setLineFieldUnsignedValue(v179, v15, 0);
+                DgnTextFileWriter::setLineFieldUnsignedValue(v172, v10, 0);
                 if (*(this + 16) >= 4u)
                 {
-                  DgnTextFileWriter::setLineFieldUnsignedValue(v179, v16, 0);
+                  DgnTextFileWriter::setLineFieldUnsignedValue(v172, v11, 0);
                 }
               }
 
-              DgnTextFileWriter::setLineFieldUnsignedValue(v179, v166, v42);
-              DgnTextFileWriter::writeNextLine(v179);
-              v40 = *(this + 76);
+              DgnTextFileWriter::setLineFieldUnsignedValue(v172, v159, v37);
+              DgnTextFileWriter::writeNextLine(v172);
+              v35 = *(this + 76);
             }
           }
         }
 
         else
         {
-          v43 = *(this + 80);
-          if (v43)
+          v38 = *(this + 80);
+          if (v38)
           {
-            for (jj = 0; jj < v43; ++jj)
+            for (jj = 0; jj < v38; ++jj)
             {
-              v45 = *(*(this + 39) + jj);
-              if (v45 != 255)
+              v40 = *(*(this + 39) + jj);
+              if (v40 != 255)
               {
-                DgnTextFileWriter::setLineFieldValue(v179, 0, "WordIdToContextLmId");
-                DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, jj);
-                DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, 0);
+                DgnTextFileWriter::setLineFieldValue(v172, 0, "WordIdToContextLmId");
+                DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, jj);
+                DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, 0);
                 if (*(this + 16) >= 3u)
                 {
-                  DgnTextFileWriter::setLineFieldUnsignedValue(v179, v15, 0);
+                  DgnTextFileWriter::setLineFieldUnsignedValue(v172, v10, 0);
                   if (*(this + 16) >= 4u)
                   {
-                    DgnTextFileWriter::setLineFieldUnsignedValue(v179, v16, 0);
+                    DgnTextFileWriter::setLineFieldUnsignedValue(v172, v11, 0);
                   }
                 }
 
-                DgnTextFileWriter::setLineFieldUnsignedValue(v179, v166, v45);
-                DgnTextFileWriter::writeNextLine(v179);
-                v43 = *(this + 80);
+                DgnTextFileWriter::setLineFieldUnsignedValue(v172, v159, v40);
+                DgnTextFileWriter::writeNextLine(v172);
+                v38 = *(this + 80);
               }
             }
           }
@@ -1250,785 +1245,783 @@ void WordLanguageModel::saveText(WordLanguageModel *this, DFile *a2, int a3)
       }
     }
 
-    v46 = *(this + 84);
-    if (v46 >= 2)
+    v41 = *(this + 84);
+    if (v41 >= 2)
     {
-      for (kk = 1; kk < v46; ++kk)
+      for (kk = 1; kk < v41; ++kk)
       {
-        v48 = *(*(this + 41) + 2 * kk);
-        if (v48 != 20000)
+        v43 = *(*(this + 41) + 2 * kk);
+        if (v43 != 20000)
         {
-          DgnTextFileWriter::setLineFieldValue(v179, 0, "UniBoSc");
-          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, kk);
-          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, 0);
+          DgnTextFileWriter::setLineFieldValue(v172, 0, "UniBoSc");
+          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, kk);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, 0);
           if (*(this + 16) >= 3u)
           {
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v15, 0);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v10, 0);
             if (*(this + 16) >= 4u)
             {
-              DgnTextFileWriter::setLineFieldUnsignedValue(v179, v16, 0);
+              DgnTextFileWriter::setLineFieldUnsignedValue(v172, v11, 0);
             }
           }
 
-          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v166, v48);
-          DgnTextFileWriter::writeNextLine(v179);
-          v46 = *(this + 84);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v159, v43);
+          DgnTextFileWriter::writeNextLine(v172);
+          v41 = *(this + 84);
         }
       }
     }
 
-    v49 = *(this + 88);
-    if (v49 >= 2)
+    v44 = *(this + 88);
+    if (v44 >= 2)
     {
-      for (mm = 1; mm < v49; ++mm)
+      for (mm = 1; mm < v44; ++mm)
       {
-        v51 = *(*(this + 43) + 2 * mm);
-        if (v51 != 20000)
+        v46 = *(*(this + 43) + 2 * mm);
+        if (v46 != 20000)
         {
-          DgnTextFileWriter::setLineFieldValue(v179, 0, "BoWt");
-          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, mm);
-          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, 0);
+          DgnTextFileWriter::setLineFieldValue(v172, 0, "BoWt");
+          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, mm);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, 0);
           if (*(this + 16) >= 3u)
           {
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v15, 0);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v10, 0);
             if (*(this + 16) >= 4u)
             {
-              DgnTextFileWriter::setLineFieldUnsignedValue(v179, v16, 0);
+              DgnTextFileWriter::setLineFieldUnsignedValue(v172, v11, 0);
             }
           }
 
-          DgnTextFileWriter::setLineFieldIntegerValue(v179, v166, v51);
-          DgnTextFileWriter::writeNextLine(v179);
-          v49 = *(this + 88);
+          DgnTextFileWriter::setLineFieldIntegerValue(v172, v159, v46);
+          DgnTextFileWriter::writeNextLine(v172);
+          v44 = *(this + 88);
         }
       }
     }
 
     if (*(this + 94) >= 2u)
     {
-      v52 = 1;
+      v47 = 1;
       do
       {
-        v53 = *(*(this + 46) + 2 * v52);
-        DgnTextFileWriter::setLineFieldValue(v179, 0, "BiScQuant");
-        DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, v52);
-        DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, 0);
+        v48 = *(*(this + 46) + 2 * v47);
+        DgnTextFileWriter::setLineFieldValue(v172, 0, "BiScQuant");
+        DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, v47);
+        DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, 0);
         if (*(this + 16) >= 3u)
         {
-          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v15, 0);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v10, 0);
           if (*(this + 16) >= 4u)
           {
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v16, 0);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v11, 0);
           }
         }
 
-        DgnTextFileWriter::setLineFieldUnsignedValue(v179, v166, v53);
-        DgnTextFileWriter::writeNextLine(v179);
-        ++v52;
+        DgnTextFileWriter::setLineFieldUnsignedValue(v172, v159, v48);
+        DgnTextFileWriter::writeNextLine(v172);
+        ++v47;
       }
 
-      while (v52 < *(this + 94));
+      while (v47 < *(this + 94));
     }
 
-    v163 = v15;
-    v171 = 0;
-    v172 = 0;
-    v169 = 0;
-    v170 = 0;
-    v167 = 0;
-    v168 = 0;
+    v156 = v10;
+    v164 = 0;
+    v165 = 0;
+    v162 = 0;
+    v163 = 0;
+    v160 = 0;
+    v161 = 0;
     if (*(this + 140) >= 2u)
     {
-      v54 = 1;
+      v49 = 1;
       do
       {
-        LODWORD(v172) = 0;
-        LODWORD(v170) = 0;
-        LODWORD(v168) = 0;
-        v55 = *(*(this + 69) + 2 * v54);
-        if ((*(*(this + 48) + ((v54 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v54))
+        LODWORD(v165) = 0;
+        LODWORD(v163) = 0;
+        LODWORD(v161) = 0;
+        if ((*(*(this + 48) + ((v49 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v49))
         {
-          if (*(*(this + 69) + 2 * v54))
+          if (*(*(this + 69) + 2 * v49))
           {
-            v56 = 1;
+            v50 = 1;
             do
             {
-              v57 = *(this + 94);
-              v58 = v56 - 1;
-              v59 = (*(*(this + 67) + 4 * v54) + v58);
-              if (v57)
+              v51 = *(this + 94);
+              v52 = v50 - 1;
+              v53 = (*(*(this + 67) + 4 * v49) + v52);
+              if (v51)
               {
-                v59 = *(*(this + 73) + v59);
-                v60 = *(this + 46);
+                v53 = *(*(this + 73) + v53);
+                v54 = *(this + 46);
               }
 
               else
               {
-                v60 = *(this + 71);
+                v54 = *(this + 71);
               }
 
-              v61 = *(v60 + 2 * v59);
-              if (v61 != 20000)
+              v55 = *(v54 + 2 * v53);
+              if (v55 != 20000)
               {
-                v62 = v172;
-                if (v172 == HIDWORD(v172))
+                v56 = v165;
+                if (v165 == HIDWORD(v165))
                 {
-                  DgnPrimArray<short>::reallocElts(&v171, 1, 1);
-                  v62 = v172;
-                  v57 = *(this + 94);
+                  DgnPrimArray<short>::reallocElts(&v164, 1, 1);
+                  v56 = v165;
+                  v51 = *(this + 94);
                 }
 
-                *(v171 + 2 * v62) = v56;
-                LODWORD(v172) = v62 + 1;
-                if (v57)
+                *(v164 + 2 * v56) = v50;
+                LODWORD(v165) = v56 + 1;
+                if (v51)
                 {
-                  v63 = *(*(this + 73) + (*(*(this + 67) + 4 * v54) + v58));
-                  v64 = v168;
-                  if (v168 == HIDWORD(v168))
+                  v57 = *(*(this + 73) + (*(*(this + 67) + 4 * v49) + v52));
+                  v58 = v161;
+                  if (v161 == HIDWORD(v161))
                   {
-                    DgnPrimArray<char>::reallocElts(&v167, 1, 1);
-                    v64 = v168;
+                    DgnPrimArray<char>::reallocElts(&v160, 1, 1);
+                    v58 = v161;
                   }
 
-                  *(v167 + v64) = v63;
-                  v65 = v168;
-                  v66 = &v168;
+                  *(v160 + v58) = v57;
+                  v59 = v161;
+                  v60 = &v161;
                 }
 
                 else
                 {
-                  v65 = v170;
-                  if (v170 == HIDWORD(v170))
+                  v59 = v163;
+                  if (v163 == HIDWORD(v163))
                   {
-                    DgnPrimArray<short>::reallocElts(&v169, 1, 1);
-                    v65 = v170;
+                    DgnPrimArray<short>::reallocElts(&v162, 1, 1);
+                    v59 = v163;
                   }
 
-                  *(v169 + 2 * v65) = v61;
-                  v66 = &v170;
+                  *(v162 + 2 * v59) = v55;
+                  v60 = &v163;
                 }
 
-                *v66 = v65 + 1;
+                *v60 = v59 + 1;
               }
 
-              ++v56;
+              ++v50;
             }
 
-            while (*(*(this + 69) + 2 * v54) >= v56);
+            while (*(*(this + 69) + 2 * v49) >= v50);
           }
         }
 
-        else if (*(*(this + 69) + 2 * v54))
+        else if (*(*(this + 69) + 2 * v49))
         {
-          v67 = 0;
+          v61 = 0;
           do
           {
-            SearchSuccIdForIndex = BigramData::getSearchSuccIdForIndex((this + 360), v54, v67);
-            SearchScoreForIndex = BigramData::getSearchScoreForIndex((this + 360), v54, v67);
-            v70 = SearchScoreForIndex;
+            SearchSuccIdForIndex = BigramData::getSearchSuccIdForIndex((this + 360), v49, v61);
+            SearchScoreForIndex = BigramData::getSearchScoreForIndex((this + 360), v49, v61);
+            v64 = SearchScoreForIndex;
             if (SearchScoreForIndex != 20000)
             {
-              v71 = v172;
-              if (v172 == HIDWORD(v172))
+              v65 = v165;
+              if (v165 == HIDWORD(v165))
               {
-                DgnPrimArray<short>::reallocElts(&v171, 1, 1);
-                v71 = v172;
+                DgnPrimArray<short>::reallocElts(&v164, 1, 1);
+                v65 = v165;
               }
 
-              *(v171 + 2 * v71) = SearchSuccIdForIndex;
-              LODWORD(v172) = v71 + 1;
+              *(v164 + 2 * v65) = SearchSuccIdForIndex;
+              LODWORD(v165) = v65 + 1;
               if (*(this + 94))
               {
-                SearchQuantizedScoreForIndex = BigramData::getSearchQuantizedScoreForIndex((this + 360), v54, v67);
-                v73 = v168;
-                if (v168 == HIDWORD(v168))
+                SearchQuantizedScoreForIndex = BigramData::getSearchQuantizedScoreForIndex((this + 360), v49, v61);
+                v67 = v161;
+                if (v161 == HIDWORD(v161))
                 {
-                  DgnPrimArray<char>::reallocElts(&v167, 1, 1);
-                  v73 = v168;
+                  DgnPrimArray<char>::reallocElts(&v160, 1, 1);
+                  v67 = v161;
                 }
 
-                *(v167 + v73) = SearchQuantizedScoreForIndex;
-                v74 = v168;
-                v75 = &v168;
+                *(v160 + v67) = SearchQuantizedScoreForIndex;
+                v68 = v161;
+                v69 = &v161;
               }
 
               else
               {
-                v74 = v170;
-                if (v170 == HIDWORD(v170))
+                v68 = v163;
+                if (v163 == HIDWORD(v163))
                 {
-                  DgnPrimArray<short>::reallocElts(&v169, 1, 1);
-                  v74 = v170;
+                  DgnPrimArray<short>::reallocElts(&v162, 1, 1);
+                  v68 = v163;
                 }
 
-                *(v169 + 2 * v74) = v70;
-                v75 = &v170;
+                *(v162 + 2 * v68) = v64;
+                v69 = &v163;
               }
 
-              *v75 = v74 + 1;
+              *v69 = v68 + 1;
             }
 
-            ++v67;
+            ++v61;
           }
 
-          while (v67 < *(*(this + 69) + 2 * v54));
+          while (v61 < *(*(this + 69) + 2 * v49));
         }
 
-        if (v172)
+        if (v165)
         {
-          v76 = 0;
+          v70 = 0;
           do
           {
             if (*(this + 94))
             {
-              v77 = *(v167 + v76);
+              v71 = *(v160 + v70);
             }
 
             else
             {
-              v77 = *(v169 + 2 * v76);
+              v71 = *(v162 + 2 * v70);
             }
 
-            v78 = *(v171 + 2 * v76);
-            DgnTextFileWriter::setLineFieldValue(v179, 0, "BiSc");
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, v54);
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, v78);
+            v72 = *(v164 + 2 * v70);
+            DgnTextFileWriter::setLineFieldValue(v172, 0, "BiSc");
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, v49);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, v72);
             if (*(this + 16) >= 3u)
             {
-              DgnTextFileWriter::setLineFieldUnsignedValue(v179, v15, 0);
+              DgnTextFileWriter::setLineFieldUnsignedValue(v172, v10, 0);
               if (*(this + 16) >= 4u)
               {
-                DgnTextFileWriter::setLineFieldUnsignedValue(v179, v162, 0);
+                DgnTextFileWriter::setLineFieldUnsignedValue(v172, v155, 0);
               }
             }
 
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v166, v77);
-            DgnTextFileWriter::writeNextLine(v179);
-            ++v76;
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v159, v71);
+            DgnTextFileWriter::writeNextLine(v172);
+            ++v70;
           }
 
-          while (v76 < v172);
+          while (v70 < v165);
         }
 
-        ++v54;
+        ++v49;
       }
 
-      while (v54 < *(this + 140));
+      while (v49 < *(this + 140));
     }
 
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v167);
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v169);
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v171);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v160);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v162);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v164);
     if (*(this + 16) >= 3u)
     {
       if (*(this + 192) >= 2u)
       {
-        v79 = 1;
+        v73 = 1;
         do
         {
-          v80 = *(*(this + 95) + 2 * v79);
-          DgnTextFileWriter::setLineFieldValue(v179, 0, "TriBoWtQuant");
-          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, v79);
-          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, 0);
-          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v15, 0);
+          v74 = *(*(this + 95) + 2 * v73);
+          DgnTextFileWriter::setLineFieldValue(v172, 0, "TriBoWtQuant");
+          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, v73);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, 0);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v10, 0);
           if (*(this + 16) >= 4u)
           {
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v162, 0);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v155, 0);
           }
 
-          DgnTextFileWriter::setLineFieldIntegerValue(v179, v166, v80);
-          DgnTextFileWriter::writeNextLine(v179);
-          ++v79;
+          DgnTextFileWriter::setLineFieldIntegerValue(v172, v159, v74);
+          DgnTextFileWriter::writeNextLine(v172);
+          ++v73;
         }
 
-        while (v79 < *(this + 192));
+        while (v73 < *(this + 192));
       }
 
       if (*(this + 196) >= 2u)
       {
-        v81 = 1;
+        v75 = 1;
         do
         {
-          v82 = *(*(this + 97) + 2 * v81);
-          DgnTextFileWriter::setLineFieldValue(v179, 0, "TriScQuant");
-          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, v81);
-          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, 0);
-          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v15, 0);
+          v76 = *(*(this + 97) + 2 * v75);
+          DgnTextFileWriter::setLineFieldValue(v172, 0, "TriScQuant");
+          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, v75);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, 0);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v10, 0);
           if (*(this + 16) >= 4u)
           {
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v162, 0);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v155, 0);
           }
 
-          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v166, v82);
-          DgnTextFileWriter::writeNextLine(v179);
-          ++v81;
+          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v159, v76);
+          DgnTextFileWriter::writeNextLine(v172);
+          ++v75;
         }
 
-        while (v81 < *(this + 196));
+        while (v75 < *(this + 196));
       }
 
-      v83 = *(this + 200);
-      if (v83 >= 2)
+      v77 = *(this + 200);
+      if (v77 >= 2)
       {
-        for (nn = 1; nn < v83; ++nn)
+        for (nn = 1; nn < v77; ++nn)
         {
-          v85 = *(this + 99);
-          v86 = *(v85 + 2 * nn);
-          if (*(v85 + 2 * nn))
+          v79 = *(this + 99);
+          v80 = *(v79 + 2 * nn);
+          if (*(v79 + 2 * nn))
           {
-            v87 = 0;
+            v81 = 0;
             do
             {
-              v88 = v87 + *(*(this + 101) + 4 * nn);
-              v89 = *(*(this + 103) + 2 * v88);
-              DgnTextFileWriter::setLineFieldValue(v179, 0, "TriBoWt");
-              DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, nn);
-              DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, v89);
-              DgnTextFileWriter::setLineFieldUnsignedValue(v179, v163, 0);
+              v82 = v81 + *(*(this + 101) + 4 * nn);
+              v83 = *(*(this + 103) + 2 * v82);
+              DgnTextFileWriter::setLineFieldValue(v172, 0, "TriBoWt");
+              DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, nn);
+              DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, v83);
+              DgnTextFileWriter::setLineFieldUnsignedValue(v172, v156, 0);
               if (*(this + 16) >= 4u)
               {
-                DgnTextFileWriter::setLineFieldUnsignedValue(v179, v162, 0);
+                DgnTextFileWriter::setLineFieldUnsignedValue(v172, v155, 0);
               }
 
               if (*(this + 192))
               {
-                DgnTextFileWriter::setLineFieldUnsignedValue(v179, v166, *(*(this + 107) + v88));
+                DgnTextFileWriter::setLineFieldUnsignedValue(v172, v159, *(*(this + 107) + v82));
               }
 
               else
               {
-                DgnTextFileWriter::setLineFieldIntegerValue(v179, v166, *(*(this + 105) + 2 * v88));
+                DgnTextFileWriter::setLineFieldIntegerValue(v172, v159, *(*(this + 105) + 2 * v82));
               }
 
-              DgnTextFileWriter::writeNextLine(v179);
-              ++v87;
+              DgnTextFileWriter::writeNextLine(v172);
+              ++v81;
             }
 
-            while (v86 != v87);
-            v83 = *(this + 200);
+            while (v80 != v81);
+            v77 = *(this + 200);
           }
         }
       }
 
-      v171 = 0;
-      v172 = 0;
-      v169 = 0;
-      v170 = 0;
-      v167 = 0;
-      v168 = 0;
-      if (v83 >= 2)
+      v164 = 0;
+      v165 = 0;
+      v162 = 0;
+      v163 = 0;
+      v160 = 0;
+      v161 = 0;
+      if (v77 >= 2)
       {
-        for (i1 = 1; i1 < v83; ++i1)
+        for (i1 = 1; i1 < v77; ++i1)
         {
-          v156 = *(*(this + 99) + 2 * i1);
+          v149 = *(*(this + 99) + 2 * i1);
           if (*(*(this + 99) + 2 * i1))
           {
-            v91 = 0;
+            v85 = 0;
             do
             {
-              v92 = (*(*(this + 101) + 4 * i1) + v91);
-              v93 = *(*(this + 103) + 2 * v92);
-              LODWORD(v172) = 0;
-              LODWORD(v170) = 0;
-              LODWORD(v168) = 0;
-              v94 = *(*(this + 130) + 2 * v92);
-              if ((*(*(this + 109) + 4 * (v92 >> 5)) >> v92))
+              v86 = (*(*(this + 101) + 4 * i1) + v85);
+              v87 = *(*(this + 103) + 2 * v86);
+              LODWORD(v165) = 0;
+              LODWORD(v163) = 0;
+              LODWORD(v161) = 0;
+              if ((*(*(this + 109) + 4 * (v86 >> 5)) >> v86))
               {
-                if (*(*(this + 130) + 2 * v92))
+                if (*(*(this + 130) + 2 * v86))
                 {
-                  v95 = 1;
+                  v88 = 1;
                   do
                   {
-                    v96 = *(this + 196);
-                    v97 = v95 - 1;
-                    v98 = (*(*(this + 128) + 4 * v92) + v97);
-                    if (v96)
+                    v89 = *(this + 196);
+                    v90 = v88 - 1;
+                    v91 = (*(*(this + 128) + 4 * v86) + v90);
+                    if (v89)
                     {
-                      v98 = *(*(this + 134) + v98);
-                      v99 = *(this + 97);
+                      v91 = *(*(this + 134) + v91);
+                      v92 = *(this + 97);
                     }
 
                     else
                     {
-                      v99 = *(this + 132);
+                      v92 = *(this + 132);
                     }
 
-                    v100 = *(v99 + 2 * v98);
-                    if (v100 != 20000)
+                    v93 = *(v92 + 2 * v91);
+                    if (v93 != 20000)
                     {
-                      v101 = v172;
-                      if (v172 == HIDWORD(v172))
+                      v94 = v165;
+                      if (v165 == HIDWORD(v165))
                       {
-                        DgnPrimArray<short>::reallocElts(&v171, 1, 1);
-                        v101 = v172;
-                        v96 = *(this + 196);
+                        DgnPrimArray<short>::reallocElts(&v164, 1, 1);
+                        v94 = v165;
+                        v89 = *(this + 196);
                       }
 
-                      *(v171 + 2 * v101) = v95;
-                      LODWORD(v172) = v101 + 1;
-                      if (v96)
+                      *(v164 + 2 * v94) = v88;
+                      LODWORD(v165) = v94 + 1;
+                      if (v89)
                       {
-                        v102 = *(*(this + 134) + (*(*(this + 128) + 4 * v92) + v97));
-                        v103 = v168;
-                        if (v168 == HIDWORD(v168))
+                        v95 = *(*(this + 134) + (*(*(this + 128) + 4 * v86) + v90));
+                        v96 = v161;
+                        if (v161 == HIDWORD(v161))
                         {
-                          DgnPrimArray<char>::reallocElts(&v167, 1, 1);
-                          v103 = v168;
+                          DgnPrimArray<char>::reallocElts(&v160, 1, 1);
+                          v96 = v161;
                         }
 
-                        *(v167 + v103) = v102;
-                        v104 = v168;
-                        v105 = &v168;
+                        *(v160 + v96) = v95;
+                        v97 = v161;
+                        v98 = &v161;
                       }
 
                       else
                       {
-                        v104 = v170;
-                        if (v170 == HIDWORD(v170))
+                        v97 = v163;
+                        if (v163 == HIDWORD(v163))
                         {
-                          DgnPrimArray<short>::reallocElts(&v169, 1, 1);
-                          v104 = v170;
+                          DgnPrimArray<short>::reallocElts(&v162, 1, 1);
+                          v97 = v163;
                         }
 
-                        *(v169 + 2 * v104) = v100;
-                        v105 = &v170;
+                        *(v162 + 2 * v97) = v93;
+                        v98 = &v163;
                       }
 
-                      *v105 = v104 + 1;
+                      *v98 = v97 + 1;
                     }
 
-                    ++v95;
+                    ++v88;
                   }
 
-                  while (*(*(this + 130) + 2 * v92) >= v95);
+                  while (*(*(this + 130) + 2 * v86) >= v88);
                 }
               }
 
-              else if (*(*(this + 130) + 2 * v92))
+              else if (*(*(this + 130) + 2 * v86))
               {
-                v106 = 0;
+                v99 = 0;
                 do
                 {
-                  v107 = TrigramData::getSearchSuccIdForIndex((this + 744), v92, v106);
-                  v108 = TrigramData::getSearchScoreForIndex((this + 744), v92, v106);
-                  v109 = v108;
-                  if (v108 != 20000)
+                  v100 = TrigramData::getSearchSuccIdForIndex((this + 744), v86, v99);
+                  v101 = TrigramData::getSearchScoreForIndex((this + 744), v86, v99);
+                  v102 = v101;
+                  if (v101 != 20000)
                   {
-                    v110 = v172;
-                    if (v172 == HIDWORD(v172))
+                    v103 = v165;
+                    if (v165 == HIDWORD(v165))
                     {
-                      DgnPrimArray<short>::reallocElts(&v171, 1, 1);
-                      v110 = v172;
+                      DgnPrimArray<short>::reallocElts(&v164, 1, 1);
+                      v103 = v165;
                     }
 
-                    *(v171 + 2 * v110) = v107;
-                    LODWORD(v172) = v110 + 1;
+                    *(v164 + 2 * v103) = v100;
+                    LODWORD(v165) = v103 + 1;
                     if (*(this + 196))
                     {
-                      v111 = TrigramData::getSearchQuantizedScoreForIndex((this + 744), v92, v106);
-                      v112 = v168;
-                      if (v168 == HIDWORD(v168))
+                      v104 = TrigramData::getSearchQuantizedScoreForIndex((this + 744), v86, v99);
+                      v105 = v161;
+                      if (v161 == HIDWORD(v161))
                       {
-                        DgnPrimArray<char>::reallocElts(&v167, 1, 1);
-                        v112 = v168;
+                        DgnPrimArray<char>::reallocElts(&v160, 1, 1);
+                        v105 = v161;
                       }
 
-                      *(v167 + v112) = v111;
-                      v113 = v168;
-                      v114 = &v168;
+                      *(v160 + v105) = v104;
+                      v106 = v161;
+                      v107 = &v161;
                     }
 
                     else
                     {
-                      v113 = v170;
-                      if (v170 == HIDWORD(v170))
+                      v106 = v163;
+                      if (v163 == HIDWORD(v163))
                       {
-                        DgnPrimArray<short>::reallocElts(&v169, 1, 1);
-                        v113 = v170;
+                        DgnPrimArray<short>::reallocElts(&v162, 1, 1);
+                        v106 = v163;
                       }
 
-                      *(v169 + 2 * v113) = v109;
-                      v114 = &v170;
+                      *(v162 + 2 * v106) = v102;
+                      v107 = &v163;
                     }
 
-                    *v114 = v113 + 1;
+                    *v107 = v106 + 1;
                   }
 
-                  ++v106;
+                  ++v99;
                 }
 
-                while (v106 < *(*(this + 130) + 2 * v92));
+                while (v99 < *(*(this + 130) + 2 * v86));
               }
 
-              if (v172)
+              if (v165)
               {
-                v115 = 0;
+                v108 = 0;
                 do
                 {
                   if (*(this + 196))
                   {
-                    v116 = *(v167 + v115);
+                    v109 = *(v160 + v108);
                   }
 
                   else
                   {
-                    v116 = *(v169 + 2 * v115);
+                    v109 = *(v162 + 2 * v108);
                   }
 
-                  v117 = *(v171 + 2 * v115);
-                  DgnTextFileWriter::setLineFieldValue(v179, 0, "TriSc");
-                  DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, i1);
-                  DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, v93);
-                  DgnTextFileWriter::setLineFieldUnsignedValue(v179, v163, v117);
+                  v110 = *(v164 + 2 * v108);
+                  DgnTextFileWriter::setLineFieldValue(v172, 0, "TriSc");
+                  DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, i1);
+                  DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, v87);
+                  DgnTextFileWriter::setLineFieldUnsignedValue(v172, v156, v110);
                   if (*(this + 16) >= 4u)
                   {
-                    DgnTextFileWriter::setLineFieldUnsignedValue(v179, v162, 0);
+                    DgnTextFileWriter::setLineFieldUnsignedValue(v172, v155, 0);
                   }
 
-                  DgnTextFileWriter::setLineFieldUnsignedValue(v179, v166, v116);
-                  DgnTextFileWriter::writeNextLine(v179);
-                  ++v115;
+                  DgnTextFileWriter::setLineFieldUnsignedValue(v172, v159, v109);
+                  DgnTextFileWriter::writeNextLine(v172);
+                  ++v108;
                 }
 
-                while (v115 < v172);
+                while (v108 < v165);
               }
 
-              ++v91;
+              ++v85;
             }
 
-            while (v91 != v156);
-            v83 = *(this + 200);
+            while (v85 != v149);
+            v77 = *(this + 200);
           }
         }
       }
 
-      DgnPrimArray<unsigned int>::~DgnPrimArray(&v167);
-      DgnPrimArray<unsigned int>::~DgnPrimArray(&v169);
-      DgnPrimArray<unsigned int>::~DgnPrimArray(&v171);
+      DgnPrimArray<unsigned int>::~DgnPrimArray(&v160);
+      DgnPrimArray<unsigned int>::~DgnPrimArray(&v162);
+      DgnPrimArray<unsigned int>::~DgnPrimArray(&v164);
       if (*(this + 16) >= 4u)
       {
         if (*(this + 314) >= 2u)
         {
-          v118 = 1;
+          v111 = 1;
           do
           {
-            v119 = *(*(this + 156) + 2 * v118);
-            DgnTextFileWriter::setLineFieldValue(v179, 0, "QuadBoWtQuant");
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, v118);
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, 0);
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v163, 0);
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v162, 0);
-            DgnTextFileWriter::setLineFieldIntegerValue(v179, v166, v119);
-            DgnTextFileWriter::writeNextLine(v179);
-            ++v118;
+            v112 = *(*(this + 156) + 2 * v111);
+            DgnTextFileWriter::setLineFieldValue(v172, 0, "QuadBoWtQuant");
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, v111);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, 0);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v156, 0);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v155, 0);
+            DgnTextFileWriter::setLineFieldIntegerValue(v172, v159, v112);
+            DgnTextFileWriter::writeNextLine(v172);
+            ++v111;
           }
 
-          while (v118 < *(this + 314));
+          while (v111 < *(this + 314));
         }
 
         if (*(this + 318) >= 2u)
         {
-          v120 = 1;
+          v113 = 1;
           do
           {
-            v121 = *(*(this + 158) + 2 * v120);
-            DgnTextFileWriter::setLineFieldValue(v179, 0, "QuadScQuant");
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, v120);
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, 0);
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v163, 0);
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v162, 0);
-            DgnTextFileWriter::setLineFieldUnsignedValue(v179, v166, v121);
-            DgnTextFileWriter::writeNextLine(v179);
-            ++v120;
+            v114 = *(*(this + 158) + 2 * v113);
+            DgnTextFileWriter::setLineFieldValue(v172, 0, "QuadScQuant");
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, v113);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, 0);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v156, 0);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v155, 0);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v172, v159, v114);
+            DgnTextFileWriter::writeNextLine(v172);
+            ++v113;
           }
 
-          while (v120 < *(this + 318));
+          while (v113 < *(this + 318));
         }
 
-        v122 = *(this + 322);
-        if (v122 >= 2)
+        v115 = *(this + 322);
+        if (v115 >= 2)
         {
-          v123 = this + 1232;
-          for (i2 = 1; i2 < v122; ++i2)
+          v116 = this + 1232;
+          for (i2 = 1; i2 < v115; ++i2)
           {
-            v158 = *(*(this + 160) + 2 * i2);
+            v151 = *(*(this + 160) + 2 * i2);
             if (*(*(this + 160) + 2 * i2))
             {
-              v125 = 0;
-              v126 = *(this + 166);
+              v118 = 0;
+              v119 = *(this + 166);
               do
               {
-                v127 = (*(*(this + 162) + 4 * i2) + v125);
-                if (*(v126 + 2 * v127))
+                v120 = (*(*(this + 162) + 4 * i2) + v118);
+                if (*(v119 + 2 * v120))
                 {
-                  v160 = v125;
-                  v128 = 0;
-                  v129 = *(*(this + 164) + 2 * v127);
-                  v130 = v127 >> 5;
-                  v131 = 1 << (*(*(this + 162) + 4 * i2) + v125);
+                  v153 = v118;
+                  v121 = 0;
+                  v122 = *(*(this + 164) + 2 * v120);
+                  v123 = v120 >> 5;
+                  v124 = 1 << (*(*(this + 162) + 4 * i2) + v118);
                   do
                   {
-                    v132 = *(*(this + 185) + 4 * v127);
-                    if (*(this + 308) && (*(*(this + 168) + 4 * v130) & v131) != 0)
+                    v125 = *(*(this + 185) + 4 * v120);
+                    if (*(this + 308) && (*(*(this + 168) + 4 * v123) & v124) != 0)
                     {
-                      v132 = *(*(this + 207) + 4 * v132);
-                      v133 = 440;
+                      v125 = *(*(this + 207) + 4 * v125);
+                      v126 = 440;
                     }
 
                     else
                     {
-                      v133 = 264;
+                      v126 = 264;
                     }
 
-                    v134 = *(*&v123[v133] + 2 * (v132 + v128));
-                    DgnTextFileWriter::setLineFieldValue(v179, 0, "QuadBoWt");
-                    DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, i2);
-                    DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, v129);
-                    DgnTextFileWriter::setLineFieldUnsignedValue(v179, v163, v134);
-                    DgnTextFileWriter::setLineFieldUnsignedValue(v179, v162, 0);
+                    v127 = *(*&v116[v126] + 2 * (v125 + v121));
+                    DgnTextFileWriter::setLineFieldValue(v172, 0, "QuadBoWt");
+                    DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, i2);
+                    DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, v122);
+                    DgnTextFileWriter::setLineFieldUnsignedValue(v172, v156, v127);
+                    DgnTextFileWriter::setLineFieldUnsignedValue(v172, v155, 0);
                     if (*(this + 314))
                     {
-                      v135 = *(*(this + 185) + 4 * v127);
-                      if (*(this + 308) && (*(*(this + 168) + 4 * v130) & v131) != 0)
+                      v128 = *(*(this + 185) + 4 * v120);
+                      if (*(this + 308) && (*(*(this + 168) + 4 * v123) & v124) != 0)
                       {
-                        v135 = *(*(this + 207) + 4 * v135);
-                        v136 = 472;
+                        v128 = *(*(this + 207) + 4 * v128);
+                        v129 = 472;
                       }
 
                       else
                       {
-                        v136 = 312;
+                        v129 = 312;
                       }
 
-                      DgnTextFileWriter::setLineFieldUnsignedValue(v179, v166, *(*&v123[v136] + v135 + v128));
+                      DgnTextFileWriter::setLineFieldUnsignedValue(v172, v159, *(*&v116[v129] + v128 + v121));
                     }
 
                     else
                     {
-                      BackoffWeight = QuadgramData::getBackoffWeight((this + 1232), v127, v128);
-                      DgnTextFileWriter::setLineFieldIntegerValue(v179, v166, BackoffWeight);
+                      BackoffWeight = QuadgramData::getBackoffWeight((this + 1232), v120, v121);
+                      DgnTextFileWriter::setLineFieldIntegerValue(v172, v159, BackoffWeight);
                     }
 
-                    DgnTextFileWriter::writeNextLine(v179);
-                    ++v128;
-                    v126 = *(this + 166);
+                    DgnTextFileWriter::writeNextLine(v172);
+                    ++v121;
+                    v119 = *(this + 166);
                   }
 
-                  while (v128 < *(v126 + 2 * v127));
-                  v125 = v160;
+                  while (v121 < *(v119 + 2 * v120));
+                  v118 = v153;
                 }
 
-                ++v125;
+                ++v118;
               }
 
-              while (v125 != v158);
-              v122 = *(this + 322);
+              while (v118 != v151);
+              v115 = *(this + 322);
             }
           }
 
-          if (v122 >= 2)
+          if (v115 >= 2)
           {
-            for (i3 = 1; i3 < v122; ++i3)
+            for (i3 = 1; i3 < v115; ++i3)
             {
-              v155 = *(*(this + 160) + 2 * i3);
+              v148 = *(*(this + 160) + 2 * i3);
               if (*(*(this + 160) + 2 * i3))
               {
-                v139 = 0;
-                v140 = *(this + 166);
-                *v161 = i3;
+                v132 = 0;
+                v133 = *(this + 166);
+                v154 = i3;
                 do
                 {
-                  v141 = (*(*(this + 162) + 4 * i3) + v139);
-                  if (*(v140 + 2 * v141))
+                  v134 = (*(*(this + 162) + 4 * i3) + v132);
+                  if (*(v133 + 2 * v134))
                   {
-                    v142 = 0;
-                    v157 = v139;
-                    v159 = *(*(this + 164) + 2 * v141);
-                    v143 = v141 >> 5;
-                    v144 = 1 << (*(*(this + 162) + 4 * i3) + v139);
-                    v145 = *(*(this + 185) + 4 * v141);
-                    v146 = *(this + 308);
+                    v135 = 0;
+                    v150 = v132;
+                    v152 = *(*(this + 164) + 2 * v134);
+                    v136 = v134 >> 5;
+                    v137 = 1 << (*(*(this + 162) + 4 * i3) + v132);
+                    v138 = *(*(this + 185) + 4 * v134);
+                    v139 = *(this + 308);
                     do
                     {
-                      if (v146 && (*(*(this + 168) + 4 * v143) & v144) != 0)
+                      if (v139 && (*(*(this + 168) + 4 * v136) & v137) != 0)
                       {
-                        v147 = *(*(this + 207) + 4 * v145);
-                        v148 = 440;
+                        v140 = *(*(this + 207) + 4 * v138);
+                        v141 = 440;
                       }
 
                       else
                       {
-                        v148 = 264;
-                        v147 = v145;
+                        v141 = 264;
+                        v140 = v138;
                       }
 
-                      v149 = 0;
-                      v150 = *(*&v123[v148] + 2 * (v147 + v142));
-                      if (!v146)
+                      v142 = 0;
+                      v143 = *(*&v116[v141] + 2 * (v140 + v135));
+                      if (!v139)
                       {
                         goto LABEL_279;
                       }
 
 LABEL_277:
-                      if ((*(*(this + 168) + 4 * v143) & v144) != 0)
+                      if ((*(*(this + 168) + 4 * v136) & v137) != 0)
                       {
-                        v151 = *(*(this + 207) + 4 * v145);
-                        v152 = 504;
+                        v144 = *(*(this + 207) + 4 * v138);
+                        v145 = 504;
                         goto LABEL_280;
                       }
 
 LABEL_279:
                       while (1)
                       {
-                        v152 = 280;
-                        v151 = v145;
+                        v145 = 280;
+                        v144 = v138;
 LABEL_280:
-                        if (v149 >= *(*&v123[v152] + 2 * (v151 + v142)))
+                        if (v142 >= *(*&v116[v145] + 2 * (v144 + v135)))
                         {
                           break;
                         }
 
-                        Quad3SuccIdForIndex = QuadgramData::getQuad3SuccIdForIndex((this + 1232), v141, v142, v149);
-                        ScoreForIndex = QuadgramData::getScoreForIndex((this + 1232), v141, v142, v149);
+                        Quad3SuccIdForIndex = QuadgramData::getQuad3SuccIdForIndex((this + 1232), v134, v135, v142);
+                        ScoreForIndex = QuadgramData::getScoreForIndex((this + 1232), v134, v135, v142);
                         if (ScoreForIndex != 20000)
                         {
                           if (*(this + 318))
                           {
-                            ScoreForIndex = QuadgramData::getQuantizedScoreForIndex((this + 1232), v141, v142, v149);
+                            ScoreForIndex = QuadgramData::getQuantizedScoreForIndex((this + 1232), v134, v135, v142);
                           }
 
-                          DgnTextFileWriter::setLineFieldValue(v179, 0, "QuadSc");
-                          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v165, v161[0]);
-                          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v164, v159);
-                          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v163, v150);
-                          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v162, Quad3SuccIdForIndex);
-                          DgnTextFileWriter::setLineFieldUnsignedValue(v179, v166, ScoreForIndex);
-                          DgnTextFileWriter::writeNextLine(v179);
+                          DgnTextFileWriter::setLineFieldValue(v172, 0, "QuadSc");
+                          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v158, v154);
+                          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v157, v152);
+                          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v156, v143);
+                          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v155, Quad3SuccIdForIndex);
+                          DgnTextFileWriter::setLineFieldUnsignedValue(v172, v159, ScoreForIndex);
+                          DgnTextFileWriter::writeNextLine(v172);
                         }
 
-                        ++v149;
-                        v146 = *(this + 308);
-                        v145 = *(*(this + 185) + 4 * v141);
-                        if (v146)
+                        ++v142;
+                        v139 = *(this + 308);
+                        v138 = *(*(this + 185) + 4 * v134);
+                        if (v139)
                         {
                           goto LABEL_277;
                         }
                       }
 
-                      ++v142;
-                      v140 = *(this + 166);
+                      ++v135;
+                      v133 = *(this + 166);
                     }
 
-                    while (v142 < *(v140 + 2 * v141));
-                    i3 = *v161;
-                    v139 = v157;
+                    while (v135 < *(v133 + 2 * v134));
+                    i3 = v154;
+                    v132 = v150;
                   }
 
-                  ++v139;
+                  ++v132;
                 }
 
-                while (v139 != v155);
-                v122 = *(this + 322);
+                while (v132 != v148);
+                v115 = *(this + 322);
               }
             }
           }
@@ -2037,22 +2030,23 @@ LABEL_280:
     }
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v173);
-  DgnArray<DgnString>::releaseAll(&v175);
-  DgnIArray<Utterance *>::~DgnIArray(&v177);
-  DgnTextFileWriter::~DgnTextFileWriter(v179);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v166);
+  DgnArray<DgnString>::releaseAll(&v168);
+  DgnIArray<Utterance *>::~DgnIArray(&v170);
+  DgnTextFileWriter::~DgnTextFileWriter(v172);
 }
 
-void sub_262799C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, char a23, uint64_t a24, char a25, uint64_t a26, char a27)
+void sub_262799C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a21);
   DgnArray<DgnString>::releaseAll(&a23);
   DgnIArray<Utterance *>::~DgnIArray(&a25);
-  DgnTextFileWriter::~DgnTextFileWriter(&a27);
+  DgnTextFileWriter::~DgnTextFileWriter(va);
   _Unwind_Resume(a1);
 }
 
-void (***WordLanguageModel::saveBinary(WordLanguageModel *this, DFile *a2, DFileChecksums *a3, int a4))(void)
+void (***WordLanguageModel::saveBinary(WordLanguageModel *this, DFile *a2, DFileChecksums *a3, uint64_t a4))(void)
 {
   v7 = OpenAndWriteMrecHeader(a2, 0x6Fu, a4, "LMWNGBIN", 24, 18);
   v10 = 0;
@@ -2082,11 +2076,11 @@ void (***WordLanguageModel::saveBinary(WordLanguageModel *this, DFile *a2, DFile
 
   writeObjectChecksum(v7, &v10);
   CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0x6Fu, v10);
+  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 111, v10);
   return DgnDelete<DgnStream>(v7);
 }
 
-uint64_t WordLanguageModel::saveLMShared(WordLanguageModel *this, DgnSharedMemStream *a2, int a3)
+uint64_t WordLanguageModel::saveLMShared(WordLanguageModel *this, DgnSharedMemStream *a2, BOOL a3)
 {
   result = WordLanguageModel::saveBinaryShared(this, a2, a3);
   if (*(this + 16) >= 2u && *(this + 244) == 1)
@@ -2149,7 +2143,7 @@ LABEL_9:
 
 void WordLanguageModel::reloadLMShared(WordLanguageModel *this, DgnSharedMemStream *a2, int a3)
 {
-  WordLanguageModel::loadBinaryShared(this, a2, 0, 0, 0x6Fu, a3);
+  WordLanguageModel::loadBinaryShared(this, a2, 0, 0, 111, a3);
   if (*(this + 16) >= 2u && *(this + 244) == 1)
   {
     v4 = *(**(this + 29) + 88);
@@ -2158,7 +2152,7 @@ void WordLanguageModel::reloadLMShared(WordLanguageModel *this, DgnSharedMemStre
   }
 }
 
-RecentBuffer *WordLanguageModel::saveVocAndSvc(unint64_t a1, DFile *a2, DFile *a3, DFileChecksums *a4, uint64_t a5, DFileChecksums *a6, uint64_t a7, uint64_t a8, uint64_t a9)
+RecentBuffer *WordLanguageModel::saveVocAndSvc(uint64_t a1, DFile *a2, DFile *a3, DFileChecksums *a4, uint64_t a5, DFileChecksums *a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (*(a1 + 64) == 1)
   {
@@ -2171,10 +2165,10 @@ RecentBuffer *WordLanguageModel::saveVocAndSvc(unint64_t a1, DFile *a2, DFile *a
   {
     if (*(a1 + 244) == 1)
     {
-      v25 = 1;
-      DFile::pushCurrentSubDirComponent(a2, &v25, a3, a4, a5, a6, a7, a8);
-      v25 = 1;
-      DFile::pushCurrentSubDirComponent(a3, &v25, v19, v20, v21, v22, v23, v24);
+      v19 = 1;
+      DFile::pushCurrentSubDirComponent(a2, &v19);
+      v19 = 1;
+      DFile::pushCurrentSubDirComponent(a3, &v19);
       (*(**(a1 + 232) + 96))(*(a1 + 232), a2, a3, a4, a5, a6, a7, a8, a9);
       DFile::popCurrentSubDirComponent(a2);
       DFile::popCurrentSubDirComponent(a3);
@@ -2192,40 +2186,41 @@ RecentBuffer *WordLanguageModel::saveVocAndSvc(unint64_t a1, DFile *a2, DFile *a
   return result;
 }
 
-void WordLanguageModel::savePersistentAndIndex(unint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, int a7, int a8)
+void WordLanguageModel::savePersistentAndIndex(_DWORD *a1, DFile *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, int a8)
 {
+  v9 = a4;
   v11 = a2;
-  v208 = *MEMORY[0x277D85DE8];
+  v205 = *MEMORY[0x277D85DE8];
   v13 = OpenAndWriteMrecHeader(a2, 0x72u, 0, "LMWNGPER", 23, 7);
-  v14 = OpenAndWriteMrecHeader(v11, 0x71u, a4, "LMWNGIND", 23, 11);
-  v200 = 0;
-  v199 = 0;
+  v14 = OpenAndWriteMrecHeader(v11, 0x71u, v9, "LMWNGIND", 23, 11);
+  v197 = 0;
+  v196 = 0;
   v15 = (*(*v13 + 40))(v13);
-  LODWORD(v190[0]) = 0;
-  (*(*v13 + 80))(v13, v190, 4);
-  LODWORD(v190[0]) = 0;
-  (*(*v13 + 80))(v13, v190, 4);
-  LODWORD(v190[0]) = 0;
-  (*(*v13 + 80))(v13, v190, 4);
+  LODWORD(v187[0]) = 0;
+  (*(*v13 + 80))(v13, v187, 4);
+  LODWORD(v187[0]) = 0;
+  (*(*v13 + 80))(v13, v187, 4);
+  LODWORD(v187[0]) = 0;
+  (*(*v13 + 80))(v13, v187, 4);
   (*(*v13 + 48))(v13);
   v16 = (*(*v14 + 40))(v14);
-  LODWORD(v190[0]) = 0;
-  (*(*v14 + 80))(v14, v190, 4);
-  LODWORD(v190[0]) = 0;
-  (*(*v14 + 80))(v14, v190, 4);
-  LODWORD(v190[0]) = 0;
-  (*(*v14 + 80))(v14, v190, 4);
+  LODWORD(v187[0]) = 0;
+  (*(*v14 + 80))(v14, v187, 4);
+  LODWORD(v187[0]) = 0;
+  (*(*v14 + 80))(v14, v187, 4);
+  LODWORD(v187[0]) = 0;
+  (*(*v14 + 80))(v14, v187, 4);
   if (*(a1 + 68) == 1)
   {
-    v190[0] = 0;
-    writeObject(v14, v190, &v199);
-    BigramData::saveBinary((a1 + 360), v14, &v199);
-    if (*(a1 + 64) >= 3u)
+    v187[0] = 0;
+    writeObject(v14, v187, &v196);
+    BigramData::saveBinary((a1 + 90), v14, &v196);
+    if (a1[16] >= 3u)
     {
-      TrigramData::saveBinary((a1 + 744), v14, &v199);
-      if (*(a1 + 64) >= 4u)
+      TrigramData::saveBinary((a1 + 186), v14, &v196);
+      if (a1[16] >= 4u)
       {
-        QuadgramData::saveBinary((a1 + 1232), v14, &v199);
+        QuadgramData::saveBinary((a1 + 308), v14, &v196);
       }
     }
 
@@ -2233,125 +2228,125 @@ void WordLanguageModel::savePersistentAndIndex(unint64_t a1, uint64_t a2, uint64
     goto LABEL_142;
   }
 
-  BigramData::BigramData(v198);
-  v195 = 0;
-  v196 = 0;
-  Hash<unsigned short,unsigned short,HuffmanSymbol<unsigned short,unsigned int>,HuffmanSymbol<unsigned short,unsigned int>*>::Hash(v197, 0, 16);
-  v197[15] = 0;
-  v197[14] = 0;
-  TrigramData::TrigramData(v194);
-  v191 = 0;
+  BigramData::BigramData(v195);
   v192 = 0;
-  Hash<unsigned short,unsigned short,HuffmanSymbol<unsigned short,unsigned int>,HuffmanSymbol<unsigned short,unsigned int>*>::Hash(v193, 0, 16);
-  v193[15] = 0;
-  v193[14] = 0;
-  QuadgramData::QuadgramData(v190);
-  v131 = v15;
-  v132 = v11;
-  v187 = 0;
+  v193 = 0;
+  Hash<unsigned short,unsigned short,HuffmanSymbol<unsigned short,unsigned int>,HuffmanSymbol<unsigned short,unsigned int>*>::Hash(v194, 0, 16);
+  v194[15] = 0;
+  v194[14] = 0;
+  TrigramData::TrigramData(v191);
   v188 = 0;
-  Hash<unsigned short,unsigned short,HuffmanSymbol<unsigned short,unsigned int>,HuffmanSymbol<unsigned short,unsigned int>*>::Hash(v189, 0, 16);
-  v189[15] = 0;
-  v189[14] = 0;
-  v18 = (*(*a1 + 464))(a1);
-  v207 = 0u;
-  v206 = 0u;
-  v205 = 0u;
-  memset(v204, 0, sizeof(v204));
-  memset(v203, 0, sizeof(v203));
-  memset(v202, 0, sizeof(v202));
-  v185 = 0;
-  v186 = 0;
-  v183 = 0;
+  v189 = 0;
+  Hash<unsigned short,unsigned short,HuffmanSymbol<unsigned short,unsigned int>,HuffmanSymbol<unsigned short,unsigned int>*>::Hash(v190, 0, 16);
+  v190[15] = 0;
+  v190[14] = 0;
+  QuadgramData::QuadgramData(v187);
+  v128 = v15;
+  v129 = v11;
   v184 = 0;
-  WordLanguageModel::constructLmIdToWordIdMapping(a1, &v185, &v183);
-  v130 = a3;
-  v181 = 0;
+  v185 = 0;
+  Hash<unsigned short,unsigned short,HuffmanSymbol<unsigned short,unsigned int>,HuffmanSymbol<unsigned short,unsigned int>*>::Hash(v186, 0, 16);
+  v186[15] = 0;
+  v186[14] = 0;
+  v18 = (*(*a1 + 464))(a1);
+  v204 = 0u;
+  v203 = 0u;
+  v202 = 0u;
+  memset(v201, 0, sizeof(v201));
+  memset(v200, 0, sizeof(v200));
+  memset(v199, 0, sizeof(v199));
   v182 = 0;
-  v180 = 0u;
-  v179 = 0u;
-  v178 = 0u;
+  v183 = 0;
+  v180 = 0;
+  v181 = 0;
+  WordLanguageModel::constructLmIdToWordIdMapping(a1, &v182, &v180);
+  v127 = a3;
+  v178 = 0;
+  v179 = 0;
   v177 = 0u;
   v176 = 0u;
   v175 = 0u;
-  LMStats::resetStats(v174);
-  v171 = xmmword_262888C00;
-  v172 = 1;
-  v173 = 1;
-  v19 = *(a1 + 104);
-  v169 = 0;
-  v170 = 0;
-  v133 = v16;
+  v174 = 0u;
+  v173 = 0u;
+  v172 = 0u;
+  LMStats::resetStats(v171);
+  v168 = xmmword_262888C00;
+  v169 = 1;
+  v170 = 1;
+  v19 = a1[26];
+  v166 = 0;
+  v167 = 0;
+  v130 = v16;
   if (!v19)
   {
-    v167 = 0;
-    v168 = 0;
+    v164 = 0;
+    v165 = 0;
     goto LABEL_18;
   }
 
-  v167 = 0;
-  v20 = realloc_array(0, &v167, 2 * v19, 0, 0, 1);
-  v168 = 0;
-  v169 = v167;
-  v21 = *(a1 + 104);
-  HIDWORD(v170) = v20 >> 1;
-  LODWORD(v170) = v19;
-  v167 = 0;
+  v164 = 0;
+  v20 = realloc_array(0, &v164, 2 * v19, 0, 0, 1);
+  v165 = 0;
+  v166 = v164;
+  v21 = a1[26];
+  HIDWORD(v167) = v20 >> 1;
+  LODWORD(v167) = v19;
+  v164 = 0;
   if (!v21)
   {
 LABEL_18:
-    LODWORD(v168) = 0;
+    LODWORD(v165) = 0;
     goto LABEL_19;
   }
 
-  v164 = 0;
-  v22 = realloc_array(0, &v164, 8 * v21, 0, 0, 1);
-  v23 = v164;
-  v167 = v164;
-  v24 = *(a1 + 104);
-  HIDWORD(v168) = v22 >> 3;
-  LODWORD(v168) = v21;
+  v161 = 0;
+  v22 = realloc_array(0, &v161, 8 * v21, 0, 0, 1);
+  v23 = v161;
+  v164 = v161;
+  v24 = a1[26];
+  HIDWORD(v165) = v22 >> 3;
+  LODWORD(v165) = v21;
   if (v24 >= 2)
   {
     for (i = 1; i < v24; ++i)
     {
-      if (*(*(a1 + 168) + 2 * i) == 20000)
+      if (*(*(a1 + 21) + 2 * i) == 20000)
       {
-        v169[i] = 20000;
+        v166[i] = 20000;
         v23[i] = 0;
       }
 
       else
       {
-        LODWORD(v182) = 0;
-        (*(*a1 + 472))(a1, &v181, 0, v174, &v171, v18);
-        LOBYTE(v164) = 0;
-        WordIdWithMapping = WordLanguageModel::getWordIdWithMapping(a1, i, 0, &v185, 0);
-        v27 = (*(*a1 + 504))(a1, WordIdWithMapping, 0xFFFFLL, v174, v18, 0, 0, 0, &v164);
+        LODWORD(v179) = 0;
+        (*(*a1 + 472))(a1, &v178, 0, v171, &v168, v18);
+        LOBYTE(v161) = 0;
+        WordIdWithMapping = WordLanguageModel::getWordIdWithMapping(a1, i, 0, &v182, 0);
+        v27 = (*(*a1 + 504))(a1, WordIdWithMapping, 0xFFFFLL, v171, v18, 0, 0, 0, &v161);
         (*(*a1 + 480))(a1, v18);
-        v169[i] = v27;
+        v166[i] = v27;
         v28 = 0;
-        if (*(a1 + 56) > v27)
+        if (a1[14] > v27)
         {
-          v28 = *(*(a1 + 48) + 8 * v27);
+          v28 = *(*(a1 + 6) + 8 * v27);
         }
 
-        v23 = v167;
-        *(v167 + i) = v28;
-        v24 = *(a1 + 104);
+        v23 = v164;
+        *(v164 + i) = v28;
+        v24 = a1[26];
       }
     }
   }
 
 LABEL_19:
-  BigramData::initNewBigramData(a1 + 360, v198, &v195, &v205, v203);
-  v134 = v14;
-  v29 = DWORD2(v205);
-  if (DWORD2(v205))
+  BigramData::initNewBigramData((a1 + 90), v195, &v192, &v202, v200);
+  v131 = v14;
+  v29 = DWORD2(v202);
+  if (DWORD2(v202))
   {
-    v30 = v169;
-    v31 = v167;
-    v32 = (v205 + 32);
+    v30 = v166;
+    v31 = v164;
+    v32 = (v202 + 32);
     do
     {
       v33 = *(v32 - 2);
@@ -2367,59 +2362,59 @@ LABEL_19:
     while (v29);
   }
 
-  v143 = a1;
-  if (*(a1 + 64) > 2u)
+  v140 = a1;
+  if (a1[16] > 2u)
   {
-    TrigramData::initNewTrigramData(a1 + 744, v194, &v191, &v206, v203, &v167, a7 == 2);
-    v35 = DWORD2(v206);
-    if (DWORD2(v206))
+    TrigramData::initNewTrigramData((a1 + 186), v191, &v188, &v203, v200, &v164, a7 == 2);
+    v35 = DWORD2(v203);
+    if (DWORD2(v203))
     {
       v36 = 0;
       v37 = 0;
       do
       {
-        LODWORD(v182) = 0;
-        (*(*a1 + 472))(a1, &v181, 0, v174, &v171, v18);
-        LOBYTE(v164) = 0;
-        v38 = WordLanguageModel::getWordIdWithMapping(a1, *(v206 + v36 + 24), 0, &v185, 0);
-        v39 = (*(*a1 + 504))(a1, v38, 0xFFFFLL, v174, v18, 0, 0, 0, &v164);
+        LODWORD(v179) = 0;
+        (*(*a1 + 472))(a1, &v178, 0, v171, &v168, v18);
+        LOBYTE(v161) = 0;
+        v38 = WordLanguageModel::getWordIdWithMapping(a1, *(v203 + v36 + 24), 0, &v182, 0);
+        v39 = (*(*a1 + 504))(a1, v38, 0xFFFFLL, v171, v18, 0, 0, 0, &v161);
         (*(*a1 + 480))(a1, v18);
-        v40 = WordLanguageModel::getWordIdWithMapping(a1, *(v206 + v36 + 24), 1, &v185, &v183);
-        v41 = v182;
-        if (v182 == HIDWORD(v182))
+        v40 = WordLanguageModel::getWordIdWithMapping(a1, *(v203 + v36 + 24), 1, &v182, &v180);
+        v41 = v179;
+        if (v179 == HIDWORD(v179))
         {
-          DgnPrimArray<unsigned int>::reallocElts(&v181, 1, 1);
-          v41 = v182;
+          DgnPrimArray<unsigned int>::reallocElts(&v178, 1, 1);
+          v41 = v179;
         }
 
-        *(v181 + 4 * v41) = v40;
-        LODWORD(v182) = v182 + 1;
-        (*(*a1 + 472))(a1, &v181, 0, v174, &v171, v18);
-        v42 = WordLanguageModel::getWordIdWithMapping(a1, *(v206 + v36 + 28), 0, &v185, 0);
-        v43 = (*(*a1 + 504))(a1, v42, 0xFFFFLL, v174, v18, 0, 0, 0, &v164);
+        *(v178 + 4 * v41) = v40;
+        LODWORD(v179) = v179 + 1;
+        (*(*a1 + 472))(a1, &v178, 0, v171, &v168, v18);
+        v42 = WordLanguageModel::getWordIdWithMapping(a1, *(v203 + v36 + 28), 0, &v182, 0);
+        v43 = (*(*a1 + 504))(a1, v42, 0xFFFFLL, v171, v18, 0, 0, 0, &v161);
         (*(*a1 + 480))(a1, v18);
         v44 = v43 + v39;
         v45 = 0.0;
-        if (*(a1 + 56) > (v43 + v39))
+        if (a1[14] > (v43 + v39))
         {
-          v45 = *(*(a1 + 48) + 8 * v44);
+          v45 = *(*(a1 + 6) + 8 * v44);
         }
 
-        v46 = v206 + v36;
+        v46 = v203 + v36;
         *(v46 + 32) = v44;
         *v46 = v45;
         ++v37;
-        v35 = DWORD2(v206);
+        v35 = DWORD2(v203);
         v36 += 56;
       }
 
-      while (v37 < DWORD2(v206));
+      while (v37 < DWORD2(v203));
     }
 
-    if ((DWORD2(v205) + v35) > HIDWORD(v205))
+    if ((DWORD2(v202) + v35) > HIDWORD(v202))
     {
-      DgnArray<DiskNgramContext>::reallocElts(&v205, (DWORD2(v205) + v35 - HIDWORD(v205)), 1);
-      v35 = DWORD2(v206);
+      DgnArray<DiskNgramContext>::reallocElts(&v202, (DWORD2(v202) + v35 - HIDWORD(v202)), 1);
+      v35 = DWORD2(v203);
     }
 
     if (v35)
@@ -2428,76 +2423,76 @@ LABEL_19:
       v48 = 0;
       do
       {
-        DiskNgramContext::operator=(v205 + 56 * (v48++ + DWORD2(v205)), v206 + v47);
-        v35 = DWORD2(v206);
+        DiskNgramContext::operator=(v202 + 56 * (v48++ + DWORD2(v202)), v203 + v47);
+        v35 = DWORD2(v203);
         v47 += 56;
       }
 
-      while (v48 < DWORD2(v206));
+      while (v48 < DWORD2(v203));
     }
 
-    DWORD2(v205) += v35;
-    if (v206)
+    DWORD2(v202) += v35;
+    if (v203)
     {
-      MemChunkFree(v206, 0);
-      *&v206 = 0;
+      MemChunkFree(v203, 0);
+      *&v203 = 0;
     }
 
-    *(&v206 + 1) = 0;
-    if (*(a1 + 64) >= 4u)
+    *(&v203 + 1) = 0;
+    if (a1[16] >= 4u)
     {
-      QuadgramData::initNewQuadgramData(a1 + 1232, v190, &v187, &v207, &v167);
-      if (DWORD2(v207))
+      QuadgramData::initNewQuadgramData((a1 + 308), v187, &v184, &v204, &v164);
+      if (DWORD2(v204))
       {
         v49 = 0;
         v50 = 0;
         do
         {
-          LODWORD(v182) = 0;
-          (*(*a1 + 472))(a1, &v181, 0, v174, &v171, v18);
-          LOBYTE(v164) = 0;
-          v51 = WordLanguageModel::getWordIdWithMapping(a1, *(v207 + v49 + 24), 0, &v185, 0);
-          v52 = (*(*a1 + 504))(a1, v51, 0xFFFFLL, v174, v18, 0, 0, 0, &v164);
+          LODWORD(v179) = 0;
+          (*(*a1 + 472))(a1, &v178, 0, v171, &v168, v18);
+          LOBYTE(v161) = 0;
+          v51 = WordLanguageModel::getWordIdWithMapping(a1, *(v204 + v49 + 24), 0, &v182, 0);
+          v52 = (*(*a1 + 504))(a1, v51, 0xFFFFLL, v171, v18, 0, 0, 0, &v161);
           (*(*a1 + 480))(a1, v18);
-          v53 = WordLanguageModel::getWordIdWithMapping(a1, *(v207 + v49 + 24), 1, &v185, &v183);
-          v54 = v182;
-          if (v182 == HIDWORD(v182))
+          v53 = WordLanguageModel::getWordIdWithMapping(a1, *(v204 + v49 + 24), 1, &v182, &v180);
+          v54 = v179;
+          if (v179 == HIDWORD(v179))
           {
-            DgnPrimArray<unsigned int>::reallocElts(&v181, 1, 1);
-            v54 = v182;
+            DgnPrimArray<unsigned int>::reallocElts(&v178, 1, 1);
+            v54 = v179;
           }
 
-          *(v181 + 4 * v54) = v53;
-          LODWORD(v182) = v182 + 1;
-          (*(*a1 + 472))(a1, &v181, 0, v174, &v171, v18);
-          v55 = WordLanguageModel::getWordIdWithMapping(a1, *(v207 + v49 + 28), 0, &v185, 0);
-          v56 = (*(*a1 + 504))(a1, v55, 0xFFFFLL, v174, v18, 0, 0, 0, &v164);
+          *(v178 + 4 * v54) = v53;
+          LODWORD(v179) = v179 + 1;
+          (*(*a1 + 472))(a1, &v178, 0, v171, &v168, v18);
+          v55 = WordLanguageModel::getWordIdWithMapping(a1, *(v204 + v49 + 28), 0, &v182, 0);
+          v56 = (*(*a1 + 504))(a1, v55, 0xFFFFLL, v171, v18, 0, 0, 0, &v161);
           (*(*a1 + 480))(a1, v18);
           v57 = v56 + v52;
           v58 = 0.0;
-          if (*(a1 + 56) > (v56 + v52))
+          if (a1[14] > (v56 + v52))
           {
-            v58 = *(*(a1 + 48) + 8 * v57);
+            v58 = *(*(a1 + 6) + 8 * v57);
           }
 
-          v59 = v207 + v49;
+          v59 = v204 + v49;
           *(v59 + 32) = v57;
           *v59 = v58;
           ++v50;
           v49 += 56;
         }
 
-        while (v50 < DWORD2(v207));
+        while (v50 < DWORD2(v204));
       }
     }
   }
 
   DgnDelete<LMContextData>(v18);
   v60 = 0;
-  v166 = 0;
+  v163 = 0;
   for (j = 2; j != 5; ++j)
   {
-    v62 = &v204[16 * j];
+    v62 = &v201[16 * j];
     v63 = *(v62 + 2);
     if (v63)
     {
@@ -2511,12 +2506,12 @@ LABEL_19:
       }
 
       while (v63);
-      v166 = v60;
+      v163 = v60;
     }
   }
 
-  mrec_qsort_r<DiskNgramContextBiTriIsolatedCmp>(v205, DWORD2(v205), 0x38uLL, 0);
-  mrec_qsort_r<DiskNgramContextQuadIsolatedCmp>(v207, DWORD2(v207), 0x38uLL, 0);
+  mrec_qsort_r<DiskNgramContextBiTriIsolatedCmp>(v202, DWORD2(v202), 56, 0);
+  mrec_qsort_r<DiskNgramContextQuadIsolatedCmp>(v204, DWORD2(v204), 56, 0);
   v66 = 0;
   v67 = 0;
   v68 = 0;
@@ -2524,7 +2519,7 @@ LABEL_19:
   v70 = (a6 * v60 / a5);
   for (k = 2; k != 5; ++k)
   {
-    v72 = &v204[16 * k];
+    v72 = &v201[16 * k];
     v73 = *(v72 + 2);
     if (v73)
     {
@@ -2558,12 +2553,12 @@ LABEL_19:
   {
     if (a7 == 2)
     {
-      mrec_qsort_r<DiskNgramContextBiTriGroupTrigramsWithBigramsCmp>(v205 + 56 * v67, DWORD2(v205) - v67, 0x38uLL, 0);
+      mrec_qsort_r<DiskNgramContextBiTriGroupTrigramsWithBigramsCmp>(v202 + 56 * v67, DWORD2(v202) - v67, 56, 0);
     }
 
     else if (a7 == 1)
     {
-      mrec_qsort_r<DiskNgramContextBiTriGroupTrigramsCmp>(v205 + 56 * v67, DWORD2(v205) - v67, 0x38uLL, 0);
+      mrec_qsort_r<DiskNgramContextBiTriGroupTrigramsCmp>(v202 + 56 * v67, DWORD2(v202) - v67, 56, 0);
     }
 
     if (a8 != 1)
@@ -2571,8 +2566,8 @@ LABEL_19:
       goto LABEL_70;
     }
 
-    v77 = v207;
-    v78 = DWORD2(v207);
+    v77 = v204;
+    v78 = DWORD2(v204);
   }
 
   else
@@ -2582,454 +2577,453 @@ LABEL_19:
       goto LABEL_70;
     }
 
-    v77 = v207 + 56 * v67;
-    v78 = DWORD2(v207) - v67;
+    v77 = v204 + 56 * v67;
+    v78 = DWORD2(v204) - v67;
   }
 
-  mrec_qsort_r<DiskNgramContextQuadGroupCmp>(v77, v78, 0x38uLL, 0);
+  mrec_qsort_r<DiskNgramContextQuadGroupCmp>(v77, v78, 56, 0);
 LABEL_70:
-  if (v185)
+  if (v182)
   {
-    MemChunkFree(v185, 0);
-    v185 = 0;
+    MemChunkFree(v182, 0);
+    v182 = 0;
   }
 
-  v186 = 0;
-  if (v183)
+  v183 = 0;
+  if (v180)
   {
-    MemChunkFree(v183, 0);
-    v183 = 0;
+    MemChunkFree(v180, 0);
+    v180 = 0;
   }
 
-  v184 = 0;
-  writeObject(v134, &v166, &v199);
-  v164 = 0;
-  v165 = 0;
-  v162 = 0;
-  HIDWORD(v165) = realloc_array(0, &v162, 0xFA0uLL, 0, 0, 1) >> 2;
-  v163 = 0;
-  v164 = v162;
-  v162 = 0;
-  v160 = 0;
-  HIDWORD(v163) = realloc_array(0, &v160, 0xFA0uLL, 0, 0, 1) >> 2;
+  v181 = 0;
+  writeObject(v131, &v163, &v196);
   v161 = 0;
-  v162 = v160;
-  v160 = 0;
-  v158 = 0;
-  HIDWORD(v161) = realloc_array(0, &v158, 0xFA0uLL, 0, 0, 1) >> 2;
+  v162 = 0;
   v159 = 0;
-  v160 = v158;
-  v158 = 0;
-  v156 = 0;
-  HIDWORD(v159) = realloc_array(0, &v156, 0xFA0uLL, 0, 0, 1) >> 2;
+  HIDWORD(v162) = realloc_array(0, &v159, 0xFA0uLL, 0, 0, 1) >> 2;
+  v160 = 0;
+  v161 = v159;
+  v159 = 0;
   v157 = 0;
-  v158 = v156;
-  v156 = 0;
-  v154 = 0;
-  HIDWORD(v157) = realloc_array(0, &v154, 0xFA0uLL, 0, 0, 1) >> 2;
+  HIDWORD(v160) = realloc_array(0, &v157, 0xFA0uLL, 0, 0, 1) >> 2;
+  v158 = 0;
+  v159 = v157;
+  v157 = 0;
   v155 = 0;
-  v156 = v154;
-  v154 = 0;
-  v152 = 0;
-  HIDWORD(v155) = realloc_array(0, &v152, 0xFA0uLL, 0, 0, 1) >> 2;
+  HIDWORD(v158) = realloc_array(0, &v155, 0xFA0uLL, 0, 0, 1) >> 2;
+  v156 = 0;
+  v157 = v155;
+  v155 = 0;
   v153 = 0;
-  v154 = v152;
-  v152 = 0;
-  v150 = 0;
-  HIDWORD(v153) = realloc_array(0, &v150, 0xFA0uLL, 0, 0, 1) >> 2;
+  HIDWORD(v156) = realloc_array(0, &v153, 0xFA0uLL, 0, 0, 1) >> 2;
+  v154 = 0;
+  v155 = v153;
+  v153 = 0;
   v151 = 0;
-  v152 = v150;
+  HIDWORD(v154) = realloc_array(0, &v151, 0xFA0uLL, 0, 0, 1) >> 2;
+  v152 = 0;
+  v153 = v151;
+  v151 = 0;
+  v149 = 0;
+  HIDWORD(v152) = realloc_array(0, &v149, 0xFA0uLL, 0, 0, 1) >> 2;
   v150 = 0;
+  v151 = v149;
+  v149 = 0;
+  v147 = 0;
+  HIDWORD(v150) = realloc_array(0, &v147, 0xFA0uLL, 0, 0, 1) >> 2;
   v148 = 0;
-  v79 = realloc_array(0, &v148, 0x3E80uLL, 0, 0, 1);
+  v149 = v147;
+  v147 = 0;
+  v145 = 0;
+  v79 = realloc_array(0, &v145, 0x3E80uLL, 0, 0, 1);
+  v80 = 0;
+  v81 = 0;
   v82 = 0;
   v83 = 0;
   v84 = 0;
   v85 = 0;
   v86 = 0;
-  v87 = 0;
-  v88 = 0;
-  HIDWORD(v151) = v79 >> 4;
-  v149 = 0;
-  v150 = v148;
-  v89 = 2;
-  v148 = 0;
+  HIDWORD(v148) = v79 >> 4;
+  v146 = 0;
+  v147 = v145;
+  v87 = 2;
+  v145 = 0;
   do
   {
-    v135 = v89;
-    v147 = &v204[16 * v89];
-    if (*(v147 + 2))
+    v132 = v87;
+    v144 = &v201[16 * v87];
+    if (*(v144 + 2))
     {
-      v90 = 0;
+      v88 = 0;
       do
       {
-        v145 = v88;
-        v91 = 1000 * v88;
-        while (v91 >= v166 * v165)
+        v142 = v86;
+        v89 = 1000 * v86;
+        while (v89 >= v163 * v162)
         {
-          v92 = (*(*v13 + 48))(v13);
-          v93 = v165;
-          if (v165 == HIDWORD(v165))
+          v90 = (*(*v13 + 48))(v13);
+          v91 = v162;
+          if (v162 == HIDWORD(v162))
           {
-            DgnPrimArray<unsigned int>::reallocElts(&v164, 1, 1);
-            v93 = v165;
+            DgnPrimArray<unsigned int>::reallocElts(&v161, 1, 1);
+            v91 = v162;
           }
 
-          *(v164 + v93) = v92;
-          LODWORD(v165) = v165 + 1;
-          v94 = v163;
-          if (v163 == HIDWORD(v163))
+          *(v161 + v91) = v90;
+          LODWORD(v162) = v162 + 1;
+          v92 = v160;
+          if (v160 == HIDWORD(v160))
           {
-            DgnPrimArray<unsigned int>::reallocElts(&v162, 1, 1);
-            v94 = v163;
+            DgnPrimArray<unsigned int>::reallocElts(&v159, 1, 1);
+            v92 = v160;
           }
 
-          *(v162 + v94) = v87;
-          LODWORD(v163) = v163 + 1;
-          v95 = v161;
-          if (v161 == HIDWORD(v161))
+          *(v159 + v92) = v85;
+          LODWORD(v160) = v160 + 1;
+          v93 = v158;
+          if (v158 == HIDWORD(v158))
           {
-            DgnPrimArray<unsigned int>::reallocElts(&v160, 1, 1);
-            v95 = v161;
+            DgnPrimArray<unsigned int>::reallocElts(&v157, 1, 1);
+            v93 = v158;
           }
 
-          *(v160 + v95) = v86;
-          LODWORD(v161) = v161 + 1;
-          v96 = v159;
-          if (v159 == HIDWORD(v159))
+          *(v157 + v93) = v84;
+          LODWORD(v158) = v158 + 1;
+          v94 = v156;
+          if (v156 == HIDWORD(v156))
           {
-            DgnPrimArray<unsigned int>::reallocElts(&v158, 1, 1);
-            v96 = v159;
+            DgnPrimArray<unsigned int>::reallocElts(&v155, 1, 1);
+            v94 = v156;
           }
 
-          *(v158 + v96) = v85;
-          LODWORD(v159) = v159 + 1;
-          v97 = v157;
-          if (v157 == HIDWORD(v157))
+          *(v155 + v94) = v83;
+          LODWORD(v156) = v156 + 1;
+          v95 = v154;
+          if (v154 == HIDWORD(v154))
           {
-            DgnPrimArray<unsigned int>::reallocElts(&v156, 1, 1);
-            v97 = v157;
+            DgnPrimArray<unsigned int>::reallocElts(&v153, 1, 1);
+            v95 = v154;
           }
 
-          *(v156 + v97) = v84;
-          LODWORD(v157) = v157 + 1;
-          v98 = v155;
-          if (v155 == HIDWORD(v155))
+          *(v153 + v95) = v82;
+          LODWORD(v154) = v154 + 1;
+          v96 = v152;
+          if (v152 == HIDWORD(v152))
           {
-            DgnPrimArray<unsigned int>::reallocElts(&v154, 1, 1);
-            v98 = v155;
+            DgnPrimArray<unsigned int>::reallocElts(&v151, 1, 1);
+            v96 = v152;
           }
 
-          *(v154 + v98) = v83;
-          LODWORD(v155) = v155 + 1;
-          v99 = v153;
-          if (v153 == HIDWORD(v153))
+          *(v151 + v96) = v81;
+          LODWORD(v152) = v152 + 1;
+          v97 = v150;
+          if (v150 == HIDWORD(v150))
           {
-            DgnPrimArray<unsigned int>::reallocElts(&v152, 1, 1);
-            v99 = v153;
+            DgnPrimArray<unsigned int>::reallocElts(&v149, 1, 1);
+            v97 = v150;
           }
 
-          *(v152 + v99) = v82;
-          LODWORD(v153) = v153 + 1;
-          v100 = v151;
-          if (v151 == HIDWORD(v151))
+          *(v149 + v97) = v80;
+          LODWORD(v150) = v150 + 1;
+          v98 = v148;
+          if (v148 == HIDWORD(v148))
           {
-            DgnArray<DgnPrimArray<double>>::reallocElts(&v150, 1, 1);
-            v100 = v151;
+            DgnArray<DgnPrimArray<double>>::reallocElts(&v147, 1, 1);
+            v98 = v148;
           }
 
-          v101 = v150 + 16 * v100;
-          *v101 = 0;
-          v101[1] = 0;
-          DgnPrimArray<int>::copyArraySlice(v101, &v148, 0, v149);
-          LODWORD(v151) = v151 + 1;
-          LODWORD(v149) = 0;
+          v99 = (v147 + 16 * v98);
+          *v99 = 0;
+          v99[1] = 0;
+          DgnPrimArray<int>::copyArraySlice(v99, &v145, 0, v146);
+          LODWORD(v148) = v148 + 1;
+          LODWORD(v146) = 0;
         }
 
-        v102 = *v147;
-        v103 = *v147 + 56 * v90;
-        v104 = *(v103 + 8);
-        v105 = *(v103 + 34);
-        switch(v105)
+        v100 = *v144;
+        v101 = *v144 + 56 * v88;
+        v102 = *(v101 + 8);
+        v103 = *(v101 + 34);
+        switch(v103)
         {
           case 2:
-            v138 = *(v103 + 40);
-            v142 = *(v103 + 44);
-            v111 = *(v103 + 36);
-            if (v111 >> 29)
-            {
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8344, "lm/wordlm", 86, "%.500s %u", v80, v81, "Bi1Id");
-              v102 = *v147;
-            }
-
-            BigramData::savePersistentAndFillInNewBigramData((v143 + 90), v13, &v200, v198, &v195, *(v102 + 56 * v90 + 36));
-            v87 += v138;
-            v86 += v142;
-            v108 = v111 | 0x40000000;
-            break;
-          case 3:
-            v137 = *(v103 + 44);
-            v141 = *(v103 + 48);
-            v109 = *(v103 + 40);
-            v110 = v109;
+            v135 = *(v101 + 40);
+            v139 = *(v101 + 44);
+            v109 = *(v101 + 36);
             if (v109 >> 29)
             {
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8362, "lm/wordlm", 86, "%.500s %u", v109, v81, "Tri2Index");
-              v102 = *v147;
-              v110 = *(*v147 + 56 * v90 + 40);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8344, "lm/wordlm", 86, "%.500s %u", "Bi1Id", v109);
+              v100 = *v144;
             }
 
-            TrigramData::savePersistentAndFillInNewTrigramData((v143 + 186), v13, &v200, v194, &v191, *(v102 + 56 * v90 + 36), v110);
-            v85 += v137;
-            v84 += v141;
-            v108 = v109 | 0x80000000;
+            BigramData::savePersistentAndFillInNewBigramData((v140 + 90), v13, &v197, v195, &v192, *(v100 + 56 * v88 + 36));
+            v85 += v135;
+            v84 += v139;
+            v106 = v109 | 0x40000000;
+            break;
+          case 3:
+            v134 = *(v101 + 44);
+            v138 = *(v101 + 48);
+            v107 = *(v101 + 40);
+            v108 = v107;
+            if (v107 >> 29)
+            {
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8362, "lm/wordlm", 86, "%.500s %u", "Tri2Index", v107);
+              v100 = *v144;
+              v108 = *(*v144 + 56 * v88 + 40);
+            }
+
+            TrigramData::savePersistentAndFillInNewTrigramData((v140 + 186), v13, &v197, v191, &v188, *(v100 + 56 * v88 + 36), v108);
+            v83 += v134;
+            v82 += v138;
+            v106 = v107 | 0x80000000;
             break;
           case 4:
-            v136 = *(v103 + 44);
-            v140 = *(v103 + 48);
-            v106 = *(v103 + 40);
-            v107 = v106;
-            if (v106 >> 29)
+            v133 = *(v101 + 44);
+            v137 = *(v101 + 48);
+            v104 = *(v101 + 40);
+            v105 = v104;
+            if (v104 >> 29)
             {
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8381, "lm/wordlm", 86, "%.500s %u", v106, v81, "Quad2Index");
-              v102 = *v147;
-              v107 = *(*v147 + 56 * v90 + 40);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8381, "lm/wordlm", 86, "%.500s %u", "Quad2Index", v104);
+              v100 = *v144;
+              v105 = *(*v144 + 56 * v88 + 40);
             }
 
-            QuadgramData::savePersistentAndFillInNewQuadgramData((v143 + 308), v13, &v200, v190, &v187, *(v102 + 56 * v90 + 36), v107);
-            v83 += v136;
-            v82 += v140;
-            v108 = v106 | 0xA0000000;
+            QuadgramData::savePersistentAndFillInNewQuadgramData((v140 + 308), v13, &v197, v187, &v184, *(v100 + 56 * v88 + 36), v105);
+            v81 += v133;
+            v80 += v137;
+            v106 = v104 | 0xA0000000;
             break;
           default:
-            v108 = 0;
+            v106 = 0;
             break;
         }
 
-        v112 = v149;
-        if (v149 == HIDWORD(v149))
+        v110 = v146;
+        if (v146 == HIDWORD(v146))
         {
-          DgnPrimArray<unsigned int>::reallocElts(&v148, 1, 1);
-          v112 = v149;
+          DgnPrimArray<unsigned int>::reallocElts(&v145, 1, 1);
+          v110 = v146;
         }
 
-        *(v148 + v112) = v108;
-        v88 = v104 + v145;
-        LODWORD(v149) = v149 + 1;
-        ++v90;
+        *(v145 + v110) = v106;
+        v86 = v102 + v142;
+        LODWORD(v146) = v146 + 1;
+        ++v88;
       }
 
-      while (v90 < *(v147 + 2));
+      while (v88 < *(v144 + 2));
     }
 
-    v89 = v135 + 1;
+    v87 = v132 + 1;
   }
 
-  while (v135 != 4);
-  v16 = v133;
-  if (v165 <= 0x3E8)
+  while (v132 != 4);
+  v16 = v130;
+  if (v162 <= 0x3E8)
   {
     do
     {
-      v113 = (*(*v13 + 48))(v13);
-      v114 = v165;
-      if (v165 == HIDWORD(v165))
+      v111 = (*(*v13 + 48))(v13);
+      v112 = v162;
+      if (v162 == HIDWORD(v162))
       {
-        DgnPrimArray<unsigned int>::reallocElts(&v164, 1, 1);
-        v114 = v165;
+        DgnPrimArray<unsigned int>::reallocElts(&v161, 1, 1);
+        v112 = v162;
       }
 
-      *(v164 + v114) = v113;
-      LODWORD(v165) = v165 + 1;
-      v115 = v163;
-      if (v163 == HIDWORD(v163))
+      *(v161 + v112) = v111;
+      LODWORD(v162) = v162 + 1;
+      v113 = v160;
+      if (v160 == HIDWORD(v160))
       {
-        DgnPrimArray<unsigned int>::reallocElts(&v162, 1, 1);
-        v115 = v163;
+        DgnPrimArray<unsigned int>::reallocElts(&v159, 1, 1);
+        v113 = v160;
       }
 
-      *(v162 + v115) = v87;
-      LODWORD(v163) = v163 + 1;
-      v116 = v161;
-      if (v161 == HIDWORD(v161))
+      *(v159 + v113) = v85;
+      LODWORD(v160) = v160 + 1;
+      v114 = v158;
+      if (v158 == HIDWORD(v158))
       {
-        DgnPrimArray<unsigned int>::reallocElts(&v160, 1, 1);
-        v116 = v161;
+        DgnPrimArray<unsigned int>::reallocElts(&v157, 1, 1);
+        v114 = v158;
       }
 
-      *(v160 + v116) = v86;
-      LODWORD(v161) = v161 + 1;
-      v117 = v159;
-      if (v159 == HIDWORD(v159))
+      *(v157 + v114) = v84;
+      LODWORD(v158) = v158 + 1;
+      v115 = v156;
+      if (v156 == HIDWORD(v156))
       {
-        DgnPrimArray<unsigned int>::reallocElts(&v158, 1, 1);
-        v117 = v159;
+        DgnPrimArray<unsigned int>::reallocElts(&v155, 1, 1);
+        v115 = v156;
       }
 
-      *(v158 + v117) = v85;
-      LODWORD(v159) = v159 + 1;
-      v118 = v157;
-      if (v157 == HIDWORD(v157))
+      *(v155 + v115) = v83;
+      LODWORD(v156) = v156 + 1;
+      v116 = v154;
+      if (v154 == HIDWORD(v154))
       {
-        DgnPrimArray<unsigned int>::reallocElts(&v156, 1, 1);
-        v118 = v157;
+        DgnPrimArray<unsigned int>::reallocElts(&v153, 1, 1);
+        v116 = v154;
       }
 
-      *(v156 + v118) = v84;
-      LODWORD(v157) = v157 + 1;
-      v119 = v155;
-      if (v155 == HIDWORD(v155))
+      *(v153 + v116) = v82;
+      LODWORD(v154) = v154 + 1;
+      v117 = v152;
+      if (v152 == HIDWORD(v152))
       {
-        DgnPrimArray<unsigned int>::reallocElts(&v154, 1, 1);
-        v119 = v155;
+        DgnPrimArray<unsigned int>::reallocElts(&v151, 1, 1);
+        v117 = v152;
       }
 
-      *(v154 + v119) = v83;
-      LODWORD(v155) = v155 + 1;
-      v120 = v153;
-      if (v153 == HIDWORD(v153))
+      *(v151 + v117) = v81;
+      LODWORD(v152) = v152 + 1;
+      v118 = v150;
+      if (v150 == HIDWORD(v150))
       {
-        DgnPrimArray<unsigned int>::reallocElts(&v152, 1, 1);
-        v120 = v153;
+        DgnPrimArray<unsigned int>::reallocElts(&v149, 1, 1);
+        v118 = v150;
       }
 
-      *(v152 + v120) = v82;
-      LODWORD(v153) = v153 + 1;
-      v121 = v151;
-      if (v151 == HIDWORD(v151))
+      *(v149 + v118) = v80;
+      LODWORD(v150) = v150 + 1;
+      v119 = v148;
+      if (v148 == HIDWORD(v148))
       {
-        DgnArray<DgnPrimArray<double>>::reallocElts(&v150, 1, 1);
-        v121 = v151;
+        DgnArray<DgnPrimArray<double>>::reallocElts(&v147, 1, 1);
+        v119 = v148;
       }
 
-      v122 = v150 + 16 * v121;
-      *v122 = 0;
-      v122[1] = 0;
-      DgnPrimArray<int>::copyArraySlice(v122, &v148, 0, v149);
-      LODWORD(v151) = v151 + 1;
-      LODWORD(v149) = 0;
+      v120 = (v147 + 16 * v119);
+      *v120 = 0;
+      v120[1] = 0;
+      DgnPrimArray<int>::copyArraySlice(v120, &v145, 0, v146);
+      LODWORD(v148) = v148 + 1;
+      LODWORD(v146) = 0;
     }
 
-    while (v165 < 0x3E9);
+    while (v162 < 0x3E9);
   }
 
-  v15 = v131;
-  v11 = v132;
-  a1 = v143;
-  v14 = v134;
+  v15 = v128;
+  v11 = v129;
+  a1 = v140;
+  v14 = v131;
   v17 = (*(*v13 + 48))(v13);
-  v201 = v165;
-  writeObject(v13, &v201, &v200);
-  writeObjectArray(v13, v164, v165, &v200);
-  v201 = v163;
-  writeObject(v13, &v201, &v200);
-  writeObjectArray(v13, v162, v163, &v200);
-  v201 = v161;
-  writeObject(v13, &v201, &v200);
-  writeObjectArray(v13, v160, v161, &v200);
-  v201 = v159;
-  writeObject(v13, &v201, &v200);
-  writeObjectArray(v13, v158, v159, &v200);
-  v201 = v157;
-  writeObject(v13, &v201, &v200);
-  writeObjectArray(v13, v156, v157, &v200);
-  v201 = v155;
-  writeObject(v13, &v201, &v200);
-  writeObjectArray(v13, v154, v155, &v200);
-  v201 = v153;
-  writeObject(v13, &v201, &v200);
-  writeObjectArray(v13, v152, v153, &v200);
-  if (v151)
+  v198 = v162;
+  writeObject(v13, &v198, &v197);
+  writeObjectArray(v13, v161, v162, &v197);
+  v198 = v160;
+  writeObject(v13, &v198, &v197);
+  writeObjectArray(v13, v159, v160, &v197);
+  v198 = v158;
+  writeObject(v13, &v198, &v197);
+  writeObjectArray(v13, v157, v158, &v197);
+  v198 = v156;
+  writeObject(v13, &v198, &v197);
+  writeObjectArray(v13, v155, v156, &v197);
+  v198 = v154;
+  writeObject(v13, &v198, &v197);
+  writeObjectArray(v13, v153, v154, &v197);
+  v198 = v152;
+  writeObject(v13, &v198, &v197);
+  writeObjectArray(v13, v151, v152, &v197);
+  v198 = v150;
+  writeObject(v13, &v198, &v197);
+  writeObjectArray(v13, v149, v150, &v197);
+  if (v148)
   {
-    v123 = 0;
-    v124 = 0;
+    v121 = 0;
+    v122 = 0;
     do
     {
-      writeObject<unsigned int>(v13, v150 + v123, &v200);
-      ++v124;
-      v123 += 16;
+      writeObject<unsigned int>(v13, v147 + v121, &v197);
+      ++v122;
+      v121 += 16;
     }
 
-    while (v124 < v151);
+    while (v122 < v148);
   }
 
-  BigramData::saveBinary(v198, v134, &v199);
-  if (v143[16] >= 3u)
+  BigramData::saveBinary(v195, v131, &v196);
+  if (v140[16] >= 3u)
   {
-    TrigramData::saveBinary(v194, v134, &v199);
-    if (v143[16] >= 4u)
+    TrigramData::saveBinary(v191, v131, &v196);
+    if (v140[16] >= 4u)
     {
-      QuadgramData::saveBinary(v190, v134, &v199);
+      QuadgramData::saveBinary(v187, v131, &v196);
     }
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v148);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v150);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v152);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v154);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v156);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v158);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v160);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v162);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v145);
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v147);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v149);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v151);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v153);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v155);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v157);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v159);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v161);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&v164);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v167);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v169);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v181);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v183);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v185);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v166);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v178);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v180);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v182);
   for (m = 64; m != -16; m -= 16)
   {
-    DgnIArray<Utterance *>::~DgnIArray(&v202[m]);
+    DgnIArray<Utterance *>::~DgnIArray(&v199[m]);
   }
 
   for (n = 64; n != -16; n -= 16)
   {
-    DgnIArray<Utterance *>::~DgnIArray(&v204[n]);
+    DgnIArray<Utterance *>::~DgnIArray(&v201[n]);
   }
 
-  HuffmanEncoder<unsigned short,unsigned int>::~HuffmanEncoder(&v187);
-  QuadgramData::~QuadgramData(v190);
-  HuffmanEncoder<unsigned short,unsigned int>::~HuffmanEncoder(&v191);
-  TrigramData::~TrigramData(v194);
-  HuffmanEncoder<unsigned short,unsigned int>::~HuffmanEncoder(&v195);
-  BigramData::~BigramData(v198);
-  a3 = v130;
+  HuffmanEncoder<unsigned short,unsigned int>::~HuffmanEncoder(&v184);
+  QuadgramData::~QuadgramData(v187);
+  HuffmanEncoder<unsigned short,unsigned int>::~HuffmanEncoder(&v188);
+  TrigramData::~TrigramData(v191);
+  HuffmanEncoder<unsigned short,unsigned int>::~HuffmanEncoder(&v192);
+  BigramData::~BigramData(v195);
+  a3 = v127;
 LABEL_142:
-  writeObjectChecksum(v13, &v200);
+  writeObjectChecksum(v13, &v197);
   (*(*v13 + 24))(v13, v15);
-  LODWORD(v190[0]) = v200;
-  (*(*v13 + 80))(v13, v190, 4);
-  LODWORD(v190[0]) = v199;
-  (*(*v13 + 80))(v13, v190, 4);
-  LODWORD(v190[0]) = v17;
-  (*(*v13 + 80))(v13, v190, 4);
-  writeObjectChecksum(v14, &v199);
+  LODWORD(v187[0]) = v197;
+  (*(*v13 + 80))(v13, v187, 4);
+  LODWORD(v187[0]) = v196;
+  (*(*v13 + 80))(v13, v187, 4);
+  LODWORD(v187[0]) = v17;
+  (*(*v13 + 80))(v13, v187, 4);
+  writeObjectChecksum(v14, &v196);
   (*(*v14 + 24))(v14, v16);
-  LODWORD(v190[0]) = v200;
-  (*(*v14 + 80))(v14, v190, 4);
-  LODWORD(v190[0]) = v199;
-  (*(*v14 + 80))(v14, v190, 4);
-  LODWORD(v190[0]) = v17;
-  (*(*v14 + 80))(v14, v190, 4);
+  LODWORD(v187[0]) = v197;
+  (*(*v14 + 80))(v14, v187, 4);
+  LODWORD(v187[0]) = v196;
+  (*(*v14 + 80))(v14, v187, 4);
+  LODWORD(v187[0]) = v17;
+  (*(*v14 + 80))(v14, v187, 4);
   (**v13)(v13);
   MemChunkFree(v13, 0);
   (**v14)(v14);
   MemChunkFree(v14, 0);
-  *(a1 + 264) = v200;
-  *(a1 + 268) = v199;
+  a1[66] = v197;
+  a1[67] = v196;
   CurrentSubDirComponents = DFile::getCurrentSubDirComponents(v11);
-  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0x72u, v200);
-  v128 = DFile::getCurrentSubDirComponents(v11);
-  DFileChecksums::addChecksum(a3, v128, 0x71u, v199);
-  v129 = *MEMORY[0x277D85DE8];
+  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 114, v197);
+  v126 = DFile::getCurrentSubDirComponents(v11);
+  DFileChecksums::addChecksum(a3, v126, 113, v196);
 }
 
-void sub_26279BFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_26279BFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a43);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a68);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a70);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a72);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&a65);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&a66);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&a67);
   for (i = 64; i != -16; i -= 16)
   {
     DgnIArray<Utterance *>::~DgnIArray(&STACK[0x950] + i);
@@ -3037,7 +3031,7 @@ void sub_26279BFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   for (j = 64; j != -16; j -= 16)
   {
-    DgnIArray<Utterance *>::~DgnIArray(v72 - 192 + j);
+    DgnIArray<Utterance *>::~DgnIArray(v67 - 192 + j);
   }
 
   HuffmanEncoder<unsigned short,unsigned int>::~HuffmanEncoder(&STACK[0x208]);
@@ -3082,16 +3076,16 @@ uint64_t WordLanguageModel::loadUnigramMembersBinary(WordLanguageModel *this, Dg
 {
   v10 = (this + 32);
   v11 = *(this + 8);
-  v18[0] = 0;
-  v18[1] = 0;
-  DgnString::DgnString(v17);
-  v16 = 0;
-  v15 = 0;
+  v16[0] = 0;
+  v16[1] = 0;
+  DgnString::DgnString(v15);
+  v14 = 0;
+  v13 = 0;
   readObject(a2, v10, a3);
   readObject(a2, this + 26, a3);
   if (a4)
   {
-    readObject(a2, &v15, a3);
+    readObject(a2, &v13, a3);
   }
 
   readObject(a2, this + 28, a3);
@@ -3099,9 +3093,9 @@ uint64_t WordLanguageModel::loadUnigramMembersBinary(WordLanguageModel *this, Dg
   if (a4)
   {
     readObject(a2, a5, a3);
-    readObject(a2, &v16, a3);
-    readObject<unsigned int>(a2, v18, a3);
-    readObject(a2, v17, a3);
+    readObject(a2, &v14, a3);
+    readObject<unsigned int>(a2, v16, a3);
+    readObject(a2, v15, a3);
   }
 
   readObject<unsigned int>(a2, this + 120, a3);
@@ -3110,16 +3104,16 @@ uint64_t WordLanguageModel::loadUnigramMembersBinary(WordLanguageModel *this, Dg
   readObject<unsigned short>(a2, this + 168, a3);
   if (*v10 != v11)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5130, "lm/wordlm", 34, "%u %u", v12, v13, *v10);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5130, "lm/wordlm", 34, "%u %u", *v10, v11);
   }
 
-  BitArray::~BitArray(v17);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(v18);
+  BitArray::~BitArray(v15);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(v16);
 }
 
-void sub_26279C3D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26279C3D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -3164,155 +3158,155 @@ void WordLanguageModel::loadBigramMembersBinary(WordLanguageModel *this, DgnStre
   readObject<short>(a2, this + 344, a3);
 }
 
-void WordLanguageModel::verifyBoWtForBiSc(WordLanguageModel *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void WordLanguageModel::verifyBoWtForBiSc(WordLanguageModel *this)
 {
-  v8 = *(this + 140);
-  if (v8 >= 2)
+  v1 = *(this + 140);
+  if (v1 >= 2)
   {
-    for (i = 1; i < v8; ++i)
+    for (i = 1; i < v1; ++i)
     {
       if (*(*(this + 69) + 2 * i) && (i >= *(this + 88) || *(*(this + 43) + 2 * i) == 20000))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6805, "lm/wordlm", 42, "%u", a7, a8, i);
-        v8 = *(this + 140);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6805, "lm/wordlm", 42, "%u", i);
+        v1 = *(this + 140);
       }
     }
   }
 }
 
-void WordLanguageModel::throwOnBadBoWt(WordLanguageModel *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void WordLanguageModel::throwOnBadBoWt(WordLanguageModel *this)
 {
-  v8 = *(this + 88);
-  if (v8 >= 2)
+  v1 = *(this + 88);
+  if (v1 >= 2)
   {
-    for (i = 1; i < v8; ++i)
+    for (i = 1; i < v1; ++i)
     {
+      v4 = *(*(this + 43) + 2 * i);
       if (*(*(this + 43) + 2 * i))
       {
-        v11 = *(*(this + 43) + 2 * i) == 20000;
+        v5 = v4 == 20000;
       }
 
       else
       {
-        v11 = 1;
+        v5 = 1;
       }
 
-      if (!v11 && (i >= *(this + 140) || !*(*(this + 69) + 2 * i)))
+      if (!v5 && (i >= *(this + 140) || !*(*(this + 69) + 2 * i)))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6819, "lm/wordlm", 87, "%u %d", a7, a8, i);
-        v8 = *(this + 88);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6819, "lm/wordlm", 87, "%u %d", i, v4);
+        v1 = *(this + 88);
       }
     }
   }
 }
 
-void WordLanguageModel::verifyUniScForBiSc(WordLanguageModel *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void WordLanguageModel::verifyUniScForBiSc(WordLanguageModel *this)
 {
   if (*(this + 140) >= 2u)
   {
-    v9 = *(this + 69);
-    v10 = 1;
+    v2 = *(this + 69);
+    v3 = 1;
     do
     {
-      if (*(v9 + 2 * v10))
+      if (*(v2 + 2 * v3))
       {
-        if (*(*(this + 21) + 2 * v10) == 20000)
+        if (*(*(this + 21) + 2 * v3) == 20000)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6831, "lm/wordlm", 89, "%u", a7, a8, v10);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6831, "lm/wordlm", 89, "%u", v3);
         }
 
-        v9 = *(this + 69);
-        v11 = *(v9 + 2 * v10);
-        if ((*(*(this + 48) + 4 * (v10 >> 5)) >> v10))
+        v2 = *(this + 69);
+        if ((*(*(this + 48) + 4 * (v3 >> 5)) >> v3))
         {
-          if (*(v9 + 2 * v10))
+          if (*(v2 + 2 * v3))
           {
-            v12 = 1;
-            v13 = 1;
+            v4 = 1;
+            v5 = 1;
             do
             {
-              v14 = (v12 + *(*(this + 67) + 4 * v10) - 1);
+              v6 = (v4 + *(*(this + 67) + 4 * v3) - 1);
               if (*(this + 94))
               {
-                v14 = *(*(this + 73) + v14);
-                v15 = *(this + 46);
+                v6 = *(*(this + 73) + v6);
+                v7 = *(this + 46);
               }
 
               else
               {
-                v15 = *(this + 71);
+                v7 = *(this + 71);
               }
 
-              if (*(v15 + 2 * v14) != 20000 && *(*(this + 21) + 2 * v13) == 20000)
+              if (*(v7 + 2 * v6) != 20000 && *(*(this + 21) + 2 * v5) == 20000)
               {
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6842, "lm/wordlm", 89, "%u", a7, a8, v12);
-                v9 = *(this + 69);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6842, "lm/wordlm", 89, "%u", v4);
+                v2 = *(this + 69);
               }
 
-              v12 = ++v13;
+              v4 = ++v5;
             }
 
-            while (v13 <= *(v9 + 2 * v10));
+            while (v5 <= *(v2 + 2 * v3));
           }
         }
 
-        else if (*(v9 + 2 * v10))
+        else if (*(v2 + 2 * v3))
         {
-          v16 = 0;
+          v8 = 0;
           do
           {
-            SearchSuccIdForIndex = BigramData::getSearchSuccIdForIndex((this + 360), v10, v16);
-            if (BigramData::getSearchScoreForIndex((this + 360), v10, v16) != 20000 && *(*(this + 21) + 2 * SearchSuccIdForIndex) == 20000)
+            SearchSuccIdForIndex = BigramData::getSearchSuccIdForIndex((this + 360), v3, v8);
+            if (BigramData::getSearchScoreForIndex((this + 360), v3, v8) != 20000 && *(*(this + 21) + 2 * SearchSuccIdForIndex) == 20000)
             {
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6857, "lm/wordlm", 89, "%u", a7, a8, SearchSuccIdForIndex);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6857, "lm/wordlm", 89, "%u", SearchSuccIdForIndex);
             }
 
-            ++v16;
-            v9 = *(this + 69);
+            ++v8;
+            v2 = *(this + 69);
           }
 
-          while (v16 < *(v9 + 2 * v10));
+          while (v8 < *(v2 + 2 * v3));
         }
       }
 
-      ++v10;
+      ++v3;
     }
 
-    while (v10 < *(this + 140));
+    while (v3 < *(this + 140));
   }
 }
 
-uint64_t WordLanguageModel::throwOnBadTriBoWt(WordLanguageModel *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t WordLanguageModel::throwOnBadTriBoWt(WordLanguageModel *this)
 {
-  v24[0] = 0;
-  v24[1] = 0;
-  v23[0] = 0;
-  v23[1] = 0;
-  v22[0] = 0;
-  v22[1] = 0;
-  v8 = *(this + 200);
-  if (v8 < 2)
+  v16[0] = 0;
+  v16[1] = 0;
+  v15[0] = 0;
+  v15[1] = 0;
+  v14[0] = 0;
+  v14[1] = 0;
+  v1 = *(this + 200);
+  if (v1 < 2)
   {
     goto LABEL_22;
   }
 
-  for (i = 1; i < v8; ++i)
+  for (i = 1; i < v1; ++i)
   {
-    v11 = *(this + 99);
-    v12 = *(v11 + 2 * i);
-    if (!*(v11 + 2 * i))
+    v4 = *(this + 99);
+    v5 = *(v4 + 2 * i);
+    if (!*(v4 + 2 * i))
     {
       continue;
     }
 
-    v13 = 0;
+    v6 = 0;
     do
     {
-      v14 = (*(*(this + 101) + 4 * i) + v13);
-      v15 = *(*(this + 103) + 2 * v14);
-      if (((*(*(this + 109) + 4 * (v14 >> 5)) >> v14) & 1) == 0)
+      v7 = (*(*(this + 101) + 4 * i) + v6);
+      v8 = *(*(this + 103) + 2 * v7);
+      if (((*(*(this + 109) + 4 * (v7 >> 5)) >> v7) & 1) == 0)
       {
-        if (*(*(this + 130) + 2 * v14))
+        if (*(*(this + 130) + 2 * v7))
         {
           goto LABEL_19;
         }
@@ -3320,306 +3314,305 @@ uint64_t WordLanguageModel::throwOnBadTriBoWt(WordLanguageModel *this, uint64_t 
 LABEL_15:
         if (*(this + 192))
         {
-          v14 = *(*(this + 107) + v14);
-          v19 = *(this + 95);
+          v7 = *(*(this + 107) + v7);
+          v12 = *(this + 95);
         }
 
         else
         {
-          v19 = *(this + 105);
+          v12 = *(this + 105);
         }
 
-        v21 = *(v19 + 2 * v14);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6909, "lm/wordlm", 88, "%u %u %d", a7, a8, i);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6909, "lm/wordlm", 88, "%u %u %d", i, v8, *(v12 + 2 * v7));
         goto LABEL_19;
       }
 
-      if (!*(*(this + 130) + 2 * v14))
+      if (!*(*(this + 130) + 2 * v7))
       {
         goto LABEL_15;
       }
 
-      v16 = 1;
+      v9 = 1;
       while (1)
       {
-        v17 = *(*(this + 128) + 4 * v14) + v16 - 1;
+        v10 = *(*(this + 128) + 4 * v7) + v9 - 1;
         if (*(this + 196))
         {
-          v17 = *(*(this + 134) + v17);
-          v18 = *(this + 97);
+          v10 = *(*(this + 134) + v10);
+          v11 = *(this + 97);
         }
 
         else
         {
-          v18 = *(this + 132);
+          v11 = *(this + 132);
         }
 
-        if (*(v18 + 2 * v17) != 20000)
+        if (*(v11 + 2 * v10) != 20000)
         {
           break;
         }
 
-        if (*(*(this + 130) + 2 * v14) < ++v16)
+        if (*(*(this + 130) + 2 * v7) < ++v9)
         {
           goto LABEL_15;
         }
       }
 
 LABEL_19:
-      ++v13;
+      ++v6;
     }
 
-    while (v13 != v12);
-    v8 = *(this + 200);
+    while (v6 != v5);
+    v1 = *(this + 200);
   }
 
 LABEL_22:
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v22);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v23);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(v24);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v14);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v15);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(v16);
 }
 
-void sub_26279CAE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26279CAE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va2);
   _Unwind_Resume(a1);
 }
 
-void WordLanguageModel::verifyUniScForTriSc(WordLanguageModel *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void WordLanguageModel::verifyUniScForTriSc(WordLanguageModel *this)
 {
   if (*(this + 200) >= 2u)
   {
-    v9 = 1;
+    v2 = 1;
     do
     {
-      v19 = *(*(this + 99) + 2 * v9);
-      if (*(*(this + 99) + 2 * v9))
+      v12 = *(*(this + 99) + 2 * v2);
+      if (*(*(this + 99) + 2 * v2))
       {
-        if (*(*(this + 21) + 2 * v9) != 20000 || (errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6923, "lm/wordlm", 89, "%u", a7, a8, v9), v19 = *(*(this + 99) + 2 * v9), *(*(this + 99) + 2 * v9)))
+        if (*(*(this + 21) + 2 * v2) != 20000 || (errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6923, "lm/wordlm", 89, "%u", v2), v12 = *(*(this + 99) + 2 * v2), *(*(this + 99) + 2 * v2)))
         {
-          v10 = 0;
+          v3 = 0;
           do
           {
-            v11 = (*(*(this + 101) + 4 * v9) + v10);
-            if (*(*(this + 21) + 2 * *(*(this + 103) + 2 * v11)) == 20000)
+            v4 = (*(*(this + 101) + 4 * v2) + v3);
+            if (*(*(this + 21) + 2 * *(*(this + 103) + 2 * v4)) == 20000)
             {
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6935, "lm/wordlm", 89, "%u", a7, a8, *(*(this + 103) + 2 * v11));
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6935, "lm/wordlm", 89, "%u", *(*(this + 103) + 2 * v4));
             }
 
-            v12 = *(*(this + 130) + 2 * v11);
-            if ((*(*(this + 109) + 4 * (v11 >> 5)) >> v11))
+            v5 = *(*(this + 130) + 2 * v4);
+            if ((*(*(this + 109) + 4 * (v4 >> 5)) >> v4))
             {
-              if (*(*(this + 130) + 2 * v11))
+              if (*(*(this + 130) + 2 * v4))
               {
-                v13 = 1;
-                v14 = 1;
+                v6 = 1;
+                v7 = 1;
                 do
                 {
-                  v15 = (v13 + *(*(this + 128) + 4 * v11) - 1);
+                  v8 = (v6 + *(*(this + 128) + 4 * v4) - 1);
                   if (*(this + 196))
                   {
-                    v15 = *(*(this + 134) + v15);
-                    v16 = *(this + 97);
+                    v8 = *(*(this + 134) + v8);
+                    v9 = *(this + 97);
                   }
 
                   else
                   {
-                    v16 = *(this + 132);
+                    v9 = *(this + 132);
                   }
 
-                  if (*(v16 + 2 * v15) != 20000 && *(*(this + 21) + 2 * v14) == 20000)
+                  if (*(v9 + 2 * v8) != 20000 && *(*(this + 21) + 2 * v7) == 20000)
                   {
-                    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6950, "lm/wordlm", 89, "%u", a7, a8, v13);
+                    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6950, "lm/wordlm", 89, "%u", v6);
                   }
 
-                  v13 = ++v14;
+                  v6 = ++v7;
                 }
 
-                while (v14 <= v12);
+                while (v7 <= v5);
               }
             }
 
-            else if (*(*(this + 130) + 2 * v11))
+            else if (*(*(this + 130) + 2 * v4))
             {
-              v17 = 0;
+              v10 = 0;
               do
               {
-                SearchSuccIdForIndex = TrigramData::getSearchSuccIdForIndex((this + 744), v11, v17);
+                SearchSuccIdForIndex = TrigramData::getSearchSuccIdForIndex((this + 744), v4, v10);
                 if (*(*(this + 21) + 2 * SearchSuccIdForIndex) == 20000)
                 {
-                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6964, "lm/wordlm", 89, "%u", a7, a8, SearchSuccIdForIndex);
+                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6964, "lm/wordlm", 89, "%u", SearchSuccIdForIndex);
                 }
 
-                ++v17;
+                ++v10;
               }
 
-              while (v12 != v17);
+              while (v5 != v10);
             }
 
-            ++v10;
+            ++v3;
           }
 
-          while (v10 != v19);
+          while (v3 != v12);
         }
       }
 
-      ++v9;
+      ++v2;
     }
 
-    while (v9 < *(this + 200));
+    while (v2 < *(this + 200));
   }
 }
 
-void WordLanguageModel::verifyUniScForQuadSc(WordLanguageModel *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void WordLanguageModel::verifyUniScForQuadSc(WordLanguageModel *this)
 {
   if (*(this + 322) >= 2u)
   {
-    v9 = (this + 1232);
-    v10 = 1;
+    v2 = (this + 1232);
+    v3 = 1;
     do
     {
-      v26 = *(*(this + 160) + 2 * v10);
-      if (*(*(this + 160) + 2 * v10))
+      v19 = *(*(this + 160) + 2 * v3);
+      if (*(*(this + 160) + 2 * v3))
       {
-        if (*(*(this + 21) + 2 * v10) != 20000 || (errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6980, "lm/wordlm", 89, "%u", a7, a8, v10), v26 = *(*(this + 160) + 2 * v10), *(*(this + 160) + 2 * v10)))
+        if (*(*(this + 21) + 2 * v3) != 20000 || (errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6980, "lm/wordlm", 89, "%u", v3), v19 = *(*(this + 160) + 2 * v3), *(*(this + 160) + 2 * v3)))
         {
-          v11 = 0;
-          v25 = v10;
+          v4 = 0;
+          v18 = v3;
           do
           {
-            v27 = v11;
-            v12 = (*(*(this + 162) + 4 * v10) + v11);
-            if (*(*(this + 21) + 2 * *(*(this + 164) + 2 * v12)) == 20000)
+            v20 = v4;
+            v5 = (*(*(this + 162) + 4 * v3) + v4);
+            if (*(*(this + 21) + 2 * *(*(this + 164) + 2 * v5)) == 20000)
             {
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6991, "lm/wordlm", 89, "%u", a7, a8, *(*(this + 164) + 2 * v12));
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6991, "lm/wordlm", 89, "%u", *(*(this + 164) + 2 * v5));
             }
 
-            v28 = *(*(this + 166) + 2 * v12);
-            if (*(*(this + 166) + 2 * v12))
+            v21 = *(*(this + 166) + 2 * v5);
+            if (*(*(this + 166) + 2 * v5))
             {
-              v13 = 0;
-              v30 = v12 >> 5;
-              v29 = 1 << v12;
+              v6 = 0;
+              v23 = v5 >> 5;
+              v22 = 1 << v5;
               do
               {
-                v14 = *(*(this + 185) + 4 * v12);
-                v15 = *(this + 308);
-                if (v15 && (*(*(this + 168) + 4 * v30) & v29) != 0)
+                v7 = *(*(this + 185) + 4 * v5);
+                v8 = *(this + 308);
+                if (v8 && (*(*(this + 168) + 4 * v23) & v22) != 0)
                 {
-                  v16 = *(*(this + 207) + 4 * v14);
-                  v17 = 440;
+                  v9 = *(*(this + 207) + 4 * v7);
+                  v10 = 440;
                 }
 
                 else
                 {
-                  v17 = 264;
-                  v16 = *(*(this + 185) + 4 * v12);
+                  v10 = 264;
+                  v9 = *(*(this + 185) + 4 * v5);
                 }
 
-                v18 = *(*(v9 + v17) + 2 * (v16 + v13));
-                if (*(*(this + 21) + 2 * v18) == 20000)
+                v11 = *(*(v2 + v10) + 2 * (v9 + v6));
+                if (*(*(this + 21) + 2 * v11) == 20000)
                 {
-                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6999, "lm/wordlm", 89, "%u", a7, a8, v18);
-                  v14 = *(*(this + 185) + 4 * v12);
-                  v15 = *(this + 308);
+                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6999, "lm/wordlm", 89, "%u", v11);
+                  v7 = *(*(this + 185) + 4 * v5);
+                  v8 = *(this + 308);
                 }
 
-                if (v15 && (*(*(this + 168) + 4 * v30) & v29) != 0)
+                if (v8 && (*(*(this + 168) + 4 * v23) & v22) != 0)
                 {
-                  v14 = *(*(this + 207) + 4 * v14);
-                  v19 = 504;
+                  v7 = *(*(this + 207) + 4 * v7);
+                  v12 = 504;
                 }
 
                 else
                 {
-                  v19 = 280;
+                  v12 = 280;
                 }
 
-                v20 = v14 + v13;
-                v21 = *(v9 + v19);
-                v22 = *(v21 + 2 * v20);
-                if (*(v21 + 2 * v20))
+                v13 = v7 + v6;
+                v14 = *(v2 + v12);
+                v15 = *(v14 + 2 * v13);
+                if (*(v14 + 2 * v13))
                 {
-                  v23 = 0;
+                  v16 = 0;
                   do
                   {
-                    if (QuadgramData::getScoreForIndex(v9, v12, v13, v23) != 20000)
+                    if (QuadgramData::getScoreForIndex(v2, v5, v6, v16) != 20000)
                     {
-                      Quad3SuccIdForIndex = QuadgramData::getQuad3SuccIdForIndex(v9, v12, v13, v23);
+                      Quad3SuccIdForIndex = QuadgramData::getQuad3SuccIdForIndex(v2, v5, v6, v16);
                       if (*(*(this + 21) + 2 * Quad3SuccIdForIndex) == 20000)
                       {
-                        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 7015, "lm/wordlm", 89, "%u", a7, a8, Quad3SuccIdForIndex);
+                        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 7015, "lm/wordlm", 89, "%u", Quad3SuccIdForIndex);
                       }
                     }
 
-                    ++v23;
+                    ++v16;
                   }
 
-                  while (v22 != v23);
+                  while (v15 != v16);
                 }
 
-                ++v13;
+                ++v6;
               }
 
-              while (v13 != v28);
+              while (v6 != v21);
             }
 
-            v11 = v27 + 1;
-            v10 = v25;
+            v4 = v20 + 1;
+            v3 = v18;
           }
 
-          while (v27 + 1 != v26);
+          while (v20 + 1 != v19);
         }
       }
 
-      ++v10;
+      ++v3;
     }
 
-    while (v10 < *(this + 322));
+    while (v3 < *(this + 322));
   }
 }
 
-void WordLanguageModel::maybeRepairOutOfRangeWordIdsOrThrow(WordLanguageModel *this, int a2, int a3, unsigned int a4, unsigned int a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void WordLanguageModel::maybeRepairOutOfRangeWordIdsOrThrow(WordLanguageModel *this, int a2, int a3, unsigned int a4, unsigned int a5)
 {
   if (a4 != 0xFFFFFF && a5 != 0xFFFFFF)
   {
-    v10 = *(*(this + 2) + 388);
-    if (v10)
+    v7 = *(*(this + 2) + 388);
+    if (v7)
     {
-      v13 = 0;
-      v14 = a5;
-      v15 = a4;
+      v10 = 0;
+      v11 = a5;
+      v12 = a4;
       while (1)
       {
-        v16 = *(this + 2);
-        if (v13 >= *(v16 + 388) || !*(*(v16 + 104) + v13))
+        v13 = *(this + 2);
+        if (v10 >= *(v13 + 388) || !*(*(v13 + 104) + v10))
         {
           goto LABEL_16;
         }
 
-        v17 = v13 < v15 || v13 > v14;
-        v18 = v17;
-        if (v18 != a3)
+        v14 = v10 < v12 || v10 > v11;
+        v15 = v14;
+        if (v15 != a3)
         {
           goto LABEL_16;
         }
 
         if (a2)
         {
-          WordLanguageModel::recordWordIdInvalidLmIdUsage(this, v13);
+          WordLanguageModel::recordWordIdInvalidLmIdUsage(this, v10);
           if (*(this + 276) == 1)
           {
-            WordLanguageModel::recordWordIdInvalidContextLmIdUsage(this, v13);
+            WordLanguageModel::recordWordIdInvalidContextLmIdUsage(this, v10);
           }
 
           goto LABEL_16;
@@ -3632,19 +3625,19 @@ void WordLanguageModel::maybeRepairOutOfRangeWordIdsOrThrow(WordLanguageModel *t
 
         if (*(this + 36))
         {
-          v19 = *(*(this + 17) + 2 * v13);
+          v16 = *(*(this + 17) + 2 * v10);
 LABEL_25:
-          if (v19 == -1)
+          if (v16 == -1)
           {
             goto LABEL_27;
           }
 
 LABEL_26:
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 10027, "lm/wordlm", 90, "%u", a7, a8, v13);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 10027, "lm/wordlm", 90, "%u", v10);
           goto LABEL_27;
         }
 
-        if (*(*(this + 19) + v13) != 255)
+        if (*(*(this + 19) + v10) != 255)
         {
           goto LABEL_26;
         }
@@ -3654,40 +3647,40 @@ LABEL_27:
         {
           if (*(this + 72))
           {
-            v20 = *(*(this + 35) + 4 * v13);
+            v17 = *(*(this + 35) + 4 * v10);
           }
 
           else
           {
             if (!*(this + 76))
             {
-              if (*(*(this + 39) + v13) == 255)
+              if (*(*(this + 39) + v10) == 255)
               {
                 goto LABEL_16;
               }
 
 LABEL_33:
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 10034, "lm/wordlm", 90, "%u", a7, a8, v13);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 10034, "lm/wordlm", 90, "%u", v10);
               goto LABEL_16;
             }
 
-            v20 = *(*(this + 37) + 2 * v13);
+            v17 = *(*(this + 37) + 2 * v10);
           }
 
-          if (v20 != -1)
+          if (v17 != -1)
           {
             goto LABEL_33;
           }
         }
 
 LABEL_16:
-        if (v10 == ++v13)
+        if (v7 == ++v10)
         {
           return;
         }
       }
 
-      v19 = *(*(this + 15) + 4 * v13);
+      v16 = *(*(this + 15) + 4 * v10);
       goto LABEL_25;
     }
   }
@@ -3911,10 +3904,10 @@ uint64_t WordLanguageModel::recordWordIdContextLmIdUsage(WordLanguageModel *this
   return result;
 }
 
-_DWORD *WordLanguageModel::recordWordIdInvalidLmIdUsage(_DWORD *this, unsigned int a2)
+uint64_t *WordLanguageModel::recordWordIdInvalidLmIdUsage(uint64_t *this, unsigned int a2)
 {
   v3 = this;
-  v4 = this[32];
+  v4 = *(this + 32);
   if (v4)
   {
 LABEL_2:
@@ -3922,16 +3915,16 @@ LABEL_2:
     {
       do
       {
-        if (v4 == *(v3 + 132))
+        if (v4 == *(v3 + 33))
         {
-          this = DgnPrimArray<unsigned int>::reallocElts(v3 + 120, 1, 1);
-          v4 = *(v3 + 128);
+          this = DgnPrimArray<unsigned int>::reallocElts((v3 + 15), 1, 1);
+          v4 = *(v3 + 32);
         }
 
-        v5 = *(v3 + 120);
+        v5 = v3[15];
         *(v5 + 4 * v4) = -1;
-        v4 = *(v3 + 128) + 1;
-        *(v3 + 128) = v4;
+        v4 = *(v3 + 32) + 1;
+        *(v3 + 32) = v4;
       }
 
       while (v4 <= a2);
@@ -3939,42 +3932,42 @@ LABEL_2:
 
     else
     {
-      v5 = *(v3 + 120);
+      v5 = v3[15];
     }
 
     *(v5 + 4 * a2) = -1;
     return this;
   }
 
-  v6 = this[36];
+  v6 = *(this + 36);
   if (v6)
   {
     goto LABEL_7;
   }
 
-  if (!this[40])
+  if (!*(this + 40))
   {
-    if (this[41])
+    if (*(this + 41))
     {
       v8 = 0;
     }
 
     else
     {
-      this = DgnPrimArray<char>::reallocElts((this + 38), 1, 1);
-      v8 = *(v3 + 160);
+      this = DgnPrimArray<char>::reallocElts((this + 19), 1, 1);
+      v8 = *(v3 + 40);
     }
 
-    *(*(v3 + 152) + v8) = -1;
-    ++*(v3 + 160);
-    v4 = *(v3 + 128);
+    *(v3[19] + v8) = -1;
+    ++*(v3 + 40);
+    v4 = *(v3 + 32);
     if (v4)
     {
       goto LABEL_2;
     }
   }
 
-  v6 = *(v3 + 144);
+  v6 = *(v3 + 36);
   if (v6)
   {
 LABEL_7:
@@ -3982,15 +3975,15 @@ LABEL_7:
     {
       do
       {
-        if (v6 == *(v3 + 148))
+        if (v6 == *(v3 + 37))
         {
-          this = DgnPrimArray<short>::reallocElts(v3 + 136, 1, 1);
-          v6 = *(v3 + 144);
+          this = DgnPrimArray<short>::reallocElts((v3 + 17), 1, 1);
+          v6 = *(v3 + 36);
         }
 
-        v7 = *(v3 + 136);
+        v7 = v3[17];
         *(v7 + 2 * v6++) = -1;
-        *(v3 + 144) = v6;
+        *(v3 + 36) = v6;
       }
 
       while (v6 <= a2);
@@ -3998,7 +3991,7 @@ LABEL_7:
 
     else
     {
-      v7 = *(v3 + 136);
+      v7 = v3[17];
     }
 
     *(v7 + 2 * a2) = -1;
@@ -4006,28 +3999,28 @@ LABEL_7:
 
   else
   {
-    for (i = *(v3 + 160); i <= a2; *(v3 + 160) = i)
+    for (i = *(v3 + 40); i <= a2; *(v3 + 40) = i)
     {
-      if (i == *(v3 + 164))
+      if (i == *(v3 + 41))
       {
-        this = DgnPrimArray<char>::reallocElts(v3 + 152, 1, 1);
-        i = *(v3 + 160);
+        this = DgnPrimArray<char>::reallocElts((v3 + 19), 1, 1);
+        i = *(v3 + 40);
       }
 
-      *(*(v3 + 152) + i) = -1;
-      i = *(v3 + 160) + 1;
+      *(v3[19] + i) = -1;
+      i = *(v3 + 40) + 1;
     }
 
-    *(*(v3 + 152) + a2) = -1;
+    *(v3[19] + a2) = -1;
   }
 
   return this;
 }
 
-_DWORD *WordLanguageModel::recordWordIdInvalidContextLmIdUsage(_DWORD *this, unsigned int a2)
+uint64_t *WordLanguageModel::recordWordIdInvalidContextLmIdUsage(uint64_t *this, unsigned int a2)
 {
   v3 = this;
-  v4 = this[72];
+  v4 = *(this + 72);
   if (v4)
   {
 LABEL_2:
@@ -4035,16 +4028,16 @@ LABEL_2:
     {
       do
       {
-        if (v4 == *(v3 + 292))
+        if (v4 == *(v3 + 73))
         {
-          this = DgnPrimArray<unsigned int>::reallocElts(v3 + 280, 1, 1);
-          v4 = *(v3 + 288);
+          this = DgnPrimArray<unsigned int>::reallocElts((v3 + 35), 1, 1);
+          v4 = *(v3 + 72);
         }
 
-        v5 = *(v3 + 280);
+        v5 = v3[35];
         *(v5 + 4 * v4) = -1;
-        v4 = *(v3 + 288) + 1;
-        *(v3 + 288) = v4;
+        v4 = *(v3 + 72) + 1;
+        *(v3 + 72) = v4;
       }
 
       while (v4 <= a2);
@@ -4052,42 +4045,42 @@ LABEL_2:
 
     else
     {
-      v5 = *(v3 + 280);
+      v5 = v3[35];
     }
 
     *(v5 + 4 * a2) = -1;
     return this;
   }
 
-  v6 = this[76];
+  v6 = *(this + 76);
   if (v6)
   {
     goto LABEL_7;
   }
 
-  if (!this[80])
+  if (!*(this + 80))
   {
-    if (this[81])
+    if (*(this + 81))
     {
       v8 = 0;
     }
 
     else
     {
-      this = DgnPrimArray<char>::reallocElts((this + 78), 1, 1);
-      v8 = *(v3 + 320);
+      this = DgnPrimArray<char>::reallocElts((this + 39), 1, 1);
+      v8 = *(v3 + 80);
     }
 
-    *(*(v3 + 312) + v8) = -1;
-    ++*(v3 + 320);
-    v4 = *(v3 + 288);
+    *(v3[39] + v8) = -1;
+    ++*(v3 + 80);
+    v4 = *(v3 + 72);
     if (v4)
     {
       goto LABEL_2;
     }
   }
 
-  v6 = *(v3 + 304);
+  v6 = *(v3 + 76);
   if (v6)
   {
 LABEL_7:
@@ -4095,15 +4088,15 @@ LABEL_7:
     {
       do
       {
-        if (v6 == *(v3 + 308))
+        if (v6 == *(v3 + 77))
         {
-          this = DgnPrimArray<short>::reallocElts(v3 + 296, 1, 1);
-          v6 = *(v3 + 304);
+          this = DgnPrimArray<short>::reallocElts((v3 + 37), 1, 1);
+          v6 = *(v3 + 76);
         }
 
-        v7 = *(v3 + 296);
+        v7 = v3[37];
         *(v7 + 2 * v6++) = -1;
-        *(v3 + 304) = v6;
+        *(v3 + 76) = v6;
       }
 
       while (v6 <= a2);
@@ -4111,7 +4104,7 @@ LABEL_7:
 
     else
     {
-      v7 = *(v3 + 296);
+      v7 = v3[37];
     }
 
     *(v7 + 2 * a2) = -1;
@@ -4119,29 +4112,29 @@ LABEL_7:
 
   else
   {
-    for (i = *(v3 + 320); i <= a2; *(v3 + 320) = i)
+    for (i = *(v3 + 80); i <= a2; *(v3 + 80) = i)
     {
-      if (i == *(v3 + 324))
+      if (i == *(v3 + 81))
       {
-        this = DgnPrimArray<char>::reallocElts(v3 + 312, 1, 1);
-        i = *(v3 + 320);
+        this = DgnPrimArray<char>::reallocElts((v3 + 39), 1, 1);
+        i = *(v3 + 80);
       }
 
-      *(*(v3 + 312) + i) = -1;
-      i = *(v3 + 320) + 1;
+      *(v3[39] + i) = -1;
+      i = *(v3 + 80) + 1;
     }
 
-    *(*(v3 + 312) + a2) = -1;
+    *(v3[39] + a2) = -1;
   }
 
   return this;
 }
 
-unint64_t WordLanguageModel::constructLmIdToWordIdMapping(unint64_t result, uint64_t a2, uint64_t a3)
+uint64_t *WordLanguageModel::constructLmIdToWordIdMapping(uint64_t *result, uint64_t *a2, uint64_t a3)
 {
   v5 = result;
-  v6 = *(result + 104);
-  v7 = *(a2 + 12);
+  v6 = *(result + 26);
+  v7 = *(a2 + 3);
   v8 = v6;
   if (v6 > v7)
   {
@@ -4149,7 +4142,7 @@ unint64_t WordLanguageModel::constructLmIdToWordIdMapping(unint64_t result, uint
     v8 = *(v5 + 104);
   }
 
-  *(a2 + 8) = v6;
+  *(a2 + 2) = v6;
   if (*(v5 + 276) == 1)
   {
     v9 = *(a3 + 12);
@@ -4329,7 +4322,7 @@ uint64_t WordLanguageModel::getWordIdWithMapping(uint64_t a1, unsigned int a2, i
   return WordLanguageModel::getWordId(a1, a2, a3);
 }
 
-uint64_t mrec_qsort_r<DiskNgramContextBiTriIsolatedCmp>(uint64_t result, unint64_t a2, unint64_t a3, const void *a4)
+uint64_t mrec_qsort_r<DiskNgramContextBiTriIsolatedCmp>(uint64_t result, unint64_t a2, int64_t a3, const void *a4)
 {
   v5 = a2;
   v6 = result;
@@ -4982,7 +4975,7 @@ LABEL_54:
   return result;
 }
 
-uint64_t mrec_qsort_r<DiskNgramContextQuadIsolatedCmp>(uint64_t result, unint64_t a2, unint64_t a3, const void *a4)
+uint64_t mrec_qsort_r<DiskNgramContextQuadIsolatedCmp>(uint64_t result, unint64_t a2, int64_t a3, const void *a4)
 {
   v5 = a2;
   v6 = result;
@@ -5635,7 +5628,7 @@ LABEL_54:
   return result;
 }
 
-uint64_t mrec_qsort_r<DiskNgramContextBiTriGroupTrigramsCmp>(uint64_t result, unint64_t a2, unint64_t a3, const void *a4)
+uint64_t mrec_qsort_r<DiskNgramContextBiTriGroupTrigramsCmp>(uint64_t result, unint64_t a2, int64_t a3, const void *a4)
 {
   v5 = a2;
   v6 = result;
@@ -6293,7 +6286,7 @@ LABEL_54:
   return result;
 }
 
-uint64_t mrec_qsort_r<DiskNgramContextBiTriGroupTrigramsWithBigramsCmp>(uint64_t result, unint64_t a2, unint64_t a3, const void *a4)
+uint64_t mrec_qsort_r<DiskNgramContextBiTriGroupTrigramsWithBigramsCmp>(uint64_t result, unint64_t a2, int64_t a3, const void *a4)
 {
   v5 = a2;
   v6 = result;
@@ -6951,7 +6944,7 @@ LABEL_54:
   return result;
 }
 
-uint64_t mrec_qsort_r<DiskNgramContextQuadGroupCmp>(uint64_t result, unint64_t a2, unint64_t a3, const void *a4)
+uint64_t mrec_qsort_r<DiskNgramContextQuadGroupCmp>(uint64_t result, unint64_t a2, int64_t a3, const void *a4)
 {
   v5 = a2;
   v6 = result;
@@ -7611,131 +7604,131 @@ LABEL_54:
 
 uint64_t WordLanguageModel::loadPersistentAndIndex(WordLanguageModel *this)
 {
-  v54 = 0;
-  v55 = 0;
-  v2 = OpenAndReadMrecHeader(*(this + 5), 0x72u, 0, "LMWNGPER", &v55, &v54);
+  v27 = 0;
+  v28 = 0;
+  v2 = OpenAndReadMrecHeader(*(this + 5), 0x72u, 0, "LMWNGPER", &v28, &v27);
   if (v2)
   {
-    v5 = **v2;
   }
 
   *(this + 28) = v2;
-  v6 = v55 == 18 && v54 == 6;
-  v7 = v6;
-  if (v6)
+  v3 = v28 == 18 && v27 == 6;
+  v4 = v3;
+  if (v3)
   {
-    v8 = 18;
-    v9 = 6;
+    v5 = 18;
+    v6 = 6;
   }
 
   else
   {
-    v10 = *(this + 5);
-    if (*(v10 + 24))
+    v7 = *(this + 5);
+    if (*(v7 + 24))
     {
-      v11 = *(v10 + 16);
+      v8 = *(v7 + 16);
     }
 
     else
     {
-      v11 = &unk_26288CFB0;
+      v8 = &unk_26288CFB0;
     }
 
-    MrecHeaderCheckVersions(v11, "LMWNGPER", v55, v54, 0x17u, 7u);
-    v9 = v54;
-    v8 = v55;
+    MrecHeaderCheckVersions(v8, "LMWNGPER", v28, v27, 0x17u, 7u);
+    v6 = v27;
+    v5 = v28;
   }
 
-  MrecHeaderCheckLatestVersionIfShared(*(this + 5), "LMWNGPER", v8, v9, 23, 7, v3, v4);
+  v9 = MrecHeaderCheckLatestVersionIfShared(*(this + 5), "LMWNGPER", v5, v6, 23, 7);
+  v10 = *(this + 28);
+  v29 = 0;
+  (*(*v10 + 72))(v10, &v29, 4, 1, v9);
+  v11 = v29;
   v12 = *(this + 28);
-  v56 = 0;
-  (*(*v12 + 72))(v12, &v56, 4, 1);
-  v13 = v56;
+  v29 = 0;
+  (*(*v12 + 72))(v12, &v29, 4, 1);
+  v13 = v29;
   v14 = *(this + 28);
-  v56 = 0;
-  (*(*v14 + 72))(v14, &v56, 4, 1);
-  v15 = v56;
-  v16 = *(this + 28);
-  v56 = 0;
-  (*(*v16 + 72))(v16, &v56, 4, 1);
-  v17 = v56;
+  v29 = 0;
+  (*(*v14 + 72))(v14, &v29, 4, 1);
+  v15 = v29;
   *(this + 65) = (*(**(this + 28) + 48))(*(this + 28));
-  v54 = 0;
-  v55 = 0;
-  v20 = OpenAndReadMrecHeader(*(this + 5), 0x71u, 1, "LMWNGIND", &v55, &v54);
-  v21 = v54;
-  if (v55 == 19 && v54 == 10)
+  v27 = 0;
+  v28 = 0;
+  v16 = OpenAndReadMrecHeader(*(this + 5), 0x71u, 1, "LMWNGIND", &v28, &v27);
+  v17 = v27;
+  if (v28 == 19 && v27 == 10)
   {
-    v22 = 19;
+    v18 = 19;
   }
 
   else
   {
-    v23 = *(this + 5);
-    if (*(v23 + 24))
+    v19 = *(this + 5);
+    if (*(v19 + 24))
     {
-      v24 = *(v23 + 16);
+      v20 = *(v19 + 16);
     }
 
     else
     {
-      v24 = &unk_26288CFB0;
+      v20 = &unk_26288CFB0;
     }
 
-    MrecHeaderCheckVersions(v24, "LMWNGIND", v55, v54, 0x17u, 0xBu);
-    v21 = v54;
-    v22 = v55;
+    MrecHeaderCheckVersions(v20, "LMWNGIND", v28, v27, 0x17u, 0xBu);
+    v17 = v27;
+    v18 = v28;
   }
 
-  MrecHeaderCheckLatestVersionIfShared(*(this + 5), "LMWNGIND", v22, v21, 23, 11, v18, v19);
-  v56 = 0;
-  (*(*v20 + 72))(v20, &v56, 4, 1);
-  v25 = v56;
-  v56 = 0;
-  (*(*v20 + 72))(v20, &v56, 4, 1);
-  v26 = v56;
-  v56 = 0;
-  (*(*v20 + 72))(v20, &v56, 4, 1);
-  *(this + 64) = v56;
-  if (v13 != v25 || v15 != v26)
+  v21 = MrecHeaderCheckLatestVersionIfShared(*(this + 5), "LMWNGIND", v18, v17, 23, 11);
+  v29 = 0;
+  (*(*v16 + 72))(v16, &v29, 4, 1, v21);
+  v22 = v29;
+  v29 = 0;
+  (*(*v16 + 72))(v16, &v29, 4, 1);
+  v23 = v29;
+  v29 = 0;
+  (*(*v16 + 72))(v16, &v29, 4, 1);
+  *(this + 64) = v29;
+  if (v11 != v22 || v13 != v23)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8580, "lm/wordlm", 29, "%u %u %u %u", v27, v28, v13);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8580, "lm/wordlm", 29, "%u %u %u %u", v11, v13, v22, v23);
   }
 
-  if (v13 != *(this + 66) || v15 != *(this + 67))
+  v24 = *(this + 67);
+  if (v11 != *(this + 66) || v13 != v24)
   {
-    v53 = *(this + 66);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8589, "lm/wordlm", 30, "%.500s %u %u %u %u", v27, v28, "The specified voc and svc are mismatched.  Details:");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8589, "lm/wordlm", 30, "%.500s %u %u %u %u", "The specified voc and svc are mismatched.  Details:", v11, v13, *(this + 66), v24);
   }
 
-  if (v17 != *(this + 64))
+  v25 = *(this + 64);
+  if (v15 != v25)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8593, "lm/wordlm", 69, "%u %u", v27, v28, v17);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8593, "lm/wordlm", 69, "%u %u", v15, v25);
   }
 
-  v56 = 0;
-  readObject(v20, this + 31, &v56);
-  BigramData::loadBinary((this + 360), v20, &v56);
-  WordLanguageModel::verifyBoWtForBiSc(this, v29, v30, v31, v32, v33, v34, v35);
-  WordLanguageModel::throwOnBadBoWt(this, v36, v37, v38, v39, v40, v41, v42);
+  v29 = 0;
+  readObject(v16, this + 31, &v29);
+  BigramData::loadBinary((this + 360), v16, &v29);
+  WordLanguageModel::verifyBoWtForBiSc(this);
+  WordLanguageModel::throwOnBadBoWt(this);
   if (*(this + 16) >= 3u)
   {
-    TrigramData::loadBinary((this + 744), v20, &v56);
-    WordLanguageModel::throwOnBadTriBoWt(this, v43, v44, v45, v46, v47, v48, v49);
+    TrigramData::loadBinary((this + 744), v16, &v29);
+    WordLanguageModel::throwOnBadTriBoWt(this);
     if (*(this + 16) >= 4u)
     {
-      QuadgramData::loadBinary((this + 1232), v20, &v56);
+      QuadgramData::loadBinary((this + 1232), v16, &v29);
     }
   }
 
-  readObjectChecksumAndVerify(v20, v56);
-  if (v26 != v56)
+  readObjectChecksumAndVerify(v16, v29);
+  if (v23 != v29)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8611, "lm/wordlm", 31, "%u %u", v50, v51, v26);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8611, "lm/wordlm", 31, "%u %u", v23, v29);
   }
 
-  DgnDelete<DgnStream>(v20);
-  return v7;
+  DgnDelete<DgnStream>(v16);
+  return v4;
 }
 
 void (***WordLanguageModel::reabsorbStaticLM(WordLanguageModel *this))(void)
@@ -7770,7 +7763,7 @@ void (***WordLanguageModel::reabsorbStaticLM(WordLanguageModel *this))(void)
   BigramData::fillInFullyLoadedBigramData((this + 360), v21);
   BigramData::copyBigramData(this + 45, v21);
   BigramData::~BigramData(v21);
-  BigramData::compact((this + 360));
+  BigramData::compact(this + 45);
   if (*(this + 16) >= 3u)
   {
     if (*(this + 186))
@@ -7787,7 +7780,7 @@ void (***WordLanguageModel::reabsorbStaticLM(WordLanguageModel *this))(void)
             v10 = 0;
             do
             {
-              v11 = v10 + *(*(this + 101) + 4 * j);
+              v11 = (v10 + *(*(this + 101) + 4 * j));
               if (*(*(this + 130) + 2 * v11) && *(this + 186) && (*(*(this + 111) + 4 * (v11 >> 5)) & (1 << v11)) != 0 && (*(*(this + 113) + 4 * (v11 >> 5)) & (1 << v11)) == 0)
               {
                 WordLanguageModel::loadTrigramRecord(this, v4, v5, v11, v25, &v22);
@@ -7807,7 +7800,7 @@ void (***WordLanguageModel::reabsorbStaticLM(WordLanguageModel *this))(void)
     TrigramData::fillInFullyLoadedTrigramData((this + 744), v21);
     TrigramData::copyTrigramData((this + 744), v21);
     TrigramData::~TrigramData(v21);
-    TrigramData::compact((this + 744));
+    TrigramData::compact(this + 93);
     if (*(this + 16) > 3u)
     {
       if (*(this + 308))
@@ -7824,7 +7817,7 @@ void (***WordLanguageModel::reabsorbStaticLM(WordLanguageModel *this))(void)
               v18 = 0;
               do
               {
-                v19 = v18 + *(*(this + 162) + 4 * k);
+                v19 = (v18 + *(*(this + 162) + 4 * k));
                 if (*(*(this + 166) + 2 * v19) && *(this + 308) && (*(*(this + 168) + 4 * (v19 >> 5)) & (1 << v19)) != 0 && (*(*(this + 170) + 4 * (v19 >> 5)) & (1 << v19)) == 0)
                 {
                   WordLanguageModel::loadQuadgramRecord(this, v12, v13, v19, v25, &v22);
@@ -7844,7 +7837,7 @@ void (***WordLanguageModel::reabsorbStaticLM(WordLanguageModel *this))(void)
       QuadgramData::fillInFullyLoadedQuadgramData((this + 1232), v21);
       QuadgramData::copyQuadgramData((this + 1232), v21);
       QuadgramData::~QuadgramData(v21);
-      QuadgramData::compact((this + 1232));
+      QuadgramData::compact(this + 154);
     }
   }
 
@@ -7856,13 +7849,14 @@ void (***WordLanguageModel::reabsorbStaticLM(WordLanguageModel *this))(void)
   return result;
 }
 
-void WordLanguageModel::loadBigramRecord(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int *a4)
+void WordLanguageModel::loadBigramRecord(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4)
 {
+  v6 = a2;
   LoadSaveTracker::LoadSaveTracker(&v21);
   v19 = 0u;
   v20 = 0u;
   SnapTime::recordTime(&v19, 1, 0, 0, 0);
-  (*(**(a1 + 224) + 24))(*(a1 + 224), *(*(a1 + 536) + 4 * a2));
+  (*(**(a1 + 224) + 24))(*(a1 + 224), *(*(a1 + 536) + 4 * v6));
   v17 = 0;
   v18 = 0;
   v16[0] = 0;
@@ -7872,8 +7866,8 @@ void WordLanguageModel::loadBigramRecord(uint64_t a1, unsigned int a2, uint64_t 
   v14[0] = 0;
   v14[1] = 0;
   (*(**(a1 + 224) + 96))(*(a1 + 224), a4[2], *a4, 1);
-  WordLanguageModel::readBigramRecord(a1, a2, &v17, v16, v15, v14);
-  BigramData::allocLoaded(a1 + 360, a2);
+  WordLanguageModel::readBigramRecord(a1, v6, &v17, v16, v15, v14);
+  BigramData::allocLoaded((a1 + 360), v6);
   if (*(a1 + 376))
   {
     if (v18)
@@ -7881,8 +7875,8 @@ void WordLanguageModel::loadBigramRecord(uint64_t a1, unsigned int a2, uint64_t 
       v8 = 0;
       do
       {
-        BigramData::setSearchSuccIdForIndex(a1 + 360, a2, v8, *(v17 + 2 * v8));
-        BigramData::setSearchQuantizedScoreForIndex(a1 + 360, a2, v8, *(v15[0] + v8));
+        BigramData::setSearchSuccIdForIndex(a1 + 360, v6, v8, *(v17 + 2 * v8));
+        BigramData::setSearchQuantizedScoreForIndex(a1 + 360, v6, v8, *(v15[0] + v8));
         ++v8;
       }
 
@@ -7895,8 +7889,8 @@ void WordLanguageModel::loadBigramRecord(uint64_t a1, unsigned int a2, uint64_t 
     v9 = 0;
     do
     {
-      BigramData::setSearchSuccIdForIndex(a1 + 360, a2, v9, *(v17 + 2 * v9));
-      BigramData::setSearchScoreForIndex(a1 + 360, a2, v9, *(v16[0] + 2 * v9));
+      BigramData::setSearchSuccIdForIndex(a1 + 360, v6, v9, *(v17 + 2 * v9));
+      BigramData::setSearchScoreForIndex(a1 + 360, v6, v9, *(v16[0] + 2 * v9));
       ++v9;
     }
 
@@ -7912,7 +7906,7 @@ void WordLanguageModel::loadBigramRecord(uint64_t a1, unsigned int a2, uint64_t 
   *(a3 + 56) = vaddq_s64(vsubq_s64(v12, v19), *(a3 + 56));
   *(a3 + 72) = vaddq_s64(vsubq_s64(v10, v11), *(a3 + 72));
   v10.i32[0] = 1;
-  v10.i32[1] = *(*(a1 + 552) + 2 * a2);
+  v10.i32[1] = *(*(a1 + 552) + 2 * v6);
   *(a3 + 8) = vadd_s32(*(a3 + 8), *v10.i8);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v14);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v15);
@@ -7921,35 +7915,36 @@ void WordLanguageModel::loadBigramRecord(uint64_t a1, unsigned int a2, uint64_t 
   LoadSaveTracker::~LoadSaveTracker(&v21);
 }
 
-void sub_2627A0AA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2627A0AA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va3, a5);
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va3, a9);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   va_copy(va2, va1);
-  v10 = va_arg(va2, void);
-  v12 = va_arg(va2, void);
+  v14 = va_arg(va2, void);
+  v16 = va_arg(va2, void);
   va_copy(va3, va2);
-  v13 = va_arg(va3, void);
-  v15 = va_arg(va3, void);
+  v17 = va_arg(va3, void);
+  v19 = va_arg(va3, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va2);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va3);
-  LoadSaveTracker::~LoadSaveTracker((v5 - 49));
+  LoadSaveTracker::~LoadSaveTracker((v9 - 49));
   _Unwind_Resume(a1);
 }
 
-void WordLanguageModel::loadTrigramRecord(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5, unsigned int *a6)
+void WordLanguageModel::loadTrigramRecord(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int *a6)
 {
+  v8 = a4;
   LoadSaveTracker::LoadSaveTracker(&v23);
   v21 = 0u;
   v22 = 0u;
   SnapTime::recordTime(&v21, 1, 0, 0, 0);
-  (*(**(a1 + 224) + 24))(*(a1 + 224), *(*(a1 + 1024) + 4 * a4));
+  (*(**(a1 + 224) + 24))(*(a1 + 224), *(*(a1 + 1024) + 4 * v8));
   v19 = 0;
   v20 = 0;
   v18[0] = 0;
@@ -7959,8 +7954,8 @@ void WordLanguageModel::loadTrigramRecord(uint64_t a1, uint64_t a2, uint64_t a3,
   v16[0] = 0;
   v16[1] = 0;
   (*(**(a1 + 224) + 96))(*(a1 + 224), a6[3], *a6, *(a6 + 20));
-  WordLanguageModel::readTrigramRecord(a1, a4, &v19, v18, v17, v16);
-  TrigramData::allocLoaded(a1 + 744, a4);
+  WordLanguageModel::readTrigramRecord(a1, v8, &v19, v18, v17, v16);
+  TrigramData::allocLoaded((a1 + 744), v8);
   if (*(a1 + 784))
   {
     if (v20)
@@ -7968,8 +7963,8 @@ void WordLanguageModel::loadTrigramRecord(uint64_t a1, uint64_t a2, uint64_t a3,
       v10 = 0;
       do
       {
-        TrigramData::setSearchSuccIdForIndex(a1 + 744, a4, v10, *(v19 + 2 * v10));
-        TrigramData::setSearchQuantizedScoreForIndex(a1 + 744, a4, v10, *(v17[0] + v10));
+        TrigramData::setSearchSuccIdForIndex(a1 + 744, v8, v10, *(v19 + 2 * v10));
+        TrigramData::setSearchQuantizedScoreForIndex(a1 + 744, v8, v10, *(v17[0] + v10));
         ++v10;
       }
 
@@ -7982,8 +7977,8 @@ void WordLanguageModel::loadTrigramRecord(uint64_t a1, uint64_t a2, uint64_t a3,
     v11 = 0;
     do
     {
-      TrigramData::setSearchSuccIdForIndex(a1 + 744, a4, v11, *(v19 + 2 * v11));
-      TrigramData::setSearchScoreForIndex(a1 + 744, a4, v11, *(v18[0] + 2 * v11));
+      TrigramData::setSearchSuccIdForIndex(a1 + 744, v8, v11, *(v19 + 2 * v11));
+      TrigramData::setSearchScoreForIndex(a1 + 744, v8, v11, *(v18[0] + 2 * v11));
       ++v11;
     }
 
@@ -7999,7 +7994,7 @@ void WordLanguageModel::loadTrigramRecord(uint64_t a1, uint64_t a2, uint64_t a3,
   *(a5 + 88) = vaddq_s64(vsubq_s64(v14, v21), *(a5 + 88));
   *(a5 + 104) = vaddq_s64(vsubq_s64(v12, v13), *(a5 + 104));
   v12.i32[0] = 1;
-  v12.i32[1] = *(*(a1 + 1040) + 2 * a4);
+  v12.i32[1] = *(*(a1 + 1040) + 2 * v8);
   *(a5 + 24) = vadd_s32(*(a5 + 24), *v12.i8);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v16);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v17);
@@ -8008,35 +8003,36 @@ void WordLanguageModel::loadTrigramRecord(uint64_t a1, uint64_t a2, uint64_t a3,
   LoadSaveTracker::~LoadSaveTracker(&v23);
 }
 
-void sub_2627A0D54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2627A0D54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va3, a5);
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va3, a9);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   va_copy(va2, va1);
-  v10 = va_arg(va2, void);
-  v12 = va_arg(va2, void);
+  v14 = va_arg(va2, void);
+  v16 = va_arg(va2, void);
   va_copy(va3, va2);
-  v13 = va_arg(va3, void);
-  v15 = va_arg(va3, void);
+  v17 = va_arg(va3, void);
+  v19 = va_arg(va3, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va2);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va3);
-  LoadSaveTracker::~LoadSaveTracker((v5 - 49));
+  LoadSaveTracker::~LoadSaveTracker((v9 - 49));
   _Unwind_Resume(a1);
 }
 
-void WordLanguageModel::loadQuadgramRecord(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5, unsigned int *a6)
+void WordLanguageModel::loadQuadgramRecord(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int *a6)
 {
+  v8 = a4;
   LoadSaveTracker::LoadSaveTracker(v47);
   v45 = 0u;
   v46 = 0u;
   SnapTime::recordTime(&v45, 1, 0, 0, 0);
-  (*(**(a1 + 224) + 24))(*(a1 + 224), *(*(a1 + 1480) + 4 * a4));
+  (*(**(a1 + 224) + 24))(*(a1 + 224), *(*(a1 + 1480) + 4 * v8));
   v44[0] = 0;
   v44[1] = 0;
   v42 = 0;
@@ -8058,9 +8054,9 @@ void WordLanguageModel::loadQuadgramRecord(uint64_t a1, uint64_t a2, uint64_t a3
   v34[0] = 0;
   v34[1] = 0;
   (*(**(a1 + 224) + 96))(*(a1 + 224), a6[4], *a6, *(a6 + 20));
-  WordLanguageModel::readQuadgramRecord(a1, a4, v44, &v42, v41, v40, v39, v38, v37, v36, v35, v34);
+  WordLanguageModel::readQuadgramRecord(a1, v8, v44, &v42, v41, v40, v39, v38, v37, v36, v35, v34);
   v10 = a1 + 1232;
-  QuadgramData::allocLoaded(a1 + 1232, a4, v44);
+  QuadgramData::allocLoaded((a1 + 1232), v8, v44);
   v11 = v43;
   if (*(a1 + 1256))
   {
@@ -8073,8 +8069,8 @@ void WordLanguageModel::loadQuadgramRecord(uint64_t a1, uint64_t a2, uint64_t a3
     do
     {
       v13 = *(v42 + 2 * v12);
-      v14 = *(*(a1 + 1480) + 4 * a4);
-      if (*(a1 + 1232) && (*(*(a1 + 1344) + 4 * (a4 >> 5)) & (1 << a4)) != 0)
+      v14 = *(*(a1 + 1480) + 4 * v8);
+      if (*(a1 + 1232) && (*(*(a1 + 1344) + 4 * (v8 >> 5)) & (1 << v8)) != 0)
       {
         LODWORD(v14) = *(*(a1 + 1656) + 4 * v14);
         *(*(a1 + 1672) + 2 * (v12 + v14)) = v13;
@@ -8107,14 +8103,14 @@ void WordLanguageModel::loadQuadgramRecord(uint64_t a1, uint64_t a2, uint64_t a3
     }
 
     v17 = 0;
-    v18 = *(*(a1 + 1480) + 4 * a4);
+    v18 = *(*(a1 + 1480) + 4 * v8);
     v19 = v42;
     v20 = *(a1 + 1232);
     v21 = v40[0];
     do
     {
       v22 = *(v19 + 2 * v17);
-      if (v20 && (*(*(a1 + 1344) + 4 * (a4 >> 5)) & (1 << a4)) != 0)
+      if (v20 && (*(*(a1 + 1344) + 4 * (v8 >> 5)) & (1 << v8)) != 0)
       {
         v23 = *(*(a1 + 1656) + 4 * v18);
         *(*(a1 + 1672) + 2 * (v17 + v23)) = v22;
@@ -8147,8 +8143,8 @@ void WordLanguageModel::loadQuadgramRecord(uint64_t a1, uint64_t a2, uint64_t a3
         v28 = 0;
         do
         {
-          QuadgramData::setQuad3SuccIdForIndex(a1 + 1232, a4, v25, v28, *(v41[0] + 2 * (v26 + v28)));
-          QuadgramData::setQuantizedScoreForIndex(a1 + 1232, a4, v25, v28, *(v37[0] + (v26 + v28)));
+          QuadgramData::setQuad3SuccIdForIndex(a1 + 1232, v8, v25, v28, *(v41[0] + 2 * (v26 + v28)));
+          QuadgramData::setQuantizedScoreForIndex(a1 + 1232, v8, v25, v28, *(v37[0] + (v26 + v28)));
           ++v28;
           v27 = *(v44[0] + 2 * v25);
         }
@@ -8162,8 +8158,8 @@ void WordLanguageModel::loadQuadgramRecord(uint64_t a1, uint64_t a2, uint64_t a3
       v29 = 0;
       do
       {
-        QuadgramData::setQuad3SuccIdForIndex(a1 + 1232, a4, v25, v29, *(v41[0] + 2 * (v26 + v29)));
-        QuadgramData::setScoreForIndex(a1 + 1232, a4, v25, v29, *(v38[0] + 2 * (v26 + v29)));
+        QuadgramData::setQuad3SuccIdForIndex(a1 + 1232, v8, v25, v29, *(v41[0] + 2 * (v26 + v29)));
+        QuadgramData::setScoreForIndex(a1 + 1232, v8, v25, v29, *(v38[0] + 2 * (v26 + v29)));
         ++v29;
         v27 = *(v44[0] + 2 * v25);
       }
@@ -8200,8 +8196,9 @@ LABEL_28:
   LoadSaveTracker::~LoadSaveTracker(v47);
 }
 
-void sub_2627A11FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, char a19, uint64_t a20, char a21, uint64_t a22, char a23, uint64_t a24, char a25, uint64_t a26, char a27, uint64_t a28, char a29, uint64_t a30, char a31)
+void sub_2627A11FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a17);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a19);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a21);
@@ -8209,396 +8206,395 @@ void sub_2627A11FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a25);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a27);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a29);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a31);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v31 - 160);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v31 - 144);
-  LoadSaveTracker::~LoadSaveTracker((v31 - 89));
+  DgnPrimArray<unsigned int>::~DgnPrimArray(va);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v30 - 160);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v30 - 144);
+  LoadSaveTracker::~LoadSaveTracker((v30 - 89));
   _Unwind_Resume(a1);
 }
 
-void WordLanguageModel::setLMScale(WordLanguageModel *this, unsigned int a2, double a3, double a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void WordLanguageModel::setLMScale(WordLanguageModel *this, unsigned int a2, double a3, double a4)
 {
   if (*(this + 5))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8946, "lm/wordlm", 21, "%s", a9, a10, &errStr_lm_wordlm_E_LMSCALE_ON_DISK);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8946, "lm/wordlm", 21, "%s", &errStr_lm_wordlm_E_LMSCALE_ON_DISK);
   }
 
-  v12 = a2;
+  v6 = a2;
   LODWORD(a4) = *(this + 8);
-  v13 = *&a4;
-  v14 = a2 / v13;
-  v15 = *(this + 16);
-  if (v15 >= 4)
+  v7 = *&a4;
+  v8 = a2 / v7;
+  v9 = *(this + 16);
+  if (v9 >= 4)
   {
-    v16 = *(this + 318);
-    if (v16)
+    v10 = *(this + 318);
+    if (v10)
     {
-      v74 = 0;
-      v75 = 0;
-      DgnPrimArray<unsigned short>::copyArraySlice(&v74, this + 158, 0, v16);
-      v17 = v75;
-      if (v75)
+      v67 = 0;
+      v68 = 0;
+      DgnPrimArray<unsigned short>::copyArraySlice(&v67, this + 158, 0, v10);
+      v11 = v68;
+      if (v68)
       {
-        v18 = v74;
-        v19 = v75;
+        v12 = v67;
+        v13 = v68;
         do
         {
-          v20 = *v18;
-          if (v20 != 20000)
+          v14 = *v12;
+          if (v14 != 20000)
           {
-            *v18 = (v20 * v14 + 0.5);
+            *v12 = (v14 * v8 + 0.5);
           }
 
-          ++v18;
-          --v19;
+          ++v12;
+          --v13;
         }
 
-        while (v19);
+        while (v13);
       }
 
-      DgnPrimArray<unsigned short>::copyArraySlice(this + 1264, &v74, 0, v17);
-      DgnPrimArray<unsigned int>::~DgnPrimArray(&v74);
+      DgnPrimArray<unsigned short>::copyArraySlice(this + 158, &v67, 0, v11);
+      DgnPrimArray<unsigned int>::~DgnPrimArray(&v67);
     }
 
     else
     {
-      v21 = *(this + 400);
-      if (v21)
+      v15 = *(this + 400);
+      if (v15)
       {
-        v22 = *(this + 199);
-        v12 = 0.5;
+        v16 = *(this + 199);
+        v6 = 0.5;
         do
         {
-          v23 = *v22;
-          if (v23 != 20000)
+          v17 = *v16;
+          if (v17 != 20000)
           {
-            v13 = v23 * v14 + 0.5;
-            *v22 = v13;
+            v7 = v17 * v8 + 0.5;
+            *v16 = v7;
           }
 
-          ++v22;
+          ++v16;
+          --v15;
+        }
+
+        while (v15);
+      }
+    }
+
+    v18 = *(this + 314);
+    if (v18)
+    {
+      v67 = 0;
+      v68 = 0;
+      DgnPrimArray<unsigned short>::copyArraySlice(&v67, this + 156, 0, v18);
+      v19 = v68;
+      if (v68)
+      {
+        v20 = v67;
+        v21 = v68;
+        do
+        {
+          v22 = *v20;
+          if (v22 != 20000)
+          {
+            *v20 = (v22 * v8 + 0.5);
+          }
+
+          ++v20;
           --v21;
         }
 
         while (v21);
       }
-    }
 
-    v24 = *(this + 314);
-    if (v24)
-    {
-      v74 = 0;
-      v75 = 0;
-      DgnPrimArray<unsigned short>::copyArraySlice(&v74, this + 156, 0, v24);
-      v25 = v75;
-      if (v75)
-      {
-        v26 = v74;
-        v27 = v75;
-        do
-        {
-          v28 = *v26;
-          if (v28 != 20000)
-          {
-            *v26 = (v28 * v14 + 0.5);
-          }
-
-          ++v26;
-          --v27;
-        }
-
-        while (v27);
-      }
-
-      DgnPrimArray<unsigned short>::copyArraySlice(this + 1248, &v74, 0, v25);
-      DgnPrimArray<unsigned int>::~DgnPrimArray(&v74);
+      DgnPrimArray<unsigned short>::copyArraySlice(this + 156, &v67, 0, v19);
+      DgnPrimArray<unsigned int>::~DgnPrimArray(&v67);
     }
 
     else
     {
-      v29 = *(this + 384);
-      if (v29)
+      v23 = *(this + 384);
+      if (v23)
       {
-        v30 = *(this + 191);
-        v12 = 0.5;
+        v24 = *(this + 191);
+        v6 = 0.5;
         do
         {
-          v31 = *v30;
-          if (v31 != 20000)
+          v25 = *v24;
+          if (v25 != 20000)
           {
-            v13 = v31 * v14 + 0.5;
-            *v30 = v13;
+            v7 = v25 * v8 + 0.5;
+            *v24 = v7;
           }
 
-          ++v30;
+          ++v24;
+          --v23;
+        }
+
+        while (v23);
+      }
+    }
+
+    v9 = *(this + 16);
+  }
+
+  if (v9 >= 3)
+  {
+    v26 = *(this + 196);
+    if (v26)
+    {
+      v67 = 0;
+      v68 = 0;
+      DgnPrimArray<unsigned short>::copyArraySlice(&v67, this + 97, 0, v26);
+      v27 = v68;
+      if (v68)
+      {
+        v28 = v67;
+        v29 = v68;
+        do
+        {
+          v30 = *v28;
+          if (v30 != 20000)
+          {
+            *v28 = (v30 * v8 + 0.5);
+          }
+
+          ++v28;
           --v29;
         }
 
         while (v29);
       }
-    }
 
-    v15 = *(this + 16);
-  }
-
-  if (v15 >= 3)
-  {
-    v32 = *(this + 196);
-    if (v32)
-    {
-      v74 = 0;
-      v75 = 0;
-      DgnPrimArray<unsigned short>::copyArraySlice(&v74, this + 97, 0, v32);
-      v33 = v75;
-      if (v75)
-      {
-        v34 = v74;
-        v35 = v75;
-        do
-        {
-          v36 = *v34;
-          if (v36 != 20000)
-          {
-            *v34 = (v36 * v14 + 0.5);
-          }
-
-          ++v34;
-          --v35;
-        }
-
-        while (v35);
-      }
-
-      DgnPrimArray<unsigned short>::copyArraySlice(this + 776, &v74, 0, v33);
-      DgnPrimArray<unsigned int>::~DgnPrimArray(&v74);
+      DgnPrimArray<unsigned short>::copyArraySlice(this + 97, &v67, 0, v27);
+      DgnPrimArray<unsigned int>::~DgnPrimArray(&v67);
     }
 
     else
     {
-      v37 = *(this + 200);
-      if (v37 >= 2)
+      v31 = *(this + 200);
+      if (v31 >= 2)
       {
-        v38 = *(this + 99);
-        for (i = 1; i < v37; ++i)
+        v32 = *(this + 99);
+        for (i = 1; i < v31; ++i)
         {
-          if (*(v38 + 2 * i))
+          if (*(v32 + 2 * i))
           {
-            v40 = *(v38 + 2 * i);
-            v41 = 0;
+            v34 = 0;
             do
             {
-              v42 = v41 + *(*(this + 101) + 4 * i);
-              if (*(*(this + 103) + 2 * v42) != -1)
+              v35 = v34 + *(*(this + 101) + 4 * i);
+              if (*(*(this + 103) + 2 * v35) != -1)
               {
-                TrigramData::rescaleScores(this + 93, v42, v14);
-                v38 = *(this + 99);
+                TrigramData::rescaleScores(this + 93, v35, v8);
+                v32 = *(this + 99);
               }
 
-              ++v41;
+              ++v34;
             }
 
-            while (v41 < *(v38 + 2 * i));
-            v37 = *(this + 200);
+            while (v34 < *(v32 + 2 * i));
+            v31 = *(this + 200);
           }
         }
       }
     }
 
-    v43 = *(this + 192);
-    if (v43)
+    v36 = *(this + 192);
+    if (v36)
     {
-      v74 = 0;
-      v75 = 0;
-      DgnPrimArray<unsigned short>::copyArraySlice(&v74, this + 95, 0, v43);
-      v44 = v75;
-      if (v75)
+      v67 = 0;
+      v68 = 0;
+      DgnPrimArray<unsigned short>::copyArraySlice(&v67, this + 95, 0, v36);
+      v37 = v68;
+      if (v68)
       {
-        v45 = v74;
-        v46 = v75;
+        v38 = v67;
+        v39 = v68;
         do
         {
-          v47 = *v45;
-          if (v47 != 20000)
+          v40 = *v38;
+          if (v40 != 20000)
           {
-            *v45 = (v47 * v14 + 0.5);
+            *v38 = (v40 * v8 + 0.5);
           }
 
-          ++v45;
-          --v46;
+          ++v38;
+          --v39;
         }
 
-        while (v46);
+        while (v39);
       }
 
-      DgnPrimArray<unsigned short>::copyArraySlice(this + 760, &v74, 0, v44);
-      DgnPrimArray<unsigned int>::~DgnPrimArray(&v74);
+      DgnPrimArray<unsigned short>::copyArraySlice(this + 95, &v67, 0, v37);
+      DgnPrimArray<unsigned int>::~DgnPrimArray(&v67);
     }
 
     else
     {
-      v48 = *(this + 200);
-      if (v48 >= 2)
+      v41 = *(this + 200);
+      if (v41 >= 2)
       {
-        v49 = *(this + 99);
-        v50 = 1;
-        v12 = 0.5;
+        v42 = *(this + 99);
+        v43 = 1;
+        v6 = 0.5;
         do
         {
-          v51 = *(v49 + 2 * v50);
-          if (v51)
+          v44 = *(v42 + 2 * v43);
+          if (v44)
           {
-            v52 = 0;
-            v53 = *(*(this + 101) + 4 * v50);
-            v54 = *(this + 103);
+            v45 = 0;
+            v46 = *(*(this + 101) + 4 * v43);
+            v47 = *(this + 103);
             do
             {
-              v55 = v53;
-              if (*(v54 + 2 * v53) != -1)
+              v48 = v46;
+              if (*(v47 + 2 * v46) != -1)
               {
-                v56 = *(this + 105);
-                v57 = *(v56 + 2 * v55);
-                if (v57 != 20000)
+                v49 = *(this + 105);
+                v50 = *(v49 + 2 * v48);
+                if (v50 != 20000)
                 {
-                  v13 = v57 * v14 + 0.5;
-                  *(v56 + 2 * v55) = v13;
-                  v51 = *(v49 + 2 * v50);
+                  v7 = v50 * v8 + 0.5;
+                  *(v49 + 2 * v48) = v7;
+                  v44 = *(v42 + 2 * v43);
                 }
               }
 
-              ++v52;
-              v53 = v55 + 1;
+              ++v45;
+              v46 = v48 + 1;
             }
 
-            while (v52 < v51);
+            while (v45 < v44);
           }
 
-          ++v50;
+          ++v43;
         }
 
-        while (v50 != v48);
+        while (v43 != v41);
       }
     }
   }
 
   if (*(this + 16) >= 2u)
   {
-    v58 = *(this + 84);
-    if (v58)
+    v51 = *(this + 84);
+    if (v51)
     {
-      v59 = *(this + 41);
-      v12 = 0.5;
+      v52 = *(this + 41);
+      v6 = 0.5;
       do
       {
-        v60 = *v59;
-        if (v60 != 20000)
+        v53 = *v52;
+        if (v53 != 20000)
         {
-          v13 = v60 * v14 + 0.5;
-          *v59 = v13;
+          v7 = v53 * v8 + 0.5;
+          *v52 = v7;
         }
 
-        ++v59;
-        --v58;
+        ++v52;
+        --v51;
       }
 
-      while (v58);
+      while (v51);
     }
 
-    v61 = *(this + 88);
-    if (v61)
+    v54 = *(this + 88);
+    if (v54)
     {
-      v62 = *(this + 43);
-      v12 = 0.5;
+      v55 = *(this + 43);
+      v6 = 0.5;
       do
       {
-        v63 = *v62;
-        if (v63 != 20000)
+        v56 = *v55;
+        if (v56 != 20000)
         {
-          v13 = v63 * v14 + 0.5;
-          *v62 = v13;
+          v7 = v56 * v8 + 0.5;
+          *v55 = v7;
         }
 
-        ++v62;
-        --v61;
+        ++v55;
+        --v54;
       }
 
-      while (v61);
+      while (v54);
     }
 
-    v64 = *(this + 94);
-    if (v64)
+    v57 = *(this + 94);
+    if (v57)
     {
-      v74 = 0;
-      v75 = 0;
-      DgnPrimArray<unsigned short>::copyArraySlice(&v74, this + 46, 0, v64);
-      v65 = v75;
-      if (v75)
+      v67 = 0;
+      v68 = 0;
+      DgnPrimArray<unsigned short>::copyArraySlice(&v67, this + 46, 0, v57);
+      v58 = v68;
+      if (v68)
       {
-        v66 = v74;
-        v67 = v75;
+        v59 = v67;
+        v60 = v68;
         do
         {
-          v68 = *v66;
-          if (v68 != 20000)
+          v61 = *v59;
+          if (v61 != 20000)
           {
-            *v66 = (v68 * v14 + 0.5);
+            *v59 = (v61 * v8 + 0.5);
           }
 
-          ++v66;
-          --v67;
+          ++v59;
+          --v60;
         }
 
-        while (v67);
+        while (v60);
       }
 
-      DgnPrimArray<unsigned short>::copyArraySlice(this + 368, &v74, 0, v65);
-      DgnPrimArray<unsigned int>::~DgnPrimArray(&v74);
+      DgnPrimArray<unsigned short>::copyArraySlice(this + 46, &v67, 0, v58);
+      DgnPrimArray<unsigned int>::~DgnPrimArray(&v67);
     }
 
     else
     {
-      v69 = *(this + 140);
-      if (v69 >= 2)
+      v62 = *(this + 140);
+      if (v62 >= 2)
       {
-        for (j = 1; j < v69; ++j)
+        for (j = 1; j < v62; ++j)
         {
           if (*(*(this + 69) + 2 * j))
           {
-            BigramData::rescaleScores(this + 45, j, v14);
-            v69 = *(this + 140);
+            BigramData::rescaleScores(this + 45, j, v8);
+            v62 = *(this + 140);
           }
         }
       }
     }
   }
 
-  v71 = *(this + 44);
-  if (v71)
+  v64 = *(this + 44);
+  if (v64)
   {
-    v72 = *(this + 21);
-    v12 = 0.5;
+    v65 = *(this + 21);
+    v6 = 0.5;
     do
     {
-      v73 = *v72;
-      if (v73 != 20000)
+      v66 = *v65;
+      if (v66 != 20000)
       {
-        v13 = v73 * v14 + 0.5;
-        *v72 = v13;
+        v7 = v66 * v8 + 0.5;
+        *v65 = v7;
       }
 
-      ++v72;
-      --v71;
+      ++v65;
+      --v64;
     }
 
-    while (v71);
+    while (v64);
   }
 
   *(this + 8) = a2;
-  WordLanguageModel::initializeScoreToProb(this, v12, v13);
+  WordLanguageModel::initializeScoreToProb(this, v6, v7);
 }
 
-void sub_2627A1800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2627A1800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -8793,7 +8789,7 @@ uint64_t WordLanguageModel::getRecentBufferLength(WordLanguageModel *this)
   }
 }
 
-WordLanguageModel ***WordLanguageModel::addToRecent(uint64_t a1, uint64_t *a2, uint64_t a3)
+RecentBuffer **WordLanguageModel::addToRecent(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   v6 = *(a1 + 232);
   if (v6)
@@ -8815,17 +8811,17 @@ void WordLanguageModel::clearRecent(WordLanguageModel *this)
   LanguageModel::clearRecent(this);
 }
 
-uint64_t WordLanguageModel::checkWordIdLmIdValidityAgreement(WordLanguageModel *this, unsigned int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t WordLanguageModel::checkWordIdLmIdValidityAgreement(WordLanguageModel *this, unsigned int a2, int a3, __n128 a4)
 {
   if (*(this + 32))
   {
-    v11 = *(*(this + 15) + 4 * a2);
+    v7 = *(*(this + 15) + 4 * a2);
     if (a3)
     {
 LABEL_3:
-      if (v11 == -1)
+      if (v7 == -1)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9154, "lm/wordlm", 50, "%u %u", a7, a8, a2);
+        a4.n128_f64[0] = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9154, "lm/wordlm", 50, "%u %u", a4.n128_f64[0]);
       }
 
       goto LABEL_14;
@@ -8836,19 +8832,19 @@ LABEL_3:
   {
     if (*(this + 36))
     {
-      v11 = *(*(this + 17) + 2 * a2);
-      v12 = v11 == 0xFFFF;
+      v7 = *(*(this + 17) + 2 * a2);
+      v8 = v7 == 0xFFFF;
     }
 
     else
     {
-      v11 = *(*(this + 19) + a2);
-      v12 = v11 == 255;
+      v7 = *(*(this + 19) + a2);
+      v8 = v7 == 255;
     }
 
-    if (v12)
+    if (v8)
     {
-      v11 = -1;
+      v7 = -1;
     }
 
     if (a3)
@@ -8857,9 +8853,9 @@ LABEL_3:
     }
   }
 
-  if (v11 != -1)
+  if (v7 != -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9159, "lm/wordlm", 51, "%u %u", a7, a8, a2);
+    a4.n128_f64[0] = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9159, "lm/wordlm", 51, "%u %u", a4.n128_f64[0]);
   }
 
 LABEL_14:
@@ -8870,13 +8866,13 @@ LABEL_14:
 
   if (*(this + 72))
   {
-    v13 = *(*(this + 35) + 4 * a2);
+    v9 = *(*(this + 35) + 4 * a2);
     if (a3)
     {
 LABEL_17:
-      if (v13 == -1)
+      if (v9 == -1)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9169, "lm/wordlm", 63, "%u %u", a7, a8, a2);
+        a4.n128_f64[0] = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9169, "lm/wordlm", 63, "%u %u", a4.n128_f64[0]);
       }
 
       goto LABEL_28;
@@ -8887,19 +8883,19 @@ LABEL_17:
   {
     if (*(this + 76))
     {
-      v13 = *(*(this + 37) + 2 * a2);
-      v14 = v13 == 0xFFFF;
+      v9 = *(*(this + 37) + 2 * a2);
+      v10 = v9 == 0xFFFF;
     }
 
     else
     {
-      v13 = *(*(this + 39) + a2);
-      v14 = v13 == 255;
+      v9 = *(*(this + 39) + a2);
+      v10 = v9 == 255;
     }
 
-    if (v14)
+    if (v10)
     {
-      v13 = -1;
+      v9 = -1;
     }
 
     if (a3)
@@ -8908,18 +8904,18 @@ LABEL_17:
     }
   }
 
-  if (v13 != -1)
+  if (v9 != -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9175, "lm/wordlm", 64, "%u %u", a7, a8, a2);
+    a4.n128_f64[0] = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9175, "lm/wordlm", 64, "%u %u", a4.n128_f64[0]);
   }
 
 LABEL_28:
   result = *(this + 29);
   if (result)
   {
-    v16 = *(*result + 208);
+    v12 = *(*result + 208);
 
-    return v16();
+    return v12(a4);
   }
 
   return result;
@@ -8930,22 +8926,21 @@ void WordLanguageModel::verifyUnigrams(WordLanguageModel *this, const char *a2)
   v2 = *(this + 26);
   if (v2 >= 2)
   {
-    v3 = a2;
     v5 = *(this + 14) - 1;
     for (i = 1; i < v2; ++i)
     {
       v7 = *(*(this + 21) + 2 * i);
       if (v7 != 20000 && v5 < v7)
       {
-        WordLanguageModel::getLmIdWordName(this, i, 0);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9242, "lm/wordlm", 74, "%.500s %u %d %d %.500s", v9, v10, v3);
+        LmIdWordName = WordLanguageModel::getLmIdWordName(this, i, 0);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9242, "lm/wordlm", 74, "%.500s %u %d %d %.500s", a2, i, v7, v5, LmIdWordName);
         v2 = *(this + 26);
       }
     }
   }
 }
 
-const char *WordLanguageModel::getLmIdWordName(WordLanguageModel *this, int a2, int a3)
+const char *WordLanguageModel::getLmIdWordName(WordLanguageModel *this, int a2, BOOL a3)
 {
   WordId = WordLanguageModel::getWordId(this, a2, a3);
   v6 = *(this + 2);
@@ -8994,186 +8989,180 @@ const char *WordLanguageModel::getLmIdWordName(WordLanguageModel *this, int a2, 
   }
 }
 
-uint64_t WordLanguageModel::verifyLM(WordLanguageModel *this, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void WordLanguageModel::verifyLM(WordLanguageModel *this, uint64_t a2, const char *a3)
 {
   if (a2)
   {
-    v11 = *(*(this + 2) + 388);
-    if (v11)
+    v6 = *(*(this + 2) + 388);
+    if (v6)
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        v13 = *(this + 2);
-        v14 = i < *(v13 + 388) && *(*(v13 + 104) + i) != 0;
-        (*(*this + 208))(this, i, v14);
+        v8 = *(this + 2);
+        v9 = i < *(v8 + 388) && *(*(v8 + 104) + i) != 0;
+        (*(*this + 208))(this, i, v9);
       }
     }
   }
 
-  WordLanguageModel::checkWordListLMAgreement(this, a2, a3, a4, a5, a6, a7, a8);
+  WordLanguageModel::checkWordListLMAgreement(this);
   WordLanguageModel::verifyUnigrams(this, a3);
   if (*(this + 16) >= 2u)
   {
-    v21 = *(this + 29);
-    if (v21)
+    v10 = *(this + 29);
+    if (v10)
     {
-      (*(*v21 + 216))(v21, a2, a3);
+      (*(*v10 + 216))(v10, a2, a3);
     }
 
-    WordLanguageModel::verifyBackoffUnigrams(this, a3, v15, v16, v17, v18, v19, v20);
-    WordLanguageModel::verifyBigrams(this, a3, v22, v23, v24, v25, v26, v27);
+    WordLanguageModel::verifyBackoffUnigrams(this, a3);
+    WordLanguageModel::verifyBigrams(this, a3);
     if (*(this + 16) >= 3u)
     {
-      WordLanguageModel::verifyTrigrams(this, a3, v28, v29, v30, v31, v32, v33);
+      WordLanguageModel::verifyTrigrams(this, a3);
       if (*(this + 16) >= 4u)
       {
-        WordLanguageModel::verifyQuadgrams(this, a3, v34, v35, v36, v37, v38, v39);
+        WordLanguageModel::verifyQuadgrams(this, a3);
       }
     }
   }
 
-  result = *(this + 1);
-  if (result)
+  if (*(this + 1))
   {
 
-    return MrecInitModule_sdpres_sdapi();
+    MrecInitModule_sdpres_sdapi();
   }
-
-  return result;
 }
 
-void WordLanguageModel::verifyBackoffUnigrams(WordLanguageModel *this, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void WordLanguageModel::verifyBackoffUnigrams(WordLanguageModel *this, const char *a2)
 {
   if (*(this + 26) >= 2u)
   {
-    v8 = a2;
-    v10 = *(this + 14);
-    v11 = v10 - 1;
-    v12 = 1;
-    v31 = 1 - v10;
+    v4 = *(this + 14);
+    v5 = v4 - 1;
+    v6 = 1;
+    v21 = 1 - v4;
     while (1)
     {
-      v13 = 328;
+      v7 = 328;
       if (!*(this + 84))
       {
-        v13 = 168;
+        v7 = 168;
       }
 
-      v14 = *(*(this + v13) + 2 * v12);
-      v15 = *(*(this + 21) + 2 * v12);
-      v16 = *(*(this + 43) + 2 * v12);
-      v17 = v16;
-      if (v14 != 20000 && v15 != 20000 && v16 != 20000)
+      v8 = *(*(this + v7) + 2 * v6);
+      v9 = *(*(this + 21) + 2 * v6);
+      v10 = *(*(this + 43) + 2 * v6);
+      v11 = v10;
+      if (v8 != 20000 && v9 != 20000 && v10 != 20000)
       {
         goto LABEL_18;
       }
 
-      if (v14 != 20000 || v15 != 20000)
+      if (v8 != 20000 || v9 != 20000)
       {
         break;
       }
 
 LABEL_30:
-      if (v17 != 20000 && (v31 > v17 || v11 < v17))
+      if (v11 != 20000 && (v21 > v11 || v5 < v11))
       {
-        WordLanguageModel::getLmIdWordName(this, v12, 0);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9333, "lm/wordlm", 75, "%.500s %u %d %d %.500s", v28, v29, v8);
+        LmIdWordName = WordLanguageModel::getLmIdWordName(this, v6, 0);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9333, "lm/wordlm", 75, "%.500s %u %d %d %.500s", a2, v6, v11, v5, LmIdWordName);
       }
 
-      if (++v12 >= *(this + 26))
+      if (++v6 >= *(this + 26))
       {
         return;
       }
     }
 
-    v30 = *(*(this + 21) + 2 * v12);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9312, "lm/wordlm", 72, "%.500s %u %d %d %d", a7, a8, v8);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9312, "lm/wordlm", 72, "%.500s %u %d %d %d", a2, v6, v8, *(*(this + 21) + 2 * v6), v10);
 LABEL_18:
-    if (v14 != 20000 && v11 < v14)
+    if (v8 != 20000 && v5 < v8)
     {
-      WordLanguageModel::getLmIdWordName(this, v12, 0);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9320, "lm/wordlm", 73, "%.500s %u %d %d %.500s", v22, v23, v8);
+      v16 = WordLanguageModel::getLmIdWordName(this, v6, 0);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9320, "lm/wordlm", 73, "%.500s %u %d %d %.500s", a2, v6, v8, v5, v16);
     }
 
-    if (v15 != 20000 && v11 < v15)
+    if (v9 != 20000 && v5 < v9)
     {
-      WordLanguageModel::getLmIdWordName(this, v12, 0);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9326, "lm/wordlm", 74, "%.500s %u %d %d %.500s", v25, v26, v8);
+      v18 = WordLanguageModel::getLmIdWordName(this, v6, 0);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9326, "lm/wordlm", 74, "%.500s %u %d %d %.500s", a2, v6, v9, v5, v18);
     }
 
     goto LABEL_30;
   }
 }
 
-void WordLanguageModel::verifyBigrams(WordLanguageModel *this, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void WordLanguageModel::verifyBigrams(WordLanguageModel *this, const char *a2)
 {
-  v39 = a2;
   if (*(this + 140) >= 2u)
   {
-    v40 = *(this + 14) - 1;
-    v9 = (this + 360);
+    v35 = *(this + 14) - 1;
+    v3 = (this + 360);
     for (i = 1; i < *(this + 140); ++i)
     {
       if (*(*(this + 69) + 2 * i))
       {
         if (*(*(this + 43) + 2 * i) == 20000)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9353, "lm/wordlm", 81, "%.500s %u", a7, a8, v39);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9353, "lm/wordlm", 81, "%.500s %u", a2, i);
         }
 
-        v11 = i >> 5;
-        if (!*v9)
+        v5 = i >> 5;
+        if (!*v3)
         {
-          v12 = 1 << i;
+          v6 = 1 << i;
 LABEL_11:
-          v13 = i;
+          v7 = i;
 LABEL_12:
-          v14 = *(*(this + 48) + 4 * v11);
-          v15 = *(*(this + 69) + 2 * i);
-          if ((v14 & v12) != 0)
+          v8 = *(*(this + 48) + 4 * v5);
+          v9 = *(*(this + 69) + 2 * i);
+          if ((v8 & v6) != 0)
           {
-            v16 = *(this + 26);
-            if (v16 > v15)
+            v10 = *(this + 26);
+            if (v10 > v9)
             {
-              v17 = v15 + 1;
+              v11 = v9 + 1;
             }
 
             else
             {
-              v17 = v16;
+              v11 = v10;
             }
 
-            if (v17 >= 2)
+            if (v11 >= 2)
             {
-              for (j = 1; j != v17; ++j)
+              for (j = 1; j != v11; ++j)
               {
-                v19 = 328;
+                v13 = 328;
                 if (!*(this + 84))
                 {
-                  v19 = 168;
+                  v13 = 168;
                 }
 
-                v20 = *(*(this + v19) + 2 * j);
-                if (v20 != 20000)
+                v14 = *(*(this + v13) + 2 * j);
+                if (v14 != 20000)
                 {
-                  v21 = *(*(this + 67) + 4 * i) + j - 1;
+                  v15 = *(*(this + 67) + 4 * i) + j - 1;
                   if (*(this + 94))
                   {
-                    v21 = *(*(this + 73) + v21);
-                    v22 = *(this + 46);
+                    v15 = *(*(this + 73) + v15);
+                    v16 = *(this + 46);
                   }
 
                   else
                   {
-                    v22 = *(this + 71);
+                    v16 = *(this + 71);
                   }
 
-                  v23 = *(v22 + 2 * v21);
-                  if (v23 != 20000 && *(*(this + 43) + 2 * i) + v20 != v23 && v40 < v23)
+                  v17 = *(v16 + 2 * v15);
+                  if (v17 != 20000 && *(*(this + 43) + 2 * i) + v14 != v17 && v35 < v17)
                   {
-                    WordLanguageModel::getLmIdWordName(this, v13, 1);
-                    WordLanguageModel::getLmIdWordName(this, j, 0);
-                    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9394, "lm/wordlm", 79, "%.500s %u %u %d %.500s %.500s", v25, v26, v39);
+                    LmIdWordName = WordLanguageModel::getLmIdWordName(this, v7, 1);
+                    v20 = WordLanguageModel::getLmIdWordName(this, j, 0);
+                    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9394, "lm/wordlm", 79, "%.500s %u %u %d %.500s %.500s", a2, v7, j, v17, LmIdWordName, v20);
                   }
                 }
               }
@@ -9182,77 +9171,78 @@ LABEL_12:
 
           else
           {
-            v27 = v15 - 1;
+            v21 = v9 - 1;
             while (1)
             {
-              v28 = v27;
-              if (!v27)
+              v22 = v21;
+              if (!v21)
               {
                 break;
               }
 
-              SearchSuccIdForIndex = BigramData::getSearchSuccIdForIndex(v9, v13, v27);
-              v27 = v28 - 1;
+              SearchSuccIdForIndex = BigramData::getSearchSuccIdForIndex(v3, v7, v21);
+              v21 = v22 - 1;
               if (*(this + 26) > SearchSuccIdForIndex)
               {
                 goto LABEL_38;
               }
             }
 
-            if (*(this + 26) <= BigramData::getSearchSuccIdForIndex(v9, v13, 0))
+            if (*(this + 26) <= BigramData::getSearchSuccIdForIndex(v3, v7, 0))
             {
               continue;
             }
 
 LABEL_38:
-            v30 = 0;
+            v24 = 0;
             do
             {
-              v31 = BigramData::getSearchSuccIdForIndex(v9, v13, v30);
-              v32 = 328;
+              v25 = BigramData::getSearchSuccIdForIndex(v3, v7, v24);
+              v26 = 328;
               if (!*(this + 84))
               {
-                v32 = 168;
+                v26 = 168;
               }
 
-              if (*(*(this + v32) + 2 * v31) != 20000)
+              if (*(*(this + v26) + 2 * v25) != 20000)
               {
-                v33 = v31;
-                SearchScoreForIndex = BigramData::getSearchScoreForIndex(v9, v13, v30);
+                v27 = v25;
+                SearchScoreForIndex = BigramData::getSearchScoreForIndex(v3, v7, v24);
                 if (SearchScoreForIndex != 20000)
                 {
-                  v35 = 328;
+                  v29 = SearchScoreForIndex;
+                  v30 = 328;
                   if (!*(this + 84))
                   {
-                    v35 = 168;
+                    v30 = 168;
                   }
 
-                  if (*(*(this + 43) + 2 * i) + *(*(this + v35) + 2 * v33) != SearchScoreForIndex && v40 < SearchScoreForIndex)
+                  if (*(*(this + 43) + 2 * i) + *(*(this + v30) + 2 * v27) != SearchScoreForIndex && v35 < SearchScoreForIndex)
                   {
-                    WordLanguageModel::getLmIdWordName(this, v13, 1);
-                    WordLanguageModel::getLmIdWordName(this, v33, 0);
-                    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9449, "lm/wordlm", 80, "%.500s %u %u %d %.500s %.500s", v37, v38, v39);
+                    v32 = WordLanguageModel::getLmIdWordName(this, v7, 1);
+                    v33 = WordLanguageModel::getLmIdWordName(this, v27, 0);
+                    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9449, "lm/wordlm", 80, "%.500s %u %u %d %.500s %.500s", a2, v7, v27, v29, v32, v33);
                   }
                 }
               }
 
-              ++v30;
+              ++v24;
             }
 
-            while (v30 <= v28);
+            while (v24 <= v22);
           }
 
           continue;
         }
 
-        v12 = 1 << i;
-        if ((*(*(this + 50) + 4 * v11) & (1 << i)) == 0)
+        v6 = 1 << i;
+        if ((*(*(this + 50) + 4 * v5) & (1 << i)) == 0)
         {
           goto LABEL_11;
         }
 
-        v13 = i;
-        if ((*(*(this + 52) + 4 * v11) & v12) != 0)
+        v7 = i;
+        if ((*(*(this + 52) + 4 * v5) & v6) != 0)
         {
           goto LABEL_12;
         }
@@ -9261,274 +9251,282 @@ LABEL_38:
   }
 }
 
-void WordLanguageModel::verifyTrigrams(WordLanguageModel *this, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void WordLanguageModel::verifyTrigrams(WordLanguageModel *this, const char *a2)
 {
-  v38 = a2;
   if (*(this + 200) >= 2u)
   {
-    v40 = *(this + 14) - 1;
-    v9 = *(this + 99);
-    v10 = 1;
+    v38 = *(this + 14) - 1;
+    v3 = *(this + 99);
+    v4 = 1;
     do
     {
-      if (*(v9 + 2 * v10))
+      if (*(v3 + 2 * v4))
       {
-        if (*(*(this + 43) + 2 * v10) == 20000)
+        if (*(*(this + 43) + 2 * v4) == 20000)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9470, "lm/wordlm", 82, "%.500s %u", a7, a8, v38);
-          v9 = *(this + 99);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9470, "lm/wordlm", 82, "%.500s %u", a2, v4);
+          v3 = *(this + 99);
         }
 
-        if (*(v9 + 2 * v10))
+        if (*(v3 + 2 * v4))
         {
-          v11 = 0;
-          *v39 = v10;
+          v5 = 0;
+          v34 = v4;
+          v35 = v4;
+          v37 = v4;
           do
           {
-            v12 = *(*(this + 101) + 4 * v10) + v11;
-            v13 = v12 >> 5;
-            if ((!*(this + 186) || (*(*(this + 111) + 4 * v13) & (1 << (*(*(this + 101) + 4 * v10) + v11))) == 0 || (*(*(this + 113) + 4 * v13) & (1 << (*(*(this + 101) + 4 * v10) + v11))) != 0) && *(*(this + 103) + 2 * v12) != -1)
+            v6 = *(*(this + 101) + 4 * v4) + v5;
+            v7 = v6 >> 5;
+            if ((!*(this + 186) || (*(*(this + 111) + 4 * v7) & (1 << (*(*(this + 101) + 4 * v4) + v5))) == 0 || (*(*(this + 113) + 4 * v7) & (1 << (*(*(this + 101) + 4 * v4) + v5))) != 0) && *(*(this + 103) + 2 * v6) != -1)
             {
-              v14 = *(*(this + 109) + 4 * v13);
-              v15 = *(this + 130);
-              v16 = *(v15 + 2 * v12);
-              if ((v14 >> (*(*(this + 101) + 4 * v10) + v11)))
+              v8 = *(*(this + 109) + 4 * v7);
+              v9 = *(this + 130);
+              if ((v8 >> (*(*(this + 101) + 4 * v4) + v5)))
               {
-                if (*(v15 + 2 * v12))
+                if (*(v9 + 2 * v6))
                 {
-                  v17 = 1;
-                  v18 = 1;
+                  v10 = 1;
+                  v11 = 1;
                   do
                   {
-                    if (*(*(this + 21) + 2 * v18) != 20000)
+                    if (*(*(this + 21) + 2 * v11) != 20000)
                     {
-                      v19 = (v17 + *(*(this + 128) + 4 * v12) - 1);
+                      v12 = (v10 + *(*(this + 128) + 4 * v6) - 1);
                       if (*(this + 196))
                       {
-                        v19 = *(*(this + 134) + v19);
-                        v20 = *(this + 97);
+                        v12 = *(*(this + 134) + v12);
+                        v13 = *(this + 97);
                       }
 
                       else
                       {
-                        v20 = *(this + 132);
+                        v13 = *(this + 132);
                       }
 
-                      v21 = *(v20 + 2 * v19);
-                      if (v21 != 20000 && v40 < v21)
+                      v14 = *(v13 + 2 * v12);
+                      if (v14 != 20000 && v38 < v14)
                       {
-                        v23 = *(*(this + 103) + 2 * v12);
-                        WordLanguageModel::getLmIdWordName(this, v39[0], 1);
-                        WordLanguageModel::getLmIdWordName(this, v23, 1);
-                        WordLanguageModel::getLmIdWordName(this, v17, 0);
-                        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9505, "lm/wordlm", 76, "%.500s %u %u %u %d %.500s %.500s %.500s", v24, v25, v38);
-                        v15 = *(this + 130);
+                        v16 = *(*(this + 103) + 2 * v6);
+                        LmIdWordName = WordLanguageModel::getLmIdWordName(this, v37, 1);
+                        v18 = WordLanguageModel::getLmIdWordName(this, v16, 1);
+                        v19 = WordLanguageModel::getLmIdWordName(this, v10, 0);
+                        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9505, "lm/wordlm", 76, "%.500s %u %u %u %d %.500s %.500s %.500s", a2, v35, v16, v10, v14, LmIdWordName, v18, v19);
+                        v9 = *(this + 130);
                       }
                     }
 
-                    v17 = ++v18;
+                    v10 = ++v11;
                   }
 
-                  while (v18 <= *(v15 + 2 * v12));
+                  while (v11 <= *(v9 + 2 * v6));
                 }
               }
 
-              else if (*(v15 + 2 * v12))
+              else if (*(v9 + 2 * v6))
               {
-                v26 = 0;
+                v20 = 0;
                 do
                 {
-                  SearchSuccIdForIndex = TrigramData::getSearchSuccIdForIndex((this + 744), v12, v26);
+                  SearchSuccIdForIndex = TrigramData::getSearchSuccIdForIndex((this + 744), v6, v20);
                   if (*(*(this + 21) + 2 * SearchSuccIdForIndex) != 20000)
                   {
-                    v28 = SearchSuccIdForIndex;
+                    v22 = SearchSuccIdForIndex;
                     if (*(this + 192))
                     {
-                      v29 = (*(this + 95) + 2 * *(*(this + 107) + v12));
+                      v23 = (*(this + 95) + 2 * *(*(this + 107) + v6));
                     }
 
                     else
                     {
-                      v29 = (*(this + 105) + 2 * v12);
+                      v23 = (*(this + 105) + 2 * v6);
                     }
 
-                    v30 = *(*(this + 103) + 2 * v12);
-                    v31 = *(*(this + 43) + 2 * v30) + *v29;
-                    v32 = 328;
+                    v24 = *(*(this + 103) + 2 * v6);
+                    v25 = *(*(this + 43) + 2 * v24) + *v23;
+                    v26 = 328;
                     if (!*(this + 84))
                     {
-                      v32 = 168;
+                      v26 = 168;
                     }
 
-                    v33 = v31 + *(*(this + v32) + 2 * SearchSuccIdForIndex);
-                    SearchScoreForIndex = TrigramData::getSearchScoreForIndex((this + 744), v12, v26);
-                    if (v33 != SearchScoreForIndex && v40 < SearchScoreForIndex)
+                    v27 = v25 + *(*(this + v26) + 2 * SearchSuccIdForIndex);
+                    SearchScoreForIndex = TrigramData::getSearchScoreForIndex((this + 744), v6, v20);
+                    if (v27 != SearchScoreForIndex && v38 < SearchScoreForIndex)
                     {
-                      WordLanguageModel::getLmIdWordName(this, v39[0], 1);
-                      WordLanguageModel::getLmIdWordName(this, v30, 1);
-                      WordLanguageModel::getLmIdWordName(this, v28, 0);
-                      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9539, "lm/wordlm", 77, "%.500s %u %u %u %d %.500s %.500s %.500s", v36, v37, v38);
+                      v30 = SearchScoreForIndex;
+                      v31 = WordLanguageModel::getLmIdWordName(this, v37, 1);
+                      v32 = WordLanguageModel::getLmIdWordName(this, v24, 1);
+                      v33 = WordLanguageModel::getLmIdWordName(this, v22, 0);
+                      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9539, "lm/wordlm", 77, "%.500s %u %u %u %d %.500s %.500s %.500s", a2, v34, v24, v22, v30, v31, v32, v33);
                     }
                   }
 
-                  ++v26;
+                  ++v20;
                 }
 
-                while (v26 < *(*(this + 130) + 2 * v12));
+                while (v20 < *(*(this + 130) + 2 * v6));
               }
             }
 
-            ++v11;
-            v9 = *(this + 99);
-            v10 = *v39;
+            ++v5;
+            v3 = *(this + 99);
+            v4 = v37;
           }
 
-          while (v11 < *(v9 + 2 * *v39));
+          while (v5 < *(v3 + 2 * v37));
         }
       }
 
-      ++v10;
+      ++v4;
     }
 
-    while (v10 < *(this + 200));
+    while (v4 < *(this + 200));
   }
 }
 
-void WordLanguageModel::verifyQuadgrams(WordLanguageModel *this, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void WordLanguageModel::verifyQuadgrams(WordLanguageModel *this, const char *a2)
 {
-  v29 = a2;
   if (*(this + 322) >= 2u)
   {
-    v9 = *(this + 14) - 1;
-    v10 = (this + 1232);
-    v11 = *(this + 160);
-    v35 = 1;
+    v3 = (*(this + 14) - 1);
+    v4 = (this + 1232);
+    v5 = *(this + 160);
+    v37 = 1;
     while (1)
     {
-      if (*(v11 + 2 * v35))
+      if (*(v5 + 2 * v37))
       {
-        if (*(*(this + 43) + 2 * v35) == 20000)
+        if (*(*(this + 43) + 2 * v37) == 20000)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9561, "lm/wordlm", 83, "%.500s %u", a7, a8, v29);
-          v11 = *(this + 160);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9561, "lm/wordlm", 83, "%.500s %u", a2, v37);
+          v5 = *(this + 160);
         }
 
-        if (*(v11 + 2 * v35))
+        if (*(v5 + 2 * v37))
         {
           break;
         }
       }
 
 LABEL_36:
-      if (++v35 >= *(this + 322))
+      if (++v37 >= *(this + 322))
       {
         return;
       }
     }
 
-    v12 = 0;
-    v13 = *v10;
+    v6 = 0;
+    v7 = *v4;
     while (1)
     {
-      v14 = (*(*(this + 162) + 4 * v35) + v12);
-      v32 = *(*(this + 164) + 2 * v14);
-      if (v13 && (*(*(this + 168) + 4 * (v14 >> 5)) & (1 << v14)) != 0)
+      v8 = (*(*(this + 162) + 4 * v37) + v6);
+      v33 = *(*(this + 164) + 2 * v8);
+      if (v7 && (*(*(this + 168) + 4 * (v8 >> 5)) & (1 << v8)) != 0)
       {
-        if ((*(*(this + 170) + 4 * (v14 >> 5)) & (1 << v14)) != 0 && v32 != 0xFFFF)
+        if ((*(*(this + 170) + 4 * (v8 >> 5)) & (1 << v8)) != 0 && v33 != 0xFFFF)
         {
 LABEL_17:
-          if (*(*(this + 166) + 2 * v14))
+          if (*(*(this + 166) + 2 * v8))
           {
-            v28 = v12;
-            v16 = 0;
-            v17 = v14 >> 5;
-            v36 = 1 << (*(*(this + 162) + 4 * v35) + v12);
-            v18 = *(*(this + 185) + 4 * v14);
-            v30 = v14 >> 5;
-            v31 = (*(*(this + 162) + 4 * v35) + v12);
+            v29 = v6;
+            v10 = 0;
+            v11 = v8 >> 5;
+            v38 = 1 << (*(*(this + 162) + 4 * v37) + v6);
+            v12 = *(*(this + 185) + 4 * v8);
+            v31 = v8 >> 5;
+            v32 = (*(*(this + 162) + 4 * v37) + v6);
             do
             {
-              if (v13 && (*(*(this + 168) + 4 * v17) & v36) != 0)
+              if (v7 && (*(*(this + 168) + 4 * v11) & v38) != 0)
               {
-                v19 = *(*(this + 207) + 4 * v18);
-                v20 = 440;
+                v13 = *(*(this + 207) + 4 * v12);
+                v14 = 440;
               }
 
               else
               {
-                v20 = 264;
-                v19 = v18;
+                v14 = 264;
+                v13 = v12;
               }
 
-              v21 = 0;
-              v34 = *(*(v10 + v20) + 2 * (v19 + v16));
-              v33 = v16;
-              if (!v13)
+              v15 = 0;
+              v35 = *(*(v4 + v14) + 2 * (v13 + v10));
+              v34 = v10;
+              if (!v7)
               {
                 goto LABEL_26;
               }
 
 LABEL_24:
-              if ((*(*(this + 168) + 4 * v17) & v36) != 0)
+              if ((*(*(this + 168) + 4 * v11) & v38) != 0)
               {
-                v22 = *(*(this + 207) + 4 * v18);
-                v23 = 504;
+                v16 = *(*(this + 207) + 4 * v12);
+                v17 = 504;
                 goto LABEL_27;
               }
 
 LABEL_26:
               while (1)
               {
-                v23 = 280;
-                v22 = v18;
+                v17 = 280;
+                v16 = v12;
 LABEL_27:
-                if (v21 >= *(*(v10 + v23) + 2 * (v22 + v16)))
+                if (v15 >= *(*(v4 + v17) + 2 * (v16 + v10)))
                 {
                   break;
                 }
 
-                Quad3SuccIdForIndex = QuadgramData::getQuad3SuccIdForIndex(v10, v14, v16, v21);
+                Quad3SuccIdForIndex = QuadgramData::getQuad3SuccIdForIndex(v4, v8, v10, v15);
                 if (*(*(this + 21) + 2 * Quad3SuccIdForIndex) != 20000)
                 {
-                  v25 = Quad3SuccIdForIndex;
-                  if (v9 < QuadgramData::getScoreForIndex(v10, v14, v16, v21))
+                  v19 = Quad3SuccIdForIndex;
+                  ScoreForIndex = QuadgramData::getScoreForIndex(v4, v8, v10, v15);
+                  if (v3 < ScoreForIndex)
                   {
-                    WordLanguageModel::getLmIdWordName(this, v35, 1);
-                    WordLanguageModel::getLmIdWordName(this, v32, 1);
-                    WordLanguageModel::getLmIdWordName(this, v34, 1);
-                    WordLanguageModel::getLmIdWordName(this, v25, 0);
-                    v16 = v33;
-                    v17 = v30;
-                    v14 = v31;
-                    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9602, "lm/wordlm", 78, "%.500s %u %u %u %u %d %.500s %.500s %.500s %.500s", v26, v27, v29);
+                    v21 = ScoreForIndex;
+                    LmIdWordName = WordLanguageModel::getLmIdWordName(this, v37, 1);
+                    v22 = WordLanguageModel::getLmIdWordName(this, v33, 1);
+                    v23 = v4;
+                    v24 = v3;
+                    v25 = WordLanguageModel::getLmIdWordName(this, v35, 1);
+                    v26 = WordLanguageModel::getLmIdWordName(this, v19, 0);
+                    v28 = v25;
+                    v3 = v24;
+                    v4 = v23;
+                    v27 = v22;
+                    v10 = v34;
+                    v11 = v31;
+                    v8 = v32;
+                    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 9602, "lm/wordlm", 78, "%.500s %u %u %u %u %d %.500s %.500s %.500s %.500s", a2, v37, v33, v35, v19, v21, LmIdWordName, v27, v28, v26);
                   }
                 }
 
-                ++v21;
-                v13 = *(this + 308);
-                v18 = *(*(this + 185) + 4 * v14);
-                if (v13)
+                ++v15;
+                v7 = *(this + 308);
+                v12 = *(*(this + 185) + 4 * v8);
+                if (v7)
                 {
                   goto LABEL_24;
                 }
               }
 
-              ++v16;
+              ++v10;
             }
 
-            while (v16 < *(*(this + 166) + 2 * v14));
-            v11 = *(this + 160);
-            v12 = v28;
+            while (v10 < *(*(this + 166) + 2 * v8));
+            v5 = *(this + 160);
+            v6 = v29;
           }
         }
       }
 
-      else if (v32 != 0xFFFF)
+      else if (v33 != 0xFFFF)
       {
         goto LABEL_17;
       }
 
-      if (++v12 >= *(v11 + 2 * v35))
+      if (++v6 >= *(v5 + 2 * v37))
       {
         goto LABEL_36;
       }

@@ -58,48 +58,46 @@ uint64_t __39__DADiagnosticResponder_sharedInstance__block_invoke()
 
 void __41__DADiagnosticResponder_enableVolumeHUD___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D75128] sharedApplication];
   v3 = [v2 connectedScenes];
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v9 _setSystemVolumeHUDEnabled:{*(a1 + 32), v11}];
+          [v9 _setSystemVolumeHUDEnabled:{*(a1 + 32), v10}];
         }
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setScreenToBrightness:(float)brightness animate:(BOOL)animate
@@ -212,22 +210,22 @@ void __55__DADiagnosticResponder_setScreenToBrightness_animate___block_invoke_4(
 - (void)setAutoBrightness:(BOOL)brightness
 {
   brightnessCopy = brightness;
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = DiagnosticLogHandleForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10[0] = 67109120;
-    v10[1] = brightnessCopy;
-    _os_log_impl(&dword_275BB3000, v5, OS_LOG_TYPE_DEFAULT, "Setting auto brightness to %d", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = brightnessCopy;
+    _os_log_impl(&dword_275BB3000, v5, OS_LOG_TYPE_DEFAULT, "Setting auto brightness to %d", v9, 8u);
   }
 
   autoBrightnessEnabledUserSetting = [(DADiagnosticResponder *)self autoBrightnessEnabledUserSetting];
 
   if (!autoBrightnessEnabledUserSetting)
   {
-    LOBYTE(v10[0]) = 0;
-    AppBooleanValue = CFPreferencesGetAppBooleanValue(@"BKEnableALS", @"com.apple.backboardd", v10);
-    if (LOBYTE(v10[0]))
+    LOBYTE(v9[0]) = 0;
+    AppBooleanValue = CFPreferencesGetAppBooleanValue(@"BKEnableALS", @"com.apple.backboardd", v9);
+    if (LOBYTE(v9[0]))
     {
       v8 = [MEMORY[0x277CCABB0] numberWithBool:AppBooleanValue != 0];
       [(DADiagnosticResponder *)self setAutoBrightnessEnabledUserSetting:v8];
@@ -235,7 +233,6 @@ void __55__DADiagnosticResponder_setScreenToBrightness_animate___block_invoke_4(
   }
 
   BKSDisplayBrightnessSetAutoBrightnessEnabled();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetScreenBrightness:(id)brightness
@@ -290,18 +287,17 @@ LABEL_4:
 LABEL_5:
 }
 
-uint64_t __47__DADiagnosticResponder_resetScreenBrightness___block_invoke(uint64_t a1)
+uint64_t __47__DADiagnosticResponder_resetScreenBrightness___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 48) == 1)
   {
-    v2 = DiagnosticLogHandleForCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_275BB3000, v2, OS_LOG_TYPE_DEFAULT, "Resetting screen brightness", buf, 2u);
+      _os_log_impl(&dword_275BB3000, v3, OS_LOG_TYPE_DEFAULT, "Resetting screen brightness", buf, 2u);
     }
 
-    v3 = *(a1 + 40);
     BKSDisplayBrightnessSet();
   }
 
@@ -310,11 +306,10 @@ uint64_t __47__DADiagnosticResponder_resetScreenBrightness___block_invoke(uint64
     v4 = DiagnosticLogHandleForCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_275BB3000, v4, OS_LOG_TYPE_DEFAULT, "Resetting auto screen brightness", v7, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_275BB3000, v4, OS_LOG_TYPE_DEFAULT, "Resetting auto screen brightness", v6, 2u);
     }
 
-    v5 = *(a1 + 44);
     BKSDisplayBrightnessSetAutoBrightnessEnabled();
   }
 

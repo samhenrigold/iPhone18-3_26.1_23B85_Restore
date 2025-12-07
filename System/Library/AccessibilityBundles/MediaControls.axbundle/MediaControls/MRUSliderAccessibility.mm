@@ -47,13 +47,12 @@
 
 void __50__MRUSliderAccessibility__accessibilityBumpValue___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  *&v2 = v2;
-  [*(a1 + 32) setValue:1 animated:v2];
+  v1 = *(a1 + 40);
+  *&v1 = v1;
+  [*(a1 + 32) setValue:1 animated:v1];
   objc_opt_class();
-  v3 = *(a1 + 32);
-  v4 = __UIAccessibilityCastAsClass();
-  [v4 sendActionsForControlEvents:4096];
+  v2 = __UIAccessibilityCastAsClass();
+  [v2 sendActionsForControlEvents:4096];
 }
 
 - (double)_accessibilityIncreaseAmount:(BOOL)amount

@@ -84,7 +84,7 @@ void __33__MCUserNotificationManager_init__block_invoke(uint64_t a1)
   v6 = &v5;
   v7 = 0x2020000000;
   v8 = 0;
-  v2 = syncQueue();
+  v2 = syncQueue(self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __56__MCUserNotificationManager_hasOutstandingNotifications__block_invoke;
@@ -103,13 +103,14 @@ void __33__MCUserNotificationManager_init__block_invoke(uint64_t a1)
   messageCopy = message;
   assertionCopy = assertion;
   blockCopy = block;
-  if (MCIsEffectivelyInAppWhitelistMode())
+  v13 = MCIsEffectivelyInAppWhitelistMode();
+  if (v13)
   {
-    v13 = _MCLogObjects;
+    v14 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A795B000, v13, OS_LOG_TYPE_ERROR, "Device is in an explicit whitelist mode", buf, 2u);
+      _os_log_impl(&dword_1A795B000, v14, OS_LOG_TYPE_ERROR, "Device is in an explicit whitelist mode", buf, 2u);
     }
 
     if (blockCopy)
@@ -120,22 +121,22 @@ void __33__MCUserNotificationManager_init__block_invoke(uint64_t a1)
 
   else
   {
-    v14 = syncQueue();
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __98__MCUserNotificationManager_promptUserToLogIntoiTunesWithTitle_message_assertion_completionBlock___block_invoke;
-    v15[3] = &unk_1E77D2DA0;
-    v19 = blockCopy;
-    v16 = titleCopy;
-    v17 = messageCopy;
-    v18 = assertionCopy;
-    dispatch_async(v14, v15);
+    v15 = syncQueue(v13);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __98__MCUserNotificationManager_promptUserToLogIntoiTunesWithTitle_message_assertion_completionBlock___block_invoke;
+    v16[3] = &unk_1E77D2DA0;
+    v20 = blockCopy;
+    v17 = titleCopy;
+    v18 = messageCopy;
+    v19 = assertionCopy;
+    dispatch_async(v15, v16);
   }
 }
 
 void __98__MCUserNotificationManager_promptUserToLogIntoiTunesWithTitle_message_assertion_completionBlock___block_invoke(uint64_t a1)
 {
-  v2 = syncQueueiTunesLoginCompletionBlocks();
+  v2 = syncQueueiTunesLoginCompletionBlocks(a1);
   if (![v2 count])
   {
     v4 = MCLocalizedString(@"MDM_APP_INSTALL_BUTTON_LOGIN");
@@ -154,17 +155,16 @@ void __98__MCUserNotificationManager_promptUserToLogIntoiTunesWithTitle_message_
     [(MCUserNotificationQueueEntry *)v7 setDisplayOnLockScreen:0];
     [(MCUserNotificationQueueEntry *)v7 setDisplayInAppWhitelistModes:0];
     [(MCUserNotificationQueueEntry *)v7 setDismissAfterTimeInterval:900.0];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __98__MCUserNotificationManager_promptUserToLogIntoiTunesWithTitle_message_assertion_completionBlock___block_invoke_91;
-    v9[3] = &unk_1E77D2D78;
-    v10 = *(a1 + 48);
-    [(MCUserNotificationQueueEntry *)v7 setCompletionBlock:v9];
-    [*(a1 + 48) park];
-    v8 = syncQueueNotificationQueue();
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __98__MCUserNotificationManager_promptUserToLogIntoiTunesWithTitle_message_assertion_completionBlock___block_invoke_91;
+    v10[3] = &unk_1E77D2D78;
+    v11 = *(a1 + 48);
+    [(MCUserNotificationQueueEntry *)v7 setCompletionBlock:v10];
+    v8 = syncQueueNotificationQueue([*(a1 + 48) park]);
     [v8 addObject:v7];
 
-    syncQueueCheckToShowNextNotification();
+    syncQueueCheckToShowNextNotification(v9);
     goto LABEL_9;
   }
 
@@ -186,8 +186,7 @@ LABEL_9:
 void __98__MCUserNotificationManager_promptUserToLogIntoiTunesWithTitle_message_assertion_completionBlock___block_invoke_91(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  [*(a1 + 32) unpark];
-  v6 = syncQueue();
+  v6 = syncQueue([*(a1 + 32) unpark]);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __98__MCUserNotificationManager_promptUserToLogIntoiTunesWithTitle_message_assertion_completionBlock___block_invoke_2;
@@ -201,7 +200,7 @@ void __98__MCUserNotificationManager_promptUserToLogIntoiTunesWithTitle_message_
 
 void __98__MCUserNotificationManager_promptUserToLogIntoiTunesWithTitle_message_assertion_completionBlock___block_invoke_2(uint64_t a1)
 {
-  v2 = syncQueueiTunesLoginCompletionBlocks();
+  v2 = syncQueueiTunesLoginCompletionBlocks(a1);
   if ([v2 count])
   {
     v3 = [v2 copy];
@@ -222,38 +221,38 @@ void __98__MCUserNotificationManager_promptUserToLogIntoiTunesWithTitle_message_
 
 void __98__MCUserNotificationManager_promptUserToLogIntoiTunesWithTitle_message_assertion_completionBlock___block_invoke_3(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = _MCLogObjects;
   if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     *buf = 67109120;
-    v19 = [v3 count];
+    v18 = [v3 count];
     _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEFAULT, "Calling completions for %d iTunes login events.", buf, 8u);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
         (*(v10 + 16))(v10, *(a1 + 56), *(a1 + 40));
         objc_autoreleasePoolPop(v11);
@@ -261,13 +260,11 @@ void __98__MCUserNotificationManager_promptUserToLogIntoiTunesWithTitle_message_
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)inviteUserToVPPWithTitle:(id)title message:(id)message assertion:(id)assertion completionBlock:(id)block
@@ -276,7 +273,7 @@ void __98__MCUserNotificationManager_promptUserToLogIntoiTunesWithTitle_message_
   messageCopy = message;
   assertionCopy = assertion;
   blockCopy = block;
-  v13 = syncQueue();
+  v13 = syncQueue(blockCopy);
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;
   v18[2] = __88__MCUserNotificationManager_inviteUserToVPPWithTitle_message_assertion_completionBlock___block_invoke;
@@ -294,11 +291,11 @@ void __98__MCUserNotificationManager_promptUserToLogIntoiTunesWithTitle_message_
 
 void __88__MCUserNotificationManager_inviteUserToVPPWithTitle_message_assertion_completionBlock___block_invoke(uint64_t a1)
 {
-  v2 = syncQueueVPPInvitationCompletionBlocks();
+  v2 = syncQueueVPPInvitationCompletionBlocks(a1);
   if (![v2 count])
   {
-    v11 = MCLocalizedFormat(@"MDM_CAD_CONTINUE_BUTTON", v3, v4, v5, v6, v7, v8, v9, v23);
-    v19 = MCLocalizedFormat(@"MDM_CAD_CANCEL_BUTTON", v12, v13, v14, v15, v16, v17, v18, v24);
+    v11 = MCLocalizedFormat(@"MDM_CAD_CONTINUE_BUTTON", v3, v4, v5, v6, v7, v8, v9, v24);
+    v19 = MCLocalizedFormat(@"MDM_CAD_CANCEL_BUTTON", v12, v13, v14, v15, v16, v17, v18, v25);
     if (*(a1 + 56))
     {
       v20 = MEMORY[0x1AC55F990]();
@@ -313,17 +310,16 @@ void __88__MCUserNotificationManager_inviteUserToVPPWithTitle_message_assertion_
     [(MCUserNotificationQueueEntry *)v21 setDisplayOnLockScreen:0];
     [(MCUserNotificationQueueEntry *)v21 setDisplayInAppWhitelistModes:0];
     [(MCUserNotificationQueueEntry *)v21 setDismissAfterTimeInterval:0.0];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __88__MCUserNotificationManager_inviteUserToVPPWithTitle_message_assertion_completionBlock___block_invoke_99;
-    v25[3] = &unk_1E77D2D78;
-    v26 = *(a1 + 48);
-    [(MCUserNotificationQueueEntry *)v21 setCompletionBlock:v25];
-    [*(a1 + 48) park];
-    v22 = syncQueueNotificationQueue();
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __88__MCUserNotificationManager_inviteUserToVPPWithTitle_message_assertion_completionBlock___block_invoke_99;
+    v26[3] = &unk_1E77D2D78;
+    v27 = *(a1 + 48);
+    [(MCUserNotificationQueueEntry *)v21 setCompletionBlock:v26];
+    v22 = syncQueueNotificationQueue([*(a1 + 48) park]);
     [v22 addObject:v21];
 
-    syncQueueCheckToShowNextNotification();
+    syncQueueCheckToShowNextNotification(v23);
     goto LABEL_9;
   }
 
@@ -345,8 +341,7 @@ LABEL_9:
 void __88__MCUserNotificationManager_inviteUserToVPPWithTitle_message_assertion_completionBlock___block_invoke_99(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  [*(a1 + 32) unpark];
-  v6 = syncQueue();
+  v6 = syncQueue([*(a1 + 32) unpark]);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __88__MCUserNotificationManager_inviteUserToVPPWithTitle_message_assertion_completionBlock___block_invoke_2;
@@ -360,7 +355,7 @@ void __88__MCUserNotificationManager_inviteUserToVPPWithTitle_message_assertion_
 
 void __88__MCUserNotificationManager_inviteUserToVPPWithTitle_message_assertion_completionBlock___block_invoke_2(uint64_t a1)
 {
-  v2 = syncQueueVPPInvitationCompletionBlocks();
+  v2 = syncQueueVPPInvitationCompletionBlocks(a1);
   if ([v2 count])
   {
     v3 = [v2 objectAtIndexedSubscript:0];
@@ -389,60 +384,56 @@ void __88__MCUserNotificationManager_inviteUserToVPPWithTitle_message_assertion_
 
 void __88__MCUserNotificationManager_inviteUserToVPPWithTitle_message_assertion_completionBlock___block_invoke_3(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = _MCLogObjects;
   if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     *buf = 67109120;
-    v21 = [v3 count] + 1;
+    v18 = [v3 count] + 1;
     _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEFAULT, "Calling completions for %d invitation prompts", buf, 8u);
   }
 
-  v5 = *(a1 + 64);
-  v6 = *(a1 + 40);
   (*(*(a1 + 56) + 16))();
-  v17 = 0u;
-  v18 = 0u;
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v7 = *(a1 + 32);
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v8)
+  v12 = 0u;
+  v13 = 0u;
+  v5 = *(a1 + 32);
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v6)
   {
-    v9 = v8;
-    v10 = *v16;
+    v7 = v6;
+    v8 = *v13;
     do
     {
-      v11 = 0;
+      v9 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v13 != v8)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
-        v13 = objc_autoreleasePoolPush();
-        (*(v12 + 16))(v12, 3, *(a1 + 40));
-        objc_autoreleasePoolPop(v13);
-        ++v11;
+        v10 = *(*(&v12 + 1) + 8 * v9);
+        v11 = objc_autoreleasePoolPush();
+        (*(v10 + 16))(v10, 3, *(a1 + 40));
+        objc_autoreleasePoolPop(v11);
+        ++v9;
       }
 
-      while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      while (v7 != v9);
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v9);
+    while (v7);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)displayQueueProfileError:(id)error targetDevice:(unint64_t)device
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   userInfo = [errorCopy userInfo];
   v8 = *MEMORY[0x1E696AA08];
@@ -490,9 +481,9 @@ LABEL_11:
   }
 
   domain = [errorCopy domain];
-  v27 = [domain isEqualToString:@"MCInstallationErrorDomain"];
+  v26 = [domain isEqualToString:@"MCInstallationErrorDomain"];
 
-  if (!v27)
+  if (!v26)
   {
     v19 = 0;
     v16 = 0;
@@ -508,7 +499,7 @@ LABEL_11:
       if (code == 4054)
       {
         v16 = MCLocalizedString(@"INSTALL_PROFILE_DISABLED_TITLE");
-        v30 = @"ERROR_PROFILE_DRIVEN_ENROLLMENT_BLOCKED";
+        v29 = @"ERROR_PROFILE_DRIVEN_ENROLLMENT_BLOCKED";
       }
 
       else
@@ -524,7 +515,7 @@ LABEL_12:
             if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_FAULT))
             {
               *buf = 138543362;
-              v43 = errorCopy;
+              v42 = errorCopy;
               _os_log_impl(&dword_1A795B000, v20, OS_LOG_TYPE_FAULT, "Please file a radar to 'Remote Management - MDMv1 | All' to add a user notification for error: %{public}@", buf, 0xCu);
             }
 
@@ -546,9 +537,9 @@ LABEL_12:
             if (v19)
             {
 LABEL_18:
-              BYTE2(v39) = 1;
-              LOWORD(v39) = 0;
-              [MCUserNotificationManager displayUserNotificationWithIdentifier:"displayUserNotificationWithIdentifier:title:message:defaultButtonText:alternateButtonText:otherButtonText:textfieldPlaceholder:displayOnLockScreen:dismissOnLock:displayInAppWhitelistModes:dismissAfterTimeInterval:assertion:completionBlock:" title:0 message:v21 defaultButtonText:v10 alternateButtonText:v19 otherButtonText:0 textfieldPlaceholder:0 displayOnLockScreen:0.0 dismissOnLock:0 displayInAppWhitelistModes:v39 dismissAfterTimeInterval:0 assertion:0 completionBlock:?];
+              BYTE2(v38) = 1;
+              LOWORD(v38) = 0;
+              [MCUserNotificationManager displayUserNotificationWithIdentifier:"displayUserNotificationWithIdentifier:title:message:defaultButtonText:alternateButtonText:otherButtonText:textfieldPlaceholder:displayOnLockScreen:dismissOnLock:displayInAppWhitelistModes:dismissAfterTimeInterval:assertion:completionBlock:" title:0 message:v21 defaultButtonText:v10 alternateButtonText:v19 otherButtonText:0 textfieldPlaceholder:0 displayOnLockScreen:0.0 dismissOnLock:0 displayInAppWhitelistModes:v38 dismissAfterTimeInterval:0 assertion:0 completionBlock:?];
               if (v16)
               {
 LABEL_20:
@@ -563,10 +554,10 @@ LABEL_19:
             }
           }
 
-          v25 = MCLocalizedString(@"INSTALL_PROFILE_ERROR_OK");
-          BYTE2(v39) = 1;
-          LOWORD(v39) = 0;
-          [MCUserNotificationManager displayUserNotificationWithIdentifier:"displayUserNotificationWithIdentifier:title:message:defaultButtonText:alternateButtonText:otherButtonText:textfieldPlaceholder:displayOnLockScreen:dismissOnLock:displayInAppWhitelistModes:dismissAfterTimeInterval:assertion:completionBlock:" title:0 message:v21 defaultButtonText:v10 alternateButtonText:v25 otherButtonText:0 textfieldPlaceholder:0 displayOnLockScreen:0.0 dismissOnLock:0 displayInAppWhitelistModes:v39 dismissAfterTimeInterval:0 assertion:0 completionBlock:?];
+          v24 = MCLocalizedString(@"INSTALL_PROFILE_ERROR_OK");
+          BYTE2(v38) = 1;
+          LOWORD(v38) = 0;
+          [MCUserNotificationManager displayUserNotificationWithIdentifier:"displayUserNotificationWithIdentifier:title:message:defaultButtonText:alternateButtonText:otherButtonText:textfieldPlaceholder:displayOnLockScreen:dismissOnLock:displayInAppWhitelistModes:dismissAfterTimeInterval:assertion:completionBlock:" title:0 message:v21 defaultButtonText:v10 alternateButtonText:v24 otherButtonText:0 textfieldPlaceholder:0 displayOnLockScreen:0.0 dismissOnLock:0 displayInAppWhitelistModes:v38 dismissAfterTimeInterval:0 assertion:0 completionBlock:?];
 
           if (v16)
           {
@@ -577,42 +568,42 @@ LABEL_19:
         }
 
         v16 = MCLocalizedString(@"INSTALL_PROFILE_DISABLED_TITLE");
-        v30 = @"ERROR_PROFILE_DRIVEN_USER_ENROLLMENT_NOT_SUPPORTED";
+        v29 = @"ERROR_PROFILE_DRIVEN_USER_ENROLLMENT_NOT_SUPPORTED";
       }
 
-      v29 = MCLocalizedErrorStringByDevice(v30);
+      v28 = MCLocalizedErrorStringByDevice(v29);
       goto LABEL_47;
     }
 
     userInfo3 = [errorCopy userInfo];
-    v33 = [userInfo3 objectForKeyedSubscript:@"RestrictionCause"];
+    v32 = [userInfo3 objectForKeyedSubscript:@"RestrictionCause"];
 
-    if ([v33 isEqualToString:@"Profile"])
+    if ([v32 isEqualToString:@"Profile"])
     {
-      v34 = @"INSTALL_PROFILE_DISABLED_MESSAGE_PROFILE";
+      v33 = @"INSTALL_PROFILE_DISABLED_MESSAGE_PROFILE";
     }
 
     else
     {
-      if ([v33 isEqualToString:@"LockdownMode"])
+      if ([v32 isEqualToString:@"LockdownMode"])
       {
-        v35 = MCLocalizedStringByDevice(@"INSTALL_PROFILE_DISABLED_MESSAGE_LOCKDOWN_MODE");
+        v34 = MCLocalizedStringByDevice(@"INSTALL_PROFILE_DISABLED_MESSAGE_LOCKDOWN_MODE");
         goto LABEL_50;
       }
 
-      if ([v33 isEqualToString:@"StolenDeviceProtection"])
+      if ([v32 isEqualToString:@"StolenDeviceProtection"])
       {
-        v38 = v11;
+        v37 = v11;
 
         goto LABEL_39;
       }
 
-      v34 = @"INSTALL_PROFILE_DISABLED_MESSAGE";
+      v33 = @"INSTALL_PROFILE_DISABLED_MESSAGE";
     }
 
-    v35 = MCLocalizedString(v34);
+    v34 = MCLocalizedString(v33);
 LABEL_50:
-    v18 = v35;
+    v18 = v34;
 
     v16 = MCLocalizedString(@"INSTALL_PROFILE_DISABLED_TITLE");
 
@@ -624,13 +615,13 @@ LABEL_50:
     if (code == 4035)
     {
       userInfo4 = [errorCopy userInfo];
-      v37 = [userInfo4 objectForKeyedSubscript:v8];
+      v36 = [userInfo4 objectForKeyedSubscript:v8];
 
-      v40 = v10;
-      v41 = 0;
-      [(MCUserNotificationManager *)self _updateTitle:&v41 andMessage:&v40 withTargetFailureInfoForDevice:device fromError:v37];
-      v16 = v41;
-      v18 = v40;
+      v39 = v10;
+      v40 = 0;
+      [(MCUserNotificationManager *)self _updateTitle:&v40 andMessage:&v39 withTargetFailureInfoForDevice:device fromError:v36];
+      v16 = v40;
+      v18 = v39;
 
       goto LABEL_10;
     }
@@ -638,9 +629,9 @@ LABEL_50:
     if (code == 4036)
     {
       v16 = MCLocalizedString(@"INSTALL_PROFILE_TITLE");
-      v29 = [(MCUserNotificationManager *)self _purgatoryMessageForDevice:device];
+      v28 = [(MCUserNotificationManager *)self _purgatoryMessageForDevice:device];
 LABEL_47:
-      v18 = v29;
+      v18 = v28;
 
       v19 = MCLocalizedString(@"INSTALL_PROFILE_OK");
       goto LABEL_11;
@@ -649,12 +640,10 @@ LABEL_47:
     goto LABEL_43;
   }
 
-  v31 = v11;
+  v30 = v11;
 LABEL_39:
   v16 = 0;
 LABEL_21:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -700,8 +689,7 @@ LABEL_21:
     [(MCUserNotificationQueueEntry *)v34 setCompletionBlock:v45];
     v28 = identifierCopy;
     [(MCUserNotificationQueueEntry *)v34 setIdentifier:identifierCopy];
-    [v35 park];
-    v36 = syncQueue();
+    v36 = syncQueue([v35 park]);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __268__MCUserNotificationManager_displayUserNotificationWithIdentifier_title_message_defaultButtonText_alternateButtonText_otherButtonText_textfieldPlaceholder_displayOnLockScreen_dismissOnLock_displayInAppWhitelistModes_dismissAfterTimeInterval_assertion_completionBlock___block_invoke_2;
@@ -749,21 +737,21 @@ void __268__MCUserNotificationManager_displayUserNotificationWithIdentifier_titl
 
 void __268__MCUserNotificationManager_displayUserNotificationWithIdentifier_title_message_defaultButtonText_alternateButtonText_otherButtonText_textfieldPlaceholder_displayOnLockScreen_dismissOnLock_displayInAppWhitelistModes_dismissAfterTimeInterval_assertion_completionBlock___block_invoke_2(uint64_t a1)
 {
-  v2 = syncQueueNotificationQueue();
+  v2 = syncQueueNotificationQueue(a1);
   [v2 addObject:*(a1 + 32)];
 
-  syncQueueCheckToShowNextNotification();
+  syncQueueCheckToShowNextNotification(v3);
 }
 
 - (void)mainQueueDidReceiveAppWhitelistChangedNotification
 {
-  v2 = syncQueue();
+  v2 = syncQueue(self);
   dispatch_barrier_sync(v2, &__block_literal_global_149_0);
 }
 
 void __79__MCUserNotificationManager_mainQueueDidReceiveAppWhitelistChangedNotification__block_invoke()
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (MCIsEffectivelyInAppWhitelistMode())
   {
     if (syncQueueCurrentlyVisibleNotificationEntry && ([syncQueueCurrentlyVisibleNotificationEntry displayInAppWhitelistModes] & 1) == 0)
@@ -784,26 +772,26 @@ void __79__MCUserNotificationManager_mainQueueDidReceiveAppWhitelistChangedNotif
 
     v3 = [MEMORY[0x1E695DF70] array];
     v4 = [MEMORY[0x1E695DF70] array];
-    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v5 = syncQueueNotificationQueue();
-    v6 = [v5 countByEnumeratingWithState:&v21 objects:v27 count:16];
+    v25 = 0u;
+    v5 = syncQueueNotificationQueue(v4);
+    v6 = [v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v22;
+      v8 = *v23;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v22 != v8)
+          if (*v23 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v21 + 1) + 8 * i);
+          v10 = *(*(&v22 + 1) + 8 * i);
           if ([v10 displayInAppWhitelistModes])
           {
             v11 = v4;
@@ -817,66 +805,64 @@ void __79__MCUserNotificationManager_mainQueueDidReceiveAppWhitelistChangedNotif
           [v11 addObject:v10];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v21 objects:v27 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
       }
 
       while (v7);
     }
 
-    v12 = syncQueueNotificationQueue();
-    [v12 removeAllObjects];
+    v13 = syncQueueNotificationQueue(v12);
+    [v13 removeAllObjects];
 
-    v13 = syncQueueNotificationQueue();
-    [v13 addObjectsFromArray:v4];
+    v15 = syncQueueNotificationQueue(v14);
+    [v15 addObjectsFromArray:v4];
 
     if ([v3 count])
     {
-      v14 = _MCLogObjects;
+      v16 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
       {
-        v15 = v14;
-        v16 = [v3 count];
+        v17 = v16;
+        v18 = [v3 count];
         *buf = 67109120;
-        v26 = v16;
-        _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_INFO, "Canceling %d pending notifications because we entered limited apps mode.", buf, 8u);
+        v27 = v18;
+        _os_log_impl(&dword_1A795B000, v17, OS_LOG_TYPE_INFO, "Canceling %d pending notifications because we entered limited apps mode.", buf, 8u);
       }
 
-      v17 = dispatch_get_global_queue(0, 0);
+      v19 = dispatch_get_global_queue(0, 0);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __79__MCUserNotificationManager_mainQueueDidReceiveAppWhitelistChangedNotification__block_invoke_151;
       block[3] = &unk_1E77D0180;
-      v20 = v3;
-      dispatch_async(v17, block);
+      v21 = v3;
+      dispatch_async(v19, block);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __79__MCUserNotificationManager_mainQueueDidReceiveAppWhitelistChangedNotification__block_invoke_151(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v11;
+    v4 = *v10;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         v7 = [v6 completionBlock];
 
         if (v7)
@@ -886,13 +872,11 @@ void __79__MCUserNotificationManager_mainQueueDidReceiveAppWhitelistChangedNotif
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v3);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelNotificationsWithIdentifier:(id)identifier completionBlock:(id)block
@@ -943,7 +927,7 @@ uint64_t __79__MCUserNotificationManager_cancelNotificationsWithIdentifier_compl
 
 void __88__MCUserNotificationManager_cancelNotificationEntriesMatchingPredicate_completionBlock___block_invoke(uint64_t a1)
 {
-  v2 = syncQueue();
+  v2 = syncQueue(a1);
   v3[0] = MEMORY[0x1E69E9820];
   v3[1] = 3221225472;
   v3[2] = __88__MCUserNotificationManager_cancelNotificationEntriesMatchingPredicate_completionBlock___block_invoke_2;
@@ -955,63 +939,64 @@ void __88__MCUserNotificationManager_cancelNotificationEntriesMatchingPredicate_
 
 void __88__MCUserNotificationManager_cancelNotificationEntriesMatchingPredicate_completionBlock___block_invoke_2(uint64_t a1)
 {
+  v1 = a1;
   if (syncQueueCurrentlyVisibleNotificationEntry)
   {
-    v2 = *(a1 + 32);
-    if ((*(*(a1 + 32) + 16))())
+    a1 = (*(*(a1 + 32) + 16))();
+    if (a1)
     {
-      v3 = [syncQueueCurrentlyVisibleNotificationEntry notification];
-      CFUserNotificationCancel(v3);
+      v2 = [syncQueueCurrentlyVisibleNotificationEntry notification];
+      CFUserNotificationCancel(v2);
     }
   }
 
-  v4 = syncQueueNotificationQueue();
-  v5 = MEMORY[0x1E696AE18];
+  v3 = syncQueueNotificationQueue(a1);
+  v4 = MEMORY[0x1E696AE18];
   v14[0] = MEMORY[0x1E69E9820];
   v14[1] = 3221225472;
   v14[2] = __88__MCUserNotificationManager_cancelNotificationEntriesMatchingPredicate_completionBlock___block_invoke_3;
   v14[3] = &unk_1E77D2E60;
-  v15 = *(a1 + 32);
-  v6 = [v5 predicateWithBlock:v14];
-  v7 = [v4 filteredArrayUsingPredicate:v6];
+  v15 = *(v1 + 32);
+  v5 = [v4 predicateWithBlock:v14];
+  v6 = [v3 filteredArrayUsingPredicate:v5];
 
-  v8 = syncQueueNotificationQueue();
-  [v8 removeObjectsInArray:v7];
+  v8 = syncQueueNotificationQueue(v7);
+  [v8 removeObjectsInArray:v6];
 
   v9 = dispatch_get_global_queue(0, 0);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __88__MCUserNotificationManager_cancelNotificationEntriesMatchingPredicate_completionBlock___block_invoke_4;
   block[3] = &unk_1E77D2E88;
-  v12 = v7;
-  v13 = *(a1 + 40);
-  v10 = v7;
+  v12 = v6;
+  v13 = *(v1 + 40);
+  v10 = v6;
   dispatch_async(v9, block);
 }
 
 uint64_t __88__MCUserNotificationManager_cancelNotificationEntriesMatchingPredicate_completionBlock___block_invoke_4(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [v7 completionBlock];
 
         if (v8)
@@ -1021,7 +1006,7 @@ uint64_t __88__MCUserNotificationManager_cancelNotificationEntriesMatchingPredic
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -1030,10 +1015,9 @@ uint64_t __88__MCUserNotificationManager_cancelNotificationEntriesMatchingPredic
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1083,35 +1067,36 @@ LABEL_12:
   if (device == 3)
   {
     *title = MCLocalizedString(@"INSTALL_WARNING_TARGET_UNAVAILABLE_HOMEPOD_TITLE");
-    v7 = @"INSTALL_WARNING_TARGET_UNAVAILABLE_HOMEPOD_MESSAGE";
+    v9 = @"INSTALL_WARNING_TARGET_UNAVAILABLE_HOMEPOD_MESSAGE";
   }
 
   else if (device == 2)
   {
-    *title = MCLocalizedString(@"INSTALL_WARNING_TARGET_UNAVAILABLE_WATCH_TITLE");
-    if (!MCGestaltIsPhone())
+    v7 = MCLocalizedString(@"INSTALL_WARNING_TARGET_UNAVAILABLE_WATCH_TITLE");
+    *title = v7;
+    if (!MCGestaltIsPhone(v7, v8))
     {
-      v8 = MCLocalizedStringByDevice(@"INSTALL_WARNING_TARGET_MISMATCH_MESSAGE");
+      v10 = MCLocalizedStringByDevice(@"INSTALL_WARNING_TARGET_MISMATCH_MESSAGE");
       goto LABEL_8;
     }
 
-    v7 = @"INSTALL_WARNING_TARGET_UNAVAILABLE_WATCH_MESSAGE";
+    v9 = @"INSTALL_WARNING_TARGET_UNAVAILABLE_WATCH_MESSAGE";
   }
 
   else
   {
     *title = MCLocalizedString(@"INSTALL_WARNING_TARGET_UNAVAILABLE_TITLE");
-    v7 = @"INSTALL_WARNING_TARGET_UNAVAILABLE_MESSAGE";
+    v9 = @"INSTALL_WARNING_TARGET_UNAVAILABLE_MESSAGE";
   }
 
-  v8 = MCLocalizedString(v7);
+  v10 = MCLocalizedString(v9);
 LABEL_8:
-  *message = v8;
+  *message = v10;
 }
 
 - (id)_purgatoryMessageForDevice:(unint64_t)device
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = device - 1;
   if (device - 1 < 6 && ((0x27u >> v4) & 1) != 0)
   {
@@ -1125,16 +1110,15 @@ LABEL_8:
     {
       v7 = v6;
       v8 = [MCProfile stringForDeviceType:device];
-      v12 = 138543362;
-      v13 = v8;
-      _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_ERROR, "MCUserNotificationManager: No purgatory message for device of type %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v8;
+      _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_ERROR, "MCUserNotificationManager: No purgatory message for device of type %{public}@", &v11, 0xCu);
     }
 
     v5 = @"INSTALL_PROFILE_MESSAGE_SETTINGS_APP";
   }
 
   v9 = MCLocalizedString(v5);
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

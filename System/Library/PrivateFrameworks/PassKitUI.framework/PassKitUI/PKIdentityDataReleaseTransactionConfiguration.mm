@@ -10,7 +10,7 @@
   v7 = sub_1BE052434();
   v9 = v8;
   sub_1BD91B988();
-  sub_1BD91B9D4(&qword_1EBD49A00, sub_1BD91B988);
+  sub_1BD91B9D4(&qword_1EBD49A00, sub_1BD91B988, MEMORY[0x1E69E81B8]);
   v10 = sub_1BE052A34();
   v11 = sub_1BE052434();
   return PKIdentityDataReleaseTransactionConfiguration.init(documentType:elements:transactionSource:passName:)(v7, v9, v10, source, v11, v12);

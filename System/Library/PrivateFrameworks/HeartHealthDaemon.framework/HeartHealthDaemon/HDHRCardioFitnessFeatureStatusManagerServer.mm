@@ -12,6 +12,7 @@
 - (void)remote_notificationStatusWithCompletion:(id)completion;
 - (void)remote_onboardingStatusWithCompletion:(id)completion;
 - (void)remote_resetOnboardingWithCompletion:(id)completion;
+- (void)remote_setNotificationsEnabled:(BOOL)enabled withCompletion:(id)completion;
 - (void)remote_startObservingChangesWithCompletion:(id)completion;
 @end
 
@@ -108,7 +109,7 @@ LABEL_13:
 
 - (id)_determineOnboardingStatusWithFeatureStatus:(id)status
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   v5 = [statusCopy objectForKeyedSubscript:*MEMORY[0x277D12E68]];
   if ([v5 areAllRequirementsSatisfied])
@@ -117,9 +118,9 @@ LABEL_13:
     v6 = HKLogHeartRateCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v36 = 138543362;
+      v35 = 138543362;
       selfCopy9 = self;
-      _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Classification context satisfied, reporting back clean onboarding status", &v36, 0xCu);
+      _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Classification context satisfied, reporting back clean onboarding status", &v35, 0xCu);
     }
 
     v7 = objc_alloc(MEMORY[0x277D12FC0]);
@@ -144,9 +145,9 @@ LABEL_13:
       v19 = HKLogHeartRateCategory();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v36 = 138543362;
+        v35 = 138543362;
         selfCopy9 = self;
-        _os_log_impl(&dword_229486000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] User has valid onboarding but their age is either present or gated", &v36, 0xCu);
+        _os_log_impl(&dword_229486000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] User has valid onboarding but their age is either present or gated", &v35, 0xCu);
       }
 
       v20 = objc_alloc(MEMORY[0x277D12FC0]);
@@ -174,9 +175,9 @@ LABEL_13:
         v22 = HKLogHeartRateCategory();
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v36 = 138543362;
+          v35 = 138543362;
           selfCopy9 = self;
-          _os_log_impl(&dword_229486000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] User is age gated, marking unavailability reason", &v36, 0xCu);
+          _os_log_impl(&dword_229486000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] User is age gated, marking unavailability reason", &v35, 0xCu);
         }
 
         v21 = 1;
@@ -188,9 +189,9 @@ LABEL_13:
         v23 = HKLogHeartRateCategory();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          v36 = 138543362;
+          v35 = 138543362;
           selfCopy9 = self;
-          _os_log_impl(&dword_229486000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@] User is age gated, marking unavailability reason", &v36, 0xCu);
+          _os_log_impl(&dword_229486000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@] User is age gated, marking unavailability reason", &v35, 0xCu);
         }
 
         v21 |= 2uLL;
@@ -202,9 +203,9 @@ LABEL_13:
         v24 = HKLogHeartRateCategory();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          v36 = 138543362;
+          v35 = 138543362;
           selfCopy9 = self;
-          _os_log_impl(&dword_229486000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@] User has heart rate disabled, marking onboarding unavailability reason", &v36, 0xCu);
+          _os_log_impl(&dword_229486000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@] User has heart rate disabled, marking onboarding unavailability reason", &v35, 0xCu);
         }
 
         v21 |= 4uLL;
@@ -216,9 +217,9 @@ LABEL_13:
         v25 = HKLogHeartRateCategory();
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          v36 = 138543362;
+          v35 = 138543362;
           selfCopy9 = self;
-          _os_log_impl(&dword_229486000, v25, OS_LOG_TYPE_DEFAULT, "[%{public}@] User has health app hidden, marking onboarding unavailability reason", &v36, 0xCu);
+          _os_log_impl(&dword_229486000, v25, OS_LOG_TYPE_DEFAULT, "[%{public}@] User has health app hidden, marking onboarding unavailability reason", &v35, 0xCu);
         }
 
         v21 |= 8uLL;
@@ -230,9 +231,9 @@ LABEL_13:
         v26 = HKLogHeartRateCategory();
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          v36 = 138543362;
+          v35 = 138543362;
           selfCopy9 = self;
-          _os_log_impl(&dword_229486000, v26, OS_LOG_TYPE_DEFAULT, "[%{public}@] User has heart rate app uninstalled, marking onboarding unavailability reason", &v36, 0xCu);
+          _os_log_impl(&dword_229486000, v26, OS_LOG_TYPE_DEFAULT, "[%{public}@] User has heart rate app uninstalled, marking onboarding unavailability reason", &v35, 0xCu);
         }
 
         v21 |= 0x10uLL;
@@ -246,9 +247,9 @@ LABEL_13:
       {
         if (v29)
         {
-          v36 = 138543362;
+          v35 = 138543362;
           selfCopy9 = self;
-          _os_log_impl(&dword_229486000, v28, OS_LOG_TYPE_DEFAULT, "[%{public}@] User not onboarded but no reason why they couldn't onboard", &v36, 0xCu);
+          _os_log_impl(&dword_229486000, v28, OS_LOG_TYPE_DEFAULT, "[%{public}@] User not onboarded but no reason why they couldn't onboard", &v35, 0xCu);
         }
 
         v30 = 2;
@@ -258,9 +259,9 @@ LABEL_13:
       {
         if (v29)
         {
-          v36 = 138543362;
+          v35 = 138543362;
           selfCopy9 = self;
-          _os_log_impl(&dword_229486000, v28, OS_LOG_TYPE_DEFAULT, "[%{public}@] User not onboarded but onboarding unavailable", &v36, 0xCu);
+          _os_log_impl(&dword_229486000, v28, OS_LOG_TYPE_DEFAULT, "[%{public}@] User not onboarded but onboarding unavailable", &v35, 0xCu);
         }
 
         v30 = 0;
@@ -281,8 +282,6 @@ LABEL_13:
   }
 
   v33 = [v10 initWithState:v11 unavailableReasons:v12 dateOnboarded:v13 shouldOnboardingTileBeAdvertised:v14 isLocaleValidOnLocalDevice:v15 isClassificationAvailable:v16];
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v33;
 }
@@ -345,7 +344,7 @@ LABEL_13:
 
 - (id)_determineNotificationStatusWithFeatureStatus:(id)status
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277D12E78];
   statusCopy = status;
   v6 = [statusCopy objectForKeyedSubscript:v4];
@@ -371,8 +370,8 @@ LABEL_9:
   }
 
   unsatisfiedRequirementIdentifiers = [v6 unsatisfiedRequirementIdentifiers];
-  v30 = *MEMORY[0x277CCBF38];
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+  v29 = *MEMORY[0x277CCBF38];
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
   v14 = [unsatisfiedRequirementIdentifiers isEqualToArray:v13];
 
   if (v14)
@@ -528,9 +527,28 @@ LABEL_9:
 LABEL_49:
   v27 = [v10 initWithState:v11 unavailableReasons:v16 wristDetectEnabled:v8];
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v27;
+}
+
+- (void)remote_setNotificationsEnabled:(BOOL)enabled withCompletion:(id)completion
+{
+  enabledCopy = enabled;
+  completionCopy = completion;
+  objc_initWeak(&location, self);
+  featureAvailabilityProvider = self->_featureAvailabilityProvider;
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  v9 = *MEMORY[0x277CCC120];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __93__HDHRCardioFitnessFeatureStatusManagerServer_remote_setNotificationsEnabled_withCompletion___block_invoke;
+  v11[3] = &unk_278660A90;
+  objc_copyWeak(&v13, &location);
+  v10 = completionCopy;
+  v12 = v10;
+  [(HKFeatureAvailabilityProviding *)featureAvailabilityProvider setFeatureSettingNumber:v8 forKey:v9 completion:v11];
+
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(&location);
 }
 
 void __93__HDHRCardioFitnessFeatureStatusManagerServer_remote_setNotificationsEnabled_withCompletion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -583,29 +601,27 @@ void __93__HDHRCardioFitnessFeatureStatusManagerServer_remote_setNotificationsEn
 
 - (void)remote_resetOnboardingWithCompletion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _HKInitializeLogging();
   v5 = HKLogHeartRateCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_229486000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Resetting onboarding", buf, 0xCu);
   }
 
   featureAvailabilityProvider = self->_featureAvailabilityProvider;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __84__HDHRCardioFitnessFeatureStatusManagerServer_remote_resetOnboardingWithCompletion___block_invoke;
-  v10[3] = &unk_27865FD68;
-  v10[4] = self;
-  v11 = completionCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __84__HDHRCardioFitnessFeatureStatusManagerServer_remote_resetOnboardingWithCompletion___block_invoke;
+  v9[3] = &unk_27865FD68;
+  v9[4] = self;
+  v10 = completionCopy;
   v8 = completionCopy;
-  [(HKFeatureAvailabilityProviding *)featureAvailabilityProvider resetOnboardingWithCompletion:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(HKFeatureAvailabilityProviding *)featureAvailabilityProvider resetOnboardingWithCompletion:v9];
 }
 
 void __84__HDHRCardioFitnessFeatureStatusManagerServer_remote_resetOnboardingWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -638,7 +654,7 @@ void __84__HDHRCardioFitnessFeatureStatusManagerServer_remote_resetOnboardingWit
 
 - (void)remote_startObservingChangesWithCompletion:(id)completion
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   os_unfair_lock_lock(&self->_lock);
   if (self->_observing)
@@ -660,17 +676,15 @@ void __84__HDHRCardioFitnessFeatureStatusManagerServer_remote_resetOnboardingWit
     v6 = HKLogHeartRateCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543362;
+      v7 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Starting observation of changes", &v8, 0xCu);
+      _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Starting observation of changes", &v7, 0xCu);
     }
 
     [(HKFeatureStatusProviding *)self->_featureStatusProvider registerObserver:self queue:self->_queue];
     os_unfair_lock_unlock(&self->_lock);
     completionCopy[2](completionCopy, 1, 0);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopObservingChangesAndExpectToBeObserving:(BOOL)observing
@@ -781,82 +795,70 @@ LABEL_9:
 
 - (void)_getOnboardingStatusWithError:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_15();
-  v4 = v0;
-  OUTLINED_FUNCTION_2_5(&dword_229486000, v1, v1, "[%{public}@] Error when retrieving feature status: %{public}@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  OUTLINED_FUNCTION_2_5(&dword_229486000, v1, v1, "[%{public}@] Error when retrieving feature status: %{public}@", v2);
 }
 
 - (void)_getOnboardingStatusWithError:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  _os_log_fault_impl(&dword_229486000, v0, OS_LOG_TYPE_FAULT, "[%{public}@] Nil feature status given without error", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_229486000, v0, OS_LOG_TYPE_FAULT, "[%{public}@] Nil feature status given without error", v1, 0xCu);
 }
 
 void __93__HDHRCardioFitnessFeatureStatusManagerServer_remote_setNotificationsEnabled_withCompletion___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   objc_opt_class();
   OUTLINED_FUNCTION_0_15();
-  v11 = a2;
+  v10 = a2;
   v7 = v6;
-  OUTLINED_FUNCTION_2_5(&dword_229486000, a3, v8, "[%{public}@] Error when setting enablement key: %{public}@", v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_5(&dword_229486000, a3, v8, "[%{public}@] Error when setting enablement key: %{public}@", v9);
 }
 
 void __93__HDHRCardioFitnessFeatureStatusManagerServer_remote_setNotificationsEnabled_withCompletion___block_invoke_300_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   objc_opt_class();
   OUTLINED_FUNCTION_0_15();
-  v11 = a2;
+  v10 = a2;
   v7 = v6;
-  OUTLINED_FUNCTION_2_5(&dword_229486000, a3, v8, "[%{public}@] Error when setting notification details entered key: %{public}@", v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_5(&dword_229486000, a3, v8, "[%{public}@] Error when setting notification details entered key: %{public}@", v9);
 }
 
 void __84__HDHRCardioFitnessFeatureStatusManagerServer_remote_resetOnboardingWithCompletion___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 32);
+  v10 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_0_15();
-  v11 = a2;
-  v7 = v6;
-  OUTLINED_FUNCTION_2_5(&dword_229486000, a3, v8, "[%{public}@] Error resetting onboarding: %{public}@", v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = a2;
+  v6 = v5;
+  OUTLINED_FUNCTION_2_5(&dword_229486000, a3, v7, "[%{public}@] Error resetting onboarding: %{public}@", v8);
 }
 
 - (void)remote_startObservingChangesWithCompletion:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(&dword_229486000, v0, OS_LOG_TYPE_ERROR, "[%{public}@] Asked to start observation of changes but we already started.", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_229486000, v0, OS_LOG_TYPE_ERROR, "[%{public}@] Asked to start observation of changes but we already started.", v1, 0xCu);
 }
 
 - (void)_stopObservingChangesAndExpectToBeObserving:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(&dword_229486000, v0, OS_LOG_TYPE_ERROR, "[%{public}@] Asked to stop observation of changes but we are not observing.", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_229486000, v0, OS_LOG_TYPE_ERROR, "[%{public}@] Asked to stop observation of changes but we are not observing.", v1, 0xCu);
 }
 
 - (void)_stopObservingChangesAndExpectToBeObserving:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(&dword_229486000, v0, OS_LOG_TYPE_DEBUG, "[%{public}@] Stopping observation of changes", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_229486000, v0, OS_LOG_TYPE_DEBUG, "[%{public}@] Stopping observation of changes", v1, 0xCu);
 }
 
 @end

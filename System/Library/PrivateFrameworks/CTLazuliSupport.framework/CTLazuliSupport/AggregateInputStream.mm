@@ -78,8 +78,7 @@
 - (_TtC15CTLazuliSupport20AggregateInputStream)initWithURL:(id)l
 {
   v3 = sub_242731F34();
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8);
+  MEMORY[0x28223BE20](v3 - 8, v4);
   sub_242731EC4();
   result = _swift_stdlib_reportUnimplementedInitializer();
   __break(1u);

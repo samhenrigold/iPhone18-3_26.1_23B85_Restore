@@ -55,7 +55,6 @@
   }
 
   objc_storeStrong(&v14, 0);
-  *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
@@ -98,7 +97,6 @@
   preferences = [(SUSUIMockedSoftwareUpdateClientManager *)selfCopy preferences];
   [preferences setAutomaticDownloadEnabled:enabledCopy];
   MEMORY[0x277D82BD8](preferences);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAutoInstallEnabled
@@ -140,7 +138,6 @@
   }
 
   objc_storeStrong(&v14, 0);
-  *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
@@ -183,7 +180,6 @@
   preferences = [(SUSUIMockedSoftwareUpdateClientManager *)selfCopy preferences];
   [preferences setAutomaticUpdateV2Enabled:enabledCopy];
   MEMORY[0x277D82BD8](preferences);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAutoInstallPreviousUserSettingsEnabled
@@ -225,7 +221,6 @@
   }
 
   objc_storeStrong(&v14, 0);
-  *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
@@ -268,7 +263,6 @@
   preferences = [(SUSUIMockedSoftwareUpdateClientManager *)selfCopy preferences];
   [preferences setPreviousUserSpecifiedAutomaticUpdateV2Enabled:settingsCopy];
   MEMORY[0x277D82BD8](preferences);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isSecurityResponseEnabled
@@ -310,7 +304,6 @@
   }
 
   objc_storeStrong(&v14, 0);
-  *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
@@ -353,7 +346,6 @@
   preferences = [(SUSUIMockedSoftwareUpdateClientManager *)selfCopy preferences];
   [preferences setAutoInstallSecurityResponse:enabledCopy];
   MEMORY[0x277D82BD8](preferences);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)previousUserSpecifiedSecurityResponseEnabled
@@ -395,7 +387,6 @@
   }
 
   objc_storeStrong(&v14, 0);
-  *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
@@ -438,7 +429,6 @@
   preferences = [(SUSUIMockedSoftwareUpdateClientManager *)selfCopy preferences];
   [preferences setPreviousUserSpecifiedAutoInstallSecurityResponse:statusCopy];
   MEMORY[0x277D82BD8](preferences);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAutomaticInstallSystemDataFilesEnabled
@@ -480,7 +470,6 @@
   }
 
   objc_storeStrong(&v14, 0);
-  *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
@@ -523,7 +512,6 @@
   preferences = [(SUSUIMockedSoftwareUpdateClientManager *)selfCopy preferences];
   [preferences setAutoInstallSystemAndDataFiles:filesCopy];
   MEMORY[0x277D82BD8](preferences);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)preferences
@@ -603,7 +591,6 @@
   }
 
   objc_storeStrong(v30, 0);
-  *MEMORY[0x277D85DE8];
   v4 = preferences;
 
   return v4;

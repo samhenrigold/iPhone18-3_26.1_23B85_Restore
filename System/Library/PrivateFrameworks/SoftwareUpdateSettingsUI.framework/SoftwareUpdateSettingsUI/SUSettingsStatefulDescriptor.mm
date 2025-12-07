@@ -134,7 +134,6 @@ LABEL_15:
   objc_storeStrong(&v40, 0);
   objc_storeStrong(&location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v45;
 }
 
@@ -670,7 +669,6 @@ LABEL_16:
   objc_storeStrong(&v51, 0);
   objc_storeStrong(&v52, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)updateStateFromProgressedDownload:(id)download
@@ -856,22 +854,17 @@ LABEL_16:
       objc_storeStrong(v38, 0);
     }
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__SUSettingsStatefulDescriptor_assignState___block_invoke(uint64_t a1)
 {
-  v8 = [*(a1 + 32) ownerManager];
-  v7 = [v8 delegate];
-  v6 = [*(a1 + 32) ownerManager];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  [v7 statefulUIManager:? descriptor:? didTransitionFromDescriptorState:? toState:?];
-  MEMORY[0x277D82BD8](v6);
-  MEMORY[0x277D82BD8](v7);
-  return MEMORY[0x277D82BD8](v8);
+  v5 = [*(a1 + 32) ownerManager];
+  v4 = [v5 delegate];
+  v3 = [*(a1 + 32) ownerManager];
+  [v4 statefulUIManager:? descriptor:? didTransitionFromDescriptorState:? toState:?];
+  MEMORY[0x277D82BD8](v3);
+  MEMORY[0x277D82BD8](v4);
+  return MEMORY[0x277D82BD8](v5);
 }
 
 - (void)resolveInstallationError:(id)error fromConcreteDownload:(id)download downloadable:(BOOL)downloadable downloadError:(id)downloadError error:(id)a7
@@ -1068,7 +1061,6 @@ LABEL_34:
   objc_storeStrong(&v69, 0);
   objc_storeStrong(&v71, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)maskedDescriptorType
@@ -1085,12 +1077,12 @@ LABEL_34:
     MEMORY[0x277D82BD8](ownerManager2);
     if (hidingPreferredDescriptor)
     {
-      descriptorType = selfCopy->_descriptorType != 1;
+      return selfCopy->_descriptorType != 1;
     }
 
     else
     {
-      descriptorType = selfCopy->_descriptorType;
+      return selfCopy->_descriptorType;
     }
   }
 
@@ -1120,11 +1112,8 @@ LABEL_34:
     }
 
     objc_storeStrong(v16, 0);
-    descriptorType = selfCopy->_descriptorType;
+    return selfCopy->_descriptorType;
   }
-
-  *MEMORY[0x277D85DE8];
-  return descriptorType;
 }
 
 - (SUSettingsStatefulUIManager)ownerManager

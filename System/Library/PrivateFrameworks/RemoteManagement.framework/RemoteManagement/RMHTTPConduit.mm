@@ -24,6 +24,7 @@
 - (void)_didFinishFetchingObject:(id)object objectID:(id)d class:(Class)class endpoint:(id)endpoint response:(id)response error:(id)error completionHandler:(id)handler;
 - (void)_didFinishFetchingServerTokens:(id)tokens response:(id)response error:(id)error completionHandler:(id)handler;
 - (void)_didFinishSendingStatusWithResponse:(id)response error:(id)error completionHandler:(id)handler;
+- (void)_didFinishUnenrollingToldRemote:(BOOL)remote completionHandler:(id)handler;
 - (void)_didReceiveEnrollReferralWithOriginalRequest:(id)request responsePayload:(id)payload response:(id)response error:(id)error completionHandler:(id)handler;
 - (void)_fetchDeclarationItemsOnlyIfNeeded:(BOOL)needed completionHandler:(id)handler;
 - (void)_fetchNextObjectOfClass:(Class)class endpoint:(id)endpoint completionHandler:(id)handler;
@@ -40,6 +41,7 @@
 - (void)persistentHistoryNotifier:(id)notifier hasChanges:(id)changes;
 - (void)sendStatusData:(id)data completionHandler:(id)handler;
 - (void)startWithCompletionHandler:(id)handler;
+- (void)syncOnlyIfNeeded:(BOOL)needed completionHandler:(id)handler;
 - (void)unenrollWithCompletionHandler:(id)handler;
 - (void)updateWithPushMessage:(id)message completionHandler:(id)handler;
 - (void)updateWithTokensResponse:(id)response completionHandler:(id)handler;
@@ -580,6 +582,33 @@
   os_activity_scope_leave(&state);
 }
 
+- (void)_didFinishUnenrollingToldRemote:(BOOL)remote completionHandler:(id)handler
+{
+  remoteCopy = remote;
+  handlerCopy = handler;
+  session = [(RMHTTPConduit *)self session];
+  [session finishTasksAndInvalidate];
+
+  v13[0] = 0;
+  v13[1] = v13;
+  v13[2] = 0x3032000000;
+  v13[3] = sub_100033C38;
+  v13[4] = sub_100033C48;
+  v14 = 0;
+  [(RMHTTPConduit *)self context];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100035360;
+  v8 = v9[3] = &unk_1000D0E38;
+  v10 = v8;
+  selfCopy = self;
+  v12 = v13;
+  [v8 performBlockAndWait:v9];
+  handlerCopy[2](handlerCopy, remoteCopy);
+
+  _Block_object_dispose(v13, 8);
+}
+
 - (void)_fetchTokensOnlyIfNeeded:(BOOL)needed completionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -725,6 +754,56 @@
 
   _Block_object_dispose(&v9, 8);
   return selfCopy;
+}
+
+- (void)syncOnlyIfNeeded:(BOOL)needed completionHandler:(id)handler
+{
+  neededCopy = needed;
+  handlerCopy = handler;
+  v7 = _os_activity_create(&_mh_execute_header, "HTTPConduit: syncing only if needed", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  os_activity_scope_enter(v7, &state);
+  v8 = +[RMLog httpConduit];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10003C1F4();
+  }
+
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_10003630C;
+  v25[3] = &unk_1000D1020;
+  v9 = objc_opt_new();
+  v26 = v9;
+  v10 = objc_retainBlock(v25);
+  [(RMHTTPConduit *)self setMadeChangesDuringSync:0];
+  v11 = dispatch_group_create();
+  dispatch_group_enter(v11);
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100036390;
+  v20[3] = &unk_1000D1EF8;
+  v12 = v10;
+  v23 = v12;
+  v13 = v11;
+  v21 = v13;
+  selfCopy = self;
+  v24 = neededCopy;
+  [(RMHTTPConduit *)self _fetchTokensOnlyIfNeeded:neededCopy completionHandler:v20];
+  v14 = dispatch_get_global_queue(21, 0);
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_100036578;
+  v17[3] = &unk_1000D1F20;
+  v18 = v9;
+  v19 = handlerCopy;
+  v17[4] = self;
+  v15 = v9;
+  v16 = handlerCopy;
+  dispatch_group_notify(v13, v14, v17);
+
+  os_activity_scope_leave(&state);
 }
 
 - (void)updateWithPushMessage:(id)message completionHandler:(id)handler
@@ -1890,37 +1969,36 @@ LABEL_46:
 
 - (id)_authenticationCredential
 {
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = sub_100033C38;
-  v27 = sub_100033C48;
-  v28 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_100033C38;
-  v21 = sub_100033C48;
   v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = sub_100033C38;
+  v26 = sub_100033C48;
+  v27 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_100033C38;
+  v20 = sub_100033C48;
+  v21 = 0;
   [(RMHTTPConduit *)self context];
-  v9 = _NSConcreteStackBlock;
-  v10 = 3221225472;
-  v11 = sub_10003AA1C;
-  v3 = v12 = &unk_1000D15B0;
-  v13 = v3;
+  v8 = _NSConcreteStackBlock;
+  v9 = 3221225472;
+  v10 = sub_10003AA1C;
+  v3 = v11 = &unk_1000D15B0;
+  v12 = v3;
   selfCopy = self;
-  v15 = &v17;
-  v16 = &v23;
-  [v3 performBlockAndWait:&v9];
-  v4 = v24[5];
+  v14 = &v16;
+  v15 = &v22;
+  [v3 performBlockAndWait:&v8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    authenticationScheme = [v24[5] authenticationScheme];
-    v6 = v18[5];
-    if (v6 != authenticationScheme && (!authenticationScheme || ![v6 isEqualToString:authenticationScheme]))
+    authenticationScheme = [v23[5] authenticationScheme];
+    v5 = v17[5];
+    if (v5 != authenticationScheme && (!authenticationScheme || ![v5 isEqualToString:authenticationScheme]))
     {
-      v7 = 0;
+      v6 = 0;
       goto LABEL_8;
     }
   }
@@ -1928,20 +2006,20 @@ LABEL_46:
   else
   {
     authenticationScheme = 0;
-    v7 = 0;
-    if (v18[5])
+    v6 = 0;
+    if (v17[5])
     {
       goto LABEL_8;
     }
   }
 
-  v7 = v24[5];
+  v6 = v23[5];
 LABEL_8:
 
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v22, 8);
 
-  return v7;
+  return v6;
 }
 
 - (BOOL)_prepareURLRequest:(id)request withAuthenticationCredential:(id)credential error:(id *)error

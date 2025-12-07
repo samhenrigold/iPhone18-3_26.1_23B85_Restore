@@ -14,13 +14,22 @@ uint64_t ___CalDatabaseGetAttachmentFileWithUUID_block_invoke(uint64_t a1, uint6
 uint64_t ___CalDatabaseGetAttachmentFileWithUUID_block_invoke_2(uint64_t a1, const void *a2, _BYTE *a3)
 {
   v6 = _CalCalendarItemGetDescription(a2);
-  if (v6 && [*(a1 + 40) isEqualToString:v6])
+  v7 = v6;
+  if (v6)
   {
-    *(*(*(a1 + 32) + 8) + 24) = CFRetain(a2);
-    *a3 = 1;
+    v9 = v6;
+    v6 = [*(a1 + 40) isEqualToString:v6];
+    v7 = v9;
+    if (v6)
+    {
+      v6 = CFRetain(a2);
+      v7 = v9;
+      *(*(*(a1 + 32) + 8) + 24) = v6;
+      *a3 = 1;
+    }
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v6, v7);
 }
 
 @end

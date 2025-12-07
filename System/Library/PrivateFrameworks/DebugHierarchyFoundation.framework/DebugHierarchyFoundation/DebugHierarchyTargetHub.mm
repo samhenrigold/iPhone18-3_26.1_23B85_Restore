@@ -11,7 +11,9 @@
 - (void)clearAllRequestsAndData;
 - (void)handleXPCEvent:(id)event;
 - (void)openXPCConnection;
+- (void)performRequestAndWriteResponseToFileDescriptorWithRequestInBase64:(id)base64 fileDescriptor:(int)descriptor;
 - (void)registerForDarwinNotifications;
+- (void)setCurrentRequest:(id)request responseFileDescriptor:(int)descriptor reply:(id)reply;
 @end
 
 @implementation DebugHierarchyTargetHub
@@ -77,7 +79,7 @@ uint64_t __36__DebugHierarchyTargetHub_sharedHub__block_invoke(uint64_t a1)
   additionalKnownObjects = self->_additionalKnownObjects;
   self->_additionalKnownObjects = 0;
 
-  DBGClearCachedFormatSpecifiers();
+  DBGClearCachedFormatSpecifiers(v7);
 }
 
 - (NSMapTable)knownObjectsMap
@@ -164,66 +166,67 @@ uint64_t __36__DebugHierarchyTargetHub_sharedHub__block_invoke(uint64_t a1)
 - (id)performRequest:(id)request error:(id *)error
 {
   requestCopy = request;
+  v5 = requestCopy;
   if (requestCopy)
   {
-    v5 = DebugHierarchyRequestsOSLog_0();
-    v6 = os_signpost_id_make_with_pointer(v5, requestCopy);
-    v7 = v5;
-    v8 = v7;
-    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+    v6 = DebugHierarchyRequestsOSLog_0(requestCopy);
+    v7 = os_signpost_id_make_with_pointer(v6, v5);
+    v8 = v6;
+    v9 = v8;
+    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
     {
-      name = [requestCopy name];
+      name = [v5 name];
       LODWORD(buf) = 138543362;
       *(&buf + 4) = name;
-      _os_signpost_emit_with_name_impl(&dword_0, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "Perform Request", "(%{public}@)", &buf, 0xCu);
+      _os_signpost_emit_with_name_impl(&dword_0, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "Perform Request", "(%{public}@)", &buf, 0xCu);
     }
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy_;
-    v30 = __Block_byref_object_dispose_;
-    v31 = 0;
-    v19 = _NSConcreteStackBlock;
-    v20 = 3221225472;
-    v21 = __48__DebugHierarchyTargetHub_performRequest_error___block_invoke;
-    v22 = &unk_24440;
-    v10 = requestCopy;
-    v23 = v10;
+    v30 = 0x3032000000;
+    v31 = __Block_byref_object_copy_;
+    v32 = __Block_byref_object_dispose_;
+    v33 = 0;
+    v21 = _NSConcreteStackBlock;
+    v22 = 3221225472;
+    v23 = __48__DebugHierarchyTargetHub_performRequest_error___block_invoke;
+    v24 = &unk_24440;
+    v11 = v5;
+    v25 = v11;
     p_buf = &buf;
-    v11 = objc_retainBlock(&v19);
-    if ([NSThread isMainThread:v19])
+    v12 = objc_retainBlock(&v21);
+    if ([NSThread isMainThread:v21])
     {
-      (v11[2])(v11);
+      v13 = (v12[2])(v12);
     }
 
     else
     {
-      dispatch_sync(&_dispatch_main_q, v11);
+      dispatch_sync(&_dispatch_main_q, v12);
     }
 
-    v13 = DebugHierarchyRequestsOSLog_0();
-    v14 = os_signpost_id_make_with_pointer(v13, v10);
-    v15 = v13;
-    v16 = v15;
-    if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+    v15 = DebugHierarchyRequestsOSLog_0(v13);
+    v16 = os_signpost_id_make_with_pointer(v15, v11);
+    v17 = v15;
+    v18 = v17;
+    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
     {
-      v17 = [*(*(&buf + 1) + 40) length];
-      *v25 = 134217984;
-      v26 = v17;
-      _os_signpost_emit_with_name_impl(&dword_0, v16, OS_SIGNPOST_INTERVAL_END, v14, "Perform Request", "Completed with size: %{xcode:size-in-bytes}lu", v25, 0xCu);
+      v19 = [*(*(&buf + 1) + 40) length];
+      *v27 = 134217984;
+      v28 = v19;
+      _os_signpost_emit_with_name_impl(&dword_0, v18, OS_SIGNPOST_INTERVAL_END, v16, "Perform Request", "Completed with size: %{xcode:size-in-bytes}lu", v27, 0xCu);
     }
 
-    v12 = *(*(&buf + 1) + 40);
+    v14 = *(*(&buf + 1) + 40);
     _Block_object_dispose(&buf, 8);
   }
 
   else
   {
-    v12 = 0;
+    v14 = 0;
   }
 
-  return v12;
+  return v14;
 }
 
 void __48__DebugHierarchyTargetHub_performRequest_error___block_invoke(uint64_t a1)
@@ -244,6 +247,21 @@ void __48__DebugHierarchyTargetHub_performRequest_error___block_invoke(uint64_t 
   self->_response = v4;
 
   return 1;
+}
+
+- (void)performRequestAndWriteResponseToFileDescriptorWithRequestInBase64:(id)base64 fileDescriptor:(int)descriptor
+{
+  v4 = *&descriptor;
+  base64Copy = base64;
+  v7 = [(DebugHierarchyTargetHub *)self performRequestWithRequestInBase64:base64Copy];
+  v8 = [[NSFileHandle alloc] initWithFileDescriptor:v4 closeOnDealloc:1];
+  v11 = 0;
+  v9 = [v8 writeData:v7 error:&v11];
+  v10 = v11;
+  if ((v9 & 1) == 0 && v10)
+  {
+    [DebugHierarchyTargetHub performRequestAndWriteResponseToFileDescriptorWithRequestInBase64:fileDescriptor:];
+  }
 }
 
 - (void)registerForDarwinNotifications
@@ -345,6 +363,15 @@ void __44__DebugHierarchyTargetHub_openXPCConnection__block_invoke_2(uint64_t a1
   {
     [(DebugHierarchyTargetHub *)self setCurrentRequest:0 responseFileDescriptor:0xFFFFFFFFLL reply:0];
   }
+}
+
+- (void)setCurrentRequest:(id)request responseFileDescriptor:(int)descriptor reply:(id)reply
+{
+  v5 = *&descriptor;
+  replyCopy = reply;
+  [(DebugHierarchyTargetHub *)self setCurrentRequestInBase64:request];
+  [(DebugHierarchyTargetHub *)self setCurrentResponseFileDescriptor:v5];
+  [(DebugHierarchyTargetHub *)self setCurrentReply:replyCopy];
 }
 
 + (id)performDebugRequest:(int64_t)request

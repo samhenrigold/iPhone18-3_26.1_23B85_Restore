@@ -47,7 +47,7 @@
   [(UIScrollView *)self->_containerView setContentOffset:0.0, -24.0];
   [(UIScrollView *)self->_containerView addSubview:self->_regulatoryImageView];
   v21 = self->_containerView;
-  [(UIScrollView *)v21 frame];
+  objc_msgSend_frame(v21);
   v23 = v22;
   [v24 size];
   [(UIScrollView *)v21 setContentSize:v23];

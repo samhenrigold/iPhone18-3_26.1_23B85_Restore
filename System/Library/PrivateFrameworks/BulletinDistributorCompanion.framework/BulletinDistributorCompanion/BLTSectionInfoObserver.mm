@@ -213,8 +213,7 @@ void __81__BLTSectionInfoObserver__getUniversalSectionIDs_sectionIDEnumerator_co
   {
     v15 = [dsCopy mutableCopy];
     [v15 minusSet:v12];
-    [v13 minusSet:v15];
-    v16 = blt_settings_log();
+    v16 = blt_settings_log([v13 minusSet:v15]);
     if (os_log_type_enabled(v16, 0x90u))
     {
       [BLTSectionInfoObserver updateSectionInfoBySectionIDs:v15 completion:v16];
@@ -261,7 +260,7 @@ void __67__BLTSectionInfoObserver_updateSectionInfoBySectionIDs_completion___blo
 
 void __60__BLTSectionInfoObserver__reloadSectionInfosWithCompletion___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 40) copy];
   v3 = *(a1 + 32);
   v4 = *(v3 + 24);
@@ -274,7 +273,7 @@ void __60__BLTSectionInfoObserver__reloadSectionInfosWithCompletion___block_invo
   }
 
   v6 = [v5 allSectionIDs];
-  v7 = blt_settings_log();
+  v7 = blt_settings_log(v6);
   v8 = v7;
   if (v6)
   {
@@ -282,29 +281,27 @@ void __60__BLTSectionInfoObserver__reloadSectionInfosWithCompletion___block_invo
     {
       v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v6, "count")}];
       *buf = 138412290;
-      v17 = v9;
+      v16 = v9;
       _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_DEFAULT, "Reloaded %@ section IDs", buf, 0xCu);
     }
 
     v10 = [MEMORY[0x277CBEB18] array];
     v11 = *(a1 + 32);
     v12 = [v6 objectEnumerator];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __60__BLTSectionInfoObserver__reloadSectionInfosWithCompletion___block_invoke_22;
-    v14[3] = &unk_278D31400;
-    v14[4] = *(a1 + 32);
-    v15 = v10;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __60__BLTSectionInfoObserver__reloadSectionInfosWithCompletion___block_invoke_22;
+    v13[3] = &unk_278D31400;
+    v13[4] = *(a1 + 32);
+    v14 = v10;
     v8 = v10;
-    [v11 _getUniversalSectionIDs:v8 sectionIDEnumerator:v12 completion:v14];
+    [v11 _getUniversalSectionIDs:v8 sectionIDEnumerator:v12 completion:v13];
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     __60__BLTSectionInfoObserver__reloadSectionInfosWithCompletion___block_invoke_cold_1(v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __60__BLTSectionInfoObserver__reloadSectionInfosWithCompletion___block_invoke_22(uint64_t a1)
@@ -332,7 +329,7 @@ void __60__BLTSectionInfoObserver__reloadSectionInfosWithCompletion___block_invo
 
   v9 = v8;
   sectionID = [infoCopy sectionID];
-  v11 = blt_settings_log();
+  v11 = blt_settings_log(sectionID);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -353,20 +350,18 @@ void __60__BLTSectionInfoObserver__reloadSectionInfosWithCompletion___block_invo
     v18 = sectionID2;
     selfCopy = self;
     v20 = v9;
-    v15 = sectionID2;
-    [(BBObserver *)observer getUniversalSectionIDForSectionID:v15 withCompletion:v17];
+    v16 = sectionID2;
+    [(BBObserver *)observer getUniversalSectionIDForSectionID:v16 withCompletion:v17];
   }
 
   else
   {
-    v15 = blt_settings_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = blt_settings_log(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [BLTSectionInfoObserver observer:sectionID updateSectionInfo:v15];
+      [BLTSectionInfoObserver observer:sectionID updateSectionInfo:v16];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __53__BLTSectionInfoObserver_observer_updateSectionInfo___block_invoke(void *a1, void *a2)
@@ -377,34 +372,32 @@ void __53__BLTSectionInfoObserver_observer_updateSectionInfo___block_invoke(void
   [(BLTSectionInfoSectionIDs *)v4 setSectionID:a1[4]];
   [(BLTSectionInfoSectionIDs *)v4 setUniversalSectionID:v3];
 
-  v5 = blt_settings_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = blt_settings_log(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = a1[4];
+    v7 = a1[4];
     *buf = 138412290;
-    v13 = v6;
-    _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_DEFAULT, "Loaded actual section info for %@", buf, 0xCu);
+    v13 = v7;
+    _os_log_impl(&dword_241FB3000, v6, OS_LOG_TYPE_DEFAULT, "Loaded actual section info for %@", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1[5] + 40));
-  v8 = a1[5];
+  v9 = a1[5];
   v11 = v4;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
-  [WeakRetained sectionInfoObserver:v8 updatedSectionInfoForSectionIDs:v9 transaction:a1[6]];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+  [WeakRetained sectionInfoObserver:v9 updatedSectionInfoForSectionIDs:v10 transaction:a1[6]];
 }
 
 - (void)observer:(id)observer removeSection:(id)section
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
   v6 = [BLTTransaction transactionWithDescription:@"BLTSectionInfoObserver observer:updateSectionInfo:"];
-  v7 = blt_settings_log();
+  v7 = blt_settings_log(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = sectionCopy;
+    v15 = sectionCopy;
     _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "Received removeSection from BB for %@", buf, 0xCu);
   }
 
@@ -414,17 +407,15 @@ void __53__BLTSectionInfoObserver_observer_updateSectionInfo___block_invoke(void
   if (v9)
   {
     observer = self->_observer;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __49__BLTSectionInfoObserver_observer_removeSection___block_invoke;
-    v12[3] = &unk_278D32018;
-    v12[4] = self;
-    v13 = sectionCopy;
-    v14 = v6;
-    [(BBObserver *)observer getUniversalSectionIDForSectionID:v13 withCompletion:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __49__BLTSectionInfoObserver_observer_removeSection___block_invoke;
+    v11[3] = &unk_278D32018;
+    v11[4] = self;
+    v12 = sectionCopy;
+    v13 = v6;
+    [(BBObserver *)observer getUniversalSectionIDForSectionID:v12 withCompletion:v11];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __49__BLTSectionInfoObserver_observer_removeSection___block_invoke(void *a1)
@@ -442,20 +433,18 @@ void __49__BLTSectionInfoObserver_observer_removeSection___block_invoke(void *a1
 
 - (void)updateSectionInfoBySectionIDs:(uint64_t)a1 completion:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241FB3000, a2, 0x90u, "Asked to update section IDs that BulletinBoard does not know: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241FB3000, a2, 0x90u, "Asked to update section IDs that BulletinBoard does not know: %@", &v2, 0xCu);
 }
 
 - (void)observer:(uint64_t)a1 updateSectionInfo:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Retrieved nil sectionInfo from BB updated section info: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Retrieved nil sectionInfo from BB updated section info: %@", &v2, 0xCu);
 }
 
 @end

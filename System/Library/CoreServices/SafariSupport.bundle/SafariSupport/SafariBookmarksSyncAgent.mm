@@ -39,67 +39,68 @@
 - (void)updatePushTopicSubscriptions
 {
   isSyncEnabled = [(SafariSyncController *)self isSyncEnabled];
-  v4 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v4 = isSyncEnabled;
+  v6 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(isSyncEnabled, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v15[0] = 67109120;
-    v15[1] = isSyncEnabled;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Updating push topic subscriptions with sync enabled = %d", v15, 8u);
+    v18[0] = 67109120;
+    v18[1] = v4;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Updating push topic subscriptions with sync enabled = %d", v18, 8u);
   }
 
   _pushTopics = [(SafariBookmarksSyncAgent *)self _pushTopics];
-  if (isSyncEnabled)
+  if (v4)
   {
-    v6 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v6 = _pushTopics;
+    v9 = _pushTopics;
   }
 
-  if (isSyncEnabled)
+  if (v4)
   {
-    v7 = _pushTopics;
+    v10 = _pushTopics;
   }
 
   else
   {
-    v7 = 0;
+    v10 = 0;
   }
 
   usesOpportunisticPushTopic = self->_usesOpportunisticPushTopic;
-  v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
+  v12 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(_pushTopics, v8);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
   if (usesOpportunisticPushTopic)
   {
-    if (v10)
+    if (v13)
     {
-      LOWORD(v15[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Using opportunistic push topic", v15, 2u);
+      LOWORD(v18[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Using opportunistic push topic", v18, 2u);
     }
 
     pushConnection = self->_pushConnection;
-    v12 = 0;
-    v13 = v6;
-    v14 = v7;
+    v15 = 0;
+    v16 = v9;
+    v17 = v10;
   }
 
   else
   {
-    if (v10)
+    if (v13)
     {
-      LOWORD(v15[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Using normal push topic", v15, 2u);
+      LOWORD(v18[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Using normal push topic", v18, 2u);
     }
 
     pushConnection = self->_pushConnection;
-    v12 = v7;
-    v13 = v6;
-    v14 = 0;
+    v15 = v10;
+    v16 = v9;
+    v17 = 0;
   }
 
-  [(APSConnection *)pushConnection setEnabledTopics:v12 ignoredTopics:v13 opportunisticTopics:v14];
+  [(APSConnection *)pushConnection setEnabledTopics:v15 ignoredTopics:v16 opportunisticTopics:v17];
 }
 
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message
@@ -115,7 +116,7 @@
 {
   if (!self->_pushConnection)
   {
-    v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
+    v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *v7 = 0;

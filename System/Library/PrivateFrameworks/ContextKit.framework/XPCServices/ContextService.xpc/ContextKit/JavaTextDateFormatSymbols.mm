@@ -10,6 +10,7 @@
 - (id)getMonths;
 - (id)getShortMonths;
 - (id)getShortWeekdays;
+- (id)getTimeZoneDisplayNameWithJavaUtilTimeZone:(id)zone withBoolean:(BOOL)boolean withInt:(int)int;
 - (id)getWeekdays;
 - (id)getZoneStrings;
 - (id)internalZoneStrings;
@@ -66,9 +67,9 @@
   }
 
   [stream defaultReadObject];
-  v4 = LibcoreIcuLocaleData_getWithJavaUtilLocale_(self->locale_);
+  v5 = LibcoreIcuLocaleData_getWithJavaUtilLocale_(self->locale_, v4);
 
-  JreStrongAssign(&self->localeData_, v4);
+  JreStrongAssign(&self->localeData_, v5);
 }
 
 - (void)writeObjectWithJavaIoObjectOutputStream:(id)stream
@@ -94,63 +95,66 @@
   if (self == equal)
   {
     LOBYTE(v6) = 1;
-    return v6;
   }
 
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  else
   {
-    LOBYTE(v6) = 0;
-    return v6;
-  }
-
-  objc_opt_class();
-  if (!equal)
-  {
-    localPatternChars = self->localPatternChars_;
-    goto LABEL_21;
-  }
-
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    JreThrowClassCastException();
-  }
-
-  v5 = self->localPatternChars_;
-  if (!v5)
-  {
-LABEL_21:
-    JreThrowNullPointerException();
-  }
-
-  v6 = [(NSString *)v5 isEqual:*(equal + 11)];
-  if (v6)
-  {
-    v6 = JavaUtilArrays_equalsWithNSObjectArray_withNSObjectArray_(self->ampms_, *(equal + 1));
-    if (v6)
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
     {
-      v6 = JavaUtilArrays_equalsWithNSObjectArray_withNSObjectArray_(self->eras_, *(equal + 2));
+      objc_opt_class();
+      if (!equal)
+      {
+        goto LABEL_20;
+      }
+
+      if ((objc_opt_isKindOfClass() & 1) == 0)
+      {
+        JreThrowClassCastException();
+      }
+
+      localPatternChars = self->localPatternChars_;
+      if (!localPatternChars)
+      {
+LABEL_20:
+        JreThrowNullPointerException();
+      }
+
+      v6 = [(NSString *)localPatternChars isEqual:*(equal + 11)];
       if (v6)
       {
-        v6 = JavaUtilArrays_equalsWithNSObjectArray_withNSObjectArray_(self->months_, *(equal + 3));
+        v6 = JavaUtilArrays_equalsWithNSObjectArray_withNSObjectArray_(self->ampms_, *(equal + 1));
         if (v6)
         {
-          v6 = JavaUtilArrays_equalsWithNSObjectArray_withNSObjectArray_(self->shortMonths_, *(equal + 4));
+          v6 = JavaUtilArrays_equalsWithNSObjectArray_withNSObjectArray_(self->eras_, *(equal + 2));
           if (v6)
           {
-            v6 = JavaUtilArrays_equalsWithNSObjectArray_withNSObjectArray_(self->shortWeekdays_, *(equal + 5));
+            v6 = JavaUtilArrays_equalsWithNSObjectArray_withNSObjectArray_(self->months_, *(equal + 3));
             if (v6)
             {
-              v6 = JavaUtilArrays_equalsWithNSObjectArray_withNSObjectArray_(self->weekdays_, *(equal + 6));
+              v6 = JavaUtilArrays_equalsWithNSObjectArray_withNSObjectArray_(self->shortMonths_, *(equal + 4));
               if (v6)
               {
+                v6 = JavaUtilArrays_equalsWithNSObjectArray_withNSObjectArray_(self->shortWeekdays_, *(equal + 5));
+                if (v6)
+                {
+                  v6 = JavaUtilArrays_equalsWithNSObjectArray_withNSObjectArray_(self->weekdays_, *(equal + 6));
+                  if (v6)
+                  {
 
-                LOBYTE(v6) = sub_100291690(self, equal);
+                    LOBYTE(v6) = sub_100291690(self, equal);
+                  }
+                }
               }
             }
           }
         }
       }
+    }
+
+    else
+    {
+      LOBYTE(v6) = 0;
     }
   }
 
@@ -161,9 +165,7 @@ LABEL_21:
 {
   v3 = [-[JavaTextDateFormatSymbols getClass](self "getClass")];
   JavaUtilArrays_toStringWithNSObjectArray_(self->ampms_);
-  customZoneStrings = self->customZoneStrings_;
   JavaUtilArrays_toStringWithNSObjectArray_(self->eras_);
-  localPatternChars = self->localPatternChars_;
   JavaUtilArrays_toStringWithNSObjectArray_(self->months_);
   JavaUtilArrays_toStringWithNSObjectArray_(self->shortMonths_);
   JavaUtilArrays_toStringWithNSObjectArray_(self->shortWeekdays_);
@@ -174,15 +176,15 @@ LABEL_21:
     JreThrowNullPointerException();
   }
 
-  v7 = internalZoneStrings;
-  v8 = internalZoneStrings[2];
-  if (v8 <= 0)
+  v5 = internalZoneStrings;
+  v6 = internalZoneStrings[2];
+  if (v6 <= 0)
   {
-    IOSArray_throwOutOfBoundsWithMsg(v8, 0);
+    IOSArray_throwOutOfBoundsWithMsg(v6, 0);
   }
 
-  JavaUtilArrays_toStringWithNSObjectArray_(*(v7 + 3));
-  return JreStrcat("$$$$Z$$$$$$$$$$$$$$$", v9, v10, v11, v12, v13, v14, v15, v3);
+  JavaUtilArrays_toStringWithNSObjectArray_(*(v5 + 3));
+  return JreStrcat("$$$$Z$$$$$$$$$$$$$$$", v7, v8, v9, v10, v11, v12, v13, v3);
 }
 
 - (id)getAmPmStrings
@@ -633,6 +635,28 @@ LABEL_10:
   v6 = sub_100291BB4(array2);
   JreStrongAssign(&self->zoneStrings_, v6);
   self->customZoneStrings_ = 1;
+}
+
+- (id)getTimeZoneDisplayNameWithJavaUtilTimeZone:(id)zone withBoolean:(BOOL)boolean withInt:(int)int
+{
+  if (int >= 2)
+  {
+    v15 = JreStrcat("$I", a2, zone, boolean, *&int, v5, v6, v7, @"Bad style: ");
+    v16 = new_JavaLangIllegalArgumentException_initWithNSString_(v15);
+    objc_exception_throw(v16);
+  }
+
+  booleanCopy = boolean;
+  internalZoneStrings = [(JavaTextDateFormatSymbols *)self internalZoneStrings];
+  if (!zone)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v12 = internalZoneStrings;
+  getID = [zone getID];
+
+  return LibcoreIcuTimeZoneNames_getDisplayNameWithNSStringArray2_withNSString_withBoolean_withInt_(v12, getID, booleanCopy, int);
 }
 
 - (void)dealloc

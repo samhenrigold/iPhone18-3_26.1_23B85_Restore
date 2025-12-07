@@ -27,21 +27,22 @@
 
 - (void)dealloc
 {
-  if (![(SBSHomeScreenServiceIconBadgeValueObservationAssertion *)self isInvalidated])
+  isInvalidated = [(SBSHomeScreenServiceIconBadgeValueObservationAssertion *)self isInvalidated];
+  if ((isInvalidated & 1) == 0)
   {
-    v3 = SBLogCommon();
-    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
+    v4 = SBLogCommon(isInvalidated);
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
 
-    if (v4)
+    if (v5)
     {
       NSLog(&cfstr_ShouldBeInvali.isa);
     }
   }
 
   [(SBSHomeScreenServiceIconBadgeValueObservationAssertion *)self invalidate];
-  v5.receiver = self;
-  v5.super_class = SBSHomeScreenServiceIconBadgeValueObservationAssertion;
-  [(SBSHomeScreenServiceIconBadgeValueObservationAssertion *)&v5 dealloc];
+  v6.receiver = self;
+  v6.super_class = SBSHomeScreenServiceIconBadgeValueObservationAssertion;
+  [(SBSHomeScreenServiceIconBadgeValueObservationAssertion *)&v6 dealloc];
 }
 
 - (void)invalidate

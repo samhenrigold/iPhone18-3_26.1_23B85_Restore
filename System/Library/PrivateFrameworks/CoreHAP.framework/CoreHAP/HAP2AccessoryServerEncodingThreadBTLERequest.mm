@@ -1,6 +1,7 @@
 @interface HAP2AccessoryServerEncodingThreadBTLERequest
 + (id)attributeDatabaseRequest;
 + (id)executeWriteRequestForCharacteristic:(id)characteristic value:(id)value options:(int64_t)options error:(id *)error;
++ (id)notificationRequestForCharacteristic:(id)characteristic threadRequestType:(unsigned __int8)type enforcePDUBodyLength:(BOOL)length;
 + (id)prepareWriteRequestForCharacteristic:(id)characteristic value:(id)value authorizationData:(id)data contextData:(id)contextData options:(int64_t)options error:(id *)error;
 + (id)readRequestForCharacteristic:(id)characteristic;
 + (id)writeRequestForCharacteristic:(id)characteristic value:(id)value authorizationData:(id)data contextData:(id)contextData options:(int64_t)options error:(id *)error;
@@ -148,6 +149,17 @@
   v2->_threadRequestType = 9;
 
   return v2;
+}
+
++ (id)notificationRequestForCharacteristic:(id)characteristic threadRequestType:(unsigned __int8)type enforcePDUBodyLength:(BOOL)length
+{
+  typeCopy = type;
+  characteristicCopy = characteristic;
+  v7 = [(HAPBTLERequest *)[HAP2AccessoryServerEncodingThreadBTLERequest alloc] initWithCharacteristic:characteristicCopy requestType:typeCopy bodyData:0 shouldEncrypt:1 timeoutInterval:900.0];
+
+  v7->_threadRequestType = typeCopy;
+
+  return v7;
 }
 
 + (id)readRequestForCharacteristic:(id)characteristic

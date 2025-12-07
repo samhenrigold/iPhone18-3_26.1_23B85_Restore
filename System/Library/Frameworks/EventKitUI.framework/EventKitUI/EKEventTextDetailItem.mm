@@ -122,36 +122,36 @@
 
 + (id)titleForExtendedViewController
 {
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0();
+  v2 = OUTLINED_FUNCTION_1(self);
+  OUTLINED_FUNCTION_0(v2);
   return 0;
 }
 
 + (id)titleForCell
 {
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0();
+  v2 = OUTLINED_FUNCTION_1(self);
+  OUTLINED_FUNCTION_0(v2);
   return 0;
 }
 
 + (id)textFromEventBlock
 {
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0();
+  v2 = OUTLINED_FUNCTION_1(self);
+  OUTLINED_FUNCTION_0(v2);
   return 0;
 }
 
 - (id)textForExtendedViewController
 {
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0();
+  v2 = OUTLINED_FUNCTION_1(self);
+  OUTLINED_FUNCTION_0(v2);
   return 0;
 }
 
 - (id)textForCopyAction
 {
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0();
+  v2 = OUTLINED_FUNCTION_1(self);
+  OUTLINED_FUNCTION_0(v2);
   return 0;
 }
 

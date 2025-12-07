@@ -1,3 +1,15 @@
+id PKExpirationDateFormatter()
+{
+  if (qword_1EB5B7CB0 != -1)
+  {
+    dispatch_once(&qword_1EB5B7CB0, &__block_literal_global_965);
+  }
+
+  v1 = qword_1EB5B7CA8;
+
+  return v1;
+}
+
 void __PKExpirationDateFormatter_block_invoke()
 {
   v0 = objc_alloc_init(MEMORY[0x1E696AB78]);
@@ -368,7 +380,7 @@ BOOL PKIsCouponCodeError(void *a1)
 {
   v1 = a1;
   v2 = [v1 domain];
-  if ([v2 isEqualToString:@"PKPaymentErrorDomain"])
+  if (objc_msgSend_isEqualToString_(v2))
   {
     v3 = [v1 code] == 4 || objc_msgSend(v1, "code") == 5;
   }
@@ -1077,7 +1089,7 @@ LABEL_14:
   }
 
   v7 = open([(NSURL *)v3 fileSystemRepresentation], 4);
-  if (v7 < 0)
+  if ((v7 & 0x80000000) != 0)
   {
     v9 = PKLogFacilityTypeGetObject(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -1140,13 +1152,14 @@ uint64_t PKUnarchiverZip(NSData *a1, NSURL *a2)
   return v9;
 }
 
-uint64_t PKUnarchiverZip(int a1, NSURL *a2, unint64_t a3)
+uint64_t PKUnarchiverZip(uint64_t a1, NSURL *a2, unint64_t a3)
 {
+  v4 = a1;
   v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   v7 = 0;
-  if (a1 < 0 || !v5)
+  if (v4 < 0 || !v5)
   {
     goto LABEL_14;
   }
@@ -1294,7 +1307,7 @@ LABEL_9:
   }
 
   v15 = [v8 domain];
-  if (![v15 isEqualToString:*MEMORY[0x1E696A250]])
+  if (!objc_msgSend_isEqualToString_(v15))
   {
 
 LABEL_14:
@@ -1639,7 +1652,7 @@ LABEL_26:
   return v19;
 }
 
-uint64_t PKUnarchiverZip(const void *a1, unint64_t a2, NSURL *a3, unint64_t a4)
+uint64_t PKUnarchiverZip(const void *a1, uint64_t a2, NSURL *a3, unint64_t a4)
 {
   v16 = *MEMORY[0x1E69E9840];
   v6 = a3;
@@ -1705,65 +1718,65 @@ LABEL_14:
   return v8;
 }
 
-void sub_1AD57D568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD57D568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD57D800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD57D800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD57DA60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1AD57DA60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD57DCE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AD57DCE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD57DEC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AD57DEC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD57E39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD57E39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD57E504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD57E504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD57E66C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD57E66C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD57ED70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD57ED70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1994,19 +2007,19 @@ uint64_t PKNumberingSystemForLocale(void *a1)
   v2 = v1;
   if (v1 != @"latn" && v1 != 0)
   {
-    v4 = [(__CFString *)v1 isEqualToString:@"latn"];
+    isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-    if ((v4 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v7 = v2;
-      if (v7 == @"arab" || (v8 = v7, v9 = [(__CFString *)v7 isEqualToString:@"arab"], v8, (v9 & 1) != 0))
+      if (v7 == @"arab" || (v8 = v7, v9 = objc_msgSend_isEqualToString_(v7), v8, (v9 & 1) != 0))
       {
         v5 = 1;
         goto LABEL_7;
       }
 
       v10 = v8;
-      if (v10 == @"deva" || (v11 = v10, v12 = [(__CFString *)v10 isEqualToString:@"deva"], v11, v12))
+      if (v10 == @"deva" || (v11 = v10, v12 = objc_msgSend_isEqualToString_(v10), v11, v12))
       {
         v5 = 2;
         goto LABEL_7;
@@ -2204,9 +2217,9 @@ LABEL_45:
 LABEL_48:
 }
 
-void sub_1AD57FFBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1AD57FFBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2780,40 +2793,51 @@ LABEL_36:
   return v25;
 }
 
-uint64_t PKCreateAndValidateTrustWithCertsUsingMarkerOIDs(void *a1, SecTrustRef *a2)
+uint64_t PKCreateAndValidateTrustWithCertsUsingMarkerOIDs(void *a1, SecTrustRef *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = a1;
+  v6 = a1;
   ApplePinned = SecPolicyCreateApplePinned();
   if (ApplePinned)
   {
-    v5 = ApplePinned;
-    v6 = PKCreateAndValidateTrustWithCertsUsingPolicy(v3, a2, ApplePinned, 0);
-    CFRelease(v5);
+    v8 = ApplePinned;
+    v9 = PKCreateAndValidateTrustWithCertsUsingPolicy(v6, a2, ApplePinned, 0);
+    CFRelease(v8);
   }
 
   else
   {
-    v6 = 0;
+    v9 = 0;
   }
 
-  return v6;
+  return v9;
 }
 
 uint64_t PKFeatureCreateAndValidateTrustWithCerts(void *a1, SecTrustRef *a2, uint64_t a3)
 {
   v5 = a1;
   v6 = v5;
-  if (a3 == 1 || a3 == 5 || a3 == 2)
+  if (a3 == 1)
   {
-    v7 = PKCreateAndValidateTrustWithCertsUsingMarkerOIDs(v5, a2);
+    v7 = @"SURF";
+    v8 = @"1.2.840.113635.100.6.45.3";
   }
 
   else
   {
-    v7 = 0;
+    if (a3 != 5 && a3 != 2)
+    {
+      v9 = 0;
+      goto LABEL_8;
+    }
+
+    v7 = @"CCS";
+    v8 = @"1.2.840.113635.100.6.62.2";
   }
 
-  return v7;
+  v9 = PKCreateAndValidateTrustWithCertsUsingMarkerOIDs(v5, a2, v7, @"1.2.840.113635.100.6.2.14", v8);
+LABEL_8:
+
+  return v9;
 }
 
 BOOL PKPaymentServiceConfigurationDataIsTrusted(void *a1, void *a2, int a3)
@@ -3194,9 +3218,9 @@ id PKCachedFileForSHA1(void *a1)
   return v2;
 }
 
-void sub_1AD581D58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD581D58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3224,9 +3248,9 @@ uint64_t PKCachedFileForSHA1Exists(void *a1)
   return v4;
 }
 
-void sub_1AD581E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD581E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4291,9 +4315,9 @@ LABEL_17:
   return v14;
 }
 
-void sub_1AD5846D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1AD5846D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4304,9 +4328,9 @@ void __PKAddMeContactForKey_block_invoke(uint64_t a1, void *a2, uint64_t a3, _BY
   v6 = a2;
   v7 = [v6 label];
   v8 = [*(a1 + 32) label];
-  v9 = [v7 isEqualToString:v8];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v9)
+  if (isEqualToString)
   {
     v10 = [*(a1 + 40) mutableCopy];
     v11 = *(*(a1 + 56) + 8);
@@ -4435,39 +4459,38 @@ LABEL_27:
 
 id PKHomeAddressFromContact(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v1 = [a1 postalAddresses];
-  v2 = [v1 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v13;
-    v5 = *MEMORY[0x1E695CB60];
+    v4 = *v12;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v13 != v4)
+        if (*v12 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
-        v8 = [v7 label];
-        v9 = [v8 isEqualToString:v5];
+        v6 = *(*(&v11 + 1) + 8 * i);
+        v7 = [v6 label];
+        isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-        if (v9)
+        if (isEqualToString)
         {
-          v10 = [v7 value];
+          v9 = [v6 value];
           goto LABEL_11;
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v3)
       {
         continue;
@@ -4477,10 +4500,10 @@ id PKHomeAddressFromContact(void *a1)
     }
   }
 
-  v10 = 0;
+  v9 = 0;
 LABEL_11:
 
-  return v10;
+  return v9;
 }
 
 id PKCorrectCountryCodeIfNecessaryForPostalAddress(void *a1)
@@ -4517,7 +4540,7 @@ uint64_t PKIsPod()
 void __PKIsPod_block_invoke()
 {
   v0 = PKDeviceClass();
-  byte_1ED6D11CA = [v0 isEqualToString:@"iPod"];
+  byte_1ED6D11CA = objc_msgSend_isEqualToString_(v0);
 }
 
 void PKOpenPassDetails(void *a1)
@@ -4842,7 +4865,7 @@ uint64_t PKIsChinaSKU()
 
   v1 = qword_1ED6D1268;
 
-  return [v1 isEqualToString:@"CH"];
+  return objc_msgSend_isEqualToString_(v1);
 }
 
 void __PKIsChinaSKU_block_invoke()
@@ -4987,17 +5010,17 @@ id PKCurrentUserUUID()
   return v2;
 }
 
-void *PKUsernameForUserUUID(void *a1)
+passwd *PKUsernameForUserUUID(passwd *a1)
 {
   v3 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     memset(v2, 0, sizeof(v2));
-    [a1 getUUIDBytes:v2];
+    [(passwd *)a1 getUUIDBytes:v2];
     a1 = getpwuuid(v2);
     if (a1)
     {
-      a1 = [MEMORY[0x1E696AEC0] stringWithCString:*a1 encoding:4];
+      a1 = [MEMORY[0x1E696AEC0] stringWithCString:a1->pw_name encoding:4];
     }
   }
 
@@ -5015,27 +5038,27 @@ uint64_t PKAltDSIDIsCurrentUser(void *a1)
     {
       if (v2 == v1)
       {
-        v4 = 1;
+        isEqualToString = 1;
       }
 
       else
       {
-        v4 = [v2 isEqualToString:v1];
+        isEqualToString = objc_msgSend_isEqualToString_(v2);
       }
     }
 
     else
     {
-      v4 = 0;
+      isEqualToString = 0;
     }
   }
 
   else
   {
-    v4 = 0;
+    isEqualToString = 0;
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 __CFString *PKCurrentUserAltDSID()
@@ -5060,17 +5083,17 @@ __CFString *PKCurrentUserAltDSID()
   return v0;
 }
 
-void *PKUserFullNameForUserUUID(void *a1)
+passwd *PKUserFullNameForUserUUID(passwd *a1)
 {
   v3 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     memset(v2, 0, sizeof(v2));
-    [a1 getUUIDBytes:v2];
+    [(passwd *)a1 getUUIDBytes:v2];
     a1 = getpwuuid(v2);
     if (a1)
     {
-      a1 = [MEMORY[0x1E696AEC0] stringWithCString:a1[5] encoding:4];
+      a1 = [MEMORY[0x1E696AEC0] stringWithCString:a1->pw_gecos encoding:4];
     }
   }
 
@@ -5114,7 +5137,7 @@ void __PKAdditionalSupportedNetworks_block_invoke()
   }
 }
 
-id PKAdditionalNetworkNameForIndex(uint64_t a1)
+id PKAdditionalNetworkNameForIndex(void *a1)
 {
   v17 = *MEMORY[0x1E69E9840];
   if (os_variant_has_internal_ui())
@@ -5199,7 +5222,7 @@ void __PKDeviceSupportedFeatureIdentifiers_block_invoke()
   qword_1ED6D1290 = v2;
 }
 
-uint64_t PKDeviceSupportsApplicationForFeatureIdentifier(uint64_t result)
+void *PKDeviceSupportsApplicationForFeatureIdentifier(void *result)
 {
   if (result)
   {
@@ -5313,62 +5336,62 @@ uint64_t PKMaxPaymentTransactionsForCredentialType(uint64_t a1)
 uint64_t PKPaymentMethodTypeForString(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"Credit"] & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", @"PrivateLabel"))
+  if (objc_msgSend_isEqualToString_(v1) & 1) != 0 || (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
 
-  else if ([v1 isEqualToString:@"Debit"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"PrePaid"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 3;
   }
 
-  else if ([v1 isEqualToString:@"Store"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 4;
   }
 
-  else if ([v1 isEqualToString:@"Transit"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1000;
   }
 
-  else if ([v1 isEqualToString:@"Access"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1001;
   }
 
-  else if ([v1 isEqualToString:@"eMoney"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 5;
   }
 
-  else if ([v1 isEqualToString:@"eWallet"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 100;
   }
 
-  else if ([v1 isEqualToString:@"ISO18013"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1002;
   }
 
-  else if ([v1 isEqualToString:@"UnifiedAccess"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1003;
   }
 
-  else if ([v1 isEqualToString:@"Aliro"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1004;
   }
 
-  else if ([v1 isEqualToString:@"Identity"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1005;
   }
@@ -5539,197 +5562,197 @@ LABEL_20:
 uint64_t PKPaymentCredentialTypeForPaymentNetworkName(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"AmEx"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"Bancomat"] & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", @"PagoBancomat"))
+  else if (objc_msgSend_isEqualToString_(v1) & 1) != 0 || (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 20;
   }
 
-  else if ([v1 isEqualToString:@"Bancontact"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 21;
   }
 
-  else if ([v1 isEqualToString:@"CarteBancaire"] & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", @"CarteBancaires") & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", @"CartesBancaires"))
+  else if (objc_msgSend_isEqualToString_(v1) & 1) != 0 || (objc_msgSend_isEqualToString_(v1) & 1) != 0 || (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 9;
   }
 
-  else if ([v1 isEqualToString:@"ChinaUnionPay"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 11;
   }
 
-  else if ([v1 isEqualToString:@"Dankort"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 10;
   }
 
-  else if ([v1 isEqualToString:@"Discover"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
 
-  else if ([v1 isEqualToString:@"Eftpos"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 12;
   }
 
-  else if ([v1 isEqualToString:@"Electron"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 16;
   }
 
-  else if ([v1 isEqualToString:@"Elo"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 112;
   }
 
-  else if ([v1 isEqualToString:@"Interac"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 13;
   }
 
-  else if ([v1 isEqualToString:@"mada"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 14;
   }
 
-  else if ([v1 isEqualToString:@"Maestro"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 15;
   }
 
-  else if ([v1 isEqualToString:@"MasterCard"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 3;
   }
 
-  else if ([v1 isEqualToString:@"PrivateLabel"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 100;
   }
 
-  else if ([v1 isEqualToString:@"Visa"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 4;
   }
 
-  else if ([v1 isEqualToString:@"VPay"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 17;
   }
 
-  else if ([v1 isEqualToString:@"JCB"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 6;
   }
 
-  else if ([v1 isEqualToString:@"QUICPay"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 105;
   }
 
-  else if ([v1 isEqualToString:@"iD"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 106;
   }
 
-  else if ([v1 isEqualToString:@"HID"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 107;
   }
 
-  else if ([v1 isEqualToString:@"SPTCC"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 109;
   }
 
-  else if ([v1 isEqualToString:@"BMAC"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 108;
   }
 
-  else if ([v1 isEqualToString:@"TMONEY"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 136;
   }
 
-  else if ([v1 isEqualToString:@"MOT"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 116;
   }
 
-  else if ([v1 isEqualToString:@"MOTPioneer"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 122;
   }
 
-  else if ([v1 isEqualToString:@"Barcode"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 123;
   }
 
-  else if ([v1 isEqualToString:@"girocard"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 18;
   }
 
-  else if ([v1 isEqualToString:@"Mir"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 19;
   }
 
-  else if ([v1 isEqualToString:@"WAON"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 127;
   }
 
-  else if ([v1 isEqualToString:@"nanaco"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 128;
   }
 
-  else if ([v1 isEqualToString:@"AppleBalance"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 135;
   }
 
-  else if ([v1 isEqualToString:@"PostFinanceAG"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 22;
   }
 
-  else if ([v1 isEqualToString:@"Meeza"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 25;
   }
 
-  else if ([v1 isEqualToString:@"NAPAS"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 26;
   }
 
-  else if ([v1 isEqualToString:@"BankAxept"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 24;
   }
 
-  else if ([v1 isEqualToString:@"Himyan"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 28;
   }
 
-  else if ([v1 isEqualToString:@"Jaywan"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 29;
   }
 
-  else if ([v1 isEqualToString:@"MyDebit"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 30;
   }
@@ -5744,91 +5767,91 @@ uint64_t PKPaymentCredentialTypeForPaymentNetworkName(void *a1)
   return v2;
 }
 
-__CFString *PKPaymentNetworkNameForPaymentCredentialType(uint64_t a1)
+__CFString *PKPaymentNetworkNameForPaymentCredentialType(void *a1)
 {
   switch(a1)
   {
-    case 1:
+    case 1uLL:
       v1 = &PKPaymentNetworkAmex;
       goto LABEL_48;
-    case 2:
+    case 2uLL:
       v1 = &PKPaymentNetworkDiscover;
       goto LABEL_48;
-    case 3:
+    case 3uLL:
       v1 = &PKPaymentNetworkMasterCard;
       goto LABEL_48;
-    case 4:
+    case 4uLL:
       v1 = &PKPaymentNetworkVisa;
       goto LABEL_48;
-    case 5:
-    case 7:
-    case 8:
-    case 23:
-    case 27:
+    case 5uLL:
+    case 7uLL:
+    case 8uLL:
+    case 0x17uLL:
+    case 0x1BuLL:
 LABEL_29:
       v2 = PKAdditionalNetworkNameForIndex(a1);
       goto LABEL_49;
-    case 6:
+    case 6uLL:
       v1 = &PKPaymentNetworkJCB;
       goto LABEL_48;
-    case 9:
+    case 9uLL:
       v1 = &PKPaymentNetworkCartesBancaires;
       goto LABEL_48;
-    case 10:
+    case 0xAuLL:
       v1 = &PKPaymentNetworkDankort;
       goto LABEL_48;
-    case 11:
+    case 0xBuLL:
       v1 = &PKPaymentNetworkChinaUnionPay;
       goto LABEL_48;
-    case 12:
+    case 0xCuLL:
       v1 = &PKPaymentNetworkEftpos;
       goto LABEL_48;
-    case 13:
+    case 0xDuLL:
       v1 = &PKPaymentNetworkInterac;
       goto LABEL_48;
-    case 14:
+    case 0xEuLL:
       v1 = &PKPaymentNetworkMada;
       goto LABEL_48;
-    case 15:
+    case 0xFuLL:
       v1 = &PKPaymentNetworkMaestro;
       goto LABEL_48;
-    case 16:
+    case 0x10uLL:
       v1 = &PKPaymentNetworkElectron;
       goto LABEL_48;
-    case 17:
+    case 0x11uLL:
       v1 = &PKPaymentNetworkVPay;
       goto LABEL_48;
-    case 18:
+    case 0x12uLL:
       v1 = &PKPaymentNetworkGirocard;
       goto LABEL_48;
-    case 19:
+    case 0x13uLL:
       v1 = &PKPaymentNetworkMir;
       goto LABEL_48;
-    case 20:
+    case 0x14uLL:
       v1 = &PKPaymentNetworkPagoBancomat;
       goto LABEL_48;
-    case 21:
+    case 0x15uLL:
       v1 = &PKPaymentNetworkBancontact;
       goto LABEL_48;
-    case 22:
+    case 0x16uLL:
       v1 = &PKPaymentNetworkPostFinance;
       goto LABEL_48;
-    case 24:
+    case 0x18uLL:
       v1 = PKPaymentNetworkBankAxept;
       goto LABEL_48;
-    case 25:
+    case 0x19uLL:
       v1 = PKPaymentNetworkMeeza;
       goto LABEL_48;
-    case 26:
+    case 0x1AuLL:
       v1 = PKPaymentNetworkNAPAS;
       goto LABEL_48;
-    case 28:
+    case 0x1CuLL:
       v1 = PKPaymentNetworkHimyan;
       goto LABEL_48;
-    case 29:
+    case 0x1DuLL:
       v1 = PKPaymentNetworkJaywan;
       goto LABEL_48;
-    case 30:
+    case 0x1EuLL:
       v1 = PKPaymentNetworkMyDebit;
 LABEL_48:
       v2 = *v1;
@@ -5838,61 +5861,61 @@ LABEL_49:
     default:
       switch(a1)
       {
-        case 100:
+        case 0x64uLL:
           v1 = &PKPaymentNetworkPrivateLabel;
           goto LABEL_48;
-        case 103:
+        case 0x67uLL:
           v1 = &PKPaymentNetworkSuica;
           goto LABEL_48;
-        case 105:
+        case 0x69uLL:
           v1 = &PKPaymentNetworkQuicPay;
           goto LABEL_48;
-        case 106:
+        case 0x6AuLL:
           v1 = &PKPaymentNetworkIDCredit;
           goto LABEL_48;
-        case 107:
+        case 0x6BuLL:
           v1 = PKPaymentNetworkHID;
           goto LABEL_48;
-        case 108:
+        case 0x6CuLL:
           v1 = PKPaymentNetworkBMAC;
           goto LABEL_48;
-        case 109:
+        case 0x6DuLL:
           v1 = PKPaymentNetworkSPTCC;
           goto LABEL_48;
-        case 112:
+        case 0x70uLL:
           v1 = &PKPaymentNetworkElo;
           goto LABEL_48;
-        case 113:
+        case 0x71uLL:
           v1 = PKPaymentNetworkCEMVMasterCard;
           goto LABEL_48;
-        case 114:
+        case 0x72uLL:
           v1 = PKPaymentNetworkCubicMiFareDESFire;
           goto LABEL_48;
-        case 115:
+        case 0x73uLL:
           v1 = PKPaymentNetworkCubicMiFarePlus;
           goto LABEL_48;
-        case 116:
+        case 0x74uLL:
           v1 = PKPaymentNetworkMOT;
           goto LABEL_48;
-        case 117:
+        case 0x75uLL:
           v1 = PKPaymentNetworkOctopus;
           goto LABEL_48;
-        case 122:
+        case 0x7AuLL:
           v1 = PKPaymentNetworkMOTPioneer;
           goto LABEL_48;
-        case 123:
+        case 0x7BuLL:
           v1 = &PKPaymentNetworkBarcode;
           goto LABEL_48;
-        case 127:
+        case 0x7FuLL:
           v1 = &PKPaymentNetworkWaon;
           goto LABEL_48;
-        case 128:
+        case 0x80uLL:
           v1 = &PKPaymentNetworkNanaco;
           goto LABEL_48;
-        case 131:
+        case 0x83uLL:
           v1 = PKPaymentNetworkNavigo;
           goto LABEL_48;
-        case 136:
+        case 0x88uLL:
           v1 = &PKPaymentNetworkTmoney;
           goto LABEL_48;
         default:
@@ -5901,226 +5924,226 @@ LABEL_49:
   }
 }
 
-id PKDisplayablePaymentNetworkNameForPaymentCredentialType(uint64_t a1)
+id PKDisplayablePaymentNetworkNameForPaymentCredentialType(void *a1)
 {
   v2 = 0;
   switch(a1)
   {
-    case 0:
-    case 108:
-    case 109:
-    case 110:
-    case 113:
-    case 114:
-    case 115:
-    case 116:
-    case 117:
-    case 122:
-    case 129:
-    case 130:
-    case 131:
-    case 133:
-    case 135:
-    case 136:
-    case 137:
-    case 138:
-    case 139:
-    case 140:
+    case 0uLL:
+    case 0x6CuLL:
+    case 0x6DuLL:
+    case 0x6EuLL:
+    case 0x71uLL:
+    case 0x72uLL:
+    case 0x73uLL:
+    case 0x74uLL:
+    case 0x75uLL:
+    case 0x7AuLL:
+    case 0x81uLL:
+    case 0x82uLL:
+    case 0x83uLL:
+    case 0x85uLL:
+    case 0x87uLL:
+    case 0x88uLL:
+    case 0x89uLL:
+    case 0x8AuLL:
+    case 0x8BuLL:
+    case 0x8CuLL:
       break;
-    case 1:
+    case 1uLL:
       v3 = @"NETWORK_NAME_AMEX";
       goto LABEL_41;
-    case 2:
+    case 2uLL:
       v3 = @"NETWORK_NAME_DISCOVER";
       goto LABEL_41;
-    case 3:
+    case 3uLL:
       v3 = @"NETWORK_NAME_MASTERCARD";
       goto LABEL_41;
-    case 4:
+    case 4uLL:
       v3 = @"NETWORK_NAME_VISA";
       goto LABEL_41;
-    case 5:
+    case 5uLL:
       v3 = @"NETWORK_NAME_BANKCARD";
       goto LABEL_41;
-    case 6:
+    case 6uLL:
       v3 = @"NETWORK_NAME_JCB";
       goto LABEL_41;
-    case 7:
+    case 7uLL:
       v3 = @"NETWORK_NAME_DINERSCLUB";
       goto LABEL_41;
-    case 8:
+    case 8uLL:
       v3 = @"NETWORK_NAME_CARTEBLEUE";
       goto LABEL_41;
-    case 9:
+    case 9uLL:
       v3 = @"NETWORK_NAME_CARTEBANCAIRES";
       goto LABEL_41;
-    case 10:
+    case 0xAuLL:
       v3 = @"NETWORK_NAME_DANKORT";
       goto LABEL_41;
-    case 11:
+    case 0xBuLL:
       v3 = @"NETWORK_NAME_CHINAUNIONPAY";
       goto LABEL_41;
-    case 12:
+    case 0xCuLL:
       v3 = @"NETWORK_NAME_EFTPOS";
       goto LABEL_41;
-    case 13:
+    case 0xDuLL:
       v3 = @"NETWORK_NAME_INTERAC";
       goto LABEL_41;
-    case 14:
+    case 0xEuLL:
       v3 = @"NETWORK_NAME_MADA";
       goto LABEL_41;
-    case 15:
+    case 0xFuLL:
       v3 = @"NETWORK_NAME_MAESTRO";
       goto LABEL_41;
-    case 16:
+    case 0x10uLL:
       v3 = @"NETWORK_NAME_ELECTRON";
       goto LABEL_41;
-    case 17:
+    case 0x11uLL:
       v3 = @"NETWORK_NAME_VPAY";
       goto LABEL_41;
-    case 18:
+    case 0x12uLL:
       v3 = @"NETWORK_NAME_GIROCARD";
       goto LABEL_41;
-    case 19:
+    case 0x13uLL:
       v3 = @"NETWORK_NAME_MIR";
       goto LABEL_41;
-    case 20:
+    case 0x14uLL:
       v3 = @"NETWORK_NAME_BANCOMAT";
       goto LABEL_41;
-    case 21:
+    case 0x15uLL:
       v3 = @"NETWORK_NAME_BANCONTACT";
       goto LABEL_41;
-    case 22:
+    case 0x16uLL:
       v3 = @"NETWORK_NAME_POSTFINANCE";
       goto LABEL_41;
-    case 23:
-    case 27:
-    case 31:
-    case 32:
-    case 33:
-    case 34:
-    case 35:
-    case 36:
-    case 37:
-    case 38:
-    case 39:
-    case 40:
-    case 41:
-    case 42:
-    case 43:
-    case 44:
-    case 45:
-    case 46:
-    case 47:
-    case 48:
-    case 49:
-    case 50:
-    case 51:
-    case 52:
-    case 53:
-    case 54:
-    case 55:
-    case 56:
-    case 57:
-    case 58:
-    case 59:
-    case 60:
-    case 61:
-    case 62:
-    case 63:
-    case 64:
-    case 65:
-    case 66:
-    case 67:
-    case 68:
-    case 69:
-    case 70:
-    case 71:
-    case 72:
-    case 73:
-    case 74:
-    case 75:
-    case 76:
-    case 77:
-    case 78:
-    case 79:
-    case 80:
-    case 81:
-    case 82:
-    case 83:
-    case 84:
-    case 85:
-    case 86:
-    case 87:
-    case 88:
-    case 89:
-    case 90:
-    case 91:
-    case 92:
-    case 93:
-    case 94:
-    case 95:
-    case 96:
-    case 97:
-    case 98:
-    case 99:
-    case 101:
-    case 102:
-    case 104:
-    case 111:
-    case 118:
-    case 119:
-    case 120:
-    case 121:
-    case 124:
-    case 125:
-    case 126:
-    case 132:
-    case 134:
+    case 0x17uLL:
+    case 0x1BuLL:
+    case 0x1FuLL:
+    case 0x20uLL:
+    case 0x21uLL:
+    case 0x22uLL:
+    case 0x23uLL:
+    case 0x24uLL:
+    case 0x25uLL:
+    case 0x26uLL:
+    case 0x27uLL:
+    case 0x28uLL:
+    case 0x29uLL:
+    case 0x2AuLL:
+    case 0x2BuLL:
+    case 0x2CuLL:
+    case 0x2DuLL:
+    case 0x2EuLL:
+    case 0x2FuLL:
+    case 0x30uLL:
+    case 0x31uLL:
+    case 0x32uLL:
+    case 0x33uLL:
+    case 0x34uLL:
+    case 0x35uLL:
+    case 0x36uLL:
+    case 0x37uLL:
+    case 0x38uLL:
+    case 0x39uLL:
+    case 0x3AuLL:
+    case 0x3BuLL:
+    case 0x3CuLL:
+    case 0x3DuLL:
+    case 0x3EuLL:
+    case 0x3FuLL:
+    case 0x40uLL:
+    case 0x41uLL:
+    case 0x42uLL:
+    case 0x43uLL:
+    case 0x44uLL:
+    case 0x45uLL:
+    case 0x46uLL:
+    case 0x47uLL:
+    case 0x48uLL:
+    case 0x49uLL:
+    case 0x4AuLL:
+    case 0x4BuLL:
+    case 0x4CuLL:
+    case 0x4DuLL:
+    case 0x4EuLL:
+    case 0x4FuLL:
+    case 0x50uLL:
+    case 0x51uLL:
+    case 0x52uLL:
+    case 0x53uLL:
+    case 0x54uLL:
+    case 0x55uLL:
+    case 0x56uLL:
+    case 0x57uLL:
+    case 0x58uLL:
+    case 0x59uLL:
+    case 0x5AuLL:
+    case 0x5BuLL:
+    case 0x5CuLL:
+    case 0x5DuLL:
+    case 0x5EuLL:
+    case 0x5FuLL:
+    case 0x60uLL:
+    case 0x61uLL:
+    case 0x62uLL:
+    case 0x63uLL:
+    case 0x65uLL:
+    case 0x66uLL:
+    case 0x68uLL:
+    case 0x6FuLL:
+    case 0x76uLL:
+    case 0x77uLL:
+    case 0x78uLL:
+    case 0x79uLL:
+    case 0x7CuLL:
+    case 0x7DuLL:
+    case 0x7EuLL:
+    case 0x84uLL:
+    case 0x86uLL:
       goto LABEL_4;
-    case 24:
+    case 0x18uLL:
       v3 = @"NETWORK_NAME_BANKAXEPT";
       goto LABEL_41;
-    case 25:
+    case 0x19uLL:
       v3 = @"NETWORK_NAME_MEEZA";
       goto LABEL_41;
-    case 26:
+    case 0x1AuLL:
       v3 = @"NETWORK_NAME_NAPAS";
       goto LABEL_41;
-    case 28:
+    case 0x1CuLL:
       v3 = @"NETWORK_NAME_HIMYAN";
       goto LABEL_41;
-    case 29:
+    case 0x1DuLL:
       v3 = @"NETWORK_NAME_JAYWAN";
       goto LABEL_41;
-    case 30:
+    case 0x1EuLL:
       v3 = @"NETWORK_NAME_MYDEBIT";
       goto LABEL_41;
-    case 100:
+    case 0x64uLL:
       v3 = @"NETWORK_NAME_PRIVATELABEL";
       goto LABEL_41;
-    case 103:
+    case 0x67uLL:
       v3 = @"NETWORK_NAME_SUICA";
       goto LABEL_41;
-    case 105:
+    case 0x69uLL:
       v3 = @"NETWORK_NAME_QUICPAY";
       goto LABEL_41;
-    case 106:
+    case 0x6AuLL:
       v3 = @"NETWORK_NAME_ID";
       goto LABEL_41;
-    case 107:
+    case 0x6BuLL:
       v3 = @"NETWORK_NAME_HID";
       goto LABEL_41;
-    case 112:
+    case 0x70uLL:
       v3 = @"NETWORK_NAME_ELO";
       goto LABEL_41;
-    case 123:
+    case 0x7BuLL:
       v2 = PKLocalizedAquamanString(&cfstr_NetworkNameBar.isa, 0);
       break;
-    case 127:
+    case 0x7FuLL:
       v3 = @"NETWORK_NAME_WAON";
       goto LABEL_41;
-    case 128:
+    case 0x80uLL:
       v3 = @"NETWORK_NAME_NANACO";
 LABEL_41:
       v2 = PKLocalizedPaymentString(&v3->isa, 0);
@@ -6534,7 +6557,7 @@ LABEL_14:
 __CFString *PKPaymentTransitAppletFormatForPaymentNetwork(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"Suica"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = PKPaymentAppletDataFormatSuica;
 LABEL_7:
@@ -6542,13 +6565,13 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if ([v1 isEqualToString:@"BMAC"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = PKTransitAppletDataFormatBMAC;
     goto LABEL_7;
   }
 
-  if ([v1 isEqualToString:@"SPTCC"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = PKTransitAppletDataFormatSPTCC;
     goto LABEL_7;
@@ -6563,7 +6586,7 @@ LABEL_8:
 __CFString *PKPaymentPaymentNetworkForTransitAppletFormat(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"transit.felica.suica"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = &PKPaymentNetworkSuica;
 LABEL_7:
@@ -6571,13 +6594,13 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if ([v1 isEqualToString:@"transit.apple.bmac"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = PKPaymentNetworkBMAC;
     goto LABEL_7;
   }
 
-  if ([v1 isEqualToString:@"transit.apple.sptcc"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = PKPaymentNetworkSPTCC;
     goto LABEL_7;
@@ -6659,7 +6682,7 @@ uint64_t PKNearFieldRadioIsAvailable()
   return byte_1ED6D11CC;
 }
 
-uint64_t __PKNearFieldRadioIsAvailable_block_invoke()
+id __PKNearFieldRadioIsAvailable_block_invoke()
 {
   result = MGGetBoolAnswer();
   if (result)
@@ -7006,7 +7029,7 @@ uint64_t PKDeviceHasInternalBatteryAndIsUnplugged()
   return result;
 }
 
-uint64_t PKWebServiceFeaturesCredential(void *a1, uint64_t a2)
+uint64_t PKWebServiceFeaturesCredential(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [v3 targetDevice];
@@ -7026,7 +7049,7 @@ uint64_t PKWebServiceFeaturesCredential(void *a1, uint64_t a2)
 uint64_t PKDeviceSupportsFelicaDebitWithWebService(void *a1)
 {
   v1 = a1;
-  v2 = PKWebServiceFeaturesCredential(v1, 103);
+  v2 = PKWebServiceFeaturesCredential(v1, 0x67);
   v3 = [v1 targetDevice];
   if (objc_opt_respondsToSelector())
   {
@@ -7060,7 +7083,7 @@ uint64_t PKDeviceSupportsTransitWithWebService(void *a1)
     v7 = [v6 paymentSetupBrowsableProductTypesForRegion:v4];
     if ([v7 containsObject:&unk_1F23B4A60])
     {
-      if ([v4 isEqualToString:@"CN"])
+      if (objc_msgSend_isEqualToString_(v4))
       {
         if (objc_opt_respondsToSelector())
         {
@@ -7080,9 +7103,9 @@ uint64_t PKDeviceSupportsTransitWithWebService(void *a1)
 
       else
       {
-        if ([v4 isEqualToString:@"JP"])
+        if (objc_msgSend_isEqualToString_(v4))
         {
-          v8 = PKWebServiceFeaturesCredential(v1, 103);
+          v8 = PKWebServiceFeaturesCredential(v1, 0x67);
           if (objc_opt_respondsToSelector())
           {
             v9 = [v3 felicaSecureElementIsAvailable];
@@ -7097,9 +7120,9 @@ uint64_t PKDeviceSupportsTransitWithWebService(void *a1)
           goto LABEL_28;
         }
 
-        if ([v4 isEqualToString:@"HK"])
+        if (objc_msgSend_isEqualToString_(v4))
         {
-          v10 = PKWebServiceFeaturesCredential(v1, 117);
+          v10 = PKWebServiceFeaturesCredential(v1, 0x75);
           if (objc_opt_respondsToSelector())
           {
             v11 = [v3 supportsCredentialType:117] ^ 1;
@@ -7404,9 +7427,9 @@ uint64_t PKHasPairedWatchSupportingFeatureIdentifier(void *a1)
     if ([v4 containsObject:v1])
     {
       v5 = PKFeatureIdentifierToString(2);
-      v6 = [(__CFString *)v1 isEqualToString:v5];
+      isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-      if (!v6)
+      if (!isEqualToString)
       {
         v10 = 1;
         goto LABEL_15;
@@ -7506,7 +7529,7 @@ id PKSerialNumberFromNRDevice(void *a1)
 {
   v8 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v2 = getNRDevicePropertySerialNumber[0]();
+  v2 = getNRDevicePropertySerialNumber();
   v3 = [v1 valueForProperty:v2];
 
   if (!v3)
@@ -7527,7 +7550,7 @@ double PKScreenScaleFromNRDevice(void *a1)
 {
   v10 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v2 = getNRDevicePropertyScreenScale[0]();
+  v2 = getNRDevicePropertyScreenScale();
   v3 = [v1 valueForProperty:v2];
 
   if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -7556,7 +7579,7 @@ id PKDeviceClassFromNRDevice(void *a1)
 {
   v8 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v2 = getNRDevicePropertyClass[0]();
+  v2 = getNRDevicePropertyClass();
   v3 = [v1 valueForProperty:v2];
 
   if (!v3)
@@ -7598,7 +7621,7 @@ id PKProductTypeFromNRDevice(void *a1)
 {
   v8 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v2 = getNRDevicePropertyProductType[0]();
+  v2 = getNRDevicePropertyProductType();
   v3 = [v1 valueForProperty:v2];
 
   if (!v3)
@@ -7937,9 +7960,9 @@ uint64_t __PKSortedPaymentApplicationsByAID_block_invoke(uint64_t a1, void *a2, 
     goto LABEL_15;
   }
 
-  v15 = [v12 isEqualToString:v13];
+  isEqualToString = objc_msgSend_isEqualToString_(v12);
 
-  if (v15)
+  if (isEqualToString)
   {
 LABEL_13:
     v18 = *(a1 + 40) == 0;
@@ -7973,7 +7996,7 @@ LABEL_22:
 
   if (v14 && v20)
   {
-    v23 = [v20 isEqualToString:v21];
+    v23 = objc_msgSend_isEqualToString_(v20);
 
     if (!v23)
     {
@@ -9068,7 +9091,7 @@ void __PKProcessHasNetworkPrivilegies_block_invoke()
 
     else
     {
-      v4 = [(__CFString *)v0 isEqualToString:v1]^ 1;
+      v4 = objc_msgSend_isEqualToString_(v0) ^ 1;
     }
   }
 
@@ -9090,17 +9113,17 @@ void __PKRunningInViewService_block_invoke()
   v0 = [MEMORY[0x1E696AAE8] mainBundle];
   v2 = [v0 bundleIdentifier];
 
-  if ([v2 isEqualToString:@"com.apple.PassbookUIService"] & 1) != 0 || (objc_msgSend(v2, "isEqualToString:", @"com.apple.CredentialSharingService"))
+  if (objc_msgSend_isEqualToString_(v2) & 1) != 0 || (objc_msgSend_isEqualToString_(v2))
   {
-    v1 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v1 = [v2 isEqualToString:@"com.apple.SubcredentialUIService"];
+    isEqualToString = objc_msgSend_isEqualToString_(v2);
   }
 
-  byte_1ED6D11DC = v1;
+  byte_1ED6D11DC = isEqualToString;
 }
 
 uint64_t PKRunningInLockScreenPlugin()
@@ -9117,7 +9140,7 @@ void __PKRunningInLockScreenPlugin_block_invoke()
 {
   v1 = [MEMORY[0x1E696AAE8] mainBundle];
   v0 = [v1 bundleIdentifier];
-  byte_1ED6D11DD = [v0 isEqualToString:@"com.apple.springboard"];
+  byte_1ED6D11DD = objc_msgSend_isEqualToString_(v0);
 }
 
 uint64_t PKRunningInPassKitThumbnailExtension()
@@ -9134,7 +9157,7 @@ void __PKRunningInPassKitThumbnailExtension_block_invoke()
 {
   v1 = [MEMORY[0x1E696AAE8] mainBundle];
   v0 = [v1 bundleIdentifier];
-  byte_1ED6D11DE = [v0 isEqualToString:@"com.apple.PassKit.PassKitThumbnailExtension"];
+  byte_1ED6D11DE = objc_msgSend_isEqualToString_(v0);
 }
 
 void PKRangeEnumeratePartitions(unint64_t a1, unint64_t a2, void *a3)

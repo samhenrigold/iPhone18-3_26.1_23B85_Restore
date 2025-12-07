@@ -1,5 +1,6 @@
 @interface BKSHIDEventGenericGestureDescriptor
 + (id)descriptorForAnyGenericGestureType;
++ (id)descriptorWithGenericGestureType:(unsigned int)type;
 - (BKSHIDEventGenericGestureDescriptor)init;
 - (BKSHIDEventGenericGestureDescriptor)initWithCoder:(id)coder;
 - (BKSHIDEventGenericGestureDescriptor)initWithGenericGestureType:(unsigned int)type;
@@ -13,14 +14,15 @@
 - (BKSHIDEventGenericGestureDescriptor)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  if ([coderCopy decodeBoolForKey:@"genericGestureIsWildcardType"])
+  if ([coderCopy decodeBoolForKey:?])
   {
     v5 = [(BKSHIDEventGenericGestureDescriptor *)self init];
   }
 
   else
   {
-    v5 = -[BKSHIDEventGenericGestureDescriptor initWithGenericGestureType:](self, "initWithGenericGestureType:", [coderCopy decodeIntegerForKey:@"genericGestureType"]);
+    [coderCopy decodeIntegerForKey:?];
+    v5 = [(BKSHIDEventGenericGestureDescriptor *)self initWithGenericGestureType:?];
   }
 
   v6 = v5;
@@ -32,12 +34,12 @@
 {
   if (*(&self->super._hidEventType + 4) == 1)
   {
-    [coder encodeBool:1 forKey:@"genericGestureIsWildcardType"];
+    [coder encodeBool:? forKey:?];
   }
 
   else
   {
-    [coder encodeInteger:*&self->_isWildcard forKey:@"genericGestureType"];
+    [coder encodeInteger:? forKey:?];
   }
 }
 
@@ -45,7 +47,15 @@
 {
   describesCopy = describes;
   v5 = describesCopy;
-  v6 = *(&self->super._hidEventType + 4) == 1 && [describesCopy hidEventType] == 39 || -[BKSHIDEventGenericGestureDescriptor isEqual:](self, "isEqual:", v5);
+  if (*(&self->super._hidEventType + 4) == 1 && [describesCopy hidEventType] == 39)
+  {
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = [(BKSHIDEventGenericGestureDescriptor *)self isEqual:?];
+  }
 
   return v6;
 }
@@ -94,6 +104,13 @@
   }
 
   return result;
+}
+
++ (id)descriptorWithGenericGestureType:(unsigned int)type
+{
+  v3 = [[BKSHIDEventGenericGestureDescriptor alloc] initWithGenericGestureType:?];
+
+  return v3;
 }
 
 + (id)descriptorForAnyGenericGestureType

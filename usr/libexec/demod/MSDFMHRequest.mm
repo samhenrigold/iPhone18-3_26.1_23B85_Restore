@@ -78,12 +78,12 @@
       [v3 setObject:language2 forKey:@"language"];
     }
 
-    v13 = sub_100063A54();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100063A54(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138543362;
-      v17 = v3;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "FMH payload: %{public}@", &v16, 0xCu);
+      v17 = 138543362;
+      v18 = v3;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "FMH payload: %{public}@", &v17, 0xCu);
     }
 
     convertToNSData = [v3 convertToNSData];
@@ -120,14 +120,14 @@
 {
   errorCopy = error;
   payloadCopy = payload;
-  v20.receiver = self;
-  v20.super_class = MSDFMHRequest;
-  v8 = [(MSDServerRequest *)&v20 parseResponseForError:errorCopy andPayload:payloadCopy];
+  v21.receiver = self;
+  v21.super_class = MSDFMHRequest;
+  v8 = [(MSDServerRequest *)&v21 parseResponseForError:errorCopy andPayload:payloadCopy];
   error = [v8 error];
 
   if (error)
   {
-    v12 = 0;
+    v13 = 0;
     v11 = 0;
     goto LABEL_21;
   }
@@ -135,8 +135,8 @@
   v10 = [payloadCopy objectForKey:@"statusCode"];
   if (!v10)
   {
-    v16 = sub_100063A54();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = sub_100063A54(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_1000D5294(self);
     }
@@ -146,51 +146,55 @@
   }
 
   v11 = v10;
-  if ([v10 intValue] != 200 && objc_msgSend(v11, "intValue") != 202)
+  if ([v10 intValue] != 200)
   {
-    v16 = sub_100063A54();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    intValue = [v11 intValue];
+    if (intValue != 202)
     {
-      sub_1000D5200(self);
-    }
+      v17 = sub_100063A54(intValue);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000D5200(self);
+      }
 
 LABEL_19:
 
-    v12 = 0;
-    goto LABEL_21;
+      v13 = 0;
+      goto LABEL_21;
+    }
   }
 
-  v12 = [payloadCopy objectForKey:@"retryAfter"];
+  v13 = [payloadCopy objectForKey:@"retryAfter"];
   if ([v11 intValue] == 202)
   {
-    [v8 setRetryAfter:v12];
+    [v8 setRetryAfter:v13];
     goto LABEL_10;
   }
 
-  v19 = errorCopy;
-  v13 = [(MSDCommandServerRequest *)self getDataDictFromPayload:payloadCopy error:&v19];
-  v14 = v19;
+  v20 = errorCopy;
+  v14 = [(MSDCommandServerRequest *)self getDataDictFromPayload:payloadCopy error:&v20];
+  v15 = v20;
 
-  if (v13)
+  if (v14)
   {
-    [v8 setFmhDict:v13];
+    [v8 setFmhDict:v14];
 
 LABEL_9:
-    errorCopy = v14;
+    errorCopy = v15;
     goto LABEL_10;
   }
 
-  errorCopy = v14;
+  errorCopy = v15;
 LABEL_21:
   error2 = [v8 error];
 
   if (!error2)
   {
-    v18 = errorCopy;
-    sub_1000C1424(&v18, 3727744512, @"Unexpected server response.");
-    v14 = v18;
+    v19 = errorCopy;
+    sub_1000C1424(&v19, 3727744512, @"Unexpected server response.");
+    v15 = v19;
 
-    [v8 setError:v14];
+    [v8 setError:v15];
     goto LABEL_9;
   }
 

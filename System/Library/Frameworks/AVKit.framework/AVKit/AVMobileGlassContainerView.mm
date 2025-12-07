@@ -416,20 +416,24 @@ LABEL_19:
 - (void)setHiddenItemViews:(id)views
 {
   viewsCopy = views;
-  if (![(NSArray *)self->_hiddenItemViews isEqualToArray:viewsCopy])
+  v4 = [(NSArray *)self->_hiddenItemViews isEqualToArray:viewsCopy];
+  v5 = viewsCopy;
+  if (!v4)
   {
-    v4 = [viewsCopy copy];
+    v6 = [viewsCopy copy];
     hiddenItemViews = self->_hiddenItemViews;
-    self->_hiddenItemViews = v4;
+    self->_hiddenItemViews = v6;
 
     delegate = [(AVMobileGlassContainerView *)self delegate];
     if (objc_opt_respondsToSelector())
     {
       [delegate containerView:self didUpdateHiddenViews:self->_hiddenItemViews];
     }
+
+    v5 = viewsCopy;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, v5);
 }
 
 - (void)setSpacing:(double)spacing

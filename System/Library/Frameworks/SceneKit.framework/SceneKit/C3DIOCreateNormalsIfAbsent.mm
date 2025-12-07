@@ -5,27 +5,27 @@
 
 uint64_t ___C3DIOCreateNormalsIfAbsent_block_invoke(uint64_t a1, uint64_t a2)
 {
-  Geometry = C3DNodeGetGeometry(a2);
+  Geometry = C3DNodeGetGeometry(a2, a2);
   if (Geometry)
   {
-    v3 = Geometry;
-    if (!C3DGeometryOsdGetWantsGPUSubdivision(Geometry))
+    v4 = Geometry;
+    if (!C3DGeometryOsdGetWantsGPUSubdivision(Geometry, v3))
     {
-      Mesh = C3DGeometryGetMesh(v3);
+      Mesh = C3DGeometryGetMesh(v4, v5);
       if (Mesh)
       {
-        v5 = Mesh;
+        v7 = Mesh;
         if (!C3DMeshGetNormalSource(Mesh, 0))
         {
-          if (C3DMeshGetPositionSource(v5, 0))
+          if (C3DMeshGetPositionSource(v7, 0))
           {
-            v7 = C3DCreateNormalsWithMesh(v5, 0, 0);
-            if (v7)
+            v9 = C3DCreateNormalsWithMesh(v7, 0, 0);
+            if (v9)
             {
-              v8 = v7;
-              ChannelForSourceWithSemanticAtIndex = C3DMeshGetChannelForSourceWithSemanticAtIndex(v5, 0, 0);
-              C3DMeshSetSourceWithInputSet(v5, v8, 0, ChannelForSourceWithSemanticAtIndex);
-              CFRelease(v8);
+              v10 = v9;
+              ChannelForSourceWithSemanticAtIndex = C3DMeshGetChannelForSourceWithSemanticAtIndex(v7, 0, 0);
+              C3DMeshSetSourceWithInputSet(v7, v10, 0, ChannelForSourceWithSemanticAtIndex);
+              CFRelease(v10);
             }
           }
         }

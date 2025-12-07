@@ -22,8 +22,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v11[0] = @"code";
+  v11[2] = *MEMORY[0x1E69E9840];
+  v10[0] = @"code";
   code = [(INGetUserCurrentRestaurantReservationBookingsIntentResponse *)self code];
   v4 = code;
   if (code <= INGetUserCurrentRestaurantReservationBookingsIntentResponseCodeUnspecified)
@@ -36,8 +36,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = @"userCurrentBookings";
-  v12[0] = null;
+  v10[1] = @"userCurrentBookings";
+  v11[0] = null;
   userCurrentBookings = self->_userCurrentBookings;
   null2 = userCurrentBookings;
   if (!userCurrentBookings)
@@ -45,8 +45,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null2;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = null2;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   if (!userCurrentBookings)
   {
   }
@@ -54,8 +54,6 @@
   if (v4 >= 4)
   {
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

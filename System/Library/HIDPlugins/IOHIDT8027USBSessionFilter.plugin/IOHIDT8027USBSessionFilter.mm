@@ -25,7 +25,7 @@ CFTypeRef IOHIDT8027USBSessionFilter::getPropertyForClient(IOHIDT8027USBSessionF
 
 void IOHIDT8027USBSessionFilter::setPropertyForClient(NSObject *this, CFTypeRef cf1, __CFString *a3, const void *a4)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   if (CFEqual(cf1, @"T8027USBAssertionTimeout"))
   {
     sub_29D444458(a3, this);
@@ -42,9 +42,9 @@ void IOHIDT8027USBSessionFilter::setPropertyForClient(NSObject *this, CFTypeRef 
         v8 = a3;
       }
 
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_29D442000, v7, OS_LOG_TYPE_DEFAULT, "Setting T8027 USB assertion state %@\n", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_29D442000, v7, OS_LOG_TYPE_DEFAULT, "Setting T8027 USB assertion state %@\n", &v9, 0xCu);
     }
 
     if (*MEMORY[0x29EDB8F00] == a3)
@@ -57,8 +57,6 @@ void IOHIDT8027USBSessionFilter::setPropertyForClient(NSObject *this, CFTypeRef 
       IOHIDT8027USBSessionFilter::releaseIdleSleepAssertion(this);
     }
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 void IOHIDT8027USBSessionFilter::unregisterService(uint64_t a1, const void *a2)
@@ -88,7 +86,7 @@ uint64_t IOHIDT8027USBSessionFilter::filter(uint64_t a1, const void *a2, uint64_
 {
   if (*(a1 + 56) && a2 && a3 && IOHIDEventConformsTo() && IOHIDEventGetIntegerValue() && CFSetContainsValue(*(a1 + 56), a2) && *(a1 + 84) == 1)
   {
-    v7 = sub_29D4432FC();
+    v7 = sub_29D4432FC(a2);
     v8 = _IOHIDLogCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
@@ -109,13 +107,13 @@ uint64_t IOHIDT8027USBSessionFilter::filter(uint64_t a1, const void *a2, uint64_
 
 void *IOHIDT8027USBSessionFilter::registerService(uint64_t a1, const void *a2)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
+  v13 = 0xAAAAAAAAAAAAAAAALL;
   v14 = 0xAAAAAAAAAAAAAAAALL;
-  v15 = 0xAAAAAAAAAAAAAAAALL;
-  sub_29D442E5C(&v14, "Transport");
+  sub_29D442E5C(&v13, "Transport");
   if (*(a1 + 56))
   {
-    v4 = v15 == 0;
+    v4 = v14 == 0;
   }
 
   else
@@ -135,21 +133,21 @@ void *IOHIDT8027USBSessionFilter::registerService(uint64_t a1, const void *a2)
         CFSetSetValue(*(a1 + 56), a2);
         if (*(a1 + 86))
         {
-          v13 = _IOHIDLogCategory();
-          sub_29D444364(v13);
+          v12 = _IOHIDLogCategory();
+          sub_29D444364(v12);
         }
 
         else if (*(a1 + 84) == 1)
         {
-          v8 = sub_29D4432FC();
+          v8 = sub_29D4432FC(a2);
           v9 = _IOHIDLogCategory();
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
             v10 = *(a1 + 72);
             *buf = 138412546;
-            v17 = v8;
-            v18 = 2048;
-            v19 = v10;
+            v16 = v8;
+            v17 = 2048;
+            v18 = v10;
             _os_log_impl(&dword_29D442000, v9, OS_LOG_TYPE_DEFAULT, "Creating T8027USB assertion for %@ (timeout:%llus)\n", buf, 0x16u);
           }
 
@@ -165,9 +163,7 @@ void *IOHIDT8027USBSessionFilter::registerService(uint64_t a1, const void *a2)
     }
   }
 
-  result = sub_29D442EC0(&v14);
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  return sub_29D442EC0(&v13);
 }
 
 void *sub_29D442E5C(void *a1, const char *a2)
@@ -282,36 +278,36 @@ uint64_t IOHIDT8027USBSessionFilter::Release(IOHIDT8027USBSessionFilter *this)
   return v2;
 }
 
-CFStringRef sub_29D4432FC()
+CFStringRef sub_29D4432FC(uint64_t a1)
 {
   valuePtr = 0;
-  v0 = IOHIDServiceCopyProperty();
-  v1 = &stru_2A2420AE8;
-  if (v0)
+  v1 = IOHIDServiceCopyProperty();
+  v2 = &stru_2A2420AE8;
+  if (v1)
   {
-    v2 = v0;
-    v3 = CFGetTypeID(v0);
-    if (v3 == CFStringGetTypeID())
+    v3 = v1;
+    v4 = CFGetTypeID(v1);
+    if (v4 == CFStringGetTypeID())
     {
-      v1 = v2;
+      v2 = v3;
     }
 
-    CFRelease(v2);
+    CFRelease(v3);
   }
 
   RegistryID = IOHIDServiceGetRegistryID();
-  if (RegistryID && (v5 = RegistryID, v6 = CFGetTypeID(RegistryID), v6 == CFNumberGetTypeID()))
+  if (RegistryID && (v6 = RegistryID, v7 = CFGetTypeID(RegistryID), v7 == CFNumberGetTypeID()))
   {
-    CFNumberGetValue(v5, kCFNumberSInt64Type, &valuePtr);
-    v7 = valuePtr;
+    CFNumberGetValue(v6, kCFNumberSInt64Type, &valuePtr);
+    v8 = valuePtr;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return CFStringCreateWithFormat(*MEMORY[0x29EDB8ED8], 0, @"RegID:0x%llx %@", v7, v1);
+  return CFStringCreateWithFormat(*MEMORY[0x29EDB8ED8], 0, @"RegID:0x%llx %@", v8, v2);
 }
 
 void IOHIDT8027USBSessionFilter::releaseIdleSleepAssertion(IOHIDT8027USBSessionFilter *this)
@@ -423,10 +419,11 @@ void *IOHIDT8027USBSessionFilter::serialize(IOHIDT8027USBSessionFilter *this, __
   return sub_29D443954(&v13);
 }
 
-void sub_29D4435D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_29D4435D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   sub_29D443A40(&a9);
-  sub_29D443954(&a11);
+  sub_29D443954(va);
   _Unwind_Resume(a1);
 }
 
@@ -622,7 +619,7 @@ BOOL sub_29D443C54(NSObject *a1)
 
 void IOHIDT8027USBSessionFilter::preventIdleSleepAssertion(NSObject *this, const __CFString *a2)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   valuePtr = 255;
   v3 = &this[10];
   if (LODWORD(this[10].isa))
@@ -630,59 +627,55 @@ void IOHIDT8027USBSessionFilter::preventIdleSleepAssertion(NSObject *this, const
     v4 = CFNumberCreate(*MEMORY[0x29EDB8ED8], kCFNumberIntType, &valuePtr);
     if (!v4)
     {
-      goto LABEL_6;
+      return;
     }
 
     v5 = v4;
     if (IOPMAssertionSetProperty(*v3, @"AssertLevel", v4))
     {
-      v14 = _IOHIDLogCategory();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v13 = _IOHIDLogCategory();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
         sub_29D443C24();
-        _os_log_error_impl(&dword_29D442000, v14, OS_LOG_TYPE_ERROR, "%s error turning on assertion 0x%x\n", buf, 0x12u);
+        _os_log_error_impl(&dword_29D442000, v13, OS_LOG_TYPE_ERROR, "%s error turning on assertion 0x%x\n", buf, 0x12u);
       }
 
-      goto LABEL_5;
-    }
-  }
-
-  else
-  {
-    if (!IOHIDT8027USBSessionFilter::initTimer(this))
-    {
-      goto LABEL_6;
-    }
-
-    v10 = IOPMAssertionCreateWithDescription(@"PreventUserIdleSystemSleep", @"IOHIDT8027USBAssertion", a2, 0, 0, 0.0, 0, v3);
-    v5 = 0;
-    if (v10)
-    {
-      v11 = _IOHIDLogCategory();
-      if (sub_29D443C54(v11))
-      {
-        *buf = 136315394;
-        sub_29D443C24();
-        sub_29D443C38(&dword_29D442000, v12, v13, "%s error creating assertion 0x%x\n", buf);
-      }
-
-      goto LABEL_6;
-    }
-  }
-
-  isa = this[8].isa;
-  v7 = dispatch_time(0, 1000000000 * this[9].isa);
-  dispatch_source_set_timer(isa, v7, 0xFFFFFFFFFFFFFFFFLL, 0);
-  BYTE5(this[10].isa) = 1;
-  if (v5)
-  {
 LABEL_5:
-    CFRelease(v5);
+      CFRelease(v5);
+      return;
+    }
+
+LABEL_4:
+    isa = this[8].isa;
+    v7 = dispatch_time(0, 1000000000 * this[9].isa);
+    dispatch_source_set_timer(isa, v7, 0xFFFFFFFFFFFFFFFFLL, 0);
+    BYTE5(this[10].isa) = 1;
+    if (!v5)
+    {
+      return;
+    }
+
+    goto LABEL_5;
   }
 
-LABEL_6:
-  v8 = *MEMORY[0x29EDCA608];
+  if (IOHIDT8027USBSessionFilter::initTimer(this))
+  {
+    v9 = IOPMAssertionCreateWithDescription(@"PreventUserIdleSystemSleep", @"IOHIDT8027USBAssertion", a2, 0, 0, 0.0, 0, v3);
+    v5 = 0;
+    if (!v9)
+    {
+      goto LABEL_4;
+    }
+
+    v10 = _IOHIDLogCategory();
+    if (sub_29D443C54(v10))
+    {
+      *buf = 136315394;
+      sub_29D443C24();
+      sub_29D443C38(&dword_29D442000, v11, v12, "%s error creating assertion 0x%x\n", buf);
+    }
+  }
 }
 
 void IOHIDT8027USBSessionFilter::scheduleWithDispatchQueue(IOHIDT8027USBSessionFilter *this, dispatch_queue_s *a2)
@@ -697,7 +690,7 @@ void IOHIDT8027USBSessionFilter::scheduleWithDispatchQueue(IOHIDT8027USBSessionF
   *(this + 4) = v3;
   if (!v3)
   {
-    goto LABEL_11;
+    return;
   }
 
   v4 = v3;
@@ -705,37 +698,36 @@ void IOHIDT8027USBSessionFilter::scheduleWithDispatchQueue(IOHIDT8027USBSessionF
   sub_29D443BFC();
   if (IOServiceAddMatchingNotification(v4, v5, v6, v7, this, this + 10))
   {
-    v14 = _IOHIDLogCategory();
-    if (!sub_29D443C54(v14))
+    v12 = _IOHIDLogCategory();
+    if (!sub_29D443C54(v12))
     {
-      goto LABEL_11;
+      return;
     }
 
-    v18[0] = 136315394;
+    v16[0] = 136315394;
     sub_29D443C10();
-LABEL_16:
-    sub_29D443C38(&dword_29D442000, v15, v16, "%s adding matching notification 0x%x\n", v18);
-    goto LABEL_11;
+    goto LABEL_16;
   }
 
   if (!*(this + 10) || !CFDictionaryCreate(*MEMORY[0x29EDB8ED8], keys, values, 2, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]))
   {
-    goto LABEL_11;
+    return;
   }
 
-  v8 = *(this + 4);
   sub_29D443BFC();
-  if (IOServiceAddMatchingNotification(v9, v10, v11, v12, this, this + 11))
+  if (IOServiceAddMatchingNotification(v8, v9, v10, v11, this, this + 11))
   {
-    v17 = _IOHIDLogCategory();
-    if (!sub_29D443C54(v17))
+    v15 = _IOHIDLogCategory();
+    if (!sub_29D443C54(v15))
     {
-      goto LABEL_11;
+      return;
     }
 
-    v18[0] = 136315394;
+    v16[0] = 136315394;
     sub_29D443C10();
-    goto LABEL_16;
+LABEL_16:
+    sub_29D443C38(&dword_29D442000, v13, v14, "%s adding matching notification 0x%x\n", v16);
+    return;
   }
 
   if (*(this + 11))
@@ -751,9 +743,6 @@ LABEL_16:
       sub_29D443C6C();
     }
   }
-
-LABEL_11:
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 void IOHIDT8027USBSessionFilter::_serviceNotificationCallback(IOHIDT8027USBSessionFilter *this, io_iterator_t iterator)
@@ -774,10 +763,10 @@ void IOHIDT8027USBSessionFilter::serviceNotificationCallback(IOHIDT8027USBSessio
 
 uint64_t IOHIDT8027USBSessionFilter::initTimer(NSObject *this)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   if (this[8].isa)
   {
-    goto LABEL_5;
+    return 1;
   }
 
   isa = this[3].isa;
@@ -793,40 +782,36 @@ uint64_t IOHIDT8027USBSessionFilter::initTimer(NSObject *this)
       handler[3] = &unk_29F34F420;
       handler[4] = this;
       dispatch_source_set_event_handler(v3, handler);
-      v9[0] = MEMORY[0x29EDCA5F8];
-      v9[1] = 0x40000000;
-      v9[2] = sub_29D44367C;
-      v9[3] = &unk_29F34F440;
-      v9[4] = v4;
-      dispatch_source_set_cancel_handler(v4, v9);
+      v8[0] = MEMORY[0x29EDCA5F8];
+      v8[1] = 0x40000000;
+      v8[2] = sub_29D44367C;
+      v8[3] = &unk_29F34F440;
+      v8[4] = v4;
+      dispatch_source_set_cancel_handler(v4, v8);
       dispatch_source_set_timer(v4, 0xFFFFFFFFFFFFFFFFLL, 0, 0);
       dispatch_activate(v4);
       this[8].isa = v4;
-LABEL_5:
-      result = 1;
-      goto LABEL_6;
+      return 1;
     }
   }
 
-  v7 = _IOHIDLogCategory();
-  v8 = sub_29D443C54(v7);
+  v6 = _IOHIDLogCategory();
+  v7 = sub_29D443C54(v6);
   result = 0;
-  if (v8)
+  if (v7)
   {
     *buf = 136315138;
-    v12 = "BOOL IOHIDT8027USBSessionFilter::initTimer()";
+    v11 = "BOOL IOHIDT8027USBSessionFilter::initTimer()";
     _os_log_error_impl(&dword_29D442000, this, OS_LOG_TYPE_ERROR, "%s error\n", buf, 0xCu);
-    result = 0;
+    return 0;
   }
 
-LABEL_6:
-  v6 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void IOHIDT8027USBSessionFilter::timerHandler(IOHIDT8027USBSessionFilter *this)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   valuePtr = 0;
   if (*(this + 20))
   {
@@ -843,12 +828,12 @@ void IOHIDT8027USBSessionFilter::timerHandler(IOHIDT8027USBSessionFilter *this)
       v4 = v3;
       if (IOPMAssertionSetProperty(*(this + 20), @"AssertLevel", v3))
       {
-        v6 = _IOHIDLogCategory();
-        if (sub_29D443C54(v6))
+        v5 = _IOHIDLogCategory();
+        if (sub_29D443C54(v5))
         {
           *buf = 136315394;
           sub_29D443C24();
-          sub_29D443C38(&dword_29D442000, v7, v8, "%s error turning off assertion 0x%x\n", buf);
+          sub_29D443C38(&dword_29D442000, v6, v7, "%s error turning off assertion 0x%x\n", buf);
         }
       }
 
@@ -860,8 +845,6 @@ void IOHIDT8027USBSessionFilter::timerHandler(IOHIDT8027USBSessionFilter *this)
       CFRelease(v4);
     }
   }
-
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29D444364(NSObject *a1)
@@ -875,21 +858,19 @@ void sub_29D444364(NSObject *a1)
 
 void sub_29D4443C0()
 {
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   v0 = _IOHIDLogCategory();
   if (sub_29D443C54(v0))
   {
-    v4[0] = 136315394;
+    v3[0] = 136315394;
     sub_29D443C10();
-    sub_29D443C38(&dword_29D442000, v2, v3, "%s error releasing assertion 0x%x\n", v4);
+    sub_29D443C38(&dword_29D442000, v1, v2, "%s error releasing assertion 0x%x\n", v3);
   }
-
-  v1 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29D444458(__CFString *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   valuePtr = 0xAAAAAAAAAAAAAAAALL;
   v4 = _IOHIDLogCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -902,9 +883,9 @@ void sub_29D444458(__CFString *a1, uint64_t a2)
     }
 
     *buf = 134218242;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
     _os_log_impl(&dword_29D442000, v4, OS_LOG_TYPE_DEFAULT, "Setting T8027 USB assertion timeout from %llu to %@\n", buf, 0x16u);
   }
 
@@ -917,8 +898,6 @@ void sub_29D444458(__CFString *a1, uint64_t a2)
       *(a2 + 72) = valuePtr;
     }
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 void operator delete()

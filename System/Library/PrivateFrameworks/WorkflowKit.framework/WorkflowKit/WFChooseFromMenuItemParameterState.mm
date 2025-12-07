@@ -73,19 +73,19 @@ void __95__WFChooseFromMenuItemParameterState_processWithContext_userInputRequir
   if (v9)
   {
     v12 = [a1[4] subtitle];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __95__WFChooseFromMenuItemParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_2;
-    v23[3] = &unk_1E8376CE0;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __95__WFChooseFromMenuItemParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_2;
+    v22[3] = &unk_1E8376CE0;
     v13 = a1[5];
     v14 = a1[6];
     v15 = a1[4];
-    v26 = v14;
-    v23[4] = v15;
-    v24 = v9;
-    v27 = a1[7];
-    v25 = a1[5];
-    [v12 processWithContext:v13 completionHandler:v23];
+    v25 = v14;
+    v22[4] = v15;
+    v23 = v9;
+    v26 = a1[7];
+    v24 = a1[5];
+    [v12 processWithContext:v13 completionHandler:v22];
   }
 
   else if (a3 == -1)
@@ -96,13 +96,12 @@ void __95__WFChooseFromMenuItemParameterState_processWithContext_userInputRequir
   else
   {
     v16 = a1[6];
-    v17 = a1[4];
-    v18 = objc_alloc(objc_opt_class());
-    v19 = [[WFVariableString alloc] initWithString:0];
-    v20 = [a1[4] synonyms];
-    v21 = [a1[4] subtitle];
-    v22 = [v18 initWithVariableString:v19 userInputInsertionIndex:a3 synonyms:v20 subtitle:v21];
-    v16[2](v16, v10, v22);
+    v17 = objc_alloc(objc_opt_class());
+    v18 = [[WFVariableString alloc] initWithString:0];
+    v19 = [a1[4] synonyms];
+    v20 = [a1[4] subtitle];
+    v21 = [v17 initWithVariableString:v18 userInputInsertionIndex:a3 synonyms:v19 subtitle:v20];
+    v16[2](v16, v10, v21);
   }
 }
 
@@ -114,19 +113,19 @@ void __95__WFChooseFromMenuItemParameterState_processWithContext_userInputRequir
   if (v9)
   {
     v12 = [*(a1 + 32) synonyms];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __95__WFChooseFromMenuItemParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_3;
-    v24[3] = &unk_1E8376CB8;
-    v25 = *(a1 + 48);
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __95__WFChooseFromMenuItemParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_5;
-    v20[3] = &unk_1E837E9D0;
-    v21 = *(a1 + 40);
-    v22 = v9;
-    v23 = *(a1 + 64);
-    [v12 if_mapAsynchronously:v24 completionHandler:v20];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __95__WFChooseFromMenuItemParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_3;
+    v23[3] = &unk_1E8376CB8;
+    v24 = *(a1 + 48);
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __95__WFChooseFromMenuItemParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_5;
+    v19[3] = &unk_1E837E9D0;
+    v20 = *(a1 + 40);
+    v21 = v9;
+    v22 = *(a1 + 64);
+    [v12 if_mapAsynchronously:v23 completionHandler:v19];
   }
 
   else if (a3 == -1)
@@ -137,13 +136,12 @@ void __95__WFChooseFromMenuItemParameterState_processWithContext_userInputRequir
   else
   {
     v13 = *(a1 + 56);
-    v14 = *(a1 + 32);
-    v15 = objc_alloc(objc_opt_class());
-    v16 = [[WFVariableString alloc] initWithString:*(a1 + 40)];
-    v17 = [*(a1 + 32) synonyms];
-    v18 = [[WFVariableString alloc] initWithString:0];
-    v19 = [v15 initWithVariableString:v16 userInputInsertionIndex:a3 synonyms:v17 subtitle:v18];
-    (*(v13 + 16))(v13, v10, v19);
+    v14 = objc_alloc(objc_opt_class());
+    v15 = [[WFVariableString alloc] initWithString:*(a1 + 40)];
+    v16 = [*(a1 + 32) synonyms];
+    v17 = [[WFVariableString alloc] initWithString:0];
+    v18 = [v14 initWithVariableString:v15 userInputInsertionIndex:a3 synonyms:v16 subtitle:v17];
+    (*(v13 + 16))(v13, v10, v18);
   }
 }
 
@@ -172,37 +170,37 @@ void __95__WFChooseFromMenuItemParameterState_processWithContext_userInputRequir
 
 - (id)containedVariables
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   variableString = [(WFVariableStringParameterState *)self variableString];
   variables = [variableString variables];
   [v3 addObjectsFromArray:variables];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   synonyms = [(WFChooseFromMenuItemParameterState *)self synonyms];
-  v7 = [synonyms countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [synonyms countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(synonyms);
         }
 
-        synonym = [*(*(&v17 + 1) + 8 * i) synonym];
+        synonym = [*(*(&v16 + 1) + 8 * i) synonym];
         variables2 = [synonym variables];
         [v3 addObjectsFromArray:variables2];
       }
 
-      v8 = [synonyms countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [synonyms countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
@@ -211,8 +209,6 @@ void __95__WFChooseFromMenuItemParameterState_processWithContext_userInputRequir
   subtitle = [(WFChooseFromMenuItemParameterState *)self subtitle];
   variables3 = [subtitle variables];
   [v3 addObjectsFromArray:variables3];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

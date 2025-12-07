@@ -8,6 +8,7 @@
 - (id)returnToAppTimeout;
 - (id)specifiers;
 - (int64_t)defaultAppStickinessDuration;
+- (void)customReturnToClockDidChange:(BOOL)change;
 - (void)reloadAll;
 - (void)returnToClockSettingDidChange:(int64_t)change;
 - (void)saveReturnToAppSettings:(id)settings;
@@ -15,6 +16,8 @@
 - (void)setCustomReturnToClock:(id)clock;
 - (void)setReturnToAppTimeout:(id)timeout;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CSLPRFReturnToAppSettingsViewController
@@ -308,6 +311,28 @@
   [(CSLPRFReturnToAppSettingsViewController *)self saveReturnToAppSettings:returnToAppSettings];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = CSLPRFReturnToAppSettingsViewController;
+  [(CSLPRFReturnToAppSettingsViewController *)&v7 viewWillAppear:appear];
+  specifier = [(CSLPRFReturnToAppSettingsViewController *)self specifier];
+  name = [specifier name];
+  [(CSLPRFReturnToAppSettingsViewController *)self setTitle:name];
+
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterAddObserver(DarwinNotifyCenter, self, sub_2A48, @"CSLSessionsSettingsChangedNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = CSLPRFReturnToAppSettingsViewController;
+  [(CSLPRFReturnToAppSettingsViewController *)&v5 viewWillDisappear:disappear];
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterRemoveEveryObserver(DarwinNotifyCenter, self);
+}
+
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
   v5 = [(CSLPRFReturnToAppSettingsViewController *)self indexForIndexPath:path];
@@ -331,6 +356,23 @@
 {
   v4 = [NSNumber numberWithInteger:change];
   [(CSLPRFReturnToAppSettingsViewController *)self setReturnToAppTimeout:v4];
+}
+
+- (void)customReturnToClockDidChange:(BOOL)change
+{
+  changeCopy = change;
+  v5 = cslprf_sessions_log();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v7[0] = 67109120;
+    v7[1] = changeCopy;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "customReturnToClock changed to %{BOOL}u", v7, 8u);
+  }
+
+  v6 = [NSNumber numberWithBool:changeCopy];
+  [(CSLPRFReturnToAppSettingsViewController *)self setCustomReturnToClock:v6];
+
+  [(CSLPRFReturnToAppSettingsViewController *)self reloadSpecifiers];
 }
 
 @end

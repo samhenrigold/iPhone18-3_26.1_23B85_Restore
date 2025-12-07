@@ -6,6 +6,7 @@
 + (int64_t)getBoolForKey:(id)key defaultValue:(BOOL)value;
 + (int64_t)getIntegerForKey:(id)key defaultValue:(int64_t)value;
 + (unsigned)sysDropBuildMode;
++ (void)setBoolForKey:(id)key newValue:(BOOL)value;
 - (HDSDefaults)init;
 @end
 
@@ -89,29 +90,29 @@ uint64_t __29__HDSDefaults_sharedInstance__block_invoke()
 
 + (BOOL)sysDropProfileInstalled
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
   v3 = [mEMORY[0x277D262A0] installedProfilesWithFilterFlags:3];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        identifier = [*(*(&v12 + 1) + 8 * i) identifier];
+        identifier = [*(*(&v11 + 1) + 8 * i) identifier];
         v9 = identifier;
         if (identifier && (([identifier isEqualToString:@"com.apple.homedevicesetup.sysdrop"] & 1) != 0 || objc_msgSend(v9, "isEqualToString:", @"com.apple.homedevicesetup.sysdrop.prod")))
         {
@@ -121,7 +122,7 @@ uint64_t __29__HDSDefaults_sharedInstance__block_invoke()
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -133,7 +134,6 @@ uint64_t __29__HDSDefaults_sharedInstance__block_invoke()
 
 LABEL_13:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -179,6 +179,14 @@ LABEL_13:
   }
 
   return valueCopy;
+}
+
++ (void)setBoolForKey:(id)key newValue:(BOOL)value
+{
+  valueCopy = value;
+  keyCopy = key;
+  sharedDefaults = [self sharedDefaults];
+  [sharedDefaults setBool:valueCopy forKey:keyCopy];
 }
 
 @end

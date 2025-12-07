@@ -152,48 +152,48 @@ LABEL_8:
 
 - (void)setArtistName:(id)name
 {
-  nameCopy = name;
-  v5 = nameCopy;
-  if (self->_artistName != nameCopy)
+  isEqualToString = name;
+  v5 = isEqualToString;
+  if (self->_artistName != isEqualToString)
   {
-    v8 = nameCopy;
-    nameCopy = [nameCopy isEqualToString:?];
+    v8 = isEqualToString;
+    isEqualToString = objc_msgSend_isEqualToString_(isEqualToString);
     v5 = v8;
-    if ((nameCopy & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v6 = [v8 copy];
       artistName = self->_artistName;
       self->_artistName = v6;
 
-      nameCopy = [(SKUIGiftItemView *)self _reloadSubtitles];
+      isEqualToString = [(SKUIGiftItemView *)self _reloadSubtitles];
       v5 = v8;
     }
   }
 
-  MEMORY[0x2821F96F8](nameCopy, v5);
+  MEMORY[0x2821F96F8](isEqualToString, v5);
 }
 
 - (void)setCategoryName:(id)name
 {
-  nameCopy = name;
-  v5 = nameCopy;
-  if (self->_categoryName != nameCopy)
+  isEqualToString = name;
+  v5 = isEqualToString;
+  if (self->_categoryName != isEqualToString)
   {
-    v8 = nameCopy;
-    nameCopy = [nameCopy isEqualToString:?];
+    v8 = isEqualToString;
+    isEqualToString = objc_msgSend_isEqualToString_(isEqualToString);
     v5 = v8;
-    if ((nameCopy & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v6 = [v8 copy];
       categoryName = self->_categoryName;
       self->_categoryName = v6;
 
-      nameCopy = [(SKUIGiftItemView *)self _reloadSubtitles];
+      isEqualToString = [(SKUIGiftItemView *)self _reloadSubtitles];
       v5 = v8;
     }
   }
 
-  MEMORY[0x2821F96F8](nameCopy, v5);
+  MEMORY[0x2821F96F8](isEqualToString, v5);
 }
 
 - (void)setItemImage:(id)image
@@ -261,25 +261,25 @@ LABEL_8:
 
 - (void)setPrice:(id)price
 {
-  priceCopy = price;
-  v5 = priceCopy;
-  if (self->_price != priceCopy)
+  isEqualToString = price;
+  v5 = isEqualToString;
+  if (self->_price != isEqualToString)
   {
-    v8 = priceCopy;
-    priceCopy = [priceCopy isEqualToString:?];
+    v8 = isEqualToString;
+    isEqualToString = objc_msgSend_isEqualToString_(isEqualToString);
     v5 = v8;
-    if ((priceCopy & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v6 = [v8 copy];
       price = self->_price;
       self->_price = v6;
 
-      priceCopy = [(SKUIGiftItemView *)self _reloadSubtitles];
+      isEqualToString = [(SKUIGiftItemView *)self _reloadSubtitles];
       v5 = v8;
     }
   }
 
-  MEMORY[0x2821F96F8](priceCopy, v5);
+  MEMORY[0x2821F96F8](isEqualToString, v5);
 }
 
 - (void)setTheme:(id)theme
@@ -303,7 +303,7 @@ LABEL_8:
 {
   titleCopy = title;
   title = [(SKUIGiftItemView *)self title];
-  if (title != titleCopy && ([titleCopy isEqualToString:title] & 1) == 0)
+  if (title != titleCopy && (objc_msgSend_isEqualToString_(titleCopy) & 1) == 0)
   {
     titleLabel = self->_titleLabel;
     if (!titleCopy)
@@ -936,7 +936,7 @@ LABEL_13:
   }
 
   text = [(UILabel *)self->_subtitleLabel2 text];
-  if (v25 != text && ![(NSString *)v4 isEqualToString:text])
+  if (v25 != text && (objc_msgSend_isEqualToString_(v4) & 1) == 0)
   {
     subtitleLabel2 = self->_subtitleLabel2;
     if (v25)
@@ -970,7 +970,7 @@ LABEL_13:
 
   text2 = [(UILabel *)self->_subtitleLabel1 text];
 
-  if (v25 != text2 && ![(NSString *)v25 isEqualToString:text2])
+  if (v25 != text2 && (objc_msgSend_isEqualToString_(v25) & 1) == 0)
   {
     subtitleLabel1 = self->_subtitleLabel1;
     v19 = v25;
@@ -1096,7 +1096,7 @@ LABEL_13:
   theme = self->_theme;
   if (theme)
   {
-    [(SKUIGiftTheme *)theme primaryTextColor];
+    objc_msgSend_primaryTextColor(theme, a2);
   }
 
   else
@@ -1113,7 +1113,7 @@ LABEL_13:
   theme = self->_theme;
   if (theme)
   {
-    [(SKUIGiftTheme *)theme primaryTextColor];
+    objc_msgSend_primaryTextColor(theme, a2);
   }
 
   else

@@ -1,138 +1,8 @@
-void sub_100032E70(uint64_t a1, uint64_t a2, void *a3)
+void sub_100033124(uint64_t result, uint64_t a2)
 {
-  if (!a3)
+  if (result)
   {
-    v6 = objc_autoreleasePoolPush();
-    if (off_100298C40)
-    {
-      [off_100298C40 WFLog:3 message:{"%s: null request.", "WiFiDeviceManagerHandleUnchangedPowerBudgetValue"}];
-    }
-
-    goto LABEL_38;
-  }
-
-  v6 = objc_autoreleasePoolPush();
-  if (!a1)
-  {
-    if (off_100298C40)
-    {
-      [off_100298C40 WFLog:3 message:{"%s: null device manager.", "WiFiDeviceManagerHandleUnchangedPowerBudgetValue"}];
-    }
-
-LABEL_38:
-    objc_autoreleasePoolPop(v6);
-    v17 = objc_autoreleasePoolPush();
-    if (off_100298C40)
-    {
-      [off_100298C40 WFLog:3 message:{"%s: WiFiBatteryMgmt : NULL Request or Null Device Manager", "WiFiDeviceManagerHandleUnchangedPowerBudgetValue"}];
-    }
-
-    objc_autoreleasePoolPop(v17);
-    return;
-  }
-
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: WiFiBatteryMgmt : power budget resource is present and unchanged!.", "WiFiDeviceManagerHandleUnchangedPowerBudgetValue"}];
-  }
-
-  objc_autoreleasePoolPop(v6);
-  if (*a3)
-  {
-    if (*a3 != 1)
-    {
-      return;
-    }
-
-    v7 = a3[1];
-    if (!v7)
-    {
-      return;
-    }
-
-    if (a2)
-    {
-      v8 = sub_1000CE3C4(a1, *(v7 + 16), *(v7 + 24), *(v7 + 8), *(v7 + 40), *(v7 + 48));
-      if (!v8)
-      {
-        goto LABEL_22;
-      }
-
-      v9 = *(v7 + 8);
-      if (!v9)
-      {
-        goto LABEL_22;
-      }
-
-      v10 = v8;
-      v11 = *(v7 + 16);
-      v12 = *(v7 + 40);
-      v13 = a1;
-    }
-
-    else
-    {
-      v9 = *(v7 + 8);
-      if (!v9)
-      {
-LABEL_22:
-        v14 = *(v7 + 16);
-        if (v14)
-        {
-          CFRelease(v14);
-          *(v7 + 16) = 0;
-        }
-
-        v15 = *(v7 + 24);
-        if (v15)
-        {
-          CFRelease(v15);
-          *(v7 + 24) = 0;
-        }
-
-        v16 = *(v7 + 48);
-        if (v16)
-        {
-          CFRelease(v16);
-        }
-
-        free(v7);
-        return;
-      }
-
-      v11 = *(v7 + 16);
-      v12 = *(v7 + 40);
-      v13 = a1;
-      v10 = 4294963390;
-    }
-
-    v9(v13, v11, v10, 0, 0, v12);
-    goto LABEL_22;
-  }
-
-  if (a2 && *(a1 + 3361))
-  {
-    *(a1 + 192) = 9;
-    if (_os_feature_enabled_impl())
-    {
-
-      sub_100019814(a1, 0x17uLL);
-    }
-
-    else
-    {
-      [+[WiFiXPCManager sharedXPCManager](WiFiXPCManager "sharedXPCManager")];
-
-      sub_1000BD310(a1, 2, "WiFiDeviceManagerAutoAssociateStart");
-    }
-  }
-}
-
-void sub_100033124(uint64_t a1, uint64_t a2)
-{
-  if (a1)
-  {
-    sub_100006F88(*(a1 + 64));
+    sub_100006F88(*(result + 64));
     v3 = sub_100015EB8();
 
     sub_100033170(v3, v4, a2);
@@ -348,16 +218,16 @@ LABEL_24:
   return v3;
 }
 
-void sub_100033724(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_100033724(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v4 = *(a1 + 4216);
+    v4 = *(result + 4216);
     if (v4)
     {
-      v6 = *(a1 + 4224);
+      v6 = *(result + 4224);
 
-      v4(a1, a2, v6, a3);
+      v4(result, a2, v6, a3);
     }
   }
 
@@ -833,8 +703,9 @@ LABEL_18:
   return v17;
 }
 
-uint64_t sub_100034234(uint64_t a1, const __CFDictionary *a2, int a3)
+uint64_t sub_100034234(uint64_t a1, const __CFDictionary *a2, void *a3)
 {
+  v62 = a3;
   v63 = 0;
   result = 0;
   valuePtr = 0;
@@ -1093,7 +964,7 @@ LABEL_51:
       }
 
       v26 = 2;
-      if (a3 && valuePtr <= -70)
+      if (v62 && valuePtr <= -70)
       {
         v40 = objc_autoreleasePoolPush();
         if (off_100298C40)
@@ -1128,7 +999,7 @@ LABEL_51:
   }
 
   while (v9 > 0);
-  if (a3 && v20 && valuePtr <= -70)
+  if (v62 && v20 && valuePtr <= -70)
   {
     v20 = 1;
     sub_10000ACBC(v61, @"userCoverageWalkout", 1);
@@ -1144,7 +1015,7 @@ LABEL_70:
     objc_autoreleasePoolPop(v43);
   }
 
-  if (a3)
+  if (v62)
   {
     v44 = v20 == 0;
   }
@@ -1614,12 +1485,12 @@ LABEL_19:
         }
 
         objc_autoreleasePoolPop(v13);
-        v17 = sub_10005A2CC(v6);
-        sub_10005A2C4(v6, v17 | 0x8000);
+        v18 = sub_10005A2CC(v6);
+        sub_10005A2C4(v6, v18 | 0x8000);
         sub_10007D430(v12);
-        v16 = 1;
-        v18 = sub_10009502C();
-        if (sub_1000D6F38(v18))
+        v17 = 1;
+        v19 = sub_10009502C();
+        if (sub_1000D6F38(v19, v20))
         {
           goto LABEL_18;
         }
@@ -1638,27 +1509,27 @@ LABEL_19:
         sub_10005A2C4(v6, v14 & 0xFFFFFFFFFFFF7FFFLL);
         sub_10015983C(v12);
         v15 = sub_10009502C();
-        if (sub_1000D6F38(v15))
+        if (sub_1000D6F38(v15, v16))
         {
           goto LABEL_18;
         }
 
-        v16 = 0;
+        v17 = 0;
       }
 
-      sub_100088734(v12, v6, 14, v16);
+      sub_100088734(v12, v6, 14, v17);
     }
 
 LABEL_18:
     sub_1000355B8(v6, v1, v0, v3);
-    v19 = sub_10002D3B4();
-    sub_100035660(v19, v20, v3);
+    v21 = sub_10002D3B4();
+    sub_100035660(v21, v22, v3);
     goto LABEL_19;
   }
 
 LABEL_21:
-  v21 = sub_100029DC0();
-  sub_100017CC0(v21, v22);
+  v23 = sub_100029DC0();
+  sub_100017CC0(v23, v24);
   sub_1000113F8();
 }
 
@@ -1668,23 +1539,20 @@ void sub_100035520(uint64_t a1, uint64_t a2)
   {
     if (*(a1 + 39) == 1 && *(a1 + 40) == *(a1 + 52))
     {
-      v3 = *(a1 + 12);
-      v4 = *(a1 + 28);
-      v5 = *(a1 + 56);
       sub_10003531C();
-      *(a2 + 32) = v6;
+      *(a2 + 32) = v3;
       return;
     }
 
-    v7 = -300;
+    v4 = -300;
   }
 
   else
   {
-    v7 = -304;
+    v4 = -304;
   }
 
-  *(a2 + 32) = v7;
+  *(a2 + 32) = v4;
   *(a2 + 24) = NDR_record;
 }
 
@@ -1739,12 +1607,12 @@ void sub_100035660(uint64_t a1, uint64_t a2, unint64_t a3)
   sub_100035634(a2, (a3 >> 46) & 1);
 }
 
-void sub_1000356D4(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_1000356D4(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (a1)
+  if (result)
   {
-    *(a1 + 632) = a2;
-    *(a1 + 640) = a3;
+    *(result + 632) = a2;
+    *(result + 640) = a3;
   }
 
   else
@@ -1876,7 +1744,7 @@ void sub_100035920(uint64_t a1, uint64_t a2, uint64_t a3, int a4, void *a5)
             {
               if ([v13 mergeScanResults])
               {
-                sub_1000C5ADC(a1);
+                sub_1000C5ADC(a1, a3);
               }
 
               goto LABEL_16;
@@ -1943,11 +1811,11 @@ void sub_100035B5C(uint64_t a1, int a2, uint64_t a3)
   }
 }
 
-void sub_1000361A4(uint64_t a1)
+void sub_1000361A4(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    sub_1000361B4(a1, 1);
+    sub_1000361B4(result, 1);
   }
 }
 
@@ -2233,9 +2101,11 @@ LABEL_13:
 
 void sub_100036E0C(id a1)
 {
-  qword_100298440 = objc_alloc_init(WiFiSoftApStateMonitor);
+  v1 = objc_alloc_init(WiFiSoftApStateMonitor);
+  v2 = qword_100298440;
+  qword_100298440 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100037FD0(uint64_t a1)
@@ -2430,11 +2300,11 @@ LABEL_40:
   }
 }
 
-void sub_1000388F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000388F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2457,9 +2327,11 @@ id sub_100038918(void *a1, void *a2, _BYTE *a3)
 
 void sub_100038B30(id a1)
 {
-  qword_100298458 = [[WiFiAIRAgent alloc] _initPrivate];
+  v1 = [[WiFiAIRAgent alloc] _initPrivate];
+  v2 = qword_100298458;
+  qword_100298458 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100038C44(uint64_t a1)
@@ -2523,9 +2395,11 @@ id sub_10003905C(uint64_t a1, uint64_t a2)
 
 uint64_t sub_100039398(uint64_t a1)
 {
-  qword_100298460 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = qword_100298460;
+  qword_100298460 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 void sub_100039448(uint64_t a1, void *a2)
@@ -2556,16 +2430,17 @@ void sub_100039448(uint64_t a1, void *a2)
 void sub_100039584(uint64_t a1)
 {
   [*(a1 + 32) wifiManager];
-  v2 = *(a1 + 40);
 
   sub_1001626FC();
 }
 
 void sub_100039ABC(id a1)
 {
-  qword_100298470 = objc_alloc_init(WiFiAnalyticsManager);
+  v1 = objc_alloc_init(WiFiAnalyticsManager);
+  v2 = qword_100298470;
+  qword_100298470 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100039E08(uint64_t a1)
@@ -2630,12 +2505,10 @@ id sub_100039FDC(uint64_t a1)
   }
 
   objc_autoreleasePoolPop(v2);
-  v3 = [*(a1 + 40) wifiManager];
-  v4 = *(a1 + 32);
-  sub_100164F24(v3);
-  v5 = *(a1 + 40);
+  sub_100164F24([*(a1 + 40) wifiManager]);
+  v3 = *(a1 + 40);
 
-  return [v5 setRoamParamsQueryPending:0];
+  return [v3 setRoamParamsQueryPending:0];
 }
 
 id sub_10003B09C(void *a1, const void *a2, void *a3)
@@ -3465,7 +3338,7 @@ void sub_100042AB8(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_100042D54(uint64_t a1, const __CFDictionary *a2)
+void sub_100042D54(uint64_t result, const __CFDictionary *a2)
 {
   v8 = 1;
   v7 = 0;
@@ -3481,7 +3354,7 @@ void sub_100042D54(uint64_t a1, const __CFDictionary *a2)
     }
 
     objc_autoreleasePoolPop(v3);
-    v6 = *(a1 + 32);
+    v6 = *(result + 32);
 
     sub_10008549C(v6, v4, v5);
   }
@@ -3638,7 +3511,7 @@ uint64_t sub_10004309C(uint64_t a1, uint64_t a2, NSObject *a3)
             {
               v14 = v13;
               *buffer = 0u;
-              v38 = 0u;
+              v37 = 0u;
               SystemEncoding = CFStringGetSystemEncoding();
               CFStringGetCString(v14, buffer, 16, SystemEncoding);
               v16 = socket(2, 2, 0);
@@ -3650,16 +3523,16 @@ uint64_t sub_10004309C(uint64_t a1, uint64_t a2, NSObject *a3)
                   v19 = objc_autoreleasePoolPush();
                   if (off_100298C40)
                   {
-                    [off_100298C40 WFLog:4 message:{"%s: ioctl(SIOCGIFMTU) failed", "__WiFiLQAMgrSetActiveProbeSize", v35}];
+                    [off_100298C40 WFLog:4 message:{"%s: ioctl(SIOCGIFMTU) failed", "__WiFiLQAMgrSetActiveProbeSize", v34}];
                   }
                 }
 
                 else
                 {
-                  v18 = v38;
-                  if (v38 >= 37)
+                  v18 = v37;
+                  if (v37 >= 37)
                   {
-                    *(v6 + 352) = vmin_u32(vdup_n_s32(v38), 0x100000005B8);
+                    *(v6 + 352) = vmin_u32(vdup_n_s32(v37), 0x100000005B8);
                     *(v6 + 360) = 32;
                   }
 
@@ -3761,18 +3634,17 @@ LABEL_25:
                             block[2] = sub_1000438D8;
                             block[3] = &unk_10025EAD8;
                             block[4] = v6;
-                            v26 = *(v6 + 304);
                             *(v6 + 536) = tcp_connection_fallback_watcher_create();
                             dispatch_async(*(v6 + 304), block);
                             if (MGGetSInt32Answer() == 7)
                             {
-                              v27 = objc_autoreleasePoolPush();
+                              v26 = objc_autoreleasePoolPush();
                               if (off_100298C40)
                               {
                                 [off_100298C40 WFLog:4 message:"Audio accessory detected\n"];
                               }
 
-                              objc_autoreleasePoolPop(v27);
+                              objc_autoreleasePoolPop(v26);
                               *(v6 + 2840) = 1;
                               *(v6 + 656) = 0xFFFFFFABFFFFFFB0;
                             }
@@ -3781,33 +3653,33 @@ LABEL_25:
                             *(v6 + 2841) = 0;
                             *(v6 + 2852) = 0;
                             *(v6 + 2844) = 0;
-                            v28 = objc_autoreleasePoolPush();
+                            v27 = objc_autoreleasePoolPush();
                             if (off_100298C40)
                             {
                               [off_100298C40 WFLog:3 message:{"%s: ColocatedScopeTransition Feature is %s", "WiFiLQAMgrCreate", "disabled"}];
                             }
 
-                            objc_autoreleasePoolPop(v28);
-                            v29 = [[WiFiTrafficEngManager alloc] initWithArgs:v6];
-                            *(v6 + 2976) = v29;
-                            if (v29)
+                            objc_autoreleasePoolPop(v27);
+                            v28 = [[WiFiTrafficEngManager alloc] initWithArgs:v6];
+                            *(v6 + 2976) = v28;
+                            if (v28)
                             {
-                              v30 = [(WiFiTrafficEngManager *)v29 trafficEng];
-                              *(v6 + 2984) = v30;
-                              if (v30)
+                              v29 = [(WiFiTrafficEngManager *)v28 trafficEng];
+                              *(v6 + 2984) = v29;
+                              if (v29)
                               {
                                 *(v6 + 2921) = 0;
                                 *(v6 + 2924) = 1;
                                 *(v6 + 2944) = 0;
-                                v31 = dispatch_queue_create("TrafficEngineering", 0);
-                                *(v6 + 2928) = v31;
-                                if (v31)
+                                v30 = dispatch_queue_create("TrafficEngineering", 0);
+                                *(v6 + 2928) = v30;
+                                if (v30)
                                 {
                                   if (sub_100018608(*(v6 + 32)))
                                   {
-                                    v32 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, a3);
-                                    *(v6 + 2912) = v32;
-                                    dispatch_set_context(v32, v6);
+                                    v31 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, a3);
+                                    *(v6 + 2912) = v31;
+                                    dispatch_set_context(v31, v6);
                                     dispatch_source_set_event_handler_f(*(v6 + 2912), sub_1000439F4);
                                   }
 
@@ -3815,7 +3687,7 @@ LABEL_25:
                                   *(v6 + 2936) = 0;
                                   *(v6 + 2993) = 8;
                                   *(v6 + 3208) = 0;
-                                  v33 = objc_autoreleasePoolPush();
+                                  v32 = objc_autoreleasePoolPush();
                                   if (off_100298C40)
                                   {
                                     [off_100298C40 WFLog:2 message:{"%s: LQAManager Created\n", "WiFiLQAMgrCreate"}];
@@ -3869,7 +3741,7 @@ LABEL_25:
 LABEL_50:
   sub_100142520();
 LABEL_51:
-  v33 = objc_autoreleasePoolPush();
+  v32 = objc_autoreleasePoolPush();
   if (off_100298C40)
   {
     [off_100298C40 WFLog:4 message:{"%s: LQAManager Create Failed\n", "WiFiLQAMgrCreate"}];
@@ -3877,11 +3749,11 @@ LABEL_51:
 
   v6 = 0;
 LABEL_47:
-  objc_autoreleasePoolPop(v33);
+  objc_autoreleasePoolPop(v32);
   return v6;
 }
 
-void sub_1000438AC(uint64_t a1)
+void sub_1000438AC(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -4025,7 +3897,7 @@ LABEL_13:
   return v14;
 }
 
-uint64_t sub_100043BF4(uint64_t a1, int a2)
+uint64_t sub_100043BF4(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -4418,65 +4290,63 @@ LABEL_44:
   return v31;
 }
 
-void sub_100044400(uint64_t a1, uint64_t a2)
+void sub_100044400(uint64_t *a1, uint64_t a2)
 {
   if (a1 && a2)
   {
-    *(a1 + 1288) = a2;
+    a1[161] = a2;
     f = dispatch_mach_create_f();
-    *(a1 + 432) = f;
+    a1[54] = f;
     if (f)
     {
-      v4 = *(a1 + 428);
       dispatch_mach_connect();
     }
 
-    v5 = dispatch_mach_create_f();
-    *(a1 + 456) = v5;
+    v4 = dispatch_mach_create_f();
+    a1[57] = v4;
+    if (v4)
+    {
+      dispatch_mach_connect();
+    }
+
+    v5 = a1[43];
     if (v5)
     {
-      v6 = *(a1 + 452);
-      dispatch_mach_connect();
+      dispatch_activate(v5);
     }
 
-    v7 = *(a1 + 344);
-    if (v7)
+    v6 = a1[69];
+    if (v6)
     {
-      dispatch_activate(v7);
+      dispatch_activate(v6);
     }
 
-    v8 = *(a1 + 552);
-    if (v8)
+    if (sub_100018608(a1[4]))
     {
-      dispatch_activate(v8);
-    }
-
-    if (sub_100018608(*(a1 + 32)))
-    {
-      v9 = *(a1 + 2912);
-      if (v9)
+      v7 = a1[364];
+      if (v7)
       {
 
-        dispatch_activate(v9);
+        dispatch_activate(v7);
       }
     }
   }
 
   else
   {
-    v10 = objc_autoreleasePoolPush();
+    v8 = objc_autoreleasePoolPush();
     if (off_100298C40)
     {
-      v11 = "manager";
+      v9 = "manager";
       if (a1)
       {
-        v11 = "queue";
+        v9 = "queue";
       }
 
-      [off_100298C40 WFLog:4 message:{"%s: LQA %s is null", "WiFiLQAMgrScheduleWithQueue", v11}];
+      [off_100298C40 WFLog:4 message:{"%s: LQA %s is null", "WiFiLQAMgrScheduleWithQueue", v9}];
     }
 
-    objc_autoreleasePoolPop(v10);
+    objc_autoreleasePoolPop(v8);
   }
 }
 
@@ -4545,14 +4415,14 @@ void sub_10004456C(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_100044690(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_100044690(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
-      *(a1 + 560) = a2;
-      *(a1 + 568) = a3;
+      *(result + 560) = a2;
+      *(result + 568) = a3;
     }
 
     else
@@ -4567,14 +4437,14 @@ void sub_100044690(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void sub_1000446C4(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_1000446C4(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
-      *(a1 + 576) = a2;
-      *(a1 + 584) = a3;
+      *(result + 576) = a2;
+      *(result + 584) = a3;
     }
 
     else
@@ -4596,7 +4466,7 @@ uint64_t sub_1000446F8(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-id sub_100044704(uint64_t a1)
+id sub_100044704(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -4604,13 +4474,13 @@ id sub_100044704(uint64_t a1)
     return 0;
   }
 
-  v2 = *(a1 + 624);
-  if (!v2)
+  v3 = *(a1 + 624);
+  if (!v3)
   {
     return 0;
   }
 
-  return [v2 copy];
+  return [v3 copy];
 }
 
 void sub_100044740(uint64_t a1, CFDictionaryRef theDict)
@@ -4642,7 +4512,7 @@ void sub_100044740(uint64_t a1, CFDictionaryRef theDict)
 
     cf = v6;
     CFDictionaryAddValue(v5, @"kWiFiLqaMgrLqmSampleLocalTimestamp", v6);
-    v196 = theDict;
+    v197 = theDict;
     ValueIfPresent = CFDictionaryGetValueIfPresent(theDict, @"TXRX_STATS_VALID", &value);
     v8 = value;
     if (ValueIfPresent)
@@ -4656,6 +4526,7 @@ void sub_100044740(uint64_t a1, CFDictionaryRef theDict)
     }
 
     v11 = v9 || value == kCFBooleanTrue;
+    v252 = 0;
     v251 = 0;
     v250 = 0;
     v249 = 0;
@@ -4668,8 +4539,8 @@ void sub_100044740(uint64_t a1, CFDictionaryRef theDict)
     v242 = 0;
     v241 = 0;
     v240 = 0;
-    v239 = 0;
     number = 0;
+    v238 = 0;
     v237 = 0;
     v236 = 0;
     v235 = 0;
@@ -4679,37 +4550,36 @@ void sub_100044740(uint64_t a1, CFDictionaryRef theDict)
     v231 = 0;
     v230 = 0;
     v229 = 0;
-    v228 = 0;
-    v226 = 0;
     v227 = 0;
-    v224 = 0;
+    v228 = 0;
     v225 = 0;
-    v222 = 0;
+    v226 = 0;
     v223 = 0;
+    v224 = 0;
     theDicta = 0;
-    v221 = 0;
+    v222 = 0;
     theArray = 0;
-    v219 = 0;
-    v217 = 0;
-    v215 = 0;
+    v220 = 0;
+    v218 = 0;
     v216 = 0;
-    v213 = 0;
+    v217 = 0;
     v214 = 0;
+    v215 = 0;
     v12 = CFDictionaryGetValue(v5, @"RSSI");
     if (!v12)
     {
       goto LABEL_274;
     }
 
-    CFNumberGetValue(v12, kCFNumberSInt32Type, &v251);
-    *(a1 + 2804) = v251;
-    if (CFDictionaryGetValueIfPresent(v5, @"PER_CORE_RSSI", &v225))
+    CFNumberGetValue(v12, kCFNumberSInt32Type, &v252);
+    *(a1 + 2804) = v252;
+    if (CFDictionaryGetValueIfPresent(v5, @"PER_CORE_RSSI", &v226))
     {
-      sub_10001144C(v225, &v216, &v215);
-      v207[0] = 0;
-      if (CFDictionaryGetValueIfPresent(v5, @"PER_CORE_RSSI", v207))
+      sub_10001144C(v226, &v217, &v216);
+      v208[0] = 0;
+      if (CFDictionaryGetValueIfPresent(v5, @"PER_CORE_RSSI", v208))
       {
-        if (v207[0])
+        if (v208[0])
         {
           v13 = CFDictionaryGetValue(v5, @"LQMTIMESTAMP");
           if (v13)
@@ -4717,7 +4587,7 @@ void sub_100044740(uint64_t a1, CFDictionaryRef theDict)
             *keys = @"LQMTIMESTAMP";
             *&keys[8] = @"PER_CORE_RSSI";
             values[0] = v13;
-            values[1] = v207[0];
+            values[1] = v208[0];
             v14 = CFDictionaryCreate(kCFAllocatorDefault, keys, values, 2, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
             CFArrayInsertValueAtIndex(*(a1 + 264), 0, v14);
             Count = CFArrayGetCount(*(a1 + 264));
@@ -4743,82 +4613,82 @@ void sub_100044740(uint64_t a1, CFDictionaryRef theDict)
 
     if (CFDictionaryGetValueIfPresent(v5, @"SNR", &number) && number)
     {
-      CFNumberGetValue(number, kCFNumberSInt16Type, &v250 + 2);
+      CFNumberGetValue(number, kCFNumberSInt16Type, &v251 + 2);
     }
 
-    if (CFDictionaryGetValueIfPresent(v5, @"NOISE", &v237) && v237)
+    if (CFDictionaryGetValueIfPresent(v5, @"NOISE", &v238) && v238)
     {
-      CFNumberGetValue(v237, kCFNumberSInt16Type, &v250);
+      CFNumberGetValue(v238, kCFNumberSInt16Type, &v251);
     }
 
-    if (CFDictionaryGetValueIfPresent(v5, @"PER_CORE_NOISE", &v224) && !sub_10001144C(v224, &v214, &v213))
+    if (CFDictionaryGetValueIfPresent(v5, @"PER_CORE_NOISE", &v225) && !sub_10001144C(v225, &v215, &v214))
     {
-      v224 = 0;
+      v225 = 0;
     }
 
-    if (CFDictionaryGetValueIfPresent(v5, @"CCA", &v236) && v236)
+    if (CFDictionaryGetValueIfPresent(v5, @"CCA", &v237) && v237)
     {
-      CFNumberGetValue(v236, kCFNumberSInt8Type, &v249 + 1);
+      CFNumberGetValue(v237, kCFNumberSInt8Type, &v250 + 1);
     }
 
     if (CFDictionaryGetValueIfPresent(v5, @"CCA_STATS", &theDicta) && theDicta)
     {
-      if (CFDictionaryGetValueIfPresent(theDicta, @"CCA_SELF_TOTAL", &v223) && v223)
+      if (CFDictionaryGetValueIfPresent(theDicta, @"CCA_SELF_TOTAL", &v224) && v224)
+      {
+        CFNumberGetValue(v224, kCFNumberSInt8Type, &v250);
+      }
+
+      if (CFDictionaryGetValueIfPresent(theDicta, @"CCA_OTHER_TOTAL", &v222) && v222)
+      {
+        CFNumberGetValue(v222, kCFNumberSInt8Type, &v249 + 1);
+      }
+
+      if (CFDictionaryGetValueIfPresent(theDicta, @"CCA_INTERFERENCE_TOTAL", &v223) && v223)
       {
         CFNumberGetValue(v223, kCFNumberSInt8Type, &v249);
       }
-
-      if (CFDictionaryGetValueIfPresent(theDicta, @"CCA_OTHER_TOTAL", &v221) && v221)
-      {
-        CFNumberGetValue(v221, kCFNumberSInt8Type, &v248 + 1);
-      }
-
-      if (CFDictionaryGetValueIfPresent(theDicta, @"CCA_INTERFERENCE_TOTAL", &v222) && v222)
-      {
-        CFNumberGetValue(v222, kCFNumberSInt8Type, &v248);
-      }
     }
 
-    if (CFDictionaryGetValueIfPresent(v5, @"TXFAIL", &v235) && v235)
+    if (CFDictionaryGetValueIfPresent(v5, @"TXFAIL", &v236) && v236)
     {
-      CFNumberGetValue(v235, kCFNumberIntType, &v247);
+      CFNumberGetValue(v236, kCFNumberIntType, &v248);
     }
 
-    if (CFDictionaryGetValueIfPresent(v5, @"TXFRAMES", &v233) && v233)
+    if (CFDictionaryGetValueIfPresent(v5, @"TXFRAMES", &v234) && v234)
     {
-      CFNumberGetValue(v233, kCFNumberIntType, &v246 + 4);
+      CFNumberGetValue(v234, kCFNumberIntType, &v247 + 4);
     }
 
-    if (CFDictionaryGetValueIfPresent(v5, @"TXFWFRAMES", &v240) && v240)
+    if (CFDictionaryGetValueIfPresent(v5, @"TXFWFRAMES", &v241) && v241)
+    {
+      CFNumberGetValue(v241, kCFNumberIntType, &v243);
+    }
+
+    if (CFDictionaryGetValueIfPresent(v5, @"TXFWFAIL", &v240) && v240)
     {
       CFNumberGetValue(v240, kCFNumberIntType, &v242);
     }
 
-    if (CFDictionaryGetValueIfPresent(v5, @"TXFWFAIL", &v239) && v239)
+    if (CFDictionaryGetValueIfPresent(v5, @"TXRETRANS", &v235) && v235)
     {
-      CFNumberGetValue(v239, kCFNumberIntType, &v241);
+      CFNumberGetValue(v235, kCFNumberIntType, &v247);
     }
 
-    if (CFDictionaryGetValueIfPresent(v5, @"TXRETRANS", &v234) && v234)
+    if (CFDictionaryGetValueIfPresent(v5, @"RXFRAMES", &v233))
     {
-      CFNumberGetValue(v234, kCFNumberIntType, &v246);
-    }
-
-    if (CFDictionaryGetValueIfPresent(v5, @"RXFRAMES", &v232))
-    {
-      if (v232)
+      if (v233)
       {
-        CFNumberGetValue(v232, kCFNumberIntType, &v245 + 4);
-        v207[0] = 0;
+        CFNumberGetValue(v233, kCFNumberIntType, &v246 + 4);
+        v208[0] = 0;
         if (*(a1 + 3257))
         {
           if ([+[WiFiUserInteractionMonitor isRealTimeAppActive] sharedInstance]
           {
             if (*(a1 + 2960))
             {
-              if (CFDictionaryGetValueIfPresent(v5, @"RXFRAMES", v207))
+              if (CFDictionaryGetValueIfPresent(v5, @"RXFRAMES", v208))
               {
-                if (v207[0])
+                if (v208[0])
                 {
                   v16 = CFDictionaryGetValue(v5, @"LQMTIMESTAMP");
                   if (v16)
@@ -4826,7 +4696,7 @@ void sub_100044740(uint64_t a1, CFDictionaryRef theDict)
                     *keys = @"LQMTIMESTAMP";
                     *&keys[8] = @"RXFRAMES";
                     values[0] = v16;
-                    values[1] = v207[0];
+                    values[1] = v208[0];
                     v17 = CFDictionaryCreate(kCFAllocatorDefault, keys, values, 2, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
                     CFArrayInsertValueAtIndex(*(a1 + 3232), 0, v17);
                     v18 = CFArrayGetCount(*(a1 + 3232));
@@ -4852,7 +4722,7 @@ void sub_100044740(uint64_t a1, CFDictionaryRef theDict)
               goto LABEL_73;
             }
 
-            v178 = objc_autoreleasePoolPush();
+            v179 = objc_autoreleasePoolPush();
             if (off_100298C40)
             {
               [off_100298C40 WFLog:2 message:{"%s: No real time traffic", "__WiFiLQAMgrAddRxframesHistory"}];
@@ -4861,909 +4731,899 @@ void sub_100044740(uint64_t a1, CFDictionaryRef theDict)
 
           else
           {
-            v178 = objc_autoreleasePoolPush();
+            v179 = objc_autoreleasePoolPush();
             if (off_100298C40)
             {
               [off_100298C40 WFLog:2 message:{"%s: No real time App", "__WiFiLQAMgrAddRxframesHistory"}];
             }
           }
 
-          objc_autoreleasePoolPop(v178);
+          objc_autoreleasePoolPop(v179);
           CFArrayRemoveAllValues(*(a1 + 3232));
         }
       }
     }
 
 LABEL_73:
-    if (CFDictionaryGetValueIfPresent(v5, @"RXRETRYFRMS", &v231) && v231)
+    if (CFDictionaryGetValueIfPresent(v5, @"RXRETRYFRMS", &v232) && v232)
     {
-      CFNumberGetValue(v231, kCFNumberIntType, &v245);
+      CFNumberGetValue(v232, kCFNumberIntType, &v246);
     }
 
-    if (CFDictionaryGetValueIfPresent(v5, @"RXBEACONFRMS", &v230) && v230)
+    if (CFDictionaryGetValueIfPresent(v5, @"RXBEACONFRMS", &v231) && v231)
     {
-      CFNumberGetValue(v230, kCFNumberIntType, &v244 + 4);
+      CFNumberGetValue(v231, kCFNumberIntType, &v245 + 4);
     }
 
-    if (CFDictionaryGetValueIfPresent(v5, @"RXBEACONSCHED", &v229) && v229)
+    if (CFDictionaryGetValueIfPresent(v5, @"RXBEACONSCHED", &v230) && v230)
     {
-      CFNumberGetValue(v229, kCFNumberIntType, &v244);
+      CFNumberGetValue(v230, kCFNumberIntType, &v245);
     }
 
-    if (CFDictionaryGetValueIfPresent(v5, @"RXRATE", &v227) && v227)
+    if (CFDictionaryGetValueIfPresent(v5, @"RXRATE", &v228) && v228)
     {
-      CFNumberGetValue(v227, kCFNumberIntType, &v243);
+      CFNumberGetValue(v228, kCFNumberIntType, &v244);
     }
 
-    if (CFDictionaryGetValueIfPresent(v5, @"TXRATE", &v228) && v228)
+    if (CFDictionaryGetValueIfPresent(v5, @"TXRATE", &v229) && v229)
     {
-      CFNumberGetValue(v228, kCFNumberIntType, &v243 + 4);
+      CFNumberGetValue(v229, kCFNumberIntType, &v244 + 4);
     }
 
-    if (CFDictionaryGetValueIfPresent(v5, @"TXFBRATE", &v226) && v226)
+    if (CFDictionaryGetValueIfPresent(v5, @"TXFBRATE", &v227) && v227)
     {
-      CFNumberGetValue(v226, kCFNumberIntType, &v242 + 4);
+      CFNumberGetValue(v227, kCFNumberIntType, &v243 + 4);
     }
 
-    v212 = 0xAAAAAAAAAAAAAAAALL;
+    v213 = 0xAAAAAAAAAAAAAAAALL;
     *&v19 = 0xAAAAAAAAAAAAAAAALL;
     *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v210 = v19;
     v211 = v19;
-    if (CFDictionaryGetValueIfPresent(v5, @"MLO_OP_STATS", &v219) && v219)
+    v212 = v19;
+    if (CFDictionaryGetValueIfPresent(v5, @"MLO_OP_STATS", &v220) && v220)
     {
-      sub_10013EC1C(a1, v219);
+      sub_10013EC1C(a1, v220);
     }
 
     if (CFDictionaryGetValueIfPresent(v5, @"MLO_LQM_STATS", &theArray))
     {
       if (*(a1 + 3052))
       {
-        v20 = 0;
-        v21 = a1 + 3056;
+        v21 = 0;
+        v22 = a1 + 3056;
         do
         {
-          v22 = (v21 + v20);
-          if (*(v21 + v20))
+          v23 = (v22 + v21);
+          if (*(v22 + v21))
           {
-            v23 = v22[1];
-            v210 = *v22;
-            v211 = v23;
-            v212 = *(v22 + 4);
+            v24 = v23[1];
+            v211 = *v23;
+            v212 = v24;
+            v213 = *(v23 + 4);
           }
 
-          v20 += 40;
+          v21 += 40;
         }
 
-        while (v20 != 120);
+        while (v21 != 120);
       }
 
       if (theArray && CFArrayGetCount(theArray) >= 1)
       {
-        v24 = 0;
+        v25 = 0;
         do
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(theArray, v24);
+          ValueAtIndex = CFArrayGetValueAtIndex(theArray, v25);
           if (ValueAtIndex)
           {
-            sub_10013ED7C(a1, ValueAtIndex, v24, v26, v27, v28, v29, v30);
+            sub_10013ED7C(a1, ValueAtIndex, v25, v27, v28, v29, v30, v31);
           }
 
-          ++v24;
+          ++v25;
         }
 
-        while (CFArrayGetCount(theArray) > v24);
+        while (CFArrayGetCount(theArray) > v25);
       }
 
       if (*(a1 + 3052))
       {
-        v31 = 0;
-        v32 = (a1 + 3056);
-        v33 = 3;
-        v34 = (a1 + 3056);
+        v32 = 0;
+        v33 = (a1 + 3056);
+        v34 = 3;
+        v35 = (a1 + 3056);
         do
         {
-          v35 = *v34;
-          v34 += 40;
-          if (v35)
+          v36 = *v35;
+          v35 += 40;
+          if (v36)
           {
-            v31 = v32;
+            v32 = v33;
           }
 
-          v32 = v34;
-          --v33;
+          v33 = v35;
+          --v34;
         }
 
-        while (v33);
-        if (v31)
+        while (v34);
+        if (v32)
         {
-          sub_1000C4F40(&v210, v31);
+          sub_1000C4F40(&v211, v32);
         }
       }
 
-      v36 = +[WiFiUsageMonitor sharedInstance];
-      if (v36)
+      v37 = +[WiFiUsageMonitor sharedInstance];
+      if (v37)
       {
-        v37 = *(a1 + 40);
-        v38 = *(a1 + 3192);
+        v38 = *(a1 + 40);
+        v39 = *(a1 + 3192);
         *keys = *(a1 + 3176);
-        *&keys[16] = v38;
-        [(WiFiUsageMonitor *)v36 updateWithMLORuntimeConfig:keys forInterface:v37];
+        *&keys[16] = v39;
+        [(WiFiUsageMonitor *)v37 updateWithMLORuntimeConfig:keys forInterface:v38];
       }
     }
 
-    v39 = sub_100014000(*(a1 + 48));
-    if (v39)
-    {
-      CFNumberGetValue(v39, kCFNumberSInt16Type, (a1 + 2856));
-    }
-
-    v40 = sub_10000A540(*(a1 + 48), @"CHANNEL_FLAGS");
+    v40 = sub_100014000(*(a1 + 48), v20);
     if (v40)
     {
-      CFNumberGetValue(v40, kCFNumberIntType, &v217);
-      if (v217)
+      CFNumberGetValue(v40, kCFNumberSInt16Type, (a1 + 2856));
+    }
+
+    v41 = sub_10000A540(*(a1 + 48), @"CHANNEL_FLAGS");
+    if (v41)
+    {
+      CFNumberGetValue(v41, kCFNumberIntType, &v218);
+      if (v218)
       {
-        if ((v217 & 2) != 0)
+        if ((v218 & 2) != 0)
         {
-          v41 = 20;
+          v42 = 20;
         }
 
-        else if ((v217 & 4) != 0)
+        else if ((v218 & 4) != 0)
         {
-          v41 = 40;
+          v42 = 40;
         }
 
-        else if ((v217 & 0x400) != 0)
+        else if ((v218 & 0x400) != 0)
         {
-          v41 = 80;
+          v42 = 80;
         }
 
-        else if ((v217 & 0x800) != 0)
+        else if ((v218 & 0x800) != 0)
         {
-          v41 = 160;
+          v42 = 160;
         }
 
         else
         {
-          if ((v217 & 0x4000) == 0)
+          if ((v218 & 0x4000) == 0)
           {
             goto LABEL_130;
           }
 
-          v41 = 320;
+          v42 = 320;
         }
 
-        *(a1 + 2858) = v41;
+        *(a1 + 2858) = v42;
       }
     }
 
 LABEL_130:
-    if (v244)
+    if (v245)
     {
-      v42 = SHIDWORD(v244) < v244 / 2;
+      v43 = SHIDWORD(v245) < v245 / 2;
     }
 
     else
     {
-      v42 = 0;
+      v43 = 0;
     }
 
-    v43 = *(a1 + 2804);
-    if (v43 >= *(a1 + 656) + 5)
+    v44 = *(a1 + 2804);
+    if (v44 >= *(a1 + 656) + 5)
     {
-      v42 = 0;
+      v43 = 0;
     }
 
-    if (!v244)
+    if (!v245)
     {
-      v42 = 1;
+      v43 = 1;
     }
 
-    if (HIDWORD(v244))
+    if (HIDWORD(v245))
     {
-      v44 = v42;
+      v45 = v43;
     }
 
     else
-    {
-      v44 = 1;
-    }
-
-    v203 = v5;
-    v204 = v11;
-    if (v43 == -128)
     {
       v45 = 1;
     }
 
+    v204 = v5;
+    v205 = v11;
+    if (v44 == -128)
+    {
+      v46 = 1;
+    }
+
     else
     {
-      if (v244)
+      if (v245)
       {
-        v46 = HIDWORD(v244) == 0;
+        v47 = HIDWORD(v245) == 0;
       }
 
       else
       {
-        v46 = 0;
+        v47 = 0;
       }
 
-      v45 = v46 && SHIDWORD(v245) > 0;
+      v46 = v47 && SHIDWORD(v246) > 0;
     }
 
     LOBYTE(values[0]) = 0;
-    LOBYTE(v207[0]) = 0;
+    LOBYTE(v208[0]) = 0;
     *keys = 0;
-    v48 = CFArrayGetCount(*(a1 + 264));
-    if (v48 <= 0)
+    v49 = CFArrayGetCount(*(a1 + 264));
+    if (v49 <= 0)
     {
-      v67 = objc_autoreleasePoolPush();
+      v68 = objc_autoreleasePoolPush();
       if (off_100298C40)
       {
         [off_100298C40 WFLog:4 message:{"%s: LQAManager: perCoreRssiHistory is Empty!", "__WiFiLQAMgrAvgValidPerCoreRssiSamples"}];
       }
 
-      v66 = 0;
+      v67 = 0;
     }
 
     else
     {
-      v197 = v44;
-      v194 = v45;
-      v200 = v8;
-      v49 = 0;
+      v198 = v45;
+      v195 = v46;
+      v201 = v8;
       v50 = 0;
       v51 = 0;
       v52 = 0;
-      if (v48 >= 3)
+      v53 = 0;
+      if (v49 >= 3)
       {
-        v53 = 3;
+        v54 = 3;
       }
 
       else
       {
-        v53 = v48;
+        v54 = v49;
       }
 
-      v54 = v53 + 1;
+      v55 = v54 + 1;
       do
       {
-        v55 = CFArrayGetValueAtIndex(*(a1 + 264), v54 - 2);
-        if (!v55)
+        v56 = CFArrayGetValueAtIndex(*(a1 + 264), v55 - 2);
+        if (!v56)
         {
-          v67 = objc_autoreleasePoolPush();
+          v68 = objc_autoreleasePoolPush();
           if (off_100298C40)
           {
             [off_100298C40 WFLog:4 message:{"%s: LQAManager: paramDict is NULL!", "__WiFiLQAMgrAvgValidPerCoreRssiSamples"}];
           }
 
-          v66 = 0;
-          v5 = v203;
-          v11 = v204;
-          v8 = v200;
+          v67 = 0;
+          v5 = v204;
+          v11 = v205;
+          v8 = v201;
           goto LABEL_203;
         }
 
-        if (CFDictionaryGetValueIfPresent(v55, @"PER_CORE_RSSI", keys))
+        if (CFDictionaryGetValueIfPresent(v56, @"PER_CORE_RSSI", keys))
         {
-          v56 = *keys == 0;
+          v57 = *keys == 0;
         }
 
         else
         {
-          v56 = 1;
+          v57 = 1;
         }
 
-        if (!v56 && CFArrayGetCount(*keys) == 2)
+        if (!v57 && CFArrayGetCount(*keys) == 2)
         {
-          v57 = CFArrayGetValueAtIndex(*keys, 0);
-          v58 = CFArrayGetValueAtIndex(*keys, 1);
-          if (v57)
-          {
-            CFNumberGetValue(v57, kCFNumberSInt8Type, values);
-            if (SLOBYTE(values[0]) >= 0xFFFFFF81)
-            {
-              ++v52;
-              v50 += SLOBYTE(values[0]);
-            }
-          }
-
+          v58 = CFArrayGetValueAtIndex(*keys, 0);
+          v59 = CFArrayGetValueAtIndex(*keys, 1);
           if (v58)
           {
-            CFNumberGetValue(v58, kCFNumberSInt8Type, v207);
-            if (SLOBYTE(v207[0]) >= 0xFFFFFF81)
+            CFNumberGetValue(v58, kCFNumberSInt8Type, values);
+            if (SLOBYTE(values[0]) >= 0xFFFFFF81)
             {
-              ++v51;
-              v49 += SLOBYTE(v207[0]);
+              ++v53;
+              v51 += SLOBYTE(values[0]);
+            }
+          }
+
+          if (v59)
+          {
+            CFNumberGetValue(v59, kCFNumberSInt8Type, v208);
+            if (SLOBYTE(v208[0]) >= 0xFFFFFF81)
+            {
+              ++v52;
+              v50 += SLOBYTE(v208[0]);
             }
           }
         }
 
-        --v54;
+        --v55;
       }
 
-      while (v54 > 1);
-      if (v53 < v52)
+      while (v55 > 1);
+      if (v54 < v53)
       {
         sub_100142D70();
       }
 
-      if (v53 < v51)
+      if (v54 < v52)
       {
         sub_100142D44();
       }
 
+      if (v53)
+      {
+        v51 /= v53;
+      }
+
+      v5 = v204;
       if (v52)
       {
         v50 /= v52;
       }
 
-      v5 = v203;
-      if (v51)
-      {
-        v49 /= v51;
-      }
-
-      v59 = v50;
-      if (!v52)
-      {
-        v59 = -1;
-      }
-
-      *(a1 + 2808) = v59;
-      v60 = v49;
-      if (!v52)
+      v60 = v51;
+      if (!v53)
       {
         v60 = -1;
       }
 
-      *(a1 + 2812) = v60;
-      if ((v197 & _os_feature_enabled_impl()) != 1)
-      {
-        v66 = 0;
-        v11 = v204;
-        v8 = v200;
-        goto LABEL_204;
-      }
-
-      v8 = v200;
-      if (!(v49 | v50))
-      {
-        v66 = 0;
-        v11 = v204;
-        goto LABEL_204;
-      }
-
+      *(a1 + 2808) = v60;
       v61 = v50;
-      v62 = v49;
-      if (v61 <= v49)
+      if (!v53)
       {
-        v63 = v49;
+        v61 = -1;
       }
 
-      else
+      *(a1 + 2812) = v61;
+      if ((v198 & _os_feature_enabled_impl()) != 1)
       {
-        v63 = v50;
+        v67 = 0;
+        v11 = v205;
+        v8 = v201;
+        goto LABEL_204;
       }
 
-      if (v50)
+      v8 = v201;
+      if (!(v50 | v51))
+      {
+        v67 = 0;
+        v11 = v205;
+        goto LABEL_204;
+      }
+
+      v62 = v51;
+      v63 = v50;
+      if (v62 <= v50)
       {
         v64 = v50;
       }
 
       else
       {
-        v64 = v49;
+        v64 = v51;
       }
 
-      if (v49)
+      if (v51)
       {
-        v65 = v50 == 0;
+        v65 = v51;
       }
 
       else
       {
-        v65 = 1;
+        v65 = v50;
       }
 
-      if (!v65)
+      if (v50)
       {
-        v64 = v63;
+        v66 = v51 == 0;
       }
 
-      if (v50 == v64)
+      else
       {
         v66 = 1;
       }
 
+      if (!v66)
+      {
+        v65 = v64;
+      }
+
+      if (v51 == v65)
+      {
+        v67 = 1;
+      }
+
       else
       {
-        v66 = 2;
+        v67 = 2;
       }
 
-      if ((v194 & 1) != 0 || *(a1 + 2804) > v64)
+      if ((v195 & 1) != 0 || *(a1 + 2804) > v65)
       {
-        *(a1 + 2804) = v64;
+        *(a1 + 2804) = v65;
       }
 
       else
       {
-        v66 = 0;
+        v67 = 0;
       }
 
-      v67 = objc_autoreleasePoolPush();
-      v11 = v204;
+      v68 = objc_autoreleasePoolPush();
+      v11 = v205;
       if (off_100298C40)
       {
-        [off_100298C40 WFLog:3 message:{"Last RSSI:%d Core0 AvgRssi = %d --Core1 AvgRssi = %d mode %lu", *(a1 + 2804), v61, v62, v66}];
+        [off_100298C40 WFLog:3 message:{"Last RSSI:%d Core0 AvgRssi = %d --Core1 AvgRssi = %d mode %lu", *(a1 + 2804), v62, v63, v67}];
       }
     }
 
 LABEL_203:
-    objc_autoreleasePoolPop(v67);
+    objc_autoreleasePoolPop(v68);
 LABEL_204:
-    v68 = (v8 != 0) & v11;
-    if (v68 || CFAbsoluteTimeGetCurrent() - *(a1 + 96) > *(a1 + 104))
+    v69 = (v8 != 0) & v11;
+    if (v69 || CFAbsoluteTimeGetCurrent() - *(a1 + 96) > *(a1 + 104))
     {
       *(a1 + 96) = CFAbsoluteTimeGetCurrent();
-      v69 = 0.0;
       v70 = 0.0;
+      v71 = 0.0;
       if (*(a1 + 2792) != 0.0)
       {
-        v70 = CFAbsoluteTimeGetCurrent() - *(a1 + 2792);
+        v71 = CFAbsoluteTimeGetCurrent() - *(a1 + 2792);
       }
 
       if (*(a1 + 72) != 0.0)
       {
-        v69 = CFAbsoluteTimeGetCurrent() - *(a1 + 72);
+        v70 = CFAbsoluteTimeGetCurrent() - *(a1 + 72);
       }
 
-      if (HIDWORD(v246) && v247)
+      if (HIDWORD(v247) && v248)
       {
         kdebug_trace();
-        v71 = objc_autoreleasePoolPush();
+        v72 = objc_autoreleasePoolPush();
         if (off_100298C40)
         {
           [off_100298C40 WFLog:4 message:"Tx failure is observed"];
         }
 
-        objc_autoreleasePoolPop(v71);
+        objc_autoreleasePoolPop(v72);
       }
 
-      v201 = v66;
-      v72 = theDicta;
-      v73 = v225;
-      v74 = CWFGetLinkQualityOSLog();
-      v75 = os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT);
-      if (v72)
+      v202 = v67;
+      v73 = theDicta;
+      v74 = v226;
+      v75 = CWFGetLinkQualityOSLog();
+      v76 = os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT);
+      if (v73)
       {
-        if (v73)
+        if (v74)
         {
-          if (v75)
+          if (v76)
           {
-            v76 = sub_1001784B0(*(a1 + 48));
-            v77 = sub_100014038(*(a1 + 2784));
-            v78 = 0.0;
-            if (v244 && v244 > SHIDWORD(v244))
+            v77 = sub_1001784B0(*(a1 + 48));
+            v78 = sub_100014038(*(a1 + 2784));
+            v79 = 0.0;
+            if (v245 && v245 > SHIDWORD(v245))
             {
-              v78 = (v244 - HIDWORD(v244)) / v244 * 100.0;
+              v79 = (v245 - HIDWORD(v245)) / v245 * 100.0;
             }
 
+            if (HIDWORD(v247))
+            {
+              v80 = v248 / SHIDWORD(v247) * 100.0;
+              v81 = v247;
+              v82 = v247 / SHIDWORD(v247) * 100.0;
+            }
+
+            else
+            {
+              v80 = 0.0;
+              v81 = v247;
+              v82 = 0.0;
+            }
+
+            v101 = *(a1 + 2856);
+            v102 = *(a1 + 2858);
+            v103 = (*(a1 + 1092) * 100.0);
             if (HIDWORD(v246))
             {
-              v79 = v247 / SHIDWORD(v246) * 100.0;
-              v80 = v246;
-              v81 = v246 / SHIDWORD(v246) * 100.0;
+              v104 = v246 / SHIDWORD(v246) * 100.0;
             }
 
             else
             {
-              v79 = 0.0;
-              v80 = v246;
-              v81 = 0.0;
-            }
-
-            v100 = *(a1 + 2856);
-            v101 = *(a1 + 2858);
-            v102 = (*(a1 + 1092) * 100.0);
-            if (HIDWORD(v245))
-            {
-              v103 = v245 / SHIDWORD(v245) * 100.0;
-            }
-
-            else
-            {
-              v103 = 0.0;
+              v104 = 0.0;
             }
 
             *&keys[4] = "__WiFiLQAMgrLogStats";
             *&keys[12] = 2114;
-            v104 = "F";
-            *&keys[14] = v76;
-            *&keys[24] = v77;
-            if (v68)
+            v105 = "F";
+            *&keys[14] = v77;
+            *&keys[24] = v78;
+            if (v69)
             {
-              v104 = "T";
+              v105 = "T";
             }
 
-            v260 = v100;
-            v262 = v101;
-            v264 = v251;
-            *v266 = v216;
-            *v267 = v215;
-            *&v267[10] = SHIBYTE(v249);
-            *&v267[16] = v249;
-            *&v267[22] = SHIBYTE(v248);
-            *&v267[28] = v248;
-            *&v267[34] = SHIWORD(v250);
-            *&v267[50] = v244;
-            *&v267[66] = HIDWORD(v246);
-            *&v267[82] = v80;
-            *&v267[98] = HIDWORD(v245);
-            *&v267[104] = v245;
-            *&v267[126] = v243;
-            *&v268[8] = v242;
-            *&v269[2] = v250;
-            *&v269[8] = v214;
-            *v270 = v213;
-            v258 = v69;
-            *&v267[110] = v103;
-            *&v267[120] = HIDWORD(v243);
-            *&v268[2] = HIDWORD(v242);
-            *&v268[14] = v241;
-            v259 = 1024;
-            v261 = 1024;
-            v263 = 1024;
-            *&v267[8] = 1024;
-            *&v267[14] = 1024;
-            *&v267[20] = 1024;
-            *&v267[26] = 1024;
-            *&v267[32] = 1024;
-            *&v267[48] = 1024;
-            *&v267[64] = 1024;
-            *&v267[80] = 1024;
-            *&v267[96] = 1024;
-            *&v267[102] = 1024;
-            *&v267[118] = 1024;
-            *&v267[124] = 1024;
-            *v268 = 1024;
-            *&v268[6] = 1024;
-            *&v268[12] = 1024;
+            v261 = v101;
+            v263 = v102;
+            v265 = v252;
+            *v267 = v217;
+            *v268 = v216;
+            *&v268[10] = SHIBYTE(v250);
+            *&v268[16] = v250;
+            *&v268[22] = SHIBYTE(v249);
+            *&v268[28] = v249;
+            *&v268[34] = SHIWORD(v251);
+            *&v268[50] = v245;
+            *&v268[66] = HIDWORD(v247);
+            *&v268[82] = v81;
+            *&v268[98] = HIDWORD(v246);
+            *&v268[104] = v246;
+            *&v268[126] = v244;
+            *&v269[8] = v243;
+            *&v270[2] = v251;
+            *&v270[8] = v215;
+            *v271 = v214;
+            v259 = v70;
+            *&v268[110] = v104;
+            *&v268[120] = HIDWORD(v244);
+            *&v269[2] = HIDWORD(v243);
+            *&v269[14] = v242;
+            v260 = 1024;
+            v262 = 1024;
+            v264 = 1024;
+            *&v268[8] = 1024;
+            *&v268[14] = 1024;
+            *&v268[20] = 1024;
+            *&v268[26] = 1024;
+            *&v268[32] = 1024;
+            *&v268[48] = 1024;
+            *&v268[64] = 1024;
+            *&v268[80] = 1024;
+            *&v268[96] = 1024;
+            *&v268[102] = 1024;
+            *&v268[118] = 1024;
+            *&v268[124] = 1024;
             *v269 = 1024;
-            *v271 = v213 - v214;
-            v257 = 2048;
-            v265 = 2048;
-            *&v266[8] = 2048;
-            *&v267[38] = 2048;
-            *&v267[54] = 2048;
-            *&v267[70] = 2048;
-            *&v267[86] = 2048;
-            *&v267[108] = 2048;
-            *&v269[6] = 2048;
-            *&v269[16] = 2048;
-            *&v270[8] = 2048;
+            *&v269[6] = 1024;
+            *&v269[12] = 1024;
+            *v270 = 1024;
+            *v272 = v214 - v215;
+            v258 = 2048;
+            v266 = 2048;
+            *&v267[8] = 2048;
+            *&v268[38] = 2048;
+            *&v268[54] = 2048;
+            *&v268[70] = 2048;
+            *&v268[86] = 2048;
+            *&v268[108] = 2048;
+            *&v270[6] = 2048;
+            *&v270[16] = 2048;
             *&v271[8] = 2048;
-            v273 = *(a1 + 216);
-            v275 = v104;
-            *v272 = v70;
+            *&v272[8] = 2048;
+            v274 = *(a1 + 216);
+            v276 = v105;
+            *v273 = v71;
             *&keys[22] = 2112;
-            *&v272[8] = 2112;
-            v274 = 2080;
+            *&v273[8] = 2112;
+            v275 = 2080;
             *keys = 136324098;
-            *&v267[40] = v78;
-            *&v267[56] = v102;
-            *&v267[72] = v79;
-            *&v267[88] = v81;
-            v105 = "%s(%{public}@:%@): InfraUptime:%.1fsecs Channel: %d Bandwidth: %dMhz Rssi: %d {%ld %ld} Cca: %d (S:%d O:%d I:%d) Snr: %hd BcnPer: %.1f%% (%d, %.1f%%) TxFrameCnt: %d TxPer: %.1f%% TxReTrans: %d TxRetryRatio: %0.1f%% RxFrameCnt: %d RxRetryFrames: %d RxRetryRatio: %0.1f%% TxRate: %d RxRate: %d FBRate: %d TxFwFrms: %d TxFwFail: %d Noise: %d {%ld %ld %ld} time: %.1fsecs fgApp: %@ V: %s";
-            v106 = v74;
-            v107 = 286;
+            *&v268[40] = v79;
+            *&v268[56] = v103;
+            *&v268[72] = v80;
+            *&v268[88] = v82;
+            v106 = "%s(%{public}@:%@): InfraUptime:%.1fsecs Channel: %d Bandwidth: %dMhz Rssi: %d {%ld %ld} Cca: %d (S:%d O:%d I:%d) Snr: %hd BcnPer: %.1f%% (%d, %.1f%%) TxFrameCnt: %d TxPer: %.1f%% TxReTrans: %d TxRetryRatio: %0.1f%% RxFrameCnt: %d RxRetryFrames: %d RxRetryRatio: %0.1f%% TxRate: %d RxRate: %d FBRate: %d TxFwFrms: %d TxFwFail: %d Noise: %d {%ld %ld %ld} time: %.1fsecs fgApp: %@ V: %s";
+            v107 = v75;
+            v108 = 286;
 LABEL_271:
-            _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_DEFAULT, v105, keys, v107);
+            _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_DEFAULT, v106, keys, v108);
             goto LABEL_272;
           }
 
           goto LABEL_272;
         }
 
-        if (!v75)
+        if (!v76)
         {
           goto LABEL_272;
         }
 
-        v88 = sub_1001784B0(*(a1 + 48));
-        v89 = sub_100014038(*(a1 + 2784));
-        v90 = 0.0;
-        if (v244 && v244 > SHIDWORD(v244))
+        v89 = sub_1001784B0(*(a1 + 48));
+        v90 = sub_100014038(*(a1 + 2784));
+        v91 = 0.0;
+        if (v245 && v245 > SHIDWORD(v245))
         {
-          v90 = (v244 - HIDWORD(v244)) / v244 * 100.0;
+          v91 = (v245 - HIDWORD(v245)) / v245 * 100.0;
         }
 
+        if (HIDWORD(v247))
+        {
+          v92 = v248 / SHIDWORD(v247) * 100.0;
+          v93 = v247;
+          v94 = v247 / SHIDWORD(v247) * 100.0;
+        }
+
+        else
+        {
+          v92 = 0.0;
+          v93 = v247;
+          v94 = 0.0;
+        }
+
+        v113 = *(a1 + 2856);
+        v114 = *(a1 + 2858);
+        v115 = (*(a1 + 1092) * 100.0);
         if (HIDWORD(v246))
         {
-          v91 = v247 / SHIDWORD(v246) * 100.0;
-          v92 = v246;
-          v93 = v246 / SHIDWORD(v246) * 100.0;
+          v116 = v246 / SHIDWORD(v246) * 100.0;
         }
 
         else
         {
-          v91 = 0.0;
-          v92 = v246;
-          v93 = 0.0;
+          v116 = 0.0;
         }
 
-        v112 = *(a1 + 2856);
-        v113 = *(a1 + 2858);
-        v114 = (*(a1 + 1092) * 100.0);
-        if (HIDWORD(v245))
+        v118 = "F";
+        v119 = *(a1 + 216);
+        if (v69)
         {
-          v115 = v245 / SHIDWORD(v245) * 100.0;
-        }
-
-        else
-        {
-          v115 = 0.0;
-        }
-
-        v117 = "F";
-        v118 = *(a1 + 216);
-        if (v68)
-        {
-          v117 = "T";
+          v118 = "T";
         }
 
         *keys = 136322562;
         *&keys[4] = "__WiFiLQAMgrLogStats";
         *&keys[12] = 2114;
-        *&keys[14] = v88;
+        *&keys[14] = v89;
         *&keys[22] = 2112;
-        *&keys[24] = v89;
-        v257 = 2048;
-        v258 = v69;
-        v259 = 1024;
-        v260 = v112;
-        v261 = 1024;
-        v262 = v113;
-        v263 = 1024;
-        v264 = v251;
-        v265 = 1024;
-        *v266 = SHIBYTE(v249);
-        *&v266[4] = 1024;
-        *&v266[6] = v249;
-        *v267 = 1024;
-        *&v267[2] = SHIBYTE(v248);
-        *&v267[6] = 1024;
-        *&v267[8] = v248;
-        *&v267[12] = 1024;
-        *&v267[14] = SHIWORD(v250);
-        *&v267[18] = 2048;
-        *&v267[20] = v90;
-        *&v267[28] = 1024;
-        *&v267[30] = v244;
-        *&v267[34] = 2048;
-        *&v267[36] = v114;
-        *&v267[44] = 1024;
-        *&v267[46] = HIDWORD(v246);
-        *&v267[50] = 2048;
-        *&v267[52] = v91;
-        *&v267[60] = 1024;
-        *&v267[62] = v92;
-        *&v267[66] = 2048;
-        *&v267[68] = v93;
-        *&v267[76] = 1024;
-        *&v267[78] = HIDWORD(v245);
-        *&v267[82] = 1024;
-        *&v267[84] = v245;
-        *&v267[88] = 2048;
-        *&v267[90] = v115;
-        *&v267[98] = 1024;
-        *&v267[100] = HIDWORD(v243);
-        *&v267[104] = 1024;
-        *&v267[106] = v243;
-        *&v267[110] = 1024;
-        *&v267[112] = HIDWORD(v242);
-        *&v267[116] = 1024;
-        *&v267[118] = v242;
-        *&v267[122] = 1024;
-        *&v267[124] = v241;
-        *&v267[128] = 2048;
-        *v268 = v70;
-        *&v268[8] = 2112;
-        *&v268[10] = v118;
-        *v269 = 2080;
-        *&v269[2] = v117;
-        _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "%s(%{public}@:%@): InfraUptime:%.1fsecs Channel: %d Bandwidth: %dMhz Rssi: %d Cca: %d (S:%d O:%d I:%d) Snr: %hd BcnPer: %.1f%% (%d, %.1f%%) TxFrameCnt: %d TxPer: %.1f%% TxReTrans: %d TxRetryRatio: %0.1f%% RxFrameCnt: %d RxRetryFrames: %d RxRetryRatio: %0.1f%% TxRate: %d RxRate: %d FBRate: %d TxFwFrms: %d TxFwFail: %d  time: %.1fsecs fgApp: %@ V: %s", keys, 0xE6u);
+        *&keys[24] = v90;
+        v258 = 2048;
+        v259 = v70;
+        v260 = 1024;
+        v261 = v113;
+        v262 = 1024;
+        v263 = v114;
+        v264 = 1024;
+        v265 = v252;
+        v266 = 1024;
+        *v267 = SHIBYTE(v250);
+        *&v267[4] = 1024;
+        *&v267[6] = v250;
+        *v268 = 1024;
+        *&v268[2] = SHIBYTE(v249);
+        *&v268[6] = 1024;
+        *&v268[8] = v249;
+        *&v268[12] = 1024;
+        *&v268[14] = SHIWORD(v251);
+        *&v268[18] = 2048;
+        *&v268[20] = v91;
+        *&v268[28] = 1024;
+        *&v268[30] = v245;
+        *&v268[34] = 2048;
+        *&v268[36] = v115;
+        *&v268[44] = 1024;
+        *&v268[46] = HIDWORD(v247);
+        *&v268[50] = 2048;
+        *&v268[52] = v92;
+        *&v268[60] = 1024;
+        *&v268[62] = v93;
+        *&v268[66] = 2048;
+        *&v268[68] = v94;
+        *&v268[76] = 1024;
+        *&v268[78] = HIDWORD(v246);
+        *&v268[82] = 1024;
+        *&v268[84] = v246;
+        *&v268[88] = 2048;
+        *&v268[90] = v116;
+        *&v268[98] = 1024;
+        *&v268[100] = HIDWORD(v244);
+        *&v268[104] = 1024;
+        *&v268[106] = v244;
+        *&v268[110] = 1024;
+        *&v268[112] = HIDWORD(v243);
+        *&v268[116] = 1024;
+        *&v268[118] = v243;
+        *&v268[122] = 1024;
+        *&v268[124] = v242;
+        *&v268[128] = 2048;
+        *v269 = v71;
+        *&v269[8] = 2112;
+        *&v269[10] = v119;
+        *v270 = 2080;
+        *&v270[2] = v118;
+        _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "%s(%{public}@:%@): InfraUptime:%.1fsecs Channel: %d Bandwidth: %dMhz Rssi: %d Cca: %d (S:%d O:%d I:%d) Snr: %hd BcnPer: %.1f%% (%d, %.1f%%) TxFrameCnt: %d TxPer: %.1f%% TxReTrans: %d TxRetryRatio: %0.1f%% RxFrameCnt: %d RxRetryFrames: %d RxRetryRatio: %0.1f%% TxRate: %d RxRate: %d FBRate: %d TxFwFrms: %d TxFwFail: %d  time: %.1fsecs fgApp: %@ V: %s", keys, 0xE6u);
       }
 
       else
       {
-        if (!v73)
+        if (!v74)
         {
-          if (v75)
+          if (v76)
           {
-            v94 = sub_1001784B0(*(a1 + 48));
-            v95 = sub_100014038(*(a1 + 2784));
-            v96 = 0.0;
-            if (v244 && v244 > SHIDWORD(v244))
+            v95 = sub_1001784B0(*(a1 + 48));
+            v96 = sub_100014038(*(a1 + 2784));
+            v97 = 0.0;
+            if (v245 && v245 > SHIDWORD(v245))
             {
-              v96 = (v244 - HIDWORD(v244)) / v244 * 100.0;
+              v97 = (v245 - HIDWORD(v245)) / v245 * 100.0;
             }
 
+            if (HIDWORD(v247))
+            {
+              v98 = v248 / SHIDWORD(v247) * 100.0;
+              v99 = v247;
+              v100 = v247 / SHIDWORD(v247) * 100.0;
+            }
+
+            else
+            {
+              v98 = 0.0;
+              v99 = v247;
+              v100 = 0.0;
+            }
+
+            v120 = *(a1 + 2856);
+            v121 = *(a1 + 2858);
+            v122 = (*(a1 + 1092) * 100.0);
             if (HIDWORD(v246))
             {
-              v97 = v247 / SHIDWORD(v246) * 100.0;
-              v98 = v246;
-              v99 = v246 / SHIDWORD(v246) * 100.0;
+              v123 = v246 / SHIDWORD(v246) * 100.0;
             }
 
             else
             {
-              v97 = 0.0;
-              v98 = v246;
-              v99 = 0.0;
+              v123 = 0.0;
             }
 
-            v119 = *(a1 + 2856);
-            v120 = *(a1 + 2858);
-            v121 = (*(a1 + 1092) * 100.0);
-            if (HIDWORD(v245))
+            v124 = "F";
+            v125 = *(a1 + 216);
+            if (v69)
             {
-              v122 = v245 / SHIDWORD(v245) * 100.0;
-            }
-
-            else
-            {
-              v122 = 0.0;
-            }
-
-            v123 = "F";
-            v124 = *(a1 + 216);
-            if (v68)
-            {
-              v123 = "T";
+              v124 = "T";
             }
 
             *keys = 136321794;
             *&keys[4] = "__WiFiLQAMgrLogStats";
             *&keys[12] = 2114;
-            *&keys[14] = v94;
+            *&keys[14] = v95;
             *&keys[22] = 2112;
-            *&keys[24] = v95;
-            v257 = 2048;
-            v258 = v69;
-            v259 = 1024;
-            v260 = v119;
-            v261 = 1024;
-            v262 = v120;
-            v263 = 1024;
-            v264 = v251;
-            v265 = 1024;
-            *v266 = SHIBYTE(v249);
-            *&v266[4] = 1024;
-            *&v266[6] = SHIWORD(v250);
-            *v267 = 2048;
-            *&v267[2] = v96;
-            *&v267[10] = 1024;
-            *&v267[12] = v244;
-            *&v267[16] = 2048;
-            *&v267[18] = v121;
-            *&v267[26] = 1024;
-            *&v267[28] = HIDWORD(v246);
-            *&v267[32] = 2048;
-            *&v267[34] = v97;
-            *&v267[42] = 1024;
-            *&v267[44] = v98;
-            *&v267[48] = 2048;
-            *&v267[50] = v99;
-            *&v267[58] = 1024;
-            *&v267[60] = HIDWORD(v245);
-            *&v267[64] = 1024;
-            *&v267[66] = v245;
-            *&v267[70] = 2048;
-            *&v267[72] = v122;
-            *&v267[80] = 1024;
-            *&v267[82] = HIDWORD(v243);
-            *&v267[86] = 1024;
-            *&v267[88] = v243;
-            *&v267[92] = 1024;
-            *&v267[94] = HIDWORD(v242);
-            *&v267[98] = 1024;
-            *&v267[100] = v242;
-            *&v267[104] = 1024;
-            *&v267[106] = v241;
-            *&v267[110] = 2048;
-            *&v267[112] = v70;
-            *&v267[120] = 2112;
-            *&v267[122] = v124;
-            *v268 = 2080;
-            *&v268[2] = v123;
-            v105 = "%s(%{public}@:%@): InfraUptime:%.1fsecs Channel: %d Bandwidth: %dMhz Rssi: %d Cca: %d Snr: %hd  BcnPer: %.1f%% (%d, %.1f%%) TxFrameCnt: %d TxPer: %.1f%% TxReTrans: %d TxRetryRatio: %0.1f%% RxFrameCnt : %d RxRetryFrames: %d RxRetryRatio: %0.1f%% TxRate: %d RxRate: %d FBRate: %d TxFwFrms: %d TxFwFail: %d time: %.1fsecs fgApp: %@ V: %s";
-            v106 = v74;
-            v107 = 212;
+            *&keys[24] = v96;
+            v258 = 2048;
+            v259 = v70;
+            v260 = 1024;
+            v261 = v120;
+            v262 = 1024;
+            v263 = v121;
+            v264 = 1024;
+            v265 = v252;
+            v266 = 1024;
+            *v267 = SHIBYTE(v250);
+            *&v267[4] = 1024;
+            *&v267[6] = SHIWORD(v251);
+            *v268 = 2048;
+            *&v268[2] = v97;
+            *&v268[10] = 1024;
+            *&v268[12] = v245;
+            *&v268[16] = 2048;
+            *&v268[18] = v122;
+            *&v268[26] = 1024;
+            *&v268[28] = HIDWORD(v247);
+            *&v268[32] = 2048;
+            *&v268[34] = v98;
+            *&v268[42] = 1024;
+            *&v268[44] = v99;
+            *&v268[48] = 2048;
+            *&v268[50] = v100;
+            *&v268[58] = 1024;
+            *&v268[60] = HIDWORD(v246);
+            *&v268[64] = 1024;
+            *&v268[66] = v246;
+            *&v268[70] = 2048;
+            *&v268[72] = v123;
+            *&v268[80] = 1024;
+            *&v268[82] = HIDWORD(v244);
+            *&v268[86] = 1024;
+            *&v268[88] = v244;
+            *&v268[92] = 1024;
+            *&v268[94] = HIDWORD(v243);
+            *&v268[98] = 1024;
+            *&v268[100] = v243;
+            *&v268[104] = 1024;
+            *&v268[106] = v242;
+            *&v268[110] = 2048;
+            *&v268[112] = v71;
+            *&v268[120] = 2112;
+            *&v268[122] = v125;
+            *v269 = 2080;
+            *&v269[2] = v124;
+            v106 = "%s(%{public}@:%@): InfraUptime:%.1fsecs Channel: %d Bandwidth: %dMhz Rssi: %d Cca: %d Snr: %hd  BcnPer: %.1f%% (%d, %.1f%%) TxFrameCnt: %d TxPer: %.1f%% TxReTrans: %d TxRetryRatio: %0.1f%% RxFrameCnt : %d RxRetryFrames: %d RxRetryRatio: %0.1f%% TxRate: %d RxRate: %d FBRate: %d TxFwFrms: %d TxFwFail: %d time: %.1fsecs fgApp: %@ V: %s";
+            v107 = v75;
+            v108 = 212;
             goto LABEL_271;
           }
 
 LABEL_272:
-          v125 = objc_autoreleasePoolPush();
+          v126 = objc_autoreleasePoolPush();
           if (+[WiFiUsageMonitor sharedInstance])
           {
-            v144 = 0;
-            if (v244 && v244 >= SHIDWORD(v244))
+            v145 = 0;
+            if (v245 && v245 >= SHIDWORD(v245))
             {
-              v144 = ((v244 - HIDWORD(v244)) / v244 * 100.0);
+              v145 = ((v245 - HIDWORD(v245)) / v245 * 100.0);
             }
 
-            v195 = v144;
-            v145 = sub_10001408C(*(a1 + 32), *(a1 + 40));
-            v191 = [v145 objectForKey:@"LQM_SUMMARY_RX_CRS"];
-            v192 = [v145 objectForKey:@"LQM_SUMMARY_RX_PLCP"];
-            v193 = [v145 objectForKey:@"LQM_SUMMARY_RX_GOOD_PLCPS"];
-            v199 = v145;
-            v146 = [v145 objectForKey:@"LQM_SUMMARY_DBG_LOG_LIST"];
+            v196 = v145;
+            v146 = sub_10001408C(*(a1 + 32), *(a1 + 40));
+            v192 = [v146 objectForKey:@"LQM_SUMMARY_RX_CRS"];
+            v193 = [v146 objectForKey:@"LQM_SUMMARY_RX_PLCP"];
+            v194 = [v146 objectForKey:@"LQM_SUMMARY_RX_GOOD_PLCPS"];
+            v200 = v146;
+            v147 = [v146 objectForKey:@"LQM_SUMMARY_DBG_LOG_LIST"];
             *values = 0u;
-            v253 = 0u;
             v254 = 0u;
             v255 = 0u;
-            v147 = [v146 countByEnumeratingWithState:values objects:keys count:16];
-            if (v147)
+            v256 = 0u;
+            v148 = [v147 countByEnumeratingWithState:values objects:keys count:16];
+            if (v148)
             {
-              v148 = v147;
-              v149 = *v253;
+              v149 = v148;
+              v150 = *v254;
               do
               {
-                for (i = 0; i != v148; ++i)
+                for (i = 0; i != v149; ++i)
                 {
-                  if (*v253 != v149)
+                  if (*v254 != v150)
                   {
-                    objc_enumerationMutation(v146);
+                    objc_enumerationMutation(v147);
                   }
 
-                  v151 = *(values[1] + i);
-                  v152 = objc_autoreleasePoolPush();
+                  v152 = *(values[1] + i);
+                  v153 = objc_autoreleasePoolPush();
                   if (off_100298C40)
                   {
-                    [off_100298C40 WFLog:4 message:{"LQM-WiFi: %@\n", v151}];
+                    [off_100298C40 WFLog:4 message:{"LQM-WiFi: %@\n", v152}];
                   }
 
-                  objc_autoreleasePoolPop(v152);
+                  objc_autoreleasePoolPop(v153);
                 }
 
-                v148 = [v146 countByEnumeratingWithState:values objects:keys count:16];
+                v149 = [v147 countByEnumeratingWithState:values objects:keys count:16];
               }
 
-              while (v148);
+              while (v149);
             }
 
-            v208 = 0u;
             v209 = 0u;
-            *v207 = 0u;
-            v153 = sub_1000141C0(a1, v207);
-            v154 = 0;
-            if (v153 && SHIDWORD(v207[0]) >= 1)
+            v210 = 0u;
+            *v208 = 0u;
+            v154 = sub_1000141C0(a1, v208);
+            v155 = 0;
+            if (v154 && SHIDWORD(v208[0]) >= 1)
             {
-              v154 = ((SLODWORD(v207[0]) / HIDWORD(v207[0])) * 100.0);
+              v155 = ((SLODWORD(v208[0]) / HIDWORD(v208[0])) * 100.0);
             }
 
-            v190 = v154;
-            v155 = [[WiFiUsageLQMUserSample alloc] initWithInterfaceName:*(a1 + 40)];
-            *(a1 + 3208) = v155;
-            v188 = *(a1 + 2804);
-            v189 = v251;
-            v156 = 0x7FFFFFFFFFFFFFFFLL;
-            if (v225)
+            v191 = v155;
+            v156 = [[WiFiUsageLQMUserSample alloc] initWithInterfaceName:*(a1 + 40)];
+            *(a1 + 3208) = v156;
+            v189 = *(a1 + 2804);
+            v190 = v252;
+            v157 = 0x7FFFFFFFFFFFFFFFLL;
+            if (v226)
             {
-              v157 = v216;
-            }
-
-            else
-            {
-              v157 = 0x7FFFFFFFFFFFFFFFLL;
-            }
-
-            if (v225)
-            {
-              v158 = v215;
+              v158 = v217;
             }
 
             else
@@ -5771,11 +5631,9 @@ LABEL_272:
               v158 = 0x7FFFFFFFFFFFFFFFLL;
             }
 
-            v186 = v250;
-            v187 = v157;
-            if (v224)
+            if (v226)
             {
-              v159 = v214;
+              v159 = v216;
             }
 
             else
@@ -5783,11 +5641,11 @@ LABEL_272:
               v159 = 0x7FFFFFFFFFFFFFFFLL;
             }
 
-            v184 = v159;
-            v185 = v158;
-            if (v224)
+            v187 = v251;
+            v188 = v158;
+            if (v225)
             {
-              v160 = v213;
+              v160 = v215;
             }
 
             else
@@ -5795,203 +5653,215 @@ LABEL_272:
               v160 = 0x7FFFFFFFFFFFFFFFLL;
             }
 
-            v182 = SHIWORD(v250);
-            v183 = v160;
-            v180 = SHIBYTE(v248);
-            v181 = v249;
-            v161 = v248;
-            v162 = SHIBYTE(v249);
-            if (v191)
+            v185 = v160;
+            v186 = v159;
+            if (v225)
             {
-              v156 = [v191 unsignedIntegerValue];
+              v161 = v214;
             }
 
+            else
+            {
+              v161 = 0x7FFFFFFFFFFFFFFFLL;
+            }
+
+            v183 = SHIWORD(v251);
+            v184 = v161;
+            v181 = SHIBYTE(v249);
+            v182 = v250;
+            v162 = v249;
+            v163 = SHIBYTE(v250);
             if (v192)
             {
-              v163 = [v192 unsignedIntegerValue];
+              v157 = [v192 unsignedIntegerValue];
             }
 
-            else
-            {
-              v163 = 0x7FFFFFFFFFFFFFFFLL;
-            }
-
-            v166 = 0x7FFFFFFFFFFFFFFFLL;
             if (v193)
             {
-              v166 = [v193 unsignedIntegerValue];
+              v164 = [v193 unsignedIntegerValue];
             }
 
-            v167 = *(a1 + 104);
-            LOBYTE(v179) = sub_100014814(a1) != 0;
-            [v155 populateWithRssi:v189 rssiInUse:v188 rssi0:v187 rssi1:v185 rssiMode:v201 noise:v186 noise0:v184 noise1:v183 snr:v182 selfCca:v181 otherCca:v180 interference:v161 totalReportedCca:v162 beaconPer:v195 rxCrsGlitch:v156 rxBadPLCP:v163 rxStart:v166 rxBphyCrsGlitch:0x7FFFFFFFFFFFFFFFLL rxBphyBadPLCP:0x7FFFFFFFFFFFFFFFLL sampleDuration:v167 isHighCCAFor2GHz:v179];
-            [*(a1 + 3208) populateWithTxFrames:SHIDWORD(v246) RxFrames:SHIDWORD(v245) TxFails:v247 TxRetries:v246 RxRetries:v245 TxRate:SHIDWORD(v243) RxRate:v243 txRTS:0x7FFFFFFFFFFFFFFFLL txRTSFail:0x7FFFFFFFFFFFFFFFLL txMpdu:0x7FFFFFFFFFFFFFFFLL txAMPDU:0x7FFFFFFFFFFFFFFFLL averageTxPer:v190];
-            v168 = sub_1000149E8();
+            else
+            {
+              v164 = 0x7FFFFFFFFFFFFFFFLL;
+            }
+
+            v167 = 0x7FFFFFFFFFFFFFFFLL;
+            if (v194)
+            {
+              v167 = [v194 unsignedIntegerValue];
+            }
+
+            v168 = *(a1 + 104);
+            LOBYTE(v180) = sub_100014814(a1) != 0;
+            [v156 populateWithRssi:v190 rssiInUse:v189 rssi0:v188 rssi1:v186 rssiMode:v202 noise:v187 noise0:v185 noise1:v184 snr:v183 selfCca:v182 otherCca:v181 interference:v162 totalReportedCca:v163 beaconPer:v196 rxCrsGlitch:v157 rxBadPLCP:v164 rxStart:v167 rxBphyCrsGlitch:0x7FFFFFFFFFFFFFFFLL rxBphyBadPLCP:0x7FFFFFFFFFFFFFFFLL sampleDuration:v168 isHighCCAFor2GHz:v180];
+            [*(a1 + 3208) populateWithTxFrames:SHIDWORD(v247) RxFrames:SHIDWORD(v246) TxFails:v248 TxRetries:v247 RxRetries:v246 TxRate:SHIDWORD(v244) RxRate:v244 txRTS:0x7FFFFFFFFFFFFFFFLL txRTSFail:0x7FFFFFFFFFFFFFFFLL txMpdu:0x7FFFFFFFFFFFFFFFLL txAMPDU:0x7FFFFFFFFFFFFFFFLL averageTxPer:v191];
+            v169 = sub_1000149E8();
             if (sub_1000487BC(a1))
             {
-              v169 = 0;
+              v170 = 0;
             }
 
             else
             {
-              v169 = (*(a1 + 3259) == 0) << 32;
+              v170 = (*(a1 + 3259) == 0) << 32;
             }
 
-            v5 = v203;
-            v11 = v204;
+            v5 = v204;
+            v11 = v205;
             if (*(a1 + 3258) != 1 || sub_10000A7CC(*(a1 + 48)))
             {
-              v173 = 0;
+              v174 = 0;
             }
 
             else
             {
-              v173 = (*(a1 + 2842) == 0) << 24;
+              v174 = (*(a1 + 2842) == 0) << 24;
             }
 
-            [*(a1 + 3208) populateWithMotionState:sub_100014038(*(a1 + 2784)) andAppState:v169 | v173 | v168 & 0xFFFFFF];
+            [*(a1 + 3208) populateWithMotionState:sub_100014038(*(a1 + 2784)) andAppState:v170 | v174 | v169 & 0xFFFFFF];
             if (theArray && CFArrayGetCount(theArray) >= 1)
             {
-              v174 = 0;
-              v175 = a1 + 3056;
+              v175 = 0;
+              v176 = a1 + 3056;
               do
               {
-                v176 = *(a1 + 3208);
-                v177 = *(v175 + 16);
-                *v207 = *v175;
-                v208 = v177;
-                *&v209 = *(v175 + 32);
-                [v176 populateWithPerMLOLinkStats:v207];
-                ++v174;
-                v175 += 40;
+                v177 = *(a1 + 3208);
+                v178 = *(v176 + 16);
+                *v208 = *v176;
+                v209 = v178;
+                *&v210 = *(v176 + 32);
+                [v177 populateWithPerMLOLinkStats:v208];
+                ++v175;
+                v176 += 40;
               }
 
-              while (CFArrayGetCount(theArray) > v174);
+              while (CFArrayGetCount(theArray) > v175);
             }
           }
 
-          objc_autoreleasePoolPop(v125);
+          objc_autoreleasePoolPop(v126);
           goto LABEL_274;
         }
 
-        if (!v75)
+        if (!v76)
         {
           goto LABEL_272;
         }
 
-        v82 = sub_1001784B0(*(a1 + 48));
-        v83 = sub_100014038(*(a1 + 2784));
-        v84 = 0.0;
-        if (v244 && v244 > SHIDWORD(v244))
+        v83 = sub_1001784B0(*(a1 + 48));
+        v84 = sub_100014038(*(a1 + 2784));
+        v85 = 0.0;
+        if (v245 && v245 > SHIDWORD(v245))
         {
-          v84 = (v244 - HIDWORD(v244)) / v244 * 100.0;
+          v85 = (v245 - HIDWORD(v245)) / v245 * 100.0;
         }
 
+        if (HIDWORD(v247))
+        {
+          v86 = v248 / SHIDWORD(v247) * 100.0;
+          v87 = v247;
+          v88 = v247 / SHIDWORD(v247) * 100.0;
+        }
+
+        else
+        {
+          v86 = 0.0;
+          v87 = v247;
+          v88 = 0.0;
+        }
+
+        v109 = *(a1 + 2856);
+        v110 = *(a1 + 2858);
+        v111 = (*(a1 + 1092) * 100.0);
         if (HIDWORD(v246))
         {
-          v85 = v247 / SHIDWORD(v246) * 100.0;
-          v86 = v246;
-          v87 = v246 / SHIDWORD(v246) * 100.0;
+          v112 = v246 / SHIDWORD(v246) * 100.0;
         }
 
         else
         {
-          v85 = 0.0;
-          v86 = v246;
-          v87 = 0.0;
+          v112 = 0.0;
         }
 
-        v108 = *(a1 + 2856);
-        v109 = *(a1 + 2858);
-        v110 = (*(a1 + 1092) * 100.0);
-        if (HIDWORD(v245))
+        v199 = *(a1 + 216);
+        v117 = "F";
+        if (v69)
         {
-          v111 = v245 / SHIDWORD(v245) * 100.0;
-        }
-
-        else
-        {
-          v111 = 0.0;
-        }
-
-        v198 = *(a1 + 216);
-        v116 = "F";
-        if (v68)
-        {
-          v116 = "T";
+          v117 = "T";
         }
 
         *keys = 136323330;
         *&keys[4] = "__WiFiLQAMgrLogStats";
         *&keys[12] = 2114;
-        *&keys[14] = v82;
+        *&keys[14] = v83;
         *&keys[22] = 2112;
-        *&keys[24] = v83;
-        v257 = 2048;
-        v258 = v69;
-        v259 = 1024;
-        v260 = v108;
-        v261 = 1024;
-        v262 = v109;
-        v263 = 1024;
-        v264 = v251;
-        v265 = 2048;
-        *v266 = v216;
-        *&v266[8] = 2048;
-        *v267 = v215;
-        *&v267[8] = 1024;
-        *&v267[10] = SHIBYTE(v249);
-        *&v267[14] = 1024;
-        *&v267[16] = SHIWORD(v250);
-        *&v267[20] = 2048;
-        *&v267[22] = v84;
-        *&v267[30] = 1024;
-        *&v267[32] = v244;
-        *&v267[36] = 2048;
-        *&v267[38] = v110;
-        *&v267[46] = 1024;
-        *&v267[48] = HIDWORD(v246);
-        *&v267[52] = 2048;
-        *&v267[54] = v85;
-        *&v267[62] = 1024;
-        *&v267[64] = v86;
-        *&v267[68] = 2048;
-        *&v267[70] = v87;
-        *&v267[78] = 1024;
-        *&v267[80] = HIDWORD(v245);
-        *&v267[84] = 1024;
-        *&v267[86] = v245;
-        *&v267[90] = 2048;
-        *&v267[92] = v111;
-        *&v267[100] = 1024;
-        *&v267[102] = HIDWORD(v243);
-        *&v267[106] = 1024;
-        *&v267[108] = v243;
-        *&v267[112] = 1024;
-        *&v267[114] = HIDWORD(v242);
-        *&v267[118] = 1024;
-        *&v267[120] = v242;
-        *&v267[124] = 1024;
-        *&v267[126] = v241;
-        *v268 = 1024;
-        *&v268[2] = v250;
-        *&v268[6] = 2048;
-        *&v268[8] = v214;
-        *&v268[16] = 2048;
-        *v269 = v213;
-        *&v269[8] = 2048;
-        *&v269[10] = v213 - v214;
-        *v270 = 2048;
-        *&v270[2] = v70;
-        *v271 = 2112;
-        *&v271[2] = v198;
-        *v272 = 2080;
-        *&v272[2] = v116;
-        _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "%s(%{public}@:%@): InfraUptime:%.1fsecs Channel: %d Bandwidth: %dMhz Rssi: %d {%ld %ld} Cca: %d Snr: %hd BcnPer: %.1f%% (%d, %.1f%%) TxFrameCnt: %d TxPer: %.1f%% TxReTrans: %d TxRetryRatio: %0.1f%% RxFrameCnt: %d RxRetryFrames: %d RxRetryRatio: %0.1f%% TxRate: %d RxRate: %d FBRate: %d TxFwFrms: %d TxFwFail: %d Noise: %d {%ld %ld %ld} time: %.1fsecs fgApp: %@ V: %s", keys, 0x10Cu);
-        v5 = v203;
+        *&keys[24] = v84;
+        v258 = 2048;
+        v259 = v70;
+        v260 = 1024;
+        v261 = v109;
+        v262 = 1024;
+        v263 = v110;
+        v264 = 1024;
+        v265 = v252;
+        v266 = 2048;
+        *v267 = v217;
+        *&v267[8] = 2048;
+        *v268 = v216;
+        *&v268[8] = 1024;
+        *&v268[10] = SHIBYTE(v250);
+        *&v268[14] = 1024;
+        *&v268[16] = SHIWORD(v251);
+        *&v268[20] = 2048;
+        *&v268[22] = v85;
+        *&v268[30] = 1024;
+        *&v268[32] = v245;
+        *&v268[36] = 2048;
+        *&v268[38] = v111;
+        *&v268[46] = 1024;
+        *&v268[48] = HIDWORD(v247);
+        *&v268[52] = 2048;
+        *&v268[54] = v86;
+        *&v268[62] = 1024;
+        *&v268[64] = v87;
+        *&v268[68] = 2048;
+        *&v268[70] = v88;
+        *&v268[78] = 1024;
+        *&v268[80] = HIDWORD(v246);
+        *&v268[84] = 1024;
+        *&v268[86] = v246;
+        *&v268[90] = 2048;
+        *&v268[92] = v112;
+        *&v268[100] = 1024;
+        *&v268[102] = HIDWORD(v244);
+        *&v268[106] = 1024;
+        *&v268[108] = v244;
+        *&v268[112] = 1024;
+        *&v268[114] = HIDWORD(v243);
+        *&v268[118] = 1024;
+        *&v268[120] = v243;
+        *&v268[124] = 1024;
+        *&v268[126] = v242;
+        *v269 = 1024;
+        *&v269[2] = v251;
+        *&v269[6] = 2048;
+        *&v269[8] = v215;
+        *&v269[16] = 2048;
+        *v270 = v214;
+        *&v270[8] = 2048;
+        *&v270[10] = v214 - v215;
+        *v271 = 2048;
+        *&v271[2] = v71;
+        *v272 = 2112;
+        *&v272[2] = v199;
+        *v273 = 2080;
+        *&v273[2] = v117;
+        _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "%s(%{public}@:%@): InfraUptime:%.1fsecs Channel: %d Bandwidth: %dMhz Rssi: %d {%ld %ld} Cca: %d Snr: %hd BcnPer: %.1f%% (%d, %.1f%%) TxFrameCnt: %d TxPer: %.1f%% TxReTrans: %d TxRetryRatio: %0.1f%% RxFrameCnt: %d RxRetryFrames: %d RxRetryRatio: %0.1f%% TxRate: %d RxRate: %d FBRate: %d TxFwFrms: %d TxFwFail: %d Noise: %d {%ld %ld %ld} time: %.1fsecs fgApp: %@ V: %s", keys, 0x10Cu);
+        v5 = v204;
       }
 
-      v11 = v204;
+      v11 = v205;
       goto LABEL_272;
     }
 
@@ -6006,39 +5876,39 @@ LABEL_373:
     }
 
     CFArrayInsertValueAtIndex(*(a1 + 24), 0, v5);
-    v126 = CFArrayGetCount(*(a1 + 24));
+    v127 = CFArrayGetCount(*(a1 + 24));
     Current = CFAbsoluteTimeGetCurrent();
-    v207[0] = 0;
-    if (v126 >= 7)
+    v208[0] = 0;
+    if (v127 >= 7)
     {
-      v128 = Current;
+      v129 = Current;
       while (1)
       {
-        v129 = CFArrayGetValueAtIndex(*(a1 + 24), v126 - 1);
-        if (!v129)
-        {
-          sub_100142F24(v126 - 1);
-          goto LABEL_372;
-        }
-
-        v130 = CFDictionaryGetValue(v129, @"kWiFiLqaMgrLqmSampleLocalTimestamp");
+        v130 = CFArrayGetValueAtIndex(*(a1 + 24), v127 - 1);
         if (!v130)
         {
-          sub_100142EC0(v126 - 1);
+          sub_100142F24(v127 - 1);
           goto LABEL_372;
         }
 
-        CFNumberGetValue(v130, kCFNumberDoubleType, v207);
-        if (*v207 == 0.0)
+        v131 = CFDictionaryGetValue(v130, @"kWiFiLqaMgrLqmSampleLocalTimestamp");
+        if (!v131)
+        {
+          sub_100142EC0(v127 - 1);
+          goto LABEL_372;
+        }
+
+        CFNumberGetValue(v131, kCFNumberDoubleType, v208);
+        if (*v208 == 0.0)
         {
           break;
         }
 
-        if (v126 > 0x1D || v128 - *v207 > 6.0)
+        if (v127 > 0x1D || v129 - *v208 > 6.0)
         {
-          CFArrayRemoveValueAtIndex(*(a1 + 24), v126 - 1);
-          v126 = CFArrayGetCount(*(a1 + 24));
-          if (v126 > 6)
+          CFArrayRemoveValueAtIndex(*(a1 + 24), v127 - 1);
+          v127 = CFArrayGetCount(*(a1 + 24));
+          if (v127 > 6)
           {
             continue;
           }
@@ -6047,64 +5917,64 @@ LABEL_373:
         goto LABEL_283;
       }
 
-      sub_100142E5C(v126 - 1);
+      sub_100142E5C(v127 - 1);
       goto LABEL_372;
     }
 
 LABEL_283:
-    LODWORD(v210) = 0;
+    LODWORD(v211) = 0;
+    LODWORD(v241) = 0;
     LODWORD(v240) = 0;
-    LODWORD(v239) = 0;
     *keys = 0;
     values[0] = 0;
     if (*(a1 + 24))
     {
-      v131 = *(a1 + 2784);
-      if (CFDictionaryGetValueIfPresent(v196, @"RXBEACONFRMS", keys) && *keys)
+      v132 = *(a1 + 2784);
+      if (CFDictionaryGetValueIfPresent(v197, @"RXBEACONFRMS", keys) && *keys)
       {
-        CFNumberGetValue(*keys, kCFNumberIntType, &v210);
+        CFNumberGetValue(*keys, kCFNumberIntType, &v211);
       }
 
-      if (CFDictionaryGetValueIfPresent(v196, @"RXBEACONSCHED", values) && values[0])
+      if (CFDictionaryGetValueIfPresent(v197, @"RXBEACONSCHED", values) && values[0])
       {
-        CFNumberGetValue(values[0], kCFNumberIntType, &v240);
+        CFNumberGetValue(values[0], kCFNumberIntType, &v241);
       }
 
-      v132 = CFArrayGetValueAtIndex(*(a1 + 24), 0);
-      if (v132)
+      v133 = CFArrayGetValueAtIndex(*(a1 + 24), 0);
+      if (v133)
       {
-        v133 = 0.0;
-        if (v240 && v240 > v210)
+        v134 = 0.0;
+        if (v241 && v241 > v211)
         {
-          v133 = (v240 - v210) / v240 * 100.0;
+          v134 = (v241 - v211) / v241 * 100.0;
         }
 
         if (*(a1 + 2840))
         {
-          v134 = sub_100017E88(a1);
-          LODWORD(v239) = v134;
+          v135 = sub_100017E88(a1);
+          LODWORD(v240) = v135;
         }
 
         else
         {
-          v134 = *(a1 + 2804);
-          LODWORD(v239) = v134;
-          if (!v134)
+          v135 = *(a1 + 2804);
+          LODWORD(v240) = v135;
+          if (!v135)
           {
-            v135 = CFDictionaryGetValue(v132, @"RSSI");
-            if (!v135)
+            v136 = CFDictionaryGetValue(v133, @"RSSI");
+            if (!v136)
             {
               goto LABEL_371;
             }
 
-            CFNumberGetValue(v135, kCFNumberSInt32Type, &v239);
-            v134 = v239;
+            CFNumberGetValue(v136, kCFNumberSInt32Type, &v240);
+            v135 = v240;
           }
         }
 
-        if (v134 > -70 || v131 == 1)
+        if (v135 > -70 || v132 == 1)
         {
-          if (v134 >= -64)
+          if (v135 >= -64)
           {
             *(a1 + 2994) = 0;
             sub_10001577C(a1);
@@ -6117,46 +5987,46 @@ LABEL_283:
           sub_100034774(a1);
         }
 
-        if (v133 >= 20.0)
+        if (v134 >= 20.0)
         {
-          if (v133 <= 20.0 || v133 >= 60.0)
+          if (v134 <= 20.0 || v134 >= 60.0)
           {
-            if (v133 > 60.0)
+            if (v134 > 60.0)
             {
               if (dword_1002977F0 == -1)
               {
                 p_class_meths = &OBJC_PROTOCOL___CXCallObserverDelegate.class_meths;
-                v141 = dword_1002984D8 + 1;
+                v142 = dword_1002984D8 + 1;
               }
 
               else
               {
                 if (dword_1002977F0 > 59)
                 {
-                  v170 = dword_1002984D8;
+                  v171 = dword_1002984D8;
                   if (dword_1002977F0 != 60)
                   {
-                    v170 = ++dword_1002984D8;
+                    v171 = ++dword_1002984D8;
                   }
 
-                  if (v170 >= 5)
+                  if (v171 >= 5)
                   {
-                    v171 = objc_autoreleasePoolPush();
+                    v172 = objc_autoreleasePoolPush();
                     if (off_100298C40)
                     {
                       [off_100298C40 WFLog:3 message:"RSSI_WIN: Collected more than 5 samples of High Beacon PER > 60 Percent "];
                     }
 
-                    objc_autoreleasePoolPop(v171);
-                    if (*(a1 + 2993) != 2 && v131 != 1)
+                    objc_autoreleasePoolPop(v172);
+                    if (*(a1 + 2993) != 2 && v132 != 1)
                     {
-                      v172 = objc_autoreleasePoolPush();
+                      v173 = objc_autoreleasePoolPush();
                       if (off_100298C40)
                       {
                         [off_100298C40 WFLog:3 message:{"RSSI_WIN: Beacon PER is consistenyly below > 60Percent. Switch to RSSI Win = %d", 2}];
                       }
 
-                      objc_autoreleasePoolPop(v172);
+                      objc_autoreleasePoolPop(v173);
                       *(a1 + 2993) = 2;
                       sub_100049214(a1);
                     }
@@ -6168,10 +6038,10 @@ LABEL_283:
                 }
 
                 p_class_meths = (&OBJC_PROTOCOL___CXCallObserverDelegate + 32);
-                v141 = 1;
+                v142 = 1;
               }
 
-              *(p_class_meths + 310) = v141;
+              *(p_class_meths + 310) = v142;
             }
           }
 
@@ -6179,31 +6049,31 @@ LABEL_283:
           {
             if (dword_1002977F0 == -1)
             {
-              v138 = &OBJC_PROTOCOL___CXCallObserverDelegate.class_meths;
-              v139 = dword_1002984D4 + 1;
+              v139 = &OBJC_PROTOCOL___CXCallObserverDelegate.class_meths;
+              v140 = dword_1002984D4 + 1;
             }
 
             else
             {
               if ((dword_1002977F0 - 61) > 0xFFFFFFD6)
               {
-                v164 = dword_1002984D4;
+                v165 = dword_1002984D4;
                 if ((dword_1002977F0 - 21) <= 0x26)
                 {
-                  v164 = ++dword_1002984D4;
+                  v165 = ++dword_1002984D4;
                 }
 
-                if (v164 >= 5)
+                if (v165 >= 5)
                 {
-                  if (*(a1 + 2993) != 4 && v131 != 1)
+                  if (*(a1 + 2993) != 4 && v132 != 1)
                   {
-                    v165 = objc_autoreleasePoolPush();
+                    v166 = objc_autoreleasePoolPush();
                     if (off_100298C40)
                     {
                       [off_100298C40 WFLog:3 message:{"RSSI_WIN: Beacon PER is consistenyly below > 20Percent. Switch to RSSI Win = %d", 4}];
                     }
 
-                    objc_autoreleasePoolPop(v165);
+                    objc_autoreleasePoolPop(v166);
                     *(a1 + 2993) = 4;
                     sub_100049214(a1);
                   }
@@ -6214,11 +6084,11 @@ LABEL_283:
                 goto LABEL_371;
               }
 
-              v138 = (&OBJC_PROTOCOL___CXCallObserverDelegate + 32);
-              v139 = 1;
+              v139 = (&OBJC_PROTOCOL___CXCallObserverDelegate + 32);
+              v140 = 1;
             }
 
-            *(v138 + 309) = v139;
+            *(v139 + 309) = v140;
           }
         }
 
@@ -6226,29 +6096,29 @@ LABEL_283:
         {
           if (dword_1002977F0 == -1)
           {
-            v136 = &OBJC_PROTOCOL___CXCallObserverDelegate.class_meths;
-            v137 = dword_1002984D0 + 1;
+            v137 = &OBJC_PROTOCOL___CXCallObserverDelegate.class_meths;
+            v138 = dword_1002984D0 + 1;
           }
 
           else
           {
             if (dword_1002977F0 < 21)
             {
-              v142 = dword_1002984D0;
+              v143 = dword_1002984D0;
               if (dword_1002977F0 <= 0x14)
               {
-                v142 = ++dword_1002984D0;
+                v143 = ++dword_1002984D0;
               }
 
-              if (v142 >= 10)
+              if (v143 >= 10)
               {
-                v143 = objc_autoreleasePoolPush();
+                v144 = objc_autoreleasePoolPush();
                 if (off_100298C40)
                 {
                   [off_100298C40 WFLog:3 message:"RSSI_WIN: Beacon PER is consistenyly below < 20Percent. Switch to default RSSI Window"];
                 }
 
-                objc_autoreleasePoolPop(v143);
+                objc_autoreleasePoolPop(v144);
                 if (*(a1 + 2993) != 8)
                 {
                   *(a1 + 2993) = 8;
@@ -6261,15 +6131,15 @@ LABEL_283:
               goto LABEL_371;
             }
 
-            v136 = (&OBJC_PROTOCOL___CXCallObserverDelegate + 32);
-            v137 = 1;
+            v137 = (&OBJC_PROTOCOL___CXCallObserverDelegate + 32);
+            v138 = 1;
           }
 
-          *(v136 + 308) = v137;
+          *(v137 + 308) = v138;
         }
 
 LABEL_371:
-        dword_1002977F0 = v133;
+        dword_1002977F0 = v134;
         goto LABEL_372;
       }
 
@@ -6281,7 +6151,7 @@ LABEL_371:
       sub_100142DFC();
     }
 
-    v133 = 0.0;
+    v134 = 0.0;
     goto LABEL_371;
   }
 }
@@ -7431,7 +7301,7 @@ LABEL_213:
         {
           *(a1 + 500) = 0;
           *(a1 + 3224) = CFAbsoluteTimeGetCurrent();
-          if (sub_100140BCC(a1, 1))
+          if (sub_100140BCC(a1, 1, 0))
           {
             v89 = 0;
             v90 = 0;
@@ -7775,7 +7645,7 @@ void sub_10004826C(uint64_t a1)
   CFRelease(v6);
 }
 
-uint64_t sub_100048348(uint64_t a1)
+uint64_t sub_100048348(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -7974,14 +7844,15 @@ LABEL_35:
 
 uint64_t sub_10004879C(uint64_t a1)
 {
-  if (!a1)
+  if (a1)
+  {
+    return *(a1 + 660);
+  }
+
+  else
   {
     return 0x7FFFFFFFFFFFFFFFLL;
   }
-
-  result = *(a1 + 660);
-  v3 = *(a1 + 656);
-  return result;
 }
 
 uint64_t sub_1000487BC(uint64_t a1)
@@ -8141,11 +8012,11 @@ void sub_100048918(uint64_t a1, _DWORD *a2, _DWORD *a3, _DWORD *a4, _DWORD *a5, 
   }
 }
 
-void sub_100048AFC(uint64_t a1, char a2)
+void sub_100048AFC(uint64_t result, uint64_t a2)
 {
-  if (a1)
+  if (result)
   {
-    *(a1 + 2842) = a2;
+    *(result + 2842) = a2;
   }
 
   else
@@ -9436,136 +9307,135 @@ void sub_10004A508(uint64_t a1)
       {
         if (off_100298C40)
         {
-          v4 = *(a1 + 496);
-          v5 = *(a1 + 20);
-          if (v5 > 4)
+          v4 = *(a1 + 20);
+          if (v4 > 4)
           {
-            v6 = @"Bogus";
+            v5 = @"Bogus";
           }
 
           else
           {
-            v6 = *(&off_10025F018 + v5);
+            v5 = *(&off_10025F018 + v4);
           }
 
-          [off_100298C40 WFLog:2 message:{"%s: ActProbeTimer Credits: %d lqaState: %@", "__WiFiLQAMgrDoActiveProbe", *(a1 + 496), v6}];
+          [off_100298C40 WFLog:2 message:{"%s: ActProbeTimer Credits: %d lqaState: %@", "__WiFiLQAMgrDoActiveProbe", *(a1 + 496), v5}];
         }
 
         objc_autoreleasePoolPop(v3);
-        v7 = *(a1 + 384);
+        v6 = *(a1 + 384);
         Current = CFAbsoluteTimeGetCurrent();
-        v9 = *(a1 + 376);
-        v10 = Current - v9;
-        if (v9 == 0.0)
+        v8 = *(a1 + 376);
+        v9 = Current - v8;
+        if (v8 == 0.0)
         {
-          v11 = 0.0;
+          v10 = 0.0;
         }
 
         else
         {
-          v11 = v10;
+          v10 = v9;
         }
 
         if (*(a1 + 400))
         {
-          v12 = 3.0;
+          v11 = 3.0;
         }
 
         else
         {
-          v12 = 10.0;
+          v11 = 10.0;
         }
 
         if (*(a1 + 20) > 2u)
         {
-          v14 = *(a1 + 552);
-          v15 = -1;
+          v13 = *(a1 + 552);
+          v14 = -1;
 LABEL_32:
 
-          dispatch_source_set_timer(v14, v15, 0xFFFFFFFFFFFFFFFFLL, 0);
+          dispatch_source_set_timer(v13, v14, 0xFFFFFFFFFFFFFFFFLL, 0);
           return;
         }
 
         if (*(a1 + 364))
         {
-          v13 = objc_autoreleasePoolPush();
+          v12 = objc_autoreleasePoolPush();
           if (off_100298C40)
           {
-            [off_100298C40 WFLog:4 message:{"%s: ActProbe ongoing for %f many seconds", "__WiFiLQAMgrDoActiveProbe", *&v11}];
+            [off_100298C40 WFLog:4 message:{"%s: ActProbe ongoing for %f many seconds", "__WiFiLQAMgrDoActiveProbe", *&v10}];
           }
 
-          objc_autoreleasePoolPop(v13);
+          objc_autoreleasePoolPop(v12);
           goto LABEL_31;
         }
 
-        if (v11 != 0.0 && v12 > v11)
+        if (v10 != 0.0 && v11 > v10)
         {
 LABEL_31:
-          v24 = *(a1 + 344);
-          v15 = dispatch_time(0, (v12 * 1000000000.0));
-          v14 = v24;
+          v23 = *(a1 + 344);
+          v14 = dispatch_time(0, (v11 * 1000000000.0));
+          v13 = v23;
           goto LABEL_32;
         }
 
         Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
         valuePtr = *(a1 + 352);
-        v18 = CFNumberCreate(0, kCFNumberCFIndexType, &valuePtr);
-        v19 = v18;
-        if (valuePtr && v18)
+        v17 = CFNumberCreate(0, kCFNumberCFIndexType, &valuePtr);
+        v18 = v17;
+        if (valuePtr && v17)
         {
-          v20 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
-          CFArrayAppendValue(v20, v19);
-          CFDictionarySetValue(Mutable, @"kWiFiLqaMgrProbeSize", v20);
+          v19 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
+          CFArrayAppendValue(v19, v18);
+          CFDictionarySetValue(Mutable, @"kWiFiLqaMgrProbeSize", v19);
           *(a1 + 20) = 3;
-          v21 = objc_autoreleasePoolPush();
+          v20 = objc_autoreleasePoolPush();
           if (off_100298C40)
           {
-            v22 = *(a1 + 20);
-            if (v22 > 4)
+            v21 = *(a1 + 20);
+            if (v21 > 4)
             {
-              v23 = @"Bogus";
+              v22 = @"Bogus";
             }
 
             else
             {
-              v23 = *(&off_10025F018 + v22);
+              v22 = *(&off_10025F018 + v21);
             }
 
-            [off_100298C40 WFLog:3 message:{"%s: %@", "__WiFiLQAMgrSetState", v23}];
+            [off_100298C40 WFLog:3 message:{"%s: %@", "__WiFiLQAMgrSetState", v22}];
           }
 
-          objc_autoreleasePoolPop(v21);
-          if (sub_100043F00(a1, Mutable, v7, sub_100141F48, a1))
+          objc_autoreleasePoolPop(v20);
+          if (sub_100043F00(a1, Mutable, v6, sub_100141F48, a1))
           {
             *(a1 + 20) = 2;
-            v25 = objc_autoreleasePoolPush();
+            v24 = objc_autoreleasePoolPush();
             if (off_100298C40)
             {
-              v26 = *(a1 + 20);
-              if (v26 > 4)
+              v25 = *(a1 + 20);
+              if (v25 > 4)
               {
-                v27 = @"Bogus";
+                v26 = @"Bogus";
               }
 
               else
               {
-                v27 = *(&off_10025F018 + v26);
+                v26 = *(&off_10025F018 + v25);
               }
 
-              [off_100298C40 WFLog:3 message:{"%s: %@", "__WiFiLQAMgrSetState", v27}];
+              [off_100298C40 WFLog:3 message:{"%s: %@", "__WiFiLQAMgrSetState", v26}];
             }
 
-            objc_autoreleasePoolPop(v25);
-            v30 = objc_autoreleasePoolPush();
+            objc_autoreleasePoolPop(v24);
+            v29 = objc_autoreleasePoolPush();
             if (off_100298C40)
             {
               [off_100298C40 WFLog:4 message:{"%s: ActProbeEnqueue Failed, reverting to BadLinkState", "__WiFiLQAMgrDoActiveProbe"}];
             }
 
-            objc_autoreleasePoolPop(v30);
-            v31 = *(a1 + 344);
-            v32 = dispatch_time(0, (v12 * 1000000000.0));
-            dispatch_source_set_timer(v31, v32, 0xFFFFFFFFFFFFFFFFLL, 0);
+            objc_autoreleasePoolPop(v29);
+            v30 = *(a1 + 344);
+            v31 = dispatch_time(0, (v11 * 1000000000.0));
+            dispatch_source_set_timer(v30, v31, 0xFFFFFFFFFFFFFFFFLL, 0);
             if (!Mutable)
             {
               goto LABEL_54;
@@ -9574,23 +9444,23 @@ LABEL_31:
 
           else
           {
-            v28 = objc_autoreleasePoolPush();
+            v27 = objc_autoreleasePoolPush();
             if (off_100298C40)
             {
               if (*(a1 + 400))
               {
-                v29 = " for auto leave evaluation.";
+                v28 = " for auto leave evaluation.";
               }
 
               else
               {
-                v29 = ".";
+                v28 = ".";
               }
 
-              [off_100298C40 WFLog:3 message:{"%s: ActProbeEnqueue Enqueued%s", "__WiFiLQAMgrDoActiveProbe", v29}];
+              [off_100298C40 WFLog:3 message:{"%s: ActProbeEnqueue Enqueued%s", "__WiFiLQAMgrDoActiveProbe", v28}];
             }
 
-            objc_autoreleasePoolPop(v28);
+            objc_autoreleasePoolPop(v27);
             *(a1 + 364) = 1;
             *(a1 + 496) = 0;
             *(a1 + 376) = CFAbsoluteTimeGetCurrent();
@@ -9606,7 +9476,7 @@ LABEL_31:
         else
         {
           sub_100144414();
-          v20 = 0;
+          v19 = 0;
           if (!Mutable)
           {
             goto LABEL_54;
@@ -9615,14 +9485,14 @@ LABEL_31:
 
         CFRelease(Mutable);
 LABEL_54:
+        if (v18)
+        {
+          CFRelease(v18);
+        }
+
         if (v19)
         {
           CFRelease(v19);
-        }
-
-        if (v20)
-        {
-          CFRelease(v20);
         }
 
         return;

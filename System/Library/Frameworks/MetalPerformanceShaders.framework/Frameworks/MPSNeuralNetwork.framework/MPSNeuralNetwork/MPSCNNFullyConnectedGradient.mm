@@ -17,7 +17,7 @@
   {
     v3 = objc_opt_class();
     NSStringFromClass(v3);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInnerProduct.mm", 0xDC, @"Please initialize the %@ class with initWithDevice:convolutionDescriptor:kernelWeights:biasTerms\n", v4, v5, v6, v7);
   }
 
   return 0;
@@ -42,35 +42,35 @@
   if (v11[8] != 1)
   {
     v27 = v11;
-    v28 = MTLReportFailureTypeEnabled();
+    v32 = MTLReportFailureTypeEnabled();
     v11 = v27;
-    if (v28)
+    if (v32)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInnerProduct.mm", 0xEF, @"Number of groups for inner product should be 1", v28, v29, v30, v31);
       v11 = v27;
     }
   }
 
   if (v11[6] != 1)
   {
-    v29 = v11;
-    v30 = MTLReportFailureTypeEnabled();
-    v11 = v29;
-    if (v30)
+    v33 = v11;
+    v38 = MTLReportFailureTypeEnabled();
+    v11 = v33;
+    if (v38)
     {
-      MTLReportFailure();
-      v11 = v29;
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInnerProduct.mm", 0xF0, @"strideX for inner product should be 1", v34, v35, v36, v37);
+      v11 = v33;
     }
   }
 
   if (v11[7] != 1 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInnerProduct.mm", 0xF1, @"strideY for inner product should be 1", v39, v40, v41, v42);
   }
 
-  v31.receiver = self;
-  v31.super_class = MPSCNNFullyConnectedGradient;
-  v12 = [(MPSCNNConvolutionGradient *)&v31 initWithDevice:device weights:weights fullyConnected:1];
+  v43.receiver = self;
+  v43.super_class = MPSCNNFullyConnectedGradient;
+  v12 = [(MPSCNNConvolutionGradient *)&v43 initWithDevice:device weights:weights fullyConnected:1];
   v19 = objc_msgSend_paddingWithMethod_(MPSNNDefaultPadding, v13, 32, v14, v15, v16, v17, v18);
   objc_msgSend_setPadding_(v12, v20, v19, v21, v22, v23, v24, v25);
   return v12;
@@ -80,7 +80,7 @@
 {
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInnerProduct.mm", 0xFD, @"initializer unavailable", v5, v6, v7, v8);
   }
 
   return 0;
@@ -90,7 +90,7 @@
 {
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInnerProduct.mm", 0x105, @"initializer unavailable", v5, v6, v7, v8);
   }
 
   return 0;

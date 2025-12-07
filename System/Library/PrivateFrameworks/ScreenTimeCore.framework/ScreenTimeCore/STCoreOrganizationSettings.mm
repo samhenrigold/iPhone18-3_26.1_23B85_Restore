@@ -13,6 +13,10 @@
 - (int64_t)contentPrivacySiriImageGenerationRestriction;
 - (void)_changeAppLimitsFromAskToWarn:(id)warn;
 - (void)setContentPrivacySiriImageGenerationRestriction:(int64_t)restriction;
+- (void)setIsCommunicationSafetyReceivingRestricted:(BOOL)restricted;
+- (void)setIsCommunicationSafetyRestricted:(BOOL)restricted;
+- (void)setIsCommunicationSafetySendingRestricted:(BOOL)restricted;
+- (void)setIsEyeReliefEnabled:(BOOL)enabled;
 @end
 
 @implementation STCoreOrganizationSettings
@@ -53,7 +57,7 @@
 
 + (id)fetchResultsRequestsForChangesToOrganizationSettingsForUserWithDSID:(id)d
 {
-  v13[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == %@", @"user.dsid", d];
   v4 = +[STLocalOrganizationSettings fetchRequest];
   [v4 setPredicate:v3];
@@ -62,14 +66,12 @@
   v6 = +[STFamilyOrganizationSettings fetchRequest];
   [v6 setPredicate:v3];
   v7 = [STFetchResultsRequest requestWithFetchRequest:v4];
-  v13[0] = v7;
+  v12[0] = v7;
   v8 = [STFetchResultsRequest requestWithFetchRequest:v5];
-  v13[1] = v8;
+  v12[1] = v8;
   v9 = [STFetchResultsRequest requestWithFetchRequest:v6];
-  v13[2] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12[2] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
 
   return v10;
 }
@@ -91,6 +93,16 @@
   return bOOLValue;
 }
 
+- (void)setIsEyeReliefEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  [(STCoreOrganizationSettings *)self willChangeValueForKey:@"isEyeReliefEnabled"];
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+  [(STCoreOrganizationSettings *)self setPrimitiveValue:v5 forKey:@"isEyeReliefEnabled"];
+
+  [(STCoreOrganizationSettings *)self didChangeValueForKey:@"isEyeReliefEnabled"];
+}
+
 - (BOOL)isCommunicationSafetyRestricted
 {
   isCommunicationSafetySendingRestricted = [(STCoreOrganizationSettings *)self isCommunicationSafetySendingRestricted];
@@ -103,6 +115,14 @@
   return isCommunicationSafetySendingRestricted;
 }
 
+- (void)setIsCommunicationSafetyRestricted:(BOOL)restricted
+{
+  restrictedCopy = restricted;
+  [(STCoreOrganizationSettings *)self setIsCommunicationSafetySendingRestricted:?];
+
+  [(STCoreOrganizationSettings *)self setIsCommunicationSafetyReceivingRestricted:restrictedCopy];
+}
+
 + (id)keyPathsForValuesAffectingIsCommunicationSafetyRestricted
 {
   keyPathsForValuesAffectingIsCommunicationSafetySendingRestricted = [self keyPathsForValuesAffectingIsCommunicationSafetySendingRestricted];
@@ -110,6 +130,26 @@
   v5 = [keyPathsForValuesAffectingIsCommunicationSafetySendingRestricted setByAddingObjectsFromSet:keyPathsForValuesAffectingIsCommunicationSafetyReceivingRestricted];
 
   return v5;
+}
+
+- (void)setIsCommunicationSafetySendingRestricted:(BOOL)restricted
+{
+  restrictedCopy = restricted;
+  [(STCoreOrganizationSettings *)self willChangeValueForKey:@"isCommunicationSafetySendingRestricted"];
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:restrictedCopy];
+  [(STCoreOrganizationSettings *)self setPrimitiveValue:v5 forKey:@"isCommunicationSafetySendingRestricted"];
+
+  [(STCoreOrganizationSettings *)self didChangeValueForKey:@"isCommunicationSafetySendingRestricted"];
+}
+
+- (void)setIsCommunicationSafetyReceivingRestricted:(BOOL)restricted
+{
+  restrictedCopy = restricted;
+  [(STCoreOrganizationSettings *)self willChangeValueForKey:@"isCommunicationSafetyReceivingRestricted"];
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:restrictedCopy];
+  [(STCoreOrganizationSettings *)self setPrimitiveValue:v5 forKey:@"isCommunicationSafetyReceivingRestricted"];
+
+  [(STCoreOrganizationSettings *)self didChangeValueForKey:@"isCommunicationSafetyReceivingRestricted"];
 }
 
 - (int64_t)contentPrivacySiriImageGenerationRestriction
@@ -140,16 +180,16 @@
 
 - (id)defaultSettingsForFamilyMemberOfType:(id)type
 {
-  v7[3] = *MEMORY[0x1E69E9840];
+  v6[3] = *MEMORY[0x1E69E9840];
   if ([type isEqualToString:@"Child"])
   {
-    v6[0] = @"isEyeReliefEnabled";
-    v6[1] = @"isCommunicationSafetySendingRestricted";
-    v7[0] = &unk_1F3059B10;
-    v7[1] = &unk_1F3059B10;
-    v6[2] = @"isCommunicationSafetyReceivingRestricted";
-    v7[2] = &unk_1F3059B10;
-    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:3];
+    v5[0] = @"isEyeReliefEnabled";
+    v5[1] = @"isCommunicationSafetySendingRestricted";
+    v6[0] = &unk_1F3059B10;
+    v6[1] = &unk_1F3059B10;
+    v5[2] = @"isCommunicationSafetyReceivingRestricted";
+    v6[2] = &unk_1F3059B10;
+    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:3];
   }
 
   else
@@ -157,14 +197,12 @@
     v3 = 0;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 + (id)fetchOrCreateWithDictionaryRepresentation:(id)representation inContext:(id)context error:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v9 = [representation objectForKeyedSubscript:@"user"];
   fetchRequest = [self fetchRequest];
@@ -201,12 +239,11 @@ LABEL_5:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = firstObject;
+    v20 = firstObject;
     _os_log_impl(&dword_1B831F000, v17, OS_LOG_TYPE_DEFAULT, "Settings created via the legacy path. Settings: %@", buf, 0xCu);
   }
 
 LABEL_9:
-  v18 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -282,7 +319,7 @@ LABEL_9:
 
 - (void)_changeAppLimitsFromAskToWarn:(id)warn
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   warnCopy = warn;
   type = [warnCopy type];
   if ([type isEqualToString:@"usage-limit"])
@@ -322,9 +359,9 @@ LABEL_31:
 
     v10 = MEMORY[0x1E6996208];
     payloadPlist2 = [anyObject payloadPlist];
-    v28 = 0;
-    v12 = [v10 declarationForData:payloadPlist2 error:&v28];
-    v13 = v28;
+    v27 = 0;
+    v12 = [v10 declarationForData:payloadPlist2 error:&v27];
+    v13 = v27;
 
     if (v12)
     {
@@ -346,14 +383,14 @@ LABEL_21:
           {
             identifier = [anyObject identifier];
             *buf = 138543362;
-            v30 = identifier;
+            v29 = identifier;
             _os_log_impl(&dword_1B831F000, v23, OS_LOG_TYPE_DEFAULT, "Updating configuration payload %{public}@ from ask to warn", buf, 0xCu);
           }
 
           [v12 updateServerHash];
-          v27 = v13;
-          v14 = [v12 serializeAsDataWithError:&v27];
-          v18 = v27;
+          v26 = v13;
+          v14 = [v12 serializeAsDataWithError:&v26];
+          v18 = v26;
 
           if (v14)
           {
@@ -430,8 +467,6 @@ LABEL_28:
   }
 
 LABEL_32:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)description
@@ -448,31 +483,23 @@ LABEL_32:
 
 - (void)_changeAppLimitsFromAskToWarn:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_3(&dword_1B831F000, v2, v3, "Failed to serialize configuration payload %{public}@: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_3(&dword_1B831F000, v2, v3, "Failed to serialize configuration payload %{public}@: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)_changeAppLimitsFromAskToWarn:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_3(&dword_1B831F000, v2, v3, "Failed to deserialize configuration payload %{public}@: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_3(&dword_1B831F000, v2, v3, "Failed to deserialize configuration payload %{public}@: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)_changeAppLimitsFromAskToWarn:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_6();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

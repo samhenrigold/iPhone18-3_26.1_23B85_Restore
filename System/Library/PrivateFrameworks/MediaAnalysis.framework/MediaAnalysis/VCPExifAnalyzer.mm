@@ -147,7 +147,8 @@ LABEL_14:
     v55 = v5;
     if (v5)
     {
-      -[VCPExifAnalyzer transformUprightAboutTopLeft:](self, "transformUprightAboutTopLeft:", [v5 intValue]);
+      [v5 intValue];
+      objc_msgSend_transformUprightAboutTopLeft_(self);
       v75 = t1;
     }
 

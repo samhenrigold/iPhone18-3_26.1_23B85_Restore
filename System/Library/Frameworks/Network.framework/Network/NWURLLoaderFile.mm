@@ -67,8 +67,9 @@
   _Block_object_dispose(v16, 8);
 }
 
-void __85__NWURLLoaderFile_readDataOfMinimumIncompleteLength_maximumLength_completionHandler___block_invoke(uint64_t *a1, int a2, void *a3, int a4)
+void __85__NWURLLoaderFile_readDataOfMinimumIncompleteLength_maximumLength_completionHandler___block_invoke(void *a1, int a2, void *a3, uint64_t a4)
 {
+  v4 = a4;
   v7 = a3;
   data = v7;
   if (v7)
@@ -91,17 +92,17 @@ void __85__NWURLLoaderFile_readDataOfMinimumIncompleteLength_maximumLength_compl
   {
     v14 = -1101;
     v15 = -3001;
-    if (a4 == 13)
+    if (v4 == 13)
     {
       v15 = -1102;
     }
 
-    if (a4 != 21)
+    if (v4 != 21)
     {
       v14 = v15;
     }
 
-    if (a4 == 2)
+    if (v4 == 2)
     {
       v16 = -1100;
     }
@@ -112,7 +113,7 @@ void __85__NWURLLoaderFile_readDataOfMinimumIncompleteLength_maximumLength_compl
     }
 
     v17 = a1[5];
-    v18 = [(NWURLLoaderFile *)a1[4] errorForErrorCode:v16 withPOSIXCode:a4];
+    v18 = [(NWURLLoaderFile *)a1[4] errorForErrorCode:v16 withPOSIXCode:v4];
     (*(v17 + 16))(v17, 0, 1, v18);
   }
 }

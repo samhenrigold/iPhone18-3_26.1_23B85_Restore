@@ -1910,14 +1910,14 @@ LABEL_39:
           {
             if ((*(*v62 + 288))(v62))
             {
-              v155 = TSWPAttributeArray::attributeArrayName(j, v63);
-              TSUSetCrashReporterInfo();
+              v146 = TSWPAttributeArray::attributeArrayName(j, v63);
+              TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Attribute array is in disrepair: %{public}@. Aborting archive.", "[TSWPStorage saveRange:toArchiver:styleProvider:archiveChanges:removeDeletedText:archivePencilAnnotations:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 1235, v146);
 
-              v146 = MEMORY[0x277D81150];
-              v148 = objc_msgSend_stringWithUTF8String_(*(v14 + 3240), v147, "[TSWPStorage saveRange:toArchiver:styleProvider:archiveChanges:removeDeletedText:archivePencilAnnotations:]", "[TSWPStorage saveRange:toArchiver:styleProvider:archiveChanges:removeDeletedText:archivePencilAnnotations:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 1235, v155);
-              v150 = objc_msgSend_stringWithUTF8String_(*(v14 + 3240), v149, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
-              v152 = TSWPAttributeArray::attributeArrayName(j, v151);
-              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v146, v153, v148, v150, 1235, 1, "Attribute array is in disrepair: %{public}@. Aborting archive.", v152);
+              v147 = MEMORY[0x277D81150];
+              v149 = objc_msgSend_stringWithUTF8String_(*(v14 + 3240), v148, "[TSWPStorage saveRange:toArchiver:styleProvider:archiveChanges:removeDeletedText:archivePencilAnnotations:]");
+              v151 = objc_msgSend_stringWithUTF8String_(*(v14 + 3240), v150, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
+              v153 = TSWPAttributeArray::attributeArrayName(j, v152);
+              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v147, v154, v149, v151, 1235, 1, "Attribute array is in disrepair: %{public}@. Aborting archive.", v153);
 
               TSUCrashBreakpoint();
               abort();
@@ -2706,7 +2706,7 @@ LABEL_229:
 
 - (void)i_repairParagraphArray
 {
-  v3 = sub_276D35FA4();
+  v3 = sub_276D35FA4(self);
   objc_msgSend_p_charIndicesForString_breakingCharacterSet_(self, v4, self->_string, v3);
   v6 = objc_msgSend_attributeArrayForKind_(self, v5, 0);
   objc_msgSend_p_charIndicesForAttributeArray_(self, v7, v6);
@@ -2725,9 +2725,9 @@ LABEL_229:
 
     if (!v16)
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Could not get default paragraph style when repairing stylesheet.", "[TSWPStorage i_repairParagraphArray]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 1481);
       v19 = MEMORY[0x277D81150];
-      v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "[TSWPStorage i_repairParagraphArray]", "[TSWPStorage i_repairParagraphArray]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 1481);
+      v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "[TSWPStorage i_repairParagraphArray]");
       v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v24, v21, v23, 1481, 1, "Could not get default paragraph style when repairing stylesheet.");
 
@@ -4003,7 +4003,6 @@ LABEL_6:
 
 - (TSWPParagraphEnumerator)paragraphEnumeratorForCharRange:(SEL)range styleProvider:(_NSRange)provider requireHidden:(id)hidden
 {
-  v6 = a6;
   length = provider.length;
   location = provider.location;
   hiddenCopy = hidden;
@@ -4023,7 +4022,7 @@ LABEL_6:
     v17 = v12 + 1;
   }
 
-  TSWPParagraphEnumerator::TSWPParagraphEnumerator(retstr, self, hiddenCopy, v12, v17, v6);
+  TSWPParagraphEnumerator::TSWPParagraphEnumerator(retstr, self, hiddenCopy, v12, v17, a6);
 
   return result;
 }
@@ -4164,7 +4163,7 @@ LABEL_6:
       sub_276E0A8F0(v29);
     }
 
-    nullsub_7(v29);
+    nullsub_7();
     v19 = location + length - v8;
     if (location + length > v8)
     {
@@ -10233,14 +10232,14 @@ LABEL_29:
 
   if ((isKindOfClass & 1) == 0 && objc_msgSend_isAnchored(footnoteCopy, v9, v10) && (objc_msgSend_allowsElementKind_(self, v9, 0x40000) & 1) == 0)
   {
-    v28 = objc_msgSend_p_kindDescription(self, v9, v13);
-    TSUSetCrashReporterInfo();
+    v19 = objc_msgSend_p_kindDescription(self, v9, v13);
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unsupported: inserting anchored attachment into %{public}@", "[TSWPStorage insertAttachmentOrFootnote:range:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 5990, v19);
 
-    v19 = MEMORY[0x277D81150];
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "[TSWPStorage insertAttachmentOrFootnote:range:]", "[TSWPStorage insertAttachmentOrFootnote:range:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 5990, v28);
-    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
-    v26 = objc_msgSend_p_kindDescription(self, v24, v25);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v27, v21, v23, 5990, 1, "Unsupported: inserting anchored attachment into %{public}@", v26);
+    v20 = MEMORY[0x277D81150];
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[TSWPStorage insertAttachmentOrFootnote:range:]");
+    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
+    v27 = objc_msgSend_p_kindDescription(self, v25, v26);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v28, v22, v24, 5990, 1, "Unsupported: inserting anchored attachment into %{public}@", v27);
 
     TSUCrashBreakpoint();
     abort();
@@ -11338,7 +11337,8 @@ LABEL_12:
   else
   {
     TSWPAttributeEnumerator::TSWPAttributeEnumerator(&v25, self, location, length, kind, 1);
-    v23 = 0;
+    v23.location = 0;
+    v23.length = 0;
     v24 = 0;
     while (1)
     {
@@ -13535,9 +13535,9 @@ LABEL_11:
   validateCopy = validate;
   if ((validate & 4) != 0 && (*(self + 302) & 0xF) == 8)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Attempt to archive a storage with undefined kind", a2, "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8177);
     v275 = MEMORY[0x277D81150];
-    v277 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v276, "[TSWPStorage validate:]", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8177);
+    v277 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v276, "[TSWPStorage validate:]");
     v279 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v278, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v275, v280, v277, v279, 8177, 1, "Attempt to archive a storage with undefined kind");
 
@@ -13573,9 +13573,9 @@ LABEL_11:
   {
     if ((validateCopy & 4) != 0)
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d storage validation fail: par count", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8209);
       v281 = MEMORY[0x277D81150];
-      v283 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v282, "[TSWPStorage validate:]", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8209);
+      v283 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v282, "[TSWPStorage validate:]");
       v285 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v284, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v281, v286, v283, v285, 8209, 1, "storage validation fail: par count");
 
@@ -13693,9 +13693,9 @@ LABEL_26:
 LABEL_37:
             if ((validateCopy & 4) != 0)
             {
-              TSUSetCrashReporterInfo();
+              TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d storage validation fail: par attr table", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8224);
               v239 = MEMORY[0x277D81150];
-              v241 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v240, "[TSWPStorage validate:]", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8224);
+              v241 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v240, "[TSWPStorage validate:]");
               v243 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v242, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
               objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v239, v244, v241, v243, 8224, 1, "storage validation fail: par attr table");
 
@@ -13777,9 +13777,9 @@ LABEL_63:
 
             if ((validateCopy & 4) != 0)
             {
-              TSUSetCrashReporterInfo();
+              TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d storage validation fail: footnote", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8241);
               v257 = MEMORY[0x277D81150];
-              v259 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v258, "[TSWPStorage validate:]", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8241);
+              v259 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v258, "[TSWPStorage validate:]");
               v261 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v260, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
               objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v257, v262, v259, v261, 8241, 1, "storage validation fail: footnote");
 
@@ -13836,9 +13836,9 @@ LABEL_63:
 LABEL_51:
             if ((validateCopy & 4) != 0)
             {
-              TSUSetCrashReporterInfo();
+              TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d storage validation fail: attachment", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8231);
               v263 = MEMORY[0x277D81150];
-              v265 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v264, "[TSWPStorage validate:]", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8231);
+              v265 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v264, "[TSWPStorage validate:]");
               v267 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v266, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
               objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v263, v268, v265, v267, 8231, 1, "storage validation fail: attachment");
 
@@ -13901,9 +13901,9 @@ LABEL_78:
 
     if ((validateCopy & 4) != 0)
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d storage validation fail: bad paragraph count", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8246);
       v287 = MEMORY[0x277D81150];
-      v289 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v288, "[TSWPStorage validate:]", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8246);
+      v289 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v288, "[TSWPStorage validate:]");
       v291 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v290, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v287, v292, v289, v291, 8246, 1, "storage validation fail: bad paragraph count");
 
@@ -13970,9 +13970,9 @@ LABEL_100:
       {
         if ((validateCopy & 4) != 0)
         {
-          TSUSetCrashReporterInfo();
+          TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d storage validation fail: Par style index", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8268);
           v245 = MEMORY[0x277D81150];
-          v247 = objc_msgSend_stringWithUTF8String_(*(v91 + 3240), v246, "[TSWPStorage validate:]", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8268);
+          v247 = objc_msgSend_stringWithUTF8String_(*(v91 + 3240), v246, "[TSWPStorage validate:]");
           v249 = objc_msgSend_stringWithUTF8String_(*(v91 + 3240), v248, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
           objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v245, v250, v247, v249, 8268, 1, "storage validation fail: Par style index");
 
@@ -14002,9 +14002,9 @@ LABEL_113:
       {
         if ((validateCopy & 4) != 0)
         {
-          TSUSetCrashReporterInfo();
+          TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d storage validation fail: par break char", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8273);
           v251 = MEMORY[0x277D81150];
-          v253 = objc_msgSend_stringWithUTF8String_(*(v91 + 3240), v252, "[TSWPStorage validate:]", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8273);
+          v253 = objc_msgSend_stringWithUTF8String_(*(v91 + 3240), v252, "[TSWPStorage validate:]");
           v255 = objc_msgSend_stringWithUTF8String_(*(v91 + 3240), v254, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
           objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v251, v256, v253, v255, 8273, 1, "storage validation fail: par break char");
 
@@ -14055,9 +14055,9 @@ LABEL_117:
 LABEL_94:
     if ((validateCopy & 4) != 0)
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d storage validation fail: par style", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8262);
       v233 = MEMORY[0x277D81150];
-      v235 = objc_msgSend_stringWithUTF8String_(*(v91 + 3240), v234, "[TSWPStorage validate:]", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8262);
+      v235 = objc_msgSend_stringWithUTF8String_(*(v91 + 3240), v234, "[TSWPStorage validate:]");
       v237 = objc_msgSend_stringWithUTF8String_(*(v91 + 3240), v236, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v233, v238, v235, v237, 8262, 1, "storage validation fail: par style");
 
@@ -14108,9 +14108,9 @@ LABEL_141:
 
       if ((validateCopy & 4) != 0)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d storage validation fail: char style index", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8306);
         v215 = MEMORY[0x277D81150];
-        v217 = objc_msgSend_stringWithUTF8String_(*(v120 + 3240), v216, "[TSWPStorage validate:]", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8306);
+        v217 = objc_msgSend_stringWithUTF8String_(*(v120 + 3240), v216, "[TSWPStorage validate:]");
         v219 = objc_msgSend_stringWithUTF8String_(*(v120 + 3240), v218, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v215, v220, v217, v219, 8306, 1, "storage validation fail: char style index");
 
@@ -14171,9 +14171,9 @@ LABEL_140:
 
     if ((validateCopy & 4) != 0)
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d storage validation fail: char style object", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8300);
       v227 = MEMORY[0x277D81150];
-      v229 = objc_msgSend_stringWithUTF8String_(*(v120 + 3240), v228, "[TSWPStorage validate:]", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8300);
+      v229 = objc_msgSend_stringWithUTF8String_(*(v120 + 3240), v228, "[TSWPStorage validate:]");
       v231 = objc_msgSend_stringWithUTF8String_(*(v120 + 3240), v230, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v227, v232, v229, v231, 8300, 1, "storage validation fail: char style object");
 
@@ -14262,9 +14262,9 @@ LABEL_170:
 LABEL_164:
         if ((validateCopy & 4) != 0)
         {
-          TSUSetCrashReporterInfo();
+          TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Bad drop cap style object (%@) in wp storage.", v137, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8320, v147);
           v221 = MEMORY[0x277D81150];
-          v223 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v222, "[TSWPStorage validate:]", v137, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8320, v147);
+          v223 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v222, "[TSWPStorage validate:]");
           v225 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v224, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
           objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v221, v226, v223, v225, 8320, 1, "Bad drop cap style object (%@) in wp storage.", v147);
 
@@ -14439,9 +14439,9 @@ LABEL_189:
       return 0;
     }
 
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d storage validation fail: tracked changes in unsupported storage", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8475);
     v293 = MEMORY[0x277D81150];
-    v295 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v294, "[TSWPStorage validate:]", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8475);
+    v295 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v294, "[TSWPStorage validate:]");
     v297 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v296, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v293, v298, v295, v297, 8475, 1, "storage validation fail: tracked changes in unsupported storage");
 
@@ -14453,9 +14453,9 @@ LABEL_235:
 LABEL_210:
   if ((validateCopy & 4) != 0)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d storage validation fail: section", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8382);
     v269 = MEMORY[0x277D81150];
-    v271 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v270, "[TSWPStorage validate:]", "[TSWPStorage validate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm", 8382);
+    v271 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v270, "[TSWPStorage validate:]");
     v273 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v272, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v269, v274, v271, v273, 8382, 1, "storage validation fail: section");
 
@@ -15006,7 +15006,7 @@ LABEL_28:
       v5 = v21;
       if (v21)
       {
-        sub_276DCF878(v21, 0xFu);
+        sub_276DCF878(v21, 15);
       }
 
       break;
@@ -15015,7 +15015,7 @@ LABEL_28:
       v5 = v10;
       if (v10)
       {
-        sub_276DCF878(v10, 0x10u);
+        sub_276DCF878(v10, 16);
       }
 
       break;
@@ -15035,7 +15035,7 @@ LABEL_28:
       v5 = v20;
       if (v20)
       {
-        sub_276E0AB1C(v20, 0x13u);
+        sub_276E0AB1C(v20, 19);
       }
 
       break;
@@ -15044,7 +15044,7 @@ LABEL_28:
       v5 = v12;
       if (v12)
       {
-        sub_276E0AB1C(v12, 0x14u);
+        sub_276E0AB1C(v12, 20);
       }
 
       break;
@@ -15286,9 +15286,9 @@ LABEL_27:
   objectCopy = object;
   if ((objc_msgSend_isObjectValid_forStyleKind_(self, v10, objectCopy, v7) & 1) == 0)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Object %@ not allowed for style kind: %d in WPStorage", "[TSWPStorage(AttributeTables) applyObject:toCharRange:forKind:actionBuilder:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage_attributeTables.mm", 257, objectCopy, v7);
     v21 = MEMORY[0x277D81150];
-    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "[TSWPStorage(AttributeTables) applyObject:toCharRange:forKind:actionBuilder:]", "[TSWPStorage(AttributeTables) applyObject:toCharRange:forKind:actionBuilder:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage_attributeTables.mm", 257, objectCopy, v7);
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "[TSWPStorage(AttributeTables) applyObject:toCharRange:forKind:actionBuilder:]");
     v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage_attributeTables.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v26, v23, v25, 257, 1, "Object %@ not allowed for style kind: %d in WPStorage", objectCopy, v7);
 
@@ -16873,7 +16873,7 @@ LABEL_44:
   }
 
   v30 = 0;
-  v51[0] = 0;
+  v51[0].location = 0;
   do
   {
     if (v30)
@@ -16900,10 +16900,10 @@ LABEL_44:
     }
 
     sub_276D14D78(v51);
-    v30 = v51[0];
+    v30 = v51[0].location;
   }
 
-  while (v51[0] < 0x17uLL);
+  while (v51[0].location < 0x17);
   v33 = objc_msgSend_attributeArrayForKind_withCreate_actionState_(self, v26, 0, 0, state);
   if (v33)
   {
@@ -16969,7 +16969,7 @@ LABEL_44:
   }
 
   v45 = 0;
-  v51[0] = 0;
+  v51[0].location = 0;
   if ((flags & 0x100) != 0)
   {
     v46 = 2;
@@ -17002,10 +17002,10 @@ LABEL_44:
     }
 
     sub_276D14D78(v51);
-    v45 = v51[0];
+    v45 = v51[0].location;
   }
 
-  while (v51[0] < 0x17uLL);
+  while (v51[0].location < 0x17);
   for (j = 544; j != -8; j -= 24)
   {
   }
@@ -17086,9 +17086,9 @@ LABEL_18:
   v46 = objectCopy;
   if (length >= 2)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Bad range length.", "[TSWPStorage(TSWPStorage_private) pFlipSpecialCharacterForObject:range:insertLength:outChangeRange:attributeArrayKind:actionState:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage_private.mm", 178);
     v34 = MEMORY[0x277D81150];
-    v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, "[TSWPStorage(TSWPStorage_private) pFlipSpecialCharacterForObject:range:insertLength:outChangeRange:attributeArrayKind:actionState:]", "[TSWPStorage(TSWPStorage_private) pFlipSpecialCharacterForObject:range:insertLength:outChangeRange:attributeArrayKind:actionState:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage_private.mm", 178);
+    v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, "[TSWPStorage(TSWPStorage_private) pFlipSpecialCharacterForObject:range:insertLength:outChangeRange:attributeArrayKind:actionState:]");
     v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage_private.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v34, v39, v36, v38, 178, 1, "Bad range length.");
 
@@ -17098,9 +17098,9 @@ LABEL_18:
 
   if (length >= 2)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Bad insert length.", "[TSWPStorage(TSWPStorage_private) pFlipSpecialCharacterForObject:range:insertLength:outChangeRange:attributeArrayKind:actionState:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage_private.mm", 179);
     v40 = MEMORY[0x277D81150];
-    v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "[TSWPStorage(TSWPStorage_private) pFlipSpecialCharacterForObject:range:insertLength:outChangeRange:attributeArrayKind:actionState:]", "[TSWPStorage(TSWPStorage_private) pFlipSpecialCharacterForObject:range:insertLength:outChangeRange:attributeArrayKind:actionState:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage_private.mm", 179);
+    v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "[TSWPStorage(TSWPStorage_private) pFlipSpecialCharacterForObject:range:insertLength:outChangeRange:attributeArrayKind:actionState:]");
     v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorage_private.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v40, v45, v42, v44, 179, 1, "Bad insert length.");
 
@@ -17753,7 +17753,7 @@ LABEL_88:
   v10 = sub_276E0AA48(v14);
   v8 = v11;
 LABEL_7:
-  nullsub_7(v14);
+  nullsub_7();
 
   v12 = v10;
   v13 = v8;
@@ -17850,7 +17850,7 @@ LABEL_11:
     sub_276E0A8F0(v13);
   }
 
-  nullsub_7(v13);
+  nullsub_7();
   v11 = objc_msgSend_copy(v6, v9, v10);
 
   return v11;
@@ -17892,7 +17892,7 @@ LABEL_11:
     sub_276E0A8F0(v13);
   }
 
-  nullsub_7(v13);
+  nullsub_7();
   v11 = objc_msgSend_copy(v5, v9, v10);
 
   return v11;
@@ -17923,7 +17923,7 @@ LABEL_11:
     sub_276E0A8F0(v16);
   }
 
-  nullsub_7(v16);
+  nullsub_7();
   v14 = objc_msgSend_copy(v8, v12, v13);
 
   return v14;
@@ -17982,8 +17982,8 @@ LABEL_13:
   if (v6)
   {
     v7 = v6;
-    TSWPAttributeArray::begin(v6, &rangeCopy, &v18);
-    TSWPAttributeArray::end(v7, &rangeCopy, v8, &v16);
+    TSWPAttributeArray::begin(&v18, v6, &rangeCopy);
+    TSWPAttributeArray::end(&v16, v7, &rangeCopy, v8);
     if (v19 != v17)
     {
       while (1)
@@ -18026,8 +18026,8 @@ LABEL_13:
   if (v4)
   {
     v6 = v4;
-    TSWPAttributeArray::end(v4, &rangeCopy, v5, &v19);
-    TSWPAttributeArray::begin(v6, &rangeCopy, &v17);
+    TSWPAttributeArray::end(&v19, v4, &rangeCopy, v5);
+    TSWPAttributeArray::begin(&v17, v6, &rangeCopy);
     v7 = v20;
     if (v20 != v18)
     {
@@ -18508,7 +18508,7 @@ LABEL_16:
     *p_location = NSIntersectionRange(v119, v128);
   }
 
-  nullsub_7(v108);
+  nullsub_7();
 }
 
 - (id)nextChangeFromCharIndex:(unint64_t)index afterChange:(id)change changeRange:(_NSRange *)range
@@ -18574,7 +18574,7 @@ LABEL_16:
 
   v20 = v15;
 LABEL_18:
-  nullsub_7(v29);
+  nullsub_7();
   if (v20 != changeCopy)
   {
     v24 = v20;
@@ -18592,7 +18592,7 @@ LABEL_18:
 
   v16 = sub_276E0AA48(v29);
   v14 = v28;
-  nullsub_7(v29);
+  nullsub_7();
   if (range)
   {
 LABEL_20:
@@ -18635,7 +18635,7 @@ LABEL_21:
     v9 = v17;
   }
 
-  nullsub_7(v26);
+  nullsub_7();
   if (!v10)
   {
     v20 = objc_msgSend_range(self, v18, v19);
@@ -18658,7 +18658,7 @@ LABEL_21:
       sub_276E0A8F0(v26);
     }
 
-    nullsub_7(v26);
+    nullsub_7();
   }
 
   if (range)
@@ -19622,8 +19622,8 @@ LABEL_17:
       v24 = v22;
       if (v22)
       {
-        TSWPAttributeArray::begin(v22, &rangeCopy, &v122);
-        TSWPAttributeArray::end(v24, &rangeCopy, v25, &v132);
+        TSWPAttributeArray::begin(&v122, v22, &rangeCopy);
+        TSWPAttributeArray::end(&v132, v24, &rangeCopy, v25);
         for (i = v123; i != v133; i = ++v123)
         {
           v27 = TSWPAttributeArray::iterator::operator*(&v122);
@@ -19639,8 +19639,8 @@ LABEL_17:
       v33 = v31;
       if (v31)
       {
-        TSWPAttributeArray::begin(v31, &rangeCopy, &v122);
-        TSWPAttributeArray::end(v33, &rangeCopy, v34, &v132);
+        TSWPAttributeArray::begin(&v122, v31, &rangeCopy);
+        TSWPAttributeArray::end(&v132, v33, &rangeCopy, v34);
         for (; v123 != v133; ++v123)
         {
           v35 = TSWPAttributeArray::iterator::operator*(&v122);
@@ -19659,8 +19659,8 @@ LABEL_17:
       v41 = v40;
       if (v40)
       {
-        TSWPAttributeArray::begin(v40, &rangeCopy, &v122);
-        TSWPAttributeArray::end(v41, &rangeCopy, v42, &v132);
+        TSWPAttributeArray::begin(&v122, v40, &rangeCopy);
+        TSWPAttributeArray::end(&v132, v41, &rangeCopy, v42);
         for (; v123 != v133; ++v123)
         {
           v43 = TSWPAttributeArray::iterator::operator*(&v122);
@@ -19683,8 +19683,8 @@ LABEL_17:
       v52 = v51;
       if (v51)
       {
-        TSWPAttributeArray::begin(v51, &rangeCopy, &v122);
-        TSWPAttributeArray::end(v52, &rangeCopy, v53, &v132);
+        TSWPAttributeArray::begin(&v122, v51, &rangeCopy);
+        TSWPAttributeArray::end(&v132, v52, &rangeCopy, v53);
         for (j = v123; j != v133; j = ++v123)
         {
           v55 = TSWPAttributeArray::iterator::object(&v122);
@@ -19849,8 +19849,8 @@ LABEL_17:
     if (v6)
     {
       v7 = v6;
-      TSWPAttributeArray::begin(v6, &rangeCopy, &v19);
-      TSWPAttributeArray::end(v7, &rangeCopy, v8, &v17);
+      TSWPAttributeArray::begin(&v19, v6, &rangeCopy);
+      TSWPAttributeArray::end(&v17, v7, &rangeCopy, v8);
       for (; v20 != v18; ++v20)
       {
         v9 = TSWPAttributeArray::iterator::object(&v19);
@@ -19899,8 +19899,8 @@ LABEL_17:
       v15 = v14;
       if (v14)
       {
-        TSWPAttributeArray::begin(v14, &rangeCopy, &v43);
-        TSWPAttributeArray::end(v15, &rangeCopy, v16, v42);
+        TSWPAttributeArray::begin(&v43, v14, &rangeCopy);
+        TSWPAttributeArray::end(v42, v15, &rangeCopy, v16);
         for (i = v44; i != v42[1]; i = ++v44)
         {
           v19 = TSWPAttributeArray::iterator::object(&v43);

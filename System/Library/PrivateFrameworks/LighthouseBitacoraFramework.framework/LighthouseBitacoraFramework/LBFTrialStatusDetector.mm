@@ -7,246 +7,241 @@
 
 - (LBFTrialStatusDetector)init
 {
-  v516 = *MEMORY[0x277D85DE8];
-  v507.receiver = self;
-  v507.super_class = LBFTrialStatusDetector;
-  v2 = [(LBFTrialStatusDetector *)&v507 init];
+  v418 = *MEMORY[0x277D85DE8];
+  v409.receiver = self;
+  v409.super_class = LBFTrialStatusDetector;
+  v2 = [(LBFTrialStatusDetector *)&v409 init];
   v3 = v2;
   if (v2)
   {
-    v486 = v2;
-    v498 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v8 = objc_msgSend_sharedInstance(LBFEventManager, v4, v5, v6, v7);
-    v487 = objc_msgSend_ensureBiomeManagerTrial(v8, v9, v10, v11, v12);
+    v388 = v2;
+    v400 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v7 = objc_msgSend_sharedInstance(LBFEventManager, v4, v6, v5);
+    v389 = objc_msgSend_ensureBiomeManagerTrial(v7, v8, v10, v9);
 
-    v17 = objc_msgSend_sharedInstance(LBFEventManager, v13, v14, v15, v16);
-    v22 = objc_msgSend_ensureBiomeManagerMLRuntimed(v17, v18, v19, v20, v21);
+    v14 = objc_msgSend_sharedInstance(LBFEventManager, v11, v13, v12);
+    v18 = objc_msgSend_ensureBiomeManagerMLRuntimed(v14, v15, v17, v16);
 
-    v27 = objc_msgSend_dateWithTimeIntervalSinceNow_(MEMORY[0x277CBEAA8], v23, v24, v25, v26, -7776000.0);
-    v32 = objc_msgSend_now(MEMORY[0x277CBEAA8], v28, v29, v30, v31);
-    v33 = LBFLogContextTrialStatusDetector;
+    v19.n128_u64[0] = 0xC15DA9C000000000;
+    v22 = objc_msgSend_dateWithTimeIntervalSinceNow_(MEMORY[0x277CBEAA8], v20, v19, v21);
+    v26 = objc_msgSend_now(MEMORY[0x277CBEAA8], v23, v25, v24);
+    v27 = LBFLogContextTrialStatusDetector;
     if (os_log_type_enabled(LBFLogContextTrialStatusDetector, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v513 = v27;
-      v514 = 2112;
-      v515 = v32;
-      _os_log_impl(&dword_255ED5000, v33, OS_LOG_TYPE_INFO, "Searching for events for Trial detection from %@ to %@.", buf, 0x16u);
+      v415 = v22;
+      v416 = 2112;
+      v417 = v26;
+      _os_log_impl(&dword_255ED5000, v27, OS_LOG_TYPE_INFO, "Searching for events for Trial detection from %@ to %@.", buf, 0x16u);
     }
 
-    v36 = objc_msgSend_readData_endDate_(v487, v34, v27, v32, v35);
-    v484 = v27;
-    v485 = v22;
-    v490 = objc_msgSend_readData_endDate_(v22, v37, v27, v32, v38);
-    v503 = 0u;
-    v504 = 0u;
-    v505 = 0u;
-    v506 = 0u;
-    obj = v36;
-    v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v39, &v503, v511, 16);
-    v483 = v32;
-    if (v40)
+    v30 = objc_msgSend_readData_endDate_(v389, v28, v29, v22, v26);
+    v386 = v22;
+    v387 = v18;
+    v392 = objc_msgSend_readData_endDate_(v18, v31, v32, v22, v26);
+    v405 = 0u;
+    v406 = 0u;
+    v407 = 0u;
+    v408 = 0u;
+    obj = v30;
+    v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v33, v34, &v405, v413, 16);
+    v385 = v26;
+    if (v35)
     {
-      v41 = v40;
-      v42 = *v504;
-      v43 = 0x277CF1000uLL;
-      v495 = *v504;
+      v36 = v35;
+      v37 = *v406;
+      v397 = *v406;
       do
       {
-        for (i = 0; i != v41; ++i)
+        for (i = 0; i != v36; ++i)
         {
-          if (*v504 != v42)
+          if (*v406 != v37)
           {
             objc_enumerationMutation(obj);
           }
 
-          v45 = *(*(&v503 + 1) + 8 * i);
-          v46 = *(v43 + 664);
+          v39 = *(*(&v405 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v48 = v45;
-            v53 = objc_msgSend_trialIdentifiers(v48, v49, v50, v51, v52);
-            v58 = objc_msgSend_bmltIdentifiers(v53, v54, v55, v56, v57);
-            v63 = objc_msgSend_trialTaskID(v58, v59, v60, v61, v62);
-            v68 = v63;
-            if (v63)
+            v42 = v39;
+            v46 = objc_msgSend_trialIdentifiers(v42, v43, v45, v44);
+            v50 = objc_msgSend_bmltIdentifiers(v46, v47, v49, v48);
+            v54 = objc_msgSend_trialTaskID(v50, v51, v53, v52);
+            v58 = v54;
+            if (v54)
             {
-              v69 = v63;
+              v59 = v54;
             }
 
             else
             {
-              v70 = objc_msgSend_trialIdentifiers(v48, v64, v65, v66, v67);
-              v75 = objc_msgSend_experimentIdentifiers(v70, v71, v72, v73, v74);
-              v69 = objc_msgSend_trialExperimentID(v75, v76, v77, v78, v79);
-
-              v43 = 0x277CF1000;
+              v60 = objc_msgSend_trialIdentifiers(v42, v55, v57, v56);
+              v64 = objc_msgSend_experimentIdentifiers(v60, v61, v63, v62);
+              v59 = objc_msgSend_trialExperimentID(v64, v65, v67, v66);
             }
 
-            v84 = objc_msgSend_trialIdentifiers(v48, v80, v81, v82, v83);
-            v89 = objc_msgSend_bmltIdentifiers(v84, v85, v86, v87, v88);
-            v94 = objc_msgSend_trialDeploymentID(v89, v90, v91, v92, v93);
-            v99 = v94;
-            if (v94)
+            v71 = objc_msgSend_trialIdentifiers(v42, v68, v70, v69);
+            v75 = objc_msgSend_bmltIdentifiers(v71, v72, v74, v73);
+            v79 = objc_msgSend_trialDeploymentID(v75, v76, v78, v77);
+            v83 = v79;
+            if (v79)
             {
-              v100 = v94;
+              v84 = v79;
             }
 
             else
             {
-              v101 = objc_msgSend_trialIdentifiers(v48, v95, v96, v97, v98);
-              v106 = objc_msgSend_experimentIdentifiers(v101, v102, v103, v104, v105);
-              v100 = objc_msgSend_trialDeploymentID(v106, v107, v108, v109, v110);
+              v85 = objc_msgSend_trialIdentifiers(v42, v80, v82, v81);
+              v89 = objc_msgSend_experimentIdentifiers(v85, v86, v88, v87);
+              v84 = objc_msgSend_trialDeploymentID(v89, v90, v92, v91);
 
-              v42 = v495;
-              v43 = 0x277CF1000;
+              v37 = v397;
             }
 
-            if (v69 && v100)
+            if (v59 && v84)
             {
-              v114 = objc_msgSend_objectForKey_(v498, v111, v69, v112, v113);
+              v95 = objc_msgSend_objectForKey_(v400, v93, v94, v59);
 
-              if (!v114)
+              if (!v95)
               {
-                v118 = objc_alloc_init(MEMORY[0x277CBEB38]);
-                objc_msgSend_setObject_forKeyedSubscript_(v498, v119, v118, v69, v120);
+                v98 = objc_alloc_init(MEMORY[0x277CBEB38]);
+                objc_msgSend_setObject_forKeyedSubscript_(v400, v99, v100, v98, v59);
               }
 
-              v121 = objc_msgSend_objectForKeyedSubscript_(v498, v115, v69, v116, v117);
-              v125 = objc_msgSend_objectForKey_(v121, v122, v100, v123, v124);
+              v101 = objc_msgSend_objectForKeyedSubscript_(v400, v96, v97, v59);
+              v104 = objc_msgSend_objectForKey_(v101, v102, v103, v84);
 
-              if (!v125)
+              if (!v104)
               {
-                v130 = [LBFObservedTrialStatus alloc];
-                v133 = objc_msgSend_initWithObservedStatus_deploymentId_(v130, v131, v69, v100, v132);
-                v137 = objc_msgSend_objectForKeyedSubscript_(v498, v134, v69, v135, v136);
-                objc_msgSend_setObject_forKeyedSubscript_(v137, v138, v133, v100, v139);
+                v108 = [LBFObservedTrialStatus alloc];
+                v111 = objc_msgSend_initWithObservedStatus_deploymentId_(v108, v109, v110, v59, v84);
+                v114 = objc_msgSend_objectForKeyedSubscript_(v400, v112, v113, v59);
+                objc_msgSend_setObject_forKeyedSubscript_(v114, v115, v116, v111, v84);
               }
 
-              v140 = objc_msgSend_timestamp(v48, v126, v127, v128, v129);
-              v144 = objc_msgSend_objectForKeyedSubscript_(v498, v141, v69, v142, v143);
-              v148 = objc_msgSend_objectForKeyedSubscript_(v144, v145, v100, v146, v147);
-              objc_msgSend_setLastObservedTimestamp_(v148, v149, v140, v150, v151);
+              v117 = objc_msgSend_timestamp(v42, v105, v107, v106);
+              v120 = objc_msgSend_objectForKeyedSubscript_(v400, v118, v119, v59);
+              v123 = objc_msgSend_objectForKeyedSubscript_(v120, v121, v122, v84);
+              objc_msgSend_setLastObservedTimestamp_(v123, v124, v125, v117);
 
-              v156 = objc_msgSend_eventType(v48, v152, v153, v154, v155);
-              switch(v156)
+              v129 = objc_msgSend_eventType(v42, v126, v128, v127);
+              switch(v129)
               {
                 case 1:
-                  if (objc_msgSend_eventSucceeded(v48, v157, v158, v159, v160))
+                  if (objc_msgSend_eventSucceeded(v42, v130, v132, v131))
                   {
-                    v220 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v217, 1, v218, v219);
-                    v224 = objc_msgSend_objectForKeyedSubscript_(v498, v221, v69, v222, v223);
-                    v228 = objc_msgSend_objectForKeyedSubscript_(v224, v225, v100, v226, v227);
-                    objc_msgSend_setIsAllocated_(v228, v229, v220, v230, v231);
+                    v177 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v175, v176, 1);
+                    v180 = objc_msgSend_objectForKeyedSubscript_(v400, v178, v179, v59);
+                    v183 = objc_msgSend_objectForKeyedSubscript_(v180, v181, v182, v84);
+                    objc_msgSend_setIsAllocated_(v183, v184, v185, v177);
 
-                    v179 = objc_msgSend_objectForKeyedSubscript_(v498, v232, v69, v233, v234);
-                    v183 = objc_msgSend_objectForKeyedSubscript_(v179, v235, v100, v236, v237);
-                    objc_msgSend_setIsAllocated_implicit_(v183, v238, 1, v239, v240);
+                    v146 = objc_msgSend_objectForKeyedSubscript_(v400, v186, v187, v59);
+                    v149 = objc_msgSend_objectForKeyedSubscript_(v146, v188, v189, v84);
+                    objc_msgSend_setIsAllocated_implicit_(v149, v190, v191, 1);
 LABEL_32:
 
-                    v42 = v495;
+                    v37 = v397;
                   }
 
                   else
                   {
-                    v242 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v217, 0, v218, v219);
-                    v246 = objc_msgSend_objectForKeyedSubscript_(v498, v243, v69, v244, v245);
-                    v250 = objc_msgSend_objectForKeyedSubscript_(v246, v247, v100, v248, v249);
-                    objc_msgSend_setIsAllocated_(v250, v251, v242, v252, v253);
+                    v193 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v175, v176, 0);
+                    v196 = objc_msgSend_objectForKeyedSubscript_(v400, v194, v195, v59);
+                    v199 = objc_msgSend_objectForKeyedSubscript_(v196, v197, v198, v84);
+                    objc_msgSend_setIsAllocated_(v199, v200, v201, v193);
 
-                    v257 = objc_msgSend_objectForKeyedSubscript_(v498, v254, v69, v255, v256);
-                    v261 = objc_msgSend_objectForKeyedSubscript_(v257, v258, v100, v259, v260);
-                    objc_msgSend_setIsAllocated_implicit_(v261, v262, 0, v263, v264);
+                    v204 = objc_msgSend_objectForKeyedSubscript_(v400, v202, v203, v59);
+                    v207 = objc_msgSend_objectForKeyedSubscript_(v204, v205, v206, v84);
+                    objc_msgSend_setIsAllocated_implicit_(v207, v208, v209, 0);
 
-                    v265 = LBFLogContextTrialStatusDetector;
-                    v42 = v495;
+                    v210 = LBFLogContextTrialStatusDetector;
+                    v37 = v397;
                     if (os_log_type_enabled(LBFLogContextTrialStatusDetector, OS_LOG_TYPE_INFO))
                     {
                       *buf = 138412546;
-                      v513 = v69;
-                      v514 = 2112;
-                      v515 = v100;
-                      v215 = v265;
-                      v216 = "BMLighthouseLedgerTrialdEventEventTypeAllocation failed experimentOrTaskId:%@ deploymentId:%@";
+                      v415 = v59;
+                      v416 = 2112;
+                      v417 = v84;
+                      v173 = v210;
+                      v174 = "BMLighthouseLedgerTrialdEventEventTypeAllocation failed experimentOrTaskId:%@ deploymentId:%@";
                       goto LABEL_39;
                     }
                   }
 
                   break;
                 case 3:
-                  v187 = objc_msgSend_eventSucceeded(v48, v157, v158, v159, v160);
-                  v191 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v188, 0, v189, v190);
-                  v195 = objc_msgSend_objectForKeyedSubscript_(v498, v192, v69, v193, v194);
-                  v199 = objc_msgSend_objectForKeyedSubscript_(v195, v196, v100, v197, v198);
-                  objc_msgSend_setIsActivated_(v199, v200, v191, v201, v202);
+                  v152 = objc_msgSend_eventSucceeded(v42, v130, v132, v131);
+                  v155 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v153, v154, 0);
+                  v158 = objc_msgSend_objectForKeyedSubscript_(v400, v156, v157, v59);
+                  v161 = objc_msgSend_objectForKeyedSubscript_(v158, v159, v160, v84);
+                  objc_msgSend_setIsActivated_(v161, v162, v163, v155);
 
-                  v43 = 0x277CF1000;
-                  v206 = objc_msgSend_objectForKeyedSubscript_(v498, v203, v69, v204, v205);
-                  v210 = objc_msgSend_objectForKeyedSubscript_(v206, v207, v100, v208, v209);
-                  objc_msgSend_setIsActivated_implicit_(v210, v211, 0, v212, v213);
+                  v166 = objc_msgSend_objectForKeyedSubscript_(v400, v164, v165, v59);
+                  v169 = objc_msgSend_objectForKeyedSubscript_(v166, v167, v168, v84);
+                  objc_msgSend_setIsActivated_implicit_(v169, v170, v171, 0);
 
-                  v42 = v495;
-                  if ((v187 & 1) == 0)
+                  v37 = v397;
+                  if ((v152 & 1) == 0)
                   {
-                    v214 = LBFLogContextTrialStatusDetector;
+                    v172 = LBFLogContextTrialStatusDetector;
                     if (os_log_type_enabled(LBFLogContextTrialStatusDetector, OS_LOG_TYPE_INFO))
                     {
                       *buf = 138412546;
-                      v513 = v69;
-                      v514 = 2112;
-                      v515 = v100;
-                      v215 = v214;
-                      v216 = "BMLighthouseLedgerTrialdEventEventTypeDeactivation failed experimentOrTaskId:%@ deploymentId:%@";
+                      v415 = v59;
+                      v416 = 2112;
+                      v417 = v84;
+                      v173 = v172;
+                      v174 = "BMLighthouseLedgerTrialdEventEventTypeDeactivation failed experimentOrTaskId:%@ deploymentId:%@";
                       goto LABEL_39;
                     }
                   }
 
                   break;
                 case 2:
-                  if (objc_msgSend_eventSucceeded(v48, v157, v158, v159, v160))
+                  if (objc_msgSend_eventSucceeded(v42, v130, v132, v131))
                   {
-                    v164 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v161, 1, v162, v163);
-                    v168 = objc_msgSend_objectForKeyedSubscript_(v498, v165, v69, v166, v167);
-                    v172 = objc_msgSend_objectForKeyedSubscript_(v168, v169, v100, v170, v171);
-                    objc_msgSend_setIsActivated_(v172, v173, v164, v174, v175);
+                    v135 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v133, v134, 1);
+                    v138 = objc_msgSend_objectForKeyedSubscript_(v400, v136, v137, v59);
+                    v141 = objc_msgSend_objectForKeyedSubscript_(v138, v139, v140, v84);
+                    objc_msgSend_setIsActivated_(v141, v142, v143, v135);
 
-                    v179 = objc_msgSend_objectForKeyedSubscript_(v498, v176, v69, v177, v178);
-                    v183 = objc_msgSend_objectForKeyedSubscript_(v179, v180, v100, v181, v182);
-                    objc_msgSend_setIsActivated_implicit_(v183, v184, 1, v185, v186);
+                    v146 = objc_msgSend_objectForKeyedSubscript_(v400, v144, v145, v59);
+                    v149 = objc_msgSend_objectForKeyedSubscript_(v146, v147, v148, v84);
+                    objc_msgSend_setIsActivated_implicit_(v149, v150, v151, 1);
                     goto LABEL_32;
                   }
 
-                  v266 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v161, 0, v162, v163);
-                  v270 = objc_msgSend_objectForKeyedSubscript_(v498, v267, v69, v268, v269);
-                  v274 = objc_msgSend_objectForKeyedSubscript_(v270, v271, v100, v272, v273);
-                  objc_msgSend_setIsActivated_(v274, v275, v266, v276, v277);
+                  v211 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v133, v134, 0);
+                  v214 = objc_msgSend_objectForKeyedSubscript_(v400, v212, v213, v59);
+                  v217 = objc_msgSend_objectForKeyedSubscript_(v214, v215, v216, v84);
+                  objc_msgSend_setIsActivated_(v217, v218, v219, v211);
 
-                  v281 = objc_msgSend_objectForKeyedSubscript_(v498, v278, v69, v279, v280);
-                  v285 = objc_msgSend_objectForKeyedSubscript_(v281, v282, v100, v283, v284);
-                  objc_msgSend_setIsActivated_implicit_(v285, v286, 0, v287, v288);
+                  v222 = objc_msgSend_objectForKeyedSubscript_(v400, v220, v221, v59);
+                  v225 = objc_msgSend_objectForKeyedSubscript_(v222, v223, v224, v84);
+                  objc_msgSend_setIsActivated_implicit_(v225, v226, v227, 0);
 
-                  v289 = LBFLogContextTrialStatusDetector;
-                  v42 = v495;
+                  v228 = LBFLogContextTrialStatusDetector;
+                  v37 = v397;
                   if (os_log_type_enabled(LBFLogContextTrialStatusDetector, OS_LOG_TYPE_INFO))
                   {
                     *buf = 138412546;
-                    v513 = v69;
-                    v514 = 2112;
-                    v515 = v100;
-                    v215 = v289;
-                    v216 = "BMLighthouseLedgerTrialdEventEventTypeActivation failed experimentOrTaskId:%@ deploymentId:%@";
+                    v415 = v59;
+                    v416 = 2112;
+                    v417 = v84;
+                    v173 = v228;
+                    v174 = "BMLighthouseLedgerTrialdEventEventTypeActivation failed experimentOrTaskId:%@ deploymentId:%@";
 LABEL_39:
-                    _os_log_impl(&dword_255ED5000, v215, OS_LOG_TYPE_INFO, v216, buf, 0x16u);
+                    _os_log_impl(&dword_255ED5000, v173, OS_LOG_TYPE_INFO, v174, buf, 0x16u);
                   }
 
                   break;
                 default:
-                  v241 = LBFLogContextTrialStatusDetector;
-                  v42 = v495;
+                  v192 = LBFLogContextTrialStatusDetector;
+                  v37 = v397;
                   if (os_log_type_enabled(LBFLogContextTrialStatusDetector, OS_LOG_TYPE_ERROR))
                   {
-                    sub_255F0C59C(v509, v241, v48, v510);
+                    sub_255F0C59C(v411, v192, v42, v412);
                   }
 
                   break;
@@ -257,131 +252,129 @@ LABEL_39:
           }
         }
 
-        v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v47, &v503, v511, 16);
+        v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v40, v41, &v405, v413, 16);
       }
 
-      while (v41);
+      while (v36);
     }
 
-    v501 = 0u;
-    v502 = 0u;
-    v499 = 0u;
-    v500 = 0u;
-    v290 = v490;
-    v292 = objc_msgSend_countByEnumeratingWithState_objects_count_(v290, v291, &v499, v508, 16);
-    v293 = v498;
-    if (!v292)
+    v403 = 0u;
+    v404 = 0u;
+    v401 = 0u;
+    v402 = 0u;
+    v229 = v392;
+    v232 = objc_msgSend_countByEnumeratingWithState_objects_count_(v229, v230, v231, &v401, v410, 16);
+    v233 = v400;
+    if (!v232)
     {
       goto LABEL_75;
     }
 
-    v294 = v292;
-    v295 = *v500;
-    v296 = 0x277CF1000uLL;
-    v489 = v290;
-    v494 = *v500;
+    v234 = v232;
+    v235 = *v402;
+    v391 = v229;
+    v396 = *v402;
 LABEL_45:
-    v297 = 0;
-    v496 = v294;
+    v236 = 0;
+    v398 = v234;
     while (1)
     {
-      if (*v500 != v295)
+      if (*v402 != v235)
       {
-        objc_enumerationMutation(v290);
+        objc_enumerationMutation(v229);
       }
 
-      v298 = *(*(&v499 + 1) + 8 * v297);
-      v299 = *(v296 + 616);
+      v237 = *(*(&v401 + 1) + 8 * v236);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         goto LABEL_73;
       }
 
-      v301 = v298;
-      v306 = objc_msgSend_trialIdentifiers(v301, v302, v303, v304, v305);
-      v311 = objc_msgSend_bmltIdentifiers(v306, v307, v308, v309, v310);
-      v316 = objc_msgSend_trialTaskID(v311, v312, v313, v314, v315);
-      v321 = v316;
-      if (v316)
+      v240 = v237;
+      v244 = objc_msgSend_trialIdentifiers(v240, v241, v243, v242);
+      v248 = objc_msgSend_bmltIdentifiers(v244, v245, v247, v246);
+      v252 = objc_msgSend_trialTaskID(v248, v249, v251, v250);
+      v256 = v252;
+      if (v252)
       {
-        v322 = v316;
+        v257 = v252;
       }
 
       else
       {
-        objc_msgSend_trialIdentifiers(v301, v317, v318, v319, v320);
-        v324 = v323 = v301;
-        v329 = objc_msgSend_experimentIdentifiers(v324, v325, v326, v327, v328);
-        v322 = objc_msgSend_trialExperimentID(v329, v330, v331, v332, v333);
+        objc_msgSend_trialIdentifiers(v240, v253, v255, v254);
+        v259 = v258 = v240;
+        v263 = objc_msgSend_experimentIdentifiers(v259, v260, v262, v261);
+        v257 = objc_msgSend_trialExperimentID(v263, v264, v266, v265);
 
-        v301 = v323;
+        v240 = v258;
       }
 
-      v338 = objc_msgSend_trialIdentifiers(v301, v334, v335, v336, v337);
-      v343 = objc_msgSend_bmltIdentifiers(v338, v339, v340, v341, v342);
-      v348 = objc_msgSend_trialDeploymentID(v343, v344, v345, v346, v347);
-      v353 = v348;
-      if (v348)
+      v270 = objc_msgSend_trialIdentifiers(v240, v267, v269, v268);
+      v274 = objc_msgSend_bmltIdentifiers(v270, v271, v273, v272);
+      v278 = objc_msgSend_trialDeploymentID(v274, v275, v277, v276);
+      v282 = v278;
+      if (v278)
       {
-        v354 = v348;
+        v283 = v278;
       }
 
       else
       {
-        objc_msgSend_trialIdentifiers(v301, v349, v350, v351, v352);
-        v491 = v322;
-        v355 = v293;
-        v356 = v290;
-        v358 = v357 = v301;
-        v363 = objc_msgSend_experimentIdentifiers(v358, v359, v360, v361, v362);
-        v354 = objc_msgSend_trialDeploymentID(v363, v364, v365, v366, v367);
+        objc_msgSend_trialIdentifiers(v240, v279, v281, v280);
+        v393 = v257;
+        v284 = v233;
+        v285 = v229;
+        v287 = v286 = v240;
+        v291 = objc_msgSend_experimentIdentifiers(v287, v288, v290, v289);
+        v283 = objc_msgSend_trialDeploymentID(v291, v292, v294, v293);
 
-        v301 = v357;
-        v290 = v356;
-        v293 = v355;
-        v322 = v491;
+        v240 = v286;
+        v229 = v285;
+        v233 = v284;
+        v257 = v393;
       }
 
-      if (v322 && v354)
+      if (v257 && v283)
       {
-        v371 = objc_msgSend_objectForKey_(v293, v368, v322, v369, v370);
+        v297 = objc_msgSend_objectForKey_(v233, v295, v296, v257);
 
-        if (!v371)
+        if (!v297)
         {
-          v375 = objc_alloc_init(MEMORY[0x277CBEB38]);
-          objc_msgSend_setObject_forKeyedSubscript_(v293, v376, v375, v322, v377);
+          v300 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          objc_msgSend_setObject_forKeyedSubscript_(v233, v301, v302, v300, v257);
         }
 
-        v378 = objc_msgSend_objectForKeyedSubscript_(v293, v372, v322, v373, v374);
-        v382 = objc_msgSend_objectForKey_(v378, v379, v354, v380, v381);
+        v303 = objc_msgSend_objectForKeyedSubscript_(v233, v298, v299, v257);
+        v306 = objc_msgSend_objectForKey_(v303, v304, v305, v283);
 
-        if (!v382)
+        if (!v306)
         {
-          v386 = [LBFObservedTrialStatus alloc];
-          v389 = objc_msgSend_initWithObservedStatus_deploymentId_(v386, v387, v322, v354, v388);
-          v393 = objc_msgSend_objectForKeyedSubscript_(v293, v390, v322, v391, v392);
-          objc_msgSend_setObject_forKeyedSubscript_(v393, v394, v389, v354, v395);
+          v309 = [LBFObservedTrialStatus alloc];
+          v312 = objc_msgSend_initWithObservedStatus_deploymentId_(v309, v310, v311, v257, v283);
+          v315 = objc_msgSend_objectForKeyedSubscript_(v233, v313, v314, v257);
+          objc_msgSend_setObject_forKeyedSubscript_(v315, v316, v317, v312, v283);
         }
 
-        v396 = objc_msgSend_objectForKeyedSubscript_(v293, v383, v322, v384, v385);
-        v400 = objc_msgSend_objectForKeyedSubscript_(v396, v397, v354, v398, v399);
-        if (objc_msgSend_isActivated_implicit(v400, v401, v402, v403, v404))
+        v318 = objc_msgSend_objectForKeyedSubscript_(v233, v307, v308, v257);
+        v321 = objc_msgSend_objectForKeyedSubscript_(v318, v319, v320, v283);
+        if (objc_msgSend_isActivated_implicit(v321, v322, v324, v323))
         {
-          v408 = objc_msgSend_objectForKeyedSubscript_(v293, v405, v322, v406, v407);
-          objc_msgSend_objectForKeyedSubscript_(v408, v409, v354, v410, v411);
-          v412 = v354;
-          v413 = v322;
-          v414 = v293;
-          v415 = v290;
-          v417 = v416 = v301;
-          isAllocated_implicit = objc_msgSend_isAllocated_implicit(v417, v418, v419, v420, v421);
+          v327 = objc_msgSend_objectForKeyedSubscript_(v233, v325, v326, v257);
+          objc_msgSend_objectForKeyedSubscript_(v327, v328, v329, v283);
+          v330 = v283;
+          v331 = v257;
+          v332 = v233;
+          v333 = v229;
+          v335 = v334 = v240;
+          isAllocated_implicit = objc_msgSend_isAllocated_implicit(v335, v336, v338, v337);
 
-          v301 = v416;
-          v290 = v415;
-          v293 = v414;
-          v322 = v413;
-          v354 = v412;
+          v240 = v334;
+          v229 = v333;
+          v233 = v332;
+          v257 = v331;
+          v283 = v330;
 
           if (isAllocated_implicit)
           {
@@ -393,48 +386,48 @@ LABEL_45:
         {
         }
 
-        v425 = objc_msgSend_objectForKeyedSubscript_(v293, v422, v322, v423, v424);
-        v429 = objc_msgSend_objectForKeyedSubscript_(v425, v426, v354, v427, v428);
-        v434 = objc_msgSend_lastObservedTimestamp(v429, v430, v431, v432, v433);
-        if (!v434)
+        v341 = objc_msgSend_objectForKeyedSubscript_(v233, v339, v340, v257);
+        v344 = objc_msgSend_objectForKeyedSubscript_(v341, v342, v343, v283);
+        v348 = objc_msgSend_lastObservedTimestamp(v344, v345, v347, v346);
+        if (!v348)
         {
 
 LABEL_69:
-          v457 = LBFLogContextTrialStatusDetector;
+          v366 = LBFLogContextTrialStatusDetector;
           if (os_log_type_enabled(LBFLogContextTrialStatusDetector, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v513 = v322;
-            v514 = 2112;
-            v515 = v354;
-            _os_log_impl(&dword_255ED5000, v457, OS_LOG_TYPE_INFO, "set implicit trial status experimentOrTaskId:%@ deploymentId:%@", buf, 0x16u);
+            v415 = v257;
+            v416 = 2112;
+            v417 = v283;
+            _os_log_impl(&dword_255ED5000, v366, OS_LOG_TYPE_INFO, "set implicit trial status experimentOrTaskId:%@ deploymentId:%@", buf, 0x16u);
           }
 
-          v461 = objc_msgSend_objectForKeyedSubscript_(v293, v458, v322, v459, v460);
-          v465 = objc_msgSend_objectForKeyedSubscript_(v461, v462, v354, v463, v464);
-          objc_msgSend_setIsActivated_implicit_(v465, v466, 1, v467, v468);
+          v369 = objc_msgSend_objectForKeyedSubscript_(v233, v367, v368, v257);
+          v372 = objc_msgSend_objectForKeyedSubscript_(v369, v370, v371, v283);
+          objc_msgSend_setIsActivated_implicit_(v372, v373, v374, 1);
 
-          v472 = objc_msgSend_objectForKeyedSubscript_(v293, v469, v322, v470, v471);
-          v476 = objc_msgSend_objectForKeyedSubscript_(v472, v473, v354, v474, v475);
-          objc_msgSend_setIsAllocated_implicit_(v476, v477, 1, v478, v479);
+          v377 = objc_msgSend_objectForKeyedSubscript_(v233, v375, v376, v257);
+          v380 = objc_msgSend_objectForKeyedSubscript_(v377, v378, v379, v283);
+          objc_msgSend_setIsAllocated_implicit_(v380, v381, v382, 1);
 
-          v290 = v489;
+          v229 = v391;
           goto LABEL_72;
         }
 
-        v439 = v434;
-        v440 = objc_msgSend_timestamp(v301, v435, v436, v437, v438);
-        objc_msgSend_objectForKeyedSubscript_(v293, v441, v322, v442, v443);
-        v444 = v493 = v301;
-        v448 = objc_msgSend_objectForKeyedSubscript_(v444, v445, v354, v446, v447);
-        v453 = objc_msgSend_lastObservedTimestamp(v448, v449, v450, v451, v452);
-        v488 = objc_msgSend_compare_(v440, v454, v453, v455, v456);
+        v352 = v348;
+        v353 = objc_msgSend_timestamp(v240, v349, v351, v350);
+        objc_msgSend_objectForKeyedSubscript_(v233, v354, v355, v257);
+        v356 = v395 = v240;
+        v359 = objc_msgSend_objectForKeyedSubscript_(v356, v357, v358, v283);
+        v363 = objc_msgSend_lastObservedTimestamp(v359, v360, v362, v361);
+        v390 = objc_msgSend_compare_(v353, v364, v365, v363);
 
-        v290 = v489;
-        v293 = v498;
+        v229 = v391;
+        v233 = v400;
 
-        v301 = v493;
-        if (v488 == 1)
+        v240 = v395;
+        if (v390 == 1)
         {
           goto LABEL_69;
         }
@@ -442,22 +435,21 @@ LABEL_69:
 
 LABEL_72:
 
-      v295 = v494;
-      v296 = 0x277CF1000;
-      v294 = v496;
+      v235 = v396;
+      v234 = v398;
 LABEL_73:
-      if (v294 == ++v297)
+      if (v234 == ++v236)
       {
-        v294 = objc_msgSend_countByEnumeratingWithState_objects_count_(v290, v300, &v499, v508, 16);
-        if (!v294)
+        v234 = objc_msgSend_countByEnumeratingWithState_objects_count_(v229, v238, v239, &v401, v410, 16);
+        if (!v234)
         {
 LABEL_75:
 
-          v3 = v486;
-          observedTrialStatusHolder = v486->_observedTrialStatusHolder;
-          v486->_observedTrialStatusHolder = v293;
+          v3 = v388;
+          observedTrialStatusHolder = v388->_observedTrialStatusHolder;
+          v388->_observedTrialStatusHolder = v233;
 
-          break;
+          return v3;
         }
 
         goto LABEL_45;
@@ -465,7 +457,6 @@ LABEL_75:
     }
   }
 
-  v481 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -473,20 +464,20 @@ LABEL_75:
 {
   statusCopy = status;
   idCopy = id;
-  v11 = objc_msgSend_objectForKey_(self->_observedTrialStatusHolder, v8, statusCopy, v9, v10);
+  v10 = objc_msgSend_objectForKey_(self->_observedTrialStatusHolder, v8, v9, statusCopy);
 
-  if (v11 && (objc_msgSend_objectForKeyedSubscript_(self->_observedTrialStatusHolder, v12, statusCopy, v13, v14), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectForKey_(v15, v16, idCopy, v17, v18), v19 = objc_claimAutoreleasedReturnValue(), v19, v15, v19))
+  if (v10 && (objc_msgSend_objectForKeyedSubscript_(self->_observedTrialStatusHolder, v11, v12, statusCopy), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectForKey_(v13, v14, v15, idCopy), v16 = objc_claimAutoreleasedReturnValue(), v16, v13, v16))
   {
-    v23 = objc_msgSend_objectForKeyedSubscript_(self->_observedTrialStatusHolder, v20, statusCopy, v21, v22);
-    v27 = objc_msgSend_objectForKeyedSubscript_(v23, v24, idCopy, v25, v26);
+    v19 = objc_msgSend_objectForKeyedSubscript_(self->_observedTrialStatusHolder, v17, v18, statusCopy);
+    v22 = objc_msgSend_objectForKeyedSubscript_(v19, v20, v21, idCopy);
   }
 
   else
   {
-    v27 = 0;
+    v22 = 0;
   }
 
-  return v27;
+  return v22;
 }
 
 @end

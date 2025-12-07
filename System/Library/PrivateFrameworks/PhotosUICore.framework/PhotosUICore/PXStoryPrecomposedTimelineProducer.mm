@@ -416,11 +416,11 @@ LABEL_11:
   return v30;
 }
 
-void __70__PXStoryPrecomposedTimelineProducer_createTimelineWithConfiguration___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void __70__PXStoryPrecomposedTimelineProducer_createTimelineWithConfiguration___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _OWORD *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
-  v7 = a5;
-  v6 = a2;
-  v8 = *MEMORY[0x1E69E9840];
+  v14 = a5;
+  v13 = a2;
+  v15 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) getClipFrames:a4 forContext:*(a1 + 40) + 8];
   [*(a1 + 48) safeAreaInsets];
   [*(a1 + 48) viewportSize];

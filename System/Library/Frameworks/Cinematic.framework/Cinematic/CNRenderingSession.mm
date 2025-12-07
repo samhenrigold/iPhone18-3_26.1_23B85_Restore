@@ -39,17 +39,16 @@
 
     if (v17 || !v14->_textureCache)
     {
-      v20 = _CNLogSystem();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = _CNLogSystem(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [CNRenderingSession initWithCommandQueue:v20 sessionAttributes:? preferredTransform:? quality:?];
+        [CNRenderingSession initWithCommandQueue:v21 sessionAttributes:? preferredTransform:? quality:?];
       }
 
       v14->_textureCache = 0;
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -102,7 +101,7 @@
 
 - (BOOL)_encodeRenderToCommandBuffer:(id)buffer frameAttributes:(id)attributes sourceImage:(__CVBuffer *)image sourceDisparity:(__CVBuffer *)disparity destinationTexture:(id)texture
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   textureCopy = texture;
   commandQueue = self->_commandQueue;
@@ -112,29 +111,29 @@
 
   if (device != device2)
   {
-    v18 = _CNLogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = _CNLogSystem(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       device3 = [(MTLCommandQueue *)self->_commandQueue device];
       name = [device3 name];
       [bufferCopy device];
       imageCopy = image;
-      v22 = v21 = disparity;
-      name2 = [v22 name];
+      v23 = v22 = disparity;
+      name2 = [v23 name];
       *buf = 138412546;
       *&buf[4] = name;
       *&buf[12] = 2112;
       *&buf[14] = name2;
-      _os_log_impl(&dword_236F52000, v18, OS_LOG_TYPE_DEFAULT, "warning: rendering session device (%@) and command buffer device (%@) are different!", buf, 0x16u);
+      _os_log_impl(&dword_236F52000, v19, OS_LOG_TYPE_DEFAULT, "warning: rendering session device (%@) and command buffer device (%@) are different!", buf, 0x16u);
 
-      disparity = v21;
+      disparity = v22;
       image = imageCopy;
     }
   }
 
   if (!self->_renderPipeline)
   {
-    v24 = objc_alloc(MEMORY[0x277D3E8B8]);
+    v25 = objc_alloc(MEMORY[0x277D3E8B8]);
     device4 = [bufferCopy device];
     internalMetadata = [(CNRenderingSessionAttributes *)self->_sessionAttributes internalMetadata];
     renderingVersion = [internalMetadata renderingVersion];
@@ -142,81 +141,81 @@
     Height = CVPixelBufferGetHeight(image);
     width = [textureCopy width];
     height = [textureCopy height];
-    v32 = CVPixelBufferGetWidth(disparity);
-    v33 = [v24 initWithDevice:device4 version:renderingVersion colorInputSize:Width colorOutputSize:Height disparitySize:{width, height, v32, CVPixelBufferGetHeight(disparity)}];
+    v33 = CVPixelBufferGetWidth(disparity);
+    v34 = [v25 initWithDevice:device4 version:renderingVersion colorInputSize:Width colorOutputSize:Height disparitySize:{width, height, v33, CVPixelBufferGetHeight(disparity)}];
 
-    [v33 setDebugRendering:0];
-    [v33 setVerbose:0];
-    [v33 setUseRGBA:{objc_msgSend(textureCopy, "isRGB")}];
-    v34 = *&self->_preferredTransform.c;
+    [v34 setDebugRendering:0];
+    [v34 setVerbose:0];
+    [v34 setUseRGBA:{objc_msgSend(textureCopy, "isRGB")}];
+    v35 = *&self->_preferredTransform.c;
     *buf = *&self->_preferredTransform.a;
-    *&buf[16] = v34;
-    v61 = *&self->_preferredTransform.tx;
-    [v33 setPreferredTransform:buf];
-    v35 = [objc_alloc(MEMORY[0x277D3E8A8]) initWithDescriptor:v33];
+    *&buf[16] = v35;
+    v62 = *&self->_preferredTransform.tx;
+    [v34 setPreferredTransform:buf];
+    v36 = [objc_alloc(MEMORY[0x277D3E8A8]) initWithDescriptor:v34];
     renderPipeline = self->_renderPipeline;
-    self->_renderPipeline = v35;
+    self->_renderPipeline = v36;
 
     quality = [(CNRenderingSession *)self quality];
     if (quality > CNRenderingQualityExportHigh)
     {
-      v38 = 75;
+      v39 = 75;
     }
 
     else
     {
-      v38 = dword_236F68020[quality];
+      v39 = dword_236F68020[quality];
     }
 
-    v39 = [(PTRenderPipeline *)self->_renderPipeline createRenderStateWithQuality:v38];
+    v40 = [(PTRenderPipeline *)self->_renderPipeline createRenderStateWithQuality:v39];
     renderState = self->_renderState;
-    self->_renderState = v39;
+    self->_renderState = v40;
 
     internalMetadata2 = [(CNRenderingSessionAttributes *)self->_sessionAttributes internalMetadata];
     [internalMetadata2 applyToRenderState:self->_renderState];
   }
 
-  v42 = objc_opt_new();
+  v43 = objc_opt_new();
   internalMetadata3 = [(CNRenderingSessionAttributes *)self->_sessionAttributes internalMetadata];
-  [internalMetadata3 applyToRenderRequest:v42];
+  [internalMetadata3 applyToRenderRequest:v43];
 
   internalMetadata4 = [attributesCopy internalMetadata];
-  [internalMetadata4 applyToRenderRequest:v42];
+  [internalMetadata4 applyToRenderRequest:v43];
 
-  [v42 setRenderState:self->_renderState];
+  [v43 setRenderState:self->_renderState];
   [attributesCopy fNumber];
-  [v42 setFNumber:?];
+  [v43 setFNumber:?];
   [attributesCopy focusDisparity];
-  v46 = v45;
+  v47 = v46;
 
-  LODWORD(v47) = v46;
-  [v42 setFocusDisparity:v47];
-  v48 = MEMORY[0x277D3E8E8];
+  LODWORD(v48) = v47;
+  [v43 setFocusDisparity:v48];
+  v49 = MEMORY[0x277D3E8E8];
   device5 = [bufferCopy device];
-  v50 = [v48 createFromPixelbuffer:image device:device5 textureCache:self->_textureCache read:1 write:0];
-  [v42 setSourceColor:v50];
+  v51 = [v49 createFromPixelbuffer:image device:device5 textureCache:self->_textureCache read:1 write:0];
+  [v43 setSourceColor:v51];
 
-  [v42 setDestinationColor:textureCopy];
-  v51 = MEMORY[0x277D3E898];
+  [v43 setDestinationColor:textureCopy];
+  v52 = MEMORY[0x277D3E898];
   device6 = [bufferCopy device];
-  v53 = [v51 createTextureFromPixelBuffer:disparity device:device6 textureCache:self->_textureCache sRGB:0];
-  [v42 setSourceDisparity:v53];
+  v54 = [v52 createTextureFromPixelBuffer:disparity device:device6 textureCache:self->_textureCache sRGB:0];
+  [v43 setSourceDisparity:v54];
 
-  sourceColor = [v42 sourceColor];
+  sourceColor = [v43 sourceColor];
   [sourceColor copyMetadataTo:textureCopy];
 
-  v55 = [(PTRenderPipeline *)self->_renderPipeline encodeRenderTo:bufferCopy withRenderRequest:v42];
-  if (v55)
+  v56 = [(PTRenderPipeline *)self->_renderPipeline encodeRenderTo:bufferCopy withRenderRequest:v43];
+  v57 = v56;
+  if (v56)
   {
-    v56 = _CNLogSystem();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+    v58 = _CNLogSystem(v56);
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
     {
-      [CNRenderingSession _encodeRenderToCommandBuffer:bufferCopy frameAttributes:v56 sourceImage:? sourceDisparity:? destinationTexture:?];
+      [CNRenderingSession _encodeRenderToCommandBuffer:bufferCopy frameAttributes:v58 sourceImage:? sourceDisparity:? destinationTexture:?];
     }
   }
 
-  v57 = *MEMORY[0x277D85DE8];
-  return v55 == 0;
+  return v57 == 0;
 }
 
 + (NSArray)sourcePixelFormatTypes
@@ -257,11 +256,10 @@ void __49__CNRenderingSession_destinationPixelFormatTypes__block_invoke()
 
 - (void)_encodeRenderToCommandBuffer:(uint64_t)a1 frameAttributes:(NSObject *)a2 sourceImage:sourceDisparity:destinationTexture:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_236F52000, a2, OS_LOG_TYPE_ERROR, "error: encodeRenderToCommandBuffer failed (%@)", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_236F52000, a2, OS_LOG_TYPE_ERROR, "error: encodeRenderToCommandBuffer failed (%@)", &v2, 0xCu);
 }
 
 @end

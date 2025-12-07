@@ -55,7 +55,7 @@
 
 + (id)chartableCodedQuantityWithCodings:(id)codings originalCodedQuantity:(id)quantity originalRangeLowCodedQuantity:(id)codedQuantity originalRangeHighCodedQuantity:(id)highCodedQuantity error:(id *)error
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   codingsCopy = codings;
   quantityCopy = quantity;
   codedQuantityCopy = codedQuantity;
@@ -65,29 +65,29 @@
 
   if (v17)
   {
-    v37 = codingsCopy;
+    v40 = codingsCopy;
     if (codedQuantityCopy)
     {
       _unit = [v17 _unit];
-      v39 = 0;
-      v19 = [self _valueFromCodedQuantity:codedQuantityCopy inUnit:_unit error:&v39];
-      v20 = v39;
+      v42 = 0;
+      v19 = [self _valueFromCodedQuantity:codedQuantityCopy inUnit:_unit error:&v42];
+      v20 = v42;
 
       if (v19)
       {
-        v21 = 0;
+        v23 = 0;
       }
 
       else
       {
-        _HKInitializeLogging();
-        v23 = HKLogHealthRecords;
-        v21 = 1;
+        _HKInitializeLogging(v21, v22);
+        v25 = HKLogHealthRecords;
+        v23 = 1;
         if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v41 = v20;
-          _os_log_impl(&dword_19197B000, v23, OS_LOG_TYPE_INFO, "Unable to get reference range low as quantity, ignoring: %{public}@", buf, 0xCu);
+          v44 = v20;
+          _os_log_impl(&dword_19197B000, v25, OS_LOG_TYPE_INFO, "Unable to get reference range low as quantity, ignoring: %{public}@", buf, 0xCu);
         }
 
         v19 = 0;
@@ -98,85 +98,83 @@
     {
       v19 = 0;
       v20 = 0;
-      v21 = 1;
+      v23 = 1;
     }
 
     if (highCodedQuantityCopy)
     {
       _unit2 = [v17 _unit];
-      v38 = 0;
-      v25 = [self _valueFromCodedQuantity:highCodedQuantityCopy inUnit:_unit2 error:&v38];
-      v26 = v38;
+      v41 = 0;
+      v27 = [self _valueFromCodedQuantity:highCodedQuantityCopy inUnit:_unit2 error:&v41];
+      v28 = v41;
 
-      if (v25)
+      if (v27)
       {
-        v27 = 0;
+        v31 = 0;
       }
 
       else
       {
-        _HKInitializeLogging();
-        v28 = HKLogHealthRecords;
-        v27 = 1;
+        _HKInitializeLogging(v29, v30);
+        v32 = HKLogHealthRecords;
+        v31 = 1;
         if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v41 = v26;
-          _os_log_impl(&dword_19197B000, v28, OS_LOG_TYPE_INFO, "Unable to get reference range high as quantity: %{public}@", buf, 0xCu);
+          v44 = v28;
+          _os_log_impl(&dword_19197B000, v32, OS_LOG_TYPE_INFO, "Unable to get reference range high as quantity: %{public}@", buf, 0xCu);
         }
 
-        v25 = 0;
+        v27 = 0;
       }
     }
 
     else
     {
-      v25 = 0;
-      v26 = 0;
-      v27 = 1;
+      v27 = 0;
+      v28 = 0;
+      v31 = 1;
     }
 
-    v22 = [[self alloc] initWithCodings:v37 quantity:v17 rangeLow:v19 rangeHigh:v25];
-    v29 = [quantityCopy copy];
-    v30 = v22[5];
-    v22[5] = v29;
+    v24 = [[self alloc] initWithCodings:v40 quantity:v17 rangeLow:v19 rangeHigh:v27];
+    v33 = [quantityCopy copy];
+    v34 = v24[5];
+    v24[5] = v33;
 
-    if (v21)
+    if (v23)
     {
-      v31 = 0;
+      v35 = 0;
     }
 
     else
     {
-      v31 = [codedQuantityCopy copy];
+      v35 = [codedQuantityCopy copy];
     }
 
-    v32 = v22[6];
-    v22[6] = v31;
+    v36 = v24[6];
+    v24[6] = v35;
 
-    codingsCopy = v37;
-    if (v27)
+    codingsCopy = v40;
+    if (v31)
     {
-      v33 = 0;
+      v37 = 0;
     }
 
     else
     {
-      v33 = [highCodedQuantityCopy copy];
+      v37 = [highCodedQuantityCopy copy];
     }
 
-    v34 = v22[7];
-    v22[7] = v33;
+    v38 = v24[7];
+    v24[7] = v37;
   }
 
   else
   {
-    v22 = 0;
+    v24 = 0;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
-
-  return v22;
+  return v24;
 }
 
 + (id)_valueFromCodedQuantity:(id)quantity inUnit:(id)unit error:(id *)error
@@ -381,9 +379,11 @@ LABEL_27:
 
 uint64_t __37__HKChartableCodedQuantity_converter__block_invoke()
 {
-  converter_converter_0 = objc_alloc_init(HKUCUMUnitDisplayConverter);
+  v0 = objc_alloc_init(HKUCUMUnitDisplayConverter);
+  v1 = converter_converter_0;
+  converter_converter_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)description

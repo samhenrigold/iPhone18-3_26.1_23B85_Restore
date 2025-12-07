@@ -1,11 +1,11 @@
 @interface NSUserActivity(CIBarcodeDescriptor)
-- (uint64_t)detectedBarcodeDescriptor;
 - (uint64_t)setDetectedCode:()CIBarcodeDescriptor;
+- (void)detectedBarcodeDescriptor;
 @end
 
 @implementation NSUserActivity(CIBarcodeDescriptor)
 
-- (uint64_t)detectedBarcodeDescriptor
+- (void)detectedBarcodeDescriptor
 {
   result = [self _objectForIdentifier:@"com.apple.DetectedBarcode.UserActivityPayload"];
   if (!result)

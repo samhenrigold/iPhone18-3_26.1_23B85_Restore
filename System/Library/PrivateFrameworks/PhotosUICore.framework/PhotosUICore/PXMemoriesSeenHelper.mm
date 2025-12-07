@@ -218,7 +218,7 @@ void __57__PXMemoriesSeenHelper_clearAnyPendingStateFromMemories___block_invoke_
   }
 }
 
-uint64_t __65__PXMemoriesSeenHelper_clearAnyPendingNotificationsFromMemories___block_invoke(uint64_t a1)
+void *__65__PXMemoriesSeenHelper_clearAnyPendingNotificationsFromMemories___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) notificationState];
   if (result == 1)

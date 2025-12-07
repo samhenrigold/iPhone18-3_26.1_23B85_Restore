@@ -8,19 +8,17 @@
 
 - (id)additionalPayload
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"isPackage";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"isPackage";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:self->_isPackage];
-  v10[0] = v3;
-  v9[1] = @"contentSize";
+  v9[0] = v3;
+  v8[1] = @"contentSize";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_contentSize];
-  v10[1] = v4;
-  v9[2] = @"syncUpBatchSize";
+  v9[1] = v4;
+  v8[2] = @"syncUpBatchSize";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_syncUpBatchSize];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
@@ -40,10 +38,9 @@
     v6 = "";
   }
 
-  contentSize = self->_contentSize;
-  v8 = [v3 stringWithFormat:@" i:%@ %ssz:%lld su-batch:%lld", debugItemIDString, v6, contentSize, self->_syncUpBatchSize];
+  v7 = [v3 stringWithFormat:@" i:%@ %ssz:%lld su-batch:%lld", debugItemIDString, v6, self->_contentSize, self->_syncUpBatchSize];
 
-  return v8;
+  return v7;
 }
 
 - (id)associatedAppTelemetryEvent

@@ -284,26 +284,26 @@ LABEL_11:
   v11 = TUIDynamicCast(v9, _privateLocalContext);
 
   view = [v11 view];
-  objc_opt_class();
-  v13 = TUIPlatformAncestorOfClass(view);
-  feedControllerHost = [v13 feedControllerHost];
+  v13 = objc_opt_class();
+  v14 = TUIPlatformAncestorOfClass(view, v13);
+  feedControllerHost = [v14 feedControllerHost];
   hostingContainerView = [feedControllerHost hostingContainerView];
 
   superview = [view superview];
   [view center];
   [superview convertPoint:hostingContainerView toView:?];
-  v18 = v17;
-  v20 = v19;
+  v19 = v18;
+  v21 = v20;
 
   dragBackgroundColor = self->_dragBackgroundColor;
   view2 = [interactionCopy view];
 
   traitCollection = [view2 traitCollection];
-  v24 = [(UIColor *)dragBackgroundColor resolvedColorWithTraitCollection:traitCollection];
+  v25 = [(UIColor *)dragBackgroundColor resolvedColorWithTraitCollection:traitCollection];
 
-  v25 = sub_13248C(itemCopy, hostingContainerView, v24, v18, v20);
+  v26 = sub_13248C(itemCopy, hostingContainerView, v25, v19, v21);
 
-  return v25;
+  return v26;
 }
 
 - (void)dragInteraction:(id)interaction session:(id)session didEndWithOperation:(unint64_t)operation

@@ -6,36 +6,35 @@
 
 - (id)additionalURLQueryItems
 {
-  v2 = GeoServicesConfig_ExperimentalDirectionsService[1];
-  v3 = GEOConfigGetString();
-  if (v3)
+  v2 = GEOConfigGetString();
+  if (v2)
   {
-    v4 = [NSCharacterSet characterSetWithCharactersInString:@"?"];
-    v5 = [v3 stringByTrimmingCharactersInSet:v4];
-    v6 = [v5 componentsSeparatedByString:@"="];
+    v3 = [NSCharacterSet characterSetWithCharactersInString:@"?"];
+    v4 = [v2 stringByTrimmingCharactersInSet:v3];
+    v5 = [v4 componentsSeparatedByString:@"="];
 
-    if ([v6 count] == 2)
+    if ([v5 count] == 2)
     {
-      v7 = [v6 objectAtIndexedSubscript:0];
-      v8 = [v6 objectAtIndexedSubscript:1];
-      v9 = [NSURLQueryItem queryItemWithName:v7 value:v8];
+      v6 = [v5 objectAtIndexedSubscript:0];
+      v7 = [v5 objectAtIndexedSubscript:1];
+      v8 = [NSURLQueryItem queryItemWithName:v6 value:v7];
 
-      v12 = v9;
-      v10 = [NSArray arrayWithObjects:&v12 count:1];
+      v11 = v8;
+      v9 = [NSArray arrayWithObjects:&v11 count:1];
     }
 
     else
     {
-      v10 = &__NSArray0__struct;
+      v9 = &__NSArray0__struct;
     }
   }
 
   else
   {
-    v10 = &__NSArray0__struct;
+    v9 = &__NSArray0__struct;
   }
 
-  return v10;
+  return v9;
 }
 
 @end

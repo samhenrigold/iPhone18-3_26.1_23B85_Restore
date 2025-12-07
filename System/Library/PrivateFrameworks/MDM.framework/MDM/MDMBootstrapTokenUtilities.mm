@@ -28,13 +28,13 @@
 
 + (void)generateBootstrapTokenWithDevicePasscodeContext:(id)context completionHandler:(id)handler
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   handlerCopy = handler;
   mEMORY[0x277D77BF8] = [MEMORY[0x277D77BF8] sharedManager];
-  v38 = 0;
-  v9 = [mEMORY[0x277D77BF8] checkBootstrapUserExistsWithError:&v38];
-  v10 = v38;
+  v37 = 0;
+  v9 = [mEMORY[0x277D77BF8] checkBootstrapUserExistsWithError:&v37];
+  v10 = v37;
 
   if (v9)
   {
@@ -63,19 +63,19 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v40 = v10;
+      v39 = v10;
       _os_log_impl(&dword_2561F5000, v14, OS_LOG_TYPE_DEFAULT, "checkBootstrapUserExistsWithError failed with error: %{public}@. This probably means the user doesn't exist", buf, 0xCu);
     }
 
 LABEL_9:
-    if (SecRandomCopyBytes(*MEMORY[0x277CDC540], 0x1DuLL, v35))
+    if (SecRandomCopyBytes(*MEMORY[0x277CDC540], 0x1DuLL, v34))
     {
       v15 = 0;
     }
 
     else
     {
-      v15 = [MEMORY[0x277CBEA90] dataWithBytes:v35 length:29];
+      v15 = [MEMORY[0x277CBEA90] dataWithBytes:v34 length:29];
     }
 
     v16 = [MEMORY[0x277D03500] bootstrapTokenOverrideWithDefaultValue:v15];
@@ -90,7 +90,7 @@ LABEL_9:
           v18 = v17;
           v19 = [v16 base64EncodedStringWithOptions:0];
           *buf = 138412290;
-          v40 = v19;
+          v39 = v19;
           _os_log_impl(&dword_2561F5000, v18, OS_LOG_TYPE_DEBUG, "Creating bootstrap user with token base 64 String: %@", buf, 0xCu);
         }
       }
@@ -102,10 +102,10 @@ LABEL_9:
       {
         mEMORY[0x277D77BF8]2 = [MEMORY[0x277D77BF8] sharedManager];
         externalizedContext2 = [_generateTokenDataFailed externalizedContext];
-        v36 = contextCopy;
-        v37 = v10;
-        v24 = [mEMORY[0x277D77BF8]2 createBootstrapUserWithTokenInACMCredential:externalizedContext2 withDevicePasscodeInACMCredential:contextCopy withError:&v37];
-        v25 = v37;
+        v35 = contextCopy;
+        v36 = v10;
+        v24 = [mEMORY[0x277D77BF8]2 createBootstrapUserWithTokenInACMCredential:externalizedContext2 withDevicePasscodeInACMCredential:contextCopy withError:&v36];
+        v25 = v36;
 
         if (v24)
         {
@@ -118,7 +118,7 @@ LABEL_9:
 
           (handlerCopy)[2](handlerCopy, v16, 0);
           v10 = v25;
-          contextCopy = v36;
+          contextCopy = v35;
         }
 
         else
@@ -127,11 +127,11 @@ LABEL_9:
           v31 = os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
           if (v25)
           {
-            contextCopy = v36;
+            contextCopy = v35;
             if (v31)
             {
               *buf = 138543362;
-              v40 = v25;
+              v39 = v25;
               _os_log_impl(&dword_2561F5000, v30, OS_LOG_TYPE_ERROR, "Failed to generate bootstrap token with error: %{public}@", buf, 0xCu);
             }
 
@@ -143,7 +143,7 @@ LABEL_9:
 
           else
           {
-            contextCopy = v36;
+            contextCopy = v35;
             if (v31)
             {
               *buf = 0;
@@ -191,14 +191,12 @@ LABEL_9:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v40 = v10;
+    v39 = v10;
     _os_log_impl(&dword_2561F5000, v14, OS_LOG_TYPE_ERROR, "checkBootstrapUserExistsWithError failed with error: %{public}@.", buf, 0xCu);
   }
 
   handlerCopy[2](handlerCopy, 0, v10);
 LABEL_38:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 + (void)deleteBootstrapTokenWithToken:(id)token devicePasscode:(id)passcode completionHandler:(id)handler
@@ -239,16 +237,16 @@ LABEL_38:
 
 + (void)deleteBootstrapTokenWithTokenContext:(id)context devicePasscodeContext:(id)passcodeContext completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v9 = MEMORY[0x277D77BF8];
   passcodeContextCopy = passcodeContext;
   contextCopy = context;
   sharedManager = [v9 sharedManager];
-  v19 = 0;
-  v13 = [sharedManager deleteBootstrapUserWithTokenInACMCredential:contextCopy withDevicePasscodeInACMCredential:passcodeContextCopy withError:&v19];
+  v18 = 0;
+  v13 = [sharedManager deleteBootstrapUserWithTokenInACMCredential:contextCopy withDevicePasscodeInACMCredential:passcodeContextCopy withError:&v18];
 
-  v14 = v19;
+  v14 = v18;
   if (v13)
   {
     handlerCopy[2](handlerCopy, 0);
@@ -263,7 +261,7 @@ LABEL_38:
       if (v16)
       {
         *buf = 138543362;
-        v21 = v14;
+        v20 = v14;
         _os_log_impl(&dword_2561F5000, v15, OS_LOG_TYPE_ERROR, "Failed to delete bootstrap token with error: %{public}@", buf, 0xCu);
       }
 
@@ -282,8 +280,6 @@ LABEL_38:
       (handlerCopy)[2](handlerCopy, _deleteBootstrapTokenFailedUnknown);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)validateBootstrapToken:(id)token error:(id *)error

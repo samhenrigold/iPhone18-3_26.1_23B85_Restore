@@ -61,32 +61,32 @@
 
 - (NIConfiguration)initWithCoder:(id)coder
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   initInternal = [objc_alloc(objc_opt_class()) initInternal];
 
   if (initInternal)
   {
     *__p = xmmword_1BAC848E0;
-    v23 = 1;
-    v19 = 0;
-    v20 = 0;
+    v22 = 1;
     v18 = 0;
-    std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v18, __p, &v24, 3uLL);
-    v21 = xmmword_1BAC848D0;
+    v19 = 0;
+    v17 = 0;
+    std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v17, __p, &v23, 3uLL);
+    v20 = xmmword_1BAC848D0;
     __p[1] = 0;
-    v23 = 0;
+    v22 = 0;
     __p[0] = 0;
-    std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(__p, &v21, __p, 2uLL);
+    std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(__p, &v20, __p, 2uLL);
     v6 = [coderCopy decodeIntegerForKey:@"suspensionPolicy"];
     v7 = [coderCopy decodeIntegerForKey:@"enabledGestures"];
     v8 = [coderCopy decodeBoolForKey:@"supportsCameraAssistance"];
     initInternal->_suspensionPolicy = 0;
     initInternal->_enabledGestures = 0;
     initInternal->_supportsCameraAssistance = v8;
-    v9 = v18;
-    v10 = v19;
-    if (v18 != v19)
+    v9 = v17;
+    v10 = v18;
+    if (v17 != v18)
     {
       v11 = 0;
       do
@@ -129,14 +129,13 @@
       operator delete(__p[0]);
     }
 
-    if (v18)
+    if (v17)
     {
-      v19 = v18;
-      operator delete(v18);
+      v18 = v17;
+      operator delete(v17);
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return initInternal;
 }
 

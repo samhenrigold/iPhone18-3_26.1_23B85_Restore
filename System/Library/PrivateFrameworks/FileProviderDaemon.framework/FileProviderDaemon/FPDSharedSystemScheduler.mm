@@ -6,6 +6,7 @@
 + (id)schedulerWithLabel:(id)label;
 + (void)checkIn;
 + (void)setDisableDelayedUnregistration:(BOOL)unregistration;
+- (BOOL)canOrIsForcedToRunCheckingDeferral:(BOOL)deferral reason:(id *)reason;
 - (BOOL)canRunCheckingDeferral:(BOOL)deferral reason:(id *)reason;
 - (BOOL)hasRegisteredExecutors;
 - (BOOL)isRegistered;
@@ -81,7 +82,7 @@
 
 - (void)cancelDelayedUnregistration
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = +[FPDSharedSystemScheduler queue];
   dispatch_assert_queue_V2(v3);
 
@@ -91,9 +92,9 @@
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       taskLabel = [(FPDSharedSystemScheduler *)self taskLabel];
-      v8 = 138543362;
-      v9 = taskLabel;
-      _os_log_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: canceling delayed unregistration", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = taskLabel;
+      _os_log_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: canceling delayed unregistration", &v7, 0xCu);
     }
 
     dispatch_activate(self->_unregistrationTimer);
@@ -101,8 +102,6 @@
     unregistrationTimer = self->_unregistrationTimer;
     self->_unregistrationTimer = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerActivityIfNeeded
@@ -130,7 +129,7 @@
 
 - (void)registerActivity
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (!self->_manualScheduling && ![(FPDSharedSystemScheduler *)self isRegistered]&& allowedToCheckIn == 1)
   {
     wasCheckedIn = self->_wasCheckedIn;
@@ -167,16 +166,16 @@
       taskLabel2 = [(FPDSharedSystemScheduler *)selfCopy taskLabel];
       v14 = "checking-in";
       *buf = 138543874;
-      v22 = taskLabel2;
+      v21 = taskLabel2;
       if (wasCheckedIn)
       {
         v14 = "registering";
       }
 
-      v23 = 2080;
-      v24 = v14;
-      v25 = 2114;
-      v26 = v8;
+      v22 = 2080;
+      v23 = v14;
+      v24 = 2114;
+      v25 = v8;
       _os_log_impl(&dword_1CEFC7000, v12, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: %s background task (uuid=%{public}@)", buf, 0x20u);
     }
 
@@ -188,17 +187,15 @@
     }
 
     v15 = internalQueueForBGST_bgstQueue;
-    objc_copyWeak(&v19, buf);
-    v17 = taskLabel;
-    v18 = v8;
-    v20 = v4;
+    objc_copyWeak(&v18, buf);
+    v16 = taskLabel;
+    v17 = v8;
+    v19 = v4;
     fp_dispatch_async_with_logs();
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(buf);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isRegistered
@@ -213,7 +210,7 @@
 
 void __44__FPDSharedSystemScheduler_registerActivity__block_invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E698E4B8] sharedScheduler];
   v3 = [*(a1 + 32) taskLabel];
   if (internalQueueForBGST_onceToken != -1)
@@ -222,14 +219,14 @@ void __44__FPDSharedSystemScheduler_registerActivity__block_invoke(uint64_t a1)
   }
 
   v4 = internalQueueForBGST_bgstQueue;
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __44__FPDSharedSystemScheduler_registerActivity__block_invoke_2;
-  v39[3] = &unk_1E83BFF08;
-  objc_copyWeak(&v42, (a1 + 56));
-  v40 = *(a1 + 40);
-  v41 = *(a1 + 48);
-  [v2 registerForTaskWithIdentifier:v3 usingQueue:v4 launchHandler:v39];
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __44__FPDSharedSystemScheduler_registerActivity__block_invoke_2;
+  v38[3] = &unk_1E83BFF08;
+  objc_copyWeak(&v41, (a1 + 56));
+  v39 = *(a1 + 40);
+  v40 = *(a1 + 48);
+  [v2 registerForTaskWithIdentifier:v3 usingQueue:v4 launchHandler:v38];
 
   if (*(a1 + 64) == 1)
   {
@@ -238,7 +235,7 @@ void __44__FPDSharedSystemScheduler_registerActivity__block_invoke(uint64_t a1)
     {
       v6 = *(*(a1 + 32) + 32);
       *buf = 138543362;
-      v46 = v6;
+      v45 = v6;
       _os_log_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: Background task has no executors at check in", buf, 0xCu);
     }
 
@@ -258,9 +255,9 @@ void __44__FPDSharedSystemScheduler_registerActivity__block_invoke(uint64_t a1)
     v12 = [*(a1 + 32) taskLabel];
     v13 = *(a1 + 48);
     *buf = 138543618;
-    v46 = v12;
-    v47 = 2114;
-    v48 = v13;
+    v45 = v12;
+    v46 = 2114;
+    v47 = v13;
     _os_log_impl(&dword_1CEFC7000, v11, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: done registering background task (uuid=%{public}@)", buf, 0x16u);
   }
 
@@ -276,15 +273,15 @@ LABEL_20:
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       v27 = [*(a1 + 32) taskLabel];
-      *v43 = 138543362;
-      v44 = v27;
-      _os_log_impl(&dword_1CEFC7000, v26, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: submitting background task", v43, 0xCu);
+      *v42 = 138543362;
+      v43 = v27;
+      _os_log_impl(&dword_1CEFC7000, v26, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: submitting background task", v42, 0xCu);
     }
 
     v28 = [MEMORY[0x1E698E4B8] sharedScheduler];
-    v37 = 0;
-    v29 = [v28 submitTaskRequest:v10 error:&v37];
-    v30 = v37;
+    v36 = 0;
+    v29 = [v28 submitTaskRequest:v10 error:&v36];
+    v30 = v36;
 
     if (v29)
     {
@@ -312,7 +309,7 @@ LABEL_32:
     if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       v35 = [v30 fp_prettyDescription];
-      __44__FPDSharedSystemScheduler_registerActivity__block_invoke_cold_3(v35, v43, v34);
+      __44__FPDSharedSystemScheduler_registerActivity__block_invoke_cold_3(v35, v42, v34);
     }
 
     goto LABEL_32;
@@ -328,15 +325,15 @@ LABEL_32:
       {
         v18 = [*(a1 + 32) taskLabel];
         *buf = 138543362;
-        v46 = v18;
+        v45 = v18;
         _os_log_impl(&dword_1CEFC7000, v17, OS_LOG_TYPE_INFO, "[INFO] ⏱ Background task %{public}@ already exists, force re-registering with new criteria", buf, 0xCu);
       }
 
       v19 = [MEMORY[0x1E698E4B8] sharedScheduler];
       v20 = [*(a1 + 32) taskLabel];
-      v38 = 0;
-      v21 = [v19 cancelTaskRequestWithIdentifier:v20 error:&v38];
-      v22 = v38;
+      v37 = 0;
+      v21 = [v19 cancelTaskRequestWithIdentifier:v20 error:&v37];
+      v22 = v37;
 
       if ((v21 & 1) == 0)
       {
@@ -358,60 +355,53 @@ LABEL_32:
   {
     v33 = [*(a1 + 32) taskLabel];
     *buf = 138543362;
-    v46 = v33;
+    v45 = v33;
     _os_log_impl(&dword_1CEFC7000, v10, OS_LOG_TYPE_INFO, "[INFO] ⏱ Background task %{public}@ already exists, but force-criteria was not specified, skipping re-submit", buf, 0xCu);
   }
 
 LABEL_33:
 
-  objc_destroyWeak(&v42);
-  v36 = *MEMORY[0x1E69E9840];
+  objc_destroyWeak(&v41);
 }
 
 - (void)unregisterActivityWithDelay
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = +[FPDSharedSystemScheduler queue];
   dispatch_assert_queue_V2(v3);
 
   if (+[FPDSharedSystemScheduler disableDelayedUnregistration]|| (self->_options & 2) != 0)
   {
-    v12 = *MEMORY[0x1E69E9840];
 
     [(FPDSharedSystemScheduler *)self unregisterActivityImmediately];
   }
 
-  else
+  else if (!self->_unregistrationTimer)
   {
-    if (!self->_unregistrationTimer)
+    v4 = fp_current_or_default_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = fp_current_or_default_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-      {
-        taskLabel = [(FPDSharedSystemScheduler *)self taskLabel];
-        *buf = 138543362;
-        v15 = taskLabel;
-        _os_log_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: delaying unregistration", buf, 0xCu);
-      }
-
-      v6 = +[FPDSharedSystemScheduler queue];
-      v7 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, v6);
-
-      v8 = dispatch_time(0, 60000000000);
-      dispatch_source_set_timer(v7, v8, 0xFFFFFFFFFFFFFFFFLL, 0x6FC23AC00uLL);
-      handler[0] = MEMORY[0x1E69E9820];
-      handler[1] = 3221225472;
-      handler[2] = __55__FPDSharedSystemScheduler_unregisterActivityWithDelay__block_invoke;
-      handler[3] = &unk_1E83BE068;
-      handler[4] = self;
-      dispatch_source_set_event_handler(v7, handler);
-      dispatch_activate(v7);
-      unregistrationTimer = self->_unregistrationTimer;
-      self->_unregistrationTimer = v7;
-      v10 = v7;
+      taskLabel = [(FPDSharedSystemScheduler *)self taskLabel];
+      *buf = 138543362;
+      v13 = taskLabel;
+      _os_log_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: delaying unregistration", buf, 0xCu);
     }
 
-    v11 = *MEMORY[0x1E69E9840];
+    v6 = +[FPDSharedSystemScheduler queue];
+    v7 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, v6);
+
+    v8 = dispatch_time(0, 60000000000);
+    dispatch_source_set_timer(v7, v8, 0xFFFFFFFFFFFFFFFFLL, 0x6FC23AC00uLL);
+    handler[0] = MEMORY[0x1E69E9820];
+    handler[1] = 3221225472;
+    handler[2] = __55__FPDSharedSystemScheduler_unregisterActivityWithDelay__block_invoke;
+    handler[3] = &unk_1E83BE068;
+    handler[4] = self;
+    dispatch_source_set_event_handler(v7, handler);
+    dispatch_activate(v7);
+    unregistrationTimer = self->_unregistrationTimer;
+    self->_unregistrationTimer = v7;
+    v10 = v7;
   }
 }
 
@@ -450,20 +440,20 @@ LABEL_33:
 
 void __47__FPDSharedSystemScheduler_buildNewTaskRequest__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = (*(*(*(a1 + 32) + 16) + 16))();
   v3 = *(*(a1 + 40) + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v5 = [*(*(a1 + 32) + 40) keyEnumerator];
   v6 = [v5 allObjects];
 
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (!v7)
   {
     v9 = v6;
@@ -472,17 +462,17 @@ void __47__FPDSharedSystemScheduler_buildNewTaskRequest__block_invoke(uint64_t a
 
   v8 = v7;
   v9 = 0;
-  v10 = *v19;
+  v10 = *v18;
   while (2)
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v19 != v10)
+      if (*v18 != v10)
       {
         objc_enumerationMutation(v6);
       }
 
-      v12 = *(*(&v18 + 1) + 8 * i);
+      v12 = *(*(&v17 + 1) + 8 * i);
       if ([v12 conformsToProtocol:&unk_1F4C8C3F0])
       {
         v13 = v12;
@@ -505,7 +495,7 @@ void __47__FPDSharedSystemScheduler_buildNewTaskRequest__block_invoke(uint64_t a
       }
     }
 
-    v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       continue;
@@ -521,8 +511,6 @@ LABEL_17:
     [v9 provideAdditionalRequestParameters:*(*(*(a1 + 40) + 8) + 40)];
 LABEL_20:
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __33__FPDSharedSystemScheduler_queue__block_invoke()
@@ -547,7 +535,7 @@ void __33__FPDSharedSystemScheduler_queue__block_invoke()
   dispatch_sync(v2, &__block_literal_global_3);
 }
 
-void __35__FPDSharedSystemScheduler_checkIn__block_invoke()
+void __35__FPDSharedSystemScheduler_checkIn__block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
   allowedToCheckIn = 1;
@@ -555,33 +543,31 @@ void __35__FPDSharedSystemScheduler_checkIn__block_invoke()
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v0 = schedulers();
-  v1 = [v0 countByEnumeratingWithState:&v6 objects:v10 count:16];
-  if (v1)
+  v1 = schedulers(a1);
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+  if (v2)
   {
-    v2 = v1;
-    v3 = *v7;
+    v3 = v2;
+    v4 = *v7;
     do
     {
-      v4 = 0;
+      v5 = 0;
       do
       {
-        if (*v7 != v3)
+        if (*v7 != v4)
         {
-          objc_enumerationMutation(v0);
+          objc_enumerationMutation(v1);
         }
 
-        [*(*(&v6 + 1) + 8 * v4++) checkIn];
+        [*(*(&v6 + 1) + 8 * v5++) checkIn];
       }
 
-      while (v2 != v4);
-      v2 = [v0 countByEnumeratingWithState:&v6 objects:v10 count:16];
+      while (v3 != v5);
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
-    while (v2);
+    while (v3);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (id)schedulerWithLabel:(id)label
@@ -611,35 +597,35 @@ void __35__FPDSharedSystemScheduler_checkIn__block_invoke()
 
 void __47__FPDSharedSystemScheduler_schedulerWithLabel___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v2 = schedulers();
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = schedulers(a1);
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * i);
-        if ([v7[4] isEqualToString:{*(a1 + 32), v9}])
+        v7 = *(*(&v8 + 1) + 8 * i);
+        if ([v7[4] isEqualToString:{*(a1 + 32), v8}])
         {
           objc_storeStrong((*(*(a1 + 40) + 8) + 40), v7);
           goto LABEL_11;
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -650,8 +636,6 @@ void __47__FPDSharedSystemScheduler_schedulerWithLabel___block_invoke(uint64_t a
   }
 
 LABEL_11:
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (FPDSharedSystemScheduler)initWithLabel:(id)label options:(int64_t)options taskRequestBuilder:(id)builder
@@ -698,7 +682,7 @@ LABEL_11:
 
 uint64_t __69__FPDSharedSystemScheduler_initWithLabel_options_taskRequestBuilder___block_invoke(uint64_t a1)
 {
-  v2 = schedulers();
+  v2 = schedulers(a1);
   [v2 addObject:*(a1 + 32)];
 
   v3 = *(a1 + 32);
@@ -766,6 +750,30 @@ LABEL_4:
   return 0;
 }
 
+- (BOOL)canOrIsForcedToRunCheckingDeferral:(BOOL)deferral reason:(id *)reason
+{
+  if ([(FPDSharedSystemScheduler *)self canRunCheckingDeferral:deferral reason:?])
+  {
+    preventRunning = [(FPDSharedSystemScheduler *)self preventRunning];
+    if (reason)
+    {
+      if (preventRunning)
+      {
+        *reason = @"prevent running";
+      }
+    }
+
+    return ![(FPDSharedSystemScheduler *)self preventRunning];
+  }
+
+  if (self->_alwaysRunnableCount >= 1)
+  {
+    return ![(FPDSharedSystemScheduler *)self preventRunning];
+  }
+
+  return 0;
+}
+
 - (BOOL)shouldPause
 {
   v6 = 0;
@@ -786,7 +794,7 @@ LABEL_4:
   return self;
 }
 
-uint64_t __39__FPDSharedSystemScheduler_shouldPause__block_invoke(uint64_t a1)
+void *__39__FPDSharedSystemScheduler_shouldPause__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) unregisterActivityWithDelayIfNeeded];
   result = [*(a1 + 32) canOrIsForcedToRunCheckingDeferral:1 reason:0];
@@ -810,7 +818,7 @@ uint64_t __39__FPDSharedSystemScheduler_shouldPause__block_invoke(uint64_t a1)
 
 void __44__FPDSharedSystemScheduler_markWatcherDone___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 40) objectForKey:*(a1 + 40)];
 
   if (v2)
@@ -819,26 +827,26 @@ void __44__FPDSharedSystemScheduler_markWatcherDone___block_invoke(uint64_t a1)
     v3 = [*(*(a1 + 32) + 40) keyEnumerator];
     v4 = [v3 allObjects];
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v25 objects:v32 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v24 objects:v31 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v26;
+      v8 = *v25;
 LABEL_4:
       v9 = 0;
       while (1)
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(a1 + 32) + 40) objectForKey:*(*(&v25 + 1) + 8 * v9)];
+        v10 = [*(*(a1 + 32) + 40) objectForKey:*(*(&v24 + 1) + 8 * v9)];
         v11 = [v10 BOOLValue];
 
         if (!v11)
@@ -848,7 +856,7 @@ LABEL_4:
 
         if (v7 == ++v9)
         {
-          v7 = [v5 countByEnumeratingWithState:&v25 objects:v32 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v24 objects:v31 count:16];
           if (v7)
           {
             goto LABEL_4;
@@ -868,45 +876,43 @@ LABEL_10:
       {
         v13 = [*(a1 + 32) taskLabel];
         *buf = 138543362;
-        v31 = v13;
+        v30 = v13;
         _os_log_impl(&dword_1CEFC7000, v12, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: all watchers done", buf, 0xCu);
       }
 
       [*(a1 + 32) completeActivity];
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v14 = v5;
-      v15 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v20 objects:v28 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v22;
+        v17 = *v21;
         v18 = MEMORY[0x1E695E110];
         do
         {
           v19 = 0;
           do
           {
-            if (*v22 != v17)
+            if (*v21 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            [*(*(a1 + 32) + 40) setObject:v18 forKey:{*(*(&v21 + 1) + 8 * v19++), v21}];
+            [*(*(a1 + 32) + 40) setObject:v18 forKey:{*(*(&v20 + 1) + 8 * v19++), v20}];
           }
 
           while (v16 != v19);
-          v16 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v20 objects:v28 count:16];
         }
 
         while (v16);
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkIn
@@ -919,32 +925,32 @@ LABEL_10:
 
 - (void)notifyCanRun
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = +[FPDSharedSystemScheduler queue];
   dispatch_assert_queue_V2(v3);
 
   [(FPDSharedSystemScheduler *)self unregisterActivityWithDelayIfNeeded];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v4 = self->_watchers;
-  v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v13 != v7)
+      if (*v12 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v12 + 1) + 8 * v8);
-      if (![(FPDSharedSystemScheduler *)self canOrIsForcedToRunCheckingDeferral:1 reason:0, v12])
+      v9 = *(*(&v11 + 1) + 8 * v8);
+      if (![(FPDSharedSystemScheduler *)self canOrIsForcedToRunCheckingDeferral:1 reason:0, v11])
       {
         break;
       }
@@ -957,7 +963,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [(NSMapTable *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [(NSMapTable *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -967,56 +973,52 @@ LABEL_3:
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyIsDeferred
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = +[FPDSharedSystemScheduler queue];
   dispatch_assert_queue_V2(v3);
 
   [(FPDSharedSystemScheduler *)self unregisterActivityWithDelayIfNeeded];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v4 = self->_watchers;
-  v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
-        v10 = [(NSMapTable *)self->_watchers objectForKey:v9, v12];
+        v9 = *(*(&v11 + 1) + 8 * i);
+        v10 = [(NSMapTable *)self->_watchers objectForKey:v9, v11];
         if (([v10 BOOLValue] & 1) == 0)
         {
           [v9 sharedSchedulerIsDeferred:self];
         }
       }
 
-      v6 = [(NSMapTable *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMapTable *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)completeActivity
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = +[FPDSharedSystemScheduler queue];
   dispatch_assert_queue_V2(v3);
 
@@ -1027,7 +1029,7 @@ LABEL_3:
     {
       taskLabel = [(FPDSharedSystemScheduler *)self taskLabel];
       *buf = 138543362;
-      v12 = taskLabel;
+      v11 = taskLabel;
       _os_log_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: completing background task", buf, 0xCu);
     }
 
@@ -1037,22 +1039,20 @@ LABEL_3:
       [FPDSharedSystemScheduler completeActivity];
     }
 
-    v9[5] = MEMORY[0x1E69E9820];
-    v9[6] = 3221225472;
-    v9[7] = __44__FPDSharedSystemScheduler_completeActivity__block_invoke;
-    v9[8] = &unk_1E83BE068;
-    v10 = v6;
+    v8[5] = MEMORY[0x1E69E9820];
+    v8[6] = 3221225472;
+    v8[7] = __44__FPDSharedSystemScheduler_completeActivity__block_invoke;
+    v8[8] = &unk_1E83BE068;
+    v9 = v6;
     v7 = v6;
     fp_dispatch_async_with_logs();
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __44__FPDSharedSystemScheduler_completeActivity__block_invoke_2;
-    v9[3] = &unk_1E83BE068;
-    v9[4] = self;
-    [(FPDSharedSystemScheduler *)self withReevaluationOfSchedulingState:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __44__FPDSharedSystemScheduler_completeActivity__block_invoke_2;
+    v8[3] = &unk_1E83BE068;
+    v8[4] = self;
+    [(FPDSharedSystemScheduler *)self withReevaluationOfSchedulingState:v8];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __44__FPDSharedSystemScheduler_completeActivity__block_invoke_2(uint64_t a1)
@@ -1064,7 +1064,7 @@ void __44__FPDSharedSystemScheduler_completeActivity__block_invoke_2(uint64_t a1
 
 - (void)defer
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = +[FPDSharedSystemScheduler queue];
   dispatch_assert_queue_V2(v3);
 
@@ -1075,7 +1075,7 @@ void __44__FPDSharedSystemScheduler_completeActivity__block_invoke_2(uint64_t a1
     {
       taskLabel = [(FPDSharedSystemScheduler *)self taskLabel];
       *buf = 138543362;
-      v16 = taskLabel;
+      v15 = taskLabel;
       _os_log_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: deferring background task", buf, 0xCu);
     }
 
@@ -1092,23 +1092,21 @@ void __44__FPDSharedSystemScheduler_completeActivity__block_invoke_2(uint64_t a1
       [FPDSharedSystemScheduler completeActivity];
     }
 
-    v12[5] = MEMORY[0x1E69E9820];
-    v12[6] = 3221225472;
-    v12[7] = __33__FPDSharedSystemScheduler_defer__block_invoke;
-    v12[8] = &unk_1E83BE158;
-    v13 = v9;
-    v14 = selfCopy;
+    v11[5] = MEMORY[0x1E69E9820];
+    v11[6] = 3221225472;
+    v11[7] = __33__FPDSharedSystemScheduler_defer__block_invoke;
+    v11[8] = &unk_1E83BE158;
+    v12 = v9;
+    v13 = selfCopy;
     v10 = v9;
     fp_dispatch_async_with_logs();
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __33__FPDSharedSystemScheduler_defer__block_invoke_25;
-    v12[3] = &unk_1E83BE068;
-    v12[4] = selfCopy;
-    [(FPDSharedSystemScheduler *)selfCopy withReevaluationOfSchedulingState:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __33__FPDSharedSystemScheduler_defer__block_invoke_25;
+    v11[3] = &unk_1E83BE068;
+    v11[4] = selfCopy;
+    [(FPDSharedSystemScheduler *)selfCopy withReevaluationOfSchedulingState:v11];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __33__FPDSharedSystemScheduler_defer__block_invoke(uint64_t a1)
@@ -1141,16 +1139,7 @@ void __33__FPDSharedSystemScheduler_defer__block_invoke_25(uint64_t a1)
   firstCopy = first;
   secondCopy = second;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  if ((objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (objc_opt_class(), (objc_opt_isKindOfClass())) && (v7 = [firstCopy requiresExternalPower], v7 == objc_msgSend(secondCopy, "requiresExternalPower")) && (v8 = objc_msgSend(firstCopy, "requiresUserInactivity"), v8 == objc_msgSend(secondCopy, "requiresUserInactivity")) && (v9 = objc_msgSend(firstCopy, "requiresNetworkConnectivity"), v9 == objc_msgSend(secondCopy, "requiresNetworkConnectivity")) && (v10 = objc_msgSend(firstCopy, "requiresInexpensiveNetworkConnectivity"), v10 == objc_msgSend(secondCopy, "requiresInexpensiveNetworkConnectivity")) && (v11 = objc_msgSend(firstCopy, "networkDownloadSize"), v11 == objc_msgSend(secondCopy, "networkDownloadSize")))
+  if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass())) && ((objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (objc_opt_class(), (objc_opt_isKindOfClass())) && (v7 = [firstCopy requiresExternalPower], v7 == objc_msgSend(secondCopy, "requiresExternalPower")) && (v8 = objc_msgSend(firstCopy, "requiresUserInactivity"), v8 == objc_msgSend(secondCopy, "requiresUserInactivity")) && (v9 = objc_msgSend(firstCopy, "requiresNetworkConnectivity"), v9 == objc_msgSend(secondCopy, "requiresNetworkConnectivity")) && (v10 = objc_msgSend(firstCopy, "requiresInexpensiveNetworkConnectivity"), v10 == objc_msgSend(secondCopy, "requiresInexpensiveNetworkConnectivity")) && (v11 = objc_msgSend(firstCopy, "networkDownloadSize"), v11 == objc_msgSend(secondCopy, "networkDownloadSize")))
   {
     resources = [firstCopy resources];
     v13 = resources == [secondCopy resources];
@@ -1158,7 +1147,6 @@ void __33__FPDSharedSystemScheduler_defer__block_invoke_25(uint64_t a1)
 
   else
   {
-LABEL_11:
     v13 = 0;
   }
 
@@ -1167,7 +1155,7 @@ LABEL_11:
 
 void __44__FPDSharedSystemScheduler_registerActivity__block_invoke_2(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = WeakRetained;
@@ -1185,9 +1173,9 @@ void __44__FPDSharedSystemScheduler_registerActivity__block_invoke_2(uint64_t a1
         v8 = [v6 taskLabel];
         v9 = *(a1 + 40);
         *buf = 138543618;
-        v28 = v8;
-        v29 = 2114;
-        v30 = v9;
+        v27 = v8;
+        v28 = 2114;
+        v29 = v9;
         _os_log_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: background task starting (uuid=%{public}@)", buf, 0x16u);
       }
 
@@ -1199,22 +1187,22 @@ void __44__FPDSharedSystemScheduler_registerActivity__block_invoke_2(uint64_t a1
       v10[11] = v11;
 
       objc_sync_exit(v10);
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __44__FPDSharedSystemScheduler_registerActivity__block_invoke_51;
-      v25[3] = &unk_1E83BE0B8;
-      objc_copyWeak(&v26, (a1 + 48));
-      [v3 setExpirationHandler:v25];
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __44__FPDSharedSystemScheduler_registerActivity__block_invoke_51;
+      v24[3] = &unk_1E83BE0B8;
+      objc_copyWeak(&v25, (a1 + 48));
+      [v3 setExpirationHandler:v24];
       v13 = +[FPDSharedSystemScheduler queue];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __44__FPDSharedSystemScheduler_registerActivity__block_invoke_3;
       block[3] = &unk_1E83BE158;
-      v23 = v10;
-      v24 = v3;
+      v22 = v10;
+      v23 = v3;
       dispatch_async(v13, block);
 
-      objc_destroyWeak(&v26);
+      objc_destroyWeak(&v25);
     }
 
     else
@@ -1226,11 +1214,11 @@ void __44__FPDSharedSystemScheduler_registerActivity__block_invoke_2(uint64_t a1
         v19 = *(a1 + 40);
         v20 = v6[6];
         *buf = 138543874;
-        v28 = v18;
-        v29 = 2114;
-        v30 = v19;
-        v31 = 2114;
-        v32 = v20;
+        v27 = v18;
+        v28 = 2114;
+        v29 = v19;
+        v30 = 2114;
+        v31 = v20;
         _os_log_impl(&dword_1CEFC7000, v17, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: background task starting after unregistration was asked (uuid=%{public}@ vs %{public}@)", buf, 0x20u);
       }
 
@@ -1247,16 +1235,14 @@ void __44__FPDSharedSystemScheduler_registerActivity__block_invoke_2(uint64_t a1
       v15 = *(a1 + 32);
       v16 = *(a1 + 40);
       *buf = 138543618;
-      v28 = v15;
-      v29 = 2114;
-      v30 = v16;
+      v27 = v15;
+      v28 = 2114;
+      v29 = v16;
       _os_log_impl(&dword_1CEFC7000, v14, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: background task starting after scheduler was deallocated (uuid=%{public}@)", buf, 0x16u);
     }
 
     [v3 setTaskCompleted];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __44__FPDSharedSystemScheduler_registerActivity__block_invoke_51(uint64_t a1)
@@ -1321,7 +1307,7 @@ void __44__FPDSharedSystemScheduler_registerActivity__block_invoke_3(uint64_t a1
 
 - (void)unregisterActivityImmediately
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = +[FPDSharedSystemScheduler queue];
   dispatch_assert_queue_V2(v3);
 
@@ -1338,9 +1324,9 @@ void __44__FPDSharedSystemScheduler_registerActivity__block_invoke_3(uint64_t a1
     {
       taskLabel = [(FPDSharedSystemScheduler *)selfCopy taskLabel];
       *buf = 138543618;
-      v16 = taskLabel;
-      v17 = 2114;
-      v18 = v5;
+      v15 = taskLabel;
+      v16 = 2114;
+      v17 = v5;
       _os_log_impl(&dword_1CEFC7000, v6, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: unregistering background task (uuid=%{public}@)", buf, 0x16u);
     }
 
@@ -1349,10 +1335,10 @@ void __44__FPDSharedSystemScheduler_registerActivity__block_invoke_3(uint64_t a1
       [FPDSharedSystemScheduler completeActivity];
     }
 
-    v13 = MEMORY[0x1E69E9820];
-    v14 = v5;
+    v12 = MEMORY[0x1E69E9820];
+    v13 = v5;
     fp_dispatch_async_with_logs();
-    [(FPDSharedSystemScheduler *)selfCopy cancelDelayedUnregistration:v13];
+    [(FPDSharedSystemScheduler *)selfCopy cancelDelayedUnregistration:v12];
     v8 = selfCopy;
     objc_sync_enter(v8);
     v9 = [MEMORY[0x1E695DF00] now];
@@ -1364,13 +1350,11 @@ void __44__FPDSharedSystemScheduler_registerActivity__block_invoke_3(uint64_t a1
 
     objc_sync_exit(v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __57__FPDSharedSystemScheduler_unregisterActivityImmediately__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E698E4B8] sharedScheduler];
   v3 = [*(a1 + 32) taskLabel];
   [v2 cancelTaskRequestWithIdentifier:v3 error:0];
@@ -1384,14 +1368,12 @@ void __57__FPDSharedSystemScheduler_unregisterActivityImmediately__block_invoke(
   {
     v7 = [*(a1 + 32) taskLabel];
     v8 = *(a1 + 40);
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2114;
-    v13 = v8;
-    _os_log_impl(&dword_1CEFC7000, v6, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: done unregistering background task (uuid=%{public}@)", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2114;
+    v12 = v8;
+    _os_log_impl(&dword_1CEFC7000, v6, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: done unregistering background task (uuid=%{public}@)", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addWatcher:(id)watcher
@@ -1410,7 +1392,7 @@ void __57__FPDSharedSystemScheduler_unregisterActivityImmediately__block_invoke(
 
 void __39__FPDSharedSystemScheduler_addWatcher___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 40) objectForKey:*(a1 + 40)];
 
   if (!v2)
@@ -1419,9 +1401,9 @@ void __39__FPDSharedSystemScheduler_addWatcher___block_invoke(uint64_t a1)
     [*(a1 + 32) cancelDelayedUnregistration];
     [*(a1 + 32) registerActivityIfNeeded];
     v3 = *(a1 + 32);
-    v17 = 0;
-    v4 = [v3 canOrIsForcedToRunCheckingDeferral:1 reason:&v17];
-    v5 = v17;
+    v16 = 0;
+    v4 = [v3 canOrIsForcedToRunCheckingDeferral:1 reason:&v16];
+    v5 = v16;
     v6 = fp_current_or_default_log();
     v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
     if (v4)
@@ -1433,11 +1415,11 @@ void __39__FPDSharedSystemScheduler_addWatcher___block_invoke(uint64_t a1)
         v10 = [v9 fp_obfuscatedProviderDomainID];
         v11 = *(a1 + 40);
         *buf = 138543874;
-        v19 = v8;
-        v20 = 2114;
-        v21 = v10;
-        v22 = 2048;
-        v23 = v11;
+        v18 = v8;
+        v19 = 2114;
+        v20 = v10;
+        v21 = 2048;
+        v22 = v11;
         _os_log_impl(&dword_1CEFC7000, v6, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: new watcher registered for %{public}@[%p] and called immediately", buf, 0x20u);
       }
 
@@ -1453,19 +1435,17 @@ void __39__FPDSharedSystemScheduler_addWatcher___block_invoke(uint64_t a1)
         v14 = [v13 fp_obfuscatedProviderDomainID];
         v15 = *(a1 + 40);
         *buf = 138544130;
-        v19 = v12;
-        v20 = 2114;
-        v21 = v14;
-        v22 = 2048;
-        v23 = v15;
-        v24 = 2114;
-        v25 = v5;
+        v18 = v12;
+        v19 = 2114;
+        v20 = v14;
+        v21 = 2048;
+        v22 = v15;
+        v23 = 2114;
+        v24 = v5;
         _os_log_impl(&dword_1CEFC7000, v6, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: new watcher registered for %{public}@[%p] and waiting: %{public}@", buf, 0x2Au);
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeWatcher:(id)watcher
@@ -1484,7 +1464,7 @@ void __39__FPDSharedSystemScheduler_addWatcher___block_invoke(uint64_t a1)
 
 void __42__FPDSharedSystemScheduler_removeWatcher___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 40) objectForKey:*(a1 + 40)];
   [*(*(a1 + 32) + 40) removeObjectForKey:*(a1 + 40)];
   if (v2)
@@ -1496,19 +1476,17 @@ void __42__FPDSharedSystemScheduler_removeWatcher___block_invoke(uint64_t a1)
       v5 = [*(a1 + 40) watcherLabel];
       v6 = [v5 fp_obfuscatedProviderDomainID];
       v7 = *(a1 + 40);
-      v9 = 138543874;
-      v10 = v4;
-      v11 = 2114;
-      v12 = v6;
-      v13 = 2048;
-      v14 = v7;
-      _os_log_impl(&dword_1CEFC7000, v3, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: watcher unregistered for %{public}@[%p]", &v9, 0x20u);
+      v8 = 138543874;
+      v9 = v4;
+      v10 = 2114;
+      v11 = v6;
+      v12 = 2048;
+      v13 = v7;
+      _os_log_impl(&dword_1CEFC7000, v3, OS_LOG_TYPE_DEFAULT, "[NOTICE] ⏱  %{public}@: watcher unregistered for %{public}@[%p]", &v8, 0x20u);
     }
   }
 
   [*(a1 + 32) unregisterActivityWithDelayIfNeeded];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)runIfPossible:(id)possible
@@ -1534,7 +1512,7 @@ void __42__FPDSharedSystemScheduler_removeWatcher___block_invoke(uint64_t a1)
   return possibleCopy;
 }
 
-uint64_t __42__FPDSharedSystemScheduler_runIfPossible___block_invoke(uint64_t a1)
+void *__42__FPDSharedSystemScheduler_runIfPossible___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) unregisterActivityWithDelayIfNeeded];
   result = [*(a1 + 32) canOrIsForcedToRunCheckingDeferral:1 reason:0];
@@ -1602,47 +1580,46 @@ uint64_t __42__FPDSharedSystemScheduler_runIfPossible___block_invoke(uint64_t a1
   return v8;
 }
 
-void __51__FPDSharedSystemScheduler_forceRunningWithReason___block_invoke(uint64_t a1)
+void __51__FPDSharedSystemScheduler_forceRunningWithReason___block_invoke(uint64_t a1, uint64_t a2)
 {
   v21 = *MEMORY[0x1E69E9840];
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = [*(a1 + 32) taskLabel];
-    v4 = *(a1 + 40);
+    v4 = [*(a1 + 32) taskLabel];
+    v5 = *(a1 + 40);
     *buf = 138543618;
-    v18 = v3;
+    v18 = v4;
     v19 = 2114;
-    v20 = v4;
-    _os_log_impl(&dword_1CEFC7000, v2, OS_LOG_TYPE_INFO, "[INFO] ⏱  %{public}@: force running for %{public}@", buf, 0x16u);
+    v20 = v5;
+    _os_log_impl(&dword_1CEFC7000, v3, OS_LOG_TYPE_INFO, "[INFO] ⏱  %{public}@: force running for %{public}@", buf, 0x16u);
   }
 
-  v5 = *(a1 + 32);
+  v6 = *(a1 + 32);
   v16[0] = MEMORY[0x1E69E9820];
   v16[1] = 3221225472;
   v16[2] = __51__FPDSharedSystemScheduler_forceRunningWithReason___block_invoke_56;
   v16[3] = &unk_1E83BE068;
-  v16[4] = v5;
-  [v5 withReevaluationOfSchedulingState:v16];
+  v16[4] = v6;
+  [v6 withReevaluationOfSchedulingState:v16];
   objc_initWeak(buf, *(a1 + 32));
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __51__FPDSharedSystemScheduler_forceRunningWithReason___block_invoke_2;
   aBlock[3] = &unk_1E83BFF80;
   objc_copyWeak(v15, buf);
-  v6 = *(a1 + 40);
+  v7 = *(a1 + 40);
   v15[1] = *(a1 + 56);
-  v7 = *(a1 + 32);
-  v13 = v6;
-  v14 = v7;
-  v8 = _Block_copy(aBlock);
-  v9 = *(*(a1 + 48) + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = v8;
+  v8 = *(a1 + 32);
+  v13 = v7;
+  v14 = v8;
+  v9 = _Block_copy(aBlock);
+  v10 = *(*(a1 + 48) + 8);
+  v11 = *(v10 + 40);
+  *(v10 + 40) = v9;
 
   objc_destroyWeak(v15);
   objc_destroyWeak(buf);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __51__FPDSharedSystemScheduler_forceRunningWithReason___block_invoke_2(uint64_t a1)
@@ -1665,7 +1642,7 @@ void __51__FPDSharedSystemScheduler_forceRunningWithReason___block_invoke_2(uint
 
 void __51__FPDSharedSystemScheduler_forceRunningWithReason___block_invoke_3(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -1675,33 +1652,31 @@ void __51__FPDSharedSystemScheduler_forceRunningWithReason___block_invoke_3(uint
       v4 = [WeakRetained taskLabel];
       v5 = *(a1 + 32);
       *buf = 138543618;
-      v12 = v4;
-      v13 = 2114;
-      v14 = v5;
+      v11 = v4;
+      v12 = 2114;
+      v13 = v5;
       _os_log_impl(&dword_1CEFC7000, v3, OS_LOG_TYPE_INFO, "[INFO] ⏱  %{public}@: stop force running for %{public}@", buf, 0x16u);
     }
 
     if (WeakRetained[7] <= 0)
     {
-      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ over-released forceRunning"];
-      v8 = fp_current_or_default_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ over-released forceRunning"];
+      v7 = fp_current_or_default_log();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
-        [(FPDProcessMonitor *)v7 _addPIDToObserve:v8];
+        [(FPDProcessMonitor *)v6 _addPIDToObserve:v7];
       }
 
-      __assert_rtn("-[FPDSharedSystemScheduler forceRunningWithReason:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDSharedSystemScheduler.m", 713, [v7 UTF8String]);
+      __assert_rtn("-[FPDSharedSystemScheduler forceRunningWithReason:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDSharedSystemScheduler.m", 713, [v6 UTF8String]);
     }
 
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __51__FPDSharedSystemScheduler_forceRunningWithReason___block_invoke_2_61;
-    v9[3] = &unk_1E83BE068;
-    v10 = WeakRetained;
-    [v10 withReevaluationOfSchedulingState:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __51__FPDSharedSystemScheduler_forceRunningWithReason___block_invoke_2_61;
+    v8[3] = &unk_1E83BE068;
+    v9 = WeakRetained;
+    [v9 withReevaluationOfSchedulingState:v8];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPreventRunning:(BOOL)running
@@ -1830,7 +1805,7 @@ void __50__FPDSharedSystemScheduler_hasRegisteredExecutors__block_invoke(uint64_
 
 uint64_t __39__FPDSharedSystemScheduler_description__block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = v2[7];
   v4 = [v2 preventRunning];
@@ -1847,7 +1822,6 @@ uint64_t __39__FPDSharedSystemScheduler_description__block_invoke(uint64_t a1)
   {
     v6 = *(a1 + 32);
     v7 = *(*(*(a1 + 40) + 8) + 40);
-    v8 = *(v6 + 56);
     if (v5)
     {
       [v7 appendFormat:@" 🌑 %d", *(v6 + 56)];
@@ -1859,129 +1833,127 @@ uint64_t __39__FPDSharedSystemScheduler_description__block_invoke(uint64_t a1)
     }
   }
 
-  v9 = *(a1 + 32);
-  if (v9[1])
+  v8 = *(a1 + 32);
+  if (v8[1])
   {
-    v10 = *(*(*(a1 + 40) + 8) + 40);
-    v11 = @" ▶️ ";
+    v9 = *(*(*(a1 + 40) + 8) + 40);
+    v10 = @" ▶️ ";
   }
 
-  else if (v9[8])
+  else if (v8[8])
   {
-    v10 = *(*(*(a1 + 40) + 8) + 40);
-    v11 = @" ⏲️ ";
+    v9 = *(*(*(a1 + 40) + 8) + 40);
+    v10 = @" ⏲️ ";
   }
 
   else
   {
-    v12 = [v9 isRegistered];
-    v10 = *(*(*(a1 + 40) + 8) + 40);
-    if (v12)
+    v11 = [v8 isRegistered];
+    v9 = *(*(*(a1 + 40) + 8) + 40);
+    if (v11)
     {
-      v11 = @" ⏳ ";
+      v10 = @" ⏳ ";
     }
 
     else
     {
-      v11 = @" 🛏 ";
+      v10 = @" 🛏 ";
     }
   }
 
-  [v10 appendString:v11];
+  [v9 appendString:v10];
+  v12 = *(a1 + 32);
+  objc_sync_enter(v12);
   v13 = *(a1 + 32);
-  objc_sync_enter(v13);
-  v14 = *(a1 + 32);
-  v15 = v14[9];
-  if (v15)
+  v14 = v13[9];
+  if (v14)
   {
-    [*(*(*(a1 + 40) + 8) + 40) appendFormat:@" registration:<from:%@ count:%d", v15, v14[15]];
-    v16 = *(a1 + 32);
-    if (!v16[6])
+    [*(*(*(a1 + 40) + 8) + 40) appendFormat:@" registration:<from:%@ count:%d", v14, v13[15]];
+    v15 = *(a1 + 32);
+    if (!v15[6])
     {
-      v17 = v16[10];
-      if (v17)
+      v16 = v15[10];
+      if (v16)
       {
-        [*(*(*(a1 + 40) + 8) + 40) appendFormat:@" to:%@", v17];
-        v16 = *(a1 + 32);
+        [*(*(*(a1 + 40) + 8) + 40) appendFormat:@" to:%@", v16];
+        v15 = *(a1 + 32);
       }
     }
 
-    if (v16[8])
+    if (v15[8])
     {
       [*(*(*(a1 + 40) + 8) + 40) appendString:@" to:<pending>"];
     }
 
     [*(*(*(a1 + 40) + 8) + 40) appendString:@">"];
-    v14 = *(a1 + 32);
+    v13 = *(a1 + 32);
   }
 
-  v18 = v14[11];
-  if (v18)
+  v17 = v13[11];
+  if (v17)
   {
-    [*(*(*(a1 + 40) + 8) + 40) appendFormat:@" trigger:<from:%@", v18];
-    v19 = *(a1 + 32);
-    if (!*(v19 + 8))
+    [*(*(*(a1 + 40) + 8) + 40) appendFormat:@" trigger:<from:%@", v17];
+    v18 = *(a1 + 32);
+    if (!*(v18 + 8))
     {
-      v20 = *(v19 + 104);
-      if (v20)
+      v19 = *(v18 + 104);
+      if (v19)
       {
-        [*(*(*(a1 + 40) + 8) + 40) appendFormat:@" to:%@", v20];
+        [*(*(*(a1 + 40) + 8) + 40) appendFormat:@" to:%@", v19];
       }
     }
 
     [*(*(*(a1 + 40) + 8) + 40) appendString:@">"];
   }
 
-  objc_sync_exit(v13);
+  objc_sync_exit(v12);
 
-  v21 = *(a1 + 32);
-  v22 = *(v21 + 96);
-  if (v22)
+  v20 = *(a1 + 32);
+  v21 = *(v20 + 96);
+  if (v21)
   {
-    [*(*(*(a1 + 40) + 8) + 40) appendFormat:@" usage:%@", v22];
-    v21 = *(a1 + 32);
+    [*(*(*(a1 + 40) + 8) + 40) appendFormat:@" usage:%@", v21];
+    v20 = *(a1 + 32);
   }
 
-  v35 = 0u;
-  v36 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v23 = *(v21 + 40);
-  v24 = [v23 countByEnumeratingWithState:&v33 objects:v37 count:16];
-  if (v24)
+  v31 = 0u;
+  v32 = 0u;
+  v22 = *(v20 + 40);
+  v23 = [v22 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  if (v23)
   {
-    v25 = *v34;
-    v26 = @" watchers=%@";
+    v24 = *v32;
+    v25 = @" watchers=%@";
     do
     {
-      v27 = 0;
+      v26 = 0;
       do
       {
-        if (*v34 != v25)
+        if (*v32 != v24)
         {
-          objc_enumerationMutation(v23);
+          objc_enumerationMutation(v22);
         }
 
-        v28 = *(*(*(a1 + 40) + 8) + 40);
-        v29 = [*(*(&v33 + 1) + 8 * v27) watcherLabel];
-        v30 = [v29 fp_obfuscatedProviderDomainID];
-        [v28 appendFormat:v26, v30];
+        v27 = *(*(*(a1 + 40) + 8) + 40);
+        v28 = [*(*(&v31 + 1) + 8 * v26) watcherLabel];
+        v29 = [v28 fp_obfuscatedProviderDomainID];
+        [v27 appendFormat:v25, v29];
 
-        ++v27;
-        v26 = @",%@";
+        ++v26;
+        v25 = @",%@";
       }
 
-      while (v24 != v27);
-      v24 = [v23 countByEnumeratingWithState:&v33 objects:v37 count:16];
-      v26 = @",%@";
+      while (v23 != v26);
+      v23 = [v22 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v25 = @",%@";
     }
 
-    while (v24);
+    while (v23);
   }
 
-  result = [*(*(*(a1 + 40) + 8) + 40) appendString:@">"];
-  v32 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(*(a1 + 40) + 8) + 40) appendString:@">"];
 }
 
 - (BOOL)isRunning
@@ -2118,28 +2090,28 @@ uint64_t __39__FPDSharedSystemScheduler_description__block_invoke(uint64_t a1)
 
 - (int64_t)dasContext
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E699A4B8] = [MEMORY[0x1E699A4B8] sharedScheduler];
   [mEMORY[0x1E699A4B8] runningActivities];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v4 = v36 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v4 = v35 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v5)
   {
     v6 = mEMORY[0x1E699A4B8];
-    v7 = *v34;
+    v7 = *v33;
     while (2)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v34 != v7)
+        if (*v33 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v33 + 1) + 8 * i);
+        v9 = *(*(&v32 + 1) + 8 * i);
         name = [v9 name];
         taskLabel = [(FPDSharedSystemScheduler *)self taskLabel];
         v12 = [name containsString:taskLabel];
@@ -2153,7 +2125,7 @@ uint64_t __39__FPDSharedSystemScheduler_description__block_invoke(uint64_t a1)
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v32 objects:v37 count:16];
       if (v5)
       {
         continue;
@@ -2178,28 +2150,28 @@ LABEL_11:
   v16 = submittedActivities;
   if (v14)
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v17 = submittedActivities;
-    v13 = [v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
+    v13 = [v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
     if (v13)
     {
-      v26 = v16;
-      v27 = v5;
-      v28 = mEMORY[0x1E699A4B8];
-      v18 = *v30;
+      v25 = v16;
+      v26 = v5;
+      v27 = mEMORY[0x1E699A4B8];
+      v18 = *v29;
       while (2)
       {
         for (j = 0; j != v13; ++j)
         {
-          if (*v30 != v18)
+          if (*v29 != v18)
           {
             objc_enumerationMutation(v17);
           }
 
-          v20 = *(*(&v29 + 1) + 8 * j);
+          v20 = *(*(&v28 + 1) + 8 * j);
           name2 = [v20 name];
           taskLabel2 = [(FPDSharedSystemScheduler *)self taskLabel];
           v23 = [name2 containsString:taskLabel2];
@@ -2209,12 +2181,12 @@ LABEL_11:
             v5 = v20;
 
             v13 = 0x4000;
-            mEMORY[0x1E699A4B8] = v28;
+            mEMORY[0x1E699A4B8] = v27;
             goto LABEL_24;
           }
         }
 
-        v13 = [v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v13 = [v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
         if (v13)
         {
           continue;
@@ -2223,10 +2195,10 @@ LABEL_11:
         break;
       }
 
-      v5 = v27;
-      mEMORY[0x1E699A4B8] = v28;
+      v5 = v26;
+      mEMORY[0x1E699A4B8] = v27;
 LABEL_24:
-      v16 = v26;
+      v16 = v25;
     }
   }
 
@@ -2235,45 +2207,44 @@ LABEL_24:
     v13 |= [(FPDSharedSystemScheduler *)self _contextForActivity:v5];
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 + (BOOL)runIfAllowedOneSchedulerOf:(id)of cb:(id)cb
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   ofCopy = of;
   cbCopy = cb;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v7 = ofCopy;
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
-    v9 = *v19;
+    v9 = *v18;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v16[0] = MEMORY[0x1E69E9820];
-          v16[1] = 3221225472;
-          v16[2] = __58__FPDSharedSystemScheduler_runIfAllowedOneSchedulerOf_cb___block_invoke;
-          v16[3] = &unk_1E83BF450;
+          v15[0] = MEMORY[0x1E69E9820];
+          v15[1] = 3221225472;
+          v15[2] = __58__FPDSharedSystemScheduler_runIfAllowedOneSchedulerOf_cb___block_invoke;
+          v15[3] = &unk_1E83BF450;
           v12 = cbCopy;
-          v16[4] = v11;
-          v17 = v12;
-          v13 = [v11 runIfPossible:v16];
+          v15[4] = v11;
+          v16 = v12;
+          v13 = [v11 runIfPossible:v15];
 
           if (v13)
           {
@@ -2283,7 +2254,7 @@ LABEL_24:
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         continue;
@@ -2295,22 +2266,19 @@ LABEL_24:
 
 LABEL_12:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 void __33__FPDSharedSystemScheduler_defer__block_invoke_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = [*(a1 + 40) taskLabel];
   v6 = [a2 fp_prettyDescription];
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_ERROR, "[ERROR] Error setting task expired %@ : %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_ERROR, "[ERROR] Error setting task expired %@ : %@", &v7, 0x16u);
 }
 
 void __44__FPDSharedSystemScheduler_registerActivity__block_invoke_cold_2(void *a1, void *a2, uint8_t *buf, os_log_t log)

@@ -50,7 +50,7 @@
 
 - (void)userAccountChanged
 {
-  v3 = sub_10000300C();
+  v3 = sub_10000300C(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -74,33 +74,33 @@ LABEL_7:
   safari_primaryAppleAccount = [(ACAccountStore *)self->_accountStore safari_primaryAppleAccount];
   if (safari_primaryAppleAccount)
   {
-    v6 = safari_primaryAppleAccount;
-    v7 = [safari_primaryAppleAccount isEnabledForDataclass:kAccountDataclassBookmarks];
-    self->_dataclassEnabled = v7;
-    if ((v7 & 1) == 0)
+    v7 = safari_primaryAppleAccount;
+    v8 = [safari_primaryAppleAccount isEnabledForDataclass:kAccountDataclassBookmarks];
+    self->_dataclassEnabled = v8;
+    if ((v8 & 1) == 0)
     {
-      v8 = sub_10000300C();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_10000300C(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = v8;
+        v11 = v10;
         safari_logDescription = [groupCopy safari_logDescription];
-        v16 = 138543362;
-        v17 = safari_logDescription;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "iCloud Settings syncing not available because Safari's dataclass isn't enabled with %{public}@", &v16, 0xCu);
+        v18 = 138543362;
+        v19 = safari_logDescription;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "iCloud Settings syncing not available because Safari's dataclass isn't enabled with %{public}@", &v18, 0xCu);
       }
     }
 
     goto LABEL_7;
   }
 
-  v13 = sub_10000300C();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_10000300C(0, v6);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = v13;
+    v16 = v15;
     safari_logDescription2 = [groupCopy safari_logDescription];
-    v16 = 138543362;
-    v17 = safari_logDescription2;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "iCloud Settings syncing not available because user is not signed in with %{public}@", &v16, 0xCu);
+    v18 = 138543362;
+    v19 = safari_logDescription2;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "iCloud Settings syncing not available because user is not signed in with %{public}@", &v18, 0xCu);
   }
 
   dataclassEnabled = 0;
@@ -113,129 +113,131 @@ LABEL_8:
 - (BOOL)_updateAccountHashIfNeededInOperationGroup:(id)group
 {
   groupCopy = group;
+  v6 = groupCopy;
   if (self->_needsAccountHashCheck)
   {
-    v5 = sub_10000300C();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_10000300C(groupCopy, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = v5;
-      safari_logDescription = [groupCopy safari_logDescription];
-      *v34 = 138543362;
-      *&v34[4] = safari_logDescription;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Checking account hash with %{public}@", v34, 0xCu);
+      v8 = v7;
+      safari_logDescription = [v6 safari_logDescription];
+      *v40 = 138543362;
+      *&v40[4] = safari_logDescription;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Checking account hash with %{public}@", v40, 0xCu);
     }
 
     safari_primaryAppleAccount = [(ACAccountStore *)self->_accountStore safari_primaryAppleAccount];
     safari_accountHash = [safari_primaryAppleAccount safari_accountHash];
 
-    v10 = +[NSUserDefaults safari_browserDefaults];
-    v11 = [v10 objectForKey:@"settingsSyncAccountDSIDHash"];
+    v12 = +[NSUserDefaults safari_browserDefaults];
+    v13 = [v12 objectForKey:@"settingsSyncAccountDSIDHash"];
 
-    if (v11)
+    if (v13)
     {
-      v12 = [v11 isEqualToData:safari_accountHash];
-      v13 = sub_10000300C();
-      v14 = v13;
-      if (v12)
+      v14 = [v13 isEqualToData:safari_accountHash];
+      v15 = v14;
+      v17 = sub_10000300C(v14, v16);
+      v18 = v17;
+      if (v15)
       {
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          v15 = v14;
-          safari_logDescription2 = [groupCopy safari_logDescription];
-          *v34 = 138543362;
-          *&v34[4] = safari_logDescription2;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Account hash matches with %{public}@", v34, 0xCu);
+          v19 = v18;
+          safari_logDescription2 = [v6 safari_logDescription];
+          *v40 = 138543362;
+          *&v40[4] = safari_logDescription2;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Account hash matches with %{public}@", v40, 0xCu);
         }
       }
 
       else
       {
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
-          sub_100054464(v14);
+          sub_100054464(v18);
         }
 
-        v29 = +[NSUserDefaults safari_browserDefaults];
-        [v29 setObject:safari_accountHash forKey:@"settingsSyncAccountDSIDHash"];
+        v35 = +[NSUserDefaults safari_browserDefaults];
+        [v35 setObject:safari_accountHash forKey:@"settingsSyncAccountDSIDHash"];
       }
 
       self->_needsAccountHashCheck = 0;
       goto LABEL_25;
     }
 
-    v18 = +[NSUserDefaults safari_browserDefaults];
-    v19 = [v18 objectForKey:@"settingsSyncAccountHash"];
+    v22 = +[NSUserDefaults safari_browserDefaults];
+    v23 = [v22 objectForKey:@"settingsSyncAccountHash"];
 
-    v20 = [v19 isEqualToData:safari_accountHash];
+    v24 = [v23 isEqualToData:safari_accountHash];
     safari_primaryAppleAccount2 = [(ACAccountStore *)self->_accountStore safari_primaryAppleAccount];
     safari_deprecatedUsernameAccountHash = [safari_primaryAppleAccount2 safari_deprecatedUsernameAccountHash];
-    v23 = [v19 isEqualToData:safari_deprecatedUsernameAccountHash];
+    v27 = [v23 isEqualToData:safari_deprecatedUsernameAccountHash];
 
-    v24 = sub_10000300C();
-    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-    if (v20)
+    v30 = sub_10000300C(v28, v29);
+    v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+    if (v24)
     {
-      if (v25)
+      if (v31)
       {
-        v26 = v24;
-        safari_logDescription3 = [groupCopy safari_logDescription];
-        *v34 = 138543362;
-        *&v34[4] = safari_logDescription3;
-        v28 = "Account hash matches. Storing account hash in new location with %{public}@";
+        v32 = v30;
+        safari_logDescription3 = [v6 safari_logDescription];
+        *v40 = 138543362;
+        *&v40[4] = safari_logDescription3;
+        v34 = "Account hash matches. Storing account hash in new location with %{public}@";
 LABEL_19:
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, v28, v34, 0xCu);
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, v34, v40, 0xCu);
       }
     }
 
     else
     {
-      if (!v23)
+      if (!v27)
       {
-        if (v25)
+        if (v31)
         {
-          v30 = v24;
-          safari_logDescription4 = [groupCopy safari_logDescription];
-          *v34 = 138543362;
-          *&v34[4] = safari_logDescription4;
-          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Storing new account hash with %{public}@", v34, 0xCu);
+          v36 = v30;
+          safari_logDescription4 = [v6 safari_logDescription];
+          *v40 = 138543362;
+          *&v40[4] = safari_logDescription4;
+          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Storing new account hash with %{public}@", v40, 0xCu);
         }
 
-        v12 = 0;
+        v15 = 0;
         goto LABEL_24;
       }
 
-      if (v25)
+      if (v31)
       {
-        v26 = v24;
-        safari_logDescription3 = [groupCopy safari_logDescription];
-        *v34 = 138543362;
-        *&v34[4] = safari_logDescription3;
-        v28 = "Migrating deprecated account hash with %{public}@";
+        v32 = v30;
+        safari_logDescription3 = [v6 safari_logDescription];
+        *v40 = 138543362;
+        *&v40[4] = safari_logDescription3;
+        v34 = "Migrating deprecated account hash with %{public}@";
         goto LABEL_19;
       }
     }
 
-    v12 = 1;
+    v15 = 1;
 LABEL_24:
-    v32 = +[NSUserDefaults safari_browserDefaults];
-    [v32 setObject:safari_accountHash forKey:@"settingsSyncAccountDSIDHash"];
+    v38 = [NSUserDefaults safari_browserDefaults:*v40];
+    [v38 setObject:safari_accountHash forKey:@"settingsSyncAccountDSIDHash"];
 
     self->_needsAccountHashCheck = 0;
 LABEL_25:
-    v17 = v12 ^ 1;
+    v21 = v15 ^ 1;
 
     goto LABEL_26;
   }
 
-  v17 = 0;
+  v21 = 0;
 LABEL_26:
 
-  return v17;
+  return v21;
 }
 
 - (void)setNeedsAccountHashCheck
 {
-  v3 = sub_10000300C();
+  v3 = sub_10000300C(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -258,14 +260,14 @@ LABEL_26:
 {
   groupCopy = group;
   handlersCopy = handlers;
-  v8 = sub_10000300C();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_10000300C(handlersCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = v8;
+    v10 = v9;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v17 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Sync coordinator will begin syncing with %{public}@", buf, 0xCu);
+    v18 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Sync coordinator will begin syncing with %{public}@", buf, 0xCu);
   }
 
   block[0] = _NSConcreteStackBlock;
@@ -273,26 +275,27 @@ LABEL_26:
   block[2] = sub_100050C2C;
   block[3] = &unk_100132D78;
   block[4] = self;
-  v14 = groupCopy;
-  v15 = handlersCopy;
-  v11 = handlersCopy;
-  v12 = groupCopy;
+  v15 = groupCopy;
+  v16 = handlersCopy;
+  v12 = handlersCopy;
+  v13 = groupCopy;
   dispatch_async(&_dispatch_main_q, block);
 }
 
 - (void)_continueSyncingAfterSyncingDown:(BOOL)down inOperationGroup:(id)group
 {
   groupCopy = group;
-  if (![(CloudSettingSyncCoordinator *)self _isDataclassEnabledInOperationGroup:groupCopy]|| (+[WBSFeatureAvailability isCustomizationSyncEnabled]& 1) == 0)
+  v7 = [(CloudSettingSyncCoordinator *)self _isDataclassEnabledInOperationGroup:groupCopy];
+  if (!v7 || (v7 = +[WBSFeatureAvailability isCustomizationSyncEnabled], (v7 & 1) == 0))
   {
-    v10 = sub_10000300C();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_10000300C(v7, v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = v10;
+      v13 = v12;
       safari_logDescription = [groupCopy safari_logDescription];
-      v13 = 138543362;
-      v14 = safari_logDescription;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Stopping fetch of settings with %{public}@", &v13, 0xCu);
+      v15 = 138543362;
+      v16 = safari_logDescription;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Stopping fetch of settings with %{public}@", &v15, 0xCu);
     }
 
     goto LABEL_9;
@@ -305,14 +308,14 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v7 = sub_10000300C();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v9 = sub_10000300C(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v8 = v7;
+    v10 = v9;
     safari_logDescription2 = [groupCopy safari_logDescription];
-    v13 = 138543362;
-    v14 = safari_logDescription2;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Have not performed a sync down yet; doing so now with %{public}@", &v13, 0xCu);
+    v15 = 138543362;
+    v16 = safari_logDescription2;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Have not performed a sync down yet; doing so now with %{public}@", &v15, 0xCu);
   }
 
   [(CloudSettingSyncCoordinator *)self _performSyncDownInOperationGroup:groupCopy];
@@ -337,16 +340,16 @@ LABEL_10:
   v5 = +[NSUserDefaults safari_browserDefaults];
   v6 = [v5 objectForKey:@"customizationSyncServerToken"];
 
-  v11 = 0;
-  v7 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v11];
-  v8 = v11;
+  v13 = 0;
+  v7 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v13];
+  v8 = v13;
   serverChangeToken = self->_serverChangeToken;
   self->_serverChangeToken = v7;
 
   if (v8)
   {
-    v10 = sub_10000300C();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = sub_10000300C(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_100054648();
     }
@@ -364,27 +367,28 @@ LABEL_10:
   groupCopy = group;
   if (tokenCopy)
   {
-    v15 = 0;
-    v9 = [NSKeyedArchiver archivedDataWithRootObject:tokenCopy requiringSecureCoding:1 error:&v15];
-    v10 = v15;
+    v17 = 0;
+    v9 = [NSKeyedArchiver archivedDataWithRootObject:tokenCopy requiringSecureCoding:1 error:&v17];
+    v10 = v17;
+    v12 = v10;
     if (v10)
     {
-      v11 = sub_10000300C();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = sub_10000300C(v10, v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_1000546F0();
       }
     }
 
     objc_storeStrong(&self->_serverChangeToken, token);
-    v12 = +[NSUserDefaults safari_browserDefaults];
-    [v12 setObject:v9 forKey:@"customizationSyncServerToken"];
+    v14 = +[NSUserDefaults safari_browserDefaults];
+    [v14 setObject:v9 forKey:@"customizationSyncServerToken"];
   }
 
   else
   {
-    v13 = +[NSUserDefaults safari_browserDefaults];
-    [v13 removeObjectForKey:@"customizationSyncServerToken"];
+    v15 = +[NSUserDefaults safari_browserDefaults];
+    [v15 removeObjectForKey:@"customizationSyncServerToken"];
 
     serverChangeToken = self->_serverChangeToken;
     self->_serverChangeToken = 0;
@@ -430,14 +434,14 @@ LABEL_10:
 {
   groupCopy = group;
   handlerCopy = handler;
-  v9 = sub_10000300C();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_10000300C(handlerCopy, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = v9;
+    v11 = v10;
     safari_logDescription = [groupCopy safari_logDescription];
-    v12 = 138543362;
-    v13 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Change token is expired; trying a full sync down with %{public}@", &v12, 0xCu);
+    v13 = 138543362;
+    v14 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Change token is expired; trying a full sync down with %{public}@", &v13, 0xCu);
   }
 
   [(CloudSettingSyncCoordinator *)self _saveServerChangeToken:0 inOperationGroup:groupCopy];
@@ -448,8 +452,8 @@ LABEL_10:
 {
   errorCopy = error;
   groupCopy = group;
-  v8 = sub_10000300C();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = sub_10000300C(groupCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     sub_1000549A0();
   }
@@ -473,39 +477,39 @@ LABEL_10:
 
   if (!self->_didReceiveSyncRequestWhileSyncing)
   {
-    v15 = sub_10000300C();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v17 = sub_10000300C(v10, v11);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v12 = v15;
+      v14 = v17;
       safari_logDescription = [groupCopy safari_logDescription];
       *buf = 138543362;
-      v21 = safari_logDescription;
-      v14 = "Syncing done, calling completion handler with %{public}@";
+      v23 = safari_logDescription;
+      v16 = "Syncing done, calling completion handler with %{public}@";
       goto LABEL_9;
     }
 
 LABEL_10:
-    v18 = v8;
-    v19 = errorCopy;
+    v20 = v8;
+    v21 = errorCopy;
     WBSDispatchAsyncToMainQueueWithAutoreleasePool();
 
     goto LABEL_11;
   }
 
   self->_didReceiveSyncRequestWhileSyncing = 0;
-  v10 = sub_10000300C();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+  v12 = sub_10000300C(v10, v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
   if (errorCopy)
   {
-    if (v11)
+    if (v13)
     {
-      v12 = v10;
+      v14 = v12;
       safari_logDescription = [groupCopy safari_logDescription];
       *buf = 138543362;
-      v21 = safari_logDescription;
-      v14 = "Not retrying sync after receiving synchronization request during sync since previous sync failed with %{public}@";
+      v23 = safari_logDescription;
+      v16 = "Not retrying sync after receiving synchronization request during sync since previous sync failed with %{public}@";
 LABEL_9:
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, v14, buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, v16, buf, 0xCu);
 
       goto LABEL_10;
     }
@@ -513,13 +517,13 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if (v11)
+  if (v13)
   {
-    v16 = v10;
+    v18 = v12;
     safari_logDescription2 = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v21 = safari_logDescription2;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Retrying sync after receiving synchronization request during synchronization with %{public}@", buf, 0xCu);
+    v23 = safari_logDescription2;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Retrying sync after receiving synchronization request during synchronization with %{public}@", buf, 0xCu);
   }
 
   [(CloudSettingSyncCoordinator *)self _beginSyncingInOperationGroup:groupCopy completionHandlers:v8];
@@ -534,30 +538,30 @@ LABEL_11:
   if (self->_isWaitingForPCSIdentityUpdate)
   {
     self->_isWaitingForPCSIdentityUpdate = 0;
-    v5 = sub_10000300C();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_10000300C(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Retrying sync after receiving expected PCS identity change notification.", v10, 2u);
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Retrying sync after receiving expected PCS identity change notification.", v12, 2u);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v7 = objc_opt_respondsToSelector();
+    v9 = objc_opt_respondsToSelector();
 
-    if (v7)
+    if (v9)
     {
-      v8 = objc_loadWeakRetained(&self->_delegate);
-      [v8 pcsIdentitiesDidChangeForCloudSettingSyncCoordinator:self];
+      v10 = objc_loadWeakRetained(&self->_delegate);
+      [v10 pcsIdentitiesDidChangeForCloudSettingSyncCoordinator:self];
     }
   }
 
   else
   {
-    v9 = sub_10000300C();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_10000300C(v5, v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Ignoring PCS identity change notification because Customization Sync is not waiting for an identity update", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Ignoring PCS identity change notification because Customization Sync is not waiting for an identity update", buf, 2u);
     }
   }
 }
@@ -567,29 +571,29 @@ LABEL_11:
   groupCopy = group;
   handlerCopy = handler;
   recordCopy = record;
-  v11 = sub_10000300C();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_10000300C(recordCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v11;
+    v13 = v12;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v24 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Saving Safari's background image for the current device to CloudKit with %{public}@", buf, 0xCu);
+    v25 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Saving Safari's background image for the current device to CloudKit with %{public}@", buf, 0xCu);
   }
 
   settingStore = self->_settingStore;
-  v22 = recordCopy;
-  v15 = [NSArray arrayWithObjects:&v22 count:1];
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_10005299C;
-  v18[3] = &unk_100132CD8;
-  v19 = groupCopy;
+  v23 = recordCopy;
+  v16 = [NSArray arrayWithObjects:&v23 count:1];
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_10005299C;
+  v19[3] = &unk_100132CD8;
+  v20 = groupCopy;
   selfCopy = self;
-  v21 = handlerCopy;
-  v16 = handlerCopy;
-  v17 = groupCopy;
-  [(CloudSettingStore *)settingStore saveCloudSettingsRecords:v15 createCloudSettingsZoneIfMissing:0 inOperationGroup:v17 clientChangeTokenData:0 mergeHandler:&stru_100133A70 completionHandler:v18];
+  v22 = handlerCopy;
+  v17 = handlerCopy;
+  v18 = groupCopy;
+  [(CloudSettingStore *)settingStore saveCloudSettingsRecords:v16 createCloudSettingsZoneIfMissing:0 inOperationGroup:v18 clientChangeTokenData:0 mergeHandler:&stru_100133A70 completionHandler:v19];
 }
 
 - (void)saveRecords:(id)records inOperationGroup:(id)group successCompletionHandler:(id)handler
@@ -597,27 +601,27 @@ LABEL_11:
   groupCopy = group;
   handlerCopy = handler;
   recordsCopy = records;
-  v11 = sub_10000300C();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_10000300C(recordsCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v11;
+    v13 = v12;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v22 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Saving setting for the current device to CloudKit with %{public}@", buf, 0xCu);
+    v23 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Saving setting for the current device to CloudKit with %{public}@", buf, 0xCu);
   }
 
   settingStore = self->_settingStore;
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_100052D18;
-  v17[3] = &unk_100132CD8;
-  v18 = groupCopy;
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_100052D18;
+  v18[3] = &unk_100132CD8;
+  v19 = groupCopy;
   selfCopy = self;
-  v20 = handlerCopy;
-  v15 = handlerCopy;
-  v16 = groupCopy;
-  [(CloudSettingStore *)settingStore saveCloudSettingsRecords:recordsCopy createCloudSettingsZoneIfMissing:0 inOperationGroup:v16 clientChangeTokenData:0 mergeHandler:&stru_100133A90 completionHandler:v17];
+  v21 = handlerCopy;
+  v16 = handlerCopy;
+  v17 = groupCopy;
+  [(CloudSettingStore *)settingStore saveCloudSettingsRecords:recordsCopy createCloudSettingsZoneIfMissing:0 inOperationGroup:v17 clientChangeTokenData:0 mergeHandler:&stru_100133A90 completionHandler:v18];
 }
 
 - (void)savePerSiteRecords:(id)records inOperationGroup:(id)group completionHandler:(id)handler
@@ -625,33 +629,33 @@ LABEL_11:
   groupCopy = group;
   handlerCopy = handler;
   recordsCopy = records;
-  v11 = sub_10000300C();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_10000300C(recordsCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v11;
+    v13 = v12;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v24 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Saving Per-Site settings for the current device to CloudKit with %{public}@", buf, 0xCu);
+    v25 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Saving Per-Site settings for the current device to CloudKit with %{public}@", buf, 0xCu);
   }
 
   settingStore = self->_settingStore;
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_10005304C;
-  v21[3] = &unk_100133B48;
-  v21[4] = self;
-  v22 = groupCopy;
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_1000538E0;
-  v17[3] = &unk_100132CD8;
-  v18 = v22;
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_10005304C;
+  v22[3] = &unk_100133B48;
+  v22[4] = self;
+  v23 = groupCopy;
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_1000538E0;
+  v18[3] = &unk_100132CD8;
+  v19 = v23;
   selfCopy = self;
-  v20 = handlerCopy;
-  v15 = handlerCopy;
-  v16 = v22;
-  [(CloudSettingStore *)settingStore saveCloudSettingsRecords:recordsCopy createCloudSettingsZoneIfMissing:0 inOperationGroup:v16 clientChangeTokenData:0 mergeHandler:v21 completionHandler:v17];
+  v21 = handlerCopy;
+  v16 = handlerCopy;
+  v17 = v23;
+  [(CloudSettingStore *)settingStore saveCloudSettingsRecords:recordsCopy createCloudSettingsZoneIfMissing:0 inOperationGroup:v17 clientChangeTokenData:0 mergeHandler:v22 completionHandler:v18];
 }
 
 - (id)_perSitePreferencesStore
@@ -714,24 +718,24 @@ LABEL_11:
 - (void)_clearPerSiteSettingsSyncDataInOperationGroup:(id)group
 {
   groupCopy = group;
-  v5 = sub_10000300C();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10000300C(groupCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
+    v7 = v6;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v13 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Clearing cached Per-Site Settings sync data with %{public}@", buf, 0xCu);
+    v14 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Clearing cached Per-Site Settings sync data with %{public}@", buf, 0xCu);
   }
 
   _perSitePreferencesStore = [(CloudSettingSyncCoordinator *)self _perSitePreferencesStore];
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_100053F0C;
-  v10[3] = &unk_100132058;
-  v11 = groupCopy;
-  v9 = groupCopy;
-  [_perSitePreferencesStore removeAllCloudKitRecordsWithCompletionHandler:v10];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100053F0C;
+  v11[3] = &unk_100132058;
+  v12 = groupCopy;
+  v10 = groupCopy;
+  [_perSitePreferencesStore removeAllCloudKitRecordsWithCompletionHandler:v11];
 }
 
 - (void)deleteRecords:(id)records inOperationGroup:(id)group completionHandler:(id)handler
@@ -739,26 +743,26 @@ LABEL_11:
   groupCopy = group;
   handlerCopy = handler;
   recordsCopy = records;
-  v11 = sub_10000300C();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_10000300C(recordsCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v11;
+    v13 = v12;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v21 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Deleting settings from CloudKit with %{public}@", buf, 0xCu);
+    v22 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Deleting settings from CloudKit with %{public}@", buf, 0xCu);
   }
 
   settingStore = self->_settingStore;
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_100054180;
-  v17[3] = &unk_100131A70;
-  v18 = groupCopy;
-  v19 = handlerCopy;
-  v15 = handlerCopy;
-  v16 = groupCopy;
-  [(CloudSettingStore *)settingStore deleteCloudSettingsRecords:recordsCopy inOperationGroup:v16 completionHandler:v17];
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_100054180;
+  v18[3] = &unk_100131A70;
+  v19 = groupCopy;
+  v20 = handlerCopy;
+  v16 = handlerCopy;
+  v17 = groupCopy;
+  [(CloudSettingStore *)settingStore deleteCloudSettingsRecords:recordsCopy inOperationGroup:v17 completionHandler:v18];
 }
 
 - (void)_clearCachedCloudSettingsRecordZoneIfNecessaryForError:(id)error
@@ -773,7 +777,7 @@ LABEL_11:
 
 - (void)clearServerChangeToken
 {
-  v3 = sub_10000300C();
+  v3 = sub_10000300C(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

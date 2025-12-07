@@ -22,7 +22,7 @@
 
 - (void)modeCorrelatedAppsInCurrentModeWithCallback:(id)callback
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   currentModeEvent = [MEMORY[0x277D41C60] currentModeEvent];
   v5 = currentModeEvent;
@@ -105,7 +105,7 @@ LABEL_14:
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v40 = 0;
+      v39 = 0;
       _os_log_impl(&dword_23E3EA000, v27, OS_LOG_TYPE_DEFAULT, "ATXModeCorrelatedAppsDataSource: user not currently in a mode: %@", buf, 0xCu);
     }
 
@@ -133,7 +133,7 @@ LABEL_22:
   {
     v28 = ATXModeToString();
     *buf = 138412290;
-    v40 = v28;
+    v39 = v28;
     _os_log_impl(&dword_23E3EA000, v25, OS_LOG_TYPE_DEFAULT, "ATXModeCorrelatedAppsDataSource: user currently in %@ mode", buf, 0xCu);
   }
 
@@ -154,22 +154,20 @@ LABEL_22:
 
   v34 = objc_opt_new();
   v35 = [v34 rankedAppsForMode:v24];
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __79__ATXModeCorrelatedAppsDataSource_modeCorrelatedAppsInCurrentModeWithCallback___block_invoke;
-  v38[3] = &__block_descriptor_40_e36___NSString_16__0__ATXAppModeEntity_8l;
-  v38[4] = v33;
-  v36 = [v35 _pas_mappedArrayWithTransform:v38];
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __79__ATXModeCorrelatedAppsDataSource_modeCorrelatedAppsInCurrentModeWithCallback___block_invoke;
+  v37[3] = &__block_descriptor_40_e36___NSString_16__0__ATXAppModeEntity_8l;
+  v37[4] = v33;
+  v36 = [v35 _pas_mappedArrayWithTransform:v37];
 
   (*(callbackCopy + 2))(callbackCopy, v36, v9, 0);
 LABEL_29:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 id __79__ATXModeCorrelatedAppsDataSource_modeCorrelatedAppsInCurrentModeWithCallback___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 scoreMetadata];
   [v4 score];
@@ -189,17 +187,15 @@ id __79__ATXModeCorrelatedAppsDataSource_modeCorrelatedAppsInCurrentModeWithCall
       v9 = [v3 bundleId];
       v10 = [v3 scoreMetadata];
       [v10 score];
-      v15 = 138412546;
-      v16 = v9;
-      v17 = 2048;
-      v18 = v11;
-      _os_log_impl(&dword_23E3EA000, v8, OS_LOG_TYPE_DEFAULT, "ATXModeCorrelatedAppsDataSource: %@ passes threshold with score: %f", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = v9;
+      v16 = 2048;
+      v17 = v11;
+      _os_log_impl(&dword_23E3EA000, v8, OS_LOG_TYPE_DEFAULT, "ATXModeCorrelatedAppsDataSource: %@ passes threshold with score: %f", &v14, 0x16u);
     }
 
     v12 = [v3 bundleId];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

@@ -36,7 +36,7 @@
 
 void __84__SBSceneHandleActivityModeAssertion_initWithReason_activityMode_invalidationBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_opt_class();
   v5 = v3;
@@ -60,12 +60,12 @@ void __84__SBSceneHandleActivityModeAssertion_initWithReason_activityMode_invali
 
   v7 = v6;
 
-  v8 = SBLogSceneRelevancy();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = SBLogSceneRelevancy(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Scene handle assertion was invalidated: %{public}@", &v9, 0xCu);
+    v10 = 138543362;
+    v11 = v7;
+    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Scene handle assertion was invalidated: %{public}@", &v10, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();

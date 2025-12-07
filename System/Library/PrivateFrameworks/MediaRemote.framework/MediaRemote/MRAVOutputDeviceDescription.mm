@@ -3,6 +3,7 @@
 - (BOOL)isEqual:(id)equal;
 - (MRAVOutputDeviceDescription)initWithAVDescription:(id)description;
 - (MRAVOutputDeviceDescription)initWithDescriptor:(id)descriptor;
+- (MRAVOutputDeviceDescription)initWithDeviceType:(unsigned int)type deviceSubtype:(unsigned int)subtype uid:(id)uid name:(id)name modelID:(id)d;
 - (NSString)composedTypeDescription;
 - (_MRAVOutputDeviceDescriptorProtobuf)descriptor;
 - (id)description;
@@ -41,6 +42,26 @@
   [(_MRAVOutputDeviceDescriptorProtobuf *)v3 setEngageOnClusterActivate:[(MRAVOutputDeviceDescription *)self supportsEngageOnClusterActivation]];
 
   return v3;
+}
+
+- (MRAVOutputDeviceDescription)initWithDeviceType:(unsigned int)type deviceSubtype:(unsigned int)subtype uid:(id)uid name:(id)name modelID:(id)d
+{
+  v9 = *&subtype;
+  v10 = *&type;
+  dCopy = d;
+  nameCopy = name;
+  uidCopy = uid;
+  v15 = objc_alloc_init(_MRAVOutputDeviceDescriptorProtobuf);
+  [(_MRAVOutputDeviceDescriptorProtobuf *)v15 setUniqueIdentifier:uidCopy];
+
+  [(_MRAVOutputDeviceDescriptorProtobuf *)v15 setDeviceType:v10];
+  [(_MRAVOutputDeviceDescriptorProtobuf *)v15 setDeviceSubType:v9];
+  [(_MRAVOutputDeviceDescriptorProtobuf *)v15 setName:nameCopy];
+
+  [(_MRAVOutputDeviceDescriptorProtobuf *)v15 setModelID:dCopy];
+  v16 = [(MRAVOutputDeviceDescription *)self initWithDescriptor:v15];
+
+  return v16;
 }
 
 - (MRAVOutputDeviceDescription)initWithAVDescription:(id)description
@@ -170,7 +191,7 @@
 {
   dCopy = d;
   v5 = [(MRAVOutputDeviceDescription *)self uid];
-  if ([v5 isEqualToString:dCopy])
+  if (objc_msgSend_isEqualToString_(v5))
   {
     v6 = 1;
   }

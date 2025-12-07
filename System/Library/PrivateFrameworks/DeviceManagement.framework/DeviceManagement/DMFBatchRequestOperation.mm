@@ -93,38 +93,38 @@
 
 - (void)activityTransactionOperationDidStart:(id)start
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __65__DMFBatchRequestOperation_activityTransactionOperationDidStart___block_invoke;
-  v18[3] = &unk_1E86160F8;
-  v18[4] = self;
-  v4 = [MEMORY[0x1E696AAE0] blockOperationWithBlock:v18];
+  v19 = *MEMORY[0x1E69E9840];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __65__DMFBatchRequestOperation_activityTransactionOperationDidStart___block_invoke;
+  v17[3] = &unk_1E86160F8;
+  v17[4] = self;
+  v4 = [MEMORY[0x1E696AAE0] blockOperationWithBlock:v17];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   subOperations = [(DMFBatchRequestOperation *)self subOperations];
-  v6 = [subOperations countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v6 = [subOperations countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(subOperations);
         }
 
-        [v4 addDependency:*(*(&v14 + 1) + 8 * v9++)];
+        [v4 addDependency:*(*(&v13 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [subOperations countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v7 = [subOperations countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v7);
@@ -136,8 +136,6 @@
   queue2 = [(DMFBatchRequestOperation *)self queue];
   subOperations2 = [(DMFBatchRequestOperation *)self subOperations];
   [queue2 addOperations:subOperations2 waitUntilFinished:0];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __65__DMFBatchRequestOperation_activityTransactionOperationDidStart___block_invoke(uint64_t a1)

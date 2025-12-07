@@ -857,7 +857,7 @@ LABEL_57:
         [CATransaction setValue:kCFBooleanTrue forKey:kCATransactionDisableActions];
         if (![(RCWaveformRenderer *)self displayMode])
         {
-          [waveformLayer transform];
+          objc_msgSend_transform(waveformLayer);
           if (!CATransform3DIsIdentity(&v98))
           {
             v76 = *&CATransform3DIdentity.m33;

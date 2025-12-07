@@ -48,13 +48,13 @@ void __82__SSRSysdiagnoseFileHandler_personalizedSiriEnrollmentAudioLoggingEnabl
 
 + (id)fetchVoiceProfileFilePathsWithError:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   SSRLogInitIfNeeded();
   v4 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v36 = "+[SSRSysdiagnoseFileHandler fetchVoiceProfileFilePathsWithError:]";
+    v35 = "+[SSRSysdiagnoseFileHandler fetchVoiceProfileFilePathsWithError:]";
     _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -64,7 +64,7 @@ void __82__SSRSysdiagnoseFileHandler_personalizedSiriEnrollmentAudioLoggingEnabl
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v36 = "+[SSRSysdiagnoseFileHandler fetchVoiceProfileFilePathsWithError:]";
+      v35 = "+[SSRSysdiagnoseFileHandler fetchVoiceProfileFilePathsWithError:]";
       _os_log_impl(&dword_225E12000, v21, OS_LOG_TYPE_DEFAULT, "%s Voice Profile copying is not supported in this platform yet", buf, 0xCu);
     }
 
@@ -89,7 +89,7 @@ LABEL_30:
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v36 = "+[SSRSysdiagnoseFileHandler fetchVoiceProfileFilePathsWithError:]";
+      v35 = "+[SSRSysdiagnoseFileHandler fetchVoiceProfileFilePathsWithError:]";
       _os_log_impl(&dword_225E12000, v24, OS_LOG_TYPE_DEFAULT, "%s The enrollment profile is not installed, we are not allowed to collect Voice Profile in sysdiagnose", buf, 0xCu);
     }
 
@@ -107,33 +107,33 @@ LABEL_30:
   v6 = v5;
   if (v5)
   {
-    v29 = v5;
-    v28 = [v5 SSRBasePathForAppDomain:@"com.apple.siri"];
-    v7 = [v28 stringByReplacingOccurrencesOfString:@"/var/root/" withString:@"/private/var/mobile/" options:8 range:{0, objc_msgSend(v28, "length")}];
+    v28 = v5;
+    v27 = [v5 SSRBasePathForAppDomain:@"com.apple.siri"];
+    v7 = [v27 stringByReplacingOccurrencesOfString:@"/var/root/" withString:@"/private/var/mobile/" options:8 range:{0, objc_msgSend(v27, "length")}];
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     v9 = [defaultManager enumeratorAtPath:v7];
 
     array = [MEMORY[0x277CBEB18] array];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v32;
+      v13 = *v31;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v32 != v13)
+          if (*v31 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [v7 stringByAppendingPathComponent:*(*(&v31 + 1) + 8 * i)];
+          v15 = [v7 stringByAppendingPathComponent:*(*(&v30 + 1) + 8 * i)];
           if (![SSRSysdiagnoseFileHandler _isDirectory:v15])
           {
             pathExtension = [v15 pathExtension];
@@ -144,16 +144,16 @@ LABEL_30:
               if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEBUG))
               {
                 *buf = 136315394;
-                v36 = "+[SSRSysdiagnoseFileHandler fetchVoiceProfileFilePathsWithError:]";
-                v37 = 2112;
-                v38 = v15;
+                v35 = "+[SSRSysdiagnoseFileHandler fetchVoiceProfileFilePathsWithError:]";
+                v36 = 2112;
+                v37 = v15;
                 _os_log_debug_impl(&dword_225E12000, v17, OS_LOG_TYPE_DEBUG, "%s added %@ into list", buf, 0x16u);
               }
             }
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v30 objects:v38 count:16];
       }
 
       while (v12);
@@ -165,13 +165,13 @@ LABEL_30:
       v19 = v18;
       v20 = [array count];
       *buf = 136315394;
-      v36 = "+[SSRSysdiagnoseFileHandler fetchVoiceProfileFilePathsWithError:]";
-      v37 = 2050;
-      v38 = v20;
+      v35 = "+[SSRSysdiagnoseFileHandler fetchVoiceProfileFilePathsWithError:]";
+      v36 = 2050;
+      v37 = v20;
       _os_log_impl(&dword_225E12000, v19, OS_LOG_TYPE_DEFAULT, "%s Send %{public}lu files under Voice Profile directory to sysdiagnose", buf, 0x16u);
     }
 
-    v6 = v29;
+    v6 = v28;
   }
 
   else if (error)
@@ -180,7 +180,7 @@ LABEL_30:
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v36 = "+[SSRSysdiagnoseFileHandler fetchVoiceProfileFilePathsWithError:]";
+      v35 = "+[SSRSysdiagnoseFileHandler fetchVoiceProfileFilePathsWithError:]";
       _os_log_impl(&dword_225E12000, v25, OS_LOG_TYPE_DEFAULT, "%s No Voice Profile available in device", buf, 0xCu);
     }
 
@@ -194,7 +194,6 @@ LABEL_30:
   }
 
 LABEL_37:
-  v26 = *MEMORY[0x277D85DE8];
 
   return array;
 }

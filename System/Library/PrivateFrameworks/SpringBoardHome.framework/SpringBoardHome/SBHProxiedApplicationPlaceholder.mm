@@ -222,7 +222,7 @@
 - (BOOL)prioritize
 {
   v8 = *MEMORY[0x1E69E9840];
-  v3 = SBLogAppPlaceholder();
+  v3 = SBLogAppPlaceholder(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     applicationBundleID = [(SBHProxiedApplicationPlaceholder *)self applicationBundleID];
@@ -237,7 +237,7 @@
 - (BOOL)cancel
 {
   v8 = *MEMORY[0x1E69E9840];
-  v3 = SBLogAppPlaceholder();
+  v3 = SBLogAppPlaceholder(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     applicationBundleID = [(SBHProxiedApplicationPlaceholder *)self applicationBundleID];
@@ -252,7 +252,7 @@
 - (BOOL)pause
 {
   v8 = *MEMORY[0x1E69E9840];
-  v3 = SBLogAppPlaceholder();
+  v3 = SBLogAppPlaceholder(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     applicationBundleID = [(SBHProxiedApplicationPlaceholder *)self applicationBundleID];
@@ -267,7 +267,7 @@
 - (BOOL)resume
 {
   v8 = *MEMORY[0x1E69E9840];
-  v3 = SBLogAppPlaceholder();
+  v3 = SBLogAppPlaceholder(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     applicationBundleID = [(SBHProxiedApplicationPlaceholder *)self applicationBundleID];
@@ -282,7 +282,7 @@
 - (void)_progressChanged
 {
   v7 = *MEMORY[0x1E69E9840];
-  v3 = SBLogAppPlaceholder();
+  v3 = SBLogAppPlaceholder(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v5 = 138412290;
@@ -339,10 +339,10 @@
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-uint64_t __65__SBHProxiedApplicationPlaceholder_placeholderProgressDidUpdate___block_invoke(uint64_t a1)
+void *__65__SBHProxiedApplicationPlaceholder_placeholderProgressDidUpdate___block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
-  if ((*(result + 8) & 1) == 0 && *(result + 16) == *(a1 + 40))
+  if ((*(result + 8) & 1) == 0 && *(result + 2) == *(a1 + 40))
   {
     return [result _progressChanged];
   }
@@ -363,10 +363,10 @@ uint64_t __65__SBHProxiedApplicationPlaceholder_placeholderProgressDidUpdate___b
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-uint64_t __70__SBHProxiedApplicationPlaceholder_placeholderDidChangeSignificantly___block_invoke(uint64_t a1)
+void *__70__SBHProxiedApplicationPlaceholder_placeholderDidChangeSignificantly___block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
-  if ((*(result + 8) & 1) == 0 && *(result + 16) == *(a1 + 40))
+  if ((*(result + 8) & 1) == 0 && *(result + 2) == *(a1 + 40))
   {
     [result _progressChanged];
     v3 = *(a1 + 32);
@@ -381,7 +381,7 @@ uint64_t __70__SBHProxiedApplicationPlaceholder_placeholderDidChangeSignificantl
 {
   v8 = *MEMORY[0x1E69E9840];
   applicationBundleID = [(SBHProxiedApplicationPlaceholder *)self applicationBundleID];
-  v4 = SBLogAppPlaceholder();
+  v4 = SBLogAppPlaceholder(applicationBundleID);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v6 = 138543362;
@@ -402,28 +402,37 @@ uint64_t __70__SBHProxiedApplicationPlaceholder_placeholderDidChangeSignificantl
 
   else
   {
-    if ([(SBHProxiedApplicationPlaceholder *)self isPaused])
+    isPaused = [(SBHProxiedApplicationPlaceholder *)self isPaused];
+    if (isPaused)
     {
-      v7 = @"PAUSED_ICON_LABEL";
-    }
-
-    else if ([(SBHProxiedApplicationPlaceholder *)self isWaiting])
-    {
-      v7 = @"WAITING_ICON_LABEL";
-    }
-
-    else if ([(SBHProxiedApplicationPlaceholder *)self isInstalling]&& [(SBHProxiedApplicationPlaceholder *)self _expectedFinalInstallPhase]!= 4)
-    {
-      v7 = @"INSTALLING_ICON_LABEL";
+      v8 = @"PAUSED_ICON_LABEL";
     }
 
     else
     {
-      v7 = @"DOWNLOADING_ICON_LABEL";
+      isPaused = [(SBHProxiedApplicationPlaceholder *)self isWaiting];
+      if (isPaused)
+      {
+        v8 = @"WAITING_ICON_LABEL";
+      }
+
+      else
+      {
+        isPaused = [(SBHProxiedApplicationPlaceholder *)self isInstalling];
+        if (isPaused && (isPaused = [(SBHProxiedApplicationPlaceholder *)self _expectedFinalInstallPhase], isPaused != 4))
+        {
+          v8 = @"INSTALLING_ICON_LABEL";
+        }
+
+        else
+        {
+          v8 = @"DOWNLOADING_ICON_LABEL";
+        }
+      }
     }
 
-    v8 = SBHBundle();
-    v5 = [v8 localizedStringForKey:v7 value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+    v9 = SBHBundle(isPaused);
+    v5 = [v9 localizedStringForKey:v8 value:&stru_1F3D472A8 table:@"SpringBoardHome"];
   }
 
   return v5;
@@ -509,15 +518,16 @@ uint64_t __70__SBHProxiedApplicationPlaceholder_placeholderDidChangeSignificantl
     return 1;
   }
 
-  if ([(SBHProxiedApplicationPlaceholder *)self prioritize])
+  prioritize = [(SBHProxiedApplicationPlaceholder *)self prioritize];
+  if (prioritize)
   {
     return 1;
   }
 
-  v7 = SBLogAppPlaceholder();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = SBLogAppPlaceholder(prioritize);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    [SBHProxiedApplicationPlaceholder icon:v7 launchFromLocation:? context:?];
+    [SBHProxiedApplicationPlaceholder icon:v8 launchFromLocation:? context:?];
   }
 
   return 0;

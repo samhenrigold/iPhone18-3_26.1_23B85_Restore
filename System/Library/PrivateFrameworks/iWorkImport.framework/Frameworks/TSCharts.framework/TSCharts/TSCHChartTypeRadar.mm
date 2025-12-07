@@ -41,14 +41,14 @@
 
 - (Class)categoryAxisClass
 {
-  sub_2764A12F8(0, &qword_280A46428);
+  sub_2764A12F8(0, &qword_280A46428, off_27A6B5B48);
 
   return swift_getObjCClassFromMetadata();
 }
 
 - (_TtC8TSChartsP33_9974A0D4784435EAA6E46641D25D8C6B18TSCHChartTypeRadar)init
 {
-  sub_2764A12F8(0, &qword_280A46420);
+  sub_2764A12F8(0, &qword_280A46420, off_27A6B5B20);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   v5.receiver = self;
   v5.super_class = type metadata accessor for TSCHChartTypeRadar();

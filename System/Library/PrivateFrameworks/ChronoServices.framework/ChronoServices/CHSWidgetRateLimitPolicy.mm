@@ -46,7 +46,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v10 = 1;
+    v6 = 1;
   }
 
   else
@@ -55,28 +55,24 @@
     if (objc_opt_isKindOfClass())
     {
       v5 = equalCopy;
-      identifier = self->_identifier;
-      v7 = v5->_identifier;
       if (BSEqualObjects())
       {
-        rateLimits = self->_rateLimits;
-        v9 = v5->_rateLimits;
-        v10 = BSEqualObjects();
+        v6 = BSEqualObjects();
       }
 
       else
       {
-        v10 = 0;
+        v6 = 0;
       }
     }
 
     else
     {
-      v10 = 0;
+      v6 = 0;
     }
   }
 
-  return v10;
+  return v6;
 }
 
 - (void)appendDescriptionToFormatter:(id)formatter
@@ -102,13 +98,13 @@
 
 - (CHSWidgetRateLimitPolicy)initWithCoder:(id)coder
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
   v6 = MEMORY[0x1E695DFD8];
-  v14[0] = objc_opt_class();
-  v14[1] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
+  v13[0] = objc_opt_class();
+  v13[1] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
   v8 = [v6 setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"rateLimits"];
 
@@ -125,7 +121,6 @@
     selfCopy = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

@@ -10,12 +10,10 @@
 
 - (NSString)coreAnalyticsEventName
 {
-  v2 = *(self + OBJC_IVAR____TtC13HomeKitDaemon51AdaptiveTemperatureAutomationsConfigurationLogEvent_coreAnalyticsEventName);
-  v3 = *(self + OBJC_IVAR____TtC13HomeKitDaemon51AdaptiveTemperatureAutomationsConfigurationLogEvent_coreAnalyticsEventName + 8);
 
-  v4 = sub_22A4DD5AC();
+  v2 = sub_22A4DD5AC();
 
-  return v4;
+  return v2;
 }
 
 - (NSDictionary)coreAnalyticsEventDictionary
@@ -42,7 +40,6 @@
 - (_TtC13HomeKitDaemon51AdaptiveTemperatureAutomationsConfigurationLogEvent)initWithHomeUUID:(id)d
 {
   v3 = sub_22A4DB7DC();
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
   sub_22A4DB79C();
   result = _swift_stdlib_reportUnimplementedInitializer();
@@ -53,7 +50,6 @@
 - (_TtC13HomeKitDaemon51AdaptiveTemperatureAutomationsConfigurationLogEvent)initWithStartTime:(double)time homeUUID:(id)d
 {
   v4 = sub_22A4DB7DC();
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
   sub_22A4DB79C();
   result = _swift_stdlib_reportUnimplementedInitializer();

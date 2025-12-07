@@ -18,6 +18,7 @@
 - (void)_removeRelatedDeliveredHDMHNotificationsForEvent:(id)event;
 - (void)_rescheduleNotifications;
 - (void)_significantTimeChangeOccurred;
+- (void)_unitTest_notifyDidEvaluateIfMaintenanceWorkIsNeeded:(BOOL)needed;
 - (void)dealloc;
 - (void)profileDidBecomeReady:(id)ready;
 - (void)settingsManagerDidUpdateNotificationSettings:(id)settings;
@@ -86,17 +87,17 @@
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     *buf = 138543618;
-    v9 = objc_opt_class();
-    v10 = 2048;
+    v8 = objc_opt_class();
+    v9 = 2048;
     selfCopy = self;
-    v5 = v9;
+    v5 = v8;
     _os_log_impl(&dword_258977000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Invalidating notification manager %p", buf, 0x16u);
   }
 
@@ -104,10 +105,9 @@
   [(HDMHSignificantTimeChangeProviding *)self->_significantTimeChangeProvider invalidate];
   [(HKMHSettingsManager *)self->_settingsManager removeObserver:self];
   [(HDMHTypicalDayProviding *)self->_typicalDayProvider removeObserver:self];
-  v7.receiver = self;
-  v7.super_class = HDMHSOMNotificationManager;
-  [(HDMHSOMNotificationManager *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = HDMHSOMNotificationManager;
+  [(HDMHSOMNotificationManager *)&v6 dealloc];
 }
 
 - (void)_queue_start
@@ -126,7 +126,7 @@ void __42__HDMHSOMNotificationManager__queue_start__block_invoke(uint64_t a1, vo
 
 - (void)_significantTimeChangeOccurred
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if ([(HKMHSettingsManager *)self->_settingsManager hasAnyStateOfMindReminderEnabled])
   {
@@ -135,17 +135,15 @@ void __42__HDMHSOMNotificationManager__queue_start__block_invoke(uint64_t a1, vo
     if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
     {
       v4 = v3;
-      *v7 = 138543362;
-      *&v7[4] = objc_opt_class();
-      v5 = *&v7[4];
-      _os_log_impl(&dword_258977000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Rescheduling notifications for significant time change", v7, 0xCu);
+      *v6 = 138543362;
+      *&v6[4] = objc_opt_class();
+      v5 = *&v6[4];
+      _os_log_impl(&dword_258977000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Rescheduling notifications for significant time change", v6, 0xCu);
     }
 
-    [(HDMHTypicalDayProviding *)self->_typicalDayProvider rebuildTypicalDayProviderForCurrentDate];
+    [(HDMHTypicalDayProviding *)self->_typicalDayProvider rebuildTypicalDayProviderForCurrentDate:*v6];
     [(HDMHSOMNotificationManager *)self _queue_rescheduleNotifications];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)scheduledNotificationsWithError:(id *)error
@@ -186,7 +184,7 @@ id __62__HDMHSOMNotificationManager_scheduledNotificationsWithError___block_invo
 
 - (void)settingsManagerDidUpdateNotificationSettings:(id)settings
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   hasAnyStateOfMindReminderEnabled = [(HKMHSettingsManager *)self->_settingsManager hasAnyStateOfMindReminderEnabled];
   _HKInitializeLogging();
@@ -197,13 +195,13 @@ id __62__HDMHSOMNotificationManager_scheduledNotificationsWithError___block_invo
     if (v6)
     {
       v7 = v5;
-      *v12 = 138543362;
-      *&v12[4] = objc_opt_class();
-      v8 = *&v12[4];
-      _os_log_impl(&dword_258977000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notification settings changed: rescheduling notifications", v12, 0xCu);
+      *v11 = 138543362;
+      *&v11[4] = objc_opt_class();
+      v8 = *&v11[4];
+      _os_log_impl(&dword_258977000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notification settings changed: rescheduling notifications", v11, 0xCu);
     }
 
-    [(HDMHSOMNotificationManager *)self _rescheduleNotifications];
+    [(HDMHSOMNotificationManager *)self _rescheduleNotifications:*v11];
   }
 
   else
@@ -211,16 +209,14 @@ id __62__HDMHSOMNotificationManager_scheduledNotificationsWithError___block_invo
     if (v6)
     {
       v9 = v5;
-      *v12 = 138543362;
-      *&v12[4] = objc_opt_class();
-      v10 = *&v12[4];
-      _os_log_impl(&dword_258977000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifications not enabled", v12, 0xCu);
+      *v11 = 138543362;
+      *&v11[4] = objc_opt_class();
+      v10 = *&v11[4];
+      _os_log_impl(&dword_258977000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifications not enabled", v11, 0xCu);
     }
 
-    [(HDMHSOMNotificationManager *)self _queue_removeAllScheduledNotifications];
+    [(HDMHSOMNotificationManager *)self _queue_removeAllScheduledNotifications:*v11];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_requestFromAlarmEvent:(id)event
@@ -230,32 +226,8 @@ id __62__HDMHSOMNotificationManager_scheduledNotificationsWithError___block_invo
   v6 = *MEMORY[0x277D28020];
   v7 = [eventIdentifier containsString:*MEMORY[0x277D28020]];
 
-  if ((v7 & 1) == 0)
+  if ((v7 & 1) == 0 && ([eventCopy eventIdentifier], v8 = objc_claimAutoreleasedReturnValue(), v6 = *MEMORY[0x277D28030], v9 = objc_msgSend(v8, "containsString:", *MEMORY[0x277D28030]), v8, (v9 & 1) == 0) && (objc_msgSend(eventCopy, "eventIdentifier"), v10 = objc_claimAutoreleasedReturnValue(), v6 = *MEMORY[0x277D28028], v11 = objc_msgSend(v10, "containsString:", *MEMORY[0x277D28028]), v10, !v11) || (v12 = MEMORY[0x277CE1FC0], objc_msgSend(eventCopy, "dueDate"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "hkmh_requestForCategoryIdentifier:date:", v6, v13), v14 = objc_claimAutoreleasedReturnValue(), v13, !v14))
   {
-    eventIdentifier2 = [eventCopy eventIdentifier];
-    v6 = *MEMORY[0x277D28030];
-    v9 = [eventIdentifier2 containsString:*MEMORY[0x277D28030]];
-
-    if ((v9 & 1) == 0)
-    {
-      eventIdentifier3 = [eventCopy eventIdentifier];
-      v6 = *MEMORY[0x277D28028];
-      v11 = [eventIdentifier3 containsString:*MEMORY[0x277D28028]];
-
-      if (!v11)
-      {
-        goto LABEL_5;
-      }
-    }
-  }
-
-  v12 = MEMORY[0x277CE1FC0];
-  dueDate = [eventCopy dueDate];
-  v14 = [v12 hkmh_requestForCategoryIdentifier:v6 date:dueDate];
-
-  if (!v14)
-  {
-LABEL_5:
     _HKInitializeLogging();
     v15 = *MEMORY[0x277CCC2F0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_ERROR))
@@ -271,7 +243,7 @@ LABEL_5:
 
 - (void)_queue_alarm:(id)_queue_alarm didReceiveDueEvents:(id)events
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   dispatch_assert_queue_V2(self->_queue);
   _HKInitializeLogging();
@@ -285,11 +257,11 @@ LABEL_5:
     v11 = v9;
     v12 = [v10 numberWithUnsignedInteger:{objc_msgSend(eventsCopy, "count")}];
     *buf = 138543874;
-    v37 = v9;
-    v38 = 2114;
-    v39 = v12;
-    v40 = 2112;
-    v41 = eventsCopy;
+    v36 = v9;
+    v37 = 2114;
+    v38 = v12;
+    v39 = 2112;
+    v40 = eventsCopy;
     _os_log_impl(&dword_258977000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received %{public}@ due events: %@", buf, 0x20u);
   }
 
@@ -312,14 +284,14 @@ LABEL_5:
         v29 = [(HDMHSOMNotificationManager *)self _requestFromAlarmEvent:firstObject];
         WeakRetained = objc_loadWeakRetained(&self->_profile);
         notificationManager = [WeakRetained notificationManager];
-        v34[0] = MEMORY[0x277D85DD0];
-        v34[1] = 3221225472;
-        v34[2] = __63__HDMHSOMNotificationManager__queue_alarm_didReceiveDueEvents___block_invoke;
-        v34[3] = &unk_2798AAD48;
-        v34[4] = self;
-        v35 = v29;
+        v33[0] = MEMORY[0x277D85DD0];
+        v33[1] = 3221225472;
+        v33[2] = __63__HDMHSOMNotificationManager__queue_alarm_didReceiveDueEvents___block_invoke;
+        v33[3] = &unk_2798AAD48;
+        v33[4] = self;
+        v34 = v29;
         v32 = v29;
-        [notificationManager postNotificationWithRequest:v32 completion:v34];
+        [notificationManager postNotificationWithRequest:v32 completion:v33];
 
         goto LABEL_14;
       }
@@ -331,9 +303,9 @@ LABEL_5:
         v21 = v20;
         v22 = objc_opt_class();
         *buf = 138543618;
-        v37 = v22;
-        v38 = 2112;
-        v39 = firstObject;
+        v36 = v22;
+        v37 = 2112;
+        v38 = firstObject;
         v23 = v22;
         v24 = "[%{public}@] Skipping sending notification for event due more than one day ago: %@";
 LABEL_12:
@@ -350,9 +322,9 @@ LABEL_12:
         v21 = v27;
         v28 = objc_opt_class();
         *buf = 138543618;
-        v37 = v28;
-        v38 = 2112;
-        v39 = firstObject;
+        v36 = v28;
+        v37 = 2112;
+        v38 = firstObject;
         v23 = v28;
         v24 = "[%{public}@] Skipping sending notification for event; SOM notifications are not enabled and supported: %@";
         goto LABEL_12;
@@ -369,9 +341,9 @@ LABEL_12:
       v21 = v25;
       v26 = objc_opt_class();
       *buf = 138543618;
-      v37 = v26;
-      v38 = 2112;
-      v39 = firstObject;
+      v36 = v26;
+      v37 = 2112;
+      v38 = firstObject;
       v23 = v26;
       v24 = "[%{public}@] Skipping sending notification for event; feature flag is not enabled: %@";
       goto LABEL_12;
@@ -379,8 +351,6 @@ LABEL_12:
   }
 
 LABEL_14:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HDMHSOMNotificationManager__queue_alarm_didReceiveDueEvents___block_invoke(uint64_t a1, char a2, void *a3)
@@ -446,52 +416,49 @@ void __60__HDMHSOMNotificationManager__queue_rescheduleNotifications__block_invo
 
 - (void)_rescheduleNotifications
 {
-  v13 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v3 = OUTLINED_FUNCTION_3();
   v4 = OUTLINED_FUNCTION_1(v3);
-  OUTLINED_FUNCTION_0(&dword_258977000, v5, v6, "[%{public}@] Error scheduling new events: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_258977000, v5, v6, "[%{public}@] Error scheduling new events: %{public}@", v7, v8, v9, v10);
 }
 
 - (id)_eventsToSchedule
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v42 = *MEMORY[0x277D85DE8];
   v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
   hk_gregorianCalendar = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
   _currentDate = [(HDMHSOMNotificationManager *)self _currentDate];
   selfCopy = self;
   _notificationDateComponentsByCategory = [(HDMHSOMNotificationManager *)self _notificationDateComponentsByCategory];
   v5 = 0;
   *&v6 = 138543618;
-  v27 = v6;
+  v26 = v6;
   do
   {
-    v29 = v5;
-    v33 = _currentDate;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
+    v28 = v5;
+    v32 = _currentDate;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v7 = _notificationDateComponentsByCategory;
-    v8 = [v7 countByEnumeratingWithState:&v34 objects:v42 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v33 objects:v41 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v35;
+      v10 = *v34;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v35 != v10)
+          if (*v34 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v34 + 1) + 8 * i);
-          v13 = [hk_gregorianCalendar nextDateAfterDate:v33 matchingComponents:v12 options:{1024, v27}];
+          v12 = *(*(&v33 + 1) + 8 * i);
+          v13 = [hk_gregorianCalendar nextDateAfterDate:v32 matchingComponents:v12 options:{1024, v26}];
           if (!v13)
           {
             _HKInitializeLogging();
@@ -500,10 +467,10 @@ void __60__HDMHSOMNotificationManager__queue_rescheduleNotifications__block_invo
             {
               v22 = v20;
               v23 = objc_opt_class();
-              *buf = v27;
-              v39 = v23;
-              v40 = 2112;
-              v41 = v12;
+              *buf = v26;
+              v38 = v23;
+              v39 = 2112;
+              v40 = v12;
               v24 = v23;
               _os_log_error_impl(&dword_258977000, v22, OS_LOG_TYPE_ERROR, "[%{public}@] Next Date nil for scheduleTime: %@", buf, 0x16u);
             }
@@ -520,12 +487,12 @@ void __60__HDMHSOMNotificationManager__queue_rescheduleNotifications__block_invo
 
           if (v19)
           {
-            [v31 addObject:v19];
-            [v30 addObject:v14];
+            [v30 addObject:v19];
+            [v29 addObject:v14];
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v33 objects:v41 count:16];
         if (v9)
         {
           continue;
@@ -539,21 +506,19 @@ LABEL_15:
 
     v21 = objc_alloc_init(MEMORY[0x277CBEAB8]);
     [v21 setDay:1];
-    _currentDate = [hk_gregorianCalendar dateByAddingComponents:v21 toDate:v33 options:0];
+    _currentDate = [hk_gregorianCalendar dateByAddingComponents:v21 toDate:v32 options:0];
 
-    v5 = v29 + 1;
+    v5 = v28 + 1;
   }
 
-  while (v29 != 6);
+  while (v28 != 6);
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v31;
+  return v30;
 }
 
 - (id)_notificationDateComponentsByCategory
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   if (([(HKMHSettingsManager *)self->_settingsManager middayNotificationsEnabled]& 1) != 0 || [(HKMHSettingsManager *)self->_settingsManager endOfDayNotificationsEnabled])
   {
@@ -562,26 +527,26 @@ LABEL_15:
   }
 
   customReminderSchedule = [(HKMHSettingsManager *)self->_settingsManager customReminderSchedule];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v6 = [customReminderSchedule countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v6 = [customReminderSchedule countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     v9 = *MEMORY[0x277D28020];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(customReminderSchedule);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         if ([v11 isEnabled])
         {
           dateComponents = [v11 dateComponents];
@@ -595,7 +560,7 @@ LABEL_15:
         }
       }
 
-      v7 = [customReminderSchedule countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v7 = [customReminderSchedule countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
     while (v7);
@@ -608,54 +573,49 @@ LABEL_15:
     v16 = v15;
     v17 = objc_opt_class();
     *buf = 138543362;
-    v28 = v17;
+    v27 = v17;
     v18 = v17;
     _os_log_impl(&dword_258977000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Calculated all notification date components.", buf, 0xCu);
   }
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __67__HDMHSOMNotificationManager__notificationDateComponentsByCategory__block_invoke;
-  v22[3] = &unk_2798AAD98;
-  v22[4] = self;
-  [v3 enumerateKeysAndObjectsUsingBlock:v22];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __67__HDMHSOMNotificationManager__notificationDateComponentsByCategory__block_invoke;
+  v21[3] = &unk_2798AAD98;
+  v21[4] = self;
+  [v3 enumerateKeysAndObjectsUsingBlock:v21];
   v19 = [v3 copy];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 void __67__HDMHSOMNotificationManager__notificationDateComponentsByCategory__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v5 = a2;
-  v6 = a3;
+  v18 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v5 = a3;
   _HKInitializeLogging();
-  v7 = *MEMORY[0x277CCC2F0];
+  v6 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = v7;
-    v10 = objc_opt_class();
-    v11 = v10;
-    v13 = 138544130;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v6;
-    v17 = 2048;
-    v18 = [v5 hour];
-    v19 = 2048;
-    v20 = [v5 minute];
-    _os_log_impl(&dword_258977000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Type: %@, Time: %ld:%ld", &v13, 0x2Au);
+    v7 = v6;
+    v8 = objc_opt_class();
+    v9 = v8;
+    v10 = 138544130;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v5;
+    v14 = 2048;
+    v15 = [v4 hour];
+    v16 = 2048;
+    v17 = [v4 minute];
+    _os_log_impl(&dword_258977000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Type: %@, Time: %ld:%ld", &v10, 0x2Au);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_timeOfDayBasedNotifications
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
   userStartOfDay = [(HDMHTypicalDayProviding *)self->_typicalDayProvider userStartOfDay];
@@ -668,15 +628,15 @@ void __67__HDMHSOMNotificationManager__notificationDateComponentsByCategory__blo
     v9 = *MEMORY[0x277CCC2F0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_FAULT))
     {
-      v19 = v9;
-      v21 = 138543874;
-      v22 = objc_opt_class();
-      v23 = 2112;
-      v24 = v7;
-      v25 = 2112;
-      v26 = v8;
-      v20 = v22;
-      _os_log_fault_impl(&dword_258977000, v19, OS_LOG_TYPE_FAULT, "[%{public}@] inferredStartOfDay is later than inferredEndOfDay. \n StartOfDay:%@ \n EndOfDay:%@", &v21, 0x20u);
+      v18 = v9;
+      v20 = 138543874;
+      v21 = objc_opt_class();
+      v22 = 2112;
+      v23 = v7;
+      v24 = 2112;
+      v25 = v8;
+      v19 = v21;
+      _os_log_fault_impl(&dword_258977000, v18, OS_LOG_TYPE_FAULT, "[%{public}@] inferredStartOfDay is later than inferredEndOfDay. \n StartOfDay:%@ \n EndOfDay:%@", &v20, 0x20u);
     }
 
 LABEL_11:
@@ -711,8 +671,6 @@ LABEL_11:
 
 LABEL_12:
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
@@ -742,7 +700,7 @@ LABEL_12:
 
 - (void)_queue_removeAllScheduledNotificationsIfNotEnabled
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if ([(HKMHSettingsManager *)self->_settingsManager hasAnyStateOfMindReminderEnabled])
   {
@@ -751,18 +709,15 @@ LABEL_12:
     if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
     {
       v4 = v3;
-      v8 = 138543362;
-      v9 = objc_opt_class();
-      v5 = v9;
-      _os_log_impl(&dword_258977000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Aborting maintenance removal of notifications because notifications are enabled", &v8, 0xCu);
+      v6 = 138543362;
+      v7 = objc_opt_class();
+      v5 = v7;
+      _os_log_impl(&dword_258977000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Aborting maintenance removal of notifications because notifications are enabled", &v6, 0xCu);
     }
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v7 = *MEMORY[0x277D85DE8];
 
     [(HDMHSOMNotificationManager *)self _queue_removeAllScheduledNotifications];
   }
@@ -770,13 +725,40 @@ LABEL_12:
 
 - (void)_queue_removeAllScheduledNotifications
 {
-  v13 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v3 = OUTLINED_FUNCTION_3();
   v4 = OUTLINED_FUNCTION_1(v3);
-  OUTLINED_FUNCTION_0(&dword_258977000, v5, v6, "[%{public}@] Error removing all scheduled notifications: %{public}@", v7, v8, v9, v10, v12);
+  OUTLINED_FUNCTION_0(&dword_258977000, v5, v6, "[%{public}@] Error removing all scheduled notifications: %{public}@", v7, v8, v9, v10);
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (void)_unitTest_notifyDidEvaluateIfMaintenanceWorkIsNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  v16 = *MEMORY[0x277D85DE8];
+  unitTest_didEvaluateIfMaintenanceWorkIsNeeded = [(HDMHSOMNotificationManager *)self unitTest_didEvaluateIfMaintenanceWorkIsNeeded];
+  v6 = unitTest_didEvaluateIfMaintenanceWorkIsNeeded;
+  if (unitTest_didEvaluateIfMaintenanceWorkIsNeeded)
+  {
+    (*(unitTest_didEvaluateIfMaintenanceWorkIsNeeded + 16))(unitTest_didEvaluateIfMaintenanceWorkIsNeeded, neededCopy);
+  }
+
+  else
+  {
+    _HKInitializeLogging();
+    v7 = *MEMORY[0x277CCC300];
+    if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = v7;
+      v10 = 138543874;
+      v11 = objc_opt_class();
+      v12 = 2048;
+      selfCopy = self;
+      v14 = 1024;
+      v15 = neededCopy;
+      v9 = v11;
+      _os_log_impl(&dword_258977000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@:%p] Did evaluate for maintenance work: %d", &v10, 0x1Cu);
+    }
+  }
 }
 
 - (void)typicalDayDidUpdate:(id)update
@@ -851,88 +833,79 @@ LABEL_12:
   }
 }
 
-void __70__HDMHSOMNotificationManager__queue_enqueueMaintenanceRemovalIfNeeded__block_invoke_2(uint64_t a1)
+void __70__HDMHSOMNotificationManager__queue_enqueueMaintenanceRemovalIfNeeded__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   _HKInitializeLogging();
-  v2 = *MEMORY[0x277CCC2F0];
+  v3 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_ERROR))
   {
-    __70__HDMHSOMNotificationManager__queue_enqueueMaintenanceRemovalIfNeeded__block_invoke_2_cold_1(a1, v2);
+    __70__HDMHSOMNotificationManager__queue_enqueueMaintenanceRemovalIfNeeded__block_invoke_2_cold_1(a1, v3);
   }
 }
 
 - (void)_queue_runMaintenanceRemoval
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
-    *v7 = 138543362;
-    *&v7[4] = objc_opt_class();
-    v5 = *&v7[4];
-    _os_log_impl(&dword_258977000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Executing maintenance work: notifications not enabled and supported", v7, 0xCu);
+    *v6 = 138543362;
+    *&v6[4] = objc_opt_class();
+    v5 = *&v6[4];
+    _os_log_impl(&dword_258977000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Executing maintenance work: notifications not enabled and supported", v6, 0xCu);
   }
 
-  [(HDMHSOMNotificationManager *)self _queue_removeAllScheduledNotificationsIfNotEnabled];
+  [(HDMHSOMNotificationManager *)self _queue_removeAllScheduledNotificationsIfNotEnabled:*v6];
   self->_queue_hasEnqueuedMaintenanceWork = 0;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestFromAlarmEvent:(void *)a3 .cold.1(void *a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = OUTLINED_FUNCTION_3();
-  v14 = [a3 eventIdentifier];
-  OUTLINED_FUNCTION_0(&dword_258977000, v7, v8, "[%{public}@] Could not create notification request from event identifier: %@", v9, v10, v11, v12, 2u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v7 = v6;
+  v8 = [a3 eventIdentifier];
+  *v15 = 138543618;
+  *&v15[4] = v6;
+  *&v15[12] = 2112;
+  *&v15[14] = v8;
+  OUTLINED_FUNCTION_0(&dword_258977000, v9, v10, "[%{public}@] Could not create notification request from event identifier: %@", v11, v12, v13, v14, *v15, *&v15[8], *&v15[16]);
 }
 
 void __63__HDMHSOMNotificationManager__queue_alarm_didReceiveDueEvents___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 32);
-  v6 = a2;
-  v7 = objc_opt_class();
-  v8 = *(a1 + 40);
-  v11 = 138543874;
+  v15 = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  v6 = objc_opt_class();
+  v7 = *(a1 + 40);
+  v9 = 138543874;
+  v10 = v6;
+  v11 = 2112;
   v12 = v7;
-  v13 = 2112;
-  v14 = v8;
-  v15 = 2114;
-  v16 = a3;
-  v9 = v7;
-  _os_log_error_impl(&dword_258977000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] Error posting user notification for request %@: %{public}@", &v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v13 = 2114;
+  v14 = a3;
+  v8 = v6;
+  _os_log_error_impl(&dword_258977000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] Error posting user notification for request %@: %{public}@", &v9, 0x20u);
 }
 
 void __60__HDMHSOMNotificationManager__queue_rescheduleNotifications__block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = OUTLINED_FUNCTION_3();
-  v6 = OUTLINED_FUNCTION_1(v5);
-  OUTLINED_FUNCTION_0(&dword_258977000, v7, v8, "[%{public}@] Error checking for due events before rescheduling: %{public}@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = OUTLINED_FUNCTION_3();
+  v5 = OUTLINED_FUNCTION_1(v4);
+  OUTLINED_FUNCTION_0(&dword_258977000, v6, v7, "[%{public}@] Error checking for due events before rescheduling: %{public}@", v8, v9, v10, v11);
 }
 
 void __70__HDMHSOMNotificationManager__queue_enqueueMaintenanceRemovalIfNeeded__block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v6 = 138543362;
-  v7 = objc_opt_class();
-  v4 = v7;
-  _os_log_error_impl(&dword_258977000, v3, OS_LOG_TYPE_ERROR, "[%{public}@] Maintenance work canceled", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v4 = 138543362;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_error_impl(&dword_258977000, v2, OS_LOG_TYPE_ERROR, "[%{public}@] Maintenance work canceled", &v4, 0xCu);
 }
 
 @end

@@ -31,13 +31,12 @@
 
 - (id)getUserTrustedUUIDsAndReturnError:(id *)error
 {
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC8misagent25LegacyUserTrustOperations_utdb);
   selfCopy = self;
   sub_1000171E0();
 
-  v5.super.isa = sub_10001A788().super.isa;
+  v4.super.isa = sub_10001A788().super.isa;
 
-  return v5.super.isa;
+  return v4.super.isa;
 }
 
 - (_TtC8misagent25LegacyUserTrustOperations)init

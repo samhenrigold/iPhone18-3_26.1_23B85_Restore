@@ -33,6 +33,8 @@
 - (NSTimeInterval)timeoutIntervalForRequest;
 - (NSTimeInterval)timeoutIntervalForResource;
 - (OS_dispatch_queue)callbackQueue;
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand;
+- (id)CKShortDescriptionRedact:(BOOL)redact;
 - (id)_createPlaceholderOperation;
 - (id)activityCreate;
 - (id)applicationBundleIdentifierForContainerAccess;
@@ -63,6 +65,7 @@
 - (void)handleDaemonRequestWillReceiveWithClassName:(id)name testRequestProperties:(id)properties replyBlock:(id)block;
 - (void)handleDaemonRequestWillSendWithClassName:(id)name testRequestProperties:(id)properties replyBlock:(id)block;
 - (void)handleDidStart:(id)start;
+- (void)handleDiscretionaryOperationShouldStart:(BOOL)start nonDiscretionary:(BOOL)discretionary error:(id)error;
 - (void)handleDiscretionaryOperationShouldSuspend;
 - (void)handleFinishWithAssetDownloadStagingInfo:(id)info reply:(id)reply;
 - (void)handleLongLivedOperationDidPersist;
@@ -76,13 +79,17 @@
 - (void)openFileWithOpenInfo:(id)info reply:(id)reply;
 - (void)performCKOperation;
 - (void)setAdditionalRequestHTTPHeaders:(id)headers;
+- (void)setAllowsCellularAccess:(BOOL)allowsCellularAccess;
 - (void)setCallbackQueue:(id)queue;
 - (void)setCompletionBlock:(id)block;
 - (void)setConfiguration:(CKOperationConfiguration *)configuration;
 - (void)setContainer:(CKContainer *)container;
 - (void)setGroup:(CKOperationGroup *)group;
+- (void)setIsFinished:(BOOL)finished;
+- (void)setLongLived:(BOOL)longLived;
 - (void)setLongLivedOperationWasPersistedBlock:(void *)longLivedOperationWasPersistedBlock;
 - (void)setOperationID:(id)d;
+- (void)setPreferAnonymousRequests:(BOOL)requests;
 - (void)setQoSFromSwiftTaskPriority;
 - (void)setQualityOfService:(int64_t)service;
 - (void)setRequestCompletedBlock:(id)block;
@@ -270,7 +277,7 @@
   aBlock[4] = self;
   v9 = _Block_copy(aBlock);
   v12 = v9;
-  if (__sTestOverridesAvailable[0] == 1)
+  if (__sTestOverridesAvailable == 1)
   {
     v13 = objc_msgSend_invokeOperationWillStartCallback(self, v10, v11);
     objc_msgSend_setOperationWillStartCallback_(self, v14, 0);
@@ -354,7 +361,7 @@
 
 - (CKOperationConfiguration)resolvedConfiguration
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   resolvedConfiguration = selfCopy->_resolvedConfiguration;
@@ -400,8 +407,8 @@
       v31 = ck_log_facility_ck;
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v63) = 0;
-        _os_log_impl(&dword_1883EA000, v31, OS_LOG_TYPE_INFO, "Operation is running within an Apple executable. Setting CKOperationDiscretionaryNetworkBehaviorNonDiscretionary and automaticallyRetryNetworkFailures to false", &v63, 2u);
+        LOWORD(v62) = 0;
+        _os_log_impl(&dword_1883EA000, v31, OS_LOG_TYPE_INFO, "Operation is running within an Apple executable. Setting CKOperationDiscretionaryNetworkBehaviorNonDiscretionary and automaticallyRetryNetworkFailures to false", &v62, 2u);
       }
 
       if (objc_msgSend_hasDiscretionaryNetworkBehavior(v14, v32, v33))
@@ -415,9 +422,9 @@
         if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
         {
           v38 = objc_msgSend_discretionaryNetworkBehavior(v14, v36, v37);
-          v63 = 134217984;
-          v64 = v38;
-          _os_log_impl(&dword_1883EA000, v35, OS_LOG_TYPE_INFO, "Operation has existing discretionaryNetworkBehavior value of: %lu", &v63, 0xCu);
+          v62 = 134217984;
+          v63 = v38;
+          _os_log_impl(&dword_1883EA000, v35, OS_LOG_TYPE_INFO, "Operation has existing discretionaryNetworkBehavior value of: %lu", &v62, 0xCu);
         }
       }
 
@@ -437,9 +444,9 @@
         if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
         {
           v53 = objc_msgSend_automaticallyRetryNetworkFailures(v14, v51, v52);
-          v63 = 67109120;
-          LODWORD(v64) = v53;
-          _os_log_impl(&dword_1883EA000, v50, OS_LOG_TYPE_INFO, "Operation has existing automaticallyRetryNetworkFailures value of: %d", &v63, 8u);
+          v62 = 67109120;
+          LODWORD(v63) = v53;
+          _os_log_impl(&dword_1883EA000, v50, OS_LOG_TYPE_INFO, "Operation has existing automaticallyRetryNetworkFailures value of: %d", &v62, 8u);
         }
 
         goto LABEL_41;
@@ -456,8 +463,8 @@
     v41 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v63) = 0;
-      _os_log_impl(&dword_1883EA000, v41, OS_LOG_TYPE_INFO, "Checking operation QoS for discretionaryNetworkBehavior configuration.", &v63, 2u);
+      LOWORD(v62) = 0;
+      _os_log_impl(&dword_1883EA000, v41, OS_LOG_TYPE_INFO, "Checking operation QoS for discretionaryNetworkBehavior configuration.", &v62, 2u);
     }
 
     if ((objc_msgSend_hasDiscretionaryNetworkBehavior(v14, v42, v43) & 1) == 0)
@@ -492,13 +499,13 @@ LABEL_40:
       goto LABEL_41;
     }
 
-    v60 = objc_msgSend_qualityOfService(v14, v54, v55);
-    if (v60 != 33 && v60 != 25)
+    v59 = objc_msgSend_qualityOfService(v14, v54, v55);
+    if (v59 != 33 && v59 != 25)
     {
-      if (v60 == -1)
+      if (v59 == -1)
       {
-        v61 = CKCurrentProcessLinkCheck92e3e8f8ec1a906754afb22d87eb36301b4f6760() ^ 1;
-        objc_msgSend_setAutomaticallyRetryNetworkFailures_(v14, v62, v61);
+        v60 = CKCurrentProcessLinkCheck92e3e8f8ec1a906754afb22d87eb36301b4f6760() ^ 1;
+        objc_msgSend_setAutomaticallyRetryNetworkFailures_(v14, v61, v60);
       }
 
       else
@@ -520,8 +527,6 @@ LABEL_41:
 
   v57 = resolvedConfiguration;
   objc_sync_exit(selfCopy);
-
-  v58 = *MEMORY[0x1E69E9840];
 
   return v57;
 }
@@ -547,22 +552,22 @@ LABEL_41:
 
 - (void)main
 {
-  v145 = *MEMORY[0x1E69E9840];
+  v144 = *MEMORY[0x1E69E9840];
   if (objc_msgSend_isOutstandingOperation(self, a2, v2) && (objc_msgSend_hasCKOperationCallbacksSet(self, v6, v7) & 1) == 0 && (objc_msgSend_isCancelled(self, v6, v8) & 1) == 0)
   {
-    v128 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v6, @"CKErrorDomain", 12, @"You must set some callbacks on this long-lived operation before running it.");
-    v129 = [CKException alloc];
-    v132 = objc_msgSend_code(v128, v130, v131);
-    v135 = objc_msgSend_localizedDescription(v128, v133, v134);
-    v137 = objc_msgSend_initWithCode_format_(v129, v136, v132, @"%@", v135);
-    v138 = v137;
+    v127 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v6, @"CKErrorDomain", 12, @"You must set some callbacks on this long-lived operation before running it.");
+    v128 = [CKException alloc];
+    v131 = objc_msgSend_code(v127, v129, v130);
+    v134 = objc_msgSend_localizedDescription(v127, v132, v133);
+    v136 = objc_msgSend_initWithCode_format_(v128, v135, v131, @"%@", v134);
+    v137 = v136;
 
-    objc_exception_throw(v137);
+    objc_exception_throw(v136);
   }
 
-  v141 = 0;
-  ShouldRun = objc_msgSend_CKOperationShouldRun_(self, v6, &v141);
-  v12 = v141;
+  v140 = 0;
+  ShouldRun = objc_msgSend_CKOperationShouldRun_(self, v6, &v140);
+  v12 = v140;
   if ((ShouldRun & 1) == 0)
   {
     objc_msgSend_finishWithError_(self, v10, v12);
@@ -573,9 +578,9 @@ LABEL_41:
   objc_msgSend_activate(v13, v14, v15);
 
   IsDaemon = CKCurrentProcessIsDaemon();
-  if (IsDaemon & 1 | ((__sTestOverridesAvailable[0] & 1) == 0))
+  if (IsDaemon & 1 | ((__sTestOverridesAvailable & 1) == 0))
   {
-    v19 = __sTestOverridesAvailable[0] | IsDaemon;
+    v19 = __sTestOverridesAvailable | IsDaemon;
   }
 
   else
@@ -605,8 +610,8 @@ LABEL_13:
       *&buf[4] = v33;
       *&buf[12] = 2048;
       *&buf[14] = self;
-      v143 = 2114;
-      v144 = v36;
+      v142 = 2114;
+      v143 = v36;
       _os_log_impl(&dword_1883EA000, v31, OS_LOG_TYPE_INFO, "Operation <%{public}@: %p; %{public}@> enqueuing on container throttle queue", buf, 0x20u);
     }
 
@@ -649,24 +654,24 @@ LABEL_13:
 
     if (v56)
     {
-      v123 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v57, v58);
-      v126 = objc_msgSend_operationID(self, v124, v125);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v123, v127, a2, self, @"CKOperation.m", 698, @"No container found to run operation %@", v126);
+      v122 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v57, v58);
+      v125 = objc_msgSend_operationID(self, v123, v124);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v122, v126, a2, self, @"CKOperation.m", 698, @"No container found to run operation %@", v125);
     }
 
     goto LABEL_26;
   }
 
-  v60 = objc_msgSend_resolvedConfiguration(self, v23, v24);
-  v65 = objc_msgSend_discretionaryNetworkBehavior(v60, v61, v62);
-  if (v65 || (objc_msgSend_resolvedConfiguration(self, v63, v64), v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend_automaticallyRetryNetworkFailures(v3, v66, v67)))
+  v59 = objc_msgSend_resolvedConfiguration(self, v23, v24);
+  v64 = objc_msgSend_discretionaryNetworkBehavior(v59, v60, v61);
+  if (v64 || (objc_msgSend_resolvedConfiguration(self, v62, v63), v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend_automaticallyRetryNetworkFailures(v3, v65, v66)))
   {
-    v68 = v65 == 0;
-    v69 = objc_msgSend_resolvedConfiguration(self, v63, v64);
-    isLongLived = objc_msgSend_isLongLived(v69, v70, v71);
+    v67 = v64 == 0;
+    v68 = objc_msgSend_resolvedConfiguration(self, v62, v63);
+    isLongLived = objc_msgSend_isLongLived(v68, v69, v70);
 
-    v73 = isLongLived ^ 1;
-    if (!v68)
+    v72 = isLongLived ^ 1;
+    if (!v67)
     {
       goto LABEL_33;
     }
@@ -674,12 +679,12 @@ LABEL_13:
 
   else
   {
-    v73 = 0;
+    v72 = 0;
   }
 
 LABEL_33:
-  v27 = objc_msgSend_usesBackgroundSession(self, v74, v75);
-  if (!v73)
+  v27 = objc_msgSend_usesBackgroundSession(self, v73, v74);
+  if (!v72)
   {
     goto LABEL_13;
   }
@@ -690,70 +695,68 @@ LABEL_33:
     self->_systemScheduler = 2;
   }
 
-  v76 = _os_activity_create(&dword_1883EA000, "internal/queue-discretionary", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  v75 = _os_activity_create(&dword_1883EA000, "internal/queue-discretionary", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   *buf = 0;
   *&buf[8] = 0;
-  os_activity_scope_enter(v76, buf);
+  os_activity_scope_enter(v75, buf);
   if (ck_log_initialization_predicate != -1)
   {
     dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
   }
 
-  v77 = ck_log_facility_ck;
+  v76 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    *v140 = 0;
-    _os_log_debug_impl(&dword_1883EA000, v77, OS_LOG_TYPE_DEBUG, "Queuing discretionary operation.", v140, 2u);
+    *v139 = 0;
+    _os_log_debug_impl(&dword_1883EA000, v76, OS_LOG_TYPE_DEBUG, "Queuing discretionary operation.", v139, 2u);
   }
 
-  v139[0] = MEMORY[0x1E69E9820];
-  v139[1] = 3221225472;
-  v139[2] = sub_18860F9B0;
-  v139[3] = &unk_1E70BC048;
-  v139[4] = self;
-  v78 = sub_18860FA7C(self, v139);
-  v83 = objc_msgSend_operationID(self, v79, v80);
+  v138[0] = MEMORY[0x1E69E9820];
+  v138[1] = 3221225472;
+  v138[2] = sub_18860F9B0;
+  v138[3] = &unk_1E70BC048;
+  v138[4] = self;
+  v77 = sub_18860FA7C(self, v138);
+  v82 = objc_msgSend_operationID(self, v78, v79);
   if (self)
   {
-    v84 = objc_msgSend_resolvedConfiguration(self, v81, v82);
-    v85 = objc_alloc_init(CKDiscretionaryOptions);
-    v88 = objc_msgSend_applicationBundleIdentifierOverrideForNetworkAttribution(v84, v86, v87);
-    objc_msgSend_setApplicationBundleIdentifierOverride_(v85, v89, v88);
+    v83 = objc_msgSend_resolvedConfiguration(self, v80, v81);
+    v84 = objc_alloc_init(CKDiscretionaryOptions);
+    v87 = objc_msgSend_applicationBundleIdentifierOverrideForNetworkAttribution(v83, v85, v86);
+    objc_msgSend_setApplicationBundleIdentifierOverride_(v84, v88, v87);
 
-    v92 = objc_msgSend__sourceApplicationSecondaryIdentifier(v84, v90, v91);
-    objc_msgSend_setSecondarySourceApplicationBundleId_(v85, v93, v92);
+    v91 = objc_msgSend__sourceApplicationSecondaryIdentifier(v83, v89, v90);
+    objc_msgSend_setSecondarySourceApplicationBundleId_(v84, v92, v91);
 
-    objc_msgSend_timeoutIntervalForResource(v84, v94, v95);
-    if (v98 < 1.0)
+    objc_msgSend_timeoutIntervalForResource(v83, v93, v94);
+    if (v97 < 1.0)
     {
-      v98 = 604800.0;
+      v97 = 604800.0;
     }
 
-    objc_msgSend_setTimeoutIntervalForResource_(v85, v96, v97, v98);
-    v101 = objc_msgSend_allowsCellularAccess(v84, v99, v100);
-    objc_msgSend_setAllowsCellularAccess_(v85, v102, v101);
-    v105 = objc_msgSend_allowsExpensiveNetworkAccess(v84, v103, v104);
-    objc_msgSend_setAllowsExpensiveNetworkAccess_(v85, v106, v105);
-    v109 = objc_msgSend_discretionaryNetworkBehavior(v84, v107, v108);
-    objc_msgSend_setDiscretionaryNetworkBehavior_(v85, v110, v109);
-    v113 = objc_msgSend_deviceContext(self, v111, v112);
-    v116 = objc_msgSend_useLiveServer(v113, v114, v115);
-    objc_msgSend_setRequiresNetworkAccess_(v85, v117, v116);
+    objc_msgSend_setTimeoutIntervalForResource_(v84, v95, v96, v97);
+    v100 = objc_msgSend_allowsCellularAccess(v83, v98, v99);
+    objc_msgSend_setAllowsCellularAccess_(v84, v101, v100);
+    v104 = objc_msgSend_allowsExpensiveNetworkAccess(v83, v102, v103);
+    objc_msgSend_setAllowsExpensiveNetworkAccess_(v84, v105, v104);
+    v108 = objc_msgSend_discretionaryNetworkBehavior(v83, v106, v107);
+    objc_msgSend_setDiscretionaryNetworkBehavior_(v84, v109, v108);
+    v112 = objc_msgSend_deviceContext(self, v110, v111);
+    v115 = objc_msgSend_useLiveServer(v112, v113, v114);
+    objc_msgSend_setRequiresNetworkAccess_(v84, v116, v115);
   }
 
   else
   {
-    v85 = 0;
+    v84 = 0;
   }
 
-  v118 = objc_msgSend_clientOperationCallbackProxy(self, v81, v82);
-  v121 = objc_msgSend_endpoint(v118, v119, v120);
-  objc_msgSend_queueOperationID_options_clientOperationCallbackProxyEndpoint_withBlock_(v78, v122, v83, v85, v121, &unk_1EFA2F568);
+  v117 = objc_msgSend_clientOperationCallbackProxy(self, v80, v81);
+  v120 = objc_msgSend_endpoint(v117, v118, v119);
+  objc_msgSend_queueOperationID_options_clientOperationCallbackProxyEndpoint_withBlock_(v77, v121, v82, v84, v120, &unk_1EFA2F568);
 
   os_activity_scope_leave(buf);
 LABEL_26:
-
-  v59 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)usesBackgroundSession
@@ -919,7 +922,7 @@ LABEL_5:
 
 - (id)requestCompletedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -974,7 +977,7 @@ LABEL_5:
 
 - (void)performCKOperation
 {
-  if (__sTestOverridesAvailable[0] == 1)
+  if (__sTestOverridesAvailable == 1)
   {
     objc_msgSend_overlayTestResults(self, a2, v2);
     v6 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v4, v5);
@@ -997,7 +1000,7 @@ LABEL_5:
 
 - (void)_performErrorRateMitigation
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&stru_1ED4B6024);
   objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x1E695DF00], v3, v4);
   *&v6 = v5;
@@ -1055,15 +1058,15 @@ LABEL_5:
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134219008;
-        v56 = *&v10;
-        v57 = 2048;
+        v55 = *&v10;
+        v56 = 2048;
         selfCopy = qword_1ED4B6050;
-        v59 = 2048;
-        v60 = v7;
-        v61 = 2048;
-        v62 = v8;
-        v63 = 2048;
-        v64 = qword_1ED4B6048;
+        v58 = 2048;
+        v59 = v7;
+        v60 = 2048;
+        v61 = v8;
+        v62 = 2048;
+        v63 = qword_1ED4B6048;
         v13 = "mitigation: rawDelay = %f, delay = %f, errorGap = %f, errorTime = %f, errorInterval = %f";
         v14 = v12;
         v15 = 52;
@@ -1089,8 +1092,8 @@ LABEL_32:
         if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134218240;
-          v56 = qword_1ED4B6040;
-          v57 = 2048;
+          v55 = qword_1ED4B6040;
+          v56 = 2048;
           selfCopy = 10;
           v13 = "Approaching error rate limiting trigger: count = %llu, trigger = %llu";
           v14 = v20;
@@ -1157,8 +1160,8 @@ LABEL_32:
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_INFO))
     {
       *buf = 138543618;
-      v56 = v22;
-      v57 = 2114;
+      v55 = v22;
+      v56 = 2114;
       selfCopy = self;
       _os_log_impl(&dword_1883EA000, v23, OS_LOG_TYPE_INFO, "CloudKit is applying an error rate mitigation delay of %{public}@ to operation %{public}@.", buf, 0x16u);
     }
@@ -1188,13 +1191,11 @@ LABEL_32:
     v52 = objc_msgSend_initWithDomain_code_userInfo_(v50, v51, v31, v34, v40);
     objc_msgSend_setError_(self, v53, v52);
   }
-
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)transitionToFinished
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = CKOperationExecutionStateTransitionToFinished(self, &self->_executionState);
   if (v3)
   {
@@ -1234,18 +1235,18 @@ LABEL_32:
       v22 = objc_msgSend_error(self, v16, v17);
       if (v22)
       {
-        v32 = objc_msgSend_error(self, v20, v21);
-        v13 = objc_msgSend_CKClientSuitableError(v32, v23, v24);
+        v31 = objc_msgSend_error(self, v20, v21);
+        v13 = objc_msgSend_CKClientSuitableError(v31, v23, v24);
       }
 
       *buf = 138544130;
-      v34 = v7;
-      v35 = 2112;
-      v36 = v14;
-      v37 = 2114;
-      v38 = v19;
-      v39 = 2112;
-      v40 = v13;
+      v33 = v7;
+      v34 = 2112;
+      v35 = v14;
+      v36 = 2114;
+      v37 = v19;
+      v38 = 2112;
+      v39 = v13;
       _os_log_impl(&dword_1883EA000, v4, OS_LOG_TYPE_INFO, "Operation %{public}@ finished%@%{public}@%@", buf, 0x2Au);
       if (v22)
       {
@@ -1262,13 +1263,12 @@ LABEL_32:
     objc_msgSend_setQueueHasStarted_(self, v29, 1);
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (void)_finishDiscretionaryOperation
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (self && self->_scheduledDiscretionaryOperation)
   {
     v3 = _os_activity_create(&dword_1883EA000, "internal/finish-discretionary", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -1283,18 +1283,18 @@ LABEL_32:
     v4 = ck_log_facility_ck;
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v16 = objc_msgSend_operationID(self, v5, v6);
+      v15 = objc_msgSend_operationID(self, v5, v6);
       *buf = 138412290;
-      v21 = v16;
+      v20 = v15;
       _os_log_debug_impl(&dword_1883EA000, v4, OS_LOG_TYPE_DEBUG, "Finishing discretionary operation %@", buf, 0xCu);
     }
 
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = sub_188611544;
-    v18[3] = &unk_1E70BC048;
-    v18[4] = self;
-    v7 = sub_18860FA7C(self, v18);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = sub_188611544;
+    v17[3] = &unk_1E70BC048;
+    v17[4] = self;
+    v7 = sub_18860FA7C(self, v17);
     v10 = objc_msgSend_operationID(self, v8, v9);
     objc_msgSend_finishOperationID_(v7, v11, v10);
 
@@ -1306,21 +1306,19 @@ LABEL_32:
     v12 = ck_log_facility_ck;
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v17 = objc_msgSend_operationID(self, v13, v14);
+      v16 = objc_msgSend_operationID(self, v13, v14);
       *buf = 138412290;
-      v21 = v17;
+      v20 = v16;
       _os_log_debug_impl(&dword_1883EA000, v12, OS_LOG_TYPE_DEBUG, "Finished discretionary operation %@", buf, 0xCu);
     }
 
     os_activity_scope_leave(&state);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   callbackQueue = self->_callbackQueue;
   if (callbackQueue)
   {
@@ -1341,14 +1339,13 @@ LABEL_32:
 
   if (objc_msgSend_isExecuting(self, v11, v12))
   {
-    v22 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v19, v20);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v22, v23, a2, self, @"CKOperation.m", 245, @"Operation was deallocated before it finished");
+    v21 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v19, v20);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v21, v22, a2, self, @"CKOperation.m", 245, @"Operation was deallocated before it finished");
   }
 
-  v24.receiver = self;
-  v24.super_class = CKOperation;
-  [(CKOperation *)&v24 dealloc];
-  v21 = *MEMORY[0x1E69E9840];
+  v23.receiver = self;
+  v23.super_class = CKOperation;
+  [(CKOperation *)&v23 dealloc];
 }
 
 + (id)assetInfoForOperation:(id)operation recordID:(id)d recordKey:(id)key arrayIndex:(int64_t)index
@@ -1482,7 +1479,7 @@ LABEL_32:
 - (void)setLongLivedOperationWasPersistedBlock:(void *)longLivedOperationWasPersistedBlock
 {
   v6 = longLivedOperationWasPersistedBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -1513,7 +1510,7 @@ LABEL_9:
 
 - (void)longLivedOperationWasPersistedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -1550,7 +1547,7 @@ LABEL_9:
 - (void)setRequestCompletedBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -1588,7 +1585,7 @@ LABEL_9:
 
 - (void)_handleBackgroundTaskExpiration:(id)expiration
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   expirationCopy = expiration;
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -1605,7 +1602,7 @@ LABEL_9:
   {
     v9 = objc_msgSend_operationID(self, v7, v8);
     *buf = 138543362;
-    v47 = v9;
+    v46 = v9;
     _os_log_impl(&dword_1883EA000, v6, OS_LOG_TYPE_INFO, "Background task expired or was completed for operation %{public}@", buf, 0xCu);
   }
 
@@ -1664,9 +1661,9 @@ LABEL_9:
     {
       v42 = objc_msgSend_operationID(self, v40, v41);
       *buf = 138543618;
-      v47 = v42;
-      v48 = 2112;
-      v49 = expirationCopy;
+      v46 = v42;
+      v47 = 2112;
+      v48 = expirationCopy;
       _os_log_impl(&dword_1883EA000, v39, OS_LOG_TYPE_DEFAULT, "Cancelling operation %{public}@ because background task expired or was completed (%@)", buf, 0x16u);
     }
 
@@ -1674,8 +1671,6 @@ LABEL_9:
   }
 
   os_activity_scope_leave(&state);
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 + (SEL)daemonInvocationSelector
@@ -1822,7 +1817,7 @@ LABEL_12:
 
 - (void)fillOutOperationInfo:(id)info
 {
-  v122 = *MEMORY[0x1E69E9840];
+  v121 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v7 = objc_msgSend_resolvedConfiguration(self, v5, v6);
   objc_msgSend_setResolvedConfiguration_(infoCopy, v8, v7);
@@ -1860,9 +1855,9 @@ LABEL_12:
   else
   {
     objc_msgSend_setDuetPreClearedMode_(infoCopy, v28, 0);
-    objc_msgSend_setDiscretionaryWhenBackgroundedState_(infoCopy, v106, 0);
-    objc_msgSend_setSystemScheduler_(infoCopy, v107, 0);
-    objc_msgSend_setBackgroundTaskIdentifier_(infoCopy, v108, 0);
+    objc_msgSend_setDiscretionaryWhenBackgroundedState_(infoCopy, v105, 0);
+    objc_msgSend_setSystemScheduler_(infoCopy, v106, 0);
+    objc_msgSend_setBackgroundTaskIdentifier_(infoCopy, v107, 0);
   }
 
   v32 = objc_opt_class();
@@ -1892,7 +1887,7 @@ LABEL_12:
     infoCopy[11] = 1;
   }
 
-  v110 = v7;
+  v109 = v7;
   v61 = objc_msgSend_assetDownloadStagingManager(v7, v59, v60);
 
   if (v61)
@@ -1901,27 +1896,27 @@ LABEL_12:
   }
 
   objc_msgSend_classForObject_(CKObjCClass, v62, infoCopy);
+  v110 = 0u;
   v111 = 0u;
   v112 = 0u;
-  v113 = 0u;
-  v109 = v114 = 0u;
-  v65 = objc_msgSend_properties(v109, v63, v64);
-  v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v65, v66, &v111, v121, 16);
+  v108 = v113 = 0u;
+  v65 = objc_msgSend_properties(v108, v63, v64);
+  v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v65, v66, &v110, v120, 16);
   if (v67)
   {
     v70 = v67;
-    v71 = *v112;
+    v71 = *v111;
     do
     {
       v72 = 0;
       do
       {
-        if (*v112 != v71)
+        if (*v111 != v71)
         {
           objc_enumerationMutation(v65);
         }
 
-        v73 = *(*(&v111 + 1) + 8 * v72);
+        v73 = *(*(&v110 + 1) + 8 * v72);
         v74 = objc_msgSend_type(v73, v68, v69);
         if (v74)
         {
@@ -1949,7 +1944,7 @@ LABEL_24:
       }
 
       while (v70 != v72);
-      v87 = objc_msgSend_countByEnumeratingWithState_objects_count_(v65, v68, &v111, v121, 16);
+      v87 = objc_msgSend_countByEnumeratingWithState_objects_count_(v65, v68, &v110, v120, 16);
       v70 = v87;
     }
 
@@ -1957,7 +1952,7 @@ LABEL_24:
   }
 
   v90 = objc_msgSend_qualityOfService(infoCopy, v88, v89);
-  v93 = v110;
+  v93 = v109;
   if ((v90 == 33 || v90 == 25) && objc_msgSend_discretionaryNetworkBehavior(infoCopy, v91, v92))
   {
     if (ck_log_initialization_predicate != -1)
@@ -1968,29 +1963,27 @@ LABEL_24:
     v94 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_FAULT))
     {
-      v96 = v94;
-      v99 = objc_msgSend_qualityOfService(infoCopy, v97, v98);
-      v101 = CKStringForQOS(v99, v100);
-      v104 = objc_msgSend_discretionaryNetworkBehavior(infoCopy, v102, v103);
-      v105 = CKStringForDiscretionaryNetworkBehavior(v104);
+      v95 = v94;
+      v98 = objc_msgSend_qualityOfService(infoCopy, v96, v97);
+      v100 = CKStringForQOS(v98, v99);
+      v103 = objc_msgSend_discretionaryNetworkBehavior(infoCopy, v101, v102);
+      v104 = CKStringForDiscretionaryNetworkBehavior(v103);
       *buf = 138412802;
       selfCopy = self;
-      v117 = 2114;
-      v118 = v101;
-      v119 = 2114;
-      v120 = v105;
-      _os_log_fault_impl(&dword_1883EA000, v96, OS_LOG_TYPE_FAULT, "BUG IN CLIENT OF CLOUDKIT: Operation %@ requesting to use CPU QualityOfService %{public}@ with %{public}@ networking behavior.\n Will override in cloudd with the following behavior:\n   operation.qualityOfService = Utility.\nAll other operation configurations will remain the same.", buf, 0x20u);
+      v116 = 2114;
+      v117 = v100;
+      v118 = 2114;
+      v119 = v104;
+      _os_log_fault_impl(&dword_1883EA000, v95, OS_LOG_TYPE_FAULT, "BUG IN CLIENT OF CLOUDKIT: Operation %@ requesting to use CPU QualityOfService %{public}@ with %{public}@ networking behavior.\n Will override in cloudd with the following behavior:\n   operation.qualityOfService = Utility.\nAll other operation configurations will remain the same.", buf, 0x20u);
 
-      v93 = v110;
+      v93 = v109;
     }
   }
 
-  if (__sTestOverridesAvailable[0] == 1)
+  if (__sTestOverridesAvailable == 1)
   {
     objc_msgSend_addTestInfoToOperationInfo_(self, v91, infoCopy);
   }
-
-  v95 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fillFromOperationInfo:(id)info
@@ -2053,7 +2046,7 @@ LABEL_24:
 
   if (NSClassFromString(&cfstr_Ckoperation.isa) != self)
   {
-    v24 = sub_188421EC8();
+    v24 = sub_188421EC8(CKContainer);
     v13 = objc_msgSend_daemonInvocationSelector(self, v11, v12);
     v14 = CKExtendedMethodSignatureForProtocolSelector(&unk_1EFAC8AA0, v13);
     v17 = objc_msgSend_CK_indexOfErrorInReplyBlock(v14, v15, v16);
@@ -2084,7 +2077,7 @@ LABEL_24:
 
 - (void)cancelWithError:(id)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (ck_log_initialization_predicate != -1)
   {
@@ -2097,16 +2090,16 @@ LABEL_24:
     v10 = v7;
     v13 = objc_msgSend_operationID(self, v11, v12);
     *buf = 138543618;
-    v25 = v13;
-    v26 = 2112;
-    v27 = errorCopy;
+    v24 = v13;
+    v25 = 2112;
+    v26 = errorCopy;
     _os_log_impl(&dword_1883EA000, v10, OS_LOG_TYPE_INFO, "Warn: Cancelling operation %{public}@ with error %@", buf, 0x16u);
   }
 
   if (!errorCopy)
   {
-    v20 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v8, v9);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v20, v21, a2, self, @"CKOperation.m", 929, @"Cancel error must not be nil.");
+    v19 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v8, v9);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v19, v20, a2, self, @"CKOperation.m", 929, @"Cancel error must not be nil.");
   }
 
   v14 = errorCopy;
@@ -2118,9 +2111,9 @@ LABEL_24:
     objc_sync_exit(selfCopy);
   }
 
-  v23.receiver = self;
-  v23.super_class = CKOperation;
-  [(CKOperation *)&v23 cancel];
+  v22.receiver = self;
+  v22.super_class = CKOperation;
+  [(CKOperation *)&v22 cancel];
   v18 = objc_msgSend_callbackQueue(self, v16, v17);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -2128,8 +2121,6 @@ LABEL_24:
   block[3] = &unk_1E70BC388;
   block[4] = self;
   dispatch_async(v18, block);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cancelDaemonOperation
@@ -2151,7 +2142,7 @@ LABEL_24:
 
 - (void)cancel
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   v3 = sub_188416C9C(self);
@@ -2167,7 +2158,7 @@ LABEL_24:
   {
     v7 = objc_msgSend_operationID(self, v5, v6);
     *buf = 138412290;
-    v17 = v7;
+    v16 = v7;
     _os_log_impl(&dword_1883EA000, v4, OS_LOG_TYPE_INFO, "Adopter cancelled operation %@", buf, 0xCu);
   }
 
@@ -2176,40 +2167,179 @@ LABEL_24:
   objc_msgSend_cancelWithError_(self, v13, v12);
 
   os_activity_scope_leave(&state);
-  v14 = *MEMORY[0x1E69E9840];
+}
+
+- (void)setIsFinished:(BOOL)finished
+{
+  v18 = *MEMORY[0x1E69E9840];
+  if (!finished)
+  {
+    v12 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, finished);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v12, v13, a2, self, @"CKOperation.m", 1053, @"Operations cannot be set to not finished");
+  }
+
+  if (ck_log_initialization_predicate != -1)
+  {
+    dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
+  }
+
+  v5 = ck_log_facility_ck;
+  if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_FAULT))
+  {
+    v8 = v5;
+    v9 = NSStringFromSelector(a2);
+    v10 = objc_opt_class();
+    v11 = NSStringFromClass(v10);
+    v14 = 138412546;
+    v15 = v9;
+    v16 = 2112;
+    v17 = v11;
+    _os_log_fault_impl(&dword_1883EA000, v8, OS_LOG_TYPE_FAULT, "Shenanigans! Should not call %@ on %@. Call -transitionToFinished instead.", &v14, 0x16u);
+  }
+
+  objc_msgSend_transitionToFinished(self, v6, v7);
+}
+
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand
+{
+  privateCopy = private;
+  publicCopy = public;
+  v8 = objc_alloc(MEMORY[0x1E695DF90]);
+  v10 = objc_msgSend_initWithCapacity_(v8, v9, 5);
+  v13 = objc_msgSend_configuration(self, v11, v12);
+  v18 = objc_msgSend_group(self, v14, v15);
+  if (publicCopy)
+  {
+    v19 = objc_msgSend_operationID(self, v16, v17);
+    objc_msgSend_CKAddPropertySafelyForKey_value_(v10, v20, @"operationID", v19);
+
+    v22 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v21, 3);
+    if (objc_msgSend_isExecuting(self, v23, v24))
+    {
+      objc_msgSend_addObject_(v22, v25, @"executing");
+    }
+
+    if (objc_msgSend_isFinished(self, v25, v26))
+    {
+      objc_msgSend_addObject_(v22, v27, @"finished");
+    }
+
+    if (objc_msgSend_isCancelled(self, v27, v28))
+    {
+      objc_msgSend_addObject_(v22, v29, @"cancelled");
+    }
+
+    if (objc_msgSend_isLongLived(v13, v29, v30))
+    {
+      objc_msgSend_addObject_(v22, v31, @"long-lived");
+    }
+
+    if (objc_msgSend_isOutstandingOperation(self, v31, v32))
+    {
+      objc_msgSend_addObject_(v22, v33, @"outstanding");
+    }
+
+    if (objc_msgSend_count(v22, v33, v34))
+    {
+      v37 = objc_msgSend_componentsJoinedByString_(v22, v35, @"|");
+      objc_msgSend_CKAddPropertySafelyForKey_value_(v10, v38, @"stateFlags", v37);
+    }
+
+    v39 = objc_msgSend_qualityOfService(self, v35, v36);
+    v41 = CKStringForQOS(v39, v40);
+    objc_msgSend_CKAddPropertySafelyForKey_value_(v10, v42, @"qos", v41);
+
+    if (v18)
+    {
+      v44 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(v18, v43, 1, privateCopy, 1);
+      objc_msgSend_CKAddPropertySafelyForKey_value_(v10, v45, @"operationGroup", v44);
+    }
+  }
+
+  if (privateCopy)
+  {
+    v48 = objc_msgSend_metrics(self, v16, v17);
+    if (v48)
+    {
+      objc_msgSend_CKAddPropertySafelyForKey_value_(v10, v46, @"metrics", v48);
+    }
+
+    if (__sTestOverridesAvailable == 1)
+    {
+      v49 = objc_msgSend_unitTestOverrides(self, v46, v47);
+      if (objc_msgSend_count(v49, v50, v51))
+      {
+        objc_msgSend_CKAddPropertySafelyForKey_value_(v10, v52, @"unitTestOverrides", v49);
+      }
+    }
+  }
+
+  v55 = objc_msgSend_resolvedConfigurationIfNotNil(self, v16, v17);
+  if (!v55)
+  {
+    v56 = v13;
+    if (!v13)
+    {
+      v56 = objc_opt_new();
+    }
+
+    v57 = objc_msgSend_defaultConfiguration(v18, v53, v54);
+    v55 = objc_msgSend_resolveAgainstGenericConfiguration_(v56, v58, v57);
+
+    if (!v13)
+    {
+    }
+  }
+
+  v59 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(v55, v53, publicCopy, privateCopy, 1);
+  if (objc_msgSend_count(v59, v60, v61))
+  {
+    objc_msgSend_CKAddPropertySafelyForKey_value_(v10, v62, @"resolvedConfig", v59);
+  }
+
+  return v10;
+}
+
+- (id)CKShortDescriptionRedact:(BOOL)redact
+{
+  v3 = MEMORY[0x1E696AEC0];
+  v4 = objc_msgSend_operationID(self, a2, redact);
+  v6 = objc_msgSend_stringWithFormat_(v3, v5, @"operationID=%@", v4);
+
+  return v6;
 }
 
 - (id)zoneIDsToZoneNamesString:(id)string
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if (objc_msgSend_count(stringCopy, v4, v5))
   {
     v6 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v7 = stringCopy;
-    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v32, v36, 16);
+    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v31, v35, 16);
     if (v9)
     {
       v10 = v9;
-      v11 = *v33;
+      v11 = *v32;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v33 != v11)
+          if (*v32 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v32 + 1) + 8 * i);
+          v13 = *(*(&v31 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v16 = objc_msgSend_zoneName(v13, v14, v15, v32);
+            v16 = objc_msgSend_zoneName(v13, v14, v15, v31);
             v19 = objc_msgSend_length(v16, v17, v18);
 
             if (v19)
@@ -2220,7 +2350,7 @@ LABEL_24:
           }
         }
 
-        v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v14, &v32, v36, 16);
+        v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v14, &v31, v35, 16);
       }
 
       while (v10);
@@ -2236,8 +2366,6 @@ LABEL_24:
   {
     v29 = 0;
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v29;
 }
@@ -2536,6 +2664,215 @@ LABEL_29:
   replyCopy[2](replyCopy, v19, v20, v21);
 }
 
+- (void)handleDiscretionaryOperationShouldStart:(BOOL)start nonDiscretionary:(BOOL)discretionary error:(id)error
+{
+  discretionaryCopy = discretionary;
+  startCopy = start;
+  v89 = *MEMORY[0x1E69E9840];
+  errorCopy = error;
+  v12 = objc_msgSend_callbackQueue(self, v10, v11);
+  dispatch_assert_queue_V2(v12);
+
+  if (self)
+  {
+    if (self->_startedDiscretionaryOperation)
+    {
+      if (ck_log_initialization_predicate != -1)
+      {
+        dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
+      }
+
+      v15 = ck_log_facility_ck;
+      if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v84 = errorCopy;
+        _os_log_debug_impl(&dword_1883EA000, v15, OS_LOG_TYPE_DEBUG, "Ignoring duplicate call to start with error %@", buf, 0xCu);
+      }
+
+      goto LABEL_52;
+    }
+
+    self->_startedDiscretionaryOperation = 1;
+  }
+
+  if (__sTestOverridesAvailable == 1)
+  {
+    v16 = objc_msgSend_invokeOperationMeetsDiscretionaryCriteriaCallback(self, v13, v14);
+    objc_msgSend_setOperationMeetsDiscretionaryCriteriaCallback_(self, v17, 0);
+  }
+
+  v20 = errorCopy;
+  if (__sTestOverridesAvailable == 1 && objc_msgSend_forceCKDiscretionarydFailure(self, v18, v19))
+  {
+
+    v20 = 0;
+    objc_msgSend_domain(0, v21, v22);
+  }
+
+  else
+  {
+    if (startCopy)
+    {
+      if (ck_log_initialization_predicate != -1)
+      {
+        dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
+      }
+
+      v23 = ck_log_facility_ck;
+      if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
+      {
+        v74 = v23;
+        v77 = objc_msgSend_operationID(self, v75, v76);
+        *buf = 138412290;
+        v84 = v77;
+        _os_log_debug_impl(&dword_1883EA000, v74, OS_LOG_TYPE_DEBUG, "Discretionary operation %@ started", buf, 0xCu);
+      }
+
+      v26 = objc_msgSend_operationMetric(self, v24, v25);
+      v28 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v27, discretionaryCopy);
+      objc_msgSend_setObject_forKeyedSubscript_(v26, v29, v28, @"ckdiscretionaryd_nonDiscretionary");
+
+      v32 = objc_msgSend_date(MEMORY[0x1E695DF00], v30, v31);
+      objc_msgSend_setObject_forKeyedSubscript_(v26, v33, v32, @"ckdiscretionaryd_startTime");
+
+      if (self)
+      {
+        v34 = 2;
+        if (discretionaryCopy)
+        {
+          v34 = 3;
+        }
+
+        *(&self->super.super.isa + OBJC_IVAR___CKOperation__operationID[v34]) = 1;
+      }
+
+      goto LABEL_41;
+    }
+
+    objc_msgSend_domain(v20, v18, v19);
+  }
+  v37 = ;
+  if (objc_msgSend_isEqualToString_(v37, v38, *MEMORY[0x1E696A250]))
+  {
+    v41 = objc_msgSend_code(v20, v39, v40);
+
+    if (v41 == 4099)
+    {
+      if (ck_log_initialization_predicate != -1)
+      {
+        dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
+      }
+
+      v44 = ck_log_facility_ck;
+      if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        v84 = v20;
+        _os_log_impl(&dword_1883EA000, v44, OS_LOG_TYPE_INFO, "ckdiscretionaryd failed to schedule with error %@, falling back to per-task scheduling.", buf, 0xCu);
+      }
+
+      if (self)
+      {
+        self->_systemScheduler = 0;
+      }
+
+      goto LABEL_41;
+    }
+  }
+
+  else
+  {
+  }
+
+  if (!v20)
+  {
+    v20 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v42, @"CKInternalErrorDomain", 1000, @"Error scheduling discretionary task.");
+  }
+
+  v45 = objc_msgSend_CKClientSuitableError(v20, v42, v43);
+  if (ck_log_initialization_predicate != -1)
+  {
+    dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
+  }
+
+  v46 = ck_log_facility_ck;
+  if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 138412290;
+    v84 = v45;
+    _os_log_error_impl(&dword_1883EA000, v46, OS_LOG_TYPE_ERROR, "ckdiscretionaryd failed to schedule with error %@.", buf, 0xCu);
+    if (!self)
+    {
+      goto LABEL_40;
+    }
+
+    goto LABEL_39;
+  }
+
+  if (self)
+  {
+LABEL_39:
+    self->_failedToScheduleDiscretionaryOperation = 1;
+  }
+
+LABEL_40:
+  objc_msgSend_finishWithError_(self, v47, v45);
+
+LABEL_41:
+  v48 = objc_msgSend_configuration(self, v35, v36);
+  v51 = objc_msgSend_container(v48, v49, v50);
+
+  if (!v51)
+  {
+    v78 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v52, v53);
+    v81 = objc_msgSend_operationID(self, v79, v80);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v78, v82, a2, self, @"CKOperation.m", 1391, @"No container found to run operation %@", v81);
+  }
+
+  if (ck_log_initialization_predicate != -1)
+  {
+    dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
+  }
+
+  v54 = ck_log_facility_ck;
+  if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_INFO))
+  {
+    v57 = v54;
+    v58 = objc_opt_class();
+    v59 = NSStringFromClass(v58);
+    v62 = objc_msgSend_ckShortDescription(self, v60, v61);
+    *buf = 138543874;
+    v84 = v59;
+    v85 = 2048;
+    selfCopy = self;
+    v87 = 2114;
+    v88 = v62;
+    _os_log_impl(&dword_1883EA000, v57, OS_LOG_TYPE_INFO, "Operation <%{public}@: %p; %{public}@> enqueuing on container throttle queue", buf, 0x20u);
+  }
+
+  v64 = objc_msgSend__createPlaceholderOperation(self, v55, v56);
+  if (self)
+  {
+    objc_setProperty_atomic(self, v63, v64, 440);
+  }
+
+  v67 = objc_msgSend_configuration(self, v65, v66);
+  v71 = objc_msgSend_container(v67, v68, v69);
+  if (self)
+  {
+    Property = objc_getProperty(self, v70, 440, 1);
+    objc_msgSend_addPreparedOperationToDiscretionaryThrottlingOperationQueue_(v71, v73, Property);
+  }
+
+  else
+  {
+    objc_msgSend_addPreparedOperationToDiscretionaryThrottlingOperationQueue_(v71, v70, 0);
+  }
+
+LABEL_52:
+}
+
 - (void)handleDiscretionaryOperationShouldSuspend
 {
   v4 = objc_msgSend_callbackQueue(self, a2, v2);
@@ -2554,10 +2891,10 @@ LABEL_29:
 - (void)handleDaemonOperationWillStartWithClassName:(id)name isTopLevelDaemonOperation:(BOOL)operation replyBlock:(id)block
 {
   operationCopy = operation;
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1)
+  if (__sTestOverridesAvailable == 1)
   {
     if (operationCopy)
     {
@@ -2582,44 +2919,42 @@ LABEL_29:
     v11 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
     {
-      v15 = v11;
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
-      v20 = objc_msgSend_ckShortDescription(self, v18, v19);
-      v21 = 138544130;
-      v22 = v17;
-      v23 = 2048;
+      v14 = v11;
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
+      v19 = objc_msgSend_ckShortDescription(self, v17, v18);
+      v20 = 138544130;
+      v21 = v16;
+      v22 = 2048;
       selfCopy = self;
-      v25 = 2114;
-      v26 = v20;
-      v27 = 2112;
-      v28 = nameCopy;
-      _os_log_error_impl(&dword_1883EA000, v15, OS_LOG_TYPE_ERROR, "Operation <%{public}@: %p; %{public}@> unexpectedly asked about a daemon operation while not testing: %@", &v21, 0x2Au);
+      v24 = 2114;
+      v25 = v19;
+      v26 = 2112;
+      v27 = nameCopy;
+      _os_log_error_impl(&dword_1883EA000, v14, OS_LOG_TYPE_ERROR, "Operation <%{public}@: %p; %{public}@> unexpectedly asked about a daemon operation while not testing: %@", &v20, 0x2Au);
     }
 
     v13 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v12, @"CKInternalErrorDomain", 1000, @"Did not expect to be asked about a daemon operation while not testing");
     (blockCopy)[2](blockCopy, 0, v13);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleDaemonRequestWillSendWithClassName:(id)name testRequestProperties:(id)properties replyBlock:(id)block
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   propertiesCopy = properties;
   blockCopy = block;
   v11 = blockCopy;
-  if (__sTestOverridesAvailable[0] == 1)
+  if (__sTestOverridesAvailable == 1)
   {
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = sub_188613874;
-    v23[3] = &unk_1E70BEF88;
-    v24 = blockCopy;
-    objc_msgSend_handleURLRequestWillSendCallback_testRequestProperties_proceedBlock_(self, v12, nameCopy, propertiesCopy, v23);
-    v13 = v24;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = sub_188613874;
+    v22[3] = &unk_1E70BEF88;
+    v23 = blockCopy;
+    objc_msgSend_handleURLRequestWillSendCallback_testRequestProperties_proceedBlock_(self, v12, nameCopy, propertiesCopy, v22);
+    v13 = v23;
   }
 
   else
@@ -2632,44 +2967,42 @@ LABEL_29:
     v14 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
     {
-      v17 = v14;
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
-      v22 = objc_msgSend_ckShortDescription(self, v20, v21);
+      v16 = v14;
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
+      v21 = objc_msgSend_ckShortDescription(self, v19, v20);
       *buf = 138544130;
-      v26 = v19;
-      v27 = 2048;
+      v25 = v18;
+      v26 = 2048;
       selfCopy = self;
-      v29 = 2114;
-      v30 = v22;
-      v31 = 2112;
-      v32 = nameCopy;
-      _os_log_error_impl(&dword_1883EA000, v17, OS_LOG_TYPE_ERROR, "Operation <%{public}@: %p; %{public}@> unexpectedly asked about a daemon request while not testing: %@", buf, 0x2Au);
+      v28 = 2114;
+      v29 = v21;
+      v30 = 2112;
+      v31 = nameCopy;
+      _os_log_error_impl(&dword_1883EA000, v16, OS_LOG_TYPE_ERROR, "Operation <%{public}@: %p; %{public}@> unexpectedly asked about a daemon request while not testing: %@", buf, 0x2Au);
     }
 
     v13 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v15, @"CKInternalErrorDomain", 1000, @"Did not expect to be asked about a daemon url request while not testing");
     (v11)[2](v11, 0, v13);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleDaemonRequestWillReceiveWithClassName:(id)name testRequestProperties:(id)properties replyBlock:(id)block
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   propertiesCopy = properties;
   blockCopy = block;
   v11 = blockCopy;
-  if (__sTestOverridesAvailable[0] == 1)
+  if (__sTestOverridesAvailable == 1)
   {
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = sub_188613AC4;
-    v23[3] = &unk_1E70BEF88;
-    v24 = blockCopy;
-    objc_msgSend_handleURLRequestWillReceiveCallback_testRequestProperties_proceedBlock_(self, v12, nameCopy, propertiesCopy, v23);
-    v13 = v24;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = sub_188613AC4;
+    v22[3] = &unk_1E70BEF88;
+    v23 = blockCopy;
+    objc_msgSend_handleURLRequestWillReceiveCallback_testRequestProperties_proceedBlock_(self, v12, nameCopy, propertiesCopy, v22);
+    v13 = v23;
   }
 
   else
@@ -2682,31 +3015,29 @@ LABEL_29:
     v14 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
     {
-      v17 = v14;
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
-      v22 = objc_msgSend_ckShortDescription(self, v20, v21);
+      v16 = v14;
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
+      v21 = objc_msgSend_ckShortDescription(self, v19, v20);
       *buf = 138544130;
-      v26 = v19;
-      v27 = 2048;
+      v25 = v18;
+      v26 = 2048;
       selfCopy = self;
-      v29 = 2114;
-      v30 = v22;
-      v31 = 2112;
-      v32 = nameCopy;
-      _os_log_error_impl(&dword_1883EA000, v17, OS_LOG_TYPE_ERROR, "Operation <%{public}@: %p; %{public}@> unexpectedly asked about a daemon request while not testing: %@", buf, 0x2Au);
+      v28 = 2114;
+      v29 = v21;
+      v30 = 2112;
+      v31 = nameCopy;
+      _os_log_error_impl(&dword_1883EA000, v16, OS_LOG_TYPE_ERROR, "Operation <%{public}@: %p; %{public}@> unexpectedly asked about a daemon request while not testing: %@", buf, 0x2Au);
     }
 
     v13 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v15, @"CKInternalErrorDomain", 1000, @"Did not expect to be asked about a daemon url request while not testing");
     (v11)[2](v11, 0, v13);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleOperationDidCompleteWithMetrics:(id)metrics error:(id)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   metricsCopy = metrics;
   errorCopy = error;
   v10 = objc_msgSend_callbackQueue(self, v8, v9);
@@ -2720,26 +3051,24 @@ LABEL_29:
   v11 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v14 = v11;
-    v17 = objc_msgSend_operationID(self, v15, v16);
-    v18 = 138543874;
-    v19 = v17;
-    v20 = 2112;
-    v21 = metricsCopy;
-    v22 = 2112;
-    v23 = errorCopy;
-    _os_log_debug_impl(&dword_1883EA000, v14, OS_LOG_TYPE_DEBUG, "Received completion callback for operation %{public}@ with metrics %@ error %@", &v18, 0x20u);
+    v13 = v11;
+    v16 = objc_msgSend_operationID(self, v14, v15);
+    v17 = 138543874;
+    v18 = v16;
+    v19 = 2112;
+    v20 = metricsCopy;
+    v21 = 2112;
+    v22 = errorCopy;
+    _os_log_debug_impl(&dword_1883EA000, v13, OS_LOG_TYPE_DEBUG, "Received completion callback for operation %{public}@ with metrics %@ error %@", &v17, 0x20u);
   }
 
   objc_msgSend_setMetrics_(self, v12, metricsCopy);
   sub_188610EC8(self, errorCopy);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleRemoteProxyFailureWithError:(id)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (ck_log_initialization_predicate != -1)
   {
@@ -2749,26 +3078,24 @@ LABEL_29:
   v5 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
   {
-    v11 = v5;
-    v14 = objc_msgSend_operationID(self, v12, v13);
+    v10 = v5;
+    v13 = objc_msgSend_operationID(self, v11, v12);
     *buf = 138543618;
-    v18 = v14;
-    v19 = 2112;
-    v20 = errorCopy;
-    _os_log_error_impl(&dword_1883EA000, v11, OS_LOG_TYPE_ERROR, "Got a connection error for operation %{public}@: %@", buf, 0x16u);
+    v17 = v13;
+    v18 = 2112;
+    v19 = errorCopy;
+    _os_log_error_impl(&dword_1883EA000, v10, OS_LOG_TYPE_ERROR, "Got a connection error for operation %{public}@: %@", buf, 0x16u);
   }
 
   v8 = objc_msgSend_callbackQueue(self, v6, v7);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_188613DD0;
-  v15[3] = &unk_1E70BEEC0;
-  v15[4] = self;
-  v16 = errorCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_188613DD0;
+  v14[3] = &unk_1E70BEEC0;
+  v14[4] = self;
+  v15 = errorCopy;
   v9 = errorCopy;
-  dispatch_async(v8, v15);
-
-  v10 = *MEMORY[0x1E69E9840];
+  dispatch_async(v8, v14);
 }
 
 - (void)finishWithError:(id)error
@@ -2787,16 +3114,16 @@ LABEL_29:
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v481 = *MEMORY[0x1E69E9840];
+  v480 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v8 = objc_msgSend_callbackQueue(self, v6, v7);
   dispatch_assert_queue_V2(v8);
 
   if (objc_msgSend_isFinished(self, v9, v10))
   {
-    v464 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v11, v12);
-    v467 = objc_msgSend_operationID(self, v465, v466);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v464, v468, a2, self, @"CKOperation.m", 1665, @"Operation %@ was already marked as finished", v467);
+    v463 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v11, v12);
+    v466 = objc_msgSend_operationID(self, v464, v465);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v463, v467, a2, self, @"CKOperation.m", 1665, @"Operation %@ was already marked as finished", v466);
   }
 
   objc_msgSend_setLongLivedOperationWasPersistedBlock_(self, v11, 0);
@@ -2827,9 +3154,9 @@ LABEL_29:
     v35 = v34;
     *buf = 138544642;
     v36 = @" with error: ";
-    v470 = v24;
+    v469 = v24;
     v37 = &stru_1EFA32970;
-    v471 = 2048;
+    v470 = 2048;
     if (!v18)
     {
       v36 = &stru_1EFA32970;
@@ -2841,20 +3168,20 @@ LABEL_29:
       v37 = v18;
     }
 
-    v473 = 2114;
-    v474 = v29;
-    v475 = 2112;
-    v476 = v34;
-    v477 = 2114;
-    v478 = v36;
-    v479 = 2114;
-    v480 = v37;
+    v472 = 2114;
+    v473 = v29;
+    v474 = 2112;
+    v475 = v34;
+    v476 = 2114;
+    v477 = v36;
+    v478 = 2114;
+    v479 = v37;
     _os_log_impl(&dword_1883EA000, v22, OS_LOG_TYPE_DEFAULT, "Finished operation <%{public}@: %p; %{public}@, %@> %{public}@%{public}@", buf, 0x3Eu);
   }
 
   if (v18)
   {
-    if (__sTestOverridesAvailable[0] != 1 || (objc_msgSend_unitTestOverrides(self, v20, v21), v38 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectForKeyedSubscript_(v38, v39, @"doErrorRateMitigationInUnitTests"), v40 = objc_claimAutoreleasedReturnValue(), v43 = objc_msgSend_BOOLValue(v40, v41, v42), v40, v38, v43))
+    if (__sTestOverridesAvailable != 1 || (objc_msgSend_unitTestOverrides(self, v20, v21), v38 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectForKeyedSubscript_(v38, v39, @"doErrorRateMitigationInUnitTests"), v40 = objc_claimAutoreleasedReturnValue(), v43 = objc_msgSend_BOOLValue(v40, v41, v42), v40, v38, v43))
     {
       objc_msgSend__performErrorRateMitigation(self, v20, v21);
     }
@@ -2866,7 +3193,7 @@ LABEL_29:
 
   if ((objc_msgSend_isOutstandingOperation(self, v49, v50) & 1) != 0 || (objc_msgSend_configuration(self, v51, v52), v53 = objc_claimAutoreleasedReturnValue(), isLongLived = objc_msgSend_isLongLived(v53, v54, v55), v53, isLongLived))
   {
-    if (__sTestOverridesAvailable[0] == 1)
+    if (__sTestOverridesAvailable == 1)
     {
       v57 = objc_msgSend_allowResumingCompletedLongLivedOperations(self, v51, v52);
     }
@@ -3184,7 +3511,6 @@ LABEL_29:
   objc_msgSend_submitEventMetric_(v460, v461, v66);
 
   objc_msgSend_ckSignpostEndWithError_(self, v462, v18);
-  v463 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setQualityOfService:(int64_t)service
@@ -3416,12 +3742,26 @@ LABEL_29:
   return v6;
 }
 
+- (void)setAllowsCellularAccess:(BOOL)allowsCellularAccess
+{
+  v3 = allowsCellularAccess;
+  v5 = objc_msgSend_configuration(self, a2, allowsCellularAccess);
+  objc_msgSend_setAllowsCellularAccess_(v5, v4, v3);
+}
+
 - (BOOL)isLongLived
 {
   v3 = objc_msgSend_configuration(self, a2, v2);
   isLongLived = objc_msgSend_isLongLived(v3, v4, v5);
 
   return isLongLived;
+}
+
+- (void)setLongLived:(BOOL)longLived
+{
+  v3 = longLived;
+  v5 = objc_msgSend_configuration(self, a2, longLived);
+  objc_msgSend_setLongLived_(v5, v4, v3);
 }
 
 - (NSTimeInterval)timeoutIntervalForRequest
@@ -3460,6 +3800,13 @@ LABEL_29:
   v6 = objc_msgSend_preferAnonymousRequests(v3, v4, v5);
 
   return v6;
+}
+
+- (void)setPreferAnonymousRequests:(BOOL)requests
+{
+  requestsCopy = requests;
+  v5 = objc_msgSend_configuration(self, a2, requests);
+  objc_msgSend_setPreferAnonymousRequests_(v5, v4, requestsCopy);
 }
 
 - (NSDictionary)additionalRequestHTTPHeaders

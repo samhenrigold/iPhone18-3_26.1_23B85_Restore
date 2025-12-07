@@ -31,7 +31,7 @@
       v36 = 0u;
       if (connectionCopy)
       {
-        [connectionCopy auditToken];
+        objc_msgSend_auditToken(connectionCopy);
       }
 
       v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.systemstatus.publisherqueue.client-%d", BSPIDForAuditToken()];
@@ -160,7 +160,7 @@ void __77__STStatusDomainPublisherXPCClientHandle_initWithXPCConnection_serverHa
 
 void __77__STStatusDomainPublisherXPCClientHandle_initWithXPCConnection_serverHandle___block_invoke_4(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -172,37 +172,35 @@ void __77__STStatusDomainPublisherXPCClientHandle_initWithXPCConnection_serverHa
     v3 = 0;
   }
 
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = [v3 copy];
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        -[STStatusDomainPublisherXPCClientHandle _internalQueue_unregisterFromPublishingDomain:](*(a1 + 32), [*(*(&v10 + 1) + 8 * v8++) unsignedIntegerValue]);
+        -[STStatusDomainPublisherXPCClientHandle _internalQueue_unregisterFromPublishingDomain:](*(a1 + 32), [*(*(&v9 + 1) + 8 * v8++) unsignedIntegerValue]);
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_internalQueue_unregisterFromPublishingDomain:(uint64_t)domain

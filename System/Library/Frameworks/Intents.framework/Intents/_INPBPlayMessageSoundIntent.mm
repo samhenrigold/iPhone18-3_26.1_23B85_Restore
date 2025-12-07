@@ -3,6 +3,7 @@
 - (_INPBPlayMessageSoundIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)soundTypeAsString:(int)string;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 - (void)setMessageIdentifier:(id)identifier;
@@ -195,15 +196,28 @@ LABEL_13:
 
   if (messageIdentifier)
   {
-    messageIdentifier = self->_messageIdentifier;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBPlayMessageSoundIntent *)self hasSoundType])
   {
-    soundType = self->_soundType;
     PBDataWriterWriteInt32Field();
   }
+}
+
+- (id)soundTypeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"OUTGOING_MESSAGE";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (void)setSoundType:(int)type

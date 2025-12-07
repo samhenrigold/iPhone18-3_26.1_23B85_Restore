@@ -57,15 +57,15 @@
   {
     targetSceneIdentity = [equalCopy targetSceneIdentity];
     targetSceneIdentity2 = [(_UIWindowSceneOverlayPlacement *)self targetSceneIdentity];
-    v7 = [targetSceneIdentity2 isEqual:targetSceneIdentity];
+    isEqual = objc_msgSend_isEqual_(targetSceneIdentity2);
   }
 
   else
   {
-    v7 = 0;
+    isEqual = 0;
   }
 
-  return v7;
+  return isEqual;
 }
 
 - (id)_createConfigurationWithError:(id *)error

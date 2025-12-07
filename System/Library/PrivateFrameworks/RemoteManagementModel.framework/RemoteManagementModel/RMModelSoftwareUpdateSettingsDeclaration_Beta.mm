@@ -12,15 +12,13 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[3] = *MEMORY[0x277D85DE8];
+  v6[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"ProgramEnrollment";
-  v7[1] = @"OfferPrograms";
-  v7[2] = @"RequireProgram";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
+  v6[0] = @"ProgramEnrollment";
+  v6[1] = @"OfferPrograms";
+  v6[2] = @"RequireProgram";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -113,14 +111,14 @@
 
 - (void)combineWithOther:(id)other
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   otherCopy = other;
   payloadProgramEnrollment = [(RMModelSoftwareUpdateSettingsDeclaration_Beta *)self payloadProgramEnrollment];
   payloadProgramEnrollment2 = [otherCopy payloadProgramEnrollment];
-  v16[0] = @"Allowed";
-  v16[1] = @"AlwaysOn";
-  v16[2] = @"AlwaysOff";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+  v15[0] = @"Allowed";
+  v15[1] = @"AlwaysOn";
+  v15[2] = @"AlwaysOff";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
   v8 = [RMModelConfigurationBase combineEnumLast:payloadProgramEnrollment other:payloadProgramEnrollment2 enums:v7];
   [(RMModelSoftwareUpdateSettingsDeclaration_Beta *)self setPayloadProgramEnrollment:v8];
 
@@ -134,8 +132,6 @@
 
   v14 = [RMModelConfigurationBase combineFirst:payloadRequireProgram other:payloadRequireProgram2];
   [(RMModelSoftwareUpdateSettingsDeclaration_Beta *)self setPayloadRequireProgram:v14];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

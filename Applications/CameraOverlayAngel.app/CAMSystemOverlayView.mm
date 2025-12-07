@@ -9,6 +9,7 @@
 - (CAMSystemOverlayView)initWithFrame:(CGRect)frame;
 - (CAMSystemOverlayViewDelegate)delegate;
 - (CAMutableMeshTransform)_dialEffectMesh;
+- (CEKFluidBehaviorSettings)_backgroundAnimationSettings;
 - (CEKFluidBehaviorSettings)_scaleSettings;
 - (CGRect)_frameForButton;
 - (CGRect)_frameForSliderVisible:(BOOL)visible content:(int64_t)content scale:(double)scale;
@@ -16,6 +17,7 @@
 - (double)_coachingAnimationTransitionMilestoneToPhase:(int64_t)phase;
 - (double)_dropletCenterYFromState:(id)state toState:(id)toState;
 - (id)_blurFilter;
+- (id)_configurationForCoachingPhase:(int64_t)phase;
 - (id)_createValueLabelProgressPropertyWithInitialValue:(double)value;
 - (id)_springAnimationWithKeyPath:(id)path;
 - (id)hitTest:(CGPoint)test withEvent:(id)event;
@@ -34,10 +36,13 @@
 - (void)_handleTouchingSlider:(id)slider;
 - (void)_resetDropletBackgroundIfNeededFromState:(id)state toState:(id)toState;
 - (void)_setCoachingAnimationPhase:(int64_t)phase;
+- (void)_setDropletScale:(double)scale animated:(BOOL)animated interactive:(BOOL)interactive;
+- (void)_setSliderContent:(int64_t)content animated:(BOOL)animated;
 - (void)_sliderContent:(int64_t)content blurred:(BOOL)blurred;
 - (void)_startCoachingAnimationCycleIfNeeded;
 - (void)_stopCoachingAnimationCycleIfNeeded;
 - (void)_updateCoachingAnimationLabelOrientation;
+- (void)_updateDropletBackgroundFromState:(id)state toState:(id)toState animated:(BOOL)animated interactive:(BOOL)interactive;
 - (void)_updateScaleForSliderContent:(int64_t)content withMode:(int64_t)mode sliderContentDidChange:(BOOL)change updateDropletScale:(BOOL)scale;
 - (void)_updateValueLabelFont;
 - (void)_updateValueLabelLayoutMetrics;
@@ -54,6 +59,9 @@
 - (void)reloadValueLabel;
 - (void)setAlignment:(unint64_t)alignment;
 - (void)setHandleBarVisible:(BOOL)visible animated:(BOOL)animated;
+- (void)setOrientation:(int64_t)orientation animated:(BOOL)animated;
+- (void)setSliderFeedbackDisabled:(BOOL)disabled;
+- (void)setSliderState:(id)state animated:(BOOL)animated;
 - (void)systemOverlayVisibility:(id)visibility changedForReason:(int64_t)reason;
 - (void)updateUIForButtonStage:(unint64_t)stage;
 @end
@@ -300,7 +308,7 @@
     }
 
     memset(&v104, 0, sizeof(v104));
-    [v48 transform];
+    objc_msgSend_transform(v48);
     v103 = v104;
     v120.origin.x = v49;
     v120.origin.y = v50;
@@ -657,6 +665,75 @@ LABEL_5:
   }
 }
 
+- (void)setSliderState:(id)state animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  stateCopy = state;
+  if ([stateCopy isEqualToState:self->_sliderState])
+  {
+    goto LABEL_12;
+  }
+
+  [(CAMSystemOverlayView *)self _createSliderIfNeeded];
+  [(CAMSystemOverlayView *)self _stopCoachingAnimationCycleIfNeeded];
+  if (![stateCopy _presented] || -[CAMOverlaySliderState _presented](self->_sliderState, "_presented"))
+  {
+    if (!animatedCopy)
+    {
+      goto LABEL_9;
+    }
+
+    goto LABEL_8;
+  }
+
+  [(CAMSystemOverlayView *)self _createValueLabelIfNeeded];
+  [(CAMSystemOverlayView *)self _updateValueLabelText];
+  [(CAMSystemOverlayView *)self _createHandleBarViewIfNeeded];
+  _menuVisibility = [(CAMSystemOverlayView *)self _menuVisibility];
+  [_menuVisibility hideImmediately];
+
+  [(CAMSystemOverlayView *)self _setSliderContent:0];
+  if (animatedCopy)
+  {
+    [(CAMSystemOverlayView *)self layoutIfNeeded];
+    slider = [(CAMSystemOverlayView *)self slider];
+    [slider performWaveAnimation];
+
+LABEL_8:
+    [(CAMSystemOverlayView *)self layoutIfNeeded];
+    [(CAMSystemOverlayView *)self _resetDropletBackgroundIfNeededFromState:self->_sliderState toState:stateCopy];
+  }
+
+LABEL_9:
+  sliderState = self->_sliderState;
+  v9 = stateCopy;
+  v10 = self->_sliderState;
+  self->_sliderState = v9;
+  v11 = sliderState;
+
+  [(CAMSystemOverlayView *)self setNeedsLayout];
+  [(CAMSystemOverlayView *)self _setSliderPresented:[(CAMOverlaySliderState *)v9 _presented]& !animatedCopy];
+  _sliderPresentationProgress = [(CAMSystemOverlayView *)self _sliderPresentationProgress];
+  [_sliderPresentationProgress invalidate];
+
+  [(CAMSystemOverlayView *)self _setSliderPresentationProgress:0];
+  isSliderVisible = [(CAMSystemOverlayView *)self isSliderVisible];
+  _hitTestingBackground = [(CAMSystemOverlayView *)self _hitTestingBackground];
+  layer = [_hitTestingBackground layer];
+  [layer setHitTestsAsOpaque:isSliderVisible];
+
+  [(CAMSystemOverlayView *)self _updateDropletBackgroundFromState:v11 toState:v9 animated:animatedCopy interactive:0];
+  LOBYTE(v9) = [(CAMOverlaySliderState *)v9 _presented];
+
+  if ((v9 & 1) == 0)
+  {
+    [(CAMSystemOverlayView *)self setHandleBarVisible:0 animated:animatedCopy];
+  }
+
+  [(CAMSystemOverlayView *)self _updateScaleForSliderContent:0 withMode:3 sliderContentDidChange:0 updateDropletScale:0];
+LABEL_12:
+}
+
 - (void)performMenuPresentation:(unint64_t)presentation
 {
   if (presentation == 2)
@@ -686,6 +763,75 @@ LABEL_5:
       [_menuVisibility2 removeReason:0];
     }
   }
+}
+
+- (void)_setSliderContent:(int64_t)content animated:(BOOL)animated
+{
+  if (self->_sliderContent == content)
+  {
+    return;
+  }
+
+  animatedCopy = animated;
+  if (content == 1)
+  {
+    [(CAMSystemOverlayView *)self _createMenuIfNeeded];
+    menu = [(CAMSystemOverlayView *)self menu];
+    [menu setHighlightCurrentSelectedIndex:0 animated:0];
+  }
+
+  delegate = [(CAMSystemOverlayView *)self delegate];
+  [delegate overlayView:self menuWillChangePresented:content == 1];
+
+  if (content)
+  {
+    [(CAMSystemOverlayView *)self setHandleBarVisible:0 animated:animatedCopy];
+  }
+
+  if (animatedCopy)
+  {
+    [(CAMSystemOverlayView *)self layoutIfNeeded];
+  }
+
+  self->_sliderContent = content;
+  [(CAMSystemOverlayView *)self setNeedsLayout];
+  v9 = 1;
+  [(CAMSystemOverlayView *)self _updateValueLabelTextWithForcedMeasurement:1];
+  [(CAMSystemOverlayView *)self _updateValueLabelVisibility];
+  _touchingSliderGestureRecognizer = [(CAMSystemOverlayView *)self _touchingSliderGestureRecognizer];
+  [_touchingSliderGestureRecognizer setEnabled:0];
+
+  _touchingSliderGestureRecognizer2 = [(CAMSystemOverlayView *)self _touchingSliderGestureRecognizer];
+  [_touchingSliderGestureRecognizer2 setEnabled:1];
+
+  if (!content)
+  {
+    v12 = 0;
+    goto LABEL_12;
+  }
+
+  if (content == 1)
+  {
+    v9 = 0;
+    v12 = 1;
+LABEL_12:
+    [(CAMSystemOverlayView *)self _updateScaleForSliderContent:0 withMode:3 sliderContentDidChange:1 updateDropletScale:0];
+    [(CAMSystemOverlayView *)self _updateScaleForSliderContent:1 withMode:3 sliderContentDidChange:1 updateDropletScale:0];
+    [(CAMSystemOverlayView *)self _sliderContent:0 blurred:v12];
+    [(CAMSystemOverlayView *)self _sliderContent:1 blurred:v9];
+  }
+
+  [(CAMSystemOverlayView *)self _setSliderPresented:[(CAMSystemOverlayView *)self isSliderVisible]& !animatedCopy];
+  _sliderPresentationProgress = [(CAMSystemOverlayView *)self _sliderPresentationProgress];
+  [_sliderPresentationProgress invalidate];
+
+  [(CAMSystemOverlayView *)self _setSliderPresentationProgress:0];
+  sliderState = [(CAMSystemOverlayView *)self sliderState];
+  sliderState2 = [(CAMSystemOverlayView *)self sliderState];
+  [(CAMSystemOverlayView *)self _updateDropletBackgroundFromState:sliderState toState:sliderState2 animated:animatedCopy interactive:0];
+
+  delegate2 = [(CAMSystemOverlayView *)self delegate];
+  [delegate2 overlayView:self menuDidChangePresented:content == 1];
 }
 
 - (void)_createMenuIfNeeded
@@ -807,6 +953,17 @@ LABEL_5:
   slider = self->_slider;
 
   return slider;
+}
+
+- (void)setSliderFeedbackDisabled:(BOOL)disabled
+{
+  if (self->_sliderFeedbackDisabled != disabled)
+  {
+    disabledCopy = disabled;
+    self->_sliderFeedbackDisabled = disabled;
+    sliderIfLoaded = [(CAMSystemOverlayView *)self sliderIfLoaded];
+    [sliderIfLoaded setFeedbackDisabled:disabledCopy];
+  }
 }
 
 - (void)setHandleBarVisible:(BOOL)visible animated:(BOOL)animated
@@ -1220,6 +1377,51 @@ LABEL_30:
   }
 }
 
+- (void)_setDropletScale:(double)scale animated:(BOOL)animated interactive:(BOOL)interactive
+{
+  if (self->__dropletScale != scale)
+  {
+    interactiveCopy = interactive;
+    if (animated)
+    {
+      [(CAMSystemOverlayView *)self layoutIfNeeded];
+      self->__dropletScale = scale;
+      sliderState = [(CAMSystemOverlayView *)self sliderState];
+      sliderState2 = [(CAMSystemOverlayView *)self sliderState];
+      [(CAMSystemOverlayView *)self _updateDropletBackgroundFromState:sliderState toState:sliderState2 animated:1 interactive:interactiveCopy];
+
+      [(CAMSystemOverlayView *)self setNeedsLayout];
+      if (interactiveCopy)
+      {
+        v10 = 5;
+      }
+
+      else
+      {
+        v10 = 3;
+      }
+
+      _scaleSettings = [(CAMSystemOverlayView *)self _scaleSettings];
+      v14[0] = _NSConcreteStackBlock;
+      v14[1] = 3221225472;
+      v14[2] = sub_100008A38;
+      v14[3] = &unk_100055490;
+      v14[4] = self;
+      [UIView cek_animateWithSettings:_scaleSettings mode:v10 animations:v14 completion:0];
+    }
+
+    else
+    {
+      self->__dropletScale = scale;
+      sliderState3 = [(CAMSystemOverlayView *)self sliderState];
+      sliderState4 = [(CAMSystemOverlayView *)self sliderState];
+      [(CAMSystemOverlayView *)self _updateDropletBackgroundFromState:sliderState3 toState:sliderState4 animated:0 interactive:interactiveCopy];
+
+      [(CAMSystemOverlayView *)self setNeedsLayout];
+    }
+  }
+}
+
 - (void)reloadValueLabel
 {
   [(CAMSystemOverlayView *)self _updateValueLabelText];
@@ -1410,6 +1612,263 @@ LABEL_7:
     [_backgroundAnimator applyViewConfiguration:v17 animated:0 tracking:0 containerView:_backgroundDroplet contextView:_backgroundContext];
     [(CAMSystemOverlayView *)self _setBackgroundHintNeedsReset:0];
   }
+}
+
+- (void)_updateDropletBackgroundFromState:(id)state toState:(id)toState animated:(BOOL)animated interactive:(BOOL)interactive
+{
+  interactiveCopy = interactive;
+  animatedCopy = animated;
+  stateCopy = state;
+  toStateCopy = toState;
+  _backgroundDroplet = [(CAMSystemOverlayView *)self _backgroundDroplet];
+  _backgroundContext = [(CAMSystemOverlayView *)self _backgroundContext];
+  sliderContent = [(CAMSystemOverlayView *)self sliderContent];
+  [(CAMSystemOverlayView *)self _dropletScale];
+  [(CAMSystemOverlayView *)self _frameForSliderVisible:1 content:sliderContent scale:?];
+  v15 = v14;
+  v17 = v16;
+  [(CAMSystemOverlayView *)self _dropletCenterYFromState:stateCopy toState:toStateCopy];
+  v19 = v18;
+  [(CAMSystemOverlayView *)self bounds];
+  v21 = v20;
+  v23 = v22;
+  if ([(CAMSystemOverlayView *)self alignment])
+  {
+    v24 = 8;
+  }
+
+  else
+  {
+    v24 = 2;
+  }
+
+  objc_initWeak(location, self);
+  _sliderMode = [toStateCopy _sliderMode];
+  if (_sliderMode > 1)
+  {
+    if (_sliderMode == 2)
+    {
+      v29 = [DRPDropletViewConfiguration edgeHintWithCanvasSize:v24 hintSize:v21 edge:v23 centerAlongEdge:53.0 progress:v19 dropletRadius:100.0, 25.0];
+      [_backgroundDroplet setHidden:0];
+LABEL_27:
+      if (!v29)
+      {
+        goto LABEL_51;
+      }
+
+LABEL_42:
+      _sliderMode2 = [stateCopy _sliderMode];
+      _sliderMode3 = [toStateCopy _sliderMode];
+      if (animatedCopy)
+      {
+        _backgroundAnimationSettings = [(CAMSystemOverlayView *)self _backgroundAnimationSettings];
+        [v29 setBehaviorSettingsForKeyPath:@"centerX" behaviorSettings:_backgroundAnimationSettings];
+        [v29 setBehaviorSettingsForKeyPath:@"centerY" behaviorSettings:_backgroundAnimationSettings];
+        [v29 setBehaviorSettingsForKeyPath:@"containerWidth" behaviorSettings:_backgroundAnimationSettings];
+        [v29 setBehaviorSettingsForKeyPath:@"containerHeight" behaviorSettings:_backgroundAnimationSettings];
+      }
+
+      _backgroundAnimator = [(CAMSystemOverlayView *)self _backgroundAnimator];
+      v45 = _backgroundAnimator;
+      v47 = _sliderMode2 == 2 && _sliderMode3 == 2 || interactiveCopy;
+      [_backgroundAnimator applyViewConfiguration:v29 animated:animatedCopy tracking:v47 containerView:_backgroundDroplet contextView:_backgroundContext];
+
+      goto LABEL_51;
+    }
+
+    if (_sliderMode != 3)
+    {
+      goto LABEL_51;
+    }
+
+    [_backgroundDroplet setHidden:0];
+    if (interactiveCopy)
+    {
+      v27 = 0;
+      _valueLabelPresentationProgress = 0;
+    }
+
+    else
+    {
+      v54[0] = _NSConcreteStackBlock;
+      v54[1] = 3221225472;
+      v54[2] = sub_100009AB0;
+      v54[3] = &unk_100055558;
+      objc_copyWeak(&v55, location);
+      v27 = [CEKFluidBehaviorUtilities animatablePropertyWithFunctionalCompletion:v54];
+      [(CAMSystemOverlayView *)self _setSliderPresentationProgress:v27];
+      if ([stateCopy _presented])
+      {
+        _valueLabelPresentationProgress = 0;
+      }
+
+      else
+      {
+        _valueLabelPresentationProgress = [(CAMSystemOverlayView *)self _valueLabelPresentationProgress];
+        if (!_valueLabelPresentationProgress)
+        {
+          _valueLabelPresentationProgress = [(CAMSystemOverlayView *)self _createValueLabelProgressPropertyWithInitialValue:-1.0];
+          [(CAMSystemOverlayView *)self _setValueLabelPresentationProgress:_valueLabelPresentationProgress];
+        }
+      }
+
+      objc_destroyWeak(&v55);
+      animatedCopy = animatedCopy;
+    }
+
+    v48 = v27;
+    v29 = [DRPDropletViewConfiguration edgeContentPresentedWithCanvasSize:v24 edge:v21 lengthAlongEdge:v23 protrusionFromEdge:v17 centerAlongEdge:v15 inflationProgress:v19 dropletRadius:0.0, 12.0];
+    sliderContent2 = [(CAMSystemOverlayView *)self sliderContent];
+    if (sliderContent2 != 1)
+    {
+      if (sliderContent2)
+      {
+        goto LABEL_41;
+      }
+
+      sliderIfLoaded = [(CAMSystemOverlayView *)self sliderIfLoaded];
+      if ([sliderIfLoaded style] == 6)
+      {
+        v35 = animatedCopy;
+        v36 = [(CAMSystemOverlayView *)self orientation]- 1;
+
+        v37 = v36 > 1;
+        animatedCopy = v35;
+        if (!v37)
+        {
+          v38 = 12.0;
+          [v29 setContainerCornerRadius:12.0];
+LABEL_40:
+          [v29 setDropletRadius:v38];
+LABEL_41:
+          v50[0] = _NSConcreteStackBlock;
+          v50[1] = 3221225472;
+          v50[2] = sub_100009B18;
+          v50[3] = &unk_100055580;
+          v39 = v48;
+          v51 = v39;
+          v40 = _valueLabelPresentationProgress;
+          v52 = v40;
+          objc_copyWeak(&v53, location);
+          [v29 addAlongsideAnimationBlockForKeyPath:@"centerX" animationBlock:v50];
+          objc_destroyWeak(&v53);
+
+          if (!v29)
+          {
+            goto LABEL_51;
+          }
+
+          goto LABEL_42;
+        }
+      }
+
+      else
+      {
+      }
+
+      v38 = 10.0;
+      [v29 setContainerCornerRadius:10.0];
+      goto LABEL_40;
+    }
+
+    v38 = 13.0;
+    [v29 setContainerCornerRadius:16.0];
+    goto LABEL_40;
+  }
+
+  if (!_sliderMode)
+  {
+    if ([stateCopy _sliderMode] == 2)
+    {
+      v29 = [DRPDropletViewConfiguration edgeHintWithCanvasSize:v24 hintSize:v21 edge:v23 centerAlongEdge:53.0 progress:v19 dropletRadius:0.0, 25.0];
+    }
+
+    else
+    {
+      if ([stateCopy _coaching])
+      {
+        if ([(CAMSystemOverlayView *)self _coachingAnimationPhase]!= 3)
+        {
+          goto LABEL_51;
+        }
+
+        v26 = 1;
+        goto LABEL_8;
+      }
+
+      v29 = [DRPDropletViewConfiguration edgeContentPresentedWithCanvasSize:v24 edge:v21 lengthAlongEdge:v23 protrusionFromEdge:53.0 centerAlongEdge:0.0 inflationProgress:v19 dropletRadius:0.0, 12.0];
+      v61[0] = _NSConcreteStackBlock;
+      v61[1] = 3221225472;
+      v61[2] = sub_1000099D8;
+      v61[3] = &unk_1000554E0;
+      objc_copyWeak(&v62, location);
+      [v29 addAlongsideAnimationBlockForKeyPath:@"centerX" animationBlock:v61];
+      objc_destroyWeak(&v62);
+    }
+
+    if ([stateCopy _presented])
+    {
+      _valueLabelPresentationProgress2 = [(CAMSystemOverlayView *)self _valueLabelPresentationProgress];
+      if (!_valueLabelPresentationProgress2)
+      {
+        _valueLabelPresentationProgress2 = [(CAMSystemOverlayView *)self _createValueLabelProgressPropertyWithInitialValue:1.0];
+        [(CAMSystemOverlayView *)self _setValueLabelPresentationProgress:_valueLabelPresentationProgress2];
+      }
+
+      v59[0] = _NSConcreteStackBlock;
+      v59[1] = 3221225472;
+      v59[2] = sub_100009A18;
+      v59[3] = &unk_100055508;
+      v31 = _valueLabelPresentationProgress2;
+      v60 = v31;
+      [v29 addAlongsideAnimationBlockForKeyPath:@"centerX" animationBlock:v59];
+    }
+
+    objc_initWeak(&from, self);
+    v32 = [(CAMSystemOverlayView *)self _sliderHideAnimationCount]+ 1;
+    [(CAMSystemOverlayView *)self _setSliderHideAnimationCount:v32];
+    v56[0] = _NSConcreteStackBlock;
+    v56[1] = 3221225472;
+    v56[2] = sub_100009A24;
+    v56[3] = &unk_100055530;
+    objc_copyWeak(v57, &from);
+    v57[1] = v32;
+    [v29 addAnimationCompletionBlockForKeyPath:@"centerX" animationCompletionBlock:v56];
+    objc_destroyWeak(v57);
+    objc_destroyWeak(&from);
+    goto LABEL_27;
+  }
+
+  if (_sliderMode == 1)
+  {
+    [(CAMSystemOverlayView *)self _startCoachingAnimationCycleIfNeeded];
+    v26 = 0;
+LABEL_8:
+    [_backgroundDroplet setHidden:v26];
+  }
+
+LABEL_51:
+  objc_destroyWeak(location);
+}
+
+- (CEKFluidBehaviorSettings)_backgroundAnimationSettings
+{
+  backgroundAnimationSettings = self->__backgroundAnimationSettings;
+  if (!backgroundAnimationSettings)
+  {
+    v4 = objc_alloc_init(CEKFluidBehaviorSettings);
+    v5 = self->__backgroundAnimationSettings;
+    self->__backgroundAnimationSettings = v4;
+
+    [(CEKFluidBehaviorSettings *)self->__backgroundAnimationSettings setDampingRatio:0.7];
+    [(CEKFluidBehaviorSettings *)self->__backgroundAnimationSettings setResponse:0.5];
+    v6 = self->__backgroundAnimationSettings;
+    v9 = CAFrameRateRangeMake(80.0, 120.0, 120.0);
+    [(CEKFluidBehaviorSettings *)v6 setFrameRateRange:1441796 highFrameRateReason:*&v9.minimum, *&v9.maximum, *&v9.preferred];
+    backgroundAnimationSettings = self->__backgroundAnimationSettings;
+  }
+
+  return backgroundAnimationSettings;
 }
 
 - (id)_createValueLabelProgressPropertyWithInitialValue:(double)value
@@ -1669,6 +2128,78 @@ LABEL_9:
   return result;
 }
 
+- (id)_configurationForCoachingPhase:(int64_t)phase
+{
+  [(CAMSystemOverlayView *)self _frameForButton];
+  v5 = 0.0;
+  v19 = CGRectInset(v18, 0.0, -35.0);
+  if (phase <= 0)
+  {
+    if (phase == -1)
+    {
+      v9 = 0;
+      goto LABEL_16;
+    }
+
+    if (!phase)
+    {
+      MinY = CGRectGetMinY(v19);
+      goto LABEL_9;
+    }
+
+LABEL_14:
+    MaxY = 0.0;
+    goto LABEL_15;
+  }
+
+  if (phase == 1)
+  {
+    MaxY = CGRectGetMaxY(v19);
+    v8 = 0x4059000000000000;
+LABEL_12:
+    v5 = *&v8;
+    goto LABEL_15;
+  }
+
+  if (phase == 2)
+  {
+    MaxY = CGRectGetMaxY(v19) + 40.0;
+    v8 = 0xC049000000000000;
+    goto LABEL_12;
+  }
+
+  if (phase != 3)
+  {
+    goto LABEL_14;
+  }
+
+  MinY = CGRectGetMidY(v19);
+LABEL_9:
+  MaxY = MinY;
+LABEL_15:
+  [(CAMSystemOverlayView *)self bounds];
+  v9 = [DRPDropletViewConfiguration edgeHintWithCanvasSize:8 hintSize:v10 edge:v11 centerAlongEdge:25.0 progress:MaxY dropletRadius:v5, 15.0];
+  keylineStyle = [v9 keylineStyle];
+  [keylineStyle setWidth:1.0];
+
+  v13 = objc_alloc_init(CEKFluidBehaviorSettings);
+  [v13 setDefaultValues];
+  [v13 setDampingRatio:1.0];
+  [v13 setResponse:1.5];
+  v17 = CAFrameRateRangeMake(80.0, 120.0, 120.0);
+  [v13 setFrameRateRange:1441796 highFrameRateReason:{*&v17.minimum, *&v17.maximum, *&v17.preferred}];
+  [v9 setBehaviorSettingsForKeyPath:@"centerY" behaviorSettings:v13];
+  [v9 setBehaviorSettingsForKeyPath:@"containerWidth" behaviorSettings:v13];
+  [v9 setBehaviorSettingsForKeyPath:@"containerHeight" behaviorSettings:v13];
+  v14 = [v13 copy];
+  [v14 setResponse:1.0];
+  [v9 setBehaviorSettingsForKeyPath:@"centerX" behaviorSettings:v14];
+
+LABEL_16:
+
+  return v9;
+}
+
 - (void)_setCoachingAnimationPhase:(int64_t)phase
 {
   if (self->__coachingAnimationPhase != phase)
@@ -1713,15 +2244,14 @@ LABEL_9:
   if (orientation2 <= 4)
   {
     orientation = qword_10003FC30[orientation2];
-    v6 = qword_10003FC58[orientation2];
   }
 
   [_coachingAnimationLabel setOrientation:orientation];
   CAMOrientationTransform();
-  v7[0] = v7[3];
-  v7[1] = v7[4];
-  v7[2] = v7[5];
-  [_coachingAnimationLabel setTransform:v7];
+  v6[0] = v6[3];
+  v6[1] = v6[4];
+  v6[2] = v6[5];
+  [_coachingAnimationLabel setTransform:v6];
 }
 
 + (void)_applyGainModulationToElement:(id)element withInputAmount:(id)amount
@@ -1826,55 +2356,95 @@ LABEL_9:
 
   else
   {
-    __chkstk_darwin();
+    __chkstk_darwin(self);
     v5 = 0;
-    v6 = &v18;
-    v19 = xmmword_10003FC20;
+    v6 = &v19;
+    v20 = xmmword_10003FC20;
     do
     {
       v7 = v5 / 19.0;
-      v8 = pow(v7 + -0.5 + v7 + -0.5, 3.0);
+      v9 = pow(v7 + -0.5 + v7 + -0.5, 3.0);
       *(v6 - 6) = 0.0;
-      v9 = v7 + v8 * -0.11;
+      v10 = v7 + v9 * -0.11;
       *(v6 - 5) = v7;
       *(v6 - 4) = 0.0;
-      *(v6 - 3) = v9;
-      *(v6 - 1) = v19;
+      *(v6 - 3) = v10;
+      *(v6 - 1) = v20;
       *v6 = v7;
       v6[1] = 1.0;
-      v6[2] = v9;
+      v6[2] = v10;
       v6[3] = 0.0;
       ++v5;
       v6 += 10;
     }
 
     while (v5 != 20);
-    __chkstk_darwin();
-    v10 = &v16;
-    v11 = -38;
+    __chkstk_darwin(v8);
+    v11 = &v17;
+    v12 = -38;
     do
     {
-      *(v10 - 2) = v11 + 38;
-      *(v10 - 1) = v11 + 39;
-      *v10 = v11 + 41;
-      *(v10 + 1) = v11 + 40;
-      v10[1] = 0;
-      v10[2] = 0;
-      v10 += 4;
-      v11 += 2;
+      *(v11 - 2) = v12 + 38;
+      *(v11 - 1) = v12 + 39;
+      *v11 = v12 + 41;
+      *(v11 + 1) = v12 + 40;
+      v11[1] = 0;
+      v11[2] = 0;
+      v11 += 4;
+      v12 += 2;
     }
 
-    while (v11);
-    v12 = [CAMutableMeshTransform meshTransformWithVertexCount:"meshTransformWithVertexCount:vertices:faceCount:faces:depthNormalization:" vertices:40 faceCount:&v17 faces:19 depthNormalization:?];
-    [v12 setSubdivisionSteps:2];
-    v13 = self->__dialEffectMesh;
-    self->__dialEffectMesh = v12;
-    v14 = v12;
+    while (v12);
+    v13 = [CAMutableMeshTransform meshTransformWithVertexCount:"meshTransformWithVertexCount:vertices:faceCount:faces:depthNormalization:" vertices:40 faceCount:&v18 faces:19 depthNormalization:?];
+    [v13 setSubdivisionSteps:2];
+    v14 = self->__dialEffectMesh;
+    self->__dialEffectMesh = v13;
+    v15 = v13;
 
     v3 = self->__dialEffectMesh;
   }
 
   return v3;
+}
+
+- (void)setOrientation:(int64_t)orientation animated:(BOOL)animated
+{
+  if (self->_orientation != orientation)
+  {
+    animatedCopy = animated;
+    if (animated)
+    {
+      [(CAMSystemOverlayView *)self layoutIfNeeded];
+    }
+
+    self->_orientation = orientation;
+    [(CAMSystemOverlayView *)self setNeedsLayout];
+    _isCoachingAnimationCycling = [(CAMSystemOverlayView *)self _isCoachingAnimationCycling];
+    if ((orientation - 3) <= 1 && _isCoachingAnimationCycling)
+    {
+      [(CAMSystemOverlayView *)self _updateCoachingAnimationLabelOrientation];
+    }
+
+    if (animatedCopy)
+    {
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = sub_10000B72C;
+      v12[3] = &unk_100055490;
+      v12[4] = self;
+      [UIView animateWithDuration:0 delay:v12 options:0 animations:CAMInterfaceOrientationRotationDuration completion:0.0];
+    }
+
+    menu = [(CAMSystemOverlayView *)self menu];
+    [menu setOrientation:orientation animated:animatedCopy];
+
+    slider = [(CAMSystemOverlayView *)self slider];
+    [slider setOrientation:orientation animated:animatedCopy];
+
+    sliderState = [(CAMSystemOverlayView *)self sliderState];
+    sliderState2 = [(CAMSystemOverlayView *)self sliderState];
+    [(CAMSystemOverlayView *)self _updateDropletBackgroundFromState:sliderState toState:sliderState2 animated:animatedCopy interactive:0];
+  }
 }
 
 - (void)overlaySliderWillBeginScrolling:(id)scrolling

@@ -56,26 +56,27 @@
 
 - (id)existingIdentity
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = [CRKASMIdentityPicker alloc];
   credentialStore = [(CRKASMIdentityVendor *)self credentialStore];
   userIdentifier = [(CRKASMIdentityVendor *)self userIdentifier];
   v6 = [(CRKASMIdentityPicker *)v3 initWithCredentialStore:credentialStore userIdentifier:userIdentifier];
 
   identity = [(CRKASMIdentityPicker *)v6 identity];
+  v8 = identity;
   if (identity)
   {
-    v8 = _CRKLogASM_8();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _CRKLogASM_8(identity);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       userIdentifier2 = [(CRKASMIdentityVendor *)self userIdentifier];
-      v11 = 138412290;
-      v12 = userIdentifier2;
-      _os_log_impl(&dword_243550000, v8, OS_LOG_TYPE_DEFAULT, "Found existing ASM identity for user identifier %@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = userIdentifier2;
+      _os_log_impl(&dword_243550000, v9, OS_LOG_TYPE_DEFAULT, "Found existing ASM identity for user identifier %@", &v12, 0xCu);
     }
   }
 
-  return identity;
+  return v8;
 }
 
 - (id)makeIdentityAndAddToKeychain
@@ -89,14 +90,14 @@
 
     if (!v6)
     {
-      v7 = _CRKLogASM_8();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = _CRKLogASM_8(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [(CRKASMIdentityVendor *)v7 makeIdentityAndAddToKeychain];
+        [(CRKASMIdentityVendor *)v8 makeIdentityAndAddToKeychain];
       }
     }
 
-    v8 = makeIdentity;
+    v9 = makeIdentity;
   }
 
   return makeIdentity;
@@ -105,7 +106,7 @@
 - (id)makeIdentity
 {
   v12 = *MEMORY[0x277D85DE8];
-  v3 = _CRKLogASM_8();
+  v3 = _CRKLogASM_8(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     userIdentifier = [(CRKASMIdentityVendor *)self userIdentifier];

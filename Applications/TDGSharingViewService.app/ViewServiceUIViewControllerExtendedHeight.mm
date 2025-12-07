@@ -1,5 +1,6 @@
 @interface ViewServiceUIViewControllerExtendedHeight
 - (_TtC21TDGSharingViewService41ViewServiceUIViewControllerExtendedHeight)initWithContentView:(id)view;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 @end
 
@@ -8,7 +9,29 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_10002A1FC();
+  sub_10002A1FC(selfCopy);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for ViewServiceUIViewControllerExtendedHeight();
+  v4 = v8.receiver;
+  [(ViewServiceUIViewControllerExtendedHeight *)&v8 viewDidAppear:appearCopy];
+  v5 = *&v4[OBJC_IVAR____TtC21TDGSharingViewService41ViewServiceUIViewControllerExtendedHeight_viewDidAppearCompletionHandler];
+  if (v5)
+  {
+    v6 = *&v4[OBJC_IVAR____TtC21TDGSharingViewService41ViewServiceUIViewControllerExtendedHeight_viewDidAppearCompletionHandler + 8];
+
+    v5(v7);
+
+    sub_100009ED0(v5, v6);
+  }
+
+  else
+  {
+  }
 }
 
 - (_TtC21TDGSharingViewService41ViewServiceUIViewControllerExtendedHeight)initWithContentView:(id)view

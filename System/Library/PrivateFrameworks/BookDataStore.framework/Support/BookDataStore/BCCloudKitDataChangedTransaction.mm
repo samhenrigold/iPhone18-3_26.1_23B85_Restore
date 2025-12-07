@@ -29,44 +29,45 @@
 
   if (verboseLoggingEnabled)
   {
-    v7 = sub_10000DB80();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_10000DB80(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       notificationName = [(BCCloudKitDataChangedTransaction *)self notificationName];
       *buf = 138543362;
-      v21 = notificationName;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "\\Transaction - posting notification %{public}@\\"", buf, 0xCu);
+      v23 = notificationName;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "\\Transaction - posting notification %{public}@\", buf, 0xCu);
     }
   }
 
-  v9 = +[NSDistributedNotificationCenter defaultCenter];
+  v10 = +[NSDistributedNotificationCenter defaultCenter];
   notificationName2 = [(BCCloudKitDataChangedTransaction *)self notificationName];
-  [v9 postNotificationName:notificationName2 object:0];
+  [v10 postNotificationName:notificationName2 object:0];
 
-  if (sub_10000CE34())
+  v12 = sub_10000CE34();
+  if (v12)
   {
-    v11 = sub_100002614();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100002614(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       notificationName3 = [(BCCloudKitDataChangedTransaction *)self notificationName];
       *buf = 138543362;
-      v21 = notificationName3;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "posting BDSServiceNotificationName for %{public}@", buf, 0xCu);
+      v23 = notificationName3;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "posting BDSServiceNotificationName for %{public}@", buf, 0xCu);
     }
 
     notificationName4 = [(BCCloudKitDataChangedTransaction *)self notificationName];
-    v19 = notificationName4;
-    v14 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v21 = notificationName4;
+    v16 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
 
-    v15 = +[NSNotificationCenter defaultCenter];
-    [v15 postNotificationName:@"BDSServiceNotificationName" object:0 userInfo:v14];
+    v17 = +[NSNotificationCenter defaultCenter];
+    [v17 postNotificationName:@"BDSServiceNotificationName" object:0 userInfo:v16];
   }
 
-  v16 = objc_retainBlock(completionCopy);
-  v17 = v16;
-  if (v16)
+  v18 = objc_retainBlock(completionCopy);
+  v19 = v18;
+  if (v18)
   {
-    (*(v16 + 2))(v16);
+    (*(v18 + 2))(v18);
   }
 }
 

@@ -24,8 +24,9 @@
 
 - (AMFIError)initWithMISError:(int)error withURL:(id)l
 {
+  v4 = *&error;
   lCopy = l;
-  v7 = [(AMFIError *)self initWithAMFIErrorCode:errorCodeForMISError(error) withURL:lCopy];
+  v7 = [(AMFIError *)self initWithAMFIErrorCode:errorCodeForMISError(v4) withURL:lCopy];
 
   return v7;
 }

@@ -611,7 +611,7 @@ uint64_t __41__REProxyAudioClockManager__updateClocks__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __42__REProxyAudioClockManager_copyAudioClock__block_invoke(uint64_t a1)
+void *__42__REProxyAudioClockManager_copyAudioClock__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _copyAudioClock];
   *(*(*(a1 + 40) + 8) + 24) = result;

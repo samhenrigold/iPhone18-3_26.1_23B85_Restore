@@ -6,32 +6,32 @@
 
 - (id)objectIDsForDeviceUIDs:()ASDTDeviceManager
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([v4 count])
   {
     audioDevices = [self audioDevices];
     v6 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(audioDevices, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v7 = audioDevices;
-    v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * i);
+          v12 = *(*(&v18 + 1) + 8 * i);
           deviceUID = [v12 deviceUID];
           v14 = [v4 containsObject:deviceUID];
 
@@ -42,7 +42,7 @@
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
@@ -55,8 +55,6 @@
   {
     v16 = [MEMORY[0x277CBEB98] set];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

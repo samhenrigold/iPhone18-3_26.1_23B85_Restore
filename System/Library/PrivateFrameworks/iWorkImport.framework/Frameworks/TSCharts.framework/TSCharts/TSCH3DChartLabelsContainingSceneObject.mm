@@ -152,18 +152,7 @@
   v45 = objc_msgSend_contextInfoForScene_(TSCH3DLabelBitmapContextInfo, v40, v41, v42, v43, v39);
   if (infoCopy)
   {
-    objc_msgSend_resourceIndex(infoCopy, v44, v46, v47, v48);
-  }
-
-  else
-  {
-    v106 = 0;
-  }
-
-  v50 = objc_msgSend_renderString(infoCopy, v44, v46, v47, v48);
-  if (infoCopy)
-  {
-    objc_msgSend_alignmentPadding(infoCopy, v49, v51, v52, v53);
+    objc_msgSend_resourceIndex(infoCopy, v46, v47, v48);
   }
 
   else
@@ -171,8 +160,19 @@
     v104 = 0;
   }
 
+  v50 = objc_msgSend_renderString(infoCopy, v44, v46, v47, v48);
+  if (infoCopy)
+  {
+    objc_msgSend_alignmentPadding(infoCopy, v51, v52, v53);
+  }
+
+  else
+  {
+    v102 = 0;
+  }
+
   objc_msgSend_wrapWidth(infoCopy, v49, v51, v52, v53);
-  objc_msgSend_prepareCachedIndex_string_alignmentPadding_width_bitmapContextInfo_(v29, v55, v54, v56, v57, &v106, v50, &v104, v45);
+  objc_msgSend_prepareCachedIndex_string_alignmentPadding_width_bitmapContextInfo_(v29, v55, v54, v56, v57, &v104, v50, &v102, v45);
 
   v62 = objc_msgSend_pipeline(infoCopy, v58, v59, v60, v61);
   v67 = objc_msgSend_scene(v62, v63, v64, v65, v66);
@@ -189,31 +189,31 @@
     objc_msgSend_updateExternalLabelAttribute_sceneObject_labelRenderInfo_(v72, v82, v83, v84, v85, v81, self, infoCopy);
     if (infoCopy)
     {
-      objc_msgSend_position(infoCopy, v86, v87, v88, v89);
-      objc_msgSend_offset(infoCopy, v90, v91, v92, v93);
+      objc_msgSend_position(infoCopy, v87, v88, v89);
+      objc_msgSend_offset(infoCopy, v90, v91, v92);
     }
 
     else
     {
-      v107 = 0;
-      v106 = 0;
       v105 = 0;
       v104 = 0;
+      v103 = 0;
+      v102 = 0;
     }
 
-    v95 = objc_msgSend_alignment(infoCopy, v86, v87, v88, v89);
+    v93 = objc_msgSend_alignment(infoCopy, v86, v87, v88, v89);
     if (infoCopy)
     {
-      objc_msgSend_offset2D(infoCopy, v94, v96, v97, v98);
+      objc_msgSend_offset2D(infoCopy, v94, v95, v96);
     }
 
     else
     {
-      v103 = 0;
+      v101 = 0;
     }
 
-    objc_msgSend_rotation(infoCopy, v94, v96, v97, v98);
-    objc_msgSend_renderAtPosition_offset_alignment_offset2D_rotation_externalAttribute_(v29, v99, v100, v101, v102, &v106, &v104, v95, &v103, v81);
+    objc_msgSend_rotation(infoCopy, v94, v95, v96);
+    objc_msgSend_renderAtPosition_offset_alignment_offset2D_rotation_externalAttribute_(v29, v97, v98, v99, v100, &v104, &v102, v93, &v101, v81);
   }
 }
 

@@ -1,6 +1,6 @@
 @interface NSString(AXExtensions)
 - (AXAttributedString)axAttributedStringWithAttributes:()AXExtensions;
-- (uint64_t)_axUnit:()AXExtensions fromPosition:inDirection:;
+- (CFIndex)_axUnit:()AXExtensions fromPosition:inDirection:;
 - (uint64_t)_ax_rangeOfNextUnitWithStartPosition:()AXExtensions direction:withCharacterSet:;
 - (uint64_t)ax_lineFromPosition:()AXExtensions inDirection:;
 - (uint64_t)ax_lineRangeForPosition:()AXExtensions;
@@ -210,7 +210,7 @@ LABEL_7:
   return v6;
 }
 
-- (uint64_t)_axUnit:()AXExtensions fromPosition:inDirection:
+- (CFIndex)_axUnit:()AXExtensions fromPosition:inDirection:
 {
   v9 = [(__CFString *)self length];
   v10 = v9;

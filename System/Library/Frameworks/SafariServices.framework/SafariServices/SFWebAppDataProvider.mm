@@ -103,65 +103,65 @@
 
 - (void)updateWithStagedCookiesDirectoryURL:(id)l sandboxExtensionToken:(id)token
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   lCopy = l;
   tokenCopy = token;
   [tokenCopy UTF8String];
   v8 = sandbox_extension_consume();
   if (v8 == -1)
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXWebApp();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v20 = WBS_LOG_CHANNEL_PREFIXWebApp(-1, v9);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [SFWebAppDataProvider updateWithStagedCookiesDirectoryURL:tokenCopy sandboxExtensionToken:v16];
+      [SFWebAppDataProvider updateWithStagedCookiesDirectoryURL:tokenCopy sandboxExtensionToken:v20];
     }
   }
 
   else
   {
-    v9 = v8;
-    v10 = objc_alloc_init(MEMORY[0x1E69C8A40]);
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __82__SFWebAppDataProvider_updateWithStagedCookiesDirectoryURL_sandboxExtensionToken___block_invoke;
-    v23[3] = &__block_descriptor_40_e5_v8__0l;
-    v23[4] = v9;
-    [v10 setHandler:v23];
+    v10 = v8;
+    v11 = objc_alloc_init(MEMORY[0x1E69C8A40]);
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __82__SFWebAppDataProvider_updateWithStagedCookiesDirectoryURL_sandboxExtensionToken___block_invoke;
+    v27[3] = &__block_descriptor_40_e5_v8__0l;
+    v27[4] = v10;
+    [v11 setHandler:v27];
     _sf_stagedCookiesURL = [(UIWebClip *)self->_webClip _sf_stagedCookiesURL];
-    v12 = _sf_stagedCookiesURL;
+    v14 = _sf_stagedCookiesURL;
     if (lCopy && _sf_stagedCookiesURL)
     {
       defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-      v22 = 0;
-      [defaultManager copyItemAtURL:lCopy toURL:v12 error:&v22];
-      v14 = v22;
+      v26 = 0;
+      [defaultManager copyItemAtURL:lCopy toURL:v14 error:&v26];
+      v16 = v26;
 
-      if (v14)
+      if (v16)
       {
-        v15 = WBS_LOG_CHANNEL_PREFIXWebApp();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v19 = WBS_LOG_CHANNEL_PREFIXWebApp(v17, v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          [SFWebAppDataProvider updateWithStagedCookiesDirectoryURL:v15 sandboxExtensionToken:v14];
+          [SFWebAppDataProvider updateWithStagedCookiesDirectoryURL:v19 sandboxExtensionToken:v16];
         }
       }
     }
 
     else
     {
-      v17 = WBS_LOG_CHANNEL_PREFIXWebApp();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v21 = WBS_LOG_CHANNEL_PREFIXWebApp(_sf_stagedCookiesURL, v13);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v18 = v17;
+        v22 = v21;
         absoluteString = [lCopy absoluteString];
-        absoluteString2 = [v12 absoluteString];
+        absoluteString2 = [v14 absoluteString];
         identifier = [(UIWebClip *)self->_webClip identifier];
         *buf = 138543874;
-        v25 = absoluteString;
-        v26 = 2114;
-        v27 = absoluteString2;
-        v28 = 2114;
-        v29 = identifier;
-        _os_log_error_impl(&dword_1D4644000, v18, OS_LOG_TYPE_ERROR, "Received invalid paths to copy cookies from: %{public}@ to: %{public}@, for web clip with identifier: %{public}@", buf, 0x20u);
+        v29 = absoluteString;
+        v30 = 2114;
+        v31 = absoluteString2;
+        v32 = 2114;
+        v33 = identifier;
+        _os_log_error_impl(&dword_1D4644000, v22, OS_LOG_TYPE_ERROR, "Received invalid paths to copy cookies from: %{public}@ to: %{public}@, for web clip with identifier: %{public}@", buf, 0x20u);
       }
     }
   }
@@ -183,16 +183,16 @@
     if (v10)
     {
       defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-      v17 = 0;
-      [defaultManager2 removeItemAtURL:_sf_stagedCookiesURL error:&v17];
-      v12 = v17;
+      v19 = 0;
+      [defaultManager2 removeItemAtURL:_sf_stagedCookiesURL error:&v19];
+      v12 = v19;
 
       if (v12)
       {
-        v13 = WBS_LOG_CHANNEL_PREFIXWebApp();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v15 = WBS_LOG_CHANNEL_PREFIXWebApp(v13, v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          [SFWebAppDataProvider webClipViewController:_sf_stagedCookiesURL didFinishWithResult:v13];
+          [SFWebAppDataProvider webClipViewController:_sf_stagedCookiesURL didFinishWithResult:v15];
         }
       }
     }
@@ -399,13 +399,13 @@
   }
 }
 
-uint64_t __45__SFWebAppDataProvider__updateManifestValues__block_invoke(uint64_t result, uint64_t a2)
+void *__45__SFWebAppDataProvider__updateManifestValues__block_invoke(void *result, uint64_t a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(*(result + 32) + 24) setIconImage:a2 isPrecomposed:0];
-    v3 = *(*(v2 + 32) + 16);
+    [*(result[4] + 24) setIconImage:a2 isPrecomposed:0];
+    v3 = *(v2[4] + 16);
 
     return [v3 updateUIAnimated:1];
   }

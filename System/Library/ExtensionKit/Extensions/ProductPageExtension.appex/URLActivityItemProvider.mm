@@ -92,20 +92,20 @@ LABEL_6:
 {
   selfCopy = self;
   subjectCopy = subject;
-  sub_100600FDC();
-  v7 = v6;
+  sub_100600FDC(v6);
+  v8 = v7;
 
-  if (v7)
+  if (v8)
   {
-    v8 = sub_10076FF6C();
+    v9 = sub_10076FF6C();
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 @end

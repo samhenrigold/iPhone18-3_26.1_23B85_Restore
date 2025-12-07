@@ -1,5 +1,6 @@
 @interface MFOutgoingMessageDelivery
 + (id)newWithHeaders:(id)headers HTML:(id)l plainTextAlternative:(id)alternative other:(id)other charsets:(id)charsets;
++ (id)newWithHeaders:(id)headers mixedContent:(id)content textPartsAreHTML:(BOOL)l;
 + (id)newWithMessage:(id)message;
 - (MFOutgoingMessageDelivery)init;
 - (MFOutgoingMessageDelivery)initWithHeaders:(id)headers HTML:(id)l plainTextAlternative:(id)alternative other:(id)other charsets:(id)charsets;
@@ -72,6 +73,14 @@
   v4 = [self alloc];
 
   return [v4 initWithMessage:message];
+}
+
++ (id)newWithHeaders:(id)headers mixedContent:(id)content textPartsAreHTML:(BOOL)l
+{
+  lCopy = l;
+  v8 = [self alloc];
+
+  return [v8 initWithHeaders:headers mixedContent:content textPartsAreHTML:lCopy];
 }
 
 + (id)newWithHeaders:(id)headers HTML:(id)l plainTextAlternative:(id)alternative other:(id)other charsets:(id)charsets
@@ -227,7 +236,7 @@ LABEL_18:
 
 - (id)deliverSynchronouslyWithCompletion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (!-[MailAccount isPrimaryDeliveryAccountDisabled](self->_archiveAccount, "isPrimaryDeliveryAccountDisabled") && -[MFOutgoingMessageDelivery account](self, "account") || [-[MailAccount deliveryAccountAlternates](self->_archiveAccount "deliveryAccountAlternates")] || -[MailAccount canUseCarrierDeliveryFallback](self->_archiveAccount, "canUseCarrierDeliveryFallback"))
   {
     v5 = [[MFDeliveryResult alloc] initWithStatus:2];
@@ -248,25 +257,25 @@ LABEL_18:
     if (-[MFDeliveryResult status](v5, "status") == 5 || -[MFDeliveryResult status](v5, "status") == 2 || -[MFDeliveryResult status](v5, "status") == 1 && (v16 = [+[MFActivityMonitor currentMonitor](MFActivityMonitor "currentMonitor")]) != 0 && (v17 = v16, @"MFMessageErrorDomain" == objc_msgSend(v16, "domain")) && objc_msgSend(v17, "code") == 1047)
     {
       deliveryAccountAlternates = [(MailAccount *)self->_archiveAccount deliveryAccountAlternates];
+      v21 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v24 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v27 = 0u;
-      v9 = [deliveryAccountAlternates countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [deliveryAccountAlternates countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v25;
+        v11 = *v22;
 LABEL_13:
         v12 = 0;
         while (1)
         {
-          if (*v25 != v11)
+          if (*v22 != v11)
           {
             objc_enumerationMutation(deliveryAccountAlternates);
           }
 
-          v13 = *(*(&v24 + 1) + 8 * v12);
+          v13 = *(*(&v21 + 1) + 8 * v12);
           [+[MFActivityMonitor currentMonitor](MFActivityMonitor "currentMonitor")];
           if ([(MailAccount *)self->_archiveAccount canUseDeliveryAccount:v13])
           {
@@ -281,7 +290,7 @@ LABEL_13:
 
           if (v10 == ++v12)
           {
-            v10 = [deliveryAccountAlternates countByEnumeratingWithState:&v24 objects:v28 count:16];
+            v10 = [deliveryAccountAlternates countByEnumeratingWithState:&v21 objects:v25 count:16];
             if (v10)
             {
               goto LABEL_13;
@@ -308,13 +317,9 @@ LABEL_13:
       }
     }
 
-    if (![(MFDeliveryResult *)v5 status])
+    if (![(MFDeliveryResult *)v5 status]&& (objc_opt_respondsToSelector() & 1) != 0)
     {
-      delegate = self->_delegate;
-      if (objc_opt_respondsToSelector())
-      {
-        [(MFDeliveryDelegate *)self->_delegate notifyUserDeliverySucceeded:self];
-      }
+      [(MFDeliveryDelegate *)self->_delegate notifyUserDeliverySucceeded:self];
     }
 
     if (completion)
@@ -324,30 +329,28 @@ LABEL_13:
 
     if ([(MFDeliveryResult *)v5 status])
     {
-      v19 = 1;
+      v18 = 1;
     }
 
     else
     {
-      v19 = v7;
+      v18 = v7;
     }
 
-    if ((v19 & 1) == 0)
+    if ((v18 & 1) == 0)
     {
       [-[MFOutgoingMessageDelivery _currentDeliveryObject](self "_currentDeliveryObject")];
     }
 
-    v20 = *MEMORY[0x277D85DE8];
     return v5;
   }
 
   else
   {
     [+[MFActivityMonitor currentMonitor](MFActivityMonitor "currentMonitor")];
-    v22 = [[MFDeliveryResult alloc] initWithStatus:5];
-    v23 = *MEMORY[0x277D85DE8];
+    v20 = [[MFDeliveryResult alloc] initWithStatus:5];
 
-    return v22;
+    return v20;
   }
 }
 

@@ -11,7 +11,7 @@
   selfCopy = self;
   PXUnregisterPreferencesObserver(selfCopy);
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for PXUtilityAlbumVisibilityPreferenceObserver();
+  v3.super_class = type metadata accessor for PXUtilityAlbumVisibilityPreferenceObserver(0);
   [(PXUtilityAlbumVisibilityPreferenceObserver *)&v3 dealloc];
 }
 

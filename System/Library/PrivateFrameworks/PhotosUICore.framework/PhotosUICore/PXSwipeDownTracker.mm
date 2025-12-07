@@ -68,7 +68,7 @@
 {
   y = translation.y;
   x = translation.x;
-  v7 = [(PXSwipeDownTracker *)self options]& 1;
+  v7 = objc_msgSend_options(self, a2) & 1;
   if (v7)
   {
     v8 = 0.0;
@@ -176,34 +176,34 @@ void __55__PXSwipeDownTracker_trackGestureTranslation_velocity___block_invoke(ui
   [v4 setInput:v3 + 1.0];
 }
 
-void __55__PXSwipeDownTracker_trackGestureTranslation_velocity___block_invoke_3(uint64_t a1, double a2, double a3)
+void __55__PXSwipeDownTracker_trackGestureTranslation_velocity___block_invoke_3(uint64_t a1, float64x2_t *a2, uint64_t *a3, double *a4, double a5, double a6, double a7)
 {
-  if (a3 > 0.0 && (*(a1 + 64) & 1) == 0)
+  if (a6 > 0.0 && (*(a1 + 64) & 1) == 0)
   {
-    v6 = [*(a1 + 32) scaleDownDistance];
-    v8 = MEMORY[0x1A590C800](v6, a3 / v7);
-    cos(v8);
+    v10 = [*(a1 + 32) scaleDownDistance];
+    v12 = MEMORY[0x1A590C800](v10, a6 / v11);
+    cos(v12);
     [*(a1 + 32) scaleDownFactor];
     PXFloatByLinearlyInterpolatingFloats();
   }
 
-  v9 = [*(a1 + 32) horizontalMotionType];
+  v13 = [*(a1 + 32) horizontalMotionType];
   [*(a1 + 32) horizontalResistanceDistance];
-  __55__PXSwipeDownTracker_trackGestureTranslation_velocity___block_invoke_4(v9, a2, v10);
-  v13 = *(a1 + 32);
-  if (a3 <= 0.0)
+  __55__PXSwipeDownTracker_trackGestureTranslation_velocity___block_invoke_4(v13, a5, v14);
+  v17 = *(a1 + 32);
+  if (a6 <= 0.0)
   {
-    v14 = [v13 upMotionType];
+    v18 = [v17 upMotionType];
     [*(a1 + 32) upResistanceDistance];
   }
 
   else
   {
-    v14 = [v13 downMotionType];
+    v18 = [v17 downMotionType];
     [*(a1 + 32) downResistanceDistance];
   }
 
-  __55__PXSwipeDownTracker_trackGestureTranslation_velocity___block_invoke_4(v14, a3, v15);
+  __55__PXSwipeDownTracker_trackGestureTranslation_velocity___block_invoke_4(v18, a6, v19);
   if ([*(a1 + 32) rotationOnHorizontalMotion])
   {
     [*(a1 + 32) rotationHorizontalMotionFactor];
@@ -212,13 +212,13 @@ void __55__PXSwipeDownTracker_trackGestureTranslation_velocity___block_invoke_3(
 
   if ([*(a1 + 32) rotationOnVerticalMotion])
   {
-    v17 = *(a1 + 40);
-    v16 = *(v17 + 16);
-    if (v16 - *(v17 + 32) != 0.0)
+    v21 = *(a1 + 40);
+    v20 = *(v21 + 16);
+    if (v20 - *(v21 + 32) != 0.0)
     {
-      CGRectGetWidth(*(v17 + 48));
+      CGRectGetWidth(*(v21 + 48));
       [*(a1 + 32) rotationVerticalMotionResistanceDistance];
-      log(fabs(a3 / v18) + 1.0);
+      log(fabs(a6 / v22) + 1.0);
       PXFloatSign();
     }
   }
@@ -257,15 +257,13 @@ double __55__PXSwipeDownTracker_trackGestureTranslation_velocity___block_invoke_
   return *(*(*(a1 + 48) + 8) + 24);
 }
 
-uint64_t __55__PXSwipeDownTracker_trackGestureTranslation_velocity___block_invoke_4(uint64_t result, double a2, double a3)
+void __55__PXSwipeDownTracker_trackGestureTranslation_velocity___block_invoke_4(uint64_t a1, double a2, double a3)
 {
-  if (result == 1)
+  if (a1 == 1)
   {
     log(fabs(a2) / a3 + 1.0);
     PXFloatSign();
   }
-
-  return result;
 }
 
 - (void)startTrackingCenter:(CGPoint)center bounds:(CGRect)bounds transform:(CGAffineTransform *)transform withInitialGestureLocation:(CGPoint)location velocity:(CGPoint)velocity

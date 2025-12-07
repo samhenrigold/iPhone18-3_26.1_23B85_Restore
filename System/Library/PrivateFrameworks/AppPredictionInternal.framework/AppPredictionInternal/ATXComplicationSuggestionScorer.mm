@@ -76,29 +76,29 @@
 
 - (id)_appBundleIdsForComplicationDescriptors:(id)descriptors
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   descriptorsCopy = descriptors;
   v4 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = descriptorsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        extensionIdentity = [*(*(&v14 + 1) + 8 * i) extensionIdentity];
+        extensionIdentity = [*(*(&v13 + 1) + 8 * i) extensionIdentity];
         containerBundleIdentifier = [extensionIdentity containerBundleIdentifier];
 
         if (containerBundleIdentifier)
@@ -107,42 +107,40 @@
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)_decaySubsequentScoresFromSameBundleId:(id)id decayFactor:(double)factor
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v6 = objc_opt_new();
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   v7 = idCopy;
-  v8 = [v7 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v41;
+    v10 = *v40;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v41 != v10)
+        if (*v40 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v40 + 1) + 8 * i);
+        v12 = *(*(&v39 + 1) + 8 * i);
         v13 = [v7 objectForKeyedSubscript:v12];
         if (v13)
         {
@@ -168,42 +166,42 @@
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
     while (v9);
   }
 
-  v35 = v6;
+  v34 = v6;
 
   v18 = [v7 mutableCopy];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   obj = v7;
-  v19 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v19 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v37;
+    v21 = *v36;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v37 != v21)
+        if (*v36 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v36 + 1) + 8 * j);
+        v23 = *(*(&v35 + 1) + 8 * j);
         extensionIdentity2 = [v23 extensionIdentity];
         containerBundleIdentifier2 = [extensionIdentity2 containerBundleIdentifier];
 
         if (containerBundleIdentifier2)
         {
           v26 = [v18 objectForKeyedSubscript:v23];
-          v27 = [v35 valueForKey:containerBundleIdentifier2];
+          v27 = [v34 valueForKey:containerBundleIdentifier2];
           v28 = [v27 indexOfObject:v26];
           v29 = MEMORY[0x277CCABB0];
           [v26 doubleValue];
@@ -212,13 +210,11 @@
         }
       }
 
-      v20 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v20 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
     }
 
     while (v20);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -354,35 +350,35 @@ LABEL_10:
 
 - (id)_scoredComplicationsForModularSetGivenDescriptors:(id)descriptors appBundleIdScores:(id)scores heuristicScores:(id)heuristicScores widgetDescriptorsAdditionalData:(id)data
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   descriptorsCopy = descriptors;
   scoresCopy = scores;
   heuristicScoresCopy = heuristicScores;
   dataCopy = data;
-  v48 = objc_opt_new();
+  v47 = objc_opt_new();
   v12 = +[ATXComplicationSuggestionParameters sharedInstance];
   modularComplicationsToPriorsMapping = [v12 modularComplicationsToPriorsMapping];
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   obj = descriptorsCopy;
-  v13 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
+  v13 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v53;
+    v15 = *v52;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v53 != v15)
+        if (*v52 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v52 + 1) + 8 * i);
+        v17 = *(*(&v51 + 1) + 8 * i);
         extensionIdentity = [v17 extensionIdentity];
         containerBundleIdentifier = [extensionIdentity containerBundleIdentifier];
 
@@ -436,49 +432,47 @@ LABEL_10:
         if (v43 > 0.0)
         {
           v44 = [MEMORY[0x277CCABB0] numberWithDouble:v43 + arc4random_uniform(0x64u) * 0.01];
-          [v48 setObject:v44 forKeyedSubscript:v17];
+          [v47 setObject:v44 forKeyedSubscript:v17];
         }
       }
 
-      v14 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
+      v14 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
     }
 
     while (v14);
   }
 
-  v45 = *MEMORY[0x277D85DE8];
-
-  return v48;
+  return v47;
 }
 
 - (id)_scoredComplicationsForInlineSetGivenDescriptors:(id)descriptors
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   descriptorsCopy = descriptors;
   v4 = objc_opt_new();
   v5 = +[ATXComplicationSuggestionParameters sharedInstance];
   inlineComplicationsToPriorsMapping = [v5 inlineComplicationsToPriorsMapping];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v6 = descriptorsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v28;
+    v9 = *v27;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
+        v11 = *(*(&v26 + 1) + 8 * i);
         extensionBundleIdentifier = [v11 extensionBundleIdentifier];
         v13 = 0.0;
         if (extensionBundleIdentifier)
@@ -505,40 +499,38 @@ LABEL_10:
         [v4 setObject:v23 forKeyedSubscript:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v8);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (BOOL)_modularSetIsSuggestibleGivenAppScoreDictionary:(id)dictionary
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [dictionaryCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [dictionaryCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
-    v5 = *v14;
+    v5 = *v13;
     v6 = 0.0;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(dictionaryCopy);
         }
 
-        v8 = [dictionaryCopy objectForKeyedSubscript:*(*(&v13 + 1) + 8 * i)];
+        v8 = [dictionaryCopy objectForKeyedSubscript:*(*(&v12 + 1) + 8 * i)];
         [v8 doubleValue];
         v10 = v9;
 
@@ -548,14 +540,13 @@ LABEL_10:
         }
       }
 
-      v4 = [dictionaryCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [dictionaryCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
     LOBYTE(v4) = v6 >= 11.0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -576,25 +567,18 @@ LABEL_10:
   if (v9)
   {
     installDate = [v9 installDate];
-    if (!installDate)
+    v15 = 0;
+    if (installDate)
     {
-      goto LABEL_5;
-    }
+      currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
+      v12 = [MEMORY[0x277CBEAA8] now];
+      v13 = [currentCalendar dateByAddingUnit:16 value:-1 toDate:v12 options:0];
 
-    currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-    v12 = [MEMORY[0x277CBEAA8] now];
-    v13 = [currentCalendar dateByAddingUnit:16 value:-1 toDate:v12 options:0];
-
-    v14 = [v13 compare:installDate];
-    if (v14 == -1)
-    {
-      v15 = 1;
-    }
-
-    else
-    {
-LABEL_5:
-      v15 = 0;
+      v14 = [v13 compare:installDate];
+      if (v14 == -1)
+      {
+        v15 = 1;
+      }
     }
   }
 

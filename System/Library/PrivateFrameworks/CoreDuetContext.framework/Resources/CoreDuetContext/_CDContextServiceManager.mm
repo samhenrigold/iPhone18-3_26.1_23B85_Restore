@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (_CDContextServiceManager)init;
 - (id)_extractInteractionsFromEvents:(id)events onStream:(id)stream;
+- (void)_recordInteractions:(id)interactions enforceDataLimits:(BOOL)limits enforcePrivacy:(BOOL)privacy reply:(id)reply;
 - (void)_setUpServices;
 @end
 
@@ -268,6 +269,24 @@ LABEL_18:
 
   objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
+}
+
+- (void)_recordInteractions:(id)interactions enforceDataLimits:(BOOL)limits enforcePrivacy:(BOOL)privacy reply:(id)reply
+{
+  privacyCopy = privacy;
+  limitsCopy = limits;
+  interactionPolicies = self->_interactionPolicies;
+  replyCopy = reply;
+  v12 = [(_CDInteractionPolicies *)interactionPolicies filterAndModifyInteractionsWithPolicies:interactions enforceDataLimits:limitsCopy enforcePrivacy:privacyCopy];
+  v13 = +[_CDLogging instrumentationChannel];
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  {
+    sub_100002D94(v12);
+  }
+
+  interactionStore = self->_interactionStore;
+  v15 = 0;
+  replyCopy[2](replyCopy, [(_CDInteractionStore *)interactionStore recordInteractions:v12 error:&v15]);
 }
 
 @end

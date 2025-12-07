@@ -25,21 +25,21 @@
 
 - (PHPickerResult)initWithCoder:(id)coder
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v39.receiver = self;
-  v39.super_class = PHPickerResult;
-  v5 = [(PHPickerResult *)&v39 init];
+  v38.receiver = self;
+  v38.super_class = PHPickerResult;
+  v5 = [(PHPickerResult *)&v38 init];
   v6 = v5;
   if (v5)
   {
-    v31 = v5;
+    v30 = v5;
     if (initWithCoder__onceToken != -1)
     {
       dispatch_once(&initWithCoder__onceToken, &__block_literal_global_751);
     }
 
-    v32 = coderCopy;
+    v31 = coderCopy;
     v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"PHPickerResultMetadataKey"];
     v8 = [PUPhotosFileProviderItemProvider alloc];
     filePromiseURLs = [(_PHPickerResultMetadata *)v7 filePromiseURLs];
@@ -49,28 +49,28 @@
     suggestedName = [(_PHPickerResultMetadata *)v7 suggestedName];
     [(PUPhotosFileProviderItemProvider *)v11 setSuggestedName:suggestedName];
 
-    v33 = v11;
+    v32 = v11;
     [(PUPhotosFileProviderItemProvider *)v11 set_copyToTemporaryDirectoryBeforeCallingOpenInPlaceCompletionHandler:[(_PHPickerResultMetadata *)v7 allowsItemProviderOpenInPlace]];
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     typeIdentifiers = [(_PHPickerResultMetadata *)v7 typeIdentifiers];
-    v14 = [typeIdentifiers countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v14 = [typeIdentifiers countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v36;
+      v16 = *v35;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v36 != v16)
+          if (*v35 != v16)
           {
             objc_enumerationMutation(typeIdentifiers);
           }
 
-          v18 = *(*(&v35 + 1) + 8 * i);
+          v18 = *(*(&v34 + 1) + 8 * i);
           filePromiseURLs2 = [(_PHPickerResultMetadata *)v7 filePromiseURLs];
           v20 = [filePromiseURLs2 objectForKeyedSubscript:v18];
 
@@ -89,38 +89,37 @@
 
           if (!v23)
           {
-            v34[0] = MEMORY[0x1E69E9820];
-            v34[1] = 3221225472;
-            v34[2] = __32__PHPickerResult_initWithCoder___block_invoke_2;
-            v34[3] = &unk_1E83F78D8;
-            v34[4] = v20;
-            v34[5] = v22;
-            [(PUPhotosFileProviderItemProvider *)v33 registerFileRepresentationForTypeIdentifier:v18 fileOptions:0 visibility:3 loadHandler:v34];
+            v33[0] = MEMORY[0x1E69E9820];
+            v33[1] = 3221225472;
+            v33[2] = __32__PHPickerResult_initWithCoder___block_invoke_2;
+            v33[3] = &unk_1E83F78D8;
+            v33[4] = v20;
+            v33[5] = v22;
+            [(PUPhotosFileProviderItemProvider *)v32 registerFileRepresentationForTypeIdentifier:v18 fileOptions:0 visibility:3 loadHandler:v33];
           }
         }
 
-        v15 = [typeIdentifiers countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v15 = [typeIdentifiers countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
       while (v15);
     }
 
-    v6 = v31;
-    itemProvider = v31->_itemProvider;
-    v31->_itemProvider = &v33->super;
-    v25 = v33;
+    v6 = v30;
+    itemProvider = v30->_itemProvider;
+    v30->_itemProvider = &v32->super;
+    v25 = v32;
 
-    coderCopy = v32;
-    v26 = [v32 decodeObjectOfClass:objc_opt_class() forKey:@"PHPickerResultItemIdentifierKey"];
-    itemIdentifier = v31->_itemIdentifier;
-    v31->_itemIdentifier = v26;
+    coderCopy = v31;
+    v26 = [v31 decodeObjectOfClass:objc_opt_class() forKey:@"PHPickerResultItemIdentifierKey"];
+    itemIdentifier = v30->_itemIdentifier;
+    v30->_itemIdentifier = v26;
 
-    v31->__isAssetResult = [v32 decodeBoolForKey:@"PHPickerResultIsAssetResultKey"];
-    metadata = v31->__metadata;
-    v31->__metadata = v7;
+    v30->__isAssetResult = [v31 decodeBoolForKey:@"PHPickerResultIsAssetResultKey"];
+    metadata = v30->__metadata;
+    v30->__metadata = v7;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -219,7 +218,7 @@ LABEL_5:
 
 - (id)_filePromiseURLForTypeIdentifier:(id)identifier
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (!identifierCopy)
   {
@@ -227,32 +226,32 @@ LABEL_5:
   }
 
   v5 = identifierCopy;
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   _metadata = [(PHPickerResult *)self _metadata];
   typeIdentifiers = [_metadata typeIdentifiers];
 
-  v8 = [typeIdentifiers countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v8 = [typeIdentifiers countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v8)
   {
     v9 = v8;
     selfCopy = self;
-    v28 = typeIdentifiers;
-    v10 = *v31;
-    v29 = v5;
-    v26 = *v31;
+    v27 = typeIdentifiers;
+    v10 = *v30;
+    v28 = v5;
+    v25 = *v30;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v31 != v10)
+        if (*v30 != v10)
         {
           objc_enumerationMutation(typeIdentifiers);
         }
 
-        v12 = *(*(&v30 + 1) + 8 * i);
+        v12 = *(*(&v29 + 1) + 8 * i);
         v13 = [MEMORY[0x1E6982C40] typeWithIdentifier:v5];
         v14 = [MEMORY[0x1E6982C40] typeWithIdentifier:v12];
         v15 = v14;
@@ -280,18 +279,18 @@ LABEL_5:
           {
             v23 = [objc_alloc(MEMORY[0x1E69BF2E8]) initWithURL:v19 sandboxExtensionToken:v22 consume:1];
 
-            typeIdentifiers = v28;
-            v5 = v29;
+            typeIdentifiers = v27;
+            v5 = v28;
             goto LABEL_19;
           }
 
-          typeIdentifiers = v28;
-          v5 = v29;
-          v10 = v26;
+          typeIdentifiers = v27;
+          v5 = v28;
+          v10 = v25;
         }
       }
 
-      v9 = [typeIdentifiers countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v9 = [typeIdentifiers countByEnumeratingWithState:&v29 objects:v33 count:16];
       if (v9)
       {
         continue;
@@ -303,8 +302,6 @@ LABEL_5:
 
   v23 = 0;
 LABEL_19:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -513,22 +510,22 @@ LABEL_16:
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (CGRectIsEmpty(rect))
   {
     [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"{{%.2f, %.2f}, {%.2f, %.2f}}", *&x, *&y, *&width, *&height];
     _PFAssertFailHandler();
   }
 
-  v19.origin.x = 0.0;
-  v19.origin.y = 0.0;
-  v19.size.width = 1.0;
-  v19.size.height = 1.0;
-  v20.origin.x = x;
-  v20.origin.y = y;
-  v20.size.width = width;
-  v20.size.height = height;
-  v7 = CGRectContainsRect(v19, v20);
+  v18.origin.x = 0.0;
+  v18.origin.y = 0.0;
+  v18.size.width = 1.0;
+  v18.size.height = 1.0;
+  v19.origin.x = x;
+  v19.origin.y = y;
+  v19.size.width = width;
+  v19.size.height = height;
+  v7 = CGRectContainsRect(v18, v19);
   v8 = PLPickerGetLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
@@ -541,13 +538,12 @@ LABEL_16:
     }
 
     *buf = 138412546;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v11;
+    v14 = v9;
+    v15 = 2112;
+    v16 = v11;
     _os_log_impl(&dword_1D2128000, v8, OS_LOG_TYPE_DEBUG, "%@ %@ contained in the unit rect.", buf, 0x16u);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

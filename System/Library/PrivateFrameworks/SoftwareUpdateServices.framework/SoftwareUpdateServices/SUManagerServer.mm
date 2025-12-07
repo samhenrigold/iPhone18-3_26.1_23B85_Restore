@@ -91,6 +91,7 @@
 - (void)isUpdateReadyForInstallationWithOptions:(id)options withResult:(id)result;
 - (void)managedInstallationRequested:(id)requested;
 - (void)networkMonitorDetectOverrides;
+- (void)newOSDetected:(id)detected deleteKeepAlive:(BOOL)alive;
 - (void)overrideSoftwareUpdateReserve:(id)reserve systemGrowthMarginSize:(id)size withResult:(id)result;
 - (void)pauseDownload:(id)download;
 - (void)presentAutoUpdateBanner:(id)banner;
@@ -125,6 +126,7 @@
 - (void)sendDDMDeclarationToUI:(id)i;
 - (void)sendDDMGlobalSettingsToUI:(id)i;
 - (void)serverInitAndResumeWork;
+- (void)setClientType:(int)type withResult:(id)result;
 - (void)setDDMGlobalSettings:(id)settings completion:(id)completion;
 - (void)setExclusiveControl:(BOOL)control;
 - (void)setLastRollbackDescriptor:(id)descriptor withResult:(id)result;
@@ -165,19 +167,23 @@
     v5 = +[SUTransactionManager sharedInstance];
     copyTransactions = [v5 copyTransactions];
 
-    if (copyTransactions && [copyTransactions count])
+    if (copyTransactions)
     {
-      v7 = SULogCommon();
-      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
-
-      if (v8)
+      v7 = [copyTransactions count];
+      if (v7)
       {
-        SULogDebug(@"Software update daemon continuing to run - transactions: %@", v9, v10, v11, v12, v13, v14, v15, copyTransactions);
-      }
+        v8 = SULogCommon(v7);
+        v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
 
-      else
-      {
-        SULogInfo(@"Software update daemon continuing to run - busy.", v9, v10, v11, v12, v13, v14, v15, v16);
+        if (v9)
+        {
+          SULogDebug(@"Software update daemon continuing to run - transactions: %@", v10, v11, v12, v13, v14, v15, v16, copyTransactions);
+        }
+
+        else
+        {
+          SULogInfo(@"Software update daemon continuing to run - busy.", v10, v11, v12, v13, v14, v15, v16, v17);
+        }
       }
     }
 
@@ -207,9 +213,11 @@ LABEL_11:
 
 uint64_t __33__SUManagerServer_sharedInstance__block_invoke()
 {
-  sharedInstance___instance_1 = objc_alloc_init(SUManagerServer);
+  v0 = objc_alloc_init(SUManagerServer);
+  v1 = sharedInstance___instance_1;
+  sharedInstance___instance_1 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (SUManagerServer)init
@@ -303,74 +311,72 @@ uint64_t __33__SUManagerServer_sharedInstance__block_invoke()
 
 - (void)runOnClients:(id)clients
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   clientsCopy = clients;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_clients;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        clientsCopy[2](clientsCopy, *(*(&v11 + 1) + 8 * v9++));
+        clientsCopy[2](clientsCopy, *(*(&v10 + 1) + 8 * v9++));
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runOnClientsUntilStop:(id)stop
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   stopCopy = stop;
-  v15 = 0;
+  v14 = 0;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_clients;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v12 != v8)
+      if (*v11 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      stopCopy[2](stopCopy, *(*(&v11 + 1) + 8 * v9), &v15);
-      if (v15)
+      stopCopy[2](stopCopy, *(*(&v10 + 1) + 8 * v9), &v14);
+      if (v14)
       {
         break;
       }
 
       if (v7 == ++v9)
       {
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -380,8 +386,6 @@ LABEL_3:
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleClientRequest:(const char *)request client:(id)client withRequestCallBack:(id)back withErrorCallBack:(id)callBack
@@ -1896,7 +1900,7 @@ uint64_t __51__SUManagerServer_getDDMStatusWithKeys_completion___block_invoke_3(
 
 - (void)_getDDMStatusWithKeys:(id)keys withResult:(id)result
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   resultCopy = result;
   ddmManager = [(SUManagerServer *)self ddmManager];
   activeDDMDeclarationEnfrocedSU = [ddmManager activeDDMDeclarationEnfrocedSU];
@@ -1968,9 +1972,9 @@ uint64_t __51__SUManagerServer_getDDMStatusWithKeys_completion___block_invoke_3(
 
   if (!ddmPersistedError)
   {
-    v38 = *MEMORY[0x277D64330];
-    v39[0] = &unk_287B6F610;
-    ddmPersistedError = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+    v37 = *MEMORY[0x277D64330];
+    v38[0] = &unk_287B6F610;
+    ddmPersistedError = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
   }
 
   [dictionary setSafeObject:ddmPersistedError forKey:*MEMORY[0x277D64228]];
@@ -1979,13 +1983,11 @@ uint64_t __51__SUManagerServer_getDDMStatusWithKeys_completion___block_invoke_3(
 
   v36 = [dictionary copy];
   resultCopy[2](resultCopy, v36, 0);
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_installReasons
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
   manager = [(SUManagerServer *)self manager];
   installPolicy = [manager installPolicy];
@@ -2053,12 +2055,10 @@ LABEL_12:
     [v3 addObject:@"declaration"];
   }
 
-  v25 = *MEMORY[0x277D64338];
+  v24 = *MEMORY[0x277D64338];
   allObjects = [v3 allObjects];
-  v26[0] = allObjects;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
-
-  v23 = *MEMORY[0x277D85DE8];
+  v25[0] = allObjects;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
 
   return v22;
 }
@@ -2145,19 +2145,17 @@ LABEL_12:
 
 - (id)_mdmCommandConflictsWithDDMError
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCA9B8];
-  v11[0] = @"Rejecting MDM command for updates because an existing declaration is in place";
+  v10[0] = @"Rejecting MDM command for updates because an existing declaration is in place";
   v3 = *MEMORY[0x277CCA450];
-  v10[0] = *MEMORY[0x277CCA068];
-  v10[1] = v3;
+  v9[0] = *MEMORY[0x277CCA068];
+  v9[1] = v3;
   v4 = [MEMORY[0x277CCA8D8] bundleWithPath:@"/System/Library/PrivateFrameworks/SoftwareUpdateServices.framework"];
   v5 = [v4 localizedStringForKey:@"SU_MDM_CONFLICTS_WITH_DDM_ERROR" value:&stru_287B45B60 table:@"SoftwareUpdateServices"];
-  v11[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   v7 = [v2 errorWithDomain:@"com.apple.softwareupdateservices.errors" code:103 userInfo:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -3022,77 +3020,74 @@ void __55__SUManagerServer_installUpdateWithOptions_withResult___block_invoke(ui
 
 void __55__SUManagerServer_installUpdateWithOptions_withResult___block_invoke_2(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) mdmCommandConflictsWithDDM:*(a1 + 40)])
   {
-    v15 = [*(a1 + 32) _mdmCommandConflictsWithDDMError];
+    v13 = [*(a1 + 32) _mdmCommandConflictsWithDDMError];
     (*(*(a1 + 56) + 16))();
-    v2 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v3 = objc_alloc_init(SUInstallOptions);
-    v4 = *(a1 + 48);
-    if (v4)
+    v2 = objc_alloc_init(SUInstallOptions);
+    v3 = *(a1 + 48);
+    if (v3)
     {
-      v18 = 0u;
-      v19 = 0u;
       v16 = 0u;
       v17 = 0u;
-      v5 = v4;
-      v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
-      if (v6)
+      v14 = 0u;
+      v15 = 0u;
+      v4 = v3;
+      v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      if (v5)
       {
-        v7 = v6;
-        v8 = *v17;
+        v6 = v5;
+        v7 = *v15;
         do
         {
-          for (i = 0; i != v7; ++i)
+          for (i = 0; i != v6; ++i)
           {
-            if (*v17 != v8)
+            if (*v15 != v7)
             {
-              objc_enumerationMutation(v5);
+              objc_enumerationMutation(v4);
             }
 
-            v10 = *(*(&v16 + 1) + 8 * i);
-            if (v10)
+            v9 = *(*(&v14 + 1) + 8 * i);
+            if (v9)
             {
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                if ([v10 isEqualToString:@"SUInstallOptionDarkBoot"])
+                if ([v9 isEqualToString:@"SUInstallOptionDarkBoot"])
                 {
-                  [(SUInstallOptions *)v3 setDarkBoot:1];
+                  [(SUInstallOptions *)v2 setDarkBoot:1];
                 }
 
-                else if ([v10 isEqualToString:@"SUInstallOptionRequireUpdate"])
+                else if ([v9 isEqualToString:@"SUInstallOptionRequireUpdate"])
                 {
-                  [(SUInstallOptions *)v3 setRequired:1];
+                  [(SUInstallOptions *)v2 setRequired:1];
                 }
               }
             }
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
         }
 
-        while (v7);
+        while (v6);
       }
     }
 
-    v11 = [*(a1 + 40) identifier];
+    v10 = [*(a1 + 40) identifier];
 
-    if (v11)
+    if (v10)
     {
-      v12 = [*(a1 + 40) identifier];
-      [(SUInstallOptions *)v3 setClientName:v12];
+      v11 = [*(a1 + 40) identifier];
+      [(SUInstallOptions *)v2 setClientName:v11];
     }
 
-    v13 = [*(a1 + 32) manager];
-    [v13 installUpdateWithInstallOptions:v3 withResult:*(a1 + 56)];
-
-    v14 = *MEMORY[0x277D85DE8];
+    v12 = [*(a1 + 32) manager];
+    [v12 installUpdateWithInstallOptions:v2 withResult:*(a1 + 56)];
   }
 }
 
@@ -3741,7 +3736,7 @@ void __39__SUManagerServer_fetchInstallHistory___block_invoke(uint64_t a1)
 
 void __39__SUManagerServer_fetchInstallHistory___block_invoke_2(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) historyTracker];
   v3 = [v2 fetchInstallHistory];
 
@@ -3754,15 +3749,13 @@ void __39__SUManagerServer_fetchInstallHistory___block_invoke_2(uint64_t a1)
   else
   {
     v11 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA450];
-    v16[0] = @"No install history found";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x277CCA450];
+    v15[0] = @"No install history found";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v13 = [v11 errorWithDomain:@"com.apple.SUSHistory" code:1 userInfo:v12];
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)currentAutoInstallOperationForecast:(id)forecast
@@ -5252,7 +5245,7 @@ uint64_t __38__SUManagerServer_writeKeepAliveFile___block_invoke_3(uint64_t a1, 
 
 void __42__SUManagerServer_recordSUAnalyticsEvent___block_invoke(uint64_t a1)
 {
-  v2 = SULogAnalytics();
+  v2 = SULogAnalytics(a1);
   SULogInfoForSubsystem(v2, @"Saving event %@\n", v3, v4, v5, v6, v7, v8, *(a1 + 32));
 
   v9 = [*(a1 + 40) coreAnalyticsManager];
@@ -5275,18 +5268,18 @@ void __42__SUManagerServer_recordSUAnalyticsEvent___block_invoke(uint64_t a1)
 
 void __42__SUManagerServer_submitSUAnalyticsEvent___block_invoke(uint64_t a1)
 {
-  v2 = SULogAnalytics();
+  v2 = SULogAnalytics(a1);
   SULogInfoForSubsystem(v2, @"Saving event %@\n", v3, v4, v5, v6, v7, v8, *(a1 + 32));
 
   v9 = [*(a1 + 40) coreAnalyticsManager];
   [v9 setEvent:*(a1 + 32)];
 
-  v10 = SULogAnalytics();
-  v11 = [*(a1 + 32) eventName];
-  SULogInfoForSubsystem(v10, @"Submitting event %@\n", v12, v13, v14, v15, v16, v17, v11);
+  v11 = SULogAnalytics(v10);
+  v12 = [*(a1 + 32) eventName];
+  SULogInfoForSubsystem(v11, @"Submitting event %@\n", v13, v14, v15, v16, v17, v18, v12);
 
-  v18 = [*(a1 + 40) coreAnalyticsManager];
-  [v18 submitEvent:*(a1 + 32)];
+  v19 = [*(a1 + 40) coreAnalyticsManager];
+  [v19 submitEvent:*(a1 + 32)];
 }
 
 - (void)submitAllSUAnalyticsEvents
@@ -5302,7 +5295,7 @@ void __42__SUManagerServer_submitSUAnalyticsEvent___block_invoke(uint64_t a1)
 
 void __45__SUManagerServer_submitAllSUAnalyticsEvents__block_invoke(uint64_t a1)
 {
-  v2 = SULogAnalytics();
+  v2 = SULogAnalytics(a1);
   SULogInfoForSubsystem(v2, @"Submitting all CoreAnalytics events\n", v3, v4, v5, v6, v7, v8, v9);
 
   v10 = [*(a1 + 32) coreAnalyticsManager];
@@ -5325,7 +5318,7 @@ void __45__SUManagerServer_submitAllSUAnalyticsEvents__block_invoke(uint64_t a1)
 
 void __51__SUManagerServer_submitSUAnalyticsEventsWithName___block_invoke(uint64_t a1)
 {
-  v2 = SULogAnalytics();
+  v2 = SULogAnalytics(a1);
   SULogInfoForSubsystem(v2, @"Submitting all CoreAnalytics events matching name %@\n", v3, v4, v5, v6, v7, v8, *(a1 + 32));
 
   v9 = [*(a1 + 40) coreAnalyticsManager];
@@ -5459,16 +5452,20 @@ LABEL_10:
 uint64_t __49__SUManagerServer__clientMessagabilityDidChange___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) object];
+  v3 = v2;
   if (v2)
   {
-    v4 = v2;
-    if ([v2 isMessagable])
+    v5 = v2;
+    v2 = [v2 isMessagable];
+    v3 = v5;
+    if (v2)
     {
-      [*(a1 + 40) _sendLatestStatusForClient:v4];
+      v2 = [*(a1 + 40) _sendLatestStatusForClient:v5];
+      v3 = v5;
     }
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 - (void)_evaluateForegroundness
@@ -5506,7 +5503,7 @@ void __42__SUManagerServer__evaluateForegroundness__block_invoke(uint64_t a1)
   dispatch_async(v3, block);
 }
 
-uint64_t __42__SUManagerServer__evaluateForegroundness__block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
+void *__42__SUManagerServer__evaluateForegroundness__block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isForeground];
   if (result)
@@ -5634,6 +5631,20 @@ uint64_t __32__SUManagerServer_removeClient___block_invoke(uint64_t a1)
   v10 = *(a1 + 32);
 
   return [v10 _evaluateForegroundness];
+}
+
+- (void)setClientType:(int)type withResult:(id)result
+{
+  v4 = *&type;
+  resultCopy = result;
+  _clientForCurrentConnection = [(SUManagerServer *)self _clientForCurrentConnection];
+  v7 = _clientForCurrentConnection;
+  if (_clientForCurrentConnection)
+  {
+    [_clientForCurrentConnection setType:v4];
+  }
+
+  resultCopy[2](resultCopy, v7 != 0, 0);
 }
 
 - (void)scanRequestDidStartForOptions:(id)options
@@ -6500,6 +6511,23 @@ void __45__SUManagerServer_sendDDMGlobalSettingsToUI___block_invoke_2(uint64_t a
   [v11 handleUIForDDMGlobalSettings:*(a1 + 32)];
 }
 
+- (void)newOSDetected:(id)detected deleteKeepAlive:(BOOL)alive
+{
+  aliveCopy = alive;
+  SULogInfo(@"%s: %@, deleteKeepAlive: %@", a2, detected, alive, v4, v5, v6, v7, "[SUManagerServer newOSDetected:deleteKeepAlive:]");
+  v9 = +[SUScheduler sharedInstance];
+  v10 = v9;
+  if (aliveCopy)
+  {
+    [v9 cancelInstallAlertRegistration];
+  }
+
+  else
+  {
+    [v9 cancelInstallAlertRegistrationButKeepAlive];
+  }
+}
+
 - (void)splatUpdateDetected
 {
   clientQueue = self->_clientQueue;
@@ -6992,7 +7020,7 @@ void __60__SUManagerServer_autoInstallManager_operationWasConsented___block_invo
 - (void)autoInstallManager:(id)manager didCancelOperation:(id)operation
 {
   operationCopy = operation;
-  v6 = SULogBadging();
+  v6 = SULogBadging(operationCopy);
   SULogInfoForSubsystem(v6, @"Auto install operation cancelled..Dismissing AutoUpdateBanner", v7, v8, v9, v10, v11, v12, v15[0]);
 
   clientQueue = self->_clientQueue;
@@ -7223,8 +7251,7 @@ void __50__SUManagerServer_Daemon__serverInitAndResumeWork__block_invoke(uint64_
 {
   v3 = objc_autoreleasePoolPush();
   v4 = +[SUTransactionManager sharedInstance];
-  [v4 setKeepAliveClearable:0];
-  v5 = SULogCommon();
+  v5 = SULogCommon([v4 setKeepAliveClearable:0]);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
   if (v6)
@@ -7302,7 +7329,7 @@ void __50__SUManagerServer_Daemon__serverInitAndResumeWork__block_invoke(uint64_
     v39 = 0u;
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     v37 = 0;

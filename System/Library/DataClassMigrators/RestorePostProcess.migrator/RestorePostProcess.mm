@@ -70,40 +70,40 @@ id sub_2484(void *a1)
   return v4;
 }
 
-id sub_2D38()
+id sub_2D38(uint64_t a1)
 {
   if (qword_2A7A8 != -1)
   {
     sub_135E0();
   }
 
-  v1 = qword_2A7A0;
+  v2 = qword_2A7A0;
 
-  return v1;
+  return v2;
 }
 
-id sub_2D7C()
+id sub_2D7C(uint64_t a1)
 {
   if (qword_2A7B8 != -1)
   {
     sub_135F4();
   }
 
-  v1 = qword_2A7B0;
+  v2 = qword_2A7B0;
 
-  return v1;
+  return v2;
 }
 
-id sub_2DC0()
+id sub_2DC0(uint64_t a1)
 {
   if (qword_2A7C8 != -1)
   {
     sub_13608();
   }
 
-  v1 = qword_2A7C0;
+  v2 = qword_2A7C0;
 
-  return v1;
+  return v2;
 }
 
 void sub_3414(id a1)
@@ -122,7 +122,7 @@ void sub_3498(id a1)
 
 void sub_34EC(id a1)
 {
-  v4 = sub_2D7C();
+  v4 = sub_2D7C(a1);
   v1 = [NSSet setWithObjects:@".com.apple.mobile_container_manager.metadata.plist", @"SystemData/com.apple.AuthenticationServices", @"Library/SplashBoard", 0];
   v2 = [v4 setByAddingObjectsFromSet:v1];
   v3 = qword_2A780;
@@ -131,7 +131,7 @@ void sub_34EC(id a1)
 
 void sub_3588(id a1)
 {
-  v4 = sub_2DC0();
+  v4 = sub_2DC0(a1);
   v1 = [NSSet setWithObjects:@"SystemData/com.apple.AuthenticationServices", @"Library/SplashBoard", @"Library/Caches/NeverRestore", 0];
   v2 = [v4 setByAddingObjectsFromSet:v1];
   v3 = qword_2A790;
@@ -168,7 +168,7 @@ void sub_378C(id a1)
 
 void sub_37E0(id a1)
 {
-  v4 = sub_2D7C();
+  v4 = sub_2D7C(a1);
   v1 = [NSSet setWithObjects:@".com.apple.mobile_container_manager.metadata.plist", @"Library/Saved Application State", @"SystemData/com.apple.AuthenticationServices", @"Library/SplashBoard", 0];
   v2 = [v4 setByAddingObjectsFromSet:v1];
   v3 = qword_2A7E0;
@@ -177,7 +177,7 @@ void sub_37E0(id a1)
 
 void sub_3884(id a1)
 {
-  v4 = sub_2DC0();
+  v4 = sub_2DC0(a1);
   v1 = [NSSet setWithObjects:@"Library/Saved Application State", @"SystemData/com.apple.AuthenticationServices", @"Library/SplashBoard", 0];
   v2 = [v4 setByAddingObjectsFromSet:v1];
   v3 = qword_2A7F0;
@@ -240,8 +240,7 @@ CFStringRef copyPasswordFromKeychain()
       {
         *buf = 0;
         _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "Couldn't find an encrypted backup password in the keychain.", buf, 2u);
-LABEL_13:
-        _MBLog();
+        _MBLog(@"I ", "Couldn't find an encrypted backup password in the keychain.");
       }
     }
 
@@ -250,17 +249,19 @@ LABEL_13:
       *buf = 67109120;
       v12 = v2;
       _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "Could not copy encrypted backup password from keychain: %d", buf, 8u);
-      goto LABEL_13;
+      _MBLog(@"E ", "Could not copy encrypted backup password from keychain: %d");
     }
 
     v8 = 0;
-    goto LABEL_15;
   }
 
-  BytePtr = CFDataGetBytePtr(result);
-  Length = CFDataGetLength(result);
-  v8 = CFStringCreateWithBytes(0, BytePtr, Length, 0x8000100u, 1u);
-LABEL_15:
+  else
+  {
+    BytePtr = CFDataGetBytePtr(result);
+    Length = CFDataGetLength(result);
+    v8 = CFStringCreateWithBytes(0, BytePtr, Length, 0x8000100u, 1u);
+  }
+
   if (result)
   {
     CFRelease(result);
@@ -285,8 +286,7 @@ void setLockdownEncryptionInfo(uint64_t a1)
         *buf = 67109120;
         LODWORD(v7) = v2;
         _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "Could not set lockdown key for encryption: %d", buf, 8u);
-LABEL_10:
-        _MBLog();
+        _MBLog(@"E ", "Could not set lockdown key for encryption: %d");
       }
     }
 
@@ -297,55 +297,57 @@ LABEL_10:
       v8 = 2112;
       v9 = a1;
       _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "%@ key successfully set to %@", buf, 0x16u);
-      goto LABEL_10;
+      _MBLog(@"I ", "%@ key successfully set to %@", @"WillEncrypt", a1);
     }
 
     lockdown_disconnect();
-    return;
-  }
-
-  v5 = MBGetDefaultLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "Could not connect to lockdown!", buf, 2u);
-    _MBLog();
-  }
-}
-
-void makeLockdownEncryptionInfoConsistentWithKeychain()
-{
-  v0 = MBGetDefaultLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_0, v0, OS_LOG_TYPE_INFO, "Setting lockdown key to be consistent with the keychain", buf, 2u);
-    _MBLog();
-  }
-
-  v1 = copyPasswordFromKeychain();
-  v2 = MBGetDefaultLog();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_INFO);
-  if (v1)
-  {
-    if (v3)
-    {
-      *v5 = 0;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "setting lockdown encryption info since a password exists in the keychain", v5, 2u);
-      _MBLog();
-    }
-
-    setLockdownEncryptionInfo(kCFBooleanTrue);
-    CFRelease(v1);
   }
 
   else
   {
-    if (v3)
+    v5 = MBGetDefaultLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "clearing lockdown encryption info since a password doesn't exist in the keychain", v4, 2u);
-      _MBLog();
+      *buf = 0;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "Could not connect to lockdown!", buf, 2u);
+      _MBLog(@"E ", "Could not connect to lockdown!");
+    }
+  }
+}
+
+void makeLockdownEncryptionInfoConsistentWithKeychain(uint64_t a1, uint64_t a2)
+{
+  v2 = MBGetDefaultLog();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "Setting lockdown key to be consistent with the keychain", buf, 2u);
+    _MBLog(@"I ", "Setting lockdown key to be consistent with the keychain");
+  }
+
+  v3 = copyPasswordFromKeychain();
+  v4 = MBGetDefaultLog();
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
+  if (v3)
+  {
+    if (v5)
+    {
+      *v7 = 0;
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "setting lockdown encryption info since a password exists in the keychain", v7, 2u);
+      _MBLog(@"I ", "setting lockdown encryption info since a password exists in the keychain");
+    }
+
+    setLockdownEncryptionInfo(kCFBooleanTrue);
+    CFRelease(v3);
+  }
+
+  else
+  {
+    if (v5)
+    {
+      *v6 = 0;
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "clearing lockdown encryption info since a password doesn't exist in the keychain", v6, 2u);
+      _MBLog(@"I ", "clearing lockdown encryption info since a password doesn't exist in the keychain");
     }
 
     setLockdownEncryptionInfo(kCFBooleanFalse);
@@ -363,7 +365,107 @@ uint64_t setPasswordInKeychain(const __CFString *a1)
     CFDictionaryAddValue(v3, kSecAttrService, @"BackupAgent");
     CFDictionaryAddValue(v3, kSecAttrAccount, @"BackupPassword");
     CFDictionaryAddValue(v3, kSecReturnData, kCFBooleanFalse);
-    if (!a1)
+    if (a1)
+    {
+      ExternalRepresentation = CFStringCreateExternalRepresentation(0, a1, 0x8000100u, 0x3Fu);
+      if (SecItemCopyMatching(v3, 0))
+      {
+        CFDictionaryAddValue(v3, kSecValueData, ExternalRepresentation);
+        v6 = SecItemAdd(v3, 0);
+        if (!v6)
+        {
+          v4 = kCFBooleanTrue;
+          v18 = MBGetDefaultLog();
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "Encrypted backup password successfully added to the keychain", buf, 2u);
+            _MBLog(@"I ", "Encrypted backup password successfully added to the keychain");
+          }
+
+          v9 = 0;
+          if (!ExternalRepresentation)
+          {
+            goto LABEL_30;
+          }
+
+          goto LABEL_29;
+        }
+
+        v7 = v6;
+        v8 = MBGetDefaultLog();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 67109120;
+          v22 = v7;
+          _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "Could not add the encrypted backup password to the keychain: %d", buf, 8u);
+          _MBLog(@"E ", "Could not add the encrypted backup password to the keychain: %d");
+        }
+      }
+
+      else
+      {
+        v13 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+        if (v13)
+        {
+          v14 = v13;
+          CFDictionaryAddValue(v13, kSecValueData, ExternalRepresentation);
+          v15 = SecItemUpdate(v3, v14);
+          v16 = MBGetDefaultLog();
+          v17 = v16;
+          if (v15)
+          {
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 67109120;
+              v22 = v15;
+              _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "There was an error updating the backup password in the keychain: %d", buf, 8u);
+              _MBLog(@"E ", "There was an error updating the backup password in the keychain: %d", v15);
+            }
+
+            v9 = 1;
+          }
+
+          else
+          {
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+            {
+              *buf = 0;
+              _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "Encrypted backup password successfully updated in the keychain", buf, 2u);
+              _MBLog(@"I ", "Encrypted backup password successfully updated in the keychain");
+            }
+
+            v9 = 0;
+            v4 = kCFBooleanTrue;
+          }
+
+          CFRelease(v14);
+          if (!ExternalRepresentation)
+          {
+            goto LABEL_30;
+          }
+
+          goto LABEL_29;
+        }
+
+        v8 = MBGetDefaultLog();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "Could not create a dictionary for the new encrypted backup password", buf, 2u);
+          _MBLog(@"E ", "Could not create a dictionary for the new encrypted backup password");
+        }
+      }
+
+      v9 = 1;
+      if (ExternalRepresentation)
+      {
+LABEL_29:
+        CFRelease(ExternalRepresentation);
+      }
+    }
+
+    else
     {
       v10 = SecItemDelete(v3);
       if (v10 != -25300)
@@ -376,11 +478,11 @@ uint64_t setPasswordInKeychain(const __CFString *a1)
           {
             *buf = 0;
             _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "Encrypted backup password successfully deleted from the keychain", buf, 2u);
-            _MBLog();
+            _MBLog(@"I ", "Encrypted backup password successfully deleted from the keychain");
           }
 
           v9 = 0;
-          goto LABEL_31;
+          goto LABEL_30;
         }
 
         v19 = MBGetDefaultLog();
@@ -389,120 +491,17 @@ uint64_t setPasswordInKeychain(const __CFString *a1)
           *buf = 67109120;
           v22 = v11;
           _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Could not delete encrypted backup password from the keychain: %d", buf, 8u);
-          _MBLog();
+          _MBLog(@"Df", "Could not delete encrypted backup password from the keychain: %d", v11);
         }
       }
 
       v9 = 1;
-      goto LABEL_31;
     }
 
-    ExternalRepresentation = CFStringCreateExternalRepresentation(0, a1, 0x8000100u, 0x3Fu);
-    if (SecItemCopyMatching(v3, 0))
-    {
-      CFDictionaryAddValue(v3, kSecValueData, ExternalRepresentation);
-      v6 = SecItemAdd(v3, 0);
-      if (!v6)
-      {
-        v4 = kCFBooleanTrue;
-        v18 = MBGetDefaultLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "Encrypted backup password successfully added to the keychain", buf, 2u);
-          _MBLog();
-        }
-
-        v9 = 0;
-        if (!ExternalRepresentation)
-        {
-          goto LABEL_31;
-        }
-
-        goto LABEL_30;
-      }
-
-      v7 = v6;
-      v8 = MBGetDefaultLog();
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-      {
-LABEL_29:
-
-        v9 = 1;
-        if (ExternalRepresentation)
-        {
 LABEL_30:
-          CFRelease(ExternalRepresentation);
-        }
-
-LABEL_31:
-        setLockdownEncryptionInfo(v4);
-        CFRelease(v3);
-        return v9;
-      }
-
-      *buf = 67109120;
-      v22 = v7;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "Could not add the encrypted backup password to the keychain: %d", buf, 8u);
-    }
-
-    else
-    {
-      v13 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-      if (v13)
-      {
-        v14 = v13;
-        CFDictionaryAddValue(v13, kSecValueData, ExternalRepresentation);
-        v15 = SecItemUpdate(v3, v14);
-        v16 = MBGetDefaultLog();
-        v17 = v16;
-        if (v15)
-        {
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 67109120;
-            v22 = v15;
-            _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "There was an error updating the backup password in the keychain: %d", buf, 8u);
-            _MBLog();
-          }
-
-          v9 = 1;
-        }
-
-        else
-        {
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
-          {
-            *buf = 0;
-            _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "Encrypted backup password successfully updated in the keychain", buf, 2u);
-            _MBLog();
-          }
-
-          v9 = 0;
-          v4 = kCFBooleanTrue;
-        }
-
-        CFRelease(v14);
-        if (!ExternalRepresentation)
-        {
-          goto LABEL_31;
-        }
-
-        goto LABEL_30;
-      }
-
-      v8 = MBGetDefaultLog();
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_29;
-      }
-
-      *buf = 0;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "Could not create a dictionary for the new encrypted backup password", buf, 2u);
-    }
-
-    _MBLog();
-    goto LABEL_29;
+    setLockdownEncryptionInfo(v4);
+    CFRelease(v3);
+    return v9;
   }
 
   return 1;
@@ -531,7 +530,7 @@ uint64_t MBExcludedAppTypeFromAppRecord(void *a1)
 id sub_96FC(void *a1, void *a2)
 {
   v3 = a1;
-  v104 = a2;
+  v98 = a2;
   v4 = +[NSMutableDictionary dictionary];
   v5 = [v3 bundleIdentifier];
   if (!v5)
@@ -540,14 +539,13 @@ id sub_96FC(void *a1, void *a2)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v126 = v3;
+      v120 = v3;
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "app.bundleIdentifier is nil: %@", buf, 0xCu);
-      v73 = v3;
-      _MBLog();
+      _MBLog(@"E ", "app.bundleIdentifier is nil: %@", v3);
     }
   }
 
-  [v4 setObject:v5 forKeyedSubscript:v73];
+  [v4 setObject:v5 forKeyedSubscript:?];
   v7 = MBStringForContainerType(1);
   [v4 setObject:v7 forKeyedSubscript:@"ContainerContentClass"];
 
@@ -560,7 +558,7 @@ id sub_96FC(void *a1, void *a2)
   }
 
   v10 = [v3 mb_applicationType];
-  v85 = v10;
+  v79 = v10;
   if (v10)
   {
     [v4 setObject:v10 forKeyedSubscript:@"ApplicationType"];
@@ -572,15 +570,14 @@ id sub_96FC(void *a1, void *a2)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v126 = v5;
+      v120 = v5;
       _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEBUG, "app.applicationType is nil for %@", buf, 0xCu);
-      v74 = v5;
-      _MBLog();
+      _MBLog(@"Db", "app.applicationType is nil for %@", v5);
     }
   }
 
   v12 = [v3 mb_bundleURL];
-  v84 = v12;
+  v78 = v12;
   if (v12)
   {
     v13 = sub_CBD0(v12);
@@ -593,15 +590,14 @@ id sub_96FC(void *a1, void *a2)
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v126 = v5;
+      v120 = v5;
       _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "app.bundleURL is nil for %@", buf, 0xCu);
-      v75 = v5;
-      _MBLog();
+      _MBLog(@"I ", "app.bundleURL is nil for %@", v5);
     }
   }
 
   v14 = [v3 dataContainerURL];
-  v83 = v14;
+  v77 = v14;
   if (v14)
   {
     v15 = sub_CBD0(v14);
@@ -614,22 +610,21 @@ id sub_96FC(void *a1, void *a2)
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v126 = v5;
+      v120 = v5;
       _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEBUG, "app.dataContainerURL is nil for %@", buf, 0xCu);
-      v75 = v5;
-      _MBLog();
+      _MBLog(@"Db", "app.dataContainerURL is nil for %@", v5);
     }
   }
 
   v16 = [v3 mb_entitlements];
-  v87 = v16;
-  v88 = v5;
+  v81 = v16;
+  v82 = v5;
   if (![v16 count])
   {
     v17 = MBGetDefaultLog();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      if (v87)
+      if (v81)
       {
         v18 = "empty";
       }
@@ -640,16 +635,14 @@ id sub_96FC(void *a1, void *a2)
       }
 
       *buf = 136315394;
-      v126 = v18;
-      v127 = 2112;
-      v128 = v88;
+      v120 = v18;
+      v121 = 2112;
+      v122 = v82;
       _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEBUG, "Found %s entitlements dictionary for %@", buf, 0x16u);
-      v75 = v18;
-      v79 = v88;
-      _MBLog();
+      _MBLog(@"Db", "Found %s entitlements dictionary for %@", v18, v82);
     }
 
-    v16 = v87;
+    v16 = v81;
   }
 
   if (v16)
@@ -660,434 +653,399 @@ id sub_96FC(void *a1, void *a2)
   v19 = [v3 applicationExtensionRecords];
   v20 = [v19 count];
 
-  v98 = v3;
-  v86 = v4;
+  v92 = v3;
+  v80 = v4;
   if (v20)
   {
-    v91 = +[NSMutableArray array];
-    v114 = 0u;
-    v115 = 0u;
-    v116 = 0u;
-    v117 = 0u;
+    v85 = +[NSMutableArray array];
+    v108 = 0u;
+    v109 = 0u;
+    v110 = 0u;
+    v111 = 0u;
     v21 = [v3 applicationExtensionRecords];
-    v22 = [v21 countByEnumeratingWithState:&v114 objects:v134 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v108 objects:v128 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v115;
-      v89 = *v115;
-      v90 = v21;
+      v24 = *v109;
+      v83 = *v109;
+      v84 = v21;
       do
       {
         v25 = 0;
-        v92 = v23;
+        v86 = v23;
         do
         {
-          if (*v115 != v24)
+          if (*v109 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = *(*(&v114 + 1) + 8 * v25);
+          v26 = *(*(&v108 + 1) + 8 * v25);
           v27 = [v26 dataContainerURL];
           v28 = [v26 mb_bundleURL];
-          v103 = [v26 mb_pluginIdentifier];
-          v99 = v28;
-          if (!v27)
+          v97 = [v26 mb_pluginIdentifier];
+          v93 = v28;
+          if (v27)
           {
-            v48 = MBGetDefaultLog();
-            if (!os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+            if (v28)
             {
-              goto LABEL_78;
-            }
-
-            *buf = 138412546;
-            v126 = v103;
-            v127 = 2112;
-            v128 = 0;
-            _os_log_impl(&dword_0, v48, OS_LOG_TYPE_DEFAULT, "Plugin %@ found without a data container (%@) - will not be backed up.", buf, 0x16u);
-            v76 = v103;
-            v80 = 0;
-LABEL_70:
-            _MBLog();
-            goto LABEL_78;
-          }
-
-          if (!v28)
-          {
-            v48 = MBGetDefaultLog();
-            if (!os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
-            {
-              goto LABEL_78;
-            }
-
-            *buf = 138412546;
-            v126 = v103;
-            v127 = 2112;
-            v128 = 0;
-            _os_log_impl(&dword_0, v48, OS_LOG_TYPE_DEFAULT, "Plugin %@ found without a bundle URL (%@) - will not be backed up.", buf, 0x16u);
-            v76 = v103;
-            v80 = 0;
-            goto LABEL_70;
-          }
-
-          if (!v103)
-          {
-            v48 = MBGetDefaultLog();
-            if (!os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
-            {
-              goto LABEL_78;
-            }
-
-            *buf = 138412546;
-            v126 = 0;
-            v127 = 2112;
-            v128 = 0;
-            _os_log_impl(&dword_0, v48, OS_LOG_TYPE_DEFAULT, "Plugin %@ found without a pluginIdentifier (%@) - will not be backed up.", buf, 0x16u);
-            v76 = 0;
-            v80 = 0;
-            goto LABEL_70;
-          }
-
-          v29 = sub_CBD0(v28);
-          v30 = sub_CBD0(v27);
-          v97 = v29;
-          if (v29)
-          {
-            v96 = v30;
-            if (v30)
-            {
-              v31 = [v26 mb_entitlements];
-              if (!v31)
+              if (v97)
               {
-                v32 = MBGetDefaultLog();
-                if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+                v29 = sub_CBD0(v28);
+                v30 = sub_CBD0(v27);
+                v91 = v29;
+                if (v29)
                 {
-                  *buf = 138412290;
-                  v126 = v103;
-                  _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEBUG, "Plugin %@ found without entitlements.", buf, 0xCu);
-                  v76 = v103;
-                  _MBLog();
-                }
-
-                v31 = &__NSDictionary0__struct;
-              }
-
-              v93 = v31;
-              v94 = v27;
-              v95 = v25;
-              v100 = +[NSMutableArray array];
-              v110 = 0u;
-              v111 = 0u;
-              v112 = 0u;
-              v113 = 0u;
-              v33 = [v26 groupContainerURLs];
-              v34 = [v33 countByEnumeratingWithState:&v110 objects:v133 count:16];
-              if (v34)
-              {
-                v35 = v34;
-                v36 = *v111;
-                v101 = v33;
-                do
-                {
-                  for (i = 0; i != v35; i = i + 1)
+                  v90 = v30;
+                  if (v30)
                   {
-                    if (*v111 != v36)
+                    v31 = [v26 mb_entitlements];
+                    if (!v31)
                     {
-                      objc_enumerationMutation(v33);
-                    }
-
-                    v38 = *(*(&v110 + 1) + 8 * i);
-                    v39 = [v26 groupContainerURLs];
-                    v40 = [v39 objectForKeyedSubscript:v38];
-
-                    if (v40)
-                    {
-                      v41 = sub_CBD0(v40);
-                      if (v41)
+                      v32 = MBGetDefaultLog();
+                      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
                       {
-                        if (MBPathHasVolumePrefix())
-                        {
-                          v124[0] = v38;
-                          v123[0] = kCFBundleIdentifierKey;
-                          v123[1] = @"ContainerContentClass";
-                          v42 = MBStringForContainerType(3);
-                          v123[2] = @"Container";
-                          v124[1] = v42;
-                          v124[2] = v41;
-                          v43 = [NSDictionary dictionaryWithObjects:v124 forKeys:v123 count:3];
-
-                          [v100 addObject:v43];
-LABEL_60:
-
-                          goto LABEL_61;
-                        }
-
-                        v43 = MBGetDefaultLog();
-                        if (!os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
-                        {
-                          goto LABEL_60;
-                        }
-
-                        *buf = 138413058;
-                        v126 = v103;
-                        v127 = 2112;
-                        v128 = v38;
-                        v129 = 2112;
-                        v130 = v41;
-                        v131 = 2112;
-                        v132 = v104;
-                        _os_log_impl(&dword_0, v43, OS_LOG_TYPE_DEFAULT, "Plugin %@ groupContainer %@ at %@ does not reside on the user data volume %@ - will not be backed up", buf, 0x2Au);
-                        v81 = v41;
-                        v82 = v104;
-                        v33 = v101;
-                        v76 = v103;
-                        v80 = v38;
+                        *buf = 138412290;
+                        v120 = v97;
+                        _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEBUG, "Plugin %@ found without entitlements.", buf, 0xCu);
+                        _MBLog(@"Db", "Plugin %@ found without entitlements.", v97);
                       }
 
-                      else
+                      v31 = &__NSDictionary0__struct;
+                    }
+
+                    v87 = v31;
+                    v88 = v27;
+                    v89 = v25;
+                    v94 = +[NSMutableArray array];
+                    v104 = 0u;
+                    v105 = 0u;
+                    v106 = 0u;
+                    v107 = 0u;
+                    v33 = [v26 groupContainerURLs];
+                    v34 = [v33 countByEnumeratingWithState:&v104 objects:v127 count:16];
+                    if (v34)
+                    {
+                      v35 = v34;
+                      v36 = *v105;
+                      v95 = v33;
+                      do
                       {
-                        v43 = MBGetDefaultLog();
-                        if (!os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+                        for (i = 0; i != v35; i = i + 1)
                         {
-                          goto LABEL_60;
+                          if (*v105 != v36)
+                          {
+                            objc_enumerationMutation(v33);
+                          }
+
+                          v38 = *(*(&v104 + 1) + 8 * i);
+                          v39 = [v26 groupContainerURLs];
+                          v40 = [v39 objectForKeyedSubscript:v38];
+
+                          if (v40)
+                          {
+                            v41 = sub_CBD0(v40);
+                            if (v41)
+                            {
+                              if (MBPathHasVolumePrefix())
+                              {
+                                v118[0] = v38;
+                                v117[0] = kCFBundleIdentifierKey;
+                                v117[1] = @"ContainerContentClass";
+                                v42 = MBStringForContainerType(3);
+                                v117[2] = @"Container";
+                                v118[1] = v42;
+                                v118[2] = v41;
+                                v43 = [NSDictionary dictionaryWithObjects:v118 forKeys:v117 count:3];
+
+                                [v94 addObject:v43];
+                              }
+
+                              else
+                              {
+                                v43 = MBGetDefaultLog();
+                                if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+                                {
+                                  *buf = 138413058;
+                                  v120 = v97;
+                                  v121 = 2112;
+                                  v122 = v38;
+                                  v123 = 2112;
+                                  v124 = v41;
+                                  v125 = 2112;
+                                  v126 = v98;
+                                  _os_log_impl(&dword_0, v43, OS_LOG_TYPE_DEFAULT, "Plugin %@ groupContainer %@ at %@ does not reside on the user data volume %@ - will not be backed up", buf, 0x2Au);
+                                  v33 = v95;
+                                  _MBLog(@"Df", "Plugin %@ groupContainer %@ at %@ does not reside on the user data volume %@ - will not be backed up", v97, v38, v41, v98, v77, v78, v79);
+                                }
+                              }
+                            }
+
+                            else
+                            {
+                              v43 = MBGetDefaultLog();
+                              if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+                              {
+                                *buf = 138412546;
+                                v120 = v97;
+                                v121 = 2112;
+                                v122 = v38;
+                                _os_log_impl(&dword_0, v43, OS_LOG_TYPE_DEFAULT, "Plugin %@ groupContainer %@ found with a nil SanitizedFilesystemRepresentation for container - will not be backed up", buf, 0x16u);
+                                v33 = v95;
+                                _MBLog(@"Df", "Plugin %@ groupContainer %@ found with a nil SanitizedFilesystemRepresentation for container - will not be backed up", v97, v38, v75, v76, v77, v78, v79);
+                              }
+                            }
+                          }
+
+                          else
+                          {
+                            v41 = MBGetDefaultLog();
+                            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+                            {
+                              *buf = 138412546;
+                              v120 = v97;
+                              v121 = 2112;
+                              v122 = v38;
+                              _os_log_impl(&dword_0, v41, OS_LOG_TYPE_DEFAULT, "Plugin %@ groupContainer %@ found without a container - will not be backed up", buf, 0x16u);
+                              _MBLog(@"Df", "Plugin %@ groupContainer %@ found without a container - will not be backed up", v97, v38);
+                            }
+                          }
                         }
 
-                        *buf = 138412546;
-                        v126 = v103;
-                        v127 = 2112;
-                        v128 = v38;
-                        _os_log_impl(&dword_0, v43, OS_LOG_TYPE_DEFAULT, "Plugin %@ groupContainer %@ found with a nil SanitizedFilesystemRepresentation for container - will not be backed up", buf, 0x16u);
-                        v76 = v103;
-                        v80 = v38;
-                        v33 = v101;
+                        v35 = [v33 countByEnumeratingWithState:&v104 objects:v127 count:16];
                       }
 
-                      _MBLog();
-                      goto LABEL_60;
+                      while (v35);
                     }
 
-                    v41 = MBGetDefaultLog();
-                    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
-                    {
-                      *buf = 138412546;
-                      v126 = v103;
-                      v127 = 2112;
-                      v128 = v38;
-                      _os_log_impl(&dword_0, v41, OS_LOG_TYPE_DEFAULT, "Plugin %@ groupContainer %@ found without a container - will not be backed up", buf, 0x16u);
-                      v76 = v103;
-                      v80 = v38;
-                      _MBLog();
-                    }
+                    v116[0] = v97;
+                    v115[0] = kCFBundleIdentifierKey;
+                    v115[1] = @"ContainerContentClass";
+                    v44 = MBStringForContainerType(2);
+                    v116[1] = v44;
+                    v45 = v90;
+                    v116[2] = v91;
+                    v115[2] = @"Path";
+                    v115[3] = @"Container";
+                    v116[3] = v90;
+                    v46 = v87;
+                    v116[4] = v87;
+                    v115[4] = @"Entitlements";
+                    v115[5] = @"GroupContainers";
+                    v116[5] = v94;
+                    v47 = [NSDictionary dictionaryWithObjects:v116 forKeys:v115 count:6];
 
-LABEL_61:
+                    v48 = v91;
+                    [v85 addObject:v47];
+
+                    v3 = v92;
+                    v24 = v83;
+                    v21 = v84;
+                    v23 = v86;
+                    v27 = v88;
+                    v25 = v89;
                   }
 
-                  v35 = [v33 countByEnumeratingWithState:&v110 objects:v133 count:16];
+                  else
+                  {
+                    v46 = MBGetDefaultLog();
+                    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+                    {
+                      *buf = 138412290;
+                      v120 = v97;
+                      _os_log_impl(&dword_0, v46, OS_LOG_TYPE_DEFAULT, "Plugin %@ found with a nil SanitizedFilesystemRepresentation for dataContainerURL - will not be backed up.", buf, 0xCu);
+                      _MBLog(@"Df", "Plugin %@ found with a nil SanitizedFilesystemRepresentation for dataContainerURL - will not be backed up.", v97);
+                    }
+
+                    v45 = 0;
+                    v48 = v91;
+                  }
                 }
 
-                while (v35);
+                else
+                {
+                  v45 = v30;
+                  v46 = MBGetDefaultLog();
+                  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+                  {
+                    *buf = 138412290;
+                    v120 = v97;
+                    _os_log_impl(&dword_0, v46, OS_LOG_TYPE_DEFAULT, "Plugin %@ found with a nil SanitizedFilesystemRepresentation for bundleURL - will not be backed up.", buf, 0xCu);
+                    _MBLog(@"Df", "Plugin %@ found with a nil SanitizedFilesystemRepresentation for bundleURL - will not be backed up.", v97);
+                  }
+
+                  v48 = 0;
+                }
               }
 
-              v122[0] = v103;
-              v121[0] = kCFBundleIdentifierKey;
-              v121[1] = @"ContainerContentClass";
-              v44 = MBStringForContainerType(2);
-              v122[1] = v44;
-              v45 = v96;
-              v122[2] = v97;
-              v121[2] = @"Path";
-              v121[3] = @"Container";
-              v122[3] = v96;
-              v46 = v93;
-              v122[4] = v93;
-              v121[4] = @"Entitlements";
-              v121[5] = @"GroupContainers";
-              v122[5] = v100;
-              v47 = [NSDictionary dictionaryWithObjects:v122 forKeys:v121 count:6];
-
-              v48 = v97;
-              [v91 addObject:v47];
-
-              v3 = v98;
-              v24 = v89;
-              v21 = v90;
-              v23 = v92;
-              v27 = v94;
-              v25 = v95;
+              else
+              {
+                v48 = MBGetDefaultLog();
+                if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 138412546;
+                  v120 = 0;
+                  v121 = 2112;
+                  v122 = 0;
+                  _os_log_impl(&dword_0, v48, OS_LOG_TYPE_DEFAULT, "Plugin %@ found without a pluginIdentifier (%@) - will not be backed up.", buf, 0x16u);
+                  _MBLog(@"Df", "Plugin %@ found without a pluginIdentifier (%@) - will not be backed up.", 0, 0);
+                }
+              }
             }
 
             else
             {
-              v46 = MBGetDefaultLog();
-              if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+              v48 = MBGetDefaultLog();
+              if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
               {
-                *buf = 138412290;
-                v126 = v103;
-                _os_log_impl(&dword_0, v46, OS_LOG_TYPE_DEFAULT, "Plugin %@ found with a nil SanitizedFilesystemRepresentation for dataContainerURL - will not be backed up.", buf, 0xCu);
-                v76 = v103;
-                _MBLog();
+                *buf = 138412546;
+                v120 = v97;
+                v121 = 2112;
+                v122 = 0;
+                _os_log_impl(&dword_0, v48, OS_LOG_TYPE_DEFAULT, "Plugin %@ found without a bundle URL (%@) - will not be backed up.", buf, 0x16u);
+                _MBLog(@"Df", "Plugin %@ found without a bundle URL (%@) - will not be backed up.", v97, 0);
               }
-
-              v45 = 0;
-              v48 = v97;
             }
           }
 
           else
           {
-            v45 = v30;
-            v46 = MBGetDefaultLog();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+            v48 = MBGetDefaultLog();
+            if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = 138412290;
-              v126 = v103;
-              _os_log_impl(&dword_0, v46, OS_LOG_TYPE_DEFAULT, "Plugin %@ found with a nil SanitizedFilesystemRepresentation for bundleURL - will not be backed up.", buf, 0xCu);
-              v76 = v103;
-              _MBLog();
+              *buf = 138412546;
+              v120 = v97;
+              v121 = 2112;
+              v122 = 0;
+              _os_log_impl(&dword_0, v48, OS_LOG_TYPE_DEFAULT, "Plugin %@ found without a data container (%@) - will not be backed up.", buf, 0x16u);
+              _MBLog(@"Df", "Plugin %@ found without a data container (%@) - will not be backed up.", v97, 0);
             }
-
-            v48 = 0;
           }
 
-LABEL_78:
           v25 = v25 + 1;
         }
 
         while (v25 != v23);
-        v23 = [v21 countByEnumeratingWithState:&v114 objects:v134 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v108 objects:v128 count:16];
       }
 
       while (v23);
     }
 
-    v4 = v86;
-    [v86 setObject:v91 forKeyedSubscript:@"Plugins"];
+    v4 = v80;
+    [v80 setObject:v85 forKeyedSubscript:@"Plugins"];
   }
 
   v49 = [v3 groupContainerURLs];
   v50 = [v49 count];
 
-  if (!v50)
+  if (v50)
   {
-    goto LABEL_102;
-  }
-
-  v51 = +[NSMutableArray array];
-  v106 = 0u;
-  v107 = 0u;
-  v108 = 0u;
-  v109 = 0u;
-  v52 = [v3 groupContainerURLs];
-  v53 = [v52 countByEnumeratingWithState:&v106 objects:v120 count:16];
-  if (!v53)
-  {
-    goto LABEL_101;
-  }
-
-  v54 = v53;
-  v55 = *v107;
-  do
-  {
-    v56 = 0;
-    v102 = v54;
-    do
+    v51 = +[NSMutableArray array];
+    v100 = 0u;
+    v101 = 0u;
+    v102 = 0u;
+    v103 = 0u;
+    v52 = [v3 groupContainerURLs];
+    v53 = [v52 countByEnumeratingWithState:&v100 objects:v114 count:16];
+    if (v53)
     {
-      if (*v107 != v55)
+      v54 = v53;
+      v55 = *v101;
+      do
       {
-        objc_enumerationMutation(v52);
-      }
-
-      v57 = *(*(&v106 + 1) + 8 * v56);
-      v58 = [v3 groupContainerURLs];
-      v59 = [v58 objectForKeyedSubscript:v57];
-
-      if (v59)
-      {
-        v60 = sub_CBD0(v59);
-        if (v60)
+        v56 = 0;
+        v96 = v54;
+        do
         {
-          if (MBPathHasVolumePrefix())
+          if (*v101 != v55)
           {
-            v119[0] = v57;
-            v118[0] = kCFBundleIdentifierKey;
-            v118[1] = @"ContainerContentClass";
-            v61 = MBStringForContainerType(3);
-            v118[2] = @"Container";
-            v119[1] = v61;
-            v119[2] = v60;
-            v62 = [NSDictionary dictionaryWithObjects:v119 forKeys:v118 count:3];
-
-            [v51 addObject:v62];
-LABEL_98:
-
-            v3 = v98;
-            goto LABEL_99;
+            objc_enumerationMutation(v52);
           }
 
-          v62 = MBGetDefaultLog();
-          if (!os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+          v57 = *(*(&v100 + 1) + 8 * v56);
+          v58 = [v3 groupContainerURLs];
+          v59 = [v58 objectForKeyedSubscript:v57];
+
+          if (v59)
           {
-            goto LABEL_98;
+            v60 = sub_CBD0(v59);
+            if (v60)
+            {
+              if (MBPathHasVolumePrefix())
+              {
+                v113[0] = v57;
+                v112[0] = kCFBundleIdentifierKey;
+                v112[1] = @"ContainerContentClass";
+                v61 = MBStringForContainerType(3);
+                v112[2] = @"Container";
+                v113[1] = v61;
+                v113[2] = v60;
+                v62 = [NSDictionary dictionaryWithObjects:v113 forKeys:v112 count:3];
+
+                [v51 addObject:v62];
+              }
+
+              else
+              {
+                v62 = MBGetDefaultLog();
+                if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 138412802;
+                  v120 = v57;
+                  v121 = 2112;
+                  v122 = v60;
+                  v123 = 2112;
+                  v124 = v98;
+                  _os_log_impl(&dword_0, v62, OS_LOG_TYPE_DEFAULT, "GroupContainer %@ at %@ does not reside on the user data volume %@ - will not be backed up", buf, 0x20u);
+                  v54 = v96;
+                  _MBLog(@"Df", "GroupContainer %@ at %@ does not reside on the user data volume %@ - will not be backed up", v57, v60, v98);
+                }
+              }
+            }
+
+            else
+            {
+              v62 = MBGetDefaultLog();
+              if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 138412290;
+                v120 = v57;
+                _os_log_impl(&dword_0, v62, OS_LOG_TYPE_DEFAULT, "GroupContainer %@ found with a nil SanitizedFilesystemRepresentation for container - will not be backed up", buf, 0xCu);
+                _MBLog(@"Df", "GroupContainer %@ found with a nil SanitizedFilesystemRepresentation for container - will not be backed up", v57, v74, v75);
+              }
+            }
+
+            v3 = v92;
           }
 
-          *buf = 138412802;
-          v126 = v57;
-          v127 = 2112;
-          v128 = v60;
-          v129 = 2112;
-          v130 = v104;
-          _os_log_impl(&dword_0, v62, OS_LOG_TYPE_DEFAULT, "GroupContainer %@ at %@ does not reside on the user data volume %@ - will not be backed up", buf, 0x20u);
-          v80 = v60;
-          v81 = v104;
-          v54 = v102;
-          v77 = v57;
+          else
+          {
+            v60 = MBGetDefaultLog();
+            if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138412290;
+              v120 = v57;
+              _os_log_impl(&dword_0, v60, OS_LOG_TYPE_DEFAULT, "GroupContainer %@ found without a container - will not be backed up", buf, 0xCu);
+              _MBLog(@"Df", "GroupContainer %@ found without a container - will not be backed up", v57);
+            }
+          }
+
+          v56 = v56 + 1;
         }
 
-        else
-        {
-          v62 = MBGetDefaultLog();
-          if (!os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
-          {
-            goto LABEL_98;
-          }
-
-          *buf = 138412290;
-          v126 = v57;
-          _os_log_impl(&dword_0, v62, OS_LOG_TYPE_DEFAULT, "GroupContainer %@ found with a nil SanitizedFilesystemRepresentation for container - will not be backed up", buf, 0xCu);
-          v77 = v57;
-        }
-
-        _MBLog();
-        goto LABEL_98;
+        while (v54 != v56);
+        v54 = [v52 countByEnumeratingWithState:&v100 objects:v114 count:16];
       }
 
-      v60 = MBGetDefaultLog();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412290;
-        v126 = v57;
-        _os_log_impl(&dword_0, v60, OS_LOG_TYPE_DEFAULT, "GroupContainer %@ found without a container - will not be backed up", buf, 0xCu);
-        v77 = v57;
-        _MBLog();
-      }
-
-LABEL_99:
-
-      v56 = v56 + 1;
+      while (v54);
     }
 
-    while (v54 != v56);
-    v54 = [v52 countByEnumeratingWithState:&v106 objects:v120 count:16];
+    v4 = v80;
+    [v80 setObject:v51 forKeyedSubscript:@"GroupContainers"];
   }
 
-  while (v54);
-LABEL_101:
-
-  v4 = v86;
-  [v86 setObject:v51 forKeyedSubscript:@"GroupContainers"];
-
-LABEL_102:
   v63 = [v3 isPlaceholder];
   v64 = [NSNumber numberWithBool:v63];
   [v4 setObject:v64 forKeyedSubscript:@"IsPlaceholder"];
@@ -1098,9 +1056,9 @@ LABEL_102:
 
   if ((v63 & 1) == 0)
   {
-    v105 = 0;
-    v67 = [[LSApplicationRecord alloc] initWithBundleIdentifier:v88 allowPlaceholder:1 error:&v105];
-    v68 = v105;
+    v99 = 0;
+    v67 = [[LSApplicationRecord alloc] initWithBundleIdentifier:v82 allowPlaceholder:1 error:&v99];
+    v68 = v99;
     if ([v67 hasParallelPlaceholder])
     {
       v69 = MBGetDefaultLog();
@@ -1108,22 +1066,22 @@ LABEL_102:
       {
         v70 = [v3 bundleIdentifier];
         *buf = 138412290;
-        v126 = v70;
+        v120 = v70;
         _os_log_impl(&dword_0, v69, OS_LOG_TYPE_INFO, "%@ has a parallel placeholder", buf, 0xCu);
 
-        v78 = [v3 bundleIdentifier];
-        _MBLog();
+        v71 = [v3 bundleIdentifier];
+        _MBLog(@"I ", "%@ has a parallel placeholder", v71);
       }
 
-      v71 = &__kCFBooleanTrue;
+      v72 = &__kCFBooleanTrue;
     }
 
     else
     {
-      v71 = &__kCFBooleanFalse;
+      v72 = &__kCFBooleanFalse;
     }
 
-    [v4 setObject:v71 forKeyedSubscript:{@"IsUpdating", v78}];
+    [v4 setObject:v72 forKeyedSubscript:@"IsUpdating"];
   }
 
   return v4;
@@ -1153,9 +1111,8 @@ id sub_CBD0(void *a1)
   return v1;
 }
 
-void sub_DA18(uint64_t a1)
+void sub_DA18(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   v2 = objc_opt_class();
   Name = class_getName(v2);
   v7 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -1196,35 +1153,32 @@ void sub_F5F0(uint64_t a1)
       v5 = *(a1 + 48);
       v6 = *(a1 + 64);
       *buf = 138543874;
-      v19 = v4;
-      v20 = 2114;
-      v21 = v5;
-      v22 = 1024;
-      v23 = v6;
+      v15 = v4;
+      v16 = 2114;
+      v17 = v5;
+      v18 = 1024;
+      v19 = v6;
       _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "No need to save the %{public}@ state for account %{public}@: %d", buf, 0x1Cu);
-      v11 = *(a1 + 48);
-      v12 = *(a1 + 64);
-      v10 = *(a1 + 40);
-      _MBLog();
+      _MBLog(@"Df", "No need to save the %{public}@ state for account %{public}@: %d", *(a1 + 40), *(a1 + 48), *(a1 + 64));
     }
 
-    (*(*(a1 + 56) + 16))(*(a1 + 56), 0, v7);
+    (*(*(a1 + 56) + 16))();
   }
 
   else
   {
     [*(a1 + 32) setEnabled:*(a1 + 64) forDataclass:*(a1 + 40)];
-    v8 = +[ACAccountStore defaultStore];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_F7CC;
-    v13[3] = &unk_24AD0;
-    v9 = *(a1 + 32);
-    v14 = *(a1 + 40);
-    v15 = *(a1 + 48);
-    v17 = *(a1 + 64);
-    v16 = *(a1 + 56);
-    [v8 saveAccount:v9 withCompletionHandler:v13];
+    v7 = +[ACAccountStore defaultStore];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_F7CC;
+    v9[3] = &unk_24AD0;
+    v8 = *(a1 + 32);
+    v10 = *(a1 + 40);
+    v11 = *(a1 + 48);
+    v13 = *(a1 + 64);
+    v12 = *(a1 + 56);
+    [v7 saveAccount:v8 withCompletionHandler:v9];
   }
 }
 
@@ -1241,16 +1195,13 @@ void sub_F7CC(uint64_t a1, char a2, void *a3)
       v9 = *(a1 + 40);
       v10 = *(a1 + 56);
       *buf = 138543874;
-      v20 = v8;
-      v21 = 2114;
-      v22 = v9;
-      v23 = 1024;
-      LODWORD(v24) = v10;
+      v14 = v8;
+      v15 = 2114;
+      v16 = v9;
+      v17 = 1024;
+      LODWORD(v18) = v10;
       _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Saved the %{public}@ state for account %{public}@: %d", buf, 0x1Cu);
-      v16 = *(a1 + 40);
-      v18 = *(a1 + 56);
-      v14 = *(a1 + 32);
-      _MBLog();
+      _MBLog(@"Df", "Saved the %{public}@ state for account %{public}@: %d", *(a1 + 32), *(a1 + 40), *(a1 + 56));
     }
 
     v7 = v5;
@@ -1262,18 +1213,16 @@ void sub_F7CC(uint64_t a1, char a2, void *a3)
     v11 = *(a1 + 32);
     v12 = *(a1 + 40);
     *buf = 138543874;
-    v20 = v11;
-    v21 = 2114;
-    v22 = v12;
-    v23 = 2112;
-    v24 = v5;
+    v14 = v11;
+    v15 = 2114;
+    v16 = v12;
+    v17 = 2112;
+    v18 = v5;
     _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "Failed to save %{public}@ state for account %{public}@: %@", buf, 0x20u);
-    v17 = *(a1 + 40);
-    v15 = *(a1 + 32);
-    _MBLog();
+    _MBLog(@"E ", "Failed to save %{public}@ state for account %{public}@: %@", *(a1 + 32), *(a1 + 40), v5);
   }
 
-  (*(*(a1 + 48) + 16))(*(a1 + 48), v5, v13);
+  (*(*(a1 + 48) + 16))();
 }
 
 void sub_FD34(uint64_t a1)
@@ -1295,7 +1244,7 @@ void sub_FD34(uint64_t a1)
     {
       *v6 = 0;
       _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Unable to retrieve account, cannot renew credentials", v6, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Unable to retrieve account, cannot renew credentials");
     }
   }
 }
@@ -1313,7 +1262,7 @@ void sub_FE28(id a1, int64_t a2, NSError *a3)
     _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Account credentials %@ (%d)", buf, 0x12u);
 
     v6 = [MBServiceAccount _stringForAccountCredentialRenewResult:a2];
-    _MBLog();
+    _MBLog(@"Df", "Account credentials %@ (%d)", v6, a2);
   }
 }
 
@@ -1331,7 +1280,7 @@ void sub_1018C(uint64_t a1)
     {
       *buf = 0;
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Updating account", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Updating account");
     }
 
     v7 = +[ACAccountStore defaultStore];
@@ -1351,7 +1300,7 @@ void sub_1018C(uint64_t a1)
     {
       *buf = 0;
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "No primary account found to update", buf, 2u);
-      _MBLog();
+      _MBLog(@"E ", "No primary account found to update");
     }
 
     v8 = *(a1 + 40);
@@ -1374,7 +1323,7 @@ void sub_1038C(uint64_t a1, int a2, void *a3)
     {
       *buf = 0;
       _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "Updated account", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Updated account");
     }
   }
 
@@ -1385,23 +1334,23 @@ void sub_1038C(uint64_t a1, int a2, void *a3)
     v12 = v8;
     _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "Error updating account: %@", buf, 0xCu);
 
-    v10 = [MBError descriptionForError:v5];
-    _MBLog();
+    v9 = [MBError descriptionForError:v5];
+    _MBLog(@"E ", "Error updating account: %@", v9);
   }
 
   [*(a1 + 32) _reloadAccountPropertiesFromACAccount:*(a1 + 40)];
-  v9 = *(a1 + 48);
-  if (v9)
+  v10 = *(a1 + 48);
+  if (v10)
   {
-    (*(v9 + 16))(v9, v5);
+    (*(v10 + 16))(v10, v5);
   }
 }
 
-void sub_10648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1420,9 +1369,9 @@ void sub_10684(uint64_t a1, void *a2)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_1080C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1080C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1464,7 +1413,7 @@ void sub_109EC(uint64_t a1)
     {
       *buf = 0;
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Re-authenticating account", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Re-authenticating account");
     }
 
     [v4 aa_setPassword:&stru_251F0];
@@ -1485,7 +1434,7 @@ void sub_109EC(uint64_t a1)
     {
       *buf = 0;
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "No primary account found to update", buf, 2u);
-      _MBLog();
+      _MBLog(@"E ", "No primary account found to update");
     }
 
     v8 = *(a1 + 48);
@@ -1509,7 +1458,7 @@ void sub_10BF4(uint64_t a1, void *a2, void *a3)
     {
       *buf = 0;
       _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "Authenticated account", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Authenticated account");
     }
   }
 
@@ -1520,27 +1469,27 @@ void sub_10BF4(uint64_t a1, void *a2, void *a3)
     v16 = v9;
     _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "Error authenticating account: %@", buf, 0xCu);
 
-    v14 = [MBError descriptionForError:v6];
-    _MBLog();
+    v10 = [MBError descriptionForError:v6];
+    _MBLog(@"E ", "Error authenticating account: %@", v10);
   }
 
-  v10 = +[ACAccountStore defaultStore];
-  v11 = [*(a1 + 32) accountIdentifier];
-  v12 = [v10 accountWithIdentifier:v11];
+  v11 = +[ACAccountStore defaultStore];
+  v12 = [*(a1 + 32) accountIdentifier];
+  v13 = [v11 accountWithIdentifier:v12];
 
-  [*(a1 + 32) _reloadAccountPropertiesFromACAccount:v12];
-  v13 = *(a1 + 40);
-  if (v13)
+  [*(a1 + 32) _reloadAccountPropertiesFromACAccount:v13];
+  v14 = *(a1 + 40);
+  if (v14)
   {
-    (*(v13 + 16))(v13, v6);
+    (*(v14 + 16))(v14, v6);
   }
 }
 
-void sub_10F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1552,16 +1501,16 @@ void sub_10F40(uint64_t a1, void *a2)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_113BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_113BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1610,8 +1559,6 @@ uint64_t sub_11884(void *a1)
   result = *(a1[4] + 8);
   if (result)
   {
-    v3 = a1[5];
-    v4 = a1[6];
     result = lockdown_copy_value();
     *(*(a1[7] + 8) + 40) = result;
   }
@@ -1624,29 +1571,24 @@ uint64_t sub_11980(uint64_t a1)
   result = *(*(a1 + 32) + 8);
   if (result)
   {
-    v3 = *(a1 + 40);
-    v4 = *(a1 + 48);
-    v5 = *(a1 + 56);
     result = lockdown_save_value();
     if (result)
     {
-      v6 = result;
-      v7 = MBGetDefaultLog();
-      result = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+      v3 = result;
+      v4 = MBGetDefaultLog();
+      result = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
       if (result)
       {
-        v8 = *(a1 + 40);
-        v9 = *(a1 + 48);
+        v5 = *(a1 + 40);
+        v6 = *(a1 + 48);
         *buf = 138412802;
-        v13 = v8;
-        v14 = 2112;
-        v15 = v9;
-        v16 = 1024;
-        v17 = v6;
-        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "Failed to save object to lockdown with domain '%@', key '%@': %d", buf, 0x1Cu);
-        v11 = *(a1 + 48);
-        v10 = *(a1 + 40);
-        result = _MBLog();
+        v8 = v5;
+        v9 = 2112;
+        v10 = v6;
+        v11 = 1024;
+        v12 = v3;
+        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "Failed to save object to lockdown with domain '%@', key '%@': %d", buf, 0x1Cu);
+        result = _MBLog(@"E ", "Failed to save object to lockdown with domain '%@', key '%@': %d", *(a1 + 40), *(a1 + 48), v3);
       }
 
       if (*(a1 + 72))
@@ -1683,12 +1625,11 @@ uint64_t sub_11B70(uint64_t a1)
       {
         v6 = *(a1 + 40);
         *buf = 138412546;
-        v17 = v2;
-        v18 = 2112;
-        v19 = v6;
+        v12 = v2;
+        v13 = 2112;
+        v14 = v6;
         _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "Failed to sync preferences for %@ domain (%@)", buf, 0x16u);
-        v14 = *(a1 + 40);
-        return _MBLog();
+        return _MBLog(@"E ", "Failed to sync preferences for %@ domain (%@)", v2, *(a1 + 40));
       }
     }
   }
@@ -1698,28 +1639,24 @@ uint64_t sub_11B70(uint64_t a1)
     result = *(*(a1 + 48) + 8);
     if (result)
     {
-      v7 = *(a1 + 32);
-      v8 = *(a1 + 40);
       result = lockdown_remove_value();
       if (result)
       {
-        v9 = result;
-        v10 = MBGetDefaultLog();
-        result = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+        v7 = result;
+        v8 = MBGetDefaultLog();
+        result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
         if (result)
         {
-          v11 = *(a1 + 32);
-          v12 = *(a1 + 40);
+          v9 = *(a1 + 32);
+          v10 = *(a1 + 40);
           *buf = 138412802;
-          v17 = v11;
-          v18 = 2112;
-          v19 = v12;
-          v20 = 1024;
-          v21 = v9;
-          _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "Failed to remove object from lockdown with domain '%@', key '%@': %d", buf, 0x1Cu);
-          v15 = *(a1 + 40);
-          v13 = *(a1 + 32);
-          result = _MBLog();
+          v12 = v9;
+          v13 = 2112;
+          v14 = v10;
+          v15 = 1024;
+          v16 = v7;
+          _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "Failed to remove object from lockdown with domain '%@', key '%@': %d", buf, 0x1Cu);
+          result = _MBLog(@"E ", "Failed to remove object from lockdown with domain '%@', key '%@': %d", *(a1 + 32), *(a1 + 40), v7);
         }
 
         if (*(a1 + 64))
@@ -1805,8 +1742,6 @@ uint64_t sub_1242C(uint64_t *a1, uint64_t *a2)
     return 1;
   }
 
-  v7 = *a1;
-
   return sub_13B38();
 }
 
@@ -1816,20 +1751,19 @@ id sub_12A08(uint64_t a1, uint64_t a2, char a3, char a4)
   ObjectType = swift_getObjectType();
   v10 = sub_13A68();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   __chkstk_darwin();
-  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   if ((a3 & 1) == 0)
   {
 
-    v16 = 22;
+    v15 = 22;
 LABEL_6:
-    v22 = v16;
+    v21 = v15;
     sub_13084(&_swiftEmptyArrayStorage);
     sub_13194();
     sub_13A78();
     sub_13A58();
-    (*(v11 + 8))(v14, v10);
+    (*(v11 + 8))(v13, v10);
     swift_willThrow();
     return swift_deallocPartialClassInstance();
   }
@@ -1839,25 +1773,25 @@ LABEL_6:
 
     a1 = 0;
     a2 = 0;
-    v15 = 2;
+    v14 = 2;
     goto LABEL_8;
   }
 
   if (!a2)
   {
-    v16 = 2;
+    v15 = 2;
     goto LABEL_6;
   }
 
-  v15 = 0;
+  v14 = 0;
 LABEL_8:
-  v18 = &v5[OBJC_IVAR____TtC18RestorePostProcess14MigratorConfig_state];
-  *v18 = a1;
-  *(v18 + 1) = a2;
-  v18[16] = v15;
-  v21.receiver = v5;
-  v21.super_class = ObjectType;
-  return objc_msgSendSuper2(&v21, "init");
+  v17 = &v5[OBJC_IVAR____TtC18RestorePostProcess14MigratorConfig_state];
+  *v17 = a1;
+  *(v17 + 1) = a2;
+  v17[16] = v14;
+  v20.receiver = v5;
+  v20.super_class = ObjectType;
+  return objc_msgSendSuper2(&v20, "init");
 }
 
 id sub_12D04()
@@ -2023,12 +1957,11 @@ unint64_t sub_12F08()
 
 unint64_t sub_12F54(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   sub_13B48();
   sub_13AE8();
-  v6 = sub_13B58();
+  v4 = sub_13B58();
 
-  return sub_12FCC(a1, a2, v6);
+  return sub_12FCC(a1, a2, v4);
 }
 
 unint64_t sub_12FCC(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2133,7 +2066,6 @@ uint64_t sub_131EC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -2169,18 +2101,15 @@ void sub_132B4(void *a1, id a2, char a3)
 
 uint64_t sub_132DC()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocClassInstance(v0, 24, 7);
 }
 
 uint64_t sub_13344(uint64_t a1)
 {
-  v1 = *(a1 + 80);
   result = swift_checkMetadataState();
-  if (v3 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
     result = swift_initClassMetadata2();
     if (!result)
     {
@@ -2194,9 +2123,8 @@ uint64_t sub_13344(uint64_t a1)
 char *sub_133E8()
 {
   v1 = *v0;
-  v2 = *(v0 + 2);
 
-  (*(*(*(v1 + 80) - 8) + 8))(&v0[*(*v0 + 96)]);
+  (*(*(*(v1 + 80) - 8) + 8))(v0 + *(*v0 + 96));
   return v0;
 }
 

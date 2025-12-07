@@ -7,7 +7,7 @@
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  v5 = NNSetupCompanionSyncLog();
+  v5 = NNSetupCompanionSyncLog(connectionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v9 = 138412290;

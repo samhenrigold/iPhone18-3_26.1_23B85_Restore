@@ -42,18 +42,28 @@ LABEL_7:
   v8 = fromCopy[2];
   if (internetPassword)
   {
-    if (v8)
+    if (!v8)
     {
-      [(KCSharingPBInternetPasswordCredential *)internetPassword mergeFrom:?];
+      goto LABEL_13;
     }
+
+    internetPassword = [(KCSharingPBInternetPasswordCredential *)internetPassword mergeFrom:?];
   }
 
-  else if (v8)
+  else
   {
-    [(KCSharingPBRemoteItem *)self setInternetPassword:?];
+    if (!v8)
+    {
+      goto LABEL_13;
+    }
+
+    internetPassword = [(KCSharingPBRemoteItem *)self setInternetPassword:?];
   }
 
-  _objc_release_x1();
+  fromCopy = v9;
+LABEL_13:
+
+  _objc_release_x1(internetPassword, fromCopy);
 }
 
 - (BOOL)isEqual:(id)equal
@@ -132,12 +142,12 @@ LABEL_7:
       v8 = 0;
       while (1)
       {
-        LOBYTE(v20) = 0;
+        LOBYTE(v19) = 0;
         v9 = [from position] + 1;
         if (v9 >= [from position] && (v10 = objc_msgSend(from, "position") + 1, v10 <= objc_msgSend(from, "length")))
         {
           data = [from data];
-          [data getBytes:&v20 range:{objc_msgSend(from, "position"), 1}];
+          [data getBytes:&v19 range:{objc_msgSend(from, "position"), 1}];
 
           [from setPosition:{objc_msgSend(from, "position") + 1}];
         }
@@ -147,8 +157,8 @@ LABEL_7:
           [from _setError];
         }
 
-        v8 |= (v20 & 0x7F) << v6;
-        if ((v20 & 0x80) == 0)
+        v8 |= (v19 & 0x7F) << v6;
+        if ((v19 & 0x80) == 0)
         {
           break;
         }
@@ -182,8 +192,8 @@ LABEL_14:
       {
         v14 = objc_alloc_init(KCSharingPBPrivateKeyCredential);
         objc_storeStrong(&self->_privateKey, v14);
+        v19 = 0xAAAAAAAAAAAAAAAALL;
         v20 = 0xAAAAAAAAAAAAAAAALL;
-        v21 = 0xAAAAAAAAAAAAAAAALL;
         if (!PBReaderPlaceMark() || !sub_100034F1C(v14, from))
         {
           goto LABEL_29;
@@ -200,8 +210,6 @@ LABEL_23:
         v15 = objc_alloc_init(PBUnknownFields);
         unknownFields = self->_unknownFields;
         self->_unknownFields = v15;
-
-        v17 = self->_unknownFields;
       }
 
       if ((PBUnknownFieldAdd() & 1) == 0)
@@ -219,8 +227,8 @@ LABEL_27:
 
     v14 = objc_alloc_init(KCSharingPBInternetPasswordCredential);
     objc_storeStrong(&self->_internetPassword, v14);
+    v19 = 0xAAAAAAAAAAAAAAAALL;
     v20 = 0xAAAAAAAAAAAAAAAALL;
-    v21 = 0xAAAAAAAAAAAAAAAALL;
     if (!PBReaderPlaceMark() || !sub_10005D630(v14, from))
     {
 LABEL_29:

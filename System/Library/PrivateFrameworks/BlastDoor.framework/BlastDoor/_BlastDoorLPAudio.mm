@@ -11,21 +11,19 @@
 
 - (_BlastDoorLPAudio)init
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v4.receiver = self;
-  v4.super_class = _BlastDoorLPAudio;
-  result = [(_BlastDoorLPAudio *)&v4 init];
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v4 = *MEMORY[0x277D85DE8];
+  v3.receiver = self;
+  v3.super_class = _BlastDoorLPAudio;
+  return [(_BlastDoorLPAudio *)&v3 init];
 }
 
 - (id)_initWithAudio:(id)audio
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   audioCopy = audio;
-  v16.receiver = self;
-  v16.super_class = _BlastDoorLPAudio;
-  v5 = [(_BlastDoorLPAudio *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = _BlastDoorLPAudio;
+  v5 = [(_BlastDoorLPAudio *)&v15 init];
   v6 = v5;
   if (v5)
   {
@@ -45,17 +43,16 @@
     v13 = v6;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (_BlastDoorLPAudio)initWithCoder:(id)coder
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = _BlastDoorLPAudio;
-  v5 = [(_BlastDoorLPAudio *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = _BlastDoorLPAudio;
+  v5 = [(_BlastDoorLPAudio *)&v17 init];
   if (v5)
   {
     v6 = [coderCopy _bd_lp_strictlyDecodeObjectOfClass:objc_opt_class() forKey:@"streamingURL"];
@@ -80,7 +77,6 @@
     v15 = v5;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -101,11 +97,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v13.receiver = self;
-  v13.super_class = _BlastDoorLPAudio;
-  if ([(_BlastDoorLPAudio *)&v13 isEqual:equalCopy])
+  v12.receiver = self;
+  v12.super_class = _BlastDoorLPAudio;
+  if ([(_BlastDoorLPAudio *)&v12 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -143,7 +139,6 @@
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

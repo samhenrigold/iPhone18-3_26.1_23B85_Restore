@@ -17,8 +17,8 @@
 
 - (NSDate)expirationDate
 {
-  v2 = (*(*(sub_100012634(&qword_1000D1CF0, &qword_1000935C8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v2 = sub_100012634(&qword_1000D1CF0, &qword_1000935C8);
+  __chkstk_darwin(v2 - 8);
   v4 = &v8 - v3;
   sub_10000ECD8();
   v5 = type metadata accessor for Date();
@@ -34,8 +34,8 @@
 
 - (void)setExpirationDate:(id)date
 {
-  v5 = (*(*(sub_100012634(&qword_1000D1CF0, &qword_1000935C8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v5 = sub_100012634(&qword_1000D1CF0, &qword_1000935C8);
+  __chkstk_darwin(v5 - 8);
   v7 = &v11 - v6;
   if (date)
   {

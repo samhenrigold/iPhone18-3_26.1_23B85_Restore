@@ -41,48 +41,57 @@
 
 - (void)finishDeferred:(BOOL)deferred error:(id)error
 {
+  deferredCopy = deferred;
   errorCopy = error;
   if (!self->_finished)
   {
-    v9 = errorCopy;
+    v12 = errorCopy;
     [(NSDate *)self->_date timeIntervalSinceNow];
-    if (v9)
+    v8 = -v7;
+    if (v12)
     {
       if (gLogCategory_ENDownloadManager > 90 || gLogCategory_ENDownloadManager == -1 && !_LogCategory_Initialize())
       {
-        goto LABEL_12;
+        goto LABEL_14;
       }
 
-      [(ENDownloadTask *)self finishDeferred:v9 error:&v10];
-      shortIdentifier = v10;
+      [(ENDownloadTask *)self finishDeferred:v12 error:&v13, v8];
+      v9 = v13;
     }
 
     else
     {
       if (gLogCategory_ENDownloadManager > 50 || gLogCategory_ENDownloadManager == -1 && !_LogCategory_Initialize())
       {
-        goto LABEL_12;
+        goto LABEL_14;
       }
 
       shortIdentifier = [(ENDownloadTask *)self shortIdentifier];
-      downloadCount = self->_downloadCount;
-      LogPrintF_safe();
+      v9 = shortIdentifier;
+      v11 = "";
+      if (deferredCopy)
+      {
+        v11 = " deferred";
+      }
+
+      LogPrintF_safe(&gLogCategory_ENDownloadManager, "[ENDownloadTask finishDeferred:error:]", 50, "Finished download task for endpoint %@%s with count %lu after %.2lf s", shortIdentifier, v11, self->_downloadCount, *&v8);
     }
 
-LABEL_12:
+LABEL_14:
     self->_finished = 1;
-    self->_didDefer = deferred;
+    self->_didDefer = deferredCopy;
     dispatch_group_leave(self->_group);
-    errorCopy = v9;
+    errorCopy = v12;
   }
 }
 
-- (void)finishDeferred:(uint64_t *)a3 error:.cold.1(void *a1, uint64_t a2, uint64_t *a3)
+- (void)finishDeferred:(uint64_t *)a3 error:(double)a4 .cold.1(void *a1, uint64_t a2, uint64_t *a3, double a4)
 {
-  *a3 = [a1 shortIdentifier];
-  v5 = a1[6];
-  v6 = CUPrintNSError();
-  LogPrintF_safe();
+  v7 = [a1 shortIdentifier];
+  *a3 = v7;
+  v8 = a1[6];
+  v9 = CUPrintNSError();
+  LogPrintF_safe(&gLogCategory_ENDownloadManager, "[ENDownloadTask finishDeferred:error:]", 90, "Finished download task for endpoint %@ with count %lu after %.2lf s: %@", v7, v8, *&a4, v9);
 }
 
 @end

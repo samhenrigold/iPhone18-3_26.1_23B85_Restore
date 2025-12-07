@@ -13,15 +13,14 @@
 
 - (_HKSPObjectProperty)initWithIdentifier:(id)identifier propertyName:(id)name expectedValueClass:(Class)class
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   classCopy = class;
   v7 = MEMORY[0x277CBEA60];
   nameCopy = name;
   identifierCopy = identifier;
   v10 = [v7 arrayWithObjects:&classCopy count:1];
-  v11 = [(_HKSPObjectProperty *)self initWithIdentifier:identifierCopy propertyName:nameCopy expectedValueClasses:v10, classCopy, v15];
+  v11 = [(_HKSPObjectProperty *)self initWithIdentifier:identifierCopy propertyName:nameCopy expectedValueClasses:v10, classCopy, v14];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -77,15 +76,15 @@
 
 - (_HKSPObjectProperty)initWithCoder:(id)coder
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = _HKSPObjectProperty;
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = _HKSPObjectProperty;
   coderCopy = coder;
-  v4 = [(HKSPProperty *)&v13 initWithCoder:coderCopy];
+  v4 = [(HKSPProperty *)&v12 initWithCoder:coderCopy];
   v5 = MEMORY[0x277CBEB98];
-  v14[0] = objc_opt_class();
-  v14[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[0] = objc_opt_class();
+  v13[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v7 = [v5 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"HKSPExpectedClasses"];
 
@@ -93,7 +92,6 @@
   expectedValueClasses = v4->_expectedValueClasses;
   v4->_expectedValueClasses = v9;
 
-  v11 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

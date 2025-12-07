@@ -24,7 +24,7 @@
 - (id)headBody
 {
   styleSection = [(AEAssetHTMLGenerator *)self styleSection];
-  v4 = IMCommonCoreBundle();
+  v4 = IMCommonCoreBundle(styleSection);
   v5 = [v4 localizedStringForKey:@"Notes From" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
   v6 = +[NSLocale currentLocale];
   v7 = [v5 im_uppercaseStringWithLocale:v6];
@@ -167,7 +167,7 @@ LABEL_23:
 {
   annotations = [(AESingleAnnotationHTMLGenerator *)self annotations];
   v4 = [annotations count];
-  v5 = IMCommonCoreBundle();
+  v5 = IMCommonCoreBundle(v4);
   v6 = v5;
   if (v4 >= 2)
   {
@@ -248,17 +248,18 @@ LABEL_9:
     physicalPageNumber = 0;
   }
 
-  if ([physicalPageNumber length])
+  v11 = [physicalPageNumber length];
+  if (v11)
   {
-    v11 = IMCommonCoreBundle();
-    v12 = [v11 localizedStringForKey:@"p. %@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
-    v13 = [NSString stringWithFormat:v12, physicalPageNumber];
-    [v5 addObject:v13];
+    v12 = IMCommonCoreBundle(v11);
+    v13 = [v12 localizedStringForKey:@"p. %@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+    v14 = [NSString stringWithFormat:v13, physicalPageNumber];
+    [v5 addObject:v14];
   }
 
-  v14 = [v5 componentsJoinedByString:{@", "}];
+  v15 = [v5 componentsJoinedByString:{@", "}];
 
-  return v14;
+  return v15;
 }
 
 - (id)htmlHighlightForString:(id)string style:(int)style isUnderline:(BOOL)underline
@@ -293,7 +294,7 @@ LABEL_9:
     v9 = [v7 initWithAttributedString:v8];
 
     v10 = [NSAttributedString alloc];
-    v11 = IMCommonCoreBundle();
+    v11 = IMCommonCoreBundle(v10);
     v12 = [v11 localizedStringForKey:@"[\\U2026]" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
     v13 = [v10 initWithString:v12];
 

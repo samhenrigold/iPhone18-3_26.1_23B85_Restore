@@ -4,10 +4,16 @@
 - (double)doubleColumn:(int)column;
 - (id)blobColumn:(int)column;
 - (id)textColumn:(int)column;
+- (id)valueOfColumn:(int)column;
 - (int)columnCount;
 - (int)intColumn:(int)column;
 - (int)typeOfColumn:(int)column;
 - (int64_t)int64Column:(int)column;
+- (void)bindBlob:(id)blob atIndex:(int)index;
+- (void)bindInt64:(int64_t)int64 atIndex:(int)index;
+- (void)bindInt:(int)int atIndex:(int)index;
+- (void)bindInteger:(int64_t)integer atIndex:(int)index;
+- (void)bindText:(id)text atIndex:(int)index;
 - (void)dealloc;
 - (void)reset;
 - (void)verifyEqualToStmt:(id)stmt exceptColumnNumbers:(id)numbers;
@@ -89,6 +95,76 @@
   }
 }
 
+- (void)bindInt:(int)int atIndex:(int)index
+{
+  v4 = *&index;
+  if (!self->_reset)
+  {
+    sub_10009B590();
+  }
+
+  if (sqlite3_bind_int(self->_stmt, v4, int))
+  {
+    [(MBSCacheLikeObject *)self->_cache _raise:@"Error binding int at %d: %@", v4, self->_SQL];
+  }
+}
+
+- (void)bindInt64:(int64_t)int64 atIndex:(int)index
+{
+  v4 = *&index;
+  if (!self->_reset)
+  {
+    sub_10009B5E4();
+  }
+
+  if (sqlite3_bind_int64(self->_stmt, v4, int64))
+  {
+    [(MBSCacheLikeObject *)self->_cache _raise:@"Error binding int64 at %d: %@", v4, self->_SQL];
+  }
+}
+
+- (void)bindInteger:(int64_t)integer atIndex:(int)index
+{
+  v4 = *&index;
+  if (!self->_reset)
+  {
+    sub_10009B638();
+  }
+
+  if (sqlite3_bind_int64(self->_stmt, v4, integer))
+  {
+    [(MBSCacheLikeObject *)self->_cache _raise:@"Error binding integer at %d: %@", v4, self->_SQL];
+  }
+}
+
+- (void)bindBlob:(id)blob atIndex:(int)index
+{
+  v4 = *&index;
+  if (!self->_reset)
+  {
+    sub_10009B68C();
+  }
+
+  if (sqlite3_bind_blob(self->_stmt, v4, [blob bytes], objc_msgSend(blob, "length"), 0))
+  {
+    [(MBSCacheLikeObject *)self->_cache _raise:@"Error binding blob at %d: %@", v4, self->_SQL];
+  }
+}
+
+- (void)bindText:(id)text atIndex:(int)index
+{
+  v4 = *&index;
+  if (!self->_reset)
+  {
+    sub_10009B6E0();
+  }
+
+  if (sqlite3_bind_text(self->_stmt, v4, [text UTF8String], -1, 0))
+  {
+    [(MBSCacheLikeObject *)self->_cache _raise:@"Error binding text at %d: %@", v4, self->_SQL];
+  }
+}
+
 - (int)columnCount
 {
   if (self->_reset)
@@ -111,6 +187,52 @@
   stmt = self->_stmt;
 
   return sqlite3_column_type(stmt, column);
+}
+
+- (id)valueOfColumn:(int)column
+{
+  v3 = *&column;
+  v5 = [(MBSCacheStmt *)self typeOfColumn:?];
+  if (v5 <= 2)
+  {
+    if (v5 == 1)
+    {
+      v7 = [(MBSCacheStmt *)self int64Column:v3];
+
+      return [NSNumber numberWithLongLong:v7];
+    }
+
+    else
+    {
+      if (v5 != 2)
+      {
+        goto LABEL_20;
+      }
+
+      [(MBSCacheStmt *)self doubleColumn:v3];
+
+      return [NSNumber numberWithDouble:?];
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 3:
+
+        return [(MBSCacheStmt *)self textColumn:v3];
+      case 4:
+
+        return [(MBSCacheStmt *)self blobColumn:v3];
+      case 5:
+        return 0;
+      default:
+LABEL_20:
+        [NSException raise:NSGenericException format:@"Unexpected column type: %d", v5];
+        return 0;
+    }
+  }
 }
 
 - (int)intColumn:(int)column
@@ -240,25 +362,19 @@ LABEL_19:
               if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315650;
-                v24 = v12;
-                v25 = 2112;
-                v26 = v10;
-                v27 = 2112;
-                v28 = v11;
+                v21 = v12;
+                v22 = 2112;
+                v23 = v10;
+                v24 = 2112;
+                v25 = v11;
                 _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Column %s values don't match (%@ != %@)", buf, 0x20u);
-                v19 = v10;
-                v20 = v11;
-                v18 = v12;
-                _MBLog();
+                _MBLog(@"E ", "Column %s values don't match (%@ != %@)", v12, v10, v11);
               }
             }
 
-            if (([v10 isEqual:{v11, v18, v19, v20}] & 1) == 0)
+            if (([v10 isEqual:v11] & 1) == 0)
             {
-              v19 = v10;
-              v20 = v11;
-              v18 = v9;
-              [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInMethod:"handleFailureInMethod:object:file:lineNumber:description:" object:a2 file:self lineNumber:@"MBSCacheStmt.m" description:211, @"Column %d values don't match (%@ != %@)"];
+              [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInMethod:"handleFailureInMethod:object:file:lineNumber:description:" object:a2 file:self lineNumber:@"MBSCacheStmt.m" description:211, @"Column %d values don't match (%@ != %@)", v9, v10, v11];
             }
           }
         }

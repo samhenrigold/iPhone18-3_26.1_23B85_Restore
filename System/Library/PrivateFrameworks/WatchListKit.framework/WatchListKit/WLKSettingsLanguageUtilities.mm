@@ -62,80 +62,78 @@
 
 + (id)userFacingAudioLanguageTitles:(id)titles
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   titlesCopy = titles;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v5 = +[WLKSettingsLanguageUtilities availableAudioLanguageCodes];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         v11 = [WLKSettingsLanguageUtilities userFacingLocalizedNameForLanguageCode:v10 autoString:titlesCopy];
         [v4 setObject:v11 forKeyedSubscript:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)availableAudioLanguageCodes
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = +[WLKSettingsLanguageUtilities staticLanguageCodes];
   v3 = [v2 mutableCopy];
 
   v4 = +[WLKSystemPreferencesStore sharedPreferences];
   supplementaryAvailableAudioLanguages = [v4 supplementaryAvailableAudioLanguages];
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v6 = supplementaryAvailableAudioLanguages;
-  v7 = [v6 countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v37;
+    v9 = *v36;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v37 != v9)
+        if (*v36 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v36 + 1) + 8 * i);
+        v11 = *(*(&v35 + 1) + 8 * i);
         if (([v3 containsObject:v11] & 1) == 0)
         {
           [v3 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v8);
@@ -154,29 +152,29 @@
     firstObject2 = [v18 firstObject];
     if (firstObject2)
     {
-      v30 = v18;
-      v31 = firstObject;
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
+      v29 = v18;
+      v30 = firstObject;
       v33 = 0u;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
       v20 = v3;
-      v21 = [v20 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v31 objects:v39 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v33;
+        v23 = *v32;
         do
         {
           for (j = 0; j != v22; ++j)
           {
-            if (*v33 != v23)
+            if (*v32 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            v25 = *(*(&v32 + 1) + 8 * j);
-            if ([v25 hasPrefix:{firstObject2, v30, v31, v32}])
+            v25 = *(*(&v31 + 1) + 8 * j);
+            if ([v25 hasPrefix:{firstObject2, v29, v30, v31}])
             {
               v26 = v15;
             }
@@ -189,14 +187,14 @@
             [v26 addObject:v25];
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v32 objects:v40 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v31 objects:v39 count:16];
         }
 
         while (v22);
       }
 
-      v18 = v30;
-      firstObject = v31;
+      v18 = v29;
+      firstObject = v30;
       v14 = 0x277CBE000;
     }
 
@@ -211,13 +209,11 @@
     [v16 addObjectsFromArray:v3];
   }
 
-  [v15 sortUsingComparator:{&__block_literal_global_16, v30, v31}];
+  [v15 sortUsingComparator:{&__block_literal_global_16, v29, v30}];
   [v17 sortUsingComparator:&__block_literal_global_10];
   v27 = [objc_alloc(*(v14 + 2840)) initWithArray:v15];
   [v27 addObjectsFromArray:v17];
   [v27 insertObject:@"AUTO_SENTINEL_VALUE" atIndex:0];
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v27;
 }

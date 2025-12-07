@@ -82,14 +82,14 @@ void ___MRServiceClientRemoteResolvedPlayerPathCommandCallbacks_block_invoke_5(u
 
 id ___MRServiceClientRemoteResolvedPlayerPathCommandCallbacks_block_invoke_6(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = [v2 msv_firstWhere:&__block_literal_global_85_0];
   v4 = v3;
   if (v3)
   {
-    v9[0] = v3;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+    v8[0] = v3;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   }
 
   else
@@ -98,8 +98,6 @@ id ___MRServiceClientRemoteResolvedPlayerPathCommandCallbacks_block_invoke_6(uin
   }
 
   v6 = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

@@ -8,6 +8,7 @@
 + (id)identityForDaemonJobLabel:(id)label;
 + (id)identityForDextWithServerName:(id)name tagString:(id)string containingAppBundleID:(id)d;
 + (id)identityForEmbeddedApplicationIdentifier:(id)identifier jobLabel:(id)label auid:(unsigned int)auid platform:(int)platform;
++ (id)identityForExecutablePath:(id)path pid:(int)pid auid:(unsigned int)auid;
 + (id)identityForExtensionIdentity:(id)identity;
 + (id)identityForExtensionIdentity:(id)identity hostIdentifier:(id)identifier;
 + (id)identityForLSApplicationIdentity:(id)identity LSApplicationRecord:(id)record;
@@ -16,6 +17,7 @@
 + (id)identityForUnbundledMacApplicationJobLabel:(id)label;
 + (id)identityForUnknownServiceWithJobLabel:(id)label;
 + (id)identityForWrappedInfoProvider:(id)provider uuid:(id)uuid;
++ (id)identityForXPCServiceExecutablePath:(id)path pid:(int)pid auid:(unsigned int)auid host:(id)host UUID:(id)d;
 + (id)identityForXPCServiceIdentifier:(id)identifier hostInstance:(id)instance UUID:(id)d persona:(id)persona validationToken:(id)token variant:(int64_t)variant;
 + (id)identityOfCurrentProcess;
 - (BOOL)isEqual:(id)equal;
@@ -78,6 +80,7 @@
   v13 = 0;
   v4 = [provider fetchWrappedInfoWithError:{&v13, uuid}];
   v5 = v13;
+  v6 = v5;
   if (v4)
   {
     persistentJobLabel = [v4 persistentJobLabel];
@@ -85,32 +88,30 @@
     if (persistentJobLabel)
     {
       persistentJobLabel2 = [v4 persistentJobLabel];
-      v8 = [RBSProcessIdentity identityForUnknownServiceWithJobLabel:persistentJobLabel2];
+      v9 = [RBSProcessIdentity identityForUnknownServiceWithJobLabel:persistentJobLabel2];
     }
 
     else
     {
-      v8 = [[RBSEmbeddedAppProcessIdentity alloc] _initEmbeddedAppWithAppInfo:v4];
+      v9 = [[RBSEmbeddedAppProcessIdentity alloc] _initEmbeddedAppWithAppInfo:v4];
     }
   }
 
   else
   {
-    v9 = rbs_general_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = rbs_general_log(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [v5 description];
+      v11 = [v6 description];
       *buf = 138543362;
-      v15 = v10;
-      _os_log_impl(&dword_18E8AD000, v9, OS_LOG_TYPE_DEFAULT, "_initEmbeddedAppWithAppInfoProvider failed due to %{public}@", buf, 0xCu);
+      v15 = v11;
+      _os_log_impl(&dword_18E8AD000, v10, OS_LOG_TYPE_DEFAULT, "_initEmbeddedAppWithAppInfoProvider failed due to %{public}@", buf, 0xCu);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v9;
 }
 
 + (id)identityForLSApplicationIdentity:(id)identity LSApplicationRecord:(id)record
@@ -174,9 +175,25 @@
 
 - (id)copyWithAuid:(unsigned int)auid
 {
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  v3 = objc_opt_class();
-  _os_log_send_and_compose_impl();
+  v12 = 0;
+  memset(v11, 0, sizeof(v11));
+  v3 = MEMORY[0x1E69E9C10];
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v4 = 3;
+  }
+
+  else
+  {
+    v4 = 2;
+  }
+
+  v7 = 136315394;
+  v8 = "[RBSProcessIdentity copyWithAuid:]";
+  v9 = 2112;
+  v10 = objc_opt_class();
+  v5 = v10;
+  _os_log_send_and_compose_impl(v4, &v12, v11, 80, &dword_18E8AD000, v3, 16, "%s must be implemented in subclass %@", &v7, 22);
 
   result = _os_crash_msg();
   __break(1u);
@@ -207,7 +224,7 @@
       goto LABEL_13;
     }
 
-    v10 = rbs_process_log();
+    v10 = rbs_process_log(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [RBSProcessIdentity identityForLaunchdJobLabel:v10 isMultiInstance:? pid:? auid:?];
@@ -216,7 +233,7 @@
 
   else
   {
-    v10 = rbs_process_log();
+    v10 = rbs_process_log(labelCopy);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       +[RBSProcessIdentity identityForLaunchdJobLabel:isMultiInstance:pid:auid:];
@@ -227,6 +244,19 @@
 LABEL_13:
 
   return v13;
+}
+
++ (id)identityForExecutablePath:(id)path pid:(int)pid auid:(unsigned int)auid
+{
+  v5 = *&auid;
+  v6 = *&pid;
+  pathCopy = path;
+  v8 = [RBSOpaqueProcessIdentity alloc];
+  lastPathComponent = [pathCopy lastPathComponent];
+
+  v10 = [(RBSOpaqueProcessIdentity *)v8 _initOpaqueWithPid:v6 name:lastPathComponent auid:v5];
+
+  return v10;
 }
 
 + (id)identityForXPCServiceIdentifier:(id)identifier hostInstance:(id)instance UUID:(id)d persona:(id)persona validationToken:(id)token variant:(int64_t)variant
@@ -278,34 +308,35 @@ LABEL_13:
   dCopy = d;
   if (!hostIdentifierCopy)
   {
-    v11 = 0;
+    v12 = 0;
     goto LABEL_5;
   }
 
-  v17 = 0;
-  v10 = [RBSProcessHandle handleForIdentifier:hostIdentifierCopy error:&v17];
-  v11 = v17;
+  v18 = 0;
+  v10 = [RBSProcessHandle handleForIdentifier:hostIdentifierCopy error:&v18];
+  v11 = v18;
+  v12 = v11;
   if (v10)
   {
     identity = [v10 identity];
-    v13 = [RBSProcessInstance instanceWithIdentifier:hostIdentifierCopy identity:identity];
+    v14 = [RBSProcessInstance instanceWithIdentifier:hostIdentifierCopy identity:identity];
 
-    v11 = v13;
+    v12 = v14;
 LABEL_5:
-    v14 = [RBSProcessIdentity identityForXPCServiceIdentifier:identifierCopy hostInstance:v11 UUID:dCopy variant:2];
+    v15 = [RBSProcessIdentity identityForXPCServiceIdentifier:identifierCopy hostInstance:v12 UUID:dCopy variant:2];
     goto LABEL_9;
   }
 
-  v15 = rbs_process_log();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = rbs_process_log(v11);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     +[RBSProcessIdentity extensionIdentityForPlugInKitIdentifier:hostIdentifier:UUID:];
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_9:
 
-  return v14;
+  return v15;
 }
 
 + (id)externalExtensionIdentityForExtensionKitIdentifier:(id)identifier hostIdentifier:(id)hostIdentifier UUID:(id)d
@@ -315,34 +346,35 @@ LABEL_9:
   dCopy = d;
   if (!hostIdentifierCopy)
   {
-    v11 = 0;
+    v12 = 0;
     goto LABEL_5;
   }
 
-  v17 = 0;
-  v10 = [RBSProcessHandle handleForIdentifier:hostIdentifierCopy error:&v17];
-  v11 = v17;
+  v18 = 0;
+  v10 = [RBSProcessHandle handleForIdentifier:hostIdentifierCopy error:&v18];
+  v11 = v18;
+  v12 = v11;
   if (v10)
   {
     identity = [v10 identity];
-    v13 = [RBSProcessInstance instanceWithIdentifier:hostIdentifierCopy identity:identity];
+    v14 = [RBSProcessInstance instanceWithIdentifier:hostIdentifierCopy identity:identity];
 
-    v11 = v13;
+    v12 = v14;
 LABEL_5:
-    v14 = [RBSProcessIdentity identityForXPCServiceIdentifier:identifierCopy hostInstance:v11 UUID:dCopy variant:3];
+    v15 = [RBSProcessIdentity identityForXPCServiceIdentifier:identifierCopy hostInstance:v12 UUID:dCopy variant:3];
     goto LABEL_9;
   }
 
-  v15 = rbs_process_log();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = rbs_process_log(v11);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     +[RBSProcessIdentity extensionIdentityForPlugInKitIdentifier:hostIdentifier:UUID:];
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_9:
 
-  return v14;
+  return v15;
 }
 
 + (id)extensionIdentityForBundleIdentifier:(id)identifier persona:(id)persona instanceUUID:(id)d hostIdentifier:(id)hostIdentifier validationToken:(id)token
@@ -354,41 +386,264 @@ LABEL_9:
   tokenCopy = token;
   if (!hostIdentifierCopy)
   {
-    v17 = 0;
+    v18 = 0;
     goto LABEL_5;
   }
 
-  v23 = 0;
-  v16 = [RBSProcessHandle handleForIdentifier:hostIdentifierCopy error:&v23];
-  v17 = v23;
+  v24 = 0;
+  v16 = [RBSProcessHandle handleForIdentifier:hostIdentifierCopy error:&v24];
+  v17 = v24;
+  v18 = v17;
   if (v16)
   {
     identity = [v16 identity];
-    v19 = [RBSProcessInstance instanceWithIdentifier:hostIdentifierCopy identity:identity];
+    v20 = [RBSProcessInstance instanceWithIdentifier:hostIdentifierCopy identity:identity];
 
-    v17 = v19;
+    v18 = v20;
 LABEL_5:
-    v20 = [RBSProcessIdentity identityForXPCServiceIdentifier:identifierCopy hostInstance:v17 UUID:dCopy persona:personaCopy validationToken:tokenCopy variant:2];
+    v21 = [RBSProcessIdentity identityForXPCServiceIdentifier:identifierCopy hostInstance:v18 UUID:dCopy persona:personaCopy validationToken:tokenCopy variant:2];
     goto LABEL_9;
   }
 
-  v21 = rbs_process_log();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v22 = rbs_process_log(v17);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
     +[RBSProcessIdentity extensionIdentityForPlugInKitIdentifier:hostIdentifier:UUID:];
   }
 
-  v20 = 0;
+  v21 = 0;
 LABEL_9:
 
-  return v20;
+  return v21;
+}
+
++ (id)identityForXPCServiceExecutablePath:(id)path pid:(int)pid auid:(unsigned int)auid host:(id)host UUID:(id)d
+{
+  v9 = *&pid;
+  v60 = *MEMORY[0x1E69E9840];
+  pathCopy = path;
+  hostCopy = host;
+  dCopy = d;
+  v13 = pathCopy;
+  NSClassFromString(&cfstr_Nsstring.isa);
+  if (!v13)
+  {
+    +[RBSProcessIdentity identityForXPCServiceExecutablePath:pid:auid:host:UUID:];
+  }
+
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    +[RBSProcessIdentity identityForXPCServiceExecutablePath:pid:auid:host:UUID:];
+  }
+
+  [v13 UTF8String];
+  v14 = xpc_bundle_create();
+  error = xpc_bundle_get_error();
+  if (!error)
+  {
+    v19 = xpc_bundle_get_info_dictionary();
+    v17 = v19;
+    if (v19)
+    {
+      string = xpc_dictionary_get_string(v19, [*MEMORY[0x1E695E4F0] UTF8String]);
+      if (string)
+      {
+        string = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:string];
+      }
+
+      v19 = _CFXPCCreateCFObjectFromXPCObject();
+      v21 = v19;
+      if (string)
+      {
+        if (v19)
+        {
+          v22 = RBSDictionaryForKey(v19, @"XPCService");
+          v23 = RBSExtensionPointFromBundleDict(v21);
+
+          if (v23)
+          {
+            v43 = v22;
+            if (hostCopy)
+            {
+              v25 = 1;
+            }
+
+            else
+            {
+              v25 = 3;
+            }
+
+            v26 = 2;
+            goto LABEL_31;
+          }
+
+          if (v22)
+          {
+            v27 = RBSStringForKey(v22, @"ServiceType");
+            v28 = v27;
+            v43 = v22;
+            if (!v27 || ([v27 isEqualToString:@"Application"]& 1) != 0)
+            {
+              v29 = 1;
+LABEL_30:
+              v40 = v29;
+
+              v26 = 1;
+              v25 = v40;
+LABEL_31:
+              v41 = v25;
+              v28 = [RBSXPCServiceDefinition definitionWithIdentifier:string variant:v26 scope:?];
+              v42 = string;
+              if (v28)
+              {
+                v39 = v28;
+                v38 = [RBSXPCServiceIdentity identityWithDefinition:v28 sessionID:0 host:hostCopy UUID:dCopy persona:0 validationToken:0];
+                v30 = rbs_process_log(v38);
+                if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+                {
+                  [v13 lastPathComponent];
+                  v31 = v37 = v26;
+                  *buf = 138545154;
+                  v45 = string;
+                  v46 = 2114;
+                  v47 = v31;
+                  v48 = 1024;
+                  rbs_pid = [hostCopy rbs_pid];
+                  v50 = 1024;
+                  v51 = v37;
+                  v52 = 1024;
+                  v53 = v41;
+                  v54 = 2112;
+                  v55 = dCopy;
+                  v56 = 1024;
+                  v57 = v9;
+                  v58 = 1024;
+                  v59 = 0;
+                  _os_log_impl(&dword_18E8AD000, v30, OS_LOG_TYPE_DEFAULT, "Resolved XPC Service %{public}@ (%{public}@) with host pid %d, variant %d, scope %d, uuid %@, pid %d, and auid %d", buf, 0x3Eu);
+                }
+
+                v32 = v38;
+                v18 = [[RBSXPCServiceProcessIdentity alloc] _initWithXPCServiceID:v38 pid:v9 auid:0];
+                v33 = v43;
+                v28 = v39;
+              }
+
+              else
+              {
+                v32 = rbs_process_log(0);
+                v33 = v43;
+                if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+                {
+                  [RBSProcessIdentity identityForXPCServiceExecutablePath:v13 pid:v32 auid:? host:? UUID:?];
+                }
+
+                v18 = 0;
+              }
+
+              v22 = v33;
+              string = v42;
+              goto LABEL_39;
+            }
+
+            if (([v28 isEqualToString:@"System"]& 1) != 0)
+            {
+              v29 = 3;
+              goto LABEL_30;
+            }
+
+            v35 = [v28 isEqualToString:@"User"];
+            if (v35)
+            {
+              v29 = 2;
+              goto LABEL_30;
+            }
+
+            v36 = rbs_process_log(v35);
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+            {
+              +[RBSProcessIdentity identityForXPCServiceExecutablePath:pid:auid:host:UUID:];
+            }
+          }
+
+          else
+          {
+            v28 = rbs_process_log(v24);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            {
+              +[RBSProcessIdentity identityForXPCServiceExecutablePath:pid:auid:host:UUID:];
+            }
+          }
+
+          v18 = 0;
+LABEL_39:
+
+          goto LABEL_40;
+        }
+
+        v21 = rbs_process_log(0);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        {
+          +[RBSProcessIdentity identityForXPCServiceExecutablePath:pid:auid:host:UUID:];
+        }
+
+LABEL_23:
+        v18 = 0;
+LABEL_40:
+
+        goto LABEL_41;
+      }
+
+      string = v19;
+    }
+
+    else
+    {
+      string = 0;
+    }
+
+    v21 = rbs_process_log(v19);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      +[RBSProcessIdentity identityForXPCServiceExecutablePath:pid:auid:host:UUID:];
+    }
+
+    goto LABEL_23;
+  }
+
+  v16 = error;
+  v17 = rbs_process_log(error);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  {
+    [RBSProcessIdentity identityForXPCServiceExecutablePath:v16 pid:v13 auid:v17 host:? UUID:?];
+  }
+
+  v18 = 0;
+LABEL_41:
+
+  return v18;
 }
 
 - (id)encodeForJob
 {
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  v2 = objc_opt_class();
-  _os_log_send_and_compose_impl();
+  v11 = 0;
+  memset(v10, 0, sizeof(v10));
+  v2 = MEMORY[0x1E69E9C10];
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v3 = 3;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  v6 = 136315394;
+  v7 = "[RBSProcessIdentity encodeForJob]";
+  v8 = 2112;
+  v9 = objc_opt_class();
+  v4 = v9;
+  _os_log_send_and_compose_impl(v3, &v11, v10, 80, &dword_18E8AD000, v2, 16, "%s must be implemented in subclass %@", &v6, 22);
 
   result = _os_crash_msg();
   __break(1u);
@@ -399,9 +654,25 @@ LABEL_9:
 {
   jobCopy = job;
   uuidCopy = uuid;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  v7 = objc_opt_class();
-  _os_log_send_and_compose_impl();
+  v16 = 0;
+  memset(v15, 0, sizeof(v15));
+  v7 = MEMORY[0x1E69E9C10];
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v8 = 3;
+  }
+
+  else
+  {
+    v8 = 2;
+  }
+
+  v11 = 136315394;
+  v12 = "[RBSProcessIdentity initWithDecodeFromJob:uuid:]";
+  v13 = 2112;
+  v14 = objc_opt_class();
+  v9 = v14;
+  _os_log_send_and_compose_impl(v8, &v16, v15, 80, &dword_18E8AD000, v7, 16, "%s must be implemented in subclass %@", &v11, 22);
 
   result = _os_crash_msg();
   __break(1u);
@@ -413,17 +684,17 @@ LABEL_9:
   jobCopy = job;
   uuidCopy = uuid;
   v7 = xpc_dictionary_get_int64(jobCopy, "TYPE") - 1;
-  if (v7 <= 6 && ((0x7Bu >> v7) & 1) != 0 && (isa = off_1E7276250[v7]->isa, objc_opt_class(), (v9 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (v7 <= 6 && ((0x7Bu >> v7) & 1) != 0 && (objc_opt_class(), (v8 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v10 = [[v9 alloc] initWithDecodeFromJob:jobCopy uuid:uuidCopy];
+    v9 = [[v8 alloc] initWithDecodeFromJob:jobCopy uuid:uuidCopy];
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  return v10;
+  return v9;
 }
 
 - (BOOL)matchesProcess:(id)process
@@ -519,9 +790,25 @@ LABEL_9:
 - (void)encodeWithRBSXPCCoder:(id)coder
 {
   coderCopy = coder;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  v4 = objc_opt_class();
-  _os_log_send_and_compose_impl();
+  v12 = 0;
+  memset(v11, 0, sizeof(v11));
+  v4 = MEMORY[0x1E69E9C10];
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  v7 = 136315394;
+  v8 = "[RBSProcessIdentity encodeWithRBSXPCCoder:]";
+  v9 = 2112;
+  v10 = objc_opt_class();
+  v6 = v10;
+  _os_log_send_and_compose_impl(v5, &v12, v11, 80, &dword_18E8AD000, v4, 16, "%s must be implemented in subclass %@", &v7, 22);
 
   _os_crash_msg();
   __break(1u);
@@ -530,9 +817,25 @@ LABEL_9:
 - (RBSProcessIdentity)initWithRBSXPCCoder:(id)coder
 {
   coderCopy = coder;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  v4 = objc_opt_class();
-  _os_log_send_and_compose_impl();
+  v13 = 0;
+  memset(v12, 0, sizeof(v12));
+  v4 = MEMORY[0x1E69E9C10];
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  v8 = 136315394;
+  v9 = "[RBSProcessIdentity initWithRBSXPCCoder:]";
+  v10 = 2112;
+  v11 = objc_opt_class();
+  v6 = v11;
+  _os_log_send_and_compose_impl(v5, &v13, v12, 80, &dword_18E8AD000, v4, 16, "%s must be implemented in subclass %@", &v8, 22);
 
   result = _os_crash_msg();
   __break(1u);
@@ -568,12 +871,11 @@ LABEL_9:
 
 + (void)identityForLaunchdJobLabel:isMultiInstance:pid:auid:.cold.2()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  v3 = 1024;
-  v4 = 0;
-  _os_log_error_impl(&dword_18E8AD000, v0, OS_LOG_TYPE_ERROR, "invalid pid (0) for multi-instance job: %@, auid: %d", v2, 0x12u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = 1024;
+  v3 = 0;
+  _os_log_error_impl(&dword_18E8AD000, v0, OS_LOG_TYPE_ERROR, "invalid pid (0) for multi-instance job: %@, auid: %d", v1, 0x12u);
 }
 
 + (void)identityForXPCServiceIdentifier:hostInstance:UUID:persona:validationToken:variant:.cold.1()
@@ -590,14 +892,6 @@ LABEL_9:
   v1 = [MEMORY[0x1E696AAA8] currentHandler];
   OUTLINED_FUNCTION_0_0();
   [v0 handleFailureInMethod:@"[object isKindOfClass:NSStringClass]" object:? file:? lineNumber:? description:?];
-}
-
-+ (void)extensionIdentityForPlugInKitIdentifier:hostIdentifier:UUID:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_4(&dword_18E8AD000, v0, v1, "Could not get process handle for host process: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)identityForXPCServiceExecutablePath:pid:auid:host:UUID:.cold.1()
@@ -618,55 +912,20 @@ LABEL_9:
 
 + (void)identityForXPCServiceExecutablePath:(NSObject *)a3 pid:auid:host:UUID:.cold.3(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   xpc_strerror();
   OUTLINED_FUNCTION_2();
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_18E8AD000, a3, OS_LOG_TYPE_ERROR, "Error (%{public}s) creating xpc service bundle for %{public}@", v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)identityForXPCServiceExecutablePath:pid:auid:host:UUID:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_4(&dword_18E8AD000, v0, v1, "Could not rationalize xpc service at: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_18E8AD000, a3, OS_LOG_TYPE_ERROR, "Error (%{public}s) creating xpc service bundle for %{public}@", v5, 0x16u);
 }
 
 + (void)identityForXPCServiceExecutablePath:(void *)a1 pid:(NSObject *)a2 auid:host:UUID:.cold.5(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [a1 lastPathComponent];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_ERROR, "Couldn't generate XPCService definition for %{public}@", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)identityForXPCServiceExecutablePath:pid:auid:host:UUID:.cold.6()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_4(&dword_18E8AD000, v0, v1, "The info.plist in %{public}@ does not contain a NSExtension, XPCService, or EXAppExtensionAttributes key", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)identityForXPCServiceExecutablePath:pid:auid:host:UUID:.cold.7()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_4(&dword_18E8AD000, v0, v1, "Could not load info.plist into NSDictionary for path %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)identityForXPCServiceExecutablePath:pid:auid:host:UUID:.cold.8()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_4(&dword_18E8AD000, v0, v1, "No bundle ID found for: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_ERROR, "Couldn't generate XPCService definition for %{public}@", v4, 0xCu);
 }
 
 @end

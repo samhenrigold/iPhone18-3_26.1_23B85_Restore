@@ -15,16 +15,16 @@
 {
   completionCopy = completion;
   v5 = objc_alloc_init(HMIMutableHomePersonManagerSettings);
-  [(HMIHomePersonManagerSettings *)v5 setFaceClassificationEnabled:1];
+  [(HMIHomePersonManagerSettings *)v5 setFaceClassificationEnabled:?];
   v4 = [(HMIMutableHomePersonManagerSettings *)v5 copy];
-  completionCopy[2](completionCopy, v4, 0);
+  (*(completionCopy + 2))(completionCopy, v4, 0);
 }
 
 - (void)addFaceCrops:(id)crops completion:(id)completion
 {
   v5 = MEMORY[0x277CCA9B8];
   completionCopy = completion;
-  v7 = [v5 hmfErrorWithCode:5];
+  v7 = [v5 hmfErrorWithCode:?];
   (*(completion + 2))(completionCopy, v7);
 }
 
@@ -32,7 +32,7 @@
 {
   v5 = MEMORY[0x277CCA9B8];
   completionCopy = completion;
-  v7 = [v5 hmfErrorWithCode:5];
+  v7 = [v5 hmfErrorWithCode:?];
   (*(completion + 2))(completionCopy, v7);
 }
 
@@ -40,7 +40,7 @@
 {
   v5 = MEMORY[0x277CCA9B8];
   completionCopy = completion;
-  v7 = [v5 hmfErrorWithCode:5];
+  v7 = [v5 hmfErrorWithCode:?];
   (*(completion + 2))(completionCopy, v7);
 }
 
@@ -48,7 +48,7 @@
 {
   v4 = MEMORY[0x277CCA9B8];
   completionCopy = completion;
-  v6 = [v4 hmfErrorWithCode:5];
+  v6 = [v4 hmfErrorWithCode:?];
   (*(completion + 2))(completionCopy, 0, v6);
 }
 
@@ -56,7 +56,7 @@
 {
   v5 = MEMORY[0x277CCA9B8];
   completionCopy = completion;
-  v7 = [v5 hmfErrorWithCode:5];
+  v7 = [v5 hmfErrorWithCode:?];
   (*(completion + 2))(completionCopy, v7);
 }
 
@@ -64,7 +64,7 @@
 {
   v5 = MEMORY[0x277CCA9B8];
   completionCopy = completion;
-  v7 = [v5 hmfErrorWithCode:5];
+  v7 = [v5 hmfErrorWithCode:?];
   (*(completion + 2))(completionCopy, v7);
 }
 
@@ -72,7 +72,7 @@
 {
   v5 = MEMORY[0x277CCA9B8];
   completionCopy = completion;
-  v7 = [v5 hmfErrorWithCode:5];
+  v7 = [v5 hmfErrorWithCode:?];
   (*(completion + 2))(completionCopy, v7);
 }
 

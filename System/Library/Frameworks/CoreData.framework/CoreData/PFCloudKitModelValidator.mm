@@ -47,7 +47,7 @@ void __57__PFCloudKitModelValidator_enforceUniqueConstraintChecks__block_invoke(
   v151 = *MEMORY[0x1E69E9840];
   if (!result)
   {
-    goto LABEL_96;
+    return result;
   }
 
   if (a2)
@@ -117,7 +117,7 @@ void __57__PFCloudKitModelValidator_enforceUniqueConstraintChecks__block_invoke(
                 name = [v16 name];
                 v20 = v19;
                 v12 = v103;
-                [v86 addObject:{objc_msgSend(v20, "stringWithFormat:", @"%@: %@ cannot be applied to an entity type'", name, @"NSPersistentCloudKitContainerEncryptedAttributeKey"}];
+                [v86 addObject:{objc_msgSend_stringWithFormat_(v20, name, @"NSPersistentCloudKitContainerEncryptedAttributeKey"}];
               }
 
               attributesByName = [v16 attributesByName];
@@ -498,12 +498,12 @@ void __57__PFCloudKitModelValidator_enforceUniqueConstraintChecks__block_invoke(
             lastObject = [v37 componentsJoinedByString:@"\n"];
           }
 
-          v72 = *MEMORY[0x1E696A250];
+          v73 = *MEMORY[0x1E696A250];
           v144 = *MEMORY[0x1E696A588];
           v145 = lastObject;
-          v71 = [MEMORY[0x1E696ABC0] errorWithDomain:v72 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v145, &v144, 1)}];
+          v72 = [MEMORY[0x1E696ABC0] errorWithDomain:v73 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v145, &v144, 1)}];
 
-          if (!v71)
+          if (!v72)
           {
             LogStream = _PFLogGetLogStream(17);
             if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
@@ -515,59 +515,58 @@ void __57__PFCloudKitModelValidator_enforceUniqueConstraintChecks__block_invoke(
               _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", v140, 0x12u);
             }
 
-            v74 = _PFLogGetLogStream(17);
-            if (os_log_type_enabled(v74, OS_LOG_TYPE_FAULT))
+            v75 = _PFLogGetLogStream(17);
+            if (os_log_type_enabled(v75, OS_LOG_TYPE_FAULT))
             {
               *v140 = 136315394;
               v141 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitModelValidator.m";
               v142 = 1024;
               v143 = 563;
-              _os_log_fault_impl(&dword_18565F000, v74, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", v140, 0x12u);
+              _os_log_fault_impl(&dword_18565F000, v75, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", v140, 0x12u);
             }
 
-            v71 = 0;
+            v72 = 0;
           }
         }
 
         else
         {
 
-          v71 = 0;
+          v72 = 0;
           v61 = v82;
           model = modelCopy;
         }
 
-        v75 = v71;
+        v76 = v72;
 
         objc_autoreleasePoolPop(v61);
-        v76 = v71;
+        v77 = v72;
         if (!v60)
         {
-          result = 1;
-          goto LABEL_96;
+          return 1;
         }
 
         goto LABEL_87;
       }
 
-      v66 = MEMORY[0x1E696ABC0];
-      v67 = *MEMORY[0x1E696A250];
+      v67 = MEMORY[0x1E696ABC0];
+      v68 = *MEMORY[0x1E696A250];
       v136 = *MEMORY[0x1E696A588];
-      v137 = [MEMORY[0x1E696AEC0] stringWithFormat:@"The configuration named '%@' does not contain any entities.", *(v4 + 16)];
-      v68 = MEMORY[0x1E695DF20];
-      v69 = &v137;
-      v70 = &v136;
+      v137 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], *(v4 + 16));
+      v69 = MEMORY[0x1E695DF20];
+      v70 = &v137;
+      v71 = &v136;
     }
 
     else
     {
-      v66 = MEMORY[0x1E696ABC0];
-      v67 = *MEMORY[0x1E696A250];
+      v67 = MEMORY[0x1E696ABC0];
+      v68 = *MEMORY[0x1E696A250];
       v138 = *MEMORY[0x1E696A588];
-      v139 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to find a configuration named '%@' in the specified managed object model.", *(v4 + 16)];
-      v68 = MEMORY[0x1E695DF20];
-      v69 = &v139;
-      v70 = &v138;
+      v139 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], *(v4 + 16));
+      v69 = MEMORY[0x1E695DF20];
+      v70 = &v139;
+      v71 = &v138;
     }
   }
 
@@ -575,56 +574,53 @@ void __57__PFCloudKitModelValidator_enforceUniqueConstraintChecks__block_invoke(
   {
     v63 = MEMORY[0x1E696AEC0];
     v64 = objc_opt_class();
-    v65 = [v63 stringWithFormat:@"Cannot be used without an instance of %@.", NSStringFromClass(v64)];
-    v66 = MEMORY[0x1E696ABC0];
-    v67 = *MEMORY[0x1E696A250];
+    v65 = NSStringFromClass(v64);
+    v66 = objc_msgSend_stringWithFormat_(v63, v65);
+    v67 = MEMORY[0x1E696ABC0];
+    v68 = *MEMORY[0x1E696A250];
     v134 = *MEMORY[0x1E696A588];
-    v135 = v65;
-    v68 = MEMORY[0x1E695DF20];
-    v69 = &v135;
-    v70 = &v134;
+    v135 = v66;
+    v69 = MEMORY[0x1E695DF20];
+    v70 = &v135;
+    v71 = &v134;
   }
 
-  v71 = [v66 errorWithDomain:v67 code:134060 userInfo:{objc_msgSend(v68, "dictionaryWithObjects:forKeys:count:", v69, v70, 1)}];
+  v72 = [v67 errorWithDomain:v68 code:134060 userInfo:{objc_msgSend(v69, "dictionaryWithObjects:forKeys:count:", v70, v71, 1)}];
 LABEL_87:
-  if (v71)
+  if (v72)
   {
     if (model)
     {
       result = 0;
-      *model = v71;
-      goto LABEL_96;
+      *model = v72;
+      return result;
     }
 
-LABEL_94:
-    result = 0;
-    goto LABEL_96;
+    return 0;
   }
 
-  v77 = _PFLogGetLogStream(17);
-  if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+  v78 = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
     v148 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitModelValidator.m";
     v149 = 1024;
     v150 = 108;
-    _os_log_error_impl(&dword_18565F000, v77, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
+    _os_log_error_impl(&dword_18565F000, v78, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
   }
 
-  v78 = _PFLogGetLogStream(17);
-  result = os_log_type_enabled(v78, OS_LOG_TYPE_FAULT);
+  v79 = _PFLogGetLogStream(17);
+  result = os_log_type_enabled(v79, OS_LOG_TYPE_FAULT);
   if (result)
   {
     *buf = 136315394;
     v148 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitModelValidator.m";
     v149 = 1024;
     v150 = 108;
-    _os_log_fault_impl(&dword_18565F000, v78, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
-    goto LABEL_94;
+    _os_log_fault_impl(&dword_18565F000, v79, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+    return 0;
   }
 
-LABEL_96:
-  v79 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -672,13 +668,13 @@ uint64_t __51__PFCloudKitModelValidator_validateEntities_error___block_invoke(ui
           }
 
           v8 = *(a1 + 40);
-          v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: %@ - Doesn't allow reverse transformation", objc_msgSend(*(a1 + 48), "name"), a2, v36];
+          v9 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [*(a1 + 48) name], a2);
         }
 
         else
         {
           v8 = *(a1 + 40);
-          v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: %@ - Cannot locate value transformer with name '%@'", objc_msgSend(*(a1 + 48), "name"), a2, objc_msgSend(a3, "valueTransformerName")];
+          v9 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [*(a1 + 48) name], a2, objc_msgSend(a3, "valueTransformerName"));
         }
 
         v11 = v9;
@@ -713,7 +709,7 @@ uint64_t __51__PFCloudKitModelValidator_validateEntities_error___block_invoke(ui
   {
 LABEL_32:
     v10 = *(a1 + 56);
-    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: %@ - Unsupported attribute type (%@)", objc_msgSend(*(a1 + 48), "name"), a2, +[NSAttributeDescription stringForAttributeType:](NSAttributeDescription, "stringForAttributeType:", v7)];
+    v11 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [*(a1 + 48) name], a2, +[NSAttributeDescription stringForAttributeType:](NSAttributeDescription, "stringForAttributeType:", v7));
     v12 = v10;
 LABEL_33:
     [v12 addObject:v11];
@@ -732,7 +728,7 @@ LABEL_34:
       }
 
       v15 = *(a1 + 64);
-      v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: %@ - attribute is not optional", objc_msgSend(*(a1 + 48), "name"), a2, v36, v37, v38];
+      v16 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [*(a1 + 48) name], a2, v37);
     }
 
     else
@@ -745,7 +741,8 @@ LABEL_34:
       v21 = NSStringFromClass(v20);
       v22 = objc_opt_class();
       v23 = NSStringFromClass(v22);
-      v16 = [v17 stringWithFormat:@"%@: %@ - Value must be an instance of '%@' or '%@' that evalutes to YES or NO using '%@'", v18, v19, v21, v23, NSStringFromSelector(sel_BOOLValue)];
+      v38 = NSStringFromSelector(sel_BOOLValue);
+      v16 = objc_msgSend_stringWithFormat_(v17, v18, v19, v21, v23, v38);
     }
 
     [v15 addObject:v16];
@@ -766,23 +763,24 @@ LABEL_42:
       v31 = NSStringFromClass(v30);
       v32 = objc_opt_class();
       v33 = NSStringFromClass(v32);
-      [v26 addObject:{objc_msgSend(v27, "stringWithFormat:", @"%@: %@ - Value for %@ must be an instance of '%@' or '%@' that evalutes to YES or NO using '%@'", v28, v29, @"NSPersistentCloudKitContainerEncryptedAttributeKey", v31, v33, NSStringFromSelector(sel_BOOLValue))}];
+      v34 = NSStringFromSelector(sel_BOOLValue);
+      [v26 addObject:{objc_msgSend_stringWithFormat_(v27, v28, v29, @"NSPersistentCloudKitContainerEncryptedAttributeKey", v31, v33, v34)}];
     }
 
     if ([a3 allowsCloudEncryption])
     {
-      [*(a1 + 72) addObject:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@:%@ - Encryption value should be set via -[NSAttributeDescription allowsCloudEncryption], please remove usage of 'NSPersistentCloudKitContainerEncryptedAttributeKey'", objc_msgSend(*(a1 + 48), "name"), objc_msgSend(a3, "name"))}];
+      [*(a1 + 72) addObject:{objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], objc_msgSend(*(a1 + 48), "name"), objc_msgSend(a3, "name"))}];
     }
 
     if ([*(*(a1 + 32) + 32) useDeviceToDeviceEncryption])
     {
-      [*(a1 + 72) addObject:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@:%@ - Partial encryption cannot be used with device-to-device encryption", objc_msgSend(*(a1 + 48), "name"), objc_msgSend(a3, "name"))}];
+      [*(a1 + 72) addObject:{objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], objc_msgSend(*(a1 + 48), "name"), objc_msgSend(a3, "name"))}];
     }
   }
 
   if ([*(*(a1 + 32) + 32) useDeviceToDeviceEncryption] && objc_msgSend(a3, "allowsCloudEncryption"))
   {
-    [*(a1 + 72) addObject:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@:%@ - Device-to-Device encryption cannot be used with partial encryption", objc_msgSend(*(a1 + 48), "name"), objc_msgSend(a3, "name"))}];
+    [*(a1 + 72) addObject:{objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], objc_msgSend(*(a1 + 48), "name"), objc_msgSend(a3, "name"))}];
   }
 
   if ([a3 preservesValueInHistoryOnDeletion])
@@ -792,51 +790,51 @@ LABEL_42:
 
   if (([a3 isOptional] & 1) == 0 && !objc_msgSend(a3, "defaultValue"))
   {
-    [*(a1 + 88) addObject:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@: %@", objc_msgSend(*(a1 + 48), "name"), objc_msgSend(a3, "name"))}];
+    [*(a1 + 88) addObject:{objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], objc_msgSend(*(a1 + 48), "name"), objc_msgSend(a3, "name"))}];
   }
 
   result = [a3 usesMergeableStorage];
   if (result && (*(*(a1 + 32) + 40) & 1) == 0)
   {
-    v34 = *(a1 + 96);
-    v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Attributes that use mergeable storage (%@: %@) are unsupported in CloudKit. Please file a radar to Core Data to request support.", objc_msgSend(*(a1 + 48), "name"), objc_msgSend(a3, "name")];
+    v35 = *(a1 + 96);
+    v36 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [*(a1 + 48) name], objc_msgSend(a3, "name"));
 
-    return [v34 addObject:v35];
+    return [v35 addObject:v36];
   }
 
   return result;
 }
 
-uint64_t __51__PFCloudKitModelValidator_validateEntities_error___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void *__51__PFCloudKitModelValidator_validateEntities_error___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   if (([a3 isOptional] & 1) == 0)
   {
-    [*(a1 + 32) addObject:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@: %@", objc_msgSend(*(a1 + 40), "name"), a2)}];
+    [*(a1 + 32) addObject:{objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], objc_msgSend(*(a1 + 40), "name"), a2)}];
   }
 
   if (![a3 inverseRelationship])
   {
-    [*(a1 + 48) addObject:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@: %@", objc_msgSend(*(a1 + 40), "name"), a2)}];
+    [*(a1 + 48) addObject:{objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], objc_msgSend(*(a1 + 40), "name"), a2)}];
   }
 
   if ([a3 isOrdered])
   {
-    [*(a1 + 56) addObject:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@: %@", objc_msgSend(*(a1 + 40), "name"), a2)}];
+    [*(a1 + 56) addObject:{objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], objc_msgSend(*(a1 + 40), "name"), a2)}];
   }
 
   if ([a3 destinationEntity] && (objc_msgSend(*(a1 + 64), "containsObject:", objc_msgSend(a3, "destinationEntity")) & 1) == 0)
   {
-    [*(a1 + 72) addObject:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@: %@ - %@", objc_msgSend(*(a1 + 40), "name"), a2, objc_msgSend(objc_msgSend(a3, "destinationEntity"), "name"))}];
+    [*(a1 + 72) addObject:{objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], objc_msgSend(*(a1 + 40), "name"), a2, objc_msgSend(objc_msgSend(a3, "destinationEntity"), "name"))}];
   }
 
   if ([objc_msgSend(objc_msgSend(a3 "userInfo")])
   {
-    [*(a1 + 80) addObject:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@:%@", objc_msgSend(*(a1 + 40), "name"), objc_msgSend(a3, "name"))}];
+    [*(a1 + 80) addObject:{objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], objc_msgSend(*(a1 + 40), "name"), objc_msgSend(a3, "name"))}];
   }
 
   if ([objc_msgSend(a3 "userInfo")])
   {
-    [*(a1 + 88) addObject:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@:%@", objc_msgSend(*(a1 + 40), "name"), objc_msgSend(a3, "name"))}];
+    [*(a1 + 88) addObject:{objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], objc_msgSend(*(a1 + 40), "name"), objc_msgSend(a3, "name"))}];
   }
 
   result = [a3 deleteRule];
@@ -850,17 +848,15 @@ uint64_t __51__PFCloudKitModelValidator_validateEntities_error___block_invoke_2(
     objc_opt_self();
     if (v11 > 3)
     {
-      v12 = 0;
+      v12 = objc_msgSend_stringWithFormat_(v8, v9, v10, 0);
     }
 
     else
     {
-      v12 = off_1E6EC1580[v11];
+      v12 = objc_msgSend_stringWithFormat_(v8, v9, v10, off_1E6EC1580[v11]);
     }
 
-    v13 = [v8 stringWithFormat:@"%@:%@ - %@", v9, v10, v12];
-
-    return [v7 addObject:v13];
+    return [v7 addObject:v12];
   }
 
   return result;
@@ -876,75 +872,71 @@ void __51__PFCloudKitModelValidator_validateEntities_error___block_invoke_3(uint
   v5[4] = *(a1 + 32);
   v5[5] = v4;
   [a2 enumerateObjectsUsingBlock:v5];
-  [*(a1 + 40) addObject:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@: %@", objc_msgSend(*(a1 + 32), "name"), v4)}];
+  [*(a1 + 40) addObject:{objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], objc_msgSend(*(a1 + 32), "name"), v4)}];
 }
 
 void __51__PFCloudKitModelValidator_validateEntities_error___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v17 = *MEMORY[0x1E69E9840];
-  if (([a2 isNSString] & 1) == 0)
+  v15 = *MEMORY[0x1E69E9840];
+  if ([a2 isNSString])
   {
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+LABEL_4:
+    if (v2)
     {
-      LogStream = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+      if ([*(a1 + 40) length])
       {
-        v9 = [*(a1 + 32) name];
-        v10 = [*(a1 + 32) uniquenessConstraints];
-        v13 = 138412546;
-        v14 = v9;
-        v15 = 2112;
-        v16 = v10;
-        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: PFCloudKitModelValidator was handed an entity with unique constraints that aren't attributes or strings: %@ - %@\n", &v13, 0x16u);
+        [*(a1 + 40) appendString:{@", "}];
       }
 
-      v7 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
-      {
-        v11 = [*(a1 + 32) name];
-        v12 = [*(a1 + 32) uniquenessConstraints];
-        v13 = 138412546;
-        v14 = v11;
-        v15 = 2112;
-        v16 = v12;
-        _os_log_fault_impl(&dword_18565F000, v7, OS_LOG_TYPE_FAULT, "CoreData: PFCloudKitModelValidator was handed an entity with unique constraints that aren't attributes or strings: %@ - %@", &v13, 0x16u);
-      }
+      v4 = *(a1 + 40);
 
-      goto LABEL_14;
+      [v4 appendString:v2];
     }
 
-    v2 = [v2 name];
-  }
-
-  if (!v2)
-  {
-LABEL_14:
-    v8 = *MEMORY[0x1E69E9840];
     return;
   }
 
-  if ([*(a1 + 40) length])
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
   {
-    [*(a1 + 40) appendString:{@", "}];
+    v2 = [v2 name];
+    goto LABEL_4;
   }
 
-  v4 = *(a1 + 40);
-  v5 = *MEMORY[0x1E69E9840];
+  LogStream = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+  {
+    v7 = [*(a1 + 32) name];
+    v8 = [*(a1 + 32) uniquenessConstraints];
+    v11 = 138412546;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v8;
+    _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: PFCloudKitModelValidator was handed an entity with unique constraints that aren't attributes or strings: %@ - %@\n", &v11, 0x16u);
+  }
 
-  [v4 appendString:v2];
+  v6 = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+  {
+    v9 = [*(a1 + 32) name];
+    v10 = [*(a1 + 32) uniquenessConstraints];
+    v11 = 138412546;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v10;
+    _os_log_fault_impl(&dword_18565F000, v6, OS_LOG_TYPE_FAULT, "CoreData: PFCloudKitModelValidator was handed an entity with unique constraints that aren't attributes or strings: %@ - %@", &v11, 0x16u);
+  }
 }
 
 void __51__PFCloudKitModelValidator_validateEntities_error___block_invoke_76()
 {
-  v2[2] = *MEMORY[0x1E69E9840];
+  v1[2] = *MEMORY[0x1E69E9840];
   v0 = objc_autoreleasePoolPush();
-  v2[0] = @"ckRecordID";
-  v2[1] = @"ckRecordSystemFields";
-  qword_1ED4BE898 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:2];
+  v1[0] = @"ckRecordID";
+  v1[1] = @"ckRecordSystemFields";
+  qword_1ED4BE898 = [MEMORY[0x1E695DEC8] arrayWithObjects:v1 count:2];
   objc_autoreleasePoolPop(v0);
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __51__PFCloudKitModelValidator_validateEntities_error___block_invoke_2_97(uint64_t a1, uint64_t a2)

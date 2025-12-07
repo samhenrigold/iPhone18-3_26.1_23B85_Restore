@@ -39,22 +39,22 @@
 - (KNLiveVideoInfo)liveVideoInfo
 {
   objc_opt_class();
-  v5 = objc_msgSend_info(self, v3, v4);
-  v6 = TSUCheckedDynamicCast();
+  info = [(KNLiveVideoLayout *)self info];
+  v4 = TSUCheckedDynamicCast();
 
-  return v6;
+  return v4;
 }
 
 - (void)processChangedProperty:(int)property
 {
-  v20.receiver = self;
-  v20.super_class = KNLiveVideoLayout;
-  [(KNLiveVideoLayout *)&v20 processChangedProperty:?];
+  v7.receiver = self;
+  v7.super_class = KNLiveVideoLayout;
+  [(KNLiveVideoLayout *)&v7 processChangedProperty:?];
   if (property > 4578)
   {
     if (property == 4579)
     {
-      objc_msgSend_p_invalidateAlignmentFrame(self, v5, v6);
+      [(KNLiveVideoLayout *)self p_invalidateAlignmentFrame];
       return;
     }
 
@@ -63,7 +63,7 @@
       return;
     }
 
-    objc_msgSend_p_invalidateAlignmentFrame(self, v5, v6);
+    [(KNLiveVideoLayout *)self p_invalidateAlignmentFrame];
     goto LABEL_8;
   }
 
@@ -75,161 +75,161 @@
     }
 
 LABEL_8:
-    objc_msgSend_invalidate(self, v5, v6);
+    [(KNLiveVideoLayout *)self invalidate];
     return;
   }
 
-  objc_msgSend_invalidateFrame(self, v5, v6);
-  objc_msgSend_p_invalidateAlignmentFrame(self, v7, v8);
-  objc_msgSend_invalidateExteriorWrap(self, v9, v10);
-  v13 = objc_msgSend_info(self, v11, v12);
-  if ((objc_msgSend_isInlineWithText(v13, v14, v15) & 1) != 0 || objc_msgSend_isAnchoredToText(v13, v16, v17))
+  [(KNLiveVideoLayout *)self invalidateFrame];
+  [(KNLiveVideoLayout *)self p_invalidateAlignmentFrame];
+  [(KNLiveVideoLayout *)self invalidateExteriorWrap];
+  info = [(KNLiveVideoLayout *)self info];
+  if (([info isInlineWithText] & 1) != 0 || objc_msgSend(info, "isAnchoredToText"))
   {
-    v18 = objc_msgSend_wrapInvalidationParent(self, v16, v17);
-    objc_msgSend_wrappableChildInvalidated_(v18, v19, self);
+    wrapInvalidationParent = [(KNLiveVideoLayout *)self wrapInvalidationParent];
+    [wrapInvalidationParent wrappableChildInvalidated:self];
   }
 }
 
 - (id)computeLayoutGeometry
 {
-  v4 = objc_msgSend_layoutGeometryFromInfo(self, a2, v2);
-  if (objc_msgSend_layoutState(self, v5, v6) == 3)
+  layoutGeometryFromInfo = [(KNLiveVideoLayout *)self layoutGeometryFromInfo];
+  if ([(KNLiveVideoLayout *)self layoutState]== 3)
   {
-    v9 = objc_msgSend_originalPureGeometry(self, v7, v8);
-    v10 = objc_alloc(MEMORY[0x277D80300]);
-    objc_msgSend_size(v9, v11, v12);
-    v16 = v15;
-    v18 = v17;
-    if (v4)
+    originalPureGeometry = [(KNLiveVideoLayout *)self originalPureGeometry];
+    v5 = objc_alloc(MEMORY[0x277D80300]);
+    [originalPureGeometry size];
+    v7 = v6;
+    v9 = v8;
+    if (layoutGeometryFromInfo)
     {
-      objc_msgSend_transform(v4, v13, v14);
+      objc_msgSend_transform(layoutGeometryFromInfo);
     }
 
     else
     {
-      memset(&v98, 0, sizeof(v98));
+      memset(&v55, 0, sizeof(v55));
     }
 
-    v21 = objc_msgSend_initWithSize_transform_(v10, v13, &v98, v16, v18);
+    v10 = [v5 initWithSize:&v55 transform:{v7, v9}];
   }
 
   else
   {
-    v21 = v4;
+    v10 = layoutGeometryFromInfo;
   }
 
-  v22 = objc_msgSend_parent(self, v19, v20);
+  parent = [(KNLiveVideoLayout *)self parent];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
   if (isKindOfClass)
   {
-    objc_msgSend_size(v21, v24, v25);
-    v29 = v28;
-    v31 = v30;
-    if (v21)
+    [v10 size];
+    v14 = v13;
+    v16 = v15;
+    if (v10)
     {
-      objc_msgSend_transform(v21, v26, v27);
+      objc_msgSend_transform(v10);
     }
 
     else
     {
-      memset(&v98, 0, sizeof(v98));
+      memset(&v55, 0, sizeof(v55));
     }
 
-    objc_msgSend_scaleForInlineClampingUnrotatedSize_withTransform_(self, v26, &v98, v29, v31);
-    CGAffineTransformMakeScale(&v98, v35, v35);
-    v32 = objc_msgSend_geometryByTransformingBy_(v21, v36, &v98);
+    [(KNLiveVideoLayout *)self scaleForInlineClampingUnrotatedSize:&v55 withTransform:v14, v16];
+    CGAffineTransformMakeScale(&v55, v18, v18);
+    v17 = [v10 geometryByTransformingBy:&v55];
   }
 
   else
   {
-    v32 = v21;
+    v17 = v10;
   }
 
-  v37 = v32;
-  v38 = objc_msgSend_stroke(self, v33, v34);
-  v41 = v38;
-  if (v38 && objc_msgSend_shouldRender(v38, v39, v40))
+  v19 = v17;
+  stroke = [(KNLiveVideoLayout *)self stroke];
+  v21 = stroke;
+  if (stroke && [stroke shouldRender])
   {
     objc_opt_class();
-    v42 = TSUDynamicCast();
-    if (objc_msgSend_isFrame(v41, v43, v44) && v42)
+    v22 = TSUDynamicCast();
+    if ([v21 isFrame] && v22)
     {
-      objc_msgSend_size(v37, v45, v46);
+      [v19 size];
       TSURectWithSize();
-      v48 = v47;
-      v50 = v49;
-      v52 = v51;
-      v54 = v53;
-      objc_msgSend_coverageRect_(v42, v55, v56);
-      v58 = v57;
-      v60 = v59;
-      v62 = v61;
-      v64 = v63;
-      v67 = objc_msgSend_mutableCopy(v37, v65, v66);
-      objc_msgSend_setSize_(v67, v68, v69, v62, v64);
-      if (v67)
+      v24 = v23;
+      v26 = v25;
+      v28 = v27;
+      v30 = v29;
+      [v22 coverageRect:?];
+      v32 = v31;
+      v34 = v33;
+      v36 = v35;
+      v38 = v37;
+      v39 = [v19 mutableCopy];
+      [v39 setSize:{v36, v38}];
+      if (v39)
       {
-        objc_msgSend_transform(v67, v70, v71);
+        objc_msgSend_transform(v39);
       }
 
       else
       {
-        memset(&v98, 0, sizeof(v98));
+        memset(&v55, 0, sizeof(v55));
       }
 
-      CGAffineTransformTranslate(&v97, &v98, v58, v60);
-      v98 = v97;
-      objc_msgSend_setTransform_(v67, v89, &v98);
-      v102.origin.x = v48;
-      v102.origin.y = v50;
-      v102.size.width = v52;
-      v102.size.height = v54;
-      v103 = CGRectOffset(v102, -v58, -v60);
-      x = v103.origin.x;
-      y = v103.origin.y;
-      width = v103.size.width;
-      height = v103.size.height;
-      objc_msgSend_coverageRectWithoutAdornment_(v42, v90, v91);
-      shouldRenderForSizeIncludingCoverage = objc_msgSend_shouldRenderForSizeIncludingCoverage_(v42, v92, v93, v94, v95);
+      CGAffineTransformTranslate(&v54, &v55, v32, v34);
+      v55 = v54;
+      [v39 setTransform:&v55];
+      v59.origin.x = v24;
+      v59.origin.y = v26;
+      v59.size.width = v28;
+      v59.size.height = v30;
+      v60 = CGRectOffset(v59, -v32, -v34);
+      x = v60.origin.x;
+      y = v60.origin.y;
+      width = v60.size.width;
+      height = v60.size.height;
+      [v22 coverageRectWithoutAdornment:?];
+      v48 = [v22 shouldRenderForSizeIncludingCoverage:{v51, v52}];
     }
 
     else
     {
-      objc_msgSend_renderedWidth(v41, v45, v46);
-      v84 = v83 * 0.5;
-      v67 = objc_msgSend_geometryByOutsettingBy_(v37, v85, v86, v84, v84);
-      objc_msgSend_size(v37, v87, v88);
+      [v21 renderedWidth];
+      v50 = v49 * 0.5;
+      v39 = [v19 geometryByOutsettingBy:{v50, v50}];
+      [v19 size];
       TSURectWithSize();
-      v101 = CGRectOffset(v100, v84, v84);
-      x = v101.origin.x;
-      y = v101.origin.y;
-      width = v101.size.width;
-      height = v101.size.height;
-      shouldRenderForSizeIncludingCoverage = 0;
+      v58 = CGRectOffset(v57, v50, v50);
+      x = v58.origin.x;
+      y = v58.origin.y;
+      width = v58.size.width;
+      height = v58.size.height;
+      v48 = 0;
     }
   }
 
   else
   {
-    v67 = v37;
-    objc_msgSend_size(v67, v72, v73);
+    v39 = v19;
+    [v39 size];
     TSURectWithSize();
-    x = v74;
-    y = v76;
-    width = v78;
-    height = v80;
-    shouldRenderForSizeIncludingCoverage = 0;
+    x = v40;
+    y = v42;
+    width = v44;
+    height = v46;
+    v48 = 0;
   }
 
   self->_videoMaskBounds.origin.x = x;
   self->_videoMaskBounds.origin.y = y;
   self->_videoMaskBounds.size.width = width;
   self->_videoMaskBounds.size.height = height;
-  self->_shouldRenderFrameStroke = shouldRenderForSizeIncludingCoverage;
+  self->_shouldRenderFrameStroke = v48;
 
-  return v67;
+  return v39;
 }
 
 - (void)setGeometry:(id)geometry
@@ -237,31 +237,31 @@ LABEL_8:
   geometryCopy = geometry;
   if (self->_isCachedAlignmentFrameValid)
   {
-    v7 = objc_msgSend_geometry(self, v4, v5);
-    v10 = v7;
-    if (v7 && (objc_msgSend_differsInMoreThanTranslationFrom_(v7, v8, geometryCopy) & 1) == 0)
+    geometry = [(KNLiveVideoLayout *)self geometry];
+    v6 = geometry;
+    if (geometry && ([geometry differsInMoreThanTranslationFrom:geometryCopy] & 1) == 0)
     {
       if (geometryCopy)
       {
-        objc_msgSend_transform(geometryCopy, v8, v9);
+        objc_msgSend_transform(geometryCopy);
       }
 
-      objc_msgSend_transform(v10, v8, v9, *(MEMORY[0x277CBF348] + 8));
+      objc_msgSend_transform(v6, *(MEMORY[0x277CBF348] + 8));
       TSUSubtractPoints();
       TSUAddPoints();
-      self->_cachedAlignmentFrame.origin.x = v11;
-      self->_cachedAlignmentFrame.origin.y = v12;
+      self->_cachedAlignmentFrame.origin.x = v7;
+      self->_cachedAlignmentFrame.origin.y = v8;
     }
 
     else
     {
-      objc_msgSend_p_invalidateAlignmentFrame(self, v8, v9);
+      [(KNLiveVideoLayout *)self p_invalidateAlignmentFrame];
     }
   }
 
-  v13.receiver = self;
-  v13.super_class = KNLiveVideoLayout;
-  [(KNLiveVideoLayout *)&v13 setGeometry:geometryCopy];
+  v9.receiver = self;
+  v9.super_class = KNLiveVideoLayout;
+  [(KNLiveVideoLayout *)&v9 setGeometry:geometryCopy];
 }
 
 - (CGRect)boundsForStandardKnobs
@@ -279,18 +279,15 @@ LABEL_8:
 
 - (double)scaleForInlineClampingUnrotatedSize:(CGSize)size withTransform:(CGAffineTransform *)transform
 {
-  height = size.height;
-  width = size.width;
-  v8 = objc_alloc(MEMORY[0x277D801C8]);
-  v11 = objc_msgSend_initWithNaturalSize_(v8, v9, v10, width, height);
-  v12 = *&transform->c;
-  v17[0] = *&transform->a;
-  v17[1] = v12;
-  v17[2] = *&transform->tx;
-  objc_msgSend_scaleToApplyToPathSourceNaturalSizeApplyingLayoutTransform_withStartingPathSource_(self, v13, v17, v11);
-  v15 = v14;
+  v6 = [objc_alloc(MEMORY[0x277D801C8]) initWithNaturalSize:{size.width, size.height}];
+  v7 = *&transform->c;
+  v11[0] = *&transform->a;
+  v11[1] = v7;
+  v11[2] = *&transform->tx;
+  [(TSDStyledLayout *)self scaleToApplyToPathSourceNaturalSizeApplyingLayoutTransform:v11 withStartingPathSource:v6];
+  v9 = v8;
 
-  return v15;
+  return v9;
 }
 
 - (CGRect)alignmentFrame
@@ -305,7 +302,7 @@ LABEL_8:
 
   else
   {
-    objc_msgSend_p_computeAlignmentFrameInRoot_(self, a2, 0);
+    [(KNLiveVideoLayout *)self p_computeAlignmentFrameInRoot:0];
     self->_cachedAlignmentFrame.origin.x = x;
     self->_cachedAlignmentFrame.origin.y = y;
     self->_cachedAlignmentFrame.size.width = width;
@@ -322,39 +319,39 @@ LABEL_8:
 
 - (void)p_invalidateAlignmentFrame
 {
-  v3 = *(MEMORY[0x277CBF398] + 16);
+  v2 = *(MEMORY[0x277CBF398] + 16);
   self->_cachedAlignmentFrame.origin = *MEMORY[0x277CBF398];
-  self->_cachedAlignmentFrame.size = v3;
+  self->_cachedAlignmentFrame.size = v2;
   self->_isCachedAlignmentFrameValid = 0;
-  objc_msgSend_invalidateExteriorWrap(self, a2, v2);
+  [(KNLiveVideoLayout *)self invalidateExteriorWrap];
 }
 
 - (CGRect)alignmentFrameInRoot
 {
-  v6 = objc_msgSend_parent(self, a2, v2);
-  if (!v6 || (objc_msgSend_layoutController(self, v4, v5), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend_rootLayout(v7, v8, v9), v10 = objc_claimAutoreleasedReturnValue(), v10, v7, v6 == v10))
+  parent = [(KNLiveVideoLayout *)self parent];
+  if (!parent || (-[KNLiveVideoLayout layoutController](self, "layoutController"), v4 = objc_claimAutoreleasedReturnValue(), [v4 rootLayout], v5 = objc_claimAutoreleasedReturnValue(), v5, v4, parent == v5))
   {
-    objc_msgSend_alignmentFrame(self, v4, v5);
+    [(KNLiveVideoLayout *)self alignmentFrame];
   }
 
   else
   {
-    objc_msgSend_p_computeAlignmentFrameInRoot_(self, v4, 0);
+    [(KNLiveVideoLayout *)self p_computeAlignmentFrameInRoot:0];
   }
 
+  v10 = v6;
+  v11 = v7;
+  v12 = v8;
+  v13 = v9;
+
+  v14 = v10;
   v15 = v11;
   v16 = v12;
   v17 = v13;
-  v18 = v14;
-
-  v19 = v15;
-  v20 = v16;
-  v21 = v17;
-  v22 = v18;
-  result.size.height = v22;
-  result.size.width = v21;
-  result.origin.y = v20;
-  result.origin.x = v19;
+  result.size.height = v17;
+  result.size.width = v16;
+  result.origin.y = v15;
+  result.origin.x = v14;
   return result;
 }
 
@@ -370,142 +367,142 @@ LABEL_8:
   *&t2.tx = *(MEMORY[0x277CBF2C0] + 32);
   if (CGAffineTransformEqualToTransform(&t1, &t2))
   {
-    v17.receiver = self;
-    v17.super_class = KNLiveVideoLayout;
-    v9 = *&transform->c;
+    v14.receiver = self;
+    v14.super_class = KNLiveVideoLayout;
+    v7 = *&transform->c;
     *&t1.a = *&transform->a;
-    *&t1.c = v9;
+    *&t1.c = v7;
     *&t1.tx = *&transform->tx;
-    [(TSDStyledLayout *)&v17 baseFrameForFrameForCullingWithAdditionalTransform:&t1];
+    [(TSDStyledLayout *)&v14 baseFrameForFrameForCullingWithAdditionalTransform:&t1];
   }
 
   else
   {
     memset(&t1, 0, sizeof(t1));
-    objc_msgSend_transform(self, v7, v8);
-    v14 = *&transform->c;
-    *&v16.a = *&transform->a;
-    *&v16.c = v14;
-    *&v16.tx = *&transform->tx;
-    CGAffineTransformConcat(&t1, &t2, &v16);
+    objc_msgSend_transform(self);
+    v12 = *&transform->c;
+    *&v13.a = *&transform->a;
+    *&v13.c = v12;
+    *&v13.tx = *&transform->tx;
+    CGAffineTransformConcat(&t1, &t2, &v13);
     t2 = t1;
-    objc_msgSend_p_computeAlignmentFrameWithTransform_(self, v15, &t2);
+    [(KNLiveVideoLayout *)self p_computeAlignmentFrameWithTransform:&t2];
   }
 
-  result.size.height = v13;
-  result.size.width = v12;
-  result.origin.y = v11;
-  result.origin.x = v10;
+  result.size.height = v11;
+  result.size.width = v10;
+  result.origin.y = v9;
+  result.origin.x = v8;
   return result;
 }
 
 - (CGRect)p_computeAlignmentFrameInRoot:(BOOL)root
 {
   rootCopy = root;
-  memset(&v30, 0, sizeof(v30));
-  v5 = objc_msgSend_geometry(self, a2, root);
-  v8 = v5;
-  if (v5)
+  memset(&v24, 0, sizeof(v24));
+  geometry = [(KNLiveVideoLayout *)self geometry];
+  v6 = geometry;
+  if (geometry)
   {
-    objc_msgSend_transform(v5, v6, v7);
+    objc_msgSend_transform(geometry);
   }
 
   else
   {
-    memset(&v30, 0, sizeof(v30));
+    memset(&v24, 0, sizeof(v24));
   }
 
-  v11 = objc_msgSend_parent(self, v9, v10);
-  v14 = v11;
-  if (v11 && rootCopy)
+  parent = [(KNLiveVideoLayout *)self parent];
+  v8 = parent;
+  if (parent && rootCopy)
   {
-    objc_msgSend_transformInRoot(v11, v12, v13);
-    v27 = v30;
-    CGAffineTransformConcat(&v29, &v27, &t2);
-    v30 = v29;
+    objc_msgSend_transformInRoot(parent);
+    v21 = v24;
+    CGAffineTransformConcat(&v23, &v21, &t2);
+    v24 = v23;
   }
 
-  v29 = v30;
-  objc_msgSend_p_computeAlignmentFrameWithTransform_(self, v12, &v29);
+  v23 = v24;
+  [(KNLiveVideoLayout *)self p_computeAlignmentFrameWithTransform:&v23];
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
   v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  v22 = v21;
 
-  v23 = v16;
-  v24 = v18;
-  v25 = v20;
-  v26 = v22;
-  result.size.height = v26;
-  result.size.width = v25;
-  result.origin.y = v24;
-  result.origin.x = v23;
+  v17 = v10;
+  v18 = v12;
+  v19 = v14;
+  v20 = v16;
+  result.size.height = v20;
+  result.size.width = v19;
+  result.origin.y = v18;
+  result.origin.x = v17;
   return result;
 }
 
 - (CGRect)p_computeAlignmentFrameWithTransform:(CGAffineTransform *)transform
 {
-  objc_msgSend_videoMaskBounds(self, a2, transform);
-  v7 = objc_msgSend_videoMaskPathForBounds_(self, v5, v6);
-  v10 = objc_msgSend_stroke(self, v8, v9);
-  objc_msgSend_boundsForPath_(v10, v11, v7);
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
-  v19 = v18;
-  v20 = *&transform->c;
-  *&v46.a = *&transform->a;
-  *&v46.c = v20;
-  *&v46.tx = *&transform->tx;
-  CGAffineTransformTranslate(&v47, &v46, -v12, -v14);
-  v21 = *&v47.c;
-  *&transform->a = *&v47.a;
-  *&transform->c = v21;
-  *&transform->tx = *&v47.tx;
-  if (objc_msgSend_isFrame(v10, v22, v23))
+  [(KNLiveVideoLayout *)self videoMaskBounds];
+  v5 = [(KNLiveVideoLayout *)self videoMaskPathForBounds:?];
+  stroke = [(KNLiveVideoLayout *)self stroke];
+  [stroke boundsForPath:v5];
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
+  v15 = *&transform->c;
+  *&v35.a = *&transform->a;
+  *&v35.c = v15;
+  *&v35.tx = *&transform->tx;
+  CGAffineTransformTranslate(&v36, &v35, -v7, -v9);
+  v16 = *&v36.c;
+  *&transform->a = *&v36.a;
+  *&transform->c = v16;
+  *&transform->tx = *&v36.tx;
+  if ([stroke isFrame])
   {
-    v26 = *&transform->c;
-    *&v47.a = *&transform->a;
-    *&v47.c = v26;
-    *&v47.tx = *&transform->tx;
-    v27 = v13;
-    *&v26 = v15;
-    v28 = v17;
-    v29 = v19;
-    v48 = CGRectApplyAffineTransform(*(&v26 - 8), &v47);
-    x = v48.origin.x;
-    y = v48.origin.y;
-    width = v48.size.width;
-    height = v48.size.height;
+    v17 = *&transform->c;
+    *&v36.a = *&transform->a;
+    *&v36.c = v17;
+    *&v36.tx = *&transform->tx;
+    v18 = v8;
+    *&v17 = v10;
+    v19 = v12;
+    v20 = v14;
+    v37 = CGRectApplyAffineTransform(*(&v17 - 8), &v36);
+    x = v37.origin.x;
+    y = v37.origin.y;
+    width = v37.size.width;
+    height = v37.size.height;
   }
 
   else
   {
-    v34 = *&transform->c;
-    *&v46.a = *&transform->a;
-    *&v46.c = v34;
-    v35 = objc_msgSend_copy(v7, v24, v25);
-    *&v47.a = *&v46.a;
-    *&v47.c = *&v46.c;
-    v47.tx = 0.0;
-    v47.ty = 0.0;
-    objc_msgSend_transformUsingAffineTransform_(v35, v36, &v47);
-    objc_msgSend_boundsForPath_(v10, v37, v35);
-    width = v38;
-    height = v39;
+    v25 = *&transform->c;
+    *&v35.a = *&transform->a;
+    *&v35.c = v25;
+    v26 = [v5 copy];
+    *&v36.a = *&v35.a;
+    *&v36.c = *&v35.c;
+    v36.tx = 0.0;
+    v36.ty = 0.0;
+    [v26 transformUsingAffineTransform:&v36];
+    [stroke boundsForPath:v26];
+    width = v27;
+    height = v28;
     TSUAddPoints();
-    x = v40;
-    y = v41;
+    x = v29;
+    y = v30;
   }
 
-  v42 = x;
-  v43 = y;
-  v44 = width;
-  v45 = height;
-  result.size.height = v45;
-  result.size.width = v44;
-  result.origin.y = v43;
-  result.origin.x = v42;
+  v31 = x;
+  v32 = y;
+  v33 = width;
+  v34 = height;
+  result.size.height = v34;
+  result.size.width = v33;
+  result.origin.y = v32;
+  result.origin.x = v31;
   return result;
 }
 
@@ -514,92 +511,92 @@ LABEL_8:
   height = size.height;
   width = size.width;
   v6 = [KNLiveVideoMaskGeometry alloc];
-  objc_msgSend_videoMaskBounds(self, v7, v8);
+  [(KNLiveVideoLayout *)self videoMaskBounds];
+  v8 = v7;
   v10 = v9;
   v12 = v11;
   v14 = v13;
+  [(KNLiveVideoLayout *)self scale];
   v16 = v15;
-  objc_msgSend_scale(self, v17, v18);
-  v20 = v19;
-  objc_msgSend_p_normalizedOffset(self, v21, v22);
-  v27 = objc_msgSend_initWithMaskBounds_scale_normalizedOffset_(v6, v23, v24, v10, v12, v14, v16, v20, v25, v26);
-  objc_msgSend_videoBoundsForNaturalSize_(v27, v28, v29, width, height);
-  v31 = v30;
-  v33 = v32;
-  v35 = v34;
-  v37 = v36;
+  [(KNLiveVideoLayout *)self p_normalizedOffset];
+  v19 = [(KNLiveVideoMaskGeometry *)v6 initWithMaskBounds:v8 scale:v10 normalizedOffset:v12, v14, v16, v17, v18];
+  [(KNLiveVideoMaskGeometry *)v19 videoBoundsForNaturalSize:width, height];
+  v21 = v20;
+  v23 = v22;
+  v25 = v24;
+  v27 = v26;
 
-  v38 = v31;
-  v39 = v33;
-  v40 = v35;
-  v41 = v37;
-  result.size.height = v41;
-  result.size.width = v40;
-  result.origin.y = v39;
-  result.origin.x = v38;
+  v28 = v21;
+  v29 = v23;
+  v30 = v25;
+  v31 = v27;
+  result.size.height = v31;
+  result.size.width = v30;
+  result.origin.y = v29;
+  result.origin.x = v28;
   return result;
 }
 
 - (id)pathForClippingConnectionLines
 {
-  objc_msgSend_videoMaskBounds(self, a2, v2);
+  [(KNLiveVideoLayout *)self videoMaskBounds];
 
-  return objc_msgSend_videoMaskPathForBounds_(self, v4, v5);
+  return [(KNLiveVideoLayout *)self videoMaskPathForBounds:?];
 }
 
 - (id)stroke
 {
-  v3 = objc_msgSend_liveVideoInfo(self, a2, v2);
-  v6 = objc_msgSend_stroke(v3, v4, v5);
+  liveVideoInfo = [(KNLiveVideoLayout *)self liveVideoInfo];
+  stroke = [liveVideoInfo stroke];
 
-  return v6;
+  return stroke;
 }
 
 - (double)scale
 {
-  v3 = objc_msgSend_liveVideoInfo(self, a2, v2);
-  objc_msgSend_scale(v3, v4, v5);
-  v7 = v6;
+  liveVideoInfo = [(KNLiveVideoLayout *)self liveVideoInfo];
+  [liveVideoInfo scale];
+  v4 = v3;
 
-  return v7;
+  return v4;
 }
 
 - (CGPoint)p_normalizedOffset
 {
-  v3 = objc_msgSend_liveVideoInfo(self, a2, v2);
-  objc_msgSend_normalizedOffset(v3, v4, v5);
-  v7 = v6;
-  v9 = v8;
+  liveVideoInfo = [(KNLiveVideoLayout *)self liveVideoInfo];
+  [liveVideoInfo normalizedOffset];
+  v4 = v3;
+  v6 = v5;
 
-  v10 = v7;
-  v11 = v9;
-  result.y = v11;
-  result.x = v10;
+  v7 = v4;
+  v8 = v6;
+  result.y = v8;
+  result.x = v7;
   return result;
 }
 
 - (int64_t)effectiveMaskKind
 {
-  v3 = objc_msgSend_liveVideoInfo(self, a2, v2);
-  v6 = objc_msgSend_effectiveMaskKind(v3, v4, v5);
+  liveVideoInfo = [(KNLiveVideoLayout *)self liveVideoInfo];
+  effectiveMaskKind = [liveVideoInfo effectiveMaskKind];
 
-  return v6;
+  return effectiveMaskKind;
 }
 
 - (double)maskCornerRadius
 {
-  v3 = objc_msgSend_liveVideoInfo(self, a2, v2);
-  objc_msgSend_maskCornerRadius(v3, v4, v5);
-  v7 = v6;
+  liveVideoInfo = [(KNLiveVideoLayout *)self liveVideoInfo];
+  [liveVideoInfo maskCornerRadius];
+  v4 = v3;
 
-  return v7;
+  return v4;
 }
 
 - (BOOL)isVideoMaskPathRectangular
 {
-  v4 = objc_msgSend_effectiveMaskKind(self, a2, v2);
-  objc_msgSend_maskCornerRadius(self, v5, v6);
-  return v7 <= 0.0 && v4 == 0;
+  effectiveMaskKind = [(KNLiveVideoLayout *)self effectiveMaskKind];
+  [(KNLiveVideoLayout *)self maskCornerRadius];
+  return v4 <= 0.0 && effectiveMaskKind == 0;
 }
 
 - (id)videoMaskPathForBounds:(CGRect)bounds
@@ -608,78 +605,78 @@ LABEL_8:
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
-  v9 = objc_msgSend_effectiveMaskKind(self, a2, v3);
-  if (v9 == 1)
+  effectiveMaskKind = [(KNLiveVideoLayout *)self effectiveMaskKind];
+  if (effectiveMaskKind == 1)
   {
     TSUFitOrFillSizeInRect();
-    v26 = objc_msgSend_bezierPathWithOvalInRect_(MEMORY[0x277D81160], v24, v25);
+    v14 = [MEMORY[0x277D81160] bezierPathWithOvalInRect:?];
   }
 
   else
   {
-    if (v9)
+    if (effectiveMaskKind)
     {
-      v20 = 0;
+      bezierPath = 0;
       goto LABEL_9;
     }
 
-    objc_msgSend_maskCornerRadius(self, v10, v11);
-    if (v14 > 0.0)
+    [(KNLiveVideoLayout *)self maskCornerRadius];
+    if (v9 > 0.0)
     {
-      v15 = objc_msgSend_p_makeRoundedRectangleMaskPathSource(self, v12, v13);
-      objc_msgSend_scaleToNaturalSize_(v15, v16, v17, width, height);
-      v20 = objc_msgSend_bezierPath(v15, v18, v19);
-      v30.origin.x = x;
-      v30.origin.y = y;
-      v30.size.width = width;
-      v30.size.height = height;
-      MinX = CGRectGetMinX(v30);
-      v31.origin.x = x;
-      v31.origin.y = y;
-      v31.size.width = width;
-      v31.size.height = height;
-      MinY = CGRectGetMinY(v31);
-      CGAffineTransformMakeTranslation(&v28, MinX, MinY);
-      objc_msgSend_transformUsingAffineTransform_(v20, v23, &v28);
+      p_makeRoundedRectangleMaskPathSource = [(KNLiveVideoLayout *)self p_makeRoundedRectangleMaskPathSource];
+      [p_makeRoundedRectangleMaskPathSource scaleToNaturalSize:{width, height}];
+      bezierPath = [p_makeRoundedRectangleMaskPathSource bezierPath];
+      v18.origin.x = x;
+      v18.origin.y = y;
+      v18.size.width = width;
+      v18.size.height = height;
+      MinX = CGRectGetMinX(v18);
+      v19.origin.x = x;
+      v19.origin.y = y;
+      v19.size.width = width;
+      v19.size.height = height;
+      MinY = CGRectGetMinY(v19);
+      CGAffineTransformMakeTranslation(&v16, MinX, MinY);
+      [bezierPath transformUsingAffineTransform:&v16];
 
       goto LABEL_9;
     }
 
-    v26 = objc_msgSend_bezierPathWithRect_(MEMORY[0x277D81160], v12, v13, x, y, width, height);
+    v14 = [MEMORY[0x277D81160] bezierPathWithRect:{x, y, width, height}];
   }
 
-  v20 = v26;
+  bezierPath = v14;
 LABEL_9:
 
-  return v20;
+  return bezierPath;
 }
 
 - (id)p_makeRoundedRectangleMaskPathSource
 {
-  v4 = MEMORY[0x277D803A0];
-  v5 = objc_msgSend_liveVideoInfo(self, a2, v2);
-  objc_msgSend_maskCornerRadius(v5, v6, v7);
-  v9 = v8;
-  objc_msgSend_videoMaskBounds(self, v10, v11);
-  v15 = objc_msgSend_roundedRectangleWithScalar_naturalSize_continuousCurve_(v4, v12, 1, v9, v13, v14);
+  v3 = MEMORY[0x277D803A0];
+  liveVideoInfo = [(KNLiveVideoLayout *)self liveVideoInfo];
+  [liveVideoInfo maskCornerRadius];
+  v6 = v5;
+  [(KNLiveVideoLayout *)self videoMaskBounds];
+  v9 = [v3 roundedRectangleWithScalar:1 naturalSize:v6 continuousCurve:{v7, v8}];
 
-  return v15;
+  return v9;
 }
 
 - (int64_t)backgroundKind
 {
-  v3 = objc_msgSend_liveVideoInfo(self, a2, v2);
-  v6 = objc_msgSend_effectiveBackgroundKind(v3, v4, v5);
+  liveVideoInfo = [(KNLiveVideoLayout *)self liveVideoInfo];
+  effectiveBackgroundKind = [liveVideoInfo effectiveBackgroundKind];
 
-  return v6;
+  return effectiveBackgroundKind;
 }
 
 - (TSDFill)backgroundFill
 {
-  v3 = objc_msgSend_liveVideoInfo(self, a2, v2);
-  v6 = objc_msgSend_backgroundFill(v3, v4, v5);
+  liveVideoInfo = [(KNLiveVideoLayout *)self liveVideoInfo];
+  backgroundFill = [liveVideoInfo backgroundFill];
 
-  return v6;
+  return backgroundFill;
 }
 
 - (CGRect)videoMaskBounds

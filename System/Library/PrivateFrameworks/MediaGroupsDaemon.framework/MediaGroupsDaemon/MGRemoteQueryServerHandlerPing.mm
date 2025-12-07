@@ -60,12 +60,11 @@
   dictionary = [v4 dictionary];
   v7 = MEMORY[0x277CCAAA0];
   rq_coded = [dictionary rq_coded];
-  v13 = 0;
-  v9 = [v7 dataWithJSONObject:rq_coded options:0 error:&v13];
+  v12 = 0;
+  v9 = [v7 dataWithJSONObject:rq_coded options:0 error:&v12];
 
   [(MGRemoteQueryServerHandlerPing *)self setResponsePayload:v9];
   v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", objc_msgSend(v9, "length")];
-  v11 = *MEMORY[0x277CD9270];
   [v10 UTF8String];
   nw_http_fields_append();
 

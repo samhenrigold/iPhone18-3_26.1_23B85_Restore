@@ -21,9 +21,9 @@
   origin = tgtRange.origin;
   v6 = range.size;
   v7 = range.origin;
-  v23.receiver = self;
-  v23.super_class = TSTPasteMap;
-  v8 = [(TSTPasteMap *)&v23 init];
+  v20.receiver = self;
+  v20.super_class = TSTPasteMap;
+  v8 = [(TSTPasteMap *)&v20 init];
   if (v8)
   {
     row = origin.row;
@@ -34,11 +34,10 @@
       column = origin.column;
       do
       {
-        v19 = v7.column;
-        v20 = column;
-        numberOfColumns = v6.numberOfColumns;
-        v22 = 0;
-        sub_2214A2428(&v8->_columnTgtToPbMaps, &v19);
+        *&v19 = __PAIR64__(column, v7.column);
+        DWORD2(v19) = v6.numberOfColumns;
+        BYTE12(v19) = 0;
+        sub_2214A2428(&v8->_columnTgtToPbMaps, &v19, &v19);
         ++v10;
         column += v6.numberOfColumns;
       }
@@ -48,11 +47,11 @@
 
     if ((size.numberOfColumns % v6.numberOfColumns))
     {
-      v19 = v7.column;
-      v20 = v10 * v6.numberOfColumns + v9;
-      numberOfColumns = (size.numberOfColumns % v6.numberOfColumns);
-      v22 = 0;
-      sub_2214A2428(&v8->_columnTgtToPbMaps, &v19);
+      LODWORD(v19) = v7.column;
+      DWORD1(v19) = v10 * v6.numberOfColumns + v9;
+      DWORD2(v19) = (size.numberOfColumns % v6.numberOfColumns);
+      BYTE12(v19) = 0;
+      sub_2214A2428(&v8->_columnTgtToPbMaps, &v19, &v19);
     }
 
     v12 = HIDWORD(*&v6);
@@ -64,11 +63,10 @@
       v16 = row;
       do
       {
-        v19 = v7.row;
-        v20 = v16;
-        numberOfColumns = v12;
-        v22 = 0;
-        sub_2214A2428(&v8->_rowTgtToPbMaps, &v19);
+        *&v19 = __PAIR64__(v16, v7.row);
+        DWORD2(v19) = v12;
+        BYTE12(v19) = 0;
+        sub_2214A2428(&v8->_rowTgtToPbMaps, &v19, &v19);
         ++v14;
         v16 += v12;
       }
@@ -84,11 +82,11 @@
 
     if (v13 % v12)
     {
-      v19 = v7.row;
-      v20 = v15 + v14 * v12;
-      numberOfColumns = v12;
-      v22 = 0;
-      sub_2214A2428(&v8->_rowTgtToPbMaps, &v19);
+      LODWORD(v19) = v7.row;
+      DWORD1(v19) = v15 + v14 * v12;
+      DWORD2(v19) = v12;
+      BYTE12(v19) = 0;
+      sub_2214A2428(&v8->_rowTgtToPbMaps, &v19, &v19);
     }
   }
 
@@ -98,143 +96,141 @@
 - (TSTPasteMap)initWithPbTable:(id)table pbRange:(TSUCellRect)range tgtTable:(id)tgtTable tgtRange:(TSUCellRect)tgtRange flag:(int)flag
 {
   size = range.size;
-  v108 = tgtRange.size;
+  v99 = tgtRange.size;
   origin = range.origin;
-  v112 = tgtRange.origin;
+  v103 = tgtRange.origin;
   tableCopy = table;
   tgtTableCopy = tgtTable;
-  v125.receiver = self;
-  v125.super_class = TSTPasteMap;
-  v116 = tableCopy;
-  v120 = [(TSTPasteMap *)&v125 init];
-  if (!v120)
+  v113.receiver = self;
+  v113.super_class = TSTPasteMap;
+  v107 = tableCopy;
+  v111 = [(TSTPasteMap *)&v113 init];
+  if (!v111)
   {
     goto LABEL_166;
   }
 
-  v119 = tgtTableCopy;
-  v15 = objc_msgSend_sharedTableConfiguration(TSTConfiguration, v11, v12, v13, v14);
-  v20 = objc_msgSend_maxNumberOfColumns(v15, v16, v17, v18, v19);
+  v110 = tgtTableCopy;
+  v14 = objc_msgSend_sharedTableConfiguration(TSTConfiguration, v11, v12, v13);
+  v18 = objc_msgSend_maxNumberOfColumns(v14, v15, v16, v17);
 
-  v25 = 0;
-  v26 = 0;
-  v27 = 0;
-  v28 = origin.row != 0x7FFFFFFF && (*&origin & 0xFFFF00000000) == 0x7FFF00000000;
-  if (v28)
+  v22 = 0;
+  v23 = 0;
+  v24 = 0;
+  v25 = origin.row != 0x7FFFFFFF && (*&origin & 0xFFFF00000000) == 0x7FFF00000000;
+  if (v25)
   {
-    v29 = 0;
+    v26 = 0;
   }
 
   else
   {
-    v29 = *&origin.column;
+    v26 = *&origin.column;
   }
 
-  v102 = *&v112 & 0xFFFF00000000;
-  if (v112.row != 0x7FFFFFFF && (*&v112 & 0xFFFF00000000) == 0x7FFF00000000)
+  v93 = *&v103 & 0xFFFF00000000;
+  if (v103.row != 0x7FFFFFFF && (*&v103 & 0xFFFF00000000) == 0x7FFF00000000)
   {
     column = 0;
   }
 
   else
   {
-    column = v112.column;
+    column = v103.column;
   }
 
-  v105 = v29;
-  v121 = v29;
-  v122 = column;
-  v123 = 0;
-  v124 = 0;
-  v32 = LOWORD(size.numberOfColumns) + origin.column - 1;
+  v96 = v26;
+  LODWORD(v112) = v26;
+  *(&v112 + 4) = column;
+  BYTE12(v112) = 0;
+  v29 = LOWORD(size.numberOfColumns) + origin.column - 1;
   if (size.numberOfColumns)
   {
-    v33 = origin.column == 0x7FFF;
+    v30 = origin.column == 0x7FFF;
   }
 
   else
   {
-    v33 = 1;
+    v30 = 1;
   }
 
-  if (v33)
+  if (v30)
+  {
+    v29 = 0x7FFF;
+  }
+
+  v108 = v29;
+  if (v99.numberOfColumns)
+  {
+    v31 = v103.column == 0x7FFF;
+  }
+
+  else
+  {
+    v31 = 1;
+  }
+
+  if (v31)
   {
     v32 = 0x7FFF;
   }
 
-  v117 = v32;
-  if (v108.numberOfColumns)
-  {
-    v34 = v112.column == 0x7FFF;
-  }
-
   else
   {
-    v34 = 1;
+    v32 = LOWORD(v99.numberOfColumns) + v103.column - 1;
   }
 
-  if (v34)
+  v105 = v32;
+  v33 = 0x7FFF;
+  v34 = 0x7FFF;
+  v100 = v26;
+  for (i = 0; ; v24 = i)
   {
-    v35 = 0x7FFF;
-  }
-
-  else
-  {
-    v35 = LOWORD(v108.numberOfColumns) + v112.column - 1;
-  }
-
-  v114 = v35;
-  v36 = 0x7FFF;
-  v37 = 0x7FFF;
-  v109 = v29;
-  for (i = 0; ; v27 = i)
-  {
-    v39 = v37;
-    if (v29 != v37)
+    v36 = v34;
+    if (v26 != v34)
     {
-      if (v29 == v20)
+      if (v26 == v18)
       {
         goto LABEL_64;
       }
 
       if (flag)
       {
-        v22 = v29;
-        if (v29 > v117)
+        v20 = v26;
+        if (v26 > v108)
         {
           goto LABEL_64;
         }
 
-        i = objc_msgSend_hasHiddenColumnAtIndex_(v116, v21, v29, v23, v24);
-        v37 = v29;
-        v39 = v29;
+        i = objc_msgSend_hasHiddenColumnAtIndex_(v107, v19, v26, v21);
+        v34 = v26;
+        v36 = v26;
       }
 
       else
       {
-        v39 = v29;
-        if (v29 > v117)
+        v36 = v26;
+        if (v26 > v108)
         {
-          if (v25)
+          if (v22)
           {
-            sub_2214A2428((v120 + 32), &v121);
+            sub_2214A2428((v111 + 32), &v112, &v112);
           }
 
-          v121 = v105;
-          v122 = column;
-          v123 = 0;
-          v124 = 0;
-          v29 = 0x7FFF;
-          v39 = v109;
+          LODWORD(v112) = v96;
+          *(&v112 + 4) = column;
+          BYTE12(v112) = 0;
+          v26 = 0x7FFF;
+          v36 = v100;
         }
 
-        i = objc_msgSend_hasHiddenColumnAtIndex_(v116, v21, v39, v23, v24, v102);
-        v37 = v29;
+        i = objc_msgSend_hasHiddenColumnAtIndex_(v107, v19, v36, v21, v93);
+        v34 = v26;
       }
     }
 
-    hasHiddenColumnAtIndex = v26;
-    if (column != v36)
+    hasHiddenColumnAtIndex = v23;
+    if (column != v33)
     {
       break;
     }
@@ -243,83 +239,83 @@ LABEL_56:
     if ((i & 1) == (hasHiddenColumnAtIndex & 1))
     {
 LABEL_46:
-      if (((v26 ^ v27) & 1) != 0 || ((v27 ^ i) & 1) == 0)
+      if (((v23 ^ v24) & 1) != 0 || ((v24 ^ i) & 1) == 0)
       {
-        if ((v26 ^ v27) & ~i)
+        if ((v23 ^ v24) & ~i)
         {
-          v121 = v39;
-          v122 = column;
-          v124 = 0;
+          LODWORD(v112) = v36;
+          DWORD1(v112) = column;
+          BYTE12(v112) = 0;
           goto LABEL_53;
         }
 
-        v25 = v123 + 1;
+        v22 = DWORD2(v112) + 1;
       }
 
       else
       {
-        if (v123)
+        if (DWORD2(v112))
         {
-          sub_2214A2428((v120 + 32), &v121);
+          sub_2214A2428((v111 + 32), &v112, &v112);
         }
 
-        v121 = v39;
-        v122 = column;
-        v124 = i & 1;
+        LODWORD(v112) = v36;
+        DWORD1(v112) = column;
+        BYTE12(v112) = i & 1;
 LABEL_53:
-        v25 = 1;
+        v22 = 1;
       }
 
-      v123 = v25;
-      v45 = 1;
-      v44 = 1;
+      DWORD2(v112) = v22;
+      v42 = 1;
+      v41 = 1;
       goto LABEL_63;
     }
 
 LABEL_57:
-    if ((v27 & 1) == 0 && !(v26 & 1 | (v123 == 0)))
+    if ((v24 & 1) == 0 && !(v23 & 1 | (DWORD2(v112) == 0)))
     {
-      sub_2214A2428((v120 + 32), &v121);
+      sub_2214A2428((v111 + 32), &v112, &v112);
     }
 
-    v25 = 0;
-    v123 = 0;
-    v44 = i & 1;
-    v45 = hasHiddenColumnAtIndex & 1;
+    v22 = 0;
+    DWORD2(v112) = 0;
+    v41 = i & 1;
+    v42 = hasHiddenColumnAtIndex & 1;
 LABEL_63:
-    v29 = v44 + v39;
-    column += v45;
-    v26 = hasHiddenColumnAtIndex;
+    v26 = v41 + v36;
+    column += v42;
+    v23 = hasHiddenColumnAtIndex;
   }
 
-  if (column == v20)
+  if (column == v18)
   {
     goto LABEL_64;
   }
 
   if (flag == 1)
   {
-    v41 = objc_msgSend_range(v119, v21, v22, v23, v24);
-    v42 = v21 + WORD2(v41) - 1;
-    if (v21)
+    v38 = objc_msgSend_range(v110, v19, v20, v21);
+    v39 = v19 + WORD2(v38) - 1;
+    if (v19)
     {
-      v43 = WORD2(v41) == 0x7FFF;
+      v40 = WORD2(v38) == 0x7FFF;
     }
 
     else
     {
-      v43 = 1;
+      v40 = 1;
     }
 
-    if (v43)
+    if (v40)
     {
-      v42 = 0x7FFF;
+      v39 = 0x7FFF;
     }
 
-    if (column > v42)
+    if (column > v39)
     {
       hasHiddenColumnAtIndex = 0;
-      v36 = column;
+      v33 = column;
       if ((i & 1) == 0)
       {
         goto LABEL_46;
@@ -331,87 +327,87 @@ LABEL_63:
     goto LABEL_55;
   }
 
-  if (column <= v114)
+  if (column <= v105)
   {
 LABEL_55:
-    hasHiddenColumnAtIndex = objc_msgSend_hasHiddenColumnAtIndex_(v119, v21, column, v23, v24, v102);
-    v36 = column;
+    hasHiddenColumnAtIndex = objc_msgSend_hasHiddenColumnAtIndex_(v110, v19, column, v21, v93);
+    v33 = column;
     goto LABEL_56;
   }
 
 LABEL_64:
-  if (v123)
+  if (DWORD2(v112))
   {
-    sub_2214A2428((v120 + 32), &v121);
+    sub_2214A2428((v111 + 32), &v112, &v112);
   }
 
-  v46 = *(v120 + 4);
-  if (v46 != v120 + 40)
+  v43 = *(v111 + 4);
+  if (v43 != v111 + 40)
   {
     do
     {
-      v47 = *(v46 + 1);
-      if (v46[40] == 1)
+      v44 = *(v43 + 1);
+      if (v43[40] == 1)
       {
-        v48 = v46;
-        if (v47)
+        v45 = v43;
+        if (v44)
         {
           do
           {
-            v49 = v47;
-            v47 = *v47;
+            v46 = v44;
+            v44 = *v44;
           }
 
-          while (v47);
+          while (v44);
         }
 
         else
         {
           do
           {
-            v49 = *(v48 + 2);
-            v28 = *v49 == v48;
-            v48 = v49;
+            v46 = *(v45 + 2);
+            v25 = *v46 == v45;
+            v45 = v46;
           }
 
-          while (!v28);
+          while (!v25);
         }
 
-        sub_22112C950(v120 + 4, v46);
-        operator delete(v46);
+        sub_22112C950(v111 + 4, v43);
+        operator delete(v43);
       }
 
-      else if (v47)
+      else if (v44)
       {
         do
         {
-          v49 = v47;
-          v47 = *v47;
+          v46 = v44;
+          v44 = *v44;
         }
 
-        while (v47);
+        while (v44);
       }
 
       else
       {
         do
         {
-          v49 = *(v46 + 2);
-          v28 = *v49 == v46;
-          v46 = v49;
+          v46 = *(v43 + 2);
+          v25 = *v46 == v43;
+          v43 = v46;
         }
 
-        while (!v28);
+        while (!v25);
       }
 
-      v46 = v49;
+      v43 = v46;
     }
 
-    while (v49 != v120 + 40);
+    while (v46 != v111 + 40);
   }
 
-  v50 = objc_msgSend_sharedTableConfiguration(TSTConfiguration, v21, v22, v23, v24, v102);
-  v118 = objc_msgSend_maxNumberOfRows(v50, v51, v52, v53, v54);
+  v47 = objc_msgSend_sharedTableConfiguration(TSTConfiguration, v19, v20, v21, v93);
+  v109 = objc_msgSend_maxNumberOfRows(v47, v48, v49, v50);
 
   if ((*&origin & 0xFFFF00000000) != 0x7FFF00000000 && origin.row == 0x7FFFFFFF)
   {
@@ -423,161 +419,159 @@ LABEL_64:
     row = origin.row;
   }
 
-  if (v103 != 0x7FFF00000000 && v112.row == 0x7FFFFFFF)
+  if (v94 != 0x7FFF00000000 && v103.row == 0x7FFFFFFF)
   {
-    v61 = 0;
+    v56 = 0;
   }
 
   else
   {
-    v61 = v112.row;
+    v56 = v103.row;
   }
 
-  v106 = row;
-  v121 = row;
-  v122 = v61;
-  v123 = 0;
-  v124 = 0;
-  v104 = objc_msgSend_indexesForBodyRowsInGroupWithRowAtIndex_(v119, v55, v61, v56, v57);
-  if (objc_msgSend_isCategorized(v119, v62, v63, v64, v65) && (objc_msgSend_isSummaryOrLabelRow_(v119, v66, v61, v68, v69) & 1) == 0)
+  v97 = row;
+  *&v112 = __PAIR64__(v56, row);
+  DWORD2(v112) = 0;
+  BYTE12(v112) = 0;
+  v95 = objc_msgSend_indexesForBodyRowsInGroupWithRowAtIndex_(v110, v51, v56, v52);
+  if (objc_msgSend_isCategorized(v110, v57, v58, v59) && (objc_msgSend_isSummaryOrLabelRow_(v110, v60, v56, v62) & 1) == 0)
   {
-    Index = objc_msgSend_lastIndex(v104, v66, v67, v68, v69);
+    Index = objc_msgSend_lastIndex(v95, v60, v61, v62);
   }
 
   else
   {
-    v70 = objc_msgSend_range(v119, v66, v67, v68, v69);
-    if (v71 >> 32)
+    v63 = objc_msgSend_range(v110, v60, v61, v62);
+    if (v64 >> 32)
     {
-      v75 = v70 == 0x7FFFFFFF;
+      v67 = v63 == 0x7FFFFFFF;
     }
 
     else
     {
-      v75 = 1;
+      v67 = 1;
     }
 
-    if (v75)
+    if (v67)
     {
-      v76 = 0x7FFFFFFF;
+      v68 = 0x7FFFFFFF;
     }
 
     else
     {
-      v76 = v70 + HIDWORD(v71) - 1;
+      v68 = v63 + HIDWORD(v64) - 1;
     }
 
-    Index = v76;
+    Index = v68;
   }
 
-  v77 = 0;
-  v78 = 0;
-  v79 = 0x7FFFFFFF;
+  v69 = 0;
+  v70 = 0;
+  v71 = 0x7FFFFFFF;
   if (HIDWORD(*&size))
   {
-    v80 = origin.row == 0x7FFFFFFF;
+    v72 = origin.row == 0x7FFFFFFF;
   }
 
   else
   {
-    v80 = 1;
+    v72 = 1;
   }
 
-  if (v80)
+  if (v72)
   {
-    v81 = 0x7FFFFFFF;
+    v73 = 0x7FFFFFFF;
   }
 
   else
   {
-    v81 = origin.row + size.numberOfRows - 1;
+    v73 = origin.row + size.numberOfRows - 1;
   }
 
-  v115 = v81;
-  if (HIDWORD(*&v108))
+  v106 = v73;
+  if (HIDWORD(*&v99))
   {
-    v82 = v112.row == 0x7FFFFFFF;
+    v74 = v103.row == 0x7FFFFFFF;
   }
 
   else
   {
-    v82 = 1;
+    v74 = 1;
   }
 
-  if (v82)
+  if (v74)
   {
-    v83 = 0x7FFFFFFF;
+    v75 = 0x7FFFFFFF;
   }
 
   else
   {
-    v83 = v112.row + v108.numberOfRows - 1;
+    v75 = v103.row + v99.numberOfRows - 1;
   }
 
-  v113 = v83;
-  v84 = 0x7FFFFFFF;
-  v85 = v106;
-  while (!v116)
+  v104 = v75;
+  v76 = 0x7FFFFFFF;
+  v77 = v97;
+  while (!v107)
   {
 LABEL_116:
-    LODWORD(v91) = v84;
-    hasHiddenRowAtIndex = v78;
-    if (v85 != v84)
+    LODWORD(v82) = v76;
+    hasHiddenRowAtIndex = v70;
+    if (v77 != v76)
     {
-      if (v85 == v118)
+      if (v77 == v109)
       {
         goto LABEL_149;
       }
 
       if (flag)
       {
-        if (v85 > v115)
+        if (v77 > v106)
         {
           goto LABEL_149;
         }
 
-        hasHiddenRowAtIndex = objc_msgSend_hasHiddenRowAtIndex_(v116, v71, v85, v73, v74);
-        v84 = v85;
-        LODWORD(v91) = v85;
+        hasHiddenRowAtIndex = objc_msgSend_hasHiddenRowAtIndex_(v107, v64, v77, v66);
+        v76 = v77;
+        LODWORD(v82) = v77;
       }
 
       else
       {
-        v91 = v85;
-        if (v85 > v115)
+        v82 = v77;
+        if (v77 > v106)
         {
-          if (v123)
+          if (DWORD2(v112))
           {
-            sub_2214A2428((v120 + 8), &v121);
+            sub_2214A2428((v111 + 8), &v112, &v112);
           }
 
-          v91 = v106;
-          v121 = v106;
-          v122 = v61;
-          v123 = 0;
-          LODWORD(v85) = 0x7FFFFFFF;
-          v124 = 0;
+          v82 = v97;
+          *&v112 = __PAIR64__(v56, v97);
+          DWORD2(v112) = 0;
+          LODWORD(v77) = 0x7FFFFFFF;
+          BYTE12(v112) = 0;
         }
 
-        hasHiddenRowAtIndex = objc_msgSend_hasHiddenRowAtIndex_(v116, v71, v91, v73, v74);
-        v84 = v85;
+        hasHiddenRowAtIndex = objc_msgSend_hasHiddenRowAtIndex_(v107, v64, v82, v66);
+        v76 = v77;
       }
     }
 
-    v93 = v77;
-    if (v61 != v79)
+    v84 = v69;
+    if (v56 != v71)
     {
-      if (v61 == v118)
+      if (v56 == v109)
       {
         goto LABEL_149;
       }
 
       if (flag == 1)
       {
-        if (v61 > Index)
+        if (v56 > Index)
         {
-          v93 = 0;
-          v79 = v61;
+          v84 = 0;
+          v71 = v56;
           if (hasHiddenRowAtIndex)
           {
             goto LABEL_141;
@@ -587,151 +581,149 @@ LABEL_116:
         }
       }
 
-      else if (v61 > v113)
+      else if (v56 > v104)
       {
         goto LABEL_149;
       }
 
-      v93 = objc_msgSend_hasHiddenRowAtIndex_(v119, v71, v61, v73, v74);
-      v79 = v61;
+      v84 = objc_msgSend_hasHiddenRowAtIndex_(v110, v64, v56, v66);
+      v71 = v56;
     }
 
-    if ((hasHiddenRowAtIndex & 1) != (v93 & 1))
+    if ((hasHiddenRowAtIndex & 1) != (v84 & 1))
     {
 LABEL_141:
-      if ((v78 & 1) == 0 && !(v77 & 1 | (v123 == 0)))
+      if ((v70 & 1) == 0 && !(v69 & 1 | (DWORD2(v112) == 0)))
       {
-        sub_2214A2428((v120 + 8), &v121);
+        sub_2214A2428((v111 + 8), &v112, &v112);
       }
 
-      v123 = 0;
-      v95 = hasHiddenRowAtIndex & 1;
-      v96 = v93 & 1;
+      DWORD2(v112) = 0;
+      v86 = hasHiddenRowAtIndex & 1;
+      v87 = v84 & 1;
       goto LABEL_147;
     }
 
 LABEL_131:
-    if (((v77 ^ v78) & 1) != 0 || ((v78 ^ hasHiddenRowAtIndex) & 1) == 0)
+    if (((v69 ^ v70) & 1) != 0 || ((v70 ^ hasHiddenRowAtIndex) & 1) == 0)
     {
-      if ((v77 ^ v78) & ~hasHiddenRowAtIndex)
+      if ((v69 ^ v70) & ~hasHiddenRowAtIndex)
       {
-        v121 = v91;
-        v122 = v61;
-        v94 = 1;
-        v124 = 0;
+        *&v112 = __PAIR64__(v56, v82);
+        v85 = 1;
+        BYTE12(v112) = 0;
       }
 
       else
       {
-        v94 = v123 + 1;
+        v85 = DWORD2(v112) + 1;
       }
     }
 
     else
     {
-      if (v123)
+      if (DWORD2(v112))
       {
-        sub_2214A2428((v120 + 8), &v121);
+        sub_2214A2428((v111 + 8), &v112, &v112);
       }
 
-      v121 = v91;
-      v122 = v61;
-      v124 = hasHiddenRowAtIndex & 1;
-      v94 = 1;
+      *&v112 = __PAIR64__(v56, v82);
+      BYTE12(v112) = hasHiddenRowAtIndex & 1;
+      v85 = 1;
     }
 
-    v123 = v94;
-    v96 = 1;
-    v95 = 1;
+    DWORD2(v112) = v85;
+    v87 = 1;
+    v86 = 1;
 LABEL_147:
-    v85 = (v95 + v91);
-    v61 = (v96 + v61);
-    v77 = v93;
-    v78 = hasHiddenRowAtIndex;
+    v77 = (v86 + v82);
+    v56 = (v87 + v56);
+    v69 = v84;
+    v70 = hasHiddenRowAtIndex;
   }
 
-  v86 = objc_msgSend_numberOfRows(v116, v71, v72, v73, v74);
-  if (v86 != objc_msgSend_numberOfHiddenRows(v116, v87, v88, v89, v90))
+  v78 = objc_msgSend_numberOfRows(v107, v64, v65, v66);
+  if (v78 != objc_msgSend_numberOfHiddenRows(v107, v79, v80, v81))
   {
     goto LABEL_116;
   }
 
 LABEL_149:
-  if (v123)
+  if (DWORD2(v112))
   {
-    sub_2214A2428((v120 + 8), &v121);
+    sub_2214A2428((v111 + 8), &v112, &v112);
   }
 
-  v97 = *(v120 + 1);
-  if (v97 != v120 + 16)
+  v88 = *(v111 + 1);
+  if (v88 != v111 + 16)
   {
     do
     {
-      v98 = *(v97 + 1);
-      if (v97[40] == 1)
+      v89 = *(v88 + 1);
+      if (v88[40] == 1)
       {
-        v99 = v97;
-        if (v98)
+        v90 = v88;
+        if (v89)
         {
           do
           {
-            v100 = v98;
-            v98 = *v98;
+            v91 = v89;
+            v89 = *v89;
           }
 
-          while (v98);
+          while (v89);
         }
 
         else
         {
           do
           {
-            v100 = *(v99 + 2);
-            v28 = *v100 == v99;
-            v99 = v100;
+            v91 = *(v90 + 2);
+            v25 = *v91 == v90;
+            v90 = v91;
           }
 
-          while (!v28);
+          while (!v25);
         }
 
-        sub_22112C950(v120 + 1, v97);
-        operator delete(v97);
+        sub_22112C950(v111 + 1, v88);
+        operator delete(v88);
       }
 
-      else if (v98)
+      else if (v89)
       {
         do
         {
-          v100 = v98;
-          v98 = *v98;
+          v91 = v89;
+          v89 = *v89;
         }
 
-        while (v98);
+        while (v89);
       }
 
       else
       {
         do
         {
-          v100 = *(v97 + 2);
-          v28 = *v100 == v97;
-          v97 = v100;
+          v91 = *(v88 + 2);
+          v25 = *v91 == v88;
+          v88 = v91;
         }
 
-        while (!v28);
+        while (!v25);
       }
 
-      v97 = v100;
+      v88 = v91;
     }
 
-    while (v100 != v120 + 16);
+    while (v91 != v111 + 16);
   }
 
-  tableCopy = v116;
-  tgtTableCopy = v119;
+  tableCopy = v107;
+  tgtTableCopy = v110;
 LABEL_166:
 
-  return v120;
+  return v111;
 }
 
 - (unsigned)p_indexForTgtToPbMaps:(void *)maps andMap:(TSTColumnOrRowMap *)map
@@ -821,94 +813,22 @@ LABEL_166:
     column = range.origin.column;
   }
 
-  v27[0] = column;
-  v27[1] = 0;
-  v27[2] = range.size.numberOfColumns;
-  v28 = 0;
-  v12 = objc_msgSend_p_tgtRangeFromPbRange_andMap_(self, a2, v27, maps, maps);
+  v26[0] = column;
+  v26[1] = 0;
+  v26[2] = range.size.numberOfColumns;
+  v27 = 0;
+  v12 = objc_msgSend_p_tgtRangeFromPbRange_andMap_(self, a2, v26, maps);
   if (v12 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v15 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v15 = v13;
+    v14 = v13;
   }
 
   if (v12 == 0x7FFFFFFFFFFFFFFFLL)
-  {
-    v16 = 0x7FFF00000000;
-  }
-
-  else
-  {
-    v16 = v12 << 32;
-  }
-
-  if (v9 != 0x7FFF00000000 && row == 0x7FFFFFFF)
-  {
-    v18 = 0;
-  }
-
-  else
-  {
-    v18 = row;
-  }
-
-  v25[0] = v18;
-  v25[1] = 0;
-  v25[2] = numberOfRows;
-  v26 = 0;
-  v19 = objc_msgSend_p_tgtRangeFromPbRange_andMap_(self, v13, v25, rowMaps, v14);
-  v21 = v20 << 32;
-  v22 = v19;
-  if (v19 == 0x7FFFFFFFFFFFFFFFLL)
-  {
-    v21 = 0;
-    v22 = 0x7FFFFFFFLL;
-  }
-
-  v23 = (v22 | v16);
-  v24 = (v21 | v15);
-  result.size = v24;
-  result.origin = v23;
-  return result;
-}
-
-- (TSUCellRect)pbRangeForTgtRange:(TSUCellRect)range
-{
-  LODWORD(v4) = range.size.numberOfColumns;
-  row = range.origin.row;
-  v7 = *&range.origin & 0xFFFF00000000;
-  if (range.origin.row != 0x7FFFFFFF && v7 == 0x7FFF00000000)
-  {
-    column = 0;
-  }
-
-  else
-  {
-    column = range.origin.column;
-  }
-
-  v22 = 0;
-  v23 = column;
-  numberOfRows = range.size.numberOfRows;
-  v11 = *&range.size & 0xFFFFFFFF00000000;
-  numberOfColumns = range.size.numberOfColumns;
-  v25 = 0;
-  v12 = objc_msgSend_p_indexForTgtToPbMaps_andMap_(self, a2, &self->_columnTgtToPbMaps, &v22, v3);
-  if (v12 == 0x7FFFFFFF)
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = v4;
-  }
-
-  if (v12 == 0x7FFFFFFF)
   {
     v15 = 0x7FFF00000000;
   }
@@ -918,7 +838,7 @@ LABEL_166:
     v15 = v12 << 32;
   }
 
-  if (v7 != 0x7FFF00000000 && row == 0x7FFFFFFF)
+  if (v9 != 0x7FFF00000000 && row == 0x7FFFFFFF)
   {
     v17 = 0;
   }
@@ -928,110 +848,182 @@ LABEL_166:
     v17 = row;
   }
 
-  v22 = 0;
-  v23 = v17;
+  v24[0] = v17;
+  v24[1] = 0;
+  v24[2] = numberOfRows;
   v25 = 0;
-  numberOfColumns = numberOfRows;
-  v18 = objc_msgSend_p_indexForTgtToPbMaps_andMap_(self, v13, &self->_rowTgtToPbMaps, &v22, v14);
-  if (v18 == 0x7FFFFFFF)
+  v18 = objc_msgSend_p_tgtRangeFromPbRange_andMap_(self, v13, v24, rowMaps);
+  v20 = v19 << 32;
+  v21 = v18;
+  if (v18 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v19 = 0;
+    v20 = 0;
+    v21 = 0x7FFFFFFFLL;
+  }
+
+  v22 = (v21 | v15);
+  v23 = (v20 | v14);
+  result.size = v23;
+  result.origin = v22;
+  return result;
+}
+
+- (TSUCellRect)pbRangeForTgtRange:(TSUCellRect)range
+{
+  LODWORD(v3) = range.size.numberOfColumns;
+  row = range.origin.row;
+  v6 = *&range.origin & 0xFFFF00000000;
+  if (range.origin.row != 0x7FFFFFFF && v6 == 0x7FFF00000000)
+  {
+    column = 0;
   }
 
   else
   {
-    v19 = v11;
+    column = range.origin.column;
   }
 
-  v20 = (v15 | v18);
-  v21 = (v19 | v4);
-  result.size = v21;
-  result.origin = v20;
+  v20 = 0;
+  v21 = column;
+  numberOfRows = range.size.numberOfRows;
+  v10 = *&range.size & 0xFFFFFFFF00000000;
+  numberOfColumns = range.size.numberOfColumns;
+  v23 = 0;
+  v11 = objc_msgSend_p_indexForTgtToPbMaps_andMap_(self, a2, &self->_columnTgtToPbMaps, &v20);
+  if (v11 == 0x7FFFFFFF)
+  {
+    v3 = 0;
+  }
+
+  else
+  {
+    v3 = v3;
+  }
+
+  if (v11 == 0x7FFFFFFF)
+  {
+    v13 = 0x7FFF00000000;
+  }
+
+  else
+  {
+    v13 = v11 << 32;
+  }
+
+  if (v6 != 0x7FFF00000000 && row == 0x7FFFFFFF)
+  {
+    v15 = 0;
+  }
+
+  else
+  {
+    v15 = row;
+  }
+
+  v20 = 0;
+  v21 = v15;
+  v23 = 0;
+  numberOfColumns = numberOfRows;
+  v16 = objc_msgSend_p_indexForTgtToPbMaps_andMap_(self, v12, &self->_rowTgtToPbMaps, &v20);
+  if (v16 == 0x7FFFFFFF)
+  {
+    v17 = 0;
+  }
+
+  else
+  {
+    v17 = v10;
+  }
+
+  v18 = (v13 | v16);
+  v19 = (v17 | v3);
+  result.size = v19;
+  result.origin = v18;
   return result;
 }
 
 - (TSUCellCoord)pbCellIDForTgtCellID:(TSUCellCoord)d
 {
   row = d.row;
-  v11 = 0;
+  v9 = 0;
   column = d.column;
-  v13 = 1;
-  v14 = 0;
-  v6 = objc_msgSend_p_indexForTgtToPbMaps_andMap_(self, a2, &self->_columnTgtToPbMaps, &v11, v3);
-  v11 = 0;
+  v11 = 1;
+  v12 = 0;
+  v5 = objc_msgSend_p_indexForTgtToPbMaps_andMap_(self, a2, &self->_columnTgtToPbMaps, &v9);
+  v9 = 0;
   column = row;
-  if (v6 == 0x7FFFFFFF)
+  if (v5 == 0x7FFFFFFF)
   {
-    v9 = 0x7FFF00000000;
+    v7 = 0x7FFF00000000;
   }
 
   else
   {
-    v9 = v6 << 32;
+    v7 = v5 << 32;
   }
 
-  v14 = 0;
-  v13 = 1;
-  return (v9 | objc_msgSend_p_indexForTgtToPbMaps_andMap_(self, v7, &self->_rowTgtToPbMaps, &v11, v8));
+  v12 = 0;
+  v11 = 1;
+  return (v7 | objc_msgSend_p_indexForTgtToPbMaps_andMap_(self, v6, &self->_rowTgtToPbMaps, &v9));
 }
 
 - (id)createTgtRegionFromPbRegion:(id)region
 {
   regionCopy = region;
-  sub_2214A24F4(v28, self->_rowTgtToPbMaps.__tree_.__begin_node_, &self->_rowTgtToPbMaps.__tree_.__end_node_);
-  sub_2214A24F4(v27, self->_columnTgtToPbMaps.__tree_.__begin_node_, &self->_columnTgtToPbMaps.__tree_.__end_node_);
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x4812000000;
-  v21 = sub_2214A105C;
-  v22 = sub_2214A1080;
-  v23 = &unk_22188E88F;
-  v25 = 0;
-  v26 = 0;
+  sub_2214A24F4(v26, self->_rowTgtToPbMaps.__tree_.__begin_node_, &self->_rowTgtToPbMaps.__tree_.__end_node_.__left_);
+  sub_2214A24F4(v25, self->_columnTgtToPbMaps.__tree_.__begin_node_, &self->_columnTgtToPbMaps.__tree_.__end_node_.__left_);
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x4812000000;
+  v19 = sub_2214A105C;
+  v20 = sub_2214A1080;
+  v21 = &unk_22188E88F;
+  v23 = 0;
+  v24 = 0;
   __p = 0;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3321888768;
-  v15[2] = sub_2214A1098;
-  v15[3] = &unk_2834A8DE0;
-  v15[4] = self;
-  sub_2214A274C(v16, v27);
-  sub_2214A274C(v17, v28);
-  v15[5] = &v18;
-  objc_msgSend_enumerateCellRangesUsingBlock_(regionCopy, v5, v15, v6, v7);
-  v8 = objc_alloc_init(TSTCellRegion);
-  v11 = v8;
-  v12 = v19[6];
-  if (v12 == v19[7])
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3321888768;
+  v13[2] = sub_2214A1098;
+  v13[3] = &unk_2834A8DE0;
+  v13[4] = self;
+  sub_2214A274C(v14, v25);
+  sub_2214A274C(v15, v26);
+  v13[5] = &v16;
+  objc_msgSend_enumerateCellRangesUsingBlock_(regionCopy, v5, v13, v6);
+  v7 = objc_alloc_init(TSTCellRegion);
+  v9 = v7;
+  v10 = v17[6];
+  if (v10 == v17[7])
   {
-    v13 = v8;
+    v11 = v7;
   }
 
   else
   {
     do
     {
-      v13 = objc_msgSend_regionByAddingRange_(v11, v9, *v12, v12[1], v10);
+      v11 = objc_msgSend_regionByAddingRange_(v9, v8, *v10, v10[1]);
 
-      v12 += 2;
-      v11 = v13;
+      v10 += 2;
+      v9 = v11;
     }
 
-    while (v12 != v19[7]);
+    while (v10 != v17[7]);
   }
 
-  sub_2210BC9F8(v17, v17[1]);
-  sub_2210BC9F8(v16, v16[1]);
-  _Block_object_dispose(&v18, 8);
+  sub_2210BC9F8(v15, v15[1]);
+  sub_2210BC9F8(v14, v14[1]);
+  _Block_object_dispose(&v16, 8);
   if (__p)
   {
-    v25 = __p;
+    v23 = __p;
     operator delete(__p);
   }
 
-  sub_2210BC9F8(v27, v27[1]);
-  sub_2210BC9F8(v28, v28[1]);
+  sub_2210BC9F8(v25, v25[1]);
+  sub_2210BC9F8(v26, v26[1]);
 
-  return v13;
+  return v11;
 }
 
 - (id)createTgtRegionByIntersectingPbRegion:(id)region tgtTableInfo:(id)info tgtRegion:(id)tgtRegion
@@ -1039,36 +1031,36 @@ LABEL_166:
   regionCopy = region;
   infoCopy = info;
   tgtRegionCopy = tgtRegion;
-  if (objc_msgSend_isRectangle(regionCopy, v11, v12, v13, v14))
+  if (objc_msgSend_isRectangle(regionCopy, v11, v12, v13))
   {
-    v19 = objc_msgSend_boundingCellRange(tgtRegionCopy, v15, v16, v17, v18);
-    v22 = objc_msgSend_indexesOfHiddenColumnsInCellRange_(infoCopy, v20, v19, v20, v21);
-    v26 = objc_msgSend_regionBySubtractingColumnIndexes_(tgtRegionCopy, v23, v22, v24, v25);
+    v17 = objc_msgSend_boundingCellRange(tgtRegionCopy, v14, v15, v16);
+    v19 = objc_msgSend_indexesOfHiddenColumnsInCellRange_(infoCopy, v18, v17, v18);
+    v22 = objc_msgSend_regionBySubtractingColumnIndexes_(tgtRegionCopy, v20, v19, v21);
 
-    v31 = objc_msgSend_boundingCellRange(v26, v27, v28, v29, v30);
-    v34 = objc_msgSend_indexesOfHiddenRowsInCellRange_(infoCopy, v32, v31, v32, v33);
-    v38 = objc_msgSend_regionBySubtractingRowIndexes_(v26, v35, v34, v36, v37);
+    v26 = objc_msgSend_boundingCellRange(v22, v23, v24, v25);
+    v28 = objc_msgSend_indexesOfHiddenRowsInCellRange_(infoCopy, v27, v26, v27);
+    v31 = objc_msgSend_regionBySubtractingRowIndexes_(v22, v29, v28, v30);
 
-    tgtRegionCopy = v38;
-    v39 = tgtRegionCopy;
+    tgtRegionCopy = v31;
+    v32 = tgtRegionCopy;
   }
 
   else
   {
-    v40 = objc_msgSend_gatherer(TSTCellRegionGatherer, v15, v16, v17, v18);
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = sub_2214A15D8;
-    v50[3] = &unk_278460BD0;
-    v50[4] = self;
-    v51 = regionCopy;
-    v41 = v40;
-    v52 = v41;
-    objc_msgSend_enumerateCellRangesUsingBlock_(tgtRegionCopy, v42, v50, v43, v44);
-    v39 = objc_msgSend_gatheredCellRegion(v41, v45, v46, v47, v48);
+    v33 = objc_msgSend_gatherer(TSTCellRegionGatherer, v14, v15, v16);
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = sub_2214A15D8;
+    v41[3] = &unk_278460BD0;
+    v41[4] = self;
+    v42 = regionCopy;
+    v34 = v33;
+    v43 = v34;
+    objc_msgSend_enumerateCellRangesUsingBlock_(tgtRegionCopy, v35, v41, v36);
+    v32 = objc_msgSend_gatheredCellRegion(v34, v37, v38, v39);
   }
 
-  return v39;
+  return v32;
 }
 
 - (void)p_tgtRangesForPbRange:(TSUCellRect)range givenColumnMaps:(const void *)maps rowMaps:(const void *)rowMaps
@@ -1300,18 +1292,18 @@ LABEL_166:
 {
   size = a6.size;
   origin = a6.origin;
-  sub_2214A24F4(v27, self->_rowTgtToPbMaps.__tree_.__begin_node_, &self->_rowTgtToPbMaps.__tree_.__end_node_);
+  sub_2214A24F4(v26, self->_rowTgtToPbMaps.__tree_.__begin_node_, &self->_rowTgtToPbMaps.__tree_.__end_node_.__left_);
   selfCopy = self;
-  sub_2214A24F4(v26, self->_columnTgtToPbMaps.__tree_.__begin_node_, &self->_columnTgtToPbMaps.__tree_.__end_node_);
+  sub_2214A24F4(v25, self->_columnTgtToPbMaps.__tree_.__begin_node_, &self->_columnTgtToPbMaps.__tree_.__end_node_.__left_);
   retstr->__begin_ = 0;
   retstr->__end_ = 0;
   retstr->__cap_ = 0;
   v14 = *range;
   v13 = *(range + 1);
-  v24 = v13;
+  v23 = v13;
   while (v14 != v13)
   {
-    v15 = objc_msgSend_p_tgtRangesForPbRange_givenColumnMaps_rowMaps_(selfCopy, v12, *v14, *(v14 + 8), v26, v27);
+    v15 = objc_msgSend_p_tgtRangesForPbRange_givenColumnMaps_rowMaps_(selfCopy, v12, *v14, *(v14 + 8), v25, v26);
     v17 = *v15;
     v16 = v15[1];
     if (*v15 != v16)
@@ -1324,7 +1316,7 @@ LABEL_166:
           v20 = *(v17 + 8);
           if (!sub_2214A1FC4(*v17, v20, origin, size))
           {
-            if (objc_msgSend_containsCellRange_(*a5, v21, v19, v20, v22))
+            if (objc_msgSend_containsCellRange_(*a5, v21, v19, v20))
             {
               sub_221083454(retstr, v17);
             }
@@ -1346,11 +1338,11 @@ LABEL_166:
 
     MEMORY[0x223DA1450](v15, 0x20C40960023A9);
     v14 += 16;
-    v13 = v24;
+    v13 = v23;
   }
 
+  sub_2210BC9F8(v25, v25[1]);
   sub_2210BC9F8(v26, v26[1]);
-  sub_2210BC9F8(v27, v27[1]);
   return result;
 }
 

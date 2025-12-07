@@ -560,13 +560,13 @@ uint64_t __79__SKUIPageTitledDividerCollectionViewCell_reloadWithViewElement_wid
 {
   if (scheme)
   {
-    primaryTextColor = [scheme primaryTextColor];
-    [(UILabel *)self->_dividerLabel setTextColor:primaryTextColor];
-    [(UIButton *)self->_dividerButton setTitleColor:primaryTextColor forState:0];
-    [(UIButton *)self->_dividerButton setTintColor:primaryTextColor];
-    [(UIView *)self->_leftLine setBackgroundColor:primaryTextColor];
+    v13 = objc_msgSend_primaryTextColor(scheme, a2);
+    [(UILabel *)self->_dividerLabel setTextColor:v13];
+    [(UIButton *)self->_dividerButton setTitleColor:v13 forState:0];
+    [(UIButton *)self->_dividerButton setTintColor:v13];
+    [(UIView *)self->_leftLine setBackgroundColor:v13];
     rightLine = self->_rightLine;
-    v5 = primaryTextColor;
+    v5 = v13;
   }
 
   else
@@ -586,7 +586,7 @@ uint64_t __79__SKUIPageTitledDividerCollectionViewCell_reloadWithViewElement_wid
     v12 = self->_rightLine;
     v5 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.2];
     rightLine = v12;
-    primaryTextColor = v5;
+    v13 = v5;
   }
 
   [(UIView *)rightLine setBackgroundColor:v5];
@@ -596,7 +596,7 @@ uint64_t __79__SKUIPageTitledDividerCollectionViewCell_reloadWithViewElement_wid
 {
   titleCopy = title;
   dividerTitle = [(SKUIPageTitledDividerCollectionViewCell *)self dividerTitle];
-  if (dividerTitle != titleCopy && ([titleCopy isEqualToString:dividerTitle] & 1) == 0)
+  if (dividerTitle != titleCopy && (objc_msgSend_isEqualToString_(titleCopy) & 1) == 0)
   {
     dividerLabel = self->_dividerLabel;
     if (titleCopy)
@@ -612,12 +612,12 @@ uint64_t __79__SKUIPageTitledDividerCollectionViewCell_reloadWithViewElement_wid
         [(UILabel *)v8 setBackgroundColor:backgroundColor];
 
         v10 = self->_dividerLabel;
-        v11 = SKUIFontPreferredFontForTextStyle(1);
-        [(UILabel *)v10 setFont:v11];
+        v12 = SKUIFontPreferredFontForTextStyle(1, v11);
+        [(UILabel *)v10 setFont:v12];
 
-        v12 = self->_dividerLabel;
+        v13 = self->_dividerLabel;
         blackColor = [MEMORY[0x277D75348] blackColor];
-        [(UILabel *)v12 setTextColor:blackColor];
+        [(UILabel *)v13 setTextColor:blackColor];
 
         contentView = [(SKUIPageTitledDividerCollectionViewCell *)self contentView];
         [contentView addSubview:self->_dividerLabel];
@@ -808,43 +808,43 @@ uint64_t __79__SKUIPageTitledDividerCollectionViewCell_reloadWithViewElement_wid
   v8 = style;
 
   v9 = SKUIViewElementPlainColorWithStyle(v8, 0);
-  v10 = SKUIViewElementFontWithStyle(v8);
-  if (!v10)
+  v11 = SKUIViewElementFontWithStyle(v8);
+  if (!v11)
   {
-    v10 = SKUIFontPreferredFontForTextStyle(1);
+    v11 = SKUIFontPreferredFontForTextStyle(1, v10);
   }
 
   buttonText = [elementCopy buttonText];
   style2 = [elementCopy style];
-  v13 = [buttonText attributedStringWithDefaultFont:v10 foregroundColor:v9 style:style2];
+  v14 = [buttonText attributedStringWithDefaultFont:v11 foregroundColor:v9 style:style2];
 
-  return v13;
+  return v14;
 }
 
 + (id)_attributedStringForDividerTitle:(id)title context:(id)context
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   if (title)
   {
     v4 = MEMORY[0x277CCA898];
     titleCopy = title;
     v6 = [v4 alloc];
-    v12[0] = *MEMORY[0x277D740C0];
+    v13[0] = *MEMORY[0x277D740C0];
     blackColor = [MEMORY[0x277D75348] blackColor];
-    v13[0] = blackColor;
-    v12[1] = *MEMORY[0x277D740A8];
-    v8 = SKUIFontPreferredFontForTextStyle(1);
-    v13[1] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-    v10 = [v6 initWithString:titleCopy attributes:v9];
+    v14[0] = blackColor;
+    v13[1] = *MEMORY[0x277D740A8];
+    v9 = SKUIFontPreferredFontForTextStyle(1, v8);
+    v14[1] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    v11 = [v6 initWithString:titleCopy attributes:v10];
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 + (id)_attributedStringForViewElementText:(id)text style:(id)style context:(id)context
@@ -854,18 +854,18 @@ uint64_t __79__SKUIPageTitledDividerCollectionViewCell_reloadWithViewElement_wid
   if (text)
   {
     textCopy = text;
-    v10 = SKUIViewElementFontWithStyle(styleCopy);
-    if (!v10)
+    v11 = SKUIViewElementFontWithStyle(styleCopy);
+    if (!v11)
     {
-      v10 = SKUIFontPreferredFontForTextStyle(1);
+      v11 = SKUIFontPreferredFontForTextStyle(1, v10);
     }
 
     tintColor = [contextCopy tintColor];
-    v12 = SKUIViewElementPlainColorWithStyle(styleCopy, tintColor);
-    v13 = v12;
-    if (v12)
+    v13 = SKUIViewElementPlainColorWithStyle(styleCopy, tintColor);
+    v14 = v13;
+    if (v13)
     {
-      blackColor = v12;
+      blackColor = v13;
     }
 
     else
@@ -873,17 +873,17 @@ uint64_t __79__SKUIPageTitledDividerCollectionViewCell_reloadWithViewElement_wid
       blackColor = [MEMORY[0x277D75348] blackColor];
     }
 
-    v16 = blackColor;
+    v17 = blackColor;
 
-    v15 = [textCopy attributedStringWithDefaultFont:v10 foregroundColor:v16 style:styleCopy];
+    v16 = [textCopy attributedStringWithDefaultFont:v11 foregroundColor:v17 style:styleCopy];
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  return v15;
+  return v16;
 }
 
 + (UIEdgeInsets)_contentEdgeInsetsForViewElement:(id)element
@@ -1031,6 +1031,24 @@ LABEL_7:
   return v11;
 }
 
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPageTitledDividerCollectionViewCell initWithFrame:]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIPageTitledDividerCollectionViewCell prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIPageTitledDividerCollectionViewCell preferredSizeForViewElement:context:]";
+}
+
 + (void)requestLayoutForViewElement:width:context:.cold.1()
 {
   v2 = *MEMORY[0x277D85DE8];
@@ -1043,6 +1061,18 @@ LABEL_7:
   v2 = *MEMORY[0x277D85DE8];
   v0 = 136446210;
   v1 = "+[SKUIPageTitledDividerCollectionViewCell sizeThatFitsWidth:dividerTitle:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIPageTitledDividerCollectionViewCell sizeThatFitsWidth:viewElement:context:]";
+}
+
++ (void)viewElementInsetDividerHeight:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIPageTitledDividerCollectionViewCell viewElementInsetDividerHeight:]";
 }
 
 @end

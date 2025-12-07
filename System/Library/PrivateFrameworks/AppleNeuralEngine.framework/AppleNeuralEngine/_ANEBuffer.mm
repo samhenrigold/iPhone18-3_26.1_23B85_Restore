@@ -72,21 +72,20 @@
 
 - (_ANEBuffer)initWithCoder:(id)coder
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
+  v13 = objc_opt_class();
   v14 = objc_opt_class();
   v15 = objc_opt_class();
-  v16 = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:3];
-  v7 = [v4 setWithArray:{v6, v14, v15}];
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
+  v7 = [v4 setWithArray:{v6, v13, v14}];
 
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"ioSurfaceObject"];
   v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"symbolIndex"];
   v10 = [coderCopy decodeIntegerForKey:@"source"];
 
   v11 = [(_ANEBuffer *)self initWithIOSurfaceObject:v8 symbolIndex:v9 source:v10];
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

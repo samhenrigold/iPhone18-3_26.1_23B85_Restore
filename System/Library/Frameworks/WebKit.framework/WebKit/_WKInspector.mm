@@ -131,7 +131,7 @@
 - (void)printErrorToConsole:(id)console
 {
   webView = [(_WKInspector *)self webView];
-  console = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"console.error(\"%@\"", console];
+  console = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"console.error(%@", console];
   [WKWebView evaluateJavaScript:webView completionHandler:"evaluateJavaScript:completionHandler:"];
   if (console)
   {
@@ -195,7 +195,7 @@
 
 - (void)_fetchURLForTesting:(id)testing
 {
-  MEMORY[0x19EB02040](&v6, [MEMORY[0x1E696AEC0] stringWithFormat:@"fetch(\"%@\", objc_msgSend(testing, "absoluteString"")]);
+  MEMORY[0x19EB02040](&v6, [MEMORY[0x1E696AEC0] stringWithFormat:@"fetch(%@, objc_msgSend(testing, "absoluteString"")]);
   WebKit::WebInspectorUIProxy::evaluateInFrontendForTesting(&self->_inspector, &v6);
   v5 = v6;
   v6 = 0;
@@ -212,7 +212,7 @@
 {
   if (i)
   {
-    MEMORY[0x19EB02040](&v10, [MEMORY[0x1E696AEC0] stringWithFormat:@"InspectorFrontendHost.openURLExternally(\"%@\", objc_msgSend(testing, "absoluteString"")]);
+    MEMORY[0x19EB02040](&v10, [MEMORY[0x1E696AEC0] stringWithFormat:@"InspectorFrontendHost.openURLExternally(%@, objc_msgSend(testing, "absoluteString"")]);
     WebKit::WebInspectorUIProxy::evaluateInFrontendForTesting(&self->_inspector, &v10);
     v7 = v10;
     v10 = 0;

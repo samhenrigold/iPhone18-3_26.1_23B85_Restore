@@ -25,7 +25,7 @@ LABEL_5:
   v7 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    [SiriUILabelComponentView viewForComponent:v7];
+    [(SiriUILabelComponentView *)v7 viewForComponent:componentCopy];
   }
 
   v6 = 0;
@@ -95,16 +95,16 @@ LABEL_15:
   return v5;
 }
 
-+ (void)viewForComponent:(void *)a1 .cold.1(void *a1)
++ (void)viewForComponent:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v3 = 136315394;
-  v4 = "+[SiriUILabelComponentView viewForComponent:]";
-  v5 = 2114;
-  v6 = objc_opt_class();
-  v2 = v6;
-  _os_log_error_impl(&dword_26948D000, v1, OS_LOG_TYPE_ERROR, "%s Unsupported Object for SiriUILabelComponentView %{public}@", &v3, 0x16u);
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v4 = 136315394;
+  v5 = "+[SiriUILabelComponentView viewForComponent:]";
+  v6 = 2114;
+  v7 = objc_opt_class();
+  v3 = v7;
+  _os_log_error_impl(&dword_26948D000, v2, OS_LOG_TYPE_ERROR, "%s Unsupported Object for SiriUILabelComponentView %{public}@", &v4, 0x16u);
 }
 
 @end

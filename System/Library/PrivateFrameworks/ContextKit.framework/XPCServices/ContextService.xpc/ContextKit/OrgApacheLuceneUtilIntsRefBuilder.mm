@@ -2,11 +2,15 @@
 - (OrgApacheLuceneUtilIntsRefBuilder)init;
 - (id)ints;
 - (id)toIntsRef;
+- (int)intAtWithInt:(int)int;
 - (int)length;
 - (void)appendWithInt:(int)int;
+- (void)copyIntsWithIntArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)copyIntsWithOrgApacheLuceneUtilIntsRef:(id)ref;
 - (void)copyUTF8BytesWithOrgApacheLuceneUtilBytesRef:(id)ref;
 - (void)dealloc;
+- (void)growWithInt:(int)int;
+- (void)setIntAtWithInt:(int)int withInt:(int)withInt;
 - (void)setLengthWithInt:(int)int;
 @end
 
@@ -52,6 +56,40 @@
   ref->length_ = int;
 }
 
+- (int)intAtWithInt:(int)int
+{
+  ref = self->ref_;
+  if (!ref || (ints = ref->ints_) == 0)
+  {
+    JreThrowNullPointerException();
+  }
+
+  size = ints->super.size_;
+  if (int < 0 || size <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, *&int);
+  }
+
+  return *(&ints->super.size_ + int + 1);
+}
+
+- (void)setIntAtWithInt:(int)int withInt:(int)withInt
+{
+  ref = self->ref_;
+  if (!ref || (ints = ref->ints_) == 0)
+  {
+    JreThrowNullPointerException();
+  }
+
+  size = ints->super.size_;
+  if (int < 0 || size <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, *&int);
+  }
+
+  *(&ints->super.size_ + int + 1) = withInt;
+}
+
 - (void)appendWithInt:(int)int
 {
   ref = self->ref_;
@@ -69,6 +107,34 @@
   }
 
   *(&ints->super.size_ + length + 1) = int;
+}
+
+- (void)growWithInt:(int)int
+{
+  ref = self->ref_;
+  if (!ref)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v9 = OrgApacheLuceneUtilArrayUtil_growWithIntArray_withInt_(ref->ints_, int, *&int, v3, v4, v5, v6, v7);
+
+  JreStrongAssign(&ref->ints_, v9);
+}
+
+- (void)copyIntsWithIntArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  v5 = *&withInt;
+  v6 = *&int;
+  [(OrgApacheLuceneUtilIntsRefBuilder *)self growWithInt:*&withInt];
+  ref = self->ref_;
+  if (!ref)
+  {
+    JreThrowNullPointerException();
+  }
+
+  JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(array, v6, ref->ints_, 0, v5);
+  self->ref_->length_ = v5;
 }
 
 - (void)copyIntsWithOrgApacheLuceneUtilIntsRef:(id)ref

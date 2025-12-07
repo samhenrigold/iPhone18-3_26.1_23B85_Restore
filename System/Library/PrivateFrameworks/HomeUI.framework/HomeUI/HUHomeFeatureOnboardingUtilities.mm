@@ -1200,23 +1200,23 @@ void __86__HUHomeFeatureOnboardingUtilities_atLeastOneHomePodHasLanguageSettings
   }
 }
 
-uint64_t __86__HUHomeFeatureOnboardingUtilities_atLeastOneHomePodHasLanguageSettingsForHomeFuture___block_invoke_102(uint64_t result)
+id *__86__HUHomeFeatureOnboardingUtilities_atLeastOneHomePodHasLanguageSettingsForHomeFuture___block_invoke_102(id *result)
 {
   v16 = *MEMORY[0x277D85DE8];
-  if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
+  if ((*(*(result[6] + 1) + 24) & 1) == 0)
   {
     v1 = result;
-    v2 = *(*(*(result + 56) + 8) + 24);
-    result = [*(result + 32) count];
+    v2 = *(*(result[7] + 1) + 24);
+    result = [result[4] count];
     if (v2 == result)
     {
       v3 = HFLogForCategory();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = *(v1 + 64);
-        v5 = NSStringFromSelector(*(v1 + 72));
-        v6 = *(*(*(v1 + 56) + 8) + 24);
-        v7 = *(*(*(v1 + 48) + 8) + 24);
+        v4 = v1[8];
+        v5 = NSStringFromSelector(v1[9]);
+        v6 = *(*(v1[7] + 1) + 24);
+        v7 = *(*(v1[6] + 1) + 24);
         v8 = 138413058;
         v9 = v4;
         v10 = 2112;
@@ -1228,7 +1228,7 @@ uint64_t __86__HUHomeFeatureOnboardingUtilities_atLeastOneHomePodHasLanguageSett
         _os_log_impl(&dword_20CEB6000, v3, OS_LOG_TYPE_DEFAULT, "%@:%@: No homepod language options found. futuresCompleted: %lu, hasLanguageSettings: %{BOOL}d", &v8, 0x26u);
       }
 
-      return [*(v1 + 40) finishWithResult:MEMORY[0x277CBEC28]];
+      return [v1[5] finishWithResult:MEMORY[0x277CBEC28]];
     }
   }
 
@@ -2890,7 +2890,7 @@ LABEL_22:
       }
 
 LABEL_14:
-      v18 = [HUHomeFeatureOnboardingUtilities _userHasSaidYesToShowTVViewingProfilesIn:resultsCopy, *v20, *&v20[16], v21];
+      v18 = [HUHomeFeatureOnboardingUtilities _userHasSaidYesToShowTVViewingProfilesIn:resultsCopy, *v20, *&v20[8], v21];
       if (v9 & v18)
       {
         v12 = 3;

@@ -26,36 +26,35 @@
   nonceCopy = nonce;
   textCopy = text;
   dataCopy = data;
-  v18 = v->var0 + 15;
-  v19 = v18 & 0xFFFFFFFFFFFFFFF0;
-  if (v18 >= 0x10)
+  v17 = v->var0 + 15;
+  v18 = v17 & 0xFFFFFFFFFFFFFFF0;
+  if (v17 >= 0x10)
   {
-    v20 = (v45 - (v18 & 0xFFFFFFFFFFFFFFF0));
+    v19 = (v42 - (v17 & 0xFFFFFFFFFFFFFFF0));
     do
     {
-      *v20 = 0xAAAAAAAAAAAAAAAALL;
-      v20[1] = 0xAAAAAAAAAAAAAAAALL;
-      v20 += 2;
-      v19 -= 16;
+      *v19 = 0xAAAAAAAAAAAAAAAALL;
+      v19[1] = 0xAAAAAAAAAAAAAAAALL;
+      v19 += 2;
+      v18 -= 16;
     }
 
-    while (v19);
+    while (v18);
   }
 
-  size = self->super.size;
-  v22 = ccsiv_init();
-  v49 = v45;
-  if (v22)
+  v20 = ccsiv_init();
+  v46 = v42;
+  if (v20)
   {
-    v41 = v22;
-    v61 = NSLocalizedDescriptionKey;
-    v62 = @"could not ccsiv_init";
-    v42 = &v62;
-    v43 = &v61;
+    v38 = v20;
+    v58 = NSLocalizedDescriptionKey;
+    v59 = @"could not ccsiv_init";
+    v39 = &v59;
+    v40 = &v58;
 LABEL_26:
-    v37 = [NSDictionary dictionaryWithObjects:v42 forKeys:v43 count:1];
-    v34 = [NSError errorWithDomain:@"corecrypto" code:v41 userInfo:v37];
-    v26 = 0;
+    v35 = [NSDictionary dictionaryWithObjects:v39 forKeys:v40 count:1];
+    v32 = [NSError errorWithDomain:@"corecrypto" code:v38 userInfo:v35];
+    v24 = 0;
     goto LABEL_19;
   }
 
@@ -63,65 +62,65 @@ LABEL_26:
   {
     [nonceCopy length];
     [nonceCopy bytes];
-    v23 = ccsiv_set_nonce();
-    if (v23)
+    v21 = ccsiv_set_nonce();
+    if (v21)
     {
-      v41 = v23;
-      v59 = NSLocalizedDescriptionKey;
-      v60 = @"could not ccsiv_set_nonce";
-      v42 = &v60;
-      v43 = &v59;
+      v38 = v21;
+      v56 = NSLocalizedDescriptionKey;
+      v57 = @"could not ccsiv_set_nonce";
+      v39 = &v57;
+      v40 = &v56;
       goto LABEL_26;
     }
   }
 
-  v45[1] = buffer;
+  v42[1] = buffer;
   errorCopy2 = error;
-  v47 = textCopy;
-  v48 = nonceCopy;
+  v44 = textCopy;
+  v45 = nonceCopy;
   allKeys = [dataCopy allKeys];
-  v25 = [allKeys sortedArrayUsingSelector:"compare:"];
+  v23 = [allKeys sortedArrayUsingSelector:"compare:"];
 
-  v52 = 0u;
-  v53 = 0u;
+  v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
-  v26 = v25;
-  v27 = [v26 countByEnumeratingWithState:&v50 objects:v58 count:16];
-  if (v27)
+  v47 = 0u;
+  v48 = 0u;
+  v24 = v23;
+  v25 = [v24 countByEnumeratingWithState:&v47 objects:v55 count:16];
+  if (v25)
   {
-    v28 = v27;
-    v29 = *v51;
+    v26 = v25;
+    v27 = *v48;
     while (2)
     {
-      for (i = 0; i != v28; i = i + 1)
+      for (i = 0; i != v26; i = i + 1)
       {
-        if (*v51 != v29)
+        if (*v48 != v27)
         {
-          objc_enumerationMutation(v26);
+          objc_enumerationMutation(v24);
         }
 
-        v31 = [dataCopy objectForKey:*(*(&v50 + 1) + 8 * i)];
-        [v31 length];
-        [v31 bytes];
-        v32 = ccsiv_aad();
-        if (v32)
+        v29 = [dataCopy objectForKey:*(*(&v47 + 1) + 8 * i)];
+        [v29 length];
+        [v29 bytes];
+        v30 = ccsiv_aad();
+        if (v30)
         {
-          v35 = v32;
-          v56 = NSLocalizedDescriptionKey;
-          v57 = @"could not ccsiv_aad";
-          v36 = [NSDictionary dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-          v34 = [NSError errorWithDomain:@"corecrypto" code:v35 userInfo:v36];
+          v33 = v30;
+          v53 = NSLocalizedDescriptionKey;
+          v54 = @"could not ccsiv_aad";
+          v34 = [NSDictionary dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+          v32 = [NSError errorWithDomain:@"corecrypto" code:v33 userInfo:v34];
 
-          v37 = v26;
-          textCopy = v47;
-          nonceCopy = v48;
+          v35 = v24;
+          textCopy = v44;
+          nonceCopy = v45;
           goto LABEL_18;
         }
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v50 objects:v58 count:16];
-      if (v28)
+      v26 = [v24 countByEnumeratingWithState:&v47 objects:v55 count:16];
+      if (v26)
       {
         continue;
       }
@@ -130,38 +129,37 @@ LABEL_26:
     }
   }
 
-  textCopy = v47;
-  [v47 length];
+  textCopy = v44;
+  [v44 length];
   [textCopy bytes];
-  v33 = ccsiv_crypt();
-  if (!v33)
+  v31 = ccsiv_crypt();
+  if (!v31)
   {
-    v34 = 0;
-    nonceCopy = v48;
+    v32 = 0;
+    nonceCopy = v45;
     errorCopy = errorCopy2;
     goto LABEL_20;
   }
 
-  v44 = v33;
-  v54 = NSLocalizedDescriptionKey;
-  v55 = @"could not ccsiv_crypt";
-  v37 = [NSDictionary dictionaryWithObjects:&v55 forKeys:&v54 count:1];
-  v34 = [NSError errorWithDomain:@"corecrypto" code:v44 userInfo:v37];
-  nonceCopy = v48;
+  v41 = v31;
+  v51 = NSLocalizedDescriptionKey;
+  v52 = @"could not ccsiv_crypt";
+  v35 = [NSDictionary dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+  v32 = [NSError errorWithDomain:@"corecrypto" code:v41 userInfo:v35];
+  nonceCopy = v45;
 LABEL_18:
   errorCopy = errorCopy2;
 LABEL_19:
 
 LABEL_20:
-  var0 = v->var0;
   cc_clear();
   if (errorCopy)
   {
-    v39 = v34;
-    *errorCopy = v34;
+    v36 = v32;
+    *errorCopy = v32;
   }
 
-  return v34 == 0;
+  return v32 == 0;
 }
 
 - (id)decryptData:(id)data authenticatedData:(id)authenticatedData error:(id *)error

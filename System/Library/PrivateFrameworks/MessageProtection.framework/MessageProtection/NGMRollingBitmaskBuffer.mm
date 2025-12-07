@@ -10,15 +10,14 @@
 
 - (NGMRollingBitmaskBuffer)init
 {
-  v6.receiver = self;
-  v6.super_class = NGMRollingBitmaskBuffer;
-  v2 = [(NGMRollingBitmaskBuffer *)&v6 init];
+  v5.receiver = self;
+  v5.super_class = NGMRollingBitmaskBuffer;
+  v2 = [(NGMRollingBitmaskBuffer *)&v5 init];
   v3 = v2;
   if (v2)
   {
     *&v2->_upper_buffer_index = 0x100000001;
     v2->_valid_values_buffer = malloc_type_malloc(1uLL, 0x68CBAE0CuLL);
-    valid_values_buffer_size = v3->_valid_values_buffer_size;
     __memset_chk();
   }
 

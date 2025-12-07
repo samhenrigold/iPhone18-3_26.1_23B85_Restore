@@ -211,46 +211,13 @@ LABEL_28:
   v16.receiver = self;
   v16.super_class = HKSignedClinicalDataItem;
   v5 = [(HKSignedClinicalDataItem *)&v16 init];
-  if (!v5)
+  if (!v5 || ([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"PrimaryConceptCodingCollection"], v6 = objc_claimAutoreleasedReturnValue(), primaryConceptCodingCollection = v5->_primaryConceptCodingCollection, v5->_primaryConceptCodingCollection = v6, primaryConceptCodingCollection, v5->_primaryConceptCodingCollection) && (objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"PrimaryConcept"), v8 = objc_claimAutoreleasedReturnValue(), primaryConcept = v5->_primaryConcept, v5->_primaryConcept = v8, primaryConcept, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"RelevantDate"), v10 = objc_claimAutoreleasedReturnValue(), relevantDate = v5->_relevantDate, v5->_relevantDate = v10, relevantDate, v5->_relevantDate) && (objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"MedicalRecordSampleID"), v12 = objc_claimAutoreleasedReturnValue(), medicalRecordSampleID = v5->_medicalRecordSampleID, v5->_medicalRecordSampleID = v12, medicalRecordSampleID, v5->_medicalRecordSampleID))
   {
-    goto LABEL_5;
-  }
-
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"PrimaryConceptCodingCollection"];
-  primaryConceptCodingCollection = v5->_primaryConceptCodingCollection;
-  v5->_primaryConceptCodingCollection = v6;
-
-  if (!v5->_primaryConceptCodingCollection)
-  {
-    goto LABEL_6;
-  }
-
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"PrimaryConcept"];
-  primaryConcept = v5->_primaryConcept;
-  v5->_primaryConcept = v8;
-
-  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"RelevantDate"];
-  relevantDate = v5->_relevantDate;
-  v5->_relevantDate = v10;
-
-  if (!v5->_relevantDate)
-  {
-    goto LABEL_6;
-  }
-
-  v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MedicalRecordSampleID"];
-  medicalRecordSampleID = v5->_medicalRecordSampleID;
-  v5->_medicalRecordSampleID = v12;
-
-  if (v5->_medicalRecordSampleID)
-  {
-LABEL_5:
     v14 = v5;
   }
 
   else
   {
-LABEL_6:
     v14 = 0;
   }
 

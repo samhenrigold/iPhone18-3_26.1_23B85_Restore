@@ -192,9 +192,9 @@
 
   style = [(SUUISegmentedControlViewElement *)self->_viewElement style];
   v6 = [style valueForStyle:@"itml-segmented-control-width"];
-  v7 = [v6 isEqualToString:@"full"];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  [controlCopy setSizesSegmentsToFitWidth:v7];
+  [controlCopy setSizesSegmentsToFitWidth:isEqualToString];
 }
 
 - (id)_segmentedControl
@@ -278,10 +278,10 @@
     [navigationBar2 setBarStyle:barStyle];
 
     view = [v23 view];
-    [view setSemanticContentAttribute:storeSemanticContentAttribute()];
+    [view setSemanticContentAttribute:{storeSemanticContentAttribute(view, v26)}];
 
     navigationBar3 = [v23 navigationBar];
-    [navigationBar3 setSemanticContentAttribute:storeSemanticContentAttribute()];
+    [navigationBar3 setSemanticContentAttribute:{storeSemanticContentAttribute(navigationBar3, v28)}];
 
     [parentViewController presentViewController:v23 animated:1 completion:0];
   }

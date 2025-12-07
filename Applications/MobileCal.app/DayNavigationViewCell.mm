@@ -737,7 +737,7 @@ LABEL_8:
 
 - (void)setCircled:(BOOL)circled animated:(BOOL)animated
 {
-  sub_100026F48();
+  sub_100026F48(self);
   sub_1000475B0();
 
   NSRequestConcreteImplementation();
@@ -745,7 +745,7 @@ LABEL_8:
 
 - (void)prepareForReuse
 {
-  sub_100026F48();
+  sub_100026F48(self);
   sub_1000475B0();
 
   NSRequestConcreteImplementation();
@@ -753,7 +753,7 @@ LABEL_8:
 
 - (void)pulseToday
 {
-  sub_100026F48();
+  sub_100026F48(self);
   sub_1000475B0();
 
   NSRequestConcreteImplementation();
@@ -761,7 +761,7 @@ LABEL_8:
 
 - (void)stopPulsing
 {
-  sub_100026F48();
+  sub_100026F48(self);
   sub_1000475B0();
 
   NSRequestConcreteImplementation();
@@ -769,7 +769,7 @@ LABEL_8:
 
 - (void)setDate:(id)date forceStringUpdate:(BOOL)update
 {
-  sub_100026F48();
+  sub_100026F48(self);
   sub_1000475B0();
 
   NSRequestConcreteImplementation();

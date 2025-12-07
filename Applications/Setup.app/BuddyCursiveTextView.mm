@@ -98,7 +98,7 @@
     [(CAShapeLayer *)selfCopy->_textLayer bounds];
     if (v9)
     {
-      [(BuddyCursiveTextPath *)v9 transformForRect:1 pointSize:v10 flipped:v11, v12, v13, sizeCopy];
+      objc_msgSend_transformForRect_pointSize_flipped_(v9, v10, v11, v12, v13, sizeCopy);
     }
 
     else

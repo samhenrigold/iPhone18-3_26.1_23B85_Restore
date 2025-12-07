@@ -56,13 +56,13 @@
 
 + (uint64_t)_fetchCloudState:(void *)state codableSyncState:(uint64_t)syncState profile:(uint64_t)profile error:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v8 = objc_opt_self();
-  v17 = 0;
-  v9 = [stateCopy decodedObjectOfClass:objc_opt_class() version:0 decodedObject:&v17 error:profile];
+  v16 = 0;
+  v9 = [stateCopy decodedObjectOfClass:objc_opt_class() version:0 decodedObject:&v16 error:profile];
 
-  v10 = v17;
+  v10 = v16;
   v11 = 0;
   if (v9)
   {
@@ -72,9 +72,9 @@
     {
       bloodPressureJournalsCount = [v10 bloodPressureJournalsCount];
       *buf = 138412546;
-      v19 = v8;
-      v20 = 2048;
-      v21 = bloodPressureJournalsCount;
+      v18 = v8;
+      v19 = 2048;
+      v20 = bloodPressureJournalsCount;
       _os_log_impl(&dword_229486000, v12, OS_LOG_TYPE_DEFAULT, "[%@] Decode %ld blood pressure journals for state sync", buf, 0x16u);
     }
 
@@ -87,7 +87,6 @@
     v11 = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -261,7 +260,7 @@
 
 + (uint64_t)_updateCodableSyncState:(uint64_t)state withMergeState:(void *)mergeState profile:(void *)profile error:(void *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   errorCopy = error;
   mergeStateCopy = mergeState;
@@ -271,15 +270,14 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     bloodPressureJournals = [profileCopy bloodPressureJournals];
-    v14 = 138543618;
-    v15 = v9;
-    v16 = 2048;
-    v17 = [bloodPressureJournals count];
-    _os_log_impl(&dword_229486000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set %ld blood pressure journals in cloud state for state sync", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v9;
+    v15 = 2048;
+    v16 = [bloodPressureJournals count];
+    _os_log_impl(&dword_229486000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set %ld blood pressure journals in cloud state for state sync", &v13, 0x16u);
   }
 
   [mergeStateCopy setCodableObject:profileCopy version:0 profile:errorCopy];
-  v12 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -300,7 +298,7 @@
 
 + (uint64_t)_persistCloudState:(void *)state profile:(void *)profile error:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v6 = a2;
   stateCopy = state;
   v8 = objc_opt_self();
@@ -310,9 +308,9 @@
   {
     bloodPressureJournals = [v6 bloodPressureJournals];
     *buf = 138412546;
-    v24 = v8;
-    v25 = 2048;
-    v26 = [bloodPressureJournals count];
+    v23 = v8;
+    v24 = 2048;
+    v25 = [bloodPressureJournals count];
     _os_log_impl(&dword_229486000, v9, OS_LOG_TYPE_DEFAULT, "[%@] Persist %ld blood pressure journals for state sync", buf, 0x16u);
   }
 
@@ -323,9 +321,9 @@
 
   bloodPressureJournalManager = [heartHealthProfileExtension bloodPressureJournalManager];
 
-  v22 = 0;
-  v15 = [bloodPressureJournalManager insertBloodPressureJournals:v12 error:&v22 onCommit:0 onRollback:0];
-  v16 = v22;
+  v21 = 0;
+  v15 = [bloodPressureJournalManager insertBloodPressureJournals:v12 error:&v21 onCommit:0 onRollback:0];
+  v16 = v21;
   if ((v15 & 1) == 0)
   {
     _HKInitializeLogging();
@@ -333,9 +331,9 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v24 = v8;
-      v25 = 2114;
-      v26 = v16;
+      v23 = v8;
+      v24 = 2114;
+      v25 = v16;
       _os_log_impl(&dword_229486000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unable to insert journals due to error: %{public}@", buf, 0x16u);
     }
 
@@ -355,7 +353,6 @@
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

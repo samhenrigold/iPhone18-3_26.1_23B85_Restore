@@ -33,7 +33,7 @@
 - (void)setScrolledNonUberPercentage:(double)percentage
 {
   selfCopy = self;
-  sub_1E398D7B8(percentage);
+  sub_1E398D7B8(selfCopy, percentage);
 }
 
 @end

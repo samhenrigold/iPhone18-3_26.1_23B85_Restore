@@ -211,19 +211,19 @@ LABEL_14:
   v55 = 0x2020000000;
   v56 = 0;
   v6 = +[NSMutableArray array];
-  if ([mCopy length])
+  v7 = [mCopy length];
+  if (v7)
   {
     v43 = _NSConcreteStackBlock;
     v42 = sub_100166888;
-    *&v7 = 136315138;
-    v40 = v7;
-    *&v7 = 136316162;
-    v41 = v7;
+    *&v8 = 136315138;
+    v40 = v8;
+    *&v8 = 136316162;
+    v41 = v8;
     while (1)
     {
       memset(&outOutputData, 0, sizeof(outOutputData));
-      convertAudioCapacity = selfCopy->_convertAudioCapacity;
-      v9 = (__chkstk_darwin)();
+      v9 = __chkstk_darwin(v7);
       outOutputData.mBuffers[0].mData = &timestampCopy - ((v10 + 15) & 0x1FFFFFFF0);
       v12 = *(v11 + 76);
       ioOutputDataPacketSize = *(v11 + 72);
@@ -484,8 +484,8 @@ LABEL_13:
 + (id)speexConverter
 {
   v2 = [CSAudioConverter alloc];
-  +[CSFAudioStreamBasicDescriptionFactory lpcmInt16ASBD];
-  +[CSFAudioStreamBasicDescriptionFactory speexASBD];
+  objc_msgSend_lpcmInt16ASBD(CSFAudioStreamBasicDescriptionFactory);
+  objc_msgSend_speexASBD(CSFAudioStreamBasicDescriptionFactory);
   v3 = [(CSAudioConverter *)v2 initWithInASBD:v6 outASBD:&v5];
 
   return v3;
@@ -494,8 +494,8 @@ LABEL_13:
 + (id)narrowBandOpusConverter
 {
   v2 = [CSAudioConverter alloc];
-  +[CSFAudioStreamBasicDescriptionFactory lpcmInt16NarrowBandASBD];
-  +[CSFAudioStreamBasicDescriptionFactory opusNarrowBandASBD];
+  objc_msgSend_lpcmInt16NarrowBandASBD(CSFAudioStreamBasicDescriptionFactory);
+  objc_msgSend_opusNarrowBandASBD(CSFAudioStreamBasicDescriptionFactory);
   v3 = [(CSAudioConverter *)v2 initWithInASBD:v6 outASBD:&v5];
 
   return v3;
@@ -504,8 +504,8 @@ LABEL_13:
 + (id)opusConverter
 {
   v2 = [CSAudioConverter alloc];
-  +[CSFAudioStreamBasicDescriptionFactory lpcmInt16ASBD];
-  +[CSFAudioStreamBasicDescriptionFactory opusASBD];
+  objc_msgSend_lpcmInt16ASBD(CSFAudioStreamBasicDescriptionFactory);
+  objc_msgSend_opusASBD(CSFAudioStreamBasicDescriptionFactory);
   v3 = [(CSAudioConverter *)v2 initWithInASBD:v6 outASBD:&v5];
 
   return v3;

@@ -106,14 +106,14 @@
     if (error)
     {
       objc_msgSend_errorForInternalErrorWithLocalizedDescription_underlyingError_(CSUError, v20, @"Model Catalog asset base url for text and token encoders is nil!", *error, v23);
-      *error = v30 = 0;
+      *error = v31 = 0;
 LABEL_13:
 
       goto LABEL_14;
     }
 
 LABEL_12:
-    v30 = 0;
+    v31 = 0;
     goto LABEL_13;
   }
 
@@ -122,23 +122,23 @@ LABEL_12:
 
   if ((isEqual & 1) == 0)
   {
-    v31 = sub_1AC090E50();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    v32 = sub_1AC090E50(v30);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
     {
-      *v50 = 0;
-      _os_log_impl(&dword_1AC05D000, v31, OS_LOG_TYPE_INFO, "new ModelCatalog assets available for Smiley Spotter - reloading", v50, 2u);
+      *v51 = 0;
+      _os_log_impl(&dword_1AC05D000, v32, OS_LOG_TYPE_INFO, "new ModelCatalog assets available for Smiley Spotter - reloading", v51, 2u);
     }
 
-    v36 = objc_msgSend_configuration(self, v32, v33, v34, v35);
-    objc_msgSend_setHeadModelURL_(v36, v37, v24, v38, v39);
+    v37 = objc_msgSend_configuration(self, v33, v34, v35, v36);
+    objc_msgSend_setHeadModelURL_(v37, v38, v24, v39, v40);
 
-    if (objc_msgSend_reLoadResources_(self, v40, error, v41, v42))
+    if (objc_msgSend_reLoadResources_(self, v41, error, v42, v43))
     {
-      v47 = objc_msgSend_getAssetVersion(v17, v43, v44, v45, v46);
+      v48 = objc_msgSend_getAssetVersion(v17, v44, v45, v46, v47);
       assetVersionNumber = self->_assetVersionNumber;
-      self->_assetVersionNumber = v47;
+      self->_assetVersionNumber = v48;
 
-      v30 = 1;
+      v31 = 1;
       goto LABEL_13;
     }
 
@@ -146,10 +146,10 @@ LABEL_12:
   }
 
 LABEL_5:
-  v30 = 1;
+  v31 = 1;
 LABEL_14:
 
-  return v30;
+  return v31;
 }
 
 - (id)runSmileySpotterOnTextEncoding:(id)encoding error:(id *)error
@@ -171,7 +171,7 @@ LABEL_14:
 
 - (id)unsafeRunSmileySpotterOnTextEncoding:(id)encoding error:(id *)error
 {
-  v53[1] = *MEMORY[0x1E69E9840];
+  v52[1] = *MEMORY[0x1E69E9840];
   encodingCopy = encoding;
   smileySpotterHead = self->_smileySpotterHead;
   if (error && !smileySpotterHead)
@@ -180,10 +180,10 @@ LABEL_14:
     smileySpotterHead = self->_smileySpotterHead;
   }
 
-  v52 = @"pooled_out";
+  v51 = @"pooled_out";
   v12 = objc_msgSend_textEncoding(encodingCopy, v6, v7, v8, v9);
-  v53[0] = v12;
-  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v13, v53, &v52, 1);
+  v52[0] = v12;
+  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v13, v52, &v51, 1);
   v17 = objc_msgSend_setInputFeatures_error_(smileySpotterHead, v15, v14, error, v16);
 
   if ((v17 & 1) != 0 && objc_msgSend_predict_(self->_smileySpotterHead, v18, error, v19, v20))
@@ -219,8 +219,6 @@ LABEL_14:
   {
     v49 = 0;
   }
-
-  v50 = *MEMORY[0x1E69E9840];
 
   return v49;
 }

@@ -23,7 +23,7 @@
 
 + (id)remoteMessageTransportsForProductInfo:(id)info
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = [HMDModernRemoteMessageTransport alloc];
   v4 = +[HMDAccountRegistry sharedRegistry];
   v5 = [(HMDModernRemoteMessageTransport *)v3 initWithAccountRegistry:v4];
@@ -32,11 +32,9 @@
   v7 = +[HMDAccountRegistry sharedRegistry];
   v8 = [(HMDIDSMessageTransport *)v6 initWithAccountRegistry:v7 forServiceName:@"com.apple.private.alloy.willow"];
 
-  v12[0] = v5;
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[0] = v5;
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -89,29 +87,29 @@
 
 - (BOOL)doesResponse:(id)response matchAllCapabilities:(id)capabilities
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   responseCopy = response;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   capabilitiesCopy = capabilities;
-  v8 = [capabilitiesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [capabilitiesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(capabilitiesCopy);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
-        v13 = [responseCopy objectForKeyedSubscript:{v12, v19}];
+        v12 = *(*(&v18 + 1) + 8 * i);
+        v13 = [responseCopy objectForKeyedSubscript:{v12, v18}];
         v14 = [capabilitiesCopy objectForKeyedSubscript:v12];
         v15 = [(HMDRemoteMessageTransport *)self compareCapability:v13 key:v12 withCapability:v14];
 
@@ -122,7 +120,7 @@
         }
       }
 
-      v9 = [capabilitiesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [capabilitiesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v9)
       {
         continue;
@@ -135,13 +133,12 @@
   v16 = 1;
 LABEL_11:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (id)matchResponse:(id)response requestedCapabilities:(id)capabilities
 {
-  v81[1] = *MEMORY[0x277D85DE8];
+  v80[1] = *MEMORY[0x277D85DE8];
   responseCopy = response;
   capabilitiesCopy = capabilities;
   v6 = objc_autoreleasePoolPush();
@@ -150,21 +147,21 @@ LABEL_11:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v71 = v8;
-    v72 = 2112;
-    v73 = capabilitiesCopy;
-    v74 = 2112;
-    v75 = responseCopy;
+    v70 = v8;
+    v71 = 2112;
+    v72 = capabilitiesCopy;
+    v73 = 2112;
+    v74 = responseCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Select based on capability %@, and responses %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v47 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:0 ascending:0 comparator:&__block_literal_global_316_277911];
-  v81[0] = v47;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:1];
-  v51 = [responseCopy sortedArrayUsingDescriptors:v11];
+  v46 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:0 ascending:0 comparator:&__block_literal_global_316_277911];
+  v80[0] = v46;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:1];
+  v50 = [responseCopy sortedArrayUsingDescriptors:v11];
 
   v12 = objc_autoreleasePoolPush();
   v13 = HMFGetOSLogHandle();
@@ -172,58 +169,58 @@ LABEL_11:
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v71 = v14;
-    v72 = 2112;
-    v73 = v51;
+    v70 = v14;
+    v71 = 2112;
+    v72 = v50;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Sorted responses by homed version: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v12);
-  v48 = responseCopy;
-  v57 = v9;
+  v47 = responseCopy;
+  v56 = v9;
   if ([responseCopy count] >= 2)
   {
-    v68 = 0u;
-    v69 = 0u;
-    v66 = 0u;
     v67 = 0u;
+    v68 = 0u;
+    v65 = 0u;
+    v66 = 0u;
     v15 = capabilitiesCopy;
-    v52 = [v15 countByEnumeratingWithState:&v66 objects:v80 count:16];
-    if (v52)
+    v51 = [v15 countByEnumeratingWithState:&v65 objects:v79 count:16];
+    if (v51)
     {
-      v50 = *v67;
+      v49 = *v66;
       do
       {
         v16 = 0;
         do
         {
-          if (*v67 != v50)
+          if (*v66 != v49)
           {
             objc_enumerationMutation(v15);
           }
 
-          v53 = v16;
-          v17 = *(*(&v66 + 1) + 8 * v16);
+          v52 = v16;
+          v17 = *(*(&v65 + 1) + 8 * v16);
+          v61 = 0u;
           v62 = 0u;
           v63 = 0u;
           v64 = 0u;
-          v65 = 0u;
-          obj = v51;
-          v18 = [obj countByEnumeratingWithState:&v62 objects:v79 count:16];
+          obj = v50;
+          v18 = [obj countByEnumeratingWithState:&v61 objects:v78 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v63;
+            v20 = *v62;
             do
             {
               for (i = 0; i != v19; ++i)
               {
-                if (*v63 != v20)
+                if (*v62 != v20)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v22 = *(*(&v62 + 1) + 8 * i);
+                v22 = *(*(&v61 + 1) + 8 * i);
                 if (([v9 containsObject:v22] & 1) == 0)
                 {
                   [v9 addObject:v22];
@@ -234,10 +231,10 @@ LABEL_11:
                 v24 = [v15 objectForKeyedSubscript:v17];
                 v25 = [(HMDRemoteMessageTransport *)self compareCapability:v23 key:v17 withCapability:v24];
 
-                v9 = v57;
+                v9 = v56;
                 if ((v25 & 0x8000000000000000) == 0)
                 {
-                  v26 = [v57 indexOfObject:v22];
+                  v26 = [v56 indexOfObject:v22];
                   v27 = MEMORY[0x277CCABB0];
                   v28 = [v10 objectAtIndexedSubscript:v26];
                   v29 = [v27 numberWithInteger:{objc_msgSend(v28, "integerValue") + 1}];
@@ -245,52 +242,52 @@ LABEL_11:
                 }
               }
 
-              v19 = [obj countByEnumeratingWithState:&v62 objects:v79 count:16];
+              v19 = [obj countByEnumeratingWithState:&v61 objects:v78 count:16];
             }
 
             while (v19);
           }
 
-          v16 = v53 + 1;
+          v16 = v52 + 1;
         }
 
-        while (v53 + 1 != v52);
-        v52 = [v15 countByEnumeratingWithState:&v66 objects:v80 count:16];
+        while (v52 + 1 != v51);
+        v51 = [v15 countByEnumeratingWithState:&v65 objects:v79 count:16];
       }
 
-      while (v52);
+      while (v51);
     }
   }
 
   if (![v9 count])
   {
-    [v9 addObjectsFromArray:v51];
+    [v9 addObjectsFromArray:v50];
   }
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
-  v56 = v10;
-  v30 = [v56 countByEnumeratingWithState:&v58 objects:v78 count:16];
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v55 = v10;
+  v30 = [v55 countByEnumeratingWithState:&v57 objects:v77 count:16];
   if (v30)
   {
     v31 = v30;
     v32 = 0;
     v33 = 0;
     v34 = 0;
-    v35 = *v59;
+    v35 = *v58;
     do
     {
       for (j = 0; j != v31; ++j)
       {
-        if (*v59 != v35)
+        if (*v58 != v35)
         {
-          objc_enumerationMutation(v56);
+          objc_enumerationMutation(v55);
         }
 
-        integerValue = [*(*(&v58 + 1) + 8 * j) integerValue];
-        v38 = [v57 objectAtIndexedSubscript:v32];
+        integerValue = [*(*(&v57 + 1) + 8 * j) integerValue];
+        v38 = [v56 objectAtIndexedSubscript:v32];
         v39 = [v38 objectForKeyedSubscript:@"kIDSMessageResponseErrorDataKey"];
 
         if (v39)
@@ -312,7 +309,7 @@ LABEL_11:
         ++v32;
       }
 
-      v31 = [v56 countByEnumeratingWithState:&v58 objects:v78 count:16];
+      v31 = [v55 countByEnumeratingWithState:&v57 objects:v77 count:16];
     }
 
     while (v31);
@@ -330,20 +327,18 @@ LABEL_11:
   {
     v43 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v71 = v43;
-    v72 = 2048;
-    v73 = v34;
-    v74 = 2048;
-    v75 = v33;
-    v76 = 2112;
-    v77 = v57;
+    v70 = v43;
+    v71 = 2048;
+    v72 = v34;
+    v73 = 2048;
+    v74 = v33;
+    v75 = 2112;
+    v76 = v56;
     _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_INFO, "%{public}@Returning Best matched capability (Matched: %ld, Index: %ld) from Filtered list :%@", buf, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v41);
-  v44 = [v57 objectAtIndexedSubscript:v33];
-
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = [v56 objectAtIndexedSubscript:v33];
 
   return v44;
 }
@@ -466,7 +461,7 @@ LABEL_22:
 
 void __81__HMDRemoteMessageTransport_postDidReceiveRemoteMessageWithNoListenerFromDevice___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
@@ -474,22 +469,20 @@ void __81__HMDRemoteMessageTransport_postDidReceiveRemoteMessageWithNoListenerFr
     v4 = HMFGetLogIdentifier();
     v5 = *(a1 + 32);
     *buf = 138543618;
-    v14 = v4;
-    v15 = 2112;
-    v16 = v5;
+    v13 = v4;
+    v14 = 2112;
+    v15 = v5;
     _os_log_impl(&dword_229538000, v3, OS_LOG_TYPE_INFO, "%{public}@Posting notification about incoming message with no listeners from: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
   v6 = [MEMORY[0x277CCAB98] defaultCenter];
-  v11 = @"kIDSMessageSourceIDKey";
+  v10 = @"kIDSMessageSourceIDKey";
   v7 = *(a1 + 40);
   v8 = [*(a1 + 32) remoteDestinationString];
-  v12 = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+  v11 = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
   [v6 postNotificationName:@"HMDDidReceiveRemoteMessageWithNoListenerNotification" object:v7 userInfo:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)start
@@ -593,16 +586,15 @@ void __81__HMDRemoteMessageTransport_postDidReceiveRemoteMessageWithNoListenerFr
 
 void __40__HMDRemoteMessageTransport_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v19_277951;
-  logCategory__hmf_once_v19_277951 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v19_277951;
+  logCategory__hmf_once_v19_277951 = v0;
 }
 
 + (id)remoteMessageFromMessage:(id)message secure:(BOOL)secure accountRegistry:(id)registry
 {
   secureCopy = secure;
-  v73[1] = *MEMORY[0x277D85DE8];
+  v72[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   registryCopy = registry;
   v10 = messageCopy;
@@ -636,10 +628,10 @@ void __40__HMDRemoteMessageTransport_logCategory__block_invoke()
     selfCopy = self;
     if (untrustedClientIdentifier)
     {
-      v72 = *MEMORY[0x277D0F1D0];
+      v71 = *MEMORY[0x277D0F1D0];
       untrustedClientIdentifier2 = [(HMDRemoteMessage *)v10 untrustedClientIdentifier];
-      v73[0] = untrustedClientIdentifier2;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:&v72 count:1];
+      v72[0] = untrustedClientIdentifier2;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:&v71 count:1];
     }
 
     else
@@ -654,8 +646,8 @@ void __40__HMDRemoteMessageTransport_logCategory__block_invoke()
     messagePayload = [(HMDRemoteMessage *)v10 messagePayload];
     [(HMDRemoteMessage *)v10 timeout];
     v23 = v22;
-    LOBYTE(v56) = [(HMFMessage *)v10 isSecureRemote]|| secureCopy;
-    v13 = [(HMDRemoteMessage *)v17 initWithName:name qualityOfService:qualityOfService destination:destination payload:messagePayload headers:v16 type:3 timeout:v23 secure:v56 restriction:[(HMFMessage *)v10 remoteRestriction] sendOptions:0];
+    LOBYTE(v55) = [(HMFMessage *)v10 isSecureRemote]|| secureCopy;
+    v13 = [(HMDRemoteMessage *)v17 initWithName:name qualityOfService:qualityOfService destination:destination payload:messagePayload headers:v16 type:3 timeout:v23 secure:v55 restriction:[(HMFMessage *)v10 remoteRestriction] sendOptions:0];
 
     identifier = [(HMDRemoteMessage *)v10 identifier];
     [(HMDRemoteMessage *)v13 setIdentifier:identifier];
@@ -692,13 +684,13 @@ void __40__HMDRemoteMessageTransport_logCategory__block_invoke()
 
     if (v30)
     {
-      v59 = 0;
+      v58 = 0;
       device = [v30 device];
       handles = [device handles];
       firstObject = [handles firstObject];
-      v34 = [registryCopy deviceForHandle:firstObject exists:&v59];
+      v34 = [registryCopy deviceForHandle:firstObject exists:&v58];
 
-      if (v59 == 1)
+      if (v58 == 1)
       {
         v35 = objc_autoreleasePoolPush();
         v36 = HMFGetOSLogHandle();
@@ -706,16 +698,16 @@ void __40__HMDRemoteMessageTransport_logCategory__block_invoke()
         {
           v37 = HMFGetLogIdentifier();
           [v30 device];
-          v38 = v58 = self;
+          v38 = v57 = self;
           *buf = 138543874;
-          v61 = v37;
-          v62 = 2112;
-          v63 = v38;
-          v64 = 2112;
-          v65 = v34;
+          v60 = v37;
+          v61 = 2112;
+          v62 = v38;
+          v63 = 2112;
+          v64 = v34;
           _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_DEBUG, "%{public}@Replacing device destination, %@, with device: %@", buf, 0x20u);
 
-          self = v58;
+          self = v57;
         }
 
         objc_autoreleasePoolPop(v35);
@@ -757,22 +749,21 @@ void __40__HMDRemoteMessageTransport_logCategory__block_invoke()
     }
 
     *buf = 138544642;
-    v61 = v47;
-    v62 = 2112;
-    v63 = selfCopy2;
-    v64 = 2112;
-    v65 = identifier2;
-    v66 = 2112;
-    v67 = name3;
-    v68 = 2048;
-    v69 = v51;
-    v70 = 2112;
-    v71 = v53;
+    v60 = v47;
+    v61 = 2112;
+    v62 = selfCopy2;
+    v63 = 2112;
+    v64 = identifier2;
+    v65 = 2112;
+    v66 = name3;
+    v67 = 2048;
+    v68 = v51;
+    v69 = 2112;
+    v70 = v53;
     _os_log_impl(&dword_229538000, v46, OS_LOG_TYPE_DEBUG, "%{public}@[%@] Created remote message from message with identifier: %@ name: %@ timeout: %.0f and type: %@", buf, 0x3Eu);
   }
 
   objc_autoreleasePoolPop(v44);
-  v54 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

@@ -14,9 +14,9 @@
 
 - (W5NetUsageManager)init
 {
-  v18.receiver = self;
-  v18.super_class = W5NetUsageManager;
-  v2 = [(W5NetUsageManager *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = W5NetUsageManager;
+  v2 = [(W5NetUsageManager *)&v19 init];
   if (objc_opt_class() && objc_opt_class())
   {
     v3 = [AnalyticsWorkspace alloc];
@@ -42,13 +42,14 @@
       p_super = sub_100098A04();
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 136315650;
-        v20 = "[W5NetUsageManager init]";
-        v21 = 2080;
-        v22 = "W5NetUsageManager.m";
-        v23 = 1024;
-        v24 = 72;
-        _os_log_send_and_compose_impl();
+        v20 = 136315650;
+        v21 = "[W5NetUsageManager init]";
+        v22 = 2080;
+        v23 = "W5NetUsageManager.m";
+        v24 = 1024;
+        v25 = 72;
+        LODWORD(v18) = 28;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, p_super, 0, "[wifivelocity] %s (%s:%u) Init Success: Symptoms Framework Client", &v20, v18, LODWORD(v19.receiver));
       }
     }
 
@@ -74,28 +75,28 @@
 
 - (id)_getCurrentUsage
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = sub_100010588;
-  v19 = sub_100010598;
-  v20 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_100010588;
+  v20 = sub_100010598;
+  v21 = 0;
   v3 = dispatch_semaphore_create(0);
   usageFeed = self->_usageFeed;
-  v27[0] = kSymptomAnalyticsServiceRefreshUsage;
-  v27[1] = kSymptomAnalyticsServiceExtensionUsage;
-  v28[0] = &__kCFBooleanTrue;
-  v28[1] = &__kCFBooleanTrue;
-  v5 = [NSDictionary dictionaryWithObjects:v28 forKeys:v27 count:2];
+  v28[0] = kSymptomAnalyticsServiceRefreshUsage;
+  v28[1] = kSymptomAnalyticsServiceExtensionUsage;
+  v29[0] = &__kCFBooleanTrue;
+  v29[1] = &__kCFBooleanTrue;
+  v5 = [NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:2];
   v6 = kUsageProcessProcName;
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_1000105A0;
-  v12[3] = &unk_1000E1410;
-  v14 = &v15;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_1000105A0;
+  v13[3] = &unk_1000E1410;
+  v15 = &v16;
   v7 = v3;
-  v13 = v7;
-  LOBYTE(usageFeed) = [(UsageFeed *)usageFeed usageToDateWithOptionsFor:0 nameKind:v6 options:v5 reply:v12];
+  v14 = v7;
+  LOBYTE(usageFeed) = [(UsageFeed *)usageFeed usageToDateWithOptionsFor:0 nameKind:v6 options:v5 reply:v13];
 
   if ((usageFeed & 1) == 0)
   {
@@ -103,12 +104,13 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v22 = "[W5NetUsageManager _getCurrentUsage]";
-      v23 = 2080;
-      v24 = "W5NetUsageManager.m";
-      v25 = 1024;
-      v26 = 104;
-      _os_log_send_and_compose_impl();
+      v23 = "[W5NetUsageManager _getCurrentUsage]";
+      v24 = 2080;
+      v25 = "W5NetUsageManager.m";
+      v26 = 1024;
+      v27 = 104;
+      LODWORD(v12) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) Failed to issue usageToDate request", buf, v12, LODWORD(v13[0]));
     }
   }
 
@@ -116,13 +118,13 @@
   if (dispatch_semaphore_wait(v7, v9) >= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
     *buf = 134349056;
-    v22 = 0x4010000000000000;
+    v23 = 0x4010000000000000;
     _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
   }
 
-  v10 = v16[5];
+  v10 = v17[5];
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v16, 8);
 
   return v10;
 }
@@ -151,8 +153,20 @@
       v12 = sub_100098A04();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        [_getCurrentUsage count];
-        _os_log_send_and_compose_impl();
+        v15 = 136316418;
+        v16 = "[W5NetUsageManager recordUsageToDate:]";
+        v17 = 2080;
+        v18 = "W5NetUsageManager.m";
+        v19 = 1024;
+        v20 = 124;
+        v21 = 2048;
+        v22 = [_getCurrentUsage count];
+        v23 = 2114;
+        v24 = v10;
+        v25 = 2112;
+        v26 = dateCopy;
+        v14 = 58;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v12, 0, "[wifivelocity] %s (%s:%u) Recording Network Usage for %ld entries, at: %{public}@, for UUID: %@", &v15, v14);
       }
 
       v13 = [(NSMutableDictionary *)self->_usageSnaphots objectForKeyedSubscript:dateCopy];
@@ -171,15 +185,16 @@
     v10 = sub_100098A04();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = 136315906;
-      v32 = "[W5NetUsageManager startPeriodicUsageMonitor:maxEntries:uuid:]";
-      v33 = 2080;
-      v34 = "W5NetUsageManager.m";
-      v35 = 1024;
-      v36 = 133;
-      v37 = 2112;
-      v38 = uuidCopy;
-      _os_log_send_and_compose_impl();
+      v33 = 136315906;
+      v34 = "[W5NetUsageManager startPeriodicUsageMonitor:maxEntries:uuid:]";
+      v35 = 2080;
+      v36 = "W5NetUsageManager.m";
+      v37 = 1024;
+      v38 = 133;
+      v39 = 2112;
+      v40 = uuidCopy;
+      v26 = 38;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v10, 0, "[wifivelocity] %s (%s:%u) WARN: Starting a new periodic collection for UUID:%@ when one is already active. Will cancel the last one", &v33, v26);
     }
 
     v11 = [(NSMutableDictionary *)self->_netUsageTimer objectForKeyedSubscript:uuidCopy];
@@ -192,26 +207,27 @@
   v15 = [v12 initFileURLWithPath:v14];
 
   v16 = +[NSFileManager defaultManager];
-  v30 = 0;
-  v17 = [v16 createDirectoryAtURL:v15 withIntermediateDirectories:1 attributes:0 error:&v30];
-  v18 = v30;
+  v32 = 0;
+  v17 = [v16 createDirectoryAtURL:v15 withIntermediateDirectories:1 attributes:0 error:&v32];
+  v18 = v32;
 
   v19 = sub_100098A04();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = 136316418;
-    v32 = "[W5NetUsageManager startPeriodicUsageMonitor:maxEntries:uuid:]";
-    v33 = 2080;
-    v34 = "W5NetUsageManager.m";
-    v35 = 1024;
-    v36 = 144;
-    v37 = 2112;
-    v38 = v15;
-    v39 = 1024;
-    v40 = v17;
-    v41 = 2112;
-    v42 = v18;
-    _os_log_send_and_compose_impl();
+    v33 = 136316418;
+    v34 = "[W5NetUsageManager startPeriodicUsageMonitor:maxEntries:uuid:]";
+    v35 = 2080;
+    v36 = "W5NetUsageManager.m";
+    v37 = 1024;
+    v38 = 144;
+    v39 = 2112;
+    v40 = v15;
+    v41 = 1024;
+    v42 = v17;
+    v43 = 2112;
+    v44 = v18;
+    LODWORD(v25) = 54;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v19, 0, "[wifivelocity] %s (%s:%u) Create Directory: %@, success: %d, error: %@", &v33, v25);
   }
 
   v20 = [[NSMutableArray alloc] initWithCapacity:entries];
@@ -223,15 +239,16 @@
   v22 = sub_100098A04();
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = 136315906;
-    v32 = "[W5NetUsageManager startPeriodicUsageMonitor:maxEntries:uuid:]";
-    v33 = 2080;
-    v34 = "W5NetUsageManager.m";
-    v35 = 1024;
-    v36 = 149;
-    v37 = 2112;
-    v38 = uuidCopy;
-    _os_log_send_and_compose_impl();
+    v33 = 136315906;
+    v34 = "[W5NetUsageManager startPeriodicUsageMonitor:maxEntries:uuid:]";
+    v35 = 2080;
+    v36 = "W5NetUsageManager.m";
+    v37 = 1024;
+    v38 = 149;
+    v39 = 2112;
+    v40 = uuidCopy;
+    LODWORD(v25) = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v22, 0, "[wifivelocity] %s (%s:%u) Starting Periodic Netusage data collection for UUID: %@", &v33, v25);
   }
 
   block[0] = _NSConcreteStackBlock;
@@ -239,9 +256,9 @@
   block[2] = sub_100010D94;
   block[3] = &unk_1000E1460;
   block[4] = self;
-  v26 = uuidCopy;
+  v28 = uuidCopy;
   monitorCopy = monitor;
-  v27 = v15;
+  v29 = v15;
   entriesCopy = entries;
   v23 = v15;
   v24 = uuidCopy;
@@ -258,7 +275,16 @@
     v6 = sub_100098A04();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v10 = 136315906;
+      v11 = "[W5NetUsageManager stopPeriodicUsageMonitor:]";
+      v12 = 2080;
+      v13 = "W5NetUsageManager.m";
+      v14 = 1024;
+      v15 = 189;
+      v16 = 2112;
+      v17 = monitorCopy;
+      v9 = 38;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v6, 0, "[wifivelocity] %s (%s:%u) Stopping Periodic Netusage data collection for UUID: %@", &v10, v9);
     }
 
     v7 = [(NSMutableDictionary *)self->_netUsageTimer objectForKeyedSubscript:monitorCopy];
@@ -332,15 +358,15 @@ LABEL_11:
     v27 = sub_100098A04();
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v42 = 136315906;
-      v43 = "[W5NetUsageManager calculateUsageDelta:]";
-      v44 = 2080;
-      v45 = "W5NetUsageManager.m";
-      v46 = 1024;
-      v47 = 214;
-      v48 = 2112;
-      v49 = deltaCopy;
-      _os_log_send_and_compose_impl();
+      v43 = 136315906;
+      v44 = "[W5NetUsageManager calculateUsageDelta:]";
+      v45 = 2080;
+      v46 = "W5NetUsageManager.m";
+      v47 = 1024;
+      v48 = 214;
+      v49 = 2112;
+      v50 = deltaCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v27, 0, "[wifivelocity] %s (%s:%u) No usage snaphots found for UUID: %@", &v43, 38);
     }
 
     goto LABEL_21;
@@ -355,49 +381,49 @@ LABEL_11:
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       v30 = [(NSMutableDictionary *)self->_usageSnaphots objectForKeyedSubscript:deltaCopy];
-      v43 = "[W5NetUsageManager calculateUsageDelta:]";
-      v44 = 2080;
-      v42 = 136316162;
-      v45 = "W5NetUsageManager.m";
-      v46 = 1024;
-      v47 = 220;
-      v48 = 2048;
-      v49 = [v30 count];
-      v50 = 2112;
-      v51 = deltaCopy;
-      _os_log_send_and_compose_impl();
+      v44 = "[W5NetUsageManager calculateUsageDelta:]";
+      v45 = 2080;
+      v43 = 136316162;
+      v46 = "W5NetUsageManager.m";
+      v47 = 1024;
+      v48 = 220;
+      v49 = 2048;
+      v50 = [v30 count];
+      v51 = 2112;
+      v52 = deltaCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v29, 0, "[wifivelocity] %s (%s:%u) Unable to calclulate NetUsage Delta: Incorrect numer of entires: %ld for UUID: %@", &v43, 48);
     }
 
 LABEL_21:
-    v33 = 0;
+    v34 = 0;
     goto LABEL_22;
   }
 
-  v33 = objc_alloc_init(NSMutableArray);
-  v37 = 0u;
+  v34 = objc_alloc_init(NSMutableArray);
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
   v8 = [(NSMutableDictionary *)self->_usageSnaphots objectForKeyedSubscript:deltaCopy];
   v9 = [v8 objectAtIndex:1];
   usageData = [v9 usageData];
 
   obj = usageData;
-  v11 = [usageData countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v11 = [usageData countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (v11)
   {
     v12 = v11;
-    v32 = *v38;
+    v33 = *v39;
     do
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v38 != v32)
+        if (*v39 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v37 + 1) + 8 * i);
+        v14 = *(*(&v38 + 1) + 8 * i);
         v15 = [v14 objectForKey:@"procName"];
         v16 = deltaCopy;
         v17 = [(NSMutableDictionary *)self->_usageSnaphots objectForKeyedSubscript:deltaCopy];
@@ -409,29 +435,29 @@ LABEL_21:
         if (v21)
         {
           v22 = objc_alloc_init(NSMutableDictionary);
-          v34[0] = _NSConcreteStackBlock;
-          v34[1] = 3221225472;
-          v34[2] = sub_100011BD4;
-          v34[3] = &unk_1000E1488;
-          v34[4] = v14;
-          v35 = v21;
-          v36 = v22;
+          v35[0] = _NSConcreteStackBlock;
+          v35[1] = 3221225472;
+          v35[2] = sub_100011BD4;
+          v35[3] = &unk_1000E1488;
+          v35[4] = v14;
+          v36 = v21;
+          v37 = v22;
           v23 = v22;
-          [v14 enumerateKeysAndObjectsUsingBlock:v34];
-          [v33 addObject:v23];
+          [v14 enumerateKeysAndObjectsUsingBlock:v35];
+          [v34 addObject:v23];
         }
 
         else
         {
           v23 = [v14 copy];
-          [v33 addObject:v23];
+          [v34 addObject:v23];
         }
 
         deltaCopy = v16;
         self = selfCopy;
       }
 
-      v12 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v12 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
     while (v12);
@@ -440,38 +466,39 @@ LABEL_21:
   v24 = sub_100098A04();
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = [v33 count];
-    v43 = "[W5NetUsageManager calculateUsageDelta:]";
-    v44 = 2080;
-    v42 = 136316162;
-    v45 = "W5NetUsageManager.m";
-    v46 = 1024;
-    v47 = 249;
-    v48 = 2048;
-    v49 = v25;
-    v50 = 2112;
-    v51 = deltaCopy;
-    _os_log_send_and_compose_impl();
+    v25 = [v34 count];
+    v44 = "[W5NetUsageManager calculateUsageDelta:]";
+    v45 = 2080;
+    v43 = 136316162;
+    v46 = "W5NetUsageManager.m";
+    v47 = 1024;
+    v48 = 249;
+    v49 = 2048;
+    v50 = v25;
+    v51 = 2112;
+    v52 = deltaCopy;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v24, 0, "[wifivelocity] %s (%s:%u) Calculated Network Usage Delta for %ld entries, UUID: %@", &v43, 48);
   }
 
   v26 = sub_100098A04();
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v42 = 136315906;
-    v43 = "[W5NetUsageManager calculateUsageDelta:]";
-    v44 = 2080;
-    v45 = "W5NetUsageManager.m";
-    v46 = 1024;
-    v47 = 251;
-    v48 = 2112;
-    v49 = deltaCopy;
-    _os_log_send_and_compose_impl();
+    v43 = 136315906;
+    v44 = "[W5NetUsageManager calculateUsageDelta:]";
+    v45 = 2080;
+    v46 = "W5NetUsageManager.m";
+    v47 = 1024;
+    v48 = 251;
+    v49 = 2112;
+    v50 = deltaCopy;
+    LODWORD(v31) = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v26, 0, "[wifivelocity] %s (%s:%u) Clearing NetUsage records for UUID: %@", &v43, v31);
   }
 
   [(NSMutableDictionary *)self->_usageSnaphots removeObjectForKey:deltaCopy];
 LABEL_22:
 
-  return v33;
+  return v34;
 }
 
 + (void)copyPeriodicNetUsageToDir:(id)dir uuid:(id)uuid
@@ -484,80 +511,78 @@ LABEL_22:
   v9 = [v6 initFileURLWithPath:v8];
 
   v10 = +[NSFileManager defaultManager];
-  v42 = 0;
-  v11 = [v10 contentsOfDirectoryAtURL:v9 includingPropertiesForKeys:0 options:4 error:&v42];
-  v12 = v42;
+  v43 = 0;
+  v11 = [v10 contentsOfDirectoryAtURL:v9 includingPropertiesForKeys:0 options:4 error:&v43];
+  v12 = v43;
 
   v13 = sub_100098A04();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = [v11 count];
-    v43 = 136315906;
-    v44 = "+[W5NetUsageManager copyPeriodicNetUsageToDir:uuid:]";
-    v45 = 2080;
-    v46 = "W5NetUsageManager.m";
-    v47 = 1024;
-    v48 = 268;
-    v49 = 2048;
-    v50 = v14;
-    LODWORD(v31) = 38;
-    v30 = &v43;
-    _os_log_send_and_compose_impl();
+    v44 = 136315906;
+    v45 = "+[W5NetUsageManager copyPeriodicNetUsageToDir:uuid:]";
+    v46 = 2080;
+    v47 = "W5NetUsageManager.m";
+    v48 = 1024;
+    v49 = 268;
+    v50 = 2048;
+    v51 = v14;
+    LODWORD(v30) = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v13, 0, "[wifivelocity] %s (%s:%u) Copying %ld netusage files", &v44, v30, v31, v33);
   }
 
-  v40 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
+  v40 = 0u;
   obj = v11;
-  v15 = [obj countByEnumeratingWithState:&v38 objects:v55 count:16];
+  v15 = [obj countByEnumeratingWithState:&v39 objects:v56 count:16];
   if (v15)
   {
     v16 = v15;
     v32 = v9;
-    v33 = uuidCopy;
+    v34 = uuidCopy;
     v17 = 0;
-    v18 = *v39;
+    v18 = *v40;
     do
     {
       v19 = 0;
       v20 = v12;
       do
       {
-        if (*v39 != v18)
+        if (*v40 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v38 + 1) + 8 * v19);
+        v21 = *(*(&v39 + 1) + 8 * v19);
         lastPathComponent = [v21 lastPathComponent];
         v23 = [dirCopy URLByAppendingPathComponent:lastPathComponent];
 
         v24 = +[NSFileManager defaultManager];
-        v37 = v20;
-        v25 = [v24 copyItemAtURL:v21 toURL:v23 error:&v37];
-        v12 = v37;
+        v38 = v20;
+        v25 = [v24 copyItemAtURL:v21 toURL:v23 error:&v38];
+        v12 = v38;
 
         v26 = sub_100098A04();
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          v43 = 136316674;
-          v44 = "+[W5NetUsageManager copyPeriodicNetUsageToDir:uuid:]";
-          v45 = 2080;
-          v46 = "W5NetUsageManager.m";
-          v47 = 1024;
-          v48 = 274;
-          v49 = 2112;
-          v50 = v21;
-          v51 = 2112;
-          *v52 = v23;
-          *&v52[8] = 1024;
-          *&v52[10] = v25;
-          v53 = 2112;
-          v54 = v12;
-          LODWORD(v31) = 64;
-          v30 = &v43;
-          _os_log_send_and_compose_impl();
+          v44 = 136316674;
+          v45 = "+[W5NetUsageManager copyPeriodicNetUsageToDir:uuid:]";
+          v46 = 2080;
+          v47 = "W5NetUsageManager.m";
+          v48 = 1024;
+          v49 = 274;
+          v50 = 2112;
+          v51 = v21;
+          v52 = 2112;
+          *v53 = v23;
+          *&v53[8] = 1024;
+          *&v53[10] = v25;
+          v54 = 2112;
+          v55 = v12;
+          LODWORD(v30) = 64;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v26, 0, "[wifivelocity] %s (%s:%u) Copy: %@ -> %@, success: %d, error: %@", &v44, v30);
         }
 
         v17 += v25;
@@ -566,12 +591,12 @@ LABEL_22:
       }
 
       while (v16 != v19);
-      v16 = [obj countByEnumeratingWithState:&v38 objects:v55 count:16];
+      v16 = [obj countByEnumeratingWithState:&v39 objects:v56 count:16];
     }
 
     while (v16);
     v9 = v32;
-    uuidCopy = v33;
+    uuidCopy = v34;
   }
 
   else
@@ -583,26 +608,27 @@ LABEL_22:
   if (v17 == [obj count])
   {
     v27 = +[NSFileManager defaultManager];
-    v36 = v12;
-    [v27 removeItemAtURL:v9 error:&v36];
-    v28 = v36;
+    v37 = v12;
+    [v27 removeItemAtURL:v9 error:&v37];
+    v28 = v37;
 
     v29 = sub_100098A04();
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = 136316418;
-      v44 = "+[W5NetUsageManager copyPeriodicNetUsageToDir:uuid:]";
-      v45 = 2080;
-      v46 = "W5NetUsageManager.m";
-      v47 = 1024;
-      v48 = 281;
-      v49 = 2112;
-      v50 = v9;
-      v51 = 1024;
-      *v52 = v25;
-      *&v52[4] = 2112;
-      *&v52[6] = v28;
-      _os_log_send_and_compose_impl();
+      v44 = 136316418;
+      v45 = "+[W5NetUsageManager copyPeriodicNetUsageToDir:uuid:]";
+      v46 = 2080;
+      v47 = "W5NetUsageManager.m";
+      v48 = 1024;
+      v49 = 281;
+      v50 = 2112;
+      v51 = v9;
+      v52 = 1024;
+      *v53 = v25;
+      *&v53[4] = 2112;
+      *&v53[6] = v28;
+      LODWORD(v30) = 54;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v29, 0, "[wifivelocity] %s (%s:%u) Delete: %@, success: %d, error: %@", &v44, v30);
     }
   }
 
@@ -619,28 +645,29 @@ LABEL_22:
   v7 = sub_100098A04();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = "+[W5NetUsageManager writeProcNetUsage:ToFile:]";
-    v18 = 2080;
-    v16 = 136316162;
-    v19 = "W5NetUsageManager.m";
-    v20 = 1024;
-    v21 = 287;
-    v22 = 2048;
-    v23 = [usageCopy count];
-    v24 = 2114;
-    v25 = fileCopy;
-    _os_log_send_and_compose_impl();
+    v19 = "+[W5NetUsageManager writeProcNetUsage:ToFile:]";
+    v20 = 2080;
+    v18 = 136316162;
+    v21 = "W5NetUsageManager.m";
+    v22 = 1024;
+    v23 = 287;
+    v24 = 2048;
+    v25 = [usageCopy count];
+    v26 = 2114;
+    v27 = fileCopy;
+    v15 = 48;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v7, 0, "[wifivelocity] %s (%s:%u) Writing %ld Network Usage entries to: %{public}@", &v18, v15);
   }
 
   if ([usageCopy count])
   {
     +[NSMutableString string];
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100012460;
-    v8 = v14[3] = &unk_1000E14B0;
-    v15 = v8;
-    [usageCopy enumerateObjectsUsingBlock:v14];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100012460;
+    v8 = v16[3] = &unk_1000E14B0;
+    v17 = v8;
+    [usageCopy enumerateObjectsUsingBlock:v16];
     v9 = +[NSFileManager defaultManager];
     path = [fileCopy path];
     v11 = [v8 dataUsingEncoding:4];
@@ -651,15 +678,16 @@ LABEL_22:
       v13 = sub_100098A04();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 136315906;
-        v17 = "+[W5NetUsageManager writeProcNetUsage:ToFile:]";
-        v18 = 2080;
-        v19 = "W5NetUsageManager.m";
-        v20 = 1024;
-        v21 = 303;
-        v22 = 2114;
-        v23 = fileCopy;
-        _os_log_send_and_compose_impl();
+        v18 = 136315906;
+        v19 = "+[W5NetUsageManager writeProcNetUsage:ToFile:]";
+        v20 = 2080;
+        v21 = "W5NetUsageManager.m";
+        v22 = 1024;
+        v23 = 303;
+        v24 = 2114;
+        v25 = fileCopy;
+        LODWORD(v14) = 38;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v13, 0, "[wifivelocity] %s (%s:%u) Generated Network Usage File at: %{public}@", &v18, v14);
       }
     }
   }

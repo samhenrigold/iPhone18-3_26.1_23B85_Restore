@@ -199,33 +199,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_24;
-  }
-
-  accepted = self->_accepted;
-  if (accepted | equalCopy[1])
-  {
-    if (![(SIRINLUEXTERNALUserAccepted *)accepted isEqual:?])
-    {
-      goto LABEL_24;
-    }
-  }
-
-  rejected = self->_rejected;
-  if (rejected | equalCopy[6] && ![(SIRINLUEXTERNALUserRejected *)rejected isEqual:?])
-  {
-    goto LABEL_24;
-  }
-
-  cancelled = self->_cancelled;
-  if (cancelled | equalCopy[4] && ![(SIRINLUEXTERNALUserCancelled *)cancelled isEqual:?])
-  {
-    goto LABEL_24;
-  }
-
-  if (((wantedToRepeat = self->_wantedToRepeat, !(wantedToRepeat | equalCopy[10])) || [(SIRINLUEXTERNALUserWantedToRepeat *)wantedToRepeat isEqual:?]) && ((acknowledged = self->_acknowledged, !(acknowledged | equalCopy[2])) || [(SIRINLUEXTERNALUserAcknowledged *)acknowledged isEqual:?]) && ((wantedToProceed = self->_wantedToProceed, !(wantedToProceed | equalCopy[9])) || [(SIRINLUEXTERNALUserWantedToProceed *)wantedToProceed isEqual:?]) && ((wantedToPause = self->_wantedToPause, !(wantedToPause | equalCopy[8])) || [(SIRINLUEXTERNALUserWantedToPause *)wantedToPause isEqual:?]) && ((delegated = self->_delegated, !(delegated | equalCopy[5])) || [(SIRINLUEXTERNALDelegatedUserDialogAct *)delegated isEqual:?]) && ((userStatedTask = self->_userStatedTask, !(userStatedTask | equalCopy[7])) || [(SIRINLUEXTERNALUserStatedTask *)userStatedTask isEqual:?]) && ((wantedToUndo = self->_wantedToUndo, !(wantedToUndo | equalCopy[11])) || [(SIRINLUEXTERNALUserWantedToUndo *)wantedToUndo isEqual:?]))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && ((accepted = self->_accepted, !(accepted | equalCopy[1])) || -[SIRINLUEXTERNALUserAccepted isEqual:](accepted, "isEqual:")) && ((rejected = self->_rejected, !(rejected | equalCopy[6])) || -[SIRINLUEXTERNALUserRejected isEqual:](rejected, "isEqual:")) && ((cancelled = self->_cancelled, !(cancelled | equalCopy[4])) || -[SIRINLUEXTERNALUserCancelled isEqual:](cancelled, "isEqual:")) && ((wantedToRepeat = self->_wantedToRepeat, !(wantedToRepeat | equalCopy[10])) || -[SIRINLUEXTERNALUserWantedToRepeat isEqual:](wantedToRepeat, "isEqual:")) && ((acknowledged = self->_acknowledged, !(acknowledged | equalCopy[2])) || -[SIRINLUEXTERNALUserAcknowledged isEqual:](acknowledged, "isEqual:")) && ((wantedToProceed = self->_wantedToProceed, !(wantedToProceed | equalCopy[9])) || -[SIRINLUEXTERNALUserWantedToProceed isEqual:](wantedToProceed, "isEqual:")) && ((wantedToPause = self->_wantedToPause, !(wantedToPause | equalCopy[8])) || -[SIRINLUEXTERNALUserWantedToPause isEqual:](wantedToPause, "isEqual:")) && ((delegated = self->_delegated, !(delegated | equalCopy[5])) || -[SIRINLUEXTERNALDelegatedUserDialogAct isEqual:](delegated, "isEqual:")) && ((userStatedTask = self->_userStatedTask, !(userStatedTask | equalCopy[7])) || -[SIRINLUEXTERNALUserStatedTask isEqual:](userStatedTask, "isEqual:")) && ((wantedToUndo = self->_wantedToUndo, !(wantedToUndo | equalCopy[11])) || -[SIRINLUEXTERNALUserWantedToUndo isEqual:](wantedToUndo, "isEqual:")))
   {
     alignment = self->_alignment;
     if (alignment | equalCopy[3])
@@ -241,7 +215,6 @@
 
   else
   {
-LABEL_24:
     v16 = 0;
   }
 

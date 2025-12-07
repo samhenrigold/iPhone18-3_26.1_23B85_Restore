@@ -33,9 +33,9 @@
 
 - (MPSNNPadGradient)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v7.receiver = self;
-  v7.super_class = MPSNNPadGradient;
-  result = [(MPSCNNGradientKernel *)&v7 initWithCoder:aDecoder device:device];
+  v11.receiver = self;
+  v11.super_class = MPSNNPadGradient;
+  result = [(MPSCNNGradientKernel *)&v11 initWithCoder:aDecoder device:device];
   if (result)
   {
     result->super.super._checkFlags |= 0x6A002u;
@@ -49,7 +49,7 @@
       {
         v6 = objc_opt_class();
         NSStringFromClass(v6);
-        MTLReportFailure();
+        MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNReshape.mm", 0x6B5, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v7, v8, v9, v10);
       }
 
       return 0;

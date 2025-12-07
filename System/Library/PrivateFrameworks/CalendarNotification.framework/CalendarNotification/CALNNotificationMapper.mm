@@ -134,47 +134,23 @@ void __63__CALNNotificationMapper_notificationRecordsFromNotifications___block_i
 
 + (void)notificationRequestFromNotificationRecord:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_2(&dword_242909000, a2, a3, "Transforming notification record to notification request. Record: %@.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)notificationRequestFromNotificationRecord:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_1_3(&dword_242909000, v0, v1, "Transformed notification record to notification request. Record: %@. Request: %@.");
-  v2 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_2(&dword_242909000, a2, a3, "Transforming notification record to notification request. Record: %@.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)notificationRecordFromNotificationRequest:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_2(&dword_242909000, a2, a3, "Transforming notification request to notification record. Request: %@.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)notificationRecordFromNotificationRequest:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_1_3(&dword_242909000, v0, v1, "Transformed notification request to notification record. Request: %@. Record: %@.");
-  v2 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_2(&dword_242909000, a2, a3, "Transforming notification request to notification record. Request: %@.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)notificationFromNotificationRecord:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_2(&dword_242909000, a2, a3, "Transforming notification record to notification. Record: %@.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)notificationFromNotificationRecord:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_1_3(&dword_242909000, v0, v1, "Transformed notification record to notification. Record: %@. Notification: %@.");
-  v2 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_2(&dword_242909000, a2, a3, "Transforming notification record to notification. Record: %@.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

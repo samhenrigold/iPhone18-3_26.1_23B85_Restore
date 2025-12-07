@@ -1354,7 +1354,7 @@ void sub_100005964(char *cStr, char *a2, int a3)
   }
 }
 
-BOOL sub_100005A8C(char *cStr, uint64_t a2)
+uint64_t sub_100005A8C(char *cStr, uint64_t a2)
 {
   keyExistsAndHasValidFormat = 0;
   v4 = CFStringCreateWithCString(0, cStr, 0x8000100u);
@@ -1463,7 +1463,7 @@ BOOL sub_100005CA8()
   return v3 != 0;
 }
 
-void sub_100005E20(int a1, uint64_t a2, const char *a3, unsigned __int8 *a4, const char *a5, int a6)
+void sub_100005E20(int a1, uint64_t a2, const char *a3, UInt8 *a4, const char *a5, int a6)
 {
   valuePtr = a1;
   v23 = a2;
@@ -2767,7 +2767,7 @@ BOOL sub_100008A80(unsigned __int8 *a1, uint64_t a2)
   return v2 == 0;
 }
 
-uint64_t sub_100008AB0(char *a1, uint64_t a2)
+BOOL sub_100008AB0(char *a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -2801,7 +2801,7 @@ uint64_t sub_100008AB0(char *a1, uint64_t a2)
     result = !v6;
     v6 = v3-- != 0;
     v8 = v6;
-    if (result != 1)
+    if (!result)
     {
       break;
     }
@@ -2813,16 +2813,16 @@ uint64_t sub_100008AB0(char *a1, uint64_t a2)
   return result;
 }
 
-id sub_100008E8C()
+id sub_100008E8C(uint64_t a1)
 {
   if (qword_1000807F0 != -1)
   {
     sub_100055C78();
   }
 
-  v1 = qword_1000807E8;
+  v2 = qword_1000807E8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100008FFC(uint64_t a1)
@@ -2880,7 +2880,7 @@ void sub_1000095CC(void *a1, int a2)
 
   else
   {
-    v3 = sub_100008E8C();
+    v3 = sub_100008E8C(0);
     v4 = v3;
     if (a2)
     {
@@ -2896,7 +2896,7 @@ void sub_1000095CC(void *a1, int a2)
 
 void sub_100009690(id a1)
 {
-  v1 = sub_100008E8C();
+  v1 = sub_100008E8C(a1);
   dispatch_queue_set_specific(v1, off_100080428, off_100080428, 0);
 }
 
@@ -3083,8 +3083,8 @@ void sub_10000CB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   _Block_object_dispose(&a65, 8);
 
-  _Block_object_dispose((v76 - 224), 8);
-  _Block_object_dispose((v76 - 176), 8);
+  _Block_object_dispose((v72 - 224), 8);
+  _Block_object_dispose((v72 - 176), 8);
 
   _Unwind_Resume(a1);
 }
@@ -3157,42 +3157,39 @@ void sub_10000D01C(uint64_t a1, void *a2, void *a3)
   v8 = sub_100007454(1);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    *v12 = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Server: Got response from Store ...\n", v12, 2u);
+    *v11 = 0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Server: Got response from Store ...\n", v11, 2u);
   }
 
-  if (*(*(*(a1 + 48) + 8) + 40))
+  if (!*(*(*(a1 + 48) + 8) + 40))
   {
-    v9 = sub_100007454(1);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      sub_1000563AC();
-    }
+    goto LABEL_9;
+  }
 
-    if ([*(a1 + 32) takeUserPermission:*(*(*(a1 + 56) + 8) + 40) userDescription:*(*(*(a1 + 64) + 8) + 40)])
-    {
-      v10 = *(*(*(a1 + 48) + 8) + 40);
-      (*(*(a1 + 40) + 16))();
-    }
+  v9 = sub_100007454(1);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  {
+    sub_1000563AC();
+  }
 
-    else
-    {
-      v11 = [NSError storeError:15 description:@"User denied the access"];
-      (*(*(a1 + 40) + 16))();
-    }
+  if (([*(a1 + 32) takeUserPermission:*(*(*(a1 + 56) + 8) + 40) userDescription:*(*(*(a1 + 64) + 8) + 40)] & 1) == 0)
+  {
+    v10 = [NSError storeError:15 description:@"User denied the access"];
+    (*(*(a1 + 40) + 16))();
   }
 
   else
   {
+LABEL_9:
     (*(*(a1 + 40) + 16))();
   }
 }
 
-void sub_10000DB1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61, uint64_t a62, uint64_t a63)
+void sub_10000DB1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose((v72 - 224), 8);
+  _Block_object_dispose((v71 - 224), 8);
 
-  _Block_object_dispose((v72 - 176), 8);
+  _Block_object_dispose((v71 - 176), 8);
   _Block_object_dispose(&a61, 8);
 
   _Unwind_Resume(a1);
@@ -3268,19 +3265,18 @@ void sub_10000DFF8(uint64_t a1, void *a2, void *a3)
     v9 = sub_100007454(1);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      *v12 = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Server: Check for User Permission ...\n", v12, 2u);
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Server: Check for User Permission ...\n", v11, 2u);
     }
 
     if ([*(a1 + 32) takeUserPermission:*(*(*(a1 + 56) + 8) + 40) userDescription:*(*(*(a1 + 64) + 8) + 40)])
     {
-      v10 = *(*(*(a1 + 48) + 8) + 40);
       (*(*(a1 + 40) + 16))();
     }
 
     else
     {
-      v11 = [NSError storeError:15 description:@"User denied the access"];
+      v10 = [NSError storeError:15 description:@"User denied the access"];
       (*(*(a1 + 40) + 16))();
     }
   }
@@ -3426,7 +3422,7 @@ void sub_10000F2EC(uint64_t a1, void *a2, void *a3)
   (*(*(a1 + 32) + 16))();
 }
 
-void sub_10000F6BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_10000F6BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -3460,7 +3456,7 @@ void sub_10000FA80(uint64_t a1)
   (*(*(a1 + 32) + 16))();
 }
 
-void sub_10000FED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_10000FED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -3553,8 +3549,6 @@ void sub_100010FAC(uint64_t a1, void *a2, void *a3)
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   v6 = a2;
   v7 = a3;
-  v8 = *(*(*(a1 + 40) + 8) + 40);
-  v9 = v7;
   (*(*(a1 + 32) + 16))();
 }
 
@@ -3624,10 +3618,11 @@ void sub_100012604(uint64_t a1)
   (*(*(a1 + 32) + 16))();
 }
 
-void sub_10001273C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001273C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 id sub_100013028(void *a1)
@@ -3839,7 +3834,7 @@ _BYTE *spinel_next_packed_datatype(_BYTE *result)
   return result;
 }
 
-uint64_t sub_100013A04(int a1, uint64_t a2, uint64_t a3, uint64_t a4, size_t **a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100013A04(int a1, int *a2, uint64_t a3, unsigned __int8 *a4, _WORD ***a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a3 >> 15)
   {
@@ -3879,7 +3874,7 @@ LABEL_97:
           }
 
           v13 = (v13 + 2);
-          a2 += 2;
+          a2 = (a2 + 2);
           goto LABEL_159;
         }
 
@@ -3906,7 +3901,7 @@ LABEL_77:
           }
 
           v13 = (v13 + 8);
-          a2 += 8;
+          a2 += 2;
           goto LABEL_159;
         }
 
@@ -3962,7 +3957,7 @@ LABEL_82:
           }
 
           v46 = v55;
-          v48 = a2 + v55;
+          v48 = (a2 + v55);
         }
 
         else
@@ -3988,7 +3983,7 @@ LABEL_172:
         }
 
         v13 = v13 + v57;
-        a2 += v57;
+        a2 = (a2 + v57);
         v10 = v10 - v57;
         goto LABEL_159;
       }
@@ -4016,7 +4011,7 @@ LABEL_58:
         }
 
         v13 = (v13 + 4);
-        a2 += 4;
+        ++a2;
         goto LABEL_159;
       }
 
@@ -4036,7 +4031,7 @@ LABEL_58:
       }
 
       v13 = (v62 + v13);
-      a2 += v62;
+      a2 = (a2 + v62);
       v10 = (v10 - v62);
     }
 
@@ -4097,7 +4092,7 @@ LABEL_58:
         if (v16)
         {
           v17 = *a2;
-          *(v16 + 4) = *(a2 + 4);
+          *(v16 + 4) = *(a2 + 2);
           *v16 = v17;
         }
       }
@@ -4108,7 +4103,7 @@ LABEL_58:
       }
 
       v13 = (v13 + 6);
-      a2 += 6;
+      a2 = (a2 + 6);
       v10 = (v10 - 6);
     }
 
@@ -4188,7 +4183,7 @@ LABEL_159:
       }
 
       v13 = (v13 + 8);
-      a2 += 8;
+      a2 += 2;
       v10 = (v10 - 8);
     }
 
@@ -4226,7 +4221,7 @@ LABEL_159:
         v20 = a2;
         do
         {
-          ++v20;
+          v20 = (v20 + 1);
           if (v19 < 0)
           {
             if ((v19 & 0x40) == 0)
@@ -4257,11 +4252,12 @@ LABEL_159:
               v21 = 1;
             }
 
-            v22 = &v20[v21];
+            v22 = (v20 + v21);
             while (v21)
             {
               LOBYTE(v21) = v21 - 1;
-              v23 = *v20++;
+              v23 = *v20;
+              v20 = (v20 + 1);
               if ((v23 & 0xC0) != 0x80)
               {
                 goto LABEL_175;
@@ -4301,7 +4297,7 @@ LABEL_159:
       }
 
       v13 = (v13 + v18);
-      a2 += v18;
+      a2 = (a2 + v18);
       v10 = (v10 - v18);
     }
 
@@ -4425,7 +4421,7 @@ LABEL_141:
 
         v66 = v52 + v51;
         v13 = v13 + v66;
-        a2 += v66;
+        a2 = (a2 + v66);
         v10 = v10 - v66;
         goto LABEL_159;
       }
@@ -4447,7 +4443,7 @@ LABEL_109:
 
 LABEL_110:
       v13 = (v13 + 1);
-      ++a2;
+      a2 = (a2 + 1);
       v10 = (v10 - 1);
       goto LABEL_159;
     }
@@ -4473,7 +4469,7 @@ LABEL_110:
     }
 
     v13 = (v13 + 16);
-    a2 += 16;
+    a2 += 4;
     v10 = (v10 - 16);
     goto LABEL_159;
   }
@@ -4496,14 +4492,14 @@ LABEL_176:
   return v13;
 }
 
-uint64_t spinel_datatype_vunpack_in_place(uint64_t a1, uint64_t a2, uint64_t a3, size_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t spinel_datatype_vunpack_in_place(int *a1, uint64_t a2, unsigned __int8 *a3, _WORD **a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v9[0] = a4;
   v9[1] = a4;
   return sub_100013A04(1, a1, a2, a3, v9, a6, a7, a8);
 }
 
-uint64_t spinel_datatype_vunpack(uint64_t a1, uint64_t a2, uint64_t a3, size_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t spinel_datatype_vunpack(int *a1, uint64_t a2, unsigned __int8 *a3, _WORD **a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v9[0] = a4;
   v9[1] = a4;
@@ -4827,7 +4823,7 @@ LABEL_25:
       }
 
       v54 = *a4;
-      v36 = sub_1000141F0(0, 0, a3 + 2, &v54);
+      v36 = sub_1000141F0(0, 0, a3 + 2, &v54, a5, a6, a7, a8);
       if (*a3 == 116 || (v37 = 0, v25) && v25 != 41)
       {
         v37 = spinel_datatype_pack(v10, v12, "S", a4, a5, a6, a7, a8, v36);
@@ -4844,10 +4840,10 @@ LABEL_25:
       }
 
       v38 = &v10[v37];
-      v39 = (v12 - v37);
-      v40 = sub_1000141F0(v38, v39, a3 + 2, a4);
+      v39 = v12 - v37;
+      v40 = sub_1000141F0(v38, v39, a3 + 2, a4, a5, a6, a7, a8);
       v10 = &v38[v40];
-      v12 = (v39 - v40);
+      v12 = v39 - v40;
       goto LABEL_108;
     }
 
@@ -7125,10 +7121,11 @@ id sub_100018B58(void *a1)
   return a1;
 }
 
-void sub_10001A9F0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001A9F0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x2Au);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x2Au);
 }
 
 void sub_10001AA10(void *a1, NSObject *a2)
@@ -7153,8 +7150,14 @@ void sub_10001AAF8(void *a1)
   v6 = [a1 borderAgent];
   v7 = [v6 discriminatorId];
   v8 = [a1 keychainAccessGroup];
+  *v17 = 138413058;
+  *&v17[4] = v3;
   sub_10001A9E4();
-  sub_10001A9F0(&_mh_execute_header, v9, v10, "Failed to calculate UUID (name=%@; xpanid=%@; discriminatorId=%@; keychainAccessGroup=%@)!", v11, v12, v13, v14, 2u);
+  *&v17[14] = v5;
+  *&v17[22] = v9;
+  LOWORD(v18) = v9;
+  *(&v18 + 2) = v10;
+  sub_10001A9F0(&_mh_execute_header, v11, v12, "Failed to calculate UUID (name=%@; xpanid=%@; discriminatorId=%@; keychainAccessGroup=%@)!", v13, v14, v15, v16, *v17, *&v17[8], *&v17[16], v7, v18, WORD4(v18));
 }
 
 void sub_10001AC20()
@@ -7202,16 +7205,22 @@ void sub_10001AFB8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_10001B07C(void *a1)
+void sub_10001B07C(void *a1, uint64_t a2)
 {
-  v2 = [a1 network];
-  v3 = [v2 networkName];
   v4 = [a1 network];
-  v5 = [v4 extendedPANID];
-  v6 = [a1 borderAgent];
-  v7 = [v6 discriminatorId];
+  v5 = [v4 networkName];
+  v6 = [a1 network];
+  v7 = [v6 extendedPANID];
+  v8 = [a1 borderAgent];
+  v9 = [v8 discriminatorId];
+  *v18 = 138413058;
+  *&v18[4] = v5;
   sub_10001A9E4();
-  sub_10001A9F0(&_mh_execute_header, v8, v9, "Illegal attempt to form keychain item with insufficient information (name=%@; xpanid=%@; discriminatorId=%@; uuid=%@)!", v10, v11, v12, v13, 2u);
+  *&v18[14] = v7;
+  *&v18[22] = v10;
+  LOWORD(v19) = v10;
+  *(&v19 + 2) = a2;
+  sub_10001A9F0(&_mh_execute_header, v12, v13, "Illegal attempt to form keychain item with insufficient information (name=%@; xpanid=%@; discriminatorId=%@; uuid=%@)!", v14, v15, v16, v17, *v18, *&v18[8], *&v18[16], v11, v19, WORD4(v19));
 }
 
 id sub_10001B194(int a1)
@@ -7326,9 +7335,9 @@ void sub_10001BBA8(void *a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_10001BFE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10001BFE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7348,145 +7357,144 @@ void sub_10001C000(uint64_t a1, uint64_t a2)
 
     v7 = dispatch_group_create();
     *buf = 0;
-    v43 = buf;
-    v44 = 0x2020000000;
-    v45 = 0;
-    v38[0] = _NSConcreteStackBlock;
-    v38[1] = 3221225472;
-    v38[2] = sub_10001C728;
-    v38[3] = &unk_100078E98;
+    v42 = buf;
+    v43 = 0x2020000000;
+    v44 = 0;
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_10001C728;
+    v37[3] = &unk_100078E98;
     v8 = *(a1 + 72);
-    v40 = buf;
-    v41 = v8;
+    v39 = buf;
+    v40 = v8;
     v6 = v7;
-    v39 = v6;
-    v9 = objc_retainBlock(v38);
+    v38 = v6;
+    v9 = objc_retainBlock(v37);
     dispatch_group_enter(v6);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10001C938;
     block[3] = &unk_100078EC0;
-    v37 = *(a1 + 72);
+    v36 = *(a1 + 72);
     v10 = *(a1 + 32);
-    v35 = *(a1 + 40);
-    v36 = *(a1 + 64);
+    v34 = *(a1 + 40);
+    v35 = *(a1 + 64);
     dispatch_group_notify(v6, v10, block);
-    v11 = *(a1 + 48);
-    v29 = _NSConcreteStackBlock;
-    v30 = 3221225472;
-    v31 = sub_10001CBA0;
-    v32 = &unk_100078EE8;
-    v12 = v9;
-    v33 = v12;
-    v13 = _SecItemAddAndNotifyOnSync();
-    v14 = sub_10001B194(1);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v28 = _NSConcreteStackBlock;
+    v29 = 3221225472;
+    v30 = sub_10001CBA0;
+    v31 = &unk_100078EE8;
+    v11 = v9;
+    v32 = v11;
+    v12 = _SecItemAddAndNotifyOnSync();
+    v13 = sub_10001B194(1);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = "error";
-      v47 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
-      *v46 = 136315650;
-      if (!v13)
+      v14 = "error";
+      v46 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
+      *v45 = 136315650;
+      if (!v12)
       {
-        v15 = "success";
+        v14 = "success";
       }
 
-      v48 = 1024;
-      v49 = 303;
-      v50 = 2080;
-      v51 = v15;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s:%d _SecItemAddAndNotifyOnSync return value : %s...", v46, 0x1Cu);
+      v47 = 1024;
+      v48 = 303;
+      v49 = 2080;
+      v50 = v14;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%s:%d _SecItemAddAndNotifyOnSync return value : %s...", v45, 0x1Cu);
     }
 
-    if (v13)
+    if (v12)
     {
-      v16 = sub_10001B194(1);
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_10001B194(1);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        *v46 = 136315394;
-        v47 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
-        v48 = 1024;
-        v49 = 309;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%s:%d _SecItemAddAndNotifyOnSync returned error", v46, 0x12u);
+        *v45 = 136315394;
+        v46 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
+        v47 = 1024;
+        v48 = 309;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s:%d _SecItemAddAndNotifyOnSync returned error", v45, 0x12u);
       }
 
-      if (v13 != -25299)
+      if (v12 != -25299)
       {
         goto LABEL_21;
       }
 
-      v17 = sub_10001B194(1);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_10001B194(1);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        *v46 = 136315138;
-        v47 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s: Credential exists. Will update instead.", v46, 0xCu);
+        *v45 = 136315138;
+        v46 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%s: Credential exists. Will update instead.", v45, 0xCu);
       }
 
-      v18 = [*(a1 + 40) keyChainQueryForUpdateOperation];
-      v19 = [*(a1 + 40) keyChainItemRepresentationForUpdateOperation];
-      v13 = SecItemUpdate(v18, v19);
-      if (v13)
+      v17 = [*(a1 + 40) keyChainQueryForUpdateOperation];
+      v18 = [*(a1 + 40) keyChainItemRepresentationForUpdateOperation];
+      v12 = SecItemUpdate(v17, v18);
+      if (v12)
       {
-        v20 = sub_10001B194(1);
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v19 = sub_10001B194(1);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          *v46 = 136315394;
-          v47 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
-          v48 = 1024;
-          v49 = 317;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%s:%d SecItemUpdate returned error", v46, 0x12u);
+          *v45 = 136315394;
+          v46 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
+          v47 = 1024;
+          v48 = 317;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%s:%d SecItemUpdate returned error", v45, 0x12u);
         }
 
 LABEL_21:
-        v21 = sub_10001B194(1);
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v20 = sub_10001B194(1);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          *v46 = 136315394;
-          v47 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
-          v48 = 1024;
-          v49 = 322;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%s:%d Returning error", v46, 0x12u);
+          *v45 = 136315394;
+          v46 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
+          v47 = 1024;
+          v48 = 322;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%s:%d Returning error", v45, 0x12u);
         }
 
-        [*(a1 + 56) errorout:v13 completion:*(a1 + 64)];
+        [*(a1 + 56) errorout:v12 completion:*(a1 + 64)];
         goto LABEL_31;
       }
 
-      v26 = sub_10001B194(1);
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v25 = sub_10001B194(1);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        *v46 = 136315394;
-        v47 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
-        v48 = 1024;
-        v49 = 327;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%s:%d Credential exists, updated successfully..", v46, 0x12u);
+        *v45 = 136315394;
+        v46 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
+        v47 = 1024;
+        v48 = 327;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%s:%d Credential exists, updated successfully..", v45, 0x12u);
       }
 
-      v25 = [*(a1 + 40) computedUniqueIdentifier];
+      v24 = [*(a1 + 40) computedUniqueIdentifier];
       (*(*(a1 + 64) + 16))();
     }
 
     else
     {
-      v22 = dispatch_time(0, 1000000000 * *(a1 + 80));
-      v23 = *(a1 + 32);
-      v27[0] = _NSConcreteStackBlock;
-      v27[1] = 3221225472;
-      v27[2] = sub_10001CC8C;
-      v27[3] = &unk_100078F10;
-      v28 = v12;
-      dispatch_after(v22, v23, v27);
-      v24 = sub_10001B194(1);
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v21 = dispatch_time(0, 1000000000 * *(a1 + 80));
+      v22 = *(a1 + 32);
+      v26[0] = _NSConcreteStackBlock;
+      v26[1] = 3221225472;
+      v26[2] = sub_10001CC8C;
+      v26[3] = &unk_100078F10;
+      v27 = v11;
+      dispatch_after(v21, v22, v26);
+      v23 = sub_10001B194(1);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        *v46 = 136315394;
-        v47 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
-        v48 = 1024;
-        v49 = 347;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%s:%d Timer Scheduled !....... ", v46, 0x12u);
+        *v45 = 136315394;
+        v46 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
+        v47 = 1024;
+        v48 = 347;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%s:%d Timer Scheduled !....... ", v45, 0x12u);
       }
 
-      v25 = v28;
+      v24 = v27;
     }
 
 LABEL_31:
@@ -7763,11 +7771,11 @@ void sub_10001D1DC(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_10001DF98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10001DF98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7787,12 +7795,12 @@ void sub_10001DFD4(void *a1, void *a2, void *a3)
   objc_storeStrong((*(a1[7] + 8) + 40), a3);
   if (!*(*(a1[7] + 8) + 40))
   {
-    v11 = [*(*(*v8 + 8) + 40) count];
-    v12 = sub_10001B194(1);
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
-    if (!v11)
+    v10 = [*(*(*v8 + 8) + 40) count];
+    v11 = sub_10001B194(1);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
+    if (!v10)
     {
-      if (v13)
+      if (v12)
       {
         sub_10003BDCC();
       }
@@ -7800,166 +7808,166 @@ void sub_10001DFD4(void *a1, void *a2, void *a3)
       goto LABEL_5;
     }
 
-    v45 = a1;
-    if (v13)
+    v44 = a1;
+    if (v12)
     {
       sub_10003BC34((a1 + 6));
     }
 
-    v46 = v7;
-    v47 = v6;
+    v45 = v7;
+    v46 = v6;
 
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
-    v14 = *(*(*v8 + 8) + 40);
-    v15 = [v14 countByEnumeratingWithState:&v54 objects:v65 count:16];
-    if (v15)
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    v13 = *(*(*v8 + 8) + 40);
+    v14 = [v13 countByEnumeratingWithState:&v53 objects:v64 count:16];
+    if (v14)
     {
-      v16 = v15;
-      v17 = 0;
-      v18 = *v55;
+      v15 = v14;
+      v16 = 0;
+      v17 = *v54;
       do
       {
-        for (i = 0; i != v16; i = i + 1)
+        for (i = 0; i != v15; i = i + 1)
         {
-          if (*v55 != v18)
+          if (*v54 != v17)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v13);
           }
 
-          v20 = *(*(&v54 + 1) + 8 * i);
-          v21 = [v20 keychainAccessGroup];
-          if ([v21 isEqualToString:@"0000000000"])
+          v19 = *(*(&v53 + 1) + 8 * i);
+          v20 = [v19 keychainAccessGroup];
+          if ([v20 isEqualToString:@"0000000000"])
           {
           }
 
           else
           {
-            v22 = [v20 keychainAccessGroup];
-            v23 = ~[v22 isEqualToString:@"com.apple.thread.network"];
+            v21 = [v19 keychainAccessGroup];
+            v22 = ~[v21 isEqualToString:@"com.apple.thread.network"];
 
-            v17 += v23 & 1;
+            v16 += v22 & 1;
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v54 objects:v65 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v53 objects:v64 count:16];
       }
 
-      while (v16);
+      while (v15);
     }
 
-    v24 = +[THPreferredThreadNetwork keyChainQueryForFetchPreferredNetworkRecordsOperation];
-    v6 = v47;
-    if (v24)
+    v23 = +[THPreferredThreadNetwork keyChainQueryForFetchPreferredNetworkRecordsOperation];
+    v6 = v46;
+    if (v23)
     {
-      v25 = v45[4];
-      v53 = 0;
-      v26 = [v25 _doFetchPreferredNetworks:v24 error:&v53];
-      v27 = v53;
-      v28 = sub_10001B194(1);
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      v24 = v44[4];
+      v52 = 0;
+      v25 = [v24 _doFetchPreferredNetworks:v23 error:&v52];
+      v26 = v52;
+      v27 = sub_10001B194(1);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
-        v29 = [v26 count];
+        v28 = [v25 count];
         *buf = 136315650;
-        v60 = "[THThreadNetworkCredentialsKeychainBackingStore retrieveThirdPartyInfo:]_block_invoke";
-        v61 = 1024;
-        v62 = 657;
-        v63 = 2048;
-        v64 = v29;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "%s : %d - Preferred Networks in Database = %lu", buf, 0x1Cu);
+        v59 = "[THThreadNetworkCredentialsKeychainBackingStore retrieveThirdPartyInfo:]_block_invoke";
+        v60 = 1024;
+        v61 = 657;
+        v62 = 2048;
+        v63 = v28;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "%s : %d - Preferred Networks in Database = %lu", buf, 0x1Cu);
       }
 
-      if ([v26 count])
+      if ([v25 count])
       {
-        v44 = v27;
-        v51 = 0u;
-        v52 = 0u;
-        v49 = 0u;
-        v50 = 0u;
         v43 = v26;
-        v30 = v26;
-        v31 = [v30 countByEnumeratingWithState:&v49 objects:v58 count:16];
-        if (!v31)
+        v50 = 0u;
+        v51 = 0u;
+        v48 = 0u;
+        v49 = 0u;
+        v42 = v25;
+        v29 = v25;
+        v30 = [v29 countByEnumeratingWithState:&v48 objects:v57 count:16];
+        if (!v30)
         {
           goto LABEL_47;
         }
 
-        v32 = v31;
-        v48 = 0;
-        v33 = 0;
-        v34 = *v50;
+        v31 = v30;
+        v47 = 0;
+        v32 = 0;
+        v33 = *v49;
         while (1)
         {
-          for (j = 0; j != v32; j = j + 1)
+          for (j = 0; j != v31; j = j + 1)
           {
-            if (*v50 != v34)
+            if (*v49 != v33)
             {
-              objc_enumerationMutation(v30);
+              objc_enumerationMutation(v29);
             }
 
-            v36 = *(*(&v49 + 1) + 8 * j);
-            if (v36)
+            v35 = *(*(&v48 + 1) + 8 * j);
+            if (v35)
             {
-              v37 = [*(*(&v49 + 1) + 8 * j) userInfo];
-              if ([v37 isEqualToString:@"0000000000"])
+              v36 = [*(*(&v48 + 1) + 8 * j) userInfo];
+              if ([v36 isEqualToString:@"0000000000"])
               {
 
 LABEL_36:
-                ++v33;
+                ++v32;
                 continue;
               }
 
-              v38 = [v36 userInfo];
-              v39 = [v38 isEqualToString:@"com.apple.thread.network"];
+              v37 = [v35 userInfo];
+              v38 = [v37 isEqualToString:@"com.apple.thread.network"];
 
-              if (v39)
+              if (v38)
               {
                 goto LABEL_36;
               }
 
-              ++v48;
+              ++v47;
             }
           }
 
-          v32 = [v30 countByEnumeratingWithState:&v49 objects:v58 count:16];
-          if (!v32)
+          v31 = [v29 countByEnumeratingWithState:&v48 objects:v57 count:16];
+          if (!v31)
           {
 LABEL_47:
 
-            v42 = [NSError storeError:0 description:@"Success: Found the thirdParty information"];
-            (*(v45[5] + 16))();
-            v7 = v46;
-            v6 = v47;
-            v27 = v44;
+            v41 = [NSError storeError:0 description:@"Success: Found the thirdParty information"];
+            (*(v44[5] + 16))();
+            v7 = v45;
+            v6 = v46;
             v26 = v43;
+            v25 = v42;
             goto LABEL_48;
           }
         }
       }
 
-      v41 = sub_10001B194(1);
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v40 = sub_10001B194(1);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         sub_10003BCC4();
       }
 
-      v42 = [NSError storeError:9 description:@"Failed to find any  preferred network"];
-      (*(v45[5] + 16))();
+      v41 = [NSError storeError:9 description:@"Failed to find any  preferred network"];
+      (*(v44[5] + 16))();
 LABEL_48:
     }
 
     else
     {
-      v40 = sub_10001B194(1);
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v39 = sub_10001B194(1);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         sub_10003BD48();
       }
 
-      v27 = [NSError storeError:3 description:@"Failed to create query to retrieve preferred network"];
-      (*(v45[5] + 16))();
+      v26 = [NSError storeError:3 description:@"Failed to create query to retrieve preferred network"];
+      (*(v44[5] + 16))();
     }
 
     goto LABEL_50;
@@ -7972,7 +7980,6 @@ LABEL_48:
   }
 
 LABEL_5:
-  v10 = *(*(a1[7] + 8) + 40);
   (*(a1[5] + 16))();
 LABEL_50:
 }
@@ -8669,9 +8676,9 @@ void sub_100021108(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_100021560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100021560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8691,148 +8698,147 @@ void sub_100021580(uint64_t a1, uint64_t a2)
 
     v7 = dispatch_group_create();
     *buf = 0;
-    v45 = buf;
-    v46 = 0x2020000000;
-    v47 = 0;
-    v39[0] = _NSConcreteStackBlock;
-    v39[1] = 3221225472;
-    v39[2] = sub_100021CD4;
-    v39[3] = &unk_100079000;
+    v44 = buf;
+    v45 = 0x2020000000;
+    v46 = 0;
+    v38[0] = _NSConcreteStackBlock;
+    v38[1] = 3221225472;
+    v38[2] = sub_100021CD4;
+    v38[3] = &unk_100079000;
     v8 = *(a1 + 40);
     v9 = *(a1 + 72);
-    v42 = buf;
-    v43 = v9;
-    v39[4] = *(a1 + 32);
-    v40 = v8;
+    v41 = buf;
+    v42 = v9;
+    v38[4] = *(a1 + 32);
+    v39 = v8;
     v6 = v7;
-    v41 = v6;
-    v10 = objc_retainBlock(v39);
+    v40 = v6;
+    v10 = objc_retainBlock(v38);
     dispatch_group_enter(v6);
     v11 = *(a1 + 48);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100021F14;
     block[3] = &unk_100078EC0;
-    v38 = *(a1 + 72);
-    v36 = *(a1 + 40);
-    v37 = *(a1 + 64);
+    v37 = *(a1 + 72);
+    v35 = *(a1 + 40);
+    v36 = *(a1 + 64);
     dispatch_group_notify(v6, v11, block);
-    v12 = *(a1 + 56);
-    v30 = _NSConcreteStackBlock;
-    v31 = 3221225472;
-    v32 = sub_10002217C;
-    v33 = &unk_100078EE8;
-    v13 = v10;
-    v34 = v13;
-    v14 = _SecItemAddAndNotifyOnSync();
-    v15 = sub_10001B194(1);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v29 = _NSConcreteStackBlock;
+    v30 = 3221225472;
+    v31 = sub_10002217C;
+    v32 = &unk_100078EE8;
+    v12 = v10;
+    v33 = v12;
+    v13 = _SecItemAddAndNotifyOnSync();
+    v14 = sub_10001B194(1);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = "error";
-      v49 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
-      *v48 = 136315650;
-      if (!v14)
+      v15 = "error";
+      v48 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
+      *v47 = 136315650;
+      if (!v13)
       {
-        v16 = "success";
+        v15 = "success";
       }
 
-      v50 = 1024;
-      v51 = 1236;
-      v52 = 2080;
-      v53 = v16;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s:%d _SecItemAddAndNotifyOnSync return value : %s...", v48, 0x1Cu);
+      v49 = 1024;
+      v50 = 1236;
+      v51 = 2080;
+      v52 = v15;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s:%d _SecItemAddAndNotifyOnSync return value : %s...", v47, 0x1Cu);
     }
 
-    if (v14)
+    if (v13)
     {
-      v17 = sub_10001B194(1);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_10001B194(1);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        *v48 = 136315394;
-        v49 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
-        v50 = 1024;
-        v51 = 1242;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s:%d _SecItemAddAndNotifyOnSync returned error", v48, 0x12u);
+        *v47 = 136315394;
+        v48 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
+        v49 = 1024;
+        v50 = 1242;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%s:%d _SecItemAddAndNotifyOnSync returned error", v47, 0x12u);
       }
 
-      if (v14 != -25299)
+      if (v13 != -25299)
       {
         goto LABEL_21;
       }
 
-      v18 = sub_10001B194(1);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v17 = sub_10001B194(1);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        *v48 = 136315138;
-        v49 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%s: Credential exists. Will update instead.", v48, 0xCu);
+        *v47 = 136315138;
+        v48 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s: Credential exists. Will update instead.", v47, 0xCu);
       }
 
-      v19 = [*(a1 + 40) keyChainQueryForActiveDataSetRecordUpdateOperation];
-      v20 = [*(a1 + 40) keyChainItemRepresentationForActiveDataSetRecordUpdateOperation];
-      v14 = SecItemUpdate(v19, v20);
-      if (v14)
+      v18 = [*(a1 + 40) keyChainQueryForActiveDataSetRecordUpdateOperation];
+      v19 = [*(a1 + 40) keyChainItemRepresentationForActiveDataSetRecordUpdateOperation];
+      v13 = SecItemUpdate(v18, v19);
+      if (v13)
       {
-        v21 = sub_10001B194(1);
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v20 = sub_10001B194(1);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          *v48 = 136315394;
-          v49 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
-          v50 = 1024;
-          v51 = 1250;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%s:%d SecItemUpdate returned error", v48, 0x12u);
+          *v47 = 136315394;
+          v48 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
+          v49 = 1024;
+          v50 = 1250;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%s:%d SecItemUpdate returned error", v47, 0x12u);
         }
 
 LABEL_21:
-        v22 = sub_10001B194(1);
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v21 = sub_10001B194(1);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          *v48 = 136315394;
-          v49 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
-          v50 = 1024;
-          v51 = 1255;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%s:%d Returning error", v48, 0x12u);
+          *v47 = 136315394;
+          v48 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
+          v49 = 1024;
+          v50 = 1255;
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%s:%d Returning error", v47, 0x12u);
         }
 
-        [*(a1 + 32) errorout:v14 completion:*(a1 + 64)];
+        [*(a1 + 32) errorout:v13 completion:*(a1 + 64)];
         goto LABEL_31;
       }
 
-      v27 = sub_10001B194(1);
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v26 = sub_10001B194(1);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        *v48 = 136315394;
-        v49 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
-        v50 = 1024;
-        v51 = 1260;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%s:%d Credential exists, updated successfully..", v48, 0x12u);
+        *v47 = 136315394;
+        v48 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
+        v49 = 1024;
+        v50 = 1260;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%s:%d Credential exists, updated successfully..", v47, 0x12u);
       }
 
-      v26 = [*(a1 + 40) computedUniqueIdentifier];
+      v25 = [*(a1 + 40) computedUniqueIdentifier];
       (*(*(a1 + 64) + 16))();
     }
 
     else
     {
-      v23 = dispatch_time(0, 1000000000 * *(a1 + 80));
-      v24 = *(a1 + 48);
-      v28[0] = _NSConcreteStackBlock;
-      v28[1] = 3221225472;
-      v28[2] = sub_100022268;
-      v28[3] = &unk_100078F10;
-      v29 = v13;
-      dispatch_after(v23, v24, v28);
-      v25 = sub_10001B194(1);
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v22 = dispatch_time(0, 1000000000 * *(a1 + 80));
+      v23 = *(a1 + 48);
+      v27[0] = _NSConcreteStackBlock;
+      v27[1] = 3221225472;
+      v27[2] = sub_100022268;
+      v27[3] = &unk_100078F10;
+      v28 = v12;
+      dispatch_after(v22, v23, v27);
+      v24 = sub_10001B194(1);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        *v48 = 136315394;
-        v49 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
-        v50 = 1024;
-        v51 = 1280;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%s:%d Timer Scheduled !....... ", v48, 0x12u);
+        *v47 = 136315394;
+        v48 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
+        v49 = 1024;
+        v50 = 1280;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%s:%d Timer Scheduled !....... ", v47, 0x12u);
       }
 
-      v26 = v29;
+      v25 = v28;
     }
 
 LABEL_31:
@@ -9021,17 +9027,17 @@ void sub_100022758(uint64_t a1)
     v5 = [*(a1 + 32) network];
     v6 = [v5 extendedPANID];
     v7 = [*(a1 + 32) uniqueIdentifier];
-    v49 = 136316162;
-    v50 = "[THThreadNetworkCredentialsKeychainBackingStore updatePreferredNetworkWithNewDatasetRecord:completion:]_block_invoke";
-    v51 = 1024;
-    v52 = 1337;
-    v53 = 2112;
-    v54 = v4;
-    v55 = 2112;
-    v56 = v6;
-    v57 = 2112;
-    v58 = v7;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s:%d: :Request to update preferred credentials with (networkName=%@, xpanid=%@, uuid = %@", &v49, 0x30u);
+    v48 = 136316162;
+    v49 = "[THThreadNetworkCredentialsKeychainBackingStore updatePreferredNetworkWithNewDatasetRecord:completion:]_block_invoke";
+    v50 = 1024;
+    v51 = 1337;
+    v52 = 2112;
+    v53 = v4;
+    v54 = 2112;
+    v55 = v6;
+    v56 = 2112;
+    v57 = v7;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s:%d: :Request to update preferred credentials with (networkName=%@, xpanid=%@, uuid = %@", &v48, 0x30u);
   }
 
   v8 = *(a1 + 32);
@@ -9112,13 +9118,13 @@ LABEL_10:
         v35 = sub_10001B194(1);
         if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
-          v49 = 136315650;
-          v50 = "[THThreadNetworkCredentialsKeychainBackingStore updatePreferredNetworkWithNewDatasetRecord:completion:]_block_invoke";
-          v51 = 1024;
-          v52 = 1383;
-          v53 = 1024;
-          LODWORD(v54) = v31;
-          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%s:%d Error while adding/updating the record : (err=%d)", &v49, 0x18u);
+          v48 = 136315650;
+          v49 = "[THThreadNetworkCredentialsKeychainBackingStore updatePreferredNetworkWithNewDatasetRecord:completion:]_block_invoke";
+          v50 = 1024;
+          v51 = 1383;
+          v52 = 1024;
+          LODWORD(v53) = v31;
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%s:%d Error while adding/updating the record : (err=%d)", &v48, 0x18u);
         }
 
         v36 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v31 userInfo:0];
@@ -9131,34 +9137,33 @@ LABEL_10:
       {
         v41 = *(a1 + 48);
         v36 = [*(a1 + 32) computedUniqueIdentifier];
-        v42 = *(a1 + 32);
         v40 = *(v41 + 16);
         goto LABEL_29;
       }
 
-      v43 = sub_10001B194(1);
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v42 = sub_10001B194(1);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         sub_10003C20C();
       }
 
       if (v30 != -25299)
       {
-        v44 = [*(a1 + 32) network];
-        v45 = [*(a1 + 32) borderAgent];
-        v36 = [THThreadNetworkCredentialsActiveDataSetRecord keyChainQueryForDeleteActiveDataSetOperationForNetworkAndBorderAgent:v44 borderAgent:v45];
+        v43 = [*(a1 + 32) network];
+        v44 = [*(a1 + 32) borderAgent];
+        v36 = [THThreadNetworkCredentialsActiveDataSetRecord keyChainQueryForDeleteActiveDataSetOperationForNetworkAndBorderAgent:v43 borderAgent:v44];
 
-        v46 = SecItemDelete(v36);
-        v47 = sub_10001B194(1);
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        v45 = SecItemDelete(v36);
+        v46 = sub_10001B194(1);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           sub_10003C290();
         }
 
-        if (v46)
+        if (v45)
         {
-          v37 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v46 userInfo:0];
-          v48 = [NSError storeError:2 underlyingError:v37 description:@"Error while adding/updating the record"];
+          v37 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v45 userInfo:0];
+          v47 = [NSError storeError:2 underlyingError:v37 description:@"Error while adding/updating the record"];
           (*(*(a1 + 48) + 16))();
 
 LABEL_24:

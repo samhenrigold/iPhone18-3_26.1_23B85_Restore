@@ -9,9 +9,10 @@
 + (id)holderWithTimer:(id)timer
 {
   timerCopy = timer;
-  v5 = [[self alloc] initWithTimer:timerCopy];
+  v5 = [self alloc];
+  v7 = objc_msgSend_initWithTimer_(v5, v6, timerCopy);
 
-  return v5;
+  return v7;
 }
 
 - (CLTimerWeakHolder)initWithTimer:(id)timer

@@ -18,20 +18,20 @@
 - (void)viewWillAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_60D688(appear);
+  sub_60D688(appear, selfCopy);
 }
 
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_60D8A4();
+  sub_60D8A4(v2);
 }
 
 - (void)traitCollectionDidChange:(id)change
 {
   changeCopy = change;
   selfCopy = self;
-  sub_60DDD4(change);
+  sub_60DDD4(change, v6);
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -40,7 +40,8 @@
   width = size.width;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_60DF08(coordinator, width, height);
+  v8.n128_f64[0] = width;
+  sub_60DF08(coordinator, v8, height);
   swift_unknownObjectRelease();
 }
 
@@ -94,7 +95,7 @@
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_60F2E4();
+  sub_60F2E4(cellCopy);
 
   (*(v9 + 8))(v11, v8);
 }

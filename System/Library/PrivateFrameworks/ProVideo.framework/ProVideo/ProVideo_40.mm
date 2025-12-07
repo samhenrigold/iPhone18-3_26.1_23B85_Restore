@@ -1,4 +1,4 @@
-__n128 HGTextureManager::_getQueuedTotalTextureUsage@<Q0>(int64x2_t *a1@<X8>)
+__n128 HGTextureManager::_getQueuedTotalTextureUsage@<Q0>(uint64_t *__return_ptr a1@<X8>, unint64_t a2@<X1>)
 {
   pthread_mutex_lock(&stru_280C5C480);
   if (!qword_27FE4B570)
@@ -6,87 +6,152 @@ __n128 HGTextureManager::_getQueuedTotalTextureUsage@<Q0>(int64x2_t *a1@<X8>)
     operator new();
   }
 
-  v2 = *qword_27FE4B570;
-  v3 = qword_27FE4B570 + 8;
+  v4 = *(qword_27FE4B570 + 8);
+  if (!v4)
+  {
+    goto LABEL_13;
+  }
+
+  v5 = qword_27FE4B570 + 8;
+  do
+  {
+    v6 = *(v4 + 32);
+    v7 = v6 >= a2;
+    v8 = v6 < a2;
+    if (v7)
+    {
+      v5 = v4;
+    }
+
+    v4 = *(v4 + 8 * v8);
+  }
+
+  while (v4);
+  if (v5 == qword_27FE4B570 + 8 || *(v5 + 32) > a2)
+  {
+LABEL_13:
+    v9 = *(qword_27FE4B570 + 48);
+    if (!v9)
+    {
+      goto LABEL_14;
+    }
+
+    goto LABEL_11;
+  }
+
+  v9 = *(v5 + 40);
+  if (v9)
+  {
+LABEL_11:
+    (*(*v9 + 16))(v9);
+  }
+
+LABEL_14:
+  v14 = *(v9 + 32);
+  v15 = *(v9 + 16);
+  v10 = *(v9 + 48);
+  v11 = *(v9 + 56);
+  v12 = *(v9 + 64);
+  (*(*v9 + 24))(v9);
+  pthread_mutex_unlock(&stru_280C5C480);
+  result = v15;
+  *a1 = v15;
+  *(a1 + 1) = v14;
+  a1[4] = v10;
+  a1[5] = v11;
+  a1[6] = v12;
+  return result;
+}
+
+__n128 HGTextureManager::_getQueuedTotalTextureUsage@<Q0>(int64x2_t *__return_ptr a1@<X8>)
+{
+  pthread_mutex_lock(&stru_280C5C480);
+  if (!qword_27FE4B570)
+  {
+    operator new();
+  }
+
+  v1 = *qword_27FE4B570;
+  v2 = qword_27FE4B570 + 8;
   if (*qword_27FE4B570 == qword_27FE4B570 + 8)
   {
+    v3 = 0;
     v4 = 0;
     v5 = 0;
-    v6 = 0;
+    v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
   }
 
   else
   {
+    v3 = 0;
     v4 = 0;
     v5 = 0;
-    v6 = 0;
+    v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     do
     {
-      v7 = v2[5];
-      if (v7)
+      v6 = v1[5];
+      if (v6)
       {
-        (*(v7->i64[0] + 16))(v2[5]);
+        (*(v6->i64[0] + 16))(v1[5]);
       }
 
-      v16 = v7[2];
-      v17 = v7[1];
-      v9 = v7[3].i64[0];
-      v8 = v7[3].i64[1];
-      v10 = v7[4].i64[0];
-      (*(v7->i64[0] + 24))(v7);
-      v11 = v2[1];
-      if (v11)
+      v15 = v6[2];
+      v16 = v6[1];
+      v8 = v6[3].i64[0];
+      v7 = v6[3].i64[1];
+      v9 = v6[4].i64[0];
+      (*(v6->i64[0] + 24))(v6);
+      v10 = v1[1];
+      if (v10)
       {
         do
         {
-          v12 = v11;
-          v11 = *v11;
+          v11 = v10;
+          v10 = *v10;
         }
 
-        while (v11);
+        while (v10);
       }
 
       else
       {
         do
         {
-          v12 = v2[2];
-          v13 = *v12 == v2;
-          v2 = v12;
+          v11 = v1[2];
+          v12 = *v11 == v1;
+          v1 = v11;
         }
 
-        while (!v13);
+        while (!v12);
       }
 
-      v6 += v9;
-      v18 = vaddq_s64(v16, v18);
-      v19 = vaddq_s64(v17, v19);
       v5 += v8;
-      v4 += v10;
-      v2 = v12;
+      v17 = vaddq_s64(v15, v17);
+      v18 = vaddq_s64(v16, v18);
+      v4 += v7;
+      v3 += v9;
+      v1 = v11;
     }
 
-    while (v12 != v3);
+    while (v11 != v2);
   }
 
   pthread_mutex_unlock(&stru_280C5C480);
-  result = v19;
-  *a1 = v19;
-  a1[1] = v18;
-  a1[2].i64[0] = v6;
-  a1[2].i64[1] = v5;
-  a1[3].i64[0] = v4;
+  result = v18;
+  *a1 = v18;
+  a1[1] = v17;
+  a1[2].i64[0] = v5;
+  a1[2].i64[1] = v4;
+  a1[3].i64[0] = v3;
   return result;
 }
 
 uint64_t HGTextureManager::_poolWaitForQueuedTexture(HGTextureManager *this)
 {
-  HGTextureManager::_getQueuedTotalTextureUsage(*(this + 2), v3);
-  if ((*(this + 18) * 0.8) >= v4)
+  HGTextureManager::_getQueuedTotalTextureUsage(v3, *(this + 2));
+  if ((*(this + 18) * 0.8) >= v3[1])
   {
     return (*(**(this + 20) + 56))(*(this + 20));
   }
@@ -233,30 +298,30 @@ LABEL_22:
   HGTraceGuard::~HGTraceGuard(v25);
 }
 
-void sub_25FCD489C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FCD489C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCD48B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FCD48B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCD48C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FCD48C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
 void HGTextureManager::_printTextureList(HGTextureManager *this, char *a2, void *a3, HGTextureManager::TextureUsage *a4)
 {
-  v7 = HGTraceGuard::HGTraceGuard(v46, "texManager", a2, "HGTextureManager::_printTextureList()");
+  HGTraceGuard::HGTraceGuard(v46, "texManager", a2, "HGTextureManager::_printTextureList()");
   v10 = atomic_load(HGLogger::_enabled);
   if (a3)
   {
@@ -395,8 +460,8 @@ uint64_t HGTextureManager::_printUsageSummary(HGTextureManager *this, const char
     v34 = v11;
     v36 = v10;
     pthread_mutex_unlock(&stru_280C5C440);
-    HGTextureManager::_getFreeTotalTextureUsage(a3, v39);
-    HGTextureManager::_getQueuedTotalTextureUsage(a3, v38);
+    HGTextureManager::_getFreeTotalTextureUsage(v39[0].i64, a3);
+    HGTextureManager::_getQueuedTotalTextureUsage(v38[0].i64, a3);
     v20 = v39[0].i64[1];
     v21 = v38[0].i64[1];
     *a4 += v39[0].i64[0] + v9 + v38[0].i64[0];
@@ -672,16 +737,16 @@ LABEL_24:
   return result;
 }
 
-void sub_25FCD5494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25FCD5494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   std::pair<void *,HGRef<HGTextureManager::TexturePool>>::~pair(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCD54AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25FCD54AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::pair<void *,HGRef<HGTextureManager::TexturePool>>::~pair(va);
   _Unwind_Resume(a1);
 }
@@ -837,16 +902,16 @@ LABEL_24:
   return result;
 }
 
-void sub_25FCD5818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25FCD5818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   std::pair<void *,HGRef<TextureDeleteQueue>>::~pair(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCD5830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25FCD5830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::pair<void *,HGRef<TextureDeleteQueue>>::~pair(va);
   _Unwind_Resume(a1);
 }
@@ -868,13 +933,13 @@ uint64_t anonymous namespace::FreeTexturesPrinter::operator()(unsigned int *a1, 
   {
     v13 = *(v6 + 112);
     v14 = (v12 + 8 * (v13 / 0x2A));
-    v15 = (*v14 + 96 * (v13 % 0x2A));
+    v15 = *v14 + 96 * (v13 % 0x2A);
     v16 = *(v12 + 8 * ((*(v6 + 120) + v13) / 0x2A)) + 96 * ((*(v6 + 120) + v13) % 0x2A);
     while (v15 != v16)
     {
       HGTextureManager::TextureEntry::log(v15, v8, v9);
-      v15 = (v15 + 96);
-      if ((v15 - *v14) == 4032)
+      v15 += 96;
+      if (v15 - *v14 == 4032)
       {
         v17 = v14[1];
         ++v14;
@@ -922,7 +987,7 @@ uint64_t anonymous namespace::QueuedTexturesPrinter::operator()(unsigned int *a1
     v16 = *(v12 + 8 * ((*(v6 + 120) + v13) / 0x1E)) + 136 * ((*(v6 + 120) + v13) % 0x1E);
     while (v15 != v16)
     {
-      HGTextureManager::TextureEntry::log((v15 + 8), v8, v9);
+      HGTextureManager::TextureEntry::log(v15 + 8, v8, v9);
       v15 += 136;
       if (v15 - *v14 == 4080)
       {
@@ -951,19 +1016,19 @@ uint64_t anonymous namespace::QueuedTexturesPrinter::operator()(unsigned int *a1
   return pthread_mutex_unlock((v6 + 128));
 }
 
-void *std::deque<HGTextureManager::TextureEntry>::__add_back_capacity(void *a1)
+void std::deque<HGTextureManager::TextureEntry>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x2A;
   v3 = v1 - 42;
   if (!v2)
   {
-    v7 = a1[2];
-    v6 = a1[3];
-    v8 = v6 - *a1;
-    if (v7 - a1[1] < v8)
+    v6 = a1[2];
+    v5 = a1[3];
+    v7 = v5 - *a1;
+    if (v6 - a1[1] < v7)
     {
-      if (v6 != v7)
+      if (v5 != v6)
       {
         operator new();
       }
@@ -971,18 +1036,18 @@ void *std::deque<HGTextureManager::TextureEntry>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    v9 = v8 >> 2;
-    if (v6 == *a1)
+    v8 = v7 >> 2;
+    if (v5 == *a1)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9;
+      v9 = v8;
     }
 
-    if (!(v10 >> 61))
+    if (!(v9 >> 61))
     {
       operator new();
     }
@@ -992,9 +1057,9 @@ void *std::deque<HGTextureManager::TextureEntry>::__add_back_capacity(void *a1)
 
   a1[4] = v3;
   v4 = a1[1];
-  v11 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *,std::allocator<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *>>::emplace_back<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *&>(a1, &v11);
+  v10 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *,std::allocator<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *>>::emplace_back<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *&>(a1, &v10);
 }
 
 void sub_25FCD5F74(_Unwind_Exception *a1)
@@ -1062,19 +1127,19 @@ LABEL_7:
   return a1;
 }
 
-void *std::deque<TextureDeleteQueue::DeleteRequest>::__add_back_capacity(void *a1)
+void std::deque<TextureDeleteQueue::DeleteRequest>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x1E;
   v3 = v1 - 30;
   if (!v2)
   {
-    v7 = a1[2];
-    v6 = a1[3];
-    v8 = v6 - *a1;
-    if (v7 - a1[1] < v8)
+    v6 = a1[2];
+    v5 = a1[3];
+    v7 = v5 - *a1;
+    if (v6 - a1[1] < v7)
     {
-      if (v6 != v7)
+      if (v5 != v6)
       {
         operator new();
       }
@@ -1082,18 +1147,18 @@ void *std::deque<TextureDeleteQueue::DeleteRequest>::__add_back_capacity(void *a
       operator new();
     }
 
-    v9 = v8 >> 2;
-    if (v6 == *a1)
+    v8 = v7 >> 2;
+    if (v5 == *a1)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9;
+      v9 = v8;
     }
 
-    if (!(v10 >> 61))
+    if (!(v9 >> 61))
     {
       operator new();
     }
@@ -1103,9 +1168,9 @@ void *std::deque<TextureDeleteQueue::DeleteRequest>::__add_back_capacity(void *a
 
   a1[4] = v3;
   v4 = a1[1];
-  v11 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *,std::allocator<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *>>::emplace_back<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *&>(a1, &v11);
+  v10 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *,std::allocator<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *>>::emplace_back<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *&>(a1, &v10);
 }
 
 void sub_25FCD6408(_Unwind_Exception *a1)
@@ -1173,7 +1238,7 @@ LABEL_7:
   return a1;
 }
 
-void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<HGTextureManager::TextureEntry,HGTextureManager::TextureEntry*,HGTextureManager::TextureEntry&,HGTextureManager::TextureEntry**,long,42l>,std::__deque_iterator<HGTextureManager::TextureEntry,HGTextureManager::TextureEntry*,HGTextureManager::TextureEntry&,HGTextureManager::TextureEntry**,long,42l>,0>@<X0>(const void **a1@<X1>, char *a2@<X2>, const void **a3@<X3>, char *a4@<X4>, const void **a5@<X5>, char *a6@<X6>, const void ***a7@<X8>)
+void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<HGTextureManager::TextureEntry,HGTextureManager::TextureEntry*,HGTextureManager::TextureEntry&,HGTextureManager::TextureEntry**,long,42l>,std::__deque_iterator<HGTextureManager::TextureEntry,HGTextureManager::TextureEntry*,HGTextureManager::TextureEntry&,HGTextureManager::TextureEntry**,long,42l>,0>@<X0>(const void ***a1@<X1>, const void **a2@<X2>, const void ***a3@<X3>, const void **a4@<X4>, const void **a5@<X5>, char *a6@<X6>, const void ****a7@<X8>)
 {
   v8 = a5;
   if (a1 == a3)
@@ -1187,13 +1252,13 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
     v14 = a4;
     while (1)
     {
-      v15 = 0xAAAAAAAAAAAAAAABLL * (&a6[-v13] >> 5);
+      v15 = 0xAAAAAAAAAAAAAAABLL * ((a6 - v13) >> 5);
       if ((0xAAAAAAAAAAAAAAABLL * ((v14 - a2) >> 5)) < v15)
       {
         v15 = 0xAAAAAAAAAAAAAAABLL * ((v14 - a2) >> 5);
       }
 
-      v14 -= 96 * v15;
+      v14 -= 12 * v15;
       a6 -= 96 * v15;
       if (v15)
       {
@@ -1207,7 +1272,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
 
       v17 = *--v8;
       v13 = v17;
-      a6 = (v17 + 4032);
+      a6 = v17 + 4032;
     }
 
     goto LABEL_40;
@@ -1220,13 +1285,13 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
     v21 = a4;
     while (1)
     {
-      v22 = 0xAAAAAAAAAAAAAAABLL * (&a6[-v20] >> 5);
+      v22 = 0xAAAAAAAAAAAAAAABLL * ((a6 - v20) >> 5);
       if ((0xAAAAAAAAAAAAAAABLL * ((v21 - v19) >> 5)) < v22)
       {
         v22 = 0xAAAAAAAAAAAAAAABLL * ((v21 - v19) >> 5);
       }
 
-      v21 -= 96 * v22;
+      v21 -= 12 * v22;
       a6 -= 96 * v22;
       if (v22)
       {
@@ -1240,7 +1305,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
 
       v23 = *--v8;
       v20 = v23;
-      a6 = (v23 + 4032);
+      a6 = v23 + 4032;
     }
 
     if (*v8 + 4032 == a6)
@@ -1251,7 +1316,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
     }
   }
 
-  v25 = a3 - 1;
+  v25 = (a3 - 1);
   if (a3 - 1 != a1)
   {
     v26 = *v8;
@@ -1309,19 +1374,19 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
   }
 
 LABEL_32:
-  v32 = *v25 + 4032;
+  v32 = (*v25 + 4032);
   if (v32 != a2)
   {
     v33 = *v8;
     while (1)
     {
-      v34 = 0xAAAAAAAAAAAAAAABLL * (&a6[-v33] >> 5);
+      v34 = 0xAAAAAAAAAAAAAAABLL * ((a6 - v33) >> 5);
       if ((0xAAAAAAAAAAAAAAABLL * ((v32 - a2) >> 5)) < v34)
       {
         v34 = 0xAAAAAAAAAAAAAAABLL * ((v32 - a2) >> 5);
       }
 
-      v32 -= 96 * v34;
+      v32 -= 12 * v34;
       a6 -= 96 * v34;
       if (v34)
       {
@@ -1335,7 +1400,7 @@ LABEL_32:
 
       v35 = *--v8;
       v33 = v35;
-      a6 = (v35 + 4032);
+      a6 = v35 + 4032;
     }
 
 LABEL_40:
@@ -1581,13 +1646,13 @@ uint64_t anonymous namespace::UsedTexturesPrinter::operator()(unsigned int *a1, 
   {
     v13 = *(v6 + 112);
     v14 = (v12 + 8 * (v13 / 0x2A));
-    v15 = (*v14 + 96 * (v13 % 0x2A));
+    v15 = *v14 + 96 * (v13 % 0x2A);
     v16 = *(v12 + 8 * ((*(v6 + 120) + v13) / 0x2A)) + 96 * ((*(v6 + 120) + v13) % 0x2A);
     while (v15 != v16)
     {
       HGTextureManager::TextureEntry::log(v15, v8, v9);
-      v15 = (v15 + 96);
-      if ((v15 - *v14) == 4032)
+      v15 += 96;
+      if (v15 - *v14 == 4032)
       {
         v17 = v14[1];
         ++v14;
@@ -1622,16 +1687,16 @@ uint64_t OUTLINED_FUNCTION_1_4(uint64_t a1, void *a2, void *a3)
 
 void HGTextureManager::createRenderbuffer()
 {
-  v0 = __cxa_guard_acquire(&_MergedGlobals_174);
+  v0 = __cxa_guard_acquire(_MergedGlobals_174);
   if (v0)
   {
 
-    __cxa_guard_release(&_MergedGlobals_174);
+    __cxa_guard_release(_MergedGlobals_174);
   }
 }
 
 {
-  v0 = __cxa_guard_acquire(&qword_27FE4B558);
+  v0 = __cxa_guard_acquire(byte_27FE4B558);
   if (v0)
   {
     qword_27FE4B588 = 0;
@@ -1639,7 +1704,7 @@ void HGTextureManager::createRenderbuffer()
     qword_27FE4B580 = 0;
     OUTLINED_FUNCTION_1_4(v0, &qword_27FE4B580, &dword_25F8F0000);
 
-    __cxa_guard_release(&qword_27FE4B558);
+    __cxa_guard_release(byte_27FE4B558);
   }
 }
 
@@ -1923,9 +1988,9 @@ void HGExecUnitStack::resetStack(HGExecUnitStack *this)
   }
 }
 
-char *HGExecUnitStack::getStack(char ***this, unint64_t a2)
+char *HGExecUnitStack::getStack(char ***this, char *a2)
 {
-  v4 = (this + 17);
+  v4 = this + 17;
   v5 = this[*(this + 38) + 17];
   if (!*v5 || v5[1] - v5[2] < a2)
   {
@@ -1985,7 +2050,7 @@ LABEL_19:
 
     std::vector<HGMetalDeviceInfo *>::push_back[abi:ne200100](this[*(this + 38) + 15], &v21);
     v5 = v21;
-    *&v4[8 * *(this + 38)] = v21;
+    v4[*(this + 38)] = v21;
     v17 = this[21];
     v18 = &this[20][2 * v5[1]];
     this[20] = v18;
@@ -1997,7 +2062,7 @@ LABEL_19:
 
   if (a2)
   {
-    v19 = &v5[4][a2];
+    v19 = &a2[v5[4]];
     v5[3] = a2;
     v5[4] = v19;
     ++*(v5 + 10);
@@ -2138,17 +2203,17 @@ void HGExecutionUnit::~HGExecutionUnit(HGExecutionUnit *this)
   HGSampler::~HGSampler(this);
 }
 
-uint64_t HGExecutionUnit::GetStackState@<X0>(uint64_t this@<X0>, uint64_t a2@<X8>)
+uint64_t *HGExecutionUnit::GetStackState@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v2 = *(this + 144);
+  v2 = this[18];
   v3 = *(v2 + 136);
   v4 = *(v2 + 144);
-  *a2 = v3;
-  *(a2 + 8) = v4;
+  *a1 = v3;
+  a1[1] = v4;
   v5 = *(v4 + 16);
-  *(a2 + 16) = *(v3 + 16);
-  *(a2 + 24) = v5;
-  *(a2 + 32) = *(v2 + 152);
+  a1[2] = *(v3 + 16);
+  a1[3] = v5;
+  *(a1 + 8) = *(v2 + 152);
   return this;
 }
 
@@ -2262,7 +2327,7 @@ void HGExecutionUnit::Execute(HGExecutionUnit *this)
     }
   }
 
-  Stack = HGExecUnitStack::getStack(*(this + 18), v4 * v5);
+  Stack = HGExecUnitStack::getStack(*(this + 18), (v4 * v5));
   v38 = 0;
   if ((*(**(this + 19) + 128))(*(this + 19), 28))
   {
@@ -2344,7 +2409,7 @@ LABEL_37:
         *Stack = v33;
       }
 
-      HGStats::ProfilerScopeGuard::ProfilerScopeGuard(v41, *(this + 53), 2, (HIDWORD(v6) - v39) * (v6 - v40), *(*(v3 + 2) + 56) * (HIDWORD(v6) - v39) * (v6 - v40));
+      HGStats::ProfilerScopeGuard::ProfilerScopeGuard(v41, *(this + 53), 2u, (HIDWORD(v6) - v39) * (v6 - v40), *(*(v3 + 2) + 56) * (HIDWORD(v6) - v39) * (v6 - v40));
       (*(**(v3 + 2) + 80))(*(v3 + 2), Stack, v40 | (v39 << 32), v6);
       HGStats::ProfilerScopeGuard::~ProfilerScopeGuard(v41);
     }
@@ -2353,9 +2418,9 @@ LABEL_37:
   *(*(this + 52) + 96) = 1065353216;
 }
 
-void sub_25FCD822C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25FCD822C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   HGStats::ProfilerScopeGuard::~ProfilerScopeGuard(va);
   _Unwind_Resume(a1);
 }
@@ -2501,17 +2566,17 @@ int64x2_t *HGExecutionUnit::PopStats(HGExecutionUnit *this)
   v3 = result[6].i64[1];
   if (v3)
   {
-    v4 = v3[1];
+    v4 = *(v3 + 16);
     *v3 = vaddq_s64(*v3, *result);
-    v3[1] = vaddq_s64(v4, result[1]);
-    v5 = v3[3];
-    v3[2] = vaddq_s64(v3[2], result[2]);
-    v3[3] = vaddq_s64(v5, result[3]);
-    v3[5] = vaddq_s64(v3[5], result[5]);
+    *(v3 + 16) = vaddq_s64(v4, result[1]);
+    v5 = *(v3 + 48);
+    *(v3 + 32) = vaddq_s64(*(v3 + 32), result[2]);
+    *(v3 + 48) = vaddq_s64(v5, result[3]);
+    *(v3 + 80) = vaddq_s64(*(v3 + 80), result[5]);
     v6 = result[6].i32[1];
     if (v6)
     {
-      v3[6].i32[1] = v6;
+      *(v3 + 100) = v6;
     }
 
     result = MEMORY[0x2666E9F00]();
@@ -2839,16 +2904,16 @@ uint64_t ROIStatIO::writeUnderValue(ROIStatIO *this, const ROIStatIO::ROITestSet
   return MEMORY[0x2666E9E10](&v34);
 }
 
-void sub_25FCD915C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FCD915C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCD9170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FCD9170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -2972,16 +3037,16 @@ uint64_t ROIStatIO::writeOverValue(ROIStatIO *this, const ROIStatIO::ROITestSet 
   return MEMORY[0x2666E9E10](&v36);
 }
 
-void sub_25FCD94EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FCD94EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCD9500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FCD9500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -3101,16 +3166,16 @@ uint64_t ROIStatIO::writePassValue(ROIStatIO *this, const ROIStatIO::ROITestSet 
   return MEMORY[0x2666E9E10](&v32);
 }
 
-void sub_25FCD983C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FCD983C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCD9850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FCD9850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -3252,7 +3317,7 @@ LABEL_25:
   v14 = *(this + 53);
   if (v14 >= *(this + 54))
   {
-    std::vector<ROIStatIO::ROITestSet>::__emplace_back_slow_path<ROIStatIO::ROITestSet const&>(this + 416, &__p);
+    std::vector<ROIStatIO::ROITestSet>::__emplace_back_slow_path<ROIStatIO::ROITestSet const&>(this + 52, &__p);
     *(this + 53) = v17;
     if ((SHIBYTE(v24) & 0x80000000) == 0)
     {
@@ -3297,7 +3362,7 @@ LABEL_36:
   }
 }
 
-void sub_25FCD9AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9)
+void sub_25FCD9AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 424) = v10;
   ROIStatIO::ROITestSet::~ROITestSet(&a9);
@@ -3325,7 +3390,7 @@ LABEL_5:
   }
 }
 
-void ROIStatIO::failed(void *a1, uint64_t a2, unsigned int a3, unsigned int a4)
+void ROIStatIO::failed(std::string **a1, uint64_t a2, unsigned int a3, unsigned int a4)
 {
   if (*(a2 + 23) < 0)
   {
@@ -3345,47 +3410,47 @@ void ROIStatIO::failed(void *a1, uint64_t a2, unsigned int a3, unsigned int a4)
   v27 = 0;
   v8 = a1[52];
   v7 = a1[53];
-  if (v8 != v7 && *(v8 + 24) == a3)
+  if (v8 != v7 && LODWORD(v8[1].__r_.__value_.__l.__data_) == a3)
   {
     while (1)
     {
       while (v8 != &v21)
       {
-        v9 = *(v8 + 23);
+        v9 = SHIBYTE(v8->__r_.__value_.__r.__words[2]);
         if (v9 >= 0)
         {
-          v10 = *(v8 + 23);
+          size = HIBYTE(v8->__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v10 = *(v8 + 8);
+          size = v8->__r_.__value_.__l.__size_;
         }
 
-        size = HIBYTE(v21.__r_.__value_.__r.__words[2]);
+        v11 = HIBYTE(v21.__r_.__value_.__r.__words[2]);
         if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          size = v21.__r_.__value_.__l.__size_;
+          v11 = v21.__r_.__value_.__l.__size_;
         }
 
-        if (v10 == size)
+        if (size == v11)
         {
-          v12 = v9 >= 0 ? v8 : *v8;
+          v12 = v9 >= 0 ? v8 : v8->__r_.__value_.__r.__words[0];
           v13 = (v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v21 : v21.__r_.__value_.__r.__words[0];
-          if (!memcmp(v12, v13, v10) && *(v8 + 24) == v22)
+          if (!memcmp(v12, v13, size) && LODWORD(v8[1].__r_.__value_.__l.__data_) == v22)
           {
             break;
           }
         }
 
-        v8 += 72;
+        v8 += 3;
         if (v8 == v7)
         {
           goto LABEL_37;
         }
       }
 
-      if ((v8 + 72) == v7)
+      if (&v8[3] == v7)
       {
         v16 = v7;
         v7 = v8;
@@ -3400,15 +3465,15 @@ void ROIStatIO::failed(void *a1, uint64_t a2, unsigned int a3, unsigned int a4)
       v14 = v8;
       do
       {
-        std::string::operator=(v14, (v14 + 72));
-        *(v14 + 24) = *(v14 + 96);
-        *(v14 + 32) = *(v14 + 104);
-        *(v14 + 40) = *(v14 + 112);
-        v14 += 72;
+        std::string::operator=(v14, v14 + 3);
+        v14[1].__r_.__value_.__r.__words[0] = v14[4].__r_.__value_.__r.__words[0];
+        LODWORD(v14[1].__r_.__value_.__r.__words[1]) = v14[4].__r_.__value_.__r.__words[1];
+        v14[1].__r_.__value_.__r.__words[2] = v14[4].__r_.__value_.__r.__words[2];
+        v14 += 3;
         v15 = v14;
       }
 
-      while ((v14 + 72) != v7);
+      while (&v14[3] != v7);
       v16 = a1[53];
       v7 = v15;
       if (v16 != v15)
@@ -3427,28 +3492,28 @@ LABEL_29:
     while (1)
     {
 LABEL_32:
-      if (*(v16 - 1) < 0)
+      if (SHIBYTE(v16[-1].__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(*(v16 - 3));
-        v17 = v16 - 9;
-        if (*(v16 - 49) < 0)
+        operator delete(v16[-1].__r_.__value_.__l.__data_);
+        p_data = &v16[-3].__r_.__value_.__l.__data_;
+        if (SHIBYTE(v16[-3].__r_.__value_.__r.__words[2]) < 0)
         {
 LABEL_36:
-          operator delete(*v17);
+          operator delete(*p_data);
         }
       }
 
       else
       {
-        v17 = v16 - 9;
-        if (*(v16 - 49) < 0)
+        p_data = &v16[-3].__r_.__value_.__l.__data_;
+        if (SHIBYTE(v16[-3].__r_.__value_.__r.__words[2]) < 0)
         {
           goto LABEL_36;
         }
       }
 
-      v16 = v17;
-      if (v17 == v7)
+      v16 = p_data;
+      if (p_data == v7)
       {
         goto LABEL_29;
       }
@@ -3458,7 +3523,7 @@ LABEL_36:
 LABEL_37:
   if (v7 >= a1[54])
   {
-    std::vector<ROIStatIO::ROITestSet>::__emplace_back_slow_path<ROIStatIO::ROITestSet const&>((a1 + 52), &v21);
+    std::vector<ROIStatIO::ROITestSet>::__emplace_back_slow_path<ROIStatIO::ROITestSet const&>(a1 + 52, &v21);
     a1[53] = v19;
     if (SHIBYTE(v27) < 0)
     {
@@ -3476,19 +3541,19 @@ LABEL_37:
     else
     {
       v18 = *&v21.__r_.__value_.__l.__data_;
-      v7[2] = v21.__r_.__value_.__r.__words[2];
-      *v7 = v18;
+      v7->__r_.__value_.__r.__words[2] = v21.__r_.__value_.__r.__words[2];
+      *&v7->__r_.__value_.__l.__data_ = v18;
     }
 
     v20 = v24;
-    v7[3] = v22;
-    *(v7 + 8) = v23;
-    v7[5] = v20;
-    v7[7] = 0;
-    v7[8] = 0;
-    v7[6] = 0;
-    a1[53] = v7 + 9;
-    a1[53] = v7 + 9;
+    v7[1].__r_.__value_.__r.__words[0] = v22;
+    LODWORD(v7[1].__r_.__value_.__r.__words[1]) = v23;
+    v7[1].__r_.__value_.__r.__words[2] = v20;
+    v7[2].__r_.__value_.__l.__size_ = 0;
+    v7[2].__r_.__value_.__r.__words[2] = 0;
+    v7[2].__r_.__value_.__r.__words[0] = 0;
+    a1[53] = v7 + 3;
+    a1[53] = v7 + 3;
     if (SHIBYTE(v27) < 0)
     {
 LABEL_45:
@@ -3516,7 +3581,7 @@ void sub_25FCD9DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void ROIStatIO::over(void *a1, uint64_t a2, unsigned int a3, unsigned int a4, double a5)
+void ROIStatIO::over(std::string **a1, uint64_t a2, unsigned int a3, unsigned int a4, double a5)
 {
   if (*(a2 + 23) < 0)
   {
@@ -3536,12 +3601,12 @@ void ROIStatIO::over(void *a1, uint64_t a2, unsigned int a3, unsigned int a4, do
   __p = 0;
   v10 = a1[52];
   v9 = a1[53];
-  if (v10 == v9 || *(v10 + 24) != a3)
+  if (v10 == v9 || LODWORD(v10[1].__r_.__value_.__l.__data_) != a3)
   {
 LABEL_43:
     if (v9 >= a1[54])
     {
-      std::vector<ROIStatIO::ROITestSet>::__emplace_back_slow_path<ROIStatIO::ROITestSet const&>((a1 + 52), &v32);
+      std::vector<ROIStatIO::ROITestSet>::__emplace_back_slow_path<ROIStatIO::ROITestSet const&>(a1 + 52, &v32);
     }
 
     else
@@ -3554,19 +3619,19 @@ LABEL_43:
       else
       {
         v29 = *&v32.__r_.__value_.__l.__data_;
-        *(v9 + 16) = *(&v32.__r_.__value_.__l + 2);
-        *v9 = v29;
+        v9->__r_.__value_.__r.__words[2] = v32.__r_.__value_.__r.__words[2];
+        *&v9->__r_.__value_.__l.__data_ = v29;
       }
 
       v31 = v35;
-      *(v9 + 24) = v33;
-      *(v9 + 32) = v34;
-      *(v9 + 40) = v31;
-      *(v9 + 56) = 0;
-      *(v9 + 64) = 0;
-      *(v9 + 48) = 0;
-      v30 = v9 + 72;
-      a1[53] = v9 + 72;
+      v9[1].__r_.__value_.__r.__words[0] = v33;
+      LODWORD(v9[1].__r_.__value_.__r.__words[1]) = v34;
+      *&v9[1].__r_.__value_.__r.__words[2] = v31;
+      v9[2].__r_.__value_.__l.__size_ = 0;
+      v9[2].__r_.__value_.__r.__words[2] = 0;
+      v9[2].__r_.__value_.__r.__words[0] = 0;
+      v30 = v9 + 3;
+      a1[53] = v9 + 3;
     }
 
     a1[53] = v30;
@@ -3597,40 +3662,40 @@ LABEL_43:
 
     do
     {
-      v14 = v10 + v11;
-      if ((v10 + v11) == &v32)
+      v14 = &v10[v11];
+      if (&v10[v11] == &v32)
       {
         goto LABEL_23;
       }
 
-      v15 = *(v14 + 23);
+      v15 = HIBYTE(v14->__r_.__value_.__r.__words[2]);
       v16 = v15;
       if ((v15 & 0x80u) != 0)
       {
-        v15 = *(v14 + 8);
+        v15 = v14->__r_.__value_.__l.__size_;
       }
 
       if (v15 == size)
       {
-        v17 = v16 >= 0 ? (v10 + v11) : *v14;
-        if (!memcmp(v17, v13, size) && *(v10 + v11 + 24) == a3 && *(v10 + v11 + 28) == a4)
+        v17 = v16 >= 0 ? &v10[v11] : v14->__r_.__value_.__r.__words[0];
+        if (!memcmp(v17, v13, size) && LODWORD(v10[v11 + 1].__r_.__value_.__l.__data_) == a3 && HIDWORD(v10[v11 + 1].__r_.__value_.__r.__words[0]) == a4)
         {
 LABEL_23:
-          v18 = *(v14 + 40);
+          v18 = *&v14[1].__r_.__value_.__r.__words[2];
           if (v18 > 0.0)
           {
-            ++*(v10 + v11 + 32);
-            *(v14 + 40) = v18 + a5;
+            ++LODWORD(v10[v11 + 1].__r_.__value_.__r.__words[1]);
+            *&v14[1].__r_.__value_.__r.__words[2] = v18 + a5;
           }
 
           goto LABEL_50;
         }
       }
 
-      v11 += 72;
+      v11 += 3;
     }
 
-    while (v10 + v11 != v9);
+    while (&v10[v11] != v9);
     v19 = 0;
     if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
@@ -3654,35 +3719,35 @@ LABEL_23:
 
     while (1)
     {
-      v22 = v10 + v19;
-      if ((v10 + v19) == &v32)
+      v22 = &v10[v19];
+      if (&v10[v19] == &v32)
       {
         break;
       }
 
-      v23 = *(v22 + 23);
+      v23 = HIBYTE(v22->__r_.__value_.__r.__words[2]);
       v24 = v23;
       if ((v23 & 0x80u) != 0)
       {
-        v23 = *(v22 + 8);
+        v23 = v22->__r_.__value_.__l.__size_;
       }
 
       if (v20 == v23)
       {
-        v25 = v24 >= 0 ? (v10 + v19) : *v22;
+        v25 = v24 >= 0 ? &v10[v19] : v22->__r_.__value_.__r.__words[0];
         if (!memcmp(v21, v25, v20))
         {
-          v26 = v10 + v19;
-          if (*(v10 + v19 + 24) == a3)
+          v26 = &v10[v19];
+          if (LODWORD(v10[v19 + 1].__r_.__value_.__l.__data_) == a3)
           {
-            if (*(v26 + 28) == -1)
+            if (HIDWORD(v26[1].__r_.__value_.__r.__words[0]) == -1)
             {
-              std::string::operator=((v10 + v19), &v32);
+              std::string::operator=(&v10[v19], &v32);
               v27 = v35;
-              *(v26 + 24) = v33;
-              v28 = v10 + v19;
-              *(v28 + 32) = v34;
-              *(v28 + 40) = v27;
+              v26[1].__r_.__value_.__r.__words[0] = v33;
+              v28 = &v10[v19];
+              LODWORD(v28[1].__r_.__value_.__r.__words[1]) = v34;
+              *&v28[1].__r_.__value_.__r.__words[2] = v27;
               goto LABEL_50;
             }
 
@@ -3691,20 +3756,20 @@ LABEL_23:
         }
       }
 
-      v19 += 72;
-      if (v10 + v19 == v9)
+      v19 += 3;
+      if (&v10[v19] == v9)
       {
         goto LABEL_43;
       }
     }
 
-    if (*(v22 + 28) == -1)
+    if (HIDWORD(v22[1].__r_.__value_.__r.__words[0]) == -1)
     {
       goto LABEL_50;
     }
 
 LABEL_56:
-    std::vector<ROIStatIO::ROITestSet>::insert((a1 + 52), (v10 + v19), &v32);
+    std::vector<ROIStatIO::ROITestSet>::insert(a1 + 52, &v10[v19], &v32);
   }
 
 LABEL_50:
@@ -3734,11 +3799,11 @@ void sub_25FCDA12C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-std::string *std::vector<ROIStatIO::ROITestSet>::insert(uint64_t a1, std::string *this, unint64_t a3)
+std::string *std::vector<ROIStatIO::ROITestSet>::insert(std::string **a1, std::string *this, unint64_t a3)
 {
   v4 = this;
-  v7 = *(a1 + 8);
-  v6 = *(a1 + 16);
+  v7 = a1[1];
+  v6 = a1[2];
   if (v7 >= v6)
   {
     v14 = *a1;
@@ -3780,17 +3845,17 @@ std::string *std::vector<ROIStatIO::ROITestSet>::insert(uint64_t a1, std::string
     v33 = v32;
     std::__split_buffer<ROIStatIO::ROITestSet>::emplace_back<ROIStatIO::ROITestSet const&>(&v31, a3);
     v19 = v32;
-    std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ROIStatIO::ROITestSet>,ROIStatIO::ROITestSet*>(a1, v4, *(a1 + 8), v33);
+    std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ROIStatIO::ROITestSet>,ROIStatIO::ROITestSet*>(a1, v4, a1[1], v33);
     v20 = *a1;
     v21 = v32;
-    *&v33 = v33 + *(a1 + 8) - v4;
-    *(a1 + 8) = v4;
+    *&v33 = v33 + a1[1] - v4;
+    a1[1] = v4;
     v22 = (v21 + v20 - v4);
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ROIStatIO::ROITestSet>,ROIStatIO::ROITestSet*>(a1, v20, v4, v22);
     v23 = *a1;
     *a1 = v22;
-    v24 = *(a1 + 16);
-    *(a1 + 8) = v33;
+    v24 = a1[2];
+    *(a1 + 1) = v33;
     *&v33 = v23;
     *(&v33 + 1) = v24;
     v31 = v23;
@@ -3807,81 +3872,81 @@ std::string *std::vector<ROIStatIO::ROITestSet>::insert(uint64_t a1, std::string
   {
     if (*(a3 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(*(a1 + 8), *a3, *(a3 + 8));
+      std::string::__init_copy_ctor_external(a1[1], *a3, *(a3 + 8));
     }
 
     else
     {
       v18 = *a3;
-      *(v7 + 16) = *(a3 + 16);
-      *v7 = v18;
+      v7->__r_.__value_.__r.__words[2] = *(a3 + 16);
+      *&v7->__r_.__value_.__l.__data_ = v18;
     }
 
-    *(v7 + 24) = *(a3 + 24);
-    *(v7 + 32) = *(a3 + 32);
-    *(v7 + 40) = *(a3 + 40);
-    *(v7 + 56) = 0;
-    *(v7 + 64) = 0;
-    *(v7 + 48) = 0;
-    *(a1 + 8) = v7 + 72;
+    v7[1].__r_.__value_.__r.__words[0] = *(a3 + 24);
+    LODWORD(v7[1].__r_.__value_.__r.__words[1]) = *(a3 + 32);
+    v7[1].__r_.__value_.__r.__words[2] = *(a3 + 40);
+    v7[2].__r_.__value_.__l.__size_ = 0;
+    v7[2].__r_.__value_.__r.__words[2] = 0;
+    v7[2].__r_.__value_.__r.__words[0] = 0;
+    a1[1] = v7 + 3;
   }
 
   else
   {
-    v8 = *(a1 + 8);
+    v8 = a1[1];
     if (v7 >= 0x48)
     {
       v9 = 0;
       do
       {
-        v12 = (v7 + v9);
-        v13 = (v7 + v9 - 72);
-        if (*(v7 + v9 - 49) < 0)
+        v12 = &v7[v9];
+        p_data = &v7[v9 - 3].__r_.__value_.__l.__data_;
+        if (*(&v7[v9 - 2] - 1) < 0)
         {
-          std::string::__init_copy_ctor_external(v12, *v13, v12[-3].__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(v12, *p_data, v12[-3].__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v10 = *v13;
-          v12->__r_.__value_.__r.__words[2] = *(v7 + v9 - 56);
+          v10 = *p_data;
+          v12->__r_.__value_.__r.__words[2] = *(&v7[v9 - 2] - 1);
           *&v12->__r_.__value_.__l.__data_ = v10;
         }
 
-        v11 = v7 + v9;
-        *(v11 + 24) = *(v7 + v9 - 48);
-        *(v11 + 32) = *(v7 + v9 - 40);
-        *(v11 + 40) = *(v7 + v9 - 32);
-        *(v11 + 56) = 0;
-        *(v11 + 64) = 0;
-        *(v11 + 48) = 0;
-        v9 += 72;
+        v11 = &v7[v9];
+        v11[1].__r_.__value_.__r.__words[0] = v7[v9 - 2].__r_.__value_.__r.__words[0];
+        LODWORD(v11[1].__r_.__value_.__r.__words[1]) = *(&v7[v9 - 1] - 4);
+        v11[1].__r_.__value_.__r.__words[2] = *(&v7[v9 - 1] - 1);
+        v11[2].__r_.__value_.__l.__size_ = 0;
+        v11[2].__r_.__value_.__r.__words[2] = 0;
+        v11[2].__r_.__value_.__r.__words[0] = 0;
+        v9 += 3;
       }
 
-      while (v7 + v9 - 72 < v7);
-      v8 = v7 + v9;
+      while (&v7[v9 - 3] < v7);
+      v8 = &v7[v9];
     }
 
-    *(a1 + 8) = v8;
+    a1[1] = v8;
     if (v7 != &v4[3])
     {
       v25 = 0;
       do
       {
-        v26 = (v25 + v7);
-        if (&v25[-3] + v7 != v25 + v7)
+        v26 = &v7[v25 / 0x18];
+        if (&v7[v25 / 0x18 - 3] != &v7[v25 / 0x18])
         {
-          std::string::operator=((v25 + v7 - 72), v26 - 6);
+          std::string::operator=(&v7[v25 / 0x18 - 3], v26 - 6);
           v26[-2].__r_.__value_.__r.__words[0] = v26[-5].__r_.__value_.__r.__words[0];
           LODWORD(v26[-2].__r_.__value_.__r.__words[1]) = v26[-5].__r_.__value_.__r.__words[1];
           v26[-2].__r_.__value_.__r.__words[2] = v26[-5].__r_.__value_.__r.__words[2];
         }
 
-        v25 -= 3;
+        v25 -= 72;
       }
 
-      while ((&v4[3] - v7) != v25);
-      v8 = *(a1 + 8);
+      while (v4 - v7 + 72 != v25);
+      v8 = a1[1];
     }
 
     v27 = v8 <= a3 || v4 > a3;
@@ -3904,9 +3969,9 @@ std::string *std::vector<ROIStatIO::ROITestSet>::insert(uint64_t a1, std::string
   return v4;
 }
 
-void sub_25FCDA484(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FCDA484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<ROIStatIO::ROITestSet>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4086,21 +4151,21 @@ void virtual thunk tostd::ofstream::~ofstream(void *a1)
   JUMPOUT(0x2666E9F00);
 }
 
-uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2)
+uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2, uint64_t a3, int a4)
 {
-  v4 = *a2;
+  v6 = *a2;
   *a1 = *a2;
-  *(a1 + *(v4 - 24)) = a2[3];
-  v5 = a2[1];
-  *a1 = v5;
-  *(a1 + *(v5 - 24)) = a2[2];
-  v6 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v6, a1 + 1);
-  v6[1].__vftable = 0;
-  v6[1].__fmtflags_ = -1;
-  v7 = *a2;
+  *(a1 + *(v6 - 24)) = a2[3];
+  v7 = a2[1];
+  *a1 = v7;
+  *(a1 + *(v7 - 24)) = a2[2];
+  v8 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v8, a1 + 1);
+  v8[1].__vftable = 0;
+  v8[1].__fmtflags_ = -1;
+  v9 = *a2;
   *a1 = *a2;
-  *(a1 + *(v7 - 24)) = a2[3];
+  *(a1 + *(v9 - 24)) = a2[3];
   MEMORY[0x2666E9A80](a1 + 1);
   if (!std::filebuf::open())
   {
@@ -4110,20 +4175,20 @@ uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2)
   return a1;
 }
 
-double std::vector<ROIStatIO::ROITestSet>::__emplace_back_slow_path<ROIStatIO::ROITestSet const&>(uint64_t a1, uint64_t a2)
+double std::vector<ROIStatIO::ROITestSet>::__emplace_back_slow_path<ROIStatIO::ROITestSet const&>(std::string **a1, uint64_t a2)
 {
-  v2 = 0x8E38E38E38E38E39 * ((*(a1 + 8) - *a1) >> 3) + 1;
+  v2 = 0x8E38E38E38E38E39 * ((a1[1] - *a1) >> 3) + 1;
   if (v2 > 0x38E38E38E38E38ELL)
   {
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x1C71C71C71C71C72 * ((*(a1 + 16) - *a1) >> 3) > v2)
+  if (0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 3) > v2)
   {
-    v2 = 0x1C71C71C71C71C72 * ((*(a1 + 16) - *a1) >> 3);
+    v2 = 0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0x8E38E38E38E38E39 * ((*(a1 + 16) - *a1) >> 3) >= 0x1C71C71C71C71C7)
+  if (0x8E38E38E38E38E39 * ((a1[2] - *a1) >> 3) >= 0x1C71C71C71C71C7)
   {
     v5 = 0x38E38E38E38E38ELL;
   }
@@ -4143,7 +4208,7 @@ double std::vector<ROIStatIO::ROITestSet>::__emplace_back_slow_path<ROIStatIO::R
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  v6 = 8 * ((*(a1 + 8) - *a1) >> 3);
+  v6 = 8 * ((a1[1] - *a1) >> 3);
   *(&v11 + 1) = 0;
   if (*(a2 + 23) < 0)
   {
@@ -4163,13 +4228,13 @@ double std::vector<ROIStatIO::ROITestSet>::__emplace_back_slow_path<ROIStatIO::R
   *(v6 + 64) = 0;
   *(v6 + 48) = 0;
   *&v11 = v6 + 72;
-  v7 = *(a1 + 8);
+  v7 = a1[1];
   v8 = (v6 + *a1 - v7);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ROIStatIO::ROITestSet>,ROIStatIO::ROITestSet*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
   *&result = v6 + 72;
-  *(a1 + 8) = v11;
+  *(a1 + 1) = v11;
   if (v9)
   {
     operator delete(v9);
@@ -4179,9 +4244,9 @@ double std::vector<ROIStatIO::ROITestSet>::__emplace_back_slow_path<ROIStatIO::R
   return result;
 }
 
-void sub_25FCDAF60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FCDAF60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<ROIStatIO::ROITestSet>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4401,20 +4466,20 @@ double std::__split_buffer<ROIStatIO::ROITestSet>::emplace_back<ROIStatIO::ROITe
   return result;
 }
 
-void sub_25FCDB474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12)
+void sub_25FCDB474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   a12 = v13 + v12;
   std::__split_buffer<ROIStatIO::ROITestSet>::~__split_buffer(&a10);
   _Unwind_Resume(a1);
 }
 
-void HGAnisotropicSampler::~HGAnisotropicSampler(void **this)
+void HGAnisotropicSampler::~HGAnisotropicSampler(HGNode *this)
 {
   *this = &unk_28721F318;
-  if (this[63])
+  if (*(this + 63))
   {
     v2 = this;
-    free(this[63]);
+    free(*(this + 63));
     this = v2;
     v1 = vars8;
   }
@@ -4422,7 +4487,6 @@ void HGAnisotropicSampler::~HGAnisotropicSampler(void **this)
   HGNode::~HGNode(this);
 }
 
-void HGAnisotropicSampler::~HGAnisotropicSampler(HGNode *this)
 {
   *this = &unk_28721F318;
   v2 = *(this + 63);
@@ -4519,9 +4583,9 @@ LABEL_16:
   return (v18 - 1);
 }
 
-void sub_25FCDB874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FCDB874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   HGTransform::~HGTransform(va);
   _Unwind_Resume(a1);
 }
@@ -4539,10 +4603,10 @@ uint64_t HGAnisotropicSampler::GetDOD(HGAnisotropicSampler *this, HGRenderer *a2
   v10 = *(*(this + 61) + 748);
   if ((*(*this + 312))(this) >= 1)
   {
-    v11 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v11 = HGRectMake4i(-1, -1, 1, 1);
     v5 = HGRectGrow(v5, v4, v11);
     v4 = v12;
-    v13 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v13 = HGRectMake4i(-1, -1, 1, 1);
     v9 = HGRectGrow(v9, v10, v13);
     v10 = v14;
   }
@@ -4560,7 +4624,7 @@ uint64_t HGAnisotropicSampler::GetDOD(HGAnisotropicSampler *this, HGRenderer *a2
   {
     v26 = result;
     v27 = v25;
-    v28 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v28 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(v26, v27, v28);
   }
 
@@ -4724,7 +4788,7 @@ uint64_t HGAnisotropicSampler::GetROI(HGAnisotropicSampler *this, HGRenderer *a2
   v5 = *&a4.var0;
   v7 = (*(*this + 312))(this);
   v8 = *(*(this + 60) + 448);
-  v9 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+  v9 = HGRectMake4i(-1, -1, 1, 1);
   v10 = HGRectGrow(v5, v4, v9);
   v13 = v12;
   v14 = *(this + 60);
@@ -4767,7 +4831,7 @@ uint64_t HGAnisotropicSampler::GetROI(HGAnisotropicSampler *this, HGRenderer *a2
   v30 = *(this + 60);
   if (*(v30 + 436) >= 2)
   {
-    v31 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v31 = HGRectMake4i(-1, -1, 1, 1);
     v5 = HGRectGrow(v5, v4, v31);
     v4 = v32;
     v30 = *(this + 60);
@@ -4929,14 +4993,14 @@ LABEL_41:
   {
     v74 = result;
     v75 = v73;
-    v76 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v76 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(v74, v75, v76);
   }
 
   return result;
 }
 
-uint64_t hg_clip(HGTransform *a1, HGRect a2, HGRect a3, double a4, float a5, double a6, double a7, int *a8, int a9, int a10, unsigned int a11)
+uint64_t hg_clip(HGTransform *a1, HGRect a2, HGRect a3, double a4, float a5, double a6, double a7, int *a8, int a9, unsigned int a10, unsigned int a11)
 {
   var2 = a3.var2;
   v15 = *&a2.var2;
@@ -5556,7 +5620,7 @@ void sub_25FCDDA08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-HGRenderer *HGAnisotropicSampler::RenderPageGeneric(uint64_t a1, HGRenderer **a2, int a3)
+HGBitmap *HGAnisotropicSampler::RenderPageGeneric(uint64_t a1, HGBitmap **a2, uint64_t a3)
 {
   v6 = *a2;
   v7 = a2[2];
@@ -5598,7 +5662,7 @@ LABEL_3:
   return 0;
 }
 
-uint64_t HGAnisotropicSampler::GetPage(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, int a7, unsigned int a8, int a9)
+uint64_t HGAnisotropicSampler::GetPage(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, int a7, unsigned int a8, int a9)
 {
   v235 = *MEMORY[0x277D85DE8];
   v13 = *a2;
@@ -5657,7 +5721,7 @@ uint64_t HGAnisotropicSampler::GetPage(uint64_t a1, uint64_t a2, uint64_t a3, un
 
   else
   {
-    v20 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v20 = HGRectMake4i(-1, -1, 1, 1);
     v21 = HGRectGrow(a3, a4, v20);
     v23 = v21;
     v24 = v22;
@@ -5874,16 +5938,16 @@ LABEL_23:
       v78 = a9 + 1;
       if (HIDWORD(a4) - HIDWORD(v42) <= (a4 - v42))
       {
-        v88 = HGRectMake4i(v42, HIDWORD(v42), (v42 + a4) >> 1, HIDWORD(a4));
+        v88 = HGRectMake4i(v42, SHIDWORD(v42), (v42 + a4) >> 1, SHIDWORD(a4));
         HGAnisotropicSampler::GetPage(a1, a2, v88, v89, a5, a6, v220, a8, v78);
-        v81 = HGRectMake4i((v42 + a4) >> 1, HIDWORD(v42), a4, HIDWORD(a4));
+        v81 = HGRectMake4i((v42 + a4) >> 1, SHIDWORD(v42), a4, SHIDWORD(a4));
       }
 
       else
       {
-        v79 = HGRectMake4i(v42, HIDWORD(v42), a4, (HIDWORD(v42) + HIDWORD(a4)) >> 1);
+        v79 = HGRectMake4i(v42, SHIDWORD(v42), a4, (HIDWORD(v42) + HIDWORD(a4)) >> 1);
         HGAnisotropicSampler::GetPage(a1, a2, v79, v80, a5, a6, v220, a8, v78);
-        v81 = HGRectMake4i(v42, (HIDWORD(v42) + HIDWORD(a4)) >> 1, a4, HIDWORD(a4));
+        v81 = HGRectMake4i(v42, (HIDWORD(v42) + HIDWORD(a4)) >> 1, a4, SHIDWORD(a4));
       }
 
       return HGAnisotropicSampler::GetPage(a1, a2, v81, v82, a5, a6, v220, a8, v78);
@@ -5896,7 +5960,7 @@ LABEL_23:
       {
         v209 = v18;
         v83 = v57;
-        result = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+        result = HGRectMake4i(-1, -1, 1, 1);
         v84 = result;
         v57 = v83;
         v218 = 2;
@@ -6203,7 +6267,7 @@ LABEL_66:
     {
       v86 = v18;
       v87 = v57;
-      result = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      result = HGRectMake4i(-1, -1, 1, 1);
       v225 = result;
       v57 = v87;
       v54 = v233;
@@ -6473,12 +6537,12 @@ LABEL_128:
 
 uint64_t HGAnisotropicSampler::GetPageMetal(uint64_t a1, HGBitmap **a2, unint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned int a8, double a9, double a10, double a11, double a12, int a13)
 {
-  v143 = *MEMORY[0x277D85DE8];
+  v159 = *MEMORY[0x277D85DE8];
   v18 = *a2;
   v19 = *(a1 + 480);
   v20 = *(v19 + 448);
-  v134 = *(v19 + 436);
-  if (v134 < 2)
+  v150 = *(v19 + 436);
+  if (v150 < 2)
   {
     v38 = *(v19 + 464);
     v37 = *(v19 + 472);
@@ -6497,7 +6561,7 @@ uint64_t HGAnisotropicSampler::GetPageMetal(uint64_t a1, HGBitmap **a2, unint64_
     v42 = *(v19 + 484);
     if (v18)
     {
-      v132 = *(v19 + 480);
+      v148 = *(v19 + 480);
       if (v43)
       {
         MaxTileArea = HGGPURenderer::GetMaxTileArea(v43);
@@ -6508,7 +6572,7 @@ uint64_t HGAnisotropicSampler::GetPageMetal(uint64_t a1, HGBitmap **a2, unint64_
         MaxTileArea = 0x1000000;
       }
 
-      v41 = v132;
+      v41 = v148;
     }
 
     else
@@ -6516,18 +6580,18 @@ uint64_t HGAnisotropicSampler::GetPageMetal(uint64_t a1, HGBitmap **a2, unint64_
       MaxTileArea = 0x1000000;
     }
 
-    *&v145.var0 = a3;
-    *&v145.var2 = a4;
-    *&v149.var0 = v38;
-    *&v149.var2 = v37;
+    *&v161.var0 = a3;
+    *&v161.var2 = a4;
+    *&v165.var0 = v38;
+    *&v165.var2 = v37;
     *&a9 = v39;
-    v45 = hg_clip(v20, v145, v149, a9, v40, v134, a12, &v141, v41, v42, MaxTileArea);
+    v45 = hg_clip(v20, v161, v165, a9, v40, v150, a12, &v157, v41, v42, MaxTileArea);
   }
 
   else
   {
-    v131 = *(v19 + 448);
-    v22 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v147 = *(v19 + 448);
+    v22 = HGRectMake4i(-1, -1, 1, 1);
     v23 = HGRectGrow(a3, a4, v22);
     v27 = v26;
     v28 = *(a1 + 480);
@@ -6548,7 +6612,7 @@ uint64_t HGAnisotropicSampler::GetPageMetal(uint64_t a1, HGBitmap **a2, unint64_
     v34 = *(v28 + 484);
     if (v18)
     {
-      v130 = *(v28 + 472);
+      v146 = *(v28 + 472);
       if (v35)
       {
         v36 = HGGPURenderer::GetMaxTileArea(v35);
@@ -6559,7 +6623,7 @@ uint64_t HGAnisotropicSampler::GetPageMetal(uint64_t a1, HGBitmap **a2, unint64_
         v36 = 0x1000000;
       }
 
-      *&v29.var2 = v130;
+      *&v29.var2 = v146;
     }
 
     else
@@ -6567,11 +6631,11 @@ uint64_t HGAnisotropicSampler::GetPageMetal(uint64_t a1, HGBitmap **a2, unint64_
       v36 = 0x1000000;
     }
 
-    *&v144.var0 = v23;
-    *&v144.var2 = v27;
+    *&v160.var0 = v23;
+    *&v160.var2 = v27;
     *&v29.var0 = v30;
     *&v24 = v31;
-    v45 = hg_clip(v131, v144, v29, v24, v32, v134, v25, &v141, v33, v34, v36);
+    v45 = hg_clip(v147, v160, v29, v24, v32, v150, v25, &v157, v33, v34, v36);
   }
 
   v47 = v45;
@@ -6585,7 +6649,7 @@ uint64_t HGAnisotropicSampler::GetPageMetal(uint64_t a1, HGBitmap **a2, unint64_
   v53 = HIDWORD(a3);
   v54 = a4;
   v55 = HIDWORD(a4);
-  v56 = v141;
+  v56 = v157;
   v57 = a8;
   v51.n128_f64[0] = fmax((v48 - v47) * (1.0 / (1 << v56)) / a8, (SHIDWORD(v48) - SHIDWORD(v47)) * (1.0 / (1 << v56)) / a8);
   if (a4 - a3 == 1 && HIDWORD(a4) - HIDWORD(a3) == 1 && v51.n128_f64[0] > 1.0)
@@ -6617,26 +6681,26 @@ uint64_t HGAnisotropicSampler::GetPageMetal(uint64_t a1, HGBitmap **a2, unint64_
       v67 = 0x1000000;
     }
 
-    *&v146.var0 = a3;
-    *&v146.var2 = v54;
-    *&v150.var0 = v61;
-    *&v150.var2 = v60;
+    *&v162.var0 = a3;
+    *&v162.var2 = v54;
+    *&v166.var0 = v61;
+    *&v166.var2 = v60;
     v51.n128_f32[0] = v62;
-    v47 = hg_clip(v59, v146, v150, v51.n128_f64[0], v63, 1.0, v57, &v141, v64, v65, v67);
-    v48 = v81;
-    result = HGRectIsNull(v47, v81);
+    v47 = hg_clip(v59, v162, v166, v51.n128_f64[0], v63, 1.0, v57, &v157, v64, v65, v67);
+    v48 = v93;
+    result = HGRectIsNull(v47, v93);
     if (result)
     {
 LABEL_23:
-      *&v148.var0 = a3;
-      *&v148.var2 = a4;
-      return HGGPURenderer::ClearMetal(v18, a2[1], v148, v50);
+      *&v164.var0 = a3;
+      *&v164.var2 = a4;
+      return HGGPURenderer::ClearMetal(v18, a2[1], v164, v50);
     }
 
-    v127 = 0;
-    v56 = v142;
-    v141 = v142;
-    v134 = 1;
+    v143 = 0;
+    v56 = v158;
+    v157 = v158;
+    v150 = 1;
     goto LABEL_60;
   }
 
@@ -6644,31 +6708,31 @@ LABEL_23:
   {
     if (v51.n128_f64[0] > 1.0)
     {
-      v76 = a13 + 1;
+      v80 = a13 + 1;
       if (HIDWORD(a4) - HIDWORD(a3) <= (a4 - a3))
       {
-        v82 = HGRectMake4i(a3, HIDWORD(a3), (a3 + a4) >> 1, HIDWORD(a4));
-        HGAnisotropicSampler::GetPageMetal(a1, a2, v82, v83, a5, a6, a7, a8, v76);
-        v79 = HGRectMake4i((a3 + a4) >> 1, HIDWORD(a3), a4, HIDWORD(a4));
+        v94 = HGRectMake4i(a3, SHIDWORD(a3), (a3 + a4) >> 1, SHIDWORD(a4));
+        HGAnisotropicSampler::GetPageMetal(a1, a2, v94, v95, a5, a6, a7, a8, v96, v97, v98, v99, v80);
+        v87 = HGRectMake4i((a3 + a4) >> 1, SHIDWORD(a3), a4, SHIDWORD(a4));
       }
 
       else
       {
-        v77 = HGRectMake4i(a3, HIDWORD(a3), a4, (HIDWORD(a3) + HIDWORD(a4)) >> 1);
-        HGAnisotropicSampler::GetPageMetal(a1, a2, v77, v78, a5, a6, a7, a8, v76);
-        v79 = HGRectMake4i(a3, (HIDWORD(a3) + HIDWORD(a4)) >> 1, a4, HIDWORD(a4));
+        v81 = HGRectMake4i(a3, SHIDWORD(a3), a4, (HIDWORD(a3) + HIDWORD(a4)) >> 1);
+        HGAnisotropicSampler::GetPageMetal(a1, a2, v81, v82, a5, a6, a7, a8, v83, v84, v85, v86, v80);
+        v87 = HGRectMake4i(a3, (HIDWORD(a3) + HIDWORD(a4)) >> 1, a4, SHIDWORD(a4));
       }
 
-      return HGAnisotropicSampler::GetPageMetal(a1, a2, v79, v80, a5, a6, a7, a8, v76);
+      return HGAnisotropicSampler::GetPageMetal(a1, a2, v87, v88, a5, a6, a7, a8, v89, v90, v91, v92, v80);
     }
 
-    v127 = a7;
+    v143 = a7;
     if (a7 >= 1)
     {
-      result = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
-      v133 = result;
-      v56 = v141;
-      if (v141 > v142)
+      result = HGRectMake4i(-1, -1, 1, 1);
+      v149 = result;
+      v56 = v157;
+      if (v157 > v158)
       {
         return result;
       }
@@ -6676,237 +6740,237 @@ LABEL_23:
 LABEL_61:
       v52.f32[0] = v47;
       v52.f32[1] = SHIDWORD(v47);
-      v129 = v52;
+      v145 = v52;
       v51.n128_f32[0] = SHIDWORD(v48);
-      if (v127)
+      if (v143)
       {
-        v84 = 7;
+        v100 = 7;
       }
 
       else
       {
-        v84 = 8;
+        v100 = 8;
       }
 
       v52.f32[1] = SHIDWORD(v48);
       v52.f32[0] = v48;
-      v128 = v52;
-      v85 = a2 + 21;
-      v86 = v56;
-      v138 = v56;
-      v87 = (32 * v56) | 0x10;
-      v124 = v84;
-      v122 = (a2 + 28);
-      v123 = 32 * v84;
-      v88 = v134;
+      v144 = v52;
+      v101 = a2 + 21;
+      v102 = v56;
+      v154 = v56;
+      v103 = (32 * v56) | 0x10;
+      v140 = v100;
+      v138 = (a2 + 28);
+      v139 = 32 * v100;
+      v104 = v150;
       do
       {
-        v89 = 0;
-        v90 = 0x1FFFFFFFFFFFFFF0;
-        v125 = v87;
-        v135 = v86;
+        v105 = 0;
+        v106 = 0x1FFFFFFFFFFFFFF0;
+        v141 = v103;
+        v151 = v102;
         do
         {
-          v91 = *(a1 + 496);
-          if (v86 + v89 - v91 >= *(a1 + 500) || v86 + v89 > v142)
+          v107 = *(a1 + 496);
+          if (v102 + v105 - v107 >= *(a1 + 500) || v102 + v105 > v158)
           {
             break;
           }
 
-          v93 = (*(a1 + 504) - 32 * v91 + v87);
-          v94 = v93[-1];
-          v95 = vaddq_f32(vmulq_f32(v129, v94), *v93).u64[0];
-          v96 = vaddq_f32(vmulq_f32(v128, v94), *v93).u64[0];
-          v97 = HGRectIntegral(v93, *&v95, *(&v95 + 1), *&v96, *(&v96 + 1));
-          *(&v85[v90 - 1] + 4) = HGRectGrow(v97, v98, v133);
-          *(&v85[v90] + 4) = v99;
-          Input = HGRenderer::GetInput(v18, a1, v138 + v89 - *(a1 + 496));
-          NodeBitmap = HGGPURenderer::GetNodeBitmap(v18, Input, *(&v85[v90 - 1] + 4), 0, 1u);
-          v102 = HGGPURenderer::ConvertToNonGLTexture(v18, NodeBitmap);
-          v103 = HGObject::operator new(0x80uLL);
-          *&v147.var0 = *(v102 + 20);
-          *&v147.var2 = *(v102 + 28);
-          HGTexture::HGTexture(v103, v147, v102);
-          v85[v89] = v103;
-          (*(*v102 + 24))(v102);
+          v109 = (*(a1 + 504) - 32 * v107 + v103);
+          v110 = v109[-1];
+          v111 = vaddq_f32(vmulq_f32(v145, v110), *v109).u64[0];
+          v112 = vaddq_f32(vmulq_f32(v144, v110), *v109).u64[0];
+          v113 = HGRectIntegral(v109, *&v111, *(&v111 + 1), *&v112, *(&v112 + 1));
+          *(&v101[v106 - 1] + 4) = HGRectGrow(v113, v114, v149);
+          *(&v101[v106] + 4) = v115;
+          Input = HGRenderer::GetInput(v18, a1, v154 + v105 - *(a1 + 496));
+          NodeBitmap = HGGPURenderer::GetNodeBitmap(v18, Input, *(&v101[v106 - 1] + 4), 0, 1u);
+          v118 = HGGPURenderer::ConvertToNonGLTexture(v18, NodeBitmap);
+          v119 = HGObject::operator new(0x80uLL);
+          *&v163.var0 = *(v118 + 20);
+          *&v163.var2 = *(v118 + 28);
+          HGTexture::HGTexture(v119, v163, v118);
+          v101[v105] = v119;
+          (*(*v118 + 24))(v118);
           (*(*NodeBitmap + 24))(NodeBitmap);
-          ++v89;
-          v87 += 32;
-          v90 += 2;
-          v86 = v135;
+          ++v105;
+          v103 += 32;
+          v106 += 2;
+          v102 = v151;
         }
 
-        while (v89 != 8);
+        while (v105 != 8);
         result = (*(**a2 + 368))(*a2, *(a1 + 64), a1, v51);
-        v104 = v135;
+        v120 = v151;
         if (result)
         {
           if (result)
           {
-            v105 = result;
-            v106 = (*(*a1 + 48))(a1);
-            v107 = strlen(v106);
-            if (v107 >= 0x7FFFFFFFFFFFFFF8)
+            v121 = result;
+            v122 = (*(*a1 + 48))(a1);
+            v123 = strlen(v122);
+            if (v123 >= 0x7FFFFFFFFFFFFFF8)
             {
               std::string::__throw_length_error[abi:ne200100]();
             }
 
-            v108 = v107;
-            if (v107 >= 0x17)
+            v124 = v123;
+            if (v123 >= 0x17)
             {
               operator new();
             }
 
-            *(&__dst.__r_.__value_.__s + 23) = v107;
-            if (v107)
+            *(&__dst.__r_.__value_.__s + 23) = v123;
+            if (v123)
             {
-              memmove(&__dst, v106, v107);
+              memmove(&__dst, v122, v123);
             }
 
-            __dst.__r_.__value_.__s.__data_[v108] = 0;
-            HGMetalHandler::SetDebugLabel(v105, &__dst);
+            __dst.__r_.__value_.__s.__data_[v124] = 0;
+            HGMetalHandler::SetDebugLabel(v121, &__dst);
             if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__dst.__r_.__value_.__l.__data_);
             }
 
-            HGMetalHandler::BindBuffer(v105, a2[1]);
-            v109 = 0;
-            if (v135 - *(a1 + 496) < *(a1 + 500) && v135 <= v142 && (HGMetalHandler::BindTexture(v105, 0, *v85), v109 = 1, v135 - *(a1 + 496) + 1 < *(a1 + 500)) && v135 < v142 && (HGMetalHandler::BindTexture(v105, 1, a2[22]), v109 = 2, v135 - *(a1 + 496) + 2 < *(a1 + 500)) && v135 + 2 <= v142 && (HGMetalHandler::BindTexture(v105, 2, a2[23]), v109 = 3, v135 - *(a1 + 496) + 3 < *(a1 + 500)) && v135 + 3 <= v142 && (HGMetalHandler::BindTexture(v105, 3, a2[24]), v109 = 4, v135 - *(a1 + 496) + 4 < *(a1 + 500)) && v135 + 4 <= v142 && (HGMetalHandler::BindTexture(v105, 4, a2[25]), v109 = 5, v135 - *(a1 + 496) + 5 < *(a1 + 500)) && v135 + 5 <= v142 && (HGMetalHandler::BindTexture(v105, 5, a2[26]), v109 = 6, v135 - *(a1 + 496) + 6 < *(a1 + 500)) && v135 + 6 <= v142 && (HGMetalHandler::BindTexture(v105, 6, a2[27]), v109 = 7, v135 - *(a1 + 496) + 7 < *(a1 + 500)) && (v110 = a2 + 28, v135 + 7 <= v142) || (v111 = &v85[v109], v112 = *(v111 - 1), v110 = v111 - 1, v113 = HGMetalHandler::BindTexture(v105, v109, v112), v109 != 7) && (v113 = HGMetalHandler::BindTexture(v105, v109 + 1, *v110), v109 != 6) && (v113 = HGMetalHandler::BindTexture(v105, v109 + 2, *v110), v109 != 5) && (v113 = HGMetalHandler::BindTexture(v105, v109 + 3, *v110), v109 != 4) && (v113 = HGMetalHandler::BindTexture(v105, v109 + 4, *v110), v109 != 3) && (v113 = HGMetalHandler::BindTexture(v105, v109 + 5, *v110), v109 != 2) && (v113 = HGMetalHandler::BindTexture(v105, v109 + 6, *v110), v109 += 7, v109 != 8))
+            HGMetalHandler::BindBuffer(v121, a2[1]);
+            v125 = 0;
+            if (v151 - *(a1 + 496) < *(a1 + 500) && v151 <= v158 && (HGMetalHandler::BindTexture(v121, 0, *v101), v125 = 1, v151 - *(a1 + 496) + 1 < *(a1 + 500)) && v151 < v158 && (HGMetalHandler::BindTexture(v121, 1, a2[22]), v125 = 2, v151 - *(a1 + 496) + 2 < *(a1 + 500)) && v151 + 2 <= v158 && (HGMetalHandler::BindTexture(v121, 2, a2[23]), v125 = 3, v151 - *(a1 + 496) + 3 < *(a1 + 500)) && v151 + 3 <= v158 && (HGMetalHandler::BindTexture(v121, 3, a2[24]), v125 = 4, v151 - *(a1 + 496) + 4 < *(a1 + 500)) && v151 + 4 <= v158 && (HGMetalHandler::BindTexture(v121, 4, a2[25]), v125 = 5, v151 - *(a1 + 496) + 5 < *(a1 + 500)) && v151 + 5 <= v158 && (HGMetalHandler::BindTexture(v121, 5, a2[26]), v125 = 6, v151 - *(a1 + 496) + 6 < *(a1 + 500)) && v151 + 6 <= v158 && (HGMetalHandler::BindTexture(v121, 6, a2[27]), v125 = 7, v151 - *(a1 + 496) + 7 < *(a1 + 500)) && (v126 = a2 + 28, v151 + 7 <= v158) || (v127 = &v101[v125], v128 = *(v127 - 1), v126 = v127 - 1, v129 = HGMetalHandler::BindTexture(v121, v125, v128), v125 != 7) && (v129 = HGMetalHandler::BindTexture(v121, v125 + 1, *v126), v125 != 6) && (v129 = HGMetalHandler::BindTexture(v121, v125 + 2, *v126), v125 != 5) && (v129 = HGMetalHandler::BindTexture(v121, v125 + 3, *v126), v125 != 4) && (v129 = HGMetalHandler::BindTexture(v121, v125 + 4, *v126), v125 != 3) && (v129 = HGMetalHandler::BindTexture(v121, v125 + 5, *v126), v125 != 2) && (v129 = HGMetalHandler::BindTexture(v121, v125 + 6, *v126), v125 += 7, v125 != 8))
             {
-              v113 = HGMetalHandler::BindTexture(v105, v109, *v110);
+              v129 = HGMetalHandler::BindTexture(v121, v125, *v126);
             }
 
-            (*(v105->__r_.__value_.__r.__words[0] + 32))(v105, 3553, 0, 0, 0, 0, 0, 0, v113, 0);
-            v114 = 0;
-            v115 = v125;
-            v116 = v135;
+            (*(v121->__r_.__value_.__r.__words[0] + 32))(v121, 3553, 0, 0, 0, 0, 0, 0, v129, 0);
+            v130 = 0;
+            v131 = v141;
+            v132 = v151;
             do
             {
-              if (v138 + v114 - *(a1 + 496) >= *(a1 + 500) || v116 + v114 > v142)
+              if (v154 + v130 - *(a1 + 496) >= *(a1 + 500) || v132 + v130 > v158)
               {
                 break;
               }
 
-              if (v85[v114])
+              if (v101[v130])
               {
-                (*(*a1 + 208))(a1, v105, v114);
-                (*(v105->__r_.__value_.__r.__words[0] + 72))(v105, v114, 0);
-                (*(v105->__r_.__value_.__r.__words[0] + 48))(v105, v127, v127);
-                v118 = (*(a1 + 504) - 32 * *(a1 + 496) + v115);
-                (*(v105->__r_.__value_.__r.__words[0] + 136))(v105, v114, v118[-1], COERCE_FLOAT(HIDWORD(v118[-1].n128_u64[0])), COERCE_FLOAT(*v118) - *(v85[v114] + 5), COERCE_FLOAT(HIDWORD(v118->n128_u64[0])) - *(v85[v114] + 6));
-                v116 = v135;
+                (*(*a1 + 208))(a1, v121, v130);
+                (*(v121->__r_.__value_.__r.__words[0] + 72))(v121, v130, 0);
+                (*(v121->__r_.__value_.__r.__words[0] + 48))(v121, v143, v143);
+                v134 = (*(a1 + 504) - 32 * *(a1 + 496) + v131);
+                (*(v121->__r_.__value_.__r.__words[0] + 136))(v121, v130, v134[-1], COERCE_FLOAT(HIDWORD(v134[-1].n128_u64[0])), COERCE_FLOAT(*v134) - *(v101[v130] + 5), COERCE_FLOAT(HIDWORD(v134->n128_u64[0])) - *(v101[v130] + 6));
+                v132 = v151;
               }
 
-              ++v114;
-              v115 += 32;
+              ++v130;
+              v131 += 32;
             }
 
-            while (v114 != 8);
-            (*(v105->__r_.__value_.__r.__words[0] + 24))(v105, 0, 0, 0, 0, 0, 0);
-            (*(*a1 + 200))(a1, v105);
-            (*(v105->__r_.__value_.__r.__words[0] + 136))(v105, 8, v141, v142, v135, (v135 + 7));
-            (*(v105->__r_.__value_.__r.__words[0] + 136))(v105, 9, *(*(a1 + 480) + 424), 0.000001, *(*(a1 + 480) + 424), v88);
-            (*(v105->__r_.__value_.__r.__words[0] + 40))(v105);
-            (*(v105->__r_.__value_.__r.__words[0] + 192))(v105, a3, a4, 1);
-            result = (*(*v18 + 392))(v18, v105);
-            v119 = *(a1 + 496);
-            v104 = v135;
-            v120 = *(a1 + 500);
-            if (v135 - v119 < v120)
+            while (v130 != 8);
+            (*(v121->__r_.__value_.__r.__words[0] + 24))(v121, 0, 0, 0, 0, 0, 0);
+            (*(*a1 + 200))(a1, v121);
+            (*(v121->__r_.__value_.__r.__words[0] + 136))(v121, 8, v157, v158, v151, (v151 + 7));
+            (*(v121->__r_.__value_.__r.__words[0] + 136))(v121, 9, *(*(a1 + 480) + 424), 0.000001, *(*(a1 + 480) + 424), v104);
+            (*(v121->__r_.__value_.__r.__words[0] + 40))(v121);
+            (*(v121->__r_.__value_.__r.__words[0] + 192))(v121, a3, a4, 1);
+            result = (*(*v18 + 392))(v18, v121);
+            v135 = *(a1 + 496);
+            v120 = v151;
+            v136 = *(a1 + 500);
+            if (v151 - v135 < v136)
             {
-              v121 = v142;
-              if (v135 <= v142)
+              v137 = v158;
+              if (v151 <= v158)
               {
-                result = *v85;
-                if (*v85)
+                result = *v101;
+                if (*v101)
                 {
                   result = (*(*result + 24))(result);
-                  v119 = *(a1 + 496);
-                  v120 = *(a1 + 500);
-                  v121 = v142;
-                  v104 = v135;
+                  v135 = *(a1 + 496);
+                  v136 = *(a1 + 500);
+                  v137 = v158;
+                  v120 = v151;
                 }
 
-                if (v104 - v119 + 1 < v120 && v104 < v121)
+                if (v120 - v135 + 1 < v136 && v120 < v137)
                 {
                   result = a2[22];
                   if (result)
                   {
                     result = (*(*result + 24))(result);
-                    v119 = *(a1 + 496);
-                    v120 = *(a1 + 500);
-                    v121 = v142;
-                    v104 = v135;
+                    v135 = *(a1 + 496);
+                    v136 = *(a1 + 500);
+                    v137 = v158;
+                    v120 = v151;
                   }
 
-                  if (v104 - v119 + 2 < v120 && v104 + 2 <= v121)
+                  if (v120 - v135 + 2 < v136 && v120 + 2 <= v137)
                   {
                     result = a2[23];
                     if (result)
                     {
                       result = (*(*result + 24))(result);
-                      v119 = *(a1 + 496);
-                      v120 = *(a1 + 500);
-                      v121 = v142;
-                      v104 = v135;
+                      v135 = *(a1 + 496);
+                      v136 = *(a1 + 500);
+                      v137 = v158;
+                      v120 = v151;
                     }
 
-                    if (v104 - v119 + 3 < v120 && v104 + 3 <= v121)
+                    if (v120 - v135 + 3 < v136 && v120 + 3 <= v137)
                     {
                       result = a2[24];
                       if (result)
                       {
                         result = (*(*result + 24))(result);
-                        v119 = *(a1 + 496);
-                        v120 = *(a1 + 500);
-                        v121 = v142;
-                        v104 = v135;
+                        v135 = *(a1 + 496);
+                        v136 = *(a1 + 500);
+                        v137 = v158;
+                        v120 = v151;
                       }
 
-                      if (v104 - v119 + 4 < v120 && v104 + 4 <= v121)
+                      if (v120 - v135 + 4 < v136 && v120 + 4 <= v137)
                       {
                         result = a2[25];
                         if (result)
                         {
                           result = (*(*result + 24))(result);
-                          v119 = *(a1 + 496);
-                          v120 = *(a1 + 500);
-                          v121 = v142;
-                          v104 = v135;
+                          v135 = *(a1 + 496);
+                          v136 = *(a1 + 500);
+                          v137 = v158;
+                          v120 = v151;
                         }
 
-                        if (v104 - v119 + 5 < v120 && v104 + 5 <= v121)
+                        if (v120 - v135 + 5 < v136 && v120 + 5 <= v137)
                         {
                           result = a2[26];
                           if (result)
                           {
                             result = (*(*result + 24))(result);
-                            v119 = *(a1 + 496);
-                            v120 = *(a1 + 500);
-                            v121 = v142;
-                            v104 = v135;
+                            v135 = *(a1 + 496);
+                            v136 = *(a1 + 500);
+                            v137 = v158;
+                            v120 = v151;
                           }
 
-                          if (v104 - v119 + 6 < v120 && v104 + 6 <= v121)
+                          if (v120 - v135 + 6 < v136 && v120 + 6 <= v137)
                           {
                             result = a2[27];
                             if (result)
                             {
                               result = (*(*result + 24))(result);
-                              v119 = *(a1 + 496);
-                              v120 = *(a1 + 500);
-                              v121 = v142;
-                              v104 = v135;
+                              v135 = *(a1 + 496);
+                              v136 = *(a1 + 500);
+                              v137 = v158;
+                              v120 = v151;
                             }
 
-                            if (v104 - v119 + 7 < v120 && v135 + 7 <= v121)
+                            if (v120 - v135 + 7 < v136 && v151 + 7 <= v137)
                             {
-                              result = *v122;
-                              if (*v122)
+                              result = *v138;
+                              if (*v138)
                               {
                                 result = (*(*result + 24))(result);
-                                v104 = v135;
+                                v120 = v151;
                               }
                             }
                           }
@@ -6920,18 +6984,18 @@ LABEL_61:
           }
         }
 
-        v86 = v104 + v124;
-        v138 += v124;
-        v87 = v125 + v123;
+        v102 = v120 + v140;
+        v154 += v140;
+        v103 = v141 + v139;
       }
 
-      while (v86 <= v142);
+      while (v102 <= v158);
       return result;
     }
 
 LABEL_60:
-    v133 = 0;
-    if (v56 > v142)
+    v149 = 0;
+    if (v56 > v158)
     {
       return result;
     }
@@ -6971,7 +7035,7 @@ LABEL_60:
         }
 
         v74 = HGRectMake4i(result, v53, v73, v70);
-        HGAnisotropicSampler::GetPageMetal(a1, a2, v74, v75, a5, a6, a7, a8, a13 + 1);
+        HGAnisotropicSampler::GetPageMetal(a1, a2, v74, v75, a5, a6, a7, a8, v76, v77, v78, v79, a13 + 1);
         result = v72;
         v71 = a4;
       }
@@ -7029,9 +7093,9 @@ void HGAnisotropicSampler::GetTile(uint64_t a1, uint64_t a2, unint64_t a3, unint
   v16 = *(a1 + 480);
   v17 = *(v16 + 436);
   v669 = *(a2 + 336);
-  v18 = *(v669 + 19);
+  v18 = v669[19];
   v649 = *(v16 + 448);
-  v19 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+  v19 = HGRectMake4i(-1, -1, 1, 1);
   v656 = a3;
   v21 = HGRectGrow(a3, a4, v19);
   v24 = v20;
@@ -7089,7 +7153,7 @@ void HGAnisotropicSampler::GetTile(uint64_t a1, uint64_t a2, unint64_t a3, unint
     v40 = v649;
   }
 
-  *v640 = a4;
+  v640 = a4;
   v41 = (a4 - v656);
   *&v677.var0 = v21;
   *&v677.var2 = v24;
@@ -7124,7 +7188,7 @@ void HGAnisotropicSampler::GetTile(uint64_t a1, uint64_t a2, unint64_t a3, unint
       }
 
       *&v678.var0 = v656;
-      *&v678.var2 = *v640;
+      *&v678.var2 = v640;
       *&v679.var0 = v54;
       *&v679.var2 = v53;
       *&v50 = v27;
@@ -7156,10 +7220,10 @@ void HGAnisotropicSampler::GetTile(uint64_t a1, uint64_t a2, unint64_t a3, unint
         v675 = 0;
         v673 = 0u;
         v674 = 0u;
-        HGExecutionUnit::GetStackState(v669, &v673);
-        if (v636 > v633 && v640[0] > v656)
+        HGExecutionUnit::GetStackState(&v673, v669);
+        if (v636 > v633 && v640 > v656)
         {
-          v60 = rint(fmax(sqrt((v640[0] - v656) * (v636 - v633) / v49), 1.0));
+          v60 = rint(fmax(sqrt((v640 - v656) * (v636 - v633) / v49), 1.0));
           v616 = v656;
           v61 = v656 >> 32;
           do
@@ -7184,9 +7248,9 @@ void HGAnisotropicSampler::GetTile(uint64_t a1, uint64_t a2, unint64_t a3, unint
             do
             {
               v66 = v65 + v60;
-              if (v60 + v65 >= v640[0])
+              if (v60 + v65 >= v640)
               {
-                v67 = v640[0];
+                v67 = v640;
               }
 
               else
@@ -7204,12 +7268,12 @@ void HGAnisotropicSampler::GetTile(uint64_t a1, uint64_t a2, unint64_t a3, unint
               v65 = v66;
             }
 
-            while (v66 < v640[0]);
+            while (v66 < v640);
             a5 = &v634[v60 * a6];
             v61 = v631;
           }
 
-          while (v631 < *v640 >> 32);
+          while (v631 < v640 >> 32);
         }
 
         return;
@@ -7219,12 +7283,12 @@ void HGAnisotropicSampler::GetTile(uint64_t a1, uint64_t a2, unint64_t a3, unint
       {
         if (v15 <= v41)
         {
-          v88 = (v656 + v640[0]) >> 1;
+          v88 = (v656 + v640) >> 1;
           v675 = 0;
           v673 = 0u;
           v674 = 0u;
           v71 = v669;
-          HGExecutionUnit::GetStackState(v669, &v673);
+          HGExecutionUnit::GetStackState(&v673, v669);
           v89 = HGRectMake4i(v656, v633, v88, v636);
           v73 = a6;
           v74 = a8;
@@ -7233,7 +7297,7 @@ void HGAnisotropicSampler::GetTile(uint64_t a1, uint64_t a2, unint64_t a3, unint
           v671 = v674;
           v672 = v675;
           HGExecutionUnit::SetStackState(v669, &v670);
-          v76 = HGRectMake4i(v88, v633, v640[0], v636);
+          v76 = HGRectMake4i(v88, v633, v640, v636);
           v78 = v91;
           v79 = v88 - v656;
         }
@@ -7245,8 +7309,8 @@ void HGAnisotropicSampler::GetTile(uint64_t a1, uint64_t a2, unint64_t a3, unint
           v673 = 0u;
           v674 = 0u;
           v71 = v669;
-          HGExecutionUnit::GetStackState(v669, &v673);
-          v72 = HGRectMake4i(v656, v633, v640[0], v70);
+          HGExecutionUnit::GetStackState(&v673, v669);
+          v72 = HGRectMake4i(v656, v633, v640, v70);
           v73 = a6;
           v74 = a8;
           HGAnisotropicSampler::GetTile(a1, v13, v72, v75, a5, a6, a7, a8, a9 + 1);
@@ -7254,7 +7318,7 @@ void HGAnisotropicSampler::GetTile(uint64_t a1, uint64_t a2, unint64_t a3, unint
           v671 = v674;
           v672 = v675;
           HGExecutionUnit::SetStackState(v669, &v670);
-          v76 = HGRectMake4i(v656, v70, v640[0], v636);
+          v76 = HGRectMake4i(v656, v70, v640, v636);
           v78 = v77;
           v79 = (v70 - v633) * a6;
         }
@@ -7276,7 +7340,7 @@ void HGAnisotropicSampler::GetTile(uint64_t a1, uint64_t a2, unint64_t a3, unint
       if (a7 >= 1)
       {
         v658 = v80;
-        v82 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+        v82 = HGRectMake4i(-1, -1, 1, 1);
         v80 = v658;
         v641 = v82;
         v83 = 0;
@@ -8289,10 +8353,10 @@ LABEL_110:
                       v550 = vaddq_f32(v549, vmulq_lane_f32(vsubq_f32(vaddq_f32(v548[v545], vmulq_n_f32(vsubq_f32(v548[v545 + 1], v548[v545]), v546.f32[0])), v549), *v546.f32, 1));
                       v552 = *v523;
                       v551 = *(v523 + 16);
-                      v553 = (v591 + 16 * v527);
+                      v553 = v591 + 16 * v527;
                       v554 = *(&v673 + v527);
                       v555 = *v553;
-                      v556 = *(v553 + 2);
+                      v556 = *(v553 + 8);
                       v557 = vsubq_f32(vaddq_f32(v551, vmulq_f32(v482, *v523)), v554);
                       v558 = vaddq_s32(vcvtq_s32_f32(v557), vcltzq_f32(v557));
                       v557.i64[0] = vsubq_f32(v557, vcvtq_f32_s32(v558)).u64[0];
@@ -8456,7 +8520,7 @@ LABEL_175:
     do
     {
 LABEL_13:
-      bzero(a5, 16 * (v640[0] + ~v656) + 16);
+      bzero(a5, 16 * (v640 + ~v656) + 16);
       a5 += a6;
       --v15;
     }
@@ -8825,12 +8889,12 @@ uint64_t HGApply1DLUT::Init(HGApply1DLUT *this, int a2, float a3, float a4, char
     *(this + 51) = 0;
   }
 
-  v14 = HGRectMake4i(0, 0, *(this + 111) + 1, 1u);
+  v14 = HGRectMake4i(0, 0, *(this + 111) + 1, 1);
   *(this + 53) = v14;
   *(this + 54) = v15;
   if ((v15 - v14) >= 0x801)
   {
-    *(this + 53) = HGRectMake4i(0, 0, 0x800u, ((v15 - v14) >> 11) + 1);
+    *(this + 53) = HGRectMake4i(0, 0, 2048, ((v15 - v14) >> 11) + 1);
     *(this + 54) = v16;
   }
 
@@ -8945,7 +9009,7 @@ uint64_t HGApply1DLUT::CreateBitmap(int32x2_t *this)
   v6 = HGObject::operator new(0x20uLL);
   HGMemory::StorageObject::StorageObject(v6, v5);
   v7 = HGObject::operator new(0x80uLL);
-  HGBitmap::HGBitmap(v7, *&this[53], *&this[54], v3, *(v6 + 2));
+  HGBitmap::HGBitmap(v7, *&this[53], *&this[54], v3, v6[2]);
   this[52] = v7;
   HGBitmap::SetStorage(v7, v6);
   v8 = *(*v6 + 24);
@@ -9333,7 +9397,7 @@ uint64_t HgcApply1DLUT::GetROI(HgcApply1DLUT *this, HGRenderer *a2, int a3, HGRe
   {
     v8 = *(this + 58);
     v9 = *(this + 59);
-    v10 = HGRectMake4i(0, 0, 1u, 0);
+    v10 = HGRectMake4i(0, 0, 1, 0);
     v7 = HGRectGrow(v8, v9, v10);
   }
 
@@ -9398,7 +9462,7 @@ void HGApply3DLUT::Init(uint64_t a1, int a2, unsigned int a3, char a4, int a5, c
   *(a1 + 472) = a2;
   *(a1 + 432) = HGRectMake4i(0, 0, a2 * a2 + 1, a2 + 1);
   *(a1 + 440) = v22;
-  *(a1 + 448) = HGRectMake4i(0, 0, *(a1 + 472), 1u);
+  *(a1 + 448) = HGRectMake4i(0, 0, *(a1 + 472), 1);
   *(a1 + 456) = v23;
   if (*(a1 + 516))
   {

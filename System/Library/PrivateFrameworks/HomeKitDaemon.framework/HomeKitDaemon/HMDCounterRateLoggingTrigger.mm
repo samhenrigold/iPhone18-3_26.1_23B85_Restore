@@ -9,7 +9,7 @@
 
 - (void)logRateTrigger:(id)trigger triggerValue:(unint64_t)value
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -19,14 +19,14 @@
     v10 = HMFGetLogIdentifier();
     counterName = [(HMDCounterRateLoggingTrigger *)selfCopy counterName];
     *buf = 138544386;
-    v22 = v10;
-    v23 = 2114;
-    v24 = triggerCopy;
-    v25 = 2114;
-    v26 = counterName;
-    v27 = 2048;
+    v21 = v10;
+    v22 = 2114;
+    v23 = triggerCopy;
+    v24 = 2114;
+    v25 = counterName;
+    v26 = 2048;
     valueCopy = value;
-    v29 = 2048;
+    v28 = 2048;
     windowSize = [(HMDCounterRateLoggingTrigger *)selfCopy windowSize];
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@EWS rate trigger: trigger=%{public}@, counter=%{public}@, value=%lu, windowSize=%lu", buf, 0x34u);
   }
@@ -35,17 +35,15 @@
   ewsLogger = [(HMDCounterRateLoggingTrigger *)selfCopy ewsLogger];
   uploadImmediately = [(HMDCounterRateLoggingTrigger *)selfCopy uploadImmediately];
   counterName2 = [(HMDCounterRateLoggingTrigger *)selfCopy counterName];
-  v20[0] = counterName2;
-  v19[1] = @"value";
+  v19[0] = counterName2;
+  v18[1] = @"value";
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:value];
-  v20[1] = v15;
-  v19[2] = @"windowSize";
+  v19[1] = v15;
+  v18[2] = @"windowSize";
   v16 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDCounterRateLoggingTrigger windowSize](selfCopy, "windowSize")}];
-  v20[2] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
+  v19[2] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
   [ewsLogger submitEventWithName:triggerCopy serviceName:@"Counter Trigger" uploadImmediately:uploadImmediately payload:v17];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatedCounter:(id)counter fromOldValue:(int64_t)value toNewValue:(int64_t)newValue

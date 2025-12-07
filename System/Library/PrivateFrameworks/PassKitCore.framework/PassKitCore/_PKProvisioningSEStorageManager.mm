@@ -75,12 +75,12 @@
     v7 = 0;
   }
 
-  sub_1AD3C5F14(v5);
+  sub_1AD3C5F14(v5, v7);
   selfCopy = self;
   sub_1AD486660(selfCopy, v5, v7, v6);
-  sub_1AD3C5FB8(v5);
+  sub_1AD3C5FB8(v5, v7);
 
-  sub_1AD3C5FB8(v5);
+  sub_1AD3C5FB8(v5, v7);
 }
 
 - (void)currentSnapshotWithCompletion:(id)completion

@@ -84,28 +84,28 @@
 
 - (id)footerStringForSpecifiers:(id)specifiers
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   specifiersCopy = specifiers;
-  v5 = [specifiersCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v5 = [specifiersCopy countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v5)
   {
     v6 = v5;
     selfCopy = self;
-    v7 = *v27;
+    v7 = *v26;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v27 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(specifiersCopy);
         }
 
-        v9 = *(*(&v26 + 1) + 8 * i);
+        v9 = *(*(&v25 + 1) + 8 * i);
         values = [v9 values];
         firstObject = [values firstObject];
         v12 = [firstObject isEqual:&unk_28772B288];
@@ -138,7 +138,7 @@
         }
       }
 
-      v6 = [specifiersCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v6 = [specifiersCopy countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v6)
       {
         continue;
@@ -151,8 +151,6 @@
   v16 = 0;
   v17 = specifiersCopy;
 LABEL_15:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

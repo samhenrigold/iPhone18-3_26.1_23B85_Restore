@@ -1,6 +1,6 @@
-void sub_240EB550C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, dispatch_group_t group, uint64_t a13, uint64_t a14, char a15)
+void sub_240EB550C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, dispatch_group_t group, uint64_t a15, uint64_t a16, char a17)
 {
-  std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](&a15);
+  std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](&a17);
   std::unique_ptr<abb::router::Gateway::regClientIndications(dispatch::group_session,unsigned int,std::set<unsigned int>,std::set<unsigned int>)::$_0,std::default_delete<abb::router::Gateway::regClientIndications(dispatch::group_session,unsigned int,std::set<unsigned int>,std::set<unsigned int>)::$_0>>::~unique_ptr[abi:ne200100](&a11);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](&a10);
   _Unwind_Resume(a1);
@@ -33,16 +33,16 @@ void *std::unique_ptr<abb::router::Gateway::regClientIndications(dispatch::group
   return result;
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::sendMessage(abb::router::Message)::$_0>(abb::router::Gateway::sendMessage(abb::router::Message)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::sendMessage(abb::router::Message)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::sendMessage(abb::router::Message)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::sendMessage(abb::router::Message)::$_0>(abb::router::Gateway::sendMessage(abb::router::Message)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::sendMessage(abb::router::Message)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::sendMessage(abb::router::Message)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
   v2 = *a1;
   v3 = **a1;
-  abb::router::Message::Message(v5, *a1 + 8);
+  abb::router::Message::Message(v5, (*a1 + 1));
   abb::router::Gateway::sendMessage_sync(v3, v5);
   abb::router::Message::~Message(v5);
   abb::router::Message::~Message((v2 + 1));
   operator delete(v2);
-  v4 = *(a1 + 2);
+  v4 = a1[2];
   if (v4 && !atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v4->__on_zero_shared)(v4);
@@ -52,25 +52,25 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
   operator delete(a1);
 }
 
-void sub_240EB5698(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EB5698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   va_copy(va2, va1);
-  v5 = va_arg(va2, void);
+  v6 = va_arg(va2, void);
   abb::router::Message::~Message(va2);
   std::unique_ptr<abb::router::Agent::handleConfirmation(abb::router::Message)::$_0,std::default_delete<abb::router::Agent::handleConfirmation(abb::router::Message)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_240EB56BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EB56BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   std::unique_ptr<abb::router::Agent::handleConfirmation(abb::router::Message)::$_0,std::default_delete<abb::router::Agent::handleConfirmation(abb::router::Message)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -78,9 +78,9 @@ void sub_240EB56BC(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::messageTimeout(abb::router::Message)::$_0>(abb::router::Gateway::messageTimeout(abb::router::Message)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::messageTimeout(abb::router::Message)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::messageTimeout(abb::router::Message)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v1 = *a1;
-  v19 = *a1;
+  v18 = *a1;
   v2 = **a1;
   v3 = *(v2 + 40);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -97,28 +97,28 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
     _os_log_impl(&dword_240E91000, v3, OS_LOG_TYPE_DEFAULT, "#I Reporting message timeout; %s", buf, 0xCu);
   }
 
-  v31 = 0xAAAAAAAAAAAAAAAALL;
+  v30 = 0xAAAAAAAAAAAAAAAALL;
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v30[7] = v5;
-  v30[8] = v5;
-  v30[5] = v5;
-  v30[6] = v5;
-  v30[3] = v5;
-  v30[4] = v5;
-  v30[1] = v5;
-  v30[2] = v5;
-  v29 = v5;
-  v30[0] = v5;
+  v29[7] = v5;
+  v29[8] = v5;
+  v29[5] = v5;
+  v29[6] = v5;
+  v29[3] = v5;
+  v29[4] = v5;
+  v29[1] = v5;
+  v29[2] = v5;
   v28 = v5;
-  v26 = v5;
-  *__p = v5;
-  v24 = v5;
+  v29[0] = v5;
+  v27 = v5;
   v25 = v5;
-  *buf = v5;
+  *__p = v5;
   v23 = v5;
+  v24 = v5;
+  *buf = v5;
+  v22 = v5;
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](buf);
-  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, "TIMEOUT for message ", 20);
+  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v22, "TIMEOUT for message ", 20);
   abb::router::Message::generatePrintString((v1 + 1));
   v7 = *(v1 + 143);
   if (v7 < 0)
@@ -133,18 +133,18 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, v8, v7);
-  if ((BYTE8(v29) & 0x10) != 0)
+  if ((BYTE8(v28) & 0x10) != 0)
   {
-    v11 = v29;
-    if (v29 < *(&v26 + 1))
+    v11 = v28;
+    if (v28 < *(&v25 + 1))
     {
-      *&v29 = *(&v26 + 1);
-      v11 = *(&v26 + 1);
+      *&v28 = *(&v25 + 1);
+      v11 = *(&v25 + 1);
     }
 
-    v12 = v26;
-    v9 = v11 - v26;
-    if ((v11 - v26) >= 0x7FFFFFFFFFFFFFF8)
+    v12 = v25;
+    v9 = v11 - v25;
+    if ((v11 - v25) >= 0x7FFFFFFFFFFFFFF8)
     {
       goto LABEL_35;
     }
@@ -152,17 +152,17 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
 
   else
   {
-    if ((BYTE8(v29) & 8) == 0)
+    if ((BYTE8(v28) & 8) == 0)
     {
       v9 = 0;
-      HIBYTE(v21) = 0;
+      HIBYTE(v20) = 0;
       v10 = __dst;
       goto LABEL_22;
     }
 
-    v12 = *(&v24 + 1);
-    v9 = *(&v25 + 1) - *(&v24 + 1);
-    if (*(&v25 + 1) - *(&v24 + 1) >= 0x7FFFFFFFFFFFFFF8uLL)
+    v12 = *(&v23 + 1);
+    v9 = *(&v24 + 1) - *(&v23 + 1);
+    if (*(&v24 + 1) - *(&v23 + 1) >= 0x7FFFFFFFFFFFFFF8uLL)
     {
 LABEL_35:
       std::string::__throw_length_error[abi:ne200100]();
@@ -183,12 +183,12 @@ LABEL_35:
 
     v10 = operator new(v13);
     __dst[1] = v9;
-    v21 = v13 | 0x8000000000000000;
+    v20 = v13 | 0x8000000000000000;
     __dst[0] = v10;
     goto LABEL_21;
   }
 
-  HIBYTE(v21) = v9;
+  HIBYTE(v20) = v9;
   v10 = __dst;
   if (v9)
   {
@@ -199,7 +199,7 @@ LABEL_21:
 LABEL_22:
   *(v10 + v9) = 0;
   abb::router::Gateway::reportError_sync(v2, 1, __dst);
-  if (SHIBYTE(v21) < 0)
+  if (SHIBYTE(v20) < 0)
   {
     operator delete(__dst[0]);
   }
@@ -207,38 +207,39 @@ LABEL_22:
   *buf = *MEMORY[0x277D82818];
   v14 = *(MEMORY[0x277D82818] + 72);
   *&buf[*(*buf - 24)] = *(MEMORY[0x277D82818] + 64);
-  *&v23 = v14;
-  *(&v23 + 1) = MEMORY[0x277D82878] + 16;
-  if (SHIBYTE(v28) < 0)
+  *&v22 = v14;
+  *(&v22 + 1) = MEMORY[0x277D82878] + 16;
+  if (SHIBYTE(v27) < 0)
   {
     operator delete(__p[1]);
   }
 
-  *(&v23 + 1) = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(&v24);
+  *(&v22 + 1) = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(&v23);
   std::iostream::~basic_iostream();
-  std::ios_base::~ios_base(v30);
-  if (v19)
+  std::ios_base::~ios_base(v29);
+  if (v18)
   {
-    abb::router::Message::~Message((v19 + 1));
-    operator delete(v19);
+    abb::router::Message::~Message((v18 + 1));
+    operator delete(v18);
   }
 
   v15 = a1;
   if (a1)
   {
     v16 = *(a1 + 16);
-    if (v16 && !atomic_fetch_add(&v16->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v16)
     {
-      (v16->__on_zero_shared)(v16);
-      std::__shared_weak_count::__release_weak(v16);
-      v15 = a1;
+      if (!atomic_fetch_add(&v16->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v16->__on_zero_shared)(v16);
+        std::__shared_weak_count::__release_weak(v16);
+        v15 = a1;
+      }
     }
 
     operator delete(v15);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EB5AB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34)
@@ -422,10 +423,10 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   MEMORY[0x245CD2960](v14, a1);
   if (LOBYTE(v14[0]) == 1)
   {
-    v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v6 = (a1 + *(*a1 - 24));
+    rdbuf = v6->__rdbuf_;
+    fmtflags = v6->__fmtflags_;
+    v9 = v6[1].__fmtflags_;
     if (v9 == -1)
     {
       v10 = (a1 + *(*a1 - 24));
@@ -437,7 +438,7 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
       v10[1].__fmtflags_ = v9;
     }
 
-    if ((v8 & 0xB0) == 0x20)
+    if ((fmtflags & 0xB0) == 0x20)
     {
       v12 = a2 + a3;
     }
@@ -447,7 +448,7 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
       v12 = a2;
     }
 
-    if (!std::__pad_and_output[abi:ne200100]<char,std::char_traits<char>>(v7, a2, v12, a2 + a3, v6, v9))
+    if (!std::__pad_and_output[abi:ne200100]<char,std::char_traits<char>>(rdbuf, a2, v12, a2 + a3, v6, v9))
     {
       std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 5);
     }
@@ -457,9 +458,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_240EB60E0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_240EB60E0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x245CD2970](&a10);
+  MEMORY[0x245CD2970](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -611,11 +612,11 @@ uint64_t std::basic_stringstream<char,std::char_traits<char>,std::allocator<char
   return a1;
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::updateFlowControl(unsigned long,std::optional<abb::router::Message const>)::$_0>(abb::router::Gateway::updateFlowControl(unsigned long,std::optional<abb::router::Message const>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::updateFlowControl(unsigned long,std::optional<abb::router::Message const>)::$_0,std::default_delete<abb::router::Gateway::updateFlowControl(unsigned long,std::optional<abb::router::Message const>)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::updateFlowControl(unsigned long,std::optional<abb::router::Message const>)::$_0>(abb::router::Gateway::updateFlowControl(unsigned long,std::optional<abb::router::Message const>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::updateFlowControl(unsigned long,std::optional<abb::router::Message const>)::$_0,std::default_delete<abb::router::Gateway::updateFlowControl(unsigned long,std::optional<abb::router::Message const>)::$_0>>)::{lambda(void *)#1}::__invoke(char ****a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   v6[0] = 0;
   v7 = 0;
   if (*(v2 + 152) == 1)
@@ -635,7 +636,7 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
 LABEL_8:
     abb::router::Message::~Message((v2 + 2));
     operator delete(v2);
-    v5 = *(a1 + 2);
+    v5 = a1[2];
     if (!v5)
     {
       goto LABEL_11;
@@ -652,7 +653,7 @@ LABEL_8:
 
 LABEL_5:
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (!v5)
   {
     goto LABEL_11;
@@ -669,11 +670,11 @@ LABEL_11:
   operator delete(a1);
 }
 
-void sub_240EB65AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, _BYTE *a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_240EB65AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, _BYTE *a10, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
 {
-  if (a28 == 1)
+  if (a29 == 1)
   {
-    abb::router::Message::~Message(&a11);
+    abb::router::Message::~Message(&a12);
   }
 
   std::unique_ptr<abb::router::Gateway::updateFlowControl(unsigned long,std::optional<abb::router::Message const>)::$_0,std::default_delete<abb::router::Gateway::updateFlowControl(unsigned long,std::optional<abb::router::Message const>)::$_0>>::~unique_ptr[abi:ne200100](&a10);
@@ -777,7 +778,7 @@ void **std::unique_ptr<abb::router::Gateway::start_sync(dispatch::group_session)
 
 void dispatch::detail::group_notify<abb::router::Gateway::start_sync(dispatch::group_session)::$_0>(dispatch_group_s *,dispatch_queue_s *,abb::router::Gateway::start_sync(dispatch::group_session)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(uint64_t *a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v2 = a1[2];
   if (!v2)
   {
@@ -786,7 +787,7 @@ void dispatch::detail::group_notify<abb::router::Gateway::start_sync(dispatch::g
 
   v3 = *a1;
   v4 = std::__shared_weak_count::lock(v2);
-  v40 = v4;
+  v39 = v4;
   if (!v4)
   {
     goto LABEL_50;
@@ -819,8 +820,8 @@ void dispatch::detail::group_notify<abb::router::Gateway::start_sync(dispatch::g
     v8[1].__shared_weak_owners_ = 0;
     v8[2].__vftable = 0;
     dispatch_release(v6);
-    v37 = v9;
-    v38 = v8;
+    v36 = v9;
+    v37 = v8;
     v10 = *(v3 + 304);
     v11 = (v3 + 312);
     if (v10 == (v3 + 312))
@@ -844,7 +845,7 @@ LABEL_17:
         }
       }
 
-      if (v35 < 0)
+      if (v34 < 0)
       {
         operator delete(__p[0]);
         v16 = v10[1];
@@ -891,8 +892,8 @@ LABEL_16:
   v7[1].__shared_owners_ = 0;
   v7[1].__shared_weak_owners_ = 0;
   v7[2].__vftable = 0;
-  v37 = &v7[1].__vftable;
-  v38 = v7;
+  v36 = &v7[1].__vftable;
+  v37 = v7;
   v10 = *(v3 + 304);
   v11 = (v3 + 312);
   if (v10 != (v3 + 312))
@@ -952,15 +953,15 @@ LABEL_10:
   }
 
   v22 = a1[3];
-  v43 = v22;
+  v42 = v22;
   if (v22)
   {
     dispatch_retain(v22);
     dispatch_group_enter(v22);
   }
 
-  v44 = v9;
-  v45 = v8;
+  v43 = v9;
+  v44 = v8;
   atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   v23 = v8[1].__vftable;
   v24 = *(v3 + 24);
@@ -970,23 +971,23 @@ LABEL_10:
   *&buf[8] = 0uLL;
   v25[2] = v20;
   v25[3] = v22;
-  v43 = 0;
+  v42 = 0;
   v25[4] = v9;
   v25[5] = v8;
   atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-  v41 = 0;
+  v40 = 0;
   dispatch_group_notify_f(v23, v24, v25, dispatch::detail::group_notify<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>(dispatch_group_s *,dispatch_queue_s *,abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1} &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke);
-  std::unique_ptr<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&v41);
+  std::unique_ptr<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&v40);
   if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v8->__on_zero_shared)(v8);
     std::__shared_weak_count::__release_weak(v8);
   }
 
-  v26 = v43;
-  if (v43)
+  v26 = v42;
+  if (v42)
   {
-    dispatch_group_leave(v43);
+    dispatch_group_leave(v42);
     dispatch_release(v26);
   }
 
@@ -995,15 +996,15 @@ LABEL_10:
     std::__shared_weak_count::__release_weak(*&buf[16]);
   }
 
-  v27 = v38;
-  if (v38 && !atomic_fetch_add(&v38->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v27 = v37;
+  if (v37 && !atomic_fetch_add(&v37->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v27->__on_zero_shared)(v27);
     std::__shared_weak_count::__release_weak(v27);
   }
 
-  v4 = v40;
-  if (v40)
+  v4 = v39;
+  if (v39)
   {
 LABEL_48:
     if (!atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -1036,11 +1037,9 @@ LABEL_50:
 
     operator delete(a1);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
-void sub_240EB6C98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, dispatch_group_t group, char a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22)
+void sub_240EB6C98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, dispatch_group_t group, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   abb::router::Gateway::stop_sync(dispatch::group_session)::$_0::~$_0(&a22);
   std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](&a17);
@@ -1122,13 +1121,13 @@ void **dispatch::detail::group_notify<abb::router::Gateway::start_sync(dispatch:
   return std::unique_ptr<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&v8);
 }
 
-void sub_240EB6EC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EB6EC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](va1);
   std::unique_ptr<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -1136,14 +1135,14 @@ void sub_240EB6EC0(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void **dispatch::detail::group_notify<abb::router::Gateway::stop_sync(dispatch::group_session)::$_0>(dispatch_group_s *,dispatch_queue_s *,abb::router::Gateway::stop_sync(dispatch::group_session)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(void *a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v20 = a1;
+  v25 = *MEMORY[0x277D85DE8];
+  v19 = a1;
   v2 = a1[2];
   if (v2)
   {
     v3 = *a1;
     v4 = std::__shared_weak_count::lock(v2);
-    v23 = v4;
+    v22 = v4;
     if (v4)
     {
       v5 = v4;
@@ -1198,7 +1197,7 @@ void **dispatch::detail::group_notify<abb::router::Gateway::stop_sync(dispatch::
           }
 
           v14 = a1[3];
-          v25 = v14;
+          v24 = v14;
           if (v14)
           {
             dispatch_retain(v14);
@@ -1251,17 +1250,16 @@ void **dispatch::detail::group_notify<abb::router::Gateway::stop_sync(dispatch::
     }
   }
 
-  result = std::unique_ptr<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&v20);
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::unique_ptr<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&v19);
 }
 
-void sub_240EB719C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, dispatch_group_t group, char a11, uint64_t a12, char a13)
+void sub_240EB719C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, dispatch_group_t group, uint64_t a11, uint64_t a12, ...)
 {
-  abb::router::Agent::handleGatewaySleep_sync(dispatch::group_session)::$_0::~$_0(&a13);
-  if (v13)
+  va_start(va, a12);
+  abb::router::Agent::handleGatewaySleep_sync(dispatch::group_session)::$_0::~$_0(va);
+  if (v12)
   {
-    dispatch_release(v13);
+    dispatch_release(v12);
   }
 
   std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](&a11);
@@ -1269,9 +1267,9 @@ void sub_240EB719C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void dispatch::detail::group_notify<abb::router::Gateway::stop_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>(dispatch_group_s *,dispatch_queue_s *,abb::router::Gateway::stop_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1} &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::detail::group_notify<abb::router::Gateway::stop_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>(dispatch_group_s *,dispatch_queue_s *,abb::router::Gateway::stop_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1} &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(abb::router::Gateway **a1)
 {
-  v2 = *(a1 + 2);
+  v2 = a1[2];
   if (v2)
   {
     v3 = *a1;
@@ -1280,7 +1278,7 @@ void dispatch::detail::group_notify<abb::router::Gateway::stop_sync(dispatch::gr
     if (v4)
     {
       v5 = v4;
-      if (*(a1 + 1))
+      if (a1[1])
       {
         v6 = *(v3 + 5);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -1304,18 +1302,18 @@ void dispatch::detail::group_notify<abb::router::Gateway::stop_sync(dispatch::gr
 
   if (a1)
   {
-    v7 = *(a1 + 3);
+    v7 = a1[3];
     if (v7)
     {
       dispatch_group_leave(v7);
-      v8 = *(a1 + 3);
+      v8 = a1[3];
       if (v8)
       {
         dispatch_release(v8);
       }
     }
 
-    v9 = *(a1 + 2);
+    v9 = a1[2];
     if (v9)
     {
       std::__shared_weak_count::__release_weak(v9);
@@ -1325,13 +1323,13 @@ void dispatch::detail::group_notify<abb::router::Gateway::stop_sync(dispatch::gr
   }
 }
 
-void sub_240EB7330(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EB7330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](va1);
   std::unique_ptr<abb::router::Gateway::start_sync(dispatch::group_session)::$_0,std::default_delete<abb::router::Gateway::start_sync(dispatch::group_session)::$_0>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -1339,7 +1337,7 @@ void sub_240EB7330(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void dispatch::detail::group_notify<abb::router::Gateway::shutdown_sync(dispatch::group_session)::$_0>(dispatch_group_s *,dispatch_queue_s *,abb::router::Gateway::shutdown_sync(dispatch::group_session)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(void *a1)
 {
-  v2 = *(a1 + 2);
+  v2 = a1[2];
   if (!v2)
   {
     goto LABEL_25;
@@ -1354,7 +1352,7 @@ void dispatch::detail::group_notify<abb::router::Gateway::shutdown_sync(dispatch
   }
 
   v5 = v4;
-  v6 = *(a1 + 1);
+  v6 = a1[1];
   v40 = v6;
   if (!v6)
   {
@@ -1470,7 +1468,7 @@ LABEL_8:
   v30 = v6;
   v31 = v5;
   atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-  v14 = *(a1 + 3);
+  v14 = a1[3];
   group = v14;
   if (v14)
   {
@@ -1538,18 +1536,18 @@ LABEL_23:
 LABEL_25:
   if (a1)
   {
-    v21 = *(a1 + 3);
+    v21 = a1[3];
     if (v21)
     {
       dispatch_group_leave(v21);
-      v22 = *(a1 + 3);
+      v22 = a1[3];
       if (v22)
       {
         dispatch_release(v22);
       }
     }
 
-    v23 = *(a1 + 2);
+    v23 = a1[2];
     if (v23)
     {
       std::__shared_weak_count::__release_weak(v23);
@@ -1559,10 +1557,10 @@ LABEL_25:
   }
 }
 
-void sub_240EB776C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, dispatch_group_t group, char a25)
+void sub_240EB776C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, dispatch_group_t group, char a27)
 {
   abb::router::Gateway::shutdown_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}::~(&a11);
-  std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](&a25);
+  std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](&a27);
   std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](v25 - 104);
   std::unique_ptr<abb::router::Gateway::start_sync(dispatch::group_session)::$_0,std::default_delete<abb::router::Gateway::start_sync(dispatch::group_session)::$_0>>::~unique_ptr[abi:ne200100](&a10);
   _Unwind_Resume(a1);
@@ -1805,7 +1803,7 @@ void **std::unique_ptr<abb::router::Gateway::sleep_sync(dispatch::group_session)
 
 void dispatch::detail::group_notify<abb::router::Gateway::sleep_sync(dispatch::group_session)::$_0>(dispatch_group_s *,dispatch_queue_s *,abb::router::Gateway::sleep_sync(dispatch::group_session)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(uint64_t *a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = a1[2];
   if (v2)
   {
@@ -1882,8 +1880,8 @@ void dispatch::detail::group_notify<abb::router::Gateway::sleep_sync(dispatch::g
 
             *buf = 136315394;
             *&buf[4] = v16;
-            v22 = 2080;
-            v23 = "Slept";
+            v21 = 2080;
+            v22 = "Slept";
             _os_log_impl(&dword_240E91000, v15, OS_LOG_TYPE_DEFAULT, "#I Gateway moved on to %s; skipping transition to %s", buf, 0x16u);
           }
 
@@ -1918,8 +1916,6 @@ void dispatch::detail::group_notify<abb::router::Gateway::sleep_sync(dispatch::g
 
     operator delete(a1);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EB800C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, __int16 a11, char a12, char a13, uint64_t a14, dispatch_group_t group)
@@ -1962,9 +1958,9 @@ void **std::unique_ptr<abb::router::Gateway::sleep_sync(dispatch::group_session)
   return result;
 }
 
-void dispatch::detail::group_notify<abb::router::Gateway::sleep_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>(dispatch_group_s *,dispatch_queue_s *,abb::router::Gateway::sleep_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1} &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::detail::group_notify<abb::router::Gateway::sleep_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>(dispatch_group_s *,dispatch_queue_s *,abb::router::Gateway::sleep_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1} &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(abb::router::Gateway **a1)
 {
-  v2 = *(a1 + 2);
+  v2 = a1[2];
   if (!v2)
   {
     goto LABEL_15;
@@ -1979,7 +1975,7 @@ void dispatch::detail::group_notify<abb::router::Gateway::sleep_sync(dispatch::g
   }
 
   v5 = v4;
-  if (*(a1 + 1))
+  if (a1[1])
   {
     v6 = *(v3 + 5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -2028,7 +2024,7 @@ LABEL_12:
 LABEL_15:
   if (a1)
   {
-    v9 = *(a1 + 2);
+    v9 = a1[2];
     if (v9)
     {
       std::__shared_weak_count::__release_weak(v9);
@@ -2038,13 +2034,13 @@ LABEL_15:
   }
 }
 
-void sub_240EB8230(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EB8230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](va1);
   std::unique_ptr<abb::router::Gateway::sleep_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<abb::router::Gateway::sleep_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -2291,14 +2287,14 @@ void sub_240EB8664(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void **dispatch::detail::group_notify<abb::router::Gateway::wakeup_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>(dispatch_group_s *,dispatch_queue_s *,abb::router::Gateway::wakeup_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1} &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v12 = a1;
+  v18 = *MEMORY[0x277D85DE8];
+  v11 = a1;
   v2 = a1[2];
   if (v2)
   {
     v3 = *a1;
     v4 = std::__shared_weak_count::lock(v2);
-    v14 = v4;
+    v13 = v4;
     if (v4)
     {
       v5 = v4;
@@ -2333,9 +2329,9 @@ void **dispatch::detail::group_notify<abb::router::Gateway::wakeup_sync(dispatch
             }
 
             *buf = 136315394;
-            v16 = v9;
-            v17 = 2080;
-            v18 = "Started";
+            v15 = v9;
+            v16 = 2080;
+            v17 = "Started";
             _os_log_impl(&dword_240E91000, v8, OS_LOG_TYPE_DEFAULT, "#I Gateway moved on to %s; skipping transition to %s", buf, 0x16u);
           }
         }
@@ -2351,16 +2347,14 @@ void **dispatch::detail::group_notify<abb::router::Gateway::wakeup_sync(dispatch
     }
   }
 
-  result = std::unique_ptr<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&v12);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::unique_ptr<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&v11);
 }
 
-void sub_240EB88A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EB88A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](va1);
   std::unique_ptr<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<abb::router::Gateway::start_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -2516,18 +2510,20 @@ LABEL_10:
   }
 }
 
-void sub_240EB8C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_240EB8C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   abb::router::Message::~Message(&a10);
-  abb::router::Message::~Message(&a27);
-  std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](v27 - 96);
+  abb::router::Message::~Message(va);
+  std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](v26 - 96);
   _Unwind_Resume(a1);
 }
 
-void sub_240EB8C4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_240EB8C4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  abb::router::Message::~Message(&a27);
-  std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](v27 - 96);
+  va_start(va, a26);
+  abb::router::Message::~Message(va);
+  std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](v26 - 96);
   _Unwind_Resume(a1);
 }
 
@@ -2555,20 +2551,20 @@ uint64_t std::__function::__func<abb::router::Gateway::openTransport_sync(void):
   return 0;
 }
 
-void std::deque<abb::router::Message>::__add_back_capacity(uint64_t a1)
+void std::deque<abb::router::Message>::__add_back_capacity(char **a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   v3 = v2 >= 0x1E;
   v4 = v2 - 30;
   if (v3)
   {
-    *(a1 + 32) = v4;
+    a1[4] = v4;
     goto LABEL_4;
   }
 
-  v7 = *(a1 + 16);
-  v6 = *(a1 + 24);
-  v8 = *(a1 + 8);
+  v7 = a1[2];
+  v6 = a1[3];
+  v8 = a1[1];
   v9 = v7 - v8;
   v10 = v6 - *a1;
   if (v7 - v8 < v10)
@@ -2583,9 +2579,9 @@ void std::deque<abb::router::Message>::__add_back_capacity(uint64_t a1)
     v44 = operator new(0xFF0uLL);
     std::__split_buffer<abb::router::Message *>::emplace_front<abb::router::Message *>(a1, &v44);
 LABEL_4:
-    v5 = *(a1 + 8);
+    v5 = a1[1];
     v44 = *v5;
-    *(a1 + 8) = v5 + 1;
+    a1[1] = v5 + 8;
     std::__split_buffer<abb::router::Message *>::emplace_back<abb::router::Message *&>(a1, &v44);
     return;
   }
@@ -2637,8 +2633,8 @@ LABEL_4:
     v17 = operator new(8 * v22);
     v18 = &v17[8 * v22];
     operator delete(v14);
-    v23 = *(a1 + 8);
-    v7 = *(a1 + 16);
+    v23 = a1[1];
+    v7 = a1[2];
     v14 = v17;
     *v17 = v16;
     v19 = v17 + 8;
@@ -2652,12 +2648,12 @@ LABEL_31:
     {
       v24 = v17;
 LABEL_30:
-      v25 = *(v7 - 8);
+      v25 = *(v7 - 1);
       v7 -= 8;
       *(v24 - 1) = v25;
       v20 = v24 - 8;
       v17 = v20;
-      if (v7 == *(a1 + 8))
+      if (v7 == a1[1])
       {
         goto LABEL_17;
       }
@@ -2767,9 +2763,9 @@ LABEL_16:
 LABEL_17:
   v21 = *a1;
   *a1 = v14;
-  *(a1 + 8) = v20;
-  *(a1 + 16) = v19;
-  *(a1 + 24) = v18;
+  a1[1] = v20;
+  a1[2] = v19;
+  a1[3] = v18;
   if (v21)
   {
 
@@ -3436,24 +3432,23 @@ abb::router::Message *abb::router::MessageIterator::next@<X0>(abb::router::Messa
 
 uint64_t abb::router::ClientProxy::ClientProxy(uint64_t a1, __int128 *a2, void *a3, void *a4, unsigned int a5)
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   v9 = a2;
   if (*(a2 + 23) < 0)
   {
     v9 = *a2;
   }
 
-  v55.__r_.__value_.__r.__words[0] = 0x2E79786F7270;
-  *(&v55.__r_.__value_.__s + 23) = 6;
-  v62 = 0;
-  v63 = 6;
+  v54.__r_.__value_.__r.__words[0] = 0x2E79786F7270;
+  *(&v54.__r_.__value_.__s + 23) = 6;
+  v61 = 0;
+  v62 = 6;
   v10 = a5;
-  v61 = a5;
+  v60 = a5;
   *&v11 = 0xAAAAAAAAAAAAAAAALL;
   *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v82 = v11;
-  v83 = v11;
   v81 = v11;
+  v82 = v11;
   v80 = v11;
   v79 = v11;
   v78 = v11;
@@ -3467,51 +3462,52 @@ uint64_t abb::router::ClientProxy::ClientProxy(uint64_t a1, __int128 *a2, void *
   v70 = v11;
   v69 = v11;
   v68 = v11;
-  v64 = &v68;
-  v65 = xmmword_240EDCC50;
-  v66 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-  v67 = 0;
-  __p = &v68;
-  v58 = 1;
-  v59 = &v61;
-  v60 = 6;
-  std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v64, "{:#04x}", 7, &v58);
-  v50 = a5;
-  v12 = *(&v65 + 1);
-  if (*(&v65 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
+  v67 = v11;
+  v63 = &v67;
+  v64 = xmmword_240EDCC50;
+  v65 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+  v66 = 0;
+  __p = &v67;
+  v57 = 1;
+  v58 = &v60;
+  v59 = 6;
+  std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v63, "{:#04x}", 7, &v57);
+  v49 = a5;
+  v12 = *(&v64 + 1);
+  if (*(&v64 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v51 = v10;
+  v50 = v10;
   v13 = __p;
-  if (*(&v65 + 1) >= 0x17uLL)
+  if (*(&v64 + 1) >= 0x17uLL)
   {
-    if ((*(&v65 + 1) | 7) == 0x17)
+    if ((*(&v64 + 1) | 7) == 0x17)
     {
       v23 = 25;
     }
 
     else
     {
-      v23 = (*(&v65 + 1) | 7) + 1;
+      v23 = (*(&v64 + 1) | 7) + 1;
     }
 
     p_dst = operator new(v23);
-    v53 = v12;
-    v54 = v23 | 0x8000000000000000;
+    v52 = v12;
+    v53 = v23 | 0x8000000000000000;
     __dst = p_dst;
   }
 
   else
   {
-    HIBYTE(v54) = BYTE8(v65);
+    HIBYTE(v53) = BYTE8(v64);
     p_dst = &__dst;
-    if (!*(&v65 + 1))
+    if (!*(&v64 + 1))
     {
       LOBYTE(__dst) = 0;
       v15 = __p;
-      if (__p == &v68)
+      if (__p == &v67)
       {
         goto LABEL_8;
       }
@@ -3523,14 +3519,14 @@ uint64_t abb::router::ClientProxy::ClientProxy(uint64_t a1, __int128 *a2, void *
   memmove(p_dst, v13, v12);
   *(p_dst + v12) = 0;
   v15 = __p;
-  if (__p != &v68)
+  if (__p != &v67)
   {
 LABEL_7:
     operator delete(v15);
   }
 
 LABEL_8:
-  if (v54 >= 0)
+  if (v53 >= 0)
   {
     v16 = &__dst;
   }
@@ -3540,34 +3536,34 @@ LABEL_8:
     v16 = __dst;
   }
 
-  if (v54 >= 0)
+  if (v53 >= 0)
   {
-    v17 = HIBYTE(v54);
+    v17 = HIBYTE(v53);
   }
 
   else
   {
-    v17 = v53;
+    v17 = v52;
   }
 
-  v18 = std::string::append(&v55, v16, v17);
+  v18 = std::string::append(&v54, v16, v17);
   v19 = *&v18->__r_.__value_.__l.__data_;
-  v56.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
-  *&v56.__r_.__value_.__l.__data_ = v19;
+  v55.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
+  *&v55.__r_.__value_.__l.__data_ = v19;
   v18->__r_.__value_.__l.__size_ = 0;
   v18->__r_.__value_.__r.__words[2] = 0;
   v18->__r_.__value_.__r.__words[0] = 0;
-  if ((v56.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v55.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v20 = &v56;
+    v20 = &v55;
   }
 
   else
   {
-    v20 = v56.__r_.__value_.__r.__words[0];
+    v20 = v55.__r_.__value_.__r.__words[0];
   }
 
-  ctu::OsLogContext::OsLogContext(v57, v9, v20);
+  ctu::OsLogContext::OsLogContext(v56, v9, v20);
   initially_inactive = dispatch_queue_attr_make_initially_inactive(0);
   v22 = dispatch_queue_create_with_target_V2("proxy", initially_inactive, 0);
   dispatch_set_qos_class_floor(v22, QOS_CLASS_DEFAULT, 0);
@@ -3588,19 +3584,19 @@ LABEL_8:
   }
 
   ctu::OsLogLogger::OsLogLogger();
-  MEMORY[0x245CD26C0](a1 + 40, &v64);
-  MEMORY[0x245CD26D0](&v64);
-  ctu::OsLogContext::~OsLogContext(v57);
-  if ((SHIBYTE(v56.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  MEMORY[0x245CD26C0](a1 + 40, &v63);
+  MEMORY[0x245CD26D0](&v63);
+  ctu::OsLogContext::~OsLogContext(v56);
+  if ((SHIBYTE(v55.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    if ((SHIBYTE(v54) & 0x80000000) == 0)
+    if ((SHIBYTE(v53) & 0x80000000) == 0)
     {
       goto LABEL_28;
     }
 
 LABEL_65:
     operator delete(__dst);
-    if ((SHIBYTE(v55.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v54.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_29;
     }
@@ -3608,20 +3604,20 @@ LABEL_65:
     goto LABEL_66;
   }
 
-  operator delete(v56.__r_.__value_.__l.__data_);
-  if (SHIBYTE(v54) < 0)
+  operator delete(v55.__r_.__value_.__l.__data_);
+  if (SHIBYTE(v53) < 0)
   {
     goto LABEL_65;
   }
 
 LABEL_28:
-  if ((SHIBYTE(v55.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  if ((SHIBYTE(v54.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_29;
   }
 
 LABEL_66:
-  operator delete(v55.__r_.__value_.__l.__data_);
+  operator delete(v54.__r_.__value_.__l.__data_);
 LABEL_29:
   v24 = a4;
   v25 = *a4;
@@ -3645,9 +3641,9 @@ LABEL_29:
 
   if (v28 < 0x17)
   {
-    memset(&v56, 0, sizeof(v56));
-    v30 = &v56;
-    *(&v56.__r_.__value_.__s + 23) = v27 + 1;
+    memset(&v55, 0, sizeof(v55));
+    v30 = &v55;
+    *(&v55.__r_.__value_.__s + 23) = v27 + 1;
     if (!v27)
     {
       goto LABEL_43;
@@ -3667,9 +3663,9 @@ LABEL_29:
     }
 
     v30 = operator new(v29);
-    v56.__r_.__value_.__l.__size_ = v27 + 1;
-    v56.__r_.__value_.__r.__words[2] = v29 | 0x8000000000000000;
-    v56.__r_.__value_.__r.__words[0] = v30;
+    v55.__r_.__value_.__l.__size_ = v27 + 1;
+    v55.__r_.__value_.__r.__words[2] = v29 | 0x8000000000000000;
+    v55.__r_.__value_.__r.__words[0] = v30;
   }
 
   if (v26 >= 0)
@@ -3685,14 +3681,13 @@ LABEL_29:
   memmove(v30, v31, v27);
 LABEL_43:
   *&v30[v27] = 46;
-  v62 = 0;
-  v63 = 6;
-  v61 = v51;
+  v61 = 0;
+  v62 = 6;
+  v60 = v50;
   *&v32 = 0xAAAAAAAAAAAAAAAALL;
   *(&v32 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v82 = v32;
-  v83 = v32;
   v81 = v32;
+  v82 = v32;
   v80 = v32;
   v79 = v32;
   v78 = v32;
@@ -3706,49 +3701,50 @@ LABEL_43:
   v70 = v32;
   v69 = v32;
   v68 = v32;
-  v64 = &v68;
-  v65 = xmmword_240EDCC50;
-  v66 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-  v67 = 0;
-  __p = &v68;
-  v58 = 1;
-  v59 = &v61;
-  v60 = 6;
-  std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v64, "{:#04x}", 7, &v58);
-  v33 = *(&v65 + 1);
-  if (*(&v65 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
+  v67 = v32;
+  v63 = &v67;
+  v64 = xmmword_240EDCC50;
+  v65 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+  v66 = 0;
+  __p = &v67;
+  v57 = 1;
+  v58 = &v60;
+  v59 = 6;
+  std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v63, "{:#04x}", 7, &v57);
+  v33 = *(&v64 + 1);
+  if (*(&v64 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
   v34 = __p;
-  if (*(&v65 + 1) >= 0x17uLL)
+  if (*(&v64 + 1) >= 0x17uLL)
   {
-    if ((*(&v65 + 1) | 7) == 0x17)
+    if ((*(&v64 + 1) | 7) == 0x17)
     {
       v42 = 25;
     }
 
     else
     {
-      v42 = (*(&v65 + 1) | 7) + 1;
+      v42 = (*(&v64 + 1) | 7) + 1;
     }
 
     v35 = operator new(v42);
-    v55.__r_.__value_.__l.__size_ = v33;
-    v55.__r_.__value_.__r.__words[2] = v42 | 0x8000000000000000;
-    v55.__r_.__value_.__r.__words[0] = v35;
+    v54.__r_.__value_.__l.__size_ = v33;
+    v54.__r_.__value_.__r.__words[2] = v42 | 0x8000000000000000;
+    v54.__r_.__value_.__r.__words[0] = v35;
   }
 
   else
   {
-    *(&v55.__r_.__value_.__s + 23) = BYTE8(v65);
-    v35 = &v55;
-    if (!*(&v65 + 1))
+    *(&v54.__r_.__value_.__s + 23) = BYTE8(v64);
+    v35 = &v54;
+    if (!*(&v64 + 1))
     {
-      v55.__r_.__value_.__s.__data_[0] = 0;
+      v54.__r_.__value_.__s.__data_[0] = 0;
       v36 = __p;
-      if (__p == &v68)
+      if (__p == &v67)
       {
         goto LABEL_48;
       }
@@ -3760,49 +3756,49 @@ LABEL_43:
   memmove(v35, v34, v33);
   *(v35 + v33) = 0;
   v36 = __p;
-  if (__p != &v68)
+  if (__p != &v67)
   {
 LABEL_47:
     operator delete(v36);
   }
 
 LABEL_48:
-  if ((v55.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v54.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v37 = &v55;
+    v37 = &v54;
   }
 
   else
   {
-    v37 = v55.__r_.__value_.__r.__words[0];
+    v37 = v54.__r_.__value_.__r.__words[0];
   }
 
-  if ((v55.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v54.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v55.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v54.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v55.__r_.__value_.__l.__size_;
+    size = v54.__r_.__value_.__l.__size_;
   }
 
-  v39 = std::string::append(&v56, v37, size);
+  v39 = std::string::append(&v55, v37, size);
   v40 = *&v39->__r_.__value_.__l.__data_;
   *(a1 + 64) = *(&v39->__r_.__value_.__l + 2);
   *(a1 + 48) = v40;
   v39->__r_.__value_.__l.__size_ = 0;
   v39->__r_.__value_.__r.__words[2] = 0;
   v39->__r_.__value_.__r.__words[0] = 0;
-  if ((SHIBYTE(v55.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  if ((SHIBYTE(v54.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    if ((SHIBYTE(v56.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v55.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_56;
     }
 
 LABEL_68:
-    operator delete(v56.__r_.__value_.__l.__data_);
+    operator delete(v55.__r_.__value_.__l.__data_);
     if ((*(a2 + 23) & 0x80000000) == 0)
     {
       goto LABEL_57;
@@ -3811,8 +3807,8 @@ LABEL_68:
     goto LABEL_69;
   }
 
-  operator delete(v55.__r_.__value_.__l.__data_);
-  if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
+  operator delete(v54.__r_.__value_.__l.__data_);
+  if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_68;
   }
@@ -3847,7 +3843,7 @@ LABEL_70:
   *(a1 + 152) = a2[5];
   *(a1 + 136) = v45;
   *(a1 + 120) = v44;
-  *(a1 + 168) = v50;
+  *(a1 + 168) = v49;
   *(a1 + 172) = 0;
   *(a1 + 176) = *a3;
   v46 = a3[1];
@@ -3872,7 +3868,6 @@ LABEL_70:
   *(a1 + 304) = 0u;
   *(a1 + 320) = 0u;
   *(a1 + 336) = 0;
-  v47 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -3888,7 +3883,7 @@ void sub_240EBA220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(*a9);
   }
 
-  MEMORY[0x245CD26D0](v9 + 40);
+  MEMORY[0x245CD26D0](v9 + 40, a2, a3, a4, a5, a6, a7, a8);
   ctu::SharedSynchronizable<abb::router::Agent>::~SharedSynchronizable((v9 + 8));
   _Unwind_Resume(a1);
 }
@@ -4153,7 +4148,7 @@ void abb::router::ClientProxy::create(uint64_t a1@<X0>, uint64_t *a2@<X1>, __int
   v22 = v12;
   if (v12)
   {
-    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
   }
 
   v20 = *a3;
@@ -4362,7 +4357,7 @@ uint64_t abb::router::ClientProxy::getClientId(abb::router::ClientProxy *this)
   return v13;
 }
 
-void abb::router::ClientProxy::getIndications(abb::router::ClientProxy *this@<X0>, void *a2@<X8>)
+void abb::router::ClientProxy::getIndications(uint64_t *__return_ptr a1@<X8>, abb::router::ClientProxy *this@<X0>)
 {
   v5 = this;
   v6[0] = MEMORY[0x277D85DD0];
@@ -4374,17 +4369,17 @@ void abb::router::ClientProxy::getIndications(abb::router::ClientProxy *this@<X0
   v7 = v6;
   v3 = this + 24;
   v2 = *(this + 3);
-  v4 = a2 + 1;
+  v4 = a1 + 1;
   if (*(v3 + 1))
   {
     *v4 = 0;
-    a2[2] = 0;
-    *a2 = v4;
+    a1[2] = 0;
+    *a1 = v4;
     block = MEMORY[0x277D85DD0];
     v9 = 0x40000000;
     v10 = ___ZN8dispatch19async_and_wait_implIRU13block_pointerFNSt3__13setIjNS1_4lessIjEENS1_9allocatorIjEEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
     v11 = &__block_descriptor_tmp_106;
-    v12 = a2;
+    v12 = a1;
     v13 = &v7;
     dispatch_async_and_wait(v2, &block);
   }
@@ -4392,19 +4387,19 @@ void abb::router::ClientProxy::getIndications(abb::router::ClientProxy *this@<X0
   else
   {
     *v4 = 0;
-    a2[2] = 0;
-    *a2 = v4;
+    a1[2] = 0;
+    *a1 = v4;
     block = MEMORY[0x277D85DD0];
     v9 = 0x40000000;
     v10 = ___ZN8dispatch9sync_implIRU13block_pointerFNSt3__13setIjNS1_4lessIjEENS1_9allocatorIjEEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
     v11 = &__block_descriptor_tmp_105;
-    v12 = a2;
+    v12 = a1;
     v13 = &v7;
     dispatch_sync(v2, &block);
   }
 }
 
-void abb::router::ClientProxy::getWakeables(abb::router::ClientProxy *this@<X0>, void *a2@<X8>)
+void abb::router::ClientProxy::getWakeables(uint64_t *__return_ptr a1@<X8>, abb::router::ClientProxy *this@<X0>)
 {
   v5 = this;
   v6[0] = MEMORY[0x277D85DD0];
@@ -4416,17 +4411,17 @@ void abb::router::ClientProxy::getWakeables(abb::router::ClientProxy *this@<X0>,
   v7 = v6;
   v3 = this + 24;
   v2 = *(this + 3);
-  v4 = a2 + 1;
+  v4 = a1 + 1;
   if (*(v3 + 1))
   {
     *v4 = 0;
-    a2[2] = 0;
-    *a2 = v4;
+    a1[2] = 0;
+    *a1 = v4;
     block = MEMORY[0x277D85DD0];
     v9 = 0x40000000;
     v10 = ___ZN8dispatch19async_and_wait_implIRU13block_pointerFNSt3__13setIjNS1_4lessIjEENS1_9allocatorIjEEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
     v11 = &__block_descriptor_tmp_106;
-    v12 = a2;
+    v12 = a1;
     v13 = &v7;
     dispatch_async_and_wait(v2, &block);
   }
@@ -4434,13 +4429,13 @@ void abb::router::ClientProxy::getWakeables(abb::router::ClientProxy *this@<X0>,
   else
   {
     *v4 = 0;
-    a2[2] = 0;
-    *a2 = v4;
+    a1[2] = 0;
+    *a1 = v4;
     block = MEMORY[0x277D85DD0];
     v9 = 0x40000000;
     v10 = ___ZN8dispatch9sync_implIRU13block_pointerFNSt3__13setIjNS1_4lessIjEENS1_9allocatorIjEEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
     v11 = &__block_descriptor_tmp_105;
-    v12 = a2;
+    v12 = a1;
     v13 = &v7;
     dispatch_sync(v2, &block);
   }
@@ -4707,7 +4702,7 @@ void abb::router::ClientProxy::handleGatewayDown(void *a1, dispatch_object_t *a2
 
 void abb::router::ClientProxy::handleGatewaySleep_sync(uint64_t a1, NSObject **a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 40);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -4724,32 +4719,30 @@ void abb::router::ClientProxy::handleGatewaySleep_sync(uint64_t a1, NSObject **a
 
     v7 = *(a1 + 168);
     *buf = 136315394;
-    v14 = v6;
-    v15 = 1024;
-    v16 = v7;
+    v13 = v6;
+    v14 = 1024;
+    v15 = v7;
     _os_log_impl(&dword_240E91000, v4, OS_LOG_TYPE_DEFAULT, "#I Request from gateway to sleep [%s]; Client=0x%02x", buf, 0x12u);
   }
 
   v8 = *(a1 + 172);
   if (v8 > 6 || v8 == 3)
   {
-    v11 = *a2;
-    v12 = v11;
-    if (v11)
+    v10 = *a2;
+    v11 = v10;
+    if (v10)
     {
-      dispatch_retain(v11);
-      dispatch_group_enter(v11);
+      dispatch_retain(v10);
+      dispatch_group_enter(v10);
     }
 
-    abb::router::ClientProxy::sendSleep_sync(a1, &v12);
-    if (v11)
+    abb::router::ClientProxy::sendSleep_sync(a1, &v11);
+    if (v10)
     {
-      dispatch_group_leave(v11);
-      dispatch_release(v11);
+      dispatch_group_leave(v10);
+      dispatch_release(v10);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EBB9FC(_Unwind_Exception *exception_object)
@@ -4765,7 +4758,7 @@ void sub_240EBB9FC(_Unwind_Exception *exception_object)
 
 void abb::router::ClientProxy::sendSleep_sync(abb::router::ClientProxy *this, dispatch_object_t *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a2;
   if (*a2)
   {
@@ -4787,18 +4780,16 @@ void abb::router::ClientProxy::sendSleep_sync(abb::router::ClientProxy *this, di
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(this + 42);
-      v9[0] = 67109120;
-      v9[1] = v6;
-      _os_log_impl(&dword_240E91000, v5, OS_LOG_TYPE_DEFAULT, "#I Sending sleep request; Client=0x%02x", v9, 8u);
+      v7[0] = 67109120;
+      v7[1] = v6;
+      _os_log_impl(&dword_240E91000, v5, OS_LOG_TYPE_DEFAULT, "#I Sending sleep request; Client=0x%02x", v7, 8u);
     }
 
     abb::router::ClientProxy::sendStatus_sync(this, 5u);
-    v7 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v8 = *MEMORY[0x277D85DE8];
 
     abb::router::ClientProxy::checkSleepCompletion_sync(this);
   }
@@ -4806,7 +4797,7 @@ void abb::router::ClientProxy::sendSleep_sync(abb::router::ClientProxy *this, di
 
 void abb::router::ClientProxy::handleGatewayWakeup_sync(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -4822,11 +4813,11 @@ void abb::router::ClientProxy::handleGatewayWakeup_sync(uint64_t a1)
     }
 
     v5 = *(a1 + 168);
-    v9 = 136315394;
-    v10 = v4;
-    v11 = 1024;
-    v12 = v5;
-    _os_log_impl(&dword_240E91000, v2, OS_LOG_TYPE_DEFAULT, "#I Request from gateway to wakeup [%s]; Client=0x%02x", &v9, 0x12u);
+    v8 = 136315394;
+    v9 = v4;
+    v10 = 1024;
+    v11 = v5;
+    _os_log_impl(&dword_240E91000, v2, OS_LOG_TYPE_DEFAULT, "#I Request from gateway to wakeup [%s]; Client=0x%02x", &v8, 0x12u);
   }
 
   v6 = *(a1 + 172);
@@ -4845,8 +4836,6 @@ void abb::router::ClientProxy::handleGatewayWakeup_sync(uint64_t a1)
       abb::router::ClientProxy::trySendingRequests_sync(a1);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void abb::router::ClientProxy::sendActive_sync(abb::router::ClientProxy *this)
@@ -4857,38 +4846,37 @@ void abb::router::ClientProxy::sendActive_sync(abb::router::ClientProxy *this)
   abb::router::ClientProxy::trySendingRequests_sync(this);
 }
 
-void abb::router::ClientProxy::sendWakeup_sync(abb::router::ClientProxy *this)
+void abb::router::ClientProxy::sendWakeup_sync(NSObject **this)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (*(this + 337) == 1)
   {
     abb::router::ClientProxy::sendStatus_sync(this, 7u);
   }
 
-  v2 = *(this + 41);
+  v2 = this[41];
   if (v2)
   {
-    *(this + 41) = 0;
+    this[41] = 0;
     dispatch_group_leave(v2);
     dispatch_release(v2);
-    v3 = *(this + 5);
+    v3 = this[5];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(this + 42);
-      v6[0] = 67109120;
-      v6[1] = v4;
-      _os_log_impl(&dword_240E91000, v3, OS_LOG_TYPE_DEFAULT, "#I Sleep session is cleared; Client=0x%02x", v6, 8u);
+      v5[0] = 67109120;
+      v5[1] = v4;
+      _os_log_impl(&dword_240E91000, v3, OS_LOG_TYPE_DEFAULT, "#I Sleep session is cleared; Client=0x%02x", v5, 8u);
     }
   }
 
   abb::router::ClientProxy::setStatus_sync(this, 3u);
   abb::router::ClientProxy::trySendingRequests_sync(this);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void abb::router::ClientProxy::handleGatewayStart_sync(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -4904,11 +4892,11 @@ void abb::router::ClientProxy::handleGatewayStart_sync(uint64_t a1)
     }
 
     v5 = *(a1 + 168);
-    v11 = 136315394;
-    v12 = v4;
-    v13 = 1024;
-    v14 = v5;
-    _os_log_impl(&dword_240E91000, v2, OS_LOG_TYPE_DEFAULT, "#I Request from gateway to start [%s]; Client=0x%02x", &v11, 0x12u);
+    v10 = 136315394;
+    v11 = v4;
+    v12 = 1024;
+    v13 = v5;
+    _os_log_impl(&dword_240E91000, v2, OS_LOG_TYPE_DEFAULT, "#I Request from gateway to start [%s]; Client=0x%02x", &v10, 0x12u);
   }
 
   v6 = *(a1 + 172);
@@ -4922,13 +4910,11 @@ void abb::router::ClientProxy::handleGatewayStart_sync(uint64_t a1)
     abb::router::ClientProxy::trySendingRequests_sync(a1);
     abb::router::ClientProxy::trySendingRequests_sync(a1);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void abb::router::ClientProxy::setStatus_sync(uint64_t a1, unsigned int a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 172);
   if (v2 != a2)
   {
@@ -4954,14 +4940,14 @@ LABEL_5:
           v7 = "(unknown)";
 LABEL_8:
           v8 = *(a1 + 168);
-          v10 = 136315650;
-          v11 = v6;
-          v12 = 2080;
-          v13 = v7;
-          v14 = 1024;
-          v15 = v8;
-          _os_log_impl(&dword_240E91000, v5, OS_LOG_TYPE_DEFAULT, "#I Status changing from %s -> %s for client; Client=0x%02x", &v10, 0x1Cu);
-          goto LABEL_9;
+          v9 = 136315650;
+          v10 = v6;
+          v11 = 2080;
+          v12 = v7;
+          v13 = 1024;
+          v14 = v8;
+          _os_log_impl(&dword_240E91000, v5, OS_LOG_TYPE_DEFAULT, "#I Status changing from %s -> %s for client; Client=0x%02x", &v9, 0x1Cu);
+          return;
         }
       }
 
@@ -4969,14 +4955,11 @@ LABEL_8:
       goto LABEL_8;
     }
   }
-
-LABEL_9:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void abb::router::ClientProxy::trySendingRequests_sync(abb::router::ClientProxy *this)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   if (!*(this + 37))
   {
     v33 = *(this + 5);
@@ -4988,16 +4971,16 @@ void abb::router::ClientProxy::trySendingRequests_sync(abb::router::ClientProxy 
       _os_log_debug_impl(&dword_240E91000, v33, OS_LOG_TYPE_DEBUG, "#D Wait queue is empty; nothing to send; Client=0x%02x", buf, 8u);
     }
 
-    goto LABEL_46;
+    return;
   }
 
   v2 = *(this + 172);
   if (v2 <= 6 && v2 != 3)
   {
-    goto LABEL_46;
+    return;
   }
 
-  v43 = *(this + 37);
+  v42 = *(this + 37);
   v4 = 0;
   v5 = (this + 304);
   do
@@ -5018,13 +5001,13 @@ void abb::router::ClientProxy::trySendingRequests_sync(abb::router::ClientProxy 
         *buf = 134219008;
         *&buf[4] = v4;
         *&buf[12] = 2048;
-        *&buf[14] = v43;
+        *&buf[14] = v42;
         *&buf[22] = 2048;
-        v47 = v7;
-        *v48 = 2048;
-        *&v48[2] = v8;
-        v49 = 1024;
-        v50 = v36;
+        v46 = v7;
+        *v47 = 2048;
+        *&v47[2] = v8;
+        v48 = 1024;
+        v49 = v36;
         v37 = "#I Sent %zu of %zu messages from wait-queue; pending confirmations [%zu]; flow-control [%zu]; Client=0x%02x";
         v38 = v35;
         v39 = 48;
@@ -5033,9 +5016,9 @@ void abb::router::ClientProxy::trySendingRequests_sync(abb::router::ClientProxy 
 
       v9 = (*(*(this + 33) + 8 * (*(this + 36) / 0x1EuLL)) + 136 * (*(this + 36) % 0x1EuLL));
       v10 = *(this + 22);
-      abb::router::Message::Message(v45, v9);
-      abb::router::Gateway::sendMessage(v10, v45);
-      abb::router::Message::~Message(v45);
+      abb::router::Message::Message(v44, v9);
+      abb::router::Gateway::sendMessage(v10, v44);
+      abb::router::Message::~Message(v44);
       v11 = *(this + 5);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
@@ -5075,7 +5058,7 @@ void abb::router::ClientProxy::trySendingRequests_sync(abb::router::ClientProxy 
       }
 
       v19 = v18 >= 0xF0F0F0F0F0F0F0 ? 0x1E1E1E1E1E1E1E1 : v17;
-      *v48 = v5;
+      *v47 = v5;
       if (v19)
       {
         if (v19 > 0x1E1E1E1E1E1E1E1)
@@ -5095,7 +5078,7 @@ void abb::router::ClientProxy::trySendingRequests_sync(abb::router::ClientProxy 
       *buf = v20;
       *&buf[8] = &v20[136 * v16];
       *&buf[16] = *&buf[8];
-      v47 = &v20[136 * v19];
+      v46 = &v20[136 * v19];
       abb::router::Message::Message(*&buf[8], v9);
       v22 = *(this + 38);
       v23 = *(this + 39);
@@ -5107,7 +5090,7 @@ void abb::router::ClientProxy::trySendingRequests_sync(abb::router::ClientProxy 
         v5 = v21;
         *(this + 38) = v24;
         *(this + 39) = v15;
-        *(this + 40) = v47;
+        *(this + 40) = v46;
         if (v22)
         {
           goto LABEL_32;
@@ -5116,7 +5099,7 @@ void abb::router::ClientProxy::trySendingRequests_sync(abb::router::ClientProxy 
 
       else
       {
-        v44 = v4;
+        v43 = v4;
         v25 = 0;
         v26 = *&buf[8] - 8 * ((v23 - v22) >> 3) - 136;
         v27 = v22;
@@ -5133,7 +5116,7 @@ void abb::router::ClientProxy::trySendingRequests_sync(abb::router::ClientProxy 
         while (v27 != v23);
         v29 = v22;
         v30 = v22;
-        v4 = v44;
+        v4 = v43;
         do
         {
           v31 = *v30;
@@ -5148,7 +5131,7 @@ void abb::router::ClientProxy::trySendingRequests_sync(abb::router::ClientProxy 
         v22 = *v21;
         *(this + 38) = v24;
         *(this + 39) = v15;
-        *(this + 40) = v47;
+        *(this + 40) = v46;
         if (v22)
         {
 LABEL_32:
@@ -5192,9 +5175,9 @@ LABEL_42:
   *buf = 134218496;
   *&buf[4] = v4;
   *&buf[12] = 2048;
-  *&buf[14] = v43;
+  *&buf[14] = v42;
   *&buf[22] = 1024;
-  LODWORD(v47) = v41;
+  LODWORD(v46) = v41;
   v37 = "#I Sent %zu of %zu messages from wait-queue; Client=0x%02x";
   v38 = v40;
   v39 = 28;
@@ -5202,13 +5185,11 @@ LABEL_44:
   _os_log_impl(&dword_240E91000, v38, OS_LOG_TYPE_DEFAULT, v37, buf, v39);
 LABEL_45:
   std::deque<abb::router::Message>::shrink_to_fit(this + 32);
-LABEL_46:
-  v42 = *MEMORY[0x277D85DE8];
 }
 
-void sub_240EBC568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_240EBC568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   abb::router::Message::~Message(va);
   _Unwind_Resume(a1);
 }
@@ -5236,54 +5217,50 @@ void sub_240EBC580(_Unwind_Exception *a1)
 
 void abb::router::ClientProxy::handleGatewayStop_sync(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  if (!os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 172);
-    if (v6 > 7)
+    v3 = *(a1 + 172);
+    if (v3 <= 4 && v3 != 3)
     {
-      v7 = "(unknown)";
+      return;
     }
 
-    else
-    {
-      v7 = off_278CBB298[v6];
-    }
-
-    v8 = *(a1 + 168);
-    v12 = 136315394;
-    v13 = v7;
-    v14 = 1024;
-    v15 = v8;
-    _os_log_impl(&dword_240E91000, v2, OS_LOG_TYPE_DEFAULT, "#I Request from gateway to stop [%s]; Client=0x%02x", &v12, 0x12u);
-    v9 = *(a1 + 172);
-    if (v9 <= 4 && v9 != 3)
-    {
-      goto LABEL_6;
-    }
-
-LABEL_16:
+LABEL_15:
     abb::router::ClientProxy::handleStopped_sync(a1);
     abb::router::ClientProxy::setStatus_sync(a1, 4u);
     abb::router::ClientProxy::sendStatus_sync(a1, 4u);
-    v11 = *MEMORY[0x277D85DE8];
     return;
   }
 
-  v3 = *(a1 + 172);
-  if (v3 > 4 || v3 == 3)
+  v5 = *(a1 + 172);
+  if (v5 > 7)
   {
-    goto LABEL_16;
+    v6 = "(unknown)";
   }
 
-LABEL_6:
-  v5 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v6 = off_278CBB298[v5];
+  }
+
+  v7 = *(a1 + 168);
+  v10 = 136315394;
+  v11 = v6;
+  v12 = 1024;
+  v13 = v7;
+  _os_log_impl(&dword_240E91000, v2, OS_LOG_TYPE_DEFAULT, "#I Request from gateway to stop [%s]; Client=0x%02x", &v10, 0x12u);
+  v8 = *(a1 + 172);
+  if (v8 > 4 || v8 == 3)
+  {
+    goto LABEL_15;
+  }
 }
 
 void abb::router::ClientProxy::handleStopped_sync(abb::router::ClientProxy *this)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = *(this + 41);
   *(this + 41) = 0;
   if (v2)
@@ -5310,57 +5287,56 @@ void abb::router::ClientProxy::handleStopped_sync(abb::router::ClientProxy *this
 
       v6 = *(this + 42);
       *buf = 136315394;
-      v35 = v5;
-      v36 = 1024;
-      LODWORD(v37) = v6;
+      v33 = v5;
+      v34 = 1024;
+      LODWORD(v35) = v6;
       _os_log_impl(&dword_240E91000, v4, OS_LOG_TYPE_DEFAULT, "#I Proxy is not active [%s]; proceed to stop anyway; Client=0x%02x", buf, 0x12u);
     }
   }
 
-  v7 = *(this + 19);
-  v8 = *(this + 39);
-  v9 = *(this + 38);
-  if (v9 != v8)
+  v7 = *(this + 39);
+  v8 = *(this + 38);
+  if (v8 != v7)
   {
-    v10 = v9 + 14;
+    v9 = v8 + 14;
     while (1)
     {
-      v11 = *(this + 5);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v10 = *(this + 5);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = *(this + 172);
-        v13 = "(unknown)";
-        if (v12 <= 7)
+        v11 = *(this + 172);
+        v12 = "(unknown)";
+        if (v11 <= 7)
         {
-          v13 = off_278CBB298[v12];
+          v12 = off_278CBB298[v11];
         }
 
-        abb::router::Message::generatePrintString((v10 - 14));
-        v14 = v10;
-        if (*(v10 + 23) < 0)
+        abb::router::Message::generatePrintString((v9 - 14));
+        v13 = v9;
+        if (*(v9 + 23) < 0)
         {
-          v14 = *v10;
+          v13 = *v9;
         }
 
         *buf = 136315394;
+        v33 = v12;
+        v34 = 2080;
         v35 = v13;
-        v36 = 2080;
-        v37 = v14;
-        _os_log_impl(&dword_240E91000, v11, OS_LOG_TYPE_DEFAULT, "#I Cancel message in sent-queue [%s]; %s", buf, 0x16u);
+        _os_log_impl(&dword_240E91000, v10, OS_LOG_TYPE_DEFAULT, "#I Cancel message in sent-queue [%s]; %s", buf, 0x16u);
       }
 
-      v15 = *(this + 2);
-      if (!v15 || (v16 = std::__shared_weak_count::lock(v15)) == 0)
+      v14 = *(this + 2);
+      if (!v14 || (v15 = std::__shared_weak_count::lock(v14)) == 0)
       {
         std::__throw_bad_weak_ptr[abi:ne200100]();
       }
 
-      v17 = v16;
-      atomic_fetch_add_explicit(&v16->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      if (atomic_fetch_add(&v16->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      v16 = v15;
+      atomic_fetch_add_explicit(&v15->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      if (atomic_fetch_add(&v15->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        v18 = *(v10 - 8);
-        if (v18)
+        v17 = *(v9 - 8);
+        if (v17)
         {
           goto LABEL_23;
         }
@@ -5368,93 +5344,90 @@ void abb::router::ClientProxy::handleStopped_sync(abb::router::ClientProxy *this
 
       else
       {
-        (v16->__on_zero_shared)(v16);
-        std::__shared_weak_count::__release_weak(v17);
-        v18 = *(v10 - 8);
-        if (v18)
+        (v15->__on_zero_shared)(v15);
+        std::__shared_weak_count::__release_weak(v16);
+        v17 = *(v9 - 8);
+        if (v17)
         {
 LABEL_23:
-          dispatch_source_cancel(v18);
-          v19 = *(v10 - 8);
-          *(v10 - 8) = 0;
-          if (v19)
+          dispatch_source_cancel(v17);
+          v18 = *(v9 - 8);
+          *(v9 - 8) = 0;
+          if (v18)
           {
-            dispatch_release(v19);
+            dispatch_release(v18);
           }
         }
       }
 
-      abb::router::Message::Message(v33, (v10 - 14));
-      abb::router::ClientProxy::sendErrorMessage_sync(this, v33, 89);
-      abb::router::Message::~Message(v33);
-      std::__shared_weak_count::__release_weak(v17);
-      v20 = v10 + 3;
-      v10 += 17;
-      if (v20 == v8)
+      abb::router::Message::Message(v31, (v9 - 14));
+      abb::router::ClientProxy::sendErrorMessage_sync(this, v31, 89);
+      abb::router::Message::~Message(v31);
+      std::__shared_weak_count::__release_weak(v16);
+      v19 = v9 + 3;
+      v9 += 17;
+      if (v19 == v7)
       {
-        v22 = *(this + 38);
-        v21 = *(this + 39);
-        if (v21 != v22)
+        v21 = *(this + 38);
+        v20 = *(this + 39);
+        if (v20 != v21)
         {
-          v23 = v21 - 17;
-          v24 = v21 - 17;
-          v25 = v21 - 17;
+          v22 = v20 - 17;
+          v23 = v20 - 17;
+          v24 = v20 - 17;
           do
           {
-            v26 = *v25;
-            v25 -= 17;
-            (*v26)(v24);
-            v23 -= 17;
-            v27 = v24 == v22;
-            v24 = v25;
+            v25 = *v24;
+            v24 -= 17;
+            (*v25)(v23);
+            v22 -= 17;
+            v26 = v23 == v21;
+            v23 = v24;
           }
 
-          while (!v27);
+          while (!v26);
         }
 
-        *(this + 39) = v22;
+        *(this + 39) = v21;
         std::vector<abb::router::Message>::shrink_to_fit(this + 38);
-        v28 = *(this + 5);
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v27 = *(this + 5);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          v29 = *(this + 42);
+          v28 = *(this + 42);
           *buf = 67109120;
-          LODWORD(v35) = v29;
-          v30 = "#I Cleared all messages in sent-queue; stop procedure complete; Client=0x%02x";
+          LODWORD(v33) = v28;
+          v29 = "#I Cleared all messages in sent-queue; stop procedure complete; Client=0x%02x";
           goto LABEL_34;
         }
 
-        goto LABEL_35;
+        return;
       }
     }
   }
 
-  v28 = *(this + 5);
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v27 = *(this + 5);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = *(this + 42);
+    v30 = *(this + 42);
     *buf = 67109120;
-    LODWORD(v35) = v31;
-    v30 = "#I Nothing in sent-queue; stop procedure complete; Client=0x%02x";
+    LODWORD(v33) = v30;
+    v29 = "#I Nothing in sent-queue; stop procedure complete; Client=0x%02x";
 LABEL_34:
-    _os_log_impl(&dword_240E91000, v28, OS_LOG_TYPE_DEFAULT, v30, buf, 8u);
+    _os_log_impl(&dword_240E91000, v27, OS_LOG_TYPE_DEFAULT, v29, buf, 8u);
   }
-
-LABEL_35:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
-void sub_240EBCA8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_240EBCA8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   abb::router::Message::~Message(va);
-  std::__shared_weak_count::__release_weak(v4);
+  std::__shared_weak_count::__release_weak(v7);
   _Unwind_Resume(a1);
 }
 
 void abb::router::ClientProxy::handleGatewayDown_sync(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -5472,8 +5445,8 @@ void abb::router::ClientProxy::handleGatewayDown_sync(uint64_t a1)
     v5 = *(a1 + 168);
     *group = 136315394;
     *&group[4] = v4;
-    v8 = 1024;
-    v9 = v5;
+    v7 = 1024;
+    v8 = v5;
     _os_log_impl(&dword_240E91000, v2, OS_LOG_TYPE_DEFAULT, "#I Request from gateway to shutdown [%s]; Client=0x%02x", group, 0x12u);
   }
 
@@ -5490,8 +5463,6 @@ void abb::router::ClientProxy::handleGatewayDown_sync(uint64_t a1)
       dispatch_release(*group);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EBCBF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, dispatch_object_t object)
@@ -5507,7 +5478,7 @@ void sub_240EBCBF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void abb::router::ClientProxy::handleShutdown_sync(abb::router::ClientProxy *this)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if (*(this + 172) != 4)
   {
     abb::router::ClientProxy::handleStopped_sync(this);
@@ -5522,180 +5493,120 @@ void abb::router::ClientProxy::handleShutdown_sync(abb::router::ClientProxy *thi
   }
 
   v3 = *(this + 37);
-  if (v3)
+  if (!v3)
   {
-    v4 = *(this + 33);
-    v5 = *(this + 34);
-    if (v5 == v4)
+    v20 = *(this + 5);
+    if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(this + 33);
+      return;
     }
 
-    else
+    v21 = *(this + 42);
+    *buf = 67109120;
+    LODWORD(v36) = v21;
+    v22 = "#I Nothing in wait-queue; shutdown procedure complete; Client=0x%02x";
+    goto LABEL_45;
+  }
+
+  v4 = *(this + 33);
+  v5 = *(this + 34);
+  if (v5 == v4)
+  {
+    v5 = *(this + 33);
+    goto LABEL_36;
+  }
+
+  v6 = *(this + 36);
+  v7 = v4[v6 / 0x1E] + 136 * (v6 % 0x1E);
+  v8 = v4[(v6 + v3) / 0x1E] + 136 * ((v6 + v3) % 0x1E);
+  if (v7 != v8)
+  {
+    v9 = &v4[v6 / 0x1E];
+    while (1)
     {
-      v6 = *(this + 36);
-      v7 = v4[v6 / 0x1E] + 136 * (v6 % 0x1E);
-      v8 = v4[(v6 + v3) / 0x1E] + 136 * ((v6 + v3) % 0x1E);
-      if (v7 != v8)
+      v10 = *(this + 5);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = &v4[v6 / 0x1E];
-        while (1)
+        v11 = *(this + 172);
+        v12 = "(unknown)";
+        if (v11 <= 7)
         {
-          v10 = *(this + 5);
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-          {
-            v11 = *(this + 172);
-            v12 = "(unknown)";
-            if (v11 <= 7)
-            {
-              v12 = off_278CBB298[v11];
-            }
+          v12 = off_278CBB298[v11];
+        }
 
-            abb::router::Message::generatePrintString(v7);
-            v13 = (v7 + 112);
-            if (*(v7 + 135) < 0)
-            {
-              v13 = *v13;
-            }
+        abb::router::Message::generatePrintString(v7);
+        v13 = (v7 + 112);
+        if (*(v7 + 135) < 0)
+        {
+          v13 = *v13;
+        }
 
-            *buf = 136315394;
-            v37 = v12;
-            v38 = 2080;
-            v39 = v13;
-            _os_log_impl(&dword_240E91000, v10, OS_LOG_TYPE_DEFAULT, "#I Cancel message in wait-queue [%s]; %s", buf, 0x16u);
-          }
+        *buf = 136315394;
+        v36 = v12;
+        v37 = 2080;
+        v38 = v13;
+        _os_log_impl(&dword_240E91000, v10, OS_LOG_TYPE_DEFAULT, "#I Cancel message in wait-queue [%s]; %s", buf, 0x16u);
+      }
 
-          v14 = *(this + 2);
-          if (!v14 || (v15 = std::__shared_weak_count::lock(v14)) == 0)
-          {
-            std::__throw_bad_weak_ptr[abi:ne200100]();
-          }
+      v14 = *(this + 2);
+      if (!v14 || (v15 = std::__shared_weak_count::lock(v14)) == 0)
+      {
+        std::__throw_bad_weak_ptr[abi:ne200100]();
+      }
 
-          v16 = v15;
-          atomic_fetch_add_explicit(&v15->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-          if (atomic_fetch_add(&v15->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v17 = *(v7 + 48);
-            if (v17)
-            {
-              goto LABEL_22;
-            }
-          }
+      v16 = v15;
+      atomic_fetch_add_explicit(&v15->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      if (atomic_fetch_add(&v15->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        v17 = *(v7 + 48);
+        if (v17)
+        {
+          goto LABEL_22;
+        }
+      }
 
-          else
-          {
-            (v15->__on_zero_shared)(v15);
-            std::__shared_weak_count::__release_weak(v16);
-            v17 = *(v7 + 48);
-            if (v17)
-            {
+      else
+      {
+        (v15->__on_zero_shared)(v15);
+        std::__shared_weak_count::__release_weak(v16);
+        v17 = *(v7 + 48);
+        if (v17)
+        {
 LABEL_22:
-              dispatch_source_cancel(v17);
-              v18 = *(v7 + 48);
-              *(v7 + 48) = 0;
-              if (v18)
-              {
-                dispatch_release(v18);
-              }
-            }
-          }
-
-          abb::router::Message::Message(v35, v7);
-          abb::router::ClientProxy::sendErrorMessage_sync(this, v35, 89);
-          abb::router::Message::~Message(v35);
-          std::__shared_weak_count::__release_weak(v16);
-          v7 += 136;
-          if (v7 - *v9 == 4080)
+          dispatch_source_cancel(v17);
+          v18 = *(v7 + 48);
+          *(v7 + 48) = 0;
+          if (v18)
           {
-            v19 = v9[1];
-            ++v9;
-            v7 = v19;
-          }
-
-          if (v7 == v8)
-          {
-            v4 = *(this + 33);
-            v5 = *(this + 34);
-            break;
+            dispatch_release(v18);
           }
         }
       }
 
-      if (v5 != v4)
+      abb::router::Message::Message(v34, v7);
+      abb::router::ClientProxy::sendErrorMessage_sync(this, v34, 89);
+      abb::router::Message::~Message(v34);
+      std::__shared_weak_count::__release_weak(v16);
+      v7 += 136;
+      if (v7 - *v9 == 4080)
       {
-        v23 = *(this + 36);
-        v24 = &v4[v23 / 0x1E];
-        v25 = v4[(*(this + 37) + v23) / 0x1E] + 136 * ((*(this + 37) + v23) % 0x1E);
-        if (*v24 + 136 * (v23 % 0x1E) != v25)
-        {
-          v26 = (*v24 + 136 * (v23 % 0x1E));
-          do
-          {
-            v27 = *v26;
-            v26 += 17;
-            (*v27)();
-            if (v26 - *v24 == 4080)
-            {
-              v28 = v24[1];
-              ++v24;
-              v26 = v28;
-            }
-          }
+        v19 = v9[1];
+        ++v9;
+        v7 = v19;
+      }
 
-          while (v26 != v25);
-          v4 = *(this + 33);
-          v34 = *(this + 34);
-          *(this + 37) = 0;
-          v29 = (v34 - v4) >> 3;
-          if (v29 < 3)
-          {
-LABEL_38:
-            if (v29 == 1)
-            {
-              v31 = 15;
-            }
-
-            else
-            {
-              if (v29 != 2)
-              {
-                goto LABEL_43;
-              }
-
-              v31 = 30;
-            }
-
-            *(this + 36) = v31;
-LABEL_43:
-            v20 = *(this + 5);
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
-            {
-              v32 = *(this + 42);
-              *buf = 67109120;
-              LODWORD(v37) = v32;
-              v22 = "#I Cleared all messages in wait-queue; shutdown procedure complete; Client=0x%02x";
-              goto LABEL_45;
-            }
-
-            goto LABEL_46;
-          }
-
-          do
-          {
-LABEL_37:
-            operator delete(*v4);
-            v30 = *(this + 34);
-            v4 = (*(this + 33) + 8);
-            *(this + 33) = v4;
-            v29 = (v30 - v4) >> 3;
-          }
-
-          while (v29 > 2);
-          goto LABEL_38;
-        }
+      if (v7 == v8)
+      {
+        v4 = *(this + 33);
+        v5 = *(this + 34);
+        break;
       }
     }
+  }
 
+  if (v5 == v4 || (v23 = *(this + 36), v24 = &v4[v23 / 0x1E], v25 = v4[(*(this + 37) + v23) / 0x1E] + 136 * ((*(this + 37) + v23) % 0x1E), *v24 + 136 * (v23 % 0x1E) == v25))
+  {
+LABEL_36:
     *(this + 37) = 0;
     v29 = v5 - v4;
     if (v29 < 3)
@@ -5706,26 +5617,73 @@ LABEL_37:
     goto LABEL_37;
   }
 
-  v20 = *(this + 5);
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v26 = (*v24 + 136 * (v23 % 0x1E));
+  do
   {
-    v21 = *(this + 42);
-    *buf = 67109120;
-    LODWORD(v37) = v21;
-    v22 = "#I Nothing in wait-queue; shutdown procedure complete; Client=0x%02x";
-LABEL_45:
-    _os_log_impl(&dword_240E91000, v20, OS_LOG_TYPE_DEFAULT, v22, buf, 8u);
+    v27 = *v26;
+    v26 += 17;
+    (*v27)();
+    if (v26 - *v24 == 4080)
+    {
+      v28 = v24[1];
+      ++v24;
+      v26 = v28;
+    }
   }
 
-LABEL_46:
-  v33 = *MEMORY[0x277D85DE8];
+  while (v26 != v25);
+  v4 = *(this + 33);
+  v33 = *(this + 34);
+  *(this + 37) = 0;
+  v29 = (v33 - v4) >> 3;
+  if (v29 >= 3)
+  {
+    do
+    {
+LABEL_37:
+      operator delete(*v4);
+      v30 = *(this + 34);
+      v4 = (*(this + 33) + 8);
+      *(this + 33) = v4;
+      v29 = (v30 - v4) >> 3;
+    }
+
+    while (v29 > 2);
+  }
+
+LABEL_38:
+  if (v29 == 1)
+  {
+    v31 = 15;
+    goto LABEL_42;
+  }
+
+  if (v29 == 2)
+  {
+    v31 = 30;
+LABEL_42:
+    *(this + 36) = v31;
+  }
+
+  v20 = *(this + 5);
+  if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  {
+    return;
+  }
+
+  v32 = *(this + 42);
+  *buf = 67109120;
+  LODWORD(v36) = v32;
+  v22 = "#I Cleared all messages in wait-queue; shutdown procedure complete; Client=0x%02x";
+LABEL_45:
+  _os_log_impl(&dword_240E91000, v20, OS_LOG_TYPE_DEFAULT, v22, buf, 8u);
 }
 
-void sub_240EBD05C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_240EBD05C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   abb::router::Message::~Message(va);
-  std::__shared_weak_count::__release_weak(v4);
+  std::__shared_weak_count::__release_weak(v7);
   _Unwind_Resume(a1);
 }
 
@@ -5753,7 +5711,7 @@ void sub_240EBD0F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void abb::router::ClientProxy::handleConfirmation_sync(uint64_t a1, uint64_t a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v4 = **(a2 + 8);
   v5 = *(v4 + 12);
   v6 = *(v4 + 9);
@@ -5791,7 +5749,7 @@ LABEL_15:
       _os_log_debug_impl(&dword_240E91000, v10, OS_LOG_TYPE_DEBUG, "#D Confirmation is not tracked; %s", &buf, 0xCu);
     }
 
-    goto LABEL_55;
+    return;
   }
 
   if (os_log_type_enabled(*(a1 + 40), OS_LOG_TYPE_DEFAULT))
@@ -5861,7 +5819,7 @@ LABEL_25:
     v20 = *v18;
     v18 = *(a2 + 8);
     v21 = *(a2 + 16);
-    v40 = v21;
+    v39 = v21;
     if (v21)
     {
       atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -5871,7 +5829,7 @@ LABEL_25:
   else
   {
     v20 = *v18;
-    v40 = 0;
+    v39 = 0;
   }
 
   v22 = xpc_data_create(v20, *(v18 + 8) - *v18);
@@ -5884,10 +5842,10 @@ LABEL_25:
   v23 = xpc_null_create();
   xpc_release(v22);
   xpc_release(v23);
-  if (v40 && !atomic_fetch_add(&v40->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v39 && !atomic_fetch_add(&v39->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v40->__on_zero_shared)(v40);
-    std::__shared_weak_count::__release_weak(v40);
+    (v39->__on_zero_shared)(v39);
+    std::__shared_weak_count::__release_weak(v39);
   }
 
   v24 = *(&buf + 1);
@@ -5978,8 +5936,6 @@ LABEL_25:
 
   abb::router::ClientProxy::trySendingRequests_sync(a1);
   xpc_release(xdict);
-LABEL_55:
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EBD614(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, xpc_object_t object, char a13)
@@ -6045,8 +6001,8 @@ void std::vector<abb::router::Message>::shrink_to_fit(void (****a1)(void *))
         v8 = v5;
         do
         {
-          abb::router::Message::Message(v8 + v7 * 8, &v2[v7]);
-          v7 += 17;
+          abb::router::Message::Message(v8 + v7, &v2[v7]);
+          v7 += 136;
         }
 
         while (&v2[v7] != v1);
@@ -6055,9 +6011,9 @@ void std::vector<abb::router::Message>::shrink_to_fit(void (****a1)(void *))
         do
         {
           v11 = *v10;
-          v10 += 17;
+          v10 += 136;
           (*v11)(v2);
-          v9 += 17;
+          v9 += 136;
           v2 = v10;
         }
 
@@ -6096,7 +6052,7 @@ void sub_240EBD918(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
 
 void abb::router::ClientProxy::checkSleepCompletion_sync(abb::router::ClientProxy *this)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (*(this + 41))
   {
     v2 = *(this + 38);
@@ -6133,9 +6089,9 @@ void abb::router::ClientProxy::checkSleepCompletion_sync(abb::router::ClientProx
       {
 LABEL_14:
         v10 = *(this + 42);
-        v13 = 67109120;
-        v14 = v10;
-        _os_log_impl(&dword_240E91000, v5, OS_LOG_TYPE_DEFAULT, "#I Sleep procedure complete; Client=0x%02x", &v13, 8u);
+        v12 = 67109120;
+        v13 = v10;
+        _os_log_impl(&dword_240E91000, v5, OS_LOG_TYPE_DEFAULT, "#I Sleep procedure complete; Client=0x%02x", &v12, 8u);
       }
 
 LABEL_15:
@@ -6154,9 +6110,9 @@ LABEL_15:
       if (v6)
       {
         v7 = *(this + 42);
-        v13 = 67109120;
-        v14 = v7;
-        _os_log_impl(&dword_240E91000, v5, OS_LOG_TYPE_DEFAULT, "#I Sleep procedure is waiting for confirmations; Client=0x%02x", &v13, 8u);
+        v12 = 67109120;
+        v13 = v7;
+        _os_log_impl(&dword_240E91000, v5, OS_LOG_TYPE_DEFAULT, "#I Sleep procedure is waiting for confirmations; Client=0x%02x", &v12, 8u);
       }
 
       abb::router::ClientProxy::setStatus_sync(this, 5u);
@@ -6169,18 +6125,16 @@ LABEL_15:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(this + 42);
-      v13 = 67109120;
-      v14 = v9;
-      _os_log_impl(&dword_240E91000, v8, OS_LOG_TYPE_DEFAULT, "#I Sleep session is not held; Client=0x%02x", &v13, 8u);
+      v12 = 67109120;
+      v13 = v9;
+      _os_log_impl(&dword_240E91000, v8, OS_LOG_TYPE_DEFAULT, "#I Sleep session is not held; Client=0x%02x", &v12, 8u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void abb::router::ClientProxy::handleIndication_sync(uint64_t a1, uint64_t a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 216);
   if (!v4)
   {
@@ -6223,7 +6177,7 @@ LABEL_9:
       _os_log_debug_impl(&dword_240E91000, v12, OS_LOG_TYPE_DEBUG, "#D Client is not registered for this indication; %s", &buf, 0xCu);
     }
 
-    goto LABEL_44;
+    return;
   }
 
   v14 = xpc_dictionary_create(0, 0, 0);
@@ -6266,7 +6220,7 @@ LABEL_21:
     v19 = *v17;
     v17 = *(a2 + 8);
     v20 = *(a2 + 16);
-    v33 = v20;
+    v32 = v20;
     if (v20)
     {
       atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -6276,7 +6230,7 @@ LABEL_21:
   else
   {
     v19 = *v17;
-    v33 = 0;
+    v32 = 0;
   }
 
   v21 = xpc_data_create(v19, *(v17 + 8) - *v17);
@@ -6289,10 +6243,10 @@ LABEL_21:
   v22 = xpc_null_create();
   xpc_release(v21);
   xpc_release(v22);
-  if (v33 && !atomic_fetch_add(&v33->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v33->__on_zero_shared)(v33);
-    std::__shared_weak_count::__release_weak(v33);
+    (v32->__on_zero_shared)(v32);
+    std::__shared_weak_count::__release_weak(v32);
   }
 
   if (*(&buf + 1) && !atomic_fetch_add((*(&buf + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
@@ -6349,8 +6303,6 @@ LABEL_21:
 
   abb::router::ClientProxy::sendMessage_sync(a1, &xdict);
   xpc_release(v24);
-LABEL_44:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EBDF48(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, char a13)
@@ -6365,7 +6317,7 @@ void sub_240EBDF48(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void abb::router::ClientProxy::handleSentMessage_sync(void *a1, uint64_t a2, int a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v6 = *(**(a2 + 8) + 12);
   v7 = a1[5];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -6388,9 +6340,9 @@ void abb::router::ClientProxy::handleSentMessage_sync(void *a1, uint64_t a2, int
     }
 
     *buf = 136315394;
-    v38 = v11;
-    v39 = 2080;
-    v40 = v12;
+    v35 = v11;
+    v36 = 2080;
+    v37 = v12;
     _os_log_debug_impl(&dword_240E91000, v7, OS_LOG_TYPE_DEBUG, "#D Lookup %s message; %s", buf, 0x16u);
     v9 = a1[38];
     v8 = a1[39];
@@ -6431,18 +6383,17 @@ LABEL_26:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       abb::router::Message::generatePrintString(a2);
-      v22 = (a2 + 112);
+      v21 = (a2 + 112);
       if (*(a2 + 135) < 0)
       {
-        v22 = *v22;
+        v21 = *v21;
       }
 
       *buf = 136315138;
-      v38 = v22;
+      v35 = v21;
       _os_log_impl(&dword_240E91000, v10, OS_LOG_TYPE_DEFAULT, "#I Request not tracked; not looking for confirmation or, might be canceled already; %s", buf, 0xCu);
     }
 
-    v23 = *MEMORY[0x277D85DE8];
     return;
   }
 
@@ -6459,13 +6410,13 @@ LABEL_26:
       }
 
       *buf = 136315138;
-      v38 = v14;
+      v35 = v14;
       _os_log_impl(&dword_240E91000, v10, OS_LOG_TYPE_DEFAULT, "#I Sending request failed; send error confirmation; %s", buf, 0xCu);
     }
 
-    abb::router::Message::Message(v36, a2);
-    abb::router::ClientProxy::sendErrorMessage_sync(a1, v36, 5);
-    abb::router::Message::~Message(v36);
+    abb::router::Message::Message(v33, a2);
+    abb::router::ClientProxy::sendErrorMessage_sync(a1, v33, 5);
+    abb::router::Message::~Message(v33);
     v15 = a1[39];
     if (v9 + 136 != v15)
     {
@@ -6498,72 +6449,71 @@ LABEL_26:
     }
 
     a1[39] = v9;
-    v21 = *MEMORY[0x277D85DE8];
     return;
   }
 
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     abb::router::Message::generatePrintString(a2);
-    v30 = (a2 + 112);
+    v27 = (a2 + 112);
     if (*(a2 + 135) < 0)
     {
-      v30 = *v30;
+      v27 = *v27;
     }
 
     *buf = 136315138;
-    v38 = v30;
+    v35 = v27;
     _os_log_debug_impl(&dword_240E91000, v10, OS_LOG_TYPE_DEBUG, "#D Start timer for request; %s", buf, 0xCu);
-    v24 = a1[2];
-    if (!v24)
+    v22 = a1[2];
+    if (!v22)
     {
-LABEL_49:
+LABEL_48:
       std::__throw_bad_weak_ptr[abi:ne200100]();
     }
   }
 
   else
   {
-    v24 = a1[2];
-    if (!v24)
+    v22 = a1[2];
+    if (!v22)
     {
-      goto LABEL_49;
+      goto LABEL_48;
     }
   }
 
-  v25 = a1[1];
-  v26 = std::__shared_weak_count::lock(v24);
-  if (!v26)
+  v23 = a1[1];
+  v24 = std::__shared_weak_count::lock(v22);
+  if (!v24)
   {
-    goto LABEL_49;
+    goto LABEL_48;
   }
 
-  v27 = v26;
-  atomic_fetch_add_explicit(&v26->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  if (!atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v25 = v24;
+  atomic_fetch_add_explicit(&v24->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  if (!atomic_fetch_add(&v24->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v26->__on_zero_shared)(v26);
-    std::__shared_weak_count::__release_weak(v27);
+    (v24->__on_zero_shared)(v24);
+    std::__shared_weak_count::__release_weak(v25);
   }
 
-  v28 = a1[3];
-  object = v28;
-  if (v28)
+  v26 = a1[3];
+  object = v26;
+  if (v26)
   {
-    dispatch_retain(v28);
+    dispatch_retain(v26);
   }
 
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 1174405120;
-  v31[2] = ___ZN3abb6router11ClientProxy22handleSentMessage_syncENS0_7MessageEb_block_invoke;
-  v31[3] = &__block_descriptor_tmp_3;
-  v31[4] = a1;
-  v31[5] = v25;
-  v32 = v27;
-  atomic_fetch_add_explicit(&v27->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  v33[34] = v6;
-  abb::router::Message::Message(v33, a2);
-  aBlock = _Block_copy(v31);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 1174405120;
+  v28[2] = ___ZN3abb6router11ClientProxy22handleSentMessage_syncENS0_7MessageEb_block_invoke;
+  v28[3] = &__block_descriptor_tmp_3;
+  v28[4] = a1;
+  v28[5] = v23;
+  v29 = v25;
+  atomic_fetch_add_explicit(&v25->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  v30[34] = v6;
+  abb::router::Message::Message(v30, a2);
+  aBlock = _Block_copy(v28);
   abb::router::Message::startTimer(v9, &object, &aBlock);
   if (aBlock)
   {
@@ -6575,14 +6525,13 @@ LABEL_49:
     dispatch_release(object);
   }
 
-  abb::router::Message::~Message(v33);
-  if (v32)
+  abb::router::Message::~Message(v30);
+  if (v29)
   {
-    std::__shared_weak_count::__release_weak(v32);
+    std::__shared_weak_count::__release_weak(v29);
   }
 
-  std::__shared_weak_count::__release_weak(v27);
-  v29 = *MEMORY[0x277D85DE8];
+  std::__shared_weak_count::__release_weak(v25);
 }
 
 void sub_240EBE490(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
@@ -6705,25 +6654,32 @@ LABEL_9:
 
 void ___ZN3abb6router11ClientProxy22handleSentMessage_syncENS0_7MessageEb_block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   if (!v2)
   {
-    goto LABEL_24;
+    return;
   }
 
   v3 = *(a1 + 32);
   v4 = std::__shared_weak_count::lock(v2);
-  v24 = v4;
+  v23 = v4;
   if (!v4)
   {
-    goto LABEL_24;
+    return;
   }
 
   v5 = v4;
   if (!*(a1 + 40))
   {
-    goto LABEL_22;
+LABEL_22:
+    if (!atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v5->__on_zero_shared)(v5);
+      std::__shared_weak_count::__release_weak(v5);
+    }
+
+    return;
   }
 
   v6 = v3[38];
@@ -6754,14 +6710,14 @@ void ___ZN3abb6router11ClientProxy22handleSentMessage_syncENS0_7MessageEb_block_
     {
 LABEL_25:
       abb::router::Message::generatePrintString((a1 + 56));
-      v18 = (a1 + 168);
+      v17 = (a1 + 168);
       if (*(a1 + 191) < 0)
       {
-        v18 = *v18;
+        v17 = *v17;
       }
 
       *buf = 136315138;
-      v26 = v18;
+      v25 = v17;
       _os_log_debug_impl(&dword_240E91000, v8, OS_LOG_TYPE_DEBUG, "#D Request not present in tracking queue; %s", buf, 0xCu);
     }
 
@@ -6779,14 +6735,14 @@ LABEL_25:
   }
 
   abb::router::Message::generatePrintString((a1 + 56));
-  v19 = (a1 + 168);
+  v18 = (a1 + 168);
   if (*(a1 + 191) < 0)
   {
-    v19 = *v19;
+    v18 = *v18;
   }
 
   *buf = 136315138;
-  v26 = v19;
+  v25 = v18;
   _os_log_debug_impl(&dword_240E91000, v8, OS_LOG_TYPE_DEBUG, "#D Remove request from tracking queue; %s", buf, 0xCu);
   v7 = v3[39];
   if (v6 + 136 != v7)
@@ -6826,37 +6782,29 @@ LABEL_14:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     abb::router::Message::generatePrintString((a1 + 56));
-    v20 = (a1 + 168);
+    v19 = (a1 + 168);
     if (*(a1 + 191) < 0)
     {
-      v20 = *v20;
+      v19 = *v19;
     }
 
     *buf = 136315138;
-    v26 = v20;
+    v25 = v19;
     _os_log_error_impl(&dword_240E91000, v15, OS_LOG_TYPE_ERROR, "TIMEOUT for message; %s", buf, 0xCu);
   }
 
-  abb::router::Message::Message(v22, a1 + 56);
-  abb::router::ClientProxy::sendErrorMessage_sync(v3, v22, 60);
-  abb::router::Message::~Message(v22);
-  v16 = v3[22];
   abb::router::Message::Message(v21, a1 + 56);
-  abb::router::Gateway::messageTimeout(v16, v21);
+  abb::router::ClientProxy::sendErrorMessage_sync(v3, v21, 60);
   abb::router::Message::~Message(v21);
-  v5 = v24;
-  if (v24)
+  v16 = v3[22];
+  abb::router::Message::Message(v20, a1 + 56);
+  abb::router::Gateway::messageTimeout(v16, v20);
+  abb::router::Message::~Message(v20);
+  v5 = v23;
+  if (v23)
   {
-LABEL_22:
-    if (!atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v5->__on_zero_shared)(v5);
-      std::__shared_weak_count::__release_weak(v5);
-    }
+    goto LABEL_22;
   }
-
-LABEL_24:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EBEBAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -6901,50 +6849,46 @@ void __destroy_helper_block_e8_40c49_ZTSNSt3__18weak_ptrIN3abb6router11ClientPro
   }
 }
 
-void abb::router::ClientProxy::handleAction_sync(abb::router::ClientProxy *this, int a2)
+void abb::router::ClientProxy::handleAction_sync(abb::router::ClientProxy *result, int a2)
 {
   if (a2 == 2)
   {
-    abb::router::ClientProxy::handleActionStop_sync(this);
+    abb::router::ClientProxy::handleActionStop_sync(result);
   }
 
   else if (a2 == 1)
   {
-    abb::router::ClientProxy::handleActionStart_sync(this);
+    abb::router::ClientProxy::handleActionStart_sync(result);
   }
 }
 
 void abb::router::ClientProxy::handleActionStart_sync(abb::router::ClientProxy *this)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(this + 5);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  if (!os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(this + 42);
-    v6[0] = 67109120;
-    v6[1] = v4;
-    _os_log_impl(&dword_240E91000, v2, OS_LOG_TYPE_DEFAULT, "#I User action start; Client=0x%02x", v6, 8u);
     if (*(this + 172) != 3)
     {
-      goto LABEL_3;
+      return;
     }
 
-LABEL_6:
+LABEL_5:
     abb::router::ClientProxy::setStatus_sync(this, 3u);
     abb::router::ClientProxy::sendStatus_sync(this, 3u);
     abb::router::ClientProxy::trySendingRequests_sync(this);
     abb::router::ClientProxy::trySendingRequests_sync(this);
-    v5 = *MEMORY[0x277D85DE8];
     return;
   }
 
+  v3 = *(this + 42);
+  v4[0] = 67109120;
+  v4[1] = v3;
+  _os_log_impl(&dword_240E91000, v2, OS_LOG_TYPE_DEFAULT, "#I User action start; Client=0x%02x", v4, 8u);
   if (*(this + 172) == 3)
   {
-    goto LABEL_6;
+    goto LABEL_5;
   }
-
-LABEL_3:
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void abb::router::ClientProxy::handleActionStop_sync(abb::router::ClientProxy *this)
@@ -6968,8 +6912,6 @@ void abb::router::ClientProxy::handleActionStop_sync(abb::router::ClientProxy *t
   {
     dispatch_release(group[0]);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EBEECC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, dispatch_object_t object)
@@ -6983,63 +6925,60 @@ void sub_240EBEECC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void abb::router::ClientProxy::handleStatus_sync(NSObject **this, int a2)
+void abb::router::ClientProxy::handleStatus_sync(NSObject **result, int a2)
 {
   if (a2 == 5)
   {
-    abb::router::ClientProxy::handleSleeping_sync(this);
+    abb::router::ClientProxy::handleSleeping_sync(result);
   }
 }
 
 void abb::router::ClientProxy::handleSleeping_sync(NSObject **this)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *(this + 172);
   if (v2 == 3)
   {
-    v3 = *MEMORY[0x277D85DE8];
 
     abb::router::ClientProxy::checkSleepCompletion_sync(this);
   }
 
   else
   {
-    v4 = this[5];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v3 = this[5];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       if (v2 > 7)
       {
-        v5 = "(unknown)";
+        v4 = "(unknown)";
       }
 
       else
       {
-        v5 = off_278CBB258[v2];
+        v4 = off_278CBB258[v2];
       }
 
-      v6 = *(this + 42);
-      v9 = 136315394;
+      v5 = *(this + 42);
+      v7 = 136315394;
+      v8 = v4;
+      v9 = 1024;
       v10 = v5;
-      v11 = 1024;
-      v12 = v6;
-      _os_log_impl(&dword_240E91000, v4, OS_LOG_TYPE_DEFAULT, "#I Proxy not active for some reason [%s]; Client=0x%02x", &v9, 0x12u);
+      _os_log_impl(&dword_240E91000, v3, OS_LOG_TYPE_DEFAULT, "#I Proxy not active for some reason [%s]; Client=0x%02x", &v7, 0x12u);
     }
 
-    v7 = this[41];
+    v6 = this[41];
     this[41] = 0;
-    if (v7)
+    if (v6)
     {
-      dispatch_group_leave(v7);
-      dispatch_release(v7);
+      dispatch_group_leave(v6);
+      dispatch_release(v6);
     }
-
-    v8 = *MEMORY[0x277D85DE8];
   }
 }
 
 void abb::router::ClientProxy::handleRequest_sync(uint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 40);
   if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -7071,9 +7010,9 @@ LABEL_6:
   }
 
   *buf = 136315394;
-  v23 = v6;
-  v24 = 2080;
-  v25 = v7;
+  v22 = v6;
+  v23 = 2080;
+  v24 = v7;
   _os_log_impl(&dword_240E91000, v4, OS_LOG_TYPE_DEFAULT, "#I Received request over link [%s]; %s", buf, 0x16u);
 LABEL_8:
   v8 = *(a2 + 72);
@@ -7103,14 +7042,14 @@ LABEL_8:
         }
 
         *buf = 136315138;
-        v23 = v11;
+        v22 = v11;
         _os_log_impl(&dword_240E91000, v10, OS_LOG_TYPE_DEFAULT, "#I Canceling request as endpoint is down; %s", buf, 0xCu);
       }
 
-      abb::router::Message::Message(v21, a2);
-      abb::router::ClientProxy::sendErrorMessage_sync(a1, v21, 54);
-      abb::router::Message::~Message(v21);
-      goto LABEL_32;
+      abb::router::Message::Message(v20, a2);
+      abb::router::ClientProxy::sendErrorMessage_sync(a1, v20, 54);
+      abb::router::Message::~Message(v20);
+      return;
     }
 
     goto LABEL_24;
@@ -7129,7 +7068,7 @@ LABEL_24:
 
     if (v16 == *(a1 + 296) + *(a1 + 288))
     {
-      std::deque<abb::router::Message>::__add_back_capacity(a1 + 256);
+      std::deque<abb::router::Message>::__add_back_capacity((a1 + 256));
       v14 = *(a1 + 264);
       v15 = *(a1 + 272);
     }
@@ -7148,7 +7087,7 @@ LABEL_24:
     abb::router::Message::Message(v18, a2);
     ++*(a1 + 296);
     abb::router::ClientProxy::trySendingRequests_sync(a1);
-    goto LABEL_32;
+    return;
   }
 
   v12 = *(a1 + 40);
@@ -7162,15 +7101,20 @@ LABEL_24:
     }
 
     *buf = 136315138;
-    v23 = v13;
+    v22 = v13;
     _os_log_impl(&dword_240E91000, v12, OS_LOG_TYPE_DEFAULT, "#I Canceling request as endpoint is not ready yet; %s", buf, 0xCu);
   }
 
-  abb::router::Message::Message(v20, a2);
-  abb::router::ClientProxy::sendErrorMessage_sync(a1, v20, 54);
-  abb::router::Message::~Message(v20);
-LABEL_32:
-  v19 = *MEMORY[0x277D85DE8];
+  abb::router::Message::Message(v19, a2);
+  abb::router::ClientProxy::sendErrorMessage_sync(a1, v19, 54);
+  abb::router::Message::~Message(v19);
+}
+
+void sub_240EBF340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  abb::router::Message::~Message(va);
+  _Unwind_Resume(a1);
 }
 
 void abb::router::ClientProxy::updateEvents_sync(uint64_t a1, xpc_object_t *a2)
@@ -7258,10 +7202,10 @@ LABEL_15:
 
   if (v5 != v10)
   {
-    v15 = 0;
+    v14 = 0;
     while (1)
     {
-      value = xpc_array_get_value(v5, v15);
+      value = xpc_array_get_value(v5, v14);
       object[0] = value;
       if (value)
       {
@@ -7273,23 +7217,23 @@ LABEL_15:
         object[0] = xpc_null_create();
       }
 
-      v17 = xpc::dyn_cast_or_default();
+      v16 = xpc::dyn_cast_or_default();
       xpc_release(object[0]);
-      if (v17 == 2)
+      if (v16 == 2)
       {
         break;
       }
 
-      if (v17 == 3)
+      if (v16 == 3)
       {
         *(a1 + 337) = 1;
-        ++v15;
+        ++v14;
       }
 
       else
       {
 LABEL_31:
-        ++v15;
+        ++v14;
       }
     }
 
@@ -7297,14 +7241,14 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v12 = 0;
+  v11 = 0;
   do
   {
-    v13 = xpc_array_get_value(v5, v12);
-    object[0] = v13;
-    if (v13)
+    v12 = xpc_array_get_value(v5, v11);
+    object[0] = v12;
+    if (v12)
     {
-      xpc_retain(v13);
+      xpc_retain(v12);
     }
 
     else
@@ -7312,26 +7256,25 @@ LABEL_31:
       object[0] = xpc_null_create();
     }
 
-    v14 = xpc::dyn_cast_or_default();
+    v13 = xpc::dyn_cast_or_default();
     xpc_release(object[0]);
-    if (v14 == 3)
+    if (v13 == 3)
     {
       *(a1 + 337) = 1;
     }
 
-    else if (v14 == 2)
+    else if (v13 == 2)
     {
       *(a1 + 336) = 1;
     }
 
-    ++v12;
+    ++v11;
   }
 
-  while (count != v12);
+  while (count != v11);
 LABEL_17:
   xpc_release(v10);
   xpc_release(v5);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EBF5D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, xpc_object_t object)
@@ -7346,13 +7289,13 @@ void sub_240EBF5D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void abb::router::ClientProxy::updateIndications_sync(uint64_t a1, NSObject **a2, xpc_object_t *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 40);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v28 = *(a1 + 168);
+    v27 = *(a1 + 168);
     *buf = 67109120;
-    *&buf[4] = v28;
+    *&buf[4] = v27;
     _os_log_debug_impl(&dword_240E91000, v5, OS_LOG_TYPE_DEBUG, "#D Track indications of interest; Client=0x%02x", buf, 8u);
   }
 
@@ -7360,10 +7303,10 @@ void abb::router::ClientProxy::updateIndications_sync(uint64_t a1, NSObject **a2
   v8 = (a1 + 216);
   v7 = *(a1 + 216);
   *buf = *(a1 + 208);
-  v35 = v7;
+  v34 = v7;
   if (*(a1 + 224))
   {
-    v7[2] = &v35;
+    v7[2] = &v34;
     *v6 = v8;
     *v8 = 0;
     *(a1 + 224) = 0;
@@ -7385,7 +7328,7 @@ LABEL_8:
 
   else
   {
-    *buf = &v35;
+    *buf = &v34;
     std::__tree<unsigned int>::destroy(a1 + 208, v7);
     *(a1 + 216) = 0;
     *(a1 + 224) = 0;
@@ -7537,11 +7480,11 @@ LABEL_30:
   }
 
   v26 = *(a1 + 168);
-  std::set<unsigned int>::set[abi:ne200100](v31, buf);
-  std::set<unsigned int>::set[abi:ne200100](v30, v6);
-  abb::router::Gateway::regClientIndications(v24, &group, v26, v31, v30);
+  std::set<unsigned int>::set[abi:ne200100](v30, buf);
+  std::set<unsigned int>::set[abi:ne200100](v29, v6);
+  abb::router::Gateway::regClientIndications(v24, &group, v26, v30, v29);
+  std::__tree<unsigned int>::destroy(v29, v29[1]);
   std::__tree<unsigned int>::destroy(v30, v30[1]);
-  std::__tree<unsigned int>::destroy(v31, v31[1]);
   if (group)
   {
     dispatch_group_leave(group);
@@ -7551,11 +7494,10 @@ LABEL_30:
     }
   }
 
-  std::__tree<unsigned int>::destroy(buf, v35);
-  v27 = *MEMORY[0x277D85DE8];
+  std::__tree<unsigned int>::destroy(buf, v34);
 }
 
-void sub_240EBF9C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, void *a12, uint64_t a13, char a14, void *a15, uint64_t a16, dispatch_group_t group, xpc_object_t object, char a19, void *a20)
+void sub_240EBF9C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, dispatch_group_t group, xpc_object_t object, uint64_t a19, void *a20)
 {
   std::__tree<unsigned int>::destroy(&a11, a12);
   std::__tree<unsigned int>::destroy(&a14, a15);
@@ -7588,9 +7530,9 @@ void abb::router::ClientProxy::updateWakeables_sync(uint64_t a1, xpc_object_t *a
   v4 = *(a1 + 40);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v23 = *(a1 + 168);
+    v22 = *(a1 + 168);
     LODWORD(object[0]) = 67109120;
-    HIDWORD(object[0]) = v23;
+    HIDWORD(object[0]) = v22;
     _os_log_debug_impl(&dword_240E91000, v4, OS_LOG_TYPE_DEBUG, "#D Track wakeable indications of interest; Client=0x%02x", object, 8u);
   }
 
@@ -7740,7 +7682,6 @@ LABEL_28:
 
   xpc_release(v11);
   xpc_release(v7);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EBFD2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, xpc_object_t object)
@@ -8065,25 +8006,24 @@ LABEL_9:
 
 void abb::router::ClientProxy::handleLinkDisconnect(abb::router::ClientProxy *this)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(this + 5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(this + 42);
-    v5[0] = 67109120;
-    v5[1] = v3;
-    _os_log_impl(&dword_240E91000, v2, OS_LOG_TYPE_DEFAULT, "#I Client link disconnected; Client=0x%02x", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = v3;
+    _os_log_impl(&dword_240E91000, v2, OS_LOG_TYPE_DEFAULT, "#I Client link disconnected; Client=0x%02x", v4, 8u);
   }
 
   abb::router::ClientProxy::setStatus_sync(this, 0);
   abb::router::Gateway::removeUserClient(*(this + 22), *(this + 42), *(this + 28) != 0);
   *(this + 42) = 0;
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void abb::router::ClientProxy::sendStatus_sync(uint64_t a1, unsigned int a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 40);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -8100,8 +8040,8 @@ void abb::router::ClientProxy::sendStatus_sync(uint64_t a1, unsigned int a2)
     v6 = *(a1 + 168);
     *xdict = 136315394;
     *&xdict[4] = v5;
-    v17 = 1024;
-    v18 = v6;
+    v16 = 1024;
+    v17 = v6;
     _os_log_impl(&dword_240E91000, v4, OS_LOG_TYPE_DEFAULT, "#I Sending status [%s] update to client; Client=0x%02x", xdict, 0x12u);
   }
 
@@ -8159,7 +8099,6 @@ LABEL_14:
   xpc_release(v14);
   abb::router::ClientProxy::sendMessage_sync(a1, xdict);
   xpc_release(v11);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EC0848(_Unwind_Exception *exception_object, int a2)
@@ -8259,7 +8198,7 @@ uint64_t std::shared_ptr<abb::router::ClientProxy> ctu::SharedSynchronizable<abb
 
 void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::execute_wrapped<abb::router::ClientProxy::connect(void)::$_0>(abb::router::ClientProxy::connect(void)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::ClientProxy::connect(void)::$_0,dispatch_queue_s *::default_delete<abb::router::ClientProxy::connect(void)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v1 = *a1;
   v2 = **a1;
   v3 = xpc_dictionary_create(0, 0, 0);
@@ -8329,56 +8268,56 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::e
   if ((*(**(v2 + 192) + 40))(*(v2 + 192)))
   {
     v13 = *(v2 + 192);
-    if (v13 && (v14 = **v13, (v15 = __dynamic_cast(v13, MEMORY[0x277CECB18], MEMORY[0x277CECB28], 0)) != 0))
+    if (v13 && (v14 = __dynamic_cast(v13, MEMORY[0x277CECB18], MEMORY[0x277CECB28], 0)) != 0)
     {
-      v16 = v15;
-      v17 = *(v2 + 200);
-      *buf = v15;
-      *&buf[8] = v17;
-      if (v17)
+      v15 = v14;
+      v16 = *(v2 + 200);
+      *buf = v14;
+      *&buf[8] = v16;
+      if (v16)
       {
-        atomic_fetch_add_explicit((v17 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v16 + 8), 1uLL, memory_order_relaxed);
       }
     }
 
     else
     {
-      v16 = 0;
+      v15 = 0;
       *buf = 0;
       *&buf[8] = 0;
     }
 
-    v23 = *(v2 + 16);
-    if (!v23 || (v24 = *(v2 + 8), (v25 = std::__shared_weak_count::lock(v23)) == 0))
+    v21 = *(v2 + 16);
+    if (!v21 || (v22 = *(v2 + 8), (v23 = std::__shared_weak_count::lock(v21)) == 0))
     {
       std::__throw_bad_weak_ptr[abi:ne200100]();
     }
 
-    v26 = v25;
-    atomic_fetch_add_explicit(&v25->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    if (atomic_fetch_add(&v25->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v24 = v23;
+    atomic_fetch_add_explicit(&v23->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    if (atomic_fetch_add(&v23->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
       if (v4)
       {
 LABEL_30:
         xpc_retain(v4);
-        v27 = v4;
+        v25 = v4;
 LABEL_39:
-        v33 = operator new(0x18uLL);
-        *v33 = &unk_2852C91A0;
-        v33[1] = v24;
-        v33[2] = v26;
-        v34 = v16[6];
-        v16[6] = v33;
-        if (v34)
+        v31 = operator new(0x18uLL);
+        *v31 = &unk_2852C91A0;
+        v31[1] = v22;
+        v31[2] = v24;
+        v32 = v15[6];
+        v15[6] = v31;
+        if (v32)
         {
-          (*(*v34 + 8))(v34);
+          (*(*v32 + 8))(v32);
         }
 
-        object = v27;
-        if (v27)
+        object = v25;
+        if (v25)
         {
-          xpc_retain(v27);
+          xpc_retain(v25);
         }
 
         else
@@ -8388,64 +8327,64 @@ LABEL_39:
 
         abb::link::XpcServerLink::connectLink();
         xpc_release(object);
-        xpc_release(v27);
+        xpc_release(v25);
         goto LABEL_53;
       }
     }
 
     else
     {
-      (v25->__on_zero_shared)(v25);
-      std::__shared_weak_count::__release_weak(v26);
+      (v23->__on_zero_shared)(v23);
+      std::__shared_weak_count::__release_weak(v24);
       if (v4)
       {
         goto LABEL_30;
       }
     }
 
-    v27 = xpc_null_create();
+    v25 = xpc_null_create();
     goto LABEL_39;
   }
 
-  v18 = *(v2 + 192);
-  if (v18 && (v19 = **v18, (v20 = __dynamic_cast(v18, MEMORY[0x277CECB18], MEMORY[0x277CECB38], 0)) != 0))
+  v17 = *(v2 + 192);
+  if (v17 && (v18 = __dynamic_cast(v17, MEMORY[0x277CECB18], MEMORY[0x277CECB38], 0)) != 0)
   {
-    v21 = v20;
-    v22 = *(v2 + 200);
-    *buf = v20;
-    *&buf[8] = v22;
-    if (v22)
+    v19 = v18;
+    v20 = *(v2 + 200);
+    *buf = v18;
+    *&buf[8] = v20;
+    if (v20)
     {
-      atomic_fetch_add_explicit((v22 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v20 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
   else
   {
-    v21 = 0;
+    v19 = 0;
     *buf = 0;
     *&buf[8] = 0;
   }
 
-  v28 = *(v2 + 16);
-  if (!v28 || (v29 = *(v2 + 8), (v30 = std::__shared_weak_count::lock(v28)) == 0))
+  v26 = *(v2 + 16);
+  if (!v26 || (v27 = *(v2 + 8), (v28 = std::__shared_weak_count::lock(v26)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v31 = v30;
-  atomic_fetch_add_explicit(&v30->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  if (!atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v29 = v28;
+  atomic_fetch_add_explicit(&v28->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  if (!atomic_fetch_add(&v28->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v30->__on_zero_shared)(v30);
-    std::__shared_weak_count::__release_weak(v31);
+    (v28->__on_zero_shared)(v28);
+    std::__shared_weak_count::__release_weak(v29);
     if (v4)
     {
       goto LABEL_36;
     }
 
 LABEL_44:
-    v32 = xpc_null_create();
+    v30 = xpc_null_create();
     goto LABEL_45;
   }
 
@@ -8456,23 +8395,23 @@ LABEL_44:
 
 LABEL_36:
   xpc_retain(v4);
-  v32 = v4;
+  v30 = v4;
 LABEL_45:
-  v35 = operator new(0x18uLL);
-  *v35 = &unk_2852C91A0;
-  v35[1] = v29;
-  v35[2] = v31;
-  v36 = v21[7];
-  v21[7] = v35;
-  if (v36)
+  v33 = operator new(0x18uLL);
+  *v33 = &unk_2852C91A0;
+  v33[1] = v27;
+  v33[2] = v29;
+  v34 = v19[7];
+  v19[7] = v33;
+  if (v34)
   {
-    (*(*v36 + 8))(v36);
+    (*(*v34 + 8))(v34);
   }
 
-  objecta = v32;
-  if (v32)
+  objecta = v30;
+  if (v30)
   {
-    xpc_retain(v32);
+    xpc_retain(v30);
   }
 
   else
@@ -8482,33 +8421,34 @@ LABEL_45:
 
   abb::link::LocalServerLink::connectLink();
   xpc_release(objecta);
-  xpc_release(v32);
+  xpc_release(v30);
 LABEL_53:
-  v37 = *&buf[8];
+  v35 = *&buf[8];
   if (*&buf[8] && !atomic_fetch_add((*&buf[8] + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v37->__on_zero_shared)(v37);
-    std::__shared_weak_count::__release_weak(v37);
+    (v35->__on_zero_shared)(v35);
+    std::__shared_weak_count::__release_weak(v35);
   }
 
   abb::router::ClientProxy::setStatus_sync(v2, 1u);
   xpc_release(v4);
   operator delete(v1);
-  v38 = a1;
+  v36 = a1;
   if (a1)
   {
-    v39 = *(a1 + 16);
-    if (v39 && !atomic_fetch_add(&v39->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v37 = *(a1 + 16);
+    if (v37)
     {
-      (v39->__on_zero_shared)(v39);
-      std::__shared_weak_count::__release_weak(v39);
-      v38 = a1;
+      if (!atomic_fetch_add(&v37->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v37->__on_zero_shared)(v37);
+        std::__shared_weak_count::__release_weak(v37);
+        v36 = a1;
+      }
     }
 
-    operator delete(v38);
+    operator delete(v36);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EC10B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object, char a11)
@@ -8579,7 +8519,7 @@ void abb::link::ServerLinkDelegate<abb::router::ClientProxy>::handleLinkMessage(
 
 void abb::link::ServerLinkDelegate<abb::router::ClientProxy>::handleLinkMessage(uint64_t a1, void **a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 16);
   if (v4)
   {
@@ -8596,30 +8536,30 @@ void abb::link::ServerLinkDelegate<abb::router::ClientProxy>::handleLinkMessage(
         {
           if (v10 == a3)
           {
-            v13 = v12;
-            (*(*v10 + 24))(v10, v12);
+            v12 = v11;
+            (*(*v10 + 24))(v10, v11);
           }
 
           else
           {
-            v13 = *(a3 + 24);
+            v12 = *(a3 + 24);
             *(a3 + 24) = 0;
           }
         }
 
         else
         {
-          v13 = 0;
+          v12 = 0;
         }
 
-        if (v13 == v12)
+        if (v12 == v11)
         {
-          (*(*v13 + 32))(v13);
+          (*(*v12 + 32))(v12);
         }
 
-        else if (v13)
+        else if (v12)
         {
-          (*(*v13 + 40))();
+          (*(*v12 + 40))();
         }
 
         xpc_release(v9);
@@ -8632,8 +8572,6 @@ void abb::link::ServerLinkDelegate<abb::router::ClientProxy>::handleLinkMessage(
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EC14FC(_Unwind_Exception *a1, int a2)
@@ -8648,7 +8586,7 @@ void sub_240EC14FC(_Unwind_Exception *a1, int a2)
 
 void abb::link::ServerLinkDelegate<abb::router::ClientProxy>::handleLinkDisconnect(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
   if (v2)
   {
@@ -8664,7 +8602,7 @@ void abb::link::ServerLinkDelegate<abb::router::ClientProxy>::handleLinkDisconne
         {
           v7 = *(v5 + 168);
           *buf = 67109120;
-          v10 = v7;
+          v9 = v7;
           _os_log_impl(&dword_240E91000, v6, OS_LOG_TYPE_DEFAULT, "#I Client link disconnected; Client=0x%02x", buf, 8u);
         }
 
@@ -8680,8 +8618,6 @@ void abb::link::ServerLinkDelegate<abb::router::ClientProxy>::handleLinkDisconne
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ___ZN8dispatch9sync_implIRU13block_pointerFN3abb6router12ClientStatusEvEEENSt3__15decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS7_17integral_constantIbLb0EEE_block_invoke(uint64_t a1)
@@ -8768,16 +8704,16 @@ void ___ZN8dispatch19async_and_wait_implIRU13block_pointerFNSt3__13setIjNS1_4les
   std::__tree<unsigned int>::destroy(&v6, v5);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::execute_wrapped<abb::router::ClientProxy::handleConfirmation(abb::router::Message)::$_0>(abb::router::ClientProxy::handleConfirmation(abb::router::Message)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::ClientProxy::handleConfirmation(abb::router::Message)::$_0,dispatch_queue_s *::default_delete<abb::router::ClientProxy::handleConfirmation(abb::router::Message)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::execute_wrapped<abb::router::ClientProxy::handleConfirmation(abb::router::Message)::$_0>(abb::router::ClientProxy::handleConfirmation(abb::router::Message)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::ClientProxy::handleConfirmation(abb::router::Message)::$_0,dispatch_queue_s *::default_delete<abb::router::ClientProxy::handleConfirmation(abb::router::Message)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
   v2 = *a1;
   v3 = **a1;
-  abb::router::Message::Message(v5, *a1 + 8);
+  abb::router::Message::Message(v5, (*a1 + 1));
   abb::router::ClientProxy::handleConfirmation_sync(v3, v5);
   abb::router::Message::~Message(v5);
   abb::router::Message::~Message((v2 + 1));
   operator delete(v2);
-  v4 = *(a1 + 2);
+  v4 = a1[2];
   if (v4 && !atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v4->__on_zero_shared)(v4);
@@ -8787,40 +8723,40 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::e
   operator delete(a1);
 }
 
-void sub_240EC1998(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EC1998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   va_copy(va2, va1);
-  v5 = va_arg(va2, void);
+  v6 = va_arg(va2, void);
   abb::router::Message::~Message(va2);
   std::unique_ptr<abb::router::Agent::handleConfirmation(abb::router::Message)::$_0,std::default_delete<abb::router::Agent::handleConfirmation(abb::router::Message)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_240EC19BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EC19BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   std::unique_ptr<abb::router::Agent::handleConfirmation(abb::router::Message)::$_0,std::default_delete<abb::router::Agent::handleConfirmation(abb::router::Message)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::execute_wrapped<abb::router::ClientProxy::handleIndication(abb::router::Message)::$_0>(abb::router::ClientProxy::handleIndication(abb::router::Message)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::ClientProxy::handleIndication(abb::router::Message)::$_0,dispatch_queue_s *::default_delete<abb::router::ClientProxy::handleIndication(abb::router::Message)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::execute_wrapped<abb::router::ClientProxy::handleIndication(abb::router::Message)::$_0>(abb::router::ClientProxy::handleIndication(abb::router::Message)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::ClientProxy::handleIndication(abb::router::Message)::$_0,dispatch_queue_s *::default_delete<abb::router::ClientProxy::handleIndication(abb::router::Message)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
   v2 = *a1;
   v3 = **a1;
-  abb::router::Message::Message(v5, *a1 + 8);
+  abb::router::Message::Message(v5, (*a1 + 1));
   abb::router::ClientProxy::handleIndication_sync(v3, v5);
   abb::router::Message::~Message(v5);
   abb::router::Message::~Message((v2 + 1));
   operator delete(v2);
-  v4 = *(a1 + 2);
+  v4 = a1[2];
   if (v4 && !atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v4->__on_zero_shared)(v4);
@@ -8830,25 +8766,25 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::e
   operator delete(a1);
 }
 
-void sub_240EC1A9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EC1A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   va_copy(va2, va1);
-  v5 = va_arg(va2, void);
+  v6 = va_arg(va2, void);
   abb::router::Message::~Message(va2);
   std::unique_ptr<abb::router::Agent::handleConfirmation(abb::router::Message)::$_0,std::default_delete<abb::router::Agent::handleConfirmation(abb::router::Message)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_240EC1AC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EC1AC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   std::unique_ptr<abb::router::Agent::handleConfirmation(abb::router::Message)::$_0,std::default_delete<abb::router::Agent::handleConfirmation(abb::router::Message)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -8873,35 +8809,35 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::e
   operator delete(a1);
 }
 
-void sub_240EC1BA4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EC1BA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   va_copy(va2, va1);
-  v5 = va_arg(va2, void);
+  v6 = va_arg(va2, void);
   abb::router::Message::~Message(va2);
   std::unique_ptr<abb::router::Agent::handleConfirmation(abb::router::Message)::$_0,std::default_delete<abb::router::Agent::handleConfirmation(abb::router::Message)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_240EC1BC8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EC1BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   std::unique_ptr<abb::router::Agent::handleConfirmation(abb::router::Message)::$_0,std::default_delete<abb::router::Agent::handleConfirmation(abb::router::Message)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::execute_wrapped<abb::router::ClientProxy::handleGatewaySleep(dispatch::group_session)::$_0>(abb::router::ClientProxy::handleGatewaySleep(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::ClientProxy::handleGatewaySleep(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::ClientProxy::handleGatewaySleep(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::execute_wrapped<abb::router::ClientProxy::handleGatewaySleep(dispatch::group_session)::$_0>(abb::router::ClientProxy::handleGatewaySleep(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::ClientProxy::handleGatewaySleep(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::ClientProxy::handleGatewaySleep(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v8 = v3;
   if (v3)
   {
@@ -8928,7 +8864,7 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::e
   }
 
   operator delete(v2);
-  v7 = *(a1 + 2);
+  v7 = a1[2];
   if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v7->__on_zero_shared)(v7);
@@ -8951,11 +8887,11 @@ void sub_240EC1CD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::execute_wrapped<abb::router::ClientProxy::handleGatewayWakeup(dispatch::group_session)::$_0>(abb::router::ClientProxy::handleGatewayWakeup(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::ClientProxy::handleGatewayWakeup(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::ClientProxy::handleGatewayWakeup(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::execute_wrapped<abb::router::ClientProxy::handleGatewayWakeup(dispatch::group_session)::$_0>(abb::router::ClientProxy::handleGatewayWakeup(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::ClientProxy::handleGatewayWakeup(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::ClientProxy::handleGatewayWakeup(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   if (v3)
   {
     dispatch_retain(v2[1]);
@@ -8981,7 +8917,7 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::e
   }
 
   operator delete(v2);
-  v7 = *(a1 + 2);
+  v7 = a1[2];
   if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v7->__on_zero_shared)(v7);
@@ -9004,11 +8940,11 @@ void sub_240EC1DF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::execute_wrapped<abb::router::ClientProxy::handleGatewayStart(dispatch::group_session)::$_0>(abb::router::ClientProxy::handleGatewayStart(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::ClientProxy::handleGatewayStart(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::ClientProxy::handleGatewayStart(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::execute_wrapped<abb::router::ClientProxy::handleGatewayStart(dispatch::group_session)::$_0>(abb::router::ClientProxy::handleGatewayStart(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::ClientProxy::handleGatewayStart(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::ClientProxy::handleGatewayStart(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   if (v3)
   {
     dispatch_retain(v2[1]);
@@ -9034,7 +8970,7 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::e
   }
 
   operator delete(v2);
-  v7 = *(a1 + 2);
+  v7 = a1[2];
   if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v7->__on_zero_shared)(v7);
@@ -9057,11 +8993,11 @@ void sub_240EC1F10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::execute_wrapped<abb::router::ClientProxy::handleGatewayStop(dispatch::group_session)::$_0>(abb::router::ClientProxy::handleGatewayStop(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::ClientProxy::handleGatewayStop(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::ClientProxy::handleGatewayStop(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::execute_wrapped<abb::router::ClientProxy::handleGatewayStop(dispatch::group_session)::$_0>(abb::router::ClientProxy::handleGatewayStop(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::ClientProxy::handleGatewayStop(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::ClientProxy::handleGatewayStop(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   if (v3)
   {
     dispatch_retain(v2[1]);
@@ -9087,7 +9023,7 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::e
   }
 
   operator delete(v2);
-  v7 = *(a1 + 2);
+  v7 = a1[2];
   if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v7->__on_zero_shared)(v7);
@@ -9110,11 +9046,11 @@ void sub_240EC202C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::execute_wrapped<abb::router::ClientProxy::handleGatewayDown(dispatch::group_session)::$_0>(abb::router::ClientProxy::handleGatewayDown(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::ClientProxy::handleGatewayDown(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::ClientProxy::handleGatewayDown(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::execute_wrapped<abb::router::ClientProxy::handleGatewayDown(dispatch::group_session)::$_0>(abb::router::ClientProxy::handleGatewayDown(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::ClientProxy::handleGatewayDown(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::ClientProxy::handleGatewayDown(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   if (v3)
   {
     dispatch_retain(v2[1]);
@@ -9140,7 +9076,7 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::e
   }
 
   operator delete(v2);
-  v7 = *(a1 + 2);
+  v7 = a1[2];
   if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v7->__on_zero_shared)(v7);
@@ -9163,23 +9099,23 @@ void sub_240EC2148(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::execute_wrapped<abb::router::ClientProxy::handleLinkMessage(xpc::dict)::$_0>(abb::router::ClientProxy::handleLinkMessage(xpc::dict)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::ClientProxy::handleLinkMessage(xpc::dict)::$_0,dispatch_queue_s *::default_delete<abb::router::ClientProxy::handleLinkMessage(xpc::dict)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::execute_wrapped<abb::router::ClientProxy::handleLinkMessage(xpc::dict)::$_0>(abb::router::ClientProxy::handleLinkMessage(xpc::dict)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::ClientProxy::handleLinkMessage(xpc::dict)::$_0,dispatch_queue_s *::default_delete<abb::router::ClientProxy::handleLinkMessage(xpc::dict)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = **a1;
   v4 = *(v3 + 40);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v27 = *(v3 + 168);
+    v24 = *(v3 + 168);
     xpc::object::to_string(object, (v2 + 1));
-    v28 = (SBYTE7(v34) & 0x80u) == 0 ? object : object[0];
+    v25 = (SBYTE7(v30) & 0x80u) == 0 ? object : object[0];
     *buf = 67109378;
-    *&buf[4] = v27;
-    v43 = 2080;
-    v44 = v28;
+    *&buf[4] = v24;
+    v39 = 2080;
+    v40 = v25;
     _os_log_debug_impl(&dword_240E91000, v4, OS_LOG_TYPE_DEBUG, "#D Received message for Client=0x%02x: %s", buf, 0x12u);
-    if (SBYTE7(v34) < 0)
+    if (SBYTE7(v30) < 0)
     {
       operator delete(object[0]);
     }
@@ -9218,38 +9154,38 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::e
 
     if (MEMORY[0x245CD2F50](v12) == v8)
     {
-      v25 = xpc_dictionary_get_value(v2[1], "ClientStatus");
-      v26 = v25;
-      *buf = v25;
-      if (v25)
+      v22 = xpc_dictionary_get_value(v2[1], "ClientStatus");
+      v23 = v22;
+      *buf = v22;
+      if (v22)
       {
-        xpc_retain(v25);
+        xpc_retain(v22);
       }
 
       else
       {
-        v26 = xpc_null_create();
-        *buf = v26;
+        v23 = xpc_null_create();
+        *buf = v23;
       }
 
-      if (MEMORY[0x245CD2F50](v26) == v8)
+      if (MEMORY[0x245CD2F50](v23) == v8)
       {
-        v29 = v2[1];
-        v32 = v29;
-        if (v29)
+        v26 = v2[1];
+        v28 = v26;
+        if (v26)
         {
-          xpc_retain(v29);
+          xpc_retain(v26);
         }
 
         else
         {
-          v29 = xpc_null_create();
-          v32 = v29;
+          v26 = xpc_null_create();
+          v28 = v26;
         }
 
-        abb::router::ClientProxy::handleRegistration_sync(v3, &v32);
-        xpc_release(v29);
-        v32 = 0;
+        abb::router::ClientProxy::handleRegistration_sync(v3, &v28);
+        xpc_release(v26);
+        v28 = 0;
       }
 
       else if (xpc::dyn_cast_or_default() == 5)
@@ -9262,13 +9198,13 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::e
 
     else
     {
-      v24 = xpc::dyn_cast_or_default();
-      if (v24 == 2)
+      v21 = xpc::dyn_cast_or_default();
+      if (v21 == 2)
       {
         abb::router::ClientProxy::handleActionStop_sync(v3);
       }
 
-      else if (v24 == 1)
+      else if (v21 == 1)
       {
         abb::router::ClientProxy::handleActionStart_sync(v3);
       }
@@ -9291,14 +9227,13 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::e
       object[0] = xpc_null_create();
     }
 
-    v13 = *(v3 + 144);
-    v14 = xpc::dyn_cast_or_default();
+    v13 = xpc::dyn_cast_or_default();
     xpc_release(object[0]);
-    v15 = xpc_dictionary_get_value(v2[1], "QueuePolicy");
-    object[0] = v15;
-    if (v15)
+    v14 = xpc_dictionary_get_value(v2[1], "QueuePolicy");
+    object[0] = v14;
+    if (v14)
     {
-      xpc_retain(v15);
+      xpc_retain(v14);
     }
 
     else
@@ -9306,50 +9241,48 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::e
       object[0] = xpc_null_create();
     }
 
-    v16 = *(v3 + 136);
+    v15 = xpc::dyn_cast_or_default();
+    xpc_release(object[0]);
+    v16 = xpc_dictionary_get_value(v2[1], "AllowSleep");
+    object[0] = v16;
+    if (v16)
+    {
+      xpc_retain(v16);
+    }
+
+    else
+    {
+      object[0] = xpc_null_create();
+    }
+
     v17 = xpc::dyn_cast_or_default();
-    xpc_release(object[0]);
-    v18 = xpc_dictionary_get_value(v2[1], "AllowSleep");
-    object[0] = v18;
-    if (v18)
-    {
-      xpc_retain(v18);
-    }
-
-    else
-    {
-      object[0] = xpc_null_create();
-    }
-
-    v19 = *(v3 + 140);
-    v20 = xpc::dyn_cast_or_default();
     xpc_release(object[0]);
     bytes_ptr = xpc_data_get_bytes_ptr(v6);
     length = xpc_data_get_length(v6);
-    v41 = 0xAAAAAAAAAAAAAAAALL;
-    *&v23 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v23 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v40 = v23;
-    v38 = v23;
-    v39 = v23;
-    v36 = v23;
-    v37 = v23;
-    v34 = v23;
-    v35 = v23;
-    *object = v23;
+    v37 = 0xAAAAAAAAAAAAAAAALL;
+    *&v20 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v36 = v20;
+    v34 = v20;
+    v35 = v20;
+    v32 = v20;
+    v33 = v20;
+    v30 = v20;
+    v31 = v20;
+    *object = v20;
     abb::router::Message::Message(object, bytes_ptr, length);
     if (object[1] && *(object[1] + 1) - *object[1] >= 0x10uLL)
     {
       *(*object[1] + 13) = *(v3 + 168);
     }
 
-    *(&v36 + 1) = v14;
-    LOBYTE(v37) = 1;
-    DWORD2(v37) = v17;
-    BYTE12(v37) = 1;
-    BYTE4(v38) = 0;
-    LOBYTE(v38) = v20;
-    BYTE1(v38) = 1;
+    *(&v32 + 1) = v13;
+    LOBYTE(v33) = 1;
+    DWORD2(v33) = v15;
+    BYTE12(v33) = 1;
+    BYTE4(v34) = 0;
+    LOBYTE(v34) = v17;
+    BYTE1(v34) = 1;
     abb::router::Message::Message(buf, object);
     abb::router::ClientProxy::handleRequest_sync(v3, buf);
     abb::router::Message::~Message(buf);
@@ -9359,15 +9292,14 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::ClientProxy>::e
   xpc_release(v6);
   xpc_release(v2[1]);
   operator delete(v2);
-  v30 = *(a1 + 2);
-  if (v30 && !atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v27 = a1[2];
+  if (v27 && !atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v30->__on_zero_shared)(v30);
-    std::__shared_weak_count::__release_weak(v30);
+    (v27->__on_zero_shared)(v27);
+    std::__shared_weak_count::__release_weak(v27);
   }
 
   operator delete(a1);
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EC25D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, xpc_object_t object, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34)
@@ -9528,11 +9460,11 @@ void abb::router::GatewayClientDelegate<abb::router::ClientProxy>::handleConfirm
   }
 }
 
-void sub_240EC2B08(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EC2B08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   abb::router::Message::~Message(va);
-  std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](v2 - 48);
+  std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](v3 - 48);
   _Unwind_Resume(a1);
 }
 
@@ -9564,11 +9496,11 @@ void abb::router::GatewayClientDelegate<abb::router::ClientProxy>::handleIndicat
   }
 }
 
-void sub_240EC2C04(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EC2C04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   abb::router::Message::~Message(va);
-  std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](v2 - 48);
+  std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](v3 - 48);
   _Unwind_Resume(a1);
 }
 
@@ -9600,11 +9532,11 @@ void abb::router::GatewayClientDelegate<abb::router::ClientProxy>::handleSentMes
   }
 }
 
-void sub_240EC2D08(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EC2D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   abb::router::Message::~Message(va);
-  std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](v2 - 48);
+  std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](v3 - 48);
   _Unwind_Resume(a1);
 }
 
@@ -9771,4 +9703,70 @@ void abb::router::GatewayClientDelegate<abb::router::ClientProxy>::handleGateway
       }
     }
   }
+}
+
+void dispatch::detail::group_notify<abb::router::ClientProxy::handleRegistration_sync(xpc::dict)::$_0>(dispatch_group_s *,dispatch_queue_s *,abb::router::ClientProxy::handleRegistration_sync(xpc::dict)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(uint64_t *a1)
+{
+  v2 = a1[2];
+  if (!v2)
+  {
+    goto LABEL_10;
+  }
+
+  v3 = *a1;
+  v4 = std::__shared_weak_count::lock(v2);
+  if (!v4)
+  {
+    goto LABEL_10;
+  }
+
+  v5 = v4;
+  if (a1[1])
+  {
+    v6 = *(v3 + 172);
+    if (v6 <= 6)
+    {
+      if (((1 << v6) & 0x75) != 0)
+      {
+        goto LABEL_9;
+      }
+
+      if (v6 == 1)
+      {
+        abb::router::ClientProxy::setStatus_sync(v3, 2u);
+      }
+    }
+
+    abb::router::ClientProxy::sendStatus_sync(v3, 2u);
+  }
+
+LABEL_9:
+  if (!atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v5->__on_zero_shared)(v5);
+    std::__shared_weak_count::__release_weak(v5);
+    v7 = a1;
+    if (!a1)
+    {
+      return;
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_10:
+  v7 = a1;
+  if (!a1)
+  {
+    return;
+  }
+
+LABEL_11:
+  v8 = v7[2];
+  if (v8)
+  {
+    std::__shared_weak_count::__release_weak(v8);
+  }
+
+  operator delete(v7);
 }

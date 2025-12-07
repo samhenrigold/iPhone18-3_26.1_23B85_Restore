@@ -33,7 +33,7 @@
 
 - (id)_findMessageReceiverMatchingDelegate:(id)delegate
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   controlChannelReceiver = [(MTRPluginProtobufMessageDispatcher *)self controlChannelReceiver];
   delegate = [controlChannelReceiver delegate];
@@ -45,26 +45,26 @@
 
   else
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     messageReceivers = [(MTRPluginProtobufMessageDispatcher *)self messageReceivers];
-    v8 = [messageReceivers countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [messageReceivers countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(messageReceivers);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           delegate2 = [v12 delegate];
 
           if (delegate2 == delegateCopy)
@@ -75,7 +75,7 @@
           }
         }
 
-        v9 = [messageReceivers countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [messageReceivers countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v9)
         {
           continue;
@@ -90,36 +90,34 @@
 
 LABEL_13:
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return controlChannelReceiver2;
 }
 
 - (id)_findMessageReceiverMatchingSessionID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (dCopy)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     messageReceivers = [(MTRPluginProtobufMessageDispatcher *)self messageReceivers];
-    v6 = [messageReceivers countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [messageReceivers countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(messageReceivers);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           sessionID = [v9 sessionID];
           v11 = [sessionID isEqual:dCopy];
 
@@ -130,7 +128,7 @@ LABEL_13:
           }
         }
 
-        v6 = [messageReceivers countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [messageReceivers countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -148,14 +146,12 @@ LABEL_12:
     v6 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)setDelegate:(id)delegate delegateQueue:(id)queue forSessionID:(id)d
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   queueCopy = queue;
   dCopy = d;
@@ -171,37 +167,36 @@ LABEL_12:
     v14 = matterPluginLog_default;
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 0uLL;
+      v15 = 0uLL;
       if (dCopy)
       {
-        [dCopy getUUIDBytes:&v16];
+        [dCopy getUUIDBytes:&v15];
       }
 
       else
       {
-        v16 = *MEMORY[0x277D0F960];
+        v15 = *MEMORY[0x277D0F960];
       }
 
-      v17 = v16;
+      v16 = v15;
       *buf = 138413058;
-      v19 = selfCopy;
-      v20 = 2112;
-      v21 = delegateCopy;
-      v22 = 1040;
-      v23 = 16;
-      v24 = 2096;
-      v25 = &v17;
+      v18 = selfCopy;
+      v19 = 2112;
+      v20 = delegateCopy;
+      v21 = 1040;
+      v22 = 16;
+      v23 = 2096;
+      v24 = &v16;
       _os_log_impl(&dword_25830F000, v14, OS_LOG_TYPE_DEFAULT, "%@ Adding new session receiver delegate %@ for sessionID: %{uuid_t}.16P", buf, 0x26u);
     }
   }
 
   objc_sync_exit(selfCopy);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDelegate:(id)delegate delegateQueue:(id)queue
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   queueCopy = queue;
   selfCopy = self;
@@ -216,22 +211,20 @@ LABEL_12:
     v11 = matterPluginLog_default;
     if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412546;
-      v14 = selfCopy;
-      v15 = 2112;
-      v16 = delegateCopy;
-      _os_log_impl(&dword_25830F000, v11, OS_LOG_TYPE_DEFAULT, "%@ Adding control channel receiver delegate %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = selfCopy;
+      v14 = 2112;
+      v15 = delegateCopy;
+      _os_log_impl(&dword_25830F000, v11, OS_LOG_TYPE_DEFAULT, "%@ Adding control channel receiver delegate %@", &v12, 0x16u);
     }
   }
 
   objc_sync_exit(selfCopy);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDelegate:(id)delegate
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -246,9 +239,9 @@ LABEL_12:
       {
         delegate = [v6 delegate];
         *buf = 138412546;
-        v21 = selfCopy;
-        v22 = 2112;
-        v23 = delegate;
+        v20 = selfCopy;
+        v21 = 2112;
+        v22 = delegate;
         _os_log_impl(&dword_25830F000, v10, OS_LOG_TYPE_DEFAULT, "%@ Removing control channel delegate %@", buf, 0x16u);
       }
 
@@ -261,29 +254,29 @@ LABEL_12:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         delegate2 = [v6 delegate];
-        v18 = 0uLL;
+        v17 = 0uLL;
         sessionID = [v6 sessionID];
 
         if (sessionID)
         {
           sessionID2 = [v6 sessionID];
-          [sessionID2 getUUIDBytes:&v18];
+          [sessionID2 getUUIDBytes:&v17];
         }
 
         else
         {
-          v18 = *MEMORY[0x277D0F960];
+          v17 = *MEMORY[0x277D0F960];
         }
 
-        v19 = v18;
+        v18 = v17;
         *buf = 138413058;
-        v21 = selfCopy;
-        v22 = 2112;
-        v23 = delegate2;
-        v24 = 1040;
-        v25 = 16;
-        v26 = 2096;
-        v27 = &v19;
+        v20 = selfCopy;
+        v21 = 2112;
+        v22 = delegate2;
+        v23 = 1040;
+        v24 = 16;
+        v25 = 2096;
+        v26 = &v18;
         _os_log_impl(&dword_25830F000, v12, OS_LOG_TYPE_DEFAULT, "%@ Removing delegate %@ for session: %{uuid_t}.16P", buf, 0x26u);
       }
 
@@ -293,12 +286,11 @@ LABEL_12:
   }
 
   objc_sync_exit(selfCopy);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)registerForRequestMessageWithType:(id)type requestHandler:(SEL)handler forSessionID:(id)d
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   dCopy = d;
   selfCopy = self;
@@ -314,28 +306,28 @@ LABEL_12:
     v15 = matterPluginLog_default;
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v19 = 0uLL;
+      v18 = 0uLL;
       if (dCopy)
       {
-        [dCopy getUUIDBytes:&v19];
+        [dCopy getUUIDBytes:&v18];
       }
 
       else
       {
-        v19 = *MEMORY[0x277D0F960];
+        v18 = *MEMORY[0x277D0F960];
       }
 
-      v18 = v19;
+      v17 = v18;
       *buf = 138413314;
-      v22 = selfCopy;
-      v23 = 2112;
-      v24 = v11;
-      v25 = 2112;
-      v26 = typeCopy;
-      v27 = 1040;
-      v28 = 16;
-      v29 = 2096;
-      v30 = &v18;
+      v21 = selfCopy;
+      v22 = 2112;
+      v23 = v11;
+      v24 = 2112;
+      v25 = typeCopy;
+      v26 = 1040;
+      v27 = 16;
+      v28 = 2096;
+      v29 = &v17;
       _os_log_debug_impl(&dword_25830F000, v15, OS_LOG_TYPE_DEBUG, "%@ Registering selector %@ for messageType: %@ on session: %{uuid_t}.16P", buf, 0x30u);
     }
   }
@@ -345,40 +337,39 @@ LABEL_12:
     v15 = matterPluginLog_default;
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v19 = 0uLL;
+      v18 = 0uLL;
       if (dCopy)
       {
-        [dCopy getUUIDBytes:&v19];
+        [dCopy getUUIDBytes:&v18];
       }
 
       else
       {
-        v19 = *MEMORY[0x277D0F960];
+        v18 = *MEMORY[0x277D0F960];
       }
 
-      v20 = v19;
+      v19 = v18;
       *buf = 138413314;
-      v22 = selfCopy;
-      v23 = 2112;
-      v24 = v11;
-      v25 = 2112;
-      v26 = typeCopy;
-      v27 = 1040;
-      v28 = 16;
-      v29 = 2096;
-      v30 = &v20;
+      v21 = selfCopy;
+      v22 = 2112;
+      v23 = v11;
+      v24 = 2112;
+      v25 = typeCopy;
+      v26 = 1040;
+      v27 = 16;
+      v28 = 2096;
+      v29 = &v19;
       _os_log_error_impl(&dword_25830F000, v15, OS_LOG_TYPE_ERROR, "%@ Failed to register selector %@ for messageType: %@ on session: %{uuid_t}.16P since session is not valid", buf, 0x30u);
     }
   }
 
   objc_sync_exit(selfCopy);
-  v16 = *MEMORY[0x277D85DE8];
   return v13 != 0;
 }
 
 - (BOOL)deregisterForRequestMessageWithType:(id)type forSessionID:(id)d
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   dCopy = d;
   selfCopy = self;
@@ -396,26 +387,26 @@ LABEL_12:
     v12 = matterPluginLog_default;
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v16 = 0uLL;
+      v15 = 0uLL;
       if (dCopy)
       {
-        [dCopy getUUIDBytes:&v16];
+        [dCopy getUUIDBytes:&v15];
       }
 
       else
       {
-        v16 = *MEMORY[0x277D0F960];
+        v15 = *MEMORY[0x277D0F960];
       }
 
-      v15 = v16;
+      v14 = v15;
       *buf = 138413058;
-      v19 = selfCopy;
-      v20 = 2112;
-      v21 = typeCopy;
-      v22 = 1040;
-      v23 = 16;
-      v24 = 2096;
-      v25 = &v15;
+      v18 = selfCopy;
+      v19 = 2112;
+      v20 = typeCopy;
+      v21 = 1040;
+      v22 = 16;
+      v23 = 2096;
+      v24 = &v14;
       _os_log_debug_impl(&dword_25830F000, v12, OS_LOG_TYPE_DEBUG, "%@ Deregistering selector for messageType: %@ on session: %{uuid_t}.16P", buf, 0x26u);
     }
   }
@@ -425,38 +416,37 @@ LABEL_12:
     v12 = matterPluginLog_default;
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v16 = 0uLL;
+      v15 = 0uLL;
       if (dCopy)
       {
-        [dCopy getUUIDBytes:&v16];
+        [dCopy getUUIDBytes:&v15];
       }
 
       else
       {
-        v16 = *MEMORY[0x277D0F960];
+        v15 = *MEMORY[0x277D0F960];
       }
 
-      v17 = v16;
+      v16 = v15;
       *buf = 138413058;
-      v19 = selfCopy;
-      v20 = 2112;
-      v21 = typeCopy;
-      v22 = 1040;
-      v23 = 16;
-      v24 = 2096;
-      v25 = &v17;
+      v18 = selfCopy;
+      v19 = 2112;
+      v20 = typeCopy;
+      v21 = 1040;
+      v22 = 16;
+      v23 = 2096;
+      v24 = &v16;
       _os_log_error_impl(&dword_25830F000, v12, OS_LOG_TYPE_ERROR, "%@ Failed to deregister selector for messageType: %@ on session: %{uuid_t}.16P since session is not valid", buf, 0x26u);
     }
   }
 
   objc_sync_exit(selfCopy);
-  v13 = *MEMORY[0x277D85DE8];
   return v10 != 0;
 }
 
 - (BOOL)handleNewSessionSetupForMessage:(id)message transport:(id)transport errorBlock:(id)block
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   transportCopy = transport;
   blockCopy = block;
@@ -465,8 +455,8 @@ LABEL_12:
   {
     *buf = 138412546;
     selfCopy = self;
-    v28 = 2112;
-    v29 = messageCopy;
+    v27 = 2112;
+    v28 = messageCopy;
     _os_log_impl(&dword_25830F000, v11, OS_LOG_TYPE_DEFAULT, "%@ Received message %@ with new session identifier", buf, 0x16u);
   }
 
@@ -482,11 +472,11 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = __91__MTRPluginProtobufMessageDispatcher_handleNewSessionSetupForMessage_transport_errorBlock___block_invoke;
     block[3] = &unk_279893C30;
-    v21 = delegate;
-    v22 = transportCopy;
-    v23 = messageCopy;
+    v20 = delegate;
+    v21 = transportCopy;
+    v22 = messageCopy;
     selfCopy2 = self;
-    v25 = blockCopy;
+    v24 = blockCopy;
     dispatch_async(delegateQueue, block);
   }
 
@@ -501,13 +491,12 @@ LABEL_12:
     blockCopy[2](blockCopy);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v14 & 1;
 }
 
 void __91__MTRPluginProtobufMessageDispatcher_handleNewSessionSetupForMessage_transport_errorBlock___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   [*(a1 + 32) messageTransport:*(a1 + 40) handleIncomingMessage:*(a1 + 48)];
   v3 = *(a1 + 56);
@@ -523,38 +512,37 @@ void __91__MTRPluginProtobufMessageDispatcher_handleNewSessionSetupForMessage_tr
 
   else
   {
-    v8 = [*(a1 + 48) sessionIdentifier];
+    v7 = [*(a1 + 48) sessionIdentifier];
 
-    if (v8)
+    if (v7)
     {
-      v9 = matterPluginLog_default;
+      v8 = matterPluginLog_default;
       if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = *(a1 + 48);
-        v10 = *(a1 + 56);
-        v13 = 138412546;
-        v14 = v10;
-        v15 = 2112;
-        v16 = v11;
-        _os_log_impl(&dword_25830F000, v9, OS_LOG_TYPE_DEFAULT, "%@ Found no handler for incoming new session message; %@", &v13, 0x16u);
+        v10 = *(a1 + 48);
+        v9 = *(a1 + 56);
+        v12 = 138412546;
+        v13 = v9;
+        v14 = 2112;
+        v15 = v10;
+        _os_log_impl(&dword_25830F000, v8, OS_LOG_TYPE_DEFAULT, "%@ Found no handler for incoming new session message; %@", &v12, 0x16u);
       }
 
-      v12 = *(a1 + 64);
-      if (v12)
+      v11 = *(a1 + 64);
+      if (v11)
       {
-        (*(v12 + 16))();
+        (*(v11 + 16))();
       }
     }
   }
 
   objc_sync_exit(v3);
   objc_autoreleasePoolPop(v2);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invokeMessageHandlersForReceiver:(id)receiver message:(id)message transport:(id)transport errorBlock:(id)block
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   receiverCopy = receiver;
   messageCopy = message;
   transportCopy = transport;
@@ -576,8 +564,8 @@ void __91__MTRPluginProtobufMessageDispatcher_handleNewSessionSetupForMessage_tr
         *&buf[4] = self;
         *&buf[12] = 2112;
         *&buf[14] = messageCopy;
-        v43 = 2112;
-        *v44 = delegate;
+        v42 = 2112;
+        *v43 = delegate;
         v20 = "%@ Received message %@ but delegate %@ is suspended, sending error response to close remote session";
         goto LABEL_22;
       }
@@ -605,17 +593,17 @@ void __91__MTRPluginProtobufMessageDispatcher_handleNewSessionSetupForMessage_tr
           *buf = *MEMORY[0x277D0F960];
         }
 
-        v41 = *buf;
+        v40 = *buf;
         *buf = 138413314;
         *&buf[4] = self;
         *&buf[12] = 2048;
         *&buf[14] = delegate;
-        v43 = 1040;
-        *v44 = 16;
-        *&v44[4] = 2096;
-        *&v44[6] = &v41;
-        v45 = 2112;
-        v46 = messageCopy;
+        v42 = 1040;
+        *v43 = 16;
+        *&v43[4] = 2096;
+        *&v43[6] = &v40;
+        v44 = 2112;
+        v45 = messageCopy;
         _os_log_debug_impl(&dword_25830F000, v21, OS_LOG_TYPE_DEBUG, "%@ Calling invokeHandler on delegate %p for session with identifier %{uuid_t}.16P for message: %@", buf, 0x30u);
       }
 
@@ -624,13 +612,13 @@ void __91__MTRPluginProtobufMessageDispatcher_handleNewSessionSetupForMessage_tr
       block[1] = 3221225472;
       block[2] = __100__MTRPluginProtobufMessageDispatcher_invokeMessageHandlersForReceiver_message_transport_errorBlock___block_invoke;
       block[3] = &unk_279893E18;
-      v37 = delegate;
-      v40 = v17;
-      v38 = transportCopy;
-      v39 = messageCopy;
+      v36 = delegate;
+      v39 = v17;
+      v37 = transportCopy;
+      v38 = messageCopy;
       dispatch_async(delegateQueue, block);
 
-      v23 = v37;
+      v23 = v36;
     }
 
     else
@@ -644,8 +632,8 @@ void __91__MTRPluginProtobufMessageDispatcher_handleNewSessionSetupForMessage_tr
           *&buf[4] = self;
           *&buf[12] = 2112;
           *&buf[14] = delegate;
-          v43 = 2112;
-          *v44 = messageCopy;
+          v42 = 2112;
+          *v43 = messageCopy;
           v20 = "%@ Receiver delegate %@ has no handler for message: %@";
 LABEL_22:
           _os_log_error_impl(&dword_25830F000, v19, OS_LOG_TYPE_ERROR, v20, buf, 0x20u);
@@ -671,37 +659,35 @@ LABEL_18:
       }
 
       delegateQueue2 = [receiverCopy delegateQueue];
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __100__MTRPluginProtobufMessageDispatcher_invokeMessageHandlersForReceiver_message_transport_errorBlock___block_invoke_2;
-      v32[3] = &unk_279893D98;
-      v32[4] = self;
-      v33 = delegate;
-      v34 = messageCopy;
-      v35 = transportCopy;
-      dispatch_async(delegateQueue2, v32);
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __100__MTRPluginProtobufMessageDispatcher_invokeMessageHandlersForReceiver_message_transport_errorBlock___block_invoke_2;
+      v31[3] = &unk_279893D98;
+      v31[4] = self;
+      v32 = delegate;
+      v33 = messageCopy;
+      v34 = transportCopy;
+      dispatch_async(delegateQueue2, v31);
 
-      v23 = v33;
+      v23 = v32;
     }
 
     if (objc_opt_respondsToSelector())
     {
       delegateQueue3 = [receiverCopy delegateQueue];
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __100__MTRPluginProtobufMessageDispatcher_invokeMessageHandlersForReceiver_message_transport_errorBlock___block_invoke_60;
-      v29[3] = &unk_279893AC8;
-      v30 = delegate;
-      v31 = transportCopy;
-      dispatch_async(delegateQueue3, v29);
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __100__MTRPluginProtobufMessageDispatcher_invokeMessageHandlersForReceiver_message_transport_errorBlock___block_invoke_60;
+      v28[3] = &unk_279893AC8;
+      v29 = delegate;
+      v30 = transportCopy;
+      dispatch_async(delegateQueue3, v28);
     }
 
     goto LABEL_19;
   }
 
 LABEL_20:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __100__MTRPluginProtobufMessageDispatcher_invokeMessageHandlersForReceiver_message_transport_errorBlock___block_invoke(uint64_t a1)
@@ -779,29 +765,27 @@ void __100__MTRPluginProtobufMessageDispatcher_invokeMessageHandlersForReceiver_
 
 - (void)handleNewSessionSetupForMessage:(uint64_t)a1 transport:(uint64_t)a2 errorBlock:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_25830F000, log, OS_LOG_TYPE_ERROR, "%@ No receiver delegate for new session setup message: %@, sending error", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_25830F000, log, OS_LOG_TYPE_ERROR, "%@ No receiver delegate for new session setup message: %@, sending error", &v3, 0x16u);
 }
 
 void __100__MTRPluginProtobufMessageDispatcher_invokeMessageHandlersForReceiver_message_transport_errorBlock___block_invoke_2_cold_1(void *a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = a1[5];
   v4 = a1[6];
-  v6 = 138412802;
-  v7 = v2;
-  v8 = 2112;
-  v9 = v3;
-  v10 = 2112;
-  v11 = v4;
-  _os_log_debug_impl(&dword_25830F000, a2, OS_LOG_TYPE_DEBUG, "%@ Invoking delegate %@ to handle all messages for message: %@", &v6, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412802;
+  v6 = v2;
+  v7 = 2112;
+  v8 = v3;
+  v9 = 2112;
+  v10 = v4;
+  _os_log_debug_impl(&dword_25830F000, a2, OS_LOG_TYPE_DEBUG, "%@ Invoking delegate %@ to handle all messages for message: %@", &v5, 0x20u);
 }
 
 @end

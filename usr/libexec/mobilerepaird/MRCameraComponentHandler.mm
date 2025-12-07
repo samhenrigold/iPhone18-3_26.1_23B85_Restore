@@ -86,19 +86,12 @@
 + (void)handleSUCase
 {
   v3 = MGCopyAnswer();
-  intValue = [v3 intValue];
+  [v3 intValue];
 
   if ([CRDeviceMap supportRepair:1026])
   {
-    v5 = CRCameraAuth_ptr;
-    if (intValue != 1)
-    {
-      v5 = CRCameraAuthUsingProperty_ptr;
-    }
-
-    v6 = *v5;
-    v7 = objc_opt_new();
-    [self handleComponentSUCase:@"hasDisplayedFollowupForCamera" lastAUthCheckBuildVersion:@"LastCameraAuthCompleteBuildVersion" followUpItemID:@"com.apple.mobilerepair.CameraRepair" queryString:@"Camera" suCasekey:@"SUcaseForCamera" startBuildVersion:@"18D1" componentAuth:v7];
+    v4 = objc_opt_new();
+    [self handleComponentSUCase:@"hasDisplayedFollowupForCamera" lastAUthCheckBuildVersion:@"LastCameraAuthCompleteBuildVersion" followUpItemID:@"com.apple.mobilerepair.CameraRepair" queryString:@"Camera" suCasekey:@"SUcaseForCamera" startBuildVersion:@"18D1" componentAuth:v4];
   }
 }
 

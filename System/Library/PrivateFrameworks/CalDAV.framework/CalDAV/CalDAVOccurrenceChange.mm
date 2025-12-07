@@ -62,7 +62,7 @@
 
 + (id)changeWithItem:(id)item
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if ([itemCopy isMaster])
   {
@@ -78,7 +78,7 @@
 
   if (([itemCopy isMaster] & 1) != 0 || objc_msgSend(trimWhiteSpace, "length"))
   {
-    v27 = trimWhiteSpace;
+    v26 = trimWhiteSpace;
     if ([itemCopy isMaster])
     {
       v7 = 0;
@@ -90,69 +90,69 @@
     }
 
     v8 = [CalDAVOccurrenceChange changeWithOccurrenceID:v7];
-    v9 = scheduleChangesLogHandle();
+    v9 = scheduleChangesLogHandle(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [(CalDAVOccurrenceChange *)v8 changeWithItem:v9];
     }
 
-    v28 = itemCopy;
+    v27 = itemCopy;
     changes = [itemCopy changes];
     changedProperties = [changes changedProperties];
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     obj = changedProperties;
-    v12 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v12 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v35;
+      v14 = *v34;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v35 != v14)
+          if (*v34 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v34 + 1) + 8 * i);
+          v16 = *(*(&v33 + 1) + 8 * i);
           nameAttribute = [v16 nameAttribute];
           [v8 addChangedProperty:nameAttribute];
-          v32 = 0u;
-          v33 = 0u;
-          v30 = 0u;
           v31 = 0u;
+          v32 = 0u;
+          v29 = 0u;
+          v30 = 0u;
           changedParameters = [v16 changedParameters];
-          v19 = [changedParameters countByEnumeratingWithState:&v30 objects:v38 count:16];
+          v19 = [changedParameters countByEnumeratingWithState:&v29 objects:v37 count:16];
           if (v19)
           {
             v20 = v19;
-            v21 = *v31;
+            v21 = *v30;
             do
             {
               for (j = 0; j != v20; ++j)
               {
-                if (*v31 != v21)
+                if (*v30 != v21)
                 {
                   objc_enumerationMutation(changedParameters);
                 }
 
-                nameAttribute2 = [*(*(&v30 + 1) + 8 * j) nameAttribute];
+                nameAttribute2 = [*(*(&v29 + 1) + 8 * j) nameAttribute];
                 [v8 addChangedParameter:nameAttribute2 ofProperty:nameAttribute];
               }
 
-              v20 = [changedParameters countByEnumeratingWithState:&v30 objects:v38 count:16];
+              v20 = [changedParameters countByEnumeratingWithState:&v29 objects:v37 count:16];
             }
 
             while (v20);
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v13 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v13);
@@ -160,13 +160,13 @@
 
     v24 = obj;
 
-    trimWhiteSpace = v27;
-    itemCopy = v28;
+    trimWhiteSpace = v26;
+    itemCopy = v27;
   }
 
   else
   {
-    v24 = scheduleChangesLogHandle();
+    v24 = scheduleChangesLogHandle(0);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       [CalDAVOccurrenceChange changeWithItem:v24];
@@ -175,25 +175,27 @@
     v8 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (void)addChangedProperty:(id)property
 {
   propertyCopy = property;
-  if ([propertyCopy length] && !-[CalDAVOccurrenceChange didPropertyChange:](self, "didPropertyChange:", propertyCopy))
+  if ([propertyCopy length])
   {
-    v5 = scheduleChangesLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v5 = [(CalDAVOccurrenceChange *)self didPropertyChange:propertyCopy];
+    if ((v5 & 1) == 0)
     {
-      [(CalDAVOccurrenceChange *)propertyCopy addChangedProperty:v5];
-    }
+      v6 = scheduleChangesLogHandle(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      {
+        [(CalDAVOccurrenceChange *)propertyCopy addChangedProperty:v6];
+      }
 
-    null = [MEMORY[0x277CBEB68] null];
-    changes = [(CalDAVOccurrenceChange *)self changes];
-    [changes setObject:null forKeyedSubscript:propertyCopy];
+      null = [MEMORY[0x277CBEB68] null];
+      changes = [(CalDAVOccurrenceChange *)self changes];
+      [changes setObject:null forKeyedSubscript:propertyCopy];
+    }
   }
 }
 
@@ -208,20 +210,20 @@
 
     if (!v9 || ([MEMORY[0x277CBEB68] null], v10 = objc_claimAutoreleasedReturnValue(), v10, v9 == v10))
     {
-      v11 = [MEMORY[0x277CBEB18] arrayWithObject:parameterCopy];
+      v12 = [MEMORY[0x277CBEB18] arrayWithObject:parameterCopy];
       changes2 = [(CalDAVOccurrenceChange *)self changes];
-      [changes2 setObject:v11 forKeyedSubscript:propertyCopy];
+      [changes2 setObject:v12 forKeyedSubscript:propertyCopy];
     }
 
     else
     {
-      [v9 addObject:parameterCopy];
+      v11 = [v9 addObject:parameterCopy];
     }
 
-    v13 = scheduleChangesLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = scheduleChangesLogHandle(v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      [(CalDAVOccurrenceChange *)parameterCopy addChangedParameter:propertyCopy ofProperty:v13];
+      [(CalDAVOccurrenceChange *)parameterCopy addChangedParameter:propertyCopy ofProperty:v14];
     }
   }
 }
@@ -296,7 +298,7 @@
 + (void)changeWithItem:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
   v3 = a1;
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = [a1 isMaster];
   if (v4)
   {
@@ -309,34 +311,30 @@
     v5 = [v3 value];
   }
 
-  v7 = 138412290;
-  v8 = v5;
-  _os_log_debug_impl(&dword_242742000, a2, OS_LOG_TYPE_DEBUG, ":: ------- %@", &v7, 0xCu);
+  v6 = 138412290;
+  v7 = v5;
+  _os_log_debug_impl(&dword_242742000, a2, OS_LOG_TYPE_DEBUG, ":: ------- %@", &v6, 0xCu);
   if (!v4)
   {
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addChangedProperty:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_242742000, a2, OS_LOG_TYPE_DEBUG, ":: changed property %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_242742000, a2, OS_LOG_TYPE_DEBUG, ":: changed property %@", &v2, 0xCu);
 }
 
 - (void)addChangedParameter:(os_log_t)log ofProperty:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_242742000, log, OS_LOG_TYPE_DEBUG, ":: :: changed parameter %@ of %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_242742000, log, OS_LOG_TYPE_DEBUG, ":: :: changed parameter %@ of %@", &v3, 0x16u);
 }
 
 @end

@@ -47,7 +47,7 @@
       }
     }
 
-    [gridView3 bounds];
+    objc_msgSend_bounds(gridView3);
     [(_SBIconGridLiveWrapperView *)self setBounds:?];
     UIRectGetCenter();
     [gridView3 setCenter:?];
@@ -72,7 +72,7 @@ LABEL_7:
 {
   element = [(_SBIconGridLiveWrapperView *)self element];
   gridView = [element gridView];
-  [(_SBIconGridLiveWrapperView *)self bounds];
+  objc_msgSend_bounds(self);
   UIRectGetCenter();
   [gridView setCenter:?];
 }

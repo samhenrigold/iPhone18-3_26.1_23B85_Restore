@@ -33,7 +33,7 @@
   p_mHints = &self->mHints;
   if (p_mHints != hints)
   {
-    sub_540F8(p_mHints, *hints, *(hints + 1), 0xCCCCCCCCCCCCCCCDLL * ((*(hints + 1) - *hints) >> 4));
+    sub_540F8(&p_mHints->__begin_, *hints, *(hints + 1), 0xCCCCCCCCCCCCCCCDLL * ((*(hints + 1) - *hints) >> 4));
   }
 }
 

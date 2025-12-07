@@ -24,7 +24,7 @@
 
   if (v7)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_280949E80);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_280949E80, &unk_274648620);
     v8 = sub_27463B7FC();
   }
 

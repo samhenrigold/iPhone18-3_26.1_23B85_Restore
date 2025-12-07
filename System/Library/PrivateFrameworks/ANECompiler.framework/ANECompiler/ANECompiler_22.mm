@@ -75,8 +75,8 @@ uint64_t operations_research::sat::anonymous namespace::ExpandComplexLinearConst
         v9 = &operations_research::sat::_LinearConstraintProto_default_instance_;
       }
 
-      operations_research::Domain::FromFlatSpanOfIntervals(v9[9], *(v9 + 16), &v84, a5);
-      v20 = operations_research::sat::PresolveContext::NewIntVar(a3, &v84);
+      operations_research::Domain::FromFlatSpanOfIntervals(v9[9], *(v9 + 16), &v83, a5);
+      v20 = operations_research::sat::PresolveContext::NewIntVar(a3, &v83);
       if (*(v6 + 60) == 12)
       {
         v21 = *(v6 + 48);
@@ -96,16 +96,16 @@ uint64_t operations_research::sat::anonymous namespace::ExpandComplexLinearConst
         *(v6 + 48) = v21;
       }
 
-      v24 = *(v21 + 16);
-      v23 = *(v21 + 20);
+      v24 = *(v21 + 4);
+      v23 = *(v21 + 5);
       if (v24 == v23)
       {
-        google::protobuf::RepeatedField<int>::Grow(v21 + 16, v23, (v23 + 1));
-        v24 = *(v21 + 16);
+        google::protobuf::RepeatedField<int>::Grow((v21 + 2), v23, (v23 + 1));
+        v24 = *(v21 + 4);
       }
 
-      v25 = *(v21 + 24);
-      *(v21 + 16) = v24 + 1;
+      v25 = v21[3];
+      *(v21 + 4) = v24 + 1;
       *(v25 + 4 * v24) = v20;
       if (*(v6 + 60) == 12)
       {
@@ -126,16 +126,16 @@ uint64_t operations_research::sat::anonymous namespace::ExpandComplexLinearConst
         *(v6 + 48) = v26;
       }
 
-      v29 = *(v26 + 40);
-      v28 = *(v26 + 44);
+      v29 = *(v26 + 10);
+      v28 = *(v26 + 11);
       if (v29 == v28)
       {
-        google::protobuf::RepeatedField<long long>::Grow(v26 + 40, v28);
-        v29 = *(v26 + 40);
+        google::protobuf::RepeatedField<long long>::Grow((v26 + 5), v28, (v28 + 1));
+        v29 = *(v26 + 10);
       }
 
-      v30 = *(v26 + 48);
-      *(v26 + 40) = v29 + 1;
+      v30 = v26[6];
+      *(v26 + 10) = v29 + 1;
       *(v30 + 8 * v29) = -1;
       if (*(v6 + 60) == 12)
       {
@@ -160,7 +160,7 @@ LABEL_36:
 
         v33 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearConstraintProto>(v32);
         *(v6 + 48) = v33;
-        *(v33 + 64) = 0;
+        *(v33 + 16) = 0;
         if (*(v6 + 60) == 12)
         {
           goto LABEL_36;
@@ -178,16 +178,16 @@ LABEL_36:
       v31 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearConstraintProto>(v34);
       *(v6 + 48) = v31;
 LABEL_43:
-      v36 = *(v31 + 64);
-      v35 = *(v31 + 68);
+      v36 = *(v31 + 16);
+      v35 = *(v31 + 17);
       if (v36 == v35)
       {
-        google::protobuf::RepeatedField<long long>::Grow(v31 + 64, v35);
-        v36 = *(v31 + 64);
+        google::protobuf::RepeatedField<long long>::Grow((v31 + 8), v35, (v35 + 1));
+        v36 = *(v31 + 16);
       }
 
-      v37 = *(v31 + 72);
-      *(v31 + 64) = v36 + 1;
+      v37 = v31[9];
+      *(v31 + 16) = v36 + 1;
       *(v37 + 8 * v36) = 0;
       if (*(v6 + 60) == 12)
       {
@@ -208,17 +208,17 @@ LABEL_43:
         *(v6 + 48) = v38;
       }
 
-      v41 = *(v38 + 64);
-      v40 = *(v38 + 68);
-      v42 = (v38 + 64);
+      v41 = *(v38 + 16);
+      v40 = *(v38 + 17);
+      v42 = (v38 + 8);
       if (v41 == v40)
       {
-        google::protobuf::RepeatedField<long long>::Grow(v38 + 64, v40);
-        v78 = *v42;
-        v79 = *(v38 + 72);
-        *(v38 + 64) = *v42 + 1;
-        *(v79 + 8 * v78) = 0;
-        if ((v84 & 1) == 0)
+        google::protobuf::RepeatedField<long long>::Grow((v38 + 8), v40, (v40 + 1));
+        v77 = *v42;
+        v78 = v38[9];
+        *(v38 + 16) = *v42 + 1;
+        *(v78 + 8 * v77) = 0;
+        if ((v83 & 1) == 0)
         {
           goto LABEL_110;
         }
@@ -226,10 +226,10 @@ LABEL_43:
 
       else
       {
-        v43 = *(v38 + 72);
-        *(v38 + 64) = v41 + 1;
+        v43 = v38[9];
+        *(v38 + 16) = v41 + 1;
         *(v43 + 8 * v41) = 0;
-        if ((v84 & 1) == 0)
+        if ((v83 & 1) == 0)
         {
           goto LABEL_110;
         }
@@ -257,7 +257,6 @@ LABEL_58:
         {
           if ((v47 & 0x80000000) == 0)
           {
-            v48 = *(v6 + 24);
             operator new();
           }
 
@@ -289,26 +288,26 @@ LABEL_12:
 LABEL_55:
       v46 = 0;
 LABEL_62:
+      v48 = 0;
+      *&v80[8] = 0;
       v49 = 0;
-      *&v81[8] = 0;
-      v50 = 0;
       *(v6 + 16) = 0;
-      v80 = v46;
-      *v81 = ~v46;
-      v83 = v6;
+      v79 = v46;
+      *v80 = ~v46;
+      v82 = v6;
       while (1)
       {
         if (*(v6 + 60) == 12)
         {
-          v51 = *(v6 + 48);
-          if (v50 >= *(v51 + 64))
+          v50 = *(v6 + 48);
+          if (v49 >= *(v50 + 64))
           {
             goto LABEL_107;
           }
 
-          v52 = *(v51 + 72);
-          v53 = *(v52 + 8 * v50);
-          v54 = *(v52 + 8 * (v50 + 1));
+          v51 = *(v50 + 72);
+          v52 = *(v51 + 8 * v49);
+          v53 = *(v51 + 8 * (v49 + 1));
           if (v12)
           {
             goto LABEL_67;
@@ -317,13 +316,13 @@ LABEL_62:
 
         else
         {
-          if (v50 >= dword_2810BEE88)
+          if (v49 >= dword_2810BEE88)
           {
 LABEL_107:
             operations_research::sat::ConstraintProto::Clear(v6);
-            if (*&v81[4])
+            if (*&v80[4])
             {
-              v44 = *&v81[4];
+              v44 = *&v80[4];
 LABEL_109:
               operator delete(v44);
             }
@@ -332,58 +331,58 @@ LABEL_110:
             operator new();
           }
 
-          v53 = *(off_2810BEE90 + v50);
-          v54 = *(off_2810BEE90 + v50 + 1);
+          v52 = *(off_2810BEE90 + v49);
+          v53 = *(off_2810BEE90 + v49 + 1);
           if (v12)
           {
 LABEL_67:
-            v55 = operations_research::sat::PresolveContext::NewBoolVar(a3);
-            v56 = v55;
-            v58 = *(v12 + 4);
-            v57 = *(v12 + 5);
-            if (v58 == v57)
+            v54 = operations_research::sat::PresolveContext::NewBoolVar(a3);
+            v55 = v54;
+            v57 = *(v12 + 4);
+            v56 = *(v12 + 5);
+            if (v57 == v56)
             {
-              google::protobuf::RepeatedField<int>::Grow(v12 + 2, v57, (v57 + 1));
-              v65 = *(v12 + 4);
-              v66 = v12[3];
-              *(v12 + 4) = v65 + 1;
-              *(v66 + 4 * v65) = v56;
+              google::protobuf::RepeatedField<int>::Grow((v12 + 2), v56, (v56 + 1));
+              v64 = *(v12 + 4);
+              v65 = v12[3];
+              *(v12 + 4) = v64 + 1;
+              *(v65 + 4 * v64) = v55;
             }
 
             else
             {
-              v59 = v12[3];
-              *(v12 + 4) = v58 + 1;
-              *(v59 + 4 * v58) = v55;
+              v58 = v12[3];
+              *(v12 + 4) = v57 + 1;
+              *(v58 + 4 * v57) = v54;
             }
 
-            v67 = v49 - *&v81[4];
-            v68 = (v49 - *&v81[4]) >> 2;
-            v69 = v68 + 1;
-            if ((v68 + 1) >> 62)
+            v66 = v48 - *&v80[4];
+            v67 = (v48 - *&v80[4]) >> 2;
+            v68 = v67 + 1;
+            if ((v67 + 1) >> 62)
             {
 LABEL_116:
               std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
             }
 
-            if (-*&v81[4] >> 1 > v69)
+            if (-*&v80[4] >> 1 > v68)
             {
-              v69 = -*&v81[4] >> 1;
+              v68 = -*&v80[4] >> 1;
             }
 
-            if (-*&v81[4] >= 0x7FFFFFFFFFFFFFFCuLL)
+            if (-*&v80[4] >= 0x7FFFFFFFFFFFFFFCuLL)
             {
-              v70 = 0x3FFFFFFFFFFFFFFFLL;
+              v69 = 0x3FFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v70 = v69;
+              v69 = v68;
             }
 
-            if (v70)
+            if (v69)
             {
-              if (!(v70 >> 62))
+              if (!(v69 >> 62))
               {
                 operator new();
               }
@@ -391,51 +390,51 @@ LABEL_116:
               goto LABEL_117;
             }
 
-            v71 = (4 * v68);
-            *v71 = v56;
-            v49 = v71 + 1;
-            memcpy(0, *&v81[4], v67);
-            if (*&v81[4])
+            v70 = (4 * v67);
+            *v70 = v55;
+            v48 = v70 + 1;
+            memcpy(0, *&v80[4], v66);
+            if (*&v80[4])
             {
-              operator delete(*&v81[4]);
+              operator delete(*&v80[4]);
             }
 
             goto LABEL_97;
           }
         }
 
-        if (v50)
+        if (v49)
         {
-          v56 = *v81;
+          v55 = *v80;
           goto LABEL_98;
         }
 
-        v60 = v49 - *&v81[4];
-        v61 = (v49 - *&v81[4]) >> 2;
-        v62 = v61 + 1;
-        if ((v61 + 1) >> 62)
+        v59 = v48 - *&v80[4];
+        v60 = (v48 - *&v80[4]) >> 2;
+        v61 = v60 + 1;
+        if ((v60 + 1) >> 62)
         {
           goto LABEL_116;
         }
 
-        if (-*&v81[4] >> 1 > v62)
+        if (-*&v80[4] >> 1 > v61)
         {
-          v62 = -*&v81[4] >> 1;
+          v61 = -*&v80[4] >> 1;
         }
 
-        if (-*&v81[4] >= 0x7FFFFFFFFFFFFFFCuLL)
+        if (-*&v80[4] >= 0x7FFFFFFFFFFFFFFCuLL)
         {
-          v63 = 0x3FFFFFFFFFFFFFFFLL;
+          v62 = 0x3FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v63 = v62;
+          v62 = v61;
         }
 
-        if (v63)
+        if (v62)
         {
-          if (!(v63 >> 62))
+          if (!(v62 >> 62))
           {
             operator new();
           }
@@ -444,60 +443,60 @@ LABEL_117:
           std::__throw_bad_array_new_length[abi:ne200100]();
         }
 
-        v64 = (4 * v61);
-        *v64 = v80;
-        v49 = v64 + 1;
-        memcpy(0, *&v81[4], v60);
-        if (*&v81[4])
+        v63 = (4 * v60);
+        *v63 = v79;
+        v48 = v63 + 1;
+        memcpy(0, *&v80[4], v59);
+        if (*&v80[4])
         {
-          operator delete(*&v81[4]);
+          operator delete(*&v80[4]);
         }
 
-        v56 = v80;
+        v55 = v79;
 LABEL_97:
-        *&v81[4] = 0;
+        *&v80[4] = 0;
 LABEL_98:
-        v72 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((*a3 + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
-        operations_research::sat::ConstraintProto::CopyFrom(v72, v83);
-        v74 = *(v72 + 16);
-        v73 = *(v72 + 20);
-        if (v74 == v73)
+        v71 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((*a3 + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
+        operations_research::sat::ConstraintProto::CopyFrom(v71, v82);
+        v73 = *(v71 + 16);
+        v72 = *(v71 + 20);
+        if (v73 == v72)
         {
-          google::protobuf::RepeatedField<int>::Grow(v72 + 16, v73, (v73 + 1));
-          v74 = *(v72 + 16);
+          google::protobuf::RepeatedField<int>::Grow(v71 + 16, v72, (v72 + 1));
+          v73 = *(v71 + 16);
         }
 
-        v75 = *(v72 + 24);
-        *(v72 + 16) = v74 + 1;
-        *(v75 + 4 * v74) = v56;
-        operations_research::Domain::Domain(&v84, v53, v54);
-        v6 = v83;
-        if (*(v72 + 60) == 12)
+        v74 = *(v71 + 24);
+        *(v71 + 16) = v73 + 1;
+        *(v74 + 4 * v73) = v55;
+        operations_research::Domain::Domain(&v83, v52, v53);
+        v6 = v82;
+        if (*(v71 + 60) == 12)
         {
-          v76 = *(v72 + 48);
+          v75 = *(v71 + 48);
         }
 
         else
         {
-          operations_research::sat::ConstraintProto::clear_constraint(v72);
-          *(v72 + 60) = 12;
-          v77 = *(v72 + 8);
-          if (v77)
+          operations_research::sat::ConstraintProto::clear_constraint(v71);
+          *(v71 + 60) = 12;
+          v76 = *(v71 + 8);
+          if (v76)
           {
-            v77 = *(v77 & 0xFFFFFFFFFFFFFFFELL);
+            v76 = *(v76 & 0xFFFFFFFFFFFFFFFELL);
           }
 
-          v76 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearConstraintProto>(v77);
-          *(v72 + 48) = v76;
+          v75 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearConstraintProto>(v76);
+          *(v71 + 48) = v75;
         }
 
-        operations_research::sat::FillDomainInProto<operations_research::sat::LinearConstraintProto>(&v84, v76);
-        if (v84)
+        operations_research::sat::FillDomainInProto<operations_research::sat::LinearConstraintProto>(&v83, v75);
+        if (v83)
         {
           operator delete(__p[0]);
         }
 
-        v50 += 2;
+        v49 += 2;
       }
     }
 
@@ -536,7 +535,7 @@ LABEL_14:
       v18 = *v14;
       if (v15 == v16)
       {
-        google::protobuf::RepeatedField<int>::Grow(v12 + 2, v15, (v15 + 1));
+        google::protobuf::RepeatedField<int>::Grow((v12 + 2), v15, (v15 + 1));
         LODWORD(v15) = *(v12 + 4);
         v16 = *(v12 + 5);
       }
@@ -582,127 +581,126 @@ void operations_research::sat::anonymous namespace::ExpandAutomaton(operations_r
   if (*(this + 15) == 17)
   {
     v5 = *(this + 6);
-    if (*(v5 + 112))
+    if (*(v5 + 28))
     {
       goto LABEL_3;
     }
 
 LABEL_10:
-    v11 = *(v5 + 16);
-    if (v11)
+    v10 = *(v5 + 4);
+    if (v10)
     {
-      v12 = *(v5 + 24);
-      v13 = 8 * v11;
+      v11 = v5[3];
+      v12 = 8 * v10;
       do
       {
-        if (*(v5 + 136) == *v12)
+        if (v5[17] == *v11)
         {
           operator new();
         }
 
-        ++v12;
-        v13 -= 8;
+        ++v11;
+        v12 -= 8;
       }
 
-      while (v13);
+      while (v12);
     }
 
-    v14 = "automaton: empty with an initial state not in the final states.";
-    v15 = a2;
-    v16 = 63;
+    v13 = "automaton: empty with an initial state not in the final states.";
+    v14 = a2;
+    v15 = 63;
     goto LABEL_16;
   }
 
   operations_research::sat::ConstraintProto::clear_constraint(this);
   *(this + 15) = 17;
-  v10 = *(this + 1);
-  if (v10)
+  v9 = *(this + 1);
+  if (v9)
   {
-    v10 = *(v10 & 0xFFFFFFFFFFFFFFFELL);
+    v9 = *(v9 & 0xFFFFFFFFFFFFFFFELL);
   }
 
-  v5 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::AutomatonConstraintProto>(v10);
+  v5 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::AutomatonConstraintProto>(v9);
   *(this + 6) = v5;
-  if (!*(v5 + 112))
+  if (!*(v5 + 28))
   {
     goto LABEL_10;
   }
 
 LABEL_3:
-  if (!*(v5 + 88))
+  if (!*(v5 + 22))
   {
-    v14 = "automaton: non-empty with no transition.";
-    v15 = a2;
-    v16 = 40;
+    v13 = "automaton: non-empty with no transition.";
+    v14 = a2;
+    v15 = 40;
 LABEL_16:
 
-    operations_research::sat::PresolveContext::NotifyThatModelIsUnsat(v15, v14, v16);
+    operations_research::sat::PresolveContext::NotifyThatModelIsUnsat(v14, v13, v15);
     return;
   }
 
+  v38 = 0;
   v39 = 0;
   v40 = 0;
-  v41 = 0;
+  v35 = 0;
   v36 = 0;
   v37 = 0;
-  v38 = 0;
-  operations_research::sat::PropagateAutomaton(v5, a2, &v39, &v36);
+  operations_research::sat::PropagateAutomaton(v5, a2, &v38, &v35);
   *__p = xmmword_23CE306D0;
-  v32 = xmmword_23CE306D0;
-  v30 = xmmword_23CE306D0;
-  v29 = 0;
-  v8 = *(v5 + 112);
+  v31 = xmmword_23CE306D0;
+  v29 = xmmword_23CE306D0;
+  v28 = 0;
+  v8 = *(v5 + 28);
   if (v8)
   {
     if ((v8 & 0x80000000) == 0)
     {
-      v9 = *(v5 + 120);
       operator new();
     }
 
     std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
   }
 
-  if (v29)
+  if (v28)
   {
     operator new();
   }
 
-  v28[23] = 19;
-  strcpy(v28, "automaton: expanded");
-  operations_research::sat::PresolveContext::UpdateRuleStats(a2, v28, 1, v6, v7);
-  if ((v28[23] & 0x80000000) != 0)
+  v27[23] = 19;
+  strcpy(v27, "automaton: expanded");
+  operations_research::sat::PresolveContext::UpdateRuleStats(a2, v27, 1, v6, v7);
+  if ((v27[23] & 0x80000000) != 0)
   {
-    operator delete(*v28);
+    operator delete(*v27);
   }
 
   operations_research::sat::ConstraintProto::Clear(this);
-  if (v30 >= 2)
+  if (v29 >= 2)
   {
-    operator delete((v31 - (BYTE8(v30) & 1) - 8));
-    if (v32 < 2)
+    operator delete((v30 - (BYTE8(v29) & 1) - 8));
+    if (v31 < 2)
     {
       goto LABEL_33;
     }
 
 LABEL_27:
-    operator delete((v33 - (BYTE8(v32) & 1) - 8));
+    operator delete((v32 - (BYTE8(v31) & 1) - 8));
     if (__p[0] < 2)
     {
       goto LABEL_34;
     }
 
 LABEL_28:
-    operator delete((v35 - (__p[1] & 1) - 8));
-    v17 = v36;
-    if (v36)
+    operator delete((v34 - (__p[1] & 1) - 8));
+    v16 = v35;
+    if (v35)
     {
       goto LABEL_35;
     }
 
 LABEL_29:
-    v18 = v39;
-    if (!v39)
+    v17 = v38;
+    if (!v38)
     {
       return;
     }
@@ -710,7 +708,7 @@ LABEL_29:
     goto LABEL_42;
   }
 
-  if (v32 >= 2)
+  if (v31 >= 2)
   {
     goto LABEL_27;
   }
@@ -722,76 +720,76 @@ LABEL_33:
   }
 
 LABEL_34:
-  v17 = v36;
-  if (!v36)
+  v16 = v35;
+  if (!v35)
   {
     goto LABEL_29;
   }
 
 LABEL_35:
-  v19 = v37;
-  v20 = v17;
-  if (v37 != v17)
+  v18 = v36;
+  v19 = v16;
+  if (v36 != v16)
   {
-    v21 = v37;
+    v20 = v36;
     do
     {
-      v22 = *(v21 - 32);
-      v21 -= 32;
-      if (v22 >= 2)
+      v21 = *(v20 - 32);
+      v20 -= 32;
+      if (v21 >= 2)
       {
-        operator delete((*(v19 - 16) - (*(v19 - 24) & 1) - 8));
+        operator delete((*(v18 - 16) - (*(v18 - 24) & 1) - 8));
       }
 
-      v19 = v21;
+      v18 = v20;
     }
 
-    while (v21 != v17);
-    v20 = v36;
+    while (v20 != v16);
+    v19 = v35;
   }
 
-  v37 = v17;
-  operator delete(v20);
-  v18 = v39;
-  if (v39)
+  v36 = v16;
+  operator delete(v19);
+  v17 = v38;
+  if (v38)
   {
 LABEL_42:
-    v23 = v40;
-    v24 = v18;
-    if (v40 != v18)
+    v22 = v39;
+    v23 = v17;
+    if (v39 != v17)
     {
-      v25 = v40;
+      v24 = v39;
       do
       {
-        v26 = *(v25 - 32);
-        v25 -= 32;
-        if (v26 >= 2)
+        v25 = *(v24 - 32);
+        v24 -= 32;
+        if (v25 >= 2)
         {
-          operator delete((*(v23 - 16) - (*(v23 - 24) & 1) - 8));
+          operator delete((*(v22 - 16) - (*(v22 - 24) & 1) - 8));
         }
 
-        v23 = v25;
+        v22 = v24;
       }
 
-      while (v25 != v18);
-      v24 = v39;
+      while (v24 != v17);
+      v23 = v38;
     }
 
-    v40 = v18;
-    operator delete(v24);
+    v39 = v17;
+    operator delete(v23);
   }
 }
 
 void sub_23CA21DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, void *a56, uint64_t a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (a67)
+  if (a65)
   {
-    operator delete(a67);
-    v72 = a70;
-    if (!a70)
+    operator delete(a65);
+    v68 = a66;
+    if (!a66)
     {
 LABEL_3:
-      v73 = STACK[0x200];
+      v69 = STACK[0x200];
       if (!STACK[0x200])
       {
         goto LABEL_5;
@@ -803,15 +801,15 @@ LABEL_3:
 
   else
   {
-    v72 = a70;
-    if (!a70)
+    v68 = a66;
+    if (!a66)
     {
       goto LABEL_3;
     }
   }
 
-  operator delete(v72);
-  v73 = STACK[0x200];
+  operator delete(v68);
+  v69 = STACK[0x200];
   if (!STACK[0x200])
   {
 LABEL_5:
@@ -852,8 +850,8 @@ LABEL_13:
     if (STACK[0x260] < 2)
     {
 LABEL_10:
-      std::vector<absl::lts_20240722::flat_hash_set<long long,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>>::~vector[abi:ne200100]((v70 - 248));
-      std::vector<absl::lts_20240722::flat_hash_set<long long,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>>::~vector[abi:ne200100]((v70 - 224));
+      std::vector<absl::lts_20240722::flat_hash_set<long long,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>>::~vector[abi:ne200100]((v66 - 248));
+      std::vector<absl::lts_20240722::flat_hash_set<long long,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>>::~vector[abi:ne200100]((v66 - 224));
       _Unwind_Resume(a1);
     }
 
@@ -863,13 +861,12 @@ LABEL_9:
   }
 
 LABEL_4:
-  operator delete(v73);
+  operator delete(v69);
   goto LABEL_5;
 }
 
 void operations_research::sat::anonymous namespace::ExpandPositiveTable(operations_research::sat::_anonymous_namespace_ *this, operations_research::sat::ConstraintProto *a2, operations_research::sat::PresolveContext *a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (*(this + 15) == 16)
   {
     v3 = *(this + 6);
@@ -880,8 +877,6 @@ void operations_research::sat::anonymous namespace::ExpandPositiveTable(operatio
     v3 = &operations_research::sat::_TableConstraintProto_default_instance_;
   }
 
-  v4 = *(v3 + 10);
-  v5 = v3[3];
   if ((v3[2] & 0x80000000) == 0)
   {
     operator new();
@@ -890,7 +885,7 @@ void operations_research::sat::anonymous namespace::ExpandPositiveTable(operatio
   std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
 }
 
-void sub_23CA25F00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, void *a21, uint64_t a22, void *a23, void *a24, void *a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, void *__p, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49)
+void sub_23CA25F00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, void *a21, uint64_t a22, void *a23, void *a24, void *a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, void *__p, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49)
 {
   absl::lts_20240722::btree_map<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>>::~btree_map(v49 - 256);
   absl::lts_20240722::btree_map<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>>::~btree_map(v49 - 224);
@@ -905,7 +900,7 @@ void sub_23CA25F00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-operations_research::sat::ConstraintProto *operations_research::sat::FinalExpansionForLinearConstraint(operations_research::sat::ConstraintProto *this, operations_research::sat::PresolveContext *a2, __n128 a3, uint64_t a4, operations_research::sat::PresolveContext *a5)
+operations_research::sat::ConstraintProto *operations_research::sat::FinalExpansionForLinearConstraint(operations_research::sat::ConstraintProto *this, operations_research::sat::PresolveContext *a2, uint64_t a3, operations_research::sat::PresolveContext *a4, __n128 a5)
 {
   if ((*(*(this + 49) + 317) & 1) == 0)
   {
@@ -944,16 +939,16 @@ operations_research::sat::ConstraintProto *operations_research::sat::FinalExpans
   return this;
 }
 
-double absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<long long>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>::raw_hash_set(uint64_t *a1, unint64_t a2)
+double absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<long long>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>::raw_hash_set(unint64_t *result, unint64_t a2)
 {
-  *&result = 1;
-  *a1 = xmmword_23CE306D0;
+  *&v2 = 1;
+  *result = xmmword_23CE306D0;
   if (a2 >= 2)
   {
-    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<long long>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>::resize_impl(a1, 0xFFFFFFFFFFFFFFFFLL >> __clz(a2));
+    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<long long>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>::resize_impl(result, 0xFFFFFFFFFFFFFFFFLL >> __clz(a2));
   }
 
-  return result;
+  return v2;
 }
 
 void *operations_research::sat::ConstraintProto::mutable_BOOL_or(operations_research::sat::ConstraintProto *this)
@@ -1001,7 +996,7 @@ uint64_t operations_research::sat::BoolArgumentProto::add_literals(uint64_t this
   return this;
 }
 
-uint64_t operations_research::sat::FillDomainInProto<operations_research::sat::LinearConstraintProto>(uint64_t *a1, uint64_t a2)
+uint64_t *operations_research::sat::FillDomainInProto<operations_research::sat::LinearConstraintProto>(uint64_t *a1, uint64_t a2)
 {
   *(a2 + 64) = 0;
   v2 = (a2 + 64);
@@ -1010,10 +1005,10 @@ uint64_t operations_research::sat::FillDomainInProto<operations_research::sat::L
   if (*(a2 + 68) < v4)
   {
     v21 = a2;
-    google::protobuf::RepeatedField<long long>::Grow(a2 + 64, 0);
+    google::protobuf::RepeatedField<long long>::Grow(a2 + 64, 0, v4);
     a2 = v21;
     v4 = *a1 >> 1;
-    result = (a1 + 1);
+    result = a1 + 1;
     if (*a1)
     {
       v8 = a1[1];
@@ -1033,7 +1028,7 @@ uint64_t operations_research::sat::FillDomainInProto<operations_research::sat::L
   else
   {
     v7 = a1[1];
-    result = (a1 + 1);
+    result = a1 + 1;
     v6 = v7;
     if (v3)
     {
@@ -1062,7 +1057,7 @@ uint64_t operations_research::sat::FillDomainInProto<operations_research::sat::L
       if (v10 == v12)
       {
         v16 = a2;
-        result = google::protobuf::RepeatedField<long long>::Grow(v2, v10);
+        result = google::protobuf::RepeatedField<long long>::Grow(v2, v10, (v10 + 1));
         a2 = v16;
         LODWORD(v10) = *(v16 + 64);
         v12 = *(v16 + 68);
@@ -1089,7 +1084,7 @@ uint64_t operations_research::sat::FillDomainInProto<operations_research::sat::L
     }
 
     v17 = a2;
-    result = google::protobuf::RepeatedField<long long>::Grow(v2, v12);
+    result = google::protobuf::RepeatedField<long long>::Grow(v2, v12, (v12 + 1));
     a2 = v17;
     v18 = *(v17 + 64);
     v19 = *(v17 + 72);
@@ -1105,17 +1100,17 @@ uint64_t operations_research::sat::FillDomainInProto<operations_research::sat::L
 
 uint64_t operations_research::sat::PresolveContext::NotifyThatModelIsUnsat(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v10[6] = *MEMORY[0x277D85DE8];
+  v9[6] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 384);
   if (*v4 == 1)
   {
-    v10[0] = "INFEASIBLE: '";
-    v10[1] = 13;
-    v9[0] = a2;
-    v9[1] = a3;
-    v8[0] = "'";
-    v8[1] = 1;
-    absl::lts_20240722::StrCat(v10, v9, v8, &__p);
+    v9[0] = "INFEASIBLE: '";
+    v9[1] = 13;
+    v8[0] = a2;
+    v8[1] = a3;
+    v7[0] = "'";
+    v7[1] = 1;
+    absl::lts_20240722::StrCat(v9, v8, v7, &__p);
     operations_research::SolverLogger::LogInfo(v4, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/presolve_context.h", 273, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -1124,7 +1119,6 @@ uint64_t operations_research::sat::PresolveContext::NotifyThatModelIsUnsat(uint6
   }
 
   *(a1 + 416) = 1;
-  v5 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1241,25 +1235,31 @@ void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::co
   if (v5)
   {
     v6 = ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *(a1 + 16)) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *(a1 + 16)))) + *(a1 + 20);
-  }
-
-  v8 = *a1;
-  v9 = v3 & 1;
-  v10 = v2 < 2;
-  v11 = v5;
-  if (v5)
-  {
-    *&v7 = *(a1 + 16);
-    DWORD2(v7) = *(a1 + 24);
+    v7 = (((v6 * 0x9DDFEA08EB382D69) >> 64) ^ (105 * v6)) & 0x7F;
   }
 
   else
   {
-    v7 = *(a1 + 16);
+    v7 = 0x80;
+  }
+
+  v9 = *a1;
+  v10 = v3 & 1;
+  v11 = v2 < 2;
+  v12 = v5;
+  if (v5)
+  {
+    *&v8 = *(a1 + 16);
+    DWORD2(v8) = *(a1 + 24);
+  }
+
+  else
+  {
+    v8 = *(a1 + 16);
   }
 
   *a1 = a2;
-  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,12ul,false,true,4ul>(&v7, a1);
+  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,12ul,false,true,4ul>(&v8, a1, v7);
 }
 
 void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::pair<int,int>,int>,absl::lts_20240722::hash_internal::Hash<std::pair<int,int>>,std::equal_to<std::pair<int,int>>,std::allocator<std::pair<std::pair<int,int> const,int>>>::transfer_slot_fn(uint64_t a1, uint64_t a2, uint64_t *a3)
@@ -1305,19 +1305,19 @@ void operations_research::sat::anonymous namespace::ExpandIntProdWithBoolean(ope
     *(v11 + 48) = v16;
   }
 
-  v19 = *(v16 + 64);
-  v18 = *(v16 + 68);
-  v20 = (v16 + 64);
+  v19 = *(v16 + 16);
+  v18 = *(v16 + 17);
+  v20 = (v16 + 8);
   if (v19 == v18)
   {
     v58 = v16;
-    google::protobuf::RepeatedField<long long>::Grow(v16 + 64, v18);
+    google::protobuf::RepeatedField<long long>::Grow((v16 + 8), v18, (v18 + 1));
     v16 = v58;
     v19 = *v20;
   }
 
-  v21 = *(v16 + 72);
-  *(v16 + 64) = v19 + 1;
+  v21 = v16[9];
+  *(v16 + 16) = v19 + 1;
   *(v21 + 8 * v19) = 0;
   if (*(v11 + 60) == 12)
   {
@@ -1338,19 +1338,19 @@ void operations_research::sat::anonymous namespace::ExpandIntProdWithBoolean(ope
     *(v11 + 48) = v22;
   }
 
-  v25 = *(v22 + 64);
-  v24 = *(v22 + 68);
-  v26 = (v22 + 64);
+  v25 = *(v22 + 16);
+  v24 = *(v22 + 17);
+  v26 = (v22 + 8);
   if (v25 == v24)
   {
     v59 = v22;
-    google::protobuf::RepeatedField<long long>::Grow(v22 + 64, v24);
+    google::protobuf::RepeatedField<long long>::Grow((v22 + 8), v24, (v24 + 1));
     v22 = v59;
     v25 = *v26;
   }
 
-  v27 = *(v22 + 72);
-  *(v22 + 64) = v25 + 1;
+  v27 = v22[9];
+  *(v22 + 16) = v25 + 1;
   *(v27 + 8 * v25) = 0;
   if (*(v11 + 60) != 12)
   {
@@ -1428,19 +1428,19 @@ LABEL_26:
     *(v38 + 48) = v44;
   }
 
-  v47 = *(v44 + 64);
-  v46 = *(v44 + 68);
-  v48 = (v44 + 64);
+  v47 = *(v44 + 16);
+  v46 = *(v44 + 17);
+  v48 = (v44 + 8);
   if (v47 == v46)
   {
     v60 = v44;
-    google::protobuf::RepeatedField<long long>::Grow(v44 + 64, v46);
+    google::protobuf::RepeatedField<long long>::Grow((v44 + 8), v46, (v46 + 1));
     v44 = v60;
     v47 = *v48;
   }
 
-  v49 = *(v44 + 72);
-  *(v44 + 64) = v47 + 1;
+  v49 = v44[9];
+  *(v44 + 16) = v47 + 1;
   *(v49 + 8 * v47) = 0;
   if (*(v38 + 60) == 12)
   {
@@ -1461,19 +1461,19 @@ LABEL_26:
     *(v38 + 48) = v50;
   }
 
-  v53 = *(v50 + 64);
-  v52 = *(v50 + 68);
-  v54 = (v50 + 64);
+  v53 = *(v50 + 16);
+  v52 = *(v50 + 17);
+  v54 = (v50 + 8);
   if (v53 == v52)
   {
     v61 = v50;
-    google::protobuf::RepeatedField<long long>::Grow(v50 + 64, v52);
+    google::protobuf::RepeatedField<long long>::Grow((v50 + 8), v52, (v52 + 1));
     v50 = v61;
     v53 = *v54;
   }
 
-  v55 = *(v50 + 72);
-  *(v50 + 64) = v53 + 1;
+  v55 = v50[9];
+  *(v50 + 16) = v53 + 1;
   *(v55 + 8 * v53) = 0;
   if (*(v38 + 60) == 12)
   {
@@ -1497,9 +1497,8 @@ LABEL_26:
   operations_research::sat::AddLinearExpressionToLinearConstraint(a3, 1, v56, v37, v41);
 }
 
-void *std::deque<operations_research::sat::LinearExpressionProto>::__append_with_size[abi:ne200100]<google::protobuf::internal::RepeatedPtrIterator<operations_research::sat::LinearExpressionProto const>>(void *result, const operations_research::sat::LinearExpressionProto **a2, unint64_t a3)
+void std::deque<operations_research::sat::LinearExpressionProto>::__append_with_size[abi:ne200100]<google::protobuf::internal::RepeatedPtrIterator<operations_research::sat::LinearExpressionProto const>>(unint64_t *result, uint64_t *a2, unint64_t a3)
 {
-  v5 = result;
   v6 = result[1];
   v7 = result[2];
   if (v7 == v6)
@@ -1517,11 +1516,11 @@ void *std::deque<operations_research::sat::LinearExpressionProto>::__append_with
   v11 = v8 - v10;
   if (a3 > v11)
   {
-    result = std::deque<operations_research::sat::LinearExpressionProto>::__add_back_capacity(result, a3 - v11);
-    v9 = v5[5];
-    v6 = v5[1];
-    v7 = v5[2];
-    v10 = v5[4] + v9;
+    std::deque<operations_research::sat::LinearExpressionProto>::__add_back_capacity(result, a3 - v11);
+    v9 = result[5];
+    v6 = result[1];
+    v7 = result[2];
+    v10 = result[4] + v9;
   }
 
   v12 = (v6 + 8 * (v10 / 0x33));
@@ -1541,7 +1540,7 @@ LABEL_12:
       goto LABEL_15;
     }
 
-    return result;
+    return;
   }
 
   v13 = 0;
@@ -1572,38 +1571,38 @@ LABEL_15:
 
         if (v13 == v19)
         {
-          v5[5] = v9;
+          result[5] = v9;
           if (v12 == v16)
           {
-            return result;
+            return;
           }
         }
 
         else
         {
           v20 = 0;
-          result = v13;
+          v21 = v13;
           do
           {
-            result = (operations_research::sat::LinearExpressionProto::LinearExpressionProto(result, 0, *a2++) + 80);
+            v21 = operations_research::sat::LinearExpressionProto::LinearExpressionProto(v21, 0, *a2++) + 80;
             v20 -= 80;
           }
 
-          while (result != v19);
-          v9 = v5[5] - 0x3333333333333333 * ((v19 - v13) >> 4);
-          v5[5] = v9;
+          while (v21 != v19);
+          v9 = result[5] - 0x3333333333333333 * ((v19 - v13) >> 4);
+          result[5] = v9;
           if (v12 == v16)
           {
-            return result;
+            return;
           }
         }
 
-        v21 = v12[1];
+        v22 = v12[1];
         ++v12;
-        v13 = v21;
+        v13 = v22;
       }
 
-      while (v21 != v14);
+      while (v22 != v14);
     }
   }
 
@@ -1616,14 +1615,11 @@ LABEL_15:
       goto LABEL_15;
     }
   }
-
-  return result;
 }
 
-void *std::deque<operations_research::sat::LinearExpressionProto>::__add_back_capacity(void *result, unint64_t a2)
+void std::deque<operations_research::sat::LinearExpressionProto>::__add_back_capacity(unint64_t *a1, unint64_t a2)
 {
-  v2 = result;
-  v3 = result[2] - result[1];
+  v3 = a1[2] - a1[1];
   if (v3)
   {
     v4 = a2;
@@ -1644,7 +1640,7 @@ void *std::deque<operations_research::sat::LinearExpressionProto>::__add_back_ca
     v5 = v4 / 0x33;
   }
 
-  v6 = result[4];
+  v6 = a1[4];
   if (v5 >= v6 / 0x33)
   {
     v7 = v6 / 0x33;
@@ -1657,19 +1653,19 @@ void *std::deque<operations_research::sat::LinearExpressionProto>::__add_back_ca
 
   if (v5 <= v6 / 0x33)
   {
-    for (result[4] = v6 - 51 * v7; v7; --v7)
+    for (a1[4] = v6 - 51 * v7; v7; --v7)
     {
-      v12 = v2[1];
+      v12 = a1[1];
       v14 = *v12;
-      v2[1] = v12 + 1;
-      result = std::__split_buffer<std::vector<operations_research::sat::Literal> *,std::allocator<std::vector<operations_research::sat::Literal> *>>::emplace_back<std::vector<operations_research::sat::Literal> *&>(v2, &v14);
+      a1[1] = (v12 + 1);
+      std::__split_buffer<std::vector<operations_research::sat::Literal> *,std::allocator<std::vector<operations_research::sat::Literal> *>>::emplace_back<std::vector<operations_research::sat::Literal> *&>(a1, &v14);
     }
   }
 
   else
   {
     v8 = v5 - v7;
-    v9 = result[3] - *result;
+    v9 = a1[3] - *a1;
     v10 = v3 >> 3;
     if (v5 - v7 > (v9 >> 3) - (v3 >> 3))
     {
@@ -1698,7 +1694,7 @@ void *std::deque<operations_research::sat::LinearExpressionProto>::__add_back_ca
 
     if (v8)
     {
-      if (result[3] != result[2])
+      if (a1[3] != a1[2])
       {
         operator new();
       }
@@ -1706,16 +1702,14 @@ void *std::deque<operations_research::sat::LinearExpressionProto>::__add_back_ca
       operator new();
     }
 
-    for (result[4] -= 51 * v7; v7; --v7)
+    for (a1[4] -= 51 * v7; v7; --v7)
     {
-      v13 = v2[1];
+      v13 = a1[1];
       v14 = *v13;
-      v2[1] = v13 + 1;
-      result = std::__split_buffer<std::vector<operations_research::sat::Literal> *,std::allocator<std::vector<operations_research::sat::Literal> *>>::emplace_back<std::vector<operations_research::sat::Literal> *&>(v2, &v14);
+      a1[1] = (v13 + 1);
+      std::__split_buffer<std::vector<operations_research::sat::Literal> *,std::allocator<std::vector<operations_research::sat::Literal> *>>::emplace_back<std::vector<operations_research::sat::Literal> *&>(a1, &v14);
     }
   }
-
-  return result;
 }
 
 void sub_23CA27B38(_Unwind_Exception *exception_object)
@@ -1728,19 +1722,19 @@ void sub_23CA27B38(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::deque<operations_research::sat::LinearExpressionProto>::__add_back_capacity(void *a1)
+void std::deque<operations_research::sat::LinearExpressionProto>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x33;
   v3 = v1 - 51;
   if (!v2)
   {
-    v7 = a1[2];
-    v6 = a1[3];
-    v8 = v6 - *a1;
-    if (v7 - a1[1] < v8)
+    v6 = a1[2];
+    v5 = a1[3];
+    v7 = v5 - *a1;
+    if (v6 - a1[1] < v7)
     {
-      if (v6 != v7)
+      if (v5 != v6)
       {
         operator new();
       }
@@ -1748,18 +1742,18 @@ void *std::deque<operations_research::sat::LinearExpressionProto>::__add_back_ca
       operator new();
     }
 
-    v9 = v8 >> 2;
-    if (v6 == *a1)
+    v8 = v7 >> 2;
+    if (v5 == *a1)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9;
+      v9 = v8;
     }
 
-    if (!(v10 >> 61))
+    if (!(v9 >> 61))
     {
       operator new();
     }
@@ -1769,9 +1763,9 @@ void *std::deque<operations_research::sat::LinearExpressionProto>::__add_back_ca
 
   a1[4] = v3;
   v4 = a1[1];
-  v11 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<std::vector<operations_research::sat::Literal> *,std::allocator<std::vector<operations_research::sat::Literal> *>>::emplace_back<std::vector<operations_research::sat::Literal> *&>(a1, &v11);
+  v10 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<std::vector<operations_research::sat::Literal> *,std::allocator<std::vector<operations_research::sat::Literal> *>>::emplace_back<std::vector<operations_research::sat::Literal> *&>(a1, &v10);
 }
 
 void sub_23CA27F18(_Unwind_Exception *a1)
@@ -1877,7 +1871,7 @@ LABEL_15:
   return a1;
 }
 
-uint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,operations_research::sat::BoolArgumentProto *>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,operations_research::sat::BoolArgumentProto *>>>::find_or_prepare_insert<long long>@<X0>(uint64_t *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+unint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,operations_research::sat::BoolArgumentProto *>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,operations_research::sat::BoolArgumentProto *>>>::find_or_prepare_insert<long long>@<X0>(unint64_t *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = *result;
   if (*result > 1)
@@ -1948,7 +1942,7 @@ LABEL_8:
       v4 = result + 2;
       if (result[2] != *a2)
       {
-        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,operations_research::sat::BoolArgumentProto *>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,operations_research::sat::BoolArgumentProto *>>>::resize_impl(result, 3);
+        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,operations_research::sat::BoolArgumentProto *>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,operations_research::sat::BoolArgumentProto *>>>::resize_impl(result, 3uLL);
       }
 
       v5 = 0;
@@ -1969,21 +1963,31 @@ LABEL_8:
   return result;
 }
 
-void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,operations_research::sat::BoolArgumentProto *>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,operations_research::sat::BoolArgumentProto *>>>::resize_impl(uint64_t *a1, uint64_t a2)
+void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,operations_research::sat::BoolArgumentProto *>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,operations_research::sat::BoolArgumentProto *>>>::resize_impl(unint64_t *a1, unint64_t a2)
 {
   v2 = *a1;
   v3 = a1[1];
   v5 = *a1 < 2 && v3 > 1;
   v6 = a1[2];
-  v9 = v3 & 1;
-  v10 = v2 < 2;
-  v11 = v5;
-  v7 = a1[3];
-  v8[0] = v6;
-  v8[1] = v7;
-  v8[2] = v2;
+  if (v5)
+  {
+    v7 = ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v6) * 0x9DDFEA08EB382D69) >> 64) ^ (105 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v6))) & 0x7F;
+  }
+
+  else
+  {
+    v7 = 0x80;
+  }
+
+  v10 = v3 & 1;
+  v11 = v2 < 2;
+  v12 = v5;
+  v8 = a1[3];
+  v9[0] = v6;
+  v9[1] = v8;
+  v9[2] = v2;
   *a1 = a2;
-  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,16ul,true,true,8ul>(v8, a1);
+  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,16ul,true,true,8ul>(v9, a1, v7);
 }
 
 uint64_t operations_research::sat::anonymous namespace::ExpandInverse(operations_research::sat::ConstraintProto *,operations_research::sat::PresolveContext *)::$_0::operator()<google::protobuf::RepeatedField<int>,google::protobuf::RepeatedField<int>>(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2000,7 +2004,7 @@ uint64_t operations_research::sat::anonymous namespace::ExpandInverse(operations
   while (2)
   {
     *(*(v5 + 16) + 8) = **(v5 + 16);
-    operations_research::sat::PresolveContext::DomainOf(*v5, *(*(v4 + 8) + 4 * v6), &v41);
+    operations_research::sat::PresolveContext::DomainOf(&v41, *v5, *(*(v4 + 8) + 4 * v6));
     if (v41 <= 1)
     {
       goto LABEL_46;
@@ -2018,7 +2022,7 @@ uint64_t operations_research::sat::anonymous namespace::ExpandInverse(operations
     v11 = &v9[2 * (v41 >> 1)];
     do
     {
-      operations_research::sat::PresolveContext::DomainOf(*v5, *(*(v3 + 8) + 4 * v8), &v39);
+      operations_research::sat::PresolveContext::DomainOf(&v39, *v5, *(*(v3 + 8) + 4 * v8));
       v12 = operations_research::Domain::Contains(&v39, v6);
       if (v39)
       {
@@ -2204,40 +2208,38 @@ void sub_23CA28964(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void operations_research::sat::anonymous namespace::AddImplyInReachableValues(int a1, uint64_t **a2, uint64_t *a3, uint64_t a4)
+void operations_research::sat::anonymous namespace::AddImplyInReachableValues(int a1, uint64_t **a2, unint64_t *a3, uint64_t a4)
 {
+  std::__sort<std::__less<long long,long long> &,long long *>();
   v8 = *a2;
   v9 = a2[1];
-  std::__sort<std::__less<long long,long long> &,long long *>();
-  v10 = *a2;
-  v11 = a2[1];
-  if (*a2 != v11)
+  if (*a2 != v9)
   {
-    v12 = v10 + 1;
-    while (v12 != v11)
+    v10 = v8 + 1;
+    while (v10 != v9)
     {
-      v13 = *(v12 - 1);
-      v14 = *v12++;
-      if (v13 == v14)
+      v11 = *(v10 - 1);
+      v12 = *v10++;
+      if (v11 == v12)
       {
-        v15 = v12 - 2;
-        while (v12 != v11)
+        v13 = v10 - 2;
+        while (v10 != v9)
         {
-          v16 = v13;
-          v13 = *v12;
-          if (v16 != *v12)
+          v14 = v11;
+          v11 = *v10;
+          if (v14 != *v10)
           {
-            v15[1] = v13;
-            ++v15;
+            v13[1] = v11;
+            ++v13;
           }
 
-          ++v12;
+          ++v10;
         }
 
-        if (v15 + 1 != v11)
+        if (v13 + 1 != v9)
         {
-          v11 = v15 + 1;
-          a2[1] = v15 + 1;
+          v9 = v13 + 1;
+          a2[1] = v13 + 1;
         }
 
         break;
@@ -2245,126 +2247,126 @@ void operations_research::sat::anonymous namespace::AddImplyInReachableValues(in
     }
   }
 
-  v17 = v11 - v10;
-  v18 = a3[1];
-  if (v17 != v18 >> 1)
+  v15 = v9 - v8;
+  v16 = a3[1];
+  if (v15 != v16 >> 1)
   {
-    if (v17 > v18 >> 2)
+    if (v15 > v16 >> 2)
     {
-      if (v11 - v10 == 56)
+      if (v9 - v8 == 56)
       {
-        v52 = 8;
+        v50 = 8;
       }
 
       else
       {
-        v52 = (v17 - 1) / 7 + v17;
+        v50 = (v15 - 1) / 7 + v15;
       }
 
-      absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<long long>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>::raw_hash_set(v82, v52);
-      while (v10 != v11)
+      absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<long long>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>::raw_hash_set(v80, v50);
+      while (v8 != v9)
       {
-        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<long long>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>::find_or_prepare_insert<long long>(v82, v10, v85);
-        if (v87 == 1)
+        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<long long>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>::find_or_prepare_insert<long long>(v80, v8, v83);
+        if (v85 == 1)
         {
-          *v86 = *v10;
+          *v84 = *v8;
         }
 
-        ++v10;
+        ++v8;
       }
 
-      v53 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((*a4 + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
-      v54 = v53;
-      v56 = *(v53 + 16);
-      v55 = *(v53 + 20);
-      v57 = (v53 + 16);
-      if (v56 == v55)
+      v51 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((*a4 + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
+      v52 = v51;
+      v54 = *(v51 + 16);
+      v53 = *(v51 + 20);
+      v55 = (v51 + 16);
+      if (v54 == v53)
       {
-        google::protobuf::RepeatedField<int>::Grow(v53 + 16, v55, (v55 + 1));
-        v56 = *v57;
+        google::protobuf::RepeatedField<int>::Grow(v51 + 16, v53, (v53 + 1));
+        v54 = *v55;
       }
 
-      v58 = *(v54 + 24);
-      *(v54 + 16) = v56 + 1;
-      *(v58 + 4 * v56) = a1;
-      if (*(v54 + 60) == 4)
+      v56 = *(v52 + 24);
+      *(v52 + 16) = v54 + 1;
+      *(v56 + 4 * v54) = a1;
+      if (*(v52 + 60) == 4)
       {
-        v59 = *(v54 + 48);
+        v57 = *(v52 + 48);
       }
 
       else
       {
-        operations_research::sat::ConstraintProto::clear_constraint(v54);
-        *(v54 + 60) = 4;
-        v60 = *(v54 + 8);
-        if (v60)
+        operations_research::sat::ConstraintProto::clear_constraint(v52);
+        *(v52 + 60) = 4;
+        v58 = *(v52 + 8);
+        if (v58)
         {
-          v60 = *(v60 & 0xFFFFFFFFFFFFFFFELL);
+          v58 = *(v58 & 0xFFFFFFFFFFFFFFFELL);
         }
 
-        v59 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::BoolArgumentProto>(v60);
-        *(v54 + 48) = v59;
+        v57 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::BoolArgumentProto>(v58);
+        *(v52 + 48) = v57;
       }
 
       if (a3[1] >= 2)
       {
-        v61 = a3 + 2;
+        v59 = (a3 + 2);
         if (*a3 >= 2)
         {
-          v62 = a3[2];
-          v61 = a3[3];
-          if (*v62 <= -2)
+          v60 = a3[2];
+          v59 = a3[3];
+          if (*v60 <= -2)
           {
             do
             {
-              v63 = __clz(__rbit64((*v62 | ~(*v62 >> 7)) & 0x101010101010101)) >> 3;
-              v62 = (v62 + v63);
-              v61 += 2 * v63;
+              v61 = __clz(__rbit64((*v60 | ~(*v60 >> 7)) & 0x101010101010101)) >> 3;
+              v60 = (v60 + v61);
+              v59 += 2 * v61;
             }
 
-            while (*v62 < -1);
+            while (*v60 < -1);
           }
         }
 
         else
         {
-          v62 = &absl::lts_20240722::container_internal::kSooControl;
+          v60 = &absl::lts_20240722::container_internal::kSooControl;
         }
 
         do
         {
-          v64 = *v61;
-          v65 = *(v61 + 2);
-          if (v82[0] > 1uLL)
+          v62 = *v59;
+          v63 = *(v59 + 2);
+          if (v80[0] > 1)
           {
-            v73 = 0;
-            _X11 = v83;
+            v71 = 0;
+            _X11 = v81;
             __asm { PRFM            #4, [X11] }
 
-            v76 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v64) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v64));
-            v77 = vdup_n_s8(v76 & 0x7F);
-            v78 = ((v76 >> 7) ^ (v83 >> 12)) & v82[0];
-            v79 = *(v83 + v78);
-            v80 = vceq_s8(v79, v77);
-            if (!v80)
+            v74 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v62) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v62));
+            v75 = vdup_n_s8(v74 & 0x7F);
+            v76 = ((v74 >> 7) ^ (v81 >> 12)) & v80[0];
+            v77 = *(v81 + v76);
+            v78 = vceq_s8(v77, v75);
+            if (!v78)
             {
               goto LABEL_77;
             }
 
 LABEL_75:
-            while (*(v84 + 8 * ((v78 + (__clz(__rbit64(v80)) >> 3)) & v82[0])) != v64)
+            while (*(v82 + 8 * ((v76 + (__clz(__rbit64(v78)) >> 3)) & v80[0])) != v62)
             {
-              v80 &= ((v80 & 0x8080808080808080) - 1) & 0x8080808080808080;
-              if (!v80)
+              v78 &= ((v78 & 0x8080808080808080) - 1) & 0x8080808080808080;
+              if (!v78)
               {
 LABEL_77:
-                while (!*&vceq_s8(v79, 0x8080808080808080))
+                while (!*&vceq_s8(v77, 0x8080808080808080))
                 {
-                  v73 += 8;
-                  v78 = (v73 + v78) & v82[0];
-                  v79 = *(v83 + v78);
-                  v80 = vceq_s8(v79, v77);
-                  if (v80)
+                  v71 += 8;
+                  v76 = (v71 + v76) & v80[0];
+                  v77 = *(v81 + v76);
+                  v78 = vceq_s8(v77, v75);
+                  if (v78)
                   {
                     goto LABEL_75;
                   }
@@ -2375,69 +2377,69 @@ LABEL_77:
             }
           }
 
-          else if (v82[1] < 2uLL || v83 != v64)
+          else if (v80[1] < 2 || v81 != v62)
           {
 LABEL_67:
-            v68 = *(v59 + 4);
-            v67 = *(v59 + 5);
-            if (v68 == v67)
+            v66 = *(v57 + 4);
+            v65 = *(v57 + 5);
+            if (v66 == v65)
             {
-              v81 = v59;
-              google::protobuf::RepeatedField<int>::Grow(v59 + 2, v67, (v67 + 1));
-              v59 = v81;
-              v68 = *(v81 + 4);
+              v79 = v57;
+              google::protobuf::RepeatedField<int>::Grow((v57 + 2), v65, (v65 + 1));
+              v57 = v79;
+              v66 = *(v79 + 4);
             }
 
-            v69 = v59[3];
-            *(v59 + 4) = v68 + 1;
-            *(v69 + 4 * v68) = ~v65;
+            v67 = v57[3];
+            *(v57 + 4) = v66 + 1;
+            *(v67 + 4 * v66) = ~v63;
           }
 
-          v71 = *(v62 + 1);
-          v62 = (v62 + 1);
-          LOBYTE(v70) = v71;
-          v61 += 2;
-          if (v71 <= -2)
+          v69 = *(v60 + 1);
+          v60 = (v60 + 1);
+          LOBYTE(v68) = v69;
+          v59 += 2;
+          if (v69 <= -2)
           {
             do
             {
-              v72 = __clz(__rbit64((*v62 | ~(*v62 >> 7)) & 0x101010101010101)) >> 3;
-              v62 = (v62 + v72);
-              v61 += 2 * v72;
-              v70 = *v62;
+              v70 = __clz(__rbit64((*v60 | ~(*v60 >> 7)) & 0x101010101010101)) >> 3;
+              v60 = (v60 + v70);
+              v59 += 2 * v70;
+              v68 = *v60;
             }
 
-            while (v70 < -1);
+            while (v68 < -1);
           }
         }
 
-        while (v70 != 255);
+        while (v68 != 255);
       }
     }
 
     else
     {
-      v19 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((*a4 + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
-      v20 = v19;
-      v21 = (v19 + 16);
-      v22 = *(v19 + 16);
-      v23 = HIDWORD(v22);
-      v24 = v22;
-      if (v22 == HIDWORD(v22))
+      v17 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((*a4 + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
+      v18 = v17;
+      v19 = (v17 + 16);
+      v20 = *(v17 + 16);
+      v21 = HIDWORD(v20);
+      v22 = v20;
+      if (v20 == HIDWORD(v20))
       {
-        google::protobuf::RepeatedField<int>::Grow(v19 + 16, HIDWORD(v22), (HIDWORD(v22) + 1));
-        v24 = *v21;
+        google::protobuf::RepeatedField<int>::Grow(v17 + 16, HIDWORD(v20), (HIDWORD(v20) + 1));
+        v22 = *v19;
       }
 
-      v25 = *(v20 + 24);
-      *(v20 + 16) = v24 + 1;
-      *(v25 + 4 * v24) = a1;
-      if (*(v20 + 60) == 3)
+      v23 = *(v18 + 24);
+      *(v18 + 16) = v22 + 1;
+      *(v23 + 4 * v22) = a1;
+      if (*(v18 + 60) == 3)
       {
-        v26 = *(v20 + 48);
-        v27 = *a2;
-        v28 = a2[1];
-        if (v27 == v28)
+        v24 = *(v18 + 48);
+        v25 = *a2;
+        v26 = a2[1];
+        if (v25 == v26)
         {
           return;
         }
@@ -2445,16 +2447,16 @@ LABEL_67:
 
       else
       {
-        operations_research::sat::ConstraintProto::clear_constraint(v20);
-        *(v20 + 60) = 3;
-        v29 = *(v20 + 8);
-        if (v29)
+        operations_research::sat::ConstraintProto::clear_constraint(v18);
+        *(v18 + 60) = 3;
+        v27 = *(v18 + 8);
+        if (v27)
         {
-          v26 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::BoolArgumentProto>(*(v29 & 0xFFFFFFFFFFFFFFFELL));
-          *(v20 + 48) = v26;
-          v27 = *a2;
-          v28 = a2[1];
-          if (v27 == v28)
+          v24 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::BoolArgumentProto>(*(v27 & 0xFFFFFFFFFFFFFFFELL));
+          *(v18 + 48) = v24;
+          v25 = *a2;
+          v26 = a2[1];
+          if (v25 == v26)
           {
             return;
           }
@@ -2462,71 +2464,71 @@ LABEL_67:
 
         else
         {
-          v26 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::BoolArgumentProto>(v29);
-          *(v20 + 48) = v26;
-          v27 = *a2;
-          v28 = a2[1];
-          if (v27 == v28)
+          v24 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::BoolArgumentProto>(v27);
+          *(v18 + 48) = v24;
+          v25 = *a2;
+          v26 = a2[1];
+          if (v25 == v26)
           {
             return;
           }
         }
       }
 
-      v30 = a3 + 2;
+      v28 = (a3 + 2);
       do
       {
-        v31 = *v27;
-        v32 = *a3;
+        v29 = *v25;
+        v30 = *a3;
         if (*a3 > 1)
         {
-          v33 = 0;
-          _X10 = *v30;
+          v31 = 0;
+          _X10 = *v28;
           __asm { PRFM            #4, [X10] }
 
-          v39 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v31) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v31));
-          v40 = vdup_n_s8(v39 & 0x7F);
-          v41 = ((v39 >> 7) ^ (*v30 >> 12)) & v32;
-          v42 = *(*v30 + v41);
-          v43 = vceq_s8(v42, v40);
-          if (!v43)
+          v37 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v29) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v29));
+          v38 = vdup_n_s8(v37 & 0x7F);
+          v39 = ((v37 >> 7) ^ (*v28 >> 12)) & v30;
+          v40 = *(*v28 + v39);
+          v41 = vceq_s8(v40, v38);
+          if (!v41)
           {
             goto LABEL_29;
           }
 
 LABEL_26:
-          v44 = a3[3];
+          v42 = a3[3];
           while (1)
           {
-            v45 = (v41 + (__clz(__rbit64(v43)) >> 3)) & v32;
-            if (*(v44 + 16 * v45) == v31)
+            v43 = (v39 + (__clz(__rbit64(v41)) >> 3)) & v30;
+            if (*(v42 + 16 * v43) == v29)
             {
               break;
             }
 
-            v43 &= ((v43 & 0x8080808080808080) - 1) & 0x8080808080808080;
-            if (!v43)
+            v41 &= ((v41 & 0x8080808080808080) - 1) & 0x8080808080808080;
+            if (!v41)
             {
 LABEL_29:
-              while (!*&vceq_s8(v42, 0x8080808080808080))
+              while (!*&vceq_s8(v40, 0x8080808080808080))
               {
-                v33 += 8;
-                v41 = (v33 + v41) & v32;
-                v42 = *(_X10 + v41);
-                v43 = vceq_s8(v42, v40);
-                if (v43)
+                v31 += 8;
+                v39 = (v31 + v39) & v30;
+                v40 = *(_X10 + v39);
+                v41 = vceq_s8(v40, v38);
+                if (v41)
                 {
                   goto LABEL_26;
                 }
               }
 
 LABEL_84:
-              absl::lts_20240722::base_internal::ThrowStdOutOfRange("absl::container_internal::raw_hash_map<>::at", v23);
+              absl::lts_20240722::base_internal::ThrowStdOutOfRange("absl::container_internal::raw_hash_map<>::at", v21);
             }
           }
 
-          v31 = (v44 + 16 * v45);
-          if (!(_X10 + v45))
+          v29 = (v42 + 16 * v43);
+          if (!(_X10 + v43))
           {
             goto LABEL_84;
           }
@@ -2539,42 +2541,42 @@ LABEL_84:
             goto LABEL_84;
           }
 
-          if (*v30 == v31)
+          if (*v28 == v29)
           {
-            v31 = a3 + 2;
-            v46 = &absl::lts_20240722::container_internal::kSooControl;
+            v29 = (a3 + 2);
+            v44 = &absl::lts_20240722::container_internal::kSooControl;
           }
 
           else
           {
-            v46 = 0;
+            v44 = 0;
           }
 
-          if (!v46)
+          if (!v44)
           {
             goto LABEL_84;
           }
         }
 
-        v47 = *(v31 + 2);
-        v48 = v26[2];
-        v23 = HIDWORD(v48);
-        v49 = v48;
-        if (v48 == HIDWORD(v48))
+        v45 = *(v29 + 2);
+        v46 = v24[2];
+        v21 = HIDWORD(v46);
+        v47 = v46;
+        if (v46 == HIDWORD(v46))
         {
-          v51 = v26;
-          google::protobuf::RepeatedField<int>::Grow(v26 + 2, HIDWORD(v48), (HIDWORD(v48) + 1));
-          v26 = v51;
-          v49 = *(v51 + 4);
+          v49 = v24;
+          google::protobuf::RepeatedField<int>::Grow((v24 + 2), HIDWORD(v46), (HIDWORD(v46) + 1));
+          v24 = v49;
+          v47 = *(v49 + 4);
         }
 
-        v50 = v26[3];
-        *(v26 + 4) = v49 + 1;
-        *(v50 + 4 * v49) = v47;
-        ++v27;
+        v48 = v24[3];
+        *(v24 + 4) = v47 + 1;
+        *(v48 + 4 * v47) = v45;
+        ++v25;
       }
 
-      while (v27 != v28);
+      while (v25 != v26);
     }
   }
 }
@@ -2660,7 +2662,7 @@ LABEL_59:
           }
         }
 
-        v31 = (v26 + 16 * v30);
+        v31 = v26 + 16 * v30;
         if (!(_X9 + v30))
         {
           goto LABEL_59;
@@ -2692,7 +2694,7 @@ LABEL_59:
         }
       }
 
-      v33 = absl::lts_20240722::container_internal::btree_map_container<absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>,256,false>>>::operator[]<int>(&__p, v31 + 2);
+      v33 = absl::lts_20240722::container_internal::btree_map_container<absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>,256,false>>>::operator[]<int>(&__p, (v31 + 8));
       std::vector<int>::push_back[abi:ne200100](v33, (*a1 + 4 * v12));
       v12 = ++v13;
       v8 = *a2;
@@ -2750,7 +2752,7 @@ LABEL_59:
           v53 = (v46 + 2);
           if (v52 == v51)
           {
-            google::protobuf::RepeatedField<int>::Grow(v46 + 2, v51, (v51 + 1));
+            google::protobuf::RepeatedField<int>::Grow((v46 + 2), v51, (v51 + 1));
             v52 = *v53;
           }
 
@@ -2765,7 +2767,7 @@ LABEL_59:
             v58 = *(v46 + 5);
             if (v59 == v58)
             {
-              google::protobuf::RepeatedField<int>::Grow(v46 + 2, v58, (v58 + 1));
+              google::protobuf::RepeatedField<int>::Grow((v46 + 2), v58, (v58 + 1));
               v59 = *v53;
             }
 
@@ -2826,49 +2828,49 @@ LABEL_59:
   }
 }
 
-void sub_23CA29508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23CA29508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   absl::lts_20240722::btree_map<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>>::~btree_map(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23CA2951C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23CA2951C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   absl::lts_20240722::btree_map<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>>::~btree_map(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23CA29530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23CA29530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   absl::lts_20240722::btree_map<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>>::~btree_map(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23CA29544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23CA29544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   absl::lts_20240722::btree_map<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>>::~btree_map(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23CA29558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23CA29558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   absl::lts_20240722::btree_map<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>>::~btree_map(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23CA2956C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23CA2956C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   absl::lts_20240722::btree_map<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>>::~btree_map(va);
   _Unwind_Resume(a1);
 }
 
-void **std::vector<absl::lts_20240722::flat_hash_set<long long,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>>::~vector[abi:ne200100](void **a1)
+char **std::vector<absl::lts_20240722::flat_hash_set<long long,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -2901,12 +2903,12 @@ void **std::vector<absl::lts_20240722::flat_hash_set<long long,absl::lts_2024072
   return a1;
 }
 
-void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,operations_research::sat::anonymous namespace::ExpandAutomaton(operations_research::sat::ConstraintProto *,operations_research::sat::PresolveContext *)::UniqueDetector>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,operations_research::sat::anonymous namespace::ExpandAutomaton(operations_research::sat::ConstraintProto *,operations_research::sat::PresolveContext *)::UniqueDetector>>>::resize_impl(uint64_t a1, uint64_t a2)
+void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,operations_research::sat::anonymous namespace::ExpandAutomaton(operations_research::sat::ConstraintProto *,operations_research::sat::PresolveContext *)::UniqueDetector>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,operations_research::sat::anonymous namespace::ExpandAutomaton(operations_research::sat::ConstraintProto *,operations_research::sat::PresolveContext *)::UniqueDetector>>>::resize_impl(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = *(a1 + 8) & 1;
+  v4 = a1[1] & 1;
   v5 = 0;
-  v2 = *(a1 + 16);
+  v2 = *(a1 + 1);
   *a1 = a2;
   absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,24ul,true,false,8ul>(&v2, a1);
 }
@@ -2919,12 +2921,12 @@ __n128 absl::lts_20240722::container_internal::TransferRelocatable<24ul>(uint64_
   return result;
 }
 
-void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,std::vector<long long>>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,std::vector<long long>>>>::resize_impl(uint64_t a1, uint64_t a2)
+void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,std::vector<long long>>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,std::vector<long long>>>>::resize_impl(unint64_t *a1, unint64_t a2)
 {
   v3 = *a1;
-  v4 = *(a1 + 8) & 1;
+  v4 = a1[1] & 1;
   v5 = 0;
-  v2 = *(a1 + 16);
+  v2 = *(a1 + 1);
   *a1 = a2;
   absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,32ul,false,false,8ul>(&v2, a1);
 }
@@ -2944,193 +2946,193 @@ __n128 absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::
   return result;
 }
 
-uint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,int>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,int>>>::raw_hash_set(uint64_t *a1, unint64_t *a2)
+unint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,int>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,int>>>::raw_hash_set(unint64_t *a1, unint64_t *a2, uint64_t a3)
 {
-  v4 = a2[1] >> 1;
-  if (v4 == 7)
+  v5 = a2[1] >> 1;
+  if (v5 == 7)
   {
-    v5 = 8;
+    v6 = 8;
   }
 
   else
   {
-    v5 = (v4 - 1) / 7 + v4;
+    v6 = (v5 - 1) / 7 + v5;
   }
 
-  absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,int>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,int>>>::raw_hash_set(a1, v5);
-  v6 = a2[1];
-  if (v6 >= 2)
+  absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,int>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,int>>>::raw_hash_set(a1, v6);
+  v7 = a2[1];
+  if (v7 >= 2)
   {
-    if (v6 > 3)
+    if (v7 > 3)
     {
-      v10 = v6 >> 1;
-      v11 = *a1;
+      v11 = v7 >> 1;
+      v12 = *a1;
       if (*a1 > 8)
       {
-        v24 = *a2;
-        v27 = a2 + 2;
-        v25 = a2[2];
-        v26 = v27[1];
-        if (v24 >= 7)
+        v25 = *a2;
+        v28 = a2 + 2;
+        v26 = a2[2];
+        v27 = v28[1];
+        if (v25 >= 7)
         {
-          v47 = v6 >> 1;
+          v48 = v7 >> 1;
           do
           {
-            v48 = *v25 & 0x8080808080808080;
-            if (v48 != 0x8080808080808080)
+            v49 = *v26 & 0x8080808080808080;
+            if (v49 != 0x8080808080808080)
             {
-              v49 = v48 ^ 0x8080808080808080;
+              v50 = v49 ^ 0x8080808080808080;
               do
               {
-                v50 = __clz(__rbit64(v49)) >> 3;
-                v51 = v26 + 16 * v50;
-                first_non = absl::lts_20240722::container_internal::find_first_non_full<void>(a1, (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *v51) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *v51)));
-                v53 = *(v25 + v50);
-                v54 = a1[2];
-                *(v54 + first_non) = v53;
-                *(v54 + (*a1 & (first_non - 7)) + (*a1 & 7)) = v53;
-                v55 = a1[3] + 16 * first_non;
-                *v55 = *v51;
-                *(v55 + 8) = *(v51 + 8);
-                --v47;
-                v49 &= v49 - 1;
+                v51 = __clz(__rbit64(v50)) >> 3;
+                v52 = v27 + 16 * v51;
+                first_non = absl::lts_20240722::container_internal::find_first_non_full<void>(a1, (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *v52) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *v52)));
+                v54 = *(v26 + v51);
+                v55 = a1[2];
+                *(v55 + first_non) = v54;
+                *(v55 + (*a1 & (first_non - 7)) + (*a1 & 7)) = v54;
+                v56 = a1[3] + 16 * first_non;
+                *v56 = *v52;
+                *(v56 + 8) = *(v52 + 8);
+                --v48;
+                v50 &= v50 - 1;
               }
 
-              while (v49);
+              while (v50);
             }
 
-            ++v25;
-            v26 += 128;
+            ++v26;
+            v27 += 128;
           }
 
-          while (v47);
+          while (v48);
         }
 
         else
         {
-          v28 = *(v25 + v24) & 0x8080808080808080;
-          if (v28 != 0x8080808080808080)
+          v29 = *(v26 + v25) & 0x8080808080808080;
+          if (v29 != 0x8080808080808080)
           {
-            v29 = v25 - 1;
-            v30 = v26 - 16;
-            v31 = v28 ^ 0x8080808080808080;
+            v30 = v26 - 1;
+            v31 = v27 - 16;
+            v32 = v29 ^ 0x8080808080808080;
             do
             {
-              v32 = __clz(__rbit64(v31)) >> 3;
-              v33 = v30 + 16 * v32;
-              v34 = absl::lts_20240722::container_internal::find_first_non_full<void>(a1, (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *v33) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *v33)));
-              v35 = v29[v32];
-              v36 = a1[2];
-              *(v36 + v34) = v35;
-              *(v36 + (*a1 & (v34 - 7)) + (*a1 & 7)) = v35;
-              v37 = a1[3] + 16 * v34;
-              *v37 = *v33;
-              *(v37 + 8) = *(v33 + 8);
-              v31 &= v31 - 1;
+              v33 = __clz(__rbit64(v32)) >> 3;
+              v34 = v31 + 16 * v33;
+              v35 = absl::lts_20240722::container_internal::find_first_non_full<void>(a1, (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *v34) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *v34)));
+              v36 = v30[v33];
+              v37 = a1[2];
+              *(v37 + v35) = v36;
+              *(v37 + (*a1 & (v35 - 7)) + (*a1 & 7)) = v36;
+              v38 = a1[3] + 16 * v35;
+              *v38 = *v34;
+              *(v38 + 8) = *(v34 + 8);
+              v32 &= v32 - 1;
             }
 
-            while (v31);
+            while (v32);
           }
         }
       }
 
       else
       {
-        v12 = (a1[2] >> 12) | 1;
-        v14 = a2[2];
-        v13 = a2[3];
+        v13 = (a1[2] >> 12) | 1;
+        v15 = a2[2];
+        v14 = a2[3];
         if (*a2 >= 7)
         {
-          v40 = *a1;
+          v41 = *a1;
           do
           {
-            v41 = *v14 & 0x8080808080808080;
-            if (v41 != 0x8080808080808080)
+            v42 = *v15 & 0x8080808080808080;
+            if (v42 != 0x8080808080808080)
             {
-              v42 = v41 ^ 0x8080808080808080;
+              v43 = v42 ^ 0x8080808080808080;
               do
               {
-                v43 = __clz(__rbit64(v42)) >> 3;
-                v44 = v13 + 16 * v43;
-                LOBYTE(v43) = *(v14 + v43);
-                v40 = (v40 + v12) & v11;
-                v45 = a1[2];
-                *(v45 + v40) = v43;
-                *(v45 + (v11 & (v40 - 7)) + (v11 & 7)) = v43;
-                v46 = a1[3] + 16 * v40;
-                *v46 = *v44;
-                *(v46 + 8) = *(v44 + 8);
-                --v10;
-                v42 &= v42 - 1;
+                v44 = __clz(__rbit64(v43)) >> 3;
+                v45 = v14 + 16 * v44;
+                LOBYTE(v44) = *(v15 + v44);
+                v41 = (v41 + v13) & v12;
+                v46 = a1[2];
+                *(v46 + v41) = v44;
+                *(v46 + (v12 & (v41 - 7)) + (v12 & 7)) = v44;
+                v47 = a1[3] + 16 * v41;
+                *v47 = *v45;
+                *(v47 + 8) = *(v45 + 8);
+                --v11;
+                v43 &= v43 - 1;
               }
 
-              while (v42);
+              while (v43);
             }
 
-            ++v14;
-            v13 += 128;
+            ++v15;
+            v14 += 128;
           }
 
-          while (v10);
+          while (v11);
         }
 
         else
         {
-          v15 = *(v14 + *a2) & 0x8080808080808080;
-          if (v15 != 0x8080808080808080)
+          v16 = *(v15 + *a2) & 0x8080808080808080;
+          if (v16 != 0x8080808080808080)
           {
-            v16 = v14 - 1;
-            v17 = v13 - 16;
-            v18 = v15 ^ 0x8080808080808080;
-            v19 = *a1;
+            v17 = v15 - 1;
+            v18 = v14 - 16;
+            v19 = v16 ^ 0x8080808080808080;
+            v20 = *a1;
             do
             {
-              v20 = __clz(__rbit64(v18)) >> 3;
-              v21 = v17 + 16 * v20;
-              v19 = (v19 + v12) & v11;
-              LOBYTE(v20) = v16[v20];
-              v22 = a1[2];
-              *(v22 + v19) = v20;
-              *(v22 + (v11 & (v19 - 7)) + (v11 & 7)) = v20;
-              v23 = a1[3] + 16 * v19;
-              *v23 = *v21;
-              *(v23 + 8) = *(v21 + 8);
-              v18 &= v18 - 1;
+              v21 = __clz(__rbit64(v19)) >> 3;
+              v22 = v18 + 16 * v21;
+              v20 = (v20 + v13) & v12;
+              LOBYTE(v21) = v17[v21];
+              v23 = a1[2];
+              *(v23 + v20) = v21;
+              *(v23 + (v12 & (v20 - 7)) + (v12 & 7)) = v21;
+              v24 = a1[3] + 16 * v20;
+              *v24 = *v22;
+              *(v24 + 8) = *(v22 + 8);
+              v19 &= v19 - 1;
             }
 
-            while (v18);
+            while (v19);
           }
         }
       }
 
-      v38 = a1[2];
-      a1[1] = v6 & 0xFFFFFFFFFFFFFFFELL | a1[1] & 1;
-      *(v38 - 8) -= v6 >> 1;
+      v39 = a1[2];
+      a1[1] = v7 & 0xFFFFFFFFFFFFFFFELL | a1[1] & 1;
+      *(v39 - 8) -= v7 >> 1;
     }
 
     else
     {
       a1[1] = 2;
-      v7 = a2 + 2;
+      v8 = a2 + 2;
       if (*a2 >= 2)
       {
-        v8 = a2[2];
-        v7 = a2[3];
-        if (*v8 <= -2)
+        v9 = a2[2];
+        v8 = a2[3];
+        if (*v9 <= -2)
         {
           do
           {
-            v9 = __clz(__rbit64((*v8 | ~(*v8 >> 7)) & 0x101010101010101)) >> 3;
-            v8 = (v8 + v9);
-            v7 += 2 * v9;
+            v10 = __clz(__rbit64((*v9 | ~(*v9 >> 7)) & 0x101010101010101)) >> 3;
+            v9 = (v9 + v10);
+            v8 += 2 * v10;
           }
 
-          while (*v8 < -1);
+          while (*v9 < -1);
         }
       }
 
-      a1[2] = *v7;
-      *(a1 + 6) = *(v7 + 2);
+      a1[2] = *v8;
+      *(a1 + 6) = *(v8 + 2);
     }
   }
 
@@ -3147,16 +3149,16 @@ void sub_23CA29DB4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-double absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,int>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,int>>>::raw_hash_set(uint64_t *a1, unint64_t a2)
+double absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,int>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,int>>>::raw_hash_set(unint64_t *result, unint64_t a2)
 {
-  *&result = 1;
-  *a1 = xmmword_23CE306D0;
+  *&v2 = 1;
+  *result = xmmword_23CE306D0;
   if (a2 >= 2)
   {
-    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,int>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,int>>>::resize_impl(a1, 0xFFFFFFFFFFFFFFFFLL >> __clz(a2));
+    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,int>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,int>>>::resize_impl(result, 0xFFFFFFFFFFFFFFFFLL >> __clz(a2));
   }
 
-  return result;
+  return v2;
 }
 
 unint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,std::vector<long long>>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,std::vector<long long>>>>::~raw_hash_set(unint64_t *a1)
@@ -3233,7 +3235,7 @@ unint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_202407
   return a1;
 }
 
-uint64_t absl::lts_20240722::container_internal::btree_map_container<absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>,256,false>>>::operator[]<int>(unsigned __int8 **a1, _DWORD *a2)
+unsigned __int8 *absl::lts_20240722::container_internal::btree_map_container<absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>,256,false>>>::operator[]<int>(unsigned __int8 **a1, int *a2)
 {
   v13 = a2;
   if (!a1[2])
@@ -3319,7 +3321,7 @@ uint64_t absl::lts_20240722::btree_map<int,std::vector<int>,std::less<int>,std::
   return result;
 }
 
-unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>,256,false>>::internal_emplace<std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, _DWORD **a5)
+unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>,256,false>>::internal_emplace<std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, _DWORD **a5)
 {
   i = a2;
   v26 = a3;
@@ -3374,14 +3376,14 @@ LABEL_12:
       v16 = v14;
       do
       {
-        v17 = *(v16 - 8);
+        v17 = *(v16 - 32);
         v16 -= 32;
         *v14 = v17;
         *(v14 + 8) = *(v14 - 24);
-        *(v14 + 3) = *(v14 - 1);
-        *(v14 - 3) = 0;
-        *(v14 - 2) = 0;
-        *(v14 - 1) = 0;
+        *(v14 + 24) = *(v14 - 8);
+        *(v14 - 24) = 0;
+        *(v14 - 16) = 0;
+        *(v14 - 8) = 0;
         v14 = v16;
         v15 += 32;
       }
@@ -3415,11 +3417,11 @@ LABEL_12:
     }
   }
 
-  ++*(a1 + 16);
+  ++a1[2];
   return i;
 }
 
-uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>,256,false>>::rebalance_or_split(unsigned __int8 **a1, unsigned __int8 **a2)
+uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>,256,false>>::rebalance_or_split(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a2;
   v4 = **a2;
@@ -3432,7 +3434,7 @@ uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::conta
   if (v3[8])
   {
     v6 = *(v4 + 8 * (v5 - 1) + 240);
-    v7 = v6[10];
+    v7 = *(v6 + 10);
     if (v7 <= 6)
     {
       v8 = *(a2 + 8);
@@ -3448,9 +3450,9 @@ uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::conta
           return result;
         }
 
-        v24 = v13 + v6[10] + 1;
+        v22 = v13 + *(v6 + 10) + 1;
 LABEL_30:
-        *(a2 + 2) = v24;
+        *(a2 + 2) = v22;
         *a2 = v6;
         return result;
       }
@@ -3458,18 +3460,16 @@ LABEL_30:
   }
 
   v14 = *(v4 + 10);
-  if (v5 >= v14 || (v6 = *(v4 + 8 * (v5 + 1) + 240), v15 = v6[10], v15 > 6) || ((v16 = *(a2 + 2), (7 - v15) >> (v16 > 0) <= 1u) ? (v17 = 1) : (v17 = (7 - v15) >> (v16 > 0)), (v18 = (v17 + v15), (v3[10] - v17) < v16) ? (v19 = v18 > 6) : (v19 = 0), v19))
+  if (v5 >= v14 || (v6 = *(v4 + 8 * (v5 + 1) + 240), v15 = *(v6 + 10), v15 > 6) || ((v16 = *(a2 + 2), (7 - v15) >> (v16 > 0) <= 1u) ? (v17 = 1) : (v17 = (7 - v15) >> (v16 > 0)), (v18 = (v17 + v15), (v3[10] - v17) < v16) ? (v19 = v18 > 6) : (v19 = 0), v19))
   {
     if (v14 == 7)
     {
-      v25 = v4;
-      v26 = v5;
-      absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>,256,false>>::rebalance_or_split(a1, &v25);
+      v23 = v4;
+      v24 = v5;
+      absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>,256,false>>::rebalance_or_split(a1, &v23);
       v3 = *a2;
-      v22 = **a2;
     }
 
-    v23 = v3[8] + 1;
     if (v3[11])
     {
       operator new();
@@ -3480,10 +3480,10 @@ LABEL_30:
 
   result = absl::lts_20240722::container_internal::btree_node<absl::lts_20240722::container_internal::map_params<int,std::vector<int>,std::less<int>,std::allocator<std::pair<int const,std::vector<int>>>,256,false>>::rebalance_left_to_right(v3, v17, *(v4 + 8 * (v5 + 1) + 240));
   v20 = *(a2 + 2);
-  v21 = (*a2)[10];
+  v21 = *(*a2 + 10);
   if (v20 > v21)
   {
-    v24 = v20 + ~v21;
+    v22 = v20 + ~v21;
     goto LABEL_30;
   }
 
@@ -4053,11 +4053,11 @@ void ***std::__exception_guard_exceptions<std::vector<absl::lts_20240722::flat_h
   return a1;
 }
 
-void *std::vector<long long>::vector[abi:ne200100]<absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<long long>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>::iterator,0>(void *result, void *a2, uint64_t a3, void *a4)
+void *std::vector<long long>::vector[abi:ne200100]<absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<long long>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>::iterator,0>(void *a1, void *a2, uint64_t *a3, void *a4)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2 != a4)
   {
     v4 = 0;
@@ -4097,7 +4097,7 @@ void *std::vector<long long>::vector[abi:ne200100]<absl::lts_20240722::container
     }
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23CA2AF48(_Unwind_Exception *exception_object)
@@ -4112,7 +4112,7 @@ void sub_23CA2AF48(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-int **operations_research::sat::anonymous namespace::AddSizeTwoTable(std::vector<int> const&,std::vector<std::vector<long long>> const&,std::vector<absl::lts_20240722::flat_hash_set<long long,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>> const&,operations_research::sat::PresolveContext *)::$_0::operator()(int **result, int a2, int **a3, unsigned int a4)
+operations_research::sat::PresolveContext **operations_research::sat::anonymous namespace::AddSizeTwoTable(std::vector<int> const&,std::vector<std::vector<long long>> const&,std::vector<absl::lts_20240722::flat_hash_set<long long,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>> const&,operations_research::sat::PresolveContext *)::$_0::operator()(operations_research::sat::PresolveContext **result, int a2, int **a3, unsigned int a4)
 {
   v5 = a3[1] - *a3;
   if (a4 == v5 >> 2)
@@ -4173,7 +4173,7 @@ LABEL_14:
 LABEL_6:
   v17 = *(result + 4);
   v18 = *(result + 5);
-  v19 = (result + 2);
+  v19 = result + 2;
   do
   {
     v20 = *v14;
@@ -4191,7 +4191,7 @@ LABEL_6:
     v21 = result[3];
     v22 = (v17 + 1);
     *(result + 4) = v22;
-    v21[v17] = v20;
+    *(v21 + v17) = v20;
     ++v14;
     v17 = v22;
   }
@@ -4202,7 +4202,7 @@ LABEL_15:
   if (v22 == v18)
   {
     v27 = result;
-    google::protobuf::RepeatedField<int>::Grow(result + 2, v22, (v22 + 1));
+    google::protobuf::RepeatedField<int>::Grow((result + 2), v22, (v22 + 1));
     result = v27;
     v13 = a3;
     LODWORD(v22) = *(v27 + 4);
@@ -4210,7 +4210,7 @@ LABEL_15:
 
   v26 = result[3];
   *(result + 4) = v22 + 1;
-  v26[v22] = v25;
+  *(v26 + v22) = v25;
   ++*v6[1];
   if ((a4 + (a4 >> 31)) >> 1 < (v13[1] - *v13))
   {
@@ -4221,7 +4221,7 @@ LABEL_15:
   return result;
 }
 
-char *std::vector<long long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long long *>,std::__wrap_iter<long long *>>(uint64_t a1, char *__src, char *a3, unint64_t a4, uint64_t a5)
+char *std::vector<long long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long long *>,std::__wrap_iter<long long *>>(uint64_t a1, char *__src, char *a3, char *a4, uint64_t a5)
 {
   v5 = __src;
   v6 = a5 - 1;
@@ -4283,7 +4283,7 @@ char *std::vector<long long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
       v61 = (v50 + 1) & 0x3FFFFFFFFFFFFFFCLL;
       v51 = (v48 + 8 * v61);
       v52 = &a3[8 * v61];
-      v62 = (a3 + 16);
+      v62 = a3 + 16;
       v63 = (v48 + 16);
       v64 = v61;
       do
@@ -4291,7 +4291,7 @@ char *std::vector<long long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
         v65 = *v62;
         *(v63 - 1) = *(v62 - 1);
         *v63 = v65;
-        v62 += 2;
+        v62 += 32;
         v63 += 2;
         v64 -= 4;
       }
@@ -4516,21 +4516,21 @@ uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::v
       while (1)
       {
         v9 = v10;
-        v11 = a2 - v10;
-        v12 = 0xAAAAAAAAAAAAAAABLL * ((a2 - v10) >> 3);
+        v11 = &a2[-v10];
+        v12 = 0xAAAAAAAAAAAAAAABLL * (&a2[-v10] >> 3);
         if (v12 > 2)
         {
           switch(v12)
           {
             case 3uLL:
 
-              return std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *,0>(v10, v10 + 3, a2 - 3);
+              return std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *,0>(v10, (v10 + 24), a2 - 3);
             case 4uLL:
 
-              return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *,0>(v10, v10 + 3, v10 + 6, a2 - 3);
+              return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *,0>(v10, (v10 + 24), (v10 + 48), a2 - 3);
             case 5uLL:
 
-              return std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *,0>(v10, v10 + 3, v10 + 6, v10 + 9, a2 - 3);
+              return std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *,0>(v10, (v10 + 24), (v10 + 48), (v10 + 72), a2 - 3);
           }
         }
 
@@ -4546,7 +4546,7 @@ uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::v
             v30 = *(a2 - 3);
             v31 = *(a2 - 2);
             v32 = *v10;
-            v33 = *(v10 + 1);
+            v33 = *(v10 + 8);
             if ((v33 - *v10) >> 3 >= (v31 - v30) >> 3)
             {
               v34 = (v31 - v30) >> 3;
@@ -4582,11 +4582,11 @@ uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::v
             {
               *v10 = v30;
               *(a2 - 3) = v32;
-              v39 = *(v10 + 1);
-              *(v10 + 1) = *(a2 - 2);
+              v39 = *(v10 + 8);
+              *(v10 + 8) = *(a2 - 2);
               *(a2 - 2) = v39;
-              v40 = *(v10 + 2);
-              *(v10 + 2) = *(a2 - 1);
+              v40 = *(v10 + 16);
+              *(v10 + 16) = *(a2 - 1);
               *(a2 - 1) = v40;
             }
 
@@ -4615,11 +4615,11 @@ uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::v
           {
             v41 = (v12 - 2) >> 1;
             v42 = v41 + 1;
-            v43 = &v10[24 * v41];
+            v43 = (v10 + 24 * v41);
             do
             {
-              std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *>(v10, a3, 0xAAAAAAAAAAAAAAABLL * ((a2 - v10) >> 3), v43);
-              v43 -= 24;
+              std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *>(v10, a3, 0xAAAAAAAAAAAAAAABLL * (&a2[-v10] >> 3), v43);
+              v43 -= 3;
               --v42;
             }
 
@@ -4638,7 +4638,7 @@ uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::v
         }
 
         v13 = v12 >> 1;
-        v14 = &v9[24 * (v12 >> 1)];
+        v14 = &v9[3 * (v12 >> 1)];
         if (v11 < 0xC01)
         {
           std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *,0>(v14, v9, a2 - 3);
@@ -4652,20 +4652,20 @@ uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::v
         else
         {
           std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *,0>(v9, v14, a2 - 3);
-          v15 = 24 * v13;
-          v16 = &v9[24 * v13 - 24];
+          v15 = 3 * v13;
+          v16 = &v9[3 * v13 - 3];
           std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *,0>(v9 + 3, v16, a2 - 6);
-          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *,0>(v9 + 6, &v9[v15 + 24], a2 - 9);
-          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *,0>(v16, v14, &v9[v15 + 24]);
+          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *,0>(v9 + 6, &v9[v15 + 3], a2 - 9);
+          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *,0>(v16, v14, &v9[v15 + 3]);
           v17 = *v9;
           *v9 = *v14;
           *v14 = v17;
-          v18 = *(v9 + 1);
-          *(v9 + 1) = *(v14 + 1);
-          *(v14 + 1) = v18;
-          v19 = *(v9 + 2);
-          *(v9 + 2) = *(v14 + 2);
-          *(v14 + 2) = v19;
+          v18 = v9[1];
+          v9[1] = v14[1];
+          v14[1] = v18;
+          v19 = v9[2];
+          v9[2] = v14[2];
+          v14[2] = v19;
           --a4;
           if (a5)
           {
@@ -4676,7 +4676,7 @@ uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::v
         v20 = *(v9 - 3);
         v21 = *(v9 - 2);
         v22 = *v9;
-        v23 = *(v9 + 1);
+        v23 = v9[1];
         v24 = v21 - v20;
         if ((v23 - *v9) >> 3 < v24)
         {
@@ -4717,7 +4717,7 @@ uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::v
       }
 
       v29 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *>(v9, v27);
-      v10 = v27 + 24;
+      v10 = (v27 + 24);
       result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *>(v27 + 3, a2);
       if (result)
       {
@@ -4729,7 +4729,7 @@ uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::v
 LABEL_29:
         result = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<long long> *,false>(v9, v27, a3, a4, a5 & 1);
         a5 = 0;
-        v10 = v27 + 24;
+        v10 = (v27 + 24);
       }
     }
 
@@ -6907,7 +6907,7 @@ void ***std::vector<std::vector<absl::lts_20240722::InlinedVector<long long,2ul,
   return a1;
 }
 
-void **std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>>::~vector[abi:ne200100](void **a1)
+void ***std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>>::~vector[abi:ne200100](void ***a1)
 {
   v2 = *a1;
   if (*a1)
@@ -7021,17 +7021,17 @@ uint64_t std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::alloca
   return v9;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,false>(uint64_t a1, uint64_t **a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,false>(uint64_t **result, char *a2, uint64_t a3, uint64_t a4, char a5)
 {
 LABEL_1:
-  v9 = a1;
+  v9 = result;
 LABEL_2:
   v10 = 1 - a4;
   while (1)
   {
-    a1 = v9;
+    result = v9;
     v11 = v10;
-    v12 = a2 - v9;
+    v12 = &a2[-v9];
     v13 = 0xAAAAAAAAAAAAAAABLL * (v12 >> 3);
     if (v13 <= 2)
     {
@@ -7042,16 +7042,16 @@ LABEL_2:
 
       if (v13 == 2)
       {
-        if (std::__less<void,void>::operator()[abi:ne200100]<std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>>,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>>>(a3, a2 - 3, a1))
+        if (std::__less<void,void>::operator()[abi:ne200100]<std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>>,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>>>(a3, a2 - 3, result))
         {
-          v24 = *a1;
-          *a1 = *(a2 - 3);
+          v24 = *result;
+          *result = *(a2 - 3);
           *(a2 - 3) = v24;
-          v25 = *(a1 + 8);
-          *(a1 + 8) = *(a2 - 2);
+          v25 = result[1];
+          result[1] = *(a2 - 2);
           *(a2 - 2) = v25;
-          v26 = *(a1 + 16);
-          *(a1 + 16) = *(a2 - 1);
+          v26 = result[2];
+          result[2] = *(a2 - 1);
           *(a2 - 1) = v26;
         }
 
@@ -7069,14 +7069,14 @@ LABEL_2:
     if (v13 == 4)
     {
 
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,0>(a1, a1 + 24, a1 + 48, (a2 - 3), a3);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,0>(result, (result + 3), (result + 6), (a2 - 24), a3);
       return;
     }
 
     if (v13 == 5)
     {
 
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,0>(a1, a1 + 24, a1 + 48, a1 + 72, (a2 - 3), a3);
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,0>(result, (result + 3), (result + 6), (result + 9), (a2 - 24), a3);
       return;
     }
 
@@ -7086,13 +7086,13 @@ LABEL_10:
       if (a5)
       {
 
-        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *>(a1, a2, a3);
+        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *>(result, a2, a3);
       }
 
       else
       {
 
-        std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *>(a1, a2, a3);
+        std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *>(result, a2, a3);
       }
 
       return;
@@ -7100,14 +7100,14 @@ LABEL_10:
 
     if (v10 == 1)
     {
-      if (a1 != a2)
+      if (result != a2)
       {
         v27 = (v13 - 2) >> 1;
         v28 = v27 + 1;
-        v29 = (a1 + 24 * v27);
+        v29 = &result[3 * v27];
         do
         {
-          std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *>(a1, a3, 0xAAAAAAAAAAAAAAABLL * (v12 >> 3), v29);
+          std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *>(result, a3, 0xAAAAAAAAAAAAAAABLL * (v12 >> 3), v29);
           v29 -= 3;
           --v28;
         }
@@ -7116,8 +7116,8 @@ LABEL_10:
         v30 = 0xAAAAAAAAAAAAAAABLL * (v12 >> 3);
         do
         {
-          std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *>(a1, a2, a3, v30);
-          a2 -= 3;
+          std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *>(result, a2, a3, v30);
+          a2 -= 24;
         }
 
         while (v30-- > 2);
@@ -7127,10 +7127,10 @@ LABEL_10:
     }
 
     v14 = v13 >> 1;
-    v15 = (a1 + 24 * (v13 >> 1));
+    v15 = &result[3 * (v13 >> 1)];
     if (v12 < 0xC01)
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,0>(v15, a1, (a2 - 3), a3);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,0>(v15, result, (a2 - 24), a3);
       if (a5)
       {
         goto LABEL_17;
@@ -7139,20 +7139,20 @@ LABEL_10:
 
     else
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,0>(a1, v15, (a2 - 3), a3);
-      v16 = 24 * v14;
-      v17 = 24 * v14 + a1 - 24;
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,0>(a1 + 24, v17, (a2 - 6), a3);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,0>(a1 + 48, a1 + 24 + v16, (a2 - 9), a3);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,0>(v17, v15, a1 + 24 + v16, a3);
-      v18 = *a1;
-      *a1 = *v15;
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,0>(result, v15, (a2 - 24), a3);
+      v16 = 3 * v14;
+      v17 = &result[3 * v14 - 3];
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,0>((result + 3), v17, (a2 - 48), a3);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,0>((result + 6), &result[v16 + 3], (a2 - 72), a3);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,0>(v17, v15, &result[v16 + 3], a3);
+      v18 = *result;
+      *result = *v15;
       *v15 = v18;
-      v19 = *(a1 + 8);
-      *(a1 + 8) = v15[1];
+      v19 = result[1];
+      result[1] = v15[1];
       v15[1] = v19;
-      v20 = *(a1 + 16);
-      *(a1 + 16) = v15[2];
+      v20 = result[2];
+      result[2] = v15[2];
       v15[2] = v20;
       if (a5)
       {
@@ -7160,22 +7160,22 @@ LABEL_10:
       }
     }
 
-    if ((std::__less<void,void>::operator()[abi:ne200100]<std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>>,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>>>(a3, (a1 - 24), a1) & 1) == 0)
+    if ((std::__less<void,void>::operator()[abi:ne200100]<std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>>,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>>>(a3, result - 3, result) & 1) == 0)
     {
-      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,std::__less<void,void> &>(a1, a2, a3);
+      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,std::__less<void,void> &>(result, a2, a3);
       goto LABEL_22;
     }
 
 LABEL_17:
-    v21 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,std::__less<void,void> &>(a1, a2, a3);
+    v21 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,std::__less<void,void> &>(result, a2, a3);
     if ((v22 & 1) == 0)
     {
       goto LABEL_20;
     }
 
-    v23 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *>(a1, v21, a3);
-    v9 = v21 + 3;
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *>((v21 + 3), a2, a3))
+    v23 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *>(result, v21, a3);
+    v9 = (v21 + 24);
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *>((v21 + 24), a2, a3))
     {
       a4 = -v11;
       a2 = v21;
@@ -7191,8 +7191,8 @@ LABEL_17:
     if (!v23)
     {
 LABEL_20:
-      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,false>(a1, v21, a3, -v11, a5 & 1);
-      v9 = v21 + 3;
+      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,false>(result, v21, a3, -v11, a5 & 1);
+      v9 = (v21 + 24);
 LABEL_22:
       a5 = 0;
       a4 = -v11;
@@ -7200,7 +7200,7 @@ LABEL_22:
     }
   }
 
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,0>(a1, a1 + 24, (a2 - 3), a3);
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *,0>(result, (result + 3), (a2 - 24), a3);
 }
 
 uint64_t std::__less<void,void>::operator()[abi:ne200100]<std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>>,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>>>(uint64_t a1, uint64_t **a2, uint64_t **a3)
@@ -7511,17 +7511,17 @@ uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<
         result = std::__less<void,void>::operator()[abi:ne200100]<std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>>,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>>>(a3, v5, v7);
         if (result)
         {
-          v10 = *(v7 + 3);
-          v11 = v7[5];
+          v10 = *(v7 + 24);
+          v11 = *(v7 + 40);
           *v9 = 0;
           v9[1] = 0;
           v9[2] = 0;
-          v12 = v7[2];
-          *(v7 + 3) = *v7;
+          v12 = *(v7 + 16);
+          *(v7 + 24) = *v7;
           v9[2] = v12;
           *v7 = 0;
-          v7[1] = 0;
-          v7[2] = 0;
+          *(v7 + 8) = 0;
+          *(v7 + 16) = 0;
           v8 = v4;
           if (v7 != v4)
           {
@@ -7631,9 +7631,9 @@ LABEL_4:
                 }
               }
 
-              v14 = *(v7 - 1);
-              *v7 = *(v7 - 3);
-              v7[2] = v14;
+              v14 = *(v7 - 8);
+              *v7 = *(v7 - 24);
+              *(v7 + 16) = v14;
               *v13 = 0;
               v13[1] = 0;
               v13[2] = 0;
@@ -7646,7 +7646,7 @@ LABEL_4:
 
 LABEL_5:
           *v8 = v10;
-          v8[2] = v11;
+          *(v8 + 16) = v11;
         }
 
         v5 = v9 + 3;
@@ -7675,28 +7675,28 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,st
         if (result)
         {
           v8 = *v7;
-          v9 = v4[4];
-          v10 = v4[5];
+          v9 = *(v4 + 32);
+          v10 = *(v4 + 40);
           v7[1] = 0;
           v7[2] = 0;
           *v7 = 0;
-          v11 = v4[2];
+          v11 = *(v4 + 16);
           *v7 = *v4;
           v7[2] = v11;
-          v4[1] = 0;
-          v4[2] = 0;
+          *(v4 + 8) = 0;
+          *(v4 + 16) = 0;
           *v4 = 0;
           while (1)
           {
-            v13 = *(v4 - 3);
-            v14 = *(v4 - 2);
+            v13 = *(v4 - 24);
+            v14 = *(v4 - 16);
             if (v13 == v14)
             {
               break;
             }
 
             v15 = v4;
-            v4 -= 3;
+            v4 -= 24;
             if (v8 != v9)
             {
               for (i = v8; i != v9; i += 3)
@@ -7783,18 +7783,18 @@ LABEL_4:
               }
             }
 
-            v12 = v4[2];
+            v12 = *(v4 + 16);
             *v15 = *v4;
-            v15[2] = v12;
+            *(v15 + 16) = v12;
             *v4 = 0;
-            v4[1] = 0;
-            v4[2] = 0;
+            *(v4 + 8) = 0;
+            *(v4 + 16) = 0;
           }
 
 LABEL_5:
           *v4 = v8;
-          v4[1] = v9;
-          v4[2] = v10;
+          *(v4 + 8) = v9;
+          *(v4 + 16) = v10;
         }
 
         v5 = v7 + 3;
@@ -8848,15 +8848,15 @@ double std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
   return result;
 }
 
-__n128 std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+__n128 std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *>(void **a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4 >= 2)
   {
     v7 = 0;
     *__p = *a1;
-    v24 = *(a1 + 16);
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
+    v24 = a1[2];
+    a1[1] = 0;
+    a1[2] = 0;
     *a1 = 0;
     v8 = (a4 - 2) >> 1;
     v9 = a1;
@@ -8931,23 +8931,23 @@ __n128 std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,voi
       v9[2] = v20;
       *(a2 - 24) = *__p;
       *(a2 - 8) = v24;
-      result.n128_f64[0] = std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *>(a1, (v9 + 3), a3, 0xAAAAAAAAAAAAAAABLL * ((v9 - a1 + 24) >> 3));
+      result.n128_f64[0] = std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>> *>(a1, (v9 + 3), a3, 0xAAAAAAAAAAAAAAABLL * (v9 + 3 - a1));
     }
   }
 
   return result;
 }
 
-void sub_23CA2F828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23CA2F828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_23CA2F83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23CA2F83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9060,7 +9060,7 @@ double std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void
   return result;
 }
 
-uint64_t std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>>::__emplace_back_slow_path<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>> const&>(void ***a1, uint64_t *a2)
+void **std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>>>::__emplace_back_slow_path<absl::lts_20240722::InlinedVector<long long,2ul,std::allocator<long long>> const&>(void ***a1, uint64_t *a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * (a1[1] - *a1);
   v3 = v2 + 1;
@@ -9094,13 +9094,13 @@ uint64_t std::vector<absl::lts_20240722::InlinedVector<long long,2ul,std::alloca
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  v6 = (8 * (a1[1] - *a1));
+  v6 = 8 * (a1[1] - *a1);
   *v6 = 0;
   v7 = *a2;
   if (*a2 < 2)
   {
 LABEL_13:
-    v8 = (v6 + 3);
+    v8 = (v6 + 24);
     v9 = *a1;
     v10 = a1[1];
     v11 = (v6 + *a1 - v10);
@@ -9154,7 +9154,7 @@ LABEL_18:
   }
 
   absl::lts_20240722::inlined_vector_internal::Storage<long long,2ul,std::allocator<long long>>::InitFrom((24 * v2), a2);
-  v8 = 24 * v2 + 24;
+  v8 = (24 * v2 + 24);
   v9 = *a1;
   v10 = a1[1];
   v11 = (v6 + *a1 - v10);
@@ -9176,12 +9176,12 @@ LABEL_15:
   return v8;
 }
 
-void sub_23CA2FBB8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23CA2FBB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (*v2)
+  va_start(va, a3);
+  if (*v3)
   {
-    operator delete(*(v2 + 8));
+    operator delete(*(v3 + 8));
   }
 
   std::__split_buffer<operations_research::Domain>::~__split_buffer(va);
@@ -9190,23 +9190,17 @@ void sub_23CA2FBB8(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void *absl::lts_20240722::inlined_vector_internal::Storage<long long,2ul,std::allocator<long long>>::InitFrom(void *a1, void *a2)
 {
-  v4 = *a2 >> 1;
   if (*a2)
   {
     if (!(*a2 >> 62))
     {
-      if (v4 > 4)
-      {
-        v5 = *a2 >> 1;
-      }
-
       operator new();
     }
 
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  result = memcpy(a1 + 1, a2 + 1, 8 * v4);
+  result = memcpy(a1 + 1, a2 + 1, 8 * (*a2 >> 1));
   *a1 = *a2;
   return result;
 }
@@ -9544,8 +9538,8 @@ LABEL_20:
     }
 
     v21 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<long long,int> *>(v8, v19);
-    v9 = v19 + 16;
-    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<long long,int> *>(v19 + 16, a2);
+    v9 = (v19 + 2);
+    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<long long,int> *>((v19 + 2), a2);
     if (result)
     {
       a4 = -v11;
@@ -9563,7 +9557,7 @@ LABEL_20:
     {
 LABEL_23:
       result = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<long long,int> *,false>(v8, v19, a3, -v11, a5 & 1);
-      v9 = v19 + 16;
+      v9 = (v19 + 2);
       goto LABEL_25;
     }
   }

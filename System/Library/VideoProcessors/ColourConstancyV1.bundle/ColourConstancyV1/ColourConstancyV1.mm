@@ -4,16 +4,17 @@ uint64_t sub_2B48()
   return fig_log_get_emitter();
 }
 
-uint64_t sub_7AC0()
+uint64_t sub_7AC0(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int a12, int a13, char a14)
 {
 
   return fig_log_call_emit_and_clean_up_after_send_and_compose();
 }
 
-uint64_t sub_7B24()
+uint64_t sub_7B24(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, const char *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  return _os_log_send_and_compose_impl();
+  return _os_log_send_and_compose_impl(a1, 0, va, 128, a5, v12, v13, a8);
 }
 
 BOOL sub_7B54(NSObject *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, os_log_type_t type)
@@ -49,1374 +50,152 @@ void sub_9850(uint64_t a1)
   v2 = *(a1 + 32);
 }
 
-uint64_t sub_98EC()
+uint64_t sub_98EC(uint64_t a1)
 {
 
   return kdebug_trace();
 }
 
-void sub_E250(uint64_t a1, void *a2)
+void sub_E250(int a1, void *a2)
 {
   fig_log_get_emitter();
   sub_2B20();
-  FigDebugAssert3();
+  v4 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
 }
 
-uint64_t sub_E2DC()
+void sub_F0C0(const char *a1)
 {
   fig_log_get_emitter();
   sub_2B08();
-  return FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1, v2, v3, a1, v6, v7, vars0, vars8);
 }
 
-uint64_t sub_E354()
+void sub_F150(const char *a1)
 {
   fig_log_get_emitter();
   sub_2B08();
-  return FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1, v2, v3, a1, v6, v7, vars0, vars8);
 }
 
-uint64_t sub_E3CC()
+void sub_F1E0(const char *a1)
 {
   fig_log_get_emitter();
   sub_2B08();
-  return FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1, v2, v3, a1, v6, v7, vars0, vars8);
 }
 
-uint64_t sub_E444()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_E4BC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_E534()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_E5AC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_E624()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_E69C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_E714()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_E78C()
+void sub_F270(int a1, const char *a2)
 {
   fig_log_get_emitter();
   sub_2B20();
-  return FigDebugAssert3();
+  v3 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, a2, v8, v9, vars0, vars8);
 }
 
-uint64_t sub_E80C()
-{
-  fig_log_get_emitter();
-  sub_2B20();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_E88C()
-{
-  fig_log_get_emitter();
-  sub_2B20();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_E90C()
+void sub_F308(const char *a1)
 {
   fig_log_get_emitter();
   sub_2B08();
-  return FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1, v2, v3, a1, v6, v7, vars0, vars8);
 }
 
-uint64_t sub_E980()
+void sub_F398(const char *a1)
 {
   fig_log_get_emitter();
   sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_E9F4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_EA68()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_EADC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_EB50()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_EBC4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_EC38()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_ECAC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_ED20()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_ED94()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_EE08()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_EE7C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_EEF0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_EF64()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_EFD8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_F04C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-void sub_F0C0(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-void sub_F150(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-void sub_F1E0(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-void sub_F270(uint64_t a1, void *a2)
-{
-  fig_log_get_emitter();
-  sub_2B20();
-  FigDebugAssert3();
-}
-
-void sub_F308(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-void sub_F398(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1, v2, v3, a1, v6, v7, vars0, vars8);
 }
 
 uint64_t sub_F428(_DWORD *a1)
 {
   sub_2B48();
   sub_2B34();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_2B48();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
 
-void sub_F4D8(void *a1)
+void sub_F4D8(const char *a1)
 {
   fig_log_get_emitter();
   sub_2B08();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1, v2, v3, a1, v6, v7, vars0, vars8);
 }
 
-void sub_F568(void *a1)
+void sub_F568(const char *a1)
 {
   fig_log_get_emitter();
   sub_2B08();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1, v2, v3, a1, v6, v7, vars0, vars8);
 }
 
 uint64_t sub_F5F8(_DWORD *a1)
 {
   sub_2B48();
   sub_2B34();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_2B48();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
 
-uint64_t sub_F6A8()
+void sub_1227C(const char *a1)
 {
   fig_log_get_emitter();
   sub_2B08();
-  return FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1, v2, v3, a1, v6, v7, vars0, vars8);
 }
 
-uint64_t sub_F720()
+void sub_1230C(const char *a1)
 {
   fig_log_get_emitter();
   sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_F798()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_F810()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_F884()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_F8F8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_F970()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_F9E8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_FA60()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_FAD8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_FB50()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_FBC8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_FC3C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_FCB0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_FD24()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_FD98()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_FE0C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_FE80()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_FEF4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_FF68()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_FFDC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10050()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_100C4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10138()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_101AC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10220()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10294()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10308()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10380()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_103F8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10470()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_104E8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10560()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_105D8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10650()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_106C8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10740()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_107B8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10830()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_108A4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10918()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1098C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10A00()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10A74()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10AE8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10B5C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10BD0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10C44()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10CB8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10D2C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10DA0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10E14()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10E8C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10F04()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10F7C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_10FF4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1106C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_110E4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1115C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_111D4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1124C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_112C4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11338()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_113B0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11428()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_114A0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11518()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11590()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11608()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11680()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_116F8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11770()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_117E8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11860()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_118D8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11950()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_119C8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11A40()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11AB8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11B30()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11BA8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11C20()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11C94()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11D08()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11D7C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11DF0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11E64()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11ED8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11F4C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_11FC0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_12034()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_120A8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1211C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_12190()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_12204()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-void sub_1227C(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-void sub_1230C(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-void sub_1239C(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-void sub_1241C(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-void sub_1249C(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-void sub_1251C(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-void sub_1259C(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-void sub_1261C(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-void sub_1269C(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-void sub_1271C(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-void sub_1279C(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-void sub_1281C(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1, v2, v3, a1, v6, v7, vars0, vars8);
 }
 
 uint64_t sub_1289C(_DWORD *a1)
 {
   fig_log_get_emitter();
-  FigDebugAssert3();
+  v4 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v1, v7, v9, v10, v11, vars0, vars8);
   fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t sub_12968()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_129DC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_12A54()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_12ACC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_12B44()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_12BBC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_12C34()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_12CAC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_12D24()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_12D9C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_12E14()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_12E88()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_12EFC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_12F70()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_12FE4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_13058()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_130CC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_13140()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_131B4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_13228()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1329C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_13310()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_13384()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_133F8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1346C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_134E0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_13554()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_135C8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1363C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_136B0()
-{
-  fig_log_get_emitter();
-  sub_2B20();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1372C()
-{
-  fig_log_get_emitter();
-  sub_2B20();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_137A8()
-{
-  fig_log_get_emitter();
-  sub_2B20();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_13824()
-{
-  fig_log_get_emitter();
-  sub_2B20();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_138A0()
-{
-  fig_log_get_emitter();
-  sub_2B20();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1391C()
-{
-  fig_log_get_emitter();
-  sub_2B20();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_13998()
-{
-  fig_log_get_emitter();
-  sub_2B20();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_13A14()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_13A88()
-{
-  fig_log_get_emitter();
-  sub_2B20();
-  return FigDebugAssert3();
 }
 
 uint64_t sub_13B04()
 {
   sub_7B74();
   sub_2B34();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_7B74();
   sub_7B48();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_13BA8()
 {
   sub_7B74();
   sub_2B34();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_7B74();
   sub_7B48();
-  return FigSignalErrorAtGM();
-}
-
-uint64_t sub_13C4C()
-{
-  fig_log_get_emitter();
-  sub_2B20();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_13CC8()
-{
-  fig_log_get_emitter();
-  sub_2B20();
-  return FigDebugAssert3();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_13D3C(_DWORD *a1)
 {
   sub_2B48();
   sub_2B34();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_2B48();
   sub_7B48();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -1425,10 +204,10 @@ uint64_t sub_13DE8(_DWORD *a1)
 {
   sub_2B48();
   sub_2B34();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_2B48();
   sub_7B48();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -1437,88 +216,79 @@ void sub_13E94()
 {
   fig_log_get_emitter();
   sub_2B20();
-  LODWORD(v11) = 0;
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v26, v29, v32, v38, v40, v41, v42);
   sub_7AF0();
   v2 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  if (sub_7B54(v2, v3, v4, v5, v6, v7, v8, v9, v11, v12, v13, v14, SWORD2(v14), SBYTE6(v14), HIBYTE(v14)))
+  if (sub_7B54(v2, v3, v4, v5, v6, v7, v8, v9, v24, v27, v30, v33, v35, v36, v37))
   {
-    v10 = v0;
+    v16 = v0;
   }
 
   else
   {
-    v10 = v0 & 0xFFFFFFFE;
+    v16 = v0 & 0xFFFFFFFE;
   }
 
-  if (v10)
+  if (v16)
   {
     sub_7B0C("[CMIColourConstancyRegistrationV1 registerImage:referenceLumaTexture:]");
-    sub_7B24();
+    v16 = sub_7B24(v17, v18, v19, v20, &dword_0, v21, v22, "<<<< CMIColourConstancy >>>> %s: allocateResources failed", v25, v28, v31, v34);
+    v23 = v16;
   }
 
-  sub_7AC0();
+  else
+  {
+    v23 = 0;
+  }
+
+  sub_7AC0(v16, v10, v11, v23, v12, v13, v14, v15, v25, v28, v31, v34, SHIDWORD(v34), v39);
 }
 
 void sub_13F74()
 {
   fig_log_get_emitter();
   sub_2B20();
-  LODWORD(v11) = 0;
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v26, v29, v32, v38, v40, v41, v42);
   sub_7AF0();
   v2 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  if (sub_7B54(v2, v3, v4, v5, v6, v7, v8, v9, v11, v12, v13, v14, SWORD2(v14), SBYTE6(v14), HIBYTE(v14)))
+  if (sub_7B54(v2, v3, v4, v5, v6, v7, v8, v9, v24, v27, v30, v33, v35, v36, v37))
   {
-    v10 = v0;
+    v16 = v0;
   }
 
   else
   {
-    v10 = v0 & 0xFFFFFFFE;
+    v16 = v0 & 0xFFFFFFFE;
   }
 
-  if (v10)
+  if (v16)
   {
     sub_7B0C("[CMIColourConstancyRegistrationV1 registerImage:referenceLumaTexture:]");
-    sub_7B24();
+    v16 = sub_7B24(v17, v18, v19, v20, &dword_0, v21, v22, "<<<< CMIColourConstancy >>>> %s: processReferenceTexture failed", v25, v28, v31, v34);
+    v23 = v16;
   }
 
-  sub_7AC0();
+  else
+  {
+    v23 = 0;
+  }
+
+  sub_7AC0(v16, v10, v11, v23, v12, v13, v14, v15, v25, v28, v31, v34, SHIDWORD(v34), v39);
 }
 
-uint64_t sub_14054()
-{
-  fig_log_get_emitter();
-  sub_2B20();
-  return FigDebugAssert3();
-}
-
-void sub_142B0(void *a1, void *a2, void *a3)
+void sub_142B0(void *a1, void *a2, const char *a3)
 {
   sub_80BC();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, a3, v10, v11, vars0, vars8);
 }
 
-void sub_14344(void *a1, void *a2)
+void sub_14344(void *a1, const char *a2)
 {
   sub_80BC();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, a2, v8, v9, vars0, vars8);
 }
 
-void sub_143D0(void *a1)
-{
-  sub_80BC();
-  FigDebugAssert3();
-}
-
-void sub_14870(void *a1)
-{
-  sub_80BC();
-  FigDebugAssert3();
-}
-
-uint64_t sub_14A0C(uint64_t result)
+void *sub_14A0C(void *result)
 {
   if (result)
   {
@@ -1535,8 +305,8 @@ uint64_t sub_14A0C(uint64_t result)
     else
     {
       sub_80BC();
-      FigDebugAssert3();
-      return 7;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+      return (&dword_4 + 3);
     }
   }
 
@@ -1550,132 +320,167 @@ id sub_14B9C(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, double a5)
     return 0;
   }
 
-  v55 = 0uLL;
-  v54 = 0uLL;
-  v53 = 0uLL;
-  v51 = 0;
-  v52 = 0;
+  v64 = 0uLL;
+  v63 = 0uLL;
+  v62 = 0uLL;
+  v60 = 0;
+  v61 = 0;
   v10 = matrix_identity_float3x3.columns[1];
-  v50[0] = matrix_identity_float3x3.columns[0];
-  v50[1] = v10;
-  v50[2] = matrix_identity_float3x3.columns[2];
-  v11 = [CMIColourConstancyCommon getWhiteBalanceGains:*(a1 + 96) outputVector:&v55];
+  v59[0] = matrix_identity_float3x3.columns[0];
+  v59[1] = v10;
+  v59[2] = matrix_identity_float3x3.columns[2];
+  v11 = [CMIColourConstancyCommon getWhiteBalanceGains:*(a1 + 96) outputVector:&v64];
   if (v11)
   {
-    v41 = v11;
+    v38 = v11;
     sub_80BC();
-LABEL_27:
-    FigDebugAssert3();
-    return v41;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v40, "<<<< CMIColourConstancy >>>> Fig", "err == CMIColourConstancyStatusNoError", "bail", 0, "CMIColourConstancyProcessorV1.m", 683);
   }
 
-  v12 = [CMIColourConstancyCommon getWhiteBalanceGains:*(a1 + 136) outputVector:&v54];
-  if (v12)
+  else
   {
-    v41 = v12;
-    sub_80BC();
-    goto LABEL_27;
+    v12 = [CMIColourConstancyCommon getWhiteBalanceGains:*(a1 + 136) outputVector:&v63];
+    if (v12)
+    {
+      v38 = v12;
+      sub_80BC();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v41, "<<<< CMIColourConstancy >>>> Fig", "err == CMIColourConstancyStatusNoError", "bail", 0, "CMIColourConstancyProcessorV1.m", 686);
+    }
+
+    else
+    {
+      v13 = [CMIColourConstancyCommon getStrobeWhiteBalanceGains:*(a1 + 216) metadata:*(a1 + 136) outputVector:&v62];
+      if (v13)
+      {
+        v38 = v13;
+        sub_80BC();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v42, "<<<< CMIColourConstancy >>>> Fig", "err == CMIColourConstancyStatusNoError", "bail", 0, "CMIColourConstancyProcessorV1.m", 689);
+      }
+
+      else
+      {
+        v14 = [CMIColourConstancyCommon calculateEIT:*(a1 + 96) result:&v61 + 4];
+        if (v14)
+        {
+          v38 = v14;
+          sub_80BC();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v43, "<<<< CMIColourConstancy >>>> Fig", "err == CMIColourConstancyStatusNoError", "bail", 0, "CMIColourConstancyProcessorV1.m", 693);
+        }
+
+        else
+        {
+          v15 = [CMIColourConstancyCommon calculateEIT:*(a1 + 136) result:&v61];
+          if (v15)
+          {
+            v38 = v15;
+            sub_80BC();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v44, "<<<< CMIColourConstancy >>>> Fig", "err == CMIColourConstancyStatusNoError", "bail", 0, "CMIColourConstancyProcessorV1.m", 696);
+          }
+
+          else
+          {
+            v16 = [CMIColourConstancyCommon getLensShadingCorrectionMaxGain:*(a1 + 112) outputMaxGain:&v60 + 4];
+            if (v16)
+            {
+              v38 = v16;
+              sub_80BC();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v45, "<<<< CMIColourConstancy >>>> Fig", "err == CMIColourConstancyStatusNoError", "bail", 0, "CMIColourConstancyProcessorV1.m", 700);
+            }
+
+            else
+            {
+              v17 = [CMIColourConstancyCommon getLensShadingCorrectionMaxGain:*(a1 + 152) outputMaxGain:&v60];
+              if (v17)
+              {
+                v38 = v17;
+                sub_80BC();
+                FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v46, "<<<< CMIColourConstancy >>>> Fig", "err == CMIColourConstancyStatusNoError", "bail", 0, "CMIColourConstancyProcessorV1.m", 703);
+              }
+
+              else
+              {
+                v18 = [CMIColourConstancyCommon getStrobeColourCorrectionMatrix:*(a1 + 136) outputMatrix:v59];
+                if (v18)
+                {
+                  v38 = v18;
+                  sub_80BC();
+                  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v47, "<<<< CMIColourConstancy >>>> Fig", "err == CMIColourConstancyStatusNoError", "bail", 0, "CMIColourConstancyProcessorV1.m", 707);
+                }
+
+                else
+                {
+                  *v19.f32 = vmaxnm_f32(*&v62, 0x3400000034000000);
+                  v19.i32[2] = fmaxf(*(&v62 + 2), 0.00000011921);
+                  v53 = v63;
+                  __asm { FMOV            V0.4S, #1.0 }
+
+                  v54 = _Q0;
+                  v55 = v64;
+                  v56 = vdivq_f32(_Q0, v19);
+                  *(a1 + 64) = v56;
+                  v25 = [*(a1 + 200) prepareToProcessWithConfig:*(a1 + 192) processingType:0];
+                  if (v25)
+                  {
+                    v38 = v25;
+                    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", qword_3D058, "<<<< CMIColourConstancy >>>> Fig", "err == 0 ", "bail", "failed to setup ColourConstancyCoreProcessor", "CMIColourConstancyProcessorV1.m", 720, v25);
+                  }
+
+                  else
+                  {
+                    *v26.f32 = vmaxnm_f32(*&v53, 0x3400000034000000);
+                    v26.i32[2] = fmaxf(*(&v53 + 2), 0.00000011921);
+                    *v28.f32 = vmaxnm_f32(*&v55, 0x3400000034000000);
+                    v28.i64[1] = __PAIR64__(HIDWORD(v53), COERCE_UNSIGNED_INT(fmaxf(*(&v55 + 2), 0.00000011921)));
+                    v29 = *(a1 + 200);
+                    v30 = *(a1 + 80);
+                    v31 = *(a1 + 88);
+                    v32 = *(a1 + 120);
+                    v33 = *(a1 + 128);
+                    v34 = *(a1 + 104);
+                    v35 = *(a1 + 144);
+                    LODWORD(v27) = HIDWORD(v61);
+                    v57 = *a4;
+                    v58 = *(a4 + 4);
+                    LODWORD(v51) = v61;
+                    v36 = [v29 applyWithAmbientLumaTexture:v30 ambientChromaTexture:v31 flashLumaTexture:v32 flashChromaTexture:v33 ambientYUVOffsets:v34 flashYUVOffsets:v35 ambientLSCGainsTexture:0.0 flashLSCGainsTexture:0.0 ambientLSCMaxGain:COERCE_DOUBLE(__PAIR64__(v54.u32[1] flashLSCMaxGain:HIDWORD(v60))) ambientWhitePoint:COERCE_DOUBLE(__PAIR64__(DWORD1(v55) flashWhitePoint:v60)) strobeWhitePoint:*vdivq_f32(v54 ambientIntegrationTime:v28).i64 flashIntegrationTime:*vdivq_f32(v54 cropRect:v26).i64 LSCCropRect:*v56.i64 fullSizeDimensions:v27 strobeCCM:v51 outputColourAccuracyConfidenceTexture:a2 outputLumaTexture:a3 outputChromaTexture:&v57 outputLinearRGBTexture:*&a5];
+                    if (v36)
+                    {
+                      v38 = v36;
+                      sub_80BC();
+                      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v48, "<<<< CMIColourConstancy >>>> Fig", "err == CMIColourConstancyStatusNoError", "bail", "Calculating ColourConstancyCore failed.", "CMIColourConstancyProcessorV1.m", 745, v52);
+                    }
+
+                    else
+                    {
+                      v37 = [*(a1 + 200) finishProcessing];
+                      if (v37)
+                      {
+                        v38 = v37;
+                        sub_80BC();
+                        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v49, "<<<< CMIColourConstancy >>>> Fig", "err == CMIColourConstancyStatusNoError", "bail", "Finish processing ColourConstancyCore failed.", "CMIColourConstancyProcessorV1.m", 748, v52);
+                      }
+
+                      else
+                      {
+                        v38 = [*(a1 + 200) getCenterWeightedColourAccuracyConfidenceLevel:a1 + 212];
+                        if (v38)
+                        {
+                          sub_80BC();
+                          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v50, "<<<< CMIColourConstancy >>>> Fig", "err == CMIColourConstancyStatusNoError", "bail", "Getting the centerWeightedColourAccuracyConfidenceLevel from the ColourConstancyCoreProcessor failed.", "CMIColourConstancyProcessorV1.m", 752, v52);
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
-  v13 = [CMIColourConstancyCommon getStrobeWhiteBalanceGains:*(a1 + 216) metadata:*(a1 + 136) outputVector:&v53];
-  if (v13)
-  {
-    v41 = v13;
-    sub_80BC();
-    goto LABEL_27;
-  }
-
-  v14 = [CMIColourConstancyCommon calculateEIT:*(a1 + 96) result:&v52 + 4];
-  if (v14)
-  {
-    v41 = v14;
-    sub_80BC();
-    goto LABEL_27;
-  }
-
-  v15 = [CMIColourConstancyCommon calculateEIT:*(a1 + 136) result:&v52];
-  if (v15)
-  {
-    v41 = v15;
-    sub_80BC();
-    goto LABEL_27;
-  }
-
-  v16 = [CMIColourConstancyCommon getLensShadingCorrectionMaxGain:*(a1 + 112) outputMaxGain:&v51 + 4];
-  if (v16)
-  {
-    v41 = v16;
-    sub_80BC();
-    goto LABEL_27;
-  }
-
-  v17 = [CMIColourConstancyCommon getLensShadingCorrectionMaxGain:*(a1 + 152) outputMaxGain:&v51];
-  if (v17)
-  {
-    v41 = v17;
-    sub_80BC();
-    goto LABEL_27;
-  }
-
-  v18 = [CMIColourConstancyCommon getStrobeColourCorrectionMatrix:*(a1 + 136) outputMatrix:v50];
-  if (v18)
-  {
-    v41 = v18;
-    sub_80BC();
-    goto LABEL_27;
-  }
-
-  *v19.f32 = vmaxnm_f32(*&v53, 0x3400000034000000);
-  v19.i32[2] = fmaxf(*(&v53 + 2), 0.00000011921);
-  v44 = v54;
-  __asm { FMOV            V0.4S, #1.0 }
-
-  v45 = _Q0;
-  v46 = v55;
-  v47 = vdivq_f32(_Q0, v19);
-  *(a1 + 64) = v47;
-  v25 = [*(a1 + 200) prepareToProcessWithConfig:*(a1 + 192) processingType:0];
-  if (v25)
-  {
-    v41 = v25;
-    goto LABEL_27;
-  }
-
-  *v26.f32 = vmaxnm_f32(*&v44, 0x3400000034000000);
-  v26.i32[2] = fmaxf(*(&v44 + 2), 0.00000011921);
-  *v28.f32 = vmaxnm_f32(*&v46, 0x3400000034000000);
-  v28.i64[1] = __PAIR64__(HIDWORD(v44), COERCE_UNSIGNED_INT(fmaxf(*(&v46 + 2), 0.00000011921)));
-  v29 = *(a1 + 200);
-  v30 = *(a1 + 80);
-  v31 = *(a1 + 88);
-  v32 = *(a1 + 120);
-  v33 = *(a1 + 128);
-  v34 = *(a1 + 104);
-  v35 = *(a1 + 144);
-  LODWORD(v27) = HIDWORD(v52);
-  v36 = *(a1 + 160);
-  v37 = *(a1 + 168);
-  v38 = *(a1 + 176);
-  v39 = *(a1 + 184);
-  v48 = *a4;
-  v49 = *(a4 + 4);
-  LODWORD(v43) = v52;
-  v40 = [v29 applyWithAmbientLumaTexture:v30 ambientChromaTexture:v31 flashLumaTexture:v32 flashChromaTexture:v33 ambientYUVOffsets:v34 flashYUVOffsets:v35 ambientLSCGainsTexture:0.0 flashLSCGainsTexture:0.0 ambientLSCMaxGain:COERCE_DOUBLE(__PAIR64__(v45.u32[1] flashLSCMaxGain:HIDWORD(v51))) ambientWhitePoint:COERCE_DOUBLE(__PAIR64__(DWORD1(v46) flashWhitePoint:v51)) strobeWhitePoint:*vdivq_f32(v45 ambientIntegrationTime:v28).i64 flashIntegrationTime:*vdivq_f32(v45 cropRect:v26).i64 LSCCropRect:*v47.i64 fullSizeDimensions:v27 strobeCCM:v43 outputColourAccuracyConfidenceTexture:a2 outputLumaTexture:a3 outputChromaTexture:&v48 outputLinearRGBTexture:*&a5];
-  if (v40 || (v40 = [*(a1 + 200) finishProcessing], v40))
-  {
-    v41 = v40;
-    sub_80BC();
-    goto LABEL_27;
-  }
-
-  v41 = [*(a1 + 200) getCenterWeightedColourAccuracyConfidenceLevel:a1 + 212];
-  if (v41)
-  {
-    sub_80BC();
-    goto LABEL_27;
-  }
-
-  return v41;
+  return v38;
 }
 
 uint64_t sub_15168(uint64_t a1, void *a2)
@@ -1710,7 +515,7 @@ uint64_t sub_15168(uint64_t a1, void *a2)
       [*v9 setThumbnailWidth:{objc_msgSend(*v9, "thumbnailWidth")}];
     }
 
-    v408 = a1;
+    v407 = a1;
     [*(a1 + 192) setClippingRecoveryEnabled:*(a1 + 209)];
     v12 = [v6 objectForKeyedSubscript:@"ClippingRecovery"];
     v13 = [v12 objectForKeyedSubscript:@"PyramidGaussianSigma"];
@@ -1916,7 +721,7 @@ uint64_t sub_15168(uint64_t a1, void *a2)
       v57 = [v56 gridWidth];
     }
 
-    v409 = v9;
+    v408 = v9;
     v58 = [*v9 clippingRecoveryConfig];
     v59 = [v58 microHazeDetectionConfig];
     [v59 setGridWidth:v57];
@@ -1934,13 +739,13 @@ uint64_t sub_15168(uint64_t a1, void *a2)
       v64 = [v63 objectForKeyedSubscript:@"MicroHazeDetection"];
       v46 = [v64 objectForKeyedSubscript:@"GridHeight"];
       [v46 intValue];
-      v65 = v409;
+      v65 = v408;
     }
 
     else
     {
-      v65 = v409;
-      v63 = [*v409 clippingRecoveryConfig];
+      v65 = v408;
+      v63 = [*v408 clippingRecoveryConfig];
       v64 = [v63 microHazeDetectionConfig];
       [v64 gridHeight];
     }
@@ -1964,13 +769,13 @@ uint64_t sub_15168(uint64_t a1, void *a2)
       v72 = [v71 objectForKeyedSubscript:@"MicroHazeDetection"];
       v46 = [v72 objectForKeyedSubscript:@"GridBands"];
       v73 = [v46 intValue];
-      v74 = v409;
+      v74 = v408;
     }
 
     else
     {
-      v74 = v409;
-      v71 = [*v409 clippingRecoveryConfig];
+      v74 = v408;
+      v71 = [*v408 clippingRecoveryConfig];
       v72 = [v71 microHazeDetectionConfig];
       v73 = [v72 gridBands];
     }
@@ -1994,13 +799,13 @@ uint64_t sub_15168(uint64_t a1, void *a2)
       v81 = [v80 objectForKeyedSubscript:@"MicroHazeDetection"];
       v46 = [v81 objectForKeyedSubscript:@"GridRegionScale"];
       [v46 floatValue];
-      v82 = v409;
+      v82 = v408;
     }
 
     else
     {
-      v82 = v409;
-      v80 = [*v409 clippingRecoveryConfig];
+      v82 = v408;
+      v80 = [*v408 clippingRecoveryConfig];
       v81 = [v80 microHazeDetectionConfig];
       [v81 gridRegionScale];
     }
@@ -2052,13 +857,13 @@ uint64_t sub_15168(uint64_t a1, void *a2)
       v97 = [v96 objectForKeyedSubscript:@"MicroHazeDetection"];
       v46 = [v97 objectForKeyedSubscript:@"GainMapHeight"];
       v98 = [v46 intValue];
-      v99 = v409;
+      v99 = v408;
     }
 
     else
     {
-      v99 = v409;
-      v96 = [*v409 clippingRecoveryConfig];
+      v99 = v408;
+      v96 = [*v408 clippingRecoveryConfig];
       v97 = [v96 microHazeDetectionConfig];
       v98 = [v97 gainMapHeight];
     }
@@ -2082,13 +887,13 @@ uint64_t sub_15168(uint64_t a1, void *a2)
       v106 = [v105 objectForKeyedSubscript:@"MicroHazeDetection"];
       v46 = [v106 objectForKeyedSubscript:@"BandingMinWeight"];
       [v46 floatValue];
-      v107 = v409;
+      v107 = v408;
     }
 
     else
     {
-      v107 = v409;
-      v105 = [*v409 clippingRecoveryConfig];
+      v107 = v408;
+      v105 = [*v408 clippingRecoveryConfig];
       v106 = [v105 microHazeDetectionConfig];
       [v106 bandingMinWeight];
     }
@@ -3349,13 +2154,12 @@ uint64_t sub_15168(uint64_t a1, void *a2)
     {
     }
 
-    v405 = *(v408 + 210);
-    [*(v408 + 192) styleTransferConfig];
+    [*(v407 + 192) styleTransferConfig];
     objc_claimAutoreleasedReturnValue();
     sub_98D4();
-    [v406 setGlobalRGBToneCurveEnabled:?];
+    [v405 setGlobalRGBToneCurveEnabled:?];
 
-    *(v408 + 208) = 1;
+    *(v407 + 208) = 1;
   }
 
   return 0;
@@ -3363,15 +2167,16 @@ uint64_t sub_15168(uint64_t a1, void *a2)
 
 uint64_t sub_185E8(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 uint64_t sub_18638(_DWORD *a1)
 {
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  v4 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v1, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v6, v8);
   *a1 = result;
   return result;
 }
@@ -3394,372 +2199,72 @@ id sub_186DC(uint64_t a1, void *a2)
   return [a2 setAllocatorType:2];
 }
 
-uint64_t sub_18798()
+uint64_t sub_18798(uint64_t a1)
 {
-  FigDebugAssert3();
+  v5 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v1, v6, v7, v8, v9, vars0, vars8);
+  v3 = qword_3D058;
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, a1, "<<<< CMIColourConstancy >>>>", 239, v1);
 }
 
 uint64_t sub_188A8(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 uint64_t sub_18924(_DWORD *a1)
 {
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  v4 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v1, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v6, v8);
   *a1 = result;
   return result;
 }
 
 uint64_t sub_189CC(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
-}
-
-void sub_18D28(uint64_t a1, void *a2, void *a3)
-{
-  sub_80BC();
-  FigDebugAssert3();
-}
-
-void sub_18E60(void *a1, void *a2)
-{
-  sub_80BC();
-  FigDebugAssert3();
-}
-
-void sub_18ED8(void *a1, void *a2)
-{
-  sub_80BC();
-  FigDebugAssert3();
-}
-
-void sub_18F54(void *a1, void *a2)
-{
-  sub_80BC();
-  FigDebugAssert3();
 }
 
 void sub_18FCC(void *a1, void *a2, void *a3)
 {
   sub_80BC();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v7, v8, v9, v10, v11, vars0, vars8);
 }
 
 void sub_19054(void *a1, void *a2, void *a3)
 {
   sub_80BC();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v7, v8, v9, v10, v11, vars0, vars8);
 }
 
 void sub_190DC(void *a1, void *a2, void *a3)
 {
   sub_80BC();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v7, v8, v9, v10, v11, vars0, vars8);
 }
 
 void sub_19164(void *a1, void *a2, void *a3)
 {
   sub_80BC();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v7, v8, v9, v10, v11, vars0, vars8);
 }
 
 void sub_191F0(void *a1, void *a2, void *a3)
 {
   sub_80BC();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v7, v8, v9, v10, v11, vars0, vars8);
 }
 
 void sub_19278(void *a1, void *a2, void *a3)
 {
   sub_80BC();
-  FigDebugAssert3();
-}
-
-void sub_19300(void *a1, void *a2)
-{
-  sub_80BC();
-  FigDebugAssert3();
-}
-
-uint64_t sub_19DA4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_19E1C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_19E94()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_19F0C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_19F80()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_19FF4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1A068()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1A0E0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1A158()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-void sub_1A1D0(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-void sub_1A250(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-void sub_1A2D0(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-void sub_1A350(void *a1)
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  FigDebugAssert3();
-}
-
-uint64_t sub_1A3D0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1A448()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1A4C0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1A534()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1A5A8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1A61C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1A690()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1A704()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1A778()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1A7EC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1A860()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1A8D4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1A948()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1A9BC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1AA30()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1AAA4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1AB18()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1AB8C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1AC00()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1AC74()
-{
-  fig_log_get_emitter();
-  sub_C50C();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1ACF0()
-{
-  fig_log_get_emitter();
-  sub_C50C();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1AD6C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1ADE0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1AE54()
-{
-  fig_log_get_emitter();
-  sub_C50C();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1AED0()
-{
-  fig_log_get_emitter();
-  sub_C50C();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1AF4C()
-{
-  fig_log_get_emitter();
-  sub_C50C();
-  return FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v7, v8, v9, v10, v11, vars0, vars8);
 }
 
 void sub_1AFC8(uint64_t a1, uint64_t a2, _DWORD *a3)
@@ -3767,7 +2272,8 @@ void sub_1AFC8(uint64_t a1, uint64_t a2, _DWORD *a3)
   sub_C524(a1, a2, a3);
   fig_log_get_emitter();
   sub_2B20();
-  FigDebugAssert3();
+  v5 = v4;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, v8, v9, v10, vars0, vars8);
 }
 
 void sub_1B050(uint64_t a1, uint64_t a2, _DWORD *a3)
@@ -3775,56 +2281,16 @@ void sub_1B050(uint64_t a1, uint64_t a2, _DWORD *a3)
   sub_C524(a1, a2, a3);
   fig_log_get_emitter();
   sub_2B20();
-  FigDebugAssert3();
+  v5 = v4;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, v8, v9, v10, vars0, vars8);
 }
 
-void sub_1B0D8(uint64_t a1, void *a2)
+void sub_1B0D8(int a1, void *a2)
 {
   fig_log_get_emitter();
   sub_2B20();
-  FigDebugAssert3();
-}
-
-uint64_t sub_1B164()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1B1D8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1B24C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1B2C0()
-{
-  fig_log_get_emitter();
-  sub_C50C();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1B33C()
-{
-  fig_log_get_emitter();
-  sub_C50C();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1B3B8()
-{
-  fig_log_get_emitter();
-  sub_C50C();
-  return FigDebugAssert3();
+  v4 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
 }
 
 void sub_1B434(uint64_t a1, uint64_t a2, _DWORD *a3)
@@ -3832,7 +2298,8 @@ void sub_1B434(uint64_t a1, uint64_t a2, _DWORD *a3)
   sub_C524(a1, a2, a3);
   fig_log_get_emitter();
   sub_2B20();
-  FigDebugAssert3();
+  v5 = v4;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, v8, v9, v10, vars0, vars8);
 }
 
 void sub_1B4BC(uint64_t a1, uint64_t a2, _DWORD *a3)
@@ -3840,467 +2307,14 @@ void sub_1B4BC(uint64_t a1, uint64_t a2, _DWORD *a3)
   sub_C524(a1, a2, a3);
   fig_log_get_emitter();
   sub_2B20();
-  FigDebugAssert3();
+  v5 = v4;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, v8, v9, v10, vars0, vars8);
 }
 
-void sub_1B544(uint64_t a1, void *a2)
+void sub_1B544(int a1, void *a2)
 {
   fig_log_get_emitter();
   sub_2B20();
-  FigDebugAssert3();
-}
-
-uint64_t sub_1B5D0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1B644()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1B6B8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1B72C()
-{
-  fig_log_get_emitter();
-  sub_C50C();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1B7A8()
-{
-  fig_log_get_emitter();
-  sub_C50C();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1B824()
-{
-  fig_log_get_emitter();
-  sub_C50C();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1B8A0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1B914()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1B988()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1B9FC()
-{
-  fig_log_get_emitter();
-  sub_C50C();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1BA78()
-{
-  fig_log_get_emitter();
-  sub_C50C();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1BAF0()
-{
-  fig_log_get_emitter();
-  sub_C50C();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1BB6C()
-{
-  fig_log_get_emitter();
-  sub_C50C();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1BBE4()
-{
-  fig_log_get_emitter();
-  sub_C50C();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1BC5C()
-{
-  fig_log_get_emitter();
-  sub_C50C();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1BCD4()
-{
-  fig_log_get_emitter();
-  sub_C50C();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1BD4C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1BDC0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1BE38()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1BEB0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1BF28()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1BFA0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C018()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C090()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C104()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C178()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C1EC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C260()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C2D4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C348()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C3BC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C434()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C4AC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C524()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C59C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C614()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C68C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C704()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C77C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C7F4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C86C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C8E0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C954()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1C9C8()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1CA3C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1CAB0()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1CB24()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1CB98()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1CC0C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1CC80()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1CCF4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1CD68()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1CDDC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1CE50()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1CEC4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1CF38()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1CFAC()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1D024()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1D09C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1D114()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1D18C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1D204()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1D27C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1D2F4()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_1D36C()
-{
-  fig_log_get_emitter();
-  sub_2B08();
-  return FigDebugAssert3();
+  v4 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
 }

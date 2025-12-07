@@ -6,7 +6,7 @@
 
 - (void)wheelchairUseCharacteristicCache:(id)cache wheelchairUsageDidChange:(BOOL)change
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED06A408);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED06A408, &qword_1E5DB2EF0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v13 - v6;
   v8 = sub_1E5DA92BC();

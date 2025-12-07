@@ -157,15 +157,13 @@
 
 - (id)description
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
-  v9.receiver = self;
-  v9.super_class = _BlastDoorASCodableWorkout;
-  v4 = [(_BlastDoorASCodableWorkout *)&v9 description];
+  v8.receiver = self;
+  v8.super_class = _BlastDoorASCodableWorkout;
+  v4 = [(_BlastDoorASCodableWorkout *)&v8 description];
   dictionaryRepresentation = [(_BlastDoorASCodableWorkout *)self dictionaryRepresentation];
   v6 = [v3 stringWithFormat:@"%@ %@", v4, dictionaryRepresentation];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -336,19 +334,18 @@ LABEL_11:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v17 = toCopy;
+  v7 = toCopy;
   if (self->_sample)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((has & 0x80) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt64Field();
-    toCopy = v17;
+    toCopy = v7;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -367,9 +364,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  duration = self->_duration;
   PBDataWriterWriteDoubleField();
-  toCopy = v17;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -383,9 +379,8 @@ LABEL_6:
   }
 
 LABEL_32:
-  totalEnergyBurnedInCanonicalUnit = self->_totalEnergyBurnedInCanonicalUnit;
   PBDataWriterWriteDoubleField();
-  toCopy = v17;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -399,9 +394,8 @@ LABEL_7:
   }
 
 LABEL_33:
-  totalBasalEnergyBurnedInCanonicalUnit = self->_totalBasalEnergyBurnedInCanonicalUnit;
   PBDataWriterWriteDoubleField();
-  toCopy = v17;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -415,9 +409,8 @@ LABEL_8:
   }
 
 LABEL_34:
-  totalDistanceInCanonicalUnit = self->_totalDistanceInCanonicalUnit;
   PBDataWriterWriteDoubleField();
-  toCopy = v17;
+  toCopy = v7;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -431,69 +424,64 @@ LABEL_9:
   }
 
 LABEL_35:
-  goalType = self->_goalType;
   PBDataWriterWriteInt64Field();
-  toCopy = v17;
+  toCopy = v7;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_10:
-    goalInCanonicalUnit = self->_goalInCanonicalUnit;
     PBDataWriterWriteDoubleField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
 LABEL_11:
   if (self->_bundleID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x200) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x200) != 0)
   {
-    isWatchWorkout = self->_isWatchWorkout;
     PBDataWriterWriteBOOLField();
-    toCopy = v17;
-    v7 = self->_has;
+    toCopy = v7;
+    v6 = self->_has;
   }
 
-  if ((v7 & 0x100) != 0)
+  if ((v6 & 0x100) != 0)
   {
-    isIndoorWorkout = self->_isIndoorWorkout;
     PBDataWriterWriteBOOLField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_deviceManufacturer)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_deviceModel)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (*&self->_has)
   {
-    amm = self->_amm;
     PBDataWriterWriteInt64Field();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_seymourCatalogWorkoutIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_seymourMediaType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v7;
   }
 }
 
@@ -915,7 +903,6 @@ LABEL_9:
     has = self->_has;
   }
 
-  v9 = *(equalCopy + 62);
   if ((has & 0x200) != 0)
   {
     if ((*(equalCopy + 62) & 0x200) == 0)
@@ -923,7 +910,6 @@ LABEL_9:
       goto LABEL_71;
     }
 
-    v13 = *(equalCopy + 121);
     if (self->_isWatchWorkout)
     {
       if ((*(equalCopy + 121) & 1) == 0)
@@ -951,7 +937,7 @@ LABEL_9:
     }
 
 LABEL_71:
-    v17 = 0;
+    v14 = 0;
     goto LABEL_72;
   }
 
@@ -960,7 +946,6 @@ LABEL_71:
     goto LABEL_71;
   }
 
-  v14 = *(equalCopy + 120);
   if (self->_isIndoorWorkout)
   {
     if ((*(equalCopy + 120) & 1) == 0)
@@ -990,16 +975,16 @@ LABEL_46:
     }
   }
 
-  v12 = *(equalCopy + 62);
+  v11 = *(equalCopy + 62);
   if (*&self->_has)
   {
-    if ((v12 & 1) == 0 || self->_amm != *(equalCopy + 1))
+    if ((v11 & 1) == 0 || self->_amm != *(equalCopy + 1))
     {
       goto LABEL_71;
     }
   }
 
-  else if (v12)
+  else if (v11)
   {
     goto LABEL_71;
   }
@@ -1013,17 +998,17 @@ LABEL_46:
   seymourMediaType = self->_seymourMediaType;
   if (seymourMediaType | *(equalCopy + 14))
   {
-    v17 = [(NSString *)seymourMediaType isEqual:?];
+    v14 = [(NSString *)seymourMediaType isEqual:?];
   }
 
   else
   {
-    v17 = 1;
+    v14 = 1;
   }
 
 LABEL_72:
 
-  return v17;
+  return v14;
 }
 
 - (unint64_t)hash

@@ -11,18 +11,16 @@
 
 + (id)hardwareUUID
 {
-  v8 = *MEMORY[0x277D85DE8];
-  memset(v7, 0, sizeof(v7));
-  v6.tv_sec = 0;
-  v6.tv_nsec = 0;
-  v2 = gethostuuid(v7, &v6);
+  v7 = *MEMORY[0x277D85DE8];
+  memset(v6, 0, sizeof(v6));
+  v5.tv_sec = 0;
+  v5.tv_nsec = 0;
+  v2 = gethostuuid(v6, &v5);
   v3 = 0;
   if (!v2)
   {
-    v3 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v7];
+    v3 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v6];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -298,10 +296,10 @@
 
 - (id)initForEmbeddedSystem
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = GTDeviceProperties;
-  v2 = [(GTDeviceProperties *)&v15 init];
+  v22 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = GTDeviceProperties;
+  v2 = [(GTDeviceProperties *)&v14 init];
   if (v2)
   {
     [(GTDeviceProperties *)v2 setAppleInternal:os_variant_has_internal_content()];
@@ -361,12 +359,12 @@ LABEL_16:
           if (!v8)
           {
 LABEL_19:
-            v19 = xmmword_279661100;
-            v20 = *&off_279661110;
-            v21 = xmmword_279661120;
-            v22 = @"re6Zb+zwFKJNlkQTUeT+/w";
+            v18 = xmmword_279661100;
+            v19 = *&off_279661110;
+            v20 = xmmword_279661120;
+            v21 = @"re6Zb+zwFKJNlkQTUeT+/w";
             *values = xmmword_2796610E0;
-            v18 = *&off_2796610F0;
+            v17 = *&off_2796610F0;
             v10 = CFArrayCreate(0, values, 11, MEMORY[0x277CBF128]);
             v11 = MGCopyMultipleAnswers();
             CFRelease(v10);
@@ -413,7 +411,6 @@ LABEL_22:
 
 LABEL_20:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

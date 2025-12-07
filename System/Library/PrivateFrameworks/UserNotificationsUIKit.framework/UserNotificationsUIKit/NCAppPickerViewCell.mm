@@ -292,7 +292,7 @@
 
 + (double)preferredHeightForText:(id)text cellWidth:(double)width
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   textCopy = text;
   _titleFont = [self _titleFont];
   if (!preferredHeightForText_cellWidth____drawingContext)
@@ -304,37 +304,37 @@
     [preferredHeightForText_cellWidth____drawingContext setWantsNumberOfLineFragments:1];
   }
 
-  v23 = *MEMORY[0x277D740A8];
-  v24[0] = _titleFont;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+  v25 = *MEMORY[0x277D740A8];
+  v26[0] = _titleFont;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
   [textCopy boundingRectWithSize:1 options:v10 attributes:preferredHeightForText_cellWidth____drawingContext context:{width + -102.0, 0.0}];
   v12 = v11;
   v14 = v13;
   v16 = v15;
   v18 = v17;
 
-  v25.origin.x = v12;
-  v25.origin.y = v14;
-  v25.size.width = v16;
-  v25.size.height = v18;
-  CGRectGetHeight(v25);
+  v27.origin.x = v12;
+  v27.origin.y = v14;
+  v27.size.width = v16;
+  v27.size.height = v18;
+  CGRectGetHeight(v27);
 
   _frequencyFont = [self _frequencyFont];
   [_frequencyFont lineHeight];
 
-  _NCMainScreenScale();
+  _NCMainScreenScale(v20, v21);
   UICeilToScale();
-  if (v20 >= 62.0)
+  if (v22 >= 62.0)
   {
-    v21 = v20;
+    v23 = v22;
   }
 
   else
   {
-    v21 = 62.0;
+    v23 = 62.0;
   }
 
-  return v21;
+  return v23;
 }
 
 + (double)preferredImageDimension

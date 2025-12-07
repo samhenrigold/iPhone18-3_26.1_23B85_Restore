@@ -36,7 +36,7 @@
 - (BOOL)p_removeAllUserDefaultsWithError:(id *)error
 {
   v4 = [NSUserDefaults alloc];
-  v5 = CRLAppBundleIdentifier();
+  v5 = CRLAppBundleIdentifier(v4);
   v6 = [v4 initWithSuiteName:v5];
 
   if (!v6)

@@ -15,12 +15,12 @@
 
 - (SKEraseDisk)initWithRootDisk:(id)disk descriptors:(id)descriptors error:(id *)error
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   diskCopy = disk;
   descriptorsCopy = descriptors;
-  v27.receiver = self;
-  v27.super_class = SKEraseDisk;
-  v11 = [(SKEraseDisk *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = SKEraseDisk;
+  v11 = [(SKEraseDisk *)&v26 init];
   v12 = v11;
   if (v11)
   {
@@ -45,8 +45,8 @@
 
       v18 = [SKVolumeDescriptor descriptorWithName:v17 filesystem:firstObject];
       v19 = [SKPartitionDescriptor descriptorWithVolume:v18];
-      v28[0] = v19;
-      descriptorsCopy = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+      v27[0] = v19;
+      descriptorsCopy = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
     }
 
     objc_storeStrong(&v12->_descriptors, descriptorsCopy);
@@ -61,7 +61,6 @@
 
   v24 = [(SKEraseDisk *)v12 validateWithError:error];
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -89,31 +88,30 @@
 
 - (id)eraseProgressReportingWithCompletionBlock:(id)block
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = [SKProgress progressWithTotalUnitCount:100];
   [v5 setCancellable:0];
-  v18 = @"kSKDiskMountOptionForce";
+  v17 = @"kSKDiskMountOptionForce";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{-[SKEraseDisk forceUnmount](self, "forceUnmount")}];
-  v19[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v18[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
 
   disk = [(SKEraseDisk *)self disk];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __57__SKEraseDisk_eraseProgressReportingWithCompletionBlock___block_invoke;
-  v15[3] = &unk_279D1F998;
-  v17 = blockCopy;
-  v15[4] = self;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __57__SKEraseDisk_eraseProgressReportingWithCompletionBlock___block_invoke;
+  v14[3] = &unk_279D1F998;
+  v16 = blockCopy;
+  v14[4] = self;
   v9 = v5;
-  v16 = v9;
+  v15 = v9;
   v10 = blockCopy;
-  [disk unmountWithOptions:v7 completionBlock:v15];
+  [disk unmountWithOptions:v7 completionBlock:v14];
 
-  v11 = v16;
+  v11 = v15;
   v12 = v9;
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -121,19 +119,18 @@ void __57__SKEraseDisk_eraseProgressReportingWithCompletionBlock___block_invoke(
 {
   if (a2)
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = +[SKHelperClient sharedClient];
-    v6 = [v5 eraseWithEraser:*(a1 + 32) completionBlock:*(a1 + 48)];
+    v4 = +[SKHelperClient sharedClient];
+    v5 = [v4 eraseWithEraser:*(a1 + 32) completionBlock:*(a1 + 48)];
 
     [*(a1 + 40) setCompletedUnitCount:10];
-    [*(a1 + 40) chainChildProgress:v6 withPendingUnitCount:90];
+    [*(a1 + 40) chainChildProgress:v5 withPendingUnitCount:90];
   }
 }
 
@@ -211,7 +208,7 @@ void __57__SKEraseDisk_eraseProgressReportingWithCompletionBlock___block_invoke(
 
 - (id)validateWithError:(id *)error
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   disk = [(SKEraseDisk *)self disk];
 
   if (!disk)
@@ -220,11 +217,11 @@ void __57__SKEraseDisk_eraseProgressReportingWithCompletionBlock___block_invoke(
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       disk2 = [(SKEraseDisk *)self disk];
-      *v62 = 136315394;
-      *&v62[4] = "[SKEraseDisk validateWithError:]";
-      *&v62[12] = 2112;
-      *&v62[14] = disk2;
-      _os_log_impl(&dword_26BBB8000, v19, OS_LOG_TYPE_ERROR, "%s: Disk %@ not valid for erase", v62, 0x16u);
+      *v61 = 136315394;
+      *&v61[4] = "[SKEraseDisk validateWithError:]";
+      *&v61[12] = 2112;
+      *&v61[14] = disk2;
+      _os_log_impl(&dword_26BBB8000, v19, OS_LOG_TYPE_ERROR, "%s: Disk %@ not valid for erase", v61, 0x16u);
     }
 
     v21 = [SKError nilWithPOSIXCode:22 error:error];
@@ -240,11 +237,11 @@ void __57__SKEraseDisk_eraseProgressReportingWithCompletionBlock___block_invoke(
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       disk4 = [(SKEraseDisk *)self disk];
-      *v62 = 136315394;
-      *&v62[4] = "[SKEraseDisk validateWithError:]";
-      *&v62[12] = 2112;
-      *&v62[14] = disk4;
-      _os_log_impl(&dword_26BBB8000, v22, OS_LOG_TYPE_ERROR, "%s: Disk %@ not valid for erase, should be whole disk not APFSContainer", v62, 0x16u);
+      *v61 = 136315394;
+      *&v61[4] = "[SKEraseDisk validateWithError:]";
+      *&v61[12] = 2112;
+      *&v61[14] = disk4;
+      _os_log_impl(&dword_26BBB8000, v22, OS_LOG_TYPE_ERROR, "%s: Disk %@ not valid for erase, should be whole disk not APFSContainer", v61, 0x16u);
     }
 
     v21 = [SKError nilWithPOSIXCode:45 error:error];
@@ -257,9 +254,9 @@ void __57__SKEraseDisk_eraseProgressReportingWithCompletionBlock___block_invoke(
     v24 = SKGetOSLog();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      *v62 = 136315138;
-      *&v62[4] = "[SKEraseDisk validateWithError:]";
-      _os_log_impl(&dword_26BBB8000, v24, OS_LOG_TYPE_ERROR, "%s: Missing partition descriptors for erase disk", v62, 0xCu);
+      *v61 = 136315138;
+      *&v61[4] = "[SKEraseDisk validateWithError:]";
+      _os_log_impl(&dword_26BBB8000, v24, OS_LOG_TYPE_ERROR, "%s: Missing partition descriptors for erase disk", v61, 0xCu);
     }
 
     v21 = [SKError nilWithPOSIXCode:22 error:error];
@@ -268,19 +265,19 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  *v62 = 0;
-  *&v62[8] = v62;
-  *&v62[16] = 0x2020000000;
-  v63 = 0;
+  *v61 = 0;
+  *&v61[8] = v61;
+  *&v61[16] = 0x2020000000;
+  v62 = 0;
   descriptors2 = [(SKEraseDisk *)self descriptors];
-  v54[0] = MEMORY[0x277D85DD0];
-  v54[1] = 3221225472;
-  v54[2] = __33__SKEraseDisk_validateWithError___block_invoke;
-  v54[3] = &unk_279D1FA60;
-  v54[4] = v62;
-  [descriptors2 enumerateObjectsUsingBlock:v54];
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = __33__SKEraseDisk_validateWithError___block_invoke;
+  v53[3] = &unk_279D1FA60;
+  v53[4] = v61;
+  [descriptors2 enumerateObjectsUsingBlock:v53];
 
-  v12 = *(*&v62[8] + 24);
+  v12 = *(*&v61[8] + 24);
   disk5 = [(SKEraseDisk *)self disk];
   LOBYTE(v12) = v12 > [disk5 unformattedSize];
 
@@ -289,15 +286,15 @@ LABEL_18:
     v14 = SKGetOSLog();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v15 = *(*&v62[8] + 24);
+      v15 = *(*&v61[8] + 24);
       disk6 = [(SKEraseDisk *)self disk];
       unformattedSize = [disk6 unformattedSize];
       *buf = 136315650;
-      v57 = "[SKEraseDisk validateWithError:]";
-      v58 = 2048;
-      v59 = v15;
-      v60 = 2048;
-      v61 = unformattedSize;
+      v56 = "[SKEraseDisk validateWithError:]";
+      v57 = 2048;
+      v58 = v15;
+      v59 = 2048;
+      v60 = unformattedSize;
       _os_log_impl(&dword_26BBB8000, v14, OS_LOG_TYPE_ERROR, "%s: New size %lu exceeds %llu", buf, 0x20u);
     }
 
@@ -308,27 +305,27 @@ LABEL_18:
   for (i = 0; ; ++i)
   {
     descriptors3 = [(SKEraseDisk *)self descriptors];
-    v30 = [descriptors3 count] - 1 > i;
+    v29 = [descriptors3 count] - 1 > i;
 
-    if (!v30)
+    if (!v29)
     {
       break;
     }
 
     descriptors4 = [(SKEraseDisk *)self descriptors];
-    v32 = [descriptors4 objectAtIndexedSubscript:i];
-    v33 = [v32 size] == 0;
+    v31 = [descriptors4 objectAtIndexedSubscript:i];
+    v32 = [v31 size] == 0;
 
-    if (v33)
+    if (v32)
     {
-      v44 = SKGetOSLog();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v43 = SKGetOSLog();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v57 = "[SKEraseDisk validateWithError:]";
-        v58 = 1024;
-        LODWORD(v59) = i;
-        _os_log_impl(&dword_26BBB8000, v44, OS_LOG_TYPE_ERROR, "%s: Non last descriptor %d zero size", buf, 0x12u);
+        v56 = "[SKEraseDisk validateWithError:]";
+        v57 = 1024;
+        LODWORD(v58) = i;
+        _os_log_impl(&dword_26BBB8000, v43, OS_LOG_TYPE_ERROR, "%s: Non last descriptor %d zero size", buf, 0x12u);
       }
 
       selfCopy = [SKError nilWithPOSIXCode:22 error:error];
@@ -336,71 +333,71 @@ LABEL_18:
     }
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   descriptors5 = [(SKEraseDisk *)self descriptors];
-  v35 = [descriptors5 countByEnumeratingWithState:&v50 objects:v55 count:16];
+  v34 = [descriptors5 countByEnumeratingWithState:&v49 objects:v54 count:16];
   obj = descriptors5;
-  if (!v35)
+  if (!v34)
   {
     goto LABEL_35;
   }
 
-  v36 = *v51;
+  v35 = *v50;
   while (2)
   {
-    for (j = 0; j != v35; ++j)
+    for (j = 0; j != v34; ++j)
     {
-      if (*v51 != v36)
+      if (*v50 != v35)
       {
         objc_enumerationMutation(obj);
       }
 
-      v38 = *(*(&v50 + 1) + 8 * j);
+      v37 = *(*(&v49 + 1) + 8 * j);
       disk7 = [(SKEraseDisk *)self disk];
-      filesystem = [v38 filesystem];
-      v41 = [disk7 formattableFilesystemWithFilesystem:filesystem];
+      filesystem = [v37 filesystem];
+      v40 = [disk7 formattableFilesystemWithFilesystem:filesystem];
 
-      if (!v41)
+      if (!v40)
       {
-        v45 = SKGetOSLog();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+        v44 = SKGetOSLog();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
-          filesystem2 = [v38 filesystem];
+          filesystem2 = [v37 filesystem];
           formattableFilesystems = [(SKEraseDisk *)self formattableFilesystems];
           *buf = 136315650;
-          v57 = "[SKEraseDisk validateWithError:]";
-          v58 = 2112;
-          v59 = filesystem2;
-          v60 = 2112;
-          v61 = formattableFilesystems;
-          _os_log_impl(&dword_26BBB8000, v45, OS_LOG_TYPE_ERROR, "%s: FS to format %@ not found in supported filesystems %@", buf, 0x20u);
+          v56 = "[SKEraseDisk validateWithError:]";
+          v57 = 2112;
+          v58 = filesystem2;
+          v59 = 2112;
+          v60 = formattableFilesystems;
+          _os_log_impl(&dword_26BBB8000, v44, OS_LOG_TYPE_ERROR, "%s: FS to format %@ not found in supported filesystems %@", buf, 0x20u);
         }
 
-        v48 = 45;
+        v47 = 45;
         goto LABEL_45;
       }
 
-      innerDescriptor = [v38 innerDescriptor];
-      [innerDescriptor setFilesystem:v41];
+      innerDescriptor = [v37 innerDescriptor];
+      [innerDescriptor setFilesystem:v40];
 
-      innerDescriptor2 = [v38 innerDescriptor];
+      innerDescriptor2 = [v37 innerDescriptor];
       LODWORD(innerDescriptor) = [innerDescriptor2 validateForErase];
 
       if (!innerDescriptor)
       {
-        v48 = 22;
+        v47 = 22;
 LABEL_45:
-        v25 = [SKError nilWithPOSIXCode:v48 error:error];
+        v25 = [SKError nilWithPOSIXCode:v47 error:error];
 
         goto LABEL_40;
       }
     }
 
-    v35 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
-    if (v35)
+    v34 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
+    if (v34)
     {
       continue;
     }
@@ -414,9 +411,8 @@ LABEL_35:
 LABEL_39:
   v25 = selfCopy;
 LABEL_40:
-  _Block_object_dispose(v62, 8);
+  _Block_object_dispose(v61, 8);
 LABEL_19:
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

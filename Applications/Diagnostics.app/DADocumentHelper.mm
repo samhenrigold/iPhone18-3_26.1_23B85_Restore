@@ -242,11 +242,14 @@
 - (id)getLocalizedConsentTextWithHandle:(id)handle
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
   sub_100045B38();
+  v6 = v5;
+  v4, v5, v7, v8, v9, v10, v11, v12;
+  v13 = String._bridgeToObjectiveC()();
+  v6, v14, v15, v16, v17, v18, v19, v20;
 
-  v3 = String._bridgeToObjectiveC()();
-
-  return v3;
+  return v13;
 }
 
 - (void)attachConsentFormToSessionWithData:(id)data
@@ -256,7 +259,7 @@
   v5 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v7 = v6;
 
-  sub_1000FF0D4();
+  sub_1000FF0D4(v5, v7, v8);
   sub_10005F18C(v5, v7);
 }
 

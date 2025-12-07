@@ -17,7 +17,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_2516FD99C();
+  sub_2516FD99C(selfCopy);
 }
 
 - (_TtC28HealthExposureNotificationUI21VerificationTableView)initWithFrame:(CGRect)frame style:(int64_t)style

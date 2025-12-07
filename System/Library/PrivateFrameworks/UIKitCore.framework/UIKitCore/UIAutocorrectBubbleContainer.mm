@@ -291,7 +291,7 @@ LABEL_9:
   v6 = +[UIColor whiteColor];
   [(UITextView *)v5 setTextColor:v6];
 
-  v7 = +[UIColor blackColor];
+  v7 = objc_msgSend_blackColor(UIColor);
   [(UIScrollView *)v5 setBackgroundColor:v7];
 
   [(UITextView *)v5 setTextContainerInset:0.0, 0.0, 0.0, 0.0];

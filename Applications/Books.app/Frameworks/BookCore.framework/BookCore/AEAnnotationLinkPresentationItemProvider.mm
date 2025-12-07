@@ -8,7 +8,7 @@
 - (id)activityViewController:(id)controller itemForActivityType:(id)type
 {
   typeCopy = type;
-  v6 = AESharingLog();
+  v6 = AESharingLog(typeCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = objc_opt_class();

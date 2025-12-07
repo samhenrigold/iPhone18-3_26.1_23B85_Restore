@@ -169,7 +169,7 @@ uint64_t __17__NUDataSet_map___block_invoke(uint64_t a1)
   return v7;
 }
 
-uint64_t __20__NUDataSet_filter___block_invoke(uint64_t a1, double a2)
+void *__20__NUDataSet_filter___block_invoke(uint64_t a1, double a2)
 {
   result = (*(*(a1 + 40) + 16))();
   if (result)

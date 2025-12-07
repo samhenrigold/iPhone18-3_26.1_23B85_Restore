@@ -14,6 +14,8 @@
 - (id)specifiers;
 - (void)_loadExtensionIfNeeded;
 - (void)_setExtensionEnabledStatus:(id)status forSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation ExtensionsDetailSettingsPane
@@ -109,6 +111,23 @@
   v5 = [v4 extensionForIdentifier:v3];
   extension = self->_extension;
   self->_extension = v5;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = ExtensionsDetailSettingsPane;
+  [(ExtensionsDetailSettingsPane *)&v5 viewDidAppear:appear];
+  parentController = [(ExtensionsDetailSettingsPane *)self parentController];
+  [(ExtensionsDetailSettingsPane *)self setParentListController:parentController];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = ExtensionsDetailSettingsPane;
+  [(ExtensionsDetailSettingsPane *)&v4 viewDidDisappear:disappear];
+  [(ExtensionsDetailSettingsPane *)self setParentListController:0];
 }
 
 - (id)_extensionEnabledStatus:(id)status

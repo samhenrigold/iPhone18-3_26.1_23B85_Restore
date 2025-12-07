@@ -264,7 +264,7 @@
     self->mPreviousTranslation.y = v10;
   }
 
-  [(THWFreeTransformGestureRecognizer *)self transformWithScale:v4 angle:v6];
+  objc_msgSend_transformWithScale_angle_(self, v4, v6);
   *&self->mTransform.a = v11;
   *&self->mTransform.c = v12;
   *&self->mTransform.tx = v13;

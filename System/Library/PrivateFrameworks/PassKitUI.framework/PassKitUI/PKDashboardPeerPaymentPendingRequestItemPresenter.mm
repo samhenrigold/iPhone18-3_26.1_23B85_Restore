@@ -161,7 +161,7 @@ LABEL_5:
     v39[3] = &unk_1E80113E0;
     objc_copyWeak(&v41, &location);
     v40 = cellCopy;
-    PKPeerPaymentMessagesChatNameAndImageDataForGroupIdentifier(groupID, v39);
+    PKPeerPaymentMessagesChatNameAndImageDataForGroupIdentifier(groupID, v39, 45.0, 45.0);
 
     objc_destroyWeak(&v41);
   }

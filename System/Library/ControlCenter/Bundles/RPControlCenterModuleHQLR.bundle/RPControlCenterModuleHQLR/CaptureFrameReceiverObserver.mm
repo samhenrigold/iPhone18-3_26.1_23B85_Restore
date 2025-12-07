@@ -16,18 +16,17 @@
 
   else
   {
-    memset(v13, 0, sizeof(v13));
+    memset(v12, 0, sizeof(v12));
     selfCopy2 = self;
   }
 
-  v9 = self + OBJC_IVAR____TtC25RPControlCenterModuleHQLR28CaptureFrameReceiverObserver_captureFrameReceiverDidChange;
+  v9 = (self + OBJC_IVAR____TtC25RPControlCenterModuleHQLR28CaptureFrameReceiverObserver_captureFrameReceiverDidChange);
   swift_beginAccess();
-  v11 = *v9;
-  v10 = *(v9 + 1);
+  v10 = *v9;
 
-  v11(v12);
+  v10(v11);
 
-  sub_1BF9C(v13, &qword_37A00, &qword_25968);
+  sub_1BF9C(v12, &qword_37A00, &qword_25968);
 }
 
 @end

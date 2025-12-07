@@ -226,7 +226,7 @@ void __99__PKPaymentRegistrationUtilities_shouldShowWalletInDigitalSeparation_wi
     [v5 hasActiveExternallySharedPasses:v18];
   }
 
-  v6 = objc_alloc_init(getNPKCompanionAgentConnectionClass_0[0]());
+  v6 = objc_alloc_init(getNPKCompanionAgentConnectionClass_0());
   v7 = NSSelectorFromString(&cfstr_Hasactiveexter.isa);
   if (objc_opt_respondsToSelector())
   {

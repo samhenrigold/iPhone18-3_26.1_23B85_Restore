@@ -7,6 +7,7 @@
 - (void)fireDeepLinkCreationEventWithNote:(id)note contentItem:(id)item;
 - (void)fireNoteViewEventWithNote:(id)note noteData:(id)data noteContentData:(id)contentData;
 - (void)fireSnapshotWithNoteReportToDevice:(id)device;
+- (void)fireUpdateHandWritingContentEventWithNoteData:(id)data pencilIsUsed:(BOOL)used;
 @end
 
 @implementation ICNACoreAnalyticsReporter
@@ -94,9 +95,23 @@ void __43__ICNACoreAnalyticsReporter_analyticsQueue__block_invoke()
   dispatch_async(analyticsQueue, block);
 }
 
+- (void)fireUpdateHandWritingContentEventWithNoteData:(id)data pencilIsUsed:(BOOL)used
+{
+  usedCopy = used;
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"isSystemPaper";
+  isScrapPaper = [data isScrapPaper];
+  v8[1] = @"isUpdatedByApplePencil";
+  v9[0] = isScrapPaper;
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:usedCopy];
+  v9[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
+  AnalyticsSendEvent();
+}
+
 - (void)fireDeepLinkCreationEventWithNote:(id)note contentItem:(id)item
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   noteCopy = note;
   sourceIdentifier = [item sourceIdentifier];
   if (sourceIdentifier)
@@ -110,15 +125,13 @@ void __43__ICNACoreAnalyticsReporter_analyticsQueue__block_invoke()
     v8 = @"unknown";
   }
 
-  v12[0] = @"isDestinationNoteSystemPaper";
+  v11[0] = @"isDestinationNoteSystemPaper";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(noteCopy, "isSystemPaper")}];
-  v12[1] = @"sourceAppBundleID";
-  v13[0] = v9;
-  v13[1] = v8;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11[1] = @"sourceAppBundleID";
+  v12[0] = v9;
+  v12[1] = v8;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
   AnalyticsSendEvent();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fireNoteViewEventWithNote:(id)note noteData:(id)data noteContentData:(id)contentData
@@ -158,7 +171,7 @@ void __80__ICNACoreAnalyticsReporter_fireNoteViewEventWithNote_noteData_noteCont
 
 void __80__ICNACoreAnalyticsReporter_fireNoteViewEventWithNote_noteData_noteContentData___block_invoke_2(id *a1)
 {
-  v41[10] = *MEMORY[0x277D85DE8];
+  v40[10] = *MEMORY[0x277D85DE8];
   v2 = [a1[4] currentlyViewedNoteIdentifier];
   v3 = [a1[5] identifier];
   v4 = [v2 isEqualToString:v3];
@@ -199,70 +212,68 @@ void __80__ICNACoreAnalyticsReporter_fireNoteViewEventWithNote_noteData_noteCont
     v11 = [v10 string];
     v12 = [v11 ic_containsNonWhitespaceAndAttachmentCharacters];
 
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x2020000000;
-    v39 = 0;
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2020000000;
     v35 = 0;
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
+    v36 = &v35;
+    v37 = 0x2020000000;
+    v38 = 0;
     v31 = 0;
+    v32 = &v31;
+    v33 = 0x2020000000;
+    v34 = 0;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x2020000000;
+    v30 = 0;
     v13 = [a1[5] visibleAttachments];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __80__ICNACoreAnalyticsReporter_fireNoteViewEventWithNote_noteData_noteContentData___block_invoke_3;
-    v27[3] = &unk_2799AFE78;
-    v27[4] = &v36;
-    v27[5] = &v32;
-    v27[6] = &v28;
-    [v13 enumerateObjectsUsingBlock:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __80__ICNACoreAnalyticsReporter_fireNoteViewEventWithNote_noteData_noteContentData___block_invoke_3;
+    v26[3] = &unk_2799AFE78;
+    v26[4] = &v35;
+    v26[5] = &v31;
+    v26[6] = &v27;
+    [v13 enumerateObjectsUsingBlock:v26];
 
-    v40[0] = @"hasDrawing";
-    v26 = [MEMORY[0x277CCABB0] numberWithBool:v6];
-    v41[0] = v26;
-    v40[1] = @"hasImage";
-    v25 = [a1[6] hasAttachedPhoto];
-    v41[1] = v25;
-    v40[2] = @"hasOtherLinks";
-    v14 = [MEMORY[0x277CCABB0] numberWithBool:*(v29 + 24)];
-    v41[2] = v14;
-    v40[3] = @"hasDeeplinks";
-    v15 = [MEMORY[0x277CCABB0] numberWithBool:*(v33 + 24)];
-    v41[3] = v15;
-    v40[4] = @"hasTable";
+    v39[0] = @"hasDrawing";
+    v25 = [MEMORY[0x277CCABB0] numberWithBool:v6];
+    v40[0] = v25;
+    v39[1] = @"hasImage";
+    v24 = [a1[6] hasAttachedPhoto];
+    v40[1] = v24;
+    v39[2] = @"hasOtherLinks";
+    v14 = [MEMORY[0x277CCABB0] numberWithBool:*(v28 + 24)];
+    v40[2] = v14;
+    v39[3] = @"hasDeeplinks";
+    v15 = [MEMORY[0x277CCABB0] numberWithBool:*(v32 + 24)];
+    v40[3] = v15;
+    v39[4] = @"hasTable";
     v16 = [a1[6] hasTable];
-    v41[4] = v16;
-    v40[5] = @"hasTypedText";
+    v40[4] = v16;
+    v39[5] = @"hasTypedText";
     v17 = [MEMORY[0x277CCABB0] numberWithBool:v12];
-    v41[5] = v17;
-    v40[6] = @"hasWebHighlights";
-    v18 = [MEMORY[0x277CCABB0] numberWithBool:*(v37 + 24)];
-    v41[6] = v18;
-    v40[7] = @"isSystemPaper";
+    v40[5] = v17;
+    v39[6] = @"hasWebHighlights";
+    v18 = [MEMORY[0x277CCABB0] numberWithBool:*(v36 + 24)];
+    v40[6] = v18;
+    v39[7] = @"isSystemPaper";
     v19 = [a1[7] isScrapPaper];
-    v41[7] = v19;
-    v40[8] = @"noteIsNewlyCreated";
+    v40[7] = v19;
+    v39[8] = @"noteIsNewlyCreated";
     v20 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(a1[5], "isEmpty")}];
-    v41[8] = v20;
-    v40[9] = @"systemPaperInvocationMethod";
+    v40[8] = v20;
+    v39[9] = @"systemPaperInvocationMethod";
     v21 = [a1[4] consumeNoteViewApproach];
-    v41[9] = v21;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:10];
+    v40[9] = v21;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:10];
     AnalyticsSendEvent();
 
     v23 = [a1[5] identifier];
     [a1[4] setCurrentlyViewedNoteIdentifier:v23];
 
-    _Block_object_dispose(&v28, 8);
-    _Block_object_dispose(&v32, 8);
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v35, 8);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __80__ICNACoreAnalyticsReporter_fireNoteViewEventWithNote_noteData_noteContentData___block_invoke_3(void *a1, void *a2, _BYTE *a3)
@@ -298,58 +309,56 @@ void __80__ICNACoreAnalyticsReporter_fireNoteViewEventWithNote_noteData_noteCont
 
 - (void)fireSnapshotWithNoteReportToDevice:(id)device
 {
-  v24[14] = *MEMORY[0x277D85DE8];
-  v23[0] = @"countOfModernNotes";
+  v23[14] = *MEMORY[0x277D85DE8];
+  v22[0] = @"countOfModernNotes";
   v3 = MEMORY[0x277CCABB0];
   deviceCopy = device;
-  v22 = [v3 numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfModernNotes"))}];
-  v24[0] = v22;
-  v23[1] = @"countOfModernNotesWithDeeplinks";
-  v21 = [MEMORY[0x277CCABB0] numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfModernNotesWithDeeplink"))}];
-  v24[1] = v21;
-  v23[2] = @"countOfModernNotesWithDrawing";
-  v20 = [MEMORY[0x277CCABB0] numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfModernNotesWithDrawing"))}];
-  v24[2] = v20;
-  v23[3] = @"countOfModernNotesWithImage";
-  v19 = [MEMORY[0x277CCABB0] numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfModernNotesWithImage"))}];
-  v24[3] = v19;
-  v23[4] = @"countOfModernNotesWithOtherLinks";
-  v18 = [MEMORY[0x277CCABB0] numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfModernNotesWithLinks"))}];
-  v24[4] = v18;
-  v23[5] = @"countOfModernNotesWithTable";
-  v17 = [MEMORY[0x277CCABB0] numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfModernNotesWithTable"))}];
-  v24[5] = v17;
-  v23[6] = @"countOfModernNotesWithWebHighlights";
+  v21 = [v3 numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfModernNotes"))}];
+  v23[0] = v21;
+  v22[1] = @"countOfModernNotesWithDeeplinks";
+  v20 = [MEMORY[0x277CCABB0] numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfModernNotesWithDeeplink"))}];
+  v23[1] = v20;
+  v22[2] = @"countOfModernNotesWithDrawing";
+  v19 = [MEMORY[0x277CCABB0] numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfModernNotesWithDrawing"))}];
+  v23[2] = v19;
+  v22[3] = @"countOfModernNotesWithImage";
+  v18 = [MEMORY[0x277CCABB0] numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfModernNotesWithImage"))}];
+  v23[3] = v18;
+  v22[4] = @"countOfModernNotesWithOtherLinks";
+  v17 = [MEMORY[0x277CCABB0] numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfModernNotesWithLinks"))}];
+  v23[4] = v17;
+  v22[5] = @"countOfModernNotesWithTable";
+  v16 = [MEMORY[0x277CCABB0] numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfModernNotesWithTable"))}];
+  v23[5] = v16;
+  v22[6] = @"countOfModernNotesWithWebHighlights";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfModernNotesWithWebHighlights"))}];
-  v24[6] = v5;
-  v23[7] = @"countOfSystemPaper";
+  v23[6] = v5;
+  v22[7] = @"countOfSystemPaper";
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfScrapPapers"))}];
-  v24[7] = v6;
-  v23[8] = @"countOfSystemPaperWithDeeplinks";
+  v23[7] = v6;
+  v22[8] = @"countOfSystemPaperWithDeeplinks";
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfScrapPapersWithDeepLink"))}];
-  v24[8] = v7;
-  v23[9] = @"countOfSystemPaperWithDrawing";
+  v23[8] = v7;
+  v22[9] = @"countOfSystemPaperWithDrawing";
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfScrapPapersWithDrawing"))}];
-  v24[9] = v8;
-  v23[10] = @"countOfSystemPaperWithImage";
+  v23[9] = v8;
+  v22[10] = @"countOfSystemPaperWithImage";
   v9 = [MEMORY[0x277CCABB0] numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfScrapPapersWithImage"))}];
-  v24[10] = v9;
-  v23[11] = @"countOfSystemPaperWithOtherLinks";
+  v23[10] = v9;
+  v22[11] = @"countOfSystemPaperWithOtherLinks";
   v10 = [MEMORY[0x277CCABB0] numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfScrapPapersWithLinks"))}];
-  v24[11] = v10;
-  v23[12] = @"countOfSystemPaperWithTable";
+  v23[11] = v10;
+  v22[12] = @"countOfSystemPaperWithTable";
   v11 = [MEMORY[0x277CCABB0] numberWithInteger:{ICNARoundTo2SigFigsInt(objc_msgSend(deviceCopy, "countOfScrapPapersWithTables"))}];
-  v24[12] = v11;
-  v23[13] = @"countOfSystemPaperWithWebHighlights";
+  v23[12] = v11;
+  v22[13] = @"countOfSystemPaperWithWebHighlights";
   v12 = MEMORY[0x277CCABB0];
   countOfScrapPapersWithWebHighlights = [deviceCopy countOfScrapPapersWithWebHighlights];
 
   v14 = [v12 numberWithInteger:ICNARoundTo2SigFigsInt(countOfScrapPapersWithWebHighlights)];
-  v24[13] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:14];
+  v23[13] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:14];
   AnalyticsSendEvent();
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -35,15 +35,15 @@
     objc_storeStrong(&v23->_lastSyncDate, date);
     objc_storeStrong(&v23->_emptyZoneDateByZoneID, zones);
     objc_storeStrong(&v23->_lastCheckDate, checkDate);
-    v24 = [identifierCopy copy];
+    v24 = objc_msgSend_copy(identifierCopy);
     ownerIdentifier = v23->_ownerIdentifier;
     v23->_ownerIdentifier = v24;
 
-    v26 = [containerIdentifierCopy copy];
+    v26 = objc_msgSend_copy(containerIdentifierCopy);
     containerIdentifier = v23->_containerIdentifier;
     v23->_containerIdentifier = v26;
 
-    v28 = [identityCopy copy];
+    v28 = objc_msgSend_copy(identityCopy);
     syncIdentity = v23->_syncIdentity;
     v23->_syncIdentity = v28;
 
@@ -67,7 +67,7 @@
 - (_HDCloudSyncStorePersistableState)stateWithServerChangeToken:(id)token
 {
   tokenCopy = token;
-  v5 = [(_HDCloudSyncStorePersistableState *)self copy];
+  v5 = objc_msgSend_copy(self);
   v6 = v5[5];
   v5[5] = tokenCopy;
 
@@ -76,7 +76,7 @@
 
 - (id)stateByResettingRebaselineDeadline
 {
-  v2 = [(_HDCloudSyncStorePersistableState *)self copy];
+  v2 = objc_msgSend_copy(self, a2);
   v3 = v2[7];
   v2[7] = 0;
 
@@ -86,8 +86,8 @@
 - (id)stateByRecordingLastSyncDate:(id)date
 {
   dateCopy = date;
-  v5 = [(_HDCloudSyncStorePersistableState *)self copy];
-  v6 = [dateCopy copy];
+  v5 = objc_msgSend_copy(self);
+  v6 = objc_msgSend_copy(dateCopy);
 
   v7 = v5[8];
   v5[8] = v6;
@@ -98,8 +98,8 @@
 - (_HDCloudSyncStorePersistableState)stateWithEmptyZones:(id)zones
 {
   zonesCopy = zones;
-  v5 = [(_HDCloudSyncStorePersistableState *)self copy];
-  v6 = [zonesCopy copy];
+  v5 = objc_msgSend_copy(self);
+  v6 = objc_msgSend_copy(zonesCopy);
 
   v7 = v5[9];
   v5[9] = v6;
@@ -110,8 +110,8 @@
 - (id)stateByRecordingLastCheckDate:(id)date
 {
   dateCopy = date;
-  v5 = [(_HDCloudSyncStorePersistableState *)self copy];
-  v6 = [dateCopy copy];
+  v5 = objc_msgSend_copy(self);
+  v6 = objc_msgSend_copy(dateCopy);
 
   v7 = v5[10];
   v5[10] = v6;
@@ -121,7 +121,7 @@
 
 - (_HDCloudSyncStorePersistableState)stateWithGapEncountered:(BOOL)encountered
 {
-  v4 = [(_HDCloudSyncStorePersistableState *)self copy];
+  v4 = objc_msgSend_copy(self, a2);
   v4[8] = encountered;
 
   return v4;
@@ -129,7 +129,7 @@
 
 - (_HDCloudSyncStorePersistableState)stateWithSyncProtocolVersion:(int)version
 {
-  v4 = [(_HDCloudSyncStorePersistableState *)self copy];
+  v4 = objc_msgSend_copy(self, a2);
   v4[3] = version;
 
   return v4;
@@ -137,7 +137,7 @@
 
 - (_HDCloudSyncStorePersistableState)stateWithPendingFullSync:(BOOL)sync
 {
-  v4 = [(_HDCloudSyncStorePersistableState *)self copy];
+  v4 = objc_msgSend_copy(self, a2);
   v4[9] = sync;
 
   return v4;

@@ -28,41 +28,35 @@
 
 - (void)didFinishGettingAllAssets
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v4 = 138543362;
+    v3 = 138543362;
     selfCopy = self;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unexpected callback - MMCSEngine:didFinishGettingAllAssetsContext:", &v4, 0xCu);
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unexpected callback - MMCSEngine:didFinishGettingAllAssetsContext:", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)MMCSEngine:(id)engine didMakeGetProgress:(float)progress state:(int)state onAsset:(id)asset
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unexpected callback - MMCSEngine:didMakeGetProgress:state:onAsset:context:", &v8, 0xCu);
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unexpected callback - MMCSEngine:didMakeGetProgress:state:onAsset:context:", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)MMCSEngine:(id)engine didFinishGettingAsset:(id)asset path:(id)path error:(id)error
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unexpected callback - MMCSEngine:didFinishGettingAsset:context:error:", &v8, 0xCu);
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unexpected callback - MMCSEngine:didFinishGettingAsset:context:error:", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFinishPuttingAllAssets
@@ -76,47 +70,47 @@
   dispatch_async(workQueue, block);
 }
 
-uint64_t __46__MSASAssetUploader_didFinishPuttingAllAssets__block_invoke(uint64_t a1)
+void *__46__MSASAssetUploader_didFinishPuttingAllAssets__block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v2 = *(a1 + 32);
     v3 = [*(v2 + 144) count];
     *buf = 138543618;
-    v39 = v2;
-    v40 = 2048;
-    v41 = v3;
+    v38 = v2;
+    v39 = 2048;
+    v40 = v3;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Finished uploading %ld asset collections.", buf, 0x16u);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v4 = *(*(a1 + 32) + 152);
-  v5 = [v4 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v33;
+    v7 = *v32;
     v8 = *MEMORY[0x277D25460];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v33 != v7)
+        if (*v32 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v32 + 1) + 8 * i);
+        v10 = *(*(&v31 + 1) + 8 * i);
         v11 = *(a1 + 32);
         v12 = [MEMORY[0x277CCA9B8] errorWithDomain:v8 code:14 userInfo:0];
         [v11 workQueueDidFinishWithItem:v10 error:v12];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v6);
@@ -126,12 +120,12 @@ uint64_t __46__MSASAssetUploader_didFinishPuttingAllAssets__block_invoke(uint64_
   [*(*(a1 + 32) + 160) removeAllObjects];
   if ([*(*(a1 + 32) + 136) count] && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v24 = *(a1 + 32);
-    v25 = [*(v24 + 136) count];
+    v23 = *(a1 + 32);
+    v24 = [*(v23 + 136) count];
     *buf = 138543618;
-    v39 = v24;
-    v40 = 2048;
-    v41 = v25;
+    v38 = v23;
+    v39 = 2048;
+    v40 = v24;
     _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Found %ld orphaned assets. Ignoring.", buf, 0x16u);
   }
 
@@ -139,42 +133,42 @@ uint64_t __46__MSASAssetUploader_didFinishPuttingAllAssets__block_invoke(uint64_
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v26 = *(a1 + 32);
-      v27 = [*(v26 + 120) count];
+      v25 = *(a1 + 32);
+      v26 = [*(v25 + 120) count];
       *buf = 138543618;
-      v39 = v26;
-      v40 = 2048;
-      v41 = v27;
+      v38 = v25;
+      v39 = 2048;
+      v40 = v26;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Found %ld orphaned asset collections.", buf, 0x16u);
     }
 
     v13 = [*(*(a1 + 32) + 120) copy];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v14 = v13;
-    v15 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v29;
+      v17 = *v28;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v29 != v17)
+          if (*v28 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v28 + 1) + 8 * j);
+          v19 = *(*(&v27 + 1) + 8 * j);
           v20 = *(a1 + 32);
           v21 = [v20 _orphanedAssetCollectionError];
           [v20 workQueueDidFinishWithItem:v19 error:v21];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
       }
 
       while (v16);
@@ -185,10 +179,9 @@ uint64_t __46__MSASAssetUploader_didFinishPuttingAllAssets__block_invoke(uint64_
   result = [*(a1 + 32) didEncounterNetworkConditionError];
   if ((result & 1) == 0)
   {
-    result = [*(a1 + 32) workQueueRetryOutstandingActivities];
+    return [*(a1 + 32) workQueueRetryOutstandingActivities];
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -210,7 +203,7 @@ uint64_t __46__MSASAssetUploader_didFinishPuttingAllAssets__block_invoke(uint64_
 
 void __65__MSASAssetUploader_MMCSEngine_didMakePutProgress_state_onAsset___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = MSASPlatform();
   v3 = [v2 shouldLogAtLevel:7];
 
@@ -222,15 +215,15 @@ void __65__MSASAssetUploader_MMCSEngine_didMakePutProgress_state_onAsset___block
     {
       if (v5)
       {
-        v13 = *(a1 + 32);
+        v12 = *(a1 + 32);
         v7 = [MMCSEngine logStringForPutItemState:*(a1 + 52)];
-        v14 = *(a1 + 40);
-        v15 = 138543874;
-        v16 = v13;
-        v17 = 2114;
-        v18 = *&v7;
-        v19 = 2048;
-        v20 = v14;
+        v13 = *(a1 + 40);
+        v14 = 138543874;
+        v15 = v12;
+        v16 = 2114;
+        v17 = *&v7;
+        v18 = 2048;
+        v19 = v13;
         v9 = MEMORY[0x277D86220];
         v10 = "%{public}@: Upload progress state: %{public}@, on asset: %p";
         v11 = 32;
@@ -243,23 +236,21 @@ void __65__MSASAssetUploader_MMCSEngine_didMakePutProgress_state_onAsset___block
       v6 = *(a1 + 32);
       v7 = [MMCSEngine logStringForPutItemState:*(a1 + 52)];
       v8 = *(a1 + 40);
-      v15 = 138544130;
-      v16 = v6;
-      v17 = 2048;
-      v18 = v4;
-      v19 = 2114;
-      v20 = v7;
-      v21 = 2048;
-      v22 = v8;
+      v14 = 138544130;
+      v15 = v6;
+      v16 = 2048;
+      v17 = v4;
+      v18 = 2114;
+      v19 = v7;
+      v20 = 2048;
+      v21 = v8;
       v9 = MEMORY[0x277D86220];
       v10 = "%{public}@: Upload progress: %.2f, state: %{public}@, on asset: %p";
       v11 = 42;
 LABEL_8:
-      _os_log_debug_impl(&dword_245B99000, v9, OS_LOG_TYPE_DEBUG, v10, &v15, v11);
+      _os_log_debug_impl(&dword_245B99000, v9, OS_LOG_TYPE_DEBUG, v10, &v14, v11);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)MMCSEngine:(id)engine didCreateRequestorContext:(id)context forAssets:(id)assets
@@ -281,75 +272,73 @@ LABEL_8:
 
 void __68__MSASAssetUploader_MMCSEngine_didCreateRequestorContext_forAssets___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) count])
   {
     v2 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v3 = *(a1 + 32);
-    v4 = [v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v20;
+      v6 = *v19;
       do
       {
         v7 = 0;
         do
         {
-          if (*v20 != v6)
+          if (*v19 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = [*(*(&v19 + 1) + 8 * v7) assetCollectionGUID];
+          v8 = [*(*(&v18 + 1) + 8 * v7) assetCollectionGUID];
           [v2 addObject:v8];
 
           ++v7;
         }
 
         while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v5);
     }
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v9 = v2;
-    v10 = [v9 countByEnumeratingWithState:&v15 objects:v23 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v14 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v16;
+      v12 = *v15;
       do
       {
         v13 = 0;
         do
         {
-          if (*v16 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          [*(*(a1 + 40) + 160) setObject:*(a1 + 48) forKey:{*(*(&v15 + 1) + 8 * v13++), v15}];
+          [*(*(a1 + 40) + 160) setObject:*(a1 + 48) forKey:{*(*(&v14 + 1) + 8 * v13++), v14}];
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v15 objects:v23 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v14 objects:v22 count:16];
       }
 
       while (v11);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)MMCSEngine:(id)engine didFinishPuttingAsset:(id)asset putReceipt:(id)receipt error:(id)error
@@ -375,7 +364,7 @@ void __68__MSASAssetUploader_MMCSEngine_didCreateRequestorContext_forAssets___bl
 void __71__MSASAssetUploader_MMCSEngine_didFinishPuttingAsset_putReceipt_error___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v3)
@@ -395,7 +384,7 @@ void __71__MSASAssetUploader_MMCSEngine_didFinishPuttingAsset_putReceipt_error__
           block[2] = __71__MSASAssetUploader_MMCSEngine_didFinishPuttingAsset_putReceipt_error___block_invoke_2;
           block[3] = &unk_278E927C8;
           block[4] = v1[5];
-          v66 = v6;
+          v65 = v6;
           dispatch_async(v7, block);
         }
 
@@ -405,7 +394,7 @@ void __71__MSASAssetUploader_MMCSEngine_didFinishPuttingAsset_putReceipt_error__
           {
             v8 = v1[5];
             *buf = 138543362;
-            v69 = v8;
+            v68 = v8;
             _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Asset upload was canceled. Ignoring.", buf, 0xCu);
           }
 
@@ -418,7 +407,7 @@ void __71__MSASAssetUploader_MMCSEngine_didFinishPuttingAsset_putReceipt_error__
           {
             v26 = v1[5];
             *buf = 138543362;
-            v69 = v26;
+            v68 = v26;
             _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Encountered temporary network error while uploading asset. Will retry later.", buf, 0xCu);
           }
 
@@ -427,9 +416,9 @@ void __71__MSASAssetUploader_MMCSEngine_didFinishPuttingAsset_putReceipt_error__
             v27 = v1[5];
             v28 = [v1[4] MSVerboseDescription];
             *buf = 138543618;
-            v69 = v27;
-            v70 = 2114;
-            v71 = v28;
+            v68 = v27;
+            v69 = 2114;
+            v70 = v28;
             _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Error: %{public}@", buf, 0x16u);
           }
 
@@ -441,14 +430,14 @@ void __71__MSASAssetUploader_MMCSEngine_didFinishPuttingAsset_putReceipt_error__
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            v47 = v1[5];
-            v48 = [v1[4] MSVerboseDescription];
+            v46 = v1[5];
+            v47 = [v1[4] MSVerboseDescription];
             *buf = 138543874;
-            v69 = v47;
-            v70 = 2114;
-            v71 = v4;
-            v72 = 2114;
-            v73 = v48;
+            v68 = v46;
+            v69 = 2114;
+            v70 = v4;
+            v71 = 2114;
+            v72 = v47;
             _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to upload asset collection: %{public}@. Error: %{public}@. Giving up.", buf, 0x20u);
           }
 
@@ -467,33 +456,33 @@ void __71__MSASAssetUploader_MMCSEngine_didFinishPuttingAsset_putReceipt_error__
               v34 = v1[5];
               v35 = [v1[4] MSVerboseDescription];
               *buf = 138543618;
-              v69 = v34;
-              v70 = 2114;
-              v71 = v35;
+              v68 = v34;
+              v69 = 2114;
+              v70 = v35;
               _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Encountered MMCS auth error. Will reauthorize. Error: %{public}@", buf, 0x16u);
             }
 
             obja = v1;
-            v63 = 0u;
-            v64 = 0u;
-            v61 = 0u;
             v62 = 0u;
-            v52 = [v4 assets];
-            v36 = [v52 countByEnumeratingWithState:&v61 objects:v74 count:16];
+            v63 = 0u;
+            v60 = 0u;
+            v61 = 0u;
+            v51 = [v4 assets];
+            v36 = [v51 countByEnumeratingWithState:&v60 objects:v73 count:16];
             if (v36)
             {
               v37 = v36;
-              v38 = *v62;
+              v38 = *v61;
               while (2)
               {
                 for (i = 0; i != v37; ++i)
                 {
-                  if (*v62 != v38)
+                  if (*v61 != v38)
                   {
-                    objc_enumerationMutation(v52);
+                    objc_enumerationMutation(v51);
                   }
 
-                  v40 = *(*(&v61 + 1) + 8 * i);
+                  v40 = *(*(&v60 + 1) + 8 * i);
                   v41 = [v40 GUID];
                   v42 = [obja[6] GUID];
                   v43 = [v41 isEqualToString:v42];
@@ -505,7 +494,7 @@ void __71__MSASAssetUploader_MMCSEngine_didFinishPuttingAsset_putReceipt_error__
                   }
                 }
 
-                v37 = [v52 countByEnumeratingWithState:&v61 objects:v74 count:16];
+                v37 = [v51 countByEnumeratingWithState:&v60 objects:v73 count:16];
                 if (v37)
                 {
                   continue;
@@ -524,25 +513,25 @@ LABEL_65:
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
-              v49 = v1[5];
-              v50 = [v1[4] MSVerboseDescription];
+              v48 = v1[5];
+              v49 = [v1[4] MSVerboseDescription];
               *buf = 138543874;
-              v69 = v49;
-              v70 = 2114;
-              v71 = v4;
-              v72 = 2114;
-              v73 = v50;
+              v68 = v48;
+              v69 = 2114;
+              v70 = v4;
+              v71 = 2114;
+              v72 = v49;
               _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to upload asset collection %{public}@. Error: %{public}@. Will retry later.", buf, 0x20u);
             }
 
             [v1[5] workQueueStopTrackingItem:v5];
-            v45 = [v1[5] eventQueue];
-            v60[0] = MEMORY[0x277D85DD0];
-            v60[1] = 3221225472;
-            v60[2] = __71__MSASAssetUploader_MMCSEngine_didFinishPuttingAsset_putReceipt_error___block_invoke_19;
-            v60[3] = &unk_278E926D8;
-            v60[4] = v1[5];
-            dispatch_async(v45, v60);
+            v44 = [v1[5] eventQueue];
+            v59[0] = MEMORY[0x277D85DD0];
+            v59[1] = 3221225472;
+            v59[2] = __71__MSASAssetUploader_MMCSEngine_didFinishPuttingAsset_putReceipt_error___block_invoke_19;
+            v59[3] = &unk_278E926D8;
+            v59[4] = v1[5];
+            dispatch_async(v44, v59);
           }
         }
       }
@@ -552,9 +541,9 @@ LABEL_65:
         v22 = v1[5];
         v23 = v1[6];
         *buf = 138543618;
-        v69 = v22;
-        v70 = 2114;
-        v71 = v23;
+        v68 = v22;
+        v69 = 2114;
+        v70 = v23;
         _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Already reported error on asset %{public}@. Ignoring.", buf, 0x16u);
       }
 
@@ -565,40 +554,40 @@ LABEL_65:
   else
   {
     v9 = [v2 eventQueue];
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __71__MSASAssetUploader_MMCSEngine_didFinishPuttingAsset_putReceipt_error___block_invoke_20;
-    v59[3] = &unk_278E926D8;
-    v59[4] = v1[5];
-    dispatch_async(v9, v59);
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __71__MSASAssetUploader_MMCSEngine_didFinishPuttingAsset_putReceipt_error___block_invoke_20;
+    v58[3] = &unk_278E926D8;
+    v58[4] = v1[5];
+    dispatch_async(v9, v58);
 
     v4 = [*(v1[5] + 17) objectForKey:v1[6]];
     if (v4)
     {
       [*(v1[5] + 17) removeObjectForKey:v1[6]];
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
       v56 = 0u;
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
       v10 = [v4 assets];
-      v11 = [v10 countByEnumeratingWithState:&v55 objects:v67 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v54 objects:v66 count:16];
       if (v11)
       {
         v12 = v11;
-        v51 = v4;
+        v50 = v4;
         obj = v10;
-        v13 = *v56;
+        v13 = *v55;
         v14 = 1;
         do
         {
           for (j = 0; j != v12; ++j)
           {
-            if (*v56 != v13)
+            if (*v55 != v13)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v55 + 1) + 8 * j);
+            v16 = *(*(&v54 + 1) + 8 * j);
             v17 = [v16 GUID];
             [v1[6] GUID];
             v19 = v18 = v1;
@@ -615,12 +604,12 @@ LABEL_65:
             v14 &= v21 == 0;
           }
 
-          v12 = [obj countByEnumeratingWithState:&v55 objects:v67 count:16];
+          v12 = [obj countByEnumeratingWithState:&v54 objects:v66 count:16];
         }
 
         while (v12);
 
-        v4 = v51;
+        v4 = v50;
         if ((v14 & 1) == 0)
         {
           goto LABEL_60;
@@ -638,9 +627,9 @@ LABEL_65:
         {
           v29 = v1[5];
           *buf = 138543618;
-          v69 = v29;
-          v70 = 2114;
-          v71 = v4;
+          v68 = v29;
+          v69 = 2114;
+          v70 = v4;
           _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Successfully uploaded asset collection: %{public}@", buf, 0x16u);
         }
 
@@ -654,9 +643,9 @@ LABEL_65:
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v46 = v1[5];
+          v45 = v1[5];
           *buf = 138543362;
-          v69 = v46;
+          v68 = v45;
           _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not find upload item that matches the completed asset collection.", buf, 0xCu);
         }
 
@@ -673,16 +662,14 @@ LABEL_59:
       v24 = v1[5];
       v25 = v1[6];
       *buf = 138543618;
-      v69 = v24;
-      v70 = 2114;
-      v71 = v25;
+      v68 = v24;
+      v69 = 2114;
+      v70 = v25;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Successfully uploaded asset %{public}@, but can't find matching asset collection. Ignoring.", buf, 0x16u);
     }
   }
 
 LABEL_60:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __71__MSASAssetUploader_MMCSEngine_didFinishPuttingAsset_putReceipt_error___block_invoke_2(uint64_t a1)
@@ -743,42 +730,40 @@ void __54__MSASAssetUploader_workQueueDidFinishWithItem_error___block_invoke(uin
 
 - (void)workQueueStopTrackingItem:(id)item
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   object = [itemCopy object];
   [(NSMutableArray *)self->_itemsInFlight removeObject:itemCopy];
   [(NSMutableDictionary *)self->_assetCollectionsToItemInFlightMap removeObjectForKey:object];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   assets = [object assets];
-  v7 = [assets countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [assets countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(assets);
         }
 
-        [(NSMutableDictionary *)self->_assetToAssetCollectionMap removeObjectForKey:*(*(&v12 + 1) + 8 * v10++)];
+        [(NSMutableDictionary *)self->_assetToAssetCollectionMap removeObjectForKey:*(*(&v11 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [assets countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [assets countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelAssetCollections:(id)collections
@@ -814,49 +799,49 @@ void __54__MSASAssetUploader_workQueueDidFinishWithItem_error___block_invoke(uin
 
 uint64_t __64__MSASAssetUploader_unregisterAssetCollections_completionBlock___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v2 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v22;
+    v4 = *v21;
     do
     {
       v5 = 0;
       do
       {
-        if (*v22 != v4)
+        if (*v21 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v21 + 1) + 8 * v5);
+        v6 = *(*(&v20 + 1) + 8 * v5);
+        v16 = 0u;
         v17 = 0u;
         v18 = 0u;
         v19 = 0u;
-        v20 = 0u;
         v7 = [v6 assets];
-        v8 = [v7 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v16 objects:v24 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v18;
+          v10 = *v17;
           do
           {
             v11 = 0;
             do
             {
-              if (*v18 != v10)
+              if (*v17 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v17 + 1) + 8 * v11);
+              v12 = *(*(&v16 + 1) + 8 * v11);
               v13 = [*(a1 + 40) engine];
               [v13 unregisterAsset:v12];
 
@@ -864,7 +849,7 @@ uint64_t __64__MSASAssetUploader_unregisterAssetCollections_completionBlock___bl
             }
 
             while (v9 != v11);
-            v9 = [v7 countByEnumeratingWithState:&v17 objects:v25 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v16 objects:v24 count:16];
           }
 
           while (v9);
@@ -874,7 +859,7 @@ uint64_t __64__MSASAssetUploader_unregisterAssetCollections_completionBlock___bl
       }
 
       while (v5 != v3);
-      v3 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v3 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v3);
@@ -883,10 +868,9 @@ uint64_t __64__MSASAssetUploader_unregisterAssetCollections_completionBlock___bl
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1029,59 +1013,58 @@ void __67__MSASAssetUploader_workQueueRegisterAssets_index_completionBlock___blo
 {
   if (a2)
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = [*(a1 + 32) workQueue];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __67__MSASAssetUploader_workQueueRegisterAssets_index_completionBlock___block_invoke_2;
-    v10[3] = &unk_278E91CF0;
-    v6 = *(a1 + 40);
-    v10[4] = *(a1 + 32);
-    v7 = v6;
-    v9 = *(a1 + 48);
-    v8 = *(a1 + 56);
-    v11 = v7;
-    v13 = v8;
-    v12 = v9;
-    dispatch_async(v5, v10);
+    v4 = [*(a1 + 32) workQueue];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __67__MSASAssetUploader_workQueueRegisterAssets_index_completionBlock___block_invoke_2;
+    v9[3] = &unk_278E91CF0;
+    v5 = *(a1 + 40);
+    v9[4] = *(a1 + 32);
+    v6 = v5;
+    v8 = *(a1 + 48);
+    v7 = *(a1 + 56);
+    v10 = v6;
+    v12 = v7;
+    v11 = v8;
+    dispatch_async(v4, v9);
   }
 }
 
 - (void)workQueueCancelAssetCollections:(id)collections
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   collectionsCopy = collections;
   if ([(NSMutableDictionary *)self->_assetCollectionGUIDToRequestorContext count]== 1)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
-    v17 = collectionsCopy;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v16 = collectionsCopy;
     obj = collectionsCopy;
-    v5 = [obj countByEnumeratingWithState:&v19 objects:v29 count:16];
+    v5 = [obj countByEnumeratingWithState:&v18 objects:v28 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = MEMORY[0x277D86220];
-      v8 = *v20;
+      v8 = *v19;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v19 + 1) + 8 * i);
+          v10 = *(*(&v18 + 1) + 8 * i);
           assetCollectionGUIDToRequestorContext = self->_assetCollectionGUIDToRequestorContext;
           gUID = [v10 GUID];
           v13 = [(NSMutableDictionary *)assetCollectionGUIDToRequestorContext objectForKey:gUID];
@@ -1093,10 +1076,10 @@ void __67__MSASAssetUploader_workQueueRegisterAssets_index_completionBlock___blo
             {
               *buf = 138543874;
               selfCopy3 = self;
-              v25 = 2114;
-              v26 = v10;
-              v27 = 2114;
-              v28 = v13;
+              v24 = 2114;
+              v25 = v10;
+              v26 = 2114;
+              v27 = v13;
               _os_log_impl(&dword_245B99000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Cancelling in-progress upload for asset collection %{public}@ with context %{public}@", buf, 0x20u);
             }
 
@@ -1108,36 +1091,34 @@ void __67__MSASAssetUploader_workQueueRegisterAssets_index_completionBlock___blo
           {
             *buf = 138543618;
             selfCopy3 = self;
-            v25 = 2114;
-            v26 = v10;
+            v24 = 2114;
+            v25 = v10;
             _os_log_impl(&dword_245B99000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Cannot cancel upload for assetCollection %{public}@ which is not in progress", buf, 0x16u);
           }
         }
 
-        v6 = [obj countByEnumeratingWithState:&v19 objects:v29 count:16];
+        v6 = [obj countByEnumeratingWithState:&v18 objects:v28 count:16];
       }
 
       while (v6);
     }
 
-    collectionsCopy = v17;
+    collectionsCopy = v16;
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy3 = self;
-    v25 = 2114;
-    v26 = collectionsCopy;
+    v24 = 2114;
+    v25 = collectionsCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Cannot cancel upload for assetCollections %{public}@ which is either not in progress, or has more than one items in an upload batch", buf, 0x16u);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workQueueUploadNextBatch
 {
-  v151 = *MEMORY[0x277D85DE8];
+  v150 = *MEMORY[0x277D85DE8];
   if (![(MSASAssetTransferer *)self hasShutDown])
   {
     [(MSASAssetUploader *)self setDidEncounterNetworkConditionError:0];
@@ -1193,60 +1174,60 @@ void __67__MSASAssetUploader_workQueueRegisterAssets_index_completionBlock___blo
     self->_finishedAssetCollections = v21;
 
     [MEMORY[0x277CBEB38] dictionary];
-    v92 = v91 = v7;
+    v91 = v90 = v7;
+    v130 = 0u;
     v131 = 0u;
     v132 = 0u;
     v133 = 0u;
-    v134 = 0u;
     obj = v7;
-    v96 = [obj countByEnumeratingWithState:&v131 objects:v150 count:16];
+    v95 = [obj countByEnumeratingWithState:&v130 objects:v149 count:16];
     v23 = 0;
-    if (v96)
+    if (v95)
     {
-      v94 = *v132;
+      v93 = *v131;
       do
       {
-        for (i = 0; i != v96; ++i)
+        for (i = 0; i != v95; ++i)
         {
-          if (*v132 != v94)
+          if (*v131 != v93)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = *(*(&v131 + 1) + 8 * i);
+          v25 = *(*(&v130 + 1) + 8 * i);
           object = [v25 object];
+          v126 = 0u;
           v127 = 0u;
           v128 = 0u;
           v129 = 0u;
-          v130 = 0u;
-          v101 = object;
+          v100 = object;
           assets = [object assets];
-          v28 = [assets countByEnumeratingWithState:&v127 objects:v149 count:16];
+          v28 = [assets countByEnumeratingWithState:&v126 objects:v148 count:16];
           if (v28)
           {
             v29 = v28;
-            v30 = *v128;
-            v98 = v25;
+            v30 = *v127;
+            v97 = v25;
             while (2)
             {
               for (j = 0; j != v29; ++j)
               {
-                if (*v128 != v30)
+                if (*v127 != v30)
                 {
                   objc_enumerationMutation(assets);
                 }
 
-                v32 = *(*(&v127 + 1) + 8 * j);
+                v32 = *(*(&v126 + 1) + 8 * j);
                 mMCSURL = [v32 MMCSURL];
 
                 if (!mMCSURL)
                 {
                   v37 = MEMORY[0x277CBEAC0];
                   _missingURLError = [(MSASAssetTransferer *)self _missingURLError];
-                  album = [v98 album];
+                  album = [v97 album];
                   v40 = [v37 dictionaryWithObjectsAndKeys:{_missingURLError, @"error", album, @"album", 0}];
 
-                  [v92 setObject:v40 forKey:v101];
+                  [v91 setObject:v40 forKey:v100];
 LABEL_27:
 
                   goto LABEL_28;
@@ -1270,8 +1251,8 @@ LABEL_27:
                 }
               }
 
-              v29 = [assets countByEnumeratingWithState:&v127 objects:v149 count:16];
-              v25 = v98;
+              v29 = [assets countByEnumeratingWithState:&v126 objects:v148 count:16];
+              v25 = v97;
               if (v29)
               {
                 continue;
@@ -1285,33 +1266,33 @@ LABEL_27:
 LABEL_28:
         }
 
-        v96 = [obj countByEnumeratingWithState:&v131 objects:v150 count:16];
+        v95 = [obj countByEnumeratingWithState:&v130 objects:v149 count:16];
       }
 
-      while (v96);
+      while (v95);
     }
 
-    if ([v92 count])
+    if ([v91 count])
     {
-      v125 = 0u;
-      v126 = 0u;
-      v123 = 0u;
       v124 = 0u;
-      v41 = v92;
-      v102 = [v41 countByEnumeratingWithState:&v123 objects:v148 count:16];
-      if (v102)
+      v125 = 0u;
+      v122 = 0u;
+      v123 = 0u;
+      v41 = v91;
+      v101 = [v41 countByEnumeratingWithState:&v122 objects:v147 count:16];
+      if (v101)
       {
-        v99 = *v124;
+        v98 = *v123;
         do
         {
-          for (k = 0; k != v102; ++k)
+          for (k = 0; k != v101; ++k)
           {
-            if (*v124 != v99)
+            if (*v123 != v98)
             {
               objc_enumerationMutation(v41);
             }
 
-            v43 = *(*(&v123 + 1) + 8 * k);
+            v43 = *(*(&v122 + 1) + 8 * k);
             v44 = [v41 objectForKey:v43];
             v45 = [v44 objectForKey:@"error"];
             v46 = [v44 objectForKey:@"album"];
@@ -1319,33 +1300,33 @@ LABEL_28:
             {
               *buf = 138544130;
               selfCopy7 = self;
-              v142 = 2114;
-              v143 = v43;
-              v144 = 2114;
-              v145 = v46;
-              v146 = 2114;
-              v147 = v45;
+              v141 = 2114;
+              v142 = v43;
+              v143 = 2114;
+              v144 = v46;
+              v145 = 2114;
+              v146 = v45;
               _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Rejecting asset collection %{public}@ from album %{public}@. Error: %{public}@", buf, 0x2Au);
             }
 
             eventQueue = [(MSASAssetTransferer *)self eventQueue];
-            v120[0] = MEMORY[0x277D85DD0];
-            v120[1] = 3221225472;
-            v120[2] = __45__MSASAssetUploader_workQueueUploadNextBatch__block_invoke_12;
-            v120[3] = &unk_278E92660;
-            v120[4] = self;
-            v120[5] = v43;
-            v121 = v46;
-            v122 = v45;
+            v119[0] = MEMORY[0x277D85DD0];
+            v119[1] = 3221225472;
+            v119[2] = __45__MSASAssetUploader_workQueueUploadNextBatch__block_invoke_12;
+            v119[3] = &unk_278E92660;
+            v119[4] = self;
+            v119[5] = v43;
+            v120 = v46;
+            v121 = v45;
             v48 = v45;
             v49 = v46;
-            dispatch_async(eventQueue, v120);
+            dispatch_async(eventQueue, v119);
           }
 
-          v102 = [v41 countByEnumeratingWithState:&v123 objects:v148 count:16];
+          v101 = [v41 countByEnumeratingWithState:&v122 objects:v147 count:16];
         }
 
-        while (v102);
+        while (v101);
       }
 
       model3 = [(MSASAssetTransferer *)self model];
@@ -1359,50 +1340,50 @@ LABEL_28:
       v53 = self->_assetToAssetCollectionMap;
       self->_assetToAssetCollectionMap = v52;
 
-      v118 = 0u;
-      v119 = 0u;
-      v116 = 0u;
       v117 = 0u;
-      v95 = self->_itemsInFlight;
-      v97 = v23;
-      v103 = [(NSMutableArray *)v95 countByEnumeratingWithState:&v116 objects:v139 count:16];
-      if (v103)
+      v118 = 0u;
+      v115 = 0u;
+      v116 = 0u;
+      v94 = self->_itemsInFlight;
+      v96 = v23;
+      v102 = [(NSMutableArray *)v94 countByEnumeratingWithState:&v115 objects:v138 count:16];
+      if (v102)
       {
-        v100 = *v117;
+        v99 = *v116;
         do
         {
-          for (m = 0; m != v103; ++m)
+          for (m = 0; m != v102; ++m)
           {
-            if (*v117 != v100)
+            if (*v116 != v99)
             {
-              objc_enumerationMutation(v95);
+              objc_enumerationMutation(v94);
             }
 
-            v55 = *(*(&v116 + 1) + 8 * m);
+            v55 = *(*(&v115 + 1) + 8 * m);
             object2 = [v55 object];
             if (object2)
             {
               [(NSMutableDictionary *)self->_assetCollectionsToItemInFlightMap setObject:v55 forKey:object2];
-              v114 = 0u;
-              v115 = 0u;
-              v112 = 0u;
               v113 = 0u;
+              v114 = 0u;
+              v111 = 0u;
+              v112 = 0u;
               assets2 = [object2 assets];
-              v58 = [assets2 countByEnumeratingWithState:&v112 objects:v138 count:16];
+              v58 = [assets2 countByEnumeratingWithState:&v111 objects:v137 count:16];
               if (v58)
               {
                 v59 = v58;
-                v60 = *v113;
+                v60 = *v112;
                 do
                 {
                   for (n = 0; n != v59; ++n)
                   {
-                    if (*v113 != v60)
+                    if (*v112 != v60)
                     {
                       objc_enumerationMutation(assets2);
                     }
 
-                    v62 = *(*(&v112 + 1) + 8 * n);
+                    v62 = *(*(&v111 + 1) + 8 * n);
                     mMCSReceipt = [v62 MMCSReceipt];
 
                     if (!mMCSReceipt)
@@ -1411,109 +1392,109 @@ LABEL_28:
                     }
                   }
 
-                  v59 = [assets2 countByEnumeratingWithState:&v112 objects:v138 count:16];
+                  v59 = [assets2 countByEnumeratingWithState:&v111 objects:v137 count:16];
                 }
 
                 while (v59);
               }
 
-              v23 = v97;
+              v23 = v96;
             }
 
             else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
               selfCopy7 = self;
-              v142 = 2114;
-              v143 = v55;
+              v141 = 2114;
+              v142 = v55;
               _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Missing expected asset collection in person model item %{public}@.", buf, 0x16u);
             }
           }
 
-          v103 = [(NSMutableArray *)v95 countByEnumeratingWithState:&v116 objects:v139 count:16];
+          v102 = [(NSMutableArray *)v94 countByEnumeratingWithState:&v115 objects:v138 count:16];
         }
 
-        while (v103);
+        while (v102);
       }
 
       if (![(NSMutableDictionary *)self->_assetToAssetCollectionMap count])
       {
-        v7 = v91;
+        v7 = v90;
         if ([(NSMutableArray *)self->_itemsInFlight count])
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            v90 = [(NSMutableArray *)self->_itemsInFlight count];
+            v89 = [(NSMutableArray *)self->_itemsInFlight count];
             *buf = 138543618;
             selfCopy7 = self;
-            v142 = 2048;
-            v143 = v90;
+            v141 = 2048;
+            v142 = v89;
             _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: No assets to upload, but detected %ld orphaned asset collections.", buf, 0x16u);
           }
 
-          v106 = 0u;
-          v107 = 0u;
-          v104 = 0u;
           v105 = 0u;
+          v106 = 0u;
+          v103 = 0u;
+          v104 = 0u;
           v79 = self->_itemsInFlight;
-          v80 = [(NSMutableArray *)v79 countByEnumeratingWithState:&v104 objects:v136 count:16];
+          v80 = [(NSMutableArray *)v79 countByEnumeratingWithState:&v103 objects:v135 count:16];
           if (v80)
           {
             v81 = v80;
-            v82 = *v105;
+            v82 = *v104;
             do
             {
               for (ii = 0; ii != v81; ++ii)
               {
-                if (*v105 != v82)
+                if (*v104 != v82)
                 {
                   objc_enumerationMutation(v79);
                 }
 
-                v84 = *(*(&v104 + 1) + 8 * ii);
+                v84 = *(*(&v103 + 1) + 8 * ii);
                 _orphanedAssetCollectionError = [(MSASAssetUploader *)self _orphanedAssetCollectionError];
                 [(MSASAssetUploader *)self workQueueDidFinishWithItem:v84 error:_orphanedAssetCollectionError];
               }
 
-              v81 = [(NSMutableArray *)v79 countByEnumeratingWithState:&v104 objects:v136 count:16];
+              v81 = [(NSMutableArray *)v79 countByEnumeratingWithState:&v103 objects:v135 count:16];
             }
 
             while (v81);
           }
 
           [(MSASAssetUploader *)self workQueueGoIdle];
-          v7 = v91;
-          v23 = v97;
+          v7 = v90;
+          v23 = v96;
         }
 
         goto LABEL_97;
       }
 
-      v110 = 0u;
-      v111 = 0u;
-      v108 = 0u;
       v109 = 0u;
+      v110 = 0u;
+      v107 = 0u;
+      v108 = 0u;
       v64 = self->_assetToAssetCollectionMap;
-      v65 = [(NSMutableDictionary *)v64 countByEnumeratingWithState:&v108 objects:v137 count:16];
+      v65 = [(NSMutableDictionary *)v64 countByEnumeratingWithState:&v107 objects:v136 count:16];
       if (v65)
       {
         v66 = v65;
-        v67 = *v109;
+        v67 = *v108;
         do
         {
           for (jj = 0; jj != v66; ++jj)
           {
-            if (*v109 != v67)
+            if (*v108 != v67)
             {
               objc_enumerationMutation(v64);
             }
 
-            v69 = *(*(&v108 + 1) + 8 * jj);
+            v69 = *(*(&v107 + 1) + 8 * jj);
             engine = [(MSASAssetTransferer *)self engine];
             [engine reregisterAssetForUpload:v69];
           }
 
-          v66 = [(NSMutableDictionary *)v64 countByEnumeratingWithState:&v108 objects:v137 count:16];
+          v66 = [(NSMutableDictionary *)v64 countByEnumeratingWithState:&v107 objects:v136 count:16];
         }
 
         while (v66);
@@ -1525,17 +1506,17 @@ LABEL_28:
         v72 = [(NSMutableArray *)self->_itemsInFlight count];
         *buf = 138543874;
         selfCopy7 = self;
-        v142 = 2048;
-        v143 = v71;
-        v144 = 2048;
-        v145 = v72;
+        v141 = 2048;
+        v142 = v71;
+        v143 = 2048;
+        v144 = v72;
         _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Uploading %ld assets for %ld asset collections.", buf, 0x20u);
       }
 
       v73 = MSASPlatform();
       v74 = objc_opt_respondsToSelector();
 
-      v23 = v97;
+      v23 = v96;
       if (v74)
       {
         v75 = MSASPlatform();
@@ -1561,7 +1542,7 @@ LABEL_28:
       engine2 = [(MSASAssetTransferer *)self engine];
       allKeys2 = [(NSMutableDictionary *)self->_assetToAssetCollectionMap allKeys];
       personID2 = [(MSASAssetTransferer *)self personID];
-      [engine2 putAssets:allKeys2 requestURL:v97 DSID:personID2 options:v78];
+      [engine2 putAssets:allKeys2 requestURL:v96 DSID:personID2 options:v78];
     }
 
     else
@@ -1576,11 +1557,11 @@ LABEL_28:
       [(MSASAssetUploader *)self workQueueGoIdle];
     }
 
-    v7 = v91;
+    v7 = v90;
 LABEL_97:
 
 LABEL_98:
-    goto LABEL_99;
+    return;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -1597,9 +1578,6 @@ LABEL_98:
   block[3] = &unk_278E926D8;
   block[4] = self;
   dispatch_async(eventQueue2, block);
-
-LABEL_99:
-  v89 = *MEMORY[0x277D85DE8];
 }
 
 void __45__MSASAssetUploader_workQueueUploadNextBatch__block_invoke(uint64_t a1)
@@ -1637,7 +1615,7 @@ void __50__MSASAssetUploader__orphanedAssetCollectionError__block_invoke()
 
 - (void)workQueueCancel
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (self->_state == 1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -1653,31 +1631,31 @@ void __50__MSASAssetUploader__orphanedAssetCollectionError__block_invoke()
   model = [(MSASAssetTransferer *)self model];
   v4 = [model nextItemsForUploadMaxCount:10];
 
-  v17 = v4;
+  v16 = v4;
   if ([v4 count])
   {
     do
     {
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
-      v5 = v17;
-      v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
+      v5 = v16;
+      v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v22;
+        v8 = *v21;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v22 != v8)
+            if (*v21 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v21 + 1) + 8 * i);
+            v10 = *(*(&v20 + 1) + 8 * i);
             object = [v10 object];
             album = [v10 album];
             eventQueue = [(MSASAssetTransferer *)self eventQueue];
@@ -1686,14 +1664,14 @@ void __50__MSASAssetUploader__orphanedAssetCollectionError__block_invoke()
             block[2] = __36__MSASAssetUploader_workQueueCancel__block_invoke;
             block[3] = &unk_278E92638;
             block[4] = self;
-            v19 = object;
-            v20 = album;
+            v18 = object;
+            v19 = album;
             v14 = album;
             v15 = object;
             dispatch_async(eventQueue, block);
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v7);
@@ -1702,8 +1680,6 @@ void __50__MSASAssetUploader__orphanedAssetCollectionError__block_invoke()
 
     while ([v5 count]);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __36__MSASAssetUploader_workQueueCancel__block_invoke(uint64_t a1)
@@ -1727,20 +1703,18 @@ void __36__MSASAssetUploader_workQueueCancel__block_invoke(uint64_t a1)
 
 - (void)workQueueStop
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (self->_state == 1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 138543362;
+      v3 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Stopping all uploads.", &v4, 0xCu);
+      _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Stopping all uploads.", &v3, 0xCu);
     }
 
     [(MSASAssetUploader *)self _workQueueStop];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_workQueueStop
@@ -1796,7 +1770,7 @@ void __36__MSASAssetUploader_workQueueGoIdle__block_invoke(uint64_t a1)
 
 - (void)workQueueRetryOutstandingActivities
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   state = self->_state;
   if (state != 1)
   {
@@ -1806,8 +1780,8 @@ void __36__MSASAssetUploader_workQueueGoIdle__block_invoke(uint64_t a1)
       {
         *buf = 138543618;
         selfCopy = self;
-        v12 = 1024;
-        v13 = state;
+        v11 = 1024;
+        v12 = state;
         _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unknown state: %d", buf, 0x12u);
       }
 
@@ -1835,8 +1809,6 @@ void __36__MSASAssetUploader_workQueueGoIdle__block_invoke(uint64_t a1)
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __56__MSASAssetUploader_workQueueRetryOutstandingActivities__block_invoke(uint64_t a1)

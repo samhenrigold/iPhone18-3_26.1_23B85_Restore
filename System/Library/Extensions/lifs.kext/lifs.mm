@@ -158,8 +158,10 @@ uint64_t lifs_req_hashtbl_deinit()
   return kfree_data();
 }
 
-uint64_t lifs_mount_request(uint64_t a1, const char *a2, const char *a3, int a4, int a5, __int128 *a6, uint64_t a7)
+uint64_t lifs_mount_request(uint64_t a1, const char *a2, const char *a3, uint64_t a4, uint64_t a5, __int128 *a6, uint64_t a7)
 {
+  v9 = a5;
+  v10 = a4;
   v17 = 0;
   lifs_port = get_lifs_port(&v17);
   if (!lifs_port)
@@ -176,7 +178,7 @@ uint64_t lifs_mount_request(uint64_t a1, const char *a2, const char *a3, int a4,
     v23 = 0;
     *&v21 = a7;
     lifs_add_req(v18);
-    v15 = lifs_mount_send(v17, v19, a2, a3, a4, a5, a6);
+    v15 = lifs_mount_send(v17, v19, a2, a3, v10, v9, a6);
     if (v15)
     {
       lifs_port = 4;
@@ -379,8 +381,9 @@ void lifs_wait_req_completion(uint64_t a1)
   lck_mtx_unlock(v3);
 }
 
-uint64_t lifs_unmount_request(uint64_t a1, int a2, __int128 *a3)
+uint64_t lifs_unmount_request(uint64_t a1, uint64_t a2, __int128 *a3)
 {
+  v4 = a2;
   v10 = 0;
   lifs_port = get_lifs_port(&v10);
   if (lifs_port)
@@ -403,7 +406,7 @@ uint64_t lifs_unmount_request(uint64_t a1, int a2, __int128 *a3)
     v16 = 0;
     *&v14 = 0;
     lifs_add_req(v11);
-    v8 = lifs_unmount_send(v10, v12, a2, a3);
+    v8 = lifs_unmount_send(v10, v12, v4, a3);
     if (v8)
     {
       v7 = 4;
@@ -429,8 +432,9 @@ uint64_t lifs_unmount_request(uint64_t a1, int a2, __int128 *a3)
   return v7;
 }
 
-uint64_t lifs_unmount2_request(uint64_t a1, int a2, __int128 *a3)
+uint64_t lifs_unmount2_request(uint64_t a1, uint64_t a2, __int128 *a3)
 {
+  v4 = a2;
   v10 = 0;
   lifs_port = get_lifs_port(&v10);
   if (lifs_port)
@@ -453,7 +457,7 @@ uint64_t lifs_unmount2_request(uint64_t a1, int a2, __int128 *a3)
     v16 = 0;
     *&v14 = 0;
     lifs_add_req(v11);
-    v8 = lifs_unmount2_send(v10, v12, a2, a3);
+    v8 = lifs_unmount2_send(v10, v12, v4, a3);
     if (v8)
     {
       v7 = 4;
@@ -481,45 +485,43 @@ uint64_t lifs_unmount2_request(uint64_t a1, int a2, __int128 *a3)
 
 uint64_t lifs_statfs_request(uint64_t a1, __int128 *a2, uint64_t a3)
 {
-  v11 = 0;
-  lifs_port = get_lifs_port(&v11);
+  v9 = 0;
+  lifs_port = get_lifs_port(&v9);
   if (!lifs_port)
   {
-    v14 = 0u;
-    v15 = 0u;
+    v12 = 0u;
     v13 = 0u;
-    memset(v12, 0, sizeof(v12));
-    *&v13 = OSAddAtomic64(1, &lifs_request_id);
-    *&v14 = a1;
-    DWORD2(v13) = 196608;
-    DWORD2(v14) = 72;
-    v16 = 0;
-    v17 = 0;
-    *&v15 = a3;
-    lifs_add_req(v12);
-    v7 = *(a1 + 592);
-    v8 = *(a1 + 808);
+    v11 = 0u;
+    memset(v10, 0, sizeof(v10));
+    *&v11 = OSAddAtomic64(1, &lifs_request_id);
+    *&v12 = a1;
+    DWORD2(v11) = 196608;
+    DWORD2(v12) = 72;
+    v14 = 0;
+    v15 = 0;
+    *&v13 = a3;
+    lifs_add_req(v10);
     throttle_info_update_with_type();
-    v9 = lifs_statfs_send(v11, v13, a2);
-    if (v9)
+    v7 = lifs_statfs_send(v9, v11, a2);
+    if (v7)
     {
       lifs_port = 4;
-      if (v9 != 268435463 && v9 != 268451845)
+      if (v7 != 268435463 && v7 != 268451845)
       {
         lifs_port = 5;
       }
 
       _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_statfs_send() failed, err: %d\n", "lifs_statfs_request", lifs_port);
-      DWORD2(v13) |= 1u;
+      DWORD2(v11) |= 1u;
       release_lifs_port();
-      lifs_remove_req(v12);
+      lifs_remove_req(v10);
     }
 
     else
     {
       release_lifs_port();
-      lifs_wait_req_completion(v12);
-      return HIDWORD(v13);
+      lifs_wait_req_completion(v10);
+      return HIDWORD(v11);
     }
   }
 
@@ -528,26 +530,24 @@ uint64_t lifs_statfs_request(uint64_t a1, __int128 *a2, uint64_t a3)
 
 uint64_t lifs_create_request(uint64_t a1, const char *a2, _OWORD *a3, _OWORD *a4, uint64_t a5)
 {
-  v15 = 0;
-  lifs_port = get_lifs_port(&v15);
+  v13 = 0;
+  lifs_port = get_lifs_port(&v13);
   if (!lifs_port)
   {
-    v18 = 0u;
-    v19 = 0u;
+    v16 = 0u;
     v17 = 0u;
-    memset(v16, 0, sizeof(v16));
-    *&v17 = OSAddAtomic64(1, &lifs_request_id);
-    *&v18 = a1;
-    DWORD2(v17) = 0x40000;
-    DWORD2(v18) = 448;
-    v20 = 0;
-    v21 = 0;
-    *&v19 = a5;
-    lifs_add_req(v16);
-    v11 = *(a1 + 592);
-    v12 = *(a1 + 808);
+    v15 = 0u;
+    memset(v14, 0, sizeof(v14));
+    *&v15 = OSAddAtomic64(1, &lifs_request_id);
+    *&v16 = a1;
+    DWORD2(v15) = 0x40000;
+    DWORD2(v16) = 448;
+    v18 = 0;
+    v19 = 0;
+    *&v17 = a5;
+    lifs_add_req(v14);
     throttle_info_update_with_type();
-    send = lifs_create_send(v15, v17, a2, a3, a4);
+    send = lifs_create_send(v13, v15, a2, a3, a4);
     if (send)
     {
       lifs_port = 4;
@@ -557,24 +557,25 @@ uint64_t lifs_create_request(uint64_t a1, const char *a2, _OWORD *a3, _OWORD *a4
       }
 
       _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_create_send() failed, err: %d\n", "lifs_create_request", lifs_port);
-      DWORD2(v17) |= 1u;
+      DWORD2(v15) |= 1u;
       release_lifs_port();
-      lifs_remove_req(v16);
+      lifs_remove_req(v14);
     }
 
     else
     {
       release_lifs_port();
-      lifs_wait_req_completion(v16);
-      return HIDWORD(v17);
+      lifs_wait_req_completion(v14);
+      return HIDWORD(v15);
     }
   }
 
   return lifs_port;
 }
 
-uint64_t lifs_clonefile_request(uint64_t a1, const char *a2, _OWORD *a3, _OWORD *a4, int a5, _OWORD *a6, uint64_t a7)
+uint64_t lifs_clonefile_request(uint64_t a1, const char *a2, _OWORD *a3, _OWORD *a4, uint64_t a5, _OWORD *a6, uint64_t a7)
 {
+  v9 = a5;
   v17 = 0;
   lifs_port = get_lifs_port(&v17);
   if (!lifs_port)
@@ -591,7 +592,7 @@ uint64_t lifs_clonefile_request(uint64_t a1, const char *a2, _OWORD *a3, _OWORD 
     v23 = 0;
     *&v21 = a7;
     lifs_add_req(v18);
-    v15 = lifs_clonefile_send(v17, v19, a2, a3, a4, a5, a6);
+    v15 = lifs_clonefile_send(v17, v19, a2, a3, a4, v9, a6);
     if (v15)
     {
       lifs_port = 4;
@@ -619,194 +620,6 @@ uint64_t lifs_clonefile_request(uint64_t a1, const char *a2, _OWORD *a3, _OWORD 
 
 uint64_t lifs_mkdir_request(uint64_t a1, const char *a2, _OWORD *a3, _OWORD *a4, uint64_t a5)
 {
-  v15 = 0;
-  lifs_port = get_lifs_port(&v15);
-  if (!lifs_port)
-  {
-    v18 = 0u;
-    v19 = 0u;
-    v17 = 0u;
-    memset(v16, 0, sizeof(v16));
-    *&v17 = OSAddAtomic64(1, &lifs_request_id);
-    *&v18 = a1;
-    DWORD2(v17) = 327680;
-    DWORD2(v18) = 448;
-    v20 = 0;
-    v21 = 0;
-    *&v19 = a5;
-    lifs_add_req(v16);
-    v11 = *(a1 + 592);
-    v12 = *(a1 + 808);
-    throttle_info_update_with_type();
-    v13 = lifs_mkdir_send(v15, v17, a2, a3, a4);
-    if (v13)
-    {
-      lifs_port = 4;
-      if (v13 != 268435463 && v13 != 268451845)
-      {
-        lifs_port = 5;
-      }
-
-      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_mkdir_send() failed, err: %d\n", "lifs_mkdir_request", lifs_port);
-      DWORD2(v17) |= 1u;
-      release_lifs_port();
-      lifs_remove_req(v16);
-    }
-
-    else
-    {
-      release_lifs_port();
-      lifs_wait_req_completion(v16);
-      return HIDWORD(v17);
-    }
-  }
-
-  return lifs_port;
-}
-
-uint64_t lifs_lookup_request(uint64_t a1, const char *a2, _OWORD *a3, int a4, uint64_t a5)
-{
-  v15 = 0;
-  lifs_port = get_lifs_port(&v15);
-  if (!lifs_port)
-  {
-    v18 = 0u;
-    v19 = 0u;
-    v17 = 0u;
-    memset(v16, 0, sizeof(v16));
-    *&v17 = OSAddAtomic64(1, &lifs_request_id);
-    *&v18 = a1;
-    DWORD2(v17) = 393216;
-    DWORD2(v18) = 616;
-    v20 = 0;
-    v21 = 0;
-    *&v19 = a5;
-    lifs_add_req(v16);
-    v11 = *(a1 + 592);
-    v12 = *(a1 + 808);
-    throttle_info_update_with_type();
-    v13 = lifs_lookup_send(v15, v17, a2, a3, a4);
-    if (v13)
-    {
-      lifs_port = 4;
-      if (v13 != 268435463 && v13 != 268451845)
-      {
-        lifs_port = 5;
-      }
-
-      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_lookup_send() failed, err: %d\n", "lifs_lookup_request", lifs_port);
-      DWORD2(v17) |= 1u;
-      release_lifs_port();
-      lifs_remove_req(v16);
-    }
-
-    else
-    {
-      release_lifs_port();
-      lifs_wait_req_completion(v16);
-      return HIDWORD(v17);
-    }
-  }
-
-  return lifs_port;
-}
-
-uint64_t lifs_lookupmed_request(uint64_t a1, char *a2, _OWORD *a3, int a4, uint64_t a5)
-{
-  *v15 = 0;
-  lifs_port = get_lifs_port(v15);
-  if (!lifs_port)
-  {
-    v18 = 0u;
-    v19 = 0u;
-    *v17 = 0u;
-    memset(v16, 0, sizeof(v16));
-    *v17 = OSAddAtomic64(1, &lifs_request_id);
-    *&v18 = a1;
-    v17[2] = 393216;
-    DWORD2(v18) = 616;
-    v20 = 0;
-    v21 = 0;
-    *&v19 = a5;
-    lifs_add_req(v16);
-    v11 = *(a1 + 592);
-    v12 = *(a1 + 808);
-    throttle_info_update_with_type();
-    v13 = lifs_lookupmed_send(*v15, *v17, a2, a3, a4);
-    if (v13)
-    {
-      lifs_port = 4;
-      if (v13 != 268435463 && v13 != 268451845)
-      {
-        lifs_port = 5;
-      }
-
-      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_lookupmed_send() failed, err: %d\n", "lifs_lookupmed_request", lifs_port);
-      v17[2] |= 1u;
-      release_lifs_port();
-      lifs_remove_req(v16);
-    }
-
-    else
-    {
-      release_lifs_port();
-      lifs_wait_req_completion(v16);
-      return v17[3];
-    }
-  }
-
-  return lifs_port;
-}
-
-uint64_t lifs_lookupsmall_request(uint64_t a1, char *a2, _OWORD *a3, int a4, uint64_t a5)
-{
-  *v15 = 0;
-  lifs_port = get_lifs_port(v15);
-  if (!lifs_port)
-  {
-    v18 = 0u;
-    v19 = 0u;
-    *v17 = 0u;
-    memset(v16, 0, sizeof(v16));
-    *v17 = OSAddAtomic64(1, &lifs_request_id);
-    *&v18 = a1;
-    v17[2] = 393216;
-    DWORD2(v18) = 616;
-    v20 = 0;
-    v21 = 0;
-    *&v19 = a5;
-    lifs_add_req(v16);
-    v11 = *(a1 + 592);
-    v12 = *(a1 + 808);
-    throttle_info_update_with_type();
-    v13 = lifs_lookupsmall_send(*v15, *v17, a2, a3, a4);
-    if (v13)
-    {
-      lifs_port = 4;
-      if (v13 != 268435463 && v13 != 268451845)
-      {
-        lifs_port = 5;
-      }
-
-      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_lookupsmall_send() failed, err: %d\n", "lifs_lookupsmall_request", lifs_port);
-      v17[2] |= 1u;
-      release_lifs_port();
-      lifs_remove_req(v16);
-    }
-
-    else
-    {
-      release_lifs_port();
-      lifs_wait_req_completion(v16);
-      return v17[3];
-    }
-  }
-
-  return lifs_port;
-}
-
-uint64_t lifs_setattr_request(uint64_t a1, _OWORD *a2, _OWORD *a3, uint64_t a4)
-{
   v13 = 0;
   lifs_port = get_lifs_port(&v13);
   if (!lifs_port)
@@ -817,16 +630,14 @@ uint64_t lifs_setattr_request(uint64_t a1, _OWORD *a2, _OWORD *a3, uint64_t a4)
     memset(v14, 0, sizeof(v14));
     *&v15 = OSAddAtomic64(1, &lifs_request_id);
     *&v16 = a1;
-    DWORD2(v15) = 917504;
-    DWORD2(v16) = 200;
+    DWORD2(v15) = 327680;
+    DWORD2(v16) = 448;
     v18 = 0;
     v19 = 0;
-    *&v17 = a4;
+    *&v17 = a5;
     lifs_add_req(v14);
-    v9 = *(a1 + 592);
-    v10 = *(a1 + 808);
     throttle_info_update_with_type();
-    v11 = lifs_setattr_send(v13, v15, a2, a3);
+    v11 = lifs_mkdir_send(v13, v15, a2, a3, a4);
     if (v11)
     {
       lifs_port = 4;
@@ -835,7 +646,7 @@ uint64_t lifs_setattr_request(uint64_t a1, _OWORD *a2, _OWORD *a3, uint64_t a4)
         lifs_port = 5;
       }
 
-      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_setattr_send() failed, err: %d\n", "lifs_setattr_request", lifs_port);
+      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_mkdir_send() failed, err: %d\n", "lifs_mkdir_request", lifs_port);
       DWORD2(v15) |= 1u;
       release_lifs_port();
       lifs_remove_req(v14);
@@ -852,7 +663,145 @@ uint64_t lifs_setattr_request(uint64_t a1, _OWORD *a2, _OWORD *a3, uint64_t a4)
   return lifs_port;
 }
 
-uint64_t lifs_getattr_request(uint64_t a1, __int128 *a2, uint64_t a3)
+uint64_t lifs_lookup_request(uint64_t a1, const char *a2, _OWORD *a3, uint64_t a4, uint64_t a5)
+{
+  v6 = a4;
+  v13 = 0;
+  lifs_port = get_lifs_port(&v13);
+  if (!lifs_port)
+  {
+    v16 = 0u;
+    v17 = 0u;
+    v15 = 0u;
+    memset(v14, 0, sizeof(v14));
+    *&v15 = OSAddAtomic64(1, &lifs_request_id);
+    *&v16 = a1;
+    DWORD2(v15) = 393216;
+    DWORD2(v16) = 616;
+    v18 = 0;
+    v19 = 0;
+    *&v17 = a5;
+    lifs_add_req(v14);
+    throttle_info_update_with_type();
+    v11 = lifs_lookup_send(v13, v15, a2, a3, v6);
+    if (v11)
+    {
+      lifs_port = 4;
+      if (v11 != 268435463 && v11 != 268451845)
+      {
+        lifs_port = 5;
+      }
+
+      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_lookup_send() failed, err: %d\n", "lifs_lookup_request", lifs_port);
+      DWORD2(v15) |= 1u;
+      release_lifs_port();
+      lifs_remove_req(v14);
+    }
+
+    else
+    {
+      release_lifs_port();
+      lifs_wait_req_completion(v14);
+      return HIDWORD(v15);
+    }
+  }
+
+  return lifs_port;
+}
+
+uint64_t lifs_lookupmed_request(uint64_t a1, char *a2, _OWORD *a3, uint64_t a4, uint64_t a5)
+{
+  v6 = a4;
+  *v13 = 0;
+  lifs_port = get_lifs_port(v13);
+  if (!lifs_port)
+  {
+    v16 = 0u;
+    v17 = 0u;
+    *v15 = 0u;
+    memset(v14, 0, sizeof(v14));
+    *v15 = OSAddAtomic64(1, &lifs_request_id);
+    *&v16 = a1;
+    v15[2] = 393216;
+    DWORD2(v16) = 616;
+    v18 = 0;
+    v19 = 0;
+    *&v17 = a5;
+    lifs_add_req(v14);
+    throttle_info_update_with_type();
+    v11 = lifs_lookupmed_send(*v13, *v15, a2, a3, v6);
+    if (v11)
+    {
+      lifs_port = 4;
+      if (v11 != 268435463 && v11 != 268451845)
+      {
+        lifs_port = 5;
+      }
+
+      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_lookupmed_send() failed, err: %d\n", "lifs_lookupmed_request", lifs_port);
+      v15[2] |= 1u;
+      release_lifs_port();
+      lifs_remove_req(v14);
+    }
+
+    else
+    {
+      release_lifs_port();
+      lifs_wait_req_completion(v14);
+      return v15[3];
+    }
+  }
+
+  return lifs_port;
+}
+
+uint64_t lifs_lookupsmall_request(uint64_t a1, char *a2, _OWORD *a3, uint64_t a4, uint64_t a5)
+{
+  v6 = a4;
+  *v13 = 0;
+  lifs_port = get_lifs_port(v13);
+  if (!lifs_port)
+  {
+    v16 = 0u;
+    v17 = 0u;
+    *v15 = 0u;
+    memset(v14, 0, sizeof(v14));
+    *v15 = OSAddAtomic64(1, &lifs_request_id);
+    *&v16 = a1;
+    v15[2] = 393216;
+    DWORD2(v16) = 616;
+    v18 = 0;
+    v19 = 0;
+    *&v17 = a5;
+    lifs_add_req(v14);
+    throttle_info_update_with_type();
+    v11 = lifs_lookupsmall_send(*v13, *v15, a2, a3, v6);
+    if (v11)
+    {
+      lifs_port = 4;
+      if (v11 != 268435463 && v11 != 268451845)
+      {
+        lifs_port = 5;
+      }
+
+      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_lookupsmall_send() failed, err: %d\n", "lifs_lookupsmall_request", lifs_port);
+      v15[2] |= 1u;
+      release_lifs_port();
+      lifs_remove_req(v14);
+    }
+
+    else
+    {
+      release_lifs_port();
+      lifs_wait_req_completion(v14);
+      return v15[3];
+    }
+  }
+
+  return lifs_port;
+}
+
+uint64_t lifs_setattr_request(uint64_t a1, _OWORD *a2, _OWORD *a3, uint64_t a4)
 {
   v11 = 0;
   lifs_port = get_lifs_port(&v11);
@@ -864,16 +813,14 @@ uint64_t lifs_getattr_request(uint64_t a1, __int128 *a2, uint64_t a3)
     memset(v12, 0, sizeof(v12));
     *&v13 = OSAddAtomic64(1, &lifs_request_id);
     *&v14 = a1;
-    DWORD2(v13) = 983040;
-    DWORD2(v14) = 184;
+    DWORD2(v13) = 917504;
+    DWORD2(v14) = 200;
     v16 = 0;
     v17 = 0;
-    *&v15 = a3;
+    *&v15 = a4;
     lifs_add_req(v12);
-    v7 = *(a1 + 592);
-    v8 = *(a1 + 808);
     throttle_info_update_with_type();
-    v9 = lifs_getattr_send(v11, v13, a2);
+    v9 = lifs_setattr_send(v11, v13, a2, a3);
     if (v9)
     {
       lifs_port = 4;
@@ -882,7 +829,7 @@ uint64_t lifs_getattr_request(uint64_t a1, __int128 *a2, uint64_t a3)
         lifs_port = 5;
       }
 
-      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_getattr_send() failed, err: %d\n", "lifs_getattr_request", lifs_port);
+      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_setattr_send() failed, err: %d\n", "lifs_setattr_request", lifs_port);
       DWORD2(v13) |= 1u;
       release_lifs_port();
       lifs_remove_req(v12);
@@ -899,73 +846,117 @@ uint64_t lifs_getattr_request(uint64_t a1, __int128 *a2, uint64_t a3)
   return lifs_port;
 }
 
-uint64_t lifs_getfsattr_request(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4)
+uint64_t lifs_getattr_request(uint64_t a1, __int128 *a2, uint64_t a3)
 {
-  *v15 = 0;
-  lifs_port = get_lifs_port(v15);
+  v9 = 0;
+  lifs_port = get_lifs_port(&v9);
   if (!lifs_port)
   {
-    v18 = 0u;
-    v19 = 0u;
-    *v17 = 0u;
-    memset(v16, 0, sizeof(v16));
-    *v17 = OSAddAtomic64(1, &lifs_request_id);
-    *&v18 = a1;
-    v17[2] = 1507328;
-    DWORD2(v18) = 24;
-    v20 = 0;
-    v21 = 0;
-    *&v19 = a4;
-    if (*a3 == 95)
-    {
-      v9 = *(a3 + 1);
-      if (v9 == 83 || v9 == 79)
-      {
-        *(&v19 + 1) = *(a4 + 16);
-        v10 = *(a4 + 8);
-        v17[2] = 1507330;
-        HIDWORD(v18) = v10;
-      }
-    }
-
-    lifs_add_req(v16);
-    v11 = *(a1 + 592);
-    v12 = *(a1 + 808);
+    v12 = 0u;
+    v13 = 0u;
+    v11 = 0u;
+    memset(v10, 0, sizeof(v10));
+    *&v11 = OSAddAtomic64(1, &lifs_request_id);
+    *&v12 = a1;
+    DWORD2(v11) = 983040;
+    DWORD2(v12) = 184;
+    v14 = 0;
+    v15 = 0;
+    *&v13 = a3;
+    lifs_add_req(v10);
     throttle_info_update_with_type();
-    v13 = lifs_getfsattr_send(*v15, *v17, a2, a3);
-    if (v13)
+    v7 = lifs_getattr_send(v9, v11, a2);
+    if (v7)
     {
       lifs_port = 4;
-      if (v13 != 268435463 && v13 != 268451845)
+      if (v7 != 268435463 && v7 != 268451845)
       {
         lifs_port = 5;
       }
 
-      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_getfsattr_send() failed, err: %d\n", "lifs_getfsattr_request", lifs_port);
-      v17[2] |= 1u;
+      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_getattr_send() failed, err: %d\n", "lifs_getattr_request", lifs_port);
+      DWORD2(v11) |= 1u;
       release_lifs_port();
-      lifs_remove_req(v16);
+      lifs_remove_req(v10);
     }
 
     else
     {
       release_lifs_port();
-      lifs_wait_req_completion(v16);
-      return v17[3];
+      lifs_wait_req_completion(v10);
+      return HIDWORD(v11);
     }
   }
 
   return lifs_port;
 }
 
-uint64_t lifs_setfsattr_request(uint64_t a1, __int128 *a2, char *a3, _OWORD *a4, int a5, uint64_t a6)
+uint64_t lifs_getfsattr_request(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4)
 {
-  *v22 = 0;
-  lifs_port = get_lifs_port(v22);
+  *v13 = 0;
+  lifs_port = get_lifs_port(v13);
+  if (!lifs_port)
+  {
+    v16 = 0u;
+    v17 = 0u;
+    *v15 = 0u;
+    memset(v14, 0, sizeof(v14));
+    *v15 = OSAddAtomic64(1, &lifs_request_id);
+    *&v16 = a1;
+    v15[2] = 1507328;
+    DWORD2(v16) = 24;
+    v18 = 0;
+    v19 = 0;
+    *&v17 = a4;
+    if (*a3 == 95)
+    {
+      v9 = *(a3 + 1);
+      if (v9 == 83 || v9 == 79)
+      {
+        *(&v17 + 1) = *(a4 + 16);
+        v10 = *(a4 + 8);
+        v15[2] = 1507330;
+        HIDWORD(v16) = v10;
+      }
+    }
+
+    lifs_add_req(v14);
+    throttle_info_update_with_type();
+    v11 = lifs_getfsattr_send(*v13, *v15, a2, a3);
+    if (v11)
+    {
+      lifs_port = 4;
+      if (v11 != 268435463 && v11 != 268451845)
+      {
+        lifs_port = 5;
+      }
+
+      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_getfsattr_send() failed, err: %d\n", "lifs_getfsattr_request", lifs_port);
+      v15[2] |= 1u;
+      release_lifs_port();
+      lifs_remove_req(v14);
+    }
+
+    else
+    {
+      release_lifs_port();
+      lifs_wait_req_completion(v14);
+      return v15[3];
+    }
+  }
+
+  return lifs_port;
+}
+
+uint64_t lifs_setfsattr_request(uint64_t a1, __int128 *a2, char *a3, _OWORD *a4, uint64_t a5, uint64_t a6)
+{
+  v7 = a5;
+  *v20 = 0;
+  lifs_port = get_lifs_port(v20);
   if (lifs_port)
   {
     v13 = lifs_port;
-    if (lifs_port == 5 && !*v22)
+    if (lifs_port == 5 && !*v20)
     {
       if (!strcmp(a3, "_N_SYNC"))
       {
@@ -983,11 +974,11 @@ uint64_t lifs_setfsattr_request(uint64_t a1, __int128 *a2, char *a3, _OWORD *a4,
   else
   {
     v14 = strcmp(a3, "_O_f_preallocate");
-    memset(v23, 0, sizeof(v23));
-    *v24 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    *v24 = OSAddAtomic64(1, &lifs_request_id);
+    memset(v21, 0, sizeof(v21));
+    *v22 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    *v22 = OSAddAtomic64(1, &lifs_request_id);
     if (v14)
     {
       v15 = 0x20000;
@@ -998,8 +989,8 @@ uint64_t lifs_setfsattr_request(uint64_t a1, __int128 *a2, char *a3, _OWORD *a4,
       v15 = 1441792;
     }
 
-    *&v25 = a1;
-    v24[2] = v15;
+    *&v23 = a1;
+    v22[2] = v15;
     if (v14)
     {
       v16 = 0;
@@ -1010,7 +1001,7 @@ uint64_t lifs_setfsattr_request(uint64_t a1, __int128 *a2, char *a3, _OWORD *a4,
       v16 = 368;
     }
 
-    DWORD2(v25) = v16;
+    DWORD2(v23) = v16;
     if (v14)
     {
       v17 = 0;
@@ -1021,43 +1012,42 @@ uint64_t lifs_setfsattr_request(uint64_t a1, __int128 *a2, char *a3, _OWORD *a4,
       v17 = a6;
     }
 
-    v27 = 0;
-    v28 = 0;
-    *&v26 = v17;
-    lifs_add_req(v23);
-    v18 = *(a1 + 592);
-    v19 = *(a1 + 808);
+    v25 = 0;
+    v26 = 0;
+    *&v24 = v17;
+    lifs_add_req(v21);
     throttle_info_update_with_type();
-    v20 = lifs_setfsattr_send(*v22, *v24, a2, a3, a4, a5);
-    if (v20)
+    v18 = lifs_setfsattr_send(*v20, *v22, a2, a3, a4, v7);
+    if (v18)
     {
       v13 = 4;
-      if (v20 != 268435463 && v20 != 268451845)
+      if (v18 != 268435463 && v18 != 268451845)
       {
         v13 = 5;
       }
 
       _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_setfsattr_send() failed, err: %d\n", "lifs_setfsattr_request", v13);
-      v24[2] |= 1u;
+      v22[2] |= 1u;
       release_lifs_port();
-      lifs_remove_req(v23);
+      lifs_remove_req(v21);
     }
 
     else
     {
       release_lifs_port();
-      lifs_wait_req_completion(v23);
-      return v24[3];
+      lifs_wait_req_completion(v21);
+      return v22[3];
     }
   }
 
   return v13;
 }
 
-uint64_t lifs_setfsattr_request_async(uint64_t a1, __int128 *a2, char *a3, _OWORD *a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t lifs_setfsattr_request_async(uint64_t a1, __int128 *a2, char *a3, _OWORD *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  *v28 = 0;
-  lifs_port = get_lifs_port(v28);
+  v11 = a5;
+  *v26 = 0;
+  lifs_port = get_lifs_port(v26);
   if (!lifs_port)
   {
     if (!strcmp(a3, "_O_f_preallocate"))
@@ -1078,18 +1068,16 @@ uint64_t lifs_setfsattr_request_async(uint64_t a1, __int128 *a2, char *a3, _OWOR
 
     v22 = lifs_request_alloc_init(v18, v19, v20, v21, a6, a7);
     lifs_add_req(v22);
-    v23 = *(a1 + 592);
-    v24 = *(a1 + 808);
     throttle_info_update_with_type();
-    v25 = lifs_setfsattr_send(*v28, *(v22 + 32), a2, a3, a4, a5);
-    if (v25 == 268451845 || v25 == 268435463)
+    v23 = lifs_setfsattr_send(*v26, *(v22 + 32), a2, a3, a4, v11);
+    if (v23 == 268451845 || v23 == 268435463)
     {
       v17 = 4;
     }
 
     else
     {
-      if (!v25)
+      if (!v23)
       {
         release_lifs_port();
         return 0;
@@ -1106,7 +1094,7 @@ uint64_t lifs_setfsattr_request_async(uint64_t a1, __int128 *a2, char *a3, _OWOR
   }
 
   v17 = lifs_port;
-  if (!*v28 && !strcmp(a3, "_N_SYNC"))
+  if (!*v26 && !strcmp(a3, "_N_SYNC"))
   {
     _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: suppressing error on dead port", "lifs_setfsattr_request_async");
     return 0;
@@ -1153,141 +1141,138 @@ uint64_t lifs_request_free(uint64_t a1)
   return kfree_type_impl();
 }
 
-uint64_t lifs_getattrlistbulk_request(uint64_t a1, uint64_t a2, __int128 *a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8, uint64_t a9)
+uint64_t lifs_getattrlistbulk_request(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8, uint64_t a9)
 {
-  v22 = 0;
-  lifs_port = get_lifs_port(&v22);
+  v13 = a4;
+  v20 = 0;
+  lifs_port = get_lifs_port(&v20);
   if (!lifs_port)
   {
-    v24 = 0u;
-    memset(v23, 0, sizeof(v23));
-    *&v24 = OSAddAtomic64(1, &lifs_request_id);
-    v25 = a1;
-    v30 = 0;
-    v31 = 0;
-    DWORD2(v24) = 1048578;
-    v28 = a9;
-    v29 = a7;
-    v26 = 32;
-    v27 = a8;
-    lifs_add_req(v23);
-    v18 = *(a1 + 592);
-    v19 = *(a1 + 808);
+    v22 = 0u;
+    memset(v21, 0, sizeof(v21));
+    *&v22 = OSAddAtomic64(1, &lifs_request_id);
+    v23 = a1;
+    v28 = 0;
+    v29 = 0;
+    DWORD2(v22) = 1048578;
+    v26 = a9;
+    v27 = a7;
+    v24 = 32;
+    v25 = a8;
+    lifs_add_req(v21);
     throttle_info_update_with_type();
-    v20 = lifs_getattrlistbulk_send(v22, v24, a2, a3, a4, a5, a6);
-    if (v20)
+    v18 = lifs_getattrlistbulk_send(v20, v22, a2, a3, v13, a5, a6);
+    if (v18)
     {
       lifs_port = 4;
-      if (v20 != 268435463 && v20 != 268451845)
+      if (v18 != 268435463 && v18 != 268451845)
       {
         lifs_port = 5;
       }
 
       _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_getattrlistbulk_send() failed, err: %d\n", "lifs_getattrlistbulk_request", lifs_port);
-      DWORD2(v24) |= 1u;
+      DWORD2(v22) |= 1u;
       release_lifs_port();
-      lifs_remove_req(v23);
+      lifs_remove_req(v21);
     }
 
     else
     {
       release_lifs_port();
-      lifs_wait_req_completion(v23);
-      return HIDWORD(v24);
+      lifs_wait_req_completion(v21);
+      return HIDWORD(v22);
     }
   }
 
   return lifs_port;
 }
 
-uint64_t lifs_open_request(uint64_t a1, __int128 *a2, int a3)
+uint64_t lifs_open_request(uint64_t a1, __int128 *a2, uint64_t a3)
 {
-  v11 = 0;
-  lifs_port = get_lifs_port(&v11);
+  v3 = a3;
+  v9 = 0;
+  lifs_port = get_lifs_port(&v9);
   if (!lifs_port)
   {
-    v14 = 0u;
-    v15 = 0u;
+    v12 = 0u;
     v13 = 0u;
-    memset(v12, 0, sizeof(v12));
-    *&v13 = OSAddAtomic64(1, &lifs_request_id);
-    *&v14 = a1;
-    DWORD2(v13) = 0x20000;
-    DWORD2(v14) = 0;
-    v16 = 0;
-    v17 = 0;
-    *&v15 = 0;
-    lifs_add_req(v12);
-    v7 = *(a1 + 592);
-    v8 = *(a1 + 808);
+    v11 = 0u;
+    memset(v10, 0, sizeof(v10));
+    *&v11 = OSAddAtomic64(1, &lifs_request_id);
+    *&v12 = a1;
+    DWORD2(v11) = 0x20000;
+    DWORD2(v12) = 0;
+    v14 = 0;
+    v15 = 0;
+    *&v13 = 0;
+    lifs_add_req(v10);
     throttle_info_update_with_type();
-    v9 = lifs_open_send(v11, v13, a2, a3);
-    if (v9)
+    v7 = lifs_open_send(v9, v11, a2, v3);
+    if (v7)
     {
       lifs_port = 4;
-      if (v9 != 268435463 && v9 != 268451845)
+      if (v7 != 268435463 && v7 != 268451845)
       {
         lifs_port = 5;
       }
 
       _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_open_send() failed, err: %d\n", "lifs_open_request", lifs_port);
-      DWORD2(v13) |= 1u;
+      DWORD2(v11) |= 1u;
       release_lifs_port();
-      lifs_remove_req(v12);
+      lifs_remove_req(v10);
     }
 
     else
     {
       release_lifs_port();
-      lifs_wait_req_completion(v12);
-      return HIDWORD(v13);
+      lifs_wait_req_completion(v10);
+      return HIDWORD(v11);
     }
   }
 
   return lifs_port;
 }
 
-uint64_t lifs_close_request(uint64_t a1, __int128 *a2, int a3)
+uint64_t lifs_close_request(uint64_t a1, __int128 *a2, uint64_t a3)
 {
-  v11 = 0;
-  lifs_port = get_lifs_port(&v11);
+  v3 = a3;
+  v9 = 0;
+  lifs_port = get_lifs_port(&v9);
   if (!lifs_port)
   {
-    v14 = 0u;
-    v15 = 0u;
+    v12 = 0u;
     v13 = 0u;
-    memset(v12, 0, sizeof(v12));
-    *&v13 = OSAddAtomic64(1, &lifs_request_id);
-    *&v14 = a1;
-    DWORD2(v13) = 0x20000;
-    DWORD2(v14) = 0;
-    v16 = 0;
-    v17 = 0;
-    *&v15 = 0;
-    lifs_add_req(v12);
-    v7 = *(a1 + 592);
-    v8 = *(a1 + 808);
+    v11 = 0u;
+    memset(v10, 0, sizeof(v10));
+    *&v11 = OSAddAtomic64(1, &lifs_request_id);
+    *&v12 = a1;
+    DWORD2(v11) = 0x20000;
+    DWORD2(v12) = 0;
+    v14 = 0;
+    v15 = 0;
+    *&v13 = 0;
+    lifs_add_req(v10);
     throttle_info_update_with_type();
-    v9 = lifs_close_send(v11, v13, a2, a3);
-    if (v9)
+    v7 = lifs_close_send(v9, v11, a2, v3);
+    if (v7)
     {
       lifs_port = 4;
-      if (v9 != 268435463 && v9 != 268451845)
+      if (v7 != 268435463 && v7 != 268451845)
       {
         lifs_port = 5;
       }
 
       _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_close_send() failed, err: %d\n", "lifs_close_request", lifs_port);
-      DWORD2(v13) |= 1u;
+      DWORD2(v11) |= 1u;
       release_lifs_port();
-      lifs_remove_req(v12);
+      lifs_remove_req(v10);
     }
 
     else
     {
       release_lifs_port();
-      lifs_wait_req_completion(v12);
-      return HIDWORD(v13);
+      lifs_wait_req_completion(v10);
+      return HIDWORD(v11);
     }
   }
 
@@ -1296,45 +1281,43 @@ uint64_t lifs_close_request(uint64_t a1, __int128 *a2, int a3)
 
 uint64_t lifs_rename_request(uint64_t a1, const char *a2, _OWORD *a3, _OWORD *a4, const char *a5, _OWORD *a6, __int128 *a7, int a8, uint64_t a9)
 {
-  v22 = 0;
-  lifs_port = get_lifs_port(&v22);
+  v20 = 0;
+  lifs_port = get_lifs_port(&v20);
   if (!lifs_port)
   {
-    v25 = 0u;
-    v26 = 0u;
+    v23 = 0u;
     v24 = 0u;
-    memset(v23, 0, sizeof(v23));
-    *&v24 = OSAddAtomic64(1, &lifs_request_id);
-    *&v25 = a1;
-    DWORD2(v24) = 458752;
-    DWORD2(v25) = 752;
-    v27 = 0;
-    v28 = 0;
-    *&v26 = a9;
-    lifs_add_req(v23);
-    v18 = *(a1 + 592);
-    v19 = *(a1 + 808);
+    v22 = 0u;
+    memset(v21, 0, sizeof(v21));
+    *&v22 = OSAddAtomic64(1, &lifs_request_id);
+    *&v23 = a1;
+    DWORD2(v22) = 458752;
+    DWORD2(v23) = 752;
+    v25 = 0;
+    v26 = 0;
+    *&v24 = a9;
+    lifs_add_req(v21);
     throttle_info_update_with_type();
-    v20 = lifs_rename_send(v22, v24, a2, a3, a4, a5, a6, a7, a8);
-    if (v20)
+    v18 = lifs_rename_send(v20, v22, a2, a3, a4, a5, a6, a7, a8);
+    if (v18)
     {
       lifs_port = 4;
-      if (v20 != 268435463 && v20 != 268451845)
+      if (v18 != 268435463 && v18 != 268451845)
       {
         lifs_port = 5;
       }
 
       _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_rename_send() failed, err: %d\n", "lifs_rename_request", lifs_port);
-      DWORD2(v24) |= 1u;
+      DWORD2(v22) |= 1u;
       release_lifs_port();
-      lifs_remove_req(v23);
+      lifs_remove_req(v21);
     }
 
     else
     {
       release_lifs_port();
-      lifs_wait_req_completion(v23);
-      return HIDWORD(v24);
+      lifs_wait_req_completion(v21);
+      return HIDWORD(v22);
     }
   }
 
@@ -1343,92 +1326,90 @@ uint64_t lifs_rename_request(uint64_t a1, const char *a2, _OWORD *a3, _OWORD *a4
 
 uint64_t lifs_rmdir_request(uint64_t a1, __int128 *a2, __int128 *a3, const char *a4, uint64_t a5)
 {
-  v15 = 0;
-  lifs_port = get_lifs_port(&v15);
+  v13 = 0;
+  lifs_port = get_lifs_port(&v13);
   if (!lifs_port)
   {
-    v18 = 0u;
-    v19 = 0u;
+    v16 = 0u;
     v17 = 0u;
-    memset(v16, 0, sizeof(v16));
-    *&v17 = OSAddAtomic64(1, &lifs_request_id);
-    *&v18 = a1;
-    DWORD2(v17) = 0x80000;
-    DWORD2(v18) = 200;
-    v20 = 0;
-    v21 = 0;
-    *&v19 = a5;
-    lifs_add_req(v16);
-    v11 = *(a1 + 592);
-    v12 = *(a1 + 808);
+    v15 = 0u;
+    memset(v14, 0, sizeof(v14));
+    *&v15 = OSAddAtomic64(1, &lifs_request_id);
+    *&v16 = a1;
+    DWORD2(v15) = 0x80000;
+    DWORD2(v16) = 200;
+    v18 = 0;
+    v19 = 0;
+    *&v17 = a5;
+    lifs_add_req(v14);
     throttle_info_update_with_type();
-    v13 = lifs_rmdir_send(v15, v17, a2, a3, a4);
-    if (v13)
+    v11 = lifs_rmdir_send(v13, v15, a2, a3, a4);
+    if (v11)
     {
       lifs_port = 4;
-      if (v13 != 268435463 && v13 != 268451845)
+      if (v11 != 268435463 && v11 != 268451845)
       {
         lifs_port = 5;
       }
 
       _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_rmdir_send() failed, err: %d\n", "lifs_rmdir_request", lifs_port);
-      DWORD2(v17) |= 1u;
+      DWORD2(v15) |= 1u;
       release_lifs_port();
-      lifs_remove_req(v16);
+      lifs_remove_req(v14);
     }
 
     else
     {
       release_lifs_port();
-      lifs_wait_req_completion(v16);
-      return HIDWORD(v17);
+      lifs_wait_req_completion(v14);
+      return HIDWORD(v15);
     }
   }
 
   return lifs_port;
 }
 
-uint64_t lifs_readdir_request(uint64_t a1, int a2, uint64_t a3, __int128 *a4, int a5, uint64_t a6, uint64_t a7, int a8, uint64_t a9)
+uint64_t lifs_readdir_request(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8, uint64_t a9)
 {
-  v22 = 0;
-  lifs_port = get_lifs_port(&v22);
+  v12 = a5;
+  v15 = a2;
+  v20 = 0;
+  lifs_port = get_lifs_port(&v20);
   if (!lifs_port)
   {
-    v24 = 0u;
-    memset(v23, 0, sizeof(v23));
-    *&v24 = OSAddAtomic64(1, &lifs_request_id);
-    v25 = a1;
-    v30 = 0;
-    v31 = 0;
-    DWORD2(v24) = 589826;
-    v28 = a9;
-    v29 = a7;
-    v26 = 24;
-    v27 = a8;
-    lifs_add_req(v23);
-    v18 = *(a1 + 592);
-    v19 = *(a1 + 808);
+    v22 = 0u;
+    memset(v21, 0, sizeof(v21));
+    *&v22 = OSAddAtomic64(1, &lifs_request_id);
+    v23 = a1;
+    v28 = 0;
+    v29 = 0;
+    DWORD2(v22) = 589826;
+    v26 = a9;
+    v27 = a7;
+    v24 = 24;
+    v25 = a8;
+    lifs_add_req(v21);
     throttle_info_update_with_type();
-    v20 = lifs_readdir_send(v22, v24, a2, a3, a4, a5, a6);
-    if (v20)
+    v18 = lifs_readdir_send(v20, v22, v15, a3, a4, v12, a6);
+    if (v18)
     {
       lifs_port = 4;
-      if (v20 != 268435463 && v20 != 268451845)
+      if (v18 != 268435463 && v18 != 268451845)
       {
         lifs_port = 5;
       }
 
       _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_readdir_send() failed, err: %d\n", "lifs_readdir_request", lifs_port);
-      DWORD2(v24) |= 1u;
+      DWORD2(v22) |= 1u;
       release_lifs_port();
-      lifs_remove_req(v23);
+      lifs_remove_req(v21);
     }
 
     else
     {
       release_lifs_port();
-      lifs_wait_req_completion(v23);
-      return HIDWORD(v24);
+      lifs_wait_req_completion(v21);
+      return HIDWORD(v22);
     }
   }
 
@@ -1437,53 +1418,6 @@ uint64_t lifs_readdir_request(uint64_t a1, int a2, uint64_t a3, __int128 *a4, in
 
 uint64_t lifs_symlink_request(uint64_t a1, const char *a2, const char *a3, _OWORD *a4, __int128 *a5, uint64_t a6)
 {
-  v17 = 0;
-  lifs_port = get_lifs_port(&v17);
-  if (!lifs_port)
-  {
-    v20 = 0u;
-    v21 = 0u;
-    v19 = 0u;
-    memset(v18, 0, sizeof(v18));
-    *&v19 = OSAddAtomic64(1, &lifs_request_id);
-    *&v20 = a1;
-    DWORD2(v19) = 655360;
-    DWORD2(v20) = 448;
-    v22 = 0;
-    v23 = 0;
-    *&v21 = a6;
-    lifs_add_req(v18);
-    v13 = *(a1 + 592);
-    v14 = *(a1 + 808);
-    throttle_info_update_with_type();
-    v15 = lifs_symlink_send(v17, v19, a2, a3, a4, a5);
-    if (v15)
-    {
-      lifs_port = 4;
-      if (v15 != 268435463 && v15 != 268451845)
-      {
-        lifs_port = 5;
-      }
-
-      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_symlink_send() failed, err: %d\n", "lifs_symlink_request", lifs_port);
-      DWORD2(v19) |= 1u;
-      release_lifs_port();
-      lifs_remove_req(v18);
-    }
-
-    else
-    {
-      release_lifs_port();
-      lifs_wait_req_completion(v18);
-      return HIDWORD(v19);
-    }
-  }
-
-  return lifs_port;
-}
-
-uint64_t lifs_link_request(uint64_t a1, __int128 *a2, const char *a3, _OWORD *a4, uint64_t a5)
-{
   v15 = 0;
   lifs_port = get_lifs_port(&v15);
   if (!lifs_port)
@@ -1494,16 +1428,14 @@ uint64_t lifs_link_request(uint64_t a1, __int128 *a2, const char *a3, _OWORD *a4
     memset(v16, 0, sizeof(v16));
     *&v17 = OSAddAtomic64(1, &lifs_request_id);
     *&v18 = a1;
-    DWORD2(v17) = 720896;
-    DWORD2(v18) = 384;
+    DWORD2(v17) = 655360;
+    DWORD2(v18) = 448;
     v20 = 0;
     v21 = 0;
-    *&v19 = a5;
+    *&v19 = a6;
     lifs_add_req(v16);
-    v11 = *(a1 + 592);
-    v12 = *(a1 + 808);
     throttle_info_update_with_type();
-    v13 = lifs_link_send(v15, v17, a2, a3, a4);
+    v13 = lifs_symlink_send(v15, v17, a2, a3, a4, a5);
     if (v13)
     {
       lifs_port = 4;
@@ -1512,7 +1444,7 @@ uint64_t lifs_link_request(uint64_t a1, __int128 *a2, const char *a3, _OWORD *a4
         lifs_port = 5;
       }
 
-      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_link_send() failed, err: %d\n", "lifs_link_request", lifs_port);
+      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_symlink_send() failed, err: %d\n", "lifs_symlink_request", lifs_port);
       DWORD2(v17) |= 1u;
       release_lifs_port();
       lifs_remove_req(v16);
@@ -1529,94 +1461,136 @@ uint64_t lifs_link_request(uint64_t a1, __int128 *a2, const char *a3, _OWORD *a4
   return lifs_port;
 }
 
-uint64_t lifs_readlink_request(uint64_t a1, __int128 *a2, uint64_t a3)
+uint64_t lifs_link_request(uint64_t a1, __int128 *a2, const char *a3, _OWORD *a4, uint64_t a5)
 {
-  v11 = 0;
-  lifs_port = get_lifs_port(&v11);
+  v13 = 0;
+  lifs_port = get_lifs_port(&v13);
   if (!lifs_port)
   {
-    v14 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v15 = 0u;
-    v13 = 0u;
-    memset(v12, 0, sizeof(v12));
-    *&v13 = OSAddAtomic64(1, &lifs_request_id);
-    *&v14 = a1;
-    DWORD2(v13) = 786432;
-    DWORD2(v14) = 1024;
-    v16 = 0;
-    v17 = 0;
-    *&v15 = a3;
-    lifs_add_req(v12);
-    v7 = *(a1 + 592);
-    v8 = *(a1 + 808);
+    memset(v14, 0, sizeof(v14));
+    *&v15 = OSAddAtomic64(1, &lifs_request_id);
+    *&v16 = a1;
+    DWORD2(v15) = 720896;
+    DWORD2(v16) = 384;
+    v18 = 0;
+    v19 = 0;
+    *&v17 = a5;
+    lifs_add_req(v14);
     throttle_info_update_with_type();
-    v9 = lifs_readlink_send(v11, v13, a2);
-    if (v9)
+    v11 = lifs_link_send(v13, v15, a2, a3, a4);
+    if (v11)
     {
       lifs_port = 4;
-      if (v9 != 268435463 && v9 != 268451845)
+      if (v11 != 268435463 && v11 != 268451845)
       {
         lifs_port = 5;
       }
 
-      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_readlink_send() failed, err: %d\n", "lifs_readlink_request", lifs_port);
-      DWORD2(v13) |= 1u;
+      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_link_send() failed, err: %d\n", "lifs_link_request", lifs_port);
+      DWORD2(v15) |= 1u;
       release_lifs_port();
-      lifs_remove_req(v12);
+      lifs_remove_req(v14);
     }
 
     else
     {
       release_lifs_port();
-      lifs_wait_req_completion(v12);
-      return HIDWORD(v13);
+      lifs_wait_req_completion(v14);
+      return HIDWORD(v15);
     }
   }
 
   return lifs_port;
 }
 
-uint64_t lifs_remove_request(uint64_t a1, __int128 *a2, __int128 *a3, const char *a4, int a5, uint64_t a6)
+uint64_t lifs_readlink_request(uint64_t a1, __int128 *a2, uint64_t a3)
 {
-  v17 = 0;
-  lifs_port = get_lifs_port(&v17);
+  v9 = 0;
+  lifs_port = get_lifs_port(&v9);
   if (!lifs_port)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v19 = 0u;
-    memset(v18, 0, sizeof(v18));
-    *&v19 = OSAddAtomic64(1, &lifs_request_id);
-    *&v20 = a1;
-    DWORD2(v19) = 851968;
-    DWORD2(v20) = 200;
-    v22 = 0;
-    v23 = 0;
-    *&v21 = a6;
-    lifs_add_req(v18);
-    v13 = *(a1 + 592);
-    v14 = *(a1 + 808);
+    v12 = 0u;
+    v13 = 0u;
+    v11 = 0u;
+    memset(v10, 0, sizeof(v10));
+    *&v11 = OSAddAtomic64(1, &lifs_request_id);
+    *&v12 = a1;
+    DWORD2(v11) = 786432;
+    DWORD2(v12) = 1024;
+    v14 = 0;
+    v15 = 0;
+    *&v13 = a3;
+    lifs_add_req(v10);
     throttle_info_update_with_type();
-    v15 = lifs_remove_send(v17, v19, a2, a3, a4, a5);
-    if (v15)
+    v7 = lifs_readlink_send(v9, v11, a2);
+    if (v7)
     {
       lifs_port = 4;
-      if (v15 != 268435463 && v15 != 268451845)
+      if (v7 != 268435463 && v7 != 268451845)
       {
         lifs_port = 5;
       }
 
-      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_remove_send() failed, err: %d\n", "lifs_remove_request", lifs_port);
-      DWORD2(v19) |= 1u;
+      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_readlink_send() failed, err: %d\n", "lifs_readlink_request", lifs_port);
+      DWORD2(v11) |= 1u;
       release_lifs_port();
-      lifs_remove_req(v18);
+      lifs_remove_req(v10);
     }
 
     else
     {
       release_lifs_port();
-      lifs_wait_req_completion(v18);
-      return HIDWORD(v19);
+      lifs_wait_req_completion(v10);
+      return HIDWORD(v11);
+    }
+  }
+
+  return lifs_port;
+}
+
+uint64_t lifs_remove_request(uint64_t a1, __int128 *a2, __int128 *a3, const char *a4, uint64_t a5, uint64_t a6)
+{
+  v7 = a5;
+  v15 = 0;
+  lifs_port = get_lifs_port(&v15);
+  if (!lifs_port)
+  {
+    v18 = 0u;
+    v19 = 0u;
+    v17 = 0u;
+    memset(v16, 0, sizeof(v16));
+    *&v17 = OSAddAtomic64(1, &lifs_request_id);
+    *&v18 = a1;
+    DWORD2(v17) = 851968;
+    DWORD2(v18) = 200;
+    v20 = 0;
+    v21 = 0;
+    *&v19 = a6;
+    lifs_add_req(v16);
+    throttle_info_update_with_type();
+    v13 = lifs_remove_send(v15, v17, a2, a3, a4, v7);
+    if (v13)
+    {
+      lifs_port = 4;
+      if (v13 != 268435463 && v13 != 268451845)
+      {
+        lifs_port = 5;
+      }
+
+      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_remove_send() failed, err: %d\n", "lifs_remove_request", lifs_port);
+      DWORD2(v17) |= 1u;
+      release_lifs_port();
+      lifs_remove_req(v16);
+    }
+
+    else
+    {
+      release_lifs_port();
+      lifs_wait_req_completion(v16);
+      return HIDWORD(v17);
     }
   }
 
@@ -1625,45 +1599,43 @@ uint64_t lifs_remove_request(uint64_t a1, __int128 *a2, __int128 *a3, const char
 
 uint64_t lifs_pathconf_request(uint64_t a1, __int128 *a2, uint64_t a3)
 {
-  v11 = 0;
-  lifs_port = get_lifs_port(&v11);
+  v9 = 0;
+  lifs_port = get_lifs_port(&v9);
   if (!lifs_port)
   {
-    v14 = 0u;
-    v15 = 0u;
+    v12 = 0u;
     v13 = 0u;
-    memset(v12, 0, sizeof(v12));
-    *&v13 = OSAddAtomic64(1, &lifs_request_id);
-    *&v14 = a1;
-    DWORD2(v13) = 1376256;
-    DWORD2(v14) = 28;
-    v16 = 0;
-    v17 = 0;
-    *&v15 = a3;
-    lifs_add_req(v12);
-    v7 = *(a1 + 592);
-    v8 = *(a1 + 808);
+    v11 = 0u;
+    memset(v10, 0, sizeof(v10));
+    *&v11 = OSAddAtomic64(1, &lifs_request_id);
+    *&v12 = a1;
+    DWORD2(v11) = 1376256;
+    DWORD2(v12) = 28;
+    v14 = 0;
+    v15 = 0;
+    *&v13 = a3;
+    lifs_add_req(v10);
     throttle_info_update_with_type();
-    v9 = lifs_pathconf_send(v11, v13, a2);
-    if (v9)
+    v7 = lifs_pathconf_send(v9, v11, a2);
+    if (v7)
     {
       lifs_port = 4;
-      if (v9 != 268435463 && v9 != 268451845)
+      if (v7 != 268435463 && v7 != 268451845)
       {
         lifs_port = 5;
       }
 
       _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_pathconf_send() failed, err: %d\n", "lifs_pathconf_request", lifs_port);
-      DWORD2(v13) |= 1u;
+      DWORD2(v11) |= 1u;
       release_lifs_port();
-      lifs_remove_req(v12);
+      lifs_remove_req(v10);
     }
 
     else
     {
       release_lifs_port();
-      lifs_wait_req_completion(v12);
-      return HIDWORD(v13);
+      lifs_wait_req_completion(v10);
+      return HIDWORD(v11);
     }
   }
 
@@ -1748,62 +1720,62 @@ uint64_t lifs_reclaim_request_async(uint64_t a1, __int128 *a2, uint64_t a3, uint
   return lifs_port;
 }
 
-uint64_t lifs_access_request(uint64_t a1, __int128 *a2, int a3)
+uint64_t lifs_access_request(uint64_t a1, __int128 *a2, uint64_t a3)
 {
-  v11 = 0;
-  lifs_port = get_lifs_port(&v11);
+  v3 = a3;
+  v9 = 0;
+  lifs_port = get_lifs_port(&v9);
   if (!lifs_port)
   {
-    v14 = 0u;
-    v15 = 0u;
+    v12 = 0u;
     v13 = 0u;
-    memset(v12, 0, sizeof(v12));
-    *&v13 = OSAddAtomic64(1, &lifs_request_id);
-    *&v14 = a1;
-    DWORD2(v13) = 0x20000;
-    DWORD2(v14) = 0;
-    v16 = 0;
-    v17 = 0;
-    *&v15 = 0;
-    lifs_add_req(v12);
-    v7 = *(a1 + 592);
-    v8 = *(a1 + 808);
+    v11 = 0u;
+    memset(v10, 0, sizeof(v10));
+    *&v11 = OSAddAtomic64(1, &lifs_request_id);
+    *&v12 = a1;
+    DWORD2(v11) = 0x20000;
+    DWORD2(v12) = 0;
+    v14 = 0;
+    v15 = 0;
+    *&v13 = 0;
+    lifs_add_req(v10);
     throttle_info_update_with_type();
-    v9 = lifs_access_send(v11, v13, a2, a3);
-    if (v9)
+    v7 = lifs_access_send(v9, v11, a2, v3);
+    if (v7)
     {
       lifs_port = 4;
-      if (v9 != 268435463 && v9 != 268451845)
+      if (v7 != 268435463 && v7 != 268451845)
       {
         lifs_port = 5;
       }
 
       _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_access_send() failed, err: %d\n", "lifs_access_request", lifs_port);
-      DWORD2(v13) |= 1u;
+      DWORD2(v11) |= 1u;
       release_lifs_port();
-      lifs_remove_req(v12);
+      lifs_remove_req(v10);
     }
 
     else
     {
       release_lifs_port();
-      lifs_wait_req_completion(v12);
-      return HIDWORD(v13);
+      lifs_wait_req_completion(v10);
+      return HIDWORD(v11);
     }
   }
 
   return lifs_port;
 }
 
-uint64_t lifs_write_request_async(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t lifs_write_request_async(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v11 = a5;
   v21 = 0;
   lifs_port = get_lifs_port(&v21);
   if (!lifs_port)
   {
     v17 = lifs_request_alloc_init(a1, 0x11u, a8, 112, a6, a7);
     lifs_add_req(v17);
-    v18 = lifs_write_send(v21, *(v17 + 32), a2, a3, a4, a5);
+    v18 = lifs_write_send(v21, *(v17 + 32), a2, a3, a4, v11);
     if (v18 == 268451845 || v18 == 268435463)
     {
       lifs_port = 4;
@@ -1830,8 +1802,9 @@ uint64_t lifs_write_request_async(uint64_t a1, __int128 *a2, uint64_t a3, uint64
   return lifs_port;
 }
 
-uint64_t lifs_read_request_async(uint64_t a1, __int128 *a2, int a3, uint64_t a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t lifs_read_request_async(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v13 = a3;
   v21 = 0;
   lifs_port = get_lifs_port(&v21);
   if (!lifs_port)
@@ -1840,7 +1813,7 @@ uint64_t lifs_read_request_async(uint64_t a1, __int128 *a2, int a3, uint64_t a4,
     *(v17 + 40) |= 8u;
     *(v17 + 60) = a5;
     lifs_add_req(v17);
-    send = lifs_read_send(v21, *(v17 + 32), a2, a3, a4);
+    send = lifs_read_send(v21, *(v17 + 32), a2, v13, a4);
     if (send == 268451845 || send == 268435463)
     {
       lifs_port = 4;
@@ -1911,8 +1884,10 @@ uint64_t lifs_get_volume_port_request(uint64_t a1, __int128 *a2, uint64_t a3)
   return lifs_port;
 }
 
-uint64_t lifs_blockmap_file_request(uint64_t a1, __int128 *a2, uint64_t a3, int a4, int a5, uint64_t a6, uint64_t a7)
+uint64_t lifs_blockmap_file_request(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
+  v9 = a5;
+  v10 = a4;
   v17 = 0;
   lifs_port = get_lifs_port(&v17);
   if (!lifs_port)
@@ -1929,7 +1904,7 @@ uint64_t lifs_blockmap_file_request(uint64_t a1, __int128 *a2, uint64_t a3, int 
     v23 = 0;
     *&v21 = a7;
     lifs_add_req(v18);
-    v15 = lifs_blockmap_file_send(v17, v19, a2, a3, a4, a5, a6);
+    v15 = lifs_blockmap_file_send(v17, v19, a2, a3, v10, v9, a6);
     if (v15)
     {
       lifs_port = 4;
@@ -1955,8 +1930,10 @@ uint64_t lifs_blockmap_file_request(uint64_t a1, __int128 *a2, uint64_t a3, int 
   return lifs_port;
 }
 
-uint64_t lifs_endio_request(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, int a5, int a6, uint64_t a7, uint64_t a8)
+uint64_t lifs_endio_request(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v10 = a6;
+  v11 = a5;
   v19 = 0;
   lifs_port = get_lifs_port(&v19);
   if (!lifs_port)
@@ -1973,7 +1950,7 @@ uint64_t lifs_endio_request(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4,
     v25 = 0;
     *&v23 = a8;
     lifs_add_req(v20);
-    v17 = lifs_endio_send(v19, v21, a2, a3, a4, a5, a6, a7);
+    v17 = lifs_endio_send(v19, v21, a2, a3, a4, v11, v10, a7);
     if (v17)
     {
       lifs_port = 4;
@@ -1999,15 +1976,17 @@ uint64_t lifs_endio_request(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4,
   return lifs_port;
 }
 
-uint64_t lifs_endio_request_async(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, int a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+uint64_t lifs_endio_request_async(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
+  v12 = a6;
+  v13 = a5;
   v23 = 0;
   lifs_port = get_lifs_port(&v23);
   if (!lifs_port)
   {
     v19 = lifs_request_alloc_init(a1, 0x2Cu, a10, 88, a8, a9);
     lifs_add_req(v19);
-    v20 = lifs_endio_send(v23, *(v19 + 32), a2, a3, a4, a5, a6, a7);
+    v20 = lifs_endio_send(v23, *(v19 + 32), a2, a3, a4, v13, v12, a7);
     if (v20 == 268451845 || v20 == 268435463)
     {
       lifs_port = 4;
@@ -2163,7 +2142,7 @@ void lifs_req_thread_stop(uint64_t a1)
   lck_mtx_unlock((a1 + 680));
 }
 
-uint64_t lifs_request_done(unint64_t a1, int a2, int a3, const void *a4, unsigned int a5, user_addr_t a6, unsigned int a7)
+uint64_t lifs_request_done(unint64_t a1, int a2, int a3, const void *a4, unsigned int a5, user_addr_t a6, uint64_t a7)
 {
   v7 = 3758097088;
   if ((a1 & 0x8000000000000000) != 0)
@@ -2373,69 +2352,69 @@ LABEL_26:
   __break(0xBFFDu);
 }
 
-uint64_t lifs_getxattr_request(uint64_t a1, __int128 *a2, char *a3, int a4, uint64_t a5, unsigned int a6, uint64_t a7)
+uint64_t lifs_getxattr_request(uint64_t a1, __int128 *a2, char *a3, uint64_t a4, uint64_t a5, unsigned int a6, uint64_t a7)
 {
-  *v19 = 0;
-  lifs_port = get_lifs_port(v19);
+  v10 = a4;
+  *v17 = 0;
+  lifs_port = get_lifs_port(v17);
   if (!lifs_port)
   {
-    v22 = 0u;
-    v23 = 0u;
-    *v21 = 0u;
-    memset(v20, 0, sizeof(v20));
-    *v21 = OSAddAtomic64(1, &lifs_request_id);
-    *&v22 = a1;
-    v21[2] = 1572864;
-    DWORD2(v22) = 24;
-    v24 = 0;
-    v25 = 0;
-    *&v23 = a7;
+    v20 = 0u;
+    v21 = 0u;
+    *v19 = 0u;
+    memset(v18, 0, sizeof(v18));
+    *v19 = OSAddAtomic64(1, &lifs_request_id);
+    *&v20 = a1;
+    v19[2] = 1572864;
+    DWORD2(v20) = 24;
+    v22 = 0;
+    v23 = 0;
+    *&v21 = a7;
     if (a6)
     {
-      *(&v23 + 1) = a5;
-      v21[2] = 1572866;
-      HIDWORD(v22) = a6;
+      *(&v21 + 1) = a5;
+      v19[2] = 1572866;
+      HIDWORD(v20) = a6;
     }
 
-    lifs_add_req(v20);
-    v15 = *(a1 + 592);
-    v16 = *(a1 + 808);
+    lifs_add_req(v18);
     throttle_info_update_with_type();
-    v17 = lifs_getxattr_send(*v19, *v21, a2, a3, a6, a4);
-    if (v17)
+    v15 = lifs_getxattr_send(*v17, *v19, a2, a3, a6, v10);
+    if (v15)
     {
       lifs_port = 4;
-      if (v17 != 268435463 && v17 != 268451845)
+      if (v15 != 268435463 && v15 != 268451845)
       {
         lifs_port = 5;
       }
 
       _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_getxattr_send() failed, err: %d\n", "lifs_getxattr_request", lifs_port);
-      v21[2] |= 1u;
+      v19[2] |= 1u;
       release_lifs_port();
-      lifs_remove_req(v20);
+      lifs_remove_req(v18);
     }
 
     else
     {
       release_lifs_port();
-      lifs_wait_req_completion(v20);
-      return v21[3];
+      lifs_wait_req_completion(v18);
+      return v19[3];
     }
   }
 
   return lifs_port;
 }
 
-uint64_t lifs_setxattr_request(uint64_t a1, __int128 *a2, char *a3, uio_t a_uio, int a5)
+uint64_t lifs_setxattr_request(uint64_t a1, __int128 *a2, char *a3, uio_t a_uio, uint64_t a5)
 {
-  v27 = 0u;
-  v28 = 0u;
-  *v25 = 0u;
+  v5 = a5;
+  v25 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  *v23 = 0u;
   v24 = 0u;
-  *v22 = 0;
+  v21 = 0u;
+  v22 = 0u;
+  *v20 = 0;
   v10 = uio_resid(a_uio);
   v11 = uio_offset(a_uio);
   if (v10 >= 0x400)
@@ -2489,29 +2468,27 @@ LABEL_7:
     goto LABEL_17;
   }
 
-  lifs_port = get_lifs_port(v22);
+  lifs_port = get_lifs_port(v20);
   if (!lifs_port)
   {
-    v26 = 0u;
-    v27 = 0u;
     v24 = 0u;
-    *v25 = 0u;
-    v23 = 0u;
-    *v25 = OSAddAtomic64(1, &lifs_request_id);
-    *&v26 = a1;
-    v25[2] = 0x20000;
-    DWORD2(v26) = 0;
-    v28 = 0uLL;
-    *&v27 = 0;
-    lifs_add_req(&v23);
-    v18 = *(a1 + 592);
-    v19 = *(a1 + 808);
+    v25 = 0u;
+    v22 = 0u;
+    *v23 = 0u;
+    v21 = 0u;
+    *v23 = OSAddAtomic64(1, &lifs_request_id);
+    *&v24 = a1;
+    v23[2] = 0x20000;
+    DWORD2(v24) = 0;
+    v26 = 0uLL;
+    *&v25 = 0;
+    lifs_add_req(&v21);
     throttle_info_update_with_type();
     if (v12 == 1024)
     {
-      v20 = lifs_setxattr_small_send(*v22, *v25, a2, a3, v13, v10, v11, a5);
-      v21 = "small";
-      if (v20)
+      v18 = lifs_setxattr_small_send(*v20, *v23, a2, a3, v13, v10, v11, v5);
+      v19 = "small";
+      if (v18)
       {
         goto LABEL_22;
       }
@@ -2519,25 +2496,25 @@ LABEL_7:
 
     else
     {
-      v20 = lifs_setxattr_large_send(*v22, *v25, a2, a3, 0, v10, v11, a5);
-      v21 = "large";
-      if (v20)
+      v18 = lifs_setxattr_large_send(*v20, *v23, a2, a3, 0, v10, v11, v5);
+      v19 = "large";
+      if (v18)
       {
 LABEL_22:
         v16 = 4;
-        if (v20 != 268435463 && v20 != 268451845)
+        if (v18 != 268435463 && v18 != 268451845)
         {
           v16 = 5;
         }
 
-        _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_setxattr_%s_send() failed, err: %d\n", "lifs_setxattr_request", v21, v16);
-        v25[2] |= 1u;
+        _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_setxattr_%s_send() failed, err: %d\n", "lifs_setxattr_request", v19, v16);
+        v23[2] |= 1u;
         release_lifs_port();
-        lifs_remove_req(&v23);
+        lifs_remove_req(&v21);
 LABEL_28:
-        *v25 = -1;
-        *&v27 = 3735928559;
-        DWORD2(v26) = 0;
+        *v23 = -1;
+        *&v25 = 3735928559;
+        DWORD2(v24) = 0;
         if (!v13)
         {
           return v16;
@@ -2548,8 +2525,8 @@ LABEL_28:
     }
 
     release_lifs_port();
-    lifs_wait_req_completion(&v23);
-    v16 = v25[3];
+    lifs_wait_req_completion(&v21);
+    v16 = v23[3];
     goto LABEL_28;
   }
 
@@ -2566,45 +2543,43 @@ LABEL_17:
 
 uint64_t lifs_removexattr_request(uint64_t a1, __int128 *a2, char *a3)
 {
-  *v11 = 0;
-  lifs_port = get_lifs_port(v11);
+  *v9 = 0;
+  lifs_port = get_lifs_port(v9);
   if (!lifs_port)
   {
-    v14 = 0u;
-    v15 = 0u;
-    *v13 = 0u;
-    memset(v12, 0, sizeof(v12));
-    *v13 = OSAddAtomic64(1, &lifs_request_id);
-    *&v14 = a1;
-    v13[2] = 0x20000;
-    DWORD2(v14) = 0;
-    v16 = 0;
-    v17 = 0;
-    *&v15 = 0;
-    lifs_add_req(v12);
-    v7 = *(a1 + 592);
-    v8 = *(a1 + 808);
+    v12 = 0u;
+    v13 = 0u;
+    *v11 = 0u;
+    memset(v10, 0, sizeof(v10));
+    *v11 = OSAddAtomic64(1, &lifs_request_id);
+    *&v12 = a1;
+    v11[2] = 0x20000;
+    DWORD2(v12) = 0;
+    v14 = 0;
+    v15 = 0;
+    *&v13 = 0;
+    lifs_add_req(v10);
     throttle_info_update_with_type();
-    v9 = lifs_removexattr_send(*v11, *v13, a2, a3);
-    if (v9)
+    v7 = lifs_removexattr_send(*v9, *v11, a2, a3);
+    if (v7)
     {
       lifs_port = 4;
-      if (v9 != 268435463 && v9 != 268451845)
+      if (v7 != 268435463 && v7 != 268451845)
       {
         lifs_port = 5;
       }
 
       _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_removexattr_send() failed, err: %d\n", "lifs_removexattr_request", lifs_port);
-      v13[2] |= 1u;
+      v11[2] |= 1u;
       release_lifs_port();
-      lifs_remove_req(v12);
+      lifs_remove_req(v10);
     }
 
     else
     {
       release_lifs_port();
-      lifs_wait_req_completion(v12);
-      return v13[3];
+      lifs_wait_req_completion(v10);
+      return v11[3];
     }
   }
 
@@ -2613,52 +2588,50 @@ uint64_t lifs_removexattr_request(uint64_t a1, __int128 *a2, char *a3)
 
 uint64_t lifs_listxattr_request(uint64_t a1, __int128 *a2, uint64_t a3, unsigned int a4, uint64_t a5)
 {
-  v15 = 0;
-  lifs_port = get_lifs_port(&v15);
+  v13 = 0;
+  lifs_port = get_lifs_port(&v13);
   if (!lifs_port)
   {
-    v18 = 0u;
-    v19 = 0u;
+    v16 = 0u;
     v17 = 0u;
-    memset(v16, 0, sizeof(v16));
-    *&v17 = OSAddAtomic64(1, &lifs_request_id);
-    *&v18 = a1;
-    DWORD2(v17) = 1572864;
-    DWORD2(v18) = 24;
-    v20 = 0;
-    v21 = 0;
-    *&v19 = a5;
+    v15 = 0u;
+    memset(v14, 0, sizeof(v14));
+    *&v15 = OSAddAtomic64(1, &lifs_request_id);
+    *&v16 = a1;
+    DWORD2(v15) = 1572864;
+    DWORD2(v16) = 24;
+    v18 = 0;
+    v19 = 0;
+    *&v17 = a5;
     if (a4)
     {
-      *(&v19 + 1) = a3;
-      DWORD2(v17) = 1572866;
-      HIDWORD(v18) = a4;
+      *(&v17 + 1) = a3;
+      DWORD2(v15) = 1572866;
+      HIDWORD(v16) = a4;
     }
 
-    lifs_add_req(v16);
-    v11 = *(a1 + 592);
-    v12 = *(a1 + 808);
+    lifs_add_req(v14);
     throttle_info_update_with_type();
-    v13 = lifs_listxattr_send(v15, v17, a2, a4);
-    if (v13)
+    v11 = lifs_listxattr_send(v13, v15, a2, a4);
+    if (v11)
     {
       lifs_port = 4;
-      if (v13 != 268435463 && v13 != 268451845)
+      if (v11 != 268435463 && v11 != 268451845)
       {
         lifs_port = 5;
       }
 
       _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: lifs_listxattr_send() failed, err: %d\n", "lifs_listxattr_request", lifs_port);
-      DWORD2(v17) |= 1u;
+      DWORD2(v15) |= 1u;
       release_lifs_port();
-      lifs_remove_req(v16);
+      lifs_remove_req(v14);
     }
 
     else
     {
       release_lifs_port();
-      lifs_wait_req_completion(v16);
-      return HIDWORD(v17);
+      lifs_wait_req_completion(v14);
+      return HIDWORD(v15);
     }
   }
 
@@ -3074,7 +3047,7 @@ LABEL_4:
 
 uint64_t lifs_vnop_read(uint64_t a1)
 {
-  v19 = 0;
+  v20 = 0;
   v2 = *(a1 + 8);
   v3 = vnode_fsnode(v2);
   v4 = *(a1 + 16);
@@ -3086,7 +3059,7 @@ uint64_t lifs_vnop_read(uint64_t a1)
     kernel_debug_filtered(0x3140045u, v2, v7, v5, v6);
   }
 
-  lifs_mount_from_node = get_lifs_mount_from_node(v3, &v19);
+  lifs_mount_from_node = get_lifs_mount_from_node(v3, &v20);
   if (lifs_mount_from_node)
   {
     v9 = lifs_mount_from_node;
@@ -3126,7 +3099,7 @@ LABEL_5:
   }
 
   v13 = uio_offset(v4);
-  if (v13 >= *(v19 + 840))
+  if (v13 >= *(v20 + 840))
   {
     v9 = 0;
     goto LABEL_5;
@@ -3138,30 +3111,31 @@ LABEL_5:
   v14 = (8 * *(v3 + 88)) & 0x800;
   lck_mtx_unlock(v3);
   v15 = cluster_read(v2, v4, v10, v14 | v6);
+  v16 = v15;
   lifs_issue_endio(v3, v15, 1uLL);
-  v17 = v16;
+  v18 = v17;
   lck_rw_unlock_shared((v3 + 624));
-  if (v17)
-  {
-    v18 = 1;
-  }
-
-  else
-  {
-    v18 = v15 == 0;
-  }
-
   if (v18)
   {
-    v9 = v17;
+    v19 = 1;
   }
 
   else
   {
-    v9 = v15;
+    v19 = v16 == 0;
   }
 
-  if (!(v15 | v17))
+  if (v19)
+  {
+    v9 = v18;
+  }
+
+  else
+  {
+    v9 = v16;
+  }
+
+  if (!(v16 | v18))
   {
     lck_mtx_lock(v3);
     *(v3 + 88) |= 0x8000u;
@@ -3334,7 +3308,6 @@ LABEL_64:
   }
 
   *(v3 + 71) = v25;
-  *(a1 + 24);
   v26 = kalloc_type_impl();
   v27 = v26;
   if (!v21)
@@ -3472,7 +3445,6 @@ LABEL_76:
 LABEL_73:
   v2 = v40;
 LABEL_74:
-  *(a1 + 24);
   kfree_type_impl();
 LABEL_69:
   v9 = v21;
@@ -3512,7 +3484,7 @@ char *lifs_vnop_mkdir(void *a1)
   arg1 = 0;
   v5 = a1[3];
   v37 = 0u;
-  *v38 = 0u;
+  v38 = 0u;
   v35 = 0u;
   v36 = 0u;
   v33 = 0u;
@@ -3571,7 +3543,7 @@ LABEL_17:
     lifs_mount_from_node = lifs_mkdir_request(arg1, v9, v4 + 360, &v15, v14);
     if (!lifs_mount_from_node)
     {
-      lifs_update_freespace(arg1, v38);
+      lifs_update_freespace(arg1, &v38);
       if ((BYTE8(v15) & 1) == 0)
       {
         _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "Unable to retrieve updated attrs from created directory");
@@ -3895,7 +3867,7 @@ uint64_t lifs_vnop_remove(uint64_t a1)
               goto LABEL_9;
             }
 
-            v6 |= 0x8000u;
+            v6 = v6 | 0x8000;
           }
 
           else
@@ -3953,7 +3925,7 @@ void lifs_vnop_link(void *a1)
   v4 = vnode_fsnode(v2);
   v5 = vnode_fsnode(v1);
   arg1 = 0;
-  *v11 = 0u;
+  v11 = 0u;
   memset(v10, 0, sizeof(v10));
   if (!get_lifs_mount_from_node(v4, &arg1))
   {
@@ -3983,7 +3955,7 @@ void lifs_vnop_link(void *a1)
       v7 = lifs_link_request(arg1, (v5 + 360), __dst, (v4 + 360), v10);
       if (!v7)
       {
-        lifs_update_freespace(arg1, v11);
+        lifs_update_freespace(arg1, &v11);
         update_lnode_attr(v5, v10);
         update_lnode_attr(v4, &v10[11] + 8);
         lifs_invalidate_dirattrcache_ext(v4, 1);
@@ -4185,7 +4157,7 @@ uint64_t lifs_vnop_symlink(void *a1)
   v5 = a1[5];
   v6 = vnode_fsnode(v2);
   arg1 = 0;
-  *v18 = 0u;
+  v18 = 0u;
   memset(v17, 0, sizeof(v17));
   memset(v16, 0, sizeof(v16));
   lifs_mount_from_node = get_lifs_mount_from_node(v6, &arg1);
@@ -4224,7 +4196,7 @@ LABEL_12:
     lifs_mount_from_node = lifs_symlink_request(arg1, v9, v8, v6 + 360, v17, v16);
     if (!lifs_mount_from_node)
     {
-      lifs_update_freespace(arg1, v18);
+      lifs_update_freespace(arg1, &v18);
       lifs_create_node(*(arg1 + 448), v16, v2, v4, v17, v3);
       lifs_mount_from_node = v12;
       if (v12)
@@ -4399,41 +4371,41 @@ uint64_t lifs_vnop_reclaim(uint64_t a1)
     return 22;
   }
 
-  v17 = 0;
+  v16 = 0;
   cache_purge(v1);
   v2 = vnode_fsnode(v1);
-  lifs_mount_from_node = get_lifs_mount_from_node(v2, &v17);
+  lifs_mount_from_node = get_lifs_mount_from_node(v2, &v16);
   v4 = lifs_mount_from_node;
   if (lifs_mount_from_node == 6 || lifs_mount_from_node == 0)
   {
     if ((kdebug_enable & 0xFFFFFFF7) != 0)
     {
-      v6 = v17;
+      v6 = v16;
       v7 = vnode_usecount();
       kernel_debug_filtered(0x314007Du, v6, v1, v2, v7);
     }
 
     vnode_removefsref(v1);
-    v8 = *(v17 + 448);
-    if (v8 && !vfs_isforce(*(v17 + 448)) && !vnode_isvroot(v1))
+    v8 = *(v16 + 448);
+    if (v8 && !vfs_isforce(*(v16 + 448)) && !vnode_isvroot(v1))
     {
       if (vfs_isunmount(v8))
       {
-        v16[0] = 0;
-        v16[1] = 0;
-        LODWORD(v4) = lifs_reclaim_request(v17, (v2 + 360), v16);
+        v15[0] = 0;
+        v15[1] = 0;
+        LODWORD(v4) = lifs_reclaim_request(v16, (v2 + 360), v15);
         if (!v4)
         {
-          lifs_update_freespace(v17, v16);
+          lifs_update_freespace(v16, v15);
         }
       }
 
       else
       {
-        v14 = kalloc_type_impl();
-        v15 = v17;
-        *v14 = v17;
-        LODWORD(v4) = lifs_reclaim_request_async(v15, (v2 + 360), lifs_reclaim_done, v14, (v14 + 1));
+        v13 = kalloc_type_impl();
+        v14 = v16;
+        *v13 = v16;
+        LODWORD(v4) = lifs_reclaim_request_async(v14, (v2 + 360), lifs_reclaim_done, v13, (v13 + 1));
       }
     }
 
@@ -4441,17 +4413,17 @@ uint64_t lifs_vnop_reclaim(uint64_t a1)
     lck_mtx_lock(v2);
     *(v2 + 88) |= 4u;
     lck_mtx_unlock(v2);
-    lck_mtx_lock((v17 + 96));
-    v9 = v17;
-    if (v1 == *(v17 + 16))
+    lck_mtx_lock((v16 + 96));
+    v9 = v16;
+    if (v1 == *(v16 + 16))
     {
-      *(v17 + 16) = 0;
+      *(v16 + 16) = 0;
     }
 
     else
     {
       lifs_hashremove(v2);
-      v9 = v17;
+      v9 = v16;
     }
 
     lck_mtx_unlock((v9 + 96));
@@ -4459,8 +4431,7 @@ uint64_t lifs_vnop_reclaim(uint64_t a1)
     {
       lck_rw_lock_exclusive((v2 + 944));
       lifs_purge_extents(*(v2 + 117));
-      v10 = *(v2 + 117);
-      lifs_deinit_extent_tree();
+      lifs_deinit_extent_tree(*(v2 + 117));
       lck_rw_unlock_exclusive((v2 + 944));
     }
 
@@ -4474,9 +4445,9 @@ uint64_t lifs_vnop_reclaim(uint64_t a1)
     kfree_type_impl();
     if ((kdebug_enable & 0xFFFFFFF7) != 0)
     {
-      v11 = v17;
-      v12 = vnode_usecount();
-      kernel_debug_filtered(0x314007Eu, v11, v1, v12, v4);
+      v10 = v16;
+      v11 = vnode_usecount();
+      kernel_debug_filtered(0x314007Eu, v10, v1, v11, v4);
     }
 
     return 0;
@@ -5014,7 +4985,7 @@ char *lifs_vnop_create(void *a1)
   v4 = vnode_fsnode(v3);
   arg1 = 0;
   v5 = a1[3];
-  *v19 = 0u;
+  v19 = 0u;
   memset(v18, 0, sizeof(v18));
   memset(v17, 0, sizeof(v17));
   lifs_mount_from_node = get_lifs_mount_from_node(v4, &arg1);
@@ -5064,7 +5035,7 @@ LABEL_13:
     lifs_mount_from_node = lifs_create_request(arg1, v9, v4 + 360, v18, v17);
     if (!lifs_mount_from_node)
     {
-      lifs_update_freespace(arg1, v19);
+      lifs_update_freespace(arg1, &v19);
       lifs_create_node(*(arg1 + 448), v17, v3, v5, v18, v2);
       lifs_mount_from_node = v10;
       if (v10)
@@ -6228,7 +6199,7 @@ uint64_t lifs_vnop_strategy(void *a1)
   v2 = a1[1];
   v3 = buf_vnode(v2);
   v4 = vnode_fsnode(v3);
-  v62 = 0;
+  v60 = 0;
   v5 = buf_count(v2);
   v6 = buf_flags(v2);
   v7 = buf_kernel_addrperm_addr();
@@ -6245,9 +6216,9 @@ uint64_t lifs_vnop_strategy(void *a1)
       kernel_debug_filtered(0x31400B5u, v9, v12, v13, v11);
     }
 
-    v63 = 0;
-    v64 = 0;
-    lifs_port = get_lifs_port(&v64);
+    v61 = 0;
+    v62 = 0;
+    lifs_port = get_lifs_port(&v62);
     LODWORD(arg4) = lifs_port;
     if (lifs_port)
     {
@@ -6275,14 +6246,14 @@ uint64_t lifs_vnop_strategy(void *a1)
       v20 = (v10 + 360);
       if (v11)
       {
-        v21 = (&v63 + 4);
-        v22 = lifs_read_wrapped_send(v64, v20, v15, v16, ident_port, &v63 + 1, &arg4);
+        v21 = (&v61 + 4);
+        v22 = lifs_read_wrapped_send(v62, v20, v15, v16, ident_port, &v61 + 1, &arg4);
       }
 
       else
       {
-        v21 = &v63;
-        v22 = lifs_write_wrapped_send(v64, v20, v15, v16, ident_port, &v63, &arg4);
+        v21 = &v61;
+        v22 = lifs_write_wrapped_send(v62, v20, v15, v16, ident_port, &v61, &arg4);
       }
 
       v53 = v22;
@@ -6322,7 +6293,7 @@ LABEL_50:
     kernel_debug_filtered(0x31400A1u, v3, v7, v23, v6 | (v5 << 32));
   }
 
-  lifs_mount_from_node = get_lifs_mount_from_node(v4, &v62);
+  lifs_mount_from_node = get_lifs_mount_from_node(v4, &v60);
   if (lifs_mount_from_node)
   {
     v25 = lifs_mount_from_node;
@@ -6340,9 +6311,9 @@ LABEL_50:
   {
     if ((*(v4 + 353) & 8) != 0)
     {
-      v49 = v62;
+      v49 = v60;
       v50 = a1[1];
-      explicit = atomic_load_explicit((v62 + 792), memory_order_acquire);
+      explicit = atomic_load_explicit((v60 + 792), memory_order_acquire);
       if (explicit)
       {
         lifs_dev_ref(v49);
@@ -6398,7 +6369,7 @@ LABEL_50:
       *(v36 + 32) = v2;
       *(v36 + 16) = v6 & 1;
       v37 = buf_blkno(v2);
-      v38 = v37 * vfs_devblocksize(*(v62 + 448));
+      v38 = v37 * vfs_devblocksize(*(v60 + 448));
       lck_mtx_lock_spin();
       v39 = 608;
       if (*(v36 + 16))
@@ -6413,22 +6384,22 @@ LABEL_50:
         v42 = v40 - v38;
         if (*(v36 + 16))
         {
-          v43 = vfs_devblocksize(*(v62 + 448));
+          v43 = vfs_devblocksize(*(v60 + 448));
           v44 = v40 - v38;
           if (v42 % v43)
           {
-            v45 = vfs_devblocksize(*(v62 + 448));
-            v46 = vfs_devblocksize(*(v62 + 448));
+            v45 = vfs_devblocksize(*(v60 + 448));
+            v46 = vfs_devblocksize(*(v60 + 448));
             v44 = v45 + v42 / v46 * v46;
           }
 
           if (v44 < v5)
           {
             LODWORD(v5) = v42;
-            if (v42 % vfs_devblocksize(*(v62 + 448)))
+            if (v42 % vfs_devblocksize(*(v60 + 448)))
             {
-              v47 = vfs_devblocksize(*(v62 + 448));
-              v48 = vfs_devblocksize(*(v62 + 448));
+              v47 = vfs_devblocksize(*(v60 + 448));
+              v48 = vfs_devblocksize(*(v60 + 448));
               LODWORD(v5) = v47 + v42 / v48 * v48;
             }
           }
@@ -6442,26 +6413,24 @@ LABEL_50:
 
       *(v36 + 40) = v5;
       *(v36 + 17) = 0;
-      v57 = *(v62 + 592);
-      v58 = *(v62 + 808);
       throttle_info_update_with_type();
       if ((*(v36 + 16) & 1) != 0 || v5 < lifs_max_inline_io_size || vnode_isrecycled(v3) || vnode_ref(v3))
       {
-        lifs_submit_io(v62, v36);
+        lifs_submit_io(v60, v36);
       }
 
       else
       {
         *(v36 + 17) = 1;
-        lck_mtx_lock((v62 + 712));
+        lck_mtx_lock((v60 + 712));
         *v36 = 0;
-        v59 = *(v62 + 640);
-        *(v36 + 8) = v59;
-        *v59 = v36;
-        v60 = v62;
-        *(v62 + 640) = v36;
-        wakeup_one((v60 + 632));
-        lck_mtx_unlock((v62 + 712));
+        v57 = *(v60 + 640);
+        *(v36 + 8) = v57;
+        *v57 = v36;
+        v58 = v60;
+        *(v60 + 640) = v36;
+        wakeup_one((v58 + 632));
+        lck_mtx_unlock((v60 + 712));
       }
 
       v25 = 0;
@@ -6484,18 +6453,18 @@ uint64_t lifs_vnop_inactive(uint64_t a1)
     kernel_debug_filtered(0x31400A5u, *(a1 + 8), 0, 0, 0);
   }
 
-  v22 = 0;
-  lifs_mount_from_node = get_lifs_mount_from_node(v2, &v22);
+  v18 = 0;
+  lifs_mount_from_node = get_lifs_mount_from_node(v2, &v18);
   if (lifs_mount_from_node)
   {
     v4 = lifs_mount_from_node;
     if (lifs_mount_from_node == 6)
     {
       lck_mtx_lock(v2);
-      v5 = v2[88];
+      v5 = *(v2 + 88);
       if ((v5 & 0x40) != 0)
       {
-        v2[88] = v5 & 0xFFFFFFBF;
+        *(v2 + 88) = v5 & 0xFFFFFFBF;
         v6 = *(v2 + 73);
         *(v2 + 73) = 0;
       }
@@ -6505,12 +6474,11 @@ uint64_t lifs_vnop_inactive(uint64_t a1)
         v6 = 0;
       }
 
-      v10 = *(v2 + 113);
-      if (v10)
+      v9 = *(v2 + 113);
+      if (v9)
       {
-        v11 = v2[228];
         *(v2 + 113) = 0;
-        v2[228] = 0;
+        *(v2 + 228) = 0;
       }
 
       lck_mtx_unlock(v2);
@@ -6520,7 +6488,7 @@ uint64_t lifs_vnop_inactive(uint64_t a1)
         kfree_data();
       }
 
-      if (v10)
+      if (v9)
       {
         kfree_data();
       }
@@ -6528,9 +6496,9 @@ uint64_t lifs_vnop_inactive(uint64_t a1)
 
     if ((kdebug_enable & 0xFFFFFFF7) != 0)
     {
-      v12 = -1;
+      v10 = -1;
 LABEL_37:
-      kernel_debug_filtered(0x31400A6u, *(a1 + 8), v4, v12, 0);
+      kernel_debug_filtered(0x31400A6u, *(a1 + 8), v4, v10, 0);
       return 0;
     }
 
@@ -6538,31 +6506,30 @@ LABEL_37:
   }
 
   lck_mtx_lock(v2);
-  v7 = v2[88];
+  v7 = *(v2 + 88);
   v8 = *(v2 + 113);
   if (v8)
   {
-    v9 = v2[228];
     *(v2 + 113) = 0;
-    v2[228] = 0;
+    *(v2 + 228) = 0;
   }
 
-  v13 = v2[145];
+  v11 = *(v2 + 145);
   lck_mtx_unlock(v2);
   lifs_invalidate_dirattrcache(v2);
   lck_mtx_lock(v2);
-  *(v2 + 218) = 0u;
-  *(v2 + 222) = 0u;
-  *(v2 + 210) = 0u;
-  *(v2 + 214) = 0u;
-  *(v2 + 202) = 0u;
-  *(v2 + 206) = 0u;
-  *(v2 + 194) = 0u;
-  *(v2 + 198) = 0u;
-  *(v2 + 186) = 0u;
-  *(v2 + 190) = 0u;
-  *(v2 + 178) = 0u;
-  *(v2 + 182) = 0u;
+  *(v2 + 872) = 0u;
+  *(v2 + 888) = 0u;
+  *(v2 + 840) = 0u;
+  *(v2 + 856) = 0u;
+  *(v2 + 808) = 0u;
+  *(v2 + 824) = 0u;
+  *(v2 + 776) = 0u;
+  *(v2 + 792) = 0u;
+  *(v2 + 744) = 0u;
+  *(v2 + 760) = 0u;
+  *(v2 + 712) = 0u;
+  *(v2 + 728) = 0u;
   lck_mtx_unlock(v2);
   if (v8)
   {
@@ -6571,41 +6538,41 @@ LABEL_37:
 
   if ((v7 & 0x40) != 0)
   {
-    v15 = vnode_getparent(*(a1 + 8));
-    if (v15)
+    v13 = vnode_getparent(*(a1 + 8));
+    if (v13)
     {
-      v16 = v15;
-      if (v13 == vnode_vid(v15))
+      v14 = v13;
+      if (v11 == vnode_vid(v13))
       {
-        v17 = vnode_fsnode(v16);
-        lck_rw_lock_exclusive((v22 + 128));
+        v15 = vnode_fsnode(v14);
+        lck_rw_lock_exclusive((v18 + 128));
         lck_mtx_lock(v2);
-        if ((v2[88] & 0x40) != 0)
+        if ((v2[352] & 0x40) != 0)
         {
-          *&v37 = 0;
-          v35 = 0u;
-          v36 = 0u;
-          v33 = 0u;
-          v34 = 0u;
+          *&v33 = 0;
           v31 = 0u;
           v32 = 0u;
-          v30 = 0u;
-          v28 = 0u;
           v29 = 0u;
-          v26 = 0u;
+          v30 = 0u;
           v27 = 0u;
+          v28 = 0u;
+          v26 = 0u;
+          v24 = 0u;
           v25 = 0u;
+          v22 = 0u;
+          v23 = 0u;
+          v21 = 0u;
           lck_mtx_unlock(v2);
-          v4 = lifs_remove_request(v22, (v17 + 360), (v2 + 90), *(v2 + 73), 0, &v25);
+          v4 = lifs_remove_request(v18, (v15 + 360), (v2 + 360), *(v2 + 73), 0, &v21);
           if (!v4)
           {
-            lifs_update_freespace(v22, &v36 + 1);
+            lifs_update_freespace(v18, &v32 + 1);
             cache_purge(*(a1 + 8));
           }
 
           lck_mtx_lock(v2);
-          v2[88] &= ~0x40u;
-          v18 = *(v2 + 73);
+          *(v2 + 88) &= ~0x40u;
+          v16 = *(v2 + 73);
           *(v2 + 73) = 0;
           lck_mtx_unlock(v2);
         }
@@ -6613,13 +6580,13 @@ LABEL_37:
         else
         {
           lck_mtx_unlock(v2);
-          v18 = 0;
+          v16 = 0;
           v4 = 0;
         }
 
-        lck_rw_unlock_exclusive((v22 + 128));
-        vnode_put(v16);
-        if (v18)
+        lck_rw_unlock_exclusive((v18 + 128));
+        vnode_put(v14);
+        if (v16)
         {
           kfree_data();
         }
@@ -6628,19 +6595,17 @@ LABEL_37:
       }
 
       lck_mtx_lock(v2);
-      v2[88] &= ~0x40u;
-      v20 = *(v2 + 73);
+      *(v2 + 88) &= ~0x40u;
       *(v2 + 73) = 0;
       lck_mtx_unlock(v2);
       kfree_data();
-      vnode_put(v16);
+      vnode_put(v14);
     }
 
     else
     {
       lck_mtx_lock(v2);
-      v2[88] &= ~0x40u;
-      v19 = *(v2 + 73);
+      *(v2 + 88) &= ~0x40u;
       *(v2 + 73) = 0;
       lck_mtx_unlock(v2);
       kfree_data();
@@ -6652,13 +6617,9 @@ LABEL_37:
 
   v4 = 0;
 LABEL_22:
-  v14 = *(v22 + 32);
-  if ((v14 & 0x2000) != 0 || (v14 & 0x4000) != 0 && (v7 & 0x80000) != 0 || (v14 & 0x8000) != 0 && (v7 & 0x40000) != 0)
+  v12 = *(v18 + 32);
+  if ((v12 & 0x2000) != 0 || (v12 & 0x4000) != 0 && (v7 & 0x80000) != 0 || (v12 & 0x8000) != 0 && (v7 & 0x40000) != 0)
   {
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
     v42 = 0u;
     v43 = 0u;
     v40 = 0u;
@@ -6677,11 +6638,15 @@ LABEL_22:
     v29 = 0u;
     v26 = 0u;
     v27 = 0u;
+    v24 = 0u;
     v25 = 0u;
-    v23[0] = *"_N_INACTIVE";
-    v23[1] = unk_3D90;
-    v24 = 0;
-    lifs_setfsattr_request(v22, (v2 + 90), v23, &v25, 8, &v25);
+    v22 = 0u;
+    v23 = 0u;
+    v21 = 0u;
+    v19[0] = *"_N_INACTIVE";
+    v19[1] = unk_3D90;
+    v20 = 0;
+    lifs_setfsattr_request(v18, (v2 + 360), v19, &v21, 8, &v21);
   }
 
   else if ((*&v7 & 0x40400) != 0 && !vnode_isrecycled(*(a1 + 8)))
@@ -6692,7 +6657,7 @@ LABEL_22:
 LABEL_35:
   if ((kdebug_enable & 0xFFFFFFF7) != 0)
   {
-    v12 = 0;
+    v10 = 0;
     goto LABEL_37;
   }
 
@@ -7034,7 +6999,7 @@ uint64_t lifs_vnop_pagein(uint64_t a1)
 {
   v2 = *(a1 + 8);
   v3 = vnode_fsnode(v2);
-  v36 = 0;
+  v37 = 0;
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
   if ((kdebug_enable & 0xFFFFFFF7) != 0)
@@ -7057,14 +7022,14 @@ uint64_t lifs_vnop_pagein(uint64_t a1)
       lck_rw_lock_shared((v3 + 624));
     }
 
-    v33 = v7;
-    v34 = v2;
-    if ((v4 & 0x8000000000000000) != 0 || (v32 = *(v3 + 76), v4 >= v32) || (v8 = 1 << PAGE_SHIFT_CONST, ((v4 | v5) & ((1 << PAGE_SHIFT_CONST) - 1)) != 0))
+    v34 = v7;
+    v35 = v2;
+    if ((v4 & 0x8000000000000000) != 0 || (v33 = *(v3 + 76), v4 >= v33) || (v8 = 1 << PAGE_SHIFT_CONST, ((v4 | v5) & ((1 << PAGE_SHIFT_CONST) - 1)) != 0))
     {
-      if (!ubc_create_upl(v2, v4, v5, &v36, &upl, 134217984))
+      if (!ubc_create_upl(v2, v4, v5, &v37, &upl, 134217984))
       {
-        ubc_upl_range_needed(v36, *(a1 + 24) >> PAGE_SHIFT_CONST, 1);
-        ubc_upl_abort_range(v36, 0, v5, 12);
+        ubc_upl_range_needed(v37, *(a1 + 24) >> PAGE_SHIFT_CONST, 1);
+        ubc_upl_abort_range(v37, 0, v5, 12);
       }
 
       v6 = 22;
@@ -7102,7 +7067,7 @@ uint64_t lifs_vnop_pagein(uint64_t a1)
           v17 = *(v3 + 77);
         }
 
-        v32 = v17;
+        v33 = v17;
         if (v15 >= v14)
         {
           v4 = v14;
@@ -7110,9 +7075,9 @@ uint64_t lifs_vnop_pagein(uint64_t a1)
       }
 
       v6 = 22;
-      if (!ubc_create_upl(v2, v4, v5, &v36, &upl, 134217984) && v36)
+      if (!ubc_create_upl(v2, v4, v5, &v37, &upl, 134217984) && v37)
       {
-        ubc_upl_range_needed(v36, *(a1 + 24) >> PAGE_SHIFT_CONST, 1);
+        ubc_upl_range_needed(v37, *(a1 + 24) >> PAGE_SHIFT_CONST, 1);
         v18 = v5 / (1 << PAGE_SHIFT_CONST);
         while (1)
         {
@@ -7131,7 +7096,7 @@ uint64_t lifs_vnop_pagein(uint64_t a1)
           v18 = v6;
           if (!v6)
           {
-            ubc_upl_abort_range(v36, 0, v5, 8);
+            ubc_upl_abort_range(v37, 0, v5, 8);
             goto LABEL_34;
           }
         }
@@ -7168,36 +7133,37 @@ uint64_t lifs_vnop_pagein(uint64_t a1)
                 v25 = v26 << PAGE_SHIFT_CONST;
               }
 
-              v28 = cluster_pagein(v34, v36, v21, v4, v25, v32, *(a1 + 48));
+              v28 = cluster_pagein(v35, v37, v21, v4, v25, v33, *(a1 + 48));
+              v29 = v28;
               lifs_issue_endio(v3, v28, 1uLL);
-              if (v29)
+              if (v30)
               {
-                v30 = v29;
+                v31 = v30;
               }
 
               else
               {
-                v30 = v28;
+                v31 = v29;
               }
 
               if (v6)
               {
-                v31 = 1;
+                v32 = 1;
               }
 
               else
               {
-                v31 = v30 == 0;
+                v32 = v31 == 0;
               }
 
-              if (v31)
+              if (v32)
               {
                 v6 = v6;
               }
 
               else
               {
-                v6 = v30;
+                v6 = v31;
               }
             }
 
@@ -7218,12 +7184,12 @@ uint64_t lifs_vnop_pagein(uint64_t a1)
     }
 
 LABEL_34:
-    if (v33 != *(v3 + 80))
+    if (v34 != *(v3 + 80))
     {
       lck_rw_unlock_shared((v3 + 624));
     }
 
-    v2 = v34;
+    v2 = v35;
     if (!v6)
     {
       lck_mtx_lock(v3);
@@ -7946,7 +7912,7 @@ char *lifs_vnop_clonefile(uint64_t a1)
   v7 = vnode_fsnode(v3);
   arg1 = 0;
   v8 = *(a1 + 32);
-  *v22 = 0u;
+  v22 = 0u;
   memset(v21, 0, sizeof(v21));
   memset(v20, 0, sizeof(v20));
   lifs_mount_from_node = get_lifs_mount_from_node(v6, &arg1);
@@ -8002,7 +7968,7 @@ LABEL_15:
     lifs_mount_from_node = lifs_clonefile_request(arg1, v12, v6 + 360, v7 + 360, *(a1 + 48), v21, v20);
     if (!lifs_mount_from_node)
     {
-      lifs_update_freespace(arg1, v22);
+      lifs_update_freespace(arg1, &v22);
       lifs_create_node(*(arg1 + 448), v20, v2, v8, v21, v4);
       lifs_mount_from_node = v13;
       cache_purge_negatives(v2);
@@ -8036,7 +8002,7 @@ LABEL_15:
   return result;
 }
 
-void lifs_issue_endio(uintptr_t arg1, int a2, uintptr_t arg4)
+void lifs_issue_endio(uintptr_t arg1, uint64_t a2, uintptr_t arg4)
 {
   v3 = arg4;
   v6 = *(arg1 + 528);
@@ -8635,13 +8601,14 @@ LABEL_91:
   return v7;
 }
 
-uint64_t lifs_copyin_to_upl(uint64_t a1, user_addr_t a2, unsigned int a3)
+uint64_t lifs_copyin_to_upl(uint64_t a1, user_addr_t a2, uint64_t a3)
 {
+  v3 = a3;
   v5 = *(a1 + 32);
   v6 = buf_upl(v5);
   v7 = buf_uploffset(v5);
 
-  return lifs_copy_upl_data(v6, v7, a2, a3, 0);
+  return lifs_copy_upl_data(v6, v7, a2, v3, 0);
 }
 
 uint64_t lifs_copy_upl_data(ipc_port *a1, int a2, user_addr_t a3, unsigned int a4, int a5)
@@ -8931,7 +8898,7 @@ LABEL_14:
   return v6;
 }
 
-size_t lifs_vnop_dorename(vnode *a1, vnode *a2, vnode *a3, vnode *a4, uint64_t a5, uint64_t a6, int a7, vfs_context *a8)
+char *lifs_vnop_dorename(vnode *a1, vnode *a2, vnode *a3, vnode *a4, uint64_t a5, uint64_t a6, int a7, vfs_context *a8)
 {
   bzero(v49, 0x268uLL);
   v14 = vnode_fsnode(a1);
@@ -9147,11 +9114,11 @@ LABEL_32:
   return result;
 }
 
-uint64_t lifs_reclaim_done(uint64_t a1, int a2)
+uint64_t lifs_reclaim_done(void *a1, int a2)
 {
   if (!a2)
   {
-    lifs_update_freespace(*a1, (a1 + 8));
+    lifs_update_freespace(*a1, a1 + 1);
   }
 
   return kfree_type_impl();
@@ -9409,10 +9376,9 @@ void lifs_endio_thread_stop(uint64_t a1)
   lck_mtx_unlock(v2);
 }
 
-uint64_t lifs_get_extent_layout(uint64_t a1, uintptr_t arg1, uint64_t a3, uintptr_t arg2, uintptr_t arg3, int a6)
+uint64_t lifs_get_extent_layout(uint64_t a1, uintptr_t arg1, uint64_t a3, uintptr_t arg2, uint64_t arg3, int a6)
 {
   v6 = a6;
-  v7 = arg3;
   v12 = a6 & 3;
   if ((kdebug_enable & 0xFFFFFFF7) != 0)
   {
@@ -9425,7 +9391,7 @@ uint64_t lifs_get_extent_layout(uint64_t a1, uintptr_t arg1, uint64_t a3, uintpt
   memset(v23, 0, sizeof(v23));
   if (!v12)
   {
-    v17 = lifs_blockmap_file_request(a1, v13, arg2, v7, 15, 0, v23);
+    v17 = lifs_blockmap_file_request(a1, v13, arg2, arg3, 15, 0, v23);
     if (v17)
     {
       v16 = v17;
@@ -9501,7 +9467,7 @@ LABEL_27:
     v14 = 527;
   }
 
-  v15 = lifs_blockmap_file_request(a1, v13, arg2, v7, v14, *(a3 + 32), v23);
+  v15 = lifs_blockmap_file_request(a1, v13, arg2, arg3, v14, *(a3 + 32), v23);
   if (!v15)
   {
     *(a3 + 64) = 1;
@@ -9830,4 +9796,52 @@ IOUserClient *AppleLIFSUserClient::MetaClass::alloc(AppleLIFSUserClient::MetaCla
   IOUserClient::IOUserClient(v1, &AppleLIFSUserClient::gMetaClass)->__vftable = off_2D190;
   OSMetaClass::instanceConstructed(&AppleLIFSUserClient::gMetaClass);
   return v1;
+}
+
+uint64_t AppleLIFSUserClient::methodCreateMapping(AppleLIFSUserClient *this, AppleLIFSUserClient *a2, void *a3, IOExternalMethodArguments *a4)
+{
+  v4 = a3[6];
+  v5 = a3[11];
+  *(&v14.__vftable + 4) = 0;
+  LODWORD(v14.__vftable) = 0;
+  v6 = current_task();
+  v8 = IOUserClient::copyObjectForPortNameInTask(v6, *v4, &v14.__vftable + 4, v7);
+  if (!v8)
+  {
+    v10 = OSMetaClassBase::safeMetaCast(*(&v14.__vftable + 4), &IOWrappedMemoryDescriptor::gMetaClass);
+    if (v10)
+    {
+      v11 = v10;
+      MappingInTask = IOWrappedMemoryDescriptor::createMappingInTask(v10, v6, *(v4 + 1), v4[4], *(v4 + 3), *(v4 + 4));
+      (v11->release_0)(v11);
+      if (MappingInTask)
+      {
+        *v5 = (MappingInTask->getVirtualAddress)(MappingInTask);
+        v5[1] = (MappingInTask->getLength)(MappingInTask);
+        v8 = IOUserClient::copyPortNameForObjectInTask(v6, MappingInTask, &v14, v13);
+        if (v8)
+        {
+          (MappingInTask->release_0)(MappingInTask);
+        }
+
+        else
+        {
+          v5[2] = LODWORD(v14.__vftable);
+        }
+      }
+
+      else
+      {
+        return 3758097096;
+      }
+    }
+
+    else
+    {
+      (*(**(&v14.__vftable + 4) + 40))(*(&v14.__vftable + 4));
+      return 3758096385;
+    }
+  }
+
+  return v8;
 }

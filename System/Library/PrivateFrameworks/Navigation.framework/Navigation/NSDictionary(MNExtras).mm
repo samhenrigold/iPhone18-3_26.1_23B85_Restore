@@ -10,7 +10,7 @@
 
 + (id)_navigation_serverStringDictionaryForMapItem:()MNExtras
 {
-  v16[3] = *MEMORY[0x1E69E9840];
+  v15[3] = *MEMORY[0x1E69E9840];
   v3 = a3;
   geoAddress = [v3 geoAddress];
   hasStructuredAddress = [geoAddress hasStructuredAddress];
@@ -50,15 +50,13 @@
     v6 = v11;
   }
 
-  v15[0] = @"{Address}";
-  v15[1] = @"{StreetName}";
-  v16[0] = fullThoroughfare;
-  v16[1] = thoroughfare;
-  v15[2] = @"{Name}";
-  v16[2] = v6;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v14[0] = @"{Address}";
+  v14[1] = @"{StreetName}";
+  v15[0] = fullThoroughfare;
+  v15[1] = thoroughfare;
+  v14[2] = @"{Name}";
+  v15[2] = v6;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   return v12;
 }
@@ -134,31 +132,31 @@ LABEL_8:
 
 + (void)_navigation_stringTokensForDirectionsError:()MNExtras waypoints:
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   content = [v6 content];
   formatTokens = [content formatTokens];
 
-  v11 = [formatTokens countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v11 = [formatTokens countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v11)
   {
-    v12 = *v24;
+    v12 = *v23;
     while (2)
     {
       for (i = 0; i != v11; i = i + 1)
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(formatTokens);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * i);
+        v14 = *(*(&v22 + 1) + 8 * i);
         if ([v14 type] == 18)
         {
           v11 = v14;
@@ -166,7 +164,7 @@ LABEL_8:
         }
       }
 
-      v11 = [formatTokens countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [formatTokens countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v11)
       {
         continue;
@@ -206,7 +204,6 @@ LABEL_11:
 
   v20 = v19;
 
-  v21 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

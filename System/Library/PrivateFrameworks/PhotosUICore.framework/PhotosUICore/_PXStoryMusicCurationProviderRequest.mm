@@ -31,16 +31,16 @@
   }
 
   self->_hasStarted = 1;
-  options = [(_PXStoryMusicCurationProviderRequest *)self options];
-  categories = [options categories];
+  v3 = objc_msgSend_options(self, a2);
+  categories = [v3 categories];
 
   if ([categories count])
   {
     PXExists();
   }
 
-  options2 = [(_PXStoryMusicCurationProviderRequest *)self options];
-  logContext = [options2 logContext];
+  v5 = objc_msgSend_options(self);
+  logContext = [v5 logContext];
 
   assetContainer = [(_PXStoryMusicCurationProviderRequest *)self assetContainer];
   v6 = PLStoryGetLog();
@@ -51,8 +51,8 @@
     if (os_signpost_enabled(v6))
     {
       identifier = [assetContainer identifier];
-      options3 = [(_PXStoryMusicCurationProviderRequest *)self options];
-      categories2 = [options3 categories];
+      v9 = objc_msgSend_options(self);
+      categories2 = [v9 categories];
       recentlyUsedAppleMusicSongIDs = [(_PXStoryMusicCurationProviderRequest *)self recentlyUsedAppleMusicSongIDs];
       recentlyUsedFlexSongIDs = [(_PXStoryMusicCurationProviderRequest *)self recentlyUsedFlexSongIDs];
       *buf = 134219522;

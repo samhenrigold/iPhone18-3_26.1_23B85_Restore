@@ -1,6 +1,6 @@
 @interface UIView(SUAdditions)
 - (uint64_t)centerSubviewInBounds:()SUAdditions;
-- (uint64_t)superviewOfClass:()SUAdditions;
+- (void)superviewOfClass:()SUAdditions;
 @end
 
 @implementation UIView(SUAdditions)
@@ -18,7 +18,7 @@
   return [a3 setAutoresizingMask:45];
 }
 
-- (uint64_t)superviewOfClass:()SUAdditions
+- (void)superviewOfClass:()SUAdditions
 {
   while (1)
   {

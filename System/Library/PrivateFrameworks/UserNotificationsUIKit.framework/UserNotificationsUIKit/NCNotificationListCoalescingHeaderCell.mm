@@ -53,7 +53,7 @@
 
 + (double)coalescingHeaderCellHeightForWidth:(double)width title:(id)title
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277D74300];
   v7 = *MEMORY[0x277D76A20];
   titleCopy = title;
@@ -111,9 +111,9 @@
   }
 
   v25 = width - (v19 + v24);
-  v30 = *MEMORY[0x277D740A8];
-  v31[0] = v9;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+  v32 = *MEMORY[0x277D740A8];
+  v33[0] = v9;
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
   [titleCopy boundingRectWithSize:1 options:v26 attributes:coalescingHeaderCellHeightForWidth_title____drawingContext context:{v25, 0.0}];
 
   if (v22 != 1)
@@ -125,12 +125,12 @@
   }
 
   [v9 lineHeight];
-  [coalescingHeaderCellHeightForWidth_title____drawingContext numberOfLineFragments];
-  _NCMainScreenScale();
+  numberOfLineFragments = [coalescingHeaderCellHeightForWidth_title____drawingContext numberOfLineFragments];
+  _NCMainScreenScale(numberOfLineFragments, v28);
   UICeilToScale();
-  v28 = v27;
+  v30 = v29;
 
-  return v28;
+  return v30;
 }
 
 - (void)resetClearButtonStateAnimated:(BOOL)animated
@@ -457,39 +457,39 @@ LABEL_6:
   }
 
 LABEL_7:
-  v33.origin.x = x;
-  v33.origin.y = y;
-  v33.size.width = width;
-  v33.size.height = height;
-  v30 = x;
-  v22 = y;
-  v23 = CGRectGetWidth(v33);
-  v34.origin.x = rect;
-  v34.origin.y = v10;
-  v34.size.width = v12;
-  v34.size.height = v14;
-  v24 = v23 - CGRectGetWidth(v34);
-  y = v22;
-  x = v30;
-  v19 = v24 - v19;
-LABEL_8:
   v35.origin.x = x;
   v35.origin.y = y;
   v35.size.width = width;
   v35.size.height = height;
-  CGRectGetHeight(v35);
-  v36.origin.x = v19;
+  v32 = x;
+  v22 = y;
+  v23 = CGRectGetWidth(v35);
+  v36.origin.x = rect;
   v36.origin.y = v10;
   v36.size.width = v12;
   v36.size.height = v14;
-  CGRectGetHeight(v36);
-  _NCMainScreenScale();
+  v24 = v23 - CGRectGetWidth(v36);
+  y = v22;
+  x = v32;
+  v19 = v24 - v19;
+LABEL_8:
+  v37.origin.x = x;
+  v37.origin.y = y;
+  v37.size.width = width;
+  v37.size.height = height;
+  CGRectGetHeight(v37);
+  v38.origin.x = v19;
+  v38.origin.y = v10;
+  v38.size.width = v12;
+  v38.size.height = v14;
+  CGRectGetHeight(v38);
+  _NCMainScreenScale(v25, v26);
 
   UIRectIntegralWithScale();
-  result.size.height = v28;
-  result.size.width = v27;
-  result.origin.y = v26;
-  result.origin.x = v25;
+  result.size.height = v30;
+  result.size.width = v29;
+  result.origin.y = v28;
+  result.origin.x = v27;
   return result;
 }
 
@@ -514,10 +514,10 @@ LABEL_8:
   IsAX = _NCSizeCategoryIsAX(preferredContentSizeCategory);
 
   [(NCNotificationListCoalescingHeaderCell *)self _coalescingControlsViewFrameForBounds:v4, v6, v8, v10];
-  v42 = v15;
-  v43 = v14;
-  v40 = v16;
-  v41 = v17;
+  v44 = v15;
+  v45 = v14;
+  v42 = v16;
+  v43 = v17;
   if (IsAX)
   {
     v18 = 12.0;
@@ -529,16 +529,16 @@ LABEL_8:
   }
 
   headerTitleView = self->_headerTitleView;
-  v46.origin.x = v4;
-  v46.origin.y = v6;
-  v46.size.width = v8;
-  v46.size.height = v10;
-  Width = CGRectGetWidth(v46);
-  v47.origin.x = v4;
-  v47.origin.y = v6;
-  v47.size.width = v8;
-  v47.size.height = v10;
-  [(NCNotificationListHeaderTitleView *)headerTitleView sizeThatFits:Width, CGRectGetHeight(v47) - v18];
+  v48.origin.x = v4;
+  v48.origin.y = v6;
+  v48.size.width = v8;
+  v48.size.height = v10;
+  Width = CGRectGetWidth(v48);
+  v49.origin.x = v4;
+  v49.origin.y = v6;
+  v49.size.width = v8;
+  v49.size.height = v10;
+  [(NCNotificationListHeaderTitleView *)headerTitleView sizeThatFits:Width, CGRectGetHeight(v49) - v18];
   BSRectWithSize();
   v22 = v21;
   rect = v23;
@@ -546,11 +546,11 @@ LABEL_8:
   v27 = v26;
   if ([(NCNotificationListCoalescingHeaderCell *)self _shouldReverseLayoutDirection])
   {
-    v48.origin.x = v4;
-    v48.origin.y = v6;
-    v48.size.width = v8;
-    v48.size.height = v10;
-    v28 = CGRectGetWidth(v48);
+    v50.origin.x = v4;
+    v50.origin.y = v6;
+    v50.size.width = v8;
+    v50.size.height = v10;
+    v28 = CGRectGetWidth(v50);
     currentDevice = [MEMORY[0x277D75418] currentDevice];
     userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
@@ -566,18 +566,18 @@ LABEL_8:
       v32 = [currentDevice verticalSizeClass] == 2;
     }
 
-    v36 = 6.0;
+    v38 = 6.0;
     if (v32)
     {
-      v36 = 10.0;
+      v38 = 10.0;
     }
 
-    v37 = v28 - v36;
-    v49.origin.x = v22;
-    v49.origin.y = rect;
-    v49.size.width = v25;
-    v49.size.height = v27;
-    v35 = v37 - CGRectGetWidth(v49);
+    v39 = v28 - v38;
+    v51.origin.x = v22;
+    v51.origin.y = rect;
+    v51.size.width = v25;
+    v51.size.height = v27;
+    v37 = v39 - CGRectGetWidth(v51);
     if (v31 == 1)
     {
       if (IsAX)
@@ -606,25 +606,26 @@ LABEL_22:
     currentDevice = [MEMORY[0x277D75C80] currentTraitCollection];
     if ([currentDevice verticalSizeClass] == 2)
     {
-      v35 = 10.0;
+      v37 = 10.0;
     }
 
     else
     {
-      v35 = 6.0;
+      v37 = 6.0;
     }
 
     goto LABEL_22;
   }
 
-  if (([*v11 activeInterfaceOrientation] - 1) >= 2)
+  activeInterfaceOrientation = [*v11 activeInterfaceOrientation];
+  if ((activeInterfaceOrientation - 1) >= 2)
   {
-    v35 = 6.0;
+    v37 = 6.0;
   }
 
   else
   {
-    v35 = 10.0;
+    v37 = 10.0;
   }
 
   if (IsAX)
@@ -633,36 +634,36 @@ LABEL_22:
   }
 
 LABEL_23:
-  v50.origin.x = v4;
-  v50.origin.y = v6;
-  v50.size.width = v8;
-  v50.size.height = v10;
-  Height = CGRectGetHeight(v50);
-  v51.origin.x = v43;
-  v51.origin.y = v40;
-  v51.size.width = v42;
-  v51.size.height = v41;
-  if ((Height / CGRectGetHeight(v51)) >= 2)
+  v52.origin.x = v4;
+  v52.origin.y = v6;
+  v52.size.width = v8;
+  v52.size.height = v10;
+  Height = CGRectGetHeight(v52);
+  v53.origin.x = v45;
+  v53.origin.y = v42;
+  v53.size.width = v44;
+  v53.size.height = v43;
+  if ((Height / CGRectGetHeight(v53)) >= 2)
   {
-    v52.origin.x = v35;
-    v52.origin.y = rect;
-    v52.size.width = v25;
-    v52.size.height = v27;
-    CGRectGetHeight(v52);
-    v53.origin.x = v43;
-    v53.origin.y = v40;
-    v53.size.width = v42;
-    v53.size.height = v41;
-    CGRectGetHeight(v53);
+    v54.origin.x = v37;
+    v54.origin.y = rect;
+    v54.size.width = v25;
+    v54.size.height = v27;
+    CGRectGetHeight(v54);
+    v55.origin.x = v45;
+    v55.origin.y = v42;
+    v55.size.width = v44;
+    v55.size.height = v43;
+    CGRectGetHeight(v55);
   }
 
-  UIRectCenteredYInRect();
+  activeInterfaceOrientation = UIRectCenteredYInRect();
 LABEL_26:
-  _NCMainScreenScale();
+  _NCMainScreenScale(activeInterfaceOrientation, v36);
   UIRectIntegralWithScale();
-  v39 = self->_headerTitleView;
+  v41 = self->_headerTitleView;
 
-  [(NCNotificationListHeaderTitleView *)v39 setFrame:?];
+  [(NCNotificationListHeaderTitleView *)v41 setFrame:?];
 }
 
 - (NCNotificationListCoalescingControlsHandlerDelegate)handlerDelegate

@@ -37,9 +37,7 @@
     lastStore = self->_lastStore;
     self->_lastStore = 0;
 
-    v6 = [(NEKStore *)self->_eventStore freshEventStoreFor:self->_cause];
-    v7 = self->_lastStore;
-    self->_lastStore = v6;
+    self->_lastStore = [(NEKStore *)self->_eventStore freshEventStoreFor:self->_cause];
 
     _objc_release_x1();
   }

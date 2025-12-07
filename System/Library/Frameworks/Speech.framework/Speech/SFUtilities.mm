@@ -154,7 +154,7 @@ void __27__SFUtilities_hasSPIAccess__block_invoke()
 
 + (unint64_t)cooldownTimerTimeoutSeconds
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (SFIsInternalInstall_onceToken != -1)
   {
     dispatch_once(&SFIsInternalInstall_onceToken, &__block_literal_global_2153);
@@ -183,30 +183,29 @@ void __27__SFUtilities_hasSPIAccess__block_invoke()
   v4 = SFLogFramework;
   if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "+[SFUtilities cooldownTimerTimeoutSeconds]";
-    v9 = 2048;
-    v10 = unsignedIntegerValue;
-    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "%s On-Device ASR: Cooldown scheduled for %zus.", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "+[SFUtilities cooldownTimerTimeoutSeconds]";
+    v8 = 2048;
+    v9 = unsignedIntegerValue;
+    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "%s On-Device ASR: Cooldown scheduled for %zus.", &v6, 0x16u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return unsignedIntegerValue;
 }
 
 + (BOOL)isANETypeAtLeastVersion:(int)version prefix:(id)prefix
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   prefixCopy = prefix;
   v6 = +[SFUtilities aneSubType];
   v7 = SFLogFramework;
   if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 136315394;
-    v19 = "+[SFUtilities isANETypeAtLeastVersion:prefix:]";
-    v20 = 2112;
-    v21 = v6;
-    _os_log_debug_impl(&dword_1AC5BC000, v7, OS_LOG_TYPE_DEBUG, "%s Device aneSubType: %@", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "+[SFUtilities isANETypeAtLeastVersion:prefix:]";
+    v19 = 2112;
+    v20 = v6;
+    _os_log_debug_impl(&dword_1AC5BC000, v7, OS_LOG_TYPE_DEBUG, "%s Device aneSubType: %@", &v17, 0x16u);
     if (!v6)
     {
       goto LABEL_7;
@@ -234,26 +233,25 @@ LABEL_7:
   v14 = SFLogFramework;
   if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_DEBUG))
   {
-    v17 = @"is NOT";
-    v18 = 136315906;
-    v19 = "+[SFUtilities isANETypeAtLeastVersion:prefix:]";
-    v20 = 2112;
+    v16 = @"is NOT";
+    v17 = 136315906;
+    v18 = "+[SFUtilities isANETypeAtLeastVersion:prefix:]";
+    v19 = 2112;
     if (v12 >= version)
     {
-      v17 = @"is";
+      v16 = @"is";
     }
 
-    v21 = v17;
-    v22 = 2112;
-    v23 = prefixCopy;
-    v24 = 1024;
+    v20 = v16;
+    v21 = 2112;
+    v22 = prefixCopy;
+    v23 = 1024;
     versionCopy = version;
-    _os_log_debug_impl(&dword_1AC5BC000, v14, OS_LOG_TYPE_DEBUG, "%s Device %@ %@%d+", &v18, 0x26u);
+    _os_log_debug_impl(&dword_1AC5BC000, v14, OS_LOG_TYPE_DEBUG, "%s Device %@ %@%d+", &v17, 0x26u);
     v13 = isANETypeAtLeastVersion_prefix__isANETypeHigher;
   }
 
 LABEL_8:
-  v15 = *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 
@@ -287,35 +285,35 @@ LABEL_8:
 
 + (void)loadSpeechProfiles:(id)profiles language:(id)language
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   profilesCopy = profiles;
   languageCopy = language;
   if (profilesCopy)
   {
-    v39 = languageCopy;
+    v38 = languageCopy;
     v8 = [self speechProfilePathsForLanguage:languageCopy];
-    v40 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v39 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v46 objects:v57 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v45 objects:v56 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v47;
-      v41 = *MEMORY[0x1E696A350];
+      v12 = *v46;
+      v40 = *MEMORY[0x1E696A350];
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v47 != v12)
+          if (*v46 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v46 + 1) + 8 * i);
+          v14 = *(*(&v45 + 1) + 8 * i);
           v15 = [profilesCopy objectForKey:v14];
           if (v15)
           {
@@ -324,7 +322,7 @@ LABEL_8:
 
             if (v17)
             {
-              v18 = [v17 objectForKey:v41];
+              v18 = [v17 objectForKey:v40];
               [v18 timeIntervalSinceReferenceDate];
               v20 = v19;
               loadDate = [v15 loadDate];
@@ -333,14 +331,14 @@ LABEL_8:
 
               if (v20 > 0.0 && v23 > 0.0 && v20 <= v23)
               {
-                [v40 setObject:v15 forKey:v14];
+                [v39 setObject:v15 forKey:v14];
                 v25 = SFLogFramework;
                 if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136315395;
-                  v51 = "+[SFUtilities loadSpeechProfiles:language:]";
-                  v52 = 2113;
-                  v53 = v14;
+                  v50 = "+[SFUtilities loadSpeechProfiles:language:]";
+                  v51 = 2113;
+                  v52 = v14;
                   _os_log_debug_impl(&dword_1AC5BC000, v25, OS_LOG_TYPE_DEBUG, "%s Reused new type of speech profile: path=%{private}@", buf, 0x16u);
                 }
               }
@@ -348,35 +346,35 @@ LABEL_8:
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v46 objects:v57 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v45 objects:v56 count:16];
       }
 
       while (v11);
     }
 
     [profilesCopy removeAllObjects];
-    [profilesCopy addEntriesFromDictionary:v40];
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
+    [profilesCopy addEntriesFromDictionary:v39];
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v26 = v9;
-    v27 = [v26 countByEnumeratingWithState:&v42 objects:v56 count:16];
+    v27 = [v26 countByEnumeratingWithState:&v41 objects:v55 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v43;
+      v29 = *v42;
       do
       {
         v30 = 0;
         do
         {
-          if (*v43 != v29)
+          if (*v42 != v29)
           {
             objc_enumerationMutation(v26);
           }
 
-          v31 = *(*(&v42 + 1) + 8 * v30);
+          v31 = *(*(&v41 + 1) + 8 * v30);
           v32 = [profilesCopy objectForKey:v31];
 
           if (!v32)
@@ -387,11 +385,11 @@ LABEL_8:
             if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315651;
-              v51 = "+[SFUtilities loadSpeechProfiles:language:]";
-              v52 = 2113;
-              v53 = v31;
-              v54 = 1024;
-              v55 = v34 != 0;
+              v50 = "+[SFUtilities loadSpeechProfiles:language:]";
+              v51 = 2113;
+              v52 = v31;
+              v53 = 1024;
+              v54 = v34 != 0;
               _os_log_debug_impl(&dword_1AC5BC000, v35, OS_LOG_TYPE_DEBUG, "%s Loaded new type of speech profile: path=%{private}@ profile=%d", buf, 0x1Cu);
               if (v34)
               {
@@ -411,14 +409,14 @@ LABEL_28:
         }
 
         while (v28 != v30);
-        v36 = [v26 countByEnumeratingWithState:&v42 objects:v56 count:16];
+        v36 = [v26 countByEnumeratingWithState:&v41 objects:v55 count:16];
         v28 = v36;
       }
 
       while (v36);
     }
 
-    languageCopy = v39;
+    languageCopy = v38;
   }
 
   else
@@ -427,17 +425,15 @@ LABEL_28:
     if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v51 = "+[SFUtilities loadSpeechProfiles:language:]";
+      v50 = "+[SFUtilities loadSpeechProfiles:language:]";
       _os_log_error_impl(&dword_1AC5BC000, v37, OS_LOG_TYPE_ERROR, "%s profiles cannot be nil.", buf, 0xCu);
     }
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 + (void)loadSpeechProfiles:(id)profiles speechProfileContainers:(id)containers language:(id)language
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   profilesCopy = profiles;
   containersCopy = containers;
   languageCopy = language;
@@ -448,47 +444,47 @@ LABEL_28:
     {
       v11 = v10;
       *buf = 136315394;
-      v68 = "+[SFUtilities loadSpeechProfiles:speechProfileContainers:language:]";
-      v69 = 2048;
-      v70 = [containersCopy count];
+      v67 = "+[SFUtilities loadSpeechProfiles:speechProfileContainers:language:]";
+      v68 = 2048;
+      v69 = [containersCopy count];
       _os_log_impl(&dword_1AC5BC000, v11, OS_LOG_TYPE_DEFAULT, "%s MUX: Checking %zu container(s) for valid speech profiles.", buf, 0x16u);
     }
 
     containersCopy = [SFUtilities speechProfilePathsForLanguage:languageCopy speechProfileContainers:containersCopy, languageCopy, containersCopy];
-    v51 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v52 = containersCopy;
+    v50 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v51 = containersCopy;
+    v61 = 0u;
     v62 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v65 = 0u;
     obj = [containersCopy allKeys];
-    v13 = [obj countByEnumeratingWithState:&v62 objects:v73 count:16];
+    v13 = [obj countByEnumeratingWithState:&v61 objects:v72 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v63;
-      v53 = *MEMORY[0x1E696A350];
+      v15 = *v62;
+      v52 = *MEMORY[0x1E696A350];
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v63 != v15)
+          if (*v62 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v62 + 1) + 8 * i);
+          v17 = *(*(&v61 + 1) + 8 * i);
           v18 = [profilesCopy objectForKey:v17];
           if (v18)
           {
             defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-            v61 = 0;
-            v20 = [defaultManager attributesOfItemAtPath:v17 error:&v61];
-            v21 = v61;
+            v60 = 0;
+            v20 = [defaultManager attributesOfItemAtPath:v17 error:&v60];
+            v21 = v60;
 
             if (v20)
             {
-              v22 = [v20 objectForKey:v53];
+              v22 = [v20 objectForKey:v52];
               [v22 timeIntervalSinceReferenceDate];
               v24 = v23;
               loadDate = [v18 loadDate];
@@ -497,14 +493,14 @@ LABEL_28:
 
               if (v24 > 0.0 && v27 > 0.0 && v24 <= v27)
               {
-                [v51 setObject:v18 forKey:v17];
+                [v50 setObject:v18 forKey:v17];
                 v29 = SFLogFramework;
                 if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_INFO))
                 {
                   *buf = 136315394;
-                  v68 = "+[SFUtilities loadSpeechProfiles:speechProfileContainers:language:]";
-                  v69 = 2112;
-                  v70 = v17;
+                  v67 = "+[SFUtilities loadSpeechProfiles:speechProfileContainers:language:]";
+                  v68 = 2112;
+                  v69 = v17;
                   _os_log_impl(&dword_1AC5BC000, v29, OS_LOG_TYPE_INFO, "%s MUX: Reusing cached speech profile at path: %@", buf, 0x16u);
                 }
               }
@@ -516,11 +512,11 @@ LABEL_28:
               if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315650;
-                v68 = "+[SFUtilities loadSpeechProfiles:speechProfileContainers:language:]";
-                v69 = 2112;
-                v70 = v17;
-                v71 = 2112;
-                v72 = v21;
+                v67 = "+[SFUtilities loadSpeechProfiles:speechProfileContainers:language:]";
+                v68 = 2112;
+                v69 = v17;
+                v70 = 2112;
+                v71 = v21;
                 _os_log_error_impl(&dword_1AC5BC000, v31, OS_LOG_TYPE_ERROR, "%s MUX: Failed to retrieve file attributes at path: %@, error: %@", buf, 0x20u);
               }
             }
@@ -532,62 +528,62 @@ LABEL_28:
             if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v68 = "+[SFUtilities loadSpeechProfiles:speechProfileContainers:language:]";
-              v69 = 2112;
-              v70 = v17;
+              v67 = "+[SFUtilities loadSpeechProfiles:speechProfileContainers:language:]";
+              v68 = 2112;
+              v69 = v17;
               _os_log_error_impl(&dword_1AC5BC000, v30, OS_LOG_TYPE_ERROR, "%s MUX: No cached speech profile for path: %@", buf, 0x16u);
             }
           }
         }
 
-        v14 = [obj countByEnumeratingWithState:&v62 objects:v73 count:16];
+        v14 = [obj countByEnumeratingWithState:&v61 objects:v72 count:16];
       }
 
       while (v14);
     }
 
     [profilesCopy removeAllObjects];
-    [profilesCopy addEntriesFromDictionary:v51];
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
+    [profilesCopy addEntriesFromDictionary:v50];
     v58 = 0u;
-    obja = [v52 allKeys];
-    v32 = [obja countByEnumeratingWithState:&v57 objects:v66 count:16];
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
+    obja = [v51 allKeys];
+    v32 = [obja countByEnumeratingWithState:&v56 objects:v65 count:16];
     if (v32)
     {
       v33 = v32;
-      v34 = *v58;
+      v34 = *v57;
       do
       {
         for (j = 0; j != v33; ++j)
         {
-          if (*v58 != v34)
+          if (*v57 != v34)
           {
             objc_enumerationMutation(obja);
           }
 
-          v36 = *(*(&v57 + 1) + 8 * j);
+          v36 = *(*(&v56 + 1) + 8 * j);
           v37 = [profilesCopy objectForKey:v36];
 
           if (!v37)
           {
-            v38 = [v52 objectForKey:v36];
+            v38 = [v51 objectForKey:v36];
             userId = [v38 userId];
 
             v40 = objc_alloc(MEMORY[0x1E699BA30]);
-            v56 = 0;
-            v41 = [v40 initWithPath:v36 userId:userId recognitionOnly:0 error:&v56];
-            v42 = v56;
+            v55 = 0;
+            v41 = [v40 initWithPath:v36 userId:userId recognitionOnly:0 error:&v55];
+            v42 = v55;
             v43 = SFLogFramework;
             if (v41)
             {
               if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_INFO))
               {
                 *buf = 136315394;
-                v68 = "+[SFUtilities loadSpeechProfiles:speechProfileContainers:language:]";
-                v69 = 2112;
-                v70 = v36;
+                v67 = "+[SFUtilities loadSpeechProfiles:speechProfileContainers:language:]";
+                v68 = 2112;
+                v69 = v36;
                 _os_log_impl(&dword_1AC5BC000, v43, OS_LOG_TYPE_INFO, "%s MUX: Loaded speech profile at path: %@", buf, 0x16u);
               }
 
@@ -600,17 +596,17 @@ LABEL_28:
             else if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315650;
-              v68 = "+[SFUtilities loadSpeechProfiles:speechProfileContainers:language:]";
-              v69 = 2112;
-              v70 = v36;
-              v71 = 2112;
-              v72 = v42;
+              v67 = "+[SFUtilities loadSpeechProfiles:speechProfileContainers:language:]";
+              v68 = 2112;
+              v69 = v36;
+              v70 = 2112;
+              v71 = v42;
               _os_log_error_impl(&dword_1AC5BC000, v43, OS_LOG_TYPE_ERROR, "%s MUX: Failed to load speech profile at path: %@, error: %@", buf, 0x20u);
             }
           }
         }
 
-        v33 = [obja countByEnumeratingWithState:&v57 objects:v66 count:16];
+        v33 = [obja countByEnumeratingWithState:&v56 objects:v65 count:16];
       }
 
       while (v33);
@@ -622,54 +618,52 @@ LABEL_28:
       v46 = v45;
       v47 = [profilesCopy count];
       *buf = 136315394;
-      v68 = "+[SFUtilities loadSpeechProfiles:speechProfileContainers:language:]";
-      v69 = 2048;
-      v70 = v47;
+      v67 = "+[SFUtilities loadSpeechProfiles:speechProfileContainers:language:]";
+      v68 = 2048;
+      v69 = v47;
       _os_log_impl(&dword_1AC5BC000, v46, OS_LOG_TYPE_DEFAULT, "%s MUX: Loaded %zu speech profile(s) in total.", buf, 0x16u);
     }
 
-    languageCopy = v49;
-    containersCopy = v50;
+    languageCopy = v48;
+    containersCopy = v49;
   }
 
   else if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v68 = "+[SFUtilities loadSpeechProfiles:speechProfileContainers:language:]";
+    v67 = "+[SFUtilities loadSpeechProfiles:speechProfileContainers:language:]";
     _os_log_error_impl(&dword_1AC5BC000, v10, OS_LOG_TYPE_ERROR, "%s MUX: loadedProfiles cannot be nil.", buf, 0xCu);
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 + (id)userSpecificSpeechProfileContainersForSharedUserInfos:(id)infos
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   infosCopy = infos;
-  v42 = [MEMORY[0x1E695DFA8] set];
+  v41 = [MEMORY[0x1E695DFA8] set];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   obj = infosCopy;
-  v4 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
+  v4 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v44;
+    v6 = *v43;
     v7 = 0x1E797A000uLL;
     do
     {
       v8 = 0;
-      v40 = v5;
+      v39 = v5;
       do
       {
-        if (*v44 != v6)
+        if (*v43 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v43 + 1) + 8 * v8);
+        v9 = *(*(&v42 + 1) + 8 * v8);
         sharedInstance = [*(v7 + 3312) sharedInstance];
         personaId = [v9 personaId];
         v12 = [sharedInstance personaMatchesEnrolledUser:personaId];
@@ -689,16 +683,16 @@ LABEL_28:
             loggableSharedUserId = [v9 loggableSharedUserId];
             v21 = [(SFSpeechProfileContainer *)v16 initWithURL:v17 personaId:personaId3 userId:sharedUserId loggableUserId:loggableSharedUserId];
 
-            [v42 addObject:v21];
+            [v41 addObject:v21];
             v22 = SFLogFramework;
             if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_INFO))
             {
               v23 = v22;
               personaId4 = [v9 personaId];
               *buf = 136315394;
-              v48 = "+[SFUtilities userSpecificSpeechProfileContainersForSharedUserInfos:]";
-              v49 = 2112;
-              v50 = personaId4;
+              v47 = "+[SFUtilities userSpecificSpeechProfileContainersForSharedUserInfos:]";
+              v48 = 2112;
+              v49 = personaId4;
               _os_log_impl(&dword_1AC5BC000, v23, OS_LOG_TYPE_INFO, "%s MUX: Discovered UserVault container for personaId: %@", buf, 0x16u);
             }
           }
@@ -710,21 +704,21 @@ LABEL_28:
           loggableSharedUserId2 = [v9 loggableSharedUserId];
           v30 = [(SFSpeechProfileContainer *)v25 initWithURL:v26 personaId:personaId5 userId:sharedUserId2 loggableUserId:loggableSharedUserId2];
 
-          [v42 addObject:v30];
+          [v41 addObject:v30];
           v31 = SFLogFramework;
           if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_INFO))
           {
             v32 = v31;
             personaId6 = [v9 personaId];
             *buf = 136315394;
-            v48 = "+[SFUtilities userSpecificSpeechProfileContainersForSharedUserInfos:]";
-            v49 = 2112;
-            v50 = personaId6;
+            v47 = "+[SFUtilities userSpecificSpeechProfileContainersForSharedUserInfos:]";
+            v48 = 2112;
+            v49 = personaId6;
             _os_log_impl(&dword_1AC5BC000, v32, OS_LOG_TYPE_INFO, "%s MUX: Discovered common container for personaId: %@", buf, 0x16u);
           }
 
           v7 = 0x1E797A000;
-          v5 = v40;
+          v5 = v39;
         }
 
         else
@@ -735,9 +729,9 @@ LABEL_28:
             v35 = v34;
             personaId7 = [v9 personaId];
             *buf = 136315394;
-            v48 = "+[SFUtilities userSpecificSpeechProfileContainersForSharedUserInfos:]";
-            v49 = 2112;
-            v50 = personaId7;
+            v47 = "+[SFUtilities userSpecificSpeechProfileContainersForSharedUserInfos:]";
+            v48 = 2112;
+            v49 = personaId7;
             _os_log_impl(&dword_1AC5BC000, v35, OS_LOG_TYPE_INFO, "%s MUX: personaId (%@) does not match an enrolled user, no respective containers will be discovered.", buf, 0x16u);
           }
         }
@@ -746,22 +740,20 @@ LABEL_28:
       }
 
       while (v5 != v8);
-      v5 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
+      v5 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
     }
 
     while (v5);
   }
 
-  allObjects = [v42 allObjects];
-
-  v38 = *MEMORY[0x1E69E9840];
+  allObjects = [v41 allObjects];
 
   return allObjects;
 }
 
 + (id)allSpeechProfileContainersForSharedUserInfos:(id)infos
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   infosCopy = infos;
   v4 = [MEMORY[0x1E695DFA8] set];
   v5 = [SFUtilities userSpecificSpeechProfileContainersForSharedUserInfos:infosCopy];
@@ -772,50 +764,48 @@ LABEL_28:
   if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_INFO))
   {
     v8 = v7;
-    v12 = 136315650;
-    v13 = "+[SFUtilities allSpeechProfileContainersForSharedUserInfos:]";
-    v14 = 2048;
-    v15 = [v4 count];
-    v16 = 2048;
-    v17 = [infosCopy count];
-    _os_log_impl(&dword_1AC5BC000, v8, OS_LOG_TYPE_INFO, "%s MUX: Discovered %zu speech profile container(s) for %zu user(s).", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "+[SFUtilities allSpeechProfileContainersForSharedUserInfos:]";
+    v13 = 2048;
+    v14 = [v4 count];
+    v15 = 2048;
+    v16 = [infosCopy count];
+    _os_log_impl(&dword_1AC5BC000, v8, OS_LOG_TYPE_INFO, "%s MUX: Discovered %zu speech profile container(s) for %zu user(s).", &v11, 0x20u);
   }
 
   allObjects = [v4 allObjects];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return allObjects;
 }
 
 + (id)speechProfilePathsForLanguage:(id)language speechProfileContainers:(id)containers
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   containersCopy = containers;
-  v37 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v36 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v6 = containersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v39 objects:v50 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v38 objects:v49 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v40;
+    v10 = *v39;
     *&v8 = 136315394;
-    v36 = v8;
+    v35 = v8;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v40 != v10)
+        if (*v39 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v39 + 1) + 8 * i);
+        v12 = *(*(&v38 + 1) + 8 * i);
         personaId = [v12 personaId];
         if (personaId)
         {
@@ -843,11 +833,11 @@ LABEL_28:
         {
           v22 = MEMORY[0x1E696AEC0];
           path2 = [v19 path];
-          v49[0] = path2;
-          v49[1] = @"0000000000000000";
-          v49[2] = languageCopy;
-          v49[3] = @"SpeechProfile";
-          v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:4];
+          v48[0] = path2;
+          v48[1] = @"0000000000000000";
+          v48[2] = languageCopy;
+          v48[3] = @"SpeechProfile";
+          v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:4];
           v25 = [v22 pathWithComponents:v24];
 
           defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -855,7 +845,7 @@ LABEL_28:
 
           if (path2)
           {
-            [v37 setObject:v12 forKey:v25];
+            [v36 setObject:v12 forKey:v25];
           }
 
           else
@@ -863,10 +853,10 @@ LABEL_28:
             v28 = SFLogFramework;
             if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_INFO))
             {
-              *buf = v36;
-              v44 = "+[SFUtilities speechProfilePathsForLanguage:speechProfileContainers:]";
-              v45 = 2112;
-              v46 = v25;
+              *buf = v35;
+              v43 = "+[SFUtilities speechProfilePathsForLanguage:speechProfileContainers:]";
+              v44 = 2112;
+              v45 = v25;
               _os_log_impl(&dword_1AC5BC000, v28, OS_LOG_TYPE_INFO, "%s MUX: No speech profile exists at path: %@", buf, 0x16u);
             }
           }
@@ -877,16 +867,16 @@ LABEL_28:
           v27 = SFLogFramework;
           if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
           {
-            *buf = v36;
-            v44 = "+[SFUtilities speechProfilePathsForLanguage:speechProfileContainers:]";
-            v45 = 2112;
-            v46 = personaId;
+            *buf = v35;
+            v43 = "+[SFUtilities speechProfilePathsForLanguage:speechProfileContainers:]";
+            v44 = 2112;
+            v45 = personaId;
             _os_log_error_impl(&dword_1AC5BC000, v27, OS_LOG_TYPE_ERROR, "%s MUX: No speech profile site URL for personaId: %@", buf, 0x16u);
           }
         }
       }
 
-      v9 = [v6 countByEnumeratingWithState:&v39 objects:v50 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v38 objects:v49 count:16];
     }
 
     while (v9);
@@ -897,25 +887,23 @@ LABEL_28:
   {
     v30 = v29;
     v31 = [v6 count];
-    allKeys = [v37 allKeys];
+    allKeys = [v36 allKeys];
     v33 = [allKeys count];
     *buf = 136315650;
-    v44 = "+[SFUtilities speechProfilePathsForLanguage:speechProfileContainers:]";
-    v45 = 2048;
-    v46 = v31;
-    v47 = 2048;
-    v48 = v33;
+    v43 = "+[SFUtilities speechProfilePathsForLanguage:speechProfileContainers:]";
+    v44 = 2048;
+    v45 = v31;
+    v46 = 2048;
+    v47 = v33;
     _os_log_impl(&dword_1AC5BC000, v30, OS_LOG_TYPE_DEFAULT, "%s MUX: Out of %zu container(s), %zu speech profile(s) are present on disk.", buf, 0x20u);
   }
 
-  v34 = *MEMORY[0x1E69E9840];
-
-  return v37;
+  return v36;
 }
 
 + (id)speechProfilePathsForLanguage:(id)language personaId:(id)id
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   idCopy = id;
   v7 = idCopy;
@@ -924,14 +912,14 @@ LABEL_28:
     if (idCopy)
     {
       v8 = objc_alloc(MEMORY[0x1E698D0B8]);
-      v18 = MEMORY[0x1E69E9820];
-      v19 = 3221225472;
-      v20 = __55__SFUtilities_speechProfilePathsForLanguage_personaId___block_invoke;
-      v21 = &unk_1E797C9D0;
-      v22 = v7;
-      v9 = [v8 initWithBuilder:&v18];
-      v23 = v9;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:{1, v18, v19, v20, v21}];
+      v17 = MEMORY[0x1E69E9820];
+      v18 = 3221225472;
+      v19 = __55__SFUtilities_speechProfilePathsForLanguage_personaId___block_invoke;
+      v20 = &unk_1E797C9D0;
+      v21 = v7;
+      v9 = [v8 initWithBuilder:&v17];
+      v22 = v9;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:{1, v17, v18, v19, v20}];
       v11 = [SFUtilities userSpecificSpeechProfileContainersForSharedUserInfos:v10];
 
       v12 = [SFUtilities speechProfilePathsForLanguage:languageCopy speechProfileContainers:v11];
@@ -944,9 +932,9 @@ LABEL_28:
       if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v25 = "+[SFUtilities speechProfilePathsForLanguage:personaId:]";
-        v26 = 2112;
-        v27 = languageCopy;
+        v24 = "+[SFUtilities speechProfilePathsForLanguage:personaId:]";
+        v25 = 2112;
+        v26 = languageCopy;
         _os_log_impl(&dword_1AC5BC000, v15, OS_LOG_TYPE_INFO, "%s Returning the %@ speech profile path for the default user.", buf, 0x16u);
       }
 
@@ -960,21 +948,19 @@ LABEL_28:
     if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v25 = "+[SFUtilities speechProfilePathsForLanguage:personaId:]";
+      v24 = "+[SFUtilities speechProfilePathsForLanguage:personaId:]";
       _os_log_error_impl(&dword_1AC5BC000, v14, OS_LOG_TYPE_ERROR, "%s language cannot be nil.", buf, 0xCu);
     }
 
     allKeys = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return allKeys;
 }
 
 + (id)speechProfilePathsForLanguage:(id)language userType:(id)type
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   typeCopy = type;
   if (languageCopy)
@@ -995,57 +981,57 @@ LABEL_28:
 
     v11 = v10;
 
-    v34 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v29 = typeCopy;
+    v33 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v28 = typeCopy;
     [SFUtilities speechProfileRootDirectoriesWithUserType:typeCopy];
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    obj = v42 = 0u;
-    v32 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
-    if (v32)
+    obj = v41 = 0u;
+    v31 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+    if (v31)
     {
-      v31 = *v40;
+      v30 = *v39;
       do
       {
         v12 = 0;
         do
         {
-          if (*v40 != v31)
+          if (*v39 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v33 = v12;
-          v13 = *(*(&v39 + 1) + 8 * v12);
+          v32 = v12;
+          v13 = *(*(&v38 + 1) + 8 * v12);
+          v34 = 0u;
           v35 = 0u;
           v36 = 0u;
           v37 = 0u;
-          v38 = 0u;
           defaultManager = [MEMORY[0x1E696AC08] defaultManager];
           v15 = [defaultManager enumeratorAtPath:v13];
 
-          v16 = [v15 countByEnumeratingWithState:&v35 objects:v44 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v34 objects:v43 count:16];
           if (v16)
           {
             v17 = v16;
-            v18 = *v36;
+            v18 = *v35;
             do
             {
               for (i = 0; i != v17; ++i)
               {
-                if (*v36 != v18)
+                if (*v35 != v18)
                 {
                   objc_enumerationMutation(v15);
                 }
 
-                v20 = *(*(&v35 + 1) + 8 * i);
+                v20 = *(*(&v34 + 1) + 8 * i);
                 v21 = MEMORY[0x1E696AEC0];
-                v43[0] = v13;
-                v43[1] = v20;
-                v43[2] = v11;
-                v43[3] = @"SpeechProfile";
-                v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:4];
+                v42[0] = v13;
+                v42[1] = v20;
+                v42[2] = v11;
+                v42[3] = @"SpeechProfile";
+                v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:4];
                 v23 = [v21 pathWithComponents:v22];
 
                 defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
@@ -1053,27 +1039,27 @@ LABEL_28:
 
                 if (v25)
                 {
-                  [v34 addObject:v23];
+                  [v33 addObject:v23];
                 }
               }
 
-              v17 = [v15 countByEnumeratingWithState:&v35 objects:v44 count:16];
+              v17 = [v15 countByEnumeratingWithState:&v34 objects:v43 count:16];
             }
 
             while (v17);
           }
 
-          v12 = v33 + 1;
+          v12 = v32 + 1;
         }
 
-        while (v33 + 1 != v32);
-        v32 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+        while (v32 + 1 != v31);
+        v31 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
       }
 
-      while (v32);
+      while (v31);
     }
 
-    typeCopy = v29;
+    typeCopy = v28;
   }
 
   else
@@ -1082,86 +1068,82 @@ LABEL_28:
     if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v47 = "+[SFUtilities speechProfilePathsForLanguage:userType:]";
+      v46 = "+[SFUtilities speechProfilePathsForLanguage:userType:]";
       _os_log_error_impl(&dword_1AC5BC000, v26, OS_LOG_TYPE_ERROR, "%s language cannot be nil.", buf, 0xCu);
     }
 
-    v34 = 0;
+    v33 = 0;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
-  return v34;
+  return v33;
 }
 
 + (id)speechProfileRootDirectoriesWithUserType:(id)type
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = SFSpeechProfileSiteDirectoriesWithUserType(typeCopy);
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        path = [*(*(&v13 + 1) + 8 * i) path];
+        path = [*(*(&v12 + 1) + 8 * i) path];
         if (path)
         {
           [v4 addObject:path];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (id)_alignTokenToFirstSeenPartialResult:(id)result tokenIndex:(unint64_t)index firstSeenPartialResultTokens:(id)tokens firstSeenPartialResultIndex:(unint64_t)resultIndex
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   resultCopy = result;
   tokensCopy = tokens;
   v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
-  v40 = v11;
+  v39 = v11;
   v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:resultIndex];
-  v41[0] = v12;
-  v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+  v40[0] = v12;
+  v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
 
-  v37 = resultCopy;
+  v36 = resultCopy;
   v13 = [resultCopy count];
   v14 = [tokensCopy count];
-  v35 = v13;
+  v34 = v13;
   if (v13 > index)
   {
     v15 = v14;
     v16 = 0;
     resultIndexCopy = resultIndex;
-    v34 = resultIndex + index;
+    v33 = resultIndex + index;
     v17 = -1;
     resultIndexCopy2 = resultIndex;
     while (1)
     {
-      v19 = [v37 objectAtIndexedSubscript:{index, resultIndexCopy}];
+      v19 = [v36 objectAtIndexedSubscript:{index, resultIndexCopy}];
       tokenName = [v19 tokenName];
       v21 = [SFUtilities getNormString:tokenName];
 
@@ -1180,29 +1162,29 @@ LABEL_8:
       v16 = 0;
       v26 = v15;
 LABEL_11:
-      v27 = index - v34 + v22 + v26;
+      v27 = index - v33 + v22 + v26;
       if (v27 < v17)
       {
         v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
-        v38 = v28;
+        v37 = v28;
         v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v22];
-        v39 = v29;
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+        v38 = v29;
+        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
 
         if (!v27)
         {
 
-          v36 = v30;
+          v35 = v30;
           goto LABEL_17;
         }
 
-        v36 = v30;
+        v35 = v30;
         v17 = v27;
       }
 
       ++index;
       resultIndexCopy2 = resultIndexCopy;
-      if (index == v35)
+      if (index == v34)
       {
         goto LABEL_17;
       }
@@ -1236,9 +1218,7 @@ LABEL_9:
 
 LABEL_17:
 
-  v31 = *MEMORY[0x1E69E9840];
-
-  return v36;
+  return v35;
 }
 
 + (id)_firstSeenPartialResultIndicesForTokens:(id)tokens firstSeenPartialResultTokens:(id)resultTokens
@@ -1405,44 +1385,42 @@ uint64_t __81__SFUtilities_alignedPartialResultIndicesForTokens_firstSeenPartial
 
 + (id)getNormString:(id)string
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   array = [MEMORY[0x1E695DF70] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   lowercaseString = [stringCopy lowercaseString];
   v6 = [lowercaseString componentsSeparatedByString:@" "];
 
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v16 + 1) + 8 * i) componentsSeparatedByString:@"\\""];
+        v11 = [*(*(&v15 + 1) + 8 * i) componentsSeparatedByString:@"\"];
         firstObject = [v11 firstObject];
         [array addObject:firstObject];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
 
   v13 = [array componentsJoinedByString:@" "];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -1532,7 +1510,7 @@ uint64_t __81__SFUtilities_alignedPartialResultIndicesForTokens_firstSeenPartial
 
 void __30__SFUtilities_defaultClientID__block_invoke()
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696AAE8] mainBundle];
   v1 = [v0 bundleIdentifier];
 
@@ -1551,36 +1529,34 @@ void __30__SFUtilities_defaultClientID__block_invoke()
     v5 = SFLogFramework;
     if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_FAULT))
     {
-      v7 = 136315394;
-      v8 = "+[SFUtilities defaultClientID]_block_invoke";
-      v9 = 2112;
-      v10 = defaultClientID_defaultClientID;
-      _os_log_fault_impl(&dword_1AC5BC000, v5, OS_LOG_TYPE_FAULT, "%s Application does not have a bundle identifier; using unstable %@ as client identifier", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "+[SFUtilities defaultClientID]_block_invoke";
+      v8 = 2112;
+      v9 = defaultClientID_defaultClientID;
+      _os_log_fault_impl(&dword_1AC5BC000, v5, OS_LOG_TYPE_FAULT, "%s Application does not have a bundle identifier; using unstable %@ as client identifier", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)createDirPath:(id)path
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   if (([defaultManager fileExistsAtPath:pathCopy isDirectory:0] & 1) == 0)
   {
-    v9 = 0;
-    v5 = [defaultManager createDirectoryAtPath:pathCopy withIntermediateDirectories:1 attributes:0 error:&v9];
-    v6 = v9;
+    v8 = 0;
+    v5 = [defaultManager createDirectoryAtPath:pathCopy withIntermediateDirectories:1 attributes:0 error:&v8];
+    v6 = v8;
     v7 = SFLogFramework;
     if (v5)
     {
       if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v11 = "+[SFUtilities createDirPath:]";
-        v12 = 2112;
-        v13 = pathCopy;
+        v10 = "+[SFUtilities createDirPath:]";
+        v11 = 2112;
+        v12 = pathCopy;
         _os_log_debug_impl(&dword_1AC5BC000, v7, OS_LOG_TYPE_DEBUG, "%s Write successful %@", buf, 0x16u);
       }
     }
@@ -1588,14 +1564,12 @@ void __30__SFUtilities_defaultClientID__block_invoke()
     else if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v11 = "+[SFUtilities createDirPath:]";
-      v12 = 2112;
-      v13 = pathCopy;
+      v10 = "+[SFUtilities createDirPath:]";
+      v11 = 2112;
+      v12 = pathCopy;
       _os_log_impl(&dword_1AC5BC000, v7, OS_LOG_TYPE_INFO, "%s Failed to create directory %@", buf, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (id)sandboxExtensionsForCustomLmConfig:(id)config
@@ -1637,15 +1611,15 @@ void __30__SFUtilities_defaultClientID__block_invoke()
 
 + (id)sandboxExtensionsForUsingANEAndAssets
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (+[SFUtilities isCacheDirInternal])
   {
     v2 = SFLogFramework;
     if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315138;
-      v11 = "+[SFUtilities sandboxExtensionsForUsingANEAndAssets]";
-      _os_log_debug_impl(&dword_1AC5BC000, v2, OS_LOG_TYPE_DEBUG, "%s Sandbox extension Cache directories not needed.", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "+[SFUtilities sandboxExtensionsForUsingANEAndAssets]";
+      _os_log_debug_impl(&dword_1AC5BC000, v2, OS_LOG_TYPE_DEBUG, "%s Sandbox extension Cache directories not needed.", &v9, 0xCu);
     }
 
     array = 0;
@@ -1666,8 +1640,6 @@ void __30__SFUtilities_defaultClientID__block_invoke()
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
@@ -1687,27 +1659,27 @@ void __30__SFUtilities_defaultClientID__block_invoke()
 
 + (id)issueReadSandboxExtensionForFilePath:(id)path error:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = SFLogFramework;
   if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_DEBUG))
   {
-    v21 = v7;
-    v22 = NSStringFromSelector(a2);
+    v20 = v7;
+    v21 = NSStringFromSelector(a2);
     *buf = 136315650;
-    v31 = "+[SFUtilities issueReadSandboxExtensionForFilePath:error:]";
-    v32 = 2112;
-    v33 = v22;
-    v34 = 2112;
-    v35 = pathCopy;
-    _os_log_debug_impl(&dword_1AC5BC000, v21, OS_LOG_TYPE_DEBUG, "%s %@: path=%@", buf, 0x20u);
+    v30 = "+[SFUtilities issueReadSandboxExtensionForFilePath:error:]";
+    v31 = 2112;
+    v32 = v21;
+    v33 = 2112;
+    v34 = pathCopy;
+    _os_log_debug_impl(&dword_1AC5BC000, v20, OS_LOG_TYPE_DEBUG, "%s %@: path=%@", buf, 0x20u);
   }
 
   v8 = objc_opt_class();
   v9 = NSStringFromSelector(a2);
-  v29 = 0;
-  v10 = [v8 canAccessPathAt:pathCopy methodName:v9 error:&v29];
-  v11 = v29;
+  v28 = 0;
+  v10 = [v8 canAccessPathAt:pathCopy methodName:v9 error:&v28];
+  v11 = v28;
 
   if (v10)
   {
@@ -1724,15 +1696,15 @@ void __30__SFUtilities_defaultClientID__block_invoke()
     v17 = SFLogFramework;
     if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_DEBUG))
     {
-      v27 = v17;
-      v28 = NSStringFromSelector(a2);
+      v26 = v17;
+      v27 = NSStringFromSelector(a2);
       *buf = 136315650;
-      v31 = "+[SFUtilities issueReadSandboxExtensionForFilePath:error:]";
-      v32 = 2112;
-      v33 = v28;
-      v34 = 2112;
-      v35 = pathCopy;
-      _os_log_debug_impl(&dword_1AC5BC000, v27, OS_LOG_TYPE_DEBUG, "%s %@: sandbox_extension_issue_file() returned NULL. path=%@", buf, 0x20u);
+      v30 = "+[SFUtilities issueReadSandboxExtensionForFilePath:error:]";
+      v31 = 2112;
+      v32 = v27;
+      v33 = 2112;
+      v34 = pathCopy;
+      _os_log_debug_impl(&dword_1AC5BC000, v26, OS_LOG_TYPE_DEBUG, "%s %@: sandbox_extension_issue_file() returned NULL. path=%@", buf, 0x20u);
     }
 
     goto LABEL_11;
@@ -1741,17 +1713,17 @@ void __30__SFUtilities_defaultClientID__block_invoke()
   v15 = SFLogFramework;
   if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
   {
-    v25 = v15;
-    v26 = NSStringFromSelector(a2);
+    v24 = v15;
+    v25 = NSStringFromSelector(a2);
     *buf = 136315906;
-    v31 = "+[SFUtilities issueReadSandboxExtensionForFilePath:error:]";
-    v32 = 2112;
-    v33 = v26;
-    v34 = 2112;
-    v35 = pathCopy;
-    v36 = 2112;
-    v37 = v11;
-    _os_log_error_impl(&dword_1AC5BC000, v25, OS_LOG_TYPE_ERROR, "%s %@: Inaccessible file (%@) : error=%@", buf, 0x2Au);
+    v30 = "+[SFUtilities issueReadSandboxExtensionForFilePath:error:]";
+    v31 = 2112;
+    v32 = v25;
+    v33 = 2112;
+    v34 = pathCopy;
+    v35 = 2112;
+    v36 = v11;
+    _os_log_error_impl(&dword_1AC5BC000, v24, OS_LOG_TYPE_ERROR, "%s %@: Inaccessible file (%@) : error=%@", buf, 0x2Au);
 
     if (error)
     {
@@ -1774,25 +1746,23 @@ LABEL_12:
   v18 = SFLogFramework;
   if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_DEBUG))
   {
-    v23 = v18;
-    v24 = NSStringFromSelector(a2);
+    v22 = v18;
+    v23 = NSStringFromSelector(a2);
     *buf = 136315650;
-    v31 = "+[SFUtilities issueReadSandboxExtensionForFilePath:error:]";
-    v32 = 2112;
-    v33 = v24;
-    v34 = 2112;
-    v35 = v14;
-    _os_log_debug_impl(&dword_1AC5BC000, v23, OS_LOG_TYPE_DEBUG, "%s %@: sandboxExtension=%@", buf, 0x20u);
+    v30 = "+[SFUtilities issueReadSandboxExtensionForFilePath:error:]";
+    v31 = 2112;
+    v32 = v23;
+    v33 = 2112;
+    v34 = v14;
+    _os_log_debug_impl(&dword_1AC5BC000, v22, OS_LOG_TYPE_DEBUG, "%s %@: sandboxExtension=%@", buf, 0x20u);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 + (id)issueReadWriteSandboxExtensionForDirectoryPath:(id)path error:(id *)error
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = SFLogFramework;
   if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_DEBUG))
@@ -1800,19 +1770,19 @@ LABEL_12:
     v19 = v7;
     v20 = NSStringFromSelector(a2);
     *buf = 136315650;
-    v32 = "+[SFUtilities issueReadWriteSandboxExtensionForDirectoryPath:error:]";
-    v33 = 2112;
-    v34 = v20;
-    v35 = 2112;
-    v36 = pathCopy;
+    v31 = "+[SFUtilities issueReadWriteSandboxExtensionForDirectoryPath:error:]";
+    v32 = 2112;
+    v33 = v20;
+    v34 = 2112;
+    v35 = pathCopy;
     _os_log_debug_impl(&dword_1AC5BC000, v19, OS_LOG_TYPE_DEBUG, "%s %@: path=%@", buf, 0x20u);
   }
 
   v8 = objc_opt_class();
   v9 = NSStringFromSelector(a2);
-  v30 = 0;
-  v10 = [v8 canAccessPathAt:pathCopy methodName:v9 error:&v30];
-  v11 = v30;
+  v29 = 0;
+  v10 = [v8 canAccessPathAt:pathCopy methodName:v9 error:&v29];
+  v11 = v29;
 
   if (!v10)
   {
@@ -1822,13 +1792,13 @@ LABEL_12:
       v21 = v16;
       v22 = NSStringFromSelector(a2);
       *buf = 136315906;
-      v32 = "+[SFUtilities issueReadWriteSandboxExtensionForDirectoryPath:error:]";
-      v33 = 2112;
-      v34 = v22;
-      v35 = 2112;
-      v36 = pathCopy;
-      v37 = 2112;
-      v38 = v11;
+      v31 = "+[SFUtilities issueReadWriteSandboxExtensionForDirectoryPath:error:]";
+      v32 = 2112;
+      v33 = v22;
+      v34 = 2112;
+      v35 = pathCopy;
+      v36 = 2112;
+      v37 = v11;
       _os_log_error_impl(&dword_1AC5BC000, v21, OS_LOG_TYPE_ERROR, "%s %@: Inaccessible file (%@) : error=%@", buf, 0x2Au);
 
       if (error)
@@ -1865,15 +1835,15 @@ LABEL_8:
     v18 = SFLogFramework;
     if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_DEBUG))
     {
-      v28 = v18;
-      v29 = NSStringFromSelector(a2);
+      v27 = v18;
+      v28 = NSStringFromSelector(a2);
       *buf = 136315650;
-      v32 = "+[SFUtilities issueReadWriteSandboxExtensionForDirectoryPath:error:]";
-      v33 = 2112;
-      v34 = v29;
-      v35 = 2112;
-      v36 = pathCopy;
-      _os_log_debug_impl(&dword_1AC5BC000, v28, OS_LOG_TYPE_DEBUG, "%s %@: sandbox_extension_issue_file() returned NULL. path=%@", buf, 0x20u);
+      v31 = "+[SFUtilities issueReadWriteSandboxExtensionForDirectoryPath:error:]";
+      v32 = 2112;
+      v33 = v28;
+      v34 = 2112;
+      v35 = pathCopy;
+      _os_log_debug_impl(&dword_1AC5BC000, v27, OS_LOG_TYPE_DEBUG, "%s %@: sandbox_extension_issue_file() returned NULL. path=%@", buf, 0x20u);
     }
 
     v15 = 0;
@@ -1883,25 +1853,23 @@ LABEL_15:
   v23 = SFLogFramework;
   if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_DEBUG))
   {
-    v26 = v23;
-    v27 = NSStringFromSelector(a2);
+    v25 = v23;
+    v26 = NSStringFromSelector(a2);
     *buf = 136315650;
-    v32 = "+[SFUtilities issueReadWriteSandboxExtensionForDirectoryPath:error:]";
-    v33 = 2112;
-    v34 = v27;
-    v35 = 2112;
-    v36 = v15;
-    _os_log_debug_impl(&dword_1AC5BC000, v26, OS_LOG_TYPE_DEBUG, "%s %@: sandboxExtension=%@", buf, 0x20u);
+    v31 = "+[SFUtilities issueReadWriteSandboxExtensionForDirectoryPath:error:]";
+    v32 = 2112;
+    v33 = v26;
+    v34 = 2112;
+    v35 = v15;
+    _os_log_debug_impl(&dword_1AC5BC000, v25, OS_LOG_TYPE_DEBUG, "%s %@: sandboxExtension=%@", buf, 0x20u);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 + (BOOL)canAccessPathAt:(id)at methodName:(id)name error:(id *)error
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   atCopy = at;
   nameCopy = name;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -1911,14 +1879,13 @@ LABEL_15:
   {
     v12 = MEMORY[0x1E696ABC0];
     v13 = *MEMORY[0x1E698D280];
-    v18 = *MEMORY[0x1E696A578];
+    v17 = *MEMORY[0x1E696A578];
     nameCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to access path: %@ method:%@", atCopy, nameCopy];
-    v19[0] = nameCopy;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v18[0] = nameCopy;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     *error = [v12 errorWithDomain:v13 code:203 userInfo:v15];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -1974,34 +1941,34 @@ uint64_t __33__SFUtilities_isSpeechXPCEnabled__block_invoke()
 
 + (id)transcriptionsWithTokens:(id)tokens
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   tokensCopy = tokens;
   array = [MEMORY[0x1E695DF70] array];
   string = [MEMORY[0x1E696AD60] string];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = tokensCopy;
-  v5 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v5 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v26 = *v29;
+    v25 = *v28;
     v8 = MEMORY[0x1E695E0F0];
     do
     {
       for (i = 0; i != v6; ++i)
       {
         v10 = v7;
-        if (*v29 != v26)
+        if (*v28 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * i);
-        if (v10 && ([*(*(&v28 + 1) + 8 * i) removeSpaceBefore] & 1) == 0 && (objc_msgSend(v10, "removeSpaceAfter") & 1) == 0)
+        v11 = *(*(&v27 + 1) + 8 * i);
+        if (v10 && ([*(*(&v27 + 1) + 8 * i) removeSpaceBefore] & 1) == 0 && (objc_msgSend(v10, "removeSpaceAfter") & 1) == 0)
         {
           [string appendString:@" "];
         }
@@ -2021,75 +1988,74 @@ uint64_t __33__SFUtilities_isSpeechXPCEnabled__block_invoke()
         v7 = v11;
       }
 
-      v6 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v6);
   }
 
   v22 = [[SFTranscription alloc] _initWithSegments:array formattedString:string speakingRate:0.0 averagePauseDuration:0.0];
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
 
 + (id)recognitionMetadataFromSpeechPhrases:(id)phrases afAudioAnalytics:(id)analytics utteranceStart:(double)start
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   phrasesCopy = phrases;
   analyticsCopy = analytics;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
-  v40 = 0x7FEFFFFFFFFFFFFFLL;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 0x10000000000000;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0x7FEFFFFFFFFFFFFFLL;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0x10000000000000;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = phrasesCopy;
-  v8 = [obj countByEnumeratingWithState:&v29 objects:v41 count:16];
+  v8 = [obj countByEnumeratingWithState:&v28 objects:v40 count:16];
   if (v8)
   {
-    v9 = *v30;
+    v9 = *v29;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
-        v28[0] = 0;
-        v28[1] = v28;
-        v28[2] = 0x2020000000;
-        v28[3] = 0x7FEFFFFFFFFFFFFFLL;
-        v34[3] = 2.22507386e-308;
+        v11 = *(*(&v28 + 1) + 8 * i);
+        v27[0] = 0;
+        v27[1] = v27;
+        v27[2] = 0x2020000000;
+        v27[3] = 0x7FEFFFFFFFFFFFFFLL;
+        v33[3] = 2.22507386e-308;
         interpretations = [v11 interpretations];
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = __84__SFUtilities_recognitionMetadataFromSpeechPhrases_afAudioAnalytics_utteranceStart___block_invoke;
-        v27[3] = &unk_1E797C958;
-        v27[4] = v28;
-        v27[5] = &v33;
-        v27[6] = &v37;
-        [interpretations enumerateObjectsUsingBlock:v27];
+        v26[0] = MEMORY[0x1E69E9820];
+        v26[1] = 3221225472;
+        v26[2] = __84__SFUtilities_recognitionMetadataFromSpeechPhrases_afAudioAnalytics_utteranceStart___block_invoke;
+        v26[3] = &unk_1E797C958;
+        v26[4] = v27;
+        v26[5] = &v32;
+        v26[6] = &v36;
+        [interpretations enumerateObjectsUsingBlock:v26];
 
-        _Block_object_dispose(v28, 8);
+        _Block_object_dispose(v27, 8);
       }
 
-      v8 = [obj countByEnumeratingWithState:&v29 objects:v41 count:16];
+      v8 = [obj countByEnumeratingWithState:&v28 objects:v40 count:16];
     }
 
     while (v8);
   }
 
-  v13 = VoiceAnalyticsForSegment(analyticsCopy, v38[3], v34[3]);
+  v13 = VoiceAnalyticsForSegment(analyticsCopy, v37[3], v33[3]);
   speechRecognitionFeatures = [analyticsCopy speechRecognitionFeatures];
   v15 = [speechRecognitionFeatures objectForKey:@"speakingRate"];
   [v15 doubleValue];
@@ -2100,39 +2066,37 @@ uint64_t __33__SFUtilities_isSpeechXPCEnabled__block_invoke()
   v20 = v19;
 
   v21 = [SFSpeechRecognitionMetadata alloc];
-  v22 = [(SFSpeechRecognitionMetadata *)v21 _initWithSpeechStartTimestamp:v13 speechDuration:v38[3] + start voiceAnalytics:v34[3] - v38[3] speakingRate:v17 averagePauseDuration:v20];
+  v22 = [(SFSpeechRecognitionMetadata *)v21 _initWithSpeechStartTimestamp:v13 speechDuration:v37[3] + start voiceAnalytics:v33[3] - v37[3] speakingRate:v17 averagePauseDuration:v20];
 
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v37, 8);
-
-  v23 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v36, 8);
 
   return v22;
 }
 
 void __84__SFUtilities_recognitionMetadataFromSpeechPhrases_afAudioAnalytics_utteranceStart___block_invoke(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = [a2 tokens];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         v9 = *(*(a1[4] + 8) + 24);
         [v8 startTime];
         if (v9 < v10)
@@ -2151,7 +2115,7 @@ void __84__SFUtilities_recognitionMetadataFromSpeechPhrases_afAudioAnalytics_utt
         *(*(a1[5] + 8) + 24) = v12;
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -2162,119 +2126,117 @@ void __84__SFUtilities_recognitionMetadataFromSpeechPhrases_afAudioAnalytics_utt
   {
     *(v13 + 24) = *(*(a1[4] + 8) + 24);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (id)transcriptionFromSpeechPhrases:(id)phrases afAudioAnalytics:(id)analytics utteranceStart:(double)start
 {
-  v97 = *MEMORY[0x1E69E9840];
+  v96 = *MEMORY[0x1E69E9840];
   phrasesCopy = phrases;
   analyticsCopy = analytics;
   array = [MEMORY[0x1E695DF70] array];
   string = [MEMORY[0x1E696AD60] string];
-  v94[0] = 0;
-  v94[1] = v94;
-  v94[2] = 0x3032000000;
-  v94[3] = __Block_byref_object_copy__2196;
-  v94[4] = __Block_byref_object_dispose__2197;
-  v95 = 0;
+  v93[0] = 0;
+  v93[1] = v93;
+  v93[2] = 0x3032000000;
+  v93[3] = __Block_byref_object_copy__2196;
+  v93[4] = __Block_byref_object_dispose__2197;
+  v94 = 0;
+  v89 = 0u;
   v90 = 0u;
   v91 = 0u;
   v92 = 0u;
-  v93 = 0u;
   obj = phrasesCopy;
-  v8 = [obj countByEnumeratingWithState:&v90 objects:v96 count:16];
+  v8 = [obj countByEnumeratingWithState:&v89 objects:v95 count:16];
   if (v8)
   {
-    v47 = *v91;
+    v46 = *v90;
     do
     {
-      v48 = v8;
-      for (i = 0; i != v48; ++i)
+      v47 = v8;
+      for (i = 0; i != v47; ++i)
       {
-        if (*v91 != v47)
+        if (*v90 != v46)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v90 + 1) + 8 * i);
+        v10 = *(*(&v89 + 1) + 8 * i);
         interpretations = [v10 interpretations];
         firstObject = [interpretations firstObject];
         if (firstObject)
         {
-          v86 = 0;
-          v87 = &v86;
-          v88 = 0x2020000000;
-          v89 = [string length];
+          v85 = 0;
+          v86 = &v85;
+          v87 = 0x2020000000;
+          v88 = [string length];
           string2 = [MEMORY[0x1E696AD60] string];
           array2 = [MEMORY[0x1E695DF70] array];
           array3 = [MEMORY[0x1E695DF70] array];
-          v82 = 0;
-          v83 = &v82;
-          v84 = 0x2020000000;
-          v85 = 0x7FEFFFFFFFFFFFFFLL;
-          v78 = 0;
-          v79 = &v78;
-          v80 = 0x2020000000;
-          v81 = 0x10000000000000;
-          v74 = 0;
-          v75 = &v74;
-          v76 = 0x2020000000;
-          v77 = 1065353216;
-          v68 = 0;
-          v69 = &v68;
-          v70 = 0x3032000000;
-          v71 = __Block_byref_object_copy__2196;
-          v72 = __Block_byref_object_dispose__2197;
-          v73 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v62 = 0;
-          v63 = &v62;
-          v64 = 0x3032000000;
-          v65 = __Block_byref_object_copy__2196;
-          v66 = __Block_byref_object_dispose__2197;
-          v67 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v81 = 0;
+          v82 = &v81;
+          v83 = 0x2020000000;
+          v84 = 0x7FEFFFFFFFFFFFFFLL;
+          v77 = 0;
+          v78 = &v77;
+          v79 = 0x2020000000;
+          v80 = 0x10000000000000;
+          v73 = 0;
+          v74 = &v73;
+          v75 = 0x2020000000;
+          v76 = 1065353216;
+          v67 = 0;
+          v68 = &v67;
+          v69 = 0x3032000000;
+          v70 = __Block_byref_object_copy__2196;
+          v71 = __Block_byref_object_dispose__2197;
+          v72 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v61 = 0;
+          v62 = &v61;
+          v63 = 0x3032000000;
+          v64 = __Block_byref_object_copy__2196;
+          v65 = __Block_byref_object_dispose__2197;
+          v66 = objc_alloc_init(MEMORY[0x1E696AD60]);
           interpretations2 = [v10 interpretations];
-          v50[0] = MEMORY[0x1E69E9820];
-          v50[1] = 3221225472;
-          v50[2] = __78__SFUtilities_transcriptionFromSpeechPhrases_afAudioAnalytics_utteranceStart___block_invoke;
-          v50[3] = &unk_1E797C930;
-          v55 = &v82;
-          v56 = &v78;
+          v49[0] = MEMORY[0x1E69E9820];
+          v49[1] = 3221225472;
+          v49[2] = __78__SFUtilities_transcriptionFromSpeechPhrases_afAudioAnalytics_utteranceStart___block_invoke;
+          v49[3] = &unk_1E797C930;
+          v54 = &v81;
+          v55 = &v77;
           v17 = array2;
-          v51 = v17;
+          v50 = v17;
           v18 = array3;
-          v52 = v18;
-          v57 = v94;
+          v51 = v18;
+          v56 = v93;
           v19 = string;
-          v53 = v19;
-          v58 = &v86;
+          v52 = v19;
+          v57 = &v85;
           v20 = string2;
-          v54 = v20;
-          v59 = &v74;
-          v60 = &v68;
-          v61 = &v62;
-          [interpretations2 enumerateObjectsUsingBlock:v50];
+          v53 = v20;
+          v58 = &v73;
+          v59 = &v67;
+          v60 = &v61;
+          [interpretations2 enumerateObjectsUsingBlock:v49];
 
-          if (v83[3] != 1.79769313e308 && v79[3] != 2.22507386e-308)
+          if (v82[3] != 1.79769313e308 && v78[3] != 2.22507386e-308)
           {
-            v21 = v87[3];
+            v21 = v86[3];
             v22 = [v19 length];
-            v23 = v87[3];
-            if ([v69[5] length])
+            v23 = v86[3];
+            if ([v68[5] length])
             {
-              v45 = [MEMORY[0x1E696AEC0] stringWithString:v69[5]];
+              v44 = [MEMORY[0x1E696AEC0] stringWithString:v68[5]];
             }
 
             else
             {
-              v45 = 0;
+              v44 = 0;
             }
 
-            v44 = v21;
-            if ([v63[5] length])
+            v43 = v21;
+            if ([v62[5] length])
             {
-              v24 = [MEMORY[0x1E696AEC0] stringWithString:v63[5]];
+              v24 = [MEMORY[0x1E696AEC0] stringWithString:v62[5]];
             }
 
             else
@@ -2282,29 +2244,29 @@ void __84__SFUtilities_recognitionMetadataFromSpeechPhrases_afAudioAnalytics_utt
               v24 = 0;
             }
 
-            v25 = VoiceAnalyticsForSegment(analyticsCopy, v83[3], v79[3]);
+            v25 = VoiceAnalyticsForSegment(analyticsCopy, v82[3], v78[3]);
             v26 = [SFTranscriptionSegment alloc];
-            v27 = v83[3];
+            v27 = v82[3];
             v28 = v27 + start;
-            v29 = v79[3];
+            v29 = v78[3];
             v30 = v29 - v27;
-            LODWORD(v29) = *(v75 + 6);
-            v31 = [(SFTranscriptionSegment *)v26 _initWithSubstring:v20 range:v44 timestamp:v22 - v23 duration:v17 confidence:v18 alternativeSubstrings:v45 alternativeConfidences:v28 phoneSequence:v30 ipaPhoneSequence:v29 voiceAnalytics:v24, v25];
+            LODWORD(v29) = *(v74 + 6);
+            v31 = [(SFTranscriptionSegment *)v26 _initWithSubstring:v20 range:v43 timestamp:v22 - v23 duration:v17 confidence:v18 alternativeSubstrings:v44 alternativeConfidences:v28 phoneSequence:v30 ipaPhoneSequence:v29 voiceAnalytics:v24, v25];
             [array addObject:v31];
           }
 
-          _Block_object_dispose(&v62, 8);
-          _Block_object_dispose(&v68, 8);
+          _Block_object_dispose(&v61, 8);
+          _Block_object_dispose(&v67, 8);
 
-          _Block_object_dispose(&v74, 8);
-          _Block_object_dispose(&v78, 8);
-          _Block_object_dispose(&v82, 8);
+          _Block_object_dispose(&v73, 8);
+          _Block_object_dispose(&v77, 8);
+          _Block_object_dispose(&v81, 8);
 
-          _Block_object_dispose(&v86, 8);
+          _Block_object_dispose(&v85, 8);
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v90 objects:v96 count:16];
+      v8 = [obj countByEnumeratingWithState:&v89 objects:v95 count:16];
     }
 
     while (v8);
@@ -2320,36 +2282,34 @@ void __84__SFUtilities_recognitionMetadataFromSpeechPhrases_afAudioAnalytics_utt
   v38 = v37;
 
   v39 = [[SFTranscription alloc] _initWithSegments:array formattedString:string speakingRate:v35 averagePauseDuration:v38];
-  _Block_object_dispose(v94, 8);
-
-  v40 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v93, 8);
 
   return v39;
 }
 
 void __78__SFUtilities_transcriptionFromSpeechPhrases_afAudioAnalytics_utteranceStart___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v5 = [a2 tokens];
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v50 objects:v58 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v49 objects:v57 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v51;
+    v8 = *v50;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v51 != v8)
+        if (*v50 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v50 + 1) + 8 * i);
+        v10 = *(*(&v49 + 1) + 8 * i);
         v11 = *(*(*(a1 + 64) + 8) + 24);
         [v10 startTime];
         if (v11 < v12)
@@ -2368,7 +2328,7 @@ void __78__SFUtilities_transcriptionFromSpeechPhrases_afAudioAnalytics_utterance
         *(*(*(a1 + 72) + 8) + 24) = v14;
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v50 objects:v58 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v49 objects:v57 count:16];
     }
 
     while (v7);
@@ -2379,30 +2339,30 @@ void __78__SFUtilities_transcriptionFromSpeechPhrases_afAudioAnalytics_utterance
     v15 = *(a1 + 32);
     v16 = v5;
     v17 = [MEMORY[0x1E696AD60] string];
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
     v18 = v16;
-    v19 = [v18 countByEnumeratingWithState:&v54 objects:v59 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v53 objects:v58 count:16];
     if (v19)
     {
       v20 = v19;
-      v42 = v15;
+      v41 = v15;
       v21 = 0;
-      v22 = *v55;
+      v22 = *v54;
       do
       {
         for (j = 0; j != v20; ++j)
         {
           v24 = v21;
-          if (*v55 != v22)
+          if (*v54 != v22)
           {
             objc_enumerationMutation(v18);
           }
 
-          v25 = *(*(&v54 + 1) + 8 * j);
-          if (v24 && ([*(*(&v54 + 1) + 8 * j) removeSpaceBefore] & 1) == 0 && (objc_msgSend(v24, "removeSpaceAfter") & 1) == 0)
+          v25 = *(*(&v53 + 1) + 8 * j);
+          if (v24 && ([*(*(&v53 + 1) + 8 * j) removeSpaceBefore] & 1) == 0 && (objc_msgSend(v24, "removeSpaceAfter") & 1) == 0)
           {
             [v17 appendString:@" "];
           }
@@ -2412,12 +2372,12 @@ void __78__SFUtilities_transcriptionFromSpeechPhrases_afAudioAnalytics_utterance
           v21 = v25;
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v54 objects:v59 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v53 objects:v58 count:16];
       }
 
       while (v20);
 
-      v15 = v42;
+      v15 = v41;
     }
 
     v27 = [v17 copy];
@@ -2426,29 +2386,29 @@ void __78__SFUtilities_transcriptionFromSpeechPhrases_afAudioAnalytics_utterance
     v28 = *(a1 + 40);
     v29 = MEMORY[0x1E696AD98];
     v30 = v18;
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
-    v31 = [v30 countByEnumeratingWithState:&v54 objects:v59 count:16];
+    v31 = [v30 countByEnumeratingWithState:&v53 objects:v58 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v55;
+      v33 = *v54;
       v34 = 1.0;
       do
       {
         for (k = 0; k != v32; ++k)
         {
-          if (*v55 != v33)
+          if (*v54 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          v34 = v34 * ([*(*(&v54 + 1) + 8 * k) confidenceScore] * 0.001);
+          v34 = v34 * ([*(*(&v53 + 1) + 8 * k) confidenceScore] * 0.001);
         }
 
-        v32 = [v30 countByEnumeratingWithState:&v54 objects:v59 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v53 objects:v58 count:16];
       }
 
       while (v32);
@@ -2465,28 +2425,26 @@ void __78__SFUtilities_transcriptionFromSpeechPhrases_afAudioAnalytics_utterance
 
   else
   {
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __78__SFUtilities_transcriptionFromSpeechPhrases_afAudioAnalytics_utteranceStart___block_invoke_2;
-    v45[3] = &unk_1E797C908;
-    v43 = *(a1 + 80);
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __78__SFUtilities_transcriptionFromSpeechPhrases_afAudioAnalytics_utteranceStart___block_invoke_2;
+    v44[3] = &unk_1E797C908;
+    v42 = *(a1 + 80);
     v36 = *(a1 + 48);
-    *&v37 = v43;
+    *&v37 = v42;
     *(&v37 + 1) = *(a1 + 88);
-    v44 = v37;
+    v43 = v37;
     v38 = *(a1 + 56);
     *&v39 = v36;
     *(&v39 + 1) = v38;
-    v47 = v44;
-    v46 = v39;
-    v48 = *(a1 + 96);
-    v49 = *(a1 + 112);
-    [v5 enumerateObjectsUsingBlock:v45];
+    v46 = v43;
+    v45 = v39;
+    v47 = *(a1 + 96);
+    v48 = *(a1 + 112);
+    [v5 enumerateObjectsUsingBlock:v44];
 
-    v40 = v46;
+    v40 = v45;
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 void __78__SFUtilities_transcriptionFromSpeechPhrases_afAudioAnalytics_utteranceStart___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -2611,37 +2569,37 @@ LABEL_8:
 
 + (void)supportedLocalesWithCompletion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v3 = +[SFUtilities supportedDictationLanguages];
-  v17 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v3, "count")}];
+  v16 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v3, "count")}];
   v4 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v3, "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = v3;
-  v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     v8 = @"hi-IN-translit";
     do
     {
       v9 = 0;
       do
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * v9);
+        v10 = *(*(&v17 + 1) + 8 * v9);
         v11 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:v10];
         if (v11)
         {
-          [v17 addObject:v11];
+          [v16 addObject:v11];
           [v4 addObject:v10];
         }
 
@@ -2651,7 +2609,7 @@ LABEL_8:
           v13 = v12 = v8;
           if (v13)
           {
-            [v17 addObject:v13];
+            [v16 addObject:v13];
             [v4 addObject:v12];
           }
 
@@ -2662,14 +2620,13 @@ LABEL_8:
       }
 
       while (v6 != v9);
-      v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
 
-  completionCopy[2](completionCopy, v17, v4);
-  v14 = *MEMORY[0x1E69E9840];
+  completionCopy[2](completionCopy, v16, v4);
 }
 
 + (id)SFTop21Locales

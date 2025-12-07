@@ -7,7 +7,7 @@
 
 - (id)replayAction
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   action = [(ECLocalActionReplayer *)self action];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -34,16 +34,16 @@
     v15 = [v10 count];
     v16 = @"didn't work";
     *buf = 138543874;
-    v26 = action3;
+    v25 = action3;
     if (v12)
     {
       v16 = @"worked";
     }
 
-    v27 = 2048;
-    v28 = v15;
-    v29 = 2112;
-    v30 = v16;
+    v26 = 2048;
+    v27 = v15;
+    v28 = 2112;
+    v29 = v16;
     _os_log_impl(&dword_22D092000, v13, OS_LOG_TYPE_DEFAULT, "Replaying flag action %{public}@ for %lu uids %@", buf, 0x20u);
   }
 
@@ -69,8 +69,6 @@
       v17 = 0;
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

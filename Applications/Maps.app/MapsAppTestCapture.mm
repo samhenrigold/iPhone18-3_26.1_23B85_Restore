@@ -21,24 +21,24 @@
   testName = [(MapsAppTest *)self testName];
   NSLog(@"capture is %@", testName);
 
-  options = [(MapsAppTest *)self options];
-  _mapstest_hasLatitudeAndLongitude = [options _mapstest_hasLatitudeAndLongitude];
+  v4 = objc_msgSend_options(self);
+  _mapstest_hasLatitudeAndLongitude = [v4 _mapstest_hasLatitudeAndLongitude];
 
   if (_mapstest_hasLatitudeAndLongitude)
   {
     [(MapsAppTest *)self setupForVKTest];
-    options2 = [(MapsAppTest *)self options];
-    [options2 _mapstest_jumpPoint];
+    v6 = objc_msgSend_options(self);
+    [v6 _mapstest_jumpPoint];
     v8 = v7;
     v10 = v9;
     v12 = v11;
 
-    options3 = [(MapsAppTest *)self options];
-    [options3 _mapstest_pitch];
+    v13 = objc_msgSend_options(self);
+    [v13 _mapstest_pitch];
     v15 = v14;
 
-    options4 = [(MapsAppTest *)self options];
-    [options4 _mapstest_yaw];
+    v16 = objc_msgSend_options(self);
+    [v16 _mapstest_yaw];
     v18 = v17;
 
     mainVKMapView = [(MapsAppTest *)self mainVKMapView];

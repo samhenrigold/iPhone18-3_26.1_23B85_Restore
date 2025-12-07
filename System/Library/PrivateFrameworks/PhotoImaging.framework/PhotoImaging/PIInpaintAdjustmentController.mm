@@ -131,7 +131,7 @@
           identifier3 = [v28 identifier];
           if (v28)
           {
-            [v28 extent];
+            objc_msgSend_extent(v28);
           }
 
           else
@@ -209,7 +209,7 @@
             identifier7 = [v47 identifier];
             if (v47)
             {
-              [v47 extent];
+              objc_msgSend_extent(v47);
             }
 
             else
@@ -415,7 +415,7 @@ LABEL_11:
             identifier2 = [v22 identifier];
             if (v22)
             {
-              [v22 extent];
+              objc_msgSend_extent(v22);
             }
 
             else

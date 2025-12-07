@@ -11,44 +11,44 @@
 {
   valueCopy = value;
   keyCopy = key;
-  if (objc_msgSend_hasPrefix_(keyCopy, v8, @"inputScales", v9, v10))
+  if ([keyCopy hasPrefix:@"inputScales"])
   {
     mapImg = self->mapImg;
     self->mapImg = 0;
   }
 
-  v12.receiver = self;
-  v12.super_class = RAWRadialLensCorrectionRB;
-  [(RAWRadialLensCorrectionRB *)&v12 setValue:valueCopy forKey:keyCopy];
+  v9.receiver = self;
+  v9.super_class = RAWRadialLensCorrectionRB;
+  [(RAWRadialLensCorrectionRB *)&v9 setValue:valueCopy forKey:keyCopy];
 }
 
 + (id)customAttributes
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v19[0] = xmmword_233906318;
-  v19[1] = unk_233906328;
-  v19[2] = xmmword_233906338;
-  v19[3] = unk_233906348;
-  v3 = objc_msgSend_vectorWithValues_count_(MEMORY[0x277CBF788], a2, v19, 8, v2);
-  v17[0] = @"inputScalesR";
-  v5 = *MEMORY[0x277CBF7C0];
-  v15[0] = *MEMORY[0x277CBF798];
-  v4 = v15[0];
-  v15[1] = v5;
-  v16[0] = v3;
-  v16[1] = v3;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v6, v16, v15, 2);
-  v17[1] = @"inputScalesB";
-  v18[0] = v7;
-  v13[0] = v4;
-  v13[1] = v5;
-  v14[0] = v3;
-  v14[1] = v3;
-  v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v14, v13, 2);
-  v18[1] = v9;
-  v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v10, v18, v17, 2);
+  v16 = *MEMORY[0x277D85DE8];
+  v15[0] = xmmword_233906318;
+  v15[1] = unk_233906328;
+  v15[2] = xmmword_233906338;
+  v15[3] = unk_233906348;
+  v2 = [MEMORY[0x277CBF788] vectorWithValues:v15 count:8];
+  v13[0] = @"inputScalesR";
+  v4 = *MEMORY[0x277CBF7C0];
+  v11[0] = *MEMORY[0x277CBF798];
+  v3 = v11[0];
+  v11[1] = v4;
+  v12[0] = v2;
+  v12[1] = v2;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v13[1] = @"inputScalesB";
+  v14[0] = v5;
+  v9[0] = v3;
+  v9[1] = v4;
+  v10[0] = v2;
+  v10[1] = v2;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
-  return v11;
+  return v7;
 }
 
 - (BOOL)makeMapImages
@@ -64,35 +64,34 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v8 = objc_msgSend_count(self->inputScalesR, v4, v5, v6, v7);
-      if (v8 == objc_msgSend_count(self->inputScalesB, v9, v10, v11, v12))
+      v4 = [(CIVector *)self->inputScalesR count];
+      if (v4 == [(CIVector *)self->inputScalesB count])
       {
-        v17 = objc_msgSend_count(self->inputScalesR, v13, v14, v15, v16);
-        if (v17 > 2)
+        v5 = [(CIVector *)self->inputScalesR count];
+        if (v5 > 2)
         {
-          v21 = v17;
-          v22 = 4 * v17 + 15;
-          v23 = objc_msgSend_dataWithLength_(MEMORY[0x277CBEB28], v18, v22 & 0xFFFFFFF0, v19, v20);
-          v24 = v23;
-          v32 = objc_msgSend_mutableBytes(v24, v25, v26, v27, v28);
-          for (i = 0; i != v21; ++i)
+          v6 = v5;
+          v7 = 4 * v5 + 15;
+          0xFFFFFFF0 = [MEMORY[0x277CBEB28] dataWithLength:v7 & 0xFFFFFFF0];
+          mutableBytes = [0xFFFFFFF0 mutableBytes];
+          for (i = 0; i != v6; ++i)
           {
-            objc_msgSend_valueAtIndex_(self->inputScalesR, v29, i, v30, v31);
+            [(CIVector *)self->inputScalesR valueAtIndex:i];
             *&_D0 = _D0;
             __asm { FCVT            H0, S0 }
 
-            *v32 = LOWORD(_D0);
-            objc_msgSend_valueAtIndex_(self->inputScalesB, v39, i, v40, v41);
+            *mutableBytes = LOWORD(_D0);
+            [(CIVector *)self->inputScalesB valueAtIndex:i];
             *&_D0 = _D0;
             __asm { FCVT            H0, S0 }
 
-            v32[1] = LOWORD(_D0);
-            v32 += 2;
+            mutableBytes[1] = LOWORD(_D0);
+            mutableBytes += 2;
           }
 
-          v43 = objc_msgSend_imageWithBitmapData_bytesPerRow_size_format_colorSpace_(MEMORY[0x277CBF758], v29, v23, v22 & 0xFFFFFFF0, *MEMORY[0x277CBF9E8], 0, v21, 1.0);
+          v17 = [MEMORY[0x277CBF758] imageWithBitmapData:0xFFFFFFF0 bytesPerRow:v7 & 0xFFFFFFF0 size:*MEMORY[0x277CBF9E8] format:0 colorSpace:{v6, 1.0}];
           mapImg = self->mapImg;
-          self->mapImg = v43;
+          self->mapImg = v17;
 
           return 1;
         }
@@ -122,13 +121,13 @@
 
 - (id)outputImage
 {
-  v99[3] = *MEMORY[0x277D85DE8];
+  v54[3] = *MEMORY[0x277D85DE8];
   inputImage = self->inputImage;
   if (inputImage)
   {
     if (self->inputScalesR || self->inputScalesB)
     {
-      v4 = sub_23378E104();
+      v4 = sub_23378E104(self);
       v5 = v4;
       if (&self->super.super.super.isa + 1 >= 2 && os_signpost_enabled(v4))
       {
@@ -136,81 +135,81 @@
         _os_signpost_emit_with_name_impl(&dword_23371F000, v5, OS_SIGNPOST_INTERVAL_BEGIN, self, "RAWRadialLensCorrectionRB", &unk_233945DBE, buf, 2u);
       }
 
-      v97[0] = MEMORY[0x277D85DD0];
-      v97[1] = 3221225472;
-      v97[2] = sub_2337DA8E8;
-      v97[3] = &unk_2789EE800;
-      v97[4] = self;
-      v6 = MEMORY[0x2383AC810](v97);
-      if (objc_msgSend_makeMapImages(self, v7, v8, v9, v10))
+      v52[0] = MEMORY[0x277D85DD0];
+      v52[1] = 3221225472;
+      v52[2] = sub_2337DA8E8;
+      v52[3] = &unk_2789EE800;
+      v52[4] = self;
+      v6 = MEMORY[0x2383AC810](v52);
+      if ([(RAWRadialLensCorrectionRB *)self makeMapImages])
       {
-        objc_msgSend_extent(self->inputImage, v11, v12, v13, v14);
-        v16 = v15;
-        v18 = v17;
+        [(CIImage *)self->inputImage extent];
+        v8 = v7;
+        v10 = v9;
+        v12 = v11;
+        v14 = v13;
+        v42 = [LCKernels kernelWithName:@"radialLensRB"];
+        v15 = hypot(v12, v14);
+        v16 = [(CIVector *)self->inputScalesR count];
+        v17 = [(CIVector *)self->inputScalesR count];
+        v41 = self->inputScalesR;
+        v40 = self->inputScalesB;
+        imageByClampingToExtent = [(CIImage *)self->inputImage imageByClampingToExtent];
+        v19 = self->inputColorSpace;
         v20 = v19;
-        v22 = v21;
-        v87 = objc_msgSend_kernelWithName_(LCKernels, v23, @"radialLensRB", v24, v25);
-        v26 = hypot(v20, v22);
-        v31 = objc_msgSend_count(self->inputScalesR, v27, v28, v29, v30);
-        v36 = objc_msgSend_count(self->inputScalesR, v32, v33, v34, v35);
-        v86 = self->inputScalesR;
-        v85 = self->inputScalesB;
-        v41 = objc_msgSend_imageByClampingToExtent(self->inputImage, v37, v38, v39, v40);
-        v42 = self->inputColorSpace;
-        v43 = v42;
-        if (v42)
+        if (v19)
         {
-          CFAutorelease(v42);
-          v47 = objc_msgSend_imageByColorMatchingWorkingSpaceToColorSpace_(v41, v44, v43, v45, v46);
+          CFAutorelease(v19);
+          v21 = [imageByClampingToExtent imageByColorMatchingWorkingSpaceToColorSpace:v20];
 
-          v41 = v47;
+          imageByClampingToExtent = v21;
         }
 
-        v48 = 2.0 / v26;
-        v49 = (v36 - 1);
-        v50 = v48;
-        v51 = v16 + v20 * 0.5;
-        v52 = v18 + v22 * 0.5;
-        v88 = v87;
-        v53 = *MEMORY[0x277CBF390];
-        v54 = *(MEMORY[0x277CBF390] + 8);
-        v55 = *(MEMORY[0x277CBF390] + 16);
-        v84 = *(MEMORY[0x277CBF390] + 24);
-        v89[0] = MEMORY[0x277D85DD0];
-        v89[1] = 3221225472;
-        v89[2] = sub_2337DA970;
-        v89[3] = &unk_2789EF0C8;
-        v93 = v51;
-        v94 = v52;
-        v95 = v50;
-        v96 = v49;
-        v56 = v86;
-        v90 = v56;
-        v57 = v85;
-        v91 = v57;
-        v92 = v31;
+        v22 = 2.0 / v15;
+        v23 = (v17 - 1);
+        v24 = v22;
+        v25 = v8 + v12 * 0.5;
+        v26 = v10 + v14 * 0.5;
+        v43 = v42;
+        v27 = *MEMORY[0x277CBF390];
+        v28 = *(MEMORY[0x277CBF390] + 8);
+        v29 = *(MEMORY[0x277CBF390] + 16);
+        v39 = *(MEMORY[0x277CBF390] + 24);
+        v44[0] = MEMORY[0x277D85DD0];
+        v44[1] = 3221225472;
+        v44[2] = sub_2337DA970;
+        v44[3] = &unk_2789EF0C8;
+        v48 = v25;
+        v49 = v26;
+        v50 = v24;
+        v51 = v23;
+        v30 = v41;
+        v45 = v30;
+        v31 = v40;
+        v46 = v31;
+        v47 = v16;
         mapImg = self->mapImg;
-        v99[0] = v41;
-        v99[1] = mapImg;
-        v63 = objc_msgSend_vectorWithX_Y_Z_W_(MEMORY[0x277CBF788], v59, v60, v61, v62, v51, v52, v50, v49);
-        v99[2] = v63;
-        v66 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v64, v99, 3, v65);
-        v69 = objc_msgSend_applyWithExtent_roiCallback_arguments_(v88, v67, v89, v66, v68, v53, v54, v55, v84);
+        v54[0] = imageByClampingToExtent;
+        v54[1] = mapImg;
+        v33 = [MEMORY[0x277CBF788] vectorWithX:v25 Y:v26 Z:v24 W:v23];
+        v54[2] = v33;
+        v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:3];
+        v35 = [v43 applyWithExtent:v44 roiCallback:v34 arguments:{v27, v28, v29, v39}];
 
-        objc_msgSend_extent(self->inputImage, v70, v71, v72, v73);
-        v78 = objc_msgSend_imageByCroppingToRect_(v69, v74, v75, v76, v77);
+        [(CIImage *)self->inputImage extent];
+        v36 = [v35 imageByCroppingToRect:?];
 
-        if (v43)
+        if (v20)
         {
-          v82 = objc_msgSend_imageByColorMatchingColorSpaceToWorkingSpace_(v78, v79, v43, v80, v81);
+          v37 = [(CIImage *)v36 imageByColorMatchingColorSpaceToWorkingSpace:v20];
 
-          v78 = v82;
+          v36 = v37;
         }
       }
 
       else
       {
-        v78 = 0;
+        v36 = 0;
       }
 
       v6[2](v6);
@@ -218,16 +217,16 @@
 
     else
     {
-      v78 = inputImage;
+      v36 = inputImage;
     }
   }
 
   else
   {
-    v78 = 0;
+    v36 = 0;
   }
 
-  return v78;
+  return v36;
 }
 
 @end

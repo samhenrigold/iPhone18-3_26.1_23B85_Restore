@@ -57,28 +57,26 @@ void __32__SABootInfo_initForCurrentBoot__block_invoke(void *a1, void *a2, void 
 
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ([(SABootInfo *)self sizeInBytesForSerializedVersion]!= length)
   {
-    v11 = *__error();
-    v12 = _sa_logt();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v10 = *__error();
+    v11 = _sa_logt();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = [(SABootInfo *)self debugDescription];
+      v12 = [(SABootInfo *)self debugDescription];
       *buf = 136315650;
-      uTF8String = [v13 UTF8String];
-      v24 = 2048;
+      uTF8String = [v12 UTF8String];
+      v16 = 2048;
       sizeInBytesForSerializedVersion = [(SABootInfo *)self sizeInBytesForSerializedVersion];
-      v26 = 2048;
+      v18 = 2048;
       lengthCopy = length;
-      _os_log_error_impl(&dword_1E0E2F000, v12, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
+      _os_log_error_impl(&dword_1E0E2F000, v11, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
     }
 
-    *__error() = v11;
-    v14 = [(SABootInfo *)self debugDescription];
-    uTF8String2 = [v14 UTF8String];
-    [(SABootInfo *)self sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(13198, "%s: size %lu != buffer length %lu", v16, v17, v18, v19, v20, v21, uTF8String2);
+    *__error() = v10;
+    v13 = [(SABootInfo *)self debugDescription];
+    _SASetCrashLogMessage(13198, "%s: size %lu != buffer length %lu", [v13 UTF8String], -[SABootInfo sizeInBytesForSerializedVersion](self, "sizeInBytesForSerializedVersion"), length);
 
     _os_crash();
     __break(1u);
@@ -92,7 +90,6 @@ void __32__SABootInfo_initForCurrentBoot__block_invoke(void *a1, void *a2, void 
   *(&buffer->var5 + 2) = SASerializableIndexForPointerFromSerializationDictionary(self->_osProductVersionExtra, dictionary);
   *(&buffer->var6 + 2) = SASerializableIndexForPointerFromSerializationDictionary(self->_osBuildVersion, dictionary);
   *(&buffer->var7 + 2) = SASerializableIndexForPointerFromSerializationDictionary(self->_bootArgs, dictionary);
-  v9 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -116,7 +113,7 @@ void __32__SABootInfo_initForCurrentBoot__block_invoke(void *a1, void *a2, void 
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (*buffer >= 2u)
   {
     goto LABEL_7;
@@ -124,35 +121,34 @@ void __32__SABootInfo_initForCurrentBoot__block_invoke(void *a1, void *a2, void 
 
   if (length <= 0x39)
   {
-    v8 = *__error();
-    v9 = _sa_logt();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = *__error();
+    v8 = _sa_logt();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy = length;
-      v19 = 2048;
-      v20 = 58;
-      _os_log_error_impl(&dword_1E0E2F000, v9, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SABootInfo struct %lu", buf, 0x16u);
+      v12 = 2048;
+      v13 = 58;
+      _os_log_error_impl(&dword_1E0E2F000, v8, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SABootInfo struct %lu", buf, 0x16u);
     }
 
-    *__error() = v8;
-    _SASetCrashLogMessage(13232, "bufferLength %lu < serialized SABootInfo struct %lu", v10, v11, v12, v13, v14, v15, length);
+    *__error() = v7;
+    _SASetCrashLogMessage(13232, "bufferLength %lu < serialized SABootInfo struct %lu", length, 58);
     _os_crash();
     __break(1u);
 LABEL_7:
-    v16 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SABootInfo version" userInfo:0];
-    objc_exception_throw(v16);
+    v9 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SABootInfo version" userInfo:0];
+    objc_exception_throw(v9);
   }
 
   result = objc_alloc_init(SABootInfo);
   *(result + 2) = *(buffer + 10);
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   if (*buffer >= 2u)
   {
     goto LABEL_9;
@@ -160,24 +156,24 @@ LABEL_7:
 
   if (length <= 0x39)
   {
-    v36 = *__error();
-    v37 = _sa_logt();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v35 = *__error();
+    v36 = _sa_logt();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy = length;
-      v47 = 2048;
-      v48 = 58;
-      _os_log_error_impl(&dword_1E0E2F000, v37, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SABootInfo struct %lu", buf, 0x16u);
+      v40 = 2048;
+      v41 = 58;
+      _os_log_error_impl(&dword_1E0E2F000, v36, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SABootInfo struct %lu", buf, 0x16u);
     }
 
-    *__error() = v36;
-    _SASetCrashLogMessage(13245, "bufferLength %lu < serialized SABootInfo struct %lu", v38, v39, v40, v41, v42, v43, length);
+    *__error() = v35;
+    _SASetCrashLogMessage(13245, "bufferLength %lu < serialized SABootInfo struct %lu", length, 58);
     _os_crash();
     __break(1u);
 LABEL_9:
-    v44 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SABootInfo version" userInfo:0];
-    objc_exception_throw(v44);
+    v37 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SABootInfo version" userInfo:0];
+    objc_exception_throw(v37);
   }
 
   v11 = *(buffer + 2);
@@ -215,7 +211,6 @@ LABEL_9:
   v33 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v31, dictionary, bufferDictionary, v32, 0);
   bootArgs = self->_bootArgs;
   self->_bootArgs = v33;
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeJSONDictionaryEntriesToStream:(id)stream

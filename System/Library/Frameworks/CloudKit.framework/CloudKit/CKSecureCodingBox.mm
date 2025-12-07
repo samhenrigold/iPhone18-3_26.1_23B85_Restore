@@ -38,7 +38,7 @@
 - (int64_t)hash
 {
   selfCopy = self;
-  v3 = sub_1884B12F8();
+  v3 = sub_1884B12F8(selfCopy);
 
   return v3;
 }

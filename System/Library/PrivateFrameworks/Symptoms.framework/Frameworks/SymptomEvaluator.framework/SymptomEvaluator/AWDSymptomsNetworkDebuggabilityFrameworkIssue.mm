@@ -3,6 +3,10 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)ndfAppSymptomsAsString:(int)string;
+- (id)ndfNetworkTypesAsString:(int)string;
+- (id)ndfSessionTypeAsString:(int)string;
+- (id)ndfTriggerTypeAsString:(int)string;
 - (int)StringAsNdfAppSymptoms:(id)symptoms;
 - (int)StringAsNdfNetworkTypes:(id)types;
 - (int)StringAsNdfSessionType:(id)type;
@@ -67,6 +71,21 @@
   }
 
   return p_ndfNetworkTypes->list[index];
+}
+
+- (id)ndfNetworkTypesAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898F250[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsNdfNetworkTypes:(id)types
@@ -153,6 +172,21 @@
   *&self->_has = v3 & 0x80 | *&self->_has & 0x7F;
 }
 
+- (id)ndfTriggerTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898F268[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsNdfTriggerType:(id)type
 {
   typeCopy = type;
@@ -211,6 +245,103 @@
   }
 
   return p_ndfAppSymptoms->list[index];
+}
+
+- (id)ndfAppSymptomsAsString:(int)string
+{
+  v4 = @"Crash";
+  switch(string)
+  {
+    case 1:
+      goto LABEL_43;
+    case 2:
+      v4 = @"DataStall";
+
+      break;
+    case 3:
+      v4 = @"AdaptiveWriteTimeout";
+
+      break;
+    case 4:
+      v4 = @"DNSFailed";
+
+      break;
+    case 5:
+      v4 = @"TLSHandshakeFailed";
+
+      break;
+    case 6:
+      v4 = @"AddressAcquisitionFailed";
+
+      break;
+    case 7:
+      v4 = @"AddressAcquisitionSucceeded";
+
+      break;
+    case 8:
+      v4 = @"BackgroundRRCExcDuration";
+
+      break;
+    case 9:
+      v4 = @"FlowCountExceededPeriodicThreshold";
+
+      break;
+    case 10:
+      v4 = @"MbufPeakUsage";
+
+      break;
+    case 11:
+      v4 = @"RNFFlowWhenDisabled";
+
+      break;
+    case 12:
+      v4 = @"RNFWrongUsageCount";
+
+      break;
+    case 13:
+      v4 = @"RNFExceededPeriodicThreshold";
+
+      break;
+    case 14:
+      v4 = @"RNFFlowUsageThreshold";
+
+      break;
+    case 15:
+      v4 = @"DNSNoReplies";
+
+      break;
+    case 16:
+      v4 = @"DNSResumedResponding";
+
+      break;
+    case 17:
+      v4 = @"LibtraceOSLog";
+
+      break;
+    case 18:
+      v4 = @"ARPFailure";
+
+      break;
+    case 19:
+      v4 = @"ND6Failure";
+
+      break;
+    default:
+      if (string == 99)
+      {
+        v4 = @"Stall";
+      }
+
+      else
+      {
+        v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_43:
+      }
+
+      break;
+  }
+
+  return v4;
 }
 
 - (int)StringAsNdfAppSymptoms:(id)symptoms
@@ -365,6 +496,26 @@
   }
 
   *&self->_has = *&self->_has & 0xBF | v3;
+}
+
+- (id)ndfSessionTypeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"Foreground";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"Background";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsNdfSessionType:(id)type
@@ -682,31 +833,28 @@ LABEL_23:
 
 - (void)writeTo:(id)to
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if ((*&self->_has & 0x20) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
   if (self->_ndfNetworkTypes.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_ndfNetworkTypes.list[v6];
       PBDataWriterWriteInt32Field();
-      ++v6;
+      ++v5;
     }
 
-    while (v6 < self->_ndfNetworkTypes.count);
+    while (v5 < self->_ndfNetworkTypes.count);
   }
 
   has = self->_has;
   if (has)
   {
-    ndfCount = self->_ndfCount;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -718,7 +866,6 @@ LABEL_8:
       }
 
 LABEL_36:
-      ndfDampeningFactor = self->_ndfDampeningFactor;
       PBDataWriterWriteUint64Field();
       if ((*&self->_has & 0x80) == 0)
       {
@@ -734,7 +881,6 @@ LABEL_36:
     goto LABEL_8;
   }
 
-  ndfDuration = self->_ndfDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -749,101 +895,92 @@ LABEL_9:
   }
 
 LABEL_37:
-  ndfTriggerType = self->_ndfTriggerType;
   PBDataWriterWriteInt32Field();
 LABEL_10:
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v9 = self->_ndfAppNames;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v36 objects:v41 count:16];
-  if (v10)
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v7 = self->_ndfAppNames;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  if (v8)
   {
-    v11 = v10;
-    v12 = *v37;
+    v9 = v8;
+    v10 = *v24;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v37 != v12)
+        if (*v24 != v10)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v36 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
-    while (v11);
+    while (v9);
   }
 
   if (self->_ndfAppSymptoms.count)
   {
-    v15 = 0;
+    v12 = 0;
     do
     {
-      v16 = self->_ndfAppSymptoms.list[v15];
       PBDataWriterWriteInt32Field();
-      ++v15;
+      ++v12;
     }
 
-    while (v15 < self->_ndfAppSymptoms.count);
+    while (v12 < self->_ndfAppSymptoms.count);
   }
 
-  v17 = self->_has;
-  if ((v17 & 8) != 0)
+  v13 = self->_has;
+  if ((v13 & 8) != 0)
   {
-    ndfLQM = self->_ndfLQM;
     PBDataWriterWriteInt64Field();
-    v17 = self->_has;
+    v13 = self->_has;
   }
 
-  if ((v17 & 0x40) != 0)
+  if ((v13 & 0x40) != 0)
   {
-    ndfSessionType = self->_ndfSessionType;
     PBDataWriterWriteInt32Field();
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v20 = self->_ndfSignatures;
-  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v32 objects:v40 count:16];
-  if (v21)
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v14 = self->_ndfSignatures;
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  if (v15)
   {
-    v22 = v21;
-    v23 = *v33;
+    v16 = v15;
+    v17 = *v20;
     do
     {
-      for (j = 0; j != v22; ++j)
+      for (j = 0; j != v16; ++j)
       {
-        if (*v33 != v23)
+        if (*v20 != v17)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v14);
         }
 
-        v25 = *(*(&v32 + 1) + 8 * j);
         PBDataWriterWriteStringField();
       }
 
-      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
-    while (v22);
+    while (v16);
   }
 
   if ((*&self->_has & 0x10) != 0)
   {
-    ndfSymptomPoint = self->_ndfSymptomPoint;
     PBDataWriterWriteInt64Field();
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -986,7 +1123,7 @@ LABEL_11:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if ((*&self->_has & 0x20) != 0)
@@ -1045,30 +1182,30 @@ LABEL_31:
   *(v6 + 128) = self->_ndfTriggerType;
   *(v6 + 132) |= 0x80u;
 LABEL_7:
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v8 = self->_ndfAppNames;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v28;
+    v11 = *v27;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v28 != v11)
+        if (*v27 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v27 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v26 + 1) + 8 * i) copyWithZone:zone];
         [v6 addNdfAppName:v13];
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v10);
@@ -1089,30 +1226,30 @@ LABEL_7:
     *(v6 + 132) |= 0x40u;
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v15 = self->_ndfSignatures;
-  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v24;
+    v18 = *v23;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v24 != v18)
+        if (*v23 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = [*(*(&v23 + 1) + 8 * j) copyWithZone:{zone, v23}];
+        v20 = [*(*(&v22 + 1) + 8 * j) copyWithZone:{zone, v22}];
         [v6 addNdfSignature:v20];
       }
 
-      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v17);
@@ -1124,7 +1261,6 @@ LABEL_7:
     *(v6 + 132) |= 0x10u;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1136,7 +1272,6 @@ LABEL_7:
     goto LABEL_49;
   }
 
-  v5 = *(equalCopy + 132);
   if ((*&self->_has & 0x20) != 0)
   {
     if ((*(equalCopy + 132) & 0x20) == 0 || self->_timestamp != *(equalCopy + 12))
@@ -1155,7 +1290,6 @@ LABEL_7:
     goto LABEL_49;
   }
 
-  v6 = *(equalCopy + 132);
   if (*&self->_has)
   {
     if ((*(equalCopy + 132) & 1) == 0 || self->_ndfCount != *(equalCopy + 7))
@@ -1215,7 +1349,6 @@ LABEL_7:
   }
 
   has = self->_has;
-  v9 = *(equalCopy + 132);
   if ((has & 8) != 0)
   {
     if ((*(equalCopy + 132) & 8) == 0 || self->_ndfLQM != *(equalCopy + 10))
@@ -1252,7 +1385,7 @@ LABEL_7:
     }
 
 LABEL_49:
-    v11 = 0;
+    v8 = 0;
     goto LABEL_50;
   }
 
@@ -1264,17 +1397,17 @@ LABEL_44:
       goto LABEL_49;
     }
 
-    v11 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v11 = (*(equalCopy + 132) & 0x10) == 0;
+    v8 = (*(equalCopy + 132) & 0x10) == 0;
   }
 
 LABEL_50:
 
-  return v11;
+  return v8;
 }
 
 - (unint64_t)hash
@@ -1380,7 +1513,7 @@ LABEL_18:
 
 - (void)mergeFrom:(id)from
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   if ((*(fromCopy + 132) & 0x20) != 0)
@@ -1448,29 +1581,29 @@ LABEL_37:
   self->_ndfTriggerType = *(v5 + 32);
   *&self->_has |= 0x80u;
 LABEL_10:
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v10 = *(v5 + 13);
-  v11 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v30;
+    v13 = *v29;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v30 != v13)
+        if (*v29 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(AWDSymptomsNetworkDebuggabilityFrameworkIssue *)self addNdfAppName:*(*(&v29 + 1) + 8 * j)];
+        [(AWDSymptomsNetworkDebuggabilityFrameworkIssue *)self addNdfAppName:*(*(&v28 + 1) + 8 * j)];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v12);
@@ -1500,29 +1633,29 @@ LABEL_10:
     *&self->_has |= 0x40u;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v19 = *(v5 + 15);
-  v20 = [v19 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v26;
+    v22 = *v25;
     do
     {
       for (m = 0; m != v21; ++m)
       {
-        if (*v26 != v22)
+        if (*v25 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        [(AWDSymptomsNetworkDebuggabilityFrameworkIssue *)self addNdfSignature:*(*(&v25 + 1) + 8 * m), v25];
+        [(AWDSymptomsNetworkDebuggabilityFrameworkIssue *)self addNdfSignature:*(*(&v24 + 1) + 8 * m), v24];
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v21);
@@ -1533,8 +1666,6 @@ LABEL_10:
     self->_ndfSymptomPoint = *(v5 + 11);
     *&self->_has |= 0x10u;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

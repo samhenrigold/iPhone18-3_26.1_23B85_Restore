@@ -32,15 +32,15 @@
 
 - (id)descriptionWithNow:(id)now
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   nowCopy = now;
   if ([(NSDictionary *)self->_predictions count])
   {
     v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSDictionary count](self->_predictions, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     objc_opt_self();
     if (onceToken != -1)
     {
@@ -48,22 +48,22 @@
     }
 
     obj = _orderedPredictionTypes;
-    v5 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v25;
+      v7 = *v24;
       do
       {
         v8 = 0;
         do
         {
-          if (*v25 != v7)
+          if (*v24 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v24 + 1) + 8 * v8);
+          v9 = *(*(&v23 + 1) + 8 * v8);
           if (v9)
           {
             v10 = *(v9 + 8);
@@ -117,7 +117,7 @@
         }
 
         while (v6 != v8);
-        v18 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v18 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
         v6 = v18;
       }
 
@@ -139,8 +139,6 @@
   {
     v19 = 0;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

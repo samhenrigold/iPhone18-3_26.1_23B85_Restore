@@ -6,7 +6,7 @@ void sub_27421816C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
     OSLog = W5GetOSLog();
     if (os_log_type_enabled(OSLog, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, OSLog, 0, "[wifivelocity] %s (%s:%u) [NSFileHandle writeData:] failed with exception %{public}@");
     }
 
     objc_end_catch();
@@ -37,40 +37,40 @@ void sub_274219AE0(void *a1, int a2)
   JUMPOUT(0x274219B10);
 }
 
-void sub_27421A38C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_27421A38C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_27421A6CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_27421A6CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_27421AA0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_27421AA0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -88,112 +88,113 @@ uint64_t W5GetOSLog()
 
 uint64_t W5CreateTarball(void *a1, void *a2, void *a3)
 {
-  v51 = *MEMORY[0x277D85DE8];
-  v32 = 0;
-  memset(&v31, 0, sizeof(v31));
-  stat([objc_msgSend(a1 "path")], &v31);
+  v52 = *MEMORY[0x277D85DE8];
+  v33 = 0;
+  memset(&v32, 0, sizeof(v32));
+  stat([objc_msgSend(a1 "path")], &v32);
   if (qword_280D9E7A0 != -1)
   {
     dispatch_once(&qword_280D9E7A0, &__block_literal_global);
   }
 
+  v6 = _MergedGlobals;
   if (os_log_type_enabled(_MergedGlobals, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [a1 path];
-    st_size = v31.st_size;
-    v8 = [a2 path];
-    v39 = 136316418;
-    v40 = "W5CreateTarball";
-    v41 = 2080;
-    v42 = "W5MiscUtil.m";
-    v43 = 1024;
-    v44 = 388;
-    v45 = 2114;
-    v46 = v6;
-    v47 = 2048;
-    v48 = st_size;
-    v49 = 2114;
-    v50 = v8;
-    LODWORD(v30) = 58;
-    v29 = &v39;
-    _os_log_send_and_compose_impl();
+    v7 = [a1 path];
+    st_size = v32.st_size;
+    v9 = [a2 path];
+    v40 = 136316418;
+    v41 = "W5CreateTarball";
+    v42 = 2080;
+    v43 = "W5MiscUtil.m";
+    v44 = 1024;
+    v45 = 388;
+    v46 = 2114;
+    v47 = v7;
+    v48 = 2048;
+    v49 = st_size;
+    v50 = 2114;
+    v51 = v9;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, v6, 0, "[wifivelocity] %s (%s:%u) Archiving '%{public}@' (size=%lld) --> '%{public}@'", &v40, 58);
   }
 
-  v9 = archive_write_new();
-  if (!v9)
+  v10 = archive_write_new();
+  if (!v10)
   {
-    v14 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA5B8];
-    v37 = *MEMORY[0x277CCA470];
-    v38 = @"ENOMEM";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-    v17 = v14;
-    v18 = v15;
-    v19 = 12;
+    v16 = MEMORY[0x277CCA9B8];
+    v17 = *MEMORY[0x277CCA5B8];
+    v38 = *MEMORY[0x277CCA470];
+    v39 = @"ENOMEM";
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+    v19 = v16;
+    v20 = v17;
+    v21 = 12;
 LABEL_17:
-    v32 = [v17 errorWithDomain:v18 code:v19 userInfo:{v16, v29, v30}];
+    v33 = [v19 errorWithDomain:v20 code:v21 userInfo:v18];
     goto LABEL_18;
   }
 
   if (([objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")] & 1) == 0)
   {
-    v20 = MEMORY[0x277CCA9B8];
-    v21 = *MEMORY[0x277CCA5B8];
-    v35 = *MEMORY[0x277CCA470];
-    v36 = @"ENOENT";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
-    v17 = v20;
-    v18 = v21;
-    v19 = 2;
+    v22 = MEMORY[0x277CCA9B8];
+    v23 = *MEMORY[0x277CCA5B8];
+    v36 = *MEMORY[0x277CCA470];
+    v37 = @"ENOENT";
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+    v19 = v22;
+    v20 = v23;
+    v21 = 2;
     goto LABEL_17;
   }
 
   archive_write_add_filter_gzip();
   archive_write_set_format_pax();
   [objc_msgSend(a2 "path")];
-  v10 = archive_write_open_filename();
-  if (v10)
+  v11 = archive_write_open_filename();
+  if (v11)
   {
-    v22 = MEMORY[0x277CCA9B8];
-    v23 = *MEMORY[0x277CCA5B8];
-    v24 = v10;
-    v33 = *MEMORY[0x277CCA470];
-    v34 = @"err";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-    v17 = v22;
-    v18 = v23;
+    v24 = MEMORY[0x277CCA9B8];
+    v25 = *MEMORY[0x277CCA5B8];
+    v26 = v11;
+    v34 = *MEMORY[0x277CCA470];
+    v35 = @"err";
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
     v19 = v24;
+    v20 = v25;
+    v21 = v26;
     goto LABEL_17;
   }
 
-  if (__W5ArchiveAddURLToArchive(v9, a1, [objc_msgSend(a2 "lastPathComponent")], &v32))
+  if (__W5ArchiveAddURLToArchive(v10, a1, [objc_msgSend(a2 "lastPathComponent")], &v33))
   {
     if (qword_280D9E7A0 != -1)
     {
       dispatch_once(&qword_280D9E7A0, &__block_literal_global);
     }
 
+    v12 = _MergedGlobals;
     if (os_log_type_enabled(_MergedGlobals, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [a1 path];
-      v12 = [a2 path];
-      v39 = 136316162;
-      v40 = "W5CreateTarball";
-      v41 = 2080;
-      v42 = "W5MiscUtil.m";
-      v43 = 1024;
-      v44 = 412;
-      v45 = 2114;
-      v46 = v11;
-      v47 = 2114;
-      v48 = v12;
-      v13 = 1;
-      _os_log_send_and_compose_impl();
+      v13 = [a1 path];
+      v14 = [a2 path];
+      v40 = 136316162;
+      v41 = "W5CreateTarball";
+      v42 = 2080;
+      v43 = "W5MiscUtil.m";
+      v44 = 1024;
+      v45 = 412;
+      v46 = 2114;
+      v47 = v13;
+      v48 = 2114;
+      v49 = v14;
+      LODWORD(v31) = 48;
+      v15 = 1;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, v12, 0, "[wifivelocity] %s (%s:%u) Successfuly archived '%{public}@' --> '%{public}@'", &v40, v31);
     }
 
     else
     {
-      v13 = 1;
+      v15 = 1;
     }
 
     goto LABEL_22;
@@ -205,38 +206,39 @@ LABEL_18:
     dispatch_once(&qword_280D9E7A0, &__block_literal_global);
   }
 
-  v13 = 0;
+  v27 = _MergedGlobals;
+  v15 = 0;
   if (os_log_type_enabled(_MergedGlobals, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = [a2 path];
-    v26 = [v32 code];
-    v40 = "W5CreateTarball";
-    v41 = 2080;
-    v39 = 136316162;
-    v42 = "W5MiscUtil.m";
-    v43 = 1024;
-    v44 = 408;
-    v45 = 2114;
-    v46 = v25;
-    v47 = 2048;
-    v48 = v26;
-    _os_log_send_and_compose_impl();
-    v13 = 0;
+    v28 = [a2 path];
+    v29 = [v33 code];
+    v41 = "W5CreateTarball";
+    v42 = 2080;
+    v40 = 136316162;
+    v43 = "W5MiscUtil.m";
+    v44 = 1024;
+    v45 = 408;
+    v46 = 2114;
+    v47 = v28;
+    v48 = 2048;
+    v49 = v29;
+    LODWORD(v31) = 48;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, v27, 0, "[wifivelocity] %s (%s:%u) FAILED to create archive '%{public}@', returned error %ld", &v40, v31);
+    v15 = 0;
   }
 
 LABEL_22:
-  if (a3 && v32)
+  if (a3 && v33)
   {
-    *a3 = v32;
+    *a3 = v33;
   }
 
-  if (v9)
+  if (v10)
   {
     archive_write_free();
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v15;
 }
 
 uint64_t __W5ArchiveAddURLToArchive(uint64_t a1, void *a2, void *a3, id *a4)
@@ -264,9 +266,10 @@ uint64_t __W5ArchiveAddURLToArchive(uint64_t a1, void *a2, void *a3, id *a4)
       dispatch_once(&qword_280D9E7A0, &__block_literal_global);
     }
 
+    v9 = _MergedGlobals;
     if (os_log_type_enabled(_MergedGlobals, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [a2 path];
+      v10 = [a2 path];
       *&v43[4] = "__W5ArchiveAddURLToArchive";
       v44 = 2080;
       *v43 = 136316162;
@@ -274,52 +277,51 @@ uint64_t __W5ArchiveAddURLToArchive(uint64_t a1, void *a2, void *a3, id *a4)
       v46 = 1024;
       v47 = 341;
       v48 = 2114;
-      v49 = v9;
+      v49 = v10;
       v50 = 2048;
       st_size = v52.st_size;
-      LODWORD(v31) = 48;
-      v29 = v43;
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, v9, 0, "[wifivelocity] %s (%s:%u) Adding contents of directory '%{public}@' (size=%lld) to archive...", v43, 48);
     }
 
-    v10 = [objc_msgSend(MEMORY[0x277CCAA00] defaultManager];
-    if (v10)
+    v11 = [objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
+    if (v11)
     {
-      v11 = v10;
+      v12 = v11;
       v34 = a4;
-      v12 = v8;
+      v13 = v8;
       v38 = 0u;
       v39 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v13 = [v10 countByEnumeratingWithState:&v36 objects:v42 count:16];
-      if (v13)
+      v14 = [v11 countByEnumeratingWithState:&v36 objects:v42 count:16];
+      if (v14)
       {
-        v14 = v13;
-        v15 = *v37;
+        v15 = v14;
+        v16 = *v37;
         do
         {
-          v16 = 0;
+          v17 = 0;
           do
           {
-            if (*v37 != v15)
+            if (*v37 != v16)
             {
-              objc_enumerationMutation(v11);
+              objc_enumerationMutation(v12);
             }
 
-            v17 = *(*(&v36 + 1) + 8 * v16);
+            v18 = *(*(&v36 + 1) + 8 * v17);
             v35 = 0;
-            if ((__W5ArchiveAddURLToArchive(a1, v17, [a3 stringByAppendingPathComponent:{objc_msgSend(v17, "lastPathComponent", v30, v32)}], &v35) & 1) == 0)
+            if ((__W5ArchiveAddURLToArchive(a1, v18, [a3 stringByAppendingPathComponent:{objc_msgSend(v18, "lastPathComponent")}], &v35) & 1) == 0)
             {
               if (qword_280D9E7A0 != -1)
               {
                 dispatch_once(&qword_280D9E7A0, &__block_literal_global);
               }
 
+              v19 = _MergedGlobals;
               if (os_log_type_enabled(_MergedGlobals, OS_LOG_TYPE_DEFAULT))
               {
                 v33 = [a2 path];
-                v18 = [v35 code];
+                v20 = [v35 code];
                 *v43 = 136316162;
                 *&v43[4] = "__W5ArchiveAddURLToArchive";
                 v44 = 2080;
@@ -329,26 +331,25 @@ uint64_t __W5ArchiveAddURLToArchive(uint64_t a1, void *a2, void *a3, id *a4)
                 v48 = 2114;
                 v49 = v33;
                 v50 = 2048;
-                st_size = v18;
+                st_size = v20;
                 LODWORD(v32) = 48;
-                v30 = v43;
-                _os_log_send_and_compose_impl();
+                _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, v19, 0, "[wifivelocity] %s (%s:%u) FAILED to add directory archive entry '%{public}@', returned error %ld", v43, v32);
               }
             }
 
-            ++v16;
+            ++v17;
           }
 
-          while (v14 != v16);
-          v19 = [v11 countByEnumeratingWithState:&v36 objects:v42 count:16];
-          v14 = v19;
+          while (v15 != v17);
+          v21 = [v12 countByEnumeratingWithState:&v36 objects:v42 count:16];
+          v15 = v21;
         }
 
-        while (v19);
+        while (v21);
       }
 
-      v20 = 1;
-      v8 = v12;
+      v22 = 1;
+      v8 = v13;
       a4 = v34;
       goto LABEL_25;
     }
@@ -358,10 +359,11 @@ uint64_t __W5ArchiveAddURLToArchive(uint64_t a1, void *a2, void *a3, id *a4)
       dispatch_once(&qword_280D9E7A0, &__block_literal_global);
     }
 
+    v26 = _MergedGlobals;
     if (os_log_type_enabled(_MergedGlobals, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = [a2 path];
-      v26 = [v41 code];
+      v27 = [a2 path];
+      v28 = [v41 code];
       *&v43[4] = "__W5ArchiveAddURLToArchive";
       v44 = 2080;
       *v43 = 136316162;
@@ -369,14 +371,15 @@ uint64_t __W5ArchiveAddURLToArchive(uint64_t a1, void *a2, void *a3, id *a4)
       v46 = 1024;
       v47 = 344;
       v48 = 2114;
-      v49 = v25;
+      v49 = v27;
       v50 = 2048;
-      st_size = v26;
-      _os_log_send_and_compose_impl();
+      st_size = v28;
+      LODWORD(v32) = 48;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, v26, 0, "[wifivelocity] %s (%s:%u) FAILED to get contents at URL '%{public}@', returned error %ld", v43, v32);
     }
 
 LABEL_33:
-    v20 = 0;
+    v22 = 0;
     goto LABEL_25;
   }
 
@@ -388,10 +391,11 @@ LABEL_33:
       dispatch_once(&qword_280D9E7A0, &__block_literal_global);
     }
 
+    v29 = _MergedGlobals;
     if (os_log_type_enabled(_MergedGlobals, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = [a2 path];
-      v28 = [*v43 code];
+      v30 = [a2 path];
+      v31 = [*v43 code];
       *&v52.st_mode = "__W5ArchiveAddURLToArchive";
       WORD2(v52.st_ino) = 2080;
       v52.st_dev = 136316162;
@@ -399,25 +403,24 @@ LABEL_33:
       HIWORD(v52.st_gid) = 1024;
       v52.st_rdev = 359;
       *(&v52.st_rdev + 2) = 2114;
-      *(&v52.st_rdev + 6) = v27;
+      *(&v52.st_rdev + 6) = v30;
       HIWORD(v52.st_atimespec.tv_sec) = 2048;
-      v52.st_atimespec.tv_nsec = v28;
-      _os_log_send_and_compose_impl();
+      v52.st_atimespec.tv_nsec = v31;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, v29, 0, "[wifivelocity] %s (%s:%u) FAILED to add file archive entry '%{public}@', returned error %ld", &v52, 48);
     }
   }
 
-  v20 = 1;
+  v22 = 1;
 LABEL_25:
-  v21 = v41;
+  v23 = v41;
   objc_autoreleasePoolPop(v8);
-  v22 = v41;
+  v24 = v41;
   if (a4 && v41)
   {
     *a4 = v41;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v22;
 }
 
 uint64_t W5DescriptionForPeerDiscoveryFlags(uint64_t a1)
@@ -479,114 +482,113 @@ uint64_t __W5ArchiveAddFileURLToArchive()
   v1 = v0;
   v3 = v2;
   v5 = v4;
-  v47 = *MEMORY[0x277D85DE8];
-  memset(&v33, 0, sizeof(v33));
-  stat([objc_msgSend(v4 "path")], &v33);
+  v45 = *MEMORY[0x277D85DE8];
+  memset(&v31, 0, sizeof(v31));
+  stat([objc_msgSend(v4 "path")], &v31);
   if (qword_280D9E7A0 != -1)
   {
     dispatch_once(&qword_280D9E7A0, &__block_literal_global);
   }
 
+  v6 = _MergedGlobals;
   if (os_log_type_enabled(_MergedGlobals, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [v5 path];
-    v42 = "__W5ArchiveAddFileURLToArchive";
-    v43 = 2080;
+    v7 = [v5 path];
+    v40 = "__W5ArchiveAddFileURLToArchive";
+    v41 = 2080;
     *buf = 136316162;
-    *v44 = "W5MiscUtil.m";
-    *&v44[8] = 1024;
-    *&v44[10] = 276;
-    *&v44[14] = 2114;
-    *&v44[16] = v6;
-    v45 = 2048;
-    st_size = v33.st_size;
-    LODWORD(v32) = 48;
-    v31 = buf;
-    _os_log_send_and_compose_impl();
+    *v42 = "W5MiscUtil.m";
+    *&v42[8] = 1024;
+    *&v42[10] = 276;
+    *&v42[14] = 2114;
+    *&v42[16] = v7;
+    v43 = 2048;
+    st_size = v31.st_size;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, v6, 0, "[wifivelocity] %s (%s:%u) Adding file '%{public}@' (size=%lld) to archive", buf, 48);
   }
 
-  v7 = archive_entry_new();
-  if (v7)
+  v8 = archive_entry_new();
+  if (v8)
   {
     archive_entry_copy_stat();
     [v3 UTF8String];
     archive_entry_set_pathname();
     archive_entry_set_perm();
-    v8 = archive_write_header();
-    if (v8)
+    v9 = archive_write_header();
+    if (v9)
     {
-      v21 = v8;
+      v21 = v9;
       v22 = *MEMORY[0x277CCA5B8];
-      v37 = *MEMORY[0x277CCA470];
-      v38 = @"err";
-      v23 = [MEMORY[0x277CCA9B8] errorWithDomain:v22 code:v8 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v38, &v37, 1)}];
+      v35 = *MEMORY[0x277CCA470];
+      v36 = @"err";
+      v23 = [MEMORY[0x277CCA9B8] errorWithDomain:v22 code:v9 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v36, &v35, 1)}];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         v24 = [v3 UTF8String];
         v25 = archive_error_string();
         *buf = 136446722;
-        v42 = v24;
-        v43 = 1026;
-        *v44 = v21;
-        *&v44[4] = 2082;
-        *&v44[6] = v25;
+        v40 = v24;
+        v41 = 1026;
+        *v42 = v21;
+        *&v42[4] = 2082;
+        *&v42[6] = v25;
         _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] archive_write_header() FAILED for %{public}s, returned %{public}d (%{public}s)", buf, 0x1Cu);
       }
 
       goto LABEL_21;
     }
 
-    v9 = open([objc_msgSend(v5 "path")], 0);
-    if ((v9 & 0x80000000) == 0)
+    v10 = open([objc_msgSend(v5 "path")], 0);
+    if ((v10 & 0x80000000) == 0)
     {
-      v10 = v9;
-      if (read(v9, v34, 0x2000uLL) < 1)
+      v11 = v10;
+      if (read(v10, v32, 0x2000uLL) < 1)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           v30 = [v3 UTF8String];
           *buf = 136446210;
-          v42 = v30;
+          v40 = v30;
           _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] Unexpected zero-length file encountered for %{public}s", buf, 0xCu);
         }
 
-        v11 = 0;
+        v12 = 0;
       }
 
       else
       {
-        v11 = 0;
+        v12 = 0;
         do
         {
-          v11 += archive_write_data();
+          v12 += archive_write_data();
         }
 
-        while (read(v10, v34, 0x2000uLL) > 0);
+        while (read(v11, v32, 0x2000uLL) > 0);
       }
 
-      close(v10);
-      if (v11 != v33.st_size && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      close(v11);
+      if (v12 != v31.st_size && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         v29 = [v3 UTF8String];
         *buf = 136446722;
-        v42 = v29;
-        v43 = 2050;
-        *v44 = v33.st_size;
-        *&v44[8] = 2050;
-        *&v44[10] = v11;
+        v40 = v29;
+        v41 = 2050;
+        *v42 = v31.st_size;
+        *&v42[8] = 2050;
+        *&v42[10] = v12;
         _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] Bytes written does not equal file size (file='%{public}s', size=%{public}lld, written=%{public}zd)", buf, 0x20u);
       }
 
-      v12 = 1;
+      v13 = 1;
       goto LABEL_13;
     }
 
     v26 = MEMORY[0x277CCA9B8];
     v27 = *MEMORY[0x277CCA5B8];
     v28 = *__error();
-    v35 = *MEMORY[0x277CCA470];
-    v36 = @"errno";
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v33 = *MEMORY[0x277CCA470];
+    v34 = @"errno";
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
     v18 = v26;
     v19 = v27;
     v20 = v28;
@@ -596,31 +598,30 @@ uint64_t __W5ArchiveAddFileURLToArchive()
   {
     v15 = MEMORY[0x277CCA9B8];
     v16 = *MEMORY[0x277CCA5B8];
-    v39 = *MEMORY[0x277CCA470];
-    v40 = @"ENOMEM";
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+    v37 = *MEMORY[0x277CCA470];
+    v38 = @"ENOMEM";
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
     v18 = v15;
     v19 = v16;
     v20 = 12;
   }
 
-  v23 = [v18 errorWithDomain:v19 code:v20 userInfo:{v17, v31, v32}];
+  v23 = [v18 errorWithDomain:v19 code:v20 userInfo:v17];
 LABEL_21:
-  v12 = 0;
+  v13 = 0;
   if (v1 && v23)
   {
-    v12 = 0;
+    v13 = 0;
     *v1 = v23;
   }
 
 LABEL_13:
-  if (v7)
+  if (v8)
   {
     archive_entry_free();
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v13;
 }
 
 void *W5XPCRequestDelegateInterface()
@@ -970,11 +971,11 @@ __CFString *W5DescriptionForLogState(uint64_t a1)
 
 id W5FormattedDescriptionForStatus(void *a1)
 {
-  v184 = *MEMORY[0x277D85DE8];
+  v183 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAB68] string];
   [v2 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
   [v2 appendFormat:@"NETWORK\n"];
-  v159 = v2;
+  v158 = v2;
   [v2 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
   v3 = [a1 network];
   v4 = [MEMORY[0x277CCAB68] string];
@@ -982,28 +983,28 @@ id W5FormattedDescriptionForStatus(void *a1)
   {
     [v4 appendFormat:@"    Primary IPv4         : %s (%s / %s)\n", objc_msgSend(objc_msgSend(v3, "primaryIPv4InterfaceName"), "UTF8String"), objc_msgSend(objc_msgSend(v3, "primaryIPv4ServiceName"), "UTF8String"), objc_msgSend(objc_msgSend(v3, "primaryIPv4ServiceID"), "UTF8String")];
     v5 = [v3 primaryIPv4Addresses];
+    v167 = 0u;
     v168 = 0u;
     v169 = 0u;
     v170 = 0u;
-    v171 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v168 objects:&v172 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v167 objects:&v171 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v169;
+      v8 = *v168;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v169 != v8)
+          if (*v168 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [v4 appendFormat:@"                         : %s\n", objc_msgSend(*(*(&v168 + 1) + 8 * i), "UTF8String")];
+          [v4 appendFormat:@"                         : %s\n", objc_msgSend(*(*(&v167 + 1) + 8 * i), "UTF8String")];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v168 objects:&v172 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v167 objects:&v171 count:16];
       }
 
       while (v7);
@@ -1019,28 +1020,28 @@ id W5FormattedDescriptionForStatus(void *a1)
   {
     [v4 appendFormat:@"    Primary IPv6         : %s (%s / %s)\n", objc_msgSend(objc_msgSend(v3, "primaryIPv6InterfaceName"), "UTF8String"), objc_msgSend(objc_msgSend(v3, "primaryIPv6ServiceName"), "UTF8String"), objc_msgSend(objc_msgSend(v3, "primaryIPv6ServiceID"), "UTF8String")];
     v10 = [v3 primaryIPv6Addresses];
+    v163 = 0u;
     v164 = 0u;
     v165 = 0u;
     v166 = 0u;
-    v167 = 0u;
-    v11 = [v10 countByEnumeratingWithState:&v164 objects:&v180 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v163 objects:&v179 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v165;
+      v13 = *v164;
       do
       {
         for (j = 0; j != v12; ++j)
         {
-          if (*v165 != v13)
+          if (*v164 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          [v4 appendFormat:@"                         : %s\n", objc_msgSend(*(*(&v164 + 1) + 8 * j), "UTF8String")];
+          [v4 appendFormat:@"                         : %s\n", objc_msgSend(*(*(&v163 + 1) + 8 * j), "UTF8String")];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v164 objects:&v180 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v163 objects:&v179 count:16];
       }
 
       while (v12);
@@ -1087,10 +1088,10 @@ id W5FormattedDescriptionForStatus(void *a1)
   }
 
   [v4 appendFormat:@"    Apple                : %s%s\n", v17, v19];
-  [v159 appendString:{objc_msgSend(v4, "copy")}];
-  [v159 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
-  [v159 appendFormat:@"WIFI\n"];
-  [v159 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
+  [v158 appendString:{objc_msgSend(v4, "copy")}];
+  [v158 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
+  [v158 appendFormat:@"WIFI\n"];
+  [v158 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
   v20 = [a1 wifi];
   v21 = [MEMORY[0x277CCAB68] string];
   [v21 appendFormat:@"    MAC Address          : %s (hw=%s)\n", objc_msgSend(objc_msgSend(objc_msgSend(v20, "macAddress"), "redactedForWiFi"), "UTF8String"), objc_msgSend(objc_msgSend(objc_msgSend(v20, "hardwareMACAddress"), "redactedForWiFi"), "UTF8String")];
@@ -1151,7 +1152,7 @@ id W5FormattedDescriptionForStatus(void *a1)
 
   else
   {
-    [v21 appendFormat:@"    Security             : None\n", v157];
+    [v21 appendFormat:@"    Security             : None\n", v156];
   }
 
   if ([v20 security] == 12 || objc_msgSend(v20, "security") == 11 || objc_msgSend(v20, "security") == 9 || objc_msgSend(v20, "security") == 10 || objc_msgSend(v20, "security") == 8)
@@ -1306,7 +1307,7 @@ id W5FormattedDescriptionForStatus(void *a1)
   }
 
   [v21 appendFormat:@"    Desense              : %s\n", objc_msgSend(W5DescriptionForDesense(v38, v39), "UTF8String")];
-  v158 = a1;
+  v157 = a1;
   if ([objc_msgSend(v20 "chainAck")] == 24)
   {
     v40 = [objc_msgSend(v20 "chainAck")];
@@ -1401,16 +1402,16 @@ id W5FormattedDescriptionForStatus(void *a1)
 
         [objc_msgSend(v20 "btcConfig")];
         v54 = v53 + 140 * *([objc_msgSend(v20 "btcConfig")] + 8);
-        v177 = *(v54 + 92);
-        v178 = *(v54 + 108);
-        v179[0] = *(v54 + 124);
-        *(v179 + 12) = *(v54 + 136);
-        v173 = *(v54 + 28);
-        v174 = *(v54 + 44);
-        v175 = *(v54 + 60);
-        v176 = *(v54 + 76);
-        v172 = *(v54 + 12);
-        __printBTCProfile(&v172);
+        v176 = *(v54 + 92);
+        v177 = *(v54 + 108);
+        v178[0] = *(v54 + 124);
+        *(v178 + 12) = *(v54 + 136);
+        v172 = *(v54 + 28);
+        v173 = *(v54 + 44);
+        v174 = *(v54 + 60);
+        v175 = *(v54 + 76);
+        v171 = *(v54 + 12);
+        __printBTCProfile(&v171);
       }
     }
   }
@@ -1446,16 +1447,16 @@ id W5FormattedDescriptionForStatus(void *a1)
 
         [objc_msgSend(v20 "btcConfig")];
         v57 = v56 + 140 * *([objc_msgSend(v20 "btcConfig")] + 16);
-        v177 = *(v57 + 92);
-        v178 = *(v57 + 108);
-        v179[0] = *(v57 + 124);
-        *(v179 + 12) = *(v57 + 136);
-        v173 = *(v57 + 28);
-        v174 = *(v57 + 44);
-        v175 = *(v57 + 60);
-        v176 = *(v57 + 76);
-        v172 = *(v57 + 12);
-        __printBTCProfile(&v172);
+        v176 = *(v57 + 92);
+        v177 = *(v57 + 108);
+        v178[0] = *(v57 + 124);
+        *(v178 + 12) = *(v57 + 136);
+        v172 = *(v57 + 28);
+        v173 = *(v57 + 44);
+        v174 = *(v57 + 60);
+        v175 = *(v57 + 76);
+        v171 = *(v57 + 12);
+        __printBTCProfile(&v171);
       }
     }
   }
@@ -1481,11 +1482,11 @@ id W5FormattedDescriptionForStatus(void *a1)
 
   [v21 appendFormat:@"    Supports 6e          : %s\n", v61];
   [v21 appendFormat:@"    Supported Channels   : %s\n", objc_msgSend(objc_msgSend(objc_msgSend(v20, "supportedChannels"), "componentsJoinedByString:", @", "), "UTF8String")];
-  [v159 appendString:{objc_msgSend(v21, "copy")}];
-  [v159 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
-  [v159 appendFormat:@"BLUETOOTH\n"];
-  [v159 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
-  v62 = [v158 bluetooth];
+  [v158 appendString:{objc_msgSend(v21, "copy")}];
+  [v158 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
+  [v158 appendFormat:@"BLUETOOTH\n"];
+  [v158 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
+  v62 = [v157 bluetooth];
   v63 = [MEMORY[0x277CCAB68] string];
   v64 = [v62 powerOn];
   v65 = "Off";
@@ -1539,36 +1540,36 @@ id W5FormattedDescriptionForStatus(void *a1)
   }
 
   [v63 appendFormat:@"    Scanning             : %s\n", v69];
-  v170 = 0u;
-  v171 = 0u;
-  v168 = 0u;
   v169 = 0u;
+  v170 = 0u;
+  v167 = 0u;
+  v168 = 0u;
   obj = v62;
   v70 = [v62 devices];
-  v71 = [v70 countByEnumeratingWithState:&v168 objects:&v172 count:16];
+  v71 = [v70 countByEnumeratingWithState:&v167 objects:&v171 count:16];
   if (v71)
   {
     v72 = v71;
     v73 = 0;
     v74 = 0;
     v75 = 0;
-    v76 = *v169;
+    v76 = *v168;
     do
     {
       for (k = 0; k != v72; ++k)
       {
-        if (*v169 != v76)
+        if (*v168 != v76)
         {
           objc_enumerationMutation(v70);
         }
 
-        v78 = *(*(&v168 + 1) + 8 * k);
+        v78 = *(*(&v167 + 1) + 8 * k);
         v73 += [v78 isPaired];
         v74 += [v78 isCloudPaired];
         v75 += [v78 isConnected];
       }
 
-      v72 = [v70 countByEnumeratingWithState:&v168 objects:&v172 count:16];
+      v72 = [v70 countByEnumeratingWithState:&v167 objects:&v171 count:16];
     }
 
     while (v72);
@@ -1582,31 +1583,31 @@ id W5FormattedDescriptionForStatus(void *a1)
   }
 
   [v63 appendFormat:@"    Devices              : %lu (paired=%lu cloud=%lu connected=%lu)\n\n", objc_msgSend(objc_msgSend(obj, "devices"), "count"), v73, v74, v75];
-  v166 = 0u;
-  v167 = 0u;
-  v164 = 0u;
   v165 = 0u;
+  v166 = 0u;
+  v163 = 0u;
+  v164 = 0u;
   obja = [obj devices];
-  v79 = [obja countByEnumeratingWithState:&v164 objects:&v180 count:16];
+  v79 = [obja countByEnumeratingWithState:&v163 objects:&v179 count:16];
   v80 = "No";
   if (v79)
   {
     v81 = v79;
     v82 = @"    %s\n";
     v83 = @"    Address          : %s\n";
-    v84 = *v165;
+    v84 = *v164;
     v85 = @"    Paired           : %s\n";
-    v160 = v63;
+    v159 = v63;
     do
     {
       for (m = 0; m != v81; ++m)
       {
-        if (*v165 != v84)
+        if (*v164 != v84)
         {
           objc_enumerationMutation(obja);
         }
 
-        v87 = *(*(&v164 + 1) + 8 * m);
+        v87 = *(*(&v163 + 1) + 8 * m);
         [v63 appendFormat:v82, objc_msgSend(objc_msgSend(v87, "name"), "UTF8String")];
         [v63 appendFormat:v83, objc_msgSend(objc_msgSend(v87, "address"), "UTF8String")];
         if ([v87 isPaired])
@@ -1661,8 +1662,8 @@ id W5FormattedDescriptionForStatus(void *a1)
           v84 = v93;
           v80 = v92;
           v81 = v91;
-          v63 = v160;
-          [v160 appendFormat:@"    Type             : %s\n", objc_msgSend(W5DescriptionForBluetoothDeviceType(v100, v99), "UTF8String")];
+          v63 = v159;
+          [v159 appendFormat:@"    Type             : %s\n", objc_msgSend(W5DescriptionForBluetoothDeviceType(v100, v99), "UTF8String")];
           if ([v87 isLowEnergy])
           {
             v101 = v60;
@@ -1673,7 +1674,7 @@ id W5FormattedDescriptionForStatus(void *a1)
             v101 = v80;
           }
 
-          [v160 appendFormat:@"    LE               : %s\n", v101];
+          [v159 appendFormat:@"    LE               : %s\n", v101];
           if ([v87 isAppleDevice])
           {
             v102 = v60;
@@ -1684,23 +1685,23 @@ id W5FormattedDescriptionForStatus(void *a1)
             v102 = v80;
           }
 
-          [v160 appendFormat:@"    Apple            : %s\n", v102];
+          [v159 appendFormat:@"    Apple            : %s\n", v102];
         }
 
         [v63 appendFormat:@"\n"];
       }
 
-      v81 = [obja countByEnumeratingWithState:&v164 objects:&v180 count:16];
+      v81 = [obja countByEnumeratingWithState:&v163 objects:&v179 count:16];
     }
 
     while (v81);
   }
 
-  [v159 appendString:{objc_msgSend(v63, "copy")}];
-  [v159 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
-  [v159 appendFormat:@"AWDL\n"];
-  [v159 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
-  v103 = [v158 awdl];
+  [v158 appendString:{objc_msgSend(v63, "copy")}];
+  [v158 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
+  [v158 appendFormat:@"AWDL\n"];
+  [v158 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
+  v103 = [v157 awdl];
   v104 = [MEMORY[0x277CCAB68] string];
   if ([v103 power])
   {
@@ -1910,11 +1911,11 @@ id W5FormattedDescriptionForStatus(void *a1)
     [v104 appendFormat:@"      Sidecar Tx Latency   : %ums\n", *(v127 + 4)];
   }
 
-  [v159 appendString:{objc_msgSend(v104, "copy")}];
-  [v159 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
-  [v159 appendFormat:@"POWER\n"];
-  [v159 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
-  v128 = [v158 power];
+  [v158 appendString:{objc_msgSend(v104, "copy")}];
+  [v158 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
+  [v158 appendFormat:@"POWER\n"];
+  [v158 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
+  v128 = [v157 power];
   v129 = [MEMORY[0x277CCAB68] string];
   [v129 appendFormat:@"    Power Source         : %s\n", -[__CFString UTF8String](W5DescriptionForPowerSourceType(objc_msgSend(v128, "powerSourceType")), "UTF8String")];
   v130 = [v128 batteryWarningLevel];
@@ -1929,41 +1930,40 @@ id W5FormattedDescriptionForStatus(void *a1)
   }
 
   [v129 appendFormat:@"    Battery Warning Level: %s\n", -[__CFString UTF8String](v131, "UTF8String")];
-  [v128 powerStateCaps];
-  [v129 appendFormat:@"    System Caps          : %s\n", objc_msgSend(W5DescriptionForPowerStateCaps(), "UTF8String")];
-  [v159 appendString:{objc_msgSend(v129, "copy")}];
-  [v159 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
-  [v159 appendFormat:@"WIFI FAULTS LAST HOUR\n"];
-  [v159 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
-  v132 = [v158 lastHrFaults];
+  [v129 appendFormat:@"    System Caps          : %s\n", objc_msgSend(W5DescriptionForPowerStateCaps(objc_msgSend(v128, "powerStateCaps")), "UTF8String")];
+  [v158 appendString:{objc_msgSend(v129, "copy")}];
+  [v158 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
+  [v158 appendFormat:@"WIFI FAULTS LAST HOUR\n"];
+  [v158 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
+  v132 = [v157 lastHrFaults];
   v133 = [MEMORY[0x277CCAB68] string];
   if ([v132 lastHrFaults] && (!objc_msgSend(v132, "lastHrFaults") || objc_msgSend(objc_msgSend(v132, "lastHrFaults"), "count")))
   {
-    v182 = 0u;
-    v183 = 0u;
-    v180 = 0u;
     v181 = 0u;
+    v182 = 0u;
+    v179 = 0u;
+    v180 = 0u;
     objb = [v132 lastHrFaults];
-    v134 = [objb countByEnumeratingWithState:&v180 objects:&v172 count:16];
+    v134 = [objb countByEnumeratingWithState:&v179 objects:&v171 count:16];
     if (v134)
     {
       v135 = v134;
-      v136 = *v181;
+      v136 = *v180;
       do
       {
         for (n = 0; n != v135; ++n)
         {
-          if (*v181 != v136)
+          if (*v180 != v136)
           {
             objc_enumerationMutation(objb);
           }
 
-          v138 = *(*(&v180 + 1) + 8 * n);
+          v138 = *(*(&v179 + 1) + 8 * n);
           [v133 appendFormat:@"    Fault                : %s\n", objc_msgSend(objc_msgSend(v138, "objectForKeyedSubscript:", @"type", "UTF8String")];
           [v133 appendFormat:@"%@", __printDictionaryContents(v138, objc_msgSend(MEMORY[0x277CBEB98], "setWithObjects:", @"date", @"interface", 0), 0)];
         }
 
-        v135 = [objb countByEnumeratingWithState:&v180 objects:&v172 count:16];
+        v135 = [objb countByEnumeratingWithState:&v179 objects:&v171 count:16];
       }
 
       while (v135);
@@ -1975,39 +1975,39 @@ id W5FormattedDescriptionForStatus(void *a1)
     [v133 appendFormat:@"    None\n"];
   }
 
-  [v159 appendString:{objc_msgSend(v133, "copy")}];
-  [v159 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
-  [v159 appendFormat:@"WIFI RECOVERIES LAST HOUR\n"];
-  [v159 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
-  v139 = [v158 lastHrRecoveries];
+  [v158 appendString:{objc_msgSend(v133, "copy")}];
+  [v158 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
+  [v158 appendFormat:@"WIFI RECOVERIES LAST HOUR\n"];
+  [v158 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
+  v139 = [v157 lastHrRecoveries];
   v140 = [MEMORY[0x277CCAB68] string];
   if ([v139 lastHrRecoveries] && (!objc_msgSend(v139, "lastHrRecoveries") || objc_msgSend(objc_msgSend(v139, "lastHrRecoveries"), "count")))
   {
-    v182 = 0u;
-    v183 = 0u;
-    v180 = 0u;
     v181 = 0u;
+    v182 = 0u;
+    v179 = 0u;
+    v180 = 0u;
     v141 = [v139 lastHrRecoveries];
-    v142 = [v141 countByEnumeratingWithState:&v180 objects:&v172 count:16];
+    v142 = [v141 countByEnumeratingWithState:&v179 objects:&v171 count:16];
     if (v142)
     {
       v143 = v142;
-      v144 = *v181;
+      v144 = *v180;
       do
       {
         for (ii = 0; ii != v143; ++ii)
         {
-          if (*v181 != v144)
+          if (*v180 != v144)
           {
             objc_enumerationMutation(v141);
           }
 
-          v146 = *(*(&v180 + 1) + 8 * ii);
+          v146 = *(*(&v179 + 1) + 8 * ii);
           [v140 appendFormat:@"    Reason               : %s\n", objc_msgSend(objc_msgSend(v146, "objectForKeyedSubscript:", @"recoveryReason", "UTF8String")];
           [v140 appendFormat:@"%@", __printDictionaryContents(v146, 0, objc_msgSend(MEMORY[0x277CBEB98], "setWithObjects:", @"recoveryReason", 0))];
         }
 
-        v143 = [v141 countByEnumeratingWithState:&v180 objects:&v172 count:16];
+        v143 = [v141 countByEnumeratingWithState:&v179 objects:&v171 count:16];
       }
 
       while (v143);
@@ -2019,39 +2019,39 @@ id W5FormattedDescriptionForStatus(void *a1)
     [v140 appendFormat:@"    None\n"];
   }
 
-  [v159 appendString:{objc_msgSend(v140, "copy")}];
-  [v159 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
-  [v159 appendFormat:@"WIFI LINK TESTS LAST HOUR\n"];
-  [v159 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
-  v147 = [v158 lastHrLinkTests];
+  [v158 appendString:{objc_msgSend(v140, "copy")}];
+  [v158 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
+  [v158 appendFormat:@"WIFI LINK TESTS LAST HOUR\n"];
+  [v158 appendFormat:@"————————————————————————————————————————————————————————————————————\n"];
+  v147 = [v157 lastHrLinkTests];
   v148 = [MEMORY[0x277CCAB68] string];
   if ([v147 lastHrLinkTests] && (!objc_msgSend(v147, "lastHrLinkTests") || objc_msgSend(objc_msgSend(v147, "lastHrLinkTests"), "count")))
   {
-    v182 = 0u;
-    v183 = 0u;
-    v180 = 0u;
     v181 = 0u;
+    v182 = 0u;
+    v179 = 0u;
+    v180 = 0u;
     v149 = [v147 lastHrLinkTests];
-    v150 = [v149 countByEnumeratingWithState:&v180 objects:&v172 count:16];
+    v150 = [v149 countByEnumeratingWithState:&v179 objects:&v171 count:16];
     if (v150)
     {
       v151 = v150;
-      v152 = *v181;
+      v152 = *v180;
       do
       {
         for (jj = 0; jj != v151; ++jj)
         {
-          if (*v181 != v152)
+          if (*v180 != v152)
           {
             objc_enumerationMutation(v149);
           }
 
-          v154 = *(*(&v180 + 1) + 8 * jj);
+          v154 = *(*(&v179 + 1) + 8 * jj);
           [v148 appendFormat:@"    Reason               : %s\n", objc_msgSend(objc_msgSend(v154, "objectForKeyedSubscript:", @"initiatingReason", "UTF8String")];
           [v148 appendFormat:@"%@", __printDictionaryContents(v154, 0, objc_msgSend(MEMORY[0x277CBEB98], "setWithObjects:", @"initiatingReason", 0))];
         }
 
-        v151 = [v149 countByEnumeratingWithState:&v180 objects:&v172 count:16];
+        v151 = [v149 countByEnumeratingWithState:&v179 objects:&v171 count:16];
       }
 
       while (v151);
@@ -2063,10 +2063,8 @@ id W5FormattedDescriptionForStatus(void *a1)
     [v148 appendFormat:@"    None\n"];
   }
 
-  [v159 appendString:{objc_msgSend(v148, "copy")}];
-  result = [v159 copy];
-  v156 = *MEMORY[0x277D85DE8];
-  return result;
+  [v158 appendString:{objc_msgSend(v148, "copy")}];
+  return [v158 copy];
 }
 
 id W5FormattedHeaderForDiagnosticsTestResults()
@@ -2093,7 +2091,7 @@ id W5FormattedHeaderForDiagnosticsTestResults2()
 
 id W5FormattedDescriptionForDiagnosticsTestResult2(void *a1, uint64_t a2, uint64_t a3)
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   if (qword_280D9E7C0 != -1)
   {
     dispatch_once(&qword_280D9E7C0, &__block_literal_global_1);
@@ -2134,28 +2132,28 @@ id W5FormattedDescriptionForDiagnosticsTestResult2(void *a1, uint64_t a2, uint64
   if ([a1 testID] == 28)
   {
     v18 = [objc_msgSend(a1 "info")];
+    v77 = 0u;
     v78 = 0u;
     v79 = 0u;
     v80 = 0u;
-    v81 = 0u;
-    v19 = [v18 countByEnumeratingWithState:&v78 objects:v86 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v77 objects:v85 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v79;
+      v21 = *v78;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v79 != v21)
+          if (*v78 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          [v6 appendFormat:@"                                                                                     '%s' — %s (%s)\n", objc_msgSend(objc_msgSend(objc_msgSend(*(*(&v78 + 1) + 8 * j), "ssidString"), "redactedForWiFi"), "UTF8String"), objc_msgSend(objc_msgSend(objc_msgSend(*(*(&v78 + 1) + 8 * j), "bssid"), "redactedForWiFi"), "UTF8String"), objc_msgSend(objc_msgSend(*(*(&v78 + 1) + 8 * j), "countryCode"), "UTF8String")];
+          [v6 appendFormat:@"                                                                                     '%s' — %s (%s)\n", objc_msgSend(objc_msgSend(objc_msgSend(*(*(&v77 + 1) + 8 * j), "ssidString"), "redactedForWiFi"), "UTF8String"), objc_msgSend(objc_msgSend(objc_msgSend(*(*(&v77 + 1) + 8 * j), "bssid"), "redactedForWiFi"), "UTF8String"), objc_msgSend(objc_msgSend(*(*(&v77 + 1) + 8 * j), "countryCode"), "UTF8String")];
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v78 objects:v86 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v77 objects:v85 count:16];
       }
 
       while (v20);
@@ -2172,7 +2170,7 @@ id W5FormattedDescriptionForDiagnosticsTestResult2(void *a1, uint64_t a2, uint64
     v27 = [v23 channel];
     if (v25 == v26)
     {
-      [v6 appendFormat:@"                                                                                     Recommended 5GHz — %ld\n", v27, v61];
+      [v6 appendFormat:@"                                                                                     Recommended 5GHz — %ld\n", v27, v60];
     }
 
     else
@@ -2183,145 +2181,143 @@ id W5FormattedDescriptionForDiagnosticsTestResult2(void *a1, uint64_t a2, uint64
 
   else if ([a1 testID] == 29)
   {
-    v30 = [objc_msgSend(a1 "info")];
+    v29 = [objc_msgSend(a1 "info")];
+    v73 = 0u;
     v74 = 0u;
     v75 = 0u;
     v76 = 0u;
-    v77 = 0u;
-    v31 = [v30 countByEnumeratingWithState:&v74 objects:v85 count:16];
-    if (v31)
+    v30 = [v29 countByEnumeratingWithState:&v73 objects:v84 count:16];
+    if (v30)
     {
-      v32 = v31;
-      v33 = *v75;
+      v31 = v30;
+      v32 = *v74;
       do
       {
-        for (k = 0; k != v32; ++k)
+        for (k = 0; k != v31; ++k)
         {
-          if (*v75 != v33)
+          if (*v74 != v32)
           {
-            objc_enumerationMutation(v30);
+            objc_enumerationMutation(v29);
           }
 
-          [v6 appendFormat:@"                                                                                     '%s' — %s\n", objc_msgSend(objc_msgSend(objc_msgSend(*(*(&v74 + 1) + 8 * k), "ssidString"), "redactedForWiFi"), "UTF8String"), objc_msgSend(objc_msgSend(objc_msgSend(*(*(&v74 + 1) + 8 * k), "bssid"), "redactedForWiFi"), "UTF8String")];
+          [v6 appendFormat:@"                                                                                     '%s' — %s\n", objc_msgSend(objc_msgSend(objc_msgSend(*(*(&v73 + 1) + 8 * k), "ssidString"), "redactedForWiFi"), "UTF8String"), objc_msgSend(objc_msgSend(objc_msgSend(*(*(&v73 + 1) + 8 * k), "bssid"), "redactedForWiFi"), "UTF8String")];
         }
 
-        v32 = [v30 countByEnumeratingWithState:&v74 objects:v85 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v73 objects:v84 count:16];
       }
 
-      while (v32);
+      while (v31);
     }
   }
 
   else if ([a1 testID] == 27)
   {
-    v35 = [objc_msgSend(a1 "info")];
+    v34 = [objc_msgSend(a1 "info")];
+    v69 = 0u;
     v70 = 0u;
     v71 = 0u;
     v72 = 0u;
-    v73 = 0u;
-    v36 = [v35 countByEnumeratingWithState:&v70 objects:v84 count:16];
-    if (v36)
+    v35 = [v34 countByEnumeratingWithState:&v69 objects:v83 count:16];
+    if (v35)
     {
-      v37 = v36;
-      v38 = *v71;
+      v36 = v35;
+      v37 = *v70;
       do
       {
-        for (m = 0; m != v37; ++m)
+        for (m = 0; m != v36; ++m)
         {
-          if (*v71 != v38)
+          if (*v70 != v37)
           {
-            objc_enumerationMutation(v35);
+            objc_enumerationMutation(v34);
           }
 
-          [v6 appendFormat:@"                                                                                     '%s' — %s (ch %ld)\n", objc_msgSend(objc_msgSend(objc_msgSend(*(*(&v70 + 1) + 8 * m), "ssidString"), "redactedForWiFi"), "UTF8String"), objc_msgSend(objc_msgSend(objc_msgSend(*(*(&v70 + 1) + 8 * m), "bssid"), "redactedForWiFi"), "UTF8String"), objc_msgSend(objc_msgSend(*(*(&v70 + 1) + 8 * m), "channel"), "channel")];
+          [v6 appendFormat:@"                                                                                     '%s' — %s (ch %ld)\n", objc_msgSend(objc_msgSend(objc_msgSend(*(*(&v69 + 1) + 8 * m), "ssidString"), "redactedForWiFi"), "UTF8String"), objc_msgSend(objc_msgSend(objc_msgSend(*(*(&v69 + 1) + 8 * m), "bssid"), "redactedForWiFi"), "UTF8String"), objc_msgSend(objc_msgSend(*(*(&v69 + 1) + 8 * m), "channel"), "channel")];
         }
 
-        v37 = [v35 countByEnumeratingWithState:&v70 objects:v84 count:16];
+        v36 = [v34 countByEnumeratingWithState:&v69 objects:v83 count:16];
       }
 
-      while (v37);
+      while (v36);
     }
   }
 
   else if ([a1 testID] == 48)
   {
-    v40 = [objc_msgSend(a1 "info")];
+    v39 = [objc_msgSend(a1 "info")];
+    v65 = 0u;
     v66 = 0u;
     v67 = 0u;
     v68 = 0u;
-    v69 = 0u;
-    v41 = [v40 countByEnumeratingWithState:&v66 objects:v83 count:16];
-    if (v41)
+    v40 = [v39 countByEnumeratingWithState:&v65 objects:v82 count:16];
+    if (v40)
     {
-      v42 = v41;
-      v43 = *v67;
+      v41 = v40;
+      v42 = *v66;
       do
       {
-        for (n = 0; n != v42; ++n)
+        for (n = 0; n != v41; ++n)
         {
-          if (*v67 != v43)
+          if (*v66 != v42)
           {
-            objc_enumerationMutation(v40);
+            objc_enumerationMutation(v39);
           }
 
-          [v6 appendFormat:@"                                                                                     '%s' — %s\n", objc_msgSend(objc_msgSend(objc_msgSend(*(*(&v66 + 1) + 8 * n), "ssidString"), "redactedForWiFi"), "UTF8String"), -[__CFString UTF8String](W5DescriptionForSecurity(objc_msgSend(*(*(&v66 + 1) + 8 * n), "security")), "UTF8String")];
+          [v6 appendFormat:@"                                                                                     '%s' — %s\n", objc_msgSend(objc_msgSend(objc_msgSend(*(*(&v65 + 1) + 8 * n), "ssidString"), "redactedForWiFi"), "UTF8String"), -[__CFString UTF8String](W5DescriptionForSecurity(objc_msgSend(*(*(&v65 + 1) + 8 * n), "security")), "UTF8String")];
         }
 
-        v42 = [v40 countByEnumeratingWithState:&v66 objects:v83 count:16];
+        v41 = [v39 countByEnumeratingWithState:&v65 objects:v82 count:16];
       }
 
-      while (v42);
+      while (v41);
     }
   }
 
   else if ([a1 testID] == 4 || objc_msgSend(a1, "testID") == 5 || objc_msgSend(a1, "testID") == 6)
   {
-    v45 = [objc_msgSend(a1 "info")];
-    if ([v45 count] >= 2)
+    v44 = [objc_msgSend(a1 "info")];
+    if ([v44 count] >= 2)
     {
-      v64 = 0u;
-      v65 = 0u;
-      v62 = 0u;
       v63 = 0u;
-      v46 = [v45 countByEnumeratingWithState:&v62 objects:v82 count:16];
-      if (v46)
+      v64 = 0u;
+      v61 = 0u;
+      v62 = 0u;
+      v45 = [v44 countByEnumeratingWithState:&v61 objects:v81 count:16];
+      if (v45)
       {
-        v47 = v46;
-        v48 = *v63;
+        v46 = v45;
+        v47 = *v62;
         do
         {
-          for (ii = 0; ii != v47; ++ii)
+          for (ii = 0; ii != v46; ++ii)
           {
-            if (*v63 != v48)
+            if (*v62 != v47)
             {
-              objc_enumerationMutation(v45);
+              objc_enumerationMutation(v44);
             }
 
-            v50 = *(*(&v62 + 1) + 8 * ii);
-            v51 = [v50 address];
-            [v50 min];
-            v53 = v52;
-            v54 = W5DescriptionForPingTrafficClass([v50 trafficClass]);
-            v55 = [v50 dataLength] + 64;
-            [v50 interval];
-            v57 = v56;
-            [v50 wait];
-            v59 = v58;
-            [v50 timeout];
-            [v6 appendFormat:@"                                                                                     %@ / %.2fms / %@ / %ld bytes / i=%fs / W=%fs / t=%fs / c=%ld\n", v51, v53, v54, v55, v57, v59, v60, objc_msgSend(v50, "count")];
+            v49 = *(*(&v61 + 1) + 8 * ii);
+            v50 = [v49 address];
+            [v49 min];
+            v52 = v51;
+            v53 = W5DescriptionForPingTrafficClass([v49 trafficClass]);
+            v54 = [v49 dataLength] + 64;
+            [v49 interval];
+            v56 = v55;
+            [v49 wait];
+            v58 = v57;
+            [v49 timeout];
+            [v6 appendFormat:@"                                                                                     %@ / %.2fms / %@ / %ld bytes / i=%fs / W=%fs / t=%fs / c=%ld\n", v50, v52, v53, v54, v56, v58, v59, objc_msgSend(v49, "count")];
           }
 
-          v47 = [v45 countByEnumeratingWithState:&v62 objects:v82 count:16];
+          v46 = [v44 countByEnumeratingWithState:&v61 objects:v81 count:16];
         }
 
-        while (v47);
+        while (v46);
       }
     }
   }
 
-  result = [v6 copy];
-  v29 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v6 copy];
 }
 
 uint64_t __W5FormattedDescriptionForDiagnosticsTestResult2_block_invoke()
@@ -3389,7 +3385,7 @@ __CFString *W5MachineSerialNumber()
   return v6;
 }
 
-uint64_t W5IsSelfAssignedIPv6(void *a1)
+void *W5IsSelfAssignedIPv6(void *a1)
 {
   v1 = [a1 componentsSeparatedByString:@"::"];
   if ([v1 count] < 2)
@@ -3401,7 +3397,7 @@ uint64_t W5IsSelfAssignedIPv6(void *a1)
   result = [objc_msgSend(objc_msgSend(v1 "firstObject")];
   if (result)
   {
-    return [v2 count] == 4;
+    return ([v2 count] == 4);
   }
 
   return result;
@@ -3834,7 +3830,7 @@ LABEL_21:
   return [(__CFString *)v2 stringByAppendingString:@"/RemoteListener"];
 }
 
-__CFString *W5DescriptionForDiagnosticsFaultType(uint64_t a1)
+__CFString *W5DescriptionForDiagnosticsFaultType(unint64_t a1)
 {
   if (a1 <= 1)
   {
@@ -4134,21 +4130,18 @@ __CFString *W5DescriptionForBatteryWarningLevel(unsigned int a1)
   }
 }
 
-uint64_t W5DescriptionForPowerStateCaps()
+uint64_t W5DescriptionForPowerStateCaps(unsigned __int8 a1)
 {
   v3 = *MEMORY[0x277D85DE8];
   if (IOPMGetCapabilitiesDescription())
   {
-    result = [MEMORY[0x277CCACA8] stringWithUTF8String:v2];
+    return [MEMORY[0x277CCACA8] stringWithUTF8String:v2];
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 __CFString *W5DescriptionForChannelWidth(void *a1)
@@ -5159,34 +5152,34 @@ __CFString *W5DescriptionForWiFiDropReason(unint64_t a1)
 
 id W5DescriptionForFaultsStatus(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAB68] string];
   if (a1 && [a1 count])
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
-    v3 = [a1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    v3 = [a1 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v11;
+      v5 = *v10;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v11 != v5)
+          if (*v10 != v5)
           {
             objc_enumerationMutation(a1);
           }
 
-          v7 = *(*(&v10 + 1) + 8 * i);
+          v7 = *(*(&v9 + 1) + 8 * i);
           [v2 appendFormat:@"    Fault                : %s\n", objc_msgSend(objc_msgSend(v7, "objectForKeyedSubscript:", @"type", "UTF8String")];
           [v2 appendFormat:@"%@", __printDictionaryContents(v7, objc_msgSend(MEMORY[0x277CBEB98], "setWithObjects:", @"date", @"interface", 0), 0)];
         }
 
-        v4 = [a1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v4 = [a1 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v4);
@@ -5198,14 +5191,12 @@ id W5DescriptionForFaultsStatus(void *a1)
     [v2 appendFormat:@"    None\n"];
   }
 
-  result = [v2 copy];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v2 copy];
 }
 
 id __printDictionaryContents(void *a1, uint64_t a2, uint64_t a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (qword_280D9E7D0 != -1)
   {
     dispatch_once(&qword_280D9E7D0, &__block_literal_global_2639);
@@ -5236,29 +5227,29 @@ id __printDictionaryContents(void *a1, uint64_t a2, uint64_t a3)
     [v9 minusSet:a3];
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
-  v11 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v11 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = @"date";
-    v14 = *v31;
-    v28 = *v31;
+    v14 = *v30;
+    v27 = *v30;
     do
     {
       v15 = 0;
-      v29 = v12;
+      v28 = v12;
       do
       {
-        if (*v31 != v14)
+        if (*v30 != v14)
         {
           objc_enumerationMutation(v9);
         }
 
-        v16 = *(*(&v30 + 1) + 8 * v15);
+        v16 = *(*(&v29 + 1) + 8 * v15);
         v17 = [a1 valueForKey:v16];
         if ([v16 containsString:v13])
         {
@@ -5302,8 +5293,8 @@ LABEL_25:
           v9 = v22;
           a1 = v21;
           v13 = v20;
-          v14 = v28;
-          v12 = v29;
+          v14 = v27;
+          v12 = v28;
           goto LABEL_25;
         }
 
@@ -5326,48 +5317,46 @@ LABEL_26:
       }
 
       while (v15 != v12);
-      v25 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v25 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
       v12 = v25;
     }
 
     while (v25);
   }
 
-  result = [v6 copy];
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v6 copy];
 }
 
 id W5DescriptionForLinkTestsStatus(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAB68] string];
   if (a1 && [a1 count])
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
-    v3 = [a1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    v3 = [a1 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v11;
+      v5 = *v10;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v11 != v5)
+          if (*v10 != v5)
           {
             objc_enumerationMutation(a1);
           }
 
-          v7 = *(*(&v10 + 1) + 8 * i);
+          v7 = *(*(&v9 + 1) + 8 * i);
           [v2 appendFormat:@"    Reason               : %s\n", objc_msgSend(objc_msgSend(v7, "objectForKeyedSubscript:", @"initiatingReason", "UTF8String")];
           [v2 appendFormat:@"%@", __printDictionaryContents(v7, 0, objc_msgSend(MEMORY[0x277CBEB98], "setWithObjects:", @"initiatingReason", 0))];
         }
 
-        v4 = [a1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v4 = [a1 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v4);
@@ -5379,41 +5368,39 @@ id W5DescriptionForLinkTestsStatus(void *a1)
     [v2 appendFormat:@"    None\n"];
   }
 
-  result = [v2 copy];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v2 copy];
 }
 
 id W5DescriptionForRecoveriesStatus(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAB68] string];
   if (a1 && [a1 count])
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
-    v3 = [a1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    v3 = [a1 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v11;
+      v5 = *v10;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v11 != v5)
+          if (*v10 != v5)
           {
             objc_enumerationMutation(a1);
           }
 
-          v7 = *(*(&v10 + 1) + 8 * i);
+          v7 = *(*(&v9 + 1) + 8 * i);
           [v2 appendFormat:@"    Reason               : %s\n", objc_msgSend(objc_msgSend(v7, "objectForKeyedSubscript:", @"recoveryReason", "UTF8String")];
           [v2 appendFormat:@"%@", __printDictionaryContents(v7, 0, objc_msgSend(MEMORY[0x277CBEB98], "setWithObjects:", @"recoveryReason", 0))];
         }
 
-        v4 = [a1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v4 = [a1 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v4);
@@ -5425,9 +5412,7 @@ id W5DescriptionForRecoveriesStatus(void *a1)
     [v2 appendFormat:@"    None\n"];
   }
 
-  result = [v2 copy];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v2 copy];
 }
 
 id __printBTCProfile(unsigned int *a1)
@@ -5546,116 +5531,120 @@ uint64_t ____printDictionaryContents_block_invoke()
   return [v0 setDateFormat:@"yyyy'-'MM'-'dd HH:mm:ss.SSS"];
 }
 
-void sub_274235B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2742362DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
-{
-  objc_sync_exit(v23);
-  _Block_object_dispose(&a19, 8);
-  _Block_object_dispose(&a23, 8);
-  _Block_object_dispose((v24 - 144), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_274237608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_274237B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_274238468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_27423CA24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
-{
-  _Block_object_dispose(&a17, 8);
-  _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_27423D70C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
-{
-  _Block_object_dispose(&a17, 8);
-  _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_27423F370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
-{
-  _Block_object_dispose(&a17, 8);
-  _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_27423FBFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2742403C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_274241E64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_274242098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_274235B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2742362DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  objc_sync_exit(v22);
+  _Block_object_dispose(&a19, 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v23 - 144), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_274237608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_274237B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_274238468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_27423CA24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(&a23, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_27423D70C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(&a23, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_27423F370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(&a23, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_27423FBFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2742403C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_274241E64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_274242098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }

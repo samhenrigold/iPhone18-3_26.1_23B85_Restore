@@ -4,6 +4,7 @@
 - (id)_tapticChimesEnabled;
 - (id)specifiers;
 - (void)_setTapticChimesEnabled:(id)enabled;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TapticChimesController
@@ -45,6 +46,41 @@
   }
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v18[1] = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = TapticChimesController;
+  [(AccessibilityBridgeBaseController *)&v17 viewWillAppear:appear];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  if (([v3 isLoaded] & 1) == 0)
+  {
+    [v3 load];
+  }
+
+  bundleURL = [v3 bundleURL];
+
+  if (bundleURL)
+  {
+    v5 = objc_alloc(MEMORY[0x277CCAEB8]);
+    currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+    bundleURL2 = [v3 bundleURL];
+    v8 = [v5 initWithKey:@"TAPTIC_CHIMES_TITLE" table:@"Localizable" locale:currentLocale bundleURL:bundleURL2];
+
+    v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v10 = objc_alloc(MEMORY[0x277CCAEB8]);
+    currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+    bundleURL3 = [v9 bundleURL];
+    v13 = [v10 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale2 bundleURL:bundleURL3];
+
+    v14 = MEMORY[0x277CF3470];
+    v18[0] = v13;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v16 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=TapticChimesCell"];
+    [v14 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v8 localizedNavigationComponents:v15 deepLink:v16];
+  }
 }
 
 - (void)_setTapticChimesEnabled:(id)enabled

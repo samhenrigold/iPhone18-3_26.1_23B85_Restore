@@ -44,7 +44,7 @@
 
 - (void)showNotificationForNewlySupportedLanguage:(id)language
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   user = [(HMDSiriMultiUserNewLanguageNotificationManagerContext *)self user];
   home = [user home];
@@ -66,9 +66,9 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         v16 = HMFGetLogIdentifier();
-        v18 = 138543362;
-        v19 = v16;
-        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine user readable string from language code", &v18, 0xCu);
+        v17 = 138543362;
+        v18 = v16;
+        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine user readable string from language code", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v13);
@@ -83,15 +83,13 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v12;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Not showing new language RMV notification because home is nil", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v12;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Not showing new language RMV notification because home is nil", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)siriLanguageForMediaAccessory:(id)accessory
@@ -104,7 +102,7 @@
 
 - (id)siriLanguagesRequiringNotificationForVersion:(id)version
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   versionCopy = version;
   mEMORY[0x277D0F8D0] = [MEMORY[0x277D0F8D0] sharedPreferences];
   v6 = [mEMORY[0x277D0F8D0] preferenceForKey:@"forceSiriRMVNewLanguageToEnglish"];
@@ -118,9 +116,9 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v11;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@forceSiriRMVNewLanguageToEnglish is enabled, so forcing to english", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = v11;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@forceSiriRMVNewLanguageToEnglish is enabled, so forcing to english", &v23, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -147,9 +145,9 @@
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       v21 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v21;
-      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@The software version is nil", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = v21;
+      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@The software version is nil", &v23, 0xCu);
     }
 
     objc_autoreleasePoolPop(v18);
@@ -158,8 +156,6 @@
 
   v17 = v12;
 LABEL_11:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -174,7 +170,7 @@ LABEL_11:
 
 - (BOOL)isRMVEnabledForCurrentUser
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   user = [(HMDSiriMultiUserNewLanguageNotificationManagerContext *)self user];
   v4 = user;
   if (user)
@@ -190,33 +186,32 @@ LABEL_11:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to setCurrentUserHasSeenNotification because user is nil", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to setCurrentUserHasSeenNotification because user is nil", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     siriIdentifyVoiceEnabled = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return siriIdentifyVoiceEnabled;
 }
 
 - (void)setCurrentUserHasSeenNotification
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   user = [(HMDSiriMultiUserNewLanguageNotificationManagerContext *)self user];
   v4 = user;
   if (user)
   {
     v5 = [user setHasUserSeenRMVNewLanguageNotification:1];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __90__HMDSiriMultiUserNewLanguageNotificationManagerContext_setCurrentUserHasSeenNotification__block_invoke;
-    v11[3] = &unk_278670B18;
-    v11[4] = self;
-    [v5 getResultWithCompletion:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __90__HMDSiriMultiUserNewLanguageNotificationManagerContext_setCurrentUserHasSeenNotification__block_invoke;
+    v10[3] = &unk_278670B18;
+    v10[4] = self;
+    [v5 getResultWithCompletion:v10];
     [(HMDSiriMultiUserNewLanguageNotificationManagerContext *)self setCachedHasCurrentUserSeenNotification:1];
   }
 
@@ -229,19 +224,17 @@ LABEL_11:
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v13 = v9;
+      v12 = v9;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to setCurrentUserHasSeenNotification because user is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __90__HMDSiriMultiUserNewLanguageNotificationManagerContext_setCurrentUserHasSeenNotification__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -253,24 +246,24 @@ void __90__HMDSiriMultiUserNewLanguageNotificationManagerContext_setCurrentUserH
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v11;
+      v16 = 138543362;
+      v17 = v11;
       v12 = "%{public}@Asynchronously setCurrentUserHasSeenNotification succeeded";
       v13 = v10;
       v14 = OS_LOG_TYPE_INFO;
       v15 = 12;
 LABEL_6:
-      _os_log_impl(&dword_229538000, v13, v14, v12, &v17, v15);
+      _os_log_impl(&dword_229538000, v13, v14, v12, &v16, v15);
     }
   }
 
   else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     v11 = HMFGetLogIdentifier();
-    v17 = 138543618;
-    v18 = v11;
-    v19 = 2112;
-    v20 = v6;
+    v16 = 138543618;
+    v17 = v11;
+    v18 = 2112;
+    v19 = v6;
     v12 = "%{public}@Asynchronously setCurrentUserHasSeenNotification failed with error: %@";
     v13 = v10;
     v14 = OS_LOG_TYPE_ERROR;
@@ -279,51 +272,46 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v7);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasCurrentUserSeenNotification
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ([(HMDSiriMultiUserNewLanguageNotificationManagerContext *)self cachedHasCurrentUserSeenNotification])
   {
-    ownerHasUserSeenRMVNewLanguageNotification = 1;
+    return 1;
+  }
+
+  user = [(HMDSiriMultiUserNewLanguageNotificationManagerContext *)self user];
+  v5 = user;
+  if (user)
+  {
+    ownerHasUserSeenRMVNewLanguageNotification = [user ownerHasUserSeenRMVNewLanguageNotification];
   }
 
   else
   {
-    user = [(HMDSiriMultiUserNewLanguageNotificationManagerContext *)self user];
-    v5 = user;
-    if (user)
+    v6 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v8 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      ownerHasUserSeenRMVNewLanguageNotification = [user ownerHasUserSeenRMVNewLanguageNotification];
+      v9 = HMFGetLogIdentifier();
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch hasCurrentUserSeenNotification because user is nil", &v11, 0xCu);
     }
 
-    else
-    {
-      v6 = objc_autoreleasePoolPush();
-      selfCopy = self;
-      v8 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-      {
-        v9 = HMFGetLogIdentifier();
-        v12 = 138543362;
-        v13 = v9;
-        _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch hasCurrentUserSeenNotification because user is nil", &v12, 0xCu);
-      }
-
-      objc_autoreleasePoolPop(v6);
-      ownerHasUserSeenRMVNewLanguageNotification = 1;
-    }
+    objc_autoreleasePoolPop(v6);
+    ownerHasUserSeenRMVNewLanguageNotification = 1;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return ownerHasUserSeenRMVNewLanguageNotification;
 }
 
 - (NSArray)mediaAccessories
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   user = [(HMDSiriMultiUserNewLanguageNotificationManagerContext *)self user];
   v4 = user;
   if (user)
@@ -343,9 +331,9 @@ LABEL_6:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         v15 = HMFGetLogIdentifier();
-        v18 = 138543362;
-        v19 = v15;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch media accessories because home is nil", &v18, 0xCu);
+        v17 = 138543362;
+        v18 = v15;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch media accessories because home is nil", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -361,23 +349,21 @@ LABEL_6:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v11;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch media accessories because user is nil", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v11;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch media accessories because user is nil", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     appleMediaAccessories = MEMORY[0x277CBEBF8];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return appleMediaAccessories;
 }
 
 - (void)handleMediaAccessorySoftwareVersionUpdated:(id)updated
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   object = [updatedCopy object];
   objc_opt_class();
@@ -410,9 +396,9 @@ LABEL_6:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = HMFGetLogIdentifier();
-        v19 = 138543362;
-        v20 = v17;
-        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@delegate is nil", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = v17;
+        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@delegate is nil", &v18, 0xCu);
       }
 
       objc_autoreleasePoolPop(v14);
@@ -427,15 +413,13 @@ LABEL_6:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v13;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Received softwareVersion update notification with nil HMDAppleMediaAccessory", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v13;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Received softwareVersion update notification with nil HMDAppleMediaAccessory", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure
@@ -473,15 +457,14 @@ LABEL_6:
 
 void __68__HMDSiriMultiUserNewLanguageNotificationManagerContext_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v20;
-  logCategory__hmf_once_v20 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v20;
+  logCategory__hmf_once_v20 = v0;
 }
 
 + (id)userReadableLanguageFromCode:(id)code
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -489,11 +472,11 @@ void __68__HMDSiriMultiUserNewLanguageNotificationManagerContext_logCategory__bl
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v31 = 138543618;
-    v32 = v8;
-    v33 = 2112;
-    v34 = codeCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@languageCode: %@", &v31, 0x16u);
+    v30 = 138543618;
+    v31 = v8;
+    v32 = 2112;
+    v33 = codeCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@languageCode: %@", &v30, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -504,11 +487,11 @@ void __68__HMDSiriMultiUserNewLanguageNotificationManagerContext_logCategory__bl
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     v13 = HMFGetLogIdentifier();
-    v31 = 138543618;
-    v32 = v13;
-    v33 = 2112;
-    v34 = deviceLanguage;
-    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@preferredLocalization: %@", &v31, 0x16u);
+    v30 = 138543618;
+    v31 = v13;
+    v32 = 2112;
+    v33 = deviceLanguage;
+    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@preferredLocalization: %@", &v30, 0x16u);
   }
 
   objc_autoreleasePoolPop(v10);
@@ -519,11 +502,11 @@ void __68__HMDSiriMultiUserNewLanguageNotificationManagerContext_logCategory__bl
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     v18 = HMFGetLogIdentifier();
-    v31 = 138543618;
-    v32 = v18;
-    v33 = 2112;
-    v34 = v14;
-    _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@appLocale: %@", &v31, 0x16u);
+    v30 = 138543618;
+    v31 = v18;
+    v32 = 2112;
+    v33 = v14;
+    _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@appLocale: %@", &v30, 0x16u);
   }
 
   objc_autoreleasePoolPop(v15);
@@ -534,11 +517,11 @@ void __68__HMDSiriMultiUserNewLanguageNotificationManagerContext_logCategory__bl
   if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
     v23 = HMFGetLogIdentifier();
-    v31 = 138543618;
-    v32 = v23;
-    v33 = 2112;
-    v34 = v19;
-    _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@shortCode: %@", &v31, 0x16u);
+    v30 = 138543618;
+    v31 = v23;
+    v32 = 2112;
+    v33 = v19;
+    _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@shortCode: %@", &v30, 0x16u);
   }
 
   objc_autoreleasePoolPop(v20);
@@ -549,15 +532,14 @@ void __68__HMDSiriMultiUserNewLanguageNotificationManagerContext_logCategory__bl
   if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
     v28 = HMFGetLogIdentifier();
-    v31 = 138543618;
-    v32 = v28;
-    v33 = 2112;
-    v34 = v24;
-    _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@languageName: %@", &v31, 0x16u);
+    v30 = 138543618;
+    v31 = v28;
+    v32 = 2112;
+    v33 = v24;
+    _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@languageName: %@", &v30, 0x16u);
   }
 
   objc_autoreleasePoolPop(v25);
-  v29 = *MEMORY[0x277D85DE8];
 
   return v24;
 }

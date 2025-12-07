@@ -179,11 +179,11 @@ LABEL_6:
   _Block_object_dispose(&v22, 8);
 }
 
-uint64_t __47__AVTStickerTaskScheduler_scheduleStickerTask___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+char *__47__AVTStickerTaskScheduler_scheduleStickerTask___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = *(*(*(a1 + 32) + 8) + 24);
   result = [a3 count];
-  *(*(*(a1 + 32) + 8) + 24) = result + v4;
+  *(*(*(a1 + 32) + 8) + 24) = &result[v4];
   return result;
 }
 

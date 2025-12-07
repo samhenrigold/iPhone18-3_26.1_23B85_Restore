@@ -47,72 +47,72 @@
 
 - (void)makeMLIROpWithBuilder:(void *)builder symbolTable:(void *)table inputValues:(void *)values opInitialization:(BOOL)initialization name:(id)name
 {
-  v150 = *MEMORY[0x1E69E9840];
+  v151 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  mpsFileLoc("[MPSGraphWhileOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphControlFlowOps.mm", __p);
-  v123 = nameCopy;
-  LOWORD(v145) = 260;
-  v144[0] = __p;
-  StringAttr = mlir::Builder::getStringAttr(builder, v144);
-  v12 = mlir::FileLineColLoc::get(StringAttr, 0x938u, 0);
-  if (v123)
+  mpsFileLoc(__p, "[MPSGraphWhileOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphControlFlowOps.mm");
+  v124 = nameCopy;
+  LOWORD(v146) = 260;
+  v145[0] = __p;
+  StringAttr = mlir::Builder::getStringAttr(builder, v145);
+  v13 = mlir::FileLineColLoc::get(StringAttr, 0x938u, 0);
+  if (v124)
   {
-    v13 = v123;
-    uTF8String = [v123 UTF8String];
-    v15 = strlen(uTF8String);
-    if (v15 >= 0x7FFFFFFFFFFFFFF8)
+    v14 = v124;
+    uTF8String = [v124 UTF8String];
+    v16 = strlen(uTF8String);
+    if (v16 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v16 = v15;
-    if (v15 >= 0x17)
+    v17 = v16;
+    if (v16 >= 0x17)
     {
       operator new();
     }
 
-    BYTE7(v137) = v15;
-    if (v15)
+    BYTE7(v138) = v16;
+    if (v16)
     {
-      memmove(&__dst, uTF8String, v15);
+      memmove(&__dst, uTF8String, v16);
     }
 
-    v17 = &__dst + v16;
+    v18 = &__dst + v17;
   }
 
   else
   {
-    BYTE7(v137) = 9;
+    BYTE7(v138) = 9;
     BYTE8(__dst) = 101;
     *&__dst = *"scf.while";
-    v17 = &__dst + 9;
+    v18 = &__dst + 9;
   }
 
-  *v17 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, v11, &v134);
-  v18 = v134.__r_.__value_.__r.__words[0];
-  if ((v134.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  *v18 = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, &v135, v11, v12);
+  v19 = v135.__r_.__value_.__r.__words[0];
+  if ((v135.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v18 = &v134;
+    v19 = &v135;
   }
 
-  v19 = 1;
-  BYTE1(v145) = 1;
-  if (v18->__r_.__value_.__s.__data_[0])
+  v20 = 1;
+  BYTE1(v146) = 1;
+  if (v19->__r_.__value_.__s.__data_[0])
   {
-    v144[0] = v18;
-    v19 = 3;
+    v145[0] = v19;
+    v20 = 3;
   }
 
-  LOBYTE(v145) = v19;
-  v20 = mlir::Builder::getStringAttr(builder, v144);
-  v21 = mlir::NameLoc::get(v20, v12);
-  if (SHIBYTE(v134.__r_.__value_.__r.__words[2]) < 0)
+  LOBYTE(v146) = v20;
+  v21 = mlir::Builder::getStringAttr(builder, v145);
+  v22 = mlir::NameLoc::get(v21, v13);
+  if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
   {
-    v62 = v21;
-    operator delete(v134.__r_.__value_.__l.__data_);
-    v121 = v62;
-    if ((SBYTE7(v137) & 0x80000000) == 0)
+    v63 = v22;
+    operator delete(v135.__r_.__value_.__l.__data_);
+    v122 = v63;
+    if ((SBYTE7(v138) & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
@@ -120,8 +120,8 @@
 
   else
   {
-    v121 = v21;
-    if ((SBYTE7(v137) & 0x80000000) == 0)
+    v122 = v22;
+    if ((SBYTE7(v138) & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
@@ -130,166 +130,166 @@
   operator delete(__dst);
 LABEL_16:
 
-  if (v133 < 0)
+  if (v134 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v113 = *(builder + 1);
-  v114 = builder + 16;
+  v114 = *(builder + 1);
+  v115 = builder + 16;
   WeakRetained = objc_loadWeakRetained(&self->super._graph);
-  v112 = WeakRetained[22];
-  v111 = v112;
+  v113 = WeakRetained[22];
+  v112 = v113;
 
   inputTensors = [(MPSGraphOperation *)self inputTensors];
-  getTypesFromTensors(inputTensors, &v130);
+  getTypesFromTensors(inputTensors, &v131);
 
-  memset(v144, 0, sizeof(v144));
-  v145 = &v145;
-  v146 = &v145;
-  v148 = 0;
+  memset(v145, 0, sizeof(v145));
+  v146 = &v146;
+  v147 = &v146;
   v149 = 0;
-  v147 = 0;
+  v150 = 0;
+  v148 = 0;
   obj = [(MPSGraphRegion *)self->super._region appendNewBlock];
-  v126 = objc_opt_new();
-  v24 = v130;
-  if (v131 != v130)
+  v127 = objc_opt_new();
+  v25 = v131;
+  if (v132 != v131)
   {
-    v25 = 0;
+    v26 = 0;
     do
     {
-      v26 = v24[v25];
+      v27 = v25[v26];
       *&__dst = "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphControlFlowOps.mm";
-      LOWORD(v138) = 259;
-      v27 = mlir::Builder::getStringAttr(builder, &__dst);
-      v28 = mlir::FileLineColLoc::get(v27, 0x94Fu, 0);
-      mlir::Block::addArgument(v144, v26, v28);
-      v29 = *(v147 + 8 * v25);
-      v30 = [MPSGraphTensor alloc];
-      v31 = objc_loadWeakRetained(&self->super._graph);
-      v32 = [(MPSGraphTensor *)v30 initTensorWithOperation:self value:v29 graph:v31 parentBlock:obj name:0];
+      LOWORD(v139) = 259;
+      v28 = mlir::Builder::getStringAttr(builder, &__dst);
+      v29 = mlir::FileLineColLoc::get(v28, 0x94Fu, 0);
+      mlir::Block::addArgument(v145, v27, v29);
+      v30 = *(v148 + 8 * v26);
+      v31 = [MPSGraphTensor alloc];
+      v32 = objc_loadWeakRetained(&self->super._graph);
+      v33 = [(MPSGraphTensor *)v31 initTensorWithOperation:self value:v30 graph:v32 parentBlock:obj name:0];
 
-      [v126 addObject:v32];
-      ++v25;
-      v24 = v130;
+      [v127 addObject:v33];
+      ++v26;
+      v25 = v131;
     }
 
-    while (v25 < (v131 - v130) >> 3);
+    while (v26 < (v132 - v131) >> 3);
   }
 
-  *(builder + 2) = v144;
-  *(builder + 3) = &v145;
-  v33 = objc_loadWeakRetained(&self->super._graph);
-  objc_storeStrong(v33 + 22, obj);
+  *(builder + 2) = v145;
+  *(builder + 3) = &v146;
+  v34 = objc_loadWeakRetained(&self->super._graph);
+  objc_storeStrong(v34 + 22, obj);
 
   array = [MEMORY[0x1E695DF70] array];
-  v34 = (*(self->_beforeBlock + 2))();
+  v35 = (*(self->_beforeBlock + 2))();
   predicateTensor = self->_predicateTensor;
-  self->_predicateTensor = v34;
+  self->_predicateTensor = v35;
 
   beforeBlock = self->_beforeBlock;
   self->_beforeBlock = 0;
 
-  v37 = [MEMORY[0x1E695DEC8] arrayWithArray:array];
+  v38 = [MEMORY[0x1E695DEC8] arrayWithArray:array];
   beforeResult = self->_beforeResult;
-  self->_beforeResult = v37;
+  self->_beforeResult = v38;
 
   if (!self->_predicateTensor && MTLReportFailureTypeEnabled())
   {
     MTLReportFailure();
   }
 
-  v39 = objc_loadWeakRetained(&self->super._graph);
-  v117 = [v39 castTensor:self->_predicateTensor toType:2147483656 name:@"if_cast"];
-
   v40 = objc_loadWeakRetained(&self->super._graph);
-  v118 = [v40 reshapeTensor:v117 withShape:MEMORY[0x1E695E0F0] name:@"whilePredicate/reshape"];
+  v118 = [v40 castTensor:self->_predicateTensor toType:2147483656 name:@"if_cast"];
 
-  v143 = v118;
-  v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v143 count:1];
-  v122 = [v41 mutableCopy];
+  v41 = objc_loadWeakRetained(&self->super._graph);
+  v119 = [v41 reshapeTensor:v118 withShape:MEMORY[0x1E695E0F0] name:@"whilePredicate/reshape"];
 
-  [v122 addObjectsFromArray:self->_beforeResult];
-  v42 = [MPSGraphConditionOp alloc];
-  v43 = objc_loadWeakRetained(&self->super._graph);
-  v119 = [(MPSGraphOperation *)v42 initWithGraph:v43 inputTensors:v122 controlDependencies:MEMORY[0x1E695E0F0] name:0];
+  v144 = v119;
+  v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v144 count:1];
+  v123 = [v42 mutableCopy];
 
+  [v123 addObjectsFromArray:self->_beforeResult];
+  v43 = [MPSGraphConditionOp alloc];
   v44 = objc_loadWeakRetained(&self->super._graph);
-  [v44[22] addTerminatorOperation:v119];
+  v120 = [(MPSGraphOperation *)v43 initWithGraph:v44 inputTensors:v123 controlDependencies:MEMORY[0x1E695E0F0] name:0];
 
-  getTypesFromTensors(self->_beforeResult, &v128);
-  v137 = 0u;
+  v45 = objc_loadWeakRetained(&self->super._graph);
+  [v45[22] addTerminatorOperation:v120];
+
+  getTypesFromTensors(self->_beforeResult, &v129);
+  v138 = 0u;
   __dst = 0u;
-  v138 = &v138;
-  v139 = &v138;
-  v141 = 0;
+  v139 = &v139;
+  v140 = &v139;
   v142 = 0;
-  v140 = 0;
+  v143 = 0;
+  v141 = 0;
   appendNewBlock = [(MPSGraphRegion *)self->super._region appendNewBlock];
-  v45 = objc_opt_new();
-  v46 = v128;
-  if (v129 != v128)
+  v46 = objc_opt_new();
+  v47 = v129;
+  if (v130 != v129)
   {
-    v47 = 0;
+    v48 = 0;
     do
     {
-      v48 = v46[v47];
-      v134.__r_.__value_.__r.__words[0] = "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphControlFlowOps.mm";
-      v135 = 259;
-      v49 = mlir::Builder::getStringAttr(builder, &v134);
-      v50 = mlir::FileLineColLoc::get(v49, 0x97Du, 0);
-      mlir::Block::addArgument(&__dst, v48, v50);
-      v51 = *(v140 + 8 * v47);
-      v52 = [MPSGraphTensor alloc];
-      v53 = objc_loadWeakRetained(&self->super._graph);
-      v54 = [(MPSGraphTensor *)v52 initTensorWithOperation:self value:v51 graph:v53 parentBlock:appendNewBlock name:0];
+      v49 = v47[v48];
+      v135.__r_.__value_.__r.__words[0] = "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphControlFlowOps.mm";
+      v136 = 259;
+      v50 = mlir::Builder::getStringAttr(builder, &v135);
+      v51 = mlir::FileLineColLoc::get(v50, 0x97Du, 0);
+      mlir::Block::addArgument(&__dst, v49, v51);
+      v52 = *(v141 + 8 * v48);
+      v53 = [MPSGraphTensor alloc];
+      v54 = objc_loadWeakRetained(&self->super._graph);
+      v55 = [(MPSGraphTensor *)v53 initTensorWithOperation:self value:v52 graph:v54 parentBlock:appendNewBlock name:0];
 
-      [v45 addObject:v54];
-      ++v47;
-      v46 = v128;
+      [v46 addObject:v55];
+      ++v48;
+      v47 = v129;
     }
 
-    while (v47 < (v129 - v128) >> 3);
+    while (v48 < (v130 - v129) >> 3);
   }
 
   *(builder + 2) = &__dst;
-  *(builder + 3) = &v138;
-  v55 = objc_loadWeakRetained(&self->super._graph);
-  objc_storeStrong(v55 + 22, appendNewBlock);
+  *(builder + 3) = &v139;
+  v56 = objc_loadWeakRetained(&self->super._graph);
+  objc_storeStrong(v56 + 22, appendNewBlock);
 
-  v56 = (*(self->_afterBlock + 2))();
+  v57 = (*(self->_afterBlock + 2))();
   afterResult = self->_afterResult;
-  self->_afterResult = v56;
+  self->_afterResult = v57;
 
   afterBlock = self->_afterBlock;
   self->_afterBlock = 0;
 
-  v59 = [MPSGraphYieldOp alloc];
-  v60 = objc_loadWeakRetained(&self->super._graph);
-  v116 = [(MPSGraphOperation *)v59 initWithGraph:v60 inputTensors:self->_afterResult controlDependencies:MEMORY[0x1E695E0F0] name:0];
-
+  v60 = [MPSGraphYieldOp alloc];
   v61 = objc_loadWeakRetained(&self->super._graph);
-  [v61[22] addTerminatorOperation:v116];
+  v117 = [(MPSGraphOperation *)v60 initWithGraph:v61 inputTensors:self->_afterResult controlDependencies:MEMORY[0x1E695E0F0] name:0];
 
-  if (v113)
+  v62 = objc_loadWeakRetained(&self->super._graph);
+  [v62[22] addTerminatorOperation:v117];
+
+  if (v114)
   {
-    *v114 = v113;
+    *v115 = v114;
   }
 
   else
   {
-    *v114 = 0;
+    *v115 = 0;
     *(builder + 3) = 0;
   }
 
-  v63 = objc_loadWeakRetained(&self->super._graph);
-  objc_storeStrong(v63 + 22, v112);
+  v64 = objc_loadWeakRetained(&self->super._graph);
+  objc_storeStrong(v64 + 22, v113);
 
-  v64 = mlir::OpBuilder::create<mlir::scf::WhileOp,std::vector<mlir::Type> &,std::vector<mlir::Value> &>(builder, v121, &v128, values);
-  v127 = v64;
-  if (v131 != v130)
+  v65 = mlir::OpBuilder::create<mlir::scf::WhileOp,std::vector<mlir::Type> &,std::vector<mlir::Value> &>(builder, v122, &v129, values);
+  v128 = v65;
+  if (v132 != v131)
   {
-    if (((v131 - v130) & 0x8000000000000000) == 0)
+    if (((v132 - v131) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -297,83 +297,83 @@ LABEL_16:
     std::vector<long>::__throw_length_error[abi:ne200100]();
   }
 
-  v65 = *(v64 + 40);
-  v66 = *(v64 + 44);
-  mlir::ValueRange::ValueRange(&v134, v131, 0);
-  Block = mlir::OpBuilder::createBlock(builder, ((v64 + 16 * ((v66 >> 23) & 1) + ((v66 >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * v65, 0, v134.__r_.__value_.__l.__data_, v134.__r_.__value_.__l.__size_, 0, 0);
-  v68 = Block;
-  if (v145 != &v145 && v144 != Block)
+  v66 = *(v65 + 10);
+  v67 = *(v65 + 11);
+  mlir::ValueRange::ValueRange(&v135, v132, 0);
+  Block = mlir::OpBuilder::createBlock(builder, ((&v65[16 * ((v67 >> 23) & 1) + 71 + ((v67 >> 21) & 0x7F8)] & 0xFFFFFFFFFFFFFFF8) + 32 * v66), 0, v135.__r_.__value_.__l.__data_, v135.__r_.__value_.__l.__size_, 0, 0);
+  v69 = Block;
+  if (v146 != &v146 && v145 != Block)
   {
-    v69 = Block + 4;
-    v70 = v146;
-    llvm::ilist_traits<mlir::Operation>::transferNodesFromList((Block + 4), &v145, v146, &v145);
-    if (v70 != &v145)
+    v70 = (Block + 4);
+    v71 = v147;
+    llvm::ilist_traits<mlir::Operation>::transferNodesFromList((Block + 4), &v146, v147, &v146);
+    if (v71 != &v146)
     {
-      v71 = v145;
-      v72 = *v70;
-      v72[1] = &v145;
-      v145 = v72;
-      v73 = *v69;
-      v71[1] = v69;
-      *v70 = v73;
-      *(v73 + 8) = v70;
-      *v69 = v71;
+      v72 = v146;
+      v73 = *v71;
+      v73[1] = &v146;
+      v146 = v73;
+      v74 = *v70;
+      v72[1] = v70;
+      *v71 = v74;
+      *(v74 + 8) = v71;
+      *v70 = v72;
     }
   }
 
-  if (v131 != v130)
+  if (v132 != v131)
   {
-    v74 = 0;
+    v75 = 0;
     do
     {
-      v75 = *(v147 + 8 * v74);
-      v76 = v68[6];
-      v77 = *(v76 + 8 * v74);
-      v78 = *v75;
-      if (*v75)
+      v76 = *(v148 + 8 * v75);
+      v77 = v69[6];
+      v78 = *(v77 + 8 * v75);
+      v79 = *v76;
+      if (*v76)
       {
         do
         {
-          v79 = v78[1];
-          if (v79)
+          v80 = v79[1];
+          if (v80)
           {
-            v80 = *v78;
-            *v79 = *v78;
-            if (v80)
+            v81 = *v79;
+            *v80 = *v79;
+            if (v81)
             {
-              *(v80 + 8) = v79;
+              *(v81 + 8) = v80;
             }
           }
 
-          v78[3] = v77;
-          v78[1] = v77;
-          v81 = *v77;
-          *v78 = *v77;
-          if (v81)
+          v79[3] = v78;
+          v79[1] = v78;
+          v82 = *v78;
+          *v79 = *v78;
+          if (v82)
           {
-            *(v81 + 8) = v78;
+            *(v82 + 8) = v79;
           }
 
-          *v77 = v78;
-          v78 = *v75;
+          *v78 = v79;
+          v79 = *v76;
         }
 
-        while (*v75);
-        v77 = *(v76 + 8 * v74);
+        while (*v76);
+        v78 = *(v77 + 8 * v75);
       }
 
-      v82 = [v126 objectAtIndexedSubscript:v74];
-      v82[1] = v77;
+      v83 = [v127 objectAtIndexedSubscript:v75];
+      v83[1] = v78;
 
-      ++v74;
+      ++v75;
     }
 
-    while (v74 < (v131 - v130) >> 3);
+    while (v75 < (v132 - v131) >> 3);
   }
 
-  if (v129 != v128)
+  if (v130 != v129)
   {
-    if (((v129 - v128) & 0x8000000000000000) == 0)
+    if (((v130 - v129) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -381,84 +381,84 @@ LABEL_16:
     std::vector<long>::__throw_length_error[abi:ne200100]();
   }
 
-  v83 = *(v127 + 40);
-  v84 = *(v127 + 44);
-  mlir::ValueRange::ValueRange(&v134, v129, 0);
-  v85 = mlir::OpBuilder::createBlock(builder, ((v127 + 16 * ((v84 >> 23) & 1) + ((v84 >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * v83 + 24, 0, v134.__r_.__value_.__l.__data_, v134.__r_.__value_.__l.__size_, 0, 0);
-  v86 = v85;
-  if (v138 != &v138 && &__dst != v85)
+  v84 = *(v128 + 10);
+  v85 = *(v128 + 11);
+  mlir::ValueRange::ValueRange(&v135, v130, 0);
+  v86 = mlir::OpBuilder::createBlock(builder, ((&v128[16 * ((v85 >> 23) & 1) + 71 + ((v85 >> 21) & 0x7F8)] & 0xFFFFFFFFFFFFFFF8) + 32 * v84 + 24), 0, v135.__r_.__value_.__l.__data_, v135.__r_.__value_.__l.__size_, 0, 0);
+  v87 = v86;
+  if (v139 != &v139 && &__dst != v86)
   {
-    v87 = (v85 + 2);
-    v88 = v139;
-    llvm::ilist_traits<mlir::Operation>::transferNodesFromList((v85 + 2), &v138, v139, &v138);
-    if (v88 != &v138)
+    v88 = (v86 + 2);
+    v89 = v140;
+    llvm::ilist_traits<mlir::Operation>::transferNodesFromList((v86 + 2), &v139, v140, &v139);
+    if (v89 != &v139)
     {
-      v89 = v138;
-      v90 = *v88;
-      v90[1] = &v138;
-      v138 = v90;
-      v91 = *v87;
-      v89[1] = v87;
-      *v88 = v91;
-      *(v91 + 8) = v88;
-      *v87 = v89;
+      v90 = v139;
+      v91 = *v89;
+      v91[1] = &v139;
+      v139 = v91;
+      v92 = *v88;
+      v90[1] = v88;
+      *v89 = v92;
+      *(v92 + 8) = v89;
+      *v88 = v90;
     }
   }
 
-  if (v129 != v128)
+  if (v130 != v129)
   {
-    v92 = 0;
+    v93 = 0;
     do
     {
-      v93 = *(v140 + 8 * v92);
-      v94 = *(v86 + 6);
-      v95 = *(v94 + 8 * v92);
-      v96 = *v93;
-      if (*v93)
+      v94 = *(v141 + 8 * v93);
+      v95 = *(v87 + 6);
+      v96 = *(v95 + 8 * v93);
+      v97 = *v94;
+      if (*v94)
       {
         do
         {
-          v97 = v96[1];
-          if (v97)
+          v98 = v97[1];
+          if (v98)
           {
-            v98 = *v96;
-            *v97 = *v96;
-            if (v98)
+            v99 = *v97;
+            *v98 = *v97;
+            if (v99)
             {
-              *(v98 + 8) = v97;
+              *(v99 + 8) = v98;
             }
           }
 
-          v96[3] = v95;
-          v96[1] = v95;
-          v99 = *v95;
-          *v96 = *v95;
-          if (v99)
+          v97[3] = v96;
+          v97[1] = v96;
+          v100 = *v96;
+          *v97 = *v96;
+          if (v100)
           {
-            *(v99 + 8) = v96;
+            *(v100 + 8) = v97;
           }
 
-          *v95 = v96;
-          v96 = *v93;
+          *v96 = v97;
+          v97 = *v94;
         }
 
-        while (*v93);
-        v95 = *(v94 + 8 * v92);
+        while (*v94);
+        v96 = *(v95 + 8 * v93);
       }
 
-      v100 = [v45 objectAtIndexedSubscript:v92];
-      v100[1] = v95;
+      v101 = [v46 objectAtIndexedSubscript:v93];
+      v101[1] = v96;
 
-      ++v92;
+      ++v93;
     }
 
-    while (v92 < (v129 - v128) >> 3);
+    while (v93 < (v130 - v129) >> 3);
   }
 
-  ODSResultIndexAndLength = mlir::UnrealizedConversionCastOp::getODSResultIndexAndLength(&v127, 0);
-  if (*(v127 + 36))
+  ODSResultIndexAndLength = mlir::UnrealizedConversionCastOp::getODSResultIndexAndLength(&v128, 0);
+  if (*(v128 + 9))
   {
-    NextResultAtOffset = v127 - 16;
+    NextResultAtOffset = (v128 - 16);
   }
 
   else
@@ -471,33 +471,34 @@ LABEL_16:
     NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(NextResultAtOffset, ODSResultIndexAndLength);
   }
 
-  v134.__r_.__value_.__r.__words[0] = mlir::detail::OpResultImpl::getNextResultAtOffset(NextResultAtOffset, 0);
-  objc_storeStrong(&self->_beforeBlockArguments, v126);
-  objc_storeStrong(&self->_afterBlockArguments, v45);
-  v103 = [(NSMutableArray *)self->super._region->_blocks objectAtIndexedSubscript:0];
-  v103[3] = v68;
+  v135.__r_.__value_.__r.__words[0] = mlir::detail::OpResultImpl::getNextResultAtOffset(NextResultAtOffset, 0);
+  objc_storeStrong(&self->_beforeBlockArguments, v127);
+  objc_storeStrong(&self->_afterBlockArguments, v46);
+  v104 = [(NSMutableArray *)self->super._region->_blocks objectAtIndexedSubscript:0];
+  v104[3] = v69;
 
-  v104 = [(NSMutableArray *)self->super._region->_blocks objectAtIndexedSubscript:1];
-  v104[3] = v86;
+  v105 = [(NSMutableArray *)self->super._region->_blocks objectAtIndexedSubscript:1];
+  v105[3] = v87;
 
-  v105 = *(v127 + 16);
-  v107 = *(MPSGraphDelegateCompiler.precompilationDescriptor.modify(v127, v106) + 8);
-  *(builder + 2) = v105;
-  *(builder + 3) = v107;
-  DefiningOp = mlir::Value::getDefiningOp(&v134);
+  v106 = *(v128 + 2);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+  v108 = *(v107 + 8);
+  *(builder + 2) = v106;
+  *(builder + 3) = v108;
+  DefiningOp = mlir::Value::getDefiningOp(&v135);
 
   mlir::Block::~Block(&__dst);
-  if (v128)
+  if (v129)
   {
-    v129 = v128;
-    operator delete(v128);
+    v130 = v129;
+    operator delete(v129);
   }
 
-  mlir::Block::~Block(v144);
-  if (v130)
+  mlir::Block::~Block(v145);
+  if (v131)
   {
-    v131 = v130;
-    operator delete(v130);
+    v132 = v131;
+    operator delete(v131);
   }
 
   return DefiningOp;
@@ -507,7 +508,7 @@ LABEL_16:
 {
   outputCopy = output;
   OpData = getOpData(&self->super);
-  LOBYTE(autodiff) = (*(*OpData + 24))(OpData, autodiff, outputCopy);
+  LOBYTE(autodiff) = (*(OpData->super.super.isa + 3))(OpData, autodiff, outputCopy);
 
   return autodiff;
 }
@@ -516,7 +517,7 @@ LABEL_16:
 {
   inputCopy = input;
   OpData = getOpData(&self->super);
-  LOBYTE(autodiff) = (*(*OpData + 32))(OpData, autodiff, inputCopy);
+  LOBYTE(autodiff) = (*(OpData->super.super.isa + 4))(OpData, autodiff, inputCopy);
 
   return autodiff;
 }

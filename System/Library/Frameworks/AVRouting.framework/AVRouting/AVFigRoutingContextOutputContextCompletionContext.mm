@@ -9,36 +9,36 @@
 
 - (AVFigRoutingContextOutputContextCompletionContext)initWithCompletionHandler:(id)handler outputDevices:(id)devices figRoutingContext:(OpaqueFigRoutingContext *)context
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v21.receiver = self;
-  v21.super_class = AVFigRoutingContextOutputContextCompletionContext;
-  v8 = [(AVFigRoutingContextOutputContextCompletionContext *)&v21 init];
+  v22 = *MEMORY[0x1E69E9840];
+  v20.receiver = self;
+  v20.super_class = AVFigRoutingContextOutputContextCompletionContext;
+  v8 = [(AVFigRoutingContextOutputContextCompletionContext *)&v20 init];
   v8->_completionHandler = [handler copy];
   v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v10 = [devices countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v10 = [devices countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(devices);
         }
 
-        [v9 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", objc_msgSend(*(*(&v17 + 1) + 8 * v13++), "deviceType"))}];
+        [v9 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", objc_msgSend(*(*(&v16 + 1) + 8 * v13++), "deviceType"))}];
       }
 
       while (v11 != v13);
-      v11 = [devices countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v11 = [devices countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v11);
@@ -57,7 +57,6 @@
   }
 
   v8->mFigRoutingContext = v14;
-  v15 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -76,37 +75,36 @@
 
 - (id)_getFigEndpointTypeFromAVOutputDeviceType:(id)type
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  result = [type countByEnumeratingWithState:&v9 objects:v13 count:16];
+  result = [type countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (result)
   {
     v5 = result;
-    v6 = *v10;
+    v6 = *v9;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(type);
         }
 
-        if (![*(*(&v9 + 1) + 8 * v7) integerValue])
+        if (![*(*(&v8 + 1) + 8 * v7) integerValue])
         {
-          result = *MEMORY[0x1E69626A8];
-          goto LABEL_11;
+          return *MEMORY[0x1E69626A8];
         }
 
         v7 = v7 + 1;
       }
 
       while (v5 != v7);
-      result = [type countByEnumeratingWithState:&v9 objects:v13 count:16];
+      result = [type countByEnumeratingWithState:&v8 objects:v12 count:16];
       v5 = result;
       if (result)
       {
@@ -117,8 +115,6 @@
     }
   }
 
-LABEL_11:
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -141,12 +137,10 @@ void __79__AVFigRoutingContextOutputContextCompletionContext_reportModificationM
   v4 = a1 + 32;
   v3 = *(a1 + 32);
   v5 = *(*(v4 + 8) + 8);
-  VTable = CMBaseObjectGetVTable();
-  v7 = *(*(VTable + 16) + 232);
-  if (v7)
+  v6 = *(*(CMBaseObjectGetVTable() + 16) + 232);
+  if (v6)
   {
-    v8 = *(VTable + 16) + 232;
-    v7(v5, v3);
+    v6(v5, v3);
   }
 
   objc_autoreleasePoolPop(v2);

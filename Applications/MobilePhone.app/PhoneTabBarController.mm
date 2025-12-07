@@ -233,24 +233,25 @@ void __36__PhoneTabBarController_viewDidLoad__block_invoke(uint64_t a1, uint64_t
 
 - (void)viewWillAppear:(BOOL)appear
 {
-  v7.receiver = self;
-  v7.super_class = PhoneTabBarController;
-  [(PhoneTabBarController *)&v7 viewWillAppear:appear];
+  v8.receiver = self;
+  v8.super_class = PhoneTabBarController;
+  [(PhoneTabBarController *)&v8 viewWillAppear:appear];
   if (-[PhoneTabBarController currentTabViewType](self, "currentTabViewType") == 5 && ([UIApp hasEnhancedVoicemail] & 1) == 0 && (objc_msgSend(UIApp, "isRunningTest") & 1) == 0 && (objc_msgSend(UIApp, "launchedToTest") & 1) == 0)
   {
     [(PhoneTabBarController *)self switchToTab:[(PhoneTabBarController *)self defaultTabViewType]];
   }
 
-  if ([UIApp shouldShowReceptionistOnboarding])
+  shouldShowReceptionistOnboarding = [UIApp shouldShowReceptionistOnboarding];
+  if (shouldShowReceptionistOnboarding)
   {
-    v4 = PHDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = PHDefaultLog(shouldShowReceptionistOnboarding);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = objc_opt_class();
+      v6 = objc_opt_class();
       *buf = 138412290;
-      v9 = v5;
-      v6 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ is handling viewWillAppear to show Receptionist onboarding", buf, 0xCu);
+      v10 = v6;
+      v7 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling viewWillAppear to show Receptionist onboarding", buf, 0xCu);
     }
 
     [(PhoneTabBarController *)self showReceptionistOnboarding];
@@ -357,7 +358,7 @@ void __59__PhoneTabBarController_registerForBadgeUpdateNotification__block_invok
 - (void)_badgeChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -801,7 +802,7 @@ LABEL_9:
 - (void)switchToMostRecentlyUsedTabType:(id)type
 {
   v4 = [(PhoneTabBarController *)self tabViewTypeToReturnTo:type];
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6[0] = 67109120;
@@ -858,7 +859,7 @@ LABEL_9:
 
 void __43__PhoneTabBarController_updateSelectedTab___block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
@@ -929,7 +930,7 @@ void __43__PhoneTabBarController_updateSelectedTab___block_invoke(uint64_t a1)
 
 void __54__PhoneTabBarController_updateSelectedViewController___block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
@@ -956,7 +957,7 @@ void __54__PhoneTabBarController_updateSelectedViewController___block_invoke(uin
 - (void)updateUserActivityState:(id)state
 {
   currentTabViewType = [(PhoneTabBarController *)self currentTabViewType];
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(currentTabViewType);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -1143,7 +1144,7 @@ void __54__PhoneTabBarController_updateSelectedViewController___block_invoke(uin
 - (void)switchToTab:(int)tab
 {
   v3 = *&tab;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -1229,7 +1230,7 @@ LABEL_16:
   userInfo = [continuationCopy userInfo];
   activityType = [continuationCopy activityType];
   v7 = activityType;
-  v67 = activityType;
+  v71 = activityType;
   if (!userInfo || !activityType || [activityType caseInsensitiveCompare:@"com.apple.Contacts.ViewingCard"])
   {
     interaction = [continuationCopy interaction];
@@ -1242,13 +1243,14 @@ LABEL_16:
       CUTWeakLinkClass();
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
+      v13 = isKindOfClass;
       if (isKindOfClass)
       {
-        v13 = PHDefaultLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v14 = PHDefaultLog(isKindOfClass);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Activity continuity - Play voicemail activity", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Activity continuity - Play voicemail activity", buf, 2u);
         }
 
         intValue = 5;
@@ -1259,11 +1261,11 @@ LABEL_16:
         intValue = 0;
       }
 
-      v24 = 0;
-      v19 = 0;
-      v23 = 0;
+      v27 = 0;
+      v21 = 0;
+      v26 = 0;
 LABEL_24:
-      v25 = 0;
+      v28 = 0;
       goto LABEL_53;
     }
 
@@ -1271,35 +1273,36 @@ LABEL_24:
     callHistorySearchEnabled = [featureFlags callHistorySearchEnabled];
     if (userInfo && callHistorySearchEnabled && v7)
     {
-      v17 = [v7 isEqual:CSQueryContinuationActionType];
+      v18 = [v7 isEqual:CSQueryContinuationActionType];
 
-      if (v17)
+      if (v18)
       {
-        v18 = PHDefaultLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v20 = PHDefaultLog(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Activity continuity - Spotlight search in app activity", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Activity continuity - Spotlight search in app activity", buf, 2u);
         }
 
-        v19 = [userInfo objectForKey:CSSearchQueryString];
-        if ([(MPMessageID *)v19 length])
+        v21 = [userInfo objectForKey:CSSearchQueryString];
+        v22 = [(MPMessageID *)v21 length];
+        if (v22)
         {
-          v20 = PHDefaultLog();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v23 = PHDefaultLog(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v69 = v19;
-            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Activity continuity - Spotlight search activity with searchQuery: %@", buf, 0xCu);
+            v73 = v21;
+            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Activity continuity - Spotlight search activity with searchQuery: %@", buf, 0xCu);
           }
 
           intValue = 2;
           if (self->_phoneRecentsController)
           {
-            v21 = +[CAUILayoutManager shared];
-            current = [v21 current];
+            v24 = +[CAUILayoutManager shared];
+            current = [v24 current];
 
-            v23 = 0;
+            v26 = 0;
             if (current == 1)
             {
               intValue = 6;
@@ -1313,18 +1316,18 @@ LABEL_24:
 
           else
           {
-            v23 = 0;
+            v26 = 0;
           }
 
           goto LABEL_72;
         }
 
         selfCopy9 = self;
-        v24 = 0;
-        v23 = 0;
-        v25 = 0;
+        v27 = 0;
+        v26 = 0;
+        v28 = 0;
         intValue = 0;
-        isKindOfClass = 0;
+        v13 = 0;
         goto LABEL_54;
       }
     }
@@ -1337,47 +1340,47 @@ LABEL_24:
     callHistorySearchEnabled2 = [featureFlags2 callHistorySearchEnabled];
     if (userInfo && callHistorySearchEnabled2 && v7)
     {
-      v33 = [v7 isEqual:CSSearchableItemActionType];
+      v37 = [v7 isEqual:CSSearchableItemActionType];
 
-      if (v33)
+      if (v37)
       {
-        v34 = PHDefaultLog();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        v39 = PHDefaultLog(v38);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Activity continuity - Spotlight search result continuity activity", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Activity continuity - Spotlight search result continuity activity", buf, 2u);
         }
 
         interaction2 = [userInfo objectForKey:CSSearchableItemActivityIdentifier];
-        v19 = [userInfo objectForKey:CSSearchQueryString];
+        v21 = [userInfo objectForKey:CSSearchQueryString];
         if (interaction2)
         {
-          v35 = objc_alloc_init(CHManager);
-          v36 = [CHRecentCall predicateForCallsWithUniqueID:interaction2];
-          v66 = v35;
-          v37 = [v35 callsWithPredicate:v36 limit:1 offset:0 batchSize:0];
+          v40 = objc_alloc_init(CHManager);
+          v41 = [CHRecentCall predicateForCallsWithUniqueID:interaction2];
+          v70 = v40;
+          v42 = [v40 callsWithPredicate:v41 limit:1 offset:0 batchSize:0];
 
-          if ([v37 count])
+          if ([v42 count])
           {
-            v23 = interaction2;
-            v38 = PHDefaultLog();
-            if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+            v26 = interaction2;
+            v43 = PHDefaultLog(v26);
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v69 = v19;
-              v70 = 2112;
-              v71 = v23;
-              _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Activity continuity - Spotlight call search activity with searchQuery: %@ recentsUniqueID: %@", buf, 0x16u);
+              v73 = v21;
+              v74 = 2112;
+              v75 = v26;
+              _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Activity continuity - Spotlight call search activity with searchQuery: %@ recentsUniqueID: %@", buf, 0x16u);
             }
 
             selfCopy9 = self;
             intValue = 2;
             if (self->_phoneRecentsController)
             {
-              v39 = +[CAUILayoutManager shared];
-              current2 = [v39 current];
+              v44 = +[CAUILayoutManager shared];
+              current2 = [v44 current];
 
-              v24 = 0;
+              v27 = 0;
               if (current2 == 1)
               {
                 intValue = 6;
@@ -1391,10 +1394,10 @@ LABEL_24:
 
             else
             {
-              v24 = 0;
+              v27 = 0;
             }
 
-            isKindOfClass = 1;
+            v13 = 1;
           }
 
           else
@@ -1404,50 +1407,50 @@ LABEL_24:
 
             if (voicemailSearchEnabled)
             {
-              v62 = [[NSUUID alloc] initWithUUIDString:interaction2];
-              v65 = v62;
-              if (v62 && (v63 = [[MPMessageID alloc] initWithUuid:v62]) != 0)
+              v67 = [[NSUUID alloc] initWithUUIDString:interaction2];
+              v69 = v67;
+              if (v67 && (v67 = [[MPMessageID alloc] initWithUuid:v67]) != 0)
               {
-                v24 = v63;
+                v27 = v67;
                 selfCopy9 = self;
-                v64 = PHDefaultLog();
-                if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+                v68 = PHDefaultLog(v67);
+                if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v69 = v24;
-                  _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "Activity continuity - Spotlight voicemail search result activity with messageID: %@", buf, 0xCu);
+                  v73 = v27;
+                  _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, "Activity continuity - Spotlight voicemail search result activity with messageID: %@", buf, 0xCu);
                 }
 
-                isKindOfClass = 1;
+                v13 = 1;
                 intValue = 5;
               }
 
               else
               {
                 selfCopy9 = self;
-                v64 = PHDefaultLog();
-                if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+                v68 = PHDefaultLog(v67);
+                if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v69 = interaction2;
-                  _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "[WARN] Activity continuity - Failed to create MPMessageID for uniqueIdentifier %@", buf, 0xCu);
+                  v73 = interaction2;
+                  _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, "[WARN] Activity continuity - Failed to create MPMessageID for uniqueIdentifier %@", buf, 0xCu);
                 }
 
-                v24 = 0;
+                v27 = 0;
                 intValue = 0;
-                isKindOfClass = 0;
+                v13 = 0;
               }
 
-              v23 = 0;
+              v26 = 0;
             }
 
             else
             {
               selfCopy9 = self;
-              v24 = 0;
-              v23 = 0;
+              v27 = 0;
+              v26 = 0;
               intValue = 0;
-              isKindOfClass = 0;
+              v13 = 0;
             }
           }
 
@@ -1455,9 +1458,9 @@ LABEL_24:
         }
 
         selfCopy9 = self;
-        v24 = 0;
-        v23 = 0;
-        v25 = 0;
+        v27 = 0;
+        v26 = 0;
+        v28 = 0;
         goto LABEL_32;
       }
     }
@@ -1467,94 +1470,94 @@ LABEL_24:
     }
 
     selfCopy9 = self;
-    v41 = PHDefaultLog();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v46 = PHDefaultLog(v38);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Activity continuity - Phone activity", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Activity continuity - Phone activity", buf, 2u);
     }
 
     interaction2 = [userInfo objectForKey:@"PHLastTabTypeKey"];
     intValue = [(MPMessageID *)interaction2 intValue];
-    v24 = 0;
-    v19 = 0;
-    v23 = 0;
-    v25 = 0;
+    v27 = 0;
+    v21 = 0;
+    v26 = 0;
+    v28 = 0;
     goto LABEL_52;
   }
 
-  v26 = PHDefaultLog();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v29 = PHDefaultLog(0);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Activity continuity - com.apple.Contacts.ViewingCard activity", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Activity continuity - com.apple.Contacts.ViewingCard activity", buf, 2u);
   }
 
   interaction2 = +[(PHApplicationServices *)MPApplicationServices];
   contactStore = [(MPMessageID *)interaction2 contactStore];
-  v28 = +[CNContactViewController descriptorForRequiredKeys];
-  v72 = v28;
-  v29 = [NSArray arrayWithObjects:&v72 count:1];
-  v25 = [contactStore contactWithUserActivityUserInfo:userInfo keysToFetch:v29];
+  v31 = +[CNContactViewController descriptorForRequiredKeys];
+  v76 = v31;
+  v32 = [NSArray arrayWithObjects:&v76 count:1];
+  v28 = [contactStore contactWithUserActivityUserInfo:userInfo keysToFetch:v32];
 
   selfCopy9 = self;
-  if (!v25)
+  if (!v28)
   {
-    v30 = PHDefaultLog();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v34 = PHDefaultLog(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      [(PhoneTabBarController *)userInfo handleUserActivityContinuation:v30];
+      [(PhoneTabBarController *)userInfo handleUserActivityContinuation:v34];
     }
   }
 
-  v24 = 0;
-  v19 = 0;
-  v23 = 0;
+  v27 = 0;
+  v21 = 0;
+  v26 = 0;
 LABEL_32:
   intValue = 0;
 LABEL_52:
-  isKindOfClass = 0;
+  v13 = 0;
 LABEL_53:
 
   if (intValue)
   {
 LABEL_55:
-    if (v25)
+    if (v28)
     {
-      v42 = PHDefaultLog();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      v47 = PHDefaultLog(v22);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138739971;
-        v69 = v25;
-        _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Activity continuity - Resuming to contact: %{sensitive}@", buf, 0xCu);
+        v73 = v28;
+        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Activity continuity - Resuming to contact: %{sensitive}@", buf, 0xCu);
       }
 
       [(PhoneTabBarController *)selfCopy9 switchToTab:3];
       contactsViewController = [(PhoneTabBarController *)selfCopy9 contactsViewController];
-      [contactsViewController showCardForContact:v25 animated:0];
+      [contactsViewController showCardForContact:v28 animated:0];
 
-      isKindOfClass = 1;
+      v13 = 1;
       goto LABEL_59;
     }
 
     self = selfCopy9;
-    if (v24)
+    if (v27)
     {
-      v44 = PHDefaultLog();
-      v7 = v67;
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+      v49 = PHDefaultLog(v22);
+      v7 = v71;
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
       {
-        messageUUID = [(MPMessageID *)v24 messageUUID];
+        messageUUID = [(MPMessageID *)v27 messageUUID];
         *buf = 138412290;
-        v69 = messageUUID;
-        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Activity continuity - Resuming to voicemail with messageID: %@", buf, 0xCu);
+        v73 = messageUUID;
+        _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Activity continuity - Resuming to voicemail with messageID: %@", buf, 0xCu);
       }
 
-      if (self->_phoneRecentsController && (+[CAUILayoutManager shared](CAUILayoutManager, "shared"), v46 = objc_claimAutoreleasedReturnValue(), v47 = [v46 current], v46, v47 == 1))
+      if (self->_phoneRecentsController && (+[CAUILayoutManager shared](CAUILayoutManager, "shared"), v51 = objc_claimAutoreleasedReturnValue(), v52 = [v51 current], v51, v52 == 1))
       {
         [(PhoneTabBarController *)self switchToTab:2];
         phoneRecentsController = [(PhoneTabBarController *)self phoneRecentsController];
-        messageUUID2 = [(MPMessageID *)v24 messageUUID];
+        messageUUID2 = [(MPMessageID *)v27 messageUUID];
         [phoneRecentsController presentVoicemailDetailsWithUUID:messageUUID2 completion:&__block_literal_global_9];
       }
 
@@ -1562,93 +1565,93 @@ LABEL_55:
       {
         [(PhoneTabBarController *)self switchToTab:5];
         phoneRecentsController = [(PhoneTabBarController *)self voicemailViewController];
-        [phoneRecentsController playMessageWithID:v24];
+        [phoneRecentsController playMessageWithID:v27];
       }
 
-      v25 = 0;
+      v28 = 0;
 LABEL_87:
-      isKindOfClass = 1;
+      v13 = 1;
       goto LABEL_88;
     }
 
-    v7 = v67;
+    v7 = v71;
 LABEL_72:
-    v50 = PHDefaultLog();
-    v51 = os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT);
-    if (v19)
+    v55 = PHDefaultLog(v22);
+    v56 = os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT);
+    if (v21)
     {
-      if (v51)
+      if (v56)
       {
         *buf = 138412546;
-        v69 = v19;
-        v70 = 2112;
-        v71 = v23;
-        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "Activity continuity - Resuming to recents search with searchQuery: %@ recentsUniqueID: %@", buf, 0x16u);
+        v73 = v21;
+        v74 = 2112;
+        v75 = v26;
+        _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "Activity continuity - Resuming to recents search with searchQuery: %@ recentsUniqueID: %@", buf, 0x16u);
       }
 
-      if (self->_phoneRecentsController && (+[CAUILayoutManager shared](CAUILayoutManager, "shared"), v52 = objc_claimAutoreleasedReturnValue(), v53 = [v52 current], v52, v53 == 1))
+      if (self->_phoneRecentsController && (+[CAUILayoutManager shared](CAUILayoutManager, "shared"), v57 = objc_claimAutoreleasedReturnValue(), v58 = [v57 current], v57, v58 == 1))
       {
         [(PhoneTabBarController *)self switchToTab:6];
-        v54 = [(PhoneNavigationController *)self->_searchNavigationController popToRootViewControllerAnimated:0];
+        v59 = [(PhoneNavigationController *)self->_searchNavigationController popToRootViewControllerAnimated:0];
         viewControllers = [(PhoneNavigationController *)self->_searchNavigationController viewControllers];
         firstObject = [viewControllers firstObject];
 
-        [firstObject startSearchingForText:v19];
-        if ([(MPMessageID *)v23 length])
+        [firstObject startSearchingForText:v21];
+        if ([(MPMessageID *)v26 length])
         {
-          [firstObject handleShowDetailsURLForUniqueID:v23];
+          [firstObject handleShowDetailsURLForUniqueID:v26];
         }
       }
 
       else
       {
         [(PhoneTabBarController *)self switchToTab:2];
-        v57 = [(MPMessageID *)v23 length];
+        v62 = [(MPMessageID *)v26 length];
         phoneRecentsController2 = [(PhoneTabBarController *)self phoneRecentsController];
         firstObject = phoneRecentsController2;
-        if (v57)
+        if (v62)
         {
-          [phoneRecentsController2 showDetailsForCallWithUniqueID:v23 searchText:v19];
+          [phoneRecentsController2 showDetailsForCallWithUniqueID:v26 searchText:v21];
         }
 
         else
         {
-          [phoneRecentsController2 startSearchingForText:v19 completion:0];
+          [phoneRecentsController2 startSearchingForText:v21 completion:0];
         }
       }
 
-      v25 = 0;
+      v28 = 0;
     }
 
     else
     {
-      if (v51)
+      if (v56)
       {
         *buf = 67109120;
-        LODWORD(v69) = intValue;
-        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "Activity continuity - Resuming to tab type: %d", buf, 8u);
+        LODWORD(v73) = intValue;
+        _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "Activity continuity - Resuming to tab type: %d", buf, 8u);
       }
 
       [(PhoneTabBarController *)self switchToTab:intValue];
-      v25 = 0;
-      v19 = 0;
+      v28 = 0;
+      v21 = 0;
     }
 
-    v24 = 0;
+    v27 = 0;
     goto LABEL_87;
   }
 
 LABEL_54:
-  if (v25)
+  if (v28)
   {
     goto LABEL_55;
   }
 
 LABEL_59:
-  v7 = v67;
+  v7 = v71;
 LABEL_88:
 
-  return isKindOfClass & 1;
+  return v13 & 1;
 }
 
 - (void)handleURL:(id)l
@@ -1677,15 +1680,15 @@ LABEL_88:
           {
             v14 = +[(PHApplicationServices *)MPApplicationServices];
             [v14 contactStore];
-            v15 = v32 = v13;
+            v15 = v33 = v13;
 
             v16 = +[CNContactViewController descriptorForRequiredKeys];
-            v35 = v16;
-            v17 = [NSArray arrayWithObjects:&v35 count:1];
-            v33 = v15;
+            v36 = v16;
+            v17 = [NSArray arrayWithObjects:&v36 count:1];
+            v34 = v15;
             v18 = v15;
-            v13 = v32;
-            v19 = [v18 contactForIdentifier:v32 keysToFetch:v17];
+            v13 = v33;
+            v19 = [v18 contactForIdentifier:v33 keysToFetch:v17];
 
             if (v19)
             {
@@ -1722,11 +1725,11 @@ LABEL_13:
 
     else
     {
-      v28 = PHDefaultLog();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v29 = PHDefaultLog(v25);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Switching to Voicemail tab to show a voicemail.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Switching to Voicemail tab to show a voicemail.", buf, 2u);
       }
 
       contactsViewController2 = [(PhoneTabBarController *)self voicemailViewController];
@@ -1756,8 +1759,8 @@ LABEL_13:
     goto LABEL_41;
   }
 
-  v25 = +[MPPreferences sharedPreferences];
-  useSwiftUIRecents = [v25 useSwiftUIRecents];
+  v26 = +[MPPreferences sharedPreferences];
+  useSwiftUIRecents = [v26 useSwiftUIRecents];
 
   if (useSwiftUIRecents)
   {
@@ -1810,7 +1813,7 @@ LABEL_20:
 
   if (favoritesNavigationController == controllerCopy)
   {
-    v18 = 1;
+    v19 = 1;
     goto LABEL_16;
   }
 
@@ -1834,7 +1837,7 @@ LABEL_14:
   if (recentsTableViewController == controllerCopy)
   {
 LABEL_15:
-    v18 = 2;
+    v19 = 2;
     goto LABEL_16;
   }
 
@@ -1842,7 +1845,7 @@ LABEL_15:
 
   if (contactsViewController == controllerCopy)
   {
-    v18 = 3;
+    v19 = 3;
   }
 
   else
@@ -1851,7 +1854,7 @@ LABEL_15:
 
     if (keypadViewController == controllerCopy)
     {
-      v18 = 4;
+      v19 = 4;
     }
 
     else
@@ -1860,7 +1863,7 @@ LABEL_15:
 
       if (voicemailViewController == controllerCopy)
       {
-        v18 = 5;
+        v19 = 5;
       }
 
       else
@@ -1869,22 +1872,22 @@ LABEL_15:
 
         if (searchNavigationController == controllerCopy)
         {
-          v18 = 6;
+          v19 = 6;
         }
 
         else
         {
-          v15 = PHDefaultLog();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v16 = PHDefaultLog(v15);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
-            [(PhoneTabBarController *)self tabTypeForViewController:v15];
+            [(PhoneTabBarController *)self tabTypeForViewController:v16];
           }
 
           controllerCopy = [NSString stringWithFormat:@"Unknown view controller: %@", controllerCopy];
-          v17 = +[NSAssertionHandler currentHandler];
-          [v17 handleFailureInMethod:a2 object:self file:@"PhoneTabBarController.m" lineNumber:996 description:controllerCopy];
+          v18 = +[NSAssertionHandler currentHandler];
+          [v18 handleFailureInMethod:a2 object:self file:@"PhoneTabBarController.m" lineNumber:996 description:controllerCopy];
 
-          v18 = 0;
+          v19 = 0;
         }
       }
     }
@@ -1892,7 +1895,7 @@ LABEL_15:
 
 LABEL_16:
 
-  return v18;
+  return v19;
 }
 
 - (int)tabTypeForTab:(id)tab
@@ -1923,10 +1926,10 @@ LABEL_16:
 
       else
       {
-        v11 = PHDefaultLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v12 = PHDefaultLog(v10);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          [(PhoneTabBarController *)tabCopy tabTypeForTab:v11];
+          [(PhoneTabBarController *)tabCopy tabTypeForTab:v12];
         }
 
         LODWORD(integerValue) = 0;
@@ -2084,19 +2087,20 @@ void __43__PhoneTabBarController__checkMailboxUsage__block_invoke(uint64_t a1)
 - (void)handleUIApplicationWillEnterForegroundNotification:(id)notification
 {
   notificationCopy = notification;
-  if ([UIApp shouldShowReceptionistOnboarding])
+  shouldShowReceptionistOnboarding = [UIApp shouldShowReceptionistOnboarding];
+  if (shouldShowReceptionistOnboarding)
   {
-    v5 = PHDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PHDefaultLog(shouldShowReceptionistOnboarding);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = v6;
+      v7 = objc_opt_class();
+      v8 = v7;
       name = [notificationCopy name];
-      v9 = 138412546;
-      v10 = v6;
-      v11 = 2112;
-      v12 = name;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@> to show Receptionist onboarding", &v9, 0x16u);
+      v10 = 138412546;
+      v11 = v7;
+      v12 = 2112;
+      v13 = name;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@> to show Receptionist onboarding", &v10, 0x16u);
     }
 
     [(PhoneTabBarController *)self showReceptionistOnboarding];
@@ -2313,12 +2317,12 @@ LABEL_5:
   v6 = [NSNumber numberWithInt:v5];
   PHPreferencesSetValueInDomain();
 
-  v7 = PHDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = PHDefaultLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109120;
-    v8[1] = v5;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Wrote out last tab type: %d", v8, 8u);
+    v9[0] = 67109120;
+    v9[1] = v5;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Wrote out last tab type: %d", v9, 8u);
   }
 }
 
@@ -2486,7 +2490,7 @@ id __45__PhoneTabBarController_contactSearchManager__block_invoke(uint64_t a1, v
 
 - (void)presentAppleSupportGuidedHelp
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SupportFlowCore0aB10IdentifierOSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SupportFlowCore0aB10IdentifierOSgMd, &_s15SupportFlowCore0aB10IdentifierOSgMR);
   __chkstk_darwin(v3 - 8);
   v5 = &v9 - v4;
   v6 = type metadata accessor for SupportFlowIdentifier();

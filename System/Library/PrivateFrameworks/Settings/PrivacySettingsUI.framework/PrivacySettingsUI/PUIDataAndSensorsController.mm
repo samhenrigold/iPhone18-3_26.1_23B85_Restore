@@ -3,6 +3,7 @@
 - (id)specifiers;
 - (void)appSpecifierWasTapped:(id)tapped;
 - (void)provideNavigationDonations;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation PUIDataAndSensorsController
@@ -24,9 +25,17 @@
   return v4;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PUIDataAndSensorsController;
+  [(PUIDataAndSensorsController *)&v4 viewDidAppear:appear];
+  [(PUIDataAndSensorsController *)self provideNavigationDonations];
+}
+
 - (void)provideNavigationDonations
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   bundleURL = [v3 bundleURL];
 
@@ -34,12 +43,10 @@
   currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
   v7 = [v5 initWithKey:@"DATA_AND_SENSORS" table:@"Privacy" locale:currentLocale bundleURL:bundleURL];
 
-  v11[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v9 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.PrivacyAndSecurity/DATA_AND_SENSORS"];
   [(PUIDataAndSensorsController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.privacy" title:v7 localizedNavigationComponents:v8 deepLink:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)specifiers
@@ -78,34 +85,35 @@
           v28 = 0;
           v10 = [v9 findApplicationRecordWithError:&v28];
           v11 = v28;
+          v12 = v11;
           if (v11)
           {
-            v12 = _PUILoggingFacility();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+            v13 = _PUILoggingFacility(v11);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
               v34 = "[PUIDataAndSensorsController specifiers]";
               v35 = 2112;
               v36 = v9;
-              _os_log_error_impl(&dword_2657FE000, v12, OS_LOG_TYPE_ERROR, "%s: error fetching app record for app identity: %@", buf, 0x16u);
+              _os_log_error_impl(&dword_2657FE000, v13, OS_LOG_TYPE_ERROR, "%s: error fetching app record for app identity: %@", buf, 0x16u);
             }
           }
 
           else
           {
-            v13 = MEMORY[0x277D3FAD8];
+            v14 = MEMORY[0x277D3FAD8];
             localizedName = [v10 localizedName];
-            v12 = [v13 preferenceSpecifierNamed:localizedName target:selfCopy set:0 get:0 detail:0 cell:2 edit:0];
+            v13 = [v14 preferenceSpecifierNamed:localizedName target:selfCopy set:0 get:0 detail:0 cell:2 edit:0];
 
-            [v12 setButtonAction:sel_appSpecifierWasTapped_];
-            v15 = MEMORY[0x277CBEC38];
-            [v12 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v25];
-            [v12 setObject:v15 forKeyedSubscript:v24];
+            [v13 setButtonAction:sel_appSpecifierWasTapped_];
+            v16 = MEMORY[0x277CBEC38];
+            [v13 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v25];
+            [v13 setObject:v16 forKeyedSubscript:v24];
             bundleIdentifier = [v10 bundleIdentifier];
-            [v12 setObject:bundleIdentifier forKeyedSubscript:v23];
+            [v13 setObject:bundleIdentifier forKeyedSubscript:v23];
 
-            [v12 setObject:v9 forKeyedSubscript:v22];
-            [v26 addObject:v12];
+            [v13 setObject:v9 forKeyedSubscript:v22];
+            [v26 addObject:v13];
           }
         }
 
@@ -116,14 +124,12 @@
     }
 
     [v26 sortUsingComparator:&__block_literal_global_7];
-    v17 = [v26 copy];
-    v18 = *(&selfCopy->super.super.super.super.super.isa + v21);
-    *(&selfCopy->super.super.super.super.super.isa + v21) = v17;
+    v18 = [v26 copy];
+    v19 = *(&selfCopy->super.super.super.super.super.isa + v21);
+    *(&selfCopy->super.super.super.super.super.isa + v21) = v18;
 
     v3 = *(&selfCopy->super.super.super.super.super.isa + v21);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

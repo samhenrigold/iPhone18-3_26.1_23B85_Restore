@@ -116,7 +116,7 @@
 
 - (id)widgetDescriptor
 {
-  v3 = PRSharedWidgetExtensionProvider();
+  v3 = PRSharedWidgetExtensionProvider(self);
   v4 = [v3 widgetDescriptorForWidget:self->_widget];
 
   return v4;

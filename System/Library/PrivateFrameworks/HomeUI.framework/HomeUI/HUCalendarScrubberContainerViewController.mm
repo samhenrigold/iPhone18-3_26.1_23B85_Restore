@@ -103,7 +103,7 @@
   [nextWeekButton setImage:v10 forState:0];
   if (nextWeekButton)
   {
-    [nextWeekButton transform];
+    objc_msgSend_transform(nextWeekButton);
   }
 
   else
@@ -121,7 +121,7 @@
   {
     if (prevWeekButton)
     {
-      [prevWeekButton transform];
+      objc_msgSend_transform(prevWeekButton);
     }
 
     else
@@ -134,7 +134,7 @@
     [prevWeekButton setTransform:&v27];
     if (nextWeekButton)
     {
-      [nextWeekButton transform];
+      objc_msgSend_transform(nextWeekButton);
     }
 
     else

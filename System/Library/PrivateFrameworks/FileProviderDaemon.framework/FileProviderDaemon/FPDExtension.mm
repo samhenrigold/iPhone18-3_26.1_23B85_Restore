@@ -59,7 +59,7 @@
 
 - (FPDExtension)initWithExtensionRecord:(id)record queue:(id)queue server:(id)server volumeManager:(id)manager
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   queueCopy = queue;
   serverCopy = server;
@@ -85,16 +85,16 @@ LABEL_20:
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v37 = recordCopy;
+      v36 = recordCopy;
       _os_log_impl(&dword_1CEFC7000, v30, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed to create descriptor for extension %@", buf, 0xCu);
     }
 
     goto LABEL_20;
   }
 
-  v35.receiver = self;
-  v35.super_class = FPDExtension;
-  v17 = [(FPDProvider *)&v35 initWithDescriptor:v16 server:serverCopy];
+  v34.receiver = self;
+  v34.super_class = FPDExtension;
+  v17 = [(FPDProvider *)&v34 initWithDescriptor:v16 server:serverCopy];
   self = v17;
   if (v17)
   {
@@ -120,9 +120,9 @@ LABEL_20:
       {
         bundleIdentifier = [recordCopy bundleIdentifier];
         *buf = 138412546;
-        v37 = bundleIdentifier;
-        v38 = 2112;
-        v39 = @"NSExtensionFileProviderDocumentGroup";
+        v36 = bundleIdentifier;
+        v37 = 2112;
+        v38 = @"NSExtensionFileProviderDocumentGroup";
         _os_log_impl(&dword_1CEFC7000, v22, OS_LOG_TYPE_INFO, "[INFO] %@ key not found in Info.plist of %@. The documentStorageURL property on NSFileProviderManager will not be available.", buf, 0x16u);
       }
     }
@@ -144,19 +144,18 @@ LABEL_20:
     v27 = v26;
 
     personaIdentifier = [(FPDProviderDescriptor *)v16 personaIdentifier];
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __67__FPDExtension_initWithExtensionRecord_queue_server_volumeManager___block_invoke;
-    v33[3] = &unk_1E83BDF50;
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __67__FPDExtension_initWithExtensionRecord_queue_server_volumeManager___block_invoke;
+    v32[3] = &unk_1E83BDF50;
     selfCopy = self;
-    [v27 enumerateLibrariesForPersona:personaIdentifier withBlock:v33];
+    [v27 enumerateLibrariesForPersona:personaIdentifier withBlock:v32];
   }
 
   self = self;
   selfCopy2 = self;
 LABEL_21:
 
-  v31 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
@@ -397,7 +396,7 @@ void __52__FPDExtension_didReceiveMessage_completionHandler___block_invoke_22(ui
 
 - (id)customPushTopics
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   domainsByID = [(FPDProvider *)selfCopy domainsByID];
@@ -406,47 +405,45 @@ void __52__FPDExtension_didReceiveMessage_completionHandler___block_invoke_22(ui
 
   objc_sync_exit(selfCopy);
   v6 = [MEMORY[0x1E695DFA8] set];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = v5;
-  v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         session = [v10 session];
         v12 = [session newFileProviderProxyWithTimeout:0 pid:180.0];
         synchronousRemoteObjectProxy = [v12 synchronousRemoteObjectProxy];
 
-        v18[0] = MEMORY[0x1E69E9820];
-        v18[1] = 3221225472;
-        v18[2] = __32__FPDExtension_customPushTopics__block_invoke;
-        v18[3] = &unk_1E83BE018;
-        v18[4] = v10;
-        v19 = v6;
-        [synchronousRemoteObjectProxy fetchCustomPushTopicsWithCompletionHandler:v18];
+        v17[0] = MEMORY[0x1E69E9820];
+        v17[1] = 3221225472;
+        v17[2] = __32__FPDExtension_customPushTopics__block_invoke;
+        v17[3] = &unk_1E83BE018;
+        v17[4] = v10;
+        v18 = v6;
+        [synchronousRemoteObjectProxy fetchCustomPushTopicsWithCompletionHandler:v17];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
   }
 
   allObjects = [v6 allObjects];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return allObjects;
 }
@@ -525,152 +522,117 @@ void __50__FPDExtension__test_callFileProviderManagerAPIs___block_invoke(uint64_
 
 - (void)initWithExtensionRecord:(void *)a1 queue:server:volumeManager:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 bundleIdentifier];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeTrashedItemsOlderThanDate:(os_log_t)log request:completionHandler:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[FPDExtension removeTrashedItemsOlderThanDate:request:completionHandler:]";
-  _os_log_debug_impl(&dword_1CEFC7000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] %s", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[FPDExtension removeTrashedItemsOlderThanDate:request:completionHandler:]";
+  _os_log_debug_impl(&dword_1CEFC7000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] %s", &v1, 0xCu);
 }
 
 void __74__FPDExtension_removeTrashedItemsOlderThanDate_request_completionHandler___block_invoke_2_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = [*(a1 + 32) identifier];
-  v3 = *(a1 + 40);
+  v1 = [*(a1 + 32) identifier];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)didReceiveMessage:(void *)a1 completionHandler:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 userInfo];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didReceiveMessage:completionHandler:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_ERROR, "[ERROR] received file provider push for unknown domain %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_ERROR, "[ERROR] received file provider push for unknown domain %@", v1, 0xCu);
 }
 
 - (void)didReceiveMessage:(void *)a1 completionHandler:.cold.3(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 userInfo];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __52__FPDExtension_didReceiveMessage_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __52__FPDExtension_didReceiveMessage_completionHandler___block_invoke_cold_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 40) userInfo];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __52__FPDExtension_didReceiveMessage_completionHandler___block_invoke_cold_3(uint64_t *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = *a1;
   v5 = [*(a2 + 48) identifier];
-  v7 = 138412546;
-  v8 = v4;
+  v6 = 138412546;
+  v7 = v4;
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] Received push on container %@ for provider %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] Received push on container %@ for provider %@", &v6, 0x16u);
 }
 
 void __52__FPDExtension_didReceiveMessage_completionHandler___block_invoke_22_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __32__FPDExtension_customPushTopics__block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = [*(a1 + 32) fp_prettyDescription];
   v4 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __32__FPDExtension_customPushTopics__block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [*(a1 + 32) fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] No custom topics received for %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] No custom topics received for %@", v4, 0xCu);
 }
 
 - (void)_test_callFileProviderManagerAPIs:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[FPDExtension _test_callFileProviderManagerAPIs:]";
-  _os_log_debug_impl(&dword_1CEFC7000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] %s", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[FPDExtension _test_callFileProviderManagerAPIs:]";
+  _os_log_debug_impl(&dword_1CEFC7000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] %s", &v1, 0xCu);
 }
 
 void __50__FPDExtension__test_callFileProviderManagerAPIs___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

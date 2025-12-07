@@ -9,21 +9,21 @@
 
 void __53__PGSearchMetadataComputer__blockedMeaningsByMeaning__block_invoke(id *a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 localizedName];
   if (v4)
   {
     v5 = [MEMORY[0x277CBEB18] array];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __53__PGSearchMetadataComputer__blockedMeaningsByMeaning__block_invoke_2;
-    v19[3] = &unk_2788821F0;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __53__PGSearchMetadataComputer__blockedMeaningsByMeaning__block_invoke_2;
+    v18[3] = &unk_2788821F0;
     v6 = v5;
-    v20 = v6;
-    v21 = a1[4];
-    v22 = a1[5];
-    [v3 traverseParentMeaningHierarchyUsingBlock:v19];
+    v19 = v6;
+    v20 = a1[4];
+    v21 = a1[5];
+    [v3 traverseParentMeaningHierarchyUsingBlock:v18];
     if (a1[4])
     {
       v7 = a1[5];
@@ -39,39 +39,37 @@ void __53__PGSearchMetadataComputer__blockedMeaningsByMeaning__block_invoke(id *
     if ([v6 count])
     {
       [a1[6] setObject:v6 forKeyedSubscript:v4];
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
       v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
       v9 = [v3 localizedSynonyms];
-      v10 = [v9 countByEnumeratingWithState:&v15 objects:v23 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v14 objects:v22 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v16;
+        v12 = *v15;
         do
         {
           v13 = 0;
           do
           {
-            if (*v16 != v12)
+            if (*v15 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            [a1[6] setObject:v6 forKeyedSubscript:*(*(&v15 + 1) + 8 * v13++)];
+            [a1[6] setObject:v6 forKeyedSubscript:*(*(&v14 + 1) + 8 * v13++)];
           }
 
           while (v11 != v13);
-          v11 = [v9 countByEnumeratingWithState:&v15 objects:v23 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v14 objects:v22 count:16];
         }
 
         while (v11);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __53__PGSearchMetadataComputer__blockedMeaningsByMeaning__block_invoke_2(uint64_t a1, void *a2)
@@ -98,16 +96,14 @@ void __53__PGSearchMetadataComputer__blockedMeaningsByMeaning__block_invoke_2(ui
 
 - (id)_suggestableLocalizedSceneNames
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = +[PGGraphSceneNode suggestableSceneNames];
   v4 = [PGGraphSceneNodeCollection sceneNodesForSceneNames:v3 inGraph:self->_graph];
   localizedSceneNames = [v4 localizedSceneNames];
   v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"self" ascending:1];
-  v11[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v8 = [localizedSceneNames sortedArrayUsingDescriptors:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

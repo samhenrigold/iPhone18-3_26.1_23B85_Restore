@@ -8,8 +8,8 @@
 - (void)fillRouteAttributes:(id)attributes
 {
   attributesCopy = attributes;
-  configuration = [(DefaultRouteAttributesBuilder *)self configuration];
-  [attributesCopy setRoutePointTypeForTransportType:4 countryConfiguration:configuration];
+  v4 = objc_msgSend_configuration(self);
+  [attributesCopy setRoutePointTypeForTransportType:4 countryConfiguration:v4];
 
   [attributesCopy setIncludeManeuverIcons:1];
   [attributesCopy setIncludeTrafficAlongRoute:1];

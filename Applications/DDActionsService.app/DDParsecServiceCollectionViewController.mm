@@ -13,9 +13,11 @@
 - (void)didEngageCardSection:(id)section;
 - (void)didEngageResult:(id)result;
 - (void)didReportUserResponseFeedback:(id)feedback;
+- (void)doneButtonPressed:(id)pressed punchout:(BOOL)punchout;
 - (void)fetchPreviewImageForResult:(id)result completion:(id)completion;
 - (void)firstTimeExperienceContinueButtonPressed;
 - (void)forwardInvocation:(id)invocation;
+- (void)interactionEndedWithPunchout:(BOOL)punchout;
 - (void)prepareWithQueryObject:(id)object previewMode:(BOOL)mode sheetMode:(BOOL)sheetMode popoverMode:(BOOL)popoverMode solarium:(BOOL)solarium viewStyle:(int64_t)style scale:(double)scale dictionaryMode:(BOOL)self0 remoteTextQuery:(BOOL)self1;
 - (void)setDDViewScale:(double)scale;
 - (void)setOriginalTitle:(id)title;
@@ -25,9 +27,16 @@
 - (void)setSearchVisible:(BOOL)visible;
 - (void)setSections:(id)sections;
 - (void)setSheetMode:(BOOL)mode;
+- (void)showContent:(BOOL)content;
+- (void)showError:(id)error animated:(BOOL)animated;
+- (void)showLoadingSpinner:(BOOL)spinner;
 - (void)startQueryWithQuery:(id)query;
 - (void)startQueryWithResult:(id)result context:(id)context;
 - (void)startQueryWithString:(id)string range:(_NSRange)range;
+- (void)updateVisualMode:(BOOL)mode;
+- (void)updateVisualModeWithController:(id)controller animated:(BOOL)animated;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewWillDisappear:(BOOL)disappear;
 - (void)willTransitionToTraitCollection:(id)collection withTransitionCoordinator:(id)coordinator;
 @end
@@ -382,6 +391,39 @@ LABEL_12:
   }
 }
 
+- (void)showLoadingSpinner:(BOOL)spinner
+{
+  spinnerCopy = spinner;
+  v5 = [[DDParsecLoadingViewController alloc] initForSolarium:self->_solarium];
+  [v5 setTitle:self->_originalTitle];
+  v7 = v5;
+  v6 = [NSArray arrayWithObjects:&v7 count:1];
+  [(DDParsecServiceCollectionViewController *)self setViewControllers:v6 animated:spinnerCopy];
+}
+
+- (void)doneButtonPressed:(id)pressed punchout:(BOOL)punchout
+{
+  punchoutCopy = punchout;
+  self->_doneClicked = 1;
+  [(DDParsecServiceCollectionViewController *)self setSearchVisible:0];
+  if (self->_useNetwork)
+  {
+    v6 = [[SFSearchViewDisappearFeedback alloc] initWithEvent:16];
+    [v6 setQueryId:{-[DDParsecServiceCollectionViewController queryId](self, "queryId")}];
+    feedbackListener = [(DDLookupQuery *)self->_lookupQuery feedbackListener];
+    [feedbackListener searchViewDidDisappear:v6];
+  }
+
+  [(DDParsecServiceCollectionViewController *)self interactionEndedWithPunchout:punchoutCopy];
+}
+
+- (void)interactionEndedWithPunchout:(BOOL)punchout
+{
+  punchoutCopy = punchout;
+  _remoteViewControllerProxy = [(DDParsecServiceCollectionViewController *)self _remoteViewControllerProxy];
+  [_remoteViewControllerProxy interactionEndedWithPunchout:punchoutCopy];
+}
+
 - (void)setSections:(id)sections
 {
   self->_sectionsIsSet = 1;
@@ -390,12 +432,287 @@ LABEL_12:
   [(DDParsecServiceCollectionViewController *)self showContent:0];
 }
 
+- (void)showContent:(BOOL)content
+{
+  if (!self->_firstTimeViewController && !self->_loadingError)
+  {
+    if (self->_sectionsIsSet)
+    {
+      contentCopy = content;
+      sections = [(DDParsecServiceCollectionViewController *)self sections];
+      v6 = [sections count];
+
+      if (v6)
+      {
+        selfCopy4 = self;
+        if (!self->_resultsViewController)
+        {
+          v8 = objc_opt_new();
+          resultsViewController = self->_resultsViewController;
+          self->_resultsViewController = v8;
+
+          [(SearchUIResultsViewController *)self->_resultsViewController setFeedbackListener:self];
+          [(SearchUIResultsViewController *)self->_resultsViewController setShouldUseInsetRoundedSections:_os_feature_enabled_impl() ^ 1];
+          [(SearchUIResultsViewController *)self->_resultsViewController setShouldUseStandardSectionInsets:1];
+          title = [(SearchUIResultsViewController *)self->_resultsViewController title];
+          v11 = [title length];
+
+          if (!v11)
+          {
+            [(SearchUIResultsViewController *)self->_resultsViewController setTitle:self->_originalTitle];
+          }
+
+          selfCopy4 = self;
+          [(DDParsecServiceCollectionViewController *)self updateVisualModeWithController:self->_resultsViewController animated:0];
+          v22 = self->_resultsViewController;
+          v12 = [NSArray arrayWithObjects:&v22 count:1];
+          [(DDParsecServiceCollectionViewController *)self setViewControllers:v12];
+        }
+
+        if (!selfCopy4->_hasExternaDataSource)
+        {
+          if ([(NSArray *)selfCopy4->_sections count]== 2)
+          {
+            firstObject = [(NSArray *)self->_sections firstObject];
+            bundleIdentifier = [firstObject bundleIdentifier];
+            if ([bundleIdentifier isEqualToString:@"com.apple.lookup.dictionary"])
+            {
+              lastObject = [(NSArray *)self->_sections lastObject];
+              bundleIdentifier2 = [lastObject bundleIdentifier];
+              -[SearchUIResultsViewController setImmediatelyShowCardForSingleResult:](self->_resultsViewController, "setImmediatelyShowCardForSingleResult:", [bundleIdentifier2 isEqualToString:@"com.apple.lookup.search-through"] ^ 1);
+            }
+
+            else
+            {
+              [(SearchUIResultsViewController *)self->_resultsViewController setImmediatelyShowCardForSingleResult:1];
+            }
+
+            selfCopy4 = self;
+          }
+
+          else
+          {
+            selfCopy4 = self;
+            [(SearchUIResultsViewController *)self->_resultsViewController setImmediatelyShowCardForSingleResult:1];
+          }
+        }
+
+        [(SearchUIResultsViewController *)selfCopy4->_resultsViewController setQueryString:selfCopy4->_originalTitle];
+        [(SearchUIResultsViewController *)self->_resultsViewController setSections:self->_sections];
+        selfCopy6 = self;
+        if (self->_solarium)
+        {
+          view = [(DDParsecServiceCollectionViewController *)self view];
+          [view _setOverrideVibrancyTrait:1];
+
+          selfCopy6 = self;
+        }
+
+        v19 = selfCopy6;
+        view2 = [(SearchUIResultsViewController *)selfCopy6->_resultsViewController view];
+        [view2 setAlpha:0.0];
+
+        v21[0] = _NSConcreteStackBlock;
+        v21[1] = 3221225472;
+        v21[2] = sub_100006C04;
+        v21[3] = &unk_100018AA8;
+        v21[4] = v19;
+        [SearchUIUtilities performAnimatableChanges:v21];
+      }
+
+      else
+      {
+
+        [(DDParsecServiceCollectionViewController *)self showError:0 animated:contentCopy];
+      }
+    }
+
+    else
+    {
+
+      [(DDParsecServiceCollectionViewController *)self showLoadingSpinner:content];
+    }
+  }
+}
+
+- (void)showError:(id)error animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  errorCopy = error;
+  self->_loadingError = 1;
+  if (!self->_firstTimeViewController)
+  {
+    viewControllers = [(DDParsecServiceCollectionViewController *)self viewControllers];
+    if ([viewControllers count] == 1)
+    {
+      viewControllers2 = [(DDParsecServiceCollectionViewController *)self viewControllers];
+      v9 = [viewControllers2 objectAtIndexedSubscript:0];
+      objc_opt_class();
+      isKindOfClass = objc_opt_isKindOfClass();
+
+      if (isKindOfClass)
+      {
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+    }
+
+    v11 = [[DDParsecNoDataViewController alloc] initForSolarium:self->_solarium];
+    [v11 setTitle:self->_originalTitle];
+    [v11 setAltURL:0];
+    [v11 setLookup:!self->_hasExternaDataSource];
+    if (errorCopy)
+    {
+      if ([errorCopy code] == -1009)
+      {
+        domain = [errorCopy domain];
+        v13 = [domain isEqualToString:NSURLErrorDomain];
+
+        if (v13)
+        {
+          v14 = DDLocalizedString();
+          v15 = +[UIDevice currentDevice];
+          localizedModel = [v15 localizedModel];
+          v17 = [NSString stringWithFormat:v14, localizedModel];
+          [v11 setReason:v17];
+
+          v18 = [NSURL URLWithString:@"prefs:root=ROOT#AIRPLANE_MODE"];
+          [v11 setAltURL:v18];
+LABEL_17:
+
+          [v11 setSearchWebQuery:self->_originalTitle];
+          [(DDParsecServiceCollectionViewController *)self updateVisualModeWithController:v11 animated:animatedCopy];
+          _remoteViewControllerProxy = [(DDParsecServiceCollectionViewController *)self _remoteViewControllerProxy];
+          [_remoteViewControllerProxy showingErrorView:1];
+
+          v23 = v11;
+          v22 = [NSArray arrayWithObjects:&v23 count:1];
+          [(DDParsecServiceCollectionViewController *)self setViewControllers:v22 animated:animatedCopy];
+
+          goto LABEL_18;
+        }
+      }
+
+      if ([errorCopy code] == -1001 && (objc_msgSend(errorCopy, "domain"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "isEqualToString:", NSURLErrorDomain), v19, v20))
+      {
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_10000B748(errorCopy);
+        }
+      }
+
+      else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
+      {
+        sub_10000B6C8(errorCopy);
+      }
+    }
+
+    v18 = DDLocalizedString();
+    [v11 setReason:v18];
+    goto LABEL_17;
+  }
+
+LABEL_18:
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v11.receiver = self;
+  v11.super_class = DDParsecServiceCollectionViewController;
+  [(DDParsecServiceCollectionViewController *)&v11 viewDidAppear:appear];
+  v4 = +[NSDate date];
+  lastAppearTime = self->_lastAppearTime;
+  self->_lastAppearTime = v4;
+
+  [(DDParsecServiceCollectionViewController *)self setSearchVisible:1];
+  lastDisappearTime = self->_lastDisappearTime;
+  if (lastDisappearTime && ([(NSDate *)lastDisappearTime timeIntervalSinceNow], v7 > -0.5))
+  {
+    [(DDParsecServiceCollectionViewController *)self setPreviewMode:0];
+  }
+
+  else if (self->_useNetwork)
+  {
+    if (self->_previewMode)
+    {
+      v8 = 13;
+    }
+
+    else if (self->_sourceIsHint)
+    {
+      v8 = 15;
+    }
+
+    else
+    {
+      v8 = 16;
+    }
+
+    v9 = [[SFSearchViewAppearFeedback alloc] initWithEvent:v8];
+    [v9 setQueryId:{-[DDParsecServiceCollectionViewController queryId](self, "queryId")}];
+    feedbackListener = [(DDLookupQuery *)self->_lookupQuery feedbackListener];
+    [feedbackListener searchViewDidAppear:v9];
+  }
+}
+
 - (void)viewWillDisappear:(BOOL)disappear
 {
   [(DDParsecServiceCollectionViewController *)self setSearchVisible:0];
   v4.receiver = self;
   v4.super_class = DDParsecServiceCollectionViewController;
   [(DDParsecServiceCollectionViewController *)&v4 viewWillDisappear:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v22.receiver = self;
+  v22.super_class = DDParsecServiceCollectionViewController;
+  [(DDParsecServiceCollectionViewController *)&v22 viewDidDisappear:disappear];
+  v4 = +[NSDate date];
+  lastDisappearTime = self->_lastDisappearTime;
+  self->_lastDisappearTime = v4;
+
+  if (self->_useNetwork && !self->_doneClicked)
+  {
+    v6 = [[SFSearchViewDisappearFeedback alloc] initWithEvent:15];
+    [v6 setQueryId:{-[DDParsecServiceCollectionViewController queryId](self, "queryId")}];
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  [UIApp backgroundTimeRemaining];
+  if (v7 >= 0.5)
+  {
+    v17 = [UIApp beginBackgroundTaskWithExpirationHandler:0];
+    v18 = dispatch_time(0, 500000000);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100007348;
+    block[3] = &unk_100018AD0;
+    block[4] = self;
+    v20 = v6;
+    v21 = v17;
+    dispatch_after(v18, &_dispatch_main_q, block);
+  }
+
+  else
+  {
+    [(DDParsecServiceCollectionViewController *)self setQueryBlock:0];
+    if (v6 && (-[DDLookupQuery feedbackListener](self->_lookupQuery, "feedbackListener"), v8 = objc_claimAutoreleasedReturnValue(), [v8 searchViewDidDisappear:v6], v8, v9 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG)))
+    {
+      sub_10000B7C8(v9, v10, v11, v12, v13, v14, v15, v16);
+    }
+
+    else
+    {
+    }
+  }
 }
 
 - (void)willTransitionToTraitCollection:(id)collection withTransitionCoordinator:(id)coordinator
@@ -464,6 +781,113 @@ LABEL_12:
     self->_sheetMode = mode;
     [(DDParsecServiceCollectionViewController *)self updateVisualMode:0];
   }
+}
+
+- (void)updateVisualMode:(BOOL)mode
+{
+  modeCopy = mode;
+  topViewController = [(DDParsecServiceCollectionViewController *)self topViewController];
+  [(DDParsecServiceCollectionViewController *)self updateVisualModeWithController:topViewController animated:modeCopy];
+}
+
+- (void)updateVisualModeWithController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  if ([(DDParsecServiceCollectionViewController *)self showBackgroundEffect])
+  {
+    [(DDParsecServiceCollectionViewController *)self _setBuiltinTransitionStyle:1];
+  }
+
+  if (controllerCopy)
+  {
+    firstTimeViewController = self->_firstTimeViewController;
+    if (firstTimeViewController == controllerCopy)
+    {
+      [(DDParsecFirstTimeViewController *)firstTimeViewController updateForCurrentTraitCollection];
+    }
+  }
+
+  traitCollection = [(DDParsecServiceCollectionViewController *)self traitCollection];
+  [traitCollection displayScale];
+  [(DDParsecServiceCollectionViewController *)self setDDViewScale:?];
+
+  if (self->_previewMode || self->_popoverMode)
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    v9 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:24 target:self action:"doneButtonPressed:"];
+    [v9 setAccessibilityIdentifier:@"DDUIDone"];
+  }
+
+  navigationItem = [(DDParsecFirstTimeViewController *)controllerCopy navigationItem];
+  [navigationItem setRightBarButtonItem:v9 animated:animatedCopy];
+
+  [(DDParsecServiceCollectionViewController *)self setNavigationBarHidden:v9 == 0 && self->_fteMode animated:0];
+  if ([(DDParsecServiceCollectionViewController *)self showBackgroundEffect])
+  {
+    view = [(DDParsecServiceCollectionViewController *)self view];
+    subviews = [view subviews];
+    firstObject = [subviews firstObject];
+
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      if (self->_popoverMode)
+      {
+        [firstObject removeFromSuperview];
+      }
+    }
+
+    else if (!self->_popoverMode)
+    {
+      v15 = [UIVisualEffectView alloc];
+      v16 = [UIBlurEffect effectWithStyle:9];
+      v17 = [v15 initWithEffect:v16];
+
+      view2 = [(DDParsecServiceCollectionViewController *)self view];
+      [view2 bounds];
+      v20 = v19;
+      v22 = v21;
+
+      [v17 setFrame:{0.0, 0.0, v20, v22}];
+      [v17 setAutoresizingMask:18];
+      view3 = [(DDParsecServiceCollectionViewController *)self view];
+      [view3 insertSubview:v17 atIndex:0];
+    }
+
+    goto LABEL_20;
+  }
+
+  solarium = self->_solarium;
+  if (solarium)
+  {
+    firstObject = 0;
+  }
+
+  else
+  {
+    firstObject = +[UIColor systemGroupedBackgroundColor];
+  }
+
+  view4 = [(DDParsecServiceCollectionViewController *)self view];
+  [view4 setBackgroundColor:firstObject];
+
+  if (!solarium)
+  {
+LABEL_20:
+  }
+
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_100007AE4;
+  v26[3] = &unk_100018AA8;
+  v27 = controllerCopy;
+  v25 = controllerCopy;
+  [SearchUIUtilities performAnimatableChanges:v26 animated:animatedCopy];
 }
 
 - (void)firstTimeExperienceContinueButtonPressed

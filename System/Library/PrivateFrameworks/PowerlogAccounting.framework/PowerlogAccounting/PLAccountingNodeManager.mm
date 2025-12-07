@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (PLAccountingNodeManager)init;
 - (id)childNodeIDsFromChildNodeNames:(id)names;
+- (id)nodeIDForNodeName:(id)name isPermanent:(BOOL)permanent;
 - (id)nodeNameForNodeID:(id)d;
 - (void)removeNodeReferenceFromCache:(id)cache;
 - (void)setupNodes;
@@ -55,34 +56,204 @@
 
 uint64_t __41__PLAccountingNodeManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_sharedInstance_2 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
 }
 
-uint64_t __57__PLAccountingNodeManager_nodeIDForNodeName_isPermanent___block_invoke(uint64_t a1)
+- (id)nodeIDForNodeName:(id)name isPermanent:(BOOL)permanent
+{
+  permanentCopy = permanent;
+  nameCopy = name;
+  os_unfair_lock_lock(&self->_nodeMappingLock);
+  if ([MEMORY[0x277D3F180] debugEnabled])
+  {
+    v7 = objc_opt_class();
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __57__PLAccountingNodeManager_nodeIDForNodeName_isPermanent___block_invoke;
+    block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    block[4] = v7;
+    if (nodeIDForNodeName_isPermanent__defaultOnce != -1)
+    {
+      dispatch_once(&nodeIDForNodeName_isPermanent__defaultOnce, block);
+    }
+
+    if (nodeIDForNodeName_isPermanent__classDebugEnabled == 1)
+    {
+      permanentCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"nodeName=%@, isPermanent=%i", nameCopy, permanentCopy];
+      v9 = MEMORY[0x277D3F178];
+      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
+      lastPathComponent = [v10 lastPathComponent];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingNodeManager nodeIDForNodeName:isPermanent:]"];
+      [v9 logMessage:permanentCopy fromFile:lastPathComponent fromFunction:v12 fromLineNumber:50];
+
+      v13 = PLLogCommon();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      {
+        [PLAccountingDependency activate];
+      }
+    }
+  }
+
+  if ([MEMORY[0x277D3F180] debugEnabled])
+  {
+    v14 = objc_opt_class();
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __57__PLAccountingNodeManager_nodeIDForNodeName_isPermanent___block_invoke_18;
+    v51[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v51[4] = v14;
+    if (nodeIDForNodeName_isPermanent__defaultOnce_16 != -1)
+    {
+      dispatch_once(&nodeIDForNodeName_isPermanent__defaultOnce_16, v51);
+    }
+
+    if (nodeIDForNodeName_isPermanent__classDebugEnabled_17 == 1)
+    {
+      v15 = MEMORY[0x277CCACA8];
+      nodeNameToNodeID = [(PLAccountingNodeManager *)self nodeNameToNodeID];
+      v17 = [v15 stringWithFormat:@"nodeNameToNodeID=%@", nodeNameToNodeID];
+
+      v18 = MEMORY[0x277D3F178];
+      v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
+      lastPathComponent2 = [v19 lastPathComponent];
+      v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingNodeManager nodeIDForNodeName:isPermanent:]"];
+      [v18 logMessage:v17 fromFile:lastPathComponent2 fromFunction:v21 fromLineNumber:52];
+
+      v22 = PLLogCommon();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      {
+        [PLAccountingDependency activate];
+      }
+    }
+  }
+
+  nodeNameToNodeID2 = [(PLAccountingNodeManager *)self nodeNameToNodeID];
+
+  if (nodeNameToNodeID2)
+  {
+    nodeNameToNodeID3 = [(PLAccountingNodeManager *)self nodeNameToNodeID];
+    v25 = [nodeNameToNodeID3 objectForKeyedSubscript:nameCopy];
+
+    if ([MEMORY[0x277D3F180] debugEnabled])
+    {
+      v26 = objc_opt_class();
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __57__PLAccountingNodeManager_nodeIDForNodeName_isPermanent___block_invoke_24;
+      v50[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v50[4] = v26;
+      if (nodeIDForNodeName_isPermanent__defaultOnce_22 != -1)
+      {
+        dispatch_once(&nodeIDForNodeName_isPermanent__defaultOnce_22, v50);
+      }
+
+      if (nodeIDForNodeName_isPermanent__classDebugEnabled_23 == 1)
+      {
+        v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"nodeID=%@", v25];
+        v28 = MEMORY[0x277D3F178];
+        v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
+        lastPathComponent3 = [v29 lastPathComponent];
+        v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingNodeManager nodeIDForNodeName:isPermanent:]"];
+        [v28 logMessage:v27 fromFile:lastPathComponent3 fromFunction:v31 fromLineNumber:73];
+
+        v32 = PLLogCommon();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+        {
+          [PLAccountingDependency activate];
+        }
+      }
+    }
+
+    if (v25)
+    {
+      os_unfair_lock_unlock(&self->_nodeMappingLock);
+      v33 = v25;
+    }
+
+    else
+    {
+      v34 = [[PLAccountingNodeEntry alloc] initWithName:nameCopy];
+      v35 = [MEMORY[0x277CCABB0] numberWithBool:permanentCopy];
+      [(PLEntry *)v34 setObject:v35 forKeyedSubscript:*MEMORY[0x277D3F3D8]];
+
+      v36 = MEMORY[0x277CCABB0];
+      mEMORY[0x277D3F2A0] = [MEMORY[0x277D3F2A0] sharedCore];
+      storage = [mEMORY[0x277D3F2A0] storage];
+      v33 = [v36 numberWithLongLong:{objc_msgSend(storage, "blockingWriteEntry:withCompletionBlock:", v34, &__block_literal_global_17)}];
+
+      if ([MEMORY[0x277D3F180] debugEnabled])
+      {
+        v39 = objc_opt_class();
+        v49[0] = MEMORY[0x277D85DD0];
+        v49[1] = 3221225472;
+        v49[2] = __57__PLAccountingNodeManager_nodeIDForNodeName_isPermanent___block_invoke_2;
+        v49[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v49[4] = v39;
+        if (nodeIDForNodeName_isPermanent__defaultOnce_31 != -1)
+        {
+          dispatch_once(&nodeIDForNodeName_isPermanent__defaultOnce_31, v49);
+        }
+
+        if (nodeIDForNodeName_isPermanent__classDebugEnabled_32 == 1)
+        {
+          v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"added to DB node=%@", v34];
+          v41 = MEMORY[0x277D3F178];
+          v42 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
+          lastPathComponent4 = [v42 lastPathComponent];
+          v44 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingNodeManager nodeIDForNodeName:isPermanent:]"];
+          [v41 logMessage:v40 fromFile:lastPathComponent4 fromFunction:v44 fromLineNumber:83];
+
+          v45 = PLLogCommon();
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+          {
+            [PLAccountingDependency activate];
+          }
+        }
+      }
+
+      nodeNameToNodeID4 = [(PLAccountingNodeManager *)self nodeNameToNodeID];
+      [nodeNameToNodeID4 setObject:v33 forKeyedSubscript:nameCopy];
+
+      nodeIDToNodeName = [(PLAccountingNodeManager *)self nodeIDToNodeName];
+      [nodeIDToNodeName setObject:nameCopy forKeyedSubscript:v33];
+
+      os_unfair_lock_unlock(&self->_nodeMappingLock);
+    }
+  }
+
+  else
+  {
+    os_unfair_lock_unlock(&self->_nodeMappingLock);
+    v33 = 0;
+  }
+
+  return v33;
+}
+
+void *__57__PLAccountingNodeManager_nodeIDForNodeName_isPermanent___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   nodeIDForNodeName_isPermanent__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __57__PLAccountingNodeManager_nodeIDForNodeName_isPermanent___block_invoke_18(uint64_t a1)
+void *__57__PLAccountingNodeManager_nodeIDForNodeName_isPermanent___block_invoke_18(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   nodeIDForNodeName_isPermanent__classDebugEnabled_17 = result;
   return result;
 }
 
-uint64_t __57__PLAccountingNodeManager_nodeIDForNodeName_isPermanent___block_invoke_24(uint64_t a1)
+void *__57__PLAccountingNodeManager_nodeIDForNodeName_isPermanent___block_invoke_24(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   nodeIDForNodeName_isPermanent__classDebugEnabled_23 = result;
   return result;
 }
 
-uint64_t __57__PLAccountingNodeManager_nodeIDForNodeName_isPermanent___block_invoke_2(uint64_t a1)
+void *__57__PLAccountingNodeManager_nodeIDForNodeName_isPermanent___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   nodeIDForNodeName_isPermanent__classDebugEnabled_32 = result;
@@ -174,7 +345,7 @@ void __56__PLAccountingNodeManager_removeNodeReferenceFromCache___block_invoke_2
 
 - (id)childNodeIDsFromChildNodeNames:(id)names
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -207,30 +378,30 @@ void __56__PLAccountingNodeManager_removeNodeReferenceFromCache___block_invoke_2
   }
 
   array = [MEMORY[0x277CBEB18] array];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v13 = namesCopy;
-  v14 = [v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v34;
+    v16 = *v33;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v34 != v16)
+        if (*v33 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [(PLAccountingNodeManager *)self nodeIDForNodeName:*(*(&v33 + 1) + 8 * i) isPermanent:0];
+        v18 = [(PLAccountingNodeManager *)self nodeIDForNodeName:*(*(&v32 + 1) + 8 * i) isPermanent:0];
         [array addObject:v18];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v15);
@@ -239,19 +410,19 @@ void __56__PLAccountingNodeManager_removeNodeReferenceFromCache___block_invoke_2
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v19 = objc_opt_class();
-    v28 = MEMORY[0x277D85DD0];
-    v29 = 3221225472;
-    v30 = __58__PLAccountingNodeManager_childNodeIDsFromChildNodeNames___block_invoke_47;
-    v31 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v32 = v19;
+    v27 = MEMORY[0x277D85DD0];
+    v28 = 3221225472;
+    v29 = __58__PLAccountingNodeManager_childNodeIDsFromChildNodeNames___block_invoke_47;
+    v30 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v31 = v19;
     if (childNodeIDsFromChildNodeNames__defaultOnce_45 != -1)
     {
-      dispatch_once(&childNodeIDsFromChildNodeNames__defaultOnce_45, &v28);
+      dispatch_once(&childNodeIDsFromChildNodeNames__defaultOnce_45, &v27);
     }
 
     if (childNodeIDsFromChildNodeNames__classDebugEnabled_46 == 1)
     {
-      v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"childNodeIDs=%@", array, v28, v29, v30, v31, v32, v33];
+      v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"childNodeIDs=%@", array, v27, v28, v29, v30, v31, v32];
       v21 = MEMORY[0x277D3F178];
       v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
       lastPathComponent2 = [v22 lastPathComponent];
@@ -266,19 +437,17 @@ void __56__PLAccountingNodeManager_removeNodeReferenceFromCache___block_invoke_2
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
-uint64_t __58__PLAccountingNodeManager_childNodeIDsFromChildNodeNames___block_invoke(uint64_t a1)
+void *__58__PLAccountingNodeManager_childNodeIDsFromChildNodeNames___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   childNodeIDsFromChildNodeNames__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __58__PLAccountingNodeManager_childNodeIDsFromChildNodeNames___block_invoke_47(uint64_t a1)
+void *__58__PLAccountingNodeManager_childNodeIDsFromChildNodeNames___block_invoke_47(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   childNodeIDsFromChildNodeNames__classDebugEnabled_46 = result;
@@ -303,7 +472,7 @@ uint64_t __58__PLAccountingNodeManager_childNodeIDsFromChildNodeNames___block_in
 
 void __37__PLAccountingNodeManager_setupNodes__block_invoke(uint64_t a1)
 {
-  v136[1] = *MEMORY[0x277D85DE8];
+  v128[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB38] dictionary];
   [*(a1 + 32) setNodeNameToNodeID:v2];
 
@@ -318,39 +487,38 @@ void __37__PLAccountingNodeManager_setupNodes__block_invoke(uint64_t a1)
   v7 = MEMORY[0x277CBEB98];
   v8 = [MEMORY[0x277D3F2A0] sharedCore];
   v9 = [v8 storage];
-  v109 = v5;
-  v136[0] = v5;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v136 count:1];
-  v110 = v6;
+  v101 = v5;
+  v128[0] = v5;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v128 count:1];
+  v102 = v6;
   v11 = [v9 entriesForKey:v6 withComparisons:v10];
   v12 = [v7 setWithArray:v11];
 
   v13 = 0x277D3F000uLL;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v14 = *(a1 + 32);
-    v15 = objc_opt_class();
-    v130[0] = MEMORY[0x277D85DD0];
-    v130[1] = 3221225472;
-    v130[2] = __37__PLAccountingNodeManager_setupNodes__block_invoke_65;
-    v130[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v130[4] = v15;
+    v14 = objc_opt_class();
+    v122[0] = MEMORY[0x277D85DD0];
+    v122[1] = 3221225472;
+    v122[2] = __37__PLAccountingNodeManager_setupNodes__block_invoke_65;
+    v122[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v122[4] = v14;
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_1 != -1)
     {
-      dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_1, v130);
+      dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_1, v122);
     }
 
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_1 == 1)
     {
-      v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"reservedNodesInDB=%@", v12];
-      v17 = MEMORY[0x277D3F178];
-      v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
-      v19 = [v18 lastPathComponent];
-      v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingNodeManager setupNodes]_block_invoke_2"];
-      [v17 logMessage:v16 fromFile:v19 fromFunction:v20 fromLineNumber:176];
+      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"reservedNodesInDB=%@", v12];
+      v16 = MEMORY[0x277D3F178];
+      v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
+      v18 = [v17 lastPathComponent];
+      v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingNodeManager setupNodes]_block_invoke_2"];
+      [v16 logMessage:v15 fromFile:v18 fromFunction:v19 fromLineNumber:176];
 
-      v21 = PLLogCommon();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v20 = PLLogCommon();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         [PLAccountingDependency activate];
       }
@@ -359,80 +527,78 @@ void __37__PLAccountingNodeManager_setupNodes__block_invoke(uint64_t a1)
     }
   }
 
-  v22 = +[PLAccountingEngine deviceRootNodeIDs];
-  v23 = [v22 mutableCopy];
+  v21 = +[PLAccountingEngine deviceRootNodeIDs];
+  v22 = [v21 mutableCopy];
 
-  [v23 addObject:&unk_2870F8708];
-  [v23 addObject:&unk_2870F86F0];
-  v24 = 0x279A55000;
+  [v22 addObject:&unk_2870F8708];
+  [v22 addObject:&unk_2870F86F0];
+  v23 = 0x279A55000;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v25 = *(a1 + 32);
-    v26 = objc_opt_class();
-    v129[0] = MEMORY[0x277D85DD0];
-    v129[1] = 3221225472;
-    v129[2] = __37__PLAccountingNodeManager_setupNodes__block_invoke_74;
-    v129[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v129[4] = v26;
+    v24 = objc_opt_class();
+    v121[0] = MEMORY[0x277D85DD0];
+    v121[1] = 3221225472;
+    v121[2] = __37__PLAccountingNodeManager_setupNodes__block_invoke_74;
+    v121[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v121[4] = v24;
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_72 != -1)
     {
-      dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_72, v129);
+      dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_72, v121);
     }
 
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_73 == 1)
     {
-      v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"reservedNodeIDs=%@", v23];
-      v28 = MEMORY[0x277D3F178];
-      v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
-      v30 = [v29 lastPathComponent];
-      v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingNodeManager setupNodes]_block_invoke_2"];
-      [v28 logMessage:v27 fromFile:v30 fromFunction:v31 fromLineNumber:182];
+      v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"reservedNodeIDs=%@", v22];
+      v26 = MEMORY[0x277D3F178];
+      v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
+      v28 = [v27 lastPathComponent];
+      v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingNodeManager setupNodes]_block_invoke_2"];
+      [v26 logMessage:v25 fromFile:v28 fromFunction:v29 fromLineNumber:182];
 
-      v32 = PLLogCommon();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      v30 = PLLogCommon();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
         [PLAccountingDependency activate];
       }
 
       v13 = 0x277D3F000uLL;
-      v24 = 0x279A55000uLL;
+      v23 = 0x279A55000uLL;
     }
   }
 
-  v127 = 0u;
-  v128 = 0u;
-  v125 = 0u;
-  v126 = 0u;
-  obj = v23;
-  v33 = [obj countByEnumeratingWithState:&v125 objects:v135 count:16];
-  v111 = v12;
-  if (v33)
+  v119 = 0u;
+  v120 = 0u;
+  v117 = 0u;
+  v118 = 0u;
+  obj = v22;
+  v31 = [obj countByEnumeratingWithState:&v117 objects:v127 count:16];
+  v103 = v12;
+  if (v31)
   {
-    v34 = v33;
-    v113 = *MEMORY[0x277D3F3D8];
-    v114 = *v126;
+    v32 = v31;
+    v105 = *MEMORY[0x277D3F3D8];
+    v106 = *v118;
     do
     {
-      v35 = 0;
+      v33 = 0;
       do
       {
-        if (*v126 != v114)
+        if (*v118 != v106)
         {
           objc_enumerationMutation(obj);
         }
 
-        v36 = *(*(&v125 + 1) + 8 * v35);
-        v37 = [objc_alloc(*(v24 + 2472)) initWithRootNodeID:v36];
-        [v37 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v113];
+        v34 = *(*(&v117 + 1) + 8 * v33);
+        v35 = [objc_alloc(*(v23 + 2472)) initWithRootNodeID:v34];
+        [v35 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v105];
         if ([*(v13 + 384) debugEnabled])
         {
-          v38 = *(a1 + 32);
-          v39 = objc_opt_class();
+          v36 = objc_opt_class();
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __37__PLAccountingNodeManager_setupNodes__block_invoke_80;
           block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          block[4] = v39;
+          block[4] = v36;
           if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_78 != -1)
           {
             dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_78, block);
@@ -440,203 +606,200 @@ void __37__PLAccountingNodeManager_setupNodes__block_invoke(uint64_t a1)
 
           if (PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_79 == 1)
           {
-            v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"reservedNode=%@", v37];
-            v41 = MEMORY[0x277D3F178];
-            v42 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
-            v43 = [v42 lastPathComponent];
-            v44 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingNodeManager setupNodes]_block_invoke_2"];
-            [v41 logMessage:v40 fromFile:v43 fromFunction:v44 fromLineNumber:187];
+            v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"reservedNode=%@", v35];
+            v38 = MEMORY[0x277D3F178];
+            v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
+            v40 = [v39 lastPathComponent];
+            v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingNodeManager setupNodes]_block_invoke_2"];
+            [v38 logMessage:v37 fromFile:v40 fromFunction:v41 fromLineNumber:187];
 
-            v45 = PLLogCommon();
-            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+            v42 = PLLogCommon();
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v134 = v40;
-              _os_log_debug_impl(&dword_25EDCD000, v45, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+              v126 = v37;
+              _os_log_debug_impl(&dword_25EDCD000, v42, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
-            v12 = v111;
+            v12 = v103;
             v13 = 0x277D3F000uLL;
-            v24 = 0x279A55000;
+            v23 = 0x279A55000;
           }
         }
 
-        if (([v12 containsObject:v37] & 1) == 0)
+        if (([v12 containsObject:v35] & 1) == 0)
         {
-          v46 = [MEMORY[0x277D3F2A0] sharedCore];
-          v47 = [v46 storage];
-          [v47 blockingWriteEntry:v37 withCompletionBlock:&__block_literal_global_86];
+          v43 = [MEMORY[0x277D3F2A0] sharedCore];
+          v44 = [v43 storage];
+          [v44 blockingWriteEntry:v35 withCompletionBlock:&__block_literal_global_86];
 
           if ([*(v13 + 384) debugEnabled])
           {
-            v48 = *(a1 + 32);
-            v49 = objc_opt_class();
-            v123[0] = MEMORY[0x277D85DD0];
-            v123[1] = 3221225472;
-            v123[2] = __37__PLAccountingNodeManager_setupNodes__block_invoke_2;
-            v123[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            v123[4] = v49;
+            v45 = objc_opt_class();
+            v115[0] = MEMORY[0x277D85DD0];
+            v115[1] = 3221225472;
+            v115[2] = __37__PLAccountingNodeManager_setupNodes__block_invoke_2;
+            v115[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v115[4] = v45;
             if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_87 != -1)
             {
-              dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_87, v123);
+              dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_87, v115);
             }
 
             if (PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_88 == 1)
             {
-              v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"added to DB reservedNode=%@", v37];
-              v51 = MEMORY[0x277D3F178];
-              v52 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
-              v53 = [v52 lastPathComponent];
-              v54 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingNodeManager setupNodes]_block_invoke_3"];
-              [v51 logMessage:v50 fromFile:v53 fromFunction:v54 fromLineNumber:192];
+              v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"added to DB reservedNode=%@", v35];
+              v47 = MEMORY[0x277D3F178];
+              v48 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
+              v49 = [v48 lastPathComponent];
+              v50 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingNodeManager setupNodes]_block_invoke_3"];
+              [v47 logMessage:v46 fromFile:v49 fromFunction:v50 fromLineNumber:192];
 
-              v55 = PLLogCommon();
-              if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+              v51 = PLLogCommon();
+              if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v134 = v50;
-                _os_log_debug_impl(&dword_25EDCD000, v55, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+                v126 = v46;
+                _os_log_debug_impl(&dword_25EDCD000, v51, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
 
-              v12 = v111;
+              v12 = v103;
               v13 = 0x277D3F000;
-              v24 = 0x279A55000;
+              v23 = 0x279A55000;
             }
           }
         }
 
-        v56 = [*(a1 + 32) nodeNameToNodeID];
-        v57 = [v37 name];
-        [v56 setObject:v36 forKeyedSubscript:v57];
+        v52 = [*(a1 + 32) nodeNameToNodeID];
+        v53 = [v35 name];
+        [v52 setObject:v34 forKeyedSubscript:v53];
 
-        v58 = [v37 name];
-        v59 = [*(a1 + 32) nodeIDToNodeName];
-        [v59 setObject:v58 forKeyedSubscript:v36];
+        v54 = [v35 name];
+        v55 = [*(a1 + 32) nodeIDToNodeName];
+        [v55 setObject:v54 forKeyedSubscript:v34];
 
-        ++v35;
+        ++v33;
       }
 
-      while (v34 != v35);
-      v34 = [obj countByEnumeratingWithState:&v125 objects:v135 count:16];
+      while (v32 != v33);
+      v32 = [obj countByEnumeratingWithState:&v117 objects:v127 count:16];
     }
 
-    while (v34);
+    while (v32);
   }
 
-  v60 = [MEMORY[0x277D3F2A0] sharedCore];
-  v61 = [v60 storage];
-  [v61 flushCachesWithReason:v110];
+  v56 = [MEMORY[0x277D3F2A0] sharedCore];
+  v57 = [v56 storage];
+  [v57 flushCachesWithReason:v102];
 
-  v62 = [MEMORY[0x277D3F228] sharedStorageCache];
-  [v62 clearLastEntryCacheForEntryKey:v110];
+  v58 = [MEMORY[0x277D3F228] sharedStorageCache];
+  [v58 clearLastEntryCacheForEntryKey:v102];
 
-  v63 = [objc_alloc(MEMORY[0x277D3F260]) initWithKey:@"ID" withValue:&unk_2870F86F0 withComparisonOperation:2];
-  v64 = MEMORY[0x277CBEB98];
-  v65 = [MEMORY[0x277D3F2A0] sharedCore];
-  v66 = [v65 storage];
-  v115 = v63;
-  v132 = v63;
-  v67 = [MEMORY[0x277CBEA60] arrayWithObjects:&v132 count:1];
-  v68 = [v66 entriesForKey:v110 withComparisons:v67];
-  v69 = [v64 setWithArray:v68];
+  v59 = [objc_alloc(MEMORY[0x277D3F260]) initWithKey:@"ID" withValue:&unk_2870F86F0 withComparisonOperation:2];
+  v60 = MEMORY[0x277CBEB98];
+  v61 = [MEMORY[0x277D3F2A0] sharedCore];
+  v62 = [v61 storage];
+  v107 = v59;
+  v124 = v59;
+  v63 = [MEMORY[0x277CBEA60] arrayWithObjects:&v124 count:1];
+  v64 = [v62 entriesForKey:v102 withComparisons:v63];
+  v65 = [v60 setWithArray:v64];
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v70 = *(a1 + 32);
-    v71 = objc_opt_class();
-    v122[0] = MEMORY[0x277D85DD0];
-    v122[1] = 3221225472;
-    v122[2] = __37__PLAccountingNodeManager_setupNodes__block_invoke_96;
-    v122[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v122[4] = v71;
+    v66 = objc_opt_class();
+    v114[0] = MEMORY[0x277D85DD0];
+    v114[1] = 3221225472;
+    v114[2] = __37__PLAccountingNodeManager_setupNodes__block_invoke_96;
+    v114[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v114[4] = v66;
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_94 != -1)
     {
-      dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_94, v122);
+      dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_94, v114);
     }
 
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_95 == 1)
     {
-      v72 = [MEMORY[0x277CCACA8] stringWithFormat:@"otherNodesInDB=%@", v69];
-      v73 = MEMORY[0x277D3F178];
-      v74 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
-      v75 = [v74 lastPathComponent];
-      v76 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingNodeManager setupNodes]_block_invoke_2"];
-      [v73 logMessage:v72 fromFile:v75 fromFunction:v76 fromLineNumber:210];
+      v67 = [MEMORY[0x277CCACA8] stringWithFormat:@"otherNodesInDB=%@", v65];
+      v68 = MEMORY[0x277D3F178];
+      v69 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
+      v70 = [v69 lastPathComponent];
+      v71 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingNodeManager setupNodes]_block_invoke_2"];
+      [v68 logMessage:v67 fromFile:v70 fromFunction:v71 fromLineNumber:210];
 
-      v77 = PLLogCommon();
-      if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
+      v72 = PLLogCommon();
+      if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
       {
         [PLAccountingDependency activate];
       }
     }
   }
 
-  v120 = 0u;
-  v121 = 0u;
-  v118 = 0u;
-  v119 = 0u;
-  v78 = v69;
-  v79 = [v78 countByEnumeratingWithState:&v118 objects:v131 count:16];
-  if (v79)
+  v112 = 0u;
+  v113 = 0u;
+  v110 = 0u;
+  v111 = 0u;
+  v73 = v65;
+  v74 = [v73 countByEnumeratingWithState:&v110 objects:v123 count:16];
+  if (v74)
   {
-    v80 = v79;
-    v81 = *v119;
+    v75 = v74;
+    v76 = *v111;
     do
     {
-      for (i = 0; i != v80; ++i)
+      for (i = 0; i != v75; ++i)
       {
-        if (*v119 != v81)
+        if (*v111 != v76)
         {
-          objc_enumerationMutation(v78);
+          objc_enumerationMutation(v73);
         }
 
-        v83 = *(*(&v118 + 1) + 8 * i);
-        v84 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v83, "entryID")}];
-        v85 = [v83 name];
-        if (v85)
+        v78 = *(*(&v110 + 1) + 8 * i);
+        v79 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v78, "entryID")}];
+        v80 = [v78 name];
+        if (v80)
         {
-          v86 = [*(a1 + 32) nodeNameToNodeID];
-          [v86 setObject:v84 forKeyedSubscript:v85];
+          v81 = [*(a1 + 32) nodeNameToNodeID];
+          [v81 setObject:v79 forKeyedSubscript:v80];
 
-          v87 = [*(a1 + 32) nodeIDToNodeName];
-          [v87 setObject:v85 forKeyedSubscript:v84];
+          v82 = [*(a1 + 32) nodeIDToNodeName];
+          [v82 setObject:v80 forKeyedSubscript:v79];
         }
       }
 
-      v80 = [v78 countByEnumeratingWithState:&v118 objects:v131 count:16];
+      v75 = [v73 countByEnumeratingWithState:&v110 objects:v123 count:16];
     }
 
-    while (v80);
+    while (v75);
   }
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v88 = *(a1 + 32);
-    v89 = objc_opt_class();
-    v117[0] = MEMORY[0x277D85DD0];
-    v117[1] = 3221225472;
-    v117[2] = __37__PLAccountingNodeManager_setupNodes__block_invoke_102;
-    v117[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v117[4] = v89;
+    v83 = objc_opt_class();
+    v109[0] = MEMORY[0x277D85DD0];
+    v109[1] = 3221225472;
+    v109[2] = __37__PLAccountingNodeManager_setupNodes__block_invoke_102;
+    v109[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v109[4] = v83;
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_100 != -1)
     {
-      dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_100, v117);
+      dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_100, v109);
     }
 
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_101 == 1)
     {
-      v90 = MEMORY[0x277CCACA8];
-      v91 = [*(a1 + 32) nodeNameToNodeID];
-      v92 = [v90 stringWithFormat:@"nodeNameToNodeID=%@", v91];
+      v84 = MEMORY[0x277CCACA8];
+      v85 = [*(a1 + 32) nodeNameToNodeID];
+      v86 = [v84 stringWithFormat:@"nodeNameToNodeID=%@", v85];
 
-      v93 = MEMORY[0x277D3F178];
-      v94 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
-      v95 = [v94 lastPathComponent];
-      v96 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingNodeManager setupNodes]_block_invoke_2"];
-      [v93 logMessage:v92 fromFile:v95 fromFunction:v96 fromLineNumber:219];
+      v87 = MEMORY[0x277D3F178];
+      v88 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
+      v89 = [v88 lastPathComponent];
+      v90 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingNodeManager setupNodes]_block_invoke_2"];
+      [v87 logMessage:v86 fromFile:v89 fromFunction:v90 fromLineNumber:219];
 
-      v97 = PLLogCommon();
-      if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
+      v91 = PLLogCommon();
+      if (os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG))
       {
         [PLAccountingDependency activate];
       }
@@ -645,84 +808,81 @@ void __37__PLAccountingNodeManager_setupNodes__block_invoke(uint64_t a1)
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v98 = *(a1 + 32);
-    v99 = objc_opt_class();
-    v116[0] = MEMORY[0x277D85DD0];
-    v116[1] = 3221225472;
-    v116[2] = __37__PLAccountingNodeManager_setupNodes__block_invoke_105;
-    v116[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v116[4] = v99;
+    v92 = objc_opt_class();
+    v108[0] = MEMORY[0x277D85DD0];
+    v108[1] = 3221225472;
+    v108[2] = __37__PLAccountingNodeManager_setupNodes__block_invoke_105;
+    v108[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v108[4] = v92;
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_103 != -1)
     {
-      dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_103, v116);
+      dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_103, v108);
     }
 
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_104 == 1)
     {
-      v100 = MEMORY[0x277CCACA8];
-      v101 = [*(a1 + 32) nodeIDToNodeName];
-      v102 = [v100 stringWithFormat:@"nodeIDToNodeName=%@", v101];
+      v93 = MEMORY[0x277CCACA8];
+      v94 = [*(a1 + 32) nodeIDToNodeName];
+      v95 = [v93 stringWithFormat:@"nodeIDToNodeName=%@", v94];
 
-      v103 = MEMORY[0x277D3F178];
-      v104 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
-      v105 = [v104 lastPathComponent];
-      v106 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingNodeManager setupNodes]_block_invoke_2"];
-      [v103 logMessage:v102 fromFile:v105 fromFunction:v106 fromLineNumber:220];
+      v96 = MEMORY[0x277D3F178];
+      v97 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/PLAccountingNodeManager.m"];
+      v98 = [v97 lastPathComponent];
+      v99 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingNodeManager setupNodes]_block_invoke_2"];
+      [v96 logMessage:v95 fromFile:v98 fromFunction:v99 fromLineNumber:220];
 
-      v107 = PLLogCommon();
-      if (os_log_type_enabled(v107, OS_LOG_TYPE_DEBUG))
+      v100 = PLLogCommon();
+      if (os_log_type_enabled(v100, OS_LOG_TYPE_DEBUG))
       {
         [PLAccountingDependency activate];
       }
     }
   }
-
-  v108 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __37__PLAccountingNodeManager_setupNodes__block_invoke_65(uint64_t a1)
+void *__37__PLAccountingNodeManager_setupNodes__block_invoke_65(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_1 = result;
   return result;
 }
 
-uint64_t __37__PLAccountingNodeManager_setupNodes__block_invoke_74(uint64_t a1)
+void *__37__PLAccountingNodeManager_setupNodes__block_invoke_74(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_73 = result;
   return result;
 }
 
-uint64_t __37__PLAccountingNodeManager_setupNodes__block_invoke_80(uint64_t a1)
+void *__37__PLAccountingNodeManager_setupNodes__block_invoke_80(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_79 = result;
   return result;
 }
 
-uint64_t __37__PLAccountingNodeManager_setupNodes__block_invoke_2(uint64_t a1)
+void *__37__PLAccountingNodeManager_setupNodes__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_88 = result;
   return result;
 }
 
-uint64_t __37__PLAccountingNodeManager_setupNodes__block_invoke_96(uint64_t a1)
+void *__37__PLAccountingNodeManager_setupNodes__block_invoke_96(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_95 = result;
   return result;
 }
 
-uint64_t __37__PLAccountingNodeManager_setupNodes__block_invoke_102(uint64_t a1)
+void *__37__PLAccountingNodeManager_setupNodes__block_invoke_102(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_101 = result;
   return result;
 }
 
-uint64_t __37__PLAccountingNodeManager_setupNodes__block_invoke_105(uint64_t a1)
+void *__37__PLAccountingNodeManager_setupNodes__block_invoke_105(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_104 = result;
@@ -731,17 +891,15 @@ uint64_t __37__PLAccountingNodeManager_setupNodes__block_invoke_105(uint64_t a1)
 
 void __56__PLAccountingNodeManager_removeNodeReferenceFromCache___block_invoke_2_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = [*(a2 + 40) userInfo];
   v6 = [v5 objectForKeyedSubscript:a1];
   v7 = [v6 objectForKeyedSubscript:@"MaskedName"];
-  v9 = 138412546;
-  v10 = a1;
-  v11 = 2112;
-  v12 = v7;
-  _os_log_debug_impl(&dword_25EDCD000, a3, OS_LOG_TYPE_DEBUG, "Obfuscating the node id cache for %@ with %@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412546;
+  v9 = a1;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_debug_impl(&dword_25EDCD000, a3, OS_LOG_TYPE_DEBUG, "Obfuscating the node id cache for %@ with %@", &v8, 0x16u);
 }
 
 @end

@@ -22,26 +22,26 @@ uint64_t __53__NSPPrivateAccessTokenClientState_sharedClientState__block_invoke(
     dispatch_once(&qword_1ED4BF610, &__block_literal_global_3);
   }
 
-  v0 = _MergedGlobals_27;
-  if (v0)
+  v1 = _MergedGlobals_27;
+  if (v1)
   {
-    v1 = v0[1];
+    v2 = v1[1];
   }
 
   else
   {
-    v1 = 0;
+    v2 = 0;
   }
 
-  return v1;
+  return v2;
 }
 
 - (NSPPrivateAccessTokenClientState)init
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v25.receiver = self;
-  v25.super_class = NSPPrivateAccessTokenClientState;
-  v2 = [(NSPPrivateAccessTokenClientState *)&v25 init];
+  v30 = *MEMORY[0x1E69E9840];
+  v24.receiver = self;
+  v24.super_class = NSPPrivateAccessTokenClientState;
+  v2 = [(NSPPrivateAccessTokenClientState *)&v24 init];
   if (v2)
   {
     v3 = [NPUtilities copyKeyFromKeychainWithIdentifier:@"com.apple.NetworkServiceProxy.PrivateAccessTokens.ClientKey"];
@@ -51,8 +51,8 @@ uint64_t __53__NSPPrivateAccessTokenClientState_sharedClientState__block_invoke(
       v5 = nplog_obj();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
-        *v29 = 0;
-        _os_log_debug_impl(&dword_1AE7E2000, v5, OS_LOG_TYPE_DEBUG, "Found client key in keychain", v29, 2u);
+        *v28 = 0;
+        _os_log_debug_impl(&dword_1AE7E2000, v5, OS_LOG_TYPE_DEBUG, "Found client key in keychain", v28, 2u);
       }
 
       v2->_clientKey = v4;
@@ -62,11 +62,11 @@ uint64_t __53__NSPPrivateAccessTokenClientState_sharedClientState__block_invoke(
     {
       v6 = *MEMORY[0x1E697AD78];
       v7 = *MEMORY[0x1E697AD50];
-      *v27 = *MEMORY[0x1E697AD68];
-      v28 = v7;
-      *v29 = v6;
-      v30 = &unk_1F24427F8;
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v27 count:2];
+      *v26 = *MEMORY[0x1E697AD68];
+      v27 = v7;
+      *v28 = v6;
+      v29 = &unk_1F24427F8;
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v26 count:2];
       RandomKey = SecKeyCreateRandomKey(v8, 0);
       if (RandomKey)
       {
@@ -97,8 +97,8 @@ uint64_t __53__NSPPrivateAccessTokenClientState_sharedClientState__block_invoke(
       v13 = nplog_obj();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        *v29 = 0;
-        _os_log_debug_impl(&dword_1AE7E2000, v13, OS_LOG_TYPE_DEBUG, "Found client secret in keychain", v29, 2u);
+        *v28 = 0;
+        _os_log_debug_impl(&dword_1AE7E2000, v13, OS_LOG_TYPE_DEBUG, "Found client secret in keychain", v28, 2u);
       }
 
       objc_setProperty_atomic(v2, v14, v12, 16);
@@ -112,17 +112,17 @@ LABEL_28:
       goto LABEL_29;
     }
 
-    *v29 = 0;
+    *v28 = 0;
     ccrng();
-    if (*v29)
+    if (*v28)
     {
       v15 = nplog_obj();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        *v27 = 0;
+        *v26 = 0;
         v16 = "Failed to generate random";
 LABEL_24:
-        _os_log_error_impl(&dword_1AE7E2000, v15, OS_LOG_TYPE_ERROR, v16, v27, 2u);
+        _os_log_error_impl(&dword_1AE7E2000, v15, OS_LOG_TYPE_ERROR, v16, v26, 2u);
       }
     }
 
@@ -140,8 +140,8 @@ LABEL_24:
         v15 = nplog_obj();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
-          *v27 = 0;
-          _os_log_debug_impl(&dword_1AE7E2000, v15, OS_LOG_TYPE_DEBUG, "Generated new client secret", v27, 2u);
+          *v26 = 0;
+          _os_log_debug_impl(&dword_1AE7E2000, v15, OS_LOG_TYPE_DEBUG, "Generated new client secret", v26, 2u);
         }
 
         goto LABEL_27;
@@ -150,7 +150,7 @@ LABEL_24:
       v15 = nplog_obj();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        *v27 = 0;
+        *v26 = 0;
         v16 = "Failed to generate key";
         goto LABEL_24;
       }
@@ -164,13 +164,12 @@ LABEL_27:
   v12 = nplog_obj();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
   {
-    *v29 = 0;
-    _os_log_fault_impl(&dword_1AE7E2000, v12, OS_LOG_TYPE_FAULT, "[super init] failed", v29, 2u);
+    *v28 = 0;
+    _os_log_fault_impl(&dword_1AE7E2000, v12, OS_LOG_TYPE_FAULT, "[super init] failed", v28, 2u);
   }
 
 LABEL_29:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

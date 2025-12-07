@@ -622,7 +622,7 @@ void __59__CKVDonateTask__donateDataset_withType_reason_completion___block_invok
   }
 
   *(*(*(a1 + 56) + 8) + 24) = v3 == 0;
-  [CKVAnalytics sendDonateEvent:*(a1 + 96) itemCount:*(a1 + 72) appId:*(a1 + 40) reason:*(a1 + 98) result:*v26];
+  [CKVAnalytics sendDonateEvent:*(a1 + 96) itemCount:*(a1 + 72) appId:*(a1 + 40) reason:*(a1 + 98) result:*v26, *&v26[8]];
   v13 = *(*(*(a1 + 64) + 8) + 40);
   v14 = CKLogContextVocabulary;
   v15 = v14;

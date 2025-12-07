@@ -45,7 +45,7 @@
 {
   v10 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  if ([nameCopy isEqualToString:*MEMORY[0x277D3AB70]])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v4 = @"PHOTOEDIT_STYLE_CAST_ORIGINAL";
 LABEL_35:
@@ -53,97 +53,97 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  if ([nameCopy isEqualToString:*MEMORY[0x277D3AB78]])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v4 = @"PHOTOEDIT_STYLE_CAST_STANDARD";
     goto LABEL_35;
   }
 
-  if ([nameCopy isEqualToString:*MEMORY[0x277D3AB88]])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v4 = @"PHOTOEDIT_STYLE_CAST_TAN_WARM";
     goto LABEL_35;
   }
 
-  if ([nameCopy isEqualToString:*MEMORY[0x277D3AB18]])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v4 = @"PHOTOEDIT_STYLE_CAST_BLUSH_WARM";
     goto LABEL_35;
   }
 
-  if ([nameCopy isEqualToString:*MEMORY[0x277D3AB60]])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v4 = @"PHOTOEDIT_STYLE_CAST_NEUTRAL";
     goto LABEL_35;
   }
 
-  if ([nameCopy isEqualToString:*MEMORY[0x277D3AB38]])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v4 = @"PHOTOEDIT_STYLE_CAST_COOL";
     goto LABEL_35;
   }
 
-  if ([nameCopy isEqualToString:*MEMORY[0x277D3AB68]])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v4 = @"PHOTOEDIT_STYLE_CAST_NO_FILTER";
     goto LABEL_35;
   }
 
-  if ([nameCopy isEqualToString:*MEMORY[0x277D3AB98]])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v4 = @"PHOTOEDIT_STYLE_CAST_WARM_AUTHENTIC";
     goto LABEL_35;
   }
 
-  if ([nameCopy isEqualToString:*MEMORY[0x277D3AB80]])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v4 = @"PHOTOEDIT_STYLE_CAST_STARK_BLACK_WHITE";
     goto LABEL_35;
   }
 
-  if ([nameCopy isEqualToString:*MEMORY[0x277D3AB30]])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v4 = @"PHOTOEDIT_STYLE_CAST_COLORFUL";
     goto LABEL_35;
   }
 
-  if ([nameCopy isEqualToString:*MEMORY[0x277D3AB40]])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v4 = @"PHOTOEDIT_STYLE_CAST_DREAMY_HUES";
     goto LABEL_35;
   }
 
-  if ([nameCopy isEqualToString:*MEMORY[0x277D3AB90]])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v4 = @"PHOTOEDIT_STYLE_CAST_URBAN_COOL";
     goto LABEL_35;
   }
 
-  if ([nameCopy isEqualToString:*MEMORY[0x277D3AB48]])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v4 = @"PHOTOEDIT_STYLE_CAST_EARTHY";
     goto LABEL_35;
   }
 
-  if ([nameCopy isEqualToString:*MEMORY[0x277D3AB28]])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v4 = @"PHOTOEDIT_STYLE_CAST_CLOUD_COVER";
     goto LABEL_35;
   }
 
-  if ([nameCopy isEqualToString:*MEMORY[0x277D3AB50]])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v4 = @"PHOTOEDIT_STYLE_CAST_GOLD_WARM";
     goto LABEL_35;
   }
 
-  if ([nameCopy isEqualToString:*MEMORY[0x277D3AB58]])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v4 = @"PHOTOEDIT_STYLE_CAST_LONG_GRAY";
     goto LABEL_35;
   }
 
-  if ([nameCopy isEqualToString:*MEMORY[0x277D3AB20]])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v4 = @"PHOTOEDIT_STYLE_CAST_BRIGHT_POP";
     goto LABEL_35;

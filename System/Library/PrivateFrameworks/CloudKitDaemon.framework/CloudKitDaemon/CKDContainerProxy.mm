@@ -146,7 +146,7 @@
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self && self->_accessCount)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -159,7 +159,7 @@
     {
       accessCount = self->_accessCount;
       *buf = 134217984;
-      v11 = accessCount;
+      v10 = accessCount;
       _os_log_error_impl(&dword_22506F000, v4, OS_LOG_TYPE_ERROR, "Deallocating proxy without being discardable (%tu)", buf, 0xCu);
     }
   }
@@ -167,10 +167,9 @@
   v5 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], a2, v2);
   objc_msgSend_removeObserver_(v5, v6, self);
 
-  v9.receiver = self;
-  v9.super_class = CKDContainerProxy;
-  [(CKDContainerProxy *)&v9 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = CKDContainerProxy;
+  [(CKDContainerProxy *)&v8 dealloc];
 }
 
 - (CKDContainerProxy)initWithAppContainerTuple:(id)tuple entitlements:(id)entitlements options:(id)options distantContainer:(id)container connection:(id)connection
@@ -295,7 +294,7 @@
 
 - (void)forwardInvocation:(id)invocation
 {
-  v122 = *MEMORY[0x277D85DE8];
+  v120 = *MEMORY[0x277D85DE8];
   invocationCopy = invocation;
   objc_msgSend_retainArguments(invocationCopy, v5, v6);
   objc_msgSend_selector(invocationCopy, v7, v8);
@@ -335,14 +334,14 @@ LABEL_5:
   v27 = objc_msgSend_methodSignature(invocationCopy, v12, v13);
   v30 = objc_msgSend_CK_indexesOfBlockArguments(v27, v28, v29);
 
-  v114[0] = MEMORY[0x277D85DD0];
-  v114[1] = 3221225472;
-  v114[2] = sub_22518B904;
-  v114[3] = &unk_278547FC8;
+  v112[0] = MEMORY[0x277D85DD0];
+  v112[1] = 3221225472;
+  v112[2] = sub_22518B904;
+  v112[3] = &unk_278547FC8;
   v31 = invocationCopy;
-  v115 = v31;
+  v113 = v31;
   selfCopy = self;
-  objc_msgSend_enumerateIndexesUsingBlock_(v30, v32, v114);
+  objc_msgSend_enumerateIndexesUsingBlock_(v30, v32, v112);
   if (objc_msgSend_isSupported(MEMORY[0x277CBC558], v33, v34))
   {
     v37 = objc_msgSend_appContainerTuple(self, v35, v36);
@@ -358,9 +357,9 @@ LABEL_5:
       {
         v52 = objc_msgSend_appContainerTuple(self, v50, v51);
         v55 = objc_msgSend_persona(v52, v53, v54);
-        v113 = 0;
-        v57 = objc_msgSend_adopt_(v55, v56, &v113);
-        v58 = v113;
+        v111 = 0;
+        v57 = objc_msgSend_adopt_(v55, v56, &v111);
+        v58 = v111;
 
         if (!v57)
         {
@@ -369,28 +368,28 @@ LABEL_5:
             dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
           }
 
-          v78 = &selRef_setHasAssetSize_;
-          v79 = *MEMORY[0x277CBC830];
+          v76 = &selRef_setHasAssetSize_;
+          v77 = *MEMORY[0x277CBC830];
           if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
           {
-            v101 = v79;
-            v104 = objc_msgSend_selector(v31, v102, v103);
-            v105 = NSStringFromSelector(v104);
-            v108 = objc_msgSend_appContainerTuple(self, v106, v107);
-            v111 = objc_msgSend_ckShortDescription(v108, v109, v110);
+            v99 = v77;
+            v102 = objc_msgSend_selector(v31, v100, v101);
+            v103 = NSStringFromSelector(v102);
+            v106 = objc_msgSend_appContainerTuple(self, v104, v105);
+            v109 = objc_msgSend_ckShortDescription(v106, v107, v108);
             *buf = 138412802;
-            *&buf[4] = v105;
+            *&buf[4] = v103;
+            v116 = 2112;
+            v117 = v109;
             v118 = 2112;
-            v119 = v111;
-            v120 = 2112;
-            v121 = v58;
-            _os_log_error_impl(&dword_22506F000, v101, OS_LOG_TYPE_ERROR, "Failed to adopt persona for invocation -%@ for container %@: %@", buf, 0x20u);
+            v119 = v58;
+            _os_log_error_impl(&dword_22506F000, v99, OS_LOG_TYPE_ERROR, "Failed to adopt persona for invocation -%@ for container %@: %@", buf, 0x20u);
 
-            v78 = &selRef_setHasAssetSize_;
+            v76 = &selRef_setHasAssetSize_;
           }
 
-          v81 = objc_msgSend_errorWithDomain_code_userInfo_error_format_(MEMORY[0x277CBC560], v80, *MEMORY[0x277CBBF50], 5, 0, v58, @"Incorrect persona for container");
-          objc_msgSend_CKInvokeAndNilOutReplyBlockWithError_forProtocol_(v31, v82, v81, v78[367]);
+          v79 = objc_msgSend_errorWithDomain_code_userInfo_error_format_(MEMORY[0x277CBC560], v78, *MEMORY[0x277CBBF50], 5, 0, v58, @"Incorrect persona for container");
+          objc_msgSend_CKInvokeAndNilOutReplyBlockWithError_forProtocol_(v31, v80, v79, v76[367]);
 
           goto LABEL_33;
         }
@@ -402,15 +401,14 @@ LABEL_5:
   v40 = v59;
   if (v20)
   {
-    v112 = 0;
-    v61 = objc_msgSend_checkSessionValidityCacheOnly_error_(v59, v60, 0, &v112);
-    v62 = v112;
+    v110 = 0;
+    v61 = objc_msgSend_checkSessionValidityCacheOnly_error_(v59, v60, 0, &v110);
+    v62 = v110;
     v58 = v62;
     if ((v61 & 1) == 0)
     {
       isCloudCoreSessionNoLongerValidError = objc_msgSend_isCloudCoreSessionNoLongerValidError(v62, v63, v64);
       v66 = *MEMORY[0x277CBC878];
-      v67 = *MEMORY[0x277CBC880];
       if (isCloudCoreSessionNoLongerValidError)
       {
         if (*MEMORY[0x277CBC880] != -1)
@@ -418,24 +416,24 @@ LABEL_5:
           dispatch_once(MEMORY[0x277CBC880], v66);
         }
 
-        v68 = *MEMORY[0x277CBC830];
+        v67 = *MEMORY[0x277CBC830];
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
         {
-          v83 = v68;
-          v86 = objc_msgSend_selector(v31, v84, v85);
-          v87 = NSStringFromSelector(v86);
-          v90 = objc_msgSend_appContainerTuple(self, v88, v89);
-          v93 = objc_msgSend_ckShortDescription(v90, v91, v92);
+          v81 = v67;
+          v84 = objc_msgSend_selector(v31, v82, v83);
+          v85 = NSStringFromSelector(v84);
+          v88 = objc_msgSend_appContainerTuple(self, v86, v87);
+          v91 = objc_msgSend_ckShortDescription(v88, v89, v90);
           *buf = 138412802;
-          *&buf[4] = v87;
+          *&buf[4] = v85;
+          v116 = 2112;
+          v117 = v91;
           v118 = 2112;
-          v119 = v93;
-          v120 = 2112;
-          v121 = v58;
-          _os_log_error_impl(&dword_22506F000, v83, OS_LOG_TYPE_ERROR, "Container found invalid for invocation -%@ for container %@: %@", buf, 0x20u);
+          v119 = v58;
+          _os_log_error_impl(&dword_22506F000, v81, OS_LOG_TYPE_ERROR, "Container found invalid for invocation -%@ for container %@: %@", buf, 0x20u);
         }
 
-        objc_msgSend_CKInvokeAndNilOutReplyBlockWithError_forProtocol_(v31, v69, v58, &unk_2838E3570);
+        objc_msgSend_CKInvokeAndNilOutReplyBlockWithError_forProtocol_(v31, v68, v58, &unk_2838E3570);
 LABEL_33:
 
         goto LABEL_27;
@@ -446,28 +444,26 @@ LABEL_33:
         dispatch_once(MEMORY[0x277CBC880], v66);
       }
 
-      v70 = *MEMORY[0x277CBC830];
+      v69 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
-        v94 = v70;
-        v97 = objc_msgSend_appContainerTuple(self, v95, v96);
-        v100 = objc_msgSend_ckShortDescription(v97, v98, v99);
+        v92 = v69;
+        v95 = objc_msgSend_appContainerTuple(self, v93, v94);
+        v98 = objc_msgSend_ckShortDescription(v95, v96, v97);
         *buf = 138412546;
-        *&buf[4] = v100;
-        v118 = 2112;
-        v119 = v58;
-        _os_log_error_impl(&dword_22506F000, v94, OS_LOG_TYPE_ERROR, "Failed to validate CloudCore session for container %@: %@", buf, 0x16u);
+        *&buf[4] = v98;
+        v116 = 2112;
+        v117 = v58;
+        _os_log_error_impl(&dword_22506F000, v92, OS_LOG_TYPE_ERROR, "Failed to validate CloudCore session for container %@: %@", buf, 0x16u);
       }
     }
   }
 
   objc_msgSend_setTarget_(v31, v60, v40);
-  objc_msgSend_beginContentAccess(self, v71, v72);
-  objc_msgSend_invoke(v31, v73, v74);
-  objc_msgSend_endContentAccess(self, v75, v76);
+  objc_msgSend_beginContentAccess(self, v70, v71);
+  objc_msgSend_invoke(v31, v72, v73);
+  objc_msgSend_endContentAccess(self, v74, v75);
 LABEL_27:
-
-  v77 = *MEMORY[0x277D85DE8];
 }
 
 - (id)methodSignatureForSelector:(SEL)selector
@@ -492,7 +488,7 @@ LABEL_27:
 
 - (void)handleMemoryPressure:(int64_t)pressure
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -522,14 +518,13 @@ LABEL_8:
 LABEL_5:
   coalescer = self->_coalescer;
 LABEL_6:
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = sub_22518BC60;
-  v9[3] = &unk_278546110;
-  v9[4] = self;
-  v9[5] = pressure;
-  objc_msgSend_mutate_(coalescer, v6, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = sub_22518BC60;
+  v8[3] = &unk_278546110;
+  v8[4] = self;
+  v8[5] = pressure;
+  objc_msgSend_mutate_(coalescer, v6, v8);
 }
 
 - (void)handleMemoryPressure:(int64_t)pressure completionHandler:(id)handler

@@ -15,8 +15,9 @@
 
 - (void)setEnabled:(BOOL)enabled
 {
+  enabledCopy = enabled;
   selfCopy = self;
-  sub_24E009898(enabled);
+  sub_24E009898(enabledCopy);
 }
 
 @end

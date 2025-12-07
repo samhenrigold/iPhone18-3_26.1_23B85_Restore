@@ -4,6 +4,7 @@
 - (double)latitude;
 - (double)longitude;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)setEnable_geo_location_features:(BOOL)enable_geo_location_features;
 - (void)setLatitude:(double)latitude;
 - (void)setLongitude:(double)longitude;
 @end
@@ -71,6 +72,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setEnable_geo_location_features:(BOOL)enable_geo_location_features
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:enable_geo_location_features];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

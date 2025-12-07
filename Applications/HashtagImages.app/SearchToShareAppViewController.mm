@@ -20,7 +20,10 @@
 - (void)updateConstraintsForSearchBrowser;
 - (void)updateConstraintsForZKWBrowser;
 - (void)updateRecentResults:(id)results;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SearchToShareAppViewController
@@ -106,6 +109,38 @@
   self->_recentResults = v3;
 
   self->_updateRecents = 0;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = SearchToShareAppViewController;
+  [(SearchToShareAppViewController *)&v5 viewWillAppear:appear];
+  [(SearchToShareAppViewController *)self _setup];
+  [(SearchToShareAppViewController *)self _updatePickerBottomInset];
+  [(STSPicker *)self->_zkwPicker performZKWSearchQuery];
+  [(STSSearchBrowserRootViewController *)self->_searchBrowserRootViewController fetchCategories];
+  v4 = +[STSFeedbackReporter sharedInstance];
+  [v4 searchViewDidAppearWithEvent:7];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SearchToShareAppViewController;
+  [(SearchToShareAppViewController *)&v4 viewDidAppear:appear];
+  [(STSZKWBrowserHeaderView *)self->_zkwHeaderView becomeFirstResponder];
+  [(SearchToShareAppViewController *)self setEngagementFeedbackBlock:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = SearchToShareAppViewController;
+  [(SearchToShareAppViewController *)&v5 viewDidDisappear:disappear];
+  [(SearchToShareAppViewController *)self setEngagementFeedbackBlock:0];
+  v4 = +[STSFeedbackReporter sharedInstance];
+  [v4 searchViewDidDisappear];
 }
 
 - (void)viewDidLayoutSubviews

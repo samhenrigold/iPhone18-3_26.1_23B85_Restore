@@ -121,7 +121,7 @@ LABEL_23:
 
 + (id)contextAuthorWithString:(id)string
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v5 = stringCopy;
   if (stringCopy)
@@ -137,11 +137,11 @@ LABEL_23:
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           v10 = HMFGetLogIdentifier();
-          v25 = 138543618;
-          v26 = v10;
-          v27 = 2112;
-          v28 = v5;
-          _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unknown components in context transaction author string will not be parsed: %@", &v25, 0x16u);
+          v24 = 138543618;
+          v25 = v10;
+          v26 = 2112;
+          v27 = v5;
+          _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unknown components in context transaction author string will not be parsed: %@", &v24, 0x16u);
         }
 
         objc_autoreleasePoolPop(v7);
@@ -289,11 +289,11 @@ LABEL_23:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = HMFGetLogIdentifier();
-        v25 = 138543618;
-        v26 = v17;
-        v27 = 2112;
-        v28 = v5;
-        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Invalid context transaction author string: %@", &v25, 0x16u);
+        v24 = 138543618;
+        v25 = v17;
+        v26 = 2112;
+        v27 = v5;
+        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Invalid context transaction author string: %@", &v24, 0x16u);
       }
 
       objc_autoreleasePoolPop(v14);
@@ -305,8 +305,6 @@ LABEL_23:
   {
     v13 = [HMDCoreDataContextTransactionAuthor contextAuthorWithType:0];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

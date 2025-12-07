@@ -13,6 +13,7 @@
 - (unsigned)deviceType;
 - (unsigned)volumeCapabilities;
 - (void)adjustVolume:(int64_t)volume details:(id)details;
+- (void)setVolumeMuted:(BOOL)muted details:(id)details;
 @end
 
 @implementation MRAVRoomOutputDevice
@@ -93,7 +94,7 @@
 {
   dCopy = d;
   v5 = [(MRAVRoomOutputDevice *)self uid];
-  if ([dCopy isEqualToString:v5])
+  if (objc_msgSend_isEqualToString_(dCopy))
   {
     v6 = 1;
   }
@@ -114,10 +115,10 @@
 
 uint64_t __36__MRAVRoomOutputDevice_containsUID___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 uid];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 uid];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (id)modelID
@@ -214,7 +215,7 @@ MRAVOutputDeviceDescription *__42__MRAVRoomOutputDevice_clusterComposition__bloc
 
 - (void)adjustVolume:(int64_t)volume details:(id)details
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E696AD60];
   detailsCopy = details;
   v9 = [v7 alloc];
@@ -241,7 +242,7 @@ MRAVOutputDeviceDescription *__42__MRAVRoomOutputDevice_clusterComposition__bloc
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v20 = v11;
+    v19 = v11;
     _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
@@ -252,8 +253,49 @@ MRAVOutputDeviceDescription *__42__MRAVRoomOutputDevice_clusterComposition__bloc
 
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
   [currentHandler handleFailureInMethod:a2 object:self file:@"MRAVRoomOutputDevice.m" lineNumber:179 description:{@"Invalid parameter not satisfying: %@", @"NO"}];
+}
 
-  v18 = *MEMORY[0x1E69E9840];
+- (void)setVolumeMuted:(BOOL)muted details:(id)details
+{
+  mutedCopy = muted;
+  v20 = *MEMORY[0x1E69E9840];
+  v7 = MEMORY[0x1E696AD60];
+  detailsCopy = details;
+  v9 = [v7 alloc];
+  requestID = [detailsCopy requestID];
+
+  v11 = [v9 initWithFormat:@"%@<%@>", @"MRAVRoomOutputDevice.muteVolume", requestID];
+  v12 = [MEMORY[0x1E696AD98] numberWithBool:mutedCopy];
+
+  if (v12)
+  {
+    v13 = [MEMORY[0x1E696AD98] numberWithBool:mutedCopy];
+    [v11 appendFormat:@" to %@", v13];
+  }
+
+  debugName = [(MRAVRoomOutputDevice *)self debugName];
+
+  if (debugName)
+  {
+    debugName2 = [(MRAVRoomOutputDevice *)self debugName];
+    [v11 appendFormat:@" for %@", debugName2];
+  }
+
+  v16 = _MRLogForCategory(0xAuLL);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543362;
+    v19 = v11;
+    _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
+  }
+
+  if (!self->_concreteOutputDevice)
+  {
+    [MRAVRoomOutputDevice setVolumeMuted:details:];
+  }
+
+  currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"MRAVRoomOutputDevice.m" lineNumber:186 description:{@"Invalid parameter not satisfying: %@", @"NO"}];
 }
 
 - (void)initWithOutputDevice:memberOutputDevices:.cold.1()

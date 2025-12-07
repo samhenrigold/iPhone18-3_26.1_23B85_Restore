@@ -8,6 +8,7 @@
 - (void)_checkIfThreadNetworkIsRunningWithCompletion:(id)completion;
 - (void)_removePreferredNetworkWithCompletion:(id)completion;
 - (void)_retrieveBorderRouterPreferredNetworkWithCompletion:(id)completion;
+- (void)_retrieveMetadataOnController:(id)controller homeHasResident:(BOOL)resident completion:(id)completion;
 - (void)_retrieveMetadataOnThreadCapableController:(id)controller threadClient:(id)client homeHasResident:(BOOL)resident completion:(id)completion;
 - (void)_retrieveMetadataWithCompletion:(id)completion;
 - (void)_retrievePreferredNetwork:(id)network completion:(id)completion;
@@ -78,30 +79,30 @@
 
 - (void)_removePreferredNetworkWithCompletion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   workQueue = [(HMDThreadNetworkMetadataStore *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__202996;
-  v21 = __Block_byref_object_dispose__202997;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__202996;
+  v20 = __Block_byref_object_dispose__202997;
   threadClientFactory = [(HMDThreadNetworkMetadataStore *)self threadClientFactory];
-  v22 = threadClientFactory[2]();
+  v21 = threadClientFactory[2]();
 
-  v7 = v18[5];
+  v7 = v17[5];
   if (v7)
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __71__HMDThreadNetworkMetadataStore__removePreferredNetworkWithCompletion___block_invoke;
-    v14[3] = &unk_27867FAA0;
-    v14[4] = self;
-    v15 = completionCopy;
-    v16 = &v17;
-    [v7 ctcsDeletePreferredNetworkWithCompletion:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __71__HMDThreadNetworkMetadataStore__removePreferredNetworkWithCompletion___block_invoke;
+    v13[3] = &unk_27867FAA0;
+    v13[4] = self;
+    v14 = completionCopy;
+    v15 = &v16;
+    [v7 ctcsDeletePreferredNetworkWithCompletion:v13];
   }
 
   else
@@ -113,7 +114,7 @@
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v24 = v11;
+      v23 = v11;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@CoreThreadCommissionerService is not reachable - cannot clear preferred thread credentials", buf, 0xCu);
     }
 
@@ -122,14 +123,12 @@
     (*(completionCopy + 2))(completionCopy, v12);
   }
 
-  _Block_object_dispose(&v17, 8);
-
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v16, 8);
 }
 
 void __71__HMDThreadNetworkMetadataStore__removePreferredNetworkWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -140,24 +139,24 @@ void __71__HMDThreadNetworkMetadataStore__removePreferredNetworkWithCompletion__
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v3;
+      v15 = 138543618;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v3;
       v9 = "%{public}@Failed to clear preferred thread network credentials: %@";
       v10 = v7;
       v11 = OS_LOG_TYPE_ERROR;
       v12 = 22;
 LABEL_6:
-      _os_log_impl(&dword_229538000, v10, v11, v9, &v16, v12);
+      _os_log_impl(&dword_229538000, v10, v11, v9, &v15, v12);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v16 = 138543362;
-    v17 = v8;
+    v15 = 138543362;
+    v16 = v8;
     v9 = "%{public}@Preferred thread network credentials cleared";
     v10 = v7;
     v11 = OS_LOG_TYPE_INFO;
@@ -167,8 +166,6 @@ LABEL_6:
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))(*(a1 + 40), v3, v13, v14);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removePreferredNetworkWithCompletion:(id)completion
@@ -346,7 +343,7 @@ void __77__HMDThreadNetworkMetadataStore_triggerPreferredNetworkUpdateWithComple
 
 - (void)_retrievePreferredNetwork:(id)network completion:(id)completion
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   completionCopy = completion;
   workQueue = [(HMDThreadNetworkMetadataStore *)self workQueue];
@@ -356,11 +353,11 @@ void __77__HMDThreadNetworkMetadataStore_triggerPreferredNetworkUpdateWithComple
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v34 = 0x3032000000;
-    v35 = __Block_byref_object_copy__202996;
-    v36 = __Block_byref_object_dispose__202997;
+    v33 = 0x3032000000;
+    v34 = __Block_byref_object_copy__202996;
+    v35 = __Block_byref_object_dispose__202997;
     threadClientFactory = [(HMDThreadNetworkMetadataStore *)self threadClientFactory];
-    v37 = threadClientFactory[2]();
+    v36 = threadClientFactory[2]();
 
     if (*(*(&buf + 1) + 40))
     {
@@ -370,26 +367,26 @@ void __77__HMDThreadNetworkMetadataStore_triggerPreferredNetworkUpdateWithComple
       v12 = *(*(&buf + 1) + 40);
       if (supportsThreadService)
       {
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __70__HMDThreadNetworkMetadataStore__retrievePreferredNetwork_completion___block_invoke;
-        v28[3] = &unk_27867FA00;
-        v29 = completionCopy;
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __70__HMDThreadNetworkMetadataStore__retrievePreferredNetwork_completion___block_invoke;
+        v27[3] = &unk_27867FA00;
+        v28 = completionCopy;
         p_buf = &buf;
-        [(HMDThreadNetworkMetadataStore *)self _retrievePreferredNetworkOnThreadCapableController:networkCopy threadClient:v12 completion:v28];
+        [(HMDThreadNetworkMetadataStore *)self _retrievePreferredNetworkOnThreadCapableController:networkCopy threadClient:v12 completion:v27];
       }
 
       else
       {
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __70__HMDThreadNetworkMetadataStore__retrievePreferredNetwork_completion___block_invoke_2;
-        v24[3] = &unk_27867FA50;
-        v24[4] = self;
-        v25 = networkCopy;
-        v27 = &buf;
-        v26 = completionCopy;
-        [v12 retrievePreferredNetworkInternallyOnMdnsAndSig:v24];
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __70__HMDThreadNetworkMetadataStore__retrievePreferredNetwork_completion___block_invoke_2;
+        v23[3] = &unk_27867FA50;
+        v23[4] = self;
+        v24 = networkCopy;
+        v26 = &buf;
+        v25 = completionCopy;
+        [v12 retrievePreferredNetworkInternallyOnMdnsAndSig:v23];
       }
     }
 
@@ -401,9 +398,9 @@ void __77__HMDThreadNetworkMetadataStore_triggerPreferredNetworkUpdateWithComple
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         v21 = HMFGetLogIdentifier();
-        *v31 = 138543362;
-        v32 = v21;
-        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@CoreThreadCommissionerService is not reachable.", v31, 0xCu);
+        *v30 = 138543362;
+        v31 = v21;
+        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@CoreThreadCommissionerService is not reachable.", v30, 0xCu);
       }
 
       objc_autoreleasePoolPop(v18);
@@ -431,13 +428,11 @@ void __77__HMDThreadNetworkMetadataStore_triggerPreferredNetworkUpdateWithComple
     v17 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     (*(completionCopy + 2))(completionCopy, 0, 0, 0, v17);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HMDThreadNetworkMetadataStore__retrievePreferredNetwork_completion___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -451,9 +446,9 @@ void __70__HMDThreadNetworkMetadataStore__retrievePreferredNetwork_completion___
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v40 = v27;
-      v41 = 2112;
-      v42 = v9;
+      v39 = v27;
+      v40 = 2112;
+      v41 = v9;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Control flow: Failed to retrieve preferred thread network credentials record : %@", buf, 0x16u);
     }
 
@@ -463,16 +458,16 @@ void __70__HMDThreadNetworkMetadataStore__retrievePreferredNetwork_completion___
     {
       v29 = *(a1 + 32);
       v30 = *(*(*(a1 + 56) + 8) + 40);
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __70__HMDThreadNetworkMetadataStore__retrievePreferredNetwork_completion___block_invoke_33;
-      v35[3] = &unk_27867FA28;
-      v37 = *(a1 + 48);
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __70__HMDThreadNetworkMetadataStore__retrievePreferredNetwork_completion___block_invoke_33;
+      v34[3] = &unk_27867FA28;
+      v36 = *(a1 + 48);
       v31 = *(a1 + 40);
       v32 = *(a1 + 56);
-      v36 = v31;
-      v38 = v32;
-      [v29 _validateOperationalDatasetWithTHClient:v30 operationalDataset:v28 storeCachedAOD:0 completion:v35];
+      v35 = v31;
+      v37 = v32;
+      [v29 _validateOperationalDatasetWithTHClient:v30 operationalDataset:v28 storeCachedAOD:0 completion:v34];
     }
 
     else
@@ -487,11 +482,11 @@ void __70__HMDThreadNetworkMetadataStore__retrievePreferredNetwork_completion___
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v40 = v14;
-      v41 = 2112;
-      v42 = v7;
-      v43 = 2112;
-      v44 = v8;
+      v39 = v14;
+      v40 = 2112;
+      v41 = v7;
+      v42 = 2112;
+      v43 = v8;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Control flow: retrievePreferredNetworkInternallyOnMdnsAndSig returned THCredential:%@, uuid %@", buf, 0x20u);
     }
 
@@ -501,22 +496,20 @@ void __70__HMDThreadNetworkMetadataStore__retrievePreferredNetwork_completion___
     v17 = [v7 channel];
     v18 = [v7 panID];
     [v7 extendedPANID];
-    v19 = v34 = v8;
+    v19 = v33 = v8;
     v20 = [v7 networkKey];
     v21 = [v7 PSKC];
     v22 = [v7 activeOperationalDataSet];
     v23 = [v15 initWithName:v16 channel:v17 PANID:v18 extendedPANID:v19 masterKey:v20 passPhrase:0 PSKc:v21 operationalDataset:v22];
 
-    v8 = v34;
+    v8 = v33;
     v24 = *(a1 + 48);
-    v25 = [v34 UUIDString];
+    v25 = [v33 UUIDString];
     v26 = [v7 activeOperationalDataSet];
     (*(v24 + 16))(v24, v23, v25, v26, 0);
 
     v9 = 0;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_retrievePreferredNetworkOnThreadCapableController:(id)controller threadClient:(id)client completion:(id)completion
@@ -543,7 +536,7 @@ void __70__HMDThreadNetworkMetadataStore__retrievePreferredNetwork_completion___
 
 void __108__HMDThreadNetworkMetadataStore__retrievePreferredNetworkOnThreadCapableController_threadClient_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -557,9 +550,9 @@ void __108__HMDThreadNetworkMetadataStore__retrievePreferredNetworkOnThreadCapab
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v37 = v27;
-      v38 = 2112;
-      v39 = v9;
+      v36 = v27;
+      v37 = 2112;
+      v38 = v9;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Control flow: retrievePreferredNetworkWithNoScan failed : %@", buf, 0x16u);
     }
 
@@ -568,14 +561,14 @@ void __108__HMDThreadNetworkMetadataStore__retrievePreferredNetworkOnThreadCapab
     if (v28)
     {
       v29 = *(a1 + 32);
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __108__HMDThreadNetworkMetadataStore__retrievePreferredNetworkOnThreadCapableController_threadClient_completion___block_invoke_32;
-      v33[3] = &unk_2786815F0;
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __108__HMDThreadNetworkMetadataStore__retrievePreferredNetworkOnThreadCapableController_threadClient_completion___block_invoke_32;
+      v32[3] = &unk_2786815F0;
       v30 = *(a1 + 48);
-      v35 = *(a1 + 56);
-      v34 = *(a1 + 40);
-      [v29 _validateOperationalDatasetWithTHClient:v30 operationalDataset:v28 storeCachedAOD:0 completion:v33];
+      v34 = *(a1 + 56);
+      v33 = *(a1 + 40);
+      [v29 _validateOperationalDatasetWithTHClient:v30 operationalDataset:v28 storeCachedAOD:0 completion:v32];
     }
 
     else
@@ -590,11 +583,11 @@ void __108__HMDThreadNetworkMetadataStore__retrievePreferredNetworkOnThreadCapab
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v37 = v14;
-      v38 = 2112;
-      v39 = v7;
-      v40 = 2112;
-      v41 = v8;
+      v36 = v14;
+      v37 = 2112;
+      v38 = v7;
+      v39 = 2112;
+      v40 = v8;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Control flow: retrievePreferredNetworkWithNoScan returned THCredential:%@, uuid %@", buf, 0x20u);
     }
 
@@ -604,22 +597,20 @@ void __108__HMDThreadNetworkMetadataStore__retrievePreferredNetworkOnThreadCapab
     v17 = [v7 channel];
     v18 = [v7 panID];
     [v7 extendedPANID];
-    v19 = v32 = v8;
+    v19 = v31 = v8;
     v20 = [v7 networkKey];
     v21 = [v7 PSKC];
     v22 = [v7 activeOperationalDataSet];
     v23 = [v15 initWithName:v16 channel:v17 PANID:v18 extendedPANID:v19 masterKey:v20 passPhrase:0 PSKc:v21 operationalDataset:v22];
 
-    v8 = v32;
+    v8 = v31;
     v24 = *(a1 + 56);
-    v25 = [v32 UUIDString];
+    v25 = [v31 UUIDString];
     v26 = [v7 activeOperationalDataSet];
     (*(v24 + 16))(v24, v23, v25, v26, 0);
 
     v9 = 0;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrievePreferredNetwork:(id)network completion:(id)completion
@@ -675,7 +666,7 @@ void __69__HMDThreadNetworkMetadataStore_retrievePreferredNetwork_completion___b
 
 void __118__HMDThreadNetworkMetadataStore__validateOperationalDatasetWithTHClient_operationalDataset_storeCachedAOD_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -686,13 +677,13 @@ void __118__HMDThreadNetworkMetadataStore__validateOperationalDatasetWithTHClien
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v25 = HMFGetLogIdentifier();
+      v24 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v31 = v25;
+      v29 = v24;
+      v30 = 2112;
+      v31 = v6;
       v32 = 2112;
-      v33 = v6;
-      v34 = 2112;
-      v35 = v5;
+      v33 = v5;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unexpected, operational dataset validation failed. Error: %@, credentials: %@", buf, 0x20u);
     }
 
@@ -705,40 +696,39 @@ void __118__HMDThreadNetworkMetadataStore__validateOperationalDatasetWithTHClien
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v12 = *(a1 + 64);
-      v13 = HMFBooleanToString();
+      v12 = HMFBooleanToString();
       *buf = 138543874;
-      v31 = v11;
+      v29 = v11;
+      v30 = 2112;
+      v31 = v12;
       v32 = 2112;
-      v33 = v13;
-      v34 = 2112;
-      v35 = v5;
+      v33 = v5;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Operational dataset validation passed, store cached AOD: %@, THCredential:%@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
-    v14 = objc_alloc(MEMORY[0x277CD1EA8]);
-    v15 = [v5 networkName];
-    v16 = [v5 channel];
-    v17 = [v5 panID];
-    v18 = [v5 extendedPANID];
-    v19 = [v5 networkKey];
-    v20 = [v5 PSKC];
-    v21 = [v5 activeOperationalDataSet];
-    v22 = [v14 initWithName:v15 channel:v16 PANID:v17 extendedPANID:v18 masterKey:v19 passPhrase:0 PSKc:v20 operationalDataset:v21];
+    v13 = objc_alloc(MEMORY[0x277CD1EA8]);
+    v14 = [v5 networkName];
+    v15 = [v5 channel];
+    v16 = [v5 panID];
+    v17 = [v5 extendedPANID];
+    v18 = [v5 networkKey];
+    v19 = [v5 PSKC];
+    v20 = [v5 activeOperationalDataSet];
+    v21 = [v13 initWithName:v14 channel:v15 PANID:v16 extendedPANID:v17 masterKey:v18 passPhrase:0 PSKc:v19 operationalDataset:v20];
 
     if (*(a1 + 64) == 1)
     {
-      v23 = *(a1 + 40);
-      v24 = *(a1 + 48);
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __118__HMDThreadNetworkMetadataStore__validateOperationalDatasetWithTHClient_operationalDataset_storeCachedAOD_completion___block_invoke_28;
-      v27[3] = &unk_278689358;
-      v27[4] = *(a1 + 32);
-      v29 = *(a1 + 56);
-      v28 = v22;
-      [v23 storeCachedAODasPreferredNetwork:v24 completion:v27];
+      v22 = *(a1 + 40);
+      v23 = *(a1 + 48);
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __118__HMDThreadNetworkMetadataStore__validateOperationalDatasetWithTHClient_operationalDataset_storeCachedAOD_completion___block_invoke_28;
+      v25[3] = &unk_278689358;
+      v25[4] = *(a1 + 32);
+      v27 = *(a1 + 56);
+      v26 = v21;
+      [v22 storeCachedAODasPreferredNetwork:v23 completion:v25];
     }
 
     else
@@ -748,13 +738,11 @@ void __118__HMDThreadNetworkMetadataStore__validateOperationalDatasetWithTHClien
 
     v6 = 0;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __118__HMDThreadNetworkMetadataStore__validateOperationalDatasetWithTHClient_operationalDataset_storeCachedAOD_completion___block_invoke_28(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -765,23 +753,23 @@ void __118__HMDThreadNetworkMetadataStore__validateOperationalDatasetWithTHClien
     if (v7)
     {
       v8 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v3;
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v3;
       v9 = "%{public}@Failed to store cached AOD: %@, proceeding";
       v10 = v6;
       v11 = 22;
 LABEL_6:
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, v9, &v14, v11);
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, v9, &v13, v11);
     }
   }
 
   else if (v7)
   {
     v8 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v8;
+    v13 = 138543362;
+    v14 = v8;
     v9 = "%{public}@THClient storeCachedAODasPreferredNetwork successful";
     v10 = v6;
     v11 = 12;
@@ -790,36 +778,34 @@ LABEL_6:
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 48) + 16))(*(a1 + 48), *(a1 + 40), 0, v12);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_retrieveBorderRouterPreferredNetworkWithCompletion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   workQueue = [(HMDThreadNetworkMetadataStore *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__202996;
-  v21 = __Block_byref_object_dispose__202997;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__202996;
+  v20 = __Block_byref_object_dispose__202997;
   threadClientFactory = [(HMDThreadNetworkMetadataStore *)self threadClientFactory];
-  v22 = threadClientFactory[2]();
+  v21 = threadClientFactory[2]();
 
-  v7 = v18[5];
+  v7 = v17[5];
   if (v7)
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __85__HMDThreadNetworkMetadataStore__retrieveBorderRouterPreferredNetworkWithCompletion___block_invoke;
-    v14[3] = &unk_27867F8C0;
-    v14[4] = self;
-    v15 = completionCopy;
-    v16 = &v17;
-    [v7 retrievePreferredCredentialsInternally:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __85__HMDThreadNetworkMetadataStore__retrieveBorderRouterPreferredNetworkWithCompletion___block_invoke;
+    v13[3] = &unk_27867F8C0;
+    v13[4] = self;
+    v14 = completionCopy;
+    v15 = &v16;
+    [v7 retrievePreferredCredentialsInternally:v13];
   }
 
   else
@@ -831,7 +817,7 @@ LABEL_6:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v24 = v11;
+      v23 = v11;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@CoreThreadCommissionerService is not reachable.", buf, 0xCu);
     }
 
@@ -840,14 +826,12 @@ LABEL_6:
     (*(completionCopy + 2))(completionCopy, 0, v12);
   }
 
-  _Block_object_dispose(&v17, 8);
-
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v16, 8);
 }
 
 void __85__HMDThreadNetworkMetadataStore__retrieveBorderRouterPreferredNetworkWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -861,9 +845,9 @@ void __85__HMDThreadNetworkMetadataStore__retrieveBorderRouterPreferredNetworkWi
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v24;
-      v30 = 2112;
-      v31 = v10;
+      v28 = v24;
+      v29 = 2112;
+      v30 = v10;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve preferred thread network credentials record : %@", buf, 0x16u);
     }
 
@@ -875,23 +859,21 @@ void __85__HMDThreadNetworkMetadataStore__retrieveBorderRouterPreferredNetworkWi
   {
     v11 = objc_alloc(MEMORY[0x277CD1EA8]);
     v12 = [v7 networkName];
-    v26 = [v7 channel];
+    v25 = [v7 channel];
     v13 = [v7 panID];
     v14 = [v7 extendedPANID];
     v15 = [v7 networkKey];
     [v7 PSKC];
-    v16 = v27 = a1;
+    v16 = v26 = a1;
     [v7 activeOperationalDataSet];
     v18 = v17 = v8;
     v19 = v12;
-    v20 = [v11 initWithName:v12 channel:v26 PANID:v13 extendedPANID:v14 masterKey:v15 passPhrase:0 PSKc:v16 operationalDataset:v18];
+    v20 = [v11 initWithName:v12 channel:v25 PANID:v13 extendedPANID:v14 masterKey:v15 passPhrase:0 PSKc:v16 operationalDataset:v18];
 
     v8 = v17;
     v10 = 0;
-    (*(*(v27 + 40) + 16))();
+    (*(*(v26 + 40) + 16))();
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrieveBorderRouterPreferredNetworkWithCompletion:(id)completion
@@ -921,9 +903,75 @@ void __84__HMDThreadNetworkMetadataStore_retrieveBorderRouterPreferredNetworkWit
   [v2 _retrieveBorderRouterPreferredNetworkWithCompletion:v4];
 }
 
+- (void)_retrieveMetadataOnController:(id)controller homeHasResident:(BOOL)resident completion:(id)completion
+{
+  residentCopy = resident;
+  v35 = *MEMORY[0x277D85DE8];
+  controllerCopy = controller;
+  completionCopy = completion;
+  workQueue = [(HMDThreadNetworkMetadataStore *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__202996;
+  v31 = __Block_byref_object_dispose__202997;
+  threadClientFactory = [(HMDThreadNetworkMetadataStore *)self threadClientFactory];
+  v32 = threadClientFactory[2]();
+
+  if (v28[5])
+  {
+    if (isFeatureMatteriPhoneOnlyPairingControlForThreadEnabled() && (+[HMDDeviceCapabilities deviceCapabilities](HMDDeviceCapabilities, "deviceCapabilities"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 supportsThreadService], v12, v13))
+    {
+      v14 = v28[5];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __90__HMDThreadNetworkMetadataStore__retrieveMetadataOnController_homeHasResident_completion___block_invoke;
+      v24[3] = &unk_27867F960;
+      v25 = completionCopy;
+      v26 = &v27;
+      [(HMDThreadNetworkMetadataStore *)self _retrieveMetadataOnThreadCapableController:controllerCopy threadClient:v14 homeHasResident:residentCopy completion:v24];
+    }
+
+    else
+    {
+      v15 = v28[5];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __90__HMDThreadNetworkMetadataStore__retrieveMetadataOnController_homeHasResident_completion___block_invoke_2;
+      v21[3] = &unk_27867F8C0;
+      v21[4] = self;
+      v22 = completionCopy;
+      v23 = &v27;
+      [v15 retrievePreferredCredentialsInternally:v21];
+    }
+  }
+
+  else
+  {
+    v16 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v18 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      v19 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v34 = v19;
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@CoreThreadCommissionerService is not reachable.", buf, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v16);
+    v20 = [MEMORY[0x277CCA9B8] hmErrorWithCode:58];
+    (*(completionCopy + 2))(completionCopy, 0, v20);
+  }
+
+  _Block_object_dispose(&v27, 8);
+}
+
 void __90__HMDThreadNetworkMetadataStore__retrieveMetadataOnController_homeHasResident_completion___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -937,9 +985,9 @@ void __90__HMDThreadNetworkMetadataStore__retrieveMetadataOnController_homeHasRe
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v24;
-      v30 = 2112;
-      v31 = v10;
+      v28 = v24;
+      v29 = 2112;
+      v30 = v10;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Pairing flow: retrievePreferredCredentialsInternally failed : %@", buf, 0x16u);
     }
 
@@ -951,23 +999,21 @@ void __90__HMDThreadNetworkMetadataStore__retrieveMetadataOnController_homeHasRe
   {
     v11 = objc_alloc(MEMORY[0x277CD1EA8]);
     v12 = [v7 networkName];
-    v26 = [v7 channel];
+    v25 = [v7 channel];
     v13 = [v7 panID];
     v14 = [v7 extendedPANID];
     v15 = [v7 networkKey];
     [v7 PSKC];
-    v16 = v27 = a1;
+    v16 = v26 = a1;
     [v7 activeOperationalDataSet];
     v18 = v17 = v8;
     v19 = v12;
-    v20 = [v11 initWithName:v12 channel:v26 PANID:v13 extendedPANID:v14 masterKey:v15 passPhrase:0 PSKc:v16 operationalDataset:v18];
+    v20 = [v11 initWithName:v12 channel:v25 PANID:v13 extendedPANID:v14 masterKey:v15 passPhrase:0 PSKc:v16 operationalDataset:v18];
 
     v8 = v17;
     v10 = 0;
-    (*(*(v27 + 40) + 16))();
+    (*(*(v26 + 40) + 16))();
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_retrieveMetadataOnThreadCapableController:(id)controller threadClient:(id)client homeHasResident:(BOOL)resident completion:(id)completion
@@ -995,7 +1041,7 @@ void __90__HMDThreadNetworkMetadataStore__retrieveMetadataOnController_homeHasRe
 
 void __116__HMDThreadNetworkMetadataStore__retrieveMetadataOnThreadCapableController_threadClient_homeHasResident_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1009,9 +1055,9 @@ void __116__HMDThreadNetworkMetadataStore__retrieveMetadataOnThreadCapableContro
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v44 = v23;
-      v45 = 2112;
-      v46 = v10;
+      v43 = v23;
+      v44 = 2112;
+      v45 = v10;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Pairing flow: retrievePreferredNetworkWithNoScan failed : %@", buf, 0x16u);
     }
 
@@ -1027,7 +1073,7 @@ void __116__HMDThreadNetworkMetadataStore__retrieveMetadataOnThreadCapableContro
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v44 = v29;
+        v43 = v29;
         _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@Pairing flow: Using cached AOD, validating operational dataset", buf, 0xCu);
       }
 
@@ -1036,13 +1082,13 @@ void __116__HMDThreadNetworkMetadataStore__retrieveMetadataOnThreadCapableContro
       v30 = *(a1 + 48);
       v32 = *(a1 + 32);
       v33 = *(a1 + 64);
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __116__HMDThreadNetworkMetadataStore__retrieveMetadataOnThreadCapableController_threadClient_homeHasResident_completion___block_invoke_27;
-      v39[3] = &unk_27867F910;
-      v40 = *(a1 + 56);
-      [v32 _validateOperationalDatasetWithTHClient:v30 operationalDataset:v31 storeCachedAOD:(v33 & 1) == 0 completion:v39];
-      v34 = v40;
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __116__HMDThreadNetworkMetadataStore__retrieveMetadataOnThreadCapableController_threadClient_homeHasResident_completion___block_invoke_27;
+      v38[3] = &unk_27867F910;
+      v39 = *(a1 + 56);
+      [v32 _validateOperationalDatasetWithTHClient:v30 operationalDataset:v31 storeCachedAOD:(v33 & 1) == 0 completion:v38];
+      v34 = v39;
     }
 
     else
@@ -1051,20 +1097,20 @@ void __116__HMDThreadNetworkMetadataStore__retrieveMetadataOnThreadCapableContro
       {
         v35 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v44 = v35;
+        v43 = v35;
         _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@Pairing flow: No cached AOD, calling retrieveOrGeneratePreferredNetworkInternally", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v25);
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __116__HMDThreadNetworkMetadataStore__retrieveMetadataOnThreadCapableController_threadClient_homeHasResident_completion___block_invoke_26;
-      v41[3] = &unk_27867F8E8;
-      v41[4] = *(a1 + 32);
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __116__HMDThreadNetworkMetadataStore__retrieveMetadataOnThreadCapableController_threadClient_homeHasResident_completion___block_invoke_26;
+      v40[3] = &unk_27867F8E8;
+      v40[4] = *(a1 + 32);
       v36 = *(a1 + 48);
-      v42 = *(a1 + 56);
-      [v36 retrieveOrGeneratePreferredNetworkInternally:v41];
-      v34 = v42;
+      v41 = *(a1 + 56);
+      [v36 retrieveOrGeneratePreferredNetworkInternally:v40];
+      v34 = v41;
     }
   }
 
@@ -1075,24 +1121,22 @@ void __116__HMDThreadNetworkMetadataStore__retrieveMetadataOnThreadCapableContro
     v13 = [v7 channel];
     v14 = [v7 panID];
     [v7 extendedPANID];
-    v15 = v38 = v8;
+    v15 = v37 = v8;
     v16 = [v7 networkKey];
     v17 = [v7 PSKC];
     v18 = [v7 activeOperationalDataSet];
     v19 = [v11 initWithName:v12 channel:v13 PANID:v14 extendedPANID:v15 masterKey:v16 passPhrase:0 PSKc:v17 operationalDataset:v18];
 
     v10 = 0;
-    v8 = v38;
+    v8 = v37;
 
     (*(*(a1 + 56) + 16))();
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __116__HMDThreadNetworkMetadataStore__retrieveMetadataOnThreadCapableController_threadClient_homeHasResident_completion___block_invoke_26(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1106,9 +1150,9 @@ void __116__HMDThreadNetworkMetadataStore__retrieveMetadataOnThreadCapableContro
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v25;
-      v30 = 2112;
-      v31 = v9;
+      v28 = v25;
+      v29 = 2112;
+      v30 = v9;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Pairing flow: retrieveOrGeneratePreferredNetworkInternally failed : %@", buf, 0x16u);
     }
 
@@ -1118,16 +1162,16 @@ void __116__HMDThreadNetworkMetadataStore__retrieveMetadataOnThreadCapableContro
 
   else
   {
-    v27 = a1;
+    v26 = a1;
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v29 = v14;
-      v30 = 2112;
-      v31 = v7;
-      v32 = 2112;
-      v33 = v8;
+      v28 = v14;
+      v29 = 2112;
+      v30 = v7;
+      v31 = 2112;
+      v32 = v8;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Pairing flow: retrieveOrGeneratePreferredNetworkInternally returned THCredential:%@, uuid %@", buf, 0x20u);
     }
 
@@ -1144,38 +1188,36 @@ void __116__HMDThreadNetworkMetadataStore__retrieveMetadataOnThreadCapableContro
     v24 = [v15 initWithName:v16 channel:v17 PANID:v18 extendedPANID:v19 masterKey:v20 passPhrase:0 PSKc:v21 operationalDataset:v23];
 
     v8 = v22;
-    (*(*(v27 + 40) + 16))();
+    (*(*(v26 + 40) + 16))();
 
     v9 = 0;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_retrieveMetadataWithCompletion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   workQueue = [(HMDThreadNetworkMetadataStore *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__202996;
-  v20 = __Block_byref_object_dispose__202997;
-  v21 = [objc_alloc(MEMORY[0x277CE1968]) initWithKeychainAccessGroup:@"com.apple.thread.network"];
-  v6 = v17[5];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__202996;
+  v19 = __Block_byref_object_dispose__202997;
+  v20 = [objc_alloc(MEMORY[0x277CE1968]) initWithKeychainAccessGroup:@"com.apple.thread.network"];
+  v6 = v16[5];
   if (v6)
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __65__HMDThreadNetworkMetadataStore__retrieveMetadataWithCompletion___block_invoke;
-    v13[3] = &unk_27867F8C0;
-    v13[4] = self;
-    v15 = &v16;
-    v14 = completionCopy;
-    [v6 retrievePreferredCredentialsInternally:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __65__HMDThreadNetworkMetadataStore__retrieveMetadataWithCompletion___block_invoke;
+    v12[3] = &unk_27867F8C0;
+    v12[4] = self;
+    v14 = &v15;
+    v13 = completionCopy;
+    [v6 retrievePreferredCredentialsInternally:v12];
   }
 
   else
@@ -1187,7 +1229,7 @@ void __116__HMDThreadNetworkMetadataStore__retrieveMetadataOnThreadCapableContro
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v10;
+      v22 = v10;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@CoreThreadCommissionerService is not reachable.", buf, 0xCu);
     }
 
@@ -1196,14 +1238,12 @@ void __116__HMDThreadNetworkMetadataStore__retrieveMetadataOnThreadCapableContro
     (*(completionCopy + 2))(completionCopy, 0, v11);
   }
 
-  _Block_object_dispose(&v16, 8);
-
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
 }
 
 void __65__HMDThreadNetworkMetadataStore__retrieveMetadataWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1217,9 +1257,9 @@ void __65__HMDThreadNetworkMetadataStore__retrieveMetadataWithCompletion___block
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v39 = v24;
-      v40 = 2112;
-      v41 = v10;
+      v38 = v24;
+      v39 = 2112;
+      v40 = v10;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve preferred thread network credentials record : %@", buf, 0x16u);
     }
 
@@ -1227,17 +1267,17 @@ void __65__HMDThreadNetworkMetadataStore__retrieveMetadataWithCompletion___block
     if (isFeatureMatteriPhoneOnlyPairingControlForThreadEnabled() && (+[HMDDeviceCapabilities deviceCapabilities](HMDDeviceCapabilities, "deviceCapabilities"), v25 = objc_claimAutoreleasedReturnValue(), v26 = [v25 supportsThreadService], v25, v26))
     {
       v27 = *(*(*(a1 + 48) + 8) + 40);
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __65__HMDThreadNetworkMetadataStore__retrieveMetadataWithCompletion___block_invoke_23;
-      v35[3] = &unk_27867F8C0;
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __65__HMDThreadNetworkMetadataStore__retrieveMetadataWithCompletion___block_invoke_23;
+      v34[3] = &unk_27867F8C0;
       v28 = *(a1 + 40);
-      v35[4] = *(a1 + 32);
+      v34[4] = *(a1 + 32);
       v29 = v28;
       v30 = *(a1 + 48);
-      v36 = v29;
-      v37 = v30;
-      [v27 retrieveOrGeneratePreferredNetworkInternally:v35];
+      v35 = v29;
+      v36 = v30;
+      [v27 retrieveOrGeneratePreferredNetworkInternally:v34];
     }
 
     else
@@ -1249,9 +1289,9 @@ void __65__HMDThreadNetworkMetadataStore__retrieveMetadataWithCompletion___block
 
   else
   {
-    v34 = objc_alloc(MEMORY[0x277CD1EA8]);
-    v32 = [v7 networkName];
-    v33 = [v7 channel];
+    v33 = objc_alloc(MEMORY[0x277CD1EA8]);
+    v31 = [v7 networkName];
+    v32 = [v7 channel];
     v11 = [v7 panID];
     v12 = [v7 extendedPANID];
     v13 = [v7 networkKey];
@@ -1260,7 +1300,7 @@ void __65__HMDThreadNetworkMetadataStore__retrieveMetadataWithCompletion___block
     v15 = a1;
     v17 = v16 = v8;
     v18 = [v14 activeOperationalDataSet];
-    v19 = [v34 initWithName:v32 channel:v33 PANID:v11 extendedPANID:v12 masterKey:v13 passPhrase:0 PSKc:v17 operationalDataset:v18];
+    v19 = [v33 initWithName:v31 channel:v32 PANID:v11 extendedPANID:v12 masterKey:v13 passPhrase:0 PSKc:v17 operationalDataset:v18];
 
     v10 = 0;
     v8 = v16;
@@ -1270,13 +1310,11 @@ void __65__HMDThreadNetworkMetadataStore__retrieveMetadataWithCompletion___block
     v7 = v14;
     [*(*(v20 + 8) + 40) invalidate];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HMDThreadNetworkMetadataStore__retrieveMetadataWithCompletion___block_invoke_23(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1290,9 +1328,9 @@ void __65__HMDThreadNetworkMetadataStore__retrieveMetadataWithCompletion___block
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v25;
-      v30 = 2112;
-      v31 = v9;
+      v28 = v25;
+      v29 = 2112;
+      v30 = v9;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve or generate preferred thread network credentials record : %@", buf, 0x16u);
     }
 
@@ -1303,16 +1341,16 @@ void __65__HMDThreadNetworkMetadataStore__retrieveMetadataWithCompletion___block
 
   else
   {
-    v27 = a1;
+    v26 = a1;
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v29 = v14;
-      v30 = 2112;
-      v31 = v7;
-      v32 = 2112;
-      v33 = v8;
+      v28 = v14;
+      v29 = 2112;
+      v30 = v7;
+      v31 = 2112;
+      v32 = v8;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, "%{public}@retrieveOrGeneratePreferredNetworkInternally returned THCredential:%@, uuid %@", buf, 0x20u);
     }
 
@@ -1329,13 +1367,11 @@ void __65__HMDThreadNetworkMetadataStore__retrieveMetadataWithCompletion___block
     v24 = [v15 initWithName:v16 channel:v17 PANID:v18 extendedPANID:v19 masterKey:v20 passPhrase:0 PSKc:v22 operationalDataset:v23];
 
     v8 = v21;
-    (*(*(v27 + 40) + 16))();
-    [*(*(*(v27 + 48) + 8) + 40) invalidate];
+    (*(*(v26 + 40) + 16))();
+    [*(*(*(v26 + 48) + 8) + 40) invalidate];
 
     v9 = 0;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrieveMetadataWithCompletion:(id)completion
@@ -1468,7 +1504,7 @@ id __69__HMDThreadNetworkMetadataStore_initInternalWithThreadClientFactory___blo
 
 + (HMDThreadNetworkMetadataStore)defaultStore
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   WeakRetained = objc_loadWeakRetained(&defaultStore_weakStore);
   v4 = objc_autoreleasePoolPush();
@@ -1479,9 +1515,9 @@ id __69__HMDThreadNetworkMetadataStore_initInternalWithThreadClientFactory___blo
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v7 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v7;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Reusing existing store", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v7;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Reusing existing store", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -1493,9 +1529,9 @@ id __69__HMDThreadNetworkMetadataStore_initInternalWithThreadClientFactory___blo
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Creating new store", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Creating new store", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -1504,7 +1540,6 @@ id __69__HMDThreadNetworkMetadataStore_initInternalWithThreadClientFactory___blo
   }
 
   os_unfair_lock_unlock(&defaultStore_lock);
-  v10 = *MEMORY[0x277D85DE8];
 
   return WeakRetained;
 }
@@ -1523,10 +1558,9 @@ id __69__HMDThreadNetworkMetadataStore_initInternalWithThreadClientFactory___blo
 
 void __44__HMDThreadNetworkMetadataStore_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_203067;
-  logCategory__hmf_once_v1_203067 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_203067;
+  logCategory__hmf_once_v1_203067 = v0;
 }
 
 + (id)new

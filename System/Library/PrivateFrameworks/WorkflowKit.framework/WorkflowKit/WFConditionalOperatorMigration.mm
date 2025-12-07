@@ -40,17 +40,17 @@ void __49__WFConditionalOperatorMigration_migrateWorkflow__block_invoke(uint64_t
     v6 = [v12 objectForKeyedSubscript:@"WFCondition"];
     if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      if ([v6 isEqualToString:@"Equals"])
+      if (objc_msgSend_isEqualToString_(v6))
       {
         v7 = 4;
       }
 
-      else if ([v6 isEqualToString:@"Is Greater Than"])
+      else if (objc_msgSend_isEqualToString_(v6))
       {
         v7 = 2;
       }
 
-      else if ([v6 isEqualToString:@"Is Less Than"])
+      else if (objc_msgSend_isEqualToString_(v6))
       {
         v7 = 0;
       }

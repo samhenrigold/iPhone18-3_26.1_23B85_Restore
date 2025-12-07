@@ -66,7 +66,7 @@
 
 - (BOOL)resizeWithError:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = [(SKDiskResizerBase *)self resizeStateMachine:?];
   [(SKDiskResizerBase *)self setActiveFSM:v5];
 
@@ -75,9 +75,9 @@
   if (activeFSM)
   {
     activeFSM2 = [(SKDiskResizerBase *)self activeFSM];
-    v18 = 0;
-    [activeFSM2 runWithError:&v18];
-    v8 = v18;
+    v17 = 0;
+    [activeFSM2 runWithError:&v17];
+    v8 = v17;
 
     resizeError = [(SKDiskResizerBase *)self resizeError];
 
@@ -109,14 +109,13 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v20 = "[SKDiskResizerBase resizeWithError:]";
+      v19 = "[SKDiskResizerBase resizeWithError:]";
       _os_log_impl(&dword_26BBB8000, v8, OS_LOG_TYPE_ERROR, "%s: Can't create FSM for resize", buf, 0xCu);
     }
 
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -152,7 +151,7 @@
 
 - (id)rollbackResize:(id *)resize
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (resize && (v5 = *resize) != 0)
   {
     v6 = v5;
@@ -165,13 +164,13 @@
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         resizeError2 = [(SKDiskResizerBase *)self resizeError];
-        v16 = 136315650;
-        v17 = "[SKDiskResizerBase rollbackResize:]";
-        v18 = 2112;
-        v19 = v6;
-        v20 = 2112;
+        v15 = 136315650;
+        v16 = "[SKDiskResizerBase rollbackResize:]";
+        v17 = 2112;
+        v18 = v6;
+        v19 = 2112;
         requestedSize = resizeError2;
-        _os_log_impl(&dword_26BBB8000, v9, OS_LOG_TYPE_ERROR, "%s: Failing resize with %@ after attempt to recover from %@", &v16, 0x20u);
+        _os_log_impl(&dword_26BBB8000, v9, OS_LOG_TYPE_ERROR, "%s: Failing resize with %@ after attempt to recover from %@", &v15, 0x20u);
       }
 
       *resize = [(SKDiskResizerBase *)self resizeError];
@@ -183,15 +182,15 @@
     {
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 136315906;
-        v17 = "[SKDiskResizerBase rollbackResize:]";
-        v18 = 2112;
-        v19 = v6;
-        v20 = 2048;
+        v15 = 136315906;
+        v16 = "[SKDiskResizerBase rollbackResize:]";
+        v17 = 2112;
+        v18 = v6;
+        v19 = 2048;
         requestedSize = [(SKDiskResizerBase *)self requestedSize];
-        v22 = 2048;
+        v21 = 2048;
         originalSize = [(SKDiskResizerBase *)self originalSize];
-        _os_log_impl(&dword_26BBB8000, v9, OS_LOG_TYPE_DEFAULT, "%s: Rolling back resize after %@, reverting resize direction from %llu to %llu", &v16, 0x2Au);
+        _os_log_impl(&dword_26BBB8000, v9, OS_LOG_TYPE_DEFAULT, "%s: Rolling back resize after %@, reverting resize direction from %llu to %llu", &v15, 0x2Au);
       }
 
       [(SKDiskResizerBase *)self setResizeError:v6];
@@ -207,15 +206,13 @@
     v12 = SKGetOSLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v16 = 136315138;
-      v17 = "[SKDiskResizerBase rollbackResize:]";
-      _os_log_impl(&dword_26BBB8000, v12, OS_LOG_TYPE_ERROR, "%s: Reached resize rollback without setting any error", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "[SKDiskResizerBase rollbackResize:]";
+      _os_log_impl(&dword_26BBB8000, v12, OS_LOG_TYPE_ERROR, "%s: Reached resize rollback without setting any error", &v15, 0xCu);
     }
 
     eventFromSize = [SKError nilWithSKErrorCode:102 error:resize];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return eventFromSize;
 }

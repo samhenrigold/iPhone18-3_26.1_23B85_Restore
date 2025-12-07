@@ -11,13 +11,13 @@
 - (double)modelTransform;
 - (id).cxx_construct;
 - (id)initSecureGlyphViewWithConfiguration:(id *)configuration;
-- (uint64_t)_updateRendererPaused:(uint64_t)result;
-- (uint64_t)beginExternalAnimation;
-- (uint64_t)endExternalAnimation;
 - (uint64_t)invalidate;
 - (uint64_t)isWireframeEnabled;
-- (uint64_t)setModelTransform:(uint64_t)result;
-- (uint64_t)setWireframeEnabled:(uint64_t)result;
+- (unsigned)_updateRendererPaused:(unsigned __int8 *)result;
+- (unsigned)beginExternalAnimation;
+- (unsigned)endExternalAnimation;
+- (unsigned)setModelTransform:(unsigned __int8 *)result;
+- (unsigned)setWireframeEnabled:(unsigned __int8 *)result;
 - (void)_applyCheckmarkColor;
 - (void)_applyConfiguration;
 - (void)_applyConfigurationWithTraitCollection:(uint64_t)collection;
@@ -2279,14 +2279,14 @@ LABEL_65:
   }
 }
 
-- (uint64_t)_updateRendererPaused:(uint64_t)result
+- (unsigned)_updateRendererPaused:(unsigned __int8 *)result
 {
   if (result)
   {
     v2 = result;
-    if (((a2 & 1) != 0 || (*(result + 584) & 1) != 0 || *(result + 488)) && (*(result + 480) & 1) == 0)
+    if (((a2 & 1) != 0 || (result[584] & 1) != 0 || *(result + 61)) && (result[480] & 1) == 0)
     {
-      v3 = *(result + 768);
+      v3 = result[768];
     }
 
     else
@@ -2295,21 +2295,21 @@ LABEL_65:
     }
 
     v4 = v3 & 1;
-    if (*(result + 481) != v4)
+    if (result[481] != v4)
     {
-      *(result + 481) = v4;
-      if (*(result + 481))
+      result[481] = v4;
+      if (result[481])
       {
         v5 = 1;
       }
 
       else
       {
-        v6 = *(result + 552);
+        v6 = *(result + 69);
         if (v6)
         {
           LAUI_uniform_cubic_b_spline_renderer::renderer_t::update_last_render_time(v6);
-          v5 = *(v2 + 481);
+          v5 = v2[481];
         }
 
         else
@@ -2318,7 +2318,7 @@ LABEL_65:
         }
       }
 
-      v7 = *(v2 + 464);
+      v7 = *(v2 + 58);
 
       return [v7 setPaused:v5 & 1];
     }
@@ -2371,11 +2371,11 @@ LABEL_65:
   return v1 & 1;
 }
 
-- (uint64_t)setWireframeEnabled:(uint64_t)result
+- (unsigned)setWireframeEnabled:(unsigned __int8 *)result
 {
   if (result)
   {
-    v2 = *(result + 552);
+    v2 = *(result + 69);
     if (v2)
     {
       *(v2 + 128) = a2;
@@ -2387,12 +2387,12 @@ LABEL_65:
   return result;
 }
 
-- (uint64_t)setModelTransform:(uint64_t)result
+- (unsigned)setModelTransform:(unsigned __int8 *)result
 {
   if (result)
   {
     v2 = result;
-    v3 = *(result + 552);
+    v3 = *(result + 69);
     if (v3)
     {
       memmove((v3 + 144), a2, 0x80uLL);
@@ -2404,12 +2404,12 @@ LABEL_65:
   return result;
 }
 
-- (uint64_t)beginExternalAnimation
+- (unsigned)beginExternalAnimation
 {
   if (self)
   {
-    v1 = *(self + 488);
-    *(self + 488) = v1 + 1;
+    v1 = *(self + 61);
+    *(self + 61) = v1 + 1;
     if (!v1)
     {
       return OUTLINED_FUNCTION_0_3(self);
@@ -2419,12 +2419,12 @@ LABEL_65:
   return self;
 }
 
-- (uint64_t)endExternalAnimation
+- (unsigned)endExternalAnimation
 {
   if (self)
   {
-    v1 = *(self + 488) - 1;
-    *(self + 488) = v1;
+    v1 = *(self + 61) - 1;
+    *(self + 61) = v1;
     if (!v1)
     {
       return OUTLINED_FUNCTION_0_3(self);
@@ -2558,7 +2558,7 @@ LABEL_65:
   return 0;
 }
 
-- (uint64_t)renderLoop:(double)a3 drawableSizeDidChange:(double)a4 .cold.1(uint64_t a1, char *a2, double a3, double a4)
+- (unsigned)renderLoop:(double)a3 drawableSizeDidChange:(double)a4 .cold.1(uint64_t a1, char *a2, double a3, double a4)
 {
   *(a1 + 520) = a3;
   *(a1 + 528) = a4;

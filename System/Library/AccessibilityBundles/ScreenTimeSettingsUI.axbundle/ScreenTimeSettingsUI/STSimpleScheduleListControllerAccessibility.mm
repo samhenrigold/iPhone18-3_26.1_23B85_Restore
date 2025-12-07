@@ -4,6 +4,7 @@
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_accessibilityMarkSelectedSpecifier;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation STSimpleScheduleListControllerAccessibility
@@ -85,6 +86,14 @@
 
   [v6 _accessibilitySetIsExpandableSTUICell:1];
   [(STSimpleScheduleListControllerAccessibility *)self _accessibilityMarkSelectedSpecifier];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = STSimpleScheduleListControllerAccessibility;
+  [(STSimpleScheduleListControllerAccessibility *)&v4 viewDidAppear:appear];
+  [(STSimpleScheduleListControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

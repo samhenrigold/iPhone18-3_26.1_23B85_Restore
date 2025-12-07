@@ -71,13 +71,12 @@
 {
   v3 = OBJC_IVAR____TtC16HeadphoneConfigs34BTSHeadphoneDevicePropertyObserver_listeners;
   swift_beginAccess();
-  v4 = *(&self->super.isa + v3);
   *(&self->super.isa + v3) = MEMORY[0x277D84FA0];
   selfCopy = self;
 
-  v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for BTSHeadphoneDevicePropertyObserver();
-  [(BTSHeadphoneDevicePropertyObserver *)&v6 dealloc];
+  v5.receiver = selfCopy;
+  v5.super_class = type metadata accessor for BTSHeadphoneDevicePropertyObserver(0);
+  [(BTSHeadphoneDevicePropertyObserver *)&v5 dealloc];
 }
 
 - (_TtC16HeadphoneConfigs34BTSHeadphoneDevicePropertyObserver)init

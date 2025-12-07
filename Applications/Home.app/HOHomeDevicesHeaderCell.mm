@@ -6,9 +6,9 @@
 
 - (HOHomeDevicesHeaderCell)initWithFrame:(CGRect)frame
 {
-  v34.receiver = self;
-  v34.super_class = HOHomeDevicesHeaderCell;
-  v3 = [(HOHomeDevicesHeaderCell *)&v34 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v35.receiver = self;
+  v35.super_class = HOHomeDevicesHeaderCell;
+  v3 = [(HOHomeDevicesHeaderCell *)&v35 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = +[NSMutableArray array];
@@ -30,60 +30,61 @@
     v12 = @"HODeviceGridTitle";
     v13 = [v11 localizedStringForKey:@"HODeviceGridTitle" value:@"_" table:@"HOLocalizable"];
 
-    if ([@"_" isEqualToString:v13])
+    v14 = [@"_" isEqualToString:v13];
+    if (v14)
     {
-      v35 = 0u;
       v36 = 0u;
       v37 = 0u;
       v38 = 0u;
-      v14 = sub_10000C210();
-      v15 = [v14 countByEnumeratingWithState:&v35 objects:v39 count:16];
-      if (v15)
+      v39 = 0u;
+      v15 = sub_10000C210(v14);
+      v16 = [v15 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      if (v16)
       {
-        v16 = v15;
-        v33 = v4;
-        v17 = *v36;
+        v17 = v16;
+        v34 = v4;
+        v18 = *v37;
 LABEL_5:
-        v18 = 0;
+        v19 = 0;
         while (1)
         {
-          if (*v36 != v17)
+          if (*v37 != v18)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v15);
           }
 
-          v19 = *(*(&v35 + 1) + 8 * v18);
-          v20 = +[NSBundle mainBundle];
-          v21 = [v20 localizedStringForKey:@"HODeviceGridTitle" value:@"HODeviceGridTitle" table:v19];
+          v20 = *(*(&v36 + 1) + 8 * v19);
+          v21 = +[NSBundle mainBundle];
+          v22 = [v21 localizedStringForKey:@"HODeviceGridTitle" value:@"HODeviceGridTitle" table:v20];
 
-          if (![(__CFString *)v21 isEqualToString:@"HODeviceGridTitle"])
+          if (![(__CFString *)v22 isEqualToString:@"HODeviceGridTitle"])
           {
             break;
           }
 
-          if (v16 == ++v18)
+          if (v17 == ++v19)
           {
-            v16 = [v14 countByEnumeratingWithState:&v35 objects:v39 count:16];
-            if (v16)
+            v17 = [v15 countByEnumeratingWithState:&v36 objects:v40 count:16];
+            if (v17)
             {
               goto LABEL_5;
             }
 
-            v21 = @"_";
+            v22 = @"_";
             break;
           }
         }
 
-        v4 = v33;
+        v4 = v34;
         v12 = @"HODeviceGridTitle";
       }
 
       else
       {
-        v21 = @"_";
+        v22 = @"_";
       }
 
-      v13 = v21;
+      v13 = v22;
     }
 
     if ([@"_" isEqualToString:v13])
@@ -105,14 +106,14 @@ LABEL_5:
     devicesLabel6 = [(HOHomeDevicesHeaderCell *)v3 devicesLabel];
     bottomAnchor = [devicesLabel6 bottomAnchor];
     bottomAnchor2 = [(HOHomeDevicesHeaderCell *)v3 bottomAnchor];
-    v27 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-6.0];
-    [v4 addObject:v27];
+    v28 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-6.0];
+    [v4 addObject:v28];
 
     devicesLabel7 = [(HOHomeDevicesHeaderCell *)v3 devicesLabel];
     leadingAnchor = [devicesLabel7 leadingAnchor];
     leadingAnchor2 = [(HOHomeDevicesHeaderCell *)v3 leadingAnchor];
-    v31 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:14.0];
-    [v4 addObject:v31];
+    v32 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:14.0];
+    [v4 addObject:v32];
 
     [NSLayoutConstraint activateConstraints:v4];
   }

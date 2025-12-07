@@ -7,7 +7,7 @@
 
 - (void)main
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -16,9 +16,9 @@
     v6 = HMFGetLogIdentifier();
     identifiersToRemove = [(HMDCoreFollowUpRemoveItemsOperation *)selfCopy identifiersToRemove];
     *buf = 138543618;
-    v14 = v6;
-    v15 = 2112;
-    v16 = identifiersToRemove;
+    v13 = v6;
+    v14 = 2112;
+    v15 = identifiersToRemove;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping advertisement for existing followup items: %@", buf, 0x16u);
   }
 
@@ -26,21 +26,20 @@
   objc_initWeak(buf, selfCopy);
   followUpController = [(HMDCoreFollowUpRemoveItemsOperation *)selfCopy followUpController];
   identifiersToRemove2 = [(HMDCoreFollowUpRemoveItemsOperation *)selfCopy identifiersToRemove];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __43__HMDCoreFollowUpRemoveItemsOperation_main__block_invoke;
-  v11[3] = &unk_27972ED20;
-  objc_copyWeak(&v12, buf);
-  [followUpController clearPendingFollowUpItemsWithUniqueIdentifiers:identifiersToRemove2 completion:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __43__HMDCoreFollowUpRemoveItemsOperation_main__block_invoke;
+  v10[3] = &unk_27972ED20;
+  objc_copyWeak(&v11, buf);
+  [followUpController clearPendingFollowUpItemsWithUniqueIdentifiers:identifiersToRemove2 completion:v10];
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __43__HMDCoreFollowUpRemoveItemsOperation_main__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = objc_autoreleasePoolPush();
@@ -53,11 +52,11 @@ void __43__HMDCoreFollowUpRemoveItemsOperation_main__block_invoke(uint64_t a1, i
     {
       v11 = HMFGetLogIdentifier();
       v12 = [v8 identifiersToRemove];
-      v17 = 138543618;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v12;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Successfully stopped advertising followup items: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v12;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Successfully stopped advertising followup items: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -71,20 +70,18 @@ void __43__HMDCoreFollowUpRemoveItemsOperation_main__block_invoke(uint64_t a1, i
       v13 = HMFGetLogIdentifier();
       v14 = [v8 identifiersToRemove];
       v15 = [v5 shortDescription];
-      v17 = 138543874;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v14;
-      v21 = 2112;
-      v22 = v15;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to stop advertisement for followup items: %@, with error: %@", &v17, 0x20u);
+      v16 = 138543874;
+      v17 = v13;
+      v18 = 2112;
+      v19 = v14;
+      v20 = 2112;
+      v21 = v15;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to stop advertisement for followup items: %@, with error: %@", &v16, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
     [v8 cancelWithError:v5];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCoreFollowUpRemoveItemsOperation)initWithIdentifiersToRemove:(id)remove followUpController:(id)controller
@@ -111,7 +108,7 @@ LABEL_7:
   v9 = [(HMFOperation *)&v15 initWithTimeout:0.0];
   if (v9)
   {
-    v10 = [removeCopy copy];
+    v10 = objc_msgSend_copy(removeCopy);
     identifiersToRemove = v9->_identifiersToRemove;
     v9->_identifiersToRemove = v10;
 

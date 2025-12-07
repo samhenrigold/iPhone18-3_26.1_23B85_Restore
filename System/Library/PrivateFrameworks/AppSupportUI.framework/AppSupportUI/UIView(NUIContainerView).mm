@@ -11,8 +11,8 @@
 - (double)customFirstBaselineOffsetFromTop;
 - (double)effectiveBaselineOffsetFromBottom;
 - (double)effectiveFirstBaselineOffsetFromTop;
-- (uint64_t)setLayoutSize:()NUIContainerView withHorizontalContentPriority:verticalContentPriority:;
 - (uint64_t)setUntransformedFrame:()NUIContainerView;
+- (void)setLayoutSize:()NUIContainerView withHorizontalContentPriority:verticalContentPriority:;
 @end
 
 @implementation UIView(NUIContainerView)
@@ -323,7 +323,7 @@ LABEL_11:
   return result;
 }
 
-- (uint64_t)setLayoutSize:()NUIContainerView withHorizontalContentPriority:verticalContentPriority:
+- (void)setLayoutSize:()NUIContainerView withHorizontalContentPriority:verticalContentPriority:
 {
   [self setMinimumLayoutSize:?];
   result = [self setMaximumLayoutSize:{a2, a3}];
@@ -456,7 +456,7 @@ LABEL_11:
   memset(&v20[1], 0, sizeof(CATransform3D));
   if (layer)
   {
-    [layer transform];
+    objc_msgSend_transform(layer);
   }
 
   v20[0] = v20[1];

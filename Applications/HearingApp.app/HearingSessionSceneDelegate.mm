@@ -61,7 +61,7 @@
   *(&self->super.isa + v3) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   Logger.init(subsystem:category:)();
   v5.receiver = self;
-  v5.super_class = type metadata accessor for HearingSessionSceneDelegate();
+  v5.super_class = type metadata accessor for HearingSessionSceneDelegate(0);
   return [(HearingSessionSceneDelegate *)&v5 init];
 }
 

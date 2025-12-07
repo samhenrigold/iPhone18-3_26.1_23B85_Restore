@@ -1,3 +1,93 @@
+void TSSATScorer::normaliseVector(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 16);
+  if (!v2)
+  {
+    return;
+  }
+
+  v3 = *(a2 + 8);
+  if (v2 > 7)
+  {
+    v4 = v2 & 0xFFFFFFF8;
+    v6 = v3 + 1;
+    v5 = 0.0;
+    v7 = v4;
+    do
+    {
+      v8 = vmulq_f32(v6[-1], v6[-1]);
+      v9 = vmulq_f32(*v6, *v6);
+      v5 = (((((((v5 + v8.f32[0]) + v8.f32[1]) + v8.f32[2]) + v8.f32[3]) + v9.f32[0]) + v9.f32[1]) + v9.f32[2]) + v9.f32[3];
+      v6 += 2;
+      v7 -= 8;
+    }
+
+    while (v7);
+    if (v4 == v2)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+    v4 = 0;
+    v5 = 0.0;
+  }
+
+  v10 = v2 - v4;
+  v11 = &v3->f32[v4];
+  do
+  {
+    v12 = *v11++;
+    v5 = v5 + (v12 * v12);
+    --v10;
+  }
+
+  while (v10);
+LABEL_9:
+  if (v5 <= 0.0)
+  {
+    return;
+  }
+
+  v13 = sqrtf(v2 / v5);
+  if (v2 < 8)
+  {
+    v14 = 0;
+LABEL_15:
+    v18 = v2 - v14;
+    v19 = &v3->f32[v14];
+    do
+    {
+      *v19 = v13 * *v19;
+      ++v19;
+      --v18;
+    }
+
+    while (v18);
+    return;
+  }
+
+  v14 = v2 & 0xFFFFFFF8;
+  v15 = v3 + 1;
+  v16 = v14;
+  do
+  {
+    v17 = vmulq_n_f32(*v15, v13);
+    v15[-1] = vmulq_n_f32(v15[-1], v13);
+    *v15 = v17;
+    v15 += 2;
+    v16 -= 8;
+  }
+
+  while (v16);
+  if (v14 != v2)
+  {
+    goto LABEL_15;
+  }
+}
+
 void TSSATScorer::scoreTransformed(TSSATScorer *this)
 {
   v2 = 1065353216;
@@ -16,7 +106,7 @@ void TSSATScorer::scoreSpeakerVector(TSSATScorer *this, const float *a2, uint64_
   *(this + 297) = 0;
   if ((*(this + 296) & 1) == 0)
   {
-    Error::chuck("TSSATScorer::scorespeakervector() - setModelFile() not called", a2);
+    Error::chuck("TSSATScorer::scorespeakervector() - setModelFile() not called", a2, a3);
   }
 
   if ((*(**(this + 1) + 16))(*(this + 1)) != a3)
@@ -257,32 +347,32 @@ void TSSupervectorScorer::TSSupervectorScorer(TSSupervectorScorer *this)
   *(this + 72) = 0;
 }
 
-void TSSupervectorScorer::init(TSSupervectorScorer *this, const NString *a2)
+void TSSupervectorScorer::init(TSSupervectorScorer *this, const NString *a2, uint64_t a3)
 {
   if (*(this + 72) != 1)
   {
-    v2 = *(this + 1);
-    if (v2)
+    v3 = *(this + 1);
+    if (v3)
     {
-      (*(*v2 + 8))(v2, a2);
+      (*(*v3 + 8))(v3, a2, a3);
     }
 
     operator new[]();
   }
 
-  Error::chuck("TSSupervectorScorer::init() - init() already called", a2);
+  Error::chuck("TSSupervectorScorer::init() - init() already called", a2, a3);
 }
 
-void sub_223A700FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_223A700FC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (a16)
   {
-    (*(*a16 + 8))(a16);
+    (*(*a16 + 8))(a16, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a14)
   {
-    MEMORY[0x223DF1D00](a14, v16);
+    MEMORY[0x223DF1D00](a14, v16, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -292,7 +382,7 @@ float TSSupervectorScorer::score(TSSupervectorScorer *this, const float *a2, uin
 {
   if ((*(this + 72) & 1) == 0)
   {
-    Error::chuck("TSSupervectorScorer::score() - init() not called", a2);
+    Error::chuck("TSSupervectorScorer::score() - init() not called", a2, a3);
   }
 
   v4 = *(this + 10);
@@ -411,25 +501,25 @@ void NSATImpostor::load(NSATImpostor *this, const NString *a2)
   operator new[]();
 }
 
-void sub_223A70CE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
+void sub_223A70CE0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
 {
   if (a21)
   {
-    MEMORY[0x223DF1D00](a21, 0x1000C8052888210);
+    MEMORY[0x223DF1D00](a21, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
   *(v22 - 96) = &unk_28370A720;
   v24 = *(v22 - 80);
   if (v24)
   {
-    MEMORY[0x223DF1D00](v24, v21);
+    MEMORY[0x223DF1D00](v24, v21, a3, a4, a5, a6, a7, a8);
   }
 
   *(v22 - 72) = &unk_28370AA90;
   v25 = *(v22 - 64);
   if (v25)
   {
-    (*(*v25 + 8))(v25);
+    (*(*v25 + 8))(v25, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -484,9 +574,9 @@ void NFilePtr::~NFilePtr(NFilePtr *this)
   }
 }
 
-uint64_t NSATImpostor::score(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD *a4)
+void NSATImpostor::score(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD *a4)
 {
-  v61[1] = *MEMORY[0x277D85DE8];
+  v64[1] = *MEMORY[0x277D85DE8];
   *a3 = 0;
   *a4 = 0;
   if ((*(a1 + 64) & 1) == 0)
@@ -550,90 +640,90 @@ LABEL_10:
   }
 
 LABEL_12:
-  result = MEMORY[0x28223BE20](a1);
-  v29 = (v61 - ((v28 + 15) & 0x7FFFFFFF0));
-  v30 = *(result + 36);
+  v27 = MEMORY[0x28223BE20](a1).n128_u32[0];
+  v29 = (v64 - ((v28 + 15) & 0x7FFFFFFF0));
+  v30 = *(v22 + 36);
   if (v30)
   {
     if (!v26)
     {
 LABEL_35:
-      v48 = 0.0;
+      v51 = 0.0;
       goto LABEL_41;
     }
 
-    v31 = *(result + 56);
-    v32 = (*(result + 40) - v26);
+    v31 = *(v22 + 56);
+    v32 = (*(v22 + 40) - v26);
     v33 = *(v23 + 8);
-    result = 4 * (v26 - 1);
+    v34 = 4 * (v26 - 1);
     if (v26 >= 8)
     {
-      v38 = 0;
-      v39 = (v31 + 16);
-      v40 = result + 4 * v32 + 4;
+      v39 = 0;
+      v40 = v31 + 1;
+      v41 = v34 + 4 * v32 + 4;
       do
       {
-        v41 = 0.0;
-        result = v39;
-        v42 = (v33 + 4);
-        v43 = v26 & 0xFFFFFFF8;
+        v42 = 0.0;
+        v43 = v40;
+        v44 = (v33 + 4);
+        v45 = v26 & 0xFFFFFFF8;
         do
         {
-          v44 = vmulq_f32(*(result - 16), v42[-1]);
-          v45 = vmulq_f32(*result, *v42);
-          v41 = (((((((v41 + v44.f32[0]) + v44.f32[1]) + v44.f32[2]) + v44.f32[3]) + v45.f32[0]) + v45.f32[1]) + v45.f32[2]) + v45.f32[3];
-          v42 += 2;
-          result += 32;
-          v43 -= 8;
+          v46 = vmulq_f32(v43[-1], v44[-1]);
+          v47 = vmulq_f32(*v43, *v44);
+          v42 = (((((((v42 + v46.f32[0]) + v46.f32[1]) + v46.f32[2]) + v46.f32[3]) + v47.f32[0]) + v47.f32[1]) + v47.f32[2]) + v47.f32[3];
+          v44 += 2;
+          v43 += 2;
+          v45 -= 8;
         }
 
-        while (v43);
+        while (v45);
         if ((v26 & 0xFFFFFFF8) != v26)
         {
-          result = v26 & 0xFFFFFFF8;
+          v48 = v26 & 0xFFFFFFF8;
           do
           {
-            v41 = v41 + (*(v31 + 4 * result) * v33[result]);
-            ++result;
+            v42 = v42 + (v31->f32[v48] * v33[v48]);
+            ++v48;
           }
 
-          while (v26 != result);
+          while (v26 != v48);
         }
 
-        v29->f32[v38++] = v41;
-        v39 = (v39 + v40);
-        v31 += v40;
+        v29->f32[v39++] = v42;
+        v40 = (v40 + v41);
+        v31 = (v31 + v41);
       }
 
-      while (v38 != v30);
+      while (v39 != v30);
     }
 
     else
     {
-      v34 = *v33;
-      v35 = (v31 + 12);
-      v36 = v29;
+      v35 = *v33;
+      v36 = &v31->f32[3];
+      v37 = v29;
       do
       {
-        v37 = (*(v35 - 3) * v34) + 0.0;
+        v38 = (*(v36 - 3) * v35) + 0.0;
         if (v26 != 1)
         {
-          v37 = v37 + (*(v35 - 2) * v33[1]);
+          v38 = v38 + (*(v36 - 2) * v33[1]);
           if (v26 != 2)
           {
-            v37 = v37 + (*(v35 - 1) * v33[2]);
+            v38 = v38 + (*(v36 - 1) * v33[2]);
             if (v26 != 3)
             {
-              v37 = v37 + (*v35 * v33[3]);
+              v38 = v38 + (*v36 * v33[3]);
               if (v26 != 4)
               {
-                v37 = v37 + (v35[1] * v33[4]);
+                v38 = v38 + (v36[1] * v33[4]);
                 if (v26 != 5)
                 {
-                  v37 = v37 + (v35[2] * v33[5]);
+                  v38 = v38 + (v36[2] * v33[5]);
                   if (v26 != 6)
                   {
-                    v37 = v37 + (v35[3] * v33[6]);
+                    v38 = v38 + (v36[3] * v33[6]);
                   }
                 }
               }
@@ -641,8 +731,8 @@ LABEL_35:
           }
         }
 
-        *v36++ = v37;
-        v35 = (v35 + 4 * v32 + result + 4);
+        *v37++ = v38;
+        v36 = (v36 + 4 * v32 + v34 + 4);
         --v30;
       }
 
@@ -655,54 +745,53 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  v46 = *(v23 + 8);
+  v49 = *(v23 + 8);
   if (v26 < 8)
   {
-    v47 = 0;
-    v48 = 0.0;
+    v50 = 0;
+    v51 = 0.0;
 LABEL_39:
-    v54 = v26 - v47;
-    v55 = v47;
-    v56 = &v29->f32[v55];
-    v57 = &v46->f32[v55];
+    v57 = v26 - v50;
+    v58 = v50;
+    v59 = &v29->f32[v58];
+    v60 = &v49->f32[v58];
     do
     {
-      v58 = *v57++;
-      v59 = v58;
-      v60 = *v56++;
-      v48 = v48 + (v59 * v60);
-      --v54;
+      v61 = *v60++;
+      v62 = v61;
+      v63 = *v59++;
+      v51 = v51 + (v62 * v63);
+      --v57;
     }
 
-    while (v54);
+    while (v57);
     goto LABEL_41;
   }
 
-  v47 = v26 & 0xFFFFFFF8;
-  v49 = v29 + 1;
-  v50 = v46 + 1;
-  v48 = 0.0;
-  v51 = v47;
+  v50 = v26 & 0xFFFFFFF8;
+  v52 = v29 + 1;
+  v53 = v49 + 1;
+  v51 = 0.0;
+  v54 = v50;
   do
   {
-    v52 = vmulq_f32(v50[-1], v49[-1]);
-    v53 = vmulq_f32(*v50, *v49);
-    v48 = (((((((v48 + v52.f32[0]) + v52.f32[1]) + v52.f32[2]) + v52.f32[3]) + v53.f32[0]) + v53.f32[1]) + v53.f32[2]) + v53.f32[3];
-    v49 += 2;
-    v50 += 2;
-    v51 -= 8;
+    v55 = vmulq_f32(v53[-1], v52[-1]);
+    v56 = vmulq_f32(*v53, *v52);
+    v51 = (((((((v51 + v55.f32[0]) + v55.f32[1]) + v55.f32[2]) + v55.f32[3]) + v56.f32[0]) + v56.f32[1]) + v56.f32[2]) + v56.f32[3];
+    v52 += 2;
+    v53 += 2;
+    v54 -= 8;
   }
 
-  while (v51);
-  if (v47 != v26)
+  while (v54);
+  if (v50 != v26)
   {
     goto LABEL_39;
   }
 
 LABEL_41:
   *v24 = v27;
-  *v25 = sqrtf(v48);
-  return result;
+  *v25 = sqrtf(v51);
 }
 
 float NSATImpostor::dotproduct(uint64_t a1, uint64_t a2, float32x4_t *a3, unsigned int *a4)
@@ -1017,7 +1106,7 @@ void sub_223A71BD4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t NSATSpeaker::configure(NSATSpeaker *this, const unsigned int *a2, const unsigned int *a3, const BOOL *a4, const BOOL *a5, const BOOL *a6, float *a7, const unsigned int *a8, const NString *a9, const NString *a10)
+char *NSATSpeaker::configure(NSATSpeaker *this, const unsigned int *a2, const unsigned int *a3, const BOOL *a4, const BOOL *a5, const BOOL *a6, float *a7, const unsigned int *a8, const NString *a9, const NString *a10)
 {
   if ((this + 80) != a9)
   {
@@ -1069,16 +1158,16 @@ uint64_t NSATSpeaker::configure(NSATSpeaker *this, const unsigned int *a2, const
   return result;
 }
 
-void sub_223A71F90(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_223A71F90(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (a16)
   {
-    MEMORY[0x223DF1D00](a16, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a16, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   if (a13)
   {
-    MEMORY[0x223DF1D00](a13, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a13, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -1148,17 +1237,17 @@ void NSATSpeaker::read(NSATSpeaker *this)
   operator new[]();
 }
 
-void sub_223A726E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_223A726E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  if (a10)
+  va_start(va, a22);
+  if (a17)
   {
-    MEMORY[0x223DF1D00](a10, 0x1000C8052888210);
+    MEMORY[0x223DF1D00](a17, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
-  if (a14)
+  if (a21)
   {
-    MEMORY[0x223DF1D00](a14, v15);
+    MEMORY[0x223DF1D00](a21, v22, a3, a4, a5, a6, a7, a8);
   }
 
   NFile::~NFile(va);
@@ -1184,11 +1273,11 @@ void NSATSpeaker::reset(NSATSpeaker *this, const char *a2)
   Error::chuck("NSATSpeaker::reset() - not configured", a2);
 }
 
-void sub_223A72914(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_223A72914(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, v12);
+    MEMORY[0x223DF1D00](a12, v12, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -1199,13 +1288,13 @@ void NSATSpeaker::score(uint64_t a1, uint64_t a2, __int32 *a3, __int32 *a4)
   v30[1] = *MEMORY[0x277D85DE8];
   if ((*(a1 + 77) & 1) == 0)
   {
-    Error::chuck("NSATSpeaker::score() - model not loaded", a2);
+    Error::chuck("NSATSpeaker::score() - model not loaded", a2, a3, a4);
   }
 
   v6 = *(a1 + 32);
   if (*(a2 + 16) != v6)
   {
-    Error::chuck("NSATSpeaker::score() - vector wrong size (%d != %d)", a2, *(a2 + 16), v6);
+    Error::chuck("NSATSpeaker::score() - vector wrong size (%d != %d)", a2, a3, *(a2 + 16), v6);
   }
 
   MEMORY[0x28223BE20](a1);
@@ -1333,7 +1422,7 @@ float NSATSpeaker::findTopNAverage(NSATSpeaker *this, const float *a2, const uns
     return 0.0;
   }
 
-  v9 = MEMORY[0x28223BE20](this);
+  MEMORY[0x28223BE20](this);
   v12 = (v11 + 15) & 0x7FFFFFFF0;
   v13 = &v30[-v12];
   v15 = *v14;
@@ -1509,13 +1598,13 @@ float NSATSpeaker::calcModelNormScale(NSATSpeaker *this, const char *a2)
   }
 
   __C = 0.0;
-  v3 = MEMORY[0x28223BE20](this);
-  v5 = (&__A - ((v4 + 15) & 0x7FFFFFFF0));
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](this);
+  v4 = (&__A - ((v3 + 15) & 0x7FFFFFFF0));
+  MEMORY[0x28223BE20](v5);
   v7 = (&__A - ((v6 + 15) & 0x7FFFFFFF0));
   v8 = *(this + 9);
   __A = 1.0 / v8;
-  vDSP_vfill(&__A, v5, 1, v8);
+  vDSP_vfill(&__A, v4, 1, v8);
   v9 = 0.0;
   cblas_sgemv_NEWLAPACK_ILP64();
   vDSP_svesq(v7, 1, &__C, *(this + 8));
@@ -1657,10 +1746,10 @@ void NSATSpeaker::getVector(uint64_t a1, const char *a2, unsigned int *a3)
       Error::chuck("NSATSpeaker::getVector() - index out of range (%u >= %u)", a2, *a3, v3);
     }
 
-    Error::chuck("NSATSpeaker::getVector() - model readonly", a2);
+    Error::chuck("NSATSpeaker::getVector() - model readonly", a2, a3);
   }
 
-  Error::chuck("NSATSpeaker::getVector() - model not initialized", a2);
+  Error::chuck("NSATSpeaker::getVector() - model not initialized", a2, a3);
 }
 
 void NSATSpeaker::write(NSATSpeaker *this, const char *a2)
@@ -1681,21 +1770,19 @@ void NSATSpeaker::write(NSATSpeaker *this, const char *a2)
   Error::chuck("NSATSpeaker::write() - model readonly", a2);
 }
 
-void sub_223A73AA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_223A73AA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   NFile::~NFile(va);
   _Unwind_Resume(a1);
 }
 
-NSATSpeaker *NSATSpeaker::writeIfModified(NSATSpeaker *this, const char *a2)
+void NSATSpeaker::writeIfModified(NSATSpeaker *this, const char *a2)
 {
   if (*(this + 78) == 1)
   {
     NSATSpeaker::write(this, a2);
   }
-
-  return this;
 }
 
 void NSATSpeaker::matrixvector(int a1, float32x4_t *a2, uint64_t a3, float *a4, unsigned int *a5, unsigned int *a6, _DWORD *a7)
@@ -1932,11 +2019,11 @@ void NBase64File::openNamed(NBase64File *this, const NString *a2, const NString 
   Error::chuck("NBase64File::open() - unrecognized file mode %s", v8, v7);
 }
 
-void sub_223A74000(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_223A74000(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a12, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -1969,22 +2056,22 @@ uint64_t NBase64File::setPosition(NBase64File *this, const unsigned int *a2)
   return (*(*this + 40))(this) ^ 1;
 }
 
-void sub_223A7426C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_223A7426C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a14)
   {
-    MEMORY[0x223DF1D00](a14, v14);
+    MEMORY[0x223DF1D00](a14, v14, a3, a4, a5, a6, a7, a8);
   }
 
   if (a11)
   {
-    MEMORY[0x223DF1D00](a11, v14);
+    MEMORY[0x223DF1D00](a11, v14, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void NBase64File::readLine(NBase64File *this@<X0>, uint64_t a2@<X8>)
+void NBase64File::readLine(NBase64File *this@<X0>, uint64_t a3@<X8>)
 {
   if ((*(*this + 32))(this))
   {
@@ -2002,8 +2089,8 @@ void NBase64File::readLine(NBase64File *this@<X0>, uint64_t a2@<X8>)
         *(this + 16) = -1;
       }
 
-      *a2 = &unk_28370A720;
-      *(a2 + 8) = 0;
+      *a3 = &unk_28370A720;
+      *(a3 + 8) = 0;
       operator new[]();
     }
 
@@ -2013,18 +2100,18 @@ void NBase64File::readLine(NBase64File *this@<X0>, uint64_t a2@<X8>)
   Error::chuck("NBase64File::readLine() - file %s is not open", v5, *(this + 3));
 }
 
-void sub_223A74864(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_223A74864(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (a16)
   {
-    MEMORY[0x223DF1D00](a16, v18);
+    MEMORY[0x223DF1D00](a16, v18, a3, a4, a5, a6, a7, a8);
   }
 
   *v16 = v17;
   v20 = v16[2];
   if (v20)
   {
-    MEMORY[0x223DF1D00](v20, v18);
+    MEMORY[0x223DF1D00](v20, v18, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -2116,7 +2203,7 @@ void NBase64File::read(NBase64File *this@<X0>, const unsigned int *a2@<X1>, uint
           *(this + 16) = -1;
         }
 
-        NString::slice((this + 40), &v12, &v11, a3);
+        NString::slice(a3, (this + 40), &v12, &v11);
       }
 
       Error::chuck("NBase64File::read() - attempting impossibly long read in file %s", v6, *(this + 3));
@@ -2189,11 +2276,11 @@ void NBase64File::open(NBase64File *this, const NString *a2, const NString *a3)
   operator new[]();
 }
 
-void sub_223A74F50(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_223A74F50(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, v12);
+    MEMORY[0x223DF1D00](a12, v12, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -2431,13 +2518,13 @@ void sub_223A75A5C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void NLRHMMTraceback::NLRHMMTraceback(NLRHMMTraceback *this, const unsigned int *a2, const unsigned int *a3)
+void NLRHMMTraceback::NLRHMMTraceback(NLRHMMTraceback *this, unsigned int *a2, unsigned int *a3)
 {
-  N2DArray<BOOL>::N2DArray(this);
+  N2DArray<BOOL>::N2DArray(this, a2, a3);
 }
 
 {
-  N2DArray<BOOL>::N2DArray(this);
+  N2DArray<BOOL>::N2DArray(this, a2, a3);
 }
 
 void N2DArray<BOOL>::~N2DArray(void *a1)
@@ -2590,7 +2677,7 @@ uint64_t NLRHMMTraceback::stateAlignment(uint64_t result, uint64_t a2, _DWORD *a
   v4 = *(result + 36);
   if (v3 != v4)
   {
-    Error::chuck("NLRHMMTraceback::stateAlignment() - mismatched number of states in duration array (%d != %d)", a2, *(a2 + 16), v4);
+    Error::chuck("NLRHMMTraceback::stateAlignment() - mismatched number of states in duration array (%d != %d)", a2, a3, *(a2 + 16), v4);
   }
 
   v5 = *(result + 44);
@@ -2769,7 +2856,7 @@ void *NArray<NFrame>::~NArray(void *result)
   return result;
 }
 
-uint64_t NArray<NFrame>::fromArray(uint64_t result, uint64_t a2, int *a3)
+uint64_t NArray<NFrame>::fromArray(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v3 = result;
   v4 = *(result + 16);
@@ -2894,16 +2981,16 @@ LABEL_25:
   return result;
 }
 
-uint64_t NArray<NFrame>::operator=(uint64_t result, uint64_t a2)
+uint64_t NArray<NFrame>::operator=(uint64_t a1, uint64_t a2)
 {
-  v2 = result;
-  if (result != a2)
+  v2 = a1;
+  if (a1 != a2)
   {
-    v4 = *(result + 16);
+    v4 = *(a1 + 16);
     v5 = *(a2 + 16);
     if (v4 != v5)
     {
-      v6 = *(result + 8);
+      v6 = *(a1 + 8);
       if (v6)
       {
         v7 = v6 - 16;
@@ -2938,13 +3025,13 @@ uint64_t NArray<NFrame>::operator=(uint64_t result, uint64_t a2)
       operator new[]();
     }
 
-    if (v4 && *(result + 8) != *(a2 + 8))
+    if (v4 && *(a1 + 8) != *(a2 + 8))
     {
       v13 = 0;
       do
       {
         v14 = *(a2 + 8);
-        v15 = *(result + 8);
+        v15 = *(a1 + 8);
         if (v15 != v14)
         {
           v16 = v14 + 24 * v13;
@@ -3016,11 +3103,11 @@ LABEL_26:
         ++v13;
       }
 
-      while (v13 < *(result + 16));
+      while (v13 < *(a1 + 16));
     }
   }
 
-  return result;
+  return a1;
 }
 
 void NArray<NFrame>::~NArray(void *a1)
@@ -3105,7 +3192,7 @@ BOOL NDelta::isFrame(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float32
 {
   if ((*a1 & 1) == 0)
   {
-    Error::chuck("NDelta::isFrame - NDelta::init() has to be called before computing the first frame", a2);
+    Error::chuck("NDelta::isFrame - NDelta::init() has to be called before computing the first frame", a2, a3, a4, *a5.i64);
   }
 
   v5 = *(a2 + 24);
@@ -3122,7 +3209,7 @@ BOOL NDelta::isFrame(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float32
     v9 = *(v8 + 32);
     if (v9 != *(a1 + 8))
     {
-      Error::chuck("NDelta::isFrame - head of the list should have %d elements, not %d", a2, *(a1 + 8), v9);
+      Error::chuck("NDelta::isFrame - head of the list should have %d elements, not %d", a2, a3, a4, *a5.i64, *(a1 + 8), v9);
     }
 
     if (!v9)
@@ -3976,7 +4063,7 @@ float AccelCosine::run(unsigned int *a1, float *__A, uint64_t a3)
 {
   if ((a1[3] & 1) == 0)
   {
-    Error::chuck("AccelCosine::run() - AccelCosine::init() has to be called before running", __A);
+    Error::chuck("AccelCosine::run() - AccelCosine::init() has to be called before running", __A, a3);
   }
 
   v5 = *(a3 + 16);
@@ -4196,7 +4283,7 @@ float AccelPSD::getScalingFactor(AccelPSD *this)
   return 256.0 / v1;
 }
 
-void NWavChunk2HTKFrames::init(NWavChunk2HTKFrames *this, const NString *a2, const unsigned int *a3, const BOOL *a4, const BOOL *a5)
+void NWavChunk2HTKFrames::init(NWavChunk2HTKFrames *this, const NString *a2, unsigned int *a3, const BOOL *a4, const BOOL *a5)
 {
   v7 = this + 936;
   v8 = (this + 808);
@@ -4243,8 +4330,9 @@ void NWavChunk2HTKFrames::loadCfg(NWavChunk2HTKFrames *this, const NString *a2, 
   operator new[]();
 }
 
-void sub_223A7B6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_223A7B6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   NLinkedList<NString>::~NLinkedList(&a16);
   a23 = a14;
   if (a25)
@@ -4252,8 +4340,8 @@ void sub_223A7B6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     MEMORY[0x223DF1D00](a25, 0x1000C8077774924);
   }
 
-  NConfig::~NConfig(&a26);
-  NLinkedList<NString>::~NLinkedList(v26 - 120);
+  NConfig::~NConfig(va);
+  NLinkedList<NString>::~NLinkedList(v25 - 120);
   _Unwind_Resume(a1);
 }
 
@@ -4442,7 +4530,7 @@ void *NResizingQueue<NFrame>::NElement::~NElement(void *result)
   return result;
 }
 
-uint64_t NArray<NResizingQueue<NFrame>::NElement>::fromArray(uint64_t result, const char *a2, int *a3)
+uint64_t NArray<NResizingQueue<NFrame>::NElement>::fromArray(uint64_t result, const char *a2, unsigned int *a3)
 {
   v3 = *(result + 16);
   v4 = *a3;
@@ -5159,7 +5247,7 @@ void AccelWin2MFCC::AccelWin2MFCC(AccelWin2MFCC *this)
   *(this + 37) = 0;
 }
 
-uint64_t NArray<NArray<float>>::fromArray(uint64_t result, uint64_t a2, int *a3)
+uint64_t NArray<NArray<float>>::fromArray(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v4 = result;
   v5 = *(result + 16);
@@ -5429,7 +5517,7 @@ void *NArray<NArray<float>>::~NArray(void *result)
   return result;
 }
 
-void AccelWin2MFCC::init(AccelWin2MFCC *this, unsigned int *a2, const unsigned int *a3, const BOOL *a4, const BOOL *a5, const BOOL *a6, const BOOL *a7, const unsigned int *a8, double a9, const float *a10, const float *a11, const unsigned int *a12, const unsigned int *a13, const float *a14, const float *a15, const float *a16, const float *a17)
+void AccelWin2MFCC::init(AccelWin2MFCC *this, unsigned int *a2, const unsigned int *a3, const BOOL *a4, const BOOL *a5, const BOOL *a6, const BOOL *a7, const unsigned int *a8, double d0_0, const float *a9, const float *a10, const unsigned int *a11, const unsigned int *a12, const float *a13, const float *a14, const float *a15, const float *a16)
 {
   *this = 0;
   v18 = *a2;
@@ -5448,19 +5536,19 @@ void AccelWin2MFCC::init(AccelWin2MFCC *this, unsigned int *a2, const unsigned i
   *(this + 86) = v21;
   *(this + 87) = (v21 >> 1) + 1;
   *(this + 352) = *a7;
-  *(this + 89) = *a14 * *a15;
+  *(this + 89) = *a13 * *a14;
   *(this + 360) = *a5;
   v22 = *a8;
   *(this + 91) = *a8;
   *(this + 92) = v18 >> 1;
-  *(this + 93) = *a10;
-  *(this + 94) = *a11;
-  *(this + 95) = *a16;
-  *&a9 = *a17;
-  *(this + 96) = *a17;
+  *(this + 93) = *a9;
+  *(this + 94) = *a10;
+  *(this + 95) = *a15;
+  *&d0_0 = *a16;
+  *(this + 96) = *a16;
   v23 = *a6;
   *(this + 361) = v23;
-  *(this + 97) = *a12;
+  *(this + 97) = *a11;
   if (v23)
   {
     v24 = v22;
@@ -5468,21 +5556,22 @@ void AccelWin2MFCC::init(AccelWin2MFCC *this, unsigned int *a2, const unsigned i
 
   else
   {
-    v24 = *a13;
+    v24 = *a12;
   }
 
   *(this + 98) = v24;
-  AccelWin2MFCC::initProc(this, a9);
+  AccelWin2MFCC::initProc(this, d0_0);
 }
 
-void TSAcAnal::init(TSAcAnal *this, const NString *a2, uint64_t a3, const NString *a4, char a5, BOOL a6)
+void TSAcAnal::init(TSAcAnal *this, const NString *a2, uint64_t a3, const NString *a4, uint64_t a5, BOOL a6)
 {
   v14 = a6;
   if (!a3)
   {
-    Error::chuck("TSAcAnal::init() - a_iSamRate (= %d) must be strictly positive\n", a2, a3, a4, 0);
+    Error::chuck("TSAcAnal::init() - a_iSamRate (= %d) must be strictly positive\n", a2, a3, a4, a5, 0);
   }
 
+  v6 = a5;
   v8 = *(a4 + 2);
   if (v8 == 8)
   {
@@ -5512,7 +5601,7 @@ LABEL_15:
     (*(*(this + 139) + 64))(this + 1112, *(a2 + 2), a2 + 8);
   }
 
-  *(this + 1104) = a5;
+  *(this + 1104) = v6;
   NWavChunk2HTKFrames::init(this, (this + 1112), this + 284, this + 1104, &v14);
 }
 
@@ -5644,20 +5733,20 @@ void TSAcAnal::getframe(TSAcAnal *this@<X0>, const char *a2@<X1>, uint64_t a3@<X
   operator new[]();
 }
 
-void TSAcAnal::getStringFrame(uint64_t a1@<X8>)
+void TSAcAnal::getStringFrame(uint64_t a2@<X8>)
 {
-  *a1 = &unk_28370A720;
-  *(a1 + 8) = 5;
+  *a2 = &unk_28370A720;
+  *(a2 + 8) = 5;
   operator new[]();
 }
 
-void sub_223A7FCA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+void sub_223A7FCA8(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   *v13 = a10;
   v15 = v13[2];
   if (v15)
   {
-    MEMORY[0x223DF1D00](v15, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](v15, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5679,9 +5768,9 @@ uint64_t TSAcAnal::parmCode(TSAcAnal *this)
   return ((v2 + v1) | (*(this + 984) << 8) | (*(this + 984) << 9) | (*(this + 956) << 13)) + 6;
 }
 
-void sub_223A7FEEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_223A7FEEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -5766,11 +5855,11 @@ void sub_223A80CE0(void *a1)
   JUMPOUT(0x223A80CD0);
 }
 
-uint64_t nd_addresource(IntNovDetect *a1, const char *a2, const void *a3)
+uint64_t nd_addresource(IntNovDetect *a1, const char *a2, const NString *a3, const void *a4)
 {
   if (a1)
   {
-    IntNovDetect::addresource(a1, a2, a3);
+    IntNovDetect::addresource(a1, a2, a3, a4);
   }
 
   return 0xFFFFFFFFLL;
@@ -5780,7 +5869,7 @@ void sub_223A80E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a12, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   __cxa_end_catch();
@@ -5801,7 +5890,7 @@ void sub_223A80FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a12, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   __cxa_end_catch();
@@ -5823,7 +5912,7 @@ void sub_223A81188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a12, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   __cxa_end_catch();
@@ -5876,7 +5965,7 @@ void sub_223A81578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a11)
   {
-    MEMORY[0x223DF1D00](a11, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a11, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   __cxa_end_catch();
@@ -5928,7 +6017,7 @@ void sub_223A81C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a12, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   __cxa_end_catch();
@@ -5950,7 +6039,7 @@ void sub_223A81DF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a12, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   __cxa_end_catch();
@@ -5993,7 +6082,7 @@ void sub_223A82194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a12, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   __cxa_end_catch();
@@ -6032,7 +6121,7 @@ _DWORD *nd_sat_analyze(_DWORD *result, const float *a2, uint64_t a3)
       v5 = "Invalid NovDetect Object Signature";
     }
 
-    Error::chuck(v5, a2);
+    Error::chuck(v5, a2, a3);
   }
 
   return result;
@@ -6070,7 +6159,7 @@ _DWORD *nd_sat_analyzetransformed(_DWORD *result, const float *a2, uint64_t a3)
       v5 = "Invalid NovDetect Object Signature";
     }
 
-    Error::chuck(v5, a2);
+    Error::chuck(v5, a2, a3);
   }
 
   return result;
@@ -6091,7 +6180,7 @@ void sub_223A827E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a12, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   __cxa_end_catch();
@@ -6113,7 +6202,7 @@ void sub_223A8299C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a12, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   __cxa_end_catch();
@@ -6158,7 +6247,7 @@ void sub_223A82BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a11)
   {
-    MEMORY[0x223DF1D00](a11, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a11, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   __cxa_end_catch();
@@ -6179,7 +6268,7 @@ void sub_223A82D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a12, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   __cxa_end_catch();
@@ -6211,7 +6300,7 @@ const char *nd_error(uint64_t a1)
   return *(a1 + 32);
 }
 
-uint64_t nd_initlog(uint64_t a1)
+uint64_t nd_initlog(void (*a1)(char *, uint64_t), uint64_t a2)
 {
   if ((initndlib(void)::bNDLibInitialized & 1) == 0)
   {
@@ -6226,11 +6315,11 @@ uint64_t nd_initlog(uint64_t a1)
   return 0;
 }
 
-void sub_223A83118(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_223A83118(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a12, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   if (a2 == 1)
@@ -6254,18 +6343,18 @@ void nd_logcontrol(const char *a1, const char *a2)
   Error::chuck("Null pointer passed to string constructor", a2);
 }
 
-void sub_223A83334(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_223A83334(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a10);
+  va_start(va, a16);
   NLinkedList<NString>::~NLinkedList(va);
-  if (a7)
+  if (a13)
   {
-    MEMORY[0x223DF1D00](a7, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a13, 0x1000C8077774924);
   }
 
-  if (a10)
+  if (a16)
   {
-    MEMORY[0x223DF1D00](a10, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a16, 0x1000C8077774924);
   }
 
   if (a2 == 1)
@@ -6285,87 +6374,88 @@ void IntNovDetect::IntNovDetect(IntNovDetect *this)
   operator new[]();
 }
 
-void sub_223A84174(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, TSSATScorer *a16, TSSupervectorScorer *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, NWavChunk2HTKFrames *a23, uint64_t a24, uint64_t a25, char a26)
+void sub_223A84174(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, TSSATScorer *a16, TSSupervectorScorer *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, NWavChunk2HTKFrames *a23, uint64_t a24, uint64_t a25, ...)
 {
-  NLinkedList<NMap<NString,NString>::HashItem>::~NLinkedList(&a26);
-  NHash<NMap<NString,NString>::HashItem>::~NHash((v27 - 120));
+  va_start(va, a25);
+  NLinkedList<NMap<NString,NString>::HashItem>::~NLinkedList(va);
+  NHash<NMap<NString,NString>::HashItem>::~NHash((v26 - 120));
   NStringHash<NString>::~NStringHash(a10);
-  v26[394] = a11;
-  v29 = v26[395];
+  v25[394] = a11;
+  v28 = v25[395];
+  if (v28)
+  {
+    MEMORY[0x223DF1D00](v28, 0x1000C8052888210);
+  }
+
+  v25[391] = a12;
+  v29 = v25[392];
   if (v29)
   {
     MEMORY[0x223DF1D00](v29, 0x1000C8052888210);
   }
 
-  v26[391] = a12;
-  v30 = v26[392];
+  v25[388] = a13;
+  v30 = v25[389];
   if (v30)
   {
     MEMORY[0x223DF1D00](v30, 0x1000C8052888210);
   }
 
-  v26[388] = a13;
-  v31 = v26[389];
+  v25[385] = a14;
+  v31 = v25[386];
   if (v31)
   {
-    MEMORY[0x223DF1D00](v31, 0x1000C8052888210);
+    MEMORY[0x223DF1D00](v31, 0x1000C80BDFB0063);
   }
 
-  v26[385] = a14;
-  v32 = v26[386];
+  NConfigSection::~NConfigSection((v25 + 374));
+  v25[362] = a18;
+  v32 = v25[363];
   if (v32)
   {
-    MEMORY[0x223DF1D00](v32, 0x1000C80BDFB0063);
+    MEMORY[0x223DF1D00](v32, 0x1000C8052888210);
   }
 
-  NConfigSection::~NConfigSection((v26 + 374));
-  v26[362] = a18;
-  v33 = v26[363];
+  v25[358] = a19;
+  v33 = v25[359];
   if (v33)
   {
     MEMORY[0x223DF1D00](v33, 0x1000C8052888210);
   }
 
-  v26[358] = a19;
-  v34 = v26[359];
+  v25[352] = a20;
+  v34 = v25[353];
   if (v34)
   {
     MEMORY[0x223DF1D00](v34, 0x1000C8052888210);
   }
 
-  v26[352] = a20;
-  v35 = v26[353];
+  v25[338] = a21;
+  v35 = v25[340];
   if (v35)
   {
-    MEMORY[0x223DF1D00](v35, 0x1000C8052888210);
+    MEMORY[0x223DF1D00](v35, 0x1000C8077774924);
   }
 
-  v26[338] = a21;
-  v36 = v26[340];
+  v25[335] = off_28370A538;
+  v36 = v25[336];
   if (v36)
   {
-    MEMORY[0x223DF1D00](v36, 0x1000C8077774924);
-  }
-
-  v26[335] = off_28370A538;
-  v37 = v26[336];
-  if (v37)
-  {
-    MEMORY[0x223DF1D00](v37, 0x1000C8052888210);
+    MEMORY[0x223DF1D00](v36, 0x1000C8052888210);
   }
 
   NArray<NFrame>::~NArray(a15);
   TSSATScorer::~TSSATScorer(a16);
   TSSupervectorScorer::~TSSupervectorScorer(a17);
-  TSHMMDetector::~TSHMMDetector((v26 + 222));
-  TSHMMDetector::~TSHMMDetector((v26 + 161));
-  NLocalCepNorm::~NLocalCepNorm((v26 + 150));
+  TSHMMDetector::~TSHMMDetector((v25 + 222));
+  TSHMMDetector::~TSHMMDetector((v25 + 161));
+  NLocalCepNorm::~NLocalCepNorm((v25 + 150));
   TSAcAnal::~TSAcAnal(a23);
-  v26[2] = a24;
-  v38 = v26[4];
-  if (v38)
+  v25[2] = a24;
+  v37 = v25[4];
+  if (v37)
   {
-    MEMORY[0x223DF1D00](v38, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](v37, 0x1000C8077774924);
   }
 
   _Unwind_Resume(a1);
@@ -6789,7 +6879,7 @@ uint64_t NLinkedList<NArray<float>>::insert(_DWORD *a1, const char *a2, uint64_t
   v4 = a1[6];
   if (v3 > v4)
   {
-    Error::chuck("NLinkedList::insert List index out of bounds (size = %d, [] = %d)", a2, a1[6], v3);
+    Error::chuck("NLinkedList::insert List index out of bounds (size = %d, [] = %d)", a2, a3, a1[6], v3);
   }
 
   if (!v3)
@@ -7015,7 +7105,7 @@ uint64_t NLinkedList<NArray<NResizingQueue<NFrame>::NElement>>::insert(_DWORD *a
   v4 = a1[6];
   if (v3 > v4)
   {
-    Error::chuck("NLinkedList::insert List index out of bounds (size = %d, [] = %d)", a2, a1[6], v3);
+    Error::chuck("NLinkedList::insert List index out of bounds (size = %d, [] = %d)", a2, a3, a1[6], v3);
   }
 
   if (!v3)
@@ -7281,7 +7371,7 @@ void NStringHash<NString>::~NStringHash(void *a1)
   JUMPOUT(0x223DF1D20);
 }
 
-uint64_t NArray<short>::resize(uint64_t result, _DWORD *a2)
+uint64_t NArray<short>::resize(uint64_t result, unsigned int *a2)
 {
   if (*(result + 16) != *a2)
   {
@@ -7292,7 +7382,7 @@ uint64_t NArray<short>::resize(uint64_t result, _DWORD *a2)
   return result;
 }
 
-uint64_t NArray<short>::fromArray(uint64_t result, uint64_t a2, int *a3)
+uint64_t NArray<short>::fromArray(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v3 = result;
   v4 = *(result + 16);
@@ -7827,7 +7917,7 @@ void IntNovDetect::~IntNovDetect(IntNovDetect *this)
   }
 }
 
-void IntNovDetect::addresource(IntNovDetect *this, const char *__s, const void *a3)
+void IntNovDetect::addresource(IntNovDetect *this, const char *__s, const NString *a3, const void *a4)
 {
   if (*this == -1838836561)
   {
@@ -7839,25 +7929,25 @@ void IntNovDetect::addresource(IntNovDetect *this, const char *__s, const void *
         operator new[]();
       }
 
-      Error::chuck("Null pointer passed to string constructor", 0, a3);
+      Error::chuck("Null pointer passed to string constructor", 0, a3, a4);
     }
 
-    Error::chuck("NovDetect: addresource() can only be called after create()", __s, a3);
+    Error::chuck("NovDetect: addresource() can only be called after create()", __s, a3, a4);
   }
 
-  Error::chuck("Invalid NovDetect Object Signature", __s, a3);
+  Error::chuck("Invalid NovDetect Object Signature", __s, a3, a4);
 }
 
-void sub_223A87170(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
+void sub_223A87170(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   if (a15)
   {
-    MEMORY[0x223DF1D00](a15, v18);
+    MEMORY[0x223DF1D00](a15, v18, a3, a4, a5, a6, a7, a8);
   }
 
   if (a18)
   {
-    MEMORY[0x223DF1D00](a18, v18);
+    MEMORY[0x223DF1D00](a18, v18, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -7872,23 +7962,23 @@ const NString *IntNovDetect::mapfile(IntNovDetect *this, const NString *a2)
     v4 = *(v2 + 3);
     if (v3 == 1684957549 && v4 == 980968804)
     {
-      NMap<NString,NString>::find();
+      NMap<NString,NString>::find(this + 3184, a2);
     }
   }
 
   return a2;
 }
 
-void sub_223A87450(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
+void sub_223A87450(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   if (a18)
   {
-    MEMORY[0x223DF1D00](a18, v18);
+    MEMORY[0x223DF1D00](a18, v18, a3, a4, a5, a6, a7, a8);
   }
 
   if (a15)
   {
-    MEMORY[0x223DF1D00](a15, v18);
+    MEMORY[0x223DF1D00](a15, v18, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -7940,52 +8030,52 @@ void sub_223A8C650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   STACK[0x338] = a43;
   if (STACK[0x348])
   {
-    MEMORY[0x223DF1D00](STACK[0x348], 0x1000C8077774924);
+    MEMORY[0x223DF1D00](STACK[0x348], 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   STACK[0x350] = a47;
   if (STACK[0x360])
   {
-    MEMORY[0x223DF1D00](STACK[0x360], 0x1000C8077774924);
+    MEMORY[0x223DF1D00](STACK[0x360], 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   STACK[0x368] = a48;
   if (STACK[0x378])
   {
-    MEMORY[0x223DF1D00](STACK[0x378], 0x1000C8077774924);
+    MEMORY[0x223DF1D00](STACK[0x378], 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   STACK[0x380] = a49;
   if (STACK[0x390])
   {
-    MEMORY[0x223DF1D00](STACK[0x390], 0x1000C8077774924);
+    MEMORY[0x223DF1D00](STACK[0x390], 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   STACK[0x398] = a50;
   if (STACK[0x3A8])
   {
-    MEMORY[0x223DF1D00](STACK[0x3A8], 0x1000C8077774924);
+    MEMORY[0x223DF1D00](STACK[0x3A8], 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   *(v53 - 240) = a51;
   v55 = *(v53 - 224);
   if (v55)
   {
-    MEMORY[0x223DF1D00](v55, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](v55, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   *(v53 - 216) = a52;
   v56 = *(v53 - 200);
   if (v56)
   {
-    MEMORY[0x223DF1D00](v56, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](v56, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   *(v53 - 192) = a53;
   v57 = *(v53 - 176);
   if (v57)
   {
-    MEMORY[0x223DF1D00](v57, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](v57, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   NConfig::~NConfig((v53 - 168));
@@ -9153,17 +9243,17 @@ uint64_t IntNovDetect::scoresupervector(IntNovDetect *this, const float *a2, uin
 {
   if (*this != -1838836561)
   {
-    Error::chuck("Invalid NovDetect Object Signature", a2);
+    Error::chuck("Invalid NovDetect Object Signature", a2, a3);
   }
 
   if (*(this + 1) != 1)
   {
-    Error::chuck("NovDetect: scoresupervector() can only be called after initialize()", a2);
+    Error::chuck("NovDetect: scoresupervector() can only be called after initialize()", a2, a3);
   }
 
   if ((*(this + 2985) & 1) == 0)
   {
-    Error::chuck("NovDetect: supervector scorer not initialized in config", a2);
+    Error::chuck("NovDetect: supervector scorer not initialized in config", a2, a3);
   }
 
   *(this + 710) = 0;
@@ -9389,7 +9479,7 @@ uint64_t IntNovDetect::rescoreComplete(IntNovDetect *this, const char *a2, __n12
   if (*(this + 2983) == 1)
   {
     v4 = *(this + 551);
-    if (v4 < (*(**(this + 223) + 32))(*(this + 223)))
+    if (v4 < (*(**(this + 223) + 32))(*(this + 223), a2))
     {
       v5 = *(this + 540);
       if (v5)
@@ -9448,7 +9538,8 @@ void IntNovDetect::getoption(IntNovDetect *this, const char *__s)
     {
       if (__s)
       {
-        strlen(__s);
+        v2 = &unk_28370A720;
+        v3 = strlen(__s);
         operator new[]();
       }
 
@@ -9461,11 +9552,11 @@ void IntNovDetect::getoption(IntNovDetect *this, const char *__s)
   Error::chuck("Invalid NovDetect Object Signature", __s);
 }
 
-void sub_223A8F140(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_223A8F140(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a14)
   {
-    MEMORY[0x223DF1D00](a14, v14);
+    MEMORY[0x223DF1D00](a14, v14, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9498,11 +9589,11 @@ void IntNovDetect::sat_initialize(IntNovDetect *this, const char *__s)
   Error::chuck("Invalid NovDetect Object Signature", __s);
 }
 
-void sub_223A8F320(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_223A8F320(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, v12);
+    MEMORY[0x223DF1D00](a12, v12, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9512,12 +9603,12 @@ uint64_t IntNovDetect::sat_analyze(IntNovDetect *this, const float *a2, uint64_t
 {
   if (*this != -1838836561)
   {
-    Error::chuck("Invalid NovDetect Object Signature", a2);
+    Error::chuck("Invalid NovDetect Object Signature", a2, a3);
   }
 
   if (*(this + 3) != 1)
   {
-    Error::chuck("NovDetect: sat_analyze() can only be called after sat_initialize()", a2);
+    Error::chuck("NovDetect: sat_analyze() can only be called after sat_initialize()", a2, a3);
   }
 
   *(this + 710) = 0;
@@ -9537,12 +9628,12 @@ uint64_t IntNovDetect::sat_analyzetransformed(IntNovDetect *this, const float *a
 {
   if (*this != -1838836561)
   {
-    Error::chuck("Invalid NovDetect Object Signature", a2);
+    Error::chuck("Invalid NovDetect Object Signature", a2, a3);
   }
 
   if (*(this + 3) != 1)
   {
-    Error::chuck("NovDetect: sat_analyzetransformed() can only be called after sat_initialize()", a2);
+    Error::chuck("NovDetect: sat_analyzetransformed() can only be called after sat_initialize()", a2, a3);
   }
 
   *(this + 722) = 0;
@@ -9801,105 +9892,4 @@ void IntNovDetect::nextFrameFromAcanal(IntNovDetect *this, const char *a2)
       *(this + 382) = v5;
     }
   }
-}
-
-unint64_t IntNovDetect::updateMultiphraseResults(unint64_t this, const TSHMMDetector *a2, const float *a3, const unsigned int *a4)
-{
-  v4 = *(this + 3176);
-  if (v4)
-  {
-    v6 = *(a2 + 103);
-    v7 = *(a2 + 104);
-    v8 = *(a2 + 50);
-    v9 = *(a2 + 44);
-    v10 = *(a2 + 460) + 1;
-    v19 = 0;
-    if (v9 >= v10)
-    {
-      v13 = this;
-      v14 = 0;
-      v15 = (v6 - v7 + v8) & ~((v6 - v7 + v8) >> 31);
-      if (v4 >= v9 / v10)
-      {
-        v16 = v9 / v10;
-      }
-
-      else
-      {
-        v16 = v4;
-      }
-
-      do
-      {
-        this = TSHMMDetector::lengthNormalizedScorePhrase(a2, &v19);
-        v17 = *a3 + *(&this + 1);
-        v18 = v13[395];
-        if (v17 > *(v18 + 4 * v14) && *a4 > v15)
-        {
-          *(v13[389] + 4 * v14) = *a4 - v15;
-          *(v13[392] + 4 * v14) = this;
-          *(v18 + 4 * v14) = v17;
-        }
-
-        v19 = ++v14;
-      }
-
-      while (v16 != v14);
-    }
-  }
-
-  return this;
-}
-
-uint64_t IntNovDetect::feedFrameToNorm(int32x2_t *this, const NFrame *a2, __n128 a3)
-{
-  v3 = a2;
-  if (this[372].i8[4] == 1)
-  {
-    if (a2)
-    {
-      NLocalCepNorm::pushFrame(this + 150, a2);
-    }
-
-    v5 = this[152].i32[0];
-    if (this[160].i8[4] == 1 && v5 || v5 == this[153].i32[1] + 1)
-    {
-      v3 = &this[335];
-      NLocalCepNorm::setOutputFrame(&this[150], &this[335]);
-      TSHMMDetector::feedFrame(&this[161], &this[335], v6);
-      if (this[373].i8[3] != 1)
-      {
-        return 1;
-      }
-
-      NRingDropBuffer::pushFrame(&this[331], &this[335]);
-      if ((this[373].i8[4] & 1) == 0)
-      {
-        return 1;
-      }
-
-      goto LABEL_13;
-    }
-  }
-
-  else if (a2)
-  {
-    TSHMMDetector::feedFrame(&this[161], a2, a3);
-    if (this[373].i8[3] != 1)
-    {
-      return 1;
-    }
-
-    NRingDropBuffer::pushFrame(&this[331], v3);
-    if (this[373].i8[4] != 1)
-    {
-      return 1;
-    }
-
-LABEL_13:
-    TSHMMDetector::feedFrame(&this[222], v3, v7);
-    return 1;
-  }
-
-  return 0;
 }

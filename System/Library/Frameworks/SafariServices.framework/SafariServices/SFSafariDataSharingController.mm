@@ -19,25 +19,26 @@ void __61___SFSafariDataSharingController_checkInAppBundleIDIfNeeded___block_inv
     [*(*(a1 + 32) + 16) addObject:*(a1 + 40)];
     v3 = [MEMORY[0x1E695E000] safari_browserDefaults];
     [v3 setObject:*(*(a1 + 32) + 16) forKey:@"AppBundleIDsWithSeperateData"];
-    [v3 synchronize];
-    v4 = WBS_LOG_CHANNEL_PREFIXViewService();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v4 = [v3 synchronize];
+    v6 = WBS_LOG_CHANNEL_PREFIXViewService(v4, v5);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+    if (v7)
     {
-      *v6 = 0;
-      _os_log_impl(&dword_1D4644000, v4, OS_LOG_TYPE_INFO, "Apps currently using SafariViewController in Separated data mode...", v6, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1D4644000, v6, OS_LOG_TYPE_INFO, "Apps currently using SafariViewController in Separated data mode...", v10, 2u);
     }
 
-    v5 = WBS_LOG_CHANNEL_PREFIXViewService();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v9 = WBS_LOG_CHANNEL_PREFIXViewService(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      __61___SFSafariDataSharingController_checkInAppBundleIDIfNeeded___block_invoke_cold_1(v2, v5);
+      __61___SFSafariDataSharingController_checkInAppBundleIDIfNeeded___block_invoke_cold_1(v2, v9);
     }
   }
 }
 
 void __54___SFSafariDataSharingController_clearAllWebsitesData__block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695E000] safari_browserDefaults];
   v3 = [v2 arrayForKey:@"AppBundleIDsWithSeperateData"];
   v4 = [v3 mutableCopy];
@@ -45,27 +46,27 @@ void __54___SFSafariDataSharingController_clearAllWebsitesData__block_invoke(uin
   if ([v4 count])
   {
     v5 = [MEMORY[0x1E696AC08] defaultManager];
-    v20 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    v18 = v4;
+    v24 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v22 = v4;
     obj = v4;
-    v6 = [obj countByEnumeratingWithState:&v20 objects:v26 count:16];
+    v6 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v21;
+      v8 = *v25;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v21 != v8)
+          if (*v25 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v20 + 1) + 8 * i);
+          v10 = *(*(&v24 + 1) + 8 * i);
           v11 = [*(a1 + 32) systemDataContainerURLWithAppBundleID:v10];
           v12 = [v11 URLByAppendingPathComponent:@"/Library"];
 
@@ -79,34 +80,35 @@ void __54___SFSafariDataSharingController_clearAllWebsitesData__block_invoke(uin
 
           else
           {
-            v15 = WBS_LOG_CHANNEL_PREFIXViewService();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+            v17 = WBS_LOG_CHANNEL_PREFIXViewService(v15, v16);
+            v18 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
+            if (v18)
             {
               *buf = 0;
-              _os_log_impl(&dword_1D4644000, v15, OS_LOG_TYPE_INFO, "Skip clearing data for app since it has been uninstalled", buf, 2u);
+              _os_log_impl(&dword_1D4644000, v17, OS_LOG_TYPE_INFO, "Skip clearing data for app since it has been uninstalled", buf, 2u);
             }
 
-            v16 = WBS_LOG_CHANNEL_PREFIXViewService();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+            v20 = WBS_LOG_CHANNEL_PREFIXViewService(v18, v19);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138477827;
-              v25 = v10;
-              _os_log_debug_impl(&dword_1D4644000, v16, OS_LOG_TYPE_DEBUG, "App bundle ID: %{private}@", buf, 0xCu);
+              v29 = v10;
+              _os_log_debug_impl(&dword_1D4644000, v20, OS_LOG_TYPE_DEBUG, "App bundle ID: %{private}@", buf, 0xCu);
             }
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v20 objects:v26 count:16];
+        v7 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
       }
 
       while (v7);
     }
 
-    v17 = [MEMORY[0x1E695E000] safari_browserDefaults];
-    [v17 removeObjectForKey:@"AppBundleIDsWithSeperateData"];
-    [v17 synchronize];
+    v21 = [MEMORY[0x1E695E000] safari_browserDefaults];
+    [v21 removeObjectForKey:@"AppBundleIDsWithSeperateData"];
+    [v21 synchronize];
 
-    v4 = v18;
+    v4 = v22;
   }
 }
 

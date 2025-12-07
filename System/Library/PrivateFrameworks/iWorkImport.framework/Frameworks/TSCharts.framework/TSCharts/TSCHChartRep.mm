@@ -842,7 +842,7 @@ LABEL_7:
 {
   setCopy = set;
   descriptionCopy = description;
-  v138 = objc_msgSend_currentChunk(self, v9, v10, v11, v12);
+  v137 = objc_msgSend_currentChunk(self, v9, v10, v11, v12);
   chunkPhase = self->_chunkPhase;
   buildingFinalBackground = self->_buildingFinalBackground;
   buildingChunks = self->_buildingChunks;
@@ -861,22 +861,22 @@ LABEL_7:
   v47 = v46;
   v49 = v48;
 
-  v154.origin.x = v43;
-  v154.origin.y = v45;
-  v154.size.width = v47;
-  v154.size.height = v49;
-  v155 = CGRectIntegral(v154);
-  v51 = objc_msgSend_chartInfo(self, v50, v155.origin.x, v155.origin.y, v155.size.width, v155.size.height);
+  v153.origin.x = v43;
+  v153.origin.y = v45;
+  v153.size.width = v47;
+  v153.size.height = v49;
+  v154 = CGRectIntegral(v153);
+  v51 = objc_msgSend_chartInfo(self, v50, v154.origin.x, v154.origin.y, v154.size.width, v154.size.height);
   v56 = objc_msgSend_chunkManager(v51, v52, v53, v54, v55);
   v61 = objc_msgSend_chartDeliveryStyle(self, v57, v58, v59, v60);
   objc_msgSend_updateCache_(v56, v62, v63, v64, v65, v61);
 
   objc_msgSend_clipRectForElementsDrawnByRenderState_(TSCHElementBuilder, v66, v67, v68, v69, self);
-  x = v156.origin.x;
-  y = v156.origin.y;
-  width = v156.size.width;
-  height = v156.size.height;
-  IsNull = CGRectIsNull(v156);
+  x = v155.origin.x;
+  y = v155.origin.y;
+  width = v155.size.width;
+  height = v155.size.height;
+  IsNull = CGRectIsNull(v155);
   IsVisible = objc_msgSend_planeIsVisible_(self, v75, v76, v77, v78, 0);
   v84 = IsVisible;
   if (!IsNull || IsVisible)
@@ -884,107 +884,107 @@ LABEL_7:
     if (((IsVisible | IsNull) & 1) == 0)
     {
       v85 = objc_msgSend_layout(self, v80, v81, v82, v83);
-      v90 = v85;
+      v89 = v85;
       if (v85)
       {
-        objc_msgSend_transform(v85, v86, v87, v88, v89);
+        objc_msgSend_transform(v85, v86, v87, v88);
       }
 
       else
       {
-        memset(&v153, 0, sizeof(v153));
+        memset(&v152, 0, sizeof(v152));
       }
 
-      v157.origin.x = x;
-      v157.origin.y = y;
-      v157.size.width = width;
-      v157.size.height = height;
-      CGRectApplyAffineTransform(v157, &v153);
+      v156.origin.x = x;
+      v156.origin.y = y;
+      v156.size.width = width;
+      v156.size.height = height;
+      CGRectApplyAffineTransform(v156, &v152);
     }
 
-    v91 = objc_msgSend_canvas(self, v80, v81, v82, v83);
-    objc_msgSend_viewScale(v91, v92, v93, v94, v95);
+    v90 = objc_msgSend_canvas(self, v80, v81, v82, v83);
+    objc_msgSend_viewScale(v90, v91, v92, v93, v94);
     TSUMultiplyRectScalar();
-    v97 = v96;
-    v99 = v98;
-    v101 = v100;
-    v103 = v102;
+    v96 = v95;
+    v98 = v97;
+    v100 = v99;
+    v102 = v101;
 
-    v158.origin.x = v97;
-    v158.origin.y = v99;
-    v158.size.width = v101;
-    v158.size.height = v103;
-    v159 = CGRectIntegral(v158);
-    v160 = CGRectInset(v159, -1.0, -1.0);
-    v104 = v160.size.width;
-    v105 = v160.size.height;
+    v157.origin.x = v96;
+    v157.origin.y = v98;
+    v157.size.width = v100;
+    v157.size.height = v102;
+    v158 = CGRectIntegral(v157);
+    v159 = CGRectInset(v158, -1.0, -1.0);
+    v103 = v159.size.width;
+    v104 = v159.size.height;
     TSUSubtractPoints();
     TSUSubtractPoints();
     TSUAddPoints();
-    v107 = v106;
-    v109 = v108;
-    v140[0] = MEMORY[0x277D85DD0];
-    v140[1] = 3221225472;
-    v110 = *(MEMORY[0x277CBF2C0] + 16);
-    v141 = *MEMORY[0x277CBF2C0];
-    v140[2] = sub_276274CF8;
-    v140[3] = &unk_27A6B71D8;
-    v140[4] = self;
-    *&v140[5] = v106;
-    *&v140[6] = v109;
-    v142 = v110;
-    v143 = *(MEMORY[0x277CBF2C0] + 32);
-    v149 = buildingChunks;
-    v148 = chunkPhase;
-    v150 = buildingFinalBackground;
-    v151 = buildingFinalElements;
-    v144 = v138;
-    v145 = v17;
-    v152 = isKPFExportForMultiData;
-    v146 = v27;
-    v147 = v32;
-    v111 = MEMORY[0x277C98B30](v140);
-    v112 = objc_alloc(MEMORY[0x277D803E8]);
-    v114 = objc_msgSend_initWithSize_offset_renderBlock_(v112, v113, v104, v105, v107, v111, v109);
-    v119 = v114;
+    v106 = v105;
+    v108 = v107;
+    v139[0] = MEMORY[0x277D85DD0];
+    v139[1] = 3221225472;
+    v109 = *(MEMORY[0x277CBF2C0] + 16);
+    v140 = *MEMORY[0x277CBF2C0];
+    v139[2] = sub_276274CF8;
+    v139[3] = &unk_27A6B71D8;
+    v139[4] = self;
+    *&v139[5] = v105;
+    *&v139[6] = v108;
+    v141 = v109;
+    v142 = *(MEMORY[0x277CBF2C0] + 32);
+    v148 = buildingChunks;
+    v147 = chunkPhase;
+    v149 = buildingFinalBackground;
+    v150 = buildingFinalElements;
+    v143 = v137;
+    v144 = v17;
+    v151 = isKPFExportForMultiData;
+    v145 = v27;
+    v146 = v32;
+    v110 = MEMORY[0x277C98B30](v139);
+    v111 = objc_alloc(MEMORY[0x277D803E8]);
+    v113 = objc_msgSend_initWithSize_offset_renderBlock_(v111, v112, v103, v104, v106, v110, v108);
+    v118 = v113;
     if (v84)
     {
       goto LABEL_9;
     }
 
-    v124 = 5;
+    v123 = 5;
     if (chunkPhase == 2)
     {
-      v124 = 2;
+      v123 = 2;
     }
 
     if (chunkPhase == 5)
     {
-      v124 = 6;
+      v123 = 6;
     }
 
     if (self->_buildingFinalBackground)
     {
 LABEL_9:
-      objc_msgSend_setTextureType_(v114, v115, v116, v117, v118, 5);
+      objc_msgSend_setTextureType_(v113, v114, v115, v116, v117, 5);
     }
 
     else
     {
-      objc_msgSend_setTextureType_(v114, v115, v116, v117, v118, v124);
+      objc_msgSend_setTextureType_(v113, v114, v115, v116, v117, v123);
     }
 
     if (self->_buildingFinalElements || self->_buildingFinalBackground)
     {
-      v125 = self->_currentChunk - 1;
-      objc_msgSend_addFinalTexture_forStage_(setCopy, v120, v121, v122, v123, v119, v125);
-      objc_msgSend_p_addChildTexturesToTextureSet_forDescription_stage_finalTexture_(self, v126, v127, v128, v129, setCopy, descriptionCopy, v125, 1);
+      v124 = self->_currentChunk - 1;
+      objc_msgSend_addFinalTexture_forStage_(setCopy, v119, v120, v121, v122, v118, v124);
+      objc_msgSend_p_addChildTexturesToTextureSet_forDescription_stage_finalTexture_(self, v125, v126, v127, v128, setCopy, descriptionCopy, v124, 1);
     }
 
     else
     {
-      objc_msgSend_addRenderable_forStage_(setCopy, v120, v121, v122, v123, v119, self->_currentChunk);
-      objc_msgSend_p_addChildTexturesToTextureSet_forDescription_stage_finalTexture_(self, v130, v131, v132, v133, setCopy, descriptionCopy, self->_currentChunk, 0);
+      objc_msgSend_addRenderable_forStage_(setCopy, v119, v120, v121, v122, v118, self->_currentChunk);
+      objc_msgSend_p_addChildTexturesToTextureSet_forDescription_stage_finalTexture_(self, v129, v130, v131, v132, setCopy, descriptionCopy, self->_currentChunk, 0);
     }
   }
 }

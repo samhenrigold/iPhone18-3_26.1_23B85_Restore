@@ -9,25 +9,23 @@
 {
   v6 = type metadata accessor for URL();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for Date();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v11);
-  v15 = &v16 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for Date();
+  v11 = *(v10 - 8);
+  __chkstk_darwin(v10);
+  v13 = &v14 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_10006E400(v15, type, v10);
-  (*(v7 + 8))(v10, v6);
-  (*(v12 + 8))(v15, v11);
+  sub_10006E400(v13, type, v9);
+  (*(v7 + 8))(v9, v6);
+  (*(v11 + 8))(v13, v10);
 }
 
 - (_TtC18Feedback_Assistant26FBADraftDirectoriesCleanUp)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for FBADraftDirectoriesCleanUp();
+  v3.super_class = type metadata accessor for FBADraftDirectoriesCleanUp(self, a2);
   return [(FBADraftDirectoriesCleanUp *)&v3 init];
 }
 

@@ -225,8 +225,8 @@
         effectView = [v9 effectView];
         v12 = [(UITargetedPreview *)v10 initWithView:effectView];
 
-        preview = [v9 preview];
-        _internalIdentifier = [preview _internalIdentifier];
+        v13 = objc_msgSend_preview(v9);
+        _internalIdentifier = [v13 _internalIdentifier];
         [(UITargetedPreview *)v12 set_internalIdentifier:_internalIdentifier];
 
         [array addObject:v12];
@@ -311,7 +311,7 @@
     v37 = v13;
     if (v13)
     {
-      [v13 transform];
+      objc_msgSend_transform(v13);
     }
 
     else
@@ -330,22 +330,22 @@
     v16 = [(UIPreviewTarget *)v14 initWithContainer:superview center:&v43 transform:?];
 
     primaryBody2 = [(_UIGravityWellEffect *)self primaryBody];
-    preview = [primaryBody2 preview];
+    v18 = objc_msgSend_preview(primaryBody2);
     v36 = v16;
-    preview2 = [preview retargetedPreviewWithTarget:v16];
+    v12 = [v18 retargetedPreviewWithTarget:v16];
 
     primaryBody3 = [(_UIGravityWellEffect *)self primaryBody];
     anchorView2 = [primaryBody3 anchorView];
     layer3 = [anchorView2 layer];
 
     animationKeys = [layer3 animationKeys];
-    [preview2 set_transferrableAnimationKeys:animationKeys];
+    [v12 set_transferrableAnimationKeys:animationKeys];
 
     v41 = 0u;
     v42 = 0u;
     v39 = 0u;
     v40 = 0u;
-    _transferrableAnimationKeys = [preview2 _transferrableAnimationKeys];
+    _transferrableAnimationKeys = [v12 _transferrableAnimationKeys];
     v24 = [_transferrableAnimationKeys countByEnumeratingWithState:&v39 objects:v45 count:16];
     if (v24)
     {
@@ -367,7 +367,7 @@
           if (v30)
           {
             [layer3 removeAnimationForKey:v28];
-            view = [preview2 view];
+            view = [v12 view];
             layer4 = [view layer];
             [layer4 addAnimation:v30 forKey:v28];
           }
@@ -409,10 +409,10 @@
     }
 
     primaryBody4 = [(_UIGravityWellEffect *)self primaryBody];
-    preview2 = [primaryBody4 preview];
+    v12 = objc_msgSend_preview(primaryBody4);
   }
 
-  return preview2;
+  return v12;
 }
 
 - (void)addCompletion:(id)completion

@@ -15,6 +15,7 @@
 - (void)messageCardSectionSendButtonTapped:(id)tapped;
 - (void)messageCardSectionViewBeganEditing:(id)editing;
 - (void)messageCardSectionViewFinishedEditing:(id)editing;
+- (void)messageContentUpdatedAndInitiatedByNewRequest:(BOOL)request;
 - (void)pauseAudioPlayback;
 - (void)setupPlaybackSessionOptions;
 @end
@@ -98,9 +99,52 @@ void __78__SCKPMessageCardSectionViewController_messageCardSectionViewFinishedEd
   [v3 performCommand:v2 forViewController:*(a1 + 32)];
 }
 
+- (void)messageContentUpdatedAndInitiatedByNewRequest:(BOOL)request
+{
+  requestCopy = request;
+  v25[3] = *MEMORY[0x277D85DE8];
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v6 = MEMORY[0x277CCABB0];
+  view = [(SCKPMessageCardSectionViewController *)self view];
+  displayedText = [view displayedText];
+  v9 = [v6 numberWithUnsignedInteger:{objc_msgSend(displayedText, "length")}];
+  [dictionary setObject:v9 forKeyedSubscript:@"newTextLength"];
+
+  v10 = MEMORY[0x277CCABB0];
+  messageText = [(SFMessageCardSection *)self->_cardSection messageText];
+  v12 = [v10 numberWithUnsignedInteger:{objc_msgSend(messageText, "length")}];
+  [dictionary setObject:v12 forKeyedSubscript:@"oldTextLength"];
+
+  textInputMode = [(SCKPMessageCardSectionViewController *)self textInputMode];
+  primaryLanguage = [textInputMode primaryLanguage];
+  [dictionary setObject:primaryLanguage forKeyedSubscript:@"keyboardLocale"];
+
+  mEMORY[0x277CEF158] = [MEMORY[0x277CEF158] sharedAnalytics];
+  [mEMORY[0x277CEF158] logEventWithType:5702 context:dictionary];
+
+  v16 = objc_alloc_init(MEMORY[0x277CF9440]);
+  [v16 setInvocationIdentifier:*MEMORY[0x277D5C2D0]];
+  v24[0] = *MEMORY[0x277D5C2C8];
+  view2 = [(SCKPMessageCardSectionViewController *)self view];
+  displayedText2 = [view2 displayedText];
+  v25[0] = displayedText2;
+  v24[1] = @"contentUpdateInitiatedByNewRequest";
+  v19 = [MEMORY[0x277CCABB0] numberWithBool:requestCopy];
+  v25[1] = v19;
+  v24[2] = @"keyboardLocale";
+  textInputMode2 = [(SCKPMessageCardSectionViewController *)self textInputMode];
+  primaryLanguage2 = [textInputMode2 primaryLanguage];
+  v25[2] = primaryLanguage2;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:3];
+  [v16 setUserInfo:v22];
+
+  cardSectionViewControllingDelegate = [(SCKPMessageCardSectionViewController *)self cardSectionViewControllingDelegate];
+  [cardSectionViewControllingDelegate performCommand:v16 forViewController:self];
+}
+
 - (void)messageCardSectionSendButtonTapped:(id)tapped
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB38];
   tappedCopy = tapped;
   dictionary = [v4 dictionary];
@@ -124,21 +168,19 @@ void __78__SCKPMessageCardSectionViewController_messageCardSectionViewFinishedEd
 
   v17 = objc_alloc_init(MEMORY[0x277CF9440]);
   [v17 setInvocationIdentifier:*MEMORY[0x277D5C2E0]];
-  v24[0] = *MEMORY[0x277D5C2D8];
+  v23[0] = *MEMORY[0x277D5C2D8];
   displayedText2 = [tappedCopy displayedText];
 
-  v24[1] = @"keyboardLocale";
-  v25[0] = displayedText2;
+  v23[1] = @"keyboardLocale";
+  v24[0] = displayedText2;
   textInputMode2 = [(SCKPMessageCardSectionViewController *)self textInputMode];
   primaryLanguage2 = [textInputMode2 primaryLanguage];
-  v25[1] = primaryLanguage2;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+  v24[1] = primaryLanguage2;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
   [v17 setUserInfo:v21];
 
   cardSectionViewControllingDelegate = [(SCKPMessageCardSectionViewController *)self cardSectionViewControllingDelegate];
   [cardSectionViewControllingDelegate performCommand:v17 forViewController:self];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCardSectionPlayButtonTapped:(id)tapped
@@ -185,25 +227,21 @@ void __78__SCKPMessageCardSectionViewController_messageCardSectionViewFinishedEd
 
 - (void)createAudioPlayer
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupPlaybackSessionOptions
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginAudioPlayback
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [(AVAudioPlayer *)self->_player prepareToPlay];
   [(AVAudioPlayer *)self->_player setCurrentTime:0.0];
   v3 = MEMORY[0x277CF93F0];
@@ -212,10 +250,10 @@ void __78__SCKPMessageCardSectionViewController_messageCardSectionViewFinishedEd
   {
     player = self->_player;
     v6 = v4;
-    [(AVAudioPlayer *)player duration];
-    v10 = 134217984;
-    v11 = v7;
-    _os_log_impl(&dword_26950D000, v6, OS_LOG_TYPE_INFO, "Playing audio file of duration: %f", &v10, 0xCu);
+    objc_msgSend_duration(player);
+    v9 = 134217984;
+    v10 = v7;
+    _os_log_impl(&dword_26950D000, v6, OS_LOG_TYPE_INFO, "Playing audio file of duration: %f", &v9, 0xCu);
   }
 
   if ([(AVAudioPlayer *)self->_player play])
@@ -228,8 +266,6 @@ void __78__SCKPMessageCardSectionViewController_messageCardSectionViewFinishedEd
   {
     [SCKPMessageCardSectionViewController beginAudioPlayback];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pauseAudioPlayback
@@ -320,7 +356,7 @@ LABEL_12:
 
 - (void)_asrUpdated:(id)updated
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   intent = [(INInteraction *)self->_interaction intent];
   objc_opt_class();
@@ -342,10 +378,10 @@ LABEL_18:
         goto LABEL_19;
       }
 
-      LOWORD(v18) = 0;
+      LOWORD(v17) = 0;
       v11 = "Not updating ASR because the intent has content";
 LABEL_5:
-      _os_log_impl(&dword_26950D000, v10, OS_LOG_TYPE_INFO, v11, &v18, 2u);
+      _os_log_impl(&dword_26950D000, v10, OS_LOG_TYPE_INFO, v11, &v17, 2u);
       goto LABEL_18;
     }
 
@@ -360,7 +396,7 @@ LABEL_5:
         goto LABEL_18;
       }
 
-      LOWORD(v18) = 0;
+      LOWORD(v17) = 0;
       v11 = "Not updating ASR because we dont have a recipient";
       goto LABEL_5;
     }
@@ -376,7 +412,7 @@ LABEL_5:
         goto LABEL_18;
       }
 
-      LOWORD(v18) = 0;
+      LOWORD(v17) = 0;
       v11 = "Not updating ASR because the message has an attachment";
       goto LABEL_5;
     }
@@ -387,9 +423,9 @@ LABEL_5:
     v16 = *MEMORY[0x277CF93F0];
     if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
     {
-      v18 = 138412290;
-      v19 = updatedCopy;
-      _os_log_impl(&dword_26950D000, v16, OS_LOG_TYPE_INFO, "Updating message field with ASR recognition : %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = updatedCopy;
+      _os_log_impl(&dword_26950D000, v16, OS_LOG_TYPE_INFO, "Updating message field with ASR recognition : %@", &v17, 0xCu);
     }
 
     intent2 = [(SCKPMessageCardSectionViewController *)self view];
@@ -398,8 +434,6 @@ LABEL_5:
   }
 
 LABEL_19:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (CRKCardSectionViewControllingDelegate)cardSectionViewControllingDelegate
@@ -411,22 +445,20 @@ LABEL_19:
 
 - (void)audioPlayerDidFinishPlaying:successfully:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  v4 = 1024;
-  v5 = v0;
-  _os_log_error_impl(&dword_26950D000, v1, OS_LOG_TYPE_ERROR, "Audio player: %@ finished playing with success: %d", v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 1024;
+  v4 = v0;
+  _os_log_error_impl(&dword_26950D000, v1, OS_LOG_TYPE_ERROR, "Audio player: %@ finished playing with success: %d", v2, 0x12u);
 }
 
 - (void)audioPlayerDecodeErrorDidOccur:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_26950D000, v1, OS_LOG_TYPE_ERROR, "Audio player: %@ encountered error: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_26950D000, v1, OS_LOG_TYPE_ERROR, "Audio player: %@ encountered error: %@", v2, 0x16u);
 }
 
 @end

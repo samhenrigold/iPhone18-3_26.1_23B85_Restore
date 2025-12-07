@@ -51,16 +51,17 @@
 - (void)deleteBookmark
 {
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC12MobileSafari38SFEditBookmarkCollectionViewController_isDeletingBookmark) = 1;
-  v3 = (self + OBJC_IVAR____TtC12MobileSafari38SFEditBookmarkCollectionViewController_deleteHandler);
+  v3 = self + OBJC_IVAR____TtC12MobileSafari38SFEditBookmarkCollectionViewController_deleteHandler;
   swift_beginAccess();
   v4 = *v3;
   if (*v3)
   {
+    v5 = *(v3 + 1);
     selfCopy = self;
-    sub_18B824D48(v4);
-    v4(selfCopy);
+    v7 = sub_18B824D48(v4, v5);
+    v4(selfCopy, v7);
 
-    sub_18B7B171C(v4);
+    sub_18B7B171C(v4, v5);
   }
 }
 
@@ -73,7 +74,7 @@
   sub_18BC1ED88();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_18B9B8348();
+  LOBYTE(self) = sub_18B9B8348(v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -88,7 +89,7 @@
   sub_18BC1ED88();
   viewCopy = view;
   selfCopy = self;
-  sub_18B9B4240(viewCopy);
+  sub_18B9B4240(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }

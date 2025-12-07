@@ -10,7 +10,7 @@
 
 - (void)dealloc
 {
-  item_count = ps_resource_get_item_count(self + 8, a2);
+  item_count = ps_resource_get_item_count((self + 8));
   if (item_count)
   {
     v4 = 0;
@@ -29,17 +29,17 @@
           goto LABEL_20;
         }
 
-        v20[0] = ps_resource::get_object((self + 8));
-        v14 = std::__hash_table<std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>>>::find<void *>(self + 63, v20);
-        if (!v14)
+        v19[0] = ps_resource::get_object((self + 8));
+        v13 = std::__hash_table<std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>>>::find<void *>(self + 63, v19);
+        if (!v13)
         {
-          v17 = v20[0];
+          v16 = v19[0];
 LABEL_30:
-          free(v17);
+          free(v16);
           goto LABEL_31;
         }
 
-        (v14[3])(v20[0]);
+        (v13[3])(v19[0]);
       }
 
       else
@@ -52,29 +52,28 @@ LABEL_33:
             __assert_rtn("[PSResourceWrapper dealloc]", "PSTestEngine.mm", 270, "false && resource must have a valid/supported data class");
           }
 
-          v20[0] = ps_resource::get_object((self + 8));
-          v9 = std::__hash_table<std::__hash_value_type<objc_object * {__strong},void({block_pointer} {__strong})(objc_object *)>,std::__unordered_map_hasher<objc_object * {__strong},std::__hash_value_type<objc_object * {__strong},void({block_pointer} {__strong})(objc_object *)>,std::hash<objc_object * {__strong}>,std::equal_to<objc_object * {__strong}>,true>,std::__unordered_map_equal<objc_object * {__strong},std::__hash_value_type<objc_object * {__strong},void({block_pointer} {__strong})(objc_object *)>,std::equal_to<objc_object * {__strong}>,std::hash<objc_object * {__strong}>,true>,std::allocator<std::__hash_value_type<objc_object * {__strong},void({block_pointer} {__strong})(objc_object *)>>>::find<objc_object * {__strong}>(self + 58, v20);
+          v19[0] = ps_resource::get_object((self + 8));
+          v9 = std::__hash_table<std::__hash_value_type<objc_object * {__strong},void({block_pointer} {__strong})(objc_object *)>,std::__unordered_map_hasher<objc_object * {__strong},std::__hash_value_type<objc_object * {__strong},void({block_pointer} {__strong})(objc_object *)>,std::hash<objc_object * {__strong}>,std::equal_to<objc_object * {__strong}>,true>,std::__unordered_map_equal<objc_object * {__strong},std::__hash_value_type<objc_object * {__strong},void({block_pointer} {__strong})(objc_object *)>,std::equal_to<objc_object * {__strong}>,std::hash<objc_object * {__strong}>,true>,std::allocator<std::__hash_value_type<objc_object * {__strong},void({block_pointer} {__strong})(objc_object *)>>>::find<objc_object * {__strong}>(self + 58, v19);
           if (v9)
           {
-            (*(v9[3] + 16))();
+            (v9[3][2])();
           }
 
           goto LABEL_31;
         }
 
-        data_item = ps_resource_get_data_item(self + 8, v4);
+        data_item = ps_resource_get_data_item((self + 8), v4);
         bytes = ps_resource_data_get_bytes(data_item);
         v12 = std::__hash_table<std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>>>::find<void *>(self + 68, &bytes);
-        v13 = v12;
         if (!v12)
         {
-          v17 = bytes;
+          v16 = bytes;
           goto LABEL_30;
         }
 
         (*(v12[3] + 16))();
-        std::__hash_table<std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>>>::remove(self + 68, v13, v20);
-        std::unique_ptr<std::__hash_node<std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,void *>>>>::~unique_ptr[abi:nn200100](v20);
+        std::__hash_table<std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>>>::remove(self + 68, v12, v19);
+        std::unique_ptr<std::__hash_node<std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<void *,void({block_pointer} {__strong})(void *)>,void *>>>>::~unique_ptr[abi:nn200100](v19);
       }
 
 LABEL_31:
@@ -129,9 +128,9 @@ LABEL_20:
 
 LABEL_32:
   ps_resource::clear((self + 8));
-  v18.receiver = self;
-  v18.super_class = PSResourceWrapper;
-  [(PSResourceWrapper *)&v18 dealloc];
+  v17.receiver = self;
+  v17.super_class = PSResourceWrapper;
+  [(PSResourceWrapper *)&v17 dealloc];
 }
 
 - (void)setObject_deallocator_map:(void *)object_deallocator_map
@@ -166,11 +165,11 @@ LABEL_32:
 
 - (id).cxx_construct
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   *(self + 2) = 0;
   *(self + 35) = 0;
-  v5[0] = 1;
-  std::vector<ps_resource_item_status>::vector[abi:nn200100](self + 36, v5, 1uLL);
+  v4[0] = 1;
+  std::vector<ps_resource_item_status>::vector[abi:nn200100](self + 36, v4, 1uLL);
   *(self + 424) = 0u;
   *(self + 440) = 0u;
   *(self + 392) = 0u;
@@ -189,7 +188,6 @@ LABEL_32:
   *(self + 34) = 0u;
   *(self + 35) = 0u;
   *(self + 144) = 1065353216;
-  v3 = *MEMORY[0x277D85DE8];
   return self;
 }
 

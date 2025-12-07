@@ -172,7 +172,7 @@
 
 - (void)startAnimationWithCompletion:(id)completion
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   animationState = self->_animationState;
   v6 = PKLogFacilityTypeGetObject();
@@ -191,50 +191,58 @@
     v13 = v12;
     v15 = v14;
     [(PKPeerPaymentHeroBubbleView *)self->_bubbleView frame];
-    CGRectGetWidth(v36);
-    v37.origin.x = v9;
-    v37.origin.y = v11;
-    v37.size.width = v13;
-    v37.size.height = v15;
-    CGRectGetMaxX(v37);
-    v38.origin.x = v9;
-    v38.origin.y = v11;
-    v38.size.width = v13;
-    v38.size.height = v15;
-    CGRectGetMinY(v38);
-    PKFloatRoundToPixel();
-    v17 = v16;
-    PKFloatRoundToPixel();
-    v19 = v18;
+    x = v50.origin.x;
+    y = v50.origin.y;
+    v18 = CGRectGetWidth(v50) * 0.25;
+    v51.origin.x = v9;
+    v51.origin.y = v11;
+    v51.size.width = v13;
+    v51.size.height = v15;
+    v19 = CGRectGetMaxX(v51) + -17.0 - v18 + -7.5;
+    v52.origin.x = v9;
+    v52.origin.y = v11;
+    v52.size.width = v13;
+    v52.size.height = v15;
+    MinY = CGRectGetMinY(v52);
+    v21.n128_u64[0] = 6.0;
+    v22 = MinY + 6.0;
+    v23.n128_f64[0] = v19 - x;
+    PKFloatRoundToPixel(v23, v21);
+    v25 = v24;
+    v26.n128_f64[0] = v22 - y;
+    PKFloatRoundToPixel(v26, v27);
+    v29 = v28;
     memset(&buf, 0, sizeof(buf));
     CGAffineTransformMakeScale(&buf, 0.25, 0.25);
-    memset(&v33, 0, sizeof(v33));
-    CGAffineTransformMakeTranslation(&v33, v17, v19);
+    memset(&v47, 0, sizeof(v47));
+    CGAffineTransformMakeTranslation(&v47, v25, v29);
     t1 = buf;
-    t2 = v33;
-    memset(&v32, 0, sizeof(v32));
-    CGAffineTransformConcat(&v32, &t1, &t2);
-    PKFloatRoundToPixel();
-    v21 = v20;
-    PKFloatRoundToPixel();
+    t2 = v47;
+    memset(&v46, 0, sizeof(v46));
+    CGAffineTransformConcat(&v46, &t1, &t2);
+    v30.n128_f64[0] = v9 + -7.5 - v9;
+    PKFloatRoundToPixel(v30, v31);
+    v33 = v32;
+    v34.n128_f64[0] = v11 - v11;
+    PKFloatRoundToPixel(v34, v35);
     memset(&t1, 0, sizeof(t1));
-    CGAffineTransformMakeTranslation(&t1, v21, v22);
+    CGAffineTransformMakeTranslation(&t1, v33, v36);
     self->_animationState = 2;
-    v23 = MEMORY[0x1E69DD250];
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v28 = v32;
-    v27[2] = __63__PKPeerPaymentSetupFlowHeroView_startAnimationWithCompletion___block_invoke;
-    v27[3] = &unk_1E8020120;
-    v27[4] = self;
-    v29 = t1;
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __63__PKPeerPaymentSetupFlowHeroView_startAnimationWithCompletion___block_invoke_2;
-    v25[3] = &unk_1E80158C0;
-    v25[4] = self;
-    v26 = completionCopy;
-    [v23 animateWithDuration:0x10000 delay:v27 usingSpringWithDamping:v25 initialSpringVelocity:0.7 options:0.0 animations:1.0 completion:1.0];
+    v37 = MEMORY[0x1E69DD250];
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v42 = v46;
+    v41[2] = __63__PKPeerPaymentSetupFlowHeroView_startAnimationWithCompletion___block_invoke;
+    v41[3] = &unk_1E8020120;
+    v41[4] = self;
+    v43 = t1;
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __63__PKPeerPaymentSetupFlowHeroView_startAnimationWithCompletion___block_invoke_2;
+    v39[3] = &unk_1E80158C0;
+    v39[4] = self;
+    v40 = completionCopy;
+    [v37 animateWithDuration:0x10000 delay:v41 usingSpringWithDamping:v39 initialSpringVelocity:0.7 options:0.0 animations:1.0 completion:1.0];
   }
 
   else
@@ -242,9 +250,9 @@
     if (v7)
     {
       [(PKPeerPaymentCredential *)self->_credential flowState];
-      v24 = PKPeerPaymentRegistrationFlowStateToString();
+      v38 = PKPeerPaymentRegistrationFlowStateToString();
       LODWORD(buf.a) = 138412290;
-      *(&buf.a + 4) = v24;
+      *(&buf.a + 4) = v38;
       _os_log_impl(&dword_1BD026000, v6, OS_LOG_TYPE_DEFAULT, "Cannot animate the message bubble when the registration flow state is %@", &buf, 0xCu);
     }
 

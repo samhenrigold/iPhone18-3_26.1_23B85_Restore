@@ -3,6 +3,7 @@
 - (void)_setConnectionMetricsFromNSPControlConnection:(id)connection withCompletion:(id)completion;
 - (void)_setConnectionMetricsTCPInfo:(id)info;
 - (void)setConnectionMetricsForIDS:(double)s messageDelay:(double)delay openErrorCode:(unint64_t)code;
+- (void)setConnectionMetricsFromConnection:(id)connection isPop:(BOOL)pop isMPTCP:(BOOL)p attemptedEndpoints:(id)endpoints completion:(id)completion;
 - (void)setConnectionMetricsFromNWConnectionForDirect:(id)direct isMPTCP:(BOOL)p attemptedEndpoints:(id)endpoints withCompletion:(id)completion;
 - (void)setConnectionMetricsFromNWConnectionForPOP:(id)p withCompletion:(id)completion;
 - (void)setConnectionMetricsFromStream:(id)stream isPop:(BOOL)pop withCompletion:(id)completion;
@@ -49,7 +50,7 @@
 - (void)setConnectionMetricsFromNWConnectionForDirect:(id)direct isMPTCP:(BOOL)p attemptedEndpoints:(id)endpoints withCompletion:(id)completion
 {
   pCopy = p;
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   directCopy = direct;
   endpointsCopy = endpoints;
   completionCopy = completion;
@@ -62,7 +63,7 @@
     applier[1] = 3221225472;
     applier[2] = __117__SiriCoreConnectionMetrics_setConnectionMetricsFromNWConnectionForDirect_isMPTCP_attemptedEndpoints_withCompletion___block_invoke;
     applier[3] = &unk_279BD5A18;
-    v49 = v15;
+    v48 = v15;
     v16 = v15;
     xpc_dictionary_apply(v14, applier);
     [(SiriCoreConnectionMetrics *)self _setConnectionMetricsTCPInfo:v16];
@@ -102,7 +103,7 @@ LABEL_14:
     {
       if ([endpointsCopy count])
       {
-        v45 = v14;
+        v44 = v14;
         v29 = [endpointsCopy count];
         v30 = objc_alloc_init(MEMORY[0x277CCAB68]);
         if (v29)
@@ -121,11 +122,11 @@ LABEL_14:
 
         [(SiriCoreConnectionMetrics *)self setConnectionEdgeID:v30];
 
-        v14 = v45;
+        v14 = v44;
 LABEL_29:
-        *v50 = 0;
+        *v49 = 0;
+        v50 = 0;
         v51 = 0;
-        v52 = 0;
         if (!nw_connection_fillout_tcp_statistics())
         {
 LABEL_45:
@@ -133,22 +134,22 @@ LABEL_45:
           goto LABEL_46;
         }
 
-        v34 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*v50];
+        v34 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*v49];
         [(SiriCoreConnectionMetrics *)self setDnsResolutionTime:v34];
 
-        v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*&v50[4]];
+        v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*&v49[4]];
         [(SiriCoreConnectionMetrics *)self setConnectionStartTimeToDNSResolutionTimeMsec:v35];
 
-        v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v51];
+        v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v50];
         [(SiriCoreConnectionMetrics *)self setConnectionEstablishmentTimeMsec:v36];
 
-        v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:HIDWORD(v51)];
+        v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:HIDWORD(v50)];
         [(SiriCoreConnectionMetrics *)self setConnectionStartTimeToConnectionEstablishmentTimeMsec:v37];
 
-        v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v52];
+        v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v51];
         [(SiriCoreConnectionMetrics *)self setTlsHandshakeTimeMsec:v38];
 
-        v39 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:HIDWORD(v52)];
+        v39 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:HIDWORD(v51)];
         [(SiriCoreConnectionMetrics *)self setConnectionStartTimeToTLSHandshakeTimeMsec:v39];
 
         v40 = MEMORY[0x26D5E5AF0]();
@@ -209,9 +210,9 @@ LABEL_44:
   [(SiriCoreConnectionMetrics *)self setConnectedSubflowCount:v19];
 
   primary_subflow_interface_index = nw_connection_multipath_get_primary_subflow_interface_index();
-  if (if_indextoname(primary_subflow_interface_index, v50))
+  if (if_indextoname(primary_subflow_interface_index, v49))
   {
-    v21 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v50];
+    v21 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v49];
     [(SiriCoreConnectionMetrics *)self setPrimarySubflowInterfaceName:v21];
   }
 
@@ -220,13 +221,13 @@ LABEL_44:
   if (v22 && MEMORY[0x26D5E61D0](v22) == MEMORY[0x277D86468])
   {
     v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __117__SiriCoreConnectionMetrics_setConnectionMetricsFromNWConnectionForDirect_isMPTCP_attemptedEndpoints_withCompletion___block_invoke_2;
-    v46[3] = &unk_279BD5A18;
-    v47 = v24;
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __117__SiriCoreConnectionMetrics_setConnectionMetricsFromNWConnectionForDirect_isMPTCP_attemptedEndpoints_withCompletion___block_invoke_2;
+    v45[3] = &unk_279BD5A18;
+    v46 = v24;
     v25 = v24;
-    xpc_dictionary_apply(v23, v46);
+    xpc_dictionary_apply(v23, v45);
     [(SiriCoreConnectionMetrics *)self setSubflowSwitchCounts:v25];
   }
 
@@ -240,8 +241,6 @@ LABEL_46:
   {
     completionCopy[2](completionCopy);
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __117__SiriCoreConnectionMetrics_setConnectionMetricsFromNWConnectionForDirect_isMPTCP_attemptedEndpoints_withCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -272,21 +271,65 @@ uint64_t __117__SiriCoreConnectionMetrics_setConnectionMetricsFromNWConnectionFo
   return 1;
 }
 
+- (void)setConnectionMetricsFromConnection:(id)connection isPop:(BOOL)pop isMPTCP:(BOOL)p attemptedEndpoints:(id)endpoints completion:(id)completion
+{
+  pCopy = p;
+  popCopy = pop;
+  v18 = *MEMORY[0x277D85DE8];
+  connectionCopy = connection;
+  endpointsCopy = endpoints;
+  completionCopy = completion;
+  if (!connectionCopy)
+  {
+    v15 = *MEMORY[0x277CEF0E0];
+    if (os_log_type_enabled(*MEMORY[0x277CEF0E0], OS_LOG_TYPE_ERROR))
+    {
+      v16 = 136315138;
+      v17 = "[SiriCoreConnectionMetrics setConnectionMetricsFromConnection:isPop:isMPTCP:attemptedEndpoints:completion:]";
+      _os_log_error_impl(&dword_2669D1000, v15, OS_LOG_TYPE_ERROR, "%s NWConnection nil. Unable to obtain metrics", &v16, 0xCu);
+      if (!completionCopy)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    else if (!completionCopy)
+    {
+      goto LABEL_8;
+    }
+
+    completionCopy[2](completionCopy);
+    goto LABEL_8;
+  }
+
+  if (popCopy)
+  {
+    [(SiriCoreConnectionMetrics *)self setConnectionMetricsFromNWConnectionForPOP:connectionCopy withCompletion:completionCopy];
+  }
+
+  else
+  {
+    [(SiriCoreConnectionMetrics *)self setConnectionMetricsFromNWConnectionForDirect:connectionCopy isMPTCP:pCopy attemptedEndpoints:endpointsCopy withCompletion:completionCopy];
+  }
+
+LABEL_8:
+}
+
 - (void)_setConnectionMetricsFromNSPControlConnection:(id)connection withCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   completionCopy = completion;
   v8 = completionCopy;
   if (connectionCopy)
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __90__SiriCoreConnectionMetrics__setConnectionMetricsFromNSPControlConnection_withCompletion___block_invoke;
-    v11[3] = &unk_279BD59F0;
-    v11[4] = self;
-    v12 = completionCopy;
-    [connectionCopy fetchConnectionInfoWithCompletionHandler:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __90__SiriCoreConnectionMetrics__setConnectionMetricsFromNSPControlConnection_withCompletion___block_invoke;
+    v10[3] = &unk_279BD59F0;
+    v10[4] = self;
+    v11 = completionCopy;
+    [connectionCopy fetchConnectionInfoWithCompletionHandler:v10];
   }
 
   else
@@ -300,24 +343,22 @@ uint64_t __117__SiriCoreConnectionMetrics_setConnectionMetricsFromNWConnectionFo
     if (os_log_type_enabled(*MEMORY[0x277CEF0E0], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v14 = "[SiriCoreConnectionMetrics _setConnectionMetricsFromNSPControlConnection:withCompletion:]";
+      v13 = "[SiriCoreConnectionMetrics _setConnectionMetricsFromNSPControlConnection:withCompletion:]";
       _os_log_error_impl(&dword_2669D1000, v9, OS_LOG_TYPE_ERROR, "%s NSP Control Connection was nil. Stream did not use NSP.", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __90__SiriCoreConnectionMetrics__setConnectionMetricsFromNSPControlConnection_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF0A8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A8], OS_LOG_TYPE_INFO))
   {
-    v33 = 136315138;
-    v34 = "[SiriCoreConnectionMetrics _setConnectionMetricsFromNSPControlConnection:withCompletion:]_block_invoke";
-    _os_log_impl(&dword_2669D1000, v4, OS_LOG_TYPE_INFO, "%s ", &v33, 0xCu);
+    v32 = 136315138;
+    v33 = "[SiriCoreConnectionMetrics _setConnectionMetricsFromNSPControlConnection:withCompletion:]_block_invoke";
+    _os_log_impl(&dword_2669D1000, v4, OS_LOG_TYPE_INFO, "%s ", &v32, 0xCu);
   }
 
   v5 = [v3 TCPInfo];
@@ -333,10 +374,10 @@ void __90__SiriCoreConnectionMetrics__setConnectionMetricsFromNSPControlConnecti
     v10 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:{objc_msgSend(v3, "multipathConnectedSubflowCount")}];
     [v9 setConnectedSubflowCount:v10];
 
-    if (if_indextoname([v3 multipathPrimarySubflowInterfaceIndex], &v33))
+    if (if_indextoname([v3 multipathPrimarySubflowInterfaceIndex], &v32))
     {
       v11 = *(a1 + 32);
-      v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:&v33];
+      v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:&v32];
       [v11 setPrimarySubflowInterfaceName:v12];
     }
 
@@ -438,8 +479,6 @@ void __90__SiriCoreConnectionMetrics__setConnectionMetricsFromNSPControlConnecti
   {
     (*(v31 + 16))();
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setConnectionMetricsTCPInfo:(id)info
@@ -486,7 +525,7 @@ void __58__SiriCoreConnectionMetrics__setConnectionMetricsTCPInfo___block_invoke
   tcpInfoMetricsByInterfaceName = self->_tcpInfoMetricsByInterfaceName;
   self->_tcpInfoMetricsByInterfaceName = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, tcpInfoMetricsByInterfaceName);
 }
 
 - (void)setConnectionMetricsFromStreamForPOP:(id)p withCompletion:(id)completion
@@ -501,7 +540,7 @@ void __58__SiriCoreConnectionMetrics__setConnectionMetricsTCPInfo___block_invoke
 
 - (void)setConnectionMetricsFromStreamForDirect:(id)direct withCompletion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   directCopy = direct;
   completionCopy = completion;
   v8 = [directCopy propertyForKey:*MEMORY[0x277CBACB8]];
@@ -511,15 +550,15 @@ void __58__SiriCoreConnectionMetrics__setConnectionMetricsTCPInfo___block_invoke
     v10 = v9;
     v11 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:v9];
     v12 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:v10];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __84__SiriCoreConnectionMetrics_setConnectionMetricsFromStreamForDirect_withCompletion___block_invoke;
-    v26[3] = &unk_279BD59C8;
-    v27 = v11;
-    v28 = v12;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __84__SiriCoreConnectionMetrics_setConnectionMetricsFromStreamForDirect_withCompletion___block_invoke;
+    v25[3] = &unk_279BD59C8;
+    v26 = v11;
+    v27 = v12;
     v13 = v12;
     v14 = v11;
-    [v8 enumerateKeysAndObjectsUsingBlock:v26];
+    [v8 enumerateKeysAndObjectsUsingBlock:v25];
     [(SiriCoreConnectionMetrics *)self setTCPInfoMetricsByInterfaceName:v14];
     [(SiriCoreConnectionMetrics *)self setFlowNetworkInterfaceType:v13];
   }
@@ -559,12 +598,12 @@ void __58__SiriCoreConnectionMetrics__setConnectionMetricsTCPInfo___block_invoke
   v22 = v21;
   if (v21)
   {
-    if (!getnameinfo([v21 bytes], objc_msgSend(v21, "length"), v29, 0x100u, 0, 0, 2))
+    if (!getnameinfo([v21 bytes], objc_msgSend(v21, "length"), v28, 0x100u, 0, 0, 2))
     {
-      v25 = [MEMORY[0x277CCACA8] stringWithCString:v29 encoding:4];
-      if (v25)
+      v24 = [MEMORY[0x277CCACA8] stringWithCString:v28 encoding:4];
+      if (v24)
       {
-        [(SiriCoreConnectionMetrics *)self setConnectionEdgeID:v25];
+        [(SiriCoreConnectionMetrics *)self setConnectionEdgeID:v24];
       }
 
       if (completionCopy)
@@ -591,8 +630,6 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __84__SiriCoreConnectionMetrics_setConnectionMetricsFromStreamForDirect_withCompletion___block_invoke(uint64_t a1, void *a2, id a3)

@@ -26,7 +26,7 @@
   v4 = [[VCSParserInputStream alloc] initWithData:dataCopy];
   if (!v4)
   {
-    v8 = VCSLogHandle();
+    v8 = VCSLogHandle(0);
     if (os_log_type_enabled(&v8->super, OS_LOG_TYPE_ERROR))
     {
       +[VCSParser parseVCSData:];
@@ -129,7 +129,7 @@ LABEL_27:
       v19 = [(VCSParsedLine *)v26 loadFromCString:v6 withParseState:v8];
       if (v19 && [self decodeVCSLine:v19 withParseState:v8] == 2)
       {
-        v20 = VCSLogHandle();
+        v20 = VCSLogHandle(2);
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           [(VCSParser *)&buf parseVCSData:v28, v20];
@@ -186,7 +186,7 @@ LABEL_14:
 
   if (type != 1)
   {
-    v16 = VCSLogHandle();
+    v16 = VCSLogHandle(type);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [VCSParser decodeVCSLine:lineCopy withParseState:v16];
@@ -204,7 +204,7 @@ LABEL_14:
 
   if (tokenID != 1)
   {
-    v16 = VCSLogHandle();
+    v16 = VCSLogHandle(tokenID);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       +[VCSParser decodeVCSLine:withParseState:];
@@ -237,7 +237,7 @@ LABEL_16:
   v11 = [VCSParsedLine tokenizeNSStringKeyword:v10 withType:&v19];
   if (v19 != 2)
   {
-    v12 = VCSLogHandle();
+    v12 = VCSLogHandle(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(VCSParser *)v10 beginVCSEntity:stateCopy withParseState:v12];
@@ -262,7 +262,7 @@ LABEL_16:
         goto LABEL_20;
       }
 
-      v13 = VCSLogHandle();
+      v13 = VCSLogHandle(3);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         +[VCSParser beginVCSEntity:withParseState:];
@@ -271,7 +271,7 @@ LABEL_16:
 
     else
     {
-      v13 = VCSLogHandle();
+      v13 = VCSLogHandle(v11);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         +[VCSParser beginVCSEntity:withParseState:];
@@ -302,7 +302,7 @@ LABEL_20:
       goto LABEL_21;
     }
 
-    v13 = VCSLogHandle();
+    v13 = VCSLogHandle(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       +[VCSParser beginVCSEntity:withParseState:];
@@ -319,19 +319,19 @@ LABEL_21:
 
 + (unint64_t)endVCSEntity:(id)entity withParseState:(id)state
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   stateCopy = state;
-  v41 = 0;
+  v40 = 0;
   context = [stateCopy context];
   v8 = objc_alloc(MEMORY[0x277CCACA8]);
   content = [entityCopy content];
   v10 = [v8 initWithData:content encoding:1];
 
-  v11 = [VCSParsedLine tokenizeNSStringKeyword:v10 withType:&v41];
-  if (v41 != 2)
+  v11 = [VCSParsedLine tokenizeNSStringKeyword:v10 withType:&v40];
+  if (v40 != 2)
   {
-    v14 = VCSLogHandle();
+    v14 = VCSLogHandle(v11);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       +[VCSParser endVCSEntity:withParseState:];
@@ -344,7 +344,7 @@ LABEL_21:
   {
     if (context != 3)
     {
-      v32 = VCSLogHandle();
+      v32 = VCSLogHandle(5);
       if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         +[VCSParser endVCSEntity:withParseState:];
@@ -361,7 +361,7 @@ LABEL_21:
   {
     if (context != 2)
     {
-      v32 = VCSLogHandle();
+      v32 = VCSLogHandle(4);
       if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         +[VCSParser endVCSEntity:withParseState:];
@@ -383,38 +383,38 @@ LABEL_21:
 
     if ([currentEntity hasPropertyWithName:@"EXDATE"])
     {
-      v35 = v10;
-      v36 = entityCopy;
+      v34 = v10;
+      v35 = entityCopy;
       v19 = objc_opt_new();
+      v36 = 0u;
       v37 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v40 = 0u;
       v20 = [currentEntity propertyForName:@"EXDATE"];
       values = [v20 values];
 
-      v22 = [values countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v22 = [values countByEnumeratingWithState:&v36 objects:v41 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v38;
+        v24 = *v37;
         do
         {
           for (i = 0; i != v23; ++i)
           {
-            if (*v38 != v24)
+            if (*v37 != v24)
             {
               objc_enumerationMutation(values);
             }
 
-            value = [*(*(&v37 + 1) + 8 * i) value];
+            value = [*(*(&v36 + 1) + 8 * i) value];
             startDate2 = [currentEntity startDate];
             v28 = [value dateWithTimeComponentsFromDate:startDate2];
 
             [v19 addObject:v28];
           }
 
-          v23 = [values countByEnumeratingWithState:&v37 objects:v42 count:16];
+          v23 = [values countByEnumeratingWithState:&v36 objects:v41 count:16];
         }
 
         while (v23);
@@ -427,8 +427,8 @@ LABEL_21:
         [currentEntity setProperty:v29];
       }
 
-      v10 = v35;
-      entityCopy = v36;
+      v10 = v34;
+      entityCopy = v35;
     }
 
 LABEL_28:
@@ -446,7 +446,7 @@ LABEL_28:
 
   if (v11 != 3)
   {
-    v32 = VCSLogHandle();
+    v32 = VCSLogHandle(v11);
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       +[VCSParser endVCSEntity:withParseState:];
@@ -460,7 +460,7 @@ LABEL_35:
 
   if (context != 1)
   {
-    v14 = VCSLogHandle();
+    v14 = VCSLogHandle(3);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       +[VCSParser endVCSEntity:withParseState:];
@@ -482,7 +482,6 @@ LABEL_10:
   v15 = 1;
 LABEL_36:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -502,32 +501,27 @@ LABEL_36:
 
 + (void)decodeVCSLine:withParseState:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)decodeVCSLine:(void *)a1 withParseState:(NSObject *)a2 .cold.2(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 keyword];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_2754C5000, a2, OS_LOG_TYPE_ERROR, "Unexpeced token type: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2754C5000, a2, OS_LOG_TYPE_ERROR, "Unexpeced token type: %@", v4, 0xCu);
 }
 
 + (void)beginVCSEntity:(NSObject *)a3 withParseState:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 1024;
-  v8 = [a2 lineNumber];
-  _os_log_error_impl(&dword_2754C5000, a3, OS_LOG_TYPE_ERROR, "Unknown entity type: %@ at line %d.", &v5, 0x12u);
-  v4 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 1024;
+  v7 = [a2 lineNumber];
+  _os_log_error_impl(&dword_2754C5000, a3, OS_LOG_TYPE_ERROR, "Unknown entity type: %@ at line %d.", &v4, 0x12u);
 }
 
 + (void)beginVCSEntity:withParseState:.cold.2()
@@ -546,20 +540,16 @@ LABEL_36:
 
 + (void)beginVCSEntity:withParseState:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)endVCSEntity:withParseState:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)endVCSEntity:withParseState:.cold.2()
@@ -585,11 +575,9 @@ LABEL_36:
 
 + (void)endVCSEntity:withParseState:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

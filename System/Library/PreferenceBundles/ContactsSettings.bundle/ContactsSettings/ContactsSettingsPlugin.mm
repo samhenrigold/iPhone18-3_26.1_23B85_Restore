@@ -15,6 +15,7 @@
 - (void)_SIMStatusChanged;
 - (void)_beginImportToStoreID:(int)d;
 - (void)_clearSpecifiers;
+- (void)_dismissMeCardPickerAnimated:(BOOL)animated;
 - (void)_erroredDuringSIMPhonebookFetch;
 - (void)_fetchSIMPhonebook;
 - (void)_noteImportEnded;
@@ -39,6 +40,8 @@
 - (void)setPersonNameOrder:(id)order specifier:(id)specifier;
 - (void)showMeCardPicker:(id)picker;
 - (void)showSharedNameAndPhotoSettings:(id)settings;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)windowDidRotate:(id)rotate;
 - (void)windowWillRotate:(id)rotate;
 @end
@@ -112,6 +115,25 @@ LABEL_12:
   return v2;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ContactsSettingsPlugin;
+  [(ContactsSettingsPlugin *)&v4 viewWillAppear:appear];
+  if (([(ContactsSettingsPlugin *)self isMovingToParentViewController]& 1) == 0)
+  {
+    [(ContactsSettingsPlugin *)self reloadSpecifiers];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ContactsSettingsPlugin;
+  [(ContactsSettingsPlugin *)&v4 viewDidAppear:appear];
+  [(ContactsSettingsPlugin *)self provideSettingsNavigationDonation];
+}
+
 - (void)_rootControllerDidSuspend
 {
   [(UIAlertController *)self->_loadingContacts dismissViewControllerAnimated:0 completion:0];
@@ -142,34 +164,33 @@ LABEL_12:
   {
     specifierCopy = specifier;
     _importAlreadyInProgress = [(ContactsSettingsPlugin *)self _importAlreadyInProgress];
-    SIMImportSpecifier = self->_SIMImportSpecifier;
     if (_importAlreadyInProgress)
     {
-      v7 = @"Importing contacts";
+      v6 = @"Importing contacts";
     }
 
     else
     {
-      v7 = @"Import SIM Contacts";
+      v6 = @"Import SIM Contacts";
     }
 
-    v8 = &kCFBooleanFalse;
+    v7 = &kCFBooleanFalse;
     if (!_importAlreadyInProgress)
     {
-      v8 = &kCFBooleanTrue;
+      v7 = &kCFBooleanTrue;
     }
 
-    [(PSSpecifier *)self->_SIMImportSpecifier setProperty:*v8 forKey:PSEnabledKey];
-    v9 = self->_SIMImportSpecifier;
-    v10 = [NSBundle bundleForClass:objc_opt_class()];
-    v11 = [v10 localizedStringForKey:v7 value:&stru_14F18 table:@"Contacts"];
-    [(PSSpecifier *)v9 setName:v11];
+    [(PSSpecifier *)self->_SIMImportSpecifier setProperty:*v7 forKey:PSEnabledKey];
+    SIMImportSpecifier = self->_SIMImportSpecifier;
+    v9 = [NSBundle bundleForClass:objc_opt_class()];
+    v10 = [v9 localizedStringForKey:v6 value:&stru_14F18 table:@"Contacts"];
+    [(PSSpecifier *)SIMImportSpecifier setName:v10];
 
     if (specifierCopy)
     {
-      v12 = self->_SIMImportSpecifier;
+      v11 = self->_SIMImportSpecifier;
 
-      [(ContactsSettingsPlugin *)self reloadSpecifier:v12];
+      [(ContactsSettingsPlugin *)self reloadSpecifier:v11];
     }
   }
 }
@@ -726,7 +747,7 @@ LABEL_42:
       CNUICopyAccountInformation(v8, 0, v29, &v28, 0, 0);
       v10 = v29[0];
       v25 = v28;
-      v11 = [v25 count];
+      v11 = [(NSMutableArray *)v25 count];
       if (v11 < 2)
       {
         [(ContactsSettingsPlugin *)self _beginImportToStoreID:0xFFFFFFFFLL];
@@ -742,11 +763,11 @@ LABEL_42:
 
         for (i = 0; i != v12; ++i)
         {
-          v17 = [v10 objectAtIndex:{i, cf}];
+          v17 = [(NSMutableArray *)v10 objectAtIndex:i, cf];
           if (v17)
           {
             RecordID = ABRecordGetRecordID(v17);
-            v19 = [v25 objectAtIndex:i];
+            v19 = [(NSMutableArray *)v25 objectAtIndex:i];
             v26[0] = _NSConcreteStackBlock;
             v26[1] = 3221225472;
             v26[2] = sub_536C;
@@ -873,28 +894,8 @@ LABEL_42:
   table = [(ContactsSettingsPlugin *)self table];
   v4 = [(ContactsSettingsPlugin *)self indexPathForIndex:[(ContactsSettingsPlugin *)self indexOfSpecifier:self->_MeCardSpecifier]];
   v5 = [table cellForRowAtIndexPath:v4];
-  if (!v5)
+  if (!v5 || ([table bounds], v7 = v6, v9 = v8, v11 = v10, v13 = v12, objc_msgSend(v5, "frame"), v20.origin.x = v14, v20.origin.y = v15, v20.size.width = v16, v20.size.height = v17, v19.origin.x = v7, v19.origin.y = v9, v19.size.width = v11, v19.size.height = v13, !CGRectContainsRect(v19, v20)))
   {
-    goto LABEL_9;
-  }
-
-  [table bounds];
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
-  [v5 frame];
-  v20.origin.x = v14;
-  v20.origin.y = v15;
-  v20.size.width = v16;
-  v20.size.height = v17;
-  v19.origin.x = v7;
-  v19.origin.y = v9;
-  v19.size.width = v11;
-  v19.size.height = v13;
-  if (!CGRectContainsRect(v19, v20))
-  {
-LABEL_9:
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
     {
       sub_AFA4();
@@ -966,6 +967,43 @@ LABEL_9:
   {
     [(ContactsSettingsPlugin *)self _showMeCardPopover];
   }
+}
+
+- (void)_dismissMeCardPickerAnimated:(BOOL)animated
+{
+  meCardPicker = self->_meCardPicker;
+  if (!meCardPicker)
+  {
+    return;
+  }
+
+  animatedCopy = animated;
+  [(CNContactPickerViewController *)meCardPicker setDelegate:0];
+  v6 = +[UIDevice currentDevice];
+  if ((objc_opt_respondsToSelector() & 1) == 0)
+  {
+
+    goto LABEL_7;
+  }
+
+  v7 = +[UIDevice currentDevice];
+  userInterfaceIdiom = [v7 userInterfaceIdiom];
+
+  if (userInterfaceIdiom != &dword_0 + 1)
+  {
+LABEL_7:
+    [(ContactsSettingsPlugin *)self dismissViewControllerAnimated:animatedCopy completion:0];
+    goto LABEL_8;
+  }
+
+  [(UIPopoverController *)self->_meCardPopover setDelegate:0];
+  [(UIPopoverController *)self->_meCardPopover dismissPopoverAnimated:animatedCopy];
+  meCardPopover = self->_meCardPopover;
+  self->_meCardPopover = 0;
+
+LABEL_8:
+  v10 = self->_meCardPicker;
+  self->_meCardPicker = 0;
 }
 
 - (void)_reloadMeCardCellIfVisible

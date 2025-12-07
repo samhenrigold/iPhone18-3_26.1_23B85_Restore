@@ -62,29 +62,29 @@
 
 - (id)jsonRepresentationWithOptions:(unint64_t)options
 {
-  v61[7] = *MEMORY[0x1E69E9840];
-  v60[0] = @"orientation";
+  v60[7] = *MEMORY[0x1E69E9840];
+  v59[0] = @"orientation";
   v5 = 0x1E696A000;
   v6 = MEMORY[0x1E696AD98];
   v7 = objc_msgSend_orientation(self, a2, options, v3);
-  v59 = objc_msgSend_numberWithInteger_(v6, v8, v7, v9);
-  v61[0] = v59;
-  v60[1] = @"interfaceIdiom";
+  v58 = objc_msgSend_numberWithInteger_(v6, v8, v7, v9);
+  v60[0] = v58;
+  v59[1] = @"interfaceIdiom";
   v10 = MEMORY[0x1E696AD98];
   v14 = objc_msgSend_interfaceIdiom(self, v11, v12, v13);
-  v58 = objc_msgSend_numberWithInteger_(v10, v15, v14, v16);
-  v61[1] = v58;
-  v60[2] = @"screenHeight";
+  v57 = objc_msgSend_numberWithInteger_(v10, v15, v14, v16);
+  v60[1] = v57;
+  v59[2] = @"screenHeight";
   v17 = MEMORY[0x1E696AD98];
   v21 = objc_msgSend_screenHeight(self, v18, v19, v20);
   v24 = objc_msgSend_numberWithInteger_(v17, v22, v21, v23);
-  v61[2] = v24;
-  v60[3] = @"screenWidth";
+  v60[2] = v24;
+  v59[3] = @"screenWidth";
   v25 = MEMORY[0x1E696AD98];
   v29 = objc_msgSend_screenWidth(self, v26, v27, v28);
   v32 = objc_msgSend_numberWithInteger_(v25, v30, v29, v31);
-  v61[3] = v32;
-  v60[4] = @"scale";
+  v60[3] = v32;
+  v59[4] = @"scale";
   v39 = objc_msgSend_scale(self, v33, v34, v35);
   v40 = v39;
   if (!v39)
@@ -92,8 +92,8 @@
     v40 = objc_msgSend_null(MEMORY[0x1E695DFB0], v36, v37, v38);
   }
 
-  v61[4] = v40;
-  v60[5] = @"keyboards";
+  v60[4] = v40;
+  v59[5] = @"keyboards";
   v44 = objc_msgSend_keyboards(self, v36, v37, v38);
   v45 = v44;
   if (!v44)
@@ -101,8 +101,8 @@
     v45 = objc_msgSend_null(MEMORY[0x1E695DFB0], v41, v42, v43);
   }
 
-  v61[5] = v45;
-  v60[6] = @"locationInfo";
+  v60[5] = v45;
+  v59[6] = @"locationInfo";
   v49 = objc_msgSend_locationInfo(self, v41, v42, v43);
   if (v49)
   {
@@ -115,8 +115,8 @@
     objc_msgSend_null(MEMORY[0x1E695DFB0], v46, v47, v48);
   }
   v52 = ;
-  v61[6] = v52;
-  v54 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v53, v61, v60, 7);
+  v60[6] = v52;
+  v54 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v53, v60, v59, 7);
   if (v49)
   {
 
@@ -130,8 +130,6 @@
   if (!v39)
   {
   }
-
-  v55 = *MEMORY[0x1E69E9840];
 
   return v54;
 }

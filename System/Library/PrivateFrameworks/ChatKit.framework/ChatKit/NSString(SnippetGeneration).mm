@@ -36,9 +36,9 @@
   }
 
   v13 = CFLocaleCopyCurrent();
-  v37.length = [(__CFString *)self length];
-  v37.location = 0;
-  v14 = CFStringTokenizerCreate(0, self, v37, 0, v13);
+  v39.length = [(__CFString *)self length];
+  v39.location = 0;
+  v14 = CFStringTokenizerCreate(0, self, v39, 0, v13);
   if (v13)
   {
     CFRelease(v13);
@@ -105,24 +105,25 @@
   v28 = 0;
 LABEL_28:
   string = [MEMORY[0x1E696AD60] string];
+  v30 = string;
   if (v26)
   {
-    v30 = CKFrameworkBundle();
-    v31 = [v30 localizedStringForKey:@"ELLIPSES" value:&stru_1F04268F8 table:@"ChatKit"];
-    [string appendString:v31];
+    v31 = CKFrameworkBundle(string);
+    v32 = [v31 localizedStringForKey:@"ELLIPSES" value:&stru_1F04268F8 table:@"ChatKit"];
+    [v30 appendString:v32];
   }
 
-  v32 = [(__CFString *)self substringWithRange:v27, v16 - v27];
-  [string appendString:v32];
+  v33 = [(__CFString *)self substringWithRange:v27, v16 - v27];
+  [v30 appendString:v33];
 
   if (v28)
   {
-    v33 = CKFrameworkBundle();
-    v34 = [v33 localizedStringForKey:@"ELLIPSES" value:&stru_1F04268F8 table:@"ChatKit"];
-    [string appendString:v34];
+    v35 = CKFrameworkBundle(v34);
+    v36 = [v35 localizedStringForKey:@"ELLIPSES" value:&stru_1F04268F8 table:@"ChatKit"];
+    [v30 appendString:v36];
   }
 
-  v12 = [string copy];
+  v12 = [v30 copy];
 
 LABEL_33:
 

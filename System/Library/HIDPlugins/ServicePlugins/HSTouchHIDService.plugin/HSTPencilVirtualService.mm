@@ -76,44 +76,44 @@
 
 void __52__HSTPencilVirtualService_initWithConfig_withQueue___block_invoke(uint64_t a1)
 {
-  v5 = objc_opt_new();
+  v7 = objc_opt_new();
   [*(a1 + 32) setVirtualService:?];
 
   v2 = [*(a1 + 32) virtualService];
 
   if (v2)
   {
-    v6 = [*(a1 + 32) virtualService];
-    [v6 setDelegate:*(a1 + 32)];
-
-    v7 = [*(a1 + 32) virtualService];
-    [v7 setCancelHandler:&__block_literal_global_5];
-
     v8 = [*(a1 + 32) virtualService];
-    v3 = [*(a1 + 32) innie];
-    [v8 setDispatchQueue:v3];
+    [v8 setDelegate:*(a1 + 32)];
 
     v9 = [*(a1 + 32) virtualService];
-    [v9 activate];
+    [v9 setCancelHandler:&__block_literal_global_5];
+
+    v10 = [*(a1 + 32) virtualService];
+    v5 = [*(a1 + 32) innie];
+    [v10 setDispatchQueue:v5];
+
+    v11 = [*(a1 + 32) virtualService];
+    [v11 activate];
   }
 
   else
   {
-    v4 = MTLoggingPlugin();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = MTLoggingPlugin(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __52__HSTPencilVirtualService_initWithConfig_withQueue___block_invoke_cold_1(v4);
+      __52__HSTPencilVirtualService_initWithConfig_withQueue___block_invoke_cold_1(v6);
     }
   }
 }
 
 void __52__HSTPencilVirtualService_initWithConfig_withQueue___block_invoke_30(id a1)
 {
-  v1 = MTLoggingPlugin();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  v2 = MTLoggingPlugin(a1, v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_0, v1, OS_LOG_TYPE_DEFAULT, "HSTPencilVirtualService: Calling cancel handler", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "HSTPencilVirtualService: Calling cancel handler", v3, 2u);
   }
 }
 
@@ -136,15 +136,16 @@ void __52__HSTPencilVirtualService_initWithConfig_withQueue___block_invoke_30(id
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      self->_config.minForce = [(__CFString *)propertyCopy unsignedIntegerValue];
+      v11 = objc_msgSend_unsignedIntegerValue(propertyCopy);
+      self->_config.minForce = v11;
 LABEL_8:
-      v11 = MTLoggingPlugin();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v13 = MTLoggingPlugin(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         [HSTPencilVirtualService setProperty:forKey:forService:];
       }
 
-      v12 = 1;
+      v14 = 1;
 LABEL_11:
 
       goto LABEL_23;
@@ -156,7 +157,8 @@ LABEL_11:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      self->_config.accurateMaxForce = [(__CFString *)propertyCopy unsignedIntegerValue];
+      v11 = objc_msgSend_unsignedIntegerValue(propertyCopy);
+      self->_config.accurateMaxForce = v11;
       goto LABEL_8;
     }
   }
@@ -166,7 +168,8 @@ LABEL_11:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      self->_config.extendedMaxForce = [(__CFString *)propertyCopy unsignedIntegerValue];
+      v11 = objc_msgSend_unsignedIntegerValue(propertyCopy);
+      self->_config.extendedMaxForce = v11;
       goto LABEL_8;
     }
   }
@@ -182,8 +185,8 @@ LABEL_11:
       block[1] = 3221225472;
       block[2] = __57__HSTPencilVirtualService_setProperty_forKey_forService___block_invoke;
       block[3] = &unk_10A958;
-      v28 = keyCopy;
-      v29 = propertyCopy;
+      v32 = keyCopy;
+      v33 = propertyCopy;
       selfCopy = self;
       dispatch_async(outie, block);
 
@@ -193,70 +196,71 @@ LABEL_11:
 
   else
   {
-    if (![keyCopy isEqualToString:@"ExternalMessage"])
+    v16 = [keyCopy isEqualToString:@"ExternalMessage"];
+    if (!v16)
     {
-      v11 = MTLoggingPlugin();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v13 = MTLoggingPlugin(v16, v17);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412802;
-        v34 = keyCopy;
-        v35 = 2112;
-        v36 = serviceCopy;
-        v37 = 2112;
-        v38 = propertyCopy;
-        _os_log_debug_impl(&dword_0, v11, OS_LOG_TYPE_DEBUG, "HSTPencilVirtualService: unknown set property %@ for service %@ with value %@", buf, 0x20u);
+        v38 = keyCopy;
+        v39 = 2112;
+        v40 = serviceCopy;
+        v41 = 2112;
+        v42 = propertyCopy;
+        _os_log_debug_impl(&dword_0, v13, OS_LOG_TYPE_DEBUG, "HSTPencilVirtualService: unknown set property %@ for service %@ with value %@", buf, 0x20u);
       }
 
-      v12 = 0;
+      v14 = 0;
       goto LABEL_11;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = self->_outie;
-      v24[0] = _NSConcreteStackBlock;
-      v24[1] = 3221225472;
-      v24[2] = __57__HSTPencilVirtualService_setProperty_forKey_forService___block_invoke_2;
-      v24[3] = &unk_109250;
-      v25 = propertyCopy;
+      v18 = self->_outie;
+      v28[0] = _NSConcreteStackBlock;
+      v28[1] = 3221225472;
+      v28[2] = __57__HSTPencilVirtualService_setProperty_forKey_forService___block_invoke_2;
+      v28[3] = &unk_109250;
+      v29 = propertyCopy;
       selfCopy2 = self;
-      dispatch_async(v14, v24);
+      dispatch_async(v18, v28);
 
       goto LABEL_8;
     }
   }
 
-  v12 = 0;
+  v14 = 0;
 LABEL_23:
   formatter = self->_formatter;
-  v16 = +[NSDate date];
-  v17 = [(NSDateFormatter *)formatter stringFromDate:v16];
+  v20 = +[NSDate date];
+  v21 = [(NSDateFormatter *)formatter stringFromDate:v20];
 
-  v18 = @"0";
-  if (v17)
+  v22 = @"0";
+  if (v21)
   {
-    v18 = v17;
+    v22 = v21;
   }
 
-  v31[0] = @"set time";
-  v31[1] = @"key";
-  v31[2] = @"value";
-  v32[0] = v18;
-  v19 = @"nil";
+  v35[0] = @"set time";
+  v35[1] = @"key";
+  v35[2] = @"value";
+  v36[0] = v22;
+  v23 = @"nil";
   if (propertyCopy)
   {
-    v19 = propertyCopy;
+    v23 = propertyCopy;
   }
 
-  v32[1] = keyCopy;
-  v32[2] = v19;
-  v20 = [NSDictionary dictionaryWithObjects:v32 forKeys:v31 count:3];
+  v36[1] = keyCopy;
+  v36[2] = v23;
+  v24 = [NSDictionary dictionaryWithObjects:v36 forKeys:v35 count:3];
   while (1)
   {
-    v21 = [(NSMutableArray *)self->_recordedProperties count];
+    v25 = [(NSMutableArray *)self->_recordedProperties count];
     recordedProperties = self->_recordedProperties;
-    if (v21 < 0x64)
+    if (v25 < 0x64)
     {
       break;
     }
@@ -264,9 +268,9 @@ LABEL_23:
     [(NSMutableArray *)recordedProperties removeObjectAtIndex:0];
   }
 
-  [(NSMutableArray *)recordedProperties addObject:v20];
+  [(NSMutableArray *)recordedProperties addObject:v24];
 
-  return v12;
+  return v14;
 }
 
 void __57__HSTPencilVirtualService_setProperty_forKey_forService___block_invoke(id *a1)
@@ -292,28 +296,30 @@ void __57__HSTPencilVirtualService_setProperty_forKey_forService___block_invoke_
   keyCopy = key;
   serviceCopy = service;
   dispatch_assert_queue_V2(self->_innie);
-  if ([keyCopy isEqualToString:@"Built-In"])
+  v8 = [keyCopy isEqualToString:@"Built-In"];
+  if (v8)
   {
     goto LABEL_2;
   }
 
   if ([keyCopy isEqualToString:@"DeviceUsagePairs"])
   {
-    v18[0] = @"DeviceUsagePage";
-    v18[1] = @"DeviceUsage";
-    v19[0] = &off_1124A0;
-    v19[1] = &off_1124B8;
-    v9 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:2];
-    v20 = v9;
-    v8 = [NSArray arrayWithObjects:&v20 count:1];
+    v21[0] = @"DeviceUsagePage";
+    v21[1] = @"DeviceUsage";
+    v22[0] = &off_1124A0;
+    v22[1] = &off_1124B8;
+    v11 = [NSDictionary dictionaryWithObjects:v22 forKeys:v21 count:2];
+    v23 = v11;
+    v10 = [NSArray arrayWithObjects:&v23 count:1];
 LABEL_5:
 
     goto LABEL_16;
   }
 
-  if ([keyCopy isEqualToString:@"Transport"])
+  v8 = [keyCopy isEqualToString:@"Transport"];
+  if (v8)
   {
-    v8 = @"Virtual";
+    v10 = @"Virtual";
     goto LABEL_17;
   }
 
@@ -335,14 +341,16 @@ LABEL_5:
     goto LABEL_14;
   }
 
-  if ([keyCopy isEqualToString:@"PrimaryUsagePage"])
+  v8 = [keyCopy isEqualToString:@"PrimaryUsagePage"];
+  if (v8)
   {
-    v8 = &off_1124A0;
+    v10 = &off_1124A0;
   }
 
   else
   {
-    if (([keyCopy isEqualToString:@"PrimaryUsage"] & 1) == 0)
+    v8 = [keyCopy isEqualToString:@"PrimaryUsage"];
+    if ((v8 & 1) == 0)
     {
       if ([keyCopy isEqualToString:@"MaxHoverHeight"])
       {
@@ -351,19 +359,20 @@ LABEL_5:
 
       else
       {
-        if ([keyCopy isEqualToString:@"DisplayIntegrated"])
+        v8 = [keyCopy isEqualToString:@"DisplayIntegrated"];
+        if (v8)
         {
 LABEL_2:
-          v8 = &__kCFBooleanTrue;
+          v10 = &__kCFBooleanTrue;
           goto LABEL_17;
         }
 
         if ([keyCopy isEqualToString:@"ServicePluginDebug"])
         {
-          v8 = objc_opt_new();
-          [(__CFString *)v8 setObject:self->_recordedProperties forKeyedSubscript:@"Recent set properties"];
+          v10 = objc_opt_new();
+          v8 = [(__CFString *)v10 setObject:self->_recordedProperties forKeyedSubscript:@"Recent set properties"];
 LABEL_16:
-          if (!v8)
+          if (!v10)
           {
             goto LABEL_20;
           }
@@ -387,30 +396,31 @@ LABEL_16:
           {
             if (![keyCopy isEqualToString:@"HoverDisabled"])
             {
-              if (![keyCopy isEqualToString:@"SurfaceDimensions"])
+              v15 = [keyCopy isEqualToString:@"SurfaceDimensions"];
+              if (!v15)
               {
-                v12 = MTLoggingPlugin();
-                if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+                v13 = MTLoggingPlugin(v15, v16);
+                if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
                 {
                   [HSTPencilVirtualService propertyForKey:forService:];
                 }
 
-                v8 = 0;
+                v10 = 0;
                 goto LABEL_19;
               }
 
-              v14 = &self->_config;
-              v9 = [NSNumber numberWithInt:self->_config.widthMm, @"Width"];
-              v16[1] = @"Height";
-              v17[0] = v9;
-              v15 = [NSNumber numberWithInt:v14->heightMm];
-              v17[1] = v15;
-              v8 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:2];
+              v17 = &self->_config;
+              v11 = [NSNumber numberWithInt:self->_config.widthMm, @"Width"];
+              v19[1] = @"Height";
+              v20[0] = v11;
+              v18 = [NSNumber numberWithInt:v17->heightMm];
+              v20[1] = v18;
+              v10 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:2];
 
               goto LABEL_5;
             }
 
-            v11 = [NSNumber numberWithBool:self->_config.hoverDisabled];
+            v8 = [NSNumber numberWithBool:self->_config.hoverDisabled];
             goto LABEL_15;
           }
 
@@ -419,18 +429,18 @@ LABEL_16:
       }
 
 LABEL_14:
-      v11 = [NSNumber numberWithUnsignedInteger:p_config->vendorID];
+      v8 = [NSNumber numberWithUnsignedInteger:p_config->vendorID];
 LABEL_15:
-      v8 = v11;
+      v10 = v8;
       goto LABEL_16;
     }
 
-    v8 = &off_1124B8;
+    v10 = &off_1124B8;
   }
 
 LABEL_17:
-  v12 = MTLoggingPlugin();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = MTLoggingPlugin(v8, v9);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [HSTPencilVirtualService propertyForKey:forService:];
   }
@@ -439,7 +449,7 @@ LABEL_19:
 
 LABEL_20:
 
-  return v8;
+  return v10;
 }
 
 - (id)copyEventMatching:(id)matching forService:(id)service
@@ -449,29 +459,30 @@ LABEL_20:
   v6 = [matchingCopy objectForKeyedSubscript:@"MatchingEvent"];
   v7 = [v6 integerValueForField:0x10000];
   v8 = [v6 integerValueForField:65537];
-  if ([v6 type] != 1 || v7 == 65376 || v8 == 9)
+  type = [v6 type];
+  if (type != 1 || v7 == 65376 || v8 == 9)
   {
-    v10 = MTLoggingPlugin();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v12 = MTLoggingPlugin(type, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v12[0] = 67109632;
-      v12[1] = [v6 type];
-      v13 = 1024;
-      v14 = v7;
+      v14[0] = 67109632;
+      v14[1] = [v6 type];
       v15 = 1024;
-      v16 = v8;
-      _os_log_debug_impl(&dword_0, v10, OS_LOG_TYPE_DEBUG, "Unsuported Pencil copyEvent match event: type=0x%x, usagePage=0x%x, usage=0x%x", v12, 0x14u);
+      v16 = v7;
+      v17 = 1024;
+      v18 = v8;
+      _os_log_debug_impl(&dword_0, v12, OS_LOG_TYPE_DEBUG, "Unsuported Pencil copyEvent match event: type=0x%x, usagePage=0x%x, usage=0x%x", v14, 0x14u);
     }
 
-    v9 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v9 = self->_lastTouchSystemReadyEvent;
+    v11 = self->_lastTouchSystemReadyEvent;
   }
 
-  return v9;
+  return v11;
 }
 
 - (BOOL)setOutputEvent:(id)event forService:(id)service
@@ -489,25 +500,26 @@ LABEL_20:
   if ([eventCopy conformsToEventType:11])
   {
     v4 = [eventCopy integerValueForField:720920];
+    v6 = v4;
     if ((v4 & 0x83) != 0)
     {
-      v5 = MTLoggingPlugin();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = MTLoggingPlugin(v4, v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         children = [eventCopy children];
-        v7 = 134219264;
-        v8 = [children count];
-        v9 = 2048;
-        v10 = [eventCopy integerValueForField:720903];
+        v9 = 134219264;
+        v10 = [children count];
         v11 = 2048;
-        v12 = v4;
-        v13 = 1024;
-        v14 = (v4 >> 7) & 1;
-        v15 = 2048;
-        v16 = [eventCopy integerValueForField:720905];
+        v12 = [eventCopy integerValueForField:720903];
+        v13 = 2048;
+        v14 = v6;
+        v15 = 1024;
+        v16 = (v6 >> 7) & 1;
         v17 = 2048;
-        v18 = [eventCopy integerValueForField:720904];
-        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Dispatching stylus digitizer event with %lu children, eventMask=0x%lx childEventMask=0x%lx Cancel=%d Touching=%ld inRange=%ld", &v7, 0x3Au);
+        v18 = [eventCopy integerValueForField:720905];
+        v19 = 2048;
+        v20 = [eventCopy integerValueForField:720904];
+        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Dispatching stylus digitizer event with %lu children, eventMask=0x%lx childEventMask=0x%lx Cancel=%d Touching=%ld inRange=%ld", &v9, 0x3Au);
       }
     }
   }
@@ -521,22 +533,22 @@ LABEL_20:
   {
     objc_storeStrong(&self->_lastTouchSystemReadyEvent, ready);
     v6 = [readyCopy dataValueForField:65540];
-    v7 = MTLoggingPlugin();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = MTLoggingPlugin(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       if (*v6)
       {
-        v8 = "YES";
+        v9 = "YES";
       }
 
       else
       {
-        v8 = "NO";
+        v9 = "NO";
       }
 
-      v9 = 136446210;
-      v10 = v8;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Pencil Touch System Ready = %{public}s", &v9, 0xCu);
+      v10 = 136446210;
+      v11 = v9;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Pencil Touch System Ready = %{public}s", &v10, 0xCu);
     }
   }
 }
@@ -600,14 +612,14 @@ void __51__HSTPencilVirtualService__dispatchHIDEventsAsync___block_invoke(uint64
   v3 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained _dispatchHIDEvents:*(*(a1 + 32) + 8) + 48];
-    v4 = MTLoggingPlugin();
-    if (os_signpost_enabled(v4))
+    v4 = [WeakRetained _dispatchHIDEvents:*(*(a1 + 32) + 8) + 48];
+    v6 = MTLoggingPlugin(v4, v5);
+    if (os_signpost_enabled(v6))
     {
-      v5 = *(a1 + 48);
-      v6 = 134349056;
-      v7 = v5;
-      _os_signpost_emit_with_name_impl(&dword_0, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "DispatchStylus", "%{public, signpost.description:begin_time}llu", &v6, 0xCu);
+      v7 = *(a1 + 48);
+      v8 = 134349056;
+      v9 = v7;
+      _os_signpost_emit_with_name_impl(&dword_0, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "DispatchStylus", "%{public, signpost.description:begin_time}llu", &v8, 0xCu);
     }
   }
 }

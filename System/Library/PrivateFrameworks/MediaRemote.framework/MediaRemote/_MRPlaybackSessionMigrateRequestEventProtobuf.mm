@@ -6,6 +6,7 @@
 - (id)description;
 - (id)dictionaryRepresentation;
 - (id)reportName;
+- (id)roleAsString:(int)string;
 - (int)StringAsRole:(id)role;
 - (int)role;
 - (unint64_t)hash;
@@ -144,40 +145,55 @@ LABEL_6:
   *&self->_has = *&self->_has & 0xEF | v3;
 }
 
+- (id)roleAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A4830[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsRole:(id)role
 {
   roleCopy = role;
-  if ([roleCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(roleCopy))
   {
     v4 = 0;
   }
 
-  else if ([roleCopy isEqualToString:@"Receptionist"])
+  else if (objc_msgSend_isEqualToString_(roleCopy))
   {
     v4 = 1;
   }
 
-  else if ([roleCopy isEqualToString:@"Source"])
+  else if (objc_msgSend_isEqualToString_(roleCopy))
   {
     v4 = 2;
   }
 
-  else if ([roleCopy isEqualToString:@"Destination"])
+  else if (objc_msgSend_isEqualToString_(roleCopy))
   {
     v4 = 3;
   }
 
-  else if ([roleCopy isEqualToString:@"InApp"])
+  else if (objc_msgSend_isEqualToString_(roleCopy))
   {
     v4 = 4;
   }
 
-  else if ([roleCopy isEqualToString:@"Hijacked"])
+  else if (objc_msgSend_isEqualToString_(roleCopy))
   {
     v4 = 5;
   }
 
-  else if ([roleCopy isEqualToString:@"Group"])
+  else if (objc_msgSend_isEqualToString_(roleCopy))
   {
     v4 = 6;
   }
@@ -222,7 +238,7 @@ LABEL_6:
 
 - (id)dictionaryRepresentation
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v4 = dictionary;
   name = self->_name;
@@ -321,30 +337,30 @@ LABEL_7:
   if ([(NSMutableArray *)self->_events count])
   {
     v21 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_events, "count")}];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v22 = self->_events;
-    v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v31;
+      v25 = *v30;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v31 != v25)
+          if (*v30 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          dictionaryRepresentation4 = [*(*(&v30 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v29 + 1) + 8 * i) dictionaryRepresentation];
           [v21 addObject:dictionaryRepresentation4];
         }
 
-        v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v24);
@@ -353,14 +369,12 @@ LABEL_7:
     [v4 setObject:v21 forKey:@"events"];
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_name)
   {
@@ -370,7 +384,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    startTimestamp = self->_startTimestamp;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 1) == 0)
@@ -390,12 +403,10 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  endTimestamp = self->_endTimestamp;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_6:
-    errorCode = self->_errorCode;
     PBDataWriterWriteInt64Field();
   }
 
@@ -412,7 +423,6 @@ LABEL_7:
 
   if ((*&self->_has & 0x10) != 0)
   {
-    role = self->_role;
     PBDataWriterWriteInt32Field();
   }
 
@@ -426,42 +436,38 @@ LABEL_7:
     PBDataWriterWriteSubmessage();
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v8 = self->_events;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_events;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v19;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteUint32Field();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -559,7 +565,7 @@ LABEL_7:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_name copyWithZone:zone];
   v7 = *(v5 + 72);
@@ -620,30 +626,30 @@ LABEL_5:
   v16 = *(v5 + 80);
   *(v5 + 80) = v15;
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v17 = self->_events;
-  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v26;
+    v20 = *v25;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v26 != v20)
+        if (*v25 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = [*(*(&v25 + 1) + 8 * i) copyWithZone:{zone, v25}];
+        v22 = [*(*(&v24 + 1) + 8 * i) copyWithZone:{zone, v24}];
         [v5 addEvents:v22];
       }
 
-      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v19);
@@ -655,7 +661,6 @@ LABEL_5:
     *(v5 + 92) |= 8u;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -676,7 +681,6 @@ LABEL_5:
     }
   }
 
-  v6 = *(equalCopy + 92);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 92) & 4) == 0 || self->_startTimestamp != *(equalCopy + 3))
@@ -688,7 +692,7 @@ LABEL_5:
   else if ((*(equalCopy + 92) & 4) != 0)
   {
 LABEL_38:
-    v13 = 0;
+    v11 = 0;
     goto LABEL_39;
   }
 
@@ -733,7 +737,6 @@ LABEL_38:
     }
   }
 
-  v9 = *(equalCopy + 92);
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 92) & 0x10) == 0 || self->_role != *(equalCopy + 22))
@@ -771,7 +774,7 @@ LABEL_38:
     }
   }
 
-  v13 = (*(equalCopy + 92) & 8) == 0;
+  v11 = (*(equalCopy + 92) & 8) == 0;
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 92) & 8) == 0 || self->_identifier != *(equalCopy + 14))
@@ -779,12 +782,12 @@ LABEL_38:
       goto LABEL_38;
     }
 
-    v13 = 1;
+    v11 = 1;
   }
 
 LABEL_39:
 
-  return v13;
+  return v11;
 }
 
 - (unint64_t)hash
@@ -897,7 +900,7 @@ LABEL_39:
 
 - (void)mergeFrom:(id)from
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 9))
   {
@@ -993,29 +996,29 @@ LABEL_7:
     [(_MRPlaybackSessionMigrateRequestEventProtobuf *)self setOutput:?];
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v12 = *(fromCopy + 6);
-  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(_MRPlaybackSessionMigrateRequestEventProtobuf *)self addEvents:*(*(&v18 + 1) + 8 * i), v18];
+        [(_MRPlaybackSessionMigrateRequestEventProtobuf *)self addEvents:*(*(&v17 + 1) + 8 * i), v17];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v14);
@@ -1026,8 +1029,6 @@ LABEL_7:
     self->_identifier = *(fromCopy + 14);
     *&self->_has |= 8u;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -73,37 +73,37 @@
 
 - (void)loadRTTConversations
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Starting loadRTTConversations", buf, 2u);
   }
 
-  v4 = RTTUIUtilitiesClass();
-  if (v4)
+  v5 = RTTUIUtilitiesClass(v4);
+  if (v5)
   {
-    v5 = v4;
+    v6 = v5;
     objc_initWeak(buf, self);
     rttConversationsQueue = self->_rttConversationsQueue;
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = __60__MPRecentsContactHeaderViewController_loadRTTConversations__block_invoke;
-    v8[3] = &unk_100285198;
-    objc_copyWeak(v9, buf);
-    v9[1] = v5;
-    dispatch_async(rttConversationsQueue, v8);
-    objc_destroyWeak(v9);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = __60__MPRecentsContactHeaderViewController_loadRTTConversations__block_invoke;
+    v9[3] = &unk_100285198;
+    objc_copyWeak(v10, buf);
+    v10[1] = v6;
+    dispatch_async(rttConversationsQueue, v9);
+    objc_destroyWeak(v10);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v7 = PHDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PHDefaultLog(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Stopped loadRTTConversations because we could not find RTTUIUtilities", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Stopped loadRTTConversations because we could not find RTTUIUtilities", buf, 2u);
     }
   }
 }
@@ -116,75 +116,75 @@ void __60__MPRecentsContactHeaderViewController_loadRTTConversations__block_invo
 
   if (v2)
   {
-    v6 = PHDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = PHDefaultLog(v3);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Stopped loadRTTConversations because MPRecentsContactHeaderViewController was deallocated before starting", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Stopped loadRTTConversations because MPRecentsContactHeaderViewController was deallocated before starting", buf, 2u);
     }
   }
 
   else
   {
-    v16 = +[NSMutableDictionary dictionary];
-    v3 = objc_loadWeakRetained(&to);
-    v4 = [v3 recentCall];
-    v5 = [v4 callOccurrences];
+    v17 = +[NSMutableDictionary dictionary];
+    v4 = objc_loadWeakRetained(&to);
+    v5 = [v4 recentCall];
+    v6 = [v5 callOccurrences];
 
-    v23 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
-    v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v21 objects:v27 count:16];
-    if (v7)
+    v23 = 0u;
+    v7 = v6;
+    v8 = [v7 countByEnumeratingWithState:&v22 objects:v28 count:16];
+    if (v8)
     {
-      v8 = *v22;
-      v9 = kCHCallOccurrenceUniqueIdKey;
+      v9 = *v23;
+      v10 = kCHCallOccurrenceUniqueIdKey;
       do
       {
-        v10 = 0;
+        v11 = 0;
         do
         {
-          if (*v22 != v8)
+          if (*v23 != v9)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          v11 = [*(*(&v21 + 1) + 8 * v10) objectForKeyedSubscript:{v9, v16}];
+          v12 = [*(*(&v22 + 1) + 8 * v11) objectForKeyedSubscript:{v10, v17}];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v12 = v11;
-            v13 = [*(a1 + 40) sharedUtilityProvider];
-            v14 = [v13 conversationForCallUID:v12];
+            v13 = v12;
+            v14 = [*(a1 + 40) sharedUtilityProvider];
+            v15 = [v14 conversationForCallUID:v13];
 
-            if (v14)
+            if (v15)
             {
-              [v16 setObject:v14 forKeyedSubscript:v12];
+              [v17 setObject:v15 forKeyedSubscript:v13];
             }
           }
 
-          v10 = v10 + 1;
+          v11 = v11 + 1;
         }
 
-        while (v7 != v10);
-        v7 = [v6 countByEnumeratingWithState:&v21 objects:v27 count:16];
+        while (v8 != v11);
+        v8 = [v7 countByEnumeratingWithState:&v22 objects:v28 count:16];
       }
 
-      while (v7);
+      while (v8);
     }
 
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = __60__MPRecentsContactHeaderViewController_loadRTTConversations__block_invoke_63;
     block[3] = &unk_100285170;
-    objc_copyWeak(&v20, (a1 + 32));
-    v19 = v16;
-    v15 = v16;
+    objc_copyWeak(&v21, (a1 + 32));
+    v20 = v17;
+    v16 = v17;
     dispatch_async(&_dispatch_main_q, block);
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v21);
   }
 
   objc_destroyWeak(&to);
@@ -196,32 +196,31 @@ void __60__MPRecentsContactHeaderViewController_loadRTTConversations__block_invo
   v3 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained setRttConversations:*(a1 + 32)];
-    v4 = PHDefaultLog();
+    v4 = PHDefaultLog([WeakRetained setRttConversations:*(a1 + 32)]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Successfully finished loadRTTConversations", buf, 2u);
     }
 
-    v5 = PHDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PHDefaultLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Reloading conversation list", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Reloading conversation list", v9, 2u);
     }
 
-    v6 = [v3 detailsView];
-    [v6 reloadCallOccurences];
+    v7 = [v3 detailsView];
+    [v7 reloadCallOccurences];
   }
 
   else
   {
-    v6 = PHDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = PHDefaultLog(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Stopped loadRTTConversations because MPRecentsContactHeaderViewController was deallocated when trying to write rttConversations", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Stopped loadRTTConversations because MPRecentsContactHeaderViewController was deallocated when trying to write rttConversations", v8, 2u);
     }
   }
 }
@@ -246,7 +245,7 @@ void __60__MPRecentsContactHeaderViewController_loadRTTConversations__block_invo
 - (void)presentConversationForUUID:(id)d
 {
   dCopy = d;
-  v5 = RTTUIConversationViewControllerClass();
+  v5 = RTTUIConversationViewControllerClass(dCopy);
   if (v5)
   {
     v6 = v5;
@@ -260,7 +259,7 @@ void __60__MPRecentsContactHeaderViewController_loadRTTConversations__block_invo
 
     else
     {
-      v10 = PHDefaultLog();
+      v10 = PHDefaultLog(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [MPRecentsContactHeaderViewController presentConversationForUUID:v10];

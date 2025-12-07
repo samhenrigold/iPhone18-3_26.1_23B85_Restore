@@ -40,7 +40,7 @@
 {
   if (self->_childProgress)
   {
-    v7 = fskit_std_log();
+    v7 = fskit_std_log(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [FSTaskProgressUpdater startPhase:v7 parentUnitCount:? phaseTotalCount:? completedCounter:?];
@@ -128,15 +128,13 @@
 
 - (void)startPhase:(uint64_t)a1 parentUnitCount:(NSObject *)a2 phaseTotalCount:completedCounter:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 8) localizedDescription];
-  v5 = 136315394;
-  v6 = "[FSTaskProgressUpdater startPhase:parentUnitCount:phaseTotalCount:completedCounter:]";
-  v7 = 2112;
-  v8 = v3;
-  _os_log_fault_impl(&dword_24A929000, a2, OS_LOG_TYPE_FAULT, "%s missing endPhase call for %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315394;
+  v5 = "[FSTaskProgressUpdater startPhase:parentUnitCount:phaseTotalCount:completedCounter:]";
+  v6 = 2112;
+  v7 = v3;
+  _os_log_fault_impl(&dword_24A929000, a2, OS_LOG_TYPE_FAULT, "%s missing endPhase call for %@", &v4, 0x16u);
 }
 
 @end

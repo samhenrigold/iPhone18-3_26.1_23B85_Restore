@@ -7,7 +7,7 @@
 
 - (id)cmsCoded
 {
-  v2 = cmsDateFormatter();
+  v2 = cmsDateFormatter(self);
   v3 = [v2 stringFromDate:self];
 
   return v3;
@@ -16,7 +16,7 @@
 + (id)instanceFromCMSCoded:()CMSCoding
 {
   v3 = a3;
-  v4 = cmsDateFormatter();
+  v4 = cmsDateFormatter(v3);
   v5 = [v4 dateFromString:v3];
 
   return v5;

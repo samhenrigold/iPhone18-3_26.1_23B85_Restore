@@ -37,25 +37,25 @@
 
 - (FCFileCoordinatedTodayPersonalizationUpdate)initWithFileURL:(id)l
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if (!lCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "fileURL"];
+    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "fileURL"];
     *buf = 136315906;
-    v16 = "[FCFileCoordinatedTodayPersonalizationUpdate initWithFileURL:]";
-    v17 = 2080;
-    v18 = "FCFileCoordinatedTodayPersonalizationUpdate.m";
-    v19 = 1024;
-    v20 = 51;
-    v21 = 2114;
-    v22 = v13;
+    v15 = "[FCFileCoordinatedTodayPersonalizationUpdate initWithFileURL:]";
+    v16 = 2080;
+    v17 = "FCFileCoordinatedTodayPersonalizationUpdate.m";
+    v18 = 1024;
+    v19 = 51;
+    v20 = 2114;
+    v21 = v12;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v14.receiver = self;
-  v14.super_class = FCFileCoordinatedTodayPersonalizationUpdate;
-  v5 = [(FCFileCoordinatedTodayPersonalizationUpdate *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = FCFileCoordinatedTodayPersonalizationUpdate;
+  v5 = [(FCFileCoordinatedTodayPersonalizationUpdate *)&v13 init];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
@@ -66,7 +66,6 @@
     v5->_fileCoordinatedDictionary = v9;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -105,32 +104,31 @@ void __61__FCFileCoordinatedTodayPersonalizationUpdate_consumeUpdates__block_inv
 
 - (BOOL)readSyncWithAccessor:(id)accessor
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   accessorCopy = accessor;
   if (!accessorCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "accessor"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "accessor"];
     *buf = 136315906;
-    v14 = "[FCFileCoordinatedTodayPersonalizationUpdate readSyncWithAccessor:]";
-    v15 = 2080;
-    v16 = "FCFileCoordinatedTodayPersonalizationUpdate.m";
-    v17 = 1024;
-    v18 = 74;
-    v19 = 2114;
-    v20 = v10;
+    v13 = "[FCFileCoordinatedTodayPersonalizationUpdate readSyncWithAccessor:]";
+    v14 = 2080;
+    v15 = "FCFileCoordinatedTodayPersonalizationUpdate.m";
+    v16 = 1024;
+    v17 = 74;
+    v18 = 2114;
+    v19 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   fileCoordinatedDictionary = [(FCFileCoordinatedTodayPersonalizationUpdate *)self fileCoordinatedDictionary];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __68__FCFileCoordinatedTodayPersonalizationUpdate_readSyncWithAccessor___block_invoke;
-  v11[3] = &unk_1E7C38D88;
-  v12 = accessorCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __68__FCFileCoordinatedTodayPersonalizationUpdate_readSyncWithAccessor___block_invoke;
+  v10[3] = &unk_1E7C38D88;
+  v11 = accessorCopy;
   v6 = accessorCopy;
-  v7 = [fileCoordinatedDictionary readSyncWithAccessor:v11];
+  v7 = [fileCoordinatedDictionary readSyncWithAccessor:v10];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -152,19 +150,19 @@ void __68__FCFileCoordinatedTodayPersonalizationUpdate_readSyncWithAccessor___bl
 
 - (void)submitUpdate:(id)update
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   if (!updateCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "update"];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "update"];
     *buf = 136315906;
-    v13 = "[FCFileCoordinatedTodayPersonalizationUpdate submitUpdate:]";
-    v14 = 2080;
-    v15 = "FCFileCoordinatedTodayPersonalizationUpdate.m";
-    v16 = 1024;
-    v17 = 91;
-    v18 = 2114;
-    v19 = v9;
+    v12 = "[FCFileCoordinatedTodayPersonalizationUpdate submitUpdate:]";
+    v13 = 2080;
+    v14 = "FCFileCoordinatedTodayPersonalizationUpdate.m";
+    v15 = 1024;
+    v16 = 91;
+    v17 = 2114;
+    v18 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -172,20 +170,18 @@ void __68__FCFileCoordinatedTodayPersonalizationUpdate_readSyncWithAccessor___bl
   if (os_log_type_enabled(FCProgressivePersonalizationLog, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v13 = @"Storing a personalization event from News Today Widget.";
+    v12 = @"Storing a personalization event from News Today Widget.";
     _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
   fileCoordinatedDictionary = [(FCFileCoordinatedTodayPersonalizationUpdate *)self fileCoordinatedDictionary];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __60__FCFileCoordinatedTodayPersonalizationUpdate_submitUpdate___block_invoke;
-  v10[3] = &unk_1E7C36EC8;
-  v11 = updateCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __60__FCFileCoordinatedTodayPersonalizationUpdate_submitUpdate___block_invoke;
+  v9[3] = &unk_1E7C36EC8;
+  v10 = updateCopy;
   v7 = updateCopy;
-  [fileCoordinatedDictionary writeSyncWithAccessor:v10];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [fileCoordinatedDictionary writeSyncWithAccessor:v9];
 }
 
 void __60__FCFileCoordinatedTodayPersonalizationUpdate_submitUpdate___block_invoke(uint64_t a1, void *a2)
@@ -205,19 +201,17 @@ void __60__FCFileCoordinatedTodayPersonalizationUpdate_submitUpdate___block_invo
 
 - (void)clearUpdates
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = FCProgressivePersonalizationLog;
   if (os_log_type_enabled(FCProgressivePersonalizationLog, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 138412290;
-    v7 = @"Clearing events from News Today Widget";
-    _os_log_impl(&dword_1B63EF000, v3, OS_LOG_TYPE_DEBUG, "%@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = @"Clearing events from News Today Widget";
+    _os_log_impl(&dword_1B63EF000, v3, OS_LOG_TYPE_DEBUG, "%@", &v5, 0xCu);
   }
 
   fileCoordinatedDictionary = [(FCFileCoordinatedTodayPersonalizationUpdate *)self fileCoordinatedDictionary];
   [fileCoordinatedDictionary writeWithAccessor:&__block_literal_global_83 completion:0];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

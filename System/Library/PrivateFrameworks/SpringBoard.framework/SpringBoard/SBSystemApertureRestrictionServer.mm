@@ -76,16 +76,16 @@ void __54__SBSystemApertureRestrictionServer_initWithDelegate___block_invoke(uin
   if (v9 != getpid())
   {
     remoteProcess2 = [connectionCopy remoteProcess];
-    auditToken = [remoteProcess2 auditToken];
-    if (([auditToken hasEntitlement:@"com.apple.springboard.system-component-restriction"] & 1) == 0)
+    v12 = objc_msgSend_auditToken(remoteProcess2);
+    if (([v12 hasEntitlement:@"com.apple.springboard.system-component-restriction"] & 1) == 0)
     {
       remoteProcess3 = [connectionCopy remoteProcess];
-      auditToken2 = [remoteProcess3 auditToken];
-      if (([auditToken2 hasEntitlement:@"com.apple.springboard.system-component-complete-suppression"] & 1) == 0)
+      v14 = objc_msgSend_auditToken(remoteProcess3);
+      if (([v14 hasEntitlement:@"com.apple.springboard.system-component-complete-suppression"] & 1) == 0)
       {
         remoteProcess4 = [connectionCopy remoteProcess];
-        auditToken3 = [remoteProcess4 auditToken];
-        v17 = [auditToken3 hasEntitlement:@"com.apple.springboard.system-component-suppress-hide-empty-clone"];
+        v16 = objc_msgSend_auditToken(remoteProcess4);
+        v17 = [v16 hasEntitlement:@"com.apple.springboard.system-component-suppress-hide-empty-clone"];
 
         if ((v17 & 1) == 0)
         {
@@ -260,9 +260,9 @@ void __79__SBSystemApertureRestrictionServer_listener_didReceiveConnection_withC
   reasonCopy = reason;
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v6 = objc_msgSend_auditToken(remoteProcess);
 
-  if ([auditToken hasEntitlement:@"com.apple.springboard.system-component-restriction"])
+  if ([v6 hasEntitlement:@"com.apple.springboard.system-component-restriction"])
   {
     uUID = [MEMORY[0x277CCAD78] UUID];
     v8 = MEMORY[0x277CCACA8];
@@ -387,9 +387,9 @@ uint64_t __106__SBSystemApertureRestrictionServer_invalidateRestrictSystemApertu
   reasonCopy = reason;
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v6 = objc_msgSend_auditToken(remoteProcess);
 
-  if ([auditToken hasEntitlement:@"com.apple.springboard.system-component-complete-suppression"])
+  if ([v6 hasEntitlement:@"com.apple.springboard.system-component-complete-suppression"])
   {
     uUID = [MEMORY[0x277CCAD78] UUID];
     v8 = MEMORY[0x277CCACA8];
@@ -514,9 +514,9 @@ uint64_t __104__SBSystemApertureRestrictionServer_invalidateSystemApertureComple
   reasonCopy = reason;
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v6 = objc_msgSend_auditToken(remoteProcess);
 
-  if ([auditToken hasEntitlement:@"com.apple.springboard.system-component-suppress-hide-empty-clone"])
+  if ([v6 hasEntitlement:@"com.apple.springboard.system-component-suppress-hide-empty-clone"])
   {
     uUID = [MEMORY[0x277CCAD78] UUID];
     v8 = MEMORY[0x277CCACA8];

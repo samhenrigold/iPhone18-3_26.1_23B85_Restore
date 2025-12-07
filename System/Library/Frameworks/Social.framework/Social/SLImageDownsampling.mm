@@ -12,125 +12,125 @@
 {
   dataCopy = data;
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(dataCopy, "length")}];
-  v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:size];
-  _SLLog(v4, 7, @"SLImageDownsampling downsampleImageData: length %@ toMaxByteSize: %@");
+  v67 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:size];
+  _SLLog(v4, 7, @"SLImageDownsampling downsampleImageData: length %@ toMaxByteSize: %@", v8, v9, v10, v11, v12, v7);
 
   if ([dataCopy length] < size)
   {
-    _SLLog(v4, 6, @"SLImageDownsampling image is below threshold, returning original data");
-    v8 = dataCopy;
+    _SLLog(v4, 6, @"SLImageDownsampling image is below threshold, returning original data", v13, v14, v15, v16, v17, v66);
+    v18 = dataCopy;
     goto LABEL_21;
   }
 
   if (!dataCopy)
   {
-    v27 = @"SLImageDownsampling image data is nil";
+    v64 = @"SLImageDownsampling image data is nil";
 LABEL_20:
-    _SLLog(v4, 3, v27);
-    v8 = 0;
+    _SLLog(v4, 3, v64, v13, v14, v15, v16, v17, v66);
+    v18 = 0;
     goto LABEL_21;
   }
 
   sizeCopy = size;
-  v10 = [SLImageDownsampling imageSizeWithData:dataCopy];
-  if (!v10 || (v12 = v11) == 0)
+  v20 = [SLImageDownsampling imageSizeWithData:dataCopy];
+  if (!v20 || (v22 = v21) == 0)
   {
-    v27 = @"Image width and/or height is 0, returning nil";
+    v64 = @"Image width and/or height is 0, returning nil";
     goto LABEL_20;
   }
 
-  v13 = v10;
-  v14 = [MEMORY[0x1E696AD98] numberWithInteger:v10];
-  v32 = [MEMORY[0x1E696AD98] numberWithInteger:v12];
-  _SLLog(v4, 7, @"SLImageDownsampling original image size width %@ height %@");
+  v23 = v20;
+  v24 = [MEMORY[0x1E696AD98] numberWithInteger:v20];
+  v68 = [MEMORY[0x1E696AD98] numberWithInteger:v22];
+  _SLLog(v4, 7, @"SLImageDownsampling original image size width %@ height %@", v25, v26, v27, v28, v29, v24);
 
-  v15 = sqrt(sizeCopy / [dataCopy length]) * 0.95;
-  v29 = [MEMORY[0x1E696AD98] numberWithDouble:v15];
-  _SLLog(v4, 7, @"SLImageDownsampling scale %@");
+  v30 = sqrt(sizeCopy / [dataCopy length]) * 0.95;
+  v31 = [MEMORY[0x1E696AD98] numberWithDouble:v30];
+  _SLLog(v4, 7, @"SLImageDownsampling scale %@", v32, v33, v34, v35, v36, v31);
 
-  v16 = v13;
-  v17 = v12;
+  v37 = v23;
+  v38 = v22;
   do
   {
-    v18 = objc_autoreleasePoolPush();
-    v19 = ceil(v15 * v16);
-    if (v19 < 1.0)
+    v39 = objc_autoreleasePoolPush();
+    v40 = ceil(v30 * v37);
+    if (v40 < 1.0)
     {
-      v19 = 1.0;
+      v40 = 1.0;
     }
 
-    v20 = v19;
-    v21 = ceil(v15 * v17);
-    if (v21 < 1.0)
+    v41 = v40;
+    v42 = ceil(v30 * v38);
+    if (v42 < 1.0)
     {
-      v21 = 1.0;
+      v42 = 1.0;
     }
 
-    v22 = v21;
-    v23 = [MEMORY[0x1E696AD98] numberWithDouble:{v15, v29}];
-    v24 = [MEMORY[0x1E696AD98] numberWithInteger:v20];
-    v34 = [MEMORY[0x1E696AD98] numberWithInteger:v22];
-    _SLLog(v4, 7, @"SLImageDownsampling trying scale %@ width %@ height %@");
+    v43 = v42;
+    v44 = [MEMORY[0x1E696AD98] numberWithDouble:v30];
+    v45 = [MEMORY[0x1E696AD98] numberWithInteger:v41];
+    v70 = [MEMORY[0x1E696AD98] numberWithInteger:v43];
+    _SLLog(v4, 7, @"SLImageDownsampling trying scale %@ width %@ height %@", v46, v47, v48, v49, v50, v44);
 
-    v8 = SLDownSampledImageData(dataCopy, v20, v22);
-    v25 = [MEMORY[0x1E696AD98] numberWithDouble:{v15, v23, v24, v34}];
-    v33 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v8, "length")}];
-    _SLLog(v4, 7, @"SLImageDownsampling scale %@ produced image data length %@");
+    v18 = SLDownSampledImageData(dataCopy, v41, v43);
+    v51 = [MEMORY[0x1E696AD98] numberWithDouble:v30];
+    v69 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v18, "length")}];
+    _SLLog(v4, 7, @"SLImageDownsampling scale %@ produced image data length %@", v52, v53, v54, v55, v56, v51);
 
-    if ([v8 length] > sizeCopy)
+    if ([v18 length] > sizeCopy)
     {
-      if ([v8 length] * 0.9 <= sizeCopy)
+      if ([v18 length] * 0.9 <= sizeCopy)
       {
-        v26 = 0.95;
+        v57 = 0.95;
       }
 
       else
       {
-        v26 = 0.5;
+        v57 = 0.5;
       }
 
-      v15 = v15 * v26;
+      v30 = v30 * v57;
 
-      v8 = 0;
+      v18 = 0;
     }
 
-    objc_autoreleasePoolPop(v18);
+    objc_autoreleasePoolPop(v39);
   }
 
-  while (!v8);
-  v30 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v8, "length")}];
-  _SLLog(v4, 7, @"SLImageDownsampling returning final downsampled image data of length %@");
+  while (!v18);
+  v58 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v18, "length")}];
+  _SLLog(v4, 7, @"SLImageDownsampling returning final downsampled image data of length %@", v59, v60, v61, v62, v63, v58);
 
 LABEL_21:
 
-  return v8;
+  return v18;
 }
 
 + ($0AC6E346AE4835514AAA8AC86D8F4844)imageSizeWithData:(id)data
 {
   v4 = CGImageSourceCreateWithData(data, 0);
   v5 = CGImageSourceCopyPropertiesAtIndex(v4, 0, 0);
-  _SLLog(v3, 6, @"image props: %@");
+  _SLLog(v3, 6, @"image props: %@", v6, v7, v8, v9, v10, v5);
   Value = CFDictionaryGetValue(v5, *MEMORY[0x1E696DED8]);
-  v7 = CFDictionaryGetValue(v5, *MEMORY[0x1E696DEC8]);
+  v12 = CFDictionaryGetValue(v5, *MEMORY[0x1E696DEC8]);
   valuePtr = 0;
-  v11 = 0;
+  v16 = 0;
   if (Value)
   {
     CFNumberGetValue(Value, kCFNumberIntType, &valuePtr);
   }
 
-  if (v7)
+  if (v12)
   {
-    CFNumberGetValue(v7, kCFNumberIntType, &v11);
+    CFNumberGetValue(v12, kCFNumberIntType, &v16);
   }
 
   CFRelease(v4);
   CFRelease(v5);
-  v8 = valuePtr;
-  v9 = v11;
-  result.var1 = v9;
-  result.var0 = v8;
+  v13 = valuePtr;
+  v14 = v16;
+  result.var1 = v14;
+  result.var0 = v13;
   return result;
 }
 
@@ -139,44 +139,44 @@ LABEL_21:
   dataCopy = data;
   v7 = [SLImageDownsampling imageSizeWithData:dataCopy];
   v9 = v8;
-  _SLLog(v4, 6, @"Thumbnail source is %i x %i");
+  _SLLog(v4, 6, @"Thumbnail source is %i x %i", v10, v11, v12, v13, v14, v7);
   if (v7 >= v9)
   {
-    v10 = v9;
+    v20 = v9;
   }
 
   else
   {
-    v10 = v7;
+    v20 = v7;
   }
 
-  v11 = size / v10;
-  v12 = v11 * v7;
-  if (v12 <= 1)
+  v21 = size / v20;
+  v22 = v21 * v7;
+  if (v22 <= 1)
   {
-    v13 = 1;
+    v23 = 1;
   }
 
   else
   {
-    v13 = v12;
+    v23 = v22;
   }
 
-  v14 = v11 * v9;
-  if (v14 <= 1)
+  v24 = v21 * v9;
+  if (v24 <= 1)
   {
-    v15 = 1;
+    v25 = 1;
   }
 
   else
   {
-    v15 = v14;
+    v25 = v24;
   }
 
-  _SLLog(v4, 6, @"Thumbnail destination is %i x %i");
-  v16 = SLDownSampledImageData(dataCopy, v13, v15);
+  _SLLog(v4, 6, @"Thumbnail destination is %i x %i", v15, v16, v17, v18, v19, v23);
+  v26 = SLDownSampledImageData(dataCopy, v23, v25);
 
-  return v16;
+  return v26;
 }
 
 + (void)downsampleImageData:(id)data toMaxByteSize:(unint64_t)size resultsHandler:(id)handler
@@ -219,21 +219,21 @@ void __72__SLImageDownsampling_downsampleImageData_toMaxByteSize_resultsHandler_
   dispatch_async(v9, block);
 }
 
-void __94__SLImageDownsampling_generateThumbnailFromImageData_adjustSmallestSideToSize_resultsHandler___block_invoke(void *a1)
+void __94__SLImageDownsampling_generateThumbnailFromImageData_adjustSmallestSideToSize_resultsHandler___block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v3 = a1[4];
-  if (v3)
+  v10 = a1[4];
+  if (v10)
   {
-    v5 = [SLImageDownsampling createThumbnailWithData:v3 adjustSmallestSideToSize:a1[6]];
+    v13 = [SLImageDownsampling createThumbnailWithData:v10 adjustSmallestSideToSize:a1[6]];
     (*(a1[5] + 16))();
   }
 
   else
   {
-    _SLLog(v1, 3, @"Cannot generate thumbnail - image data is nil");
-    v4 = *(a1[5] + 16);
+    _SLLog(v8, 3, @"Cannot generate thumbnail - image data is nil", a4, a5, a6, a7, a8, v12);
+    v11 = *(a1[5] + 16);
 
-    v4();
+    v11();
   }
 }
 

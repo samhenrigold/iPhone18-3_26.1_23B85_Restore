@@ -32,7 +32,7 @@
 
 - (int64_t)purgeableSpaceForUrgency:(int)urgency volume:(id)volume
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   volumeCopy = volume;
   if ([volumeCopy isEqualToString:@"/private/var"])
   {
@@ -49,11 +49,11 @@
     v8 = ACHLogAssets();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 134218240;
-      v12 = downloadedAssetDiskUsageInBytes;
-      v13 = 1024;
+      v10 = 134218240;
+      v11 = downloadedAssetDiskUsageInBytes;
+      v12 = 1024;
       urgencyCopy = urgency;
-      _os_log_impl(&dword_221DDC000, v8, OS_LOG_TYPE_DEFAULT, "Returning purgable space %llu for urgency %d", &v11, 0x12u);
+      _os_log_impl(&dword_221DDC000, v8, OS_LOG_TYPE_DEFAULT, "Returning purgable space %llu for urgency %d", &v10, 0x12u);
     }
   }
 
@@ -62,21 +62,20 @@
     v8 = ACHLogAssets();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = volumeCopy;
-      _os_log_impl(&dword_221DDC000, v8, OS_LOG_TYPE_DEFAULT, "No purgable space for requested volume %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = volumeCopy;
+      _os_log_impl(&dword_221DDC000, v8, OS_LOG_TYPE_DEFAULT, "No purgable space for requested volume %{public}@", &v10, 0xCu);
     }
 
     downloadedAssetDiskUsageInBytes = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return downloadedAssetDiskUsageInBytes;
 }
 
 - (int64_t)purgeSpaceForUrgency:(int)urgency volume:(id)volume
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   volumeCopy = volume;
   if ([volumeCopy isEqualToString:@"/private/var"])
   {
@@ -93,11 +92,11 @@
     v8 = ACHLogAssets();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 134218240;
-      v12 = purgeAllDownloadedAssets;
-      v13 = 1024;
+      v10 = 134218240;
+      v11 = purgeAllDownloadedAssets;
+      v12 = 1024;
       urgencyCopy = urgency;
-      _os_log_impl(&dword_221DDC000, v8, OS_LOG_TYPE_DEFAULT, "Returning purged space %llu for urgency %d", &v11, 0x12u);
+      _os_log_impl(&dword_221DDC000, v8, OS_LOG_TYPE_DEFAULT, "Returning purged space %llu for urgency %d", &v10, 0x12u);
     }
   }
 
@@ -106,15 +105,14 @@
     v8 = ACHLogAssets();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = volumeCopy;
-      _os_log_impl(&dword_221DDC000, v8, OS_LOG_TYPE_DEFAULT, "Nothing to purge for requested volume %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = volumeCopy;
+      _os_log_impl(&dword_221DDC000, v8, OS_LOG_TYPE_DEFAULT, "Nothing to purge for requested volume %{public}@", &v10, 0xCu);
     }
 
     purgeAllDownloadedAssets = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return purgeAllDownloadedAssets;
 }
 

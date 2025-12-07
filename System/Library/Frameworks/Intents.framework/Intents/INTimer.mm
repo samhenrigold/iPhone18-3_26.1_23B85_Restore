@@ -14,8 +14,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v15[6] = *MEMORY[0x1E69E9840];
-  v14[0] = @"label";
+  v14[6] = *MEMORY[0x1E69E9840];
+  v13[0] = @"label";
   label = self->_label;
   null = label;
   if (!label)
@@ -23,14 +23,14 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[0] = null;
-  v14[1] = @"duration";
+  v14[0] = null;
+  v13[1] = @"duration";
   v5 = [MEMORY[0x1E696AD98] numberWithDouble:self->_duration];
-  v15[1] = v5;
-  v14[2] = @"remainingTime";
+  v14[1] = v5;
+  v13[2] = @"remainingTime";
   v6 = [MEMORY[0x1E696AD98] numberWithDouble:self->_remainingTime];
-  v15[2] = v6;
-  v14[3] = @"identifier";
+  v14[2] = v6;
+  v13[3] = @"identifier";
   identifier = self->_identifier;
   null2 = identifier;
   if (!identifier)
@@ -38,14 +38,14 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[3] = null2;
-  v14[4] = @"state";
+  v14[3] = null2;
+  v13[4] = @"state";
   v9 = [MEMORY[0x1E696AD98] numberWithInteger:self->_state];
-  v15[4] = v9;
-  v14[5] = @"type";
+  v14[4] = v9;
+  v13[5] = @"type";
   v10 = [MEMORY[0x1E696AD98] numberWithInteger:self->_type];
-  v15[5] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:6];
+  v14[5] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:6];
 
   if (!identifier)
   {
@@ -54,8 +54,6 @@
   if (!label)
   {
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

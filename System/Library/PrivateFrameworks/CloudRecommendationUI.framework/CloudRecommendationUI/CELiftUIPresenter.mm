@@ -1,6 +1,7 @@
 @interface CELiftUIPresenter
 - (CELiftUIPresenter)initWithURL:(id)l account:(id)account data:(id)data;
 - (CELiftUIPresenterDelegate)delegate;
+- (void)liftUIPresenter:(id)presenter didLoadWithSuccess:(BOOL)success error:(id)error;
 - (void)liftUIPresenterDidCancel:(id)cancel userInfo:(id)info;
 - (void)liftUIPresenterDidComplete:(id)complete userInfo:(id)info;
 @end
@@ -43,6 +44,14 @@
   }
 
   return v11;
+}
+
+- (void)liftUIPresenter:(id)presenter didLoadWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  delegate = [(CELiftUIPresenter *)self delegate];
+  [delegate liftUIPresenterDidLoadWithSuccess:successCopy error:errorCopy];
 }
 
 - (void)liftUIPresenterDidComplete:(id)complete userInfo:(id)info

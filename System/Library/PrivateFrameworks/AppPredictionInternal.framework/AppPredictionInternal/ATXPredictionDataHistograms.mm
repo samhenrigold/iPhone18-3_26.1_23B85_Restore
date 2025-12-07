@@ -50,110 +50,109 @@ _ATXAppLaunchCategoricalHistogramWithPersistentBackup *__135__ATXPredictionDataH
 
 - (NSArray)actionKeyBasedHistograms
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v6 = *&self->_appIntentLaunchHistogram;
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = *&self->_appIntentLaunchHistogram;
   appIntentDayOfWeekHistogram = self->_appIntentDayOfWeekHistogram;
-  v8 = *&self->_appIntentAirplaneModeLaunchHistogram;
+  v7 = *&self->_appIntentAirplaneModeLaunchHistogram;
   appIntentCoreMotionLaunchHistogram = self->_appIntentCoreMotionLaunchHistogram;
   appIntentWifiHistogram = self->_appIntentWifiHistogram;
-  v10 = appIntentCoreMotionLaunchHistogram;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:7];
-  v4 = *MEMORY[0x277D85DE8];
+  v9 = appIntentCoreMotionLaunchHistogram;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:7];
 
   return v3;
 }
 
 - (void)removeExpiredData
 {
-  v119 = *MEMORY[0x277D85DE8];
-  v48 = *&self->_appLaunchHistogram;
+  v120 = *MEMORY[0x277D85DE8];
+  v49 = *&self->_appLaunchHistogram;
   homescreenLaunchHistogram = self->_homescreenLaunchHistogram;
-  v50 = *&self->_appDirectoryLaunchHistogram;
+  v51 = *&self->_appDirectoryLaunchHistogram;
   dayOfWeekLaunchHistogram = self->_dayOfWeekLaunchHistogram;
   v3 = *&self->_wifiLaunchHistogram;
-  v52 = *&self->_airplaneModeLaunchHistogram;
-  v53 = v3;
+  v53 = *&self->_airplaneModeLaunchHistogram;
+  v54 = v3;
   appCoarseTimePOWLocationLaunchesHistogram = self->_appCoarseTimePOWLocationLaunchesHistogram;
   timeAndDayHistogram = self->_timeAndDayHistogram;
-  v55 = appCoarseTimePOWLocationLaunchesHistogram;
+  v56 = appCoarseTimePOWLocationLaunchesHistogram;
   appCoarseTimePOWLocationConfirmsHistogram = self->_appCoarseTimePOWLocationConfirmsHistogram;
   appSpecificTimeDOWLocationLaunchesHistogram = self->_appSpecificTimeDOWLocationLaunchesHistogram;
-  v57 = appCoarseTimePOWLocationConfirmsHistogram;
+  v58 = appCoarseTimePOWLocationConfirmsHistogram;
   appCoarseTimePOWLocationRejectsHistogram = self->_appCoarseTimePOWLocationRejectsHistogram;
   appSpecificTimeDOWLocationConfirmsHistogram = self->_appSpecificTimeDOWLocationConfirmsHistogram;
-  v59 = appCoarseTimePOWLocationRejectsHistogram;
-  v60 = *&self->_appSpecificTimeDOWLocationRejectsHistogram;
+  v60 = appCoarseTimePOWLocationRejectsHistogram;
+  v61 = *&self->_appSpecificTimeDOWLocationRejectsHistogram;
   appCoarseGeoHashHistogram = self->_appCoarseGeoHashHistogram;
-  v62 = *&self->_appZoom7GeoHashHistogram;
-  v63 = *&self->_appConfirmsTwoHourTimeInterval;
+  v63 = *&self->_appZoom7GeoHashHistogram;
+  v64 = *&self->_appConfirmsTwoHourTimeInterval;
   appConfirmsDayOfWeek = self->_appConfirmsDayOfWeek;
   appRejectsDayOfWeek = self->_appRejectsDayOfWeek;
-  v61 = appCoarseGeoHashHistogram;
-  v64 = appConfirmsDayOfWeek;
-  v65 = appRejectsDayOfWeek;
+  v62 = appCoarseGeoHashHistogram;
+  v65 = appConfirmsDayOfWeek;
+  v66 = appRejectsDayOfWeek;
   appRejectsCoarseGeoHash = self->_appRejectsCoarseGeoHash;
   appConfirmsCoarseGeoHash = self->_appConfirmsCoarseGeoHash;
-  v67 = appRejectsCoarseGeoHash;
+  v68 = appRejectsCoarseGeoHash;
   appRejectsSpecificGeoHash = self->_appRejectsSpecificGeoHash;
   appConfirmsSpecificGeoHash = self->_appConfirmsSpecificGeoHash;
-  v69 = appRejectsSpecificGeoHash;
+  v70 = appRejectsSpecificGeoHash;
   appForAllIntentsLaunchHistogram = self->_appForAllIntentsLaunchHistogram;
   appForAllIntentsUnlockTimeHistogram = self->_appForAllIntentsUnlockTimeHistogram;
   appExplicitRejectsCoarseTimePOWLocationHistogram = self->_appExplicitRejectsCoarseTimePOWLocationHistogram;
-  v71 = appForAllIntentsLaunchHistogram;
+  v72 = appForAllIntentsLaunchHistogram;
   appForAllIntentsDayOfWeekHistogram = self->_appForAllIntentsDayOfWeekHistogram;
   appForAllIntentsAirplaneModeLaunchHistogram = self->_appForAllIntentsAirplaneModeLaunchHistogram;
-  v72 = appForAllIntentsUnlockTimeHistogram;
-  v73 = appForAllIntentsDayOfWeekHistogram;
-  v74 = appForAllIntentsAirplaneModeLaunchHistogram;
+  v73 = appForAllIntentsUnlockTimeHistogram;
+  v74 = appForAllIntentsDayOfWeekHistogram;
+  v75 = appForAllIntentsAirplaneModeLaunchHistogram;
   appForAllIntentsWifiHistogram = self->_appForAllIntentsWifiHistogram;
   appForAllIntentsCoreMotionLaunchHistogram = self->_appForAllIntentsCoreMotionLaunchHistogram;
   heuristicConfirmsHistogram = self->_heuristicConfirmsHistogram;
   appForAllIntentsTrendingLaunchHistogram = self->_appForAllIntentsTrendingLaunchHistogram;
-  v76 = appForAllIntentsWifiHistogram;
+  v77 = appForAllIntentsWifiHistogram;
   infoManager = self->_infoManager;
   bundleIdTable = self->_bundleIdTable;
-  v77 = appForAllIntentsCoreMotionLaunchHistogram;
-  v78 = infoManager;
+  v78 = appForAllIntentsCoreMotionLaunchHistogram;
+  v79 = infoManager;
   actionConfirmsHistogram = self->_actionConfirmsHistogram;
   actionRejectsHistogram = self->_actionRejectsHistogram;
-  v79 = bundleIdTable;
-  v80 = actionConfirmsHistogram;
-  v81 = actionRejectsHistogram;
-  v82 = heuristicConfirmsHistogram;
+  v80 = bundleIdTable;
+  v81 = actionConfirmsHistogram;
+  v82 = actionRejectsHistogram;
+  v83 = heuristicConfirmsHistogram;
   seqManager = self->_seqManager;
   heuristicRejectsHistogram = self->_heuristicRejectsHistogram;
-  v84 = seqManager;
+  v85 = seqManager;
   appClipsFeedbackHistogramNoDecay = self->_appClipsFeedbackHistogramNoDecay;
   appIntentPartOfWeekHistogram = self->_appIntentPartOfWeekHistogram;
   appClipsFeedbackHistogram = self->_appClipsFeedbackHistogram;
-  v86 = appClipsFeedbackHistogramNoDecay;
+  v87 = appClipsFeedbackHistogramNoDecay;
   notificationsHistoryHistogram = self->_notificationsHistoryHistogram;
-  v88 = appIntentPartOfWeekHistogram;
+  v89 = appIntentPartOfWeekHistogram;
   homeScreenAppConfirmsSpecificTimeDOWLocationHistogram = self->_homeScreenAppConfirmsSpecificTimeDOWLocationHistogram;
   homeScreenAppConfirmsCoarseTimePOWLocationHistogram = self->_homeScreenAppConfirmsCoarseTimePOWLocationHistogram;
-  v90 = homeScreenAppConfirmsSpecificTimeDOWLocationHistogram;
+  v91 = homeScreenAppConfirmsSpecificTimeDOWLocationHistogram;
   homeScreenAppConfirmsDayOfWeekHistogram = self->_homeScreenAppConfirmsDayOfWeekHistogram;
   homeScreenAppConfirmsTwoHourTimeIntervalHistogram = self->_homeScreenAppConfirmsTwoHourTimeIntervalHistogram;
-  v92 = homeScreenAppConfirmsDayOfWeekHistogram;
+  v93 = homeScreenAppConfirmsDayOfWeekHistogram;
   homeScreenAppConfirmsSpecificGeohashHistogram = self->_homeScreenAppConfirmsSpecificGeohashHistogram;
   homeScreenAppConfirmsCoarseGeohashHistogram = self->_homeScreenAppConfirmsCoarseGeohashHistogram;
-  v94 = homeScreenAppConfirmsSpecificGeohashHistogram;
+  v95 = homeScreenAppConfirmsSpecificGeohashHistogram;
   homeScreenAppRejectsSpecificTimeDOWLocationHistogram = self->_homeScreenAppRejectsSpecificTimeDOWLocationHistogram;
   homeScreenAppRejectsCoarseTimePOWLocationHistogram = self->_homeScreenAppRejectsCoarseTimePOWLocationHistogram;
-  v96 = homeScreenAppRejectsSpecificTimeDOWLocationHistogram;
+  v97 = homeScreenAppRejectsSpecificTimeDOWLocationHistogram;
   homeScreenAppRejectsDayOfWeekHistogram = self->_homeScreenAppRejectsDayOfWeekHistogram;
   homeScreenAppRejectsTwoHourTimeIntervalHistogram = self->_homeScreenAppRejectsTwoHourTimeIntervalHistogram;
-  v98 = homeScreenAppRejectsDayOfWeekHistogram;
+  v99 = homeScreenAppRejectsDayOfWeekHistogram;
   homeScreenAppRejectsSpecificGeohashHistogram = self->_homeScreenAppRejectsSpecificGeohashHistogram;
   homeScreenAppRejectsCoarseGeohashHistogram = self->_homeScreenAppRejectsCoarseGeohashHistogram;
-  v100 = homeScreenAppRejectsSpecificGeohashHistogram;
+  v101 = homeScreenAppRejectsSpecificGeohashHistogram;
   appDirectoryConfirmsCoarseTimePOWLocationHistogram = self->_appDirectoryConfirmsCoarseTimePOWLocationHistogram;
   homeScreenAppExplicitRejectsCoarseTimePOWLocationHistogram = self->_homeScreenAppExplicitRejectsCoarseTimePOWLocationHistogram;
-  v102 = appDirectoryConfirmsCoarseTimePOWLocationHistogram;
+  v103 = appDirectoryConfirmsCoarseTimePOWLocationHistogram;
   appDirectoryConfirmsTwoHourTimeIntervalHistogram = self->_appDirectoryConfirmsTwoHourTimeIntervalHistogram;
   appDirectoryConfirmsSpecificTimeDOWLocationHistogram = self->_appDirectoryConfirmsSpecificTimeDOWLocationHistogram;
-  v104 = appDirectoryConfirmsTwoHourTimeIntervalHistogram;
+  v105 = appDirectoryConfirmsTwoHourTimeIntervalHistogram;
   appDirectoryConfirmsDayOfWeekHistogram = self->_appDirectoryConfirmsDayOfWeekHistogram;
   appDirectoryConfirmsCoarseGeohashHistogram = self->_appDirectoryConfirmsCoarseGeohashHistogram;
   appDirectoryConfirmsSpecificGeohashHistogram = self->_appDirectoryConfirmsSpecificGeohashHistogram;
@@ -168,34 +167,31 @@ _ATXAppLaunchCategoricalHistogramWithPersistentBackup *__135__ATXPredictionDataH
   activitySuggestionsFeedbackHistogram = self->_activitySuggestionsFeedbackHistogram;
   notificationDigestAppEngagementHistogram = self->_notificationDigestAppEngagementHistogram;
   notificationDigestAlltimeMarqueeAppearancesHistogram = self->_notificationDigestAlltimeMarqueeAppearancesHistogram;
-  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:78];
-  v47 = self->_seqManager;
-  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
+  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:78];
+  v48 = self->_seqManager;
+  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
   actionKeyBasedHistograms = [(ATXPredictionDataHistograms *)self actionKeyBasedHistograms];
   v37 = [v35 arrayByAddingObjectsFromArray:actionKeyBasedHistograms];
 
-  v38 = __atxlog_handle_default();
-  v39 = os_signpost_id_generate(v38);
+  v39 = __atxlog_handle_default(v38);
+  v40 = os_signpost_id_generate(v39);
 
-  v40 = __atxlog_handle_default();
-  v41 = v40;
-  if (v39 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v40))
+  v42 = __atxlog_handle_default(v41);
+  v43 = v42;
+  if (v40 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
   {
-    *v46 = 0;
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v41, OS_SIGNPOST_INTERVAL_BEGIN, v39, "RemoveOldLaunchInfo", " enableTelemetry=YES ", v46, 2u);
+    *v47 = 0;
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v43, OS_SIGNPOST_INTERVAL_BEGIN, v40, "RemoveOldLaunchInfo", " enableTelemetry=YES ", v47, 2u);
   }
 
-  v42 = [[ATXExpiredDataProvider alloc] initWithAppInfoManager:self->_infoManager histogramBundleIdTable:self->_bundleIdTable];
-  [ATXExpiredDataRemover removeExpiredBundleIdsFrom:v34 removeExpiredActionKeysFrom:v37 expiredDataProvider:v42];
-  v43 = __atxlog_handle_default();
-  v44 = v43;
-  if (v39 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
+  v44 = [[ATXExpiredDataProvider alloc] initWithAppInfoManager:self->_infoManager histogramBundleIdTable:self->_bundleIdTable];
+  v45 = __atxlog_handle_default([ATXExpiredDataRemover removeExpiredBundleIdsFrom:v34 removeExpiredActionKeysFrom:v37 expiredDataProvider:v44]);
+  v46 = v45;
+  if (v40 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
   {
-    *v46 = 0;
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v44, OS_SIGNPOST_INTERVAL_END, v39, "RemoveOldLaunchInfo", " enableTelemetry=YES ", v46, 2u);
+    *v47 = 0;
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v46, OS_SIGNPOST_INTERVAL_END, v40, "RemoveOldLaunchInfo", " enableTelemetry=YES ", v47, 2u);
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initWithAppInfoManager:(void *)manager bundleIdTable:(void *)table launchSequenceManager:(void *)sequenceManager histogramManager:(void *)histogramManager dataStore:(int)store persistHistograms:
@@ -792,38 +788,36 @@ _ATXAppLaunchCategoricalHistogramWithPersistentBackup *__135__ATXPredictionDataH
 
 - (void)verifyHistograms
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   allHistograms = [(ATXPredictionDataHistograms *)self allHistograms];
-  v3 = [allHistograms countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [allHistograms countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(allHistograms);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) verifyDataIntegrity];
+        [*(*(&v7 + 1) + 8 * v6++) verifyDataIntegrity];
       }
 
       while (v4 != v6);
-      v4 = [allHistograms countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [allHistograms countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

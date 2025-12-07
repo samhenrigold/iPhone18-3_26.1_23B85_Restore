@@ -106,7 +106,7 @@
   v4 = [OITSUMutableFormatObject alloc];
   if (self)
   {
-    [(OITSUFormatObject *)self formatStruct];
+    objc_msgSend_formatStruct(self);
   }
 
   else
@@ -184,13 +184,13 @@
     {
       if (self->mFormatStruct.var0.mDateFormatStruct.mDateTimeFormat)
       {
-        [v8 formatStruct];
-        if ((v29 - 270) <= 2)
+        objc_msgSend_formatStruct(v8);
+        if ((v29[0] - 270) <= 2)
         {
-          [v8 formatStruct];
+          objc_msgSend_formatStruct(v8);
           if (v28)
           {
-            [v8 formatStruct];
+            objc_msgSend_formatStruct(v8);
             *v20 = v26;
             *&v20[16] = v27;
             v32 = *&self->mFormatStruct.var0.mNumberFormatStruct;
@@ -202,11 +202,11 @@
             }
 
             mAppliedConditionKey = self->mFormatStruct.var0.mCustomFormatStruct.mAppliedConditionKey;
-            [v8 formatStruct];
+            objc_msgSend_formatStruct(v8);
             if (mAppliedConditionKey == v25)
             {
               mDateTimeFormat = self->mFormatStruct.var0.mDateFormatStruct.mDateTimeFormat;
-              [v8 formatStruct];
+              objc_msgSend_formatStruct(v8);
               v12 = mDateTimeFormat == v24;
               goto LABEL_49;
             }
@@ -219,7 +219,7 @@ LABEL_25:
       }
     }
 
-    [v8 formatStruct];
+    objc_msgSend_formatStruct(v8);
     mFormatType = self->mFormatStruct.mFormatType;
     if (mFormatType != *v20)
     {

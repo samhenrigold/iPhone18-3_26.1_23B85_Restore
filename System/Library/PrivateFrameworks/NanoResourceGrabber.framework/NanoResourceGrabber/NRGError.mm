@@ -7,7 +7,7 @@
 + (id)errorWithCode:(int64_t)code
 {
   v4 = 0;
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (code <= 2)
   {
     if (code)
@@ -64,12 +64,10 @@
   v4 = ;
 LABEL_17:
   v5 = MEMORY[0x277CCA9B8];
-  v10 = *MEMORY[0x277CCA450];
-  v11[0] = v4;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x277CCA450];
+  v10[0] = v4;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v5 errorWithDomain:@"com.apple.NanoResourceGrabber" code:code userInfo:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

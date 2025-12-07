@@ -7,16 +7,16 @@
 - (id)_UIUndoRedoAttributedSubstringFromRange:()UIKitUndoExtensions
 {
   string = [self string];
-  v8 = a3 + a4;
+  v8 = &a4[a3];
   v9 = [string length];
-  if (a3 + a4 >= v9)
+  if (&a4[a3] >= v9)
   {
     v10 = v9;
   }
 
   else
   {
-    v10 = a3 + a4;
+    v10 = &a4[a3];
   }
 
   if (v8 <= v9)
@@ -26,7 +26,7 @@
 
   else
   {
-    v11 = v9 - a3;
+    v11 = &v9[-a3];
   }
 
   if (v11 == v9)
@@ -43,7 +43,7 @@
 
     else
     {
-      v13 = v9 - a3;
+      v13 = &v9[-a3];
     }
 
     v14 = [string substringWithRange:{a3, v13}];
@@ -57,17 +57,17 @@
         v20 = 0;
         v21 = 0;
         v16 = [self attributesAtIndex:v15 effectiveRange:&v20];
-        if (v21 + v20 <= v10)
+        if (&v21[v20] <= v10)
         {
-          v17 = v20 - v15 + v21;
+          v17 = &v21[v20 - v15];
         }
 
         else
         {
-          v17 = v10 - v15;
+          v17 = &v10[-v15];
         }
 
-        if (v20 != v15 || v21 + v20 > v10)
+        if (v20 != v15 || &v21[v20] > v10)
         {
           v21 = v17;
         }

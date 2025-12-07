@@ -25,7 +25,7 @@
 
 - (void)loadView
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -276,11 +276,11 @@
 
 - (void)animateOutIfNecessary
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = +[TUCallCenter sharedInstance];
-    displayedAudioAndVideoCalls = [v16 displayedAudioAndVideoCalls];
+    v17 = +[TUCallCenter sharedInstance];
+    displayedAudioAndVideoCalls = [v17 displayedAudioAndVideoCalls];
     v4 = [displayedAudioAndVideoCalls count];
     v5 = +[TUCallCenter sharedInstance];
     conferenceParticipantCalls = [v5 conferenceParticipantCalls];
@@ -289,12 +289,12 @@
     incomingCall = [v8 incomingCall];
     v10 = +[TUCallCenter sharedInstance];
     *buf = 134218752;
-    v19 = v4;
-    v20 = 2048;
-    v21 = v7;
-    v22 = 1024;
-    v23 = incomingCall != 0;
-    v24 = 2048;
+    v20 = v4;
+    v21 = 2048;
+    v22 = v7;
+    v23 = 1024;
+    v24 = incomingCall != 0;
+    v25 = 2048;
     currentAudioAndVideoCallCount = [v10 currentAudioAndVideoCallCount];
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "PHCarPlayInCallViewController: animateOutIfNecessary [Displayed calls: %lu, Conference calls: %lu, Incoming calls: %d, Audio and Video Calls: %lu]", buf, 0x26u);
   }
@@ -306,20 +306,20 @@
 
     if (isDismissable)
     {
-      v13 = sub_100004F84();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100004F84(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Animating out", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Animating out", buf, 2u);
       }
 
-      v14 = dispatch_time(0, 500000000);
+      v15 = dispatch_time(0, 500000000);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_100036D38;
       block[3] = &unk_100356988;
       block[4] = self;
-      dispatch_after(v14, &_dispatch_main_q, block);
+      dispatch_after(v15, &_dispatch_main_q, block);
     }
   }
 }
@@ -393,30 +393,30 @@
 - (void)viewDidAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf.a) = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHCarPlayInCallViewController viewDidAppear:", &buf, 2u);
   }
 
-  v15.receiver = self;
-  v15.super_class = PHCarPlayInCallViewController;
-  [(PHCarPlayInCallViewController *)&v15 viewDidAppear:appearCopy];
-  CGAffineTransformMakeScale(&v14, 1.5, 1.5);
+  v16.receiver = self;
+  v16.super_class = PHCarPlayInCallViewController;
+  [(PHCarPlayInCallViewController *)&v16 viewDidAppear:appearCopy];
+  CGAffineTransformMakeScale(&v15, 1.5, 1.5);
   view = [(PHCarPlayInCallViewController *)self view];
-  buf = v14;
+  buf = v15;
   [view setTransform:&buf];
 
   view2 = [(PHCarPlayInCallViewController *)self view];
   [view2 setAlpha:0.0];
 
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_100059DE0;
-  v12[3] = &unk_100356988;
-  v12[4] = self;
-  [UIView animateWithDuration:v12 animations:&stru_100357238 completion:0.349999994];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100059DE0;
+  v13[3] = &unk_100356988;
+  v13[4] = self;
+  [UIView animateWithDuration:v13 animations:&stru_100357238 completion:0.349999994];
   v8 = +[NSNotificationCenter defaultCenter];
   [v8 addObserver:self selector:"hardwareControlEventNotification:" name:TUCarPlayHardwareControlEventNotification object:0];
 
@@ -425,11 +425,11 @@
 
   if (!currentAudioAndVideoCallCount)
   {
-    v11 = sub_100004F84();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004F84(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf.a) = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "PHCarPlayInCallViewController: appeared with no current calls, will call animateOutIfNecessary", &buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "PHCarPlayInCallViewController: appeared with no current calls, will call animateOutIfNecessary", &buf, 2u);
     }
 
     [(PHCarPlayInCallViewController *)self animateOutIfNecessary];
@@ -439,7 +439,7 @@
 - (void)viewDidDisappear:(BOOL)disappear
 {
   disappearCopy = disappear;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -525,12 +525,12 @@
 - (void)hardwareControlEventNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = notificationCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHCarPlayInCallViewController received hardware control event notification: %@", &v17, 0xCu);
+    v18 = 138412290;
+    v19 = notificationCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHCarPlayInCallViewController received hardware control event notification: %@", &v18, 0xCu);
   }
 
   presentedViewController = [(PHCarPlayInCallViewController *)self presentedViewController];
@@ -546,11 +546,11 @@
       v14 = [userInfo2 valueForKey:kTUCarPlayHardwareControlKeypadValueKey];
       v15 = [v14 characterAtIndex:0];
 
-      v16 = sub_100004F84();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = sub_100004F84(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Will play DTMF tone because we heard about a hardware key being pressed", &v17, 2u);
+        LOWORD(v18) = 0;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Will play DTMF tone because we heard about a hardware key being pressed", &v18, 2u);
       }
 
       [DialerController playDTMFToneForKey:v15];
@@ -563,7 +563,7 @@
   object = [notification object];
   if ([object _userInterfaceIdiom] == 3)
   {
-    v5 = sub_100004F84();
+    v5 = sub_100004F84(3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       _remoteViewControllerProxy = [(PHCarPlayInCallViewController *)self _remoteViewControllerProxy];
@@ -594,7 +594,7 @@
 
 - (void)conversationManager:(id)manager letMeInRequestStateChangedForConversation:(id)conversation
 {
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

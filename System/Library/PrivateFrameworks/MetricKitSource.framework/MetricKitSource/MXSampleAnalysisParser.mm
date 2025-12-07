@@ -1,6 +1,7 @@
 @interface MXSampleAnalysisParser
 + (id)constructPayloadWithReport:(id)report withType:(int64_t)type;
 + (id)getCallStackForReport:(id)report withType:(int64_t)type;
++ (id)parseCallTree:(id)tree isAttributedThread:(BOOL)thread;
 + (id)parseCallTreeFrame:(id)frame withDepth:(unint64_t)depth;
 + (void)sendDiagnosticReport:(id)report forType:(int64_t)type forSourceID:(int64_t)d;
 @end
@@ -34,7 +35,7 @@
 
 + (id)constructPayloadWithReport:(id)report withType:(int64_t)type
 {
-  v100[1] = *MEMORY[0x277D85DE8];
+  v99[1] = *MEMORY[0x277D85DE8];
   reportCopy = report;
   sampleStore = [reportCopy sampleStore];
   targetProcess = [sampleStore targetProcess];
@@ -52,9 +53,9 @@
       targetProcessBundleVersion = [sampleStore targetProcessBundleVersion];
       targetProcess3 = [sampleStore targetProcess];
       bundleIdentifier2 = [targetProcess3 bundleIdentifier];
-      v96 = [v12 initWithRegionFormat:&stru_286A1D018 osVersion:&stru_286A1D018 deviceType:&stru_286A1D018 appBuildVersion:targetProcessBundleVersion platformArchitecture:&stru_286A1D018 bundleID:bundleIdentifier2];
+      v95 = [v12 initWithRegionFormat:&stru_286A1D018 osVersion:&stru_286A1D018 deviceType:&stru_286A1D018 appBuildVersion:targetProcessBundleVersion platformArchitecture:&stru_286A1D018 bundleID:bundleIdentifier2];
 
-      v94 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v93 = objc_alloc_init(MEMORY[0x277CBEB38]);
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
         +[MXSampleAnalysisParser constructPayloadWithReport:withType:];
@@ -78,7 +79,7 @@
 LABEL_9:
         startTime2 = [eventTimeRange2 startTime];
         [startTime2 wallTime];
-        v98 = [v20 dateWithTimeIntervalSinceReferenceDate:?];
+        v97 = [v20 dateWithTimeIntervalSinceReferenceDate:?];
 
         goto LABEL_20;
       }
@@ -135,25 +136,25 @@ LABEL_9:
         v32 = [v31 dateWithTimeIntervalSinceReferenceDate:?];
       }
 
-      v98 = v32;
+      v97 = v32;
 LABEL_20:
       v33 = v11;
 
       v34 = objc_alloc_init(MEMORY[0x277CCA968]);
-      v93 = [objc_alloc(MEMORY[0x277CBEAF8]) initWithLocaleIdentifier:@"en_US_POSIX"];
+      v92 = [objc_alloc(MEMORY[0x277CBEAF8]) initWithLocaleIdentifier:@"en_US_POSIX"];
       [v34 setLocale:?];
       [v34 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
-        [MXSampleAnalysisParser constructPayloadWithReport:v34 withType:v98];
+        [MXSampleAnalysisParser constructPayloadWithReport:v34 withType:v97];
       }
 
-      v95 = v34;
+      v94 = v34;
       targetProcess4 = [sampleStore targetProcess];
       v36 = [targetProcess4 pid];
       targetProcess5 = [sampleStore targetProcess];
       bundleIdentifier3 = [targetProcess5 bundleIdentifier];
-      v97 = [MXSourceUtilities getSignpostDataforPid:v36 forClient:bundleIdentifier3 andEventTimestamp:v98];
+      v96 = [MXSourceUtilities getSignpostDataforPid:v36 forClient:bundleIdentifier3 andEventTimestamp:v97];
 
       if (type == 1)
       {
@@ -168,24 +169,24 @@ LABEL_20:
         v60 = objc_alloc(MEMORY[0x277CD7988]);
         targetProcessBundleShortVersion = [sampleStore targetProcessBundleShortVersion];
         v39 = v33;
-        v53 = [v60 initWithMetaData:v96 applicationVersion:targetProcessBundleShortVersion signpostData:v97 pid:objc_msgSend(sampleStore totalWritesCaused:"targetProcessId") stackTrace:{v49, v33}];
+        v53 = [v60 initWithMetaData:v95 applicationVersion:targetProcessBundleShortVersion signpostData:v96 pid:objc_msgSend(sampleStore totalWritesCaused:"targetProcessId") stackTrace:{v49, v33}];
 
         if (v53)
         {
-          v54 = v94;
+          v54 = v93;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
           {
             [MXSampleAnalysisParser constructPayloadWithReport:v53 withType:?];
           }
 
-          [v94 setObject:v53 forKey:@"diskWriteExceptionDiagnostics"];
-          v55 = [[MXSpinTracerData alloc] initPayloadDataWithDiagnostics:v94];
-          v52 = v96;
+          [v93 setObject:v53 forKey:@"diskWriteExceptionDiagnostics"];
+          v55 = [[MXSpinTracerData alloc] initPayloadDataWithDiagnostics:v93];
+          v52 = v95;
           goto LABEL_49;
         }
 
         v55 = 0;
-        v52 = v96;
+        v52 = v95;
         goto LABEL_48;
       }
 
@@ -206,36 +207,36 @@ LABEL_20:
 
         v50 = objc_alloc(MEMORY[0x277CD7918]);
         targetProcessBundleShortVersion2 = [sampleStore targetProcessBundleShortVersion];
-        v52 = v96;
-        v53 = [v50 initWithMetaData:v96 applicationVersion:targetProcessBundleShortVersion2 signpostData:v97 pid:objc_msgSend(sampleStore callStack:"targetProcessId") totalCpuTime:v39 totalSampledTime:{v44, v49}];
+        v52 = v95;
+        v53 = [v50 initWithMetaData:v95 applicationVersion:targetProcessBundleShortVersion2 signpostData:v96 pid:objc_msgSend(sampleStore callStack:"targetProcessId") totalCpuTime:v39 totalSampledTime:{v44, v49}];
 
         if (v53)
         {
-          v54 = v94;
+          v54 = v93;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
           {
             [MXSampleAnalysisParser constructPayloadWithReport:v53 withType:?];
           }
 
-          [v94 setObject:v53 forKey:@"cpuExceptionDiagnostics"];
-          v55 = [[MXSpinTracerData alloc] initPayloadDataWithDiagnostics:v94];
+          [v93 setObject:v53 forKey:@"cpuExceptionDiagnostics"];
+          v55 = [[MXSpinTracerData alloc] initPayloadDataWithDiagnostics:v93];
           goto LABEL_49;
         }
 
         v55 = 0;
 LABEL_48:
-        v54 = v94;
+        v54 = v93;
 LABEL_49:
 
-        v71 = v95;
+        v71 = v94;
 LABEL_50:
 
 LABEL_51:
         if (v55)
         {
-          v99 = bundleIdentifier;
-          v100[0] = v55;
-          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v100 forKeys:&v99 count:1];
+          v98 = bundleIdentifier;
+          v99[0] = v55;
+          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v99 forKeys:&v98 count:1];
         }
 
         else
@@ -246,46 +247,46 @@ LABEL_51:
         goto LABEL_55;
       }
 
-      v52 = v96;
+      v52 = v95;
       if (type != 4)
       {
         if (type == 3)
         {
-          v85 = objc_alloc(MEMORY[0x277CCAB10]);
+          v84 = objc_alloc(MEMORY[0x277CCAB10]);
           eventTimeRange4 = [sampleStore eventTimeRange];
           [eventTimeRange4 deltaMachAbsTimeSeconds];
-          v88 = v87;
+          v87 = v86;
           seconds3 = [MEMORY[0x277CCADD0] seconds];
-          v44 = [v85 initWithDoubleValue:seconds3 unit:v88];
+          v44 = [v84 initWithDoubleValue:seconds3 unit:v87];
 
-          v90 = objc_alloc(MEMORY[0x277CD78C0]);
+          v89 = objc_alloc(MEMORY[0x277CD78C0]);
           targetProcessBundleShortVersion3 = [sampleStore targetProcessBundleShortVersion];
-          v49 = [v90 initWithMetaData:v96 applicationVersion:targetProcessBundleShortVersion3 signpostData:v97 pid:objc_msgSend(sampleStore callStack:"targetProcessId") launchDuration:{v39, v44}];
+          v49 = [v89 initWithMetaData:v95 applicationVersion:targetProcessBundleShortVersion3 signpostData:v96 pid:objc_msgSend(sampleStore callStack:"targetProcessId") launchDuration:{v39, v44}];
 
           if (v49)
           {
-            v54 = v94;
-            v71 = v95;
+            v54 = v93;
+            v71 = v94;
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
             {
               [MXSampleAnalysisParser constructPayloadWithReport:v49 withType:?];
             }
 
-            v92 = @"appLaunchDiagnostic";
+            v91 = @"appLaunchDiagnostic";
             goto LABEL_70;
           }
 
 LABEL_62:
           v55 = 0;
-          v54 = v94;
-          v71 = v95;
+          v54 = v93;
+          v71 = v94;
           goto LABEL_50;
         }
 
         if (type != 2)
         {
           v55 = 0;
-          v54 = v94;
+          v54 = v93;
           v71 = v34;
           goto LABEL_51;
         }
@@ -310,15 +311,15 @@ LABEL_62:
 
       v68 = objc_alloc(MEMORY[0x277CD79C0]);
       targetProcessBundleShortVersion4 = [sampleStore targetProcessBundleShortVersion];
-      v49 = [v68 initWithMetaData:v96 applicationVersion:targetProcessBundleShortVersion4 signpostData:v97 pid:objc_msgSend(sampleStore callStack:"targetProcessId") hangDuration:v39 hangType:{v44, v62}];
+      v49 = [v68 initWithMetaData:v95 applicationVersion:targetProcessBundleShortVersion4 signpostData:v96 pid:objc_msgSend(sampleStore callStack:"targetProcessId") hangDuration:v39 hangType:{v44, v62}];
 
       if (v49)
       {
         v70 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG);
-        v54 = v94;
+        v54 = v93;
         if (type == 2)
         {
-          v71 = v95;
+          v71 = v94;
           if (v70)
           {
             [MXSampleAnalysisParser constructPayloadWithReport:v49 withType:?];
@@ -327,16 +328,16 @@ LABEL_62:
 
         else
         {
-          v71 = v95;
+          v71 = v94;
           if (v70)
           {
             [MXSampleAnalysisParser constructPayloadWithReport:v49 withType:?];
           }
         }
 
-        v92 = @"hangDiagnostic";
+        v91 = @"hangDiagnostic";
 LABEL_70:
-        [v54 setObject:v49 forKey:v92];
+        [v54 setObject:v49 forKey:v91];
         v55 = [[MXHangTracerData alloc] initPayloadDataWithDiagnostics:v54];
         goto LABEL_50;
       }
@@ -352,8 +353,6 @@ LABEL_70:
 
   v24 = 0;
 LABEL_55:
-
-  v83 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -497,6 +496,27 @@ void __57__MXSampleAnalysisParser_getCallStackForReport_withType___block_invoke(
   }
 }
 
++ (id)parseCallTree:(id)tree isAttributedThread:(BOOL)thread
+{
+  threadCopy = thread;
+  v5 = MEMORY[0x277CBEB18];
+  treeCopy = tree;
+  v7 = objc_alloc_init(v5);
+  rootFrames = [treeCopy rootFrames];
+
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __59__MXSampleAnalysisParser_parseCallTree_isAttributedThread___block_invoke;
+  v12[3] = &unk_2798C8998;
+  v13 = v7;
+  v9 = v7;
+  [rootFrames enumerateObjectsUsingBlock:v12];
+
+  v10 = [objc_alloc(MEMORY[0x277CD7938]) initWithTopCallStackFrames:v9 isAttributedThread:threadCopy];
+
+  return v10;
+}
+
 uint64_t __59__MXSampleAnalysisParser_parseCallTree_isAttributedThread___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = [MXSampleAnalysisParser parseCallTreeFrame:a2 withDepth:0];
@@ -568,117 +588,87 @@ uint64_t __55__MXSampleAnalysisParser_parseCallTreeFrame_withDepth___block_invok
 
 + (void)constructPayloadWithReport:withType:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)constructPayloadWithReport:(void *)a1 withType:(uint64_t)a2 .cold.6(void *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [a1 stringFromDate:a2];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)constructPayloadWithReport:(void *)a1 withType:.cold.7(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 totalWritesCaused];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)constructPayloadWithReport:(void *)a1 withType:.cold.8(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 totalCPUTime];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)constructPayloadWithReport:(void *)a1 withType:.cold.9(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 launchDuration];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)constructPayloadWithReport:(void *)a1 withType:.cold.10(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 hangDuration];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)constructPayloadWithReport:(void *)a1 withType:.cold.11(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 hangDuration];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)constructPayloadWithReport:withType:.cold.12()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)getCallStackForReport:(void *)a1 withType:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 targetProcess];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)getCallStackForReport:withType:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)getCallStackForReport:(void *)a1 withType:.cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 targetProcess];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

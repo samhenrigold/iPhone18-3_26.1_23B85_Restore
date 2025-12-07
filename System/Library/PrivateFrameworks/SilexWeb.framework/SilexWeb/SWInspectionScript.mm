@@ -39,13 +39,12 @@
 
 void __38__SWInspectionScript_executableSource__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v5 = [v2 URLForResource:@"inspection" withExtension:@"js"];
+  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v4 = [v1 URLForResource:@"inspection" withExtension:@"js"];
 
-  v3 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v5 encoding:4 error:0];
-  v4 = executableSource_source;
-  executableSource_source = v3;
+  v2 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v4 encoding:4 error:0];
+  v3 = executableSource_source;
+  executableSource_source = v2;
 }
 
 @end

@@ -19,7 +19,7 @@
 - (void)didUpdateIconImageForApplicationInfo:(id)info
 {
   swift_getKeyPath();
-  sub_1000978DC(&qword_10032DBA8, type metadata accessor for Application);
+  sub_1000978DC(&qword_10032DBA8, type metadata accessor for Application, &unk_10029BEF4);
   infoCopy = info;
 
   ObservationRegistrar.access<A, B>(_:keyPath:)();

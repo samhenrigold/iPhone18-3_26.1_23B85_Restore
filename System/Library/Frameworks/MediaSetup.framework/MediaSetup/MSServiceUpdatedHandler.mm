@@ -36,7 +36,7 @@ uint64_t __33__MSServiceUpdatedHandler_shared__block_invoke(uint64_t a1)
 - (void)setDelegate:(id)delegate
 {
   delegateCopy = delegate;
-  v5 = _MSLogingFacility();
+  v5 = _MSLogingFacility(delegateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(MSServiceUpdatedHandler *)delegateCopy setDelegate:v5];
@@ -47,20 +47,20 @@ uint64_t __33__MSServiceUpdatedHandler_shared__block_invoke(uint64_t a1)
 
 - (void)mediaServiceChanged:(id)changed homeUserID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   dCopy = d;
-  v8 = _MSLogingFacility();
+  v8 = _MSLogingFacility(dCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     serviceName = [changedCopy serviceName];
-    v14 = 136315650;
-    v15 = "[MSServiceUpdatedHandler mediaServiceChanged:homeUserID:]";
-    v16 = 2112;
-    v17 = dCopy;
-    v18 = 2112;
-    v19 = serviceName;
-    _os_log_impl(&dword_23986C000, v8, OS_LOG_TYPE_DEFAULT, "%s Informing delegate about service change - User: %@ Service %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[MSServiceUpdatedHandler mediaServiceChanged:homeUserID:]";
+    v15 = 2112;
+    v16 = dCopy;
+    v17 = 2112;
+    v18 = serviceName;
+    _os_log_impl(&dword_23986C000, v8, OS_LOG_TYPE_DEFAULT, "%s Informing delegate about service change - User: %@ Service %@", &v13, 0x20u);
   }
 
   delegate = [(MSServiceUpdatedHandler *)self delegate];
@@ -78,26 +78,24 @@ uint64_t __33__MSServiceUpdatedHandler_shared__block_invoke(uint64_t a1)
     [delegate serviceSettingDidUpdate:changedCopy homeUserID:dCopy];
 LABEL_6:
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mediaServiceRemoved:(id)removed homeUserID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   dCopy = d;
-  v8 = _MSLogingFacility();
+  v8 = _MSLogingFacility(dCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     serviceName = [removedCopy serviceName];
-    v14 = 136315650;
-    v15 = "[MSServiceUpdatedHandler mediaServiceRemoved:homeUserID:]";
-    v16 = 2112;
-    v17 = dCopy;
-    v18 = 2112;
-    v19 = serviceName;
-    _os_log_impl(&dword_23986C000, v8, OS_LOG_TYPE_DEFAULT, "%s Informing delegate about service removal - User: %@ Service %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[MSServiceUpdatedHandler mediaServiceRemoved:homeUserID:]";
+    v15 = 2112;
+    v16 = dCopy;
+    v17 = 2112;
+    v18 = serviceName;
+    _os_log_impl(&dword_23986C000, v8, OS_LOG_TYPE_DEFAULT, "%s Informing delegate about service removal - User: %@ Service %@", &v13, 0x20u);
   }
 
   delegate = [(MSServiceUpdatedHandler *)self delegate];
@@ -115,26 +113,24 @@ LABEL_6:
     [delegate userDidRemoveService:removedCopy homeUserID:dCopy];
 LABEL_6:
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)defaultMediaServiceUpdated:(id)updated homeUserID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   dCopy = d;
-  v8 = _MSLogingFacility();
+  v8 = _MSLogingFacility(dCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     serviceName = [updatedCopy serviceName];
-    v14 = 136315650;
-    v15 = "[MSServiceUpdatedHandler defaultMediaServiceUpdated:homeUserID:]";
-    v16 = 2112;
-    v17 = dCopy;
-    v18 = 2112;
-    v19 = serviceName;
-    _os_log_impl(&dword_23986C000, v8, OS_LOG_TYPE_DEFAULT, "%s Informing delegate about default service update - User: %@ Service %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[MSServiceUpdatedHandler defaultMediaServiceUpdated:homeUserID:]";
+    v15 = 2112;
+    v16 = dCopy;
+    v17 = 2112;
+    v18 = serviceName;
+    _os_log_impl(&dword_23986C000, v8, OS_LOG_TYPE_DEFAULT, "%s Informing delegate about default service update - User: %@ Service %@", &v13, 0x20u);
   }
 
   delegate = [(MSServiceUpdatedHandler *)self delegate];
@@ -152,8 +148,6 @@ LABEL_6:
     [delegate userDidUpdateDefaultService:updatedCopy homeUserID:dCopy];
 LABEL_6:
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (MediaServiceUpdatedClientDelegate)delegate
@@ -165,13 +159,12 @@ LABEL_6:
 
 - (void)setDelegate:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[MSServiceUpdatedHandler setDelegate:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_debug_impl(&dword_23986C000, a2, OS_LOG_TYPE_DEBUG, "%s Setting MediaServiceUpdatedClientDelegate %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[MSServiceUpdatedHandler setDelegate:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_debug_impl(&dword_23986C000, a2, OS_LOG_TYPE_DEBUG, "%s Setting MediaServiceUpdatedClientDelegate %@", &v2, 0x16u);
 }
 
 @end

@@ -12,13 +12,13 @@
 
 - (NSArray)preferredFocusEnvironments
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C7629D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C7629D0, &unk_20C14F960);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_20C14F580;
   v4 = *((*(&self->super.super.super.isa + OBJC_IVAR____TtC9SeymourUI36TVCatalogProgramDetailViewController_dataProvider))[51] + OBJC_IVAR____TtC9SeymourUI11CatalogPage_collectionView);
   *(v3 + 32) = v4;
   v5 = v4;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0, &unk_20C14F970);
   v6 = sub_20C13CC54();
 
   return v6;
@@ -40,11 +40,11 @@
 {
   disappearCopy = disappear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for TVCatalogProgramDetailViewController();
+  v5.super_class = type metadata accessor for TVCatalogProgramDetailViewController(0);
   v4 = v5.receiver;
   [(TVCatalogProgramDetailViewController *)&v5 viewDidDisappear:disappearCopy];
-  sub_20B667330(&unk_27C763078, type metadata accessor for TVCatalogProgramDetailViewController);
-  sub_20B667330(&qword_27C763098, type metadata accessor for TVCatalogProgramDetailViewController);
+  sub_20B667330(&unk_27C763078, type metadata accessor for TVCatalogProgramDetailViewController, &unk_20C153360);
+  sub_20B667330(&qword_27C763098, type metadata accessor for TVCatalogProgramDetailViewController, &unk_20C1532D8);
   sub_20C139374();
 }
 

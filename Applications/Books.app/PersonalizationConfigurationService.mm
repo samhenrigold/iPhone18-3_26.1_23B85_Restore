@@ -6,7 +6,7 @@
 
 - (void)onConfigurationChange:(id)change
 {
-  v4 = sub_1001F1160(&qword_100AD67D0);
+  v4 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v4 - 8);
   v6 = &v16 - v5;
   v7 = sub_100796594();
@@ -24,7 +24,7 @@
   }
 
   v13 = qword_100AE0708;
-  v14 = sub_1003BB37C(&qword_100AE0888, _s5Books18PropertyValueActorV9ActorTypeCMa_0);
+  v14 = sub_1003BB37C(&qword_100AE0888, _s5Books18PropertyValueActorV9ActorTypeCMa_0, &unk_100820FD8);
   v15 = swift_allocObject();
   v15[2] = v13;
   v15[3] = v14;

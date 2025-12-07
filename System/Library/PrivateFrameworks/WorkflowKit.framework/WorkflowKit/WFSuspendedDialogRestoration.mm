@@ -67,49 +67,47 @@ LABEL_7:
 
 - (BOOL)shortcutsAppIsForegroundInLayout:(id)layout
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
   elements = [layout elements];
-  v4 = [elements countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [elements countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v19;
-    v8 = *MEMORY[0x1E699F8A0];
-    v9 = *MEMORY[0x1E69E0FB0];
+    v7 = *v16;
 LABEL_3:
-    v10 = 0;
+    v8 = 0;
     while (1)
     {
-      if (*v19 != v7)
+      if (*v16 != v7)
       {
         objc_enumerationMutation(elements);
       }
 
-      v11 = *(*(&v18 + 1) + 8 * v10);
-      identifier = [v11 identifier];
-      v13 = [identifier isEqualToString:v8];
+      v9 = *(*(&v15 + 1) + 8 * v8);
+      identifier = [v9 identifier];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-      if (v13)
+      if (isEqualToString)
       {
         break;
       }
 
-      if ([v11 isUIApplicationElement])
+      if ([v9 isUIApplicationElement])
       {
-        bundleIdentifier = [v11 bundleIdentifier];
-        v15 = [bundleIdentifier isEqualToString:v9];
+        bundleIdentifier = [v9 bundleIdentifier];
+        v13 = objc_msgSend_isEqualToString_(bundleIdentifier);
 
-        v6 |= v15;
+        v6 |= v13;
       }
 
-      if (v5 == ++v10)
+      if (v5 == ++v8)
       {
-        v5 = [elements countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v5 = [elements countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -123,7 +121,6 @@ LABEL_3:
   v6 = 0;
 LABEL_13:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v6 & 1;
 }
 
@@ -163,7 +160,7 @@ LABEL_13:
 
 void __62__WFSuspendedDialogRestoration_beginObservingApplicationState__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -173,9 +170,9 @@ void __62__WFSuspendedDialogRestoration_beginObservingApplicationState__block_in
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v36 = "[WFSuspendedDialogRestoration beginObservingApplicationState]_block_invoke";
-      v37 = 2112;
-      *v38 = v8;
+      v35 = "[WFSuspendedDialogRestoration beginObservingApplicationState]_block_invoke";
+      v36 = 2112;
+      *v37 = v8;
       _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_INFO, "%s Transitioned to layout: %@", buf, 0x16u);
     }
 
@@ -188,7 +185,7 @@ void __62__WFSuspendedDialogRestoration_beginObservingApplicationState__block_in
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v36 = "[WFSuspendedDialogRestoration beginObservingApplicationState]_block_invoke";
+        v35 = "[WFSuspendedDialogRestoration beginObservingApplicationState]_block_invoke";
         _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_DEFAULT, "%s Screen did turn off during active request", buf, 0xCu);
       }
 
@@ -202,7 +199,7 @@ void __62__WFSuspendedDialogRestoration_beginObservingApplicationState__block_in
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v36 = "[WFSuspendedDialogRestoration beginObservingApplicationState]_block_invoke";
+        v35 = "[WFSuspendedDialogRestoration beginObservingApplicationState]_block_invoke";
         _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_DEFAULT, "%s Shortcuts app did background during active request", buf, 0xCu);
       }
 
@@ -230,27 +227,27 @@ void __62__WFSuspendedDialogRestoration_beginObservingApplicationState__block_in
       v23 = [*(a1 + 32) screenDidTurnOffDuringActiveRequest];
       v24 = [*(a1 + 32) shortcutsAppDidBackgroundDuringActiveRequest];
       [*(a1 + 32) suspendedRequest];
-      v25 = v34 = v16;
+      v25 = v33 = v16;
       *buf = 136316418;
-      v36 = "[WFSuspendedDialogRestoration beginObservingApplicationState]_block_invoke";
-      v37 = 1024;
-      *v38 = v23;
+      v35 = "[WFSuspendedDialogRestoration beginObservingApplicationState]_block_invoke";
+      v36 = 1024;
+      *v37 = v23;
       v7 = v22;
       v9 = v21;
       v12 = v20;
       v8 = v19;
       v14 = v18;
-      *&v38[4] = 1024;
-      *&v38[6] = v24;
-      v39 = 1024;
-      v40 = v12;
-      v41 = 1024;
-      v42 = v18;
-      v43 = 2112;
-      v44 = v25;
+      *&v37[4] = 1024;
+      *&v37[6] = v24;
+      v38 = 1024;
+      v39 = v12;
+      v40 = 1024;
+      v41 = v18;
+      v42 = 2112;
+      v43 = v25;
       _os_log_impl(&dword_1CA256000, v17, OS_LOG_TYPE_DEFAULT, "%s Deciding if we should bring back the dialog: screenDidTurnOff: %i, appDidBackground: %i, displayIsOn: %i, shortcutsAppIsVisible: %i, suspended request: %@", buf, 0x2Eu);
 
-      v16 = v34;
+      v16 = v33;
     }
 
     if ((v12 & v14 & v16) == 1)
@@ -264,9 +261,9 @@ void __62__WFSuspendedDialogRestoration_beginObservingApplicationState__block_in
         {
           v28 = [*(a1 + 32) suspendedRequest];
           *buf = 136315394;
-          v36 = "[WFSuspendedDialogRestoration beginObservingApplicationState]_block_invoke";
-          v37 = 2112;
-          *v38 = v28;
+          v35 = "[WFSuspendedDialogRestoration beginObservingApplicationState]_block_invoke";
+          v36 = 2112;
+          *v37 = v28;
           _os_log_impl(&dword_1CA256000, v27, OS_LOG_TYPE_DEFAULT, "%s Bringing back suspended dialog: %@", buf, 0x16u);
         }
 
@@ -278,8 +275,6 @@ void __62__WFSuspendedDialogRestoration_beginObservingApplicationState__block_in
       }
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (WFSuspendedDialogRestoration)initWithUserInterfacePresenter:(id)presenter

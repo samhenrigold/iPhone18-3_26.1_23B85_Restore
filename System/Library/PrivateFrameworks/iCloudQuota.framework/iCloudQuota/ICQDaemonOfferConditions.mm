@@ -9,9 +9,10 @@
 + (NSNumber)photosLibraryUploadSize;
 + (NSNumber)photosVideosCount;
 + (id)currentConditions;
-+ (uint64_t)isPhotosCloudEnabled;
 + (void)getPhotosLibrarySizeWithCompletion:(id)completion;
 + (void)getPhotosLibraryUploadSizeWithCompletion:(id)completion;
++ (void)isPhotosCloudEnabled;
++ (void)setSimulatedDeviceStorageAlmostFull:(BOOL)full;
 - (ICQDaemonOfferConditions)initWithCurrentConditions;
 - (id)copyWithZone:(_NSZone *)zone;
 @end
@@ -77,7 +78,7 @@
 
 + (BOOL)isDeviceStorageAlmostFull
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (([self isSimulatedDeviceStorageAlmostFull] & 1) == 0)
   {
     v3 = [objc_alloc(MEMORY[0x277D3B250]) initWithPath:@"/private/var"];
@@ -88,37 +89,37 @@
       v6 = _ICQGetLogSystem();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 134349056;
-        v18 = availableSpace;
-        _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "Found %{public}llu bytes of free space", &v17, 0xCu);
+        v16 = 134349056;
+        v17 = availableSpace;
+        _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "Found %{public}llu bytes of free space", &v16, 0xCu);
       }
 
       v7 = CacheDeleteCopyPurgeableSpaceWithInfo();
-      v8 = [v7 objectForKeyedSubscript:@"CACHE_DELETE_ERROR"];
+      v8 = objc_msgSend_objectForKeyedSubscript_(v7);
 
       if (v8)
       {
         v9 = _ICQGetLogSystem();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = [v7 objectForKeyedSubscript:@"CACHE_DELETE_ERROR"];
-          v17 = 138412290;
-          v18 = v10;
-          _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, "Failed to get purgable space from Cache Delete: %@", &v17, 0xCu);
+          v10 = objc_msgSend_objectForKeyedSubscript_(v7);
+          v16 = 138412290;
+          v17 = v10;
+          _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, "Failed to get purgable space from Cache Delete: %@", &v16, 0xCu);
         }
       }
 
       else
       {
-        v11 = [v7 objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
+        v11 = objc_msgSend_objectForKeyedSubscript_(v7);
         unsignedLongLongValue = [v11 unsignedLongLongValue];
 
         v13 = _ICQGetLogSystem();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = 134349056;
-          v18 = unsignedLongLongValue;
-          _os_log_impl(&dword_275572000, v13, OS_LOG_TYPE_DEFAULT, "Found %{public}llu bytes of purgeable space", &v17, 0xCu);
+          v16 = 134349056;
+          v17 = unsignedLongLongValue;
+          _os_log_impl(&dword_275572000, v13, OS_LOG_TYPE_DEFAULT, "Found %{public}llu bytes of purgeable space", &v16, 0xCu);
         }
 
         availableSpace += unsignedLongLongValue;
@@ -133,8 +134,8 @@
       v14 = _ICQGetLogSystem();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&dword_275572000, v14, OS_LOG_TYPE_DEFAULT, "user volume is eating into the reserve -- too low for offers", &v17, 2u);
+        LOWORD(v16) = 0;
+        _os_log_impl(&dword_275572000, v14, OS_LOG_TYPE_DEFAULT, "user volume is eating into the reserve -- too low for offers", &v16, 2u);
       }
     }
 
@@ -143,44 +144,42 @@
       v7 = _ICQGetLogSystem();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&dword_275572000, v7, OS_LOG_TYPE_DEFAULT, "Unable to get user volume status", &v17, 2u);
+        LOWORD(v16) = 0;
+        _os_log_impl(&dword_275572000, v7, OS_LOG_TYPE_DEFAULT, "Unable to get user volume status", &v16, 2u);
       }
     }
 
     v2 = 0;
 LABEL_21:
 
-    goto LABEL_22;
+    return v2;
   }
 
-  v2 = 1;
-LABEL_22:
-  v15 = *MEMORY[0x277D85DE8];
-  return v2;
+  return 1;
 }
 
 + (BOOL)isPhotosCloudEnabled
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
   v2 = getPLIsCPLDataclassEnabledSymbolLoc_ptr;
-  v9 = getPLIsCPLDataclassEnabledSymbolLoc_ptr;
+  v10 = getPLIsCPLDataclassEnabledSymbolLoc_ptr;
   if (!getPLIsCPLDataclassEnabledSymbolLoc_ptr)
   {
     v3 = PhotoLibraryServicesLibrary();
-    v7[3] = dlsym(v3, "PLIsCPLDataclassEnabled");
-    getPLIsCPLDataclassEnabledSymbolLoc_ptr = v7[3];
-    v2 = v7[3];
+    v8[3] = dlsym(v3, "PLIsCPLDataclassEnabled");
+    getPLIsCPLDataclassEnabledSymbolLoc_ptr = v8[3];
+    v2 = v8[3];
   }
 
-  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(&v7, 8);
   if (!v2)
   {
-    v5 = +[ICQDaemonOfferConditions isPhotosCloudEnabled];
-    _Block_object_dispose(&v6, 8);
-    _Unwind_Resume(v5);
+    +[ICQDaemonOfferConditions isPhotosCloudEnabled];
+    v6 = v5;
+    _Block_object_dispose(&v7, 8);
+    _Unwind_Resume(v6);
   }
 
   return v2();
@@ -188,25 +187,26 @@ LABEL_22:
 
 + (BOOL)hasPhotosCloudEverBeenEnabled
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
   v2 = getPLCPLHasBeenEnabledForCurrentAccountSymbolLoc_ptr;
-  v9 = getPLCPLHasBeenEnabledForCurrentAccountSymbolLoc_ptr;
+  v10 = getPLCPLHasBeenEnabledForCurrentAccountSymbolLoc_ptr;
   if (!getPLCPLHasBeenEnabledForCurrentAccountSymbolLoc_ptr)
   {
     v3 = PhotoLibraryServicesLibrary();
-    v7[3] = dlsym(v3, "PLCPLHasBeenEnabledForCurrentAccount");
-    getPLCPLHasBeenEnabledForCurrentAccountSymbolLoc_ptr = v7[3];
-    v2 = v7[3];
+    v8[3] = dlsym(v3, "PLCPLHasBeenEnabledForCurrentAccount");
+    getPLCPLHasBeenEnabledForCurrentAccountSymbolLoc_ptr = v8[3];
+    v2 = v8[3];
   }
 
-  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(&v7, 8);
   if (!v2)
   {
-    v5 = +[ICQDaemonOfferConditions isPhotosCloudEnabled];
-    _Block_object_dispose(&v6, 8);
-    _Unwind_Resume(v5);
+    +[ICQDaemonOfferConditions isPhotosCloudEnabled];
+    v6 = v5;
+    _Block_object_dispose(&v7, 8);
+    _Unwind_Resume(v6);
   }
 
   return v2();
@@ -217,25 +217,26 @@ LABEL_22:
   isPhotosCloudEnabled = [self isPhotosCloudEnabled];
   if (isPhotosCloudEnabled)
   {
-    v7 = 0;
-    v8 = &v7;
-    v9 = 0x2020000000;
+    v8 = 0;
+    v9 = &v8;
+    v10 = 0x2020000000;
     v3 = getPLCloudPhotoLibraryKeepOriginalsIsEnabledSymbolLoc_ptr;
-    v10 = getPLCloudPhotoLibraryKeepOriginalsIsEnabledSymbolLoc_ptr;
+    v11 = getPLCloudPhotoLibraryKeepOriginalsIsEnabledSymbolLoc_ptr;
     if (!getPLCloudPhotoLibraryKeepOriginalsIsEnabledSymbolLoc_ptr)
     {
       v4 = PhotoLibraryServicesLibrary();
-      v8[3] = dlsym(v4, "PLCloudPhotoLibraryKeepOriginalsIsEnabled");
-      getPLCloudPhotoLibraryKeepOriginalsIsEnabledSymbolLoc_ptr = v8[3];
-      v3 = v8[3];
+      v9[3] = dlsym(v4, "PLCloudPhotoLibraryKeepOriginalsIsEnabled");
+      getPLCloudPhotoLibraryKeepOriginalsIsEnabledSymbolLoc_ptr = v9[3];
+      v3 = v9[3];
     }
 
-    _Block_object_dispose(&v7, 8);
+    _Block_object_dispose(&v8, 8);
     if (!v3)
     {
-      v5 = +[ICQDaemonOfferConditions isPhotosCloudEnabled];
-      _Block_object_dispose(&v7, 8);
-      _Unwind_Resume(v5);
+      +[ICQDaemonOfferConditions isPhotosCloudEnabled];
+      v6 = v5;
+      _Block_object_dispose(&v8, 8);
+      _Unwind_Resume(v6);
     }
 
     LOBYTE(isPhotosCloudEnabled) = v3() ^ 1;
@@ -285,7 +286,7 @@ LABEL_22:
 
 void __45__ICQDaemonOfferConditions_photosLibrarySize__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) timeIntervalSinceNow];
   v5 = v4;
@@ -293,9 +294,9 @@ void __45__ICQDaemonOfferConditions_photosLibrarySize__block_invoke(uint64_t a1,
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [MEMORY[0x277CCABB0] numberWithDouble:-v5];
-    v12 = 138412290;
-    v13 = v7;
-    _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "photosLibrarySize took %@ seconds", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v7;
+    _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "photosLibrarySize took %@ seconds", &v11, 0xCu);
   }
 
   v8 = *(*(a1 + 48) + 8);
@@ -304,7 +305,6 @@ void __45__ICQDaemonOfferConditions_photosLibrarySize__block_invoke(uint64_t a1,
   v10 = v3;
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)getPhotosLibrarySizeWithCompletion:(id)completion
@@ -324,7 +324,7 @@ void __45__ICQDaemonOfferConditions_photosLibrarySize__block_invoke(uint64_t a1,
   v8 = v11;
 
   v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", 1];
-  v10 = [v7 objectForKeyedSubscript:v9];
+  v10 = objc_msgSend_objectForKeyedSubscript_(v7);
   completionCopy[2](completionCopy, v10, v8);
 }
 
@@ -369,7 +369,7 @@ void __45__ICQDaemonOfferConditions_photosLibrarySize__block_invoke(uint64_t a1,
 
 void __51__ICQDaemonOfferConditions_photosLibraryUploadSize__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) timeIntervalSinceNow];
   v5 = v4;
@@ -377,9 +377,9 @@ void __51__ICQDaemonOfferConditions_photosLibraryUploadSize__block_invoke(uint64
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [MEMORY[0x277CCABB0] numberWithDouble:-v5];
-    v12 = 138412290;
-    v13 = v7;
-    _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "photosLibraryUploadSize took %@ seconds", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v7;
+    _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "photosLibraryUploadSize took %@ seconds", &v11, 0xCu);
   }
 
   v8 = *(*(a1 + 48) + 8);
@@ -388,7 +388,6 @@ void __51__ICQDaemonOfferConditions_photosLibraryUploadSize__block_invoke(uint64
   v10 = v3;
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)getPhotosLibraryUploadSizeWithCompletion:(id)completion
@@ -413,36 +412,36 @@ void __51__ICQDaemonOfferConditions_photosLibraryUploadSize__block_invoke(uint64
   }
 
   v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v10];
-  v12 = [v8 objectForKeyedSubscript:v11];
+  v12 = objc_msgSend_objectForKeyedSubscript_(v8);
   completionCopy[2](completionCopy, v12, 0);
 }
 
 + (NSNumber)photosVideosCount
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v12 = 0;
   v13 = 0;
-  v14 = 0;
   date = [MEMORY[0x277CBEAA8] date];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2050000000;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2050000000;
   v3 = getPLPhotoLibraryClass_softClass;
-  v18 = getPLPhotoLibraryClass_softClass;
+  v17 = getPLPhotoLibraryClass_softClass;
   if (!getPLPhotoLibraryClass_softClass)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v20 = __getPLPhotoLibraryClass_block_invoke;
-    v21 = &unk_27A6517A8;
-    v22 = &v15;
+    v19 = __getPLPhotoLibraryClass_block_invoke;
+    v20 = &unk_27A6517A8;
+    v21 = &v14;
     __getPLPhotoLibraryClass_block_invoke(&buf);
-    v3 = v16[3];
+    v3 = v15[3];
   }
 
   v4 = v3;
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
   sharedPhotoLibrary = [v3 sharedPhotoLibrary];
-  [sharedPhotoLibrary getPhotoCount:&v14 videoCount:&v13];
+  [sharedPhotoLibrary getPhotoCount:&v13 videoCount:&v12];
 
   [date timeIntervalSinceNow];
   v7 = v6;
@@ -455,9 +454,7 @@ void __51__ICQDaemonOfferConditions_photosLibraryUploadSize__block_invoke(uint64
     _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "photosVideosCount took %@ seconds", &buf, 0xCu);
   }
 
-  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v13 + v14];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v12 + v13];
 
   return v10;
 }
@@ -468,6 +465,13 @@ void __51__ICQDaemonOfferConditions_photosLibraryUploadSize__block_invoke(uint64
   isSimulatedDeviceStorageAlmostFull = [v2 isSimulatedDeviceStorageAlmostFull];
 
   return isSimulatedDeviceStorageAlmostFull;
+}
+
++ (void)setSimulatedDeviceStorageAlmostFull:(BOOL)full
+{
+  fullCopy = full;
+  v4 = +[ICQDaemonOfferManager sharedDaemonOfferManager];
+  [v4 setSimulatedDeviceStorageAlmostFull:fullCopy];
 }
 
 + (BOOL)isCachedCloudQuotaAlmostFullOrFull
@@ -526,11 +530,11 @@ LABEL_13:
   return v13;
 }
 
-+ (uint64_t)isPhotosCloudEnabled
++ (void)isPhotosCloudEnabled
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [ICQDaemonOfferConditions getPhotosLibraryUploadSizeWithCompletion:v0];
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  [ICQDaemonOfferConditions getPhotosLibraryUploadSizeWithCompletion:v1];
 }
 
 @end

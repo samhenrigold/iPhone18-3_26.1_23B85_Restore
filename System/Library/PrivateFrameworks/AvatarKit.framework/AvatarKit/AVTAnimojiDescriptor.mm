@@ -26,49 +26,48 @@
 
 - (AVTAnimojiDescriptor)initWithDictionaryRepresentation:(id)representation error:(id *)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
-  v13 = 0;
-  v7 = [representationCopy avt_objectForKey:@"animoji" ofClass:objc_opt_class() didFail:&v13 error:error];
-  v8 = v7;
-  if ((v13 & 1) != 0 || !v7)
+  objc_opt_class();
+  v6 = [representationCopy avt_objectForKey:? ofClass:? didFail:? error:?];
+  v7 = v6;
+  if (v6)
   {
-    v10 = avt_default_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    self = [(AVTAnimojiDescriptor *)self initWithName:?];
+    selfCopy = self;
+  }
+
+  else
+  {
+    v9 = avt_default_log(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = representationCopy;
-      _os_log_impl(&dword_1BB472000, v10, OS_LOG_TYPE_DEFAULT, "can't unarchive animoji name from: %@", buf, 0xCu);
+      v12 = representationCopy;
+      _os_log_impl(&dword_1BB472000, v9, OS_LOG_TYPE_DEFAULT, "can't unarchive animoji name from: %@", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  else
-  {
-    self = [(AVTAnimojiDescriptor *)self initWithName:v7];
-    selfCopy = self;
-  }
-
-  v11 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (AVTAnimojiDescriptor)initWithAnimoji:(id)animoji
 {
   name = [animoji name];
-  v5 = [(AVTAnimojiDescriptor *)self initWithName:name];
+  v5 = [(AVTAnimojiDescriptor *)self initWithName:?];
 
   return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v5.receiver = self;
-  v5.super_class = AVTAnimojiDescriptor;
+  v4.receiver = self;
+  v4.super_class = AVTAnimojiDescriptor;
   coderCopy = coder;
-  [(AVTAvatarDescriptor *)&v5 encodeWithCoder:coderCopy];
-  [coderCopy encodeObject:self->_name forKey:{@"name", v5.receiver, v5.super_class}];
+  [(AVTAvatarDescriptor *)&v4 encodeWithCoder:coderCopy];
+  [coderCopy encodeObject:v4.receiver forKey:v4.super_class];
 }
 
 - (AVTAnimojiDescriptor)initWithCoder:(id)coder
@@ -79,7 +78,8 @@
   v5 = [(AVTAvatarDescriptor *)&v9 initWithCoder:coderCopy];
   if (v5)
   {
-    v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
+    objc_opt_class();
+    v6 = [coderCopy decodeObjectOfClass:? forKey:?];
     name = v5->_name;
     v5->_name = v6;
   }

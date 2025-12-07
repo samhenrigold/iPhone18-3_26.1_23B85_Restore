@@ -1,8 +1,10 @@
 @interface HMAccessoryDiagnosticInfoProtoCloudInfo
 - (BOOL)isEqual:(id)equal;
+- (id)cloudStateAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)octagonStateAsString:(int)string;
 - (int)StringAsCloudState:(id)state;
 - (int)StringAsOctagonState:(id)state;
 - (int)cloudState;
@@ -241,12 +243,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    cloudState = self->_cloudState;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -265,15 +266,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  octagonState = self->_octagonState;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    firstCloudImportComplete = self->_firstCloudImportComplete;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
@@ -402,6 +401,29 @@ LABEL_5:
   return v4;
 }
 
+- (id)octagonStateAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Good";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Unknown";
+  }
+
+  return v4;
+}
+
 - (void)setHasOctagonState:(BOOL)state
 {
   if (state)
@@ -441,6 +463,29 @@ LABEL_5:
   else
   {
     v4 = [stateCopy isEqualToString:@"Good"];
+  }
+
+  return v4;
+}
+
+- (id)cloudStateAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Good";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Unknown";
   }
 
   return v4;

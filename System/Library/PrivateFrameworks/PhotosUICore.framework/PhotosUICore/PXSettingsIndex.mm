@@ -234,7 +234,7 @@ LABEL_4:
   PXSettingsPerformIndexingOperation(v9);
 }
 
-uint64_t __63__PXSettingsIndex__entriesForSettingsController_usingProgress___block_invoke_5(uint64_t a1)
+void *__63__PXSettingsIndex__entriesForSettingsController_usingProgress___block_invoke_5(uint64_t a1)
 {
   [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
   v3 = v2 + 0.0333333333;

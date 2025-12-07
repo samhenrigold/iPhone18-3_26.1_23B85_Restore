@@ -86,7 +86,7 @@ void __48__ULLifeCycleManager__spinUpWakeUpNotifications__block_invoke_2(uint64_
 
 - (void)_start
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   queue = [(ULLifeCycleManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -100,9 +100,9 @@ void __48__ULLifeCycleManager__spinUpWakeUpNotifications__block_invoke_2(uint64_
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
-    v14 = 138412290;
-    v15 = v7;
-    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "[ULLifeCycleManager]: %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = v7;
+    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "[ULLifeCycleManager]: %@", &v13, 0xCu);
   }
 
   [(ULLifeCycleManager *)self _spinUpSignals];
@@ -122,14 +122,12 @@ void __48__ULLifeCycleManager__spinUpWakeUpNotifications__block_invoke_2(uint64_
     date2 = [MEMORY[0x277CBEAA8] date];
     [date2 timeIntervalSinceDate:date];
     v12 = [v10 numberWithDouble:?];
-    v14 = 138412546;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v12;
-    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "[ULLifeCycleManager]: %@, finished, latency: %@", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = v9;
+    v15 = 2112;
+    v16 = v12;
+    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "[ULLifeCycleManager]: %@, finished, latency: %@", &v13, 0x16u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_spinUpSignals
@@ -208,7 +206,7 @@ void __36__ULLifeCycleManager__spinUpSignals__block_invoke(uint64_t a1)
 
 - (void)_exitWithDate:(id)date
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   environment = [(ULLifeCycleManager *)self environment];
   queue = [environment queue];
@@ -229,13 +227,12 @@ void __36__ULLifeCycleManager__spinUpSignals__block_invoke(uint64_t a1)
     date = [MEMORY[0x277CBEAA8] date];
     [date timeIntervalSinceDate:dateCopy];
     v11 = [v9 numberWithDouble:?];
-    v13 = 138412290;
-    v14 = v11;
-    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "Clean exit in: %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v11;
+    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "Clean exit in: %@", &v12, 0xCu);
   }
 
   xpc_transaction_exit_clean();
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createSourceForSignal:(int)signal withBlock:(id)block

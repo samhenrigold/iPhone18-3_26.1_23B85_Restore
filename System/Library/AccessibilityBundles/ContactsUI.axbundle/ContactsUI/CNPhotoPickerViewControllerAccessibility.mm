@@ -80,7 +80,7 @@
   return v8;
 }
 
-uint64_t __82__CNPhotoPickerViewControllerAccessibility_collectionView_cellForItemAtIndexPath___block_invoke(uint64_t a1)
+void *__82__CNPhotoPickerViewControllerAccessibility_collectionView_cellForItemAtIndexPath___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isItemAtIndexPathAddItem:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;

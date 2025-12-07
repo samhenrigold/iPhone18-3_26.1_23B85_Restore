@@ -1,6 +1,7 @@
 @interface MCProfileTitlePageSubtitleCell
 - (MCProfileTitlePageSubtitleCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier;
 - (void)_updateConstraintsWithLabel:(id)label;
+- (void)updateProgressWithTranslationDistance:(double)distance referenceDistance:(double)referenceDistance isScrolling:(BOOL)scrolling;
 @end
 
 @implementation MCProfileTitlePageSubtitleCell
@@ -42,12 +43,12 @@
 
 - (void)_updateConstraintsWithLabel:(id)label
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v14 = @"label";
-  v15[0] = label;
+  v14[1] = *MEMORY[0x277D85DE8];
+  v13 = @"label";
+  v14[0] = label;
   v4 = MEMORY[0x277CBEAC0];
   labelCopy = label;
-  v6 = [v4 dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v6 = [v4 dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v7 = MEMORY[0x277CCAAD0];
   0x402E000000000000 = [MEMORY[0x277CCACA8] stringWithFormat:@"|-%f-[label]-%f-|", 0x402E000000000000, 0x402E000000000000];
   v9 = [v7 constraintsWithVisualFormat:0x402E000000000000 options:0 metrics:0 views:v6];
@@ -59,8 +60,17 @@
 
   contentView2 = [(MCProfileTitlePageSubtitleCell *)self contentView];
   [contentView2 addConstraints:v10];
+}
 
-  v13 = *MEMORY[0x277D85DE8];
+- (void)updateProgressWithTranslationDistance:(double)distance referenceDistance:(double)referenceDistance isScrolling:(BOOL)scrolling
+{
+  [(MCProfileTitlePageSubtitleCell *)self bounds:scrolling];
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v14 = distance / 5.0 + v13;
+  contentView = [(MCProfileTitlePageSubtitleCell *)self contentView];
+  [contentView setFrame:{v8, v14, v10, v12}];
 }
 
 @end

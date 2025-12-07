@@ -5,24 +5,23 @@
 
 void ___BCSLocalizedString_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = dyld_image_path_containing_address();
-  v4 = [MEMORY[0x277CCAA00] defaultManager];
-  [v4 stringWithFileSystemRepresentation:v3 length:strlen(v3)];
-  v9 = _CFBundleCopyFrameworkURLForExecutablePath();
+  v2 = dyld_image_path_containing_address();
+  v3 = [MEMORY[0x277CCAA00] defaultManager];
+  [v3 stringWithFileSystemRepresentation:v2 length:strlen(v2)];
+  v8 = _CFBundleCopyFrameworkURLForExecutablePath();
 
-  v5 = v9;
-  if (!v9)
+  v4 = v8;
+  if (!v8)
   {
-    [MEMORY[0x277CBEBC0] fileURLWithFileSystemRepresentation:v3 isDirectory:0 relativeToURL:0];
-    v5 = _CFBundleCopyBundleURLForExecutableURL();
+    [MEMORY[0x277CBEBC0] fileURLWithFileSystemRepresentation:v2 isDirectory:0 relativeToURL:0];
+    v4 = _CFBundleCopyBundleURLForExecutableURL();
   }
 
-  v10 = v5;
-  v6 = [MEMORY[0x277CCA8D8] bundleWithURL:v5];
-  v7 = *(a1 + 32);
-  v8 = *v7;
-  *v7 = v6;
+  v9 = v4;
+  v5 = [MEMORY[0x277CCA8D8] bundleWithURL:v4];
+  v6 = *(a1 + 32);
+  v7 = *v6;
+  *v6 = v5;
 }
 
 @end

@@ -287,7 +287,7 @@
     objc_storeStrong(&self->_brushStrokeExclusionMask, mask);
     v5 = [maskCopy imageByApplyingFilter:@"CIMaskToAlpha"];
     context = [MEMORY[0x1E695F620] context];
-    [v5 extent];
+    objc_msgSend_extent(v5);
     v7 = [context createCGImage:v5 fromRect:?];
 
     [(PUCleanupToolBrushView *)self setBridgedExclusionMaskCGImage:v7];

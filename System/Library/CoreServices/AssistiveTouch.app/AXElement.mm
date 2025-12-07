@@ -41,14 +41,14 @@
   v9 = v8;
   v11 = v10;
 
-  [(AXElement *)self scatFrame];
-  v21.origin.x = sub_1000427AC(v12, v13, v14, v15);
-  v20.x = v9;
-  v20.y = v11;
-  if (CGRectContainsPoint(v21, v20))
+  scatFrame = [(AXElement *)self scatFrame];
+  v23.origin.x = sub_1000427AC(scatFrame, v13, v14, v15, v16, v17);
+  v22.x = v9;
+  v22.y = v11;
+  if (CGRectContainsPoint(v23, v22))
   {
-    v16 = v9;
-    v17 = v11;
+    v18 = v9;
+    v19 = v11;
   }
 
   else
@@ -57,8 +57,8 @@
     AX_CGRectGetCenter();
   }
 
-  result.y = v17;
-  result.x = v16;
+  result.y = v19;
+  result.x = v18;
   return result;
 }
 
@@ -371,24 +371,24 @@ LABEL_11:
 - (BOOL)scatIsOnScreen
 {
   [(AXElement *)self frame];
-  MinX = CGRectGetMinX(v13);
+  MinX = CGRectGetMinX(v17);
   [(AXElement *)self frame];
-  MaxX = CGRectGetMaxX(v14);
+  MaxX = CGRectGetMaxX(v18);
   [(AXElement *)self frame];
-  MinY = CGRectGetMinY(v15);
+  MinY = CGRectGetMinY(v19);
   [(AXElement *)self frame];
-  MaxY = CGRectGetMaxY(v16);
-  [HNDHandManager screenFrame:]_0();
-  v8 = v7;
-  [HNDHandManager screenFrame:]_0();
-  v9 = fmin(MinX, MinY);
-  v10 = MaxX <= v8;
-  if (MaxY > v11)
+  MaxY = CGRectGetMaxY(v20);
+  [HNDHandManager screenFrame:]_0(v7, v8);
+  v10 = v9;
+  [HNDHandManager screenFrame:]_0(v11, v12);
+  v13 = fmin(MinX, MinY);
+  v14 = MaxX <= v10;
+  if (MaxY > v15)
   {
-    v10 = 0;
+    v14 = 0;
   }
 
-  return v9 >= 0.0 && v10;
+  return v13 >= 0.0 && v14;
 }
 
 - (BOOL)scatUpdatesMenu

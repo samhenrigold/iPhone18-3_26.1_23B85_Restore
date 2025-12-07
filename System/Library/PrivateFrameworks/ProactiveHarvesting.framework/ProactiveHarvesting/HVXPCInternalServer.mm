@@ -1,9 +1,13 @@
 @interface HVXPCInternalServer
+- (void)contentAvailableFromSources:(unsigned int)sources completion:(id)completion;
 - (void)deleteContentWithRequest:(id)request completion:(id)completion;
+- (void)disableConsumptionOfDataSources:(unsigned int)sources completion:(id)completion;
 - (void)donateSearchableItem:(id)item completion:(id)completion;
+- (void)enableConsumptionOfDataSources:(unsigned int)sources completion:(id)completion;
 - (void)harvestWithCompletion:(id)completion;
 - (void)overrideIsConnectedToPower:(id)power completion:(id)completion;
 - (void)refillHarvestBudgetWithCompletion:(id)completion;
+- (void)restoreConsumptionOfDataSources:(unsigned int)sources completion:(id)completion;
 - (void)statsWithCompletion:(id)completion;
 @end
 
@@ -87,7 +91,7 @@
 
 - (void)donateSearchableItem:(id)item completion:(id)completion
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   itemCopy = item;
   v7 = hv_default_log_handle();
@@ -98,15 +102,14 @@
   }
 
   v8 = +[HVDonationReceiver defaultReceiver];
-  v16[0] = itemCopy;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = itemCopy;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   bundleID = [itemCopy bundleID];
-  v14 = 0;
-  v11 = [v8 donateSearchableItems:v9 bundleIdentifier:bundleID error:&v14];
-  v12 = v14;
+  v13 = 0;
+  v11 = [v8 donateSearchableItems:v9 bundleIdentifier:bundleID error:&v13];
+  v12 = v13;
 
   completionCopy[2](completionCopy, v11, v12);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refillHarvestBudgetWithCompletion:(id)completion
@@ -122,6 +125,74 @@
 {
   completionCopy = completion;
   objc_storeStrong(&isConnectedToPowerOverrideForTesting, power);
+  completionCopy[2](completionCopy, 1, 0);
+}
+
+- (void)contentAvailableFromSources:(unsigned int)sources completion:(id)completion
+{
+  v4 = *&sources;
+  completionCopy = completion;
+  v6 = hv_default_log_handle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *v8 = 0;
+    _os_log_impl(&dword_2321EC000, v6, OS_LOG_TYPE_DEFAULT, "HVXPCInternalServer: contentAvailableFromSources called.", v8, 2u);
+  }
+
+  v7 = +[HVConsumerCoordinator defaultCoordinator];
+  [v7 contentAvailableFromSources:v4];
+
+  completionCopy[2](completionCopy, 1, 0);
+}
+
+- (void)restoreConsumptionOfDataSources:(unsigned int)sources completion:(id)completion
+{
+  v4 = *&sources;
+  completionCopy = completion;
+  v6 = hv_default_log_handle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *v8 = 0;
+    _os_log_impl(&dword_2321EC000, v6, OS_LOG_TYPE_DEFAULT, "HVXPCInternalServer: restoreConsumptionOfDataSources called.", v8, 2u);
+  }
+
+  v7 = +[HVConsumerCoordinator defaultCoordinator];
+  [v7 restoreConsumptionOfDataSources:v4];
+
+  completionCopy[2](completionCopy, 1, 0);
+}
+
+- (void)disableConsumptionOfDataSources:(unsigned int)sources completion:(id)completion
+{
+  v4 = *&sources;
+  completionCopy = completion;
+  v6 = hv_default_log_handle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *v8 = 0;
+    _os_log_impl(&dword_2321EC000, v6, OS_LOG_TYPE_DEFAULT, "HVXPCInternalServer: disableConsumptionOfDataSources called.", v8, 2u);
+  }
+
+  v7 = +[HVConsumerCoordinator defaultCoordinator];
+  [v7 disableConsumptionOfDataSources:v4];
+
+  completionCopy[2](completionCopy, 1, 0);
+}
+
+- (void)enableConsumptionOfDataSources:(unsigned int)sources completion:(id)completion
+{
+  v4 = *&sources;
+  completionCopy = completion;
+  v6 = hv_default_log_handle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *v8 = 0;
+    _os_log_impl(&dword_2321EC000, v6, OS_LOG_TYPE_DEFAULT, "HVXPCInternalServer: enableConsumptionOfDataSources called.", v8, 2u);
+  }
+
+  v7 = +[HVConsumerCoordinator defaultCoordinator];
+  [v7 enableConsumptionOfDataSources:v4];
+
   completionCopy[2](completionCopy, 1, 0);
 }
 

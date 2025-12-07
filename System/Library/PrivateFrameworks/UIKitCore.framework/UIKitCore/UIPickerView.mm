@@ -317,7 +317,7 @@ void __26__UIPickerView_initialize__block_invoke()
   v1 = [UITraitCollection traitCollectionWithUserInterfaceStyle:2];
   v2 = [(UIView *)UIPickerView appearanceForTraitCollection:v1];
 
-  v3 = +[UIColor blackColor];
+  v3 = objc_msgSend_blackColor(UIColor);
   [v7 _setTextColor:v3];
 
   v4 = [UIColor colorWithWhite:0.0 alpha:0.198];
@@ -1138,7 +1138,7 @@ LABEL_29:
   v19 = v18 - (v12 + v12);
   v21 = v20 + 0.0;
   v22 = [UIPickerColumnView alloc];
-  [(UIPickerView *)self _perspectiveTransform];
+  objc_msgSend__perspectiveTransform(self);
   v23 = [(UIPickerColumnView *)v22 initWithFrame:self tableFrame:v28 middleBarHeight:v17 rowHeight:v21 paddingAroundWheels:v19 pickerView:v15 transform:x, y, width, height, v11 + height, *&height, *&wheels];
   [(NSMutableArray *)self->_tables addObject:v23];
   [(UIView *)v23 setAutoresizingMask:26];
@@ -2465,7 +2465,7 @@ LABEL_20:
 - (void)_setTextColor:(id)color
 {
   colorCopy = color;
-  if (([colorCopy isEqual:self->_textColor] & 1) == 0)
+  if ((objc_msgSend_isEqual_(colorCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_textColor, color);
     [(UIPickerView *)self setNeedsLayout];
@@ -2475,7 +2475,7 @@ LABEL_20:
 - (void)_setTextShadowColor:(id)color
 {
   colorCopy = color;
-  if (([colorCopy isEqual:self->_textColor] & 1) == 0)
+  if ((objc_msgSend_isEqual_(colorCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_textShadowColor, color);
     [(UIPickerView *)self setNeedsLayout];
@@ -2488,7 +2488,7 @@ LABEL_20:
   if (_style)
   {
     v6 = _style;
-    [_style perspectiveTransform];
+    objc_msgSend_perspectiveTransform(_style);
     _style = v6;
   }
 

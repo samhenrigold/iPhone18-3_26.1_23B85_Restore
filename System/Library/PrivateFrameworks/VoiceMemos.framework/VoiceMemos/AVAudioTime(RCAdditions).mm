@@ -9,12 +9,12 @@
 
 - (id)rc_copyFromTimeStamp
 {
-  [self audioTimeStamp];
-  v2 = objc_alloc(MEMORY[0x277CB8428]);
+  objc_msgSend_audioTimeStamp(self, a2, 0, 0, 0, 0, 0, 0, 0, 0);
+  v3 = objc_alloc(MEMORY[0x277CB8428]);
   [self sampleRate];
-  v3 = [v2 initWithAudioTimeStamp:&v5 sampleRate:?];
+  v4 = [v3 initWithAudioTimeStamp:&v6 sampleRate:?];
 
-  return v3;
+  return v4;
 }
 
 - (id)rc_adjustedBySamples:()RCAdditions

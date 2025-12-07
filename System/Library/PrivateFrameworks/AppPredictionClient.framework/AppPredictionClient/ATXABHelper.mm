@@ -92,7 +92,7 @@ uint64_t __41__ATXABHelper_abGroupForConsumerSubType___block_invoke()
     v2 = objc_alloc(MEMORY[0x1E695E000]);
     v3 = [v2 initWithSuiteName:*MEMORY[0x1E698B030]];
     v4 = [v3 objectForKey:@"appPredictionABGroupOverride"];
-    v5 = __atxlog_handle_default();
+    v5 = __atxlog_handle_default(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       +[(ATXABHelper *)v4];

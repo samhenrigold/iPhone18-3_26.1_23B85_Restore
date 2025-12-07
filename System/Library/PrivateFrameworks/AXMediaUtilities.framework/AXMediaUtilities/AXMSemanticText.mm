@@ -214,7 +214,7 @@ uint64_t __43__AXMSemanticText_enumerateCustomPatterns___block_invoke(uint64_t r
   [(NSMutableAttributedString *)text enumerateAttribute:@"SemanticError" inRange:textRange options:v8 usingBlock:0, v10];
 }
 
-uint64_t __43__AXMSemanticText_enumerateSemanticErrors___block_invoke(uint64_t a1, void *a2)
+void *__43__AXMSemanticText_enumerateSemanticErrors___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 BOOLValue];
   if (result)
@@ -255,7 +255,7 @@ uint64_t __43__AXMSemanticText_enumerateSemanticErrors___block_invoke(uint64_t a
   return v6 & 1;
 }
 
-uint64_t __41__AXMSemanticText_isSemanticallyComplete__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__41__AXMSemanticText_isSemanticallyComplete__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   result = [a2 BOOLValue];
   if (result)

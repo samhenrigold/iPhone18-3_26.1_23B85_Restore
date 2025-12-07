@@ -17,7 +17,7 @@
 
 + (id)predicateMatchingAllPredicates:(id)predicates
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   predicatesCopy = predicates;
   if ([predicatesCopy count] == 1)
   {
@@ -29,34 +29,34 @@
   v5[8] = 0;
   v5[9] = 1;
   v6 = *(v5 + 2);
-  v18 = v5;
+  v17 = v5;
   *(v5 + 2) = @" AND ";
 
   array = [MEMORY[0x277CBEB18] array];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v19 = predicatesCopy;
+  v18 = predicatesCopy;
   v8 = predicatesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (!v9)
   {
     goto LABEL_15;
   }
 
   v10 = v9;
-  v11 = *v21;
+  v11 = *v20;
   do
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v21 != v11)
+      if (*v20 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v20 + 1) + 8 * i);
+      v13 = *(*(&v19 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -69,30 +69,28 @@
         }
       }
 
-      [array addObject:{v13, v18}];
+      [array addObject:{v13, v17}];
     }
 
-    v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   }
 
   while (v10);
 LABEL_15:
 
-  firstObject = v18;
-  v15 = *(v18 + 3);
-  *(v18 + 3) = array;
+  firstObject = v17;
+  v15 = *(v17 + 3);
+  *(v17 + 3) = array;
 
-  predicatesCopy = v19;
+  predicatesCopy = v18;
 LABEL_16:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
 
 + (id)predicateMatchingAnyPredicates:(id)predicates
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   predicatesCopy = predicates;
   if ([predicatesCopy count] == 1)
   {
@@ -104,34 +102,34 @@ LABEL_16:
   v5[8] = 0;
   v5[9] = 0;
   v6 = *(v5 + 2);
-  v18 = v5;
+  v17 = v5;
   *(v5 + 2) = @" OR ";
 
   array = [MEMORY[0x277CBEB18] array];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v19 = predicatesCopy;
+  v18 = predicatesCopy;
   v8 = predicatesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (!v9)
   {
     goto LABEL_15;
   }
 
   v10 = v9;
-  v11 = *v21;
+  v11 = *v20;
   do
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v21 != v11)
+      if (*v20 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v20 + 1) + 8 * i);
+      v13 = *(*(&v19 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -144,23 +142,21 @@ LABEL_16:
         }
       }
 
-      [array addObject:{v13, v18}];
+      [array addObject:{v13, v17}];
     }
 
-    v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   }
 
   while (v10);
 LABEL_15:
 
-  firstObject = v18;
-  v15 = *(v18 + 3);
-  *(v18 + 3) = array;
+  firstObject = v17;
+  v15 = *(v17 + 3);
+  *(v17 + 3) = array;
 
-  predicatesCopy = v19;
+  predicatesCopy = v18;
 LABEL_16:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -190,42 +186,40 @@ LABEL_16:
 
 + (id)predicateWithProperty:(id)property values:(id)values comparisonType:(int64_t)type
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   valuesCopy = values;
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v11 = valuesCopy;
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [HDSQLiteComparisonPredicate predicateWithProperty:propertyCopy value:*(*(&v20 + 1) + 8 * i) comparisonType:type, v20];
+        v16 = [HDSQLiteComparisonPredicate predicateWithProperty:propertyCopy value:*(*(&v19 + 1) + 8 * i) comparisonType:type, v19];
         [v10 addObject:v16];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v13);
   }
 
   v17 = [self predicateMatchingAnyPredicates:v10];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -240,38 +234,36 @@ LABEL_16:
 
 - (void)bindToStatement:(sqlite3_stmt *)statement bindingIndex:(int *)index
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = self->_predicates;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) bindToStatement:statement bindingIndex:{index, v12}];
+        [*(*(&v11 + 1) + 8 * v10++) bindToStatement:statement bindingIndex:{index, v11}];
       }
 
       while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)hash
@@ -327,7 +319,7 @@ LABEL_16:
 
 - (id)SQLForEntityClass:(Class)class
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if ([(NSArray *)self->_predicates count])
   {
     v5 = objc_msgSend(MEMORY[0x277CCAB68], "stringWithString:", @"(");
@@ -342,26 +334,26 @@ LABEL_16:
 
     else
     {
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       v10 = self->_predicates;
-      v11 = [(NSArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [(NSArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v19;
+        v13 = *v18;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v19 != v13)
+            if (*v18 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = [*(*(&v18 + 1) + 8 * i) SQLForEntityClass:{class, v18}];
+            v15 = [*(*(&v17 + 1) + 8 * i) SQLForEntityClass:{class, v17}];
             if (v15)
             {
               if ([v6 length] >= 2)
@@ -373,14 +365,14 @@ LABEL_16:
             }
           }
 
-          v12 = [(NSArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v12 = [(NSArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v12);
       }
     }
 
-    [v6 appendString:@""], v18);
+    [v6 appendString:@""], v17);
   }
 
   else
@@ -398,35 +390,33 @@ LABEL_16:
     v6 = [MEMORY[0x277CCAB68] stringWithString:v9];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)SQLJoinClausesForEntityClass:(Class)class
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_predicates;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = [*(*(&v13 + 1) + 8 * i) SQLJoinClausesForEntityClass:{class, v13}];
+        v10 = [*(*(&v12 + 1) + 8 * i) SQLJoinClausesForEntityClass:{class, v12}];
         if (v10)
         {
           if (!v7)
@@ -438,7 +428,7 @@ LABEL_16:
         }
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -448,8 +438,6 @@ LABEL_16:
   {
     v7 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -521,32 +509,32 @@ LABEL_16:
 
 - (id)description
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](self->_predicates, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = self->_predicates;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(&v16 + 1) + 8 * i) description];
+        v9 = [*(*(&v15 + 1) + 8 * i) description];
         [v3 addObject:v9];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
@@ -555,9 +543,7 @@ LABEL_16:
   v10 = MEMORY[0x277CCACA8];
   combinationOperation = self->_combinationOperation;
   v12 = [v3 componentsJoinedByString:{@", \n\t"}];
-  v13 = [v10 stringWithFormat:@"{%@:\n\t%@\n}", combinationOperation, v12, v16];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [v10 stringWithFormat:@"{%@:\n\t%@\n}", combinationOperation, v12, v15];
 
   return v13;
 }

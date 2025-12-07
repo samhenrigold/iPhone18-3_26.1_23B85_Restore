@@ -81,20 +81,20 @@
 {
   discoveredAccessory = [(HFDiscoveredAccessoryItem *)self discoveredAccessory];
   accessory = [discoveredAccessory accessory];
-  home = [accessory home];
-  v5 = home;
-  if (home)
+  v4 = objc_msgSend_home(accessory);
+  v5 = v4;
+  if (v4)
   {
-    home2 = home;
+    v6 = v4;
   }
 
   else
   {
     v7 = +[HFHomeKitDispatcher sharedDispatcher];
-    home2 = [v7 home];
+    v6 = objc_msgSend_home(v7);
   }
 
-  return home2;
+  return v6;
 }
 
 - (NSSet)services

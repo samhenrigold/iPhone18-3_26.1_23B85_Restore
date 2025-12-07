@@ -36,7 +36,7 @@
 
 - (void)render
 {
-  v33[4] = *MEMORY[0x277D85DE8];
+  v32[4] = *MEMORY[0x277D85DE8];
   subviews = [(SFIndiaBISView *)self subviews];
   v4 = [subviews count];
 
@@ -51,13 +51,13 @@
     v6 = SFIndiaBISRegulatoryImage();
     v7 = [v6 imageWithRenderingMode:2];
 
-    v32 = v7;
+    v31 = v7;
     v8 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v7];
     [v8 setTranslatesAutoresizingMaskIntoConstraints:0];
     labelColor = [MEMORY[0x277D75348] labelColor];
     [v8 setTintColor:labelColor];
 
-    v31 = v8;
+    v30 = v8;
     [v5 addArrangedSubview:v8];
     v10 = objc_alloc_init(MEMORY[0x277D756B8]);
     [v10 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -83,28 +83,26 @@
     [v14 setFont:v15];
 
     [v5 addArrangedSubview:v14];
-    v25 = MEMORY[0x277CCAAD0];
+    v24 = MEMORY[0x277CCAAD0];
     leadingAnchor = [(SFIndiaBISView *)self leadingAnchor];
     leadingAnchor2 = [v5 leadingAnchor];
-    v28 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v33[0] = v28;
+    v27 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v32[0] = v27;
     trailingAnchor = [(SFIndiaBISView *)self trailingAnchor];
     trailingAnchor2 = [v5 trailingAnchor];
     v16 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v33[1] = v16;
+    v32[1] = v16;
     topAnchor = [v5 topAnchor];
     topAnchor2 = [(SFIndiaBISView *)self topAnchor];
     v19 = [topAnchor constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:topAnchor2 multiplier:1.0];
-    v33[2] = v19;
+    v32[2] = v19;
     bottomAnchor = [(SFIndiaBISView *)self bottomAnchor];
     bottomAnchor2 = [v5 bottomAnchor];
     v22 = [bottomAnchor constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:bottomAnchor2 multiplier:1.0];
-    v33[3] = v22;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:4];
-    [v25 activateConstraints:v23];
+    v32[3] = v22;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:4];
+    [v24 activateConstraints:v23];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

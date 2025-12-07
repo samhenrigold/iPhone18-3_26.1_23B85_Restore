@@ -1,4 +1,5 @@
 @interface OrgApacheLuceneSearchDisiPriorityQueue
+- (OrgApacheLuceneSearchDisiPriorityQueue)initWithInt:(int)int;
 - (id)addWithOrgApacheLuceneSearchDisiWrapper:(id)wrapper;
 - (id)iterator;
 - (id)pop;
@@ -8,6 +9,7 @@
 - (id)updateTopWithOrgApacheLuceneSearchDisiWrapper:(id)wrapper;
 - (void)dealloc;
 - (void)downHeapWithInt:(int)int;
+- (void)upHeapWithInt:(int)int;
 @end
 
 @implementation OrgApacheLuceneSearchDisiPriorityQueue
@@ -18,6 +20,13 @@
   v3.receiver = self;
   v3.super_class = OrgApacheLuceneSearchDisiPriorityQueue;
   [(OrgApacheLuceneSearchDisiPriorityQueue *)&v3 dealloc];
+}
+
+- (OrgApacheLuceneSearchDisiPriorityQueue)initWithInt:(int)int
+{
+  [(OrgApacheLuceneSearchDisiPriorityQueue *)self initHeapWithInt:*&int];
+  self->size_ = 0;
+  return self;
 }
 
 - (id)topList
@@ -110,6 +119,56 @@ LABEL_12:
   [(OrgApacheLuceneSearchDisiPriorityQueue *)self setHeapWithInt:0 withOrgApacheLuceneSearchDisiWrapper:wrapper];
 
   return [(OrgApacheLuceneSearchDisiPriorityQueue *)self updateTop];
+}
+
+- (void)upHeapWithInt:(int)int
+{
+  v3 = *&int;
+  v5 = [(OrgApacheLuceneSearchDisiPriorityQueue *)self getHeapWithInt:?];
+  if (!v5)
+  {
+    goto LABEL_11;
+  }
+
+  v6 = v5;
+  v7 = v3 + 1;
+  if ((v3 + 1) >= 2)
+  {
+    v9 = v5[6];
+    while (1)
+    {
+      v10 = v7 >> 1;
+      v8 = (v7 >> 1) - 1;
+      v11 = [(OrgApacheLuceneSearchDisiPriorityQueue *)self getHeapWithInt:v8];
+      if (!v11)
+      {
+        break;
+      }
+
+      if (v9 >= v11[6])
+      {
+        goto LABEL_3;
+      }
+
+      [(OrgApacheLuceneSearchDisiPriorityQueue *)self copyHeapWithInt:v3 withInt:v10 - 1];
+      v3 = v10 - 1;
+      v12 = v7 > 3;
+      v7 >>= 1;
+      if (!v12)
+      {
+        goto LABEL_8;
+      }
+    }
+
+LABEL_11:
+    JreThrowNullPointerException();
+  }
+
+LABEL_3:
+  v8 = v3;
+LABEL_8:
+
+  [(OrgApacheLuceneSearchDisiPriorityQueue *)self setHeapWithInt:v8 withOrgApacheLuceneSearchDisiWrapper:v6];
 }
 
 - (void)downHeapWithInt:(int)int

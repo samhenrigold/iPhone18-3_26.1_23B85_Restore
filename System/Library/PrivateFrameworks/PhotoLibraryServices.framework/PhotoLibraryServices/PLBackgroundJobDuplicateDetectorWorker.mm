@@ -290,15 +290,15 @@ void __76__PLBackgroundJobDuplicateDetectorWorker__resetMarkerIfRequiredFromLibr
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = [itemCopy isEqualToString:@"BackgroundJobDuplicateProcessEntireLibraryInProgress"];
+    isEqualToString = objc_msgSend_isEqualToString_(itemCopy);
   }
 
   else
   {
-    v4 = 0;
+    isEqualToString = 0;
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 - (BOOL)_isInitialEntireLibraryWorkItem:(id)item
@@ -307,15 +307,15 @@ void __76__PLBackgroundJobDuplicateDetectorWorker__resetMarkerIfRequiredFromLibr
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = [itemCopy isEqualToString:@"BackgroundJobDuplicateProcessEntireLibrary"];
+    isEqualToString = objc_msgSend_isEqualToString_(itemCopy);
   }
 
   else
   {
-    v4 = 0;
+    isEqualToString = 0;
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 - (BOOL)_isEntireLibraryWorkItem:(id)item
@@ -368,7 +368,7 @@ void __70__PLBackgroundJobDuplicateDetectorWorker__checkItems_forType_library___
 {
   v4 = [*(a1 + 32) valueForKey:@"jobType"];
   v2 = [MEMORY[0x1E695DFD8] setWithArray:?];
-  *(*(*(a1 + 40) + 8) + 24) = [v2 count] == 1;
+  *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_count(v2) == 1;
   if (*(*(*(a1 + 40) + 8) + 24) == 1)
   {
     v3 = [v2 anyObject];
@@ -465,7 +465,7 @@ void __79__PLBackgroundJobDuplicateDetectorWorker__processingTypeFromWorkItems_l
 {
   dsCopy = ds;
   libraryCopy = library;
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     v31 = 0;
     v32 = &v31;
@@ -566,7 +566,7 @@ void __85__PLBackgroundJobDuplicateDetectorWorker__convertToUUIDsFromObjectIDs_l
 {
   dsCopy = ds;
   libraryCopy = library;
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     v31 = 0;
     v32 = &v31;
@@ -750,7 +750,7 @@ void __79__PLBackgroundJobDuplicateDetectorWorker__fetchedUUIDsFromUUIDs_library
   handlerCopy = handler;
   if (selectionCopy)
   {
-    v15 = [selectionCopy count];
+    v15 = objc_msgSend_count(selectionCopy);
     v16 = 1;
     if (type && v15)
     {
@@ -835,7 +835,7 @@ LABEL_18:
   removeCopy = remove;
   toRemoveCopy = toRemove;
   libraryCopy = library;
-  if (jobs || [removeCopy count] || objc_msgSend(toRemoveCopy, "count"))
+  if (jobs || objc_msgSend_count(removeCopy) || objc_msgSend_count(toRemoveCopy))
   {
     v23[0] = 0;
     v23[1] = v23;
@@ -864,7 +864,7 @@ void __115__PLBackgroundJobDuplicateDetectorWorker__cleanUpWorkItems_shouldDelet
   v3 = PLDuplicateDetectionGetLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v4 = [*(a1 + 40) count];
+    v4 = objc_msgSend_count(*(a1 + 40));
     *buf = 134217984;
     v28 = v4;
     _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEBUG, "Duplicate Detector Worker: Work items to remove: %td", buf, 0xCu);
@@ -1007,7 +1007,7 @@ void __80__PLBackgroundJobDuplicateDetectorWorker__processWorkItem_inLibrary_com
     [v19 performBlockAndWait:v59];
     if (v72[5])
     {
-      if ([v66[5] count])
+      if (objc_msgSend_count(v66[5]))
       {
         if ([*(a1 + 32) _checkItems:v72[5] forType:objc_msgSend(*(a1 + 32) library:{"_detectionJobType"), *(a1 + 40)}])
         {
@@ -1020,8 +1020,8 @@ void __80__PLBackgroundJobDuplicateDetectorWorker__processWorkItem_inLibrary_com
           objc_storeStrong(v24 + 5, v58);
           if (v25)
           {
-            v26 = [v25 count];
-            if (v26 == [v21 count])
+            v26 = objc_msgSend_count(v25);
+            if (v26 == objc_msgSend_count(v21))
             {
               v27 = v3;
             }
@@ -1164,7 +1164,7 @@ LABEL_10:
   v28 = PLDuplicateDetectionGetLog();
   if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
-    v29 = [v66[5] count];
+    v29 = objc_msgSend_count(v66[5]);
     v30 = v78[5];
     *buf = 134218242;
     v84 = v29;
@@ -1398,7 +1398,7 @@ LABEL_15:
           v38 = buf;
           v39 = &v46;
           [v37 performBlockAndWait:v36];
-          if ([*(v41 + 5) count])
+          if (objc_msgSend_count(*(v41 + 5)))
           {
             v22 = [PLBackgroundJobWorkerPendingWorkItems alloc];
             v23 = +[PLBackgroundJobCriteria criteriaForDuplicateDetectorWorker];
@@ -1519,7 +1519,7 @@ void __93__PLBackgroundJobDuplicateDetectorWorker_workItemsNeedingProcessingInLi
       v14 = PLDuplicateDetectionGetLog();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v15 = [*(*(*(a1 + 48) + 8) + 40) count];
+        v15 = objc_msgSend_count(*(*(*(a1 + 48) + 8) + 40));
         v16 = *(a1 + 40);
         *buf = 134218242;
         v22 = v15;

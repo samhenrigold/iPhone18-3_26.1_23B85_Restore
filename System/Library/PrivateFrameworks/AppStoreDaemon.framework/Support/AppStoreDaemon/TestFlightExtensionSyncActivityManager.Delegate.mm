@@ -7,7 +7,7 @@
 
 - (void)testFlightServiceHost:(id)host didUpdateExtensionStatus:(int64_t)status
 {
-  v4 = sub_100085D40(&qword_10059C3E0);
+  v4 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   Strong = swift_weakLoadStrong();

@@ -1203,7 +1203,7 @@ LABEL_32:
     v12 = sub_100005C14("CloudPairing");
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_1001EFBDC(self);
+      sub_1001EFBDC(self, registrationStatus);
     }
 
     goto LABEL_27;
@@ -1578,20 +1578,7 @@ LABEL_12:
   deviceCopy = device;
   associatedDevices = [(CBIDSManager *)self associatedDevices];
 
-  if (!associatedDevices)
-  {
-    goto LABEL_3;
-  }
-
-  associatedDevices2 = [(CBIDSManager *)self associatedDevices];
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_100083E40;
-  v18[3] = &unk_1002B9730;
-  v19 = deviceCopy;
-  v9 = [associatedDevices2 indexOfObjectPassingTest:v18];
-
-  if (v9 != 0x7FFFFFFFFFFFFFFFLL)
+  if (associatedDevices && (-[CBIDSManager associatedDevices](self, "associatedDevices"), v8 = objc_claimAutoreleasedReturnValue(), v18[0] = _NSConcreteStackBlock, v18[1] = 3221225472, v18[2] = sub_100083E40, v18[3] = &unk_1002B9730, v19 = deviceCopy, v9 = [v8 indexOfObjectPassingTest:v18], v8, v19, v9 != 0x7FFFFFFFFFFFFFFFLL))
   {
     v14 = sub_100005C14("CloudPairing");
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
@@ -1600,13 +1587,12 @@ LABEL_12:
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "CloudPaired Device found, returning it", v17, 2u);
     }
 
-    associatedDevices3 = [(CBIDSManager *)self associatedDevices];
-    v13 = [associatedDevices3 objectAtIndexedSubscript:v9];
+    associatedDevices2 = [(CBIDSManager *)self associatedDevices];
+    v13 = [associatedDevices2 objectAtIndexedSubscript:v9];
   }
 
   else
   {
-LABEL_3:
     v10 = sub_100005C14("CloudPairing");
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
@@ -3730,28 +3716,28 @@ LABEL_24:
 
 - (id)_statedumpAndRecordDailyMetric
 {
-  v134 = 0;
-  v135 = &v134;
-  v136 = 0x3032000000;
-  v137 = sub_100003948;
-  v138 = sub_100003850;
-  v139 = 0;
+  v123 = 0;
+  v124 = &v123;
+  v125 = 0x3032000000;
+  v126 = sub_100003948;
+  v127 = sub_100003850;
+  v128 = 0;
   obj = 0;
-  NSAppendPrintF_safe();
-  objc_storeStrong(&v139, 0);
-  v4 = (v135 + 5);
-  v132 = v135[5];
-  NSAppendPrintF_safe();
-  objc_storeStrong(v4, v132);
-  v96 = +[CBPreferencesManager deviceName];
+  NSAppendPrintF_safe(&obj, "\n");
+  objc_storeStrong(&v128, obj);
+  v4 = (v124 + 5);
+  v121 = v124[5];
+  NSAppendPrintF_safe(&v121, "---------- Cloud Pairing Manager ----------\n\n");
+  objc_storeStrong(v4, v121);
+  v85 = +[CBPreferencesManager deviceName];
   if (IsAppleInternalBuild())
   {
-    v5 = (v135 + 5);
-    v131 = v135[5];
-    if (v96)
+    v5 = (v124 + 5);
+    v120 = v124[5];
+    if (v85)
     {
-      v6 = v96;
-      uTF8String = [v96 UTF8String];
+      v6 = v85;
+      uTF8String = [v85 UTF8String];
     }
 
     else
@@ -3759,13 +3745,12 @@ LABEL_24:
       uTF8String = "none";
     }
 
-    v82 = uTF8String;
-    NSAppendPrintF_safe();
-    objc_storeStrong(v5, v131);
+    NSAppendPrintF_safe(&v120, "%s\n", uTF8String);
+    objc_storeStrong(v5, v120);
   }
 
-  v8 = (v135 + 5);
-  v130 = v135[5];
+  v8 = (v124 + 5);
+  v119 = v124[5];
   account = [(CBIDSManager *)self account];
   if (account)
   {
@@ -3791,15 +3776,14 @@ LABEL_24:
     uTF8String2 = "none";
   }
 
-  v83 = uTF8String2;
-  NSAppendPrintF_safe();
-  objc_storeStrong(v8, v130);
+  NSAppendPrintF_safe(&v119, "iCloud: %s\n", uTF8String2);
+  objc_storeStrong(v8, v119);
   if (v12)
   {
   }
 
-  v13 = (v135 + 5);
-  v129 = v135[5];
+  v13 = (v124 + 5);
+  v118 = v124[5];
   cloudIdentifier = [(CBIDSManager *)self cloudIdentifier];
   if (cloudIdentifier)
   {
@@ -3813,15 +3797,14 @@ LABEL_24:
     uTF8String3 = "none";
   }
 
-  v84 = uTF8String3;
-  NSAppendPrintF_safe();
-  objc_storeStrong(v13, v129);
+  NSAppendPrintF_safe(&v118, "IDS: %s\n", uTF8String3);
+  objc_storeStrong(v13, v118);
   if (cloudIdentifier)
   {
   }
 
-  v17 = (v135 + 5);
-  v128 = v135[5];
+  v17 = (v124 + 5);
+  v117 = v124[5];
   supportsVirtualAddress = [(CBIDSManager *)self supportsVirtualAddress];
   v19 = "NO";
   if (supportsVirtualAddress)
@@ -3829,11 +3812,10 @@ LABEL_24:
     v19 = "YES";
   }
 
-  v85 = v19;
-  NSAppendPrintF_safe();
-  objc_storeStrong(v17, v128);
-  v20 = (v135 + 5);
-  v127 = v135[5];
+  NSAppendPrintF_safe(&v117, "Virtual address supported: %s\n", v19);
+  objc_storeStrong(v17, v117);
+  v20 = (v124 + 5);
+  v116 = v124[5];
   localDeviceRandomAddress = [(CBIDSManager *)self localDeviceRandomAddress];
   if (localDeviceRandomAddress)
   {
@@ -3847,48 +3829,47 @@ LABEL_24:
     uTF8String4 = "none";
   }
 
-  v86 = uTF8String4;
-  NSAppendPrintF_safe();
-  objc_storeStrong(v20, v127);
+  NSAppendPrintF_safe(&v116, "Random static address: %s\n\n", uTF8String4);
+  objc_storeStrong(v20, v116);
   if (localDeviceRandomAddress)
   {
   }
 
-  v103 = +[NSMutableDictionary dictionary];
-  v102 = +[NSMutableDictionary dictionary];
-  v125 = 0u;
-  v126 = 0u;
-  v123 = 0u;
-  v124 = 0u;
+  v92 = +[NSMutableDictionary dictionary];
+  v91 = +[NSMutableDictionary dictionary];
+  v114 = 0u;
+  v115 = 0u;
+  v112 = 0u;
+  v113 = 0u;
   associatedDevices = [(CBIDSManager *)self associatedDevices];
-  v97 = [associatedDevices sortedArrayUsingComparator:&stru_1002B9978];
+  v86 = [associatedDevices sortedArrayUsingComparator:&stru_1002B9978];
 
-  v100 = [v97 countByEnumeratingWithState:&v123 objects:v142 count:16];
-  if (v100)
+  v89 = [v86 countByEnumeratingWithState:&v112 objects:v131 count:16];
+  if (v89)
   {
-    v98 = *v124;
+    v87 = *v113;
     do
     {
-      for (i = 0; i != v100; i = i + 1)
+      for (i = 0; i != v89; i = i + 1)
       {
-        if (*v124 != v98)
+        if (*v113 != v87)
         {
-          objc_enumerationMutation(v97);
+          objc_enumerationMutation(v86);
         }
 
-        v25 = *(*(&v123 + 1) + 8 * i);
+        v25 = *(*(&v112 + 1) + 8 * i);
         v26 = [(CBIDSManager *)self roleWithDevice:v25];
         idsDevice = [v25 idsDevice];
         productName = [idsDevice productName];
-        v105 = [v103 objectForKeyedSubscript:productName];
+        v94 = [v92 objectForKeyedSubscript:productName];
 
-        if (!v105)
+        if (!v94)
         {
-          v105 = +[NSMutableDictionary dictionary];
+          v94 = +[NSMutableDictionary dictionary];
         }
 
         deviceTypeToString = [idsDevice deviceTypeToString];
-        v30 = [v105 objectForKeyedSubscript:deviceTypeToString];
+        v30 = [v94 objectForKeyedSubscript:deviceTypeToString];
 
         if (v30)
         {
@@ -3900,16 +3881,16 @@ LABEL_24:
           v31 = &off_1002CB810;
         }
 
-        v101 = v31;
+        v90 = v31;
         v32 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v31 intValue] + 1);
         deviceTypeToString2 = [idsDevice deviceTypeToString];
-        [v105 setObject:v32 forKeyedSubscript:deviceTypeToString2];
+        [v94 setObject:v32 forKeyedSubscript:deviceTypeToString2];
 
         productName2 = [idsDevice productName];
-        [v103 setObject:v105 forKeyedSubscript:productName2];
+        [v92 setObject:v94 forKeyedSubscript:productName2];
 
         productName3 = [idsDevice productName];
-        v36 = [v102 objectForKeyedSubscript:productName3];
+        v36 = [v91 objectForKeyedSubscript:productName3];
 
         if (!v36)
         {
@@ -3919,148 +3900,146 @@ LABEL_24:
         deviceTypeToString3 = [idsDevice deviceTypeToString];
         v38 = [v36 objectForKeyedSubscript:deviceTypeToString3];
 
-        v122 = v38;
-        NSAppendPrintF_safe();
-        v39 = v38;
+        v111 = v38;
+        NSAppendPrintF_safe(&v111, "-");
+        v39 = v111;
 
-        v121 = v39;
+        v110 = v39;
         name = [idsDevice name];
         v41 = name;
-        uTF8String5 = [name UTF8String];
-        NSAppendPrintF_safe();
-        v42 = v39;
+        NSAppendPrintF_safe(&v110, "  %s,", [name UTF8String]);
+        v42 = v110;
 
-        v120 = v42;
+        v109 = v42;
         uniqueID = [idsDevice uniqueID];
         v44 = uniqueID;
-        uTF8String6 = [uniqueID UTF8String];
-        NSAppendPrintF_safe();
-        v45 = v42;
+        NSAppendPrintF_safe(&v109, " IDS: %s", [uniqueID UTF8String]);
+        v45 = v109;
 
-        v119 = v45;
+        v108 = v45;
         nsuuid = [idsDevice nsuuid];
         uUIDString = [nsuuid UUIDString];
-        NSAppendPrintF_safe();
-        v47 = v45;
+        NSAppendPrintF_safe(&v108, ", BT: %@", uUIDString);
+        v48 = v108;
 
-        v118 = v47;
-        [v25 isConnected];
-        NSAppendPrintF_safe();
-        v48 = v47;
+        v107 = v48;
+        isConnected = [v25 isConnected];
+        v50 = "no";
+        if (isConnected)
+        {
+          v50 = "yes";
+        }
 
-        v117 = v48;
-        v49 = "Unknown";
+        NSAppendPrintF_safe(&v107, ", Cn: %s", v50);
+        v51 = v107;
+
+        v106 = v51;
+        v52 = "Unknown";
         if (v26 == 2)
         {
-          v49 = "Responder";
+          v52 = "Responder";
         }
 
         if (v26 == 1)
         {
-          v49 = "Initiator";
+          v52 = "Initiator";
         }
 
-        v90 = v49;
-        NSAppendPrintF_safe();
-        v50 = v117;
+        NSAppendPrintF_safe(&v106, ", %s", v52);
+        v53 = v106;
 
-        v116 = v50;
+        v105 = v53;
         stateString = [v25 stateString];
         capitalizedString = [stateString capitalizedString];
-        v53 = capitalizedString;
-        uTF8String7 = [capitalizedString UTF8String];
-        NSAppendPrintF_safe();
-        v54 = v50;
+        v56 = capitalizedString;
+        NSAppendPrintF_safe(&v105, ", %s", [capitalizedString UTF8String]);
+        v57 = v105;
 
-        v115 = v54;
+        v104 = v57;
         deviceTypeToString4 = [idsDevice deviceTypeToString];
-        v56 = deviceTypeToString4;
-        uTF8String8 = [deviceTypeToString4 UTF8String];
+        v59 = deviceTypeToString4;
+        uTF8String5 = [deviceTypeToString4 UTF8String];
         productName4 = [idsDevice productName];
-        v59 = productName4;
-        uTF8String9 = [productName4 UTF8String];
+        v62 = productName4;
+        uTF8String6 = [productName4 UTF8String];
         productVersion = [idsDevice productVersion];
-        v62 = productVersion;
-        uTF8String10 = [productVersion UTF8String];
+        v65 = productVersion;
+        uTF8String7 = [productVersion UTF8String];
         productBuildVersion = [idsDevice productBuildVersion];
-        v65 = productBuildVersion;
-        uTF8String11 = [productBuildVersion UTF8String];
-        v92 = uTF8String8;
-        NSAppendPrintF_safe();
-        v66 = v54;
+        v68 = productBuildVersion;
+        NSAppendPrintF_safe(&v104, ", %s-%s-%s-%s\n", uTF8String5, uTF8String6, uTF8String7, [productBuildVersion UTF8String]);
+        v69 = v104;
 
         deviceTypeToString5 = [idsDevice deviceTypeToString];
-        [v36 setObject:v66 forKeyedSubscript:deviceTypeToString5];
+        [v36 setObject:v69 forKeyedSubscript:deviceTypeToString5];
 
         productName5 = [idsDevice productName];
-        [v102 setObject:v36 forKeyedSubscript:productName5];
+        [v91 setObject:v36 forKeyedSubscript:productName5];
       }
 
-      v100 = [v97 countByEnumeratingWithState:&v123 objects:v142 count:16];
+      v89 = [v86 countByEnumeratingWithState:&v112 objects:v131 count:16];
     }
 
-    while (v100);
+    while (v89);
   }
 
-  v69 = (v135 + 5);
-  v114 = v135[5];
+  v72 = (v124 + 5);
+  v103 = v124[5];
   associatedDevices2 = [(CBIDSManager *)self associatedDevices];
-  v93 = [associatedDevices2 count];
-  NSAppendPrintF_safe();
-  objc_storeStrong(v69, v114);
+  NSAppendPrintF_safe(&v103, "IDS Devices    : %lu\n", [associatedDevices2 count]);
+  objc_storeStrong(v72, v103);
 
-  v71 = (v135 + 5);
-  v113 = v135[5];
+  v74 = (v124 + 5);
+  v102 = v124[5];
   associatedDevices3 = [(CBIDSManager *)self associatedDevices];
-  v73 = [associatedDevices3 cuFilteredArrayUsingBlock:&stru_1002B99B8];
-  v94 = [v73 count];
-  NSAppendPrintF_safe();
-  objc_storeStrong(v71, v113);
+  v76 = [associatedDevices3 cuFilteredArrayUsingBlock:&stru_1002B99B8];
+  NSAppendPrintF_safe(&v102, "Paired Devices : %lu\n\n", [v76 count]);
+  objc_storeStrong(v74, v102);
 
-  v110[0] = _NSConcreteStackBlock;
-  v110[1] = 3221225472;
-  v110[2] = sub_10008BCE0;
-  v110[3] = &unk_1002B9A08;
-  v74 = v102;
-  v111 = v74;
-  v112 = &v134;
-  [v103 enumerateKeysAndObjectsUsingBlock:{v110, v94}];
-  v75 = (v135 + 5);
-  v109 = v135[5];
-  NSAppendPrintF_safe();
-  objc_storeStrong(v75, v109);
+  v99[0] = _NSConcreteStackBlock;
+  v99[1] = 3221225472;
+  v99[2] = sub_10008BCE0;
+  v99[3] = &unk_1002B9A08;
+  v77 = v91;
+  v100 = v77;
+  v101 = &v123;
+  [v92 enumerateKeysAndObjectsUsingBlock:v99];
+  v78 = (v124 + 5);
+  v98 = v124[5];
+  NSAppendPrintF_safe(&v98, "\nIDS Public Address Mapping:\n");
+  objc_storeStrong(v78, v98);
   cPAddressMapping = [(CBIDSManager *)self CPAddressMapping];
-  v108[0] = _NSConcreteStackBlock;
-  v108[1] = 3221225472;
-  v108[2] = sub_10008BFD4;
-  v108[3] = &unk_1002B9A30;
-  v108[4] = &v134;
-  [cPAddressMapping enumerateKeysAndObjectsUsingBlock:v108];
+  v97[0] = _NSConcreteStackBlock;
+  v97[1] = 3221225472;
+  v97[2] = sub_10008BFD4;
+  v97[3] = &unk_1002B9A30;
+  v97[4] = &v123;
+  [cPAddressMapping enumerateKeysAndObjectsUsingBlock:v97];
 
   if (IsAppleInternalBuild())
   {
-    v77 = (v135 + 5);
-    v107 = v135[5];
-    NSAppendPrintF_safe();
-    objc_storeStrong(v77, v107);
+    v80 = (v124 + 5);
+    v96 = v124[5];
+    NSAppendPrintF_safe(&v96, "\nPending Client Ack Message Identifier from IDS Device:\n");
+    objc_storeStrong(v80, v96);
     messageIdentifiersWaitingForAck = [(CBIDSManager *)self messageIdentifiersWaitingForAck];
-    v106[0] = _NSConcreteStackBlock;
-    v106[1] = 3221225472;
-    v106[2] = sub_10008C028;
-    v106[3] = &unk_1002B9A58;
-    v106[4] = &v134;
-    [messageIdentifiersWaitingForAck enumerateKeysAndObjectsUsingBlock:v106];
+    v95[0] = _NSConcreteStackBlock;
+    v95[1] = 3221225472;
+    v95[2] = sub_10008C028;
+    v95[3] = &unk_1002B9A58;
+    v95[4] = &v123;
+    [messageIdentifiersWaitingForAck enumerateKeysAndObjectsUsingBlock:v95];
   }
 
-  v140 = @"Stats";
-  v141 = v103;
-  v79 = [NSDictionary dictionaryWithObjects:&v141 forKeys:&v140 count:1];
+  v129 = @"Stats";
+  v130 = v92;
+  v82 = [NSDictionary dictionaryWithObjects:&v130 forKeys:&v129 count:1];
   CUMetricsLog();
 
-  v80 = v135[5];
-  _Block_object_dispose(&v134, 8);
+  v83 = v124[5];
+  _Block_object_dispose(&v123, 8);
 
-  return v80;
+  return v83;
 }
 
 - (BOOL)shouldUpgradeToManatee
@@ -4125,11 +4104,11 @@ LABEL_24:
             {
               if (v12)
               {
-                [v12 operatingSystemVersion];
+                objc_msgSend_operatingSystemVersion(v12);
                 v18 = v43;
-                [v12 operatingSystemVersion];
+                objc_msgSend_operatingSystemVersion(v12);
                 v19 = v42;
-                [v12 operatingSystemVersion];
+                objc_msgSend_operatingSystemVersion(v12);
                 v20 = v41;
               }
 
@@ -4152,7 +4131,7 @@ LABEL_24:
               _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "allDevicesJazzKon: checkManateeZoneUpgrade: account has iOS, majorVersion %ld, minorVersion %ld, patchVersion %ld", buf, 0x20u);
             }
 
-            if (!v12 || ([v12 operatingSystemVersion], v40 <= 12))
+            if (!v12 || (objc_msgSend_operatingSystemVersion(v12), v40 <= 12))
             {
               v31 = sub_100005C14("MagicPairing");
               if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
@@ -4178,11 +4157,11 @@ LABEL_24:
               {
                 if (v12)
                 {
-                  [v12 operatingSystemVersion];
+                  objc_msgSend_operatingSystemVersion(v12);
                   v24 = v39;
-                  [v12 operatingSystemVersion];
+                  objc_msgSend_operatingSystemVersion(v12);
                   v25 = v38;
-                  [v12 operatingSystemVersion];
+                  objc_msgSend_operatingSystemVersion(v12);
                   v26 = v37;
                 }
 
@@ -4205,7 +4184,7 @@ LABEL_24:
                 _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "allDevicesJazzKon: checkManateeZoneUpgrade: account has macOS, majorVersion %ld, minorVersion %ld, patchVersion %ld", buf, 0x20u);
               }
 
-              if (!v12 || ([v12 operatingSystemVersion], v36 < 11) && (objc_msgSend(v12, "operatingSystemVersion"), v35 <= 14))
+              if (!v12 || (objc_msgSend_operatingSystemVersion(v12), v36 < 11) && (objc_msgSend_operatingSystemVersion(v12), v35 <= 14))
               {
                 v31 = sub_100005C14("MagicPairing");
                 if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
@@ -4348,7 +4327,7 @@ LABEL_34:
           goto LABEL_48;
         }
 
-        [v10 operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(v10);
 
         if (v37 <= 14)
         {
@@ -4372,11 +4351,11 @@ LABEL_36:
           {
             if (v10)
             {
-              [v10 operatingSystemVersion];
+              objc_msgSend_operatingSystemVersion(v10);
               v22 = v35;
-              [v10 operatingSystemVersion];
+              objc_msgSend_operatingSystemVersion(v10);
               v23 = v34;
-              [v10 operatingSystemVersion];
+              objc_msgSend_operatingSystemVersion(v10);
               v24 = v33;
             }
 
@@ -4400,7 +4379,7 @@ LABEL_36:
           goto LABEL_49;
         }
 
-        [v10 operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(v10);
 
         if (v36 <= 14)
         {
@@ -4424,11 +4403,11 @@ LABEL_40:
           {
             if (v10)
             {
-              [v10 operatingSystemVersion];
+              objc_msgSend_operatingSystemVersion(v10);
               v25 = v31;
-              [v10 operatingSystemVersion];
+              objc_msgSend_operatingSystemVersion(v10);
               v26 = v30;
-              [v10 operatingSystemVersion];
+              objc_msgSend_operatingSystemVersion(v10);
               v27 = v29;
             }
 
@@ -4460,7 +4439,7 @@ LABEL_49:
           goto LABEL_50;
         }
 
-        [v10 operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(v10);
 
         if (v32 <= 11)
         {
@@ -4937,7 +4916,7 @@ LABEL_17:
                   goto LABEL_24;
                 }
 
-                [v13 operatingSystemVersion];
+                objc_msgSend_operatingSystemVersion(v13);
                 v18 = v22;
 
                 if (v18 < 12)
@@ -4966,7 +4945,7 @@ LABEL_25:
                   goto LABEL_26;
                 }
 
-                [v13 operatingSystemVersion];
+                objc_msgSend_operatingSystemVersion(v13);
                 v19 = v21;
 
                 if (v19 < 14)

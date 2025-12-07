@@ -93,7 +93,7 @@
   return type & 1;
 }
 
-uint64_t __46__FCAccountActionQueue_enqueueActionWithType___block_invoke(uint64_t a1, void *a2)
+void *__46__FCAccountActionQueue_enqueueActionWithType___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 fc_enqueueActionType:*(a1 + 40)];
   *(*(*(a1 + 32) + 8) + 24) = result;

@@ -33,39 +33,38 @@
 
 - (id)propertiesAsDictionary
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   properties = [(TDRenditionSpec *)self properties];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [properties countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [properties countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(properties);
         }
 
-        [*(*(&v11 + 1) + 8 * v8++) addToDictionary:dictionary];
+        [*(*(&v10 + 1) + 8 * v8++) addToDictionary:dictionary];
       }
 
       while (v6 != v8);
-      v6 = [properties countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [properties countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return dictionary;
 }
 

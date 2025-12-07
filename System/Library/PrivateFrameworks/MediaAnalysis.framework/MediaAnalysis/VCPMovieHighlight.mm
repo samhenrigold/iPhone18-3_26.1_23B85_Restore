@@ -42,7 +42,7 @@
   v8 = v7;
   if (segmentCopy)
   {
-    [segmentCopy timerange];
+    objc_msgSend_timerange(segmentCopy);
   }
 
   else
@@ -54,7 +54,7 @@
   v9 = CMTimeGetSeconds(&lhs.start);
   if (segmentCopy)
   {
-    [segmentCopy timerange];
+    objc_msgSend_timerange(segmentCopy);
   }
 
   else
@@ -73,7 +73,7 @@
   *&lhs.duration.timescale = *&self->_timerange.duration.timescale;
   if (segmentCopy)
   {
-    [segmentCopy timerange];
+    objc_msgSend_timerange(segmentCopy);
   }
 
   else
@@ -106,7 +106,7 @@
     v19 = v18;
     if (segmentCopy)
     {
-      [segmentCopy timerange];
+      objc_msgSend_timerange(segmentCopy);
     }
 
     else

@@ -1,13 +1,13 @@
 @interface SFLinkPresentationCardSection(SearchUIGridSectionModel)
 - (double)searchUIGridSectionModel_groupInsetFor:()SearchUIGridSectionModel;
 - (id)searchUIGridSectionModel_heightDimensionWithColumnCount:()SearchUIGridSectionModel;
+- (id)searchUIGridSectionModel_interItemSpacing;
 - (id)searchUIGridSectionModel_useEstimatedHeight;
-- (uint64_t)searchUIGridSectionModel_interItemSpacing;
 @end
 
 @implementation SFLinkPresentationCardSection(SearchUIGridSectionModel)
 
-- (uint64_t)searchUIGridSectionModel_interItemSpacing
+- (id)searchUIGridSectionModel_interItemSpacing
 {
   result = [MEMORY[0x1E69D9240] isSiri];
   if ((result & 1) == 0)

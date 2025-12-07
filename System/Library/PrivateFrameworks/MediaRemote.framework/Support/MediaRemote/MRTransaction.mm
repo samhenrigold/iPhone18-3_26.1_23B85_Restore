@@ -120,18 +120,17 @@
     v11 = MRCreateXPCMessage();
     v12 = MRTransactionPacketsCreateExternalRepresentation();
     xpc_dictionary_set_data(v11, "MRXPC_TRANSACTION_DATA", [v12 bytes], objc_msgSend(v12, "length"));
-    playerPath = self->_playerPath;
     MRAddPlayerPathToXPCMessage();
     xpc_dictionary_set_uint64(v11, "MRXPC_TRANSACTION_NAME", self->_name);
-    v14 = dispatch_get_global_queue(0, 0);
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_1000B5F18;
-    v16[3] = &unk_1004BA8F0;
-    v17 = v11;
-    v18 = completionCopy;
-    v15 = v11;
-    xpc_connection_send_message_with_reply(connectionCopy, v15, v14, v16);
+    v13 = dispatch_get_global_queue(0, 0);
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_1000B5F18;
+    v15[3] = &unk_1004BA8F0;
+    v16 = v11;
+    v17 = completionCopy;
+    v14 = v11;
+    xpc_connection_send_message_with_reply(connectionCopy, v14, v13, v15);
   }
 
   else
@@ -222,7 +221,7 @@
           v10 = _MRLogForCategory();
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
           {
-            sub_1003A6D7C(self, &self->_bytesInUse);
+            sub_1003A6D7C(self);
           }
 
           v11 = dispatch_get_global_queue(0, 0);

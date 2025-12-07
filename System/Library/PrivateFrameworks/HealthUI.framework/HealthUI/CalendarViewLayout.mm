@@ -107,21 +107,22 @@
   }
 
   selfCopy = self;
-  v9 = sub_1C3CFE0B4(x, y, width, height);
+  sub_1C3CFE0B4(x, y, width, height);
+  v10 = v9;
 
-  if (v9)
+  if (v10)
   {
     sub_1C3CFF178();
-    v10 = sub_1C3D202A4();
+    v11 = sub_1C3D202A4();
   }
 
   else
   {
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (id)layoutAttributesForDecorationViewOfKind:(id)kind atIndexPath:(id)path

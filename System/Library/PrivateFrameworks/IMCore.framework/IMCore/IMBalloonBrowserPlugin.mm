@@ -10,22 +10,22 @@
   identifierCopy = identifier;
   nameCopy = name;
   pathCopy = path;
-  v23.receiver = self;
-  v23.super_class = IMBalloonBrowserPlugin;
-  v11 = [(IMBalloonPlugin *)&v23 initWithBundle:0];
-  v14 = v11;
+  v16.receiver = self;
+  v16.super_class = IMBalloonBrowserPlugin;
+  v11 = [(IMBalloonPlugin *)&v16 initWithBundle:0];
+  v12 = v11;
   if (v11)
   {
-    v15 = objc_msgSend_app(v11, v12, v13);
-    objc_msgSend_setIdentifier_(v15, v16, identifierCopy);
+    v13 = [(IMBalloonPlugin *)v11 app];
+    [v13 setIdentifier:identifierCopy];
 
-    v19 = objc_msgSend_app(v14, v17, v18);
-    objc_msgSend_setBrowserDisplayName_(v19, v20, nameCopy);
+    v14 = [(IMBalloonPlugin *)v12 app];
+    [v14 setBrowserDisplayName:nameCopy];
 
-    objc_msgSend_setBrowserImagePath_(v14, v21, pathCopy);
+    [(IMBalloonPlugin *)v12 setBrowserImagePath:pathCopy];
   }
 
-  return v14;
+  return v12;
 }
 
 - (IMBalloonBrowserPlugin)initWithIdentifier:(id)identifier browserDisplayName:(id)name browserImageName:(id)imageName browserClass:(Class)class presentationContext:(unint64_t)context
@@ -33,27 +33,27 @@
   identifierCopy = identifier;
   nameCopy = name;
   imageNameCopy = imageName;
-  v35.receiver = self;
-  v35.super_class = IMBalloonBrowserPlugin;
-  v15 = [(IMBalloonPlugin *)&v35 initWithBundle:0];
-  v18 = v15;
+  v22.receiver = self;
+  v22.super_class = IMBalloonBrowserPlugin;
+  v15 = [(IMBalloonPlugin *)&v22 initWithBundle:0];
+  v16 = v15;
   if (v15)
   {
-    v19 = objc_msgSend_app(v15, v16, v17);
-    objc_msgSend_setIdentifier_(v19, v20, identifierCopy);
+    v17 = [(IMBalloonPlugin *)v15 app];
+    [v17 setIdentifier:identifierCopy];
 
-    v23 = objc_msgSend_app(v18, v21, v22);
-    objc_msgSend_setBrowserDisplayName_(v23, v24, nameCopy);
+    v18 = [(IMBalloonPlugin *)v16 app];
+    [v18 setBrowserDisplayName:nameCopy];
 
-    objc_msgSend_setBrowserImageName_(v18, v25, imageNameCopy);
-    v28 = objc_msgSend_app(v18, v26, v27);
-    objc_msgSend_setBrowserClass_(v28, v29, class);
+    [(IMBalloonPlugin *)v16 setBrowserImageName:imageNameCopy];
+    v19 = [(IMBalloonPlugin *)v16 app];
+    [v19 setBrowserClass:class];
 
-    v32 = objc_msgSend_app(v18, v30, v31);
-    objc_msgSend_setPresentationContexts_(v32, v33, context);
+    v20 = [(IMBalloonPlugin *)v16 app];
+    [v20 setPresentationContexts:context];
   }
 
-  return v18;
+  return v16;
 }
 
 @end

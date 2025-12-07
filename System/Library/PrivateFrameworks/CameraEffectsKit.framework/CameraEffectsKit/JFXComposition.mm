@@ -395,7 +395,7 @@
   *&retstr->var1.var1 = 0u;
   *&retstr->var0.var0 = 0u;
   memset(&v38, 0, sizeof(v38));
-  LODWORD(isLastClip) = [clip duration];
+  LODWORD(isLastClip) = objc_msgSend_duration(clip);
   clipsDataSource3 = [(JFXComposition *)self clipsDataSource];
   DurationCMTimeFromFrameTime(isLastClip, [clipsDataSource3 timeScale], &v38);
 
@@ -454,7 +454,7 @@
   v25 = currentTrackGroup;
   if (currentTrackGroup)
   {
-    [currentTrackGroup cursor];
+    objc_msgSend_cursor(currentTrackGroup);
   }
 
   else
@@ -539,7 +539,7 @@
   mediaType = [clip mediaType];
   memset(&v44, 0, sizeof(v44));
   clip2 = [stateCopy clip];
-  [(JFXComposition *)self clipTransform:clip2];
+  objc_msgSend_clipTransform_(self);
 
   switch(mediaType)
   {
@@ -548,7 +548,7 @@
     case 2:
       if (stateCopy)
       {
-        [stateCopy videoCompTimeRange];
+        objc_msgSend_videoCompTimeRange(stateCopy);
       }
 
       else
@@ -562,7 +562,7 @@
       currentTrackGroup = [stateCopy currentTrackGroup];
       if (stateCopy)
       {
-        [stateCopy videoCompTimeRange];
+        objc_msgSend_videoCompTimeRange(stateCopy);
       }
 
       else
@@ -578,7 +578,7 @@
       alternateTrackGroup = [stateCopy alternateTrackGroup];
       if (stateCopy)
       {
-        [stateCopy videoCompTimeRange];
+        objc_msgSend_videoCompTimeRange(stateCopy);
       }
 
       else
@@ -598,7 +598,7 @@ LABEL_4:
       actualVideoTrackID = [currentTrackGroup2 actualVideoTrackID];
       if (stateCopy)
       {
-        [stateCopy videoCompTimeRange];
+        objc_msgSend_videoCompTimeRange(stateCopy);
       }
 
       else
@@ -618,7 +618,7 @@ LABEL_4:
         if (stateCopy)
         {
 LABEL_17:
-          [stateCopy audioCompTimeRange];
+          objc_msgSend_audioCompTimeRange(stateCopy);
           goto LABEL_28;
         }
       }
@@ -627,11 +627,11 @@ LABEL_17:
       {
         if (stateCopy)
         {
-          [stateCopy audioCompTimeRange];
+          objc_msgSend_audioCompTimeRange(stateCopy);
           currentTrackGroup3 = [stateCopy currentTrackGroup];
           if (*(&v40 + 1) > 2)
           {
-            [stateCopy audioCompTimeRange];
+            objc_msgSend_audioCompTimeRange(stateCopy);
             *&start.start.value = v37;
             start.start.epoch = v38;
             clipsDataSource = [(JFXComposition *)self clipsDataSource];
@@ -668,8 +668,8 @@ LABEL_28:
       }
 
 LABEL_29:
-      [stateCopy audioCompTimeRange];
-      [stateCopy audioCompTimeRange];
+      objc_msgSend_audioCompTimeRange(stateCopy);
+      objc_msgSend_audioCompTimeRange(stateCopy);
       v23 = v33 + v32 - 1;
 LABEL_31:
       clipsDataSource2 = [(JFXComposition *)self clipsDataSource];
@@ -1096,7 +1096,7 @@ void __40__JFXComposition_addBackTracksIfRemoved__block_invoke_3(uint64_t a1, ui
     v7 = mediaItem;
     if (mediaItem)
     {
-      [mediaItem transform];
+      objc_msgSend_transform(mediaItem);
     }
 
     else
@@ -1195,7 +1195,7 @@ void __40__JFXComposition_addBackTracksIfRemoved__block_invoke_3(uint64_t a1, ui
 
   memset(&v107, 0, sizeof(v107));
   clipsDataSource3 = [(JFXComposition *)self clipsDataSource];
-  LODWORD(isExporting2) = [clipsDataSource3 duration];
+  LODWORD(isExporting2) = objc_msgSend_duration(clipsDataSource3);
   clipsDataSource4 = [(JFXComposition *)self clipsDataSource];
   CMTimeFromFrameTime(isExporting2, [clipsDataSource4 timeScale], &v107);
 
@@ -1230,7 +1230,7 @@ void __40__JFXComposition_addBackTracksIfRemoved__block_invoke_3(uint64_t a1, ui
       v26 = v25;
       presentationTime = [v25 presentationTime];
       v85 = v26;
-      LODWORD(v26) = [v26 duration] + presentationTime;
+      LODWORD(v26) = objc_msgSend_duration(v26) + presentationTime;
       clip4 = [(EditListCompositionState *)v13 clip];
       -[EditListCompositionState setOverlapLeft:](v13, "setOverlapLeft:", v26 - [clip4 presentationTime]);
     }
@@ -1252,12 +1252,12 @@ void __40__JFXComposition_addBackTracksIfRemoved__block_invoke_3(uint64_t a1, ui
       clip5 = [(EditListCompositionState *)v13 clip];
       presentationTime2 = [clip5 presentationTime];
       clip6 = [(EditListCompositionState *)v13 clip];
-      -[EditListCompositionState setOverlapRight:](v13, "setOverlapRight:", [clip6 duration] + presentationTime2 - objc_msgSend(v30, "presentationTime"));
+      -[EditListCompositionState setOverlapRight:](v13, "setOverlapRight:", objc_msgSend_duration(clip6) + presentationTime2 - [v30 presentationTime]);
     }
 
     v104 = 0;
     v105 = 0;
-    [(JFXComposition *)self compositionItemsForState:v13 compositionItem:&v105 backfillCompositionItem:&v104];
+    objc_msgSend_compositionItemsForState_compositionItem_backfillCompositionItem_(self);
     v34 = v105;
     v35 = v104;
     v103 = v106;
@@ -1265,7 +1265,7 @@ void __40__JFXComposition_addBackTracksIfRemoved__block_invoke_3(uint64_t a1, ui
     memset(&v103, 0, sizeof(v103));
     if (v13)
     {
-      [(EditListCompositionState *)v13 videoCompTimeRange];
+      objc_msgSend_videoCompTimeRange(v13);
     }
 
     [(EditListCompositionState *)v13 setAudioStartOffset:0];
@@ -1331,7 +1331,7 @@ LABEL_20:
       memset(&v98, 0, sizeof(v98));
       if (v13)
       {
-        [(EditListCompositionState *)v13 videoCompTimeRange];
+        objc_msgSend_videoCompTimeRange(v13);
       }
 
       else
@@ -1348,7 +1348,7 @@ LABEL_20:
       memset(&rhs, 0, sizeof(rhs));
       if (v13)
       {
-        [(EditListCompositionState *)v13 videoCompTimeRange];
+        objc_msgSend_videoCompTimeRange(v13);
       }
 
       else
@@ -1370,7 +1370,7 @@ LABEL_20:
       [(EditListCompositionState *)v13 setVideoCompTimeRange:&lhs];
       if (v13)
       {
-        [(EditListCompositionState *)v13 videoCompTimeRange];
+        objc_msgSend_videoCompTimeRange(v13);
       }
 
       else
@@ -1450,7 +1450,7 @@ LABEL_45:
   v65 = currentTrackGroup2;
   if (currentTrackGroup2)
   {
-    [currentTrackGroup2 cursor];
+    objc_msgSend_cursor(currentTrackGroup2);
   }
 
   else
@@ -1510,7 +1510,7 @@ LABEL_45:
 
 - (void)rebuildCompositionInstructionsForVideoStillTitleCard:(id)card
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   cardCopy = card;
   clipsDataSource = [(JFXComposition *)self clipsDataSource];
   timeScale = [clipsDataSource timeScale];
@@ -1520,46 +1520,47 @@ LABEL_45:
   if (avPlayerItem)
   {
     v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    memset(&v50, 0, sizeof(v50));
+    memset(&v51, 0, sizeof(v51));
     CMTimeMake(&start.start, [cardCopy presentationTime], timeScale);
-    CMTimeMake(&duration.start, [cardCopy duration], timeScale);
-    CMTimeRangeMake(&v50, &start.start, &duration.start);
+    v9 = objc_msgSend_duration(cardCopy);
+    CMTimeMake(&duration.start, v9, timeScale);
+    CMTimeRangeMake(&v51, &start.start, &duration.start);
     mediaType = [cardCopy mediaType];
     [(JFXComposition *)self JFX_updatePlaybackDelegatesForClip:cardCopy];
-    v48 = 0u;
     v49 = 0u;
-    v46 = 0u;
+    v50 = 0u;
     v47 = 0u;
+    v48 = 0u;
     avPlayerItem2 = [(JFXComposition *)self avPlayerItem];
     videoComposition = [avPlayerItem2 videoComposition];
     instructions = [videoComposition instructions];
 
-    v13 = v8;
+    v14 = v8;
     obj = instructions;
-    v14 = [instructions countByEnumeratingWithState:&v46 objects:v51 count:16];
-    if (!v14)
+    v15 = [instructions countByEnumeratingWithState:&v47 objects:v52 count:16];
+    if (!v15)
     {
       goto LABEL_44;
     }
 
-    v15 = v14;
-    v16 = *v47;
-    v17 = 0xFFFFFFFFLL;
-    v39 = v13;
+    v16 = v15;
+    v17 = *v48;
+    v18 = 0xFFFFFFFFLL;
+    v40 = v14;
     while (1)
     {
-      v18 = 0;
+      v19 = 0;
       do
       {
-        if (*v47 != v16)
+        if (*v48 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v46 + 1) + 8 * v18);
-        if (v19)
+        v20 = *(*(&v47 + 1) + 8 * v19);
+        if (v20)
         {
-          [*(*(&v46 + 1) + 8 * v18) timeRange];
+          objc_msgSend_timeRange(*(*(&v47 + 1) + 8 * v19));
         }
 
         else
@@ -1567,34 +1568,34 @@ LABEL_45:
           memset(&start, 0, sizeof(start));
         }
 
-        duration = v50;
+        duration = v51;
         if (!CMTimeRangeContainsTimeRange(&duration, &start))
         {
-          [v13 addObject:v19];
+          [v14 addObject:v20];
           goto LABEL_42;
         }
 
-        if (v17 == -1 && mediaType <= 9 && ((1 << mediaType) & 0x20A) != 0)
+        if (v18 == -1 && mediaType <= 9 && ((1 << mediaType) & 0x20A) != 0)
         {
-          requiredSourceTrackIDs = [v19 requiredSourceTrackIDs];
+          requiredSourceTrackIDs = [v20 requiredSourceTrackIDs];
           firstObject = [requiredSourceTrackIDs firstObject];
           intValue = [firstObject intValue];
 
           if (intValue)
           {
-            v17 = intValue;
+            v18 = intValue;
           }
 
           else
           {
-            v17 = 3;
+            v18 = 3;
           }
 
-          v13 = v39;
+          v14 = v40;
         }
 
         memset(&start, 0, sizeof(start));
-        [(JFXComposition *)self clipTransform:cardCopy];
+        objc_msgSend_clipTransform_(self);
         if (mediaType > 2)
         {
           if (mediaType != 9 && mediaType != 3)
@@ -1607,9 +1608,9 @@ LABEL_45:
         {
           if (mediaType == 2)
           {
-            if (v19)
+            if (v20)
             {
-              [v19 timeRange];
+              objc_msgSend_timeRange(v20);
             }
 
             else
@@ -1617,10 +1618,10 @@ LABEL_45:
               memset(&duration, 0, sizeof(duration));
             }
 
-            v29 = [(JFXComposition *)self CARenderingRequiredForClip:cardCopy];
-            v43 = start;
-            v25 = [(JFXComposition *)self instructionToShowImageWithClip:cardCopy withTransform:&v43 timeRange:&duration requiresCARendering:v29];
-            if (v25)
+            v30 = [(JFXComposition *)self CARenderingRequiredForClip:cardCopy];
+            v44 = start;
+            v26 = [(JFXComposition *)self instructionToShowImageWithClip:cardCopy withTransform:&v44 timeRange:&duration requiresCARendering:v30];
+            if (v26)
             {
               goto LABEL_32;
             }
@@ -1629,9 +1630,9 @@ LABEL_45:
           goto LABEL_39;
         }
 
-        if (v19)
+        if (v20)
         {
-          [v19 timeRange];
+          objc_msgSend_timeRange(v20);
         }
 
         else
@@ -1639,87 +1640,87 @@ LABEL_45:
           memset(&duration, 0, sizeof(duration));
         }
 
-        v23 = [(JFXComposition *)self CARenderingRequiredForClip:cardCopy];
-        v43 = start;
-        v24 = [(JFXComposition *)self instructionToShowClip:cardCopy withTrackID:v17 withTransform:&v43 timeRange:&duration requiresCARendering:v23];
-        v25 = v24;
+        v24 = [(JFXComposition *)self CARenderingRequiredForClip:cardCopy];
+        v44 = start;
+        v25 = [(JFXComposition *)self instructionToShowClip:cardCopy withTrackID:v18 withTransform:&v44 timeRange:&duration requiresCARendering:v24];
+        v26 = v25;
         if (mediaType == 3)
         {
-          [v24 setContainsTweening:1];
+          [v25 setContainsTweening:1];
         }
 
-        if (v25)
+        if (v26)
         {
 LABEL_32:
           if (![cardCopy presentationTime])
           {
-            outputNode = [v25 outputNode];
+            outputNode = [v26 outputNode];
             if (outputNode)
             {
-              v27 = outputNode;
+              v28 = outputNode;
               standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-              v38 = [standardUserDefaults BOOLForKey:@"burnInExportSettings"];
+              v39 = [standardUserDefaults BOOLForKey:@"burnInExportSettings"];
 
-              v13 = v39;
-              if (v38)
+              v14 = v40;
+              if (v39)
               {
-                [(JFXComposition *)self burnInPlaybackSettings:v25];
+                [(JFXComposition *)self burnInPlaybackSettings:v26];
               }
             }
           }
 
-          [v13 addObject:v25];
+          [v14 addObject:v26];
           goto LABEL_41;
         }
 
 LABEL_39:
-        v25 = JFXLog_playback();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v26 = JFXLog_playback();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          [(JFXComposition *)&buf rebuildCompositionInstructionsForVideoStillTitleCard:v42, v25];
+          [(JFXComposition *)&buf rebuildCompositionInstructionsForVideoStillTitleCard:v43, v26];
         }
 
 LABEL_41:
 
 LABEL_42:
-        ++v18;
+        ++v19;
       }
 
-      while (v15 != v18);
-      v15 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
-      if (!v15)
+      while (v16 != v19);
+      v16 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+      if (!v16)
       {
 LABEL_44:
 
         avPlayerItem3 = [(JFXComposition *)self avPlayerItem];
         videoComposition2 = [avPlayerItem3 videoComposition];
-        v32 = [videoComposition2 mutableCopy];
+        v33 = [videoComposition2 mutableCopy];
 
-        [v32 setInstructions:v13];
+        [v33 setInstructions:v14];
         [(JFXComposition *)self JFX_preferredRenderScale];
-        v34 = v33;
-        [v32 renderScale];
-        if (vabds_f32(v34, *&v35) >= 0.0001)
+        v35 = v34;
+        [v33 renderScale];
+        if (vabds_f32(v35, *&v36) >= 0.0001)
         {
-          *&v35 = v34;
-          [v32 setRenderScale:v35];
+          *&v36 = v35;
+          [v33 setRenderScale:v36];
         }
 
         avPlayerItem4 = [(JFXComposition *)self avPlayerItem];
-        [avPlayerItem4 setVideoComposition:v32];
+        [avPlayerItem4 setVideoComposition:v33];
 
-        [(JFXComposition *)self setVideoComposition:v32];
-        [(JFXComposition *)self setVideoCompositionInstructions:v13];
+        [(JFXComposition *)self setVideoComposition:v33];
+        [(JFXComposition *)self setVideoCompositionInstructions:v14];
         videoComposition3 = [(JFXComposition *)self videoComposition];
-        [videoComposition3 setInstructions:v13];
+        [videoComposition3 setInstructions:v14];
 
         goto LABEL_49;
       }
     }
   }
 
-  v13 = JFXLog_playback();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = JFXLog_playback();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     [JFXComposition rebuildCompositionInstructionsForVideoStillTitleCard:];
   }
@@ -2013,7 +2014,7 @@ LABEL_20:
       clipsDataSource2 = [(JFXComposition *)self clipsDataSource];
       v9 = [clipsDataSource2 playableElementAtIndex:v7];
 
-      [(JFXComposition *)self timeRangeForClip:v9];
+      objc_msgSend_timeRangeForClip_(self);
       time = *time;
       if (CMTimeRangeContainsTime(&range, &time))
       {
@@ -2178,7 +2179,7 @@ LABEL_20:
   if (avComposition)
   {
     v7 = avComposition;
-    [avComposition duration];
+    objc_msgSend_duration(avComposition);
     avComposition = v7;
   }
 
@@ -2472,7 +2473,7 @@ LABEL_9:
 {
   v6 = a4;
   presentationTime = [v6 presentationTime];
-  duration = [v6 duration];
+  v8 = objc_msgSend_duration(v6);
 
   *&retstr->var0.var3 = 0u;
   *&retstr->var1.var1 = 0u;
@@ -2481,7 +2482,7 @@ LABEL_9:
   clipsDataSource = [(JFXComposition *)self clipsDataSource];
   CMTimeMake(&start, v9, [clipsDataSource timeScale]);
   clipsDataSource2 = [(JFXComposition *)self clipsDataSource];
-  CMTimeMake(&v13, duration, [clipsDataSource2 timeScale]);
+  CMTimeMake(&v13, v8, [clipsDataSource2 timeScale]);
   CMTimeRangeMake(retstr, &start, &v13);
 
   return result;
@@ -2506,7 +2507,7 @@ LABEL_9:
   nextClipCopy = nextClip;
   mediaStartOffset = [nextClipCopy mediaStartOffset];
   mediaStartOffset2 = [clipCopy mediaStartOffset];
-  if (mediaStartOffset == [clipCopy duration] + mediaStartOffset2)
+  if (mediaStartOffset == objc_msgSend_duration(clipCopy) + mediaStartOffset2)
   {
     mediaItem = [clipCopy mediaItem];
     mediaItem2 = [nextClipCopy mediaItem];
@@ -2563,7 +2564,7 @@ LABEL_9:
     }
   }
 
-  [(JFXComposition *)self timeRangeForClip:v26];
+  objc_msgSend_timeRangeForClip_(self);
   liveTransformClip2 = [(JFXComposition *)self liveTransformClip];
   if (liveTransformClip2)
   {
@@ -2719,7 +2720,7 @@ void __115__JFXComposition_newInstructionGraphNodeForClip_clipTransform_composit
 {
   videoCompositionInstructions = [self videoCompositionInstructions];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "VideoComp:\n%@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "VideoComp:\n%@", v4, v5, v6, v7);
 }
 
 - (void)newInstructionGraphNodeForClip:clipTransform:compositionTrackID:requiresTweening:isContainedClip:.cold.1()

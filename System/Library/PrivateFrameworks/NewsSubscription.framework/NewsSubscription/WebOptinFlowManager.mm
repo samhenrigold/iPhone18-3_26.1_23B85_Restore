@@ -17,11 +17,12 @@
   v4 = *(&self->super.isa + OBJC_IVAR____TtC16NewsSubscription19WebOptinFlowManager_postUpsellAction);
   if (v4)
   {
+    v5 = *&self->appConfigurationManager[OBJC_IVAR____TtC16NewsSubscription19WebOptinFlowManager_postUpsellAction];
     selfCopy = self;
-    v6 = sub_1D776AC18(v4);
-    v4(v6);
+    v7 = sub_1D776AC18(v4, v5);
+    v4(v7);
 
-    sub_1D7744A7C(v4);
+    sub_1D7744A7C(v4, v5);
   }
 }
 

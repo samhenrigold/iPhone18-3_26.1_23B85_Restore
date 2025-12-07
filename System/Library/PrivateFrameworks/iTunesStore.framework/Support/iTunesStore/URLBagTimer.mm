@@ -91,10 +91,10 @@
     {
       v5 = [(NSString *)self->_identifier stringByAppendingString:@".cell"];
       xpc_activity_unregister([v5 UTF8String]);
-      v16 = [(NSString *)self->_identifier stringByAppendingString:@".wifi"];
+      v15 = [(NSString *)self->_identifier stringByAppendingString:@".wifi"];
 
-      v6 = v16;
-      xpc_activity_unregister([v16 UTF8String]);
+      v6 = v15;
+      xpc_activity_unregister([v15 UTF8String]);
 
       return;
     }
@@ -108,16 +108,21 @@
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
     oSLogObject = [v7 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -126,27 +131,26 @@
     {
       v11 = objc_opt_class();
       identifier = self->_identifier;
-      v17 = 138412546;
-      v18 = v11;
-      v19 = 2112;
-      v20 = identifier;
+      v16 = 138412546;
+      v17 = v11;
+      v18 = 2112;
+      v19 = identifier;
       v13 = v11;
-      LODWORD(v15) = 22;
-      v14 = _os_log_send_and_compose_impl();
+      v14 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Unable to invalidate due to lack of identifier: %@", &v16, 22);
 
       if (!v14)
       {
-LABEL_19:
+LABEL_20:
 
         return;
       }
 
-      oSLogObject = [NSString stringWithCString:v14 encoding:4, &v17, v15];
+      oSLogObject = [NSString stringWithCString:v14 encoding:4];
       free(v14);
       SSFileLog();
     }
 
-    goto LABEL_19;
+    goto LABEL_20;
   }
 }
 
@@ -171,10 +175,10 @@ LABEL_19:
       [(URLBagTimer *)self _resetBackgroundTaskJobs];
       if (!v5)
       {
-        goto LABEL_21;
+        goto LABEL_22;
       }
 
-      goto LABEL_20;
+      goto LABEL_21;
     }
 
     v11 = +[SSLogConfig sharedDaemonConfig];
@@ -186,16 +190,21 @@ LABEL_19:
     shouldLog = [v11 shouldLog];
     if ([v11 shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      LODWORD(v13) = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      LODWORD(v13) = shouldLog;
     }
 
     oSLogObject = [v11 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
@@ -204,36 +213,35 @@ LABEL_19:
     {
       v15 = objc_opt_class();
       identifier = self->_identifier;
-      *v20 = 138412546;
-      *&v20[4] = v15;
-      *&v20[12] = 2112;
-      *&v20[14] = identifier;
+      v19 = 138412546;
+      v20 = v15;
+      v21 = 2112;
+      v22 = identifier;
       v17 = v15;
-      LODWORD(v19) = 22;
-      v18 = _os_log_send_and_compose_impl();
+      v18 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Firing timer for start: %@", &v19, 22);
 
       if (!v18)
       {
-        goto LABEL_19;
+        goto LABEL_20;
       }
 
-      oSLogObject = [NSString stringWithCString:v18 encoding:4, v20, v19, *v20, *&v20[16]];
+      oSLogObject = [NSString stringWithCString:v18 encoding:4];
       free(v18);
       SSFileLog();
     }
 
-LABEL_19:
+LABEL_20:
     [(URLBagTimer *)self _fireTimer];
     if (!v5)
     {
-LABEL_21:
+LABEL_22:
       CFRelease(_userDefaultsKeyLastTimeCheck);
       return;
     }
 
-LABEL_20:
+LABEL_21:
     CFRelease(v5);
-    goto LABEL_21;
+    goto LABEL_22;
   }
 }
 
@@ -269,41 +277,45 @@ LABEL_20:
   shouldLog = [v14 shouldLog];
   if ([v14 shouldLogToDisk])
   {
-    v16 = shouldLog | 2;
+    LODWORD(v16) = shouldLog | 2;
   }
 
   else
   {
-    v16 = shouldLog;
+    LODWORD(v16) = shouldLog;
   }
 
   oSLogObject = [v14 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v16 = v16;
+  }
+
+  else
   {
     v16 &= 2u;
   }
 
   if (!v16)
   {
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  *v22 = 138412802;
-  *&v22[4] = objc_opt_class();
-  *&v22[12] = 2112;
-  *&v22[14] = v13;
-  *&v22[22] = 2112;
-  v23 = dateCopy;
-  v18 = *&v22[4];
-  LODWORD(v21) = 32;
-  v19 = _os_log_send_and_compose_impl();
+  v21 = 138412802;
+  v22 = objc_opt_class();
+  v23 = 2112;
+  v24 = v13;
+  v25 = 2112;
+  v26 = dateCopy;
+  v18 = v22;
+  v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Schedule timer: %@ to fire at: %@", &v21, 32);
 
   if (v19)
   {
-    oSLogObject = [NSString stringWithCString:v19 encoding:4, v22, v21, *v22, *&v22[16], v23];
+    oSLogObject = [NSString stringWithCString:v19 encoding:4];
     free(v19);
     SSFileLog();
-LABEL_14:
+LABEL_15:
   }
 
   v20 = +[Daemon daemon];
@@ -322,21 +334,21 @@ LABEL_14:
     {
       if ((SSNetworkTypeIsCellularType() & 1) == 0)
       {
-LABEL_21:
+LABEL_22:
         [(URLBagTimer *)self _resetBackgroundTaskJobs];
-        goto LABEL_22;
+        goto LABEL_23;
       }
     }
 
     else if (![nameCopy hasSuffix:@"wifi"] || networkType != 1000)
     {
-      goto LABEL_21;
+      goto LABEL_22;
     }
 
     preconditionsBlock = self->_preconditionsBlock;
     if (preconditionsBlock && !preconditionsBlock[2]())
     {
-      goto LABEL_21;
+      goto LABEL_22;
     }
 
     v9 = +[SSLogConfig sharedDaemonConfig];
@@ -348,47 +360,51 @@ LABEL_21:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
     oSLogObject = [v9 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
 
     if (v11)
     {
-      *v16 = 138412546;
-      *&v16[4] = objc_opt_class();
-      *&v16[12] = 2112;
-      *&v16[14] = nameCopy;
-      v13 = *&v16[4];
-      LODWORD(v15) = 22;
-      v14 = _os_log_send_and_compose_impl();
+      v15 = 138412546;
+      v16 = objc_opt_class();
+      v17 = 2112;
+      v18 = nameCopy;
+      v13 = v16;
+      v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Firing background timer: %@", &v15, 22);
 
       if (!v14)
       {
-LABEL_20:
+LABEL_21:
 
         [(URLBagTimer *)self _fireTimer];
-        goto LABEL_22;
+        goto LABEL_23;
       }
 
-      oSLogObject = [NSString stringWithCString:v14 encoding:4, v16, v15, *v16, *&v16[16]];
+      oSLogObject = [NSString stringWithCString:v14 encoding:4];
       free(v14);
       SSFileLog();
     }
 
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
-LABEL_22:
+LABEL_23:
 }
 
 - (void)_fireTimer

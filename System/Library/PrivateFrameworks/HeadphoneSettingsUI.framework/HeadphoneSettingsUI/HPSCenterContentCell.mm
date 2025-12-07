@@ -11,7 +11,7 @@
 {
   MEMORY[0x1E69E5928](specifier);
   MEMORY[0x1E69E5928](self);
-  sub_1AC281B44();
+  sub_1AC281B44(specifier);
   MEMORY[0x1E69E5920](self);
   MEMORY[0x1E69E5920](specifier);
 }

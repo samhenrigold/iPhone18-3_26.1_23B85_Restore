@@ -4,6 +4,7 @@
 + (id)defaultBiomeStreamLogger;
 - (ATXBlendingBiomeStreamLogger)initWithBookmark:(id)bookmark tracker:(id)tracker dataStoreWrapper:(id)wrapper;
 - (NSString)abGroup;
+- (id)_anchorModelEngagementMetricFromAnchorPrediction:(id)prediction proactiveSuggestion:(id)suggestion feedbackMetadata:(id)metadata engagementType:(int)type consumerSubType:(id)subType completedSession:(id)session;
 - (id)_blendingModelPublisher;
 - (id)_clientModelPublisher;
 - (id)_loggerContextPublisherWithPublisher:(id)publisher;
@@ -12,6 +13,8 @@
 - (unsigned)_ensureWidgetsInStackBetweenZeroAndTen:(unint64_t)ten;
 - (void)_logCacheAgeMetricEventWithCacheAge:(double)age clientModelId:(id)id;
 - (void)_logClientModelsIncludedInHomeScreenLayoutWithSuggestionLayout:(id)layout consumerSubType:(unsigned __int8)type;
+- (void)_logLayoutSelectedWithSpotlightSuggestionLayout:(id)layout consumerSubType:(unsigned __int8)type;
+- (void)_logLayoutSelectedWithSuggestionLayout:(id)layout consumerSubType:(unsigned __int8)type;
 - (void)_logUnaggregatedAnchorModelEngagementMetric:(id)metric;
 - (void)handleBlendingModelCacheUpdateEvent:(id)event loggerContext:(id)context;
 - (void)handleClientModelCacheUpdateEvent:(id)event loggerContext:(id)context;
@@ -113,92 +116,91 @@
 
 - (void)logBlendingMetricsFromBiomeStream
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   mergedSessionEventWithContextPublisher = [(ATXBlendingBiomeStreamLogger *)self mergedSessionEventWithContextPublisher];
   sel_getName(a2);
   v5 = os_transaction_create();
   v6 = dispatch_semaphore_create(0);
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 0;
-  objc_initWeak(&location, self);
-  v7 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
+  inited = objc_initWeak(&location, self);
+  v8 = __atxlog_handle_metrics(inited);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
     bookmark = self->_bookmark;
     *buf = 138412546;
-    v38 = v9;
-    v39 = 2112;
-    v40 = bookmark;
-    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "%@ - starting with bookmark %@", buf, 0x16u);
+    v39 = v10;
+    v40 = 2112;
+    v41 = bookmark;
+    _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "%@ - starting with bookmark %@", buf, 0x16u);
   }
 
   bookmark = [(ATXBMBookmark *)self->_bookmark bookmark];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __65__ATXBlendingBiomeStreamLogger_logBlendingMetricsFromBiomeStream__block_invoke;
-  v28[3] = &unk_27859EA00;
-  objc_copyWeak(&v31, &location);
-  v30 = &v33;
-  v12 = v6;
-  v29 = v12;
-  v22 = MEMORY[0x277D85DD0];
-  v23 = 3221225472;
-  v24 = __65__ATXBlendingBiomeStreamLogger_logBlendingMetricsFromBiomeStream__block_invoke_31;
-  v25 = &unk_27859EA28;
-  objc_copyWeak(&v27, &location);
-  v26 = &v33;
-  v13 = [mergedSessionEventWithContextPublisher sinkWithBookmark:bookmark completion:v28 receiveInput:&v22];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __65__ATXBlendingBiomeStreamLogger_logBlendingMetricsFromBiomeStream__block_invoke;
+  v29[3] = &unk_27859EA00;
+  objc_copyWeak(&v32, &location);
+  v31 = &v34;
+  v13 = v6;
+  v30 = v13;
+  v23 = MEMORY[0x277D85DD0];
+  v24 = 3221225472;
+  v25 = __65__ATXBlendingBiomeStreamLogger_logBlendingMetricsFromBiomeStream__block_invoke_31;
+  v26 = &unk_27859EA28;
+  objc_copyWeak(&v28, &location);
+  v27 = &v34;
+  v14 = [mergedSessionEventWithContextPublisher sinkWithBookmark:bookmark completion:v29 receiveInput:&v23];
 
-  if ([MEMORY[0x277D425A0] waitForSemaphore:v12 timeoutSeconds:{2.0, v22, v23, v24, v25}] == 1)
+  v15 = [MEMORY[0x277D425A0] waitForSemaphore:v13 timeoutSeconds:{2.0, v23, v24, v25, v26}];
+  if (v15 == 1)
   {
-    v14 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = __atxlog_handle_metrics(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
       *buf = 138412290;
-      v38 = v16;
-      _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "%@ - event processing timeout", buf, 0xCu);
+      v39 = v18;
+      _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "%@ - event processing timeout", buf, 0xCu);
     }
   }
 
   else
   {
-    v17 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = __atxlog_handle_metrics(v15);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
-      v20 = v34[3];
+      v20 = objc_opt_class();
+      v21 = NSStringFromClass(v20);
+      v22 = v35[3];
       *buf = 138412546;
-      v38 = v19;
-      v39 = 2048;
-      v40 = v20;
-      _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_DEFAULT, "%@ - processed %ld events", buf, 0x16u);
+      v39 = v21;
+      v40 = 2048;
+      v41 = v22;
+      _os_log_impl(&dword_2263AA000, v19, OS_LOG_TYPE_DEFAULT, "%@ - processed %ld events", buf, 0x16u);
     }
 
-    if (v34[3] >= 1)
+    if (v35[3] >= 1)
     {
       [(ATXBlendingBiomeStreamLogger *)self persistContext];
     }
   }
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v28);
 
-  objc_destroyWeak(&v31);
+  objc_destroyWeak(&v32);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&v33, 8);
-
-  v21 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v34, 8);
 }
 
 void __65__ATXBlendingBiomeStreamLogger_logBlendingMetricsFromBiomeStream__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v6 = WeakRetained;
@@ -207,15 +209,14 @@ void __65__ATXBlendingBiomeStreamLogger_logBlendingMetricsFromBiomeStream__block
     if (*(*(*(a1 + 40) + 8) + 24) >= 1)
     {
       [WeakRetained[8] flushEventBuffers];
-      [v6[9] flushEventBuffers];
-      v7 = __atxlog_handle_metrics();
+      v7 = __atxlog_handle_metrics([v6[9] flushEventBuffers]);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = objc_opt_class();
         v9 = NSStringFromClass(v8);
-        v15 = 138412290;
-        v16 = v9;
-        _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "%@ - obtained new bookmark", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = v9;
+        _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "%@ - obtained new bookmark", &v14, 0xCu);
       }
 
       v10 = objc_alloc(MEMORY[0x277CEBBF8]);
@@ -227,8 +228,6 @@ void __65__ATXBlendingBiomeStreamLogger_logBlendingMetricsFromBiomeStream__block
 
     dispatch_semaphore_signal(*(a1 + 32));
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __65__ATXBlendingBiomeStreamLogger_logBlendingMetricsFromBiomeStream__block_invoke_31(uint64_t a1, void *a2)
@@ -281,43 +280,39 @@ LABEL_10:
 
 - (void)persistContext
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   bookmark = self->_bookmark;
-  v10 = 0;
-  [(ATXBMBookmark *)bookmark saveBookmarkWithError:&v10];
-  v4 = v10;
-  v5 = __atxlog_handle_metrics();
+  v9 = 0;
+  [(ATXBMBookmark *)bookmark saveBookmarkWithError:&v9];
+  v4 = v9;
+  v5 = __atxlog_handle_metrics(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     urlPath = [(ATXBMBookmark *)self->_bookmark urlPath];
     *buf = 138412802;
-    v12 = v7;
-    v13 = 2112;
-    v14 = urlPath;
-    v15 = 2112;
-    v16 = v4;
+    v11 = v7;
+    v12 = 2112;
+    v13 = urlPath;
+    v14 = 2112;
+    v15 = v4;
     _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%@ - persisted bookmark to path %@ with error: %@", buf, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mergedSessionEventWithContextPublisher
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   _clientModelPublisher = [(ATXBlendingBiomeStreamLogger *)self _clientModelPublisher];
   _blendingModelPublisher = [(ATXBlendingBiomeStreamLogger *)self _blendingModelPublisher];
   _uiPublisher = [(ATXBlendingBiomeStreamLogger *)self _uiPublisher];
-  v11[0] = _blendingModelPublisher;
-  v11[1] = _uiPublisher;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[0] = _blendingModelPublisher;
+  v10[1] = _uiPublisher;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v7 = [(ATXBlendingBiomeStreamLogger *)self _timeBasedMergePublisher:_clientModelPublisher withOtherPublishers:v6];
 
   v8 = [(ATXBlendingBiomeStreamLogger *)self _loggerContextPublisherWithPublisher:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -442,7 +437,7 @@ ATXBlendingBiomeStreamLoggerContextWrapper *__69__ATXBlendingBiomeStreamLogger__
 
   else
   {
-    v9 = __atxlog_handle_metrics();
+    v9 = __atxlog_handle_metrics(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __69__ATXBlendingBiomeStreamLogger__loggerContextPublisherWithPublisher___block_invoke_cold_1(v9);
@@ -569,205 +564,196 @@ LABEL_14:
   while (v13);
 LABEL_16:
 
-  v21 = __atxlog_handle_metrics();
+  v22 = __atxlog_handle_metrics(v21);
   contextCopy = v23;
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
     [ATXBlendingBiomeStreamLogger tryLogSingleSuggestionSessionMetricsWithLoggerContext:v23];
   }
 
 LABEL_19:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logScreenUnlockSessionsIfPossibleWithLoggerContext:(id)context
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   screenLogUnlockSessionContext = [context screenLogUnlockSessionContext];
   unlockSessionManager = [screenLogUnlockSessionContext unlockSessionManager];
   removeCompletedSessions = [unlockSessionManager removeCompletedSessions];
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   v7 = removeCompletedSessions;
-  v8 = [v7 countByEnumeratingWithState:&v58 objects:v78 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v57 objects:v77 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v59;
-    v12 = off_278593000;
+    v11 = *v58;
     *&v9 = 138413826;
-    v52 = v9;
+    v51 = v9;
     selfCopy = self;
-    v55 = *v59;
-    v56 = v7;
+    v54 = *v58;
+    v55 = v7;
     do
     {
-      v13 = 0;
-      v57 = v10;
+      v12 = 0;
+      v56 = v10;
       do
       {
-        if (*v59 != v11)
+        if (*v58 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v58 + 1) + 8 * v13);
-        sessionEndDate = [v14 sessionEndDate];
-        sessionStartDate = [v14 sessionStartDate];
+        v13 = *(*(&v57 + 1) + 8 * v12);
+        sessionEndDate = [v13 sessionEndDate];
+        sessionStartDate = [v13 sessionStartDate];
         [sessionEndDate timeIntervalSinceDate:sessionStartDate];
-        v18 = v17;
+        v17 = v16;
 
-        v19 = fmax(v18, 0.0);
-        if (v19 >= 0x64)
+        v18 = fmax(v17, 0.0);
+        if (v18 >= 0x64)
         {
-          v19 = 100 * (v19 / 0x64);
+          v18 = 100 * (v18 / 0x64);
         }
 
-        v20 = v12[364];
-        v21 = objc_opt_new();
-        [v21 setSessionLengthInSeconds:v19];
-        [v21 setSpotlightEnabled:{objc_msgSend(v14, "spotlightEnabled")}];
-        [v21 setAppLibraryEnabled:{objc_msgSend(v14, "appLibraryEnabled")}];
-        [v21 setSuggestionsWidgetEnabled:{objc_msgSend(v14, "hasSuggestionsWidget")}];
-        [v21 setSuggestionsWidgetTodayPageEnabled:{objc_msgSend(v14, "hasSuggestionsWidgetInTodayPage")}];
-        [v21 setAppPredictionPanelEnabled:{objc_msgSend(v14, "hasAppPredictionPanel")}];
-        [v21 setAppPredictionPanelTodayPageEnabled:{objc_msgSend(v14, "hasAppPredictionPanelInTodayPage")}];
-        [v21 setNumEngagementsInSpotlightApps:{objc_msgSend(v14, "numEngagementsInSpotlightApps")}];
-        [v21 setNumEngagementsInSpotlightActions:{objc_msgSend(v14, "numEngagementsInSpotlightActions")}];
-        [v21 setNumEngagementsInSuggestionsWidget:{objc_msgSend(v14, "numEngagementsInSuggestionsWidget")}];
-        [v21 setNumEngagementsInSuggestionsWidgetTodayPage:{objc_msgSend(v14, "numEngagementsInSuggestionsWidgetTodayPage")}];
-        [v21 setNumEngagementsInAppPredictionPanel:{objc_msgSend(v14, "numEngagementsInAppPredictionPanel")}];
-        [v21 setNumEngagementsInAppPredictionPanelTodayPage:{objc_msgSend(v14, "numEngagementsInAppPredictionPanelTodayPage")}];
-        [v21 setNumEngagementsInAppLibrary:{objc_msgSend(v14, "numEngagementsInAppLibrary")}];
-        [v21 setSpotlightAppsViewed:{objc_msgSend(v14, "numViewsInSpotlightApps") != 0}];
-        [v21 setSpotlightActionsViewed:{objc_msgSend(v14, "numViewsInSpotlightActions") != 0}];
-        [v21 setSuggestionsWidgetViewed:{objc_msgSend(v14, "numViewsInSuggestionsWidget") != 0}];
-        [v21 setAppPredictionPanelViewed:{objc_msgSend(v14, "numViewsInAppPredictionPanel") != 0}];
-        [v21 setAppLibraryViewed:{objc_msgSend(v14, "numViewsInAppLibrary") != 0}];
-        [v21 setAppPredictionPanelTodayPageViewed:{objc_msgSend(v14, "numViewsInAppPredictionPanelTodayPage") != 0}];
-        [v21 setSuggestionsWidgetTodayPageViewed:{objc_msgSend(v14, "numViewsInSuggestionsWidgetTodayPage") != 0}];
-        [(ATXPETEventTracker2Protocol *)self->_tracker logMessage:v21];
-        v22 = __atxlog_handle_metrics();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+        v19 = objc_opt_new();
+        [v19 setSessionLengthInSeconds:v18];
+        [v19 setSpotlightEnabled:{objc_msgSend(v13, "spotlightEnabled")}];
+        [v19 setAppLibraryEnabled:{objc_msgSend(v13, "appLibraryEnabled")}];
+        [v19 setSuggestionsWidgetEnabled:{objc_msgSend(v13, "hasSuggestionsWidget")}];
+        [v19 setSuggestionsWidgetTodayPageEnabled:{objc_msgSend(v13, "hasSuggestionsWidgetInTodayPage")}];
+        [v19 setAppPredictionPanelEnabled:{objc_msgSend(v13, "hasAppPredictionPanel")}];
+        [v19 setAppPredictionPanelTodayPageEnabled:{objc_msgSend(v13, "hasAppPredictionPanelInTodayPage")}];
+        [v19 setNumEngagementsInSpotlightApps:{objc_msgSend(v13, "numEngagementsInSpotlightApps")}];
+        [v19 setNumEngagementsInSpotlightActions:{objc_msgSend(v13, "numEngagementsInSpotlightActions")}];
+        [v19 setNumEngagementsInSuggestionsWidget:{objc_msgSend(v13, "numEngagementsInSuggestionsWidget")}];
+        [v19 setNumEngagementsInSuggestionsWidgetTodayPage:{objc_msgSend(v13, "numEngagementsInSuggestionsWidgetTodayPage")}];
+        [v19 setNumEngagementsInAppPredictionPanel:{objc_msgSend(v13, "numEngagementsInAppPredictionPanel")}];
+        [v19 setNumEngagementsInAppPredictionPanelTodayPage:{objc_msgSend(v13, "numEngagementsInAppPredictionPanelTodayPage")}];
+        [v19 setNumEngagementsInAppLibrary:{objc_msgSend(v13, "numEngagementsInAppLibrary")}];
+        [v19 setSpotlightAppsViewed:{objc_msgSend(v13, "numViewsInSpotlightApps") != 0}];
+        [v19 setSpotlightActionsViewed:{objc_msgSend(v13, "numViewsInSpotlightActions") != 0}];
+        [v19 setSuggestionsWidgetViewed:{objc_msgSend(v13, "numViewsInSuggestionsWidget") != 0}];
+        [v19 setAppPredictionPanelViewed:{objc_msgSend(v13, "numViewsInAppPredictionPanel") != 0}];
+        [v19 setAppLibraryViewed:{objc_msgSend(v13, "numViewsInAppLibrary") != 0}];
+        [v19 setAppPredictionPanelTodayPageViewed:{objc_msgSend(v13, "numViewsInAppPredictionPanelTodayPage") != 0}];
+        [v19 setSuggestionsWidgetTodayPageViewed:{objc_msgSend(v13, "numViewsInSuggestionsWidgetTodayPage") != 0}];
+        v20 = __atxlog_handle_metrics([(ATXPETEventTracker2Protocol *)self->_tracker logMessage:v19]);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           v25 = objc_opt_class();
           v26 = NSStringFromClass(v25);
-          sessionLengthInSeconds = [v21 sessionLengthInSeconds];
-          numEngagementsInSpotlightApps = [v21 numEngagementsInSpotlightApps];
-          numEngagementsInSpotlightActions = [v21 numEngagementsInSpotlightActions];
-          numEngagementsInSuggestionsWidget = [v21 numEngagementsInSuggestionsWidget];
-          numEngagementsInSuggestionsWidgetTodayPage = [v21 numEngagementsInSuggestionsWidgetTodayPage];
-          numEngagementsInAppPredictionPanel = [v21 numEngagementsInAppPredictionPanel];
-          numEngagementsInAppPredictionPanelTodayPage = [v21 numEngagementsInAppPredictionPanelTodayPage];
-          numEngagementsInAppLibrary = [v21 numEngagementsInAppLibrary];
+          sessionLengthInSeconds = [v19 sessionLengthInSeconds];
+          numEngagementsInSpotlightApps = [v19 numEngagementsInSpotlightApps];
+          numEngagementsInSpotlightActions = [v19 numEngagementsInSpotlightActions];
+          numEngagementsInSuggestionsWidget = [v19 numEngagementsInSuggestionsWidget];
+          numEngagementsInSuggestionsWidgetTodayPage = [v19 numEngagementsInSuggestionsWidgetTodayPage];
+          numEngagementsInAppPredictionPanel = [v19 numEngagementsInAppPredictionPanel];
+          numEngagementsInAppPredictionPanelTodayPage = [v19 numEngagementsInAppPredictionPanelTodayPage];
+          numEngagementsInAppLibrary = [v19 numEngagementsInAppLibrary];
           *buf = 138414338;
-          v63 = v26;
-          v64 = 1024;
-          v65 = sessionLengthInSeconds;
-          v66 = 2048;
-          *v67 = numEngagementsInSpotlightApps;
-          *&v67[8] = 2048;
-          v68 = numEngagementsInSpotlightActions;
-          v11 = v55;
-          v7 = v56;
-          *v69 = 2048;
-          *&v69[2] = numEngagementsInSuggestionsWidget;
-          v12 = off_278593000;
-          v70 = 2048;
-          v71 = numEngagementsInSuggestionsWidgetTodayPage;
-          v72 = 2048;
-          v73 = numEngagementsInAppPredictionPanel;
+          v62 = v26;
+          v63 = 1024;
+          v64 = sessionLengthInSeconds;
+          v65 = 2048;
+          *v66 = numEngagementsInSpotlightApps;
+          *&v66[8] = 2048;
+          v67 = numEngagementsInSpotlightActions;
+          v11 = v54;
+          v7 = v55;
+          *v68 = 2048;
+          *&v68[2] = numEngagementsInSuggestionsWidget;
+          v69 = 2048;
+          v70 = numEngagementsInSuggestionsWidgetTodayPage;
+          v71 = 2048;
+          v72 = numEngagementsInAppPredictionPanel;
           self = selfCopy;
-          v74 = 2048;
-          v75 = numEngagementsInAppPredictionPanelTodayPage;
-          v10 = v57;
-          v76 = 2048;
-          v77 = numEngagementsInAppLibrary;
-          _os_log_debug_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBScreenLogUnlockSessionTracker with sessionLengthInSeconds: %u, spotlightAppEngagements: %lu, spotlightActionEngagements: %lu, suggestionsWidgetEngagements: %lu, suggestionsWidgetTodayPageEngagements: %lu appPredictionPanelEngagements: %lu, appPredictionPanelTodayPageEngagements: %lu, appLibraryEngagements: %lu", buf, 0x58u);
+          v73 = 2048;
+          v74 = numEngagementsInAppPredictionPanelTodayPage;
+          v10 = v56;
+          v75 = 2048;
+          v76 = numEngagementsInAppLibrary;
+          _os_log_debug_impl(&dword_2263AA000, v20, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBScreenLogUnlockSessionTracker with sessionLengthInSeconds: %u, spotlightAppEngagements: %lu, spotlightActionEngagements: %lu, suggestionsWidgetEngagements: %lu, suggestionsWidgetTodayPageEngagements: %lu appPredictionPanelEngagements: %lu, appPredictionPanelTodayPageEngagements: %lu, appLibraryEngagements: %lu", buf, 0x58u);
         }
 
-        v23 = __atxlog_handle_metrics();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v22 = __atxlog_handle_metrics(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           v34 = objc_opt_class();
           v35 = NSStringFromClass(v34);
-          spotlightAppsViewed = [v21 spotlightAppsViewed];
-          spotlightActionsViewed = [v21 spotlightActionsViewed];
-          suggestionsWidgetViewed = [v21 suggestionsWidgetViewed];
-          suggestionsWidgetTodayPageViewed = [v21 suggestionsWidgetTodayPageViewed];
-          appPredictionPanelViewed = [v21 appPredictionPanelViewed];
-          appPredictionPanelTodayPageViewed = [v21 appPredictionPanelTodayPageViewed];
-          appLibraryViewed = [v21 appLibraryViewed];
+          spotlightAppsViewed = [v19 spotlightAppsViewed];
+          spotlightActionsViewed = [v19 spotlightActionsViewed];
+          suggestionsWidgetViewed = [v19 suggestionsWidgetViewed];
+          suggestionsWidgetTodayPageViewed = [v19 suggestionsWidgetTodayPageViewed];
+          appPredictionPanelViewed = [v19 appPredictionPanelViewed];
+          appPredictionPanelTodayPageViewed = [v19 appPredictionPanelTodayPageViewed];
+          appLibraryViewed = [v19 appLibraryViewed];
           *buf = 138414082;
-          v63 = v35;
-          v64 = 1024;
-          v65 = spotlightAppsViewed;
-          v66 = 1024;
-          *v67 = spotlightActionsViewed;
-          *&v67[4] = 1024;
-          *&v67[6] = suggestionsWidgetViewed;
-          LOWORD(v68) = 1024;
-          *(&v68 + 2) = suggestionsWidgetTodayPageViewed;
-          v12 = off_278593000;
-          HIWORD(v68) = 1024;
-          *v69 = appPredictionPanelViewed;
+          v62 = v35;
+          v63 = 1024;
+          v64 = spotlightAppsViewed;
+          v65 = 1024;
+          *v66 = spotlightActionsViewed;
+          *&v66[4] = 1024;
+          *&v66[6] = suggestionsWidgetViewed;
+          LOWORD(v67) = 1024;
+          *(&v67 + 2) = suggestionsWidgetTodayPageViewed;
+          HIWORD(v67) = 1024;
+          *v68 = appPredictionPanelViewed;
           self = selfCopy;
-          v11 = v55;
-          *&v69[4] = 1024;
-          *&v69[6] = appPredictionPanelTodayPageViewed;
-          v7 = v56;
-          v10 = v57;
-          v70 = 1024;
-          LODWORD(v71) = appLibraryViewed;
-          _os_log_debug_impl(&dword_2263AA000, v23, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBScreenLogUnlockSessionTracker (continued) with spotlightAppsViewed: %u, spotlightActionsViewed: %u, suggestionsWidgetViewed: %u, suggestionsWidgetTodayPageViewed: %u appPredictionPanelViewed: %u, appPredictionPanelTodayPageViewed: %u, appLibraryViewed: %u", buf, 0x36u);
+          v11 = v54;
+          *&v68[4] = 1024;
+          *&v68[6] = appPredictionPanelTodayPageViewed;
+          v7 = v55;
+          v10 = v56;
+          v69 = 1024;
+          LODWORD(v70) = appLibraryViewed;
+          _os_log_debug_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBScreenLogUnlockSessionTracker (continued) with spotlightAppsViewed: %u, spotlightActionsViewed: %u, suggestionsWidgetViewed: %u, suggestionsWidgetTodayPageViewed: %u appPredictionPanelViewed: %u, appPredictionPanelTodayPageViewed: %u, appLibraryViewed: %u", buf, 0x36u);
         }
 
-        v24 = __atxlog_handle_metrics();
+        v24 = __atxlog_handle_metrics(v23);
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
           v43 = objc_opt_class();
           v44 = NSStringFromClass(v43);
-          spotlightEnabled = [v21 spotlightEnabled];
-          appLibraryEnabled = [v21 appLibraryEnabled];
-          suggestionsWidgetEnabled = [v21 suggestionsWidgetEnabled];
-          suggestionsWidgetTodayPageEnabled = [v21 suggestionsWidgetTodayPageEnabled];
-          appPredictionPanelEnabled = [v21 appPredictionPanelEnabled];
-          appPredictionPanelTodayPageEnabled = [v21 appPredictionPanelTodayPageEnabled];
-          *buf = v52;
-          v63 = v44;
-          v64 = 1024;
-          v65 = spotlightEnabled;
-          v66 = 1024;
-          *v67 = appLibraryEnabled;
-          v11 = v55;
-          v7 = v56;
-          *&v67[4] = 1024;
-          *&v67[6] = suggestionsWidgetEnabled;
-          v12 = off_278593000;
-          LOWORD(v68) = 1024;
-          *(&v68 + 2) = suggestionsWidgetTodayPageEnabled;
-          v10 = v57;
-          HIWORD(v68) = 1024;
-          *v69 = appPredictionPanelEnabled;
-          *&v69[4] = 1024;
-          *&v69[6] = appPredictionPanelTodayPageEnabled;
+          spotlightEnabled = [v19 spotlightEnabled];
+          appLibraryEnabled = [v19 appLibraryEnabled];
+          suggestionsWidgetEnabled = [v19 suggestionsWidgetEnabled];
+          suggestionsWidgetTodayPageEnabled = [v19 suggestionsWidgetTodayPageEnabled];
+          appPredictionPanelEnabled = [v19 appPredictionPanelEnabled];
+          appPredictionPanelTodayPageEnabled = [v19 appPredictionPanelTodayPageEnabled];
+          *buf = v51;
+          v62 = v44;
+          v63 = 1024;
+          v64 = spotlightEnabled;
+          v65 = 1024;
+          *v66 = appLibraryEnabled;
+          v11 = v54;
+          v7 = v55;
+          *&v66[4] = 1024;
+          *&v66[6] = suggestionsWidgetEnabled;
+          LOWORD(v67) = 1024;
+          *(&v67 + 2) = suggestionsWidgetTodayPageEnabled;
+          v10 = v56;
+          HIWORD(v67) = 1024;
+          *v68 = appPredictionPanelEnabled;
+          *&v68[4] = 1024;
+          *&v68[6] = appPredictionPanelTodayPageEnabled;
           _os_log_debug_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBScreenLogUnlockSessionTracker (continued) with spotlightEnabled: %d, appLibraryEnabled: %d, hasSuggestionsWidgetEnabled: %d, hasSuggestionsWidgetTodayPageEnabled: %d, hasAppPredictionPanelEnabled: %d, hasAppPredictionPanelTodayPageEnabled: %d", buf, 0x30u);
         }
 
-        ++v13;
+        ++v12;
       }
 
-      while (v10 != v13);
-      v10 = [v7 countByEnumeratingWithState:&v58 objects:v78 count:16];
+      while (v10 != v12);
+      v10 = [v7 countByEnumeratingWithState:&v57 objects:v77 count:16];
     }
 
     while (v10);
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logWidgetRotationEngagementMetricsIfPossibleWithLoggerContext:(id)context
@@ -781,13 +767,14 @@ LABEL_19:
   v61 = 0u;
   v62 = 0u;
   obj = removeAllAndReturnCompletedSystemSuggestSessions;
-  v60 = [obj countByEnumeratingWithState:&v61 objects:v85 count:16];
-  if (v60)
+  v6 = [obj countByEnumeratingWithState:&v61 objects:v85 count:16];
+  v60 = v6;
+  if (v6)
   {
     v59 = *v62;
     do
     {
-      v6 = 0;
+      v7 = 0;
       do
       {
         if (*v62 != v59)
@@ -795,168 +782,167 @@ LABEL_19:
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v61 + 1) + 8 * v6);
-        v8 = __atxlog_handle_metrics();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v8 = *(*(&v61 + 1) + 8 * v7);
+        v9 = __atxlog_handle_metrics(v6);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
-          v36 = objc_opt_class();
-          v37 = NSStringFromClass(v36);
+          v38 = objc_opt_class();
+          v39 = NSStringFromClass(v38);
           *buf = 138412546;
-          v66 = v37;
+          v66 = v39;
           v67 = 2112;
-          v68 = v7;
-          _os_log_debug_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEBUG, "%@ - handling completed session: %@", buf, 0x16u);
+          v68 = v8;
+          _os_log_debug_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEBUG, "%@ - handling completed session: %@", buf, 0x16u);
         }
 
-        systemSuggestSuggestionLayout = [v7 systemSuggestSuggestionLayout];
+        systemSuggestSuggestionLayout = [v8 systemSuggestSuggestionLayout];
         if (!systemSuggestSuggestionLayout)
         {
-          v10 = __atxlog_handle_metrics();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+          v11 = __atxlog_handle_metrics(0);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
-            [ATXBlendingBiomeStreamLogger logWidgetRotationEngagementMetricsIfPossibleWithLoggerContext:];
+            [ATXBlendingBiomeStreamLogger logWidgetRotationEngagementMetricsIfPossibleWithLoggerContext:?];
           }
 
           goto LABEL_41;
         }
 
-        v10 = systemSuggestSuggestionLayout;
+        v11 = systemSuggestSuggestionLayout;
         allSuggestionsInLayout = [systemSuggestSuggestionLayout allSuggestionsInLayout];
         firstObject = [allSuggestionsInLayout firstObject];
 
         if (!firstObject)
         {
-          v49 = __atxlog_handle_metrics();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+          v50 = __atxlog_handle_metrics(v14);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
           {
-            [ATXBlendingBiomeStreamLogger logWidgetRotationEngagementMetricsIfPossibleWithLoggerContext:];
+            [ATXBlendingBiomeStreamLogger logWidgetRotationEngagementMetricsIfPossibleWithLoggerContext:?];
           }
 
 LABEL_41:
           goto LABEL_42;
         }
 
-        if ([v7 isNPlusOneRotation])
+        if ([v8 isNPlusOneRotation])
         {
-          v13 = 1;
+          v15 = 1;
         }
 
         else
         {
-          v13 = 2;
+          v15 = 2;
         }
 
-        engagementStatus = [v7 engagementStatus];
+        engagementStatus = [v8 engagementStatus];
         if (engagementStatus > 7)
-        {
-          v15 = 0;
-        }
-
-        else
-        {
-          v15 = dword_226872638[engagementStatus];
-        }
-
-        stackLocation = [v7 stackLocation];
-        if (stackLocation - 1 >= 5)
         {
           v17 = 0;
         }
 
         else
         {
-          v17 = stackLocation;
+          v17 = dword_226872638[engagementStatus];
         }
 
-        v18 = objc_opt_new();
-        v19 = [MEMORY[0x277D420E8] stringFromUILayoutType:{-[NSObject layoutType](v10, "layoutType")}];
-        [v18 setLayoutType:v19];
+        stackLocation = [v8 stackLocation];
+        if (stackLocation - 1 >= 5)
+        {
+          v19 = 0;
+        }
 
-        [v18 setEngagementType:v15];
+        else
+        {
+          v19 = stackLocation;
+        }
+
+        v20 = objc_opt_new();
+        v21 = [MEMORY[0x277D420E8] stringFromUILayoutType:{-[NSObject layoutType](v11, "layoutType")}];
+        [v20 setLayoutType:v21];
+
+        [v20 setEngagementType:v17];
         clientModelSpecification = [firstObject clientModelSpecification];
         clientModelId = [clientModelSpecification clientModelId];
-        [v18 setClientModelId:clientModelId];
+        [v20 setClientModelId:clientModelId];
 
-        v22 = objc_alloc(MEMORY[0x277CCACA8]);
-        widgetBundleId = [v7 widgetBundleId];
-        widgetKind = [v7 widgetKind];
-        v25 = [v22 initWithFormat:@"%@-%@", widgetBundleId, widgetKind];
-        [v18 setWidgetIdentifier:v25];
+        v24 = objc_alloc(MEMORY[0x277CCACA8]);
+        widgetBundleId = [v8 widgetBundleId];
+        widgetKind = [v8 widgetKind];
+        v27 = [v24 initWithFormat:@"%@-%@", widgetBundleId, widgetKind];
+        [v20 setWidgetIdentifier:v27];
 
-        [v18 setSelectionType:v13];
-        v26 = MEMORY[0x277D42090];
+        [v20 setSelectionType:v15];
+        v28 = MEMORY[0x277D42090];
         scoreSpecification = [firstObject scoreSpecification];
-        v28 = [v26 stringForSuggestedConfidenceCategory:{objc_msgSend(scoreSpecification, "suggestedConfidenceCategory")}];
-        [v18 setHighestConfidenceCategory:v28];
+        v30 = [v28 stringForSuggestedConfidenceCategory:{objc_msgSend(scoreSpecification, "suggestedConfidenceCategory")}];
+        [v20 setHighestConfidenceCategory:v30];
 
-        v29 = MEMORY[0x277D42080];
+        v31 = MEMORY[0x277D42080];
         executableSpecification = [firstObject executableSpecification];
-        v31 = [v29 stringForExecutableType:{objc_msgSend(executableSpecification, "executableType")}];
-        [v18 setExecutableType:v31];
+        v33 = [v31 stringForExecutableType:{objc_msgSend(executableSpecification, "executableType")}];
+        [v20 setExecutableType:v33];
 
-        [v18 setStackLocation:v17];
+        [v20 setStackLocation:v19];
         abGroup = [(ATXBlendingBiomeStreamLogger *)self abGroup];
-        [v18 setAbGroup:abGroup];
+        [v20 setAbGroup:abGroup];
 
         clientModelSpecification2 = [firstObject clientModelSpecification];
         clientModelVersion = [clientModelSpecification2 clientModelVersion];
-        [v18 setClientModelABGroup:clientModelVersion];
+        [v20 setClientModelABGroup:clientModelVersion];
 
-        [(ATXPETEventTracker2Protocol *)self->_tracker trackScalarForMessage:v18];
-        v35 = __atxlog_handle_metrics();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+        v37 = __atxlog_handle_metrics([(ATXPETEventTracker2Protocol *)self->_tracker trackScalarForMessage:v20]);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
         {
-          v38 = objc_opt_class();
-          v39 = NSStringFromClass(v38);
-          clientModelId2 = [v18 clientModelId];
-          engagementType = [v18 engagementType];
+          v40 = objc_opt_class();
+          v41 = NSStringFromClass(v40);
+          clientModelId2 = [v20 clientModelId];
+          engagementType = [v20 engagementType];
           if ((engagementType - 1) >= 8)
           {
-            v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", engagementType];
+            v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", engagementType];
           }
 
           else
           {
-            v41 = off_27859EAB8[(engagementType - 1)];
+            v43 = off_27859EAB8[(engagementType - 1)];
           }
 
-          v56 = v41;
-          widgetIdentifier = [v18 widgetIdentifier];
-          highestConfidenceCategory = [v18 highestConfidenceCategory];
-          executableType = [v18 executableType];
-          stackLocation2 = [v18 stackLocation];
+          v56 = v43;
+          widgetIdentifier = [v20 widgetIdentifier];
+          highestConfidenceCategory = [v20 highestConfidenceCategory];
+          executableType = [v20 executableType];
+          stackLocation2 = [v20 stackLocation];
           if (stackLocation2 >= 6)
           {
-            v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", stackLocation2];
+            v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", stackLocation2];
           }
 
           else
           {
-            v45 = off_27859EAF8[stackLocation2];
+            v47 = off_27859EAF8[stackLocation2];
           }
 
-          v54 = v45;
-          abGroup2 = [v18 abGroup];
-          clientModelABGroup = [v18 clientModelABGroup];
-          selectionType = [v18 selectionType];
+          v54 = v47;
+          abGroup2 = [v20 abGroup];
+          clientModelABGroup = [v20 clientModelABGroup];
+          selectionType = [v20 selectionType];
           if (selectionType == 1)
           {
-            v47 = @"NPlusOne";
+            v49 = @"NPlusOne";
           }
 
           else if (selectionType == 2)
           {
-            v47 = @"StackRotation";
+            v49 = @"StackRotation";
           }
 
           else
           {
-            v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", selectionType];
+            v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", selectionType];
           }
 
-          v51 = v47;
+          v51 = v49;
           *buf = 138414594;
-          v66 = v39;
+          v66 = v41;
           v67 = 2112;
           v68 = clientModelId2;
           v69 = 2112;
@@ -974,31 +960,79 @@ LABEL_41:
           v81 = 2112;
           v82 = clientModelABGroup;
           v83 = 2112;
-          v84 = v47;
-          _os_log_debug_impl(&dword_2263AA000, v35, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBBlendingWidgetRotationEngagementTracker with clientModelId: %@ and engagementType: %@ widgetIdentifier: %@ highestConfidenceCategory: %@ executableType: %@ stackLocation: %@ abGroup: %@ clientModelABGroup: %@ selectionType: %@", buf, 0x66u);
+          v84 = v49;
+          _os_log_debug_impl(&dword_2263AA000, v37, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBBlendingWidgetRotationEngagementTracker with clientModelId: %@ and engagementType: %@ widgetIdentifier: %@ highestConfidenceCategory: %@ executableType: %@ stackLocation: %@ abGroup: %@ clientModelABGroup: %@ selectionType: %@", buf, 0x66u);
         }
 
-        ++v6;
+        ++v7;
       }
 
-      while (v60 != v6);
-      v48 = [obj countByEnumeratingWithState:&v61 objects:v85 count:16];
-      v60 = v48;
+      while (v60 != v7);
+      v6 = [obj countByEnumeratingWithState:&v61 objects:v85 count:16];
+      v60 = v6;
     }
 
-    while (v48);
+    while (v6);
   }
 
 LABEL_42:
+}
 
-  v50 = *MEMORY[0x277D85DE8];
+- (id)_anchorModelEngagementMetricFromAnchorPrediction:(id)prediction proactiveSuggestion:(id)suggestion feedbackMetadata:(id)metadata engagementType:(int)type consumerSubType:(id)subType completedSession:(id)session
+{
+  v9 = *&type;
+  sessionCopy = session;
+  subTypeCopy = subType;
+  metadataCopy = metadata;
+  suggestionCopy = suggestion;
+  predictionCopy = prediction;
+  v18 = objc_opt_new();
+  anchorType = [predictionCopy anchorType];
+  [v18 setAnchorType:anchorType];
+
+  [predictionCopy score];
+  [v18 setScore:?];
+  [v18 setNumUniqueOccurrencesAfterAnchor:{objc_msgSend(predictionCopy, "numUniqueOccurrencesAfterAnchor")}];
+  [predictionCopy posteriorProbability];
+  [v18 setPosteriorProbability:?];
+  [predictionCopy classConditionalProbability];
+  [v18 setClassConditionalProbability:?];
+  [predictionCopy standardDeviationOfOffsetFromAnchor];
+  [v18 setStandardDeviationOfOffsetFromAnchor:?];
+  [predictionCopy anchorPopularity];
+  [v18 setAnchorPopularity:?];
+  [predictionCopy globalPopularity];
+  [v18 setGlobalPopularity:?];
+  candidateType = [predictionCopy candidateType];
+  [v18 setCandidateType:candidateType];
+
+  offsetFromAnchorToShowPrediction = [predictionCopy offsetFromAnchorToShowPrediction];
+
+  [offsetFromAnchorToShowPrediction startSecondsAfterAnchor];
+  [v18 setSecondsAfterAnchor:v22];
+
+  numberOfAnchorModelPredictions = [metadataCopy numberOfAnchorModelPredictions];
+  [v18 setNumPredictionsforAnchor:numberOfAnchorModelPredictions];
+  [v18 setEngagementType:v9];
+  [v18 setConsumerSubType:subTypeCopy];
+
+  suggestion = [sessionCopy suggestion];
+
+  clientModelSpecification = [suggestion clientModelSpecification];
+  clientModelVersion = [clientModelSpecification clientModelVersion];
+  [v18 setAbGroup:clientModelVersion];
+
+  genericStringForSuggestionExecutableObject = [suggestionCopy genericStringForSuggestionExecutableObject];
+
+  [v18 setExecutableObject:genericStringForSuggestionExecutableObject];
+
+  return v18;
 }
 
 - (void)_logUnaggregatedAnchorModelEngagementMetric:(id)metric
 {
   metricCopy = metric;
-  [(ATXPETEventTracker2Protocol *)self->_tracker logMessage:metricCopy];
-  v5 = __atxlog_handle_metrics();
+  v5 = __atxlog_handle_metrics([(ATXPETEventTracker2Protocol *)self->_tracker logMessage:metricCopy]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(ATXBlendingBiomeStreamLogger *)self _logUnaggregatedAnchorModelEngagementMetric:metricCopy, v5];
@@ -1128,7 +1162,7 @@ void __84__ATXBlendingBiomeStreamLogger_logAnchorModelEngagementMetricsWithCompl
 
 - (void)logBlendingLayerRefreshMetricWithBlendingModelCacheUpdateEvent:(id)event loggerContext:(id)context
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CEBCF0];
   contextCopy = context;
   eventCopy = event;
@@ -1149,27 +1183,24 @@ void __84__ATXBlendingBiomeStreamLogger_logAnchorModelEngagementMetricsWithCompl
       abGroup = [(ATXBlendingBiomeStreamLogger *)self abGroup];
       [v15 setAbGroup:abGroup];
 
-      [(ATXPETEventTracker2Protocol *)self->_tracker trackDistributionForMessage:v15 value:v14];
-      v17 = __atxlog_handle_metrics();
+      v17 = __atxlog_handle_metrics([(ATXPETEventTracker2Protocol *)self->_tracker trackDistributionForMessage:v15 value:v14]);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        v19 = objc_opt_class();
-        v20 = NSStringFromClass(v19);
+        v18 = objc_opt_class();
+        v19 = NSStringFromClass(v18);
         abGroup2 = [v15 abGroup];
-        v22 = 138413058;
-        v23 = v20;
-        v24 = 2112;
-        v25 = v9;
-        v26 = 2048;
-        v27 = v14;
-        v28 = 2112;
-        v29 = abGroup2;
-        _os_log_debug_impl(&dword_2263AA000, v17, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBBlendingLayerRefreshTracker with consumerSubType: %@ interarrivalTime: %f abGroup: %@", &v22, 0x2Au);
+        v21 = 138413058;
+        v22 = v19;
+        v23 = 2112;
+        v24 = v9;
+        v25 = 2048;
+        v26 = v14;
+        v27 = 2112;
+        v28 = abGroup2;
+        _os_log_debug_impl(&dword_2263AA000, v17, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBBlendingLayerRefreshTracker with consumerSubType: %@ interarrivalTime: %f abGroup: %@", &v21, 0x2Au);
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logLayoutSelectedMetricWithBlendingModelCacheUpdateEvent:(id)event
@@ -1199,20 +1230,20 @@ void __84__ATXBlendingBiomeStreamLogger_logAnchorModelEngagementMetricsWithCompl
       if (v9)
       {
         cachedSuggestionWidgetLayouts = [uiCache4 cachedSuggestionWidgetLayouts];
-        v15[0] = MEMORY[0x277D85DD0];
-        v15[1] = 3221225472;
-        v15[2] = __89__ATXBlendingBiomeStreamLogger_logLayoutSelectedMetricWithBlendingModelCacheUpdateEvent___block_invoke;
-        v15[3] = &unk_27859EA98;
-        v15[4] = self;
-        [cachedSuggestionWidgetLayouts enumerateKeysAndObjectsUsingBlock:v15];
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __89__ATXBlendingBiomeStreamLogger_logLayoutSelectedMetricWithBlendingModelCacheUpdateEvent___block_invoke;
+        v16[3] = &unk_27859EA98;
+        v16[4] = self;
+        [cachedSuggestionWidgetLayouts enumerateKeysAndObjectsUsingBlock:v16];
 
         cachedAppPredictionPanelLayouts = [uiCache3 cachedAppPredictionPanelLayouts];
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 3221225472;
-        v14[2] = __89__ATXBlendingBiomeStreamLogger_logLayoutSelectedMetricWithBlendingModelCacheUpdateEvent___block_invoke_2;
-        v14[3] = &unk_27859EA98;
-        v14[4] = self;
-        [cachedAppPredictionPanelLayouts enumerateKeysAndObjectsUsingBlock:v14];
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __89__ATXBlendingBiomeStreamLogger_logLayoutSelectedMetricWithBlendingModelCacheUpdateEvent___block_invoke_2;
+        v15[3] = &unk_27859EA98;
+        v15[4] = self;
+        [cachedAppPredictionPanelLayouts enumerateKeysAndObjectsUsingBlock:v15];
       }
 
       else
@@ -1228,13 +1259,118 @@ void __84__ATXBlendingBiomeStreamLogger_logAnchorModelEngagementMetricsWithCompl
 
         else
         {
-          uiCache3 = __atxlog_handle_metrics();
+          uiCache3 = __atxlog_handle_metrics(v14);
           if (os_log_type_enabled(uiCache3, OS_LOG_TYPE_FAULT))
           {
             [(ATXBlendingBiomeStreamLogger *)self logLayoutSelectedMetricWithBlendingModelCacheUpdateEvent:eventCopy, uiCache3];
           }
         }
       }
+    }
+  }
+}
+
+- (void)_logLayoutSelectedWithSpotlightSuggestionLayout:(id)layout consumerSubType:(unsigned __int8)type
+{
+  typeCopy = type;
+  highestConfidenceSuggestion = [layout highestConfidenceSuggestion];
+  if (highestConfidenceSuggestion)
+  {
+    v7 = objc_opt_new();
+    v8 = [MEMORY[0x277D420E8] stringFromUILayoutType:11];
+    [v7 setLayoutType:v8];
+
+    v9 = MEMORY[0x277D42090];
+    scoreSpecification = [highestConfidenceSuggestion scoreSpecification];
+    v11 = [v9 stringForSuggestedConfidenceCategory:{objc_msgSend(scoreSpecification, "suggestedConfidenceCategory")}];
+    [v7 setHighestConfidenceCategory:v11];
+
+    clientModelSpecification = [highestConfidenceSuggestion clientModelSpecification];
+    clientModelId = [clientModelSpecification clientModelId];
+    [v7 setHighestRankingClientModelId:clientModelId];
+
+    v14 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:typeCopy];
+    [v7 setConsumerSubType:v14];
+
+    v15 = MEMORY[0x277D42080];
+    executableSpecification = [highestConfidenceSuggestion executableSpecification];
+    v17 = [v15 stringForExecutableType:{objc_msgSend(executableSpecification, "executableType")}];
+    [v7 setExecuableTypeOfHighestRankingSuggestion:v17];
+
+    abGroup = [(ATXBlendingBiomeStreamLogger *)self abGroup];
+    [v7 setAbGroup:abGroup];
+
+    clientModelSpecification2 = [highestConfidenceSuggestion clientModelSpecification];
+    clientModelVersion = [clientModelSpecification2 clientModelVersion];
+    [v7 setHighestRankingClientModelABGroup:clientModelVersion];
+
+    v21 = __atxlog_handle_metrics([(ATXPETEventTracker2Protocol *)self->_tracker trackScalarForMessage:v7]);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    {
+      [ATXBlendingBiomeStreamLogger _logLayoutSelectedWithSpotlightSuggestionLayout:v7 consumerSubType:?];
+    }
+  }
+
+  else
+  {
+    v7 = __atxlog_handle_metrics(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      [ATXBlendingBiomeStreamLogger _logLayoutSelectedWithSpotlightSuggestionLayout:? consumerSubType:?];
+    }
+  }
+}
+
+- (void)_logLayoutSelectedWithSuggestionLayout:(id)layout consumerSubType:(unsigned __int8)type
+{
+  typeCopy = type;
+  layoutCopy = layout;
+  uuidOfHighestConfidenceSuggestion = [layoutCopy uuidOfHighestConfidenceSuggestion];
+  v8 = [layoutCopy suggestionWithUUID:uuidOfHighestConfidenceSuggestion];
+
+  if (v8)
+  {
+    v10 = objc_opt_new();
+    v11 = [MEMORY[0x277D420E8] stringFromUILayoutType:{objc_msgSend(layoutCopy, "layoutType")}];
+    [v10 setLayoutType:v11];
+
+    v12 = MEMORY[0x277D42090];
+    scoreSpecification = [v8 scoreSpecification];
+    v14 = [v12 stringForSuggestedConfidenceCategory:{objc_msgSend(scoreSpecification, "suggestedConfidenceCategory")}];
+    [v10 setHighestConfidenceCategory:v14];
+
+    clientModelSpecification = [v8 clientModelSpecification];
+    clientModelId = [clientModelSpecification clientModelId];
+    [v10 setHighestRankingClientModelId:clientModelId];
+
+    v17 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:typeCopy];
+    [v10 setConsumerSubType:v17];
+
+    v18 = MEMORY[0x277D42080];
+    executableSpecification = [v8 executableSpecification];
+    v20 = [v18 stringForExecutableType:{objc_msgSend(executableSpecification, "executableType")}];
+    [v10 setExecuableTypeOfHighestRankingSuggestion:v20];
+
+    abGroup = [(ATXBlendingBiomeStreamLogger *)self abGroup];
+    [v10 setAbGroup:abGroup];
+
+    clientModelSpecification2 = [v8 clientModelSpecification];
+    clientModelVersion = [clientModelSpecification2 clientModelVersion];
+    [v10 setHighestRankingClientModelABGroup:clientModelVersion];
+
+    v24 = __atxlog_handle_metrics([(ATXPETEventTracker2Protocol *)self->_tracker trackScalarForMessage:v10]);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    {
+      [ATXBlendingBiomeStreamLogger _logLayoutSelectedWithSpotlightSuggestionLayout:v10 consumerSubType:?];
+    }
+  }
+
+  else
+  {
+    v10 = __atxlog_handle_metrics(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      [ATXBlendingBiomeStreamLogger _logLayoutSelectedWithSpotlightSuggestionLayout:? consumerSubType:?];
     }
   }
 }
@@ -1287,75 +1423,72 @@ void __84__ATXBlendingBiomeStreamLogger_logAnchorModelEngagementMetricsWithCompl
     v31 = 0u;
     v32 = 0u;
     minSuggestionListInLayout = [layoutCopy minSuggestionListInLayout];
-    v12 = [minSuggestionListInLayout countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v13 = [minSuggestionListInLayout countByEnumeratingWithState:&v31 objects:v35 count:16];
     v28 = typeCopy;
-    if (v12)
+    if (v13)
     {
-      v13 = v12;
-      LODWORD(v14) = 0;
-      v15 = *v32;
+      v14 = v13;
+      LODWORD(v15) = 0;
+      v16 = *v32;
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v32 != v15)
+          if (*v32 != v16)
           {
             objc_enumerationMutation(minSuggestionListInLayout);
           }
 
           clientModelSpecification2 = [*(*(&v31 + 1) + 8 * i) clientModelSpecification];
           clientModelId2 = [clientModelSpecification2 clientModelId];
-          v19 = [clientModelId2 isEqualToString:clientModelId];
+          v20 = [clientModelId2 isEqualToString:clientModelId];
 
-          v14 = (v14 + v19);
+          v15 = (v15 + v20);
         }
 
-        v13 = [minSuggestionListInLayout countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v14 = [minSuggestionListInLayout countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
 
-    v20 = objc_opt_new();
-    v21 = [MEMORY[0x277D420E8] stringFromUILayoutType:{objc_msgSend(layoutCopy, "layoutType")}];
-    [v20 setLayoutType:v21];
+    v21 = objc_opt_new();
+    v22 = [MEMORY[0x277D420E8] stringFromUILayoutType:{objc_msgSend(layoutCopy, "layoutType")}];
+    [v21 setLayoutType:v22];
 
-    [v20 setClientModelId:clientModelId];
-    [v20 setNumSuggestionsForClientModelInLayout:v14];
-    v22 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:v28];
-    [v20 setConsumerSubType:v22];
+    [v21 setClientModelId:clientModelId];
+    [v21 setNumSuggestionsForClientModelInLayout:v15];
+    v23 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:v28];
+    [v21 setConsumerSubType:v23];
 
     abGroup = [(ATXBlendingBiomeStreamLogger *)selfCopy abGroup];
-    [v20 setAbGroup:abGroup];
+    [v21 setAbGroup:abGroup];
 
     v8 = v30;
     clientModelSpecification3 = [v30 clientModelSpecification];
     clientModelVersion = [clientModelSpecification3 clientModelVersion];
-    [v20 setClientModelABGroup:clientModelVersion];
+    [v21 setClientModelABGroup:clientModelVersion];
 
-    [(ATXPETEventTracker2Protocol *)selfCopy->_tracker trackScalarForMessage:v20];
-    v26 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    v27 = __atxlog_handle_metrics([(ATXPETEventTracker2Protocol *)selfCopy->_tracker trackScalarForMessage:v21]);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
-      [(ATXBlendingBiomeStreamLogger *)selfCopy _logClientModelsIncludedInHomeScreenLayoutWithSuggestionLayout:v20 consumerSubType:v26];
+      [(ATXBlendingBiomeStreamLogger *)selfCopy _logClientModelsIncludedInHomeScreenLayoutWithSuggestionLayout:v21 consumerSubType:v27];
     }
   }
 
   else
   {
-    v20 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = __atxlog_handle_metrics(v11);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [ATXBlendingBiomeStreamLogger _logLayoutSelectedWithSpotlightSuggestionLayout:consumerSubType:];
+      [ATXBlendingBiomeStreamLogger _logLayoutSelectedWithSpotlightSuggestionLayout:? consumerSubType:?];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logTopOfStackPredictionMetricWithBlendingModelCacheUpdateEvent:(id)event
@@ -1425,8 +1558,7 @@ void __95__ATXBlendingBiomeStreamLogger_logTopOfStackPredictionMetricWithBlendin
     [v7 setClientModelABGroup:v22];
 
     [v7 setWidgetsInStack:{objc_msgSend(*v18, "_ensureWidgetsInStackBetweenZeroAndTen:", objc_msgSend(v4, "numWidgetsInStack"))}];
-    [*(*v18 + 7) trackScalarForMessage:v7];
-    v23 = __atxlog_handle_metrics();
+    v23 = __atxlog_handle_metrics([*(*v18 + 7) trackScalarForMessage:v7]);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       __95__ATXBlendingBiomeStreamLogger_logTopOfStackPredictionMetricWithBlendingModelCacheUpdateEvent___block_invoke_cold_1(v18, v7, v23);
@@ -1449,70 +1581,61 @@ void __95__ATXBlendingBiomeStreamLogger_logTopOfStackPredictionMetricWithBlendin
 
 - (void)_logCacheAgeMetricEventWithCacheAge:(double)age clientModelId:(id)id
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v7 = objc_opt_new();
   [v7 setCacheName:idCopy];
 
-  [(ATXPETEventTracker2Protocol *)self->_tracker trackDistributionForMessage:v7 value:age];
-  v8 = __atxlog_handle_metrics();
+  v8 = __atxlog_handle_metrics([(ATXPETEventTracker2Protocol *)self->_tracker trackDistributionForMessage:v7 value:age]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
     cacheName = [v7 cacheName];
-    v13 = 138412802;
-    v14 = v11;
-    v15 = 2112;
-    v16 = cacheName;
-    v17 = 2048;
+    v12 = 138412802;
+    v13 = v10;
+    v14 = 2112;
+    v15 = cacheName;
+    v16 = 2048;
     ageCopy = age;
-    _os_log_debug_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMCacheAgeAtCacheRefreshTracker with cacheName: %@ and cacheAge: %f", &v13, 0x20u);
+    _os_log_debug_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMCacheAgeAtCacheRefreshTracker with cacheName: %@ and cacheAge: %f", &v12, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tryLogSingleSuggestionSessionMetricsWithLoggerContext:(void *)a1 .cold.1(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = [a1 sessionTrackingContext];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   v5 = [a1 sessionTrackingContext];
+  LODWORD(v13) = 138412546;
+  *(&v13 + 4) = v4;
   OUTLINED_FUNCTION_2_8();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v6, v7, "%@ - finished logging sessions, state is: %@", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  *v14 = v6;
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v7, v8, "%@ - finished logging sessions, state is: %@", v9, v10, v11, v12, v13, DWORD2(v13), *&v14[2]);
 }
 
-- (void)logWidgetRotationEngagementMetricsIfPossibleWithLoggerContext:.cold.1()
+- (void)logWidgetRotationEngagementMetricsIfPossibleWithLoggerContext:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_8();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - did not find suggestion inside suggestion layout: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v3, v4, "%@ - did not find suggestion inside suggestion layout: %@", v5, v6, v7, v8);
 }
 
-- (void)logWidgetRotationEngagementMetricsIfPossibleWithLoggerContext:.cold.2()
+- (void)logWidgetRotationEngagementMetricsIfPossibleWithLoggerContext:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_8();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - did not find suggestion layout: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v3, v4, "%@ - did not find suggestion layout: %@", v5, v6, v7, v8);
 }
 
 - (void)_logUnaggregatedAnchorModelEngagementMetric:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   v7 = [a2 consumerSubType];
@@ -1536,51 +1659,46 @@ void __95__ATXBlendingBiomeStreamLogger_logTopOfStackPredictionMetricWithBlendin
   v16 = [a2 abGroup];
   v17 = [a2 executableObject];
   OUTLINED_FUNCTION_6_1();
-  v22 = v7;
-  v23 = v18;
-  v24 = v9;
-  v25 = v18;
-  v26 = v10;
-  v27 = 2048;
-  v28 = v12;
-  v29 = v18;
-  v30 = v13;
-  v31 = 1024;
-  v32 = v14;
-  v33 = 1024;
-  v34 = v15;
-  v35 = v18;
-  v36 = v16;
-  v37 = v18;
-  v38 = v19;
+  v21 = v7;
+  v22 = v18;
+  v23 = v9;
+  v24 = v18;
+  v25 = v10;
+  v26 = 2048;
+  v27 = v12;
+  v28 = v18;
+  v29 = v13;
+  v30 = 1024;
+  v31 = v14;
+  v32 = 1024;
+  v33 = v15;
+  v34 = v18;
+  v35 = v16;
+  v36 = v18;
+  v37 = v19;
   _os_log_debug_impl(&dword_2263AA000, a3, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBAnchorModelEngagementTracker with consumerSubType: %@ engagementType: %@ anchorType: %@ score: %f candidateType: %@ secondsAfterAnchor: %u numPredictionsforAnchor: %u abGroup: %@ executableObject: %@", buf, 0x5Eu);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logLayoutSelectedMetricWithBlendingModelCacheUpdateEvent:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   v7 = [a2 uiCache];
   v8 = objc_opt_class();
   v9 = NSStringFromClass(v8);
   v10 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:{objc_msgSend(a2, "consumerSubType")}];
-  v14 = 138412802;
-  v15 = v6;
+  v13 = 138412802;
+  v14 = v6;
   OUTLINED_FUNCTION_2_8();
-  v16 = v9;
-  v17 = v11;
-  v18 = v12;
-  _os_log_fault_impl(&dword_2263AA000, a3, OS_LOG_TYPE_FAULT, "%@ - got blending cache update with unsupported class: %@ for consumerSubType: %@", &v14, 0x20u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = v9;
+  v16 = v11;
+  v17 = v12;
+  _os_log_fault_impl(&dword_2263AA000, a3, OS_LOG_TYPE_FAULT, "%@ - got blending cache update with unsupported class: %@ for consumerSubType: %@", &v13, 0x20u);
 }
 
 - (void)_logLayoutSelectedWithSpotlightSuggestionLayout:(uint64_t)a1 consumerSubType:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   v5 = [a2 layoutType];
@@ -1592,25 +1710,20 @@ void __95__ATXBlendingBiomeStreamLogger_logTopOfStackPredictionMetricWithBlendin
   v11 = [a2 highestRankingClientModelABGroup];
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_1_11();
-  OUTLINED_FUNCTION_7_0(&dword_2263AA000, v12, v13, "LOGGED: %@ - ATXMPBBlendingLayoutSelectionTracker with layoutType: %@ consumerSubType: %@ highestConfidenceCategory: %@ highestRankingClientModelId: %@ execuableTypeOfHighestRankingSuggestion: %@ abGroup: %@ highestRankingClientModelABGroup: %@", v14, v15, v16, v17, v19);
-
-  v18 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_0(&dword_2263AA000, v12, v13, "LOGGED: %@ - ATXMPBBlendingLayoutSelectionTracker with layoutType: %@ consumerSubType: %@ highestConfidenceCategory: %@ highestRankingClientModelId: %@ execuableTypeOfHighestRankingSuggestion: %@ abGroup: %@ highestRankingClientModelABGroup: %@", v14, v15, v16, v17);
 }
 
-- (void)_logLayoutSelectedWithSpotlightSuggestionLayout:consumerSubType:.cold.2()
+- (void)_logLayoutSelectedWithSpotlightSuggestionLayout:(uint64_t)a1 consumerSubType:.cold.2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "%@ - could not determine highest confidence suggestion from suggestion layout", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v3, v4, "%@ - could not determine highest confidence suggestion from suggestion layout", v5, v6, v7, v8);
 }
 
 - (void)_logClientModelsIncludedInHomeScreenLayoutWithSuggestionLayout:(NSObject *)a3 consumerSubType:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   v7 = [a2 layoutType];
@@ -1620,68 +1733,63 @@ void __95__ATXBlendingBiomeStreamLogger_logTopOfStackPredictionMetricWithBlendin
   v11 = [a2 abGroup];
   v12 = [a2 clientModelABGroup];
   OUTLINED_FUNCTION_0_26();
-  v17 = v8;
-  v18 = 1024;
-  v19 = v9;
-  v20 = v13;
-  v21 = v10;
-  v22 = v13;
-  v23 = v11;
-  v24 = v13;
-  v25 = v14;
-  _os_log_debug_impl(&dword_2263AA000, a3, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBBlendingClientModelHomeScreenLayoutTracker with layoutType: %@ clientModelId: %@ numSuggestionsForClientModelInLayout: %u consumerSubType: %@ abGroup: %@ clientModelABGroup: %@", v16, 0x44u);
-
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = v8;
+  v17 = 1024;
+  v18 = v9;
+  v19 = v13;
+  v20 = v10;
+  v21 = v13;
+  v22 = v11;
+  v23 = v13;
+  v24 = v14;
+  _os_log_debug_impl(&dword_2263AA000, a3, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBBlendingClientModelHomeScreenLayoutTracker with layoutType: %@ clientModelId: %@ numSuggestionsForClientModelInLayout: %u consumerSubType: %@ abGroup: %@ clientModelABGroup: %@", v15, 0x44u);
 }
 
-void __95__ATXBlendingBiomeStreamLogger_logTopOfStackPredictionMetricWithBlendingModelCacheUpdateEvent___block_invoke_cold_1(uint64_t *a1, void *a2, NSObject *a3)
+void __95__ATXBlendingBiomeStreamLogger_logTopOfStackPredictionMetricWithBlendingModelCacheUpdateEvent___block_invoke_cold_1(void *a1, void *a2, NSObject *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v5 = *a1;
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [a2 layoutType];
-  v9 = [a2 selectionType];
-  if (v9 == 1)
+  v34 = *MEMORY[0x277D85DE8];
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v7 = [a2 layoutType];
+  v8 = [a2 selectionType];
+  if (v8 == 1)
   {
-    v10 = @"NPlusOne";
+    v9 = @"NPlusOne";
   }
 
-  else if (v9 == 2)
+  else if (v8 == 2)
   {
-    v10 = @"StackRotation";
+    v9 = @"StackRotation";
   }
 
   else
   {
-    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v9];
+    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v8];
   }
 
-  v11 = [a2 widgetsInStack];
-  v12 = [a2 clientModelIdOfHighestRankingSuggestion];
-  v13 = [a2 highestConfidenceCategory];
-  v14 = [a2 execuableTypeOfHighestRankingSuggestion];
-  v15 = [a2 abGroup];
-  v16 = [a2 clientModelABGroup];
+  v10 = [a2 widgetsInStack];
+  v11 = [a2 clientModelIdOfHighestRankingSuggestion];
+  v12 = [a2 highestConfidenceCategory];
+  v13 = [a2 execuableTypeOfHighestRankingSuggestion];
+  v14 = [a2 abGroup];
+  v15 = [a2 clientModelABGroup];
   OUTLINED_FUNCTION_6_1();
-  v21 = v8;
-  v22 = v17;
+  v19 = v7;
+  v20 = v16;
+  v21 = v9;
+  v22 = 1024;
   v23 = v10;
-  v24 = 1024;
+  v24 = v16;
   v25 = v11;
-  v26 = v17;
+  v26 = v16;
   v27 = v12;
-  v28 = v17;
+  v28 = v16;
   v29 = v13;
-  v30 = v17;
+  v30 = v16;
   v31 = v14;
-  v32 = v17;
-  v33 = v15;
-  v34 = v17;
-  v35 = v18;
+  v32 = v16;
+  v33 = v17;
   _os_log_debug_impl(&dword_2263AA000, a3, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBBlendingHomeScreenWidgetTopOfStackSelectionTracker with layoutType: %@, selectionType: %@, widgetsInStack: %u clientModelIdOfHighestRankingSuggestion: %@ highestConfidenceCategory: %@ execuableTypeOfHighestRankingSuggestion: %@ abGroup: %@ clientModelABGroup: %@", buf, 0x58u);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

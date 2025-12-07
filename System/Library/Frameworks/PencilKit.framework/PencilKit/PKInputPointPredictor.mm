@@ -7,19 +7,19 @@
 
 - (void)predictedPointForPoint:(uint64_t)point@<X8> timestamp:(double)timestamp@<D0>
 {
-  if (self)
+  if (result)
   {
-    v8 = *(self + 552);
-    v9 = (self + 8);
+    v8 = *(result + 69);
+    v9 = result + 8;
     if (v8 == 4)
     {
-      memmove(v9, (self + 144), 0x198uLL);
-      v10 = (self + 416);
+      memmove(v9, result + 144, 0x198uLL);
+      v10 = result + 416;
     }
 
     else
     {
-      *(self + 552) = v8 + 1;
+      *(result + 69) = v8 + 1;
       v10 = &v9[136 * v8];
     }
 
@@ -51,7 +51,7 @@
     v20 = *(a2 + 16);
     v21[0] = *a2;
     v21[1] = v20;
-    [(PKInputPointPredictor *)self predictedPointAtTimestamp:v21 defaultPoint:point, timestamp];
+    [(PKInputPointPredictor *)result predictedPointAtTimestamp:v21 defaultPoint:point, timestamp];
   }
 
   else

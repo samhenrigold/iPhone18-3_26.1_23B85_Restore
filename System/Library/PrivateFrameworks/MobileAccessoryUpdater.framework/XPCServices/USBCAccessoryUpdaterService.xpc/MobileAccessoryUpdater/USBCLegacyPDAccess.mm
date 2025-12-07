@@ -3,6 +3,9 @@
 - (USBCLegacyPDAccess)initWithPDController:(id)controller;
 - (id)DeviceAttached:(BOOL *)attached;
 - (id)DeviceInAlternateMode:(BOOL *)mode;
+- (id)ExitUpdateMode:(id)mode remoteReset:(BOOL)reset;
+- (id)IECSReadReg:(BOOL)reg buffer:(void *)buffer bufferLength:(unsigned int)length registerAddress:(unsigned int)address returnedBufferLength:(unsigned int *)bufferLength canRetry:(BOOL)retry canRecover:(BOOL)recover;
+- (id)IECSWriteReg:(BOOL)reg buffer:(const void *)buffer bufferLength:(unsigned int)length registerAddress:(unsigned int)address canRetry:(BOOL)retry canRecover:(BOOL)recover;
 - (id)VerifyEmptyPortAndReset:(id)reset blessCallback:(id)callback;
 - (id)getVDM:(unsigned int *)m ofLength:(unsigned int *)length;
 - (id)readIECSRegister:(void *)register ofLength:(unsigned int)length atRegister:(unsigned int)atRegister andOutReadLength:(unsigned int *)readLength;
@@ -26,6 +29,16 @@
   }
 
   return v4;
+}
+
+- (id)ExitUpdateMode:(id)mode remoteReset:(BOOL)reset
+{
+  if (mode)
+  {
+    (*(mode + 2))(mode, 7, @"NOT issuing 'Gaid'... intentionally disabled for now (policy decision)", reset);
+  }
+
+  return 0;
 }
 
 - (id)DeviceAttached:(BOOL *)attached
@@ -1132,6 +1145,180 @@ LABEL_63:
 LABEL_66:
 
   return v7;
+}
+
+- (id)IECSReadReg:(BOOL)reg buffer:(void *)buffer bufferLength:(unsigned int)length registerAddress:(unsigned int)address returnedBufferLength:(unsigned int *)bufferLength canRetry:(BOOL)retry canRecover:(BOOL)recover
+{
+  v10 = *&address;
+  regCopy = reg;
+  if (retry)
+  {
+    v14 = 2;
+  }
+
+  else
+  {
+    v14 = -1;
+  }
+
+  lengthCopy = length;
+  if (!reg)
+  {
+    goto LABEL_8;
+  }
+
+LABEL_5:
+  v27 = *bufferLength;
+  pdController = [(USBCPDAccess *)self pdController];
+  v17 = [pdController registerRead:buffer ofLength:lengthCopy atAddress:v10 andOutReadLength:&v27];
+
+  if (v17)
+  {
+    v18 = +[NSMutableDictionary dictionary];
+    [v18 setObject:@"YES" forKeyedSubscript:@"Is local operation"];
+    v19 = [NSNumber numberWithUnsignedLong:v17];
+    [v18 setObject:v19 forKeyedSubscript:@"IOReturn result"];
+
+    v20 = [NSNumber numberWithUnsignedLong:lengthCopy];
+    [v18 setObject:v20 forKeyedSubscript:@"Requested xfer length"];
+
+    v21 = [NSError errorWithDomain:@"USBCAccessoryFirmwareUpdater Domain" code:6157 userInfo:v18];
+
+    if (v21)
+    {
+      while (1)
+      {
+        v22 = [(USBCPDAccess *)self didFailErrorRecovery:v21];
+        if (v14 + 1 < 1 || (v22 & 1) != 0)
+        {
+          break;
+        }
+
+        if (![(USBCLegacyPDAccess *)self attemptErrorRecovery:v21 lastAttempt:v14 == 0])
+        {
+          goto LABEL_17;
+        }
+
+        --v14;
+        if (regCopy)
+        {
+          goto LABEL_5;
+        }
+
+LABEL_8:
+        v21 = [(USBCLegacyPDAccess *)self readIECSRegister:buffer ofLength:length atRegister:v10 andOutReadLength:bufferLength];
+        if (!v21)
+        {
+          goto LABEL_19;
+        }
+      }
+
+      ++v14;
+LABEL_17:
+      if (!v14)
+      {
+        v23 = +[NSMutableDictionary dictionary];
+        [v23 setObject:v21 forKeyedSubscript:@"Previous Error Response"];
+        v24 = [NSError errorWithDomain:@"USBCAccessoryFirmwareUpdater Domain" code:13062 userInfo:v23];
+
+        v21 = v24;
+      }
+    }
+  }
+
+  else
+  {
+    v21 = 0;
+    *bufferLength = v27;
+  }
+
+LABEL_19:
+
+  return v21;
+}
+
+- (id)IECSWriteReg:(BOOL)reg buffer:(const void *)buffer bufferLength:(unsigned int)length registerAddress:(unsigned int)address canRetry:(BOOL)retry canRecover:(BOOL)recover
+{
+  v8 = *&address;
+  v9 = *&length;
+  regCopy = reg;
+  if (retry)
+  {
+    v13 = 2;
+  }
+
+  else
+  {
+    v13 = -1;
+  }
+
+  lengthCopy = length;
+  while (1)
+  {
+    if (regCopy)
+    {
+      pdController = [(USBCPDAccess *)self pdController];
+      v16 = [pdController registerWrite:buffer ofLength:lengthCopy atAddress:v8];
+
+      if (!v16)
+      {
+        v20 = 0;
+        goto LABEL_18;
+      }
+
+      v17 = +[NSMutableDictionary dictionary];
+      [v17 setObject:@"YES" forKeyedSubscript:@"Is local operation"];
+      v18 = [NSNumber numberWithUnsignedLong:v16];
+      [v17 setObject:v18 forKeyedSubscript:@"IOReturn result"];
+
+      v19 = [NSNumber numberWithUnsignedLong:lengthCopy];
+      [v17 setObject:v19 forKeyedSubscript:@"Requested xfer length"];
+
+      v20 = [NSError errorWithDomain:@"USBCAccessoryFirmwareUpdater Domain" code:6413 userInfo:v17];
+
+      if (!v20)
+      {
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+      v20 = [(USBCLegacyPDAccess *)self writeIECSRegister:buffer ofLength:v9 atRegister:v8];
+      if (!v20)
+      {
+        goto LABEL_18;
+      }
+    }
+
+    v21 = [(USBCPDAccess *)self didFailErrorRecovery:v20];
+    if (v13 + 1 < 1 || (v21 & 1) != 0)
+    {
+      break;
+    }
+
+    if (![(USBCLegacyPDAccess *)self attemptErrorRecovery:v20 lastAttempt:v13 == 0])
+    {
+      goto LABEL_15;
+    }
+
+    --v13;
+  }
+
+  ++v13;
+LABEL_15:
+  if (!v13)
+  {
+    v22 = +[NSMutableDictionary dictionary];
+    [v22 setObject:v20 forKeyedSubscript:@"Previous Error Response"];
+    v23 = [NSError errorWithDomain:@"USBCAccessoryFirmwareUpdater Domain" code:13063 userInfo:v22];
+
+    v20 = v23;
+  }
+
+LABEL_18:
+
+  return v20;
 }
 
 - (id)DeviceInAlternateMode:(BOOL *)mode

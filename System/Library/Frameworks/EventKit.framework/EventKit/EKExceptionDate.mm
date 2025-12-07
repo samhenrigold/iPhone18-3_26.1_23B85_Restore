@@ -35,13 +35,11 @@
 
 void __49__EKExceptionDate_knownIdentityKeysForComparison__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E6992A00];
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E6992A00];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = knownIdentityKeysForComparison_keys_6;
   knownIdentityKeysForComparison_keys_6 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description

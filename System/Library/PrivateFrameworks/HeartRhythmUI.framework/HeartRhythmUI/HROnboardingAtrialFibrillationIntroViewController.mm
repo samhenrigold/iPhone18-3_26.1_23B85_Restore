@@ -252,7 +252,7 @@ void __120__HROnboardingAtrialFibrillationIntroViewController__submitOnboardingU
   v5 = [v2 initWithFeatureIdentifier:v3 featureVersion:@"1" countryCode:v4 step:@"Intro" onboardingEligibility:*(a1 + 40)];
 
   v7 = *(a1 + 48);
-  v6 = a1 + 48;
+  v6 = (a1 + 48);
   v8 = [v7 analyticsEventSubmissionManager];
   v12 = 0;
   v9 = [v8 submitEvent:v5 error:&v12];
@@ -795,7 +795,7 @@ void __100__HROnboardingAtrialFibrillationIntroViewController_presentLearnMoreAl
 
 - (id)titleString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_INTRO_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   return v3;
@@ -803,7 +803,7 @@ void __100__HROnboardingAtrialFibrillationIntroViewController_presentLearnMoreAl
 
 - (id)bodyString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_INTRO_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   return v3;
@@ -811,7 +811,7 @@ void __100__HROnboardingAtrialFibrillationIntroViewController_presentLearnMoreAl
 
 - (id)learnMoreString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_INTRO_LEARN_MORE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   return v3;
@@ -819,7 +819,7 @@ void __100__HROnboardingAtrialFibrillationIntroViewController_presentLearnMoreAl
 
 - (id)footnoteString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_INTRO_LOCATION_FOOTNOTE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   return v3;
@@ -827,7 +827,7 @@ void __100__HROnboardingAtrialFibrillationIntroViewController_presentLearnMoreAl
 
 - (id)buttonTitleString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ONBOARDING_CONTINUE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
 
   return v3;
@@ -835,7 +835,7 @@ void __100__HROnboardingAtrialFibrillationIntroViewController_presentLearnMoreAl
 
 - (id)locationNotFoundPromptTitleString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_ALERT_LOCATION_UNAVAILABLE_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   return v3;
@@ -843,7 +843,7 @@ void __100__HROnboardingAtrialFibrillationIntroViewController_presentLearnMoreAl
 
 - (id)locationNotFoundPromptMessageString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_ALERT_LOCATION_UNAVAILABLE_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   return v3;
@@ -851,7 +851,7 @@ void __100__HROnboardingAtrialFibrillationIntroViewController_presentLearnMoreAl
 
 - (id)locationFeatureAlertAckButtonString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ONBOARDING_OK" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
 
   return v3;
@@ -859,7 +859,7 @@ void __100__HROnboardingAtrialFibrillationIntroViewController_presentLearnMoreAl
 
 - (id)locationFeatureIneligiblePromptBodyString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_INTRO_LOCATION_INELIGIBLE_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   return v3;
@@ -867,7 +867,7 @@ void __100__HROnboardingAtrialFibrillationIntroViewController_presentLearnMoreAl
 
 - (id)featureDisabledBodyString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_FEATURE_DISABLED_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Shared"];
 
   return v3;
@@ -875,7 +875,7 @@ void __100__HROnboardingAtrialFibrillationIntroViewController_presentLearnMoreAl
 
 - (id)watchOSVersionTooLowBodyString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_OS_VERSION_TOO_LOW" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Shared"];
 
   return v3;
@@ -883,7 +883,7 @@ void __100__HROnboardingAtrialFibrillationIntroViewController_presentLearnMoreAl
 
 - (id)seedExpiredBodyString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_SEED_EXPIRED" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Shared"];
 
   return v3;
@@ -897,7 +897,7 @@ void __100__HROnboardingAtrialFibrillationIntroViewController_presentLearnMoreAl
   return v4;
 }
 
-void __120__HROnboardingAtrialFibrillationIntroViewController__submitOnboardingUIErrorEventWithCountryCode_onboardingEligibility___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
+void __120__HROnboardingAtrialFibrillationIntroViewController__submitOnboardingUIErrorEventWithCountryCode_onboardingEligibility___block_invoke_cold_1(uint64_t *a1, void *a2, uint64_t a3)
 {
   v10 = *MEMORY[0x277D85DE8];
   v4 = a2;

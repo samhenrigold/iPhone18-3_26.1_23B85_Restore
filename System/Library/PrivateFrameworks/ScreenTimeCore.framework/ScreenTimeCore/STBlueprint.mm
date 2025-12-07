@@ -8,6 +8,7 @@
 + (BOOL)removeFixedDurationOnDemandDowntimeForUserID:(id)d context:(id)context error:(id *)error;
 + (BOOL)saveAlwaysAllowListForUser:(id)user withBundleIDs:(id)ds overwriteExistingList:(BOOL)list error:(id *)error;
 + (BOOL)saveDefaultAlwaysAllowListIfNecessaryForUser:(id)user error:(id *)error;
++ (BOOL)saveDowntimeForUser:(id)user startTime:(id)time endTime:(id)endTime scheduleByWeekdayIndex:(id)index enabled:(BOOL)enabled behaviorType:(unint64_t)type error:(id *)error;
 + (BOOL)saveManagedUserBlueprintForUser:(id)user error:(id *)error;
 + (BOOL)saveRestrictionsBlueprintWithValuesForPresetRestrictions:(id)restrictions forUser:(id)user error:(id *)error;
 + (BOOL)saveUsageLimitWithIdentifier:(id)identifier user:(id)user bundleIdentifiers:(id)identifiers webDomains:(id)domains categoryIdentifiers:(id)categoryIdentifiers dailyBudgetLimit:(double)limit budgetLimitByWeekday:(id)weekday enabled:(BOOL)self0 behaviorType:(unint64_t)self1 error:(id *)self2;
@@ -109,8 +110,10 @@
 - (void)didChangeValueForKey:(id)key;
 - (void)disableDowntimeForDay:(unint64_t)day;
 - (void)migrateToVersion2CategoriesIfNeeded;
+- (void)setDowntimeEnabled:(BOOL)enabled;
 - (void)setStartTime:(id)time endTime:(id)endTime;
 - (void)setStartTime:(id)time endTime:(id)endTime forDay:(unint64_t)day;
+- (void)setUsageLimitEnabled:(BOOL)enabled;
 - (void)tombstone;
 - (void)updateUsageLimitWithAlwaysAllowBundleIdentifiers:(id)identifiers;
 @end
@@ -349,32 +352,30 @@
 
 + (id)fetchResultsRequestsForChangesToBlueprints
 {
-  v15[5] = *MEMORY[0x1E69E9840];
+  v14[5] = *MEMORY[0x1E69E9840];
   fetchRequest = [self fetchRequest];
   v2 = [STFetchResultsRequest requestWithFetchRequest:fetchRequest];
-  v15[0] = v2;
+  v14[0] = v2;
   v3 = +[STBlueprintSchedule fetchRequest];
   v4 = [STFetchResultsRequest requestWithFetchRequest:v3];
-  v15[1] = v4;
+  v14[1] = v4;
   v5 = +[STBlueprintUsageLimit fetchRequest];
   v6 = [STFetchResultsRequest requestWithFetchRequest:v5];
-  v15[2] = v6;
+  v14[2] = v6;
   v7 = +[STBlueprintConfiguration fetchRequest];
   v8 = [STFetchResultsRequest requestWithFetchRequest:v7];
-  v15[3] = v8;
+  v14[3] = v8;
   v9 = +[STCoreOrganizationSettings fetchRequest];
   v10 = [STFetchResultsRequest requestWithFetchRequest:v9];
-  v15[4] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:5];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v14[4] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:5];
 
   return v11;
 }
 
 + (id)fetchResultsRequestsForChangesToBlueprintsForUserWithDSID:(id)d
 {
-  v23[6] = *MEMORY[0x1E69E9840];
+  v22[6] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AE18];
   if (d)
   {
@@ -388,33 +389,31 @@
 
   dCopy2 = d;
   v7 = [v4 predicateWithFormat:@"%@ IN %K", dCopy, @"blueprint.users.dsid"];
-  v22 = +[STBlueprintSchedule fetchRequest];
-  [v22 setPredicate:v7];
-  v21 = +[STBlueprintUsageLimit fetchRequest];
+  v21 = +[STBlueprintSchedule fetchRequest];
   [v21 setPredicate:v7];
+  v20 = +[STBlueprintUsageLimit fetchRequest];
+  [v20 setPredicate:v7];
   v8 = +[STBlueprintConfiguration fetchRequest];
   [v8 setPredicate:v7];
-  v20 = +[STCoreOrganizationSettings fetchRequest];
-  v19 = +[STCoreDowntimeOverride fetchRequest];
+  v19 = +[STCoreOrganizationSettings fetchRequest];
+  v18 = +[STCoreDowntimeOverride fetchRequest];
   v9 = [self _fetchRequestMatchingBlueprintsForUserWithDSID:dCopy2];
 
   v10 = [STFetchResultsRequest requestWithFetchRequest:v9];
-  v23[0] = v10;
-  v11 = [STFetchResultsRequest requestWithFetchRequest:v22];
-  v23[1] = v11;
-  v12 = [STFetchResultsRequest requestWithFetchRequest:v21];
-  v23[2] = v12;
+  v22[0] = v10;
+  v11 = [STFetchResultsRequest requestWithFetchRequest:v21];
+  v22[1] = v11;
+  v12 = [STFetchResultsRequest requestWithFetchRequest:v20];
+  v22[2] = v12;
   v13 = [STFetchResultsRequest requestWithFetchRequest:v8];
-  v23[3] = v13;
-  v14 = [STFetchResultsRequest requestWithFetchRequest:v20];
-  v23[4] = v14;
-  v15 = [STFetchResultsRequest requestWithFetchRequest:v19];
-  v23[5] = v15;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:6];
+  v22[3] = v13;
+  v14 = [STFetchResultsRequest requestWithFetchRequest:v19];
+  v22[4] = v14;
+  v15 = [STFetchResultsRequest requestWithFetchRequest:v18];
+  v22[5] = v15;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:6];
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v17;
 }
 
 + (id)createBlueprintWithType:(id)type user:(id)user
@@ -547,7 +546,7 @@ LABEL_21:
 
 + (id)_predicateForDowntimeBlueprint:(id)blueprint withDateFormatter:(id)formatter calendar:(id)calendar
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   blueprintCopy = blueprint;
   formatterCopy = formatter;
   calendarCopy = calendar;
@@ -622,9 +621,9 @@ LABEL_18:
       v21 = +[STLog blueprint];
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = 138543362;
-        v29 = activeOverride;
-        _os_log_impl(&dword_1B831F000, v21, OS_LOG_TYPE_DEFAULT, "Did not create CEM predicate for downtime override: %{public}@", &v28, 0xCu);
+        v27 = 138543362;
+        v28 = activeOverride;
+        _os_log_impl(&dword_1B831F000, v21, OS_LOG_TYPE_DEFAULT, "Did not create CEM predicate for downtime override: %{public}@", &v27, 0xCu);
       }
     }
 
@@ -641,14 +640,12 @@ LABEL_17:
   v20 = 0;
 LABEL_24:
 
-  v26 = *MEMORY[0x1E69E9840];
-
   return v20;
 }
 
 + (id)_predicateForUsageLimitBlueprint:(id)blueprint withDateFormatter:(id)formatter calendar:(id)calendar
 {
-  v112 = *MEMORY[0x1E69E9840];
+  v111 = *MEMORY[0x1E69E9840];
   blueprintCopy = blueprint;
   formatterCopy = formatter;
   calendarCopy = calendar;
@@ -673,9 +670,9 @@ LABEL_24:
         [self _addCommonPredicatesForBlueprint:blueprintCopy toAllPredicates:build usingDateFormatter:formatterCopy calendar:calendarCopy];
         if (_os_feature_enabled_impl())
         {
-          v100 = 0;
-          v17 = [blueprintCopy alwaysAllowBundleIdentifiersWithError:&v100];
-          v18 = v100;
+          v99 = 0;
+          v17 = [blueprintCopy alwaysAllowBundleIdentifiersWithError:&v99];
+          v18 = v99;
           if (!v17)
           {
             v19 = +[STLog blueprint];
@@ -698,166 +695,166 @@ LABEL_24:
         v24 = usageLimit;
         if (usageLimit)
         {
-          v82 = v18;
-          v83 = build;
-          v84 = formatterCopy;
-          v88 = calendarCopy;
-          v85 = blueprintCopy;
+          v81 = v18;
+          v82 = build;
+          v83 = formatterCopy;
+          v87 = calendarCopy;
+          v84 = blueprintCopy;
           budgetLimitScheduleRepresentation = [usageLimit budgetLimitScheduleRepresentation];
           applicationIdentifiers = [v24 applicationIdentifiers];
           categoryIdentifiers = [v24 categoryIdentifiers];
           categoryIdentifiersVersion2 = [v24 categoryIdentifiersVersion2];
-          v87 = v24;
+          v86 = v24;
           websiteIdentifiers = [v24 websiteIdentifiers];
-          v86 = v17;
-          v80 = applicationIdentifiers;
-          v81 = budgetLimitScheduleRepresentation;
-          v78 = categoryIdentifiersVersion2;
-          v79 = categoryIdentifiers;
-          v77 = websiteIdentifiers;
+          v85 = v17;
+          v79 = applicationIdentifiers;
+          v80 = budgetLimitScheduleRepresentation;
+          v77 = categoryIdentifiersVersion2;
+          v78 = categoryIdentifiers;
+          v76 = websiteIdentifiers;
           if ([applicationIdentifiers count] || objc_msgSend(categoryIdentifiers, "count") || objc_msgSend(categoryIdentifiersVersion2, "count") || objc_msgSend(websiteIdentifiers, "count"))
           {
-            v75 = [MEMORY[0x1E6996280] buildWithApps:applicationIdentifiers withWebSites:websiteIdentifiers withCategories:categoryIdentifiers withCategoriesVersion2:categoryIdentifiersVersion2 withExemptApps:v17];
+            v74 = [MEMORY[0x1E6996280] buildWithApps:applicationIdentifiers withWebSites:websiteIdentifiers withCategories:categoryIdentifiers withCategoriesVersion2:categoryIdentifiersVersion2 withExemptApps:v17];
             v30 = objc_alloc(MEMORY[0x1E695DF70]);
             customScheduleItems = [budgetLimitScheduleRepresentation customScheduleItems];
             v32 = [v30 initWithCapacity:{objc_msgSend(customScheduleItems, "count")}];
 
-            v98 = 0u;
-            v99 = 0u;
-            v96 = 0u;
             v97 = 0u;
+            v98 = 0u;
+            v95 = 0u;
+            v96 = 0u;
             obj = [budgetLimitScheduleRepresentation customScheduleItems];
-            v33 = [obj countByEnumeratingWithState:&v96 objects:v108 count:16];
+            v33 = [obj countByEnumeratingWithState:&v95 objects:v107 count:16];
             if (v33)
             {
               v34 = v33;
-              v35 = *v97;
+              v35 = *v96;
               do
               {
                 for (i = 0; i != v34; ++i)
                 {
-                  if (*v97 != v35)
+                  if (*v96 != v35)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v37 = *(*(&v96 + 1) + 8 * i);
+                  v37 = *(*(&v95 + 1) + 8 * i);
                   v38 = MEMORY[0x1E6996288];
                   v39 = MEMORY[0x1E696AD98];
                   [v37 budgetLimit];
                   v40 = [v39 numberWithDouble:?];
                   v41 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v37, "day")}];
-                  v107 = v41;
-                  v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v107 count:1];
+                  v106 = v41;
+                  v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v106 count:1];
                   v43 = [v38 buildWithSeconds:v40 withDays:v42];
 
                   [v32 addObject:v43];
                 }
 
-                v34 = [obj countByEnumeratingWithState:&v96 objects:v108 count:16];
+                v34 = [obj countByEnumeratingWithState:&v95 objects:v107 count:16];
               }
 
               while (v34);
             }
 
             v44 = MEMORY[0x1E6996278];
-            calendarIdentifier = [v88 calendarIdentifier];
+            calendarIdentifier = [v87 calendarIdentifier];
             v46 = MEMORY[0x1E696AD98];
-            notificationTimeInterval = [v87 notificationTimeInterval];
+            notificationTimeInterval = [v86 notificationTimeInterval];
             usageItemType = [v46 numberWithInteger:{objc_msgSend(notificationTimeInterval, "integerValue")}];
-            v106 = usageItemType;
-            v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v106 count:1];
-            v50 = v75;
-            v51 = [v44 buildWithCalendarIdentifier:calendarIdentifier withMonitors:v75 withNotificationTimes:v49 withTimeBudget:v32];
+            v105 = usageItemType;
+            v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v105 count:1];
+            v50 = v74;
+            v51 = [v44 buildWithCalendarIdentifier:calendarIdentifier withMonitors:v74 withNotificationTimes:v49 withTimeBudget:v32];
           }
 
           else
           {
-            v55 = *MEMORY[0x1E69961D0];
-            v104[0] = @"app";
-            v104[1] = @"webdomain";
-            v56 = *MEMORY[0x1E69961E0];
-            v105[0] = v55;
-            v105[1] = v56;
-            v104[2] = @"category";
-            v105[2] = *MEMORY[0x1E69961D8];
-            v76 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v105 forKeys:v104 count:3];
-            v57 = objc_alloc(MEMORY[0x1E695DF70]);
+            v54 = *MEMORY[0x1E69961D0];
+            v103[0] = @"app";
+            v103[1] = @"webdomain";
+            v55 = *MEMORY[0x1E69961E0];
+            v104[0] = v54;
+            v104[1] = v55;
+            v103[2] = @"category";
+            v104[2] = *MEMORY[0x1E69961D8];
+            v75 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v104 forKeys:v103 count:3];
+            v56 = objc_alloc(MEMORY[0x1E695DF70]);
             customScheduleItems2 = [budgetLimitScheduleRepresentation customScheduleItems];
-            v59 = [v57 initWithCapacity:{objc_msgSend(customScheduleItems2, "count")}];
+            v58 = [v56 initWithCapacity:{objc_msgSend(customScheduleItems2, "count")}];
 
-            v94 = 0u;
-            v95 = 0u;
-            v92 = 0u;
             v93 = 0u;
+            v94 = 0u;
+            v91 = 0u;
+            v92 = 0u;
             obja = [budgetLimitScheduleRepresentation customScheduleItems];
-            v60 = [obja countByEnumeratingWithState:&v92 objects:v103 count:16];
-            if (v60)
+            v59 = [obja countByEnumeratingWithState:&v91 objects:v102 count:16];
+            if (v59)
             {
-              v61 = v60;
-              v62 = *v93;
+              v60 = v59;
+              v61 = *v92;
               do
               {
-                for (j = 0; j != v61; ++j)
+                for (j = 0; j != v60; ++j)
                 {
-                  if (*v93 != v62)
+                  if (*v92 != v61)
                   {
                     objc_enumerationMutation(obja);
                   }
 
-                  v64 = *(*(&v92 + 1) + 8 * j);
-                  v65 = MEMORY[0x1E6996270];
-                  v66 = MEMORY[0x1E696AD98];
-                  [v64 budgetLimit];
-                  v67 = [v66 numberWithDouble:?];
-                  v68 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v64, "day")}];
-                  v102 = v68;
-                  v69 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v102 count:1];
-                  v70 = [v65 buildWithSeconds:v67 withDays:v69];
+                  v63 = *(*(&v91 + 1) + 8 * j);
+                  v64 = MEMORY[0x1E6996270];
+                  v65 = MEMORY[0x1E696AD98];
+                  [v63 budgetLimit];
+                  v66 = [v65 numberWithDouble:?];
+                  v67 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v63, "day")}];
+                  v101 = v67;
+                  v68 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v101 count:1];
+                  v69 = [v64 buildWithSeconds:v66 withDays:v68];
 
-                  [v59 addObject:v70];
+                  [v58 addObject:v69];
                 }
 
-                v61 = [obja countByEnumeratingWithState:&v92 objects:v103 count:16];
+                v60 = [obja countByEnumeratingWithState:&v91 objects:v102 count:16];
               }
 
-              while (v61);
+              while (v60);
             }
 
-            calendarIdentifier = [v87 itemIdentifiers];
+            calendarIdentifier = [v86 itemIdentifiers];
             objb = MEMORY[0x1E6996268];
-            notificationTimeInterval = [v88 calendarIdentifier];
-            usageItemType = [v87 usageItemType];
-            v50 = v76;
-            v49 = [v76 objectForKeyedSubscript:usageItemType];
-            v71 = MEMORY[0x1E696AD98];
-            notificationTimeInterval2 = [v87 notificationTimeInterval];
-            v72 = [v71 numberWithInteger:{objc_msgSend(notificationTimeInterval2, "integerValue")}];
-            v101 = v72;
-            v73 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v101 count:1];
-            v32 = v59;
-            v51 = [objb buildWithCalendarIdentifier:notificationTimeInterval withMonitor:v49 withIdentifiers:calendarIdentifier withIdentifiersVersion2:calendarIdentifier withExemptApps:v86 withNotificationTimes:v73 withTimeBudget:v59];
+            notificationTimeInterval = [v87 calendarIdentifier];
+            usageItemType = [v86 usageItemType];
+            v50 = v75;
+            v49 = [v75 objectForKeyedSubscript:usageItemType];
+            v70 = MEMORY[0x1E696AD98];
+            notificationTimeInterval2 = [v86 notificationTimeInterval];
+            v71 = [v70 numberWithInteger:{objc_msgSend(notificationTimeInterval2, "integerValue")}];
+            v100 = v71;
+            v72 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v100 count:1];
+            v32 = v58;
+            v51 = [objb buildWithCalendarIdentifier:notificationTimeInterval withMonitor:v49 withIdentifiers:calendarIdentifier withIdentifiersVersion2:calendarIdentifier withExemptApps:v85 withNotificationTimes:v72 withTimeBudget:v58];
           }
 
-          blueprintCopy = v85;
-          build = v83;
+          blueprintCopy = v84;
+          build = v82;
           v14 = 0;
-          if ([v85 invertUsageLimit])
+          if ([v84 invertUsageLimit])
           {
             v52 = [MEMORY[0x1E6996298] buildWithPredicate:v51];
-            [v83 addObject:v52];
+            [v82 addObject:v52];
           }
 
           else
           {
-            [v83 addObject:v51];
+            [v82 addObject:v51];
           }
 
-          formatterCopy = v84;
-          v24 = v87;
-          calendarCopy = v88;
-          v18 = v82;
-          v17 = v86;
+          formatterCopy = v83;
+          v24 = v86;
+          calendarCopy = v87;
+          v18 = v81;
+          v17 = v85;
         }
 
         v15 = [MEMORY[0x1E6996258] buildWithPredicates:build];
@@ -870,14 +867,14 @@ LABEL_24:
         {
           identifier = [blueprintCopy identifier];
           *buf = 138543362;
-          v111 = identifier;
+          v110 = identifier;
           _os_log_impl(&dword_1B831F000, v20, OS_LOG_TYPE_DEFAULT, "Usage limit is disabled: %{public}@)", buf, 0xCu);
         }
 
         v22 = MEMORY[0x1E6996258];
         build = [MEMORY[0x1E6996290] build];
-        v109 = build;
-        v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v109 count:1];
+        v108 = build;
+        v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v108 count:1];
         v15 = [v22 buildWithPredicates:v18];
       }
     }
@@ -893,8 +890,6 @@ LABEL_24:
 
     v15 = 0;
   }
-
-  v53 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -1009,7 +1004,7 @@ LABEL_24:
 
 + (id)_buildPredicateForDisablingBlueprint:(id)blueprint
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   blueprintCopy = blueprint;
   if ([blueprintCopy enabled])
   {
@@ -1023,18 +1018,16 @@ LABEL_24:
     {
       identifier = [blueprintCopy identifier];
       *buf = 138543362;
-      v14 = identifier;
+      v13 = identifier;
       _os_log_impl(&dword_1B831F000, v5, OS_LOG_TYPE_DEFAULT, "Blueprint is disabled: %{public}@)", buf, 0xCu);
     }
 
     v7 = MEMORY[0x1E6996258];
     build = [MEMORY[0x1E6996290] build];
-    v12 = build;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
+    v11 = build;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
     v4 = [v7 buildWithPredicates:v9];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -1077,134 +1070,119 @@ LABEL_24:
 
 + (void)_addUserPredicateForBlueprint:(id)blueprint toAllPredicates:(id)predicates
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   blueprintCopy = blueprint;
   predicatesCopy = predicates;
   users = [blueprintCopy users];
   v8 = [users count];
 
-  if (v8 > 1)
+  if (v8 > 1 || v8 == 1 && ([blueprintCopy users], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "anyObject"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "localSettings"), v22 = objc_claimAutoreleasedReturnValue(), v22, v21, v20, !v22))
   {
-    goto LABEL_2;
-  }
-
-  if (v8 == 1)
-  {
+    v23 = predicatesCopy;
+    v9 = objc_opt_new();
+    v24 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     users2 = [blueprintCopy users];
-    anyObject = [users2 anyObject];
-    localSettings = [anyObject localSettings];
-
-    if (!localSettings)
+    v11 = [users2 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    if (v11)
     {
-LABEL_2:
-      v24 = predicatesCopy;
-      v9 = objc_opt_new();
-      v25 = 0u;
-      v26 = 0u;
-      v27 = 0u;
-      v28 = 0u;
-      users3 = [blueprintCopy users];
-      v11 = [users3 countByEnumeratingWithState:&v25 objects:v29 count:16];
-      if (v11)
+      v12 = v11;
+      v13 = *v25;
+      do
       {
-        v12 = v11;
-        v13 = *v26;
-        do
+        for (i = 0; i != v12; ++i)
         {
-          for (i = 0; i != v12; ++i)
+          if (*v25 != v13)
           {
-            if (*v26 != v13)
-            {
-              objc_enumerationMutation(users3);
-            }
-
-            v15 = MEMORY[0x1E69962B0];
-            dsid = [*(*(&v25 + 1) + 8 * i) dsid];
-            stringValue = [dsid stringValue];
-            v18 = [v15 buildWithDSID:stringValue];
-            [v9 addObject:v18];
+            objc_enumerationMutation(users2);
           }
 
-          v12 = [users3 countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v15 = MEMORY[0x1E69962B0];
+          dsid = [*(*(&v24 + 1) + 8 * i) dsid];
+          stringValue = [dsid stringValue];
+          v18 = [v15 buildWithDSID:stringValue];
+          [v9 addObject:v18];
         }
 
-        while (v12);
+        v12 = [users2 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
-      v19 = [MEMORY[0x1E6996260] buildWithPredicates:v9];
-      predicatesCopy = v24;
-      [v24 addObject:v19];
+      while (v12);
     }
-  }
 
-  v23 = *MEMORY[0x1E69E9840];
+    v19 = [MEMORY[0x1E6996260] buildWithPredicates:v9];
+    predicatesCopy = v23;
+    [v23 addObject:v19];
+  }
 }
 
 + (void)_addSchedulePredicatesForBlueprintScheudle:(id)scheudle toAllPredicates:(id)predicates usingDateFormatter:(id)formatter calendar:(id)calendar
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   scheudleCopy = scheudle;
   predicatesCopy = predicates;
   formatterCopy = formatter;
   calendarCopy = calendar;
-  v63 = scheudleCopy;
+  v62 = scheudleCopy;
   if ([scheudleCopy enabled])
   {
-    v55 = predicatesCopy;
+    v54 = predicatesCopy;
     scheduleRepresentation = [scheudleCopy scheduleRepresentation];
     [formatterCopy setFormatOptions:544];
-    v69 = [calendarCopy maximumRangeOfUnit:512];
+    v68 = [calendarCopy maximumRangeOfUnit:512];
     v15 = v14;
     v16 = objc_opt_new();
     v17 = [calendarCopy startOfDayForDate:v16];
 
-    v53 = v17;
-    v57 = [formatterCopy stringFromDate:v17];
-    v64 = objc_opt_new();
+    v52 = v17;
+    v56 = [formatterCopy stringFromDate:v17];
+    v63 = objc_opt_new();
+    v70 = 0u;
     v71 = 0u;
     v72 = 0u;
     v73 = 0u;
-    v74 = 0u;
-    v54 = scheduleRepresentation;
+    v53 = scheduleRepresentation;
     obj = [scheduleRepresentation customScheduleItems];
-    v68 = [obj countByEnumeratingWithState:&v71 objects:v77 count:16];
-    if (!v68)
+    v67 = [obj countByEnumeratingWithState:&v70 objects:v76 count:16];
+    if (!v67)
     {
       goto LABEL_19;
     }
 
-    v56 = v15 - 1;
-    v67 = *v72;
-    v61 = calendarCopy;
-    v62 = formatterCopy;
+    v55 = v15 - 1;
+    v66 = *v71;
+    v60 = calendarCopy;
+    v61 = formatterCopy;
     while (1)
     {
-      for (i = 0; i != v68; ++i)
+      for (i = 0; i != v67; ++i)
       {
-        if (*v72 != v67)
+        if (*v71 != v66)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v71 + 1) + 8 * i);
+        v19 = *(*(&v70 + 1) + 8 * i);
         v20 = [v19 day];
-        v21 = v20 + v69;
+        v21 = v20 + v68;
         startTime = [v19 startTime];
         v23 = [calendarCopy dateFromComponents:startTime];
 
         endTime = [v19 endTime];
         v25 = [calendarCopy dateFromComponents:endTime];
 
-        v70 = [formatterCopy stringFromDate:v23];
+        v69 = [formatterCopy stringFromDate:v23];
         v26 = [formatterCopy stringFromDate:v25];
         v27 = [v23 compare:v25];
         if (v27 == 1)
         {
-          v60 = v23;
-          v66 = v26;
-          if (v20 == v56)
+          v59 = v23;
+          v65 = v26;
+          if (v20 == v55)
           {
-            v36 = v69;
+            v36 = v68;
           }
 
           else
@@ -1217,26 +1195,26 @@ LABEL_2:
           calendarIdentifier = [calendarCopy calendarIdentifier];
           v39 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v21];
           v40 = MEMORY[0x1E696AD98];
-          notificationTimeInterval = [v63 notificationTimeInterval];
+          notificationTimeInterval = [v62 notificationTimeInterval];
           v42 = [v40 numberWithInteger:{objc_msgSend(notificationTimeInterval, "integerValue")}];
-          v75 = v42;
-          v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1];
-          v44 = [v37 buildWithCalendarIdentifier:calendarIdentifier withStartDay:v39 withStartTime:v70 withEndDay:v35 withEndTime:v57 withNotificationTimes:v43];
+          v74 = v42;
+          v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v74 count:1];
+          v44 = [v37 buildWithCalendarIdentifier:calendarIdentifier withStartDay:v39 withStartTime:v69 withEndDay:v35 withEndTime:v56 withNotificationTimes:v43];
 
-          v26 = v66;
-          calendarCopy = v61;
-          [v64 addObject:v44];
-          if (([v66 isEqualToString:v57] & 1) == 0)
+          v26 = v65;
+          calendarCopy = v60;
+          [v63 addObject:v44];
+          if (([v65 isEqualToString:v56] & 1) == 0)
           {
             v45 = MEMORY[0x1E69962A8];
-            calendarIdentifier2 = [v61 calendarIdentifier];
-            v47 = [v45 buildWithCalendarIdentifier:calendarIdentifier2 withStartDay:v35 withStartTime:v57 withEndDay:v35 withEndTime:v66 withNotificationTimes:MEMORY[0x1E695E0F0]];
+            calendarIdentifier2 = [v60 calendarIdentifier];
+            v47 = [v45 buildWithCalendarIdentifier:calendarIdentifier2 withStartDay:v35 withStartTime:v56 withEndDay:v35 withEndTime:v65 withNotificationTimes:MEMORY[0x1E695E0F0]];
 
-            [v64 addObject:v47];
-            v26 = v66;
+            [v63 addObject:v47];
+            v26 = v65;
           }
 
-          v23 = v60;
+          v23 = v59;
         }
 
         else
@@ -1246,38 +1224,38 @@ LABEL_2:
             goto LABEL_17;
           }
 
-          v65 = MEMORY[0x1E69962A8];
+          v64 = MEMORY[0x1E69962A8];
           calendarIdentifier3 = [calendarCopy calendarIdentifier];
           v28 = v26;
           v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v21];
           v30 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v21];
           v31 = MEMORY[0x1E696AD98];
-          notificationTimeInterval2 = [v63 notificationTimeInterval];
+          notificationTimeInterval2 = [v62 notificationTimeInterval];
           v33 = [v31 numberWithInteger:{objc_msgSend(notificationTimeInterval2, "integerValue")}];
-          v76 = v33;
-          v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v76 count:1];
-          v35 = [v65 buildWithCalendarIdentifier:calendarIdentifier3 withStartDay:v29 withStartTime:v70 withEndDay:v30 withEndTime:v28 withNotificationTimes:v34];
+          v75 = v33;
+          v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1];
+          v35 = [v64 buildWithCalendarIdentifier:calendarIdentifier3 withStartDay:v29 withStartTime:v69 withEndDay:v30 withEndTime:v28 withNotificationTimes:v34];
 
           v26 = v28;
-          calendarCopy = v61;
+          calendarCopy = v60;
 
-          [v64 addObject:v35];
+          [v63 addObject:v35];
         }
 
-        formatterCopy = v62;
+        formatterCopy = v61;
 LABEL_17:
       }
 
-      v68 = [obj countByEnumeratingWithState:&v71 objects:v77 count:16];
-      if (!v68)
+      v67 = [obj countByEnumeratingWithState:&v70 objects:v76 count:16];
+      if (!v67)
       {
 LABEL_19:
 
-        v48 = [MEMORY[0x1E6996260] buildWithPredicates:v64];
-        predicatesCopy = v55;
-        [v55 addObject:v48];
+        v48 = [MEMORY[0x1E6996260] buildWithPredicates:v63];
+        predicatesCopy = v54;
+        [v54 addObject:v48];
 
-        v49 = v54;
+        v49 = v53;
         goto LABEL_22;
       }
     }
@@ -1286,16 +1264,14 @@ LABEL_19:
   v49 = +[STLog blueprint];
   if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
   {
-    blueprint = [v63 blueprint];
+    blueprint = [v62 blueprint];
     identifier = [blueprint identifier];
     *buf = 138543362;
-    v79 = identifier;
+    v78 = identifier;
     _os_log_impl(&dword_1B831F000, v49, OS_LOG_TYPE_DEFAULT, "Schedule is not enabled for blueprint: %{public}@", buf, 0xCu);
   }
 
 LABEL_22:
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_addCommonPredicatesForBlueprint:(id)blueprint toAllPredicates:(id)predicates usingDateFormatter:(id)formatter calendar:(id)calendar
@@ -1340,43 +1316,43 @@ LABEL_22:
 
 + (id)_buildConfigurationsByDeclarationIdentifierFromBlueprint:(id)blueprint error:(id *)error
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   blueprintCopy = blueprint;
   v5 = MEMORY[0x1E695DF90];
   configurations = [blueprintCopy configurations];
   v7 = [v5 dictionaryWithCapacity:{objc_msgSend(configurations, "count")}];
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   configurations2 = [blueprintCopy configurations];
-  v9 = [configurations2 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v9 = [configurations2 countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (!v9)
   {
     goto LABEL_12;
   }
 
   v10 = v9;
-  v11 = *v38;
-  v33 = blueprintCopy;
-  v35 = v7;
+  v11 = *v37;
+  v32 = blueprintCopy;
+  v34 = v7;
   while (2)
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v38 != v11)
+      if (*v37 != v11)
       {
         objc_enumerationMutation(configurations2);
       }
 
-      v13 = *(*(&v37 + 1) + 8 * i);
+      v13 = *(*(&v36 + 1) + 8 * i);
       payloadPlist = [v13 payloadPlist];
 
       if (!payloadPlist)
       {
         v27 = +[STLog persistence];
-        blueprintCopy = v33;
+        blueprintCopy = v32;
         if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
         {
           +[STBlueprint _buildConfigurationsByDeclarationIdentifierFromBlueprint:error:];
@@ -1386,7 +1362,7 @@ LABEL_22:
         {
           v28 = [MEMORY[0x1E696ABC0] errorWithDomain:@"STErrorDomain" code:14 userInfo:0];
 
-          v7 = v35;
+          v7 = v34;
           if (v28)
           {
             [MEMORY[0x1E696ABC0] errorWithDomain:@"STErrorDomain" code:14 userInfo:0];
@@ -1403,15 +1379,15 @@ LABEL_22:
 
         v26 = 0;
 LABEL_32:
-        v7 = v35;
+        v7 = v34;
         goto LABEL_33;
       }
 
       v15 = MEMORY[0x1E6996208];
       payloadPlist2 = [v13 payloadPlist];
-      v36 = 0;
-      v17 = [v15 declarationForData:payloadPlist2 error:&v36];
-      v18 = v36;
+      v35 = 0;
+      v17 = [v15 declarationForData:payloadPlist2 error:&v35];
+      v18 = v35;
 
       if (!v17)
       {
@@ -1428,7 +1404,7 @@ LABEL_32:
         }
 
         v26 = 0;
-        blueprintCopy = v33;
+        blueprintCopy = v32;
         goto LABEL_32;
       }
 
@@ -1436,13 +1412,13 @@ LABEL_32:
       if (([v19 isEqualToString:@"system.webcontentfilter.basic"] & 1) == 0)
       {
         declarationIdentifier = [v17 declarationIdentifier];
-        [v35 setObject:v17 forKeyedSubscript:declarationIdentifier];
+        [v34 setObject:v17 forKeyedSubscript:declarationIdentifier];
       }
     }
 
-    v10 = [configurations2 countByEnumeratingWithState:&v37 objects:v41 count:16];
-    blueprintCopy = v33;
-    v7 = v35;
+    v10 = [configurations2 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    blueprintCopy = v32;
+    v7 = v34;
     if (v10)
     {
       continue;
@@ -1481,8 +1457,6 @@ LABEL_12:
   v26 = [v7 copy];
 LABEL_33:
 
-  v31 = *MEMORY[0x1E69E9840];
-
   return v26;
 }
 
@@ -1501,7 +1475,7 @@ void __78__STBlueprint__buildConfigurationsByDeclarationIdentifierFromBlueprint_
 
 + (id)appExceptionsDeclarationForBlueprint:(id)blueprint usingCache:(id)cache
 {
-  *(&v65[1] + 4) = *MEMORY[0x1E69E9840];
+  *(&v64[1] + 4) = *MEMORY[0x1E69E9840];
   blueprintCopy = blueprint;
   cacheCopy = cache;
   type = [blueprintCopy type];
@@ -1515,7 +1489,7 @@ void __78__STBlueprint__buildConfigurationsByDeclarationIdentifierFromBlueprint_
     {
       identifier = [blueprintCopy identifier];
       *buf = 138412290;
-      v65[0] = identifier;
+      v64[0] = identifier;
       _os_log_impl(&dword_1B831F000, anyObject, OS_LOG_TYPE_DEFAULT, "Processing app exceptions for restriction blueprint %@", buf, 0xCu);
     }
 
@@ -1524,30 +1498,30 @@ void __78__STBlueprint__buildConfigurationsByDeclarationIdentifierFromBlueprint_
 
     if (anyObject && ([anyObject dsid], (v13 = objc_claimAutoreleasedReturnValue()) != 0) && (v14 = v13, v15 = [anyObject isManaged], v14, (v15 & 1) != 0))
     {
-      v54 = blueprintCopy;
-      v55 = cacheCopy;
+      v53 = blueprintCopy;
+      v54 = cacheCopy;
       v16 = objc_opt_new();
+      v56 = 0u;
       v57 = 0u;
       v58 = 0u;
       v59 = 0u;
-      v60 = 0u;
-      v53 = anyObject;
+      v52 = anyObject;
       appExceptions = [anyObject appExceptions];
-      v18 = [appExceptions countByEnumeratingWithState:&v57 objects:v63 count:16];
+      v18 = [appExceptions countByEnumeratingWithState:&v56 objects:v62 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v58;
+        v20 = *v57;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v58 != v20)
+            if (*v57 != v20)
             {
               objc_enumerationMutation(appExceptions);
             }
 
-            v22 = *(*(&v57 + 1) + 8 * i);
+            v22 = *(*(&v56 + 1) + 8 * i);
             bundleIdentifier = [v22 bundleIdentifier];
             v24 = [v16 containsObject:bundleIdentifier];
 
@@ -1556,7 +1530,7 @@ void __78__STBlueprint__buildConfigurationsByDeclarationIdentifierFromBlueprint_
               v25 = +[STLog appExceptions];
               if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
-                [(STBlueprint *)buf appExceptionsDeclarationForBlueprint:v22 usingCache:v65, v25];
+                [(STBlueprint *)buf appExceptionsDeclarationForBlueprint:v22 usingCache:v64, v25];
               }
             }
 
@@ -1564,7 +1538,7 @@ void __78__STBlueprint__buildConfigurationsByDeclarationIdentifierFromBlueprint_
             [v16 addObject:bundleIdentifier2];
           }
 
-          v19 = [appExceptions countByEnumeratingWithState:&v57 objects:v63 count:16];
+          v19 = [appExceptions countByEnumeratingWithState:&v56 objects:v62 count:16];
         }
 
         while (v19);
@@ -1574,26 +1548,26 @@ void __78__STBlueprint__buildConfigurationsByDeclarationIdentifierFromBlueprint_
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSObject count](v16, "count")}];
-        *v61 = 138412290;
-        v62 = v28;
-        _os_log_impl(&dword_1B831F000, v27, OS_LOG_TYPE_DEFAULT, "Found %@ app exceptions", v61, 0xCu);
+        *v60 = 138412290;
+        v61 = v28;
+        _os_log_impl(&dword_1B831F000, v27, OS_LOG_TYPE_DEFAULT, "Found %@ app exceptions", v60, 0xCu);
       }
 
       v29 = MEMORY[0x1E696AEC0];
-      anyObject = v53;
-      dsid = [v53 dsid];
+      anyObject = v52;
+      dsid = [v52 dsid];
       v31 = [v29 stringWithFormat:@"%@.%@.%@", @"digital_health_restrictions", dsid, @"appExceptions"];
 
-      v32 = v55;
-      v33 = [v55 objectForKey:v31];
+      v32 = v54;
+      v33 = [v54 objectForKey:v31];
       if (!v33)
       {
         goto LABEL_26;
       }
 
-      v56 = 0;
-      v34 = [MEMORY[0x1E69962C0] declarationForPayload:v33 error:&v56];
-      v35 = v56;
+      v55 = 0;
+      v34 = [MEMORY[0x1E69962C0] declarationForPayload:v33 error:&v55];
+      v35 = v55;
       if (v35)
       {
         v36 = +[STLog appExceptions];
@@ -1602,7 +1576,7 @@ void __78__STBlueprint__buildConfigurationsByDeclarationIdentifierFromBlueprint_
           +[STBlueprint appExceptionsDeclarationForBlueprint:usingCache:];
         }
 
-        v32 = v55;
+        v32 = v54;
       }
 
       if (!v34)
@@ -1611,9 +1585,9 @@ LABEL_26:
         v37 = +[STLog appExceptions];
         if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
-          *v61 = 138412290;
-          v62 = v16;
-          _os_log_impl(&dword_1B831F000, v37, OS_LOG_TYPE_DEFAULT, "No stored CEMSystemAppExceptionsDeclaration. Storing with bundleIDs:%@", v61, 0xCu);
+          *v60 = 138412290;
+          v61 = v16;
+          _os_log_impl(&dword_1B831F000, v37, OS_LOG_TYPE_DEFAULT, "No stored CEMSystemAppExceptionsDeclaration. Storing with bundleIDs:%@", v60, 0xCu);
         }
 
         v38 = MEMORY[0x1E69962C0];
@@ -1628,9 +1602,9 @@ LABEL_26:
       if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
         serialize2 = [v34 serialize];
-        *v61 = 138412290;
-        v62 = serialize2;
-        _os_log_impl(&dword_1B831F000, v41, OS_LOG_TYPE_DEFAULT, "Fetched CEMSystemAppExceptionsDeclaration payload:%@", v61, 0xCu);
+        *v60 = 138412290;
+        v61 = serialize2;
+        _os_log_impl(&dword_1B831F000, v41, OS_LOG_TYPE_DEFAULT, "Fetched CEMSystemAppExceptionsDeclaration payload:%@", v60, 0xCu);
       }
 
       v43 = MEMORY[0x1E695DFD8];
@@ -1642,22 +1616,22 @@ LABEL_26:
       v48 = os_log_type_enabled(serialize3, OS_LOG_TYPE_DEFAULT);
       if (v46)
       {
-        cacheCopy = v55;
+        cacheCopy = v54;
         if (v48)
         {
-          *v61 = 0;
-          _os_log_impl(&dword_1B831F000, serialize3, OS_LOG_TYPE_DEFAULT, "Declaration has same bundle IDs. Not updating", v61, 2u);
+          *v60 = 0;
+          _os_log_impl(&dword_1B831F000, serialize3, OS_LOG_TYPE_DEFAULT, "Declaration has same bundle IDs. Not updating", v60, 2u);
         }
 
-        blueprintCopy = v54;
+        blueprintCopy = v53;
       }
 
       else
       {
         if (v48)
         {
-          *v61 = 0;
-          _os_log_impl(&dword_1B831F000, serialize3, OS_LOG_TYPE_DEFAULT, "Updating declaration's payloadAppsRatingExemptedBundleIDs and hash", v61, 2u);
+          *v60 = 0;
+          _os_log_impl(&dword_1B831F000, serialize3, OS_LOG_TYPE_DEFAULT, "Updating declaration's payloadAppsRatingExemptedBundleIDs and hash", v60, 2u);
         }
 
         allObjects2 = [v16 allObjects];
@@ -1665,17 +1639,17 @@ LABEL_26:
 
         [v34 updateServerHash];
         serialize3 = [v34 serialize];
-        v52 = +[STLog appExceptions];
-        blueprintCopy = v54;
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        v51 = +[STLog appExceptions];
+        blueprintCopy = v53;
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
-          *v61 = 138412290;
-          v62 = serialize3;
-          _os_log_impl(&dword_1B831F000, v52, OS_LOG_TYPE_DEFAULT, "Persisting updated declaration with payload:%@", v61, 0xCu);
+          *v60 = 138412290;
+          v61 = serialize3;
+          _os_log_impl(&dword_1B831F000, v51, OS_LOG_TYPE_DEFAULT, "Persisting updated declaration with payload:%@", v60, 0xCu);
         }
 
-        cacheCopy = v55;
-        [v55 setObject:serialize3 forKey:v31];
+        cacheCopy = v54;
+        [v54 setObject:serialize3 forKey:v31];
       }
     }
 
@@ -1701,14 +1675,12 @@ LABEL_26:
     v34 = 0;
   }
 
-  v49 = *MEMORY[0x1E69E9840];
-
   return v34;
 }
 
 + (id)_buildDeclarationsFromConfigurationsByDeclarationIdentifier:(id)identifier predicate:(id)predicate identifier:(id)a5
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   predicateCopy = predicate;
   v9 = a5;
@@ -1720,37 +1692,36 @@ LABEL_26:
   serialize = [v13 serialize];
   [v10 addObject:serialize];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   allValues = [identifierCopy allValues];
-  v16 = [allValues countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v16 = [allValues countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v25;
+    v18 = *v24;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v25 != v18)
+        if (*v24 != v18)
         {
           objc_enumerationMutation(allValues);
         }
 
-        serialize2 = [*(*(&v24 + 1) + 8 * i) serialize];
+        serialize2 = [*(*(&v23 + 1) + 8 * i) serialize];
         [v10 addObject:serialize2];
       }
 
-      v17 = [allValues countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v17 = [allValues countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v17);
   }
 
   v21 = [v10 copy];
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -1844,7 +1815,7 @@ LABEL_23:
 + (id)_cemPredicateWithDowntimeOverride:(id)override shouldUseGracePeriod:(BOOL)period dateFormater:(id)formater calendar:(id)calendar
 {
   periodCopy = period;
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   overrideCopy = override;
   formaterCopy = formater;
   calendarCopy = calendar;
@@ -1883,17 +1854,17 @@ LABEL_23:
     {
       v26 = [calendarCopy component:512 fromDate:v22];
       v27 = [calendarCopy component:512 fromDate:v24];
-      v38 = [formaterCopy stringFromDate:v22];
+      v37 = [formaterCopy stringFromDate:v22];
       v28 = [formaterCopy stringFromDate:v24];
-      v36 = MEMORY[0x1E69962A8];
-      v37 = v28;
+      v35 = MEMORY[0x1E69962A8];
+      v36 = v28;
       calendarIdentifier = [calendarCopy calendarIdentifier];
-      v34 = [MEMORY[0x1E696AD98] numberWithInteger:v26];
+      v33 = [MEMORY[0x1E696AD98] numberWithInteger:v26];
       v29 = [MEMORY[0x1E696AD98] numberWithInteger:v27];
       v30 = [MEMORY[0x1E696AD98] numberWithDouble:v14];
-      v40[0] = v30;
-      v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
-      v19 = [v36 buildWithCalendarIdentifier:calendarIdentifier withStartDay:v34 withStartTime:v38 withEndDay:v29 withEndTime:v37 withNotificationTimes:v31];
+      v39[0] = v30;
+      v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
+      v19 = [v35 buildWithCalendarIdentifier:calendarIdentifier withStartDay:v33 withStartTime:v37 withEndDay:v29 withEndTime:v36 withNotificationTimes:v31];
     }
 
     else
@@ -1920,17 +1891,278 @@ LABEL_23:
     v19 = [v17 buildWithDateTime:v18];
   }
 
-  v32 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 - (void)migrateToVersion2CategoriesIfNeeded
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4_0(&dword_1B831F000, v0, v1, "Failed to serialize declaration while migrating to version 2 categories: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
+  v58 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v61 = 0u;
+  obj = [(STBlueprint *)self configurations];
+  v2 = [obj countByEnumeratingWithState:&v58 objects:v68 count:16];
+  v3 = 0x1E7CE5000uLL;
+  if (!v2)
+  {
+    v53 = 0;
+    v5 = 0;
+    goto LABEL_27;
+  }
+
+  v4 = v2;
+  v53 = 0;
+  v5 = 0;
+  v6 = *v59;
+  do
+  {
+    for (i = 0; i != v4; ++i)
+    {
+      if (*v59 != v6)
+      {
+        objc_enumerationMutation(obj);
+      }
+
+      v8 = *(*(&v58 + 1) + 8 * i);
+      payloadPlist = [v8 payloadPlist];
+
+      if (payloadPlist)
+      {
+        v10 = MEMORY[0x1E6996208];
+        payloadPlist2 = [v8 payloadPlist];
+        v57 = 0;
+        v12 = [v10 declarationForData:payloadPlist2 error:&v57];
+        persistence = v57;
+
+        if (v12)
+        {
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            blueprint = [*(v3 + 3824) blueprint];
+            v15 = os_log_type_enabled(blueprint, OS_LOG_TYPE_DEFAULT);
+            if (v5 && v53)
+            {
+              if (v15)
+              {
+                [v12 declarationIdentifier];
+                v17 = v16 = v5;
+                identifier = [v8 identifier];
+                *buf = 138543618;
+                v63 = v17;
+                v64 = 2114;
+                v65 = identifier;
+                _os_log_impl(&dword_1B831F000, blueprint, OS_LOG_TYPE_DEFAULT, "Ignoring category declaration: %{public}@ from configuration: %{public}@", buf, 0x16u);
+
+                v5 = v16;
+                goto LABEL_20;
+              }
+            }
+
+            else
+            {
+              v19 = v5;
+              if (v15)
+              {
+                declarationIdentifier = [v12 declarationIdentifier];
+                identifier2 = [v8 identifier];
+                *buf = 138543618;
+                v63 = declarationIdentifier;
+                v64 = 2114;
+                v65 = identifier2;
+                _os_log_impl(&dword_1B831F000, blueprint, OS_LOG_TYPE_DEFAULT, "Using category declaration: %{public}@ from configuration: %{public}@", buf, 0x16u);
+              }
+
+              v5 = v8;
+              blueprint = v53;
+              v53 = v12;
+LABEL_20:
+              v3 = 0x1E7CE5000;
+            }
+
+LABEL_21:
+          }
+
+          goto LABEL_23;
+        }
+
+        blueprint = [*(v3 + 3824) blueprint];
+        if (os_log_type_enabled(blueprint, OS_LOG_TYPE_FAULT))
+        {
+          *buf = 138543362;
+          v63 = persistence;
+          _os_log_fault_impl(&dword_1B831F000, blueprint, OS_LOG_TYPE_FAULT, "Failed to deserialize declaration while migrating to version 2 categories: %{public}@", buf, 0xCu);
+        }
+
+        goto LABEL_21;
+      }
+
+      persistence = [*(v3 + 3824) persistence];
+      if (os_log_type_enabled(persistence, OS_LOG_TYPE_FAULT))
+      {
+        *buf = 138543362;
+        v63 = v8;
+        _os_log_fault_impl(&dword_1B831F000, persistence, OS_LOG_TYPE_FAULT, "blueprint is missing a config: %{public}@", buf, 0xCu);
+      }
+
+LABEL_23:
+    }
+
+    v4 = [obj countByEnumeratingWithState:&v58 objects:v68 count:16];
+  }
+
+  while (v4);
+LABEL_27:
+
+  payloadCategoriesVersion2 = [v53 payloadCategoriesVersion2];
+  v23 = payloadCategoriesVersion2;
+  if (payloadCategoriesVersion2)
+  {
+    payloadCategoriesVersion2 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:payloadCategoriesVersion2];
+    v24 = payloadCategoriesVersion2;
+  }
+
+  else
+  {
+    v24 = 0;
+  }
+
+  obja = v5;
+  if (v53)
+  {
+    v25 = MEMORY[0x1E695DFD8];
+    v26 = STAvailableVersion1CategoriesExcludingSystemCategories(payloadCategoriesVersion2);
+    v27 = [v25 setWithArray:v26];
+
+    v29 = STAvailableCategoriesExcludingSystemCategories(v28);
+    payloadCategories = [v53 payloadCategories];
+    v31 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:payloadCategories];
+    if ([v31 isEqualToSet:v27])
+    {
+      v32 = [objc_alloc(MEMORY[0x1E695DFA0]) initWithArray:v29];
+      goto LABEL_48;
+    }
+
+    if (payloadCategories)
+    {
+      v32 = [objc_alloc(MEMORY[0x1E695DFA0]) initWithArray:payloadCategories];
+      v33 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v29];
+      if (([v24 isEqualToSet:v33] & 1) == 0)
+      {
+        v52 = v33;
+        v34 = *MEMORY[0x1E6993B60];
+        if ([v24 containsObject:*MEMORY[0x1E6993B60]])
+        {
+          [v32 addObject:v34];
+          v35 = 1;
+        }
+
+        else
+        {
+          v35 = 0;
+        }
+
+        v36 = *MEMORY[0x1E6993B18];
+        if ([v24 containsObject:*MEMORY[0x1E6993B18]])
+        {
+          ++v35;
+          [v32 addObject:v36];
+        }
+
+        v37 = *MEMORY[0x1E6993B58];
+        if ([v24 containsObject:*MEMORY[0x1E6993B58]])
+        {
+          ++v35;
+          [v32 addObject:v37];
+          v33 = v52;
+LABEL_45:
+          if ([v23 count] == v35)
+          {
+            [v32 removeObject:*MEMORY[0x1E6993B00]];
+          }
+        }
+
+        else
+        {
+          v33 = v52;
+          if (v35)
+          {
+            goto LABEL_45;
+          }
+        }
+      }
+    }
+
+    else
+    {
+      v32 = 0;
+    }
+
+LABEL_48:
+  }
+
+  else
+  {
+    v32 = 0;
+  }
+
+  v38 = +[STLog blueprint];
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+  {
+    payloadCategories2 = [v53 payloadCategories];
+    *buf = 138543874;
+    v63 = payloadCategories2;
+    v64 = 2114;
+    v65 = v23;
+    v66 = 2114;
+    v67 = v32;
+    _os_log_impl(&dword_1B831F000, v38, OS_LOG_TYPE_DEFAULT, "Old version 1 categories: %{public}@, old version 2 categories: %{public}@, computed new version 2 categories: %{public}@", buf, 0x20u);
+  }
+
+  v40 = [v32 set];
+  if (v24 != v40 && ([v24 isEqual:v40] & 1) == 0)
+  {
+    array = [v32 array];
+    [v53 setPayloadCategoriesVersion2:array];
+
+    [v53 updateServerHash];
+    v56 = 0;
+    v42 = [v53 serializeAsDataWithError:&v56];
+    v43 = v56;
+    if (v42)
+    {
+      [obja setPayloadPlist:v42];
+    }
+
+    else
+    {
+      v44 = +[STLog persistence];
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
+      {
+        [STBlueprint migrateToVersion2CategoriesIfNeeded];
+      }
+    }
+
+    array2 = [v32 array];
+    usageLimit = [(STBlueprint *)self usageLimit];
+    [usageLimit setCategoryIdentifiersVersion2:array2];
+
+    v47 = +[STLog blueprint];
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    {
+      identifier3 = [(STBlueprint *)self identifier];
+      [obja identifier];
+      v50 = v49 = v43;
+      *buf = 138543618;
+      v63 = identifier3;
+      v64 = 2114;
+      v65 = v50;
+      _os_log_impl(&dword_1B831F000, v47, OS_LOG_TYPE_DEFAULT, "Finished migration for blueprint: %{public}@, configuration: %{public}@", buf, 0x16u);
+
+      v43 = v49;
+    }
+  }
 }
 
 - (void)didChangeValueForKey:(id)key
@@ -1974,7 +2206,7 @@ LABEL_23:
 
 - (BOOL)updateWithDictionaryRepresentation:(id)representation
 {
-  v164 = *MEMORY[0x1E69E9840];
+  v163 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = +[STLog screentime];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -1996,7 +2228,7 @@ LABEL_23:
   LOBYTE(nodes) = [v13 BOOLValue];
   modificationDate = +[STLog screentime];
   v15 = os_log_type_enabled(modificationDate, OS_LOG_TYPE_DEFAULT);
-  v142 = v12;
+  v141 = v12;
   if (nodes)
   {
     if (v15)
@@ -2031,11 +2263,11 @@ LABEL_23:
   {
     uniqueIdentifier = [(STBlueprint *)self uniqueIdentifier];
     *buf = 138412802;
-    v159 = uniqueIdentifier;
-    v160 = 2112;
-    v161 = v8;
-    v162 = 2112;
-    v163 = v12;
+    v158 = uniqueIdentifier;
+    v159 = 2112;
+    v160 = v8;
+    v161 = 2112;
+    v162 = v12;
     _os_log_impl(&dword_1B831F000, v30, OS_LOG_TYPE_DEFAULT, "COMPARE BLUEPRINTS (%@): %@ vs %@", buf, 0x20u);
   }
 
@@ -2154,9 +2386,9 @@ LABEL_25:
         if (v62)
         {
           *buf = 138412546;
-          v159 = modificationDate;
-          v160 = 2112;
-          v161 = v60;
+          v158 = modificationDate;
+          v159 = 2112;
+          v160 = v60;
           _os_log_impl(&dword_1B831F000, v61, OS_LOG_TYPE_DEFAULT, "Local modification date = %@, Incoming modification date = %@", buf, 0x16u);
         }
 
@@ -2168,9 +2400,9 @@ LABEL_25:
           if (v64)
           {
             *buf = 138412546;
-            v159 = modificationDate;
-            v160 = 2112;
-            v161 = v60;
+            v158 = modificationDate;
+            v159 = 2112;
+            v160 = v60;
             v65 = "Local blueprint is more recently modified. We will ignore the received blueprint. Local = %@, Incoming = %@";
             v66 = v61;
             v67 = 22;
@@ -2185,12 +2417,12 @@ LABEL_153:
         if (v64)
         {
           *buf = 138412546;
-          v159 = modificationDate;
-          v160 = 2112;
-          v161 = v60;
-          v129 = "Received blueprint is more recently modified. We will overwrite the local blueprint. Local = %@, Incoming = %@";
-          v130 = v61;
-          v131 = 22;
+          v158 = modificationDate;
+          v159 = 2112;
+          v160 = v60;
+          v128 = "Received blueprint is more recently modified. We will overwrite the local blueprint. Local = %@, Incoming = %@";
+          v129 = v61;
+          v130 = 22;
           goto LABEL_162;
         }
       }
@@ -2218,11 +2450,11 @@ LABEL_155:
         if (v62)
         {
           *buf = 0;
-          v129 = "Only the inboud blueprint has a modification date. We will overwrite the local blueprint.";
-          v130 = v61;
-          v131 = 2;
+          v128 = "Only the inboud blueprint has a modification date. We will overwrite the local blueprint.";
+          v129 = v61;
+          v130 = 2;
 LABEL_162:
-          _os_log_impl(&dword_1B831F000, v130, OS_LOG_TYPE_DEFAULT, v129, buf, v131);
+          _os_log_impl(&dword_1B831F000, v129, OS_LOG_TYPE_DEFAULT, v128, buf, v130);
         }
       }
 
@@ -2231,41 +2463,41 @@ LABEL_6:
 
 LABEL_7:
     selfCopy = self;
-    v138 = v13;
-    v139 = v11;
-    v140 = v8;
-    v141 = representationCopy;
+    v137 = v13;
+    v138 = v11;
+    v139 = v8;
+    v140 = representationCopy;
     [representationCopy objectForKeyedSubscript:@"configurations"];
+    v151 = 0u;
     v152 = 0u;
     v153 = 0u;
-    v154 = 0u;
-    obj = v155 = 0u;
-    v16 = [obj countByEnumeratingWithState:&v152 objects:v157 count:16];
+    obj = v154 = 0u;
+    v16 = [obj countByEnumeratingWithState:&v151 objects:v156 count:16];
     if (v16)
     {
       v17 = v16;
       v18 = 0;
-      v19 = *v153;
+      v19 = *v152;
       do
       {
         v20 = 0;
         v21 = v18;
         do
         {
-          if (*v153 != v19)
+          if (*v152 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v152 + 1) + 8 * v20);
+          v22 = *(*(&v151 + 1) + 8 * v20);
           v23 = [v22 objectForKeyedSubscript:@"identifier"];
           v24 = +[STBlueprintConfiguration fetchRequest];
           v25 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == %@ && %K == %@", @"blueprint", selfCopy, @"identifier", v23];
           [v24 setPredicate:v25];
 
-          v151 = v21;
-          v26 = [v24 execute:&v151];
-          v27 = v151;
+          v150 = v21;
+          v26 = [v24 execute:&v150];
+          v27 = v150;
 
           firstObject = [v26 firstObject];
           v29 = firstObject;
@@ -2280,7 +2512,7 @@ LABEL_7:
 
         while (v17 != v20);
         v18 = v27;
-        v17 = [obj countByEnumeratingWithState:&v152 objects:v157 count:16];
+        v17 = [obj countByEnumeratingWithState:&v151 objects:v156 count:16];
       }
 
       while (v17);
@@ -2291,11 +2523,11 @@ LABEL_7:
       v18 = 0;
     }
 
-    representationCopy = v141;
-    v40 = [v141 objectForKeyedSubscript:@"type"];
+    representationCopy = v140;
+    v40 = [v140 objectForKeyedSubscript:@"type"];
     [(STBlueprint *)selfCopy setType:v40];
 
-    v41 = [v141 objectForKeyedSubscript:@"enabled"];
+    v41 = [v140 objectForKeyedSubscript:@"enabled"];
     bOOLValue = [v41 BOOLValue];
 
     [(STBlueprint *)selfCopy setEnabled:bOOLValue];
@@ -2311,7 +2543,7 @@ LABEL_7:
         _os_log_impl(&dword_1B831F000, v45, OS_LOG_TYPE_DEFAULT, "STBlueprint: updateWithDictionaryRepresentation - downtime blueprint", buf, 2u);
       }
 
-      v46 = [v141 objectForKeyedSubscript:@"schedule"];
+      v46 = [v140 objectForKeyedSubscript:@"schedule"];
       v47 = +[STLog screentime];
       v48 = os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT);
       if (v46)
@@ -2345,7 +2577,7 @@ LABEL_7:
           if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
-            v159 = bOOLValue;
+            v158 = bOOLValue;
             _os_log_impl(&dword_1B831F000, v56, OS_LOG_TYPE_DEFAULT, "Deserializing legacy downtime, treating blueprint enabled (%ld) as schedule enabled", buf, 0xCu);
           }
         }
@@ -2368,9 +2600,9 @@ LABEL_7:
           {
             schedule5 = [(STBlueprint *)selfCopy schedule];
             *buf = 136446466;
-            v159 = "[STBlueprint updateWithDictionaryRepresentation:]";
-            v160 = 2112;
-            v161 = schedule5;
+            v158 = "[STBlueprint updateWithDictionaryRepresentation:]";
+            v159 = 2112;
+            v160 = schedule5;
             _os_log_impl(&dword_1B831F000, v69, OS_LOG_TYPE_DEFAULT, "%{public}s: Deleting schedule (%@)", buf, 0x16u);
           }
 
@@ -2382,7 +2614,7 @@ LABEL_7:
         [(STBlueprint *)selfCopy setSchedule:0];
       }
 
-      v73 = [v141 objectForKeyedSubscript:@"override"];
+      v73 = [v140 objectForKeyedSubscript:@"override"];
       override2 = +[STLog screentime];
       v75 = os_log_type_enabled(override2, OS_LOG_TYPE_DEFAULT);
       if (v73)
@@ -2414,7 +2646,7 @@ LABEL_7:
       }
     }
 
-    v80 = [v141 objectForKeyedSubscript:@"usageLimit"];
+    v80 = [v140 objectForKeyedSubscript:@"usageLimit"];
     v81 = +[STLog screentime];
     v82 = os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT);
     if (v80)
@@ -2456,9 +2688,9 @@ LABEL_7:
         {
           usageLimit4 = [(STBlueprint *)selfCopy usageLimit];
           *buf = 136446466;
-          v159 = "[STBlueprint updateWithDictionaryRepresentation:]";
-          v160 = 2112;
-          v161 = usageLimit4;
+          v158 = "[STBlueprint updateWithDictionaryRepresentation:]";
+          v159 = 2112;
+          v160 = usageLimit4;
           _os_log_impl(&dword_1B831F000, v89, OS_LOG_TYPE_DEFAULT, "%{public}s: Deleting usageLimit (%@)", buf, 0x16u);
         }
 
@@ -2470,7 +2702,7 @@ LABEL_7:
       [(STBlueprint *)selfCopy setUsageLimit:0];
     }
 
-    v93 = [v141 objectForKeyedSubscript:@"limitEnabled"];
+    v93 = [v140 objectForKeyedSubscript:@"limitEnabled"];
     v94 = v93;
     if (v93)
     {
@@ -2483,32 +2715,32 @@ LABEL_7:
     }
 
     [(STBlueprint *)selfCopy setLimitEnabled:bOOLValue2];
-    v96 = [v141 objectForKeyedSubscript:@"creationDate"];
+    v96 = [v140 objectForKeyedSubscript:@"creationDate"];
     [(STBlueprint *)selfCopy setCreationDate:v96];
 
-    v97 = [v141 objectForKeyedSubscript:@"expiration"];
+    v97 = [v140 objectForKeyedSubscript:@"expiration"];
     [(STBlueprint *)selfCopy setExpiration:v97];
 
-    v98 = [v141 objectForKeyedSubscript:@"minimumInstallationDate"];
+    v98 = [v140 objectForKeyedSubscript:@"minimumInstallationDate"];
     [(STBlueprint *)selfCopy setMinimumInstallationDate:v98];
 
-    v99 = [v141 objectForKeyedSubscript:@"invertUsageLimit"];
+    v99 = [v140 objectForKeyedSubscript:@"invertUsageLimit"];
     -[STBlueprint setInvertUsageLimit:](selfCopy, "setInvertUsageLimit:", [v99 BOOLValue]);
 
-    v100 = [v141 objectForKeyedSubscript:@"modificationDate"];
+    v100 = [v140 objectForKeyedSubscript:@"modificationDate"];
     if (v100)
     {
       [(STBlueprint *)selfCopy setModificationDate:v100];
     }
 
-    v137 = v100;
-    v101 = [v141 objectForKeyedSubscript:@"users"];
+    v136 = v100;
+    v101 = [v140 objectForKeyedSubscript:@"users"];
     v102 = +[STCoreUser fetchRequest];
-    v150 = v18;
-    v103 = [v102 execute:&v150];
-    modificationDate = v150;
+    v149 = v18;
+    v103 = [v102 execute:&v149];
+    modificationDate = v149;
 
-    v136 = v103;
+    v135 = v103;
     if (!v103)
     {
       v104 = +[STLog persistence];
@@ -2518,34 +2750,34 @@ LABEL_7:
       }
 
       v121 = 0;
-      v122 = v137;
-      v13 = v138;
+      v122 = v136;
+      v13 = v137;
       goto LABEL_137;
     }
 
-    v135 = v94;
-    v133 = v80;
+    v134 = v94;
+    v132 = v80;
     v104 = objc_opt_new();
+    v145 = 0u;
     v146 = 0u;
     v147 = 0u;
     v148 = 0u;
-    v149 = 0u;
     v105 = v103;
-    v106 = [v105 countByEnumeratingWithState:&v146 objects:v156 count:16];
+    v106 = [v105 countByEnumeratingWithState:&v145 objects:v155 count:16];
     if (v106)
     {
       v107 = v106;
-      v108 = *v147;
+      v108 = *v146;
       do
       {
         for (i = 0; i != v107; ++i)
         {
-          if (*v147 != v108)
+          if (*v146 != v108)
           {
             objc_enumerationMutation(v105);
           }
 
-          v110 = *(*(&v146 + 1) + 8 * i);
+          v110 = *(*(&v145 + 1) + 8 * i);
           dsid = [v110 dsid];
           v112 = [v101 containsObject:dsid];
 
@@ -2555,19 +2787,19 @@ LABEL_7:
           }
         }
 
-        v107 = [v105 countByEnumeratingWithState:&v146 objects:v156 count:16];
+        v107 = [v105 countByEnumeratingWithState:&v145 objects:v155 count:16];
       }
 
       while (v107);
     }
 
-    v113 = [v141 objectForKeyedSubscript:@"organization.class"];
+    v113 = [v140 objectForKeyedSubscript:@"organization.class"];
     v114 = [STCoreOrganization internalClassForSerializableClassName:v113];
-    v134 = v113;
+    v133 = v113;
     if (!v114)
     {
       v116 = +[STLog persistence];
-      v94 = v135;
+      v94 = v134;
       if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
       {
         [STBlueprint updateWithDictionaryRepresentation:];
@@ -2575,18 +2807,18 @@ LABEL_7:
 
       v121 = 0;
       v123 = modificationDate;
-      representationCopy = v141;
-      v80 = v133;
-      v122 = v137;
+      representationCopy = v140;
+      v80 = v132;
+      v122 = v136;
       goto LABEL_136;
     }
 
     fetchRequest = [(objc_class *)v114 fetchRequest];
-    v145 = modificationDate;
-    v116 = [fetchRequest execute:&v145];
-    v132 = v145;
+    v144 = modificationDate;
+    v116 = [fetchRequest execute:&v144];
+    v131 = v144;
 
-    v94 = v135;
+    v94 = v134;
     if (v116)
     {
       if ([v116 count]>= 2)
@@ -2621,41 +2853,41 @@ LABEL_7:
         v121 = 0;
       }
 
-      representationCopy = v141;
-      v80 = v133;
-      v94 = v135;
-      v122 = v137;
+      representationCopy = v140;
+      v80 = v132;
+      v94 = v134;
+      v122 = v136;
     }
 
     else
     {
       v120 = +[STLog persistence];
-      v122 = v137;
+      v122 = v136;
       if (os_log_type_enabled(v120, OS_LOG_TYPE_FAULT))
       {
-        v123 = v132;
+        v123 = v131;
         [STBlueprint updateWithDictionaryRepresentation:];
         v121 = 0;
-        representationCopy = v141;
-        v80 = v133;
+        representationCopy = v140;
+        v80 = v132;
         goto LABEL_135;
       }
 
       v121 = 0;
-      representationCopy = v141;
-      v80 = v133;
+      representationCopy = v140;
+      v80 = v132;
     }
 
-    v123 = v132;
+    v123 = v131;
 LABEL_135:
 
 LABEL_136:
     modificationDate = v123;
-    v13 = v138;
+    v13 = v137;
 LABEL_137:
 
-    v11 = v139;
-    v8 = v140;
+    v11 = v138;
+    v8 = v139;
 LABEL_156:
 
     goto LABEL_157;
@@ -2688,13 +2920,12 @@ LABEL_156:
   v121 = 1;
 LABEL_157:
 
-  v127 = *MEMORY[0x1E69E9840];
   return v121;
 }
 
 - (id)dictionaryRepresentation
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   users = [(STBlueprint *)self users];
   v4 = [users valueForKeyPath:@"dsid"];
   allObjects = [v4 allObjects];
@@ -2703,38 +2934,38 @@ LABEL_157:
   configurations = [(STBlueprint *)self configurations];
   v8 = [v6 initWithCapacity:{objc_msgSend(configurations, "count")}];
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   configurations2 = [(STBlueprint *)self configurations];
-  v10 = [configurations2 countByEnumeratingWithState:&v42 objects:v46 count:16];
+  v10 = [configurations2 countByEnumeratingWithState:&v41 objects:v45 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v43;
+    v12 = *v42;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v43 != v12)
+        if (*v42 != v12)
         {
           objc_enumerationMutation(configurations2);
         }
 
-        dictionaryRepresentation = [*(*(&v42 + 1) + 8 * i) dictionaryRepresentation];
+        dictionaryRepresentation = [*(*(&v41 + 1) + 8 * i) dictionaryRepresentation];
         [v8 addObject:dictionaryRepresentation];
       }
 
-      v11 = [configurations2 countByEnumeratingWithState:&v42 objects:v46 count:16];
+      v11 = [configurations2 countByEnumeratingWithState:&v41 objects:v45 count:16];
     }
 
     while (v11);
   }
 
-  v41.receiver = self;
-  v41.super_class = STBlueprint;
-  dictionaryRepresentation2 = [(STUniquedManagedObject *)&v41 dictionaryRepresentation];
+  v40.receiver = self;
+  v40.super_class = STBlueprint;
+  dictionaryRepresentation2 = [(STUniquedManagedObject *)&v40 dictionaryRepresentation];
   type = [(STBlueprint *)self type];
   v17 = [type isEqualToString:@"downtime"];
 
@@ -2798,14 +3029,13 @@ LABEL_157:
   [dictionaryRepresentation2 setObject:modificationDate forKeyedSubscript:@"modificationDate"];
 
   v38 = [dictionaryRepresentation2 copy];
-  v39 = *MEMORY[0x1E69E9840];
 
   return v38;
 }
 
 + (id)fetchOrCreateWithDictionaryRepresentation:(id)representation inContext:(id)context error:(id *)error
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   contextCopy = context;
   v10 = [representationCopy objectForKeyedSubscript:@"identifier"];
@@ -2821,8 +3051,8 @@ LABEL_157:
   }
 
   errorCopy = error;
-  v43 = fetchRequest;
-  v41 = v13;
+  v42 = fetchRequest;
+  v40 = v13;
   firstObject = [v13 firstObject];
   if (!firstObject)
   {
@@ -2832,35 +3062,35 @@ LABEL_157:
     [(STBlueprint *)v14 setIdentifier:v15];
   }
 
-  v44 = v10;
-  v46 = objc_opt_new();
-  v45 = representationCopy;
+  v43 = v10;
+  v45 = objc_opt_new();
+  v44 = representationCopy;
   [representationCopy objectForKeyedSubscript:@"configurations"];
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
-  obj = v58 = 0u;
-  v16 = [obj countByEnumeratingWithState:&v55 objects:v64 count:16];
+  obj = v57 = 0u;
+  v16 = [obj countByEnumeratingWithState:&v54 objects:v63 count:16];
   if (v16)
   {
     v17 = v16;
     v18 = 0;
-    v19 = *v56;
+    v19 = *v55;
     do
     {
       v20 = 0;
       v21 = v18;
       do
       {
-        if (*v56 != v19)
+        if (*v55 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v55 + 1) + 8 * v20);
-        v54 = v21;
-        v23 = [STBlueprintConfiguration fetchOrCreateWithDictionaryRepresentation:v22 inContext:contextCopy error:&v54];
-        v18 = v54;
+        v22 = *(*(&v54 + 1) + 8 * v20);
+        v53 = v21;
+        v23 = [STBlueprintConfiguration fetchOrCreateWithDictionaryRepresentation:v22 inContext:contextCopy error:&v53];
+        v18 = v53;
 
         if (v18)
         {
@@ -2868,7 +3098,7 @@ LABEL_157:
           if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v60 = v18;
+            v59 = v18;
             _os_log_error_impl(&dword_1B831F000, v24, OS_LOG_TYPE_ERROR, "Could not create blueprint configuration: %{public}@", buf, 0xCu);
           }
         }
@@ -2876,7 +3106,7 @@ LABEL_157:
         else
         {
           [v23 setBlueprint:firstObject];
-          [v46 addObject:v23];
+          [v45 addObject:v23];
         }
 
         ++v20;
@@ -2884,7 +3114,7 @@ LABEL_157:
       }
 
       while (v17 != v20);
-      v17 = [obj countByEnumeratingWithState:&v55 objects:v64 count:16];
+      v17 = [obj countByEnumeratingWithState:&v54 objects:v63 count:16];
     }
 
     while (v17);
@@ -2895,81 +3125,81 @@ LABEL_157:
     v18 = 0;
   }
 
-  [firstObject setConfigurations:v46];
+  [firstObject setConfigurations:v45];
   v25 = +[STBlueprintConfiguration fetchRequest];
   v26 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == NULL", @"blueprint"];
   [v25 setPredicate:v26];
 
-  v53 = v18;
-  v27 = [v25 execute:&v53];
-  v28 = v53;
+  v52 = v18;
+  v27 = [v25 execute:&v52];
+  v28 = v52;
 
   if (v27)
   {
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     v29 = v27;
-    v30 = [v29 countByEnumeratingWithState:&v49 objects:v63 count:16];
+    v30 = [v29 countByEnumeratingWithState:&v48 objects:v62 count:16];
     if (v30)
     {
       v31 = v30;
-      v39 = v28;
-      v40 = v25;
-      v32 = *v50;
+      v38 = v28;
+      v39 = v25;
+      v32 = *v49;
       do
       {
         for (i = 0; i != v31; ++i)
         {
-          if (*v50 != v32)
+          if (*v49 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          v34 = *(*(&v49 + 1) + 8 * i);
+          v34 = *(*(&v48 + 1) + 8 * i);
           v35 = +[STLog screentime];
           if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136446466;
-            v60 = "+[STBlueprint fetchOrCreateWithDictionaryRepresentation:inContext:error:]";
-            v61 = 2112;
-            v62 = v34;
+            v59 = "+[STBlueprint fetchOrCreateWithDictionaryRepresentation:inContext:error:]";
+            v60 = 2112;
+            v61 = v34;
             _os_log_impl(&dword_1B831F000, v35, OS_LOG_TYPE_DEFAULT, "%{public}s: deleting orphanConfiguration (%@)", buf, 0x16u);
           }
 
           [contextCopy deleteObject:v34];
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v49 objects:v63 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v48 objects:v62 count:16];
       }
 
       while (v31);
-      v10 = v44;
-      representationCopy = v45;
+      v10 = v43;
+      representationCopy = v44;
       error = errorCopy;
-      fetchRequest = v43;
-      v28 = v39;
-      v25 = v40;
+      fetchRequest = v42;
+      v28 = v38;
+      v25 = v39;
       goto LABEL_34;
     }
 
-    fetchRequest = v43;
-    v10 = v44;
+    fetchRequest = v42;
+    v10 = v43;
   }
 
   else
   {
     v29 = +[STLog persistence];
-    fetchRequest = v43;
-    v10 = v44;
+    fetchRequest = v42;
+    v10 = v43;
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       +[STBlueprint fetchOrCreateWithDictionaryRepresentation:inContext:error:];
     }
   }
 
-  representationCopy = v45;
+  representationCopy = v44;
 LABEL_34:
 
   if (error && v28)
@@ -2978,17 +3208,15 @@ LABEL_34:
     *error = v28;
   }
 
-  v13 = v41;
+  v13 = v40;
 LABEL_38:
-
-  v37 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
 
 + (id)scheduleTextWithLocale:(id)locale weekdayScheduleComparator:(id)comparator scheduleTimeGetter:(id)getter
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   comparatorCopy = comparator;
   getterCopy = getter;
@@ -3003,38 +3231,38 @@ LABEL_38:
   v12 = [v11 maximumRangeOfUnit:512];
   v14 = v13;
   v15 = [objc_alloc(MEMORY[0x1E695DFA0]) initWithCapacity:v13];
-  v57 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:v14];
+  v56 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:v14];
   firstWeekday = [v11 firstWeekday];
-  v79[0] = 0;
-  v79[1] = v79;
-  v79[2] = 0x2020000000;
-  v79[3] = firstWeekday;
+  v78[0] = 0;
+  v78[1] = v78;
+  v78[2] = 0x2020000000;
+  v78[3] = firstWeekday;
   v17 = objc_opt_new();
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __83__STBlueprint_scheduleTextWithLocale_weekdayScheduleComparator_scheduleTimeGetter___block_invoke;
   aBlock[3] = &unk_1E7CE6E88;
-  v76 = firstWeekday;
-  v45 = comparatorCopy;
+  v75 = firstWeekday;
+  v44 = comparatorCopy;
+  v72 = v44;
+  v74 = v78;
+  v45 = getterCopy;
   v73 = v45;
-  v75 = v79;
-  v46 = getterCopy;
-  v74 = v46;
   v18 = v15;
-  v67 = v18;
-  v77 = v12;
-  v78 = v14 + v12 - 1;
-  v48 = shortWeekdaySymbols;
-  v68 = v48;
-  v47 = v11;
-  v69 = v47;
-  v49 = v17;
-  v70 = v49;
-  v52 = localeCopy;
-  v71 = v52;
-  v56 = v57;
-  v72 = v56;
-  v53 = _Block_copy(aBlock);
+  v66 = v18;
+  v76 = v12;
+  v77 = v14 + v12 - 1;
+  v47 = shortWeekdaySymbols;
+  v67 = v47;
+  v46 = v11;
+  v68 = v46;
+  v48 = v17;
+  v69 = v48;
+  v51 = localeCopy;
+  v70 = v51;
+  v55 = v56;
+  v71 = v55;
+  v52 = _Block_copy(aBlock);
   if (firstWeekday == v14 + v12 - 1)
   {
     v19 = v12;
@@ -3046,13 +3274,13 @@ LABEL_38:
   }
 
   v20 = [objc_alloc(MEMORY[0x1E696AC90]) initWithIndexesInRange:{v12, v14}];
-  [v20 enumerateIndexesInRange:v19 options:v14 + v12 - v19 usingBlock:{0, v53}];
-  [v20 enumerateIndexesInRange:v12 options:v19 - v12 usingBlock:{0, v53}];
-  v50 = v20;
+  [v20 enumerateIndexesInRange:v19 options:v14 + v12 - v19 usingBlock:{0, v52}];
+  [v20 enumerateIndexesInRange:v12 options:v19 - v12 usingBlock:{0, v52}];
+  v49 = v20;
   v21 = +[STScreenTimeCoreBundle bundle];
   if (localeCopy)
   {
-    currentLocale = v52;
+    currentLocale = v51;
   }
 
   else
@@ -3060,30 +3288,30 @@ LABEL_38:
     currentLocale = [MEMORY[0x1E695DF58] currentLocale];
   }
 
-  v58 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v18, "count")}];
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
+  v57 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v18, "count")}];
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   obj = v18;
-  v22 = [obj countByEnumeratingWithState:&v62 objects:v80 count:16];
-  v51 = @"CustomScheduleDetailTextCommaSeparator";
+  v22 = [obj countByEnumeratingWithState:&v61 objects:v79 count:16];
+  v50 = @"CustomScheduleDetailTextCommaSeparator";
   if (v22)
   {
     v23 = 0;
-    v55 = *v63;
+    v54 = *v62;
     do
     {
-      v60 = v22;
-      for (i = 0; i != v60; ++i)
+      v59 = v22;
+      for (i = 0; i != v59; ++i)
       {
-        if (*v63 != v55)
+        if (*v62 != v54)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = *(*(&v62 + 1) + 8 * i);
-        v26 = [v56 objectForKeyedSubscript:v25];
+        v25 = *(*(&v61 + 1) + 8 * i);
+        v26 = [v55 objectForKeyedSubscript:v25];
         v27 = [v26 count];
         if (v27 < 3)
         {
@@ -3110,10 +3338,10 @@ LABEL_38:
 
         v37 = [v21 localizedStringForKey:@"CustomDailyScheduleFormat" value:&stru_1F3040980 table:0];
         v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:v37 locale:currentLocale, v36, v25];
-        [v58 addObject:v38];
+        [v57 addObject:v38];
       }
 
-      v22 = [obj countByEnumeratingWithState:&v62 objects:v80 count:16];
+      v22 = [obj countByEnumeratingWithState:&v61 objects:v79 count:16];
     }
 
     while (v22);
@@ -3123,14 +3351,14 @@ LABEL_38:
       v39 = @"CustomScheduleDetailTextCommaSeparator";
     }
 
-    v51 = v39;
+    v50 = v39;
   }
 
-  if ([v58 count])
+  if ([v57 count])
   {
-    v40 = v51;
+    v40 = v50;
     v41 = [v21 localizedStringForKey:v40 value:&stru_1F3040980 table:0];
-    v42 = [v58 componentsJoinedByString:v41];
+    v42 = [v57 componentsJoinedByString:v41];
   }
 
   else
@@ -3138,70 +3366,71 @@ LABEL_38:
     v42 = 0;
   }
 
-  _Block_object_dispose(v79, 8);
-  v43 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v78, 8);
 
   return v42;
 }
 
 uint64_t __83__STBlueprint_scheduleTextWithLocale_weekdayScheduleComparator_scheduleTimeGetter___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (*(a1 + 104) == a2 || (v4 = *(a1 + 80), v5 = *(*(*(a1 + 96) + 8) + 24), result = (*(*(a1 + 80) + 16))(), (result & 1) == 0))
+  if (*(a1 + 104) == a2 || (result = (*(*(a1 + 80) + 16))(), (result & 1) == 0))
   {
-    v7 = *(*(*(a1 + 96) + 8) + 24);
-    v8 = (*(*(a1 + 88) + 16))();
-    if (v8)
+    v5 = (*(*(a1 + 88) + 16))();
+    v6 = v5;
+    if (v5)
     {
-      v18 = v8;
-      [*(a1 + 32) addObject:v8];
+      v16 = v5;
+      [*(a1 + 32) addObject:v5];
       if (*(a1 + 112) == a2)
       {
-        v9 = *(a1 + 120);
+        v7 = *(a1 + 120);
       }
 
       else
       {
-        v9 = a2 - 1;
+        v7 = a2 - 1;
       }
 
-      v10 = *(*(*(a1 + 96) + 8) + 24);
-      if (v10 == v9)
+      v8 = *(*(*(a1 + 96) + 8) + 24);
+      if (v8 == v7)
       {
-        v11 = [*(a1 + 40) objectAtIndexedSubscript:v9 - 1];
+        v9 = [*(a1 + 40) objectAtIndexedSubscript:v7 - 1];
       }
 
       else
       {
-        v12 = [*(a1 + 48) nextDateAfterDate:*(a1 + 56) matchingUnit:512 value:v10 options:1024];
-        v13 = [*(a1 + 48) nextDateAfterDate:v12 matchingUnit:512 value:v9 options:1024];
-        v14 = objc_opt_new();
-        v15 = v14;
+        v10 = [*(a1 + 48) nextDateAfterDate:*(a1 + 56) matchingUnit:512 value:v8 options:1024];
+        v11 = [*(a1 + 48) nextDateAfterDate:v10 matchingUnit:512 value:v7 options:1024];
+        v12 = objc_opt_new();
+        v13 = v12;
         if (*(a1 + 64))
         {
-          [v14 setLocale:?];
+          [v12 setLocale:?];
         }
 
-        [v15 setDateTemplate:@"ccc"];
-        v11 = [v15 stringFromDate:v12 toDate:v13];
+        [v13 setDateTemplate:@"ccc"];
+        v9 = [v13 stringFromDate:v10 toDate:v11];
       }
 
-      v16 = [*(a1 + 72) objectForKeyedSubscript:v18];
-      if (v16)
+      v14 = [*(a1 + 72) objectForKeyedSubscript:v16];
+      if (v14)
       {
-        v17 = v16;
-        [v16 addObject:v11];
+        v15 = v14;
+        [v14 addObject:v9];
       }
 
       else
       {
-        v17 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v11, 0}];
-        [*(a1 + 72) setObject:v17 forKeyedSubscript:v18];
+        v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v9, 0}];
+        [*(a1 + 72) setObject:v15 forKeyedSubscript:v16];
       }
+
+      v6 = v16;
     }
 
     *(*(*(a1 + 96) + 8) + 24) = a2;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v5, v6);
   }
 
   return result;
@@ -3233,134 +3462,21 @@ uint64_t __83__STBlueprint_scheduleTextWithLocale_weekdayScheduleComparator_sche
       registeredIdentifier3 = [MEMORY[0x1E6996218] registeredIdentifier];
       v10 = [typeCopy isEqualToString:registeredIdentifier3];
 
-      if (v10)
+      if (v10 & 1) != 0 || ([MEMORY[0x1E69962D8] registeredIdentifier], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(typeCopy, "isEqualToString:", v11), v11, (v12) || (objc_msgSend(MEMORY[0x1E6996310], "registeredIdentifier"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(typeCopy, "isEqualToString:", v13), v13, (v14) || (objc_msgSend(MEMORY[0x1E69962B8], "registeredIdentifier"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(typeCopy, "isEqualToString:", v15), v15, (v16) || (objc_msgSend(MEMORY[0x1E69962E0], "registeredIdentifier"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(typeCopy, "isEqualToString:", v17), v17, (v18) || (objc_msgSend(MEMORY[0x1E6996220], "registeredIdentifier"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(typeCopy, "isEqualToString:", v19), v19, (v20) || (objc_msgSend(MEMORY[0x1E6996200], "registeredIdentifier"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(typeCopy, "isEqualToString:", v21), v21, (v22) || (objc_msgSend(MEMORY[0x1E6996308], "registeredIdentifier"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(typeCopy, "isEqualToString:", v23), v23, (v24) || (objc_msgSend(MEMORY[0x1E6996300], "registeredIdentifier"), v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(typeCopy, "isEqualToString:", v25), v25, (v26) || (objc_msgSend(MEMORY[0x1E69962C8], "registeredIdentifier"), v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(typeCopy, "isEqualToString:", v27), v27, (v28) || (objc_msgSend(MEMORY[0x1E69962F8], "registeredIdentifier"), v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(typeCopy, "isEqualToString:", v29), v29, (v30) || (objc_msgSend(MEMORY[0x1E6996230], "registeredIdentifier"), v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(typeCopy, "isEqualToString:", v31), v31, (v32) || (objc_msgSend(MEMORY[0x1E69961E8], "registeredIdentifier"), v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(typeCopy, "isEqualToString:", v33), v33, (v34) || (objc_msgSend(MEMORY[0x1E6996228], "registeredIdentifier"), v35 = objc_claimAutoreleasedReturnValue(), v36 = objc_msgSend(typeCopy, "isEqualToString:", v35), v35, (v36) || (objc_msgSend(MEMORY[0x1E69962F0], "registeredIdentifier"), v37 = objc_claimAutoreleasedReturnValue(), v38 = objc_msgSend(typeCopy, "isEqualToString:", v37), v37, (v38) || (objc_msgSend(MEMORY[0x1E6996318], "registeredIdentifier"), v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(typeCopy, "isEqualToString:", v39), v39, (v40))
       {
-        goto LABEL_21;
-      }
-
-      registeredIdentifier4 = [MEMORY[0x1E69962D8] registeredIdentifier];
-      v12 = [typeCopy isEqualToString:registeredIdentifier4];
-
-      if (v12)
-      {
-        goto LABEL_21;
-      }
-
-      registeredIdentifier5 = [MEMORY[0x1E6996310] registeredIdentifier];
-      v14 = [typeCopy isEqualToString:registeredIdentifier5];
-
-      if (v14)
-      {
-        goto LABEL_21;
-      }
-
-      registeredIdentifier6 = [MEMORY[0x1E69962B8] registeredIdentifier];
-      v16 = [typeCopy isEqualToString:registeredIdentifier6];
-
-      if (v16)
-      {
-        goto LABEL_21;
-      }
-
-      registeredIdentifier7 = [MEMORY[0x1E69962E0] registeredIdentifier];
-      v18 = [typeCopy isEqualToString:registeredIdentifier7];
-
-      if (v18)
-      {
-        goto LABEL_21;
-      }
-
-      registeredIdentifier8 = [MEMORY[0x1E6996220] registeredIdentifier];
-      v20 = [typeCopy isEqualToString:registeredIdentifier8];
-
-      if (v20)
-      {
-        goto LABEL_21;
-      }
-
-      registeredIdentifier9 = [MEMORY[0x1E6996200] registeredIdentifier];
-      v22 = [typeCopy isEqualToString:registeredIdentifier9];
-
-      if (v22)
-      {
-        goto LABEL_21;
-      }
-
-      registeredIdentifier10 = [MEMORY[0x1E6996308] registeredIdentifier];
-      v24 = [typeCopy isEqualToString:registeredIdentifier10];
-
-      if (v24)
-      {
-        goto LABEL_21;
-      }
-
-      registeredIdentifier11 = [MEMORY[0x1E6996300] registeredIdentifier];
-      v26 = [typeCopy isEqualToString:registeredIdentifier11];
-
-      if (v26)
-      {
-        goto LABEL_21;
-      }
-
-      registeredIdentifier12 = [MEMORY[0x1E69962C8] registeredIdentifier];
-      v28 = [typeCopy isEqualToString:registeredIdentifier12];
-
-      if (v28)
-      {
-        goto LABEL_21;
-      }
-
-      registeredIdentifier13 = [MEMORY[0x1E69962F8] registeredIdentifier];
-      v30 = [typeCopy isEqualToString:registeredIdentifier13];
-
-      if (v30)
-      {
-        goto LABEL_21;
-      }
-
-      registeredIdentifier14 = [MEMORY[0x1E6996230] registeredIdentifier];
-      v32 = [typeCopy isEqualToString:registeredIdentifier14];
-
-      if (v32)
-      {
-        goto LABEL_21;
-      }
-
-      registeredIdentifier15 = [MEMORY[0x1E69961E8] registeredIdentifier];
-      v34 = [typeCopy isEqualToString:registeredIdentifier15];
-
-      if (v34)
-      {
-        goto LABEL_21;
-      }
-
-      registeredIdentifier16 = [MEMORY[0x1E6996228] registeredIdentifier];
-      v36 = [typeCopy isEqualToString:registeredIdentifier16];
-
-      if (v36)
-      {
-        goto LABEL_21;
-      }
-
-      registeredIdentifier17 = [MEMORY[0x1E69962F0] registeredIdentifier];
-      v38 = [typeCopy isEqualToString:registeredIdentifier17];
-
-      if (v38 & 1) != 0 || ([MEMORY[0x1E6996318] registeredIdentifier], v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(typeCopy, "isEqualToString:", v39), v39, (v40))
-      {
-LABEL_21:
         v6 = @"restrictions";
       }
 
       else
       {
-        registeredIdentifier18 = [MEMORY[0x1E69961F8] registeredIdentifier];
-        v43 = [typeCopy isEqualToString:registeredIdentifier18];
+        registeredIdentifier4 = [MEMORY[0x1E69961F8] registeredIdentifier];
+        v43 = [typeCopy isEqualToString:registeredIdentifier4];
 
         v6 = @"restrictions";
         if ((v43 & 1) == 0)
         {
-          registeredIdentifier19 = [MEMORY[0x1E6996328] registeredIdentifier];
-          v45 = [typeCopy isEqualToString:registeredIdentifier19];
+          registeredIdentifier5 = [MEMORY[0x1E6996328] registeredIdentifier];
+          v45 = [typeCopy isEqualToString:registeredIdentifier5];
 
           if (!v45)
           {
@@ -3489,7 +3605,7 @@ LABEL_21:
 
 - (BOOL)_validateUsersOnBlueprint:(id)blueprint
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   blueprintCopy = blueprint;
   users = [(STBlueprint *)self users];
   v6 = [users count];
@@ -3497,9 +3613,9 @@ LABEL_21:
   if (!v6)
   {
     v7 = MEMORY[0x1E696ABC0];
-    v20 = *MEMORY[0x1E696A578];
-    v21[0] = @"There must be one user assigned to blueprint";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x1E696A578];
+    v20[0] = @"There must be one user assigned to blueprint";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v9 = [v7 errorWithDomain:@"STErrorDomain" code:531 userInfo:v8];
     [blueprintCopy addObject:v9];
   }
@@ -3510,22 +3626,21 @@ LABEL_21:
   if (v11 >= 2)
   {
     v12 = MEMORY[0x1E696ABC0];
-    v18 = *MEMORY[0x1E696A578];
-    v19 = @"There must be one and only one user assigned to Blueprint.";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x1E696A578];
+    v18 = @"There must be one and only one user assigned to Blueprint.";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     v14 = [v12 errorWithDomain:@"STErrorDomain" code:532 userInfo:v13];
     [blueprintCopy addObject:v14];
   }
 
   v15 = [blueprintCopy count] == 0;
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (BOOL)_validateNumberOfBlueprints:(id)blueprints
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   blueprintsCopy = blueprints;
   users = [(STBlueprint *)self users];
   anyObject = [users anyObject];
@@ -3534,9 +3649,9 @@ LABEL_21:
   organization = [(STBlueprint *)self organization];
   v10 = [STBlueprint fetchRequestMatchingBlueprintsForUserWithDSID:dsid ofType:type fromOrganization:organization];
 
-  v29 = 0;
-  v11 = [v10 execute:&v29];
-  v12 = v29;
+  v28 = 0;
+  v11 = [v10 execute:&v28];
+  v12 = v28;
   if (v11)
   {
     type2 = [(STBlueprint *)self type];
@@ -3567,9 +3682,9 @@ LABEL_10:
         if (![v11 count])
         {
           v21 = MEMORY[0x1E696ABC0];
-          v32 = *MEMORY[0x1E696A578];
-          v33[0] = @"There are no blueprints for the given type";
-          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+          v31 = *MEMORY[0x1E696A578];
+          v32[0] = @"There are no blueprints for the given type";
+          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
           v23 = [v21 errorWithDomain:@"STErrorDomain" code:537 userInfo:v22];
           [blueprintsCopy addObject:v23];
         }
@@ -3577,9 +3692,9 @@ LABEL_10:
         if ([v11 count] >= 2)
         {
           v24 = MEMORY[0x1E696ABC0];
-          v30 = *MEMORY[0x1E696A578];
-          v31 = @"There are multiple blueprints for a given type";
-          v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+          v29 = *MEMORY[0x1E696A578];
+          v30 = @"There are multiple blueprints for a given type";
+          v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
           v26 = [v24 errorWithDomain:@"STErrorDomain" code:538 userInfo:v25];
           [blueprintsCopy addObject:v26];
         }
@@ -3595,22 +3710,21 @@ LABEL_10:
   v20 = 0;
 LABEL_15:
 
-  v27 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (BOOL)_validateType:(id)type
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   typeCopy = type;
   type = [(STBlueprint *)self type];
 
   if (!type)
   {
     v6 = MEMORY[0x1E696ABC0];
-    v22 = *MEMORY[0x1E696A578];
-    v23[0] = @"Every blueprint must have a valid type";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v21 = *MEMORY[0x1E696A578];
+    v22[0] = @"Every blueprint must have a valid type";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     v8 = [v6 errorWithDomain:@"STErrorDomain" code:539 userInfo:v7];
     [typeCopy addObject:v8];
   }
@@ -3634,18 +3748,18 @@ LABEL_15:
         if (([type6 isEqualToString:@"always-allowed-apps"] & 1) == 0)
         {
           type7 = [(STBlueprint *)self type];
-          v18 = [type7 isEqualToString:@"usage-limit-override"];
+          v17 = [type7 isEqualToString:@"usage-limit-override"];
 
-          if (v18)
+          if (v17)
           {
             goto LABEL_13;
           }
 
-          v19 = MEMORY[0x1E696ABC0];
-          v20 = *MEMORY[0x1E696A578];
-          v21 = @"Blueprint type is not recognized";
-          type2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-          type3 = [v19 errorWithDomain:@"STErrorDomain" code:540 userInfo:type2];
+          v18 = MEMORY[0x1E696ABC0];
+          v19 = *MEMORY[0x1E696A578];
+          v20 = @"Blueprint type is not recognized";
+          type2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+          type3 = [v18 errorWithDomain:@"STErrorDomain" code:540 userInfo:type2];
           [typeCopy addObject:type3];
           goto LABEL_11;
         }
@@ -3659,13 +3773,12 @@ LABEL_12:
 LABEL_13:
   v14 = [typeCopy count] == 0;
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)_validateBlueprintIdentifier:(id)identifier
 {
-  v75[1] = *MEMORY[0x1E69E9840];
+  v74[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   type = [(STBlueprint *)self type];
   if (type != @"always-allowed-apps")
@@ -3704,9 +3817,9 @@ LABEL_8:
   if (v17 != identifier)
   {
     v19 = MEMORY[0x1E696ABC0];
-    v74 = *MEMORY[0x1E696A578];
-    v75[0] = @"Invalid identifier";
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:&v74 count:1];
+    v73 = *MEMORY[0x1E696A578];
+    v74[0] = @"Invalid identifier";
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v74 forKeys:&v73 count:1];
     v21 = [v19 errorWithDomain:@"STErrorDomain" code:541 userInfo:v20];
     [identifierCopy addObject:v21];
   }
@@ -3749,9 +3862,9 @@ LABEL_11:
     if ((v34 & 1) == 0)
     {
       v35 = MEMORY[0x1E696ABC0];
-      v72 = *MEMORY[0x1E696A578];
-      v73 = @"Blueprint identifier doesn't have DSID or is assigned to a different family member.";
-      v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+      v71 = *MEMORY[0x1E696A578];
+      v72 = @"Blueprint identifier doesn't have DSID or is assigned to a different family member.";
+      v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
       v37 = [v35 errorWithDomain:@"STErrorDomain" code:541 userInfo:v36];
       [identifierCopy addObject:v37];
     }
@@ -3772,9 +3885,9 @@ LABEL_19:
     if ((v44 & 1) == 0)
     {
       v45 = MEMORY[0x1E696ABC0];
-      v70 = *MEMORY[0x1E696A578];
-      v71 = @"Managed User blueprint identifier doesn't have DSID or is assigned to a different family member.";
-      v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+      v69 = *MEMORY[0x1E696A578];
+      v70 = @"Managed User blueprint identifier doesn't have DSID or is assigned to a different family member.";
+      v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
       v47 = [v45 errorWithDomain:@"STErrorDomain" code:541 userInfo:v46];
       [identifierCopy addObject:v47];
     }
@@ -3796,11 +3909,11 @@ LABEL_19:
       if ((v55 & 1) == 0)
       {
         v56 = MEMORY[0x1E696ABC0];
-        v68 = *MEMORY[0x1E696A578];
-        v69 = @"Missing organization identifier in Blueprint identifier";
+        v67 = *MEMORY[0x1E696A578];
+        v68 = @"Missing organization identifier in Blueprint identifier";
         v57 = MEMORY[0x1E695DF20];
-        v58 = &v69;
-        v59 = &v68;
+        v58 = &v68;
+        v59 = &v67;
 LABEL_29:
         v61 = [v57 dictionaryWithObjects:v58 forKeys:v59 count:1];
         v62 = [v56 errorWithDomain:@"STErrorDomain" code:542 userInfo:v61];
@@ -3815,11 +3928,11 @@ LABEL_29:
       if ((v60 & 1) == 0)
       {
         v56 = MEMORY[0x1E696ABC0];
-        v66 = *MEMORY[0x1E696A578];
-        v67 = @"Missing organization identifier in Blueprint identifier";
+        v65 = *MEMORY[0x1E696A578];
+        v66 = @"Missing organization identifier in Blueprint identifier";
         v57 = MEMORY[0x1E695DF20];
-        v58 = &v67;
-        v59 = &v66;
+        v58 = &v66;
+        v59 = &v65;
         goto LABEL_29;
       }
     }
@@ -3827,13 +3940,12 @@ LABEL_29:
 
   v63 = [identifierCopy count] == 0;
 
-  v64 = *MEMORY[0x1E69E9840];
   return v63;
 }
 
 - (BOOL)_validateBlueprintConfiguration:(id)configuration
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   type = [(STBlueprint *)self type];
 
@@ -3845,16 +3957,15 @@ LABEL_29:
   else
   {
     v9 = MEMORY[0x1E696ABC0];
-    v14 = *MEMORY[0x1E696A578];
-    v15[0] = @"Blueprints other than Content & Privacy should have a configuration set.";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x1E696A578];
+    v14[0] = @"Blueprints other than Content & Privacy should have a configuration set.";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v11 = [v9 errorWithDomain:@"STErrorDomain" code:543 userInfo:v10];
     [configurationCopy addObject:v11];
 
     v8 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -3876,7 +3987,7 @@ LABEL_29:
 
 + (BOOL)saveAlwaysAllowListForUser:(id)user withBundleIDs:(id)ds overwriteExistingList:(BOOL)list error:(id *)error
 {
-  v84[1] = *MEMORY[0x1E69E9840];
+  v83[1] = *MEMORY[0x1E69E9840];
   userCopy = user;
   dsCopy = ds;
   managingOrganization = [userCopy managingOrganization];
@@ -3887,9 +3998,9 @@ LABEL_29:
     alwaysAllowActivationIdentifier = [userCopy alwaysAllowActivationIdentifier];
     v14 = [STBlueprint fetchRequestMatchingBlueprintsForUserWithDSID:dsid ofType:@"always-allowed-apps" withIdentifier:alwaysAllowActivationIdentifier fromOrganization:managingOrganization];
 
-    v82 = 0;
-    v15 = [v14 execute:&v82];
-    v16 = v82;
+    v81 = 0;
+    v15 = [v14 execute:&v81];
+    v16 = v81;
     if (!v15)
     {
       v24 = +[STLog persistence];
@@ -3924,7 +4035,7 @@ LABEL_29:
 
     managedObjectContext = [userCopy managedObjectContext];
     firstObject = [v15 firstObject];
-    v73 = managedObjectContext;
+    v72 = managedObjectContext;
     if (firstObject)
     {
       v20 = firstObject;
@@ -3940,12 +4051,12 @@ LABEL_29:
         goto LABEL_55;
       }
 
-      v69 = v14;
+      v68 = v14;
     }
 
     else
     {
-      v69 = v14;
+      v68 = v14;
       v20 = [[STBlueprint alloc] initWithContext:managedObjectContext];
       [(STBlueprint *)v20 setType:@"always-allowed-apps"];
       alwaysAllowActivationIdentifier2 = [userCopy alwaysAllowActivationIdentifier];
@@ -3958,8 +4069,8 @@ LABEL_29:
 
     [(STBlueprint *)v20 setIsDirty:1];
     v28 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"objectID.URIRepresentation.absoluteString" ascending:1];
-    v84[0] = v28;
-    [MEMORY[0x1E695DEC8] arrayWithObjects:v84 count:1];
+    v83[0] = v28;
+    [MEMORY[0x1E695DEC8] arrayWithObjects:v83 count:1];
     v30 = v29 = v20;
 
     v31 = MEMORY[0x1E696AE18];
@@ -3967,22 +4078,22 @@ LABEL_29:
     v33 = [v31 predicateWithFormat:@"%K == %@", @"identifier", alwaysAllowConfigurationIdentifier];
 
     configurations = [(STBlueprint *)v29 configurations];
-    v68 = v33;
+    v67 = v33;
     v35 = [configurations filteredSetUsingPredicate:v33];
-    v71 = v30;
+    v70 = v30;
     v36 = v30;
     v20 = v29;
     v37 = [v35 sortedArrayUsingDescriptors:v36];
     firstObject2 = [v37 firstObject];
 
-    v72 = firstObject2;
+    v71 = firstObject2;
     if (!firstObject2)
     {
-      v39 = [[STBlueprintConfiguration alloc] initWithContext:v73];
+      v39 = [[STBlueprintConfiguration alloc] initWithContext:v72];
       alwaysAllowConfigurationIdentifier2 = [userCopy alwaysAllowConfigurationIdentifier];
       [(STBlueprintConfiguration *)v39 setIdentifier:alwaysAllowConfigurationIdentifier2];
 
-      v72 = v39;
+      v71 = v39;
       [(STBlueprintConfiguration *)v39 setBlueprint:v20];
     }
 
@@ -3992,71 +4103,71 @@ LABEL_29:
 
     v44 = v43;
     [v43 updateServerHash];
-    v81 = v16;
-    v45 = [v43 serializeAsDataWithError:&v81];
-    v46 = v81;
+    v80 = v16;
+    v45 = [v43 serializeAsDataWithError:&v80];
+    v46 = v80;
 
     v47 = v45;
-    v14 = v69;
-    v67 = v44;
+    v14 = v68;
+    v66 = v44;
     if (v47)
     {
-      v66 = v47;
-      [v72 setPayloadPlist:v47];
+      v65 = v47;
+      [v71 setPayloadPlist:v47];
       declarationType = [v44 declarationType];
-      [v72 setType:declarationType];
+      [v71 setType:declarationType];
 
       dsid2 = [userCopy dsid];
       v50 = [STBlueprint fetchRequestMatchingBlueprintsForUserWithDSID:dsid2 ofType:@"usage-limit" fromOrganization:managingOrganization];
 
-      v80 = v46;
-      v51 = [v50 execute:&v80];
-      v52 = v80;
+      v79 = v46;
+      v51 = [v50 execute:&v79];
+      v52 = v79;
 
       if (v51)
       {
-        v70 = v52;
-        v78 = 0u;
-        v79 = 0u;
-        v76 = 0u;
+        v69 = v52;
         v77 = 0u;
+        v78 = 0u;
+        v75 = 0u;
+        v76 = 0u;
         v15 = v51;
-        v53 = [v15 countByEnumeratingWithState:&v76 objects:v83 count:16];
+        v53 = [v15 countByEnumeratingWithState:&v75 objects:v82 count:16];
         if (v53)
         {
           v54 = v53;
-          v55 = *v77;
+          v55 = *v76;
           do
           {
             for (i = 0; i != v54; ++i)
             {
-              if (*v77 != v55)
+              if (*v76 != v55)
               {
                 objc_enumerationMutation(v15);
               }
 
-              [*(*(&v76 + 1) + 8 * i) updateUsageLimitWithAlwaysAllowBundleIdentifiers:dsCopy];
+              [*(*(&v75 + 1) + 8 * i) updateUsageLimitWithAlwaysAllowBundleIdentifiers:dsCopy];
             }
 
-            v54 = [v15 countByEnumeratingWithState:&v76 objects:v83 count:16];
+            v54 = [v15 countByEnumeratingWithState:&v75 objects:v82 count:16];
           }
 
           while (v54);
         }
 
-        if (![v73 hasChanges])
+        if (![v72 hasChanges])
         {
           v23 = 1;
           v14 = v50;
-          v46 = v70;
+          v46 = v69;
 LABEL_53:
-          v47 = v66;
+          v47 = v65;
           goto LABEL_54;
         }
 
-        v75 = v52;
-        v57 = [v73 save:&v75];
-        v46 = v75;
+        v74 = v52;
+        v57 = [v72 save:&v74];
+        v46 = v74;
 
         if (v57)
         {
@@ -4114,15 +4225,15 @@ LABEL_51:
 LABEL_54:
 
         v16 = v46;
-        v58 = v71;
+        v58 = v70;
 LABEL_55:
 
 LABEL_56:
         goto LABEL_57;
       }
 
-      v66 = 0;
-      v50 = v69;
+      v65 = 0;
+      v50 = v68;
     }
 
     v62 = v46;
@@ -4152,7 +4263,6 @@ LABEL_56:
 
 LABEL_57:
 
-  v64 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -4349,6 +4459,13 @@ LABEL_57:
   return v26;
 }
 
+- (void)setDowntimeEnabled:(BOOL)enabled
+{
+  [(STBlueprint *)self setEnabled:enabled];
+
+  [(STBlueprint *)self setIsDirty:1];
+}
+
 - (id)_downtimeConfigurationAtDate:(id)date inCalendar:(id)calendar
 {
   calendarCopy = calendar;
@@ -4529,7 +4646,7 @@ LABEL_27:
 
 - (id)activeOverride
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   override = [(STBlueprint *)self override];
   v3 = override;
   if (!override || ([override isTombstoned] & 1) != 0 || objc_msgSend(v3, "isDeleted"))
@@ -4537,8 +4654,8 @@ LABEL_27:
     v4 = +[STLog blueprint];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_1B831F000, v4, OS_LOG_TYPE_INFO, "No active override for downtime", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_1B831F000, v4, OS_LOG_TYPE_INFO, "No active override for downtime", &v8, 2u);
     }
 
     v5 = 0;
@@ -4552,20 +4669,18 @@ LABEL_27:
     v4 = +[STLog blueprint];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_1B831F000, v4, OS_LOG_TYPE_DEFAULT, "Got active override for downtime: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_impl(&dword_1B831F000, v4, OS_LOG_TYPE_DEFAULT, "Got active override for downtime: %@", &v8, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)_applyOnDemandDowntimeStateChange:(int64_t)change withFixedDuration:(double)duration atDate:(id)date inCalendar:(id)calendar error:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   calendarCopy = calendar;
   v13 = STUTCErasedDateFromDate(date, calendarCopy);
   v14 = [calendarCopy copy];
@@ -4587,13 +4702,13 @@ LABEL_27:
     }
 
     v18 = [MEMORY[0x1E696AD98] numberWithDouble:duration];
-    v25 = 138412802;
-    v26 = v17;
-    v27 = 2112;
-    v28 = v18;
-    v29 = 2112;
-    v30 = v13;
-    _os_log_impl(&dword_1B831F000, v16, OS_LOG_TYPE_DEFAULT, "Applying on-demand state change: %@, for fixed duration: %@, at: %@", &v25, 0x20u);
+    v24 = 138412802;
+    v25 = v17;
+    v26 = 2112;
+    v27 = v18;
+    v28 = 2112;
+    v29 = v13;
+    _os_log_impl(&dword_1B831F000, v16, OS_LOG_TYPE_DEFAULT, "Applying on-demand state change: %@, for fixed duration: %@, at: %@", &v24, 0x20u);
   }
 
   v19 = [STDowntimeOverrideBuilder createFixedDurationOverrideWithInterval:change == 1 state:v13 creationDate:v14 calendar:duration];
@@ -4610,14 +4725,12 @@ LABEL_27:
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v22;
 }
 
 - (id)_applyAutomaticOnDemandDowntimeStateChange:(int64_t)change atDate:(id)date inCalendar:(id)calendar error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   calendarCopy = calendar;
   v11 = STUTCErasedDateFromDate(date, calendarCopy);
   v12 = [calendarCopy copy];
@@ -4637,11 +4750,11 @@ LABEL_27:
         v16 = @"Disable";
       }
 
-      v24 = 138412546;
-      v25 = v16;
-      v26 = 2112;
-      v27 = v11;
-      _os_log_impl(&dword_1B831F000, v15, OS_LOG_TYPE_DEFAULT, "Applying on-demand (automatic duration) state change: %@ at: %@", &v24, 0x16u);
+      v23 = 138412546;
+      v24 = v16;
+      v25 = 2112;
+      v26 = v11;
+      _os_log_impl(&dword_1B831F000, v15, OS_LOG_TYPE_DEFAULT, "Applying on-demand (automatic duration) state change: %@ at: %@", &v23, 0x16u);
     }
 
     schedule = [(STBlueprint *)self schedule];
@@ -4670,8 +4783,6 @@ LABEL_27:
       *error = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"STErrorDomain" code:1 userInfo:0];
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -4718,7 +4829,7 @@ LABEL_27:
 
 + (id)_downtimeForUser:(id)user inContext:(id)context error:(id *)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   userCopy = user;
   managingOrganization = [userCopy managingOrganization];
   if (managingOrganization)
@@ -4726,9 +4837,9 @@ LABEL_27:
     dsid = [userCopy dsid];
     v9 = [STBlueprint fetchRequestMatchingBlueprintsForUserWithDSID:dsid ofType:@"downtime" fromOrganization:managingOrganization];
 
-    v22 = 0;
-    v10 = [v9 execute:&v22];
-    v11 = v22;
+    v21 = 0;
+    v10 = [v9 execute:&v21];
+    v11 = v21;
     if (v10)
     {
       if ([v10 count] >= 2)
@@ -4755,7 +4866,7 @@ LABEL_27:
         {
           dsid2 = [userCopy dsid];
           *buf = 138412290;
-          v24 = dsid2;
+          v23 = dsid2;
           _os_log_impl(&dword_1B831F000, v18, OS_LOG_TYPE_INFO, "User has no downtime: %@", buf, 0xCu);
         }
 
@@ -4796,8 +4907,6 @@ LABEL_27:
       v15 = 0;
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -5006,10 +5115,114 @@ LABEL_27:
   return v10;
 }
 
++ (BOOL)saveDowntimeForUser:(id)user startTime:(id)time endTime:(id)endTime scheduleByWeekdayIndex:(id)index enabled:(BOOL)enabled behaviorType:(unint64_t)type error:(id *)error
+{
+  enabledCopy = enabled;
+  indexCopy = index;
+  endTimeCopy = endTime;
+  timeCopy = time;
+  userCopy = user;
+  managedObjectContext = [userCopy managedObjectContext];
+  v19 = [STBlueprint _downtimeForUser:"_downtimeForUser:inContext:error:" inContext:userCopy error:?];
+  schedule = [v19 schedule];
+  dictionaryRepresentation = [schedule dictionaryRepresentation];
+
+  v21 = [self _updatedDowntimeForUser:userCopy startTime:timeCopy endTime:endTimeCopy scheduleByWeekdayIndex:indexCopy enabled:enabledCopy behaviorType:type error:error];
+
+  if (v21)
+  {
+    schedule2 = [v21 schedule];
+    dictionaryRepresentation2 = [schedule2 dictionaryRepresentation];
+
+    schedule3 = [v21 schedule];
+    if ([schedule3 enabled] == enabledCopy)
+    {
+      v26 = dictionaryRepresentation;
+      v28 = [dictionaryRepresentation isEqualToDictionary:dictionaryRepresentation2];
+
+      v25 = managedObjectContext;
+      if (v28)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    else
+    {
+
+      v26 = dictionaryRepresentation;
+      v25 = managedObjectContext;
+    }
+
+    v39 = 0;
+    v29 = [v21 applyScheduleStateChange:enabledCopy error:&v39];
+    v30 = v39;
+
+    if (!v29)
+    {
+      v33 = +[STLog blueprint];
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
+      {
+        [STBlueprint(Downtime) saveDowntimeForUser:enabledCopy startTime:v30 endTime:v33 scheduleByWeekdayIndex:? enabled:? behaviorType:? error:?];
+      }
+
+      goto LABEL_18;
+    }
+
+LABEL_8:
+    if ([v25 hasChanges])
+    {
+      v38 = 0;
+      v31 = [v25 save:&v38];
+      v30 = v38;
+      if ((v31 & 1) == 0)
+      {
+        v32 = +[STLog persistence];
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        {
+          +[STBlueprint(Downtime) saveDowntimeForUser:startTime:endTime:scheduleByWeekdayIndex:enabled:behaviorType:error:];
+        }
+
+LABEL_18:
+        if (error)
+        {
+          v34 = v30;
+          v27 = 0;
+          *error = v30;
+        }
+
+        else
+        {
+          v27 = 0;
+        }
+
+        goto LABEL_21;
+      }
+    }
+
+    else
+    {
+      v30 = 0;
+    }
+
+    v27 = 1;
+LABEL_21:
+
+    goto LABEL_22;
+  }
+
+  v27 = 0;
+  v26 = dictionaryRepresentation;
+  v25 = managedObjectContext;
+LABEL_22:
+
+  return v27;
+}
+
 + (id)_updatedDowntimeForUser:(id)user startTime:(id)time endTime:(id)endTime scheduleByWeekdayIndex:(id)index enabled:(BOOL)enabled behaviorType:(unint64_t)type error:(id *)error
 {
   errorCopy2 = error;
-  v55[1] = *MEMORY[0x1E69E9840];
+  v54[1] = *MEMORY[0x1E69E9840];
   userCopy = user;
   timeCopy = time;
   endTimeCopy = endTime;
@@ -5020,15 +5233,15 @@ LABEL_27:
     if (managingOrganization)
     {
       typeCopy = type;
-      v51 = endTimeCopy;
+      v50 = endTimeCopy;
       managedObjectContext = [userCopy managedObjectContext];
       dsid = [userCopy dsid];
       v21 = [STBlueprint fetchRequestMatchingBlueprintsForUserWithDSID:dsid ofType:@"downtime" fromOrganization:managingOrganization];
 
-      v53 = 0;
-      v50 = v21;
-      v22 = [v21 execute:&v53];
-      v23 = v53;
+      v52 = 0;
+      v49 = v21;
+      v22 = [v21 execute:&v52];
+      v23 = v52;
       if (v22)
       {
         if ([v22 count] >= 2)
@@ -5060,8 +5273,8 @@ LABEL_27:
           [firstObject setSchedule:schedule];
         }
 
-        v48 = timeCopy;
-        v29 = [self _updatedScheduleFromSchedule:schedule withStartTime:timeCopy endTime:v51 scheduleByWeekdayIndex:indexCopy context:managedObjectContext];
+        v47 = timeCopy;
+        v29 = [self _updatedScheduleFromSchedule:schedule withStartTime:timeCopy endTime:v50 scheduleByWeekdayIndex:indexCopy context:managedObjectContext];
 
         v30 = [self _configurationForDowntime:firstObject context:managedObjectContext];
         v31 = [self _declarationForDowntime:firstObject user:userCopy configuration:v30 behaviorType:typeCopy context:managedObjectContext error:errorCopy2];
@@ -5080,8 +5293,8 @@ LABEL_27:
           errorCopy2 = 0;
         }
 
-        v23 = v47;
-        timeCopy = v48;
+        v23 = v46;
+        timeCopy = v47;
       }
 
       else
@@ -5100,7 +5313,7 @@ LABEL_27:
         }
       }
 
-      endTimeCopy = v51;
+      endTimeCopy = v50;
       goto LABEL_37;
     }
 
@@ -5133,16 +5346,14 @@ LABEL_37:
   if (error)
   {
     v44 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v54 = *MEMORY[0x1E696A578];
-    v55[0] = @"Cannot create downtime without valid start/end time or schedule";
-    managingOrganization = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:&v54 count:1];
+    v53 = *MEMORY[0x1E696A578];
+    v54[0] = @"Cannot create downtime without valid start/end time or schedule";
+    managingOrganization = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:&v53 count:1];
     v33 = [v44 initWithDomain:@"STErrorDomain" code:1 userInfo:managingOrganization];
     goto LABEL_36;
   }
 
 LABEL_38:
-
-  v45 = *MEMORY[0x1E69E9840];
 
   return errorCopy2;
 }
@@ -5293,12 +5504,12 @@ LABEL_6:
 
 + (id)_configurationForDowntime:(id)downtime context:(id)context
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   downtimeCopy = downtime;
   contextCopy = context;
   v7 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"objectID.URIRepresentation.absoluteString" ascending:1];
-  v14[0] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
 
   configurations = [downtimeCopy configurations];
   v10 = [configurations sortedArrayUsingDescriptors:v8];
@@ -5309,8 +5520,6 @@ LABEL_6:
     firstObject = [[STBlueprintConfiguration alloc] initWithContext:contextCopy];
     [(STBlueprintConfiguration *)firstObject setBlueprint:downtimeCopy];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -5389,24 +5598,24 @@ LABEL_12:
 {
   configurationCopy = configuration;
   declarationCopy = declaration;
-  v10 = STAvailableVersion1CategoriesExcludingSystemCategories();
+  v10 = STAvailableVersion1CategoriesExcludingSystemCategories(declarationCopy);
   [declarationCopy setPayloadCategories:v10];
 
-  v11 = STAvailableCategoriesExcludingSystemCategories();
-  [declarationCopy setPayloadCategoriesVersion2:v11];
+  v12 = STAvailableCategoriesExcludingSystemCategories(v11);
+  [declarationCopy setPayloadCategoriesVersion2:v12];
 
   [declarationCopy updateServerHash];
-  v21 = 0;
-  v12 = [declarationCopy serializeAsDataWithError:&v21];
-  v13 = v21;
-  if (v12)
+  v22 = 0;
+  v13 = [declarationCopy serializeAsDataWithError:&v22];
+  v14 = v22;
+  if (v13)
   {
     payloadPlist = [configurationCopy payloadPlist];
-    v15 = [payloadPlist isEqualToData:v12];
+    v16 = [payloadPlist isEqualToData:v13];
 
-    if ((v15 & 1) == 0)
+    if ((v16 & 1) == 0)
     {
-      [configurationCopy setPayloadPlist:v12];
+      [configurationCopy setPayloadPlist:v13];
       declarationIdentifier = [declarationCopy declarationIdentifier];
       [configurationCopy setIdentifier:declarationIdentifier];
 
@@ -5417,20 +5626,20 @@ LABEL_12:
 
   else
   {
-    v18 = +[STLog persistence];
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+    v19 = +[STLog persistence];
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
       +[STBlueprint(Downtime) _updateConfiguration:withDeclaration:context:error:];
     }
 
     if (error)
     {
-      v19 = v13;
-      *error = v13;
+      v20 = v14;
+      *error = v14;
     }
   }
 
-  return v12 != 0;
+  return v13 != 0;
 }
 
 + (NSDateComponents)defaultStartTime
@@ -5453,7 +5662,7 @@ LABEL_12:
 
 - (id)_applyScheduleStateChange:(int64_t)change atDate:(id)date inCalendar:(id)calendar error:(id *)error
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   calendarCopy = calendar;
   v11 = STUTCErasedDateFromDate(date, calendarCopy);
   v12 = [calendarCopy copy];
@@ -5483,9 +5692,9 @@ LABEL_12:
     }
 
     *buf = 138412546;
-    v40 = v17;
-    v41 = 2112;
-    v42 = v11;
+    v39 = v17;
+    v40 = 2112;
+    v41 = v11;
     _os_log_impl(&dword_1B831F000, managedObjectContext, OS_LOG_TYPE_DEFAULT, "Appying schedule state change: %@ at: %@", buf, 0x16u);
   }
 
@@ -5500,9 +5709,9 @@ LABEL_12:
 LABEL_26:
     v31 = [[STBlueprintBackedDowntimeOverrideModifier alloc] initWithDowntimeBlueprint:self];
     schedule2 = [(STBlueprint *)self schedule];
-    v37 = 0;
-    v33 = [STDowntimeOverrideUpdater updateActiveOverrideUsingModifier:v31 byRecomputingFromSchedule:schedule2 atDate:v11 inCalendar:v12 error:&v37];
-    managedObjectContext = v37;
+    v36 = 0;
+    v33 = [STDowntimeOverrideUpdater updateActiveOverrideUsingModifier:v31 byRecomputingFromSchedule:schedule2 atDate:v11 inCalendar:v12 error:&v36];
+    managedObjectContext = v36;
 
     if (v33)
     {
@@ -5541,9 +5750,9 @@ LABEL_15:
     goto LABEL_23;
   }
 
-  v38 = 0;
-  v26 = [managedObjectContext save:&v38];
-  v27 = v38;
+  v37 = 0;
+  v26 = [managedObjectContext save:&v37];
+  v27 = v37;
   if (v26)
   {
 LABEL_23:
@@ -5573,14 +5782,12 @@ LABEL_12:
   v25 = 0;
 LABEL_32:
 
-  v35 = *MEMORY[0x1E69E9840];
-
   return v25;
 }
 
 - (NSString)downtimeScheduleText
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   schedule = [(STBlueprint *)self schedule];
   scheduleRepresentation = [schedule scheduleRepresentation];
 
@@ -5595,63 +5802,61 @@ LABEL_32:
 
   else
   {
-    v24 = scheduleRepresentation;
+    v23 = scheduleRepresentation;
     customScheduleItems = [scheduleRepresentation customScheduleItems];
     v11 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(customScheduleItems, "count")}];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v12 = customScheduleItems;
-    v13 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v31;
+      v15 = *v30;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v31 != v15)
+          if (*v30 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v30 + 1) + 8 * i);
+          v17 = *(*(&v29 + 1) + 8 * i);
           v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v17, "day")}];
           [v11 setObject:v17 forKeyedSubscript:v18];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v14);
     }
 
     v19 = objc_opt_class();
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __45__STBlueprint_Downtime__downtimeScheduleText__block_invoke;
-    v28[3] = &unk_1E7CE6EE8;
-    v29 = v11;
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __45__STBlueprint_Downtime__downtimeScheduleText__block_invoke_2;
-    v25[3] = &unk_1E7CE6F10;
-    v20 = v29;
-    v26 = v20;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __45__STBlueprint_Downtime__downtimeScheduleText__block_invoke;
+    v27[3] = &unk_1E7CE6EE8;
+    v28 = v11;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __45__STBlueprint_Downtime__downtimeScheduleText__block_invoke_2;
+    v24[3] = &unk_1E7CE6F10;
+    v20 = v28;
+    v25 = v20;
     selfCopy = self;
-    v9 = [v19 scheduleTextWithLocale:0 weekdayScheduleComparator:v28 scheduleTimeGetter:v25];
+    v9 = [v19 scheduleTextWithLocale:0 weekdayScheduleComparator:v27 scheduleTimeGetter:v24];
     if (!v9)
     {
       v21 = +[STScreenTimeCoreBundle bundle];
       v9 = [v21 localizedStringForKey:@"ScheduleOff" value:&stru_1F3040980 table:0];
     }
 
-    scheduleRepresentation = v24;
+    scheduleRepresentation = v23;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -5693,25 +5898,24 @@ uint64_t __45__STBlueprint_Downtime__downtimeScheduleText__block_invoke(uint64_t
 
 id __45__STBlueprint_Downtime__downtimeScheduleText__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2 - 1];
-  v5 = [v3 objectForKeyedSubscript:v4];
+  v2 = *(a1 + 32);
+  v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2 - 1];
+  v4 = [v2 objectForKeyedSubscript:v3];
 
-  if (v5)
+  if (v4)
   {
-    v6 = *(a1 + 40);
-    v7 = objc_opt_class();
-    v8 = [v5 startTime];
-    v9 = [v5 endTime];
-    v10 = [v7 customScheduleTimeRangeWithLocale:0 startTimeComponents:v8 endTimeComponents:v9];
+    v5 = objc_opt_class();
+    v6 = [v4 startTime];
+    v7 = [v4 endTime];
+    v8 = [v5 customScheduleTimeRangeWithLocale:0 startTimeComponents:v6 endTimeComponents:v7];
   }
 
   else
   {
-    v10 = 0;
+    v8 = 0;
   }
 
-  return v10;
+  return v8;
 }
 
 + (id)customScheduleTimeRangeWithLocale:(id)locale startTimeComponents:(id)components endTimeComponents:(id)timeComponents
@@ -6409,7 +6613,7 @@ LABEL_17:
 
 - (id)_webFilterBlacklistStringsForURL:(id)l
 {
-  v14[4] = *MEMORY[0x1E69E9840];
+  v13[4] = *MEMORY[0x1E69E9840];
   lCopy = l;
   absoluteString = [lCopy absoluteString];
   lowercaseString = [absoluteString lowercaseString];
@@ -6420,13 +6624,11 @@ LABEL_17:
   v9 = [absoluteString stringByReplacingOccurrencesOfString:v8 withString:&stru_1F3040980];
 
   lowercaseString2 = [v9 lowercaseString];
-  v14[0] = absoluteString;
-  v14[1] = lowercaseString;
-  v14[2] = v9;
-  v14[3] = lowercaseString2;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:4];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v13[0] = absoluteString;
+  v13[1] = lowercaseString;
+  v13[2] = v9;
+  v13[3] = lowercaseString2;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:4];
 
   return v11;
 }
@@ -6434,32 +6636,32 @@ LABEL_17:
 - (BOOL)permitWebFilterURL:(id)l pageTitle:(id)title error:(id *)error
 {
   errorCopy = error;
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   lCopy = l;
   titleCopy = title;
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   configurations = [(STBlueprint *)self configurations];
-  v9 = [configurations countByEnumeratingWithState:&v48 objects:v52 count:16];
+  v9 = [configurations countByEnumeratingWithState:&v47 objects:v51 count:16];
   if (!v9)
   {
     goto LABEL_9;
   }
 
   v10 = v9;
-  v11 = *v49;
+  v11 = *v48;
   while (2)
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v49 != v11)
+      if (*v48 != v11)
       {
         objc_enumerationMutation(configurations);
       }
 
-      v13 = *(*(&v48 + 1) + 8 * i);
+      v13 = *(*(&v47 + 1) + 8 * i);
       type = [v13 type];
       v15 = [type isEqualToString:@"system.webcontentfilter.basic"];
 
@@ -6578,7 +6780,7 @@ LABEL_38:
       }
     }
 
-    v10 = [configurations countByEnumeratingWithState:&v48 objects:v52 count:16];
+    v10 = [configurations countByEnumeratingWithState:&v47 objects:v51 count:16];
     if (v10)
     {
       continue;
@@ -6605,40 +6807,39 @@ LABEL_20:
   v25 = titleCopy;
 LABEL_39:
 
-  v44 = *MEMORY[0x1E69E9840];
   return v36;
 }
 
 + (BOOL)saveRestrictionsBlueprintWithValuesForPresetRestrictions:(id)restrictions forUser:(id)user error:(id *)error
 {
-  v210 = *MEMORY[0x1E69E9840];
+  v209 = *MEMORY[0x1E69E9840];
   restrictionsCopy = restrictions;
   userCopy = user;
   v7 = restrictionsCopy;
   v8 = objc_opt_new();
+  v182 = 0u;
   v183 = 0u;
   v184 = 0u;
   v185 = 0u;
-  v186 = 0u;
   v9 = v7;
   v10 = 0x1E7CE5000uLL;
-  v144 = v9;
-  obj = [v9 countByEnumeratingWithState:&v183 objects:v201 count:16];
+  v143 = v9;
+  obj = [v9 countByEnumeratingWithState:&v182 objects:v200 count:16];
   if (obj)
   {
-    v164 = *v184;
-    v149 = v8;
+    v163 = *v183;
+    v148 = v8;
     do
     {
       v11 = 0;
       do
       {
-        if (*v184 != v164)
+        if (*v183 != v163)
         {
           objc_enumerationMutation(v9);
         }
 
-        v12 = *(*(&v183 + 1) + 8 * v11);
+        v12 = *(*(&v182 + 1) + 8 * v11);
         v13 = [v12 componentsSeparatedByString:@"."];
         v14 = [v13 mutableCopy];
 
@@ -6660,14 +6861,14 @@ LABEL_39:
         {
           if ([v19 isEqualToString:@"STCustomRestrictionCellularData"])
           {
-            v199[0] = @"network.cellular.settings.allowAppCellularDataModification";
-            v199[1] = @"network.cellular.settings.allowCellularPlanModification";
+            v198[0] = @"network.cellular.settings.allowAppCellularDataModification";
+            v198[1] = @"network.cellular.settings.allowCellularPlanModification";
             v21 = null;
-            v200[0] = null;
-            v200[1] = null;
+            v199[0] = null;
+            v199[1] = null;
             v22 = MEMORY[0x1E695DF20];
-            v23 = v200;
-            v24 = v199;
+            v23 = v199;
+            v24 = v198;
 LABEL_23:
             v26 = [v22 dictionaryWithObjects:v23 forKeys:v24 count:2];
             goto LABEL_24;
@@ -6676,25 +6877,25 @@ LABEL_23:
           v21 = null;
           if ([v19 isEqualToString:@"STCustomRestrictionSiriDictation"])
           {
-            v197[0] = @"system.siri.allowAssistant";
-            v197[1] = @"system.siri.allowDictation";
-            v198[0] = null;
-            v198[1] = null;
+            v196[0] = @"system.siri.allowAssistant";
+            v196[1] = @"system.siri.allowDictation";
+            v197[0] = null;
+            v197[1] = null;
             v22 = MEMORY[0x1E695DF20];
-            v23 = v198;
-            v24 = v197;
+            v23 = v197;
+            v24 = v196;
             goto LABEL_23;
           }
 
           if ([v19 isEqualToString:@"STCustomRestrictionMathResults"])
           {
-            v195[0] = @"system.siri.allowMathPaperSolving";
-            v195[1] = @"system.siri.allowKeyboardMathSolving";
-            v196[0] = null;
-            v196[1] = null;
+            v194[0] = @"system.siri.allowMathPaperSolving";
+            v194[1] = @"system.siri.allowKeyboardMathSolving";
+            v195[0] = null;
+            v195[1] = null;
             v22 = MEMORY[0x1E695DF20];
-            v23 = v196;
-            v24 = v195;
+            v23 = v195;
+            v24 = v194;
             goto LABEL_23;
           }
 
@@ -6707,47 +6908,47 @@ LABEL_23:
             }
 
             *buf = 138543618;
-            v203 = v20;
-            v204 = 2114;
-            v205 = v19;
+            v202 = v20;
+            v203 = 2114;
+            v204 = v19;
             v30 = persistence;
             v31 = "Skipping unimplemented restriction %{public}@ %{public}@";
             goto LABEL_48;
           }
 
-          v159 = v20;
+          v158 = v20;
           unsignedIntegerValue = [null unsignedIntegerValue];
           if (unsignedIntegerValue)
           {
             v29 = unsignedIntegerValue;
             if (unsignedIntegerValue == 2)
             {
-              v157 = v19;
-              v153 = [&unk_1F3059E08 mutableCopy];
+              v156 = v19;
+              v152 = [&unk_1F3059E08 mutableCopy];
               mEMORY[0x1E69ADFB8] = [MEMORY[0x1E69ADFB8] sharedConnection];
               defaultUserBookmarks = [mEMORY[0x1E69ADFB8] defaultUserBookmarks];
 
               v34 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(defaultUserBookmarks, "count")}];
+              v186 = 0u;
               v187 = 0u;
               v188 = 0u;
               v189 = 0u;
-              v190 = 0u;
               v35 = defaultUserBookmarks;
-              v36 = [v35 countByEnumeratingWithState:&v187 objects:buf count:16];
+              v36 = [v35 countByEnumeratingWithState:&v186 objects:buf count:16];
               if (v36)
               {
                 v37 = v36;
-                v38 = *v188;
+                v38 = *v187;
                 do
                 {
                   for (i = 0; i != v37; ++i)
                   {
-                    if (*v188 != v38)
+                    if (*v187 != v38)
                     {
                       objc_enumerationMutation(v35);
                     }
 
-                    v40 = *(*(&v187 + 1) + 8 * i);
+                    v40 = *(*(&v186 + 1) + 8 * i);
                     v41 = MEMORY[0x1E69962D0];
                     v42 = [v40 URL];
                     absoluteString = [v42 absoluteString];
@@ -6757,20 +6958,20 @@ LABEL_23:
                     [v34 addObject:v45];
                   }
 
-                  v37 = [v35 countByEnumeratingWithState:&v187 objects:buf count:16];
+                  v37 = [v35 countByEnumeratingWithState:&v186 objects:buf count:16];
                 }
 
                 while (v37);
               }
 
               v46 = [v34 copy];
-              [v153 setObject:v46 forKeyedSubscript:@"system.webcontentfilter.basic.siteWhiteList"];
+              [v152 setObject:v46 forKeyedSubscript:@"system.webcontentfilter.basic.siteWhiteList"];
 
-              v26 = [v153 copy];
-              v9 = v144;
+              v26 = [v152 copy];
+              v9 = v143;
               v10 = 0x1E7CE5000;
-              v8 = v149;
-              v19 = v157;
+              v8 = v148;
+              v19 = v156;
             }
 
             else
@@ -6779,7 +6980,7 @@ LABEL_23:
               {
                 v26 = &unk_1F3059DE0;
 LABEL_46:
-                v20 = v159;
+                v20 = v158;
                 goto LABEL_24;
               }
 
@@ -6787,7 +6988,7 @@ LABEL_46:
               if (os_log_type_enabled(persistence2, OS_LOG_TYPE_ERROR))
               {
                 *buf = 67240192;
-                LODWORD(v203) = v29;
+                LODWORD(v202) = v29;
                 _os_log_error_impl(&dword_1B831F000, persistence2, OS_LOG_TYPE_ERROR, "Skipping unimplemented web filter state %{public}d", buf, 8u);
               }
 
@@ -6815,9 +7016,9 @@ LABEL_14:
           }
 
           *buf = 138543618;
-          v203 = v20;
-          v204 = 2114;
-          v205 = v19;
+          v202 = v20;
+          v203 = 2114;
+          v204 = v19;
           v30 = persistence;
           v31 = "Skipping unimplemented non-preset restriction %{public}@ %{public}@";
 LABEL_48:
@@ -6825,7 +7026,7 @@ LABEL_48:
           goto LABEL_14;
         }
 
-        v193 = v12;
+        v192 = v12;
         v21 = null;
         v27 = null;
         if (!null)
@@ -6834,8 +7035,8 @@ LABEL_48:
           v27 = null2;
         }
 
-        v194 = v27;
-        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v194 forKeys:&v193 count:1];
+        v193 = v27;
+        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v193 forKeys:&v192 count:1];
         if (!null)
         {
         }
@@ -6847,7 +7048,7 @@ LABEL_24:
       }
 
       while (v11 != obj);
-      v48 = [v9 countByEnumeratingWithState:&v183 objects:v201 count:16];
+      v48 = [v9 countByEnumeratingWithState:&v182 objects:v200 count:16];
       obj = v48;
     }
 
@@ -6872,32 +7073,32 @@ LABEL_24:
   }
 
   v56 = *v53;
-  v143 = v51;
+  v142 = v51;
 
-  v158 = objc_opt_new();
-  v148 = objc_opt_new();
+  v157 = objc_opt_new();
+  v147 = objc_opt_new();
+  v178 = 0u;
   v179 = 0u;
   v180 = 0u;
   v181 = 0u;
-  v182 = 0u;
   obja = v49;
-  v152 = v56;
-  v165 = [obja countByEnumeratingWithState:&v179 objects:v192 count:16];
-  if (v165)
+  v151 = v56;
+  v164 = [obja countByEnumeratingWithState:&v178 objects:v191 count:16];
+  if (v164)
   {
-    v162 = *v180;
-    v150 = dsid;
+    v161 = *v179;
+    v149 = dsid;
     do
     {
       v57 = 0;
       do
       {
-        if (*v180 != v162)
+        if (*v179 != v161)
         {
           objc_enumerationMutation(obja);
         }
 
-        v58 = *(*(&v179 + 1) + 8 * v57);
+        v58 = *(*(&v178 + 1) + 8 * v57);
         v59 = [obja objectForKeyedSubscript:v58];
         null3 = [MEMORY[0x1E695DFB0] null];
 
@@ -6917,19 +7118,19 @@ LABEL_24:
         v66 = [v63 componentsJoinedByString:@"."];
         v67 = v66;
 
-        v170 = lastObject2;
+        v169 = lastObject2;
         v68 = v66;
         persistence3 = [*(v10 + 3824) persistence];
         if (os_log_type_enabled(persistence3, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138544130;
-          v203 = v61;
-          v204 = 2114;
-          v205 = v59;
-          v206 = 2114;
-          v207 = v56;
-          v208 = 2112;
-          v209 = dsid;
+          v202 = v61;
+          v203 = 2114;
+          v204 = v59;
+          v205 = 2114;
+          v206 = v56;
+          v207 = 2112;
+          v208 = dsid;
           _os_log_impl(&dword_1B831F000, persistence3, OS_LOG_TYPE_DEFAULT, "Asked to change restriction %{public}@ value to %{public}@ for %{public}@.%@", buf, 0x2Au);
         }
 
@@ -6942,9 +7143,9 @@ LABEL_24:
           }
 
           *buf = 138543618;
-          v203 = v68;
-          v204 = 2114;
-          v205 = v170;
+          v202 = v68;
+          v203 = 2114;
+          v204 = v169;
           v71 = persistence4;
           v72 = "Skipping unimplemented restriction %{public}@ %{public}@";
 LABEL_71:
@@ -6963,9 +7164,9 @@ LABEL_72:
           }
 
           *buf = 138543618;
-          v203 = v68;
-          v204 = 2114;
-          v205 = v170;
+          v202 = v68;
+          v203 = 2114;
+          v204 = v169;
           v71 = persistence4;
           v72 = "Skipping unimplemented non-preset restriction %{public}@ %{public}@";
           goto LABEL_71;
@@ -6980,29 +7181,29 @@ LABEL_72:
           }
 
           *buf = 138543618;
-          v203 = v68;
-          v204 = 2114;
-          v205 = v170;
+          v202 = v68;
+          v203 = 2114;
+          v204 = v169;
           v71 = persistence4;
           v72 = "Skipping non-preset restriction %{public}@ %{public}@";
           goto LABEL_71;
         }
 
-        v74 = [v158 objectForKeyedSubscript:v68];
+        v74 = [v157 objectForKeyedSubscript:v68];
         if (v74)
         {
 LABEL_88:
           persistence4 = v74;
-          v85 = v170;
+          v85 = v169;
           v86 = v59;
           v87 = [v85 substringToIndex:1];
           v88 = [v85 substringWithRange:{1, objc_msgSend(v85, "length") - 1}];
-          v201[0] = @"payload";
-          v155 = v87;
+          v200[0] = @"payload";
+          v154 = v87;
           capitalizedString = [v87 capitalizedString];
-          v201[1] = capitalizedString;
-          v201[2] = v88;
-          v90 = [MEMORY[0x1E695DEC8] arrayWithObjects:v201 count:3];
+          v200[1] = capitalizedString;
+          v200[2] = v88;
+          v90 = [MEMORY[0x1E695DEC8] arrayWithObjects:v200 count:3];
           v91 = [v90 componentsJoinedByString:&stru_1F3040980];
 
           v10 = 0x1E7CE5000uLL;
@@ -7011,21 +7212,21 @@ LABEL_88:
           {
             v93 = objc_opt_class();
             *buf = 138412802;
-            v203 = v93;
-            v204 = 2112;
-            v205 = v91;
-            v206 = 2112;
-            v207 = v86;
+            v202 = v93;
+            v203 = 2112;
+            v204 = v91;
+            v205 = 2112;
+            v206 = v86;
             _os_log_impl(&dword_1B831F000, v92, OS_LOG_TYPE_DEFAULT, "Setting CEM key %@.%@ to %@", buf, 0x20u);
           }
 
           [persistence4 setValue:v86 forKeyPath:v91];
           [persistence4 updateServerHash];
 
-          [v158 setObject:persistence4 forKeyedSubscript:v68];
-          [v148 addObject:v68];
-          dsid = v150;
-          v56 = v152;
+          [v157 setObject:persistence4 forKeyedSubscript:v68];
+          [v147 addObject:v68];
+          dsid = v149;
+          v56 = v151;
           goto LABEL_91;
         }
 
@@ -7036,7 +7237,7 @@ LABEL_88:
         if (os_log_type_enabled(persistence5, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v203 = v75;
+          v202 = v75;
           _os_log_impl(&dword_1B831F000, persistence5, OS_LOG_TYPE_DEFAULT, "Creating new restriction configuration %{public}@", buf, 0xCu);
         }
 
@@ -7045,17 +7246,17 @@ LABEL_88:
         v81 = v76;
         if ([(__CFString *)v81 isEqualToString:@"personal"])
         {
-          [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", @"digital_health_restrictions", v79, v141];
+          [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", @"digital_health_restrictions", v79, v140];
         }
 
         else
         {
           [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@.%@", @"digital_health_restrictions", v80, v79];
         }
-        v145 = ;
-        v56 = v152;
+        v144 = ;
+        v56 = v151;
 
-        v154 = v81;
+        v153 = v81;
         if ([v79 isEqualToString:@"account.settings"])
         {
           v82 = MEMORY[0x1E69961E8];
@@ -7076,8 +7277,8 @@ LABEL_88:
 
         if ([v79 isEqualToString:@"legacy.restrictions.apps"])
         {
-          v83 = v145;
-          v74 = [MEMORY[0x1E6996218] buildRequiredOnlyWithIdentifier:v145];
+          v83 = v144;
+          v74 = [MEMORY[0x1E6996218] buildRequiredOnlyWithIdentifier:v144];
           [v74 setPayloadBlacklistedAppBundleIDs:MEMORY[0x1E695E0F0]];
         }
 
@@ -7087,8 +7288,8 @@ LABEL_88:
           {
             v82 = MEMORY[0x1E6996220];
 LABEL_85:
-            v83 = v145;
-            v84 = [v82 buildRequiredOnlyWithIdentifier:v145];
+            v83 = v144;
+            v84 = [v82 buildRequiredOnlyWithIdentifier:v144];
 LABEL_86:
             v74 = v84;
             goto LABEL_87;
@@ -7168,16 +7369,16 @@ LABEL_86:
 
           if ([v79 isEqualToString:@"system.webcontentfilter.basic"])
           {
-            v83 = v145;
-            v84 = [MEMORY[0x1E69962C8] buildRequiredOnlyWithIdentifier:v145 withRestrictWeb:MEMORY[0x1E695E110]];
+            v83 = v144;
+            v84 = [MEMORY[0x1E69962C8] buildRequiredOnlyWithIdentifier:v144 withRestrictWeb:MEMORY[0x1E695E110]];
             goto LABEL_86;
           }
 
           if ([v79 isEqualToString:@"system.web.tracking"])
           {
-            v83 = v145;
-            v74 = [MEMORY[0x1E6996320] buildRequiredOnlyWithIdentifier:v145];
-            v56 = v152;
+            v83 = v144;
+            v74 = [MEMORY[0x1E6996320] buildRequiredOnlyWithIdentifier:v144];
+            v56 = v151;
           }
 
           else
@@ -7186,20 +7387,20 @@ LABEL_86:
             if (os_log_type_enabled(persistence6, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v203 = v79;
+              v202 = v79;
               _os_log_error_impl(&dword_1B831F000, persistence6, OS_LOG_TYPE_ERROR, "Could not create new configuration for type %{public}@", buf, 0xCu);
             }
 
             v74 = 0;
             v10 = 0x1E7CE5000;
-            v56 = v152;
-            v83 = v145;
+            v56 = v151;
+            v83 = v144;
           }
         }
 
 LABEL_87:
 
-        dsid = v150;
+        dsid = v149;
         if (v74)
         {
           goto LABEL_88;
@@ -7209,7 +7410,7 @@ LABEL_87:
         if (os_log_type_enabled(persistence4, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v203 = v79;
+          v202 = v79;
           v71 = persistence4;
           v72 = "Skipping restriction where could not create configuration for type %{public}@";
           v73 = 12;
@@ -7221,18 +7422,18 @@ LABEL_91:
         ++v57;
       }
 
-      while (v165 != v57);
-      v95 = [obja countByEnumeratingWithState:&v179 objects:v192 count:16];
-      v165 = v95;
+      while (v164 != v57);
+      v95 = [obja countByEnumeratingWithState:&v178 objects:v191 count:16];
+      v164 = v95;
     }
 
     while (v95);
   }
 
-  if ([v148 count])
+  if ([v147 count])
   {
-    v96 = v143;
-    managingOrganization = [v143 managingOrganization];
+    v96 = v142;
+    managingOrganization = [v142 managingOrganization];
     if (!managingOrganization)
     {
       v107 = [MEMORY[0x1E696ABC0] errorWithDomain:@"STErrorDomain" code:21 userInfo:0];
@@ -7266,9 +7467,9 @@ LABEL_91:
     }
 
     v99 = [STBlueprint fetchRequestMatchingBlueprintsForUserWithDSID:dsid ofType:@"restrictions" fromOrganization:managingOrganization];
-    v178 = 0;
-    v100 = [v99 execute:&v178];
-    persistence9 = v178;
+    v177 = 0;
+    v100 = [v99 execute:&v177];
+    persistence9 = v177;
     if (!v100)
     {
       v111 = +[STLog persistence];
@@ -7292,14 +7493,14 @@ LABEL_91:
       goto LABEL_178;
     }
 
-    v160 = v99;
-    managedObjectContext = [v143 managedObjectContext];
+    v159 = v99;
+    managedObjectContext = [v142 managedObjectContext];
     firstObject = [v100 firstObject];
     if (!firstObject)
     {
       firstObject = [[STBlueprint alloc] initWithContext:managedObjectContext];
       [(STBlueprint *)firstObject setType:@"restrictions"];
-      v103 = v152;
+      v103 = v151;
       v104 = dsid;
       if ([(__CFString *)v103 isEqualToString:@"personal"])
       {
@@ -7315,47 +7516,47 @@ LABEL_91:
 
       [(STBlueprint *)firstObject setIdentifier:v113];
       [(STBlueprint *)firstObject setOrganization:managingOrganization];
-      v114 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{v143, 0}];
+      v114 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{v142, 0}];
       [(STBlueprint *)firstObject setUsers:v114];
     }
 
-    v156 = v100;
-    v163 = managingOrganization;
-    v151 = dsid;
+    v155 = v100;
+    v162 = managingOrganization;
+    v150 = dsid;
     [(STBlueprint *)firstObject setIsDirty:1];
     [(STBlueprint *)firstObject setEnabled:1];
-    v166 = firstObject;
+    v165 = firstObject;
     configurations = [(STBlueprint *)firstObject configurations];
     allObjects = [configurations allObjects];
 
     v117 = MEMORY[0x1E695DF20];
     v118 = [allObjects valueForKey:@"type"];
-    v146 = allObjects;
+    v145 = allObjects;
     v119 = [v117 dictionaryWithObjects:allObjects forKeys:v118];
 
-    v176 = 0u;
-    v177 = 0u;
-    v174 = 0u;
     v175 = 0u;
-    v120 = v148;
-    v121 = [v120 countByEnumeratingWithState:&v174 objects:v191 count:16];
+    v176 = 0u;
+    v173 = 0u;
+    v174 = 0u;
+    v120 = v147;
+    v121 = [v120 countByEnumeratingWithState:&v173 objects:v190 count:16];
     if (v121)
     {
       v122 = v121;
-      v123 = *v175;
+      v123 = *v174;
       while (2)
       {
         v124 = 0;
         v125 = persistence9;
         do
         {
-          if (*v175 != v123)
+          if (*v174 != v123)
           {
             objc_enumerationMutation(v120);
           }
 
-          v126 = *(*(&v174 + 1) + 8 * v124);
-          v127 = [v158 objectForKeyedSubscript:v126];
+          v126 = *(*(&v173 + 1) + 8 * v124);
+          v127 = [v157 objectForKeyedSubscript:v126];
           v128 = [v119 objectForKeyedSubscript:v126];
           if (!v128)
           {
@@ -7364,13 +7565,13 @@ LABEL_91:
             [(STBlueprintConfiguration *)v128 setIdentifier:declarationIdentifier];
 
             [(STBlueprintConfiguration *)v128 setType:v126];
-            [(STBlueprintConfiguration *)v128 setBlueprint:v166];
+            [(STBlueprintConfiguration *)v128 setBlueprint:v165];
           }
 
           [v127 updateServerHash];
-          v173 = v125;
-          v130 = [v127 serializeAsDataWithError:&v173];
-          persistence9 = v173;
+          v172 = v125;
+          v130 = [v127 serializeAsDataWithError:&v172];
+          persistence9 = v172;
 
           if (!v130)
           {
@@ -7380,9 +7581,9 @@ LABEL_91:
               +[STBlueprint(Restrictions) saveRestrictionsBlueprintWithValuesForPresetRestrictions:forUser:error:];
             }
 
-            v96 = v143;
-            dsid = v151;
-            v100 = v156;
+            v96 = v142;
+            dsid = v150;
+            v100 = v155;
             if (error)
             {
               v136 = persistence9;
@@ -7390,8 +7591,8 @@ LABEL_91:
             }
 
             v106 = 0;
-            managingOrganization = v163;
-            v99 = v160;
+            managingOrganization = v162;
+            v99 = v159;
             goto LABEL_174;
           }
 
@@ -7402,7 +7603,7 @@ LABEL_91:
         }
 
         while (v122 != v124);
-        v122 = [v120 countByEnumeratingWithState:&v174 objects:v191 count:16];
+        v122 = [v120 countByEnumeratingWithState:&v173 objects:v190 count:16];
         if (v122)
         {
           continue;
@@ -7419,28 +7620,28 @@ LABEL_91:
     }
 
     v132 = managedObjectContext;
-    managingOrganization = v163;
-    v99 = v160;
-    v100 = v156;
+    managingOrganization = v162;
+    v99 = v159;
+    v100 = v155;
     if ([managedObjectContext hasChanges])
     {
-      v172 = persistence9;
-      v133 = [managedObjectContext save:&v172];
-      v134 = v172;
+      v171 = persistence9;
+      v133 = [managedObjectContext save:&v171];
+      v134 = v171;
 
       if ((v133 & 1) == 0)
       {
-        v139 = +[STLog persistence];
-        if (os_log_type_enabled(v139, OS_LOG_TYPE_ERROR))
+        v138 = +[STLog persistence];
+        if (os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
         {
           +[STBlueprint(Restrictions) saveRestrictionsBlueprintWithValuesForPresetRestrictions:forUser:error:];
         }
 
-        v96 = v143;
-        dsid = v151;
+        v96 = v142;
+        dsid = v150;
         if (error)
         {
-          v140 = v134;
+          v139 = v134;
           v106 = 0;
           *error = v134;
         }
@@ -7465,8 +7666,8 @@ LABEL_174:
       v106 = 1;
     }
 
-    v96 = v143;
-    dsid = v151;
+    v96 = v142;
+    dsid = v150;
 LABEL_177:
 
 LABEL_178:
@@ -7476,7 +7677,7 @@ LABEL_179:
   }
 
   persistence9 = [*(v10 + 3824) persistence];
-  v96 = v143;
+  v96 = v142;
   if (os_log_type_enabled(persistence9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -7486,36 +7687,42 @@ LABEL_179:
   v106 = 1;
 LABEL_180:
 
-  v137 = *MEMORY[0x1E69E9840];
   return v106;
+}
+
+- (void)setUsageLimitEnabled:(BOOL)enabled
+{
+  [(STBlueprint *)self setLimitEnabled:enabled];
+
+  [(STBlueprint *)self setIsDirty:1];
 }
 
 + (BOOL)saveUsageLimitWithIdentifier:(id)identifier user:(id)user bundleIdentifiers:(id)identifiers webDomains:(id)domains categoryIdentifiers:(id)categoryIdentifiers dailyBudgetLimit:(double)limit budgetLimitByWeekday:(id)weekday enabled:(BOOL)self0 behaviorType:(unint64_t)self1 error:(id *)self2
 {
-  v238 = *MEMORY[0x1E69E9840];
+  v240 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   userCopy = user;
   identifiersCopy = identifiers;
   domainsCopy = domains;
   categoryIdentifiersCopy = categoryIdentifiers;
   weekdayCopy = weekday;
-  v162 = identifiersCopy;
+  v161 = identifiersCopy;
   v23 = [identifiersCopy count];
-  v161 = domainsCopy;
-  v155 = [domainsCopy count];
-  v164 = categoryIdentifiersCopy;
-  v159 = [categoryIdentifiersCopy count];
-  if (!v23 && !v155 && !v159)
+  v160 = domainsCopy;
+  v154 = [domainsCopy count];
+  v163 = categoryIdentifiersCopy;
+  v158 = [categoryIdentifiersCopy count];
+  if (!v23 && !v154 && !v158)
   {
     [STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:a2 user:self bundleIdentifiers:? webDomains:? categoryIdentifiers:? dailyBudgetLimit:? budgetLimitByWeekday:? enabled:? behaviorType:? error:?];
   }
 
-  v229 = 0;
-  v230[0] = &v229;
-  v230[1] = 0x3032000000;
-  v230[2] = __Block_byref_object_copy__1;
-  v230[3] = __Block_byref_object_dispose__1;
-  v231 = 0;
+  v228 = 0;
+  v229 = &v228;
+  v230 = 0x3032000000;
+  v231 = __Block_byref_object_copy__1;
+  v232 = __Block_byref_object_dispose__1;
+  v233 = 0;
   managingOrganization = [userCopy managingOrganization];
   if (managingOrganization)
   {
@@ -7529,16 +7736,16 @@ LABEL_180:
     alwaysAllowActivationIdentifier = [userCopy alwaysAllowActivationIdentifier];
     v26 = [STBlueprint fetchRequestMatchingBlueprintsForUserWithDSID:dsid ofType:@"always-allowed-apps" withIdentifier:alwaysAllowActivationIdentifier fromOrganization:managingOrganization];
 
-    v27 = v230[0];
-    v228 = *(v230[0] + 40);
-    v28 = [v26 execute:&v228];
-    objc_storeStrong((v27 + 40), v228);
+    v27 = v229;
+    v227 = v229[5];
+    v28 = [v26 execute:&v227];
+    objc_storeStrong(v27 + 5, v227);
     if (!v28)
     {
       v29 = +[STLog persistence];
       if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        [STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:v230 user:? bundleIdentifiers:? webDomains:? categoryIdentifiers:? dailyBudgetLimit:? budgetLimitByWeekday:? enabled:? behaviorType:? error:?];
+        +[STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:user:bundleIdentifiers:webDomains:categoryIdentifiers:dailyBudgetLimit:budgetLimitByWeekday:enabled:behaviorType:error:];
       }
     }
 
@@ -7552,8 +7759,8 @@ LABEL_180:
       }
 
       v32 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"identifier" ascending:1];
-      v236 = v32;
-      v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v236 count:1];
+      v238 = v32;
+      v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v238 count:1];
       v34 = [v28 sortedArrayUsingDescriptors:v33];
 
       v28 = v34;
@@ -7569,12 +7776,12 @@ LABEL_180:
       if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
       {
         appleID2 = [userCopy appleID];
-        [STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:appleID2 user:v235 bundleIdentifiers:v38 webDomains:? categoryIdentifiers:? dailyBudgetLimit:? budgetLimitByWeekday:? enabled:? behaviorType:? error:?];
+        [STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:appleID2 user:v237 bundleIdentifiers:v38 webDomains:? categoryIdentifiers:? dailyBudgetLimit:? budgetLimitByWeekday:? enabled:? behaviorType:? error:?];
       }
 
       v40 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"identifier" ascending:1];
-      v234 = v40;
-      v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v234 count:1];
+      v236 = v40;
+      v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v236 count:1];
       v42 = [allObjects sortedArrayUsingDescriptors:v41];
 
       allObjects = v42;
@@ -7586,10 +7793,10 @@ LABEL_180:
     {
       v45 = MEMORY[0x1E6996238];
       payloadPlist = [firstObject2 payloadPlist];
-      v47 = v230[0];
-      obj = *(v230[0] + 40);
+      v47 = v229;
+      obj = v229[5];
       v48 = [v45 declarationForData:payloadPlist error:&obj];
-      objc_storeStrong((v47 + 40), obj);
+      objc_storeStrong(v47 + 5, obj);
 
       if (v48)
       {
@@ -7603,20 +7810,20 @@ LABEL_35:
           v56 = [self fetchRequestMatchingBlueprintsForUserWithDSID:dsid2 ofType:@"usage-limit" withIdentifier:identifierCopy fromOrganization:managingOrganization];
 
           [v56 setReturnsObjectsAsFaults:0];
-          v57 = v230[0];
-          v226 = *(v230[0] + 40);
-          v58 = [v56 execute:&v226];
-          objc_storeStrong((v57 + 40), v226);
+          v57 = v229;
+          v225 = v229[5];
+          v58 = [v56 execute:&v225];
+          objc_storeStrong(v57 + 5, v225);
 
           if (!v58)
           {
             v59 = +[STLog persistence];
             if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
             {
-              [STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:v230 user:? bundleIdentifiers:? webDomains:? categoryIdentifiers:? dailyBudgetLimit:? budgetLimitByWeekday:? enabled:? behaviorType:? error:?];
+              +[STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:user:bundleIdentifiers:webDomains:categoryIdentifiers:dailyBudgetLimit:budgetLimitByWeekday:enabled:behaviorType:error:];
             }
 
-            v154 = 0;
+            v153 = 0;
             v52 = 0;
             goto LABEL_126;
           }
@@ -7632,7 +7839,7 @@ LABEL_35:
           v58 = 0;
         }
 
-        v154 = v58;
+        v153 = v58;
         if ([v58 count] >= 2)
         {
           v63 = +[STLog persistence];
@@ -7667,20 +7874,20 @@ LABEL_35:
           [(STBlueprintUsageLimit *)usageLimit setNotificationTimeInterval:v69];
         }
 
-        [(STBlueprintUsageLimit *)usageLimit setApplicationIdentifiers:v162];
-        [(STBlueprintUsageLimit *)usageLimit setWebsiteIdentifiers:v161];
-        [(STBlueprintUsageLimit *)usageLimit setCategoryIdentifiersVersion2:v164];
-        v70 = [v164 mutableCopy];
+        [(STBlueprintUsageLimit *)usageLimit setApplicationIdentifiers:v161];
+        [(STBlueprintUsageLimit *)usageLimit setWebsiteIdentifiers:v160];
+        [(STBlueprintUsageLimit *)usageLimit setCategoryIdentifiersVersion2:v163];
+        v70 = [v163 mutableCopy];
         [v70 removeObject:*MEMORY[0x1E6993B60]];
         [v70 removeObject:*MEMORY[0x1E6993B18]];
         [v70 removeObject:*MEMORY[0x1E6993B58]];
-        if (v159 && ![v70 count])
+        if (v158 && ![v70 count])
         {
           [v70 addObject:*MEMORY[0x1E6993B00]];
         }
 
         [(STBlueprintUsageLimit *)usageLimit setCategoryIdentifiers:v70];
-        if (v159)
+        if (v158)
         {
           [(STBlueprintUsageLimit *)usageLimit setItemIdentifiers:v70];
           v71 = &STBlueprintUsageLimitItemTypeCategory;
@@ -7688,18 +7895,18 @@ LABEL_35:
 
         else if (v23)
         {
-          [(STBlueprintUsageLimit *)usageLimit setItemIdentifiers:v162];
+          [(STBlueprintUsageLimit *)usageLimit setItemIdentifiers:v161];
           v71 = STBlueprintUsageLimitItemTypeApp;
         }
 
         else
         {
-          if (!v155)
+          if (!v154)
           {
             goto LABEL_59;
           }
 
-          [(STBlueprintUsageLimit *)usageLimit setItemIdentifiers:v161];
+          [(STBlueprintUsageLimit *)usageLimit setItemIdentifiers:v160];
           v71 = STBlueprintUsageLimitItemTypeWebDomain;
         }
 
@@ -7707,12 +7914,12 @@ LABEL_35:
 LABEL_59:
         if (weekdayCopy)
         {
-          v224[0] = MEMORY[0x1E69E9820];
-          v224[1] = 3221225472;
-          v224[2] = __175__STBlueprint_UsageLimit__saveUsageLimitWithIdentifier_user_bundleIdentifiers_webDomains_categoryIdentifiers_dailyBudgetLimit_budgetLimitByWeekday_enabled_behaviorType_error___block_invoke;
-          v224[3] = &unk_1E7CE6F48;
-          v225 = usageLimit;
-          [weekdayCopy enumerateKeysAndObjectsUsingBlock:v224];
+          v223[0] = MEMORY[0x1E69E9820];
+          v223[1] = 3221225472;
+          v223[2] = __175__STBlueprint_UsageLimit__saveUsageLimitWithIdentifier_user_bundleIdentifiers_webDomains_categoryIdentifiers_dailyBudgetLimit_budgetLimitByWeekday_enabled_behaviorType_error___block_invoke;
+          v223[3] = &unk_1E7CE6F48;
+          v224 = usageLimit;
+          [weekdayCopy enumerateKeysAndObjectsUsingBlock:v223];
         }
 
         else
@@ -7721,77 +7928,77 @@ LABEL_59:
         }
 
         [(STBlueprint *)firstObject3 setUsageLimit:usageLimit];
-        v218 = 0;
-        v219 = &v218;
-        v220 = 0x3032000000;
-        v221 = __Block_byref_object_copy__1;
-        v222 = __Block_byref_object_dispose__1;
-        v223 = 0;
-        v212 = 0;
-        v213 = &v212;
-        v214 = 0x3032000000;
-        v215 = __Block_byref_object_copy__1;
-        v216 = __Block_byref_object_dispose__1;
         v217 = 0;
-        v206 = 0;
-        v207 = &v206;
-        v208 = 0x3032000000;
-        v209 = __Block_byref_object_copy__1;
-        v210 = __Block_byref_object_dispose__1;
+        v218 = &v217;
+        v219 = 0x3032000000;
+        v220 = __Block_byref_object_copy__1;
+        v221 = __Block_byref_object_dispose__1;
+        v222 = 0;
         v211 = 0;
-        v200 = 0;
-        v201 = &v200;
-        v202 = 0x3032000000;
-        v203 = __Block_byref_object_copy__1;
-        v204 = __Block_byref_object_dispose__1;
+        v212 = &v211;
+        v213 = 0x3032000000;
+        v214 = __Block_byref_object_copy__1;
+        v215 = __Block_byref_object_dispose__1;
+        v216 = 0;
         v205 = 0;
-        v194 = 0;
-        v195 = &v194;
-        v196 = 0x3032000000;
-        v197 = __Block_byref_object_copy__1;
-        v198 = __Block_byref_object_dispose__1;
+        v206 = &v205;
+        v207 = 0x3032000000;
+        v208 = __Block_byref_object_copy__1;
+        v209 = __Block_byref_object_dispose__1;
+        v210 = 0;
         v199 = 0;
-        v188 = 0;
-        v189 = &v188;
-        v190 = 0x3032000000;
-        v191 = __Block_byref_object_copy__1;
-        v192 = __Block_byref_object_dispose__1;
+        v200 = &v199;
+        v201 = 0x3032000000;
+        v202 = __Block_byref_object_copy__1;
+        v203 = __Block_byref_object_dispose__1;
+        v204 = 0;
         v193 = 0;
+        v194 = &v193;
+        v195 = 0x3032000000;
+        v196 = __Block_byref_object_copy__1;
+        v197 = __Block_byref_object_dispose__1;
+        v198 = 0;
+        v187 = 0;
+        v188 = &v187;
+        v189 = 0x3032000000;
+        v190 = __Block_byref_object_copy__1;
+        v191 = __Block_byref_object_dispose__1;
+        v192 = 0;
         v72 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"objectID.URIRepresentation.absoluteString" ascending:1];
-        v232 = v72;
-        v150 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v232 count:1];
+        v234 = v72;
+        v149 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v234 count:1];
 
         configurations2 = [(STBlueprint *)firstObject3 configurations];
-        v149 = [configurations2 sortedArrayUsingDescriptors:v150];
+        v148 = [configurations2 sortedArrayUsingDescriptors:v149];
 
-        v184 = 0;
-        v185 = &v184;
-        v186 = 0x2020000000;
-        v187 = 0;
-        v171[0] = MEMORY[0x1E69E9820];
-        v171[1] = 3221225472;
-        v171[2] = __175__STBlueprint_UsageLimit__saveUsageLimitWithIdentifier_user_bundleIdentifiers_webDomains_categoryIdentifiers_dailyBudgetLimit_budgetLimitByWeekday_enabled_behaviorType_error___block_invoke_2;
-        v171[3] = &unk_1E7CE6F70;
-        v173 = &v229;
-        v174 = &v184;
-        v181 = v23 != 0;
-        v175 = &v218;
-        v176 = &v212;
+        v183 = 0;
+        v184 = &v183;
+        v185 = 0x2020000000;
+        v186 = 0;
+        v170[0] = MEMORY[0x1E69E9820];
+        v170[1] = 3221225472;
+        v170[2] = __175__STBlueprint_UsageLimit__saveUsageLimitWithIdentifier_user_bundleIdentifiers_webDomains_categoryIdentifiers_dailyBudgetLimit_budgetLimitByWeekday_enabled_behaviorType_error___block_invoke_2;
+        v170[3] = &unk_1E7CE6F70;
+        v172 = &v228;
+        v173 = &v183;
+        v180 = v23 != 0;
+        v174 = &v217;
+        v175 = &v211;
         v59 = managedObjectContext;
-        v172 = v59;
-        v177 = &v206;
-        v182 = v155 != 0;
-        v178 = &v200;
-        v179 = &v194;
-        v183 = v159 != 0;
-        v180 = &v188;
-        [v149 enumerateObjectsUsingBlock:v171];
-        if (*(v185 + 24) == 1)
+        v171 = v59;
+        v176 = &v205;
+        v181 = v154 != 0;
+        v177 = &v199;
+        v178 = &v193;
+        v182 = v158 != 0;
+        v179 = &v187;
+        [v148 enumerateObjectsUsingBlock:v170];
+        if (*(v184 + 24) == 1)
         {
           v74 = +[STLog persistence];
           if (os_log_type_enabled(v74, OS_LOG_TYPE_FAULT))
           {
-            [STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:v230 user:? bundleIdentifiers:? webDomains:? categoryIdentifiers:? dailyBudgetLimit:? budgetLimitByWeekday:? enabled:? behaviorType:? error:?];
+            +[STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:user:bundleIdentifiers:webDomains:categoryIdentifiers:dailyBudgetLimit:budgetLimitByWeekday:enabled:behaviorType:error:];
           }
 
           v52 = 0;
@@ -7803,29 +8010,29 @@ LABEL_59:
           if (type != 1)
           {
             v78 = 0;
+            v151 = 0;
             v152 = 0;
-            v153 = 0;
 LABEL_73:
-            v151 = v78;
+            v150 = v78;
             if (v23)
             {
-              if (v219[5])
+              if (v218[5])
               {
-                [v213[5] setPayloadMode:v78];
-                [v213[5] setPayloadApps:v162];
+                [v212[5] setPayloadMode:v78];
+                [v212[5] setPayloadApps:v161];
               }
 
               else
               {
                 v80 = [[STBlueprintConfiguration alloc] initWithContext:v59];
-                v81 = v219[5];
-                v219[5] = v80;
+                v81 = v218[5];
+                v218[5] = v80;
 
-                [v219[5] setBlueprint:firstObject3];
-                v145 = MEMORY[0x1E6996238];
-                v146 = userCopy;
-                localUserDeviceState = [v146 localUserDeviceState];
-                if (localUserDeviceState && (v83 = [v146 isManaged], localUserDeviceState, !v83))
+                [v218[5] setBlueprint:firstObject3];
+                v144 = MEMORY[0x1E6996238];
+                v145 = userCopy;
+                localUserDeviceState = [v145 localUserDeviceState];
+                if (localUserDeviceState && (v83 = [v145 isManaged], localUserDeviceState, !v83))
                 {
                   v90 = objc_alloc(MEMORY[0x1E696AEC0]);
                   dsid3 = objc_opt_new();
@@ -7836,7 +8043,7 @@ LABEL_73:
                 else
                 {
                   v84 = objc_alloc(MEMORY[0x1E696AEC0]);
-                  dsid3 = [v146 dsid];
+                  dsid3 = [v145 dsid];
                   uUIDString2 = [dsid3 stringValue];
                   v87 = objc_opt_new();
                   uUIDString3 = [v87 UUIDString];
@@ -7844,27 +8051,27 @@ LABEL_73:
                 }
 
                 v91 = v89;
-                v92 = [v145 buildWithIdentifier:v91 withMode:v151 withApps:v162 withExemptApps:payloadApps];
-                v93 = v213[5];
-                v213[5] = v92;
+                v92 = [v144 buildWithIdentifier:v91 withMode:v150 withApps:v161 withExemptApps:payloadApps];
+                v93 = v212[5];
+                v212[5] = v92;
               }
 
-              declarationIdentifier = [v213[5] declarationIdentifier];
-              [v219[5] setIdentifier:declarationIdentifier];
+              declarationIdentifier = [v212[5] declarationIdentifier];
+              [v218[5] setIdentifier:declarationIdentifier];
 
-              declarationType = [v213[5] declarationType];
-              [v219[5] setType:declarationType];
+              declarationType = [v212[5] declarationType];
+              [v218[5] setType:declarationType];
 
-              [v213[5] updateServerHash];
-              v96 = v213[5];
-              v97 = v230[0];
-              v170 = *(v230[0] + 40);
-              v98 = [v96 serializeAsDataWithError:&v170];
-              objc_storeStrong((v97 + 40), v170);
+              [v212[5] updateServerHash];
+              v96 = v212[5];
+              v97 = v229;
+              v169 = v229[5];
+              v98 = [v96 serializeAsDataWithError:&v169];
+              objc_storeStrong(v97 + 5, v169);
               v79 = v98 != 0;
               if (v98)
               {
-                [v219[5] setPayloadPlist:v98];
+                [v218[5] setPayloadPlist:v98];
               }
 
               else
@@ -7872,7 +8079,7 @@ LABEL_73:
                 v99 = +[STLog persistence];
                 if (os_log_type_enabled(v99, OS_LOG_TYPE_FAULT))
                 {
-                  [STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:v230 user:? bundleIdentifiers:? webDomains:? categoryIdentifiers:? dailyBudgetLimit:? budgetLimitByWeekday:? enabled:? behaviorType:? error:?];
+                  +[STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:user:bundleIdentifiers:webDomains:categoryIdentifiers:dailyBudgetLimit:budgetLimitByWeekday:enabled:behaviorType:error:];
                 }
               }
             }
@@ -7882,25 +8089,25 @@ LABEL_73:
               v79 = 1;
             }
 
-            if (v79 && v155)
+            if (v79 && v154)
             {
-              if (v207[5])
+              if (v206[5])
               {
-                [v201[5] setPayloadMode:v153];
-                [v201[5] setPayloadHostnames:v161];
+                [v200[5] setPayloadMode:v152];
+                [v200[5] setPayloadHostnames:v160];
               }
 
               else
               {
                 v100 = [[STBlueprintConfiguration alloc] initWithContext:v59];
-                v101 = v207[5];
-                v207[5] = v100;
+                v101 = v206[5];
+                v206[5] = v100;
 
-                [v207[5] setBlueprint:firstObject3];
-                v147 = MEMORY[0x1E6996248];
-                v156 = userCopy;
-                localUserDeviceState2 = [v156 localUserDeviceState];
-                if (localUserDeviceState2 && (v103 = [v156 isManaged], localUserDeviceState2, !v103))
+                [v206[5] setBlueprint:firstObject3];
+                v146 = MEMORY[0x1E6996248];
+                v155 = userCopy;
+                localUserDeviceState2 = [v155 localUserDeviceState];
+                if (localUserDeviceState2 && (v103 = [v155 isManaged], localUserDeviceState2, !v103))
                 {
                   v110 = objc_alloc(MEMORY[0x1E696AEC0]);
                   dsid4 = objc_opt_new();
@@ -7911,7 +8118,7 @@ LABEL_73:
                 else
                 {
                   v104 = objc_alloc(MEMORY[0x1E696AEC0]);
-                  dsid4 = [v156 dsid];
+                  dsid4 = [v155 dsid];
                   uUIDString4 = [dsid4 stringValue];
                   v107 = objc_opt_new();
                   uUIDString5 = [v107 UUIDString];
@@ -7919,27 +8126,27 @@ LABEL_73:
                 }
 
                 v111 = v106;
-                v112 = [v147 buildWithIdentifier:v111 withMode:v153 withHostnames:v161 withExemptApps:payloadApps];
-                v113 = v201[5];
-                v201[5] = v112;
+                v112 = [v146 buildWithIdentifier:v111 withMode:v152 withHostnames:v160 withExemptApps:payloadApps];
+                v113 = v200[5];
+                v200[5] = v112;
               }
 
-              declarationIdentifier2 = [v201[5] declarationIdentifier];
-              [v207[5] setIdentifier:declarationIdentifier2];
+              declarationIdentifier2 = [v200[5] declarationIdentifier];
+              [v206[5] setIdentifier:declarationIdentifier2];
 
-              declarationType2 = [v201[5] declarationType];
-              [v207[5] setType:declarationType2];
+              declarationType2 = [v200[5] declarationType];
+              [v206[5] setType:declarationType2];
 
-              [v201[5] updateServerHash];
-              v116 = v201[5];
-              v117 = v230[0];
-              v169 = *(v230[0] + 40);
-              v118 = [v116 serializeAsDataWithError:&v169];
-              objc_storeStrong((v117 + 40), v169);
+              [v200[5] updateServerHash];
+              v116 = v200[5];
+              v117 = v229;
+              v168 = v229[5];
+              v118 = [v116 serializeAsDataWithError:&v168];
+              objc_storeStrong(v117 + 5, v168);
               v79 = v118 != 0;
               if (v118)
               {
-                [v207[5] setPayloadPlist:v118];
+                [v206[5] setPayloadPlist:v118];
               }
 
               else
@@ -7947,31 +8154,31 @@ LABEL_73:
                 v119 = +[STLog persistence];
                 if (os_log_type_enabled(v119, OS_LOG_TYPE_FAULT))
                 {
-                  [STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:v230 user:? bundleIdentifiers:? webDomains:? categoryIdentifiers:? dailyBudgetLimit:? budgetLimitByWeekday:? enabled:? behaviorType:? error:?];
+                  +[STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:user:bundleIdentifiers:webDomains:categoryIdentifiers:dailyBudgetLimit:budgetLimitByWeekday:enabled:behaviorType:error:];
                 }
               }
             }
 
-            if (v79 && v159)
+            if (v79 && v158)
             {
-              if (v195[5])
+              if (v194[5])
               {
-                [v189[5] setPayloadMode:v152];
-                [v189[5] setPayloadCategories:v70];
-                [v189[5] setPayloadCategoriesVersion2:v164];
+                [v188[5] setPayloadMode:v151];
+                [v188[5] setPayloadCategories:v70];
+                [v188[5] setPayloadCategoriesVersion2:v163];
               }
 
               else
               {
                 v120 = [[STBlueprintConfiguration alloc] initWithContext:v59];
-                v121 = v195[5];
-                v195[5] = v120;
+                v121 = v194[5];
+                v194[5] = v120;
 
-                [v195[5] setBlueprint:firstObject3];
-                v157 = MEMORY[0x1E6996240];
-                v160 = userCopy;
-                localUserDeviceState3 = [v160 localUserDeviceState];
-                if (localUserDeviceState3 && (v123 = [v160 isManaged], localUserDeviceState3, !v123))
+                [v194[5] setBlueprint:firstObject3];
+                v156 = MEMORY[0x1E6996240];
+                v159 = userCopy;
+                localUserDeviceState3 = [v159 localUserDeviceState];
+                if (localUserDeviceState3 && (v123 = [v159 isManaged], localUserDeviceState3, !v123))
                 {
                   v130 = objc_alloc(MEMORY[0x1E696AEC0]);
                   dsid5 = objc_opt_new();
@@ -7982,7 +8189,7 @@ LABEL_73:
                 else
                 {
                   v124 = objc_alloc(MEMORY[0x1E696AEC0]);
-                  dsid5 = [v160 dsid];
+                  dsid5 = [v159 dsid];
                   uUIDString6 = [dsid5 stringValue];
                   v127 = objc_opt_new();
                   uUIDString7 = [v127 UUIDString];
@@ -7990,29 +8197,29 @@ LABEL_73:
                 }
 
                 v131 = v126;
-                v132 = [v157 buildWithIdentifier:v131 withMode:v152 withCategories:v70 withCategoriesVersion2:v164 withExemptApps:payloadApps];
-                v133 = v189[5];
-                v189[5] = v132;
+                v132 = [v156 buildWithIdentifier:v131 withMode:v151 withCategories:v70 withCategoriesVersion2:v163 withExemptApps:payloadApps];
+                v133 = v188[5];
+                v188[5] = v132;
               }
 
-              declarationIdentifier3 = [v189[5] declarationIdentifier];
-              [v195[5] setIdentifier:declarationIdentifier3];
+              declarationIdentifier3 = [v188[5] declarationIdentifier];
+              [v194[5] setIdentifier:declarationIdentifier3];
 
-              declarationType3 = [v189[5] declarationType];
-              [v195[5] setType:declarationType3];
+              declarationType3 = [v188[5] declarationType];
+              [v194[5] setType:declarationType3];
 
-              [v189[5] updateServerHash];
-              v136 = v189[5];
-              v137 = v230[0];
-              v168 = *(v230[0] + 40);
-              v138 = [v136 serializeAsDataWithError:&v168];
-              objc_storeStrong((v137 + 40), v168);
+              [v188[5] updateServerHash];
+              v136 = v188[5];
+              v137 = v229;
+              v167 = v229[5];
+              v138 = [v136 serializeAsDataWithError:&v167];
+              objc_storeStrong(v137 + 5, v167);
               if (!v138)
               {
                 v142 = +[STLog persistence];
                 if (os_log_type_enabled(v142, OS_LOG_TYPE_FAULT))
                 {
-                  [STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:v230 user:? bundleIdentifiers:? webDomains:? categoryIdentifiers:? dailyBudgetLimit:? budgetLimitByWeekday:? enabled:? behaviorType:? error:?];
+                  +[STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:user:bundleIdentifiers:webDomains:categoryIdentifiers:dailyBudgetLimit:budgetLimitByWeekday:enabled:behaviorType:error:];
                 }
 
 LABEL_122:
@@ -8022,7 +8229,7 @@ LABEL_123:
                 goto LABEL_124;
               }
 
-              [v195[5] setPayloadPlist:v138];
+              [v194[5] setPayloadPlist:v138];
             }
 
             else if (!v79)
@@ -8031,34 +8238,34 @@ LABEL_123:
             }
 
             v139 = +[STAdminPersistenceController sharedController];
-            v140 = v230[0];
-            v167 = *(v230[0] + 40);
-            v141 = [v139 saveContext:v59 error:&v167];
-            objc_storeStrong((v140 + 40), v167);
+            v140 = v229;
+            v166 = v229[5];
+            v141 = [v139 saveContext:v59 error:&v166];
+            objc_storeStrong(v140 + 5, v166);
 
             if (v141)
             {
               v52 = 1;
 LABEL_124:
 
-              v74 = v151;
+              v74 = v150;
 LABEL_125:
 
-              _Block_object_dispose(&v184, 8);
-              _Block_object_dispose(&v188, 8);
+              _Block_object_dispose(&v183, 8);
+              _Block_object_dispose(&v187, 8);
 
-              _Block_object_dispose(&v194, 8);
-              _Block_object_dispose(&v200, 8);
+              _Block_object_dispose(&v193, 8);
+              _Block_object_dispose(&v199, 8);
 
-              _Block_object_dispose(&v206, 8);
-              _Block_object_dispose(&v212, 8);
+              _Block_object_dispose(&v205, 8);
+              _Block_object_dispose(&v211, 8);
 
-              _Block_object_dispose(&v218, 8);
+              _Block_object_dispose(&v217, 8);
 LABEL_126:
 
               if (error)
               {
-                *error = *(v230[0] + 40);
+                *error = v229[5];
               }
 
               goto LABEL_129;
@@ -8067,7 +8274,7 @@ LABEL_126:
             v142 = +[STLog persistence];
             if (os_log_type_enabled(v142, OS_LOG_TYPE_ERROR))
             {
-              [STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:v230 user:? bundleIdentifiers:? webDomains:? categoryIdentifiers:? dailyBudgetLimit:? budgetLimitByWeekday:? enabled:? behaviorType:? error:?];
+              +[STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:user:bundleIdentifiers:webDomains:categoryIdentifiers:dailyBudgetLimit:budgetLimitByWeekday:enabled:behaviorType:error:];
             }
 
             goto LABEL_122;
@@ -8086,15 +8293,15 @@ LABEL_126:
         }
 
         v78 = *v77;
-        v153 = *v76;
-        v152 = *v75;
+        v152 = *v76;
+        v151 = *v75;
         goto LABEL_73;
       }
 
       v54 = +[STLog persistence];
       if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
       {
-        [STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:v230 user:? bundleIdentifiers:? webDomains:? categoryIdentifiers:? dailyBudgetLimit:? budgetLimitByWeekday:? enabled:? behaviorType:? error:?];
+        +[STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:user:bundleIdentifiers:webDomains:categoryIdentifiers:dailyBudgetLimit:budgetLimitByWeekday:enabled:behaviorType:error:];
       }
     }
 
@@ -8104,7 +8311,7 @@ LABEL_126:
       if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
         appleID3 = [userCopy appleID];
-        [STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:appleID3 user:v233 bundleIdentifiers:v48 webDomains:? categoryIdentifiers:? dailyBudgetLimit:? budgetLimitByWeekday:? enabled:? behaviorType:? error:?];
+        [STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:appleID3 user:v235 bundleIdentifiers:v48 webDomains:? categoryIdentifiers:? dailyBudgetLimit:? budgetLimitByWeekday:? enabled:? behaviorType:? error:?];
       }
     }
 
@@ -8113,8 +8320,8 @@ LABEL_126:
   }
 
   v49 = [MEMORY[0x1E696ABC0] errorWithDomain:@"STErrorDomain" code:21 userInfo:0];
-  v50 = *(v230[0] + 40);
-  *(v230[0] + 40) = v49;
+  v50 = v229[5];
+  v229[5] = v49;
 
   v51 = +[STLog persistence];
   if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
@@ -8125,13 +8332,12 @@ LABEL_126:
   v52 = 0;
   if (error)
   {
-    *error = *(v230[0] + 40);
+    *error = v229[5];
   }
 
 LABEL_129:
 
-  _Block_object_dispose(&v229, 8);
-  v143 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v228, 8);
   return v52;
 }
 
@@ -8148,7 +8354,7 @@ uint64_t __175__STBlueprint_UsageLimit__saveUsageLimitWithIdentifier_user_bundle
 
 void __175__STBlueprint_UsageLimit__saveUsageLimitWithIdentifier_user_bundleIdentifiers_webDomains_categoryIdentifiers_dailyBudgetLimit_budgetLimitByWeekday_enabled_behaviorType_error___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = [v7 payloadPlist];
 
@@ -8231,9 +8437,9 @@ LABEL_17:
         {
 LABEL_24:
           *buf = 136446466;
-          v18 = "+[STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:user:bundleIdentifiers:webDomains:categoryIdentifiers:dailyBudgetLimit:budgetLimitByWeekday:enabled:behaviorType:error:]_block_invoke";
-          v19 = 2112;
-          v20 = v7;
+          v17 = "+[STBlueprint(UsageLimit) saveUsageLimitWithIdentifier:user:bundleIdentifiers:webDomains:categoryIdentifiers:dailyBudgetLimit:budgetLimitByWeekday:enabled:behaviorType:error:]_block_invoke";
+          v18 = 2112;
+          v19 = v7;
           _os_log_impl(&dword_1B831F000, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: Deleting configuration (%@)", buf, 0x16u);
         }
 
@@ -8254,8 +8460,6 @@ LABEL_25:
   }
 
 LABEL_26:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateUsageLimitWithAlwaysAllowBundleIdentifiers:(id)identifiers
@@ -8488,54 +8692,54 @@ LABEL_15:
 
 + (id)displayNameForUsageLimitWithCategoryIdentifiers:(id)identifiers bundleIdentifiers:(id)bundleIdentifiers webDomains:(id)domains
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   bundleIdentifiersCopy = bundleIdentifiers;
   domainsCopy = domains;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = __Block_byref_object_copy__1;
-  v57 = __Block_byref_object_dispose__1;
-  v58 = 0;
-  v52 = 2;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = __Block_byref_object_copy__1;
+  v56 = __Block_byref_object_dispose__1;
+  v57 = 0;
+  v51 = 2;
   v8 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:2];
-  v9 = [self _getDisplayNameAndAddCategories:identifiersCopy toItemNames:v8 remainingItems:&v52];
-  v10 = v54[5];
-  v54[5] = v9;
+  v9 = [self _getDisplayNameAndAddCategories:identifiersCopy toItemNames:v8 remainingItems:&v51];
+  v10 = v53[5];
+  v53[5] = v9;
 
-  if (!v54[5])
+  if (!v53[5])
   {
     v11 = [identifiersCopy count];
     v12 = [bundleIdentifiersCopy count];
     v13 = [domainsCopy count];
-    if (v52)
+    if (v51)
     {
-      v40 = v12 + v11;
-      v41 = v13;
+      v39 = v12 + v11;
+      v40 = v13;
       v14 = +[STAppInfoCache sharedCache];
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
       v48 = 0u;
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
       v15 = bundleIdentifiersCopy;
-      v16 = [v15 countByEnumeratingWithState:&v47 objects:v65 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v46 objects:v64 count:16];
       if (v16)
       {
-        v18 = *v48;
+        v18 = *v47;
         *&v17 = 138543874;
-        v39 = v17;
+        v38 = v17;
         do
         {
           v19 = 0;
           do
           {
-            if (*v48 != v18)
+            if (*v47 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = [v14 appInfoForBundleIdentifier:{*(*(&v47 + 1) + 8 * v19), v39}];
+            v20 = [v14 appInfoForBundleIdentifier:{*(*(&v46 + 1) + 8 * v19), v38}];
             v21 = v20;
             if (!v20)
             {
@@ -8543,12 +8747,12 @@ LABEL_15:
               if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
                 v32 = [0 description];
-                *buf = v39;
-                v60 = v32;
-                v61 = 2080;
-                v62 = "+[STBlueprint(UsageLimit) displayNameForUsageLimitWithCategoryIdentifiers:bundleIdentifiers:webDomains:]";
-                v63 = 1024;
-                v64 = 512;
+                *buf = v38;
+                v59 = v32;
+                v60 = 2080;
+                v61 = "+[STBlueprint(UsageLimit) displayNameForUsageLimitWithCategoryIdentifiers:bundleIdentifiers:webDomains:]";
+                v62 = 1024;
+                v63 = 512;
                 _os_log_error_impl(&dword_1B831F000, v25, OS_LOG_TYPE_ERROR, "Nil appInfo: %{public}@ in function: %s:%d", buf, 0x1Cu);
               }
 
@@ -8569,12 +8773,12 @@ LABEL_15:
                 if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
                 {
                   v34 = [v21 description];
-                  *buf = v39;
-                  v60 = v34;
-                  v61 = 2080;
-                  v62 = "+[STBlueprint(UsageLimit) displayNameForUsageLimitWithCategoryIdentifiers:bundleIdentifiers:webDomains:]";
-                  v63 = 1024;
-                  v64 = 520;
+                  *buf = v38;
+                  v59 = v34;
+                  v60 = 2080;
+                  v61 = "+[STBlueprint(UsageLimit) displayNameForUsageLimitWithCategoryIdentifiers:bundleIdentifiers:webDomains:]";
+                  v62 = 1024;
+                  v63 = 520;
                   _os_log_error_impl(&dword_1B831F000, v25, OS_LOG_TYPE_ERROR, "Display name and bundleId missing for appInfo: %{public}@ in function: %s:%d", buf, 0x1Cu);
                 }
 
@@ -8590,12 +8794,12 @@ LABEL_13:
               if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
               {
                 v33 = [v21 description];
-                *buf = v39;
-                v60 = v33;
-                v61 = 2080;
-                v62 = "+[STBlueprint(UsageLimit) displayNameForUsageLimitWithCategoryIdentifiers:bundleIdentifiers:webDomains:]";
-                v63 = 1024;
-                v64 = 517;
+                *buf = v38;
+                v59 = v33;
+                v60 = 2080;
+                v61 = "+[STBlueprint(UsageLimit) displayNameForUsageLimitWithCategoryIdentifiers:bundleIdentifiers:webDomains:]";
+                v62 = 1024;
+                v63 = 517;
                 _os_log_error_impl(&dword_1B831F000, v30, OS_LOG_TYPE_ERROR, "Display name missing for appInfo: %{public}@ in function: %s:%d. using bundleId instead", buf, 0x1Cu);
               }
 
@@ -8610,7 +8814,7 @@ LABEL_13:
             v27 = bundleIdentifier2;
 LABEL_19:
             [v8 addObject:v27];
-            v31 = --v52 == 0;
+            v31 = --v51 == 0;
 
             if (v31)
             {
@@ -8621,7 +8825,7 @@ LABEL_19:
           }
 
           while (v16 != v19);
-          v35 = [v15 countByEnumeratingWithState:&v47 objects:v65 count:16];
+          v35 = [v15 countByEnumeratingWithState:&v46 objects:v64 count:16];
           v16 = v35;
         }
 
@@ -8630,42 +8834,41 @@ LABEL_19:
 
 LABEL_26:
 
-      if (v52)
+      if (v51)
       {
-        v45[0] = MEMORY[0x1E69E9820];
-        v45[1] = 3221225472;
-        v45[2] = __104__STBlueprint_UsageLimit__displayNameForUsageLimitWithCategoryIdentifiers_bundleIdentifiers_webDomains___block_invoke_2;
-        v45[3] = &unk_1E7CE6FC0;
-        v45[4] = &v53;
-        [self _addWebDomains:domainsCopy toItemNames:v8 remainingItems:v52 totalCount:v40 + v41 completionHandler:v45];
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = __104__STBlueprint_UsageLimit__displayNameForUsageLimitWithCategoryIdentifiers_bundleIdentifiers_webDomains___block_invoke_2;
+        v44[3] = &unk_1E7CE6FC0;
+        v44[4] = &v52;
+        [self _addWebDomains:domainsCopy toItemNames:v8 remainingItems:v51 totalCount:v39 + v40 completionHandler:v44];
       }
 
       else
       {
-        v46[0] = MEMORY[0x1E69E9820];
-        v46[1] = 3221225472;
-        v46[2] = __104__STBlueprint_UsageLimit__displayNameForUsageLimitWithCategoryIdentifiers_bundleIdentifiers_webDomains___block_invoke_68;
-        v46[3] = &unk_1E7CE6FC0;
-        v46[4] = &v53;
-        [self _createDisplayNameWithItemNames:v8 itemCount:v40 + v41 completionHandler:v46];
+        v45[0] = MEMORY[0x1E69E9820];
+        v45[1] = 3221225472;
+        v45[2] = __104__STBlueprint_UsageLimit__displayNameForUsageLimitWithCategoryIdentifiers_bundleIdentifiers_webDomains___block_invoke_68;
+        v45[3] = &unk_1E7CE6FC0;
+        v45[4] = &v52;
+        [self _createDisplayNameWithItemNames:v8 itemCount:v39 + v40 completionHandler:v45];
       }
     }
 
     else
     {
-      v51[0] = MEMORY[0x1E69E9820];
-      v51[1] = 3221225472;
-      v51[2] = __104__STBlueprint_UsageLimit__displayNameForUsageLimitWithCategoryIdentifiers_bundleIdentifiers_webDomains___block_invoke;
-      v51[3] = &unk_1E7CE6FC0;
-      v51[4] = &v53;
-      [self _createDisplayNameWithItemNames:v8 itemCount:v12 + v11 + v13 completionHandler:v51];
+      v50[0] = MEMORY[0x1E69E9820];
+      v50[1] = 3221225472;
+      v50[2] = __104__STBlueprint_UsageLimit__displayNameForUsageLimitWithCategoryIdentifiers_bundleIdentifiers_webDomains___block_invoke;
+      v50[3] = &unk_1E7CE6FC0;
+      v50[4] = &v52;
+      [self _createDisplayNameWithItemNames:v8 itemCount:v12 + v11 + v13 completionHandler:v50];
     }
   }
 
-  v36 = v54[5];
+  v36 = v53[5];
 
-  _Block_object_dispose(&v53, 8);
-  v37 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v52, 8);
 
   return v36;
 }
@@ -8745,29 +8948,29 @@ LABEL_26:
 
 void __127__STBlueprint_UsageLimit__fetchDisplayNameForUsageLimitWithCategoryIdentifiers_bundleIdentifiers_webDomains_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
-        v10 = [v3 objectForKeyedSubscript:{v9, v16}];
+        v9 = *(*(&v15 + 1) + 8 * i);
+        v10 = [v3 objectForKeyedSubscript:{v9, v15}];
         v11 = [v10 displayName];
 
         if (v11)
@@ -8784,7 +8987,7 @@ void __127__STBlueprint_UsageLimit__fetchDisplayNameForUsageLimitWithCategoryIde
         --*(*(*(a1 + 64) + 8) + 24);
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
@@ -8801,18 +9004,16 @@ void __127__STBlueprint_UsageLimit__fetchDisplayNameForUsageLimitWithCategoryIde
   {
     [v13 _createDisplayNameWithItemNames:*(a1 + 40) itemCount:*(a1 + 80) completionHandler:*(a1 + 56)];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_getDisplayNameAndAddCategories:(id)categories toItemNames:(id)names remainingItems:(unint64_t *)items
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   categoriesCopy = categories;
   namesCopy = names;
   v9 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:categoriesCopy];
   v10 = objc_alloc(MEMORY[0x1E695DFD8]);
-  v11 = STAvailableCategoriesExcludingSystemCategories();
+  v11 = STAvailableCategoriesExcludingSystemCategories(v10);
   v12 = [v10 initWithArray:v11];
 
   if ([v9 isEqualToSet:v12])
@@ -8823,27 +9024,27 @@ void __127__STBlueprint_UsageLimit__fetchDisplayNameForUsageLimitWithCategoryIde
 
   else
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v15 = categoriesCopy;
-    v16 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v25;
+      v18 = *v24;
 LABEL_5:
       v19 = 0;
       while (1)
       {
-        if (*v25 != v18)
+        if (*v24 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = STCategoryNameWithIdentifier(*(*(&v24 + 1) + 8 * v19));
-        [namesCopy addObject:{v20, v24}];
+        v20 = STCategoryNameWithIdentifier(*(*(&v23 + 1) + 8 * v19));
+        [namesCopy addObject:{v20, v23}];
 
         if ((*items)-- == 1)
         {
@@ -8852,7 +9053,7 @@ LABEL_5:
 
         if (v17 == ++v19)
         {
-          v17 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
           if (v17)
           {
             goto LABEL_5;
@@ -8866,37 +9067,35 @@ LABEL_5:
     v14 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 + (void)_addWebDomains:(id)domains toItemNames:(id)names remainingItems:(unint64_t)items totalCount:(unint64_t)count completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   domainsCopy = domains;
   namesCopy = names;
   handlerCopy = handler;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v14 = domainsCopy;
-  v15 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
 LABEL_3:
     v18 = 0;
     while (1)
     {
-      if (*v23 != v17)
+      if (*v22 != v17)
       {
         objc_enumerationMutation(v14);
       }
 
-      _lp_userVisibleHost = [*(*(&v22 + 1) + 8 * v18) _lp_userVisibleHost];
+      _lp_userVisibleHost = [*(*(&v21 + 1) + 8 * v18) _lp_userVisibleHost];
       [namesCopy addObject:_lp_userVisibleHost];
 
       if (items - 1 == v18)
@@ -8906,7 +9105,7 @@ LABEL_3:
 
       if (v16 == ++v18)
       {
-        v16 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
         items -= v18;
         if (v16)
         {
@@ -8919,7 +9118,6 @@ LABEL_3:
   }
 
   [self _createDisplayNameWithItemNames:namesCopy itemCount:count completionHandler:handlerCopy];
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_createDisplayNameWithItemNames:(id)names itemCount:(unint64_t)count completionHandler:(id)handler
@@ -8956,7 +9154,7 @@ LABEL_3:
 
 - (NSString)limitScheduleText
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   [v3 setFormattingContext:1];
   [v3 setUnitsStyle:5];
@@ -8979,29 +9177,29 @@ LABEL_3:
 
   else
   {
-    v30 = budgetLimitScheduleRepresentation;
+    v29 = budgetLimitScheduleRepresentation;
     customScheduleItems = [budgetLimitScheduleRepresentation customScheduleItems];
     v15 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(customScheduleItems, "count")}];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     v16 = customScheduleItems;
-    v17 = [v16 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v37;
+      v19 = *v36;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v37 != v19)
+          if (*v36 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v36 + 1) + 8 * i);
+          v21 = *(*(&v35 + 1) + 8 * i);
           v22 = MEMORY[0x1E696AD98];
           [v21 budgetLimit];
           v23 = [v22 numberWithDouble:?];
@@ -9009,26 +9207,26 @@ LABEL_3:
           [v15 setObject:v23 forKeyedSubscript:v24];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v35 objects:v39 count:16];
       }
 
       while (v18);
     }
 
     v25 = objc_opt_class();
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __44__STBlueprint_UsageLimit__limitScheduleText__block_invoke;
-    v34[3] = &unk_1E7CE6EE8;
-    v35 = v15;
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __44__STBlueprint_UsageLimit__limitScheduleText__block_invoke_2;
-    v31[3] = &unk_1E7CE6F10;
-    v26 = v35;
-    v32 = v26;
-    v33 = v3;
-    v13 = [v25 scheduleTextWithLocale:0 weekdayScheduleComparator:v34 scheduleTimeGetter:v31];
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __44__STBlueprint_UsageLimit__limitScheduleText__block_invoke;
+    v33[3] = &unk_1E7CE6EE8;
+    v34 = v15;
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __44__STBlueprint_UsageLimit__limitScheduleText__block_invoke_2;
+    v30[3] = &unk_1E7CE6F10;
+    v26 = v34;
+    v31 = v26;
+    v32 = v3;
+    v13 = [v25 scheduleTextWithLocale:0 weekdayScheduleComparator:v33 scheduleTimeGetter:v30];
     if (!v13)
     {
       v27 = +[STScreenTimeCoreBundle bundle];
@@ -9036,10 +9234,8 @@ LABEL_3:
     }
 
     v7 = 0;
-    budgetLimitScheduleRepresentation = v30;
+    budgetLimitScheduleRepresentation = v29;
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -9090,126 +9286,89 @@ id __44__STBlueprint_UsageLimit__limitScheduleText__block_invoke_2(uint64_t a1, 
 
 - (void)declarationsWithError:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)declarationsWithError:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_predicateForDowntimeBlueprint:(void *)a1 withDateFormatter:calendar:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_predicateForUsageLimitBlueprint:(void *)a1 withDateFormatter:calendar:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_predicateForUsageLimitBlueprint:withDateFormatter:calendar:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_predicateForUsageLimitOverrideBlueprint:(void *)a1 withDateFormatter:calendar:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_predicateForAlwaysAllowedAppsBlueprint:(void *)a1 withDateFormatter:calendar:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_predicateForRestrictionsBlueprint:(void *)a1 withDateFormatter:calendar:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_predicateForManagedUserBlueprint:(void *)a1 withDateFormatter:calendar:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_buildConfigurationsByDeclarationIdentifierFromBlueprint:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_fault_impl(&dword_1B831F000, v1, OS_LOG_TYPE_FAULT, "failed to deserialize config: %{public}@: %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_buildConfigurationsByDeclarationIdentifierFromBlueprint:error:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4_0(&dword_1B831F000, v0, v1, "blueprint is missing a config: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_fault_impl(&dword_1B831F000, v1, OS_LOG_TYPE_FAULT, "failed to deserialize config: %{public}@: %{public}@", v2, 0x16u);
 }
 
 + (void)_buildConfigurationsByDeclarationIdentifierFromBlueprint:(void *)a1 error:.cold.4(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 serialize];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __78__STBlueprint__buildConfigurationsByDeclarationIdentifierFromBlueprint_error___block_invoke_cold_1()
@@ -9229,12 +9388,11 @@ void __78__STBlueprint__buildConfigurationsByDeclarationIdentifierFromBlueprint_
 
 + (void)appExceptionsDeclarationForBlueprint:usingCache:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_1B831F000, v1, OS_LOG_TYPE_ERROR, "Failed creating declaration from payload:%@. Error:%@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1B831F000, v1, OS_LOG_TYPE_ERROR, "Failed creating declaration from payload:%@. Error:%@", v2, 0x16u);
 }
 
 + (void)appExceptionsDeclarationForBlueprint:usingCache:.cold.4()
@@ -9246,22 +9404,19 @@ void __78__STBlueprint__buildConfigurationsByDeclarationIdentifierFromBlueprint_
 
 + (void)shouldUseGracePeriodForDowntimeOverride:configuration:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)shouldUseGracePeriodForDowntimeOverride:(uint64_t)a1 configuration:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 138543618;
-  v4 = 0;
-  v5 = 2114;
-  v6 = a1;
-  _os_log_fault_impl(&dword_1B831F000, a2, OS_LOG_TYPE_FAULT, "Failed to deserialize declaration: %{public}@: %{public}@. Defaulting to no grace period.", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 138543618;
+  v3 = 0;
+  v4 = 2114;
+  v5 = a1;
+  _os_log_fault_impl(&dword_1B831F000, a2, OS_LOG_TYPE_FAULT, "Failed to deserialize declaration: %{public}@: %{public}@. Defaulting to no grace period.", &v2, 0x16u);
 }
 
 + (void)shouldUseGracePeriodForDowntimeOverride:configuration:.cold.3()
@@ -9280,148 +9435,65 @@ void __78__STBlueprint__buildConfigurationsByDeclarationIdentifierFromBlueprint_
 
 - (void)updateWithDictionaryRepresentation:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 dictionaryRepresentation];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5_0(&dword_1B831F000, v2, v3, "L: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)updateWithDictionaryRepresentation:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B831F000, v0, v1, "R: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)updateWithDictionaryRepresentation:.cold.7()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4_0(&dword_1B831F000, v0, v1, "Multiple organizations of type: %{public}@ found in database", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)updateWithDictionaryRepresentation:.cold.8()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4_0(&dword_1B831F000, v0, v1, "There were no organizations for %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)updateWithDictionaryRepresentation:.cold.9()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4_0(&dword_1B831F000, v0, v1, "Unable to fetch organizations: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_0(&dword_1B831F000, v2, v3, "L: %@", v4, v5, v6, v7);
 }
 
 - (void)updateWithDictionaryRepresentation:.cold.10()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateWithDictionaryRepresentation:.cold.11()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)fetchOrCreateWithDictionaryRepresentation:inContext:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)validateForUpdate:(uint64_t *)a1 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 136446466;
-  v5 = "[STBlueprint validateForUpdate:]";
-  v6 = 2114;
-  v7 = v2;
-  _os_log_fault_impl(&dword_1B831F000, a2, OS_LOG_TYPE_FAULT, "%{public}s Built-in CoreData Validation for update on Blueprint failed with: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 136446466;
+  v4 = "[STBlueprint validateForUpdate:]";
+  v5 = 2114;
+  v6 = v2;
+  _os_log_fault_impl(&dword_1B831F000, a2, OS_LOG_TYPE_FAULT, "%{public}s Built-in CoreData Validation for update on Blueprint failed with: %{public}@", &v3, 0x16u);
 }
 
 - (void)validateForUpdate:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 type];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)validateForInsert:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 type];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)validateForDelete:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 type];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __76__STBlueprint_UsageLimit__updateUsageLimitWithAlwaysAllowBundleIdentifiers___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Unexpected declaration for usage limit blueprint: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __76__STBlueprint_UsageLimit__updateUsageLimitWithAlwaysAllowBundleIdentifiers___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to serialize payload after updating limit with always allow list: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __76__STBlueprint_UsageLimit__updateUsageLimitWithAlwaysAllowBundleIdentifiers___block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to deserialize declaration for usage limit blueprint: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __76__STBlueprint_UsageLimit__updateUsageLimitWithAlwaysAllowBundleIdentifiers___block_invoke_cold_4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Usage limit blueprint has a malformed configuration: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

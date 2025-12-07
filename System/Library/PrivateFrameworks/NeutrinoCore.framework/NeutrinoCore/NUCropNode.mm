@@ -55,8 +55,8 @@
 
     if (v5)
     {
-      [v3 extent];
-      [v5 extent];
+      objc_msgSend_extent(v3);
+      objc_msgSend_extent(v5);
       v7 = 0;
       if (v11 == *buf && v12 == *&buf[8])
       {
@@ -186,7 +186,7 @@
 
       else
       {
-        [v7 cleanAperture];
+        objc_msgSend_cleanAperture(v7);
         *&v15 = scaledSize;
         *(&v15 + 1) = v12;
         *buf = 0;
@@ -231,7 +231,7 @@
     v18 = 0u;
     v19 = 0u;
     v6 = v21;
-    [(NUCropNode *)self cropRect];
+    objc_msgSend_cropRect(self);
 
     v18 = 0uLL;
     v7 = [NUImageGeometry alloc];
@@ -290,8 +290,8 @@
 
     if (v5)
     {
-      [v3 extent];
-      [v5 extent];
+      objc_msgSend_extent(v3);
+      objc_msgSend_extent(v5);
       if (v12 == *buf && v13 == *&buf[8] && v14 == v19)
       {
         v11.receiver = self;
@@ -451,7 +451,7 @@ LABEL_18:
         v74 = NUScaleToDouble(renderScale, v13);
         v79 = 0u;
         memset(buf, 0, sizeof(buf));
-        [transformAffine transform];
+        objc_msgSend_transform(transformAffine);
         v79 = vmulq_n_f64(v79, v74);
         scaledSize = [v8 scaledSize];
         v16 = v15;
@@ -460,7 +460,7 @@ LABEL_18:
         v75[2] = v79;
         v17 = [v6 imageByApplyingTransform:v75];
 
-        [v17 extent];
+        objc_msgSend_extent(v17);
         v19 = v18;
         v21 = v20;
         v23 = v22;
@@ -615,7 +615,7 @@ LABEL_18:
   }
 
   memset(buf, 0, sizeof(buf));
-  [(NUCropNode *)self cropRect];
+  objc_msgSend_cropRect(self, a2);
   v7 = [(NURenderNode *)self outputImageGeometry:error];
   v8 = v7;
   if (v7)
@@ -664,7 +664,7 @@ LABEL_18:
         v19 = v19 * (v33 + 1.0);
         v21 = v21 * (v33 + 1.0);
 LABEL_10:
-        [v16 extent];
+        objc_msgSend_extent(v16);
         [(NUCropNode *)self scaleCropOriginForOriginalVideoSize:v70 originalCleanAperture:v19 renderScale:v21 inputExtent:v24, v26, v28, v29, v69];
         origin->x = v34;
         origin->y = v35;
@@ -689,7 +689,7 @@ LABEL_15:
   rect = aperture.origin.x;
   v9 = size.height;
   v10 = size.width;
-  [(NUCropNode *)self cropRect];
+  objc_msgSend_cropRect(self, a2);
   if (v10 == width && v9 == height)
   {
     scaleCopy2 = scale;
@@ -888,12 +888,12 @@ LABEL_9:
 
 - (id)transformAffine
 {
-  transform = [(NUCropNode *)self transform];
-  if (!transform)
+  v3 = objc_msgSend_transform(self, a2);
+  if (!v3)
   {
     v9 = 0u;
     v10 = 0u;
-    [(NUCropNode *)self cropRect];
+    objc_msgSend_cropRect(self);
     memset(&v8, 0, sizeof(v8));
     CGAffineTransformMakeTranslation(&v8, -v9, -*(&v9 + 1));
     v4 = [NUImageTransformAffine alloc];
@@ -901,10 +901,10 @@ LABEL_9:
     v5 = [(NUImageTransformAffine *)v4 initWithAffineTransform:&v7];
     [(NUCropNode *)self setTransform:v5];
 
-    transform = [(NUCropNode *)self transform];
+    v3 = objc_msgSend_transform(self);
   }
 
-  return transform;
+  return v3;
 }
 
 - (id)resolvedNodeWithCachedInputs:(id)inputs settings:(id)settings pipelineState:(id)state error:(id *)error
@@ -914,7 +914,7 @@ LABEL_9:
   v7 = [(NURenderNode *)&v10 resolvedNodeWithCachedInputs:inputs settings:settings pipelineState:state error:error];
   if (v7)
   {
-    [(NUCropNode *)self cropRect];
+    objc_msgSend_cropRect(self);
     v9[0] = v9[2];
     v9[1] = v9[3];
     [v7 setCropRect:v9];

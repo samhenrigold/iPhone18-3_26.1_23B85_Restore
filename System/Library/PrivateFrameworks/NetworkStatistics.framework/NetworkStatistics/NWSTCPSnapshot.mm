@@ -330,14 +330,14 @@ LABEL_38:
 
 - (NSString)TCPState
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   state = self->_descriptor.state;
-  v7[2] = xmmword_27996E308;
-  v7[3] = *&off_27996E318;
-  v7[4] = xmmword_27996E328;
-  v8 = @"TimeWait";
-  v7[0] = xmmword_27996E2E8;
-  v7[1] = *&off_27996E2F8;
+  v6[2] = xmmword_27996E308;
+  v6[3] = *&off_27996E318;
+  v6[4] = xmmword_27996E328;
+  v7 = @"TimeWait";
+  v6[0] = xmmword_27996E2E8;
+  v6[1] = *&off_27996E2F8;
   if (state > 0xA)
   {
     v3 = 0;
@@ -345,14 +345,12 @@ LABEL_38:
 
   else
   {
-    v3 = *(v7 + state);
+    v3 = *(v6 + state);
   }
 
   for (i = 80; i != -8; i -= 8)
   {
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -528,23 +526,23 @@ LABEL_38:
 - (id)description
 {
   __ret = 0;
-  v7.receiver = self;
-  v7.super_class = NWSTCPSnapshot;
-  v3 = [(NWSSnapshot *)&v7 description];
-  v4 = printf_domain();
-  asxprintf(&__ret, v4, 0, "NWTCPSnapshot %N<->%N@%I %@", &self->_descriptor.local, &self->_descriptor.remote, self->_descriptor.ifindex, v3);
+  v8.receiver = self;
+  v8.super_class = NWSTCPSnapshot;
+  v3 = [(NWSSnapshot *)&v8 description];
+  v5 = printf_domain(v3, v4);
+  asxprintf(&__ret, v5, 0, "NWTCPSnapshot %N<->%N@%I %@", &self->_descriptor.local, &self->_descriptor.remote, self->_descriptor.ifindex, v3);
   if (__ret)
   {
-    v5 = [MEMORY[0x277CCACA8] stringWithCString:__ret encoding:4];
+    v6 = [MEMORY[0x277CCACA8] stringWithCString:__ret encoding:4];
     free(__ret);
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (NWSTCPSnapshot)initWithCounts:(const nstat_counts *)counts TCPDescriptor:(nstat_tcp_descriptor *)descriptor sourceIdent:(unint64_t)ident events:(unint64_t)events seqno:(unint64_t)seqno provider:(unsigned int)provider

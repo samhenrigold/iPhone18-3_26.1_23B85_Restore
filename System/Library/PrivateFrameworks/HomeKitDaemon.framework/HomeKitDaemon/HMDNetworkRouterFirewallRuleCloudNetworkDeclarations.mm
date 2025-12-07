@@ -3,6 +3,7 @@
 + (id)__decodeRuleConfigurationsFromJSONDictionary:(id)dictionary baseAccessoryIdentifier:(id)identifier allowUnzippedData:(BOOL)data;
 + (id)logCategory;
 - (BOOL)isEqual:(id)equal;
+- (HMDNetworkRouterFirewallRuleCloudNetworkDeclarations)initWithBaseAccessoryIdentifier:(id)identifier data:(id)data allowUnzippedData:(BOOL)unzippedData;
 - (HMDNetworkRouterFirewallRuleCloudNetworkDeclarations)initWithBaseAccessoryIdentifier:(id)identifier name:(id)name lastModifiedTime:(id)time ruleConfigurationsByVersionString:(id)string;
 - (NSArray)ruleConfigurations;
 - (NSDictionary)prettyJSONDictionary;
@@ -14,28 +15,28 @@
 
 - (NSDictionary)prettyJSONDictionary
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   ruleConfigurations = [(HMDNetworkRouterFirewallRuleCloudNetworkDeclarations *)self ruleConfigurations];
-  v5 = [ruleConfigurations countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v5 = [ruleConfigurations countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(ruleConfigurations);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         accessoryIdentifier = [v9 accessoryIdentifier];
         firmwareVersion = [accessoryIdentifier firmwareVersion];
         versionString = [firmwareVersion versionString];
@@ -44,51 +45,47 @@
         [dictionary setObject:prettyJSONDictionary forKeyedSubscript:versionString];
       }
 
-      v6 = [ruleConfigurations countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v6 = [ruleConfigurations countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v6);
   }
 
-  v25[0] = @"name";
+  v24[0] = @"name";
   name = [(HMDNetworkRouterFirewallRuleCloudNetworkDeclarations *)self name];
-  v26[0] = name;
-  v25[1] = @"lastModifiedTime";
+  v25[0] = name;
+  v24[1] = @"lastModifiedTime";
   lastModifiedTime = [(HMDNetworkRouterFirewallRuleCloudNetworkDeclarations *)self lastModifiedTime];
   v16 = [lastModifiedTime description];
-  v26[1] = v16;
-  v25[2] = @"ruleConfigurations";
-  v17 = [dictionary copy];
-  v26[2] = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v25[1] = v16;
+  v24[2] = @"ruleConfigurations";
+  v17 = objc_msgSend_copy(dictionary);
+  v25[2] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:3];
 
   return v18;
 }
 
 - (id)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   baseAccessoryIdentifier = [(HMDNetworkRouterFirewallRuleCloudNetworkDeclarations *)self baseAccessoryIdentifier];
   v5 = [v3 initWithName:@"BaseAccessoryIdentifier" value:baseAccessoryIdentifier];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   name = [(HMDNetworkRouterFirewallRuleCloudNetworkDeclarations *)self name];
   v8 = [v6 initWithName:@"Name" value:name];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   lastModifiedTime = [(HMDNetworkRouterFirewallRuleCloudNetworkDeclarations *)self lastModifiedTime];
   v11 = [v9 initWithName:@"LastModifiedTime" value:lastModifiedTime];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   ruleConfigurations = [(HMDNetworkRouterFirewallRuleCloudNetworkDeclarations *)self ruleConfigurations];
   v14 = [v12 initWithName:@"RuleConfigurations" value:ruleConfigurations];
-  v18[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
 
   return v15;
 }
@@ -186,6 +183,125 @@
   return allValues;
 }
 
+- (HMDNetworkRouterFirewallRuleCloudNetworkDeclarations)initWithBaseAccessoryIdentifier:(id)identifier data:(id)data allowUnzippedData:(BOOL)unzippedData
+{
+  unzippedDataCopy = unzippedData;
+  v39 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  dataCopy = data;
+  v34 = 0;
+  v10 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v34];
+  v11 = v34;
+  v12 = v11;
+  if (v10)
+  {
+    v13 = v11 == 0;
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  if (v13)
+  {
+    v18 = v10;
+    objc_opt_class();
+    v19 = objc_opt_isKindOfClass() & 1;
+    if (v19)
+    {
+      v20 = v18;
+    }
+
+    else
+    {
+      v20 = 0;
+    }
+
+    v31 = v20;
+
+    if (v19)
+    {
+      v33 = 0;
+      v21 = decodeStringFromJSONDictionary(v18, @"n", 1, &v33);
+      v22 = v33;
+      if (v21)
+      {
+        v32 = 0;
+        v23 = decodeTimeFromJSONDictionary(v18, @"t", &v32);
+        v24 = v32;
+        if (v23)
+        {
+          v25 = v24;
+          v26 = [objc_opt_class() __decodeRuleConfigurationsFromJSONDictionary:v18 baseAccessoryIdentifier:identifierCopy allowUnzippedData:{unzippedDataCopy, v31}];
+          if (v26)
+          {
+            self = [(HMDNetworkRouterFirewallRuleCloudNetworkDeclarations *)self initWithBaseAccessoryIdentifier:identifierCopy name:v22 lastModifiedTime:v25 ruleConfigurationsByVersionString:v26];
+            selfCopy = self;
+          }
+
+          else
+          {
+            selfCopy = 0;
+          }
+
+          v24 = v25;
+        }
+
+        else
+        {
+          selfCopy = 0;
+        }
+      }
+
+      else
+      {
+        selfCopy = 0;
+      }
+    }
+
+    else
+    {
+      v27 = objc_autoreleasePoolPush();
+      self = self;
+      v28 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      {
+        v29 = HMFGetLogIdentifier();
+        *buf = 138543618;
+        v36 = v29;
+        v37 = 2112;
+        v38 = v18;
+        _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@JSON is not a dictionary: %@", buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v27);
+      selfCopy = 0;
+    }
+  }
+
+  else
+  {
+    v14 = objc_autoreleasePoolPush();
+    self = self;
+    v15 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      v16 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v36 = v16;
+      v37 = 2112;
+      v38 = v12;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse JSON: %@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v14);
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
+
 - (HMDNetworkRouterFirewallRuleCloudNetworkDeclarations)initWithBaseAccessoryIdentifier:(id)identifier name:(id)name lastModifiedTime:(id)time ruleConfigurationsByVersionString:(id)string
 {
   identifierCopy = identifier;
@@ -201,7 +317,7 @@
     objc_storeStrong(&v15->_baseAccessoryIdentifier, identifier);
     objc_storeStrong(&v16->_name, name);
     objc_storeStrong(&v16->_lastModifiedTime, time);
-    v17 = [stringCopy copy];
+    v17 = objc_msgSend_copy(stringCopy);
     ruleConfigurationsByVersionString = v16->_ruleConfigurationsByVersionString;
     v16->_ruleConfigurationsByVersionString = v17;
 
@@ -213,7 +329,7 @@
 
 + (id)__decodeRuleConfigurationWithVersionString:(id)string ruleConfigurationValue:(id)value baseAccessoryIdentifier:(id)identifier
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   valueCopy = value;
   identifierCopy = identifier;
@@ -252,13 +368,13 @@
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         v27 = HMFGetLogIdentifier();
-        v30 = 138543874;
-        v31 = v27;
-        v32 = 2112;
-        v33 = stringCopy;
-        v34 = 2112;
-        v35 = v12;
-        _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Rule configuration for version '%@' is not a dictionary: %@", &v30, 0x20u);
+        v29 = 138543874;
+        v30 = v27;
+        v31 = 2112;
+        v32 = stringCopy;
+        v33 = 2112;
+        v34 = v12;
+        _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Rule configuration for version '%@' is not a dictionary: %@", &v29, 0x20u);
       }
 
       objc_autoreleasePoolPop(v24);
@@ -274,18 +390,16 @@
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       v23 = HMFGetLogIdentifier();
-      v30 = 138543618;
-      v31 = v23;
-      v32 = 2112;
-      v33 = stringCopy;
-      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Rule configuration contains an invalid version string: %@", &v30, 0x16u);
+      v29 = 138543618;
+      v30 = v23;
+      v31 = 2112;
+      v32 = stringCopy;
+      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Rule configuration contains an invalid version string: %@", &v29, 0x16u);
     }
 
     objc_autoreleasePoolPop(v20);
     v19 = 0;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -293,7 +407,7 @@
 + (id)__decodeRuleConfigurationsFromJSONDictionary:(id)dictionary baseAccessoryIdentifier:(id)identifier allowUnzippedData:(BOOL)data
 {
   dataCopy = data;
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   identifierCopy = identifier;
   if (dataCopy)
@@ -309,9 +423,9 @@
     }
   }
 
-  v50 = 0;
-  v16 = decodeStringFromJSONDictionary(dictionaryCopy, @"v", 1, &v50);
-  v17 = v50;
+  v49 = 0;
+  v16 = decodeStringFromJSONDictionary(dictionaryCopy, @"v", 1, &v49);
+  v17 = v49;
   v18 = v17;
   if ((v16 & 1) == 0)
   {
@@ -335,7 +449,7 @@ LABEL_26:
       *&buf[12] = 2112;
       *&buf[14] = @"v";
       *&buf[22] = 2112;
-      v52 = dictionaryCopy;
+      v51 = dictionaryCopy;
       _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@JSON contains '%@' value that is not valid base64: %@", buf, 0x20u);
     }
 
@@ -358,7 +472,7 @@ LABEL_26:
       *&buf[12] = 2112;
       *&buf[14] = @"v";
       *&buf[22] = 2112;
-      v52 = dictionaryCopy;
+      v51 = dictionaryCopy;
       _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@JSON contains '%@' value that is not compressed properly: %@", buf, 0x20u);
     }
 
@@ -366,9 +480,9 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v49 = 0;
-  v22 = [MEMORY[0x277CCAAA0] JSONObjectWithData:hmd_uncompressedData options:0 error:&v49];
-  v43 = v49;
+  v48 = 0;
+  v22 = [MEMORY[0x277CCAAA0] JSONObjectWithData:hmd_uncompressedData options:0 error:&v48];
+  v42 = v48;
   if (v22)
   {
     v10 = v22;
@@ -394,17 +508,17 @@ LABEL_26:
 
     context = objc_autoreleasePoolPush();
     selfCopy3 = self;
-    v38 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v37 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      v41 = HMFGetLogIdentifier();
+      v40 = HMFGetLogIdentifier();
       *buf = 138543874;
-      *&buf[4] = v41;
+      *&buf[4] = v40;
       *&buf[12] = 2112;
       *&buf[14] = @"v";
       *&buf[22] = 2112;
-      v52 = dictionaryCopy;
-      _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_ERROR, "%{public}@JSON contains a '%@' value that is not a dictionary: %@", buf, 0x20u);
+      v51 = dictionaryCopy;
+      _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@JSON contains a '%@' value that is not a dictionary: %@", buf, 0x20u);
     }
   }
 
@@ -412,19 +526,19 @@ LABEL_26:
   {
     context = objc_autoreleasePoolPush();
     selfCopy4 = self;
-    v38 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v37 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      v39 = HMFGetLogIdentifier();
+      v38 = HMFGetLogIdentifier();
       *buf = 138544130;
-      *&buf[4] = v39;
+      *&buf[4] = v38;
       *&buf[12] = 2112;
       *&buf[14] = @"v";
       *&buf[22] = 2112;
-      v52 = dictionaryCopy;
-      v53 = 2112;
-      v54 = v43;
-      _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_ERROR, "%{public}@JSON contains '%@' value that is not valid JSON: %@: %@", buf, 0x2Au);
+      v51 = dictionaryCopy;
+      v52 = 2112;
+      v53 = v42;
+      _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@JSON contains '%@' value that is not valid JSON: %@: %@", buf, 0x2Au);
     }
   }
 
@@ -439,18 +553,18 @@ LABEL_6:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v52) = 0;
+    LOBYTE(v51) = 0;
     v13 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v10, "count", context)}];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __143__HMDNetworkRouterFirewallRuleCloudNetworkDeclarations___decodeRuleConfigurationsFromJSONDictionary_baseAccessoryIdentifier_allowUnzippedData___block_invoke;
-    v44[3] = &unk_278684300;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __143__HMDNetworkRouterFirewallRuleCloudNetworkDeclarations___decodeRuleConfigurationsFromJSONDictionary_baseAccessoryIdentifier_allowUnzippedData___block_invoke;
+    v43[3] = &unk_278684300;
     selfCopy5 = self;
-    v45 = identifierCopy;
-    v47 = buf;
+    v44 = identifierCopy;
+    v46 = buf;
     v14 = v13;
-    v46 = v14;
-    [v10 enumerateKeysAndObjectsUsingBlock:v44];
+    v45 = v14;
+    [v10 enumerateKeysAndObjectsUsingBlock:v43];
     if (*(*&buf[8] + 24))
     {
       v15 = 0;
@@ -458,7 +572,7 @@ LABEL_6:
 
     else
     {
-      v15 = [v14 copy];
+      v15 = objc_msgSend_copy(v14);
     }
 
     _Block_object_dispose(buf, 8);
@@ -469,21 +583,18 @@ LABEL_27:
   v15 = 0;
 LABEL_28:
 
-  v35 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 void __143__HMDNetworkRouterFirewallRuleCloudNetworkDeclarations___decodeRuleConfigurationsFromJSONDictionary_baseAccessoryIdentifier_allowUnzippedData___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v10 = a2;
-  v7 = *(a1 + 56);
-  v8 = a3;
-  v9 = [objc_opt_class() __decodeRuleConfigurationWithVersionString:v10 ruleConfigurationValue:v8 baseAccessoryIdentifier:*(a1 + 32)];
+  v9 = a2;
+  v7 = a3;
+  v8 = [objc_opt_class() __decodeRuleConfigurationWithVersionString:v9 ruleConfigurationValue:v7 baseAccessoryIdentifier:*(a1 + 32)];
 
-  if (v9)
+  if (v8)
   {
-    [*(a1 + 40) setObject:v9 forKeyedSubscript:v10];
+    [*(a1 + 40) setObject:v8 forKeyedSubscript:v9];
   }
 
   else
@@ -507,10 +618,9 @@ void __143__HMDNetworkRouterFirewallRuleCloudNetworkDeclarations___decodeRuleCon
 
 void __67__HMDNetworkRouterFirewallRuleCloudNetworkDeclarations_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_243156;
-  logCategory__hmf_once_v1_243156 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_243156;
+  logCategory__hmf_once_v1_243156 = v0;
 }
 
 @end

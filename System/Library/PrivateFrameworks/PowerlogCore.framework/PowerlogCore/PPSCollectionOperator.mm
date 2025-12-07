@@ -10,32 +10,33 @@ void __49__PPSCollectionOperator_initOperatorDependancies__block_invoke(uint64_t
 {
   v7 = a4;
   v8 = a5;
-  v9 = PPSLogCommon();
+  v9 = PPSLogCommon(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     __49__PPSCollectionOperator_initOperatorDependancies__block_invoke_cold_1(v7, v8, v9);
   }
 
   v10 = [v7 componentsSeparatedByString:@"::"];
-  if ([v10 count] == 2)
+  v11 = [v10 count];
+  if (v11 == 2)
   {
-    v11 = *(a1 + 32);
-    v12 = [v10 objectAtIndexedSubscript:0];
-    v13 = [v10 objectAtIndexedSubscript:1];
-    [v11 monitorMetricsForSubsystem:v12 category:v13 payload:v8];
+    v12 = *(a1 + 32);
+    v13 = [v10 objectAtIndexedSubscript:0];
+    v14 = [v10 objectAtIndexedSubscript:1];
+    [v12 monitorMetricsForSubsystem:v13 category:v14 payload:v8];
 
-    v14 = *(a1 + 32);
-    v15 = [v10 objectAtIndexedSubscript:0];
-    v16 = [v10 objectAtIndexedSubscript:1];
-    [v14 logForSubsystem:v15 category:v16 data:v8];
+    v15 = *(a1 + 32);
+    v16 = [v10 objectAtIndexedSubscript:0];
+    v17 = [v10 objectAtIndexedSubscript:1];
+    [v15 logForSubsystem:v16 category:v17 data:v8];
   }
 
   else
   {
-    v15 = PPSLogCommon();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = PPSLogCommon(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      __49__PPSCollectionOperator_initOperatorDependancies__block_invoke_cold_2(v7, v15);
+      __49__PPSCollectionOperator_initOperatorDependancies__block_invoke_cold_2(v7, v16);
     }
   }
 }
@@ -100,18 +101,18 @@ void __49__PPSCollectionOperator_initOperatorDependancies__block_invoke(uint64_t
   }
 }
 
-id __49__PPSCollectionOperator_initOperatorDependancies__block_invoke_31()
+id __49__PPSCollectionOperator_initOperatorDependancies__block_invoke_31(uint64_t a1)
 {
-  v0 = PPSLogCommon();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = PPSLogCommon(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_1D8611000, v0, OS_LOG_TYPE_DEFAULT, "Received request to query allowlist", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_1D8611000, v1, OS_LOG_TYPE_DEFAULT, "Received request to query allowlist", v4, 2u);
   }
 
-  v1 = +[PPSCoreUtilities getAllowlist];
+  v2 = +[PPSCoreUtilities getAllowlist];
 
-  return v1;
+  return v2;
 }
 
 void __49__PPSCollectionOperator_initOperatorDependancies__block_invoke_38(uint64_t a1)
@@ -125,24 +126,22 @@ void __49__PPSCollectionOperator_initOperatorDependancies__block_invoke_38(uint6
   v4 = [v2 stringForKey:@"MonitorCategory"];
   [*(a1 + 32) setMonitoredCategory:v4];
 
-  v5 = PPSLogCommon();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = PPSLogCommon(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [*(a1 + 32) monitoredSubsystem];
-    v7 = [*(a1 + 32) monitoredCategory];
+    v7 = [*(a1 + 32) monitoredSubsystem];
+    v8 = [*(a1 + 32) monitoredCategory];
     v9 = 138412546;
-    v10 = v6;
+    v10 = v7;
     v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_1D8611000, v5, OS_LOG_TYPE_DEFAULT, "Starting monitoring for subsystem: %@ category: %@", &v9, 0x16u);
+    v12 = v8;
+    _os_log_impl(&dword_1D8611000, v6, OS_LOG_TYPE_DEFAULT, "Starting monitoring for subsystem: %@ category: %@", &v9, 0x16u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__PPSCollectionOperator_initOperatorDependancies__block_invoke_53(uint64_t a1)
 {
-  v2 = PPSLogCommon();
+  v2 = PPSLogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -170,12 +169,12 @@ uint64_t __49__PPSCollectionOperator_initOperatorDependancies__block_invoke_53(u
 
       if (v13)
       {
-        v14 = PPSDataStreamLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v15 = PPSDataStreamLog(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           v16 = 138412290;
           v17 = payloadCopy;
-          _os_log_impl(&dword_1D8611000, v14, OS_LOG_TYPE_DEFAULT, "%@", &v16, 0xCu);
+          _os_log_impl(&dword_1D8611000, v15, OS_LOG_TYPE_DEFAULT, "%@", &v16, 0xCu);
         }
       }
     }
@@ -184,28 +183,24 @@ uint64_t __49__PPSCollectionOperator_initOperatorDependancies__block_invoke_53(u
     {
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __49__PPSCollectionOperator_initOperatorDependancies__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_1D8611000, log, OS_LOG_TYPE_DEBUG, "Metric Key: %@ Payload: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_1D8611000, log, OS_LOG_TYPE_DEBUG, "Metric Key: %@ Payload: %@", &v3, 0x16u);
 }
 
 void __49__PPSCollectionOperator_initOperatorDependancies__block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1D8611000, a2, OS_LOG_TYPE_ERROR, "Malformed client message received from %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1D8611000, a2, OS_LOG_TYPE_ERROR, "Malformed client message received from %@", &v2, 0xCu);
 }
 
 @end

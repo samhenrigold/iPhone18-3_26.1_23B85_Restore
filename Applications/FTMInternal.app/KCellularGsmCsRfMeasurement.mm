@@ -278,7 +278,6 @@ LABEL_10:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -298,7 +297,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  scellArfcn = self->_scellArfcn;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -313,12 +311,10 @@ LABEL_4:
   }
 
 LABEL_18:
-  simplifiedL1State = self->_simplifiedL1State;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    currentAntenna = self->_currentAntenna;
     PBDataWriterWriteUint32Field();
   }
 
@@ -328,36 +324,33 @@ LABEL_6:
     PBDataWriterPlaceMark();
     if (self->_csTxPwrs.count)
     {
-      v7 = 0;
+      v6 = 0;
       do
       {
-        v8 = self->_csTxPwrs.list[v7];
         PBDataWriterWriteSint32Field();
-        ++v7;
+        ++v6;
       }
 
-      while (v7 < self->_csTxPwrs.count);
+      while (v6 < self->_csTxPwrs.count);
     }
 
     PBDataWriterRecallMark();
   }
 
-  v9 = self->_has;
-  if ((v9 & 2) != 0)
+  v7 = self->_has;
+  if ((v7 & 2) != 0)
   {
-    csRxlevSub = self->_csRxlevSub;
     PBDataWriterWriteUint32Field();
-    v9 = self->_has;
-    if ((v9 & 4) == 0)
+    v7 = self->_has;
+    if ((v7 & 4) == 0)
     {
 LABEL_13:
-      if ((v9 & 0x20) == 0)
+      if ((v7 & 0x20) == 0)
       {
         goto LABEL_14;
       }
 
 LABEL_22:
-      scellBand = self->_scellBand;
       PBDataWriterWriteUint32Field();
       if ((*&self->_has & 0x80) == 0)
       {
@@ -365,7 +358,6 @@ LABEL_22:
       }
 
 LABEL_23:
-      subsId = self->_subsId;
       PBDataWriterWriteUint32Field();
       goto LABEL_15;
     }
@@ -376,16 +368,15 @@ LABEL_23:
     goto LABEL_13;
   }
 
-  csRxqualSub = self->_csRxqualSub;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((v9 & 0x20) != 0)
+  v7 = self->_has;
+  if ((v7 & 0x20) != 0)
   {
     goto LABEL_22;
   }
 
 LABEL_14:
-  if (v9 < 0)
+  if (v7 < 0)
   {
     goto LABEL_23;
   }
@@ -622,7 +613,6 @@ LABEL_9:
     goto LABEL_42;
   }
 
-  v5 = equalCopy[68];
   if (*&self->_has)
   {
     if ((equalCopy[68] & 1) == 0 || self->_timestamp != *(equalCopy + 4))
@@ -678,7 +668,7 @@ LABEL_9:
   if (!PBRepeatedInt32IsEqual())
   {
 LABEL_42:
-    v6 = 0;
+    v5 = 0;
     goto LABEL_43;
   }
 
@@ -721,7 +711,7 @@ LABEL_42:
     goto LABEL_42;
   }
 
-  v6 = equalCopy[68] >= 0;
+  v5 = equalCopy[68] >= 0;
   if ((*&self->_has & 0x80) != 0)
   {
     if ((equalCopy[68] & 0x80) == 0 || self->_subsId != *(equalCopy + 16))
@@ -729,12 +719,12 @@ LABEL_42:
       goto LABEL_42;
     }
 
-    v6 = 1;
+    v5 = 1;
   }
 
 LABEL_43:
 
-  return v6;
+  return v5;
 }
 
 - (unint64_t)hash

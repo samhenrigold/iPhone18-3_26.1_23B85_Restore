@@ -15,7 +15,7 @@
   v5 = [(ICQAppInfo *)&v21 init];
   if (v5)
   {
-    v6 = [dictionaryCopy objectForKeyedSubscript:@"bundleIds"];
+    v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -30,18 +30,18 @@
       [(ICQAppInfo *)v5 setBundleIds:v8];
     }
 
-    v9 = [dictionaryCopy objectForKeyedSubscript:@"label"];
+    v9 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       [(ICQAppInfo *)v5 setLabel:v9];
     }
 
-    v10 = [dictionaryCopy objectForKeyedSubscript:@"fetchLocally"];
+    v10 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     bOOLValue = [v10 BOOLValue];
 
     [(ICQAppInfo *)v5 setFetchLocally:bOOLValue];
-    v12 = [dictionaryCopy objectForKeyedSubscript:@"iconURLs"];
+    v12 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -49,21 +49,21 @@
       [(ICQAppInfo *)v5 setIconURL:v13];
     }
 
-    v14 = [dictionaryCopy objectForKeyedSubscript:@"detailLabel"];
+    v14 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       [(ICQAppInfo *)v5 setDetailLabel:v14];
     }
 
-    v15 = [dictionaryCopy objectForKeyedSubscript:@"detailLabelColor"];
+    v15 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       [(ICQAppInfo *)v5 setDetailLabelColor:v15];
     }
 
-    v16 = [dictionaryCopy objectForKeyedSubscript:@"action"];
+    v16 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -113,17 +113,17 @@ void __33__ICQAppInfo_initFromDictionary___block_invoke(uint64_t a1, void *a2)
 
 - (ICQAppInfo)initWithCoder:(id)coder
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = ICQAppInfo;
-  v5 = [(ICQAppInfo *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = ICQAppInfo;
+  v5 = [(ICQAppInfo *)&v22 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v24[0] = objc_opt_class();
-    v24[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+    v23[0] = objc_opt_class();
+    v23[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
     v8 = [v6 setWithArray:v7];
 
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"bundleIds"];
@@ -152,7 +152,6 @@ void __33__ICQAppInfo_initFromDictionary___block_invoke(uint64_t a1, void *a2)
     v5->_action = v19;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

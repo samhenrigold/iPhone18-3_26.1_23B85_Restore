@@ -88,14 +88,14 @@
 
 - (HMDResidentStatusDomainData)initWithChannelRecord:(id)record
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   payload = [recordCopy payload];
   v6 = [payload hmf_dataForKey:@"ddp"];
 
   if (v6)
   {
-    *v19 = 0;
+    *v18 = 0;
     v7 = OPACKDecodeData();
     idsIdentifier = [recordCopy idsIdentifier];
     idsDestination = [recordCopy idsDestination];
@@ -114,18 +114,17 @@
     {
       v15 = HMFGetLogIdentifier();
       payload2 = [recordCopy payload];
-      *v19 = 138543618;
-      *&v19[4] = v15;
-      v20 = 2112;
-      v21 = payload2;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@No domain data pairs present in %@", v19, 0x16u);
+      *v18 = 138543618;
+      *&v18[4] = v15;
+      v19 = 2112;
+      v20 = payload2;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@No domain data pairs present in %@", v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
     v12 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

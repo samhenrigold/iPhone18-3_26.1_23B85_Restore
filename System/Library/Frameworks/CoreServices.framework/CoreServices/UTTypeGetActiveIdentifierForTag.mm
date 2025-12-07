@@ -3,7 +3,7 @@
 
 @implementation UTTypeGetActiveIdentifierForTag
 
-uint64_t ___UTTypeGetActiveIdentifierForTag_block_invoke(uint64_t result, uint64_t a2, int a3, uint64_t a4, _BYTE *a5)
+uint64_t ___UTTypeGetActiveIdentifierForTag_block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   v8 = result;
   v9 = *(result + 56);
